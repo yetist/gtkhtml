@@ -2334,6 +2334,25 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
 	gtk_drag_finish (context, pasted, FALSE, time);
 }
 
+static gboolean
+drag_motion (GtkWidget *widget, GdkDragContext *context, gint x, gint y, guint time)
+{
+	GdkWindow *window = widget->window;
+
+	if (!gtk_html_get_editable (GTK_HTML (widget)))
+		return FALSE;
+
+	gdk_window_get_pointer (GTK_LAYOUT (widget)->bin_window, &x, &y, NULL);
+
+	html_engine_disable_selection (GTK_HTML (widget)->engine);
+	html_engine_jump_at (GTK_HTML (widget)->engine, x, y);
+	html_engine_show_cursor (GTK_HTML (widget)->engine);
+
+	mouse_change_pos (widget, window, x, y);
+
+	return TRUE;
+}
+
 /* dnd end */
 
 static void
@@ -2661,6 +2680,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	widget_class->drag_begin = drag_begin;
 	widget_class->drag_end = drag_end;
 	widget_class->drag_data_received = drag_data_received;
+	widget_class->drag_motion = drag_motion;
 	widget_class->focus = focus;
 
 	container_class->set_focus_child = set_focus_child;
