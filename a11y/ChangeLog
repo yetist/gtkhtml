@@ -1,3 +1,10 @@
+2005-03-01  Mengjie Yu  <meng-jie.yu@sun.com>
+
+	* object.c: (gtk_html_a11y_new):we need to notify gnopernicus
+	our current focus_object.  
+
+	Fixes #73144
+
 2005-02-22  Mengjie Yu  <meng-jie.yu@sun.com>
 
 	* object.c: (gtk_html_a11y_get_focus_object),

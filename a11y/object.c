@@ -389,7 +389,7 @@ AtkObject*
 gtk_html_a11y_new (GtkWidget *widget)
 {
 	GObject *object;
-	AtkObject *accessible;
+	AtkObject *accessible, *focus_object;
 
 	g_return_val_if_fail (GTK_IS_HTML (widget), NULL);
 
@@ -415,6 +415,13 @@ gtk_html_a11y_new (GtkWidget *widget)
 	html_utils_get_accessible(GTK_HTML(widget)->engine->clue, accessible);
 
 	/* printf ("created new gtkhtml accessible object\n"); */
+
+	focus_object = gtk_html_a11y_get_focus_object (widget);  
+
+	if (focus_object && gtk_html_a11y_focus_object != focus_object) {
+		gtk_html_a11y_focus_object = focus_object;
+		g_object_set_data (G_OBJECT (accessible), "gail-focus-object", focus_object);
+	}
 
 	return accessible;
 }
