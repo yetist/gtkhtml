@@ -186,9 +186,7 @@ do_insert_different_style (HTMLEngine *e,
                    properties.  Look for it.  */
 		/* FIXME color.  */
 
-		p = curr->prev;
-		while (p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
-			p = p->prev;
+		p = html_object_prev_not_slave (curr);
 
 		if (p != NULL
 		    && HTML_OBJECT_TYPE (p) == HTML_OBJECT_TYPE (curr)

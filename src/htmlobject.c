@@ -671,10 +671,13 @@ html_object_is_container (HTMLObject *self)
 
 
 /* Ugly.  We should have an `is_a' implementation.  */
+
 gboolean
 html_object_is_text (HTMLObject *object)
 {
 	HTMLType type;
+
+	g_return_val_if_fail (object != NULL, FALSE);
 
 	type = HTML_OBJECT_TYPE (object);
 
@@ -682,6 +685,34 @@ html_object_is_text (HTMLObject *object)
 		|| type == HTML_TYPE_TEXTMASTER
 		|| type == HTML_TYPE_LINKTEXT
 		|| type == HTML_TYPE_LINKTEXTMASTER);
+}
+
+HTMLObject *
+html_object_next_not_slave (HTMLObject *object)
+{
+	HTMLObject *p;
+
+	g_return_val_if_fail (object != NULL, NULL);
+
+	p = object->next;
+	while (p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
+		p = p->next;
+
+	return p;
+}
+
+HTMLObject *
+html_object_prev_not_slave (HTMLObject *object)
+{
+	HTMLObject *p;
+
+	g_return_val_if_fail (object != NULL, NULL);
+
+	p = object->prev;
+	while (p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
+		p = p->prev;
+
+	return p;
 }
 
 

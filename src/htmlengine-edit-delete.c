@@ -36,13 +36,10 @@ delete_same_parent (HTMLEngine *e,
 
 	parent = start_object->parent;
 
-	if (destroy_start) {
+	if (destroy_start)
 		p = start_object;
-	} else {
-		p = start_object->next;
-		while (p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
-			p = p->next;
-	}
+	else
+		p = html_object_next_not_slave (start_object);
 
 	while (p != e->cursor->object) {
 		pnext = p->next;
@@ -70,13 +67,10 @@ delete_different_parent (HTMLEngine *e,
 	start_parent = start_object->parent;
 	end_parent = e->cursor->object->parent;
 
-	if (destroy_start) {
+	if (destroy_start)
 		p = start_object;
-	} else {
-		p = start_object->next;
-		while (p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
-			p = p->next;
-	}
+	else
+		p = html_object_next_not_slave (start_object);
 
 	while (p != NULL) {
 		pnext = p->next;
@@ -124,12 +118,10 @@ merge_text_at_cursor (HTMLEngine *e)
 	guint retval;
 
 	curr = e->cursor->object;
-	prev = curr->prev;
+
+	prev = html_object_prev_not_slave (curr);
 	if (prev == NULL)
 		return 0;
-
-	while (HTML_OBJECT_TYPE (prev) == HTML_TYPE_TEXTSLAVE)
-		prev = prev->prev;
 
 	if (! html_object_is_text (curr) || ! html_object_is_text (prev))
 		return 0;
@@ -201,9 +193,7 @@ html_engine_delete (HTMLEngine *e,
 	    && e->cursor->offset == HTML_TEXT (e->cursor->object)->text_len) {
 		HTMLObject *next;
 
-		next = e->cursor->object->next;
-		while (next != NULL && HTML_OBJECT_TYPE (next) == HTML_TYPE_TEXTSLAVE)
-			next = next->next;
+		next = html_object_next_not_slave (e->cursor->object);
 
 		if (next != NULL) {
 			e->cursor->object = next;
@@ -226,11 +216,16 @@ html_engine_delete (HTMLEngine *e,
 		   (because a vspace alone in a clueflow does not give us an empty
 		   line).  */
 
-		if (HTML_TEXT (orig_object)->text[0] == '\0'
-		    && orig_object->next != NULL
-		    && HTML_OBJECT_TYPE (orig_object->next) != HTML_TYPE_VSPACE) {
-			count++;
-			destroy_orig = TRUE;
+		if (HTML_TEXT (orig_object)->text[0] == '\0') {
+			HTMLObject *next;
+
+			next = html_object_next_not_slave (orig_object);
+			if (next != NULL && HTML_OBJECT_TYPE (next) != HTML_TYPE_VSPACE) {
+				count++;
+				destroy_orig = TRUE;
+			} else {
+				destroy_orig = FALSE;
+			}
 		} else {
 			destroy_orig = FALSE;
 		}

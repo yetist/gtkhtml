@@ -1,5 +1,47 @@
 2000-03-12  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine-edit-delete.c
+	(html_engine_delete): Prevent bogus deletion of `destroy_orig'
+	caused by using `->next' instead of `html_object_next_not_slave()'.
+
+	* htmlengine-edit-insert.c
+	(do_insert_different_style): Use `html_object_prev_not_slave()'.
+
+	* htmlengine-edit-delete.c
+	(delete_same_parent): Use `html_object_next_not_slave()'.
+	(delete_different_parent): Likewise.
+	(merge_text_at_cursor): Likewise.
+	(html_engine_delete): Likewise.
+
+	* htmlcursor.c
+	(forward): Use `html_object_next_not_slave()' instead of
+	`next_not_slave'.
+	(next_not_slave): Removed.
+	(html_cursor_get_current_char): Likewise.
+
+	* htmlobject.c
+	(html_object_is_text): Added precondition (@object != NULL).
+	(html_object_next_not_slave): New function.
+	(html_object_prev_not_slave): New function.
+
+	* htmlcursor.c
+	(normalize): New helper function.
+	(html_cursor_normalize): Rewritten by means of it.
+	(html_cursor_jump_to): Use it to normalize @object and @offset.
+	(html_cursor_get_current_char): Get the next non-`HTMLTextSlave'
+	element instead of just the next element.
+
+	* gtkhtml.c
+	(init): Initialize `ibeam_cursor'.
+	(destroy): Destroy `ibeam_cursor'.
+	(motion_notify_event): Change the cursor to the ibeam on text
+	elements, or if we are on a link text element and editing is
+	enabled.
+
+	* gtkhtml.h: New member `ibeam_cursor' in `GtkHTML'.
+
+2000-03-12  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* gtkhtml.c
 	(size_allocate): Recalculate size and toolbars only if the size
 	has changed.

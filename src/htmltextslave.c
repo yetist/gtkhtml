@@ -164,8 +164,7 @@ fit_line (HTMLObject *o,
 			next_obj = o->next;
 			if (next_obj != NULL)
 				next_obj->prev = o;
-		} while (next_obj && (HTML_OBJECT_TYPE (next_obj)
-				      == HTML_TYPE_TEXTSLAVE));
+		} while (next_obj && HTML_OBJECT_TYPE (next_obj) == HTML_TYPE_TEXTSLAVE);
 		textslave->posLen = HTML_TEXT (textslave->owner)->text_len - textslave->posStart;
 	}
 

@@ -390,6 +390,7 @@ destroy (GtkObject *object)
 
 	gdk_cursor_destroy (html->hand_cursor);
 	gdk_cursor_destroy (html->arrow_cursor);
+	gdk_cursor_destroy (html->ibeam_cursor);
 
 	connect_adjustments (html, NULL, NULL);
 
@@ -536,9 +537,10 @@ motion_notify_event (GtkWidget *widget,
 {
 	GtkHTML *html;
 	HTMLEngine *engine;
+	HTMLObject *obj;
+	GdkModifierType mask;
 	const gchar *url;
 	gint x, y;
-	GdkModifierType mask;
 
 	g_return_val_if_fail (widget != NULL, 0);
 	g_return_val_if_fail (GTK_IS_HTML (widget), 0);
@@ -567,28 +569,40 @@ motion_notify_event (GtkWidget *widget,
 			html_engine_jump_at (engine,
 					     event->x + engine->x_offset,
 					     event->y + engine->y_offset);
-	} else {
-		url = html_engine_get_link_at (engine,
-					       x + engine->x_offset,
-					       y + engine->y_offset);
 
-		if (url == NULL) {
-			if (html->pointer_url != NULL) {
-				g_free (html->pointer_url);
-				html->pointer_url = NULL;
-				gtk_signal_emit (GTK_OBJECT (html), signals[ON_URL], NULL);
-			}
+		return TRUE;
+	}
 
-			gdk_window_set_cursor (widget->window, html->arrow_cursor);
-		} else {
-			if (html->pointer_url == NULL || strcmp (html->pointer_url, url) != 0) {
-				g_free (html->pointer_url);
-				html->pointer_url = g_strdup (url);
-				gtk_signal_emit (GTK_OBJECT (html), signals[ON_URL], url);
-			}
+	obj = html_engine_get_object_at (engine,
+					 x + engine->x_offset, y + engine->y_offset,
+					 NULL, FALSE);
+	if (obj != NULL)
+		url = html_object_get_url (obj);
+	else
+		url = NULL;
 
-			gdk_window_set_cursor (widget->window, html->hand_cursor);
+	if (url == NULL) {
+		if (html->pointer_url != NULL) {
+			g_free (html->pointer_url);
+			html->pointer_url = NULL;
+			gtk_signal_emit (GTK_OBJECT (html), signals[ON_URL], NULL);
 		}
+
+		if (obj != NULL && html_object_is_text (obj))
+			gdk_window_set_cursor (widget->window, html->ibeam_cursor);
+		else
+			gdk_window_set_cursor (widget->window, html->arrow_cursor);
+	} else {
+		if (html->pointer_url == NULL || strcmp (html->pointer_url, url) != 0) {
+			g_free (html->pointer_url);
+			html->pointer_url = g_strdup (url);
+			gtk_signal_emit (GTK_OBJECT (html), signals[ON_URL], url);
+		}
+
+		if (engine->editable)
+			gdk_window_set_cursor (widget->window, html->ibeam_cursor);
+		else
+			gdk_window_set_cursor (widget->window, html->hand_cursor);
 	}
 
 	return TRUE;
@@ -870,6 +884,7 @@ init (GtkHTML* html)
 	html->pointer_url = NULL;
 	html->hand_cursor = gdk_cursor_new (GDK_HAND2);
 	html->arrow_cursor = gdk_cursor_new (GDK_LEFT_PTR);
+	html->ibeam_cursor = gdk_cursor_new (GDK_XTERM);
 	html->hadj_connection = 0;
 	html->vadj_connection = 0;
 

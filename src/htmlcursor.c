@@ -58,6 +58,26 @@ debug_location (const HTMLCursor *cursor)
 #endif
 
 
+static void
+normalize (HTMLObject **object,
+	   guint *offset)
+{
+	if (*offset == 0 && (*object)->prev != NULL) {
+		HTMLObject *p;
+
+		p = (*object)->prev;
+		while (p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
+			p = p->prev;
+
+		*object = p;
+		if (html_object_is_text (p))
+			*offset = HTML_TEXT (p)->text_len;
+		else
+			*offset = 1;
+	}
+}
+
+
 HTMLCursor *
 html_cursor_new (void)
 {
@@ -122,19 +142,7 @@ html_cursor_normalize (HTMLCursor *cursor)
 {
 	g_return_if_fail (cursor != NULL);
 
-	if (cursor->offset == 0 && cursor->object->prev != NULL) {
-		HTMLObject *p;
-
-		p = cursor->object->prev;
-		while (p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
-			p = p->prev;
-
-		cursor->object = p;
-		if (html_object_is_text (p))
-			cursor->offset = HTML_TEXT (p)->text_len;
-		else
-			cursor->offset = 1;
-	}
+	normalize (&cursor->object, &cursor->offset);
 }
 
 
@@ -179,22 +187,6 @@ next (HTMLObject *object)
 		return NULL;
 	else
 		return object->next;
-}
-
-static HTMLObject *
-next_not_slave (HTMLObject *object)
-{
-	HTMLObject *p;
-
-	p = object->next;
-	while (p != NULL) {
-		if (HTML_OBJECT_TYPE (p) != HTML_TYPE_TEXTSLAVE)
-			return p;
-
-		p = p->next;
-	}
-
-	return p;
 }
 
 
@@ -259,7 +251,7 @@ forward (HTMLCursor *cursor,
 				goto end;
 			}
 
-			if (next_not_slave (obj) == NULL)
+			if (html_object_next_not_slave (obj) == NULL)
 				offset = 0;
 			else
 				offset = 1;
@@ -640,6 +632,11 @@ html_cursor_jump_to (HTMLCursor *cursor,
 	if (cursor->object == object && cursor->offset == offset)
 		return TRUE;
 
+	normalize (&object, &offset);
+
+	if (cursor->object == object && cursor->offset == offset)
+		return TRUE;
+
 	html_cursor_copy (&original, cursor);
 
 	while (forward (cursor, engine)) {
@@ -741,7 +738,8 @@ html_cursor_get_current_char (HTMLCursor *cursor)
 	if (cursor->offset < HTML_TEXT (cursor->object)->text_len)
 		return HTML_TEXT (cursor->object)->text[cursor->offset];
 
-	next = cursor->object->next;
+	next = html_object_next_not_slave (cursor->object);
+
 	if (next == NULL || ! html_object_is_text (next))
 		return 0;
 

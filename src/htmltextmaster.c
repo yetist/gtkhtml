@@ -174,7 +174,9 @@ check_point (HTMLObject *self,
 
 	/* This scans all the HTMLTextSlaves that represent the various lines
            in which the text is split.  */
-	for (p = self->next; p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE; p = p->next) {
+	for (p = self->next;
+	     p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE;
+	     p = p->next) {
 		if (y > p->y + p->descent)
 			continue;
 

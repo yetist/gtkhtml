@@ -201,25 +201,27 @@ extern HTMLObjectClass html_object_class;
 
 
 /* Basics.  */
-void        html_object_type_init     (void);
-void        html_object_init          (HTMLObject           *self,
-				       HTMLObjectClass      *klass);
-void        html_object_class_init    (HTMLObjectClass      *klass,
-				       HTMLType              type,
-				       guint                 object_size);
-HTMLObject *html_object_new           (HTMLObject           *parent);
-void        html_object_destroy       (HTMLObject           *self);
-void        html_object_copy          (HTMLObject           *self,
-				       HTMLObject           *dest);
-HTMLObject *html_object_dup           (HTMLObject           *self);
-void        html_object_set_parent    (HTMLObject           *self,
-				       HTMLObject           *parent);
-void        html_object_reset         (HTMLObject           *o);
-gboolean    html_object_is_text       (HTMLObject           *object);
-void        html_object_forall        (HTMLObject           *self,
-				       HTMLObjectForallFunc  func,
-				       gpointer              data);
-gboolean    html_object_is_container  (HTMLObject           *self);
+void        html_object_type_init       (void);
+void        html_object_init            (HTMLObject           *self,
+					 HTMLObjectClass      *klass);
+void        html_object_class_init      (HTMLObjectClass      *klass,
+					 HTMLType              type,
+					 guint                 object_size);
+HTMLObject *html_object_new             (HTMLObject           *parent);
+void        html_object_destroy         (HTMLObject           *self);
+void        html_object_copy            (HTMLObject           *self,
+					 HTMLObject           *dest);
+HTMLObject *html_object_dup             (HTMLObject           *self);
+void        html_object_set_parent      (HTMLObject           *self,
+					 HTMLObject           *parent);
+void        html_object_reset           (HTMLObject           *o);
+gboolean    html_object_is_text         (HTMLObject           *object);
+void        html_object_forall          (HTMLObject           *self,
+					 HTMLObjectForallFunc  func,
+					 gpointer              data);
+gboolean    html_object_is_container    (HTMLObject           *self);
+HTMLObject *html_object_next_not_slave  (HTMLObject           *self);
+HTMLObject *html_object_prev_not_slave  (HTMLObject           *self);
 
 /* Drawing-related stuff.  */
 void  html_object_draw  (HTMLObject  *o,
