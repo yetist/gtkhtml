@@ -1146,20 +1146,22 @@ set_fonts_idle (GtkHTML *html)
 	GtkHTMLClassProperties *prop = GTK_HTML_CLASS (GTK_OBJECT (html)->klass)->properties;	
 
 	/* little hackish - will be replaced soon */
-	manager = HTML_GDK_PAINTER (html->engine->painter)->font_manager;
-	html_gdk_font_manager_set_family_var (manager, prop->font_var_family);
-	html_gdk_font_manager_set_family_fix (manager, prop->font_fix_family);
-	html_gdk_font_manager_set_size_var (manager, prop->font_var_size);
-	html_gdk_font_manager_set_size_fix (manager, prop->font_fix_size);
-
-	/* tables don't resize correctly :( who knows the solution? */
-	/* FIXME: rodo is this check correct? */
-	if (html->engine && html->engine->clue) {
-		html_object_reset (html->engine->clue);
-		html_object_change_set_down (html->engine->clue, HTML_CHANGE_ALL);
-		html_object_calc_min_width (html->engine->clue, html->engine->painter);
-		html_object_calc_size (html->engine->clue, html->engine->painter);
-		html_engine_schedule_update (html->engine);
+	if (html->engine) {
+		manager = HTML_GDK_PAINTER (html->engine->painter)->font_manager;
+		html_gdk_font_manager_set_family_var (manager, prop->font_var_family);
+		html_gdk_font_manager_set_family_fix (manager, prop->font_fix_family);
+		html_gdk_font_manager_set_size_var (manager, prop->font_var_size);
+		html_gdk_font_manager_set_size_fix (manager, prop->font_fix_size);
+		
+		/* tables don't resize correctly :( who knows the solution? */
+		/* FIXME: rodo is this check correct? */
+		if (html->engine->clue) {
+			html_object_reset (html->engine->clue);
+			html_object_change_set_down (html->engine->clue, HTML_CHANGE_ALL);
+			html_object_calc_min_width (html->engine->clue, html->engine->painter);
+			html_object_calc_size (html->engine->clue, html->engine->painter);
+			html_engine_schedule_update (html->engine);
+		}
 	}
 #ifdef GTKHTML_HAVE_PSPELL
 	html->set_font_id = 0;
