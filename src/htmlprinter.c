@@ -487,10 +487,13 @@ draw_text (HTMLPainter *painter,
 		text_width = gnome_font_get_width_string_n (font, text, len);
 		if (font_style & HTML_FONT_STYLE_UNDERLINE) {
 			descender = gnome_font_get_descender (font);
-			y = print_y - descender / 2.0;
+			y = print_y + gnome_font_get_underline_position (font);
+
 			gnome_print_newpath (printer->print_context);
 			gnome_print_moveto (printer->print_context, print_x, y);
 			gnome_print_lineto (printer->print_context, print_x + text_width, y);
+			gnome_print_setlinewidth (printer->print_context,
+						  gnome_font_get_underline_thickness (font));
 			gnome_print_stroke (printer->print_context);
 		}
 
@@ -500,6 +503,8 @@ draw_text (HTMLPainter *painter,
 			gnome_print_newpath (printer->print_context);
 			gnome_print_moveto (printer->print_context, print_x, y);
 			gnome_print_lineto (printer->print_context, print_x + text_width, y);
+			gnome_print_setlinewidth (printer->print_context,
+						  gnome_font_get_underline_thickness (font));
 			gnome_print_stroke (printer->print_context);
 		}
 

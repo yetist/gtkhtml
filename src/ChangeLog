@@ -1,5 +1,12 @@
 2000-02-03  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlprinter.c (draw_text): Use `gnome_font_get_underline_position()'
+	and `gnome_font_get_underline_thickness()' to get the
+	strikeout/underline line right.
+
+	* htmlprintfontmanager.c (load_font): Changed default font size
+	from 12 pt. to 10 pt.
+
 	* htmlprinter.c (begin): Do a gsave and setup a clip region.
 	Also, paint a rectangle around the clip region to make debugging
 	easier.

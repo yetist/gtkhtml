@@ -42,7 +42,7 @@ load_font (HTMLPrintFontManager *manager,
 	if (size == 0)
 		size = 3;
 
-	real_size = 12 + 2 * (size - 3);
+	real_size = 10 + 2 * (size - 3);
 
 	if (style & HTML_FONT_STYLE_BOLD)
 		weight = GNOME_FONT_BOLD;
