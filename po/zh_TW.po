@@ -46,7 +46,7 @@ msgstr "*********************"
 
 #: capplet/gtkhtml-capplet.glade.h:2
 msgid "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz"
-msgstr ""
+msgstr "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz"
 
 # capplet/gtkhtml-capplet.glade.h:7
 # capplet/gtkhtml-capplet.glade.h:7
@@ -633,9 +633,8 @@ msgid "Numbered List"
 msgstr "阿拉伯數字清單"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
-#, fuzzy
 msgid "Numbered _List"
-msgstr "阿拉伯數字清單"
+msgstr "阿拉伯數字清單(_L)"
 
 # components/html-editor/editor-control-factory.c:196
 # components/html-editor/popup.c:121
