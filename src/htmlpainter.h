@@ -64,17 +64,17 @@ struct _HTMLPainterClass {
 	void (* alloc_color)      (HTMLPainter *painter, GdkColor *color);
 	void (* free_color)       (HTMLPainter *painter, GdkColor *color);
 
-	void (* calc_text_size) (HTMLPainter *p, const gchar *text, guint len, GList *items, GList *glyphs, gint start_byte_offset,
+	void (* calc_text_size) (HTMLPainter *p, const gchar *text, guint len, HTMLTextPangoInfo *pi, GList *glyphs, gint start_byte_offset,
 				 GtkHTMLFontStyle font_style, HTMLFontFace *face, gint *width, gint *asc, gint *dsc);
-	void (* calc_text_size_bytes) (HTMLPainter *p, const gchar *text, guint len, GList *items, GList *glyphs, gint start_byte_offset,
+	void (* calc_text_size_bytes) (HTMLPainter *p, const gchar *text, guint len, HTMLTextPangoInfo *pi, GList *glyphs, gint start_byte_offset,
 				       HTMLFont *font, GtkHTMLFontStyle font_style, gint *width, gint *asc, gint *dsc);
 
 	void (* set_pen)          (HTMLPainter *painter, const GdkColor *color);
 	const GdkColor * (* get_black) (const HTMLPainter *painter);
 	void (* draw_line)        (HTMLPainter *painter, gint x1, gint y1, gint x2, gint y2);
 	void (* draw_rect)        (HTMLPainter *painter, gint x, gint y, gint width, gint height);
-	gint (* draw_text)        (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GList *items, GList *glyphs, gint start_byte_offset);
-	gint (* draw_spell_error) (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GList *items, GList *glyphs, gint start_byte_offset);
+	gint (* draw_text)        (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, HTMLTextPangoInfo *pi, GList *glyphs, gint start_byte_offset);
+	gint (* draw_spell_error) (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, HTMLTextPangoInfo *pi, GList *glyphs, gint start_byte_offset);
 	void (* fill_rect)        (HTMLPainter *painter, gint x, gint y, gint width, gint height);
 	void (* draw_pixmap)      (HTMLPainter *painter, GdkPixbuf *pixbuf, 
 				   gint x, gint y,
@@ -142,7 +142,7 @@ gpointer          html_painter_get_font                                (HTMLPain
 void              html_painter_calc_text_size                          (HTMLPainter       *p,
 									const gchar       *text,
 									guint              len,
-									GList             *items,
+									HTMLTextPangoInfo *pi,
 									GList             *glyphs,
 									gint               start_byte_offset,
 									gint              *line_offset,
@@ -154,7 +154,7 @@ void              html_painter_calc_text_size                          (HTMLPain
 void              html_painter_calc_text_size_bytes                    (HTMLPainter       *p,
 									const gchar       *text,
 									guint              len,
-									GList             *items,
+									HTMLTextPangoInfo *pi,
 									GList             *glyphs,
 									gint               start_byte_offset,
 									gint              *line_offset,
@@ -182,7 +182,7 @@ gint              html_painter_draw_text                               (HTMLPain
 									gint               y,
 									const gchar       *text,
 									gint               len,
-									GList             *items,
+									HTMLTextPangoInfo *pi,
 									GList             *glyphs,
 									gint               start_byte_offset,
 									gint               line_offset);
@@ -242,7 +242,7 @@ gint              html_painter_draw_spell_error                        (HTMLPain
 									gint               y,
 									const gchar       *text,
 									gint               len,
-									GList             *items,
+									HTMLTextPangoInfo *pi,
 									GList             *glyphs,
 									gint               start_byte_offset);
 HTMLFont         *html_painter_alloc_font                              (HTMLPainter       *painter,
@@ -255,6 +255,12 @@ void              html_painter_ref_font                                (HTMLPain
 void              html_painter_unref_font                              (HTMLPainter       *painter,
 									HTMLFont          *font);
 guint             html_painter_get_space_width                         (HTMLPainter       *painter,
+									GtkHTMLFontStyle   font_style,
+									HTMLFontFace      *face);
+guint             html_painter_get_space_asc                           (HTMLPainter       *painter,
+									GtkHTMLFontStyle   font_style,
+									HTMLFontFace      *face);
+guint             html_painter_get_space_dsc                           (HTMLPainter       *painter,
 									GtkHTMLFontStyle   font_style,
 									HTMLFontFace      *face);
 guint             html_painter_get_block_indent_width                  (HTMLPainter       *painter,

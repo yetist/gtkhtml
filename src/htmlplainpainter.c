@@ -31,6 +31,7 @@
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
 #include "htmlengine.h"
+#include "htmltext.h"
 
 static HTMLGdkPainterClass *parent_class = NULL;
 
@@ -161,12 +162,12 @@ shift_items (GList *items, gint byte_offset)
 }
 
 static gint
-draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GList *items, GList *glyphs, gint start_byte_offset)
+draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, HTMLTextPangoInfo *pi, GList *glyphs, gint start_byte_offset)
 {
 	HTMLGdkPainter *gdk_painter;
 	PangoFontDescription *desc;
-	gint blen, width = 0;
-	gboolean temp_items = FALSE;
+	gint blen, width = 0, ii;
+	gboolean temp_pi = FALSE;
 
 	if (len == -1)
 		len = g_utf8_strlen (text, -1);
@@ -178,32 +179,34 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GL
 
 	blen = g_utf8_offset_to_pointer (text, len) - text;
 	desc = html_painter_get_font (painter, painter->font_face, painter->font_style);
-	if (!items) {
-		items = html_gdk_painter_text_itemize_and_prepare_glyphs (gdk_painter, desc, text, blen, &glyphs);
-		temp_items = TRUE;
+	if (!pi) {
+		pi = html_gdk_painter_text_itemize_and_prepare_glyphs (gdk_painter, desc, text, blen, &glyphs);
+		start_byte_offset = 0;
+		temp_pi = TRUE;
 	}
-	if (items && items->data) {
+	if (pi && pi->n) {
 		PangoGlyphString *str;
-		GList *gl, *il;
+		GList *gl;
 		guint i, char_offset = 0;
 		const gchar *c_text = text;
 
-		il = shift_items (items, start_byte_offset);
+		ii = html_text_pango_info_get_index (pi, start_byte_offset, 0);
 		for (gl = glyphs; gl && char_offset < len; gl = gl->next) {
 			str = (PangoGlyphString *) gl->data;
-			gdk_draw_glyphs (gdk_painter->pixmap, gdk_painter->gc, ((PangoItem *) il->data)->analysis.font, x + width, y, str);
+			gdk_draw_glyphs (gdk_painter->pixmap, gdk_painter->gc, pi->entries [ii].item->analysis.font, x + width, y, str);
 			for (i=0; i < str->num_glyphs; i ++)
 				width += PANGO_PIXELS (str->glyphs [i].geometry.width);
 			c_text = g_utf8_offset_to_pointer (c_text, str->num_glyphs);
-			il = shift_items (il, start_byte_offset + (c_text - text));
+			ii = html_text_pango_info_get_index (pi, start_byte_offset + (c_text - text), ii);
 			char_offset += str->num_glyphs;
 		}
 	}
-	if (temp_items) {
+
+	if (temp_pi) {
 		if (glyphs)
 			glyphs_destroy (glyphs);
-		if (items)
-			items_destroy (items);
+		if (pi)
+			html_text_pango_info_destroy (pi);
 	}
 
 	return width;

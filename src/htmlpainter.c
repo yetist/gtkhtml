@@ -289,7 +289,7 @@ html_painter_get_font (HTMLPainter *painter, HTMLFontFace *face, GtkHTMLFontStyl
 void
 html_painter_calc_text_size (HTMLPainter *painter,
 			     const gchar *text,
-			     guint len, GList *items, GList *glyphs, gint start_byte_offset, gint *line_offset,
+			     guint len, HTMLTextPangoInfo *pi, GList *glyphs, gint start_byte_offset, gint *line_offset,
 			     GtkHTMLFontStyle font_style,
 			     HTMLFontFace *face,
 			     gint *width, gint *asc, gint *dsc)
@@ -299,7 +299,7 @@ html_painter_calc_text_size (HTMLPainter *painter,
 	g_return_if_fail (text != NULL);
 	g_return_if_fail (font_style != GTK_HTML_FONT_STYLE_DEFAULT);
 
-	(* HP_CLASS (painter)->calc_text_size) (painter, text, len, items, glyphs, start_byte_offset, font_style, face, width, asc, dsc);
+	(* HP_CLASS (painter)->calc_text_size) (painter, text, len, pi, glyphs, start_byte_offset, font_style, face, width, asc, dsc);
 
 	if (line_offset) {
 		gint tabs;
@@ -309,17 +309,17 @@ html_painter_calc_text_size (HTMLPainter *painter,
 
 void
 html_painter_calc_text_size_bytes (HTMLPainter *painter,
-				    const gchar *text,
-				    guint bytes_len, GList *items, GList *glyphs, gint start_byte_offset, gint *line_offset,
-				    HTMLFont *font, GtkHTMLFontStyle style,
-				    gint *width, gint *asc, gint *dsc)
+				   const gchar *text,
+				   guint bytes_len, HTMLTextPangoInfo *pi, GList *glyphs, gint start_byte_offset, gint *line_offset,
+				   HTMLFont *font, GtkHTMLFontStyle style,
+				   gint *width, gint *asc, gint *dsc)
 {
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 	g_return_if_fail (text != NULL);
 	g_return_if_fail (style != GTK_HTML_FONT_STYLE_DEFAULT);
 
-	(* HP_CLASS (painter)->calc_text_size_bytes) (painter, text, bytes_len, items, glyphs, start_byte_offset, font, style, width, asc, dsc);
+	(* HP_CLASS (painter)->calc_text_size_bytes) (painter, text, bytes_len, pi, glyphs, start_byte_offset, font, style, width, asc, dsc);
 	if (line_offset) {
 		gint tabs, len = g_utf8_pointer_to_offset (text, text + bytes_len);
 		*width += (html_text_text_line_length (text, line_offset, len, &tabs) - len + tabs)*font->space_width;
@@ -413,7 +413,7 @@ shift_glyphs (GList *glyphs, gint len)
 
 gint
 html_painter_draw_text (HTMLPainter *painter, gint x, gint y,
-			const gchar *text, gint len, GList *items, GList *glyphs, gint start_byte_offset, gint line_offset)
+			const gchar *text, gint len, HTMLTextPangoInfo *pi, GList *glyphs, gint start_byte_offset, gint line_offset)
 {
 	const gchar *tab, *c_text = text;
 	gint bytes, byte_offset = 0;
@@ -421,16 +421,13 @@ html_painter_draw_text (HTMLPainter *painter, gint x, gint y,
 	g_return_val_if_fail (painter != NULL, line_offset);
 	g_return_val_if_fail (HTML_IS_PAINTER (painter), line_offset);
 
-	if (items)
-		items = shift_items (items, start_byte_offset);
-
 	bytes = g_utf8_offset_to_pointer (text, len) - text;
 	while ((tab = memchr (c_text, (unsigned char) '\t', bytes))) {
 		gint c_bytes = tab - c_text;
 		gint c_len = g_utf8_pointer_to_offset (c_text, tab);
 		
 		if (c_bytes)
-			x += (* HP_CLASS (painter)->draw_text) (painter, x, y, c_text, c_len, items, glyphs, start_byte_offset + (c_text - text));
+			x += (* HP_CLASS (painter)->draw_text) (painter, x, y, c_text, c_len, pi, glyphs, start_byte_offset + (c_text - text));
 		if (line_offset == -1)
 			x += html_painter_get_space_width (painter, painter->font_style, painter->font_face);
 		else {
@@ -441,12 +438,11 @@ html_painter_draw_text (HTMLPainter *painter, gint x, gint y,
 		c_text += c_bytes + 1;
 		bytes -= c_bytes + 1;
 		byte_offset += c_bytes + 1;
-		items = shift_items (items, start_byte_offset + byte_offset);
 		glyphs = shift_glyphs (glyphs, c_len);
 		len -= c_len + 1;
 	}
 
-	(* HP_CLASS (painter)->draw_text) (painter, x, y, c_text, len, items, glyphs, start_byte_offset + (c_text - text));
+	(* HP_CLASS (painter)->draw_text) (painter, x, y, c_text, len, pi, glyphs, start_byte_offset + (c_text - text));
 
 	return line_offset + len;
 }
@@ -582,9 +578,9 @@ gint
 html_painter_draw_spell_error (HTMLPainter *painter,
 			       gint x, gint y,
 			       const gchar *text,
-			       gint len, GList *items, GList *glyphs, gint start_byte_offset)
+			       gint len, HTMLTextPangoInfo *pi, GList *glyphs, gint start_byte_offset)
 {
-	return (* HP_CLASS (painter)->draw_spell_error) (painter, x, y, text, len, items, glyphs, start_byte_offset);
+	return (* HP_CLASS (painter)->draw_spell_error) (painter, x, y, text, len, pi, glyphs, start_byte_offset);
 }
 
 HTMLFont *
@@ -609,6 +605,18 @@ guint
 html_painter_get_space_width (HTMLPainter *painter, GtkHTMLFontStyle style, HTMLFontFace *face)
 {
 	return html_font_manager_get_font (&painter->font_manager, face, style)->space_width;
+}
+
+guint
+html_painter_get_space_asc (HTMLPainter *painter, GtkHTMLFontStyle style, HTMLFontFace *face)
+{
+	return html_font_manager_get_font (&painter->font_manager, face, style)->space_asc;
+}
+
+guint
+html_painter_get_space_dsc (HTMLPainter *painter, GtkHTMLFontStyle style, HTMLFontFace *face)
+{
+	return html_font_manager_get_font (&painter->font_manager, face, style)->space_dsc;
 }
 
 guint

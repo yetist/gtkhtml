@@ -117,6 +117,8 @@ typedef struct _HTMLTableCell HTMLTableCell;
 typedef struct _HTMLTableCellClass HTMLTableCellClass;
 typedef struct _HTMLTableClass HTMLTableClass;
 typedef struct _HTMLText HTMLText;
+typedef struct _HTMLTextPangoInfoEntry HTMLTextPangoInfoEntry;
+typedef struct _HTMLTextPangoInfo HTMLTextPangoInfo;
 typedef struct _HTMLTextArea HTMLTextArea;
 typedef struct _HTMLTextAreaClass HTMLTextAreaClass;
 typedef struct _HTMLTextClass HTMLTextClass;

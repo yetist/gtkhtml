@@ -1791,19 +1791,6 @@ html_object_get_head_leaf (HTMLObject *o)
 	return rv;
 }
 
-static void
-clear_word_width (HTMLObject *o, HTMLEngine *e, gpointer data)
-{
-	if (html_object_is_text (o))
-		html_text_clear_word_width (HTML_TEXT (o));
-}
-
-void
-html_object_clear_word_width (HTMLObject *o)
-{
-	html_object_forall (o, NULL, clear_word_width, NULL);
-}
-
 HTMLObject *
 html_object_nth_parent (HTMLObject *self, gint n)
 {

@@ -221,21 +221,6 @@ gtk_html_debug_dump_tree (HTMLObject *o,
 	}
 }
 
-
-static void
-debug_word_width (HTMLText *t, gint level)
-{
-	guint i;
-
-	for (i = 0; i < level; i++)
-		g_print ("\t");
-
-	printf ("words: %d | ", t->words);
-	for (i = 0; i < t->words; i ++)
-		printf ("%d ", t->word_width [i]);
-	printf ("\n");
-}
-
 static void
 dump_data (GQuark key_id, gpointer data, gpointer user_data)
 {
@@ -260,7 +245,6 @@ dump_object_simple (HTMLObject *obj,
 		g_print ("%s `%s'\n",
 			 html_type_name (HTML_OBJECT_TYPE (obj)),
 			 HTML_TEXT (obj)->text);
-		debug_word_width (HTML_TEXT (obj), level);
 	} else if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE) {
 		HTMLTextSlave *slave = HTML_TEXT_SLAVE (obj);
 		gchar *text;

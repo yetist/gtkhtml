@@ -366,7 +366,9 @@ html_font_manager_get_font (HTMLFontManager *manager, gchar *face_list, GtkHTMLF
 
 HTMLFont *
 html_font_new (gpointer data, 
-	       guint space_width, 
+	       guint space_width,
+	       guint space_asc,
+	       guint space_dsc,
 	       guint nbsp_width, 
 	       guint tab_width,
 	       guint indent_width,
@@ -376,6 +378,8 @@ html_font_new (gpointer data,
 
 	font->data = data;
 	font->space_width = space_width;
+	font->space_asc = space_asc;
+	font->space_dsc = space_dsc;
 	font->nbsp_width = nbsp_width;
 	font->tab_width = tab_width;
 	font->indent_width = indent_width;

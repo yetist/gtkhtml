@@ -316,7 +316,6 @@ gint            html_object_get_right_margin      (HTMLObject            *self,
 						   gboolean               with_aligned);
 void            html_object_set_painter           (HTMLObject            *o,
 						   HTMLPainter           *p);
-void            html_object_clear_word_width      (HTMLObject            *o);
 void            html_object_reset                 (HTMLObject            *o);
 gboolean        html_object_is_text               (HTMLObject            *object);
 gboolean        html_object_is_clue               (HTMLObject            *object);
