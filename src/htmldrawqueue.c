@@ -311,8 +311,13 @@ html_draw_queue_clear (HTMLDrawQueue *queue)
 	GList *p;
 
 	for (p = queue->elems; p != NULL; p = p->next) {
-		HTML_OBJECT (p->data)->free_pending = FALSE;
-		HTML_OBJECT (p->data)->redraw_pending = FALSE;
+		HTMLObject *obj = HTML_OBJECT (p->data);
+			
+		obj->redraw_pending = FALSE;
+		if (obj->free_pending) {
+			g_free (obj);
+			p->data = (gpointer)0xdeadbeef;
+		}
 	}
 
 	g_list_free (queue->clear_elems);
@@ -342,19 +347,24 @@ html_draw_queue_flush (HTMLDrawQueue *queue)
 
 	/* Draw objects.  */
 
-	if (GTK_WIDGET (queue->engine->widget)->window)
+	if (GTK_WIDGET (queue->engine->widget)->window) {
 		for (p = queue->elems; p != NULL; p = p->next) {
-			HTMLObject *obj;
-
-			obj = p->data;
-
-			if (obj->free_pending) {
-				g_free (obj);
-			} else if (obj->redraw_pending) {
+			HTMLObject *obj = HTML_OBJECT (p->data);
+			
+			if (obj->redraw_pending && !obj->free_pending) {
 				draw_obj (queue, obj);
 				obj->redraw_pending = FALSE;
 			}
 		}
-
+	}
 	html_draw_queue_clear (queue);
 }
+
+
+
+
+
+
+
+
+

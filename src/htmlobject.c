@@ -58,19 +58,21 @@ free_data (GQuark id, gpointer data, gpointer user_data)
 static void
 destroy (HTMLObject *self)
 {
+#define GTKHTML_MEM_DEBUG 1
+#if GTKHTML_MEM_DEBUG
+	self->parent = 0xdeadbeef;
+	self->next = 0xdeadbeef;
+	self->prev = 0xdeadbeef;
+#else
+	self->next = NULL;
+	self->prev = NULL;
+#endif
+	g_datalist_foreach (&self->object_data, free_data, NULL);
+	g_datalist_clear (&self->object_data);
+	
 	if (self->redraw_pending) {
 		self->free_pending = TRUE;
 	} else {
-
-#if GTKHTML_MEM_DEBUG
-		self->next = 0xdeadbeef;
-		self->prev = 0xdeadbeef;
-#else
-		self->next = NULL;
-		self->prev = NULL;
-#endif
-		g_datalist_foreach (&self->object_data, free_data, NULL);
-		g_datalist_clear (&self->object_data);
 		g_free (self);
 	}
 }
