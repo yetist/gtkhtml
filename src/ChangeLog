@@ -3,6 +3,7 @@
 	* gtkhtml.c (cursor_move): not abort with bad params, only warn
 	(move_selection): likewise
 	(scroll): likewise
+	(gtk_marshal_NONE__INT_INT_FLOAT): added new marshaler
 
 2000-10-20  Radek Doulik  <rodo@helixcode.com>
 

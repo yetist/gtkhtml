@@ -1373,6 +1373,20 @@ focus (GtkContainer *c, GtkDirectionType direction)
 	return rv;
 }
 
+typedef void (*GtkSignal_NONE__INT_INT_FLOAT) (GtkObject * object,
+					       gint arg1, gint arg2,
+					       gfloat arg3, gpointer user_data);
+static void
+gtk_marshal_NONE__INT_INT_FLOAT (GtkObject * object,
+				 GtkSignalFunc func,
+				 gpointer func_data, GtkArg * args)
+{
+	GtkSignal_NONE__INT_INT_FLOAT rfunc;
+	rfunc = (GtkSignal_NONE__INT_INT_FLOAT) func;
+	(*rfunc) (object,
+		  GTK_VALUE_INT (args[0]), GTK_VALUE_INT (args[1]), GTK_VALUE_FLOAT (args[2]), func_data);
+}
+
 static void
 class_init (GtkHTMLClass *klass)
 {
@@ -1539,7 +1553,7 @@ class_init (GtkHTMLClass *klass)
 				GTK_RUN_LAST | GTK_RUN_ACTION,
 				object_class->type,
 				GTK_SIGNAL_OFFSET (GtkHTMLClass, scroll),
-				gtk_marshal_NONE__ENUM_FLOAT,
+				gtk_marshal_NONE__INT_INT_FLOAT,
 				GTK_TYPE_NONE, 3,
 				GTK_TYPE_ORIENTATION,
 				GTK_TYPE_SCROLL_TYPE, GTK_TYPE_FLOAT);
