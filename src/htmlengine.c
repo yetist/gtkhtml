@@ -71,6 +71,7 @@
 #include "htmltextarea.h"
 #include "htmlimageinput.h"
 #include "htmlstack.h"
+#include "htmlsearch.h"
 
 
 static void      html_engine_class_init    (HTMLEngineClass     *klass);
@@ -2790,6 +2791,10 @@ html_engine_destroy (GtkObject *object)
 
 	html_engine_edit_selection_updater_destroy (engine->selection_updater);
 
+	if (engine->search_info) {
+		html_search_destroy (engine->search_info);
+	}
+
 	GTK_OBJECT_CLASS (parent_class)->destroy (object);
 }
 
@@ -2964,6 +2969,8 @@ html_engine_init (HTMLEngine *engine)
 	engine->active_selection = FALSE;
 
 	engine->selection_updater = html_engine_edit_selection_updater_new (engine);
+
+	engine->search_info = NULL;
 }
 
 HTMLEngine *
@@ -3045,7 +3052,7 @@ draw_background (HTMLEngine *e,
 {
 	gint xoff = 0;
 	gint yoff = 0;
-	gint pw, ph, yp, xp;
+	gint pw, ph;
 	gint xOrigin, yOrigin;
 	HTMLImagePointer *bgpixmap;
 
@@ -3968,4 +3975,94 @@ html_engine_load_empty (HTMLEngine *engine)
 	html_engine_stop_parser (engine);
 
 	ensure_editable (engine);
+}
+
+static void
+display_search_results (HTMLEngine *e, HTMLSearch *info)
+{
+	GList *cur = info->found;
+	guint len  = info->text_len;
+	guint pos  = info->start_pos;
+	guint cur_len;
+
+	html_engine_unselect_all (e, TRUE);
+	e->active_selection = TRUE;
+
+	/* go thru all objects (Text's) in found list and do select_range on it */
+	while (cur) {
+		cur_len = HTML_TEXT (cur->data)->text_len;
+		printf ("select len: %d range obj: %p pos: %d len: %d\n", info->text_len,
+			HTML_OBJECT (cur->data), pos, (cur_len-pos < len) ? cur_len-pos : len);
+		html_object_select_range (HTML_OBJECT (cur->data), e, pos,
+					  (cur_len-pos < len) ? cur_len-pos : len, TRUE);
+		len -= cur_len-pos;
+		pos  = 0;
+		cur  = cur->next;
+	}
+	/* html_engine_edit_selection_updater_reset    (e->selection_updater);
+	   html_engine_edit_selection_updater_schedule (e->selection_updater); */
+}
+
+gboolean
+html_engine_search (HTMLEngine *e, const gchar *text,
+		    gboolean case_sensitive, gboolean forward, gboolean regular)
+{
+	gboolean retval;
+	HTMLSearch *info;
+
+	printf ("html_engine_search cs: %d fw: %d re: %d\n", case_sensitive, forward, regular);
+
+	if (e->search_info) {
+		html_search_destroy (e->search_info);
+	}
+
+	info = e->search_info = html_search_new (text, case_sensitive, forward, regular);
+	html_search_push (info, e->clue);
+	retval = html_object_search (e->clue, info);
+
+	if (retval) {
+		display_search_results (e, info);
+	}
+
+	return retval;
+}
+
+gboolean
+html_engine_search_next (HTMLEngine *e)
+{
+	gboolean retval;
+
+	if (!e->search_info) {
+		return FALSE;
+	}
+
+	printf ("search_next\n");
+
+	if (e->search_info->stack) {
+		retval = html_object_search (HTML_OBJECT (e->search_info->stack->data), e->search_info);
+	}
+	if (retval) {
+		display_search_results (e, e->search_info);
+	}
+
+	return FALSE;
+}
+
+gboolean
+html_engine_search_incremental (HTMLEngine *e)
+{
+	return FALSE;
+}
+
+void
+html_engine_replace
+(HTMLEngine *e, const gchar *rep_text)
+{
+}
+
+guint
+html_engine_replace_all
+(HTMLEngine *e, const gchar *rep_text)
+{
+	return 0;
 }

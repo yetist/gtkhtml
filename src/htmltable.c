@@ -24,6 +24,7 @@
 
 #include "htmlobject.h"
 #include "htmltable.h"
+#include "htmlsearch.h"
 #include <string.h>
 
 
@@ -335,7 +336,7 @@ calc_col_info (HTMLTable *table,
 
 static gint
 scale_selected_columns (HTMLTable *table, gint c_start, gint c_end,
-				   gint tooAdd, gboolean *selected)
+			gint tooAdd, gboolean *selected)
 {
 	gint c, c1;
 	gint numSelected = 0;
@@ -977,7 +978,11 @@ calc_size (HTMLObject *o,
 
 	table = HTML_TABLE (o);
 
-	calc_col_info (table, painter);
+	
+	if (o->change & HTML_CHANGE_MIN_WIDTH) {
+		calc_col_info (table, painter);
+		o->change &= ~HTML_CHANGE_MIN_WIDTH;
+	}
 	calc_column_widths (table, painter);
 
 	/* If it doesn't fit... MAKE IT FIT!! */
@@ -1190,7 +1195,10 @@ static gint
 calc_preferred_width (HTMLObject *o,
 		      HTMLPainter *painter)
 {
-	calc_col_info (HTML_TABLE (o), painter);
+	if (o->change & HTML_CHANGE_MIN_WIDTH) {
+		calc_col_info (HTML_TABLE (o), painter);
+		o->change &= ~HTML_CHANGE_MIN_WIDTH;
+	}
 
 	return HTML_TABLE (o)->_prefWidth;
 }
@@ -1246,14 +1254,14 @@ find_anchor (HTMLObject *self, const char *name, gint *x, gint *y)
 				continue;
 
 			if (c < table->totalCols - 1
-			     && cell == table->cells[r][c+1])
+			    && cell == table->cells[r][c+1])
 				continue;
 			if (r < table->totalRows - 1
-			     && table->cells[r+1][c] == cell)
+			    && table->cells[r+1][c] == cell)
 				continue;
 
 			anchor = html_object_find_anchor (HTML_OBJECT (cell), 
-							   name, x, y);
+							  name, x, y);
 
 			if (anchor != NULL)
 				return anchor;
@@ -1310,6 +1318,82 @@ check_point (HTMLObject *self,
 	return NULL;
 }
 
+static gboolean
+search (HTMLObject *obj, HTMLSearch *info)
+{
+	HTMLTable *table = HTML_TABLE (obj);
+	HTMLTableCell *cell;
+	HTMLObject    *cur = NULL;
+	guint r, c, i, j;
+	gboolean next = FALSE;
+
+	printf ("search table\n");
+
+	/* search_next? */
+	if (html_search_child_on_stack (info, obj)) {
+		cur  = html_search_pop (info);
+		next = TRUE;
+	}
+
+	if (info->forward) {
+		for (r = 0; r < table->totalRows; r++) {
+			for (c = 0; c < table->totalCols; c++) {
+
+				if ((cell = table->cells[r][c]) == 0)
+					continue;
+				if (c < table->totalCols - 1 &&
+				    cell == table->cells[r][c + 1])
+					continue;
+				if (r < table->totalRows - 1 &&
+				    cell == table->cells[r + 1][c])
+					continue;
+
+				if (next && cell == cur) {
+					cur = NULL;
+					continue;
+				}
+
+				html_search_push (info, HTML_OBJECT (cell));
+				if (html_object_search (HTML_OBJECT (cell), info)) {
+					return TRUE;
+				}
+				html_search_pop (info);
+			}
+		}
+	} else {
+		for (i = 0, r = table->totalRows - 1; i < table->totalRows; i++, r--) {
+			for (j = 0, c = table->totalCols - 1; j < table->totalCols; j++, c--) {
+
+				if ((cell = table->cells[r][c]) == 0)
+					continue;
+				if (c < table->totalCols - 1 &&
+				    cell == table->cells[r][c + 1])
+					continue;
+				if (r < table->totalRows - 1 &&
+				    cell == table->cells[r + 1][c])
+					continue;
+			
+
+				if (next && cell == cur) {
+					cur = NULL;
+				} else if (!next || (next && !cur)) {
+					html_search_push (info, HTML_OBJECT (cell));
+					if (html_object_search (HTML_OBJECT (cell), info)) {
+						return TRUE;
+					}
+					html_search_pop (info);
+				}
+			}
+		}
+	}
+
+	if (next) {
+		return html_search_next_parent (info);
+	}
+
+	return FALSE;
+}
+
 
 void
 html_table_type_init (void)
@@ -1340,6 +1424,7 @@ html_table_class_init (HTMLTableClass *klass,
 	object_class->find_anchor = find_anchor;
 	object_class->is_container = is_container;
 	object_class->forall = forall;
+	object_class->search = search;
 
 	parent_class = &html_object_class;
 }

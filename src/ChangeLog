@@ -1,3 +1,34 @@
+2000-04-14  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine.c (html_engine_search): search for text and selects
+	found text
+	(html_engine_search_next): continue search
+
+	* gtkhtml.c (gtk_html_search): activate search dialog
+	(gtk_html_search_next): search_next or activate search dialog,
+	when no previous search was done
+
+	* gtkhtml-search.c (gtk_html_search_dialog_new): new ctor
+	(gtk_html_search_dialog_destroy): new dtor
+	(gtk_html_search_dialog_run): run search dialog
+
+	* gtkhtml-search.h: new file - interface for Search dialog
+
+	* htmlsearch.c (html_search_new): new ctor
+	(html_search_destroy): new dtor
+	(html_search_push): push for stack of callers - this stack is
+	for search_next to continue Object tree traversing
+	(html_search_pop): pop for stack of callers
+	(html_search_child_on_stack): test if on top of stack is child of obj
+
+	* htmlsearch.h: new file, contains definition of HTMLSearch helper
+	structure and its interface func's
+
+2000-04-12  Radek Doulik  <rodo@helixcode.com>
+
+	* Makefile.am (libgtkhtml_HEADERS): replaced gtkhtml-search.c with gtkhtml-search.h
+	added htmlsearch.[ch], gtkhtml-search.[ch]
+
 2000-04-13  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlgdkpainter.c (draw_pixmap): do full alpha-blending on

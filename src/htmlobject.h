@@ -29,6 +29,7 @@
 typedef struct _HTMLObjectClass HTMLObjectClass;
 typedef struct _HTMLAnchor HTMLAnchor;
 typedef struct _HTMLObject HTMLObject;
+typedef struct _HTMLSearch HTMLSearch;
 
 /* FIXME fix ugly dependency on HTMLForm.  */
 typedef struct _HTMLForm HTMLForm;
@@ -252,6 +253,10 @@ struct _HTMLObjectClass {
 				   gboolean queue_draw);
 	HTMLObject * (* get_selection) (HTMLObject *self, guint *size_return);
 	void (* append_selection_string) (HTMLObject *self, GString *buffer);
+
+	/* Search & Replace */
+	gboolean (* search) (HTMLObject *self, HTMLSearch *info);
+	gboolean (* search_next) (HTMLObject *self, HTMLSearch *info);
 };
 
 
@@ -284,6 +289,12 @@ void        html_object_forall            (HTMLObject           *self,
 gboolean    html_object_is_container      (HTMLObject           *self);
 HTMLObject *html_object_next_not_slave    (HTMLObject           *self);
 HTMLObject *html_object_prev_not_slave    (HTMLObject           *self);
+
+/* do search request on object using info */
+gboolean    html_object_search            (HTMLObject *self,
+					   HTMLSearch *info);
+gboolean    html_object_search_next       (HTMLObject *self,
+					   HTMLSearch *info);
 
 /* Drawing-related stuff.  */
 void      html_object_draw             (HTMLObject  *o,

@@ -245,6 +245,9 @@ struct _HTMLEngine {
 	/* This object is used to update the keyboard selection in the
            idle loop.  */
 	HTMLEngineEditSelectionUpdater *selection_updater;
+
+	/* search info */
+	HTMLSearch *search_info;
 };
 
 /* must be forward referenced *sigh* */
@@ -357,6 +360,18 @@ void      html_engine_freeze  (HTMLEngine *engine);
 void      html_engine_thaw    (HTMLEngine *engine);
 
 /* Creating an empty document.  */
-void  html_engine_load_empty  (HTMLEngine *engine);
+void      html_engine_load_empty                (HTMLEngine *engine);
+
+/* Searching */
+gboolean  html_engine_search                    (HTMLEngine *e,
+						 const gchar *text,
+						 gboolean case_sensitive,
+						 gboolean forward,
+						 gboolean regular);
+gboolean  html_engine_search_next               (HTMLEngine *e);
+gboolean  html_engine_search_incremental        (HTMLEngine *e);
+
+void      html_engine_replace                   (HTMLEngine *e, const gchar *rep_text);
+guint     html_engine_replace_all               (HTMLEngine *e, const gchar *rep_text);
 
 #endif /* _HTMLENGINE_H_ */

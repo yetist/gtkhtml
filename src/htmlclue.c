@@ -22,6 +22,7 @@
 */
 #include "htmlclue.h"
 #include "htmlcluev.h"
+#include "htmlsearch.h"
 
 
 #define HC_CLASS(x) (HTML_CLUE_CLASS (HTML_OBJECT (x)->klass))
@@ -340,6 +341,40 @@ appended (HTMLClue *clue, HTMLClue *aclue)
 	return FALSE;
 }
 
+static gboolean
+search (HTMLObject *obj, HTMLSearch *info)
+{
+	HTMLObject *cur;
+	HTMLClue *clue = HTML_CLUE (obj);
+	gboolean next = FALSE;
+
+	printf ("search clue\n");
+
+	/* search_next? */
+	if (html_search_child_on_stack (info, obj)) {
+		cur  = html_search_pop (info);
+		cur = (info->forward) ? cur->next : cur->prev;
+		next = TRUE;
+	} else {
+		cur = (info->forward) ? clue->head : clue->tail;
+	}
+
+	while (cur) {
+		html_search_push (info, cur);
+		if (html_object_search (cur, info)) {
+			return TRUE;
+		}
+		html_search_pop (info);
+		cur = (info->forward) ? cur->next : cur->prev;
+	}
+
+	if (next) {
+		return html_search_next_parent (info);
+	}
+
+	return FALSE;
+}
+
 
 void
 html_clue_type_init (void)
@@ -375,6 +410,7 @@ html_clue_class_init (HTMLClueClass *klass,
 	object_class->forall = forall;
 	object_class->is_container = is_container;
 	object_class->save = save;
+	object_class->search = search;
 
 	/* HTMLClue methods.  */
 	klass->get_left_clear = get_left_clear;

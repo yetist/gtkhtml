@@ -426,6 +426,13 @@ check_page_split (HTMLObject *self,
 	return y;
 }
 
+static gboolean
+search (HTMLObject *self, HTMLSearch *info)
+{
+	/* not found by default */
+	return FALSE;
+}
+
 
 /* Class initialization.  */
 
@@ -479,6 +486,8 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->is_container = is_container;
 	klass->save = save;
 	klass->check_page_split = check_page_split;
+	klass->search = search;
+	klass->search_next = search;
 }
 
 void
@@ -882,4 +891,16 @@ html_object_change_set (HTMLObject *self, HTMLChangeFlags f)
 			obj = obj->parent;
 		}
 	}
+}
+
+gboolean
+html_object_search (HTMLObject *self, HTMLSearch *info)
+{
+	return (* HO_CLASS (self)->search) (self, info);
+}
+
+gboolean
+html_object_search_next (HTMLObject *self, HTMLSearch *info)
+{
+	return (* HO_CLASS (self)->search_next) (self, info);
 }

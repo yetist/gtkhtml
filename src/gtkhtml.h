@@ -25,6 +25,7 @@
 
 typedef struct _GtkHTML	GtkHTML;
 typedef struct _GtkHTMLClass	GtkHTMLClass;
+typedef struct _GtkHTMLSearchDialog GtkHTMLSearchDialog;
 
 #include <sys/types.h>
 #include <gtk/gtk.h>
@@ -111,6 +112,8 @@ struct _GtkHTML {
 	GtkHTMLParagraphAlignment paragraph_alignment;
 
 	GtkHTMLFontStyle insertion_font_style;
+
+	GtkHTMLSearchDialog *search_dialog;
 };
 
 /* must be forward referenced *sigh* */
@@ -208,5 +211,8 @@ void  gtk_html_paste  (GtkHTML *html);
 
 void  gtk_html_undo  (GtkHTML *html);
 void  gtk_html_redo  (GtkHTML *html);
+
+void  gtk_html_search      (GtkHTML *html);
+void  gtk_html_search_next (GtkHTML *html);
 
 #endif /* _GTKHTML_H_ */

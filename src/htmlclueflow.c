@@ -32,6 +32,7 @@
 #include "htmlvspace.h"
 #include "htmllinktextmaster.h"
 #include "htmltextslave.h"	/* FIXME */
+#include "htmlsearch.h"
 
 
 HTMLClueFlowClass html_clueflow_class;
@@ -1124,6 +1125,159 @@ get_default_font_style (const HTMLClueFlow *self)
 	}
 }
 
+static void
+search_set_info (HTMLObject *cur, HTMLSearch *info, guint pos)
+{
+	guint text_len = 0;
+	guint cur_len;
+
+	while (cur) {
+		if (HTML_OBJECT_TYPE (cur) == HTML_TYPE_TEXTMASTER
+		    || HTML_OBJECT_TYPE (cur) == HTML_TYPE_LINKTEXTMASTER) {
+			cur_len = HTML_TEXT (cur)->text_len;
+			if (text_len + cur_len > pos) {
+				if (!info->found) {
+					info->start_pos = pos - text_len;
+				}
+				info->found = g_list_append (info->found, cur);
+			}
+			text_len += cur_len;
+			if (text_len >= pos+info->text_len)
+				return;
+		} else if (HTML_OBJECT_TYPE (cur) != HTML_TYPE_TEXTSLAVE) {
+			break;
+		}		
+		cur = cur->next;
+	}
+
+	g_assert_not_reached ();
+}
+
+/* search text objects ([TextMaster, LinkTextMaster], TextSlave*) */
+static gboolean
+search_text (HTMLObject **beg, HTMLSearch *info)
+{
+	HTMLObject *cur = *beg;
+	gchar *par, *pp;
+	guint text_len;
+	guint eq_len;
+	guint pos;
+	gboolean retval = FALSE;
+
+	printf ("search flow look for \"text\" %s\n", info->text);
+
+	/* first get flow text_len */
+	text_len = 0;
+	while (cur) {
+		if (HTML_OBJECT_TYPE (cur) == HTML_TYPE_TEXTMASTER
+		    || HTML_OBJECT_TYPE (cur) == HTML_TYPE_LINKTEXTMASTER) {
+			text_len += HTML_TEXT (cur)->text_len;
+		} else if (HTML_OBJECT_TYPE (cur) != HTML_TYPE_TEXTSLAVE) {
+			break;
+		}		
+		cur = cur->next;
+	}
+
+	if (text_len > 0) {
+		pp = par = g_new (gchar, text_len+1);
+		par [text_len] = 0;
+
+		/* now fill par with text */
+		cur = *beg;
+		while (cur) {
+			if (HTML_OBJECT_TYPE (cur) == HTML_TYPE_TEXTMASTER
+			    || HTML_OBJECT_TYPE (cur) == HTML_TYPE_LINKTEXTMASTER) {
+				strcpy (pp, HTML_TEXT (cur)->text);
+				pp += HTML_TEXT (cur)->text_len;
+			} else if (HTML_OBJECT_TYPE (cur) != HTML_TYPE_TEXTSLAVE) {
+				break;
+			}		
+			cur = cur->next;
+		}
+
+		printf ("text (%d): %s\n", text_len, par);
+
+		/* set eq_len and pos counters */
+		eq_len = 0;
+		if (info->found) {
+			pos = info->start_pos + ((info->forward) ? 1 : -1);
+			g_list_free (info->found);
+			info->found = NULL;
+			info->start_pos = 0;
+		} else {
+			pos = 0;
+		}
+
+		/* go thru par and look for info->text */
+		while (par [pos]) {
+			if (info->text [eq_len] == par [pos]) {
+				eq_len++;
+				if (eq_len == info->text_len) {
+					printf ("found!\n");
+					search_set_info (*beg, info, pos-eq_len+1);
+					retval=TRUE;
+					break;
+				}
+			} else {
+				pos -= eq_len;
+				eq_len = 0;
+			}
+			pos++;
+		}
+
+		g_free (par);
+	}
+
+	*beg = cur;
+
+	return retval;
+}
+
+static gboolean
+search (HTMLObject *obj, HTMLSearch *info)
+{
+	HTMLClue *clue = HTML_CLUE (obj);
+	HTMLObject *cur;
+	gboolean next = FALSE;
+
+	printf ("search clueflow\n");
+
+	if (info->found) {
+		cur = HTML_OBJECT (g_list_last (info->found)->data);
+		next = TRUE;
+		printf ("search next clueflow\n");
+	} else {
+		cur = (info->forward) ? clue->head : clue->tail;
+	}
+	while (cur) {
+		if (HTML_OBJECT_TYPE (cur) == HTML_TYPE_TEXTMASTER
+		    || HTML_OBJECT_TYPE (cur) == HTML_TYPE_LINKTEXTMASTER) {
+			if (search_text (&cur, info)) {
+				return TRUE;
+			}
+		} else {
+			html_search_push (info, cur);
+			if (html_object_search (cur, info)) {
+				return TRUE;
+			}
+			html_search_pop (info);
+			cur = (info->forward) ? cur->next : cur->prev;
+		}
+	}
+
+	if (next) {
+		return html_search_next_parent (info);
+	}
+
+	return FALSE;
+}
+
+static gboolean
+search_next (HTMLObject *obj, HTMLSearch *info)
+{
+	return FALSE;
+}
+
 
 void
 html_clueflow_type_init (void)
@@ -1156,6 +1310,8 @@ html_clueflow_class_init (HTMLClueFlowClass *klass,
 	object_class->check_page_split = check_page_split;
 	object_class->check_point = check_point;
 	object_class->append_selection_string = append_selection_string;
+	object_class->search = search;
+	object_class->search_next = search_next;
 
 	klass->get_default_font_style = get_default_font_style;
 

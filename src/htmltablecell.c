@@ -71,23 +71,13 @@ draw_background_helper (HTMLTableCell *cell,
 	}
 
 	if (cell->have_bgPixmap) {
-		int base_x, base_y;
-		int pw, ph;
-		int owidth, oheight;
-		int clip_width, clip_height;
-
 		if (cell->bgPixmap->pixbuf) {
-			pw = gdk_pixbuf_get_width (cell->bgPixmap->pixbuf);
-			ph = gdk_pixbuf_get_height (cell->bgPixmap->pixbuf);
-
 			html_painter_draw_background_pixmap (p,
 							     o->x + tx - padding,
 							     o->y + ty - padding - o->ascent,
 							     cell->bgPixmap->pixbuf,
 							     o->width + 2 * padding,
 							     o->ascent + 2 * padding);
-
-
 		}
 	}
 }

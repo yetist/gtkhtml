@@ -33,6 +33,7 @@
 
 #include "gtkhtml-embedded.h"
 #include "gtkhtml-keybinding.h"
+#include "gtkhtml-search.h"
 #include "gtkhtml-stream.h"
 #include "gtkhtml-private.h"
 
@@ -1207,6 +1208,8 @@ gtk_html_construct (GtkWidget *htmlw)
 			    GTK_SIGNAL_FUNC (html_engine_submit_cb), html);
 	gtk_signal_connect (GTK_OBJECT (html->engine), "object_requested",
 			    GTK_SIGNAL_FUNC (html_engine_object_requested_cb), html);
+
+	html->search_dialog = NULL;
 }
 
 
@@ -1498,3 +1501,24 @@ gtk_html_redo (GtkHTML *html)
 	html_engine_redo (html->engine);
 }
 
+void
+gtk_html_search (GtkHTML *html)
+{
+	if (html->search_dialog) {
+		gtk_widget_show (html->search_dialog->dialog);
+		gdk_window_raise (GTK_WIDGET (html->search_dialog->dialog)->window);
+	} else {
+		html->search_dialog = gtk_html_search_dialog_new (html);
+		gtk_html_search_dialog_run (html->search_dialog);
+	}
+}
+
+void
+gtk_html_search_next (GtkHTML *html)
+{
+	if (html->engine->search_info) {
+		html_engine_search_next (html->engine);
+	} else {
+		gtk_html_search (html);
+	}
+}

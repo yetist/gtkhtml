@@ -70,6 +70,8 @@ static void dump_cb (GtkWidget *widget, gpointer data);
 static void forward_cb (GtkWidget *widget, gpointer data);
 static void back_cb (GtkWidget *widget, gpointer data);
 static void home_cb (GtkWidget *widget, gpointer data);
+static void search_cb (GtkWidget *widget, gpointer data);
+static void search_next_cb (GtkWidget *widget, gpointer data);
 static void reload_cb (GtkWidget *widget, gpointer data);
 static void redraw_cb (GtkWidget *widget, gpointer data);
 static void resize_cb (GtkWidget *widget, gpointer data);
@@ -238,7 +240,13 @@ create_toolbars (GtkWidget *app)
 				 "Search bar",
 				 "Search",
 				 gnome_stock_new_with_icon (GNOME_STOCK_PIXMAP_SEARCH),
-				 NULL, NULL);
+				 search_cb, NULL);
+	gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
+				 NULL, 
+				 "Search next bar",
+				 "Search next",
+				 gnome_stock_new_with_icon (GNOME_STOCK_PIXMAP_SEARCH),
+				 search_next_cb, NULL);
 	animator = gnome_animator_new_with_size (32, 32);
 
 	if (g_file_exists("32.png"))
@@ -445,6 +453,18 @@ stop_cb (GtkWidget *widget, gpointer data)
 	}
 	/* Kill all requests */
 	HTNet_killAll();
+}
+
+static void
+search_cb (GtkWidget *widget, gpointer data)
+{
+	gtk_html_search (html);
+}
+
+static void
+search_next_cb (GtkWidget *widget, gpointer data)
+{
+	gtk_html_search_next (html);
 }
 
 static void
@@ -1041,6 +1061,7 @@ main (gint argc, gchar *argv[])
 	html_widget = gtk_html_new ();
 	html = GTK_HTML (html_widget);
 	gtk_html_load_empty (html);
+	// gtk_html_set_editable (GTK_HTML (html_widget), TRUE);
 	
 	gtk_container_add (GTK_CONTAINER (scrolled_window), html_widget);
 

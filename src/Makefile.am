@@ -19,7 +19,8 @@ libgtkhtml_HEADERS =				\
 	gtkhtml-embedded.h			\
 	gtkhtml-keybinding.h			\
 	gtkhtml-private.h			\
-	gtkhtml-stream.c			\
+	gtkhtml-search.h			\
+	gtkhtml-stream.h			\
 	gtkhtml.h				\
 	gtkhtmldebug.h				\
 	gtkhtmlfontstyle.h			\
@@ -66,6 +67,7 @@ libgtkhtml_HEADERS =				\
 	htmlprintfontmanager.h			\
 	htmlradio.h				\
 	htmlrule.h				\
+	htmlsearch.h				\
 	htmlselect.h				\
 	htmlsettings.h				\
 	htmlstack.h				\
@@ -88,6 +90,7 @@ libgtkhtml_HEADERS =				\
 libgtkhtml_la_SOURCES =				\
 	gtkhtml-embedded.c			\
 	gtkhtml-keybinding.c			\
+	gtkhtml-search.c			\
 	gtkhtml-stream.c			\
 	gtkhtml.c				\
 	gtkhtmldebug.c				\
@@ -135,6 +138,7 @@ libgtkhtml_la_SOURCES =				\
 	htmlprintfontmanager.c			\
 	htmlradio.c				\
 	htmlrule.c				\
+	htmlsearch.c				\
 	htmlselect.c				\
 	htmlsettings.c				\
 	htmlstack.c				\
@@ -162,13 +166,14 @@ testgtkhtml_SOURCES = 		\
 
 GLIBWWW=$(top_builddir)/glibwww/libglibwww.a $(LIBWWW_LIBS)
 
+# testgtkhtml_LDFLAGS += -static
 testgtkhtml_LDADD =				\
 	libgtkhtml.la				\
 	$(GNOMEUI_LIBS)				\
 	$(GNOME_LIBDIR)				\
 	$(EXTRA_GNOME_LIBS)                     \
 	$(GLIBWWW)
-
+# -lccmalloc -ldl
 #
 
 dist-hook:
