@@ -197,7 +197,7 @@ gtk_html_stream_log_new (GtkHTML *html, GtkHTMLStream *stream)
 	log->stream = stream;
 	
 	
-	fname = g_strdup_printf ("gtkhtml.log.%d", log_num);
+	fname = g_strdup_printf ("gtkhtml.log.%d.html", log_num);
 	log->file = fopen (fname, "w+");
 	g_free (fname);	
 

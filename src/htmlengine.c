@@ -4337,7 +4337,7 @@ html_engine_class_data_clear (HTMLEngine *e)
 	}
 }
 
-/* #define LOG_INPUT */
+#define LOG_INPUT 1
 
 GtkHTMLStream *
 html_engine_begin (HTMLEngine *e, char *content_type)
@@ -4363,7 +4363,8 @@ html_engine_begin (HTMLEngine *e, char *content_type)
 					  html_engine_stream_end,
 					  e);
 #ifdef LOG_INPUT
-	new_stream = gtk_html_stream_log_new (GTK_HTML (e->widget), new_stream);
+	if (getenv("GTK_HTML_LOG_INPUT_STREAM") != NULL)
+		new_stream = gtk_html_stream_log_new (GTK_HTML (e->widget), new_stream);
 #endif
 	html_engine_opened_streams_set (e, 1);
 	e->stopped = FALSE;

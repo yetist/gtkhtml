@@ -1,3 +1,12 @@
+2005-01-20  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (html_engine_begin): check environment variable
+	GTK_HTML_LOG_INPUT_STREAM for enabling logging, enable LOG_INPUT
+	define
+
+	* gtkhtml-stream.c (gtk_html_stream_log_new): add .html extension
+	to log files
+
 2005-01-05  Mengjie Yu  <meng-jie.yu@sun.com>
 
 	fixes #70931
