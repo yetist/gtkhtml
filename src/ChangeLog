@@ -1,5 +1,10 @@
 2000-05-30  Larry Ewing  <lewing@helixcode.com>
 
+	* htmlengien.c (html_engine_destroy): destroy the clue as well
+	fixes http://bugzilla.helixcode.com/show_bug.cgi?id=200
+	
+2000-05-30  Larry Ewing  <lewing@helixcode.com>
+
 	* htmlengine.c (parse_object): call gtk_html_embedded_new with
 	content type argment.
 
