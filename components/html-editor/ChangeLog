@@ -1,3 +1,8 @@
+2004-10-15  Radek Doulik  <rodo@ximian.com>
+
+	* test-html-editor-control.c (save_through_plain_persist_stream):
+	fixed save plain
+
 2004-09-20  Radek Doulik  <rodo@ximian.com>
 
 	* menubar.c (font_style_cb): toggle style instead of setting it on

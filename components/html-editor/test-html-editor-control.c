@@ -111,19 +111,29 @@ save_through_plain_persist_stream (const gchar *filename,
 
 	CORBA_exception_init (&ev);
 
-	/* FIX2 stream = bonobo_stream_open (BONOBO_IO_DRIVER_FS, filename,
-				     Bonobo_Storage_WRITE |
-				     Bonobo_Storage_CREATE |
-				     Bonobo_Storage_FAILIFEXIST, 0); */
+	stream = bonobo_stream_mem_create (NULL, 0, FALSE, TRUE);
 
 	if (stream == NULL) {
 		g_warning ("Couldn't create `%s'\n", filename);
 	} else {
 		Bonobo_Stream corba_stream;
+		BonoboStreamMem *stream_mem;
+		GByteArray *text;
+		int fd;
 
 		corba_stream = bonobo_object_corba_objref (stream);
 		Bonobo_Stream_truncate (corba_stream, 0, &ev);
 		Bonobo_PersistStream_save (pstream, corba_stream, "text/plain", &ev);
+
+		stream_mem = BONOBO_STREAM_MEM (stream);
+		text = g_byte_array_new ();
+		g_byte_array_append (text, stream_mem->buffer, stream_mem->pos);
+		bonobo_object_unref (BONOBO_OBJECT (stream));
+
+		fd = creat (filename, 0622);
+		write (fd, text->data, text->len);
+		close (fd);
+		g_byte_array_free (text, TRUE);
 	}
 
 	Bonobo_Unknown_unref (pstream, &ev);
