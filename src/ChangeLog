@@ -1,3 +1,15 @@
+2002-03-07  Larry Ewing  <lewing@ximian.com>
+
+	* htmltextslave.c (html_text_slave_get_text): cache this result.
+	(split): pass an optional charStart setting to allow filling the
+	above cache without recomputing the pointer from the offset.
+	(hts_fit_line): update the start position cache as we walk
+	forward.  And pass the start pointer to the split call.
+	(draw_highlighted): opitmize the pointer offset calculations.
+	(html_text_slave_init): initialize that cache value to NULL.
+
+	* htmltextslave.h: add charStart cache entry.
+
 2002-03-06  Larry Ewing  <lewing@ximian.com>
 
 	* htmltextslave.c: undo the s/g_utf8/h_utf8/ use a #define instead.
