@@ -185,6 +185,18 @@ html_engine_is_selection_active (HTMLEngine *e)
 void
 html_engine_activate_selection (HTMLEngine *e, guint32 time)
 {
-	if (e->selection && GTK_WIDGET_REALIZED (e->widget))
+	if (e->selection && e->block_selection == 0 && GTK_WIDGET_REALIZED (e->widget))
 		gtk_selection_owner_set (GTK_WIDGET (e->widget), GDK_SELECTION_PRIMARY, time);	
+}
+
+void
+html_engine_block_selection (HTMLEngine *e)
+{
+	e->block_selection ++;
+}
+
+void
+html_engine_unblock_selection (HTMLEngine *e)
+{
+	e->block_selection --;
 }

@@ -41,5 +41,7 @@ gchar    *html_engine_get_selection_string  (HTMLEngine *e);
 gboolean  html_engine_is_selection_active   (HTMLEngine *e);
 void      html_engine_activate_selection    (HTMLEngine *e,
 					     guint32     time);
+void      html_engine_block_selection       (HTMLEngine *e);
+void      html_engine_unblock_selection     (HTMLEngine *e);
 
 #endif

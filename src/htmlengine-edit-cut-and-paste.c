@@ -554,6 +554,7 @@ delete_object (HTMLEngine *e, HTMLObject **ret_object, guint *ret_len, HTMLUndoD
 			*ret_len    = len;
 		}
 		delete_setup_undo (e, object, len, dir);
+		gtk_html_editor_event (e->widget, GTK_HTML_EDITOR_EVENT_DELETE, NULL);
 	}
 }
 
@@ -754,6 +755,16 @@ insert_empty_paragraph (HTMLEngine *e, HTMLUndoDirection dir)
 	remove_empty_and_merge (e, FALSE, left, right, orig);
 	html_cursor_forward (e->cursor, e);
 
+	/* replace empty text in new empty flow by text with current style */
+	if (html_clueflow_is_empty (HTML_CLUEFLOW (e->cursor->object->parent))) {
+		HTMLObject *flow = e->cursor->object->parent;
+
+		html_clue_remove (HTML_CLUE (flow), e->cursor->object);
+		html_object_destroy (e->cursor->object);
+		e->cursor->object = html_engine_new_text_empty (e);
+		html_clue_append (HTML_CLUE (flow), e->cursor->object);
+	}
+
 	insert_setup_undo (e, 1, dir);
 	g_list_free (left);
 	g_list_free (right);
@@ -858,6 +869,7 @@ html_engine_delete_n (HTMLEngine *e, guint len, gboolean forward)
 	if (html_engine_is_selection_active (e))
 		html_engine_delete (e);
 	else {
+		html_engine_block_selection (e);
 		html_engine_set_mark (e);
 		while (len != 0) {
 			if (forward)
@@ -867,6 +879,7 @@ html_engine_delete_n (HTMLEngine *e, guint len, gboolean forward)
 			len --;
 		}
 		html_engine_delete (e);
+		html_engine_unblock_selection (e);
 	}
 }
 

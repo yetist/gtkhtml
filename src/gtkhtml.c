@@ -3517,16 +3517,21 @@ get_value_nick (GtkHTMLCommandType com_type)
 void
 gtk_html_editor_event_command (GtkHTML *html, GtkHTMLCommandType com_type)
 {
-	if (html->editor_api && !html->engine->block_events) {
-		GtkArg *args [1];
+	GtkArg *args [1];
 
-		args [0] = gtk_arg_new (GTK_TYPE_STRING);
+	args [0] = gtk_arg_new (GTK_TYPE_STRING);
 
-		GTK_VALUE_STRING (*args [0]) = get_value_nick (com_type);
-		(*html->editor_api->event) (html, GTK_HTML_EDITOR_EVENT_COMMAND, args, html->editor_data);
+	GTK_VALUE_STRING (*args [0]) = get_value_nick (com_type);
+	gtk_html_editor_event (html, GTK_HTML_EDITOR_EVENT_COMMAND, args);
 
-		gtk_arg_free (args [0], FALSE);
-	}
+	gtk_arg_free (args [0], FALSE);
+}
+
+void
+gtk_html_editor_event (GtkHTML *html, GtkHTMLEditorEventType event, GtkArg **args)
+{
+	if (html->editor_api && !html->engine->block_events)
+		(*html->editor_api->event) (html, event, args, html->editor_data);
 }
 
 gboolean
