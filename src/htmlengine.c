@@ -305,7 +305,8 @@ html_element_new (HTMLEngine *e, const char *str) {
 }
 
 #ifndef NO_ATTR_MACRO
-#define html_element_get_attr(node, key, value) g_hash_table_lookup_extended (node->attributes, key, NULL, (gpointer *)value) 
+#define html_element_get_attr(node, key, value) (g_hash_table_lookup_extended (node->attributes, key, NULL, (gpointer *)value) && *value)
+#define html_element_has_attr(node, key) g_hash_table_lookup_extended (node->attributes, key, NULL, NULL)
 #else 
 gboolean
 html_element_get_attr (HTMLElement *node, char *name, char **value)
@@ -2287,7 +2288,7 @@ element_parse_frame (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		scroll = parse_scroll (value);
 
 #if 0
-	if (html_element_get_attr (element, "noresize", &value))
+	if (html_element_has_attr (element, "noresize"))
 		;
 
 	if (html_element_get_attr (element, "frameborder", &value))
@@ -2341,7 +2342,7 @@ element_parse_hr (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	if (html_element_get_attr (element,"width", &value))
 		element->style = html_style_add_width (element->style, value);
 
-	if (html_element_get_attr (element, "noshade", &value))
+	if (html_element_has_attr (element, "noshade"))
 		shade = FALSE;
 	
 	html_element_parse_coreattrs (element);
@@ -2518,7 +2519,7 @@ element_parse_img (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	if (html_element_get_attr (element, "usemap", &value))
 		mapname = value;
 
-	if (html_element_get_attr (element, "ismap", &value))
+	if (html_element_has_attr (element, "ismap"))
 		ismap = TRUE;
 	
 	html_element_parse_coreattrs (element);
@@ -2850,7 +2851,7 @@ element_parse_option (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 	html_element_get_attr (element, "value", &value);
 	
-	if (html_element_get_attr (element, "selected", NULL))
+	if (html_element_has_attr (element, "selected"))
 		selected = TRUE;
 	
 	element->style = html_style_set_display (element->style, DISPLAY_NONE);
@@ -2885,7 +2886,7 @@ element_parse_select (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	if (html_element_get_attr (element, "size", &value))
 		size = atoi (value);
 
-	if (html_element_get_attr (element, "multiple", &value))
+	if (html_element_has_attr (element, "multiple"))
 		multi = TRUE;
 
 	element->style = html_style_set_display (element->style, DISPLAY_NONE);
@@ -3281,7 +3282,7 @@ element_parse_cell (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	if (html_element_get_attr (element, "width", &value))
 		element->style = html_style_add_width (element->style, value); 
 		
-	if (html_element_get_attr (element, "nowrap", &value))
+	if (html_element_has_attr (element, "nowrap"))
 			no_wrap = TRUE;
 	
 	html_element_parse_coreattrs (element);

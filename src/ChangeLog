@@ -1,3 +1,13 @@
+2004-02-20  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (html_element_has_attr): new macro, returns true if
+	element has attr
+	(html_element_get_attr): return true only if *value is non null,
+	update all calls which just checks if attr is available to use
+	has_attr
+
+	Fixes #54555
+	
 2004-02-19  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (html_text_get_pango_info): use text->text_bytes
