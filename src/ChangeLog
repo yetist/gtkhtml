@@ -1,3 +1,7 @@
+2000-11-06  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlclueflow.c (save_plain): disable broken condition checks.
+
 2000-11-04  Larry Ewing  <lewing@helixcode.com>
 
 	* htmltext.c (save_plain): remove call to encode_text_to_8bit

@@ -1143,9 +1143,9 @@ save_plain (HTMLObject *self,
 				if (len > (requested_width - pad)) {
 					space = s + (requested_width - pad);
 					while (space > s 
-					       && (*space != ' '
-						   || (MATCH_UTF8_NBSP ((guchar *)unicode_next_utf8 (space)))
-						   || (MATCH_UTF8_NBSP ((guchar *)unicode_previous_utf8 (s, space)))))
+					       && (*space != ' '))
+						// || (MATCH_UTF8_NBSP ((guchar *)unicode_next_utf8 (space)))
+						// || (MATCH_UTF8_NBSP ((guchar *)unicode_previous_utf8 (s, space)))))
 						space = unicode_previous_utf8 (s, space);
 					
 					if (space != s)
