@@ -1,3 +1,7 @@
+2004-10-01  JP Rosevear  <jpr@novell.com>
+
+	* libgtkhtml.pc.in: expose gtkhtml_apiverison as a variable
+
 2004-09-28  Radek Doulik  <rodo@ximian.com>
 
 	* htmlclueflow.c (save_plain): do not let wi drop under clen. it

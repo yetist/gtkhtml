@@ -3,6 +3,7 @@ exec_prefix=@exec_prefix@
 libdir=@libdir@
 includedir=@includedir@
 gtkhtml_datadir=@datadir@/gtkhtml-@GTKHTML_API_VERSION@
+gtkhtml_apiversion=@GTKHTML_API_VERSION@
 
 Name: libgtkhtml
 Description: libgtkhtml
