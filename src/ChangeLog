@@ -1,3 +1,8 @@
+2002-07-08  Larry Ewing  <lewing@ximian.com>
+
+	* htmlsearch.c (html_search_new): stop trying to substitute &nbsp;
+	and spaces, see bug #24446.
+
 2002-07-08  Radek Doulik  <rodo@ximian.com>
 
 	* htmlclueflow.c (draw_item): use first slave for postion
