@@ -1,3 +1,8 @@
+2003-11-18  Radek Doulik  <rodo@ximian.com>
+
+	* Makefile.am: enable deprecated gtk stuff. gtkcombo.h is
+	deprecated in gnome2.5. we will require gnome-2.5 soon
+
 2003-11-14  Radek Doulik  <rodo@ximian.com>
 
 	* htmlprinter.c (process_attrs): set default font fg color
