@@ -56,10 +56,10 @@ gboolean             html_engine_save_output_string        (HTMLEngineSaveState 
 							    ...);
 
 /* Saving a whole tree.  */
-gboolean             html_engine_save                      (HTMLEngine          *engine,
+gboolean             html_engine_save                      (HTMLEngine                *engine,
 							    HTMLEngineSaveReceiverFn   receiver,
 							    gpointer                   user_data);
-gboolean             html_engine_save_plain                (HTMLEngine          *engine,
+gboolean             html_engine_save_plain                (HTMLEngine                *engine,
 							    HTMLEngineSaveReceiverFn   receiver,
 							    gpointer                   user_data);
 void                 html_engine_save_buffer_free          (HTMLEngineSaveState       *state);
@@ -69,5 +69,8 @@ gchar               *html_engine_save_get_sample_body      (HTMLEngine          
 							    HTMLObject                *o);
 const gchar         *html_engine_save_get_paragraph_align  (GtkHTMLParagraphAlignment  align);
 const gchar         *html_engine_save_get_paragraph_style  (GtkHTMLParagraphStyle      style);
+gchar               *html_encode_entities                  (const gchar               *input,
+							    guint                      len,
+							    guint                     *encoded_len_return);
 
 #endif

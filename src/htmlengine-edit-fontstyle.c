@@ -35,6 +35,7 @@
 #include "htmlundo.h"
 
 /* #define PARANOID_DEBUG */
+static HTMLObject * html_engine_text_style_object (HTMLEngine *e);
 
 
 static GtkHTMLFontStyle
@@ -120,8 +121,14 @@ html_engine_get_document_font_style (HTMLEngine *engine)
 			return GTK_HTML_FONT_STYLE_DEFAULT;
 		else if (! html_object_is_text (curr))
 			return GTK_HTML_FONT_STYLE_DEFAULT;
-		else
-			return HTML_TEXT (curr)->font_style;
+		else {
+			HTMLObject *obj;
+
+			obj = html_engine_text_style_object (engine);
+			return obj
+				? HTML_TEXT (obj)->font_style
+				: GTK_HTML_FONT_STYLE_DEFAULT;
+		}
 	}
 }
 
@@ -141,8 +148,14 @@ html_engine_get_document_color (HTMLEngine *engine)
 			return NULL;
 		else if (! html_object_is_text (curr))
 			return NULL;
-		else
-			return HTML_TEXT (curr)->color;
+		else {
+			HTMLObject *obj;
+
+			obj = html_engine_text_style_object (engine);
+			return obj
+				? HTML_TEXT (obj)->color
+				: html_colorset_get_color (engine->settings->color_set, HTMLTextColor);
+		}
 	}
 }
 
@@ -524,13 +537,41 @@ get_url_or_target_from_selection (HTMLEngine *e, gboolean get_url)
 	return str;
 }
 
+static HTMLObject *
+html_engine_text_style_object (HTMLEngine *e)
+{
+	if (HTML_IS_TEXT (e->cursor->object)
+	    || (e->cursor->offset && e->cursor->offset != html_object_get_length (e->cursor->object)))
+		return e->cursor->object;
+
+	if (e->cursor->offset) {
+		HTMLObject *next;
+
+		next = html_object_next_not_slave (e->cursor->object);
+		if (next && HTML_IS_TEXT (next))
+			return next;
+	} else {
+		HTMLObject *prev;
+
+		prev = html_object_prev_not_slave (e->cursor->object);
+		if (prev && HTML_IS_TEXT (prev))
+			return prev;
+	}
+
+	return NULL;
+}
+
 const gchar *
 html_engine_get_document_url (HTMLEngine *e)
 {
 	if (html_engine_is_selection_active (e))
 		return get_url_or_target_from_selection (e, TRUE);
-	else
-		return html_object_get_url (e->cursor->object);
+	else {
+		HTMLObject *obj;
+
+		obj = html_engine_text_style_object (e);
+		return obj ? html_object_get_url (obj) : NULL;
+	}
 }
 
 const gchar *
@@ -538,8 +579,12 @@ html_engine_get_document_target (HTMLEngine *e)
 {
 	if (html_engine_is_selection_active (e))
 		return get_url_or_target_from_selection (e, FALSE);
-	else
-		return html_object_get_target (e->cursor->object);
+	else {
+		HTMLObject *obj;
+
+		obj = html_engine_text_style_object (e);
+		return obj ? html_object_get_target (obj) : NULL;
+	}
 }
 
 gboolean

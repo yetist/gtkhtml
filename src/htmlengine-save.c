@@ -40,10 +40,8 @@
 
 /* This routine was originally written by Daniel Velliard, (C) 1998 World Wide
    Web Consortium.  */
-static gchar *
-encode_entities (const gchar *input,
-		 guint len,
-		 guint *encoded_len_return)
+gchar *
+html_encode_entities (const gchar *input, guint len, guint *encoded_len_return)
 {
 	gunichar uc;
 	const gchar *p;
@@ -121,7 +119,8 @@ encode_entities (const gchar *input,
 	}
 
 	*out = 0;
-	*encoded_len_return = out - buffer;
+	if (encoded_len_return)
+		*encoded_len_return = out - buffer;
 
 	return buffer;
 }
@@ -141,7 +140,7 @@ html_engine_save_encode (HTMLEngineSaveState *state,
 	if (length == 0)
 		return TRUE;
 
-	encoded_buffer = encode_entities ((const guchar *) buffer, length, &encoded_length);
+	encoded_buffer = html_encode_entities ((const guchar *) buffer, length, &encoded_length);
 	success = state->receiver (state->engine, encoded_buffer, encoded_length, state->user_data);
 
 	g_free (encoded_buffer);

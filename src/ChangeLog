@@ -1,3 +1,18 @@
+2002-01-10  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit.c (html_engine_new_text): could return link
+	object again
+
+	* htmlengine-edit-fontstyle.c (html_engine_text_style_object): new
+	helper function
+	(html_engine_get_document_url): use html_engine_text_style_object
+	to change link editing behaviour
+	(html_engine_get_document_font_style): ditto
+	(html_engine_get_document_color): ditto
+
+	* htmlengine-save.c (html_encode_entities): renamed from
+	encode_entities, exported, allow encoded_len_return to be NULL
+
 2002-01-08  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-cut-and-paste.c (html_engine_edit_set_link):

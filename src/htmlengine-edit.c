@@ -325,7 +325,11 @@ html_engine_clipboard_clear (HTMLEngine *e)
 HTMLObject *
 html_engine_new_text (HTMLEngine *e, const gchar *text, gint len)
 {
-	return html_text_new_with_len (text, len, e->insertion_font_style, e->insertion_color);
+	if (e->insertion_url && *e->insertion_url) {
+		return html_link_text_new_with_len (text, len, e->insertion_font_style, e->insertion_color,
+						    e->insertion_url, e->insertion_target);
+	} else
+		return html_text_new_with_len (text, len, e->insertion_font_style, e->insertion_color);
 }
 
 HTMLObject *
