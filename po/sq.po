@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-06-23 05:14+0200\n"
+"POT-Creation-Date: 2004-07-10 04:49+0200\n"
 "PO-Revision-Date: 2004-06-28 18:20+0200\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
@@ -19,7 +19,6 @@ msgstr ""
 msgid "<None>"
 msgstr "<Asnjë>"
 
-#. GRUT modified this item
 #: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
 #: components/html-editor/cell.c:333 components/html-editor/image.c:350
 #: components/html-editor/link.c:182 components/html-editor/rule.c:174
@@ -28,12 +27,10 @@ msgstr "<Asnjë>"
 msgid "Could not load glade file."
 msgstr "I pamundur ngarkimi i file glade."
 
-#. GRUT modified this item
 #: capplet/gtkhtml-capplet.glade.h:1
 msgid "\n"
 msgstr "\n"
 
-#. GRUT modified this item
 #: capplet/gtkhtml-capplet.glade.h:3
 #: components/html-editor/gtkhtml-editor-properties.glade.h:4
 msgid "*"
@@ -51,7 +48,6 @@ msgstr ""
 msgid "Automatically detect links"
 msgstr ""
 
-#. GRUT modified this item
 #: capplet/gtkhtml-capplet.glade.h:7
 msgid "Behavior"
 msgstr "Sjellja"
@@ -76,7 +72,6 @@ msgstr "Aktivo kontrollin e drejtshkrimit"
 msgid "Fixed width"
 msgstr "Gjerësia e fiksuar"
 
-#. GRUT modified this item
 #: capplet/gtkhtml-capplet.glade.h:13
 msgid "Fonts"
 msgstr "Gërmat"
@@ -89,17 +84,14 @@ msgstr "Për printim"
 msgid "Grab keys"
 msgstr "Rrëmbe kyçet"
 
-#. GRUT modified this item
 #: capplet/gtkhtml-capplet.glade.h:16
 msgid "Information"
 msgstr "Informacione"
 
-#. GRUT modified this item
 #: capplet/gtkhtml-capplet.glade.h:17
 msgid "Keyboard Shortcuts"
 msgstr "Kombinacionet përshpejtuese nga tastiera"
 
-#. GRUT modified this item
 #: capplet/gtkhtml-capplet.glade.h:18
 msgid "Miscellaneous"
 msgstr "Të ndryshme"
@@ -140,12 +132,10 @@ msgstr ""
 msgid "Variable width"
 msgstr ""
 
-#. GRUT modified this item
 #: capplet/gtkhtml-capplet.glade.h:28
 msgid "_Add"
 msgstr "_Shto"
 
-#. GRUT modified this item
 #: capplet/gtkhtml-capplet.glade.h:29
 msgid "_Delete"
 msgstr "_Elemino"
@@ -202,19 +192,16 @@ msgstr ""
 msgid "Alphabetical List"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
 msgid "Background Color"
 msgstr "Ngjyra e Sfondit"
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:10
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:10
 msgid "Blue"
 msgstr "Blu"
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:11
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
 #: components/html-editor/toolbar.c:50
@@ -232,7 +219,6 @@ msgstr ""
 msgid "Check spelling of the document"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:14
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
 msgid "Copy"
@@ -243,7 +229,6 @@ msgstr "Kopjo"
 msgid "Copy selection to clipboard"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:16
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:16
 msgid "Copy the selection"
@@ -254,13 +239,11 @@ msgstr "Kopjo pjesën e zgjedhur"
 msgid "Cr_ying"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
 msgid "Cu_t"
 msgstr "Pre_je"
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:19
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
 msgid "Cut"
@@ -271,13 +254,11 @@ msgstr "Preje"
 msgid "Cut selection to clipboard"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:21
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
 msgid "Cut the selection"
 msgstr "Preje pjesën e zgjedhur"
 
-#. GRUT modified this item
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
@@ -305,12 +286,12 @@ msgstr ""
 msgid "Find and Replace"
 msgstr ""
 
+#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:27
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
 msgid "For_mat"
-msgstr ""
+msgstr "For_mati"
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
 msgid "Green"
@@ -346,7 +327,6 @@ msgstr ""
 msgid "Header _6"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
 #: components/html-editor/editor-control-factory.c:189
@@ -451,7 +431,6 @@ msgstr ""
 msgid "Li_ck"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
 #: components/html-editor/menubar.c:115 components/html-editor/popup.c:106
@@ -523,14 +502,12 @@ msgstr ""
 msgid "Make the current paragraph an alphabetical list"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:69
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
 #: components/html-editor/paragraph.c:83 components/html-editor/toolbar.c:48
 msgid "Normal"
 msgstr "Normal"
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:70
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
 #: components/html-editor/toolbar.c:51
@@ -547,18 +524,17 @@ msgstr ""
 msgid "Oh _no!"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
 msgid "Orange"
 msgstr "Portokalli"
 
+#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
 msgid "Other..."
-msgstr ""
+msgstr "Tjetër..."
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:75
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
 msgid "Paste"
@@ -574,7 +550,6 @@ msgstr ""
 msgid "Paste from clipboard"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
 msgid "Paste the clipboard"
@@ -590,19 +565,16 @@ msgstr ""
 msgid "Preformat"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
 msgid "Purple"
 msgstr "Vjollcë"
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 msgid "Red"
 msgstr "I kuq"
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
 msgid "Redo"
@@ -613,13 +585,11 @@ msgstr "Përsërite"
 msgid "Redo previously undone change"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
 msgid "Redo the undone action"
 msgstr "Përsërit veprimin e anulluar"
 
-#. GRUT modified this item
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
@@ -646,7 +616,6 @@ msgstr ""
 msgid "Rule"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
 msgid "Select _All"
@@ -657,7 +626,6 @@ msgstr "Zgjidh _gjithçka"
 msgid "Select the entire contents of the document"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
 #: components/html-editor/toolbar.c:545
@@ -689,7 +657,6 @@ msgstr ""
 msgid "Superscript"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
@@ -708,7 +675,6 @@ msgstr ""
 msgid "Te_xt file..."
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
 #: components/html-editor/gtkhtml-editor-properties.glade.h:53
 #: components/html-editor/menubar.c:177
@@ -721,7 +687,6 @@ msgstr "Shabllon"
 msgid "Typewriter"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
 msgid "Undo"
@@ -732,13 +697,11 @@ msgstr "Anullo"
 msgid "Undo previous changes"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
 msgid "Undo the last action"
 msgstr "Anullo veprimin e fundit"
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
 msgid "Yellow"
@@ -754,7 +717,6 @@ msgstr ""
 msgid "_Alphabetical List"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
@@ -766,13 +728,11 @@ msgstr "_Me të trasha"
 msgid "_Bulleted List"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
 msgid "_Center"
 msgstr "_Në qendër"
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
 msgid "_Copy"
@@ -783,13 +743,11 @@ msgstr "_Kopjo"
 msgid "_Decrease Indent"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
 msgid "_Edit"
 msgstr "_Ndrysho"
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
 msgid "_Find..."
@@ -830,13 +788,11 @@ msgstr ""
 msgid "_Indifferent"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
 msgid "_Insert"
 msgstr "_Shkruaj"
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
 #: components/html-editor/gtkhtml-editor-properties.glade.h:67
@@ -848,7 +804,6 @@ msgstr "_Italic"
 msgid "_Laughing"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
 msgid "_Left"
@@ -859,7 +814,6 @@ msgstr "_Majtas"
 msgid "_Link..."
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
 msgid "_Normal"
@@ -875,7 +829,6 @@ msgstr ""
 msgid "_Paragraph..."
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
 msgid "_Paste"
@@ -891,19 +844,16 @@ msgstr ""
 msgid "_Preformat"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
 msgid "_Redo"
 msgstr "_Përsërit"
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
 msgid "_Replace..."
 msgstr "_Zëvendëso..."
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
 msgid "_Right"
@@ -960,14 +910,12 @@ msgstr ""
 msgid "_Undecided"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:147
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:148
 #: components/html-editor/gtkhtml-editor-properties.glade.h:76
 msgid "_Underline"
 msgstr "_Nënvizuar"
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:148
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:149
 msgid "_Undo"
@@ -1016,7 +964,6 @@ msgstr ""
 msgid "_Wrap Lines"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/body.c:59
 #: components/html-editor/gtkhtml-editor-properties.glade.h:42
 msgid "None"
@@ -1030,7 +977,6 @@ msgstr ""
 msgid "Blue Ink"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/body.c:83
 msgid "Paper"
 msgstr "Letra"
@@ -1043,12 +989,10 @@ msgstr ""
 msgid "Midnight"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/body.c:107
 msgid "Confidential"
 msgstr "Në konfidencë"
 
-#. GRUT modified this item
 #: components/html-editor/body.c:115
 msgid "Draft"
 msgstr "Kopje e keqe"
@@ -1061,7 +1005,6 @@ msgstr ""
 msgid "T_emplate:"
 msgstr ""
 
-#. GRUT modified this item
 #. data->entry_title = gtk_entry_new ();
 #. if (gtk_html_get_title (data->cd->html)) {
 #. gtk_entry_set_text (GTK_ENTRY (data->entry_title),
@@ -1073,7 +1016,6 @@ msgstr ""
 msgid "General"
 msgstr "Të përgjithshme"
 
-#. GRUT modified this item
 #: components/html-editor/body.c:267 components/html-editor/text.c:162
 #: components/html-editor/toolbar.c:301
 msgid "Automatic"
@@ -1087,12 +1029,10 @@ msgstr ""
 msgid "_Link:"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/body.c:281
 msgid "_Background:"
 msgstr "_Sfondi:"
 
-#. GRUT modified this item
 #: components/html-editor/body.c:283
 #: components/html-editor/gtkhtml-editor-properties.glade.h:30
 msgid "Colors"
@@ -1103,7 +1043,6 @@ msgstr "Ngjyrat"
 msgid "Background Image"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/body.c:298
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
 msgid "_Source:"
@@ -1113,7 +1052,6 @@ msgstr "_Burimi:"
 msgid "Transparent"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/editor-control-factory.c:178
 #: components/html-editor/menubar.c:328 components/html-editor/menubar.c:346
 #: components/html-editor/menubar.c:364 components/html-editor/popup.c:186
@@ -1121,7 +1059,6 @@ msgstr ""
 msgid "Properties"
 msgstr "Pronësitë"
 
-#. GRUT modified this item
 #: components/html-editor/editor-control-factory.c:197
 #: components/html-editor/gtkhtml-editor-properties.glade.h:54
 #: components/html-editor/menubar.c:350 components/html-editor/popup.c:195
@@ -1139,247 +1076,201 @@ msgstr ""
 msgid "Page"
 msgstr ""
 
-#. GRUT modified this item
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:395
 msgid "custom"
 msgstr "e personalizuar"
 
-#. GRUT modified this item
 #. "Custom" color - we'll pop up a GnomeColorPicker
 #: components/html-editor/gi-color-palette.c:437
 msgid "Custom Color:"
 msgstr "Ngjyra e personalizuar:"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:445
 msgid "Choose Custom Color"
 msgstr "Zgjidh ngjyrën e personalizuar"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:578
 msgid "black"
 msgstr "e zezë"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:579
 msgid "light brown"
 msgstr "kafe e hapur"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:580
 msgid "brown gold"
 msgstr "kafe e artë"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:581
 msgid "dark green #2"
 msgstr "e gjelbër e errët #2"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:582
 msgid "navy"
 msgstr "navy"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:583
 #: components/html-editor/gi-color-palette.c:639
 msgid "dark blue"
 msgstr "blu e errët"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:584
 msgid "purple #2"
 msgstr "vjollcë #2"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:585
 msgid "very dark gray"
 msgstr "gri shumë e errët"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:588
 #: components/html-editor/gi-color-palette.c:644
 msgid "dark red"
 msgstr "e kuqe e errët"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:589
 msgid "red-orange"
 msgstr "portokalli e kuqe"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:590
 msgid "gold"
 msgstr "ngjyrë ari"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:591
 msgid "dark green"
 msgstr "jeshile e errët"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:592
 #: components/html-editor/gi-color-palette.c:645
 msgid "dull blue"
 msgstr "blu e njëtrajtshme"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:593
 #: components/html-editor/gi-color-palette.c:646
 msgid "blue"
 msgstr "blu"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:594
 msgid "dull purple"
 msgstr "vjollcë e njëtrajtshme"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:595
 msgid "dark grey"
 msgstr "gri e errët"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:598
 msgid "red"
 msgstr "e kuqe"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:599
 msgid "orange"
 msgstr "portokalli"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:600
 msgid "lime"
 msgstr "limon"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:601
 msgid "dull green"
 msgstr "jeshile e njëtrajtshme"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:602
 msgid "dull blue #2"
 msgstr "blu e njëtrajtshme #2"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:603
 msgid "sky blue #2"
 msgstr "blu qielli #2"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:604
 #: components/html-editor/gi-color-palette.c:643
 msgid "purple"
 msgstr "vjollcë"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:605
 msgid "gray"
 msgstr "jeshile"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:608
 #: components/html-editor/gi-color-palette.c:640
 msgid "magenta"
 msgstr "magenta"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:609
 msgid "bright orange"
 msgstr "portokalli e ndezur"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:610
 #: components/html-editor/gi-color-palette.c:641
 msgid "yellow"
 msgstr "e verdhë"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:611
 msgid "green"
 msgstr "jeshile"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:612
 #: components/html-editor/gi-color-palette.c:642
 msgid "cyan"
 msgstr "cyan"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:613
 msgid "bright blue"
 msgstr "blu e ndezur"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:614
 #: components/html-editor/gi-color-palette.c:631
 msgid "red purple"
 msgstr "vjollcë e kuqe"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:615
 msgid "light grey"
 msgstr "gri e lehtë"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:618
 #: components/html-editor/gi-color-palette.c:635
 msgid "pink"
 msgstr "rozë"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:619
 msgid "light orange"
 msgstr "portokalli e lehtë"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:620
 #: components/html-editor/gi-color-palette.c:632
 msgid "light yellow"
 msgstr "e verdhë e lehtë"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:621
 msgid "light green"
 msgstr "jeshile e hapur"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:622
 msgid "light cyan"
 msgstr "light cyan"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:623
 #: components/html-editor/gi-color-palette.c:633
 msgid "light blue"
 msgstr "blu e hapur"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:624
 #: components/html-editor/gi-color-palette.c:637
 msgid "light purple"
 msgstr "vjollcë e hapur"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:625
 msgid "white"
 msgstr "e bardhë"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:630
 msgid "purplish blue"
 msgstr "blu violet"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:634
 msgid "dark purple"
 msgstr "vjollcë e errët"
 
-#. GRUT modified this item
 #: components/html-editor/gi-color-palette.c:636
 msgid "sky blue"
 msgstr "blu qielli"
@@ -1388,12 +1279,10 @@ msgstr "blu qielli"
 msgid "GtkHTML Editor Control"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:1
 msgid "    "
 msgstr "    "
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:3
 #, no-c-format
 msgid "%"
@@ -1407,27 +1296,22 @@ msgstr ""
 msgid "<b>Alignment &amp; Behaviour</b>"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:12
 msgid "<b>Background</b>"
 msgstr "<b>Sfondi</b>"
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:13
 msgid "<b>General</b>"
 msgstr "<b>Të përgjithshme</b>"
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:14
 msgid "<b>Layout</b>"
 msgstr "<b>Planimetria</b>"
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:15
 msgid "<b>Scope</b>"
 msgstr "<b>Qëllimi</b>"
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:16
 msgid "<span weight=\"bold\">General</span>"
 msgstr "<span weight=\"bold\">E përgjithshme</span>"
@@ -1452,13 +1336,11 @@ msgstr ""
 msgid "<span weight=\"bold\">Template</span>"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
 #: components/html-editor/paragraph.c:131
 msgid "Alignment"
 msgstr "Drejtimi"
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:24
 msgid "Bottom"
 msgstr "Poshtë"
@@ -1467,12 +1349,10 @@ msgstr "Poshtë"
 msgid "C_ell"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
 msgid "C_olor:"
 msgstr "N_gjyra:"
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:27
 #: components/html-editor/popup.c:237
 msgid "Cell"
@@ -1491,7 +1371,6 @@ msgstr ""
 msgid "Column span:"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:32
 msgid "Enable"
 msgstr "Aktivo"
@@ -1504,7 +1383,6 @@ msgstr ""
 msgid "Horizontal alignment:"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:35
 msgid "Horizontal:"
 msgstr "Horizontalisht:"
@@ -1513,13 +1391,11 @@ msgstr "Horizontalisht:"
 msgid "I_mage:"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:38
 #: components/html-editor/paragraph.c:127
 msgid "Left"
 msgstr "Majtas"
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:39
 msgid "Length:"
 msgstr "Gjatësia:"
@@ -1532,17 +1408,14 @@ msgstr ""
 msgid "Middle"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:44
 msgid "Percent"
 msgstr "Përqind"
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:45
 msgid "Pixels"
 msgstr "Pixels"
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:46
 #: components/html-editor/paragraph.c:129
 msgid "Right"
@@ -1556,12 +1429,10 @@ msgstr ""
 msgid "Shaded"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:50
 msgid "Si_ze:"
 msgstr "Madhë_sia:"
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:51
 msgid "Standard"
 msgstr "Standart"
@@ -1570,17 +1441,14 @@ msgstr "Standart"
 msgid "Thickness:"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:56
 msgid "Top"
 msgstr "Sipër"
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:57
 msgid "Vertical:"
 msgstr "Vertikalisht:"
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:58
 msgid "Width:"
 msgstr "Gjerësia:"
@@ -1593,7 +1461,6 @@ msgstr ""
 msgid "_Border:"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:62
 msgid "_Color:"
 msgstr "_Ngjyra:"
@@ -1602,17 +1469,14 @@ msgstr "_Ngjyra:"
 msgid "_Columns:"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:64
 msgid "_Description:"
 msgstr "_Përshkrimi:"
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:65
 msgid "_Height:"
 msgstr "_Lartësia:"
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:66
 msgid "_Image:"
 msgstr "F_igura:"
@@ -1629,7 +1493,6 @@ msgstr ""
 msgid "_Rows:"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
 msgid "_Spacing:"
 msgstr "_Hapësira:"
@@ -1638,12 +1501,10 @@ msgstr "_Hapësira:"
 msgid "_Table"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:75
 msgid "_URL:"
 msgstr "_URL:"
 
-#. GRUT modified this item
 #: components/html-editor/gtkhtml-editor-properties.glade.h:77
 msgid "_Width:"
 msgstr "_Gjerësia:"
@@ -1735,12 +1596,10 @@ msgstr ""
 msgid "Alphabeta item"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/paragraph.c:100 components/html-editor/toolbar.c:60
 msgid "Address"
 msgstr "Adresa"
 
-#. GRUT modified this item
 #: components/html-editor/paragraph.c:109
 msgid "_Style:"
 msgstr "_Stili:"
@@ -1757,7 +1616,6 @@ msgstr ""
 msgid "Remove Link"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/popup.c:456
 msgid "Style"
 msgstr "Stili"
@@ -1852,7 +1710,6 @@ msgstr ""
 msgid "Ignore Misspelled Word"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/popup.c:549
 msgid "Input Methods"
 msgstr "Metodat e input"
@@ -1862,17 +1719,14 @@ msgstr "Metodat e input"
 msgid "Replace confirmation"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/replace.c:78
 msgid "Replace _All"
 msgstr "Zëvendëso _Gjithçka"
 
-#. GRUT modified this item
 #: components/html-editor/replace.c:79
 msgid "_Next"
 msgstr "_Pasardhëse"
 
-#. GRUT modified this item
 #: components/html-editor/replace.c:81
 msgid "_Replace"
 msgstr "_Zëvendëso"
@@ -1881,7 +1735,6 @@ msgstr "_Zëvendëso"
 msgid "Search _backward"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/replace.c:170 components/html-editor/search.c:114
 msgid "Case _sensitive"
 msgstr "Gërma _të mëdha/të vogla"
@@ -1906,7 +1759,6 @@ msgstr ""
 msgid "No misspelled word found"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/spell.c:285
 msgid "Spell checker"
 msgstr "Kontrolluesi i drejtshkrimit"
@@ -1915,7 +1767,6 @@ msgstr "Kontrolluesi i drejtshkrimit"
 msgid "Current _Languages"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/template.c:84
 msgid "Note"
 msgstr "Shënim"
@@ -1960,7 +1811,6 @@ msgstr ""
 msgid "Toggle typewriter font style"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/toolbar.c:539
 msgid "Bold"
 msgstr "Me të trasha"
@@ -1969,7 +1819,6 @@ msgstr "Me të trasha"
 msgid "Makes the text bold"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/toolbar.c:541
 msgid "Italic"
 msgstr "Italic"
@@ -1978,7 +1827,6 @@ msgstr "Italic"
 msgid "Makes the text italic"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/toolbar.c:543
 msgid "Underline"
 msgstr "Nënvizimi"
@@ -1999,7 +1847,6 @@ msgstr ""
 msgid "Indents the paragraphs less"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/toolbar.c:556
 msgid "Indent"
 msgstr "Ngushto"
@@ -2008,7 +1855,6 @@ msgstr "Ngushto"
 msgid "Indents the paragraphs more"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/utils.c:119
 msgid "Sample"
 msgstr "Shembull"
@@ -2028,7 +1874,6 @@ msgstr ""
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 
-#. GRUT modified this item
 #: src/gtkhtml.c:2815
 msgid "Editable"
 msgstr "E ndryshueshme"
@@ -2145,7 +1990,6 @@ msgstr ""
 msgid "Test7"
 msgstr ""
 
-#. GRUT modified this item
 #: src/html-component.c:612
 msgid "_Refresh"
 msgstr "_Fresko"
@@ -2162,7 +2006,6 @@ msgstr ""
 msgid "Submit Query"
 msgstr ""
 
-#. GRUT modified this item
 #: src/htmlbutton.c:145
 msgid "Reset"
 msgstr "Nga fillimi"
@@ -2180,7 +2023,6 @@ msgstr ""
 msgid "Print pre_view"
 msgstr ""
 
-#. GRUT modified this item
 #: src/testgtkhtml.c:117
 msgid "Print preview"
 msgstr "Pamja e parë e printimit"
