@@ -25,6 +25,7 @@
 #include "htmlengine.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-cut-and-paste.h"
+#include "htmlengine-edit-table.h"
 #include "htmlengine-edit-tablecell.h"
 #include "htmlobject.h"
 #include "htmltable.h"
@@ -434,7 +435,7 @@ expand_cspan (HTMLEngine *e, HTMLTableCell *cell, gint cspan, HTMLUndoDirection 
 	printf ("max move: %d\n", max_move);
 	add_cols = MAX (0, cspan - (table->totalCols - cell->col)) + max_move;
 	for (c = 0; c < add_cols; c ++)
-		html_table_insert_column (table, table->totalCols, NULL, dir);
+		html_table_insert_column (table, e, table->totalCols, NULL, dir);
 
 	g_warning ("TODO: move cells. keep old content");
 
@@ -490,8 +491,8 @@ expand_rspan (HTMLEngine *e, HTMLTableCell *cell, gint rspan, HTMLUndoDirection 
 
 	printf ("max move: %d\n", max_move);
 	add_rows = MAX (0, rspan - (table->totalRows - cell->row)) + max_move;
-	for (r = 0; r < add_rows; c ++)
-		html_table_insert_row (table, table->totalRows, NULL, dir);
+	for (r = 0; r < add_rows; r ++)
+		html_table_insert_row (table, e, table->totalRows, NULL, dir);
 
 	g_warning ("TODO: move cells. keep old content");
 
