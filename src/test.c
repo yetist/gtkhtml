@@ -51,15 +51,14 @@ GtkWidget *html;
 
 gchar *html_files [] = {"test1.html", "test2.html", "test9.html", "test11.html", "test6.html"};
 
-static gchar *welcome = "
-Czech (&#268;e&#353;tina) &#268;au, Ahoj, Dobr&#253; den<BR> 
-French (Français) Bonjour, Salut<BR>
-Korean (한글)   안녕하세요, 안녕하십니까<BR>
-Russian (Русский) Здравствуйте!<BR>
-Chinese (Simplified) <span lang=\"zh-cn\">元气	开发</span><BR>
-Chinese (Traditional) <span lang=\"zh-tw\">元氣	開發</span><BR>
-Japanese <span lang=\"ja\">元気	開発<BR></FONT>
-";
+static gchar *welcome =
+"Czech (&#268;e&#353;tina) &#268;au, Ahoj, Dobr&#253; den<BR>"
+"French (Français) Bonjour, Salut<BR>"
+"Korean (한글)   안녕하세요, 안녕하십니까<BR>"
+"Russian (Русский) Здравствуйте!<BR>"
+"Chinese (Simplified) <span lang=\"zh-cn\">元气	开发</span><BR>"
+"Chinese (Traditional) <span lang=\"zh-tw\">元氣	開發</span><BR>"
+"Japanese <span lang=\"ja\">元気	開発<BR></FONT>";
 
 static void
 url_requested (GtkHTML *html, const char *url, GtkHTMLStream *stream, gpointer data)
