@@ -1,5 +1,19 @@
 2004-05-19  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine-save.c (html_engine_save_buffer_peek_text_len): new
+	helper function to get buffer len
+
+	* htmliframe.c (save): use html_engine_save_output_buffer because
+	html_engine_save_output_string uses format string and thus we have
+	to esacape '%' chars or save it as it is with
+	html_engine_save_output_buffer
+	(save_plain): ditto
+
+	* htmlengine-save.c (html_engine_save_output_buffer): new funtion
+	to save unmodified text.
+
+	Fixes #56971
+
 	* htmlselection.c (html_engine_is_selection_active): put back the
 	change Larry reverted and add test for editable so that it doesn't
 	break the non editable mode

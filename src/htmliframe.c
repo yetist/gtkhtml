@@ -467,8 +467,11 @@ save (HTMLObject *s,
 	if (state->inline_frames && e->clue) {
 		buffer = html_engine_save_buffer_new (e, state->inline_frames);
 		html_object_save (e->clue, buffer);
+
 		if (state->error || 
-		    !html_engine_save_output_string (state, html_engine_save_buffer_peek_text (buffer))) {
+		    !html_engine_save_output_buffer (state,
+						     html_engine_save_buffer_peek_text (buffer),
+						     html_engine_save_buffer_peek_text_len (buffer))) {
 			html_engine_save_buffer_free (buffer);
 			return FALSE;
 		}
@@ -519,7 +522,9 @@ save_plain (HTMLObject *s,
 		buffer = html_engine_save_buffer_new (e, state->inline_frames);
 		html_object_save_plain (e->clue, buffer, requested_width);
 		if (state->error || 
-		    !html_engine_save_output_string (state, html_engine_save_buffer_peek_text (buffer))) {
+		    !html_engine_save_output_buffer (state,
+						     html_engine_save_buffer_peek_text (buffer),
+						     html_engine_save_buffer_peek_text_len (buffer))) {
 			html_engine_save_buffer_free (buffer);
 			return FALSE;
 		}

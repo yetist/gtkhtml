@@ -194,6 +194,13 @@ html_engine_save_output_string (HTMLEngineSaveState *state,
   return retval;
 }
 
+gboolean
+html_engine_save_output_buffer (HTMLEngineSaveState *state, const gchar *buffer, int len)
+{
+	if (len == -1)
+		len = strlen (buffer);
+	return state->receiver (state->engine, buffer, len, state->user_data);
+}
 
 
 static gchar *
@@ -400,6 +407,17 @@ html_engine_save_buffer_peek_text (HTMLEngineSaveState *state)
 	string = (GString *)state->user_data;
 	
 	return string->str;
+}
+
+int
+html_engine_save_buffer_peek_text_len (HTMLEngineSaveState *state)
+{
+	GString *string;
+	
+	g_return_val_if_fail (state != NULL, 0);
+	string = (GString *)state->user_data;
+	
+	return string->len;
 }
 
 HTMLEngineSaveState *

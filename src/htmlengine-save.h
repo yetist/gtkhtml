@@ -60,6 +60,9 @@ gboolean             html_engine_save_output_stringv       (HTMLEngineSaveState 
 gboolean             html_engine_save_output_string        (HTMLEngineSaveState       *state,
 							    const gchar               *format,
 							    ...) G_GNUC_PRINTF (2, 3);
+gboolean             html_engine_save_output_buffer        (HTMLEngineSaveState       *state,
+							    const gchar               *buffer,
+							    int                        len);
 
 /* Saving a whole tree.  */
 gboolean             html_engine_save                      (HTMLEngine                *engine,
@@ -70,6 +73,7 @@ gboolean             html_engine_save_plain                (HTMLEngine          
 							    gpointer                   user_data);
 void                 html_engine_save_buffer_free          (HTMLEngineSaveState       *state);
 guchar              *html_engine_save_buffer_peek_text     (HTMLEngineSaveState       *state);
+int                  html_engine_save_buffer_peek_text_len (HTMLEngineSaveState       *state);
 HTMLEngineSaveState *html_engine_save_buffer_new           (HTMLEngine                *engine,
 							    gboolean                   inline_frames);
 gchar               *html_engine_save_get_sample_body      (HTMLEngine                *e,
