@@ -308,6 +308,12 @@ close_flow (HTMLEngine *e,
 	} else if (HTML_OBJECT_TYPE (last) == HTML_TYPE_VSPACE) {
 		html_clue_remove (HTML_CLUE (e->flow), last);
 		html_object_destroy (last);
+	} else if (HTML_CLUE (e->flow)->tail != HTML_CLUE (e->flow)->head
+		   && HTML_OBJECT_TYPE (last) == HTML_TYPE_TEXTMASTER
+		   && HTML_TEXT (last)->text_len == 1
+		   && HTML_TEXT (last)->text [0] == ' ') {
+		html_clue_remove (HTML_CLUE (e->flow), last);
+		html_object_destroy (last);
 	}
 
 	e->flow = NULL;

@@ -1,5 +1,7 @@
 2000-04-20  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine.c (close_flow): eat trailing spaces in ClueFlow
+
 	* testgtkhtml.c (main): commented out gtk_html_set_editable as it
 	could break things, so uncomment it yourself if you want to test
 	replacing
