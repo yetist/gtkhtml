@@ -176,44 +176,94 @@ file_dialog_destroy (GtkWidget *w, GtkHTMLControlData *cd)
 	cd->file_dialog = NULL;
 }
 
-#define BUFFER_SIZE 4096
-
 static void
 file_dialog_ok (GtkWidget *w, GtkHTMLControlData *cd)
 {
 	const gchar *filename;
-	gint fd;
-
+	GIOChannel *io = NULL;
+	GError *error = NULL;
+	gchar *data = NULL;
+	gsize len = 0;
+	const char *charset;
+	
 	filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION (cd->file_dialog));
-	fd = open (filename, O_RDONLY);
-	if (fd != -1) {
+	io = g_io_channel_new_file (filename, "r", &error);
+
+	if (error || !io)
+		goto end;
+		
+	/* try reading as utf-8 */
+	g_io_channel_read_to_end (io, &data, &len, &error);
+
+	/* If we get a charset error try reading as the locale charset */
+	if (error && g_error_matches (error, G_CONVERT_ERROR, G_CONVERT_ERROR_ILLEGAL_SEQUENCE)
+	    && !g_get_charset (&charset)) {
+
+		g_error_free (error);
+		error = NULL;
+
+		/* 
+		 * reopen the io channel since we can't set the 
+		 * charset once we've begun reading.
+		 */
+		g_io_channel_unref (io);
+		io = g_io_channel_new_file (filename, "r", &error);
+		
+		if (error || !io)
+			goto end;
+		
+		g_io_channel_set_encoding (io, charset, NULL);
+		g_io_channel_read_to_end (io, &data, &len, &error);
+	}
+	
+	if (error)
+		goto end;
+	
+	if (cd->file_html) {
 		GtkHTML *tmp;
 		GtkHTMLStream *stream;
-		gchar buffer [BUFFER_SIZE];
-		ssize_t rb;
-
+		
 		tmp = GTK_HTML (gtk_html_new ());
 		stream = gtk_html_begin_content (tmp, "text/html; charset=utf-8");
-		if (!cd->file_html) {
-			gtk_html_write (tmp, stream, "<PRE>", 5);
-		}
-		while ((rb = read (fd, buffer, BUFFER_SIZE - 1)) > 0) {
-			buffer [rb] = 0;
-
-			if (cd->file_html) {
-				gtk_html_write (tmp, stream, buffer, -1);
-			} else {
-				html_engine_paste_text (cd->html->engine, buffer, g_utf8_strlen (buffer, -1));
-			}
-		}
-		if (!cd->file_html) {
-			gtk_html_write (tmp, stream, "</PRE>", 6);
-		}
-		gtk_html_end (tmp, stream, rb >=0 ? GTK_HTML_STREAM_OK : GTK_HTML_STREAM_ERROR);
+		gtk_html_write (tmp, stream, data, len);
+		gtk_html_end (tmp, stream, error ? GTK_HTML_STREAM_OK : GTK_HTML_STREAM_ERROR);
 		gtk_html_insert_gtk_html (cd->html, tmp);
-
-		close (fd);
+	} else {
+		html_engine_paste_text (cd->html->engine, data, g_utf8_strlen (data, -1));
 	}
+	g_free (data);
+
+ end:
+	if (io)
+		g_io_channel_unref (io);
+
+	if (error) {
+		GtkWidget *toplevel;
+		
+		toplevel = gtk_widget_get_toplevel (GTK_WIDGET (cd->html));
+		
+		if (GTK_WIDGET_TOPLEVEL (toplevel)) {
+			GtkWidget *dialog;
+
+			dialog = gtk_message_dialog_new (GTK_WINDOW (toplevel),
+							 GTK_DIALOG_DESTROY_WITH_PARENT,
+							 GTK_MESSAGE_ERROR,
+							 GTK_BUTTONS_CLOSE,
+							 _("Error loading file '%s': %s"),
+							 filename, error->message);
+		
+			/* Destroy the dialog when the user responds to it (e.g. clicks a button) */
+			g_signal_connect_swapped (GTK_OBJECT (dialog), "response",
+						  G_CALLBACK (gtk_widget_destroy),
+						  GTK_OBJECT (dialog));
+
+			gtk_widget_show (dialog);
+		} else {
+			g_warning ("Error loading file '%s': %s", filename, error->message);
+		}
+		g_error_free (error);
+	}
+
 	gtk_widget_destroy (cd->file_dialog);
 }
 

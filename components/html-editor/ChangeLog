@@ -1,3 +1,8 @@
+2003-05-17  Larry Ewing  <lewing@ximian.com>
+
+	* menubar.c (file_dialog_ok): rewrite file insertion to try utf-8
+	then locale charset and improve error reporting.  Fixes #43069.
+
 2003-05-08  Radek Doulik  <rodo@ximian.com>
 
 	* include config.h and gnome-i18n.h everywhere so that we use
