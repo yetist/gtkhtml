@@ -268,6 +268,8 @@ struct _HTMLEngine {
 
 	gboolean save_data;
 	gint saved_step_count;
+
+	gboolean expose;
 };
 
 /* must be forward referenced *sigh* */
@@ -330,6 +332,8 @@ void  html_engine_draw                 (HTMLEngine *e,
 					gint        y,
 					gint        width,
 					gint        height);
+void  html_engine_expose               (HTMLEngine *e,
+					GdkEventExpose *event);
 void  html_engine_draw_background      (HTMLEngine *e,
 					gint        x,
 					gint        y,
@@ -456,7 +460,8 @@ void  html_engine_add_expose  (HTMLEngine *e,
 			       gint        x,
 			       gint        y,
 			       gint        width,
-			       gint        height);
+			       gint        height,
+			       gboolean    expose);
 void html_engine_redraw_selection (HTMLEngine *e);
 
 gboolean    html_engine_focus              (HTMLEngine       *e,

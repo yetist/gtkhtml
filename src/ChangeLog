@@ -1,3 +1,18 @@
+2003-01-15  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (html_engine_draw_real): set Engine::expose
+	(html_engine_add_expose): added expose parameter, use struct
+	HTMLEngineExpose to store expose parameter as well
+
+	* htmlembedded.c (draw): queue widget draw only when we aren't
+	drawing on expose event request because it's already handled in
+	gtk_container code and was causing infinite loops
+
+	* gtkhtml.c (expose): use html_engine_expose
+
+	* htmlengine.c (html_engine_expose): new function, used from
+	expose event handler
+
 2003-01-14  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (key_press_event): paste text only when event->length > 0

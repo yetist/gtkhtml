@@ -77,10 +77,8 @@ draw (HTMLObject *o,
 		if (element->widget->parent) {
 			if (new_x != element->abs_x || new_y != element->abs_y)
 				gtk_layout_move (GTK_LAYOUT(element->parent), element->widget, new_x, new_y);
-			else
-				/* FIXME: If this is turned on, any embedded causes infinite
-				   idle funciton looping */
-				/*gtk_widget_queue_draw (element->widget)*/;
+			else if (!GTK_HTML (element->parent)->engine->expose)
+				gtk_widget_queue_draw (element->widget);
 		}
 	
 		element->abs_x = new_x;

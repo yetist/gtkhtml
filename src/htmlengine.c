@@ -3619,6 +3619,8 @@ html_engine_init (HTMLEngine *engine)
 	engine->saved_step_count = -1;
 
 	engine->map_table = NULL;
+
+	engine->expose = FALSE;
 }
 
 HTMLEngine *
@@ -4162,7 +4164,7 @@ crop_iframe_to_parent (HTMLEngine *e, gint x, gint y, gint *width, gint *height)
 }
 
 static void
-html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height)
+html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height, gboolean expose)
 {
 	if (e->block && e->opened_streams)
 		return;
@@ -4216,6 +4218,7 @@ html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height)
 	/* printf ("html_engine_draw_real %d x %d, %d\n",
 	   e->width, e->height, e->clue ? e->clue->ascent + e->clue->descent : 0); */
 
+	e->expose = expose;
 	if (e->widget->iframe_parent)
 		crop_iframe_to_parent (e, x, y, &width, &height);
 
@@ -4234,18 +4237,25 @@ html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height)
 		html_engine_draw_cursor_in_area (e, x, y, width, height);
 	else
 		html_engine_draw_focus_object (e);
+	e->expose = FALSE;
 }
 
 void
-html_engine_draw (HTMLEngine *e,
-		  gint x, gint y,
-		  gint width, gint height)
+html_engine_expose (HTMLEngine *e, GdkEventExpose *event)
 {
-	if (html_engine_frozen (e)) {
-		html_engine_add_expose (e, x, y, width, height);
-	} else {
-		html_engine_draw_real (e, x, y, width, height);
-	}
+	if (html_engine_frozen (e))
+		html_engine_add_expose (e, event->area.x, event->area.y, event->area.width, event->area.height, TRUE);
+	else
+		html_engine_draw_real (e, event->area.x, event->area.y, event->area.width, event->area.height, TRUE);
+}
+
+void
+html_engine_draw (HTMLEngine *e, gint x, gint y, gint width, gint height)
+{
+	if (html_engine_frozen (e))
+		html_engine_add_expose (e, x, y, width, height, FALSE);
+	else
+		html_engine_draw_real (e, x, y, width, height, FALSE);
 }
 
 static gint
@@ -4851,6 +4861,11 @@ free_expose_data (gpointer data, gpointer user_data)
 	g_free (data);
 }
 
+struct HTMLEngineExpose {
+	gint x, y, width, height;
+	gboolean expose;
+};
+
 static void
 do_pending_expose (HTMLEngine *e)
 {
@@ -4860,12 +4875,12 @@ do_pending_expose (HTMLEngine *e)
 	/* printf ("do_pending_expose\n"); */
 
 	for (l = e->pending_expose; l; l = next) {
-		GdkRectangle *r;
+		struct HTMLEngineExpose *r;
 
 		next = l->next;
-		r = (GdkRectangle *) l->data;
+		r = (struct HTMLEngineExpose *) l->data;
 
-		html_engine_draw_real (e, r->x, r->y, r->width, r->height);
+		html_engine_draw_real (e, r->x, r->y, r->width, r->height, e->expose);
 		g_free (r);
 	}
 }
@@ -5453,20 +5468,21 @@ html_engine_get_top_html_engine (HTMLEngine *e)
 }
 
 void
-html_engine_add_expose  (HTMLEngine *e, gint x, gint y, gint width, gint height)
+html_engine_add_expose  (HTMLEngine *e, gint x, gint y, gint width, gint height, gboolean expose)
 {
-	GdkRectangle *r;
+	struct HTMLEngineExpose *r;
 
 	/* printf ("html_engine_add_expose\n"); */
 
 	g_assert (HTML_IS_ENGINE (e));
 
-	r = g_new (GdkRectangle, 1);
+	r = g_new (struct HTMLEngineExpose, 1);
 
 	r->x = x;
 	r->y = y;
 	r->width = width;
 	r->height = height;
+	r->expose = expose;
 
 	e->pending_expose = g_slist_prepend (e->pending_expose, r);
 }
