@@ -115,4 +115,18 @@ binding "gtkhtml-bindings-ms"
   bind "<Alt><Shift>p"        { "command" (zero-padding) }
 
   bind "<Ctrl>o"              { "command" (text-color-apply) }
+
+# Sun Edit Keys
+  bind "F12"                  { "command" (redo) }
+  bind "F14"                  { "command" (undo) }
+  bind "F16"                  { "command" (copy) }
+  bind "F18"                  { "command" (paste) }
+  bind "F20"                  { "command" (cut) }
+  
+# no bindings for these right now
+#  bind "F11"                  { "command" (stop) }
+#  bind "F13"                  { "command" (props) }
+#  bind "F17"                  { "command" (open) }
+#  bind "F15"                  { "command" (front) }
+#  bind "F19"		       { "command" (find) }
 }
