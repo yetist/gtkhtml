@@ -1,6 +1,7 @@
-/* This file is part of the KDE libraries
+/*
     Copyright (C) 1997 Martin Jones (mjones@kde.org)
               (C) 1997 Torben Weis (weis@kde.org)
+	      (C) 1999 Anders Carlsson (andersca@gnu.org)
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
@@ -40,6 +41,7 @@ html_table_cell_new (gint x, gint y, gint max_width, gint percent,
 	object->set_max_ascent = html_clue_set_max_ascent;
 	object->set_max_width = html_table_cell_set_max_width;
 	object->calc_preferred_width = html_clue_calc_preferred_width;
+	object->reset = html_cluev_reset;
 
 	/* FIXME: fix backgrounds */
 	object->draw = html_table_cell_draw;
@@ -153,7 +155,6 @@ html_table_cell_set_width (HTMLTableCell *cell, gint width)
 	if (!(o->flags & FixedWidth))
 	    o->max_width = width;
 
-	g_print ("The width being set: %d\n", width);
 	for (obj = HTML_CLUE (cell)->head; obj != 0; obj = obj->nextObj)
 		obj->set_max_width (obj, width);
 }

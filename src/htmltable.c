@@ -1,6 +1,7 @@
-/* This file is part of the KDE libraries
+/* 
     Copyright (C) 1997 Martin Jones (mjones@kde.org)
               (C) 1997 Torben Weis (weis@kde.org)
+	      (C) 1999 Anders Carlsson (andersca@gnu.org)
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
@@ -36,6 +37,7 @@ static gint html_table_calc_min_width (HTMLObject *o);
 static gint html_table_calc_preferred_width (HTMLObject *o);
 static void html_table_set_max_width (HTMLObject *o, gint max_width);
 static void html_table_calc_absolute_pos (HTMLObject *o, gint x, gint y);
+static void html_table_reset (HTMLObject *o);
 
 #define a_colinfo(x) (((ColInfo_t *)(table->colInfo)->data)[x])
 #define a_coltype(x) (((ColType *)(table->colType)->data)[x])
@@ -61,6 +63,7 @@ html_table_new (gint x, gint y, gint max_width, gint width, gint percent,
 	object->calc_preferred_width = html_table_calc_preferred_width;
 	object->set_max_width = html_table_set_max_width;
 	object->calc_absolute_pos = html_table_calc_absolute_pos;
+	object->reset = html_table_reset;
 
 	object->x = x;
 	object->y = y;
@@ -131,6 +134,8 @@ html_table_calc_size (HTMLObject *o, HTMLObject *parent)
 	/* Attempt to get sensible cell widths */
 	html_table_optimize_cell_width (table);
 
+	g_print ("in calc size, rows: %d\n", table->totalRows);
+	g_print ("in calc size, cols: %d\n", table->totalCols);
 	for (r = 0; r < table->totalRows; r++) {
 		for (c = 0; c < table->totalCols; c++) {
 			if ((cell = table->cells[r][c]) == 0)
@@ -223,6 +228,8 @@ html_table_set_cells (HTMLTable *table, gint r, gint c, HTMLTableCell *cell)
 	gint endRow = r + cell->rspan;
 	gint endCol = c + cell->cspan;
 	gint tc;
+	
+	g_print ("endRow: %d, totalRows: %d\n", endRow, table->allocRows + 10);
 
 	if (endCol > table->totalCols)
 		html_table_add_columns (table, endCol - table->totalCols);
@@ -247,14 +254,16 @@ static void
 html_table_add_rows (HTMLTable *table, gint num)
 {
 	gint r;
-	HTMLTableCell ***newRows = g_new0 (HTMLTableCell **, table->allocRows + num);
+	HTMLTableCell ***newRows = g_malloc (sizeof (HTMLTableCell **) * (table->allocRows + num));
 	memcpy (newRows, table->cells, table->allocRows * sizeof (HTMLTableCell **));
+	g_print ("adding rows\n");
 	/* FIXME: do destroy instead of free? */
 	g_free (table->cells);
 	table->cells = newRows;
 
 	for (r = table->allocRows; r < table->allocRows + num; r++) {
-		table->cells[r] = g_new0 (HTMLTableCell *, table->totalCols);
+		table->cells[r] = g_malloc (sizeof (HTMLTableCell *) * table->totalCols);
+		memset (table->cells[r], 0, table->totalCols * sizeof (HTMLTableCell *));
 	}
 
 	table->allocRows += num;
@@ -266,9 +275,12 @@ html_table_add_columns (HTMLTable *table, gint num)
 	HTMLTableCell **newCells;
 	gint r;
 
+	g_print ("adding columns: %d\n", num);
+
 	for (r = 0; r < table->allocRows; r++) {
-		newCells = g_new0 (HTMLTableCell *, table->totalCols + num);
+		newCells = g_malloc (sizeof (HTMLTableCell *) * (table->totalCols + num));
 		memcpy (newCells, table->cells[r], table->totalCols * sizeof (HTMLTableCell *));
+		memset (newCells + table->totalCols, 0, num * sizeof (HTMLTableCell *));
 		/* FIXME: Do destroy instead of free? */
 		g_free (table->cells[r]);
 		table->cells[r] = newCells;
@@ -1131,4 +1143,34 @@ html_table_calc_absolute_pos (HTMLObject *o, gint x, gint y)
 			HTML_OBJECT (cell)->calc_absolute_pos (HTML_OBJECT (cell), lx, ly);
 		}
 	}
+}
+
+static void
+html_table_reset (HTMLObject *o) {
+	HTMLTable *table = HTML_TABLE (o);
+	HTMLTableCell *cell;
+	guint r, c;
+
+	g_print ("Resetting\n");
+	g_print ("totalRows: %d\n", table->totalRows);
+	g_print ("totalCols: %d\n", table->totalCols);
+
+	for (r = 0; r < table->totalRows; r++) {
+		for (c = 0; c < table->totalCols; c++) {
+
+			if ((cell = table->cells[r][c]) == 0)
+				continue;
+			if (c < table->totalCols - 1 &&
+			    cell == table->cells[r][c + 1])
+				continue;
+			if (r < table->totalRows - 1 &&
+			    cell == table->cells[r + 1][c])
+				continue;
+			
+			HTML_OBJECT (cell)->reset (HTML_OBJECT (cell));
+		}
+	}
+
+	html_table_calc_col_info (table);
+
 }

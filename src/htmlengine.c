@@ -1159,8 +1159,8 @@ html_engine_parse_p (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		}
 		if (align != p->divAlign) {
 			if (p->flow == 0) {
-				html_engine_new_flow (p, clue);
-				HTML_CLUE (p->flow)->halign = align;
+			  html_engine_new_flow (p, clue);
+			  HTML_CLUE (p->flow)->halign = align;
 			}
 		}
 	}

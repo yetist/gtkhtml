@@ -318,7 +318,8 @@ html_clueflow_calc_size (HTMLObject *o, HTMLObject *parent)
 	
 	if (o->width < o->max_width)
 		o->width = o->max_width;
-
+	
+	g_print ("clueflow width: %d\n", o->width);
 }
 
 static gint

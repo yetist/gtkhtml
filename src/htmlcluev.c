@@ -121,7 +121,8 @@ html_cluev_calc_size (HTMLObject *o, HTMLObject *parent)
 
 	/* If we have already called calc_size for the children, then just
 	   continue from the last object done in previous call. */
-
+	
+	g_print ("clue->curr is: %d\n", clue->curr);
 	if (clue->curr) {
 		o->ascent = cluev->padding;
 		
@@ -307,8 +308,6 @@ html_cluev_reset (HTMLObject *clue)
 
 	cluev->alignLeftList = 0;
 	cluev->alignRightList = 0;
-
-	HTML_CLUE (clue)->curr = 0;
 }
 
 gboolean

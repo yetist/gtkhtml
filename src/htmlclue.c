@@ -198,6 +198,8 @@ html_clue_reset (HTMLObject *clue)
 
 	for (obj = HTML_CLUE (clue)->head; obj != 0; obj = obj->nextObj)
 		obj->reset (obj);
+
+	HTML_CLUE (clue)->curr = 0;
 }
 
 void
@@ -222,7 +224,8 @@ html_clue_append (HTMLObject *clue, HTMLObject *o)
 void
 html_clue_calc_size (HTMLObject *o, HTMLObject *parent)
 {
-	
+	/* If we have already called calc_size for the children, then just
+	   continue from the last object done in previous call. */
 	if (!HTML_CLUE (o)->curr) {
 		o->ascent = 0;
 		HTML_CLUE (o)->curr = HTML_CLUE (o)->head;
