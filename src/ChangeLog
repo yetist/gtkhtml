@@ -1,3 +1,7 @@
+2001-09-10  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (load_keybindings): bind C-S-+ and C-+ to ZOOM_IN
+
 2001-09-08  Dan Winship  <danw@ximian.com>
 
 	* gtkhtml.c (destroy): unref the engine rather than explicitly
