@@ -1239,7 +1239,8 @@ selection_received (GtkWidget *widget,
 		if (selection_data->type != GDK_SELECTION_TYPE_STRING) {
 			html_engine_paste_text (GTK_HTML (widget)->engine, 
 						selection_data->data,
-						(guint) selection_data->length);
+						(guint) unicode_strlen (selection_data->data, 
+									selection_data->length));
 		} else {
 			gchar *utf8 = NULL;
 			

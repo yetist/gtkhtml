@@ -734,7 +734,7 @@ html_engine_insert_text (HTMLEngine *e, const gchar *text, guint len)
 	gint alen;
 
 	if (len == -1)
-		len = strlen (text);
+		len = unicode_strlen (text, -1);
 	if (!len)
 		return;
 
