@@ -35,6 +35,7 @@ typedef struct _GtkHTMLEditPropertiesDialog   GtkHTMLEditPropertiesDialog;
 #include "image.h"
 #include "link.h"
 #include "rule.h"
+#include "engine.h"
 #include "Spell.h"
 
 struct _GtkHTMLControlData {
@@ -73,6 +74,7 @@ struct _GtkHTMLControlData {
 
 	GNOME_Spell_Dictionary  dict;
 	BonoboObjectClient     *dict_client;
+	HTMLEditorEngine       *editor_bonobo_engine;
 };
 
 GtkHTMLControlData * gtk_html_control_data_new       (GtkHTML *html, GtkWidget *vbox);

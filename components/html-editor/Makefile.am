@@ -72,6 +72,8 @@ html_editor_control_SOURCES =			\
 	dialog.h				\
 	editor-control-factory.c		\
 	editor-control-factory.h		\
+	engine.h				\
+	engine.c				\
 	image.c					\
 	image.h					\
 	link.c					\

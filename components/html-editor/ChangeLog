@@ -1,3 +1,21 @@
+2000-10-31  Radek Doulik  <rodo@helixcode.com>
+
+	* editor-control-factory.c (editor_control_construct): extracted
+	function, added Engine iface
+	(editor_api_event): new method, deliver editor events to
+	Engine::Listener
+
+	* control-data.h: added HTMLEditorEngine to GtkHTMLControlData
+
+	* Makefile.am: added engine.[ch]
+
+	* HTMLEditor.idl: added new ifaces - Engine, Listener
+
+	* engine.[ch]: new files, implementing HTMLEditor::Engine object
+
+	* toolbar.c (editor_toolbar_indent_cb): updated to API changes
+	(editor_toolbar_unindent_cb): likewise
+
 2000-10-27  Maciej Stachowiak  <mjs@eazel.com>
 
 	* html-editor-control.oafinfo: Made list of interfaces and list of

@@ -37,6 +37,7 @@
 #include "gtkhtml.h"
 #include "htmlengine-edit.h"
 
+#include "engine.h"
 #include "menubar.h"
 #include "persist-file-impl.h"
 #include "persist-stream-impl.h"
@@ -331,16 +332,64 @@ destroy_control_data_cb (GtkObject *control, GtkHTMLControlData *cd)
 	gtk_main_quit ();
 }
 
+static void
+editor_control_construct (BonoboControl *control, GtkWidget *vbox)
+{
+	GtkHTMLControlData *control_data;
+	BonoboPersistStream *stream_impl;
+	BonoboPersistFile *file_impl;
+	GtkWidget *html_widget;
+
+	active_controls++;
+
+	/* GtkHTML widget */
+
+	html_widget = gtk_html_new ();
+	gtk_html_load_empty (GTK_HTML (html_widget));
+	gtk_html_set_editable (GTK_HTML (html_widget), TRUE);
+
+	control_data = gtk_html_control_data_new (GTK_HTML (html_widget), vbox);
+	if (control_data->dict_client)
+		gtk_html_set_editor_api (GTK_HTML (html_widget), editor_api, control_data);
+
+	/* HTMLEditor::Engine */
+
+	control_data->editor_bonobo_engine = html_editor_engine_new (GTK_HTML (html_widget));
+	bonobo_object_add_interface (BONOBO_OBJECT (control), BONOBO_OBJECT (control_data->editor_bonobo_engine));
+
+	/* Bonobo::PersistStream */
+
+	stream_impl = persist_stream_impl_new (GTK_HTML (html_widget));
+	bonobo_object_add_interface (BONOBO_OBJECT (control), BONOBO_OBJECT (stream_impl));
+
+	/* Bonobo::PersistFile */
+
+	file_impl = persist_file_impl_new (GTK_HTML (html_widget));
+	bonobo_object_add_interface (BONOBO_OBJECT (control), BONOBO_OBJECT (file_impl));
+
+	/* Part of the initialization must be done after the control is
+	   embedded in its control frame.  We use the "set_frame" signal to
+	   handle that.  */
+
+	gtk_signal_connect (GTK_OBJECT (control), "set_frame",
+			    GTK_SIGNAL_FUNC (set_frame_cb), control_data);
+
+	gtk_signal_connect (GTK_OBJECT (control), "destroy",
+			    GTK_SIGNAL_FUNC (destroy_control_data_cb), control_data);
+
+	gtk_signal_connect (GTK_OBJECT (html_widget), "url_requested",
+			    GTK_SIGNAL_FUNC (url_requested_cb), control);
+
+	gtk_signal_connect (GTK_OBJECT (html_widget), "button_press_event",
+			    GTK_SIGNAL_FUNC (html_button_pressed), control_data);
+}
+
 static BonoboObject *
 editor_control_factory (BonoboGenericFactory *factory,
 			gpointer closure)
 {
 	BonoboControl *control;
-	BonoboPersistStream *stream_impl;
-	BonoboPersistFile *file_impl;
-	GtkWidget *html_widget;
 	GtkWidget *vbox;
-	GtkHTMLControlData *control_data;
 
 	vbox = gtk_vbox_new (FALSE, 0);
 	gtk_widget_show (vbox);
@@ -348,45 +397,10 @@ editor_control_factory (BonoboGenericFactory *factory,
 	/* g_warning ("Creating a new GtkHTML editor control."); */
 	control = bonobo_control_new (vbox);
 
-	if (control) {
-		active_controls++;
-
-		/* GtkHTML widget */
-
-		html_widget = gtk_html_new ();
-		gtk_html_load_empty (GTK_HTML (html_widget));
-		gtk_html_set_editable (GTK_HTML (html_widget), TRUE);
-
-		/* Bonobo::PersistStream */
-
-		stream_impl = persist_stream_impl_new (GTK_HTML (html_widget));
-		bonobo_object_add_interface (BONOBO_OBJECT (control), BONOBO_OBJECT (stream_impl));
-
-		/* Bonobo::PersistFile */
-
-		file_impl = persist_file_impl_new (GTK_HTML (html_widget));
-		bonobo_object_add_interface (BONOBO_OBJECT (control), BONOBO_OBJECT (file_impl));
-
-		/* Part of the initialization must be done after the control is
-		   embedded in its control frame.  We use the "set_frame" signal to
-		   handle that.  */
-
-		control_data = gtk_html_control_data_new (GTK_HTML (html_widget), vbox);
-		if (control_data->dict_client)
-			gtk_html_set_editor_api (GTK_HTML (html_widget), editor_api, control_data);
-
-		gtk_signal_connect (GTK_OBJECT (control), "set_frame",
-				    GTK_SIGNAL_FUNC (set_frame_cb), control_data);
-
-		gtk_signal_connect (GTK_OBJECT (control), "destroy",
-				    GTK_SIGNAL_FUNC (destroy_control_data_cb), control_data);
-
-		gtk_signal_connect (GTK_OBJECT (html_widget), "url_requested",
-				    GTK_SIGNAL_FUNC (url_requested_cb), control);
-
-		gtk_signal_connect (GTK_OBJECT (html_widget), "button_press_event",
-				    GTK_SIGNAL_FUNC (html_button_pressed), control_data);
-	}
+	if (control)
+		editor_control_construct (control, vbox);
+	else
+		gtk_widget_unref (vbox);
 
 	return BONOBO_OBJECT (control);
 }
@@ -412,6 +426,50 @@ editor_api_command (GtkHTML *html, GtkHTMLCommandType com_type, gpointer data)
 }
 
 static void
+editor_api_event (GtkHTML *html, GtkHTMLEditorEventType event_type, GtkArg **args, gpointer data)
+{
+	GtkHTMLControlData *cd = (GtkHTMLControlData *) data;
+
+	/* printf ("editor_api_event\n"); */
+
+	if (event_type != GTK_HTML_EDITOR_EVENT_COMMAND) {
+		g_warning ("Only GTK_HTML_EDITOR_EVENT_COMMAND is supported (for now)\n");
+		return;
+	}
+	if (cd->editor_bonobo_engine) {
+		HTMLEditor_Engine engine;
+		HTMLEditor_Listener listener;
+		CORBA_Environment ev;
+
+		engine = bonobo_object_corba_objref (BONOBO_OBJECT (cd->editor_bonobo_engine));
+		if (engine != CORBA_OBJECT_NIL
+		    && (listener = HTMLEditor_Engine__get_listener (engine, &ev)) != CORBA_OBJECT_NIL) {
+
+			HTMLEditor_ListenerArgs *seq;
+			BonoboArg *arg = bonobo_arg_new (bonobo_arg_type_from_gtk (args [0]->type));
+
+			bonobo_arg_from_gtk (arg, args [0]);
+			CORBA_any_set_release (arg, CORBA_FALSE);
+
+			seq = HTMLEditor_ListenerArgs__alloc ();
+			seq->_length = 1;
+			seq->_buffer = CORBA_sequence_HTMLEditor_Arg_allocbuf (1);
+			seq->_buffer [0].value = *arg;
+			CORBA_any_set_release (arg, CORBA_TRUE);
+			CORBA_sequence_set_release (seq, CORBA_TRUE);
+
+			/* printf ("sending to listener\n"); */
+			CORBA_exception_init (&ev);
+			HTMLEditor_Listener_event (listener, "command", seq, &ev);
+			CORBA_exception_free (&ev);
+
+			CORBA_free (arg);
+			CORBA_free (seq);
+		}
+	}
+}
+
+static void
 new_editor_api ()
 {
 	editor_api = g_new (GtkHTMLEditorAPI, 1);
@@ -421,6 +479,7 @@ new_editor_api ()
 	editor_api->add_to_personal    = spell_add_to_personal;
 	editor_api->add_to_session     = spell_add_to_session;
 	editor_api->command            = editor_api_command;
+	editor_api->event              = editor_api_event;
 }
 
 void
