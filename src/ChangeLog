@@ -1,6 +1,7 @@
 2000-12-07  Radek Doulik  <rodo@helixcode.com>
 
 	* htmltable.c: fix HTML_CHANGE_PREF_WIDTH brokeness
+	count padding to cell width
 
 	* htmlgdkpainter.c: removed obsolete code
 
