@@ -79,12 +79,10 @@ move_to_found (HTMLSearch *info)
 		slave = HTML_TEXT_SLAVE (last);
 		if (slave->posStart+slave->posLen >= info->start_pos) {
 			html_object_calc_abs_position (HTML_OBJECT (slave), &ex, &ey);
-			add_iframe_off (e, &x, &y);
+			add_iframe_off (e, &ex, &ey);
 			break;
 		}
 	}
-
-	printf ("x %d y %d ex %d ey %d xo %d yo %d\n", x, y, ex, ey, e->x_offset, e->y_offset);
 
 	w = ex - x + last->width;
 	h = ey - y + last->ascent+last->descent;
