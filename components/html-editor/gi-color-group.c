@@ -73,7 +73,7 @@ color_group_init (ColorGroup *cg)
 	cg->history_size = 0;
 }
 
-TMP_GAL_MAKE_TYPE(color_group,
+TMP_GI_MAKE_TYPE(color_group,
 		  "ColorGroup",
 		  ColorGroup,
 		  color_group_class_init,

@@ -30,59 +30,59 @@
 extern "C" {
 #endif /* __cplusplus */
 
-#define GAL_COMBO_BOX_TYPE          (gal_combo_box_get_type())
-#define GAL_COMBO_BOX(obj)	    G_TYPE_CHECK_INSTANCE_CAST (obj, gal_combo_box_get_type (), GalComboBox)
-#define GAL_COMBO_BOX_CLASS(klass)  G_TYPE_CHECK_CLASS_CAST (klass, gal_combo_box_get_type (), GalComboBoxClass)
-#define GAL_IS_COMBO_BOX(obj)       G_TYPE_CHECK_INSTANCE_TYPE (obj, gal_combo_box_get_type ())
+#define GI_COMBO_BOX_TYPE          (gi_combo_box_get_type())
+#define GI_COMBO_BOX(obj)	    G_TYPE_CHECK_INSTANCE_CAST (obj, gi_combo_box_get_type (), GiComboBox)
+#define GI_COMBO_BOX_CLASS(klass)  G_TYPE_CHECK_CLASS_CAST (klass, gi_combo_box_get_type (), GiComboBoxClass)
+#define GI_IS_COMBO_BOX(obj)       G_TYPE_CHECK_INSTANCE_TYPE (obj, gi_combo_box_get_type ())
 
-typedef struct _GalComboBox	   GalComboBox;
-typedef struct _GalComboBoxPrivate GalComboBoxPrivate;
-typedef struct _GalComboBoxClass   GalComboBoxClass;
+typedef struct _GiComboBox	   GiComboBox;
+typedef struct _GiComboBoxPrivate GiComboBoxPrivate;
+typedef struct _GiComboBoxClass   GiComboBoxClass;
 
-struct _GalComboBox {
+struct _GiComboBox {
 	GtkHBox hbox;
-	GalComboBoxPrivate *priv;
+	GiComboBoxPrivate *priv;
 };
 
-struct _GalComboBoxClass {
+struct _GiComboBoxClass {
 	GtkHBoxClass parent_class;
 
-	GtkWidget *(*pop_down_widget) (GalComboBox *cbox);
+	GtkWidget *(*pop_down_widget) (GiComboBox *cbox);
 
 	/*
 	 * invoked when the popup has been hidden, if the signal
 	 * returns TRUE, it means it should be killed from the
 	 */ 
-	gboolean  *(*pop_down_done)   (GalComboBox *cbox, GtkWidget *);
+	gboolean  *(*pop_down_done)   (GiComboBox *cbox, GtkWidget *);
 
 	/*
 	 * Notification signals.
 	 */
-	void      (*pre_pop_down)     (GalComboBox *cbox);
-	void      (*post_pop_hide)    (GalComboBox *cbox);
+	void      (*pre_pop_down)     (GiComboBox *cbox);
+	void      (*post_pop_hide)    (GiComboBox *cbox);
 };
 
-GtkType    gal_combo_box_get_type    (void);
-void       gal_combo_box_construct   (GalComboBox *combo_box,
+GtkType    gi_combo_box_get_type    (void);
+void       gi_combo_box_construct   (GiComboBox *combo_box,
 				      GtkWidget   *display_widget,
 				      GtkWidget   *optional_pop_down_widget);
-void       gal_combo_box_get_pos     (GalComboBox *combo_box, int *x, int *y);
+void       gi_combo_box_get_pos     (GiComboBox *combo_box, int *x, int *y);
 
-GtkWidget *gal_combo_box_new         (GtkWidget *display_widget,
+GtkWidget *gi_combo_box_new         (GtkWidget *display_widget,
 				      GtkWidget *optional_pop_down_widget);
-void       gal_combo_box_popup_hide  (GalComboBox *combo_box);
+void       gi_combo_box_popup_hide  (GiComboBox *combo_box);
 
-void       gal_combo_box_set_display (GalComboBox *combo_box,
+void       gi_combo_box_set_display (GiComboBox *combo_box,
 				      GtkWidget *display_widget);
 
-void       gal_combo_box_set_title   (GalComboBox *combo,
+void       gi_combo_box_set_title   (GiComboBox *combo,
 				      const gchar *title);
 
-void       gal_combo_box_set_tearable        (GalComboBox *combo,
+void       gi_combo_box_set_tearable        (GiComboBox *combo,
 					      gboolean tearable);
-void       gal_combo_box_set_arrow_sensitive (GalComboBox *combo,
+void       gi_combo_box_set_arrow_sensitive (GiComboBox *combo,
 					      gboolean sensitive);
-void       gal_combo_box_set_arrow_relief    (GalComboBox *cc,
+void       gi_combo_box_set_arrow_relief    (GiComboBox *cc,
 					      GtkReliefStyle relief);
 #ifdef __cplusplus
 };

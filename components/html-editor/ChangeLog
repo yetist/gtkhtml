@@ -1,3 +1,8 @@
+2004-11-30  Radek Doulik  <rodo@ximian.com>
+
+	* gi-*.[ch]: replace all occurences of gal by gi to be sure we
+	don't have equal symbols as gal has
+
 2004-11-29  Radek Doulik  <rodo@ximian.com>
 
 	* menubar.c (menubar_setup): in case git doesn't contain an icon

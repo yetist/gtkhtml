@@ -115,7 +115,7 @@ color_palette_class_init (GObjectClass *object_class)
 			      G_TYPE_BOOLEAN, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN);
 }
 
-TMP_GAL_MAKE_TYPE (color_palette,
+TMP_GI_MAKE_TYPE (color_palette,
 		   "ColorPalette",
 		   ColorPalette,
 		   color_palette_class_init,

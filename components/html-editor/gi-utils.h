@@ -1,7 +1,7 @@
-#ifndef TMP_GAL_UTILS
-#define TMP_GAL_UTILS
+#ifndef TMP_GI_UTILS
+#define TMP_GI_UTILS
 
-#define TMP_GAL_MAKE_TYPE(l,str,t,ci,i,parent) \
+#define TMP_GI_MAKE_TYPE(l,str,t,ci,i,parent) \
 GType l##_get_type(void)\
 {\
 	static GType type = 0;				\

@@ -38,7 +38,7 @@
 G_BEGIN_DECLS
 
 typedef struct _ColorCombo {
-	GalComboBox     combo_box;
+	GiComboBox     combo_box;
 
 	/*
 	 * Canvas where we display
@@ -53,7 +53,7 @@ typedef struct _ColorCombo {
 } ColorCombo;
 
 typedef struct {
-	GalComboBoxClass parent_class;
+	GiComboBoxClass parent_class;
 
 	/* Signals emited by this widget */
 	void (* color_changed) (ColorCombo *color_combo, GdkColor *color,
