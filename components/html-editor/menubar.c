@@ -41,7 +41,9 @@ static void replace_cb          (GtkWidget *widget, GtkHTMLControlData *cd);
 
 static void insert_image_cb     (GtkWidget *widget, GtkHTMLControlData *cd);
 static void insert_link_cb      (GtkWidget *widget, GtkHTMLControlData *cd);
-static void insert_rule_cb    (GtkWidget *widget, GtkHTMLControlData *cd);
+static void insert_rule_cb      (GtkWidget *widget, GtkHTMLControlData *cd);
+
+static void properties          (void);
 
 
 static GnomeUIInfo format_subtree_info[] = {
@@ -66,6 +68,8 @@ static GnomeUIInfo edit_subtree_info[] = {
 	GNOMEUIINFO_ITEM_NONE (N_("Find Rege_x..."), N_("Regular expressions search..."), search_regex_cb),
 	GNOMEUIINFO_MENU_FIND_AGAIN_ITEM (search_next_cb, NULL),
 	GNOMEUIINFO_MENU_REPLACE_ITEM (replace_cb, NULL),
+	GNOMEUIINFO_SEPARATOR,
+	GNOMEUIINFO_MENU_PROPERTIES_ITEM (properties, NULL),
 	GNOMEUIINFO_END	
 };
 
@@ -155,6 +159,14 @@ static void
 insert_rule_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
 	rule_insert (cd);
+}
+
+static void
+properties (void)
+{
+	gchar *argv[2] = {"gtkhtml-properties-capplet", NULL};
+	if (gnome_execute_async (NULL, 1, argv) < 0)
+		gnome_error_dialog (_("Cannot execute gtkhtml properties"));
 }
 
 void
