@@ -1,3 +1,14 @@
+2004-05-27  Radek Doulik  <rodo@ximian.com>
+
+	* htmlpainter.h: removed color set from painter, we now use only
+	the global one from engine. having own sets in painters caused a
+	lot of pain by having to update those when global one
+	updated. there were still problems with it (wrong selection color
+	in test editor when switched to plain text mode and probably few
+	more). updated everywhere the color set usage
+
+	Might fix #58828
+
 2004-05-26  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (html_text_op_copy_helper): update spell errors

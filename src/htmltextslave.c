@@ -35,6 +35,8 @@
 #include "htmlprinter.h"
 #include "htmlplainpainter.h"
 #include "htmlgdkpainter.h"
+#include "htmlsettings.h"
+#include "gtkhtml.h"
 
 
 /* #define HTML_TEXT_SLAVE_DEBUG */
@@ -461,6 +463,12 @@ draw_spell_errors (HTMLTextSlave *slave, HTMLPainter *p, gint tx, gint ty)
 	gint last_off = 0;
 	gint line_offset = html_text_slave_get_line_offset (slave, 0, p);
 	gchar *text = html_text_slave_get_text (slave);
+	HTMLEngine *e;
+
+	if (p->widget && GTK_IS_HTML (p->widget))
+		e = GTK_HTML (p->widget)->engine;
+	else
+		return;
 
 	while (cur) {
 
@@ -473,7 +481,8 @@ draw_spell_errors (HTMLTextSlave *slave, HTMLPainter *p, gint tx, gint ty)
 			guint len = mi - ma;
 			gint lo, width, asc, dsc;
 
-			html_painter_set_pen (p, &html_colorset_get_color_allocated (p, HTMLSpellErrorColor)->color);
+			html_painter_set_pen (p, &html_colorset_get_color_allocated (e->settings->color_set,
+										     p, HTMLSpellErrorColor)->color);
 			/* printf ("spell error: %s\n", html_text_get_text (slave->owner, off)); */
 			lo = line_offset;
 			
@@ -655,6 +664,12 @@ draw_focus  (HTMLPainter *painter, GdkRectangle *box)
 	HTMLGdkPainter *p;
 	GdkGCValues values;
 	gchar dash [2];
+	HTMLEngine *e;
+
+	if (painter->widget && GTK_IS_HTML (painter->widget))
+		e = GTK_HTML (painter->widget)->engine;
+	else
+		return;
 
 	if (HTML_IS_PRINTER (painter))
 		return;
@@ -662,7 +677,8 @@ draw_focus  (HTMLPainter *painter, GdkRectangle *box)
 	p = HTML_GDK_PAINTER (painter);
 	/* printf ("draw_text_focus\n"); */
 
-	gdk_gc_set_foreground (p->gc, &html_colorset_get_color_allocated (painter, HTMLTextColor)->color);
+	gdk_gc_set_foreground (p->gc, &html_colorset_get_color_allocated (e->settings->color_set,
+									  painter, HTMLTextColor)->color);
 	gdk_gc_get_values (p->gc, &values);
 
 	dash [0] = 1;

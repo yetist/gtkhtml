@@ -38,6 +38,7 @@
 #include "htmlembedded.h"
 #include "htmlengine.h"
 #include "htmltextslave.h"
+#include "htmlsettings.h"
 #include "gtkhtml-embedded.h"
 #include "gtkhtml.h"
 
@@ -953,7 +954,8 @@ item_gc (HTMLPainter *p, PangoItem *item, GdkDrawable *drawable, GdkGC *orig_gc,
 	new_gc = gdk_gc_new (drawable);
 	gdk_gc_copy (new_gc, orig_gc);
 	gdk_gc_set_foreground (new_gc,
-			       &html_colorset_get_color_allocated (e->painter, HTMLTextColor)->color);
+			       &html_colorset_get_color_allocated (e->settings->color_set,
+								   e->painter, HTMLTextColor)->color);
 
 	while (tmp_list) {
 		PangoAttribute *attr = tmp_list->data;

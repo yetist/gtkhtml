@@ -1233,13 +1233,15 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 			}
 		}
 
-		if (text->select_length) {
+		if (e && text->select_length) {
 			gchar *end;
 			gchar *start;
 			GdkColor fg = html_colorset_get_color_allocated
-				(painter, painter->focus ? HTMLHighlightTextColor : HTMLHighlightTextNFColor)->color;
+				(e->settings->color_set, painter,
+				 painter->focus ? HTMLHighlightTextColor : HTMLHighlightTextNFColor)->color;
 			GdkColor bg = html_colorset_get_color_allocated
-				(painter, painter->focus ? HTMLHighlightColor : HTMLHighlightNFColor)->color;
+				(e->settings->color_set, painter,
+				 painter->focus ? HTMLHighlightColor : HTMLHighlightNFColor)->color;
 			
 			start = html_text_get_text (text,  text->select_start);
 			end = g_utf8_offset_to_pointer (start, text->select_length);

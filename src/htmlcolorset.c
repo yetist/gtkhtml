@@ -105,10 +105,8 @@ html_colorset_get_color (HTMLColorSet *s, HTMLColorId idx)
 }
 
 HTMLColor *
-html_colorset_get_color_allocated (HTMLPainter *painter, HTMLColorId idx)
+html_colorset_get_color_allocated (HTMLColorSet *s, HTMLPainter *painter, HTMLColorId idx)
 {
-	HTMLColorSet *s = painter->color_set;
-
 	html_color_alloc (s->color [idx], painter);
 	return s->color [idx];
 }

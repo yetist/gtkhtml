@@ -27,6 +27,8 @@
 #include "htmlengine-save.h"
 #include "htmlrule.h"
 #include "htmlpainter.h"
+#include "htmlsettings.h"
+#include "gtkhtml.h"
 
 
 HTMLRuleClass html_rule_class;
@@ -143,6 +145,12 @@ html_rule_draw (HTMLObject *o,
 	guint w, h;
 	gint xp, yp;
 	gint pixel_size = html_painter_get_pixel_size (p);
+	HTMLEngine *e;
+
+	if (p->widget && GTK_IS_HTML (p->widget))
+		e = GTK_HTML (p->widget)->engine;
+	else
+		return;
 
 	rule = HTML_RULE (o);
 	
@@ -176,10 +184,12 @@ html_rule_draw (HTMLObject *o,
 	}
 
 	if (rule->shade)
-		html_painter_draw_panel (p, &((html_colorset_get_color (p->color_set, HTMLBgColor))->color),
+		html_painter_draw_panel (p,
+					 &((html_colorset_get_color (e->settings->color_set, HTMLBgColor))->color),
 					 xp, yp, w, h, GTK_HTML_ETCH_IN, 1);
 	else {
-		html_painter_set_pen (p, &html_colorset_get_color_allocated (p, HTMLTextColor)->color);
+		html_painter_set_pen (p, &html_colorset_get_color_allocated (e->settings->color_set, p,
+									     HTMLTextColor)->color);
 		html_painter_fill_rect (p, xp, yp, w, h);
 	}
 }

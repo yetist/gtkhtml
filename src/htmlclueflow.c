@@ -44,6 +44,7 @@
 #include "htmlplainpainter.h"
 #include "htmlsearch.h"
 #include "htmlselection.h"
+#include "htmlsettings.h"
 #include "htmltable.h"
 #include "htmltablecell.h"
 #include "htmltext.h"
@@ -1161,13 +1162,20 @@ draw_quotes (HTMLObject *self, HTMLPainter *painter,
 	int last_indent = 0;
 	gint pixel_size = html_painter_get_pixel_size (painter);
 	gboolean is_plain = HTML_IS_PLAIN_PAINTER (painter);
+	HTMLEngine *e;
+
+	if (painter->widget && GTK_IS_HTML (painter->widget))
+		e = GTK_HTML (painter->widget)->engine;
+	else
+		return;
 	
 	flow = HTML_CLUEFLOW (self);
 
 	for (i = 0; i < flow->levels->len; i++, last_indent = indent) {
 		indent = get_level_indent (flow, i, painter);
 
-		html_painter_set_pen (painter, &html_colorset_get_color_allocated (painter, HTMLLinkColor)->color);
+		html_painter_set_pen (painter, &html_colorset_get_color_allocated (e->settings->color_set,
+										   painter, HTMLLinkColor)->color);
 		if (is_cite (flow, i)) {
 			if (!is_plain) {
 				area.x = self->x + indent - 5 * pixel_size;
@@ -1216,6 +1224,12 @@ draw_item (HTMLObject *self, HTMLPainter *painter, gint x, gint y, gint width, g
 	HTMLClueFlow *flow;
 	HTMLObject *first;
 	gchar *marker;
+	HTMLEngine *e;
+
+	if (painter->widget && GTK_IS_HTML (painter->widget))
+		e = GTK_HTML (painter->widget)->engine;
+	else
+		return;
 
 	first = HTML_CLUE (self)->head;
 	if (html_object_is_text (first) && first->next)
@@ -1227,7 +1241,8 @@ draw_item (HTMLObject *self, HTMLPainter *painter, gint x, gint y, gint width, g
 		html_color_alloc (flow->item_color, painter);
 		html_painter_set_pen (painter, &flow->item_color->color);
 	} else
-		html_painter_set_pen (painter, &html_colorset_get_color_allocated (painter, HTMLTextColor)->color);
+		html_painter_set_pen (painter, &html_colorset_get_color_allocated (e->settings->color_set,
+										   painter, HTMLTextColor)->color);
 
 	marker = get_item_marker_str (flow, HTML_IS_PLAIN_PAINTER (painter));
 	if (marker) {

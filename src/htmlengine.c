@@ -3868,7 +3868,6 @@ html_engine_set_property (GObject *object, guint id, const GValue *value, GParam
 		engine->painter         = html_gdk_painter_new (GTK_WIDGET (engine->widget), TRUE);
 		engine->settings        = html_settings_new (GTK_WIDGET (engine->widget));
 		engine->defaultSettings = html_settings_new (GTK_WIDGET (engine->widget));
-		html_colorset_add_slave (engine->settings->color_set, engine->painter->color_set);
 
 		engine->insertion_color = html_colorset_get_color (engine->settings->color_set, HTMLTextColor);
 		html_color_ref (engine->insertion_color);
@@ -4192,7 +4191,8 @@ html_engine_draw_background (HTMLEngine *e,
 	}
 
 	html_painter_draw_background (e->painter, 
-				      &html_colorset_get_color_allocated (e->painter, HTMLBgColor)->color,
+				      &html_colorset_get_color_allocated (e->settings->color_set,
+									  e->painter, HTMLBgColor)->color,
 				      pixbuf, x, y, w, h, x, y);
 }
 
@@ -5161,7 +5161,8 @@ html_engine_queue_clear (HTMLEngine *e,
 
 	/* if (e->freeze_count == 0) */
 	html_draw_queue_add_clear (e->draw_queue, x, y, width, height,
-				   &html_colorset_get_color_allocated (e->painter, HTMLBgColor)->color);
+				   &html_colorset_get_color_allocated (e->settings->color_set,
+								       e->painter, HTMLBgColor)->color);
 }
 
 

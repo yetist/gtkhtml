@@ -46,7 +46,6 @@ struct _HTMLPainter {
 
 	GtkWidget          *widget;
 	HTMLFontManager     font_manager;
-	HTMLColorSet       *color_set;
 	HTMLFontFace       *font_face;
 	GtkHTMLFontStyle    font_style;
 
@@ -124,8 +123,6 @@ void              html_painter_free_color                              (HTMLPain
 									GdkColor          *color);
 
 /* Color set handling.  */
-void              html_painter_set_color_set                           (HTMLPainter       *painter,
-									HTMLColorSet      *color_set);
 const GdkColor   *html_painter_get_default_background_color            (HTMLPainter       *painter);
 const GdkColor   *html_painter_get_default_foreground_color            (HTMLPainter       *painter);
 const GdkColor   *html_painter_get_default_link_color                  (HTMLPainter       *painter);

@@ -49,6 +49,7 @@
 #include "htmlprinter.h"
 #include "htmlgdkpainter.h"
 #include "htmlplainpainter.h"
+#include "htmlsettings.h"
 
 /* HTMLImageFactory stuff.  */
 
@@ -350,18 +351,27 @@ static void
 draw_plain (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint height, gint tx, gint ty)
 {
 	HTMLImage *img = HTML_IMAGE (o);
+	HTMLEngine *e;
+
+	if (p->widget && GTK_IS_HTML (p->widget))
+		e = GTK_HTML (p->widget)->engine;
+	else
+		return;
 
 	if (img->alt && *img->alt) {
 
 		/* FIXME: cache items and glyphs? */
 		if (o->selected) {
 			html_painter_set_pen (p, &html_colorset_get_color_allocated
-					      (p, p->focus ? HTMLHighlightColor : HTMLHighlightNFColor)->color);
+					      (e->settings->color_set, p,
+					       p->focus ? HTMLHighlightColor : HTMLHighlightNFColor)->color);
 			html_painter_fill_rect (p, o->x + tx, o->y + ty - o->ascent, o->width, o->ascent + o->descent);
 			html_painter_set_pen (p, &html_colorset_get_color_allocated
-					      (p, p->focus ? HTMLHighlightTextColor : HTMLHighlightTextNFColor)->color);
+					      (e->settings->color_set, p,
+					       p->focus ? HTMLHighlightTextColor : HTMLHighlightTextNFColor)->color);
 		} else { 
-			html_painter_set_pen (p, &html_colorset_get_color_allocated (p, HTMLTextColor)->color);
+			html_painter_set_pen (p, &html_colorset_get_color_allocated (e->settings->color_set, p,
+										     HTMLTextColor)->color);
 		}
 		html_painter_draw_text (p, o->x + tx, o->y + ty, img->alt, g_utf8_strlen (img->alt, -1), NULL, NULL, NULL, 0, 0);
 	}
@@ -373,6 +383,12 @@ draw_focus  (HTMLPainter *painter, GdkRectangle *box)
 	HTMLGdkPainter *p;
 	GdkGCValues values;
 	gchar dash [2];
+	HTMLEngine *e;
+
+	if (painter->widget && GTK_IS_HTML (painter->widget))
+		e = GTK_HTML (painter->widget)->engine;
+	else
+		return;
 
 	if (HTML_IS_PRINTER (painter))
 		return;
@@ -380,7 +396,8 @@ draw_focus  (HTMLPainter *painter, GdkRectangle *box)
 	p = HTML_GDK_PAINTER (painter);
 	/* printf ("draw_image_focus\n"); */
 
-	gdk_gc_set_foreground (p->gc, &html_colorset_get_color_allocated (painter, HTMLTextColor)->color);
+	gdk_gc_set_foreground (p->gc, &html_colorset_get_color_allocated (e->settings->color_set,
+									  painter, HTMLTextColor)->color);
 	gdk_gc_get_values (p->gc, &values);
 
 	dash [0] = 1;
@@ -406,6 +423,12 @@ draw (HTMLObject *o,
 	GdkColor *highlight_color;
 	guint pixel_size;
 	GdkRectangle paint;
+	HTMLEngine *e;
+
+	if (painter->widget && GTK_IS_HTML (painter->widget))
+		e = GTK_HTML (painter->widget)->engine;
+	else
+		return;
 
 	/* printf ("Image::draw\n"); */
 
@@ -436,7 +459,8 @@ draw (HTMLObject *o,
 
 	if (o->selected) {
 		highlight_color = &html_colorset_get_color_allocated
-			(painter, painter->focus ? HTMLHighlightColor : HTMLHighlightNFColor)->color;
+			(e->settings->color_set, painter,
+			 painter->focus ? HTMLHighlightColor : HTMLHighlightNFColor)->color;
 	} else
 		highlight_color = NULL;
 
@@ -461,7 +485,7 @@ draw (HTMLObject *o,
 						o->ascent + o->descent - 2 * vspace);
 		}
 		html_painter_draw_panel (painter,
-					 &((html_colorset_get_color (painter->color_set, HTMLBgColor))->color),
+					 &((html_colorset_get_color (e->settings->color_set, HTMLBgColor))->color),
 					 o->x + tx + hspace,
 					 o->y + ty - o->ascent + vspace,
 					 o->width - 2 * hspace,
@@ -507,7 +531,7 @@ draw (HTMLObject *o,
 		}
 		
 		html_painter_draw_panel (painter,
-					 &((html_colorset_get_color (painter->color_set, HTMLBgColor))->color),
+					 &((html_colorset_get_color (e->settings->color_set, HTMLBgColor))->color),
 					 base_x - image->border * pixel_size,
 					 base_y - image->border * pixel_size,
 					 scale_width + (2 * image->border) * pixel_size,

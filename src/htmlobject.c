@@ -44,6 +44,7 @@
 #include "htmltext.h"
 #include "htmlrule.h"
 #include "htmltype.h"
+#include "htmlsettings.h"
 
 #include "gtkhtmldebug.h"
 
@@ -313,10 +314,13 @@ static GdkColor *
 get_bg_color (HTMLObject *o,
 	      HTMLPainter *p)
 {
-	
-	return o->parent
-		? html_object_get_bg_color (o->parent, p)
-		: &((html_colorset_get_color (p->color_set, HTMLBgColor))->color);
+	if (o->parent)
+		return html_object_get_bg_color (o->parent, p);	
+
+	if (p->widget && GTK_IS_HTML (p->widget))
+		return &((html_colorset_get_color (GTK_HTML (p->widget)->engine->settings->color_set,
+						   HTMLBgColor))->color);
+	return NULL;
 }
 
 static HTMLObject*
