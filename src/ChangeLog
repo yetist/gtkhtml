@@ -1,5 +1,8 @@
 2001-03-26  Radek Doulik  <rodo@ximian.com>
 
+	* htmltokenizer.c (in_extension): even more safe extension
+	handling
+
 	* htmlcolor.c (html_color_unref): really free color
 
 	* htmlengine.c (parse_d): better checking

@@ -97,6 +97,7 @@ struct _HTMLTokenizer {
 	gchar searchBuffer[20];
 	gint searchCount;
 	gint searchGtkHTMLCount;
+	gint searchExtensionEndCount;
 
 	gchar *scriptCode;
 	gint scriptCodeSize;
@@ -590,6 +591,7 @@ in_comment (HTMLTokenizer *t, const gchar **src)
 			t->extension    = TRUE;
 			t->comment = FALSE;
 			t->searchCount = 0;
+			t->searchExtensionEndCount = 0;
 			t->searchGtkHTMLCount = 0;
 		} else
 			t->searchGtkHTMLCount ++;
@@ -601,25 +603,37 @@ in_comment (HTMLTokenizer *t, const gchar **src)
 	(*src)++;
 }
 
+static inline void
+extension_one_char (HTMLTokenizer *t, const gchar **src)
+{
+	t->extension = FALSE;
+	html_tokenizer_tokenize_one_char (t, src);
+	t->extension = TRUE;
+}
+
 static void
 in_extension (HTMLTokenizer *t, const gchar **src)
 {
 	/* check for "-->" */
 	if (!t->tquote && **src == '-') {
-		if (t->searchCount < 2)
-			t->searchCount ++;
+		if (t->searchExtensionEndCount < 2)
+			t->searchExtensionEndCount ++;
 		(*src) ++;
-	} else if (!t->tquote && t->searchCount == 2 && **src == '>') {
+	} else if (!t->tquote && t->searchExtensionEndCount == 2 && **src == '>') {
 		t->extension = FALSE;
 		(*src) ++;
 	} else {
-		t->searchCount = 0;
+		if (t->searchExtensionEndCount > 0) {
+			if (t->extension) {
+				const gchar *p = "-->";
 
-		if (t->extension) {
-			t->extension = FALSE;
-			html_tokenizer_tokenize_one_char (t, src);
-			t->extension = TRUE;
+				while (t->searchExtensionEndCount) {
+					extension_one_char (t, &p);
+					t->searchExtensionEndCount --;
+				}
+			}
 		}
+		extension_one_char (t, src);
 	}
 }
 
