@@ -63,7 +63,7 @@ ps_impl_load (BonoboPersistStream *ps,
 	if (was_editable)
 		gtk_html_set_editable (html, FALSE);
 	
-	/* bonobo stream are _always_ utf-8 */
+	/* bonobo streams are _always_ utf-8 */
 	handle = gtk_html_begin_content (html, "text/html; charset=utf-8");
 
 	do {
