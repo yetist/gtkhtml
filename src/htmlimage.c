@@ -367,7 +367,7 @@ draw (HTMLObject *o,
 		return;
 
 	if (HTML_IS_PLAIN_PAINTER (painter)) {
-	draw_plain (o, painter, x, y, width, height, tx, ty);
+		draw_plain (o, painter, x, y, width, height, tx, ty);
 		return;
 	}
 
