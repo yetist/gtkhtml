@@ -1,3 +1,7 @@
+2002-04-18  Larry Ewing  <lewing@ximian.com>
+
+	* htmlimage.c (draw): stub out some cite drawing routines.
+
 2002-04-16  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (drag_data_received): allow drop just links of known

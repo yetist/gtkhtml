@@ -1111,6 +1111,47 @@ get_item_number_str (HTMLClueFlow *flow)
 }
 
 static void
+draw_quotes (HTMLObject *self, HTMLPainter *painter, 
+	     gint x, gint y, gint width, gint height,
+	     gint tx, gint ty)
+{
+#if DRAW_QUOTES
+	HTMLClueFlow *flow;
+	HTMLObject *first;
+	ArtIRect paint, area, clip;
+
+	if (strcmp (html_object_get_data (self, "orig"), "1") == 0 && get_level (self)) {
+	    if (HTML_IS_PLAIN_PAINTER (painter)) {
+		    area.x0 = self->x + 6;
+		    area.x1 = area.x0 + 3;
+		    area.y0 = self->y - self->ascent;
+		    area.y1 = self->y + self->descent;
+		    
+		    clip.x0 = x;
+		    clip.x1 = x + width;
+		    clip.y0 = y;
+		    clip.y1 = y + height;
+		    
+		    art_irect_intersect (&paint, &clip, &area);
+		    if (art_irect_empty (&paint))
+			    return;
+		    
+		    first = HTML_CLUE (self)->head;
+		    
+		    flow = HTML_CLUEFLOW (self);
+		    html_painter_set_pen (painter, &html_colorset_get_color_allocated (painter, HTMLLinkColor)->color);
+		    
+		    html_painter_fill_rect (painter, 
+					    paint.x0 + tx, paint.y0 + ty,
+					    paint.x1 - paint.x0, paint.y1 - paint.y0);
+	    } else {
+		    /* draw "> " quote characters in the plain case */ 
+	    }
+	}
+#endif 
+}		
+
+static void
 draw_item (HTMLObject *self, HTMLPainter *painter, gint x, gint y, gint width, gint height, gint tx, gint ty)
 {
 	HTMLClueFlow *flow;
@@ -1176,6 +1217,9 @@ draw (HTMLObject *self,
 
 	if (HTML_CLUE (self)->head != NULL && is_item (HTML_CLUEFLOW (self)))
 		draw_item (self, painter, x, y, width, height, tx, ty);
+
+	if (HTML_CLUE (self)->head != NULL)
+		draw_quotes (self, painter, x, y, width, height, tx, ty);
 
 	(* HTML_OBJECT_CLASS (&html_clue_class)->draw) (self, painter, x, y, width, height, tx, ty);
 }
@@ -1768,7 +1812,8 @@ string_append_nonbsp (GString *out, guchar *s, gint length)
 #define CLUEFLOW_ITEM_MARKER        "    * "
 #define CLUEFLOW_ITEM_MARKER_PAD    "      "
 #define CLUEFLOW_INDENT             "    "
-
+#define CLUEFLOE_BLOCKQUOTE_CITE    "> "
+          
 static gchar *
 plain_get_marker (HTMLClueFlow *flow, gint *pad, gchar **pad_indent)
 {
