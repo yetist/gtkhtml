@@ -11,9 +11,9 @@ CFLAGS +=  $(GCONF_CFLAGS)
 lib_LTLIBRARIES = libgtkhtml.la
 
 if GLIBWWW
-noinst_PROGRAMS = testgtkhtml
+noinst_PROGRAMS = testgtkhtml gtest
 else
-noinst_PROGRAMS =
+noinst_PROGRAMS = 
 endif
 
 libgtkhtmldir = $(includedir)/gtkhtml
@@ -206,6 +206,16 @@ testgtkhtml_LDADD =				\
 	$(GCONF_LIBS)
 #	-lccmalloc -ldl
 #
+
+gtest_SOURCES = \
+	test.c
+testgtkhtml_CFLAGS = 
+gtest_LDFLAGS += -static
+gtest_LDADD =				\
+	libgtkhtml.la				\
+	$(GNOMEUI_LIBS)				\
+	$(GNOME_LIBDIR)				\
+	$(EXTRA_GNOME_LIBS)                     
 
 dist-hook:
 	mkdir $(distdir)/tests
