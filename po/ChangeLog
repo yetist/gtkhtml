@@ -1,3 +1,14 @@
+2000-09-25  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* no.po: Updated Norwegian translation.
+	* POTFILES.in: Removed previous update. Please do not
+	just blindly add files to this file. All additions _must_
+	be checked by hand or the build will break. All files added
+	here that aren't in the disted tarball will cause the
+	tarball not to build. So check Makefile.am before adding
+	files. Also you have to check the file if there are actual
+	_() or N_() marked strings because update.pl can be wrong!!
+	
 2000-09-25  Christophe Merlet  <christophe@merlet.net>
 
 	* fr.po: Updated French translation.
