@@ -252,6 +252,8 @@ struct _HTMLEngine {
 	HTMLCursorRectangle cursor_cell;
 	HTMLCursorRectangle cursor_table;
 	HTMLCursorRectangle cursor_image;
+
+	GList *cut_and_paste_stack;
 };
 
 /* must be forward referenced *sigh* */

@@ -160,40 +160,6 @@ html_engine_selection_pop (HTMLEngine *e)
 	html_engine_edit_selection_updater_update_now (e->selection_updater);
 }
 
-void
-html_engine_cut_and_paste_begin (HTMLEngine *e, const gchar *undo_op_name, const gchar *redo_op_name)
-{
-	html_engine_hide_cursor (e);
-	html_engine_selection_push (e);
-	html_engine_clipboard_push (e);
-	html_undo_level_begin (e->undo, undo_op_name, redo_op_name);
-	html_engine_cut (e);
-}
-
-void
-html_engine_cut_and_paste_end (HTMLEngine *e)
-{
-	if (e->clipboard) {
-		html_engine_paste (e);
-		html_engine_clipboard_clear (e);
-	}
-	html_undo_level_end (e->undo);
-	html_engine_clipboard_pop (e);
-	html_engine_selection_pop (e);
-	html_engine_show_cursor (e);
-}
-
-void
-html_engine_cut_and_paste (HTMLEngine *e, const gchar *undo_op_name, const gchar *redo_op_name,
-			   HTMLObjectForallFunc iterator, gpointer data)
-{
-	html_engine_edit_selection_updater_update_now (e->selection_updater);
-	html_engine_cut_and_paste_begin (e, undo_op_name, redo_op_name);
-	if (e->clipboard)
-		html_object_forall (e->clipboard, e, iterator, data);
-	html_engine_cut_and_paste_end (e);
-}
-
 static void
 spell_check_object (HTMLObject *o, HTMLEngine *e, gpointer data)
 {

@@ -385,14 +385,14 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 	printf ("-- child end --\n");
 #endif
 
-	if (cell_is_empty (dup_cell)) {
+	if (dup_cell->row == t->totalRows - 1 && dup_cell->col == t->totalCols - 1 && cell_is_empty (dup_cell)) {
 		html_object_destroy (HTML_OBJECT (dup_cell));
 		g_list_free (*right);
 		*right = NULL;
 		dup = html_engine_new_text_empty (e);
 		html_clue_append_after (HTML_CLUE (self->parent), dup, self);
 		e->cursor->position --;
-	} else if (cell_is_empty (cell)) {
+	} else if (cell->col == 0 && cell->row == 0 && cell_is_empty (cell)) {
 		gint r, c;
 
 		r = cell->row;
@@ -411,6 +411,7 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 		html_clue_append_after (HTML_CLUE (self->parent), dup, self);
 		e->cursor->object = self;
 		e->cursor->offset = 0;
+		e->cursor->position --;
 	} else {
 		dup = HTML_OBJECT (g_new0 (HTMLTable, 1));
 		dup_table = HTML_TABLE (dup);
@@ -550,6 +551,8 @@ move_cell (HTMLTable *t1, HTMLTable *t2, HTMLTableCell *c1, HTMLTableCell *c2,
 	   HTMLTableCell *cursor_cell_1, HTMLTableCell *cursor_cell_2, gint r, gint c,
 	   HTMLCursor *cursor_1, HTMLCursor *cursor_2)
 {
+	if (cursor_1 && cursor_cell_1 == c1)
+		update_cursor (cursor_1, c2);
 	if (cursor_2 && cursor_cell_2 == c1)
 		update_cursor (cursor_2, c2);
 	remove_cell (t1, c1);

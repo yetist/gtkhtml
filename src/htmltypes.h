@@ -144,7 +144,8 @@ typedef void     (* HTMLFontManagerUnrefFont)   (gpointer          font);
 typedef void     (* HTMLStackFreeFunc)          (gpointer          data);
 typedef void     (* HTMLUndoFunc)               (HTMLEngine        *engine,
 						 HTMLUndoData      *data,
-						 HTMLUndoDirection  dir);
+						 HTMLUndoDirection  dir,
+						 guint              position_after);
 typedef void     (* HTMLUndoDataDestroyFunc)    (HTMLUndoData      *data);
 
 /* FIXME */
