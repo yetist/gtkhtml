@@ -81,6 +81,36 @@ html_engine_insert_table_1_1 (HTMLEngine *e)
 	html_cursor_backward (e->cursor, e);
 }
 
+/**
+ * html_engine_insert_table_1_1:
+ * @e: An html engine
+ *
+ * Inserts new table with @cols columns and @rows rows. Cells contain an empty flow with an empty text.
+ **/
+
+void
+html_engine_insert_table (HTMLEngine *e, gint cols, gint rows, gint width, gint percent,
+			  gint padding, gint spacing, gint border)
+{
+	HTMLObject *table;
+	gint r, c;
+
+	g_return_if_fail (cols >= 0);
+	g_return_if_fail (rows >= 0);
+
+	table = html_table_new (width, percent, padding, spacing, border);
+
+	for (r = 0; r < rows; r ++) {
+		html_table_start_row (HTML_TABLE (table));
+		for (c = 0; c < cols; c ++)
+			html_table_add_cell (HTML_TABLE (table), new_cell (e, HTML_TABLE (table)));
+		html_table_end_row (HTML_TABLE (table));
+	}
+
+	html_engine_append_object (e, table, 1 + rows*cols);
+	html_cursor_backward_n (e->cursor, e, rows*cols);
+}
+
 /*
  *  Insert Column
  */

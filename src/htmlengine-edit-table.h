@@ -27,6 +27,14 @@
 #include "htmltypes.h"
 #include "htmlenums.h"
 
+void       html_engine_insert_table            (HTMLEngine     *e,
+						gint            cols,
+						gint            rows,
+						gint            width,
+						gint            percent,
+						gint            padding,
+						gint            spacing,
+						gint            border);
 void       html_engine_insert_table_1_1        (HTMLEngine     *e);
 void       html_engine_insert_table_column     (HTMLEngine     *e,
 						gboolean        after);
