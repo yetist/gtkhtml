@@ -256,11 +256,15 @@ struct _HTMLObjectClass {
 	void (* append_selection_string) (HTMLObject *self, GString *buffer);
 
 	/* Search & Replace */
-	gboolean (* search) (HTMLObject *self, HTMLSearch *info);
-	gboolean (* search_next) (HTMLObject *self, HTMLSearch *info);
+	gboolean     (* search)          (HTMLObject *self, HTMLSearch *info);
+	gboolean     (* search_next)     (HTMLObject *self, HTMLSearch *info);
 
 	/* links */
-	HTMLObject * (* set_link)(HTMLObject *self, GdkColor *color, const gchar *url, const gchar *target);
+	HTMLObject * (* set_link)        (HTMLObject *self, GdkColor *color, const gchar *url, const gchar *target);
+	HTMLObject * (* remove_link)     (HTMLObject *self, GdkColor *color);
+
+	/* length */
+	guint        (* get_length)      (HTMLObject *self);
 };
 
 
@@ -367,6 +371,8 @@ HTMLObject  *html_object_set_link     (HTMLObject  *self,
 				       GdkColor    *color,
 				       const gchar *url,
 				       const gchar *target);
+HTMLObject  *html_object_remove_link  (HTMLObject  *self,
+				       GdkColor    *color);
 
 /* Cursor.  */
 gboolean    html_object_accepts_cursor   (HTMLObject  *obj);
@@ -382,6 +388,7 @@ void        html_object_get_cursor_base  (HTMLObject  *obj,
 					  guint        offset,
 					  gint        *x,
 					  gint        *y);
+guint       html_object_get_length       (HTMLObject  *self);
 HTMLObject *html_object_check_point      (HTMLObject  *clue,
 					  HTMLPainter *painter,
 					  gint         x,

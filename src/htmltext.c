@@ -288,6 +288,12 @@ extract_text (HTMLText *text,
 	return new;
 }
 
+static guint
+get_length (HTMLObject *self)
+{
+	return HTML_TEXT (self)->text_len;
+}
+
 /* #define DEBUG_NBSP */
 
 static void
@@ -595,6 +601,7 @@ html_text_class_init (HTMLTextClass *klass,
 	object_class->get_cursor_base = get_cursor_base;
 	object_class->save = save;
 	object_class->save_plain = save_plain;
+	object_class->get_length = get_length;
 
 	/* HTMLText methods.  */
 

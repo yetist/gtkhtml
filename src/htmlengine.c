@@ -3013,6 +3013,7 @@ html_engine_init (HTMLEngine *engine)
 
 	engine->editable = FALSE;
 	engine->cut_buffer = NULL;
+	engine->cut_buffer_stack = NULL;
 
 	engine->ht = html_tokenizer_new ();
 	engine->st = html_string_tokenizer_new ();

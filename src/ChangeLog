@@ -1,5 +1,43 @@
 2000-06-21  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine-edit-insert.c (html_engine_remove_link_object): use
+	html_object_get_length here
+
+	* htmltext.c (get_length): new method, returns text_len
+	(html_text_class_init): set get_length method
+
+	* htmlobject.c (get_length): method for htmlobject, returns 1
+	(html_object_get_length): new function, returns object length
+	(html_object_class_init): set get_length
+
+	* htmlobject.h: added new virtual method get_length
+
+	* htmlengine-edit-insert.c (html_engine_remove_link): new
+	function, removes link(s) from selection
+	(html_engine_remove_link_object): new function, removes link from
+	obj arg
+
+	* htmlimage.c (remove_link): new function, clears url/target
+	attributes
+
+	* htmllinktextmaster.c (remove_link): new function, returns text
+	master with the same content/style
+	(html_link_text_master_class_init): set remove_link method
+
+	* htmlobject.c (html_object_remove_link): new function, returns
+	linked object replacement, otherwise NULL
+
+	* htmlobject.h: new virtual method remove_link
+
+	* htmlengine-edit-insert.c (html_engine_insert_link): same as below
+
+	* htmlengine-edit-paste.c (html_engine_paste_object): use
+	cut_buffer push/pop functions
+
+	* htmlengine-edit.c (html_engine_cut_buffer_push): new function lo
+	"legalize" cut_buffer switching hack
+	(html_engine_cut_buffer_pop): opposite to previous one
+
 	* keybindingsrc.ms: added undo/redo to MS like bindings, changed
 	alignment modifiers to <Ctrl><Alt>
 

@@ -789,22 +789,19 @@ html_engine_paste_object (HTMLEngine *engine,
 			  HTMLObject *object,
 			  gboolean do_undo)
 {
-	GList *tmp_buffer;
-
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 	g_return_if_fail (object != NULL);
 
-	/* FIXME: Nasty, nasty, nasty hack.  */
+	html_engine_cut_buffer_push (engine);
 
-	tmp_buffer = engine->cut_buffer;
 	engine->cut_buffer = g_list_alloc ();
 	engine->cut_buffer->data = object;
 
 	html_engine_paste (engine, do_undo);
-
 	g_list_free (engine->cut_buffer);
-	engine->cut_buffer = tmp_buffer;
+
+	html_engine_cut_buffer_pop (engine);
 }
 
 void

@@ -351,6 +351,12 @@ get_cursor_base (HTMLObject *self,
 		*x += self->width;
 }
 
+static guint
+get_length (HTMLObject *self)
+{
+	return 1;
+}
+
 static gboolean
 select_range (HTMLObject *self,
 	      HTMLEngine *engine,
@@ -505,6 +511,7 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->check_page_split = check_page_split;
 	klass->search = search;
 	klass->search_next = search;
+	klass->get_length = get_length;
 }
 
 void
@@ -954,4 +961,17 @@ html_object_set_link (HTMLObject *self,
 		      const gchar *target)
 {
 	return (HO_CLASS (self)->set_link) ? (* HO_CLASS (self)->set_link) (self, color, url, target) : NULL;
+}
+
+HTMLObject *
+html_object_remove_link (HTMLObject *self,
+			 GdkColor *color)
+{
+	return (HO_CLASS (self)->remove_link) ? (* HO_CLASS (self)->remove_link) (self, color) : NULL;
+}
+
+guint
+html_object_get_length (HTMLObject *self)
+{
+	return (* HO_CLASS (self)->get_length) (self);
 }

@@ -508,12 +508,9 @@ void
 html_engine_insert_link (HTMLEngine *e, const gchar *url, const gchar *target)
 {
 	HTMLObject *linked;
-	GList *tmp_buffer;
 	GdkColor *color = html_colorset_get_color (e->settings->color_set, HTMLLinkColor);
 
-	tmp_buffer = e->cut_buffer;
-	e->cut_buffer = NULL;
-
+	html_engine_cut_buffer_push (e);
 	html_undo_level_begin (e->undo, "Insert link");
 	html_engine_copy (e);
 	if (e->cut_buffer) {
@@ -539,5 +536,45 @@ html_engine_insert_link (HTMLEngine *e, const gchar *url, const gchar *target)
 		html_object_destroy (linked);
 	}
 	html_undo_level_end (e->undo);
-	e->cut_buffer = tmp_buffer;
+	html_engine_cut_buffer_pop (e);
+}
+
+void
+html_engine_remove_link (HTMLEngine *e)
+{
+	HTMLObject *unlinked;
+	GdkColor *color = html_colorset_get_color (e->settings->color_set, HTMLTextColor);
+
+	html_engine_cut_buffer_push (e);
+	html_undo_level_begin (e->undo, "Remove link");
+	html_engine_copy (e);
+	if (e->cut_buffer) {
+		GList *cur = e->cut_buffer;
+
+		while (cur) {
+			unlinked = html_object_remove_link (HTML_OBJECT (cur->data), color);
+			if (unlinked) {
+				html_object_destroy (HTML_OBJECT (cur->data));
+				cur->data = unlinked;
+			}
+			cur = cur->next;
+		}
+		html_engine_paste (e, TRUE);
+		html_engine_cut_buffer_destroy (e->cut_buffer);
+	}
+	html_undo_level_end (e->undo);
+	html_engine_cut_buffer_pop (e);
+}
+
+void
+html_engine_remove_link_object (HTMLEngine *e, HTMLObject *obj)
+{
+	HTMLObject *unlinked;
+	GdkColor *color = html_colorset_get_color (e->settings->color_set, HTMLTextColor);
+
+	unlinked = html_object_remove_link (obj, color);
+	if (unlinked) {
+		html_engine_replace_by_object (e, obj, 0, obj, html_object_get_length (obj), unlinked);
+		html_object_destroy (unlinked);
+	}
 }

@@ -67,6 +67,15 @@ get_target (HTMLObject *object)
 	return HTML_LINK_TEXT_MASTER (object)->target;
 }
 
+static HTMLObject *
+remove_link (HTMLObject *self, GdkColor *color)
+{
+	HTMLText *text = HTML_TEXT (self);
+
+	return html_text_master_new_with_len (text->text, text->text_len, text->font_style, color);
+}
+
+
 static HTMLText *
 split (HTMLText *self,
        guint offset)
@@ -166,6 +175,7 @@ html_link_text_master_class_init (HTMLLinkTextMasterClass *klass,
 	object_class->copy = copy;
 	object_class->get_url = get_url;
 	object_class->get_target = get_target;
+	object_class->remove_link = remove_link;	
 	object_class->save = save;
 	object_class->get_selection = get_selection;
 

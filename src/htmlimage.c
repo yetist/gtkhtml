@@ -480,6 +480,20 @@ set_link (HTMLObject *self, GdkColor *color, const gchar *url, const gchar *targ
 	return NULL;
 }
 
+static HTMLObject *
+remove_link (HTMLObject *self, GdkColor *color, const gchar *url, const gchar *target)
+{
+	HTMLImage *image = HTML_IMAGE (self);
+
+	g_free (image->url);
+	g_free (image->target);
+
+	image->url = g_strdup ("");
+	image->target = g_strdup ("");
+
+	return NULL;
+}
+
 static gboolean
 accepts_cursor (HTMLObject *o)
 {
@@ -524,6 +538,7 @@ html_image_class_init (HTMLImageClass *image_class,
 	object_class->get_url = get_url;
 	object_class->get_target = get_target;
 	object_class->set_link = set_link;
+	object_class->remove_link = remove_link;
 	object_class->accepts_cursor = accepts_cursor;
 	object_class->get_valign = get_valign;
 	object_class->save = save;

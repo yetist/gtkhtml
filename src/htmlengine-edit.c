@@ -83,3 +83,19 @@ html_engine_set_mark (HTMLEngine *e)
 	html_engine_edit_selection_updater_reset (e->selection_updater);
 	html_engine_edit_selection_updater_schedule (e->selection_updater);
 }
+
+void
+html_engine_cut_buffer_push (HTMLEngine *e)
+{
+	e->cut_buffer_stack = g_list_prepend (e->cut_buffer_stack, e->cut_buffer);
+	e->cut_buffer = NULL;
+}
+
+void
+html_engine_cut_buffer_pop (HTMLEngine *e)
+{
+	g_assert (e->cut_buffer_stack);
+
+	e->cut_buffer = (GList *) e->cut_buffer_stack->data;
+	e->cut_buffer_stack = g_list_remove (e->cut_buffer_stack, e->cut_buffer_stack->data);
+}

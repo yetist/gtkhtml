@@ -25,14 +25,17 @@
 #include "htmlengine.h"
 
 /* Insertion operations.  */
-guint  html_engine_insert       (HTMLEngine  *e,
-				 const gchar *text,
-				 guint        len);
+guint  html_engine_insert                  (HTMLEngine  *e,
+					    const gchar *text,
+					    guint        len);
 
 /* Links */
 
-void  html_engine_insert_link (HTMLEngine  *e,
-			       const gchar *url,
-			       const gchar *target);
+void  html_engine_insert_link              (HTMLEngine  *e,
+					    const gchar *url,
+					    const gchar *target);
+void  html_engine_remove_link              (HTMLEngine  *e);
+void  html_engine_remove_link_object       (HTMLEngine  *e,
+					    HTMLObject  *obj);
 
 #endif /* _HTMLENGINE_EDIT_INSERT_H */
