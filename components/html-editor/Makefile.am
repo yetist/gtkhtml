@@ -140,3 +140,6 @@ EXTRA_DIST =					\
 	html-editor-control.oafinfo		\
 	ChangeLog				\
 	$(ui_DATA)
+
+idldir = $(datadir)/gtkhtml
+idl_DATA = HTMLEditor.idl

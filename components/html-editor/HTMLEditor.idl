@@ -18,13 +18,8 @@ module HTMLEditor {
 		void loadURL (in Bonobo::ProgressiveDataSink sink, in string url) raises (NotFound);
 	};
 
-	struct Arg {
-		any value;
-	};
-	typedef sequence<Arg> ListenerArgs;
-
 	interface Listener : Bonobo::Unknown {
-		void event (in string name, in ListenerArgs args);
+		any event (in string name, in any arg);
 	};
 
 	interface Engine : Bonobo::Unknown {

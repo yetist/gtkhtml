@@ -425,16 +425,42 @@ editor_api_command (GtkHTML *html, GtkHTMLCommandType com_type, gpointer data)
 	return rv;
 }
 
-static void
+static GtkType
+wait_for_bonobo_patch__bonobo_arg_type_to_gtk (BonoboArgType id)
+{
+	CORBA_Environment ev;
+	GtkType gtk_type = GTK_TYPE_NONE;
+
+	CORBA_exception_init (&ev);
+
+	if (bonobo_arg_type_is_equal (TC_char, id, &ev))         gtk_type = GTK_TYPE_CHAR;
+	else if (bonobo_arg_type_is_equal (TC_boolean, id, &ev)) gtk_type = GTK_TYPE_BOOL;
+	else if (bonobo_arg_type_is_equal (TC_short,   id, &ev)) gtk_type = GTK_TYPE_INT;
+	else if (bonobo_arg_type_is_equal (TC_ushort,  id, &ev)) gtk_type = GTK_TYPE_UINT;
+	else if (bonobo_arg_type_is_equal (TC_long,    id, &ev)) gtk_type = GTK_TYPE_LONG;
+	else if (bonobo_arg_type_is_equal (TC_ulong,   id, &ev)) gtk_type = GTK_TYPE_ULONG;
+	else if (bonobo_arg_type_is_equal (TC_float,   id, &ev)) gtk_type = GTK_TYPE_FLOAT;
+	else if (bonobo_arg_type_is_equal (TC_double,  id, &ev)) gtk_type = GTK_TYPE_DOUBLE;
+	else if (bonobo_arg_type_is_equal (TC_string,  id, &ev)) gtk_type = GTK_TYPE_STRING;
+	else
+		g_warning ("Unmapped bonobo arg type");
+
+	CORBA_exception_free (&ev);
+
+	return gtk_type;
+}
+
+static GtkArg *
 editor_api_event (GtkHTML *html, GtkHTMLEditorEventType event_type, GtkArg **args, gpointer data)
 {
 	GtkHTMLControlData *cd = (GtkHTMLControlData *) data;
+	GtkArg *gtk_retval = NULL;
 
 	/* printf ("editor_api_event\n"); */
 
-	if (event_type != GTK_HTML_EDITOR_EVENT_COMMAND) {
-		g_warning ("Only GTK_HTML_EDITOR_EVENT_COMMAND is supported (for now)\n");
-		return;
+	if (event_type != GTK_HTML_EDITOR_EVENT_COMMAND && event_type != GTK_HTML_EDITOR_EVENT_IMAGE_URL) {
+		g_warning ("Now, only COMMAND and IMAGE_URL events are supported.\n");
+		return NULL;
 	}
 	if (cd->editor_bonobo_engine) {
 		HTMLEditor_Engine engine;
@@ -445,28 +471,31 @@ editor_api_event (GtkHTML *html, GtkHTMLEditorEventType event_type, GtkArg **arg
 		if (engine != CORBA_OBJECT_NIL
 		    && (listener = HTMLEditor_Engine__get_listener (engine, &ev)) != CORBA_OBJECT_NIL) {
 
-			HTMLEditor_ListenerArgs *seq;
 			BonoboArg *arg = bonobo_arg_new (bonobo_arg_type_from_gtk (args [0]->type));
+			BonoboArg *bonobo_retval;
 
 			bonobo_arg_from_gtk (arg, args [0]);
-			CORBA_any_set_release (arg, CORBA_FALSE);
-
-			seq = HTMLEditor_ListenerArgs__alloc ();
-			seq->_length = 1;
-			seq->_buffer = CORBA_sequence_HTMLEditor_Arg_allocbuf (1);
-			seq->_buffer [0].value = *arg;
-			CORBA_any_set_release (arg, CORBA_TRUE);
-			CORBA_sequence_set_release (seq, CORBA_TRUE);
 
 			/* printf ("sending to listener\n"); */
 			CORBA_exception_init (&ev);
-			HTMLEditor_Listener_event (listener, "command", seq, &ev);
-			CORBA_exception_free (&ev);
-
+			bonobo_retval = HTMLEditor_Listener_event (listener,
+								   event_type ==  GTK_HTML_EDITOR_EVENT_COMMAND
+								   ? "command" : "image_url",
+								   arg, &ev);
 			CORBA_free (arg);
-			CORBA_free (seq);
+
+			if (ev._major == CORBA_NO_EXCEPTION) {
+				if (!bonobo_arg_type_is_equal (bonobo_retval->_type, TC_null, &ev)
+				    && !bonobo_arg_type_is_equal (bonobo_retval->_type, TC_void, &ev)) {
+					gtk_retval = gtk_arg_new (wait_for_bonobo_patch__bonobo_arg_type_to_gtk (bonobo_retval->_type));
+					bonobo_arg_to_gtk (gtk_retval, bonobo_retval);
+				}
+				CORBA_free (bonobo_retval);
+			}
+			CORBA_exception_free (&ev);
 		}
 	}
+	return gtk_retval;
 }
 
 static void
