@@ -400,7 +400,7 @@ html_engine_url_requested_cb (HTMLEngine *engine,
 	char *expanded = NULL;
 	gtk_html = GTK_HTML (data);
 
-	expanded = gtk_html_get_base_relative (gtk_html, url);
+	expanded = gtk_html_get_url_base_relative (gtk_html, url);
 	gtk_signal_emit (GTK_OBJECT (gtk_html), signals[URL_REQUESTED], expanded, handle);
 	g_free (expanded);
 }
@@ -955,8 +955,8 @@ on_object (GtkWidget *widget, GdkWindow *window, HTMLObject *obj)
 
 	if (obj) {
 		gchar *url;
-		url = gtk_html_get_object_relative (html, obj, 
-						    html_object_get_url (obj));
+		url = gtk_html_get_url_object_relative (html, obj, 
+							html_object_get_url (obj));
 		if (url != NULL) {
 			set_pointer_url (html, url);
 			dnd_link_set (widget, obj);
@@ -1194,7 +1194,7 @@ expand_relative (const char *base, const char *url)
 }
 
 char *
-gtk_html_get_base_relative (GtkHTML *html, const char *url)
+gtk_html_get_url_base_relative (GtkHTML *html, const char *url)
 {
 	return expand_relative (gtk_html_get_base (html), url);
 }
@@ -1204,11 +1204,11 @@ expand_frame_url (GtkHTML *html, const char *url)
 {
 	char *new_url;
 
-	new_url = gtk_html_get_base_relative (html, url);
+	new_url = gtk_html_get_url_base_relative (html, url);
 	while (html->iframe_parent) {
 		char *expanded;
 
-		expanded = gtk_html_get_base_relative (GTK_HTML (html->iframe_parent), 
+		expanded = gtk_html_get_url_base_relative (GTK_HTML (html->iframe_parent), 
 						       new_url);
 		g_free (new_url);
 		new_url = expanded;
@@ -1219,7 +1219,7 @@ expand_frame_url (GtkHTML *html, const char *url)
 }
 
 char *
-gtk_html_get_object_relative (GtkHTML *html, HTMLObject *o, const char *url)
+gtk_html_get_url_object_relative (GtkHTML *html, HTMLObject *o, const char *url)
 {
 	HTMLEngine *e;
 	HTMLObject *parent;

@@ -1,5 +1,16 @@
 2002-02-26  Larry Ewing  <lewing@ximian.com>
 
+        * gtkhtml.c: rename to gtk_html_get_url_blah, still bad but a
+	little better.
+
+	* gtkhtml.h: ditto.
+
+	* htmliframe.c: fix for renaming.
+
+	* htmlframe.c: same as above.
+	
+2002-02-26  Larry Ewing  <lewing@ximian.com>
+
 	* htmliframe.c: remove the unused on_url and link_clicked handlers
 	and add note that these signals do not cascade.  Use
 	gtk_html_get_base_relative in set_base now.

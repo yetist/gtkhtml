@@ -267,9 +267,9 @@ gboolean                   gtk_html_get_allow_frameset            (GtkHTML      
 void                       gtk_html_set_base                      (GtkHTML                   *html,
 								   const char                *url);
 const char                *gtk_html_get_base                      (GtkHTML                   *html);
-char                      *gtk_html_get_base_relative             (GtkHTML                   *html,
+char                      *gtk_html_get_url_base_relative         (GtkHTML                   *html,
 								   const char                *url);
-char                      *gtk_html_get_object_relative           (GtkHTML                   *html,
+char                      *gtk_html_get_url_object_relative       (GtkHTML                   *html,
 								   HTMLObject                *o,
 								   const char                *url);
 void                       gtk_html_images_ref                    (GtkHTML                   *html);

@@ -45,7 +45,7 @@ static gboolean calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_
 static void
 iframe_set_base (GtkHTML *html, const char *url, gpointer data)
 {
-	char *new_url = gtk_html_get_base_relative (html, url);
+	char *new_url = gtk_html_get_url_base_relative (html, url);
 
 	gtk_html_set_base (html, new_url);
 	g_free (new_url);
