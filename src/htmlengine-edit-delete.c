@@ -271,7 +271,7 @@ delete_different_parent (HTMLEngine *e,
 		if (p->parent != NULL)
 			html_clue_remove (HTML_CLUE (p->parent), p);
 
-		append_to_buffer (buffer, buffer_last, p);
+		append_to_buffer (buffer, buffer_last, html_object_dup (p));
 
 		g_assert (HTML_OBJECT_TYPE (p) == HTML_TYPE_CLUEFLOW);
 		html_object_destroy (p);

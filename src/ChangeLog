@@ -1,3 +1,11 @@
+2000-04-28  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine-edit-delete.c
+	(delete_different_parent): `html_object_dup()' before adding to
+	the buffer.
+
+	* htmlengine-edit-fontstyle.c: Redone, with undo/redo support.
+
 2000-04-28  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlimage.c (html_image_set_spacing): set hspace, vspace,
