@@ -5248,6 +5248,7 @@ html_engine_focus (HTMLEngine *e, GtkDirectionType dir)
 		gint offset;
 
 		if (e->focus_object && html_object_is_embedded (e->focus_object)
+		    && GTK_IS_CONTAINER (HTML_EMBEDDED (e->focus_object)->widget)
 		    && gtk_container_focus (GTK_CONTAINER (HTML_EMBEDDED (e->focus_object)->widget), dir))
 			return TRUE;
 
