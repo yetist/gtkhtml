@@ -406,7 +406,7 @@ insert_text (HTMLEngine *e,
 	font_style = current_font_style (e);
 	color = current_color (e);
 
-	if (e->pending_para || e->flow == NULL || HTML_CLUE (e->flow)->head == NULL) {
+	if ((e->pending_para || e->flow == NULL || HTML_CLUE (e->flow)->head == NULL) && !e->inPre) {
 		while (*text == ' ')
 			text++;
 		if (*text == 0)

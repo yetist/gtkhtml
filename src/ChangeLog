@@ -1,5 +1,8 @@
 2000-08-04  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine.c (insert_text): don't eat leading spaces in <PRE>
+	block
+
 	* htmlprinter.c (draw_panel): scale border size to printer
 	coordinates
 	(begin): #ifdef'ed debugging rectangle
