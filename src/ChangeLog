@@ -1,5 +1,8 @@
 2002-11-05  Larry Ewing  <lewing@ximian.com>
 
+	* htmlimage.c (draw): protect the draw function from images that
+	are not loaded.
+
 	* htmlclueflow.c (draw_quotes): fix printing.
 
 	* htmlgdkpainter.c (draw_background): use GdkRectangles instead of

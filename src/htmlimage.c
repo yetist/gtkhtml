@@ -358,7 +358,7 @@ draw (HTMLObject *o,
 {
 	HTMLImage *image;
 	HTMLImagePointer *ip;
-	GdkPixbuf *pixbuf;
+	GdkPixbuf *pixbuf = NULL;
 	gint base_x, base_y;
 	gint scale_width, scale_height;
 	GdkColor *highlight_color;
@@ -379,10 +379,12 @@ draw (HTMLObject *o,
 	image = HTML_IMAGE (o);
 	ip = image->image_ptr;
 
-	if (HTML_IS_GDK_PAINTER (painter) && !gdk_pixbuf_animation_is_static_image (ip->animation)) {
-		pixbuf = gdk_pixbuf_animation_iter_get_pixbuf (ip->iter);
-	} else {
-		pixbuf = gdk_pixbuf_animation_get_static_image (ip->animation);
+	if (ip->animation) {
+		if (HTML_IS_GDK_PAINTER (painter) && !gdk_pixbuf_animation_is_static_image (ip->animation)) {
+			pixbuf = gdk_pixbuf_animation_iter_get_pixbuf (ip->iter);
+		} else {
+			pixbuf = gdk_pixbuf_animation_get_static_image (ip->animation);
+		}
 	}
 
 	pixel_size = html_painter_get_pixel_size (painter);
