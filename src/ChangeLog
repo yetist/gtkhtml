@@ -1,5 +1,7 @@
 2000-01-18  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmltextslave.c (fit_line): Do not skip leading space anymore.
+
 	* htmlengine.c (html_engine_make_cursor_visible): Argh.
 	s/rightBorder/topBorder/.
 	(draw_cursor): Fixed.
