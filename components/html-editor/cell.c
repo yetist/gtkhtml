@@ -113,7 +113,9 @@ typedef struct
 static void
 fill_sample (GtkHTMLEditCellProperties *d)
 {
-	gchar *body, *html, *bg_color, *bg_pixmap, *valign, *halign, *width, *height, *wrap;
+	GString *str;
+	gchar *body, *bg_color, *bg_pixmap, *valign, *halign, *width, *height, *wrap, *cell;
+	gint r, c;
 
 	body      = html_engine_save_get_sample_body (d->cd->html->engine, NULL);
 
@@ -140,28 +142,41 @@ fill_sample (GtkHTMLEditCellProperties *d)
 		? g_strdup_printf (" height=\"%d%s\"", d->height, d->height_percent ? "%" : "") : g_strdup ("");
 	wrap    = d->wrap ? " nowrap" : "";
 
-	html    = g_strconcat (body,
-			       "<table border=1 cellpadding=4 cellspacing=2>"
-			       "<tr><td>&nbsp;Other&nbsp;<br>&nbsp;Other&nbsp;<br>"
-			       "&nbsp;Other&nbsp;<br>&nbsp;Other&nbsp;<br>",
-			       "&nbsp;Other&nbsp;<br>&nbsp;Other&nbsp;</td><",
-			       d->heading ? "th" : "td",
-			       bg_color, bg_pixmap, halign, valign, width, height, wrap,
-			       ">The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog."
-			       "</td><td>&nbsp;Other&nbsp;<br>&nbsp;Other&nbsp;<br>"
-			       "&nbsp;Other&nbsp;<br>&nbsp;Other&nbsp;<br>",
-			       "&nbsp;Other&nbsp;<br>&nbsp;Other&nbsp;</td></tr>"
-			       "<tr><td>&nbsp;Other&nbsp;</td><td>&nbsp;Other&nbsp;</td><td>&nbsp;Other&nbsp;</td></tr>"
-			       "</table>", NULL);
-	printf ("html: %s\n", html);
-	gtk_html_load_from_string (d->sample, html, -1);
+	cell    = g_strconcat ("<", d->heading ? "th" : "td",
+			       bg_color, bg_pixmap, halign, valign, width, height, wrap, ">", NULL);
+
+	str = g_string_new (body);
+	g_string_append (str, "<table border=1 cellpadding=4 cellspacing=2>");
+
+	for (r = 0; r < 2; r ++) {
+		g_string_append (str, "<tr>");
+		for (c = 0; c < 3; c ++) {
+			if ((r == 0 && c == 1)
+			    || (d->scope == ROW && r == 0)
+			    || (d->scope == COLUMN && c == 1)
+			    || d->scope == TABLE)
+				g_string_append (str, cell);
+			else
+				g_string_append (str, "<td>");
+
+			g_string_append (str, r == 0 && c == 1
+					 ? "The quick brown fox jumps over the lazy dog. "
+					 "The quick brown fox jumps over the lazy dog."
+					 : "&nbsp;Other&nbsp;");
+			g_string_append (str, "</td>");
+		}
+		g_string_append (str, "</tr>");
+	}
+	g_string_append (str, "</table>");
+	gtk_html_load_from_string (d->sample, str->str, -1);
 
 	g_free (halign);
 	g_free (valign);
 	g_free (bg_color);
 	g_free (bg_pixmap);
 	g_free (body);
-	g_free (html);
+	g_free (cell);
+	g_string_free (str, TRUE);
 }
 
 static GtkHTMLEditCellProperties *

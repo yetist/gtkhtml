@@ -1,3 +1,8 @@
+2001-07-30  Radek Doulik  <rodo@ximian.com>
+
+	* cell.c (fill_sample): make preview respect cell/row/column/table
+	scope
+
 2001-07-30  Tuomas Kuosmanen  <tigert@ximian.com>
 
 	* table.c: Changed the color of the Note table template so it
