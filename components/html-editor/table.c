@@ -85,10 +85,11 @@ typedef struct
 	GtkWidget *check_width;
 	GtkWidget *option_width;
 
+	gboolean   disable_change;
 } GtkHTMLEditTableProperties;
 
-#define CHANGE gtk_html_edit_properties_dialog_change (d->cd->properties_dialog)
-#define FILL   fill_sample (d)
+#define CHANGE if (!d->disable_change) gtk_html_edit_properties_dialog_change (d->cd->properties_dialog)
+#define FILL   if (!d->disable_change) fill_sample (d)
 
 static void
 fill_sample (GtkHTMLEditTableProperties *d)
@@ -321,7 +322,6 @@ table_widget (GtkHTMLEditTableProperties *d)
 			    changed_width_percent, d);
 
 	gtk_box_pack_start (GTK_BOX (table_page), sample_frame (&d->sample), FALSE, FALSE, 0);
-	fill_sample (d);
 
 	gtk_widget_show_all (table_page);
         gdk_color_alloc (gdk_window_get_colormap (d->cd->html->engine->window), &d->bg_color);
@@ -333,6 +333,8 @@ table_widget (GtkHTMLEditTableProperties *d)
 static void
 set_ui (GtkHTMLEditTableProperties *d)
 {
+	d->disable_change = TRUE;
+
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_bg_color), d->has_bg_color);
 	gdk_color_alloc (gdk_window_get_colormap (GTK_WIDGET (d->cd->html)->window), &d->bg_color);
 	color_combo_set_color (COLOR_COMBO (d->combo_bg_color), &d->bg_color);
@@ -350,6 +352,10 @@ set_ui (GtkHTMLEditTableProperties *d)
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_width), d->has_width);
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_width),  d->width);
 	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_width), d->width_percent ? 1 : 0);
+
+	d->disable_change = FALSE;
+
+	FILL;
 }
 
 static void
