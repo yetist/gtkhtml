@@ -558,7 +558,6 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 			p->bold = TRUE;
 			p->italic = FALSE;
 			p->fontsize += 2;
-			html_engine_select_font (p);
 			break;
 
 		case '3':
