@@ -2,6 +2,8 @@
 
 	* htmlengine.c (parse_p): don't push DIV block
 	(parse_p): don't pop it
+	(add_line_break): add para with empty text only when !HTML_CLUE
+	(clue)->head
 
 	* htmltext.c (html_text_append): new helper method
 

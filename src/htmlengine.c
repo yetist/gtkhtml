@@ -320,7 +320,7 @@ add_line_break (HTMLEngine *e,
 		HTMLObject *clue,
 		HTMLClearType clear)
 {
-	if (!e->flow)
+	if (!e->flow && !HTML_CLUE (clue)->head)
 		new_flow (e, clue, create_empty_text (e));
 	new_flow (e, clue, NULL);
 }
