@@ -1,5 +1,11 @@
 2000-05-09  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine-edit.c (html_engine_undo): Freeze/thaw.
+	Unfortunately something bad is going on in the relayout code.
+	(html_engine_redo): Likewise.
+
+2000-05-09  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* htmlengine-edit-fontstyle.c (set_font_style): Don't do stupid
 	merging.  Decrease count when splitting and setting the font.
 	Don't make your life harder when merging.  Overall fixup.
