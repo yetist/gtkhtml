@@ -4,6 +4,7 @@
    Copyright (C) 1997 Martin Jones (mjones@kde.org)
    Copyright (C) 1997 Torben Weis (weis@kde.org)
    Copyright (C) 2000 Helix Code, Inc.
+   Copyright (C) 2001 Ximian, Inc.
    
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -29,17 +30,44 @@
 #define TAG_ESCAPE 13
 #define TAB_SIZE 8
 
-HTMLTokenizer *html_tokenizer_new          (void);
-void           html_tokenizer_destroy      (HTMLTokenizer *tokenizer);
+#define HTML_TYPE_TOKENIZER        (html_tokenizer_get_type ())
+#define HTML_TOKENIZER(o)          (GTK_CHECK_CAST ((o), HTML_TYPE_TOKENIZER, HTMLTokenizer))
+#define HTML_TOKENIZER_CLASS(k)    (GTK_CHECK_CLASS_CAST ((k), HTML_TYPE_TOKENIZER, HTMLTokenizerClass))
+#define HTML_IS_TOKENIZER(o)       (GTK_CHECK_TYPE ((o), HTML_TYPE_TOKENIZER))
+#define HTML_IS_TOKENIZER_CLASS(k) (GTK_CHECK_CLASS_TYPE ((k), HTML_TYPE_TOKENIZER))
 
-void           html_tokenizer_begin        (HTMLTokenizer *t, 
-					    gchar *content_type);
-void           html_tokenizer_write        (HTMLTokenizer *t,
-					    const gchar *string,
-					    size_t size);
-void           html_tokenizer_end          (HTMLTokenizer *t);
-gchar *        html_tokenizer_peek_token   (HTMLTokenizer *t);
-gchar *        html_tokenizer_next_token   (HTMLTokenizer *t);
-gboolean       html_tokenizer_has_more_tokens     (HTMLTokenizer *t);
+struct _HTMLTokenizerPrivate;
+
+struct _HTMLTokenizer {
+	GtkObject parent;
+	struct _HTMLTokenizerPrivate *priv;
+};
+
+struct _HTMLTokenizerClass {
+	GtkObjectClass parent_class;
+
+	/* virtual functions */
+	void     (*begin)      (HTMLTokenizer *, gchar *content_type);
+	void     (*write)      (HTMLTokenizer *, const gchar *string, size_t size);
+	void     (*end)        (HTMLTokenizer *);
+	gchar   *(*peek_token) (HTMLTokenizer *);
+	gchar   *(*next_token) (HTMLTokenizer *);
+	gboolean (*has_more)   (HTMLTokenizer *);
+};
+
+GtkType        html_tokenizer_get_type        (void);
+
+HTMLTokenizer *html_tokenizer_new             (void);
+void           html_tokenizer_destroy         (HTMLTokenizer *tokenizer);
+
+void           html_tokenizer_begin           (HTMLTokenizer *t, 
+					       gchar *content_type);
+void           html_tokenizer_write           (HTMLTokenizer *t,
+					       const gchar *string,
+					       size_t size);
+void           html_tokenizer_end             (HTMLTokenizer *t);
+gchar *        html_tokenizer_peek_token      (HTMLTokenizer *t);
+gchar *        html_tokenizer_next_token      (HTMLTokenizer *t);
+gboolean       html_tokenizer_has_more_tokens (HTMLTokenizer *t);
 
 #endif /* _HTMLTOKENIZER_H_ */

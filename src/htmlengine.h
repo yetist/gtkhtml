@@ -280,6 +280,10 @@ gboolean  html_engine_get_editable  (HTMLEngine *e);
 void  html_engine_set_focus  (HTMLEngine *engine,
 			      gboolean    have_focus);
 
+/* Tokenizer. */
+void html_engine_set_tokenizer (HTMLEngine *engine,
+				HTMLTokenizer *tok);
+
 /* Parsing control.  */
 GtkHTMLStream *html_engine_begin            (HTMLEngine  *p, 
 					     char        *content_type);

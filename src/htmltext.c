@@ -1257,7 +1257,11 @@ html_text_class_init (HTMLTextClass *klass,
 inline static gint
 text_len (const gchar *str, gint len)
 {
-	return len == -1 ? g_utf8_strlen (str, -1) : len;
+	if (len == -1) {
+		return g_utf8_validate (str, -1, NULL) ? g_utf8_strlen (str, -1) : 0;
+	}
+
+	return len;
 }
 
 void

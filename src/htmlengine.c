@@ -4145,6 +4145,23 @@ html_engine_set_focus (HTMLEngine *engine,
 }
 
 
+/*
+  FIXME: It might be nice if we didn't allow the tokenizer to be
+  changed once tokenizing has begin.
+*/
+void
+html_engine_set_tokenizer (HTMLEngine *engine,
+			   HTMLTokenizer *tok)
+{
+	g_return_if_fail (engine && HTML_IS_ENGINE (engine));
+	g_return_if_fail (tok && HTML_IS_TOKENIZER (tok));
+
+	gtk_object_ref (GTK_OBJECT (tok));
+	gtk_object_unref (GTK_OBJECT (engine->ht));
+	engine->ht = tok;
+}
+
+
 gboolean
 html_engine_make_cursor_visible (HTMLEngine *e)
 {

@@ -1,3 +1,24 @@
+2001-05-06  Jon Trowbridge  <trow@ximian.com>
+
+	* htmltext.c (text_len): Call g_utf8_validate on the string
+	before g_utf8_strlen-ing it.
+
+	* htmltypes.h: Added typedef for HTMLTokenizerClass.
+
+	* htmlengine.c (html_engine_set_tokenizer): Added.  Allows the
+	HTMLEngine's tokenizer to be changed.
+
+	* htmltokenizer.c: Converted HTMLTokenizer to be a GtkObject with
+	a vtable for the basic operations.  Renamed the existing functions
+	as html_tokenizer_real_foo and made them the default vtable
+	entries for HTMLTokenizerClass.  Changed the html_tokenizer_foo
+	functions to just be wrappers around calls to the appropriate
+	vtable entries.  The previous struct HTMLTokenizer, which was
+	totally private, is now struct _HTMLTokenizerPrivate.  Lots of
+	references to entries in that struct have been changed to reflect
+	all of the renaming, but no non-trivial changes were needed to
+	make everything work.
+
 2001-05-03  Radek Doulik  <rodo@ximian.com>
 
 	* htmlundo.c (html_undo_do_undo): block events during undo/redo
@@ -32,6 +53,7 @@
 	html_engine_append_object
 	(insert_object_do): added dir parameter
 
+>>>>>>> 1.1020
 2001-05-02  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml.c (gtk_html_load_from_string): use stream_write instead

@@ -117,6 +117,7 @@ typedef struct _HTMLTextInputClass HTMLTextInputClass;
 typedef struct _HTMLTextSlave HTMLTextSlave;
 typedef struct _HTMLTextSlaveClass HTMLTextSlaveClass;
 typedef struct _HTMLTokenizer HTMLTokenizer;
+typedef struct _HTMLTokenizerClass HTMLTokenizerClass;
 typedef struct _HTMLUndo HTMLUndo;
 typedef struct _HTMLUndoData HTMLUndoData;
 typedef struct _HTMLUndoAction HTMLUndoAction;
