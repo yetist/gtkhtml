@@ -287,6 +287,8 @@ write_end (HTMLEngineSaveState *state)
 	if (! html_engine_save_output_string (state, "</BODY>\n</HTML>\n"))
 		return FALSE;
 
+	html_engine_clear_all_class_data (state->engine);
+
 	return TRUE;
 }
 

@@ -70,21 +70,28 @@ normalize (HTMLObject **object,
 }
 
 
+
+inline void
+html_cursor_init (HTMLCursor *cursor, HTMLObject *o, guint offset)
+{
+	cursor->object = o;
+	cursor->offset = offset;
+
+	cursor->target_x = 0;
+	cursor->have_target_x = FALSE;
+
+	cursor->position = 0;
+}
+
 HTMLCursor *
 html_cursor_new (void)
 {
-	HTMLCursor *new;
+	HTMLCursor *new_cursor;
 
-	new = g_new (HTMLCursor, 1);
-	new->object = NULL;
-	new->offset = 0;
+	new_cursor = g_new (HTMLCursor, 1);
+	html_cursor_init (new_cursor, NULL, 0);
 
-	new->target_x = 0;
-	new->have_target_x = FALSE;
-
-	new->position = 0;
-
-	return new;
+	return new_cursor;
 }
 
 void

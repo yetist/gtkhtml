@@ -5099,7 +5099,7 @@ html_engine_get_object_by_id (HTMLEngine *e, const gchar *id)
 GHashTable *
 html_engine_get_class_table (HTMLEngine *e, const gchar *class_name)
 {
-	return class_name && e->class_data ? g_hash_table_lookup (e->class_data, class_name) : NULL;
+	return (class_name && e->class_data) ? g_hash_table_lookup (e->class_data, class_name) : NULL;
 }
 
 static inline GHashTable *
@@ -5153,7 +5153,7 @@ html_engine_clear_class_data (HTMLEngine *e, const gchar *class_name, const gcha
 
 	/* printf ("clear (%s) %s\n", class_name, key); */
 	if (t && g_hash_table_lookup_extended (t, key, &old_key, &old_val)) {
-		g_hash_table_remove (t, key);
+		g_hash_table_remove (t, old_key);
 		g_free (old_key);
 		g_free (old_val);
 	}
@@ -5162,6 +5162,7 @@ html_engine_clear_class_data (HTMLEngine *e, const gchar *class_name, const gcha
 static gboolean
 remove_class_data (gpointer key, gpointer val, gpointer data)
 {
+	/* printf ("remove: %s, %s\n", key, val); */
 	g_free (key);
 	g_free (val);
 
@@ -5172,6 +5173,7 @@ static gboolean
 remove_all_class_data (gpointer key, gpointer val, gpointer data)
 {
 	g_hash_table_foreach_remove ((GHashTable *) val, remove_class_data, NULL);
+	/* printf ("remove table: %s\n", key); */
 	g_hash_table_destroy ((GHashTable *) val);
 	g_free (key);
 

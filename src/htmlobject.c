@@ -54,12 +54,6 @@ HTMLObjectClass html_object_class;
 /* HTMLObject virtual methods.  */
 
 static void
-free_data (GQuark id, gpointer data, gpointer user_data)
-{
-	g_free (data);
-}
-
-static void
 destroy (HTMLObject *self)
 {
 #define GTKHTML_MEM_DEBUG 1
@@ -71,7 +65,6 @@ destroy (HTMLObject *self)
 	self->next = NULL;
 	self->prev = NULL;
 #endif
-	g_datalist_foreach (&self->object_data, free_data, NULL);
 	g_datalist_clear (&self->object_data);
 	
 	if (self->redraw_pending) {
@@ -1574,7 +1567,7 @@ html_object_get_index (HTMLObject *self, guint offset)
 void
 html_object_set_data (HTMLObject *object, const gchar *key, const gchar *value)
 {
-	g_datalist_set_data (&object->object_data, key, g_strdup (value));
+	g_datalist_set_data_full (&object->object_data, key, g_strdup (value), g_free);
 }
 
 gpointer
@@ -1588,7 +1581,10 @@ copy_data (GQuark key_id, gpointer data, gpointer user_data)
 {
 	HTMLObject *o = HTML_OBJECT (user_data);
 
-	g_datalist_id_set_data (&o->object_data, key_id, g_strdup ((gchar *)data));
+	/* printf ("copy key: '%s'\n", g_quark_to_string (key_id)); */
+	g_datalist_set_data_full (&o->object_data,
+				  g_strdup (g_quark_to_string (key_id)),
+				  g_strdup ((gchar *) data), g_free);
 }
 
 void
@@ -1625,13 +1621,20 @@ handle_object_data (gpointer key, gpointer value, gpointer data)
 		/* printf ("clear\n"); */
 		html_engine_save_output_string (state, "<!--+GtkHTML:<DATA class=\"%s\" clear=\"%s\">",
 						state->save_data_class_name, key);
-		html_engine_clear_class_data (state->engine, state->save_data_class_name, key);
+		
+		state->data_to_remove = g_slist_prepend (state->data_to_remove, key);
 	} else if (strcmp (value, str)) {
 		/* printf ("change\n"); */
 		html_engine_save_output_string (state, "<!--+GtkHTML:<DATA class=\"%s\" key=\"%s\" value=\"%s\">",
 						state->save_data_class_name, key, str);
 		html_engine_set_class_data (state->engine, state->save_data_class_name, key, value);
 	}
+}
+
+static void
+clear_data (gchar *key, HTMLEngineSaveState *state)
+{
+	html_engine_clear_class_data (state->engine, state->save_data_class_name, key);
 }
 
 gboolean
@@ -1642,8 +1645,13 @@ html_object_save_data (HTMLObject *self, HTMLEngineSaveState *state)
 		state->save_data_class_name = html_type_name (self->klass->type);
 		state->save_data_object = self;
 		t = html_engine_get_class_table (state->engine, state->save_data_class_name);
-		if (t)
+		if (t) {
+			state->data_to_remove = NULL;
 			g_hash_table_foreach (t, handle_object_data, state);
+			g_slist_foreach (state->data_to_remove, (GFunc) clear_data, state);
+			g_slist_free (state->data_to_remove);
+			state->data_to_remove = NULL;
+		}
 		g_datalist_foreach (&self->object_data, object_save_data, state);
 	}
 
@@ -1953,8 +1961,8 @@ next_prev_cursor_object (HTMLObject *o, HTMLEngine *e, gint *offset, gboolean fo
 	HTMLCursor cursor;
 	gboolean result;
 
-	cursor.object = o;
-	cursor.offset = HTML_IS_TABLE (o) ? *offset : (forward ? html_object_get_length (o) : 0);
+	html_cursor_init (&cursor, o, HTML_IS_TABLE (o) ? *offset : (forward ? html_object_get_length (o) : 0));
+
 	result = forward ? html_cursor_forward (&cursor, e) : html_cursor_backward (&cursor, e);
 	*offset = cursor.offset;
 

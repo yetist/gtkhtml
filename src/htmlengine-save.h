@@ -34,6 +34,7 @@ struct _HTMLEngineSaveState {
 	guint br_count;
 	const gchar *save_data_class_name;
 	HTMLObject *save_data_object;
+	GSList *data_to_remove;
 
 	guint error : 1;
 

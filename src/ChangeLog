@@ -1,4 +1,18 @@
+2002-07-26  Radek Doulik  <rodo@ximian.com>
+
+	* htmlobject.c (handle_object_data): don't clear class data here
+	as it could break hash foreach loop
+	(clear_data): clear them later here
+
 2002-07-25  Radek Doulik  <rodo@ximian.com>
+
+	* htmlobject.c (next_prev_cursor_object): use html_cursor_init
+	(copy_data): duplicate the key
+	(html_object_set_data): use _full version with g_free
+	(copy_data): use _full version with g_free
+
+	* htmlcursor.c (html_cursor_init): new function to initialize all
+	cursor fields
 
 	* htmlclueflow.c (layout_line): update height just when really needed
 
