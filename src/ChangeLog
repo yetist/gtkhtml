@@ -1,3 +1,8 @@
+2002-10-16  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c parse_table: make the parser create a new row if
+	it sees </tr> without a subsequent <tr>.
+	
 2002-10-17  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml.c (button_release_event): make scrolling via the scroll

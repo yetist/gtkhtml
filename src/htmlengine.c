@@ -988,8 +988,8 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	gchar has_cell = 0;
 	gboolean done = FALSE;
 	gboolean tableTag = TRUE;
-	gboolean firstRow = TRUE;
-	gboolean noCell = TRUE;
+	gboolean newRow = TRUE;
+	gboolean noCell = FALSE;
 	gboolean tableEntry;
 	HTMLVAlignType rowvalign = HTML_VALIGN_NONE;
 	HTMLHAlignType rowhalign = HTML_HALIGN_NONE;
@@ -1139,11 +1139,23 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					}
 				}
 
-				if (strncmp (str, "<tr", 3) == 0) {
-					if (!firstRow)
+				if (strncmp (str, "</tr", 4) == 0) {
+					if (has_cell) {
+						html_table_end_row (table);
+						rowvalign = HTML_VALIGN_NONE;
+						rowhalign = HTML_HALIGN_NONE;
+						
+						have_rowColor = FALSE;
+						have_rowPixmap = FALSE;
+						
+						newRow = TRUE;
+						html_table_start_row (table);
+					}
+				} else if (strncmp (str, "<tr", 3) == 0) {
+					if (!newRow)
 						html_table_end_row (table);
 					html_table_start_row (table);
-					firstRow = FALSE;
+					newRow = FALSE;
 					rowvalign = HTML_VALIGN_NONE;
 					rowhalign = HTML_HALIGN_NONE;
 
@@ -1191,11 +1203,14 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						heading = TRUE;
 					}
 					
-					/* <tr> may not be specified for the first row */
-					if (firstRow) {
+					/* 
+					 * <tr> man not be present for first row
+					 * or after </tr> but start one anyway
+					 */
+					if (newRow) {
 						/* Bad HTML: No <tr> tag present */
 						html_table_start_row (table);
-						firstRow = FALSE;
+						newRow = FALSE;
 					}
 
 					no_wrap     = FALSE;
@@ -1380,7 +1395,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	if (has_cell) {
 		/* The ending "</table>" might be missing, so we close the table
 		   here...  */
-		if (!firstRow)
+		if (!newRow)
 			html_table_end_row (table);
 		has_cell = html_table_end_table (table);
 	}
