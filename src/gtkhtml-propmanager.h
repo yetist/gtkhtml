@@ -39,6 +39,7 @@ struct _GtkHTMLPropmanager {
 	GtkObject object;
 
 	GtkHTMLPropmanagerPrivate *priv;
+	GConfClient *client;
 };
 
 struct _GtkHTMLPropmanagerClass {
