@@ -94,8 +94,8 @@ html_cursor_get_right (HTMLCursor *cursor, HTMLObject **obj, gint *off)
 		*obj = html_object_next_not_slave (cursor->object);
 		if (*obj) {
 			*off = 0;
-			return;
 		}
+		return;
 	}
 	*obj = cursor->object;
 	*off = cursor->offset;
@@ -108,8 +108,8 @@ html_point_get_left (HTMLPoint *source, HTMLPoint *dest)
 		dest->object = html_object_prev_not_slave (source->object);
 		if (dest->object) {
 			dest->offset = html_object_get_length (dest->object);
-			return;
 		}
+		return;
 	}
 
 	*dest = *source;
@@ -178,12 +178,13 @@ prepare_delete_bounds (HTMLEngine *e, GList **from_list, GList **to_list,
 	*from_list = get_parent_list (&begin, level, TRUE);
 	*to_list   = get_parent_list (&end,   level, TRUE);
 
-	if (bound_left) {
+	if (bound_left && bound_right) {
 		html_point_get_left  (&e->selection->from, &b_left);
-		*bound_left = b_left.object ? get_parent_list (&b_left, level - 1, FALSE) : NULL;
-	}
-	if (bound_right) {
 		html_point_get_right  (&e->selection->to, &b_right);
+
+		level = get_parent_level (b_left.object, b_right.object);
+
+		*bound_left = b_left.object ? get_parent_list (&b_left, level - 1, FALSE) : NULL;
 		*bound_right = b_right.object ? get_parent_list (&b_right, level - 1, FALSE) : NULL;
 	}
 }
@@ -251,6 +252,15 @@ remove_empty_and_merge (HTMLEngine *e, gboolean merge, GList *left, GList *right
 	HTMLObject *lo, *ro;
 	gint len;
 
+	printf ("-- merge --\n");
+	if (left && left->data) {
+		printf ("left:\n");
+		gtk_html_debug_dump_tree_simple (HTML_OBJECT (left->data), 0);
+	}
+	if (right && right->data) {
+		printf ("right:\n");
+		gtk_html_debug_dump_tree_simple (HTML_OBJECT (right->data), 0);
+	}
 	while (left && left->data && right && right->data) {
 
 		lo  = HTML_OBJECT (left->data);
@@ -259,17 +269,23 @@ remove_empty_and_merge (HTMLEngine *e, gboolean merge, GList *left, GList *right
 
 		if ((lo->prev || merge) &&
 		    html_object_is_text (lo) && !*HTML_TEXT (lo)->text) {
+			HTMLObject *nlo = lo->prev;
 			if (e->cursor->object == lo)
 				e->cursor->object = ro;
 			if (c && c->object == lo)
 				c->object = ro;
 			html_object_remove_child (lo->parent, lo);
 			html_object_destroy (lo);
+			lo = nlo;
 		} else if ((ro->next || merge) &&
 			   html_object_is_text (ro) && !*HTML_TEXT (ro)->text) {
+			HTMLObject *nro = ro->next;
 			html_object_remove_child (ro->parent, ro);
 			html_object_destroy (ro);
-		} else if (merge) {
+			ro = nro;
+		}
+
+		if (merge && lo && ro) {
 			if (!html_object_merge (lo, ro))
 				break;
 			if (ro == e->cursor->object) {
@@ -280,6 +296,9 @@ remove_empty_and_merge (HTMLEngine *e, gboolean merge, GList *left, GList *right
 		left  = left->next;
 		right = right->next;
 	}
+	printf ("-- after merge --\n");
+	gtk_html_debug_dump_tree_simple (e->clue, 0);
+	printf ("-- merge END --\n");
 }
 
 static void
@@ -358,7 +377,34 @@ delete_object_do (HTMLEngine *e, HTMLObject **object, guint *len)
 	if (html_engine_is_selection_active (e)) {
 		html_engine_freeze (e);
 		prepare_delete_bounds (e, &from, &to, &left, &right);
-		html_engine_disable_selection (e);
+		if (e->mark->position < e->cursor->position) {
+			HTMLCursor *tmp;
+
+			tmp = e->cursor;
+			e->cursor = e->mark;
+			e->mark = tmp;
+		}
+
+		if (e->cursor->object->prev && e->cursor->offset == 0) {
+			HTMLObject *obj;
+			gint off;
+
+			html_cursor_get_left (e->cursor, &obj, &off);
+			if (obj) {
+				e->cursor->object = obj;
+				e->cursor->offset = off;
+			}
+		} else if (e->mark->object->next && e->cursor->offset == html_object_get_length (e->cursor->object)) {
+			HTMLObject *obj;
+			gint off;
+
+			html_cursor_get_right (e->mark, &obj, &off);
+			if (obj) {
+				e->cursor->object = obj;
+				e->cursor->offset = off;
+			}			
+		}
+		html_engine_deactivate_selection (e);
 		*len     = 0;
 		*object  = html_object_op_cut  (HTML_OBJECT (from->data), e, from->next, to->next, len);
 		remove_empty_and_merge (e, TRUE, left, right, NULL);
@@ -375,7 +421,7 @@ delete_object (HTMLEngine *e, HTMLObject **ret_object, guint *ret_len, HTMLUndoD
 		HTMLObject *object;
 		guint len;
 
-		if (e->mark->position < e->cursor->position) {
+		/* if (e->mark->position < e->cursor->position) {
 			HTMLCursor *tmp;
 
 			tmp = e->cursor;
@@ -396,7 +442,7 @@ delete_object (HTMLEngine *e, HTMLObject **ret_object, guint *ret_len, HTMLUndoD
 		if (!e->cursor->object || (e->cursor->object->prev == NULL && e->cursor->offset == 0)) {
 			e->cursor->object = e->mark->object;
 			e->cursor->offset = 0;
-		}
+			} */
 
 		delete_object_do (e, &object, &len);
 		if (ret_object && ret_len) {

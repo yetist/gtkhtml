@@ -1,5 +1,10 @@
 2001-01-05  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine.c (html_engine_thaw): use html_draw_queue_clear
+
+	* htmldrawqueue.c (html_draw_queue_clear): new function
+	(html_draw_queue_flush): use html_draw_queue_clear
+
 	* htmlengine-edit-cut-and-paste.c (delete_object): don't set
 	cursor to home, op_cut take care of cursor now
 

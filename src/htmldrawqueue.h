@@ -51,6 +51,7 @@ struct _HTMLDrawQueue {
 HTMLDrawQueue *html_draw_queue_new      (HTMLEngine    *engine);
 void           html_draw_queue_destroy  (HTMLDrawQueue *queue);
 void           html_draw_queue_flush    (HTMLDrawQueue *queue);
+void           html_draw_queue_clear    (HTMLDrawQueue *queue);
 
 /* Adding objects.  */
 void           html_draw_queue_add      (HTMLDrawQueue *queue,

@@ -112,16 +112,22 @@ op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 	gint l = html_object_get_length (self);
 
 	if ((!from || GPOINTER_TO_INT (from->data) == 0) && (!to || GPOINTER_TO_INT (to->data) == l)) {
-		if ((from || to) && !self->next && !self->prev) {
+		if ((from || to) && !html_object_next_not_slave (self) && !html_object_prev_not_slave (self)) {
 			HTMLObject *empty = html_engine_new_text_empty (e);
 
 			if (e->cursor->object == self)
 				e->cursor->object = empty;
 			html_clue_append_after (HTML_CLUE (self->parent), empty, self);
-		}
+			html_object_change_set (empty, HTML_CHANGE_ALL);
+		} else
+			if (e->cursor->object == self) {
+				if (html_object_next_not_slave (self))
+					e->cursor->object = html_object_next_not_slave (self);
+				else
+					e->cursor->object = html_object_prev_not_slave (self);
+			}
 
-		html_object_change_set   (self->parent, HTML_CHANGE_ALL);
-		html_object_change_set   (self, HTML_CHANGE_ALL);
+		html_object_change_set   (self,  HTML_CHANGE_ALL);
 		html_object_remove_child (self->parent, self);
 		*len += l;
 

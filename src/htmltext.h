@@ -130,6 +130,7 @@ HTMLObject       *html_text_op_copy_helper               (HTMLText           *te
 							  guint              *len,
 							  HTMLTextHelperFunc  f);
 HTMLObject       *html_text_op_cut_helper                (HTMLText           *text,
+							  HTMLEngine         *e,
 							  GList              *from,
 							  GList              *to,
 							  guint              *len,

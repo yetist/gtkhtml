@@ -82,7 +82,7 @@ op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 static HTMLObject *
 op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 {
-	return html_text_op_cut_helper (HTML_TEXT (self), from, to, len, new_link);
+	return html_text_op_cut_helper (HTML_TEXT (self), e, from, to, len, new_link);
 }
 
 static gboolean
