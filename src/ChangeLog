@@ -1,13 +1,17 @@
+2004-10-11  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (gtk_html_size_request): make sure we keep layout in
+	the same state as before we were called (scrolled window may issue
+	additional size request after widget was already allocated)
+
+	Fixes #67707
+
 2004-10-08  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (html_text_remove_unwanted_line_breaks): added "$+?"
 	to nonbreaking characters (comon in urls)
 
 	Addition to #54852 fix
-
-2004-10-01  JP Rosevear  <jpr@novell.com>
-
-	* libgtkhtml.pc.in: expose gtkhtml_apiverison as a variable
 
 2004-09-28  Radek Doulik  <rodo@ximian.com>
 
@@ -53,10 +57,6 @@
 	* htmltext.c (style_from_attrs): handle PANGO_ATTR_FAMILY, we use
 	that now only for FIXED style
 	(unset_style_filter): ditto
-
-2004-09-17  Radek Doulik  <rodo@ximian.com>
-
-	* Makefile.am: api version 3.1 -> 3.6
 
 2004-09-16  Radek Doulik  <rodo@ximian.com>
 
