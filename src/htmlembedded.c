@@ -335,6 +335,7 @@ html_embedded_size_recalc(HTMLEmbedded *em)
 
 	if (em->widget == NULL)
 		return;
+	eb = (GtkHTMLEmbedded *)em->widget;
 
 	gtk_widget_size_request(em->widget, &req);
 

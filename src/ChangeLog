@@ -1,3 +1,8 @@
+2000-06-02  Dan Winship  <danw@helixcode.com>
+
+	* htmlembedded.c (html_embedded_size_recalc): replace a variable
+	initialization that got lost yesterday.
+
 2000-06-01  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlclue.c (destroy): rework that last commit to do things
