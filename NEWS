@@ -1,3 +1,13 @@
+gtkhtml-3.5.3 "Resort" 2004-01-10
+------------------------------------------------
+
+New in this release
+
+   * Right-to-Left display support
+   * fix crash on a double-click on the background of the mail header
+   * i18n fixes (Mengjie Yu)
+   * a11y fixes (Mengjie Yu)
+
 gtkhtml-3.5.2 "Valley" 2004-12-20
 ------------------------------------------------
 
