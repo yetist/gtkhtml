@@ -34,6 +34,7 @@
 #include "htmlsearch.h"
 #include "htmlobject.h"
 #include "htmlentity.h"
+#include "htmlengine.h"
 
 static void
 set_text (HTMLSearch *s, const gchar *text)
@@ -51,10 +52,23 @@ html_search_new (HTMLEngine *e, const gchar *text, gboolean case_sensitive, gboo
 	set_text (ns, text);
 	ns->case_sensitive = case_sensitive;
 	ns->forward        = forward;
-	ns->stack          = NULL;
-	ns->start_pos      = 0;
 	ns->found          = NULL;
 	ns->engine         = e;
+
+	if (html_engine_get_editable (e)) {
+		HTMLObject *o;
+ 
+		ns->stack = NULL;
+		ns->start_pos = e->cursor->offset - 1;
+		for (o = e->cursor->object; o; o = o->parent)
+			html_search_push (ns, o);
+		ns->stack = g_slist_reverse (ns->stack);
+		ns->found = g_list_append (ns->found, e->cursor->object);
+	} else {
+		ns->stack     = NULL;
+		ns->start_pos = 0;
+		html_search_push (ns, e->clue);
+	}
 
 	/* translate table
 	   could translate uppercase to lowercase if non case_sensitive */

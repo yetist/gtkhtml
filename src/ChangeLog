@@ -1,3 +1,14 @@
+2001-08-24  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-search.c (html_engine_search): update to respect
+	search info changes
+
+	* htmlengine-edit-cut-and-paste.c (insert_object): call
+	insert_object_do only if len > 0
+
+	* htmlsearch.c (html_search_new): when editable, start at current
+	cursor position
+
 2001-08-24  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine-edit-selection-updater.c: remove the

@@ -593,7 +593,7 @@ set_cursor_at_end_of_object (HTMLEngine *e, HTMLObject *o, guint len)
 	e->cursor->offset   = html_object_get_length (e->cursor->object);
 }
 
-static void
+static inline void
 insert_object_do (HTMLEngine *e, HTMLObject *obj, guint len, gboolean check, HTMLUndoDirection dir)
 {
 	HTMLObject *cur;
@@ -701,7 +701,7 @@ insert_object (HTMLEngine *e, HTMLObject *obj, guint len, HTMLUndoDirection dir,
 	/* FIXME for tables */
 	if (HTML_IS_TABLE (obj))
 		append_object (e, obj, len, dir);
-	else {
+	else if (len > 0) {
 		insert_object_do (e, obj, len, check, dir);
 		insert_setup_undo (e, len, dir);
 	}

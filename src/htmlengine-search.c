@@ -137,14 +137,16 @@ html_engine_search (HTMLEngine *e, const gchar *text,
 		    gboolean case_sensitive, gboolean forward, gboolean regular)
 {
 	HTMLSearch *info;
+	HTMLObject *p;
 
 	if (e->search_info) {
 		html_search_destroy (e->search_info);
 	}
 
 	info = e->search_info = html_search_new (e, text, case_sensitive, forward, regular);
-	html_search_push (info, e->clue);
-	if (html_object_search (e->clue, info)) {
+
+	p = HTML_OBJECT (e->search_info->stack->data)->parent;
+	if (html_object_search (p ? p : e->clue, info)) {
 		display_search_results (info);
 		return TRUE;
 	} else
