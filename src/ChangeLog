@@ -1,3 +1,14 @@
+2001-01-29  Larry Ewing  <lewing@ximian.com>
+
+	* htmltable.c (html_table_init): remove reference to refcount.
+	Remove unused link/unlink funtions.
+
+	* htmltablecell.h: remove unused refcount member.  Remore
+	link/unlink prototypes.
+
+	* htmltable.c (set_cell): remove useless call to
+	html_table_cell_link.
+
 2001-01-29  Radek Doulik  <rodo@ximian.com>
 
 	* htmltable.c (destroy): reversed order of walk thru table as we

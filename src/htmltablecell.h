@@ -39,7 +39,6 @@ struct _HTMLTableCell {
 	gint rspan;
 	gint cspan;
 	gint padding;
-	gint refcount;
 	gint row;
 	gint col;
 
@@ -73,8 +72,6 @@ HTMLObject *html_table_cell_new              (gint                percent,
 					      gint                rs,
 					      gint                cs,
 					      gint                pad);
-void        html_table_cell_link             (HTMLTableCell      *cell);
-void        html_table_cell_unlink           (HTMLTableCell      *cell);
 void        html_table_cell_set_fixed_width  (HTMLTableCell      *cell,
 					      gint                width);
 void        html_table_cell_set_fixed_height (HTMLTableCell      *cell,

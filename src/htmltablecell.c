@@ -328,7 +328,6 @@ html_table_cell_init (HTMLTableCell *cell,
 
 	cell->padding = 0;
 	cluev->padding = pad;
-	cell->refcount = 0;
 	cell->rspan = rs;
 	cell->cspan = cs;
 	cell->col = -1;
@@ -350,21 +349,6 @@ html_table_cell_new (gint percent,
 	html_table_cell_init (cell, &html_table_cell_class, percent, rs, cs, pad);
 
 	return HTML_OBJECT (cell);
-}
-
-void
-html_table_cell_link (HTMLTableCell *cell)
-{
-	cell->refcount++;
-}
-
-void
-html_table_cell_unlink (HTMLTableCell *cell)
-{
-	cell->refcount--;
-
-	if (cell->refcount == 0)
-		html_object_destroy (HTML_OBJECT (cell));
 }
 
 void

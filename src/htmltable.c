@@ -76,7 +76,7 @@ destroy (HTMLObject *o)
 
 	/* for (r = 0; r < table->allocRows; r++) {
 		for (c = 0; c < table->totalCols; c++) {
-			if ((cell = table->cells[r][c]) == 0)
+			if ((cell = table->cells[r][c]) == NULL)
 				continue;
 			if (cell->row != r || cell->col != c)
 				continue;
@@ -358,7 +358,6 @@ set_cell (HTMLTable *table, gint r, gint c, HTMLTableCell *cell)
 {
 	if (!table->cells [r][c]) {
 		table->cells [r][c] = cell;
-		html_table_cell_link (cell);
 		HTML_OBJECT (cell)->parent = HTML_OBJECT (table);
 	}
 }
