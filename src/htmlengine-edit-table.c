@@ -910,9 +910,32 @@ html_engine_table_set_align (HTMLEngine *e, HTMLTable *t, HTMLHAlignType align)
  *
  */
 
-void
-html_engine_table_set_width (HTMLEngine *e, HTMLTable *t, gint width, gboolean percent)
+static void table_set_width (HTMLEngine *e, HTMLTable *t, gint width, gboolean percent, HTMLUndoDirection dir);
+
+static void
+table_set_width_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir)
 {
+	HTMLTableSetAttrUndo *data = (HTMLTableSetAttrUndo *) undo_data;
+
+	table_set_width (e, html_engine_get_table (e), data->attr.width.width, data->attr.width.percent,
+			 html_undo_direction_reverse (dir));
+}
+
+static void
+table_set_width (HTMLEngine *e, HTMLTable *t, gint width, gboolean percent, HTMLUndoDirection dir)
+{
+	HTMLTableSetAttrUndo *undo;
+
+	undo = attr_undo_new (HTML_TABLE_WIDTH);
+	undo->attr.width.width = HTML_OBJECT (t)->percent
+		? HTML_OBJECT (t)->percent
+		: (HTML_OBJECT (t)->flags & HTML_OBJECT_FLAG_FIXEDWIDTH
+		   ? t->specified_width : 0);
+	undo->attr.width.percent = HTML_OBJECT (t)->percent != 0;
+	html_undo_add_action (e->undo,
+			      html_undo_action_new ("Set table width", table_set_width_undo_action,
+						    HTML_UNDO_DATA (undo), html_cursor_get_position (e->cursor)), dir);
+
 	if (percent) {
 		HTML_OBJECT (t)->percent = width;
 		HTML_OBJECT (t)->flags  &= ~ HTML_OBJECT_FLAG_FIXEDWIDTH;
@@ -927,4 +950,10 @@ html_engine_table_set_width (HTMLEngine *e, HTMLTable *t, gint width, gboolean p
 	}
 	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL_CALC);
 	html_engine_schedule_update (e);
+}
+
+void
+html_engine_table_set_width (HTMLEngine *e, HTMLTable *t, gint width, gboolean percent)
+{
+	table_set_width (e, t, width, percent, HTML_UNDO_UNDO);
 }
