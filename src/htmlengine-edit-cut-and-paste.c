@@ -1264,6 +1264,24 @@ html_engine_append_object (HTMLEngine *e, HTMLObject *o, guint len)
 }
 
 static void
+replace_objects_in_clue_from_another (HTMLClue *dest, HTMLClue *src)
+{
+	HTMLObject *cur, *next;
+
+	for (cur = dest->head; cur; cur = next) {
+		next = cur->next;
+		html_object_remove_child (cur->parent, cur);
+		html_object_destroy (cur);
+	}
+
+	for (cur = src->head; cur; cur = next) {
+		next = cur->next;
+		html_object_remove_child (cur->parent, cur);
+		html_clue_append (dest, cur);
+	}
+}
+
+static void
 append_flow (HTMLEngine *e, HTMLObject *o, guint len, HTMLUndoDirection dir)
 {
 	HTMLObject *where;
@@ -1277,19 +1295,28 @@ append_flow (HTMLEngine *e, HTMLObject *o, guint len, HTMLUndoDirection dir)
 	g_return_if_fail (html_clueflow_is_empty (HTML_CLUEFLOW (e->cursor->object->parent)));
 
 	where = e->cursor->object->parent;
+	html_object_change_set (o, HTML_CHANGE_ALL_CALC);
 
 	e->cursor->object = html_object_get_head_leaf (o);
 	e->cursor->offset = 0;
+
+	/* be sure we have valid cursor position (like when there is a focusable container) */
 	position = e->cursor->position;
 	while (html_cursor_backward (e->cursor, e))
 		;
 	e->cursor->position = position;
-	html_clue_append_after (HTML_CLUE (where->parent), o, where);
-	html_object_remove_child (where->parent, where);
-	html_object_destroy (where);
+
+	/* we move objects between flows to preserve attributes as indentation, ... */
+	if (HTML_IS_CLUEFLOW (o)) {
+		replace_objects_in_clue_from_another (HTML_CLUE (where), HTML_CLUE (o));
+		html_object_destroy (o);
+	} else {
+		html_clue_append_after (HTML_CLUE (where->parent), o, where);
+		html_object_remove_child (where->parent, where);
+		html_object_destroy (where);
+	}
 
 	html_cursor_forward_n (e->cursor, e, len);
-	html_object_change_set (o, HTML_CHANGE_ALL_CALC);
 	html_engine_thaw (e);
 
 	insert_setup_undo (e, len, position_before, dir, FALSE, FALSE);
