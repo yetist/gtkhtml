@@ -1,3 +1,12 @@
+2002-01-23  Radek Doulik  <rodo@ximian.com>
+
+	* editor-control-factory.c (editor_api_command): use
+	popup_show_at_cursor instead of popup_show
+
+	* popup.c (popup_show_at_cursor): new function, shows popup menu
+	at text cursor position
+	(set_position): helper function for popup_show_at_cursor
+
 2002-01-15  Ettore Perazzoli  <ettore@ximian.com>
 
 	* spell.c (spell_create_language_menu): Just return if cd->dict is

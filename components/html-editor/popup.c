@@ -485,6 +485,34 @@ popup_show (GtkHTMLControlData *cd, GdkEventButton *event)
 	return (items > 0);
 }
 
+static void
+set_position (GtkMenu *menu, gint *x, gint *y, gpointer data)
+{
+	GtkHTMLControlData *cd = (GtkHTMLControlData *) data;
+	HTMLEngine *e = cd->html->engine;
+	gint xw, yw;
+
+	gdk_window_get_origin (GTK_WIDGET (cd->html)->window, &xw, &yw);
+	html_object_get_cursor_base (e->cursor->object, e->painter, e->cursor->offset, x, y);
+	*x += xw + e->leftBorder;
+	*y += yw + e->topBorder;
+}
+
+gint
+popup_show_at_cursor (GtkHTMLControlData *cd)
+{
+	GtkWidget *menu;
+	guint items = 0;
+
+	menu = prepare_properties_and_menu (cd, &items);
+	gtk_widget_show (menu);
+	if (items)
+		gtk_menu_popup (GTK_MENU (menu), NULL, NULL, set_position, cd, 0, 0);
+	gtk_widget_unref (menu);
+
+	return (items > 0);
+}
+
 void
 property_dialog_show (GtkHTMLControlData *cd)
 {

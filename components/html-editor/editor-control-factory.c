@@ -586,7 +586,7 @@ editor_api_command (GtkHTML *html, GtkHTMLCommandType com_type, gpointer data)
 
 	switch (com_type) {
 	case GTK_HTML_COMMAND_POPUP_MENU:
-		popup_show (cd, NULL);
+		popup_show_at_cursor (cd);
 		break;
 	case GTK_HTML_COMMAND_PROPERTIES_DIALOG:
 		property_dialog_show (cd);
