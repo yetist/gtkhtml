@@ -418,54 +418,39 @@ on_button_press_event (GtkWidget *widget, GdkEventButton *event)
 	 */
 	menu = GTK_MENU (popup_menu);
 	
-	if (event->type == GDK_BUTTON_PRESS)
-		{
-			event_button = (GdkEventButton *) event;
-			if (event_button->button == 3) {
-				gtk_menu_popup (menu, NULL, NULL, NULL, NULL, 
-						event_button->button, event_button->time);
-				return TRUE;
-			}
-			/* Mouse wheel scroll up */
-			if (event_button->button == 4) {
-
-				value = GTK_LAYOUT (html)->vadjustment->value - GTK_LAYOUT (html)->vadjustment->step_increment * 3;
-
-				if(value < GTK_LAYOUT (html)->vadjustment->lower)
-					value = GTK_LAYOUT (html)->vadjustment->lower;
-
-				gtk_adjustment_set_value (GTK_LAYOUT (html)->vadjustment, value);
-				
-				return TRUE;
-			} 
-			/* Mouse wheel scroll down */
-			if (event_button->button == 5) {
-
-				value = GTK_LAYOUT (html)->vadjustment->value + GTK_LAYOUT (html)->vadjustment->step_increment * 3;
-
-				if(value > (GTK_LAYOUT (html)->vadjustment->upper - GTK_LAYOUT (html)->vadjustment->page_size))
-					value = GTK_LAYOUT (html)->vadjustment->upper - GTK_LAYOUT (html)->vadjustment->page_size;
-
-				gtk_adjustment_set_value (GTK_LAYOUT (html)->vadjustment, value);
-
-				return TRUE;
-			}
+	if (event->type == GDK_BUTTON_PRESS) {
+		event_button = (GdkEventButton *) event;
+		if (event_button->button == 3) {
+			gtk_menu_popup (menu, NULL, NULL, NULL, NULL, 
+					event_button->button, event_button->time);
+			return TRUE;
 		}
-		
-	return FALSE;
-}
+		/* Mouse wheel scroll up */
+		if (event_button->button == 4) {
 
-static int
-on_button_release_event (GtkWidget *widget, GdkEventButton *event)
-{
-	GtkHTML *html = GTK_HTML(widget);
+			value = GTK_LAYOUT (html)->vadjustment->value - GTK_LAYOUT (html)->vadjustment->step_increment * 3;
 
-	if(event->button == 1 && html->pointer_url) {
-			
-		goto_url(html->pointer_url, 0);
-		
-		return TRUE;
+			if(value < GTK_LAYOUT (html)->vadjustment->lower)
+				value = GTK_LAYOUT (html)->vadjustment->lower;
+
+			gtk_adjustment_set_value (GTK_LAYOUT (html)->vadjustment, value);
+				
+			return TRUE;
+		} 
+		/* Mouse wheel scroll down */
+		if (event_button->button == 5) {
+
+			value = GTK_LAYOUT (html)->vadjustment->value + GTK_LAYOUT (html)->vadjustment->step_increment * 3;
+
+			if(value > (GTK_LAYOUT (html)->vadjustment->upper - GTK_LAYOUT (html)->vadjustment->page_size))
+				value = GTK_LAYOUT (html)->vadjustment->upper - GTK_LAYOUT (html)->vadjustment->page_size;
+
+			gtk_adjustment_set_value (GTK_LAYOUT (html)->vadjustment, value);
+
+			return TRUE;
+		}
 	}
+		
 	return FALSE;
 }
 
@@ -486,6 +471,12 @@ on_url (GtkHTML *html, const gchar *url, gpointer data)
 		gnome_appbar_set_status (GNOME_APPBAR (app->statusbar), "");
 	else
 		gnome_appbar_set_status (GNOME_APPBAR (app->statusbar), url);
+}
+
+static void
+on_link_clicked (GtkHTML *html, const gchar *url, gpointer data)
+{
+	goto_url (url, 0);
 }
 
 static void
@@ -950,8 +941,9 @@ main (gint argc, gchar *argv[])
 			    GTK_SIGNAL_FUNC (on_set_base), (gpointer)app);
 	gtk_signal_connect (GTK_OBJECT (html), "button_press_event",
 			    GTK_SIGNAL_FUNC (on_button_press_event), popup_menu);
-	gtk_signal_connect (GTK_OBJECT (html), "button_release_event",
-			    GTK_SIGNAL_FUNC (on_button_release_event), NULL);
+	gtk_signal_connect (GTK_OBJECT (html), "link_clicked",
+			    GTK_SIGNAL_FUNC (on_link_clicked), NULL);
+
 #if 0
 	gtk_box_pack_start_defaults (GTK_BOX (hbox), GTK_WIDGET (html));
 	vscrollbar = gtk_vscrollbar_new (GTK_LAYOUT (html)->vadjustment);

@@ -1,3 +1,19 @@
+1999-12-12  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* testgtkhtml.c (on_link_followed): New function.
+	(main): Instead of connecting `on_button_release_event' to the
+	"button_release_event" signal, connect `on_link_followed' to
+	"link_followed".
+	 (on_button_release_event): Removed.
+
+	* gtkhtml.c: `link_followed' signal renamed to `link_clicked'.
+	(gtk_html_button_press_event): New function.  Not doing anything
+	for now.
+	(gtk_html_button_release_event): New function.  Emit
+	"link_clicked" on button release if the pointer is on a URL.
+	(gtk_html_class_init): Install them as the "button_press_event"
+	and "button_release_event" implementations.
+
 1999-12-11  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmltextslave.c (fit_line): Do not assign to `next_obj->prev' if

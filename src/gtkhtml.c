@@ -24,6 +24,7 @@
 #include "htmlengine-cursor.h"
 #include "gtkhtml-private.h"
 
+
 guint           gtk_html_get_type (void);
 static void     gtk_html_class_init (GtkHTMLClass *klass);
 static void     gtk_html_init (GtkHTML* html);
@@ -37,14 +38,17 @@ void            gtk_html_calc_scrollbars (GtkHTML *html);
 static void     gtk_html_vertical_scroll (GtkAdjustment *adjustment, gpointer data);
 static void     gtk_html_horizontal_scroll (GtkAdjustment *adjustment, gpointer data);
 static gint	gtk_html_motion_notify_event (GtkWidget *widget, GdkEventMotion *event);
+static gint     gtk_html_button_press_event (GtkWidget *widget, GdkEventButton *event);
+static gint     gtk_html_button_release_event (GtkWidget *widget, GdkEventButton *event);
 
+
 static GtkLayoutClass *parent_class = NULL;
 
 enum {
 	TITLE_CHANGED,
 	URL_REQUESTED,
 	LOAD_DONE,
-	LINK_FOLLOWED,
+	LINK_CLICKED,
 	SET_BASE,
 	SET_BASE_TARGET,
 	ON_URL,
@@ -209,11 +213,11 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			  GTK_SIGNAL_OFFSET (GtkHTMLClass, load_done),
 			  gtk_marshal_NONE__NONE,
 			  GTK_TYPE_NONE, 0);
-	signals [LINK_FOLLOWED] =
-	  gtk_signal_new ("link_followed",
+	signals [LINK_CLICKED] =
+	  gtk_signal_new ("link_clicked",
 			  GTK_RUN_FIRST,
 			  object_class->type,
-			  GTK_SIGNAL_OFFSET (GtkHTMLClass, link_followed),
+			  GTK_SIGNAL_OFFSET (GtkHTMLClass, link_clicked),
 			  gtk_marshal_NONE__STRING,
 			  GTK_TYPE_NONE, 1,
 			  GTK_TYPE_STRING);
@@ -252,6 +256,8 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	widget_class->expose_event  = gtk_html_expose;
 	widget_class->size_allocate = gtk_html_size_allocate;
 	widget_class->motion_notify_event = gtk_html_motion_notify_event;
+	widget_class->button_press_event = gtk_html_button_press_event;
+	widget_class->button_release_event = gtk_html_button_release_event;
 }
 
 static void
@@ -466,6 +472,29 @@ gtk_html_motion_notify_event (GtkWidget *widget,
 	return TRUE;
 }
 
+static gint
+gtk_html_button_press_event (GtkWidget *widget,
+			     GdkEventButton *event)
+{
+	return FALSE;
+}
+
+static gint
+gtk_html_button_release_event (GtkWidget *widget,
+			       GdkEventButton *event)
+{
+	GtkHTML *html;
+
+	html = GTK_HTML (widget);
+	if (event->button == 1 && html->pointer_url != NULL)
+		gtk_signal_emit (GTK_OBJECT (widget),
+				 signals[LINK_CLICKED],
+				 html->pointer_url);
+
+	return TRUE;
+}
+
+
 void
 gtk_html_calc_scrollbars (GtkHTML *html)
 {
