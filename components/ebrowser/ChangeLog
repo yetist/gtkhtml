@@ -1,3 +1,8 @@
+2001-01-03  Dietmar Maurer  <dietmar@helixcode.com>
+
+	* test-ebrowser.c (destroy_browser, prop_changed_cb, open_browser): 
+	use the new listener code.
+	
 2001-01-01  Michael Meeks  <michael@helixcode.com>
 
 	* test-ebrowser.c (destroy_browser, prop_changed_cb, open_browser): 

@@ -14,39 +14,15 @@
 #include <ebrowser.h>
 #include "test-ebrowser.h"
 
-static gint
-delete_browser (GtkWidget * w, GdkEventAny event, gpointer data)
-{
-	g_print ("delete\n");
-	gtk_widget_destroy (w);
-	return FALSE;
-}
-
 static void
 destroy_browser (GtkObject * object, gpointer data)
 {
 	BonoboUIContainer * uic;
-	Bonobo_PropertyBag pb;
-#ifdef TEST_LISTENER
-	BonoboPropertyListener * listener;
-#endif
 
 	g_print ("destroy\n");
 
 	uic = BONOBO_UI_CONTAINER (data);
 	bonobo_object_unref (BONOBO_OBJECT (uic));
-
-	pb = gtk_object_get_data (object, "propertybag");
-	if (pb) {
-		bonobo_object_release_unref (pb, NULL);
-	}
-
-#ifdef TEST_LISTENER
-	listener = gtk_object_get_data (object, "listener");
-	if (listener) {
-		bonobo_object_unref (BONOBO_OBJECT (listener));
-	}
-#endif
 }
 
 static void
@@ -113,18 +89,19 @@ property_toggled (GtkToggleButton * tb, gpointer data)
 	}
 }
 
-#ifdef TEST_LISTENER
-static void
-prop_changed_cb (BonoboPropertyListener * listener, gchar * name,
-		 BonoboArg * arg, gpointer data)
+static void 
+prop_changed_cb (BonoboListener    *listener,
+		 char              *event_name, 
+		 CORBA_any         *arg,
+		 CORBA_Environment *ev,
+		 gpointer           user_data)
 {
 	GtkEntry * entry;
 
-	entry = gtk_object_get_data (GTK_OBJECT (data), "url");
+	entry = gtk_object_get_data (GTK_OBJECT (user_data), "url");
 
 	gtk_entry_set_text (entry, BONOBO_ARG_GET_STRING (arg));
 }
-#endif
 
 static void
 load_file (GtkWidget * widget, gpointer data)
@@ -198,6 +175,8 @@ open_browser (GtkButton * button, gpointer data)
 {
 	BonoboUIComponent * component;
 	BonoboUIContainer * container;
+	BonoboControlFrame * cf;
+	Bonobo_PropertyBag pb = CORBA_OBJECT_NIL;
 	GtkWidget * bwin;
 	GtkWidget * vb, * t, * entry, * hb, * w, * c;
 
@@ -220,8 +199,6 @@ open_browser (GtkButton * button, gpointer data)
 	bonobo_ui_component_set_translate (component, "/", ui, NULL);
 #endif
 
-	gtk_signal_connect (GTK_OBJECT (bwin), "delete_event",
-			    GTK_SIGNAL_FUNC (delete_browser), NULL);
 	gtk_signal_connect (GTK_OBJECT (bwin), "destroy",
 			    GTK_SIGNAL_FUNC (destroy_browser), container);
 
@@ -312,41 +289,15 @@ open_browser (GtkButton * button, gpointer data)
 	/* fixme */
 	gtk_object_set_data (GTK_OBJECT (bwin), "control", c);
 
-#ifdef TEST_LISTENER
-	/* Test listener */
-	{
-		/* fixme: unref */
-		BonoboPropertyListener * listener = NULL;
-		Bonobo_PropertyListener corba_listener;
-		BonoboControlFrame * cf;
-		Bonobo_PropertyBag pb = CORBA_OBJECT_NIL;
-		CORBA_Environment ev;
+	cf = bonobo_widget_get_control_frame (BONOBO_WIDGET (c));
+	pb = bonobo_control_frame_get_control_property_bag (cf, NULL);
 
-		cf = bonobo_widget_get_control_frame (BONOBO_WIDGET (c));
-		pb = bonobo_control_frame_get_control_property_bag (cf, NULL);
+	bonobo_event_source_client_add_listener (pb, prop_changed_cb, 
+						 "Bonobo/Property:change:url",
+						 NULL, bwin);
 
-		gtk_object_set_data (GTK_OBJECT (bwin), "propertybag", pb);
-
-		CORBA_exception_init (&ev);
-
-		listener = bonobo_property_listener_new ();
-
-		gtk_object_set_data (GTK_OBJECT (bwin), "listener", listener);
-
-		gtk_signal_connect (GTK_OBJECT (listener), "prop_changed",
-				    GTK_SIGNAL_FUNC (prop_changed_cb), bwin);
-		corba_listener = bonobo_object_corba_objref (BONOBO_OBJECT (listener));
-
-		Bonobo_PropertyBag_addChangeListener (pb, "url", corba_listener, &ev);
-
-		if (BONOBO_EX (&ev)) {
-			g_warning ("Listener exception: %s\n",
-				   bonobo_exception_get_text (&ev));
-		}
-
-		CORBA_exception_free (&ev);
-	}
-#endif
+	/* fixme: unref ??*/
+	/* bonobo_object_release_unref (pb, NULL); */
 
 	gtk_widget_show_all (bwin);
 }
