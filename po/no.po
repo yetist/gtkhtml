@@ -1,18 +1,18 @@
 # Norwegian translation of gtkhtml.
-# Copyright (C) 2000, 2001 Free Software Foundation, Inc.
-# Kjartan Maraas <kmaraas@gnome.org>, 2000, 2001.
+# Copyright (C) 2000-2004 Free Software Foundation, Inc.
+# Kjartan Maraas <kmaraas@gnome.org>, 2000-2004.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
-"POT-Creation-Date: 2004-01-12 18:08+0100\n"
-"PO-Revision-Date: 2003-12-14 11:17+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-01-31 14:37+0100\n"
+"PO-Revision-Date: 2004-01-31 14:41+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
-"Language-Team: Norwegian <no@li.org>\n"
+"Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -1084,6 +1084,205 @@ msgstr "Avsnitt"
 #: components/html-editor/menubar.c:320 components/html-editor/popup.c:223
 msgid "Page"
 msgstr "Side"
+
+#. This is the default custom color
+#: components/html-editor/gi-color-palette.c:394
+msgid "custom"
+msgstr "egendefinert"
+
+#. "Custom" color - we'll pop up a GnomeColorPicker
+#: components/html-editor/gi-color-palette.c:436
+msgid "Custom Color:"
+msgstr "Egendefinert farge:"
+
+#: components/html-editor/gi-color-palette.c:444
+msgid "Choose Custom Color"
+msgstr "Velg en egendefinert farge"
+
+#: components/html-editor/gi-color-palette.c:577
+msgid "black"
+msgstr "sort"
+
+#: components/html-editor/gi-color-palette.c:578
+msgid "light brown"
+msgstr "lys brun"
+
+#: components/html-editor/gi-color-palette.c:579
+msgid "brown gold"
+msgstr "brun gull"
+
+#: components/html-editor/gi-color-palette.c:580
+msgid "dark green #2"
+msgstr "mørk grønn #2"
+
+#: components/html-editor/gi-color-palette.c:581
+msgid "navy"
+msgstr "marine"
+
+#: components/html-editor/gi-color-palette.c:582
+#: components/html-editor/gi-color-palette.c:638
+msgid "dark blue"
+msgstr "mørk blå"
+
+#: components/html-editor/gi-color-palette.c:583
+msgid "purple #2"
+msgstr "lilla #2"
+
+#: components/html-editor/gi-color-palette.c:584
+msgid "very dark gray"
+msgstr "meget mørk grå"
+
+#: components/html-editor/gi-color-palette.c:587
+#: components/html-editor/gi-color-palette.c:643
+msgid "dark red"
+msgstr "mørk rød"
+
+#: components/html-editor/gi-color-palette.c:588
+msgid "red-orange"
+msgstr "rød-oransje"
+
+#: components/html-editor/gi-color-palette.c:589
+msgid "gold"
+msgstr "gull"
+
+#: components/html-editor/gi-color-palette.c:590
+msgid "dark green"
+msgstr "mørk grønn"
+
+#: components/html-editor/gi-color-palette.c:591
+#: components/html-editor/gi-color-palette.c:644
+msgid "dull blue"
+msgstr "sløv blå"
+
+#: components/html-editor/gi-color-palette.c:592
+#: components/html-editor/gi-color-palette.c:645
+msgid "blue"
+msgstr "blå"
+
+#: components/html-editor/gi-color-palette.c:593
+msgid "dull purple"
+msgstr "sløv lilla"
+
+#: components/html-editor/gi-color-palette.c:594
+msgid "dark grey"
+msgstr "mørk grå"
+
+#: components/html-editor/gi-color-palette.c:597
+msgid "red"
+msgstr "rød"
+
+#: components/html-editor/gi-color-palette.c:598
+msgid "orange"
+msgstr "oransje"
+
+#: components/html-editor/gi-color-palette.c:599
+msgid "lime"
+msgstr "lime"
+
+#: components/html-editor/gi-color-palette.c:600
+msgid "dull green"
+msgstr "rund grønn"
+
+#: components/html-editor/gi-color-palette.c:601
+msgid "dull blue #2"
+msgstr "rund blå #2"
+
+#: components/html-editor/gi-color-palette.c:602
+msgid "sky blue #2"
+msgstr "himmelblå #2"
+
+#: components/html-editor/gi-color-palette.c:603
+#: components/html-editor/gi-color-palette.c:642
+msgid "purple"
+msgstr "lilla"
+
+#: components/html-editor/gi-color-palette.c:604
+msgid "gray"
+msgstr "grå"
+
+#: components/html-editor/gi-color-palette.c:607
+#: components/html-editor/gi-color-palette.c:639
+msgid "magenta"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:608
+msgid "bright orange"
+msgstr "lys oransje"
+
+#: components/html-editor/gi-color-palette.c:609
+#: components/html-editor/gi-color-palette.c:640
+msgid "yellow"
+msgstr "gul"
+
+#: components/html-editor/gi-color-palette.c:610
+msgid "green"
+msgstr "grønn"
+
+#: components/html-editor/gi-color-palette.c:611
+#: components/html-editor/gi-color-palette.c:641
+msgid "cyan"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:612
+msgid "bright blue"
+msgstr "lys blå"
+
+#: components/html-editor/gi-color-palette.c:613
+#: components/html-editor/gi-color-palette.c:630
+msgid "red purple"
+msgstr "rød-lilla"
+
+#: components/html-editor/gi-color-palette.c:614
+msgid "light grey"
+msgstr "lys grå"
+
+#: components/html-editor/gi-color-palette.c:617
+#: components/html-editor/gi-color-palette.c:634
+msgid "pink"
+msgstr "rosa"
+
+#: components/html-editor/gi-color-palette.c:618
+msgid "light orange"
+msgstr "lys oransje"
+
+#: components/html-editor/gi-color-palette.c:619
+#: components/html-editor/gi-color-palette.c:631
+msgid "light yellow"
+msgstr "lys gul"
+
+#: components/html-editor/gi-color-palette.c:620
+msgid "light green"
+msgstr "lys grønn"
+
+#: components/html-editor/gi-color-palette.c:621
+msgid "light cyan"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:622
+#: components/html-editor/gi-color-palette.c:632
+msgid "light blue"
+msgstr "lys blå"
+
+#: components/html-editor/gi-color-palette.c:623
+#: components/html-editor/gi-color-palette.c:636
+msgid "light purple"
+msgstr "lys lilla"
+
+#: components/html-editor/gi-color-palette.c:624
+msgid "white"
+msgstr "hvit"
+
+#: components/html-editor/gi-color-palette.c:629
+msgid "purplish blue"
+msgstr "blå-lilla"
+
+#: components/html-editor/gi-color-palette.c:633
+msgid "dark purple"
+msgstr "mørk lilla"
+
+#: components/html-editor/gi-color-palette.c:635
+msgid "sky blue"
+msgstr "himmelblå"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
