@@ -414,43 +414,154 @@ html_engine_delete_table_cell_contents (HTMLEngine *e)
 	html_engine_delete (e);
 }
 
-static void
+static void collapse_cspan (HTMLEngine *e, HTMLTableCell *cell, gint cspan, HTMLUndoDirection dir);
+static void collapse_rspan (HTMLEngine *e, HTMLTableCell *cell, gint rspan, HTMLUndoDirection dir);
+
+struct Move {
+	gint rs, cs, rt, ct;
+};
+struct MoveCellRDUndo {
+	gint rspan, cspan;
+
+	struct Move *moved;
+	HTMLTableCell **removed;
+
+	struct Move move;
+};
+
+static struct MoveCellRDUndo *
+move_cell_rd_undo_new (gint rspan, gint cspan)
+{
+	struct MoveCellRDUndo *undo;
+
+	undo = g_new (struct MoveCellRDUndo, 1);
+	undo->rspan = rspan;
+	undo->cspan = cspan;
+	undo->moved = g_new0 (struct Move, rspan*cspan);
+	undo->removed = g_new0 (HTMLTableCell *, rspan*cspan);
+
+	return undo;
+}
+
+static move_cell_rd_undo_free (struct MoveCellRDUndo *undo)
+{
+	gint i;
+
+	for (i = 0; i < undo->rspan*undo->cspan; i ++)
+		if (undo->removed [i])
+			html_object_destroy (HTML_OBJECT (undo->removed [i]));
+	g_free (undo->removed);
+	g_free (undo->moved);
+}
+
+static struct MoveCellRDUndo *
 move_cell_rd (HTMLTable *t, HTMLTableCell *cell, gint rs, gint cs)
 {
+	struct MoveCellRDUndo *undo;
 	gint r, c;
 
 	g_assert ((rs == 0 && cs > 0) || (cs == 0 && rs > 0));
+
+	undo = move_cell_rd_undo_new (cell->rspan, cell->cspan);
 	/* printf ("move %dx%d --> %dx%d\n", cell->row, cell->col, cell->row + rs, cell->col + cs); */
 	for (r = cell->row + cell->rspan - 1; r >= cell->row; r --)
 		for (c = cell->col + cell->cspan - 1; c >= cell->col; c --) {
 			if (r > cell->row + cell->rspan - 1 - rs || c > cell->col + cell->cspan - 1 - cs) {
+				struct Move *move = &undo->moved [(r - cell->row)*cell->cspan + c - cell->col];
 				gint nr = rs + r - (rs ? cell->rspan : 0), nc = cs + c - (cs ? cell->cspan : 0);
 
 				/* printf ("exchange: %dx%d <--> %dx%d (%p)\n", rs + r, cs + c, nr, nc, t->cells [rs][nc]); */
 				t->cells [nr][nc] = t->cells [rs + r][cs + c];
 				if (t->cells [nr][nc])
 					html_table_cell_set_position (t->cells [nr][nc], nr, nc);
-				t->cells [rs + r][cs + c] = cell;
+				move->rs = rs + r;
+				move->cs = cs + c;
+				move->rt = nr;
+				move->ct = nc;
+				printf ("moved: %dx%d --> %dx%d (%d, %d)\n", rs + r, cs + c, nr, nc, r - cell->row, c - cell->col);
 			} else {
 				if (r >= cell->row + rs && c >= cell->col + cs) {
 					if (t->cells [rs + r][cs + c] && t->cells [rs + r][cs + c]->col == cs + c && t->cells [rs + r][cs + c]->row == rs + r) {
 						/* printf ("move destroy: %dx%d\n", rs + r, cs + c); */
-						html_object_destroy (HTML_OBJECT (t->cells [rs + r][cs + c]));
+						/* html_object_destroy (HTML_OBJECT (t->cells [rs + r][cs + c])); */
+						printf ("removed: %dx%d (%d, %d)\n", rs + r, cs + c, r - cell->row, c - cell->col);
+						undo->removed [(r - cell->row)*cell->cspan + c - cell->col];
 					}
 					t->cells [r][c] = NULL;
 				}
-				t->cells [rs + r][cs + c] = cell;
 			}
+			t->cells [rs + r][cs + c] = cell;
 			/* printf ("cell %dx%d <--\n", rs + r, cs + c); */
 		}
 	/* printf ("set  %dx%d --> %dx%d\n", cell->row, cell->col, cell->row + rs, cell->col + cs); */
+	undo->move.rs = cell->row;
+	undo->move.cs = cell->col;
+	undo->move.rt = cell->row + rs;
+	undo->move.ct = cell->col + cs;
+
 	html_table_cell_set_position (cell, cell->row + rs, cell->col + cs);
+
+	return undo;
+}
+
+struct _ExpandSpanUndo {
+	HTMLUndoData data;
+
+	gint span;
+	GSList *move_undo;
+};
+typedef struct _ExpandSpanUndo ExpandSpanUndo;
+#define EXPAND_UNDO(x) ((ExpandSpanUndo *) x)
+
+static void
+expand_undo_destroy (HTMLUndoData *undo_data)
+{
+	ExpandSpanUndo *data = EXPAND_UNDO (undo_data);
+	GSList *slist;
+
+	for (slist = data->move_undo; slist; slist = slist->next)
+		move_cell_rd_undo_free ((struct MoveCellRDUndo *) slist->data);
+	g_slist_free (data->move_undo);
+}
+
+static HTMLUndoData *
+expand_undo_data_new (gint span, GSList *slist)
+{
+	ExpandSpanUndo *ud = g_new0 (ExpandSpanUndo, 1);
+
+	html_undo_data_init (HTML_UNDO_DATA (ud));
+	ud->data.destroy = expand_undo_destroy;
+	ud->span = span;
+	ud->move_undo = slist;
+
+	return HTML_UNDO_DATA (ud);
+}
+
+static void
+expand_cspan_undo_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir, guint position_after)
+{
+	html_engine_freeze (e);
+	collapse_cspan (e, html_engine_get_table_cell (e), EXPAND_UNDO (data)->span, html_undo_direction_reverse (dir));
+	/* move back */
+	html_engine_thaw (e);
+}
+
+static void
+expand_cspan_setup_undo (HTMLEngine *e, GSList *slist, gint cspan, guint position_before, HTMLUndoDirection dir)
+{
+	html_undo_add_action (e->undo,
+			      html_undo_action_new ("Expand Column Span", expand_cspan_undo_action,
+						    expand_undo_data_new (cspan, slist), html_cursor_get_position (e->cursor),
+						    position_before),
+			      dir);
 }
 
 static void
 expand_cspan (HTMLEngine *e, HTMLTableCell *cell, gint cspan, HTMLUndoDirection dir)
 {
 	HTMLTable *table = HTML_TABLE (HTML_OBJECT (cell)->parent);
+	GSList *slist = NULL;
+	guint position_before = e->cursor->position;
 	gint r, c, *move_rows, max_move, add_cols;
 
 	move_rows = g_new0 (gint, cell->rspan);
@@ -475,14 +586,13 @@ expand_cspan (HTMLEngine *e, HTMLTableCell *cell, gint cspan, HTMLUndoDirection 
 				HTMLTableCell *ccell = table->cells [r][c];
 
 				if (ccell && ccell->col == c) {
-					move_cell_rd (table, ccell, 0, max_move);
+					slist = g_slist_prepend (slist, move_cell_rd (table, ccell, 0, max_move));
 					r += ccell->rspan - 1;
 				}
 			}
 	}
 
-	g_warning ("TODO: keep old content");
-
+	expand_cspan_setup_undo (e, slist, cell->cspan, position_before, dir);
 	cell->cspan = cspan;
 	for (r = cell->row; r < cell->row + cell->rspan; r ++)
 		for (c = cell->col; c < cell->col + cell->cspan; c ++)
@@ -522,7 +632,7 @@ static void
 collapse_cspan_setup_undo (HTMLEngine *e, gint cspan, guint position_before, HTMLUndoDirection dir)
 {
 	html_undo_add_action (e->undo,
-			      html_undo_action_new ("Insert table column", collapse_cspan_undo_action,
+			      html_undo_action_new ("Collapse Column Span", collapse_cspan_undo_action,
 						    collapse_undo_data_new (cspan), html_cursor_get_position (e->cursor),
 						    position_before),
 			      dir);
@@ -567,11 +677,11 @@ html_engine_set_cspan (HTMLEngine *e, gint cspan)
 	html_engine_thaw (e);
 }
 
-static void
-expand_rspan (HTMLEngine *e, HTMLTableCell *cell, gint rspan, HTMLUndoDirection dir)
+static gint
+calc_rspan_max_move (HTMLTableCell *cell, gint rspan)
 {
 	HTMLTable *table = HTML_TABLE (HTML_OBJECT (cell)->parent);
-	gint r, c, *move_cols, max_move, add_rows;
+	gint r, c, *move_cols, max_move;
 
 	move_cols = g_new0 (gint, cell->cspan);
 	for (c = cell->col; c < cell->col + cell->cspan; c ++)
@@ -583,6 +693,19 @@ expand_rspan (HTMLEngine *e, HTMLTableCell *cell, gint rspan, HTMLUndoDirection 
 	for (c = 0; c < cell->cspan; c ++)
 		if (move_cols [c] > max_move)
 			max_move = move_cols [c];
+	g_free (move_cols);
+
+	return max_move;
+}
+
+static void
+expand_rspan (HTMLEngine *e, HTMLTableCell *cell, gint rspan, HTMLUndoDirection dir)
+{
+	HTMLTable *table = HTML_TABLE (HTML_OBJECT (cell)->parent);
+	GSList *slist = NULL;
+	gint r, c, max_move, add_rows;
+
+	max_move = calc_rspan_max_move (cell, rspan);
 	add_rows = MAX (max_move, rspan - (table->totalRows - cell->row));
 	/* printf ("max move: %d add: %d\n", max_move, add_rows); */
 	for (r = 0; r < add_rows; r ++)
@@ -594,13 +717,11 @@ expand_rspan (HTMLEngine *e, HTMLTableCell *cell, gint rspan, HTMLUndoDirection 
 				HTMLTableCell *ccell = table->cells [r][c];
 
 				if (ccell && ccell->row == r) {
-					move_cell_rd (table, ccell, max_move, 0);
+					slist = g_slist_prepend (slist, move_cell_rd (table, ccell, max_move, 0));
 					c += ccell->cspan - 1;
 				}
 			}
 	}
-
-	g_warning ("TODO: keep old content");
 
 	cell->rspan = rspan;
 	for (r = cell->row; r < cell->row + cell->rspan; r ++)
@@ -622,7 +743,7 @@ static void
 collapse_rspan_setup_undo (HTMLEngine *e, gint rspan, guint position_before, HTMLUndoDirection dir)
 {
 	html_undo_add_action (e->undo,
-			      html_undo_action_new ("Insert table column", collapse_rspan_undo_action,
+			      html_undo_action_new ("Collapse Row Span", collapse_rspan_undo_action,
 						    collapse_undo_data_new (rspan), html_cursor_get_position (e->cursor),
 						    position_before),
 			      dir);
