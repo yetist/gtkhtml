@@ -510,7 +510,6 @@ changed_template (GtkWidget *w, GtkHTMLEditTableProperties *d)
 
 	set_insert_ui (d);
 
-	FILL;
 	CHANGE;	
 }
 
@@ -593,6 +592,20 @@ table_widget (GtkHTMLEditTableProperties *d)
 	return table_page;
 }
 
+static void
+fill_templates (GtkHTMLEditTableProperties *d)
+{
+	GtkWidget *menu;
+	gint i;
+
+	menu = gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_template));
+
+	for (i = 0; i < TEMPLATES; i ++)
+		gtk_menu_append (GTK_MENU (menu), gtk_menu_item_new_with_label (_(table_templates [i].name)));
+	gtk_menu_set_active (GTK_MENU (menu), 0);
+	gtk_container_remove (GTK_CONTAINER (menu), gtk_menu_get_active (GTK_MENU (menu)));
+}
+
 static GtkWidget *
 table_insert_widget (GtkHTMLEditTableProperties *d)
 {
@@ -635,20 +648,7 @@ table_insert_widget (GtkHTMLEditTableProperties *d)
 	d->option_template = glade_xml_get_widget (xml, "option_table_template");
 	gtk_signal_connect (GTK_OBJECT (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_template))), "selection-done",
 			    changed_template, d);
-	{
-		GtkWidget *menu;
-		gint i;
-
-		menu = gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_template));
-
-		for (i = 0; i < TEMPLATES; i ++)
-			gtk_menu_append (GTK_MENU (menu), gtk_menu_item_new_with_label (_(table_templates [i].name)));
-		//gtk_option_menu_remove_menu (GTK_OPTION_MENU (d->option_template));
-		//gtk_option_menu_set_menu (GTK_OPTION_MENU (d->option_template), menu);
-		gtk_menu_set_active (GTK_MENU (menu), 0);
-		gtk_container_remove (GTK_CONTAINER (menu), gtk_menu_get_active (GTK_MENU (menu)));
-	}
-
+	fill_templates (d);
 	gtk_box_pack_start (GTK_BOX (table_page), sample_frame (&d->sample), FALSE, FALSE, 0);
 
 	gtk_widget_show_all (table_page);

@@ -21,6 +21,8 @@
 */
 
 #include <string.h>
+#include <glade/glade.h>
+
 #include "gtkhtml.h"
 #include "htmlcursor.h"
 #include "htmlengine-edit-fontstyle.h"
@@ -40,153 +42,198 @@
 
 struct _GtkHTMLEditRuleProperties {
 	GtkHTMLControlData *cd;
+
 	HTMLRule *rule;
+	GtkHTML  *sample;
+	gboolean  insert;
 
-	gint width;
-	gint size;
+	gboolean   changed_length;
+	gint       length;
+	gboolean   length_percent;
+	GtkWidget *spin_length;
+	GtkWidget *option_length_percent;
 
-	GtkWidget   *check [GTK_HTML_EDIT_RULE_SPINS];
-	GtkWidget   *spin  [GTK_HTML_EDIT_RULE_SPINS];
-	GtkObject   *adj   [GTK_HTML_EDIT_RULE_SPINS];
-	gboolean     set   [GTK_HTML_EDIT_RULE_SPINS];
+	gboolean   changed_width;
+	gint       width;
+	GtkWidget *spin_width;
 
-	gboolean percent;
-	GtkWidget *width_measure;
+	gboolean        changed_align;
+	HTMLHAlignType  align;
+	GtkWidget      *option_align;
 
-	gboolean shaded;
-	GtkWidget *shaded_check;
+	gboolean        changed_shaded;
+	gboolean        shaded;
+	GtkWidget      *check_shaded;
 
-	HTMLHAlignType align;
-	GtkWidget *align_option;
+	gint       template;
+	GtkWidget *option_template;
 
-	GtkHTML *sample;
-
-	gboolean disable_change;
+	gboolean   disable_change;
 };
 typedef struct _GtkHTMLEditRuleProperties GtkHTMLEditRuleProperties;
 
 #define CHANGE if (!d->disable_change) gtk_html_edit_properties_dialog_change (d->cd->properties_dialog)
 #define FILL 	if (!d->disable_change) fill_sample (d)
-#define VAL(x) (gint)GTK_ADJUSTMENT (d->adj [GTK_HTML_EDIT_RULE_ ## x])->value
+
+#define TEMPLATES 3
+typedef struct {
+	gchar *name;
+	gint offset;
+
+	gboolean can_set_shaded;
+	gboolean can_set_width;
+
+	gchar *rule;
+} RuleInsertTemplate;
+
+
+static RuleInsertTemplate rule_templates [TEMPLATES] = {
+	{
+		N_("Plain"), 1,
+		TRUE, TRUE,
+		"<hr@length@@width@@align@@shaded@>"
+	},
+	{
+		N_("Blue 3D"), 1,
+		FALSE, FALSE,
+		"<table@length@@align@ cellspacing=0 cellpadding=0>"
+		"<tr>"
+		"<td><img src=\"file://" ICONDIR "/rule-blue-left.png\"></td>"
+		"<td width=\"100%\" background=\"file://" ICONDIR "/rule-blue-center.png\">"
+		"<img src=\"file://" ICONDIR "/transparent.png\"></td>"
+		"<td><img src=\"file://" ICONDIR "/rule-blue-right.png\"></td>"
+		"</tr>"
+		"</table>"
+	},
+	{
+		N_("Yellow, flowers"), 1,
+		FALSE, FALSE,
+		"<table@length@@align@ cellspacing=0 cellpadding=0>"
+		"<tr>"
+		"<td><img src=\"file://" ICONDIR "/rule-yellow-flowers-left.png\"></td>"
+		"<td background=\"file://" ICONDIR "/rule-yellow-flowers-center.png\">"
+		"<img src=\"file://" ICONDIR "/transparent.png\" width=10 height=1></td>"
+		"<td background=\"file://" ICONDIR "/rule-yellow-flowers-center.png\">"
+		"<img src=\"file://" ICONDIR "/flowers.png\"></td>"
+		"<td width=\"100%\" background=\"file://" ICONDIR "/rule-yellow-flowers-center.png\">"
+		"<img src=\"file://" ICONDIR "/transparent.png\"></td>"
+		"<td><img src=\"file://" ICONDIR "/rule-yellow-flowers-right.png\"></td>"
+		"</tr>"
+		"</table>"
+	},
+};
+
+static gchar *
+substitute_string (gchar *str, const gchar *var_name, const gchar *value)
+{
+	gchar *substr;
+
+	substr = strstr (str, var_name);
+	if (substr) {
+		gchar *new_str;
+
+		*substr = 0;
+		new_str = g_strdup_printf ("%s%s%s", str, value, substr + strlen (var_name));
+		g_free (str);
+		str = new_str;
+	}
+
+	return str;
+}
+
+static gchar *
+get_sample_html (GtkHTMLEditRuleProperties *d, gboolean insert)
+{
+	gchar *html, *rule, *body, *length, *width, *align, *shaded;
+
+	length = g_strdup_printf (" width=\"%d%s\"", d->length, d->length_percent ? "%" : "");
+	width  = g_strdup_printf (" size=%d", d->width);
+	shaded = g_strdup (d->shaded ? "" : " noshade");
+	align  = g_strdup_printf (" align=%s", d->align == HTML_HALIGN_LEFT
+				   ? "left" : (d->align == HTML_HALIGN_RIGHT ? "right" : "center"));
+
+	rule   = g_strdup (rule_templates [d->template].rule);
+	rule   = substitute_string (rule, "@length@", length);
+	rule   = substitute_string (rule, "@width@", width);
+	rule   = substitute_string (rule, "@shaded@", shaded);
+	rule   = substitute_string (rule, "@align@", align);
+
+	body   = html_engine_save_get_sample_body (d->cd->html->engine, NULL);
+	html   = g_strconcat (body, insert ? "" : "<br>", rule, NULL);
+
+	g_free (length);
+	g_free (width);
+	g_free (shaded);
+	g_free (align);
+	g_free (body);	
+
+	/* printf ("RULE: %s\n", html); */
+
+	return html;
+}
 
 static void
 fill_sample (GtkHTMLEditRuleProperties *d)
 {
-	gchar *body, *width, *size, *align, *noshade, *bg;
+	gchar *html;
 
-	bg      = html_engine_save_get_sample_body (d->cd->html->engine, NULL);
-	width   = d->set [GTK_HTML_EDIT_RULE_WIDTH]
-		? g_strdup_printf (" width=%d%s", VAL (WIDTH),
-				   d->percent ? "%" : "") : g_strdup ("");
-	size    = d->set [GTK_HTML_EDIT_RULE_SIZE]
-		? g_strdup_printf (" size=%d", VAL (SIZE))
-		: g_strdup ("");
-	noshade = g_strdup (d->shaded ? "" : " noshade");
-	align   = d->align != HTML_HALIGN_CENTER ? g_strdup_printf (" align=%s",
-								    d->align == HTML_HALIGN_LEFT ? "left" : "right")
-		: g_strdup ("");
-	body    = g_strconcat (bg, "<br><hr", width, size, align, noshade, ">", NULL);
-
-	printf ("body: %s\n", body);
-
-	gtk_html_load_from_string (d->sample, body, -1);
-
-	g_free (bg);
-	g_free (width);
-	g_free (size);
-	g_free (noshade);
-	g_free (align);
-	g_free (body);
+	html = get_sample_html (d, FALSE);
+	gtk_html_load_from_string (d->sample, html, -1);
+	g_free (html);
 }
 
 static void
-check_toggled (GtkWidget *check, GtkHTMLEditRuleProperties *d)
+changed_length (GtkWidget *check, GtkHTMLEditRuleProperties *d)
 {
-	guint idx;
-
-	for (idx = 0; idx < GTK_HTML_EDIT_RULE_SPINS; idx++)
-		if (check == d->check [idx])
-			break;
-	if (check != d->check [idx])
-		g_assert_not_reached ();
-
-	d->set [idx] = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check));
-	gtk_widget_set_sensitive (d->spin [idx], d->set [idx]);	
+	d->length = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_length));
+	if (!d->disable_change)
+		d->changed_length = TRUE;
 	FILL;
 	CHANGE;
 }
 
 static void
-adj_changed (GtkAdjustment *adj, GtkHTMLEditRuleProperties *d)
+changed_width (GtkWidget *check, GtkHTMLEditRuleProperties *d)
 {
-	FILL;
-}
-
-static void
-checked_val (GtkHTMLEditRuleProperties *d, gint idx, const gchar *name)
-{
-	d->check [idx] = gtk_check_button_new_with_label (name);
-	d->adj   [idx] = gtk_adjustment_new (0, 0, 32767, 1, 1, 1);
-	d->spin  [idx] = gtk_spin_button_new (GTK_ADJUSTMENT (d->adj [idx]), 1, 0);
-
-	gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (d->check [idx]), d->set [idx]);
-	gtk_widget_set_sensitive (d->spin [idx], d->set [idx]);
-
-	gtk_signal_connect (GTK_OBJECT (d->check [idx]), "toggled", GTK_SIGNAL_FUNC (check_toggled), d);
-	gtk_signal_connect (GTK_OBJECT (d->adj [idx]), "value_changed", adj_changed, d);
-}
-
-static void
-align_menu_activate (GtkWidget *mi, GtkHTMLEditRuleProperties *d)
-{
-	d->align = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (mi), "idx"));
+	d->width = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_width));
+	if (!d->disable_change)
+		d->changed_width = TRUE;
 	FILL;
 	CHANGE;
 }
 
 static void
-percent_menu_activate (GtkWidget *mi, GtkHTMLEditRuleProperties *d)
+changed_length_percent (GtkWidget *w, GtkHTMLEditRuleProperties *d)
 {
-	d->percent = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (mi), "idx"));
+	d->length_percent = g_list_index (GTK_MENU_SHELL (w)->children, gtk_menu_get_active (GTK_MENU (w))) ? TRUE : FALSE;
+	if (!d->disable_change)
+		d->changed_length = TRUE;
 	FILL;
 	CHANGE;
 }
 
 static void
-width_toggled (GtkWidget *check, GtkHTMLEditRuleProperties *d)
+changed_align (GtkWidget *w, GtkHTMLEditRuleProperties *d)
 {
-	gtk_widget_set_sensitive (d->width_measure,
-				  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check)));
+	gint index;
+
+	index = g_list_index (GTK_MENU_SHELL (w)->children, gtk_menu_get_active (GTK_MENU (w)));
+	d->align = index == 0 ? HTML_HALIGN_LEFT : (index == 1 ? HTML_HALIGN_CENTER : HTML_HALIGN_RIGHT);
+	if (!d->disable_change)
+		d->changed_align = TRUE;
 	FILL;
 	CHANGE;
 }
 
 static void
-shade_toggled (GtkWidget *check, GtkHTMLEditRuleProperties *d)
+shaded_toggled (GtkWidget *check, GtkHTMLEditRuleProperties *d)
 {
 	d->shaded = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check));
+	if (!d->disable_change)
+		d->changed_shaded = TRUE;
 	FILL;
 	CHANGE;
 }
-
-#define HBOX \
-	hbox  = gtk_hbox_new (FALSE, 3); \
-	gtk_container_border_width (GTK_CONTAINER (hbox), 3)
-
-#undef ADD_VAL
-#define ADD_VAL(x,y) \
-	checked_val (data, x, (y)); \
-	gtk_box_pack_start (GTK_BOX (hbox), data->check [x], FALSE, FALSE, 0); \
-	gtk_box_pack_start (GTK_BOX (hbox), data->spin  [x], FALSE, FALSE, 0);
-
-#undef ADD_ITEM
-#define ADD_ITEM(n,f) \
-	menuitem = gtk_menu_item_new_with_label (n); \
-        gtk_menu_append (GTK_MENU (menu), menuitem); \
-        gtk_widget_show (menuitem); \
-        gtk_signal_connect (GTK_OBJECT (menuitem), "activate", GTK_SIGNAL_FUNC (f), data); \
-        gtk_object_set_data (GTK_OBJECT (menuitem), "idx", GINT_TO_POINTER (mcounter)); \
-        mcounter++;
 
 static GtkHTMLEditRuleProperties *
 data_new (GtkHTMLControlData *cd)
@@ -199,120 +246,130 @@ data_new (GtkHTMLControlData *cd)
 	data->rule           = NULL;
 
 	/* default values */
-	data->width          = 100;
-	data->size           = 2;
-	data->percent        = TRUE;
+	data->length         = 100;
+	data->width          = 2;
+	data->length_percent = TRUE;
 	data->shaded         = TRUE;
 	data->align          = HTML_HALIGN_CENTER;
 
 	return data;
 }
 
-static GtkWidget *
-rule_widget (GtkHTMLEditRuleProperties *data)
+#define UPPER_FIX(x) gtk_spin_button_get_adjustment (GTK_SPIN_BUTTON (d->spin_ ## x))->upper = 100000.0
+
+static void
+set_ui (GtkHTMLEditRuleProperties *d)
 {
-	GtkWidget *vbox, *mhb, *hbox, *frame, *menu, *menuitem, *vb1;
-	gint mcounter;
+	d->disable_change = TRUE;
 
-	/* prepare content */
-	vbox = gtk_vbox_new (FALSE, 2);
-	gtk_container_border_width (GTK_CONTAINER (vbox), 3);
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_width),  d->width);
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_length), d->length);
+	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_length_percent), d->length_percent);
+	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_align), d->align == HTML_HALIGN_CENTER
+				     ? 1 : (d->align == HTML_HALIGN_LEFT ? 0 : 2));
 
-	mhb  = gtk_hbox_new (FALSE, 3);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_shaded), d->shaded);
 
-	/* size */
-	frame = gtk_frame_new (_("Size"));
-	vb1   = gtk_vbox_new (FALSE, 0);
-	menu  = gtk_menu_new ();
-	mcounter = 0;
-	HBOX;
-	ADD_ITEM (_("Pixels"), percent_menu_activate);
-	ADD_ITEM (_("Percent %"), percent_menu_activate);
-	data->width_measure = gtk_option_menu_new ();
-	gtk_option_menu_set_menu (GTK_OPTION_MENU (data->width_measure), menu);
-	gtk_option_menu_set_history (GTK_OPTION_MENU (data->width_measure), data->percent);
-	gtk_box_pack_start (GTK_BOX (hbox), data->width_measure, FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (vb1), hbox, FALSE, FALSE, 0);
+	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_template), d->template);
 
-	HBOX;
-	ADD_VAL (GTK_HTML_EDIT_RULE_WIDTH, _("length"));
-	gtk_adjustment_set_value (GTK_ADJUSTMENT (data->adj [GTK_HTML_EDIT_RULE_WIDTH]), data->width);
-	gtk_widget_set_sensitive (data->width_measure, data->set [GTK_HTML_EDIT_RULE_WIDTH]);
-	gtk_signal_connect (GTK_OBJECT (data->check [GTK_HTML_EDIT_RULE_WIDTH]), "toggled",
-			    GTK_SIGNAL_FUNC (width_toggled), data);
-	gtk_box_pack_start (GTK_BOX (vb1), hbox, FALSE, FALSE, 0);
-	gtk_container_add (GTK_CONTAINER (frame), vb1);
-	gtk_box_pack_start (GTK_BOX (mhb), frame, FALSE, FALSE, 0);
+	d->disable_change = FALSE;
 
-	/* style */
-	frame = gtk_frame_new (_("Style"));
-	vb1   = gtk_vbox_new (FALSE, 0);
+	FILL;
+}
 
-	/* align */
-	HBOX;
-	menu  = gtk_menu_new ();
-	mcounter = HTML_HALIGN_LEFT;
-	ADD_ITEM (_("Left"), align_menu_activate);
-	ADD_ITEM (_("Center"), align_menu_activate);
-	ADD_ITEM (_("Right"), align_menu_activate);
-	data->align_option = gtk_option_menu_new ();
-	gtk_option_menu_set_menu (GTK_OPTION_MENU (data->align_option), menu);
-	gtk_option_menu_set_history (GTK_OPTION_MENU (data->align_option), data->align);
-	gtk_box_pack_start (GTK_BOX (hbox), data->align_option, FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (vb1), hbox, FALSE, FALSE, 0);
+static void
+changed_template (GtkWidget *w, GtkHTMLEditRuleProperties *d)
+{
+	d->template = g_list_index (GTK_MENU_SHELL (w)->children, gtk_menu_get_active (GTK_MENU (w)));
 
-	/* weight */
-	HBOX;
-	ADD_VAL (GTK_HTML_EDIT_RULE_SIZE, _("width"));
-	gtk_adjustment_set_value (GTK_ADJUSTMENT (data->adj [GTK_HTML_EDIT_RULE_SIZE]), data->size);
-	gtk_box_pack_start_defaults (GTK_BOX (vb1), hbox);
+	gtk_widget_set_sensitive (d->spin_width, rule_templates [d->template].can_set_width);
+	gtk_widget_set_sensitive (d->check_shaded, rule_templates [d->template].can_set_shaded);
 
-	/* shaded */
-	HBOX;
-	data->shaded_check = gtk_check_button_new_with_label (_("shaded"));
-	gtk_signal_connect (GTK_OBJECT (data->shaded_check), "toggled", shade_toggled, data);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->shaded_check), data->shaded);
-	gtk_box_pack_start_defaults (GTK_BOX (hbox), data->shaded_check);
-	gtk_box_pack_start_defaults (GTK_BOX (vb1), hbox);
+	set_ui (d);
 
-	gtk_container_add (GTK_CONTAINER (frame), vb1);
-	gtk_box_pack_start_defaults (GTK_BOX (mhb), frame);
-	gtk_box_pack_start (GTK_BOX (vbox), mhb, FALSE, FALSE, 0);
+	CHANGE;
+}
 
-	/* sample */
-	gtk_box_pack_start (GTK_BOX (vbox), sample_frame (&data->sample), FALSE, FALSE, 0);
-	fill_sample (data);
+static void
+fill_templates (GtkHTMLEditRuleProperties *d)
+{
+	GtkWidget *menu;
+	gint i;
 
-	data->disable_change = FALSE;
+	menu = gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_template));
 
-	gtk_widget_show_all (vbox);
+	for (i = 0; i < TEMPLATES; i ++)
+		gtk_menu_append (GTK_MENU (menu), gtk_menu_item_new_with_label (_(rule_templates [i].name)));
+	gtk_menu_set_active (GTK_MENU (menu), 0);
+	gtk_container_remove (GTK_CONTAINER (menu), gtk_menu_get_active (GTK_MENU (menu)));
+}
 
-	return vbox;
+static GtkWidget *
+rule_widget (GtkHTMLEditRuleProperties *d, gboolean insert)
+{
+	GtkWidget *rule_page;
+	GladeXML *xml;
+
+	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "rule_page");
+	if (!xml)
+		g_error (_("Could not load glade file."));
+
+	rule_page = glade_xml_get_widget (xml, "rule_page");
+
+	d->spin_length   = glade_xml_get_widget (xml, "spin_rule_length");
+	gtk_signal_connect (GTK_OBJECT (d->spin_length), "changed", changed_length, d);
+	UPPER_FIX (length);
+	d->spin_width   = glade_xml_get_widget (xml, "spin_rule_width");
+	gtk_signal_connect (GTK_OBJECT (d->spin_width), "changed", changed_width, d);
+	UPPER_FIX (width);
+	d->option_length_percent = glade_xml_get_widget (xml, "option_rule_percent");
+	gtk_signal_connect (GTK_OBJECT (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_length_percent))),
+			    "selection-done", changed_length_percent, d);
+
+	d->option_align = glade_xml_get_widget (xml, "option_rule_align");
+	gtk_signal_connect (GTK_OBJECT (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_align))),
+			    "selection-done", changed_align, d);
+
+	d->check_shaded = glade_xml_get_widget (xml, "check_rule_shaded");
+	gtk_signal_connect (GTK_OBJECT (d->check_shaded), "toggled", shaded_toggled, d);
+
+	gtk_box_pack_start (GTK_BOX (rule_page), sample_frame (&d->sample), FALSE, FALSE, 0);
+
+	d->insert = insert;
+	if (insert) {
+		d->option_template = glade_xml_get_widget (xml, "option_rule_template");
+		gtk_signal_connect (GTK_OBJECT (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_template))),
+				    "selection-done", changed_template, d);
+		fill_templates (d);
+		gtk_widget_show_all (rule_page);
+	} else {
+		gtk_widget_show_all (rule_page);
+		gtk_widget_hide (glade_xml_get_widget (xml, "frame_template"));
+	}
+
+	d->disable_change = FALSE;
+
+	return rule_page;
 }
 
 GtkWidget *
 rule_properties (GtkHTMLControlData *cd, gpointer *set_data)
 {
-	GtkHTMLEditRuleProperties *data = data_new (cd);
+	GtkHTMLEditRuleProperties *d = data_new (cd);
 	GtkWidget *rv;
 
 	g_assert (HTML_OBJECT_TYPE (cd->html->engine->cursor->object) == HTML_TYPE_RULE);
 
-	*set_data     = data;
-	data->rule    = HTML_RULE (cd->html->engine->cursor->object);
-	data->shaded  = data->rule->shade;
-	data->percent = HTML_OBJECT (data->rule)->percent > 0 ? TRUE : FALSE;
-	data->width   = HTML_OBJECT (data->rule)->percent > 0 ? HTML_OBJECT (data->rule)->percent : data->rule->length;
-	data->size    = data->rule->size;
-	data->align   = data->rule->halign;
+	*set_data         = d;
+	d->rule           = HTML_RULE (cd->html->engine->cursor->object);
+	d->shaded         = d->rule->shade;
+	d->length_percent = HTML_OBJECT (d->rule)->percent > 0 ? TRUE : FALSE;
+	d->length         = HTML_OBJECT (d->rule)->percent > 0 ? HTML_OBJECT (d->rule)->percent : d->rule->length;
+	d->width          = d->rule->size;
+	d->align          = d->rule->halign;
 
-	rv = rule_widget (data);
-	data->disable_change = TRUE;
-	if (data->width != 100 || !data->percent)
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->check [GTK_HTML_EDIT_RULE_WIDTH]), TRUE);
-	if (data->size != 2)
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->check [GTK_HTML_EDIT_RULE_SIZE]), TRUE);
-	data->disable_change = FALSE;
+	rv = rule_widget (d, FALSE);
+	set_ui (d);
 
 	return rv;
 }
@@ -324,7 +381,8 @@ rule_insert (GtkHTMLControlData *cd, gpointer *set_data)
 	GtkWidget *rv;
 
 	*set_data = data;
-	rv = rule_widget (data);
+	rv = rule_widget (data, TRUE);
+	set_ui (data);
 	gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
 
 	return rv;
@@ -334,10 +392,14 @@ void
 rule_insert_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditRuleProperties *d = (GtkHTMLEditRuleProperties *) get_data;
+	gchar *html;
 
-	html_engine_insert_rule (cd->html->engine,
-				 VAL (WIDTH), d->percent ? VAL (WIDTH) : 0, VAL (SIZE),
-				 d->shaded, d->align);
+	html = get_sample_html (d, TRUE);
+	gtk_html_insert_html (d->cd->html, html);
+	g_free (html);
+	/* html_engine_insert_rule (cd->html->engine,
+				 d->length, d->length_percent ? d->length : 0, d->width,
+				 d->shaded, d->align); */
 }
 
 void
@@ -345,7 +407,8 @@ rule_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditRuleProperties *d = (GtkHTMLEditRuleProperties *) get_data;
 
-	html_rule_set (d->rule, cd->html->engine, VAL (WIDTH), d->percent ? VAL (WIDTH) : 0, VAL (SIZE), d->shaded, d->align);
+	html_rule_set (d->rule, cd->html->engine, d->length, d->length_percent ? d->length : 0,
+		       d->width, d->shaded, d->align);
 }
 
 void
