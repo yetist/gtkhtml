@@ -187,6 +187,9 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 	if (self->parent && HTML_OBJECT_TYPE (self->parent) != HTML_TYPE_TABLE)
 		html_clue_append_after (HTML_CLUE (self->parent), dup, self);
 
+	self->x = 0;
+	self->y = 0;
+
 	*left  = g_list_prepend (*left, self);
 	*right = g_list_prepend (*right, dup);
 

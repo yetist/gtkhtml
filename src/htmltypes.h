@@ -34,8 +34,6 @@
                                         && (HTML_OBJECT (object))->klass \
                                         && (HTML_OBJECT (object))->klass->type == otype)
 
-typedef struct _HTMLObject HTMLObject;
-typedef struct _HTMLObjectClass HTMLObjectClass;
 typedef struct _HTMLAnchor HTMLAnchor;
 typedef struct _HTMLAnchorClass HTMLAnchorClass;
 typedef struct _HTMLBlockStackElement HTMLBlockStackElement;
@@ -95,6 +93,9 @@ typedef struct _HTMLLinkTextClass HTMLLinkTextClass;
 typedef struct _HTMLList HTMLList;
 typedef struct _HTMLMap HTMLMap;
 typedef struct _HTMLMapClass HTMLMapClass;
+typedef struct _HTMLObject HTMLObject;
+typedef struct _HTMLObjectClass HTMLObjectClass;
+typedef struct _HTMLObjectClearRectangle HTMLObjectClearRectangle;
 typedef struct _HTMLPainter HTMLPainter;
 typedef struct _HTMLPainterClass HTMLPainterClass;
 typedef struct _HTMLPoint HTMLPoint;

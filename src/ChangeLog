@@ -1,5 +1,26 @@
 2001-10-12  Radek Doulik  <rodo@ximian.com>
 
+	* htmlobject.c (html_object_engine_intersection): new function,
+	extracted
+	(html_object_engine_translation): ditto
+
+	* htmldrawqueue.c (draw_obj): refactorize, extracted few functions
+
+	* htmlcluev.c (do_layout): handle case where width is > max_width
+	and schedule area clear to changed_objs
+	also store changed objs to local list which is prepend to global
+	one on end
+
+	* htmlengine.c (draw_changed_objects): handle area clears
+	(clear_changed_area): do area clear here
+	(html_engine_intersection): new extracted function
+
+	* gtkhtml.c (gtk_html_begin): return NULL to avoid compiler
+	warning
+
+	* htmlclue.c (split): reset self::x,y to get right redraw in plain
+	text mode
+
 	* htmltext.c (get_tags): don't use </FONT size=...>, but just
 	</FONT>
 	(get_tags): join <tag> and </tag> additions together

@@ -104,6 +104,22 @@ add_to_changed (GList **changed_objs, HTMLObject *o)
 	   gtk_html_debug_dump_tree_simple (o, 0); */
 }
 
+static void
+add_clear_area_behind (GList **changed_objs, HTMLObject *o, gint x, gint y)
+{
+	HTMLObjectClearRectangle *cr;
+
+	cr = g_new (HTMLObjectClearRectangle, 1);
+
+	cr->object = o;
+	cr->x = x;
+	cr->y = y;
+
+	*changed_objs = g_list_prepend (*changed_objs, cr);
+	/* NULL meens: clear rectangle follows */
+	*changed_objs = g_list_prepend (*changed_objs, NULL);
+}
+
 static gboolean
 do_layout (HTMLObject *o, HTMLPainter *painter, gboolean calc_size, GList **changed_objs)
 {
@@ -111,6 +127,7 @@ do_layout (HTMLObject *o, HTMLPainter *painter, gboolean calc_size, GList **chan
 	HTMLClue *clue;
 	HTMLObject *obj;
 	HTMLObject *aclue;
+	GList *local_changed_objs;
 	gint lmargin;
 	gboolean changed;
 	gint old_width, old_ascent, old_descent;
@@ -118,6 +135,10 @@ do_layout (HTMLObject *o, HTMLPainter *painter, gboolean calc_size, GList **chan
 	gint pixel_size;
 	gint padding;
 	gint padding2;
+	gboolean first_change;
+	gint first_y_off;
+
+	/* printf ("HTMLClueV::do_layout\n"); */
 
 	cluev = HTML_CLUEV (o);
 	clue = HTML_CLUE (o);
@@ -131,6 +152,8 @@ do_layout (HTMLObject *o, HTMLPainter *painter, gboolean calc_size, GList **chan
 	old_descent = o->descent;
 
 	changed = FALSE;
+	first_change = TRUE;
+	local_changed_objs = NULL;
 
 	lmargin = get_lmargin (o, painter);
 
@@ -173,9 +196,21 @@ do_layout (HTMLObject *o, HTMLPainter *painter, gboolean calc_size, GList **chan
 		o->ascent += clue->curr->ascent + clue->curr->descent;
 
 		if (clue->curr->x != lmargin || old_y != o->ascent - clue->curr->descent) {
-			/* if (changed_objs)
-			   printf ("y: %d ", o->ascent - clue->curr->descent); */
-			add_to_changed (changed_objs, clue->curr);
+			if (changed_objs) {
+				/* printf ("y: %d ", o->ascent - clue->curr->descent); */
+				if (first_change) {
+					first_change = FALSE;
+				        /* if it's new one (y == 0) clear from new y_off, else from old one or new one,
+					   which one is higher*/
+					first_y_off = old_y
+						&& old_y < o->ascent - clue->curr->descent
+						? old_y - clue->curr->ascent
+						: o->ascent - clue->curr->descent - clue->curr->ascent;
+					/* printf ("\nfirst_y_off: %d x %d --> %d\n", old_y, o->ascent - clue->curr->descent,
+					   first_y_off + clue->curr->ascent); */
+				}
+				add_to_changed (&local_changed_objs, clue->curr);
+			}
 		}
 		clue->curr->x = lmargin;
 		clue->curr->y = o->ascent - clue->curr->descent;
@@ -223,6 +258,13 @@ do_layout (HTMLObject *o, HTMLPainter *painter, gboolean calc_size, GList **chan
 	if (! changed
 	    && (o->ascent != old_ascent || o->descent != old_descent || o->width != old_width))
 		changed = TRUE;
+
+	if (changed_objs && local_changed_objs) {
+		if (!first_change && o->width > o->max_width) {
+			add_clear_area_behind (changed_objs, o, o->max_width, first_y_off);
+		}
+		*changed_objs = g_list_concat (local_changed_objs, *changed_objs);
+	}
 
 	return changed;
 }

@@ -2196,7 +2196,7 @@ gtk_html_allow_selection (GtkHTML *html,
 GtkHTMLStream *
 gtk_html_begin (GtkHTML *html)
 {
-	g_return_if_fail (GTK_IS_HTML (html));
+	g_return_val_if_fail (GTK_IS_HTML (html), NULL);
 
 	return gtk_html_begin_content (html, html->priv->content_type);
 }

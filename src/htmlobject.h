@@ -70,6 +70,12 @@ struct _HTMLObject {
 	GData *object_data;
 };
 
+struct _HTMLObjectClearRectangle {
+	HTMLObject *object;
+	gint x;
+	gint y;
+};
+
 struct _HTMLObjectClass {
 	HTMLType type;
 
@@ -518,5 +524,18 @@ GList    *html_object_tails_list                 (HTMLObject *o);
 void      html_object_merge_down                 (HTMLObject *o,
 						  HTMLObject *w,
 						  HTMLEngine *e);
+
+void      html_object_engine_translation   (HTMLObject *o,
+					    HTMLEngine *e,
+					    gint       *tx,
+					    gint       *ty);
+gboolean  html_object_engine_intersection  (HTMLObject *o,
+					    HTMLEngine *e,
+					    gint        tx,
+					    gint        ty,
+					    gint       *x1,
+					    gint       *y1,
+					    gint       *x2,
+					    gint       *y2);
 
 #endif /* _HTMLOBJECT_H_ */

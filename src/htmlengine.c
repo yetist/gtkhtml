@@ -56,6 +56,7 @@
 #include "htmlselection.h"
 #include "htmlcolor.h"
 #include "htmlinterval.h"
+#include "htmlobject.h"
 #include "htmlsettings.h"
 #include "htmltext.h"
 #include "htmltokenizer.h"
@@ -4376,16 +4377,70 @@ html_engine_freeze (HTMLEngine *engine)
 	engine->freeze_count++;
 }
 
+gboolean
+html_engine_intersection (HTMLEngine *e, gint *x1, gint *y1, gint *x2, gint *y2)
+{
+	if (*x2 < 0 || *y2 < 0 || *x1 > e->width || *y1 > e->height)
+		return FALSE;
+
+	if (*x1 < 0)
+		*x1 = 0;
+	if (*y1 < 0)
+		*y1 = 0;
+	if (*x2 > e->width)
+		*x2 = e->width;
+	if (*y2 > e->height)
+		*y2 = e->height;
+
+	return TRUE;
+}
+
+static void
+clear_changed_area (HTMLEngine *e, HTMLObjectClearRectangle *cr)
+{
+	HTMLObject *o;
+	gint tx, ty, x1, y1, x2, y2;
+
+	o = cr->object;
+
+	/* printf ("clear rectangle %d,%d\n", cr->x, cr->y); */
+	html_object_engine_translation (cr->object, e, &tx, &ty);
+
+	x1 = o->x + cr->x + tx;
+	y1 = o->y - o->ascent + cr->y + ty;
+	x2 = o->x + o->width + tx;
+	y2 = o->y + o->descent + ty;
+
+	if (html_engine_intersection (e, &x1, &y1, &x2, &y2)) {
+		if (html_object_is_transparent (cr->object)) {
+			html_painter_begin (e->painter, x1, y1, x2, y2);
+			html_engine_draw_background (e, x1, y1, x2, y2);
+			html_object_draw_background (o, e->painter,
+						     o->x + cr->x, o->y - o->ascent + cr->y,
+						     o->width, o->ascent + o->descent,
+						     tx, ty);
+			html_painter_end (e->painter);
+		}
+	}
+
+	g_free (cr);
+}
+
 static void
 draw_changed_objects (HTMLEngine *e, GList *changed_objs)
 {
 	GList *cur;
 
 	for (cur = changed_objs; cur; cur = cur->next) {
-		HTMLObject *o;
+		if (cur->data) {
+			HTMLObject *o;
 
-		o = HTML_OBJECT (cur->data);
-		html_engine_queue_draw (e, o);
+			o = HTML_OBJECT (cur->data);
+			html_engine_queue_draw (e, o);
+		} else {
+			cur = cur->next;
+			clear_changed_area (e, (HTMLObjectClearRectangle *) cur->data);
+		}
 	}
 	html_engine_flush_draw_queue (e);
 }

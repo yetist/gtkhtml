@@ -1756,3 +1756,32 @@ html_object_merge_down (HTMLObject *o, HTMLObject *w, HTMLEngine *e)
 {
 	merge_down (e, html_object_tails_list (o), html_object_heads_list (w));
 }
+
+void
+html_object_engine_translation (HTMLObject *o, HTMLEngine *e, gint *tx, gint *ty)
+{
+	HTMLObject *p;
+
+	*tx = 0;
+	*ty = 0;
+
+	for (p = o->parent; p != NULL && HTML_OBJECT_TYPE (p) != HTML_TYPE_IFRAME; p = p->parent) {
+		*tx += p->x;
+		*ty += p->y - p->ascent;
+	}
+
+	*tx = *tx + e->leftBorder - e->x_offset;
+	*ty = *ty + e->topBorder - e->y_offset;
+
+}
+
+gboolean
+html_object_engine_intersection (HTMLObject *o, HTMLEngine *e, gint tx, gint ty, gint *x1, gint *y1, gint *x2, gint *y2)
+{
+	*x1 = o->x + tx;
+	*y1 = o->y - o->ascent + ty;
+	*x2 = o->x + o->width + tx;
+	*y2 = o->y + o->descent + ty;
+
+	return html_engine_intersection (e, x1, y1, x2, y2);
+}
