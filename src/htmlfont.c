@@ -42,7 +42,7 @@ html_font_new (gchar *family, gint size, gint *fontSizes, gboolean bold, gboolea
 	f->underline = underline;
 	f->pointSize = fontSizes [size];
 
-	f->gdk_font = create_gdk_font (family, size, bold, italic);
+	f->gdk_font = create_gdk_font (family, fontSizes[size], bold, italic);
 
 	return f;
 }
