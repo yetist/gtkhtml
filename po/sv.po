@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2000-09-07 00:23+0200\n"
-"PO-Revision-Date: 2000-09-07 00:35+0200\n"
+"POT-Creation-Date: 2000-09-11 02:09+0200\n"
+"PO-Revision-Date: 2000-09-11 02:22+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -53,7 +53,7 @@ msgstr "Ta bort"
 msgid "Grab key"
 msgstr "Hämta nyckel"
 
-#: capplet/main.c:127
+#: capplet/main.c:127 capplet/viewer.c:188
 msgid "Behaviour"
 msgstr "Beteende"
 
@@ -64,6 +64,42 @@ msgstr "magiska länkar"
 #: capplet/main.c:135
 msgid "Keybindings"
 msgstr "Tangentbindningar"
+
+#: capplet/viewer.c:148
+msgid "Appearance"
+msgstr "Utseende"
+
+#: capplet/viewer.c:154
+msgid "Variable width font"
+msgstr "Typsnitt med variabelt breddsteg"
+
+#: capplet/viewer.c:158
+msgid "Select HTML variable width font"
+msgstr "Välj HTML-typsnitt med variabelt breddsteg"
+
+#: capplet/viewer.c:162 capplet/viewer.c:177
+msgid "for printing"
+msgstr "för utskrift"
+
+#: capplet/viewer.c:164
+msgid "Select HTML variable width font for printing"
+msgstr "Välj HTML-typsnitt med variabelt breddsteg för utskrift"
+
+#: capplet/viewer.c:169
+msgid "Fixed width font"
+msgstr "Typsnitt med fast breddsteg"
+
+#: capplet/viewer.c:173
+msgid "Select HTML fixed width font"
+msgstr "Välj HTML-typsnitt med fast breddsteg"
+
+#: capplet/viewer.c:179
+msgid "Select HTML fixed width font for printing"
+msgstr "Välj HTML-typsnitt med fast breddsteg för utskrift"
+
+#: capplet/viewer.c:189
+msgid "Animations"
+msgstr "Animationer"
 
 #: components/html-editor/body.c:107
 msgid "use background image"
