@@ -1,5 +1,12 @@
 2000-01-24  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* gtkhtml.c (expose): Return `TRUE'.
+	(selection_idle_handler): Removed.
+	(motion_notify_event): Do not use an idle handler anymore.
+
+	* gtkhtml.h: Removed `selection_idle_handler_id', `selection_x2',
+	`selection_y2'.
+
 	* htmltextmaster.c (select_range): Fixed range comparisons.  I
 	think I need to sleep.
 

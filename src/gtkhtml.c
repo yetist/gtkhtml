@@ -77,25 +77,6 @@ queue_draw (GtkHTML *html)
 }
 
 
-static gint
-selection_idle_handler (gpointer data)
-{
-	GtkHTML *html;
-	HTMLEngine *engine;
-
-	html = GTK_HTML (data);
-	engine = html->engine;
-	html_engine_select_region (engine,
-				   html->selection_x1, html->selection_y1,
-				   html->selection_x2, html->selection_y2,
-				   TRUE);
-
-	html->selection_idle_handler_id = 0;
-
-	return FALSE;
-}
-
-
 /* HTMLEngine callbacks.  */
 
 static void
@@ -253,8 +234,6 @@ destroy (GtkObject *object)
 
 	if (html->idle_handler_id != 0)
 		gtk_idle_remove (html->idle_handler_id);
-	if (html->selection_idle_handler_id != 0)
-		gtk_idle_remove (html->selection_idle_handler_id);
 
 	if (GTK_OBJECT_CLASS (parent_class)->destroy)
 		(*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
@@ -361,6 +340,8 @@ realize (GtkWidget *widget)
 
 	gdk_window_set_cursor (widget->window, html->arrow_cursor);
 
+	/* This sets the backing pixmap to None, so that scrolling does not
+           erase the newly exposed area, thus making the thing smoother.  */
 	gdk_window_set_back_pixmap (html->layout.bin_window, NULL, FALSE);
 }
 
@@ -385,7 +366,7 @@ expose (GtkWidget *widget, GdkEventExpose *event)
 			  event->area.x, event->area.y,
 			  event->area.width, event->area.height);
 
-	return FALSE;
+	return TRUE;
 }
 
 static void
@@ -454,16 +435,10 @@ motion_notify_event (GtkWidget *widget,
 	if (html->button_pressed) {
 		html->in_selection = TRUE;
 
-		html->selection_x2 = x + engine->x_offset;
-		html->selection_y2 = y + engine->y_offset;
-
-		if (html->selection_idle_handler_id == 0)
-			selection_idle_handler (html);
-#if 0
-			html->selection_idle_handler_id = gtk_timeout_add (SELECTION_TIMEOUT,
-									   selection_idle_handler,
-									   html);
-#endif
+		html_engine_select_region (engine,
+					   html->selection_x1, html->selection_y1,
+					   x + engine->x_offset, y + engine->y_offset,
+					   TRUE);
 	} else {
 		url = html_engine_get_link_at (engine,
 					       x + engine->x_offset,
@@ -683,14 +658,11 @@ init (GtkHTML* html)
 
 	html->selection_x1 = 0;
 	html->selection_y1 = 0;
-	html->selection_x2 = 0;
-	html->selection_y2 = 0;
 
 	html->in_selection = FALSE;
 	html->button_pressed = FALSE;
 
 	html->idle_handler_id = 0;
-	html->selection_idle_handler_id = 0;
 }
 
 
