@@ -33,7 +33,7 @@
 GtkHTMLClassProperties *
 gtk_html_class_properties_new (void)
 {
-	GtkHTMLClassProperties *p = g_new (GtkHTMLClassProperties, 1);
+	GtkHTMLClassProperties *p = g_new0 (GtkHTMLClassProperties, 1);
 
 	/* default values */
 	p->magic_links             = TRUE;
@@ -190,7 +190,7 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p)
 	g_free (s);
 
 	GET  (bool, live_spell_check, "live_spell_check=true");
-	GET  (int, spell_error_color.red,   "spell_error_color_red=0xffff");
+	GET  (int, spell_error_color.red,   "spell_error_color_red=65535");
 	GET  (int, spell_error_color.green, "spell_error_color_green=0");
 	GET  (int, spell_error_color.blue,  "spell_error_color_blue=0");
 	GETS (language, "language=en");

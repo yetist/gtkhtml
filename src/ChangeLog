@@ -1,3 +1,11 @@
+2001-08-28  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml-properties.c (gtk_html_class_properties_new): use rather
+	g_new0
+	(gtk_html_class_properties_load): assign 65535 instead of 0xffff
+	as default (looks like gnome_config doesn't understand HEXadecimal
+	numbers)
+
 2001-08-27  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (gtk_html_private_calc_scrollbars): don't let
