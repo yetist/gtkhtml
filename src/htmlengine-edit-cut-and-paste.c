@@ -291,6 +291,11 @@ remove_empty_and_merge (HTMLEngine *e, gboolean merge, GList *left, GList *right
 		left  = left->next;
 		right = right->next;
 	}
+
+	if (e->cursor->object->prev && e->cursor->offset == 0) {
+		e->cursor->object = e->cursor->object->prev;
+		e->cursor->offset = html_object_get_length (e->cursor->object);
+	}
 }
 
 static void

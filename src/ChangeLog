@@ -6,6 +6,8 @@
 	(html_point_get_right): likewise
 	(prepare_delete_bounds): allow NULL for bounds, but not for from,
 	to
+	(remove_empty_and_merge): make sure cursor have no zero offset if
+	there is prev object
 
 	* htmlengine.c (html_engine_thaw): use html_draw_queue_clear
 
