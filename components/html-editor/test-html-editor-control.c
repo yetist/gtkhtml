@@ -217,19 +217,20 @@ file_selection_destroy_cb (GtkWidget *widget,
 }
 
 static void
-view_source_dialog (BonoboWindow *app, char *type)
+view_source_dialog (BonoboWindow *app, char *type, gboolean as_html)
 {
 	BonoboWidget *control;
 	GtkWidget *window;
 	GtkWidget *view;
-	
+
 	control = BONOBO_WIDGET (bonobo_window_get_contents (app));
 
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	view = html_source_view_new ();
+
 	gtk_container_add (GTK_CONTAINER (window), view);
 	html_source_view_set_source (HTML_SOURCE_VIEW (view), control, type);
-	
+	html_source_view_set_mode (HTML_SOURCE_VIEW (view), as_html);
 	gtk_widget_show_all (window);
 
 	gtk_signal_connect_object (GTK_OBJECT (control),
@@ -239,19 +240,25 @@ view_source_dialog (BonoboWindow *app, char *type)
 
 static void
 view_html_source_cb (GtkWidget *widget,
-		gpointer data)
+		     gpointer data)
 {
-	view_source_dialog (data, "text/html");
+	view_source_dialog (data, "text/html", FALSE);
 }
 
 static void
 view_plain_source_cb (GtkWidget *widget,
-		gpointer data)
+		      gpointer data)
 {
-	view_source_dialog (data, "text/plain");
+	view_source_dialog (data, "text/plain", FALSE);
 }
 
-	
+static void
+view_html_source_html_cb (GtkWidget *widget,
+			  gpointer data)
+{
+	view_source_dialog (data, "text/html", TRUE);
+}
+
 static void
 file_selection_ok_cb (GtkWidget *widget,
 		      gpointer data)
@@ -402,6 +409,7 @@ static BonoboUIVerb verbs [] = {
 	BONOBO_UI_UNSAFE_VERB ("SaveStream", save_through_persist_stream_cb),
 	BONOBO_UI_UNSAFE_VERB ("SavePlainStream", save_through_plain_persist_stream_cb),
 	BONOBO_UI_UNSAFE_VERB ("ViewHTMLSource", view_html_source_cb),
+	BONOBO_UI_UNSAFE_VERB ("ViewHTMLSourceHTML", view_html_source_html_cb),
 	BONOBO_UI_UNSAFE_VERB ("ViewPlainSource", view_plain_source_cb),
 	BONOBO_UI_UNSAFE_VERB ("FileExit", exit_cb),
 
@@ -446,6 +454,7 @@ static char ui [] =
 "			pixtype=\"stock\" pixname=\"Save\"/>"
 "			<separator/>"
 "                       <menuitem name=\"ViewHTMLSource\" verb=\"\" _label=\"View HTML Source\" _tip=\"View the html source of the current document\"/>"
+"                       <menuitem name=\"ViewHTMLSourceHTML\" verb=\"\" _label=\"View HTML Output\" _tip=\"View the html source of the current document as html\"/>"
 "                       <menuitem name=\"ViewPlainSource\" verb=\"\" _label=\"View PLAIN Source\" _tip=\"View the plain text source of the current document\"/>"
 "			<separator/>"
 "			<menuitem name=\"FileExit\" verb=\"\" _label=\"E_xit\"/>"

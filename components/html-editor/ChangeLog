@@ -1,3 +1,15 @@
+2002-09-10  Larry Ewing  <lewing@ximian.com>
+
+	* test-html-editor-control.c (view_html_source_html_cb): add
+	another menu entry for viewing the output as html instead of plain
+	text.
+
+	* htmlsourveview.h: add a prototype for set_mode.
+
+	* htmlsourceview.c (html_source_view_set_mode): add a way to
+	toggle the display mode between displaying the input as html or
+	displaying the input as plain text.
+
 2002-08-26  Ettore Perazzoli  <ettore@ximian.com>
 
 	* Makefile.am (CLEANFILES): Use "=" instead of "+=" so it works

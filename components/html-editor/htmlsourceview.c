@@ -44,6 +44,7 @@ struct _HTMLSourceViewPrivate {
 	char    *content_type;
 	gint     current_interval;
 	gint     timer_id;
+	gboolean as_html;
 };
 
 enum {
@@ -81,7 +82,11 @@ html_source_view_load (HTMLSourceView *view)
         text = bonobo_stream_mem_get_buffer (BONOBO_STREAM_MEM (smem));
 	len  = bonobo_stream_mem_get_size (BONOBO_STREAM_MEM (smem));
 
-	html = e_text_to_html_full (text, E_TEXT_TO_HTML_PRE | E_TEXT_TO_HTML_CONVERT_SPACES, 0);
+	if (!view->priv->as_html) {
+		html = e_text_to_html_full (text, E_TEXT_TO_HTML_PRE | E_TEXT_TO_HTML_CONVERT_SPACES, 0);
+	} else {
+		html = g_strdup (text);
+	}
 
 	hstream = gtk_html_begin (view->priv->html);
 	view->priv->html->engine->newPage = FALSE;
@@ -116,6 +121,12 @@ html_source_view_set_timeout (HTMLSourceView *view, guint timeout)
 	
 	view->priv->current_interval = timeout;
 	view->priv->timer_id = gtk_timeout_add (timeout, (GtkFunction)html_source_view_timeout, view);
+}
+
+void
+html_source_view_set_mode (HTMLSourceView *view, gboolean as_html)
+{
+	view->priv->as_html = as_html;
 }
 
 void
@@ -161,7 +172,8 @@ html_source_view_init (HTMLSourceView *view)
 	view->priv->content_type = NULL;
 	view->priv->html = GTK_HTML (html = gtk_html_new ());
 	view->priv->current_interval = 500;
-
+	view->priv->as_html = FALSE;
+	
 	scroll = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scroll),
 					GTK_POLICY_AUTOMATIC,
