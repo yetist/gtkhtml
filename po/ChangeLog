@@ -1,3 +1,8 @@
+2000-11-17  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* no.po: Updated Norwegian (bokmål) translation.
+	* update.pl, ui-extract.pl: Updated tools.
+	
 2000-11-16  Fatih Demir	<kabalak@gmx.net>
 
 	* tr.po: Updated Turkish translation.
