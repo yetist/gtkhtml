@@ -1,5 +1,8 @@
 2000-09-18  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlgdkpainter.c: use e-font
+	(get_font): look for unicode font first
+
 	* gtkhtml.c (key_press_event): use e_utf8_from_gtk_event_key
 
 2000-09-15  Radek Doulik  <rodo@helixcode.com>
