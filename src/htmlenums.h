@@ -33,7 +33,8 @@ typedef enum {
 typedef enum {
 	HTML_CHANGE_NONE = 0,
 	HTML_CHANGE_MIN_WIDTH = 1 << 0,
-	HTML_CHANGE_ALL = 0x1
+	HTML_CHANGE_PREF_WIDTH = 1 << 1,
+	HTML_CHANGE_ALL = ((HTML_CHANGE_PREF_WIDTH << 1) - 1)
 } HTMLChangeFlags;
 
 typedef enum {

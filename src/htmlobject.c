@@ -135,7 +135,7 @@ fit_line (HTMLObject *o,
 	  gint width_left)
 {
 	html_object_calc_size (o, painter);
-	return (o->width < width_left || first_run) ? HTML_FIT_COMPLETE : HTML_FIT_NONE;
+	return (o->width <= width_left || first_run) ? HTML_FIT_COMPLETE : HTML_FIT_NONE;
 }
 
 static gboolean

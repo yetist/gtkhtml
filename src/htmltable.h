@@ -26,36 +26,11 @@
 #define HTML_TABLE(x) ((HTMLTable *)(x))
 #define HTML_TABLE_CLASS(x) ((HTMLTableClass *)(x))
 
-enum _ColumnType {
-	COLUMN_TYPE_FIXED,
-	COLUMN_TYPE_PERCENT,
-	COLUMN_TYPE_VARIABLE
-};
-typedef enum _ColumnType ColumnType;
-
-typedef struct _ColumnInfo {
-	gint startCol;
-	gint colSpan;
-	gint minSize;
-	gint prefSize;
-	gint maxSize;
-	ColumnType colType;
-} ColumnInfo;
-
-typedef struct _RowInfo {
-	gint *entry;
-	gint nrEntries;
-	gint minSize;
-	gint prefSize;
-} RowInfo;
-
 struct _HTMLTable {
 	HTMLObject object;
 
 	gint specified_width;
 
-	gint _minWidth;
-	gint _prefWidth;
 	HTMLTableCell ***cells;
 	gint totalColumnInfos;
 	gint col, totalCols;
@@ -66,12 +41,9 @@ struct _HTMLTable {
 	HTMLClueV *caption;
 	HTMLVAlignType capAlign;
 	
-	GArray *colInfo; /* ColumnInfo array */
-	GArray *colType; /* ColType array */
 	GArray *columnPos; /* integer array */
 	GArray *columnPrefPos; /* integer array */
 	GArray *columnOpt; /* integer array */
-	GArray *colSpan; /* integer array */
 	GArray *rowHeights; /* integer array */
 
 	GdkColor *bgColor;
@@ -108,12 +80,5 @@ void  html_table_start_row     (HTMLTable     *table);
 void  html_table_add_cell      (HTMLTable     *table,
 				HTMLTableCell *cell);
 void  html_table_end_table     (HTMLTable     *table);
-gint  html_table_add_col_info  (HTMLTable     *table,
-				gint           startCol,
-				gint           colSpan,
-				gint           minSize,
-				gint           prefSize,
-				gint           maxSize,
-				ColumnType     coltype);
 
 #endif /* _HTMLTABLE_H_ */

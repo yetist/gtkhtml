@@ -1,3 +1,19 @@
+2000-12-06  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltable.c: I have completely rewritten size calculating,
+	scaling part is done in html_table_set_max_width, calc_size is
+	partialy rewritten and partialy refactored. I hope it finally work
+	correctly. It's at least correct in cases I know, which were
+	miscalculated before. One TODO: implement exact dividing of left
+	width using an DDA like algorhytm
+
+2000-12-05  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlobject.c (fit_line): fixed condition o->width < width_left
+	to o->width <= width_left
+
+	* htmlenums.h: add HTML_CHANGE_PREF_WIDTH
+
 2000-12-05  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlengine.c (parse_object): applied patch from Bill Gribble
@@ -10,6 +26,26 @@
 	* gtkhtml-embedded.h: (from patch) add data variable.
 
 2000-12-04  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltable.c (cell_end_col): new helper function
+	(calc_column_min_widths): take care of FIXED width cells and for
+	colspan
+
+	* htmltable.h: removed ColInfo, RowInfo, colInfo
+
+	* htmltable.c: removed obsolete calc_col_info,
+	html_table_add_col_info
+
+	* htmltable.h: removed obsolete colSpan
+
+	* htmltable.c (calc_column_min_widths): simplify condition
+
+	* htmltable.h: removed obsolete colType
+
+	* htmltable.c (calc_preferred_width): use COLUMN_PREF_POS
+	(calc_min_width): use COLUMN_POS
+
+	* htmltable.h: removed obsolete _minWidth, _prefWidth
 
 	* htmlengine-edit-paste.c (prepare_clueflows): fix case when
 	engine->cursor->object->next == NULL
