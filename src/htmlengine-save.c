@@ -27,47 +27,6 @@
 #include "htmlengine.h"
 
 
-static void
-save_forall (HTMLObject *object,
-	     gpointer data)
-{
-	HTMLEngineSaveState *s;
-
-	s = (HTMLEngineSaveState *) data;
-	if (s->error)
-		return;
-
-	if (! html_object_save (object, s))
-		s->error = TRUE;
-}
-
-gboolean
-html_engine_save (const HTMLEngine *engine,
-		  HTMLEngineSaveReceiverFn receiver,
-		  gpointer user_data)
-{
-	HTMLEngineSaveState state;
-	gboolean retval;
-
-	if (engine->clue == NULL) {
-		/* Empty document.  */
-		return FALSE;
-	}
-
-	state.engine = engine;
-	state.receiver = receiver;
-	state.br_count = 0;
-	state.error = FALSE;
-	state.user_data = user_data;
-
-	html_object_forall (engine->clue, save_forall, &state);
-
-	retval = ! state.error;
-
-	return retval;
-}
-
-
 /* This routine was originally written by Daniel Velliard, (C) 1998 World Wide
    Web Consortium.  */
 static gchar *
@@ -198,4 +157,45 @@ html_engine_save_output_string (HTMLEngineSaveState *state,
 	g_return_val_if_fail (s != NULL, FALSE);
 
 	return state->receiver (state->engine, s, strlen (s), state->user_data);
+}
+
+
+static void
+save_forall (HTMLObject *object,
+	     gpointer data)
+{
+	HTMLEngineSaveState *s;
+
+	s = (HTMLEngineSaveState *) data;
+	if (s->error)
+		return;
+
+	if (! html_object_save (object, s))
+		s->error = TRUE;
+}
+
+gboolean
+html_engine_save (const HTMLEngine *engine,
+		  HTMLEngineSaveReceiverFn receiver,
+		  gpointer user_data)
+{
+	HTMLEngineSaveState state;
+	gboolean retval;
+
+	if (engine->clue == NULL) {
+		/* Empty document.  */
+		return FALSE;
+	}
+
+	state.engine = engine;
+	state.receiver = receiver;
+	state.br_count = 0;
+	state.error = FALSE;
+	state.user_data = user_data;
+
+	html_object_forall (engine->clue, save_forall, &state);
+
+	retval = ! state.error;
+
+	return retval;
 }

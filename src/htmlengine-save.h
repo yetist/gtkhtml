@@ -42,11 +42,6 @@ struct _HTMLEngineSaveState {
 typedef struct _HTMLEngineSaveState HTMLEngineSaveState;
 
 
-/* Saving a whole tree.  */
-gboolean  html_engine_save  (const HTMLEngine         *engine,
-			     HTMLEngineSaveReceiverFn  receiver,
-			     gpointer                  user_data);
-
 /* Entity encoding.  This is used by the HTML objects to output stuff through
    entity-based encoding.  */
 gboolean  html_engine_save_encode         (HTMLEngineSaveState *state,
@@ -59,5 +54,10 @@ gboolean  html_engine_save_encode_string  (HTMLEngineSaveState *state,
    must not be entity-encoded.  */
 gboolean  html_engine_save_output_string  (HTMLEngineSaveState *state,
 					   const gchar         *s);
+
+/* Saving a whole tree.  */
+gboolean  html_engine_save  (const HTMLEngine         *engine,
+			     HTMLEngineSaveReceiverFn  receiver,
+			     gpointer                  user_data);
 
 #endif _HTMLENGINE_SAVE_H
