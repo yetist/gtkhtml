@@ -119,11 +119,11 @@ struct _GtkHTMLClass {
 	GtkLayoutClass parent_class;
 	
         void (* title_changed)   (GtkHTML *html, const gchar *new_title);
-        void (* url_requested)   (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle);
+        void (* url_requested)   (GtkHTML *html, const gchar *url, GtkHTMLStreamHandle handle);
         void (* load_done)       (GtkHTML *html);
-        void (* link_clicked)    (GtkHTML *html, const char *url);
-	void (* set_base)        (GtkHTML *html, const char *base_url);
-	void (* set_base_target) (GtkHTML *html, const char *base_url);
+        void (* link_clicked)    (GtkHTML *html, const gchar *url);
+	void (* set_base)        (GtkHTML *html, const gchar *base_url);
+	void (* set_base_target) (GtkHTML *html, const gchar *base_url);
 
 	void (* on_url)		 (GtkHTML *html, const gchar *url);
 	void (* redirect)        (GtkHTML *html, const gchar *url, int delay);
@@ -151,10 +151,10 @@ void  gtk_html_allow_selection  (GtkHTML  *html,
 
 /* Loading.  */
 GtkHTMLStreamHandle  gtk_html_begin       (GtkHTML             *html,
-					   const char          *url);
+					   const gchar         *url);
 void                 gtk_html_write       (GtkHTML             *html,
 					   GtkHTMLStreamHandle  handle,
-					   const char          *buffer,
+					   const gchar         *buffer,
 					   size_t               size);
 void                 gtk_html_end         (GtkHTML             *html,
 					   GtkHTMLStreamHandle  handle,

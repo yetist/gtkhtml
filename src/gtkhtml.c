@@ -266,7 +266,7 @@ html_engine_load_done_cb (HTMLEngine *engine, gpointer data)
 
 static void
 html_engine_url_requested_cb (HTMLEngine *engine,
-			      const char *url,
+			      const gchar *url,
 			      GtkHTMLStreamHandle handle,
 			      gpointer data)
 {
@@ -288,7 +288,7 @@ html_engine_draw_pending_cb (HTMLEngine *engine,
 
 static void
 html_engine_redirect_cb (HTMLEngine *engine,
-			 const char *url,
+			 const gchar *url,
 			 int delay,
 			 gpointer data)
 {
@@ -992,7 +992,7 @@ gtk_html_parse (GtkHTML *html)
 }
 
 GtkHTMLStreamHandle
-gtk_html_begin (GtkHTML *html, const char *url)
+gtk_html_begin (GtkHTML *html, const gchar *url)
 {
 	GtkHTMLStreamHandle *handle;
 
