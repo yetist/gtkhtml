@@ -51,7 +51,7 @@ HTMLFont      *html_font_new           (const gchar *family, gint size,
 				       	gboolean italic, gboolean underline);
 HTMLFont      *html_font_dup	       (HTMLFont *f);
 void           html_font_destroy       (HTMLFont *html_font);
-gint  	       html_font_calc_width    (HTMLFont *f, gchar *text, gint len);
+gint  	       html_font_calc_width    (HTMLFont *f, const gchar *text, gint len);
 gint  	       html_font_calc_descent  (HTMLFont *f);
 gint  	       html_font_calc_ascent   (HTMLFont *f);
 void	       html_font_set_color     (HTMLFont *f, const GdkColor *color);

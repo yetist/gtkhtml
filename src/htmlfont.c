@@ -4,7 +4,7 @@
    Copyright (C) 1997 Martin Jones (mjones@kde.org)
              (C) 1997 Torben Weis (weis@kde.org)
              (C) 1999 Anders Carlson (andersca@gnu.org)
-	     (C) 1999 Helix Code, Inc.
+	     (C) 1999, 2000 Helix Code, Inc.
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -159,7 +159,7 @@ html_font_calc_descent (HTMLFont *f)
 }
 
 gint
-html_font_calc_width (HTMLFont *f, gchar *text, gint len)
+html_font_calc_width (HTMLFont *f, const gchar *text, gint len)
 {
 	gint width;
 
