@@ -35,8 +35,8 @@ struct _HTMLImagePointer {
 	gint refcount;
 	gchar *url;
 	GdkPixbufLoader *loader;
-	GdkPixbuf *pixbuf;
 	GdkPixbufAnimation *animation;
+	GdkPixbufAnimationIter *iter;
 	GSList *interests; /* A list of HTMLImage's, or a NULL pointer for the background pixmap */
 	HTMLImageFactory *factory;
 	gint stall;
@@ -58,9 +58,6 @@ struct _HTMLImageAnimation {
 
 	/* animation timeout function */
 	gint timeout;
-
-	/* helper buffer */
-	GdkPixbuf *pixbuf;
 
 	/* active draw flag */
 	gint active;

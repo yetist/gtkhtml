@@ -68,11 +68,11 @@ draw_background_helper (HTMLTableCell *cell,
 	}
 
 	if (cell->have_bgPixmap) {
-		if (cell->bgPixmap->pixbuf) {
-			pixbuf = cell->bgPixmap->pixbuf;
+		if (cell->bgPixmap->animation) {
+			pixbuf = gdk_pixbuf_animation_get_static_image (cell->bgPixmap->animation);
 		}
 	} else if (t && t->bgPixmap)
-		pixbuf = t->bgPixmap->pixbuf;
+		pixbuf = gdk_pixbuf_animation_get_static_image (t->bgPixmap->animation);
 	
 	/* FIXME this should be moved into the painter interface */
 	if (!HTML_IS_PLAIN_PAINTER (p))

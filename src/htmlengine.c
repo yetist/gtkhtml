@@ -3744,8 +3744,8 @@ html_engine_draw_background (HTMLEngine *e,
 
 	/* return if no background pixmap is set */
 	bgpixmap = e->bgPixmapPtr;
-	if (bgpixmap && bgpixmap->pixbuf) {
-		pixbuf = bgpixmap->pixbuf;
+	if (bgpixmap && bgpixmap->animation) {
+		pixbuf = gdk_pixbuf_animation_get_static_image (bgpixmap->animation);
 	}
 
 	html_painter_draw_background (e->painter, 

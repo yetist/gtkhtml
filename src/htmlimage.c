@@ -21,14 +21,6 @@
    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
    Boston, MA 02111-1307, USA.
 
-   TODO:
-
-     - implement proper animation loading (now it loops thru loaded frames
-       and does not stop when loading is in progress and we are out of frames)
-     - look at gdk-pixbuf to make gdk_pixbuf_compose work (look also
-       on gk_pixbuf_render_to_drawable_alpha)
-     - take care about all the frame->action values
-
 */
 
 #include <config.h>
@@ -82,7 +74,6 @@ static void                render_cur_frame             (HTMLImage *image, gint 
 guint
 html_image_get_actual_width (HTMLImage *image, HTMLPainter *painter)
 {
-	GdkPixbuf *pixbuf = image->image_ptr->pixbuf;
 	GdkPixbufAnimation *anim = image->image_ptr->animation;
 	gint pixel_size = painter ? html_painter_get_pixel_size (painter) : 1;
 	gint width;
@@ -94,18 +85,16 @@ html_image_get_actual_width (HTMLImage *image, HTMLPainter *painter)
 			 * image->specified_width) / 100;
 	} else if (image->specified_width > 0) {
 		width = image->specified_width * pixel_size;
-	} else if (image->image_ptr == NULL || pixbuf == NULL) {
+	} else if (image->image_ptr == NULL || anim == NULL) {
 		width = DEFAULT_SIZE * pixel_size;
 	} else {
-		width = (((anim) ? gdk_pixbuf_animation_get_width (anim) : gdk_pixbuf_get_width (pixbuf))
-			  * pixel_size);
+		width = gdk_pixbuf_animation_get_width (anim) * pixel_size;
 
 		if (image->specified_height > 0 || image->percent_height) {
 			double scale;
 
 			scale =  ((double) html_image_get_actual_height (image, painter)) 
-				/ (((anim) ? gdk_pixbuf_animation_get_height (anim) : gdk_pixbuf_get_height (pixbuf))
-				   * pixel_size);
+				/ (gdk_pixbuf_animation_get_height (anim) * pixel_size);
 			
 			width *= scale;
 		}
@@ -118,7 +107,6 @@ html_image_get_actual_width (HTMLImage *image, HTMLPainter *painter)
 guint
 html_image_get_actual_height (HTMLImage *image, HTMLPainter *painter)
 {
-	GdkPixbuf *pixbuf = image->image_ptr->pixbuf;
 	GdkPixbufAnimation *anim = image->image_ptr->animation;
 	gint pixel_size = painter ? html_painter_get_pixel_size (painter) : 1;
 	gint height;
@@ -130,18 +118,16 @@ html_image_get_actual_height (HTMLImage *image, HTMLPainter *painter)
 			  * image->specified_height) / 100;
 	} else if (image->specified_height > 0) {
 		height = image->specified_height * pixel_size;
-	} else if (image->image_ptr == NULL || pixbuf == NULL) {
+	} else if (image->image_ptr == NULL || anim == NULL) {
 		height = DEFAULT_SIZE * pixel_size;
 	} else {
-		height = (((anim) ? gdk_pixbuf_animation_get_height (anim) : gdk_pixbuf_get_height (pixbuf))
-			  * pixel_size);
+		height = gdk_pixbuf_animation_get_height (anim) * pixel_size;
 
 		if (image->specified_width > 0 || image->percent_width) {
 			double scale;
 			
 			scale = ((double) html_image_get_actual_width (image, painter))
-				/ (((anim) ? gdk_pixbuf_animation_get_width (anim) : gdk_pixbuf_get_width (pixbuf))
-				   * pixel_size);
+				/ (gdk_pixbuf_animation_get_width (anim) * pixel_size);
 			
 			height *= scale;
 		} 
@@ -370,6 +356,7 @@ draw (HTMLObject *o,
       gint tx, gint ty)
 {
 	HTMLImage *image;
+	HTMLImagePointer *ip;
 	GdkPixbuf *pixbuf;
 	gint base_x, base_y;
 	gint scale_width, scale_height;
@@ -389,8 +376,14 @@ draw (HTMLObject *o,
 	}
 
 	image = HTML_IMAGE (o);
+	ip = image->image_ptr;
 
-	pixbuf = image->image_ptr->pixbuf;
+	if (HTML_IS_GDK_PAINTER (painter) && !gdk_pixbuf_animation_is_static_image (ip->animation)) {
+		pixbuf = gdk_pixbuf_animation_iter_get_pixbuf (ip->iter);
+	} else {
+		pixbuf = gdk_pixbuf_animation_get_static_image (ip->animation);
+	}
+
 	pixel_size = html_painter_get_pixel_size (painter);
 
 	if (o->selected) {
@@ -425,6 +418,7 @@ draw (HTMLObject *o,
 					 GTK_HTML_ETCH_IN, 1);
 		return;
 	}
+
 	base_x = o->x + tx + (image->border + image->hspace) * pixel_size;
 	base_y = o->y + ty + (image->border + image->vspace) * pixel_size - o->ascent;
 
@@ -446,20 +440,18 @@ draw (HTMLObject *o,
 					 GTK_HTML_ETCH_NONE, image->border);
 		
 	}
-	if (ANIMATIONS (image) &&  image->animation && ! HTML_IS_PRINTER (painter)) {
+	
+	if (image->animation) {
 		image->animation->active = TRUE;
 		image->animation->x = base_x;
 		image->animation->y = base_y;
 		image->animation->ex = image->image_ptr->factory->engine->x_offset;
 		image->animation->ey = image->image_ptr->factory->engine->y_offset;
-
-		render_cur_frame (image, base_x, base_y, highlight_color);
-	} else {
-		html_painter_draw_pixmap (painter, pixbuf,
-					  base_x, base_y,
-					  scale_width, scale_height,
-					  highlight_color);
 	}
+	html_painter_draw_pixmap (painter, pixbuf,
+				  base_x, base_y,
+				  scale_width, scale_height,
+				  highlight_color);
 }
 
 gchar *
@@ -983,13 +975,32 @@ html_image_factory_end_pixbuf (GtkHTMLStream *stream,
 
 	gdk_pixbuf_loader_close (ip->loader, NULL);
 
-	if (!ip->animation && !ip->pixbuf) {
-		ip->pixbuf = gdk_pixbuf_loader_get_pixbuf (ip->loader);
+	if (!ip->animation) {
+		ip->animation = gdk_pixbuf_loader_get_animation (ip->loader);
 
-		if (ip->pixbuf)
-			gdk_pixbuf_ref (ip->pixbuf);
+		if (ip->animation)
+			g_object_ref (ip->animation);
 	}
 
+	if (!ip->iter && !gdk_pixbuf_animation_is_static_image (ip->animation)) 
+		ip->iter = gdk_pixbuf_animation_get_iter (ip->animation, NULL);
+	
+	if (!gdk_pixbuf_animation_is_static_image (ip->animation)) {
+		GSList *cur = ip->interests;
+		HTMLImage *image;
+		
+		while (cur) {
+			if (cur->data) {
+				image = HTML_IMAGE (cur->data);
+				if (!image->animation) {
+					image->animation = html_image_animation_new (image);
+				}
+				html_image_animation_start (image);
+			}
+			cur = cur->next;
+		}
+	}
+ 
 	g_object_unref (ip->loader);
 	ip->loader = NULL;
 
@@ -1024,114 +1035,57 @@ static void
 html_image_factory_area_prepared (GdkPixbufLoader *loader, HTMLImagePointer *ip)
 {
 	if (!ip->animation) {
-		ip->pixbuf = gdk_pixbuf_loader_get_pixbuf (ip->loader);
-		g_assert (ip->pixbuf);
-
-		gdk_pixbuf_ref (ip->pixbuf);
-		update_or_redraw (ip);
+		ip->animation = gdk_pixbuf_loader_get_animation (loader);
+		g_object_ref (ip->animation);
+		
+		if (!ip->iter && !gdk_pixbuf_animation_is_static_image (ip->animation))
+			ip->iter = gdk_pixbuf_animation_get_iter (ip->animation, NULL);
 	}
-}
-
-static void
-render_cur_frame (HTMLImage *image, gint nx, gint ny, const GdkColor *highlight_color)
-{
-	GdkPixbufFrame    *frame;
-	HTMLPainter       *painter;
-	HTMLImageAnimation *anim = image->animation;
-	GdkPixbufAnimation *ganim = image->image_ptr->animation;
-	/* FIX2 GList *cur = gdk_pixbuf_animation_get_frames (ganim);
-	gint w, h;
-	gboolean saved_alpha = TRUE;
-
-	painter = image->image_ptr->factory->engine->painter;
-
-	frame = (GdkPixbufFrame *) anim->cur_frame->data; */
-	/* printf ("w: %d h: %d action: %d\n", w, h, frame->action); */
-
-	/* FIXME this is hack to turn off alpha blending while rending 
-	 * animations.  This breaks nothing since gdk-pixbuf doesn't support animations
-	 * for anything but gif and it makes a huge difference if there are lots of
-	 * frames.  We really should add a parameter to the html_painter_draw_pixmap
-	 * call and track wether each image has full alpha or bilevel alpha, but that
-	 * will wait for a bit.
-	 */  
-	/* FIX2 if (HTML_IS_GDK_PAINTER (painter)) {
-		saved_alpha = HTML_GDK_PAINTER (painter)->alpha;
-		HTML_GDK_PAINTER (painter)->alpha = FALSE;
-	}
-
-	do {
-		frame = (GdkPixbufFrame *) cur->data;
-		w = gdk_pixbuf_get_width (gdk_pixbuf_frame_get_pixbuf (frame));
-		h = gdk_pixbuf_get_height (gdk_pixbuf_frame_get_pixbuf (frame));
-		if (anim->cur_frame == cur) {
-			html_painter_draw_pixmap (painter, gdk_pixbuf_frame_get_pixbuf (frame),
-						  nx + gdk_pixbuf_frame_get_x_offset (frame),
-						  ny + gdk_pixbuf_frame_get_y_offset (frame),
-						  w, h,
-						  highlight_color);
-			break;
-		} else if (gdk_pixbuf_frame_get_action (frame) == GDK_PIXBUF_FRAME_RETAIN) {
-			html_painter_draw_pixmap (painter, gdk_pixbuf_frame_get_pixbuf (frame),
-						  nx + gdk_pixbuf_frame_get_x_offset (frame),
-						  ny + gdk_pixbuf_frame_get_y_offset (frame),
-						  w, h,
-						  highlight_color);
-		} 
-		cur = cur->next;
-	} while (1);
-
-	if (HTML_IS_GDK_PAINTER (painter)) {
-		HTML_GDK_PAINTER (painter)->alpha = saved_alpha;
-		} */
-
+	update_or_redraw (ip);
 }
 
 static gint
 html_image_animation_timeout (HTMLImage *image)
 {
-	HTMLImageAnimation *anim = image->animation;
-	GdkPixbufAnimation *ganim = image->image_ptr->animation;
-	GdkPixbufFrame    *frame;
-	HTMLEngine        *engine;
-	gint nx, ny, nex, ney;
-
+	HTMLImageAnimation      *anim = image->animation;
+	GdkPixbufAnimation      *ganim = image->image_ptr->animation;
+	GdkPixbufAnimationIter  *iter = image->image_ptr->iter;
+	HTMLEngine              *engine;
+	gint nx, ny, delay;
+	
 	/* printf ("animation_timeout\n"); */
-	/* FIX2 anim->cur_frame = anim->cur_frame->next;
-	if (!anim->cur_frame)
-		anim->cur_frame = gdk_pixbuf_animation_get_frames (image->image_ptr->animation);
-
-		frame = (GdkPixbufFrame *) anim->cur_frame->data; */
-	
-	/* draw only if animation is active - onscreen */
-
-	/* FIX2 engine = image->image_ptr->factory->engine;
-
-	nex = engine->x_offset;
-	ney = engine->y_offset;
-
-	nx = anim->x - (nex - anim->ex);
-	ny = anim->y - (ney - anim->ey);
-	
-	if (anim->active) {
-		gint aw, ah;
-
-		aw = gdk_pixbuf_animation_get_width (ganim);
-		ah = gdk_pixbuf_animation_get_height (ganim);
-
-		if (MAX(0, nx) < MIN(engine->width, nx+aw)
-		    && MAX(0, ny) < MIN(engine->height, ny+ah)) {
-			html_engine_draw (engine,
-					  nx, ny,
-					  aw, ah);
-		}
+	if (gdk_pixbuf_animation_iter_advance (iter, NULL)) {
 		
-	}
+		/* draw only if animation is active - onscreen */
+		engine = image->image_ptr->factory->engine;
 
-	anim->timeout = g_timeout_add (10 * (gdk_pixbuf_frame_get_delay_time (frame) > 0
-					     ? gdk_pixbuf_frame_get_delay_time (frame) : 1),
-				       (GtkFunction) html_image_animation_timeout, (gpointer) image);
-*/
+		nx = anim->x - (engine->x_offset - anim->ex);
+		ny = anim->y - (engine->y_offset - anim->ey);
+		
+		if (anim->active) {
+			gint aw, ah;
+			
+			aw = gdk_pixbuf_animation_get_width (ganim);
+			ah = gdk_pixbuf_animation_get_height (ganim);
+
+			/*
+			if (MAX(0, nx) < MIN(engine->width, nx+aw)
+			    && MAX(0, ny) < MIN(engine->height, ny+ah)) {
+			*/
+				html_engine_draw (engine,
+						  nx, ny,
+						  aw, ah);
+			/*
+			}
+			*/
+		}
+	}
+		
+	delay = gdk_pixbuf_animation_iter_get_delay_time (iter);
+
+	if (delay >= 0)
+		anim->timeout = g_timeout_add (delay, (GtkFunction) html_image_animation_timeout, (gpointer) image);
+
 	return FALSE;
 }
 
@@ -1139,18 +1093,19 @@ static void
 html_image_animation_start (HTMLImage *image)
 {
 	HTMLImageAnimation *anim = image->animation;
+	HTMLImagePointer   *ip = image->image_ptr;
 
-	/* FIX2 if (anim && gdk_pixbuf_animation_get_num_frames (image->image_ptr->animation) > 1) {
-		if (anim->timeout == 0) {
-			GList *frames = gdk_pixbuf_animation_get_frames (image->image_ptr->animation);
-
-			anim->cur_frame = frames->next;
-			anim->cur_n = 1;
-			anim->timeout = g_timeout_add (10 * gdk_pixbuf_frame_get_delay_time
-						       ((GdkPixbufFrame *) frames->data),
-						       (GtkFunction) html_image_animation_timeout, (gpointer) image);
+	/* FIX2 */
+	if (anim && ip->animation && !gdk_pixbuf_animation_is_static_image (ip->animation)) {
+		if (image->animation->timeout == 0) {
+			gint delay;
+			
+			delay = gdk_pixbuf_animation_iter_get_delay_time (ip->iter);
+			
+			if (delay >= 0)
+				anim->timeout = g_timeout_add (delay, (GtkFunction) html_image_animation_timeout, (gpointer) image);
 		}
-		} */
+	}
 }
 
 static void
@@ -1161,40 +1116,6 @@ html_image_animation_stop (HTMLImageAnimation *anim)
 		anim->timeout = 0;
 	}
 	anim->active  = 0;
-}
-
-static void
-html_image_factory_frame_done (GdkPixbufLoader *loader, GdkPixbufFrame *frame, HTMLImagePointer *ip)
-{
-	/* printf ("frame done\n"); */
-
-	if (!ip->animation) {
-		ip->animation = gdk_pixbuf_loader_get_animation (loader);
-		gdk_pixbuf_animation_ref (ip->animation);
-	}
-	g_assert (ip->animation);
-
-	/* FIX2 if (gdk_pixbuf_animation_get_num_frames (ip->animation) > 1) {
-		GSList *cur = ip->interests;
-		HTMLImage *image;
-
-		while (cur) {
-			if (cur->data) {
-				image = HTML_IMAGE (cur->data);
-				if (!image->animation) {
-					image->animation = html_image_animation_new (image);
-				}
-				html_image_animation_start (image);
-			}
-			cur = cur->next;
-		}
-		} */
-}
-
-static void
-html_image_factory_animation_done (GdkPixbufLoader *loader, HTMLImagePointer *ip)
-{
-	g_print ("animation done\n");
 }
 
 HTMLImageFactory *
@@ -1215,7 +1136,6 @@ cleanup_images (gpointer key, gpointer value, gpointer user_data)
 	gboolean retval = FALSE;
 
 	ptr = value;
-
 	/* user data means: NULL only clean, non-NULL free */
 	if (user_data){
 		if (ptr->interests != NULL) {
@@ -1263,9 +1183,7 @@ html_image_animation_new (HTMLImage *image)
 	animation->ex = 0;
 	animation->ey = 0;
 	animation->timeout = 0;
-	animation->pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8,
-					    gdk_pixbuf_animation_get_width (image->image_ptr->animation),
-					    gdk_pixbuf_animation_get_height (image->image_ptr->animation));
+
 	animation->active = FALSE;
 
 	return animation;
@@ -1275,7 +1193,6 @@ static void
 html_image_animation_destroy (HTMLImageAnimation *anim)
 {
 	html_image_animation_stop (anim);
-	gdk_pixbuf_unref (anim->pixbuf);
 	g_free (anim);
 }
 
@@ -1290,7 +1207,7 @@ html_image_pointer_new (const char *filename, HTMLImageFactory *factory)
 	retval->refcount = 1;
 	retval->url = g_strdup (filename);
 	retval->loader = gdk_pixbuf_loader_new ();
-	retval->pixbuf = NULL;
+	retval->iter = NULL;
 	retval->animation = NULL;
 	retval->interests = NULL;
 	retval->factory = factory;
@@ -1314,7 +1231,7 @@ html_image_pointer_timeout (HTMLImagePointer *ip)
 	 * draw the frame now that we decided they've had enough time to
 	 * load the image
 	 */
-	if (ip->pixbuf == NULL) {
+	if (ip->animation == NULL) {
 		while (list) {
 			image = (HTMLImage *)list->data;
 
@@ -1344,14 +1261,9 @@ free_image_ptr_data (HTMLImagePointer *ip)
 		ip->loader = NULL;
 	}
 	if (ip->animation) {
-		gdk_pixbuf_animation_unref (ip->animation);
+		g_object_unref (ip->animation);
 		ip->animation = NULL;
 	}
-	if (ip->pixbuf) {
-		gdk_pixbuf_unref (ip->pixbuf);
-		ip->pixbuf = NULL;
-	}
-
 }
 
 static void
@@ -1420,14 +1332,6 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 					  G_CALLBACK (html_image_factory_area_updated),
 					  retval);
 
-			/* FIX2 g_signal_connect (G_OBJECT (retval->loader), "frame_done",
-					  G_CALLBACK (html_image_factory_frame_done),
-					  retval);
-
-			g_signal_connect (G_OBJECT (retval->loader), "animation_done",
-					  G_CALLBACK (html_image_factory_animation_done),
-					  retval); */
-
 			g_hash_table_insert (factory->loaded_images, retval->url, retval);
 			html_image_pointer_load (retval);
 		}
@@ -1447,10 +1351,10 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 	if (i) {
 		i->image_ptr      = retval;
 
-		/* FIX2 if (retval->animation && gdk_pixbuf_animation_get_num_frames (retval->animation) > 1) {
+		if (retval->animation) {
 			i->animation = html_image_animation_new (i);
 			html_image_animation_start (i);
-			} */
+		}
 	}
 
 	return retval;

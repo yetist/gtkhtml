@@ -1,3 +1,17 @@
+2002-11-03  Larry Ewing  <lewing@ximian.com>
+
+	* htmlimage.h: remove pixbuf argument from HTMLImagePointer, we
+	use animations for holding everything now.  Add an iter structure.
+
+	* htmlimage.c: add initial support for animations back into html
+	image.
+
+	* htmltablecell.c (draw_background_helper): use animation
+	structure now.
+
+	* htmlengine.c (html_engine_draw_background): use animation
+	structure now.
+
 2002-11-02  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml.c (ucs2_order): fix the names of UCS-2BE and UCS-2LE,
