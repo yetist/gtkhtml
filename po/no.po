@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.6.1\n"
-"POT-Creation-Date: 2000-08-19 22:55+0200\n"
-"PO-Revision-Date: 2000-08-19 23:00+02:00\n"
+"POT-Creation-Date: 2000-09-10 15:01+0200\n"
+"PO-Revision-Date: 2000-09-10 15:02+02:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -53,37 +53,53 @@ msgstr "Slett"
 msgid "Grab key"
 msgstr "Hent tast"
 
-#: capplet/main.c:175
-msgid "Appearance"
-msgstr "Utseende"
-
-#: capplet/main.c:181
-msgid "Variable width font"
-msgstr "Variabel bredde på skrifttype"
-
-#: capplet/main.c:185
-msgid "Select HTML variable width font"
-msgstr "Velg variabel bredde for skrifttype i HTML"
-
-#: capplet/main.c:190
-msgid "Fixed width font"
-msgstr "Skrifttype med fast bredde"
-
-#: capplet/main.c:194
-msgid "Select HTML fixed width font"
-msgstr "Velg skrifttype med fast bredde for HTML"
-
-#: capplet/main.c:204
+#: capplet/main.c:127 capplet/viewer.c:188
 msgid "Behaviour"
 msgstr "Oppførsel"
 
-#: capplet/main.c:205
+#: capplet/main.c:128
 msgid "magic links"
 msgstr "magiske lenker"
 
-#: capplet/main.c:212
+#: capplet/main.c:135
 msgid "Keybindings"
 msgstr "Tastebindinger"
+
+#: capplet/viewer.c:148
+msgid "Appearance"
+msgstr "Utseende"
+
+#: capplet/viewer.c:154
+msgid "Variable width font"
+msgstr "Variabel bredde på skrifttype"
+
+#: capplet/viewer.c:158
+msgid "Select HTML variable width font"
+msgstr "Velg variabel bredde for skrifttype i HTML"
+
+#: capplet/viewer.c:162 capplet/viewer.c:177
+msgid "for printing"
+msgstr "for utskrift"
+
+#: capplet/viewer.c:164
+msgid "Select HTML variable width font for printing"
+msgstr "Velg variabel bredde for skrifttype i HTML"
+
+#: capplet/viewer.c:169
+msgid "Fixed width font"
+msgstr "Skrifttype med fast bredde"
+
+#: capplet/viewer.c:173
+msgid "Select HTML fixed width font"
+msgstr "Velg skrifttype med fast bredde for HTML"
+
+#: capplet/viewer.c:179
+msgid "Select HTML fixed width font for printing"
+msgstr "Velg skrifttype med fast bredde for HTML"
+
+#: capplet/viewer.c:189
+msgid "Animations"
+msgstr "Animasjoner"
 
 #: components/html-editor/body.c:107
 msgid "use background image"
@@ -523,86 +539,10 @@ msgstr "Indentér"
 msgid "Indent paragraphs more"
 msgstr "Indentér avsnitt mer"
 
-#: glibwww/gnome-dialogs.c:85
-msgid "Transfer Progress"
-msgstr "Overføringsfremgang"
-
-#: glibwww/gnome-dialogs.c:139
-#, c-format
-msgid "Looking up %s"
-msgstr "Slår opp %s"
-
-#: glibwww/gnome-dialogs.c:145
-#, c-format
-msgid "Contacting %s"
-msgstr "Kontakter %s"
-
-#: glibwww/gnome-dialogs.c:152
-msgid "Waiting for a connection..."
-msgstr "Venter på tilkobling..."
-
-#: glibwww/gnome-dialogs.c:156
-msgid "Logging in..."
-msgstr "Logger inn..."
-
-#: glibwww/gnome-dialogs.c:165
-msgid "Read %d%%%% of %l"
-msgstr "Lest %d%%%% av %l"
-
-#: glibwww/gnome-dialogs.c:175 glibwww/gnome-dialogs.c:177
-#, c-format
-msgid "Read %d bytes"
-msgstr "Lest %d bytes"
-
-#: glibwww/gnome-dialogs.c:179
-msgid "Reading..."
-msgstr "Leser..."
-
-#: glibwww/gnome-dialogs.c:194
-msgid "Writing %d%%%% of %l"
-msgstr "Skriver %d%%%% av %l"
-
-#: glibwww/gnome-dialogs.c:204 glibwww/gnome-dialogs.c:206
-#, c-format
-msgid "Writing %d bytes"
-msgstr "Skriver %d bytes"
-
-#: glibwww/gnome-dialogs.c:208
-msgid "Writing..."
-msgstr "Skriver..."
-
-#: glibwww/gnome-dialogs.c:216
-msgid "Done!"
-msgstr "Ferdig!"
-
-#: glibwww/gnome-dialogs.c:220
-msgid "Interrupted!"
-msgstr "Avbrutt!"
-
-#: glibwww/gnome-dialogs.c:224
-msgid "Please wait..."
-msgstr "Vennligst vent..."
-
-#: glibwww/gnome-dialogs.c:228
-msgid "Request timeout!"
-msgstr "Tidsavbrudd for forespørsel!"
-
-#: glibwww/gnome-dialogs.c:232
-msgid "Unknown"
-msgstr "Ukjent"
-
-#: glibwww/gnome-dialogs.c:275
-msgid "Enter Text"
-msgstr "Skriv inn tekst"
-
-#: glibwww/gnome-dialogs.c:316 glibwww/gnome-dialogs.c:357
-msgid "Enter Password"
-msgstr "Skriv inn passord"
-
-#: src/testgtkhtml.c:110
+#: src/testgtkhtml.c:111
 msgid "Print pre_view"
 msgstr "Forhånds_visning"
 
-#: src/testgtkhtml.c:110
+#: src/testgtkhtml.c:111
 msgid "Print preview"
 msgstr "Forhåndsvisning"
