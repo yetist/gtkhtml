@@ -290,8 +290,8 @@ dnl **********************************
 dnl Setup extra GNOME library flags.
 dnl **********************************
 
-EXTRA_GNOME_LIBS=`gnome-config --libs gnomeui gdk_pixbuf print gal $bonobo libglade`
-EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnomeui gdk_pixbuf print gal $bonobo libglade`
+EXTRA_GNOME_LIBS=`gnome-config --libs gnomeui gdk_pixbuf print gal $bonobo libglade oaf`
+EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnomeui gdk_pixbuf print gal $bonobo libglade oaf`
 
 AC_SUBST(EXTRA_GNOME_LIBS)
 AC_SUBST(EXTRA_GNOME_CFLAGS)

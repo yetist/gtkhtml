@@ -1,3 +1,8 @@
+2001-10-31  Ettore Perazzoli  <ettore@ximian.com>
+
+	* configure.in: Add `oaf' to `EXTRA_GNOME_LIBS' and
+	`EXTRA_GNOME_CFLAGS'.
+
 2001-10-30  Radek Doulik  <rodo@ximian.com>
 
 	* configure.in: raise version to 0.15.99.2
