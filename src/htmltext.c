@@ -1162,10 +1162,18 @@ html_text_remove_unwanted_line_breaks (char *s, int len, PangoLogAttr *attrs)
 
 		if (attrs [i].is_line_break) {
 			if (last_uc == '.' || last_uc == '/' ||
-			    last_uc == '(' || last_uc == ')' ||
-			    last_uc == '{' || last_uc == '}' ||
-			    last_uc == '[' || last_uc == ']' ||
-			    last_uc == '<' || last_uc == '>')
+			    last_uc == '-' ||
+			    last_uc == ')' ||
+			    last_uc == '}' ||
+			    last_uc == ']' ||
+			    last_uc == '>')
+				attrs [i].is_line_break = 0;
+			else if ((uc == '(' ||
+				  uc == '{' ||
+				  uc == '[' ||
+				  uc == '<'
+				  )
+				 && i > 0 && !attrs [i - 1].is_white)
 				attrs [i].is_line_break = 0;
 		}
 		s = g_utf8_next_char (s);
