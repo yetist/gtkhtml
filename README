@@ -1,12 +1,19 @@
-This is gtkhtml, a port of khtmlw to gtk+ and C
+This is GtkHTML, a lightweight HTML rendering/printing/editing engine.
+It was originally based on KHTMLW, but is now being developed
+independently of it.
+
+In order to compile GtkHTML, you need the latest gdk-pixbuf and
+gnome-print from CVS.
+
+You also need libwww, although this is going to change soon.  Libwww
+is available from:
+
+    http://www.w3.org/Library/
 
 To try it out, run testgtkhtml in the source dir, i.e:
 
-cd src
-./testgtkhtml
+    cd src
+    ./testgtkhtml
 
-To build the bonobo component, pass --with-bonobo to configure.
-Note that this component is just a quick hack. The official
-html component is in gnome-fm/src/components/html/ and this
-one is not maintained much or at all. It will probably be
-removed soon.
+To build the bonobo components, pass the command-line options
+`--with-bonobo' to configure.
