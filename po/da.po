@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.5\n"
-"POT-Creation-Date: 2001-10-01 15:51-0500\n"
-"PO-Revision-Date: 2001-09-23 11:30+0200\n"
+"POT-Creation-Date: 2001-10-05 20:17-0400\n"
+"PO-Revision-Date: 2001-10-06 11:30+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -329,7 +329,7 @@ msgid "Header _6"
 msgstr "Titel _6"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
-#: components/html-editor/editor-control-factory.c:181
+#: components/html-editor/editor-control-factory.c:186
 #: components/html-editor/menubar.c:106 components/html-editor/popup.c:158
 msgid "Image"
 msgstr "Billede"
@@ -361,7 +361,7 @@ msgstr "Venstrejusterer afsnittene"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
 #: components/html-editor/body.c:187
-#: components/html-editor/editor-control-factory.c:216
+#: components/html-editor/editor-control-factory.c:221
 #: components/html-editor/menubar.c:111 components/html-editor/menubar.c:132
 #: components/html-editor/popup.c:172
 msgid "Link"
@@ -496,7 +496,7 @@ msgid "Roman Numeral List"
 msgstr "Liste med romerske tal"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
-#: components/html-editor/editor-control-factory.c:201
+#: components/html-editor/editor-control-factory.c:206
 #: components/html-editor/gtkhtml-editor-properties.glade.h:36
 #: components/html-editor/menubar.c:150 components/html-editor/popup.c:186
 msgid "Rule"
@@ -717,8 +717,14 @@ msgstr "Aktivér"
 msgid "Colors"
 msgstr "Farver"
 
+#: components/html-editor/body.c:175 components/html-editor/cell.c:391
+#: components/html-editor/table.c:534 components/html-editor/text.c:221
+#: components/html-editor/toolbar.c:290
+msgid "Automatic"
+msgstr "Automatisk"
+
 #: components/html-editor/body.c:186
-#: components/html-editor/editor-control-factory.c:190
+#: components/html-editor/editor-control-factory.c:195
 #: components/html-editor/menubar.c:127 components/html-editor/popup.c:151
 msgid "Text"
 msgstr "Tekst"
@@ -728,31 +734,26 @@ msgstr "Tekst"
 msgid "Background"
 msgstr "Baggrund"
 
-#: components/html-editor/cell.c:391 components/html-editor/table.c:534
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:290
-msgid "Automatic"
-msgstr "Automatisk"
-
-#: components/html-editor/editor-control-factory.c:170
+#: components/html-editor/editor-control-factory.c:176
 #: components/html-editor/popup.c:143
 msgid "Properties"
 msgstr "Egenskaber"
 
-#: components/html-editor/editor-control-factory.c:211
+#: components/html-editor/editor-control-factory.c:216
 #: components/html-editor/popup.c:165
 msgid "Paragraph"
 msgstr "Afsnit"
 
-#: components/html-editor/editor-control-factory.c:221
+#: components/html-editor/editor-control-factory.c:226
 #: components/html-editor/popup.c:179
 msgid "Page"
 msgstr "Side"
 
-#: components/html-editor/editor-control-factory.c:792
+#: components/html-editor/editor-control-factory.c:837
 msgid "Could not initialize GNORBA"
 msgstr "Kunne ikke initialisere GNORBA"
 
-#: components/html-editor/editor-control-factory.c:805
+#: components/html-editor/editor-control-factory.c:850
 msgid "Could not initialize Bonobo"
 msgstr "Kunne ikke initialisere Bonobo"
 
@@ -1194,15 +1195,21 @@ msgstr "Bemærkning"
 
 #: components/html-editor/template.c:83
 msgid ""
-"<table cellspacing=0 cellpadding=1 "
-"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" "
-"cellpadding=3 cellspacing=0 width=\"100%\"><tr><td valign=top><img "
-"src=\"file://"
+"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
+"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
+"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
 msgstr ""
-"<table cellspacing=0 cellpadding=1 "
-"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" "
-"cellpadding=3 cellspacing=0 width=\"100%\"><tr><td valign=top><img "
-"src=\"file://"
+"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
+"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
+"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
+
+#: components/html-editor/template.c:85
+msgid ""
+"/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
+"tr></table></td></tr></table>"
+msgstr ""
+"/bulb.png\" hspace=10></td><td width=\"100%\">Placér din tekst hér</td></"
+"tr></table></td></tr></table>"
 
 #: components/html-editor/template.c:91
 msgid "Image frame"
@@ -1211,12 +1218,20 @@ msgstr "Billederamme"
 #: components/html-editor/template.c:93
 msgid ""
 "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" "
-"width=\"100%\"><tr><td align=\"center\"><img src=\"file://"
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
+"\"><tr><td align=\"center\"><img src=\"file://"
 msgstr ""
 "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" "
-"width=\"100%\"><tr><td align=\"center\"><img src=\"file://"
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
+"\"><tr><td align=\"center\"><img src=\"file://"
+
+#: components/html-editor/template.c:97
+msgid ""
+"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
+"\"-1\">Image 1: <b>description</b></font></td></tr></table></td></tr></table>"
+msgstr ""
+"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
+"\"-1\">Billede 1: <b>beskrivelse</b></font></td></tr></table></td></tr></table>"
 
 #: components/html-editor/test-html-editor-control.c:276
 msgid "Open file..."
@@ -1301,19 +1316,3 @@ msgstr "Udskriv _smugkig"
 #: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "Udskriv smugkig"
-
-#~ msgid ""
-#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Place your text "
-#~ "here</td></tr></table></td></tr></table>"
-#~ msgstr ""
-#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Placér din tekst "
-#~ "hér</td></tr></table></td></tr></table>"
-
-#~ msgid ""
-#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td>Image "
-#~ "1:&nbsp;<font size=\"3\"><b>description</b></font "
-#~ "size=\"3\"></td></tr></table></td></tr></table>"
-#~ msgstr ""
-#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td>Image "
-#~ "1:&nbsp;<font size=\"3\"><b>beskrivelse</b></font "
-#~ "size=\"3\"></td></tr></table></td></tr></table>"
