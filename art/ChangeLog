@@ -1,6 +1,7 @@
 2001-08-16  Radek Doulik  <rodo@ximian.com>
 
 	* Makefile.am (icons_DATA): cosmetic change
+	(icons_DATA): copied search[-and-replace]-16.png from evolution
 
 2001-08-15  Jakub Steiner <jimmac@ximian.com>
 
