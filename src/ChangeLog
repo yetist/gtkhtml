@@ -1,6 +1,8 @@
 2000-08-05  Radek Doulik  <rodo@helixcode.com>
 
 	* htmltext.c (html_text_get_nb_width): handle "" case
+	(html_text_get_nb_width): extracted forwarding of get_nb_width to
+	(forward_get_nb_width): new helper function
 
 	* htmltextslave.c (get_next_nb_width): fixed "" case
 

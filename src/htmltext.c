@@ -213,6 +213,27 @@ calc_preferred_width (HTMLObject *self,
 					     font_style);
 }
 
+static gint
+forward_get_nb_width (HTMLText *text, HTMLPainter *painter, gboolean begin)
+{
+	HTMLObject *obj;
+
+	g_assert (text);
+	g_assert (html_object_is_text (HTML_OBJECT (text)));
+	g_assert (text->text_len == 0);
+
+	/* find prev/next object */
+	obj = (begin)
+		? html_object_prev_not_slave (HTML_OBJECT (text))
+		: html_object_next_not_slave (HTML_OBJECT (text));
+
+	/* if not found or not text return 0, otherwise forward get_nb_with there */
+	if (!obj || !html_object_is_text (obj))
+		return 0;
+	else
+		return html_text_get_nb_width (HTML_TEXT (obj), painter, begin);
+}
+
 /* return non-breakable text width on begin/end of this text */
 gint
 html_text_get_nb_width (HTMLText *text, HTMLPainter *painter, gboolean begin)
@@ -220,16 +241,8 @@ html_text_get_nb_width (HTMLText *text, HTMLPainter *painter, gboolean begin)
 	gchar *t = text->text;
 
 	/* handle "" case */
-	if (text->text_len == 0) {
-		HTMLObject *obj = (begin)
-			? html_object_prev_not_slave (HTML_OBJECT (text))
-			: html_object_next_not_slave (HTML_OBJECT (text));
-
-		if (!obj || !html_object_is_text (obj))
-			return 0;
-		else
-			return html_text_get_nb_width (HTML_TEXT (obj), painter, begin);
-	}
+	if (text->text_len == 0)
+		return forward_get_nb_width (text, painter, begin);
 
 	/* if begins/ends with ' ' the width is 0 */
 	if ((begin && t [0] == ' ') || (!begin && t [text->text_len - 1] == ' '))
