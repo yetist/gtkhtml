@@ -4672,6 +4672,8 @@ gtk_html_set_iframe_parent (GtkHTML *html, GtkWidget *parent, HTMLObject *frame)
 	gint depth = 0;
 	g_assert (GTK_IS_HTML (parent));
 
+	gtk_html_set_animate (html, gtk_html_get_animate (GTK_HTML (parent)));
+
 	html->iframe_parent = parent;
 	html->frame = frame;
 	g_signal_emit (html_engine_get_top_html_engine (html->engine)->widget, signals [IFRAME_CREATED], 0, html);
