@@ -24,13 +24,9 @@
 #ifndef HTMLCURSOR_H
 #define HTMLCURSOR_H
 
-#include <glib.h>
 #include <unicode.h>
+#include "htmltypes.h"
 
-#include "htmlobject.h"
-#include "htmlengine.h"
-
-
 struct _HTMLCursor {
 	HTMLObject *object;
 	guint offset;
@@ -41,7 +37,6 @@ struct _HTMLCursor {
 	gint position;
 };
 
-
 /* Lifecycle.  */
 HTMLCursor *html_cursor_new      (void);
 void        html_cursor_destroy  (HTMLCursor       *cursor);

@@ -23,8 +23,8 @@
 
 #include "htmlengine-edit-cursor.h"
 #include "htmlengine-edit-selection-updater.h"
-
 #include "htmlengine-edit-movement.h"
+#include "htmlobject.h"
 
 
 static void

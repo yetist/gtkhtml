@@ -19,8 +19,10 @@
     Boston, MA 02111-1307, USA.
 */
 
-#include "htmlengine-edit-cursor.h"
 #include "htmlcursor.h"
+#include "htmlengine.h"
+#include "htmlengine-edit-cursor.h"
+#include "htmlobject.h"
 
 
 #define BLINK_TIMEOUT 500

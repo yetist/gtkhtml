@@ -21,7 +21,6 @@
 #ifndef _HTML_CLUEALIGNED_H_
 #define _HTML_CLUEALIGNED_H_
 
-#include "htmlobject.h"
 #include "htmlclue.h"
 
 #define HTML_CLUEALIGNED(x)       ((HTMLClueAligned *)(x))

@@ -22,9 +22,8 @@
 #ifndef _HTMLENGINE_EDIT_TABLES_H
 #define _HTMLENGINE_EDIT_TABLES_H
 
-#include "htmlengine.h"
-#include "htmlobject.h"
-#include "htmltable.h"
+#include "htmltypes.h"
+#include "htmlenums.h"
 
 HTMLObject *html_engine_create_table (HTMLEngine *e,
 				      gint width,

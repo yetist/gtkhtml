@@ -23,10 +23,12 @@
 */
 
 #include <string.h>
+#include "htmlengine.h"
 #include "htmlengine-save.h"
 #include "htmlpainter.h"
 #include "htmlsearch.h"
 #include "htmltable.h"
+#include "htmltablecell.h"
 
 
 #define COLUMN_INFO(table, i)				\

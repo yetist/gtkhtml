@@ -21,10 +21,7 @@
 #ifndef _HTMLTABLE_H_
 #define _HTMLTABLE_H_
 
-#include <glib.h>
 #include "htmlobject.h"
-#include "htmlcluev.h"
-#include "htmltablecell.h"
 
 #define HTML_TABLE(x) ((HTMLTable *)(x))
 #define HTML_TABLE_CLASS(x) ((HTMLTableClass *)(x))

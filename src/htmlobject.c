@@ -25,15 +25,15 @@
 
 #include "htmlobject.h"
 #include "htmlclue.h"
-#include "htmltext.h"
-#include "htmltextmaster.h"
 #include "htmlclueflow.h"
 #include "htmlcluev.h"
+#include "htmlcursor.h"
+#include "htmlengine.h"
 #include "htmlpainter.h"
+#include "htmltext.h"
+#include "htmltextmaster.h"
 #include "htmlrule.h"
 #include "htmltype.h"
-#include "htmlclue.h"
-#include "htmlcursor.h"
 
 #include "gtkhtmldebug.h"
 

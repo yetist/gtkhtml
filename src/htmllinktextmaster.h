@@ -23,7 +23,6 @@
 #ifndef _HTMLLINKTEXTMASTER_H_
 #define _HTMLLINKTEXTMASTER_H_
 
-#include "htmlobject.h"
 #include "htmltextmaster.h"
 
 #define HTML_LINK_TEXT_MASTER(x) ((HTMLLinkTextMaster *)(x))

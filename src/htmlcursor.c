@@ -27,6 +27,7 @@
 #include <glib.h>
 
 #include "htmlclue.h"
+#include "htmlengine.h"
 #include "htmltext.h"
 #include "htmltextslave.h"
 #include "htmltype.h"

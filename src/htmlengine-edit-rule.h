@@ -22,9 +22,8 @@
 #ifndef _HTMLENGINE_EDIT_RULE_H
 #define _HTMLENGINE_EDIT_RULE_H
 
-#include "htmlrule.h"
-#include "htmlengine.h"
-#include "htmlobject.h"
+#include "htmltypes.h"
+#include "htmlenums.h"
 
 void  html_engine_insert_rule  (HTMLEngine     *e,
 				gint            length,

@@ -21,7 +21,9 @@
 
 #include "htmlengine-edit-cursor.h"
 #include "htmldrawqueue.h"
+#include "htmlengine.h"
 #include "htmlpainter.h"
+#include "htmlobject.h"
 #include "gtkhtml.h"
 
 

@@ -21,12 +21,8 @@
 #ifndef _HTMLDRAWQUEUE_H
 #define _HTMLDRAWQUEUE_H
 
-#include <glib.h>
+#include "htmltypes.h"
 
-#include "htmlengine.h"
-#include "htmlobject.h"
-
-
 struct _HTMLDrawQueueClearElement {
 	gint x, y;
 	guint width, height;

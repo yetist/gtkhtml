@@ -26,9 +26,6 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gdk-pixbuf/gdk-pixbuf-loader.h>
 #include "htmlobject.h"
-#include "htmlengine.h"
-
-
 
 struct _HTMLImagePointer {
 	gint refcount;

@@ -21,7 +21,6 @@
 #ifndef _HTMLCLUEH_H_
 #define _HTMLCLUEH_H_
 
-#include "htmlobject.h"
 #include "htmlclue.h"
 
 #define HTML_CLUEH(x) ((HTMLClueH *)(x))

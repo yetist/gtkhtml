@@ -24,7 +24,6 @@
 #ifndef _HTMLTEXTMASTER_H_
 #define _HTMLTEXTMASTER_H_
 
-#include "htmlobject.h"
 #include "htmltext.h"
 
 

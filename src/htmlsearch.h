@@ -25,8 +25,7 @@
 
 #include <sys/types.h>
 #include <regex.h>
-#include "htmlengine.h"
-#include "htmlobject.h"
+#include "htmltypes.h"
 
 struct _HTMLSearch {
 	HTMLEngine *engine;

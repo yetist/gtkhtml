@@ -23,6 +23,7 @@
 #include <unicode.h>
 #include "htmlcursor.h"
 #include "htmlinterval.h"
+#include "htmlobject.h"
 #include "htmlselection.h"
 
 inline void

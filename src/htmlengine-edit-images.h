@@ -22,8 +22,8 @@
 #ifndef _HTMLENGINE_EDIT_IMAGES_H
 #define _HTMLENGINE_EDIT_IMAGES_H
 
-#include "htmlengine.h"
-#include "htmlobject.h"
+#include "htmltypes.h"
+#include "htmlenums.h"
 
 void  html_engine_insert_image  (HTMLEngine     *e,
 				 const gchar    *file,

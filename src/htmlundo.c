@@ -19,8 +19,9 @@
    Boston, MA 02111-1307, USA.
 */
 
-#include "htmlundo.h"
 #include "htmlcursor.h"
+#include "htmlengine.h"
+#include "htmlundo.h"
 
 
 static void
