@@ -1,3 +1,7 @@
+2001-07-25  Radek Doulik  <rodo@ximian.com>
+
+	* table.c (table_apply_cb): updated for API changes
+
 2001-07-24  Radek Doulik  <rodo@ximian.com>
 
 	* popup.c (insert_table_cb): new menuitem callback

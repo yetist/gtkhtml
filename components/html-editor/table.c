@@ -600,11 +600,11 @@ table_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 		d->changed_bg_pixmap = FALSE;
 	}
 	if (d->changed_spacing) {
-		html_engine_table_set_spacing (d->cd->html->engine, d->table, d->spacing);
+		html_engine_table_set_spacing (d->cd->html->engine, d->table, d->spacing, FALSE);
 		d->changed_spacing = FALSE;
 	}
 	if (d->changed_padding) {
-		html_engine_table_set_padding (d->cd->html->engine, d->table, d->padding);
+		html_engine_table_set_padding (d->cd->html->engine, d->table, d->padding, FALSE);
 		d->changed_padding = FALSE;
 	}
 	if (d->changed_border) {
