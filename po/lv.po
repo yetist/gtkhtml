@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "POT-Creation-Date: 2001-05-19 01:32+0200\n"
-"PO-Revision-Date: 2001-10-22 04:08+0200\n"
+"PO-Revision-Date: 2001-10-23 02:23+0200\n"
 "Last-Translator: Artis Trops <hornet@navigators.lv>\n"
 "Language-Team: Latvian <hornet@navigators.lv>\n"
 "MIME-Version: 1.0\n"
@@ -58,7 +58,7 @@ msgstr "Paíert taustiòu"
 #: components/html-editor/cell.c:96
 #: components/html-editor/table.c:233
 msgid "Could not load glade file."
-msgstr "Nevarçja ielâdçt glade datni."
+msgstr "Nevarçja ielâdçt glade failu."
 
 #: components/html-editor/body.c:134
 #: components/html-editor/body.c:138
