@@ -624,7 +624,10 @@ save (HTMLObject *self,
 		    || ! html_engine_save_output_string (state, tag)
 		    || ! html_engine_save_output_string (state, ">\n"))
 			return FALSE;
-	} else {
+	} else if (HTML_OBJECT_TYPE (HTML_CLUE (self)->tail) != HTML_TYPE_RULE) {
+		/* This comparison is a nasty hack: the rule takes all of the
+                   space, so we don't want it to create a new newline if it's
+                   the last element on the paragraph.  */
 		html_engine_save_output_string (state, "<BR>\n");
 	}
 

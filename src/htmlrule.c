@@ -101,6 +101,13 @@ accepts_cursor (HTMLObject *self)
 	return TRUE;
 }
 
+static gboolean
+save (HTMLObject *self,
+      HTMLEngineSaveState *state)
+{
+	return html_engine_save_output_string (state, "\n<HR>\n");
+}
+
 
 void
 html_rule_type_init (void)
@@ -122,6 +129,7 @@ html_rule_class_init (HTMLRuleClass *klass,
 	object_class->set_max_width = set_max_width;
 	object_class->calc_min_width = calc_min_width;
 	object_class->accepts_cursor = accepts_cursor;
+	object_class->save = save;
 }
 
 void

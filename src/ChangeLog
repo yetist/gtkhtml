@@ -1,5 +1,9 @@
 2000-01-26  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlrule.c (save): New function, implementing
+	`HTMLObject::save'.
+	(html_rule_class_init): Install it.
+
 	* htmlengine-save.c (encode_entities): `&apos;' is not valid in
 	HTML.  Removed (now) unused variable `html'.
 
