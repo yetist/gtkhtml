@@ -1,3 +1,7 @@
+2003-06-27  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (gtk_html_editor_event): initialize retval to NULL
+
 2003-06-26  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (button_press_event): fix coordinates

@@ -4833,7 +4833,7 @@ gtk_html_editor_event_command (GtkHTML *html, GtkHTMLCommandType com_type, gbool
 void
 gtk_html_editor_event (GtkHTML *html, GtkHTMLEditorEventType event, GValue *args)
 {
-	GValue *retval;
+	GValue *retval = NULL;
 
 	if (html->editor_api && !html->engine->block_events)
 		retval = (*html->editor_api->event) (html, event, args, html->editor_data);
