@@ -1,3 +1,8 @@
+2000-06-06  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlclueflow.c (check_point): corrected bounding condition - now
+	you don't loose selection by moving mouse above gtkhtml area
+
 2000-06-05  Radek Doulik  <rodo@helixcode.com>
 
 	* htmltextmaster.c (html_text_master_magic_link): stop search also

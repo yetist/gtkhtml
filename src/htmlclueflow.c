@@ -830,7 +830,7 @@ check_point (HTMLObject *self,
 	HTMLClue *clue;
 
 	if (x < self->x || x >= self->x + self->width
-	    || y < self->y - self->ascent + 1 || y > self->y + self->descent)
+	    || y < self->y - self->ascent || y >= self->y + self->descent)
 		return NULL;
 
 	clue = HTML_CLUE (self);

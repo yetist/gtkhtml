@@ -3568,9 +3568,10 @@ html_engine_get_object_at (HTMLEngine *e,
 		else if (x >= e->leftBorder + width)
 			x = e->leftBorder + width - 1;
 
-		if (y < e->topBorder)
+		if (y < e->topBorder) {
+			x = e->leftBorder;
 			y = e->topBorder;
-		else if (y >= e->topBorder + height) {
+		} else if (y >= e->topBorder + height) {
 			x = e->leftBorder + width - 1;
 			y = e->topBorder + height - 1;
 		}
