@@ -743,7 +743,6 @@ draw_highlighted (HTMLTextSlave *slave,
 	if (len) {
 		glyphs2 = get_glyphs_part (slave, p, start - slave->posStart, len);
 
-		/* FIXME: cache items and glyphs? */
 		html_painter_calc_text_size (p, highlight_begin, len, get_items (slave, p), glyphs2, &lo,
 					     font_style, HTML_TEXT (owner)->face, &text_width, &asc, &dsc);
 		/* printf ("s: %d l: %d - %d %d\n", start, len, offset_width, text_width); */

@@ -549,10 +549,27 @@ get_words (const gchar *s)
 	return words;
 }
 
+static PangoGlyphString *
+get_glyphs (HTMLText *text, HTMLPainter *painter)
+{
+	PangoGlyphString *glyphs = NULL;
+	GList *items = html_text_get_items (text, painter);
+
+	if (items) {
+		glyphs = pango_glyph_string_new ();
+		pango_shape (text->text, g_utf8_offset_to_pointer (text->text, text->text_len) - text->text, &((PangoItem *) items->data)->analysis, glyphs);
+	}
+
+	return glyphs;
+}
+
+
 static void
 calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 {
 	GtkHTMLFontStyle style;
+	PangoGlyphString *glyphs = NULL;
+	GList *items;
 	HTMLFont *font;
 	HTMLObject *obj = HTML_OBJECT (text);
 	gchar *begin, *end;
@@ -569,12 +586,26 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 
 	begin            = text->text;
 
+	items = html_text_get_items (text, painter);
+	if (items)
+		glyphs = get_glyphs (text, painter);
 	for (i = 0; i < text->words; i++) {
 		end   = strchr (begin + (i ? 1 : 0), ' ');
-		/* FIXME: cache items and glyphs? */
-		html_painter_calc_text_size_bytes (painter,
-						   begin, end ? end - begin : strlen (begin), NULL, NULL,
-						   &line_offset, font, style, &width, &asc, &dsc);
+
+		if (items && glyphs) {
+			PangoRectangle log_rect;
+			int start;
+
+			start = g_utf8_pointer_to_offset (text->text, begin);
+			pango_glyph_string_extents_range (glyphs, start, end ? start + g_utf8_pointer_to_offset (begin, end) : text->text_len,
+							  ((PangoItem *) items->data)->analysis.font, NULL, &log_rect);
+			width = PANGO_PIXELS (log_rect.width);
+			asc   = PANGO_PIXELS (PANGO_ASCENT (log_rect));
+			dsc   = PANGO_PIXELS (PANGO_DESCENT (log_rect));
+		} else
+			html_painter_calc_text_size_bytes (painter,
+							   begin, end ? end - begin : strlen (begin), NULL, NULL,
+							   &line_offset, font, style, &width, &asc, &dsc);
 		text->word_width [i] = (i ? text->word_width [i - 1] : 0) + width;
 
 		if (obj->ascent < asc)
@@ -583,9 +614,14 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 			obj->descent = dsc;
 		begin = end;
 	}
+	if (glyphs) {
+		pango_glyph_string_free (glyphs);
+		glyphs = NULL;
+	}
 	if (text->text_len == 0) {
 		gint lo = 0;
 		/* FIXME: cache items and glyphs? */
+		printf ("space size\n");
 		html_painter_calc_text_size_bytes (painter, " ", 1, NULL, NULL, &lo, font, style, &width, &obj->ascent, &obj->descent);
 	}
 

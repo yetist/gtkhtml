@@ -1,5 +1,8 @@
 2003-02-18  Radek Doulik  <rodo@ximian.com>
 
+	* htmltext.c (calc_word_width): use cached items and call shape
+	just once
+
 	* htmltextslave.c (get_items): use html_text_get_items
 	(draw_highlighted): use cached items and glyphs
 
