@@ -2,6 +2,8 @@
 
 	* htmlengine.c (parse_body): push/pop block here to fix
 	<table><tr><td><font color=white>aaa</tr></td></table>
+	(html_engine_selection_contains_link): new method
+	(html_engine_selection_contains_object_type): new method
 
 	* htmlengine-edit-cut-and-paste.c (append_flow): don't move whole
 	flows, just object in them to preserve flow attributes

@@ -480,4 +480,8 @@ HTMLFontManager *html_engine_font_manager_with_painter  (HTMLEngine  *e,
 							 HTMLPainter *p);
 HTMLFontManager *html_engine_class_gdk_font_manager     (void);
 
+gboolean html_engine_selection_contains_object_type (HTMLEngine *e,
+						     HTMLType obj_type);
+gboolean html_engine_selection_contains_link        (HTMLEngine *e);
+
 #endif /* _HTMLENGINE_H_ */

@@ -5612,3 +5612,50 @@ html_engine_class_gdk_font_manager (void)
 	HTMLEngineClass *ec = HTML_ENGINE_CLASS (gtk_type_class (html_engine_get_type ()));
 	return &ec->font_manager [HTML_FONT_MANAGER_ID_GDK];
 }
+
+struct HTMLEngineCheckSelectionType
+{
+	HTMLType req_type;
+	gboolean has_type;
+};
+
+static void
+check_type_in_selection (HTMLObject *o, HTMLEngine *e, struct HTMLEngineCheckSelectionType *tmp)
+{
+	if (HTML_OBJECT_TYPE (o) == tmp->req_type)
+		tmp->has_type = TRUE;
+}
+
+gboolean
+html_engine_selection_contains_object_type (HTMLEngine *e, HTMLType obj_type)
+{
+	struct HTMLEngineCheckSelectionType tmp;
+
+	tmp.has_type = FALSE;
+	html_engine_edit_selection_updater_update_now (e->selection_updater);
+	if (e->selection)
+		html_interval_forall (e->selection, e, (HTMLObjectForallFunc) check_type_in_selection, &tmp);
+
+	return tmp.has_type;
+}
+
+static void
+check_link_in_selection (HTMLObject *o, HTMLEngine *e, gboolean *has_link)
+{
+	if (HTML_IS_LINK_TEXT (o) ||
+	    (HTML_IS_IMAGE (o) && (HTML_IMAGE (o)->url || HTML_IMAGE (o)->target)))
+		*has_link = TRUE;
+}
+
+gboolean
+html_engine_selection_contains_link (HTMLEngine *e)
+{
+	gboolean has_link;
+
+	has_link = FALSE;
+	html_engine_edit_selection_updater_update_now (e->selection_updater);
+	if (e->selection)
+		html_interval_forall (e->selection, e, (HTMLObjectForallFunc) check_link_in_selection, &has_link);
+
+	return has_link;
+}
