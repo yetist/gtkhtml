@@ -1,5 +1,9 @@
 2000-01-25  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine.c (html_engine_timer_event): No longer do the ugly
+	font saving/restoring trick.  I actually don't understand why it
+	was there.
+
 	* htmldrawqueue.c (draw_obj): Don't draw the cursor here as the
 	idle loop handler will take care of it.
 

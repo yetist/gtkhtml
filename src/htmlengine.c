@@ -2976,7 +2976,6 @@ static gboolean
 html_engine_timer_event (HTMLEngine *e)
 {
 	static const gchar *end[] = { "</body>", 0};
-	HTMLFontStyle oldFont;
 	gint lastHeight;
 	gboolean retval = TRUE;
 
@@ -2986,19 +2985,8 @@ html_engine_timer_event (HTMLEngine *e)
 		goto out;
 	}
 
-	/* FIXME why setting the font?!?! */
-
-	/* Storing font info */
-	oldFont = html_painter_get_font_style (e->painter);
-
-	/* Setting font */
-	html_painter_set_font_style (e->painter, current_font_style (e));
-
 	/* Getting height */
 	lastHeight = html_engine_get_doc_height (e);
-
-	/* Restoring font */
-	html_painter_set_font_style (e->painter, oldFont);
 
 	e->parseCount = e->granularity;
 
