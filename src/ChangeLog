@@ -1,3 +1,10 @@
+2000-11-30  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlentity.c: killed warning
+
+	* htmlengine.c (html_engine_update_event): reorder actions, set
+	adjustments
+
 2000-11-28  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml.c (init_properties): updated to latest gconf

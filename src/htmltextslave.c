@@ -439,7 +439,6 @@ draw (HTMLObject *o,
 	font_style = html_text_get_font_style (ownertext);
 
 	end = textslave->posStart + textslave->posLen;
-
 	if (owner->select_start + owner->select_length <= textslave->posStart
 	    || owner->select_start >= end) {
 		draw_normal (textslave, p, font_style, x, y, width, height, tx, ty);

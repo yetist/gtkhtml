@@ -299,7 +299,7 @@ static EntityEntry entity_table[] = {
 
 /* FIXME FIXME this function just sucks.  We should use gperf or something instead.  */
 
-gint
+static gint
 html_g_str_case_equal (gconstpointer v, gconstpointer v2)
 {
 	return strcasecmp ((const gchar*) v, (const gchar*)v2) == 0;

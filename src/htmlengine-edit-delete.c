@@ -642,8 +642,6 @@ html_engine_delete (HTMLEngine *e,
 	e->cursor->position = start_position;
 
 	html_cursor_normalize (e->cursor);
-	html_engine_show_cursor (e);
-
 	if (do_undo) {
 		/* FIXME this is a nasty workaround for the common case.  The above code
                    to set up the save buffer is utterly broken and we should use the code
@@ -664,6 +662,7 @@ html_engine_delete (HTMLEngine *e,
 	}
 	html_engine_spell_check_range (e, e->cursor, e->cursor);
 	html_engine_schedule_update (e);
+	html_engine_show_cursor (e);
 }
 
 

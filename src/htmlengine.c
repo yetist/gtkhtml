@@ -3400,6 +3400,9 @@ html_engine_update_event (HTMLEngine *e)
 	    || ! html_gdk_painter_realized (HTML_GDK_PAINTER (e->painter)))
 		return FALSE;
 	
+	/* Adjust the scrollbars */
+	gtk_html_private_calc_scrollbars (e->widget);
+
 	/* Scroll page to the top on first display */
 	if (e->newPage) {
 		gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->vadjustment, 0);
@@ -3408,9 +3411,6 @@ html_engine_update_event (HTMLEngine *e)
 			html_cursor_home (e->cursor, e);
 	}
 
-	html_image_factory_deactivate_animations (e->image_factory);
-	html_engine_draw (e, 0, 0, e->width, e->height);
-	
 	/* Is y_offset too big? */
 	if (html_engine_get_doc_height (e) - e->y_offset < e->height) {
 		e->y_offset = html_engine_get_doc_height (e) - e->height;
@@ -3425,9 +3425,12 @@ html_engine_update_event (HTMLEngine *e)
 			e->x_offset = 0;
 	}
 
-	/* Adjust the scrollbars */
-	gtk_html_private_calc_scrollbars (e->widget);
+	gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->vadjustment, e->y_offset);
+	gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->hadjustment, e->x_offset);
 
+	html_image_factory_deactivate_animations (e->image_factory);
+	html_engine_draw (e, 0, 0, e->width, e->height);
+	
 	if (html_engine_get_editable (e))
 		html_engine_show_cursor (e);
 
