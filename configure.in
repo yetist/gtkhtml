@@ -48,7 +48,7 @@ AC_MSG_CHECKING(for capplet libraries)
 if gnome-config --libs capplet > /dev/null 2>&1; then
     AC_MSG_RESULT(found)
 else
-    AC_MSG_ERROR(Did not find capplet library installed)
+    AC_MSG_ERROR(Did not find capplet library installed, you need to install control center)
 fi
 
 dnl *****************************
