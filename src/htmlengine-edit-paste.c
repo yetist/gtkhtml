@@ -562,12 +562,13 @@ do_undo (HTMLEngine *engine,
 	 gpointer closure)
 {
 	ActionData *data;
-	gint i;
+	/* gint i; */
 
 	data = (ActionData *) closure;
 
-	for (i=0; i<data->buffer_count; i++)
-		html_engine_delete (engine, 1, FALSE, TRUE);
+	/* for (i=0; i<data->buffer_count; i++)
+	   html_engine_delete (engine, 1, FALSE, TRUE); */
+	html_engine_delete (engine, data->buffer_count, FALSE, TRUE);
 
 	setup_redo (engine, data);
 }

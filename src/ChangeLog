@@ -1,5 +1,8 @@
 2000-05-07  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine-edit-paste.c (do_undo): removed delete bug workaround
+	as it seems to work now
+
 	* htmlengine-edit-delete.c (merge_text_at_cursor): updated it to
 	merge both directions (need ie. after delete of non-text object)
 	(delete_different_parent): don't destroy objects going to save_buffer
