@@ -1,5 +1,10 @@
 2000-03-18  Jonas Borgström  <jonas_b@bitsmart.com>
 
+	testgtkhtml.c (url_requested): Only use redirect filters on the first file
+	requested on each page load (the main html file).
+
+2000-03-18  Jonas Borgström  <jonas_b@bitsmart.com>
+
 	This is quite a big change to htmlclueflow. Hope I didn't break anything.
 	I have tested it quite some time now and I think it works great.
 	And the text reflows great around the aligned topic images on slashdot.

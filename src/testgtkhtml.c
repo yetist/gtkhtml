@@ -87,16 +87,18 @@ static HTStream *netin_stream_new (GtkHTMLStreamHandle handle, HTRequest *reques
 static int redirectFilter(HTRequest *request, HTResponse *response, void *param, int status);
 static gchar *parse_href (const gchar *s);
 
-GtkWidget *area, *box, *button;
-GtkHTML *html;
-GtkHTMLStreamHandle html_stream_handle = NULL;
-GtkWidget *animator, *entry;
-GtkWidget *popup_menu, *popup_menu_back, *popup_menu_forward, *popup_menu_home;
-GtkWidget *toolbar_back, *toolbar_forward;
-HTMLURL *baseURL;
+static GtkWidget *area, *box, *button;
+static GtkHTML *html;
+static GtkHTMLStreamHandle html_stream_handle = NULL;
+static GtkWidget *animator, *entry;
+static GtkWidget *popup_menu, *popup_menu_back, *popup_menu_forward, *popup_menu_home;
+static GtkWidget *toolbar_back, *toolbar_forward;
+static HTMLURL *baseURL;
 
-GList *go_list;
-int go_position;
+static GList *go_list;
+static int go_position;
+
+static gboolean use_redirect_filter;
 
 static gboolean slow_loading = FALSE, exit_when_done = FALSE;
 
@@ -691,11 +693,16 @@ url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpoin
  	/* Add new filters */
 	full_url = parse_href (url);
 
- 	HTNet_addAfter(redirectFilter, full_url, NULL, HT_PERM_REDIRECT, HT_FILTER_FIRST);
- 	HTNet_addAfter(redirectFilter, full_url, NULL, HT_TEMP_REDIRECT, HT_FILTER_FIRST);
- 	HTNet_addAfter(redirectFilter, full_url, NULL, HT_SEE_OTHER, HT_FILTER_FIRST);
- 	HTNet_addAfter(redirectFilter, full_url, NULL, HT_FOUND, HT_FILTER_FIRST);
- 
+	if (use_redirect_filter) {
+		
+		use_redirect_filter = FALSE;
+		
+		HTNet_addAfter(redirectFilter, full_url, NULL, HT_PERM_REDIRECT, HT_FILTER_FIRST);
+		HTNet_addAfter(redirectFilter, full_url, NULL, HT_TEMP_REDIRECT, HT_FILTER_FIRST);
+		HTNet_addAfter(redirectFilter, full_url, NULL, HT_SEE_OTHER, HT_FILTER_FIRST);
+		HTNet_addAfter(redirectFilter, full_url, NULL, HT_FOUND, HT_FILTER_FIRST);
+	}
+
 	HTRequest_setOutputFormat(newreq, WWW_SOURCE);
 	{
 		HTStream *newstream = netin_stream_new(handle, newreq);
@@ -828,6 +835,8 @@ goto_url(const char *url, int back_or_forward)
 	}
 
 	gnome_animator_start (GNOME_ANIMATOR (animator));
+
+	use_redirect_filter = TRUE;
 
 	html_stream_handle = gtk_html_begin (html, url);
 
