@@ -1,5 +1,8 @@
 2001-04-11  Radek Doulik  <rodo@ximian.com>
 
+	* gtkhtml.c (command): ops, removed unwanted calls to
+	update_styles
+
 	* htmlengine-edit-fontstyle.c (html_engine_set_font_style):
 	changed order back to AND, OR
 	(get_color_from_selection): use point for movement thru selection
