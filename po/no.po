@@ -5,14 +5,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
-"POT-Creation-Date: 2003-12-07 14:35-0600\n"
-"PO-Revision-Date: 2003-11-23 23:16+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-12-08 16:54+0100\n"
+"PO-Revision-Date: 2003-12-08 16:56+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -413,9 +413,8 @@ msgid "Make the current Paragraph style Normal"
 msgstr "Bruk Normal som stil for avsnitt"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
-#, fuzzy
 msgid "Make the current Paragraph style Preformatted"
-msgstr "Bruk Preformat som stil for dette avsnittet"
+msgstr "Bruk forhåndsformattert stil for dette avsnittet"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
 msgid "Make the current paragraph a bulleted list"
@@ -510,9 +509,8 @@ msgstr "Lim inn utklippstavlen som sitat"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 #: components/html-editor/paragraph.c:150
-#, fuzzy
 msgid "Preformatted"
-msgstr "Preformater"
+msgstr "Forhåndsformattert"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
 msgid "Purple"
@@ -1783,9 +1781,3 @@ msgstr "Forhåndsvisning"
 #: src/testgtkhtml.c:989
 msgid "GtkHTML Test Application"
 msgstr "Test-applikasjon for GtkHTML"
-
-#~ msgid "Pre"
-#~ msgstr "Pre"
-
-#~ msgid "Rectangles"
-#~ msgstr "Rektangler"
