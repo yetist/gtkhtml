@@ -1,5 +1,25 @@
 2000-02-27  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* gtkhtml-keybinding.c (beginning_of_line): New function.
+	(end_of_line): New function.
+	(handle_ctrl): `C-a' moves to the beginning of the current line;
+	`C-e' to the end.
+	(handle_none): `GDK_Home' moves to the beginning of the current;
+	`GDK_End' to the end.
+
+	* htmlengine-edit-movement.c (html_engine_end_of_line): New function.
+	(html_engine_beginning_of_line): New function.
+
+	* htmlengine-edit-movement.c: New file.
+	* htmlengine-edit-movement.h: New file.
+
+	* htmlcursor.c (html_cursor_end_of_line): New function.
+	(html_cursor_beginning_of_line): New function.
+
+	* htmlengine-edit.c (html_engine_jump_to_object): Removed.
+	(html_engine_move_cursor): Removed.
+	(html_engine_jump_at): Removed.
+
 	* gtkhtml.c (key_press_event): Use `gtk_html_handle_key_event()'
 	from `gtkhtml-keybinding.c'.
 

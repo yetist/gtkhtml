@@ -632,6 +632,7 @@ html_cursor_jump_to (HTMLCursor *cursor,
 }
 
 
+/* Comparison.  */
 gboolean
 html_cursor_equal (HTMLCursor *a, HTMLCursor *b)
 {
@@ -642,6 +643,9 @@ html_cursor_equal (HTMLCursor *a, HTMLCursor *b)
 }
 
 
+/* Relative coordinate support.  This is used to keep track of how far
+   we have moved with the pointer, e.g. for undo/redo support.  */
+
 gint
 html_cursor_get_relative (HTMLCursor *cursor)
 {
@@ -685,4 +689,73 @@ html_cursor_goto_zero (HTMLCursor *cursor,
 	}
 
 	debug_location (cursor);
+}
+
+
+/* Complex cursor movement commands.  */
+
+gboolean
+html_cursor_end_of_line (HTMLCursor *cursor,
+			 HTMLEngine *engine)
+{
+	HTMLCursor prev_cursor;
+	gint x, y, prev_y;
+
+	g_return_val_if_fail (cursor != NULL, FALSE);
+	g_return_val_if_fail (engine != NULL, FALSE);
+	g_return_val_if_fail (HTML_IS_ENGINE (engine), FALSE);
+
+	cursor->have_target_x = FALSE;
+
+	html_cursor_copy (&prev_cursor, cursor);
+	html_object_get_cursor_base (cursor->object, engine->painter, cursor->offset,
+				     &x, &prev_y);
+
+	while (1) {
+		if (! forward (cursor, engine))
+			return TRUE;
+
+		html_object_get_cursor_base (cursor->object, engine->painter, cursor->offset,
+					     &x, &y);
+
+		if (y != prev_y) {
+			html_cursor_copy (cursor, &prev_cursor);
+			return TRUE;
+		}
+
+		html_cursor_copy (&prev_cursor, cursor);
+	}
+}
+
+gboolean
+html_cursor_beginning_of_line (HTMLCursor *cursor,
+			       HTMLEngine *engine)
+{
+	HTMLCursor prev_cursor;
+	gint x, y, prev_y;
+
+	g_return_val_if_fail (cursor != NULL, FALSE);
+	g_return_val_if_fail (engine != NULL, FALSE);
+	g_return_val_if_fail (HTML_IS_ENGINE (engine), FALSE);
+
+	cursor->have_target_x = FALSE;
+
+	html_cursor_copy (&prev_cursor, cursor);
+	html_object_get_cursor_base (cursor->object, engine->painter, cursor->offset,
+				     &x, &prev_y);
+
+	while (1) {
+		if (! backward (cursor, engine))
+			return TRUE;
+
+		html_object_get_cursor_base (cursor->object, engine->painter, cursor->offset,
+					     &x, &y);
+
+		if (y != prev_y) {
+			html_cursor_copy (cursor, &prev_cursor);
+			return TRUE;
+		}
+
+		html_cursor_copy (&prev_cursor, cursor);
+	}
 }

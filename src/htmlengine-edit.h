@@ -29,30 +29,6 @@
 #include "htmlengine-edit-copy.h"
 
 
-enum _HTMLEngineCursorMovement {
-	HTML_ENGINE_CURSOR_UP,
-	HTML_ENGINE_CURSOR_DOWN,
-	HTML_ENGINE_CURSOR_RIGHT,
-	HTML_ENGINE_CURSOR_LEFT,
-	HTML_ENGINE_CURSOR_HOME,
-	HTML_ENGINE_CURSOR_END,
-	HTML_ENGINE_CURSOR_PGUP,
-	HTML_ENGINE_CURSOR_PGDOWN
-};
-typedef enum _HTMLEngineCursorMovement HTMLEngineCursorMovement;
-
-
-/* Cursor movement.  */
-guint  html_engine_move_cursor     (HTMLEngine               *e,
-				    HTMLEngineCursorMovement  movement,
-				    guint                     count);
-void   html_engine_jump_to_object  (HTMLEngine               *e,
-				    HTMLObject               *object,
-				    guint                     offset);
-void   html_engine_jump_at         (HTMLEngine               *e,
-				    gint                      x,
-				    gint                      y);
-
 /* Undo/redo.  */
 void  html_engine_undo  (HTMLEngine *e);
 void  html_engine_redo  (HTMLEngine *e);

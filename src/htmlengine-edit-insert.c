@@ -26,6 +26,7 @@
 
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-delete.h"
+#include "htmlengine-edit-movement.h"
 
 #include "htmlengine-edit-insert.h"
 

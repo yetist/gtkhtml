@@ -22,16 +22,18 @@
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtk.h>
 
-#include "htmlengine-edit.h"
-#include "htmlengine-edit-delete.h"
-#include "htmlengine-edit-insert.h"
-#include "htmlengine-edit-paste.h"
 #include "htmlengine-edit-clueflowstyle.h"
+#include "htmlengine-edit-delete.h"
 #include "htmlengine-edit-fontstyle.h"
+#include "htmlengine-edit-insert.h"
+#include "htmlengine-edit-movement.h"
+#include "htmlengine-edit-paste.h"
+#include "htmlengine-edit.h"
 #include "htmlengine-print.h"
 
-#include "gtkhtml-private.h"
 #include "gtkhtml-embedded.h"
+#include "gtkhtml-keybinding.h"
+#include "gtkhtml-private.h"
 
 
 static GtkLayoutClass *parent_class = NULL;

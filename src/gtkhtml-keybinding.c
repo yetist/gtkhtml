@@ -30,6 +30,7 @@
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-delete.h"
 #include "htmlengine-edit-insert.h"
+#include "htmlengine-edit-movement.h"
 
 #include "gtkhtml-keybinding.h"
 
@@ -78,6 +79,20 @@ insert_para (HTMLEngine *engine)
 	html_engine_insert_para (engine, TRUE);
 }
 
+static void
+beginning_of_line (HTMLEngine *engine)
+{
+	html_engine_unselect_all (engine, TRUE);
+	html_engine_beginning_of_line (engine);
+}
+
+static void
+end_of_line (HTMLEngine *engine)
+{
+	html_engine_unselect_all (engine, TRUE);
+	html_engine_end_of_line (engine);
+}
+
 
 /* CTRL keybindings.  */
 static gint
@@ -92,11 +107,17 @@ handle_ctrl (GtkHTML *html,
 	retval = TRUE;
 
 	switch (event->keyval) {
+	case 'a':
+		beginning_of_line (engine);
+		break;
 	case 'b':
 		backward (engine);
 		break;
 	case 'd':
 		delete (engine);
+		break;
+	case 'e':
+		end_of_line (engine);
 		break;
 	case 'f':
 		forward (engine);
@@ -143,6 +164,12 @@ handle_none (GtkHTML *html,
 	retval = TRUE;
 
 	switch (event->keyval) {
+	case GDK_Home:
+		beginning_of_line (engine);
+		break;
+	case GDK_End:
+		end_of_line (engine);
+		break;
 	case GDK_Right:
 		forward (engine);
 		break;
