@@ -104,9 +104,11 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	GtkHTMLEditTextProperties *data = g_new (GtkHTMLEditTextProperties, 1);
 	GtkWidget *vbox, *hbox, *frame, *table, *table1, *button, *check, *menu, *menuitem;
 	GtkStyle *style;
+	GdkColor *color;
 	GtkHTMLFontStyle font_style;
 	gint i, j;
 	guint val, add_val;
+	gdouble rn, gn, bn;
 
 	*set_data = data;
 
@@ -125,6 +127,7 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	vbox = gtk_vbox_new (FALSE, 2);
 
 	font_style = html_engine_get_font_style (cd->html->engine);
+	color      = html_engine_get_color      (cd->html->engine);
 
 #define ADD_CHECK(x,s) \
 	check = gtk_check_button_new_with_label (x); \
@@ -170,6 +173,13 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	/* color selection */
 	frame = gtk_frame_new (_("Color"));
 	data->color_picker = gnome_color_picker_new ();
+
+	rn = ((gdouble) color->red)  /0xffff;
+	gn = ((gdouble) color->green)/0xffff;
+	bn = ((gdouble) color->blue) /0xffff;
+
+	gnome_color_picker_set_d (GNOME_COLOR_PICKER (data->color_picker), rn, gn, bn, 1.0);
+
 	vbox = gtk_vbox_new (FALSE, 2);
 	hbox = gtk_hbox_new (FALSE, 5);
 	gtk_container_border_width (GTK_CONTAINER (vbox), 3);

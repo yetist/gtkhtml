@@ -1,3 +1,7 @@
+2000-06-23  Radek Doulik  <rodo@helixcode.com>
+
+	* text.c (text_properties): set initial color
+
 2000-06-21  Radek Doulik  <rodo@helixcode.com>
 
 	* popup.c (remove_link): it now uses html_engine_remove_link and
