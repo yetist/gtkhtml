@@ -5055,8 +5055,10 @@ html_engine_thaw (HTMLEngine *engine)
 void
 html_engine_thaw_idle_flush (HTMLEngine *e)
 {
-	if (e->thaw_idle_id)
+	if (e->thaw_idle_id) {
+		g_source_remove (e->thaw_idle_id);
 		thaw_idle (e);
+	}
 }
 
 

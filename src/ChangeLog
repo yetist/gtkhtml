@@ -1,3 +1,8 @@
+2003-05-01  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (html_engine_thaw_idle_flush): actually remove the
+	idle function when we thaw.
+
 2003-05-01  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (calc_preferred_width): fix width calculation for
