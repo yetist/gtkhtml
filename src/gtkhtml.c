@@ -843,7 +843,7 @@ motion_notify_event (GtkWidget *widget,
 		return FALSE;
 
 	engine = GTK_HTML (widget)->engine;
-	if (html_engine_get_editable (engine))
+	if (GTK_HTML (widget)->button_pressed && html_engine_get_editable (engine))
 		html_engine_jump_at (engine,
 				     event->x + engine->x_offset,
 				     event->y + engine->y_offset);

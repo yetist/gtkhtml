@@ -1,5 +1,8 @@
 2000-08-03  Radek Doulik  <rodo@helixcode.com>
 
+	* gtkhtml.c (motion_notify_event): fixed editor cursor setting on
+	click
+
 	* htmlprinter.c (draw_background): added quick color printing
 	bacground, pixmaps + tiling to be implemented later
 
