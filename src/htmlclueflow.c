@@ -26,6 +26,7 @@
 /* WARNING: it must always be the child of a clue.  */
 
 #include <config.h>
+#include <ctype.h>
 #include <string.h>
 #include "htmlclue.h"
 #include "htmlclueflow.h"
@@ -1843,3 +1844,148 @@ html_clueflow_remove_text_slaves (HTMLClueFlow *flow)
 		}
 	}
 }
+
+#ifdef GTKHTML_HAVE_PSPELL
+
+/* spell checking */
+
+static gchar *
+get_text (HTMLClue *clue)
+{
+	HTMLObject *obj;
+	guint len = 0;
+	gchar *text, *ct;
+
+	obj = clue->head;
+	while (obj) {
+		if (html_object_is_text (obj))
+			len += HTML_TEXT (obj)->text_len;
+		else if (HTML_OBJECT_TYPE (obj) != HTML_TYPE_TEXTSLAVE)
+			len++;
+		obj = obj->next;
+	}
+
+	ct  = text = g_malloc (len+1);
+	text [len] = 0;
+	obj = clue->head;
+	while (obj) {
+		if (html_object_is_text (obj)) {
+			strcpy (ct, HTML_TEXT (obj)->text);
+			ct += HTML_TEXT (obj)->text_len;
+		} else if (HTML_OBJECT_TYPE (obj) != HTML_TYPE_TEXTSLAVE) {
+			*ct = ' ';
+			ct++;
+		}
+		obj = obj->next;
+	}
+
+	/* printf ("get_text: \"%s\"\n", text); */
+
+	return text;
+}
+
+static HTMLObject *
+spell_check_word (HTMLObject *obj, const gchar *text, const gchar *word, guint *off)
+{
+	guint w_off;
+	guint len = strlen (word);
+	gboolean is_text;
+
+	/* printf ("[not in dictionary off: %d]\n", word - text); */
+	is_text = html_object_is_text (obj);
+	w_off   = word - text;
+	while (obj && (!is_text || (is_text && *off + HTML_TEXT (obj)->text_len <= w_off))) {
+		*off += (is_text)
+						? HTML_TEXT (obj)->text_len
+						: ((HTML_OBJECT_TYPE (obj) != HTML_TYPE_TEXTSLAVE) ? 1 : 0);
+		obj   = obj->next;
+		if (obj && (is_text = html_object_is_text (obj)))
+			html_text_spell_errors_clear (HTML_TEXT (obj));
+		/* printf ("is_text: %d\n", is_text); */
+	}
+
+	/* printf ("is_text: %d len: %d obj: %p\n", is_text, len, obj); */
+	if (obj && is_text) {
+		guint tlen;
+		guint toff;
+
+		while (len) {
+			toff  = w_off - *off;
+			tlen  = MIN (HTML_TEXT (obj)->text_len, len);
+			g_assert (!strncmp (word, HTML_TEXT (obj)->text + toff, tlen));
+			/* printf ("add spell error - word: %s beg: %s len: %d\n",
+			   word, HTML_TEXT (obj)->text + toff, tlen); */
+			html_text_spell_errors_add (HTML_TEXT (obj),
+						    toff, tlen);
+			len   -= tlen;
+			w_off += tlen;
+			if (len) {
+				do {
+					*off += (is_text)
+						? HTML_TEXT (obj)->text_len
+						: ((HTML_OBJECT_TYPE (obj) != HTML_TYPE_TEXTSLAVE) ? 1 : 0);
+					obj = obj->next;
+					if (obj && (is_text = html_object_is_text (obj)))
+						html_text_spell_errors_clear (HTML_TEXT (obj));
+				} while (obj && !is_text);
+			}
+			g_assert (!len || obj);
+		}
+	}
+
+	return obj;
+}
+
+void
+html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e)
+{
+	HTMLObject *obj;
+	HTMLClue *clue;
+	guint off;
+	gchar *text, *ct, *word;
+
+	off  = 0;
+	clue = HTML_CLUE (flow);
+	text = get_text (clue);
+	obj  = clue->head;
+	if (obj && html_object_is_text (obj))
+		html_text_spell_errors_clear (HTML_TEXT (obj));
+
+	if (text) {
+		ct = text;
+		while (*ct) {
+			/* find begin of word */
+			while (*ct && !isalpha (*ct)) ct++;
+			word = ct;
+			/* find end of word */
+			while (isalpha (*ct)) ct++;
+
+			/* test if we have found word */
+			if (word != ct) {
+				gint result;
+				gchar bak;
+
+				bak = *ct;
+				*ct = 0;
+				/* printf ("going to test word: \"%s\"\n", word); */
+				result = pspell_manager_check (e->spell_checker, word);
+
+				if (result != 1) {
+					if (result == 0) {
+						if (obj)
+							obj = spell_check_word (obj, text, word, &off);
+					} else if (result == -1)
+						g_warning ("pspell error: %s\n",
+							   pspell_manager_error_message (e->spell_checker));
+					else
+						g_assert_not_reached ();
+				}
+
+				*ct = bak;
+				if (ct) ct++;
+			}
+		}
+	}
+}
+
+#endif /* GTKHTML_HAVE_PSPELL */

@@ -40,6 +40,9 @@ struct _HTMLText {
 
 	GtkHTMLFontStyle font_style;
 	HTMLColor *color;
+#ifdef GTKHTML_HAVE_PSPELL
+	GList *spell_errors;
+#endif
 };
 
 struct _HTMLTextClass {
@@ -124,5 +127,19 @@ void  html_text_set_color       (HTMLText             *text,
 				 HTMLColor            *color);
 void  html_text_set_text        (HTMLText             *text,
 				 const gchar          *new_text);
+
+#ifdef GTKHTML_HAVE_PSPELL
+
+struct _SpellError {
+	guint off;
+	guint len;
+};
+typedef struct _SpellError SpellError;
+
+void  html_text_spell_errors_clear (HTMLText             *text);
+void  html_text_spell_errors_add   (HTMLText             *text,
+				    guint off,
+				    guint len);
+#endif
 
 #endif /* _HTMLTEXT_H_ */

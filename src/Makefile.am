@@ -4,7 +4,7 @@ INCLUDES = -I$(top_srcdir) -I$(srcdir) -I$(includedir) $(GNOME_INCLUDEDIR) \
 	-DSRCDIR=\"$(srcdir)\" \
 	-DPREFIX=\"$(prefix)\"
 
-CFLAGS +=  $(GCONF_CFLAGS)
+CFLAGS +=  $(GCONF_CFLAGS) $(PSPELL_CFLAGS)
 
 lib_LTLIBRARIES = libgtkhtml.la
 
@@ -187,8 +187,10 @@ testgtkhtml_LDADD =				\
 	$(GNOMEUI_LIBS)				\
 	$(GNOME_LIBDIR)				\
 	$(EXTRA_GNOME_LIBS)                     \
+	$(GLIBWWW)				\
 	$(GCONF_LIBS)				\
-	$(GLIBWWW)
+	$(PSPELL_LIBS)
+# -lpspell-modules -lpspell_aspell -laspell -lpspell -lstdc++
 #	-lccmalloc -ldl
 #
 

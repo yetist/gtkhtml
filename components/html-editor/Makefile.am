@@ -9,14 +9,17 @@ INCLUDES =						\
 	$(EXTRA_GNOME_CFLAGS)				\
 	$(GTK_CFLAGS)
 
-CFLAGS +=  $(GCONF_CFLAGS)
+CFLAGS +=  $(GCONF_CFLAGS) $(PSPELL_CFLAGS)
 
-LDADD =						\
+LDFLAGS += -dynamic
+LDADD =	-lpspell				\
 	$(top_builddir)/src/libgtkhtml.la	\
 	$(EXTRA_GNOME_LIBS)			\
 	$(GNOMEUI_LIBS)				\
 	$(GNOME_LIBS)				\
-	$(GCONF_LIBS)
+	$(GCONF_LIBS)				\
+	$(PSPELL_LIBS)
+# -lpspell-modules -lpspell_aspell -laspell -lpspell -lstdc++
 #	-lccmalloc -ldl
 
 # The Editor Control

@@ -74,6 +74,9 @@ struct _HTMLPainterClass {
 	void (* draw_line) (HTMLPainter *painter, gint x1, gint y1, gint x2, gint y2);
 	void (* draw_rect) (HTMLPainter *painter, gint x, gint y, gint width, gint height);
 	void (* draw_text) (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len);
+#ifdef GTKHTML_HAVE_PSPELL
+	void (* draw_spell_error) (HTMLPainter *painter, gint x, gint y, const gchar *text, guint off, gint len);
+#endif
 	void (* fill_rect) (HTMLPainter *painter, gint x, gint y, gint width, gint height);
 	void (* draw_pixmap) (HTMLPainter *painter, GdkPixbuf *pixbuf, gint x, gint y,
 			      gint scale_width, gint scale_height, const GdkColor *color);
@@ -204,5 +207,12 @@ void  html_painter_draw_background  (HTMLPainter *painter,
 				     gint         tile_y);
 
 guint  html_painter_get_pixel_size  (HTMLPainter *painter);
+
+#ifdef GTKHTML_HAVE_PSPELL
+void   html_painter_draw_spell_error (HTMLPainter *painter,
+				      gint x, gint y,
+				      const gchar *text,
+				      guint off, gint len);
+#endif
 
 #endif /* _HTMLPAINTER_H_ */

@@ -1,0 +1,21 @@
+For building GtkHTML/Editor component with spell checking
+you need pspell + some pspell module installed (aspell and/or
+ispell modules)
+
+If you have troubles with pspell (like I had), try this:
+
+1) if you get error about loading modules, you probably don't build
+   pspell with modules compiled in or there is some error with loading
+   shared libraries
+
+   solution: read pspell README and build pspell with modules compiled
+             in
+
+2) if you cannot link GtkHTML with pspell libraries
+
+   solution: build pspell + modules with static libs only
+             and uncomment addidional libs in GtkHTML's Makefile.am's
+
+These solutions are only quick hacks and need to be solved in pspell.
+
+Radek

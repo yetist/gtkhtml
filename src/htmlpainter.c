@@ -73,6 +73,9 @@ DEFINE_UNIMPLEMENTED (get_black);
 DEFINE_UNIMPLEMENTED (draw_line);
 DEFINE_UNIMPLEMENTED (draw_rect);
 DEFINE_UNIMPLEMENTED (draw_text);
+#ifdef GTKHTML_HAVE_PSPELL
+DEFINE_UNIMPLEMENTED (draw_spell_error);
+#endif
 DEFINE_UNIMPLEMENTED (fill_rect);
 DEFINE_UNIMPLEMENTED (draw_pixmap);
 DEFINE_UNIMPLEMENTED (draw_ellipse);
@@ -85,7 +88,6 @@ DEFINE_UNIMPLEMENTED (set_clip_rectangle);
 DEFINE_UNIMPLEMENTED (draw_background);
 
 DEFINE_UNIMPLEMENTED (get_pixel_size);
-
 
 static void
 init (GtkObject *object)
@@ -123,6 +125,9 @@ class_init (GtkObjectClass *object_class)
 	class->draw_line = (gpointer) draw_line_unimplemented;
 	class->draw_rect = (gpointer) draw_rect_unimplemented;
 	class->draw_text = (gpointer) draw_text_unimplemented;
+#ifdef GTKHTML_HAVE_PSPELL
+	class->draw_spell_error = (gpointer) draw_spell_error_unimplemented;
+#endif
 	class->fill_rect = (gpointer) fill_rect_unimplemented;
 	class->draw_pixmap = (gpointer) draw_pixmap_unimplemented;
 	class->draw_ellipse = (gpointer) draw_ellipse_unimplemented;
@@ -436,3 +441,14 @@ html_painter_get_pixel_size (HTMLPainter *painter)
 	
 	return (* HP_CLASS (painter)->get_pixel_size) (painter);
 }
+
+#ifdef GTKHTML_HAVE_PSPELL
+void
+html_painter_draw_spell_error (HTMLPainter *painter,
+			       gint x, gint y,
+			       const gchar *text,
+			       guint off, gint len)
+{
+	(* HP_CLASS (painter)->draw_spell_error) (painter, x, y, text, off, len);
+}
+#endif

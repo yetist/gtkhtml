@@ -647,6 +647,9 @@ html_text_init (HTMLText *text_object,
 	text_object->font_style = font_style;
 	html_color_ref (color);
 	text_object->color = color;
+#ifdef GTKHTML_HAVE_PSPELL
+	text_object->spell_errors = NULL;
+#endif
 }
 
 HTMLObject *
@@ -803,3 +806,41 @@ html_text_set_text (HTMLText *text, const gchar *new_text)
 	text->text = g_strdup (new_text);
 	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
 }
+
+#ifdef GTKHTML_HAVE_PSPELL
+
+/* spell checking */
+
+
+static SpellError *
+spell_error_new (guint off, guint len)
+{
+	SpellError *se = g_new (SpellError, 1);
+
+	se->off = off;
+	se->len = len;
+
+	return se;
+}
+
+static void
+spell_error_destroy (SpellError *se)
+{
+	g_free (se);
+}
+
+void
+html_text_spell_errors_clear (HTMLText *text)
+{
+	g_list_foreach (text->spell_errors, (GFunc) spell_error_destroy, NULL);
+	g_list_free    (text->spell_errors);
+	text->spell_errors = NULL;
+}
+
+void
+html_text_spell_errors_add (HTMLText *text, guint off, guint len)
+{
+	text->spell_errors = g_list_append (text->spell_errors, spell_error_new (off, len));
+}
+
+#endif

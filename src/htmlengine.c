@@ -2871,6 +2871,11 @@ html_engine_destroy (GtkObject *object)
 	if (engine->insertion_url) g_free (engine->insertion_url);
 	if (engine->insertion_target) g_free (engine->insertion_target);
 
+#ifdef GTKHTML_HAVE_PSPELL
+	delete_pspell_manager (engine->spell_checker);
+	delete_pspell_config (engine->spell_config);
+#endif
+
 	GTK_OBJECT_CLASS (parent_class)->destroy (object);
 }
 
@@ -3002,6 +3007,9 @@ html_engine_class_init (HTMLEngineClass *klass)
 static void
 html_engine_init (HTMLEngine *engine)
 {
+#ifdef GTKHTML_HAVE_PSPELL
+	PspellCanHaveError *err;
+#endif
 	/* STUFF might be missing here!   */
 	engine->freeze_count = 0;
 
@@ -3071,6 +3079,17 @@ html_engine_init (HTMLEngine *engine)
 	engine->selection_updater = html_engine_edit_selection_updater_new (engine);
 
 	engine->search_info = NULL;
+
+#ifdef GTKHTML_HAVE_PSPELL
+	engine->spell_config  = new_pspell_config ();
+	pspell_config_replace (engine->spell_config, "language-tag", "en");
+	err = new_pspell_manager (engine->spell_config);
+	if (pspell_error_number(err) != 0) {
+		g_warning ("pspell error: %s\n", pspell_error_message (err));
+		engine->spell_checker = NULL;
+	} else
+		engine->spell_checker = to_pspell_manager (err);
+#endif
 }
 
 HTMLEngine *
@@ -3647,6 +3666,10 @@ html_engine_set_editable (HTMLEngine *e,
 	if ((e->editable && editable) || (! e->editable && ! editable))
 		return;
 
+#ifdef GTKHTML_HAVE_PSPELL
+	if (editable)
+		html_engine_spell_check (e);
+#endif
 	html_engine_disable_selection (e);
 
 	html_engine_draw (e, 0, 0, e->width, e->height);
@@ -4320,3 +4343,30 @@ html_engine_replace_do (HTMLEngine *e, HTMLReplaceQueryAnswer answer)
 		break;
 	}
 }
+
+#ifdef GTKHTML_HAVE_PSPELL
+
+/* spell checking */
+
+static void
+check_paragraph (HTMLObject *o, HTMLEngine *e)
+{
+	if (HTML_OBJECT_TYPE (o) == HTML_TYPE_CLUEFLOW)
+		html_clueflow_spell_check (HTML_CLUEFLOW (o), e);
+}
+
+void
+html_engine_spell_check (HTMLEngine *e)
+{
+	g_assert (HTML_IS_ENGINE (e));
+	g_assert (e->clue);
+
+	html_object_forall (e->clue, (HTMLObjectForallFunc) check_paragraph, e);
+}
+
+void
+html_engine_spell_check_word (HTMLEngine *e)
+{
+}
+
+#endif /* GTKHTML_HAVE_PSPELL */

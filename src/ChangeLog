@@ -1,3 +1,7 @@
+2000-07-15  Radek Doulik  <rodo@helixcode.com>
+
+	* WIP: spell checking
+
 2000-07-15  Larry Ewing  <lewing@helixcode.com>
 
 	* htmldrawqueue.c (clear): draw the background properly.
