@@ -719,7 +719,7 @@ insert_or_apply (GtkHTMLControlData *cd, gpointer get_data, gboolean insert)
 		location = get_location (d);
 		html_image_edit_set_url (image, location);
 		g_free (location);
-		html_image_set_alt (image, d->url);
+		html_image_set_alt (image, d->alt);
 
 		url = d->url;
 		target = NULL;

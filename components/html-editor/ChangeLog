@@ -1,3 +1,7 @@
+2004-02-26    <rodo@ximian.com>
+
+	* image.c (insert_or_apply): set alt to d->alt instead of d->url
+
 2004-02-17  Radek Doulik  <rodo@ximian.com>
 
 	* popup.c (prepare_properties_and_menu): do not add "Insert Link"
