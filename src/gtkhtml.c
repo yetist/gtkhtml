@@ -957,20 +957,25 @@ set_pointer_url (GtkHTML *html, const char *url)
 static void
 dnd_link_set (GtkWidget *widget, HTMLObject *o)
 {
-	/* printf ("dnd_link_set %p\n", o); */
+	if (!html_engine_get_editable (GTK_HTML (widget)->engine)) {
+		/* printf ("dnd_link_set %p\n", o); */
 
-	gtk_drag_source_set (widget, GDK_BUTTON1_MASK,
-			     dnd_link_sources, DND_LINK_SOURCES, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
-	GTK_HTML (widget)->priv->dnd_object = o;
+		gtk_drag_source_set (widget, GDK_BUTTON1_MASK,
+				     dnd_link_sources, DND_LINK_SOURCES,
+				     GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
+		GTK_HTML (widget)->priv->dnd_object = o;
+	}
 }
 
 static void
 dnd_link_unset (GtkWidget *widget)
 {
-	/* printf ("dnd_link_unset\n"); */
+	if (!html_engine_get_editable (GTK_HTML (widget)->engine)) {
+		/* printf ("dnd_link_unset\n"); */
 
-	gtk_drag_source_unset (widget);
-	GTK_HTML (widget)->priv->dnd_object = NULL;
+		gtk_drag_source_unset (widget);
+		GTK_HTML (widget)->priv->dnd_object = NULL;
+	}
 }
 
 static void
@@ -2227,9 +2232,15 @@ focus (GtkContainer *w, GtkDirectionType direction)
 static void
 drag_begin (GtkWidget *widget, GdkDragContext *context)
 {
+	HTMLInterval *i;
+	HTMLObject *o;
+
 	/* printf ("drag_begin\n"); */
-	GTK_HTML (widget)->priv->dnd_real_object = GTK_HTML (widget)->priv->dnd_object;
+	GTK_HTML (widget)->priv->dnd_real_object = o = GTK_HTML (widget)->priv->dnd_object;
 	GTK_HTML (widget)->priv->dnd_in_progress = TRUE;
+
+	i = html_interval_new (o, o, 0, html_object_get_length (o));
+	html_engine_select_interval (GTK_HTML (widget)->engine, i);
 }
 
 static void
@@ -2258,8 +2269,10 @@ drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *sel
 			url = html_object_get_url (obj);
 			target = html_object_get_target (obj);
 			if (url && *url) {
+
 				complete_url = g_strconcat (url, target && *target ? "#" : NULL, 
 							    target, NULL);
+
 				gtk_selection_data_set (selection_data, selection_data->target, 8,
 							complete_url, strlen (complete_url));
 				/* printf ("complete URL %s\n", complete_url); */
