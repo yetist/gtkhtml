@@ -6,6 +6,8 @@
 	correctly. It's at least correct in cases I know, which were
 	miscalculated before. One TODO: implement exact dividing of left
 	width using an DDA like algorhytm
+	(divide_into_variable_all): don't add to columns, which already
+	met their preferred width
 
 2000-12-05  Radek Doulik  <rodo@helixcode.com>
 

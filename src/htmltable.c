@@ -649,29 +649,38 @@ divide_into_percented (HTMLTable *table, gint *col_percent, gint *max_size, gint
 static void
 divide_into_variable_all (HTMLTable *table, HTMLPainter *painter, gint *col_percent, gint *max_size, gint left, gint n)
 {
-	gint added, add, c, pref;
+	gint added, add, c, pref, pw, pixel_size = html_painter_get_pixel_size (painter);
 
 	/* printf ("cells: %d\n", n);
 	   printf ("left %d\n", left); */
 
 	pref = 0;
 	calc_column_pref_widths (table, painter);
-	for (c = 0; c < table->totalCols; c++)
-		if (col_percent [c + 1] == col_percent [c]) {
-			pref += COLUMN_PREF_POS (table, c + 1) - COLUMN_PREF_POS (table, c);
-			/* printf ("cell pref: %d size: %d\n", pref, max_size [c]); */
-		}
-
 	for (c = 0; c < table->totalCols; c++) {
-		if (col_percent [c + 1] == col_percent [c]) {
-			add           = ((gdouble) left * (COLUMN_PREF_POS (table, c + 1) - COLUMN_PREF_POS (table, c)))
-				/ pref;
-			max_size [c] += add;
-			added        += add;
-			/* printf ("col %d (add %d) --> %d\n", c, add, max_size [c]); */
+		pw = COLUMN_PREF_POS (table, c + 1) - COLUMN_PREF_POS (table, c)
+			- pixel_size * (table->spacing + 2 * table->padding);
+		if (col_percent [c + 1] == col_percent [c] && max_size [c] < pw) {
+			pref += COLUMN_PREF_POS (table, c + 1) - COLUMN_PREF_POS (table, c);
+			printf ("cell pref: %d size: %d\n", pw, max_size [c]);
 		}
 	}
-	/* printf ("left: %d\n", left - added); */
+
+	if (!pref)
+		return;
+
+	for (c = 0; c < table->totalCols; c++) {
+		pw = COLUMN_PREF_POS (table, c + 1) - COLUMN_PREF_POS (table, c)
+			- pixel_size * (table->spacing + 2 * table->padding);
+		if (col_percent [c + 1] == col_percent [c] && max_size [c] < pw) {
+			add           = MIN (pw - max_size [c],
+					     ((gdouble) left * (COLUMN_PREF_POS (table, c + 1) - COLUMN_PREF_POS (table, c)))
+					/ pref);
+			max_size [c] += add;
+			added        += add;
+			printf ("col %d (add %d) --> %d\n", c, add, max_size [c]);
+		}
+	}
+	printf ("left: %d\n", left - added);
 }
 
 #define PERC(c) (col_percent [c + 1] - col_percent [c])
