@@ -42,12 +42,14 @@ struct _GtkHTMLEditPropertiesDialog {
 	GList               *page_data;
 	GtkWidget           *notebook;
 	gboolean             insert;
+	gchar               *title;
 };
 
 struct _PageData {
 	GtkHTMLEditPropertyType      type;
 	GtkHTMLEditPropertyApplyFunc apply;
 	GtkHTMLEditPropertyCloseFunc close;
+	gchar *name;
 	gpointer data;
 };
 typedef struct _PageData PageData;
@@ -81,22 +83,38 @@ ok (GtkWidget *w, GtkHTMLEditPropertiesDialog *d)
 	prop_close (w,d);
 }
 
+static void
+switch_page (GtkWidget *w, GtkNotebookPage *page, gint num, GtkHTMLEditPropertiesDialog *d)
+{
+	PageData *pd;
+
+	pd = (PageData *) g_list_nth (d->page_data, num)->data;
+	if (pd) {
+		gchar *title;
+		title = g_strconcat (d->title, ": ", pd->name, NULL);
+		gtk_window_set_title (GTK_WINDOW (d->dialog), title);
+		g_free (title);
+	}
+}
+
 GtkHTMLEditPropertiesDialog *
-gtk_html_edit_properties_dialog_new (GtkHTMLControlData *cd, gboolean insert)
+gtk_html_edit_properties_dialog_new (GtkHTMLControlData *cd, gboolean insert, gchar *title)
 {
 	GtkHTMLEditPropertiesDialog *d = g_new (GtkHTMLEditPropertiesDialog, 1);
 
 	d->page_data      = NULL;
+	d->title          = g_strdup (title);
 	d->insert         = insert;
 	d->control_data   = cd;
-	d->dialog         = (insert) ? gnome_dialog_new (_("Insert"),
+	d->dialog         = (insert) ? gnome_dialog_new (title,
 							 _("Insert"),
 							 GNOME_STOCK_BUTTON_CLOSE, NULL)
-		:  gnome_dialog_new (_("Properties"),
+		:  gnome_dialog_new (title,
 				     GNOME_STOCK_BUTTON_OK,
 				     GNOME_STOCK_BUTTON_APPLY,
 				     GNOME_STOCK_BUTTON_CLOSE, NULL);
 	d->notebook = gtk_notebook_new ();
+	gtk_signal_connect (GTK_OBJECT (d->notebook), "switch_page", switch_page, d);
 	gtk_box_pack_start_defaults (GTK_BOX (GNOME_DIALOG (d->dialog)->vbox), d->notebook);
 
 	gnome_dialog_button_connect (GNOME_DIALOG (d->dialog), 0, ok, d);
@@ -115,6 +133,7 @@ static void
 destroy (PageData *pd, GtkHTMLEditPropertiesDialog *d)
 {
 	(*pd->close) (d->control_data, pd->data);
+	g_free (pd->name);
 	g_free (pd);
 }
 
@@ -126,6 +145,7 @@ gtk_html_edit_properties_dialog_destroy (GtkHTMLEditPropertiesDialog *d)
 	g_list_free    (d->control_data->properties_types);
 	d->control_data->properties_dialog = NULL;
 	d->control_data->properties_types  = NULL;
+	g_free (d->title);
 	g_free (d);
 }
 
@@ -145,6 +165,7 @@ gtk_html_edit_properties_dialog_add_entry (GtkHTMLEditPropertiesDialog *d,
 	pd->apply = apply_cb;
 	pd->close = close_cb;
 	pd->type  = t;
+	pd->name  = g_strdup (name);
 
 	d->page_data = g_list_append (d->page_data, pd);
 	gtk_notebook_append_page (GTK_NOTEBOOK (d->notebook), page, gtk_label_new (name));

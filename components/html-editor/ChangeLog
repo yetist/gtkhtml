@@ -1,5 +1,14 @@
 2000-10-06  Radek Doulik  <rodo@helixcode.com>
 
+	* properties.c: add title to GtkHTMLEditPropertiesDialog
+	(gtk_html_edit_properties_dialog_new): added title parameter
+	(switch_page): new signal
+
+	* menubar.c (insert_image_cb): use GTK_HTML_EDIT_PROPERTY_IMAGE,
+	not GTK_HTML_EDIT_PROPERTY_LINK
+	(insert_image_cb): fix title
+	(insert_link_cb): fix title
+
 	* popup.c (popup_show): use GTK_HTML_EDIT_PROPERTY_IMAGE for image
 	instead of GTK_HTML_EDIT_PROPERTY_PARAGRAPH
 

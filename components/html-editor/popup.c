@@ -68,7 +68,7 @@ prop_dialog (GtkWidget *mi, GtkHTMLControlData *cd)
 	GList *cur;
 	GtkHTMLEditPropertyType t;
 
-	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, FALSE);
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, FALSE, _("Properties"));
 
 	cur = cd->properties_types;
 	while (cur) {
