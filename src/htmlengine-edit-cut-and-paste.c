@@ -749,10 +749,9 @@ insert_empty_paragraph (HTMLEngine *e, HTMLUndoDirection dir, gboolean add_undo)
 		html_clue_append (HTML_CLUE (flow), e->cursor->object);
 	}
 
+	html_undo_level_begin (e->undo, "Insert paragraph", "Delete paragraph");
 	if (add_undo) {
-		html_undo_level_begin (e->undo, "Insert paragraph", "Delete paragraph");
 		insert_setup_undo (e, 1, position_before, dir, FALSE, FALSE);
-		html_undo_level_end (e->undo);
 	}
 	g_list_free (left);
 	g_list_free (right);
@@ -762,10 +761,11 @@ insert_empty_paragraph (HTMLEngine *e, HTMLUndoDirection dir, gboolean add_undo)
 	html_cursor_backward (e->cursor, e);
 	check_magic_link (e, "\n", 1);
 	html_cursor_forward (e->cursor, e);
+	
+	gtk_html_editor_event_command (e->widget, GTK_HTML_COMMAND_INSERT_PARAGRAPH, FALSE);
+	html_undo_level_end (e->undo);
 
 	html_engine_thaw (e);
-
-	gtk_html_editor_event_command (e->widget, GTK_HTML_COMMAND_INSERT_PARAGRAPH);
 }
 
 void
@@ -784,6 +784,10 @@ html_engine_insert_text (HTMLEngine *e, const gchar *text, guint len)
 		len = g_utf8_strlen (text, -1);
 	if (!len)
 		return;
+
+	html_undo_level_begin (e->undo, "Insert text", "Delete text");
+	/* FIXME add insert text event */
+	gtk_html_editor_event_command (e->widget, GTK_HTML_COMMAND_INSERT_PARAGRAPH, TRUE);
 
 	do {
 		nl   = g_utf8_strchr (text, '\n');
@@ -817,6 +821,7 @@ html_engine_insert_text (HTMLEngine *e, const gchar *text, guint len)
 			text = nl + 1;
 		}
 	} while (nl);
+	html_undo_level_end (e->undo);
 }
 
 void

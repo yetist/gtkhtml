@@ -177,11 +177,14 @@ html_engine_print_with_header_footer (HTMLEngine *engine,
 
 		min_width = html_engine_calc_min_width (engine);
 		page_width = html_painter_get_page_width (engine->painter, engine);
+		/* printf ("min_width %d page %d\n", min_width, page_width); */
 		if (min_width > page_width) {
 			HTML_PRINTER (printer)->scale = ((gdouble) page_width) / min_width;
 			html_font_manager_clear_font_cache (&printer->font_manager);
 			html_object_change_set_down (engine->clue, HTML_CHANGE_ALL);
 			html_engine_calc_size (engine, NULL);
+			/* printf ("scale %lf\n", HTML_PRINTER (printer)->scale);
+			   gtk_html_debug_dump_tree (engine->clue, 0); */
 		}
 
 		print_all_pages (HTML_PAINTER (printer), engine,

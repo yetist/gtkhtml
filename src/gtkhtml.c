@@ -3787,14 +3787,15 @@ get_value_nick (GtkHTMLCommandType com_type)
 }
 
 void
-gtk_html_editor_event_command (GtkHTML *html, GtkHTMLCommandType com_type)
+gtk_html_editor_event_command (GtkHTML *html, GtkHTMLCommandType com_type, gboolean before)
 {
 	GtkArg *args [1];
 
 	args [0] = gtk_arg_new (GTK_TYPE_STRING);
 
 	GTK_VALUE_STRING (*args [0]) = get_value_nick (com_type);
-	gtk_html_editor_event (html, GTK_HTML_EDITOR_EVENT_COMMAND, args);
+	/* printf ("sending %s\n", GTK_VALUE_STRING (*args [0])); */
+	gtk_html_editor_event (html, before ? GTK_HTML_EDITOR_EVENT_COMMAND_BEFORE : GTK_HTML_EDITOR_EVENT_COMMAND_AFTER, args);
 
 	gtk_arg_free (args [0], FALSE);
 }

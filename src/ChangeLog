@@ -1,5 +1,18 @@
 2001-10-30  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine-edit-cut-and-paste.c (insert_empty_paragraph): move
+	undo level end to wrap event
+	(html_engine_insert_text): added event emitting, it need to be
+	fixed later to have new event type for it, now it uses command
+	insert-paragraph
+	(html_engine_insert_text): wrap it in undo level
+
+	* gtkhtml.c (gtk_html_editor_event_command): added 'before' flag
+
+	* gtkhtml-enums.h: split GTK_HTML_EDITOR_EVENT_COMMAND in
+	GTK_HTML_EDITOR_EVENT_COMMAND_BEFORE and
+	GTK_HTML_EDITOR_EVENT_COMMAND_AFTER
+
 	* htmlimage.c (get_actual_width): fix scale for pixel size
 
 2001-10-30  Larry Ewing  <lewing@ximian.com>
