@@ -1706,54 +1706,12 @@ selection_get (GtkWidget        *widget,
 			html_engine_save_buffer_free (state);
 		}				
 	} else {
-		selection_string = html_object_get_selection_string (selection_object, html->engine);
-  
-		if (selection_string != NULL) {
-			if (info == TARGET_UTF8_STRING) {
-				/* printf ("UTF8_STRING\n"); */
-  				gtk_selection_data_set (selection_data,
-							gdk_atom_intern ("UTF8_STRING", FALSE), 8,
-							(const guchar *) selection_string,
-							strlen (selection_string));
-			} else if (info == TARGET_UTF8) {
-				/* printf ("UTF-8\n"); */
-				gtk_selection_data_set (selection_data,
-							gdk_atom_intern ("UTF-8", FALSE), 8,
-							(const guchar *) selection_string,
-							strlen (selection_string));
-			} else if (info == TARGET_STRING || info == TARGET_TEXT || info == TARGET_COMPOUND_TEXT) {
-				gchar *to_be_freed;
-				
-				to_be_freed = selection_string;
-				selection_string = replace_nbsp (selection_string);
-				g_free (to_be_freed);
-				
-				if (info == TARGET_STRING) {
-					/* printf ("STRING\n"); */
-					gtk_selection_data_set (selection_data,
-								GDK_SELECTION_TYPE_STRING, 8,
-								(const guchar *) selection_string, 
-								strlen (selection_string));
-				} else {
-					guchar *text;
-					GdkAtom encoding;
-					gint format;
-					gint new_length;
-					
-					/* printf ("TEXT or COMPOUND_TEXT\n"); */
-					gdk_string_to_compound_text (selection_string, 
-								     &encoding, &format,
-								     &text, &new_length);
-					
-					gtk_selection_data_set (selection_data,
-								encoding, format,
-								text, new_length);
-
-					gdk_free_compound_text (text);
-				}
-				
-  			}
-  		}
+		if (selection_object)
+			selection_string = html_object_get_selection_string (selection_object, html->engine);
+  		
+		if (selection_string)
+			gtk_selection_data_set_text (selection_data, selection_string, strlen (selection_string));
+		
 		g_free (selection_string);
 	}
 }
@@ -1767,16 +1725,16 @@ selection_received (GtkWidget *widget,
 {
 	HTMLEngine *e;
 	gboolean as_cite;
-
+	
 	g_return_if_fail (widget != NULL);
 	g_return_if_fail (GTK_IS_HTML (widget));
 	g_return_if_fail (selection_data != NULL);
 	
 	/* printf ("got selection from system\n"); */
-
+	
 	e = GTK_HTML (widget)->engine;
 	as_cite = GTK_HTML (widget)->priv->selection_as_cite;
-
+	
 	/* If the Widget is editable,
 	** and we are the owner of the atom requested
 	** and we are not pasting as a citation 
@@ -1786,49 +1744,50 @@ selection_received (GtkWidget *widget,
 	if (html_engine_get_editable (e)
 	    && widget->window == gdk_selection_owner_get (selection_data->selection)
 	    && !as_cite) {
-
+		
 		/* Check which atom was requested (PRIMARY or CLIPBOARD) */
 		if (selection_data->selection == gdk_atom_intern ("CLIPBOARD", FALSE)
 		    && e->clipboard) {
-
+			
 			html_engine_paste (e);
 			return;
-
+			
 		} else if (selection_data->selection == GDK_SELECTION_PRIMARY
 			   && e->primary) {
 			HTMLObject *copy;
 			guint len = 0;
-
+			
 			copy = html_object_op_copy (e->primary, NULL, e, NULL, NULL, &len);
 			html_engine_paste_object (e, copy, len);
-
+			
 			return;
 		}
 	}
-
+	
 	/* **** IMPORTANT **** Check to see if retrieval succeeded  */
 	/* If we have more selection types we can ask for, try the next one,
 	   until there are none left */
 	if (selection_data->length < 0) {
 		gint type = GTK_HTML (widget)->priv->selection_type;
-
+		
 		/* now, try again with next selection type */
 		if (!gtk_html_request_paste (GTK_HTML (widget), selection_data->selection, type + 1, time, as_cite))
 			g_warning ("Selection retrieval failed\n");
 		return;
 	}
-
+	
 	/* Make sure we got the data in the expected form */
 	if ((selection_data->type != gdk_atom_intern ("UTF8_STRING", FALSE))
 	    && (selection_data->type != GDK_SELECTION_TYPE_STRING)
-	    && (selection_data->type != gdk_atom_intern ("UTF-8", FALSE))
+	    && (selection_data->type != gdk_atom_intern ("COMPOUND_TEXT", FALSE))
+	    && (selection_data->type != gdk_atom_intern ("TEXT", FALSE))
 	    && (selection_data->type != gdk_atom_intern ("text/html", FALSE))) {
 		g_warning ("Selection \"STRING\" was not returned as strings!\n");
 	} else if (selection_data->length > 0) {
+		gchar   *utf8 = NULL;
 		if (selection_data->type == gdk_atom_intern ("text/html", FALSE)) {
 			guint    len  = (guint)selection_data->length;
 			guchar  *data = selection_data->data;
-			gchar   *utf8 = NULL;
 			GError  *error = NULL;
 
       			/* 
@@ -1861,9 +1820,9 @@ selection_received (GtkWidget *widget,
 					fromcode = "UCS-2";
 					break;
 				}
-				
+
 				utf8 = g_convert (data, len, "UTF-8", fromcode, &read_len, &written_len, &error);
-				
+
 				if (error) {
 					g_warning ("g_convert error: %s\n", error->message);
 					g_error_free (error);
@@ -1895,40 +1854,29 @@ selection_received (GtkWidget *widget,
 				g_warning ("selection was empty");
 
 			g_free (utf8);			
-		} else if (selection_data->type != GDK_SELECTION_TYPE_STRING) {
-			html_engine_paste_text (e, selection_data->data,
-						g_utf8_strlen (selection_data->data, 
-							       selection_data->length));
-		} else  {
-			char *text = NULL;
-
-			if (selection_data->type != GDK_SELECTION_TYPE_STRING) {
-				text = g_strndup (selection_data->data,
-						  (guint) selection_data->length);
-			}
-
+		} else if ((utf8 = gtk_selection_data_get_text (selection_data))) {
 			if (as_cite) {
 				char *encoded;
 				
 				/* FIXME there has to be a cleaner way to do this */
-				encoded = html_encode_entities (text, g_utf8_strlen (text, -1), NULL);
-				g_free (text);
-				text = g_strdup_printf ("<blockquote type=\"cite\">%s</blockquote>", 
+				encoded = html_encode_entities (utf8, g_utf8_strlen (utf8, -1), NULL);
+				g_free (utf8);
+				utf8 = g_strdup_printf ("<blockquote type=\"cite\">%s</blockquote>", 
 							encoded);
 				g_free (encoded);
-				gtk_html_insert_html (GTK_HTML (widget), text);
+				gtk_html_insert_html (GTK_HTML (widget), utf8);
 			} else {
-				html_engine_paste_text (e, text, g_utf8_strlen (text, -1));
+				html_engine_paste_text (e, utf8, g_utf8_strlen (utf8, -1));
 			}
-			g_free (text);
-
 			if (HTML_IS_TEXT (e->cursor->object))
 				html_text_magic_link (HTML_TEXT (e->cursor->object), e,
 						      html_object_get_length (e->cursor->object));
+			
+			g_free (utf8);
 		}
 		return;
-	}
-
+	}			   
+	
 	if (html_engine_get_editable (e))
 		html_engine_paste (e);
 }
@@ -1937,7 +1885,7 @@ gint
 gtk_html_request_paste (GtkHTML *html, GdkAtom selection, gint type, gint32 time, gboolean as_cite)
 {
 	GdkAtom format_atom;
-	static char *formats[] = {"text/html", "UTF8_STRING", "UTF-8", "STRING"};
+	static char *formats[] = {"text/html", "UTF8_STRING", "COMPOUND_TEXT", "TEXT", "STRING"};
 
 	if (type >= sizeof (formats) / sizeof (formats[0])) {
 		/* we have now tried all the slection types we support */
@@ -2793,7 +2741,6 @@ gtk_html_init (GtkHTML* html)
 	static const GtkTargetEntry targets[] = {
 		{ "text/html", 0, TARGET_HTML },
 		{ "UTF8_STRING", 0, TARGET_UTF8_STRING },
-		{ "UTF-8", 0, TARGET_UTF8 },
 		{ "COMPOUND_TEXT", 0, TARGET_COMPOUND_TEXT },
 		{ "STRING", 0, TARGET_STRING },
 		{ "TEXT",   0, TARGET_TEXT }

@@ -2,6 +2,10 @@
 
 	* gtkhtml.c (ucs2_order): fix the names of UCS-2BE and UCS-2LE,
 	and captialize the rest for fun.
+	(selection_get): use the new gtk functions to convert strings
+	for selections and clean up logic.
+	(selection_received): use the new gtk functions to handle charset
+	conversion and clean up logic.
 
 	* htmlfontmanager.c (get_name_from_face): disable all the logic
 	here.  Rodo, can you look at this, is it still needed?
