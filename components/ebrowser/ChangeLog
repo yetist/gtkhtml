@@ -1,6 +1,7 @@
 2000-12-07  Radek Doulik  <rodo@helixcode.com>
 
 	* Makefile.am: rename GNOME_EBrowser.oafinfo to GNOME_GtkHTML_EBrowser.oafinfo
+	(INCLUDES): fixed for build dir != src dir
 
 	* ebrowser.h: updated OAFIIDs
 

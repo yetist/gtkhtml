@@ -4,7 +4,7 @@ bin_PROGRAMS = ebrowser
 INCLUDES = \
 	-I$(top_srcdir)/src	\
 	$(GNOME_INCLUDEDIR)	\
-	-I..
+	-I$(top_srcdir)/components
 
 CFLAGS += $(EXTRA_GNOME_CFLAGS)
 
