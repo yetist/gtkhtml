@@ -41,11 +41,12 @@ enum {
 };
 
 
-GtkType		gtk_html_get_type	(void);
-GtkWidget*	gtk_html_new		(void);
-void            gtk_html_parse          (GtkHTML *html);
-void            gtk_html_begin          (GtkHTML *html, gchar *url);
-void            gtk_html_write          (GtkHTML *html, gchar *buffer);
-void            gtk_html_end            (GtkHTML *html);
+GtkType		gtk_html_get_type	 (void);
+GtkWidget*	gtk_html_new		 (void);
+void            gtk_html_parse           (GtkHTML *html);
+void            gtk_html_begin           (GtkHTML *html, gchar *url);
+void            gtk_html_write           (GtkHTML *html, gchar *buffer);
+void            gtk_html_end             (GtkHTML *html);
+void            gtk_html_calc_scrollbars (GtkHTML *html);
 
 #endif /* _GTKHTML_H_ */

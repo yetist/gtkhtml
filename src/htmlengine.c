@@ -21,9 +21,14 @@
 #include "htmlstack.h"
 #include "stringtokenizer.h"
 
-extern guint html_signals [];
-
+guint           html_engine_get_type (void);
+static void     html_engine_class_init (HTMLEngineClass *klass);
+static void     html_engine_init (HTMLEngine *engine);
 static gboolean html_engine_timer_event (HTMLEngine *e);
+
+static GtkLayoutClass *parent_class = NULL;
+guint html_engine_signals [LAST_SIGNAL] = { 0 };
+
 
 #define TIMER_INTERVAL 30
 #define INDENT_SIZE 30
@@ -32,6 +37,106 @@ extern gint defaultFontSizes [7];
 
 enum ID { ID_FONT, ID_B, ID_HEADER, ID_U, ID_UL, ID_TD };
 
+guint
+html_engine_get_type (void)
+{
+	static guint html_engine_type = 0;
+
+	if (!html_engine_type) {
+		static const GtkTypeInfo html_engine_info = {
+			"HTMLEngine",
+			sizeof (HTMLEngine),
+			sizeof (HTMLEngineClass),
+			(GtkClassInitFunc) html_engine_class_init,
+			(GtkObjectInitFunc) html_engine_init,
+			/* reserved_1 */ NULL,
+			/* reserved_2 */ NULL,
+			(GtkClassInitFunc) NULL,
+		};
+		
+		html_engine_type = gtk_type_unique (GTK_TYPE_OBJECT, &html_engine_info);
+	}
+
+	return html_engine_type;
+}
+
+static void
+html_engine_class_init (HTMLEngineClass *klass)
+{
+	GtkObjectClass *object_class;
+
+	object_class = (GtkObjectClass *)klass;
+
+	parent_class = gtk_type_class (GTK_TYPE_OBJECT);
+
+	html_engine_signals [TITLE_CHANGED] = 
+		gtk_signal_new ("title_changed",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (HTMLEngineClass, title_changed),
+				gtk_marshal_NONE__NONE,
+				GTK_TYPE_NONE, 0);
+	gtk_object_class_add_signals (object_class, html_engine_signals, LAST_SIGNAL);
+}
+
+static void
+html_engine_init (HTMLEngine *engine)
+{
+
+	engine->ht = html_tokenizer_new ();
+	engine->st = string_tokenizer_new ();
+	engine->fs = html_font_stack_new ();
+	engine->cs = html_color_stack_new ();
+	engine->listStack = html_list_stack_new ();
+	engine->settings = html_settings_new ();
+	engine->painter = html_painter_new ();
+
+	engine->leftBorder = LEFT_BORDER;
+	engine->rightBorder = RIGHT_BORDER;
+	engine->topBorder = TOP_BORDER;
+	engine->bottomBorder = BOTTOM_BORDER;
+	
+	/* Set up parser functions */
+	engine->parseFuncArray[0] = NULL;
+	engine->parseFuncArray[1] = html_engine_parse_b;
+	engine->parseFuncArray[2] = NULL;
+	engine->parseFuncArray[3] = NULL;
+	engine->parseFuncArray[4] = NULL;
+	engine->parseFuncArray[5] = html_engine_parse_f;
+	engine->parseFuncArray[6] = NULL;
+	engine->parseFuncArray[7] = html_engine_parse_h;
+	engine->parseFuncArray[8] = html_engine_parse_i;
+	engine->parseFuncArray[9] = NULL;
+	engine->parseFuncArray[10] = NULL;
+	engine->parseFuncArray[11] = html_engine_parse_l;
+	engine->parseFuncArray[12] = NULL;
+	engine->parseFuncArray[13] = NULL;
+	engine->parseFuncArray[14] = NULL;
+	engine->parseFuncArray[15] = html_engine_parse_p;
+	engine->parseFuncArray[16] = NULL;
+	engine->parseFuncArray[17] = NULL;
+	engine->parseFuncArray[18] = NULL;
+	engine->parseFuncArray[19] = html_engine_parse_t;
+	engine->parseFuncArray[20] = html_engine_parse_u;
+	engine->parseFuncArray[21] = NULL;
+	engine->parseFuncArray[22] = NULL;
+	engine->parseFuncArray[23] = NULL;
+	engine->parseFuncArray[24] = NULL;
+	engine->parseFuncArray[25] = NULL;
+}
+
+HTMLEngine *
+html_engine_new (void)
+{
+	HTMLEngine *engine;
+
+	engine = gtk_type_new (html_engine_get_type ());
+
+	return engine;
+}
+
+
+#if 0
 HTMLEngine *
 html_engine_new (void)
 {
@@ -81,6 +186,7 @@ html_engine_new (void)
 
 	return p;
 }
+#endif
 
 void
 html_engine_draw_background (HTMLEngine *e, gint xval, gint yval, gint x, gint y, gint w, gint h)
@@ -973,8 +1079,8 @@ html_engine_parse_t (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 	}
 	else if (strncmp (str, "/title", 6) == 0) {
 		p->inTitle = FALSE;
-		
-		gtk_signal_emit_by_name (GTK_OBJECT (p->widget), "title_changed");
+
+		gtk_signal_emit_by_name (GTK_OBJECT (p), "title_changed");
 	}
 }
 

@@ -8,7 +8,7 @@ static void exit_cb (GtkWidget *widget, gpointer data);
 static void test_cb (GtkWidget *widget, gpointer data);
 static void slow_cb (GtkWidget *widget, gpointer data);
 static void dump_cb (GtkWidget *widget, gpointer data);
-static void title_changed_cb (GtkHTML *html, gpointer data);
+static void title_changed_cb (HTMLEngine *engine, gpointer data);
 static gboolean load_timer_event (FILE *fil);
 
 GtkWidget *area, *box, *button;
@@ -143,11 +143,13 @@ slow_cb (GtkWidget *widget, gpointer data)
 
 
 static void
-title_changed_cb (GtkHTML *html, gpointer data)
+title_changed_cb (HTMLEngine *engine, gpointer data)
 {
+	g_print ("title_changed_cb\n");
+
 	gtk_window_set_title (GTK_WINDOW (data), 
 			      g_strdup_printf ("GtkHTML: %s\n", 
-					       html->engine->title->str));
+					       engine->title->str));
 }
 
 static void
@@ -239,7 +241,7 @@ main (gint argc, gchar *argv[])
 	gnome_app_set_contents (GNOME_APP (app), box);
 
 	html = GTK_HTML (gtk_html_new ());
-	gtk_signal_connect (GTK_OBJECT (html), "title_changed",
+	gtk_signal_connect (GTK_OBJECT (html->engine), "title_changed",
 			    GTK_SIGNAL_FUNC (title_changed_cb), (gpointer)app);
 
 	gtk_box_pack_start_defaults (GTK_BOX (box), GTK_WIDGET (html));

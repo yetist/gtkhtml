@@ -2,6 +2,7 @@
 #define _HTMLENGINE_H_
 
 typedef struct _HTMLEngine HTMLEngine;
+typedef struct _HTMLEngineClass HTMLEngineClass;
 
 #include <glib.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
@@ -16,6 +17,12 @@ typedef struct _HTMLEngine HTMLEngine;
 #include "htmlpainter.h"
 #include "stringtokenizer.h"
 
+#define TYPE_HTML_ENGINE                 (html_engine_get_type ())
+#define HTML_ENGINE(obj)                  (GTK_CHECK_CAST ((obj), TYPE_HTML_ENGINE, HTMLEngine))
+#define HTML_ENGINE_CLASS(klass)          (GTK_CHECK_CLASS_CAST ((klass), TYPE_HTML_ENGINE, HTMLEngineClass))
+#define IS_HTML_ENGINE(obj)              (GTK_CHECK_TYPE ((obj), TYPE_HTML_ENGINE))
+#define IS_HTML_ENGINE_CLASS(klass)      (GTK_CHECK_CLASS_TYPE ((klass), TYPE_HTML_ENGINE))
+
 #define LEFT_BORDER 10
 #define RIGHT_BORDER 20
 #define TOP_BORDER 10
@@ -24,6 +31,9 @@ typedef struct _HTMLEngine HTMLEngine;
 typedef void (*HTMLParseFunc)(HTMLEngine *p, HTMLObject *clue, const gchar *str);
 
 struct _HTMLEngine {
+
+	GtkObject parent;
+
 	gboolean parsing;
 	HTMLTokenizer *ht;
 	StringTokenizer *st;
@@ -95,6 +105,13 @@ struct _HTMLEngine {
 	GtkHTML *widget;
 };
 
+
+struct _HTMLEngineClass
+{
+	GtkObjectClass parent_class;
+	
+	void (*title_changed) (HTMLEngine *engine);
+};
 
 HTMLEngine *html_engine_new (void);
 void        html_engine_begin (HTMLEngine *p, gchar *url);
