@@ -518,10 +518,8 @@ html_text_slave_get_offset_for_pointer (HTMLTextSlave *slave,
 						      i,
 						      font_style);
 
-		if ((width + prev_width) / 2 >= x) {
-			g_print ("%p offset %d\n", slave, i - 1);
+		if ((width + prev_width) / 2 >= x)
 			return i - 1;
-		}
 
 		prev_width = width;
 	}
