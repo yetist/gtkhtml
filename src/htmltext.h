@@ -139,6 +139,8 @@ gint  html_text_get_nb_width    (HTMLText *text,
 				 HTMLPainter *painter,
 				 gboolean begin);
 
+gint  html_text_get_bytes       (HTMLText *text);
+
 #ifdef GTKHTML_HAVE_PSPELL
 
 struct _SpellError {
