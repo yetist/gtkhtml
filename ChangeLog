@@ -1,3 +1,8 @@
+2000-12-13  Larry Ewing  <lewing@helixcode.com>
+
+	* configure.in (EXTRA_GNOME_LIBS): s/glade/libglade.
+	(EXTRA_GNOME_CFLAGS): same.
+
 2000-12-11  Dave Camp  <dave@helixcode.com>
 
 	* capplet/Makefile.am (EXTRA_DIST): Include gtkhtml-capplet.glade.h
