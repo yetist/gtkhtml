@@ -99,6 +99,7 @@ struct _HTMLEngine {
 	gint height;
 
 	HTMLHAlignType divAlign;
+	HTMLHAlignType pAlign;
 
 	/* Number of tokens parsed in the current time-slice */
 	gint parseCount;
