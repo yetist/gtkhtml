@@ -259,7 +259,10 @@ push_color (HTMLEngine *e,
 static void
 pop_color (HTMLEngine *e)
 {
-	html_color_unref ((HTMLColor *) html_stack_pop (e->color_stack));
+        HTMLColor *color = (HTMLColor *)html_stack_pop (e->color_stack);
+	g_return_if_fail (color != NULL);
+
+	html_color_unref (color);
 }
 
 static gboolean
@@ -3631,6 +3634,7 @@ update_embedded (GtkWidget *widget, gpointer data)
 		HTMLEngine *e;
 		HTMLObject *p;
 		gint tx, ty;
+		gint x, y, width, height;
 
 		e = html->engine;
 		
@@ -3647,12 +3651,20 @@ update_embedded (GtkWidget *widget, gpointer data)
 		
 		/* Then prepare for drawing.  We will only update this object, so we
 		   only allocate enough size for it.  */
-		
+		x = obj->y;
+		y = obj->y - obj->ascent;
+		width = obj->width;
+		height = obj->ascent + obj->descent;
+
+		html_painter_begin (e->painter, x, y, x + width, y + height);
+
 		html_object_draw (obj,
 				  e->painter, 
-				  obj->x, obj->y - obj->ascent,
-				  obj->width, obj->ascent + obj->descent,
+				  x, y,
+				  width, height,
 				  tx, ty);	
+
+		html_painter_end (e->painter);
 	}
 }
 

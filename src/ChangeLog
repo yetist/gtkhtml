@@ -1,3 +1,8 @@
+2001-08-14  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (update_embedded): add begin/end painter calls
+	around the update calls for things like HTMLImageInput.  
+
 2001-08-13  Radek Doulik  <rodo@ximian.com>
 
 	* htmlselection.c (test_point): new helper function
