@@ -1,3 +1,7 @@
+2001-07-23  Radek Doulik  <rodo@ximian.com>
+
+	* Makefile.am (icons_DATA): added search icons
+
 2001-07-23  Jakub Steiner <jimmac@ximian.com>
 
 	* search*.png: search and seach'n'replace icons for toolbar
