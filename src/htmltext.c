@@ -832,7 +832,7 @@ get_glyphs (HTMLText *text, HTMLPainter *painter)
 		PangoGlyphString *str = NULL;
 		PangoItem *item;
 		GList *il, *gl;
-		gchar *heap = NULL, *translated, *t;
+		gchar *heap = NULL, *translated;
 		gint bytes;
 
 		bytes = strlen (text->text);
@@ -841,13 +841,11 @@ get_glyphs (HTMLText *text, HTMLPainter *painter)
 		else 
 			translated = alloca (bytes);
 		html_replace_tabs (text->text, translated, bytes);
-		t = translated;
 		for (il = items; il; il = il->next) {
 			item = (PangoItem *) il->data;
 			str = pango_glyph_string_new ();
-			pango_shape (t, item->length, &item->analysis, str);
+			pango_shape (translated + item->offset, item->length, &item->analysis, str);
 			glyphs = g_list_prepend (glyphs, str);
-			t += item->length;
 		}
 		glyphs = g_list_reverse (glyphs);
 		g_free (heap);
