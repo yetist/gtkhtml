@@ -641,7 +641,7 @@ msgstr "Vstav_i"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
 msgid "_Italic"
-msgstr "_Le¾eèe"
+msgstr "_Po¹evno"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
 msgid "_Left"
@@ -910,7 +910,7 @@ msgstr "Vodoravno:"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:37
 #: components/html-editor/text.c:220 components/html-editor/toolbar.c:529
 msgid "Italic"
-msgstr "Le¾eèe"
+msgstr "Po¹evno"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:38
 #: components/html-editor/paragraph.c:158
