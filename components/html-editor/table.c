@@ -23,9 +23,16 @@
 #include <glade/glade.h>
 #include <gal/widgets/widget-color-combo.h>
 
+#include "gtkhtml.h"
+
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
+#include "htmlcursor.h"
+#include "htmlengine.h"
+#include "htmlengine-edit-table.h"
 #include "htmlengine-save.h"
+#include "htmlimage.h"
+#include "htmltable.h"
 #include "htmlsettings.h"
 
 #include "config.h"
@@ -126,7 +133,6 @@ static void
 set_has_bg_color (GtkWidget *check, GtkHTMLEditTableProperties *d)
 {
 	d->has_bg_color = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (d->check_bg_color));
-	//gtk_widget_set_sensitive (d->combo_bg_color, d->has_bg_color);
 	FILL;
 	CHANGE;
 	d->changed_bg_color = TRUE;
@@ -136,7 +142,6 @@ static void
 set_has_bg_pixmap (GtkWidget *check, GtkHTMLEditTableProperties *d)
 {
 	d->has_bg_pixmap = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (d->check_bg_pixmap));
-	// gtk_widget_set_sensitive (d->entry_bg_pixmap, d->has_bg_pixmap);
 	FILL;
 	CHANGE;
 	d->changed_bg_pixmap = TRUE;
@@ -191,7 +196,7 @@ table_widget (GtkHTMLEditTableProperties *d)
 	table_page = glade_xml_get_widget (xml, "table_page");
 
         color = html_colorset_get_color (d->cd->html->engine->defaultSettings->color_set, HTMLBgColor);
-        html_color_alloc (color, d->cd->html->engine->painter);
+	html_color_alloc (color, d->cd->html->engine->painter);
 	d->combo_bg_color = color_combo_new (NULL, _("Automatic"), &color->color,
 					     color_group_fetch ("table_bg_color", d->cd));
         gtk_signal_connect (GTK_OBJECT (d->combo_bg_color), "changed", GTK_SIGNAL_FUNC (changed_bg_color), d);
@@ -214,6 +219,7 @@ table_widget (GtkHTMLEditTableProperties *d)
 	fill_sample (d);
 
 	gtk_widget_show_all (table_page);
+        gdk_color_alloc (gdk_window_get_colormap (table_page->window), &d->bg_color);
 	gnome_pixmap_entry_set_preview (GNOME_PIXMAP_ENTRY (d->entry_bg_pixmap), FALSE);
 
 	return table_page;
@@ -222,11 +228,41 @@ table_widget (GtkHTMLEditTableProperties *d)
 static void
 set_ui (GtkHTMLEditTableProperties *d)
 {
-	//gtk_widget_set_sensitive (d->combo_bg_color, d->has_bg_color);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_bg_color), d->has_bg_color);
-	//gtk_widget_set_sensitive (d->entry_bg_pixmap, d->has_bg_pixmap);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_bg_pixmap), d->has_bg_pixmap);
+
+	if (d->has_bg_color) {
+		gdk_color_alloc (gdk_window_get_colormap (GTK_WIDGET (d->cd->html)->window), &d->bg_color);
+		color_combo_set_color (COLOR_COMBO (d->combo_bg_color), &d->bg_color);
+	}
 }
+
+static void
+get_data (GtkHTMLEditTableProperties *d)
+{
+	if (HTML_IS_TABLE (d->cd->html->engine->cursor->object))
+		d->table = HTML_TABLE (d->cd->html->engine->cursor->object);
+	else {
+		g_return_if_fail (d->cd->html->engine->cursor->object->parent
+				  && d->cd->html->engine->cursor->object->parent->parent
+				  && d->cd->html->engine->cursor->object->parent->parent->parent);
+		g_return_if_fail (HTML_IS_TABLE (d->cd->html->engine->cursor->object->parent->parent->parent));
+
+		d->table = HTML_TABLE (d->cd->html->engine->cursor->object->parent->parent->parent);
+	}
+
+	if (d->table->bgColor) {
+		d->has_bg_color = TRUE;
+		d->bg_color     = *d->table->bgColor;
+	}
+	if (d->table->bgPixmap) {
+		d->has_bg_pixmap = TRUE;
+		d->bg_pixmap = strncasecmp ("file:", d->table->bgPixmap->url, 5)
+			? d->table->bgPixmap->url
+			: d->table->bgPixmap->url + 5;
+	}
+}
+
 
 GtkWidget *
 table_properties (GtkHTMLControlData *cd, gpointer *set_data)
@@ -234,6 +270,7 @@ table_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	GtkHTMLEditTableProperties *data = data_new (cd);
 	GtkWidget *rv;
 
+	get_data (data);
 	*set_data = data;
 	rv        = table_widget (data);
 	set_ui (data);
@@ -269,6 +306,7 @@ table_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditTableProperties *d = (GtkHTMLEditTableProperties *) get_data;
 
+	html_engine_table_set_bg_color (d->cd->html->engine, d->table, &d->bg_color);
 	/* html_table_set (d->rule, cd->html->engine, VAL (WIDTH), d->percent ? VAL (WIDTH) : 0, VAL (SIZE), d->shaded, d->align); */
 }
 
