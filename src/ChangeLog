@@ -1,3 +1,7 @@
+2003-10-22  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit.c (html_engine_new_text): apply text attributes
+
 2003-10-21  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (save_close_attrs): don't free attrs when save fails
