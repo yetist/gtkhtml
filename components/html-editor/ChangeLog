@@ -1,3 +1,8 @@
+2000-07-21  Larry Ewing  <lewing@helixcode.com>
+
+	* popup.c (popup_show): remove the incorrect dereferences of the
+	url and target strings in the test to stop the crashes.
+
 2000-07-20  Radek Doulik  <rodo@helixcode.com>
 
 	* spell.c: new file, popup window with spell checker suggestions

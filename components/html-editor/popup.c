@@ -156,8 +156,8 @@ popup_show (GtkHTMLControlData *cd, GdkEventButton *event)
 	    || (obj
 		&& (HTML_OBJECT_TYPE (obj) == HTML_TYPE_LINKTEXTMASTER
 		    || (HTML_OBJECT_TYPE (obj) == HTML_TYPE_IMAGE
-			&& (*HTML_IMAGE (obj)->url
-			    || *HTML_IMAGE (obj)->target))))) {
+			&& (HTML_IMAGE (obj)->url
+			    || HTML_IMAGE (obj)->target))))) {
 		    ADD_ITEM (_("Remove link"), remove_link, -1);
 	}
 
