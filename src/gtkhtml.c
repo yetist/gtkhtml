@@ -2296,10 +2296,10 @@ scroll (GtkHTML *html,
 		delta = -adj->step_increment;
 		break;
 	case GTK_SCROLL_PAGE_FORWARD:
-		delta = adj->page_increment - line_height;
+		delta = adj->page_increment - 2 * line_height;
 		break;
 	case GTK_SCROLL_PAGE_BACKWARD:
-		delta = -adj->page_increment + line_height;
+		delta = -adj->page_increment + 2 * line_height;
 		break;
 	default:
 		g_warning ("invalid scroll parameters: %d %d %f\n", orientation, scroll_type, position);
