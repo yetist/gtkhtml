@@ -3703,10 +3703,10 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		break;
 	}
 	case GTK_HTML_COMMAND_CURSOR_FORWARD:
-		html_cursor_forward (html->engine->cursor, html->engine);
+		rv = html_cursor_forward (html->engine->cursor, html->engine);
 		break;
 	case GTK_HTML_COMMAND_CURSOR_BACKWARD:
-		html_cursor_backward (html->engine->cursor, html->engine);
+		rv = html_cursor_backward (html->engine->cursor, html->engine);
 		break;
 	case GTK_HTML_COMMAND_INSERT_TABLE_1_1:
 		html_engine_insert_table_1_1 (e);
