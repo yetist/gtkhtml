@@ -39,12 +39,16 @@ typedef struct _GtkHTMLClassProperties GtkHTMLClassProperties;
 struct _GtkHTMLClassProperties {
 	/* viewer */
 	gboolean  animations;
+	gchar    *font_var_vendor;
 	gchar    *font_var_family;
 	guint     font_var_size;
+        gchar    *font_fix_vendor;
 	gchar    *font_fix_family;
 	guint     font_fix_size;
+        gchar    *font_var_vendor_print;
 	gchar    *font_var_family_print;
 	guint     font_var_size_print;
+        gchar    *font_fix_vendor_print;
 	gchar    *font_fix_family_print;
 	guint     font_fix_size_print;
 
