@@ -125,7 +125,7 @@ html_table_cell_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y,
 	if (y + height < o->y - o->ascent || y > o->y + o->descent)
 		return;
 
-	{
+	if (cell->bg.pixel != 0) {
 		gint top = y - (o->y - o->ascent);
 		gint bottom = top + height;
 		if (top < -cell->padding)
