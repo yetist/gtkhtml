@@ -461,7 +461,8 @@ editor_set_format (GtkHTMLControlData *cd, gboolean format_html)
 }
 
 enum {
-	PROP_EDIT_HTML
+	PROP_EDIT_HTML,
+	PROP_HTML_TITLE
 } EditorControlProps;
 
 static void
@@ -477,7 +478,10 @@ editor_get_prop (BonoboPropertyBag *bag,
 	case PROP_EDIT_HTML:
 		BONOBO_ARG_SET_BOOLEAN (arg, cd->format_html);
 		break;
-	default:
+	case PROP_HTML_TITLE:
+		BONOBO_ARG_SET_STRING (arg, gtk_html_get_title (cd->html));
+		break;
+       	default:
 		bonobo_exception_set (ev, ex_Bonobo_PropertyBag_NotFound);
 		break;
 	}
@@ -496,6 +500,9 @@ editor_set_prop (BonoboPropertyBag *bag,
 	switch (arg_id) {
 	case PROP_EDIT_HTML:
 		editor_set_format (cd, BONOBO_ARG_GET_BOOLEAN (arg));
+		break;
+	case PROP_HTML_TITLE:
+		gtk_html_set_title (cd->html, BONOBO_ARG_GET_STRING (arg));
 		break;
 	default:
 		bonobo_exception_set (ev, ex_Bonobo_PropertyBag_NotFound);
@@ -546,6 +553,15 @@ editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 				 "Whether or not to edit in HTML mode", 
 				 0);
 
+	CORBA_free (def);
+
+	def = bonobo_arg_new (BONOBO_ARG_STRING);
+	BONOBO_ARG_SET_STRING (def, "");
+
+	bonobo_property_bag_add (pb, "HTMLTitle", PROP_HTML_TITLE,
+				 BONOBO_ARG_STRING, def,
+				 "The title of the html document", 
+				 0);
 	CORBA_free (def);
 	/*
 	def = bonobo_arg_new (BONOBO_ARG_STRING);

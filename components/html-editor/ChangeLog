@@ -1,3 +1,10 @@
+2002-01-27  Larry Ewing  <lewing@ximian.com>
+
+	* editor-control-factory.c (editor_set_prop): add bonobo property
+	for the title.
+
+	* body.c (body_apply_cb): use gtk_html_set_title.
+
 2002-01-23  Radek Doulik  <rodo@ximian.com>
 
 	* added Text... and Paragraph... entries to menu

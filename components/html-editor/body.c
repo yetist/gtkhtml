@@ -242,8 +242,9 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	hbox = gtk_hbox_new (FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (hbox), 3);
 	data->entry_title = gtk_entry_new ();
-	if (data->cd->html->engine->title && data->cd->html->engine->title->str) {
-		e_utf8_gtk_entry_set_text (GTK_ENTRY (data->entry_title), data->cd->html->engine->title->str);
+	if (gtk_html_get_title (data->cd->html)) {
+		e_utf8_gtk_entry_set_text (GTK_ENTRY (data->entry_title), 
+					   gtk_html_get_title (data->cd->html));
 	}
 	gtk_signal_connect (GTK_OBJECT (data->entry_title), "changed", entry_changed, data);
 	gtk_box_pack_start_defaults (GTK_BOX (hbox), data->entry_title);
@@ -348,7 +349,7 @@ body_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 
 	if (redraw)
 		gtk_widget_queue_draw (GTK_WIDGET (cd->html));
-	html_engine_set_title (data->cd->html->engine, e_utf8_gtk_entry_get_text (GTK_ENTRY (data->entry_title)));
+	gtk_html_set_title (data->cd->html, e_utf8_gtk_entry_get_text (GTK_ENTRY (data->entry_title)));
 }
 
 void
