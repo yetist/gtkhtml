@@ -163,7 +163,7 @@ insert_column_setup_undo (HTMLEngine *e, gint col, guint position_before, HTMLUn
 gboolean
 html_engine_goto_table_0 (HTMLEngine *e, HTMLTable *table)
 {
-	return html_cursor_jump_to (e->cursor, e, (HTMLObject *)table, 0);
+	return html_cursor_jump_to (e->cursor, e, HTML_OBJECT (table), 0);
 }
 
 gboolean
