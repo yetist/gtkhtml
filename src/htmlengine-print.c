@@ -68,6 +68,8 @@ print_all_pages (HTMLPainter *printer,
 		print_page (printer, engine, split_offset, page_width, new_split_offset- split_offset);
 
 		split_offset = new_split_offset;
+
+		break;
 	} 
 
 	print_page (printer, engine, split_offset, page_width, page_height);
@@ -94,6 +96,8 @@ html_engine_print (HTMLEngine *engine,
 
 	max_width = engine->width = html_printer_get_page_width (HTML_PRINTER (printer));
 	engine->clue->width = max_width;
+	html_object_set_max_width (engine->clue, printer, max_width);
+	html_object_calc_size (engine->clue, printer);
 
 	min_width = html_object_calc_min_width (engine->clue, printer);
 	if (min_width > max_width)

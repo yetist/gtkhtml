@@ -999,6 +999,7 @@ static gint
 calc_min_width (HTMLObject *o,
 		HTMLPainter *painter)
 {
+	calc_col_info (HTML_TABLE (o), painter);
 	return HTML_TABLE(o)->_minWidth;
 }
 
@@ -1006,6 +1007,7 @@ static gint
 calc_preferred_width (HTMLObject *o,
 		      HTMLPainter *painter)
 {
+	calc_col_info (HTML_TABLE (o), painter);
 	return HTML_TABLE (o)->_prefWidth;
 }
 

@@ -1,8 +1,13 @@
 2000-02-08  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmltable.c (calc_min_width): Call `calc_col_info()' before
+	returning the value.
+	(calc_preferred_width): Likewise.
+
 	* htmlprinter.c (draw_panel): Implemented.  It does actually just
 	draws a rectangle for now.
 	(class_init): Install it.
+	(PIXEL_SIZE): Changed to .5.
 
 	* htmlengine-print.c (html_engine_print): When you call
 	`html_engine_calc_size()', it uses `html_object_calc_min_size()'

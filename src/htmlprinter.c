@@ -29,7 +29,7 @@ static HTMLPainterClass *parent_class = NULL;
 
 
 /* The size of a pixel in the printed output, in points.  */
-#define PIXEL_SIZE 1.0
+#define PIXEL_SIZE .5
 
 /* The following macros are used to convert between the HTMLEngine coordinate
    system (which uses integers) to the GnomePrint one (which uses doubles). */
