@@ -1,3 +1,7 @@
+2001-10-22  Larry Ewing  <lewing@ximian.com>
+
+	* template.c (get_sample_html): don't leak the template html.
+
 2001-10-16  Larry Ewing  <lewing@ximian.com>
 
 	* persist-stream-impl.c (ps_impl_load): clean up exit code.
