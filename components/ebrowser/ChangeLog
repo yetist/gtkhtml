@@ -1,3 +1,7 @@
+2003-08-12  Larry Ewing  <lewing@ximian.com>
+
+	* *.*: remove everything this directory is dead.
+
 2001-07-08  Larry Ewing  <lewing@ximian.com>
 
 	* test.c: add missing includes.
