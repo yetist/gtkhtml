@@ -181,12 +181,11 @@ check_point (HTMLObject *self,
 	/* This scans all the HTMLTextSlaves that represent the various lines
            in which the text is split.  */
 	for (p = self->next; p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE; p = p->next) {
-
 		/* Check if the cursor is on this line.  If the line is the
                    first one, the vertical position is always OK, as we might
                    have vertical space before us, added by our parent, and we
                    don't want to make the user's life harder.  */
-		if (self->prev == NULL
+		if ((self->prev == NULL && p->next == self)
 		    || (y >= p->y - p->ascent && y < p->y + p->descent)) {
 			/* If the cursor is on this line, there is a newline
                            after this, and we want cursor-line behavior, then

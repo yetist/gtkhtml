@@ -1,5 +1,8 @@
 2000-01-23  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmltextmaster.c (check_point): Fix selection for slaves after
+	the first one.
+
 	* htmlobject.c (check_point): Fix braino: `for_cursor' is a
 	`gboolean', not a `gpointer'.
 
