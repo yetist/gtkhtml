@@ -35,6 +35,7 @@
 #include "htmlengine-edit-rule.h"
 #include "htmlengine-edit-movement.h"
 #include "htmlengine-edit-cursor.h"
+#include "htmlengine-edit-table.h"
 #include "htmlengine-edit-text.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-print.h"
@@ -2792,6 +2793,9 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		break;
 	case GTK_HTML_COMMAND_CURSOR_BACKWARD:
 		html_cursor_backward (html->engine->cursor, html->engine);
+		break;
+	case GTK_HTML_COMMAND_INSERT_TABLE_1_1:
+		html_engine_insert_table_1_1 (e);
 		break;
 	default:
 		html->binding_handled = FALSE;

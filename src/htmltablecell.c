@@ -106,7 +106,7 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *ri
 
 	printf ("merge cells %d,%d %d,%d\n", c1->row, c1->col, c2->row, c2->col);
 
-	return c1->col == c2->col
+	return HTML_OBJECT_TYPE (with) == HTML_TYPE_CLUEV || c1->col == c2->col
 		? (* HTML_OBJECT_CLASS (parent_class)->merge) (self, with, e, left, right)
 		: FALSE;
 }

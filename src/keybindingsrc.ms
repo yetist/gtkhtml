@@ -93,4 +93,6 @@ binding "gtkhtml-bindings-ms"
   bind "<Alt>KP_Enter"        { "command" (property-dialog) }
 
   bind "<Alt>q"               { "command" (indent-paragraph) }
+
+  bind "<Ctrl><Shift>t"      { "command" (insert-table-1-1) }
 }

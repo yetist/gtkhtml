@@ -25,23 +25,7 @@
 #include "htmltypes.h"
 #include "htmlenums.h"
 
-HTMLObject *html_engine_create_table (HTMLEngine *e,
-				      gint width,
-				      gint percent,
-				      gint padding,
-				      gint spacing,
-				      gint border);
-
-void html_engine_insert_table (HTMLEngine *e, gint *values);
-
-HTMLObject * html_engine_insert_table_cell (HTMLEngine *e,
-					    gint percent,
-					    gint rs,
-					    gint cs,
-					    gint pad,
-					    gint width,
-					    HTMLImagePointer *imagePtr);
-
+void  html_engine_insert_table_1_1  (HTMLEngine *e);
 			       
 #endif
 

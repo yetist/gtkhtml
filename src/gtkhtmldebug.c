@@ -113,7 +113,7 @@ gtk_html_debug_dump_table (HTMLObject *o,
 
 }
 
-void
+static void
 gtk_html_debug_dump_table_simple (HTMLObject *o, gint level)
 {
 	gint c, r;

@@ -1,5 +1,20 @@
 2001-03-06  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine-edit-cut-and-paste.c (html_engine_append_object): new
+	method, splits at cursor upto level 'level' and appends object
+	right there
+
+	* htmlengine-edit-table.c (html_engine_insert_table_1_1): new
+	command implementation
+
+	* htmlengine-edit-cut-and-paste.c (look_for_non_appendable): check
+	for parent type insted of object itself
+
+	* htmlobject.c (html_object_merge): work around nested types
+	(CLUEV, TABLECELL)
+
+	* gtkhtml-properties.c: added new commands definitions
+
 	* htmlengine-edit-cut-and-paste.c (split_and_add_empty_texts): in
 	case of '' split after
 

@@ -308,7 +308,9 @@ static gboolean
 look_for_non_appendable (GList *list)
 {
 	while (list) {
-		if (HTML_OBJECT_TYPE (HTML_OBJECT (list->data)) == HTML_TYPE_TABLECELL)
+		HTMLObject *o = HTML_OBJECT (list->data);
+
+		if (o->parent && HTML_OBJECT_TYPE (o->parent) == HTML_TYPE_TABLE)
 			return TRUE;
 		list = list->next;
 	}
@@ -369,7 +371,6 @@ split_and_add_empty_texts (HTMLEngine *e, gint level, GList **left, GList **righ
 	HTMLObject *object = NULL;
 
 	if ((e->cursor->offset == 0 || (html_object_get_length (e->cursor->object) == e->cursor->offset))) {
-		//    && !(html_object_is_text (e->cursor->object) && *HTML_TEXT (e->cursor->object)->text == 0)) {
 		HTMLObject *leaf;
 		gboolean prev;
 
@@ -405,7 +406,7 @@ html_engine_copy (HTMLEngine *e)
 		e->clipboard_len = 0;
 		e->clipboard     = html_object_op_copy (HTML_OBJECT (from->data), e, from->next, to->next,
 							&e->clipboard_len);
-		printf ("copy len: %d\n", e->clipboard_len);
+		printf ("copy len: %d (parent %p)\n", e->clipboard_len, e->clipboard->parent);
 		gtk_html_debug_dump_tree_simple (e->clipboard, 0);
 		html_engine_thaw (e);
 	}
@@ -836,4 +837,21 @@ html_engine_insert_link (HTMLEngine *e, const gchar *url, const gchar *target)
 		html_engine_set_url    (e, url);
 		html_engine_set_target (e, target);
 	}
+}
+
+void
+html_engine_append_object (HTMLEngine *e, HTMLObject *o, guint len, gint level)
+{
+	GList *left = NULL, *right = NULL;
+	HTMLObject *where;
+
+	html_engine_freeze (e);
+	html_object_split (e->cursor->object, e, NULL, e->cursor->offset, level, &left, &right);
+
+	where = HTML_OBJECT (left->data);
+	html_clue_append_after (HTML_CLUE (where->parent), o, where);
+
+	html_cursor_forward_n (e->cursor, e, len);
+	insert_setup_undo (e, len, HTML_UNDO_UNDO);	
+	html_engine_thaw (e);
 }
