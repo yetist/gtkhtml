@@ -268,6 +268,7 @@ slave_split_if_too_long (HTMLTextSlave *slave, HTMLPainter *painter, gint *width
 {
 	gint x, y;
 
+	printf ("split it\n");
 	html_object_calc_abs_position (HTML_OBJECT (slave), &x, &y);
 
 	if (*width + x > MAX_WIDGET_WIDTH && slave->posLen > 1) {
@@ -286,6 +287,7 @@ calc_size (HTMLObject *self, HTMLPainter *painter, GList **changed_objs)
 {
 	HTMLText *owner;
 	HTMLTextSlave *slave;
+	HTMLObject *next;
 	GtkHTMLFontStyle font_style;
 	gint new_ascent, new_descent, new_width;
 	gboolean changed;
@@ -295,7 +297,11 @@ calc_size (HTMLObject *self, HTMLPainter *painter, GList **changed_objs)
 	font_style = html_text_get_font_style (owner);
 
 	new_width = MAX (1, calc_width (slave, painter, &new_ascent, &new_descent));
-	if ((HTML_IS_PLAIN_PAINTER (painter) || HTML_IS_GDK_PAINTER (painter))
+
+	next = HTML_OBJECT (slave)->next;
+	if ((slave->start_word == owner->words - 1
+	     && (!next || (HTML_IS_TEXT_SLAVE (next) && HTML_TEXT_SLAVE (next)->start_word == slave->start_word + 1)))
+	    && (HTML_IS_PLAIN_PAINTER (painter) || HTML_IS_GDK_PAINTER (painter))
 	    && new_width > HTML_OBJECT (owner)->max_width)
 		slave_split_if_too_long (slave, painter, &new_width, &new_ascent, &new_descent);
 
