@@ -24,6 +24,7 @@
 #include <config.h>
 #include "gtkhtml-compat.h"
 
+#include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
 

@@ -1,3 +1,32 @@
+2001-07-08  Larry Ewing  <lewing@ximian.com>
+
+	Chema <chema@ximian.com> pointed out that we were inheriting a lot
+	of includes from <libgnomeprint/gnome-print.h> which is getting
+	cleaned up in the gnome-print trunk.  This is basically his patch
+	minus a couple things I didn't want to do yet.
+	
+	* htmltokenizer.c: add gtkobject include.
+
+	* htmltextinput.c: add gtksignal include.
+	* htmlgdkpainter.c: same.
+
+	* htmltable.c: include stdio.h.
+	* htmltextslave.c: same. 
+	* htmlengine.c: same.
+	* gtkhtmldebug.c: same.
+	* htmlengine-edit-cut-and-paste.c: same.
+
+	* htmltablecell.c (merge): use g_print.
+	* htmlengine-edit-table.c (html_engine_insert_table_row): same.
+
+	* htmlimage.c (get_src): add missing prototype.  use g_print.
+
+	* htmlform.h: add gtkradiobutton.h include.
+
+	* htmlengine-edit-text.c (upper_lower): remove debugging printf.
+
+	* gtkhtml-stream.c: add missing includes.
+
 2001-07-05  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml.c (focus): add Jacobs temporary fix to let focus work

@@ -20,14 +20,17 @@
 */
 
 #include <config.h>
-#include <glib.h>
-#include <libgnome/gnome-defs.h>
-#include <libgnome/gnome-i18n.h>
 #include "gtkhtml-compat.h"
 
 #include <string.h>
 #include <stdlib.h>
+
+#include <glib.h>
 #include <gdk/gdkx.h>
+#include <gtk/gtksignal.h>
+
+#include <libgnome/gnome-defs.h>
+#include <libgnome/gnome-i18n.h>
 #include <libart_lgpl/art_rect.h>
 #include <gal/unicode/gunicode.h>
 #include <gal/widgets/e-font.h>

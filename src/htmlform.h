@@ -22,6 +22,7 @@
 #define _HTMLFORM_H_
 
 #include <glib.h>
+#include <gtk/gtkradiobutton.h>
 #include "htmlembedded.h"
 #include "htmlhidden.h"
 

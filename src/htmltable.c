@@ -23,7 +23,9 @@
 */
 
 #include <config.h>
+#include <stdio.h>
 #include <string.h>
+
 #include "gtkhtmldebug.h"
 #include "htmlcolor.h"
 #include "htmlcolorset.h"

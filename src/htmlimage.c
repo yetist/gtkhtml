@@ -568,6 +568,7 @@ get_target (HTMLObject *o)
 	return image->target;
 }
 
+static const gchar *
 get_src (HTMLObject *o)
 {
 	HTMLImage *image;
@@ -1037,7 +1038,7 @@ html_image_factory_frame_done (GdkPixbufLoader *loader, GdkPixbufFrame *frame, H
 static void
 html_image_factory_animation_done (GdkPixbufLoader *loader, HTMLImagePointer *ip)
 {
-	printf ("animation done\n");
+	g_print ("animation done\n");
 }
 
 HTMLImageFactory *

@@ -50,8 +50,6 @@ upper_lower (HTMLObject *obj, HTMLEngine *e, gpointer data)
 	gboolean up = GPOINTER_TO_INT (data);
 	guchar *text;
 
-	printf ("upper_lower\n");
-
 	g_assert (html_object_is_text (obj));
 
 	text = HTML_TEXT (obj)->text;

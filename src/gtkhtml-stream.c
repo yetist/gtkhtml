@@ -21,6 +21,9 @@
 
 #include <config.h>
 
+#include <stdio.h>
+#include <sys/types.h>
+
 #include "gtkhtml-stream.h"
 
 

@@ -25,6 +25,7 @@
 #ifndef _HTMLTOKENIZER_H_
 #define _HTMLTOKENIZER_H_
 
+#include <gtk/gtkobject.h>
 #include "htmltypes.h"
 
 #define TAG_ESCAPE 13

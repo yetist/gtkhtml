@@ -464,7 +464,7 @@ insert_table_row (HTMLEngine *e, gboolean after, HTMLTableCell **row_cells, HTML
 void
 html_engine_insert_table_row (HTMLEngine *e, gboolean after)
 {
-	printf ("html_engine_insert_table_row\n");
+	g_print ("html_engine_insert_table_row\n");
 	insert_table_row (e, after, NULL, HTML_UNDO_UNDO);
 }
 
