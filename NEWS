@@ -1,3 +1,30 @@
+Version 1.1.x
+-------------
+
+ - spell checking quotation improved
+ - updated to new gnome-spell
+   - better language selection
+   - more than one language at once
+   - spell checking control updated
+ - link insertion / editing completely reworked
+ - dirty flag for composer
+ - HUGE general speedup
+ - selection drawing speedup
+ - less flicker
+ - new commands and keybindings (delete-word, delete-word-backward, text-color-apply)
+ - UI usability enhanced
+ - gconf as default configuration backend
+ - smileys :-)
+ - DND for URL's
+ - printing API - gtk_html_get_pages_num
+ - title setting in editor
+ - body templates
+
+ - itemized list fixed
+ - animated images fixed (infinite loop)
+ - PRIMARY selection fixed
+ - header printing fixed
+
 Version 0.9, "Lighthouse", 2000-12-14
 -------------------------------------
 

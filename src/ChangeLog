@@ -1,3 +1,8 @@
+2002-05-02  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (load_bindings_from_file): use GTKHTML_RELASE when
+	loading keybindings
+
 2002-04-30  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml-propmanager.h: include gconf-client.h
