@@ -188,10 +188,15 @@ alloc_e_font_try (gchar *face, gdouble size, GtkHTMLFontStyle style,
 		n3 = font_name_substitute_attr (n2,   7, "*");
 
 		if (known_size) {
-			if (!find_font (n3, size, &tsize, style))
+			if (!find_font (n3, size, &tsize, style)) {
+				g_free (n1);
+				g_free (n2);
+				g_free (n3);
 				return NULL;
+			}
 		} else
 			tsize = size;
+
 		tsize = MAX (tsize, 1);
 
 		g_free (n1);
@@ -209,6 +214,7 @@ alloc_e_font_try (gchar *face, gdouble size, GtkHTMLFontStyle style,
 			gdk_font_unref (gdk_font);
 		} else
 			font = NULL;
+
 		g_free (name);
 	} else {
 		GdkFont *fixed = gdk_font_load ("fixed");

@@ -1,3 +1,8 @@
+2001-09-12  Larry Ewing  <lewing@ximian.com>
+
+	* htmlgdkpainter.c (alloc_e_font_try): free the temp strings even
+	if we exit with and error.
+
 2001-09-12  Radek Doulik  <rodo@ximian.com>
 
 	* htmlgdkpainter.c (alloc_e_font_do): renamed from alloc_e_font
