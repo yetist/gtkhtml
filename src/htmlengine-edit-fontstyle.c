@@ -60,7 +60,7 @@ get_font_style_from_selection (HTMLEngine *engine)
 	p = engine->selection->from;
 
 	while (1) {
-		if (html_object_is_text (p.object)) {
+		if (html_object_is_text (p.object) && p.offset != html_object_get_length (p.object)) {
 			if (first) {
 				style = HTML_TEXT (p.object)->font_style;
 				first = FALSE;
@@ -82,22 +82,22 @@ static HTMLColor *
 get_color_from_selection (HTMLEngine *engine)
 {
 	HTMLColor *color = NULL;
-	HTMLObject *p;
+	HTMLPoint p;
 
 	g_return_val_if_fail (engine->clue != NULL, NULL);
 	g_assert (html_engine_is_selection_active (engine));
 
-	p = engine->selection->from.object;
+	p = engine->selection->from;
 	while (1) {
-		if (html_object_is_text (p)) {
-			color = HTML_TEXT (p)->color;
+		if (html_object_is_text (p.object)  && p.offset != html_object_get_length (p.object)) {
+			color = HTML_TEXT (p.object)->color;
 			break;
 		}
 
-		if (p == engine->selection->to.object)
+		if (html_point_cursor_object_eq (&p, &engine->selection->to))
 			break;
-		p = html_object_next_leaf (p);
-		g_assert (p != NULL);
+		html_point_next_cursor (&p);
+		g_assert (p.object != NULL);
 	}
 
 	return color;
@@ -106,43 +106,43 @@ get_color_from_selection (HTMLEngine *engine)
 GtkHTMLFontStyle
 html_engine_get_document_font_style (HTMLEngine *engine)
 {
-	HTMLObject *curr;
-
 	g_return_val_if_fail (engine != NULL, GTK_HTML_FONT_STYLE_DEFAULT);
 	g_return_val_if_fail (HTML_IS_ENGINE (engine), GTK_HTML_FONT_STYLE_DEFAULT);
 	g_return_val_if_fail (engine->editable, GTK_HTML_FONT_STYLE_DEFAULT);
 
-	curr = engine->cursor->object;
-
-	if (curr == NULL)
-		return GTK_HTML_FONT_STYLE_DEFAULT;
-	else if (! html_object_is_text (curr))
-		return GTK_HTML_FONT_STYLE_DEFAULT;
-	else if (! html_engine_is_selection_active (engine))
-		return HTML_TEXT (curr)->font_style;
-	else
+	if (html_engine_is_selection_active (engine))
 		return get_font_style_from_selection (engine);
+	else {
+		HTMLObject *curr = engine->cursor->object;
+
+		if (curr == NULL)
+			return GTK_HTML_FONT_STYLE_DEFAULT;
+		else if (! html_object_is_text (curr))
+			return GTK_HTML_FONT_STYLE_DEFAULT;
+		else
+			return HTML_TEXT (curr)->font_style;
+	}
 }
 
 HTMLColor *
 html_engine_get_document_color (HTMLEngine *engine)
 {
-	HTMLObject *curr;
-
 	g_return_val_if_fail (engine != NULL, NULL);
 	g_return_val_if_fail (HTML_IS_ENGINE (engine), NULL);
 	g_return_val_if_fail (engine->editable, NULL);
 
-	curr = engine->cursor->object;
-
-	if (curr == NULL)
-		return NULL;
-	else if (! html_object_is_text (curr))
-		return NULL;
-	else if (! html_engine_is_selection_active (engine))
-		return HTML_TEXT (curr)->color;
-	else
+	if (html_engine_is_selection_active (engine))
 		return get_color_from_selection (engine);
+	else {
+		HTMLObject *curr = engine->cursor->object;
+
+		if (curr == NULL)
+			return NULL;
+		else if (! html_object_is_text (curr))
+			return NULL;
+		else
+			return HTML_TEXT (curr)->color;
+	}
 }
 
 GtkHTMLFontStyle
@@ -237,8 +237,8 @@ object_set_font_style (HTMLObject *o, HTMLEngine *e, gpointer data)
 	if (html_object_is_text (o)) {
 		struct tmp_font *tf = (struct tmp_font *) data;
 
-		HTML_TEXT (o)->font_style |= tf->or_mask;
 		HTML_TEXT (o)->font_style &= tf->and_mask;
+		HTML_TEXT (o)->font_style |= tf->or_mask;
 
 		if (o->prev)
 			html_object_merge (o->prev, o, e, NULL, NULL);
@@ -254,6 +254,8 @@ html_engine_set_font_style (HTMLEngine *e,
 	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
 	g_return_val_if_fail (e->editable, FALSE);
 
+
+	printf ("and %d or %d\n", and_mask, or_mask);
 	if (html_engine_is_selection_active (e)) {
 		struct tmp_font *tf = g_new (struct tmp_font, 1);
 		tf->and_mask = and_mask;
@@ -264,8 +266,8 @@ html_engine_set_font_style (HTMLEngine *e,
 	} else {
 		GtkHTMLFontStyle old = e->insertion_font_style;
 
-		e->insertion_font_style |= or_mask;
 		e->insertion_font_style &= and_mask;
+		e->insertion_font_style |= or_mask;
 
 		return (old == e->insertion_font_style) ? FALSE : TRUE;
 	}

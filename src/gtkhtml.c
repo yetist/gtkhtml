@@ -29,6 +29,7 @@
 
 #include <gnome.h>
 
+#include "htmlengine-edit.h"
 #include "htmlengine-edit-clueflowstyle.h"
 #include "htmlengine-edit-cut-and-paste.h"
 #include "htmlengine-edit-fontstyle.h"
@@ -37,7 +38,7 @@
 #include "htmlengine-edit-cursor.h"
 #include "htmlengine-edit-table.h"
 #include "htmlengine-edit-text.h"
-#include "htmlengine-edit.h"
+#include "htmlengine-edit-selection-updater.h"
 #include "htmlengine-print.h"
 #include "htmlengine-save.h"
 #include "htmlsettings.h"
@@ -228,6 +229,7 @@ update_styles (GtkHTML *html)
 		return;
 
 	engine = html->engine;
+	html_engine_edit_selection_updater_update_now (engine->selection_updater);
 
 	clueflow_style = html_engine_get_current_clueflow_style (engine);
 	paragraph_style = clueflow_style_to_paragraph_style (clueflow_style);
@@ -2666,7 +2668,6 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_INSERT_PARAGRAPH:
 		html_engine_delete (e);
 		html_engine_insert_empty_paragraph (e);
-		html->priv->update_styles = FALSE;
 		break;
 	case GTK_HTML_COMMAND_DELETE:
 		if (e->mark != NULL
@@ -2697,75 +2698,99 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		break;
 	case GTK_HTML_COMMAND_BOLD_ON:
 		gtk_html_set_font_style (html, GTK_HTML_FONT_STYLE_MAX, GTK_HTML_FONT_STYLE_BOLD);
+		update_styles (html);
 		break;
 	case GTK_HTML_COMMAND_BOLD_OFF:
 		gtk_html_set_font_style (html, ~GTK_HTML_FONT_STYLE_BOLD, 0);
+		update_styles (html);
 		break;
 	case GTK_HTML_COMMAND_BOLD_TOGGLE:
 		gtk_html_toggle_font_style (html, GTK_HTML_FONT_STYLE_BOLD);
+		update_styles (html);
 		break;
 	case GTK_HTML_COMMAND_ITALIC_ON:
 		gtk_html_set_font_style (html, GTK_HTML_FONT_STYLE_MAX, GTK_HTML_FONT_STYLE_ITALIC);
+		update_styles (html);
 		break;
 	case GTK_HTML_COMMAND_ITALIC_OFF:
 		gtk_html_set_font_style (html, ~GTK_HTML_FONT_STYLE_ITALIC, 0);
+		update_styles (html);
 		break;
 	case GTK_HTML_COMMAND_ITALIC_TOGGLE:
 		gtk_html_toggle_font_style (html, GTK_HTML_FONT_STYLE_ITALIC);
+		update_styles (html);
 		break;
 	case GTK_HTML_COMMAND_STRIKEOUT_ON:
 		gtk_html_set_font_style (html, GTK_HTML_FONT_STYLE_MAX, GTK_HTML_FONT_STYLE_STRIKEOUT);
+		update_styles (html);
 		break;
 	case GTK_HTML_COMMAND_STRIKEOUT_OFF:
 		gtk_html_set_font_style (html, ~GTK_HTML_FONT_STYLE_STRIKEOUT, 0);
+		update_styles (html);
 		break;
 	case GTK_HTML_COMMAND_STRIKEOUT_TOGGLE:
 		gtk_html_toggle_font_style (html, GTK_HTML_FONT_STYLE_STRIKEOUT);
+		update_styles (html);
 		break;
 	case GTK_HTML_COMMAND_UNDERLINE_ON:
 		gtk_html_set_font_style (html, GTK_HTML_FONT_STYLE_MAX, GTK_HTML_FONT_STYLE_UNDERLINE);
+		update_styles (html);
 		break;
 	case GTK_HTML_COMMAND_UNDERLINE_OFF:
 		gtk_html_set_font_style (html, ~GTK_HTML_FONT_STYLE_UNDERLINE, 0);
+		update_styles (html);
 		break;
 	case GTK_HTML_COMMAND_UNDERLINE_TOGGLE:
 		gtk_html_toggle_font_style (html, GTK_HTML_FONT_STYLE_UNDERLINE);
+		update_styles (html);
 		break;
 	case GTK_HTML_COMMAND_SIZE_MINUS_2:
 		gtk_html_set_font_style (html, ~GTK_HTML_FONT_STYLE_SIZE_MASK, GTK_HTML_FONT_STYLE_SIZE_1);
+		update_styles (html);
 		break;
 	case GTK_HTML_COMMAND_SIZE_MINUS_1:
 		gtk_html_set_font_style (html, ~GTK_HTML_FONT_STYLE_SIZE_MASK, GTK_HTML_FONT_STYLE_SIZE_2);
+		update_styles (html);
 		break;
 	case GTK_HTML_COMMAND_SIZE_PLUS_0:
 		gtk_html_set_font_style (html, ~GTK_HTML_FONT_STYLE_SIZE_MASK, GTK_HTML_FONT_STYLE_SIZE_3);
+		update_styles (html);
 		break;
 	case GTK_HTML_COMMAND_SIZE_PLUS_1:
 		gtk_html_set_font_style (html, ~GTK_HTML_FONT_STYLE_SIZE_MASK, GTK_HTML_FONT_STYLE_SIZE_4);
+		update_styles (html);
 		break;
 	case GTK_HTML_COMMAND_SIZE_PLUS_2:
 		gtk_html_set_font_style (html, ~GTK_HTML_FONT_STYLE_SIZE_MASK, GTK_HTML_FONT_STYLE_SIZE_5);
+		update_styles (html);
 		break;
 	case GTK_HTML_COMMAND_SIZE_PLUS_3:
 		gtk_html_set_font_style (html, ~GTK_HTML_FONT_STYLE_SIZE_MASK, GTK_HTML_FONT_STYLE_SIZE_6);
+		update_styles (html);
 		break;
 	case GTK_HTML_COMMAND_SIZE_PLUS_4:
 		gtk_html_set_font_style (html, ~GTK_HTML_FONT_STYLE_SIZE_MASK, GTK_HTML_FONT_STYLE_SIZE_7);
+		update_styles (html);
 		break;
 	case GTK_HTML_COMMAND_SIZE_INCREASE:
 		html_engine_font_size_inc_dec (e, TRUE);
+		update_styles (html);
 		break;
 	case GTK_HTML_COMMAND_SIZE_DECREASE:
 		html_engine_font_size_inc_dec (e, FALSE);
+		update_styles (html);
 		break;
 	case GTK_HTML_COMMAND_ALIGN_LEFT:
 		gtk_html_set_paragraph_alignment (html, GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT);
+		update_styles (html);
 		break;
 	case GTK_HTML_COMMAND_ALIGN_CENTER:
 		gtk_html_set_paragraph_alignment (html, GTK_HTML_PARAGRAPH_ALIGNMENT_CENTER);
+		update_styles (html);
 		break;
 	case GTK_HTML_COMMAND_ALIGN_RIGHT:
 		gtk_html_set_paragraph_alignment (html, GTK_HTML_PARAGRAPH_ALIGNMENT_RIGHT);
+		update_styles (html);
 		break;
 	case GTK_HTML_COMMAND_INDENT_ZERO:
 		gtk_html_set_indent (html, 0);

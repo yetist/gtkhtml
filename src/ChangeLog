@@ -1,5 +1,11 @@
 2001-04-11  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine-edit-fontstyle.c (html_engine_set_font_style):
+	changed order back to AND, OR
+	(get_color_from_selection): use point for movement thru selection
+	(get_color_from_selection): don't get color from end of objects
+	(get_font_style_from_selection): likewise
+
 	* gtkhtml.c (button_press_event): fixed Bug 2166:
 	With Evolution, start composing a new message; type out a few lines. Click
 	to insert the cursor somewhere, and then click backwards in the text to
