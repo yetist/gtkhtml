@@ -1879,6 +1879,7 @@ save_plain (HTMLObject *self,
 {
 	HTMLClueFlow *flow;
 	HTMLEngineSaveState *buffer_state;
+	HTMLDirection dir = html_object_get_direction (self);
 	GString *out = g_string_new ("");
 	gint pad;
 	gint align_pad;
@@ -2008,13 +2009,19 @@ save_plain (HTMLObject *self,
 
 				switch (html_clueflow_get_halignment (flow)) {
 				case HTML_HALIGN_RIGHT:
-					align_pad = max_width - width;
+					if (dir != HTML_DIRECTION_RTL)
+						align_pad = max_width - width;
+					else
+						align_pad = 0;
 					break;
 				case HTML_HALIGN_CENTER:
 					align_pad = (max_width - width) / 2;
 					break;
 				default:
-					align_pad = 0;
+					if (dir != HTML_DIRECTION_RTL)
+						align_pad = 0;
+					else
+						align_pad = max_width - width;
 					break;
 				}
 			

@@ -1,5 +1,6 @@
 #include <string.h>
 #include <stdio.h>
+#include <glib/gstring.h>
 #include <gtk/gtkmain.h>
 #include <gtk/gtkwindow.h>
 #include "gtkhtml.h"
@@ -12,6 +13,8 @@
 #include "htmlengine-edit-cut-and-paste.h"
 #include "htmlengine-edit-movement.h"
 #include "htmlengine-edit-text.h"
+#include "htmlengine-save.h"
+#include "htmlselection.h"
 #include "htmltable.h"
 #include "htmltablecell.h"
 #include "htmltext.h"
@@ -32,6 +35,8 @@ static int test_quotes_in_div_block (GtkHTML *html);
 static int test_quotes_in_table (GtkHTML *html);
 static int test_capitalize_upcase_lowcase_word (GtkHTML *html);
 static int test_delete_nested_cluevs_and_undo (GtkHTML *html);
+static int test_indentation_plain_text (GtkHTML *html);
+static int test_indentation_plain_text_rtl (GtkHTML *html);
 
 static Test tests[] = {
 	{ "cursor movement", NULL },
@@ -46,6 +51,8 @@ static Test tests[] = {
 	{ "outer quotes inside table", test_quotes_in_table },
 	{ "capitalize, upcase/lowcase word", test_capitalize_upcase_lowcase_word },
 	{ "delete across nested cluev's and undo", test_delete_nested_cluevs_and_undo },
+	{ "indentation in plain text", test_indentation_plain_text },
+	{ "indentation in plain text (RTL)", test_indentation_plain_text_rtl },
 	{ NULL, NULL }
 };
 
@@ -55,6 +62,30 @@ static void load_editable (GtkHTML *html, char *s)
 	gtk_html_load_from_string (html, s, -1);
 /* 	gtk_html_debug_dump_tree_simple (html->engine->clue, 0); */
 	gtk_html_set_editable (html, TRUE);
+}
+
+static gboolean
+plain_save_receiver (gpointer engine, const char *data, unsigned int len, gpointer user_data)
+{
+	GString *str = (GString *) user_data;
+
+	g_string_append_len (str, data, len);
+
+	return TRUE;
+}
+
+static char *
+get_plain (GtkHTML *html)
+{
+	GString *str = g_string_new (0);
+	char *rv;
+
+	html_engine_save_plain (html->engine, plain_save_receiver, str);
+
+	rv = str->str;
+	g_string_free (str, FALSE);
+
+	return rv;
 }
 
 static int test_delete_nested_cluevs_and_undo (GtkHTML *html)
@@ -85,6 +116,36 @@ static int test_delete_nested_cluevs_and_undo (GtkHTML *html)
 	if (html->engine->cursor->offset != 3
 	    || html->engine->cursor->position != 7)
 		return FALSE;
+
+	return TRUE;
+}
+
+static int test_indentation_plain_text (GtkHTML *html)
+{
+	char *str;
+
+	load_editable (html, "abc<div align=right>abc</div>");
+
+	str = get_plain (html);
+	if (!str || strcmp (str, "abc\n                                                                     abc\n"))
+		return FALSE;
+
+	g_free (str);
+
+	return TRUE;
+}
+
+static int test_indentation_plain_text_rtl (GtkHTML *html)
+{
+	char *str;
+
+	load_editable (html, "שנבגקכעי<div align=left>שנבגקכעי</div>");
+
+	str = get_plain (html);
+	if (!str || strcmp (str, "שנבגקכעי\n                                                                שנבגקכעי\n"))
+		return FALSE;
+
+	g_free (str);
 
 	return TRUE;
 }
