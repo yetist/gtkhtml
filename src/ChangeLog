@@ -1,6 +1,8 @@
 2002-02-06  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (drag_data_received): remove \n\r in the end of url's
+	(drag_data_received): allow dropping of uri lists instead of just
+	one uri, implemented image dropping
 
 2002-02-05  Radek Doulik  <rodo@ximian.com>
 

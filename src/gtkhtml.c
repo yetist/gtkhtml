@@ -1889,71 +1889,133 @@ drag_data_delete (GtkWidget *widget, GdkDragContext *context)
 	GTK_HTML (widget)->priv->dnd_url = NULL;
 }
 
+static gchar *
+next_uri (guchar **uri_list, gint *len, gint *list_len)
+{
+	guchar *uri, *begin;
+
+	begin = *uri_list;
+	*len = 0;
+	while (**uri_list && **uri_list != '\n' && **uri_list != '\r' && *list_len) {
+		(*uri_list) ++;
+		(*len) ++;
+		(*list_len) --;
+	}
+
+	uri = g_strndup (begin, *len);
+
+	while ((!**uri_list || **uri_list == '\n' || **uri_list == '\r') && *list_len) {
+		(*uri_list) ++;
+		(*list_len) --;
+	}	
+
+	return uri;
+}
+
+static gchar *pic_extensions [] = {
+	".png",
+	".gif",
+	".jpg",
+	".xbm",
+	".xpm",
+	".bmp",
+	NULL
+};
+
+static HTMLObject *
+new_obj_from_uri (HTMLEngine *e, gchar *uri, gint *len)
+{
+	gchar *text;
+
+	if (!strncmp (uri, "file:", 5)) {
+		gint i;
+
+		for (i = 0; pic_extensions [i]; i++) {
+			if (!strcmp (uri + *len - strlen (pic_extensions [i]), pic_extensions [i])) {
+				return html_image_new (e->image_factory, uri,
+						       NULL, NULL, -1, -1, FALSE, FALSE, 0,
+						       html_colorset_get_color (e->settings->color_set, HTMLTextColor),
+						       HTML_VALIGN_BOTTOM, TRUE);
+			}
+		}
+	}
+
+	text = uri;
+	while (*text && isalnum (*text))
+		text ++;
+	if (*text == ':') {
+		text ++;
+		if (text [0] == '/' && text [1] == '/') {
+			text += 2;
+		}
+	} else
+		text = uri;
+
+	*len -= (gint) (text - uri);
+
+	return html_engine_new_link (e, text, *len, uri);
+}
+
+static void
+move_before_paste (GtkWidget *widget, gint x, gint y)
+{
+	HTMLEngine *engine = GTK_HTML (widget)->engine;
+
+	if (html_engine_is_selection_active (engine)) {
+		HTMLObject *obj;
+		guint offset;
+
+		obj = html_engine_get_object_at (engine,
+						 x + engine->x_offset,
+						 y + engine->y_offset,
+						 &offset, FALSE);
+		if (!html_engine_point_in_selection (engine, obj, offset)) {
+			html_engine_disable_selection (engine);
+			html_engine_edit_selection_updater_update_now (engine->selection_updater);
+		}
+	}
+	if (!html_engine_is_selection_active (engine)) {
+
+		html_engine_jump_at (engine, x + engine->x_offset, y + engine->y_offset);
+		gtk_html_update_styles (GTK_HTML (widget));
+	}
+}
+
 static void
 drag_data_received (GtkWidget *widget, GdkDragContext *context,
 		    gint x, gint y, GtkSelectionData *selection_data, guint info, guint time)
 {
 	HTMLEngine *engine = GTK_HTML (widget)->engine;
-	HTMLObject *new_text = NULL;
-	gint len;
 
 	/* printf ("drag data received at %d,%d\n", x, y); */
 
 	if (!selection_data->data || selection_data->length < 0 || !html_engine_get_editable (engine))
 		return;
 
+	move_before_paste (widget, x, y);
+
 	switch (info) {
 	case DND_TARGET_TYPE_TEXT_PLAIN:
 	case DND_TARGET_TYPE_STRING:
 		/* printf ("\ttext/plain\n"); */
-		len = selection_data->length;
-		new_text = html_engine_new_text (engine, selection_data->data, len);
+		html_engine_paste_object (engine, html_engine_new_text (engine, selection_data->data, selection_data->length),
+					  selection_data->length);
 		break;
 	case DND_TARGET_TYPE_TEXT_URI_LIST:
 	case DND_TARGET_TYPE__NETSCAPE_URL: {
-		guchar *text;
-		/* printf ("\ttext/uri-list\n"); */
-		text = selection_data->data;
-		while (*text && isalnum (*text))
-			text ++;
-		if (*text == ':') {
-			text ++;
-			if (text [0] == '/' && text [1] == '/') {
-				text += 2;
-			}
-		} else
-			text = selection_data->data;
-		while (selection_data->data [selection_data->length - 1] == '\n'
-		       || selection_data->data [selection_data->length - 1] == '\r')
-			selection_data->length --;
-		len = selection_data->length - (gint) (text - selection_data->data);
-		new_text = html_engine_new_link (engine, text, len,
-						 selection_data->data);
+		gint list_len, len;
+		gchar *uri;
+
+		html_undo_level_begin (engine->undo, "Dropped URI(s)", "Remove Dropped URI(s)");
+		list_len = selection_data->length;
+		do {
+			uri = next_uri (&selection_data->data, &len, &list_len);
+			move_before_paste (widget, x, y);
+			html_engine_paste_object (engine, new_obj_from_uri (engine, uri, &len), len);
+		} while (list_len);
+		html_undo_level_end (engine->undo);
 	}
 	break;
-	}
-
-	if (new_text) {
-		if (html_engine_is_selection_active (engine)) {
-			HTMLObject *obj;
-			guint offset;
-
-			obj = html_engine_get_object_at (engine,
-							 x + engine->x_offset,
-							 y + engine->y_offset,
-							 &offset, FALSE);
-			if (!html_engine_point_in_selection (engine, obj, offset)) {
-				html_engine_disable_selection (engine);
-				html_engine_edit_selection_updater_update_now (engine->selection_updater);
-			}
-		}
-		if (!html_engine_is_selection_active (engine)) {
-
-			html_engine_jump_at (engine, x + engine->x_offset, y + engine->y_offset);
-			gtk_html_update_styles (GTK_HTML (widget));
-		}
-		
-		html_engine_paste_object (engine, new_text, len);
 	}
 }
 
