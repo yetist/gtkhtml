@@ -1,3 +1,11 @@
+2002-10-18  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (parse_p): <p>, </p> create new flows here to have
+	right flow attributes
+	(html_engine_init): init avoid_para to FALSE so <p>abc is rendered
+	right
+	(html_engine_parse): ditto
+
 2002-10-10  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-cut-and-paste.c (check_flows): set style just

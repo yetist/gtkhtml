@@ -2924,15 +2924,19 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 		if (! e->avoid_para) {
 			close_anchor (e);
+			new_flow (e, clue, NULL, HTML_CLEAR_NONE);
+			new_flow (e, clue, NULL, HTML_CLEAR_NONE);
 			e->avoid_para = TRUE;
-			e->pending_para = TRUE;
+			e->pending_para = FALSE;
 		}
 	} else if (*(str) == '/' && *(str + 1) == 'p'
 		   && (*(str + 2) == ' ' || *(str + 2) == '>')) {
 		e->pAlign = e->divAlign;
 		if (! e->avoid_para) {
+			new_flow (e, clue, NULL, HTML_CLEAR_NONE);
+			new_flow (e, clue, NULL, HTML_CLEAR_NONE);
 			e->avoid_para = TRUE;
-			e->pending_para = TRUE;
+			e->pending_para = FALSE;
 		}
 	}
 }
@@ -3531,7 +3535,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->map = NULL;
 	engine->formList = NULL;
 
-	engine->avoid_para = TRUE;
+	engine->avoid_para = FALSE;
 	engine->pending_para = FALSE;
 
 	engine->have_focus = FALSE;
@@ -4406,7 +4410,7 @@ html_engine_parse (HTMLEngine *e)
 	}
 
 	e->parsing = TRUE;
-	e->avoid_para = TRUE;
+	e->avoid_para = FALSE;
 	e->pending_para = FALSE;
 
 	e->pending_para_alignment = HTML_HALIGN_LEFT;
