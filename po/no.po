@@ -133,6 +133,34 @@ msgstr "Stavekontroll"
 msgid "Variable width"
 msgstr "Variabel bredde"
 
+#: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:1
+msgid "EBrowser control"
+msgstr "EBrowser kontroll"
+
+#: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:2
+msgid "EBrowser factory"
+msgstr "EBrowser factory"
+
+#: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:3
+msgid "Factory for the EBrowser control"
+msgstr "Factory for EBrowser kontroll"
+
+#: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:4
+msgid "HTML Browser conrtol"
+msgstr "HTML-leser kontroll"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:1
+msgid "An HTML Editor control"
+msgstr "En kontroll for HTML-redigering"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:2
+msgid "Factory for the HTML Editor control"
+msgstr "Factory for kontroll for HTML-redigering"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:3
+msgid "HTML editor control"
+msgstr "Kontroll for HTML-redigering"
+
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:1
 msgid "C_ut"
 msgstr "Klipp _ut"

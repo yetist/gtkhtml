@@ -165,7 +165,7 @@ html_menu_test_cb (GnomeUIHandler *uih, view_data_t *view_data, gchar *path)
 	if(fil)
 	  {
 	    while (!feof (fil)) {
-	      fgets (buffer, 32768, fil);
+	      fgets (buffer, sizeof (buffer), fil);
 	      gtk_html_write (view_data->bed->html, handle, buffer, strlen(buffer));
 	    }
 	    fclose (fil);
@@ -489,7 +489,7 @@ load_url(GtkHTML *html, const char *url, GtkHTMLStream *handle)
   while(!feof(fil))
     {
       gchar buffer[32768];
-      fgets(buffer, 32768, fil);
+      fgets(buffer, sizeof (buffer), fil);
       gtk_html_write(html, handle, buffer, strlen(buffer));
     }
   fclose(fil);
