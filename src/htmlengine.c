@@ -3211,8 +3211,10 @@ html_engine_end (GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, HTMLEng
 
 	while (html_engine_timer_event (e))
 		;
-	gtk_timeout_remove (e->timerId);
-	e->timerId = 0;
+	if (e->timerId != 0) {
+		gtk_timeout_remove (e->timerId);
+		e->timerId = 0;
+	}
 
 	if (e->editable)
 		ensure_editable (e);
