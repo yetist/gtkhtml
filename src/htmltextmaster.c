@@ -802,7 +802,7 @@ static HTMLMagicInsertMatch mim [] = {
 #define MIM_N (sizeof (mim) / sizeof (mim [0]))
 
 void
-html_engine_init_magic_links ()
+html_engine_init_magic_links (void)
 {
 	gint i;
 

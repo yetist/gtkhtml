@@ -489,8 +489,8 @@ html_engine_insert (HTMLEngine *e,
 
 	/* printf ("text '%s' len %d type %d\n", text, len, HTML_OBJECT_TYPE (current_object)); */
 
-	/* magic link */
-	if (len == 1
+	/* magic links */
+	if (GTK_HTML_PROPERTY (e->widget, magic_links) && len == 1
 	    && (text [0] == ' ' || text [0] == '\n')
 	    && HTML_OBJECT_TYPE (current_object) == HTML_TYPE_TEXTMASTER)
 		html_text_master_magic_link (HTML_TEXT_MASTER (current_object),

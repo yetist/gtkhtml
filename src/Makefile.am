@@ -2,6 +2,7 @@ INCLUDES = -I$(top_srcdir) -I$(srcdir) -I$(includedir) $(GNOME_INCLUDEDIR) \
 	$(EXTRA_GNOME_CFLAGS) \
 	-DG_LOG_DOMAIN=\"gtkhtml\" $(LIBWWW_CFLAGS) \
 	-DSRCDIR=\"$(srcdir)\"
+CFLAGS +=  $(GCONF_CFLAGS)
 
 lib_LTLIBRARIES = libgtkhtml.la
 
@@ -18,6 +19,7 @@ libgtkhtmldir = $(includedir)/gtkhtml
 libgtkhtml_HEADERS =				\
 	gtkhtml-embedded.h			\
 	gtkhtml-private.h			\
+	gtkhtml-properties.h			\
 	gtkhtml-stream.h			\
 	gtkhtml.h				\
 	gtkhtmldebug.h				\
@@ -92,6 +94,7 @@ libgtkhtml_HEADERS =				\
 
 libgtkhtml_la_SOURCES =				\
 	gtkhtml-embedded.c			\
+	gtkhtml-properties.c			\
 	gtkhtml-stream.c			\
 	gtkhtml.c				\
 	gtkhtmldebug.c				\
@@ -177,6 +180,7 @@ testgtkhtml_LDADD =				\
 	$(GNOMEUI_LIBS)				\
 	$(GNOME_LIBDIR)				\
 	$(EXTRA_GNOME_LIBS)                     \
+	$(GCONF_LIBS) -lgconf-gtk		\
 	$(GLIBWWW)
 # -lccmalloc -ldl
 #

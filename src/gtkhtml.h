@@ -29,6 +29,7 @@ typedef struct _GtkHTMLClass	GtkHTMLClass;
 #include <sys/types.h>
 #include <gtk/gtk.h>
 #include <libgnomeprint/gnome-print.h>
+#include <gconf/gconf-client.h>
 
 
 #define GTK_TYPE_HTML                  (gtk_html_get_type ())
@@ -36,6 +37,8 @@ typedef struct _GtkHTMLClass	GtkHTMLClass;
 #define GTK_HTML_CLASS(klass)          (GTK_CHECK_CLASS_CAST ((klass), GTK_TYPE_HTML, GtkHTMLClass))
 #define GTK_IS_HTML(obj)               (GTK_CHECK_TYPE ((obj), GTK_TYPE_HTML))
 #define GTK_IS_HTML_CLASS(klass)       (GTK_CHECK_CLASS_TYPE ((klass), GTK_TYPE_HTML))
+
+#define GTK_HTML_PROPERTY(w,p)         (GTK_HTML_CLASS (GTK_OBJECT (w)->klass)->properties-> ## p)
 
 
 typedef struct _GtkHTMLStream GtkHTMLStream;
@@ -113,6 +116,7 @@ enum _GtkHTMLCommandType {
 typedef enum _GtkHTMLCommandType GtkHTMLCommandType;
 
 
+#include "gtkhtml-properties.h"
 #include "gtkhtml-embedded.h"
 
 /* FIXME we should hide this stuff.  */
@@ -189,9 +193,15 @@ struct _GtkHTMLClass {
 	void (* scroll)               (GtkHTML *html, GtkOrientation orientation, GtkScrollType scroll_type, gfloat position);
 	void (* cursor_move)          (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType skip);
 	void (* command)              (GtkHTML *html, GtkHTMLCommandType com_type);
+
+	/* properties */
+	GtkHTMLClassProperties *properties;
 };
 
 
+
+gboolean gtkhtmllib_init  (gint argc, gchar **argv);
+
 /* Creation.  */
 GtkType    gtk_html_get_type  (void);
 GtkWidget *gtk_html_new       (void);

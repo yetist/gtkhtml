@@ -1,0 +1,7 @@
+[Desktop entry]
+Name=HTML Editor
+Comment=HTML Editor properties
+Exec=gtkhtml-properties-capplet
+Icon=gnome-unknown.png
+Terminal=0
+Type=Application

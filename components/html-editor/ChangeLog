@@ -1,3 +1,13 @@
+2000-06-14  Radek Doulik  <rodo@helixcode.com>
+
+	* main.c (main): call gtkhtmllib_init
+
+2000-06-13  Radek Doulik  <rodo@helixcode.com>
+
+	* rule.c (combo_align_cb): use _() on align
+	(gtk_html_rule_dialog_new): use N_() instead of _()
+	(gtk_html_rule_dialog_new): use _() for name and align
+
 2000-06-10  Ariel Rios  <ariel@arcavia.com>
 
 	* rule.c (combo_align_cb): Function for checking the desired alignment option.

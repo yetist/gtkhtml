@@ -1,3 +1,12 @@
+2000-06-14  Radek Doulik  <rodo@helixcode.com>
+
+        keybindings support + gtkhtml config capplet using gconf
+	
+	* gtkhtml.c (key_press_event): so, finnaly insert everything which
+	nas state not containing Ctrl,Alt
+	(gtkhtmllib_init): new function, please call it before using
+	gtkhtml widget (we need this for gconf init)
+
 2000-06-12  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlclueflow.c (save_plain): For indented paragraphs, emit as

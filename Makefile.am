@@ -30,6 +30,7 @@ SUBDIRS =					\
 	macros					\
 	$(DIR_GLIBWWW)				\
 	src					\
+	capplet					\
 	$(DIR_COMPONENTS)
 
 EXTRA_DIST =					\
@@ -46,4 +47,3 @@ if BONOBO
 gnorbadir = $(sysconfdir)/CORBA/servers
 gnorba_DATA = html-component.gnorba
 endif
-

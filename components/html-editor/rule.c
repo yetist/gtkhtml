@@ -52,7 +52,7 @@ combo_align_cb (GtkHTMLRuleDialog *d)
 	gint i = 0;
 	
 	for (i = 0; i < 4; i++)
-		if (!strcmp (str, (const gchar *)d->align [i]))
+		if (!strcmp (str, (const gchar *)_(d->align [i])))
 			break;
 	
 	switch (i) {
@@ -121,8 +121,8 @@ gtk_html_rule_dialog_new (GtkHTML *html)
 	GtkWidget *hbox;
 	GList     *ls = NULL;
 	gint i;
-	gchar *name []            = {_("Length"), _("Percent"), _("Size")}; 
-	static gchar *align []    =   {_("Left Align"), _("Center Align"), _("Right Align"), _("None")};
+	gchar *name []            = {N_("Length"), N_("Percent"), N_("Size")}; 
+	static gchar *align []    =   {N_("Left Align"), N_("Center Align"), N_("Right Align"), N_("None")};
 	
 	d->align      = g_malloc (sizeof (align));
 	d->align      = align;
@@ -135,14 +135,14 @@ gtk_html_rule_dialog_new (GtkHTML *html)
 	hbox          = gtk_hbox_new (FALSE, 3);
 
 	for (i = 0; i < 4; i++)
-		ls = g_list_append (ls, d->align [i]);
+		ls = g_list_append (ls, _(d->align [i]));
 	
 	gtk_combo_set_popdown_strings(GTK_COMBO (d->combo), ls);
 	gtk_entry_set_editable (GTK_ENTRY (GTK_COMBO (d->combo)->entry), FALSE);
 
 	for (i = 0; i < 3; i++) {
 
-		label [i]   = gtk_label_new (name [i]);
+		label [i]   = gtk_label_new (_(name [i]));
 		vbox [i]    = gtk_vbox_new (FALSE, 3);
 		d->spin [i] = gtk_spin_button_new (GTK_ADJUSTMENT (gtk_adjustment_new (0, 0, 999, 1, 5, 10)), 1, 0);
 

@@ -1,3 +1,13 @@
+2000-06-14  Radek Doulik  <rodo@helixcode.com>
+
+	* configure.in: call AM_PATH_GCONF
+
+	* added new dir capplet
+
+2000-06-12  Radek Doulik  <rodo@helixcode.com>
+
+	* configure.in: call GNOME_INIT with capplet
+
 2000-06-02  Larry Ewing  <lewing@helixcode.com>
 
 	* Version 0.4.

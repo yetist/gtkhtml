@@ -21,6 +21,7 @@
 
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtk.h>
+#include <string.h>
 
 #include "htmlengine-edit-clueflowstyle.h"
 #include "htmlengine-edit-copy.h"
@@ -46,6 +47,9 @@ static GtkLayoutClass *parent_class = NULL;
 
 static GtkType GTK_TYPE_HTML_CURSOR_SKIP;
 static GtkType GTK_TYPE_HTML_COMMAND;
+
+GConfClient *gconf_client = NULL;
+GConfError  *gconf_error  = NULL;
 
 enum {
 	TITLE_CHANGED,
@@ -579,7 +583,8 @@ key_press_event (GtkWidget *widget,
 	retval = html->binding_handled;
 
 	if (!retval && html_engine_get_editable (html->engine))
-		if (!(event->state & ~(GDK_SHIFT_MASK | GDK_LOCK_MASK)) && event->length > 0) {
+		/* if (!(event->state & ~(GDK_SHIFT_MASK | GDK_LOCK_MASK)) && event->length > 0) { */
+		if (!(event->state & (GDK_CONTROL_MASK | GDK_MOD1_MASK)) && event->length > 0) {
 			html_engine_insert (html->engine, event->string, event->length);
 			retval = TRUE;
 		}
@@ -1066,6 +1071,45 @@ set_adjustments (GtkLayout     *layout,
 /* Initialization.  */
 
 static void
+client_notify (GConfClient* client,
+	       guint cnxn_id,
+	       const gchar* key,
+	       GConfValue* value,
+	       gboolean is_default,
+	       gpointer user_data)
+{
+	GtkHTMLClass *klass = (GtkHTMLClass *) user_data;
+	GtkHTMLClassProperties *prop = klass->properties;	
+	gchar *tkey;
+
+	g_assert (client == gconf_client);
+
+	printf ("client notify key %s\n", key);
+
+	g_assert (key);
+	tkey = strrchr (key, '/');
+	g_assert (tkey);
+
+	if (!strcmp (tkey, "/magic_links")) {
+		prop->magic_links = gconf_client_get_bool (client, key, NULL);
+	} else if (!strcmp (tkey, "/keybindings_theme")) {
+		g_free (prop->keybindings_theme);
+		prop->keybindings_theme = gconf_client_get_string (client, key, NULL);
+		load_keybindings (klass);
+	} else
+		g_assert_not_reached ();
+}
+
+static void
+init_properties (GtkHTMLClass *klass)
+{
+	klass->properties = gtk_html_class_properties_new ();
+	gtk_html_class_properties_load (klass->properties, gconf_client);
+	load_keybindings (klass);
+	gconf_client_notify_add (gconf_client, GTK_HTML_GCONF_DIR, client_notify, klass, NULL, NULL);
+}
+
+static void
 class_init (GtkHTMLClass *klass)
 {
 	GtkHTMLClass   *html_class;
@@ -1073,13 +1117,13 @@ class_init (GtkHTMLClass *klass)
 	GtkObjectClass *object_class;
 	GtkLayoutClass *layout_class;
 	
-	register_enums ();
-
 	html_class = (GtkHTMLClass *)klass;
 	widget_class = (GtkWidgetClass *)klass;
 	object_class = (GtkObjectClass *)klass;
 	layout_class = (GtkLayoutClass *)klass;
-	
+
+	register_enums ();
+
 	object_class->destroy = destroy;
 
 	parent_class = gtk_type_class (GTK_TYPE_LAYOUT);
@@ -1269,7 +1313,7 @@ class_init (GtkHTMLClass *klass)
 	html_class->cursor_move       = cursor_move;
 	html_class->command           = command;
 
-	load_keybindings (klass);
+	init_properties (klass);
 }
 
 static void
@@ -1986,15 +2030,40 @@ static GtkEnumValue _gtk_html_command_values[] = {
 static void
 load_keybindings (GtkHTMLClass *klass)
 {
-	GtkBindingSet  *binding_set;
+	GtkBindingSet *binding_set;
+	GtkBindingEntry *cur;
+	GList *mods, *vals, *cm, *cv;
+	gchar *base;
 	gchar *rcfile;
 
 	/* keybindings */
 	binding_set = gtk_binding_set_by_class (klass);
 
-	rcfile = gnome_unconditional_datadir_file ("gtkhtml/keybindingsrc.emacs");
+	/* remove old keybindings FIXME it will be implemented (different way) in gtk as gtk_binding_clear () */
+	mods = NULL;
+	vals = NULL;
+	cur = binding_set->entries;
+	while (cur) {
+		mods = g_list_prepend (mods, GUINT_TO_POINTER (cur->modifiers));
+		vals = g_list_prepend (vals, GUINT_TO_POINTER (cur->keyval));
+		cur = cur->set_next;
+	}
+	cm = mods; cv = vals;
+	while (cm) {
+		gtk_binding_entry_remove (binding_set, GPOINTER_TO_UINT (cv->data), GPOINTER_TO_UINT (cm->data));
+		cv = cv->next; cm = cm->next;
+	}
+	g_list_free (mods);
+	g_list_free (vals);
+	/* end of FIXME */
+
+	base = g_strconcat ("gtkhtml/keybindingsrc.", klass->properties->keybindings_theme, NULL);
+	rcfile = gnome_unconditional_datadir_file (base);
+
+	printf ("loading %s\n", rcfile);
 	gtk_rc_parse (rcfile);
 	/* gtk_rc_parse ("/home/rodo/gtkhtml/src/keybindingsrc.ms"); */
+	g_free (base);
 	g_free (rcfile);
 
 	/* layout scrolling */
@@ -2074,4 +2143,19 @@ register_enums (void)
 {
 	GTK_TYPE_HTML_CURSOR_SKIP = gtk_type_register_enum ("GTK_HTML_CURSOR_SKIP", _gtk_html_cursor_skip_values);
 	GTK_TYPE_HTML_COMMAND     = gtk_type_register_enum ("GTK_HTML_COMMAND",     _gtk_html_command_values);
+}
+
+gboolean
+gtkhtmllib_init (gint argc, gchar **argv)
+{
+	if (!gconf_init (argc, argv, &gconf_error)) {
+		g_assert (gconf_error != NULL);
+		g_warning ("GConf init failed:\n  %s", gconf_error->str);
+		return FALSE;
+	}
+
+	gconf_client = gconf_client_new ();
+	gconf_client_add_dir (gconf_client, GTK_HTML_GCONF_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
+
+	return TRUE;
 }

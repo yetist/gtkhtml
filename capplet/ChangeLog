@@ -1,0 +1,8 @@
+2000-06-14  Radek Doulik  <rodo@helixcode.com>
+
+	* Makefile.am (gtkhtml_properties_capplet_LDADD): we include
+	../src/gtkhtml-properties.o in LDADD - this is quite ugly, some
+	automake volunteer? Or maybe we should move capplet to src dir?
+
+	* new directory for capplet
+

@@ -26,6 +26,7 @@
 #include <config.h>
 #include <gnome.h>
 #include <bonobo.h>
+#include <gtkhtml.h>
 
 #include "editor-control-factory.h"
 
@@ -80,6 +81,7 @@ int
 main (int argc, char **argv)
 {
 	init_bonobo (&argc, argv);
+	gtkhtmllib_init (argc, argv);
 
 	editor_control_factory_init ();
 

@@ -9,12 +9,15 @@ INCLUDES =						\
 	$(EXTRA_GNOME_CFLAGS)				\
 	$(GTK_CFLAGS)
 
+CFLAGS +=  $(GCONF_CFLAGS)
+
 # LDFLAGS += -static
 LDADD =						\
 	$(top_builddir)/src/libgtkhtml.la	\
 	$(EXTRA_GNOME_LIBS)			\
 	$(GNOMEUI_LIBS)				\
-	$(GNOME_LIBS)
+	$(GNOME_LIBS)				\
+	$(GCONF_LIBS) -lgconf-gtk
 
 # The Editor Control
 

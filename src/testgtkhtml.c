@@ -1004,7 +1004,8 @@ main (gint argc, gchar *argv[])
 #endif
 	gnome_init_with_popt_table (PACKAGE, VERSION,
 				    argc, argv, options, 0, &ctx);
-	glibwww_init(PACKAGE, VERSION);
+	glibwww_init (PACKAGE, VERSION);
+	gtkhtmllib_init (argc, argv);
 
 	HTNet_addAfter(request_terminater, NULL, NULL, HT_ALL, HT_FILTER_LAST);
 
