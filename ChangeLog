@@ -1,3 +1,7 @@
+2003-10-24  Radek Doulik  <rodo@ximian.com>
+
+	* README: updated reired packages versions
+
 2003-09-30  Radek Doulik  <rodo@ximian.com>
 
 	* configure.in: increased GTKHTML_CURRENT and also gtkhtml version
