@@ -744,7 +744,7 @@ block_end_div (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
 {
 	close_flow (e, clue);
 
-	e->pAlign =  (HTMLHAlignType) elem->miscData1;
+	e->divAlign = e->pAlign =  (HTMLHAlignType) elem->miscData1;
 }
 
 

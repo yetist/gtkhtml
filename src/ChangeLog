@@ -1,3 +1,8 @@
+2001-10-30  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (block_end_div): set e->divAlign too.  Fixes 
+	Ximian #9167.
+	
 2001-10-30  Radek Doulik  <rodo@ximian.com>
 
 	* htmltable.c (html_table_set_max_width): set max_width to
