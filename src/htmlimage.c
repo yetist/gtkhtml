@@ -29,6 +29,8 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gtk/gtkmain.h>
 #include <gtk/gtksignal.h>
+#include <gtk/gtkstock.h>
+#include <gtk/gtk.h>
 
 #include "gtkhtml.h"
 #include "gtkhtml-properties.h"
@@ -53,6 +55,7 @@
 struct _HTMLImageFactory {
 	HTMLEngine *engine;
 	GHashTable *loaded_images;
+	GdkPixbuf  *missing;
 };
 
 
@@ -68,6 +71,8 @@ static void                html_image_pointer_unref             (HTMLImagePointe
 static gboolean            html_image_pointer_timeout           (HTMLImagePointer *ip);
 static gint                html_image_pointer_run_animation     (HTMLImagePointer *ip);
 static void                html_image_pointer_start_animation   (HTMLImagePointer *ip);
+
+static GdkPixbuf *         html_image_factory_get_missing       (HTMLImageFactory *factory);
 
 guint
 html_image_get_actual_width (HTMLImage *image, HTMLPainter *painter)
@@ -391,6 +396,9 @@ draw (HTMLObject *o,
 	} else
 		highlight_color = NULL;
 
+	base_x = o->x + tx + (image->border + image->hspace) * pixel_size;
+	base_y = o->y + ty + (image->border + image->vspace) * pixel_size - o->ascent;
+
 	if (pixbuf == NULL) {
 		gint vspace, hspace;
 
@@ -415,11 +423,22 @@ draw (HTMLObject *o,
 					 o->width - 2 * hspace,
 					 o->ascent + o->descent - 2 * vspace,
 					 GTK_HTML_ETCH_IN, 1);
+
+		if (ip->factory)
+			pixbuf = html_image_factory_get_missing (ip->factory);
+
+		if (pixbuf && 
+		    (o->width > gdk_pixbuf_get_width (pixbuf)) &&
+		    (o->ascent  + o->descent > gdk_pixbuf_get_height (pixbuf)))
+			html_painter_draw_pixmap (painter, pixbuf,
+						  base_x, base_y,
+						  gdk_pixbuf_get_width (pixbuf) * pixel_size,
+						  gdk_pixbuf_get_height (pixbuf) * pixel_size,
+						  highlight_color);
+			
+			
 		return;
 	}
-
-	base_x = o->x + tx + (image->border + image->hspace) * pixel_size;
-	base_y = o->y + ty + (image->border + image->vspace) * pixel_size - o->ascent;
 
 	scale_width = html_image_get_actual_width (image, painter);
 	scale_height = html_image_get_actual_height (image, painter);
@@ -1113,6 +1132,16 @@ html_image_pointer_stop_animation (HTMLImagePointer *ip)
 	}
 }
 
+static GdkPixbuf *
+html_image_factory_get_missing (HTMLImageFactory *factory)
+{
+	if (!factory->missing)
+		factory->missing = gtk_widget_render_icon (GTK_WIDGET (factory->engine->widget),
+							  GTK_STOCK_MISSING_IMAGE,
+							  GTK_ICON_SIZE_BUTTON, "GtkHTML.ImageMissing");
+	return factory->missing;
+}
+
 HTMLImageFactory *
 html_image_factory_new (HTMLEngine *e)
 {
@@ -1120,6 +1149,7 @@ html_image_factory_new (HTMLEngine *e)
 	retval = g_new (HTMLImageFactory, 1);
 	retval->engine = e;
 	retval->loaded_images = g_hash_table_new (g_str_hash, g_str_equal);
+	retval->missing = NULL;
 
 	return retval;
 }
@@ -1161,6 +1191,10 @@ html_image_factory_free (HTMLImageFactory *factory)
 
 	g_hash_table_foreach_remove (factory->loaded_images, cleanup_images, factory);
 	g_hash_table_destroy (factory->loaded_images);
+
+	if (factory->missing)
+		gdk_pixbuf_unref (factory->missing);
+
 	g_free (factory);
 }
 
@@ -1193,7 +1227,9 @@ html_image_pointer_timeout (HTMLImagePointer *ip)
 	GSList *list;
 	HTMLImage *image;
 
-	g_return_if_fail (ip->factory != NULL);
+	ip->stall_timeout = 0;
+
+	g_return_val_if_fail (ip->factory != NULL, FALSE);
 
 	ip->stall = TRUE;
 
@@ -1213,7 +1249,6 @@ html_image_pointer_timeout (HTMLImagePointer *ip)
 			list = list->next;
 		}
 	}
-	ip->stall_timeout = 0;
 	return FALSE;
 }
 

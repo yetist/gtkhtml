@@ -1,3 +1,9 @@
+2003-04-08  Larry Ewing  <lewing@ximian.com>
+
+	* htmlimage.c (html_image_factory_get_missing): helper function to
+	load the gtkstock missing image item.
+	(draw): add logic to draw missing image icon.
+
 2003-04-07  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml.c (style_set): pass the widget instead of the style.
