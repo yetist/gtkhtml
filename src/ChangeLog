@@ -1,5 +1,7 @@
 2001-10-16  Larry Ewing  <lewing@ximian.com>
 
+	* htmlclueflow.c: include <stdlib.h> for abs definition.
+
 	* htmlengine.h: add allow_frameset boolean.
 
 	* htmlengine.c (html_engine_init): add allow_frameset paramter.

@@ -28,6 +28,7 @@
 #include <config.h>
 #include <ctype.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include <gal/widgets/e-unicode.h>
 
