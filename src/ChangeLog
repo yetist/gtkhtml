@@ -1,5 +1,8 @@
 2000-05-16  Larry Ewing  <lewing@helixcode.com>
 
+	* htmlrule.c (save): add shade option and and FIXME comment for
+	all the possible missing parameters. 
+
 	* htmlengine-save.c (html_engine_save_output_string): change to
 	use va_list... the old interface was just too tedious.
 

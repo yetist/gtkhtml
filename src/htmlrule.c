@@ -169,7 +169,8 @@ static gboolean
 save (HTMLObject *self,
       HTMLEngineSaveState *state)
 {
-	return html_engine_save_output_string (state, "\n<HR>\n");
+	/* FIXME lots of missing parameters.. this stuff is sick... */
+	return html_engine_save_output_string (state, "\n<HR%s>\n", HTML_RULE (self)->shade ? "" : " noshade");
 }
 
 
