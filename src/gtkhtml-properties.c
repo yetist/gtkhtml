@@ -172,6 +172,8 @@ gtk_html_class_properties_update (GtkHTMLClassProperties *p, GConfClient *client
 
 	if (p->live_spell_check != old->live_spell_check)
 		SET (bool, "/live_spell_check", live_spell_check);
+
+	gconf_client_suggest_sync (client, NULL);
 }
 
 #else
