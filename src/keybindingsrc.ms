@@ -37,10 +37,10 @@ binding "gtkhtml-bindings-ms"
   bind "<Shift>Insert"        { "command" (paste) }
   bind "<Shift>KP_Insert"     { "command" (paste) }
 
-  bind "<Ctrl>b"              { "command" (toggle-bold) }
-  bind "<Ctrl>i"              { "command" (toggle-italic) }
-  bind "<Ctrl>u"              { "command" (toggle-underline) }
-  bind "<Ctrl>s"              { "command" (toggle-strikeout) }
+  bind "<Ctrl>b"              { "command" (bold-toggle) }
+  bind "<Ctrl>i"              { "command" (italic-toggle) }
+  bind "<Ctrl>u"              { "command" (underline-toggle) }
+  bind "<Ctrl>s"              { "command" (strikeout-toggle) }
 
   bind "<Ctrl>z"              { "command" (undo) }
   bind "<Ctrl>r"              { "command" (redo) }

@@ -46,11 +46,8 @@ struct _GtkHTMLPrivate {
 #endif
 };
 
-void  gtk_html_private_calc_scrollbars  (GtkHTML *html);
+void  gtk_html_private_calc_scrollbars  (GtkHTML            *html);
+void  gtk_html_editor_event_command     (GtkHTML            *html,
+					 GtkHTMLCommandType  com_type);
 
 #endif /* _GTKHTML_PRIVATE_H */
-
-
-
-
-

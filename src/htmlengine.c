@@ -2208,7 +2208,7 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 						percent, border, color, valign);
 
 			if (imageid) {
-				gchar *old_key;
+				gpointer old_key;
 				gpointer old_val;
 				if (!p->imageid_table) {
 					p->imageid_table = g_hash_table_new (g_str_hash, g_str_equal);
@@ -3329,6 +3329,8 @@ html_engine_update_event (HTMLEngine *e)
 {
 	e->updateTimer = 0;
 
+	if (html_engine_get_editable (e))
+		html_engine_hide_cursor (e);
 	html_engine_calc_size (e);
 
 	if (GTK_LAYOUT (e->widget)->vadjustment == NULL
@@ -3362,6 +3364,9 @@ html_engine_update_event (HTMLEngine *e)
 
 	/* Adjust the scrollbars */
 	gtk_html_private_calc_scrollbars (e->widget);
+
+	if (html_engine_get_editable (e))
+		html_engine_show_cursor (e);
 
 	return FALSE;
 }

@@ -70,7 +70,8 @@ enum _HTMLType {
 typedef enum _HTMLType HTMLType;
 
 
-void html_types_init (void);
-const gchar *html_type_name (HTMLType type);
+void         html_types_init      (void);
+const gchar *html_type_name       (HTMLType     type);
+HTMLType     html_type_from_name  (const gchar *name);
 
 #endif

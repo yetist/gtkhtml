@@ -1546,6 +1546,17 @@ html_clueflow_new (HTMLClueFlowStyle style,
 	return HTML_OBJECT (clueflow);
 }
 
+HTMLObject *
+html_clueflow_new_from_flow (HTMLClueFlow *flow)
+{
+	HTMLObject *o;
+
+	o = html_clueflow_new (flow->style, flow->level);
+	html_object_copy_data_from_object (o, HTML_OBJECT (flow));
+
+	return o;
+}
+
 
 /* Virtual methods.  */
 
@@ -1582,7 +1593,7 @@ html_clueflow_split (HTMLClueFlow *clue,
 
 	/* Create the new clue.  */
 
-	new = HTML_CLUEFLOW (html_clueflow_new (clue->style, clue->level));
+	new = HTML_CLUEFLOW (html_clueflow_new_from_flow (clue));
 
 	/* Remove the children from the original clue.  */
 
@@ -1689,21 +1700,21 @@ html_clueflow_get_halignment (HTMLClueFlow *flow)
 }
 
 void
-html_clueflow_indent (HTMLClueFlow *flow,
-		      HTMLEngine *engine,
-		      gint indentation)
+html_clueflow_modify_indentation_by_delta (HTMLClueFlow *flow,
+					   HTMLEngine *engine,
+					   gint indentation_delta)
 {
 	g_return_if_fail (flow != NULL);
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 
-	if (indentation == 0)
+	if (indentation_delta == 0)
 		return;
 
-	if (indentation > 0) {
-		flow->level += indentation;
-	} else if ((- indentation) < flow->level) {
-		flow->level += indentation;
+	if (indentation_delta > 0) {
+		flow->level += indentation_delta;
+	} else if ((- indentation_delta) < flow->level) {
+		flow->level += indentation_delta;
 	} else if (flow->level != 0) {
 		flow->level = 0;
 	} else {

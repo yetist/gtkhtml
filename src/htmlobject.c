@@ -60,6 +60,7 @@ destroy (HTMLObject *self)
 #endif
 		g_free (self);
 
+		g_datalist_clear (&self->object_data);
 	}
 }
 
@@ -84,6 +85,8 @@ copy (HTMLObject *self,
 	dest->selected = self->selected;
 	dest->free_pending = FALSE;
 	dest->change = self->change;
+
+	html_object_copy_data_from_object (dest, self);
 }
 
 static void
@@ -587,6 +590,8 @@ html_object_init (HTMLObject *o,
 	o->redraw_pending = FALSE;
 	o->free_pending = FALSE;
 	o->selected = FALSE;
+
+	g_datalist_init (&o->object_data);
 }
 
 HTMLObject *
@@ -1205,4 +1210,30 @@ guint
 html_object_get_index (HTMLObject *self, guint offset)
 {
 	return html_object_is_text (self) ? html_text_get_index (HTML_TEXT (self), offset) : offset;
+}
+
+void
+html_object_set_data (HTMLObject *object, const gchar *key, gpointer data)
+{
+	g_datalist_set_data (&object->object_data, key, data);
+}
+
+gpointer
+html_object_get_data (HTMLObject *object, const gchar *key)
+{
+	return g_datalist_get_data (&object->object_data, key);
+}
+
+static void
+copy_data (GQuark key_id, gpointer data, gpointer user_data)
+{
+	HTMLObject *o = HTML_OBJECT (user_data);
+
+	g_datalist_id_set_data (&o->object_data, key_id, data);
+}
+
+void
+html_object_copy_data_from_object (HTMLObject *dst, HTMLObject *src)
+{
+	g_datalist_foreach (&src->object_data, copy_data, dst);
 }

@@ -80,19 +80,20 @@ enum {
 	/* keybindings signals */
 	SCROLL,
 	CURSOR_MOVE,
-	INSERT_PARAGRAPH,
+	COMMAND,
 	/* now only last signal */
 	LAST_SIGNAL
 };
 static guint signals [LAST_SIGNAL] = { 0 };
 
 /* keybindings signal hadlers */
-static void scroll                 (GtkHTML *html, GtkOrientation orientation, GtkScrollType scroll_type, gfloat position);
-static void cursor_move            (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType skip);
-static void command                (GtkHTML *html, GtkHTMLCommandType com_type);
-static gint mouse_change_pos       (GtkWidget *widget, gint x, gint y);
-static void load_keybindings       (GtkHTMLClass *klass);
-static void set_editor_keybindings (GtkHTML *html, gboolean editable);
+static void    scroll                 (GtkHTML *html, GtkOrientation orientation, GtkScrollType scroll_type, gfloat position);
+static void    cursor_move            (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType skip);
+static void    command                (GtkHTML *html, GtkHTMLCommandType com_type);
+static gint    mouse_change_pos       (GtkWidget *widget, gint x, gint y);
+static void    load_keybindings       (GtkHTMLClass *klass);
+static void    set_editor_keybindings (GtkHTML *html, gboolean editable);
+static gchar * get_value_nick         (GtkHTMLCommandType com_type);
 
 
 /* Values for selection information.  FIXME: what about COMPOUND_STRING and
@@ -1567,7 +1568,7 @@ class_init (GtkHTMLClass *klass)
 				gtk_marshal_NONE__INT_INT,
 				GTK_TYPE_NONE, 2, GTK_TYPE_DIRECTION_TYPE, GTK_TYPE_HTML_CURSOR_SKIP);
 
-	signals [INSERT_PARAGRAPH] =
+	signals [COMMAND] =
 		gtk_signal_new ("command",
 				GTK_RUN_LAST | GTK_RUN_ACTION,
 				object_class->type,
@@ -2014,14 +2015,27 @@ gtk_html_get_paragraph_style (GtkHTML *html)
 }
 
 void
-gtk_html_indent (GtkHTML *html,
-		 gint delta)
+gtk_html_set_indent (GtkHTML *html,
+		     gint level)
+{
+	g_return_if_fail (html != NULL);
+	g_return_if_fail (GTK_IS_HTML (html));
+
+	html_engine_set_clueflow_style (html->engine, 0, 0, level,
+					HTML_ENGINE_SET_CLUEFLOW_INDENTATION, TRUE);
+
+	update_styles (html);
+}
+
+void
+gtk_html_modify_indent_by_delta (GtkHTML *html,
+				 gint delta)
 {
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	html_engine_set_clueflow_style (html->engine, 0, 0, delta,
-					HTML_ENGINE_SET_CLUEFLOW_INDENTATION, TRUE);
+					HTML_ENGINE_SET_CLUEFLOW_INDENTATION_DELTA, TRUE);
 
 	update_styles (html);
 }
@@ -2358,7 +2372,7 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 {
 	HTMLEngine *e = html->engine;
 
-	/* printf ("command %d\n", com_type); */
+	/* printf ("command %d %s\n", com_type, get_value_nick (com_type)); */
 	html->binding_handled = TRUE;
 
 	/* non-editable + editable commands */
@@ -2434,17 +2448,41 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_DISABLE_SELECTION:
 		html_engine_disable_selection (e);
 		break;
-	case GTK_HTML_COMMAND_TOGGLE_BOLD:
+	case GTK_HTML_COMMAND_BOLD_ON:
+		gtk_html_set_font_style (html, GTK_HTML_FONT_STYLE_MAX, GTK_HTML_FONT_STYLE_BOLD);
+		break;
+	case GTK_HTML_COMMAND_BOLD_OFF:
+		gtk_html_set_font_style (html, ~GTK_HTML_FONT_STYLE_BOLD, 0);
+		break;
+	case GTK_HTML_COMMAND_BOLD_TOGGLE:
 		gtk_html_toggle_font_style (html, GTK_HTML_FONT_STYLE_BOLD);
 		break;
-	case GTK_HTML_COMMAND_TOGGLE_ITALIC:
+	case GTK_HTML_COMMAND_ITALIC_ON:
+		gtk_html_set_font_style (html, GTK_HTML_FONT_STYLE_MAX, GTK_HTML_FONT_STYLE_ITALIC);
+		break;
+	case GTK_HTML_COMMAND_ITALIC_OFF:
+		gtk_html_set_font_style (html, ~GTK_HTML_FONT_STYLE_ITALIC, 0);
+		break;
+	case GTK_HTML_COMMAND_ITALIC_TOGGLE:
 		gtk_html_toggle_font_style (html, GTK_HTML_FONT_STYLE_ITALIC);
 		break;
-	case GTK_HTML_COMMAND_TOGGLE_UNDERLINE:
-		gtk_html_toggle_font_style (html, GTK_HTML_FONT_STYLE_UNDERLINE);
+	case GTK_HTML_COMMAND_STRIKEOUT_ON:
+		gtk_html_set_font_style (html, GTK_HTML_FONT_STYLE_MAX, GTK_HTML_FONT_STYLE_STRIKEOUT);
 		break;
-	case GTK_HTML_COMMAND_TOGGLE_STRIKEOUT:
+	case GTK_HTML_COMMAND_STRIKEOUT_OFF:
+		gtk_html_set_font_style (html, ~GTK_HTML_FONT_STYLE_STRIKEOUT, 0);
+		break;
+	case GTK_HTML_COMMAND_STRIKEOUT_TOGGLE:
 		gtk_html_toggle_font_style (html, GTK_HTML_FONT_STYLE_STRIKEOUT);
+		break;
+	case GTK_HTML_COMMAND_UNDERLINE_ON:
+		gtk_html_set_font_style (html, GTK_HTML_FONT_STYLE_MAX, GTK_HTML_FONT_STYLE_UNDERLINE);
+		break;
+	case GTK_HTML_COMMAND_UNDERLINE_OFF:
+		gtk_html_set_font_style (html, ~GTK_HTML_FONT_STYLE_UNDERLINE, 0);
+		break;
+	case GTK_HTML_COMMAND_UNDERLINE_TOGGLE:
+		gtk_html_toggle_font_style (html, GTK_HTML_FONT_STYLE_UNDERLINE);
 		break;
 	case GTK_HTML_COMMAND_SIZE_MINUS_2:
 		gtk_html_set_font_style (html, ~GTK_HTML_FONT_STYLE_SIZE_MASK, GTK_HTML_FONT_STYLE_SIZE_1);
@@ -2482,11 +2520,14 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_ALIGN_RIGHT:
 		gtk_html_set_paragraph_alignment (html, GTK_HTML_PARAGRAPH_ALIGNMENT_RIGHT);
 		break;
+	case GTK_HTML_COMMAND_INDENT_ZERO:
+		gtk_html_set_indent (html, 0);
+		break;
 	case GTK_HTML_COMMAND_INDENT_INC:
-		gtk_html_indent (html, +1);
+		gtk_html_modify_indent_by_delta (html, +1);
 		break;
 	case GTK_HTML_COMMAND_INDENT_DEC:
-		gtk_html_indent (html, -1);
+		gtk_html_modify_indent_by_delta (html, -1);
 		break;
 	case GTK_HTML_COMMAND_PARAGRAPH_STYLE_NORMAL:
 		gtk_html_set_paragraph_style (html, GTK_HTML_PARAGRAPH_STYLE_NORMAL);
@@ -2789,4 +2830,46 @@ gtk_html_set_editor_api (GtkHTML *html, GtkHTMLEditorAPI *api, gpointer data)
 {
 	html->editor_api  = api;
 	html->editor_data = data;
+}
+
+static gchar *
+get_value_nick (GtkHTMLCommandType com_type)
+{
+	GtkEnumValue *val;
+
+	val = gtk_type_enum_get_values (GTK_TYPE_HTML_COMMAND);
+	while (val->value_name) {
+		if (val->value == com_type)
+			return val->value_nick;
+		val++;
+	}
+
+	g_warning ("Invalid GTK_TYPE_HTML_COMMAND enum value %d\n", com_type);
+
+	return NULL;
+}
+
+void
+gtk_html_editor_event_command (GtkHTML *html, GtkHTMLCommandType com_type)
+{
+	if (html->editor_api) {
+		GtkArg *args [1];
+
+		args [0] = gtk_arg_new (GTK_TYPE_STRING);
+
+		GTK_VALUE_STRING (*args [0]) = get_value_nick (com_type);
+		(*html->editor_api->event) (html, GTK_HTML_EDITOR_EVENT_COMMAND, args, html->editor_data);
+
+		gtk_arg_free (args [0], FALSE);
+	}
+}
+
+void
+gtk_html_editor_command (GtkHTML *html, const gchar *command_name)
+{
+	GtkEnumValue *val;
+
+	val = gtk_type_enum_find_value (GTK_TYPE_HTML_COMMAND, command_name);
+	if (val)
+		command (html, val->value);
 }

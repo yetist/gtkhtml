@@ -226,3 +226,36 @@ html_engine_select_line_editable (HTMLEngine *e)
 	html_engine_set_mark (e);
 	html_engine_end_of_line (e);
 }
+
+struct SetData {
+	HTMLType      object_type;
+	const gchar  *key;
+	gpointer      value;
+};
+
+static void
+set_data (HTMLObject *o, gpointer p)
+{
+	struct SetData *data = (struct SetData *) p;
+
+	if (HTML_OBJECT_TYPE (o) == data->object_type) {
+		/* printf ("set data %s --> %p\n", data->key, data->value); */
+		html_object_set_data (o, data->key, data->value);
+	}
+}
+
+void
+html_engine_set_data_by_type (HTMLEngine *e, HTMLType object_type, const gchar *key, gpointer value)
+{
+	struct SetData *data = g_new (struct SetData, 1);
+
+	/* printf ("html_engine_set_data_by_type %s\n", key); */
+
+	data->object_type = object_type;
+	data->key         = key;
+	data->value       = value;
+
+	html_object_forall (e->clue, set_data, data);
+
+	g_free (data);
+}

@@ -82,7 +82,7 @@ get_props_and_set (HTMLEngine *engine,
 		   HTMLClueFlow *clueflow,
 		   HTMLClueFlowStyle style,
 		   HTMLHAlignType alignment,
-		   gint indentation_delta,
+		   gint indentation,
 		   HTMLEngineSetClueFlowStyleMask mask)
 {
 	ClueFlowProps *props;
@@ -95,7 +95,10 @@ get_props_and_set (HTMLEngine *engine,
 		html_clueflow_set_halignment (clueflow, engine, alignment);
 
 	if (mask & HTML_ENGINE_SET_CLUEFLOW_INDENTATION)
-		html_clueflow_indent (clueflow, engine, indentation_delta);
+		html_clueflow_set_indentation (clueflow, engine, indentation);
+
+	if (mask & HTML_ENGINE_SET_CLUEFLOW_INDENTATION_DELTA)
+		html_clueflow_modify_indentation_by_delta (clueflow, engine, indentation);
 
 	return props;
 }

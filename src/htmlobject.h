@@ -128,6 +128,8 @@ struct _HTMLObject {
            is set to TRUE instead of g_free()ing the object.  When the draw
            queue is flushed, the g_free() is performed.  */
 	guint free_pending : 1;
+
+	GData *object_data;
 };
 
 struct _HTMLObjectClass {
@@ -464,5 +466,15 @@ void  html_object_change_set  (HTMLObject      *self,
 /* set change flag f for this object and all childern */
 void  html_object_change_set_down  (HTMLObject      *self,
 				    HTMLChangeFlags  f);
+
+/* object data */
+
+void      html_object_set_data               (HTMLObject  *object,
+					      const gchar *key,
+					      gpointer     data);
+gpointer  html_object_get_data               (HTMLObject  *object,
+					      const gchar *key);
+void      html_object_copy_data_from_object  (HTMLObject  *dst,
+					      HTMLObject  *src);
 
 #endif /* _HTMLOBJECT_H_ */

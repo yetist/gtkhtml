@@ -54,10 +54,10 @@ binding "gtkhtml-bindings-emacs"
 
   bind "<Ctrl>k"            { "command" (cut-line) }
 
-  bind "<Ctrl><Alt>b"       { "command" (toggle-bold) }
-  bind "<Ctrl><Alt>i"       { "command" (toggle-italic) }
-  bind "<Ctrl><Alt>u"       { "command" (toggle-underline) }
-  bind "<Ctrl><Alt>s"       { "command" (toggle-strikeout) }
+  bind "<Ctrl><Alt>b"       { "command" (bold-toggle) }
+  bind "<Ctrl><Alt>i"       { "command" (italic-toggle) }
+  bind "<Ctrl><Alt>u"       { "command" (underline-toggle) }
+  bind "<Ctrl><Alt>s"       { "command" (strikeout-toggle) }
 
   bind "<Ctrl><Alt>l"       { "command" (align-left) }
   bind "<Ctrl><Alt>c"       { "command" (align-center) }

@@ -73,51 +73,48 @@ struct _HTMLClueFlowClass {
 extern HTMLClueFlowClass html_clueflow_class;
 
 
-void           html_clueflow_type_init               (void);
-void           html_clueflow_class_init              (HTMLClueFlowClass  *klass,
-						      HTMLType            type,
-						      guint               object_size);
-void           html_clueflow_init                    (HTMLClueFlow       *flow,
-						      HTMLClueFlowClass  *klass,
-						      HTMLClueFlowStyle   style,
-						      guint8              indentation);
-HTMLObject    *html_clueflow_new                     (HTMLClueFlowStyle   style,
-						      guint8              indentation);
-
-GtkHTMLFontStyle  html_clueflow_get_default_font_style  (const HTMLClueFlow *self);
-HTMLClueFlow     *html_clueflow_split                   (HTMLClueFlow       *clue,
-							 HTMLObject         *child);
-
-void               html_clueflow_set_style        (HTMLClueFlow      *flow,
-						   HTMLEngine        *engine,
-						   HTMLClueFlowStyle  style);
-HTMLClueFlowStyle  html_clueflow_get_style        (HTMLClueFlow      *flow);
-void               html_clueflow_set_halignment   (HTMLClueFlow      *flow,
-						   HTMLEngine        *engine,
-						   HTMLHAlignType     alignment);
-HTMLHAlignType     html_clueflow_get_halignment   (HTMLClueFlow      *flow);
-void               html_clueflow_indent           (HTMLClueFlow      *flow,
-						   HTMLEngine        *engine,
-						   gint               indentation);
-void               html_clueflow_set_indentation  (HTMLClueFlow      *flow,
-						   HTMLEngine        *engine,
-						   guint8             indentation);
-guint8             html_clueflow_get_indentation  (HTMLClueFlow      *flow);
-void               html_clueflow_set_properties   (HTMLClueFlow      *flow,
-						   HTMLEngine        *engine,
-						   HTMLClueFlowStyle  style,
-						   guint8             indentation,
-						   HTMLHAlignType     alignment);
-void               html_clueflow_get_properties   (HTMLClueFlow      *flow,
-						   HTMLClueFlowStyle *style_return,
-						   guint8            *indentation_return,
-						   HTMLHAlignType    *alignment_return);
-
-void               html_clueflow_remove_text_slaves  (HTMLClueFlow *flow);
-
-void               html_clueflow_spell_check      (HTMLClueFlow *flow,
-						   HTMLEngine *e,
-						   HTMLInterval *i);
+void               html_clueflow_type_init                    (void);
+void               html_clueflow_class_init                   (HTMLClueFlowClass  *klass,
+							       HTMLType            type,
+							       guint               object_size);
+void               html_clueflow_init                         (HTMLClueFlow       *flow,
+							       HTMLClueFlowClass  *klass,
+							       HTMLClueFlowStyle   style,
+							       guint8              indentation);
+HTMLObject        *html_clueflow_new                          (HTMLClueFlowStyle   style,
+							       guint8              indentation);
+HTMLObject        *html_clueflow_new_from_flow                (HTMLClueFlow       *flow);
+GtkHTMLFontStyle   html_clueflow_get_default_font_style       (const HTMLClueFlow *self);
+HTMLClueFlow      *html_clueflow_split                        (HTMLClueFlow       *clue,
+							       HTMLObject         *child);
+void               html_clueflow_set_style                    (HTMLClueFlow       *flow,
+							       HTMLEngine         *engine,
+							       HTMLClueFlowStyle   style);
+HTMLClueFlowStyle  html_clueflow_get_style                    (HTMLClueFlow       *flow);
+void               html_clueflow_set_halignment               (HTMLClueFlow       *flow,
+							       HTMLEngine         *engine,
+							       HTMLHAlignType      alignment);
+HTMLHAlignType     html_clueflow_get_halignment               (HTMLClueFlow       *flow);
+void               html_clueflow_modify_indentation_by_delta  (HTMLClueFlow       *flow,
+							       HTMLEngine         *engine,
+							       gint                indentation);
+void               html_clueflow_set_indentation              (HTMLClueFlow       *flow,
+							       HTMLEngine         *engine,
+							       guint8              indentation);
+guint8             html_clueflow_get_indentation              (HTMLClueFlow       *flow);
+void               html_clueflow_set_properties               (HTMLClueFlow       *flow,
+							       HTMLEngine         *engine,
+							       HTMLClueFlowStyle   style,
+							       guint8              indentation,
+							       HTMLHAlignType      alignment);
+void               html_clueflow_get_properties               (HTMLClueFlow       *flow,
+							       HTMLClueFlowStyle  *style_return,
+							       guint8             *indentation_return,
+							       HTMLHAlignType     *alignment_return);
+void               html_clueflow_remove_text_slaves           (HTMLClueFlow       *flow);
+void               html_clueflow_spell_check                  (HTMLClueFlow       *flow,
+							       HTMLEngine         *e,
+							       HTMLInterval       *i);
 #define SPELL_CHECK(f, e) if (f && HTML_OBJECT_TYPE (f) == HTML_TYPE_CLUEFLOW) \
                                    html_clueflow_spell_check (HTML_CLUEFLOW (f), e, NULL)
 

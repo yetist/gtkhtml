@@ -54,6 +54,20 @@
 /* This is used to statically initialize all the classes we are using.  */
 
 static gboolean types_inited = FALSE;
+static GHashTable *type_names = NULL;
+
+static void
+build_type_names_table ()
+{
+	HTMLType t;
+
+	g_assert (type_names == NULL);
+
+	type_names = g_hash_table_new (g_str_hash, g_str_equal);
+
+	for (t = HTML_TYPE_NONE + 1; t<HTML_NUM_TYPES; t++)
+		g_hash_table_insert (type_names, (gpointer) html_type_name (t), GINT_TO_POINTER (t));
+}
 
 void
 html_types_init (void)
@@ -87,6 +101,8 @@ html_types_init (void)
 	html_text_type_init ();
 	html_vspace_type_init ();
 	html_iframe_type_init ();
+
+	build_type_names_table ();
 
 	types_inited = TRUE;
 }
@@ -167,3 +183,10 @@ html_type_name (HTMLType type)
 	return NULL;
 }
 
+HTMLType
+html_type_from_name (const gchar *name)
+{
+	g_assert (type_names);
+
+	return GPOINTER_TO_INT (g_hash_table_lookup (type_names, name));
+}

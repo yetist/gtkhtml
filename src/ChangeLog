@@ -1,3 +1,73 @@
+2000-10-31  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml.c (gtk_html_editor_command): do editor command
+	(gtk_html_editor_event_command): new function, "emits"
+	EditorAPI event
+	(get_value_nick): helper function
+
+	* htmltext.c (spell_error_destroy): commented out g_free 
+
+	* htmlengine-edit-fontstyle.c: removed old unused code, this
+	avoids warnings and this code still remain in older versions in
+	CVS
+
+	* htmlengine-edit-delete.c (html_engine_delete): use
+	html_clueflow_new_from_flow
+
+	* htmlengine-edit-insert.c (insert_para): use
+	html_clueflow_new_from_flow
+
+	* htmlclueflow.c (html_clueflow_new_from_flow): new function,
+	creates new clueflow with same attributes (style, level,
+	object_data)
+	(html_clueflow_split): use html_clueflow_new_from_flow
+
+	* htmlobject.c (html_object_copy_data_from_object): new function,
+	copies data references from src object to dest one
+
+	* gtkhtml.c (command): new command implemented
+
+	* gtkhtml.h: added command indent-zero
+
+	* gtkhtml.c (gtk_html_set_indent): renamed from gtk_html_indent
+	(gtk_html_modify_indent_by_delta): new function
+
+	* htmlclueflow.c (html_clueflow_modify_indentation_by_delta):
+	renamed from old html_clueflow_indent
+
+	* keybindingsrc.emacs: likewise
+
+	* keybindingsrc.ms: changed to use ...-toggle
+
+	* gtkhtml.h: renamed toggle bold/italic/underline/strikeout
+	commands, added on/off bold/italic/underline/strikeout commands
+
+2000-10-30  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine-edit.c (html_engine_set_data_by_type): new function,
+	sets data to objects with given type
+
+	* htmlobject.c (html_object_set_data): new function for setting
+	object data
+	(html_object_get_data): new function for accessing object data
+
+	* htmlobject.h: added object_data
+
+	* htmltype.c: added hash table type name --> type
+	(build_type_names_table): helper function for initial build of
+	type_names hash table
+	(html_type_from_name): new function, translates type name to type
+	using type_names table
+
+2000-10-29  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine-edit-insert.c (insert_para): emit editor event with
+	INSERT_PARAGRAPH command
+
+	* gtkhtml.c (gtk_html_editor_event_command): new function
+
+	* gtkhtml.h (struct _GtkHTMLEditorAPI): added event to EditorAPI
+
 2000-10-26  Michael Meeks  <michael@helixcode.com>
 
 	* htmlprinter.c (alloc_font): signdness fix.

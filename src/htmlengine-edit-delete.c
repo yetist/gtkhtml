@@ -651,8 +651,7 @@ html_engine_delete (HTMLEngine *e,
 			html_engine_cut_buffer_destroy (save_buffer);
 
 			clueflow_orig = HTML_CLUEFLOW (start_parent);
-			clueflow_copy = html_clueflow_new (clueflow_orig->style,
-							   clueflow_orig->level);
+			clueflow_copy = html_clueflow_new_from_flow (clueflow_orig);
 
 			save_buffer = g_list_prepend (NULL, clueflow_copy);
 		}
@@ -660,6 +659,7 @@ html_engine_delete (HTMLEngine *e,
 		setup_undo (e, create_action_data (save_buffer, backwards));
 	}
 	html_engine_spell_check_range (e, e->cursor, e->cursor);
+	html_engine_schedule_update (e);
 }
 
 

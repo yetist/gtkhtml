@@ -21,6 +21,7 @@
 
 #include <string.h>
 
+#include "gtkhtml-private.h"
 #include "htmlclue.h"
 #include "htmlclueflow.h"
 #include "htmltext.h"
@@ -98,8 +99,7 @@ insert_para (HTMLEngine *engine)
 								      current->next));
 		} else {
 			/* FIXME we need a `html_clueflow_like_another_one()'.  */
-			next_flow = html_clueflow_new (HTML_CLUEFLOW (flow)->style,
-						       HTML_CLUEFLOW (flow)->level);
+			next_flow = html_clueflow_new_from_flow (HTML_CLUEFLOW (flow));
 		}
 	} else {
 		next_flow = HTML_OBJECT (html_clueflow_split (HTML_CLUEFLOW (flow), current));
@@ -150,6 +150,8 @@ insert_para (HTMLEngine *engine)
 
 	html_cursor_destroy (orig);
 	html_engine_show_cursor (engine);
+
+	gtk_html_editor_event_command (engine->widget, GTK_HTML_COMMAND_INSERT_PARAGRAPH);
 }
 
 

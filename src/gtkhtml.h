@@ -105,10 +105,21 @@ enum _GtkHTMLCommandType {
 	GTK_HTML_COMMAND_SET_MARK,
 	GTK_HTML_COMMAND_DISABLE_SELECTION,
 
-	GTK_HTML_COMMAND_TOGGLE_BOLD,
-	GTK_HTML_COMMAND_TOGGLE_ITALIC,
-	GTK_HTML_COMMAND_TOGGLE_UNDERLINE,
-	GTK_HTML_COMMAND_TOGGLE_STRIKEOUT,
+	GTK_HTML_COMMAND_BOLD_ON,
+	GTK_HTML_COMMAND_BOLD_OFF,
+	GTK_HTML_COMMAND_BOLD_TOGGLE,
+
+	GTK_HTML_COMMAND_ITALIC_ON,
+	GTK_HTML_COMMAND_ITALIC_OFF,
+	GTK_HTML_COMMAND_ITALIC_TOGGLE,
+
+	GTK_HTML_COMMAND_UNDERLINE_ON,
+	GTK_HTML_COMMAND_UNDERLINE_OFF,
+	GTK_HTML_COMMAND_UNDERLINE_TOGGLE,
+
+	GTK_HTML_COMMAND_STRIKEOUT_ON,
+	GTK_HTML_COMMAND_STRIKEOUT_OFF,
+	GTK_HTML_COMMAND_STRIKEOUT_TOGGLE,
 
 	GTK_HTML_COMMAND_SIZE_MINUS_2,
 	GTK_HTML_COMMAND_SIZE_MINUS_1,
@@ -125,6 +136,7 @@ enum _GtkHTMLCommandType {
 	GTK_HTML_COMMAND_ALIGN_CENTER,
 	GTK_HTML_COMMAND_ALIGN_RIGHT,
 
+	GTK_HTML_COMMAND_INDENT_ZERO,
 	GTK_HTML_COMMAND_INDENT_INC,
 	GTK_HTML_COMMAND_INDENT_DEC,
 
@@ -254,6 +266,12 @@ struct _GtkHTMLClass {
 	GtkHTMLClassProperties *properties;
 };
 
+enum _GtkHTMLEditorEventType
+{
+	GTK_HTML_EDITOR_EVENT_COMMAND
+};
+typedef enum _GtkHTMLEditorEventType GtkHTMLEditorEventType;
+
 struct _GtkHTMLEditorAPI
 {
 	/* spell checking methods */
@@ -264,6 +282,8 @@ struct _GtkHTMLEditorAPI
 
 	/* unhandled commands */
 	gboolean  (* command)                 (GtkHTML *html, GtkHTMLCommandType com_type, gpointer data);
+
+	void      (* event)                   (GtkHTML *html, GtkHTMLEditorEventType event_type, GtkArg **args, gpointer data);
 };
 
 
@@ -352,7 +372,9 @@ gboolean  gtk_html_jump_to_anchor  (GtkHTML *html,
 GtkHTMLParagraphStyle	   gtk_html_get_paragraph_style          (GtkHTML                   *html);
 void  			   gtk_html_set_paragraph_style          (GtkHTML                   *html,
 								  GtkHTMLParagraphStyle      style);
-void  			   gtk_html_indent                       (GtkHTML                   *html,
+void  			   gtk_html_set_indent                   (GtkHTML                   *html,
+								  gint                       level);
+void  			   gtk_html_modify_indent_by_delta       (GtkHTML                   *html,
 								  gint                       delta);
 void  			   gtk_html_set_font_style               (GtkHTML                   *html,
 								  GtkHTMLFontStyle           and_mask,
@@ -374,5 +396,7 @@ void  gtk_html_redo  (GtkHTML *html);
 
 void  gtk_html_set_default_background_color (GtkHTML *html, GdkColor *c);
 gpointer gtk_html_get_image_by_imageid (GtkHTML *html, gchar *id);
+
+void  gtk_html_editor_command (GtkHTML *html, const gchar *command_name);
 
 #endif /* _GTKHTML_H_ */
