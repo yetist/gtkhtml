@@ -1375,6 +1375,9 @@ html_image_pointer_unref (HTMLImagePointer *ip)
 GtkHTMLStream *
 html_image_pointer_load (HTMLImagePointer *ip)
 {
+	if (ip->factory->engine->stopped)
+		return NULL;
+
 	html_image_pointer_ref (ip);
 
 	if (ip->factory->engine->block_images)
@@ -1522,7 +1525,8 @@ move_image_pointers (gpointer key, gpointer value, gpointer data)
 	ip->factory = dst;
 	
 	g_hash_table_insert (dst->loaded_images, ip->url, ip);
-	g_signal_emit_by_name (ip->factory->engine, "url_requested", ip->url, html_image_pointer_load (ip));
+	if (!ip->factory->engine->stopped)
+		g_signal_emit_by_name (ip->factory->engine, "url_requested", ip->url, html_image_pointer_load (ip));
 
 	return TRUE;
 }

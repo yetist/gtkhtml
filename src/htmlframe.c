@@ -46,7 +46,8 @@ frame_url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpoi
 	HTMLFrame *frame = HTML_FRAME (data);
 	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(frame)->parent);
 
-	g_signal_emit_by_name (parent->engine, "url_requested", url, handle);
+	if (!html->engine->stopped)
+		g_signal_emit_by_name (parent->engine, "url_requested", url, handle);
 }
 
 static void
@@ -461,7 +462,6 @@ html_frame_init (HTMLFrame *frame,
 	GtkWidget *new_widget;
 	GtkHTML   *new_html;
 	GtkHTML   *parent_html;
-	GtkHTMLStream *handle;
 	GtkWidget *scrolled_window;
 	gint depth;
 
@@ -497,7 +497,6 @@ html_frame_init (HTMLFrame *frame,
 	frame->gdk_painter = NULL;
 	gtk_html_set_base (new_html, src);
 
-	handle = gtk_html_begin (new_html);
 	gtk_html_set_base (new_html, src);
 
 	new_html->engine->clue->parent = HTML_OBJECT (frame);
@@ -529,8 +528,14 @@ html_frame_init (HTMLFrame *frame,
 	  GTK_SIGNAL_FUNC (frame_button_press_event), frame);
 	*/
 
-	g_signal_emit_by_name (parent_html->engine, "url_requested", src, handle);
+	if (parent_html->engine->stopped)
+		gtk_html_stop (new_html);
+	else {
+		GtkHTMLStream *handle;
 
+		handle = gtk_html_begin (new_html);
+		g_signal_emit_by_name (parent_html->engine, "url_requested", src, handle);
+	}
 	gtk_widget_set_size_request (scrolled_window, width, height);
 
 	gtk_widget_show (scrolled_window);	

@@ -4359,6 +4359,7 @@ html_engine_begin (HTMLEngine *e, char *content_type)
 	new_stream = gtk_html_stream_log_new (GTK_HTML (e->widget), new_stream);
 #endif
 	e->opened_streams = 1;
+	e->stopped = FALSE;
 	
 	e->newPage = TRUE;
 	clear_selection (e);
@@ -4371,6 +4372,22 @@ html_engine_begin (HTMLEngine *e, char *content_type)
 	push_block_element (e, ID_DOCUMENT, NULL, DISPLAY_DOCUMENT, NULL, 0, 0);
 
 	return new_stream;
+}
+
+static void 
+html_engine_stop_forall (HTMLObject *o, HTMLEngine *e, gpointer data)
+{
+	if (HTML_IS_FRAME (o))
+		GTK_HTML (HTML_FRAME (o)->html)->engine->stopped = TRUE;
+	else if (HTML_IS_IFRAME (o))
+		GTK_HTML (HTML_IFRAME (o)->html)->engine->stopped = TRUE;
+}
+
+void
+html_engine_stop (HTMLEngine *e)
+{
+	e->stopped = TRUE;
+	html_object_forall (e->clue, e, html_engine_stop_forall, NULL);
 }
 
 char *engine_content_types[]= {"text/html", NULL};

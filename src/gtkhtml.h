@@ -172,6 +172,7 @@ void                       gtk_html_write                         (GtkHTML      
 void                       gtk_html_end                           (GtkHTML                   *html,
 								   GtkHTMLStream             *handle,
 								   GtkHTMLStreamStatus        status);
+void                       gtk_html_stop                          (GtkHTML                   *html);
 void                       gtk_html_load_from_string              (GtkHTML                   *html,
 								   const gchar               *str,
 								   gint                       len);

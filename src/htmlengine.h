@@ -254,6 +254,7 @@ struct _HTMLEngine {
 	gboolean block;
 	gboolean block_images;
 	gint opened_streams;
+	gboolean stopped;
 
 	HTMLObject *focus_object;
 	gint focus_object_offset;
@@ -311,6 +312,7 @@ GtkHTMLStream *html_engine_begin            (HTMLEngine  *p,
 					     char        *content_type);
 void           html_engine_parse            (HTMLEngine  *p);
 void           html_engine_stop_parser      (HTMLEngine  *e);
+void           html_engine_stop             (HTMLEngine  *e);
 
 /* Rendering control.  */
 gint  html_engine_calc_min_width       (HTMLEngine *e);

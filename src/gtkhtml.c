@@ -428,6 +428,9 @@ html_engine_url_requested_cb (HTMLEngine *engine,
 	char *expanded = NULL;
 	gtk_html = GTK_HTML (data);
 
+	if (engine->stopped)
+		return;
+
 	expanded = gtk_html_get_url_base_relative (gtk_html, url);
 	g_signal_emit (gtk_html, signals[URL_REQUESTED], 0, expanded, handle);
 	g_free (expanded);
@@ -3252,6 +3255,20 @@ gtk_html_end (GtkHTML *html,
 	      GtkHTMLStreamStatus status)
 {
 	gtk_html_stream_close (handle, status);
+}
+
+/**
+ * gtk_html_stop:
+ * @html: the GtkHTML widget the stream belongs to.
+ *
+ * Stop requesting any more data by url_requested signal.
+ **/
+void
+gtk_html_stop (GtkHTML *html)
+{
+	g_return_if_fail (GTK_IS_HTML (html));
+
+	html_engine_stop (html->engine);
 }
 
 

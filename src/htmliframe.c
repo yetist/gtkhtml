@@ -57,7 +57,8 @@ iframe_url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpo
 	HTMLIFrame *iframe = HTML_IFRAME (data);
 	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(iframe)->parent);
 
-	g_signal_emit_by_name (parent->engine, "url_requested", url, handle);
+	if (!html->engine->stopped)
+		g_signal_emit_by_name (parent->engine, "url_requested", url, handle);
 }
 
 static void
@@ -559,7 +560,6 @@ html_iframe_init (HTMLIFrame *iframe,
 	GtkWidget *new_widget;
 	GtkHTML   *new_html;
 	GtkHTML   *parent_html;
-	GtkHTMLStream *handle;
 	GtkWidget *scrolled_window;
 	gint depth;
 
@@ -605,8 +605,6 @@ html_iframe_init (HTMLIFrame *iframe,
 	iframe->frameborder = border;
 	gtk_html_set_base (new_html, src);
 
-	handle = gtk_html_begin (new_html);
-
 	new_html->engine->clue->parent = HTML_OBJECT (iframe);
 	
 	g_signal_connect (new_html, "url_requested", G_CALLBACK (iframe_url_requested), iframe);
@@ -630,8 +628,16 @@ html_iframe_init (HTMLIFrame *iframe,
 	  gtk_signal_connect (GTK_OBJECT (html), "button_press_event",
 	  GTK_SIGNAL_FUNC (iframe_button_press_event), iframe);
 	*/
-	if (depth < 10)
-		g_signal_emit_by_name (parent_html->engine, "url_requested", src, handle);
+	if (depth < 10) {
+		if (parent_html->engine->stopped)
+			gtk_html_stop (new_html);
+		else {
+			GtkHTMLStream *handle;
+			handle = gtk_html_begin (new_html);
+
+			g_signal_emit_by_name (parent_html->engine, "url_requested", src, handle);
+		}
+	}
 	
 	gtk_widget_set_size_request (scrolled_window, width, height);
 
