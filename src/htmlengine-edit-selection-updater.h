@@ -36,10 +36,12 @@ struct _HTMLEngineEditSelectionUpdater {
 };
 
 
-HTMLEngineEditSelectionUpdater *html_engine_edit_selection_updater_new       (HTMLEngine                     *engine);
-void                            html_engine_edit_selection_updater_destroy   (HTMLEngineEditSelectionUpdater *updater);
-void                            html_engine_edit_selection_updater_reset     (HTMLEngineEditSelectionUpdater *updater);
-void                            html_engine_edit_selection_updater_schedule  (HTMLEngineEditSelectionUpdater *updater);
-void                            html_engine_edit_selection_update_now        (HTMLEngineEditSelectionUpdater *updater);
+HTMLEngineEditSelectionUpdater *html_engine_edit_selection_updater_new             (HTMLEngine                     *engine);
+void                            html_engine_edit_selection_updater_destroy         (HTMLEngineEditSelectionUpdater *updater);
+void                            html_engine_edit_selection_updater_reset           (HTMLEngineEditSelectionUpdater *updater);
+void                            html_engine_edit_selection_updater_schedule        (HTMLEngineEditSelectionUpdater *updater);
+void                            html_engine_edit_selection_updater_update_now      (HTMLEngineEditSelectionUpdater *updater);
+void                            html_engine_edit_selection_updater_cursor_changed  (HTMLEngineEditSelectionUpdater *updater,
+										    HTMLCursor                     *new_cursor);
 
 #endif /* _HTMLENGINE_EDIT_SELECTION_UPDATER */

@@ -819,7 +819,7 @@ html_engine_replace_by_object (HTMLEngine *engine,
 	html_cursor_jump_to (engine->cursor, engine, sobj, soff);
 	html_engine_set_mark (engine);
 	html_cursor_jump_to (engine->cursor, engine, eobj, eoff);
-	html_engine_edit_selection_update_now (engine->selection_updater);
+	html_engine_edit_selection_updater_update_now (engine->selection_updater);
 	html_engine_paste_object (engine, new_obj, TRUE);
 
 	html_cursor_jump_to_position (engine->cursor, engine, pos);

@@ -23,6 +23,7 @@
 #include "htmlclue.h"
 #include "htmltextmaster.h"
 #include "htmlengine-edit-movement.h"
+#include "htmlengine-edit-selection-updater.h"
 
 #include "htmlengine-edit-fontstyle.h"
 
@@ -99,16 +100,21 @@ update_cursor_for_merge (HTMLText *text,
    and makes sure that @cursor is still valid (i.e. still points to a
    valid object) after this.  */
 static void
-merge_safely (HTMLText *text,
+merge_safely (HTMLEngine *engine,
+	      HTMLText *text,
 	      HTMLText *other,
-	      gboolean prepend,
-	      HTMLCursor *cursor,
-	      HTMLCursor *mark)
+	      gboolean prepend)
 {
+	HTMLCursor *cursor, *mark;
+
+	cursor = engine->cursor;
+	mark = engine->mark;
+
 	html_text_master_destroy_slaves (HTML_TEXT_MASTER (text));
 	html_text_master_destroy_slaves (HTML_TEXT_MASTER (other));
 
 	update_cursor_for_merge (text, other, prepend, cursor);
+
 	if (mark != NULL)
 		update_cursor_for_merge (text, other, prepend, mark);
 
@@ -151,9 +157,8 @@ split_safely (HTMLText *text,
 /* This handles merging of consecutive text elements with the same
    properties.  */
 static guint
-merge_backward (HTMLObject *object,
-		HTMLCursor *cursor,
-		HTMLCursor *mark)
+merge_backward (HTMLEngine *engine,
+		HTMLObject *object)
 {
 	GtkHTMLFontStyle font_style;
 	HTMLObject *p, *pprev;
@@ -171,7 +176,7 @@ merge_backward (HTMLObject *object,
 			   && HTML_OBJECT_TYPE (object) == HTML_OBJECT_TYPE (p)
 			   && html_text_check_merge (HTML_TEXT (object), HTML_TEXT (p))) {
 			total_merge += HTML_TEXT (object)->text_len;
-			merge_safely (HTML_TEXT (object), HTML_TEXT (p), TRUE, cursor, mark);
+			merge_safely (engine, HTML_TEXT (object), HTML_TEXT (p), TRUE);
 		} else {
 			break;
 		}
@@ -181,13 +186,16 @@ merge_backward (HTMLObject *object,
 }
 
 static guint
-merge_forward (HTMLObject *object,
-	       HTMLCursor *cursor,
-	       HTMLCursor *mark)
+merge_forward (HTMLEngine *engine,
+	       HTMLObject *object)
 {
 	GtkHTMLFontStyle font_style;
+	HTMLCursor *cursor, *mark;
 	HTMLObject *p, *pnext;
 	guint total_merge;
+
+	cursor = engine->cursor;
+	mark = engine->mark;
 
 	font_style = HTML_TEXT (object)->font_style;
 	total_merge = 0;
@@ -201,7 +209,7 @@ merge_forward (HTMLObject *object,
 			   && HTML_OBJECT_TYPE (object) == HTML_OBJECT_TYPE (p)
 			   && html_text_check_merge (HTML_TEXT (object), HTML_TEXT (p))) {
 			total_merge += HTML_TEXT (object)->text_len;
-			merge_safely (HTML_TEXT (object), HTML_TEXT (p), FALSE, cursor, mark);
+			merge_safely (engine, HTML_TEXT (object), HTML_TEXT (p), FALSE);
 		} else {
 			break;
 		}
@@ -334,7 +342,7 @@ set_font_style (HTMLEngine *engine,
 		   same font style.  We don't want to have contiguous equal text
 		   elements, so we merge more stuff here.  */
 
-		total_merged = merge_backward (p, engine->cursor, engine->mark);
+		total_merged = merge_backward (engine, p);
 		if (backwards) {
 			if (total_merged > count)
 				count = 0;
@@ -342,7 +350,7 @@ set_font_style (HTMLEngine *engine,
 				count -= total_merged;
 		}
 
-		total_merged = merge_forward (p, engine->cursor, engine->mark);
+		total_merged = merge_forward (engine, p);
 		if (! backwards) {
 			if (total_merged > count)
 				count = 0;
@@ -378,19 +386,21 @@ set_font_style (HTMLEngine *engine,
 
 	if (backwards) {
 		if (engine->cursor->object->prev != NULL)
-			merge_forward (engine->cursor->object->prev, engine->cursor, engine->mark);
+			merge_forward (engine, engine->cursor->object->prev);
 		if (p != NULL)
-			merge_backward (p, engine->cursor, engine->mark);
+			merge_backward (engine, p);
 	} else {
-		merge_backward (engine->cursor->object, engine->cursor, engine->mark);
+		merge_backward (engine, engine->cursor->object);
 		if (p != NULL)
-			merge_forward (p, engine->cursor, engine->mark);
+			merge_forward (engine, p);
 	}
 
 	html_object_relayout (p->parent->parent, engine, p->parent);
 	html_engine_queue_draw (engine, p->parent);
 
 	html_cursor_normalize (engine->cursor);
+	html_engine_edit_selection_updater_cursor_changed (engine->selection_updater,
+							   engine->cursor);
 
 	if (! want_undo)
 		return NULL;
@@ -413,6 +423,8 @@ set_font_style_in_selection (HTMLEngine *engine,
 
 	g_return_if_fail (engine->clue != NULL);
 	g_return_if_fail (engine->mark != NULL);
+
+	html_engine_edit_selection_updater_update_now (engine->selection_updater);
 
 #ifdef PARANOID_DEBUG
 	g_print ("Tree before changing font style:\n");
@@ -775,6 +787,7 @@ html_engine_set_font_style (HTMLEngine *engine,
 	g_return_if_fail (engine->editable);
 
 	if (engine->active_selection) {
+		/* FIXME freeze/thaw sucks.  */
 		html_engine_freeze (engine);
 		set_font_style_in_selection (engine, and_mask, or_mask, TRUE);
 		html_engine_thaw (engine);

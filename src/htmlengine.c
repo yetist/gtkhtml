@@ -3757,7 +3757,7 @@ html_engine_queue_clear (HTMLEngine *e,
 
 	if (e->freeze_count == 0)
 		html_draw_queue_add_clear (e->draw_queue, x, y, width, height,
-					   html_colorset_get_color (e->settings->color_set, HTMLBgColor));
+					   html_colorset_get_color_allocated (e->painter, HTMLBgColor));
 }
 
 
@@ -4008,6 +4008,20 @@ html_engine_get_selection_string (HTMLEngine *engine)
 }
 
 
+/* Cursor normalization.  */
+
+void
+html_engine_normalize_cursor (HTMLEngine *engine)
+{
+	g_return_if_fail (engine != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (engine));
+
+	html_cursor_normalize (engine->cursor);
+	html_engine_edit_selection_updater_cursor_changed (engine->selection_updater,
+							   engine->cursor);
+}
+
+
 /* Freeze/thaw.  */
 
 gboolean
@@ -4239,7 +4253,7 @@ replace (HTMLEngine *e)
 	HTMLObject *first = HTML_OBJECT (e->search_info->found->data);
 	HTMLObject *new_text;
 
-	html_engine_edit_selection_update_now (e->selection_updater);
+	html_engine_edit_selection_updater_update_now (e->selection_updater);
 
 	new_text = html_text_master_new (e->replace_info->text,
 					 HTML_TEXT (first)->font_style,

@@ -1736,6 +1736,7 @@ scroll (GtkHTML *html,
 		delta = -adj->page_increment;
 		break;
 	default:
+		delta = 0.0;
 		g_assert_not_reached ();
 	}
 

@@ -182,9 +182,3 @@ html_colorset_free_colors (HTMLColorSet *s, HTMLPainter *painter, gboolean all)
 		}
 	}
 }
-
-
-
-
-
-

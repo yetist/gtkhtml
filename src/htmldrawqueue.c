@@ -313,12 +313,12 @@ clear (HTMLDrawQueue *queue,
 
 	html_painter_begin (e->painter, x1, y1, x2, y2);
 
+	/* FIXME TODO: Background pixmap.  */
+
 	if (elem->background_color != NULL) {
 		html_painter_set_pen (e->painter, elem->background_color);
 		html_painter_fill_rect (e->painter, x1, y1, x2, y2);
 	}
-
-	/* TODO: Background pixmap.  */
 
 #if 0
 	html_painter_set_pen (e->painter, html_painter_get_black (e->painter));

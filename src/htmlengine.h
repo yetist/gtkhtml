@@ -144,9 +144,6 @@ struct _HTMLEngine {
 	/* timer id for parsing routine */
 	guint timerId;
 
-	/* Should the background be painted? */
-	gboolean bDrawBackground;
-
 	/* FIXME: replace with a `gchar *'?  */
 	GString *title;
 
@@ -340,6 +337,10 @@ void   html_engine_unselect_all          (HTMLEngine *e,
 void   html_engine_disable_selection     (HTMLEngine *e);
 gchar *html_engine_get_selection_string  (HTMLEngine *e);
 
+/* Cursor normalization.  */
+
+void  html_engine_normalize_cursor  (HTMLEngine *e);
+
 /* Freezing/thawing.  */
 gboolean  html_engine_frozen  (HTMLEngine *engine);
 void      html_engine_freeze  (HTMLEngine *engine);
@@ -368,6 +369,6 @@ void      html_engine_replace_do                (HTMLEngine *e, HTMLReplaceQuery
 gint      html_engine_replaced                  (void);
 
 /* Magic links */
-void      html_engine_init_magic_links          ();
+void      html_engine_init_magic_links          (void);
 
 #endif /* _HTMLENGINE_H_ */

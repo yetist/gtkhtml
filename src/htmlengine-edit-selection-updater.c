@@ -347,13 +347,13 @@ html_engine_edit_selection_updater_reset (HTMLEngineEditSelectionUpdater *update
 }
 
 /**
- * html_engine_edit_selection_update_now:
+ * html_engine_edit_selection_updater_update_now:
  * @updater: An HTMLEngineEditSelectionUpdater object.
  * 
  * Remove @updater idle callback and run's update callback immediately.
  **/
 void
-html_engine_edit_selection_update_now (HTMLEngineEditSelectionUpdater *updater)
+html_engine_edit_selection_updater_update_now (HTMLEngineEditSelectionUpdater *updater)
 {
 	/* remove scheduled idle cb */
 	if (updater->idle_id != 0) {
@@ -363,4 +363,25 @@ html_engine_edit_selection_update_now (HTMLEngineEditSelectionUpdater *updater)
 
 	/* run it now */
 	updater_idle_callback (updater);
+}
+
+
+/**
+ * html_engine_edit_selection_updater_cursor_changed:
+ * @updater: An HTMLEngineEditSelectionUpdater object.
+ * 
+ * This function must be called when the object to which the cursor points to
+ * is destroyed, and consequently the cursor's object pointer has changed.
+ **/
+void
+html_engine_edit_selection_updater_cursor_changed (HTMLEngineEditSelectionUpdater *updater,
+						   HTMLCursor *new_cursor)
+{
+	g_return_if_fail (updater != NULL);
+
+	if (updater->old_point == NULL)
+		return;
+
+	html_cursor_destroy (updater->old_point);
+	updater->old_point = html_cursor_dup (new_cursor);
 }

@@ -118,76 +118,96 @@ is_header (HTMLClueFlow *flow)
 	}
 }
 
-static void
-add_pre_padding (HTMLClueFlow *flow,
+static guint
+get_pre_padding (HTMLClueFlow *flow,
 		 guint pad)
 {
 	HTMLObject *prev_object;
 
 	prev_object = HTML_OBJECT (flow)->prev;
 	if (prev_object == NULL)
-		return;
+		return 0;
 
 	if (HTML_OBJECT_TYPE (prev_object) == HTML_TYPE_CLUEFLOW) {
 		HTMLClueFlow *prev;
 
 		prev = HTML_CLUEFLOW (prev_object);
 		if (prev->level > 0 && flow->level == 0)
-			goto add_pad;
+			return pad;
 
 		if (flow->style == HTML_CLUEFLOW_STYLE_PRE
 		    && prev->style != HTML_CLUEFLOW_STYLE_PRE
 		    && ! is_header (prev))
-			goto add_pad;
+			return pad;
 
 		if (is_header (flow) && ! is_header (prev))
-			goto add_pad;
+			return pad;
 
-		return;
+		return 0;
 	}
 
 	if (! is_header (flow) && flow->level == 0)
-		return;
+		return 0;
 
- add_pad:
-	HTML_OBJECT (flow)->ascent += pad;
-	HTML_OBJECT (flow)->y += pad;
+	return pad;
 }
 
-static void
-add_post_padding (HTMLClueFlow *flow,
+static guint
+get_post_padding (HTMLClueFlow *flow,
 		  guint pad)
 {
 	HTMLObject *next_object;
 
 	next_object = HTML_OBJECT (flow)->next;
 	if (next_object == NULL)
-		return;
+		return 0;
 
 	if (HTML_OBJECT_TYPE (next_object) == HTML_TYPE_CLUEFLOW) {
 		HTMLClueFlow *next;
 
 		next = HTML_CLUEFLOW (next_object);
 		if (next->level > 0 && flow->level == 0)
-			goto add_pad;
+			return pad;
 
 		if (flow->style == HTML_CLUEFLOW_STYLE_PRE
 		    && next->style != HTML_CLUEFLOW_STYLE_PRE
 		    && ! is_header (next))
-			goto add_pad;
+			return pad;
 
 		if (is_header (flow) &&  ! is_header (next))
-			goto add_pad;
+			return pad;
 
-		return;
+		return 0;
 	}
 
 	if (! is_header (flow) && flow->level == 0)
-		return;
+		return 0;
 
- add_pad:
-	HTML_OBJECT (flow)->ascent += pad;
-	HTML_OBJECT (flow)->y += pad;
+	return pad;
+}
+
+static void
+add_pre_padding (HTMLClueFlow *flow,
+		 guint pad)
+{
+	guint real_pad;
+
+	real_pad = get_pre_padding (flow, pad);
+
+	HTML_OBJECT (flow)->ascent += real_pad;
+	HTML_OBJECT (flow)->y += real_pad;
+}
+
+static void
+add_post_padding (HTMLClueFlow *flow,
+		  guint pad)
+{
+	guint real_pad;
+
+	real_pad = get_post_padding (flow, pad);
+
+	HTML_OBJECT (flow)->ascent += real_pad;
+	HTML_OBJECT (flow)->y += real_pad;
 }
 
 static guint
@@ -351,6 +371,8 @@ calc_size (HTMLObject *o,
 	gint old_ascent, old_descent, old_width;
 	gint runWidth = 0;
 	gboolean have_valign_top;
+
+	html_clueflow_remove_text_slaves (HTML_CLUEFLOW (o));
 
 	changed = FALSE;
 	old_ascent = o->ascent;
@@ -985,21 +1007,6 @@ get_tag_for_style (const HTMLClueFlow *flow)
 }
 
 static const gchar *
-get_tag_for_item_group (const HTMLClueFlow *flow)
-{
-	switch (flow->style) {
-	case HTML_CLUEFLOW_STYLE_ITEMDOTTED:
-		return "UL";
-	case HTML_CLUEFLOW_STYLE_ITEMROMAN:
-	case HTML_CLUEFLOW_STYLE_ITEMDIGIT:
-		return "OL";
-	default:
-		g_warning ("Unknown HTMLClueFlowStyle %d", flow->style);
-		return NULL;
-	}
-}
-
-static const gchar *
 halign_to_string (HTMLHAlignType halign)
 {
 	switch (halign) {
@@ -1069,12 +1076,6 @@ save (HTMLObject *self,
 			return FALSE;
 	}
 
-	if (start && is_item (clueflow)) {
-		if (! html_engine_save_output_string (state, "<%s>\n",
-						      get_tag_for_item_group (HTML_CLUEFLOW (self))))
-			return FALSE;
-	}		
-
 	/* Start tag.  */
 	if (tag != NULL && (start || is_item (clueflow))
 	    && (! html_engine_save_output_string (state, "<%s>", tag)))
@@ -1089,12 +1090,6 @@ save (HTMLObject *self,
 		if (! html_engine_save_output_string (state, "</%s>", tag))
 			return FALSE;
 	}
-
-	if (end && is_item (clueflow)) {
-		if (! html_engine_save_output_string (state, "\n</%s>",
-						      get_tag_for_item_group (HTML_CLUEFLOW (self))))
-			return FALSE;
-	}		
 
 	/* Close alignment tag.  */
 	if (halign != HTML_HALIGN_NONE && halign != HTML_HALIGN_LEFT) {
@@ -1113,6 +1108,13 @@ static gboolean
 save_plain (HTMLObject *self,
 	    HTMLEngineSaveState *state)
 {
+	HTMLClueFlow *clueflow;
+
+	clueflow = HTML_CLUEFLOW (self);
+
+	if (get_pre_padding (clueflow, 1) > 0)
+		if (! html_engine_save_output_string (state, "\n"))
+			return FALSE;
 
 	/* Paragraph's content.  */
 	if (! HTML_OBJECT_CLASS (&html_clue_class)->save_plain (self, state))
@@ -1121,6 +1123,10 @@ save_plain (HTMLObject *self,
 	if (!html_engine_save_output_string (state, "\n"))
 		return FALSE;
 	
+	if (get_post_padding (clueflow, 1) > 0)
+		if (! html_engine_save_output_string (state, "\n"))
+			return FALSE;
+
 	return TRUE;
 }
 
@@ -1589,8 +1595,8 @@ relayout_and_draw (HTMLObject *object,
    paragraph and the following one, because their padding might change
    after the level change. */
 static void
-relayout_for_level_change (HTMLClueFlow *flow,
-			   HTMLEngine *engine)
+relayout_with_siblings (HTMLClueFlow *flow,
+			HTMLEngine *engine)
 {
 	if (engine == NULL)
 		return;
@@ -1618,7 +1624,7 @@ html_clueflow_set_style (HTMLClueFlow *flow,
 
 	flow->style = style;
 
-	relayout_and_draw (HTML_OBJECT (flow), engine);
+	relayout_with_siblings (flow, engine);
 }
 
 HTMLClueFlowStyle
@@ -1674,7 +1680,7 @@ html_clueflow_indent (HTMLClueFlow *flow,
 		return;
 	}
 
-	relayout_for_level_change (flow, engine);
+	relayout_with_siblings (flow, engine);
 }
 
 void
@@ -1691,7 +1697,7 @@ html_clueflow_set_indentation (HTMLClueFlow *flow,
 
 	flow->level = indentation;
 
-	relayout_for_level_change (flow, engine);
+	relayout_with_siblings (flow, engine);
 }
 
 guint8

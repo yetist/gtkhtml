@@ -1,3 +1,57 @@
+2000-06-12  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlclueflow.c (get_tag_for_item_group): Removed.
+	(save): Don't use it anymore.  This will make us produce somewhat
+	invalid HTML, but at least indentation will look right.
+
+	* htmlengine.c (html_engine_queue_clear): Call
+	`html_colorset_get_color_allocated' instead of
+	`html_colorset_get_color', so that we get an allocated color.
+	This fixes the "black box when deleting" bug.
+
+	* htmlengine.h: Remove `bDrawBackground' from `HTMLEngine'.  It
+	was not being used anywhere.
+
+	* htmlclueflow.c (calc_size): Remove all the text slaves before
+	doing anything else.
+	(get_pre_padding): New.
+	(add_pre_padding): Rewritten to use it.
+	(get_post_padding): New.
+	(add_post_padding): Rewritten to use it.
+	(save_plain): If the pre padding is greater than zero, emit a
+	newline before the body of the paragraph.  Likewise, if the post
+	padding is greater than zero, emit an extra newline after the body
+	of the paragraph.  This way, the plaintext output mimics the
+	appearance of the graphically rendered HTML at least a little bit.
+	(relayout_with_siblings): Renamed from
+	`relayout_for_level_change'.
+	(html_clueflow_set_style): Use it.  This way a style change
+	updates the padding for the siblings too when necessary.
+	(html_clueflow_set_indentation): Use it.
+	(html_clueflow_indent): Use it.
+
+	* htmlengine.c (html_engine_normalize_cursor): New.
+
+	* htmlengine-edit-fontstyle.c (set_font_style_in_selection):
+	Update the selection before doing anything else.
+	(merge_safely): New arg @engine.  Removed args @cursor and @mark.
+	(merge_backward): New arg @engine.  Removed args @cursor and
+	@mark.
+	(merge_forward): Likewise.
+	(set_font_style): Call
+	`html_engine_edit_selection_updater_cursor_changed'.
+
+	* htmlengine-edit-selection-updater.c
+	(html_engine_edit_selection_updater_update_now): Renamed from
+	`html_engine_edit_selection_update_now'.
+	(html_engine_edit_selection_updater_cursor_changed): New.  This
+	function must be called when the object to which the cursor points
+	has been destroyed, and consequently the cursor's object pointer
+	has changed.
+
+	* gtkhtml.c (scroll): Provide initialization for `delta' to
+	placate the whingin' compiler.
+
 2000-06-12  Dan Winship  <danw@helixcode.com>
 
 	* htmltextmaster.c: fix up the MagicInsertMatch regexps: "[_-a-z]"
