@@ -92,7 +92,7 @@ get_size (gchar *font_name, gboolean points)
     gint n;
 
     /* Search paramether */
-    for (s=font_name, n=points ? 7 : 8; n; n--,s++)
+    for (s=font_name, n=points ? 8 : 7; n; n--,s++)
 	    s = strchr (s,'-');
 
     if (s && *s != 0) {
@@ -342,6 +342,21 @@ e_font_from_face (gchar *face, gint size, gboolean points, gchar *weight, gchar 
 	return font;
 }
 
+static GdkFont *
+get_fallback_gdk_font (void)
+{
+	static GdkFont *fallback_font = NULL;
+
+	if (!fallback_font) {
+		GtkWidget *tmp_window = gtk_window_new (GTK_WINDOW_POPUP);
+		gtk_widget_ensure_style (tmp_window);
+		fallback_font = gdk_font_ref (tmp_window->style->font);
+		gtk_widget_destroy (tmp_window);
+	}
+
+	return fallback_font;
+}
+
 static gpointer
 alloc_e_font_try (gchar *face, gdouble size, gboolean points, GtkHTMLFontStyle style,
 		  gchar *medium, gchar *bold, gchar *roman, gchar *italic, gboolean known_size)
@@ -356,15 +371,7 @@ alloc_e_font_try (gchar *face, gdouble size, gboolean points, GtkHTMLFontStyle s
 					 style & GTK_HTML_FONT_STYLE_ITALIC ? italic : roman,
 					 known_size, (style & GTK_HTML_FONT_STYLE_SIZE_MASK) > GTK_HTML_FONT_STYLE_SIZE_3);
 	} else {
-		GdkFont *fixed;
-
-		fixed = gdk_fontset_load ("fixed");
-		if (!fixed)
-			fixed = gdk_font_load ("fixed");
-		if (!fixed)
-			g_error (_("Can't load fixed font."));
-		font = e_font_from_gdk_font_gtkhtml (fixed);
-		gdk_font_unref (fixed);
+		font = e_font_from_gdk_font (get_fallback_gdk_font ());
 	}
 
 	return font;
