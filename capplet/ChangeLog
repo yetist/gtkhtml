@@ -1,3 +1,8 @@
+2000-08-17  Larry Ewing  <lewing@helixcode.com>
+
+	* Makefile.am: add pspell cflags and libs as well so that things
+	at least compile again.
+
 2000-08-17  Radek Doulik  <rodo@helixcode.com>
 
 	* main.c (apply_fonts): new helper function to set font attributes

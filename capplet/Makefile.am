@@ -5,7 +5,7 @@ INCLUDES =					\
 	$(EXTRA_GNOME_CFLAGS)			\
 	-DGNOMELOCALEDIR=\"$(datadir)/locale\"
 
-CFLAGS +=  $(GCONF_CFLAGS)
+CFLAGS +=  $(GCONF_CFLAGS) $(PSPELL_CFLAGS)
 
 bin_PROGRAMS = gtkhtml-properties-capplet
 gtkhtml_properties_capplet_SOURCES = 		\
@@ -18,6 +18,7 @@ gtkhtml_properties_capplet_LDADD = 	\
 	$(EXTRA_GNOME_LIBS)		\
 	$(GNOME_CAPPLET_LIBS) 		\
 	$(GCONF_LIBS) 			\
+	$(PSPELL_LIBS) 			\
 	$(top_builddir)/src/libgtkhtml.la
 
 EXTRA_DIST = gtkhtml-properties.desktop
