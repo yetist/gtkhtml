@@ -109,7 +109,8 @@ static void
 insert_table_column (HTMLEngine *e, gboolean after, HTMLUndoDirection dir)
 {
 	HTMLTable *t;
-	gint r, c, nc, col, delta = 0, first_row;
+	HTMLTableCell *cell;
+	gint r, c, nc, col, row, delta = 0, first_row = -1;
 
 	t = HTML_TABLE (html_object_nth_parent (e->cursor->object, 3));
 	if (!t)
@@ -117,8 +118,10 @@ insert_table_column (HTMLEngine *e, gboolean after, HTMLUndoDirection dir)
 
 	html_engine_freeze (e);
 
-	col = HTML_TABLE_CELL (html_object_nth_parent (e->cursor->object, 2))->col + (after ? 1 : 0);
-	nc  = t->totalCols + 1;
+	cell = HTML_TABLE_CELL (html_object_nth_parent (e->cursor->object, 2)); 
+	col  = cell->col + (after ? 1 : 0);
+	row  = cell->row;
+	nc   = t->totalCols + 1;
 	html_table_alloc_cell (t, 0, t->totalCols);
 
 	for (r = 0; r < t->totalRows; r ++) {
@@ -135,22 +138,22 @@ insert_table_column (HTMLEngine *e, gboolean after, HTMLUndoDirection dir)
 		if (!t->cells [r][col]) {
 			html_table_set_cell (t, r, col, new_cell (e, t));
 			html_table_cell_set_position (t->cells [r][col], r, col);
-			delta ++;
-			if (delta == 1)
+			if (r <= row)
+				delta ++;
+			if (first_row == -1)
 				first_row = r;
 		}
 	}
-	if (!after)
-		e->cursor->position += delta;
+	e->cursor->position += delta - (after ? 1 : 0);
 	/* now we have right position, let move to the first cell of this new column */
-	if (delta) {
+	if (first_row != -1) {
 		HTMLTableCell *cell;
 		gboolean end;
 		do {
 			cell = HTML_TABLE_CELL (html_object_nth_parent (e->cursor->object, 2));
 			if (cell->col == col && cell->row == first_row)
 				break;
-			if (after)
+			if (after && first_row >= row)
 				end = html_cursor_forward (e->cursor, e);
 			else
 				end = html_cursor_backward (e->cursor, e);

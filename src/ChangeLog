@@ -2,6 +2,8 @@
 
 	* htmlengine-edit-table.c (new_cell): set cell bgcolor, bgpixmap
 	and padding
+	(insert_table_column): fixed cursor position and cursor movement
+	afret insertion
 
 	* htmltext.c (calc_min_width): make minimal width be always >= 1
 	(calc_preferred_width): ditto
