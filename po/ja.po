@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-18 22:32+0900\n"
-"PO-Revision-Date: 2004-01-18 22:31+0900\n"
+"POT-Creation-Date: 2004-01-22 23:40+0900\n"
+"PO-Revision-Date: 2004-01-22 12:28+0900\n"
 "Last-Translator: Takeshi AIHANA <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -852,12 +852,12 @@ msgstr "貼り付け(_P)"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
 msgid "_Plain text"
-msgstr "プレーン(_P)"
+msgstr "テキスト(_P)"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
 msgid "_Preformat"
-msgstr "Preformat(_P)"
+msgstr "整形済みフォーマット(_P)"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
@@ -1369,7 +1369,7 @@ msgstr "xxxxxxxxxxxxxx"
 #: components/html-editor/image.c:118 components/html-editor/rule.c:93
 #: components/html-editor/table.c:192
 msgid "Plain"
-msgstr "プレーン"
+msgstr "テキスト"
 
 #: components/html-editor/image.c:120
 msgid ""
