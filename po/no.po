@@ -42,7 +42,7 @@ msgstr "Legg til"
 #: capplet/gnome-bindings-prop.c:548
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:2
 msgid "Copy"
-msgstr "Kopiér"
+msgstr "Kopier"
 
 #: capplet/gnome-bindings-prop.c:551
 msgid "Delete"
@@ -167,11 +167,11 @@ msgstr "Klipp _ut"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:3
 msgid "Copy selection to clipboard"
-msgstr "Kopiér utvalget til utklippstavlen"
+msgstr "Kopier utvalget til utklippstavlen"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:4
 msgid "Copy the selection"
-msgstr "Kopiér utvalget"
+msgstr "Kopier utvalget"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:5
 msgid "Cut"
@@ -281,11 +281,11 @@ msgstr "Angre forrige handling"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:31
 msgid "_Copy"
-msgstr "_Kopiér"
+msgstr "_Kopier"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:32
 msgid "_Edit"
-msgstr "_Redigér"
+msgstr "_Rediger"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:33
 msgid "_Find..."
@@ -466,7 +466,7 @@ msgstr "Stil"
 
 #: components/html-editor/paragraph.c:144
 msgid "Align"
-msgstr "Justér"
+msgstr "Juster"
 
 #: components/html-editor/paragraph.c:157 components/html-editor/rule.c:256
 msgid "Left"
@@ -598,11 +598,11 @@ msgstr "List oppføring (romersk)"
 
 #: components/html-editor/toolbar.c:488
 msgid "Left align"
-msgstr "Venstrejustér"
+msgstr "Venstrejuster"
 
 #: components/html-editor/toolbar.c:488
 msgid "Left justifies the paragraphs"
-msgstr "Venstrejustérer avsnittene"
+msgstr "Venstrejusterer avsnittene"
 
 #: components/html-editor/toolbar.c:490
 msgid "Centers justifies the paragraphs"
@@ -610,11 +610,11 @@ msgstr "Sentrerer avsnittene"
 
 #: components/html-editor/toolbar.c:492
 msgid "Right align"
-msgstr "Høyrejustér"
+msgstr "Høyrejuster"
 
 #: components/html-editor/toolbar.c:492
 msgid "Right justifies the paragraphs"
-msgstr "Høyrejustérer avsnittene"
+msgstr "Høyrejusterer avsnittene"
 
 #: components/html-editor/toolbar.c:499
 msgid "Typewriter"
@@ -646,15 +646,15 @@ msgstr "Fjern indentering"
 
 #: components/html-editor/toolbar.c:516
 msgid "Indents the paragraphs less"
-msgstr "Indentérer avsnittene mindre"
+msgstr "Indenterer avsnittene mindre"
 
 #: components/html-editor/toolbar.c:518
 msgid "Indent"
-msgstr "Indentér"
+msgstr "Indenter"
 
 #: components/html-editor/toolbar.c:518
 msgid "Indents the paragraphs more"
-msgstr "Indentérer avsnittene mer"
+msgstr "Indenterer avsnittene mer"
 
 #: components/html-editor/utils.c:104
 msgid "Sample"
