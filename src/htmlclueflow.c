@@ -790,9 +790,7 @@ check_point (HTMLObject *self,
 	     guint *offset_return,
 	     gboolean for_cursor)
 {
-	HTMLObject *obj;
-	HTMLObject *p;
-	HTMLObject *pnext;
+	HTMLObject *obj, *p, *pnext;
 	HTMLClue *clue;
 
 	if (x < self->x || x >= self->x + self->width
@@ -805,8 +803,6 @@ check_point (HTMLObject *self,
 	y = y - self->y + self->ascent;
 
 	for (p = clue->head; p != NULL; p = pnext) {
-		gint x1, y1;
-
 		pnext = p->next;
 
 		obj = html_object_check_point (p, painter, x, y, offset_return, for_cursor);
@@ -816,30 +812,16 @@ check_point (HTMLObject *self,
 		if (! for_cursor)
 			continue;
 
-		if (p->prev == NULL && (x < self->x || y < self->y - self->ascent + 1)) {
-			x1 = self->x;
-			y1 = self->y - self->ascent + 1;
-			obj = html_object_check_point (p, painter, x1, y1, offset_return, for_cursor);
+		if (p->prev == NULL && (x < p->x || y < p->y - p->ascent + 1)) {
+			obj = html_object_check_point (p, painter, p->x, p->y, offset_return, for_cursor);
 			if (obj != NULL)
 				return obj;
 		} else if (pnext == NULL || (pnext->y != p->y
 					     && y >= p->y - p->ascent + 1
 					     && y <= p->y + p->descent)) {
-			HTMLObject *obj1;
-
-			x1 = p->x + p->width - 1;
-			y1 = p->y;
-
-			if (HTML_OBJECT_TYPE (p) != HTML_TYPE_TEXTSLAVE) {
-				obj1 = p;
-			} else {
-				for (obj1 = p;
-				     HTML_OBJECT_TYPE (obj1) == HTML_TYPE_TEXTSLAVE;
-				     obj1 = obj1->prev)
-					;
-			}
-
-			obj = html_object_check_point (obj1, painter, x1, y1, offset_return, for_cursor);
+			obj = html_object_check_point (HTML_OBJECT_TYPE (p) != HTML_TYPE_TEXTSLAVE
+						       ? p : html_object_prev_not_slave (p),
+						       painter, p->x + p->width - 1, p->y, offset_return, for_cursor);
 			if (obj != NULL)
 				return obj;
 		}
