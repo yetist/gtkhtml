@@ -53,6 +53,7 @@ typedef struct {
 
 static void exit_cb (GtkWidget *widget, gpointer data);
 static void test_cb (GtkWidget *widget, gpointer data);
+static void bug_cb (GtkWidget *widget, gpointer data);
 static void slow_cb (GtkWidget *widget, gpointer data);
 static void stop_cb (GtkWidget *widget, gpointer data);
 static void dump_cb (GtkWidget *widget, gpointer data);
@@ -124,6 +125,8 @@ static GnomeUIInfo test_menu[] = {
 };
 
 static GnomeUIInfo debug_menu[] = {
+	{ GNOME_APP_UI_ITEM, "Show bug list", "Show the layout bug list",
+	  bug_cb, NULL, NULL, 0, 0, 0, 0},
 	{ GNOME_APP_UI_ITEM, "Dump Object tree", "Dump Object tree to stdout",
 	  dump_cb, NULL, NULL, 0, 0, 0, 0},
 	GNOMEUIINFO_TOGGLEITEM("Slow loading", "Load documents slowly", slow_cb, NULL),
@@ -884,6 +887,16 @@ goto_url(const char *url, int back_or_forward)
 		redirect_url = NULL;
 	}
 	g_free (full_url);
+}
+
+static void
+bug_cb (GtkWidget *widget, gpointer data)
+{
+	gchar *filename;
+
+	filename = g_strdup_printf ("%s/tests/bugs.html", HTGetCurrentDirectoryURL());
+	goto_url (filename, 0);
+	g_free (filename);
 }
 
 static void
