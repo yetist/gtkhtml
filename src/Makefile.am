@@ -225,8 +225,13 @@ gtest_LDADD =	\
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libgtkhtml.pc
 
+keybindingsdir = $(datadir)/gtkhtml-@GTKHTML_RELEASE@
+keybindings_DATA =		\
+	keybindingsrc.emacs
+
 EXTRA_DIST =			\
 	htmlclosures.list	\
+	$(keybindings_DATA)	\
 	$(pkgconfig_DATA)	\
 	$(NULL)
 

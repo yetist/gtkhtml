@@ -24,6 +24,7 @@
 
 #include <sys/types.h>
 #include <gtk/gtklayout.h>
+#include <gtk/gtkbindings.h>
 #include <libgnomeprint/gnome-print.h>
 #include <libgnomeprint/gnome-print-job.h>
 
@@ -103,6 +104,8 @@ struct _GtkHTMLClass {
 
 	/* properties */
 	GtkHTMLClassProperties *properties;
+	GtkBindingSet *emacs_bindings;
+	gboolean use_emacs_bindings;
 };
 
 struct _GtkHTMLEditorAPI

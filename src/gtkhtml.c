@@ -757,16 +757,18 @@ static gint
 key_press_event (GtkWidget *widget, GdkEventKey *event)
 {
 	GtkHTML *html = GTK_HTML (widget);
+	GtkHTMLClass *html_class = GTK_HTML_CLASS (GTK_WIDGET_GET_CLASS (html));
 	gboolean retval, update = TRUE;
 
 	html->binding_handled = FALSE;
 	html->priv->update_styles = FALSE;
 	html->priv->event_time = event->time;
 
+	if (html_class->use_emacs_bindings && html_class->emacs_bindings && !html->binding_handled)
+		gtk_binding_set_activate (html_class->emacs_bindings, event->keyval, event->state, GTK_OBJECT (widget));
+
 	if (!html->binding_handled)
-		gtk_bindings_activate (GTK_OBJECT (widget), 
-				       event->keyval,
-				       event->state);
+		gtk_bindings_activate (GTK_OBJECT (widget), event->keyval, event->state);
 	
 	retval = html->binding_handled;
 	update = html->priv->update_styles;
@@ -2395,6 +2397,22 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
 /* dnd end */
 
 static void
+read_key_theme (GtkHTMLClass *html_class)
+{
+	gchar *key_theme;
+
+	key_theme = gconf_client_get_string (gconf_client_get_default (), "/desktop/gnome/interface/gtk_key_theme", NULL);
+	html_class->use_emacs_bindings = key_theme && !strcmp (key_theme, "Emacs");
+	g_free (key_theme);
+}
+
+static void
+client_notify_key_theme (GConfClient* client, guint cnxn_id, GConfEntry* entry, gpointer data)
+{
+	read_key_theme ((GtkHTMLClass *) data);
+}
+
+static void
 gtk_html_class_init (GtkHTMLClass *klass)
 {
 	GObjectClass      *gobject_class;
@@ -2714,6 +2732,12 @@ gtk_html_class_init (GtkHTMLClass *klass)
 
 	add_bindings (klass);
 	gtk_html_accessibility_init ();
+
+	gtk_rc_parse (PREFIX "/share/gtkhtml-" GTKHTML_RELEASE "/keybindingsrc.emacs");
+	html_class->emacs_bindings = gtk_binding_set_find ("gtkhtml-bindings-emacs");
+	read_key_theme (html_class);
+	gconf_client_notify_add (gconf_client_get_default (), "/desktop/gnome/interface/gtk_key_theme",
+				 client_notify_key_theme, html_class, NULL, &gconf_error);
 }
 
 static void

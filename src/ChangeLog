@@ -1,3 +1,10 @@
+2003-03-31  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c: load emacs keybindings, use them if gconf value of
+	/desktop/gnome/interface/gtk_key_theme is Emacs
+
+	* Makefile.am (keybindings_DATA): install keybindings.emacs again
+
 2003-03-27  Larry Ewing  <lewing@ximian.com>
 
 	* Makefile.am (AM_CFLAGS): use AM_CFLAGS instead of CFLAGS
