@@ -1,3 +1,13 @@
+2002-06-19  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (selection_received): add some logic to be able to
+	receive text/html selections from Star/Open Office.  For some
+	unfathomable reason they decided to make html selections use utf8
+	instead of ucs2 (what netscape/mozilla sort of set in stone when
+	they first implemented text/html).  So to deal with this we try to
+	validate the selection as utf8 and if we fail use ucs2 instead,
+	this should be relatively safe and correct.
+
 2002-06-18  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (focus): fixed horizontal offset calculation

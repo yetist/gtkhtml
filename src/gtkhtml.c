@@ -1765,17 +1765,25 @@ selection_received (GtkWidget *widget,
 	    && (selection_data->type != gdk_atom_intern ("text/html", FALSE))) {
 		g_warning ("Selection \"STRING\" was not returned as strings!\n");
 	} else if (selection_data->length > 0) {
-		/* printf ("selection text \"%.*s\"\n", 
-			selection_data->length, selection_data->data); 
-		*/
 		if (selection_data->type == gdk_atom_intern ("text/html", FALSE)) {
 			gchar *utf8 = NULL;
 			
-			/* FIXME we need to make sure this is the right charset for all
-			   cases */
-			utf8 = e_utf8_from_charset_string_sized ("ucs2",
-								 selection_data->data,
-								 (guint) selection_data->length);
+			/* FIXME This hack decides the charset of the selection.  It seems that
+			 * mozilla/netscape alway use ucs2 for text/html
+			 * and openoffice.org seems to always use utf8 so we try to validate
+			 * the string as utf8 and if that fails we assume it is ucs2 
+			 */
+			if (!g_utf8_validate (selection_data->data, selection_data->length - 1, NULL)) {
+				utf8 = e_utf8_from_charset_string_sized ("ucs2",
+									 selection_data->data,
+									 (guint) selection_data->length);
+
+				g_warning ("UTF8 selection = %s", utf8);
+			} else {
+				g_warning ("SELECTION (%d) = %s", selection_data->length, selection_data->data);
+				utf8 = g_malloc0 (selection_data->length + 1);
+				memcpy (utf8, selection_data->data, selection_data->length);
+			}
 
 			if (as_cite) {
 				char *cite;
@@ -1791,13 +1799,15 @@ selection_received (GtkWidget *widget,
 		} else  {
 			char *text = NULL;
 
-			if (selection_data->type != GDK_SELECTION_TYPE_STRING)
-				text = g_strdup (selection_data->data);
-			else
+			if (selection_data->type != GDK_SELECTION_TYPE_STRING) {
+				text = g_malloc0 (selection_data->length + 1);
+				memcpy (text, selection_data->data, selection_data->length);
+			} else {
 				text = e_utf8_from_gtk_string_sized (widget, 
 								     selection_data->data,
 								     (guint) selection_data->length);
-			
+			}
+
 			if (as_cite) {
 				char *encoded;
 				
