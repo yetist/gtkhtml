@@ -1,3 +1,8 @@
+2003-03-10  Larry Ewing  <lewing@ximian.com>
+
+	* htmlprinter.c (print_pixbuf): add a helper function to print
+	pixbufs now that gnome print no longer has a print_pixbuf call.
+
 2003-03-09  Larry Ewing  <lewing@ximian.com>
 
 	* htmltextslave.c (get_glyphs_part): fix the check for itmems.
