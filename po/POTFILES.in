@@ -3,7 +3,7 @@ capplet/main.c
 capplet/gtkhtml-capplet.glade
 components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in
 components/html-editor/GNOME_GtkHTML_Editor.oaf.in
-components/html-editor/GNOME_GtkHTML_Editor.xml
+components/html-editor/GNOME_GtkHTML_Editor.xml.in
 components/html-editor/body.c
 components/html-editor/cell.c
 components/html-editor/editor-control-factory.c
