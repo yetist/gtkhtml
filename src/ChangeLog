@@ -1,3 +1,8 @@
+2003-12-08  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (html_text_op_cut_helper): remove spell errors from
+	outside of cutted text
+
 2003-12-05  Larry Ewing  <lewing@ximian.com>
 
 	* htmltext.c (save_text_part): don't leak the dup'd string.

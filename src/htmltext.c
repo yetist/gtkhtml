@@ -57,7 +57,7 @@ static void         move_spell_errors       (GList *spell_errors, guint offset, 
 static GList *      remove_spell_errors     (GList *spell_errors, guint offset, guint len);
 static void         remove_text_slaves      (HTMLObject *self);
 
-/* static void
+/* void
 debug_spell_errors (GList *se)
 {
 	for (;se;se = se->next)
@@ -347,6 +347,11 @@ html_text_op_cut_helper (HTMLText *text, HTMLEngine *e, GList *from, GList *to, 
 			cut_links (rvt, 0, begin);
 		nt = g_strconcat (text->text, tail, NULL);
 		g_free (text->text);
+
+		rvt->spell_errors = remove_spell_errors (rvt->spell_errors, 0, begin);
+		rvt->spell_errors = remove_spell_errors (rvt->spell_errors, end, text->text_len - end);
+		move_spell_errors (rvt->spell_errors, begin, -begin);
+
 		text->text = nt;
 		text->text_len -= end - begin;
 		*len           += end - begin;
@@ -359,6 +364,7 @@ html_text_op_cut_helper (HTMLText *text, HTMLEngine *e, GList *from, GList *to, 
 
 		text->spell_errors = remove_spell_errors (text->spell_errors, begin, end - begin);
 		move_spell_errors (text->spell_errors, end, - (end - begin));
+
 		html_text_convert_nbsp (text, TRUE);
 		pango_info_destroy (text);
 	} else {
@@ -441,6 +447,12 @@ object_merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, G
 		e->cursor->offset += t1->text_len;
 	}
 
+	/* printf ("--- before merge\n");
+	   debug_spell_errors (t1->spell_errors);
+	   printf ("---\n");
+	   debug_spell_errors (t2->spell_errors);
+	   printf ("---\n");
+	*/
 	move_spell_errors (t2->spell_errors, 0, t1->text_len);
 	t1->spell_errors = g_list_concat (t1->spell_errors, t2->spell_errors);
 	t2->spell_errors = NULL;
@@ -459,8 +471,8 @@ object_merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, G
 	pango_info_destroy (t2);
 
 	/* html_text_request_word_width (t1, e->painter); */
-	/* printf ("merged '%s'\n", t1->text); */
-	/* printf ("--- after merge\n");
+	/* printf ("merged '%s'\n", t1->text);
+	   printf ("--- after merge\n");
 	   debug_spell_errors (t1->spell_errors);
 	   printf ("---\n"); */
 
@@ -620,11 +632,12 @@ object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, g
 	move_spell_errors   (HTML_TEXT (dup)->spell_errors, 0, - HTML_TEXT (self)->text_len);
 
 	/* printf ("--- after split\n");
-	printf ("left\n");
-	debug_spell_errors (HTML_TEXT (self)->spell_errors);
-	printf ("right\n");
-	debug_spell_errors (HTML_TEXT (dup)->spell_errors);
-	printf ("---\n"); */
+	   printf ("left\n");
+	   debug_spell_errors (HTML_TEXT (self)->spell_errors);
+	   printf ("right\n");
+	   debug_spell_errors (HTML_TEXT (dup)->spell_errors);
+	   printf ("---\n");
+	*/
 
 	*left  = g_list_prepend (*left, self);
 	*right = g_list_prepend (*right, dup);
@@ -1629,7 +1642,8 @@ move_spell_errors (GList *spell_errors, guint offset, gint delta)
 { 
 	SpellError *se; 
 
-	if (!delta) return;
+	if (!delta)
+		return;
 
 	while (spell_errors) { 
 		se = (SpellError *) spell_errors->data; 

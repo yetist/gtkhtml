@@ -249,6 +249,7 @@ dump_object_simple (HTMLObject *obj,
 		g_print ("len %d bytes %d\n", text->text_len, text->text_bytes);
 		gtk_html_debug_list_links (text);
 		gtk_html_debug_list_text_attrs (text);
+		/* debug_spell_errors (text->spell_errors); */
 	} else if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE) {
 		HTMLTextSlave *slave = HTML_TEXT_SLAVE (obj);
 		gchar *text;
