@@ -40,6 +40,7 @@ static int test_insert_nested_cluevs (GtkHTML *html);
 static int test_indentation_plain_text (GtkHTML *html);
 static int test_indentation_plain_text_rtl (GtkHTML *html);
 static int test_table_cell_parsing (GtkHTML *html);
+static int test_delete_around_table (GtkHTML *html);
 
 static Test tests[] = {
 	{ "cursor movement", NULL },
@@ -59,6 +60,7 @@ static Test tests[] = {
 	{ "indentation in plain text", test_indentation_plain_text },
 	{ "indentation in plain text (RTL)", test_indentation_plain_text_rtl },
 	{ "table cell parsing", test_table_cell_parsing },
+	{ "delete around table", test_delete_around_table },
 	{ NULL, NULL }
 };
 
@@ -542,6 +544,32 @@ test_capitalize_upcase_lowcase_word (GtkHTML *html)
 	printf ("test_capitalize_upcase_lowcase_word: lower OK\n");
 
 	printf ("test_capitalize_upcase_lowcase_word: passed\n");
+
+	return TRUE;
+}
+
+static int
+test_delete_around_table (GtkHTML *html)
+{
+	load_editable (html, "<table><tr><td></td></tr></table><br>abc");
+
+	html_cursor_jump_to_position (html->engine->cursor, html->engine, 3);
+
+	if (html->engine->cursor->offset != 0
+	    || html->engine->cursor->position != 3)
+		return FALSE;
+
+	gtk_html_command (html, "delete-back");
+
+	if (html->engine->cursor->offset != 1
+	    || html->engine->cursor->position != 2)
+		return FALSE;
+
+	html_engine_end_of_document (html->engine);
+
+	if (html->engine->cursor->offset != 3
+	    || html->engine->cursor->position != 7)
+		return FALSE;
 
 	return TRUE;
 }

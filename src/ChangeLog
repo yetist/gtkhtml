@@ -1,5 +1,14 @@
 2005-03-10  Radek Doulik  <rodo@novell.com>
 
+	* test-suite.c (test_delete_around_table): added new test for
+	deleting around tables which was broken lately (on 2005-02-03)
+
+	* htmlengine-edit-cut-and-paste.c (check_for_simple_delete): use
+	check_for_simple_containers on object parents rather than on
+	objects. this fixes deletion when cursor is before/after table.
+	(check_for_simple_containers): add table cell to simple containers
+	as they are same sa cluev's
+
 	* htmlobject.c (html_object_real_cursor_right): test for RTL
 	rather than LTR so that DERIVED defaults to LTR
 	(html_object_real_cursor_left): ditto

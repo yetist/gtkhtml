@@ -1723,6 +1723,7 @@ check_for_simple_containers (HTMLObject *child, HTMLObject *parent)
 			switch (child->klass->type) {
 			case HTML_TYPE_CLUEFLOW:
 			case HTML_TYPE_CLUEV:
+			case HTML_TYPE_TABLECELL:
 				break;
 			default:
 				return FALSE;
@@ -1739,7 +1740,7 @@ check_for_simple_delete (HTMLObject *start, HTMLObject *end)
 {
 	HTMLObject *common_parent = get_common_parent (start, end);
 
-	if (common_parent && check_for_simple_containers (start, common_parent) && check_for_simple_containers (end, common_parent))
+	if (common_parent && check_for_simple_containers (start->parent, common_parent) && check_for_simple_containers (end->parent, common_parent))
 		return TRUE;
 
 	return FALSE;
