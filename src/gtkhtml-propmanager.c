@@ -21,6 +21,8 @@
    Boston, MA 02111-1307, USA.
 */
 #include <config.h>
+
+#include <string.h>
 #include <glib.h>
 #include <gnome.h>
 
@@ -59,7 +61,7 @@ struct _GtkHTMLPropmanagerPrivate {
 	GtkWidget *live_spell_check;
 	GtkWidget *live_spell_options;
 	GtkWidget *magic_links_check;
-	GtkWidget *magic_smileys_check;
+	//GtkWidget *magic_smileys_check;
 	GtkWidget *keymap;
 	
 	GtkHTMLClassProperties *saved_prop;
@@ -81,7 +83,7 @@ keymap_option_get (GtkWidget *option)
 	char *name;
         active = gtk_menu_get_active (GTK_MENU (gtk_option_menu_get_menu (GTK_OPTION_MENU (option))));
 	
-	name = gtk_object_get_data (GTK_OBJECT (active), "GtkHTMLPropKeymap");
+	name = g_object_get_data (G_OBJECT (active), "GtkHTMLPropKeymap");
 
 	return name ? name : "ms";
 }
@@ -115,11 +117,11 @@ gtk_html_propmanager_sync_gui (GtkHTMLPropmanager *pman)
 	if (priv->magic_links_check)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->magic_links_check),
 					      priv->actual_prop->magic_links);
-
+	/*
 	if (priv->magic_smileys_check)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->magic_smileys_check),
 					      priv->actual_prop->magic_smileys);
-
+	*/
 	if (priv->live_spell_check)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->live_spell_check),
 					      priv->actual_prop->live_spell_check);
@@ -128,10 +130,11 @@ gtk_html_propmanager_sync_gui (GtkHTMLPropmanager *pman)
 		gtk_widget_set_sensitive (GTK_WIDGET (priv->live_spell_options),
 					  priv->actual_prop->live_spell_check);
 	}
-
+	/*
 	if (priv->keymap) {
 		keymap_option_set (priv->keymap, priv->actual_prop->keybindings_theme);
 	}
+	*/
 
 #define SET_FONT(f,w) \
         if (w) gnome_font_picker_set_font_name (GNOME_FONT_PICKER (w), priv->actual_prop-> f);
@@ -158,7 +161,7 @@ propmanager_toggle_changed (GtkWidget *widget, GtkHTMLPropmanager *pman)
 {
 	g_return_if_fail (GTK_IS_TOGGLE_BUTTON (widget));
 
-	gtk_signal_emit (GTK_OBJECT (pman), signals[CHANGED]);
+	g_signal_emit (G_OBJECT (pman), signals[CHANGED], 0);
 }
 
 static void
@@ -166,7 +169,7 @@ propmanager_keymap_changed (GtkWidget *menu, GtkHTMLPropmanager *pman)
 {
 	g_return_if_fail (GTK_IS_HTML_PROPMANAGER (pman));
 
-	gtk_signal_emit (GTK_OBJECT (pman), signals[CHANGED]);	
+	g_signal_emit (G_OBJECT (pman), signals[CHANGED], 0);	
 }
 
 static void
@@ -174,7 +177,7 @@ propmanager_font_changed (GtkWidget *picker, char *font_name, GtkHTMLPropmanager
 {
 	g_return_if_fail (GTK_IS_HTML_PROPMANAGER (pman));
 
-	gtk_signal_emit (GTK_OBJECT (pman), signals[CHANGED]);
+	g_signal_emit (G_OBJECT (pman), signals[CHANGED], 0);
 }
 
 #define SELECTOR(x) GTK_FONT_SELECTION_DIALOG (GNOME_FONT_PICKER (x)->font_dialog)
@@ -184,11 +187,13 @@ propmanager_picker_clicked (GtkWidget *w, gpointer proportional)
 {
 	gchar *mono_spaced [] = { "c", "m", NULL };
 
+	/*
 	if (!GPOINTER_TO_INT (proportional))
 		gtk_font_selection_dialog_set_filter (SELECTOR (w),
 						      GTK_FONT_FILTER_BASE, GTK_FONT_ALL,
 						      NULL, NULL, NULL, NULL,
 						      mono_spaced, NULL);
+	*/
 }
 
 static void
@@ -210,11 +215,11 @@ propmanager_child_destroyed (GtkWidget *w, GtkHTMLPropmanager *pman)
 	MAYBE_CLEAR (anim_check);
 	MAYBE_CLEAR (live_spell_check);
 	MAYBE_CLEAR (magic_links_check);
-	MAYBE_CLEAR (magic_smileys_check);
+	//	MAYBE_CLEAR (magic_smileys_check);
 	MAYBE_CLEAR (live_spell_options);
-	MAYBE_CLEAR (keymap);
+	//MAYBE_CLEAR (keymap);
 
-	gtk_object_unref (GTK_OBJECT (pman));
+	g_object_unref (G_OBJECT (pman));
 }
 
 static GtkWidget *
@@ -232,12 +237,11 @@ propmanager_get_widget (GtkHTMLPropmanager *pman, char *name)
 	widget = glade_xml_get_widget (pman->priv->xml, xml_name);
 
 	if (widget) {
-		gtk_object_ref (GTK_OBJECT (pman));
+		g_object_ref (G_OBJECT (pman));
 
 		d(g_warning ("found_widget: %s", name));
 
-		gtk_signal_connect (GTK_OBJECT (widget), "destroy", 
-				    propmanager_child_destroyed, pman);
+		g_signal_connect (widget, "destroy", G_CALLBACK (propmanager_child_destroyed), pman);
 	}
 
 	return glade_xml_get_widget (pman->priv->xml, xml_name);
@@ -256,8 +260,7 @@ propmanager_add_toggle (GtkHTMLPropmanager *pman,
 		if (!GTK_IS_TOGGLE_BUTTON (toggle))
 			return NULL;
 
-		gtk_signal_connect (GTK_OBJECT (toggle), "toggled", propmanager_toggle_changed,
-				    pman);
+		g_signal_connect (toggle, "toggled", G_CALLBACK (propmanager_toggle_changed), pman);
 
 		*found = TRUE;
 	}
@@ -279,10 +282,9 @@ propmanager_add_picker (GtkHTMLPropmanager *pman,
 		if (!GNOME_IS_FONT_PICKER (picker))
 			return NULL;
 
-		gtk_signal_connect (GTK_OBJECT (picker), "font_set", propmanager_font_changed,
-				    pman);
-		gtk_signal_connect (GTK_OBJECT (picker), "clicked", propmanager_picker_clicked,
-				    GINT_TO_POINTER (proportional));
+		g_signal_connect (picker, "font_set", G_CALLBACK (propmanager_font_changed), pman);
+		g_signal_connect (picker, "clicked", G_CALLBACK (propmanager_picker_clicked), GINT_TO_POINTER (proportional));
+
 		*found = TRUE;
 	}
 	return picker;
@@ -307,12 +309,12 @@ propmanager_add_keymap (GtkHTMLPropmanager *pman, char *name, gboolean *found)
 		i = 0;
 		items = GTK_MENU_SHELL (menu)->children;
 		while (items && (i < KEYMAP_LAST)) {
-			gtk_object_set_data (GTK_OBJECT (items->data), "GtkHTMLPropKeymap", keymap_names[i]);
+			g_object_set_data (G_OBJECT (items->data), "GtkHTMLPropKeymap", keymap_names[i]);
 			items = items->next;
 			i++;
 		}
 		
-		gtk_signal_connect (GTK_OBJECT (menu), "selection-done", propmanager_keymap_changed, pman);	
+		g_signal_connect (menu, "selection-done", G_CALLBACK (propmanager_keymap_changed), pman);	
 		
 		*found = TRUE;
 	}
@@ -364,16 +366,16 @@ gtk_html_propmanager_set_gui (GtkHTMLPropmanager *pman, GladeXML *xml, GHashTabl
 
 	priv = pman->priv;
 	
-	gtk_object_ref (GTK_OBJECT (xml));
+	g_object_ref (G_OBJECT (xml));
 	priv->xml = xml;
 
 	gconf_client_add_dir (priv->client, GTK_HTML_GCONF_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, &gconf_error);
 	if (gconf_error)
 		g_error ("gconf error: %s\n", gconf_error->message);
 	
-	priv->orig_prop = gtk_html_class_properties_new ();
-	priv->saved_prop = gtk_html_class_properties_new ();
-	priv->actual_prop = gtk_html_class_properties_new ();
+	priv->orig_prop = gtk_html_class_properties_new (NULL);
+	priv->saved_prop = gtk_html_class_properties_new (NULL);
+	priv->actual_prop = gtk_html_class_properties_new (NULL);
 
 	gtk_html_class_properties_load (priv->actual_prop, priv->client);
 	gtk_html_class_properties_copy (priv->saved_prop, priv->actual_prop);
@@ -382,7 +384,7 @@ gtk_html_propmanager_set_gui (GtkHTMLPropmanager *pman, GladeXML *xml, GHashTabl
 	/* Toggle Buttons */
 	priv->anim_check = propmanager_add_toggle (pman, "anim_check", &found_widget);
 	priv->magic_links_check = propmanager_add_toggle (pman, "magic_links_check", &found_widget);
-	priv->magic_smileys_check = propmanager_add_toggle (pman, "magic_smileys_check", &found_widget);
+	//priv->magic_smileys_check = propmanager_add_toggle (pman, "magic_smileys_check", &found_widget);
 	priv->live_spell_check = propmanager_add_toggle (pman, "live_spell_check", &found_widget);
 
 	if ((priv->live_spell_options = propmanager_get_widget (pman, "button_configure_spell_checking"))) {
@@ -406,7 +408,7 @@ gtk_html_propmanager_set_gui (GtkHTMLPropmanager *pman, GladeXML *xml, GHashTabl
 		
 
 	/* only hold a ref while we retrieve the widgets */
-	gtk_object_unref (GTK_OBJECT (priv->xml));
+	g_object_unref (G_OBJECT (priv->xml));
 	priv->xml = NULL;
 
 	gtk_html_propmanager_sync_gui (pman);
@@ -414,12 +416,12 @@ gtk_html_propmanager_set_gui (GtkHTMLPropmanager *pman, GladeXML *xml, GHashTabl
 }
 
 static gchar *
-get_attr (gchar *font_name, gint n)
+get_attr (const gchar *font_name, gint n)
 {
-    gchar *s, *end;
+    const gchar *s, *end;
 
     /* Search paramether */
-    for (s=font_name; n; n--,s++)
+    for (s= font_name; n; n--,s++)
 	    s = strchr (s,'-');
 
     if (s && *s != 0) {
@@ -448,17 +450,20 @@ gtk_html_propmanager_apply (GtkHTMLPropmanager *pman)
 	if (priv->magic_links_check)
 		priv->actual_prop->magic_links = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->magic_links_check));
 
+	/*
 	if (priv->magic_smileys_check)
 		priv->actual_prop->magic_smileys = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->magic_smileys_check));
+	*/
 
 	if (priv->live_spell_check)
 		priv->actual_prop->live_spell_check = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->live_spell_check));
 
+	/*
 	if (priv->keymap) {
 		g_free (priv->actual_prop->keybindings_theme);
 		priv->actual_prop->keybindings_theme = g_strdup (keymap_option_get (priv->keymap));
 	}
-
+	*/
 #define APPLY(f,s,w) \
         if (w) { \
 	        g_free (priv->actual_prop-> f); \
@@ -525,30 +530,27 @@ gtk_html_propmanager_init (GtkHTMLPropmanager *pman)
 	priv = g_new0 (GtkHTMLPropmanagerPrivate, 1);
 	
 	pman->priv = priv;
-
-	gtk_object_ref (GTK_OBJECT (pman));
-	gtk_object_sink (GTK_OBJECT (pman));
 }
 
-GtkObject *
+GObject *
 gtk_html_propmanager_new (GConfClient *client)
 {
-	GtkHTMLPropmanager *pman;
+	GtkHTMLPropmanager *pman; 
 	
-	pman = GTK_HTML_PROPMANAGER (gtk_type_new (GTK_TYPE_HTML_PROPMANAGER));
+	pman = GTK_HTML_PROPMANAGER (g_object_new (GTK_TYPE_HTML_PROPMANAGER, NULL));
 	
 	if (client) {
 		pman->priv->client = client;
-		gtk_object_ref (GTK_OBJECT (client));
+		g_object_ref (client);
 	} else {
 		pman->priv->client = gconf_client_get_default ();
 	}
 
-	return (GtkObject *)pman;
+	return (GObject *)pman;
 }
 
 static void
-gtk_html_propmanager_finalize (GtkObject *object)
+gtk_html_propmanager_finalize (GObject *object)
 {
 	GtkHTMLPropmanagerPrivate *priv = GTK_HTML_PROPMANAGER (object)->priv;
 
@@ -561,32 +563,31 @@ gtk_html_propmanager_finalize (GtkObject *object)
 		gtk_html_class_properties_destroy (priv->saved_prop);
 	}
 
-	gtk_object_unref (GTK_OBJECT (priv->client));
+	g_object_unref (priv->client);
 
 	g_free (priv);
 
-	if (GTK_OBJECT_CLASS (parent_class)->finalize)
-		(* GTK_OBJECT_CLASS (parent_class)->finalize) (object);		
+	if (G_OBJECT_CLASS (parent_class)->finalize)
+		(* G_OBJECT_CLASS (parent_class)->finalize) (object);		
 }
 
 static void
 gtk_html_propmanager_class_init (GtkHTMLPropmanagerClass *klass)
 {
-	GtkObjectClass *object_class;
-	object_class = (GtkObjectClass *)klass;
+	GObjectClass *object_class;
 
-	parent_class = gtk_type_class (gtk_object_get_type ());
+	object_class = G_OBJECT_CLASS (klass);
+	parent_class = g_type_class_ref (G_TYPE_OBJECT);
 
 	signals [CHANGED] = 
-		gtk_signal_new ("changed",
-				GTK_RUN_FIRST,
-				object_class->type,
-				GTK_SIGNAL_OFFSET (GtkHTMLPropmanagerClass, changed),
-				gtk_marshal_NONE__NONE,
-				GTK_TYPE_NONE, 0);
+		g_signal_new ("changed",
+			      gtk_html_propmanager_get_type (),
+			      G_SIGNAL_RUN_FIRST,
+			      G_STRUCT_OFFSET (GtkHTMLPropmanagerClass, changed),
+			      NULL, NULL,
+			      g_cclosure_marshal_VOID__VOID,
+			      G_TYPE_NONE, 0);
 
-	gtk_object_class_add_signals (object_class, signals, LAST_SIGNAL);
-	
 	object_class->finalize = gtk_html_propmanager_finalize;
 	klass->changed = gtk_html_propmanager_real_changed;
 }
@@ -598,17 +599,19 @@ gtk_html_propmanager_get_type (void)
 	static GtkType propmanager_type = 0;
 
 	if (!propmanager_type) {
-		GtkTypeInfo propmanager_type_info = {
-			"GtkHTMLPropmanager",
-			sizeof (GtkHTMLPropmanager),
+		static const GTypeInfo propmanager_type_info = {
 			sizeof (GtkHTMLPropmanagerClass),
-			(GtkClassInitFunc) gtk_html_propmanager_class_init,
-			(GtkObjectInitFunc) gtk_html_propmanager_init,
-			NULL,
-			NULL
+			NULL, NULL,
+			(GClassInitFunc) gtk_html_propmanager_class_init,
+			NULL, NULL,
+			sizeof (GtkHTMLPropmanager),
+			0,
+			(GInstanceInitFunc) gtk_html_propmanager_init,
 		};
-		
-		propmanager_type = gtk_type_unique (gtk_object_get_type (), &propmanager_type_info);
+
+		propmanager_type = g_type_register_static (G_TYPE_OBJECT,
+							   "GtkHTMLPropManager",
+							   &propmanager_type_info, 0);
 	}
 
 	return propmanager_type;

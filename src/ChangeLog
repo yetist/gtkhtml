@@ -1,3 +1,8 @@
+2003-04-02  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml-propmanager.c (gtk_html_propmanager_get_type): start
+	porting to gobject.
+
 2003-04-02  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-cut-and-paste.c (html_engine_delete): fix cursor
