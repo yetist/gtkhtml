@@ -191,8 +191,8 @@ static TableInsertTemplate table_templates [TEMPLATES] = {
 	{
 		N_("Flat gray"), 2,
 		0, 1, 3, 3, 3,
-		"<table cellspacing=0 cellpadding=@border@ bgcolor=\"#5f5f5f\"@width@@align@><tr><td>"
-		"<table bgcolor=\"#efefef\" cellspacing=@spacing@ cellpadding=@padding@ width=\"100%\">",
+		"<table cellspacing=0 cellpadding=@border@ bgcolor=\"#bfbfbf\"@width@@align@><tr><td>"
+		"<table bgcolor=\"#f2f2f2\" cellspacing=@spacing@ cellpadding=@padding@ width=\"100%\">",
 		"</table></td></tr></table>",
 		"<td>",
 		"</td>"
@@ -200,10 +200,10 @@ static TableInsertTemplate table_templates [TEMPLATES] = {
 	{
 		N_("Dark header"), 11,
 		0, 1, 3, 3, 3,
-		"<table bgcolor=\"#5f5f5f\" cellpadding=3 cellspacing=0>"
+		"<table bgcolor=\"#7f7f7f\" cellpadding=3 cellspacing=0>"
 		"<tr><td><font color=\"#ffffff\"><b>Header</td></tr></table>"
-		"<table cellspacing=0 cellpadding=@border@ bgcolor=\"#5f5f5f\"@width@@align@><tr><td>"
-		"<table bgcolor=\"#efefef\" cellspacing=@spacing@ cellpadding=@padding@ width=\"100%\">",
+		"<table cellspacing=0 cellpadding=@border@ bgcolor=\"#bfbfbf\"@width@@align@><tr><td>"
+		"<table bgcolor=\"#f2f2f2\" cellspacing=@spacing@ cellpadding=@padding@ width=\"100%\">",
 		"</table></td></tr></table>",
 		"<td>",
 		"</td>"

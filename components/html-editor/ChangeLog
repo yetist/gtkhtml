@@ -1,5 +1,7 @@
 2001-07-31  Radek Doulik  <rodo@ximian.com>
 
+	* table.c: tuned template colors
+
 	* engine.c (impl_get_paragraph_data): use CORBA_string_dup ("")
 	instead of CORBA_string_alloc (0)
 
