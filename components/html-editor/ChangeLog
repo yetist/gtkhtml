@@ -3,6 +3,10 @@
 	* editor-control-factory.c (editor_control_init): make the
 	intialized test here rather than up a level.
 	make editor_api static.
+	(url_requested_cb): try to load from file first since we don't
+	want to close the stream then try to load the file to it.
+	(load_from_file): return TRUE even if there is an error since it
+	means we have closed the stream.
 
 2001-10-08  Radek Doulik  <rodo@ximian.com>
 

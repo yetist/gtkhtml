@@ -265,7 +265,7 @@ load_from_file (GtkHTML *html,
 		/* check to see if we stopped because of an error */
 		gtk_html_end (html, handle, GTK_HTML_STREAM_ERROR);
 		g_warning ("%s", g_strerror (errno));
-		return FALSE;
+		return TRUE;
 	}	
 	/* done with no errors */
 	gtk_html_end (html, handle, GTK_HTML_STREAM_OK);
@@ -325,7 +325,10 @@ url_requested_cb (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpointe
 	g_return_if_fail (url != NULL);
 	g_return_if_fail (handle != NULL);
 
-	if (cd->editor_bonobo_engine) {
+	if (load_from_file (html, url, handle)) {
+		/* g_warning ("valid local reponse"); */
+		
+	} else if (cd->editor_bonobo_engine) {
 		GNOME_GtkHTML_Editor_Engine engine;
 		GNOME_GtkHTML_Editor_Listener listener;
 		CORBA_Environment ev;
@@ -338,10 +341,6 @@ url_requested_cb (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpointe
 			send_event_stream (engine, listener, "url_requested", url, handle);
 		}	
 		CORBA_exception_free (&ev);
-	}
-
-	if (load_from_file (html, url, handle)) {
-		/* g_warning ("valid local reponse"); */
 	} else {
 		g_warning ("unable to resolve url: %s", url);
 	}
