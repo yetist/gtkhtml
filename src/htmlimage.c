@@ -82,7 +82,8 @@ animation_actual_height (GdkPixbufAnimation *ganim)
 	while (cur) {
 		frame = (GdkPixbufFrame *) cur->data;
 
-		nh = gdk_pixbuf_get_height (frame->pixbuf) + frame->y_offset;
+		nh = gdk_pixbuf_get_height (gdk_pixbuf_frame_get_pixbuf (frame))
+			+ gdk_pixbuf_frame_get_y_offset (frame);
 		h = MAX (h, nh);
 		cur = cur->next;
 	}
@@ -100,7 +101,8 @@ animation_actual_width (GdkPixbufAnimation *ganim)
 	while (cur) {
 		frame = (GdkPixbufFrame *) cur->data;
 
-		nw = gdk_pixbuf_get_width (frame->pixbuf) + frame->x_offset;
+		nw = gdk_pixbuf_get_width (gdk_pixbuf_frame_get_pixbuf (frame))
+			+ gdk_pixbuf_frame_get_x_offset (frame);
 		w = MAX (w, nw);
 		cur = cur->next;
 	}
@@ -571,19 +573,19 @@ render_cur_frame (HTMLImage *image, gint nx, gint ny, const GdkColor *highlight_
 
 	do {
 		frame = (GdkPixbufFrame *) cur->data;
-		w = gdk_pixbuf_get_width (frame->pixbuf);
-		h = gdk_pixbuf_get_height (frame->pixbuf);
+		w = gdk_pixbuf_get_width (gdk_pixbuf_frame_get_pixbuf (frame));
+		h = gdk_pixbuf_get_height (gdk_pixbuf_frame_get_pixbuf (frame));
 		if (anim->cur_frame == cur) {
-			html_painter_draw_pixmap (painter, frame->pixbuf,
-						  nx + frame->x_offset,
-						  ny + frame->y_offset,
+			html_painter_draw_pixmap (painter, gdk_pixbuf_frame_get_pixbuf (frame),
+						  nx + gdk_pixbuf_frame_get_x_offset (frame),
+						  ny + gdk_pixbuf_frame_get_y_offset (frame),
 						  w, h,
 						  highlight_color);
 			break;
-		} else if (frame->action == GDK_PIXBUF_FRAME_RETAIN) {
-			html_painter_draw_pixmap (painter, frame->pixbuf,
-						  nx + frame->x_offset,
-						  ny + frame->y_offset,
+		} else if (gdk_pixbuf_frame_get_action (frame) == GDK_PIXBUF_FRAME_RETAIN) {
+			html_painter_draw_pixmap (painter, gdk_pixbuf_frame_get_pixbuf (frame),
+						  nx + gdk_pixbuf_frame_get_x_offset (frame),
+						  ny + gdk_pixbuf_frame_get_y_offset (frame),
 						  w, h,
 						  highlight_color);
 		} 
@@ -613,21 +615,23 @@ html_image_animation_timeout (HTMLImage *image)
 	   to be more efficient */
 	/* render this step to helper buffer */
 	/*
-	  w = gdk_pixbuf_get_width (frame->pixbuf);
-	  h = gdk_pixbuf_get_height (frame->pixbuf);
+	  w = gdk_pixbuf_get_width (gdk_pixbuf_frame_get_pixbuf (frame));
+	  h = gdk_pixbuf_get_height (gdk_pixbuf_frame_get_pixbuf (frame));
 	
 	  if (anim->cur_frame != image->image_ptr->animation->frames) {
-		gdk_pixbuf_composite (frame->pixbuf,
+		gdk_pixbuf_composite (gdk_pixbuf_frame_get_pixbuf (frame),
 				      anim->pixbuf,
-				      frame->x_offset, frame->y_offset,
+				      gdk_pixbuf_frame_get_x_offset (frame),
+				      gdk_pixbuf_frame_get_y_offset (frame),
 				      w, h,
 				      0.0, 0.0, 1.0, 1.0,
 				      ART_FILTER_NEAREST, 255);
 	} else {
-		gdk_pixbuf_copy_area (frame->pixbuf,
+		gdk_pixbuf_copy_area (gdk_pixbuf_frame_get_pixbuf (frame),
 				      0, 0, w, h,
 				      anim->pixbuf,
-				      frame->x_offset, frame->y_offset);
+				      gdk_pixbuf_frame_get_x_offset (frame),
+				      gdk_pixbuf_frame_get_y_offset (frame));
 				      } */
 
 	/* draw only if animation is active - onscreen */
@@ -657,7 +661,8 @@ html_image_animation_timeout (HTMLImage *image)
 		
 	}
 
-	anim->timeout = gtk_timeout_add (10 * (frame->delay_time ? frame->delay_time : 1),
+	anim->timeout = gtk_timeout_add (10 * (gdk_pixbuf_frame_get_delay_time (frame)
+					       ? gdk_pixbuf_frame_get_delay_time (frame) : 1),
 					 (GtkFunction) html_image_animation_timeout, (gpointer) image);
 
 	return FALSE;
@@ -674,8 +679,8 @@ html_image_animation_start (HTMLImage *image)
 
 			anim->cur_frame = frames->next;
 			anim->cur_n = 1;
-			anim->timeout = gtk_timeout_add (10*((GdkPixbufFrame *)
-							     frames->data)->delay_time,
+			anim->timeout = gtk_timeout_add (10 * gdk_pixbuf_frame_get_delay_time
+							 ((GdkPixbufFrame *) frames->data),
 							 (GtkFunction) html_image_animation_timeout, (gpointer) image);
 		}
 	}
@@ -783,7 +788,7 @@ html_image_animation_new (HTMLImage *image)
 	animation->cur_frame = gdk_pixbuf_animation_get_frames (image->image_ptr->animation);
 	animation->cur_n = 0;
 	animation->timeout = 0;
-	animation->pixbuf = gdk_pixbuf_new (ART_PIX_RGB, TRUE, 8,
+	animation->pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8,
 					    gdk_pixbuf_animation_get_width (image->image_ptr->animation),
 					    gdk_pixbuf_animation_get_height (image->image_ptr->animation));
 	animation->active = FALSE;

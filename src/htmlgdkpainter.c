@@ -408,7 +408,7 @@ create_temporary_pixbuf (GdkPixbuf *src,
 	has_alpha = gdk_pixbuf_get_has_alpha (src);
 	bits_per_sample = gdk_pixbuf_get_bits_per_sample (src);
 
-	pixbuf = gdk_pixbuf_new (ART_PIX_RGB, has_alpha, bits_per_sample, clip_width, clip_height);
+	pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, has_alpha, bits_per_sample, clip_width, clip_height);
 
 	return pixbuf;
 }
@@ -485,7 +485,7 @@ draw_pixmap (HTMLPainter *painter,
 			  -(paint.y0 - image.y0),
 			  (gdouble) scale_width/ (gdouble) orig_width,
 			  (gdouble) scale_height/ (gdouble) orig_height,
-			  ART_FILTER_BILINEAR);
+			  GDK_INTERP_BILINEAR);
 
 	if (color != NULL) {
 		guchar *p, *q;

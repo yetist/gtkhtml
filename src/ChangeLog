@@ -1,3 +1,13 @@
+2000-04-11  Darin Adler  <darin@eazel.com>
+
+	* htmlgdkpainter.c: (create_temporary_pixbuf), (drawpixmap):
+	Updated for new GdkPixbuf.
+
+	* htmlimage.c: (html_image_animation_new),
+	(html_image_animation_start), (html_image_animation_timeout),
+	(render_cur_frame), (animation_actual_width),
+	(animation_actual_height): Updated for new GdkPixbuf.
+
 2000-04-11  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine.c (html_engine_update_event): removed if (e->parsing)
