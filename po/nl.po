@@ -9,14 +9,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml cvs\n"
-"POT-Creation-Date: 2003-12-29 11:44-0500\n"
-"PO-Revision-Date: 2003-06-21 19:03+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-01-04 04:27+0100\n"
+"PO-Revision-Date: 2004-01-04 15:25+0100\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -457,12 +457,11 @@ msgstr "Verwijzing"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
 msgid "Make the current Paragraph style Normal"
-msgstr "De huidige Paragraafstijl op Normaal zetten"
+msgstr "De huidige paragraafstijl op Normaal zetten"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
-#, fuzzy
 msgid "Make the current Paragraph style Preformat"
-msgstr "De huidige Paragraafstijl op Preformat zetten"
+msgstr "De huidige paragraafstijl op Preformat zetten"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
@@ -959,29 +958,25 @@ msgid "GNOME HTML Editor Factory"
 msgstr "GNOME HTML Editor Factory"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
-#, fuzzy
 msgid "Insert Sick smiley into document..."
-msgstr "Een Likkende smiley invoegen..."
+msgstr "Een Zieke smiley invoegen..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
-#, fuzzy
 msgid "Make the current Paragraph style Preformatted"
-msgstr "De huidige Paragraafstijl op Preformat zetten"
+msgstr "De huidige paragraafstijl op Preformat zetten"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 #: components/html-editor/paragraph.c:150
-#, fuzzy
 msgid "Preformatted"
-msgstr "Preformat"
+msgstr "Voorgeformateerd"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
-#, fuzzy
 msgid "S_ick"
-msgstr "_Knipogen"
+msgstr "_Ziek"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:154
 msgid "_Wrap Lines"
-msgstr "_Doorlopend:"
+msgstr "_Doorlopend"
 
 #: components/html-editor/body.c:66
 #: components/html-editor/gtkhtml-editor-properties.glade.h:48
@@ -997,39 +992,35 @@ msgid "Blue Ink"
 msgstr "Blauwe inkt"
 
 #: components/html-editor/body.c:90
-#, fuzzy
 msgid "Paper"
-msgstr "Pagina"
+msgstr "Papier"
 
 #: components/html-editor/body.c:98
 msgid "Ribbon"
-msgstr ""
+msgstr "Lint"
 
 #: components/html-editor/body.c:106
-#, fuzzy
 msgid "Midnight"
-msgstr "Rechts"
+msgstr "Middernacht"
 
 #: components/html-editor/body.c:114
-#, fuzzy
 msgid "Confidential"
-msgstr "Zonder inspringen"
+msgstr "Vertrouwelijk"
 
 #: components/html-editor/body.c:122
 msgid "Draft"
-msgstr ""
+msgstr "Klad"
 
 #: components/html-editor/body.c:130
 msgid "Graph paper"
-msgstr ""
+msgstr "Grafiekpapier"
 
 #. string marked for translations is sample text. you may want to translate it to common sample text in your language
 #: components/html-editor/body.c:163
-#, fuzzy
 msgid ""
 "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a href="
 "\"mailto:dog\">dog</a>."
-msgstr "Pa's wijze lynx bezag vroom het fikse aquaduct."
+msgstr "Pa's wijze <a href=\"mailto:lynx\">lynx</a> bezag vroom het fikse <a href=\"mailto:aquaduct\">aquaduct</a>."
 
 #: components/html-editor/body.c:316 src/gtkhtml.c:2683
 msgid "Document Title"
@@ -1218,7 +1209,7 @@ msgstr "Horizontale uitlijning:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:38
 msgid "Horizontal:"
-msgstr "Horizontaal"
+msgstr "Horizontaal:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:40
 #: components/html-editor/text.c:237 components/html-editor/toolbar.c:524
@@ -1352,7 +1343,7 @@ msgstr "Onderstrepen"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:80
 msgid "Vertical:"
-msgstr "Vertikaal"
+msgstr "Vertikaal:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:81
 msgid "Width:"
@@ -1416,22 +1407,17 @@ msgid ""
 "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
 "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place your "
 "comment here]</td></tr></table></td></tr></table></center>"
-msgstr ""
-"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place your "
-"comment here]</td></tr></table></td></tr></table></center>"
+msgstr "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img @src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Zet hier uw opmerkingen]</td></tr></table></td></tr></table></center>"
 
 #: components/html-editor/image.c:258 components/html-editor/image.c:264
 msgid ""
 "This is sample text, designed to show you how text would flow around this "
 "image if you insert the image into your message."
-msgstr ""
+msgstr "Dit is voorbeeldtekst ontworpen om te laten zien hoe tekst rond deze afbeeld zou worden gezet als u deze afbeelding in uw bericht zou invoegen."
 
 #: components/html-editor/image.c:270
 msgid "No image selected"
-msgstr ""
+msgstr "Geen afbeelding geselecteerd"
 
 #: components/html-editor/image.c:705
 msgid ""
@@ -1476,9 +1462,8 @@ msgstr "Invoegen: Tekstbestand"
 
 #. string marked for translations is sample text. you may want to translate it to common sample text in your language
 #: components/html-editor/paragraph.c:62
-#, fuzzy
 msgid "The quick brown fox jumps over the lazy dog.</div>"
-msgstr "Pa's wijze lynx bezag vroom het fikse aquaduct."
+msgstr "Pa's wijze lynx bezag vroom het fikse aquaduct.</dev>"
 
 #: components/html-editor/paragraph.c:134 components/html-editor/toolbar.c:54
 msgid "Header 1"
@@ -1613,11 +1598,11 @@ msgstr "Cel-inhoud"
 
 #: components/html-editor/popup.c:540
 msgid "Check Word Spelling..."
-msgstr ""
+msgstr "Woorspelling controleren..."
 
 #: components/html-editor/popup.c:545
 msgid "Add Word to"
-msgstr ""
+msgstr "Woord toevoegen"
 
 #: components/html-editor/popup.c:549
 #, c-format
@@ -1625,36 +1610,32 @@ msgid "%s Dictionary"
 msgstr "%s woordenboek"
 
 #: components/html-editor/popup.c:558
-#, fuzzy
 msgid "Add Word to Dictionary"
-msgstr "%s woordenboek"
+msgstr "Woord aan woordenboek toevoegen"
 
 #: components/html-editor/popup.c:561
 msgid "Ignore Misspelled Word"
-msgstr ""
+msgstr "Foutief gespelde woord negeren"
 
 #: components/html-editor/popup.c:564
 msgid "Input Methods"
-msgstr ""
+msgstr "Invoermethoden"
 
 #: components/html-editor/replace.c:75
 msgid "Replace confirmation"
 msgstr "Vervanging bevestigen"
 
 #: components/html-editor/replace.c:76
-#, fuzzy
 msgid "Replace _All"
-msgstr "Alles vervangen"
+msgstr "_Alles vervangen"
 
 #: components/html-editor/replace.c:77
-#, fuzzy
 msgid "_Next"
-msgstr "Volgende"
+msgstr "_Volgende"
 
 #: components/html-editor/replace.c:79
-#, fuzzy
 msgid "_Replace"
-msgstr "Vervangen"
+msgstr "Ve_rvangen"
 
 #: components/html-editor/replace.c:165
 msgid "Search _backward"
@@ -1699,7 +1680,7 @@ msgstr "Reguliere Expressie Zoeken"
 
 #: components/html-editor/spell.c:278
 msgid "No misspelled word found"
-msgstr ""
+msgstr "Geen foutief gespelde woorden gevonden"
 
 #: components/html-editor/spell.c:285
 msgid "Spell checker"
@@ -1739,7 +1720,7 @@ msgstr "Afbeeldingskader"
 
 #: components/html-editor/template.c:281
 msgid "Labels"
-msgstr ""
+msgstr "Labels"
 
 #: components/html-editor/test-html-editor-control.c:323
 msgid "Open file..."
