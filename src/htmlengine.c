@@ -107,7 +107,7 @@ static guint signals [LAST_SIGNAL] = { 0 };
 enum ID {
 	ID_ADDRESS, ID_B, ID_BIG, ID_BLOCKQUOTE, ID_CAPTION, ID_CITE, ID_CODE,
 	ID_DIR, ID_DIV, ID_EM, ID_FONT, ID_HEADER, ID_I, ID_KBD, ID_OL, ID_PRE,
-	ID_SMALL, ID_U, ID_UL, ID_TEXTAREA, ID_TD, ID_TH, ID_TT, ID_VAR
+	ID_SMALL, ID_STRONG, ID_U, ID_UL, ID_TEXTAREA, ID_TD, ID_TH, ID_TT, ID_VAR
 };
 
 
@@ -1441,7 +1441,7 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		}
 	}
 	else if ( strncmp(str, "big", 3 ) == 0 ) {
-		push_font_style (e, GTK_HTML_FONT_STYLE_SIZE_3);
+		push_font_style (e, GTK_HTML_FONT_STYLE_SIZE_4);
 		push_block (e, ID_BIG, 1, block_end_font, 0, 0);
 	} else if ( strncmp(str, "/big", 4 ) == 0 ) {
 		pop_block (e, ID_BIG, clue);
@@ -2424,13 +2424,17 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 static void
 parse_s (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	if ( strncmp(str, "small", 3 ) == 0 ) {
-		push_font_style (e, 2);
+	if (strncmp (str, "small", 3) == 0) {
+		push_font_style (e, GTK_HTML_FONT_STYLE_SIZE_2);
 		push_block (e, ID_SMALL, 1, block_end_font, 0, 0);
-	} else if ( strncmp(str, "/small", 4 ) == 0 ) {
+	} else if (strncmp (str, "/small", 4) == 0 ) {
 		pop_block (e, ID_SMALL, clue);
-	}
-	else if (strncmp (str, "select", 6) == 0) {
+	} else if (strncmp (str, "strong", 6) == 0) {
+		push_font_style (e, GTK_HTML_FONT_STYLE_BOLD);
+		push_block (e, ID_STRONG, 1, block_end_font, 0, 0);
+	} else if (strncmp (str, "/strong", 7) == 0) {
+		pop_block (e, ID_STRONG, clue);
+	} else if (strncmp (str, "select", 6) == 0) {
                 gchar *name = NULL;
 		gint size = 0;
 		gboolean multi = FALSE;

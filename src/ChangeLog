@@ -1,3 +1,11 @@
+2000-04-02  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine.c: New value `ID_STRONG' for enum `ID'.
+	(parse_s): Use `GTK_HTML_FONT_STYLE_SIZE_2' instead of just `2'.
+	Implement `<strong>' and `</strong>'.
+	(parse_b): Make `<big>' use `GTK_HTML_FONT_STYLE_SIZE_4' instead
+	of `GTK_HTML_FONT_STYLE_SIZE_3'.
+
 2000-04-01  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine.c (parse_b): add support for marginwidth and
