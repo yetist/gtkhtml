@@ -1,3 +1,8 @@
+2003-05-20  Larry Ewing  <lewing@ximian.com>
+
+	* editor-control-factory.c (editor_control_construct): disable
+	animations while editing until it works properly.
+
 2003-05-20  Radek Doulik  <rodo@ximian.com>
 
 	* menubar.c (menubar_setup): set gettext domain before calling
