@@ -266,14 +266,11 @@ draw_spell_errors (HTMLTextSlave *slave, HTMLPainter *p, gint tx, gint ty)
 		if (ma < mi) {
 			guint off = ma - slave->posStart;
 			guint len = mi - ma;
-			GdkColor red = {0, 0xffff, 0, 0};
 
-			html_painter_alloc_color (p, &red);
-			html_painter_set_pen (p, &red);
+			html_painter_set_pen (p, &html_colorset_get_color_allocated (p, HTMLSpellErrorColor)->color);
 			/* printf ("spell error: %s\n", HTML_TEXT (slave->owner)->text + off); */
 			html_painter_draw_spell_error (p, obj->x + tx, obj->y + ty,
 						       HTML_TEXT (slave->owner)->text + slave->posStart, off, len);
-			html_painter_free_color (p, &red);
 		}
 		if (se->off > slave->posStart + slave->posLen)
 			break;

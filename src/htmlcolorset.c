@@ -31,9 +31,10 @@ html_colorset_new (GtkWidget *w)
 	s = g_new0 (HTMLColorSet, 1);
 
 	/* these are default color settings */
-	s->color [HTMLLinkColor]  = html_color_new_from_rgb (0, 0, 0xffff);
-	s->color [HTMLALinkColor] = html_color_new_from_rgb (0, 0, 0xffff);
-	s->color [HTMLVLinkColor] = html_color_new_from_rgb (0, 0, 0xffff);
+	s->color [HTMLLinkColor]       = html_color_new_from_rgb (0, 0, 0xffff);
+	s->color [HTMLALinkColor]      = html_color_new_from_rgb (0, 0, 0xffff);
+	s->color [HTMLVLinkColor]      = html_color_new_from_rgb (0, 0, 0xffff);
+	s->color [HTMLSpellErrorColor] = html_color_new_from_rgb (0xffff, 0, 0);
 
 	if (w) {
 		GtkStyle *style = gtk_widget_get_style (w);

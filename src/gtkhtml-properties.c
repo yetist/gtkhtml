@@ -47,6 +47,12 @@ gtk_html_class_properties_new (void)
 	p->font_fix_size_print     = DEFAULT_FONT_SIZE;
 	p->animations              = TRUE;
 
+	p->live_spell_check        = TRUE;
+	p->spell_error_color.red   = 0xffff;
+	p->spell_error_color.green = 0;
+	p->spell_error_color.blue  = 0;
+	p->language                = g_strdup ("en");
+
 	return p;
 }
 
@@ -90,6 +96,13 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p, GConfClient *client)
 	     g_free (p->font_fix_family_print), g_strdup);
 	GET (int, "/font_variable_size_print", font_var_size_print,,);
 	GET (int, "/font_fixed_size_print", font_fix_size_print,,);
+
+	GET (bool, "/live_spell_check", live_spell_check,,);
+	GET (int, "/spell_error_color_red",   spell_error_color.red,,);
+	GET (int, "/spell_error_color_green", spell_error_color.green,,);
+	GET (int, "/spell_error_color_blue",  spell_error_color.blue,,);
+	GET (string, "/language", language,
+	     g_free (p->language), g_strdup);
 }
 
 #define SET(t,x,prop) \
@@ -124,6 +137,16 @@ gtk_html_class_properties_update (GtkHTMLClassProperties *p, GConfClient *client
 		SET (int, "/font_variable_size_print", font_var_size_print);
 	if (p->font_fix_size_print != old->font_fix_size_print)
 		SET (int, "/font_fixed_size_print", font_fix_size_print);
+
+	if (p->live_spell_check != old->live_spell_check)
+		SET (bool, "/live_spell_check", live_spell_check);
+	if (!gdk_color_equal (&p->spell_error_color, &old->spell_error_color)) {
+		SET (int, "/spell_error_color_red",   spell_error_color_red);
+		SET (int, "/spell_error_color_green", spell_error_color_green);
+		SET (int, "/spell_error_color_blue",  spell_error_color_blue);
+	}
+	if (strcmp (p->language, old->language))
+		SET (string, "/language", language);
 }
 
 #else
@@ -166,6 +189,12 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p)
 	GET  (int, font_fix_size_print, s);
 	g_free (s);
 
+	GET  (bool, live_spell_check, "live_spell_check=true");
+	GET  (int, spell_error_color.red,   "spell_error_color_red=0xffff");
+	GET  (int, spell_error_color.green, "spell_error_color_green=0");
+	GET  (int, spell_error_color.blue,  "spell_error_color_blue=0");
+	GETS (language, "language=en");
+
 	gnome_config_pop_prefix ();
 }
 
@@ -184,6 +213,13 @@ gtk_html_class_properties_save (GtkHTMLClassProperties *p)
 	gnome_config_set_string ("font_fixed_family_print", p->font_fix_family_print);
 	gnome_config_set_int ("font_variable_size_print", p->font_var_size_print);
 	gnome_config_set_int ("font_fixed_size_print", p->font_fix_size_print);
+
+	gnome_config_set_bool ("live_spell_check", p->live_spell_check);
+	gnome_config_set_int  ("spell_error_color_red",   p->spell_error_color.red);
+	gnome_config_set_int  ("spell_error_color_green", p->spell_error_color.green);
+	gnome_config_set_int  ("spell_error_color_blue",  p->spell_error_color.blue);
+	gnome_config_set_string ("language", p->language);
+
 	gnome_config_pop_prefix ();
 	gnome_config_sync ();
 }
@@ -209,6 +245,10 @@ gtk_html_class_properties_copy (GtkHTMLClassProperties *p1,
 	COPYS (font_fix_family_print);
 	COPY  (font_var_size_print);
 	COPY  (font_fix_size_print);
+
+	COPY  (live_spell_check);
+	COPY  (spell_error_color);
+	COPYS (language);
 }
 
 /* enums */

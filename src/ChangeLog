@@ -1,3 +1,22 @@
+2000-09-12  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltextslave.c (draw_spell_errors): use HTMLSpellErrorColor
+
+	* htmlengine.c (html_engine_set_arg): moved spell initialization
+	here
+
+	* htmlclueflow.c (html_clueflow_spell_check): do live spell
+	checking only if enabled in properties
+
+	* gtkhtml.c: added support for spell checking properties
+	(init_properties_widget): new helper function
+
+	* gtkhtml-properties.h: added spell properties
+
+	* htmlcolorset.h (_HTMLColorId): added HTMLSpellErrorColor
+
+	* htmltextslave.c (draw_spell_errors): use HTMLSpellErrorColor
+
 2000-09-08  Radek Doulik  <rodo@helixcode.com>
 
 	* testgtkhtml.c (print_preview_cb): add footer printing (- page number -)

@@ -2937,6 +2937,11 @@ html_engine_set_arg (GtkObject        *object,
 	HTMLEngine *engine = HTML_ENGINE (object);
 
 	if (arg_id == 1) {
+		GtkHTMLClassProperties *prop;
+#ifdef GTKHTML_HAVE_PSPELL
+		PspellCanHaveError *err;
+#endif
+
 		engine->widget          = GTK_HTML (GTK_VALUE_OBJECT (*arg));
 		engine->settings        = html_settings_new (GTK_WIDGET (engine->widget));
 		engine->defaultSettings = html_settings_new (GTK_WIDGET (engine->widget));
@@ -2944,6 +2949,18 @@ html_engine_set_arg (GtkObject        *object,
 
 		engine->insertion_color = html_colorset_get_color (engine->settings->color_set, HTMLTextColor);
 		html_color_ref (engine->insertion_color);
+
+		prop = GTK_HTML_CLASS (GTK_OBJECT (engine->widget)->klass)->properties;
+#ifdef GTKHTML_HAVE_PSPELL
+		engine->spell_config  = new_pspell_config ();
+		pspell_config_replace (engine->spell_config, "language-tag", prop->language);
+		err = new_pspell_manager (engine->spell_config);
+		if (pspell_error_number (err) != 0) {
+			g_warning ("pspell error: %s\n", pspell_error_message (err));
+			engine->spell_checker = NULL;
+		} else
+			engine->spell_checker = to_pspell_manager (err);
+#endif
 	}
 }
 
@@ -3057,9 +3074,6 @@ html_engine_class_init (HTMLEngineClass *klass)
 static void
 html_engine_init (HTMLEngine *engine)
 {
-#ifdef GTKHTML_HAVE_PSPELL
-	PspellCanHaveError *err;
-#endif
 	engine->clue = NULL;
 
 	/* STUFF might be missing here!   */
@@ -3132,17 +3146,6 @@ html_engine_init (HTMLEngine *engine)
 	engine->selection_updater = html_engine_edit_selection_updater_new (engine);
 
 	engine->search_info = NULL;
-
-#ifdef GTKHTML_HAVE_PSPELL
-	engine->spell_config  = new_pspell_config ();
-	pspell_config_replace (engine->spell_config, "language-tag", "en");
-	err = new_pspell_manager (engine->spell_config);
-	if (pspell_error_number(err) != 0) {
-		g_warning ("pspell error: %s\n", pspell_error_message (err));
-		engine->spell_checker = NULL;
-	} else
-		engine->spell_checker = to_pspell_manager (err);
-#endif
 }
 
 HTMLEngine *

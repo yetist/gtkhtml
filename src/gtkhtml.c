@@ -1227,6 +1227,7 @@ client_notify_widget (GConfClient* client,
 	GtkHTMLClassProperties *prop = klass->properties;	
 	gchar *tkey;
 
+	/* printf ("notify widget\n"); */
 	g_assert (client == gconf_client);
 	g_assert (key);
 	tkey = strrchr (key, '/');
@@ -1246,6 +1247,23 @@ client_notify_widget (GConfClient* client,
 	} else if (!strcmp (tkey, "/font_fixed_size")) {
 		prop->font_fix_size = gconf_client_get_int (client, key, NULL);
 		set_fonts (html);
+	} else if (!strcmp (tkey, "/spell_error_color_red") {
+		prop->spell_error_color.red = gconf_client_get_int (client, key, NULL);
+	} else if (!strcmp (tkey, "/spell_error_color_green") {
+		prop->spell_error_color.green = gconf_client_get_int (client, key, NULL);
+	} else if (!strcmp (tkey, "/spell_error_color_blue") {
+		prop->spell_error_color.blue = gconf_client_get_int (client, key, NULL);
+		html_colorset_set_color (html->engine->defaultSettings->color_set,
+					 &prop->spell_error_color, HTMLSpellErrorColor);
+		html_colorset_set_color (html->engine->settings->color_set,
+					 &prop->spell_error_color, HTMLSpellErrorColor);
+		if (html_engine_get_editable (html->engine) && !strcmp (tkey, "/spell_error_color_blue"))
+			gtk_widget_queue_draw (GTK_WIDGET (html));
+	} else if (!strcmp (tkey, "/live_spell_check")) {
+		prop->live_spell_check = gconf_client_get_bool (client, key, NULL);
+	} else if (!strcmp (tkey, "/language")) {
+		g_free (prop->language);
+		prop->language = g_strdup (gconf_client_get_string (client, key, NULL);
 	}
 }
 
@@ -1297,7 +1315,9 @@ init_properties (GtkHTMLClass *klass)
 #endif
 	load_keybindings (klass);
 #ifdef GTKHTML_HAVE_GCONF
-	gconf_client_notify_add (gconf_client, GTK_HTML_GCONF_DIR, client_notify_class, klass, NULL, NULL);
+	gconf_client_notify_add (gconf_client, GTK_HTML_GCONF_DIR, client_notify_class, klass, NULL, &gconf_error);
+	if (gconf_error)
+		g_warning ("gconf error: %s\n", gconf_error->str);
 #endif
 }
 
@@ -1527,6 +1547,23 @@ class_init (GtkHTMLClass *klass)
 }
 
 static void
+init_properties_widget (GtkHTML *html)
+{
+	GtkHTMLClassProperties *prop;
+
+	/* printf ("init_properties_widget\n"); */
+	prop = GTK_HTML_CLASS (GTK_OBJECT (html)->klass)->properties;
+	set_fonts_idle (html);
+	html_colorset_set_color (html->engine->defaultSettings->color_set, &prop->spell_error_color, HTMLSpellErrorColor);
+
+#ifdef GTKHTML_HAVE_GCONF
+	gconf_client_notify_add (gconf_client, GTK_HTML_GCONF_DIR, client_notify_widget, html, NULL, &gconf_error);
+	if (gconf_error)
+		g_warning ("gconf error: %s\n", gconf_error->str);
+#endif
+}
+
+static void
 init (GtkHTML* html)
 {
 	static const GtkTargetEntry targets[] = {
@@ -1638,10 +1675,7 @@ gtk_html_construct (GtkWidget *htmlw)
 	gtk_signal_connect (GTK_OBJECT (html->engine), "object_requested",
 			    GTK_SIGNAL_FUNC (html_engine_object_requested_cb), html);
 
-	set_fonts_idle (html);
-#ifdef GTKHTML_HAVE_GCONF
-	gconf_client_notify_add (gconf_client, GTK_HTML_GCONF_DIR, client_notify_widget, html, NULL, NULL);
-#endif
+	init_properties_widget (html);
 }
 
 

@@ -37,19 +37,6 @@ typedef struct _GtkHTMLClassProperties GtkHTMLClassProperties;
 #include <libgnome/gnome-config.h>
 #endif
 
-enum _GtkHTMLClassPropertiesItem {
-	GTK_HTML_CLASS_PROPERTIES_MAGIC_LINKS,
-	GTK_HTML_CLASS_PROPERTIES_KEYBINDINGS,
-	GTK_HTML_CLASS_PROPERTIES_FONT_VAR_FAMILY,
-	GTK_HTML_CLASS_PROPERTIES_FONT_VAR_SIZE,
-	GTK_HTML_CLASS_PROPERTIES_FONT_FIX_FAMILY,
-	GTK_HTML_CLASS_PROPERTIES_FONT_FIX_SIZE,
-	GTK_HTML_CLASS_PROPERTIES_FONT_VAR_FAMILY_PRINT,
-	GTK_HTML_CLASS_PROPERTIES_FONT_VAR_SIZE_PRINT,
-	GTK_HTML_CLASS_PROPERTIES_FONT_FIX_FAMILY_PRINT,
-	GTK_HTML_CLASS_PROPERTIES_FONT_FIX_SIZE_PRINT,
-};
-
 struct _GtkHTMLClassProperties {
 	/* viewer */
 	gboolean  animations;
@@ -65,6 +52,10 @@ struct _GtkHTMLClassProperties {
 	/* editor */
 	gboolean  magic_links;
 	gchar    *keybindings_theme;
+
+	gboolean  live_spell_check;
+	GdkColor  spell_error_color;
+	gchar    *language;
 };
 
 

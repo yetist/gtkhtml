@@ -38,6 +38,7 @@ enum _HTMLColorId
 	HTMLALinkColor,
 	HTMLHighlightColor,
 	HTMLHighlightTextColor,
+	HTMLSpellErrorColor,
 
 	HTMLColors
 };

@@ -1849,7 +1849,8 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *i)
 	/* printf ("html_clueflow_spell_check\n"); */
 
 	clue = HTML_CLUE (flow);
-	if (!e->spell_checker || !clue || !clue->tail)
+	if (!GTK_HTML_CLASS (GTK_OBJECT (e->widget)->klass)->properties->live_spell_check
+	    || !e->spell_checker || !clue || !clue->tail)
 		return;
 
 	off  = 0;
