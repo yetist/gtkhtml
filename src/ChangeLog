@@ -1,3 +1,9 @@
+2001-07-31  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (get_cursor_base): set base to Text coordinates if
+	there are no slaves
+	(get_cursor): if there are no slaves, use Text ascent/descent
+
 2001-07-30  Larry Ewing  <lewing@ximian.com>
 
 	The following is a patch from Damian Ivereigh <damian@cisco.com>

@@ -1198,8 +1198,8 @@ get_cursor (HTMLObject *self,
 
 	slave = self->next;
 	if (slave == NULL || HTML_OBJECT_TYPE (slave) != HTML_TYPE_TEXTSLAVE) {
-		ascent = 0;
-		descent = 0;
+		ascent = self->ascent;
+		descent = self->descent;
 	} else {
 		ascent = slave->ascent;
 		descent = slave->descent;
@@ -1254,6 +1254,7 @@ get_cursor_base (HTMLObject *self,
 
 	g_warning ("Getting cursor base for an HTMLText with no slaves -- %p\n",
 		   self);
+	html_object_calc_abs_position (self, x, y);
 }
 
 void
