@@ -1,3 +1,8 @@
+2000-04-21  Radek Doulik  <rodo@helixcode.com>
+
+	* menubar.c: added menu subtree insert with items Image and Link
+	plus new callbacks
+
 2000-04-20  Radek Doulik  <rodo@helixcode.com>
 
 	* menubar.c: use ITALIC and UNDERLINE menu items instead of 3xBOLD

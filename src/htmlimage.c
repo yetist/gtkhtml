@@ -215,19 +215,29 @@ static void
 copy (HTMLObject *self,
       HTMLObject *dest)
 {
+	HTMLImage *dimg = HTML_IMAGE (dest);
+	HTMLImage *simg = HTML_IMAGE (self);
+
 	/* FIXME not sure this is all correct.  */
 
 	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
 
-	HTML_IMAGE (dest)->image_ptr = HTML_IMAGE (self)->image_ptr;
-	HTML_IMAGE (dest)->border = HTML_IMAGE (self)->border;
-	HTML_IMAGE (dest)->specified_width = HTML_IMAGE (self)->specified_width;
-	HTML_IMAGE (dest)->specified_height = HTML_IMAGE (self)->specified_height;
-	HTML_IMAGE (dest)->url = g_strdup (HTML_IMAGE (self)->url);
-	HTML_IMAGE (dest)->target = g_strdup (HTML_IMAGE (self)->target);
-	HTML_IMAGE (dest)->color = HTML_IMAGE (self)->color;
-	HTML_IMAGE (dest)->have_color = HTML_IMAGE (dest)->have_color;
-	HTML_IMAGE (dest)->color_allocated = FALSE;
+	dimg->image_ptr = simg->image_ptr;
+	dimg->border = simg->border;
+	dimg->specified_width = simg->specified_width;
+	dimg->specified_height = simg->specified_height;
+	dimg->url = g_strdup (simg->url);
+	dimg->target = g_strdup (simg->target);
+	dimg->color = simg->color;
+	dimg->have_color = simg->have_color;
+	dimg->color_allocated = FALSE;
+	dimg->valign = simg->valign;
+	dimg->animation = NULL;          /* don't bother with animation copying now. TODO */
+	dimg->hspace = simg->hspace;
+	dimg->vspace = simg->vspace;
+
+	/* add dest to image_ptr interests */
+	dimg->image_ptr->interests = g_slist_prepend (dimg->image_ptr->interests, dimg);
 }
 
 static gint
@@ -615,11 +625,8 @@ html_image_animation_timeout (HTMLImage *image)
 	HTMLImageAnimation *anim = image->animation;
 	GdkPixbufAnimation *ganim = image->image_ptr->animation;
 	GdkPixbufFrame    *frame;
-	HTMLPainter       *painter;
-	/* HTMLObject        *o = HTML_OBJECT (image); */
 	HTMLEngine        *engine;
 	gint nx, ny, nex, ney;
-	gint w, h;
 
 	anim->cur_frame = anim->cur_frame->next;
 	if (!anim->cur_frame)

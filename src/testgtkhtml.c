@@ -74,6 +74,7 @@ static void search_cb (GtkWidget *widget, gpointer data);
 static void search_regex_cb (GtkWidget *widget, gpointer data);
 static void search_next_cb (GtkWidget *widget, gpointer data);
 static void replace_cb (GtkWidget *widget, gpointer data);
+static void image_cb (GtkWidget *widget, gpointer data);
 static void reload_cb (GtkWidget *widget, gpointer data);
 static void redraw_cb (GtkWidget *widget, gpointer data);
 static void resize_cb (GtkWidget *widget, gpointer data);
@@ -122,6 +123,7 @@ static GnomeUIInfo edit_menu[] = {
 	GNOMEUIINFO_MENU_FIND_ITEM (search_cb, NULL),
 	GNOMEUIINFO_MENU_FIND_AGAIN_ITEM (search_next_cb, NULL),
 	GNOMEUIINFO_MENU_REPLACE_ITEM (replace_cb, NULL),
+	GNOMEUIINFO_ITEM_NONE (N_("Insert image..."), N_("Insert image dialog"), image_cb),
 	GNOMEUIINFO_END
 };
 
@@ -491,6 +493,13 @@ replace_cb (GtkWidget *widget, gpointer data)
 {
 	gtk_html_replace (html);
 }
+
+static void
+image_cb (GtkWidget *widget, gpointer data)
+{
+	gtk_html_insert_image (html);
+}
+
 static void
 load_done (GtkHTML *html)
 {
@@ -1085,7 +1094,7 @@ main (gint argc, gchar *argv[])
 	html_widget = gtk_html_new ();
 	html = GTK_HTML (html_widget);
 	gtk_html_load_empty (html);
-	// gtk_html_set_editable (GTK_HTML (html_widget), TRUE);
+	/* gtk_html_set_editable (GTK_HTML (html_widget), TRUE); */
 	
 	gtk_container_add (GTK_CONTAINER (scrolled_window), html_widget);
 

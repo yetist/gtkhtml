@@ -33,6 +33,7 @@
 #include "htmlengine-edit.h"
 #include "htmlengine-print.h"
 
+#include "gtkhtml-edit-image.h"
 #include "gtkhtml-embedded.h"
 #include "gtkhtml-keybinding.h"
 #include "gtkhtml-stream.h"
@@ -1216,6 +1217,8 @@ gtk_html_construct (GtkWidget *htmlw)
 	html->search_dialog       = NULL;
 	html->replace_dialog      = NULL;
 	html->replace_ask_dialog  = NULL;
+
+	html->image_dialog        = NULL;
 }
 
 
@@ -1554,5 +1557,17 @@ gtk_html_replace (GtkHTML *html)
 	} else {
 		html->replace_dialog = gtk_html_replace_dialog_new (html);
 		gtk_html_replace_dialog_run (html->replace_dialog);
+	}
+}
+
+void
+gtk_html_insert_image (GtkHTML *html)
+{
+	if (html->image_dialog) {
+		gtk_widget_show (GTK_WIDGET (html->image_dialog->dialog));
+		gdk_window_raise (GTK_WIDGET (html->image_dialog->dialog)->window);
+	} else {
+		html->image_dialog = gtk_html_image_dialog_new (html);
+		gnome_dialog_run (html->image_dialog->dialog);
 	}
 }

@@ -1,3 +1,22 @@
+2000-04-21  Radek Doulik  <rodo@helixcode.com>
+
+	* testgtkhtml.c (image_cb): added insert image to menu + callback
+
+	* gtkhtml-edit-image.h: new file, ImageDialog definition
+
+	* gtkhtml-edit-image.c: new file, implements image insert dialog
+	(gtk_html_image_dialog_new): new ctor
+
+	* Makefile.am: added gtkhtml-edit-image.[hc]
+
+	* htmlengine-edit.c (html_engine_insert_image): new function,
+	inserts image to document
+
+	* htmlimage.c (copy): added valign, hspace and vspace copying,
+	also add dest image to image_ptr interests
+	(html_image_animation_timeout): removed some unused
+	variables to make compiler happy
+
 2000-04-21  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* gtkhtml-keybinding.c

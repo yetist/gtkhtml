@@ -387,4 +387,6 @@ void      html_engine_replace                   (HTMLEngine *e,
 void      html_engine_replace_do                (HTMLEngine *e, HTMLReplaceQueryAnswer answer);
 gint      html_engine_replaced                  ();
 
+void      html_engine_insert_image              (HTMLEngine *e, const gchar *file);
+
 #endif /* _HTMLENGINE_H_ */

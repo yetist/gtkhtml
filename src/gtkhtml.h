@@ -28,6 +28,7 @@ typedef struct _GtkHTMLClass	GtkHTMLClass;
 typedef struct _GtkHTMLSearchDialog  GtkHTMLSearchDialog;
 typedef struct _GtkHTMLReplaceDialog GtkHTMLReplaceDialog;
 typedef struct _GtkHTMLReplaceAskDialog GtkHTMLReplaceAskDialog;
+typedef struct _GtkHTMLImageDialog GtkHTMLImageDialog;
 
 #include <sys/types.h>
 #include <gtk/gtk.h>
@@ -118,6 +119,8 @@ struct _GtkHTML {
 	GtkHTMLSearchDialog     *search_dialog;
 	GtkHTMLReplaceDialog    *replace_dialog;
 	GtkHTMLReplaceAskDialog *replace_ask_dialog;
+
+	GtkHTMLImageDialog      *image_dialog;
 };
 
 /* must be forward referenced *sigh* */
@@ -221,5 +224,7 @@ void  gtk_html_search_regex (GtkHTML *html);
 void  gtk_html_search_next  (GtkHTML *html);
 
 void  gtk_html_replace      (GtkHTML *html);
+
+void  gtk_html_insert_image (GtkHTML *html);
 
 #endif /* _GTKHTML_H_ */

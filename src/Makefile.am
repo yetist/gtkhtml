@@ -16,6 +16,7 @@ libgtkhtmldir = $(includedir)/gtkhtml
 # FIXME not all the stuff should be installed!
 
 libgtkhtml_HEADERS =				\
+	gtkhtml-edit-image.h			\
 	gtkhtml-embedded.h			\
 	gtkhtml-keybinding.h			\
 	gtkhtml-private.h			\
@@ -90,6 +91,7 @@ libgtkhtml_HEADERS =				\
 	htmlvspace.h
 
 libgtkhtml_la_SOURCES =				\
+	gtkhtml-edit-image.c			\
 	gtkhtml-embedded.c			\
 	gtkhtml-keybinding.c			\
 	gtkhtml-search.c			\

@@ -29,8 +29,10 @@
 #include "htmlcursor.h"
 #include "htmltext.h"
 #include "htmltextslave.h"
+#include "htmlimage.h"
 
 #include "htmlengine-edit.h"
+#include "htmlengine-edit-paste.h"
 
 
 void
@@ -88,4 +90,26 @@ html_engine_set_mark (HTMLEngine *e)
 
 	html_engine_edit_selection_updater_reset (e->selection_updater);
 	html_engine_edit_selection_updater_schedule (e->selection_updater);
+}
+
+void
+html_engine_insert_image (HTMLEngine *e, const gchar *file)
+{
+	HTMLObject *image;
+	GList *cut_buffer;
+	gchar *url;
+
+	url = g_strconcat ("file:", file, NULL);
+	image = html_image_new (e->image_factory, url, NULL, NULL, -1, -1, 0, 0, NULL, HTML_VALIGN_TOP);
+
+	printf ("insert image %s\n", url);
+
+	g_free (url);
+
+	cut_buffer = e->cut_buffer;
+	e->cut_buffer = g_list_append (NULL, image);
+	html_engine_paste (e);
+	e->cut_buffer = cut_buffer;
+
+	html_object_destroy (image);
 }
