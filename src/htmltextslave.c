@@ -530,7 +530,8 @@ hts_fit_line (HTMLObject *o, HTMLPainter *painter,
 
 	if (offset == slave->posStart + slave->posLen && (widthLeft >= w || force_fit)) {
 		rv = HTML_FIT_COMPLETE;
-		o->width = w;
+		if (slave->posLen)
+			o->width = w;
 	} else if (lbo > slave->posStart) {
 		split (slave, lbo - slave->posStart, NULL);
 		rv = HTML_FIT_PARTIAL;
