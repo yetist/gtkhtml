@@ -1,5 +1,10 @@
 2000-06-22  Larry Ewing  <lewing@helixcode.com>
 
+	* htmlengine.c (html_engine_end): make sure we end the tokenizer
+	before we update the engine, otherwise we do not parse trailing
+	text because it is only appended after html_tokenizer_end is
+	called.
+
 	* htmliframe.c (html_iframe_init): inherit the colorset from the
 	parent gtkhtml.
 

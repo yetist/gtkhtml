@@ -660,7 +660,7 @@ parse_body (HTMLEngine *p, HTMLObject *clue, const gchar *end[], gboolean toplev
 	if (!html_tokenizer_has_more_tokens (p->ht) && toplevel && !p->writing)
 		html_engine_stop_parser (p);
 
-	return 0;
+	return NULL;
 }
 
 static gchar *
@@ -3384,6 +3384,8 @@ html_engine_end (GtkHTMLStream *stream,
 
 	e->writing = FALSE;
 
+	html_tokenizer_end (e->ht);
+
 	while (html_engine_timer_event (e))
 		;
 
@@ -3391,8 +3393,6 @@ html_engine_end (GtkHTMLStream *stream,
 		gtk_timeout_remove (e->timerId);
 		e->timerId = 0;
 	}
-
-	html_tokenizer_end (e->ht);
 
 	ensure_last_clueflow (e);
 	
