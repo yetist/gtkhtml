@@ -1,3 +1,20 @@
+gtkhtml-3.5.6 "Winter mood" 2004-02-07
+------------------------------------------------
+
+New in this release
+
+   * fixed broken cursor navigation around tables
+   * fixed RTL line up/down cursor navigation
+   * allow \' in email auto recognition
+   * fixed compilation with gcc 4.0.0 (amd)
+   * fixed nested cluev's editing
+   * fixed RTL item rendering
+   * fixed RTL citations
+   * more tests in regression test suite
+   * updated translations (Changwoo Ryu, Francisco Javier F. Serrador,
+     Frank Arnold, Pauli Virtanen, Adam Weinberger, Priit Laes,
+     Miloslav Trmac)
+
 gtkhtml-3.5.5 "Try RTL" 2004-01-31
 ------------------------------------------------
 
