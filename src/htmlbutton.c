@@ -25,6 +25,8 @@
 #include "htmlbutton.h"
 #include "htmlform.h"
 #include <string.h>
+#include <libgnome/gnome-defs.h>
+#include <libgnome/gnome-i18n.h>
 #include <gal/widgets/e-unicode.h>
 
 HTMLButtonClass html_button_class;
