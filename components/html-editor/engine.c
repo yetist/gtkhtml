@@ -115,7 +115,7 @@ impl_run_command (PortableServer_Servant servant, const CORBA_char * command, CO
 
 	/* printf ("command: %s\n", command); */
 
-	return gtk_html_editor_command (e->html, command);
+	return gtk_html_command (e->html, command);
 }
 
 static CORBA_boolean

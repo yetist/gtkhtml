@@ -85,7 +85,7 @@ search_next_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cnam
 static void
 select_all_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
-	gtk_html_editor_command (cd->html, "select-all");
+	gtk_html_command (cd->html, "select-all");
 }
 
 static void
