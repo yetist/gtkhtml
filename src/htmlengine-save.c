@@ -467,3 +467,21 @@ html_engine_save_get_paragraph_align (GtkHTMLParagraphAlignment align)
 
 	return NULL;
 }
+
+gint
+html_engine_save_string_append_nonbsp (GString *out, guchar *s, guint length)
+{	
+	guint len = length;
+	
+	while (len--) {
+		if (IS_UTF8_NBSP (s)) {
+			g_string_append_c (out, ' ');
+			s += 2;
+			len--;
+		} else {
+			g_string_append_c (out, *s);
+			s++;
+		}
+	}
+	return length;
+}

@@ -1,3 +1,13 @@
+2003-04-07  Larry Ewing  <lewing@ximian.com>
+
+	* htmltext.c (append_selection_string): use the new helper, this
+	is the chosen solution to 37172.
+	
+	* htmlclueflow.c (save_plain): use the new helper function.
+
+	* htmlengine-save.c (html_engine_save_string_append_nonbsp): add
+	helper function.
+
 2003-04-07  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-cut-and-paste.c (delete_object): test for active

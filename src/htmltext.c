@@ -1442,7 +1442,7 @@ append_selection_string (HTMLObject *self,
 	last = html_text_get_text (text,
 				   text->select_start + text->select_length);
 	*/
-	g_string_append_len (buffer, p, last - p);
+	html_engine_save_string_append_nonbsp (buffer, p, last - p);
 
 }
 

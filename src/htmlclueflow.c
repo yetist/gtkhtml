@@ -1691,24 +1691,6 @@ save (HTMLObject *s,
 	return TRUE;
 }
 
-static gint
-string_append_nonbsp (GString *out, guchar *s, gint length)
-{
-	gint len = length;
-
-	while (len--) {
-		if (IS_UTF8_NBSP (s)) {
-			g_string_append_c (out, ' ');
-			s += 2;
-			len--;
-		} else {
-			g_string_append_c (out, *s);
-			s++;
-		}
-	}
-	return length;
-}
-
 static void
 write_item_marker (GString *pad_string, HTMLClueFlow *flow)
 {
@@ -1880,7 +1862,7 @@ save_plain (HTMLObject *self,
 				align_pad--;
 			}
 
-			s += string_append_nonbsp (out, s, len);
+			s += html_engine_save_string_append_nonbsp (out, s, len);
 			
 			/* Trim the space at the end */
 			while (*s == ' ' || IS_UTF8_NBSP (s)) 
