@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2003-06-02 20:47+0200\n"
+"POT-Creation-Date: 2003-06-26 07:56-0500\n"
 "PO-Revision-Date: 2002-06-16 16:26+0200\n"
 "Last-Translator: Arafat Medini <lumina@silverpen.de>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
@@ -812,6 +812,11 @@ msgid "_Wink"
 msgstr "ا_غمز"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
+#, fuzzy
+msgid "_Wrap Lines"
+msgstr "الربط"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
 msgid "etc..."
 msgstr "الخ..."
 
@@ -833,7 +838,7 @@ msgstr "أزرق ثلاثي الأبعاد"
 msgid "Rectangles"
 msgstr ""
 
-#: components/html-editor/body.c:275 src/gtkhtml.c:2543
+#: components/html-editor/body.c:275 src/gtkhtml.c:2555
 msgid "Document Title"
 msgstr "عنوان المستند"
 
@@ -1466,7 +1471,7 @@ msgstr "أوجد معادلة عادية"
 msgid "Spell checker"
 msgstr "المدقق الإملائي"
 
-#: components/html-editor/spell.c:358
+#: components/html-editor/spell.c:361
 #, fuzzy
 msgid "Current _Languages"
 msgstr "لغات التدقيق الإملائي"
@@ -1573,75 +1578,75 @@ msgstr "تزيد ازاحة الفقرة"
 msgid "Sample"
 msgstr "عينة"
 
-#: src/gtkhtml.c:2536
+#: src/gtkhtml.c:2548
 #, fuzzy
 msgid "Editable"
 msgstr "تمكين"
 
-#: src/gtkhtml.c:2537
+#: src/gtkhtml.c:2549
 msgid "Whether the html can be edited"
 msgstr ""
 
-#: src/gtkhtml.c:2544
+#: src/gtkhtml.c:2556
 #, fuzzy
 msgid "The title of the current document"
 msgstr "دقق الإملاء للوثيقة"
 
-#: src/gtkhtml.c:2550
+#: src/gtkhtml.c:2562
 #, fuzzy
 msgid "Document Base"
 msgstr "عنوان المستند"
 
-#: src/gtkhtml.c:2551
+#: src/gtkhtml.c:2563
 msgid "The base URL for relative references"
 msgstr ""
 
-#: src/gtkhtml.c:2557
+#: src/gtkhtml.c:2569
 msgid "Target Base"
 msgstr ""
 
-#: src/gtkhtml.c:2558
+#: src/gtkhtml.c:2570
 msgid "The base URL of the targe frame"
 msgstr ""
 
-#: src/gtkhtml.c:2567
+#: src/gtkhtml.c:2579
 #, fuzzy
 msgid "Fixed Width Font"
 msgstr "عرض ثابت"
 
-#: src/gtkhtml.c:2568
+#: src/gtkhtml.c:2580
 msgid "The Monospace font to use for typewriter text"
 msgstr ""
 
-#: src/gtkhtml.c:2574
+#: src/gtkhtml.c:2586
 msgid "New Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2575
+#: src/gtkhtml.c:2587
 msgid "The color of new link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2580
+#: src/gtkhtml.c:2592
 msgid "Visited Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2581
+#: src/gtkhtml.c:2593
 msgid "The color of visited link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2586
+#: src/gtkhtml.c:2598
 msgid "Active Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2587
+#: src/gtkhtml.c:2599
 msgid "The color of active link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2592
+#: src/gtkhtml.c:2604
 msgid "Spelling Error Color"
 msgstr ""
 
-#: src/gtkhtml.c:2593
+#: src/gtkhtml.c:2605
 msgid "The color of the spelling error markers"
 msgstr ""
 
@@ -1702,7 +1707,7 @@ msgid "Reset"
 msgstr "اعادة"
 
 #. TODO2 dialog instead of warning
-#: src/htmlengine-print.c:196
+#: src/htmlengine-print.c:193
 msgid "Cannot allocate default font for printing\n"
 msgstr "تعذر تحديد خط الطباعة الإفتراضي\n"
 
@@ -1718,7 +1723,7 @@ msgstr "معاينة الط_باعة"
 msgid "Print preview"
 msgstr "معاينة الطباعة"
 
-#: src/testgtkhtml.c:973
+#: src/testgtkhtml.c:974
 #, fuzzy
 msgid "GtkHTML Test Application"
 msgstr "اختبار GtkHTML"

@@ -193,12 +193,11 @@ EXTRA_DIST =					\
 idldir = $(gtkhtml_data)
 idl_DATA = $(IDLS)
 
-CLEANFILES = \
-	GNOME_GtkHTML_Editor.xml		\
-	$(IDL_GENERATED)			\
-	$(SPELL_IDL_GENERATED) 
-
-BUILT_SOURCE = $(IDL_GENERATED) $(SPELL_IDL_GENERATED)
-
 dist-hook:
 	cd $(distdir); rm -f $(BUILT_SOURCES)
+
+BUILT_SOURCES = $(IDL_GENERATED) $(SPELL_IDL_GENERATED) $(server_DATA)
+
+CLEANFILES = \
+	GNOME_GtkHTML_Editor.xml		\
+	$(BUILT_SOURCES)

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 3.0.3\n"
-"POT-Creation-Date: 2003-06-02 20:47+0200\n"
+"POT-Creation-Date: 2003-06-26 07:56-0500\n"
 "PO-Revision-Date: 2003-05-17 05:23+0800\n"
 "Last-Translator: Abel Cheung <maddog@linux.org.hk>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
@@ -800,6 +800,11 @@ msgid "_Wink"
 msgstr "眨眼(_W)"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
+#, fuzzy
+msgid "_Wrap Lines"
+msgstr "換行設定："
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
 msgid "etc..."
 msgstr "等等..."
 
@@ -820,7 +825,7 @@ msgstr ""
 msgid "Rectangles"
 msgstr "矩形"
 
-#: components/html-editor/body.c:275 src/gtkhtml.c:2543
+#: components/html-editor/body.c:275 src/gtkhtml.c:2555
 msgid "Document Title"
 msgstr "文件標題"
 
@@ -1445,7 +1450,7 @@ msgstr "使用正規表示式的方式搜尋"
 msgid "Spell checker"
 msgstr "拼字檢查程式"
 
-#: components/html-editor/spell.c:358
+#: components/html-editor/spell.c:361
 msgid "Current _Languages"
 msgstr "目前的語言(_L)"
 
@@ -1554,71 +1559,71 @@ msgstr "增加段落的縮排"
 msgid "Sample"
 msgstr "範例"
 
-#: src/gtkhtml.c:2536
+#: src/gtkhtml.c:2548
 msgid "Editable"
 msgstr "可編輯"
 
-#: src/gtkhtml.c:2537
+#: src/gtkhtml.c:2549
 msgid "Whether the html can be edited"
 msgstr "可否編輯 html"
 
-#: src/gtkhtml.c:2544
+#: src/gtkhtml.c:2556
 msgid "The title of the current document"
 msgstr "目前的文件的標題"
 
-#: src/gtkhtml.c:2550
+#: src/gtkhtml.c:2562
 msgid "Document Base"
 msgstr ""
 
-#: src/gtkhtml.c:2551
+#: src/gtkhtml.c:2563
 msgid "The base URL for relative references"
 msgstr ""
 
-#: src/gtkhtml.c:2557
+#: src/gtkhtml.c:2569
 msgid "Target Base"
 msgstr ""
 
-#: src/gtkhtml.c:2558
+#: src/gtkhtml.c:2570
 msgid "The base URL of the targe frame"
 msgstr ""
 
-#: src/gtkhtml.c:2567
+#: src/gtkhtml.c:2579
 msgid "Fixed Width Font"
 msgstr "固定寬度字型"
 
-#: src/gtkhtml.c:2568
+#: src/gtkhtml.c:2580
 msgid "The Monospace font to use for typewriter text"
 msgstr "作為打字機字型使用的固定寬度字型"
 
-#: src/gtkhtml.c:2574
+#: src/gtkhtml.c:2586
 msgid "New Link Color"
 msgstr "未瀏覽鏈結顏色"
 
-#: src/gtkhtml.c:2575
+#: src/gtkhtml.c:2587
 msgid "The color of new link elements"
 msgstr "未瀏覽的鏈結的顏色"
 
-#: src/gtkhtml.c:2580
+#: src/gtkhtml.c:2592
 msgid "Visited Link Color"
 msgstr "已瀏覽鏈結顏色"
 
-#: src/gtkhtml.c:2581
+#: src/gtkhtml.c:2593
 msgid "The color of visited link elements"
 msgstr "已瀏覽的鏈結的顏色"
 
-#: src/gtkhtml.c:2586
+#: src/gtkhtml.c:2598
 msgid "Active Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2587
+#: src/gtkhtml.c:2599
 msgid "The color of active link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2592
+#: src/gtkhtml.c:2604
 msgid "Spelling Error Color"
 msgstr "拼字錯誤顏色"
 
-#: src/gtkhtml.c:2593
+#: src/gtkhtml.c:2605
 msgid "The color of the spelling error markers"
 msgstr "表示拼字錯誤的標記的顏色"
 
@@ -1679,7 +1684,7 @@ msgid "Reset"
 msgstr ""
 
 #. TODO2 dialog instead of warning
-#: src/htmlengine-print.c:196
+#: src/htmlengine-print.c:193
 msgid "Cannot allocate default font for printing\n"
 msgstr "無法配置預設字型作為列印使用\n"
 
@@ -1695,7 +1700,7 @@ msgstr "預覽列印(_V)"
 msgid "Print preview"
 msgstr "預覽列印"
 
-#: src/testgtkhtml.c:973
+#: src/testgtkhtml.c:974
 #, fuzzy
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML 測試"

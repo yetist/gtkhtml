@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
-"POT-Creation-Date: 2003-06-18 12:08+0200\n"
+"POT-Creation-Date: 2003-06-26 07:56-0500\n"
 "PO-Revision-Date: 2003-06-18 12:27+0200\n"
 "Last-Translator: Andras Timar <timar@gnome.hu>\n"
 "Language-Team: Hungarian <hu@gnome.hu>\n"
@@ -823,7 +823,7 @@ msgstr "Kék tinta"
 msgid "Rectangles"
 msgstr "Téglalapok"
 
-#: components/html-editor/body.c:275 src/gtkhtml.c:2547
+#: components/html-editor/body.c:275 src/gtkhtml.c:2555
 msgid "Document Title"
 msgstr "Dokumentum címe"
 
@@ -1557,71 +1557,71 @@ msgstr "Növeli a behúzást"
 msgid "Sample"
 msgstr "Minta"
 
-#: src/gtkhtml.c:2540
+#: src/gtkhtml.c:2548
 msgid "Editable"
 msgstr "Szerkeszthető"
 
-#: src/gtkhtml.c:2541
+#: src/gtkhtml.c:2549
 msgid "Whether the html can be edited"
 msgstr "Szerkeszthető-e a HTML"
 
-#: src/gtkhtml.c:2548
+#: src/gtkhtml.c:2556
 msgid "The title of the current document"
 msgstr "Az aktuális dokumentum címe"
 
-#: src/gtkhtml.c:2554
+#: src/gtkhtml.c:2562
 msgid "Document Base"
 msgstr "Dokumentum báziscíme"
 
-#: src/gtkhtml.c:2555
+#: src/gtkhtml.c:2563
 msgid "The base URL for relative references"
 msgstr "A relatív hivatkozások bázis URL-je"
 
-#: src/gtkhtml.c:2561
+#: src/gtkhtml.c:2569
 msgid "Target Base"
 msgstr "Cél báziscíme"
 
-#: src/gtkhtml.c:2562
+#: src/gtkhtml.c:2570
 msgid "The base URL of the targe frame"
 msgstr "A célkeret bázis URL-je"
 
-#: src/gtkhtml.c:2571
+#: src/gtkhtml.c:2579
 msgid "Fixed Width Font"
 msgstr "Fix szélességű betű"
 
-#: src/gtkhtml.c:2572
+#: src/gtkhtml.c:2580
 msgid "The Monospace font to use for typewriter text"
 msgstr "Az írógépszöveghez alkalmazott Monospace betűkészlet"
 
-#: src/gtkhtml.c:2578
+#: src/gtkhtml.c:2586
 msgid "New Link Color"
 msgstr "Új hivatkozás színe"
 
-#: src/gtkhtml.c:2579
+#: src/gtkhtml.c:2587
 msgid "The color of new link elements"
 msgstr "Az új hivatkozáselemek színe"
 
-#: src/gtkhtml.c:2584
+#: src/gtkhtml.c:2592
 msgid "Visited Link Color"
 msgstr "Látogatott hivatkozás színe"
 
-#: src/gtkhtml.c:2585
+#: src/gtkhtml.c:2593
 msgid "The color of visited link elements"
 msgstr "A látogatott hivatkozáselemek színe"
 
-#: src/gtkhtml.c:2590
+#: src/gtkhtml.c:2598
 msgid "Active Link Color"
 msgstr "Aktív hivatkozás színe"
 
-#: src/gtkhtml.c:2591
+#: src/gtkhtml.c:2599
 msgid "The color of active link elements"
 msgstr "Az aktív hivatkozáselemek színe"
 
-#: src/gtkhtml.c:2596
+#: src/gtkhtml.c:2604
 msgid "Spelling Error Color"
 msgstr "Helyesírási hiba színe"
 
-#: src/gtkhtml.c:2597
+#: src/gtkhtml.c:2605
 msgid "The color of the spelling error markers"
 msgstr "A helyesírási hibákat jelölő szín"
 
@@ -1682,7 +1682,7 @@ msgid "Reset"
 msgstr "Alapértékek"
 
 #. TODO2 dialog instead of warning
-#: src/htmlengine-print.c:196
+#: src/htmlengine-print.c:193
 msgid "Cannot allocate default font for printing\n"
 msgstr ""
 "Nem sikerült betölteni az alapértelmezett betűkészletet a nyomtatáshoz.\n"
@@ -1699,7 +1699,7 @@ msgstr "Nyomtatási _kép"
 msgid "Print preview"
 msgstr "Nyomtatási kép"
 
-#: src/testgtkhtml.c:973
+#: src/testgtkhtml.c:974
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML tesztalkalmazás"
 

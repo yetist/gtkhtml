@@ -3,12 +3,12 @@
 # Christian Rose <menthos@menthos.com>, 2000, 2001, 2002, 2003.
 # Martin Norbäck <d95mback@dtek.chalmers.se>, 2000.
 #
-# $Id: sv.po,v 1.71 2003/06/06 09:11:53 menthos Exp $
+# $Id: sv.po,v 1.72 2003/06/26 14:38:35 lewing Exp $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2003-06-06 11:10+0200\n"
+"POT-Creation-Date: 2003-06-26 07:56-0500\n"
 "PO-Revision-Date: 2003-06-06 11:11+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -828,7 +828,7 @@ msgstr "Blått bläck"
 msgid "Rectangles"
 msgstr "Rektanglar"
 
-#: components/html-editor/body.c:275 src/gtkhtml.c:2543
+#: components/html-editor/body.c:275 src/gtkhtml.c:2555
 msgid "Document Title"
 msgstr "Dokumenttitel"
 
@@ -1453,7 +1453,7 @@ msgstr "Sök reguljärt uttryck"
 msgid "Spell checker"
 msgstr "Stavningskontroll"
 
-#: components/html-editor/spell.c:358
+#: components/html-editor/spell.c:361
 msgid "Current _Languages"
 msgstr "Aktuella _språk"
 
@@ -1562,71 +1562,71 @@ msgstr "Drar in styckena mer"
 msgid "Sample"
 msgstr "Prov"
 
-#: src/gtkhtml.c:2536
+#: src/gtkhtml.c:2548
 msgid "Editable"
 msgstr "Redigerbar"
 
-#: src/gtkhtml.c:2537
+#: src/gtkhtml.c:2549
 msgid "Whether the html can be edited"
 msgstr "Huruvida html-koden kan redigeras"
 
-#: src/gtkhtml.c:2544
+#: src/gtkhtml.c:2556
 msgid "The title of the current document"
 msgstr "Titeln på det aktuella dokumentet"
 
-#: src/gtkhtml.c:2550
+#: src/gtkhtml.c:2562
 msgid "Document Base"
 msgstr "Dokumentbas"
 
-#: src/gtkhtml.c:2551
+#: src/gtkhtml.c:2563
 msgid "The base URL for relative references"
 msgstr "Bas-URL:en för relativa referenser"
 
-#: src/gtkhtml.c:2557
+#: src/gtkhtml.c:2569
 msgid "Target Base"
 msgstr "Målbas"
 
-#: src/gtkhtml.c:2558
+#: src/gtkhtml.c:2570
 msgid "The base URL of the targe frame"
 msgstr "Bas-URL:en för målramen"
 
-#: src/gtkhtml.c:2567
+#: src/gtkhtml.c:2579
 msgid "Fixed Width Font"
 msgstr "Typsnitt med fast breddsteg"
 
-#: src/gtkhtml.c:2568
+#: src/gtkhtml.c:2580
 msgid "The Monospace font to use for typewriter text"
 msgstr "Typsnittet med fast breddsteg som ska användas för skrivmaskinstext"
 
-#: src/gtkhtml.c:2574
+#: src/gtkhtml.c:2586
 msgid "New Link Color"
 msgstr "Färg för ny länk"
 
-#: src/gtkhtml.c:2575
+#: src/gtkhtml.c:2587
 msgid "The color of new link elements"
 msgstr "Färgen på nya länkelement"
 
-#: src/gtkhtml.c:2580
+#: src/gtkhtml.c:2592
 msgid "Visited Link Color"
 msgstr "Färg för besökt länk"
 
-#: src/gtkhtml.c:2581
+#: src/gtkhtml.c:2593
 msgid "The color of visited link elements"
 msgstr "Färgen på besökta länkelement"
 
-#: src/gtkhtml.c:2586
+#: src/gtkhtml.c:2598
 msgid "Active Link Color"
 msgstr "Färg för aktiv länk"
 
-#: src/gtkhtml.c:2587
+#: src/gtkhtml.c:2599
 msgid "The color of active link elements"
 msgstr "Färgen på aktiva länkelement"
 
-#: src/gtkhtml.c:2592
+#: src/gtkhtml.c:2604
 msgid "Spelling Error Color"
 msgstr "Stavfelsfärg"
 
-#: src/gtkhtml.c:2593
+#: src/gtkhtml.c:2605
 msgid "The color of the spelling error markers"
 msgstr "Färgen på markörerna för stavfel"
 
@@ -1687,7 +1687,7 @@ msgid "Reset"
 msgstr "Återställ"
 
 #. TODO2 dialog instead of warning
-#: src/htmlengine-print.c:196
+#: src/htmlengine-print.c:193
 msgid "Cannot allocate default font for printing\n"
 msgstr "Kan inte allokera standardtypsnitt för utskrift\n"
 
@@ -1703,7 +1703,7 @@ msgstr "Förhands_granska"
 msgid "Print preview"
 msgstr "Förhandsgranska"
 
-#: src/testgtkhtml.c:973
+#: src/testgtkhtml.c:974
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML-testprogram"
 

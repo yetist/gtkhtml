@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 2.0.8\n"
-"POT-Creation-Date: 2003-06-02 20:47+0200\n"
+"POT-Creation-Date: 2003-06-26 07:56-0500\n"
 "PO-Revision-Date: 2001-05-25 13:35+0200\n"
 "Last-Translator: Josu Waliño <josu@elhuyar.com>\n"
 "Language-Team: Euskara\n"
@@ -816,6 +816,11 @@ msgid "_Wink"
 msgstr "Esteka"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
+#, fuzzy
+msgid "_Wrap Lines"
+msgstr "Itzulbiratzea:"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
 msgid "etc..."
 msgstr "etab..."
 
@@ -837,7 +842,7 @@ msgstr "Urdina, 3D"
 msgid "Rectangles"
 msgstr ""
 
-#: components/html-editor/body.c:275 src/gtkhtml.c:2543
+#: components/html-editor/body.c:275 src/gtkhtml.c:2555
 #, fuzzy
 msgid "Document Title"
 msgstr "Puntu-elementua"
@@ -1476,7 +1481,7 @@ msgstr "Bilatu adierazpen erregularra"
 msgid "Spell checker"
 msgstr "Ortografia-egiaztatzailea"
 
-#: components/html-editor/spell.c:358
+#: components/html-editor/spell.c:361
 #, fuzzy
 msgid "Current _Languages"
 msgstr "Ortografia-egiaztapena"
@@ -1583,75 +1588,75 @@ msgstr "Paragrafoari koska handiagoa ezartzen dio"
 msgid "Sample"
 msgstr "Adibidea"
 
-#: src/gtkhtml.c:2536
+#: src/gtkhtml.c:2548
 #, fuzzy
 msgid "Editable"
 msgstr "Gaitu"
 
-#: src/gtkhtml.c:2537
+#: src/gtkhtml.c:2549
 msgid "Whether the html can be edited"
 msgstr ""
 
-#: src/gtkhtml.c:2544
+#: src/gtkhtml.c:2556
 #, fuzzy
 msgid "The title of the current document"
 msgstr "Egiaztatu dokumentuaren ortografia"
 
-#: src/gtkhtml.c:2550
+#: src/gtkhtml.c:2562
 #, fuzzy
 msgid "Document Base"
 msgstr "Puntu-elementua"
 
-#: src/gtkhtml.c:2551
+#: src/gtkhtml.c:2563
 msgid "The base URL for relative references"
 msgstr ""
 
-#: src/gtkhtml.c:2557
+#: src/gtkhtml.c:2569
 msgid "Target Base"
 msgstr ""
 
-#: src/gtkhtml.c:2558
+#: src/gtkhtml.c:2570
 msgid "The base URL of the targe frame"
 msgstr ""
 
-#: src/gtkhtml.c:2567
+#: src/gtkhtml.c:2579
 #, fuzzy
 msgid "Fixed Width Font"
 msgstr "Zabalera finkoa"
 
-#: src/gtkhtml.c:2568
+#: src/gtkhtml.c:2580
 msgid "The Monospace font to use for typewriter text"
 msgstr ""
 
-#: src/gtkhtml.c:2574
+#: src/gtkhtml.c:2586
 msgid "New Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2575
+#: src/gtkhtml.c:2587
 msgid "The color of new link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2580
+#: src/gtkhtml.c:2592
 msgid "Visited Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2581
+#: src/gtkhtml.c:2593
 msgid "The color of visited link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2586
+#: src/gtkhtml.c:2598
 msgid "Active Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2587
+#: src/gtkhtml.c:2599
 msgid "The color of active link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2592
+#: src/gtkhtml.c:2604
 msgid "Spelling Error Color"
 msgstr ""
 
-#: src/gtkhtml.c:2593
+#: src/gtkhtml.c:2605
 msgid "The color of the spelling error markers"
 msgstr ""
 
@@ -1720,7 +1725,7 @@ msgid "Reset"
 msgstr "Testua"
 
 #. TODO2 dialog instead of warning
-#: src/htmlengine-print.c:196
+#: src/htmlengine-print.c:193
 #, fuzzy
 msgid "Cannot allocate default font for printing\n"
 msgstr "Hautatu HTML zabalera aldakorreko letra-tipoa inprimatzeko "
@@ -1737,7 +1742,7 @@ msgstr "Inprimatzeko _aurrebista"
 msgid "Print preview"
 msgstr "Inprimatzeko aurrebista"
 
-#: src/testgtkhtml.c:973
+#: src/testgtkhtml.c:974
 #, fuzzy
 msgid "GtkHTML Test Application"
 msgstr "GNOME HTML Editorearen kontrola"

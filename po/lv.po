@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2003-06-02 20:47+0200\n"
+"POT-Creation-Date: 2003-06-26 07:56-0500\n"
 "PO-Revision-Date: 2003-03-15 18:51+0200\n"
 "Last-Translator: Artis Trops  <hornet@navigator.lv>\n"
 "Language-Team: Latvian <ll10nt@os.lv>\n"
@@ -799,6 +799,11 @@ msgid "_Wink"
 msgstr "_Miedz ar aci"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
+#, fuzzy
+msgid "_Wrap Lines"
+msgstr "Iekļaušana:"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
 msgid "etc..."
 msgstr "utt..."
 
@@ -819,7 +824,7 @@ msgstr "Zila Tinte"
 msgid "Rectangles"
 msgstr "Taisnstūri"
 
-#: components/html-editor/body.c:275 src/gtkhtml.c:2543
+#: components/html-editor/body.c:275 src/gtkhtml.c:2555
 msgid "Document Title"
 msgstr "Dokumenta Nosaukums"
 
@@ -1460,7 +1465,7 @@ msgstr "Atrast Parastu Izteiksmi"
 msgid "Spell checker"
 msgstr "Pareizrakstības pārbaudītājs"
 
-#: components/html-editor/spell.c:358
+#: components/html-editor/spell.c:361
 msgid "Current _Languages"
 msgstr ""
 
@@ -1570,71 +1575,71 @@ msgstr "Atbīda rindkopu vairāk"
 msgid "Sample"
 msgstr "Paraugs"
 
-#: src/gtkhtml.c:2536
+#: src/gtkhtml.c:2548
 msgid "Editable"
 msgstr "Rdiģējams"
 
-#: src/gtkhtml.c:2537
+#: src/gtkhtml.c:2549
 msgid "Whether the html can be edited"
 msgstr "Vai html var tikt rediģēts"
 
-#: src/gtkhtml.c:2544
+#: src/gtkhtml.c:2556
 msgid "The title of the current document"
 msgstr "Pašreizējā dokumenta nosaukums"
 
-#: src/gtkhtml.c:2550
+#: src/gtkhtml.c:2562
 msgid "Document Base"
 msgstr "Dokumenta Bāze"
 
-#: src/gtkhtml.c:2551
+#: src/gtkhtml.c:2563
 msgid "The base URL for relative references"
 msgstr "Relatīvo atsauču bāzes URL"
 
-#: src/gtkhtml.c:2557
+#: src/gtkhtml.c:2569
 msgid "Target Base"
 msgstr "Mērķa Bāze"
 
-#: src/gtkhtml.c:2558
+#: src/gtkhtml.c:2570
 msgid "The base URL of the targe frame"
 msgstr "Mērķa rāmja bāzes URL"
 
-#: src/gtkhtml.c:2567
+#: src/gtkhtml.c:2579
 msgid "Fixed Width Font"
 msgstr "Fiksēta platuma Fonts"
 
-#: src/gtkhtml.c:2568
+#: src/gtkhtml.c:2580
 msgid "The Monospace font to use for typewriter text"
 msgstr "Vienādplatuma fonts, ko lietot rakstāmmašīnas tekstā"
 
-#: src/gtkhtml.c:2574
+#: src/gtkhtml.c:2586
 msgid "New Link Color"
 msgstr "Jaunās Saites Krāsa"
 
-#: src/gtkhtml.c:2575
+#: src/gtkhtml.c:2587
 msgid "The color of new link elements"
 msgstr "Jaunās saites elementu krāsa"
 
-#: src/gtkhtml.c:2580
+#: src/gtkhtml.c:2592
 msgid "Visited Link Color"
 msgstr "Apmeklētās Saites Krāsa"
 
-#: src/gtkhtml.c:2581
+#: src/gtkhtml.c:2593
 msgid "The color of visited link elements"
 msgstr "Apmeklētās saites elementu krāsa"
 
-#: src/gtkhtml.c:2586
+#: src/gtkhtml.c:2598
 msgid "Active Link Color"
 msgstr "Aktivās Saites Krāsa"
 
-#: src/gtkhtml.c:2587
+#: src/gtkhtml.c:2599
 msgid "The color of active link elements"
 msgstr "Aktīvās saites elementu krāsa"
 
-#: src/gtkhtml.c:2592
+#: src/gtkhtml.c:2604
 msgid "Spelling Error Color"
 msgstr "Pareizrakstības Kļūdu Krāsa"
 
-#: src/gtkhtml.c:2593
+#: src/gtkhtml.c:2605
 msgid "The color of the spelling error markers"
 msgstr "Pareizrakstības kļūdu marķiera krāsa"
 
@@ -1695,7 +1700,7 @@ msgid "Reset"
 msgstr "Pārstatīt"
 
 #. TODO2 dialog instead of warning
-#: src/htmlengine-print.c:196
+#: src/htmlengine-print.c:193
 msgid "Cannot allocate default font for printing\n"
 msgstr "Nevaru sameklēt noklusēto fontu drukāšanai\n"
 
@@ -1711,7 +1716,7 @@ msgstr "P_irmsdrukas apskate"
 msgid "Print preview"
 msgstr "Pirmsdrukas apskate"
 
-#: src/testgtkhtml.c:973
+#: src/testgtkhtml.c:974
 #, fuzzy
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML Tests"

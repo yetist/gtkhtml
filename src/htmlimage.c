@@ -1284,6 +1284,10 @@ free_image_ptr_data (HTMLImagePointer *ip)
 		g_object_unref (ip->animation);
 		ip->animation = NULL;
 	}
+	if (ip->iter) {
+		g_object_unref (ip->iter);
+		ip->iter = NULL;
+	}
 }
 
 static void
@@ -1302,7 +1306,7 @@ html_image_pointer_unref (HTMLImagePointer *ip)
 
 	ip->refcount--;
 	/* printf ("unref(%p) %s --> %d\n", ip, ip->url, ip->refcount); */
-	if (ip->refcount <= 0) {
+	if (ip->refcount < 1) {
 		/* printf ("freeing %s\n", ip->url); */
 		html_image_pointer_remove_stall (ip);
 		html_image_pointer_stop_animation (ip);

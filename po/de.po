@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 1.0.x\n"
-"POT-Creation-Date: 2003-06-02 20:47+0200\n"
+"POT-Creation-Date: 2003-06-26 07:56-0500\n"
 "PO-Revision-Date: 2003-04-16 14:04+0200\n"
 "Last-Translator: Christian Neumair <chris@gnome-de.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
@@ -803,6 +803,11 @@ msgid "_Wink"
 msgstr "_Zwinkernd"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
+#, fuzzy
+msgid "_Wrap Lines"
+msgstr "Umbruch:"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
 msgid "etc..."
 msgstr "etc..."
 
@@ -823,7 +828,7 @@ msgstr "Blaue Tinte"
 msgid "Rectangles"
 msgstr "Rechtecke"
 
-#: components/html-editor/body.c:275 src/gtkhtml.c:2543
+#: components/html-editor/body.c:275 src/gtkhtml.c:2555
 msgid "Document Title"
 msgstr "Titel des Dokuments"
 
@@ -1450,7 +1455,7 @@ msgstr "Regulären Ausdruck suchen"
 msgid "Spell checker"
 msgstr "Rechtschreibprüfung"
 
-#: components/html-editor/spell.c:358
+#: components/html-editor/spell.c:361
 msgid "Current _Languages"
 msgstr "Momentan verwendete _Sprachen"
 
@@ -1559,71 +1564,71 @@ msgstr "Rückt Absätze weiter ein"
 msgid "Sample"
 msgstr "Beispiel"
 
-#: src/gtkhtml.c:2536
+#: src/gtkhtml.c:2548
 msgid "Editable"
 msgstr "Editierbar"
 
-#: src/gtkhtml.c:2537
+#: src/gtkhtml.c:2549
 msgid "Whether the html can be edited"
 msgstr "Soll das HTML editiert werden können?"
 
-#: src/gtkhtml.c:2544
+#: src/gtkhtml.c:2556
 msgid "The title of the current document"
 msgstr "Der Titel des momentan geöffneten Dokuments"
 
-#: src/gtkhtml.c:2550
+#: src/gtkhtml.c:2562
 msgid "Document Base"
 msgstr "Dokumentenbasis"
 
-#: src/gtkhtml.c:2551
+#: src/gtkhtml.c:2563
 msgid "The base URL for relative references"
 msgstr "Die Basisadresse für relative Verweise"
 
-#: src/gtkhtml.c:2557
+#: src/gtkhtml.c:2569
 msgid "Target Base"
 msgstr "Zielbasis"
 
-#: src/gtkhtml.c:2558
+#: src/gtkhtml.c:2570
 msgid "The base URL of the targe frame"
 msgstr "Die Basisadresse für das Ziel-Frame"
 
-#: src/gtkhtml.c:2567
+#: src/gtkhtml.c:2579
 msgid "Fixed Width Font"
 msgstr "Dicktengleiche Schrift"
 
-#: src/gtkhtml.c:2568
+#: src/gtkhtml.c:2580
 msgid "The Monospace font to use for typewriter text"
 msgstr "Die für typewriter-Text zu verwendende dicktengleiche Schrift"
 
-#: src/gtkhtml.c:2574
+#: src/gtkhtml.c:2586
 msgid "New Link Color"
 msgstr "Farbe für neue Links"
 
-#: src/gtkhtml.c:2575
+#: src/gtkhtml.c:2587
 msgid "The color of new link elements"
 msgstr "Die Farbe für neue Link-Elemente"
 
-#: src/gtkhtml.c:2580
+#: src/gtkhtml.c:2592
 msgid "Visited Link Color"
 msgstr "Farbe für besuchte Links"
 
-#: src/gtkhtml.c:2581
+#: src/gtkhtml.c:2593
 msgid "The color of visited link elements"
 msgstr "Die Farbe für besuchte Link-Elemente"
 
-#: src/gtkhtml.c:2586
+#: src/gtkhtml.c:2598
 msgid "Active Link Color"
 msgstr "Farbe für aktive Links"
 
-#: src/gtkhtml.c:2587
+#: src/gtkhtml.c:2599
 msgid "The color of active link elements"
 msgstr "Die Farbe für aktive Link-Elemente"
 
-#: src/gtkhtml.c:2592
+#: src/gtkhtml.c:2604
 msgid "Spelling Error Color"
 msgstr "Farbe für Rechtschreibfehler"
 
-#: src/gtkhtml.c:2593
+#: src/gtkhtml.c:2605
 msgid "The color of the spelling error markers"
 msgstr "Die für die Hervorhebung von Rechtschreibfehlern verwendete Farbe"
 
@@ -1684,7 +1689,7 @@ msgid "Reset"
 msgstr "Zurücksetzen"
 
 #. TODO2 dialog instead of warning
-#: src/htmlengine-print.c:196
+#: src/htmlengine-print.c:193
 msgid "Cannot allocate default font for printing\n"
 msgstr "Vorgabe-Druckschrift konnte nicht bereitgestellt werden\n"
 
@@ -1700,7 +1705,7 @@ msgstr "Druck_vorschau"
 msgid "Print preview"
 msgstr "Druckvorschau"
 
-#: src/testgtkhtml.c:973
+#: src/testgtkhtml.c:974
 #, fuzzy
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML-Test"

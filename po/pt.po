@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.4\n"
-"POT-Creation-Date: 2003-06-02 20:47+0200\n"
+"POT-Creation-Date: 2003-06-26 07:56-0500\n"
 "PO-Revision-Date: 2003-05-22 01:48+0100\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
@@ -800,6 +800,11 @@ msgid "_Wink"
 msgstr "Piscar o Ol_ho"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
+#, fuzzy
+msgid "_Wrap Lines"
+msgstr "Quebra:"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
 msgid "etc..."
 msgstr "etc..."
 
@@ -820,7 +825,7 @@ msgstr "Tinta Azul"
 msgid "Rectangles"
 msgstr "Rectângulos"
 
-#: components/html-editor/body.c:275 src/gtkhtml.c:2543
+#: components/html-editor/body.c:275 src/gtkhtml.c:2555
 msgid "Document Title"
 msgstr "Título Documento"
 
@@ -1445,7 +1450,7 @@ msgstr "Procurar Expressão Regular"
 msgid "Spell checker"
 msgstr "Verificador ortográfico"
 
-#: components/html-editor/spell.c:358
+#: components/html-editor/spell.c:361
 msgid "Current _Languages"
 msgstr "_Idiomas Actuais"
 
@@ -1554,71 +1559,71 @@ msgstr "Aumenta indentação do parágrafo"
 msgid "Sample"
 msgstr "Amostra"
 
-#: src/gtkhtml.c:2536
+#: src/gtkhtml.c:2548
 msgid "Editable"
 msgstr "Editável"
 
-#: src/gtkhtml.c:2537
+#: src/gtkhtml.c:2549
 msgid "Whether the html can be edited"
 msgstr "Se o html pode ou não ser editado"
 
-#: src/gtkhtml.c:2544
+#: src/gtkhtml.c:2556
 msgid "The title of the current document"
 msgstr "O título do documento actual"
 
-#: src/gtkhtml.c:2550
+#: src/gtkhtml.c:2562
 msgid "Document Base"
 msgstr "Base Documento"
 
-#: src/gtkhtml.c:2551
+#: src/gtkhtml.c:2563
 msgid "The base URL for relative references"
 msgstr "O URL base para referências relativas"
 
-#: src/gtkhtml.c:2557
+#: src/gtkhtml.c:2569
 msgid "Target Base"
 msgstr "Base Alvo"
 
-#: src/gtkhtml.c:2558
+#: src/gtkhtml.c:2570
 msgid "The base URL of the targe frame"
 msgstr "O URL base para a frame alvo"
 
-#: src/gtkhtml.c:2567
+#: src/gtkhtml.c:2579
 msgid "Fixed Width Font"
 msgstr "Fonte Largura Fixa"
 
-#: src/gtkhtml.c:2568
+#: src/gtkhtml.c:2580
 msgid "The Monospace font to use for typewriter text"
 msgstr "A fonte Monoespaçada a utilizar para texto dactilografado"
 
-#: src/gtkhtml.c:2574
+#: src/gtkhtml.c:2586
 msgid "New Link Color"
 msgstr "Cor Novo Link"
 
-#: src/gtkhtml.c:2575
+#: src/gtkhtml.c:2587
 msgid "The color of new link elements"
 msgstr "A cor de elementos link novos"
 
-#: src/gtkhtml.c:2580
+#: src/gtkhtml.c:2592
 msgid "Visited Link Color"
 msgstr "Cor Link Visitado"
 
-#: src/gtkhtml.c:2581
+#: src/gtkhtml.c:2593
 msgid "The color of visited link elements"
 msgstr "A cor de elementos link visitados"
 
-#: src/gtkhtml.c:2586
+#: src/gtkhtml.c:2598
 msgid "Active Link Color"
 msgstr "Cor Link Activo"
 
-#: src/gtkhtml.c:2587
+#: src/gtkhtml.c:2599
 msgid "The color of active link elements"
 msgstr "A cor de elementos link activos"
 
-#: src/gtkhtml.c:2592
+#: src/gtkhtml.c:2604
 msgid "Spelling Error Color"
 msgstr "Cor Erros Ortográficos"
 
-#: src/gtkhtml.c:2593
+#: src/gtkhtml.c:2605
 msgid "The color of the spelling error markers"
 msgstr "A cor das marcações de erros ortográficos"
 
@@ -1679,7 +1684,7 @@ msgid "Reset"
 msgstr "Reiniciar"
 
 #. TODO2 dialog instead of warning
-#: src/htmlengine-print.c:196
+#: src/htmlengine-print.c:193
 msgid "Cannot allocate default font for printing\n"
 msgstr "Incapaz de alocar fonte por omissão para impressão\n"
 
@@ -1695,7 +1700,7 @@ msgstr "Ante_ver impressão"
 msgid "Print preview"
 msgstr "Antever impressão"
 
-#: src/testgtkhtml.c:973
+#: src/testgtkhtml.c:974
 msgid "GtkHTML Test Application"
 msgstr "Aplicação Teste GtkHTML"
 

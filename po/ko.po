@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $PACKAGE $GTKHTML_RELEASE.0.99\n"
-"POT-Creation-Date: 2003-06-02 20:47+0200\n"
+"POT-Creation-Date: 2003-06-26 07:56-0500\n"
 "PO-Revision-Date: 2002-05-09 16:03+0900\n"
 "Last-Translator: Young-Ho Cha <ganadist@chollian.net>\n"
 "Language-Team: Korean <gnome-kr-translation@lists.sourceforge.net>\n"
@@ -820,6 +820,10 @@ msgid "_Wink"
 msgstr "링크"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
+msgid "_Wrap Lines"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
 msgid "etc..."
 msgstr ""
 
@@ -841,7 +845,7 @@ msgstr "파란색"
 msgid "Rectangles"
 msgstr ""
 
-#: components/html-editor/body.c:275 src/gtkhtml.c:2543
+#: components/html-editor/body.c:275 src/gtkhtml.c:2555
 msgid "Document Title"
 msgstr "문서 제목"
 
@@ -1478,7 +1482,7 @@ msgstr "정규 표현식 찾기"
 msgid "Spell checker"
 msgstr "철자 검사"
 
-#: components/html-editor/spell.c:358
+#: components/html-editor/spell.c:361
 #, fuzzy
 msgid "Current _Languages"
 msgstr "맞춤법 검사 언어(_L)"
@@ -1585,75 +1589,75 @@ msgstr "문단을 더 들여씁니다"
 msgid "Sample"
 msgstr "예제"
 
-#: src/gtkhtml.c:2536
+#: src/gtkhtml.c:2548
 #, fuzzy
 msgid "Editable"
 msgstr "사용"
 
-#: src/gtkhtml.c:2537
+#: src/gtkhtml.c:2549
 msgid "Whether the html can be edited"
 msgstr ""
 
-#: src/gtkhtml.c:2544
+#: src/gtkhtml.c:2556
 #, fuzzy
 msgid "The title of the current document"
 msgstr "문서의 맞춤법을 검사합니다"
 
-#: src/gtkhtml.c:2550
+#: src/gtkhtml.c:2562
 #, fuzzy
 msgid "Document Base"
 msgstr "문서 제목"
 
-#: src/gtkhtml.c:2551
+#: src/gtkhtml.c:2563
 msgid "The base URL for relative references"
 msgstr ""
 
-#: src/gtkhtml.c:2557
+#: src/gtkhtml.c:2569
 msgid "Target Base"
 msgstr ""
 
-#: src/gtkhtml.c:2558
+#: src/gtkhtml.c:2570
 msgid "The base URL of the targe frame"
 msgstr ""
 
-#: src/gtkhtml.c:2567
+#: src/gtkhtml.c:2579
 #, fuzzy
 msgid "Fixed Width Font"
 msgstr "고정폭 글꼴"
 
-#: src/gtkhtml.c:2568
+#: src/gtkhtml.c:2580
 msgid "The Monospace font to use for typewriter text"
 msgstr ""
 
-#: src/gtkhtml.c:2574
+#: src/gtkhtml.c:2586
 msgid "New Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2575
+#: src/gtkhtml.c:2587
 msgid "The color of new link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2580
+#: src/gtkhtml.c:2592
 msgid "Visited Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2581
+#: src/gtkhtml.c:2593
 msgid "The color of visited link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2586
+#: src/gtkhtml.c:2598
 msgid "Active Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2587
+#: src/gtkhtml.c:2599
 msgid "The color of active link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2592
+#: src/gtkhtml.c:2604
 msgid "Spelling Error Color"
 msgstr ""
 
-#: src/gtkhtml.c:2593
+#: src/gtkhtml.c:2605
 msgid "The color of the spelling error markers"
 msgstr ""
 
@@ -1714,7 +1718,7 @@ msgid "Reset"
 msgstr "리셋"
 
 #. TODO2 dialog instead of warning
-#: src/htmlengine-print.c:196
+#: src/htmlengine-print.c:193
 msgid "Cannot allocate default font for printing\n"
 msgstr "인쇄용 기본 글꼴을 할당할 수 없습니다\n"
 
@@ -1730,7 +1734,7 @@ msgstr "인쇄 미리보기(_v)"
 msgid "Print preview"
 msgstr "인쇄가 되는 모습을 미리 확인해봅니다"
 
-#: src/testgtkhtml.c:973
+#: src/testgtkhtml.c:974
 #, fuzzy
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML 테스트"

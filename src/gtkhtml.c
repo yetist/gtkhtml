@@ -725,12 +725,12 @@ gtk_html_set_fonts (GtkHTML *html, HTMLPainter *painter)
 {
 	PangoFontDescription *fixed_desc = NULL;
 	char *fixed_name = NULL;
-	char *fixed_family = NULL;
+	const char *fixed_family = NULL;
 	gint  fixed_size = 0;
-	char *font_var = NULL;
+	const char *font_var = NULL;
 	gint  font_var_size = 0;
 
-	(const gchar *) font_var = pango_font_description_get_family (GTK_WIDGET (html)->style->font_desc);
+	font_var = pango_font_description_get_family (GTK_WIDGET (html)->style->font_desc);
 	font_var_size = PANGO_PIXELS (pango_font_description_get_size (GTK_WIDGET (html)->style->font_desc));
 		
 	gtk_widget_style_get (GTK_WIDGET (html), "fixed_font_name", &fixed_name, NULL);
@@ -738,7 +738,7 @@ gtk_html_set_fonts (GtkHTML *html, HTMLPainter *painter)
 		fixed_desc = pango_font_description_from_string (fixed_name);
 		if (pango_font_description_get_family (fixed_desc)) {
 			fixed_size = PANGO_PIXELS (pango_font_description_get_size (fixed_desc));
-			(const gchar *) fixed_family = pango_font_description_get_family (fixed_desc);
+			fixed_family = pango_font_description_get_family (fixed_desc);
 		} else {
 			g_free (fixed_name);
 			fixed_name = NULL;
@@ -746,19 +746,18 @@ gtk_html_set_fonts (GtkHTML *html, HTMLPainter *painter)
 	}
 		
 	if (!fixed_name) {
-		fixed_family = g_strdup ("Monospace");
+		fixed_family = "Monospace";
 		fixed_size = font_var_size;
 	}
 
 	html_font_manager_set_default (&painter->font_manager,
-				       font_var, fixed_family,
+				       (char *)font_var, (char *)fixed_family,
 				       font_var_size, FALSE,
 				       fixed_size, FALSE);
 	if (fixed_desc)
 		pango_font_description_free (fixed_desc);
 
 	g_free (fixed_name);
-	g_free (fixed_family);
 }
 
 /* GtkWidget methods.  */

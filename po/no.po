@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
-"POT-Creation-Date: 2003-06-02 20:47+0200\n"
+"POT-Creation-Date: 2003-06-26 07:56-0500\n"
 "PO-Revision-Date: 2003-05-22 14:20+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -799,6 +799,11 @@ msgid "_Wink"
 msgstr "_Blunk"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
+#, fuzzy
+msgid "_Wrap Lines"
+msgstr "Bryting:"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
 msgid "etc..."
 msgstr "etc..."
 
@@ -819,7 +824,7 @@ msgstr "Blått blekk"
 msgid "Rectangles"
 msgstr "Rektangler"
 
-#: components/html-editor/body.c:275 src/gtkhtml.c:2543
+#: components/html-editor/body.c:275 src/gtkhtml.c:2555
 msgid "Document Title"
 msgstr "Dokumenttittel"
 
@@ -1444,7 +1449,7 @@ msgstr "Finn vanlig uttrykk"
 msgid "Spell checker"
 msgstr "Stavekontroll"
 
-#: components/html-editor/spell.c:358
+#: components/html-editor/spell.c:361
 msgid "Current _Languages"
 msgstr "Tilgjengelige _språk"
 
@@ -1553,71 +1558,71 @@ msgstr "Større innrykk for avsnittene"
 msgid "Sample"
 msgstr "Eksempel"
 
-#: src/gtkhtml.c:2536
+#: src/gtkhtml.c:2548
 msgid "Editable"
 msgstr "Redigerbar"
 
-#: src/gtkhtml.c:2537
+#: src/gtkhtml.c:2549
 msgid "Whether the html can be edited"
 msgstr "Om HTML-koden kan redigeres"
 
-#: src/gtkhtml.c:2544
+#: src/gtkhtml.c:2556
 msgid "The title of the current document"
 msgstr "Tittel for aktivt dokument"
 
-#: src/gtkhtml.c:2550
+#: src/gtkhtml.c:2562
 msgid "Document Base"
 msgstr "Dokumentbasis"
 
-#: src/gtkhtml.c:2551
+#: src/gtkhtml.c:2563
 msgid "The base URL for relative references"
 msgstr "Basis-URL for relative referanser"
 
-#: src/gtkhtml.c:2557
+#: src/gtkhtml.c:2569
 msgid "Target Base"
 msgstr "Målbasis"
 
-#: src/gtkhtml.c:2558
+#: src/gtkhtml.c:2570
 msgid "The base URL of the targe frame"
 msgstr "Basis-URL for målrammen"
 
-#: src/gtkhtml.c:2567
+#: src/gtkhtml.c:2579
 msgid "Fixed Width Font"
 msgstr "Skrift med fast bredde"
 
-#: src/gtkhtml.c:2568
+#: src/gtkhtml.c:2580
 msgid "The Monospace font to use for typewriter text"
 msgstr "Skrift med fast bredde som skal brukes for skrivemaskintekst"
 
-#: src/gtkhtml.c:2574
+#: src/gtkhtml.c:2586
 msgid "New Link Color"
 msgstr "Farge for ny lenke"
 
-#: src/gtkhtml.c:2575
+#: src/gtkhtml.c:2587
 msgid "The color of new link elements"
 msgstr "Farge for nye lenkeelementer"
 
-#: src/gtkhtml.c:2580
+#: src/gtkhtml.c:2592
 msgid "Visited Link Color"
 msgstr "Farge for besøkt lenke"
 
-#: src/gtkhtml.c:2581
+#: src/gtkhtml.c:2593
 msgid "The color of visited link elements"
 msgstr "Farge for besøkte lenkeelementer"
 
-#: src/gtkhtml.c:2586
+#: src/gtkhtml.c:2598
 msgid "Active Link Color"
 msgstr "Farge for aktiv lenke"
 
-#: src/gtkhtml.c:2587
+#: src/gtkhtml.c:2599
 msgid "The color of active link elements"
 msgstr "Farge for aktive lenkeelementer"
 
-#: src/gtkhtml.c:2592
+#: src/gtkhtml.c:2604
 msgid "Spelling Error Color"
 msgstr "Farge for stavefeil"
 
-#: src/gtkhtml.c:2593
+#: src/gtkhtml.c:2605
 msgid "The color of the spelling error markers"
 msgstr "Farge for markering av stavefeil"
 
@@ -1678,7 +1683,7 @@ msgid "Reset"
 msgstr "Nullstill"
 
 #. TODO2 dialog instead of warning
-#: src/htmlengine-print.c:196
+#: src/htmlengine-print.c:193
 msgid "Cannot allocate default font for printing\n"
 msgstr "Kan ikke tildele forvalgt skrif for utskrift\n"
 
@@ -1694,6 +1699,6 @@ msgstr "Forhånds_visning"
 msgid "Print preview"
 msgstr "Forhåndsvisning"
 
-#: src/testgtkhtml.c:973
+#: src/testgtkhtml.c:974
 msgid "GtkHTML Test Application"
 msgstr "Test-applikasjon for GtkHTML"

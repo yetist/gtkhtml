@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.txt\n"
-"POT-Creation-Date: 2003-06-02 20:47+0200\n"
+"POT-Creation-Date: 2003-06-26 07:56-0500\n"
 "PO-Revision-Date: 2003-03-17 15:05+0200\n"
 "Last-Translator: Gil 'Dolfin' Osher <dolfin@rpg.org.il>\n"
 "Language-Team: Hebrew <he@li.org>\n"
@@ -801,6 +801,11 @@ msgid "_Wink"
 msgstr "_קורץ"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
+#, fuzzy
+msgid "_Wrap Lines"
+msgstr "גלישה:"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
 msgid "etc..."
 msgstr "וכו'..."
 
@@ -821,7 +826,7 @@ msgstr "דיו כחול"
 msgid "Rectangles"
 msgstr "מלבנים"
 
-#: components/html-editor/body.c:275 src/gtkhtml.c:2543
+#: components/html-editor/body.c:275 src/gtkhtml.c:2555
 msgid "Document Title"
 msgstr "כותרת המסמך"
 
@@ -1462,7 +1467,7 @@ msgstr "מצא ביטוי רגיל"
 msgid "Spell checker"
 msgstr "בודק איות"
 
-#: components/html-editor/spell.c:358
+#: components/html-editor/spell.c:361
 msgid "Current _Languages"
 msgstr ""
 
@@ -1572,75 +1577,75 @@ msgstr "מזיח את הפסקה יותר"
 msgid "Sample"
 msgstr "דוגמה"
 
-#: src/gtkhtml.c:2536
+#: src/gtkhtml.c:2548
 #, fuzzy
 msgid "Editable"
 msgstr "אפשר"
 
-#: src/gtkhtml.c:2537
+#: src/gtkhtml.c:2549
 msgid "Whether the html can be edited"
 msgstr ""
 
-#: src/gtkhtml.c:2544
+#: src/gtkhtml.c:2556
 #, fuzzy
 msgid "The title of the current document"
 msgstr "בודק את איות המסמך"
 
-#: src/gtkhtml.c:2550
+#: src/gtkhtml.c:2562
 #, fuzzy
 msgid "Document Base"
 msgstr "כותרת המסמך"
 
-#: src/gtkhtml.c:2551
+#: src/gtkhtml.c:2563
 msgid "The base URL for relative references"
 msgstr ""
 
-#: src/gtkhtml.c:2557
+#: src/gtkhtml.c:2569
 msgid "Target Base"
 msgstr ""
 
-#: src/gtkhtml.c:2558
+#: src/gtkhtml.c:2570
 msgid "The base URL of the targe frame"
 msgstr ""
 
-#: src/gtkhtml.c:2567
+#: src/gtkhtml.c:2579
 #, fuzzy
 msgid "Fixed Width Font"
 msgstr "רוחב קבוע"
 
-#: src/gtkhtml.c:2568
+#: src/gtkhtml.c:2580
 msgid "The Monospace font to use for typewriter text"
 msgstr ""
 
-#: src/gtkhtml.c:2574
+#: src/gtkhtml.c:2586
 msgid "New Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2575
+#: src/gtkhtml.c:2587
 msgid "The color of new link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2580
+#: src/gtkhtml.c:2592
 msgid "Visited Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2581
+#: src/gtkhtml.c:2593
 msgid "The color of visited link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2586
+#: src/gtkhtml.c:2598
 msgid "Active Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2587
+#: src/gtkhtml.c:2599
 msgid "The color of active link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2592
+#: src/gtkhtml.c:2604
 msgid "Spelling Error Color"
 msgstr ""
 
-#: src/gtkhtml.c:2593
+#: src/gtkhtml.c:2605
 msgid "The color of the spelling error markers"
 msgstr ""
 
@@ -1701,7 +1706,7 @@ msgid "Reset"
 msgstr "איפוס"
 
 #. TODO2 dialog instead of warning
-#: src/htmlengine-print.c:196
+#: src/htmlengine-print.c:193
 msgid "Cannot allocate default font for printing\n"
 msgstr "לא ניתן להקצות גופן ברירת מחדל להדפסה\n"
 
@@ -1717,7 +1722,7 @@ msgstr "_תצוגה מקדימה"
 msgid "Print preview"
 msgstr "תצוגה מקדימה"
 
-#: src/testgtkhtml.c:973
+#: src/testgtkhtml.c:974
 #, fuzzy
 msgid "GtkHTML Test Application"
 msgstr "בדיקת GtkHTML"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.16.1\n"
-"POT-Creation-Date: 2003-06-02 20:47+0200\n"
+"POT-Creation-Date: 2003-06-26 07:56-0500\n"
 "PO-Revision-Date: 2001-12-19 19:38GMT+0200\n"
 "Last-Translator: Vasif İsmayıloğlu MD <azerb_linux@hotmail.com>\n"
 "Language-Team: Azerbaijani Turkic <linuxaz@azerimail.net>\n"
@@ -825,6 +825,11 @@ msgid "_Wink"
 msgstr "Baǧ"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
+#, fuzzy
+msgid "_Wrap Lines"
+msgstr "Qırma:"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
 msgid "etc..."
 msgstr "vs..."
 
@@ -846,7 +851,7 @@ msgstr "Göy 3D"
 msgid "Rectangles"
 msgstr ""
 
-#: components/html-editor/body.c:275 src/gtkhtml.c:2543
+#: components/html-editor/body.c:275 src/gtkhtml.c:2555
 #, fuzzy
 msgid "Document Title"
 msgstr "Nöqtə üzvü"
@@ -1484,7 +1489,7 @@ msgstr "Qaydalı İfadə Axtar"
 msgid "Spell checker"
 msgstr "İmla yoxlaması"
 
-#: components/html-editor/spell.c:358
+#: components/html-editor/spell.c:361
 #, fuzzy
 msgid "Current _Languages"
 msgstr "İmla Yoxlaması"
@@ -1591,75 +1596,75 @@ msgstr "Paraqrafları daha çox aralayar"
 msgid "Sample"
 msgstr "Nümunə"
 
-#: src/gtkhtml.c:2536
+#: src/gtkhtml.c:2548
 #, fuzzy
 msgid "Editable"
 msgstr "Aç"
 
-#: src/gtkhtml.c:2537
+#: src/gtkhtml.c:2549
 msgid "Whether the html can be edited"
 msgstr ""
 
-#: src/gtkhtml.c:2544
+#: src/gtkhtml.c:2556
 #, fuzzy
 msgid "The title of the current document"
 msgstr "Sənədə imla yoxlaması apar"
 
-#: src/gtkhtml.c:2550
+#: src/gtkhtml.c:2562
 #, fuzzy
 msgid "Document Base"
 msgstr "Nöqtə üzvü"
 
-#: src/gtkhtml.c:2551
+#: src/gtkhtml.c:2563
 msgid "The base URL for relative references"
 msgstr ""
 
-#: src/gtkhtml.c:2557
+#: src/gtkhtml.c:2569
 msgid "Target Base"
 msgstr ""
 
-#: src/gtkhtml.c:2558
+#: src/gtkhtml.c:2570
 msgid "The base URL of the targe frame"
 msgstr ""
 
-#: src/gtkhtml.c:2567
+#: src/gtkhtml.c:2579
 #, fuzzy
 msgid "Fixed Width Font"
 msgstr "Sabit en"
 
-#: src/gtkhtml.c:2568
+#: src/gtkhtml.c:2580
 msgid "The Monospace font to use for typewriter text"
 msgstr ""
 
-#: src/gtkhtml.c:2574
+#: src/gtkhtml.c:2586
 msgid "New Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2575
+#: src/gtkhtml.c:2587
 msgid "The color of new link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2580
+#: src/gtkhtml.c:2592
 msgid "Visited Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2581
+#: src/gtkhtml.c:2593
 msgid "The color of visited link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2586
+#: src/gtkhtml.c:2598
 msgid "Active Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2587
+#: src/gtkhtml.c:2599
 msgid "The color of active link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2592
+#: src/gtkhtml.c:2604
 msgid "Spelling Error Color"
 msgstr ""
 
-#: src/gtkhtml.c:2593
+#: src/gtkhtml.c:2605
 msgid "The color of the spelling error markers"
 msgstr ""
 
@@ -1729,7 +1734,7 @@ msgid "Reset"
 msgstr "Mətn"
 
 #. TODO2 dialog instead of warning
-#: src/htmlengine-print.c:196
+#: src/htmlengine-print.c:193
 #, fuzzy
 msgid "Cannot allocate default font for printing\n"
 msgstr "Çap etmək üçün dəyişgən en yazıtipini seç"
@@ -1746,7 +1751,7 @@ msgstr "Önizləməyi _çap et"
 msgid "Print preview"
 msgstr "Çap etmə önizləməsi"
 
-#: src/testgtkhtml.c:973
+#: src/testgtkhtml.c:974
 #, fuzzy
 msgid "GtkHTML Test Application"
 msgstr "GNOME HTML Editor İdarəsi"

@@ -6,14 +6,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-06-14 13:30+0200\n"
+"POT-Creation-Date: 2003-06-26 07:56-0500\n"
 "PO-Revision-Date: 2003-06-14 16:39+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -825,7 +825,7 @@ msgstr "Modrý inkoust"
 msgid "Rectangles"
 msgstr "Obdélníky"
 
-#: components/html-editor/body.c:275 src/gtkhtml.c:2547
+#: components/html-editor/body.c:275 src/gtkhtml.c:2555
 msgid "Document Title"
 msgstr "Nadpis dokumentu"
 
@@ -1559,71 +1559,71 @@ msgstr "Odsadí odstavec Více"
 msgid "Sample"
 msgstr "Příklad"
 
-#: src/gtkhtml.c:2540
+#: src/gtkhtml.c:2548
 msgid "Editable"
 msgstr "Upravitelný"
 
-#: src/gtkhtml.c:2541
+#: src/gtkhtml.c:2549
 msgid "Whether the html can be edited"
 msgstr "Jestli může být html upravováno"
 
-#: src/gtkhtml.c:2548
+#: src/gtkhtml.c:2556
 msgid "The title of the current document"
 msgstr "Nadpis aktuálního dokumentu"
 
-#: src/gtkhtml.c:2554
+#: src/gtkhtml.c:2562
 msgid "Document Base"
 msgstr "Základ dokumentu"
 
-#: src/gtkhtml.c:2555
+#: src/gtkhtml.c:2563
 msgid "The base URL for relative references"
 msgstr "Základní URL pro relativní odkazy"
 
-#: src/gtkhtml.c:2561
+#: src/gtkhtml.c:2569
 msgid "Target Base"
 msgstr "Základ cíle"
 
-#: src/gtkhtml.c:2562
+#: src/gtkhtml.c:2570
 msgid "The base URL of the targe frame"
 msgstr "Základní URL cílového rámce"
 
-#: src/gtkhtml.c:2571
+#: src/gtkhtml.c:2579
 msgid "Fixed Width Font"
 msgstr "Písmo s pevnou šířkou"
 
-#: src/gtkhtml.c:2572
+#: src/gtkhtml.c:2580
 msgid "The Monospace font to use for typewriter text"
 msgstr "Písmo monospace, které použít pro text psacího stroje"
 
-#: src/gtkhtml.c:2578
+#: src/gtkhtml.c:2586
 msgid "New Link Color"
 msgstr "Barva nového odkazu"
 
-#: src/gtkhtml.c:2579
+#: src/gtkhtml.c:2587
 msgid "The color of new link elements"
 msgstr "Barva nových elementů odkaz"
 
-#: src/gtkhtml.c:2584
+#: src/gtkhtml.c:2592
 msgid "Visited Link Color"
 msgstr "Barva navštíveného odkazu"
 
-#: src/gtkhtml.c:2585
+#: src/gtkhtml.c:2593
 msgid "The color of visited link elements"
 msgstr "Barva navštívených elementů odkaz"
 
-#: src/gtkhtml.c:2590
+#: src/gtkhtml.c:2598
 msgid "Active Link Color"
 msgstr "Barva aktivního odkazu"
 
-#: src/gtkhtml.c:2591
+#: src/gtkhtml.c:2599
 msgid "The color of active link elements"
 msgstr "Barva aktivních elementů odkaz"
 
-#: src/gtkhtml.c:2596
+#: src/gtkhtml.c:2604
 msgid "Spelling Error Color"
 msgstr "Barva pravopisné chyby"
 
-#: src/gtkhtml.c:2597
+#: src/gtkhtml.c:2605
 msgid "The color of the spelling error markers"
 msgstr "Barva označení pravopisných chyb"
 
@@ -1684,7 +1684,7 @@ msgid "Reset"
 msgstr "Vymazat"
 
 #. TODO2 dialog instead of warning
-#: src/htmlengine-print.c:196
+#: src/htmlengine-print.c:193
 msgid "Cannot allocate default font for printing\n"
 msgstr "Nemohu alokovat základní písmo pro tisk\n"
 
@@ -1700,6 +1700,6 @@ msgstr "_Náhled tisku"
 msgid "Print preview"
 msgstr "Náhled tisku"
 
-#: src/testgtkhtml.c:973
+#: src/testgtkhtml.c:974
 msgid "GtkHTML Test Application"
 msgstr "Testovací aplikace GtkHTML"

@@ -1,7 +1,12 @@
-gtkhtml-3.0.5 "I love trees" 2003-06-02
+gtkhtml-3.0.5 "Love Shack" 2003-06-02
 ------------------------------------------------
 
 New in this release
+
+  * lots of leaks fixed.
+  * printing now uses the same fonts as display.
+
+New in 3.0.5
 
   * fixed SELECT implementation (Rodney)
   * updated translations
