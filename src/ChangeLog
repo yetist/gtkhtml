@@ -1,3 +1,7 @@
+2001-08-09  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml-enums.h: added grab-focus command
+
 2001-08-08  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-selection-updater.c (updater_idle_callback):

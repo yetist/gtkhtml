@@ -1108,6 +1108,7 @@ focus_in_event (GtkWidget *widget,
 {
 	GtkHTML *html = GTK_HTML (widget);
 
+	/* printf ("focus in\n"); */
 	if (!html->iframe_parent) {
 		GTK_WIDGET_SET_FLAGS (widget, GTK_HAS_FOCUS);
 		html_engine_set_focus (html->engine, TRUE);
@@ -1129,6 +1130,8 @@ focus_out_event (GtkWidget *widget,
 		 GdkEventFocus *event)
 {
 	GtkHTML *html = GTK_HTML (widget);
+
+	/* printf ("focus out\n"); */
 	if (!html->iframe_parent) {
 		GTK_WIDGET_UNSET_FLAGS (widget, GTK_HAS_FOCUS);
 		html_engine_set_focus (html->engine, FALSE);
@@ -1578,6 +1581,8 @@ focus (GtkContainer *container, GtkDirectionType direction)
 {
 #if 1
 	gint rv;
+
+	/* printf ("focus %d\n", direction); */
 	/* GTK_WIDGET_UNSET_FLAGS (GTK_WIDGET (container), GTK_CAN_FOCUS);*/
 	rv = (*GTK_CONTAINER_CLASS (parent_class)->focus) (container, direction);
 	/* GTK_WIDGET_SET_FLAGS (GTK_WIDGET (container), GTK_CAN_FOCUS);*/
@@ -3205,6 +3210,9 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		break;
 	case GTK_HTML_COMMAND_UNBLOCK_REDRAW:
 		html_engine_unblock_redraw (e);
+		break;
+	case GTK_HTML_COMMAND_GRAB_FOCUS:
+		gtk_widget_grab_focus (GTK_WIDGET (html));
 		break;
 
 	default:
