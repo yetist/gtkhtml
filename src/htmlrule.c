@@ -38,7 +38,9 @@ copy (HTMLObject *self,
 {
 	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
 
-	HTML_RULE (dest)->shade = HTML_RULE (self)->shade;
+	HTML_RULE (dest)->length = HTML_RULE (self)->length;
+	HTML_RULE (dest)->size   = HTML_RULE (self)->size;
+	HTML_RULE (dest)->shade  = HTML_RULE (self)->shade;
 	HTML_RULE (dest)->halign = HTML_RULE (self)->halign;
 }
 

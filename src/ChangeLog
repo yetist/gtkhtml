@@ -1,3 +1,7 @@
+2000-10-12  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlrule.c (copy): copy also length and size
+
 2000-10-11  Radek Doulik  <rodo@helixcode.com>
 
 	* Makefile.am (CFLAGS): removed pspell flags
