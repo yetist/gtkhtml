@@ -1,7 +1,7 @@
 # The one and only funky gtkhtml dutch translation!
 # Copyright (C) 2000 Free Software Foundation, Inc.
 # Dennis Smit <synap@area101.penguin.nl>, 2000.
-# Tino Meinen <a.t.meinen@chello.nl>, 2002, 2003.
+# Tino Meinen <a.t.meinen@chello.nl>, 2002-2004.
 #  
 # TODO
 #  	snelkoppelingen
@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml cvs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-13 05:10+0100\n"
-"PO-Revision-Date: 2004-01-04 15:25+0100\n"
+"POT-Creation-Date: 2004-01-28 04:23+0100\n"
+"PO-Revision-Date: 2004-01-28 11:25+0100\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -1092,6 +1092,206 @@ msgstr "Paragraaf"
 msgid "Page"
 msgstr "Pagina"
 
+# is dit de goede vertaling?
+#. This is the default custom color
+#: components/html-editor/gi-color-palette.c:394
+msgid "custom"
+msgstr "aangepast"
+
+#. "Custom" color - we'll pop up a GnomeColorPicker
+#: components/html-editor/gi-color-palette.c:436
+msgid "Custom Color:"
+msgstr "Aangepaste kleur:"
+
+#: components/html-editor/gi-color-palette.c:444
+msgid "Choose Custom Color"
+msgstr "Aangepaste kleur kiezen"
+
+#: components/html-editor/gi-color-palette.c:577
+msgid "black"
+msgstr "zwart"
+
+#: components/html-editor/gi-color-palette.c:578
+msgid "light brown"
+msgstr "lichtbruin"
+
+#: components/html-editor/gi-color-palette.c:579
+msgid "brown gold"
+msgstr "goudbruin"
+
+#: components/html-editor/gi-color-palette.c:580
+msgid "dark green #2"
+msgstr "donkergroen #2"
+
+#: components/html-editor/gi-color-palette.c:581
+msgid "navy"
+msgstr "marineblauw"
+
+#: components/html-editor/gi-color-palette.c:582
+#: components/html-editor/gi-color-palette.c:638
+msgid "dark blue"
+msgstr "donkerblauw"
+
+#: components/html-editor/gi-color-palette.c:583
+msgid "purple #2"
+msgstr "paars #2"
+
+#: components/html-editor/gi-color-palette.c:584
+msgid "very dark gray"
+msgstr "zeer donkergrijs"
+
+#: components/html-editor/gi-color-palette.c:587
+#: components/html-editor/gi-color-palette.c:643
+msgid "dark red"
+msgstr "donkerrood"
+
+#: components/html-editor/gi-color-palette.c:588
+msgid "red-orange"
+msgstr "rood-oranje"
+
+#: components/html-editor/gi-color-palette.c:589
+msgid "gold"
+msgstr "goud"
+
+#: components/html-editor/gi-color-palette.c:590
+msgid "dark green"
+msgstr "donkergroen"
+
+#: components/html-editor/gi-color-palette.c:591
+#: components/html-editor/gi-color-palette.c:644
+msgid "dull blue"
+msgstr "dofblauw"
+
+#: components/html-editor/gi-color-palette.c:592
+#: components/html-editor/gi-color-palette.c:645
+msgid "blue"
+msgstr "blauw"
+
+#: components/html-editor/gi-color-palette.c:593
+msgid "dull purple"
+msgstr "dofpaars"
+
+#: components/html-editor/gi-color-palette.c:594
+msgid "dark grey"
+msgstr "donkergrijs"
+
+#: components/html-editor/gi-color-palette.c:597
+msgid "red"
+msgstr "rood"
+
+#: components/html-editor/gi-color-palette.c:598
+msgid "orange"
+msgstr "oranje"
+
+#: components/html-editor/gi-color-palette.c:599
+msgid "lime"
+msgstr "citroengeel"
+
+#: components/html-editor/gi-color-palette.c:600
+msgid "dull green"
+msgstr "dofgroen"
+
+#: components/html-editor/gi-color-palette.c:601
+msgid "dull blue #2"
+msgstr "dofblauw #2"
+
+#: components/html-editor/gi-color-palette.c:602
+msgid "sky blue #2"
+msgstr "hemelsblauw #2"
+
+#: components/html-editor/gi-color-palette.c:603
+#: components/html-editor/gi-color-palette.c:642
+msgid "purple"
+msgstr "paars"
+
+#: components/html-editor/gi-color-palette.c:604
+msgid "gray"
+msgstr "grijs"
+
+#: components/html-editor/gi-color-palette.c:607
+#: components/html-editor/gi-color-palette.c:639
+msgid "magenta"
+msgstr "magenta"
+
+#: components/html-editor/gi-color-palette.c:608
+msgid "bright orange"
+msgstr "helder oranje"
+
+#: components/html-editor/gi-color-palette.c:609
+#: components/html-editor/gi-color-palette.c:640
+msgid "yellow"
+msgstr "geel"
+
+#: components/html-editor/gi-color-palette.c:610
+msgid "green"
+msgstr "groen"
+
+#: components/html-editor/gi-color-palette.c:611
+#: components/html-editor/gi-color-palette.c:641
+msgid "cyan"
+msgstr "cyaan"
+
+#: components/html-editor/gi-color-palette.c:612
+msgid "bright blue"
+msgstr "helder blauw"
+
+#: components/html-editor/gi-color-palette.c:613
+#: components/html-editor/gi-color-palette.c:630
+msgid "red purple"
+msgstr "rood-paars"
+
+#: components/html-editor/gi-color-palette.c:614
+msgid "light grey"
+msgstr "lichtgrijs"
+
+#: components/html-editor/gi-color-palette.c:617
+#: components/html-editor/gi-color-palette.c:634
+msgid "pink"
+msgstr "roze"
+
+#: components/html-editor/gi-color-palette.c:618
+msgid "light orange"
+msgstr "lichtoranje"
+
+#: components/html-editor/gi-color-palette.c:619
+#: components/html-editor/gi-color-palette.c:631
+msgid "light yellow"
+msgstr "lichtgeel"
+
+#: components/html-editor/gi-color-palette.c:620
+msgid "light green"
+msgstr "lichtgroen"
+
+#: components/html-editor/gi-color-palette.c:621
+msgid "light cyan"
+msgstr "lichtcyaan"
+
+#: components/html-editor/gi-color-palette.c:622
+#: components/html-editor/gi-color-palette.c:632
+msgid "light blue"
+msgstr "lichtblauw"
+
+#: components/html-editor/gi-color-palette.c:623
+#: components/html-editor/gi-color-palette.c:636
+msgid "light purple"
+msgstr "lichtpaars"
+
+#: components/html-editor/gi-color-palette.c:624
+msgid "white"
+msgstr "wit"
+
+#: components/html-editor/gi-color-palette.c:629
+msgid "purplish blue"
+msgstr "paars-blauw"
+
+#: components/html-editor/gi-color-palette.c:633
+msgid "dark purple"
+msgstr "donkerpaars"
+
+#: components/html-editor/gi-color-palette.c:635
+msgid "sky blue"
+msgstr "hemelsblauw"
+
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
 msgstr "GtkHTML Editor Control"
@@ -1679,7 +1879,6 @@ msgstr ""
 "De bewerkte regel is verwijderd uit het document.\n"
 "Kan uw veranderingen niet toepassen."
 
-#. GRUT modified this item
 #: components/html-editor/search.c:82
 msgid "_Backward"
 msgstr "_Achteruit"
@@ -1958,9 +2157,6 @@ msgstr "GtkHTML test-toepassing"
 
 #~ msgid "Rectangles"
 #~ msgstr "Rechthoeken"
-
-#~ msgid "Pre"
-#~ msgstr "Pre"
 
 #~ msgid "The quick brown fox jumped over the lazy dog."
 #~ msgstr "Pa's wijze lynx bezag vroom het fikse aquaduct."
