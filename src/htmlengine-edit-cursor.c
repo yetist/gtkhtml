@@ -320,7 +320,7 @@ html_engine_draw_cursor_in_area (HTMLEngine *engine,
 	pos.x = x1; 
 	pos.y = y1;
 	pos.width = x2 - x1;
-	pos.height = x2 - x1;
+	pos.height = y2 - y1;
 	gtk_im_context_set_cursor_location (GTK_HTML (engine->widget)->priv->im_context, &pos);
 
 	if (clip_cursor (engine, x, y, width, height, &x1, &y1, &x2, &y2)) {

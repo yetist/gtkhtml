@@ -1,3 +1,8 @@
+2003-12-10  Yong Sun <Yong.Sun@sun.com>
+
+	* htmlengine-edit-cursor.c: correct the calculation of
+	cursor's height
+
 2003-12-08  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (html_text_op_cut_helper): remove spell errors from
