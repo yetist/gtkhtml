@@ -181,20 +181,29 @@ copy (HTMLObject *self,
 	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
 
 	dimg->image_ptr = simg->image_ptr;
-	dimg->border = simg->border;
-	dimg->specified_width = simg->specified_width;
-	dimg->specified_height = simg->specified_height;
-	dimg->url = g_strdup (simg->url);
-	dimg->target = g_strdup (simg->target);
+	dimg->animation = NULL;          /* don't bother with animation copying now. TODO */
 	dimg->color = simg->color;
 	if (simg->color)
 		html_color_ref (dimg->color);
+
 	dimg->have_color = simg->have_color;
-	dimg->valign = simg->valign;
-	dimg->animation = NULL;          /* don't bother with animation copying now. TODO */
+
+	dimg->border = simg->border;
+
+	dimg->specified_width = simg->specified_width;
+	dimg->specified_height = simg->specified_height;
+	dimg->percent_width = simg->percent_width;
+	dimg->percent_height = simg->percent_height;
+
 	dimg->hspace = simg->hspace;
 	dimg->vspace = simg->vspace;
+
+	dimg->valign = simg->valign;
+
+	dimg->url = g_strdup (simg->url);
+	dimg->target = g_strdup (simg->target);
 	dimg->alt = g_strdup (simg->alt);
+
 	/* add dest to image_ptr interests */
 	dimg->image_ptr->interests = g_slist_prepend (dimg->image_ptr->interests, dimg);
 }
