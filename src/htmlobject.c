@@ -191,27 +191,6 @@ draw (HTMLObject *o,
 	/* Do nothing by default.  We don't know how to paint ourselves.  */
 }
 
-static void
-draw_background (HTMLObject *self,
-		 HTMLPainter *p,
-		 gint x, gint y,
-		 gint width, gint height,
-		 gint tx, gint ty)
-{
-	/* By default, objects are transparent so they simply forward
-           this to the parent.  */
-	if (self->parent != NULL) {
-		html_object_draw_background (self->parent, p,
-					     x + self->parent->x,
-					     y + self->parent->y - self->parent->ascent,
-					     width, height,
-					     tx - self->parent->x,
-					     ty - self->parent->y + self->parent->ascent);
-	} else {
-		/* FIXME this should draw the default background somehow.  */
-	}
-}
-
 static gboolean
 is_transparent (HTMLObject *self)
 {
@@ -621,7 +600,6 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->remove_child = remove_child;
 	klass->split = split;
 	klass->draw = draw;
-	klass->draw_background = draw_background;
 	klass->is_transparent = is_transparent;
 	klass->fit_line = fit_line;
 	klass->calc_size = calc_size;
@@ -696,6 +674,7 @@ html_object_init (HTMLObject *o,
 	o->redraw_pending = FALSE;
 	o->free_pending = FALSE;
 	o->selected = FALSE;
+	o->draw_focused = FALSE;
 
 	g_datalist_init (&o->object_data);
 }
@@ -865,16 +844,6 @@ html_object_draw (HTMLObject *o,
 		  gint tx, gint ty)
 {
 	(* HO_CLASS (o)->draw) (o, p, x, y, width, height, tx, ty);
-}
-
-void
-html_object_draw_background (HTMLObject *o,
-			     HTMLPainter *p,
-			     gint x, gint y,
-			     gint width, gint height,
-			     gint tx, gint ty)
-{
-	(* HO_CLASS (o)->draw_background) (o, p, x, y, width, height, tx, ty);
 }
 
 gboolean

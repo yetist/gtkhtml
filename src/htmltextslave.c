@@ -32,6 +32,7 @@
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
 #include "htmlpainter.h"
+#include "htmlprinter.h"
 #include "htmlplainpainter.h"
 #include "htmlgdkpainter.h"
 
@@ -872,6 +873,30 @@ draw_highlighted (HTMLTextSlave *slave,
 }
 
 static void
+draw_focus  (HTMLPainter *painter, GdkRectangle *box)
+{
+	HTMLGdkPainter *p;
+	GdkGCValues values;
+	gchar dash [2];
+
+	if (HTML_IS_PRINTER (p))
+		return;
+	
+	p = HTML_GDK_PAINTER (painter);
+	/* printf ("draw_text_focus\n"); */
+
+	gdk_gc_set_foreground (p->gc, &html_colorset_get_color_allocated (painter, HTMLTextColor)->color);
+	gdk_gc_get_values (p->gc, &values);
+
+	dash [0] = 1;
+	dash [1] = 1;
+	gdk_gc_set_line_attributes (p->gc, 1, GDK_LINE_ON_OFF_DASH, values.cap_style, values.join_style);
+	gdk_gc_set_dashes (p->gc, 2, dash, 2);
+	gdk_draw_rectangle (p->pixmap, p->gc, 0, box->x - p->x1, box->y - p->y1, box->width - 1, box->height - 1);
+	gdk_gc_set_line_attributes (p->gc, 1, values.line_style, values.cap_style, values.join_style);
+}
+
+static void
 draw (HTMLObject *o,
       HTMLPainter *p,
       gint x, gint y,
@@ -896,15 +921,23 @@ draw (HTMLObject *o,
 	font_style = html_text_get_font_style (ownertext);
 
 	end = textslave->posStart + textslave->posLen;
-	if (owner->select_start + owner->select_length <= textslave->posStart
-	    || owner->select_start >= end) {
+	if (owner->select_start + owner->select_length <= textslave->posStart || owner->select_start >= end) {
 		draw_normal (textslave, p, font_style, x, y, width, height, tx, ty);
 	} else {
 		draw_highlighted (textslave, p, font_style, x, y, width, height, tx, ty);
 	}
-
-	if (HTML_TEXT (textslave->owner)->spell_errors)
+	
+	if (owner->spell_errors)
 		draw_spell_errors (textslave, p, tx ,ty);
+	
+	if (HTML_OBJECT (owner)->draw_focused) {
+		GdkRectangle rect;
+
+		html_object_get_bounds (o, &rect);
+		rect.x += tx;
+		rect.y += ty;
+		draw_focus (p, &rect);
+	}
 }
 
 static gint

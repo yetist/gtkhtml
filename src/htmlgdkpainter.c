@@ -662,6 +662,13 @@ draw_background (HTMLPainter *painter,
 			int incr_x = 0;
 			int incr_y = 0;
 
+			if (color) {
+				gdk_gc_set_foreground (gc, color);
+				gdk_draw_rectangle (pixmap, gc,
+						    TRUE, 0, 0,
+						    dw, dh);
+			}	
+
 			cy = paint.y;
 			ch = paint.height;
 			h = tile_y % ph;

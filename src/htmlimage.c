@@ -72,7 +72,7 @@ static HTMLImagePointer   *html_image_pointer_new               (const char *fil
 static void                html_image_pointer_ref               (HTMLImagePointer *ip);
 static void                html_image_pointer_unref             (HTMLImagePointer *ip);
 static gboolean            html_image_pointer_timeout           (HTMLImagePointer *ip);
-static gint                html_image_pointer_run_animation     (HTMLImagePointer *ip);
+static gint                html_image_pointer_update            (HTMLImagePointer *ip);
 static void                html_image_pointer_start_animation   (HTMLImagePointer *ip);
 
 static GdkPixbuf *         html_image_factory_get_missing       (HTMLImageFactory *factory);
@@ -167,6 +167,11 @@ destroy (HTMLObject *o)
 		html_color_unref (image->color);
 
 	HTML_OBJECT_CLASS (parent_class)->destroy (o);
+}
+
+static HTMLObject *
+op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len)
+{
 }
 
 static void
@@ -362,6 +367,30 @@ draw_plain (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint heig
 }
 
 static void
+draw_focus  (HTMLPainter *painter, GdkRectangle *box)
+{
+	HTMLGdkPainter *p;
+	GdkGCValues values;
+	gchar dash [2];
+
+	if (HTML_IS_PRINTER (p))
+		return;
+	
+	p = HTML_GDK_PAINTER (painter);
+	/* printf ("draw_image_focus\n"); */
+
+	gdk_gc_set_foreground (p->gc, &html_colorset_get_color_allocated (painter, HTMLTextColor)->color);
+	gdk_gc_get_values (p->gc, &values);
+
+	dash [0] = 1;
+	dash [1] = 1;
+	gdk_gc_set_line_attributes (p->gc, 1, GDK_LINE_ON_OFF_DASH, values.cap_style, values.join_style);
+	gdk_gc_set_dashes (p->gc, 2, dash, 2);
+	gdk_draw_rectangle (p->pixmap, p->gc, 0, box->x - p->x1, box->y - p->y1, box->width - 1, box->height - 1);
+	gdk_gc_set_line_attributes (p->gc, 1, values.line_style, values.cap_style, values.join_style);
+}
+
+static void
 draw (HTMLObject *o,
       HTMLPainter *painter,
       gint x, gint y,
@@ -389,6 +418,8 @@ draw (HTMLObject *o,
 
 	image = HTML_IMAGE (o);
 	ip = image->image_ptr;
+
+	image->animation_active = TRUE;
 
 	if (ip->animation) {
 		if (HTML_IS_GDK_PAINTER (painter) && !gdk_pixbuf_animation_is_static_image (ip->animation)) {
@@ -447,8 +478,21 @@ draw (HTMLObject *o,
 						  gdk_pixbuf_get_width (pixbuf) * pixel_size,
 						  gdk_pixbuf_get_height (pixbuf) * pixel_size,
 						  highlight_color);
-			
-			
+				
+		if (o->draw_focused) {
+			GdkRectangle rect;
+
+			scale_width = html_image_get_actual_width (image, painter);
+			scale_height = html_image_get_actual_height (image, painter);
+
+			rect.x = base_x - image->border * pixel_size;
+			rect.y = base_y - image->border * pixel_size;
+			rect.width = scale_width + (2 * image->border) * pixel_size;
+			rect.height = scale_height + (2 * image->border) * pixel_size;
+
+			draw_focus (painter, &rect);
+		}				     
+
 		return;
 	}
 
@@ -471,11 +515,20 @@ draw (HTMLObject *o,
 		
 	}
 	
-	image->animation_active = TRUE;
 	html_painter_draw_pixmap (painter, pixbuf,
 				  base_x, base_y,
 				  scale_width, scale_height,
 				  highlight_color);
+
+	if (o->draw_focused) {
+		GdkRectangle rect;
+		rect.x = base_x - image->border * pixel_size;
+		rect.y = base_y - image->border * pixel_size;
+		rect.width = scale_width + (2 * image->border) * pixel_size;
+		rect.height = scale_height + (2 * image->border) * pixel_size;
+
+		draw_focus (painter, &rect);
+	}
 }
 
 gchar *
@@ -496,7 +549,8 @@ html_image_resolve_image_url (GtkHTML *html, gchar *image_url)
 		if (oarg) {
 			if (G_VALUE_TYPE (oarg) == G_TYPE_STRING)
 				url = (gchar *) g_strdup (g_value_get_string (oarg));
-			g_value_unset (oarg);	
+
+			g_value_unset (oarg);
 			g_free (oarg);
 		}
 		g_value_unset (iarg);
@@ -982,8 +1036,7 @@ html_image_factory_types (GtkHTMLStream *stream,
 }
 
 static void
-update_or_redraw (HTMLImagePointer *ip)
-{
+update_or_redraw (HTMLImagePointer *ip){
 	GSList *list;
 	gboolean update = FALSE;
 
@@ -1069,59 +1122,42 @@ html_image_factory_write_pixbuf (GtkHTMLStream *stream,
 }
 
 static void
-html_image_factory_area_updated (GdkPixbufLoader *loader, guint x, guint y, guint width, guint height)
-{
-
-}
-
-static void
-html_image_factory_area_prepared (GdkPixbufLoader *loader, HTMLImagePointer *ip)
-{
-	if (!ip->animation) {
-		ip->animation = gdk_pixbuf_loader_get_animation (loader);
-		g_object_ref (ip->animation);
-		
-		html_image_pointer_start_animation (ip);
-	}
-	update_or_redraw (ip);
-}
-
-static void
 html_image_pointer_queue_animation (HTMLImagePointer *ip)
 {
-	gint delay = gdk_pixbuf_animation_iter_get_delay_time (ip->iter);
-
-	if (delay >= 0 && !ip->animation_timeout && ip->factory && ip->factory->animate) {
+	if (!ip->animation_timeout && ip->factory && ip->factory->animate) {
+		gint delay; 
+		
+		gdk_pixbuf_animation_iter_advance (ip->iter, NULL);
+		delay = gdk_pixbuf_animation_iter_get_delay_time (ip->iter);
+		
 		ip->animation_timeout = g_timeout_add (delay, 
-						       (GtkFunction) html_image_pointer_run_animation, 
+						       (GtkFunction) html_image_pointer_update, 
 						       (gpointer) ip);
-	}	
+	}
+	
 }
 
 static gint
-html_image_pointer_run_animation (HTMLImagePointer *ip)
+html_image_pointer_update (HTMLImagePointer *ip)
 {
 	GdkPixbufAnimationIter  *iter = ip->iter;
 	HTMLEngine              *engine = ip->factory->engine;
-	
+	GSList *cur;
+
 	g_return_val_if_fail (ip->factory != NULL, FALSE);
 	ip->animation_timeout = 0;
-
-	/* printf ("animation_timeout\n"); */
-	if (gdk_pixbuf_animation_iter_advance (iter, NULL)) {
-		GSList *cur;
-
-		for (cur = ip->interests; cur; cur = cur->next) {
-			HTMLImage           *image = cur->data;
-
-			if (image && image->animation_active) {
-				image->animation_active = FALSE;
-				html_engine_queue_draw (engine, HTML_OBJECT (image));
-			}
+		
+	DA (printf ("animation_timeout (%p)\n", ip);)
+	for (cur = ip->interests; cur; cur = cur->next) {
+		HTMLImage           *image = cur->data;
+		
+		if (image && image->animation_active) {
+			image->animation_active = FALSE;
+			html_engine_queue_draw (engine, HTML_OBJECT (image));
 		}
 	}
-		
-	html_image_pointer_queue_animation (ip);
+	
+	html_image_pointer_start_animation (ip);
 	return FALSE;
 }
 
@@ -1143,6 +1179,26 @@ html_image_pointer_stop_animation (HTMLImagePointer *ip)
 		g_source_remove (ip->animation_timeout);
 		ip->animation_timeout = 0;
 	}
+}
+
+static void
+html_image_factory_area_updated (GdkPixbufLoader *loader, guint x, guint y, guint width, guint height, HTMLImagePointer *ip)
+{
+	html_image_pointer_stop_animation (ip);
+	/* update will requeue */
+	html_image_pointer_update (ip);
+}
+
+static void
+html_image_factory_area_prepared (GdkPixbufLoader *loader, HTMLImagePointer *ip)
+{
+	if (!ip->animation) {
+		ip->animation = gdk_pixbuf_loader_get_animation (loader);
+		g_object_ref (ip->animation);
+		
+		html_image_pointer_start_animation (ip);
+	}
+	update_or_redraw (ip);
 }
 
 static GdkPixbuf *

@@ -252,32 +252,6 @@ draw (HTMLObject *o,
 	}
 }
 
-/* static void
-draw_background (HTMLObject *self,
-		 HTMLPainter *painter,
-		 gint x, gint y, 
-		 gint width, gint height,
-		 gint tx, gint ty)
-{
-	GdkRectangle paint;
-	GdkColor color;
-
-	if (!html_object_intersect (self, &paint, x, y, width, height))
-	      return;
-	
-	
-	gdk_color_parse ("#000000", &color);
-       	html_painter_draw_background (painter,
-				      &color,
-				      NULL,
-				      tx + paint.x,
-				      ty + paint.y,
-				      paint.width,
-				      paint.width,
-				      paint.x - self->x,
-				      paint.y - (self->y - self->ascent));
-} */
-
 static void
 destroy (HTMLObject *self)
 {

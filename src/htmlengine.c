@@ -3797,9 +3797,7 @@ static void
 html_engine_id_table_clear (HTMLEngine *e)
 {
 	if (e->id_table) {
-		/* RM2 g_hash_table_freeze (e->id_table); */
 		g_hash_table_foreach_remove (e->id_table, id_table_free_func, NULL);
-		/* RM2 g_hash_table_thaw (e->id_table); */
 		g_hash_table_destroy (e->id_table);
 		e->id_table = NULL;
 	}
@@ -3820,9 +3818,7 @@ class_data_table_free_func (gpointer key, gpointer val, gpointer data)
 	GHashTable *t;
 
 	t = (GHashTable *) val;
-	/* RM2 g_hash_table_freeze (t); */
 	g_hash_table_foreach_remove (t, class_data_free_func, NULL);
-	/* RM2 g_hash_table_thaw (t); */
 	g_hash_table_destroy (t);
 
 	g_free (key);
@@ -3834,9 +3830,7 @@ static void
 html_engine_class_data_clear (HTMLEngine *e)
 {
 	if (e->class_data) {
-		/* RM2 g_hash_table_freeze (e->class_data); */
 		g_hash_table_foreach_remove (e->class_data, class_data_table_free_func, NULL);
-		/* RM2 g_hash_table_thaw (e->class_data); */
 		g_hash_table_destroy (e->class_data);
 		e->class_data = NULL;
 	}
@@ -4259,8 +4253,6 @@ html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height, g
 	
 	if (e->editable)
 		html_engine_draw_cursor_in_area (e, x1, y1, x2 - x1, y2 - y1);
-	else
-		html_engine_draw_focus_object (e);
 
 	e->expose = FALSE;
 }
@@ -4713,8 +4705,9 @@ html_engine_flush_draw_queue (HTMLEngine *e)
 	g_return_if_fail (e != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
-	if (!html_engine_frozen (e))
+	if (!html_engine_frozen (e)) {
 		html_draw_queue_flush (e->draw_queue);
+	}
 }
 
 void
@@ -4809,6 +4802,7 @@ html_engine_freeze (HTMLEngine *engine)
 		gtk_html_im_reset (engine->widget);
 
 	html_engine_flush_draw_queue (engine);
+	gdk_window_process_updates (HTML_GDK_PAINTER (engine->painter)->window, FALSE);
 	/* printf ("html_engine_freeze %d\n", engine->freeze_count); */
 
 	html_engine_hide_cursor (engine);
@@ -4867,46 +4861,7 @@ html_engine_intersection (HTMLEngine *e, gint *x1, gint *y1, gint *x2, gint *y2)
 }
 
 static void
-clear_changed_area (HTMLEngine *e, HTMLObjectClearRectangle *cr)
-{
-	HTMLObject *o;
-	gint tx, ty, x1, y1, x2, y2;
-
-	o = cr->object;
-
-	/* printf ("clear rectangle %d,%d\n", cr->x, cr->y); */
-	html_object_engine_translation (cr->object, e, &tx, &ty);
-
-	x1 = o->x + cr->x + tx;
-	y1 = o->y - o->ascent + cr->y + ty;
-	x2 = x1 + cr->width;
-	y2 = y1 + cr->height;
-
-	if (html_engine_intersection (e, &x1, &y1, &x2, &y2)) {
-		if (html_object_is_transparent (cr->object)) {
-			html_painter_begin (e->painter, x1, y1, x2, y2);
-			html_engine_draw_background (e, x1, y1, x2 - x1, y2 - y1);
-			html_object_draw_background (o, e->painter,
-						     o->x + cr->x, o->y - o->ascent + cr->y,
-						     cr->width, cr->height,
-						     tx, ty);
-#if 0
-	{
-		GdkColor c;
-
-		c.pixel = rand ();
-		html_painter_set_pen (e->painter, &c);
-		html_painter_draw_line (e->painter, x1, y1, x2 - 1, y2 - 1);
-		html_painter_draw_line (e->painter, x2 - 1, y1, x1, y2 - 1);
-	}
-#endif
-			html_painter_end (e->painter);
-		}
-	}
-}
-
-static void
-draw_changed_objects (HTMLEngine *e, GList *changed_objs)
+get_changed_objects (HTMLEngine *e, GdkRegion *region, GList *changed_objs)
 {
 	GList *cur;
 
@@ -4920,24 +4875,37 @@ draw_changed_objects (HTMLEngine *e, GList *changed_objs)
 			html_engine_queue_draw (e, o);
 		} else {
 			cur = cur->next;
-			if (e->window)
-				clear_changed_area (e, (HTMLObjectClearRectangle *) cur->data);
+			if (e->window) {
+				HTMLObjectClearRectangle *cr = (HTMLObjectClearRectangle *)cur->data;
+				HTMLObject *o;
+				GdkRectangle paint;
+				gint tx, ty;
+					
+				o = cr->object;
+				
+				html_object_engine_translation (cr->object, e, &tx, &ty);
+				
+				paint.x = o->x + cr->x + tx;
+				paint.y = o->y - o->ascent + cr->y + ty;
+				paint.width = cr->width;
+				paint.height = cr->height;
+				
+				gdk_region_union_with_rect (region, &paint);
+			}
 			g_free (cur->data);
 		}
 	}
-	html_engine_flush_draw_queue (e);
-
 	/* printf ("draw_changed_objects END\n"); */
 }
 
 
 struct HTMLEngineExpose {
-	gint x, y, width, height;
+	GdkRectangle area;
 	gboolean expose;
 };
 
 static void
-do_pending_expose (HTMLEngine *e)
+get_pending_expose (HTMLEngine *e, GdkRegion *region)
 {
 	GSList *l, *next;
 
@@ -4950,7 +4918,7 @@ do_pending_expose (HTMLEngine *e)
 		next = l->next;
 		r = (struct HTMLEngineExpose *) l->data;
 
-		html_engine_draw_real (e, r->x, r->y, r->width, r->height, e->expose);
+		gdk_region_union_with_rect (region, &r->area);
 		g_free (r);
 	}
 }
@@ -5038,24 +5006,34 @@ thaw_idle (gpointer data)
 		html_engine_queue_redraw_all (e);
 	} else {
 		gint nw, nh;
-
-		do_pending_expose (e);
-		draw_changed_objects (e, changed_objs);
+		GdkRegion *region = gdk_region_new ();
+		GdkRectangle paint;
+		
+		get_pending_expose (e, region);
+		get_changed_objects (e, region, changed_objs);
 
 		nw = html_engine_get_doc_width (e) - e->rightBorder;
 		nh = html_engine_get_doc_height (e) - e->bottomBorder;
 
 		if (nh < h && nh - e->y_offset < e->height) {
-			html_painter_begin (e->painter, e->x_offset, nh, e->width + e->x_offset, e->height + e->y_offset);
-			html_engine_draw_background (e, e->x_offset, nh, e->width + e->x_offset, e->height - (nh - e->y_offset));
-			html_painter_end (e->painter);
+			paint.x = e->x_offset;
+			paint.y = nh;
+			paint.width = e->width;
+			paint.height = e->height + e->y_offset - nh;
+
+			gdk_region_union_with_rect (region, &paint);
 		}
 		if (nw < w && nw - e->x_offset < e->width) {
-			html_painter_begin (e->painter, nw, e->y_offset, e->width + e->x_offset, e->height + e->y_offset);
-			html_engine_draw_background (e, nw, e->y_offset, e->width - (nw - e->x_offset), e->height + e->y_offset);
-			html_painter_end (e->painter);
+			paint.x = nw;
+			paint.y = e->y_offset;
+			paint.width = e->width + e->x_offset - nw;
+
+			gdk_region_union_with_rect (region, &paint);
 		}
 		g_list_free (changed_objs);
+		gdk_window_invalidate_region (HTML_GDK_PAINTER (e->painter)->window, region, FALSE);
+		gdk_region_destroy (region);
+		html_engine_flush_draw_queue (e);
 	}
 	g_slist_free (e->pending_expose);
 	e->pending_expose = NULL;
@@ -5559,10 +5537,10 @@ html_engine_add_expose  (HTMLEngine *e, gint x, gint y, gint width, gint height,
 
 	r = g_new (struct HTMLEngineExpose, 1);
 
-	r->x = x;
-	r->y = y;
-	r->width = width;
-	r->height = height;
+	r->area.x = x;
+	r->area.y = y;
+	r->area.width = width;
+	r->area.height = height;
 	r->expose = expose;
 
 	e->pending_expose = g_slist_prepend (e->pending_expose, r);
@@ -5584,7 +5562,6 @@ html_engine_redraw_selection (HTMLEngine *e)
 {
 	if (e->selection) {
 		html_interval_unselect (e->selection, e);
-		html_draw_queue_clear (e->draw_queue);
 		html_interval_select (e->selection, e);
 		html_engine_flush_draw_queue (e);
 	}
@@ -5715,11 +5692,16 @@ reset_focus_object_forall (HTMLObject *o, HTMLEngine *e)
 {
 	if (e->focus_object) {
 		/* printf ("reset focus object\n"); */
-		if (!html_object_is_frame (e->focus_object))
+		if (!html_object_is_frame (e->focus_object)) {
+			e->focus_object->draw_focused = FALSE;
 			draw_focus_object (e, e->focus_object);
+		}
 		e->focus_object = NULL;
 		html_engine_flush_draw_queue (e);
 	}
+
+	if (o)
+		o->draw_focused = FALSE;
 }
 
 static void
@@ -5760,6 +5742,7 @@ html_engine_set_focus_object (HTMLEngine *e, HTMLObject *o)
 		e->focus_object = o;
 
 		if (!html_object_is_frame (e->focus_object)) {
+			o->draw_focused = TRUE;
 			draw_focus_object (e, o);
 			html_engine_flush_draw_queue (e);
 		}
@@ -5790,9 +5773,11 @@ html_engine_add_map (HTMLEngine *e, const char *name)
 
 	/* only add a new map if the name is unique */
 	if (!g_hash_table_lookup_extended (e->map_table, name, &old_key, &old_val)) {
-		HTMLMap *map = html_map_new (name);
+		e->map = html_map_new (name);
+		
+		printf ("added map %s", name);
 
-		g_hash_table_insert (e->map_table, map->name, map);
+		g_hash_table_insert (e->map_table, e->map->name, e->map);
 	}
 }
 
@@ -5807,9 +5792,7 @@ static void
 html_engine_map_table_clear (HTMLEngine *e)
 {
 	if (e->map_table) {
-		/* RM2 g_hash_table_freeze (e->map_table); */
 		g_hash_table_foreach_remove (e->map_table, map_table_free_func, NULL);
-		/* RM2 g_hash_table_thaw (e->map_table); */
 		g_hash_table_destroy (e->map_table);
 		e->map_table = NULL;
 	}

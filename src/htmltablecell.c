@@ -235,23 +235,6 @@ calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 }
 
 static void
-draw_background (HTMLObject *self,
-		 HTMLPainter *painter,
-		 gint x, gint y, 
-		 gint width, gint height,
-		 gint tx, gint ty)
-{
-	GdkRectangle paint;
-	
-	(* HTML_OBJECT_CLASS (parent_class)->draw_background) (self, painter, x, y, width, height, tx, ty);
-
-	if (!html_object_intersect (self, &paint, x, y, width, height))
-	    return;
-
-	draw_background_helper (HTML_TABLE_CELL (self), painter, &paint, tx, ty);
-}
-
-static void
 set_bg_color (HTMLObject *object, GdkColor *color)
 {
 	HTMLTableCell *cell;
@@ -366,7 +349,6 @@ html_table_cell_class_init (HTMLTableCellClass *klass,
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->calc_size = calc_size;
 	object_class->draw = draw;
-	object_class->draw_background = draw_background;
 	object_class->set_bg_color = set_bg_color;
 	object_class->get_bg_color = get_bg_color;
 	object_class->save = save;

@@ -66,6 +66,9 @@ struct _HTMLObject {
            is set to TRUE instead of g_free()ing the object.  When the draw
            queue is flushed, the g_free() is performed.  */
 	guint free_pending : 1;
+	
+	/* FIXME add the other dynamic pusedo-classes... */
+	guint draw_focused : 1; 
 
 	GData *object_data;
 };
@@ -153,15 +156,14 @@ struct _HTMLObjectClass {
 
 	gboolean (* is_transparent) (HTMLObject *self);
 
-	/* This draws the background only.  If the object is
-           transparent, it should simply forward the method to the
-           parent.  */
-
+	/* Unused ::draw_background method */
 	void (* draw_background) (HTMLObject *o,
 				  HTMLPainter *painter,
 				  gint x, gint y,
 				  gint width, gint height,
 				  gint tx, gint ty);
+	/* remove it later */
+
 	void       (* set_bg_color) (HTMLObject *o, GdkColor *color);
 	GdkColor * (* get_bg_color) (HTMLObject *o, HTMLPainter *p);
 
@@ -348,14 +350,6 @@ gboolean        html_object_search_next           (HTMLObject            *self,
 
 /* Drawing-related stuff.  */
 void            html_object_draw                  (HTMLObject            *o,
-						   HTMLPainter           *p,
-						   gint                   x,
-						   gint                   y,
-						   gint                   width,
-						   gint                   height,
-						   gint                   tx,
-						   gint                   ty);
-void            html_object_draw_background       (HTMLObject            *o,
 						   HTMLPainter           *p,
 						   gint                   x,
 						   gint                   y,

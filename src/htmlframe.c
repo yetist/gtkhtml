@@ -592,7 +592,6 @@ html_frame_class_init (HTMLFrameClass *klass,
 	object_class->get_engine              = get_engine;
 	object_class->check_point             = check_point;
 	object_class->is_container            = is_container;
-	object_class->draw_background         = draw_background;
 	object_class->append_selection_string = append_selection_string;
 	object_class->select_range            = select_range;
 

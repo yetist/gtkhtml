@@ -154,15 +154,6 @@ reset (HTMLObject *o)
 	html_object_reset (GTK_HTML (iframe->html)->engine->clue);
 }
 
-static void
-draw_background (HTMLObject *self,
-		 HTMLPainter *p,
-		 gint x, gint y,
-		 gint width, gint height,
-		 gint tx, gint ty)
-{
-}
-
 /* FIXME rodo - draw + set_painter is not much clean now, needs refactoring */
 
 static void
@@ -708,7 +699,6 @@ html_iframe_class_init (HTMLIFrameClass *klass,
 	object_class->get_engine              = get_engine;
 	object_class->check_point             = check_point;
 	object_class->is_container            = is_container;
-	object_class->draw_background         = draw_background;
 	object_class->append_selection_string = append_selection_string;
 	
 	embedded_class->reparent = reparent;

@@ -471,7 +471,6 @@ gboolean    html_engine_focus              (HTMLEngine       *e,
 HTMLObject *html_engine_get_focus_object   (HTMLEngine       *e);
 void        html_engine_set_focus_object   (HTMLEngine       *e,
 					    HTMLObject       *o);
-void        html_engine_draw_focus_object  (HTMLEngine       *e);
 
 HTMLMap *html_engine_get_map  (HTMLEngine  *e,
 			       const gchar *name);

@@ -1,3 +1,37 @@
+2003-07-08  Larry Ewing  <lewing@ximian.com>
+
+	* htmldrawqueue.c: don't do any drawing directly, simply
+	invalidate the regions, let the expose handler deal with the
+	drawing.  Remove a lot of unused cruft and focus drawing code.
+	
+        * htmlengine.c: make all the draw queues invalidate the regions
+	instead of drawing directly.
+
+	* htmlengine.h: remove draw_focus_object, that is handled by the
+	object's ::draw method now.
+
+	* htmlframe.c: remove draw_background.
+
+	* htmlframeset.c: remove draw_background.
+
+	* htmliframe.c: remove draw_background.
+
+	* htmlimage.c: rework animation timeout handling, make
+	area_updated do something useful.
+
+	* htmlobject.c: remove drawbackgound code.
+
+	* htmlobject.h: add draw_focused boolean.
+
+	* htmltable.c: remove ::draw_background logic that is no longer
+	used.
+	
+	* htmltablecell.c: remove draw_background code that is no longer
+	used.
+
+	* htmltextslave.c (draw_focus): add a method to draw focus here.
+	The drawing routine should be into the painter next.
+
 2003-07-07  Yuedong Du  <yuedong.du@sun.com>
 
 	* gtkhtml.c (add_bindings): remove keybinding for Control+Tab/

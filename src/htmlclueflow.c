@@ -1279,22 +1279,6 @@ draw (HTMLObject *self,
 	(* HTML_OBJECT_CLASS (&html_clue_class)->draw) (self, painter, x, y, width, height, tx, ty);
 }
 
-static void
-draw_background (HTMLObject *self,
-		 HTMLPainter *p,
-		 gint x, gint y,
-		 gint width, gint height,
-		 gint tx, gint ty)
-{
-	html_object_draw_background (self->parent, p,
-				     x + self->parent->x,
-				     y + self->parent->y - self->parent->ascent,
-				     width, height,
-				     tx - self->parent->x,
-				     ty - self->parent->y + self->parent->ascent);
-}
-
-
 static HTMLObject*
 check_point (HTMLObject *self,
 	     HTMLPainter *painter,
@@ -2227,7 +2211,6 @@ html_clueflow_class_init (HTMLClueFlowClass *klass,
 	object_class->calc_min_width = calc_min_width;
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->draw = draw;
-	object_class->draw_background = draw_background;
 	object_class->save = save;
 	object_class->save_plain = save_plain;
 	object_class->check_point = check_point;

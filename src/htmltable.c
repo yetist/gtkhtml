@@ -1212,23 +1212,6 @@ draw_background_helper (HTMLTable *table,
 }
 
 static void
-draw_background (HTMLObject *self,
-		 HTMLPainter *p,
-		 gint x, gint y, 
-		 gint width, gint height,
-		 gint tx, gint ty)
-{
-	GdkRectangle paint;
-	
-	(* HTML_OBJECT_CLASS (parent_class)->draw_background) (self, p, x, y, width, height, tx, ty);
-
-	if (!html_object_intersect (self, &paint, x, y, width, height))
-	    return;
-
-	draw_background_helper (HTML_TABLE (self), p, &paint, tx, ty);
-}
-
-static void
 draw (HTMLObject *o,
       HTMLPainter *p, 
       gint x, gint y,
@@ -2289,7 +2272,6 @@ html_table_class_init (HTMLTableClass *klass,
 	object_class->accepts_cursor = accepts_cursor;
 	object_class->calc_size = calc_size;
 	object_class->draw = draw;
-       	object_class->draw_background = draw_background;
 	object_class->destroy = destroy;
 	object_class->calc_min_width = calc_min_width;
 	object_class->calc_preferred_width = calc_preferred_width;
