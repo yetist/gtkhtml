@@ -1,3 +1,7 @@
+2003-03-20  Larry Ewing  <lewing@ximian.com>
+
+	* htmltext.c: remove unused variables.
+
 2003-03-19  Larry Ewing  <lewing@ximian.com>
 
 	* htmliframe.c (check_point): fix the point calculation for

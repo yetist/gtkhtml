@@ -513,7 +513,6 @@ const gchar *
 html_utf8_strnchr (const gchar *s, gchar c, gint len, gint *offset)
 {
 	const gchar *res = NULL;
-	gchar *next;
 
 	*offset = 0;
 	while (s && *s && *offset < len) {
@@ -595,7 +594,7 @@ word_size (gint cl, gint so, gint eo, GList **items, GList **glyphs, gint *width
 {
 	PangoItem *item;
 	PangoRectangle rect;
-	gint ceo, offset;
+	gint ceo;
 
 	*width = *asc = *dsc = 0;
 	while (so < eo) {
@@ -658,8 +657,6 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 		end   = strchr (begin + (i ? 1 : 0), ' ');
 
 		if (il && gl) {
-			PangoRectangle log_rect;
-
 			/* end_offset = start_offset + (end ? g_utf8_pointer_to_offset (begin, end) : g_utf8_strlen (begin, -1)); */
 			end_offset = start_offset + (end ? g_utf8_pointer_to_offset (begin, end) : g_utf8_strlen (begin, -1));
 			/* printf ("start offset: %d (%d)\n", start_offset, end_offset - start_offset); */
@@ -684,7 +681,6 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 		glyphs = NULL;
 	}
 	if (text->text_len == 0) {
-		gint lo = 0;
 		/* FIXME: cache items and glyphs? */
 		html_painter_calc_text_size_bytes (painter, " ", 1, NULL, NULL, 0, NULL, font, style, &width, &obj->ascent, &obj->descent);
 	}
@@ -838,7 +834,7 @@ get_glyphs (HTMLText *text, HTMLPainter *painter)
 	if (items) {
 		PangoGlyphString *str = NULL;
 		PangoItem *item;
-		GList *il, *gl;
+		GList *il;
 		gchar *heap = NULL, *translated;
 		gint bytes;
 
