@@ -404,7 +404,7 @@ shift_glyphs (GList *glyphs, gint len)
 
 		while (glyphs && (str = (PangoGlyphString *) glyphs->data) && len > 0) {
 			len -= str->num_glyphs;
-			glyphs = glyphs->next;
+			glyphs = glyphs->next->next;
 		}
 	}
 

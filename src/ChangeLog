@@ -1,3 +1,8 @@
+2003-08-06  Radek Doulik  <rodo@ximian.com>
+
+	* htmlpainter.c (shift_glyphs): shift glyphs by 2 list items as it
+	now contains pango item indexes as well
+
 2003-08-05  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (drag_motion): new method, show cursor during drag
