@@ -1927,6 +1927,16 @@ gtk_html_load_empty (GtkHTML *html)
 	html_engine_load_empty (html->engine);
 }
 
+void
+gtk_html_load_from_string  (GtkHTML *html, gchar *str, gint len)
+{
+	GtkHTMLStream *stream;
+
+	stream = gtk_html_begin (html);
+	gtk_html_write (html, stream, str, (len == -1) ? strlen (str) : len);
+	gtk_html_end (html, stream, GTK_HTML_STREAM_OK);
+}
+
 
 /* Printing.  */
 

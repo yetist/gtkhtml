@@ -286,15 +286,18 @@ void  gtk_html_select_line      (GtkHTML  *html);
 int   gtk_html_request_paste    (GtkWidget *widget,
 				 gint32 time);
 /* Loading.  */
-GtkHTMLStream *gtk_html_begin       (GtkHTML             *html);
-void           gtk_html_write       (GtkHTML             *html,
-				     GtkHTMLStream       *handle,
-				     const gchar         *buffer,
-				     size_t               size);
-void           gtk_html_end         (GtkHTML             *html,
-				     GtkHTMLStream       *handle,
-				     GtkHTMLStreamStatus  status);
-void           gtk_html_load_empty  (GtkHTML             *html);
+GtkHTMLStream *gtk_html_begin             (GtkHTML             *html);
+void           gtk_html_write             (GtkHTML             *html,
+					   GtkHTMLStream       *handle,
+					   const gchar         *buffer,
+					   size_t               size);
+void           gtk_html_end               (GtkHTML             *html,
+					   GtkHTMLStream       *handle,
+					   GtkHTMLStreamStatus  status);
+void           gtk_html_load_empty        (GtkHTML             *html);
+void           gtk_html_load_from_string  (GtkHTML             *html,
+					   gchar               *str,
+					   gint                 len);
 
 /* Saving.  */
 gboolean  gtk_html_save  (GtkHTML               *html,
