@@ -115,25 +115,26 @@ set_props (HTMLEngine *engine,
 	   HTMLClueFlowStyle style,
 	   HTMLListType item_type,
 	   HTMLHAlignType alignment,
-	   gint indentation,
+	   gint indentation_delta,
+	   guint8 *indentation_levels,
 	   HTMLEngineSetClueFlowStyleMask mask)
 {
 	if (mask & HTML_ENGINE_SET_CLUEFLOW_INDENTATION)
-		html_clueflow_set_indentation (clueflow, engine, indentation);
+		html_clueflow_set_indentation (clueflow, engine, indentation_delta, indentation_levels);
 	
 	if (mask & HTML_ENGINE_SET_CLUEFLOW_INDENTATION_DELTA)
-		html_clueflow_modify_indentation_by_delta (clueflow, engine, indentation);
+		html_clueflow_modify_indentation_by_delta (clueflow, engine, indentation_delta, indentation_levels);
 	
 	/* FIXME levels mostly work now */
 	if (mask & HTML_ENGINE_SET_CLUEFLOW_STYLE) {
 		if (style == HTML_CLUEFLOW_STYLE_LIST_ITEM && clueflow->style != HTML_CLUEFLOW_STYLE_LIST_ITEM
 		    && clueflow->levels->len == 0
 		    && !(mask & (HTML_ENGINE_SET_CLUEFLOW_INDENTATION | HTML_ENGINE_SET_CLUEFLOW_INDENTATION_DELTA))) {
-			html_clueflow_set_indentation (clueflow, engine, 1);
+			html_clueflow_set_indentation (clueflow, engine, 1, &item_type);
 		} else if (clueflow->style == HTML_CLUEFLOW_STYLE_LIST_ITEM && style != HTML_CLUEFLOW_STYLE_LIST_ITEM
 			   && clueflow->levels->len == 1 
 			   && !(mask & (HTML_ENGINE_SET_CLUEFLOW_INDENTATION | HTML_ENGINE_SET_CLUEFLOW_INDENTATION_DELTA))) {
-			html_clueflow_set_indentation (clueflow, engine, 0);
+			html_clueflow_set_indentation (clueflow, engine, 0, NULL);
 		}
 		html_clueflow_set_style (clueflow, engine, style);
 		html_clueflow_set_item_type (clueflow, engine, item_type);
@@ -252,6 +253,7 @@ set_clueflow_style_in_region (HTMLEngine *engine,
 			      HTMLListType item_type,
 			      HTMLHAlignType alignment,
 			      gint indentation_delta,
+			      guint8 *indentation_levels,
 			      HTMLEngineSetClueFlowStyleMask mask,
 			      HTMLUndoDirection dir,
 			      gboolean do_undo)
@@ -288,7 +290,7 @@ set_clueflow_style_in_region (HTMLEngine *engine,
 			prop_list = g_list_prepend (prop_list, get_props (clueflow));
 
 		set_props (engine, clueflow,
-			   style, item_type, alignment, indentation_delta,
+			   style, item_type, alignment, indentation_delta, indentation_levels,
 			   mask);
 		
 		if (p == end)
@@ -314,6 +316,7 @@ set_clueflow_style_at_cursor (HTMLEngine *engine,
 			      HTMLListType item_type,
 			      HTMLHAlignType alignment,
 			      gint indentation_delta,
+			      guint8 *indentation_levels,
 			      HTMLEngineSetClueFlowStyleMask mask,
 			      HTMLUndoDirection dir, gboolean do_undo)
 {
@@ -332,7 +335,9 @@ set_clueflow_style_at_cursor (HTMLEngine *engine,
 		add_undo (engine, style_operation_new (g_list_append (NULL, get_props (clueflow)), TRUE), dir);
 
 	set_props (engine, clueflow,
-		   style, item_type, alignment, indentation_delta,
+		   style, item_type, alignment, 
+		   indentation_delta,
+		   indentation_levels,
 		   mask);
 
 }
@@ -344,6 +349,7 @@ html_engine_set_clueflow_style (HTMLEngine *engine,
 				HTMLListType item_type,
 				HTMLHAlignType alignment,
 				gint indentation_delta,
+				guint8 *indentation_levels,
 				HTMLEngineSetClueFlowStyleMask mask,
 				HTMLUndoDirection dir, gboolean do_undo)
 {
@@ -353,12 +359,14 @@ html_engine_set_clueflow_style (HTMLEngine *engine,
 	html_engine_freeze (engine);
 	if (html_engine_is_selection_active (engine))
 		set_clueflow_style_in_region (engine,
-					      style, item_type, alignment, indentation_delta,
+					      style, item_type, alignment, 
+					      indentation_delta, indentation_levels,
 					      mask,
 					      dir, do_undo);
 	else
 		set_clueflow_style_at_cursor (engine,
-					      style, item_type, alignment, indentation_delta,
+					      style, item_type, alignment, 
+					      indentation_delta, indentation_levels,
 					      mask,
 					      dir, do_undo);
 	html_engine_thaw (engine);

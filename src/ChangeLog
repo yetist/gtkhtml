@@ -1,3 +1,25 @@
+2002-06-12  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c: make the functions that deal with changing the indent
+	level use an array of HTML_LIST_TYPE values for the changes, add
+	gtk_html_indent_push/pop_level.
+
+	* gtkhtml.h: update the prototypes.
+
+	* htmlengine-edit-cut-and-paste.c (check_flows): the flow is the
+	parent not the object. This was causing nasty crashes that ate a
+	lot of memory.  Fixes Ximian bug #26150
+
+	* htmlengine-edit-clueflowstyle.c: make all the style operations
+	take and array of HTML_LIST_TYPE values for indentation changes.
+
+	* htmlengine-edit-clueflowstyle.h: update the prototypes to match.
+
+	* htmlclueflow.h: update the prototypes.
+
+	* htmlclueflow.c: change html_clueflow_set/modify indentxahtion to
+	take an array of HTML_LIST_TYPE values for the settings.
+
 2002-06-06  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (gtk_html_insert_html_generic): added tmp parameter,

@@ -2553,46 +2553,44 @@ update_items_after_indentation_change (HTMLClueFlow *flow)
 void
 html_clueflow_modify_indentation_by_delta (HTMLClueFlow *flow,
 					   HTMLEngine *engine,
-					   gint indentation_delta)
+					   gint indentation_delta,
+					   guint8 *indentation_levels)
 {
+	gint indentation;
 	g_return_if_fail (flow != NULL);
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 
-	html_clueflow_set_indentation (flow, engine, MAX (flow->levels->len + indentation_delta, 0));
+	indentation = MAX (flow->levels->len + indentation_delta, 0);
+
+	g_byte_array_set_size (flow->levels, indentation);
+
+	while (indentation_delta-- > 0) {
+		flow->levels->data[indentation + indentation_delta] = indentation_levels[indentation_delta];
+	}
 }
 
 void
 html_clueflow_set_indentation (HTMLClueFlow *flow,
 			       HTMLEngine *engine,
-			       gint indentation)
+			       gint indentation,
+			       guint8 *indentation_levels)
 {
 	int i;
 	g_return_if_fail (flow != NULL);
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 
-	if (flow->levels->len == indentation)
-		return;
-
 	if (indentation < 0)
 		indentation = 0;
 
-	i = indentation - flow->levels->len;
+	g_byte_array_set_size (flow->levels, indentation);
 
-	if (i > 0) {
-		guint8 val;
-
-		val = HTML_LIST_TYPE_BLOCKQUOTE;
-
-		while (i--)
-			g_byte_array_append (flow->levels, &val, 1);
-	} else {
-		g_byte_array_set_size (flow->levels, indentation);
-	}
+	i = indentation;
+	while (i--)
+		flow->levels->data[i] = indentation_levels[i];
 
 	update_items_after_indentation_change (flow);
-
 	relayout_with_siblings (flow, engine);
 }
 
@@ -2605,6 +2603,7 @@ html_clueflow_get_indentation (HTMLClueFlow *flow)
 	return flow->levels->len;
 }
 
+#if 0
 void
 html_clueflow_set_properties (HTMLClueFlow *flow,
 			      HTMLEngine *engine,
@@ -2640,6 +2639,7 @@ html_clueflow_get_properties (HTMLClueFlow *flow,
 	if (alignment_return != NULL)
 		*alignment_return = HTML_CLUE (flow)->halign;
 }
+#endif
 
 
 void

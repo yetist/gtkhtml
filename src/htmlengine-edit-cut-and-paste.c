@@ -487,10 +487,11 @@ check_flows (HTMLEngine *e, HTMLUndoDirection dir)
 		html_engine_disable_selection (e);
 		html_cursor_jump_to_position_no_spell (e->cursor, e, dest->position);
 		html_engine_set_clueflow_style (e,
-						HTML_CLUEFLOW (source->object)->style,
-						HTML_CLUEFLOW (source->object)->item_type,
-						HTML_CLUE     (source->object)->halign,
-						html_clueflow_get_indentation (HTML_CLUEFLOW (source->object)),
+						HTML_CLUEFLOW (source->object->parent)->style,
+						HTML_CLUEFLOW (source->object->parent)->item_type,
+						HTML_CLUE     (source->object->parent)->halign,
+						HTML_CLUEFLOW (source->object->parent)->levels->len,
+						HTML_CLUEFLOW (source->object->parent)->levels->data,
 						HTML_ENGINE_SET_CLUEFLOW_INDENTATION_ALL,
 						dir, TRUE);
 		html_engine_selection_pop (e);

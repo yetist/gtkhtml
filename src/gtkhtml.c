@@ -3133,7 +3133,7 @@ gtk_html_set_paragraph_style (GtkHTML *html,
 	    && (current_style != HTML_CLUEFLOW_STYLE_LIST_ITEM || item_type == cur_item_type))
 		return;
 
-	if (! html_engine_set_clueflow_style (html->engine, clueflow_style, item_type, 0, 0,
+	if (! html_engine_set_clueflow_style (html->engine, clueflow_style, item_type, 0, 0, NULL,
 					      HTML_ENGINE_SET_CLUEFLOW_STYLE, HTML_UNDO_UNDO, TRUE))
 		return;
 
@@ -3157,12 +3157,14 @@ gtk_html_get_paragraph_style (GtkHTML *html)
 
 void
 gtk_html_set_indent (GtkHTML *html,
-		     gint level)
+		     GByteArray *levels)
 {
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
 
-	html_engine_set_clueflow_style (html->engine, 0, 0, 0, level,
+	html_engine_set_clueflow_style (html->engine, 0, 0, 0, 
+					levels ? levels->len : 0, 
+					levels ? levels->data : NULL,
 					HTML_ENGINE_SET_CLUEFLOW_INDENTATION, HTML_UNDO_UNDO, TRUE);
 
 	gtk_html_update_styles (html);
@@ -3170,15 +3172,28 @@ gtk_html_set_indent (GtkHTML *html,
 
 void
 gtk_html_modify_indent_by_delta (GtkHTML *html,
-				 gint delta)
+				 gint delta, guint8 *levels)
 {
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
 
-	html_engine_set_clueflow_style (html->engine, 0, 0, 0, delta,
+	html_engine_set_clueflow_style (html->engine, 0, 0, 0, delta, levels,
 					HTML_ENGINE_SET_CLUEFLOW_INDENTATION_DELTA, HTML_UNDO_UNDO, TRUE);
 
 	gtk_html_update_styles (html);
+}
+
+void
+gtk_html_indent_push_level (GtkHTML *html, HTMLListType level_type)
+{
+	guint8 type = (guint8)level_type;
+	gtk_html_modify_indent_by_delta (html, +1, &type);
+}
+
+void
+gtk_html_indent_pop_level (GtkHTML *html)
+{
+	gtk_html_modify_indent_by_delta (html, -1, NULL);
 }
 
 void
@@ -3234,7 +3249,7 @@ gtk_html_set_paragraph_alignment (GtkHTML *html,
 
 	align = paragraph_alignment_to_html (alignment);
 
-	if (html_engine_set_clueflow_style (html->engine, 0, 0, align, 0,
+	if (html_engine_set_clueflow_style (html->engine, 0, 0, align, 0, NULL,
 					    HTML_ENGINE_SET_CLUEFLOW_ALIGNMENT, HTML_UNDO_UNDO, TRUE))
 		gtk_signal_emit (GTK_OBJECT (html), 
 				 signals [CURRENT_PARAGRAPH_ALIGNMENT_CHANGED],
@@ -3607,7 +3622,7 @@ inline static void
 indent_more_or_next_cell (GtkHTML *html)
 {
 	if (!html_engine_next_cell (html->engine, TRUE))
-		gtk_html_modify_indent_by_delta (html, +1);
+		gtk_html_indent_push_level (html, HTML_LIST_TYPE_BLOCKQUOTE);
 }
 
 static gboolean
@@ -3714,7 +3729,7 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		else if (html_engine_cursor_on_bop (e) && html_engine_get_indent (e) > 0
 			 && e->cursor->object->parent && HTML_IS_CLUEFLOW (e->cursor->object->parent)
 			 && HTML_CLUEFLOW (e->cursor->object->parent)->style != HTML_CLUEFLOW_STYLE_LIST_ITEM)
-			gtk_html_modify_indent_by_delta (html, -1);
+			gtk_html_indent_pop_level (html);
 		else
 			delete_one (e, FALSE);
 		html->priv->update_styles = TRUE;
@@ -3816,10 +3831,10 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		gtk_html_set_paragraph_alignment (html, GTK_HTML_PARAGRAPH_ALIGNMENT_RIGHT);
 		break;
 	case GTK_HTML_COMMAND_INDENT_ZERO:
-		gtk_html_set_indent (html, 0);
+		gtk_html_set_indent (html, NULL);
 		break;
 	case GTK_HTML_COMMAND_INDENT_INC:
-		gtk_html_modify_indent_by_delta (html, +1);
+		gtk_html_indent_push_level (html, HTML_LIST_TYPE_BLOCKQUOTE);
 		break;
 	case GTK_HTML_COMMAND_INDENT_INC_OR_NEXT_CELL:
 		indent_more_or_next_cell (html);
@@ -3834,13 +3849,13 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		    && html_clueflow_tabs (HTML_CLUEFLOW (e->cursor->object->parent), e->painter))
 			html_engine_insert_text (e, "\t", 1);
 		else
-			gtk_html_modify_indent_by_delta (html, +1);
+			gtk_html_indent_push_level (html, HTML_LIST_TYPE_BLOCKQUOTE);
 		break;
 	case GTK_HTML_COMMAND_INSERT_TAB_OR_NEXT_CELL:
 		html->binding_handled = insert_tab_or_next_cell (html);
 		break;
 	case GTK_HTML_COMMAND_INDENT_DEC:
-		gtk_html_modify_indent_by_delta (html, -1);
+		gtk_html_indent_pop_level (html);
 		break;
 	case GTK_HTML_COMMAND_PREV_CELL:
 		html->binding_handled = html_engine_prev_cell (html->engine);

@@ -222,9 +222,10 @@ GtkHTMLParagraphStyle      gtk_html_get_paragraph_style           (GtkHTML      
 void                       gtk_html_set_paragraph_style           (GtkHTML                   *html,
 								   GtkHTMLParagraphStyle      style);
 void                       gtk_html_set_indent                    (GtkHTML                   *html,
-								   gint                       level);
-void                       gtk_html_modify_indent_by_delta        (GtkHTML                   *html,
-								   gint                       delta);
+								   GByteArray                 *levels);
+void                       gtk_html_indent_push_level             (GtkHTML                   *html,
+								   HTMLListType               level_type);
+void                       gtk_html_indent_pop_level              (GtkHTML                   *html);
 void                       gtk_html_set_font_style                (GtkHTML                   *html,
 								   GtkHTMLFontStyle           and_mask,
 								   GtkHTMLFontStyle           or_mask);
