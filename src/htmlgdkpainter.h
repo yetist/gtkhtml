@@ -38,7 +38,6 @@
 
 struct _HTMLGdkPainter {
 	HTMLPainter base;
-	PangoContext *pc;
 	GtkWidget *widget;
 
 	/* GdkWindow to draw on */
@@ -72,10 +71,5 @@ void               html_gdk_painter_realize                          (HTMLGdkPai
 								      GdkWindow             *window);
 void               html_gdk_painter_unrealize                        (HTMLGdkPainter        *painter);
 gboolean           html_gdk_painter_realized                         (HTMLGdkPainter        *painter);
-HTMLTextPangoInfo *html_gdk_painter_text_itemize_and_prepare_glyphs  (HTMLGdkPainter        *painter,
-								      PangoFontDescription  *desc,
-								      const gchar           *text,
-								      gint                   bytes,
-								      GList                **glyphs);
 
 #endif /* _HTMLGDKPAINTER_H */
