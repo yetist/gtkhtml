@@ -74,7 +74,7 @@ struct _GtkHTMLControlData {
 
 	GNOME_Spell_Dictionary  dict;
 	BonoboObjectClient     *dict_client;
-	HTMLEditorEngine       *editor_bonobo_engine;
+	EditorEngine       *editor_bonobo_engine;
 };
 
 GtkHTMLControlData * gtk_html_control_data_new       (GtkHTML *html, GtkWidget *vbox);

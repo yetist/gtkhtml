@@ -25,16 +25,16 @@
 
 #include <libgnome/gnome-defs.h>
 #include <bonobo/bonobo-object.h>
-#include "HTMLEditor.h"
+#include "Editor.h"
 #include "gtkhtml.h"
 
 BEGIN_GNOME_DECLS
 
-#define HTMLEDITOR_ENGINE_TYPE        (htmleditor_engine_get_type ())
-#define HTMLEDITOR_ENGINE(o)          (GTK_CHECK_CAST ((o), HTMLEDITOR_ENGINE_TYPE, HTMLEditorEngine))
-#define HTMLEDITOR_ENGINE_CLASS(k)    (GTK_CHECK_CLASS_CAST((k), HTMLEDITOR_ENGINE_TYPE, HTMLEditorEngineClass))
-#define IS_HTMLEDITOR_ENGINE(o)       (GTK_CHECK_TYPE ((o), HTMLEDITOR_ENGINE_TYPE))
-#define IS_HTMLEDITOR_ENGINE_CLASS(k) (GTK_CHECK_CLASS_TYPE ((k), HTMLEDITOR_ENGINE_TYPE))
+#define EDITOR_ENGINE_TYPE        (editor_engine_get_type ())
+#define EDITOR_ENGINE(o)          (GTK_CHECK_CAST ((o), EDITOR_ENGINE_TYPE, EditorEngine))
+#define EDITOR_ENGINE_CLASS(k)    (GTK_CHECK_CLASS_CAST((k), EDITOR_ENGINE_TYPE, EditorEngineClass))
+#define IS_EDITOR_ENGINE(o)       (GTK_CHECK_TYPE ((o), EDITOR_ENGINE_TYPE))
+#define IS_EDITOR_ENGINE_CLASS(k) (GTK_CHECK_CLASS_TYPE ((k), EDITOR_ENGINE_TYPE))
 
 typedef struct {
 	BonoboObject parent;
@@ -42,18 +42,18 @@ typedef struct {
 	GtkHTML *html;
 
 	BonoboObjectClient *listener_client;
-	GNOME_HTMLEditor_Listener listener;
-} HTMLEditorEngine;
+	GNOME_GtkHTML_Editor_Listener listener;
+} EditorEngine;
 
 typedef struct {
 	BonoboObjectClass parent_class;
-} HTMLEditorEngineClass;
+} EditorEngineClass;
 
-GtkType                           htmleditor_engine_get_type   (void);
-HTMLEditorEngine                 *htmleditor_engine_construct  (HTMLEditorEngine        *engine,
-								GNOME_HTMLEditor_Engine  corba_engine);
-HTMLEditorEngine                 *htmleditor_engine_new        (GtkHTML                 *html);
-POA_GNOME_HTMLEditor_Engine__epv *htmleditor_engine_get_epv    (void);
+GtkType                           editor_engine_get_type   (void);
+EditorEngine                 *editor_engine_construct  (EditorEngine        *engine,
+								GNOME_GtkHTML_Editor_Engine  corba_engine);
+EditorEngine                 *editor_engine_new        (GtkHTML                 *html);
+POA_GNOME_GtkHTML_Editor_Engine__epv *editor_engine_get_epv    (void);
 
 END_GNOME_DECLS
 

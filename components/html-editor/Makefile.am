@@ -15,16 +15,16 @@ CFLAGS +=  $(GCONF_CFLAGS) $(PSPELL_CFLAGS)
 # CORBA stuff
 
 IDLS = \
-	HTMLEditor.idl
+	Editor.idl
 
 SPELL_IDLS = \
 	Spell.idl
 
 IDL_GENERATED = \
-	HTMLEditor.h		\
-	HTMLEditor-common.c	\
-	HTMLEditor-skels.c	\
-	HTMLEditor-stubs.c
+	Editor.h		\
+	Editor-common.c	\
+	Editor-skels.c	\
+	Editor-stubs.c
 
 SPELL_IDL_GENERATED = \
 	Spell.h			\
@@ -34,11 +34,12 @@ SPELL_IDL_GENERATED = \
 
 CLEANFILES = $(IDL_GENERATED) $(SPELL_IDL_GENERATED)
 
-HTMLEditor-impl.o: HTMLEditor.h
+Editor-impl.o: Editor.h
+Spell-impl.o: Spell.h
 
 $(IDL_GENERATED): $(IDLS)
 	$(ORBIT_IDL) -I$(datadir)/idl -I`$(GNOME_CONFIG) --cflags idl`	\
-		-I$(srcdir) $(srcdir)/HTMLEditor.idl
+		-I$(srcdir) $(srcdir)/Editor.idl
 
 $(SPELL_IDL_GENERATED): $(SPELL_IDLS)
 	$(ORBIT_IDL) -I$(datadir)/idl -I`$(GNOME_CONFIG) --cflags idl`	\
@@ -59,9 +60,9 @@ LDADD =	\
 # The Editor Control
 
 bin_PROGRAMS =					\
-	html-editor-control
+	gnome-gtkhtml-editor
 
-html_editor_control_SOURCES =			\
+gnome_gtkhtml_editor_SOURCES =			\
 	$(IDL_GENERATED)			\
 	$(SPELL_IDL_GENERATED)			\
 	body.h					\
@@ -110,12 +111,15 @@ html_editor_control_SOURCES =			\
 #	table.c					\
 #	table.h					\
 
+OAF_INFO = GNOME_GtkHTML_Editor.oafinfo
+GNORBA_INFO = html-editor-control.gnorba
+
 if USING_OAF
 oafdir = $(datadir)/oaf
-oaf_DATA = html-editor-control.oafinfo
+oaf_DATA = $(OAF_INFO)
 else
 gnorbadir = $(sysconfdir)/CORBA/servers
-gnorba_DATA = html-editor-control.gnorba
+gnorba_DATA = $(GNORBA_INFO)
 endif
 
 uidir = $(datadir)/gnome/ui
@@ -137,10 +141,10 @@ test_html_editor_control_SOURCES =		\
 EXTRA_DIST =					\
 	$(IDLS)					\
 	$(SPELL_IDLS)				\
-	html-editor-control.gnorba		\
-	html-editor-control.oafinfo		\
+	$(GNORBA_INFO)				\
+	$(OAF_INFO)				\
 	ChangeLog				\
 	$(ui_DATA)
 
 idldir = $(datadir)/gtkhtml
-idl_DATA = HTMLEditor.idl
+idl_DATA = $(IDLS)

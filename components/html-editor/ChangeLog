@@ -1,3 +1,23 @@
+2000-12-07  Radek Doulik  <rodo@helixcode.com>
+
+	* engine.c (impl_set_listener): updated to
+	IDL:GNOME/GtkHTML/Editor/Listener:1.0
+
+	* GNOME_GtkHTML_Editor.oafinfo: updated for gnome-gtkhtml-editor
+
+	* Makefile.am: renamed html-editor-control to gnome-gtkhtml-editor
+
+	* test-html-editor-control.c (HTML_EDITOR_CONTROL_ID): updated
+
+	* editor-control-factory.c (CONTROL_FACTORY_ID): updated
+
+	* Makefile.am: updated for IDL and OAF changes
+
+	* Editor.idl: renamed from HTMLEditor.idl
+
+	* GNOME_GtkHTML_Editor.oafinfo: changed OAFIIDs, renamed from
+	html-editor-control.oafinfo
+
 2000-12-03  Radek Doulik  <rodo@helixcode.com>
 
 	* spell.c (DICTIONARY_IID): updated to changed IID

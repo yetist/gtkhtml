@@ -7,11 +7,11 @@
 
 BEGIN_GNOME_DECLS
 
-#define HTMLEDITOR_RESOLVER_TYPE        (htmleditor_resolver_get_type ())
-#define HTMLEDITOR_RESOLVER(o)          (GTK_CHECK_CAST ((o), HTMLEDITOR_RESOLVER_TYPE, HTMLEditorResolver))
-#define HTMLEDITOR_RESOLVER_CLASS(k)    (GTK_CHECK_CLASS_CAST((k), HTMLEDITOR_RESOLVER_TYPE, HTMLResolverClass))
-#define IS_HTMLEDITOR_RESOLVER(o)       (GTK_CHECK_TYPE ((o), HTMLEDITOR_RESOLVER_TYPE))
-#define IS_HTMLEDITOR_RESOLVER_CLASS(k) (GTK_CHECK_CLASS_TYPE ((k), HTMLEDITOR_RESOLVER_TYPE))
+#define EDITOR_RESOLVER_TYPE        (htmleditor_resolver_get_type ())
+#define EDITOR_RESOLVER(o)          (GTK_CHECK_CAST ((o), EDITOR_RESOLVER_TYPE, HTMLEditorResolver))
+#define EDITOR_RESOLVER_CLASS(k)    (GTK_CHECK_CLASS_CAST((k), EDITOR_RESOLVER_TYPE, HTMLResolverClass))
+#define IS_EDITOR_RESOLVER(o)       (GTK_CHECK_TYPE ((o), EDITOR_RESOLVER_TYPE))
+#define IS_EDITOR_RESOLVER_CLASS(k) (GTK_CHECK_CLASS_TYPE ((k), EDITOR_RESOLVER_TYPE))
 
 typedef struct {
 	BonoboObject parent;
@@ -25,9 +25,9 @@ typedef struct {
 
 GtkType                             htmleditor_resolver_get_type   (void);
 HTMLEditorResolver                 *htmleditor_resolver_construct  (HTMLEditorResolver        *resolver,
-								    GNOME_HTMLEditor_Resolver  corba_resolver);
+								    GNOME_GtkHTML_Editor_Resolver  corba_resolver);
 HTMLEditorResolver                 *htmleditor_resolver_new        (void);
-POA_GNOME_HTMLEditor_Resolver__epv *htmleditor_resolver_get_epv    (void);
+POA_GNOME_GtkHTML_Editor_Resolver__epv *htmleditor_resolver_get_epv    (void);
 
 END_GNOME_DECLS
 

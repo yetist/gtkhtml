@@ -26,12 +26,12 @@
 #include <gnome.h>
 #include <bonobo.h>
 
-#include <HTMLEditor.h>
+#include <Editor.h>
 #include <resolver.h>
 
 
 #ifdef USING_OAF
-#define HTML_EDITOR_CONTROL_ID "OAFIID:control:html-editor:63c5499b-8b0c-475a-9948-81ec96a9662c"
+#define HTML_EDITOR_CONTROL_ID "OAFIID:GNOME_GtkHTML_Editor"
 #else
 #define HTML_EDITOR_CONTROL_ID "control:html-editor"
 #endif
