@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD.sk\n"
-"POT-Creation-Date: 2003-01-23 05:46+0100\n"
+"POT-Creation-Date: 2003-03-05 16:02-0600\n"
 "PO-Revision-Date: 2003-01-23 23:01+0100\n"
 "Last-Translator: Stanislav Visnovsky <visnovsky@kde.org>\n"
 "Language-Team: Slovak <sk-i18n@linux.sk>\n"
@@ -22,7 +22,7 @@ msgid "<None>"
 msgstr "<Žiadny>"
 
 #: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
-#: components/html-editor/cell.c:417 components/html-editor/image.c:532
+#: components/html-editor/cell.c:417 components/html-editor/image.c:530
 #: components/html-editor/rule.c:315 components/html-editor/table.c:529
 #: components/html-editor/table.c:613 components/html-editor/template.c:271
 msgid "Could not load glade file."
@@ -224,7 +224,7 @@ msgid "Check spelling of the document"
 msgstr "Kontrola pravopisu dokumentu"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
-#: components/html-editor/popup.c:417
+#: components/html-editor/popup.c:418
 msgid "Copy"
 msgstr "Kopírovať"
 
@@ -245,7 +245,7 @@ msgid "Cu_t"
 msgstr "Vy_strihnúť"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
-#: components/html-editor/popup.c:418
+#: components/html-editor/popup.c:419
 msgid "Cut"
 msgstr "Vystrihnúť"
 
@@ -320,9 +320,9 @@ msgid "Header _6"
 msgstr "Hlavička _6"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
-#: components/html-editor/editor-control-factory.c:176
+#: components/html-editor/editor-control-factory.c:180
 #: components/html-editor/gtkhtml-editor-properties.glade.h:39
-#: components/html-editor/menubar.c:125 components/html-editor/popup.c:206
+#: components/html-editor/menubar.c:128 components/html-editor/popup.c:205
 msgid "Image"
 msgstr "Obrázok"
 
@@ -404,9 +404,9 @@ msgid "Li_ck"
 msgstr "Ob_lizovanie"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
-#: components/html-editor/body.c:326 components/html-editor/menubar.c:141
-#: components/html-editor/popup.c:103 components/html-editor/popup.c:199
-#: components/html-editor/popup.c:272
+#: components/html-editor/body.c:326 components/html-editor/menubar.c:144
+#: components/html-editor/popup.c:102 components/html-editor/popup.c:198
+#: components/html-editor/popup.c:271
 msgid "Link"
 msgstr "Odkaz"
 
@@ -490,7 +490,7 @@ msgid "Other..."
 msgstr "Iná..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
-#: components/html-editor/popup.c:419
+#: components/html-editor/popup.c:420
 msgid "Paste"
 msgstr "Vložiť"
 
@@ -524,7 +524,7 @@ msgid "Red"
 msgstr "Červená"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
-#: components/html-editor/popup.c:414
+#: components/html-editor/popup.c:415
 msgid "Redo"
 msgstr "Opakovať"
 
@@ -553,9 +553,9 @@ msgid "Roman Numeral List"
 msgstr "Zoznam s rímskymi číslicami"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
-#: components/html-editor/editor-control-factory.c:196
+#: components/html-editor/editor-control-factory.c:200
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
-#: components/html-editor/menubar.c:159 components/html-editor/popup.c:227
+#: components/html-editor/menubar.c:162 components/html-editor/popup.c:226
 msgid "Rule"
 msgstr "Pravidlo"
 
@@ -595,8 +595,8 @@ msgstr "Horný index"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
-#: components/html-editor/menubar.c:176 components/html-editor/popup.c:234
-#: components/html-editor/popup.c:501 components/html-editor/popup.c:510
+#: components/html-editor/menubar.c:179 components/html-editor/popup.c:233
+#: components/html-editor/popup.c:502 components/html-editor/popup.c:511
 msgid "Table"
 msgstr "Tabuľka"
 
@@ -611,7 +611,7 @@ msgstr "Te_xtový súbor..."
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
 #: components/html-editor/body.c:256
 #: components/html-editor/gtkhtml-editor-properties.glade.h:74
-#: components/html-editor/menubar.c:199
+#: components/html-editor/menubar.c:202
 msgid "Template"
 msgstr "Šablóna"
 
@@ -621,7 +621,7 @@ msgid "Typewriter"
 msgstr "Pevná šírka"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
-#: components/html-editor/popup.c:413
+#: components/html-editor/popup.c:414
 msgid "Undo"
 msgstr "Späť"
 
@@ -830,7 +830,7 @@ msgstr "Modrý atrament"
 msgid "Rectangles"
 msgstr "Pravouholník"
 
-#: components/html-editor/body.c:274
+#: components/html-editor/body.c:274 src/gtkhtml.c:2647
 msgid "Document Title"
 msgstr "Titulok dokumentu"
 
@@ -851,9 +851,9 @@ msgid "Automatic"
 msgstr "Automatické"
 
 #: components/html-editor/body.c:325
-#: components/html-editor/editor-control-factory.c:185
+#: components/html-editor/editor-control-factory.c:189
 #: components/html-editor/gtkhtml-editor-properties.glade.h:76
-#: components/html-editor/menubar.c:334 components/html-editor/popup.c:192
+#: components/html-editor/menubar.c:337 components/html-editor/popup.c:191
 msgid "Text"
 msgstr "Text"
 
@@ -879,27 +879,28 @@ msgstr ""
 "Upravovaná bunka bola z dokumentu dostránená.\n"
 "Vaše zmeny nie je možné použiť."
 
-#: components/html-editor/editor-control-factory.c:165
-#: components/html-editor/menubar.c:313 components/html-editor/menubar.c:331
-#: components/html-editor/menubar.c:349 components/html-editor/popup.c:184
-#: components/html-editor/popup.c:269
+#: components/html-editor/editor-control-factory.c:169
+#: components/html-editor/menubar.c:316 components/html-editor/menubar.c:334
+#: components/html-editor/menubar.c:352 components/html-editor/popup.c:183
+#: components/html-editor/popup.c:268
 msgid "Properties"
 msgstr "Vlastnosti"
 
-#: components/html-editor/editor-control-factory.c:206
-#: components/html-editor/menubar.c:352 components/html-editor/popup.c:213
+#: components/html-editor/editor-control-factory.c:210
+#: components/html-editor/menubar.c:355 components/html-editor/popup.c:212
 msgid "Paragraph"
 msgstr "Odstavec"
 
-#: components/html-editor/editor-control-factory.c:211
+#: components/html-editor/editor-control-factory.c:215
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: components/html-editor/menubar.c:316 components/html-editor/popup.c:220
+#: components/html-editor/menubar.c:319 components/html-editor/popup.c:219
 msgid "Page"
 msgstr "Stránka"
 
-#: components/html-editor/editor-control-factory.c:770
-msgid "I could not initialize Bonobo"
-msgstr "Nie je možné inicializovať Bonobo"
+#: components/html-editor/editor-control-factory.c:775
+#, fuzzy
+msgid "GtkHTML Editor Control"
+msgstr "Ovládací prvok GNOME HTML editor"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:2
 msgid "************"
@@ -943,7 +944,7 @@ msgid "Bottom"
 msgstr "Dole"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:20
-#: components/html-editor/popup.c:241
+#: components/html-editor/popup.c:240
 msgid "Cell"
 msgstr "Bunka"
 
@@ -966,7 +967,7 @@ msgid "Color:"
 msgstr "Farba:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#: components/html-editor/popup.c:512
+#: components/html-editor/popup.c:513
 msgid "Column"
 msgstr "Stĺpec"
 
@@ -1083,7 +1084,7 @@ msgid "Right"
 msgstr "Vpravo"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
-#: components/html-editor/popup.c:511
+#: components/html-editor/popup.c:512
 msgid "Row"
 msgstr "Riadok"
 
@@ -1224,7 +1225,7 @@ msgstr ""
 msgid "The quick brown fox jumped over the lazy dog."
 msgstr "Rýchla hnedá líška skáče cez lenivého psa."
 
-#: components/html-editor/image.c:692
+#: components/html-editor/image.c:690
 msgid ""
 "The editted image was removed from the document.\n"
 "Cannot apply your changes."
@@ -1244,18 +1245,18 @@ msgstr ""
 "Upravovaný odkaz bol z dokumentu dostránený.\n"
 "Vaše zmeny nie je možné použiť."
 
-#: components/html-editor/menubar.c:122 components/html-editor/menubar.c:138
-#: components/html-editor/menubar.c:156 components/html-editor/menubar.c:173
-#: components/html-editor/menubar.c:196 components/html-editor/popup.c:100
+#: components/html-editor/menubar.c:125 components/html-editor/menubar.c:141
+#: components/html-editor/menubar.c:159 components/html-editor/menubar.c:176
+#: components/html-editor/menubar.c:199 components/html-editor/popup.c:99
 #: components/html-editor/properties.c:129
 msgid "Insert"
 msgstr "Vložiť"
 
-#: components/html-editor/menubar.c:263
+#: components/html-editor/menubar.c:266
 msgid "Insert HTML file"
 msgstr "Vložiť HTML súbor"
 
-#: components/html-editor/menubar.c:263
+#: components/html-editor/menubar.c:266
 msgid "Insert text file"
 msgstr "Vložiť textový súbor"
 
@@ -1319,99 +1320,99 @@ msgstr ""
 "Upravovaný odstavec bol z dokumentu dostránený.\n"
 "Vaše zmeny nie je možné použiť."
 
-#: components/html-editor/popup.c:420
+#: components/html-editor/popup.c:421
 msgid "Paste Quotation"
 msgstr "Vložiť citát"
 
-#: components/html-editor/popup.c:423
+#: components/html-editor/popup.c:424
 msgid "Insert link"
 msgstr "Vložiť odkaz"
 
-#: components/html-editor/popup.c:431
+#: components/html-editor/popup.c:432
 msgid "Remove link"
 msgstr "Odstrániť odkaz"
 
-#: components/html-editor/popup.c:439
+#: components/html-editor/popup.c:440
 #, c-format
 msgid "Check '%s' spelling..."
 msgstr "Kontrola pravopisu '%s'..."
 
-#: components/html-editor/popup.c:440
+#: components/html-editor/popup.c:441
 #, c-format
 msgid "Add '%s' to dictionary"
 msgstr "Pridať '%s' do slovníka..."
 
-#: components/html-editor/popup.c:441
+#: components/html-editor/popup.c:442
 #, c-format
 msgid "Ignore '%s'"
 msgstr "Ignorovať '%s'"
 
-#: components/html-editor/popup.c:443 components/html-editor/spell.c:266
+#: components/html-editor/popup.c:444 components/html-editor/spell.c:266
 msgid "Spell checker"
 msgstr "Kontrola pravopisu"
 
-#: components/html-editor/popup.c:447
+#: components/html-editor/popup.c:448
 msgid "Suggest word"
 msgstr "Navrhnúť slovo"
 
-#: components/html-editor/popup.c:463
+#: components/html-editor/popup.c:464
 msgid "Text..."
 msgstr "Text..."
 
-#: components/html-editor/popup.c:465 components/html-editor/popup.c:472
-#: components/html-editor/popup.c:484
+#: components/html-editor/popup.c:466 components/html-editor/popup.c:473
+#: components/html-editor/popup.c:485
 msgid "Paragraph..."
 msgstr "Odstavec..."
 
-#: components/html-editor/popup.c:470
+#: components/html-editor/popup.c:471
 msgid "Link..."
 msgstr "Odkaz..."
 
-#: components/html-editor/popup.c:477
+#: components/html-editor/popup.c:478
 msgid "Rule..."
 msgstr "Pravidlo..."
 
-#: components/html-editor/popup.c:482
+#: components/html-editor/popup.c:483
 msgid "Image..."
 msgstr "Obrázok..."
 
-#: components/html-editor/popup.c:494
+#: components/html-editor/popup.c:495
 msgid "Cell..."
 msgstr "Bunka..."
 
-#: components/html-editor/popup.c:497
+#: components/html-editor/popup.c:498
 msgid "Table..."
 msgstr "Tabuľka..."
 
-#: components/html-editor/popup.c:500
+#: components/html-editor/popup.c:501
 msgid "Table insert"
 msgstr "Vložiť tabuľku"
 
-#: components/html-editor/popup.c:503
+#: components/html-editor/popup.c:504
 msgid "Row above"
 msgstr "Riadok nad"
 
-#: components/html-editor/popup.c:504
+#: components/html-editor/popup.c:505
 msgid "Row below"
 msgstr "Riadok pod"
 
-#: components/html-editor/popup.c:506
+#: components/html-editor/popup.c:507
 msgid "Column before"
 msgstr "Stĺpec pred"
 
-#: components/html-editor/popup.c:507
+#: components/html-editor/popup.c:508
 msgid "Column after"
 msgstr "Stĺpec za"
 
-#: components/html-editor/popup.c:509
+#: components/html-editor/popup.c:510
 msgid "Table delete"
 msgstr "Odstrániť tabuľku"
 
-#: components/html-editor/popup.c:513
+#: components/html-editor/popup.c:514
 msgid "Cell contents"
 msgstr "Obsah bunky"
 
-#: components/html-editor/popup.c:521
+#: components/html-editor/popup.c:522
 msgid "Page..."
 msgstr "Obrázok..."
 
@@ -1462,10 +1463,6 @@ msgstr "hľadať dozadu"
 #: components/html-editor/search.c:118
 msgid "Find Regular Expression"
 msgstr "Hľadať regulárny výraz"
-
-#: components/html-editor/spell.c:350
-msgid "Spell Checking _Languages"
-msgstr "_Jazyky kontroly pravopisu"
 
 #: components/html-editor/table.c:199
 msgid "Flat gray"
@@ -1568,6 +1565,78 @@ msgstr "Zväčší odsadenie odstavcov"
 msgid "Sample"
 msgstr "Príklad"
 
+#: src/gtkhtml.c:2640
+#, fuzzy
+msgid "Editable"
+msgstr "Povoliť"
+
+#: src/gtkhtml.c:2641
+msgid "Whether the html can be edited"
+msgstr ""
+
+#: src/gtkhtml.c:2648
+#, fuzzy
+msgid "The title of the current document"
+msgstr "Kontrola pravopisu dokumentu"
+
+#: src/gtkhtml.c:2654
+#, fuzzy
+msgid "Document Base"
+msgstr "Titulok dokumentu"
+
+#: src/gtkhtml.c:2655
+msgid "The base URL for relative references"
+msgstr ""
+
+#: src/gtkhtml.c:2661
+msgid "Target Base"
+msgstr ""
+
+#: src/gtkhtml.c:2662
+msgid "The base URL of the targe frame"
+msgstr ""
+
+#: src/gtkhtml.c:2671
+#, fuzzy
+msgid "Fixed Width Font"
+msgstr "Pevná šírka"
+
+#: src/gtkhtml.c:2672
+msgid "The Monospace font to use for typewriter text"
+msgstr ""
+
+#: src/gtkhtml.c:2678
+msgid "New Link Color"
+msgstr ""
+
+#: src/gtkhtml.c:2679
+msgid "The color of new link elements"
+msgstr ""
+
+#: src/gtkhtml.c:2684
+msgid "Visited Link Color"
+msgstr ""
+
+#: src/gtkhtml.c:2685
+msgid "The color of visited link elements"
+msgstr ""
+
+#: src/gtkhtml.c:2690
+msgid "Active Link Color"
+msgstr ""
+
+#: src/gtkhtml.c:2691
+msgid "The color of active link elements"
+msgstr ""
+
+#: src/gtkhtml.c:2696
+msgid "Spelling Error Color"
+msgstr ""
+
+#: src/gtkhtml.c:2697
+msgid "The color of the spelling error markers"
+msgstr ""
+
 #: src/html-component.c:219
 msgid "Html"
 msgstr "Html"
@@ -1641,9 +1710,14 @@ msgstr "U_kážka pred tlačou"
 msgid "Print preview"
 msgstr "Ukážka pred tlačou"
 
+#~ msgid "I could not initialize Bonobo"
+#~ msgstr "Nie je možné inicializovať Bonobo"
+
+#~ msgid "Spell Checking _Languages"
+#~ msgstr "_Jazyky kontroly pravopisu"
+
 #~ msgid "Sans"
 #~ msgstr "Sans"
 
 #~ msgid "Monospace"
 #~ msgstr "Monospace"
-

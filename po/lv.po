@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2003-01-14 19:20+0100\n"
+"POT-Creation-Date: 2003-03-05 16:02-0600\n"
 "PO-Revision-Date: 2003-01-15 02:26+0200\n"
 "Last-Translator: Artis Trops <hornet@navigator.lv>\n"
 "Language-Team: Latvian <ll10nt@os.lv>\n"
@@ -17,14 +17,10 @@ msgstr ""
 msgid "<None>"
 msgstr "<Nekas>"
 
-#: capplet/gnome-bindings-prop.c:211
-#: capplet/main.c:241
-#: components/html-editor/cell.c:417
-#: components/html-editor/image.c:532
-#: components/html-editor/rule.c:315
-#: components/html-editor/table.c:529
-#: components/html-editor/table.c:613
-#: components/html-editor/template.c:271
+#: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
+#: components/html-editor/cell.c:417 components/html-editor/image.c:530
+#: components/html-editor/rule.c:315 components/html-editor/table.c:529
+#: components/html-editor/table.c:613 components/html-editor/template.c:271
 msgid "Could not load glade file."
 msgstr "Nevarēja ielādēt glade failu."
 
@@ -143,9 +139,11 @@ msgid "_Delete"
 msgstr "_Dzēst"
 
 #: capplet/main.c:226
-msgid "Cannot execute GNOME Spell control applet\n"
+msgid ""
+"Cannot execute GNOME Spell control applet\n"
 "Try to install GNOME Spell if you don't have it installed."
-msgstr "Nevaru izpildīt GNOME Pareizrakstibas konroles sīkprogrammu\n"
+msgstr ""
+"Nevaru izpildīt GNOME Pareizrakstibas konroles sīkprogrammu\n"
 "Mēģiniet uzinstalēt GNOME Pareizrakstību, ja jums tā nav uzinstalēta."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:1
@@ -222,7 +220,7 @@ msgid "Check spelling of the document"
 msgstr "Pārbaudīt dokumenta pareizrakstību"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
-#: components/html-editor/popup.c:417
+#: components/html-editor/popup.c:418
 msgid "Copy"
 msgstr "Kopēt"
 
@@ -243,7 +241,7 @@ msgid "Cu_t"
 msgstr "Iz_griezt"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
-#: components/html-editor/popup.c:418
+#: components/html-editor/popup.c:419
 msgid "Cut"
 msgstr "Izgriezt"
 
@@ -256,8 +254,7 @@ msgid "Cut the selection"
 msgstr "Izgriezt izvēlēto"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:73
-#: components/html-editor/search.c:74
+#: components/html-editor/search.c:73 components/html-editor/search.c:75
 #: components/html-editor/search.c:118
 msgid "Find"
 msgstr "Atrast"
@@ -319,10 +316,9 @@ msgid "Header _6"
 msgstr "Galvene _6"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
-#: components/html-editor/editor-control-factory.c:176
+#: components/html-editor/editor-control-factory.c:180
 #: components/html-editor/gtkhtml-editor-properties.glade.h:39
-#: components/html-editor/menubar.c:125
-#: components/html-editor/popup.c:206
+#: components/html-editor/menubar.c:128 components/html-editor/popup.c:205
 msgid "Image"
 msgstr "Attēls"
 
@@ -404,11 +400,9 @@ msgid "Li_ck"
 msgstr "Mē_dās"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
-#: components/html-editor/body.c:326
-#: components/html-editor/menubar.c:141
-#: components/html-editor/popup.c:103
-#: components/html-editor/popup.c:199
-#: components/html-editor/popup.c:272
+#: components/html-editor/body.c:326 components/html-editor/menubar.c:144
+#: components/html-editor/popup.c:102 components/html-editor/popup.c:198
+#: components/html-editor/popup.c:271
 msgid "Link"
 msgstr "Saite"
 
@@ -466,8 +460,7 @@ msgstr "Padarīt pašreizējo rindkopu par alfabētisku sarakstu"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: components/html-editor/paragraph.c:127
-#: components/html-editor/toolbar.c:47
+#: components/html-editor/paragraph.c:127 components/html-editor/toolbar.c:47
 msgid "Normal"
 msgstr "Normāls"
 
@@ -493,7 +486,7 @@ msgid "Other..."
 msgstr "Cits..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
-#: components/html-editor/popup.c:419
+#: components/html-editor/popup.c:420
 msgid "Paste"
 msgstr "Ievietot"
 
@@ -527,7 +520,7 @@ msgid "Red"
 msgstr "Sarkans"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
-#: components/html-editor/popup.c:414
+#: components/html-editor/popup.c:415
 msgid "Redo"
 msgstr "Pāratsaukt"
 
@@ -540,11 +533,9 @@ msgid "Redo the undone action"
 msgstr "Pāratcelt atcelto darbību"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
-#: components/html-editor/replace.c:75
-#: components/html-editor/replace.c:151
-#: components/html-editor/replace.c:152
-#: components/html-editor/replace.c:169
-#: components/html-editor/replace.c:205
+#: components/html-editor/replace.c:78 components/html-editor/replace.c:152
+#: components/html-editor/replace.c:154 components/html-editor/replace.c:171
+#: components/html-editor/replace.c:207
 msgid "Replace"
 msgstr "Aizvietot"
 
@@ -558,10 +549,9 @@ msgid "Roman Numeral List"
 msgstr "Romiešu Ciparu Saraksts"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
-#: components/html-editor/editor-control-factory.c:196
+#: components/html-editor/editor-control-factory.c:200
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
-#: components/html-editor/menubar.c:159
-#: components/html-editor/popup.c:227
+#: components/html-editor/menubar.c:162 components/html-editor/popup.c:226
 msgid "Rule"
 msgstr "Nosacījums"
 
@@ -575,8 +565,7 @@ msgstr "Izvelēties visu dokumenta saturu"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#: components/html-editor/text.c:237
-#: components/html-editor/toolbar.c:527
+#: components/html-editor/text.c:237 components/html-editor/toolbar.c:527
 msgid "Strikeout"
 msgstr "Pārsvītrot"
 
@@ -602,10 +591,8 @@ msgstr "Zemraksts"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
-#: components/html-editor/menubar.c:176
-#: components/html-editor/popup.c:234
-#: components/html-editor/popup.c:501
-#: components/html-editor/popup.c:510
+#: components/html-editor/menubar.c:179 components/html-editor/popup.c:233
+#: components/html-editor/popup.c:502 components/html-editor/popup.c:511
 msgid "Table"
 msgstr "Tabula"
 
@@ -620,7 +607,7 @@ msgstr "Teks_ta fails..."
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
 #: components/html-editor/body.c:256
 #: components/html-editor/gtkhtml-editor-properties.glade.h:74
-#: components/html-editor/menubar.c:199
+#: components/html-editor/menubar.c:202
 msgid "Template"
 msgstr "Veidne"
 
@@ -630,7 +617,7 @@ msgid "Typewriter"
 msgstr "Mašīnrakstītāja"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
-#: components/html-editor/popup.c:413
+#: components/html-editor/popup.c:414
 msgid "Undo"
 msgstr "Atsaukt"
 
@@ -839,12 +826,11 @@ msgstr "Zila Tinte"
 msgid "Rectangles"
 msgstr "Taisnstūri"
 
-#: components/html-editor/body.c:274
+#: components/html-editor/body.c:274 src/gtkhtml.c:2647
 msgid "Document Title"
 msgstr "Dokumenta Nosaukums"
 
-#: components/html-editor/body.c:278
-#: components/html-editor/body.c:281
+#: components/html-editor/body.c:278 components/html-editor/body.c:281
 #: components/html-editor/gtkhtml-editor-properties.glade.h:15
 msgid "Background Image"
 msgstr "Fona Attēls"
@@ -854,19 +840,16 @@ msgstr "Fona Attēls"
 msgid "Colors"
 msgstr "Krāsas"
 
-#: components/html-editor/body.c:313
-#: components/html-editor/cell.c:423
-#: components/html-editor/table.c:535
-#: components/html-editor/text.c:295
+#: components/html-editor/body.c:313 components/html-editor/cell.c:423
+#: components/html-editor/table.c:535 components/html-editor/text.c:295
 #: components/html-editor/toolbar.c:299
 msgid "Automatic"
 msgstr "Automātiski"
 
 #: components/html-editor/body.c:325
-#: components/html-editor/editor-control-factory.c:185
+#: components/html-editor/editor-control-factory.c:189
 #: components/html-editor/gtkhtml-editor-properties.glade.h:76
-#: components/html-editor/menubar.c:334
-#: components/html-editor/popup.c:192
+#: components/html-editor/menubar.c:337 components/html-editor/popup.c:191
 msgid "Text"
 msgstr "Teksts"
 
@@ -875,8 +858,7 @@ msgstr "Teksts"
 msgid "Background"
 msgstr "Fons"
 
-#: components/html-editor/cell.c:172
-#: components/html-editor/cell.c:174
+#: components/html-editor/cell.c:172 components/html-editor/cell.c:174
 #: components/html-editor/text.c:107
 msgid "The quick brown fox jumps over the lazy dog."
 msgstr "Glāžšķūņa rūķīši čiepj koncertflīģeļa vāku."
@@ -886,36 +868,35 @@ msgid "Other"
 msgstr "Cits"
 
 #: components/html-editor/cell.c:678
-msgid "The editted cell was removed from the document.\n"
+msgid ""
+"The editted cell was removed from the document.\n"
 "Cannot apply your changes."
-msgstr "Rediģētā šūna tika izņemta no dokumenta.\n"
+msgstr ""
+"Rediģētā šūna tika izņemta no dokumenta.\n"
 "Nevaru pielietot jūsu izmaiņas."
 
-#: components/html-editor/editor-control-factory.c:165
-#: components/html-editor/menubar.c:313
-#: components/html-editor/menubar.c:331
-#: components/html-editor/menubar.c:349
-#: components/html-editor/popup.c:184
-#: components/html-editor/popup.c:269
+#: components/html-editor/editor-control-factory.c:169
+#: components/html-editor/menubar.c:316 components/html-editor/menubar.c:334
+#: components/html-editor/menubar.c:352 components/html-editor/popup.c:183
+#: components/html-editor/popup.c:268
 msgid "Properties"
 msgstr "Rekvizīti"
 
-#: components/html-editor/editor-control-factory.c:206
-#: components/html-editor/menubar.c:352
-#: components/html-editor/popup.c:213
+#: components/html-editor/editor-control-factory.c:210
+#: components/html-editor/menubar.c:355 components/html-editor/popup.c:212
 msgid "Paragraph"
 msgstr "Rindkopa"
 
-#: components/html-editor/editor-control-factory.c:211
+#: components/html-editor/editor-control-factory.c:215
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: components/html-editor/menubar.c:316
-#: components/html-editor/popup.c:220
+#: components/html-editor/menubar.c:319 components/html-editor/popup.c:219
 msgid "Page"
 msgstr "Lapa"
 
-#: components/html-editor/editor-control-factory.c:770
-msgid "I could not initialize Bonobo"
-msgstr "Nevarēju inicializēt Bonobo"
+#: components/html-editor/editor-control-factory.c:775
+#, fuzzy
+msgid "GtkHTML Editor Control"
+msgstr "GNOME HTML Redaktora Kontrole"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:2
 msgid "************"
@@ -942,8 +923,7 @@ msgid "Apply changes to:"
 msgstr "Pielietot izmaiņas:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:16
-#: components/html-editor/text.c:234
-#: components/html-editor/toolbar.c:521
+#: components/html-editor/text.c:234 components/html-editor/toolbar.c:521
 msgid "Bold"
 msgstr "Trekni"
 
@@ -960,19 +940,17 @@ msgid "Bottom"
 msgstr "Apakša"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:20
-#: components/html-editor/popup.c:241
+#: components/html-editor/popup.c:240
 msgid "Cell"
 msgstr "Šūna"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
-#: components/html-editor/paragraph.c:162
-#: components/html-editor/toolbar.c:510
+#: components/html-editor/paragraph.c:162 components/html-editor/toolbar.c:510
 msgid "Center"
 msgstr "Centrēt"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
-#: components/html-editor/link.c:107
-#: components/html-editor/text.c:245
+#: components/html-editor/link.c:107 components/html-editor/text.c:245
 msgid "Click will follow this URL"
 msgstr "Klikšķis sekos šim URL"
 
@@ -985,7 +963,7 @@ msgid "Color:"
 msgstr "Krāsa:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#: components/html-editor/popup.c:512
+#: components/html-editor/popup.c:513
 msgid "Column"
 msgstr "Kolonna"
 
@@ -1038,8 +1016,7 @@ msgid "Horizontal:"
 msgstr "Horizontāli:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:40
-#: components/html-editor/text.c:235
-#: components/html-editor/toolbar.c:523
+#: components/html-editor/text.c:235 components/html-editor/toolbar.c:523
 msgid "Italic"
 msgstr "Ieslīpi"
 
@@ -1103,7 +1080,7 @@ msgid "Right"
 msgstr "Pa Labi"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
-#: components/html-editor/popup.c:511
+#: components/html-editor/popup.c:512
 msgid "Row"
 msgstr "Rinda"
 
@@ -1137,8 +1114,7 @@ msgid "Spacing:"
 msgstr "Atstarpe:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:113
-#: components/html-editor/text.c:221
+#: components/html-editor/paragraph.c:113 components/html-editor/text.c:221
 msgid "Style"
 msgstr "Stils"
 
@@ -1164,8 +1140,7 @@ msgid "Top"
 msgstr "Augša"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:79
-#: components/html-editor/text.c:236
-#: components/html-editor/toolbar.c:525
+#: components/html-editor/text.c:236 components/html-editor/toolbar.c:525
 msgid "Underline"
 msgstr "Pasvītrot"
 
@@ -1193,41 +1168,65 @@ msgstr "xxxxxxxxx"
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: components/html-editor/image.c:117
-#: components/html-editor/rule.c:92
+#: components/html-editor/image.c:117 components/html-editor/rule.c:92
 #: components/html-editor/table.c:191
 msgid "Plain"
 msgstr "Līdzens"
 
 #: components/html-editor/image.c:119
-msgid "@link_begin@<img@alt@@width@@height@@align@ border=@border@@padh@@padv@@src@>@link_end@"
-msgstr "@link_begin@<img@alt@@width@@height@@align@ border=@border@@padh@@padv@@src@>@link_end@"
+msgid ""
+"@link_begin@<img@alt@@width@@height@@align@ "
+"border=@border@@padh@@padv@@src@>@link_end@"
+msgstr ""
+"@link_begin@<img@alt@@width@@height@@align@ "
+"border=@border@@padh@@padv@@src@>@link_end@"
 
 #: components/html-editor/image.c:122
 msgid "Frame"
 msgstr "Rāmis"
 
 #: components/html-editor/image.c:124
-msgid "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img @src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></table></center>"
-msgstr "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img @src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></table></center>"
+msgid ""
+"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+"@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
+"table></center>"
+msgstr ""
+"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+"@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
+"table></center>"
 
 #: components/html-editor/image.c:132
 msgid "Caption"
 msgstr "Titrs"
 
 #: components/html-editor/image.c:134
-msgid "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img @src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place your comment here]</td></tr></table></td></tr></table></center>"
-msgstr "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img @src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Jūsu komentārs rakstāms šeit]</td></tr></table></td></tr></table></center>"
+msgid ""
+"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+"@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place your "
+"comment here]</td></tr></table></td></tr></table></center>"
+msgstr ""
+"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+"@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Jūsu "
+"komentārs rakstāms šeit]</td></tr></table></td></tr></table></center>"
 
-#: components/html-editor/image.c:256
-#: components/html-editor/image.c:259
+#: components/html-editor/image.c:256 components/html-editor/image.c:259
 msgid "The quick brown fox jumped over the lazy dog."
 msgstr "Mazie rūķīši nočiepa koncertflīģeļa vāku."
 
-#: components/html-editor/image.c:692
-msgid "The editted image was removed from the document.\n"
+#: components/html-editor/image.c:690
+msgid ""
+"The editted image was removed from the document.\n"
 "Cannot apply your changes."
-msgstr "Rediģētais attēls tika izņemts no dokumenta.\n"
+msgstr ""
+"Rediģētais attēls tika izņemts no dokumenta.\n"
 "Nevaru pielietot jūsu izmaiņas."
 
 #: components/html-editor/link.c:91
@@ -1235,26 +1234,25 @@ msgid "Link text"
 msgstr "Saites teksts"
 
 #: components/html-editor/link.c:180
-msgid "The editted link was removed from the document.\n"
+msgid ""
+"The editted link was removed from the document.\n"
 "Cannot apply your changes."
-msgstr "Rediģētā saite tika izņemta no dokumenta.\n"
+msgstr ""
+"Rediģētā saite tika izņemta no dokumenta.\n"
 "Nevaru pielietot jūsu izmaiņas."
 
-#: components/html-editor/menubar.c:122
-#: components/html-editor/menubar.c:138
-#: components/html-editor/menubar.c:156
-#: components/html-editor/menubar.c:173
-#: components/html-editor/menubar.c:196
-#: components/html-editor/popup.c:100
-#: components/html-editor/properties.c:128
+#: components/html-editor/menubar.c:125 components/html-editor/menubar.c:141
+#: components/html-editor/menubar.c:159 components/html-editor/menubar.c:176
+#: components/html-editor/menubar.c:199 components/html-editor/popup.c:99
+#: components/html-editor/properties.c:129
 msgid "Insert"
 msgstr "Ievietot"
 
-#: components/html-editor/menubar.c:263
+#: components/html-editor/menubar.c:266
 msgid "Insert HTML file"
 msgstr "Ievietot HTML failu"
 
-#: components/html-editor/menubar.c:263
+#: components/html-editor/menubar.c:266
 msgid "Insert text file"
 msgstr "Ievietot teksta faiu"
 
@@ -1262,38 +1260,31 @@ msgstr "Ievietot teksta faiu"
 msgid "Pre"
 msgstr "Pre"
 
-#: components/html-editor/paragraph.c:129
-#: components/html-editor/toolbar.c:53
+#: components/html-editor/paragraph.c:129 components/html-editor/toolbar.c:53
 msgid "Header 1"
 msgstr "Galvene 1"
 
-#: components/html-editor/paragraph.c:130
-#: components/html-editor/toolbar.c:54
+#: components/html-editor/paragraph.c:130 components/html-editor/toolbar.c:54
 msgid "Header 2"
 msgstr "Galvene 2"
 
-#: components/html-editor/paragraph.c:131
-#: components/html-editor/toolbar.c:55
+#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:55
 msgid "Header 3"
 msgstr "Galvene 3"
 
-#: components/html-editor/paragraph.c:132
-#: components/html-editor/toolbar.c:56
+#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:56
 msgid "Header 4"
 msgstr "Galvene 4"
 
-#: components/html-editor/paragraph.c:133
-#: components/html-editor/toolbar.c:57
+#: components/html-editor/paragraph.c:133 components/html-editor/toolbar.c:57
 msgid "Header 5"
 msgstr "Galvene 5"
 
-#: components/html-editor/paragraph.c:134
-#: components/html-editor/toolbar.c:58
+#: components/html-editor/paragraph.c:134 components/html-editor/toolbar.c:58
 msgid "Header 6"
 msgstr "Galvene 6"
 
-#: components/html-editor/paragraph.c:135
-#: components/html-editor/toolbar.c:59
+#: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:59
 msgid "Address"
 msgstr "Adrese"
 
@@ -1318,106 +1309,106 @@ msgid "Align"
 msgstr "Nolīdzināt"
 
 #: components/html-editor/paragraph.c:192
-msgid "The editted paragraph was removed from the document.\n"
+msgid ""
+"The editted paragraph was removed from the document.\n"
 "Cannot apply your changes."
-msgstr "Rediģētais paragrāfs tika izņemts no dokumenta.\n"
+msgstr ""
+"Rediģētais paragrāfs tika izņemts no dokumenta.\n"
 "Nevaru pielietot jūsu izmaiņas."
 
-#: components/html-editor/popup.c:420
+#: components/html-editor/popup.c:421
 msgid "Paste Quotation"
 msgstr "Ievietot Citātu"
 
-#: components/html-editor/popup.c:423
+#: components/html-editor/popup.c:424
 msgid "Insert link"
 msgstr "Ievietot saiti"
 
-#: components/html-editor/popup.c:431
+#: components/html-editor/popup.c:432
 msgid "Remove link"
 msgstr "Izņemt saiti"
 
-#: components/html-editor/popup.c:439
+#: components/html-editor/popup.c:440
 #, c-format
 msgid "Check '%s' spelling..."
 msgstr "Pārbaudīt '%s' pareizrakstību..."
 
-#: components/html-editor/popup.c:440
+#: components/html-editor/popup.c:441
 #, c-format
 msgid "Add '%s' to dictionary"
 msgstr "Pievienot '%s' direktorijai"
 
-#: components/html-editor/popup.c:441
+#: components/html-editor/popup.c:442
 #, c-format
 msgid "Ignore '%s'"
 msgstr "Ignorēt '%s'"
 
-#: components/html-editor/popup.c:443
-#: components/html-editor/spell.c:266
+#: components/html-editor/popup.c:444 components/html-editor/spell.c:266
 msgid "Spell checker"
 msgstr "Pareizrakstības pārbaudītājs"
 
-#: components/html-editor/popup.c:447
+#: components/html-editor/popup.c:448
 msgid "Suggest word"
 msgstr "Ieteikt vārdu"
 
-#: components/html-editor/popup.c:463
+#: components/html-editor/popup.c:464
 msgid "Text..."
 msgstr "Teksts..."
 
-#: components/html-editor/popup.c:465
-#: components/html-editor/popup.c:472
-#: components/html-editor/popup.c:484
+#: components/html-editor/popup.c:466 components/html-editor/popup.c:473
+#: components/html-editor/popup.c:485
 msgid "Paragraph..."
 msgstr "Rindkopa..."
 
-#: components/html-editor/popup.c:470
+#: components/html-editor/popup.c:471
 msgid "Link..."
 msgstr "Saite..."
 
-#: components/html-editor/popup.c:477
+#: components/html-editor/popup.c:478
 msgid "Rule..."
 msgstr "Nosacījums..."
 
-#: components/html-editor/popup.c:482
+#: components/html-editor/popup.c:483
 msgid "Image..."
 msgstr "Attēls..."
 
-#: components/html-editor/popup.c:494
+#: components/html-editor/popup.c:495
 msgid "Cell..."
 msgstr "Šūna..."
 
-#: components/html-editor/popup.c:497
+#: components/html-editor/popup.c:498
 msgid "Table..."
 msgstr "Tabula..."
 
-#: components/html-editor/popup.c:500
+#: components/html-editor/popup.c:501
 msgid "Table insert"
 msgstr "Tabulas ievietošana"
 
-#: components/html-editor/popup.c:503
+#: components/html-editor/popup.c:504
 msgid "Row above"
 msgstr "Rinda virs"
 
-#: components/html-editor/popup.c:504
+#: components/html-editor/popup.c:505
 msgid "Row below"
 msgstr "Rinda zem"
 
-#: components/html-editor/popup.c:506
+#: components/html-editor/popup.c:507
 msgid "Column before"
 msgstr "Kolonna pirms"
 
-#: components/html-editor/popup.c:507
+#: components/html-editor/popup.c:508
 msgid "Column after"
 msgstr "Kolonna pēc"
 
-#: components/html-editor/popup.c:509
+#: components/html-editor/popup.c:510
 msgid "Table delete"
 msgstr "Tabulas dzēšana"
 
-#: components/html-editor/popup.c:513
+#: components/html-editor/popup.c:514
 msgid "Cell contents"
 msgstr "Šūnas saturs"
 
-#: components/html-editor/popup.c:521
+#: components/html-editor/popup.c:522
 msgid "Page..."
 msgstr "Lapa..."
 
@@ -1425,24 +1416,23 @@ msgstr "Lapa..."
 msgid "Replace confirmation"
 msgstr "Aizvietošanas pārjautāšana"
 
-#: components/html-editor/replace.c:76
+#: components/html-editor/replace.c:75
 msgid "Replace all"
 msgstr "Aizvietot visus"
 
-#: components/html-editor/replace.c:77
+#: components/html-editor/replace.c:76
 msgid "Next"
 msgstr "Nākošais"
 
-#: components/html-editor/replace.c:158
+#: components/html-editor/replace.c:160
 msgid "search backward"
 msgstr "meklēt atpakaļ"
 
-#: components/html-editor/replace.c:159
-#: components/html-editor/search.c:79
+#: components/html-editor/replace.c:161 components/html-editor/search.c:79
 msgid "case sensitive"
 msgstr "lielo/mazo burtu jūtīgs"
 
-#: components/html-editor/replace.c:172
+#: components/html-editor/replace.c:174
 msgid "with"
 msgstr "ar"
 
@@ -1455,9 +1445,11 @@ msgid "Yellow, flowers"
 msgstr "Dzeltens, puķes"
 
 #: components/html-editor/rule.c:421
-msgid "The editted rule was removed from the document.\n"
+msgid ""
+"The editted rule was removed from the document.\n"
 "Cannot apply your changes."
-msgstr "Rediģētais nosacījums tika izņemts no dokumenta.\n"
+msgstr ""
+"Rediģētais nosacījums tika izņemts no dokumenta.\n"
 "Nevaru pielietot jūsu izmaiņas."
 
 #: components/html-editor/search.c:78
@@ -1468,10 +1460,6 @@ msgstr "atpakļ"
 msgid "Find Regular Expression"
 msgstr "Atrast Parastu Izteiksmi"
 
-#: components/html-editor/spell.c:350
-msgid "Spell Checking _Languages"
-msgstr "Pareizrakstības Pārbaudes _Valodas"
-
 #: components/html-editor/table.c:199
 msgid "Flat gray"
 msgstr "Pelēks"
@@ -1481,17 +1469,18 @@ msgid "Dark header"
 msgstr "Tumša galvene"
 
 #: components/html-editor/table.c:812
-msgid "The editted table was removed from the document.\n"
+msgid ""
+"The editted table was removed from the document.\n"
 "Cannot apply your changes."
-msgstr "Rediģētā tabula tika izņemta no dokumenta.\n"
+msgstr ""
+"Rediģētā tabula tika izņemta no dokumenta.\n"
 "Nevaru pielietot jūsu izmaiņas."
 
 #: components/html-editor/template.c:83
 msgid "Note"
 msgstr "Piezīme"
 
-#: components/html-editor/template.c:93
-#: components/html-editor/template.c:112
+#: components/html-editor/template.c:93 components/html-editor/template.c:112
 msgid "Place your text here"
 msgstr "Jūsu teksts šeit"
 
@@ -1513,9 +1502,11 @@ msgid "Color"
 msgstr "Krāsa"
 
 #: components/html-editor/text.c:333
-msgid "The editted text was removed from the document.\n"
+msgid ""
+"The editted text was removed from the document.\n"
 "Cannot apply your changes."
-msgstr "Rediģētais teksts tika izņemts no dokumenta.\n"
+msgstr ""
+"Rediģētais teksts tika izņemts no dokumenta.\n"
 "Nevaru pielietot jūsu izmaiņas."
 
 #: components/html-editor/toolbar.c:51
@@ -1570,13 +1561,77 @@ msgstr "Atbīda rindkopu vairāk"
 msgid "Sample"
 msgstr "Paraugs"
 
-#: src/gtkhtml-properties.c:44
-msgid "Sans"
-msgstr "Sans"
+#: src/gtkhtml.c:2640
+#, fuzzy
+msgid "Editable"
+msgstr "Aktivizēt"
 
-#: src/gtkhtml-properties.c:45
-msgid "Monospace"
-msgstr "Fiksēts"
+#: src/gtkhtml.c:2641
+msgid "Whether the html can be edited"
+msgstr ""
+
+#: src/gtkhtml.c:2648
+#, fuzzy
+msgid "The title of the current document"
+msgstr "Pārbaudīt dokumenta pareizrakstību"
+
+#: src/gtkhtml.c:2654
+#, fuzzy
+msgid "Document Base"
+msgstr "Dokumenta Nosaukums"
+
+#: src/gtkhtml.c:2655
+msgid "The base URL for relative references"
+msgstr ""
+
+#: src/gtkhtml.c:2661
+msgid "Target Base"
+msgstr ""
+
+#: src/gtkhtml.c:2662
+msgid "The base URL of the targe frame"
+msgstr ""
+
+#: src/gtkhtml.c:2671
+#, fuzzy
+msgid "Fixed Width Font"
+msgstr "Fiksēts platums"
+
+#: src/gtkhtml.c:2672
+msgid "The Monospace font to use for typewriter text"
+msgstr ""
+
+#: src/gtkhtml.c:2678
+msgid "New Link Color"
+msgstr ""
+
+#: src/gtkhtml.c:2679
+msgid "The color of new link elements"
+msgstr ""
+
+#: src/gtkhtml.c:2684
+msgid "Visited Link Color"
+msgstr ""
+
+#: src/gtkhtml.c:2685
+msgid "The color of visited link elements"
+msgstr ""
+
+#: src/gtkhtml.c:2690
+msgid "Active Link Color"
+msgstr ""
+
+#: src/gtkhtml.c:2691
+msgid "The color of active link elements"
+msgstr ""
+
+#: src/gtkhtml.c:2696
+msgid "Spelling Error Color"
+msgstr ""
+
+#: src/gtkhtml.c:2697
+msgid "The color of the spelling error markers"
+msgstr ""
 
 #: src/html-component.c:219
 msgid "Html"
@@ -1651,3 +1706,14 @@ msgstr "P_irmsdrukas apskate"
 msgid "Print preview"
 msgstr "Pirmsdrukas apskate"
 
+#~ msgid "I could not initialize Bonobo"
+#~ msgstr "Nevarēju inicializēt Bonobo"
+
+#~ msgid "Spell Checking _Languages"
+#~ msgstr "Pareizrakstības Pārbaudes _Valodas"
+
+#~ msgid "Sans"
+#~ msgstr "Sans"
+
+#~ msgid "Monospace"
+#~ msgstr "Fiksēts"
