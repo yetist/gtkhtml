@@ -278,7 +278,12 @@ alloc_e_font_do (HTMLPainter *painter, gchar *face, gdouble size, gboolean point
 	if (!font)
 		font = try_font_possible_names (painter, face, size, points, style, TRUE);
 
-	return font ? html_font_new (font, e_font_utf8_text_width (font, e_style (style), " ", 1)) : NULL;
+	return font ? html_font_new (font,
+				     e_font_utf8_text_width (font, e_style (style), " ", 1),
+				     e_font_utf8_text_width (font, e_style (style), "\xc2\xa0", 2),
+				     e_font_utf8_text_width (font, e_style (style), "\t", 1))
+
+		: NULL;
 }
 
 static HTMLFont *
@@ -1026,7 +1031,7 @@ draw_text (HTMLPainter *painter,
 	e_font = html_painter_get_font (painter,
 					painter->font_face,
 					painter->font_style);
- 
+
 	e_font_draw_utf8_text (gdk_painter->pixmap, 
 			       e_font, 
 			       e_style (painter->font_style), 
@@ -1133,6 +1138,18 @@ calc_text_width (HTMLPainter *painter,
 }
 
 static guint
+calc_text_width_bytes (HTMLPainter *painter, const gchar *text,
+		       guint bytes_len, HTMLFont *font, GtkHTMLFontStyle style)
+{
+	if (style & GTK_HTML_FONT_STYLE_FIXED) {
+		return g_utf8_pointer_to_offset (text, text + bytes_len) * font->space_width;
+	} else {
+		return e_font_utf8_text_width (font->data, e_style (style),
+					       text, bytes_len);
+	}
+}
+
+static guint
 get_pixel_size (HTMLPainter *painter)
 {
 	return 1;
@@ -1202,6 +1219,7 @@ class_init (GtkObjectClass *object_class)
 	painter_class->calc_ascent = calc_ascent;
 	painter_class->calc_descent = calc_descent;
 	painter_class->calc_text_width = calc_text_width;
+	painter_class->calc_text_width_bytes = calc_text_width_bytes;
 	painter_class->set_pen = set_pen;
 	painter_class->get_black = get_black;
 	painter_class->draw_line = draw_line;

@@ -495,7 +495,8 @@ get_words (const gchar *s)
 static void
 calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 {
-	GtkHTMLFontStyle font_style;
+	GtkHTMLFontStyle style;
+	HTMLFont *font;
 	gchar *begin, *end;
 	gint i;
 
@@ -503,16 +504,16 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 	if (text->word_width)
 		g_free (text->word_width);
 	text->word_width = g_new (guint, text->words);
-	font_style       = html_text_get_font_style (text);
+	style = html_text_get_font_style (text);
+	font = html_font_manager_get_font (&painter->font_manager, text->face, style);
 
 	begin            = text->text;
 	for (i = 0; i < text->words; i++) {
 		end   = strchr (begin + (i ? 1 : 0), ' ');
 		text->word_width [i] = (i ? text->word_width [i - 1] : 0)
-			+ html_painter_calc_text_width (painter,
-							begin, end ? g_utf8_pointer_to_offset (begin, end)
-							: g_utf8_strlen (begin, -1),
-							&line_offset, font_style, text->face);
+			+ html_painter_calc_text_width_bytes (painter,
+							      begin, end ? end - begin : strlen (begin),
+							      &line_offset, font, style);
 		begin = end;
 	}
 

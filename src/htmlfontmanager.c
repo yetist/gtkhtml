@@ -381,13 +381,15 @@ html_font_manager_get_font (HTMLFontManager *manager, gchar *face_list, GtkHTMLF
 }
 
 HTMLFont *
-html_font_new (gpointer data, guint space_width)
+html_font_new (gpointer data, guint space_width, guint nbsp_width, guint tab_width)
 {
 	HTMLFont *font = g_new (HTMLFont, 1);
 
-	font->data        = data;
+	font->data = data;
 	font->space_width = space_width;
-	font->ref_count   = 1;
+	font->nbsp_width = nbsp_width;
+	font->tab_width = tab_width;
+	font->ref_count = 1;
 
 	return font;
 }

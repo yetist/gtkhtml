@@ -1,3 +1,24 @@
+2002-03-11  Radek Doulik  <rodo@ximian.com>
+
+	* htmlprinter.c (calc_text_width): use correct len (in bytes) for
+	gnome print function
+
+	* htmlpainter.c (html_painter_calc_text_width_bytes): new method
+	(correct_width): new optimized helper function, replaces old
+	rewritting functions used in non-bytes version
+
+	* htmltext.c (calc_word_width): use bytes version
+
+	* htmlprinter.c (calc_text_width_bytes): new implementation
+
+	* htmlgdkpainter.c (calc_text_width_bytes): new implementation
+
+	* htmlpainter.c (html_painter_calc_text_width_bytes): new function
+	which uses byte len instead of uc-char len (index)
+
+	* htmlfontmanager.c (html_font_new): added nbsp and space width to
+	the font structure
+
 2002-03-07  Larry Ewing  <lewing@ximian.com>
 
 	* htmltextslave.c (html_text_slave_get_text): cache this result.

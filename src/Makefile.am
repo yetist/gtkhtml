@@ -208,6 +208,7 @@ testgtkhtml_SOURCES = 		\
 	htmlurl.c
 
 testgtkhtml_CFLAGS = $(GLIBWWW_CFLAGS)
+testgtkhtml_LDFLAGS = -static
 testgtkhtml_LDADD =				\
 	libgtkhtml.la				\
 	$(GNOMEUI_LIBS)				\
