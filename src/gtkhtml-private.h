@@ -24,11 +24,11 @@
 
 #include <libgnomeprint/gnome-print.h>
 #include <libgnomeprint/gnome-print-job.h>
+#include <gtk/gtkimcontext.h>
 #include <gtk/gtkwidget.h>
 #include "gtkhtml-types.h"
 #include "htmltypes.h"
 
-
 struct _GtkHTMLPrivate {
 	guint idle_handler_id;
 	guint scroll_timeout_id;
@@ -53,10 +53,8 @@ struct _GtkHTMLPrivate {
 	guint notify_id;
 	guint notify_spell_id;
 
-#ifdef GTK_HTML_USE_XIM
-	GdkICAttr *ic_attr;
-	GdkIC *ic;
-#endif
+	GtkIMContext *im_context;
+	gboolean need_im_reset;
 
 	HTMLObject *dnd_object;
 	HTMLObject *dnd_real_object;

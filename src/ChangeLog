@@ -1,3 +1,16 @@
+2003-03-18  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (realize): call gtk_im_context_set_client_window
+	(unrealize): ditto
+	(gtk_html_init): connect new im callbacks
+
+	* Makefile.am: removed gtkhtml-im.[ch]
+
+	* gtkhtml.c (key_press_event): use im context
+	(key_release_event): handle this event
+	(focus_in_event): use im context
+	(focus_out_event): ditto
+
 2003-03-17  Radek Doulik  <rodo@ximian.com>
 
 	* htmlclueflow.c (html_clueflow_get_line_offset): pass line_offset

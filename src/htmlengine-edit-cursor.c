@@ -21,7 +21,6 @@
 
 #include <config.h>
 #include <gtk/gtkmain.h>
-#include "gtkhtml-im.h"
 #include "htmlcursor.h"
 #include "htmlengine.h"
 #include "htmlengine-edit-cursor.h"

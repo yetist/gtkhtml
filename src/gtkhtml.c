@@ -64,7 +64,6 @@
 
 #include "gtkhtml.h"
 #include "gtkhtml-embedded.h"
-#include "gtkhtml-im.h"
 #include "gtkhtml-keybinding.h"
 #include "gtkhtml-search.h"
 #include "gtkhtml-stream.h"
@@ -731,8 +730,7 @@ static gint set_fonts_idle (GtkHTML *html);
 
 /* GtkWidget methods.  */
 static void
-style_set (GtkWidget *widget,
-	   GtkStyle  *previous_style)
+style_set (GtkWidget *widget, GtkStyle  *previous_style)
 {
 	HTMLEngine *engine = GTK_HTML (widget)->engine;
        	GtkHTMLClass *klass = GTK_HTML_CLASS (GTK_WIDGET_GET_CLASS (widget));
@@ -753,16 +751,10 @@ style_set (GtkWidget *widget,
 	html_colorset_set_unchanged (engine->settings->color_set,
 				     engine->defaultSettings->color_set);
 	html_engine_schedule_update (engine);
-
-#ifdef GTK_HTML_USE_XIM
-	if (previous_style)
-		gtk_html_im_style_set (GTK_HTML (widget));
-#endif
 }
 
 static gint
-key_press_event (GtkWidget *widget,
-		 GdkEventKey *event)
+key_press_event (GtkWidget *widget, GdkEventKey *event)
 {
 	GtkHTML *html = GTK_HTML (widget);
 	gboolean retval, update = TRUE;
@@ -779,36 +771,21 @@ key_press_event (GtkWidget *widget,
 	retval = html->binding_handled;
 	update = html->priv->update_styles;
 
-	if (! retval
-	    && html_engine_get_editable (html->engine)
-	    && ! (event->state & (GDK_CONTROL_MASK | GDK_MOD1_MASK))) {
-
-		/*
-		printf ("event length: %d s[0]: %d string: '%s'\n", 
-			event->length, event->string [0], event->string); 
-		*/
-
-		/* printf ("len: %d str: %s\n", str ? g_utf8_strlen (str, -1) : -1, str); */
-		if (event->string && event->length) {
-			html_engine_paste_text (html->engine, event->string, event->length);
+	if (html_engine_get_editable (html->engine)) {
+		if (gtk_im_context_filter_keypress (html->priv->im_context, event)) {
+			html_engine_reset_blinking_cursor (html->engine);
+			/* entry->need_im_reset = TRUE; */
 			retval = TRUE;
+			update = FALSE;
 		}
-		update = FALSE;
 	}
-
-	if (retval && html_engine_get_editable (html->engine))
-		html_engine_reset_blinking_cursor (html->engine);
 
 	if (retval && update)
 		gtk_html_update_styles (html);
 
 	html->priv->event_time = 0;
 	
-	/*
-	printf ("editable: %d keyval %d len: %d\n string: %s", 
-		html_engine_get_editable (html->engine), 
-		event->keyval, event->length, event->string);
-	*/
+	/* FIXME: use bindings */
 	if (!html_engine_get_editable (html->engine)) {
 		switch (event->keyval) {
 		case GDK_Return:
@@ -831,6 +808,21 @@ key_press_event (GtkWidget *widget,
 	/* printf ("retval: %d\n", retval); */
 
 	return retval;
+}
+
+static gint
+key_release_event (GtkWidget *widget, GdkEventKey *event)
+{
+	GtkHTML *html = GTK_HTML (widget);
+
+	if (html_engine_get_editable (html->engine)) {
+		if (gtk_im_context_filter_keypress (html->priv->im_context, event)) {
+			html->priv->need_im_reset = TRUE;
+			return TRUE;
+		}
+	}
+  
+	return GTK_WIDGET_CLASS (parent_class)->key_release_event (widget, event);
 }
 
 static void
@@ -882,25 +874,22 @@ realize (GtkWidget *widget)
 		g_object_ref (layout->vadjustment);
 		gtk_object_sink (GTK_OBJECT (layout->vadjustment));	
 	}
-		
-#ifdef GTK_HTML_USE_XIM
-	gtk_html_im_realize (html);
-#endif /* GTK_HTML_USE_XIM */
 
 	gtk_drag_dest_set (widget, GTK_DEST_DEFAULT_ALL,
 			   dnd_link_sources, DND_LINK_SOURCES, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
+
+	gtk_im_context_set_client_window (html->priv->im_context, widget->window);
 }
 
 static void
 unrealize (GtkWidget *widget)
 {
 	GtkHTML *html = GTK_HTML (widget);
-	
+
 	html_engine_unrealize (html->engine);
 
-#ifdef GTK_HTML_USE_XIM	
-	gtk_html_im_unrealize (html);
-#endif
+	gtk_im_context_set_client_window (html->priv->im_context, widget->window);
+
 	if (GTK_WIDGET_CLASS (parent_class)->unrealize)
 		(* GTK_WIDGET_CLASS (parent_class)->unrealize) (widget);
 }
@@ -977,11 +966,6 @@ size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 		gtk_adjustment_value_changed (GTK_LAYOUT (html)->hadjustment);
 	if (changed_y)
 		gtk_adjustment_value_changed (GTK_LAYOUT (html)->vadjustment);
-
-#ifdef GTK_HTML_USE_XIM
-	gtk_html_im_size_allocate (html);
-#endif
-
 }
 
 static void
@@ -1564,9 +1548,8 @@ focus_in_event (GtkWidget *widget,
 			gtk_window_set_focus (GTK_WINDOW (window), html->iframe_parent);
 	}
 
-#ifdef GTK_HTML_USE_XIM
-	gtk_html_im_focus_in (html);
-#endif
+	html->priv->need_im_reset = TRUE;
+	gtk_im_context_focus_in (html->priv->im_context);
 
 	return FALSE;
 }
@@ -1585,9 +1568,8 @@ focus_out_event (GtkWidget *widget,
 		html_engine_set_focus (html->engine, FALSE);
 	}
 
-#ifdef GTK_HTML_USE_XIM
-	gtk_html_im_focus_out (html);
-#endif
+	html->priv->need_im_reset = TRUE;
+	gtk_im_context_focus_out (html->priv->im_context);
 
 	return FALSE;
 }
@@ -2703,6 +2685,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	widget_class->style_set = style_set;
 	/* RM2 widget_class->draw = draw; */
 	widget_class->key_press_event = key_press_event;
+	widget_class->key_release_event = key_release_event;
 	widget_class->expose_event  = expose;
 	widget_class->size_allocate = size_allocate;
 	widget_class->motion_notify_event = motion_notify_event;
@@ -2769,6 +2752,83 @@ init_properties_widget (GtkHTML *html)
 }
 
 static void
+gtk_html_im_commit_cb (GtkIMContext *context, const gchar *str, GtkHTML *html)
+{
+	html_engine_paste_text (html->engine, str, -1);
+	html->priv->need_im_reset = TRUE;
+}
+
+static void
+gtk_html_im_preedit_changed_cb (GtkIMContext *context, GtkHTML *html)
+{
+	g_warning ("implement me");
+}
+
+static gchar *
+get_surrounding_text (HTMLEngine *e, gint *offset)
+{
+	HTMLObject *o = e->cursor->object;
+	HTMLObject *prev;
+	gchar *text = NULL;
+
+	if (!html_object_is_text (o)) {
+		if (e->cursor->offset == 0) {
+			prev = html_object_prev_not_slave (o);
+			if (html_object_is_text (prev)) {
+				o = prev;
+			} else
+				return NULL;
+		} else if (e->cursor->offset == html_object_get_length (e->cursor->object)) {
+			HTMLObject *next;
+
+			next = html_object_next_not_slave (o);
+			if (html_object_is_text (next)) {
+				o = next;
+			} else
+				return NULL;
+		}
+		*offset = 0;
+	} else
+		*offset = e->cursor->offset;
+
+	while ((prev = html_object_prev_not_slave (o)) && html_object_is_text (prev)) {
+		o = prev;
+		*offset += HTML_TEXT (o)->text_len;
+	}
+
+	while (o) {
+		if (html_object_is_text (o))
+			text = g_strconcat (text, HTML_TEXT (o)->text, NULL);
+		o = html_object_next_not_slave (o);
+	}
+
+	return text;
+}
+
+static gboolean
+gtk_html_im_retrieve_surrounding_cb (GtkIMContext *context, GtkHTML *html)
+{
+	gint offset;
+
+	printf ("gtk_html_im_retrieve_surrounding_cb\n");
+	gtk_im_context_set_surrounding (context, get_surrounding_text (html->engine, &offset), -1, offset);
+
+	return TRUE;
+}
+
+static gboolean
+gtk_html_im_delete_surrounding_cb (GtkIMContext *slave, gint offset, gint n_chars, GtkHTML *html)
+{
+	if (html_engine_get_editable (html->engine) && !html_engine_is_selection_active (html->engine)) {
+		html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine, html->engine->cursor->position + offset);
+		html_engine_set_mark (html->engine);
+		html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine, html->engine->cursor->position + offset + n_chars);
+		html_engine_delete (html->engine);
+	}
+	return TRUE;
+}
+
+static void
 gtk_html_init (GtkHTML* html)
 {
 	static const GtkTargetEntry targets[] = {
@@ -2814,17 +2874,25 @@ gtk_html_init (GtkHTML* html)
 	html->priv->set_font_id = 0;
 	html->priv->notify_id = 0;
 
-#ifdef GTK_HTML_USE_XIM
-	html->priv->ic_attr = NULL;
-	html->priv->ic = NULL;
-#endif
-
 	gtk_selection_add_targets (GTK_WIDGET (html),
 				   GDK_SELECTION_PRIMARY,
 				   targets, n_targets);
 	gtk_selection_add_targets (GTK_WIDGET (html),
 				   gdk_atom_intern ("CLIPBOARD", FALSE),
 				   targets, n_targets);
+
+	/* IM Context */
+	html->priv->im_context = gtk_im_multicontext_new ();
+	html->priv->need_im_reset = FALSE;
+  
+	g_signal_connect (G_OBJECT (html->priv->im_context), "commit",
+			  G_CALLBACK (gtk_html_im_commit_cb), html);
+	g_signal_connect (G_OBJECT (html->priv->im_context), "preedit_changed",
+			  G_CALLBACK (gtk_html_im_preedit_changed_cb), html);
+	g_signal_connect (G_OBJECT (html->priv->im_context), "retrieve_surrounding",
+			  G_CALLBACK (gtk_html_im_retrieve_surrounding_cb), html);
+	g_signal_connect (G_OBJECT (html->priv->im_context), "delete_surrounding",
+			  G_CALLBACK (gtk_html_im_delete_surrounding_cb), html);
 }
 
 GType

@@ -17,7 +17,6 @@ libgtkhtml_HEADERS =				\
 	gtkhtml-compat.h			\
 	gtkhtml-embedded.h			\
 	gtkhtml-enums.h				\
-	gtkhtml-im.h				\
 	gtkhtml-private.h			\
 	gtkhtml-properties.h			\
 	gtkhtml-search.h			\
@@ -105,7 +104,6 @@ libgtkhtml_HEADERS =				\
 
 libgtkhtml_3_0_la_SOURCES =			\
 	gtkhtml-embedded.c			\
-	gtkhtml-im.c				\
 	gtkhtml-properties.c			\
 	gtkhtml-search.c			\
 	gtkhtml-stream.c			\
