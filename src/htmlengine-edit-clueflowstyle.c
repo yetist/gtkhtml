@@ -128,6 +128,7 @@ get_props_and_set (HTMLEngine *engine,
 		}
 		html_clueflow_set_style (clueflow, engine, style);
 		html_clueflow_set_item_type (clueflow, engine, item_type);
+		html_object_change_set_down (HTML_OBJECT (clueflow), HTML_CHANGE_ALL);
 	}
 	if (mask & HTML_ENGINE_SET_CLUEFLOW_ALIGNMENT)
 		html_clueflow_set_halignment (clueflow, engine, alignment);

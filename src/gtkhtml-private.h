@@ -58,6 +58,7 @@ struct _GtkHTMLPrivate {
 #ifdef GTKHTML_HAVE_GCONF
 	guint set_font_id;
 	guint notify_id;
+	guint notify_spell_id;
 #endif
 #ifdef GTK_HTML_USE_XIM
 	GdkICAttr *ic_attr;

@@ -1,3 +1,22 @@
+2002-01-08  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit-cut-and-paste.c (html_engine_edit_set_link):
+	renamed from html_engine_set_link
+
+	* htmlengine-edit-clueflowstyle.c (get_props_and_set): set changes
+	to recalculate word widths and layout properly
+
+	* gtkhtml-properties.c: don't save spell properties, load spell
+	properties
+
+2002-01-04  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml-private.h: add notify_spell_id
+
+	* gtkhtml.c (client_notify_spell_widget): new function
+	(init_properties_widget): watch gnome spell configuration, use
+	client_notify_spell_widget
+
 2001-12-21  Larry Ewing  <lewing@ximian.com>
 
 	* Makefile.am (libgtkhtml_la_LDFLAGS): add GTKHTML_RELEASE to the

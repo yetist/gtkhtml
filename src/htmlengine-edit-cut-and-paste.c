@@ -960,7 +960,7 @@ html_engine_set_insertion_link (HTMLEngine *e, const gchar *url, const gchar *ta
 }
 
 void
-html_engine_insert_link (HTMLEngine *e, const gchar *url, const gchar *target)
+html_engine_edit_set_link (HTMLEngine *e, const gchar *url, const gchar *target)
 {
 	if (html_engine_is_selection_active (e)) {
 		HTMLEngineLinkInsertData data;

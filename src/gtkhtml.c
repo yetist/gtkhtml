@@ -66,7 +66,8 @@
 #include "math.h"
 #include <libgnome/gnome-util.h>
 
-
+#define GNOME_SPELL_GCONF_DIR "/GNOME/Spell"
+
 static GtkLayoutClass *parent_class = NULL;
 
 #ifdef GTKHTML_HAVE_GCONF
@@ -638,6 +639,8 @@ destroy (GtkObject *object)
 
 	if (html->priv->notify_id)
 		gconf_client_notify_remove (gconf_client, html->priv->notify_id);
+	if (html->priv->notify_spell_id)
+		gconf_client_notify_remove (gconf_client, html->priv->notify_spell_id);
 #endif
 
 	g_free (html->priv->content_type);
@@ -1601,7 +1604,8 @@ client_notify_widget (GConfClient* client,
 	GtkHTMLClassProperties *prop = klass->properties;	
 	gchar *tkey;
 
-	/* printf ("notify widget\n"); */
+	printf ("notify (gtkhtml) widget %s\n", entry->key);
+
 	g_assert (client == gconf_client);
 	g_assert (entry->key);
 	tkey = strrchr (entry->key, '/');
@@ -1625,7 +1629,26 @@ client_notify_widget (GConfClient* client,
 	} else if (!strcmp (tkey, "/font_fixed_size")) {
 		prop->font_fix_size = gconf_client_get_int (client, entry->key, NULL);
 		set_fonts (html);
-	} else if (!strcmp (tkey, "/spell_error_color_red")) {
+	} else if (!strcmp (tkey, "/live_spell_check")) {
+		prop->live_spell_check = gconf_client_get_bool (client, entry->key, NULL);
+	}
+}
+
+static void
+client_notify_spell_widget (GConfClient* client, guint cnxn_id, GConfEntry* entry, gpointer user_data)
+{
+	GtkHTML *html = (GtkHTML *) user_data;
+	GtkHTMLClass *klass = GTK_HTML_CLASS (GTK_OBJECT (html)->klass);
+	GtkHTMLClassProperties *prop = klass->properties;	
+	gchar *tkey;
+
+	printf ("notify (spell) widget %s\n", entry->key);
+	g_assert (client == gconf_client);
+	g_assert (entry->key);
+	tkey = strrchr (entry->key, '/');
+	g_assert (tkey);
+
+	if (!strcmp (tkey, "/spell_error_color_red")) {
 		prop->spell_error_color.red = gconf_client_get_int (client, entry->key, NULL);
 	} else if (!strcmp (tkey, "/spell_error_color_green")) {
 		prop->spell_error_color.green = gconf_client_get_int (client, entry->key, NULL);
@@ -1637,8 +1660,6 @@ client_notify_widget (GConfClient* client,
 					 &prop->spell_error_color, HTMLSpellErrorColor);
 		if (html_engine_get_editable (html->engine) && !strcmp (tkey, "/spell_error_color_blue"))
 			gtk_widget_queue_draw (GTK_WIDGET (html));
-	} else if (!strcmp (tkey, "/live_spell_check")) {
-		prop->live_spell_check = gconf_client_get_bool (client, entry->key, NULL);
 	} else if (!strcmp (tkey, "/language")) {
 		g_free (prop->language);
 		prop->language = g_strdup (gconf_client_get_string (client, entry->key, NULL));
@@ -1692,6 +1713,9 @@ init_properties (GtkHTMLClass *klass)
 	if (!gconf_client)
 		g_error ("cannot create gconf_client\n");
 	gconf_client_add_dir (gconf_client, GTK_HTML_GCONF_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, &gconf_error);
+	if (gconf_error)
+		g_error ("gconf error: %s\n", gconf_error->message);
+	gconf_client_add_dir (gconf_client, GNOME_SPELL_GCONF_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, &gconf_error);
 	if (gconf_error)
 		g_error ("gconf error: %s\n", gconf_error->message);
 	gtk_html_class_properties_load (klass->properties, gconf_client);
@@ -2013,6 +2037,13 @@ init_properties_widget (GtkHTML *html)
 	if (gconf_error) {
 		g_warning ("gconf error: %s\n", gconf_error->message);
 		html->priv->notify_id = 0;
+	}
+
+	html->priv->notify_spell_id = gconf_client_notify_add (gconf_client, GNOME_SPELL_GCONF_DIR,
+							       client_notify_spell_widget, html, NULL, &gconf_error);
+	if (gconf_error) {
+		g_warning ("gconf error: %s\n", gconf_error->message);
+		html->priv->notify_spell_id = 0;
 	}
 #endif
 }
