@@ -1876,6 +1876,15 @@ client_notify_widget (GConfClient* client,
 		set_fonts (html);
 	} else if (!strcmp (tkey, "/live_spell_check")) {
 		prop->live_spell_check = gconf_client_get_bool (client, entry->key, NULL);
+	} else if (!strcmp (tkey, "/keybindings_theme")) {
+		gchar *theme = gconf_client_get_string (client, entry->key, NULL);
+		if (strcmp (theme, prop->keybindings_theme)) {
+			g_free (prop->keybindings_theme);
+			prop->keybindings_theme = theme;
+			load_keybindings (klass);
+		} else
+			g_free (theme);
+		set_editor_keybindings (html, html_engine_get_editable (html->engine));
 	}
 }
 
@@ -1930,10 +1939,6 @@ client_notify_class (GConfClient* client,
 
 	if (!strcmp (tkey, "/magic_links")) {
 		prop->magic_links = gconf_client_get_bool (client, entry->key, NULL);
-	} else if (!strcmp (tkey, "/keybindings_theme")) {
-		g_free (prop->keybindings_theme);
-		prop->keybindings_theme = gconf_client_get_string (client, entry->key, NULL);
-		load_keybindings (klass);
 	}
 }
 
