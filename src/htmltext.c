@@ -3267,7 +3267,7 @@ html_text_change_attrs (PangoAttrList *attr_list, GtkHTMLFontStyle style, HTMLEn
 void
 html_text_set_style_in_range (HTMLText *text, GtkHTMLFontStyle style, HTMLEngine *e, gint start_index, gint end_index)
 {
-	html_text_change_attrs (text->attr_list, style, e, start_index, end_index, FALSE);
+	html_text_change_attrs (text->attr_list, style, e, start_index, end_index, TRUE);
 }
 
 void

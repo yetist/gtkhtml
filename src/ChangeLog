@@ -1,3 +1,10 @@
+2004-08-03  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (html_text_set_style_in_range): avoid setting default
+	font size
+
+	Fixes #62086
+
 2004-07-28  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c: ref embedded widget when pushing it to the
