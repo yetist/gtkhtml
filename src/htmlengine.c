@@ -6385,3 +6385,21 @@ html_engine_opened_streams_set (HTMLEngine *e, int value)
 		html_engine_schedule_update (e);
 	}
 }
+
+static void
+calc_font_size (HTMLObject *o, HTMLEngine *e, gpointer data)
+{
+	if (HTML_IS_TEXT (o))
+		html_text_calc_font_size (HTML_TEXT (o), e);
+}
+
+void
+html_engine_refresh_fonts (HTMLEngine *e)
+{
+	if (e->clue) {
+		html_object_forall (e->clue, e, calc_font_size, NULL);
+		html_object_change_set_down (e->clue, HTML_CHANGE_ALL);
+		html_engine_calc_size (e, FALSE);
+		html_engine_schedule_update (e);
+	}
+}

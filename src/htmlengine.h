@@ -489,4 +489,6 @@ void html_engine_opened_streams_increment (HTMLEngine *e);
 void html_engine_opened_streams_decrement (HTMLEngine *e);
 void html_engine_opened_streams_set (HTMLEngine *e, int value);
 
+void html_engine_refresh_fonts (HTMLEngine *e);
+
 #endif /* _HTMLENGINE_H_ */

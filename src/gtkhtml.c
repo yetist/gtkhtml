@@ -840,12 +840,7 @@ style_set (GtkWidget *widget, GtkStyle  *previous_style)
 	*/
 	if (engine) {
 		gtk_html_set_fonts (GTK_HTML (widget), engine->painter);
-		if (engine->clue) {
-			html_object_reset (engine->clue);
-			html_object_change_set_down (engine->clue, HTML_CHANGE_ALL);
-			html_engine_calc_size (engine, FALSE);
-			html_engine_schedule_update (engine);
-		}
+		html_engine_refresh_fonts (engine);
 	}
 
 
@@ -2492,24 +2487,12 @@ client_notify_key_theme (GConfClient* client, guint cnxn_id, GConfEntry* entry, 
 }
 
 static void
-calc_font_size (HTMLObject *o, HTMLEngine *e, gpointer data)
-{
-	if (HTML_IS_TEXT (o))
-		html_text_calc_font_size (HTML_TEXT (o), e);
-}
-
-static void
 client_notify_monospace_font (GConfClient* client, guint cnxn_id, GConfEntry* entry, gpointer data)
 {
 	GtkHTML *html = (GtkHTML *) data;
 	HTMLEngine *e = html->engine;
 	gtk_html_set_fonts (html, e->painter);
-	if (e->clue) {
-		html_object_forall (e->clue, html->engine, calc_font_size, NULL);
-		html_object_change_set_down (e->clue, HTML_CHANGE_ALL);
-		html_engine_calc_size (e, FALSE);
-		html_engine_schedule_update (e);
-	}
+	html_engine_refresh_fonts (e);
 }
 
 static void
