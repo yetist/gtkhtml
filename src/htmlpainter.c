@@ -367,3 +367,12 @@ html_painter_set_clip_rectangle (HTMLPainter *painter, gint x, gint y, gint widt
 	
 	gdk_gc_set_clip_rectangle (painter->gc, (width && height) ? &rect : NULL);
 }
+
+/* This will draw a cursor for the specified position, with the specified
+   ascent/descent.  */
+void
+html_painter_draw_cursor (HTMLPainter *painter, gint x, gint y, gint ascent, gint descent)
+{
+	html_painter_set_pen (painter, &painter->black);
+	html_painter_draw_line (painter, x, y - ascent, x, y + descent);
+}

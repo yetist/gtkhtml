@@ -40,6 +40,22 @@ draw (HTMLObject *o, HTMLPainter *p,
 	html_painter_draw_text (p, o->x + tx, o->y + ty, htmltext->text, -1);
 }
 
+static void
+draw_cursor (HTMLObject *object, HTMLPainter *p, gint x, gint y,
+	     gint width, gint height, gint tx, gint ty, gint offset)
+{
+	HTMLText *text;
+	gint x_offset;
+
+	text = HTML_TEXT (object);
+	x_offset = gdk_text_width (text->font->gdk_font, text->text, offset);
+
+	html_painter_draw_cursor (p, object->x + tx + x_offset,
+				  object->y + ty,
+				  object->ascent,
+				  object->descent);
+}
+
 
 void
 html_text_type_init (void)
@@ -60,6 +76,7 @@ html_text_class_init (HTMLTextClass *klass,
 	/* FIXME destroy */
 
 	object_class->draw = draw;
+	object_class->draw_cursor = draw_cursor;
 }
 
 void

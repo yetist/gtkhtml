@@ -2456,18 +2456,7 @@ draw_cursor (HTMLEngine *e,
 	if (o == NULL)
 		return;
 
-	if (y + height < o->y - o->ascent
-	    || y > o->y + o->descent
-	    || x + width < o->x
-	    || x > o->x)
-		return;
-
-	html_painter_set_pen (e->painter, &e->painter->black);
-	html_painter_draw_line (e->painter,
-				o->x + tx,
-				o->y + ty - o->ascent,
-				o->x + tx,
-				o->y + ty + o->descent);
+	html_object_draw_cursor (o, e->painter, x, y, width, height, tx, ty, cursor->offset);
 }
 
 void
@@ -2619,6 +2608,8 @@ html_engine_end (GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, HTMLEng
 	html_tokenizer_end (e->ht);
 	gtk_signal_emit (GTK_OBJECT (e), signals[LOAD_DONE]);
 	html_image_factory_cleanup (e->image_factory);
+
+	html_cursor_home (e->cursor, e);
 }
 
 void
@@ -2735,7 +2726,7 @@ html_engine_parse (HTMLEngine *p)
 	HTML_CLUE (p->clue)->halign = HTML_HALIGN_LEFT;
 
 	p->cursor->object = p->clue;
-	
+
 	/* Initialize the font stack with the default font */
 	p->italic = FALSE;
 	p->underline = FALSE;
@@ -3154,3 +3145,4 @@ html_engine_show_cursor (HTMLEngine *e, gboolean show)
 {
 	e->show_cursor = show;
 }
+

@@ -75,6 +75,7 @@ static HTStream *netin_stream_new (GtkHTMLStreamHandle handle, HTRequest *reques
 
 GtkWidget *area, *box, *button;
 GtkHTML *html;
+GtkHTMLStreamHandle html_stream_handle = NULL;
 GtkWidget *animator, *entry;
 GtkWidget *popup_menu, *popup_menu_back, *popup_menu_forward, *popup_menu_home;
 GtkWidget *toolbar_back, *toolbar_forward;
@@ -385,6 +386,10 @@ reload_cb (GtkWidget *widget, gpointer data)
 static void
 stop_cb (GtkWidget *widget, gpointer data)
 {
+	if (html_stream_handle != NULL) {
+		gtk_html_end (html, html_stream_handle, GTK_HTML_STREAM_OK);
+		html_stream_handle = NULL;
+	}	
 }
 
 static void
@@ -528,6 +533,7 @@ netin_stream_put_string (HTStream * me, const char * s)
 static int
 netin_stream_write (HTStream * me, const char * s, int l)
 {
+	printf ("*** %s (%d)\n",__FUNCTION__, l);
 	gtk_html_write(html, me->handle, s, l);
 
 	return HT_OK;
@@ -728,7 +734,7 @@ goto_url(const char *url, int back_or_forward)
 	GSList *group = NULL;
 
 	gnome_animator_start (GNOME_ANIMATOR (animator));
-	gtk_html_begin (html, url);
+	html_stream_handle = gtk_html_begin (html, url);
 	gtk_html_parse (html);
 	gtk_entry_set_text (GTK_ENTRY (entry), url);
 

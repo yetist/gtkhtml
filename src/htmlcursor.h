@@ -24,18 +24,27 @@
 #define HTMLCURSOR_H
 
 #include <glib.h>
-#include "htmlobject.h"
 
+/* This is for HTMLEngine */
+typedef struct _HTMLCursor HTMLCursor;
+
+#include "htmlobject.h"
+#include "htmlengine.h"
+
+
 struct _HTMLCursor {
 	HTMLObject *object;
 	guint offset;
 };
-typedef struct _HTMLCursor HTMLCursor;
 
 
 HTMLCursor *html_cursor_new (void);
 void html_cursor_set_position (HTMLCursor *cursor, HTMLObject *object,
 			       guint offset);
 void html_cursor_destroy (HTMLCursor *cursor);
+
+void html_cursor_home (HTMLCursor *cursor, HTMLEngine *engine);
+void html_cursor_forward (HTMLCursor *cursor, HTMLEngine *engine);
+void html_cursor_backward (HTMLCursor *cursor, HTMLEngine *engine);
 
 #endif

@@ -145,6 +145,9 @@ struct _HTMLObjectClass {
 				      gint button, gint state);
 
 	HTMLObject * (* check_point) (HTMLObject *self, gint x, gint y);
+
+	void (* draw_cursor) (HTMLObject *object, HTMLPainter *p, gint x, gint y,
+			      gint width, gint height, gint tx, gint ty, gint offset);
 };
 
 
@@ -180,5 +183,9 @@ HTMLObject *html_object_mouse_event (HTMLObject *clue, gint x, gint y,
 				     gint button, gint state);
 HTMLObject *html_object_check_point (HTMLObject *clue, gint x, gint y);
 
-#endif /* _HTMLOBJECT_H_ */
+/* FIXME this is here (even if it only makes sense for HTML*Text* objects)
+   because HTML*TextSlaves do not derive from HTMLText.  */
+void html_object_draw_cursor (HTMLObject *object, HTMLPainter *p, gint x, gint y,
+			      gint width, gint height, gint tx, gint ty, gint offset);
 
+#endif /* _HTMLOBJECT_H_ */

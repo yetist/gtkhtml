@@ -85,14 +85,14 @@ void         html_painter_draw_panel (HTMLPainter *painter,
 				      gint x, gint y, gint width, gint height,
 				      gboolean inset, gint bordersize);
 
+void html_painter_draw_cursor (HTMLPainter *painter, gint x, gint y, gint ascent, gint descent);
+
+void html_painter_draw_background_pixmap (HTMLPainter *painter, gint x, gint y, 
+					  GdkPixbuf *pixbuf);
+
 /*
  * For debugging
  */
 GdkWindow   *html_painter_get_window (HTMLPainter *painter);
-
-void html_painter_draw_background_pixmap (HTMLPainter *painter,
-					  gint x, gint y, 
-					  GdkPixbuf *pixbuf);
-
 
 #endif /* _HTMLPAINTER_H_ */

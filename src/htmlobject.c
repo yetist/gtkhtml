@@ -176,6 +176,13 @@ check_point (HTMLObject *o, gint _x, gint _y )
 	return 0L;
 }
 
+static void
+draw_cursor (HTMLObject *o, HTMLPainter *painter, gint x, gint y,
+	     gint width, gint height, gint tx, gint ty, gint offset)
+{
+	html_painter_draw_cursor (painter, o->x + tx, o->y + ty, o->ascent, o->descent);
+}
+
 
 /* Class initialization.  */
 
@@ -212,6 +219,7 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->set_bg_color = set_bg_color;
 	klass->mouse_event = mouse_event;
 	klass->check_point = check_point;
+	klass->draw_cursor = draw_cursor;
 }
 
 void
@@ -409,4 +417,11 @@ html_object_check_point (HTMLObject *self, gint x, gint y)
 #endif
 
 	return object;
+}
+
+void
+html_object_draw_cursor (HTMLObject *self, HTMLPainter *p, gint x, gint y,
+			 gint width, gint height, gint tx, gint ty, gint offset)
+{
+	return (* HO_CLASS (self)->draw_cursor) (self, p, x, y, width, height, tx, ty, offset);
 }

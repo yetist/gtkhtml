@@ -1,4 +1,39 @@
+1999-12-11  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmltext.c (draw_cursor): New function, implementation of the
+	`draw_cursor' virtual method.
+	(html_text_class_init): Install it.
+
+	* htmlobject.c (html_object_draw_cursor): New function.
+	(draw_cursor): Default implementation for the `draw_cursor'
+	virtual method.
+	(html_object_class_init): Install it.
+
+	* htmlpainter.c (html_painter_draw_cursor): New function.
+
+	* htmlobject.h: New virtual method `draw_cursor' in `HTMLObject'.
+
+	* htmlcursor.c (html_cursor_forward): New function to make the
+	cursor go forward on the tree.
+
+	* testgtkhtml.c: Big hack to at least make the stop button really
+	stop loading.  Something is still wrong, though, as we get no
+	callback when the input stream ends.  Help is welcome.  So, there
+	is a new local variable called `html_handle' to hold the main html
+	stream handle.
+	(goto_url): Initialize it with the return value from
+	`gtk_html_begin'.
+	(stop_cb): Stop the stream and set `html_handle' to NULL.
+
+	* htmlengine.c (html_engine_end): Position the cursor at the
+	beginning of the document.
+
+	* htmlcursor.c (html_cursor_home): New function to position the
+	cursor at the beginning of the document.
+
 1999-12-10  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlcursor.c (html_cursor_destroy): Added precondition.
 
 	* htmlengine.h (html_engine_get_doc_width): Added prototype.
 
