@@ -36,10 +36,11 @@
 
 enum {
 	CHANGED,
+	KEYMAP_SELECTED,
 	LAST_SIGNAL
 };
 
-static guint gnome_bindings_properties_signals [LAST_SIGNAL] = { 0 };
+static guint gnome_bindings_properties_signals [LAST_SIGNAL] = { 0, 0 };
 
 struct _KeymapEntry {
 	gchar *name;
@@ -334,6 +335,9 @@ keymap_select_row (GtkCList       *clist,
 
 	prop->commands_active = TRUE;
 	remove_snooper (prop);
+
+	gtk_signal_emit (GTK_OBJECT (prop), gnome_bindings_properties_signals [KEYMAP_SELECTED], ke->name);
+	gtk_signal_emit (GTK_OBJECT (prop), gnome_bindings_properties_signals [CHANGED]);
 }
 
 static void
@@ -611,6 +615,13 @@ class_init (GnomeBindingsPropertiesClass *klass)
 				GTK_SIGNAL_OFFSET (GnomeBindingsPropertiesClass, changed),
 				gtk_marshal_NONE__NONE,
 				GTK_TYPE_NONE, 0);
+	gnome_bindings_properties_signals [KEYMAP_SELECTED] =
+		gtk_signal_new ("keymap_selected",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (GnomeBindingsPropertiesClass, changed),
+				gtk_marshal_NONE__NONE,
+				GTK_TYPE_NONE, 0);
 
 	gtk_object_class_add_signals (object_class, gnome_bindings_properties_signals, LAST_SIGNAL);
 }
@@ -739,4 +750,16 @@ gnome_bindings_properties_save_keymap (GnomeBindingsProperties *prop,
 
 	fprintf (file, "}\n");
 	fclose (file);
+}
+
+gchar *
+gnome_bindings_properties_get_keymap_name (GnomeBindingsProperties *prop)
+{
+	KeymapEntry *ke;
+	gint row;
+	
+	row = GPOINTER_TO_INT (GTK_CLIST (prop->keymaps_clist)->selection->data);
+	ke  = (KeymapEntry *) gtk_clist_get_row_data (GTK_CLIST (prop->keymaps_clist), row);
+
+	return (ke) ? ke->name : NULL;
 }

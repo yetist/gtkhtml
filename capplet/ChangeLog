@@ -1,3 +1,12 @@
+2000-09-12  Radek Doulik  <rodo@helixcode.com>
+
+	* main.c: capplet split into notebook pages bindings/behaviour
+
+2000-09-11  Radek Doulik  <rodo@helixcode.com>
+
+	* gnome-bindings-prop.c: added keymap_selected signal
+	(gnome_bindings_properties_get_keymap_name): new function
+
 2000-09-09  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* *.desktop: Added Norwegian translations.

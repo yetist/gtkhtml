@@ -65,7 +65,8 @@ struct _GnomeBindingsProperties {
 struct _GnomeBindingsPropertiesClass {
 	GtkVBoxClass parent_class;
 
-	void   (*changed)  (GnomeBindingsProperties *prop);
+	void   (*changed)           (GnomeBindingsProperties *prop);
+	void   (*keymap_selected)   (GnomeBindingsProperties *prop, gchar *keymap);
 };
 
 struct _GnomeBindingEntry {
@@ -75,35 +76,32 @@ struct _GnomeBindingEntry {
 	gchar *command;
 };
 
-GtkType     gnome_bindings_properties_get_type      (void);
-GtkWidget * gnome_bindings_properties_new           (void);
-
-void        gnome_bindings_properties_add_keymap    (GnomeBindingsProperties *prop,
-						     gchar *name,
-						     gchar *bindings,
-						     gchar *signal_name,
-						     GtkType arg_enum_type,
-						     gboolean editable);
-void        gnome_bindings_properties_set_keymap    (GnomeBindingsProperties *prop,
-						     gchar *name,
-						     GList *list);
-GList *     gnome_bindings_properties_get_keymap    (GnomeBindingsProperties *prop,
-						     gchar *name);
-
-void        gnome_bindings_properties_save_keymap   (GnomeBindingsProperties *prop,
-						     gchar *name,
-						     gchar *filename);
-
-void        gnome_bindings_properties_select_keymap (GnomeBindingsProperties *prop,
-						     gchar *name);
+GtkType            gnome_bindings_properties_get_type         (void);
+GtkWidget         *gnome_bindings_properties_new              (void);
+void               gnome_bindings_properties_add_keymap       (GnomeBindingsProperties *prop,
+							       gchar                   *name,
+							       gchar                   *bindings,
+							       gchar                   *signal_name,
+							       GtkType                  arg_enum_type,
+							       gboolean                 editable);
+void               gnome_bindings_properties_set_keymap       (GnomeBindingsProperties *prop,
+							       gchar                   *name,
+							       GList                   *list);
+GList             *gnome_bindings_properties_get_keymap       (GnomeBindingsProperties *prop,
+							       gchar                   *name);
+void               gnome_bindings_properties_save_keymap      (GnomeBindingsProperties *prop,
+							       gchar                   *name,
+							       gchar                   *filename);
+void               gnome_bindings_properties_select_keymap    (GnomeBindingsProperties *prop,
+							       gchar                   *name);
+gchar             *gnome_bindings_properties_get_keymap_name  (GnomeBindingsProperties *prop);
 
 /* binding entry */
-
-GnomeBindingEntry * gnome_binding_entry_new              (guint keyval,
-							  guint modifiers,
-							  gchar *command);
-void                gnome_binding_entry_destroy          (GnomeBindingEntry *be);
-GList             * gnome_binding_entry_list_copy        (GList *list);
-void                gnome_binding_entry_list_destroy     (GList *list);
+GnomeBindingEntry *gnome_binding_entry_new                    (guint                    keyval,
+							       guint                    modifiers,
+							       gchar                   *command);
+void               gnome_binding_entry_destroy                (GnomeBindingEntry       *be);
+GList             *gnome_binding_entry_list_copy              (GList                   *list);
+void               gnome_binding_entry_list_destroy           (GList                   *list);
 
 #endif
