@@ -17,7 +17,15 @@ icons_DATA = \
 	search-24.png			\
 	search-and-replace-24.png	\
 	html-viewer.png			\
-	bulb.png
+	bulb.png			\
+	rule-blue-left.png		\
+	rule-blue-center.png		\
+	rule-blue-right.png		\
+	transparent.png			\
+	flowers.png			\
+	rule-yellow-flowers-left.png	\
+	rule-yellow-flowers-center.png	\
+	rule-yellow-flowers-right.png
 
 EXTRA_DIST = \
 	$(icons_DATA)

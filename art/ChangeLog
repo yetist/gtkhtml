@@ -1,3 +1,7 @@
+2001-08-02  Radek Doulik  <rodo@ximian.com>
+
+	* Makefile.am (icons_DATA): added images for rule templates
+
 2001-07-30  Radek Doulik  <rodo@ximian.com>
 
 	* Makefile.am (icons_DATA): added rule icons from Jakub
