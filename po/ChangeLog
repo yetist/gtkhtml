@@ -1,3 +1,7 @@
+2001-02-13  Pauli Virtanen  <pauli.virtanen@saunalahti.fi>
+
+	* fi.po: Updated Finnish translation.
+
 2001-02-07  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* ui-extract.pl: Remove. Use xml-i18n-update.
