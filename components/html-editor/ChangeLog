@@ -1,3 +1,10 @@
+2003-04-09  Larry Ewing  <lewing@ximian.com>
+
+	* editor-control-factory.c (editor_init_painters): use the gdk painter
+	directly rather than the prop 
+	(editor_set_format): copy the default fonts back since they may
+	have changed dues to style changes.
+
 2003-04-09  Radek Doulik  <rodo@ximian.com>
 
 	* spell.c: use html_engine_get_language

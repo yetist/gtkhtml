@@ -375,25 +375,21 @@ html_button_pressed_after (GtkWidget *html, GdkEventButton *event, GtkHTMLContro
 static void
 editor_init_painters (GtkHTMLControlData *cd)
 {	
-	GtkHTMLClassProperties *prop;
 	GtkHTML *html;
 
 	g_return_if_fail (cd != NULL);
 
+
 	html = cd->html;
-	prop = GTK_HTML_CLASS (GTK_OBJECT_GET_CLASS (html))->properties;
+	
+	gtk_widget_get_style (GTK_WIDGET (html));
 	
 	if (!cd->plain_painter) {
+		cd->gdk_painter = HTML_GDK_PAINTER (html->engine->painter);
 		cd->plain_painter = HTML_GDK_PAINTER (html_plain_painter_new (GTK_WIDGET (html), TRUE));
-		html_font_manager_set_default (&HTML_PAINTER (cd->plain_painter)->font_manager,
-					       prop->font_var,      prop->font_fix,
-					       prop->font_var_size, prop->font_var_points,
-					       prop->font_fix_size, prop->font_fix_points);
-		
+
 		html_colorset_add_slave (html->engine->settings->color_set, 
 					 HTML_PAINTER (cd->plain_painter)->color_set);
-
-		cd->gdk_painter = HTML_GDK_PAINTER (html->engine->painter);
 
 		/* the plain painter starts with a ref */
 		g_object_ref (G_OBJECT (cd->gdk_painter));
@@ -430,6 +426,14 @@ editor_set_format (GtkHTMLControlData *cd, gboolean format_html)
 		html_gdk_painter_unrealize (old_p);
 		if (html->engine->window)
 			html_gdk_painter_realize (p, html->engine->window);
+
+		html_font_manager_set_default (&HTML_PAINTER (p)->font_manager,
+					       HTML_PAINTER (old_p)->font_manager.variable.face,
+					       HTML_PAINTER (old_p)->font_manager.fixed.face,
+					       HTML_PAINTER (old_p)->font_manager.var_size,
+					       HTML_PAINTER (old_p)->font_manager.var_points,
+					       HTML_PAINTER (old_p)->font_manager.fix_size,
+					       HTML_PAINTER (old_p)->font_manager.fix_points);
 
 		html_engine_set_painter (html->engine, HTML_PAINTER (p));
 		html_engine_schedule_redraw (html->engine);
@@ -543,7 +547,17 @@ editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 				 "The title of the html document", 
 				 0);
 	CORBA_free (def);
+
 	/*
+	def = bonobo_arg_new (BONOBO_ARG_STRING);
+	BONOBO_ARG_SET_STRING (def, "");
+
+	bonobo_property_bag_add (pb, "SpellLanguage", PROP_CURRENT_LANGUAGE,
+				 BONOBO_ARG_STRING, def,
+				 "The title of the html document", 
+				 0);
+	CORBA_free (def);
+	
 	def = bonobo_arg_new (BONOBO_ARG_STRING);
 	BONOBO_ARG_SET_STRING (def, "");
 
