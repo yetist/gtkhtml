@@ -60,9 +60,10 @@ struct _EBrowser {
 
 struct _EBrowserClass {
 	GtkHTMLClass parent_class;
-	void (* url_set) (EBrowser * ebr, const gchar * url);
-	void (* status_set) (EBrowser * ebr, const gchar * status);
-	void (* request) (EBrowser * ebrowser, const gchar * uri);
+	void (* url_set)    (EBrowser * ebrower, const gchar * url);
+	void (* status_set) (EBrowser * ebrower, const gchar * status);
+	void (* request)    (EBrowser * ebrower, const gchar * uri);
+	void (* done)       (EBrowser * ebrower);
 };
 
 GtkType ebrowser_get_type (void);

@@ -59,7 +59,7 @@ static gboolean ebrowser_file_base (const gchar * location, gchar ** root, gchar
 
 static gchar * ebrowser_concat (const gchar * url, const gchar * relative);
 
-enum {URL_SET, STATUS_SET, REQUEST, LAST_SIGNAL};
+enum {URL_SET, STATUS_SET, REQUEST, DONE, LAST_SIGNAL};
 
 static GtkHTMLClass * parent_class;
 static guint ebr_signals[LAST_SIGNAL] = {0};
@@ -121,6 +121,12 @@ ebrowser_class_init (GtkObjectClass * klass)
 					       gtk_marshal_NONE__POINTER,
 					       GTK_TYPE_NONE, 1,
 					       GTK_TYPE_POINTER);
+	ebr_signals[DONE] = gtk_signal_new    ("done",
+					       GTK_RUN_FIRST,
+					       klass->type,
+					       GTK_SIGNAL_OFFSET (EBrowserClass, done),
+					       gtk_marshal_NONE__NONE,
+					       GTK_TYPE_NONE, 0);
 	gtk_object_class_add_signals (klass, ebr_signals, LAST_SIGNAL);
 
 	klass->destroy = ebrowser_destroy;
@@ -271,6 +277,12 @@ static void
 ebrowser_unregister_loader (EBrowser * ebr, ELoader *loader)
 {
 	ebr->loaders = g_slist_remove (ebr->loaders, loader);
+
+	/*
+	 * If this becomes NULL, then it means we are done loading the page
+	 */
+	if (ebr->loaders == NULL)
+		gtk_signal_emit (GTK_OBJECT (ebr), ebr_signals [DONE]);
 }
 
 void

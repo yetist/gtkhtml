@@ -1,3 +1,8 @@
+2000-10-25  Miguel de Icaza  <miguel@helixcode.com>
+
+	* ebrowser-widget.c (ebrowser_unregister_loader): Emit signal
+	"done" when we are finished loading a page.
+
 2000-10-25  Joe Shaw  <joe@helixcode.com>
 
         * ebrowser.c (ebrowser_factory): bonobo_object_add_interface the
