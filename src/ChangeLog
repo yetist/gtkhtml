@@ -1,3 +1,9 @@
+2000-04-15  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltextslave.c (fit_line): removed eating of spaces at the
+	beggining of line. Lewing please could you take a look at it?
+	Is it ok to remove?
+
 2000-04-15  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine-edit-delete.c
