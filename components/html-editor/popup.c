@@ -32,6 +32,7 @@
 #include "htmlcursor.h"
 #include "htmlengine.h"
 #include "htmllinktext.h"
+#include "htmlengine-edit.h"
 #include "htmlengine-edit-cut-and-paste.h"
 #include "htmlengine-edit-table.h"
 #include "htmlengine-edit-tablecell.h"
@@ -78,9 +79,11 @@ paste (GtkWidget *mi, GtkHTMLControlData *cd)
 static void
 remove_link (GtkWidget *mi, GtkHTMLControlData *cd)
 {
+	html_engine_selection_push (cd->html->engine);
 	if (!html_engine_is_selection_active (cd->html->engine))
-		html_engine_select_word (cd->html->engine);
+		html_engine_select_word_editable (cd->html->engine);
 	html_engine_insert_link (cd->html->engine, NULL, NULL);
+	html_engine_selection_pop (cd->html->engine);
 }
 
 static void
