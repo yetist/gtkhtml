@@ -1,5 +1,10 @@
 2002-06-02  Larry Ewing  <lewing@ximian.com>
 
+	* gtkhtml-private.h: add as_citation member and change
+	last_selection_type name;
+
+	* gtkhtml.h: add as_cite boolean to request_paste prototype.
+
 	* gtkhtml.c (selection_get): check for a selection object before
 	pasting.
 	(selection_get): remove a accidental paste.
