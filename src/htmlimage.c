@@ -713,7 +713,7 @@ html_image_animation_stop (HTMLImageAnimation *anim)
 }
 
 static void
-html_image_factory_frame_done (GdkPixbufLoader *loader, HTMLImagePointer *ip)
+html_image_factory_frame_done (GdkPixbufLoader *loader, GdkPixbufFrame *frame, HTMLImagePointer *ip)
 {
 	if (!ip->animation) {
 		ip->animation = gdk_pixbuf_loader_get_animation (loader);

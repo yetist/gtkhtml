@@ -1,3 +1,10 @@
+2000-04-13  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlimage.c (html_image_factory_frame_done): make the signature
+	of the signal that is now being emitted for frame done.  This
+	looks like a recent bug fix in gdk-pixbuf, you will need to update
+	it again.
+
 2000-04-12  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine-edit-clueflowstyle.c: Rewritten in a better, cleaner
