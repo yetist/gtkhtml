@@ -60,13 +60,13 @@
 static void
 copy (GtkWidget *mi, GtkHTMLControlData *cd)
 {
-	gtk_html_copy (cd->html->engine);
+	gtk_html_copy (cd->html);
 }
 
 static void
 cut (GtkWidget *mi, GtkHTMLControlData *cd)
 {
-	gtk_html_cut (cd->html->engine);
+	gtk_html_cut (cd->html);
 }
 
 static void
