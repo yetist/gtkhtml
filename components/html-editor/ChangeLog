@@ -1,3 +1,8 @@
+2003-04-17  Radek Doulik  <rodo@ximian.com>
+
+	* html-stream-mem.c: derive from BonoboObject instead of
+	BonoboStreamMem
+
 2003-04-14  Larry Ewing  <lewing@ximian.com>
 
 	* Makefile.am (SPELL_IDL_GENERATED_C): remove spell.h that was
