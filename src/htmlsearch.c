@@ -30,7 +30,7 @@
 */
 
 #include <config.h>
-#include <unicode.h>
+#include <gal/unicode/gunicode.h>
 #include "htmlsearch.h"
 #include "htmlobject.h"
 #include "htmlentity.h"
@@ -39,7 +39,7 @@ static void
 set_text (HTMLSearch *s, const gchar *text)
 {
 	s->text           = g_strdup (text);
-	s->text_len       = unicode_strlen (text, -1);
+	s->text_len       = g_utf8_strlen (text, -1);
 }
 
 HTMLSearch *

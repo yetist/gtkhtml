@@ -23,7 +23,7 @@
 #include <gnome.h>
 #include <ctype.h>
 #include <libgnomeprint/gnome-print.h>
-#include <unicode.h>
+#include <gal/unicode/gunicode.h>
 
 #include "htmlembedded.h"
 #include "gtkhtml-embedded.h"
@@ -510,8 +510,7 @@ draw_text (HTMLPainter *painter,
 	GnomeFont *font;
 	HTMLPrinter *printer;
 	gdouble print_x, print_y;
-	gchar *text_tmp;
-	gint bytes;
+	gchar *end, *text_tmp;
 
 	printer = HTML_PRINTER (painter);
 	g_return_if_fail (printer->print_context != NULL);
@@ -523,10 +522,10 @@ draw_text (HTMLPainter *painter,
 
 	/* Oh boy, this sucks so much.  The GnomePrint API could be improved to
            avoid this.  */
-	bytes = unicode_offset_to_index (text, len);
-	text_tmp = alloca (bytes + 1);
-	memcpy (text_tmp, text, bytes);
-	text_tmp [bytes] = '\0';
+	end = g_utf8_offset_to_pointer (text, len);
+	text_tmp = alloca (end - text + 1);
+	memcpy (text_tmp, text, end - text);
+	text_tmp [end - text + 1] = '\0';
 
 	font = html_painter_get_font (painter, painter->font_face, painter->font_style);
 	gnome_print_setfont (printer->print_context, font);

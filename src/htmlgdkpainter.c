@@ -22,9 +22,9 @@
 #include <config.h>
 #include <string.h>
 #include <stdlib.h>
-#include <unicode.h>
 #include <gdk/gdkx.h>
 #include <libart_lgpl/art_rect.h>
+#include <gal/unicode/gunicode.h>
 #include <gal/widgets/e-font.h>
 
 #include "htmlentity.h"
@@ -866,59 +866,6 @@ fill_rect (HTMLPainter *painter,
 			    width, height);
 }
 
-/* static gint
-utf8_gdk_text_width (GdkFont *font, const gchar *text, gint len)
-{
-	const gchar *p;
-	gint width, bytes;
-
-	if (!text || !font) return 0;
-
-	width = 0;
-	bytes = unicode_offset_to_index (text, len);
-	for (p = text; p && *p && p - text < bytes; p = unicode_next_utf8 (p)) {
-		unicode_char_t unival;
-		guchar c;
-		unicode_get_utf8 (p, &unival);
-		if (unival < 0) unival = '_';
-		if (unival > 255) unival = '_';
-		if (unival == 0xa0) unival = ' ';
-		c = unival;
-		width += gdk_text_width (font, &c, 1);
-	}
-
-	return width;
-}
-
-static void
-utf8_gdk_draw_text (GdkFont *font,
-		    GdkDrawable *drawable,
-		    GdkGC *gc,
-		    gint x, gint y,
-		    const gchar *text, gint len)
-{
-	const gchar *p;
-	guchar *b;
-	gint off, bytes;
-
-	if (!text || !font) return;
-
-	bytes = unicode_offset_to_index (text, len);
-	b = alloca (bytes);
-	off = 0;
-
-	for (p = text; p && *p && p - text < bytes; p = unicode_next_utf8 (p)) {
-		unicode_char_t unival;
-		unicode_get_utf8 (p, &unival);
-		if (unival < 0) unival = '_';
-		if (unival > 255) unival = '_';
-		if (unival == 0xa0) unival = ' ';
-		b [off++] = unival;
-	}
-
-	gdk_draw_text (drawable, font, gc, x, y, b, len);
-} */
-
 static EFontStyle
 e_style (GtkHTMLFontStyle style)
 {
@@ -941,17 +888,18 @@ draw_spell_error (HTMLPainter *painter,
 	GdkGCValues values;
 	guint x_off, width;
 	gchar dash [2];
+	const gchar *offtext;
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
 	x -= gdk_painter->x1;
 	y -= gdk_painter->y1;
 
-	e_font = html_painter_get_font  (painter, painter->font_face, painter->font_style);
-	x_off  = e_font_utf8_text_width (e_font, e_style (painter->font_style), text,
-					 unicode_offset_to_index (text, off)) + x;
-	width  = e_font_utf8_text_width (e_font, e_style (painter->font_style), text + unicode_offset_to_index (text, off),
-					 unicode_offset_to_index (text + unicode_offset_to_index (text, off), len)) + x_off;
+	e_font  = html_painter_get_font  (painter, painter->font_face, painter->font_style);
+	offtext = g_utf8_offset_to_pointer (text, off);
+	x_off   = e_font_utf8_text_width (e_font, e_style (painter->font_style), text, offtext - text) + x;
+	width   = e_font_utf8_text_width (e_font, e_style (painter->font_style), offtext,
+					  g_utf8_offset_to_pointer (offtext, len) - offtext) + x_off;
 
 	gdk_gc_get_values (gdk_painter->gc, &values);
 	gdk_gc_set_fill (gdk_painter->gc, GDK_OPAQUE_STIPPLED);
@@ -998,7 +946,7 @@ draw_text (HTMLPainter *painter,
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
 	if (len == -1)
-		len = unicode_strlen (text, -1);
+		len = g_utf8_strlen (text, -1);
 
 	x -= gdk_painter->x1;
 	y -= gdk_painter->y1;
@@ -1013,7 +961,7 @@ draw_text (HTMLPainter *painter,
 			       gdk_painter->gc,
 			       x, y, 
 			       text, 
-			       unicode_offset_to_index (text, len));
+			       g_utf8_offset_to_pointer (text, len) - text);
 
 	if (painter->font_style & (GTK_HTML_FONT_STYLE_UNDERLINE
 				   | GTK_HTML_FONT_STYLE_STRIKEOUT)) {
@@ -1022,7 +970,7 @@ draw_text (HTMLPainter *painter,
 		width = e_font_utf8_text_width (e_font,
 						e_style (painter->font_style),
 						text, 
-						unicode_offset_to_index (text, len));
+						g_utf8_offset_to_pointer (text, len) - text);
 
 		if (painter->font_style & GTK_HTML_FONT_STYLE_UNDERLINE)
 			gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, 
@@ -1100,10 +1048,10 @@ calc_text_width (HTMLPainter *painter,
 	e_font = html_painter_get_font (painter, face, style);
 
 	width = e_font_utf8_text_width (e_font, e_style (style),
-					text, unicode_offset_to_index (text, len));
+					text, g_utf8_offset_to_pointer (text, len) - text);
 
 	/* printf ("calc_text_width text: %s len: %d\n", text, len);
-	{ gint i; printf ("["); for (i=0;i<unicode_offset_to_index (text, len); i++) printf ("%c", text [i]); printf ("] ");}
+	{ gint i; printf ("["); for (i=0;i<g_utf8_offset_to_pointer (text, len)-text; i++) printf ("%c", text [i]); printf ("] ");}
 	printf ("%d (%p)\n", width, e_font); */
 	return width;
 }

@@ -657,7 +657,7 @@ html_cursor_follows (const HTMLCursor *a,
 }
 
 
-unicode_char_t
+gunichar
 html_cursor_get_current_char (const HTMLCursor *cursor)
 {
 	HTMLObject *next;
@@ -685,7 +685,7 @@ html_cursor_get_current_char (const HTMLCursor *cursor)
 	return html_text_get_char (HTML_TEXT (next), 0);
 }
 
-unicode_char_t
+gunichar
 html_cursor_get_prev_char (const HTMLCursor *cursor)
 {
 	HTMLObject *prev;

@@ -21,7 +21,6 @@
 */
 
 #include <config.h>
-#include <unicode.h>
 #include "htmlcursor.h"
 #include "htmlengine.h"
 #include "htmlinterval.h"

@@ -23,7 +23,7 @@
 #ifndef _HTMLTEXT_H_
 #define _HTMLTEXT_H_
 
-#include <unicode.h>
+#include <gal/unicode/gunicode.h>
 #include "htmlobject.h"
 
 #define HTML_TEXT(x) ((HTMLText *)(x))
@@ -110,7 +110,7 @@ gint              html_text_get_nb_width                 (HTMLText           *te
 guint             html_text_get_bytes                    (HTMLText           *text);
 guint             html_text_get_index                    (HTMLText           *text,
 							  guint               offset);
-unicode_char_t    html_text_get_char                     (HTMLText           *text,
+gunichar          html_text_get_char                     (HTMLText           *text,
 							  guint               offset);
 gchar            *html_text_get_text                     (HTMLText           *text,
 							  guint               offset);

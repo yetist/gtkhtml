@@ -225,10 +225,10 @@ html_engine_spell_check_range (HTMLEngine *e, HTMLCursor *begin, HTMLCursor *end
 }
 
 gboolean
-html_is_in_word (unicode_char_t uc)
+html_is_in_word (gunichar uc)
 {
-	/* printf ("test %d %c => %d\n", uc, uc, unicode_isalnum (uc) || uc == '\''); */
-	return unicode_isalpha (uc) || uc == '\'';
+	/* printf ("test %d %c => %d\n", uc, uc, g_unichar_isalnum (uc) || uc == '\''); */
+	return g_unichar_isalpha (uc) || uc == '\'';
 }
 
 void
@@ -368,7 +368,7 @@ static guint
 try_break_this_line (HTMLEngine *e, guint line_offset, guint last_space)
 {
 	HTMLObject *flow;
-	unicode_char_t uc;
+	gunichar uc;
 
 	flow = e->cursor->object->parent;
 
@@ -476,7 +476,7 @@ html_engine_indent_pre_line (HTMLEngine *e)
 	guint line_offset;
 	guint last_space;
 	HTMLObject *flow;
-	unicode_char_t uc;
+	gunichar uc;
 
 	g_assert (e->cursor->object);
 	if (HTML_OBJECT_TYPE (e->cursor->object->parent) != HTML_TYPE_CLUEFLOW
@@ -531,7 +531,7 @@ html_engine_fill_pre_line (HTMLEngine *e)
 	guint line_offset;
 	guint last_space;
 	HTMLObject *flow;
-	unicode_char_t uc;
+	gunichar uc;
 
 	g_assert (e->cursor->object);
 	position = e->cursor->position;

@@ -734,13 +734,13 @@ html_engine_insert_text (HTMLEngine *e, const gchar *text, guint len)
 	gint alen;
 
 	if (len == -1)
-		len = unicode_strlen (text, -1);
+		len = g_utf8_strlen (text, -1);
 	if (!len)
 		return;
 
 	do {
-		nl   = unicode_strchr (text, '\n');
-		alen = nl ? unicode_index_to_offset (text, nl - text) : len;
+		nl   = g_utf8_strchr (text, '\n');
+		alen = nl ? g_utf8_pointer_to_offset (text, nl) : len;
 		if (alen) {
 			HTMLObject *o;
 			gboolean check = FALSE;
@@ -763,7 +763,7 @@ html_engine_insert_text (HTMLEngine *e, const gchar *text, guint len)
 		}
 		if (nl) {
 			html_engine_insert_empty_paragraph (e);
-			len -= unicode_index_to_offset (text, nl - text) + 1;
+			len -= g_utf8_pointer_to_offset (text, nl) + 1;
 			text = nl + 1;
 		}
 	} while (nl);

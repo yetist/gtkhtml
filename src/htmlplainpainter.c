@@ -22,9 +22,9 @@
 #include <config.h>
 #include <string.h>
 #include <stdlib.h>
-#include <unicode.h>
 #include <gdk/gdkx.h>
 #include <libart_lgpl/art_rect.h>
+#include <gal/unicode/gunicode.h>
 #include <gal/widgets/e-font.h>
 
 #include "htmlentity.h"
@@ -162,7 +162,7 @@ draw_text (HTMLPainter *painter,
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
 	if (len == -1)
-		len = unicode_strlen (text, -1);
+		len = g_utf8_strlen (text, -1);
 
 	x -= gdk_painter->x1;
 	y -= gdk_painter->y1;
@@ -173,16 +173,15 @@ draw_text (HTMLPainter *painter,
 	e_font_draw_utf8_text (gdk_painter->pixmap, e_font, 
 			       e_style (painter->font_style), gdk_painter->gc,
 			       x, y, text, 
-			       unicode_offset_to_index (text, len));
+			       g_utf8_offset_to_pointer (text, len) - text);
 
 	if (painter->font_style & (GTK_HTML_FONT_STYLE_UNDERLINE
 				   | GTK_HTML_FONT_STYLE_STRIKEOUT)) {
 		/*
 		guint width;
 
-		width = e_font_utf8_text_width (e_font, 
-						e_style (painter->font_style),
-						text, unicode_offset_to_index (text, len));
+		width = e_font_utf8_text_width (e_font, e_style (painter->font_style),
+						text, g_utf8_offset_to_pointer (text, len) - text);
 
 		if (painter->font_style & GTK_HTML_FONT_STYLE_UNDERLINE)
 			gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, 

@@ -25,6 +25,7 @@
 #include <config.h>
 #include <ctype.h>
 #include <gnome.h>
+#include <gal/unicode/gunicode.h>
 #include "htmltokenizer.h"
 #include "htmlentity.h"
 
@@ -515,57 +516,6 @@ html_tokenizer_add_pending (HTMLTokenizer *t)
 	t->pending = NonePending;
 }
 
-static gint
-html_unichar_to_utf8 (gint c, gchar *outbuf)
-{
-  size_t len = 0;
-  gint first;
-  gint i;
-
-  if (c < 0x80)
-    {
-      first = 0;
-      len = 1;
-    }
-  else if (c < 0x800)
-    {
-      first = 0xc0;
-      len = 2;
-    }
-  else if (c < 0x10000)
-    {
-      first = 0xe0;
-      len = 3;
-    }
-   else if (c < 0x200000)
-    {
-      first = 0xf0;
-      len = 4;
-    }
-  else if (c < 0x4000000)
-    {
-      first = 0xf8;
-      len = 5;
-    }
-  else
-    {
-      first = 0xfc;
-      len = 6;
-    }
-
-  if (outbuf)
-    {
-      for (i = len - 1; i > 0; --i)
-	{
-	  outbuf[i] = (c & 0x3f) | 0x80;
-	  c >>= 6;
-	}
-      outbuf[0] = c | first;
-    }
-
-  return len;
-}
-
 static void
 prepare_enough_space (HTMLTokenizer *t)
 {
@@ -756,7 +706,7 @@ in_entity (HTMLTokenizer *t, const gchar **src)
 	else {
 		if(entityValue) {
 			/* Insert plain char */
-			t->dest += html_unichar_to_utf8 (entityValue, t->dest);
+			t->dest += g_unichar_to_utf8 (entityValue, t->dest);
 			if (t->pre) t->prePos++;
 			if (**src == ';') (*src)++;
 		}
@@ -1113,7 +1063,7 @@ in_plain (HTMLTokenizer *t, const gchar **src)
 	if (t->utf8)
 		*(t->dest)++ = **src;
 	else 
-		t->dest += html_unichar_to_utf8 ((guchar) **src, t->dest);
+		t->dest += g_unichar_to_utf8 ((guchar) **src, t->dest);
 	
 	(*src)++;
 }

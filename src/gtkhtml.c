@@ -647,9 +647,9 @@ key_press_event (GtkWidget *widget,
 
 		/* printf ("event length: %d s[0]: %d string: '%s'\n", event->length, event->string [0], event->string); */
 		str = e_utf8_from_gtk_event_key (widget, event->keyval, event->string);
-		/* printf ("len: %d str: %s\n", str ? unicode_strlen (str, -1) : -1, str); */
+		/* printf ("len: %d str: %s\n", str ? g_utf8_strlen (str, -1) : -1, str); */
 		if (str)
-			html_engine_paste_text (html->engine, str, unicode_strlen (str, -1));
+			html_engine_paste_text (html->engine, str, g_utf8_strlen (str, -1));
 		else if (event->length == 1 && event->string
 			 && ((guchar)event->string [0]) > 0x20 && ((guchar)event->string [0]) < 0x80)
 			html_engine_paste_text (html->engine, event->string, 1);
@@ -1248,8 +1248,8 @@ selection_received (GtkWidget *widget,
 		if (selection_data->type != GDK_SELECTION_TYPE_STRING) {
 			html_engine_paste_text (GTK_HTML (widget)->engine, 
 						selection_data->data,
-						(guint) unicode_strlen (selection_data->data, 
-									selection_data->length));
+						(guint) g_utf8_strlen (selection_data->data, 
+								       selection_data->length));
 		} else {
 			gchar *utf8 = NULL;
 			
@@ -1258,7 +1258,7 @@ selection_received (GtkWidget *widget,
 						       (guint) selection_data->length);
 
 			html_engine_paste_text (GTK_HTML (widget)->engine, 
-						utf8, unicode_strlen (utf8, -1));
+						utf8, g_utf8_strlen (utf8, -1));
 
 			g_free (utf8);
 		}

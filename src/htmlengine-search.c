@@ -20,7 +20,7 @@
 */
 
 #include <config.h>
-#include <unicode.h>
+#include <gal/unicode/gunicode.h>
 #include "htmlcursor.h"
 #include "htmlengine.h"
 #include "htmlengine-edit.h"
@@ -185,7 +185,7 @@ html_engine_search_incremental (HTMLEngine *e, const gchar *text, gboolean forwa
 		html_search_set_forward (info, forward);
 		html_search_set_text (info, text);
 		if (info->found)
-			info->start_pos += ((info->forward) ? -1 : unicode_strlen (text, -1));
+			info->start_pos += ((info->forward) ? -1 : g_utf8_strlen (text, -1));
 		return html_engine_search_next (e);
 	} else
 		return html_engine_search (e, text, FALSE, forward, FALSE);

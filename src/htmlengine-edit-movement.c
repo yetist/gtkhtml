@@ -355,9 +355,9 @@ html_engine_forward_word (HTMLEngine *e)
 	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
 
 	html_engine_hide_cursor (e);
-	while (!unicode_isalnum (html_cursor_get_current_char (e->cursor)) && html_cursor_forward (e->cursor, e))
+	while (!g_unichar_isalnum (html_cursor_get_current_char (e->cursor)) && html_cursor_forward (e->cursor, e))
 		rv = TRUE;
-	while (unicode_isalnum (html_cursor_get_current_char (e->cursor)) && html_cursor_forward (e->cursor, e))
+	while (g_unichar_isalnum (html_cursor_get_current_char (e->cursor)) && html_cursor_forward (e->cursor, e))
 		rv = TRUE;
 	html_engine_show_cursor (e);
 	html_engine_update_selection_if_necessary (e);
@@ -374,9 +374,9 @@ html_engine_backward_word (HTMLEngine *e)
 	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
 
 	html_engine_hide_cursor (e);
-	while (!unicode_isalnum (html_cursor_get_prev_char (e->cursor)) && html_cursor_backward (e->cursor, e))
+	while (!g_unichar_isalnum (html_cursor_get_prev_char (e->cursor)) && html_cursor_backward (e->cursor, e))
 		rv = TRUE;
-	while (unicode_isalnum (html_cursor_get_prev_char (e->cursor)) && html_cursor_backward (e->cursor, e))
+	while (g_unichar_isalnum (html_cursor_get_prev_char (e->cursor)) && html_cursor_backward (e->cursor, e))
 		rv = TRUE;
 	html_engine_show_cursor (e);
 	html_engine_update_selection_if_necessary (e);

@@ -1289,7 +1289,7 @@ is_leading_space (guchar *str)
 		if (!(isspace (*str) || IS_UTF8_NBSP (str))) 
 			return FALSE;
 		
-		str = unicode_next_utf8 (str);
+		str = g_utf8_next_char (str);
 	}
 	return TRUE;
 }

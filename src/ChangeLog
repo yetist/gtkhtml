@@ -1,3 +1,14 @@
+2001-04-25  Dan Winship  <danw@ximian.com>
+
+	* gtkhtml.c, htmlclueflow.c, htmlcursor.c, htmlcursor.h,
+	htmlengine-edit-cut-and-paste.c, htmlengine-edit-movement.c,
+	htmlengine-edit.c, htmlengine-edit.h, htmlengine-save.c,
+	htmlengine-search.c, htmlengine.c, htmlentity.c, htmlgdkpainter.c,
+	htmlinterval.c, htmlplainpainter.c, htmlprinter.c, htmlsearch.c,
+	htmltext.c, htmltext.h, htmltextslave.c, htmltokenizer.c,
+	htmltokenizer.h:
+	Replace libunicode calls with gunicode and e-unicode calls. 
+
 2001-04-25  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c (html_engine_schedule_redraw): new functions,

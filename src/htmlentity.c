@@ -25,7 +25,6 @@
 #include <string.h>
 
 #include <glib.h>
-#include <unicode.h>
 #include "htmlentity.h"
 
 

@@ -22,7 +22,7 @@
 #define _HTMLENGINE_EDIT_H
 
 #include <glib.h>
-#include <unicode.h>
+#include <gal/unicode/gunicode.h>
 
 #include "htmlengine.h"
 #include "htmlclueflow.h"
@@ -72,7 +72,7 @@ void                       html_engine_break_and_fill_line        (HTMLEngine   
 /*
   static (non instance) methods
 */
-gboolean                   html_is_in_word                        (unicode_char_t             uc);
+gboolean                   html_is_in_word                        (gunichar                   uc);
 HTMLHAlignType             paragraph_alignment_to_html            (GtkHTMLParagraphAlignment  alignment);
 HTMLClueFlowStyle          paragraph_style_to_clueflow_style      (GtkHTMLParagraphStyle      style);
 GtkHTMLParagraphAlignment  html_alignment_to_paragraph            (HTMLHAlignType             alignment);

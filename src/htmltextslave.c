@@ -254,7 +254,7 @@ fit_line (HTMLObject *o,
 		words ++;
 		lsep   = sep;
 		sep    = strchr (lsep + (words > 1 ? 1 : 0), ' ');
-		pos    = sep ? unicode_index_to_offset (begin, sep - begin) : unicode_strlen (begin, -1);
+		pos    = sep ? g_utf8_pointer_to_offset (begin, sep) : g_utf8_strlen (begin, -1);
 		if (words + slave->start_word >= text->words)
 			break;
 	}
@@ -269,7 +269,7 @@ fit_line (HTMLObject *o,
 		else {
 			words ++;
 			sep    = strchr (sep + (words > 1 ? 0 : 1), ' ');
-			pos    = sep ? unicode_index_to_offset (begin, sep - begin) : unicode_strlen (begin, -1);
+			pos    = sep ? g_utf8_pointer_to_offset (begin, sep) : g_utf8_strlen (begin, -1);
 		}
 	}
 
@@ -395,10 +395,10 @@ draw_highlighted (HTMLTextSlave *slave,
 		end = slave->posStart + slave->posLen;
 	len = end - start;
 
-	offset_width = html_painter_calc_text_width (p, text + unicode_offset_to_index (text, slave->posStart),
+	offset_width = html_painter_calc_text_width (p, g_utf8_offset_to_pointer (text, slave->posStart),
 						     start - slave->posStart,
 						     font_style, HTML_TEXT (owner)->face);
-	text_width = html_painter_calc_text_width (p, text + unicode_offset_to_index (text, start),
+	text_width = html_painter_calc_text_width (p, g_utf8_offset_to_pointer (text, start),
 						   len, font_style, HTML_TEXT (owner)->face);
 
 	html_painter_set_font_style (p, font_style);
@@ -411,7 +411,7 @@ draw_highlighted (HTMLTextSlave *slave,
 				text_width, obj->ascent + obj->descent);
 	html_painter_set_pen (p, &html_colorset_get_color_allocated (p, HTMLHighlightTextColor)->color);
 	html_painter_draw_text (p, obj->x + tx + offset_width, obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
-				text + unicode_offset_to_index (text, start), len);
+				g_utf8_offset_to_pointer (text, start), len);
 
 	/* Draw the non-highlighted part.  */
 
@@ -423,7 +423,7 @@ draw_highlighted (HTMLTextSlave *slave,
 	if (start > slave->posStart)
 		html_painter_draw_text (p,
 					obj->x + tx, obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
-					text + unicode_offset_to_index (text, slave->posStart),
+					g_utf8_offset_to_pointer (text, slave->posStart),
 					start - slave->posStart);
 
 	/* 2. Draw the rightmost non-highlighted part, if any.  */
@@ -432,7 +432,7 @@ draw_highlighted (HTMLTextSlave *slave,
 		html_painter_draw_text (p,
 					obj->x + tx + offset_width + text_width,
 					obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
-					text + unicode_offset_to_index (text, end),
+					g_utf8_offset_to_pointer (text, end),
 					slave->posStart + slave->posLen - end);
 }
 

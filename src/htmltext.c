@@ -26,6 +26,7 @@
 #include <string.h>
 #include <sys/types.h>
 #include <regex.h>
+#include <gal/widgets/e-unicode.h>
 
 #include "htmltext.h"
 #include "htmlcolor.h"
@@ -198,7 +199,7 @@ word_get_position (HTMLText *text, guint off, guint *word_out, guint *left_out, 
 		ls    = s;
 		loff  = coff;
 		s     = strchr (s, ' ');
-		coff += s ? unicode_index_to_offset (ls, s - ls) : unicode_strlen (ls, -1);
+		coff += s ? g_utf8_pointer_to_offset (ls, s) : g_utf8_strlen (ls, -1);
 		(*word_out) ++;
 		if (s)
 			s ++;
@@ -277,7 +278,7 @@ split_word_width (HTMLText *s, HTMLText *d, HTMLPainter *p, gint offset)
 	if (in_middle) {
 		str = strchr (d->text, ' ');
 		d->word_width [0] = html_painter_calc_text_width (p, d->text, str
-								  ? unicode_index_to_offset (d->text, str - d->text)
+								  ? g_utf8_pointer_to_offset (d->text, str)
 								  : d->text_len, html_text_get_font_style (s), s->face);
 	} else
 		d->word_width [0] = 0;
@@ -294,7 +295,7 @@ split_word_width (HTMLText *s, HTMLText *d, HTMLPainter *p, gint offset)
 		str = strrchr (s->text, ' ');
 		if (!str)
 			str = s->text;
-		s->word_width [s->words - 1] = html_painter_calc_text_width (p, str, unicode_strlen (str, -1),
+		s->word_width [s->words - 1] = html_painter_calc_text_width (p, str, g_utf8_strlen (str, -1),
 									     html_text_get_font_style (s), s->face)
 			+ (s->words > 1 ? s->word_width [s->words - 2] : 0);
 	}
@@ -554,8 +555,8 @@ calc_word_width (HTMLText *text, HTMLPainter *painter)
 		end   = strchr (begin + (i ? 1 : 0), ' ');
 		text->word_width [i] = (i ? text->word_width [i - 1] : 0)
 			+ html_painter_calc_text_width (painter,
-							begin, end ? unicode_index_to_offset (begin, end - begin)
-							: unicode_strlen (begin, -1), font_style, text->face);
+							begin, end ? g_utf8_pointer_to_offset (begin, end)
+							: g_utf8_strlen (begin, -1), font_style, text->face);
 		begin = end;
 	}
 }
@@ -764,7 +765,7 @@ get_length (HTMLObject *self)
 static gboolean
 is_convert_nbsp_needed (const gchar *s, gint *delta_out)
 {
-	unicode_char_t uc;
+	gunichar uc;
 	gboolean rv = FALSE;
 	gboolean in_white_space;
 	const gchar *p, *op;
@@ -773,7 +774,7 @@ is_convert_nbsp_needed (const gchar *s, gint *delta_out)
 
 	op = p = s;
 	in_white_space = FALSE;
-	while (*p && (p = unicode_get_utf8 (p, &uc))) {
+	while (*p && (p = e_unicode_get_utf8 (p, &uc))) {
 		if (uc == ENTITY_NBSP) {
 			if (!in_white_space) {
 				(*delta_out) --;
@@ -799,7 +800,7 @@ static void
 convert_nbsp (gchar *fill, const gchar *p)
 {
 	gboolean in_white_space;
-	unicode_char_t uc;
+	gunichar uc;
 	const gchar *op;
 
 #ifdef DEBUG_NBSP
@@ -808,7 +809,7 @@ convert_nbsp (gchar *fill, const gchar *p)
 	op = p;
 	in_white_space = FALSE;
 
-	while (*p && (p = unicode_get_utf8 (p, &uc))) {
+	while (*p && (p = e_unicode_get_utf8 (p, &uc))) {
 		if (uc == ENTITY_NBSP || uc == ' ') {
 			if (in_white_space) {
 #ifdef DEBUG_NBSP
@@ -1257,7 +1258,7 @@ html_text_class_init (HTMLTextClass *klass,
 inline static gint
 text_len (const gchar *str, gint len)
 {
-	return len == -1 ? unicode_strlen (str, -1) : len;
+	return len == -1 ? g_utf8_strlen (str, -1) : len;
 }
 
 void
@@ -1272,7 +1273,7 @@ html_text_init (HTMLText *text,
 
 	html_object_init (HTML_OBJECT (text), HTML_OBJECT_CLASS (klass));
 
-	text->text          = len == -1 ? g_strdup (str) : g_strndup (str, unicode_offset_to_index (str, len));
+	text->text          = len == -1 ? g_strdup (str) : g_strndup (str, g_utf8_offset_to_pointer (str, len) - str);
 	text->text_len      = text_len (str, len);
 	text->font_style    = font_style;
 	text->face          = NULL;
@@ -1466,25 +1467,25 @@ html_text_get_bytes (HTMLText *text)
 	return strlen (text->text);
 }
 
-guint
-html_text_get_index (HTMLText *text, guint offset)
-{
-	return unicode_offset_to_index (text->text, offset);
-}
-
-unicode_char_t
-html_text_get_char (HTMLText *text, guint offset)
-{
-	unicode_char_t uc;
-
-	unicode_get_utf8 (text->text + html_text_get_index (text, offset), &uc);
-	return uc;
-}
-
 gchar *
 html_text_get_text (HTMLText *text, guint offset)
 {
-	return text->text + html_text_get_index (text, offset);
+	return g_utf8_offset_to_pointer (text->text, offset);
+}
+
+guint
+html_text_get_index (HTMLText *text, guint offset)
+{
+	return html_text_get_text (text, offset) - text->text;
+}
+
+gunichar
+html_text_get_char (HTMLText *text, guint offset)
+{
+	gunichar uc;
+
+	uc = g_utf8_get_char (html_text_get_text (text, offset));
+	return uc;
 }
 
 /* magic links */
@@ -1577,10 +1578,10 @@ html_text_magic_link (HTMLText *text, HTMLEngine *engine, guint offset)
 	while (offset < text->text_len && !rv) {
 		for (i=0; i<MIM_N; i++) {
 			if (mim [i].preg && !regexec (mim [i].preg, html_text_get_text (text, offset), 2, pmatch, 0)) {
-				gint o = html_text_get_text (text, offset) - text->text;
+				char *o = html_text_get_text (text, offset);
 				paste_link (engine, text,
-					    unicode_index_to_offset (text->text, pmatch [0].rm_so + o),
-					    unicode_index_to_offset (text->text, pmatch [0].rm_eo + o), mim [i].prefix);
+					    g_utf8_pointer_to_offset (text->text, o + pmatch [0].rm_so),
+					    g_utf8_pointer_to_offset (text->text, o + pmatch [0].rm_eo), mim [i].prefix);
 				rv = TRUE;
 				break;
 			}

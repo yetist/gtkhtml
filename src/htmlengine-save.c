@@ -26,7 +26,7 @@
 
 #include <config.h>
 #include <string.h>
-#include <unicode.h>
+#include <gal/unicode/gunicode.h>
 #include "config.h"
 #include "htmlcolor.h"
 #include "htmlengine.h"
@@ -45,7 +45,7 @@ encode_entities (const gchar *input,
 		 guint len,
 		 guint *encoded_len_return)
 {
-	unicode_char_t uc;
+	gunichar uc;
 	const gchar *p;
 	guchar *buffer = NULL;
 	guchar *out = NULL;
@@ -68,7 +68,7 @@ encode_entities (const gchar *input,
 			buffer = g_realloc (buffer, buffer_size);
 			out = &buffer[index];
 		}
-		unicode_get_utf8 (p, &uc);
+		uc = g_utf8_get_char (p);
 
 		/* By default one have to encode at least '<', '>', '"' and '&'.  */
 
@@ -117,7 +117,7 @@ encode_entities (const gchar *input,
 		}
 
 		count++;
-		p = unicode_next_utf8 (p);
+		p = g_utf8_next_char (p);
 	}
 
 	*out = 0;

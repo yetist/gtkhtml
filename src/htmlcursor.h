@@ -24,7 +24,7 @@
 #ifndef HTMLCURSOR_H
 #define HTMLCURSOR_H
 
-#include <unicode.h>
+#include <gal/unicode/gunicode.h>
 #include "htmltypes.h"
 
 struct _HTMLCursor {
@@ -87,8 +87,8 @@ void  html_cursor_jump_to_position  (HTMLCursor *cursor,
 				     gint        position);
 
 /* Retrieving the character under/before the cursor.  */
-unicode_char_t  html_cursor_get_current_char  (const HTMLCursor *cursor);
-unicode_char_t  html_cursor_get_prev_char     (const HTMLCursor *cursor);
+gunichar  html_cursor_get_current_char  (const HTMLCursor *cursor);
+gunichar  html_cursor_get_prev_char     (const HTMLCursor *cursor);
 
 /* Comparison.  */
 gboolean  html_cursor_equal     (const HTMLCursor *a,

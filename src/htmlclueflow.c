@@ -29,6 +29,8 @@
 #include <ctype.h>
 #include <string.h>
 
+#include <gal/widgets/e-unicode.h>
+
 #include "gtkhtml-properties.h"
 
 #include "htmlcolor.h"
@@ -1254,13 +1256,13 @@ save_plain (HTMLObject *self,
 			if (flow->style != HTML_CLUEFLOW_STYLE_PRE
 			    && flow->style != HTML_CLUEFLOW_STYLE_NOWRAP) {
 				
-				if (unicode_strlen (s, len) > (requested_width - pad)) {
-					space = s + unicode_offset_to_index (s, requested_width - pad);
+				if (g_utf8_strlen (s, len) > (requested_width - pad)) {
+					space = g_utf8_offset_to_pointer (s, requested_width - pad);
 					while (space > s 
 					       && (*space != ' '))
-						// || (IS_UTF8_NBSP ((guchar *)unicode_next_utf8 (space)))
-						// || (IS_UTF8_NBSP ((guchar *)unicode_previous_utf8 (s, space)))))
-						space = unicode_previous_utf8 (s, space);
+						// || (IS_UTF8_NBSP ((guchar *)g_utf8_find_next_char (space, NULL)))
+						// || (IS_UTF8_NBSP ((guchar *)g_utf8_find_prev_char (s, space)))))
+						space = g_utf8_find_prev_char (s, space);
 					
 					if (space != s)
 						len = space - s;
@@ -1272,7 +1274,7 @@ save_plain (HTMLObject *self,
 			
 			/* Trim the space at the end */
 			while (*s == ' ' || IS_UTF8_NBSP (s)) 
-				s = unicode_next_utf8 (s);
+				s = g_utf8_next_char (s);
 			
 			if (*s == '\n') 
 				s++;
@@ -1987,14 +1989,13 @@ next_obj_and_clear (HTMLObject *obj, guint *off, gboolean *is_text, HTMLInterval
 static HTMLObject *
 spell_check_word_mark (HTMLObject *obj, const gchar *text, const gchar *word, guint *off, HTMLInterval *i)
 {
-	guint w_off, w_index, ioff;
-	guint len = unicode_strlen (word, -1);
+	guint w_off, ioff;
+	guint len = g_utf8_strlen (word, -1);
 	gboolean is_text;
 
 	/* printf ("[not in dictionary word off: %d off: %d]\n", word - text, *off); */
 	is_text = html_object_is_text (obj);
-	w_index = word - text;
-	w_off   = unicode_index_to_offset (text, w_index);
+	w_off   = g_utf8_pointer_to_offset (text, word);
 	while (obj && (!is_text || (is_text && *off + html_interval_get_length (i, obj) <= w_off)))
 		obj = next_obj_and_clear (obj, off, &is_text, i);
 
@@ -2009,16 +2010,16 @@ spell_check_word_mark (HTMLObject *obj, const gchar *text, const gchar *word, gu
 			ioff  = html_interval_get_start (i, obj);
 			tlen  = MIN (HTML_TEXT (obj)->text_len - toff - ioff, len);
 			t     = HTML_TEXT (obj)->text;
-			g_assert (!strncmp (text + w_index, t + unicode_offset_to_index (t, toff + ioff),
-					    unicode_offset_to_index (t, toff + ioff + tlen)
-					    - unicode_offset_to_index (t, toff + ioff)));
+			g_assert (!strncmp (word, g_utf8_offset_to_pointer (t, toff + ioff),
+					    g_utf8_offset_to_pointer (t, toff + ioff + tlen)
+					    - g_utf8_offset_to_pointer (t, toff + ioff)));
 			/* printf ("add spell error - word: %s off: %d beg: %s len: %d\n",
 			   word, *off, HTML_TEXT (obj)->text + toff, tlen); */
 			html_text_spell_errors_add (HTML_TEXT (obj),
 						    ioff + toff, tlen);
 			len     -= tlen;
 			w_off   += tlen;
-			w_index += unicode_offset_to_index (text + w_index, tlen);
+			word     = g_utf8_offset_to_pointer (word, tlen);
 			if (len)
 				do obj = next_obj_and_clear (obj, off, &is_text, i); while (obj && !is_text);
 			/* printf ("off: %d\n", *off); */
@@ -2032,11 +2033,11 @@ spell_check_word_mark (HTMLObject *obj, const gchar *text, const gchar *word, gu
 static gchar *
 begin_of_word (gchar *text, gchar *ct)
 {
-	unicode_char_t uc;
+	gunichar uc;
 
 	do
-		unicode_get_utf8 (ct, &uc);
-	while (!html_is_in_word (uc) && (ct = unicode_next_utf8 (ct)) && *ct);
+		uc = g_utf8_get_char (ct);
+	while (!html_is_in_word (uc) && (ct = g_utf8_next_char (ct)) && *ct);
 
 	return ct;
 }
@@ -2044,10 +2045,10 @@ begin_of_word (gchar *text, gchar *ct)
 static gchar *
 end_of_word (gchar *ct)
 {
-	unicode_char_t uc;
+	gunichar uc;
 	gchar *cn;
 
-	while (*ct && (cn = unicode_get_utf8 (ct, &uc)) && html_is_in_word (uc))
+	while (*ct && (cn = e_unicode_get_utf8 (ct, &uc)) && html_is_in_word (uc))
 		ct = cn;
 
 	return ct;
@@ -2111,15 +2112,15 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *inte
 				if (result == 1) {
 					gboolean is_text = (obj) ? html_object_is_text (obj) : FALSE;
 					while (obj && (!is_text
-						       || (is_text && off + html_interval_get_length (interval, obj)
-							   < unicode_index_to_offset (text, ct - text))))
+						       || (off + html_interval_get_length (interval, obj)
+							   < g_utf8_pointer_to_offset (text, ct))))
 						obj = next_obj_and_clear (obj, &off, &is_text, interval);
 				} else if (obj)
 						obj = spell_check_word_mark (obj, text, word, &off, interval);
 
 				*ct = bak;
 				if (*ct)
-					ct = unicode_next_utf8 (ct);
+					ct = g_utf8_next_char (ct);
 			}
 		}
 		g_free (text);

@@ -42,6 +42,4 @@ gchar *        html_tokenizer_peek_token   (HTMLTokenizer *t);
 gchar *        html_tokenizer_next_token   (HTMLTokenizer *t);
 gboolean       html_tokenizer_has_more_tokens     (HTMLTokenizer *t);
 
-gint           g_unichar_to_utf8 (gint c, gchar *outbuf);
-
 #endif /* _HTMLTOKENIZER_H_ */
