@@ -1,6 +1,7 @@
-<!doctype book PUBLIC "-//GNOME//DTD DocBook PNG Variant V1.1//EN"[
+<!doctype book PUBLIC "-//Davenport//DTD DocBook V3.0//EN"[
 
 <!entity part-gtkhtml SYSTEM "sgml/gtkhtml.sgml">
+<!entity part-embedded SYSTEM "sgml/gtkhtml-embedded.sgml">
 <!entity part-types   SYSTEM "sgml/gtkhtml-types.sgml">
 <!entity part-enums   SYSTEM "sgml/gtkhtml-enums.sgml">
 <!entity part-stream  SYSTEM "sgml/gtkhtml-stream.sgml">
@@ -73,6 +74,7 @@
     </partintro>
 
     &part-gtkhtml;
+    &part-embedded;
     &part-stream;
     &part-enums;
     &part-types;

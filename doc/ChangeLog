@@ -1,3 +1,9 @@
+2001-07-18  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.types: add gtkhtml-embedded initializer.
+
+	* gtkhtml.sgml: add a chapter for gtkhtml-embedded.
+
 2001-07-17  Larry Ewing  <lewing@ximian.com>
 
 	* tmpl/gtkhtml-embedded.sgml: start to fill in the embedded
