@@ -32,9 +32,11 @@ struct _GtkHTMLRuleDialog {
 	GtkHTML      *html;
 	
 	GtkWidget   *spin [3];
-        GtkWidget   *combo;
 	GtkWidget   *check;
-	GtkWidget   *radio [4];
+	GtkWidget   *combo;
+	
+	gboolean       shadow;
+	HTMLHAlignType halign;
 };
 
 
@@ -67,7 +69,7 @@ GtkHTMLRuleDialog *
 gtk_html_rule_dialog_new (GtkHTML *html)
 {
 	GtkHTMLRuleDialog *d = g_new (GtkHTMLRuleDialog, 1);
-	GtkWidget *vbox  [6];
+	GtkWidget *vbox  [4];
 	GtkWidget *label [3];
 	GtkWidget *hbox;
 	gint i;
@@ -77,12 +79,14 @@ gtk_html_rule_dialog_new (GtkHTML *html)
 						    GNOME_STOCK_BUTTON_CANCEL, NULL));
 	d->html       = html;
 	d->check      = gtk_check_button_new_with_label (_("Set Shade"));
+	d->combo      = gtk_combo_new ();
 	hbox          = gtk_hbox_new (FALSE, 3);
 
 	for (i = 0; i < 3; i++) {
+
 		label [i]   = gtk_label_new (name [i]);
 		vbox [i]    = gtk_vbox_new (FALSE, 3);
-		d->spin [i] = gtk_spin_button_new (GTK_ADJUSTMENT (gtk_adjustment_new (i, 0, 999, 1, 5, 10)), 1, 0);
+		d->spin [i] = gtk_spin_button_new (GTK_ADJUSTMENT (gtk_adjustment_new (0, 0, 999, 1, 5, 10)), 1, 0);
 
 		gtk_box_pack_start_defaults (GTK_BOX (vbox [i]), label [i]);
 		gtk_box_pack_start_defaults (GTK_BOX (vbox [i]), d->spin [i]);
@@ -90,18 +94,16 @@ gtk_html_rule_dialog_new (GtkHTML *html)
 	}
 
 	gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (d->check), TRUE);
-	vbox [3] = gtk_vbox_new (FALSE, 3);
-
-	gtk_box_pack_start_defaults (GTK_BOX (vbox [3]), d->check);
-	gtk_box_pack_start_defaults (GTK_BOX (hbox), vbox [3]);
+	
 	gtk_box_pack_start_defaults (GTK_BOX (d->dialog->vbox), hbox);
+	gtk_box_pack_start_defaults (GTK_BOX (d->dialog->vbox), d->check);
+	gtk_box_pack_start_defaults (GTK_BOX (d->dialog->vbox), d->combo);
 
-	gtk_widget_show_all (hbox);
+	gtk_widget_show_all (d->dialog->vbox);
 	
 	gnome_dialog_button_connect (d->dialog, 0, button_rule_cb, d);
 	gnome_dialog_close_hides (d->dialog, TRUE);
 	gnome_dialog_set_close (d->dialog, TRUE);
-
 	gnome_dialog_set_default (d->dialog, 0);
 
 	return d;

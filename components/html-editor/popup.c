@@ -60,7 +60,9 @@ prop (GtkWidget *mi, GtkHTMLControlData *cd)
 	printf ("prop\n");
 
 	switch (HTML_OBJECT_TYPE (cd->obj)) {
-     
+	case HTML_TYPE_RULE:
+		rule_edit (cd);
+		break;
 	case HTML_TYPE_IMAGE:
 		image_edit (cd, HTML_IMAGE (cd->obj));
 		break;
@@ -107,6 +109,9 @@ popup_show (GtkHTMLControlData *cd, GdkEventButton *event)
 		gchar *text = NULL;
 
 		switch (HTML_OBJECT_TYPE (cd->obj)) {
+		case HTML_TYPE_RULE:
+			text = N_("Rule...");
+			break;
 		case HTML_TYPE_IMAGE:
 			text = N_("Image...");
 			break;

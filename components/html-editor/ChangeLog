@@ -1,5 +1,13 @@
 2000-06-09  Ariel Rios  <ariel@arcavia.com>
 
+	* rule.c (gtk_html_rule_dialog_new): Some modifications to the dialog to make ot
+	look cooler and nicer.
+
+	* popup.c (prop): Added reference so we can edit rule type. 
+	(popup_show): Ditto.
+
+2000-06-09  Ariel Rios  <ariel@arcavia.com>
+	
 	* Makefile.am: Include rule.c and rule.h
 	
 	* menubar.c: Added rule as as a member of subtree.
