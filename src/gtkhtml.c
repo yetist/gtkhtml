@@ -50,8 +50,6 @@
 
 static GtkLayoutClass *parent_class = NULL;
 
-static gboolean gconf_initialized = FALSE;
-
 #ifdef GTKHTML_HAVE_GCONF
 GConfClient *gconf_client = NULL;
 GConfError  *gconf_error  = NULL;

@@ -1,3 +1,9 @@
+2000-07-06  Darin Adler  <darin@eazel.com>
+
+	* .cvsignore: Skip some generated files.
+	* src/gtkhtml.c: Get rid of unused global.
+	* src/testgtkhtml.c: (main): Fix build by removing init call.
+
 2000-07-05  Eskil Heyn Olsen  <eskil@eazel.com>
 
 	* capplet/Makefile.am:
