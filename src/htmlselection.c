@@ -118,6 +118,7 @@ html_engine_disable_selection (HTMLEngine *e)
 
 	remove_mark (e);
 	html_engine_unselect_all (e);
+	e->selection_mode = FALSE;
 }
 
 static gboolean

@@ -1,3 +1,11 @@
+2001-08-08  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit-selection-updater.c (updater_idle_callback):
+	restore selection_mode flag
+
+	* htmlselection.c (html_engine_disable_selection): disable
+	selection mode
+
 2001-08-07  Radek Doulik  <rodo@ximian.com>
 
 	* testgtkhtml.c (redirectFilter): do not use g_free on memory

@@ -91,8 +91,12 @@ updater_idle_callback (gpointer data)
 
 	if (engine->mark && html_cursor_get_position (engine->mark) != html_cursor_get_position (engine->cursor))
 		html_engine_select_interval (engine, html_interval_new_from_cursor (engine->mark, engine->cursor));
-	else
+	else {
+		gboolean selection_mode = engine->selection_mode;
+
 		html_engine_disable_selection (engine);
+		engine->selection_mode = selection_mode;
+	}
 
 	updater->idle_id = 0;
 	return FALSE;
