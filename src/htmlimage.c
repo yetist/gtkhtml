@@ -62,7 +62,7 @@ struct _HTMLImageFactory {
 
 #define DEFAULT_SIZE 48
 #define ANIMATIONS(i) GTK_HTML_CLASS (GTK_OBJECT (i->image_ptr->factory->engine->widget)->klass)->properties->animations
-
+#define STRDUP_HELPER(i,j) if (i != j) {char *tmp = g_strdup (j); g_free(i); i = tmp;}
 
 HTMLImageClass html_image_class;
 static HTMLObjectClass *parent_class = NULL;
@@ -573,19 +573,10 @@ set_link (HTMLObject *self, HTMLColor *color, const gchar *url, const gchar *tar
 {
 	HTMLImage *image = HTML_IMAGE (self);
 
-	if (image->url)    g_free (image->url);
-	if (image->target) g_free (image->target);
-
-	image->url = g_strdup (url);
-	image->target = g_strdup (target);
+	STRDUP_HELPER (image->url, url);
+	STRDUP_HELPER (image->target, target);
 
 	return NULL;
-}
-
-static HTMLObject *
-remove_link (HTMLObject *self, HTMLColor *color)
-{
-	return set_link (self, NULL, NULL, NULL);
 }
 
 static gboolean
@@ -646,7 +637,6 @@ html_image_class_init (HTMLImageClass *image_class,
 	object_class->get_url = get_url;
 	object_class->get_target = get_target;
 	object_class->set_link = set_link;
-	object_class->remove_link = remove_link;
 	object_class->accepts_cursor = accepts_cursor;
 	object_class->get_valign = get_valign;
 	object_class->save = save;
@@ -678,7 +668,7 @@ html_image_init (HTMLImage *image,
 	html_object_init (object, HTML_OBJECT_CLASS (klass));
 
 	image->url = g_strdup (url);
-	image->target = g_strdup (url);
+	image->target = g_strdup (target);
 	image->usemap = NULL;
 	image->final_url = NULL;
 	image->ismap = FALSE;
@@ -865,6 +855,12 @@ html_image_factory_write_pixbuf (GtkHTMLStream *stream,
 
 	/* FIXME ! Check return value */
 	gdk_pixbuf_loader_write (p->loader, buffer, size);
+}
+
+static void
+html_image_factory_area_updated (GdkPixbufLoader *loader, guint x, guint y, guint width, guint height)
+{
+	g_warning ("AREA_UPDATED x=%d, y=%d, w=%d, h=%d", x, y, width, height);
 }
 
 static void
@@ -1227,6 +1223,10 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 					    GTK_SIGNAL_FUNC (html_image_factory_area_prepared),
 					    retval);
 
+			gtk_signal_connect (GTK_OBJECT (retval->loader), "area_updated",
+					    GTK_SIGNAL_FUNC (html_image_factory_area_updated),
+					    retval);
+
 			gtk_signal_connect (GTK_OBJECT (retval->loader), "frame_done",
 					    GTK_SIGNAL_FUNC (html_image_factory_frame_done),
 					    retval);
@@ -1255,6 +1255,12 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 	}
 
 	return retval;
+}
+
+HTMLEngine *
+html_image_factory_get_engine (HTMLImageFactory *factory)
+{
+	return factory->engine;
 }
 
 void

@@ -227,7 +227,6 @@ struct _HTMLObjectClass {
 
 	/* links */
 	HTMLObject * (* set_link)        (HTMLObject *self, HTMLColor *color, const gchar *url, const gchar *target);
-	HTMLObject * (* remove_link)     (HTMLObject *self, HTMLColor *color);
 
 	/* length */
 	guint        (* get_length)                (HTMLObject *self);

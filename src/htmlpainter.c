@@ -269,8 +269,7 @@ html_painter_set_font_face (HTMLPainter *painter,
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 
 	if (!painter->font_face || !face || strcmp (painter->font_face, face)) {
-		if (painter->font_face)
-			g_free (painter->font_face);
+		g_free (painter->font_face);
 		painter->font_face = g_strdup (face);
 	}
 }

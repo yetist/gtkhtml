@@ -119,11 +119,20 @@ get_target (HTMLObject *object)
 }
 
 static HTMLObject *
-remove_link (HTMLObject *self, HTMLColor *color)
+set_link (HTMLObject *self, HTMLColor *color, const gchar *url, const gchar *target)
 {
 	HTMLText *text = HTML_TEXT (self);
+	HTMLLinkText *lt = HTML_LINK_TEXT (self);
 
-	return html_text_new_with_len (text->text, text->text_len, text->font_style, color);
+	if (url) {
+		g_free (lt->url);
+		g_free (lt->target);
+		lt->url = g_strdup (url);
+		lt->target = g_strdup (target);
+		return NULL;
+	} else {	
+		return html_text_new_with_len (text->text, text->text_len, text->font_style, color);
+	}
 }
 
 static GtkHTMLFontStyle
@@ -183,7 +192,7 @@ html_link_text_class_init (HTMLLinkTextClass *klass,
 	object_class->merge = object_merge;
 	object_class->get_url = get_url;
 	object_class->get_target = get_target;
-	object_class->remove_link = remove_link;	
+	object_class->set_link = set_link;
 	object_class->save = save;
 
 	text_class->get_font_style = get_font_style;
@@ -248,13 +257,6 @@ html_link_text_new (const gchar *text,
 		    const gchar *target)
 {
 	return html_link_text_new_with_len (text, -1, font_style, color, url, target);
-}
-
-void
-html_link_text_set_url (HTMLLinkText *link, const gchar *url)
-{
-	g_free (link->url);
-	link->url = g_strdup (url);
 }
 
 void

@@ -1,5 +1,31 @@
 2001-07-01  Larry Ewing  <lewing@ximian.com>
 
+	* htmltext.c (set_link): respect new semantics.
+
+	* htmllinktext.h (html_link_text_to_text): remove unused
+	prototype.
+
+	* htmllinktext.c (set_link): make this respect the new set_link
+	semantics.
+	(remove_link): removed.
+	(html_link_text_set_url): remove this completely unused function.
+	
+	* htmlobject.h: remove remove_link from the class structure,
+	html_object_set_link (o, color, NULL, NULL) has the same effect
+	now and we might as well clean up the class structure a little.
+
+	* htmlobject.c (html_object_remove_link): make remove_link proxy
+	to set_link.
+
+	* htmlimage.c (set_link): clean this up a little.
+	(html_image_init): fix dup target not url.
+	(remove_link): removed.
+	(html_image_class_init): remove remove_link.
+	(html_image_factory_area_updated): add area_updated handler.
+	(html_image_factory_register): connect handler.
+
+	* htmlpainter.c (html_painter_set_font_face): remove redundant if.
+
 	* htmlframe.c (calc_size): use html_frame_set_scrolling.
 
 2001-06-29  Ettore Perazzoli  <ettore@ximian.com>

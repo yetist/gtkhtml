@@ -942,6 +942,11 @@ html_object_calc_preferred_width (HTMLObject *o,
 	return o->pref_width;
 }
 
+gint
+html_object_get_uris (HTMLObject *o, char **link, char **target, char **src) {
+	return TRUE;
+}
+
 const gchar *
 html_object_get_url (HTMLObject *o)
 {
@@ -1211,7 +1216,7 @@ HTMLObject *
 html_object_remove_link (HTMLObject *self,
 			 HTMLColor *color)
 {
-	return (HO_CLASS (self)->remove_link) ? (* HO_CLASS (self)->remove_link) (self, color) : NULL;
+	return (HO_CLASS (self)->set_link) ? (* HO_CLASS (self)->set_link) (self, color, NULL, NULL) : NULL;
 }
 
 guint

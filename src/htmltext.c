@@ -1159,7 +1159,7 @@ set_link (HTMLObject *self, HTMLColor *color, const gchar *url, const gchar *tar
 {
 	HTMLText *text = HTML_TEXT (self);
 
-	return html_link_text_new_with_len (text->text, text->text_len, text->font_style, color, url, target);
+	return url ? html_link_text_new_with_len (text->text, text->text_len, text->font_style, color, url, target) : NULL;
 }
 
 static void
