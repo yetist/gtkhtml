@@ -1416,8 +1416,10 @@ parse_object_params(HTMLEngine *p, HTMLObject *clue)
 static void
 block_end_object (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
-	if (!html_stack_is_empty (e->embeddedStack))
-		html_stack_pop (e->embeddedStack);
+	if (!html_stack_is_empty (e->embeddedStack)) {
+		GObject *o = G_OBJECT (html_stack_pop (e->embeddedStack));
+		g_object_unref (o);
+	}
 }
 
 static void
@@ -1473,6 +1475,7 @@ element_parse_object (HTMLEngine *e, HTMLObject *clue, const gchar *attr)
 							width, height);
 
 	html_stack_push (e->embeddedStack, eb);
+	g_object_ref (eb);
 	el = html_embedded_new_widget (GTK_WIDGET (e->widget), eb, e);
 
 	/* evaluate params */
@@ -4021,8 +4024,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->table_stack = html_stack_new (NULL);
 
 	engine->listStack = html_stack_new ((HTMLStackFreeFunc) html_list_destroy);
-	/* FIXME rodo engine->embeddedStack = html_stack_new ((HTMLStackFreeFunc) gtk_object_unref); */
-	engine->embeddedStack = html_stack_new (NULL);
+	engine->embeddedStack = html_stack_new (g_object_unref);
 
 	engine->url = NULL;
 	engine->target = NULL;
@@ -4618,7 +4620,7 @@ html_engine_stream_end (GtkHTMLStream *stream,
 	g_signal_emit (e, signals [LOAD_DONE], 0);
 }
 
-void
+static void
 html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height, gboolean expose)
 {
 	gint x1, x2, y1, y2;

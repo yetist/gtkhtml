@@ -1,3 +1,10 @@
+2004-07-28  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c: ref embedded widget when pushing it to the
+	embedded stack and unref it when poping back
+
+	Fixes #61997
+
 2004-07-22  Rodney Dawes  <dobey@novell.com>
 
 	* Makefile.am (AM_CFLAGS, *dir, *_LDADD): Use GTKHTML_API_VERSION
