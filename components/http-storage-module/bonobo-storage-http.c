@@ -209,7 +209,7 @@ init_storage_plugin(StoragePlugin *plugin)
 
 	plugin->name = "http";
 	plugin->description = "HTTP driver";
-	plugin->version = VERSION;
+	plugin->version = "0.26";
 	
 	plugin->storage_open = bonobo_storage_http_open; 
 	plugin->stream_open = bonobo_stream_http_open; 

@@ -1,0 +1,5 @@
+2000-10-27  Joe Shaw  <joe@helixcode.com>
+
+	* bonobo-storage-http.c (init_storage_plugin): Change VERSION to
+	"0.26". It was pulling in the GtkHTML version when we need the
+	Bonobo version.
