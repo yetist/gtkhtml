@@ -1,3 +1,8 @@
+2002-11-11  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (idle_handler): flush the draw queue before we scroll
+	to reduce drawing artifacts
+
 2002-11-11  Radek Doulik  <rodo@ximian.com>
 
 	* htmlgdkpainter.c (draw_text): fixed

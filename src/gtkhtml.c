@@ -341,14 +341,14 @@ idle_handler (gpointer data)
 	    !html_engine_frozen (html->engine))
 		html_engine_make_cursor_visible (engine);
 
+	if (html->engine->thaw_idle_id == 0 && !html_engine_frozen (html->engine))
+		html_engine_flush_draw_queue (engine);
+
 	gtk_adjustment_set_value (GTK_LAYOUT (html)->hadjustment, (gfloat) engine->x_offset);
 	gtk_adjustment_set_value (GTK_LAYOUT (html)->vadjustment, (gfloat) engine->y_offset);
 
 	gtk_html_private_calc_scrollbars (html, NULL, NULL);
-
-	if (html->engine->thaw_idle_id == 0 && !html_engine_frozen (html->engine))
-		html_engine_flush_draw_queue (engine);
-
+	
  	html->priv->idle_handler_id = 0;
 	return FALSE;
 }
