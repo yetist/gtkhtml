@@ -1,5 +1,8 @@
 2000-12-04  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine-edit-paste.c (prepare_clueflows): fix case when
+	engine->cursor->object->next == NULL
+
 	* htmlinterval.c (select_object): use selected_in
 	(html_interval_select): set selected_in to FALSE before selecting
 

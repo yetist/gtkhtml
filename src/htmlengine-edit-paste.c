@@ -227,13 +227,19 @@ prepare_clueflows (HTMLEngine *engine,
 			first = FALSE;
 			retval = TRUE;
 		} else {	/* ! first || append */
-			if (first) { /* first && append */
+			if (first && engine->cursor->object->next) { /* first && append */
 				split_first_clueflow_at_cursor (engine, HTML_CLUEFLOW (obj), engine->cursor->object->next);
 				clue = engine->cursor->object->parent;
 				first = FALSE;
 			} else {
+				if (!engine->cursor->object->next && first) {
+					clue = engine->cursor->object->parent;
+				}
 				g_assert (clue != NULL);
 				clue = add_new_clueflow (engine, HTML_CLUEFLOW (obj), clue);
+				if (!engine->cursor->object->next) {
+					first = FALSE;
+				}
 			}
 		}
 	}
