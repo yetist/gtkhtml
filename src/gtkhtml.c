@@ -29,6 +29,8 @@
 
 #include <gnome.h>
 
+#include "htmlcolorset.h"
+#include "htmlcursor.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-clueflowstyle.h"
 #include "htmlengine-edit-cut-and-paste.h"
@@ -37,6 +39,7 @@
 #include "htmlengine-edit-movement.h"
 #include "htmlengine-edit-cursor.h"
 #include "htmlengine-edit-table.h"
+#include "htmlengine-edit-tablecell.h"
 #include "htmlengine-edit-text.h"
 #include "htmlengine-edit-selection-updater.h"
 #include "htmlengine-print.h"
@@ -46,9 +49,8 @@
 #include "htmlimage.h"
 #include "htmlplainpainter.h"
 #include "htmlsettings.h"
-#include "htmlcolorset.h"
+#include "htmltable.h"
 #include "htmlselection.h"
-#include "htmlcursor.h"
 
 #include "gtkhtml.h"
 #include "gtkhtml-embedded.h"
@@ -2724,13 +2726,53 @@ move_selection (GtkHTML *html, GtkHTMLCommandType com_type)
 	return rv;
 }
 
-static void
+inline static void
 delete_one (HTMLEngine *e, gboolean forward)
 {
 	if (e->cursor->object && html_object_is_container (e->cursor->object))
 		html_engine_delete_container (e);
 	else
 		html_engine_delete_n (e, 1, forward);
+}
+
+inline static void
+inset_tab_or_indent_more_or_next_cell (GtkHTML *html)
+{
+	HTMLEngine *e = html->engine;
+	HTMLTableCell *cell;
+
+	cell = html_engine_get_table_cell (e);
+	if (cell) {
+		html_engine_hide_cursor (e);
+		html_cursor_end_of_line (e->cursor, e);
+		html_cursor_forward (e->cursor, e);
+		if (HTML_IS_TABLE (e->cursor->object)) {
+			html_cursor_backward (e->cursor, e);
+			html_engine_insert_table_row (e, TRUE);
+		}
+		html_engine_show_cursor (e);
+	} else if (!html_engine_is_selection_active (e)
+	    && html_clueflow_tabs (HTML_CLUEFLOW (e->cursor->object->parent), e->painter))
+		html_engine_insert_text (e, "\t", 1);
+	else
+		gtk_html_modify_indent_by_delta (html, +1);
+}
+
+static void
+indent_less_or_prev_cell (GtkHTML *html)
+{
+	HTMLTableCell *cell;
+
+	cell = html_engine_get_table_cell (html->engine);
+	if (cell) {
+		HTMLEngine *e = html->engine;
+		html_engine_hide_cursor (e);
+		html_cursor_beginning_of_line (e->cursor, e);
+		html_cursor_backward (e->cursor, e);
+		html_engine_show_cursor (e);
+	} else
+		gtk_html_modify_indent_by_delta (html, -1);
+
 }
 
 static gboolean
@@ -2919,8 +2961,14 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		else
 			gtk_html_modify_indent_by_delta (html, +1);
 		break;
+	case GTK_HTML_COMMAND_INSERT_TAB_OR_INDENT_MORE_OR_NEXT_CELL:
+		inset_tab_or_indent_more_or_next_cell (html);
+		break;
 	case GTK_HTML_COMMAND_INDENT_DEC:
 		gtk_html_modify_indent_by_delta (html, -1);
+		break;
+	case GTK_HTML_COMMAND_INDENT_DEC_OR_PREV_CELL:
+		indent_less_or_prev_cell (html);
 		break;
 	case GTK_HTML_COMMAND_INDENT_PARAGRAPH:
 		html_engine_indent_pre_paragraph (e);

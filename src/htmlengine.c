@@ -4641,17 +4641,17 @@ html_engine_set_painter (HTMLEngine *e, HTMLPainter *painter)
 gint
 html_engine_get_view_width (HTMLEngine *e)
 {
-	return (e->widget->iframe_parent
+	return MAX (0, (e->widget->iframe_parent
 		? html_engine_get_view_width (GTK_HTML (e->widget->iframe_parent)->engine)
-		: GTK_WIDGET (e->widget)->allocation.width) - e->leftBorder - e->rightBorder;
+		: GTK_WIDGET (e->widget)->allocation.width) - e->leftBorder - e->rightBorder);
 }
 
 gint
 html_engine_get_view_height (HTMLEngine *e)
 {
-	return (e->widget->iframe_parent
+	return MAX (0, (e->widget->iframe_parent
 		? html_engine_get_view_height (GTK_HTML (e->widget->iframe_parent)->engine)
-		: GTK_WIDGET (e->widget)->allocation.height) - e->topBorder - e->bottomBorder;
+		: GTK_WIDGET (e->widget)->allocation.height) - e->topBorder - e->bottomBorder);
 }
 
 /* beginnings of ID support */

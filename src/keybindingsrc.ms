@@ -56,10 +56,10 @@ binding "gtkhtml-bindings-ms"
   bind "<Ctrl><Alt>c"         { "command" (align-center) }
   bind "<Ctrl><Alt>r"         { "command" (align-right) }
 
-  bind "Tab"                     { "command" (insert-tab-or-indent-more) }
-  bind "ISO_Left_Tab"            { "command" (insert-tab-or-indent-more) }
-  bind "<Shift>Tab"              { "command" (indent-less) }
-  bind "<Shift>ISO_Left_Tab"     { "command" (indent-less) }
+  bind "Tab"                     { "command" (insert-tab-or-indent-more-or-next-cell) }
+  bind "ISO_Left_Tab"            { "command" (insert-tab-or-indent-more-or-next-cell) }
+  bind "<Shift>Tab"              { "command" (indent-less-or-prev-cell) }
+  bind "<Shift>ISO_Left_Tab"     { "command" (indent-less-or-prev-cell) }
 
   bind "<Ctrl>0"              { "command" (style-normal) }
   bind "<Ctrl>1"              { "command" (style-header1) }
