@@ -78,9 +78,6 @@ check_point (HTMLObject *self,
 static gboolean
 calc_size (HTMLObject *self, HTMLPainter *painter, GList **changed_objs)
 {
-	/* RM2 HTMLText *text = HTML_TEXT (self);
-	   GtkHTMLFontStyle style = html_text_get_font_style (text); */
-
 	self->width = 0;
 	self->ascent = 1;
 	self->descent = 0;

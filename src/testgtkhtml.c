@@ -203,9 +203,6 @@ create_toolbars (GtkWidget *app)
 	
 	toolbar = gtk_toolbar_new ();
 	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
-	/* RM2 gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_SPACE_LINE);
-	gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar),
-	GTK_RELIEF_NONE); */
 	gtk_box_pack_start (GTK_BOX (hbox), toolbar, FALSE, FALSE, 0);
 
 	toolbar_back = gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
@@ -980,8 +977,6 @@ main (gint argc, gchar *argv[])
 	GtkWidget *app, *bar;
 	GtkWidget *html_widget;
 	GtkWidget *scrolled_window;
-	/* GdkColor   bgColor = {0, 0xc7ff, 0xc7ff, 0xc7ff}; */
-	/* RM2 poptContext ctx; */
 	GError  *gconf_error  = NULL;
 
 #ifdef MEMDEBUG
@@ -1080,13 +1075,6 @@ main (gint argc, gchar *argv[])
 
 	if (argc > 1 && *argv [argc - 1] != '-')
 		goto_url (argv [argc - 1], 0);
-	/* RM2 {
-		const char **args;
-		args = poptGetArgs(ctx);
-
-		if (args && args[0])
-			goto_url (args[0], 0);
-			} */
 
 	gtk_main ();
 

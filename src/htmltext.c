@@ -642,13 +642,8 @@ object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, g
 static gboolean
 calc_size (HTMLObject *self, HTMLPainter *painter, GList **changed_objs)
 {
-	/* RM2 HTMLText *text = HTML_TEXT (self);
-	   GtkHTMLFontStyle style = html_text_get_font_style (text); */
-
 	self->width = 0;
 	html_object_calc_preferred_width (self, painter);
-	/* self->ascent = 0; FIX2? */
-	/* self->descent = 0; FIX2? */
 
 	return FALSE;
 }
