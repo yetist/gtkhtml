@@ -3271,7 +3271,7 @@ gtk_html_begin (GtkHTML *html)
 {
 	g_return_val_if_fail (GTK_IS_HTML (html), NULL);
 
-	return gtk_html_begin_content (html, html->priv->content_type);
+	return gtk_html_begin_full (html, NULL, html->priv->content_type, 0);
 }
 
 /**
@@ -3291,13 +3291,7 @@ gtk_html_begin_content (GtkHTML *html, gchar *content_type)
 
 	g_return_val_if_fail (! gtk_html_get_editable (html), NULL);
 
-	handle = html_engine_begin (html->engine, content_type);
-	if (handle == NULL)
-		return NULL;
-
-	html_engine_parse (html->engine);
-
-	return handle;
+	return gtk_html_begin_full (html, NULL, NULL, 0);
 }
 
 /**

@@ -1,3 +1,8 @@
+2004-04-27  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (gtk_html_begin): use gtk_html_begin_full
+	(gtk_html_begin_content): ditto
+
 2004-04-26  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (gtk_html_update_scrollbars_on_resize): do not set
