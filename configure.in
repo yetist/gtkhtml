@@ -234,7 +234,7 @@ dnl ******************
 dnl gconf checks
 dnl ******************
 
-try_gconf=false
+try_gconf=true
 have_gconf=false
 
 AC_ARG_WITH(gconf,
