@@ -1,3 +1,9 @@
+2004-05-26  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (html_text_op_copy_helper): update spell errors
+
+	Fixes #50829
+
 2004-05-25  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-save.c (html_engine_save_buffer_clear_line_breaks):

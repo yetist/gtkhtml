@@ -341,6 +341,9 @@ html_text_op_copy_helper (HTMLText *text, GList *from, GList *to, guint *len)
 	g_free (rvt->text);
 	rvt->text = nt;
 
+	rvt->spell_errors = remove_spell_errors (rvt->spell_errors, 0, begin);
+	rvt->spell_errors = remove_spell_errors (rvt->spell_errors, end, text->text_len - end);
+
 	if (end_index < text->text_bytes)
 		cut_attr_list (rvt, end_index, text->text_bytes);
 	if (begin_index > 0)
