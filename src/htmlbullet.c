@@ -16,6 +16,7 @@ html_bullet_new (gint height, gint level, GdkColor color)
 	object->ascent = height;
 	object->descent = 0;
 	object->width = 14;
+
 	bullet->level = level;
 	
 	return object;

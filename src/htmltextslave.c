@@ -20,6 +20,9 @@ html_text_slave_fit_line (HTMLObject *o, gboolean startOfLine, gboolean firstRun
 	/* Remove existing slaves */
 	HTMLObject *next_obj = o->nextObj;
 
+	g_print ("fit line: %d %d %d\n", startOfLine, firstRun, widthLeft);
+
+
 	if (next_obj && (next_obj->ObjectType == TextSlave)) {
 		do {
 			o->nextObj = next_obj->nextObj;

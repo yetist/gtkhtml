@@ -1,5 +1,7 @@
 #include "htmlobject.h"
 #include "htmltext.h"
+#include "htmltextmaster.h"
+#include "htmltextslave.h"
 #include "htmltable.h"
 #include "htmlclue.h"
 #include "debug.h"

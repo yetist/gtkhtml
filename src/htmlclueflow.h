@@ -14,6 +14,6 @@ struct _HTMLClueFlow {
 };
 
 void        html_clueflow_set_max_width (HTMLObject *o, gint max_width);
-HTMLObject *html_clueflow_new (int x, int y, int max_width);
+HTMLObject *html_clueflow_new (gint x, gint y, gint max_width, gint percent);
 
 #endif /* _HTMLCLUEFLOW_H_ */

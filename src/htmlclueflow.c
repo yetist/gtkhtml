@@ -7,7 +7,7 @@ static gint html_clueflow_calc_min_width (HTMLObject *o);
 static gint html_clueflow_calc_preferred_width (HTMLObject *o);
 
 HTMLObject *
-html_clueflow_new (int x, int y, int max_width)
+html_clueflow_new (int x, int y, int max_width, gint percent)
 {
 	HTMLClueFlow *clueflow = g_new0 (HTMLClueFlow, 1);
 	HTMLObject *object = HTML_OBJECT (clueflow);
@@ -23,7 +23,7 @@ html_clueflow_new (int x, int y, int max_width)
 	object->x = x;
 	object->y = y;
 	object->max_width = max_width;
-	object->percent = 100;
+	object->percent = percent;
 
 	clue->valign = Bottom;
 	clue->halign = Left;
@@ -42,7 +42,7 @@ html_clueflow_set_max_width (HTMLObject *o, gint max_width)
 	o->max_width = max_width;
 	
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->nextObj)
-		obj->set_max_width (obj, o->max_width); /* - HTML_CLUEFLOW (o)->indent);*/
+		obj->set_max_width (obj, o->max_width - HTML_CLUEFLOW (o)->indent);
 
 }
 

@@ -68,13 +68,16 @@ html_clue_draw (HTMLObject *o, HTMLPainter *p,
 	}
 
 	/* Draw a rect around the clue */
-	if (o->ObjectType == ClueV)
+	if (o->ObjectType == ClueV) {
 		html_painter_set_pen (p, &red);
-	else if (o->ObjectType == ClueFlow)
+	}
+	else if (o->ObjectType == ClueFlow) {
 		html_painter_set_pen (p, &green);
-	else if (o->ObjectType == TableCell)
+		html_painter_draw_rect (p, tx, ty, o->width, o->ascent + o->descent);
+	}
+	else if (o->ObjectType == TableCell) {
 		html_painter_set_pen (p, &blue);
-	html_painter_draw_rect (p, tx, ty, o->width, o->ascent + o->descent);
+	}
 
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->nextObj) {
 		if (!(obj->flags & Aligned)) {
@@ -154,7 +157,7 @@ html_clue_get_left_clear (HTMLObject *clue, gint y)
 {
 	switch (clue->ObjectType) {
 	default:
-		g_print ("find_free_area: Unknown object type: %d\n", clue->ObjectType);
+		g_print ("get_left_clear: Unknown object type: %d\n", clue->ObjectType);
 		return y;
 	}
 }
@@ -200,6 +203,7 @@ html_clue_append (HTMLObject *clue, HTMLObject *o)
 void
 html_clue_calc_size (HTMLObject *o, HTMLObject *parent)
 {
+	
 	if (!HTML_CLUE (o)->curr) {
 		o->ascent = 0;
 		HTML_CLUE (o)->curr = HTML_CLUE (o)->head;

@@ -432,8 +432,9 @@ html_engine_calc_size (HTMLEngine *p)
 		max_width = min_width;
 	}
 
+	g_print ("set max width\n");
 	p->clue->set_max_width (p->clue, max_width);
-
+	g_print ("calc size\n");
 	p->clue->calc_size (p->clue, NULL);
 	p->clue->x = 0;
 	p->clue->y = p->clue->ascent;
@@ -446,7 +447,7 @@ html_engine_new_flow (HTMLEngine *p, HTMLObject *clue)
 {
 	
 	/* FIXME: If inpre */
-	p->flow = html_clueflow_new (0, 0, clue->max_width);
+	p->flow = html_clueflow_new (0, 0, clue->max_width, 100);
 
 	HTML_CLUEFLOW (p->flow)->indent = HTML_CLUEFLOW (clue)->indent;
 	HTML_CLUE (p->flow)->halign = p->divAlign;
@@ -502,7 +503,7 @@ html_engine_insert_vspace (HTMLEngine *e, HTMLObject *clue, gboolean vspace_inse
 	HTMLObject *f, *t;
 
 	if (!vspace_inserted) {
-		f = html_clueflow_new (0, 0, clue->max_width);
+		f = html_clueflow_new (0, 0, clue->max_width, 100);
 		html_clue_append (clue, f);
 
 		/* FIXME: correct font size */
@@ -1039,7 +1040,8 @@ html_engine_parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 			listLevel = html_list_stack_count (p->listStack);
 			indentSize = p->indent;
 		}
-		f = html_clueflow_new (0, 0, clue->max_width);
+		
+		f = html_clueflow_new (0, 0, clue->max_width, 100);
 		html_clue_append (clue, f);
 		c = html_clueh_new (0, 0, clue->max_width);
 		HTML_CLUE (c)->valign = Top;
@@ -1052,23 +1054,21 @@ html_engine_parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 
 		switch (listType) {
 		case Unordered:
-			p->flow = html_clueflow_new (0, 0, vc->max_width);
+			p->flow = html_clueflow_new (0, 0, vc->max_width, 0);
 			HTML_CLUE (p->flow)->halign = Right;
 			html_clue_append (vc, p->flow);
-			/* FIXME: Have a color instead of NULL */
 			html_clue_append (p->flow, html_bullet_new ((html_font_stack_top (p->fs))->pointSize, listLevel, fixme));
 			break;
 		default:
-			g_print ("Unknown listtype: %d\n", listType);
-		}
+			break;
 
+		}
+		
 		vc = html_cluev_new (0, 0, clue->max_width - indentSize, 100);
 		html_clue_append (c, vc);
-		p->flow = html_clueflow_new (0, 0, vc->max_width);
+		p->flow = html_clueflow_new (0,0, vc->max_width, 100);
 		html_clue_append (vc, p->flow);
-		if (html_list_stack_count (p->listStack) > 0)
-			(html_list_stack_top (p->listStack))->itemNumber++;
-		p->vspace_inserted = TRUE;
+
 	}
 }
 

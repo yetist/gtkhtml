@@ -22,6 +22,7 @@ html_cluev_set_max_width (HTMLObject *o, gint max_width)
 			o->width = o->max_width;
 	}
 
+	g_print ("setting max width: %d\n", o->width);
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->nextObj)
 		obj->set_max_width (obj, o->width);
 
@@ -140,7 +141,6 @@ html_cluev_calc_size (HTMLObject *o, HTMLObject *parent)
 			o->ascent = aclue->y + aclue->prnt->y -
 				aclue->prnt->ascent;
 	}
-
 }
 
 void
@@ -239,6 +239,12 @@ html_cluev_new (int x, int y, int max_width, int percent)
 		object->width = max_width * percent / 100;
 		object->flags &= ~FixedWidth;
 	}
+	else if (percent < 0) {
+		object->width = max_width;
+		object->flags &= ~FixedWidth;
+	}
+	else
+		object->width = max_width;
 
 	cluev->alignLeftList = 0;
 	cluev->alignRightList = 0;

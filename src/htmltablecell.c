@@ -132,6 +132,7 @@ html_table_cell_set_width (HTMLTableCell *cell, gint width)
 	if (!(o->flags & FixedWidth))
 	    o->max_width = width;
 
+	g_print ("The width being set: %d\n", width);
 	for (obj = HTML_CLUE (cell)->head; obj != 0; obj = obj->nextObj)
 		obj->set_max_width (obj, width);
 }
