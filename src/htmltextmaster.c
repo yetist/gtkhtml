@@ -229,12 +229,15 @@ select_range (HTMLObject *self,
 	HTMLTextMaster *master;
 	HTMLObject *p;
 	gboolean changed;
+	gboolean have_newline;
 
 	master = HTML_TEXT_MASTER (self);
 
+	have_newline = html_text_have_newline (HTML_TEXT (self));
+
 	if (length < 0) {
 		length = HTML_TEXT (self)->text_len;
-		if (html_text_have_newline (HTML_TEXT (self)))
+		if (have_newline)
 			length++;
 	}
 
@@ -249,17 +252,22 @@ select_range (HTMLObject *self,
 		     p = p->next) {
 			HTMLTextSlave *slave;
 			gboolean was_selected, is_selected;
+			guint max;
 
 			slave = HTML_TEXT_SLAVE (p);
 
+			max = slave->posStart + slave->posLen;
+			if (have_newline)
+				max++;
+
 			if (master->select_start + master->select_length > slave->posStart
-			    && master->select_start < slave->posStart + slave->posLen)
+			    && master->select_start < max)
 				was_selected = TRUE;
 			else
 				was_selected = FALSE;
 
-			if (offset + length > slave->posStart
-			    && offset < slave->posStart + slave->posLen)
+			if (offset + length > slave->posStart &&
+			    offset < max)
 				is_selected = TRUE;
 			else
 				is_selected = FALSE;
@@ -270,11 +278,12 @@ select_range (HTMLObject *self,
 				diff1 = offset - slave->posStart;
 				diff2 = master->select_start - slave->posStart;
 
-				if (diff1 != diff2)
+				if (diff1 != diff2) {
 					html_engine_queue_draw (engine, p);
-				else {
+				} else {
 					diff1 = offset + length - slave->posStart;
-					diff2 = master->select_start + master->select_length - slave->posStart;
+					diff2 = (master->select_start + master->select_length
+						 - slave->posStart);
 
 					if (diff1 != diff2)
 						html_engine_queue_draw (engine, p);

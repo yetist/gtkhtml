@@ -1,5 +1,11 @@
 2000-01-28  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmltextmaster.c (select_range): Take account for newline
+	selection when deciding whether to redraw or now.
+
+	* htmltextslave.c (draw): Consider a line that only has the
+	newline highlighted as highlighted.
+
 	* htmlengine.c (insert_text): Refuse to insert leading white space
 	if we have no paragraph, if there is a pending paragraph or if the
 	current clueflow is empty.
