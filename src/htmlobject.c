@@ -191,6 +191,7 @@ relayout (HTMLObject *self,
            remember to sync.  */
 	guint prev_width;
 	guint prev_ascent, prev_descent;
+	gboolean changed;
 
 	if (html_engine_frozen (engine))
 		return FALSE;
@@ -201,11 +202,18 @@ relayout (HTMLObject *self,
 
 	html_object_reset (self);
 
-	if (! html_object_calc_size (self, engine->painter)) {
+	changed = html_object_calc_size (self, engine->painter);
+
+	if (prev_width == self->width
+	    && prev_ascent == self->ascent
+	    && prev_descent == self->descent) {
 		gtk_html_debug_log (engine->widget,
 				    "relayout: %s %p did not change.\n",
 				    html_type_name (HTML_OBJECT_TYPE (self)),
 				    self);
+		if (changed)
+			html_engine_queue_draw (engine, self);
+
 		return FALSE;
 	} else {
 		gtk_html_debug_log (engine->widget, "relayout: %s %p changed.\n",
