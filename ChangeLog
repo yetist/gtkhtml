@@ -1,3 +1,7 @@
+2000-05-01  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* configure.in: Spell `Bonobo' correctly.
+
 2000-04-27  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* acconfig.h: Added `USING_OAF'.
