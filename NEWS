@@ -1,8 +1,25 @@
-gtkhtml-3.2.0 "Going stable" 2004-08-26
-------------------------------------------------
+gtkhtml-3.3.2
+-------------
 
 New in this release
-   
+
+  * Fix a crash when pasting multiline text (Dan Williams)
+  * Process partial commits from input methods in the right order (Leon Ho)
+  * Fix bugs with tab drawing and alignment, associated code cleanup
+  * From HEAD: Fix bugs with tables and rules (Radek), fix undo with input
+    method preedit (Yukihiro Nakai)
+
+New in 3.3.1
+
+  * Merge changes from 3.1.x branch
+  * Fix some bugs with computing widths during layout
+
+New in 3.3.0
+
+   * Use Pango for printing as well as screen display
+
+New in 3.2.0 
+
    * make sure backstore pixmap has a colormap (Robert McQueen)
 
 New in 3.1.20

@@ -1,4 +1,4 @@
-2004-07-22  Rodney Dawes  <dobey@novell.com>
+2004-07-21  Rodney Dawes  <dobey@novell.com>
 
 	* Makefile.am (gladedir, LDADD): Use GTKHTML_API_VERSION
 	* main.c (setup): Use GTKHTML_RELEASE_STRING
