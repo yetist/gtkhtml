@@ -53,14 +53,17 @@ struct _GtkHTMLEditImageProperties {
 	gint         val   [GTK_HTML_EDIT_IMAGE_SPINS];
 	gboolean     set   [GTK_HTML_EDIT_IMAGE_SPINS];
 
-	GtkWidget   *check_percent;
+	GtkWidget   *width_measure;
 	gboolean     percent;
 
 	GtkWidget   *sel_align;
 	HTMLImage   *image;
 	guint        align;
+	gboolean     disable_change;
 };
 typedef struct _GtkHTMLEditImageProperties GtkHTMLEditImageProperties;
+
+#define CHANGE if (!d->disable_change) gtk_html_edit_properties_dialog_change (d->cd->properties_dialog)
 
 static void
 entry_changed (GtkWidget *entry, GtkHTMLEditImageProperties *d)
@@ -68,26 +71,29 @@ entry_changed (GtkWidget *entry, GtkHTMLEditImageProperties *d)
 	gchar *text;
 
 	text = gtk_entry_get_text (GTK_ENTRY (entry));
-	gtk_html_edit_properties_dialog_change (d->cd->properties_dialog);
+	CHANGE;
 }
 
 static void
-menu_activate (GtkWidget *mi, GtkHTMLEditImageProperties *d)
+align_menu_activate (GtkWidget *mi, GtkHTMLEditImageProperties *d)
 {
 	d->align = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (mi), "idx"));
+	CHANGE;
+}
+
+static void
+percent_menu_activate (GtkWidget *mi, GtkHTMLEditImageProperties *d)
+{
+	d->percent = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (mi), "idx"));
+	CHANGE;
 }
 
 static void
 width_toggled (GtkWidget *check, GtkHTMLEditImageProperties *d)
 {
-	gtk_widget_set_sensitive (d->check_percent,
+	gtk_widget_set_sensitive (d->width_measure,
 				  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check)));
-}
-
-static void
-percent_toggled (GtkWidget *check, GtkHTMLEditImageProperties *d)
-{
-	d->percent = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check));
+	CHANGE;
 }
 
 static void
@@ -103,6 +109,7 @@ check_toggled (GtkWidget *check, GtkHTMLEditImageProperties *d)
 
 	d->set [idx] = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check));
 	gtk_widget_set_sensitive (d->spin [idx], d->set [idx]);	
+	CHANGE;
 }
 
 static void
@@ -116,24 +123,26 @@ checked_val (GtkHTMLEditImageProperties *d, gint idx, const gchar *name)
 	gtk_widget_set_sensitive (d->spin [idx], d->set [idx]);
 
 	gtk_signal_connect (GTK_OBJECT (d->check [idx]), "toggled", GTK_SIGNAL_FUNC (check_toggled), d);
+	CHANGE;
 }
 
 GtkWidget *
 image_insertion (GtkHTMLControlData *cd, gpointer *set_data)
 {
 	GtkHTMLEditImageProperties *data = g_new0 (GtkHTMLEditImageProperties, 1);
-	GtkWidget *hbox, *hb1, *mhb;
+	GtkWidget *mhb, *hbox;
 	GtkWidget *vbox, *vb1;
 	GtkWidget *table;
 	GtkWidget *frame;
 	GtkWidget *menu;
 	GtkWidget *menuitem;
 	gchar     *dir;
-	guint      malign = 0;
+	guint      mcounter;
 
 	*set_data = data;
 	data->cd = cd;
 	data->image = NULL;
+	data->disable_change = TRUE;
 
 	mhb = gtk_hbox_new (FALSE, 3);
 	vb1 = gtk_vbox_new (FALSE, 2);
@@ -146,9 +155,37 @@ image_insertion (GtkHTMLControlData *cd, gpointer *set_data)
 	free (dir);
 	gtk_box_pack_start_defaults (GTK_BOX (mhb), data->pentry);
 
-	hb1   = gtk_hbox_new (FALSE, 3);
-	frame = gtk_frame_new (_("Border"));
+	menu = gtk_menu_new ();
 	hbox = gtk_hbox_new (FALSE, 3);
+	gtk_container_border_width (GTK_CONTAINER (hbox), 3);
+
+#undef ADD_ITEM
+#define ADD_ITEM(n,f) \
+	menuitem = gtk_menu_item_new_with_label (_(n)); \
+        gtk_menu_append (GTK_MENU (menu), menuitem); \
+        gtk_widget_show (menuitem); \
+        gtk_signal_connect (GTK_OBJECT (menuitem), "activate", GTK_SIGNAL_FUNC (f), data); \
+        gtk_object_set_data (GTK_OBJECT (menuitem), "idx", GINT_TO_POINTER (mcounter)); \
+        mcounter++;
+
+	mcounter = 0;
+	ADD_ITEM ("Top", align_menu_activate);
+	ADD_ITEM ("Center", align_menu_activate);
+	ADD_ITEM ("Bottom", align_menu_activate);
+	/* ADD_ITEM("Left",   GDK_F4);
+	   ADD_ITEM("Right",  GDK_F5); */
+
+	frame = gtk_frame_new (_("Alignment"));
+	data->sel_align = gtk_option_menu_new ();
+	gtk_option_menu_set_menu (GTK_OPTION_MENU (data->sel_align), menu);
+	gtk_option_menu_set_history (GTK_OPTION_MENU (data->sel_align), data->align);
+	gtk_box_pack_start_defaults (GTK_BOX (hbox), data->sel_align);
+	gtk_container_add (GTK_CONTAINER (frame), hbox);
+	gtk_box_pack_start (GTK_BOX (vb1), frame, FALSE, FALSE, 0);
+
+	frame = gtk_frame_new (_("Border"));
+	hbox  = gtk_hbox_new (FALSE, 3);
+	gtk_container_border_width (GTK_CONTAINER (hbox), 3);
 
 #undef ADD_VAL
 #define ADD_VAL(x,y) \
@@ -159,63 +196,7 @@ image_insertion (GtkHTMLControlData *cd, gpointer *set_data)
 	ADD_VAL (GTK_HTML_EDIT_IMAGE_BWIDTH, "width");
 
 	gtk_container_add (GTK_CONTAINER (frame), hbox);
-	gtk_box_pack_start_defaults (GTK_BOX (hb1), frame);
-
-	menu = gtk_menu_new ();
-	hbox = gtk_hbox_new (FALSE, 3);
-	gtk_container_border_width (GTK_CONTAINER (hbox), 3);
-
-#undef ADD_ITEM
-#define ADD_ITEM(n) \
-	menuitem = gtk_menu_item_new_with_label (_(n)); \
-        gtk_menu_append (GTK_MENU (menu), menuitem); \
-        gtk_widget_show (menuitem); \
-        gtk_signal_connect (GTK_OBJECT (menuitem), "activate", GTK_SIGNAL_FUNC (menu_activate), data); \
-        gtk_object_set_data (GTK_OBJECT (menuitem), "idx", GINT_TO_POINTER (malign)); \
-        malign++;
-
-	ADD_ITEM("Top");
-	ADD_ITEM("Center");
-	ADD_ITEM("Bottom");
-	/* ADD_ITEM("Left",   GDK_F4);
-	   ADD_ITEM("Right",  GDK_F5); */
-
-	frame = gtk_frame_new (_("Alignment"));
-	data->sel_align = gtk_option_menu_new ();
-	gtk_option_menu_set_menu (GTK_OPTION_MENU (data->sel_align), menu);
-	gtk_option_menu_set_history (GTK_OPTION_MENU (data->sel_align), data->align);
-	gtk_box_pack_start_defaults (GTK_BOX (hbox), data->sel_align);
-	gtk_container_add (GTK_CONTAINER (frame), hbox);
-	gtk_box_pack_start_defaults (GTK_BOX (hb1), frame);
-	gtk_box_pack_start (GTK_BOX (vb1), hb1, FALSE, FALSE, 0);
-
-	/* size and spacing */
-	hbox = gtk_hbox_new (FALSE, 3);
-	vbox = gtk_vbox_new (FALSE, 0);
-	frame = gtk_frame_new (_("Size"));
-
-#undef ADD_VAL
-#define ADD_VAL(x, y, i, n) \
-	checked_val (data, i, _(n)); \
-	gtk_table_attach (GTK_TABLE (table), data->check [i], x,   x+1, y, y+1, GTK_FILL, 0, 0, 0); \
-	gtk_table_attach (GTK_TABLE (table), data->spin [i],  x+1, x+2, y, y+1, GTK_FILL, 0, 0, 0);
-
-	table = gtk_table_new (2, 3, FALSE);
-	gtk_container_border_width (GTK_CONTAINER (table), 3);
-
-	ADD_VAL (0, 0, GTK_HTML_EDIT_IMAGE_WIDTH,  "width");
-	ADD_VAL (0, 1, GTK_HTML_EDIT_IMAGE_HEIGHT, "height");
-
-	data->check_percent = gtk_check_button_new_with_label ("%");
-	gtk_widget_set_sensitive (data->check_percent, data->set [GTK_HTML_EDIT_IMAGE_WIDTH]);
-	gtk_signal_connect (GTK_OBJECT (data->check [GTK_HTML_EDIT_IMAGE_WIDTH]), "toggled",
-					GTK_SIGNAL_FUNC (width_toggled), data);
-	gtk_signal_connect (GTK_OBJECT (data->check_percent), "toggled",
-					GTK_SIGNAL_FUNC (percent_toggled), data);
-	gtk_table_attach (GTK_TABLE (table), data->check_percent, 2, 3, 0, 1, GTK_FILL, 0, 0, 0);
-
-	gtk_container_add (GTK_CONTAINER (frame), table);
-	gtk_box_pack_start_defaults (GTK_BOX (hbox), frame);
+	gtk_box_pack_start_defaults (GTK_BOX (vb1), frame);
 
 	/* spacing */
 	vbox = gtk_vbox_new (FALSE, 0);
@@ -224,18 +205,51 @@ image_insertion (GtkHTMLControlData *cd, gpointer *set_data)
 	table = gtk_table_new (2, 2, FALSE);
 	gtk_container_border_width (GTK_CONTAINER (table), 3);
 
-	ADD_VAL (2, 0, GTK_HTML_EDIT_IMAGE_HSPACE, "horizontal");
-	ADD_VAL (2, 1, GTK_HTML_EDIT_IMAGE_VSPACE, "vertical");
+#undef ADD_VAL
+#define ADD_VAL(x, y, i, n) \
+	checked_val (data, i, _(n)); \
+	gtk_table_attach (GTK_TABLE (table), data->check [i], x,   x+1, y, y+1, GTK_FILL, 0, 0, 0); \
+	gtk_table_attach (GTK_TABLE (table), data->spin [i],  x+1, x+2, y, y+1, GTK_FILL, 0, 0, 0);
+
+	ADD_VAL (2, 0, GTK_HTML_EDIT_IMAGE_HSPACE, "width");
+	ADD_VAL (2, 1, GTK_HTML_EDIT_IMAGE_VSPACE, "height");
 
 	gtk_container_add (GTK_CONTAINER (frame), table);
-	gtk_box_pack_start_defaults (GTK_BOX (hbox), frame);
+	gtk_box_pack_start (GTK_BOX (vb1), frame, FALSE, FALSE, 0);
 
-	gtk_box_pack_start (GTK_BOX (vb1), hbox, FALSE, FALSE, 0);
+	/* size and spacing */
+	hbox = gtk_hbox_new (FALSE, 3);
+	vbox = gtk_vbox_new (FALSE, 0);
+	frame = gtk_frame_new (_("Size"));
+
+	table = gtk_table_new (3, 2, FALSE);
+	gtk_container_border_width (GTK_CONTAINER (table), 3);
+
+	menu = gtk_menu_new ();
+	mcounter = 0;
+	ADD_ITEM ("Pixels", percent_menu_activate);
+	ADD_ITEM ("Percent %", percent_menu_activate);
+	data->width_measure = gtk_option_menu_new ();
+	gtk_option_menu_set_menu (GTK_OPTION_MENU (data->width_measure), menu);
+	gtk_option_menu_set_history (GTK_OPTION_MENU (data->width_measure), data->percent);
+	gtk_table_attach (GTK_TABLE (table), data->width_measure,  0, 2, 0, 1, GTK_FILL, 0, 0, 0);
+
+	ADD_VAL (0, 1, GTK_HTML_EDIT_IMAGE_WIDTH,  "width");
+	ADD_VAL (0, 2, GTK_HTML_EDIT_IMAGE_HEIGHT, "height");
+
+	gtk_widget_set_sensitive (data->width_measure, data->set [GTK_HTML_EDIT_IMAGE_WIDTH]);
+	gtk_signal_connect (GTK_OBJECT (data->check [GTK_HTML_EDIT_IMAGE_WIDTH]), "toggled",
+					GTK_SIGNAL_FUNC (width_toggled), data);
+
+	gtk_container_add (GTK_CONTAINER (frame), table);
+	gtk_box_pack_start_defaults (GTK_BOX (vb1), frame);
 
 	gtk_signal_connect (GTK_OBJECT (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (data->pentry))),
 			    "changed", GTK_SIGNAL_FUNC (entry_changed), data);
 
 	gtk_box_pack_start_defaults (GTK_BOX (mhb), vb1);
+
+	data->disable_change = FALSE;
 
 	return mhb;
 }
@@ -251,6 +265,8 @@ image_properties (GtkHTMLControlData *cd, gpointer *set_data)
 
 	g_assert (HTML_OBJECT_TYPE (cd->html->engine->cursor->object) == HTML_TYPE_IMAGE);
 	d->image = image;
+
+	d->disable_change = TRUE;
 
         if (!strncmp (ip->url, "file:", 5))
 		off = 5;
@@ -277,10 +293,10 @@ image_properties (GtkHTMLControlData *cd, gpointer *set_data)
 		gtk_adjustment_set_value (GTK_ADJUSTMENT (d->adj [GTK_HTML_EDIT_IMAGE_WIDTH]),
 					  HTML_OBJECT (image)->percent);
 		gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (d->check [GTK_HTML_EDIT_IMAGE_WIDTH]), TRUE);
-		gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (d->check_percent), TRUE);
+		gtk_option_menu_set_history (GTK_OPTION_MENU (d->width_measure), 1);
 		d->percent = TRUE;
 	} else
-		gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (d->check_percent), FALSE);
+		gtk_option_menu_set_history (GTK_OPTION_MENU (d->width_measure), 0);
 
 	switch (image->valign) {
 	case HTML_VALIGN_TOP:
@@ -297,7 +313,7 @@ image_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	}
 
 	gtk_option_menu_set_history (GTK_OPTION_MENU (d->sel_align), d->align);
-	
+	d->disable_change = FALSE;
 
 	return w;
 }

@@ -1,3 +1,8 @@
+2000-10-12  Radek Doulik  <rodo@helixcode.com>
+
+	* image.c: updated image dialog design with Anna improvements,
+	fixed properties_changed handling
+
 2000-10-11  Radek Doulik  <rodo@helixcode.com>
 
 	* implemented GtkHTMLEditSpellAPI, use gnome-spell
