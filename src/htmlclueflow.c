@@ -1065,6 +1065,7 @@ string_append_nonbsp (GString *out, guchar *s, gint length)
 		if (MATCH_UTF8_NBSP (s)) {
 			g_string_append_c (out, ' ');
 			s += 2;
+			len--;
 		} else {
 			g_string_append_c (out, *s);
 			s++;
