@@ -1,3 +1,21 @@
+2002-11-20  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c: change push_span to push_element. Make current_*
+	skip elements with no style set.  Make elements that restore
+	alignment use the e->divAlign not pAlign and clear pAlign whenever
+	we push a block.
+	(parse_a): parse style attribute on a element.
+	(parse_b): parse style attribute on b element.
+	(parse_h): pop ID_HEADER blocks before starting a new header.
+	
+	* htmlstyle.c: added.  Moves the style setting logic into a
+	separate file. Add demonstration parser for style attributes (a
+	real parser will come later).
+
+	* htmlstyle.h: added.
+
+	* Makefile.am: add htmlstyle.[ch]
+
 2002-11-19  Not Zed  <NotZed@Ximian.com>
 
 	* htmlclosures.list: BOOL:POINTER -> BOOL:OBJECT
