@@ -1,3 +1,7 @@
+2003-09-02  Radek Doulik  <rodo@ximian.com>
+
+	* body.c: renamed draft paper to graph paper as suggested by Aaron
+
 2003-08-08  Yuedong Du  <yuedong.du@sun.com>
 
 	* menubar.c: fix a typo cause bullet list not work. See bug 

@@ -127,7 +127,7 @@ static BodyTemplate body_templates [TEMPLATES] = {
 		10,
   	},
 	{
-		N_("Draft paper"),
+		N_("Graph paper"),
 		ICONDIR "/draft-paper.png",
 		{0, 0xffff, 0xffff, 0xffff},
 		{0, 0, 0, 0x8000},
