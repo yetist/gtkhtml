@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2000-08-20 16:36+0200\n"
+"POT-Creation-Date: 2000-09-04 20:53+0200\n"
 "PO-Revision-Date: 2000-08-06 22:43+0200\n"
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -53,35 +53,15 @@ msgstr "Zbri¹i"
 msgid "Grab key"
 msgstr "Preberi tipko"
 
-#: capplet/main.c:175
-msgid "Appearance"
-msgstr "Izgled"
-
-#: capplet/main.c:181
-msgid "Variable width font"
-msgstr "Pisava s spremenljivo ¹irino"
-
-#: capplet/main.c:185
-msgid "Select HTML variable width font"
-msgstr "Izberi HTML pisavo s spremenljivo ¹irino"
-
-#: capplet/main.c:190
-msgid "Fixed width font"
-msgstr "Pisava z nespremenljivo ¹irino"
-
-#: capplet/main.c:194
-msgid "Select HTML fixed width font"
-msgstr "Izberi pisavo z nespremenljivo dol¾ino"
-
-#: capplet/main.c:204
+#: capplet/main.c:127
 msgid "Behaviour"
 msgstr "Obna¹anje"
 
-#: capplet/main.c:205
+#: capplet/main.c:128
 msgid "magic links"
 msgstr "èarobne povezave"
 
-#: capplet/main.c:212
+#: capplet/main.c:135
 msgid "Keybindings"
 msgstr "Vezi tipk"
 
@@ -523,89 +503,82 @@ msgstr "Zamik"
 msgid "Indent paragraphs more"
 msgstr "Bolj zamikaj odstavke"
 
-#: glibwww/gnome-dialogs.c:85
-msgid "Transfer Progress"
-msgstr "Napredek prenosa"
-
-#: glibwww/gnome-dialogs.c:139
-#, c-format
-msgid "Looking up %s"
-msgstr "Poizvedujem po %s"
-
-#: glibwww/gnome-dialogs.c:145
-#, c-format
-msgid "Contacting %s"
-msgstr "Vzpostavljam stik z %s"
-
-#: glibwww/gnome-dialogs.c:152
-msgid "Waiting for a connection..."
-msgstr "Èakam na povezavo..."
-
-#: glibwww/gnome-dialogs.c:156
-msgid "Logging in..."
-msgstr "Prijavljam se..."
-
-#: glibwww/gnome-dialogs.c:165
-msgid "Read %d%%%% of %l"
-msgstr "Berem %d%%%% od %l"
-
-#: glibwww/gnome-dialogs.c:175 glibwww/gnome-dialogs.c:177
-#, c-format
-msgid "Read %d bytes"
-msgstr "Berem %d bajtov"
-
-#: glibwww/gnome-dialogs.c:179
-msgid "Reading..."
-msgstr "Branje..."
-
-#: glibwww/gnome-dialogs.c:194
-msgid "Writing %d%%%% of %l"
-msgstr "Pi¹em %d%%%% od %l"
-
-#: glibwww/gnome-dialogs.c:204 glibwww/gnome-dialogs.c:206
-#, c-format
-msgid "Writing %d bytes"
-msgstr "Pi¹em %d bajtov"
-
-#: glibwww/gnome-dialogs.c:208
-msgid "Writing..."
-msgstr "Pisanje..."
-
-#: glibwww/gnome-dialogs.c:216
-msgid "Done!"
-msgstr "Opravljeno!"
-
-#: glibwww/gnome-dialogs.c:220
-msgid "Interrupted!"
-msgstr "Prekinjeno!"
-
-#: glibwww/gnome-dialogs.c:224
-msgid "Please wait..."
-msgstr "Prosim poæakajte..."
-
-#: glibwww/gnome-dialogs.c:228
-msgid "Request timeout!"
-msgstr "Èasovna omejitev prenosa je potekla!"
-
-#: glibwww/gnome-dialogs.c:232
-msgid "Unknown"
-msgstr "Neznan"
-
-#: glibwww/gnome-dialogs.c:275
-msgid "Enter Text"
-msgstr "Vnesite besedilo"
-
-#: glibwww/gnome-dialogs.c:316 glibwww/gnome-dialogs.c:357
-msgid "Enter Password"
-msgstr "Vnesi Geslo"
-
-#: src/testgtkhtml.c:110
+#: src/testgtkhtml.c:111
 msgid "Print pre_view"
 msgstr "_Predogled tiskanja"
 
-#: src/testgtkhtml.c:110
+#: src/testgtkhtml.c:111
 msgid "Print preview"
 msgstr "Predogled tiskanja"
+
+#~ msgid "Appearance"
+#~ msgstr "Izgled"
+
+#~ msgid "Variable width font"
+#~ msgstr "Pisava s spremenljivo ¹irino"
+
+#~ msgid "Select HTML variable width font"
+#~ msgstr "Izberi HTML pisavo s spremenljivo ¹irino"
+
+#~ msgid "Fixed width font"
+#~ msgstr "Pisava z nespremenljivo ¹irino"
+
+#~ msgid "Select HTML fixed width font"
+#~ msgstr "Izberi pisavo z nespremenljivo dol¾ino"
+
+#~ msgid "Transfer Progress"
+#~ msgstr "Napredek prenosa"
+
+#~ msgid "Looking up %s"
+#~ msgstr "Poizvedujem po %s"
+
+#~ msgid "Contacting %s"
+#~ msgstr "Vzpostavljam stik z %s"
+
+#~ msgid "Waiting for a connection..."
+#~ msgstr "Èakam na povezavo..."
+
+#~ msgid "Logging in..."
+#~ msgstr "Prijavljam se..."
+
+#~ msgid "Read %d%%%% of %l"
+#~ msgstr "Berem %d%%%% od %l"
+
+#~ msgid "Read %d bytes"
+#~ msgstr "Berem %d bajtov"
+
+#~ msgid "Reading..."
+#~ msgstr "Branje..."
+
+#~ msgid "Writing %d%%%% of %l"
+#~ msgstr "Pi¹em %d%%%% od %l"
+
+#~ msgid "Writing %d bytes"
+#~ msgstr "Pi¹em %d bajtov"
+
+#~ msgid "Writing..."
+#~ msgstr "Pisanje..."
+
+#~ msgid "Done!"
+#~ msgstr "Opravljeno!"
+
+#~ msgid "Interrupted!"
+#~ msgstr "Prekinjeno!"
+
+#~ msgid "Please wait..."
+#~ msgstr "Prosim poæakajte..."
+
+#~ msgid "Request timeout!"
+#~ msgstr "Èasovna omejitev prenosa je potekla!"
+
+#~ msgid "Unknown"
+#~ msgstr "Neznan"
+
+#~ msgid "Enter Text"
+#~ msgstr "Vnesite besedilo"
+
+#~ msgid "Enter Password"
+#~ msgstr "Vnesi Geslo"
 
 #~ msgid "Table"
 #~ msgstr "Tabela"
