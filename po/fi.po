@@ -1,0 +1,532 @@
+# Finnish translation for gtkhtml.
+# Copyright (C) 2000 Free Software Foundation, Inc.
+# Pauli Virtanen <pauli.virtanen@saunalahti.fi>, 2000.
+#
+# GNOME Finnish Translation Team: http://gnome-fi.sourceforge.net/
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gtkhtml\n"
+"POT-Creation-Date: 2000-10-14 20:11+0300\n"
+"PO-Revision-Date: 2000-10-14 20:10+03:00\n"
+"Last-Translator: Pauli Virtanen <pauli.virtanen@saunalahti.fi>\n"
+"Language-Team: Finnish <fi@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-15\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: capplet/gnome-bindings-prop.c:154 capplet/gnome-bindings-prop.c:222
+#: capplet/gnome-bindings-prop.c:297 capplet/gnome-bindings-prop.c:435
+#: capplet/gnome-bindings-prop.c:436
+msgid "<None>"
+msgstr "<Ei mikään>"
+
+#: capplet/gnome-bindings-prop.c:525
+msgid "Key"
+msgstr "Näppäin"
+
+#: capplet/gnome-bindings-prop.c:525
+msgid "Command"
+msgstr "Komento"
+
+#: capplet/gnome-bindings-prop.c:526
+msgid "Commands"
+msgstr "Komennot"
+
+#: capplet/gnome-bindings-prop.c:527
+msgid "Keymaps"
+msgstr "Näppäinkartat"
+
+#: capplet/gnome-bindings-prop.c:545
+msgid "Add"
+msgstr "Lisää"
+
+#: capplet/gnome-bindings-prop.c:548
+#: components/html-editor/test-html-editor-control.c:323
+#: components/html-editor/toolbar.c:495
+msgid "Copy"
+msgstr "Kopioi"
+
+#: capplet/gnome-bindings-prop.c:551
+msgid "Delete"
+msgstr "Poista"
+
+#: capplet/gnome-bindings-prop.c:582
+msgid "Grab key"
+msgstr "Kaappaa näppäin"
+
+#: capplet/main.c:220
+msgid "Spell checking"
+msgstr "Oikoluku"
+
+#: capplet/main.c:223
+msgid "live spell checking"
+msgstr "jatkuva oikoluku"
+
+#: capplet/main.c:232
+msgid "spell checking color"
+msgstr "oikoluvun väri"
+
+#: capplet/main.c:239
+msgid "language"
+msgstr "kieli"
+
+#: capplet/main.c:245
+msgid "Miscellaneous"
+msgstr "Sekalaista"
+
+#: capplet/main.c:247
+msgid "magic links"
+msgstr "toimivat linkit"
+
+#: capplet/main.c:266
+msgid "Bindings"
+msgstr "Näppäinsidonnat"
+
+#: capplet/main.c:267 capplet/viewer.c:188
+msgid "Behaviour"
+msgstr "Käyttäytyminen"
+
+#: capplet/viewer.c:148
+msgid "Appearance"
+msgstr "Ulkonäkö"
+
+#: capplet/viewer.c:154
+msgid "Variable width font"
+msgstr "Epätasavälinen kirjasin"
+
+#: capplet/viewer.c:158
+msgid "Select HTML variable width font"
+msgstr "Valitse epätasavälinen kirjasin HTML:lle"
+
+#: capplet/viewer.c:162 capplet/viewer.c:177
+msgid "for printing"
+msgstr "tulostusta varten"
+
+#: capplet/viewer.c:164
+msgid "Select HTML variable width font for printing"
+msgstr "Valitse epätasavälinen kirjasin HTML:n tulostusta varten"
+
+#: capplet/viewer.c:169
+msgid "Fixed width font"
+msgstr "Tasavälinen kirjasin"
+
+#: capplet/viewer.c:173
+msgid "Select HTML fixed width font"
+msgstr "Valitse tasavälinen kirjasin HTML:lle"
+
+#: capplet/viewer.c:179
+msgid "Select HTML fixed width font for printing"
+msgstr "Valitse tasavälinen kirjasin HTML:n tulostusta varten"
+
+#: capplet/viewer.c:189
+msgid "Animations"
+msgstr "Animaatiot"
+
+#: components/html-editor/body.c:107
+msgid "use background image"
+msgstr "käytä taustakuvaa"
+
+#: components/html-editor/body.c:109
+msgid "Background image"
+msgstr "Taustakuva"
+
+#: components/html-editor/body.c:126
+msgid "Colors"
+msgstr "Värit"
+
+#: components/html-editor/editor-control-factory.c:126
+#: components/html-editor/popup.c:71
+msgid "Properties"
+msgstr "Ominaisuudet"
+
+#: components/html-editor/editor-control-factory.c:137
+#: components/html-editor/menubar.c:96 components/html-editor/popup.c:86
+msgid "Image"
+msgstr "Kuva"
+
+#: components/html-editor/editor-control-factory.c:146
+#: components/html-editor/menubar.c:117 components/html-editor/popup.c:79
+msgid "Text"
+msgstr "Teksti"
+
+#: components/html-editor/editor-control-factory.c:158
+#: components/html-editor/popup.c:93
+msgid "Paragraph"
+msgstr "Kappale"
+
+#: components/html-editor/editor-control-factory.c:163
+#: components/html-editor/menubar.c:101 components/html-editor/menubar.c:122
+#: components/html-editor/popup.c:100
+msgid "Link"
+msgstr "Linkki"
+
+#: components/html-editor/editor-control-factory.c:168
+#: components/html-editor/popup.c:107
+msgid "Page"
+msgstr "Sivu"
+
+#: components/html-editor/image.c:142
+msgid "Image selection"
+msgstr "Kuvan valinta"
+
+#: components/html-editor/image.c:150
+msgid "Border"
+msgstr "Reunat"
+
+#. ADD_ITEM("Left",   GDK_F4);
+#. ADD_ITEM("Right",  GDK_F5);
+#: components/html-editor/image.c:183
+msgid "Alignment"
+msgstr "Tasaus"
+
+#: components/html-editor/image.c:195 components/html-editor/rule.c:124
+#: components/html-editor/text.c:160
+msgid "Size"
+msgstr "Koko"
+
+#: components/html-editor/image.c:222
+msgid "Padding"
+msgstr "Välit"
+
+#: components/html-editor/link.c:72
+msgid "Clear"
+msgstr "Tyhjennä"
+
+#: components/html-editor/link.c:75
+msgid "URL"
+msgstr "URL"
+
+#: components/html-editor/main.c:64
+msgid "Could not initialize GNORBA"
+msgstr "GNORBAa ei voitu käynnistää "
+
+#: components/html-editor/main.c:77
+msgid "Could not initialize Bonobo"
+msgstr "Bonoboa ei voitu käynnistää"
+
+#: components/html-editor/menubar.c:94 components/html-editor/menubar.c:114
+#: components/html-editor/properties.c:110
+msgid "Insert"
+msgstr "Lisää"
+
+#: components/html-editor/menubar.c:142
+msgid "Cannot execute gtkhtml properties"
+msgstr "gtkhtml:n ominaisuuksia ei voi käynnistää"
+
+#: components/html-editor/paragraph.c:74 components/html-editor/text.c:138
+msgid "Style"
+msgstr "Tyyli"
+
+#: components/html-editor/paragraph.c:108
+msgid "Align"
+msgstr "Tasaus"
+
+#: components/html-editor/paragraph.c:121
+msgid "Left"
+msgstr "Vasen"
+
+#: components/html-editor/paragraph.c:122 components/html-editor/toolbar.c:485
+msgid "Center"
+msgstr "Keski"
+
+#: components/html-editor/paragraph.c:123
+msgid "Right"
+msgstr "Oikea"
+
+#: components/html-editor/popup.c:178
+msgid "Remove link"
+msgstr "Poista linkki"
+
+#: components/html-editor/replace.c:83
+msgid "Replace confirmation"
+msgstr "Vahvista korvaus"
+
+#: components/html-editor/replace.c:84 components/html-editor/replace.c:146
+#: components/html-editor/replace.c:158
+msgid "Replace"
+msgstr "Korvaa"
+
+#: components/html-editor/replace.c:84
+msgid "Replace all"
+msgstr "Korvaa kaikki"
+
+#: components/html-editor/replace.c:84
+msgid "Next"
+msgstr "Seuraava"
+
+#: components/html-editor/replace.c:152 components/html-editor/search.c:67
+msgid "search backward"
+msgstr "etsi taaksepäin"
+
+#: components/html-editor/replace.c:153 components/html-editor/search.c:68
+msgid "case sensitive"
+msgstr "sama kirjainkoko"
+
+#: components/html-editor/replace.c:161
+msgid "with"
+msgstr "merkkijonolla"
+
+#: components/html-editor/rule.c:124
+msgid "Length"
+msgstr "Pituus"
+
+#: components/html-editor/rule.c:124
+msgid "Percent"
+msgstr "Prosenttia"
+
+#: components/html-editor/rule.c:125
+msgid "Left Align"
+msgstr "Tasaa vasemmalle"
+
+#: components/html-editor/rule.c:125
+msgid "Center Align"
+msgstr "Tasaa keskelle"
+
+#: components/html-editor/rule.c:125
+msgid "Right Align"
+msgstr "Tasaa oikealle"
+
+#: components/html-editor/rule.c:125
+msgid "None"
+msgstr "Ei mitään"
+
+#: components/html-editor/rule.c:129
+msgid "Rule"
+msgstr "Viiva"
+
+#: components/html-editor/rule.c:132
+msgid "Set Shade"
+msgstr "Aseta varjostus"
+
+#: components/html-editor/search.c:64
+msgid "Regex search"
+msgstr "Säle-etsintä"
+
+#: components/html-editor/search.c:64
+msgid "Search"
+msgstr "Etsi"
+
+#: components/html-editor/test-html-editor-control.c:232
+msgid "Open file..."
+msgstr "Avaa tiedosto..."
+
+#: components/html-editor/test-html-editor-control.c:234
+msgid "Save file as..."
+msgstr "Tallenna tiedosto nimellä..."
+
+#: components/html-editor/test-html-editor-control.c:300
+msgid "Open (PersistFile)"
+msgstr "Avaa (PersistFile)"
+
+#: components/html-editor/test-html-editor-control.c:300
+msgid "Open using the PersistFile interface"
+msgstr "Avaa käyttäen PersistFile-rajapintaa"
+
+#: components/html-editor/test-html-editor-control.c:302
+msgid "Save as... (PersistFile)"
+msgstr "Tallenna nimellä... (PersistFile)"
+
+#: components/html-editor/test-html-editor-control.c:302
+msgid "Save using the PersistFile interface"
+msgstr "Tallenna käyttäen PersistFile-rajapintaa"
+
+#: components/html-editor/test-html-editor-control.c:305
+msgid "Open (PersistStream)"
+msgstr "Avaa (PersistStream)"
+
+#: components/html-editor/test-html-editor-control.c:305
+msgid "Open using the PersistStream interface"
+msgstr "Avaa käyttäen PersistStream-rajapintaa"
+
+#: components/html-editor/test-html-editor-control.c:307
+msgid "Save as... (PersistStream)"
+msgstr "Tallenna nimellä... (PersistStream)"
+
+#: components/html-editor/test-html-editor-control.c:307
+msgid "Save using the PersistStream interface"
+msgstr "Tallenna käyttäen PersistStream-rajapintaa"
+
+#: components/html-editor/test-html-editor-control.c:321
+#: components/html-editor/toolbar.c:493
+msgid "Cut"
+msgstr "Leikkaa"
+
+#: components/html-editor/test-html-editor-control.c:321
+msgid "Cut selection to the clipboard"
+msgstr "Leikkaa valinta leikepöydälle"
+
+#: components/html-editor/test-html-editor-control.c:323
+msgid "Copy selection to the clipboard"
+msgstr "Kopioi valinta leikepöydälle"
+
+#: components/html-editor/test-html-editor-control.c:325
+#: components/html-editor/toolbar.c:497
+msgid "Paste"
+msgstr "Liitä"
+
+#: components/html-editor/test-html-editor-control.c:325
+#: components/html-editor/toolbar.c:497
+msgid "Paste contents of the clipboard"
+msgstr "Liitä leikepöydän sisältö"
+
+#: components/html-editor/text.c:152 components/html-editor/toolbar.c:511
+msgid "Bold"
+msgstr "Lihavoi"
+
+#: components/html-editor/text.c:153 components/html-editor/toolbar.c:513
+msgid "Italic"
+msgstr "Kursivoi"
+
+#: components/html-editor/text.c:154 components/html-editor/toolbar.c:515
+msgid "Underline"
+msgstr "Alleviivaa"
+
+#: components/html-editor/text.c:155 components/html-editor/toolbar.c:517
+msgid "Strikeout"
+msgstr "Yliviivaa"
+
+#. color selection
+#: components/html-editor/text.c:187
+msgid "Color"
+msgstr "Väri"
+
+#: components/html-editor/text.c:201
+msgid "text color"
+msgstr "tekstin väri"
+
+#: components/html-editor/toolbar.c:45
+msgid "Normal"
+msgstr "Tavallinen"
+
+#: components/html-editor/toolbar.c:46
+msgid "Header 1"
+msgstr "Otsikko 1"
+
+#: components/html-editor/toolbar.c:47
+msgid "Header 2"
+msgstr "Otsikko 2"
+
+#: components/html-editor/toolbar.c:48
+msgid "Header 3"
+msgstr "Otsikko 3"
+
+#: components/html-editor/toolbar.c:49
+msgid "Header 4"
+msgstr "Otsikko 4"
+
+#: components/html-editor/toolbar.c:50
+msgid "Header 5"
+msgstr "Otsikko 5"
+
+#: components/html-editor/toolbar.c:51
+msgid "Header 6"
+msgstr "Otsikko 6"
+
+#: components/html-editor/toolbar.c:52
+msgid "Address"
+msgstr "Osoite"
+
+#: components/html-editor/toolbar.c:53
+msgid "Pre"
+msgstr "Esi"
+
+#: components/html-editor/toolbar.c:54
+msgid "List item (digit)"
+msgstr "Luettelon kohta (numeroitu)"
+
+#: components/html-editor/toolbar.c:55
+msgid "List item (unnumbered)"
+msgstr "Luettelon kohta (numeroimaton)"
+
+#: components/html-editor/toolbar.c:56
+msgid "List item (roman)"
+msgstr "Luettelon kohta (room. numerot)"
+
+#: components/html-editor/toolbar.c:236
+msgid "Default"
+msgstr "Oletus"
+
+#: components/html-editor/toolbar.c:483
+msgid "Left align"
+msgstr "Tasaa vasemmalle"
+
+#: components/html-editor/toolbar.c:483
+msgid "Left justify paragraphs"
+msgstr "Tasaa kappale vasemmalle"
+
+#: components/html-editor/toolbar.c:485
+msgid "Centers paragraphs"
+msgstr "Keskitä kappale"
+
+#: components/html-editor/toolbar.c:487
+msgid "Right align"
+msgstr "Tasaa oikealle"
+
+#: components/html-editor/toolbar.c:487
+msgid "Right justify paragraphs"
+msgstr "Tasaa kappale oikealle"
+
+#: components/html-editor/toolbar.c:493
+msgid "Cut the selected region to the clipboard"
+msgstr "Leikkaa valittu alue leikepöydälle"
+
+#: components/html-editor/toolbar.c:495
+msgid "Copy the selected region to the clipboard"
+msgstr "Kopioi valittu alue leikepöydälle"
+
+#: components/html-editor/toolbar.c:501
+msgid "Undo"
+msgstr "Kumoa"
+
+#: components/html-editor/toolbar.c:501
+msgid "Undo last editor operation"
+msgstr "Kumoa viimeisin muokkaustoiminto"
+
+#: components/html-editor/toolbar.c:503
+msgid "Redo"
+msgstr "Tee uudelleen"
+
+#: components/html-editor/toolbar.c:503
+msgid "Redo undone editor operation"
+msgstr "Tee uudelleen viimeksi kumottu toiminto"
+
+#: components/html-editor/toolbar.c:511
+msgid "Sets the bold font"
+msgstr "Lihavoi kirjasimet"
+
+#: components/html-editor/toolbar.c:513
+msgid "Make the selection italic"
+msgstr "Kursivoi valinta"
+
+#: components/html-editor/toolbar.c:515
+msgid "Make the selection underlined"
+msgstr "Alleviivaa valinta"
+
+#: components/html-editor/toolbar.c:517
+msgid "Make the selection striked out"
+msgstr "Yliviivaa valinta"
+
+#: components/html-editor/toolbar.c:526
+msgid "Unindent"
+msgstr "Poista sisennys"
+
+#: components/html-editor/toolbar.c:526
+msgid "Indent paragraphs less"
+msgstr "Sisennä kappaleita vähemmän"
+
+#: components/html-editor/toolbar.c:528
+msgid "Indent"
+msgstr "Sisennä"
+
+#: components/html-editor/toolbar.c:528
+msgid "Indent paragraphs more"
+msgstr "Sisennä kappaleita enemmän"
+
+#: src/testgtkhtml.c:111
+msgid "Print pre_view"
+msgstr "_Esikatselu"
+
+#: src/testgtkhtml.c:111
+msgid "Print preview"
+msgstr "Esikatselu"

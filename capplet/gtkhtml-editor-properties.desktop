@@ -1,12 +1,14 @@
 [Desktop entry]
 Name=HTML Editor
 Name[pt_BR]=Editor HTML
+Name[fi]=HTML-editori
 Name[fr]=Éditeur HTML
 Name[gl]=Editor HTML
 Name[no]=HTML-editor
 Name[tr]=HTML editörü
 Comment=HTML Editor properties
 Comment[pt_BR]=Propriedades do editor HTML
+Comment[fi]=HTML-editorin asetukset
 Comment[fr]=Configuration des propriétés de l'éditeur HTML
 Comment[gl]=Propiedades do Editor HTML
 Comment[no]=Egenskaper for HTML-editor
