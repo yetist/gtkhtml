@@ -1,13 +1,13 @@
 2000-02-11  Joe Shaw <joe@helixcode.com>
 	* gtkhtml.c (draw): Fixed a bug where embedded widgets were not being
-	repainted correctly; The widget was updating all of its child widgets and
-	then painting over them. The order has been switched; thus, the widget
-	repaints itself first and then its child widgets are redrawn.
-
-	* htmlembedded.c (html_embedded_new_widget): Connected the button_press_event
-	signal to a new handler, html_embedded_grab_cursor, that does not propagate
-	up the tree so that embedded text widgets, such as GtkEntry, retain the 
-	cursor.
+	repainted correctly; The widget was updating all of its child widgets 
+	and then painting over them. The order has been switched; thus, the 
+	widget repaints itself first and then its child widgets are redrawn.
+	
+	* htmlembedded.c (html_embedded_new_widget): Connected the 
+	button_press_event signal to a new handler, html_embedded_grab_cursor,
+	that does not propagate up the tree so that embedded text widgets, 
+	such as GtkEntry, retain the cursor.
 
 2000-02-10  Ettore Perazzoli  <ettore@helixcode.com>
 
