@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
-"POT-Creation-Date: 2001-04-11 10:49-0500\n"
+"POT-Creation-Date: 2001-04-16 09:48-0500\n"
 "PO-Revision-Date: 2000-12-30 19:03+0100\n"
 "Last-Translator: Vasif Ismailoglu MD <azerb_linux@hotmail.com>\n"
 "Language-Team: Azerbaijani Turkish \n"
@@ -340,38 +340,38 @@ msgstr "Aç"
 msgid "Colors"
 msgstr "Rənglər"
 
-#: components/html-editor/editor-control-factory.c:142
+#: components/html-editor/editor-control-factory.c:145
 #: components/html-editor/popup.c:81
 msgid "Properties"
 msgstr "Xüsusiyyətler"
 
-#: components/html-editor/editor-control-factory.c:153
+#: components/html-editor/editor-control-factory.c:156
 #: components/html-editor/menubar.c:97 components/html-editor/popup.c:96
 msgid "Image"
 msgstr "Rəsm"
 
-#: components/html-editor/editor-control-factory.c:162
+#: components/html-editor/editor-control-factory.c:165
 #: components/html-editor/menubar.c:118 components/html-editor/popup.c:89
 msgid "Text"
 msgstr "Mətn"
 
-#: components/html-editor/editor-control-factory.c:173
+#: components/html-editor/editor-control-factory.c:176
 #: components/html-editor/menubar.c:141 components/html-editor/popup.c:124
 msgid "Rule"
 msgstr "Çubuq"
 
-#: components/html-editor/editor-control-factory.c:182
+#: components/html-editor/editor-control-factory.c:185
 #: components/html-editor/popup.c:103
 msgid "Paragraph"
 msgstr "Paraqraf"
 
-#: components/html-editor/editor-control-factory.c:187
+#: components/html-editor/editor-control-factory.c:190
 #: components/html-editor/menubar.c:102 components/html-editor/menubar.c:123
 #: components/html-editor/popup.c:110
 msgid "Link"
 msgstr "Baǧ"
 
-#: components/html-editor/editor-control-factory.c:192
+#: components/html-editor/editor-control-factory.c:195
 #: components/html-editor/popup.c:117
 msgid "Page"
 msgstr "Səhifə"
@@ -385,7 +385,7 @@ msgid "Top"
 msgstr ""
 
 #: components/html-editor/image.c:202 components/html-editor/paragraph.c:158
-#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:457
+#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:486
 msgid "Center"
 msgstr "Orta"
 
@@ -531,23 +531,23 @@ msgstr "Dosyeyi Aç ..."
 msgid "Save file as..."
 msgstr "Fərqli qeyd et ..."
 
-#: components/html-editor/text.c:180 components/html-editor/toolbar.c:468
+#: components/html-editor/text.c:180 components/html-editor/toolbar.c:497
 msgid "Bold"
 msgstr "Qalın"
 
-#: components/html-editor/text.c:181 components/html-editor/toolbar.c:470
+#: components/html-editor/text.c:181 components/html-editor/toolbar.c:499
 msgid "Italic"
 msgstr "Meyilli"
 
-#: components/html-editor/text.c:182 components/html-editor/toolbar.c:472
+#: components/html-editor/text.c:182 components/html-editor/toolbar.c:501
 msgid "Underline"
 msgstr "Alt çizgili"
 
-#: components/html-editor/text.c:183 components/html-editor/toolbar.c:474
+#: components/html-editor/text.c:183 components/html-editor/toolbar.c:503
 msgid "Strikeout"
 msgstr "Qaralanmış"
 
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:247
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:276
 msgid "Automatic"
 msgstr "Avtomatik"
 
@@ -556,36 +556,36 @@ msgid "Normal"
 msgstr "Normal"
 
 #: components/html-editor/toolbar.c:51
+msgid "Preformat"
+msgstr ""
+
+#: components/html-editor/toolbar.c:52
 msgid "Header 1"
 msgstr "Başlıq 1"
 
-#: components/html-editor/toolbar.c:52
+#: components/html-editor/toolbar.c:53
 msgid "Header 2"
 msgstr "Başlıq 2"
 
-#: components/html-editor/toolbar.c:53
+#: components/html-editor/toolbar.c:54
 msgid "Header 3"
 msgstr "Başlıq 3"
 
-#: components/html-editor/toolbar.c:54
+#: components/html-editor/toolbar.c:55
 msgid "Header 4"
 msgstr "Başlıq 4"
 
-#: components/html-editor/toolbar.c:55
+#: components/html-editor/toolbar.c:56
 msgid "Header 5"
 msgstr "Başlıq 5"
 
-#: components/html-editor/toolbar.c:56
+#: components/html-editor/toolbar.c:57
 msgid "Header 6"
 msgstr "Başlıq 6"
 
-#: components/html-editor/toolbar.c:57
+#: components/html-editor/toolbar.c:58
 msgid "Address"
 msgstr "Ünvan"
-
-#: components/html-editor/toolbar.c:58
-msgid "Pre"
-msgstr "Ön"
 
 #: components/html-editor/toolbar.c:59
 msgid "List item (digit)"
@@ -599,70 +599,70 @@ msgstr "Siyahı üzvü ( rəqəmsiz)"
 msgid "List item (roman)"
 msgstr "Siyahı üzvü ( roman rəqəmli)"
 
-#: components/html-editor/toolbar.c:455
+#: components/html-editor/toolbar.c:484
 msgid "Left align"
 msgstr "Sola tərəflə"
 
-#: components/html-editor/toolbar.c:455
+#: components/html-editor/toolbar.c:484
 #, fuzzy
 msgid "Left justifies the paragraphs"
 msgstr "Sətirləri sola tərəflə"
 
-#: components/html-editor/toolbar.c:457
+#: components/html-editor/toolbar.c:486
 #, fuzzy
 msgid "Centers justifies the paragraphs"
 msgstr "Sətirləri sola tərəflə"
 
-#: components/html-editor/toolbar.c:459
+#: components/html-editor/toolbar.c:488
 msgid "Right align"
 msgstr "Ortaya tərəflə"
 
-#: components/html-editor/toolbar.c:459
+#: components/html-editor/toolbar.c:488
 #, fuzzy
 msgid "Right justifies the paragraphs"
 msgstr "Sətirləri saǧa tərəflə"
 
-#: components/html-editor/toolbar.c:466
+#: components/html-editor/toolbar.c:495
 msgid "Typewriter"
 msgstr ""
 
-#: components/html-editor/toolbar.c:466
+#: components/html-editor/toolbar.c:495
 msgid "Toggle typewriter font style"
 msgstr ""
 
-#: components/html-editor/toolbar.c:468
+#: components/html-editor/toolbar.c:497
 msgid "Makes the text bold"
 msgstr ""
 
-#: components/html-editor/toolbar.c:470
+#: components/html-editor/toolbar.c:499
 #, fuzzy
 msgid "Makes the text italic"
 msgstr "Seçili bölməyi əy"
 
-#: components/html-editor/toolbar.c:472
+#: components/html-editor/toolbar.c:501
 #, fuzzy
 msgid "Underlines the text"
 msgstr "Alt çizgili"
 
-#: components/html-editor/toolbar.c:474
+#: components/html-editor/toolbar.c:503
 #, fuzzy
 msgid "Strikes out the text"
 msgstr "Qaralanmış"
 
-#: components/html-editor/toolbar.c:483
+#: components/html-editor/toolbar.c:512
 msgid "Unindent"
 msgstr "Daha az arala"
 
-#: components/html-editor/toolbar.c:483
+#: components/html-editor/toolbar.c:512
 #, fuzzy
 msgid "Indents the paragraphs less"
 msgstr "Sətirləri daha az arala"
 
-#: components/html-editor/toolbar.c:485
+#: components/html-editor/toolbar.c:514
 msgid "Indent"
 msgstr "Arala"
 
-#: components/html-editor/toolbar.c:485
+#: components/html-editor/toolbar.c:514
 #, fuzzy
 msgid "Indents the paragraphs more"
 msgstr "Sətirləri daha çox arala"
@@ -678,6 +678,9 @@ msgstr "Önizləməyi _çap et"
 #: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "Çap etmə önizləməsi"
+
+#~ msgid "Pre"
+#~ msgstr "Ön"
 
 #~ msgid "window1"
 #~ msgstr "pəncərə1"

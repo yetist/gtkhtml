@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
-"POT-Creation-Date: 2001-04-11 10:49-0500\n"
+"POT-Creation-Date: 2001-04-16 09:48-0500\n"
 "PO-Revision-Date: 2000-12-14 12:56-0600\n"
 "Last-Translator: Radka Soukupova <Radka.Soukupova@centrum.cz>\n"
 "Language-Team: czech <cs@li.org>\n"
@@ -352,38 +352,38 @@ msgstr ""
 msgid "Colors"
 msgstr "Barvy"
 
-#: components/html-editor/editor-control-factory.c:142
+#: components/html-editor/editor-control-factory.c:145
 #: components/html-editor/popup.c:81
 msgid "Properties"
 msgstr ""
 
-#: components/html-editor/editor-control-factory.c:153
+#: components/html-editor/editor-control-factory.c:156
 #: components/html-editor/menubar.c:97 components/html-editor/popup.c:96
 msgid "Image"
 msgstr "Obrázek"
 
-#: components/html-editor/editor-control-factory.c:162
+#: components/html-editor/editor-control-factory.c:165
 #: components/html-editor/menubar.c:118 components/html-editor/popup.c:89
 msgid "Text"
 msgstr "Text"
 
-#: components/html-editor/editor-control-factory.c:173
+#: components/html-editor/editor-control-factory.c:176
 #: components/html-editor/menubar.c:141 components/html-editor/popup.c:124
 msgid "Rule"
 msgstr ""
 
-#: components/html-editor/editor-control-factory.c:182
+#: components/html-editor/editor-control-factory.c:185
 #: components/html-editor/popup.c:103
 msgid "Paragraph"
 msgstr "Odstavec"
 
-#: components/html-editor/editor-control-factory.c:187
+#: components/html-editor/editor-control-factory.c:190
 #: components/html-editor/menubar.c:102 components/html-editor/menubar.c:123
 #: components/html-editor/popup.c:110
 msgid "Link"
 msgstr ""
 
-#: components/html-editor/editor-control-factory.c:192
+#: components/html-editor/editor-control-factory.c:195
 #: components/html-editor/popup.c:117
 msgid "Page"
 msgstr ""
@@ -397,7 +397,7 @@ msgid "Top"
 msgstr ""
 
 #: components/html-editor/image.c:202 components/html-editor/paragraph.c:158
-#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:457
+#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:486
 msgid "Center"
 msgstr ""
 
@@ -542,23 +542,23 @@ msgstr ""
 msgid "Save file as..."
 msgstr ""
 
-#: components/html-editor/text.c:180 components/html-editor/toolbar.c:468
+#: components/html-editor/text.c:180 components/html-editor/toolbar.c:497
 msgid "Bold"
 msgstr ""
 
-#: components/html-editor/text.c:181 components/html-editor/toolbar.c:470
+#: components/html-editor/text.c:181 components/html-editor/toolbar.c:499
 msgid "Italic"
 msgstr ""
 
-#: components/html-editor/text.c:182 components/html-editor/toolbar.c:472
+#: components/html-editor/text.c:182 components/html-editor/toolbar.c:501
 msgid "Underline"
 msgstr ""
 
-#: components/html-editor/text.c:183 components/html-editor/toolbar.c:474
+#: components/html-editor/text.c:183 components/html-editor/toolbar.c:503
 msgid "Strikeout"
 msgstr ""
 
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:247
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:276
 msgid "Automatic"
 msgstr ""
 
@@ -567,35 +567,35 @@ msgid "Normal"
 msgstr ""
 
 #: components/html-editor/toolbar.c:51
-msgid "Header 1"
+msgid "Preformat"
 msgstr ""
 
 #: components/html-editor/toolbar.c:52
-msgid "Header 2"
+msgid "Header 1"
 msgstr ""
 
 #: components/html-editor/toolbar.c:53
-msgid "Header 3"
+msgid "Header 2"
 msgstr ""
 
 #: components/html-editor/toolbar.c:54
-msgid "Header 4"
+msgid "Header 3"
 msgstr ""
 
 #: components/html-editor/toolbar.c:55
-msgid "Header 5"
+msgid "Header 4"
 msgstr ""
 
 #: components/html-editor/toolbar.c:56
-msgid "Header 6"
+msgid "Header 5"
 msgstr ""
 
 #: components/html-editor/toolbar.c:57
-msgid "Address"
+msgid "Header 6"
 msgstr ""
 
 #: components/html-editor/toolbar.c:58
-msgid "Pre"
+msgid "Address"
 msgstr ""
 
 #: components/html-editor/toolbar.c:59
@@ -610,63 +610,63 @@ msgstr ""
 msgid "List item (roman)"
 msgstr ""
 
-#: components/html-editor/toolbar.c:455
+#: components/html-editor/toolbar.c:484
 msgid "Left align"
 msgstr ""
 
-#: components/html-editor/toolbar.c:455
+#: components/html-editor/toolbar.c:484
 msgid "Left justifies the paragraphs"
 msgstr ""
 
-#: components/html-editor/toolbar.c:457
+#: components/html-editor/toolbar.c:486
 msgid "Centers justifies the paragraphs"
 msgstr ""
 
-#: components/html-editor/toolbar.c:459
+#: components/html-editor/toolbar.c:488
 msgid "Right align"
 msgstr ""
 
-#: components/html-editor/toolbar.c:459
+#: components/html-editor/toolbar.c:488
 msgid "Right justifies the paragraphs"
 msgstr ""
 
-#: components/html-editor/toolbar.c:466
+#: components/html-editor/toolbar.c:495
 msgid "Typewriter"
 msgstr ""
 
-#: components/html-editor/toolbar.c:466
+#: components/html-editor/toolbar.c:495
 msgid "Toggle typewriter font style"
 msgstr ""
 
-#: components/html-editor/toolbar.c:468
+#: components/html-editor/toolbar.c:497
 msgid "Makes the text bold"
 msgstr ""
 
-#: components/html-editor/toolbar.c:470
+#: components/html-editor/toolbar.c:499
 msgid "Makes the text italic"
 msgstr ""
 
-#: components/html-editor/toolbar.c:472
+#: components/html-editor/toolbar.c:501
 msgid "Underlines the text"
 msgstr ""
 
-#: components/html-editor/toolbar.c:474
+#: components/html-editor/toolbar.c:503
 msgid "Strikes out the text"
 msgstr ""
 
-#: components/html-editor/toolbar.c:483
+#: components/html-editor/toolbar.c:512
 msgid "Unindent"
 msgstr ""
 
-#: components/html-editor/toolbar.c:483
+#: components/html-editor/toolbar.c:512
 msgid "Indents the paragraphs less"
 msgstr ""
 
-#: components/html-editor/toolbar.c:485
+#: components/html-editor/toolbar.c:514
 msgid "Indent"
 msgstr ""
 
-#: components/html-editor/toolbar.c:485
+#: components/html-editor/toolbar.c:514
 msgid "Indents the paragraphs more"
 msgstr ""
 
