@@ -109,9 +109,14 @@ binding "gtkhtml-bindings-emacs"
   bind "<Alt>q"              { "command" (indent-paragraph) }
 
   bind "<Ctrl><Shift>t"      { "command" (insert-table-1-1) }
+
   bind "<Ctrl><Shift>c"      { "command" (insert-col-after) }
   bind "<Ctrl><Alt>c"        { "command" (insert-col-before) }
   bind "<Alt><Shift>c"       { "command" (delete-col) }
+
+  bind "<Ctrl><Shift>r"      { "command" (insert-row-after) }
+  bind "<Ctrl><Alt>r"        { "command" (insert-row-before) }
+  bind "<Alt><Shift>r"       { "command" (delete-row) }
 
   bind "<Ctrl><Shift>b"      { "command" (inc-border) }
   bind "<Ctrl><Alt>b"        { "command" (dec-border) }

@@ -24,6 +24,8 @@
 
 #include "htmltypes.h"
 
+/* #define UNDO_DEBUG */
+
 #define HTML_UNDO_ACTION(x) ((HTMLUndoAction *) x)
 struct _HTMLUndoAction {
 	
@@ -31,6 +33,10 @@ struct _HTMLUndoAction {
 	HTMLUndoFunc function;	        /* Function to call when the action is performed.  */
 	HTMLUndoData *data;             /* Data to pass to the action function when it's called.  */
 	guint position;                 /* Cursor position, to be set when the action is executed.  */
+
+#ifdef UNDO_DEBUG
+	gboolean is_level;
+#endif
 };
 
 HTMLUndoAction *html_undo_action_new      (const gchar            *description,

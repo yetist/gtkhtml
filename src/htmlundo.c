@@ -24,7 +24,48 @@
 #include "htmlengine.h"
 #include "htmlundo.h"
 
-
+struct _HTMLUndoStack {
+	GList *stack;
+	guint  size;
+};
+typedef struct _HTMLUndoStack HTMLUndoStack;
+
+struct _HTMLUndo {
+	HTMLUndoStack undo;
+	HTMLUndoStack redo;
+	HTMLUndoStack undo_used;
+
+	/* these lists are stacks containing other
+	   levels undo/redo after calling html_undo_level_start */
+	GSList   *undo_levels;
+	GSList   *redo_levels;
+	guint     level;
+	guint     in_redo;
+};
+
+#ifdef UNDO_DEBUG
+static void html_undo_debug (HTMLUndo *undo);
+#define DEBUG(x) html_undo_debug (x)
+#else
+#define DEBUG(x)
+#endif
+
+static void add_used_and_redo_to_undo (HTMLUndo *undo);
+
+inline static void
+stack_copy (HTMLUndoStack *src, HTMLUndoStack *dst)
+{
+	dst->stack = src->stack;
+	dst->size  = src->size;
+}
+
+inline static void
+stack_dup (HTMLUndoStack *src, HTMLUndoStack *dst)
+{
+	dst->stack = g_list_copy (src->stack);
+	dst->size  = src->size;
+}
+
 static void
 destroy_action_list (GList *lp)
 {
@@ -38,21 +79,11 @@ destroy_action_list (GList *lp)
 HTMLUndo *
 html_undo_new (void)
 {
-	HTMLUndo *new;
+	HTMLUndo *new_undo;
 
-	new = g_new (HTMLUndo, 1);
+	new_undo = g_new0 (HTMLUndo, 1);
 
-	new->undo_stack = NULL;
-	new->undo_stack_size = 0;
-
-	new->redo_stack = NULL;
-	new->redo_stack_size = 0;
-
-	new->undo_levels = NULL;
-	new->redo_levels = NULL;
-	new->undo_levels_size = 0;
-
-	return new;
+	return new_undo;
 }
 
 void
@@ -60,15 +91,15 @@ html_undo_destroy  (HTMLUndo *undo)
 {
 	g_return_if_fail (undo != NULL);
 
-	destroy_action_list (undo->undo_stack);
-	destroy_action_list (undo->redo_stack);
+	destroy_action_list (undo->undo.stack);
+	destroy_action_list (undo->redo.stack);
 
 	g_free (undo);
 }
 
 
 static void
-action_do_and_destroy (HTMLEngine *engine, GList **stack, HTMLUndoDirection dir)
+action_do_and_destroy_redo (HTMLEngine *engine, HTMLUndo *undo, GList **stack, HTMLUndoDirection dir)
 {
 	HTMLUndoAction *action;
 	GList *first;
@@ -79,9 +110,31 @@ action_do_and_destroy (HTMLEngine *engine, GList **stack, HTMLUndoDirection dir)
 	html_cursor_jump_to_position (engine->cursor, engine, action->position);
 	(* action->function) (engine, action->data, dir);
 
-	html_undo_action_destroy (action);
-	*stack = g_list_remove_link (first, first);
-	g_list_free (first);
+	*stack = g_list_remove (first, first->data);
+	if (undo->level == 0) {
+		html_undo_action_destroy (action);
+
+		first = undo->undo_used.stack;
+		html_undo_action_destroy (HTML_UNDO_ACTION (first->data));
+		undo->undo_used.stack = g_list_remove (first, first->data);
+	}
+}
+
+static void
+action_do_and_destroy_undo (HTMLEngine *engine, HTMLUndo *undo, HTMLUndoDirection dir)
+{
+	HTMLUndoAction *action;
+	GList *first;
+
+	first  = undo->undo.stack;
+	action = HTML_UNDO_ACTION (first->data);
+
+	html_cursor_jump_to_position (engine->cursor, engine, action->position);
+	(* action->function) (engine, action->data, dir);
+
+	undo->undo.stack = g_list_remove (first, first->data);
+	if (undo->level == 0)
+		undo->undo_used.stack = g_list_prepend (undo->undo_used.stack, action);
 }
 
 void
@@ -91,9 +144,21 @@ html_undo_do_undo (HTMLUndo *undo,
 	g_return_if_fail (undo != NULL);
 	g_return_if_fail (engine != NULL);
 
-	if (undo->undo_stack_size > 0) {
-		action_do_and_destroy (engine, &undo->undo_stack, HTML_UNDO_UNDO);
-		undo->undo_stack_size--;
+	if (undo->undo.size > 0) {
+#ifdef UNDO_DEBUG
+		if (!undo->level) {
+			printf ("UNDO begin\n");
+			DEBUG (undo);
+		}
+#endif
+		action_do_and_destroy_undo (engine, undo, HTML_UNDO_UNDO);
+		undo->undo.size--;
+#ifdef UNDO_DEBUG
+		if (!undo->level) {
+			DEBUG (undo);
+			printf ("UNDO end\n");
+		}
+#endif
 	}
 }
 
@@ -104,9 +169,24 @@ html_undo_do_redo (HTMLUndo *undo,
 	g_return_if_fail (undo != NULL);
 	g_return_if_fail (engine != NULL);
 
-	if (undo->redo_stack_size > 0) {
-		action_do_and_destroy (engine, &undo->redo_stack, HTML_UNDO_REDO);
-		undo->redo_stack_size--;
+	if (undo->redo.size > 0) {
+#ifdef UNDO_DEBUG
+		if (!undo->level) {
+			printf ("REDO begin\n");
+			DEBUG (undo);
+		}
+#endif
+		undo->in_redo ++;
+		action_do_and_destroy_redo (engine, undo, &undo->redo.stack, HTML_UNDO_REDO);
+		undo->redo.size--;
+		undo->in_redo --;
+
+#ifdef UNDO_DEBUG
+		if (!undo->level) {
+			DEBUG (undo);
+			printf ("REDO end\n");
+		}
+#endif
 	}
 }
 
@@ -116,39 +196,48 @@ html_undo_discard_redo (HTMLUndo *undo)
 {
 	g_return_if_fail (undo != NULL);
 
-	if (undo->redo_stack == NULL)
+	if (undo->redo.stack == NULL)
 		return;
 
-	destroy_action_list (undo->redo_stack);
+	destroy_action_list (undo->redo.stack);
 
-	undo->redo_stack = NULL;
-	undo->redo_stack_size = 0;
+	undo->redo.stack = NULL;
+	undo->redo.size = 0;
 }
 
 void
-html_undo_add_undo_action  (HTMLUndo *undo,
-			    HTMLUndoAction *action)
+html_undo_add_undo_action  (HTMLUndo *undo, HTMLUndoAction *action)
 {
 	g_return_if_fail (undo != NULL);
 	g_return_if_fail (action != NULL);
 
-	if (!undo->undo_levels_size && undo->undo_stack_size >= HTML_UNDO_LIMIT) {
+	if (undo->level == 0 && undo->in_redo == 0 && undo->redo.size > 0)
+		add_used_and_redo_to_undo (undo);
+
+	if (!undo->level && undo->undo.size >= HTML_UNDO_LIMIT) {
 		HTMLUndoAction *last_action;
 		GList *last;
 
-		last = g_list_last (undo->undo_stack);
+		last = g_list_last (undo->undo.stack);
 		last_action = (HTMLUndoAction *) last->data;
 
-		undo->undo_stack = g_list_remove_link (undo->undo_stack, last);
+		undo->undo.stack = g_list_remove_link (undo->undo.stack, last);
 		g_list_free (last);
 
 		html_undo_action_destroy (last_action);
 
-		undo->undo_stack_size--;
+		undo->undo.size--;
 	}
 
-	undo->undo_stack = g_list_prepend (undo->undo_stack, action);
-	undo->undo_stack_size++;
+	undo->undo.stack = g_list_prepend (undo->undo.stack, action);
+	undo->undo.size ++;
+
+#ifdef UNDO_DEBUG
+	if (!undo->level) {
+		printf ("ADD UNDO\n");
+		DEBUG (undo);
+	}
+#endif
 }
 
 void
@@ -158,8 +247,8 @@ html_undo_add_redo_action  (HTMLUndo *undo,
 	g_return_if_fail (undo != NULL);
 	g_return_if_fail (action != NULL);
 
-	undo->redo_stack = g_list_prepend (undo->redo_stack, action);
-	undo->redo_stack_size++;
+	undo->redo.stack = g_list_prepend (undo->redo.stack, action);
+	undo->redo.size++;
 }
 
 void
@@ -192,123 +281,154 @@ html_undo_add_action  (HTMLUndo *undo, HTMLUndoAction *action, HTMLUndoDirection
 struct _HTMLUndoLevel {
 	HTMLUndoData data;
 
-	HTMLUndo *undo;
-	GList    *stack;
-	guint     size;
-	gchar    *description;
+	HTMLUndo      *parent_undo;
+	HTMLUndoStack  stack;
+
+	gchar    *description [HTML_UNDO_END];
 };
 typedef struct _HTMLUndoLevel HTMLUndoLevel;
+
+static void undo_step_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir);
+static void redo_level_begin (HTMLUndo *undo, const gchar *redo_desription, const gchar *undo_desription);
+static void redo_level_end   (HTMLUndo *undo);
 
 static void
 level_destroy (HTMLUndoData *data)
 {
+	HTMLUndoLevel *level;
+
 	g_assert (data);
 
-	g_free (HTML_UNDO_LEVEL (data)->description);
+	level = HTML_UNDO_LEVEL (data);
+
+	for (; level->stack.stack; level->stack.stack = level->stack.stack->next)
+		html_undo_action_destroy (HTML_UNDO_ACTION (level->stack.stack->data));
+
+	g_free (level->description [HTML_UNDO_UNDO]);
+	g_free (level->description [HTML_UNDO_REDO]);
 }
 
 static HTMLUndoLevel *
-level_new (HTMLUndo *undo, GList *stack, guint size, const gchar *description)
+level_new (HTMLUndo *undo, HTMLUndoStack *stack, const gchar *undo_description, const gchar *redo_description)
 {
 	HTMLUndoLevel *nl = g_new (HTMLUndoLevel, 1);
 
 	html_undo_data_init (HTML_UNDO_DATA (nl));
 
-	nl->data.destroy = level_destroy;
-	nl->undo         = undo;
-	nl->stack        = stack;
-	nl->size         = size;
-	nl->description  = g_strdup (description);
+	stack_copy (stack, &nl->stack);
+
+	nl->data.destroy                 = level_destroy;
+	nl->parent_undo                  = undo;
+	nl->description [HTML_UNDO_UNDO] = g_strdup (undo_description);
+	nl->description [HTML_UNDO_REDO] = g_strdup (redo_description);
 
 	return nl;
 }
 
 void
-html_undo_level_begin (HTMLUndo *undo, const gchar *desription)
+html_undo_level_begin (HTMLUndo *undo, const gchar *undo_desription, const gchar *redo_desription)
 {
-	undo->undo_levels     = g_slist_prepend (undo->undo_levels,
-						 level_new (undo, undo->undo_stack, undo->undo_stack_size, desription));
-	undo->undo_stack      = NULL;
-	undo->undo_stack_size = 0;
-	undo->undo_levels_size++;
+	undo->undo_levels = g_slist_prepend (undo->undo_levels, level_new (undo, &undo->undo,
+									   undo_desription, redo_desription));
+	undo->undo.stack  = NULL;
+	undo->undo.size   = 0;
+
+	undo->level ++;
 }
 
 static void
-redo_level_begin (HTMLUndo *undo, const gchar *desription)
+redo_level_begin (HTMLUndo *undo, const gchar *redo_desription, const gchar *undo_desription)
 {
-	undo->redo_levels     = g_slist_prepend (undo->redo_levels,
-						 level_new (undo, undo->redo_stack, undo->redo_stack_size, desription));
-	undo->redo_stack      = NULL;
-	undo->redo_stack_size = 0;
-}
+	undo->redo_levels = g_slist_prepend (undo->redo_levels, level_new (undo, &undo->redo,
+									   undo_desription, redo_desription));
+	undo->redo.stack  = NULL;
+	undo->redo.size   = 0;
 
-static void
-redo_step_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir)
-{
-	HTMLUndoLevel *level;
-	HTMLUndo      *undo;
-	GList         *stack;
-	guint          size;
-
-	level = HTML_UNDO_LEVEL (data);
-	undo  = level->undo;
-
-	/* prepare undo step */
-	html_undo_level_begin (undo, level->description);
-
-	/* preserve current redo stack */
-	stack = undo->redo_stack;
-	size  = undo->redo_stack_size;
-
-	/* set this level */
-	undo->redo_stack      = level->stack;
-	undo->redo_stack_size = level->size;
-
-	while (undo->redo_stack_size) {
-		html_undo_do_redo (undo, e);
-	}
-
-	/* restore current redo stack */
-	undo->redo_stack      = stack;
-	undo->redo_stack_size = size;
-
-	/* end undo step */
-	html_undo_level_end (undo);	
+	undo->level ++;
 }
 
 static void
 redo_level_end (HTMLUndo *undo)
 {
-	GList *stack;
-	guint  size;
 	HTMLUndoLevel *level;
+	HTMLUndoStack  save_redo;
+	GSList *head;
 
 	g_assert (undo->redo_levels);
 
+	undo->level --;
+
 	/* preserve current redo stack */
-	stack = undo->redo_stack;
-        size  = undo->redo_stack_size;
+	stack_copy (&undo->redo, &save_redo);
 
 	/* restore last level from levels stack */
-	level                 = HTML_UNDO_LEVEL (undo->redo_levels->data);
-	undo->redo_stack      = level->stack;
-	undo->redo_stack_size = level->size;
-	undo->redo_levels     = g_slist_remove (undo->redo_levels, level);
+	level = HTML_UNDO_LEVEL (undo->redo_levels->data);
+	stack_copy (&level->stack, &undo->redo);
 
 	/* add redo step redo action */
-	if (size) {
+	if (save_redo.size) {
 		HTMLUndoAction *action;
 
 		/* fill level with current redo step */
-		level->stack = stack;
-		level->size  = size;
-
+		stack_copy (&save_redo, &level->stack);
+		
 		/* we use position from last redo action on the stack */
-		action = (HTMLUndoAction *) stack->data;
-		html_undo_add_redo_action (undo, html_undo_action_new (level->description, redo_step_action,
-								       HTML_UNDO_DATA (level), action->position));
+		action = (HTMLUndoAction *) save_redo.stack->data;
+		html_undo_add_redo_action (undo, action = html_undo_action_new (level->description [HTML_UNDO_REDO],
+										undo_step_action,
+										HTML_UNDO_DATA (level), action->position));
+#ifdef UNDO_DEBUG
+		action->is_level = TRUE;
+#endif
 	} else
 		html_undo_data_unref (HTML_UNDO_DATA (level));
+
+	head = undo->redo_levels;
+	undo->redo_levels = g_slist_remove_link (undo->redo_levels, head);
+	g_slist_free (head);
+}
+
+void
+html_undo_level_end (HTMLUndo *undo)
+{
+	HTMLUndoLevel *level;
+	HTMLUndoStack  save_undo;
+	GSList *head;
+
+	g_assert (undo->undo_levels);
+	g_assert (undo->level);
+
+	undo->level--;
+
+	/* preserve current redo stack */
+	stack_copy (&undo->undo, &save_undo);
+
+	/* restore last level from levels stack */
+	level = HTML_UNDO_LEVEL (undo->undo_levels->data);
+	stack_copy (&level->stack, &undo->undo);
+
+	/* add undo step undo action */
+	if (save_undo.size) {
+		HTMLUndoAction *action;
+
+		/* fill level with current undo step */
+		stack_copy (&save_undo, &level->stack);
+
+		/* we use position from last undo action on the stack */
+		action = html_undo_action_new (level->description [HTML_UNDO_UNDO],
+					       undo_step_action,
+					       HTML_UNDO_DATA (level),
+					       HTML_UNDO_ACTION (save_undo.stack->data)->position);
+#ifdef UNDO_DEBUG
+		action->is_level = TRUE;
+#endif
+		html_undo_add_undo_action (undo, action);
+	} else
+		html_undo_data_unref (HTML_UNDO_DATA (level));
+
+	head = undo->undo_levels;
+	undo->undo_levels = g_slist_remove_link (undo->undo_levels, head);
+	g_slist_free (head);
 }
 
 static void
@@ -316,73 +436,42 @@ undo_step_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir)
 {
 	HTMLUndo      *undo;
 	HTMLUndoLevel *level;
-	GList         *stack;
-	guint          size;
+	HTMLUndoStack  save;
+	HTMLUndoStack *stack;
 
 	level = HTML_UNDO_LEVEL (data);
-	undo  = level->undo;
+	undo  = level->parent_undo;
+	stack = dir == HTML_UNDO_UNDO ? &undo->undo : &undo->redo;
 
-	/* prepare redo step */
-	redo_level_begin (undo, level->description);
+	/* prepare undo/redo step */
+	if (dir == HTML_UNDO_UNDO)
+		redo_level_begin (undo, level->description [HTML_UNDO_REDO], level->description [HTML_UNDO_UNDO]);
+	else
+		html_undo_level_begin (undo, level->description [HTML_UNDO_UNDO], level->description [HTML_UNDO_REDO]);
 
-	/* preserve current undo stack */
-	stack = undo->undo_stack;
-	size  = undo->undo_stack_size;
+	/* preserve current undo/redo stack */
+	stack_copy (stack, &save);
 
 	/* set this level */
-	undo->undo_stack      = level->stack;
-	undo->undo_stack_size = level->size;
+	stack_dup (&level->stack, stack);
 
-	while (undo->undo_stack_size) {
-		html_undo_do_undo (undo, e);
-	}
+	undo->level ++;
+	if (dir == HTML_UNDO_UNDO)
+		while (undo->undo.size)
+			html_undo_do_undo (undo, e);
+	else
+		while (undo->redo.size)
+			html_undo_do_redo (undo, e);
+	undo->level --;
 
-	/* restore current undo stack */
-	undo->undo_stack      = stack;
-	undo->undo_stack_size = size;
+	/* restore current undo/redo stack */
+	stack_copy (&save, stack);
 
-	/* end redo step */
-	redo_level_end (undo);
-}
-
-void
-html_undo_level_end (HTMLUndo *undo)
-{
-	GList *stack;
-	guint  size;
-	HTMLUndoLevel *level;
-
-	g_assert (undo->undo_levels);
-	g_assert (undo->undo_levels_size);
-
-	/* preserve current undo stack */
-	stack = undo->undo_stack;
-        size  = undo->undo_stack_size;
-
-	/* restore last level from levels stack */
-	level = (HTMLUndoLevel *) undo->undo_levels->data;
-	undo->undo_stack      = level->stack;
-	undo->undo_stack_size = level->size;
-	undo->undo_levels     = g_slist_remove (undo->undo_levels, level);
-
-	/* add undo step undo action */
-	if (size) {
-		HTMLUndoAction *action;
-
-		/* fill level with current undo step */
-		level->stack = stack;
-		level->size  = size;
-
-		/* we use position from last undo action on the stack */
-		action = (HTMLUndoAction *) stack->data;
-		html_undo_add_undo_action (undo, html_undo_action_new 
-					   (level->description,
-					    undo_step_action,
-					    HTML_UNDO_DATA (level), action->position));
-	} else
-		html_undo_data_unref (HTML_UNDO_DATA (level));
-
-	undo->undo_levels_size--;
+	/* end redo/undo step */
+	if (dir == HTML_UNDO_UNDO)
+		redo_level_end (undo);
+	else
+		html_undo_level_end (undo);
 }
 
 void
@@ -420,3 +509,65 @@ html_undo_direction_reverse (HTMLUndoDirection dir)
 {
 	return dir == HTML_UNDO_UNDO ? HTML_UNDO_REDO : HTML_UNDO_UNDO;
 }
+
+static void
+add_used_and_redo_to_undo (HTMLUndo *undo)
+{
+	GList *stack;
+	GList *cur;
+
+	stack            = g_list_reverse (undo->redo.stack);
+	undo->redo.stack = NULL;
+	undo->redo.size  = 0;
+
+	/* add undo_used */
+	for (cur = undo->undo_used.stack; cur; cur = cur->next)
+		html_undo_add_undo_action (undo, HTML_UNDO_ACTION (cur->data));
+	g_list_free (undo->undo_used.stack);
+	undo->undo_used.stack = NULL;
+
+	for (cur = stack; cur; cur = cur->next)
+		html_undo_add_undo_action (undo, HTML_UNDO_ACTION (cur->data));
+	g_list_free (stack);
+
+#ifdef UNDO_DEBUG
+	printf ("REVERSED\n");
+	DEBUG (undo);
+#endif
+}
+
+#ifdef UNDO_DEBUG
+
+static void
+print_stack (GList *stack, guint size, gint l)
+{
+	gint i;
+
+	for (; stack; stack = stack->next) {
+		HTMLUndoAction *action;
+		for (i = 0; i < l; i++) printf ("  ");
+		action = HTML_UNDO_ACTION (stack->data);
+		printf ("%s\n", action->description);
+		if (action->is_level) {
+			HTMLUndoLevel *level;
+
+			level = (HTMLUndoLevel *) action->data;
+
+			print_stack (level->stack.stack, level->stack.size, l + 1);
+		}
+	}
+}
+
+static void
+html_undo_debug (HTMLUndo *undo)
+{
+	printf ("Undo stack (%d):\n", undo->undo.size);
+	print_stack (undo->undo.stack, undo->undo.size, 1);
+	printf ("Redo stack (%d):\n", undo->redo.size);
+	print_stack (undo->redo.stack, undo->redo.size, 1);
+	printf ("Used stack (%d):\n", undo->undo_used.size);
+	print_stack (undo->undo_used.stack, undo->undo_used.size, 1);
+	printf ("--\n");
+}
+
+#endif

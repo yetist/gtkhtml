@@ -187,8 +187,9 @@ typedef enum {
 } HTMLType;
 
 typedef enum {
-	HTML_UNDO_UNDO,
-	HTML_UNDO_REDO
+	HTML_UNDO_UNDO = 0,
+	HTML_UNDO_REDO = 1,
+	HTML_UNDO_END  = 2
 } HTMLUndoDirection;
 
 typedef enum {

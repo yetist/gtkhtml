@@ -156,12 +156,12 @@ html_engine_selection_pop (HTMLEngine *e)
 }
 
 void
-html_engine_cut_and_paste_begin (HTMLEngine *e, gchar *op_name)
+html_engine_cut_and_paste_begin (HTMLEngine *e, const gchar *undo_op_name, const gchar *redo_op_name)
 {
 	html_engine_hide_cursor (e);
 	html_engine_selection_push (e);
 	html_engine_clipboard_push (e);
-	html_undo_level_begin (e->undo, op_name);
+	html_undo_level_begin (e->undo, undo_op_name, redo_op_name);
 	html_engine_cut (e);
 }
 
@@ -179,10 +179,11 @@ html_engine_cut_and_paste_end (HTMLEngine *e)
 }
 
 void
-html_engine_cut_and_paste (HTMLEngine *e, gchar *op_name, HTMLObjectForallFunc iterator, gpointer data)
+html_engine_cut_and_paste (HTMLEngine *e, const gchar *undo_op_name, const gchar *redo_op_name,
+			   HTMLObjectForallFunc iterator, gpointer data)
 {
 	html_engine_edit_selection_updater_update_now (e->selection_updater);
-	html_engine_cut_and_paste_begin (e, op_name);
+	html_engine_cut_and_paste_begin (e, undo_op_name, redo_op_name);
 	if (e->clipboard)
 		html_object_forall (e->clipboard, e, iterator, data);
 	html_engine_cut_and_paste_end (e);
@@ -401,7 +402,7 @@ html_engine_indent_pre_paragraph (HTMLEngine *e)
 	html_engine_disable_selection (e);
 	position = e->cursor->position;
 
-	html_undo_level_begin (e->undo, "Indent PRE paragraph");
+	html_undo_level_begin (e->undo, "Indent PRE paragraph", "Reverse paragraph indentation");
 	html_engine_freeze (e);
 
 	go_to_begin_of_pre_para (e);

@@ -27,22 +27,6 @@
 #include "htmlundo-action.h"
 #include "htmlenums.h"
 
-struct _HTMLUndo {
-	/* List of undo actions (HTMLUndoAction).  */
-	GList *undo_stack;
-	guint undo_stack_size;
-
-	/* List of redo actions (HTMLUndoAction).  */
-	GList *redo_stack;
-	guint redo_stack_size;
-
-	/* these lists are stacks containing other
-	   levels undo/redo after calling html_undo_level_start */
-	GSList *undo_levels;
-	GSList *redo_levels;
-	guint   undo_levels_size;
-};
-
 #define HTML_UNDO_DATA(x) ((HTMLUndoData *) x)
 struct _HTMLUndoData {
 	HTMLUndoDataDestroyFunc destroy;
@@ -64,7 +48,8 @@ void               html_undo_add_action         (HTMLUndo          *undo,
 						 HTMLUndoAction    *action,
 						 HTMLUndoDirection  dir);
 void               html_undo_level_begin        (HTMLUndo          *undo,
-						 const gchar       *description);
+						 const gchar       *undo_description,
+						 const gchar       *redo_description);
 void               html_undo_level_end          (HTMLUndo          *undo);
 /*
  *  Undo Data

@@ -4192,7 +4192,7 @@ html_engine_replace_do (HTMLEngine *e, HTMLReplaceQueryAnswer answer)
 
 	switch (answer) {
 	case RQA_ReplaceAll:
-		html_undo_level_begin (e->undo, "replace all");
+		html_undo_level_begin (e->undo, "Replace all", "Revert replace all");
 		replace (e);
 		while (html_engine_search_next (e))
 			replace (e);
@@ -4204,7 +4204,7 @@ html_engine_replace_do (HTMLEngine *e, HTMLReplaceQueryAnswer answer)
 		break;
 
 	case RQA_Replace:
-		html_undo_level_begin (e->undo, "replace");
+		html_undo_level_begin (e->undo, "Replace", "Revert replace");
 		replace (e);
 		html_undo_level_end (e->undo);
 	case RQA_Next:

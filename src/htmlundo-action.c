@@ -38,7 +38,9 @@ html_undo_action_new (const gchar *description, HTMLUndoFunc function, HTMLUndoD
 	action->function    = function;
 	action->data        = data;
 	action->position    = position;
-
+#ifdef UNDO_DEBUG
+	action->is_level    = FALSE;
+#endif
 	return action;
 }
 

@@ -433,10 +433,12 @@ static void
 delete_undo_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir)
 {
 	DeleteUndo *undo;
+	HTMLObject *buffer;
+	guint       len = 0;
 
-	undo = (DeleteUndo *) data;
-	insert_object (e, undo->buffer, undo->buffer_len, html_undo_direction_reverse (dir), TRUE);
-	undo->buffer = NULL;
+	undo         = (DeleteUndo *) data;
+	buffer       = html_object_op_copy (undo->buffer, e, NULL, NULL, &len);
+	insert_object (e, buffer, undo->buffer_len, html_undo_direction_reverse (dir), TRUE);
 }
 
 static void
@@ -450,6 +452,8 @@ delete_setup_undo (HTMLEngine *e, HTMLObject *buffer, guint len, HTMLUndoDirecti
 	undo->data.destroy = delete_undo_destroy;
 	undo->buffer       = buffer;
 	undo->buffer_len   = len;
+
+	/* printf ("delete undo len %d\n", len); */
 
 	html_undo_add_action (e->undo,
 			      html_undo_action_new ("Delete", delete_undo_action,
@@ -542,7 +546,7 @@ html_engine_cut (HTMLEngine *e)
 {
 	html_engine_clipboard_clear (e);
 	delete_object (e, &e->clipboard, &e->clipboard_len, HTML_UNDO_UNDO);
-	printf ("cut  len: %d\n", e->clipboard_len);
+	/* printf ("cut  len: %d\n", e->clipboard_len); */
 }
 
 /*
@@ -634,6 +638,8 @@ insert_setup_undo (HTMLEngine *e, guint len, HTMLUndoDirection dir)
 	html_undo_data_init (HTML_UNDO_DATA (undo));
 	undo->len = len;
 
+	/* printf ("insert undo len %d\n", len); */
+
 	html_undo_add_action (e->undo,
 			      html_undo_action_new ("Insert", insert_undo_action,
 						    HTML_UNDO_DATA (undo), html_cursor_get_position (e->cursor)),
@@ -656,7 +662,7 @@ html_engine_insert_object (HTMLEngine *e, HTMLObject *o, guint len)
 void
 html_engine_paste_object (HTMLEngine *e, HTMLObject *o, guint len)
 {
-	html_undo_level_begin (e->undo, "Paste");
+	html_undo_level_begin (e->undo, "Paste", "Paste");
 	html_engine_delete (e);
 	html_engine_insert_object (e, o, len);
 	html_undo_level_end (e->undo);
@@ -749,7 +755,12 @@ html_engine_insert_text (HTMLEngine *e, const gchar *text, guint len)
 void
 html_engine_paste_text (HTMLEngine *e, const gchar *text, guint len)
 {
-	html_undo_level_begin (e->undo, "Paste text");
+	gchar *undo_name = g_strdup_printf ("Paste text: '%s'", text);
+	gchar *redo_name = g_strdup_printf ("Unpaste text: '%s'", text);
+
+	html_undo_level_begin (e->undo, undo_name, redo_name);
+	g_free (undo_name);
+	g_free (redo_name);
 	html_engine_delete (e);
 	html_engine_insert_text (e, text, len);
 	html_undo_level_end (e->undo);
@@ -832,7 +843,10 @@ html_engine_insert_link (HTMLEngine *e, const gchar *url, const gchar *target)
 		data.color  = url
 			? html_colorset_get_color (e->settings->color_set, HTMLLinkColor)
 			: html_colorset_get_color (e->settings->color_set, HTMLTextColor);
-		html_engine_cut_and_paste (e, url ? "Insert link" : "Remove link", change_link, &data);
+		html_engine_cut_and_paste (e,
+					   url ? "Insert link" : "Remove link",
+					   url ? "Remove link" : "Insert link",
+					   change_link, &data);
 	} else {
 		html_engine_set_url    (e, url);
 		html_engine_set_target (e, target);

@@ -39,10 +39,12 @@ void                       html_engine_clipboard_clear        (HTMLEngine       
 void                       html_engine_selection_push         (HTMLEngine                *e);
 void                       html_engine_selection_pop          (HTMLEngine                *e);
 void                       html_engine_cut_and_paste_begin    (HTMLEngine                *e,
-							       gchar                     *op_name);
+							       const gchar               *undo_op_name,
+							       const gchar               *redo_op_name);
 void                       html_engine_cut_and_paste_end      (HTMLEngine                *e);
 void                       html_engine_cut_and_paste          (HTMLEngine                *e,
-							       gchar                     *op_name,
+							       const gchar               *undo_op_name,
+							       const gchar               *redo_op_name,
 							       HTMLObjectForallFunc       iterator,
 							       gpointer                   data);
 void                       html_engine_spell_check_range      (HTMLEngine                *e,

@@ -258,7 +258,7 @@ html_engine_set_font_style (HTMLEngine *e,
 		struct tmp_font *tf = g_new (struct tmp_font, 1);
 		tf->and_mask = and_mask;
 		tf->or_mask  = or_mask;
-		html_engine_cut_and_paste (e, "Set font style", object_set_font_style, tf);
+		html_engine_cut_and_paste (e, "Set font style", "Unset font style", object_set_font_style, tf);
 		g_free (tf);
 		return TRUE;
 	} else {
@@ -318,7 +318,9 @@ void
 html_engine_font_size_inc_dec (HTMLEngine *e, gboolean inc)
 {
 	if (html_engine_is_selection_active (e))
-		html_engine_cut_and_paste (e, (inc) ? "Increase font size" : "Decrease font size",
+		html_engine_cut_and_paste (e,
+					   inc ? "Increase font size" : "Decrease font size",
+					   inc ? "Decrease font size" : "Increase font size",
 					   inc_dec_size_cb, GINT_TO_POINTER (inc));
 	else
 		e->insertion_font_style = inc_dec_size (e->insertion_font_style, inc);
@@ -344,7 +346,7 @@ html_engine_set_color (HTMLEngine *e, HTMLColor *color)
 		color = html_colorset_get_color (e->settings->color_set, HTMLTextColor);
 
 	if (html_engine_is_selection_active (e)) {
-		html_engine_cut_and_paste (e, "Set color", set_color, color);
+		html_engine_cut_and_paste (e, "Set color", "Unset color", set_color, color);
 		return TRUE;
 	} else {
 
