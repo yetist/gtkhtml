@@ -41,6 +41,7 @@ static void replace_cb          (GtkWidget *widget, GtkHTMLControlData *cd);
 
 static void insert_image_cb     (GtkWidget *widget, GtkHTMLControlData *cd);
 static void insert_link_cb      (GtkWidget *widget, GtkHTMLControlData *cd);
+static void insert_rule_cb    (GtkWidget *widget, GtkHTMLControlData *cd);
 
 
 static GnomeUIInfo format_subtree_info[] = {
@@ -71,6 +72,7 @@ static GnomeUIInfo edit_subtree_info[] = {
 static GnomeUIInfo insert_subtree_info[] = {
 	GNOMEUIINFO_ITEM_NONE (N_("_Image..."), N_("Insert image into document..."), insert_image_cb),
 	GNOMEUIINFO_ITEM_NONE (N_("_Link..."), N_("Insert HTML link into document..."), insert_link_cb),
+	GNOMEUIINFO_ITEM_NONE (N_("_Rule..."),N_("Insert rule into document..."), insert_rule_cb),
 	GNOMEUIINFO_END
 };
 
@@ -147,6 +149,12 @@ static void
 insert_link_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
 	link_insert (cd);
+}
+
+static void
+insert_rule_cb (GtkWidget *widget, GtkHTMLControlData *cd)
+{
+	rule_insert (cd);
 }
 
 void

@@ -1,3 +1,24 @@
+2000-06-09  Ariel Rios  <ariel@arcavia.com>
+
+	* Makefile.am: Include rule.c and rule.h
+	
+	* menubar.c: Added rule as as a member of subtree.
+	(insert_rule_cb): Added.
+
+	* control-data.c (gtk_html_control_data_destroy): Add conditional for rule_dialog.
+
+	* control-data.h: Add reference to rule_dialog in GtkHTMLControlData.
+
+	* rule.c: New file that contains Rule Dialog support.
+	(get_values): Get the integer from the spin buttons.
+	(button_rule_cb): Call back for the rule dialog.
+	(gtk_html_rule_dialog_new): Creates a new GtkHTMLRuleDialog.
+	(gtk_html_rule_dialog_destroy): Created
+	(rule_insert): Created.
+	(rule_edit): Created.
+
+	* rule.h: Ditto.
+
 2000-06-05  Radek Doulik  <rodo@helixcode.com>
 
 	* popup.c (remove_link): remove link callback

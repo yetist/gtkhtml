@@ -2,6 +2,8 @@
 /*  This file is part of the GtkHTML library.
 
     Copyright (C) 2000 Helix Code, Inc.
+    Authors:           Radek Doulik (rodo@helixcode.com)
+                       Ariel Rios   (ariel@arcavia.com)
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
@@ -17,40 +19,20 @@
     along with this library; see the file COPYING.LIB.  If not, write to
     the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
     Boston, MA 02111-1307, USA.
-
-    Author: Radek Doulik <rodo@helixcode.com>
 */
+#ifndef _GTK_HTML_RULE_H_
+#define _GTK_HTML_RULE_H_
 
+typedef struct _GtkHTMLRuleDialog GtkHTMLRuleDialog;
+
+#include <gnome.h>
 #include "control-data.h"
+#include "htmlengine-edit-rule.h"
 
-GtkHTMLControlData *
-gtk_html_control_data_new (GtkHTML *html, GtkWidget *vbox)
-{
-	GtkHTMLControlData * ncd = g_new0 (GtkHTMLControlData, 1);
+GtkHTMLRuleDialog * gtk_html_rule_dialog_new       (GtkHTML *html);
+void                gtk_html_rule_dialog_destroy   (GtkHTMLRuleDialog *d);
 
-	ncd->html = html;
-	ncd->vbox = vbox;
+void                rule_insert                     (GtkHTMLControlData *cd);
+void                rule_edit                       (GtkHTMLControlData *cd);
 
-	return ncd;
-}
-
-void
-gtk_html_control_data_destroy (GtkHTMLControlData *cd)
-{
-	if (cd->search_dialog) {
-		gtk_html_search_dialog_destroy (cd->search_dialog);
-	}
-	if (cd->replace_dialog) {
-		gtk_html_replace_dialog_destroy (cd->replace_dialog);
-	}
-	if (cd->image_dialog) {
-		gtk_html_image_dialog_destroy (cd->image_dialog);
-	}
-	if (cd->link_dialog) {
-		gtk_html_link_dialog_destroy (cd->link_dialog);
-	}
-	if (cd->rule_dialog) {
-		gtk_html_rule_dialog_destroy (cd->rule_dialog);
-	}
-	g_free (cd);
-}
+#endif

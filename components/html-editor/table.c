@@ -30,17 +30,18 @@
 
 #define SPIN_INDEX 7
 
+
 struct _GtkHTMLTableDialog {
 	GnomeDialog *dialog;
 	GtkHTML *html;
-	GtkWidgget *spin [SPIN_INDEX];
+	GtkWidget *spin [SPIN_INDEX];
 	
 	gint values [SPIN_INDEX];
-
+	
 	/* 
 	   The values stand for the following:
-	   rows, cols, width, percent, 
-	   padding, spacing, border;
+	   values: rows, cols, width, percent, 
+	           padding, spacing, border;
 	*/
 
 };
@@ -64,7 +65,7 @@ button_table_cb (GtkWidget *but, GtkHTMLLinkDialog *d)
 {
 	set_get_values (d, FALSE);
 	
-	html_engine_insert_table_all (d->html->engine, d->values);
+	html_engine_insert_table (d->html->engine, d->values);
 }
 		
 
@@ -73,7 +74,7 @@ gtk_html_table_dialog_new (GtkHTML *html)
 {
 	GtkHTMLTableDialog *dialog = g_new0 (GtkHTMLTableDialog, 1);
 	GtkWidget *table           = gtk_table_new (5, 2, FALSE);
-	GtkWidget *spin_label [SPIN_INDEX]   = {"Width", "Percent", "Padding", "Spacing", "Border"};
+	GtkWidget *spin_label [SPIN_INDEX]   = { "Width", "Percent", "Padding", "Spacing", "Border" };
 	gint i;
 	
 	dialog->dialog       =  GNOME_DIALOG (gnome_dialog_new (_("Table"), GNOME_STOCK_BUTTON_OK,
@@ -81,22 +82,24 @@ gtk_html_table_dialog_new (GtkHTML *html)
 	dialog->html         =  html;
 
 	for (i = 0; i < SPIN_INDEX; i++){	
-		dialog->spin  [i]  =  gtk_spin_button_new (GTK_ADJUSTMENT (gtk_adjustment_new (i, 0, 999, 1, 5, 10)), 1, 0);
-		spin_label [i] = gtk_label_new (_(text_label [i]));
+		dialog->spin [i]  =  gtk_spin_button_new (GTK_ADJUSTMENT (gtk_adjustment_new (i, 0, 999, 1, 5, 10)), 1, 0);
+		spin_label [i]    = gtk_label_new (_(text_label [i]));
 		gtk_table_attach_defaults (table, label [i], 0, 1, i, i+1);
 		gtk_table_attach_defaults (table, spin [i],  1, 2, i, i+1); 
 	}
-	
+
+	gtk_spin_button_set_value (GTKSPIN (spin [0], 2));
+	gtk_spin_button_set_value (GTKSPIN (spin [1], 2));
+
 	gtk_box_pack_start_defaults (GTK_BOX (box), table);
-	gtk_widget_show_all (table);
 	
 	gnome_dialog_button_connect (d->dialog, 0, button_link_cb, d);
 	gnome_dialog_close_hides (d->dialog, TRUE);
 	gnome_dialog_set_close (d->dialog, TRUE);
-
 	gnome_dialog_set_default (d->dialog, 0);
 	gtk_widget_grab_focus (d->link);
-	
+	gtk_widget_show_all (table);
+
 	return table;
 
 }

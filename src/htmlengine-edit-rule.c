@@ -17,40 +17,32 @@
     along with this library; see the file COPYING.LIB.  If not, write to
     the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
     Boston, MA 02111-1307, USA.
-
-    Author: Radek Doulik <rodo@helixcode.com>
 */
 
-#include "control-data.h"
-
-GtkHTMLControlData *
-gtk_html_control_data_new (GtkHTML *html, GtkWidget *vbox)
-{
-	GtkHTMLControlData * ncd = g_new0 (GtkHTMLControlData, 1);
-
-	ncd->html = html;
-	ncd->vbox = vbox;
-
-	return ncd;
-}
+#include "htmlengine.h"
+#include "htmlengine-edit-paste.h"
+#include "htmlrule.h"
+#include "htmlcluealigned.h"
+#include "htmlengine-edit-rule.h"
 
 void
-gtk_html_control_data_destroy (GtkHTMLControlData *cd)
+html_engine_insert_rule (HTMLEngine      *e,
+			 gint            length,
+			 gint            percent,
+			 gint            size,
+			 gboolean        shade,
+			 HTMLHAlignType  halign)
 {
-	if (cd->search_dialog) {
-		gtk_html_search_dialog_destroy (cd->search_dialog);
-	}
-	if (cd->replace_dialog) {
-		gtk_html_replace_dialog_destroy (cd->replace_dialog);
-	}
-	if (cd->image_dialog) {
-		gtk_html_image_dialog_destroy (cd->image_dialog);
-	}
-	if (cd->link_dialog) {
-		gtk_html_link_dialog_destroy (cd->link_dialog);
-	}
-	if (cd->rule_dialog) {
-		gtk_html_rule_dialog_destroy (cd->rule_dialog);
-	}
-	g_free (cd);
+	HTMLObject *rule;
+
+	g_return_if_fail (e != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
+	rule = html_rule_new (length, percent, size, shade, halign);
+
+	html_engine_paste_object (e, rule, TRUE);
+	html_object_destroy (rule);
 }
+
+
+	

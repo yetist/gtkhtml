@@ -17,40 +17,19 @@
     along with this library; see the file COPYING.LIB.  If not, write to
     the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
     Boston, MA 02111-1307, USA.
-
-    Author: Radek Doulik <rodo@helixcode.com>
 */
 
-#include "control-data.h"
+#ifndef _HTMLENGINE_EDIT_RULE_H
+#define _HTMLENGINE_EDIT_RULE_H
 
-GtkHTMLControlData *
-gtk_html_control_data_new (GtkHTML *html, GtkWidget *vbox)
-{
-	GtkHTMLControlData * ncd = g_new0 (GtkHTMLControlData, 1);
+#include "htmlengine.h"
+#include "htmlobject.h"
 
-	ncd->html = html;
-	ncd->vbox = vbox;
+void html_engine_insert_rule (HTMLEngine      *e,
+			      gint            length,
+			      gint            percent,
+			      gint            size,
+			      gboolean        shade,
+			      HTMLHAlignType  halign);
 
-	return ncd;
-}
-
-void
-gtk_html_control_data_destroy (GtkHTMLControlData *cd)
-{
-	if (cd->search_dialog) {
-		gtk_html_search_dialog_destroy (cd->search_dialog);
-	}
-	if (cd->replace_dialog) {
-		gtk_html_replace_dialog_destroy (cd->replace_dialog);
-	}
-	if (cd->image_dialog) {
-		gtk_html_image_dialog_destroy (cd->image_dialog);
-	}
-	if (cd->link_dialog) {
-		gtk_html_link_dialog_destroy (cd->link_dialog);
-	}
-	if (cd->rule_dialog) {
-		gtk_html_rule_dialog_destroy (cd->rule_dialog);
-	}
-	g_free (cd);
-}
+#endif

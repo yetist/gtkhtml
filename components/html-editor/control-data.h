@@ -31,6 +31,7 @@ typedef struct _GtkHTMLControlData GtkHTMLControlData;
 #include "replace.h"
 #include "image.h"
 #include "link.h"
+#include "rule.h"
 
 struct _GtkHTMLControlData {
 	GtkHTML   *html;
@@ -43,7 +44,7 @@ struct _GtkHTMLControlData {
 	/* objects dialogs */
 	GtkHTMLImageDialog      *image_dialog;
 	GtkHTMLLinkDialog       *link_dialog;
-
+	GtkHTMLRuleDialog       *rule_dialog;
 	/* object from last button press event */
 	HTMLObject *obj;
 };

@@ -41,6 +41,8 @@ html_editor_control_SOURCES =			\
 	popup.h					\
 	replace.c				\
 	replace.h				\
+	rule.c					\
+	rule.h					\
 	search.c				\
 	search.h				\
 	toolbar.c				\

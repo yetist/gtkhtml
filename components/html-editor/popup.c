@@ -60,6 +60,7 @@ prop (GtkWidget *mi, GtkHTMLControlData *cd)
 	printf ("prop\n");
 
 	switch (HTML_OBJECT_TYPE (cd->obj)) {
+     
 	case HTML_TYPE_IMAGE:
 		image_edit (cd, HTML_IMAGE (cd->obj));
 		break;
@@ -120,6 +121,7 @@ popup_show (GtkHTMLControlData *cd, GdkEventButton *event)
 			}
 			ADD_ITEM (text, prop);
 			switch (HTML_OBJECT_TYPE (cd->obj)) {
+			
 			case HTML_TYPE_LINKTEXTMASTER:
 				ADD_ITEM (_("Remove link"), remove_link);
 			default:
