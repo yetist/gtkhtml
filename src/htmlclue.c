@@ -39,10 +39,11 @@ destroy (HTMLObject *o)
 	HTMLObject *p;
 
 	for (p = HTML_CLUE (o)->head; p != NULL; p = p->next) {
-		html_clue_remove (HTML_CLUE (o), p);
 		html_object_destroy (p);
 	}
-
+	HTML_CLUE (o)->head = NULL;
+	HTML_CLUE (o)->tail = NULL;
+			
 	HTML_OBJECT_CLASS (parent_class)->destroy (o);
 }
 
