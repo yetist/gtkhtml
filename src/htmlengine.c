@@ -39,8 +39,6 @@
 #include <gtk/gtkmain.h>
 #include <gtk/gtksignal.h>
 
-#include <gal/widgets/e-scroll-frame.h>
-
 #include "gtkhtml-embedded.h"
 #include "gtkhtml-private.h"
 #include "gtkhtml-stream.h"
@@ -983,7 +981,6 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					table->caption = caption;
 					table->capAlign = capAlign;
 
-					close_flow (e, HTML_OBJECT (caption));
 					e->flow = 0;
 
 					if (!str)
@@ -1197,7 +1194,6 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						pop_block (e, ID_TD, HTML_OBJECT (cell));
 
 						add_pending_paragraph_break (e, HTML_OBJECT (cell));
-						close_flow (e, HTML_OBJECT (cell));
 
 						html_table_end_row (table);
 						html_table_start_row (table);
@@ -1208,7 +1204,6 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 							insert_paragraph_break (e, HTML_OBJECT (cell));
 						pop_block (e, heading ? ID_TH : ID_TD, HTML_OBJECT (cell));
 						add_pending_paragraph_break (e, HTML_OBJECT (cell));
-						close_flow (e, HTML_OBJECT (cell));
 					}
 
 					if (!str)
@@ -1377,7 +1372,7 @@ parse_object (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	} else {
 		/* parse the body of the tag to display the alternative */
 		str = parse_body (e, clue, end, FALSE);
-		close_flow (e, clue);
+
 		html_object_destroy (HTML_OBJECT (el));
 	}
 	
@@ -1630,7 +1625,6 @@ parse_iframe (HTMLEngine *e, const gchar *str, HTMLObject *_clue)
 		discard_body (e, end);
 	} else {
 		parse_body (e, _clue, end, FALSE);
-		close_flow (e, _clue);
 	}
 	g_free (align);
 }
@@ -3349,7 +3343,7 @@ html_engine_init (HTMLEngine *engine)
 
 	engine->cursor = html_cursor_new ();
 	engine->mark = NULL;
-	engine->cursor_hide_count = 1;
+	engine->cursor_hide_count = 0;
 	engine->blinking_timer_id = 0;
 	engine->blinking_status = FALSE;
 	engine->insertion_font_style = GTK_HTML_FONT_STYLE_DEFAULT;
@@ -3367,8 +3361,6 @@ html_engine_init (HTMLEngine *engine)
 	engine->need_spell_check = FALSE;
 
 	html_engine_print_set_min_split_index (engine, .75);
-
-	engine->block = FALSE;
 }
 
 HTMLEngine *
@@ -3565,6 +3557,8 @@ html_engine_begin (HTMLEngine *e, char *content_type)
 	html_engine_id_table_clear (e);
 	html_engine_class_data_clear (e);
 	html_image_factory_stop_animations (e->image_factory);
+	html_image_factory_cleanup (e->image_factory);
+
 
 	new_stream = gtk_html_stream_new (GTK_HTML (e->widget),
 					  html_engine_stream_types,
@@ -3574,7 +3568,6 @@ html_engine_begin (HTMLEngine *e, char *content_type)
 #ifdef LOG_INPUT
 	new_stream = gtk_html_stream_log_new (GTK_HTML (e->widget), new_stream);
 #endif
-	e->opened_streams = 1;
 	
 	e->newPage = TRUE;
 	clear_selection (e);
@@ -3735,8 +3728,6 @@ html_engine_update_event (HTMLEngine *e)
 void
 html_engine_schedule_update (HTMLEngine *p)
 {
-	if (p->block && p->opened_streams)
-		return;
 	/* printf ("html_engine_schedule_update\n"); */
 	if(p->updateTimer == 0)
 		p->updateTimer = gtk_idle_add ((GtkFunction) html_engine_update_event, p);
@@ -3880,12 +3871,6 @@ html_engine_stream_end (GtkHTMLStream *stream,
 	while (html_engine_timer_event (e))
 		;
 
-	if (e->opened_streams)
-		e->opened_streams --;
-	/* printf ("ENGINE(%p) opened streams: %d\n", e, e->opened_streams); */
-	if (e->block && e->opened_streams == 0)
-		html_engine_schedule_update (e);
-
 	if (e->timerId != 0) {		gtk_idle_remove (e->timerId);
 		e->timerId = 0;
 	}
@@ -3908,59 +3893,9 @@ html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height)
 {
 	gint tx, ty;
 
-	if (e->block && e->opened_streams)
-		return;
-
-	/* don't draw in case we are longer than available space and scrollbar is going to be shown */
-	if (e->clue && e->clue->ascent + e->clue->descent > e->height) {
-		if (GTK_WIDGET (e->widget)->parent) {
-			if (GTK_IS_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)) {
-				if (GTK_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)->vscrollbar
-				    && !GTK_WIDGET_VISIBLE (GTK_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)->vscrollbar)
-				    && GTK_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)->vscrollbar_policy == GTK_POLICY_AUTOMATIC)
-					return;
-			} else if (E_IS_SCROLL_FRAME (GTK_WIDGET (e->widget)->parent)) {
-				GtkPolicyType policy;
-
-				e_scroll_frame_get_policy (E_SCROLL_FRAME (GTK_WIDGET (e->widget)->parent), NULL, &policy);
-				/* printf ("SHOW: policy %d visible %d\n",
-				   policy, e_scroll_frame_get_vscrollbar_visible
-				   (E_SCROLL_FRAME (GTK_WIDGET (e->widget)->parent))); */
-				if (policy == GTK_POLICY_AUTOMATIC
-				    && !e_scroll_frame_get_vscrollbar_visible (E_SCROLL_FRAME (GTK_WIDGET (e->widget)->parent)))
-					return;
-			}
-		}
-	}
-
-	/* don't draw in case we are shorter than available space and scrollbar is going to be hidden */
-	if (e->clue && e->clue->ascent + e->clue->descent <= e->height) {
-		if (GTK_WIDGET (e->widget)->parent) {
-			if (GTK_IS_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)) {
-				if (GTK_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)->vscrollbar
-				    && GTK_WIDGET_VISIBLE (GTK_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)->vscrollbar)
-				    && GTK_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)->vscrollbar_policy == GTK_POLICY_AUTOMATIC)
-					return;
-			} else if (E_IS_SCROLL_FRAME (GTK_WIDGET (e->widget)->parent)) {
-				GtkPolicyType policy;
-
-				e_scroll_frame_get_policy (E_SCROLL_FRAME (GTK_WIDGET (e->widget)->parent), NULL, &policy);
-				/* printf ("HIDE: policy %d visible %d\n",
-				   policy, e_scroll_frame_get_vscrollbar_visible
-				   (E_SCROLL_FRAME (GTK_WIDGET (e->widget)->parent))); */
-				if (policy == GTK_POLICY_AUTOMATIC
-				    && e_scroll_frame_get_vscrollbar_visible (E_SCROLL_FRAME (GTK_WIDGET (e->widget)->parent)))
-					return;
-			}
-		}
-	}
-
 	/* This case happens when the widget has not been shown yet.  */
 	if (width == 0 || height == 0)
 		return;
-
-	/* printf ("html_engine_draw_real %d x %d, %d\n",
-	   e->width, e->height, e->clue ? e->clue->ascent + e->clue->descent : 0); */
 
 	tx = -e->x_offset + e->leftBorder;
 	ty = -e->y_offset + e->topBorder;
@@ -5167,13 +5102,4 @@ html_engine_redraw_selection (HTMLEngine *e)
 		html_interval_select (e->selection, e);
 		html_engine_flush_draw_queue (e);
 	}
-}
-
-void
-html_engine_set_language (HTMLEngine *e, const gchar *language)
-{
-	g_free (e->language);
-	e->language = g_strdup (language);
-
-	gtk_html_api_set_language (GTK_HTML (e->widget));
 }

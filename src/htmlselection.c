@@ -40,98 +40,6 @@ html_selection_current_time (void)
 	return GDK_CURRENT_TIME;
 }
 
-static gboolean
-optimize_selection (HTMLEngine *e, HTMLInterval *i)
-{
-	HTMLInterval *s = e->selection;
-	gboolean optimized = FALSE;
-
-	g_return_val_if_fail (s, FALSE);
-
-	/* printf ("change selection (%3d,%3d) --> (%3d,%3d)\n",
-	   s->from.offset, s->to.offset,
-	   i->from.offset, i->to.offset); */
-	if (html_point_eq (&i->from, &s->from)) {
-		HTMLPoint *max;
-
-		max = html_point_max (&i->to, &s->to);
-		if (max) {
-			if (max == &i->to) {
-				HTMLInterval *sel;
-
-				sel = html_interval_new (s->to.object, i->to.object,
-							 i->from.object == s->to.object
-							 ? i->from.offset : 0, i->to.offset);
-				html_interval_select (sel, e);
-				html_interval_destroy (sel);
-				html_interval_destroy (s);
-				e->selection = i;
-				optimized = TRUE;
-			} else {
-				HTMLInterval *usel;
-
-				usel = html_interval_new (i->to.object, s->to.object,
-							  0, s->to.offset);
-				html_interval_unselect (usel, e);
-				if (i->to.offset) {
-					gint from = i->from.object == i->to.object ? i->from.offset : 0;
-					html_object_select_range (i->to.object, e,
-								  from, i->to.offset - from,
-								  !html_engine_frozen (e));
-				}
-				html_interval_destroy (usel);
-				html_interval_destroy (s);
-				e->selection = i;
-				optimized = TRUE;
-			}
-		}
-	} else if (html_point_eq (&i->to, &s->to)) {
-		HTMLPoint *min;
-
-		min = html_point_min (&i->from, &s->from);
-		if (min) {
-			if (min == &i->from) {
-				HTMLInterval *sel;
-
-				sel = html_interval_new (i->from.object, s->from.object,
-							 i->from.offset,
-							 i->to.object == s->from.object
-							 ? i->to.offset
-							 : html_object_get_length (s->from.object));
-				html_interval_select (sel, e);
-				html_interval_destroy (sel);
-				html_interval_destroy (s);
-				e->selection = i;
-				optimized = TRUE;
-			} else {
-				HTMLInterval *usel;
-
-				usel = html_interval_new (s->from.object, i->from.object,
-							  s->from.offset,
-							  html_object_get_length (i->from.object));
-				html_interval_unselect (usel, e);
-				if (i->from.offset != html_object_get_length (i->from.object)) {
-					gint to = i->to.object == i->from.object
-						? s->to.offset
-						: html_object_get_length (i->from.object);
-					html_object_select_range (i->from.object, e,
-								  i->from.offset, to - i->from.offset,
-								  !html_engine_frozen (e));
-				}
-				html_interval_destroy (usel);
-				html_interval_destroy (s);
-				e->selection = i;
-				optimized = TRUE;
-			}
-		}
-	}
-
-	/* if (optimized)
-	   printf ("Optimized\n"); */
-
-	return optimized;
-}
-
 void
 html_engine_select_interval (HTMLEngine *e, HTMLInterval *i)
 {
@@ -140,13 +48,12 @@ html_engine_select_interval (HTMLEngine *e, HTMLInterval *i)
 	if (e->selection && html_interval_eq (e->selection, i))
 		html_interval_destroy (i);
 	else {
-		if (!e->selection || !optimize_selection (e, i)) {
-			html_engine_unselect_all (e);
-			e->selection = i;
-			html_interval_select (e->selection, e);
-		}
+		html_engine_unselect_all (e);
+		e->selection = i;
+		html_interval_select (e->selection, e);
 	}
 
+	html_engine_activate_selection (e, html_selection_current_time ());
 	html_engine_show_cursor (e);
 }
 
@@ -170,7 +77,7 @@ html_engine_select_region (HTMLEngine *e,
 	if (a && b) {
 		HTMLInterval *new_selection;
 
-		new_selection = html_interval_new_from_points (a, b);
+		new_selection = html_interval_new_from_points (a ,b);
 		html_interval_validate (new_selection);
 		html_engine_select_interval (e, new_selection);
 	}
@@ -182,34 +89,8 @@ html_engine_select_region (HTMLEngine *e,
 }
 
 void
-html_engine_select_all (HTMLEngine *e)
-{
-	HTMLObject *a, *b;
-
-	g_return_if_fail (e != NULL);
-	g_return_if_fail (HTML_IS_ENGINE (e));
-
-	e = html_engine_get_top_html_engine (e);
-	if (e->clue == NULL || HTML_CLUE (e->clue)->head == NULL)
-		return;
-
-	a = html_object_get_head_leaf (e->clue);
-	b = html_object_get_tail_leaf (e->clue);
-
-	if (a && b) {
-		HTMLInterval *new_selection;
-
-		new_selection = html_interval_new (a, b, 0, html_object_get_length (b));
-		html_interval_validate (new_selection);
-		html_engine_select_interval (e, new_selection);
-	}
-}
-
-void
 html_engine_clear_selection (HTMLEngine *e)
 {
-	/* printf ("clear selection\n"); */
-
 	if (e->selection) {
 		html_interval_destroy (e->selection);
 		html_engine_edit_selection_updater_reset (e->selection_updater);
@@ -383,12 +264,8 @@ html_engine_point_in_selection (HTMLEngine *e, HTMLObject *obj, guint offset)
 void
 html_engine_activate_selection (HTMLEngine *e, guint32 time)
 {
-	/* printf ("activate selection\n"); */
-
-	if (e->selection && e->block_selection == 0 && GTK_WIDGET_REALIZED (e->widget)) {
+	if (e->selection && e->block_selection == 0 && GTK_WIDGET_REALIZED (e->widget))
 		gtk_selection_owner_set (GTK_WIDGET (e->widget), GDK_SELECTION_PRIMARY, time);	
-		/* printf ("activated (%u).\n", time); */
-	}
 }
 
 void
@@ -401,13 +278,4 @@ void
 html_engine_unblock_selection (HTMLEngine *e)
 {
 	e->block_selection --;
-}
-
-void
-html_engine_update_selection_active_state (HTMLEngine *e, guint32 time)
-{
-	if (html_engine_is_selection_active (e))
-		html_engine_activate_selection (e, time ? time : html_selection_current_time ());
-	else
-		html_engine_deactivate_selection (e);
 }
