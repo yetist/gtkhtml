@@ -42,8 +42,9 @@ html_stack_clear (HTMLStack *stack)
 {
 	GList *p;
 
-	for (p = stack->list; p != NULL; p = p->next)
-		(* stack->free_func) (p->data);
+	if (stack->free_func != NULL)
+		for (p = stack->list; p != NULL; p = p->next)
+			(* stack->free_func) (p->data);
 
 	g_list_free (stack->list);
 	stack->list = NULL;
@@ -74,6 +75,9 @@ html_stack_pop (HTMLStack *stack)
 gpointer
 html_stack_top (HTMLStack *stack)
 {
+	if (stack->list == NULL)
+		return NULL;
+
 	return stack->list->data;
 }
 

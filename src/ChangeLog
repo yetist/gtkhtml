@@ -1,5 +1,38 @@
 1999-11-26  Ettore Perazzoli  <ettore@gnu.org>
 
+	* htmlengine.c (html_engine_init): Init `tempStrings'.
+	(html_engine_destroy): Free it.
+	(to_roman): New function.
+	(parse_l): Implemented ordered lists.
+	(parse_o): Implemented.  (Parses only `<ol>' and not `<option>'
+	for now.)
+	(html_engine_init): Install `parse_o' in the parsing vtable.
+	(block_end_list): Pop and destroy the list on the top of the
+	listStack.
+
+	* htmlengine.h: New member `tempStrings' in `HTMLEngine'.
+
+	* htmlengine.c (html_engine_init): Init `glossaryStack'.
+	(html_engine_destroy): Destroy it.
+	(parse_d): Implemented `<dl>', `<dd>' and `<dt>' from the KHTMLW
+	source.
+	(html_engine_new_flow): Use the indent value from the HTMLEngine,
+	not the clue!
+	(parse_k): New function, parsing for the `<kbd>' tag.
+	(html_engine_init): Install it.
+	(parse_l): Call `close_anchor' for `<li>'.  Also, use
+	`html_stack_is_empty()' instead of `html_stack_count()' for
+	checking for emptiness.
+
+	* htmlengine.h: New enum `HTMLGlossaryEntry'.  New member
+	`glossaryStack' in `HTMLEngine'.
+
+	* htmlstack.c (html_stack_clear): If the `free_func' is NULL,
+	don't try to free elements.
+	(html_stack_top): If the stack is empty, return NULL.
+
+1999-11-26  Ettore Perazzoli  <ettore@gnu.org>
+
 	* htmlengine.h: Replaced `HTMLListStack' with an `HTMLStack'.
 	* htmlengine.c: Updated accordingly.
 

@@ -69,7 +69,8 @@ extern gint defaultFontSizes [7];
 
 enum ID {
 	ID_ADDRESS, ID_B, ID_BIG, ID_BLOCKQUOTE, ID_CAPTION, ID_CITE, ID_CODE,
-	ID_DIR, ID_DIV, ID_EM, ID_FONT, ID_I, ID_HEADER, ID_U, ID_UL, ID_TD, ID_TH
+	ID_DIR, ID_DIV, ID_EM, ID_FONT, ID_HEADER, ID_I, ID_KBD, ID_OL, ID_U, ID_UL,
+	ID_TD, ID_TH
 };
 
 
@@ -198,9 +199,9 @@ block_end_list (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
 	if (elem->miscData2) {
 		e->vspace_inserted = html_engine_insert_vspace (e, clue, e->vspace_inserted);
 	}
-	
-	/* FIXME: Sane check */
 
+	html_list_destroy (html_stack_pop (e->listStack));
+	
 	e->indent = elem->miscData1;
 	e->flow = 0;
 }
@@ -220,6 +221,8 @@ block_end_div (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
 }
 
 
+/* Utility functions.  */
+
 static void
 close_anchor (HTMLEngine *e)
 {
@@ -251,6 +254,49 @@ select_font_relative (HTMLEngine *e,
 					  gint relative_font_size)
 {
 	g_warning ("`select_font_relative()' not implemented.");
+}
+
+/* FIXME this implementation is a bit lame.  :-) */
+static gchar *
+to_roman ( gint number, gboolean upper )
+{
+	GString *roman;
+    char ldigits[] = { 'i', 'v', 'x', 'l', 'c', 'd', 'm' };
+    char udigits[] = { 'I', 'V', 'X', 'L', 'C', 'D', 'M' };
+    char *digits = upper ? udigits : ldigits;
+    int i, d = 0;
+	gchar *s;
+
+	roman = g_string_new (NULL);
+
+    do {   
+		int num = number % 10;
+
+		if ( num % 5 < 4 )
+			for ( i = num % 5; i > 0; i-- )
+				g_string_insert_c( roman, 0, digits[ d ] );
+
+		if ( num >= 4 && num <= 8)
+			g_string_insert_c( roman, 0, digits[ d+1 ] );
+
+		if ( num == 9 )
+			g_string_insert_c( roman, 0, digits[ d+2 ] );
+
+		if ( num % 5 == 4 )
+			g_string_insert_c( roman, 0, digits[ d ] );
+
+		number /= 10;
+		d += 2;
+    } while ( number );
+
+	/* WARNING: Unlike the KDE implementation, this one appends the dot and the
+       space as well, to save extra copying and allocation. */
+	g_string_append (roman, ". ");
+
+	s = roman->str;
+	g_string_free (roman, FALSE);
+
+    return s;
 }
 
 
@@ -1172,6 +1218,7 @@ parse_c (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 <dl>             </dl>
 <dt>             </dt>
 */
+/* EP CHECK: OK.  */
 static void
 parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 {
@@ -1204,76 +1251,68 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 		}
 
 		e->flow = 0;
-    }
-    else if ( strncmp( str, "/div", 4 ) == 0 ) {
+    } else if ( strncmp( str, "/div", 4 ) == 0 ) {
 		pop_block (e, ID_DIV, _clue );
-	}
-
-#if 0							/* FIXME */
-    else if ( strncmp( str, "dl", 2 ) == 0 ) {
+	} else if ( strncmp( str, "dl", 2 ) == 0 ) {
 		e->vspace_inserted = html_engine_insert_vspace( e, _clue,
 														e->vspace_inserted );
-		close_anchor ();
+		close_anchor (e);
 
-		if ( glossaryStack.top() )
-		{
-			indent += INDENT_SIZE;
-		}
-		glossaryStack.push( new GlossaryEntry( GlossaryDL ) );
-		flow = 0;
-    }
-    else if ( strncmp( str, "/dl", 3 ) == 0 )
-    {
-		if ( !glossaryStack.top() )
+		if ( html_stack_top(e->glossaryStack) != NULL )
+			e->indent += INDENT_SIZE;
+
+		html_stack_push (e->glossaryStack, GINT_TO_POINTER (HTML_GLOSSARY_DL));
+		e->flow = 0;
+    } else if ( strncmp( str, "/dl", 3 ) == 0 ) {
+		if ( html_stack_top (e->glossaryStack) == NULL)
 			return;
 
-		if ( *glossaryStack.top() == GlossaryDD )
-		{
-			glossaryStack.remove();
-			indent -= INDENT_SIZE;
-			if (indent < 0)
-				indent = 0;
+		if ( GPOINTER_TO_INT (html_stack_top (e->glossaryStack))
+			 == HTML_GLOSSARY_DD ) {
+			html_stack_pop (e->glossaryStack);
+			e->indent -= INDENT_SIZE;
+			if (e->indent < 0)
+				e->indent = 0;
 		}
-		glossaryStack.remove();
-		if ( glossaryStack.top() )
-		{
-			indent -= INDENT_SIZE;
-			if (indent < 0)
-				indent = 0;
+		html_stack_pop (e->glossaryStack);
+		if ( html_stack_top (e->glossaryStack) != NULL ) {
+			e->indent -= INDENT_SIZE;
+			if (e->indent < 0)
+				e->indent = 0;
 		}
-		vspace_inserted = insertVSpace( _clue, vspace_inserted );
-    }
-    else if (strncmp( str, "dt", 2 ) == 0)
-    {
-		if ( !glossaryStack.top() )
+		e->vspace_inserted = html_engine_insert_vspace (e, _clue, e->vspace_inserted );
+    } else if (strncmp( str, "dt", 2 ) == 0) {
+		if (html_stack_top (e->glossaryStack) == NULL)
 			return;
 
-		if ( *glossaryStack.top() == GlossaryDD )
-		{
-			glossaryStack.pop();
-			indent -= INDENT_SIZE;
-			if (indent < 0)
-				indent = 0;
+		if (GPOINTER_TO_INT (html_stack_top (e->glossaryStack))
+			== HTML_GLOSSARY_DD) {
+			html_stack_pop (e->glossaryStack);
+			e->indent -= INDENT_SIZE;
+			if (e->indent < 0)
+				e->indent = 0;
 		}
-		vspace_inserted = false;
-		flow = 0;
-    }
-    else if (strncmp( str, "dd", 2 ) == 0)
-    {
-		if ( !glossaryStack.top() )
+		e->vspace_inserted = FALSE;
+		e->flow = 0;
+    } else if (strncmp( str, "dd", 2 ) == 0) {
+		if (html_stack_top (e->glossaryStack) == NULL)
 			return;
 
-		if ( *glossaryStack.top() != GlossaryDD )
-		{
-			glossaryStack.push( new GlossaryEntry( GlossaryDD ) );
-			indent += INDENT_SIZE;
+		if (GPOINTER_TO_INT (html_stack_top (e->glossaryStack))
+			!= HTML_GLOSSARY_DD ) {
+			html_stack_push (e->glossaryStack,
+							 GINT_TO_POINTER (HTML_GLOSSARY_DD) );
+			e->indent += INDENT_SIZE;
 		}
-		flow = 0;
+		e->flow = 0;
     }
-#endif
 }
 
 
+/*
+<em>             </em>
+*/
+/* EP CHECK: OK.  */
 static void
 parse_e (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 {
@@ -1288,6 +1327,13 @@ parse_e (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 }
 
 
+/*
+<font>           </font>
+<form>           </form>         partial
+<frame           <frame>
+<frameset        </frameset>
+*/
+/* EP CHECK: Fonts are done wrong, the rest is missing.  */
 static void
 parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 {
@@ -1329,6 +1375,11 @@ parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 }
 
 
+/*
+<h[1-6]>         </h[1-6]>
+<hr
+*/
+/* EP CHECK: OK */
 static void
 parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 {
@@ -1457,6 +1508,12 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 }
 
 
+/*
+<i>              </i>
+<img                             partial
+<input                           partial
+*/
+/* EP CHECK: map support, <input> missing.  */
 static void
 parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 {
@@ -1501,6 +1558,25 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 				else if (strcasecmp (token + 6, "bottom") ==0)
 					valign = Bottom;
 			}
+#if 0							/* FIXME TODO map support */
+			else if ( strncasecmp( token, "usemap=", 7 ) == 0 )
+			{
+				if ( *(token + 7 ) == '#' )
+				{
+					// Local map. Format: "#name"
+                    usemap = token + 7;
+				}
+				else
+				{
+					KURL u( baseURL, token + 7 );
+                    usemap = u.url();
+				}
+			}
+			else if ( strncasecmp( token, "ismap", 5 ) == 0 )
+			{
+				ismap = true;
+			}
+#endif
 		}
 		if (filename != 0) {
 			filename = html_engine_canonicalize_url(p, filename);
@@ -1536,7 +1612,7 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 			p->italic = TRUE;
 			html_engine_select_font (p);
 			push_block (p, ID_I, 1, block_end_font,
-									FALSE, FALSE);
+						FALSE, FALSE);
 		}
 	}
     else if ( strncmp( str, "/i", 2 ) == 0 ) {
@@ -1545,13 +1621,38 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 }
 
 
+/*
+<kbd>            </kbd>
+*/
+/* EP CHECK: OK but font should be set.  */
+static void
+parse_k (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
+{
+	if ( strncmp(str, "kbd", 3 ) == 0 )
+	{
+#if 0
+		selectFont( settings->fixedFontFace, settings->fontBaseSize,
+		    QFont::Normal, FALSE );
+#endif
+		push_block (p, ID_KBD, 1, block_end_font, 0, 0);
+	}
+	else if ( strncmp(str, "/kbd", 4 ) == 0 )
+	{
+		pop_block (p, ID_KBD, _clue);
+	}
+}
+
+
+/*
+<listing>        </listing>      unimplemented
+<li>
+*/
 static void
 parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 {
 	if (strncmp (str, "link", 4) == 0) {
 	}
 	else if (strncmp (str, "li", 2) == 0) {
-		/* FIXME: close anchor */
 		HTMLObject *f, *c, *vc;
 		HTMLFont *font;
 		HTMLListType listType = HTML_LIST_TYPE_UNORDERED;
@@ -1560,9 +1661,11 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		gint itemNumber = 1;
 		gint indentSize = INDENT_SIZE;
 
+		close_anchor (p);
+
 		/* Color */
 
-		if (html_stack_count (p->listStack) > 0) {
+		if (! html_stack_is_empty (p->listStack)) {
 			HTMLList *top;
 
 			top = html_stack_top (p->listStack);
@@ -1577,6 +1680,7 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		}
 		
 		f = html_clueflow_new (0, 0, clue->max_width, 100);
+
 		html_clue_append (HTML_CLUE (clue), f);
 		c = html_clueh_new (0, 0, clue->max_width);
 		HTML_CLUE (c)->valign = Top;
@@ -1598,6 +1702,47 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 											   listLevel,
 											   &p->settings->fontbasecolor));
 			break;
+
+	    case HTML_LIST_TYPE_ORDERED:
+		{
+			HTMLObject *text;
+			gchar *item;
+
+			p->flow = html_clueflow_new ( 0, 0, vc->max_width, 0 );
+			HTML_CLUE (p->flow)->halign = Right;
+			html_clue_append (HTML_CLUE (vc), p->flow);
+
+			switch ( listNumType )
+			{
+		    case HTML_LIST_NUM_TYPE_LOWROMAN:
+				item = to_roman ( itemNumber, FALSE );
+				break;
+
+		    case HTML_LIST_NUM_TYPE_UPROMAN:
+				item = to_roman ( itemNumber, TRUE );
+				break;
+
+		    case HTML_LIST_NUM_TYPE_LOWALPHA:
+				item = g_strdup_printf ("%c. ", 'a' + itemNumber - 1);
+				break;
+
+		    case HTML_LIST_NUM_TYPE_UPALPHA:
+				item = g_strdup_printf ("%c. ", 'A' + itemNumber - 1);
+				break;
+
+		    default:
+				item = g_strdup_printf( "%2d. ", itemNumber );
+			}
+
+			p->tempStrings = g_list_prepend (p->tempStrings, item);
+
+			text = html_text_new (item, html_engine_get_current_font (p),
+								  p->painter);
+
+			html_clue_append (HTML_CLUE (p->flow), text);
+			break;
+		}
+
 		default:
 			break;
 
@@ -1608,8 +1753,119 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		p->flow = html_clueflow_new (0,0, vc->max_width, 100);
 		html_clue_append (HTML_CLUE (vc), p->flow);
 
+		if (! html_stack_is_empty (p->listStack)) {
+			HTMLList *list;
+
+			list = html_stack_top (p->listStack);
+			list->itemNumber++;
+		}
+
 		p->vspace_inserted = TRUE;
 	}
+}
+
+
+/* FIXME TODO parse_m missing. */
+/* FIXME TODO parse_n missing. */
+
+
+/*
+<ol>             </ol>           partial
+<option
+*/
+/* EP CHECK: `<ol>' OK, missing `<option>' */
+static void
+parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
+{
+    if ( strncmp( str, "ol", 2 ) == 0 ) {
+		HTMLListNumType listNumType;
+		HTMLList *list;
+
+		close_anchor (e);
+
+		if ( html_stack_is_empty (e->listStack) ) {
+			e->vspace_inserted = html_engine_insert_vspace
+				(e, _clue, e->vspace_inserted );
+			push_block (e, ID_OL, 2, block_end_list, e->indent, TRUE);
+		} else {
+			push_block (e, ID_OL, 2, block_end_list, e->indent, FALSE);
+		}
+
+		listNumType = HTML_LIST_NUM_TYPE_NUMERIC;
+
+		string_tokenizer_tokenize( e->st, str + 3, " >" );
+
+		while ( string_tokenizer_has_more_tokens (e->st) ) {
+			const char* token;
+
+			token = string_tokenizer_next_token (e->st);
+
+			if ( strncasecmp( token, "type=", 5 ) == 0 ) {
+				switch ( *(token+5) )
+				{
+				case 'i':
+					listNumType = HTML_LIST_NUM_TYPE_LOWROMAN;
+					break;
+
+				case 'I':
+					listNumType = HTML_LIST_NUM_TYPE_UPROMAN;
+					break;
+
+				case 'a':
+					listNumType = HTML_LIST_NUM_TYPE_LOWALPHA;
+					break;
+
+				case 'A':
+					listNumType = HTML_LIST_NUM_TYPE_UPALPHA;
+					break;
+				}
+			}
+		}
+
+		list = html_list_new (HTML_LIST_TYPE_ORDERED, listNumType);
+		html_stack_push (e->listStack, list);
+
+		e->indent += INDENT_SIZE;
+    }
+    else if ( strncmp( str, "/ol", 3 ) == 0 ) {
+		pop_block (e, ID_OL, _clue);
+    }
+#if 0
+	else if ( strncmp( str, "option", 6 ) == 0 ) {
+		if ( !formSelect )
+			return;
+
+		QString value = 0;
+		bool selected = false;
+
+		stringTok->tokenize( str + 7, " >" );
+		while ( stringTok->hasMoreTokens() )
+		{
+			const char* token = stringTok->nextToken();
+			if ( strncasecmp( token, "value=", 6 ) == 0 )
+			{
+				const char *p = token + 6;
+				value = p;
+			}
+			else if ( strncasecmp( token, "selected", 8 ) == 0 )
+			{
+				selected = true;
+			}
+		}
+
+		if ( inOption )
+			formSelect->setText( formText );
+
+		formSelect->addOption( value, selected );
+
+		inOption = true;
+		formText = "";
+    } else if ( strncmp( str, "/option", 7 ) == 0 ) {
+		if ( inOption )
+			formSelect->setText( formText );
+		inOption = false;
+    }
+#endif
 }
 
 
@@ -1745,6 +2001,7 @@ static void
 html_engine_destroy (GtkObject *object)
 {
 	HTMLEngine *engine = HTML_ENGINE (object);
+	GList *p;
 
 	/* FIXME FIXME FIXME */
 	
@@ -1757,8 +2014,13 @@ html_engine_destroy (GtkObject *object)
 	html_stack_destroy (engine->cs);
 	html_stack_destroy (engine->fs);
 	html_stack_destroy (engine->listStack);
+	html_stack_destroy (engine->glossaryStack);
 
 	g_free (engine->baseTarget);
+
+	for (p = engine->tempStrings; p != NULL; p = p->next)
+		g_free (p->data);
+	g_list_free (engine->tempStrings);
 
 	GTK_OBJECT_CLASS (parent_class)->destroy (object);
 }
@@ -1799,6 +2061,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->fs = html_stack_new ((HTMLStackFreeFunc) html_font_destroy);
 	engine->cs = html_stack_new ((HTMLStackFreeFunc) gdk_color_free);
 	engine->listStack = html_stack_new ((HTMLStackFreeFunc) html_list_destroy);
+	engine->glossaryStack = html_stack_new (NULL);
 
 	engine->url = NULL;
 	engine->target = NULL;
@@ -1808,6 +2071,8 @@ html_engine_init (HTMLEngine *engine)
 	engine->rightBorder = RIGHT_BORDER;
 	engine->topBorder = TOP_BORDER;
 	engine->bottomBorder = BOTTOM_BORDER;
+
+	engine->tempStrings = NULL;
 	
 	/* Set up parser functions */
 	engine->parseFuncArray[0] = parse_a;
@@ -1820,11 +2085,11 @@ html_engine_init (HTMLEngine *engine)
 	engine->parseFuncArray[7] = parse_h;
 	engine->parseFuncArray[8] = parse_i;
 	engine->parseFuncArray[9] = NULL;
-	engine->parseFuncArray[10] = NULL;
+	engine->parseFuncArray[10] = parse_k;
 	engine->parseFuncArray[11] = parse_l;
 	engine->parseFuncArray[12] = NULL;
 	engine->parseFuncArray[13] = NULL;
-	engine->parseFuncArray[14] = NULL;
+	engine->parseFuncArray[14] = parse_o;
 	engine->parseFuncArray[15] = parse_p;
 	engine->parseFuncArray[16] = NULL;
 	engine->parseFuncArray[17] = NULL;
@@ -2124,7 +2389,7 @@ html_engine_new_flow (HTMLEngine *p, HTMLObject *clue)
 	/* FIXME: If inpre */
 	p->flow = html_clueflow_new (0, 0, clue->max_width, 100);
 
-	HTML_CLUEFLOW (p->flow)->indent = HTML_CLUEFLOW (clue)->indent;
+	HTML_CLUEFLOW (p->flow)->indent = p->indent;
 	HTML_CLUE (p->flow)->halign = p->divAlign;
 
 	html_clue_append (HTML_CLUE (clue), p->flow);

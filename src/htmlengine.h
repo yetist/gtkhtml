@@ -46,6 +46,12 @@ typedef struct _HTMLEngineClass HTMLEngineClass;
 #define TOP_BORDER 10
 #define BOTTOM_BORDER 10
 
+enum _HTMLGlossaryEntry {
+	HTML_GLOSSARY_DL = 1,
+	HTML_GLOSSARY_DD = 2
+};
+typedef enum _HTMLGlossaryEntry HTMLGlossaryEntry;
+
 typedef void (*HTMLParseFunc)(HTMLEngine *p, HTMLObject *clue, const gchar *str);
 typedef struct _HTMLBlockStackElement HTMLBlockStackElement;
 
@@ -137,6 +143,15 @@ struct _HTMLEngine {
 	GtkHTML *widget;
 
         gpointer image_factory;
+
+	HTMLStack *glossaryStack; /* HTMLGlossaryEntry */
+
+	/*
+	 * This list holds strings which are displayed in the view,
+	 * but are not actually contained in the HTML source.
+	 * e.g. The numbers in an ordered list.
+	 */
+	GList *tempStrings;
 };
 
 struct _HTMLEngineClass {
