@@ -99,6 +99,7 @@ struct _GtkHTML {
 	guint idle_handler_id;
 
 	GtkHTMLParagraphStyle paragraph_style;
+	GtkHTMLFontStyle insertion_font_style;
 };
 
 /* must be forward referenced *sigh* */
@@ -120,6 +121,7 @@ struct _GtkHTMLClass {
 	void (* object_requested)(GtkHTML *html, GtkHTMLEmbedded *);
 
 	void (* current_paragraph_style_changed) (GtkHTML *html, GtkHTMLParagraphStyle style);
+	void (* insertion_font_style_changed) (GtkHTML *html, GtkHTMLFontStyle style);
 };
 
 

@@ -1,3 +1,21 @@
+2000-02-22  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* gtkhtml.c (key_press_event): Do not update styles if the
+	keypress was not handled.
+	(update_styles): Kick me.
+
+	* htmlengine-edit-fontstyle.c
+	(html_engine_get_current_insertion_font_style): A
+	`GTK_HTML_FONT_STYLE_DEFAULT' is always overridden by the
+	element's font style.
+
+	* gtkhtml.c (class_init): Set up signal
+	"insertion_font_style_changed".
+	(update_styles): Deal with the font style too.
+
+	* gtkhtml.h: New signal "insertion_font_style_changed".  New
+	member `insertion_font_style'.
+
 2000-02-21  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine.c (html_engine_update_event): Do not draw if the

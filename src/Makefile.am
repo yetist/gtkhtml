@@ -9,8 +9,11 @@ noinst_PROGRAMS = testgtkhtml
 
 libgtkhtmldir = $(includedir)/gtkhtml
 
+# FIXME not all the stuff should be installed!
+
 libgtkhtml_HEADERS =				\
 	gtkhtml-embedded.h			\
+	gtkhtml-private.h			\
 	gtkhtml.h				\
 	gtkhtmldebug.h				\
 	gtkhtmlfontstyle.h			\

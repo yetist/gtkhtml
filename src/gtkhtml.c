@@ -46,6 +46,7 @@ enum {
 	SUBMIT,
 	OBJECT_REQUESTED,
 	CURRENT_PARAGRAPH_STYLE_CHANGED,
+	INSERTION_FONT_STYLE_CHANGED,
 	LAST_SIGNAL
 };
 static guint signals [LAST_SIGNAL] = { 0 };
@@ -122,6 +123,7 @@ update_styles (GtkHTML *html)
 {
 	GtkHTMLParagraphStyle paragraph_style;
 	HTMLClueFlowStyle clueflow_style;
+	GtkHTMLFontStyle insertion_font_style;
 	HTMLEngine *engine;
 
 	engine = html->engine;
@@ -129,13 +131,18 @@ update_styles (GtkHTML *html)
 	clueflow_style = html_engine_get_current_clueflow_style (engine);
 	paragraph_style = clueflow_style_to_paragraph_style (clueflow_style);
 
-	if (paragraph_style == html->paragraph_style)
-		return;
+	if (paragraph_style != html->paragraph_style) {
+		html->paragraph_style = paragraph_style;
+		gtk_signal_emit (GTK_OBJECT (html), signals[CURRENT_PARAGRAPH_STYLE_CHANGED],
+				 paragraph_style);
+	}
 
-	html->paragraph_style = paragraph_style;
-
-	gtk_signal_emit (GTK_OBJECT (html), signals[CURRENT_PARAGRAPH_STYLE_CHANGED],
-			 paragraph_style);
+	insertion_font_style = html_engine_get_current_insertion_font_style (engine);
+	if (insertion_font_style != html->insertion_font_style) {
+		html->insertion_font_style = insertion_font_style;
+		gtk_signal_emit (GTK_OBJECT (html), signals[INSERTION_FONT_STYLE_CHANGED],
+				 insertion_font_style);
+	}
 }
 
 
@@ -397,7 +404,7 @@ key_press_event (GtkWidget *widget,
 		retval = TRUE;
 		break;
 
-        /* FIXME these are temporary bindings.  */
+		/* FIXME these are temporary bindings.  */
 	case GDK_F1:
 		html_engine_undo (engine);
 		retval = TRUE;
@@ -419,8 +426,8 @@ key_press_event (GtkWidget *widget,
 		retval = TRUE;
 		break;
 
-	/* The following cases are for keys that we don't want to map yet, but
-           have an annoying default behavior if not handled. */
+		/* The following cases are for keys that we don't want to map yet, but
+		   have an annoying default behavior if not handled. */
 	case GDK_Tab:
 		retval = TRUE;
 		break;
@@ -433,10 +440,10 @@ key_press_event (GtkWidget *widget,
 		}
 	}
 
-	if (retval == TRUE)
+	if (retval == TRUE) {
 		queue_draw (html);
-
-	update_styles (html);
+		update_styles (html);
+	}
 
 	return retval;
 }
@@ -801,6 +808,15 @@ class_init (GtkHTMLClass *klass)
 				gtk_marshal_NONE__INT,
 				GTK_TYPE_NONE, 1,
 				GTK_TYPE_INT);
+
+	signals [INSERTION_FONT_STYLE_CHANGED] =
+		gtk_signal_new ("insertion_font_style_changed",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (GtkHTMLClass, insertion_font_style_changed),
+				gtk_marshal_NONE__INT,
+				GTK_TYPE_NONE, 1,
+				GTK_TYPE_INT);
 	
 	gtk_object_class_add_signals (object_class, signals, LAST_SIGNAL);
 
@@ -848,6 +864,7 @@ init (GtkHTML* html)
 	html->idle_handler_id = 0;
 
 	html->paragraph_style = GTK_HTML_PARAGRAPH_STYLE_NORMAL;
+	html->insertion_font_style = GTK_HTML_FONT_STYLE_DEFAULT;
 }
 
 

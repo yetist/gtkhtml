@@ -128,23 +128,24 @@ set_font_style_in_selection_forall (HTMLObject *self,
 		if (HTML_OBJECT_TYPE (next) == HTML_TYPE_TEXTSLAVE) {
 			html_clue_remove (HTML_CLUE (next->parent), next);
 			html_object_destroy (next);
+			next = HTML_OBJECT (curr)->next;
 		} else if (HTML_OBJECT_TYPE (next) == HTML_OBJECT_TYPE (self)
-			   && next->selected) {
+			   && next->selected
+			   && (((HTML_TEXT (next)->font_style & data->and_mask) | data->or_mask)
+			       == font_style)) {
 			static HTMLText *merge_list[2] = { NULL, NULL };
-			HTMLObject *next;
 
 			last_font_style = HTML_TEXT (next)->font_style;
 
 			merge_list[0] = HTML_TEXT (next);
 			html_text_merge (HTML_TEXT (curr), merge_list);
 
-			html_clue_remove (HTML_CLUE (HTML_OBJECT (curr)->parent), next);
+			html_clue_remove (HTML_CLUE (next->parent), next);
 			html_object_destroy (next);
+			next = HTML_OBJECT (curr)->next;
 		} else {
 			break;
 		}
-
-		next = HTML_OBJECT (curr)->next;
 	}
 
 	/* Split the current element so that we leave the non-selected part in
@@ -211,11 +212,13 @@ html_engine_get_current_insertion_font_style (HTMLEngine *engine)
 	if (curr == NULL)
 		return GTK_HTML_FONT_STYLE_DEFAULT;
 
-	if (html_object_is_text (curr))
-		return gtk_html_font_style_merge (HTML_TEXT (curr)->font_style,
-						  engine->insertion_font_style);
+	if (engine->insertion_font_style != GTK_HTML_FONT_STYLE_DEFAULT)
+		return engine->insertion_font_style;
 
-	return engine->insertion_font_style;
+	if (! html_object_is_text (curr))
+		return GTK_HTML_FONT_STYLE_DEFAULT;
+
+	return HTML_TEXT (curr)->font_style;
 }
 
 /**

@@ -72,5 +72,6 @@ HTMLPainter *html_gdk_painter_new        (gboolean        double_buffer);
 void         html_gdk_painter_realize    (HTMLGdkPainter *painter,
 					  GdkWindow      *window);
 void         html_gdk_painter_unrealize  (HTMLGdkPainter *painter);
+gboolean     html_gdk_painter_realized   (HTMLGdkPainter *painter);
 
 #endif /* _HTMLGDKPAINTER_H */
