@@ -1,3 +1,19 @@
+2002-10-07  Radek Doulik  <rodo@ximian.com>
+
+	* htmltextslave.c (get_offset_for_pointer): fix for utf8, start on
+	right beginning of slave (Larry)
+
+	* htmltext.c (get_cursor_base): check for offset > slave->posStart
+	(get_cursor_base): move to next text only if it doesn't start with
+	' '
+	(get_cursor): ditto
+
+	* htmltable.c (html_table_end_table): return number of cells in
+	table
+
+	* htmlengine.c (parse_table): check if table has any cell after
+	html_table_end_table
+
 2002-10-06  Larry Ewing  <lewing@ximian.com>
 
 	* testgtkhtml.c (url_requested): don't pass NULLs to strcmp, this
