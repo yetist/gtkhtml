@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-28 19:48+0100\n"
-"PO-Revision-Date: 2004-01-28 19:54+0100\n"
+"POT-Creation-Date: 2004-01-30 18:22+0100\n"
+"PO-Revision-Date: 2004-01-30 18:25+0100\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1128,7 +1128,7 @@ msgstr "marrón dorado"
 
 #: components/html-editor/gi-color-palette.c:580
 msgid "dark green #2"
-msgstr "verde oscuro #2"
+msgstr "verde oscuro nº2"
 
 #: components/html-editor/gi-color-palette.c:581
 msgid "navy"
@@ -1141,7 +1141,7 @@ msgstr "azul oscuro"
 
 #: components/html-editor/gi-color-palette.c:583
 msgid "purple #2"
-msgstr "púrpura #2"
+msgstr "púrpura nº2"
 
 #: components/html-editor/gi-color-palette.c:584
 msgid "very dark gray"
@@ -1167,7 +1167,7 @@ msgstr "verde oscuro"
 #: components/html-editor/gi-color-palette.c:591
 #: components/html-editor/gi-color-palette.c:644
 msgid "dull blue"
-msgstr ""
+msgstr "azul apagado"
 
 #: components/html-editor/gi-color-palette.c:592
 #: components/html-editor/gi-color-palette.c:645
@@ -1176,7 +1176,7 @@ msgstr "azul"
 
 #: components/html-editor/gi-color-palette.c:593
 msgid "dull purple"
-msgstr ""
+msgstr "púrpura apagado"
 
 #: components/html-editor/gi-color-palette.c:594
 msgid "dark grey"
@@ -1196,15 +1196,15 @@ msgstr "lima"
 
 #: components/html-editor/gi-color-palette.c:600
 msgid "dull green"
-msgstr ""
+msgstr "verde apagado"
 
 #: components/html-editor/gi-color-palette.c:601
 msgid "dull blue #2"
-msgstr ""
+msgstr "azul apagado nº2"
 
 #: components/html-editor/gi-color-palette.c:602
 msgid "sky blue #2"
-msgstr "azul cielo #2"
+msgstr "azul cielo nº2"
 
 #: components/html-editor/gi-color-palette.c:603
 #: components/html-editor/gi-color-palette.c:642
@@ -2048,7 +2048,8 @@ msgstr "Tipografía de anchura fija"
 
 #: src/gtkhtml.c:2708
 msgid "The Monospace font to use for typewriter text"
-msgstr "La tipografía monoespaciada a usar para el texto de máquina de escribir"
+msgstr ""
+"La tipografía monoespaciada a usar para el texto de máquina de escribir"
 
 #: src/gtkhtml.c:2714
 msgid "New Link Color"
@@ -2184,4 +2185,3 @@ msgstr "Aplicación de prueba GtkHTML"
 
 #~ msgid "Monospace"
 #~ msgstr "Monospace"
-
