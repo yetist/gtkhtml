@@ -1113,7 +1113,7 @@ draw_gt_line (HTMLObject *cur, HTMLPainter *p, gint offset, gint x, gint y)
 
 	/* FIXME: cache items and glyphs? */
 	html_painter_calc_text_size (p, HTML_BLOCK_CITE, 
-				     strlen (HTML_BLOCK_CITE), NULL, NULL, 0, &line_offset,
+				     strlen (HTML_BLOCK_CITE), NULL, NULL, NULL, 0, &line_offset,
 				     GTK_HTML_FONT_STYLE_SIZE_3, NULL,
 				     &w, &a, &d);
 
@@ -1121,7 +1121,7 @@ draw_gt_line (HTMLObject *cur, HTMLPainter *p, gint offset, gint x, gint y)
 	while (cy + a <= cur->ascent) {
 		/* FIXME: cache items and glyphs? */
 		html_painter_draw_text (p, x, y + cur->y - cy,
-					HTML_BLOCK_CITE, 1, NULL, NULL, 0, 0);
+					HTML_BLOCK_CITE, 1, NULL, NULL, NULL, 0, 0);
 		cy += a + d;
 	}
 
@@ -1129,7 +1129,7 @@ draw_gt_line (HTMLObject *cur, HTMLPainter *p, gint offset, gint x, gint y)
 	while (cy + d <= cur->descent) {
 		/* FIXME: cache items and glyphs? */
 		html_painter_draw_text (p, x, y + cur->y + cy,
-					HTML_BLOCK_CITE, 1, NULL, NULL, 0, 0);
+					HTML_BLOCK_CITE, 1, NULL, NULL, NULL, 0, 0);
 		cy += a + d;
 	}
 }
@@ -1220,7 +1220,7 @@ draw_item (HTMLObject *self, HTMLPainter *painter, gint x, gint y, gint width, g
 		
 		len   = g_utf8_strlen (marker, -1);
 		/* FIXME: cache items and glyphs? */
-		html_painter_calc_text_size (painter, marker, len, NULL, NULL, 0, &line_offset,
+		html_painter_calc_text_size (painter, marker, len, NULL, NULL, NULL, 0, &line_offset,
 					     html_clueflow_get_default_font_style (flow), NULL, &width, &asc, &dsc);
 		width += html_painter_get_space_width (painter, html_clueflow_get_default_font_style (flow), NULL);
 		html_painter_set_font_style (painter, html_clueflow_get_default_font_style (flow));
@@ -1228,7 +1228,7 @@ draw_item (HTMLObject *self, HTMLPainter *painter, gint x, gint y, gint width, g
 		/* FIXME: cache items and glyphs? */
 		html_painter_draw_text (painter, self->x + first->x - width + tx,
 					self->y - self->ascent + first->y + ty,
-					marker, len, NULL, NULL, 0, 0);
+					marker, len, NULL, NULL, NULL, 0, 0);
 	}
 	g_free (marker);
 }

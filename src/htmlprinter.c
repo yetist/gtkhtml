@@ -32,6 +32,7 @@
 #include "gtkhtml-embedded.h"
 #include "htmlfontmanager.h"
 #include "htmlprinter.h"
+#include "htmltext.h"
 
 /* #define PRINTER_DEBUG */
 
@@ -549,65 +550,184 @@ fill_rect (HTMLPainter *painter, gint x, gint y, gint width, gint height)
 	gnome_print_fill (printer->context);
 }
 
+static void
+process_attrs (HTMLPrinter *printer, GSList *attrs, GtkHTMLFontStyle *style, gboolean *bgcolor, gboolean *underline, gboolean *strikethrough, gboolean set_context)
+{
+	while (attrs) {
+		PangoAttribute *attr = attrs->data;
+
+		switch (attr->klass->type) {
+		case PANGO_ATTR_FOREGROUND: {
+			PangoColor pc;
+      
+			if (set_context) {
+				pc = ((PangoAttrColor *) attr)->color;
+				gnome_print_setrgbcolor (printer->context,
+							 pc.red / 65535.0, pc.green / 65535.0, pc.blue / 65535.0);
+			}
+		}
+		break;
+		case PANGO_ATTR_BACKGROUND:
+			if (bgcolor)
+				*bgcolor = TRUE;
+		case PANGO_ATTR_WEIGHT:
+			if (style)
+				*style |= GTK_HTML_FONT_STYLE_BOLD;
+			break;
+		case PANGO_ATTR_STYLE:
+			if (style)
+				*style |= GTK_HTML_FONT_STYLE_ITALIC;
+			break;
+		case PANGO_ATTR_UNDERLINE:
+			if (underline)
+				*underline = TRUE;
+			break;
+		case PANGO_ATTR_STRIKETHROUGH:
+			if (strikethrough)
+				*strikethrough = TRUE;
+			break;
+		case PANGO_ATTR_SIZE:
+			if (style)
+				*style |= ((HTMLPangoAttrFontSize *) attr)->style;
+			break;
+		}
+		attrs = attrs->next;
+	}
+}
+
 static gint
-draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, HTMLTextPangoInfo *pi, GList *glyphs, gint start_byte_offset)
+draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, HTMLTextPangoInfo *pi, PangoAttrList *attrs, GList *glyphs, gint start_byte_offset)
 {
 	GnomeFont *font;
 	HTMLPrinter *printer;
-	gint bytes;
 	gdouble print_x, print_y;
-	double text_width, asc, dsc;
+	double width, asc, dsc;
+	gboolean temp_pi = FALSE;
 
 	printer = HTML_PRINTER (painter);
 	g_return_val_if_fail (printer->context != NULL, 0);
 
+	if (!pi) {
+		pi = html_painter_text_itemize_and_prepare_glyphs (painter, html_painter_get_font (painter, painter->font_face, painter->font_style),
+								   text, g_utf8_offset_to_pointer (text, len) - text, &glyphs, attrs);
+		start_byte_offset = 0;
+		temp_pi = TRUE;
+	}
 
-	bytes = g_utf8_offset_to_pointer (text, len) - text;
 	font = html_painter_get_font (painter, painter->font_face, painter->font_style);
 	dsc = -gnome_font_get_descender (font);
 	asc = gnome_font_get_ascender (font);
-	html_printer_coordinates_to_gnome_print (printer, x, y, &print_x, &print_y);
 
-	gnome_print_newpath (printer->context);
-	gnome_print_moveto (printer->context, print_x, print_y);
-	gnome_print_setfont (printer->context, font);
-	gnome_print_show_sized (printer->context, text, bytes);
+	if (pi && pi->n) {
+		GList *gl, *il;
+		PangoGlyphString *str;
+		GtkHTMLFontStyle style;
+		guint i, char_offset = 0;
+		gint ii;
+		const gchar *c_text = text;
+		PangoAttrIterator *iter = NULL;
 
-	text_width = gnome_font_get_width_utf8_sized (font, text, bytes);
-	if (painter->font_style & (GTK_HTML_FONT_STYLE_UNDERLINE | GTK_HTML_FONT_STYLE_STRIKEOUT)) {
-		double y;
+		if (attrs)
+			iter = pango_attr_list_get_iterator (attrs);
 
-		gnome_print_gsave (printer->context);
+		html_printer_coordinates_to_gnome_print (printer, x, y, &print_x, &print_y);
+		c_text = text;
+		for (gl = glyphs; gl && char_offset < len; gl = gl->next) {
+			GnomeFont *c_font;
+			GdkGC *gc, *bg_gc;
+			gboolean underline, strikethrough, bgcolor;
+			gint cw = 0, c_bytes, begin, end;
 
-		/* FIXME: We need something in GnomeFont to do this right.  */
-		gnome_print_setlinewidth (printer->context, 1.0);
-		gnome_print_setlinecap (printer->context, GDK_CAP_BUTT);
+			str = (PangoGlyphString *) gl->data;
+			gl = gl->next;
+			ii = GPOINTER_TO_INT (gl->data);
+			bg_gc = NULL;
+			c_font = font;
+			style = GTK_HTML_FONT_STYLE_DEFAULT;
+			c_bytes = g_utf8_offset_to_pointer (c_text, str->num_glyphs) - c_text;
+			gnome_print_gsave (printer->context);
+			bgcolor = underline = strikethrough = FALSE;
+			process_attrs (printer, pi->entries [ii].item->analysis.extra_attrs, &style, &bgcolor, &underline, &strikethrough, TRUE);
 
-		if (painter->font_style & GTK_HTML_FONT_STYLE_UNDERLINE) {
-			y = print_y + gnome_font_get_underline_position (font);
+			if (iter) {
+				pango_attr_iterator_range (iter, &begin, &end);
+				while (begin < c_text - text) {
+					if (!pango_attr_iterator_next (iter)) {
+						pango_attr_iterator_destroy (iter);
+						iter = NULL;
+						break;
+					}
+					pango_attr_iterator_range (iter, &begin, &end);
+				}
+				if (iter && begin < (c_text - text) + c_bytes) {
+					GSList *attr_list;
+					attr_list = pango_attr_iterator_get_attrs (iter);
+					process_attrs (printer, attr_list, &style, &bgcolor, &underline, &strikethrough, TRUE);
+					html_text_free_attrs (attr_list);
+				}
+			}
+			if (style != GTK_HTML_FONT_STYLE_DEFAULT)
+				c_font = html_painter_get_font (HTML_PAINTER (printer), HTML_PAINTER (printer)->font_face, style);
+
+			/* FIXME if (bgcolor) {
+				PangoRectangle log_rect;
+
+				pango_glyph_string_extents (str, pi->entries [ii].item->analysis.font, NULL, &log_rect);
+				gdk_draw_rectangle (gdk_painter->pixmap, bg_gc, TRUE, x + width, y - PANGO_PIXELS (PANGO_ASCENT (log_rect)),
+						    PANGO_PIXELS (log_rect.width), PANGO_PIXELS (log_rect.height));
+				gdk_gc_unref (bg_gc);
+				} */
 
 			gnome_print_newpath (printer->context);
-			gnome_print_moveto (printer->context, print_x, y);
-			gnome_print_lineto (printer->context, print_x + text_width, y);
-			gnome_print_setlinewidth (printer->context,
-						  gnome_font_get_underline_thickness (font));
-			gnome_print_stroke (printer->context);
-		}
+			gnome_print_moveto (printer->context, print_x, print_y);
+			gnome_print_setfont (printer->context, c_font);
+			gnome_print_show_sized (printer->context, c_text, c_bytes);
 
-		if (painter->font_style & GTK_HTML_FONT_STYLE_STRIKEOUT) {
-			y = print_y + asc / 2.0;
-			gnome_print_newpath (printer->context);
-			gnome_print_moveto (printer->context, print_x, y);
-			gnome_print_lineto (printer->context, print_x + text_width, y);
-			gnome_print_setlinewidth (printer->context,
-						  gnome_font_get_underline_thickness (font));
-			gnome_print_stroke (printer->context);
-		}
+			cw = gnome_font_get_width_utf8_sized (c_font, c_text, c_bytes);
+			if (strikethrough || underline) {
+				gint ly;
 
-		gnome_print_grestore (printer->context);
+				gnome_print_setlinewidth (printer->context, 1.0);
+				gnome_print_setlinecap (printer->context, GDK_CAP_BUTT);
+
+				if (underline) {
+					ly = print_y + gnome_font_get_underline_position (c_font);
+					gnome_print_newpath (printer->context);
+					gnome_print_moveto (printer->context, print_x, ly);
+					gnome_print_lineto (printer->context, print_x + cw, ly);
+					gnome_print_setlinewidth (printer->context, gnome_font_get_underline_thickness (c_font));
+					gnome_print_stroke (printer->context);
+				}
+
+				if (strikethrough) {
+					ly = print_y + gnome_font_get_ascender (c_font) / 2.0;
+					gnome_print_newpath (printer->context);
+					gnome_print_moveto (printer->context, print_x, ly);
+					gnome_print_lineto (printer->context, print_x + cw, ly);
+					gnome_print_setlinewidth (printer->context, gnome_font_get_underline_thickness (c_font));
+					gnome_print_stroke (printer->context);
+				}
+			}
+
+			gnome_print_grestore (printer->context);
+
+			width += cw;
+			print_x += cw;
+			c_text += c_bytes;
+			char_offset += str->num_glyphs;
+		}
+		if (iter)
+			pango_attr_iterator_destroy (iter);
 	}
 
-	return SCALE_GNOME_PRINT_TO_ENGINE (text_width);
+	if (temp_pi) {
+		if (glyphs)
+			html_painter_glyphs_destroy (glyphs);
+		if (pi)
+			html_text_pango_info_destroy (pi);
+	}
+
+	return SCALE_GNOME_PRINT_TO_ENGINE (width);
 }
 
 static void
@@ -647,7 +767,107 @@ draw_shade_line (HTMLPainter *painter,
 }
 
 static void
-calc_text_size (HTMLPainter *painter, const gchar *text, guint len, HTMLTextPangoInfo *pi, GList *glyphs, gint start_byte_offset,
+text_size (HTMLPainter *painter, const gchar *text, guint blen, HTMLTextPangoInfo *pi, PangoAttrList *attrs, GList *glyphs, gint start_byte_offset,
+	   GnomeFont *font, GtkHTMLFontStyle style, gint *width, gint *asc, gint *dsc)
+{
+	HTMLPrinter *printer;
+	gboolean temp_pi = FALSE;
+
+	printer = HTML_PRINTER (painter);
+	g_return_if_fail (printer->context != NULL);
+	g_return_if_fail (font != NULL);
+
+	if (asc)
+		*asc = SCALE_GNOME_PRINT_TO_ENGINE (gnome_font_get_ascender (font));
+	if (dsc)
+		*dsc = SCALE_GNOME_PRINT_TO_ENGINE (-gnome_font_get_descender (font));
+	if (width)
+		*width = 0;
+
+	if (!pi) {
+		pi = html_painter_text_itemize_and_prepare_glyphs (painter, html_painter_get_font (painter, painter->font_face, painter->font_style),
+								   text, blen, &glyphs, attrs);
+		start_byte_offset = 0;
+		temp_pi = TRUE;
+	}
+
+	if (pi && pi->n) {
+		GList *gl, *il;
+		guint i, char_offset = 0;
+		gint ii;
+		const gchar *c_text = text;
+		PangoGlyphString *str;
+		PangoAttrIterator *iter = NULL;
+
+		if (attrs)
+			iter = pango_attr_list_get_iterator (attrs);
+
+		c_text = text;
+		for (gl = glyphs; gl && char_offset < blen; gl = gl->next) {
+			GnomeFont *c_font;
+			gint c_bytes, begin, end;
+
+			str = (PangoGlyphString *) gl->data;
+			gl = gl->next;
+			ii = GPOINTER_TO_INT (gl->data);
+			style = GTK_HTML_FONT_STYLE_DEFAULT;
+			c_font = font;
+			c_bytes = g_utf8_offset_to_pointer (c_text, str->num_glyphs) - c_text;
+			process_attrs (printer, pi->entries [ii].item->analysis.extra_attrs, &style, NULL, NULL, NULL, FALSE);
+
+			if (iter) {
+				pango_attr_iterator_range (iter, &begin, &end);
+				while (begin < c_text - text) {
+					if (!pango_attr_iterator_next (iter)) {
+						pango_attr_iterator_destroy (iter);
+						iter = NULL;
+						break;
+					}
+					pango_attr_iterator_range (iter, &begin, &end);
+				}
+				if (iter && begin < (c_text - text) + c_bytes) {
+					GSList *attr_list;
+					attr_list = pango_attr_iterator_get_attrs (iter);
+					process_attrs (printer, attr_list, &style, NULL, NULL, NULL, FALSE);
+					html_text_free_attrs (attr_list);
+				}
+			}
+			if (style != GTK_HTML_FONT_STYLE_DEFAULT)
+				c_font = html_painter_get_font (HTML_PAINTER (printer), HTML_PAINTER (printer)->font_face, style);
+
+			if (asc)
+				*asc = MAX (*asc, SCALE_GNOME_PRINT_TO_ENGINE (gnome_font_get_ascender (c_font)));
+			if (dsc)
+				*dsc = MAX (*dsc, SCALE_GNOME_PRINT_TO_ENGINE (-gnome_font_get_descender (c_font)));
+
+			if (width)
+				*width += gnome_font_get_width_utf8_sized (c_font, c_text, c_bytes);
+			c_text += c_bytes;
+			char_offset += str->num_glyphs;
+		}
+		if (iter)
+			pango_attr_iterator_destroy (iter);
+	}
+
+	if (temp_pi) {
+		if (glyphs)
+			html_painter_glyphs_destroy (glyphs);
+		if (pi)
+			html_text_pango_info_destroy (pi);
+	}
+
+	*width = SCALE_GNOME_PRINT_TO_ENGINE (*width);
+}
+
+static void
+calc_text_size_bytes (HTMLPainter *painter, const gchar *text, guint len, HTMLTextPangoInfo *pi, PangoAttrList *attrs, GList *glyphs, gint start_byte_offset,
+		      HTMLFont *font, GtkHTMLFontStyle style, gint *width, gint *asc, gint *dsc)
+{
+	text_size (painter, text, len, pi, attrs, glyphs, start_byte_offset, font->data, style, width, asc, dsc);
+}
+
+static void
+calc_text_size (HTMLPainter *painter, const gchar *text, guint len, HTMLTextPangoInfo *pi, PangoAttrList *attrs, GList *glyphs, gint start_byte_offset,
 		GtkHTMLFontStyle style, HTMLFontFace *face, gint *width, gint *asc, gint *dsc)
 {
 	HTMLPrinter *printer;
@@ -656,31 +876,10 @@ calc_text_size (HTMLPainter *painter, const gchar *text, guint len, HTMLTextPang
 	printer = HTML_PRINTER (painter);
 	g_return_if_fail (printer->context != NULL);
 
-	font = html_painter_get_font (painter, face, style);
-	g_return_if_fail (font != NULL);
-
-	*width = SCALE_GNOME_PRINT_TO_ENGINE (gnome_font_get_width_utf8_sized (font, text,
-									       g_utf8_offset_to_pointer (text, len) - text));
-	if (asc)
-		*asc = SCALE_GNOME_PRINT_TO_ENGINE (gnome_font_get_ascender (font));
-	if (dsc)
-		*dsc = SCALE_GNOME_PRINT_TO_ENGINE (-gnome_font_get_descender (font));
+	text_size (painter, text, g_utf8_offset_to_pointer (text, len) - text, pi, attrs, glyphs,
+		   start_byte_offset, html_painter_get_font (painter, face, style), style, width, asc, dsc);
 }
 
-static void
-calc_text_size_bytes (HTMLPainter *painter, const gchar *text, guint len, HTMLTextPangoInfo *pi, GList *glyphs, gint start_byte_offset,
-		      HTMLFont *font, GtkHTMLFontStyle style, gint *width, gint *asc, gint *dsc)
-{
-	HTMLPrinter *printer;
-
-	printer = HTML_PRINTER (painter);
-	g_return_if_fail (printer->context != NULL);
-	g_return_if_fail (font != NULL);
-
-	*width = SCALE_GNOME_PRINT_TO_ENGINE (gnome_font_get_width_utf8_sized (font->data, text, len));
-	*asc = SCALE_GNOME_PRINT_TO_ENGINE (gnome_font_get_ascender (font->data));
-	*dsc = SCALE_GNOME_PRINT_TO_ENGINE (-gnome_font_get_descender (font->data));
-}
 
 static guint
 get_pixel_size (HTMLPainter *painter)

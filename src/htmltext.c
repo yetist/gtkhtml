@@ -36,6 +36,7 @@
 #include "htmlcursor.h"
 #include "htmlgdkpainter.h"
 #include "htmlplainpainter.h"
+#include "htmlprinter.h"
 #include "htmlengine.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-cut-and-paste.h"
@@ -55,11 +56,6 @@ static void         spell_error_destroy     (SpellError *se);
 static void         move_spell_errors       (GList *spell_errors, guint offset, gint delta);
 static GList *      remove_spell_errors     (GList *spell_errors, guint offset, guint len);
 static void         remove_text_slaves      (HTMLObject *self);
-
-struct _HTMLPangoAttrFontSize {
-        PangoAttrInt attr_int;
-	GtkHTMLFontStyle style;
-};
 
 /* static void
 debug_spell_errors (GList *se)
@@ -122,8 +118,8 @@ free_links (GSList *list)
 	}
 }
 
-static void
-free_attrs (GSList *attrs)
+void
+html_text_free_attrs (GSList *attrs)
 {
 	if (attrs) {
 		GSList *l;
@@ -777,6 +773,65 @@ update_asc_dsc (HTMLPainter *painter, PangoItem *item, gint *asc, gint *dsc)
 	pango_font_metrics_unref (pfm);
 }
 
+PangoAttrList *
+html_text_get_attr_list (HTMLText *text, gint start_index, gint end_index)
+{
+	PangoAttrIterator *iter = pango_attr_list_get_iterator (text->attr_list);
+	PangoAttrList *attrs = pango_attr_list_new ();
+
+	if (iter) {
+		do {
+			gint begin, end;
+
+			pango_attr_iterator_range (iter, &begin, &end);
+
+			if (MAX (begin, start_index) < MIN (end, end_index)) {
+				GSList *c, *l = pango_attr_iterator_get_attrs (iter);
+
+				for (c = l; c; c = c->next) {
+					PangoAttribute *attr = (PangoAttribute *) c->data;
+
+					if (attr->start_index < start_index)
+						attr->start_index = 0;
+					else
+						attr->start_index -= start_index;
+
+					if (attr->end_index > end_index)
+						attr->end_index = end_index - start_index;
+					else
+						attr->end_index -= start_index;
+
+					c->data = NULL;
+					pango_attr_list_insert (attrs, attr);
+				}
+				g_slist_free (l);
+			}
+		} while (pango_attr_iterator_next (iter));
+	}
+
+	return attrs;
+}
+
+void
+html_text_calc_text_size (HTMLText *t, HTMLPainter *painter,
+			  const gchar *text,
+			  guint len, HTMLTextPangoInfo *pi, GList *glyphs, gint start_byte_offset, gint *line_offset,
+			  GtkHTMLFontStyle font_style,
+			  HTMLFontFace *face,
+			  gint *width, gint *asc, gint *dsc)
+{
+		PangoAttrList *attrs = NULL;
+
+		if (HTML_IS_PRINTER (painter))
+			attrs = html_text_get_attr_list (t, start_byte_offset, start_byte_offset + (g_utf8_offset_to_pointer (text, len) - text));
+		
+		html_painter_calc_text_size (painter, text, len, pi, attrs, glyphs,
+					     start_byte_offset, line_offset, font_style, face, width, asc, dsc);
+
+		if (attrs)
+			pango_attr_list_unref (attrs);
+}
+
 gint
 html_text_calc_part_width (HTMLText *text, HTMLPainter *painter, gint offset, gint len, gint *asc, gint *dsc)
 {
@@ -826,8 +881,8 @@ html_text_calc_part_width (HTMLText *text, HTMLPainter *painter, gint offset, gi
 		}
 		width = PANGO_PIXELS (width);
 	} else {
-		html_painter_calc_text_size (painter, html_text_get_text (text, offset), len, NULL, NULL, 0, &line_offset,
-					     html_text_get_font_style (text), text->face, &width, asc, dsc);
+		html_text_calc_text_size (text, painter, html_text_get_text (text, offset), len, NULL, NULL, 0, &line_offset,
+					  html_text_get_font_style (text), text->face, &width, asc, dsc);
 	}
 
 	return width;
@@ -1107,9 +1162,9 @@ html_text_tail_white_space (HTMLText *text, HTMLPainter *painter, gint offset, g
 	}
 
 	if (!HTML_IS_GDK_PAINTER (painter) && !HTML_IS_PLAIN_PAINTER (painter) && wl)
-		html_painter_calc_text_size (painter, html_text_get_text (text, offset - wl),
-					     wl, NULL, NULL, 0, &line_offset, html_text_get_font_style (text), text->face,
-					     &ww, NULL, NULL);
+		html_text_calc_text_size (text, painter, html_text_get_text (text, offset - wl),
+					  wl, NULL, NULL, 0, &line_offset, html_text_get_font_style (text), text->face,
+					  &ww, NULL, NULL);
 
 	if (white_len)
 		*white_len = wl;
@@ -1121,9 +1176,9 @@ static void
 update_mw (HTMLText *text, HTMLPainter *painter, gint offset, gint *last_offset, gint *ww, gint *mw, gint ii, gint io, gchar *s, gint line_offset) {
 	if (!HTML_IS_GDK_PAINTER (painter) && !HTML_IS_PLAIN_PAINTER (painter)) {
 		gint w;
-		html_painter_calc_text_size (painter, html_text_get_text (text, *last_offset),
-					     offset - *last_offset, NULL, NULL, 0, NULL, html_text_get_font_style (text), text->face,
-					     &w, NULL, NULL);
+		html_text_calc_text_size (text, painter, html_text_get_text (text, *last_offset),
+					  offset - *last_offset, NULL, NULL, 0, NULL, html_text_get_font_style (text), text->face,
+					  &w, NULL, NULL);
 		*ww += w;
 	}
 	*ww -= html_text_tail_white_space (text, painter, offset, ii, io, NULL, line_offset, s);
@@ -1176,9 +1231,9 @@ calc_min_width (HTMLObject *self, HTMLPainter *painter)
 
 	
 	if (!HTML_IS_GDK_PAINTER (painter) && !HTML_IS_PLAIN_PAINTER (painter))
-		html_painter_calc_text_size (painter, html_text_get_text (text, last_offset),
-					     offset - last_offset, NULL, NULL, 0, NULL, html_text_get_font_style (text), text->face,
-					     &ww, NULL, NULL);
+		html_text_calc_text_size (text, painter, html_text_get_text (text, last_offset),
+					  offset - last_offset, NULL, NULL, 0, NULL, html_text_get_font_style (text), text->face,
+					  &ww, NULL, NULL);
 
 	if (ww > mw)
 		mw = ww;
@@ -1403,7 +1458,7 @@ save (HTMLObject *self, HTMLEngineSaveState *state)
 			if (attrs) {
 				attrs = g_slist_reverse (attrs);
 				save_close_attrs (state, attrs);
-				free_attrs (attrs);
+				html_text_free_attrs (attrs);
 			}
 			if (l && link_started) {
 				Link *link = (Link *) l->data;
@@ -2678,7 +2733,7 @@ style_from_attrs (PangoAttrIterator *iter)
 		}
 	}
 
-	free_attrs (list);
+	html_text_free_attrs (list);
 
 	return style;
 }
@@ -2842,7 +2897,7 @@ color_from_attrs (PangoAttrIterator *iter)
 		}
 	}
 
-	free_attrs (list);
+	html_text_free_attrs (list);
 
 	return color;
 }

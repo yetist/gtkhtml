@@ -66,16 +66,16 @@ struct _HTMLPainterClass {
 	void (* alloc_color)      (HTMLPainter *painter, GdkColor *color);
 	void (* free_color)       (HTMLPainter *painter, GdkColor *color);
 
-	void (* calc_text_size) (HTMLPainter *p, const gchar *text, guint len, HTMLTextPangoInfo *pi, GList *glyphs, gint start_byte_offset,
+	void (* calc_text_size) (HTMLPainter *p, const gchar *text, guint len, HTMLTextPangoInfo *pi, PangoAttrList *attrs, GList *glyphs, gint start_byte_offset,
 				 GtkHTMLFontStyle font_style, HTMLFontFace *face, gint *width, gint *asc, gint *dsc);
-	void (* calc_text_size_bytes) (HTMLPainter *p, const gchar *text, guint len, HTMLTextPangoInfo *pi, GList *glyphs, gint start_byte_offset,
+	void (* calc_text_size_bytes) (HTMLPainter *p, const gchar *text, guint len, HTMLTextPangoInfo *pi, PangoAttrList *attrs, GList *glyphs, gint start_byte_offset,
 				       HTMLFont *font, GtkHTMLFontStyle font_style, gint *width, gint *asc, gint *dsc);
 
 	void (* set_pen)          (HTMLPainter *painter, const GdkColor *color);
 	const GdkColor * (* get_black) (const HTMLPainter *painter);
 	void (* draw_line)        (HTMLPainter *painter, gint x1, gint y1, gint x2, gint y2);
 	void (* draw_rect)        (HTMLPainter *painter, gint x, gint y, gint width, gint height);
-	gint (* draw_text)        (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, HTMLTextPangoInfo *pi, GList *glyphs, gint start_byte_offset);
+	gint (* draw_text)        (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, HTMLTextPangoInfo *pi, PangoAttrList *attrs, GList *glyphs, gint start_byte_offset);
 	gint (* draw_spell_error) (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, HTMLTextPangoInfo *pi, GList *glyphs, gint start_byte_offset);
 	void (* fill_rect)        (HTMLPainter *painter, gint x, gint y, gint width, gint height);
 	void (* draw_pixmap)      (HTMLPainter *painter, GdkPixbuf *pixbuf, 
@@ -144,6 +144,7 @@ void              html_painter_calc_text_size                          (HTMLPain
 									const gchar       *text,
 									guint              len,
 									HTMLTextPangoInfo *pi,
+									PangoAttrList     *attrs,
 									GList             *glyphs,
 									gint               start_byte_offset,
 									gint              *line_offset,
@@ -156,6 +157,7 @@ void              html_painter_calc_text_size_bytes                    (HTMLPain
 									const gchar       *text,
 									guint              len,
 									HTMLTextPangoInfo *pi,
+									PangoAttrList     *attrs,
 									GList             *glyphs,
 									gint               start_byte_offset,
 									gint              *line_offset,
@@ -184,6 +186,7 @@ gint              html_painter_draw_text                               (HTMLPain
 									const gchar       *text,
 									gint               len,
 									HTMLTextPangoInfo *pi,
+									PangoAttrList     *attrs,
 									GList             *glyphs,
 									gint               start_byte_offset,
 									gint               line_offset);
@@ -283,6 +286,14 @@ void              html_painter_set_focus                               (HTMLPain
 void              html_replace_tabs                                    (const gchar       *text,
 									gchar             *translated,
 									guint              bytes);
+
+HTMLTextPangoInfo *html_painter_text_itemize_and_prepare_glyphs  (HTMLPainter           *painter,
+								  PangoFontDescription  *desc,
+								  const gchar           *text,
+								  gint                   bytes,
+								  GList                **glyphs,
+								  PangoAttrList         *attrs);
+void               html_painter_glyphs_destroy                   (GList                 *glyphs);
 
 #define HTML_BLOCK_INDENT   "        "
 #define HTML_BLOCK_CITE     "> "

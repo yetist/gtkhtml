@@ -54,6 +54,11 @@ struct _HTMLTextPangoInfo {
 	gint n;
 };
 
+struct _HTMLPangoAttrFontSize {
+        PangoAttrInt attr_int;
+	GtkHTMLFontStyle style;
+};
+
 struct _HTMLText {
 	HTMLObject object;
 	
@@ -169,6 +174,7 @@ gboolean          html_text_pi_backward                  (HTMLTextPangoInfo  *pi
 gboolean          html_text_pi_forward                   (HTMLTextPangoInfo  *pi,
 							  gint               *ii,
 							  gint               *io);
+void              html_text_free_attrs                   (GSList             *attrs);
 gint              html_text_tail_white_space             (HTMLText           *text,
 							  HTMLPainter        *painter,
 							  gint                offset,
@@ -262,19 +268,32 @@ void      html_link_set_url_and_target  (Link  *link,
 /*
  * protected
  */
-HTMLTextPangoInfo *html_text_pango_info_new        (gint               n);
-void               html_text_pango_info_destroy    (HTMLTextPangoInfo *pi);
-HTMLTextPangoInfo *html_text_get_pango_info        (HTMLText          *text,
-						    HTMLPainter       *painter);
-gint               html_text_pango_info_get_index  (HTMLTextPangoInfo *pi,
-						    gint               byte_offset,
-						    gint               idx);
-
-PangoAttribute *html_pango_attr_font_size_new   (GtkHTMLFontStyle       style);
-void            html_pango_attr_font_size_calc  (HTMLPangoAttrFontSize *attr,
-						 HTMLEngine            *e);
-
-
+HTMLTextPangoInfo *html_text_pango_info_new        (gint                   n);
+void               html_text_pango_info_destroy    (HTMLTextPangoInfo     *pi);
+HTMLTextPangoInfo *html_text_get_pango_info        (HTMLText              *text,
+						    HTMLPainter           *painter);
+gint               html_text_pango_info_get_index  (HTMLTextPangoInfo     *pi,
+						    gint                   byte_offset,
+						    gint                   idx);
+PangoAttribute    *html_pango_attr_font_size_new   (GtkHTMLFontStyle       style);
+void               html_pango_attr_font_size_calc  (HTMLPangoAttrFontSize *attr,
+						    HTMLEngine            *e);
+PangoAttrList     *html_text_get_attr_list         (HTMLText              *text,
+						    gint                   start_index,
+						    gint                   end_index);
+void               html_text_calc_text_size        (HTMLText              *t,
+						    HTMLPainter           *painter,
+						    const gchar           *text,
+						    guint                  len,
+						    HTMLTextPangoInfo     *pi,
+						    GList                 *glyphs,
+						    gint                   start_byte_offset,
+						    gint                  *line_offset,
+						    GtkHTMLFontStyle       font_style,
+						    HTMLFontFace          *face,
+						    gint                  *width,
+						    gint                  *asc,
+						    gint                  *dsc);
 
 typedef HTMLObject * (* HTMLTextHelperFunc)       (HTMLText *, gint begin, gint end);
 HTMLObject *html_text_op_copy_helper    (HTMLText           *text,
