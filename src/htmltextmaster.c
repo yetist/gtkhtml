@@ -3,7 +3,7 @@
 
    Copyright (C) 1997 Martin Jones (mjones@kde.org)
    Copyright (C) 1997 Torben Weis (weis@kde.org)
-   Copyright (C) 1999 Helix Code, Inc.
+   Copyright (C) 1999, 2000 Helix Code, Inc.
    
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -238,17 +238,11 @@ select_range (HTMLObject *self,
 	HTMLTextMaster *master;
 	HTMLObject *p;
 	gboolean changed;
-	gboolean have_newline;
 
 	master = HTML_TEXT_MASTER (self);
 
-	have_newline = html_text_have_newline (HTML_TEXT (self));
-
-	if (length < 0) {
+	if (length < 0)
 		length = HTML_TEXT (self)->text_len;
-		if (have_newline)
-			length++;
-	}
 
 	if (offset != master->select_start || length != master->select_length)
 		changed = TRUE;
@@ -266,8 +260,6 @@ select_range (HTMLObject *self,
 			slave = HTML_TEXT_SLAVE (p);
 
 			max = slave->posStart + slave->posLen;
-			if (have_newline)
-				max++;
 
 			if (master->select_start + master->select_length > slave->posStart
 			    && master->select_start < max)
@@ -358,6 +350,23 @@ remove_text (HTMLText *text,
 	}
 
 	return chars_removed;
+}
+
+static HTMLObject *
+get_selection (HTMLObject *self)
+{
+	HTMLObject *new;
+	gchar *text;
+
+	if (! self->selected)
+		return NULL;
+
+	text = g_strndup (HTML_TEXT (self)->text + HTML_TEXT_MASTER (self)->select_start,
+			  HTML_TEXT_MASTER (self)->select_length);
+
+	new = html_text_master_new (text, HTML_TEXT (self)->font_style, & (HTML_TEXT (self)->color));
+
+	return new;
 }
 
 
@@ -484,6 +493,7 @@ html_text_master_class_init (HTMLTextMasterClass *klass,
 	object_class->get_cursor_base = get_cursor_base;
 	object_class->check_point = check_point;
 	object_class->select_range = select_range;
+	object_class->get_selection = get_selection;
 
 	/* HTMLText methods.  */
 

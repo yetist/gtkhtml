@@ -270,10 +270,10 @@ forall (HTMLObject *self,
 {
 	HTMLObject *p;
 
-	html_object_class.forall (self, func, data);
-
 	for (p = HTML_CLUE (self)->head; p != NULL; p = p->next)
 		html_object_forall (p, func, data);
+
+	html_object_class.forall (self, func, data);
 }
 
 static gboolean

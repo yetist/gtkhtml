@@ -5,6 +5,28 @@
   <body>
     <h1>Bugs in GtkHTML</h1>
     <hr>
+
+    <h2>Generic bugs</h2>
+
+    <ul>
+        <li> Tables should go into the paragraph: the following item
+        should not get whitespace between the bullet and the string.
+
+	<ul>
+		<li><table><tr><td>Hello</td></tr></table>
+	</ul>
+
+	<li> <tt>colspan</tt> and <tt>rowspan</tt> in tables don't work.
+
+	<li> Cell backgrounds are broken.  See <a
+	href="http://gtk.themes.org">gtk.themes.org</a> for an
+	example.
+
+	<li> <tt>&lt;pre&gt;</tt> is broken.
+
+    </ul>
+
+    <h2>Bugs in specific pages</h2>
     <p>
       <a href="http://www.stjerneskolan.com">www.stjerneskolan.com</a><br>
       Page is really slow.
@@ -17,5 +39,18 @@
       <a href="http://www.w3.org">www.w3.org</a><br>
       Spaces aren't inserted at some places, (UserInterfaceDomain)
     </p>
+    <p>
+      <a href="http://www.gimp.org">www.gimp.org</a><br>
+      There is some garbage on the left, and the table is broken.
+    </p>
+    <p>
+      <a href="http://www.gnome.org">www.gnome.org</a><br>
+      The Gnotices table is not centered.
+    </p>
+    <p>
+      <a href="http://www.altavista.com">www.altavista.com</a><br>
+      There is some obvious breakage.  Probably more table brokenness.
+    </p>
+    <p>
   </body>
 </html>

@@ -404,6 +404,18 @@ key_press_event (GtkWidget *widget,
 		html_engine_redo (engine);
 		retval = TRUE;
 		break;
+	case GDK_F3:
+		html_engine_cut (engine);
+		retval = TRUE;
+		break;
+	case GDK_F4:
+		html_engine_copy (engine);
+		retval = TRUE;
+		break;
+	case GDK_F5:
+		html_engine_paste (engine);
+		retval = TRUE;
+		break;
 
 	/* The following cases are for keys that we don't want to map yet, but
            have an annoying default behavior if not handled. */

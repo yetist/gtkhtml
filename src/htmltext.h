@@ -52,8 +52,6 @@ struct _HTMLTextClass {
 	HTMLText *(* split) (HTMLText *text, guint offset);
 	HTMLFontStyle (* get_font_style) (const HTMLText *text);
 	const GdkColor * (* get_color) (HTMLText *text, HTMLPainter *painter);
-
-	gboolean (* have_newline) (HTMLText *text);
 };
 
 
@@ -91,7 +89,5 @@ HTMLText   *html_text_split               (HTMLText       *text,
 HTMLFontStyle   html_text_get_font_style  (const HTMLText *text);
 const GdkColor *html_text_get_color       (HTMLText       *text,
 					   HTMLPainter    *painter);
-
-gboolean  html_text_have_newline  (HTMLText *text);
 
 #endif /* _HTMLTEXT_H_ */

@@ -69,21 +69,6 @@ split_at_newline (HTMLTextSlave *slave)
 	split (slave, p - text + 1);
 }
 
-static gboolean
-check_newline (HTMLTextSlave *slave)
-{
-	HTMLObject *obj;
-
-	obj = HTML_OBJECT (slave);
-
-	if (obj->next == NULL)
-		return TRUE;
-	if (obj->flags & HTML_OBJECT_FLAG_NEWLINE)
-		return TRUE;
-
-	return FALSE;
-}
-
 
 /* HTMLObject methods.  */
 
@@ -118,9 +103,6 @@ calc_size (HTMLObject *self,
 						    owner->text + slave->posStart,
 						    slave->posLen,
 						    font_style);
-
-	if (check_newline (HTML_TEXT_SLAVE (self)))
-		self->width += html_painter_calc_text_width (painter, " ", 1, font_style);
 }
 
 static HTMLFitType
@@ -264,34 +246,17 @@ fit_line (HTMLObject *o,
 	return return_value;
 }
 
+static gboolean
+select_range (HTMLObject *self,
+	      HTMLEngine *engine,
+	      guint start, gint length,
+	      gboolean queue_draw)
+{
+	return FALSE;
+}
+
 
 /* HTMLObject::draw() implementation.  */
-
-static void
-draw_newline_highlight (HTMLTextSlave *self,
-			HTMLPainter *p,
-			HTMLFontStyle font_style,
-			gint x, gint y,
-			gint width, gint height,
-			gint tx, gint ty)
-{
-	HTMLObject *obj;
-	guint space_width, space_x;
-
-	if (! check_newline (self))
-		return;
-
-	obj = HTML_OBJECT (self);
-
-	space_width = html_painter_calc_text_width (p, " ", 1, font_style);
-	space_x = obj->x + obj->width - space_width;
-
-	html_painter_set_pen (p, html_painter_get_default_highlight_color (p));
-	html_painter_fill_rect (p,
-				space_x + tx, obj->y - obj->ascent + ty,
-				space_width,
-				obj->ascent + obj->descent);
-}
 
 static void
 draw_normal (HTMLTextSlave *self,
@@ -326,7 +291,6 @@ draw_highlighted (HTMLTextSlave *slave,
 	guint start, end, len;
 	guint offset_width, text_width;
 	const gchar *text;
-	gboolean highlight_newline;
 
 	obj = HTML_OBJECT (slave);
 	owner = HTML_TEXT_MASTER (slave->owner);
@@ -334,11 +298,6 @@ draw_highlighted (HTMLTextSlave *slave,
 	end = start + owner->select_length;
 
 	text = HTML_TEXT (owner)->text;
-
-	if (owner->select_start + owner->select_length > slave->posStart + slave->posLen)
-		highlight_newline = TRUE;
-	else
-		highlight_newline = FALSE;
 
 	if (start < slave->posStart)
 		start = slave->posStart;
@@ -379,9 +338,6 @@ draw_highlighted (HTMLTextSlave *slave,
 					obj->x + tx + offset_width + text_width, obj->y + ty,
 					text + end,
 					slave->posStart + slave->posLen - end);
-
-	if (highlight_newline)
-		draw_newline_highlight (slave, p, font_style, x, y, width, height, tx, ty);
 }
 
 static void
@@ -406,8 +362,6 @@ draw (HTMLObject *o,
 	font_style = html_text_get_font_style (ownertext);
 
 	end = textslave->posStart + textslave->posLen;
-	if (check_newline (textslave))
-		end++;
 
 	if (owner->select_start + owner->select_length <= textslave->posStart
 	    || owner->select_start >= end) {
@@ -468,6 +422,7 @@ html_text_slave_class_init (HTMLTextSlaveClass *klass,
 
 	html_object_class_init (object_class, type, object_size);
 
+	object_class->select_range = select_range;
 	object_class->copy = copy;
 	object_class->draw = draw;
 	object_class->calc_size = calc_size;

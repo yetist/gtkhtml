@@ -19,21 +19,52 @@
    Boston, MA 02111-1307, USA.
 */
 
+#include "htmlengine-cutbuffer.h"
 #include "htmlengine-edit-copy.h"
+#include "htmltext.h"
 
 
-#if 0
 static void
 copy_forall (HTMLObject *obj,
 	     gpointer closure)
 {
+	HTMLObject *selection;
+	GList **p;
+
+	if (! obj->selected)
+		return;
+
+	p = (GList **) closure;
+
+	selection = html_object_get_selection (obj);
+	if (selection == NULL)
+		return;
+
+	g_print ("Adding object %p [%s] to selection.\n",
+		 selection, html_type_name (HTML_OBJECT_TYPE (selection)));
+	if (html_object_is_text (selection))
+		g_print ("\ttext `%s'\n", HTML_TEXT (selection)->text);
+
+	*p = g_list_prepend (*p, selection);
 }
-#endif
 
 void
 html_engine_copy (HTMLEngine *engine)
 {
+	GList *buffer;
+
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 	g_return_if_fail (engine->active_selection);
+	g_return_if_fail (engine->clue != NULL);
+
+	g_warning ("Copy!");
+
+	html_engine_cut_buffer_destroy (engine, engine->cut_buffer);
+
+	buffer = NULL;
+
+	html_object_forall (engine->clue, copy_forall, &buffer);
+
+	engine->cut_buffer = g_list_reverse (buffer);
 }

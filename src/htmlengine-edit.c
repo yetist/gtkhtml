@@ -221,6 +221,8 @@ html_engine_insert_para (HTMLEngine *e,
 		text_next = HTML_OBJECT (html_text_split (HTML_TEXT (current), offset));
 		html_clue_prepend (HTML_CLUE (next_flow), text_next);
 
+		/* FIXME relative offset?  */
+
 		e->cursor->object = text_next;
 		e->cursor->offset = 0;
 		e->cursor->have_target_x = FALSE;

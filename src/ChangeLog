@@ -1,3 +1,39 @@
+2000-02-16  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* gtkhtml.c (key_press_event): Temporarily bind `GDK_F3' to
+	"cut", `GDK_F4' to "copy" and `GDK_F5' to "paste".
+
+	* htmlengine-edit-paste.c: New file.
+	* htmlengine-edit-paste.h: New file.
+
+	* htmltextmaster.c (get_selection): New function, implementation
+	of `HTMLObject::get_selection'.
+	(html_text_master_class_init): Install the implementation.
+
+	* htmlclue.c (forall): Call the function on self after calling
+	it on all the objects, instead of doing it before.
+
+	* htmltextslave.c (select_range): New function, implementation of
+	`HTMLObject::select_range'.  Do nothing and always return FALSE,
+	so that the object can never be selected in any way.
+	(html_text_slave_class_init): Install implementation.
+
+	* htmlengine-edit-copy.c (html_engine_copy): New function.
+
+	* htmltextslave.c (calc_size): Removed newline stuff.
+	(draw_newline_highlight): Removed.
+	(draw_highlighted): Removed newline stuff.
+	(draw): Removed newline stuff.
+	(check_newline): Removed.
+
+	* htmltextmaster.c (select_range): Removed newline stuff.
+
+	* htmltext.c (calc_size): Removed newline stuff.
+	(have_newline): Removed.
+	(html_text_have_newline): Removed.
+
+	* htmltext.h: Removed virtual method `have_newline'.
+
 2000-02-15  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmltextinput.c: `parent_class' should be `HTMLEmbeddedClass *',

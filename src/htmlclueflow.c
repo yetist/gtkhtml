@@ -32,7 +32,7 @@
 
 
 HTMLClueFlowClass html_clueflow_class;
-static HTMLClueClass *parent_class;
+static HTMLClueClass *parent_class = NULL;
 
 #define HCF_CLASS(x) HTML_CLUEFLOW_CLASS (HTML_OBJECT (x)->klass)
 
@@ -788,6 +788,8 @@ html_clueflow_class_init (HTMLClueFlowClass *klass,
 	object_class->check_page_split = check_page_split;
 
 	klass->get_default_font_style = get_default_font_style;
+
+	parent_class = &html_clue_class;
 }
 
 void

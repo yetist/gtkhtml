@@ -25,6 +25,9 @@
 
 #include "htmlengine.h"
 
+#include "htmlengine-edit-cut.h"
+#include "htmlengine-edit-copy.h"
+
 
 enum _HTMLEngineCursorMovement {
 	HTML_ENGINE_CURSOR_UP,
