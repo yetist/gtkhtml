@@ -1,3 +1,9 @@
+2002-09-18  Larry Ewing  <lewing@ximian.com>
+
+	* htmlpainter.c (html_painter_calc_text_width): limit alloca len
+	and don't use strlen to fing the end of the string.
+	(html_painter_draw_text): same.
+
 2002-09-18  Radek Doulik  <rodo@ximian.com>
 
 	* htmlprinter.c (draw_text): use gnome_print_show_sized
