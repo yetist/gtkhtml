@@ -1,5 +1,9 @@
 2000-09-21  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine.c (html_engine_init): don't use gtk_object_unref in
+	embedded stack - this should fix Joe's problem - I'll look closer
+	on this later
+
 	* htmlimage.c: refcounting for image pointers
 
 2000-09-20  Radek Doulik  <rodo@helixcode.com>

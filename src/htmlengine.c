@@ -3106,7 +3106,8 @@ html_engine_init (HTMLEngine *engine)
 
 	engine->listStack = html_stack_new ((HTMLStackFreeFunc) html_list_destroy);
 	engine->glossaryStack = html_stack_new (NULL);
-	engine->embeddedStack = html_stack_new ((HTMLStackFreeFunc) gtk_object_unref);
+	/* FIXME rodo engine->embeddedStack = html_stack_new ((HTMLStackFreeFunc) gtk_object_unref); */
+	engine->embeddedStack = html_stack_new (NULL);
 
 	engine->url = NULL;
 	engine->target = NULL;
