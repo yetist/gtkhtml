@@ -1,12 +1,13 @@
 # gtkhtml's Portuguese translation
 # Copyright (C) 1999-2001 Free Software Foundation, Inc.
+# Distributed under the same licence as the gtkhtml package
 # Duarte Loreto <happyguy_pt@hotmail.com>, 2001, 2002, 2003
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 2.0\n"
-"POT-Creation-Date: 2003-04-29 14:20-0500\n"
-"PO-Revision-Date: 2003-04-01 00:28+0100\n"
+"Project-Id-Version: 2.4\n"
+"POT-Creation-Date: 2003-05-08 01:16+0100\n"
+"PO-Revision-Date: 2003-05-08 01:18+0100\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -252,7 +253,7 @@ msgid "Cut the selection"
 msgstr "Cortar a selecção"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:73 components/html-editor/search.c:121
+#: components/html-editor/search.c:73 components/html-editor/search.c:125
 msgid "Find"
 msgstr "Procurar"
 
@@ -529,7 +530,7 @@ msgstr "Refazer a acção desfeita"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
 #: components/html-editor/replace.c:78 components/html-editor/replace.c:152
-#: components/html-editor/replace.c:210
+#: components/html-editor/replace.c:214
 msgid "Replace"
 msgstr "Substituir"
 
@@ -852,6 +853,7 @@ msgid "Background"
 msgstr "Fundo"
 
 #: components/html-editor/cell.c:172 components/html-editor/cell.c:174
+#: components/html-editor/image.c:256 components/html-editor/image.c:259
 #: components/html-editor/text.c:107
 msgid "The quick brown fox jumps over the lazy dog."
 msgstr "The quick brown fox jumps over the lazy dog."
@@ -887,9 +889,8 @@ msgid "Page"
 msgstr "Página"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:67
-#, fuzzy
 msgid "GtkHTML Editor Control"
-msgstr "Controlo de Editor HTML do GNOME"
+msgstr "Controlo de Editor GtkHTML"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:2
 msgid "************"
@@ -943,7 +944,7 @@ msgid "Center"
 msgstr "Centrar"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
-#: components/html-editor/link.c:107 components/html-editor/text.c:245
+#: components/html-editor/link.c:136 components/html-editor/text.c:245
 msgid "Click will follow this URL"
 msgstr "Clicar no URL leva-lo-á ao destino"
 
@@ -1120,7 +1121,7 @@ msgid "Table Insert"
 msgstr "Inserir Tabela"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:75
-#: components/html-editor/link.c:112
+#: components/html-editor/link.c:84
 msgid "Test URL..."
 msgstr "Testar URL..."
 
@@ -1210,10 +1211,6 @@ msgstr ""
 "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Insira o "
 "seu comentário aqui]</td></tr></table></td></tr></table></center>"
 
-#: components/html-editor/image.c:256 components/html-editor/image.c:259
-msgid "The quick brown fox jumped over the lazy dog."
-msgstr "The quick brown fox jumped over the lazy dog."
-
 #: components/html-editor/image.c:690
 msgid ""
 "The editted image was removed from the document.\n"
@@ -1222,11 +1219,11 @@ msgstr ""
 "A imagem editada foi removida do documento.\n"
 "Incapaz de aplicar alterações."
 
-#: components/html-editor/link.c:91
+#: components/html-editor/link.c:120
 msgid "Link text"
 msgstr "Link teste"
 
-#: components/html-editor/link.c:180
+#: components/html-editor/link.c:209
 msgid ""
 "The editted link was removed from the document.\n"
 "Cannot apply your changes."
@@ -1237,17 +1234,17 @@ msgstr ""
 #: components/html-editor/menubar.c:87 components/html-editor/menubar.c:103
 #: components/html-editor/menubar.c:121 components/html-editor/menubar.c:138
 #: components/html-editor/menubar.c:161 components/html-editor/popup.c:101
-#: components/html-editor/properties.c:129
+#: components/html-editor/properties.c:120
 msgid "Insert"
 msgstr "Inserir"
 
 #: components/html-editor/menubar.c:228
-msgid "Insert HTML file"
-msgstr "Inserir ficheiro HTML"
+msgid "Insert: HTML File"
+msgstr "Inserir: Ficheiro HTML"
 
 #: components/html-editor/menubar.c:228
-msgid "Insert text file"
-msgstr "Inserir ficheiro texto"
+msgid "Insert: Text File"
+msgstr "Inserir: Ficheiro Texto"
 
 #: components/html-editor/paragraph.c:129
 msgid "Pre"
@@ -1400,24 +1397,20 @@ msgid "Next"
 msgstr "Próxima"
 
 #: components/html-editor/replace.c:160
-#, fuzzy
 msgid "Search _backward"
-msgstr "procurar para trás"
+msgstr "Procurar para _trás"
 
 #: components/html-editor/replace.c:161 components/html-editor/search.c:79
-#, fuzzy
 msgid "Case _sensitive"
-msgstr "sensível à capitalização"
+msgstr "_Sensível à capitalização"
 
 #: components/html-editor/replace.c:171
-#, fuzzy
 msgid "Replace:"
-msgstr "Substituir"
+msgstr "Substituir:"
 
 #: components/html-editor/replace.c:174
-#, fuzzy
 msgid "With:"
-msgstr "Largura:"
+msgstr "Por:"
 
 #: components/html-editor/rule.c:97
 msgid "Blue 3D"
@@ -1436,11 +1429,10 @@ msgstr ""
 "Incapaz de aplicar alterações."
 
 #: components/html-editor/search.c:78
-#, fuzzy
 msgid "_Backward"
-msgstr "para trás"
+msgstr "Para _Trás"
 
-#: components/html-editor/search.c:121
+#: components/html-editor/search.c:125
 msgid "Find Regular Expression"
 msgstr "Procurar Expressão Regular"
 
@@ -1697,6 +1689,9 @@ msgstr "Pre_ver impressão"
 #: src/testgtkhtml.c:103
 msgid "Print preview"
 msgstr "Prever impressão"
+
+#~ msgid "The quick brown fox jumped over the lazy dog."
+#~ msgstr "The quick brown fox jumped over the lazy dog."
 
 #~ msgid "with"
 #~ msgstr "com"
