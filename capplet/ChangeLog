@@ -1,3 +1,7 @@
+2000-09-15  Radek Doulik  <rodo@helixcode.com>
+
+	* main.c (setup_behaviour): fixed typo
+
 2000-09-12  Radek Doulik  <rodo@helixcode.com>
 
 	* main.c: capplet split into notebook pages bindings/behaviour

@@ -242,7 +242,7 @@ setup_behaviour (void)
 	gtk_container_add (GTK_CONTAINER (frame), vb1);
 	gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, FALSE, 0);
 
-	frame = gtk_frame_new (_("Miscelaneous"));
+	frame = gtk_frame_new (_("Miscellaneous"));
 	hbox  = gtk_hbox_new (FALSE, 0);
 	check = gtk_check_button_new_with_label (_("magic links"));
 	gtk_container_set_border_width (GTK_CONTAINER (hbox), 3);
