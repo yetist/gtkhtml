@@ -1,3 +1,10 @@
+2001-09-12  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* POTFILES.in: Updated. Someone should check a few of the strings
+	in template.c though. They look like they shouldn't be marked for
+	translation.
+	* no.po: Updated accordingly.
+	
 2001-09-11  Christian Rose  <menthos@menthos.com>
 
 	* sv.po: Updated Swedish translation.

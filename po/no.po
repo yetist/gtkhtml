@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
-"POT-Creation-Date: 2001-08-21 20:12-0500\n"
-"PO-Revision-Date: 2001-08-22 10:48+0200\n"
+"POT-Creation-Date: 2001-09-12 12:54+0200\n"
+"PO-Revision-Date: 2001-09-12 12:54+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,9 +17,10 @@ msgstr ""
 msgid "<None>"
 msgstr "<Ingen>"
 
-#: capplet/gnome-bindings-prop.c:215 capplet/main.c:243
+#: capplet/gnome-bindings-prop.c:216 capplet/main.c:245
 #: components/html-editor/cell.c:385 components/html-editor/rule.c:315
 #: components/html-editor/table.c:525 components/html-editor/table.c:616
+#: components/html-editor/template.c:243
 msgid "Could not load glade file."
 msgstr "Kunne ikke lese glade-fil."
 
@@ -271,7 +272,7 @@ msgid "Cut the selection"
 msgstr "Klipp ut utvalget"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:64 components/html-editor/search.c:107
+#: components/html-editor/search.c:69 components/html-editor/search.c:112
 msgid "Find"
 msgstr "Finn"
 
@@ -577,7 +578,7 @@ msgid "_Alignment"
 msgstr "_Justering"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
-msgid "_Alpabetical List"
+msgid "_Alphabetical List"
 msgstr "_Alfabetisk liste"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
@@ -716,6 +717,12 @@ msgstr "Slå på"
 msgid "Colors"
 msgstr "Farger"
 
+#: components/html-editor/body.c:175 components/html-editor/cell.c:391
+#: components/html-editor/table.c:531 components/html-editor/text.c:221
+#: components/html-editor/toolbar.c:290
+msgid "Automatic"
+msgstr "Automatisk"
+
 #: components/html-editor/body.c:186
 #: components/html-editor/editor-control-factory.c:190
 #: components/html-editor/menubar.c:127 components/html-editor/popup.c:151
@@ -726,11 +733,6 @@ msgstr "Tekst"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:5
 msgid "Background"
 msgstr "Bakgrunn"
-
-#: components/html-editor/cell.c:391 components/html-editor/table.c:531
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:290
-msgid "Automatic"
-msgstr "Automatisk"
 
 #: components/html-editor/editor-control-factory.c:170
 #: components/html-editor/popup.c:143
@@ -1050,7 +1052,7 @@ msgstr "Legg til '%s' i ordboken"
 msgid "Ignore '%s'"
 msgstr "Ignorer '%s'"
 
-#: components/html-editor/popup.c:347
+#: components/html-editor/popup.c:347 components/html-editor/spell.c:353
 msgid "Spell checker"
 msgstr "Stavekontroll"
 
@@ -1144,7 +1146,7 @@ msgstr "Neste"
 msgid "search backward"
 msgstr "søk bakover"
 
-#: components/html-editor/replace.c:153 components/html-editor/search.c:67
+#: components/html-editor/replace.c:153 components/html-editor/search.c:72
 msgid "case sensitive"
 msgstr "skill mellom store/små bokstaver"
 
@@ -1164,11 +1166,11 @@ msgstr "Blå 3D"
 msgid "Yellow, flowers"
 msgstr "Gul, blomster"
 
-#: components/html-editor/search.c:66
+#: components/html-editor/search.c:71
 msgid "backward"
 msgstr "bakover"
 
-#: components/html-editor/search.c:107
+#: components/html-editor/search.c:112
 msgid "Find Regular Expression"
 msgstr "Finn vanlig uttrykk"
 
@@ -1179,6 +1181,41 @@ msgstr "Flat grå"
 #: components/html-editor/table.c:206
 msgid "Dark header"
 msgstr "Mørk topptekst"
+
+#: components/html-editor/template.c:81
+msgid "Note"
+msgstr "Merknad"
+
+#: components/html-editor/template.c:83
+msgid ""
+"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
+"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
+"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
+msgstr ""
+
+#: components/html-editor/template.c:85
+msgid ""
+"/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
+"tr></table></td></tr></table>"
+msgstr ""
+
+#: components/html-editor/template.c:91
+msgid "Image frame"
+msgstr "Bilderamme"
+
+#: components/html-editor/template.c:93
+msgid ""
+"<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
+"\"><tr><td align=\"center\"><img src=\"file://"
+msgstr ""
+
+#: components/html-editor/template.c:97
+msgid ""
+"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td>Image 1:"
+"&nbsp;<font size=\"3\"><b>description</b></font size=\"3\"></td></tr></"
+"table></td></tr></table>"
+msgstr ""
 
 #: components/html-editor/test-html-editor-control.c:276
 msgid "Open file..."
