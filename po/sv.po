@@ -3,13 +3,13 @@
 # Christian Rose <menthos@menthos.com>, 2000, 2001.
 # Martin Norbäck <d95mback@dtek.chalmers.se>, 2000.
 #
-# $Id: sv.po,v 1.40 2001/10/21 13:13:19 menthos Exp $
+# $Id: sv.po,v 1.41 2001/10/28 15:53:43 menthos Exp $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2001-10-21 15:09+0200\n"
-"PO-Revision-Date: 2001-10-21 15:11+0200\n"
+"POT-Creation-Date: 2001-10-28 16:29+0100\n"
+"PO-Revision-Date: 2001-10-28 16:51+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr "<Ingen>"
 #: capplet/gnome-bindings-prop.c:216 capplet/main.c:252
 #: components/html-editor/cell.c:385 components/html-editor/rule.c:315
 #: components/html-editor/table.c:528 components/html-editor/table.c:619
-#: components/html-editor/template.c:243
+#: components/html-editor/template.c:244
 msgid "Could not load glade file."
 msgstr "Kunde inte läsa in glade-filen."
 
@@ -37,7 +37,7 @@ msgstr "Lägg till tangentbordsgenvägar"
 
 #: capplet/gtkhtml-capplet.glade.h:3
 msgid "Automatically detect links"
-msgstr "Upptäck automatiskt länkar"
+msgstr "Upptäck länkar automatiskt"
 
 #: capplet/gtkhtml-capplet.glade.h:4
 msgid "Behavior"
@@ -115,7 +115,7 @@ msgstr "Välj HTML-typsnitt med fast breddsteg"
 
 #: capplet/gtkhtml-capplet.glade.h:22
 msgid "Select HTML fixed width font for printing"
-msgstr "Välj HTML-typsnitt med fast breddsteg för utskrift"
+msgstr "Välj HTML-typsnitt för utskrift med fast breddsteg"
 
 #: capplet/gtkhtml-capplet.glade.h:23
 msgid "Select HTML variable width font"
@@ -123,7 +123,7 @@ msgstr "Välj HTML-typsnitt med variabelt breddsteg"
 
 #: capplet/gtkhtml-capplet.glade.h:24
 msgid "Select HTML variable width font for printing"
-msgstr "Välj HTML-typsnitt med variabelt breddsteg för utskrift"
+msgstr "Välj HTML-typsnitt för utskrift med variabelt breddsteg"
 
 #: capplet/gtkhtml-capplet.glade.h:25
 msgid "Select command "
@@ -271,7 +271,7 @@ msgid "Cut the selection"
 msgstr "Klipp ut markeringen"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
-#: components/html-editor/search.c:69 components/html-editor/search.c:112
+#: components/html-editor/search.c:69 components/html-editor/search.c:110
 msgid "Find"
 msgstr "Sök"
 
@@ -360,7 +360,7 @@ msgstr "Infoga tabell i dokumentet..."
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
 #: components/html-editor/toolbar.c:498
 msgid "Left justifies the paragraphs"
-msgstr "Vänsterjusterar styckena"
+msgstr "Vänsterställer styckena"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
 #: components/html-editor/body.c:187
@@ -372,7 +372,7 @@ msgstr "Länk"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
 msgid "Make the current Paragraph style Normal"
-msgstr "Gör den aktuella stilen på stycket normal"
+msgstr "Gör stilen på det aktuella stycket normal"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
 msgid "Make the current paragraph a bulleted list"
@@ -412,7 +412,7 @@ msgstr "Gör det aktuella stycket till en H6-rubrik"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
 msgid "Make the current paragraph an address"
-msgstr "GÖr det aktuella stycket till en adress"
+msgstr "Gör det aktuella stycket till en adress"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
 msgid "Make the current paragraph an alphabetical list"
@@ -496,7 +496,7 @@ msgstr "Ersätt"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
 #: components/html-editor/toolbar.c:502
 msgid "Right justifies the paragraphs"
-msgstr "Högerjusterar styckena"
+msgstr "Högerställer styckena"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
 msgid "Roman Numeral List"
@@ -714,17 +714,11 @@ msgstr "Bakgrundsbild"
 
 #: components/html-editor/body.c:137
 msgid "Enable"
-msgstr "Slå på"
+msgstr "Aktivera"
 
 #: components/html-editor/body.c:166
 msgid "Colors"
 msgstr "Färger"
-
-#: components/html-editor/body.c:175 components/html-editor/cell.c:391
-#: components/html-editor/table.c:534 components/html-editor/text.c:221
-#: components/html-editor/toolbar.c:290
-msgid "Automatic"
-msgstr "Automatisk"
 
 #: components/html-editor/body.c:186
 #: components/html-editor/editor-control-factory.c:195
@@ -736,6 +730,11 @@ msgstr "Text"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:5
 msgid "Background"
 msgstr "Bakgrund"
+
+#: components/html-editor/cell.c:391 components/html-editor/table.c:534
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:290
+msgid "Automatic"
+msgstr "Automatisk"
 
 #: components/html-editor/editor-control-factory.c:176
 #: components/html-editor/popup.c:146
@@ -786,7 +785,7 @@ msgstr "Kant:"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:7
 #: components/html-editor/image.c:203
 msgid "Bottom"
-msgstr "Underst"
+msgstr "Underkant"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:8
 #: components/html-editor/popup.c:203
@@ -936,7 +935,7 @@ msgstr "Tabellinfogning"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:47
 #: components/html-editor/image.c:201
 msgid "Top"
-msgstr "Överst"
+msgstr "Överkant"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:48
 msgid "Vertical:"
@@ -1150,7 +1149,7 @@ msgstr "Nästa"
 
 #: components/html-editor/replace.c:152
 msgid "search backward"
-msgstr "sök baklänges"
+msgstr "sök bakåt"
 
 #: components/html-editor/replace.c:153 components/html-editor/search.c:72
 msgid "case sensitive"
@@ -1174,9 +1173,9 @@ msgstr "Gul, blommor"
 
 #: components/html-editor/search.c:71
 msgid "backward"
-msgstr "baklänges"
+msgstr "bakåt"
 
-#: components/html-editor/search.c:112
+#: components/html-editor/search.c:110
 msgid "Find Regular Expression"
 msgstr "Sök reguljärt uttryck"
 
@@ -1198,21 +1197,15 @@ msgstr "Anteckning"
 
 #: components/html-editor/template.c:83
 msgid ""
-"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
-"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
-"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
+"<table cellspacing=0 cellpadding=1 "
+"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" "
+"cellpadding=3 cellspacing=0 width=\"100%\"><tr><td valign=top><img "
+"src=\"file://"
 msgstr ""
-"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
-"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
-"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
-
-#: components/html-editor/template.c:85
-msgid ""
-"/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
-"tr></table></td></tr></table>"
-msgstr ""
-"/bulb.png\" hspace=10></td><td width=\"100%\">Placera din text här</td></"
-"tr></table></td></tr></table>"
+"<table cellspacing=0 cellpadding=1 "
+"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" "
+"cellpadding=3 cellspacing=0 width=\"100%\"><tr><td valign=top><img "
+"src=\"file://"
 
 #: components/html-editor/template.c:91
 msgid "Image frame"
@@ -1221,20 +1214,12 @@ msgstr "Bildram"
 #: components/html-editor/template.c:93
 msgid ""
 "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
-"\"><tr><td align=\"center\"><img src=\"file://"
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" "
+"width=\"100%\"><tr><td align=\"center\"><img src=\"file://"
 msgstr ""
 "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
-"\"><tr><td align=\"center\"><img src=\"file://"
-
-#: components/html-editor/template.c:97
-msgid ""
-"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
-"\"-1\">Image 1: <b>description</b></font></td></tr></table></td></tr></table>"
-msgstr ""
-"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
-"\"-1\">Bild 1: <b>beskrivning</b></font></td></tr></table></td></tr></table>"
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" "
+"width=\"100%\"><tr><td align=\"center\"><img src=\"file://"
 
 #: components/html-editor/test-html-editor-control.c:276
 msgid "Open file..."
@@ -1262,11 +1247,11 @@ msgstr "Romerskt numrerad lista"
 
 #: components/html-editor/toolbar.c:498
 msgid "Left align"
-msgstr "Vänsterjustera"
+msgstr "Vänsterställ"
 
 #: components/html-editor/toolbar.c:502
 msgid "Right align"
-msgstr "Högerjustera"
+msgstr "Högerställ"
 
 #: components/html-editor/toolbar.c:509
 msgid "Toggle typewriter font style"
@@ -1319,6 +1304,22 @@ msgstr "Förhands_granska"
 #: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "Förhandsgranska"
+
+#~ msgid ""
+#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Place your text "
+#~ "here</td></tr></table></td></tr></table>"
+#~ msgstr ""
+#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Placera din text "
+#~ "här</td></tr></table></td></tr></table>"
+
+#~ msgid ""
+#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
+#~ "size=\"-1\">Image 1: "
+#~ "<b>description</b></font></td></tr></table></td></tr></table>"
+#~ msgstr ""
+#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
+#~ "size=\"-1\">Bild 1: "
+#~ "<b>beskrivning</b></font></td></tr></table></td></tr></table>"
 
 #~ msgid "_Numbered List"
 #~ msgstr "_Numrerad lista"
@@ -1399,7 +1400,7 @@ msgstr "Förhandsgranska"
 #~ msgstr "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvXxYyZzÅåÄäÖö"
 
 #~ msgid "Centers paragraphs"
-#~ msgstr "Centrera stycken"
+#~ msgstr "Centrerar stycken"
 
 #~ msgid "Sets the bold font"
 #~ msgstr "Gör typsnittet fetstilt"
