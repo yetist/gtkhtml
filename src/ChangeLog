@@ -1,5 +1,8 @@
 2000-01-26  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine-save.c (html_engine_save_output_string): New function
+	to write a plain, unencoded string.
+
 	* htmltext.c (save): Use `html_engine_save_encode()' to write the
 	string encoded with entities.
 

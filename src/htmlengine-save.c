@@ -189,3 +189,13 @@ html_engine_save_encode_string (HTMLEngineSaveState *state,
 
 	return html_engine_save_encode (state, s, len);
 }
+
+gboolean
+html_engine_save_output_string (HTMLEngineSaveState *state,
+				const gchar *s)
+{
+	g_return_val_if_fail (state != NULL, FALSE);
+	g_return_val_if_fail (s != NULL, FALSE);
+
+	return state->receiver (state->engine, s, strlen (s), state->user_data);
+}
