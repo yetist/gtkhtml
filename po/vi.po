@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
-"POT-Creation-Date: 2002-10-16 06:07+0200\n"
-"PO-Revision-Date: 2002-10-20 19:48+0700\n"
+"POT-Creation-Date: 2003-01-19 04:15+0100\n"
+"PO-Revision-Date: 2003-01-20 16:04+0700\n"
 "Last-Translator: pclouds <pclouds@gmx.net>\n"
 "Language-Team: GnomeVI <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -17,119 +17,123 @@ msgid "<None>"
 msgstr "<Không>"
 
 #: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
-#: components/html-editor/cell.c:385 components/html-editor/image.c:534
-#: components/html-editor/rule.c:315 components/html-editor/table.c:528
-#: components/html-editor/table.c:612 components/html-editor/template.c:260
+#: components/html-editor/cell.c:417 components/html-editor/image.c:532
+#: components/html-editor/rule.c:315 components/html-editor/table.c:529
+#: components/html-editor/table.c:613 components/html-editor/template.c:271
 msgid "Could not load glade file."
 msgstr "Không thể nạp tập tin glade."
 
 #: capplet/gtkhtml-capplet.glade.h:1
+msgid "\n"
+msgstr "\n"
+
+#: capplet/gtkhtml-capplet.glade.h:3
 #: components/html-editor/gtkhtml-editor-properties.glade.h:1
 msgid "*"
 msgstr "*"
 
-#: capplet/gtkhtml-capplet.glade.h:2
+#: capplet/gtkhtml-capplet.glade.h:4
 msgid "*********************"
 msgstr "*********************"
 
-#: capplet/gtkhtml-capplet.glade.h:3
+#: capplet/gtkhtml-capplet.glade.h:5
 msgid "Add Keyboard Shortcuts"
 msgstr "Thêm phím tắt"
 
-#: capplet/gtkhtml-capplet.glade.h:4
+#: capplet/gtkhtml-capplet.glade.h:6
 msgid "Automatically detect links"
 msgstr "Tự động xác định liên kết"
 
-#: capplet/gtkhtml-capplet.glade.h:5
+#: capplet/gtkhtml-capplet.glade.h:7
 msgid "Behavior"
 msgstr "Hành vi"
 
-#: capplet/gtkhtml-capplet.glade.h:6
+#: capplet/gtkhtml-capplet.glade.h:8
 msgid "Composer Properties"
 msgstr "Thuộc tính bộ biên soạn"
 
-#: capplet/gtkhtml-capplet.glade.h:7
+#: capplet/gtkhtml-capplet.glade.h:9
 msgid "Composer Properties planned"
-msgstr ""
+msgstr "Thuộc tính Bộ biên soạn đã được lên kế hoạch"
 
-#: capplet/gtkhtml-capplet.glade.h:8
+#: capplet/gtkhtml-capplet.glade.h:10
 msgid "Configure spell checking"
 msgstr "Cấu hình kiểm tra chính tả"
 
-#: capplet/gtkhtml-capplet.glade.h:9
+#: capplet/gtkhtml-capplet.glade.h:11
 msgid "Enable spell checking"
 msgstr "Bật kiểm tra chính tả"
 
-#: capplet/gtkhtml-capplet.glade.h:10
+#: capplet/gtkhtml-capplet.glade.h:12
 msgid "Fixed width"
 msgstr "Độ rộng cứng"
 
-#: capplet/gtkhtml-capplet.glade.h:11
+#: capplet/gtkhtml-capplet.glade.h:13
 msgid "Fonts"
 msgstr "Font"
 
-#: capplet/gtkhtml-capplet.glade.h:12
+#: capplet/gtkhtml-capplet.glade.h:14
 msgid "For printing"
 msgstr "Để in"
 
-#: capplet/gtkhtml-capplet.glade.h:13
+#: capplet/gtkhtml-capplet.glade.h:15
 msgid "Grab keys"
 msgstr "Bắt phím"
 
-#: capplet/gtkhtml-capplet.glade.h:14
+#: capplet/gtkhtml-capplet.glade.h:16
 msgid "Information"
 msgstr "Thông tin"
 
-#: capplet/gtkhtml-capplet.glade.h:15
+#: capplet/gtkhtml-capplet.glade.h:17
 msgid "Keyboard Shortcuts"
 msgstr "Phím tắt"
 
-#: capplet/gtkhtml-capplet.glade.h:16
+#: capplet/gtkhtml-capplet.glade.h:18
 #: components/html-editor/gtkhtml-editor-properties.glade.h:47
 msgid "Miscellaneous"
 msgstr "Linh tinh"
 
-#: capplet/gtkhtml-capplet.glade.h:17
+#: capplet/gtkhtml-capplet.glade.h:19
 msgid "New shortcut:"
 msgstr "Phím tắt mới:"
 
-#: capplet/gtkhtml-capplet.glade.h:18
+#: capplet/gtkhtml-capplet.glade.h:20
 msgid "On screen"
 msgstr "Trên màn hình"
 
-#: capplet/gtkhtml-capplet.glade.h:19
+#: capplet/gtkhtml-capplet.glade.h:21
 msgid "Select HTML fixed width font"
 msgstr "Chọn font HTML cứng"
 
-#: capplet/gtkhtml-capplet.glade.h:20
+#: capplet/gtkhtml-capplet.glade.h:22
 msgid "Select HTML fixed width font for printing"
 msgstr "Chọn font HTML cứng để in"
 
-#: capplet/gtkhtml-capplet.glade.h:21
+#: capplet/gtkhtml-capplet.glade.h:23
 msgid "Select HTML variable width font"
 msgstr "Chọn font HTML co dãn"
 
-#: capplet/gtkhtml-capplet.glade.h:22
+#: capplet/gtkhtml-capplet.glade.h:24
 msgid "Select HTML variable width font for printing"
 msgstr "Chọn font HTML co dãn để in"
 
-#: capplet/gtkhtml-capplet.glade.h:23
+#: capplet/gtkhtml-capplet.glade.h:25
 msgid "Shortcuts _type:"
 msgstr "_Kiểu lối tắt:"
 
-#: capplet/gtkhtml-capplet.glade.h:24
+#: capplet/gtkhtml-capplet.glade.h:26
 msgid "Show animated images"
 msgstr "Hiện ảnh hoạt họa"
 
-#: capplet/gtkhtml-capplet.glade.h:25
+#: capplet/gtkhtml-capplet.glade.h:27
 msgid "Variable width"
 msgstr "Độ rộng co dãn"
 
-#: capplet/gtkhtml-capplet.glade.h:26
+#: capplet/gtkhtml-capplet.glade.h:28
 msgid "_Add"
 msgstr "_Thêm"
 
-#: capplet/gtkhtml-capplet.glade.h:27
+#: capplet/gtkhtml-capplet.glade.h:29
 msgid "_Delete"
 msgstr "_Xóa"
 
@@ -188,7 +192,7 @@ msgid "A_ddress"
 msgstr "Đị_a chỉ"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
-#: components/html-editor/toolbar.c:55
+#: components/html-editor/toolbar.c:52
 msgid "Alphabetical List"
 msgstr "Danh sách ABC"
 
@@ -201,12 +205,12 @@ msgid "Blue"
 msgstr "Xanh dương"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
-#: components/html-editor/toolbar.c:52
+#: components/html-editor/toolbar.c:49
 msgid "Bulleted List"
 msgstr "Danh sách nút"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
-#: components/html-editor/toolbar.c:512
+#: components/html-editor/toolbar.c:510
 msgid "Center justifies the paragraphs"
 msgstr "Canh giữa đoạn văn"
 
@@ -215,7 +219,7 @@ msgid "Check spelling of the document"
 msgstr "Kiểm tra chính tả tài liệu"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
-#: components/html-editor/popup.c:428
+#: components/html-editor/popup.c:417
 msgid "Copy"
 msgstr "Sao chép"
 
@@ -236,7 +240,7 @@ msgid "Cu_t"
 msgstr "_Cắt"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
-#: components/html-editor/popup.c:429
+#: components/html-editor/popup.c:418
 msgid "Cut"
 msgstr "Cắt"
 
@@ -249,7 +253,8 @@ msgid "Cut the selection"
 msgstr "Cắt vùng chọn"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:64 components/html-editor/search.c:103
+#: components/html-editor/search.c:73 components/html-editor/search.c:75
+#: components/html-editor/search.c:118
 msgid "Find"
 msgstr "Tìm kiếm"
 
@@ -310,9 +315,9 @@ msgid "Header _6"
 msgstr "Tiêu đề _6"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
-#: components/html-editor/editor-control-factory.c:181
+#: components/html-editor/editor-control-factory.c:176
 #: components/html-editor/gtkhtml-editor-properties.glade.h:39
-#: components/html-editor/menubar.c:116 components/html-editor/popup.c:188
+#: components/html-editor/menubar.c:125 components/html-editor/popup.c:206
 msgid "Image"
 msgstr "Ảnh"
 
@@ -385,7 +390,7 @@ msgid "Insert text file into document..."
 msgstr "Chèn tập tin văn bản vào tài liệu..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
-#: components/html-editor/toolbar.c:510
+#: components/html-editor/toolbar.c:508
 msgid "Left justifies the paragraphs"
 msgstr "Canh trái đoạn văn"
 
@@ -394,9 +399,9 @@ msgid "Li_ck"
 msgstr "_Liếm"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
-#: components/html-editor/body.c:304 components/html-editor/menubar.c:132
-#: components/html-editor/popup.c:85 components/html-editor/popup.c:181
-#: components/html-editor/popup.c:254
+#: components/html-editor/body.c:326 components/html-editor/menubar.c:141
+#: components/html-editor/popup.c:103 components/html-editor/popup.c:199
+#: components/html-editor/popup.c:272
 msgid "Link"
 msgstr "Liên kết"
 
@@ -454,12 +459,12 @@ msgstr "Dùng đoạn làm danh sách ABC"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: components/html-editor/paragraph.c:124 components/html-editor/toolbar.c:50
+#: components/html-editor/paragraph.c:127 components/html-editor/toolbar.c:47
 msgid "Normal"
 msgstr "Bình thường"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
-#: components/html-editor/toolbar.c:53
+#: components/html-editor/toolbar.c:50
 msgid "Numbered List"
 msgstr "Danh sách đánh số"
 
@@ -480,382 +485,414 @@ msgid "Other..."
 msgstr "Khác..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
-#: components/html-editor/popup.c:435
+#: components/html-editor/popup.c:419
 msgid "Paste"
 msgstr "Dán"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
+msgid "Paste _Quotation"
+msgstr "Dán _trích dẫn"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
 msgid "Paste from clipboard"
 msgstr "Dán từ clipboard"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
 msgid "Paste the clipboard"
 msgstr "Dán clipboard"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
-#: components/html-editor/toolbar.c:51
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
+msgid "Paste the clipboard as a quotation"
+msgstr "Dán từ clipboard theo kiểu trích dẫn"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
+#: components/html-editor/toolbar.c:48
 msgid "Preformat"
 msgstr "Tiền định dạng"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 msgid "Purple"
 msgstr "Hồng"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
 msgid "Red"
 msgstr "Đỏ"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
+#: components/html-editor/popup.c:414
 msgid "Redo"
 msgstr "Làm lại"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
 msgid "Redo previously undone change"
 msgstr "Thực hiện lại hành động vừa làm"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
 msgid "Redo the undone action"
 msgstr "Làm lại hành động chưa hoàn thành"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
-#: components/html-editor/replace.c:84 components/html-editor/replace.c:146
-#: components/html-editor/replace.c:158 components/html-editor/replace.c:201
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
+#: components/html-editor/replace.c:78 components/html-editor/replace.c:152
+#: components/html-editor/replace.c:154 components/html-editor/replace.c:171
+#: components/html-editor/replace.c:207
 msgid "Replace"
 msgstr "Thay thế"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: components/html-editor/toolbar.c:514
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
+#: components/html-editor/toolbar.c:512
 msgid "Right justifies the paragraphs"
 msgstr "Canh phải đoạn văn"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 msgid "Roman Numeral List"
 msgstr "Danh sách đánh số Roman"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
-#: components/html-editor/editor-control-factory.c:201
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
+#: components/html-editor/editor-control-factory.c:196
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
-#: components/html-editor/menubar.c:150 components/html-editor/popup.c:209
+#: components/html-editor/menubar.c:159 components/html-editor/popup.c:227
 msgid "Rule"
 msgstr "Quy tắc"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
 msgid "Select _All"
 msgstr "C_họn tất cả"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
 msgid "Select the entire contents of the document"
 msgstr "Chọn toàn bộ nội dung tài liệu"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#: components/html-editor/text.c:222 components/html-editor/toolbar.c:529
+#: components/html-editor/text.c:237 components/html-editor/toolbar.c:527
 msgid "Strikeout"
 msgstr "Gạch đè"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
 msgid "Su_perscript"
 msgstr "Chữ nhỏ _trên"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
 msgid "Su_rprised"
 msgstr "N_gạc nhiên"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
 msgid "Subs_cript"
 msgstr "Chữ nhỏ _dưới"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
 msgid "Subscript"
 msgstr "Chữ nhỏ dưới"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
 msgid "Superscript"
 msgstr "Chữ nhỏ trên"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
-#: components/html-editor/menubar.c:167 components/html-editor/popup.c:216
-#: components/html-editor/popup.c:483 components/html-editor/popup.c:492
+#: components/html-editor/menubar.c:176 components/html-editor/popup.c:234
+#: components/html-editor/popup.c:501 components/html-editor/popup.c:510
 msgid "Table"
 msgstr "Bảng"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
 msgid "Te_mplate..."
 msgstr "_Mẫu..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 msgid "Te_xt file..."
 msgstr "Tập tin _văn bản..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
-#: components/html-editor/body.c:234
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
+#: components/html-editor/body.c:256
 #: components/html-editor/gtkhtml-editor-properties.glade.h:74
-#: components/html-editor/menubar.c:190
+#: components/html-editor/menubar.c:199
 msgid "Template"
 msgstr "Mẫu"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
-#: components/html-editor/toolbar.c:521
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
+#: components/html-editor/toolbar.c:519
 msgid "Typewriter"
 msgstr "Máy đánh chữ"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
+#: components/html-editor/popup.c:413
 msgid "Undo"
 msgstr "Hoàn lại"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
 msgid "Undo previous changes"
 msgstr "Hoàn lại thay đổi vừa rồi"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
 msgid "Undo the last action"
 msgstr "Hoàn lại hành động cuối cùng"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
 msgid "Yellow"
 msgstr "Vàng"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
 msgid "_Alignment"
 msgstr "_Canh hàng"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
 msgid "_Alphabetical List"
 msgstr "Danh sách _ABC"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
 msgid "_Bold"
 msgstr "Đậ_m"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
 msgid "_Bulleted List"
 msgstr "Danh sách _nút"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
 msgid "_Center"
 msgstr "_Giữa"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
 msgid "_Copy"
 msgstr "_Sao chép"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
 msgid "_Decrease Indent"
 msgstr "_Giảm canh lề"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
 msgid "_Edit"
 msgstr "_Hiệu chỉnh"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
 msgid "_Find..."
 msgstr "_Tìm..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
 msgid "_Font Size"
 msgstr "Cỡ _font"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
 msgid "_Frown"
 msgstr "_Khó chịu"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
 msgid "_HTML file..."
 msgstr "Tập tin _HTML..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
 msgid "_Heading"
 msgstr "_Tiêu đề"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
 msgid "_Image..."
 msgstr "Ả_nh..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
 msgid "_Increase Indent"
 msgstr "_Tăng canh lề"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
 msgid "_Indifferent"
-msgstr ""
+msgstr "_Không khác"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
 msgid "_Insert"
 msgstr "_Chèn"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
 msgid "_Italic"
 msgstr "_Nghiêng"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
 msgid "_Laughing"
 msgstr "_Cười to"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
 msgid "_Left"
 msgstr "T_rái"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
 msgid "_Link..."
 msgstr "_Liên kết..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
 msgid "_Normal"
 msgstr "_Bình thường"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
 msgid "_Page..."
 msgstr "_Trang..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
 msgid "_Paragraph..."
 msgstr "Đoạ_n..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
 msgid "_Paste"
 msgstr "_Dán"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
 msgid "_Plain text"
 msgstr "Văn _bản thô"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
 msgid "_Preformat"
 msgstr "_Tiền định dạng"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
 msgid "_Redo"
 msgstr "_Làm lại"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
 msgid "_Replace..."
 msgstr "T_hay thế..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
 msgid "_Right"
 msgstr "_Phải"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
 msgid "_Roman Numeral List"
 msgstr "Danh sách đánh số _Roman"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
 msgid "_Rule..."
 msgstr "_Quy tắc..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:141
 msgid "_Smile"
 msgstr "_Mỉm cười"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:142
 msgid "_Smiley"
 msgstr "_Biểu tượng"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:141
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
 msgid "_Spell Check Document..."
 msgstr "_Kiểm tra chính tả tài liệu..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:142
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:144
 msgid "_Strikeout"
 msgstr "_Gạch đè"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:145
 msgid "_Style"
 msgstr "_Kiểu"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:144
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:146
 msgid "_Table..."
 msgstr "_Bảng..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:145
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:147
 msgid "_Text..."
 msgstr "_Text..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:146
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:148
 msgid "_Undecided"
 msgstr "Phân _vân"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:147
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:149
 msgid "_Underline"
 msgstr "Gạch _chân"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:148
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:150
 msgid "_Undo"
 msgstr "_Hoàn lại"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:149
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:151
 msgid "_Wink"
 msgstr "_Nháy mắt"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:150
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
 msgid "etc..."
 msgstr "vân vân..."
 
-#: components/html-editor/body.c:62
+#: components/html-editor/body.c:65
 #: components/html-editor/gtkhtml-editor-properties.glade.h:48
 msgid "None"
 msgstr "Không"
 
-#: components/html-editor/body.c:69
-msgid "Test"
-msgstr "Kiểm tra"
+#: components/html-editor/body.c:73
+msgid "Perforated Paper"
+msgstr ""
 
-#: components/html-editor/body.c:76
-msgid "Test 1"
-msgstr "Kiểm tra 1"
+#: components/html-editor/body.c:81
+msgid "Blue Ink"
+msgstr "Mực xanh"
 
-#: components/html-editor/body.c:252
+#: components/html-editor/body.c:89
+msgid "Rectangles"
+msgstr "Hình chữ nhật"
+
+#: components/html-editor/body.c:274
 msgid "Document Title"
 msgstr "Tựa tài liệu"
 
-#: components/html-editor/body.c:256 components/html-editor/body.c:259
+#: components/html-editor/body.c:278 components/html-editor/body.c:281
 #: components/html-editor/gtkhtml-editor-properties.glade.h:15
 msgid "Background Image"
 msgstr "Ảnh nền"
 
-#: components/html-editor/body.c:281
+#: components/html-editor/body.c:303
 #: components/html-editor/gtkhtml-editor-properties.glade.h:25
 msgid "Colors"
 msgstr "Màu sắc"
 
-#: components/html-editor/body.c:291 components/html-editor/cell.c:391
-#: components/html-editor/table.c:534 components/html-editor/text.c:279
-#: components/html-editor/toolbar.c:302
+#: components/html-editor/body.c:313 components/html-editor/cell.c:423
+#: components/html-editor/table.c:535 components/html-editor/text.c:295
+#: components/html-editor/toolbar.c:299
 msgid "Automatic"
 msgstr "Tự động"
 
-#: components/html-editor/body.c:303
-#: components/html-editor/editor-control-factory.c:190
+#: components/html-editor/body.c:325
+#: components/html-editor/editor-control-factory.c:185
 #: components/html-editor/gtkhtml-editor-properties.glade.h:76
-#: components/html-editor/menubar.c:332 components/html-editor/popup.c:174
+#: components/html-editor/menubar.c:334 components/html-editor/popup.c:192
 msgid "Text"
 msgstr "Text"
 
-#: components/html-editor/body.c:305
+#: components/html-editor/body.c:327
 #: components/html-editor/gtkhtml-editor-properties.glade.h:14
 msgid "Background"
 msgstr "Nền"
 
-#: components/html-editor/editor-control-factory.c:171
-#: components/html-editor/menubar.c:311 components/html-editor/menubar.c:329
-#: components/html-editor/menubar.c:347 components/html-editor/popup.c:166
-#: components/html-editor/popup.c:251
+#: components/html-editor/cell.c:172 components/html-editor/cell.c:174
+#: components/html-editor/text.c:107
+msgid "The quick brown fox jumps over the lazy dog."
+msgstr "Con chồn xám nhanh nhẹn nhảy qua con chó lười."
+
+#: components/html-editor/cell.c:177
+msgid "Other"
+msgstr "Khác"
+
+#: components/html-editor/cell.c:678
+msgid ""
+"The editted cell was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Ô được sửa đã bị loại bỏ khỏi tài liệu.\n"
+"Không thể áp dụng các thay đổi của bạn."
+
+#: components/html-editor/editor-control-factory.c:165
+#: components/html-editor/menubar.c:313 components/html-editor/menubar.c:331
+#: components/html-editor/menubar.c:349 components/html-editor/popup.c:184
+#: components/html-editor/popup.c:269
 msgid "Properties"
 msgstr "Thuộc tính"
 
-#: components/html-editor/editor-control-factory.c:211
-#: components/html-editor/menubar.c:350 components/html-editor/popup.c:195
+#: components/html-editor/editor-control-factory.c:206
+#: components/html-editor/menubar.c:352 components/html-editor/popup.c:213
 msgid "Paragraph"
 msgstr "Đoạn"
 
-#: components/html-editor/editor-control-factory.c:216
+#: components/html-editor/editor-control-factory.c:211
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: components/html-editor/menubar.c:314 components/html-editor/popup.c:202
+#: components/html-editor/menubar.c:316 components/html-editor/popup.c:220
 msgid "Page"
 msgstr "Trang"
 
-#: components/html-editor/editor-control-factory.c:754
+#: components/html-editor/editor-control-factory.c:770
 msgid "I could not initialize Bonobo"
 msgstr "Không thể khởi động Bonobo"
 
@@ -884,7 +921,7 @@ msgid "Apply changes to:"
 msgstr "Áp dụng thay đổi cho:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:16
-#: components/html-editor/text.c:219 components/html-editor/toolbar.c:523
+#: components/html-editor/text.c:234 components/html-editor/toolbar.c:521
 msgid "Bold"
 msgstr "Đậm"
 
@@ -901,17 +938,17 @@ msgid "Bottom"
 msgstr "Đáy"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:20
-#: components/html-editor/popup.c:223
+#: components/html-editor/popup.c:241
 msgid "Cell"
 msgstr "Ô"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
-#: components/html-editor/paragraph.c:159 components/html-editor/toolbar.c:512
+#: components/html-editor/paragraph.c:162 components/html-editor/toolbar.c:510
 msgid "Center"
 msgstr "Giữa"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
-#: components/html-editor/link.c:107 components/html-editor/text.c:230
+#: components/html-editor/link.c:107 components/html-editor/text.c:245
 msgid "Click will follow this URL"
 msgstr "Nhấn URL sau đây"
 
@@ -924,7 +961,7 @@ msgid "Color:"
 msgstr "Màu sắc:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#: components/html-editor/popup.c:494
+#: components/html-editor/popup.c:512
 msgid "Column"
 msgstr "Cột"
 
@@ -977,12 +1014,12 @@ msgid "Horizontal:"
 msgstr "Ngang:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:40
-#: components/html-editor/text.c:220 components/html-editor/toolbar.c:525
+#: components/html-editor/text.c:235 components/html-editor/toolbar.c:523
 msgid "Italic"
 msgstr "Nghiêng"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:41
-#: components/html-editor/paragraph.c:158
+#: components/html-editor/paragraph.c:161
 msgid "Left"
 msgstr "Trái"
 
@@ -1036,12 +1073,12 @@ msgid "Points"
 msgstr "Điểm"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:59
-#: components/html-editor/paragraph.c:160
+#: components/html-editor/paragraph.c:163
 msgid "Right"
 msgstr "Phải"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
-#: components/html-editor/popup.c:493
+#: components/html-editor/popup.c:511
 msgid "Row"
 msgstr "Hàng"
 
@@ -1062,7 +1099,7 @@ msgid "Shaded"
 msgstr "Bóng"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:66
-#: components/html-editor/text.c:246
+#: components/html-editor/text.c:261
 msgid "Size"
 msgstr "Kích thước"
 
@@ -1075,7 +1112,7 @@ msgid "Spacing:"
 msgstr "Khoảng trống:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:110 components/html-editor/text.c:206
+#: components/html-editor/paragraph.c:113 components/html-editor/text.c:221
 msgid "Style"
 msgstr "Kiểu"
 
@@ -1101,7 +1138,7 @@ msgid "Top"
 msgstr "Đỉnh"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:79
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:527
+#: components/html-editor/text.c:236 components/html-editor/toolbar.c:525
 msgid "Underline"
 msgstr "Gạch chân"
 
@@ -1130,7 +1167,7 @@ msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
 #: components/html-editor/image.c:117 components/html-editor/rule.c:92
-#: components/html-editor/table.c:190
+#: components/html-editor/table.c:191
 msgid "Plain"
 msgstr "Thô"
 
@@ -1178,198 +1215,222 @@ msgstr ""
 "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place your "
 "comment here]</td></tr></table></td></tr></table></center>"
 
-#: components/html-editor/image.c:256
-msgid "The quick brown fox jumped over the lazy dog. "
-msgstr "Con chồn xám nhanh nhẩu nhảy qua con chó lười. "
-
-#: components/html-editor/image.c:258
+#: components/html-editor/image.c:256 components/html-editor/image.c:259
 msgid "The quick brown fox jumped over the lazy dog."
 msgstr "Con chồn xám nhanh nhẩu nhảy qua con chó lười."
+
+#: components/html-editor/image.c:692
+msgid ""
+"The editted image was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Ảnh bị sửa đổi đã bị loại khỏi tài liệu.\n"
+"Không thể áp dụng các thay đổi của bạn."
 
 #: components/html-editor/link.c:91
 msgid "Link text"
 msgstr "Text liên kết"
 
-#: components/html-editor/menubar.c:114 components/html-editor/menubar.c:129
-#: components/html-editor/menubar.c:147 components/html-editor/menubar.c:164
-#: components/html-editor/menubar.c:187 components/html-editor/popup.c:82
-#: components/html-editor/properties.c:120
+#: components/html-editor/link.c:180
+msgid ""
+"The editted link was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Liên kết bị sửa đổi đã bị loại khỏi tài liệu.\n"
+"Không thể áp dụng các thay đổi của bạn."
+
+#: components/html-editor/menubar.c:122 components/html-editor/menubar.c:138
+#: components/html-editor/menubar.c:156 components/html-editor/menubar.c:173
+#: components/html-editor/menubar.c:196 components/html-editor/popup.c:100
+#: components/html-editor/properties.c:129
 msgid "Insert"
 msgstr "Chèn"
 
-#: components/html-editor/menubar.c:262
+#: components/html-editor/menubar.c:263
 msgid "Insert HTML file"
 msgstr "Chèn tập tin HTML"
 
-#: components/html-editor/menubar.c:262
+#: components/html-editor/menubar.c:263
 msgid "Insert text file"
 msgstr "Chèn tập tin văn bản"
 
-#: components/html-editor/paragraph.c:125
+#: components/html-editor/paragraph.c:128
 msgid "Pre"
 msgstr "Tiền"
 
-#: components/html-editor/paragraph.c:126 components/html-editor/toolbar.c:56
+#: components/html-editor/paragraph.c:129 components/html-editor/toolbar.c:53
 msgid "Header 1"
 msgstr "Tiêu đề 1"
 
-#: components/html-editor/paragraph.c:127 components/html-editor/toolbar.c:57
+#: components/html-editor/paragraph.c:130 components/html-editor/toolbar.c:54
 msgid "Header 2"
 msgstr "Tiêu đề 2"
 
-#: components/html-editor/paragraph.c:128 components/html-editor/toolbar.c:58
+#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:55
 msgid "Header 3"
 msgstr "Tiêu đề 3"
 
-#: components/html-editor/paragraph.c:129 components/html-editor/toolbar.c:59
+#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:56
 msgid "Header 4"
 msgstr "Tiêu đề 4"
 
-#: components/html-editor/paragraph.c:130 components/html-editor/toolbar.c:60
+#: components/html-editor/paragraph.c:133 components/html-editor/toolbar.c:57
 msgid "Header 5"
 msgstr "Tiêu đề 5"
 
-#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:61
+#: components/html-editor/paragraph.c:134 components/html-editor/toolbar.c:58
 msgid "Header 6"
 msgstr "Tiêu đề 6"
 
-#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:62
+#: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:59
 msgid "Address"
 msgstr "Địa chỉ"
 
-#: components/html-editor/paragraph.c:133
+#: components/html-editor/paragraph.c:136
 msgid "Dot item"
 msgstr "Mục chấm"
 
-#: components/html-editor/paragraph.c:134
+#: components/html-editor/paragraph.c:137
 msgid "Number item"
 msgstr "Mục số"
 
-#: components/html-editor/paragraph.c:135
+#: components/html-editor/paragraph.c:138
 msgid "Roman item"
 msgstr "Mục roman"
 
-#: components/html-editor/paragraph.c:136
+#: components/html-editor/paragraph.c:139
 msgid "Alphabeta item"
 msgstr "Mục chữ cái"
 
-#: components/html-editor/paragraph.c:145
+#: components/html-editor/paragraph.c:148
 msgid "Align"
 msgstr "Canh hàng"
 
-#: components/html-editor/popup.c:394
+#: components/html-editor/paragraph.c:192
+msgid ""
+"The editted paragraph was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Đoạn bị sửa đổi đã bị loại khỏi tài liệu.\n"
+"Không thể áp dụng các thay đổi của bạn."
+
+#: components/html-editor/popup.c:420
+msgid "Paste Quotation"
+msgstr "Dán trích dẫn"
+
+#: components/html-editor/popup.c:423
+msgid "Insert link"
+msgstr "Chèn liên kết"
+
+#: components/html-editor/popup.c:431
+msgid "Remove link"
+msgstr "Loại bỏ liên kết"
+
+#: components/html-editor/popup.c:439
 #, c-format
 msgid "Check '%s' spelling..."
 msgstr "Kiểm tra chính tả '%s'..."
 
-#: components/html-editor/popup.c:395
+#: components/html-editor/popup.c:440
 #, c-format
 msgid "Add '%s' to dictionary"
 msgstr "Thêm '%s' vào từ điển"
 
-#: components/html-editor/popup.c:396
+#: components/html-editor/popup.c:441
 #, c-format
 msgid "Ignore '%s'"
 msgstr "Bỏ qua '%s'"
 
-#: components/html-editor/popup.c:397 components/html-editor/spell.c:266
+#: components/html-editor/popup.c:443 components/html-editor/spell.c:266
 msgid "Spell checker"
 msgstr "Bộ kiểm tra chính tả"
 
-#: components/html-editor/popup.c:401
+#: components/html-editor/popup.c:447
 msgid "Suggest word"
 msgstr "Đề nghị từ"
 
-#: components/html-editor/popup.c:414
-msgid "Insert link"
-msgstr "Chèn liên kết"
-
-#: components/html-editor/popup.c:423
-msgid "Remove link"
-msgstr "Loại bỏ liên kết"
-
-#: components/html-editor/popup.c:442
+#: components/html-editor/popup.c:463
 msgid "Text..."
 msgstr "Text..."
 
-#: components/html-editor/popup.c:444 components/html-editor/popup.c:451
-#: components/html-editor/popup.c:463
+#: components/html-editor/popup.c:465 components/html-editor/popup.c:472
+#: components/html-editor/popup.c:484
 msgid "Paragraph..."
 msgstr "Đoạn..."
 
-#: components/html-editor/popup.c:449
+#: components/html-editor/popup.c:470
 msgid "Link..."
 msgstr "Liên kết..."
 
-#: components/html-editor/popup.c:456
+#: components/html-editor/popup.c:477
 msgid "Rule..."
 msgstr "Quy tắc..."
 
-#: components/html-editor/popup.c:461
+#: components/html-editor/popup.c:482
 msgid "Image..."
 msgstr "Ảnh..."
 
-#: components/html-editor/popup.c:469 components/html-editor/popup.c:479
-msgid "Table..."
-msgstr "Bảng..."
-
-#: components/html-editor/popup.c:476
+#: components/html-editor/popup.c:494
 msgid "Cell..."
 msgstr "Ô..."
 
-#: components/html-editor/popup.c:482
+#: components/html-editor/popup.c:497
+msgid "Table..."
+msgstr "Bảng..."
+
+#: components/html-editor/popup.c:500
 msgid "Table insert"
 msgstr "Chèn bảng"
 
-#: components/html-editor/popup.c:485
+#: components/html-editor/popup.c:503
 msgid "Row above"
 msgstr "Hàng trên"
 
-#: components/html-editor/popup.c:486
+#: components/html-editor/popup.c:504
 msgid "Row below"
 msgstr "Hàng dưới"
 
-#: components/html-editor/popup.c:488
+#: components/html-editor/popup.c:506
 msgid "Column before"
 msgstr "Cột trước"
 
-#: components/html-editor/popup.c:489
+#: components/html-editor/popup.c:507
 msgid "Column after"
 msgstr "Cột sau"
 
-#: components/html-editor/popup.c:491
+#: components/html-editor/popup.c:509
 msgid "Table delete"
 msgstr "Xoá bảng"
 
-#: components/html-editor/popup.c:495
+#: components/html-editor/popup.c:513
 msgid "Cell contents"
 msgstr "Nội dung ô"
 
-#: components/html-editor/popup.c:503
+#: components/html-editor/popup.c:521
 msgid "Page..."
 msgstr "Trang..."
 
-#: components/html-editor/replace.c:83
+#: components/html-editor/replace.c:74
 msgid "Replace confirmation"
 msgstr "Xác nhận thay thế"
 
-#: components/html-editor/replace.c:84
+#: components/html-editor/replace.c:75
 msgid "Replace all"
 msgstr "Thấy thế tất cả"
 
-#: components/html-editor/replace.c:84
+#: components/html-editor/replace.c:76
 msgid "Next"
 msgstr "Kế tiếp"
 
-#: components/html-editor/replace.c:152
+#: components/html-editor/replace.c:160
 msgid "search backward"
 msgstr "Tìm ngược"
 
-#: components/html-editor/replace.c:153 components/html-editor/search.c:67
+#: components/html-editor/replace.c:161 components/html-editor/search.c:79
 msgid "case sensitive"
 msgstr "phân biệt hoa/thường"
 
-#: components/html-editor/replace.c:161
+#: components/html-editor/replace.c:174
 msgid "with"
 msgstr "với"
 
@@ -1381,146 +1442,126 @@ msgstr "Xanh 3D"
 msgid "Yellow, flowers"
 msgstr "Vàng, hoa"
 
-#: components/html-editor/search.c:66
+#: components/html-editor/rule.c:421
+msgid ""
+"The editted rule was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Luật bị sửa đổi đã bị loại khỏi tài liệu.\n"
+"Không thể áp dụng các thay đổi của bạn."
+
+#: components/html-editor/search.c:78
 msgid "backward"
 msgstr "ngược"
 
-#: components/html-editor/search.c:103
+#: components/html-editor/search.c:118
 msgid "Find Regular Expression"
 msgstr "Tìm biểu thức chính quy"
 
-#: components/html-editor/spell.c:261
-msgid "No misspelled word found"
-msgstr "Không có từ nào sai chính tả"
-
-#: components/html-editor/spell.c:346
+#: components/html-editor/spell.c:350
 msgid "Spell Checking _Languages"
 msgstr "_Ngôn ngữ kiểm tra chính tả"
 
-#: components/html-editor/table.c:198
+#: components/html-editor/table.c:199
 msgid "Flat gray"
 msgstr "Xám phẳng"
 
-#: components/html-editor/table.c:207
+#: components/html-editor/table.c:208
 msgid "Dark header"
 msgstr "Tiêu đề tối"
 
-#: components/html-editor/template.c:82
+#: components/html-editor/table.c:812
+msgid ""
+"The editted table was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Bảng bị sửa đổi đã bị loại khỏi tài liệu.\n"
+"Không thể áp dụng các thay đổi của bạn."
+
+#: components/html-editor/template.c:83
 msgid "Note"
 msgstr "Ghi chú"
 
-#: components/html-editor/template.c:84
-msgid ""
-"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
-"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
-"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
-msgstr ""
-"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
-"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
-"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
+#: components/html-editor/template.c:93 components/html-editor/template.c:112
+msgid "Place your text here"
+msgstr "Ghi vào đây"
 
-#: components/html-editor/template.c:86
-msgid ""
-"/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
-"tr></table></td></tr></table>"
-msgstr ""
-"/bulb.png\" hspace=10></td><td width=\"100%\">Dat text o day</td></tr></"
-"table></td></tr></table>"
-
-#: components/html-editor/template.c:92
+#: components/html-editor/template.c:96
 msgid "Image frame"
 msgstr "Khung ảnh"
 
-#: components/html-editor/template.c:94
-msgid ""
-"<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
-"\"><tr><td align=\"center\"><img src=\"file://"
-msgstr ""
-"<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
-"\"><tr><td align=\"center\"><img src=\"file://"
-
-#: components/html-editor/template.c:98
-msgid ""
-"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
-"\"-1\">Image 1: <b>description</b></font></td></tr></table></td></tr></table>"
-msgstr ""
-"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
-"\"-1\">Image 1: <b>description</b></font></td></tr></table></td></tr></table>"
-
-#: components/html-editor/test-html-editor-control.c:262
+#: components/html-editor/test-html-editor-control.c:312
 msgid "Open file..."
 msgstr "Mở tập tin..."
 
-#: components/html-editor/test-html-editor-control.c:264
+#: components/html-editor/test-html-editor-control.c:314
 msgid "Save file as..."
 msgstr "Lưu tập tin là..."
 
 #. color selection
-#: components/html-editor/text.c:276
+#: components/html-editor/text.c:291
 msgid "Color"
 msgstr "Màu sắc"
 
-#: components/html-editor/toolbar.c:54
+#: components/html-editor/text.c:333
+msgid ""
+"The editted text was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Chữ bị sửa đổi đã bị loại khỏi tài liệu.\n"
+"Không thể áp dụng các thay đổi của bạn."
+
+#: components/html-editor/toolbar.c:51
 msgid "Roman List"
 msgstr "Danh sách Roman"
 
-#: components/html-editor/toolbar.c:510
+#: components/html-editor/toolbar.c:508
 msgid "Left align"
 msgstr "Canh trái"
 
-#: components/html-editor/toolbar.c:514
+#: components/html-editor/toolbar.c:512
 msgid "Right align"
 msgstr "Canh phải"
 
-#: components/html-editor/toolbar.c:521
+#: components/html-editor/toolbar.c:519
 msgid "Toggle typewriter font style"
 msgstr "Bật tắt kiểu font máy đánh chữ"
 
-#: components/html-editor/toolbar.c:523
+#: components/html-editor/toolbar.c:521
 msgid "Makes the text bold"
 msgstr "Dùng chữ đậm"
 
-#: components/html-editor/toolbar.c:525
+#: components/html-editor/toolbar.c:523
 msgid "Makes the text italic"
 msgstr "Dùng chữ nghiêng"
 
-#: components/html-editor/toolbar.c:527
+#: components/html-editor/toolbar.c:525
 msgid "Underlines the text"
 msgstr "Dạch chân text"
 
-#: components/html-editor/toolbar.c:529
+#: components/html-editor/toolbar.c:527
 msgid "Strikes out the text"
 msgstr "Gạch đè text"
 
-#: components/html-editor/toolbar.c:538
+#: components/html-editor/toolbar.c:536
 msgid "Unindent"
 msgstr "Bỏ canh lề"
 
-#: components/html-editor/toolbar.c:538
+#: components/html-editor/toolbar.c:536
 msgid "Indents the paragraphs less"
 msgstr "Canh lề đoạn ít hơn"
 
-#: components/html-editor/toolbar.c:540
+#: components/html-editor/toolbar.c:538
 msgid "Indent"
 msgstr "Canh lề"
 
-#: components/html-editor/toolbar.c:540
+#: components/html-editor/toolbar.c:538
 msgid "Indents the paragraphs more"
 msgstr "Canh lề đoạn nhiều hơn"
 
-#: components/html-editor/utils.c:104
+#: components/html-editor/utils.c:105
 msgid "Sample"
 msgstr "Mẫu"
-
-#: src/gtkhtml-properties.c:44
-msgid "Sans"
-msgstr "Sans"
-
-#: src/gtkhtml-properties.c:45
-msgid "Monospace"
-msgstr "Cứng"
 
 #: src/html-component.c:219
 msgid "Html"
@@ -1572,27 +1613,82 @@ msgstr "Không thể khởi động Bonobo!"
 
 #: src/htmlbutton.c:142
 msgid "Submit Query"
-msgstr ""
+msgstr "Đệ trình Truy vấn"
 
 #: src/htmlbutton.c:145
 msgid "Reset"
 msgstr "Đặt lại"
 
-#: src/htmlengine-print.c:197
+#. TODO2 dialog instead of warning
+#: src/htmlengine-print.c:198
 msgid "Cannot allocate default font for printing\n"
 msgstr "Không thể cấp phát font in mặc định\n"
 
-#: src/test.c:192
+#: src/test.c:191
 msgid "GtkHTML Test"
 msgstr "Kiểm tra GtkHTML"
 
-#: src/testgtkhtml.c:113
+#: src/testgtkhtml.c:103
 msgid "Print pre_view"
 msgstr "_Xem thử bản in"
 
-#: src/testgtkhtml.c:113
+#: src/testgtkhtml.c:103
 msgid "Print preview"
 msgstr "Xem thử bản in"
+
+#~ msgid "Test"
+#~ msgstr "Kiểm tra"
+
+#~ msgid "Test 1"
+#~ msgstr "Kiểm tra 1"
+
+#~ msgid "The quick brown fox jumped over the lazy dog. "
+#~ msgstr "Con chồn xám nhanh nhẩu nhảy qua con chó lười. "
+
+#~ msgid "No misspelled word found"
+#~ msgstr "Không có từ nào sai chính tả"
+
+#~ msgid ""
+#~ "<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
+#~ "\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
+#~ "cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
+#~ msgstr ""
+#~ "<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
+#~ "\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
+#~ "cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
+
+#~ msgid ""
+#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
+#~ "tr></table></td></tr></table>"
+#~ msgstr ""
+#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Dat text o day</td></tr></"
+#~ "table></td></tr></table>"
+
+#~ msgid ""
+#~ "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+#~ "@width@@align@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img src="
+#~ "\"file://"
+#~ msgstr ""
+#~ "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+#~ "@width@@align@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img src="
+#~ "\"file://"
+
+#~ msgid ""
+#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
+#~ "size=\"-1\">Image 1: <b>description</b></font></td></tr></table></td></"
+#~ "tr></table>"
+#~ msgstr ""
+#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
+#~ "size=\"-1\">Image 1: <b>description</b></font></td></tr></table></td></"
+#~ "tr></table>"
+
+#~ msgid "Sans"
+#~ msgstr "Sans"
+
+#~ msgid "Monospace"
+#~ msgstr "Cứng"
 
 #~ msgid "Insert Smiley 10 smiley into document..."
 #~ msgstr "Chèn Biểu tượng Smiley 10 vào tài liệu..."

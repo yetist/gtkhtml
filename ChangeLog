@@ -1,3 +1,7 @@
+2003-01-22  Pablo Saratxaga <pablo@mandrakesoft.com>
+
+	* configure.in: Added Amharic (am) and Arabic (ar) to ALL_LINGUAS
+
 2003-01-13  Rodney Dawes  <dobey@ximian.com>
 
 	* src/Makefile.am: Handle $(DESTDIR) when moving the libgtkhtml.pc file
