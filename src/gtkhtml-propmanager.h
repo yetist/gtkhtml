@@ -59,6 +59,3 @@ void             gtk_html_propmanager_reset (GtkHTMLPropmanager *pman);
 void             gtk_html_propmanager_set_names (GtkHTMLPropmanager *pman, char *names[][2]);
 void             gtk_html_propmanager_set_nametable (GtkHTMLPropmanager *pman, GHashTable *table);
 #endif /* __GTK_HTML_PROPMANAGER_H__ */
-
-
-
