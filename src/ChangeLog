@@ -5,6 +5,8 @@
 	(text_size): process extra item attrs after passed attrs are
 	processed so that links fg color is not lost
 	(text_size): ditto
+	(alloc_font): set italic to TRUE or FALSE, libgnomeprint now acts
+	differently
 
 	* htmltextslave.c (draw_normal): fixed end_index calculation for
 	printer painter

@@ -900,7 +900,7 @@ alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, Gt
 	gboolean italic;
 
 	weight = (style & GTK_HTML_FONT_STYLE_BOLD) ? GNOME_FONT_BOLD : GNOME_FONT_BOOK;
-	italic = (style & GTK_HTML_FONT_STYLE_ITALIC);
+	italic = (style & GTK_HTML_FONT_STYLE_ITALIC) ? TRUE : FALSE;
 
 	font = gnome_font_find_closest_from_weight_slant (face ? face : (style & GTK_HTML_FONT_STYLE_FIXED ? "Monospace" : "Sans"),
 							  weight, italic, get_font_size (printer, points, size));
