@@ -27,20 +27,20 @@
 #include "menubar.h"
 #include "gtkhtml.h"
 
-static void undo_cb             (GtkWidget *widget, GtkHTML *html);
-static void redo_cb             (GtkWidget *widget, GtkHTML *html);
+static void undo_cb             (GtkWidget *widget, GtkHTMLControlData *cd);
+static void redo_cb             (GtkWidget *widget, GtkHTMLControlData *cd);
 
-static void cut_cb              (GtkWidget *widget, GtkHTML *html);
-static void copy_cb             (GtkWidget *widget, GtkHTML *html);
-static void paste_cb            (GtkWidget *widget, GtkHTML *html);
+static void cut_cb              (GtkWidget *widget, GtkHTMLControlData *cd);
+static void copy_cb             (GtkWidget *widget, GtkHTMLControlData *cd);
+static void paste_cb            (GtkWidget *widget, GtkHTMLControlData *cd);
 
-static void search_cb           (GtkWidget *widget, GtkHTML *html);
-static void search_regex_cb     (GtkWidget *widget, GtkHTML *html);
-static void search_next_cb      (GtkWidget *widget, GtkHTML *html);
-static void replace_cb          (GtkWidget *widget, GtkHTML *html);
+static void search_cb           (GtkWidget *widget, GtkHTMLControlData *cd);
+static void search_regex_cb     (GtkWidget *widget, GtkHTMLControlData *cd);
+static void search_next_cb      (GtkWidget *widget, GtkHTMLControlData *cd);
+static void replace_cb          (GtkWidget *widget, GtkHTMLControlData *cd);
 
-static void insert_image_cb     (GtkWidget *widget, GtkHTML *html);
-static void insert_link_cb      (GtkWidget *widget, GtkHTML *html);
+static void insert_image_cb     (GtkWidget *widget, GtkHTMLControlData *cd);
+static void insert_link_cb      (GtkWidget *widget, GtkHTMLControlData *cd);
 
 
 static GnomeUIInfo format_subtree_info[] = {
@@ -84,83 +84,83 @@ static GnomeUIInfo menu_info[] = {
 
 
 static void
-undo_cb (GtkWidget *widget, GtkHTML *html)
+undo_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
-	gtk_html_undo (html);
+	gtk_html_undo (cd->html);
 }
 
 static void
-redo_cb (GtkWidget *widget, GtkHTML *html)
+redo_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
-	gtk_html_redo (html);
+	gtk_html_redo (cd->html);
 }
 
 static void
-cut_cb (GtkWidget *widget, GtkHTML *html)
+cut_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
-	gtk_html_cut (html);
+	gtk_html_cut (cd->html);
 }
 
 static void
-copy_cb (GtkWidget *widget, GtkHTML *html)
+copy_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
-	gtk_html_copy (html);
+	gtk_html_copy (cd->html);
 }
 
 static void
-paste_cb (GtkWidget *widget, GtkHTML *html)
+paste_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
-	gtk_html_paste (html);
+	gtk_html_paste (cd->html);
 }
 
 static void
-search_cb (GtkWidget *widget, GtkHTML *html)
+search_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
-	gtk_html_search (html);
+	search (cd, TRUE);
 }
 
 static void
-search_regex_cb (GtkWidget *widget, GtkHTML *html)
+search_regex_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
-	gtk_html_search_regex (html);
+	search (cd, FALSE);
 }
 
 static void
-search_next_cb (GtkWidget *widget, GtkHTML *html)
+search_next_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
-	gtk_html_search_next (html);
+	search_next (cd);
 }
 
 static void
-replace_cb (GtkWidget *widget, GtkHTML *html)
+replace_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
-	gtk_html_replace (html);
+	replace (cd);
 }
 
 static void
-insert_image_cb (GtkWidget *widget, GtkHTML *html)
+insert_image_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
-	gtk_html_insert_image (html);
+	insert_image (cd);
 }
 
 static void
-insert_link_cb (GtkWidget *widget, GtkHTML *html)
+insert_link_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
-	/* gtk_html_insert_link (html); */
+	/* gtk_html_insert_link (cd->html); */
 }
 
 void
 menubar_setup (BonoboUIHandler *uih,
-	       GtkHTML *html)
+	       GtkHTMLControlData *cd)
 {
 	BonoboUIHandlerMenuItem *tree;
 
 	g_return_if_fail (uih != NULL);
 	g_return_if_fail (BONOBO_IS_UI_HANDLER (uih));
-	g_return_if_fail (html != NULL);
-	g_return_if_fail (GTK_IS_HTML (html));
+	g_return_if_fail (cd->html != NULL);
+	g_return_if_fail (GTK_IS_HTML (cd->html));
 
-	tree = bonobo_ui_handler_menu_parse_uiinfo_list_with_data (menu_info, html);
+	tree = bonobo_ui_handler_menu_parse_uiinfo_list_with_data (menu_info, cd);
 	bonobo_ui_handler_menu_add_list (uih, "/", tree);
 	bonobo_ui_handler_menu_free_list (tree);
 }

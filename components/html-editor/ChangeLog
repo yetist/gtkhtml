@@ -1,3 +1,44 @@
+2000-04-24  Radek Doulik  <rodo@helixcode.com>
+
+	* Makefile.am (html_editor_control_SOURCES): added search.[ch],
+	replace.[ch], image.[ch] files
+
+	* search.c (search): new function, replacing one in gtkhtml.c
+	(search_next):  new function, replacing gtk_html_search_next in gtkhtml.c
+
+	* image.c:  new file, moved from gtkhtml/src/gtkhtml-edit-image.c
+	(gtk_html_image_dialog_new): commented out halignment
+	setting (left/right)
+	(insert_image): new function, replacing gtk_html_insert_image
+
+	* image.h:  new file, moved from gtkhtml/src/gtkhtml-edit-image.h
+
+	* replace.c: new file, moved from gtkhtml/src/gtkhtml-replace.c
+	(gtk_html_replace_dialog_new): replace ask dialog moved to replace
+	dialog
+	(replace): new function, replacing gtk_html_replace
+
+	* replace.h: new file, moved from gtkhtml/src/gtkhtml-replace.h
+
+	* search.c: new file, moved from gtkhtml/src/gtkhtml-search.c
+
+	* search.h: new file, moved from gtkhtml/src/gtkhtml-search.h
+
+	* toolbar.c (toolbar_setup): use control data
+
+	* menubar.c (menubar_setup): use control data
+
+	* editor-control-factory.c (editor_control_factory): use
+	control_data instead of set_frame_data
+	(editor_control_factory): connect to bonobo object destroy to
+	destroy control_data
+
+	* control-data.c (gtk_html_control_data_new): new ctor
+	(gtk_html_control_data_destroy): new dtor
+
+	* control-data.h: new file, contains control_data struct which
+	holds out control data as html, vbox, dialogs
+
 2000-04-21  Radek Doulik  <rodo@helixcode.com>
 
 	* menubar.c: added menu subtree insert with items Image and Link

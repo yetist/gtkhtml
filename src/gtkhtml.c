@@ -33,14 +33,10 @@
 #include "htmlengine-edit.h"
 #include "htmlengine-print.h"
 
-#include "gtkhtml-edit-image.h"
 #include "gtkhtml-embedded.h"
 #include "gtkhtml-keybinding.h"
 #include "gtkhtml-stream.h"
 #include "gtkhtml-private.h"
-
-#include "gtkhtml-search.h"
-#include "gtkhtml-replace.h"
 
 
 static GtkLayoutClass *parent_class = NULL;
@@ -1213,12 +1209,6 @@ gtk_html_construct (GtkWidget *htmlw)
 			    GTK_SIGNAL_FUNC (html_engine_submit_cb), html);
 	gtk_signal_connect (GTK_OBJECT (html->engine), "object_requested",
 			    GTK_SIGNAL_FUNC (html_engine_object_requested_cb), html);
-
-	html->search_dialog       = NULL;
-	html->replace_dialog      = NULL;
-	html->replace_ask_dialog  = NULL;
-
-	html->image_dialog        = NULL;
 }
 
 
@@ -1508,66 +1498,4 @@ gtk_html_redo (GtkHTML *html)
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	html_engine_redo (html->engine);
-}
-
-static void
-search (GtkHTML *html, gboolean regular)
-{
-	if (html->search_dialog) {
-		printf ("search only shows dialog\n");
-		html->search_dialog->regular = regular;
-		gtk_widget_show (GTK_WIDGET (html->search_dialog->dialog));
-		gdk_window_raise (GTK_WIDGET (html->search_dialog->dialog)->window);
-		gtk_widget_grab_focus (html->search_dialog->entry);
-	} else {
-		html->search_dialog = gtk_html_search_dialog_new (html, regular);
-		gtk_html_search_dialog_run (html->search_dialog);
-	}
-}
-
-void
-gtk_html_search (GtkHTML *html)
-{
-	search (html, FALSE);
-}
-
-void
-gtk_html_search_regex (GtkHTML *html)
-{
-	search (html, TRUE);
-}
-
-void
-gtk_html_search_next (GtkHTML *html)
-{
-	if (html->engine->search_info) {
-		html_engine_search_next (html->engine);
-	} else {
-		gtk_html_search (html);
-	}
-}
-
-void
-gtk_html_replace (GtkHTML *html)
-{
-	if (html->replace_dialog) {
-		gtk_widget_show (GTK_WIDGET (html->replace_dialog->dialog));
-		gdk_window_raise (GTK_WIDGET (html->replace_dialog->dialog)->window);
-		gtk_widget_grab_focus (html->replace_dialog->entry_search);
-	} else {
-		html->replace_dialog = gtk_html_replace_dialog_new (html);
-		gtk_html_replace_dialog_run (html->replace_dialog);
-	}
-}
-
-void
-gtk_html_insert_image (GtkHTML *html)
-{
-	if (html->image_dialog) {
-		gtk_widget_show (GTK_WIDGET (html->image_dialog->dialog));
-		gdk_window_raise (GTK_WIDGET (html->image_dialog->dialog)->window);
-	} else {
-		html->image_dialog = gtk_html_image_dialog_new (html);
-		gnome_dialog_run (html->image_dialog->dialog);
-	}
 }

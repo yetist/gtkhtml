@@ -46,7 +46,6 @@ html_engine_insert_image (HTMLEngine *e,
 
 	g_return_if_fail (e != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (e));
-	g_return_if_fail (halign != HTML_HALIGN_NONE);
 
 	printf ("insert image bw: %d hs: %d vs: %d file: %s percent: %d w: %d h: %d\n",
 		border, hspace, vspace, file, percent, width, height);

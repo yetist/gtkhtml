@@ -1,3 +1,24 @@
+2000-04-24  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine.c (html_engine_replace_do): updated to use ask
+	function with data
+
+	* htmlreplace.c (html_replace_new): added data arg to ask function
+
+	* Makefile.am (libgtkhtml_la_SOURCES): removed gtkhtml-search.[ch]
+	gtkhtml-replace.[ch], gtkhtml-edit-image.[ch]
+
+	* htmlengine-edit-images.c (html_engine_insert_image): removed
+	g_return_if_fail (halign != HTML_HALIGN_NONE); as we don't use
+	halignment at all
+
+	* gtkhtml.c: removed dialogs deps
+
+	* testgtkhtml.c: removed menus/callbacks using dialogs
+
+	* gtkhtml.h (gtk_html_redo): removed image/search/replace dialog
+	functions
+
 2000-04-24  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine-edit-paste.c

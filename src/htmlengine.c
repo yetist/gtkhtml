@@ -4101,16 +4101,16 @@ html_engine_search_incremental (HTMLEngine *e)
 void
 html_engine_replace (HTMLEngine *e, const gchar *text, const gchar *rep_text,
 		     gboolean case_sensitive, gboolean forward, gboolean regular,
-		     void (*ask)(HTMLEngine *))
+		     void (*ask)(HTMLEngine *, gpointer), gpointer ask_data)
 {
 	printf ("html_engine_replace\n");
 
 	if (e->replace_info)
 		html_replace_destroy (e->replace_info);
-	e->replace_info = html_replace_new (rep_text, ask);
+	e->replace_info = html_replace_new (rep_text, ask, ask_data);
 
 	if (html_engine_search (e, text, case_sensitive, forward, regular))
-		ask (e);
+		ask (e, ask_data);
 }
 
 static void
@@ -4160,7 +4160,7 @@ html_engine_replace_do (HTMLEngine *e, HTMLReplaceQueryAnswer answer)
 		html_undo_level_end (e->undo);
 	case RQA_Next:
 		if (html_engine_search_next (e))
-			e->replace_info->ask (e);
+			e->replace_info->ask (e, e->replace_info->ask_data);
 		break;
 	}
 }

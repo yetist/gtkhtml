@@ -382,7 +382,7 @@ void      html_engine_replace                   (HTMLEngine *e,
 						 gboolean case_sensitive,
 						 gboolean forward,
 						 gboolean regular,
-						 void (*ask)(HTMLEngine *));
+						 void (*ask)(HTMLEngine *, gpointer), gpointer ask_data);
 void      html_engine_replace_do                (HTMLEngine *e, HTMLReplaceQueryAnswer answer);
 gint      html_engine_replaced                  (void);
 

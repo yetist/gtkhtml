@@ -24,13 +24,14 @@
 #include "htmlengine.h"
 
 HTMLReplace *
-html_replace_new (const gchar *text, void (*ask) (HTMLEngine *))
+html_replace_new (const gchar *text, void (*ask) (HTMLEngine *, gpointer), gpointer ask_data)
 {
 	HTMLReplace *nr = g_new (HTMLReplace, 1);
 
 	nr->text     = g_strdup (text);
 	nr->replaced = 0;
 	nr->ask      = ask;
+	nr->ask_data = ask_data;
 
 	return nr;
 }

@@ -22,13 +22,21 @@ bin_PROGRAMS =					\
 	html-editor-control
 
 html_editor_control_SOURCES =			\
+	control-data.c				\
+	control-data.h				\
 	editor-control-factory.c		\
 	editor-control-factory.h		\
+	image.c					\
+	image.h					\
 	main.c					\
 	menubar.c				\
 	menubar.h				\
 	persist-stream-impl.c			\
 	persist-stream-impl.h			\
+	replace.c				\
+	replace.h				\
+	search.c				\
+	search.h				\
 	toolbar.c				\
 	toolbar.h
 

@@ -70,11 +70,6 @@ static void dump_cb (GtkWidget *widget, gpointer data);
 static void forward_cb (GtkWidget *widget, gpointer data);
 static void back_cb (GtkWidget *widget, gpointer data);
 static void home_cb (GtkWidget *widget, gpointer data);
-static void search_cb (GtkWidget *widget, gpointer data);
-static void search_regex_cb (GtkWidget *widget, gpointer data);
-static void search_next_cb (GtkWidget *widget, gpointer data);
-static void replace_cb (GtkWidget *widget, gpointer data);
-static void image_cb (GtkWidget *widget, gpointer data);
 static void reload_cb (GtkWidget *widget, gpointer data);
 static void redraw_cb (GtkWidget *widget, gpointer data);
 static void resize_cb (GtkWidget *widget, gpointer data);
@@ -97,7 +92,7 @@ static gchar *parse_href (const gchar *s);
 static GtkHTML *html;
 static GtkHTMLStreamHandle html_stream_handle = NULL;
 static GtkWidget *animator, *entry;
-static GtkWidget *popup_menu, *popup_menu_back, *popup_menu_forward, *popup_menu_home, *menu_item;
+static GtkWidget *popup_menu, *popup_menu_back, *popup_menu_forward, *popup_menu_home;
 static GtkWidget *toolbar_back, *toolbar_forward;
 static HTMLURL *baseURL;
 
@@ -116,14 +111,6 @@ static GnomeUIInfo file_menu [] = {
 	  print_preview_cb },
 	GNOMEUIINFO_SEPARATOR,
 	GNOMEUIINFO_MENU_EXIT_ITEM (exit_cb, NULL),
-	GNOMEUIINFO_END
-};
-
-static GnomeUIInfo edit_menu[] = {
-	GNOMEUIINFO_MENU_FIND_ITEM (search_cb, NULL),
-	GNOMEUIINFO_MENU_FIND_AGAIN_ITEM (search_next_cb, NULL),
-	GNOMEUIINFO_MENU_REPLACE_ITEM (replace_cb, NULL),
-	GNOMEUIINFO_ITEM_NONE (N_("Insert image..."), N_("Insert image dialog"), image_cb),
 	GNOMEUIINFO_END
 };
 
@@ -179,7 +166,6 @@ static GnomeUIInfo go_menu[] = {
 
 static GnomeUIInfo main_menu[] = {
 	GNOMEUIINFO_MENU_FILE_TREE (file_menu),
-	GNOMEUIINFO_MENU_EDIT_TREE (edit_menu),
 	GNOMEUIINFO_SUBTREE (("_Tests"), test_menu),
 	GNOMEUIINFO_SUBTREE (("_Debug"), debug_menu),
 	GNOMEUIINFO_SUBTREE (("_Go"), go_menu),
@@ -247,24 +233,6 @@ create_toolbars (GtkWidget *app)
 				 home_cb, NULL);
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar));
 
-	gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
-				 NULL, 
-				 "Search...",
-				 "Text search",
-				 gnome_stock_new_with_icon (GNOME_STOCK_PIXMAP_SEARCH),
-				 search_cb, NULL);
-	gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
-				 NULL, 
-				 "Search regex...",
-				 "Regular expression text search",
-				 gnome_stock_new_with_icon (GNOME_STOCK_PIXMAP_SEARCH),
-				 search_regex_cb, NULL);
-	gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
-				 NULL, 
-				 "Search next",
-				 "Continue search",
-				 gnome_stock_new_with_icon (GNOME_STOCK_PIXMAP_SEARCH),
-				 search_next_cb, NULL);
 	animator = gnome_animator_new_with_size (32, 32);
 
 	if (g_file_exists("32.png"))
@@ -468,36 +436,6 @@ stop_cb (GtkWidget *widget, gpointer data)
 	/* Kill all requests */
 	HTNet_killAll();
 	html_stream_handle = NULL;
-}
-
-static void
-search_cb (GtkWidget *widget, gpointer data)
-{
-	gtk_html_search (html);
-}
-
-static void
-search_regex_cb (GtkWidget *widget, gpointer data)
-{
-	gtk_html_search_regex (html);
-}
-
-static void
-search_next_cb (GtkWidget *widget, gpointer data)
-{
-	gtk_html_search_next (html);
-}
-
-static void
-replace_cb (GtkWidget *widget, gpointer data)
-{
-	gtk_html_replace (html);
-}
-
-static void
-image_cb (GtkWidget *widget, gpointer data)
-{
-	gtk_html_insert_image (html);
 }
 
 static void
@@ -1120,24 +1058,6 @@ main (gint argc, gchar *argv[])
 	gtk_widget_show(popup_menu_home);
 	gtk_signal_connect (GTK_OBJECT (popup_menu_home), "activate",
 			    GTK_SIGNAL_FUNC (home_cb), NULL);
-
-	menu_item = gtk_menu_item_new_with_label ("Search...");
-	gtk_menu_append (GTK_MENU(popup_menu), menu_item);
-	gtk_widget_show (menu_item);
-	gtk_signal_connect (GTK_OBJECT (menu_item), "activate",
-			    GTK_SIGNAL_FUNC (search_cb), NULL);
-
-	menu_item = gtk_menu_item_new_with_label ("Search regex...");
-	gtk_menu_append (GTK_MENU(popup_menu), menu_item);
-	gtk_widget_show (menu_item);
-	gtk_signal_connect (GTK_OBJECT (menu_item), "activate",
-			    GTK_SIGNAL_FUNC (search_cb), NULL);
-
-	menu_item = gtk_menu_item_new_with_label ("Search next");
-	gtk_menu_append (GTK_MENU(popup_menu), menu_item);
-	gtk_widget_show (menu_item);
-	gtk_signal_connect (GTK_OBJECT (menu_item), "activate",
-			    GTK_SIGNAL_FUNC (search_next_cb), NULL);
 
 	/* End of menu creation */
 

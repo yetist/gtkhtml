@@ -40,10 +40,11 @@ enum _HTMLReplaceQueryAnswer {
 struct _HTMLReplace {
 	gchar *text;
 	gint   replaced;
-	void (*ask) (HTMLEngine *);
+	void (*ask) (HTMLEngine *, gpointer);
+	gpointer ask_data;
 };
 
-HTMLReplace     *html_replace_new            (const gchar *text, void (*ask) (HTMLEngine *));
+HTMLReplace     *html_replace_new            (const gchar *text, void (*ask) (HTMLEngine *, gpointer), gpointer ask_data);
 void             html_replace_destroy        (HTMLReplace *replace);
 
 #endif

@@ -49,11 +49,11 @@ set_frame_cb (BonoboControl *control,
 {
 	Bonobo_UIHandler remote_uih;
 	BonoboUIHandler *uih;
-	SetFrameData *set_frame_data;
+	GtkHTMLControlData *control_data;
 	GtkWidget *toolbar;
 	GtkWidget *scrolled_window;
 
-	set_frame_data = (SetFrameData *) data;
+	control_data = (GtkHTMLControlData *) data;
 
 	remote_uih = bonobo_control_get_remote_ui_handler (control);
 	uih = bonobo_control_get_ui_handler (control);
@@ -61,20 +61,24 @@ set_frame_cb (BonoboControl *control,
 
 	/* Setup the tool bar.  */
 
-	toolbar = toolbar_setup (uih, GTK_HTML (set_frame_data->html));
-	gtk_box_pack_start (GTK_BOX (set_frame_data->vbox), toolbar, FALSE, FALSE, 0);
+	toolbar = toolbar_setup (uih, control_data);
+	gtk_box_pack_start (GTK_BOX (control_data->vbox), toolbar, FALSE, FALSE, 0);
 
 	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-	gtk_container_add (GTK_CONTAINER (scrolled_window), set_frame_data->html);
+	gtk_container_add (GTK_CONTAINER (scrolled_window), GTK_WIDGET (control_data->html));
 	gtk_widget_show (scrolled_window);
 
-	gtk_box_pack_start (GTK_BOX (set_frame_data->vbox), scrolled_window, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (control_data->vbox), scrolled_window, TRUE, TRUE, 0);
 
 	/* Setup the menu bar.  */
 
-	menubar_setup (uih, GTK_HTML (set_frame_data->html));
+	menubar_setup (uih, control_data);
+}
 
-	g_free (set_frame_data);
+static void
+destroy_control_data_cb (GtkObject *control, GtkHTMLControlData *cd)
+{
+	gtk_html_control_data_destroy (cd);
 }
 
 static BonoboObject *
@@ -85,7 +89,7 @@ editor_control_factory (BonoboGenericFactory *factory,
 	BonoboPersistStream *stream_impl;
 	GtkWidget *html_widget;
 	GtkWidget *vbox;
-	SetFrameData *set_frame_data;
+	GtkHTMLControlData *control_data;
 		
 	html_widget = gtk_html_new ();
 	gtk_widget_show (html_widget);
@@ -109,12 +113,13 @@ editor_control_factory (BonoboGenericFactory *factory,
 	   embedded in its control frame.  We use the "set_frame" signal to
 	   handle that.  */
 
-	set_frame_data = g_new (SetFrameData, 1);
-	set_frame_data->html = html_widget;
-	set_frame_data->vbox = vbox;
+	control_data = gtk_html_control_data_new (GTK_HTML (html_widget), vbox);
 
 	gtk_signal_connect (GTK_OBJECT (control), "set_frame",
-			    GTK_SIGNAL_FUNC (set_frame_cb), set_frame_data);
+			    GTK_SIGNAL_FUNC (set_frame_cb), control_data);
+
+	gtk_signal_connect (GTK_OBJECT (control), "destroy",
+			    GTK_SIGNAL_FUNC (destroy_control_data_cb), control_data);
 
 	return BONOBO_OBJECT (control);
 }

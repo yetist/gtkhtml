@@ -503,16 +503,16 @@ create_editor_toolbar (GtkHTML *html)
 
 GtkWidget *
 toolbar_setup (BonoboUIHandler *uih,
-	       GtkHTML *html)
+	       GtkHTMLControlData *cd)
 {
 	GtkWidget *toolbar;
 
 	g_return_val_if_fail (uih != NULL, NULL);
 	g_return_val_if_fail (BONOBO_IS_UI_HANDLER (uih), NULL);
-	g_return_val_if_fail (html != NULL, NULL);
-	g_return_val_if_fail (GTK_IS_HTML (html), NULL);
+	g_return_val_if_fail (cd->html != NULL, NULL);
+	g_return_val_if_fail (GTK_IS_HTML (cd->html), NULL);
 
-	toolbar = create_editor_toolbar (html);
+	toolbar = create_editor_toolbar (cd->html);
 
 	return toolbar;
 }
