@@ -4,7 +4,7 @@
 	width or height == 0.
 
 	* htmlclueflow.c (check_point): fix logic to work with zero
-	height objects.  This should fix the looping bug in the red-carpet
+	height objects.  This should fix the looping bug the red-carpet
 	guys were seeing.
 
 2001-02-15  Dan Winship  <danw@ximian.com>

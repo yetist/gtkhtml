@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
-"POT-Creation-Date: 2001-02-07 11:47+0100\n"
+"POT-Creation-Date: 2001-02-20 12:17-0600\n"
 "PO-Revision-Date: 2001-02-07 11:39+01:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -347,57 +347,59 @@ msgstr "Lenke"
 msgid "Page"
 msgstr "Side"
 
-#: components/html-editor/image.c:163
+#: components/html-editor/image.c:180
 msgid "Image selection"
 msgstr "Bildevalg"
 
-#: components/html-editor/image.c:184
+#: components/html-editor/image.c:201
 msgid "Top"
 msgstr "Topp"
 
-#: components/html-editor/image.c:185 components/html-editor/paragraph.c:158
+#: components/html-editor/image.c:202 components/html-editor/paragraph.c:158
 #: components/html-editor/rule.c:257 components/html-editor/toolbar.c:423
 msgid "Center"
 msgstr "Senter"
 
-#: components/html-editor/image.c:186
+#: components/html-editor/image.c:203
 msgid "Bottom"
 msgstr "Bunn"
 
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
-#: components/html-editor/image.c:190
+#: components/html-editor/image.c:207
 msgid "Alignment"
 msgstr "Justering"
 
-#: components/html-editor/image.c:198
+#: components/html-editor/image.c:215
 msgid "Border"
 msgstr "Kant"
 
-#: components/html-editor/image.c:208 components/html-editor/image.c:226
-#: components/html-editor/image.c:249 components/html-editor/rule.c:267
+#: components/html-editor/image.c:225 components/html-editor/image.c:243
+#: components/html-editor/image.c:275 components/html-editor/rule.c:267
 msgid "width"
 msgstr "bredde"
 
-#: components/html-editor/image.c:215
+#: components/html-editor/image.c:232
 msgid "Padding"
 msgstr "Fyll"
 
-#: components/html-editor/image.c:227 components/html-editor/image.c:250
+#: components/html-editor/image.c:244 components/html-editor/image.c:276
 msgid "height"
 msgstr "høyde"
 
 #. size
-#: components/html-editor/image.c:235 components/html-editor/rule.c:225
+#: components/html-editor/image.c:252 components/html-editor/rule.c:225
 #: components/html-editor/text.c:188
 msgid "Size"
 msgstr "Størrelse"
 
-#: components/html-editor/image.c:242 components/html-editor/rule.c:230
+#: components/html-editor/image.c:259 components/html-editor/image.c:268
+#: components/html-editor/rule.c:230
 msgid "Pixels"
 msgstr "Piksler"
 
-#: components/html-editor/image.c:243 components/html-editor/rule.c:231
+#: components/html-editor/image.c:260 components/html-editor/image.c:269
+#: components/html-editor/rule.c:231
 #, c-format
 msgid "Percent %"
 msgstr "Prosent %"

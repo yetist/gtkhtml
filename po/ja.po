@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.6\n"
-"POT-Creation-Date: 2001-02-19 13:40+0900\n"
+"POT-Creation-Date: 2001-02-20 12:17-0600\n"
 "PO-Revision-Date: 2001-02-19 14:00+0900\n"
 "Last-Translator: Yukihiro Nakai <nakai@gnome.gr.jp>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
@@ -401,6 +401,7 @@ msgstr "ピクセル"
 
 #: components/html-editor/image.c:260 components/html-editor/image.c:269
 #: components/html-editor/rule.c:231
+#, c-format
 msgid "Percent %"
 msgstr "パーセント %"
 

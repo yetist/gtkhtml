@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2001-02-12 21:17+0200\n"
+"POT-Creation-Date: 2001-02-20 12:17-0600\n"
 "PO-Revision-Date: 2000-12-18 21:19+02:00\n"
 "Last-Translator: Pauli Virtanen <pauli.virtanen@saunalahti.fi>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -349,57 +349,59 @@ msgstr "Linkki"
 msgid "Page"
 msgstr "Sivu"
 
-#: components/html-editor/image.c:163
+#: components/html-editor/image.c:180
 msgid "Image selection"
 msgstr "Kuvan valinta"
 
-#: components/html-editor/image.c:184
+#: components/html-editor/image.c:201
 msgid "Top"
 msgstr "Ylä"
 
-#: components/html-editor/image.c:185 components/html-editor/paragraph.c:158
+#: components/html-editor/image.c:202 components/html-editor/paragraph.c:158
 #: components/html-editor/rule.c:257 components/html-editor/toolbar.c:423
 msgid "Center"
 msgstr "Keski"
 
-#: components/html-editor/image.c:186
+#: components/html-editor/image.c:203
 msgid "Bottom"
 msgstr "Ala"
 
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
-#: components/html-editor/image.c:190
+#: components/html-editor/image.c:207
 msgid "Alignment"
 msgstr "Tasaus"
 
-#: components/html-editor/image.c:198
+#: components/html-editor/image.c:215
 msgid "Border"
 msgstr "Reunat"
 
-#: components/html-editor/image.c:208 components/html-editor/image.c:226
-#: components/html-editor/image.c:249 components/html-editor/rule.c:267
+#: components/html-editor/image.c:225 components/html-editor/image.c:243
+#: components/html-editor/image.c:275 components/html-editor/rule.c:267
 msgid "width"
 msgstr "leveys"
 
-#: components/html-editor/image.c:215
+#: components/html-editor/image.c:232
 msgid "Padding"
 msgstr "Välit"
 
-#: components/html-editor/image.c:227 components/html-editor/image.c:250
+#: components/html-editor/image.c:244 components/html-editor/image.c:276
 msgid "height"
 msgstr "korkeus"
 
 #. size
-#: components/html-editor/image.c:235 components/html-editor/rule.c:225
+#: components/html-editor/image.c:252 components/html-editor/rule.c:225
 #: components/html-editor/text.c:188
 msgid "Size"
 msgstr "Koko"
 
-#: components/html-editor/image.c:242 components/html-editor/rule.c:230
+#: components/html-editor/image.c:259 components/html-editor/image.c:268
+#: components/html-editor/rule.c:230
 msgid "Pixels"
 msgstr "Pikseliä"
 
-#: components/html-editor/image.c:243 components/html-editor/rule.c:231
+#: components/html-editor/image.c:260 components/html-editor/image.c:269
+#: components/html-editor/rule.c:231
 #, c-format
 msgid "Percent %"
 msgstr "Prosenttia %"
