@@ -1,3 +1,9 @@
+2001-05-09  Radek Doulik  <rodo@ximian.com>
+
+	* htmltokenizer.c (in_comment): allow all characters to be between
+	-- and > on comment end (it's not as standard says, but we
+	probably want to act the same as netscape and mozilla)
+
 2001-05-08  Radek Doulik  <rodo@ximian.com>
 
 	* htmltextslave.c (draw_spell_errors): updated

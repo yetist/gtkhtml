@@ -611,10 +611,8 @@ in_comment (HTMLTokenizer *t, const gchar **src)
 			p->searchGtkHTMLCount = 0;
 		} else
 			p->searchGtkHTMLCount ++;
-	} else {
-		p->searchCount = 0;
+	} else
 		p->searchGtkHTMLCount = 0;
-	}
 
 	(*src)++;
 }
