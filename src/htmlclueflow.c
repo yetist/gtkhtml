@@ -141,7 +141,6 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *ri
 	if (html_clueflow_is_empty (cf1)) {
 		cf1->style = cf2->style;
 		cf1->level = cf2->level;
-		HTML_CLUEV (cf1)->padding = HTML_CLUEV (cf2)->padding;
 		HTML_CLUE  (cf1)->halign = HTML_CLUE (cf2)->halign;
 		HTML_CLUE  (cf1)->valign = HTML_CLUE (cf2)->valign;
 		html_object_copy_data_from_object (self, with);

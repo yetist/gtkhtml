@@ -1,5 +1,7 @@
 2001-08-13  Radek Doulik  <rodo@ximian.com>
 
+	* htmlclueflow.c (merge): ops, remove HTML_CLUEV cast
+
 	* gtkhtml.c (gtk_html_update_styles): exported
 
 	* htmlengine-edit-table.c: be more careful about HTMLObject types
