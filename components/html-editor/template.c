@@ -195,7 +195,6 @@ set_ui (GtkHTMLEditTemplateProperties *d)
 static void
 changed_template (GtkWidget *w, gint row, gint column, GdkEvent *event, GtkHTMLEditTemplateProperties *d)
 {
-	printf ("template: %d\n", row);
 	d->template = row;
 
 	if (!d->disable_change) {

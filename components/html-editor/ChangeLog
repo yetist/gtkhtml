@@ -1,3 +1,7 @@
+2001-08-16  Radek Doulik  <rodo@ximian.com>
+
+	* GNOME_GtkHTML_Editor.xml.in: use insert object icons meanwhile
+
 2001-08-15  Radek Doulik  <rodo@ximian.com>
 
 	* toolbar.c (paragraph_style_menu_item_update): added

@@ -79,7 +79,7 @@
 				<menuitem name="InsertTable" verb=""
                                 pixtype="filename" pixname="@ICONSDIR@/insert-table-16.png"/>
 				<menuitem name="InsertTemplate" verb=""
-                                pixtype="filename" pixname="@ICONSDIR@/insert-table-16.png"/>
+                                pixtype="filename" pixname="@ICONSDIR@/insert-object-16.png"/>
 			</placeholder>
 		</submenu>
 	</menu>
@@ -110,6 +110,6 @@
 		<toolitem name="InsertTable" verb="" _label="Table"
                 pixtype="filename" pixname="@ICONSDIR@/insert-table-24.png"/>
 		<toolitem name="InsertTemplate" verb="" _label="Template"
-                pixtype="filename" pixname="@ICONSDIR@/insert-table-24.png"/>
+                pixtype="filename" pixname="@ICONSDIR@/insert-object-24.png"/>
 	</dockitem>
 </Root>
