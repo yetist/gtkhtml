@@ -1,7 +1,7 @@
 2000-12-05  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlengine.c (parse_object): applied patch from Bill Gribble
-	<gribble@gnumatic.com> to fix param parsing for object tags.
+	<grib@gnumatic.com> to fix param parsing for object tags.
 	(parse_object_params): same.
 
 	* gtkhtml-embedded.c (gtk_html_embedded_new): (from patch) add
