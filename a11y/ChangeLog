@@ -1,3 +1,10 @@
+Sat Jun  5 10:32:30 2004  Owen Taylor  <otaylor@redhat.com>
+
+	* html.c (html_a11y_ref_state_set): Fix missing initialization.
+
+	* hyperlink.c (html_a11y_hyper_link_do_action): Fix shadowing
+	problem and memory leak.
+
 2004-06-04  Radek Doulik  <rodo@ximian.com>
 
 	* text.c: removed unused variables

@@ -138,6 +138,7 @@ static gboolean
 html_a11y_hyper_link_do_action (AtkAction *action, gint i)
 {
 	HTMLA11YHyperLink *hl;
+	gboolean result = FALSE;
 
 	hl = HTML_A11Y_HYPER_LINK (action);
 
@@ -148,15 +149,15 @@ html_a11y_hyper_link_do_action (AtkAction *action, gint i)
 		if (url && *url) {
 			GObject *gtkhtml = GTK_HTML_A11Y_GTKHTML_POINTER
 				(html_a11y_get_gtkhtml_parent (HTML_A11Y (hl->a11y)));
-			gchar *url;
 
 			g_signal_emit_by_name (gtkhtml, "link_clicked", url);
-			g_free (url);
-			return TRUE;
+			result = TRUE;
 		}
+		
+		g_free (url);
 	}
 
-	return FALSE;
+	return result;
 }
 
 static gint

@@ -191,7 +191,7 @@ html_a11y_get_index_in_parent (AtkObject *accessible)
 static AtkStateSet *
 html_a11y_ref_state_set (AtkObject *accessible)
 {
-	AtkStateSet *state_set;
+	AtkStateSet *state_set = NULL;
 
 	if (ATK_OBJECT_CLASS (parent_class)->ref_state_set)
 		state_set = ATK_OBJECT_CLASS (parent_class)->ref_state_set (accessible);
