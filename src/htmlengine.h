@@ -31,6 +31,7 @@
 
 #include "htmltypes.h"
 #include "htmlenums.h"
+#include "htmlcursor.h"
 
 
 #define HTML_TYPE_ENGINE                 (html_engine_get_type ())
@@ -247,7 +248,9 @@ struct _HTMLEngine {
 	gboolean selection_mode;
 	gint block_selection;
 
-	HTMLTableCell *cursor_cell;
+	HTMLCursorRectangle cursor_cell;
+	HTMLCursorRectangle cursor_table;
+	HTMLCursorRectangle cursor_image;
 };
 
 /* must be forward referenced *sigh* */

@@ -1,3 +1,10 @@
+2001-08-17  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit-cursor.c: added table and image cursor, fixed
+	few problems
+
+	* htmlcursor.h: added new type HTMLCursorRectangle
+
 2001-08-16  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-cursor.c (move_rect): extracted helper function

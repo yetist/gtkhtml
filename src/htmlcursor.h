@@ -37,6 +37,14 @@ struct _HTMLCursor {
 	gint position;
 };
 
+struct _HTMLCursorRectagle {
+	HTMLObject *object;
+	gint x1;
+	gint y1;
+	gint x2;
+	gint y2;
+};
+
 /* Lifecycle.  */
 HTMLCursor *html_cursor_new      (void);
 void        html_cursor_destroy  (HTMLCursor       *cursor);

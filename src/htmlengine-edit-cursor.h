@@ -27,6 +27,7 @@
 void  html_engine_hide_cursor            (HTMLEngine *engine);
 void  html_engine_show_cursor            (HTMLEngine *engine);
 void  html_engine_draw_cell_cursor       (HTMLEngine *engine);
+void  html_engine_draw_table_cursor      (HTMLEngine *engine);
 void  html_engine_draw_cursor_in_area    (HTMLEngine *engine,
 					  gint        x,
 					  gint        y,

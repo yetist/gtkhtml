@@ -24,8 +24,11 @@
 #include "htmlcursor.h"
 #include "htmlengine.h"
 #include "htmlengine-edit-cursor.h"
+#include "htmlengine-edit-table.h"
 #include "htmlengine-edit-tablecell.h"
+#include "htmlimage.h"
 #include "htmlobject.h"
+#include "htmltable.h"
 
 
 #define BLINK_TIMEOUT 500
@@ -85,60 +88,173 @@ clip_rect (HTMLEngine *engine, gint x, gint y, gint width, gint height, gint *x1
 }
 
 static void
-draw_cursor_rectangle (HTMLEngine *e, gint *x1, gint *y1, gint *x2, gint *y2)
+draw_cursor_rectangle (HTMLEngine *e, gint x1, gint y1, gint x2, gint y2,
+		       guint16 red1, guint16 green1, guint16 blue1,
+		       guint16 red2, guint16 green2, guint16 blue2,
+		       gint offset)
 {
 	GdkGC *gc;
 	GdkColor color;
 	gint8 dashes [2] = { 3, 3 };
-	static gint offset = 0;
 
-	move_rect (e, x1, y1, x2, y2);
+	move_rect (e, &x1, &y1, &x2, &y2);
 
 	gc = gdk_gc_new (e->window);
-	gdk_color_black (gdk_window_get_colormap (e->window), &color);
+	color.red   = red1;
+	color.green = green1;
+	color.blue  = blue1;
+	gdk_color_alloc (gdk_window_get_colormap (e->window), &color);
 	gdk_gc_set_foreground (gc, &color);
-	color.red = color.green = 0xffff;
-	color.blue = 0;
+	color.red   = red2;
+	color.green = green2;
+	color.blue  = blue2;
 	gdk_color_alloc (gdk_window_get_colormap (e->window), &color);
 	gdk_gc_set_background (gc, &color);
 	gdk_gc_set_line_attributes (gc, 1, GDK_LINE_DOUBLE_DASH, GDK_CAP_ROUND, GDK_JOIN_ROUND);
 	gdk_gc_set_dashes (gc, offset, dashes, 2);
-	gdk_draw_rectangle (e->window, gc, 0, *x1, *y1, *x2 - *x1, *y2 - *y1);
+	gdk_draw_rectangle (e->window, gc, 0, x1, y1, x2 - x1, y2 - y1);
 	gdk_gc_unref (gc);
-	offset++;
-	offset %= 6;
+}
+
+static gint cursor_enabled = TRUE;
+
+static inline void
+refresh_under_cursor (HTMLEngine *e, HTMLCursorRectangle *cr, gboolean *enabled)
+{
+	*enabled = cursor_enabled = FALSE;
+	html_engine_draw (e, e->topBorder + cr->x1 - e->x_offset, e->leftBorder + cr->y1 - e->y_offset,
+			  cr->x2 - cr->x1 + 1, cr->y2 - cr->y1 + 1);
+	*enabled = cursor_enabled = TRUE;
+}
+
+static void
+html_engine_draw_image_cursor (HTMLEngine *e)
+{
+	HTMLCursorRectangle *cr;
+	HTMLObject *io;
+	static gboolean enabled = TRUE;
+
+	if (!enabled)
+		return;
+
+	cr    = &e->cursor_image;
+	io    = e->cursor->object;
+
+	if (io && HTML_IS_IMAGE (e->cursor->object)) {
+		HTMLImage *image;
+		static gint offset = 5;
+
+		image = HTML_IMAGE (io);
+		if (io != cr->object) {
+			if (cr->object)
+				refresh_under_cursor (e, cr, &enabled);
+			cr->object = io;
+		}
+
+		html_object_calc_abs_position (io, &cr->x1, &cr->y2);
+		cr->x2  = cr->x1 + io->width - 1;
+		cr->y2 --;
+		cr->y1  = cr->y2 - (io->ascent + io->descent) + 1;
+
+		draw_cursor_rectangle (e, cr->x1, cr->y1, cr->x2, cr->y2, 0xffff, 0xffff, 0xffff, 0x0, 0xbfff, 0, offset);
+		if (!offset)
+			offset = 5;
+		else
+			offset--;
+	} else
+		if (cr->object) {
+			refresh_under_cursor (e, cr, &enabled);
+			cr->object = NULL;
+		}
 }
 
 void
 html_engine_draw_cell_cursor (HTMLEngine *e)
 {
+	HTMLCursorRectangle *cr;
 	HTMLTableCell *cell;
+	HTMLObject    *co;
+	static gboolean enabled = TRUE;
 
+	if (!enabled)
+		return;
+
+	cr   = &e->cursor_cell;
 	cell = html_engine_get_table_cell (e);
+	co   = HTML_OBJECT (cell);
 
 	if (cell) {
-		gint x1, y1, x2, y2;
+		static gint offset = 0;
+		gboolean animate;
 
-		if (cell != e->cursor_cell) {
-			/* printf ("clear cell cursor 1 %p\n", e->cursor_cell); */
-			if (e->cursor_cell)
-				html_engine_queue_draw (e, HTML_OBJECT (e->cursor_cell));
-			/* printf ("set cursor cell %p\n", cell); */
-			e->cursor_cell = cell;
+		if (co != cr->object) {
+			if (cr->object)
+				refresh_under_cursor (e, cr, &enabled);
+			cr->object = co;
 		}
 
-		html_object_calc_abs_position (HTML_OBJECT (cell), &x1, &y2);
-		x2 = x1 + HTML_OBJECT (cell)->width - 1;
-		y2 -= 2;
-		y1 = y2 - (HTML_OBJECT (cell)->ascent + HTML_OBJECT (cell)->descent - 1) + 1;
+		html_object_calc_abs_position (co, &cr->x1, &cr->y2);
+		cr->x2  = cr->x1 + co->width - 1;
+		cr->y2 -= 2;
+		cr->y1  = cr->y2 - (co->ascent + co->descent - 2);
 
-		/* printf ("draw cell cursor %p\n", cell); */
-		draw_cursor_rectangle (e, &x1, &y1, &x2, &y2);
+		animate = !HTML_IS_IMAGE (e->cursor->object);
+		if (animate) {
+			offset++;
+			offset %= 6;
+		}
+		draw_cursor_rectangle (e, cr->x1, cr->y1, cr->x2, cr->y2,
+				       animate ? 0 : 0x5fff, animate ? 0 : 0x5fff, animate ? 0 : 0x5fff,
+				       animate ? 0xffff : 0xbfff, animate ? 0xffff : 0xbfff, animate ? 0 : 0x4fff, offset);
 	} else
-		if (e->cursor_cell) {
-			/* printf ("clear cell cursor 2\n"); */
-			html_engine_queue_draw (e, HTML_OBJECT (e->cursor_cell));
-			e->cursor_cell = NULL;
+		if (cr->object) {
+			refresh_under_cursor (e, cr, &enabled);
+			cr->object = NULL;
+		}
+}
+
+void
+html_engine_draw_table_cursor (HTMLEngine *e)
+{
+	HTMLCursorRectangle *cr;
+	HTMLTable *table;
+	HTMLObject *to;
+	static gboolean enabled = TRUE;
+
+	if (!enabled)
+		return;
+
+	cr    = &e->cursor_table;
+	table = html_engine_get_table (e);
+	to    = HTML_OBJECT (table);
+
+	if (table) {
+		static gint offset = 0;
+		gboolean animate;
+
+		if (to != cr->object) {
+			if (cr->object)
+				refresh_under_cursor (e, cr, &enabled);
+			cr->object = to;
+		}
+
+		html_object_calc_abs_position (to, &cr->x1, &cr->y2);
+		cr->x2 = cr->x1 + to->width - 1;
+		cr->y2 --;
+		cr->y1 = cr->y2 - (to->ascent + to->descent - 1);
+
+		animate = HTML_IS_TABLE (e->cursor->object) && !html_engine_get_table_cell (e);
+		if (animate) {
+			offset++;
+			offset %= 6;
+		}
+		draw_cursor_rectangle (e, cr->x1, cr->y1, cr->x2, cr->y2,
+				       0xffff, 0xffff, 0xffff,
+				       animate ? 0 : 0xafff, animate ? 0 : 0xafff, 0xffff, offset);
+	} else
+		if (cr->object) {
+			refresh_under_cursor (e, cr, &enabled);
+			cr->object = NULL;
 		}
 }
 
@@ -153,9 +269,11 @@ html_engine_draw_cursor_in_area (HTMLEngine *engine,
 
 	g_assert (engine->editable);
 
+	html_engine_draw_table_cursor (engine);
 	html_engine_draw_cell_cursor (engine);
+	html_engine_draw_image_cursor (engine);
 
-	if (engine->cursor_hide_count > 0 || ! engine->editable || engine->thaw_idle_id)
+	if (!cursor_enabled || engine->cursor_hide_count > 0 || ! engine->editable || engine->thaw_idle_id)
 		return;
 
 	obj = engine->cursor->object;

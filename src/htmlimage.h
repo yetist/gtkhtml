@@ -29,6 +29,7 @@
 
 #define HTML_IMAGE_FACTORY(x) ((HTMLImageFactory *)(x))
 #define HTML_IMAGE_POINTER(x) ((HTMLImagePointer *)(x))
+#define HTML_IS_IMAGE(x) (HTML_CHECK_TYPE ((x), HTML_TYPE_IMAGE))
 
 struct _HTMLImagePointer {
 	gint refcount;

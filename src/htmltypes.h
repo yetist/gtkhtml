@@ -56,6 +56,7 @@ typedef struct _HTMLClueVClass HTMLClueVClass;
 typedef struct _HTMLColor HTMLColor;
 typedef struct _HTMLColorSet HTMLColorSet;
 typedef struct _HTMLCursor HTMLCursor;
+typedef struct _HTMLCursorRectagle HTMLCursorRectangle;
 typedef struct _HTMLDrawQueue HTMLDrawQueue;
 typedef struct _HTMLDrawQueueClearElement HTMLDrawQueueClearElement;
 typedef struct _HTMLEmbedded HTMLEmbedded;
