@@ -1,6 +1,7 @@
 2004-11-02  Radek Doulik  <rodo@ximian.com>
 
 	* htmlstyle.c: added padding
+	parse shorthand border: property
 
 	* htmlengine.c: put additional cluev around display blocks to be
 	able to draw borders specified in style="...", we will use that in

@@ -361,6 +361,88 @@ html_style_set_border_color (HTMLStyle *style, HTMLColor *color)
 	return style;
 }
 
+static HTMLStyle *
+parse_border_style (HTMLStyle *style, char *value)
+{
+	while (isspace (*value))
+		value ++;
+
+	if (!strcasecmp (value, "solid"))
+		style = html_style_set_border_style (style, HTML_BORDER_SOLID);
+	else if (!strcasecmp (value, "inset"))
+		style = html_style_set_border_style (style, HTML_BORDER_INSET);
+
+	return style;
+}
+
+static HTMLStyle *
+parse_border_color (HTMLStyle *style, char *value)
+{
+	GdkColor color;
+
+	if (html_parse_color (value, &color)) {
+		HTMLColor *hc = html_color_new_from_gdk_color (&color);
+		style = html_style_set_border_color (style, hc);
+		html_color_unref (hc);
+	}
+
+	return style;
+}
+
+static HTMLStyle *
+parse_border_width (HTMLStyle *style, char *value)
+{
+	while (isspace (*value))
+		value ++;
+
+	if (!strcasecmp (value, "thin"))
+		style = html_style_set_border_width (style, 1);
+	else if (!strcasecmp (value, "medium"))
+		style = html_style_set_border_width (style, 2);
+	else if (!strcasecmp (value, "thick"))
+		style = html_style_set_border_width (style, 5);
+	else if (isdigit (*value))
+		style = html_style_set_border_width (style, atoi (value));
+
+	return style;
+}
+
+static HTMLStyle *
+parse_border (HTMLStyle *style, char *value)
+{
+	while (value && *value) {
+		char *next;
+		int modified;
+		char orig;
+
+		while (isspace (*value))
+			value ++;
+
+		next = value;
+		while (*next && !isspace (*next))
+			next ++;
+		if (*next) {
+			orig = *next;
+			*next = 0;
+			modified = 1;
+		} else
+			modified = 0;
+
+		style = parse_border_style (style, value);
+		style = parse_border_color (style, value);
+		style = parse_border_width (style, value);
+
+		if (modified) {
+			*next = orig;
+			next ++;
+		}
+
+		value = next;
+	}
+
+	return style;
+}
+
 HTMLStyle *
 html_style_add_attribute (HTMLStyle *style, const char *attr)
 {
@@ -384,7 +466,7 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 				}
 			} else if (!strncasecmp ("background: ", text, 12)) {
 				GdkColor color;
-
+				
 				if (html_parse_color (text + 12, &color)) {
 					HTMLColor *hc = html_color_new_from_gdk_color (&color);
 					style = html_style_add_background_color (style, hc);
@@ -400,38 +482,15 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 				}
 			} else if (!strncasecmp ("background-image: ", text, 18)) {
 				style = html_style_add_background_image (style, text + 18);
+				
+			} else if (!strncasecmp ("border: ", text, 8)) {
+				style = parse_border (style, text + 8);
 			} else if (!strncasecmp ("border-style: ", text, 14)) {
-				char *value = text + 14;
-
-				while (isspace (*value))
-					value ++;
-
-				if (!strcasecmp (value, "solid"))
-					style = html_style_set_border_style (style, HTML_BORDER_SOLID);
-				else if (!strcasecmp (value, "inset"))
-					style = html_style_set_border_style (style, HTML_BORDER_INSET);
+				style = parse_border_style (style, text + 14);
 			} else if (!strncasecmp ("border-color: ", text, 14)) {
-				GdkColor color;
-
-				if (html_parse_color (text + 14, &color)) {
-					HTMLColor *hc = html_color_new_from_gdk_color (&color);
-					style = html_style_set_border_color (style, hc);
-				        html_color_unref (hc);
-				}
+				style = parse_border_color (style, text + 14);
 			} else if (!strncasecmp ("border-width: ", text, 14)) {
-				char *value = text + 14;
-
-				while (isspace (*value))
-					value ++;
-
-				if (!strcasecmp (value, "thin"))
-					style = html_style_set_border_width (style, 1);
-				else if (!strcasecmp (value, "medium"))
-					style = html_style_set_border_width (style, 2);
-				else if (!strcasecmp (value, "thick"))
-					style = html_style_set_border_width (style, 5);
-				else
-					style = html_style_set_border_width (style, atoi (value));
+				style = parse_border_width (style, text + 14);
 			} else if (!strncasecmp ("padding: ", text, 9)) {
 				char *value = text + 9;
 
