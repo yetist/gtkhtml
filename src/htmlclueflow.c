@@ -2165,3 +2165,26 @@ html_clueflow_is_empty (HTMLClueFlow *flow)
 		return TRUE;
 	return FALSE;
 }
+
+gint
+html_clueflow_get_line_offset (HTMLClueFlow *flow, HTMLObject *child)
+{
+	HTMLObject *o;
+	gint line_offset;
+
+	g_assert (HTML_IS_CLUEFLOW (flow));
+
+	if (flow->style != HTML_CLUEFLOW_STYLE_PRE)
+		return -1;
+
+	line_offset = 0;
+	o = HTML_CLUE (flow)->head;
+	while (o) {
+		if (o == child)
+			return line_offset;
+		line_offset += html_object_get_line_length (o, line_offset);
+		o = o->next;
+	}
+
+	return -1;
+}

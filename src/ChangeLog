@@ -1,3 +1,34 @@
+2001-05-07  Radek Doulik  <rodo@ximian.com>
+
+	* htmltextslave.c (draw_normal): use line_offset
+	(draw_highlighted): ditto
+	(get_offset_for_pointer): ditto
+
+	* htmltext.c (offset_to_line_offset): new helper function
+	(get_line_length): new method implementation
+	(html_text_get_line_offset): new method
+	(html_text_get_line_offset_at_offset): new method
+	(calc_word_width): added line_offset parameter
+	(html_text_request_word_width): use line_offset
+	(get_cursor_base): use line_offset
+
+	* htmlpainter.c (html_painter_calc_text_width): added line_offset
+	parameter, handle tabs properly
+	(html_painter_draw_text): ditto
+
+	* htmlobject.c (get_line_length): new generic method
+	implementation
+	(html_object_get_line_length): new method, returns length in
+	line_offset metric (offset with tabs expanded)
+
+	* htmlclueflow.c (html_clueflow_get_line_offset): new function
+
+2001-05-04  Radek Doulik  <rodo@ximian.com>
+
+	* htmltokenizer.c (html_tokenizer_add_pending): add '\t' for tab,
+	not spaces
+	removed prePos counter
+
 2001-05-06  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (parse_input): add missing break, thanks go to

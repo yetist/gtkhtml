@@ -23,6 +23,7 @@
 
 #include <config.h>
 #include <string.h> /* strcmp */
+#include <gal/unicode/gunicode.h>
 #include "htmlcolorset.h"
 #include "htmlpainter.h"
 
@@ -301,16 +302,41 @@ html_painter_calc_descent (HTMLPainter *painter,
 guint
 html_painter_calc_text_width (HTMLPainter *painter,
 			      const gchar *text,
-			      guint len,
+			      guint len, gint line_offset,
 			      GtkHTMLFontStyle font_style,
 			      HTMLFontFace *face)
 {
+	guint width;
+
 	g_return_val_if_fail (painter != NULL, 0);
 	g_return_val_if_fail (HTML_IS_PAINTER (painter), 0);
 	g_return_val_if_fail (text != NULL, 0);
 	g_return_val_if_fail (font_style != GTK_HTML_FONT_STYLE_DEFAULT, 0);
 
-	return (* HP_CLASS (painter)->calc_text_width) (painter, text, len, font_style, face);
+	width = (* HP_CLASS (painter)->calc_text_width) (painter, text, len, font_style, face);
+	if (line_offset >= 0) {
+		const gchar *tab, *found_tab;
+		guint space_width = html_painter_get_space_width (painter, font_style, face);
+		gint l, cl, lo, skip;
+
+		l   = 0;
+		lo  = line_offset;
+		tab = text;
+		while (tab && (found_tab = strchr (tab, '\t')) && l < len) {
+			cl  = g_utf8_pointer_to_offset (tab, found_tab);
+			l  += cl;
+			if (l >= len)
+				break;	
+			lo += cl;
+			skip = 8 - (lo % 8) - 1;
+			width += skip * space_width;
+			lo += skip + 1;
+			l ++;
+			tab = found_tab + 1;
+		}
+	}
+
+	return width;
 }
 
 
@@ -352,12 +378,36 @@ html_painter_draw_rect (HTMLPainter *painter,
 void
 html_painter_draw_text (HTMLPainter *painter,
 			gint x, gint y,
-			const gchar *text, gint len)
+			const gchar *text, gint len, gint line_offset)
 {
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 
-	(* HP_CLASS (painter)->draw_text) (painter, x, y, text, len);
+	if (line_offset < 0)
+		(* HP_CLASS (painter)->draw_text) (painter, x, y, text, len);
+	else {
+		guint space_width = html_painter_get_space_width (painter, painter->font_style, painter->font_face);
+		const gchar *tab, *found_tab;
+		gint l, cl, lo, skip;
+
+		l = 0;
+		lo = line_offset;
+		found_tab = tab = text;
+		while (tab && (found_tab = strchr (tab, '\t')) && l < len) {
+			cl = g_utf8_pointer_to_offset (tab, found_tab);
+			if (l + cl > len)
+				cl = len - l;
+			(* HP_CLASS (painter)->draw_text) (painter, x, y, tab, cl);
+			l   += cl;
+			lo  += cl;
+			skip = 8 - (lo % 8);
+			x   += (skip + cl) * space_width;
+			lo  += skip;
+			tab  = found_tab + 1;
+			l ++;
+		}
+		(* HP_CLASS (painter)->draw_text) (painter, x, y, tab, len - l);
+	}
 }
 
 void

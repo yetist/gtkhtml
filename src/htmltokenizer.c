@@ -80,8 +80,6 @@ struct _HTMLTokenizerPrivate {
 	gboolean charEntity; /* Are we in an &... sequence? */
 	gboolean extension; /* Are we in an <!-- +GtkHTML: sequence? */
 
-	gint prePos;
-	
 	enum {
 		NoneDiscard = 0,
 		SpaceDiscard,
@@ -197,8 +195,6 @@ html_tokenizer_init (HTMLTokenizer *t)
 	p->select = FALSE;
 	p->charEntity = FALSE;
 	p->extension = FALSE;
-
-	p->prePos = FALSE;
 
 	p->discard = NoneDiscard;
 	p->pending = NonePending;
@@ -429,7 +425,6 @@ html_tokenizer_real_begin (HTMLTokenizer *t, gchar *content_type)
 	p->pending = NonePending;
 	p->discard = NoneDiscard;
 	p->pre = 0;
-	p->prePos = 0;
 	p->script = FALSE;
 	p->style = FALSE;
 	p->skipLF = FALSE;
@@ -552,12 +547,9 @@ html_tokenizer_add_pending (HTMLTokenizer *t)
 			*(p->dest)++ = ' ';
 	}
 	else if (p->pre) {
-		gint pp, x;
-		
 		switch (p->pending) {
 		case SpacePending:
 			*(p->dest)++ = ' ';
-			p->prePos++;
 			break;
 		case LFPending:
 			if (p->dest > p->buffer) {
@@ -570,15 +562,9 @@ html_tokenizer_add_pending (HTMLTokenizer *t)
 			*((p->dest) + 2) = 0;
 			html_tokenizer_append_token (t, p->buffer, 2);
 			p->dest = p->buffer;
-			p->prePos = 0;
 			break;
 		case TabPending:
-			pp = TAB_SIZE - (p->prePos % TAB_SIZE);
-			for (x = 0; x < pp; x++) {
-				*(p->dest) = ' ';
-				p->dest++;
-			}
-			p->prePos += pp;
+			*(p->dest)++ = '\t';
 			break;
 		default:
 			g_warning ("Unknown pending type: %d\n", (gint) p->pending);
@@ -781,9 +767,6 @@ in_entity (HTMLTokenizer *t, const gchar **src)
 		p->charEntity = FALSE;
 		memcpy (p->dest, p->searchBuffer + 1, p->searchCount);
 		p->dest += p->searchCount;
-				
-		if (p->pre)
-			p->prePos += p->searchCount;
 	}
 	else if (p->charEntity) {
 				/* Keep searching for end of character entity */
@@ -794,17 +777,14 @@ in_entity (HTMLTokenizer *t, const gchar **src)
 		if(entityValue) {
 			/* Insert plain char */
 			p->dest += g_unichar_to_utf8 (entityValue, p->dest);
-			if (p->pre) p->prePos++;
-			if (**src == ';') (*src)++;
+			if (**src == ';')
+				(*src)++;
 		}
 				/* FIXME: Get entities */
 		else if (!entityValue) {
 			/* Ignore the sequence, just add it as plaintext */
 			memcpy (p->dest, p->searchBuffer + 1, p->searchCount);
 			p->dest += p->searchCount;
-			if (p->pre)
-				p->prePos += p->searchCount;
-
 		}
 #if 0
 		else if (!p->tag && !p->textarea && !p->select && !p->title) {
@@ -819,8 +799,6 @@ in_entity (HTMLTokenizer *t, const gchar **src)
 			/* Add token with the amp sequence for further conversion */
 			html_tokenizer_append_token (t, p->searchBuffer, p->searchCount + 1);
 			p->dest = p->buffer;
-			if (p->pre)
-				p->prePos++;
 			if (**src == ';')
 				(*src)++;
 		}
@@ -935,7 +913,6 @@ end_tag (HTMLTokenizer *t, const gchar **src)
 	(*src)++;
 			
 	if (strncmp (p->buffer + 2, "pre", 3) == 0) {
-		p->prePos = 0;
 		p->pre++;
 	}
 	else if (strncmp (p->buffer + 2, "/pre", 4) == 0) {
@@ -1096,8 +1073,6 @@ in_quoted (HTMLTokenizer *t, const gchar **src)
 	else {
 		if (t->priv->pending)
 			html_tokenizer_add_pending (t);
-		if (t->priv->pre)
-			t->priv->prePos++;
 				
 		*(t->priv->dest)++ = **src; (*src)++;
 	}
@@ -1118,8 +1093,6 @@ in_assignment (HTMLTokenizer *t, const gchar **src)
 	else {
 		if (t->priv->pending)
 			html_tokenizer_add_pending (t);
-		if (t->priv->pre)
-			t->priv->prePos++;
 
 		*(t->priv->dest)++ = '=';
 	}
@@ -1153,9 +1126,7 @@ in_plain (HTMLTokenizer *t, const gchar **src)
 			}
 		}
 	}
-	else if (p->pre) {
-		p->prePos++;
-	}
+
 	if (p->utf8)
 		*(p->dest)++ = **src;
 	else 

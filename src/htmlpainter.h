@@ -143,6 +143,7 @@ guint             html_painter_calc_descent                            (HTMLPain
 guint             html_painter_calc_text_width                         (HTMLPainter       *p,
 									const gchar       *text,
 									guint              len,
+									gint               line_offset,
 									GtkHTMLFontStyle   font_style,
 									HTMLFontFace      *face);
 
@@ -163,7 +164,8 @@ void              html_painter_draw_text                               (HTMLPain
 									gint               x,
 									gint               y,
 									const gchar       *text,
-									gint               len);
+									gint               len,
+									gint               line_offset);
 void              html_painter_fill_rect                               (HTMLPainter       *painter,
 									gint               x,
 									gint               y,

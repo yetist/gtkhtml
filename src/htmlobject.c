@@ -478,6 +478,12 @@ get_length (HTMLObject *self)
 }
 
 static guint
+get_line_length (HTMLObject *self, gint line_offset)
+{
+	return html_object_get_length (self);
+}
+
+static guint
 get_recursive_length (HTMLObject *self)
 {
 	return html_object_get_length (self);
@@ -646,6 +652,7 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->search = search;
 	klass->search_next = search;
 	klass->get_length = get_length;
+	klass->get_line_length = get_line_length;
 	klass->get_recursive_length = get_recursive_length;
 	klass->next = next;
 	klass->prev = prev;
@@ -1226,6 +1233,12 @@ guint
 html_object_get_length (HTMLObject *self)
 {
 	return (* HO_CLASS (self)->get_length) (self);
+}
+
+guint
+html_object_get_line_length (HTMLObject *self, gint line_offset)
+{
+	return (* HO_CLASS (self)->get_line_length) (self, line_offset);
 }
 
 guint

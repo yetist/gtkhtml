@@ -279,7 +279,7 @@ split_word_width (HTMLText *s, HTMLText *d, HTMLPainter *p, gint offset)
 		str = strchr (d->text, ' ');
 		d->word_width [0] = html_painter_calc_text_width (p, d->text, str
 								  ? g_utf8_pointer_to_offset (d->text, str)
-								  : d->text_len, html_text_get_font_style (s), s->face);
+								  : d->text_len, -1, html_text_get_font_style (s), s->face);
 	} else
 		d->word_width [0] = 0;
 	for (i = 1; i < d->words; i ++)
@@ -295,7 +295,7 @@ split_word_width (HTMLText *s, HTMLText *d, HTMLPainter *p, gint offset)
 		str = strrchr (s->text, ' ');
 		if (!str)
 			str = s->text;
-		s->word_width [s->words - 1] = html_painter_calc_text_width (p, str, g_utf8_strlen (str, -1),
+		s->word_width [s->words - 1] = html_painter_calc_text_width (p, str, g_utf8_strlen (str, -1), -1,
 									     html_text_get_font_style (s), s->face)
 			+ (s->words > 1 ? s->word_width [s->words - 2] : 0);
 	}
@@ -537,8 +537,56 @@ get_words (const gchar *s)
 	return words;
 }
 
+static gint
+offset_to_line_offset (HTMLText *text, gint line_offset, guint offset)
+{
+	gchar *tab, *found_tab;
+	gint lo, cl, l, skip, sum_skip;
+
+	l = 0;
+	lo = line_offset;
+	sum_skip = 0;
+	tab = text->text;
+	while (tab && (found_tab = strchr (tab, '\t')) && l < offset) {
+		cl   = g_utf8_pointer_to_offset (tab, found_tab);
+		l   += cl;
+		if (l >= offset)
+			break;
+		lo  += cl;
+		skip = 8 - (lo % 8);
+		tab  = found_tab + 1;
+		lo  += skip;
+		sum_skip += skip - 1;
+		l ++;
+	}
+
+	return line_offset + offset + sum_skip;
+}
+
+static guint
+get_line_length (HTMLObject *self, gint line_offset)
+{
+	return offset_to_line_offset (HTML_TEXT (self), line_offset, HTML_TEXT (self)->text_len) - line_offset;
+}
+
+inline gint
+html_text_get_line_offset (HTMLText *text)
+{
+	return HTML_OBJECT (text)->parent && HTML_IS_CLUEFLOW (HTML_OBJECT (text)->parent)
+		? html_clueflow_get_line_offset (HTML_CLUEFLOW (HTML_OBJECT (text)->parent), HTML_OBJECT (text))
+		: -1;
+}
+
+inline gint
+html_text_get_line_offset_at_offset (HTMLText *text, gint line_offset, guint offset)
+{
+	return line_offset >=0 && HTML_OBJECT (text)->parent && HTML_IS_CLUEFLOW (HTML_OBJECT (text)->parent)
+		? offset_to_line_offset (text, line_offset, offset)
+		: -1;
+}
+
 static void
-calc_word_width (HTMLText *text, HTMLPainter *painter)
+calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 {
 	GtkHTMLFontStyle font_style;
 	gchar *begin, *end;
@@ -555,7 +603,9 @@ calc_word_width (HTMLText *text, HTMLPainter *painter)
 		text->word_width [i] = (i ? text->word_width [i - 1] : 0)
 			+ html_painter_calc_text_width (painter,
 							begin, end ? g_utf8_pointer_to_offset (begin, end)
-							: g_utf8_strlen (begin, -1), font_style, text->face);
+							: g_utf8_strlen (begin, -1),
+							html_text_get_line_offset (text),
+							font_style, text->face);
 		begin = end;
 	}
 }
@@ -564,7 +614,7 @@ void
 html_text_request_word_width (HTMLText *text, HTMLPainter *painter)
 {
 	if (!text->word_width)
-		calc_word_width (text, painter);
+		calc_word_width (text, painter, html_text_get_line_offset (text));
 }
 
 static gint
@@ -578,10 +628,6 @@ calc_preferred_width (HTMLObject *self,
 	html_text_request_word_width (text, painter);
 
 	return MAX (1, text->word_width [text->words - 1]);
-
-	/* return html_painter_calc_text_width (painter,
-					     text->text, text->text_len,
-					     font_style, text->face); */
 }
 
 static HTMLFitType
@@ -1170,6 +1216,7 @@ get_cursor_base (HTMLObject *self,
 		 gint *x, gint *y)
 {
 	HTMLObject *obj;
+	gint line_offset = html_text_get_line_offset (HTML_TEXT (self));
 
 	for (obj = self->next; obj != NULL; obj = obj->next) {
 		HTMLTextSlave *slave;
@@ -1193,6 +1240,9 @@ get_cursor_base (HTMLObject *self,
 				*x += html_painter_calc_text_width (painter,
 								    html_text_get_text (text, slave->posStart),
 								    offset - slave->posStart,
+								    html_text_get_line_offset_at_offset (text,
+													 line_offset,
+													 slave->posStart),
 								    font_style, text->face);
 			}
 
@@ -1240,6 +1290,7 @@ html_text_class_init (HTMLTextClass *klass,
 	object_class->check_point = check_point;
 	object_class->select_range = select_range;
 	object_class->get_length = get_length;
+	object_class->get_line_length = get_line_length;
 	object_class->set_link = set_link;
 	object_class->append_selection_string = append_selection_string;
 

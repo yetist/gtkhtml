@@ -1043,7 +1043,6 @@ calc_text_width (HTMLPainter *painter,
 	EFont *e_font;
 	gint width;
 
-
 	gdk_painter = HTML_GDK_PAINTER (painter);
 	e_font = html_painter_get_font (painter, face, style);
 

@@ -231,6 +231,7 @@ struct _HTMLObjectClass {
 
 	/* length */
 	guint        (* get_length)                (HTMLObject *self);
+	guint        (* get_line_length)           (HTMLObject *self, gint line_offset);
 	guint        (* get_recursive_length)      (HTMLObject *self);
 
 	/* movement */
@@ -409,6 +410,8 @@ void            html_object_get_cursor_base       (HTMLObject            *obj,
 						   gint                  *x,
 						   gint                  *y);
 guint           html_object_get_length            (HTMLObject            *self);
+guint           html_object_get_line_length       (HTMLObject            *self,
+						   gint                   line_offset);
 guint           html_object_get_recursive_length  (HTMLObject            *self);
 guint           html_object_get_bytes             (HTMLObject            *self);
 guint           html_object_get_index             (HTMLObject            *self,

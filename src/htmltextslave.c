@@ -365,7 +365,9 @@ draw_normal (HTMLTextSlave *self,
 	html_painter_draw_text (p,
 				obj->x + tx, obj->y + ty + get_ys (HTML_TEXT (self->owner), p),
 				html_text_get_text (HTML_TEXT (self->owner), self->posStart),
-				self->posLen);
+				self->posLen, html_text_get_line_offset_at_offset (self->owner,
+										   html_text_get_line_offset (self->owner),
+										   self->posStart));
 }
 
 static void
@@ -379,7 +381,7 @@ draw_highlighted (HTMLTextSlave *slave,
 	HTMLText *owner;
 	HTMLObject *obj;
 	guint start, end, len;
-	guint offset_width, text_width;
+	gint offset_width, text_width, line_offset;
 	const gchar *text;
 
 	obj = HTML_OBJECT (slave);
@@ -395,11 +397,16 @@ draw_highlighted (HTMLTextSlave *slave,
 		end = slave->posStart + slave->posLen;
 	len = end - start;
 
+	line_offset  = html_text_get_line_offset (slave->owner);
 	offset_width = html_painter_calc_text_width (p, g_utf8_offset_to_pointer (text, slave->posStart),
 						     start - slave->posStart,
+						     html_text_get_line_offset_at_offset (slave->owner, line_offset,
+											  slave->posStart),
 						     font_style, HTML_TEXT (owner)->face);
 	text_width = html_painter_calc_text_width (p, g_utf8_offset_to_pointer (text, start),
-						   len, font_style, HTML_TEXT (owner)->face);
+						   len, html_text_get_line_offset_at_offset (slave->owner, line_offset,
+											     start),
+						   font_style, HTML_TEXT (owner)->face);
 
 	html_painter_set_font_style (p, font_style);
 	html_painter_set_font_face  (p, HTML_TEXT (owner)->face);
@@ -411,7 +418,8 @@ draw_highlighted (HTMLTextSlave *slave,
 				text_width, obj->ascent + obj->descent);
 	html_painter_set_pen (p, &html_colorset_get_color_allocated (p, HTMLHighlightTextColor)->color);
 	html_painter_draw_text (p, obj->x + tx + offset_width, obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
-				g_utf8_offset_to_pointer (text, start), len);
+				g_utf8_offset_to_pointer (text, start), len,
+				html_text_get_line_offset_at_offset (slave->owner, line_offset, start));
 
 	/* Draw the non-highlighted part.  */
 
@@ -424,7 +432,8 @@ draw_highlighted (HTMLTextSlave *slave,
 		html_painter_draw_text (p,
 					obj->x + tx, obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
 					g_utf8_offset_to_pointer (text, slave->posStart),
-					start - slave->posStart);
+					start - slave->posStart,
+					html_text_get_line_offset_at_offset (slave->owner, line_offset, slave->posStart));
 
 	/* 2. Draw the rightmost non-highlighted part, if any.  */
 
@@ -433,7 +442,8 @@ draw_highlighted (HTMLTextSlave *slave,
 					obj->x + tx + offset_width + text_width,
 					obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
 					g_utf8_offset_to_pointer (text, end),
-					slave->posStart + slave->posLen - end);
+					slave->posStart + slave->posLen - end,
+					html_text_get_line_offset_at_offset (slave->owner, line_offset, end));
 }
 
 static void
@@ -500,6 +510,7 @@ get_offset_for_pointer (HTMLTextSlave *slave, HTMLPainter *painter, gint x, gint
 	GtkHTMLFontStyle font_style;
 	guint width, prev_width;
 	guint i;
+	gint line_offset;
 
 	g_return_val_if_fail (slave != NULL, 0);
 
@@ -508,11 +519,12 @@ get_offset_for_pointer (HTMLTextSlave *slave, HTMLPainter *painter, gint x, gint
 
 	x -= HTML_OBJECT (slave)->x;
 
-	prev_width = 0;
+	prev_width  = 0;
+	line_offset = html_text_get_line_offset (slave->owner);
 	for (i = 1; i <= slave->posLen; i++) {
 		width = html_painter_calc_text_width (painter,
 						      html_text_get_text (owner, slave->posStart),
-						      i, font_style, owner->face);
+						      i, line_offset, font_style, owner->face);
 
 		if ((width + prev_width) / 2 >= x)
 			return i - 1;
