@@ -2070,7 +2070,7 @@ parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 {
 	if (strncmp (str, "font", 4) == 0) {
 		GdkColor *color;
-		HTMLColor *html_color;
+		HTMLColor *html_color = NULL;
 		const HTMLFontFace *face = NULL;
 		gint newSize;
 
@@ -2099,12 +2099,15 @@ parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 				face = token + 5;
 			} else if (strncasecmp (token, "color=", 6) == 0) {
 				parse_color (token + 6, color);
+				html_color = html_color_new_from_gdk_color (color);
 			}
 		}
 
-		html_color = html_color_new_from_gdk_color (color);
-		push_color (p, html_color);
-		html_color_unref (html_color);
+		
+		push_color (p, html_color ? html_color : current_color (p));
+
+		if (html_color) 
+			html_color_unref (html_color);
 
 		push_font_face (p, face);
 		push_font_style (p, newSize);
