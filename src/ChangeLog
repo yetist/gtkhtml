@@ -1,3 +1,34 @@
+2002-03-06  Larry Ewing  <lewing@ximian.com>
+
+	* htmltextslave.c: undo the s/g_utf8/h_utf8/ use a #define instead.
+	Add comment explaining this choice.
+
+	* htmltext.c: same as above.
+	
+	* htmltextslave.c: optimize, I'll be more specific when I'm done.
+
+	* htmltext.c: see above.
+
+2002-03-05  Larry Ewing  <lewing@ximian.com>
+
+	* htmlbutton.c (html_button_init): mark strings for translation.
+	Add missing includes for _() definition.
+
+	* htmlselect.c: convert from utf8 properly and use needs_update
+	boolean to postpone setting the popdown strings until they are
+	needed.  Because of how GtkCombo is implemented setting popdown
+	strings is extremely expensive.
+
+	* htmlselect.h: add update boolean.
+
+	* htmltextinput.c: handle utf8 strings correctly.
+
+	* htmltextarea.c (html_textarea_set_text): convert string to gtk
+	charset before setting gtk widget.
+
+	* htmlbutton.c (html_button_init): convert to gtk string before
+	creating label.
+
 2002-02-26  Larry Ewing  <lewing@ximian.com>
 
         * gtkhtml.c: rename to gtk_html_get_url_blah, still bad but a

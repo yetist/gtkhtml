@@ -39,6 +39,19 @@
 HTMLTextSlaveClass html_text_slave_class;
 static HTMLObjectClass *parent_class = NULL;
 
+#ifndef GAL_UTF8_NOT_SLOW
+/*
+ * NOTE:
+ * currently the gal utf8 functions check the entire string you pass to them for
+ * invalid utf8, the expense of those calls is massive inside gtkhtml when a paragraph
+ * is long.  Until gal turns off the checks we will use versions without checks.
+ * And yes, it really is worth it.
+ *   
+ * --Larry
+ */
+gint h_utf8_pointer_to_offset (const gchar *str, const gchar *pos);
+gint h_utf8_strlen (const gchar *p, gint max);
+gchar *h_utf8_offset_to_pointer  (const gchar *str, gint         offset);
 
 gint
 h_utf8_pointer_to_offset (const gchar *str,
@@ -104,6 +117,11 @@ h_utf8_offset_to_pointer  (const gchar *str,
   
   return (gchar *)s;
 }
+
+#define g_utf8_strlen h_utf8_strlen
+#define g_utf8_offset_to_pointer h_utf8_offset_to_pointer
+#define g_utf8_pointer_to_offset h_utf8_pointer_to_offset
+#endif
 
 
 static char *
@@ -193,7 +211,8 @@ get_offset_for_bounded_width (HTMLTextSlave *slave, HTMLPainter *painter, gint *
 	char *buffer = html_text_slave_get_text (slave);
 
 	len = (lower + upper) / 2;
-	width = html_painter_calc_text_width (painter, buffer, len, &line_offset,					      html_text_get_font_style (text), text->face);
+	width = html_painter_calc_text_width (painter, buffer, len, &line_offset,
+					      html_text_get_font_style (text), text->face);
 	while (lower < upper) {
 		if (width > max_width)
 			upper = len - 1;
@@ -212,7 +231,7 @@ get_offset_for_bounded_width (HTMLTextSlave *slave, HTMLPainter *painter, gint *
 	str = sep = buffer;
 
 	while ((sep = strchr (sep, ' '))) {
-		if (h_utf8_pointer_to_offset (str, sep) < len)
+		if (g_utf8_pointer_to_offset (str, sep) < len)
 			(*words) ++;
 		else
 			break;
@@ -425,7 +444,7 @@ hts_fit_line (HTMLObject *o,
 		words ++;
 		lsep   = sep;
 		sep    = strchr (lsep + (words > 1 ? 1 : 0), ' ');
-		pos    = sep ? h_utf8_pointer_to_offset (begin, sep) : h_utf8_strlen (begin, -1);
+		pos    = sep ? g_utf8_pointer_to_offset (begin, sep) : g_utf8_strlen (begin, -1);
 		if (words + slave->start_word >= text->words)
 			break;
 	}
@@ -440,7 +459,7 @@ hts_fit_line (HTMLObject *o,
 		else {
 			words ++;
 			sep    = strchr (sep + (words > 1 ? 0 : 1), ' ');
-			pos    = sep ? h_utf8_pointer_to_offset (begin, sep) : h_utf8_strlen (begin, -1);
+			pos    = sep ? g_utf8_pointer_to_offset (begin, sep) : g_utf8_strlen (begin, -1);
 		}
 	}
 
@@ -518,13 +537,13 @@ draw_spell_errors (HTMLTextSlave *slave, HTMLPainter *p, gint tx, gint ty, gint 
 							       off - last_off, &line_offset,
 							       p->font_style,
 							       p->font_face);
-			text = h_utf8_offset_to_pointer (text, off - last_off);
+			text = g_utf8_offset_to_pointer (text, off - last_off);
 			x_off += html_painter_draw_spell_error (p, obj->x + tx + x_off,
 								obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
 								text, len);
 			last_off = off + len;
 			line_offset += len;
-			text = h_utf8_offset_to_pointer (text, len);
+			text = g_utf8_offset_to_pointer (text, len);
 		}
 		if (se->off > slave->posStart + slave->posLen)
 			break;
@@ -583,12 +602,12 @@ draw_highlighted (HTMLTextSlave *slave,
 	len = end - start;
 
 	lo_start = lo = html_text_slave_get_line_offset (slave, line_offset, slave->posStart, p);
-	offset_width = html_painter_calc_text_width (p, h_utf8_offset_to_pointer (text, slave->posStart),
+	offset_width = html_painter_calc_text_width (p, g_utf8_offset_to_pointer (text, slave->posStart),
 						     start - slave->posStart,
 						     &lo,
 						     font_style, HTML_TEXT (owner)->face);
 	lo_sel = lo;
-	text_width = html_painter_calc_text_width (p, h_utf8_offset_to_pointer (text, start),
+	text_width = html_painter_calc_text_width (p, g_utf8_offset_to_pointer (text, start),
 						   len, &lo,
 						   font_style, HTML_TEXT (owner)->face);
 	/* printf ("s: %d l: %d - %d %d\n", start, len, offset_width, text_width); */
@@ -607,7 +626,7 @@ draw_highlighted (HTMLTextSlave *slave,
 			      (p, p->focus ? HTMLHighlightTextColor : HTMLHighlightTextNFColor)->color);
 	html_painter_draw_text (p, obj->x + tx + offset_width, 
 				obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
-				h_utf8_offset_to_pointer (text, start), len,
+				g_utf8_offset_to_pointer (text, start), len,
 				lo_sel);
 
 	/* Draw the non-highlighted part.  */
@@ -619,7 +638,7 @@ draw_highlighted (HTMLTextSlave *slave,
 	if (start > slave->posStart)
 		html_painter_draw_text (p,
 					obj->x + tx, obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
-					h_utf8_offset_to_pointer (text, slave->posStart),
+					g_utf8_offset_to_pointer (text, slave->posStart),
 					start - slave->posStart,
 					lo_start);
 
@@ -629,7 +648,7 @@ draw_highlighted (HTMLTextSlave *slave,
 		html_painter_draw_text (p,
 					obj->x + tx + offset_width + text_width,
 					obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
-					h_utf8_offset_to_pointer (text, end),
+					g_utf8_offset_to_pointer (text, end),
 					slave->posStart + slave->posLen - end,
 					lo);
 }

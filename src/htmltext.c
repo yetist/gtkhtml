@@ -61,9 +61,17 @@ debug_spell_errors (GList *se)
 	for (;se;se = se->next)
 		printf ("SE: %4d, %4d\n", ((SpellError *) se->data)->off, ((SpellError *) se->data)->len);
 } */
+
+#ifndef GAL_NOT_SLOW
+/* NOTE see htmltextslave.c for an explanation and the h_utf8 decls */
 gint h_utf8_pointer_to_offset (const gchar *str, const gchar *pos);
 gint h_utf8_strlen (const gchar *p, gint max);
 gchar *h_utf8_offset_to_pointer  (const gchar *str, gint         offset);
+
+#define g_utf8_strlen h_utf8_strlen
+#define g_utf8_offset_to_pointer h_utf8_offset_to_pointer
+#define g_utf8_pointer_to_offset h_utf8_pointer_to_offset
+#endif
 
 static void
 get_tags (const HTMLText *text,
@@ -439,7 +447,7 @@ html_text_text_line_length (const gchar *text, gint line_offset, guint len)
 	sum_skip = 0;
 	tab = text;
 	while (tab && (found_tab = strchr (tab, '\t')) && l < len) {
-		cl   = h_utf8_pointer_to_offset (tab, found_tab);
+		cl   = g_utf8_pointer_to_offset (tab, found_tab);
 		l   += cl;
 		if (l >= len)
 			break;
@@ -502,8 +510,8 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 		end   = strchr (begin + (i ? 1 : 0), ' ');
 		text->word_width [i] = (i ? text->word_width [i - 1] : 0)
 			+ html_painter_calc_text_width (painter,
-							begin, end ? h_utf8_pointer_to_offset (begin, end)
-							: h_utf8_strlen (begin, -1),
+							begin, end ? g_utf8_pointer_to_offset (begin, end)
+							: g_utf8_strlen (begin, -1),
 							&line_offset, font_style, text->face);
 		begin = end;
 	}
@@ -1142,7 +1150,7 @@ append_selection_string (HTMLObject *self,
            characters to append as an extra parameter.  */
 
 	p    = html_text_get_text (text, text->select_start);
-	last = h_utf8_offset_to_pointer (p, text->select_length);
+	last = g_utf8_offset_to_pointer (p, text->select_length);
 	
 	/* OPTIMIZED
 	last = html_text_get_text (text,
@@ -1294,7 +1302,7 @@ static gint
 text_len (const gchar *str, gint len)
 {
 	if (len == -1) {
-		return g_utf8_validate (str, -1, NULL) ? h_utf8_strlen (str, -1) : 0;
+		return g_utf8_validate (str, -1, NULL) ? g_utf8_strlen (str, -1) : 0;
 	}
 
 	return len;
@@ -1312,7 +1320,7 @@ html_text_init (HTMLText *text,
 
 	html_object_init (HTML_OBJECT (text), HTML_OBJECT_CLASS (klass));
 
-	text->text          = len == -1 ? g_strdup (str) : g_strndup (str, h_utf8_offset_to_pointer (str, len) - str);
+	text->text          = len == -1 ? g_strdup (str) : g_strndup (str, g_utf8_offset_to_pointer (str, len) - str);
 	text->text_len      = text_len (str, len);
 	text->font_style    = font_style;
 	text->face          = NULL;
@@ -1636,8 +1644,8 @@ html_text_magic_link (HTMLText *text, HTMLEngine *engine, guint offset)
 		for (i=0; i<MIM_N; i++) {
 			if (mim [i].preg && !regexec (mim [i].preg, str, 2, pmatch, 0)) {
 				paste_link (engine, text,
-					    h_utf8_pointer_to_offset (text->text, str + pmatch [0].rm_so),
-					    h_utf8_pointer_to_offset (text->text, str + pmatch [0].rm_eo), mim [i].prefix);
+					    g_utf8_pointer_to_offset (text->text, str + pmatch [0].rm_so),
+					    g_utf8_pointer_to_offset (text->text, str + pmatch [0].rm_eo), mim [i].prefix);
 				rv = TRUE;
 				break;
 			}
