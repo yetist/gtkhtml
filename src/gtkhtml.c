@@ -2115,6 +2115,14 @@ focus (GtkContainer *w, GtkDirectionType direction)
 {
 	HTMLEngine *e = GTK_HTML (w)->engine;
 
+	if (html_engine_get_editable (e)) {
+		gboolean rv;
+
+		rv = (*GTK_CONTAINER_CLASS (parent_class)->focus) (w, direction);
+		html_engine_set_focus (GTK_HTML (w)->engine, rv);
+		return rv;
+	}
+
 	if (html_engine_focus (e, direction) && e->focus_object) {
 		HTMLObject *cur, *obj = html_engine_get_focus_object (e);
 		gint x1, y1, x2, y2, xo, yo;
