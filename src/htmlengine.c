@@ -3637,6 +3637,16 @@ update_embedded (GtkWidget *widget, gpointer data)
 
 		html_painter_begin (e->painter, tx + x, ty + y, tx+ x + width, ty + y + height);
 
+		if (html_object_is_transparent (obj)) {
+			html_engine_draw_background (e, x, y, x + width, y + height);
+			/*
+			html_object_draw_background (obj, e->painter,
+						     x, y,
+						     width, height,
+						     tx, ty);
+			*/
+		}
+
 		html_object_draw (obj,
 				  e->painter, 
 				  x, y,
