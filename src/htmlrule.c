@@ -25,9 +25,20 @@
 
 
 HTMLRuleClass html_rule_class;
+static HTMLObjectClass *parent_class = NULL;
 
 
 /* HTMLObject methods.  */
+
+static void
+copy (HTMLObject *self,
+      HTMLObject *dest)
+{
+	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
+
+	HTML_RULE (dest)->shade = HTML_RULE (self)->shade;
+	HTML_RULE (dest)->halign = HTML_RULE (self)->halign;
+}
 
 static void
 set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
@@ -127,11 +138,14 @@ html_rule_class_init (HTMLRuleClass *klass,
 
 	html_object_class_init (object_class, type, object_size);
 
+	object_class->copy = copy;
 	object_class->draw = draw;
 	object_class->set_max_width = set_max_width;
 	object_class->calc_min_width = calc_min_width;
 	object_class->accepts_cursor = accepts_cursor;
 	object_class->save = save;
+
+	parent_class = &html_object_class;
 }
 
 void

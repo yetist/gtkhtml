@@ -35,7 +35,9 @@
 
 
 HTMLTableClass html_table_class;
+static HTMLObjectClass *parent_class = NULL;
 
+
 static void
 destroy (HTMLObject *o)
 {
@@ -61,6 +63,16 @@ destroy (HTMLObject *o)
 	}
 	
 	HTML_OBJECT_CLASS (&html_object_class)->destroy (o);
+}
+
+static void
+copy (HTMLObject *self,
+      HTMLObject *dest)
+{
+	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
+
+	/* FIXME TODO*/
+	g_warning ("HTMLTable::copy is broken.");
 }
 
 static gboolean
@@ -1149,6 +1161,7 @@ html_table_class_init (HTMLTableClass *klass,
 
 	html_object_class_init (object_class, type, object_size);
 
+	object_class->copy = copy;
 	object_class->calc_size = calc_size;
 	object_class->draw = draw;
 	object_class->destroy = destroy;

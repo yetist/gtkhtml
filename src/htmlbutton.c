@@ -47,6 +47,16 @@ clicked_event (GtkWidget *widget, gpointer data)
 }
 
 
+static void
+copy (HTMLObject *self,
+      HTMLObject *dest)
+{
+	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
+
+	HTML_BUTTON (dest)->type = HTML_BUTTON (self)->type;
+}
+
+
 void
 html_button_type_init (void)
 {
@@ -65,6 +75,8 @@ html_button_class_init (HTMLButtonClass *klass,
 	object_class = HTML_OBJECT_CLASS (klass);
 
 	html_embedded_class_init (element_class, type, object_size);
+
+	object_class->copy = copy;
 
 	parent_class = &html_embedded_class;
 }

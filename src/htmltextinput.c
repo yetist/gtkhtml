@@ -21,8 +21,11 @@
 
 #include "htmltextinput.h"
 
+
 HTMLTextInputClass html_text_input_class;
+static HTMLEmbedded *parent_class = NULL;
 
+
 static void
 destroy (HTMLObject *o)
 {
@@ -34,6 +37,20 @@ destroy (HTMLObject *o)
 		g_free (ti->default_text);
 
 	HTML_OBJECT_CLASS (&html_embedded_class)->destroy (o);
+}
+
+static void
+copy (HTMLObject *self,
+      HTMLObject *dest)
+{
+	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
+
+	HTML_TEXTINPUT (dest)->size = HTML_TEXTINPUT (self)->size;
+	HTML_TEXTINPUT (dest)->maxlen = HTML_TEXTINPUT (self)->maxlen;
+	HTML_TEXTINPUT (dest)->password = HTML_TEXTINPUT (self)->password;
+	HTML_TEXTINPUT (dest)->default_text = g_strdup (HTML_TEXTINPUT (self)->default_text);
+
+	g_warning ("HTMLTextInput::copy is not complete");
 }
 
 static void
@@ -80,7 +97,6 @@ html_text_input_class_init (HTMLTextInputClass *klass,
 	HTMLEmbeddedClass *element_class;
 	HTMLObjectClass *object_class;
 
-
 	element_class = HTML_EMBEDDED_CLASS (klass);
 	object_class = HTML_OBJECT_CLASS (klass);
 
@@ -92,6 +108,9 @@ html_text_input_class_init (HTMLTextInputClass *klass,
 
 	/* HTMLObject methods.   */
 	object_class->destroy = destroy;
+	object_class->copy = copy;
+
+	parent_class = &html_embedded_class;
 }
 
 void

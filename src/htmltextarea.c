@@ -21,8 +21,11 @@
 
 #include "htmltextarea.h"
 
+
 HTMLTextAreaClass html_textarea_class;
+static HTMLEmbeddedClass *parent_class = NULL;
 
+
 static void
 destroy (HTMLObject *o)
 {
@@ -36,6 +39,21 @@ destroy (HTMLObject *o)
 	HTML_OBJECT_CLASS (&html_embedded_class)->destroy (o);
 }
 
+static void
+copy (HTMLObject *self,
+      HTMLObject *dest)
+{
+	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
+
+	/* FIXME TODO this is not going to work.  */
+
+	HTML_TEXTAREA (dest)->text = NULL;
+	HTML_TEXTAREA (dest)->default_text = g_strdup (HTML_TEXTAREA (self)->default_text);
+
+	g_warning ("HTMLTextArea::copy is not complte.");
+}
+
+
 static void
 reset (HTMLEmbedded *e)
 {
@@ -83,7 +101,6 @@ html_textarea_class_init (HTMLTextAreaClass *klass,
 	HTMLEmbeddedClass *element_class;
 	HTMLObjectClass *object_class;
 
-
 	element_class = HTML_EMBEDDED_CLASS (klass);
 	object_class = HTML_OBJECT_CLASS (klass);
 
@@ -95,6 +112,9 @@ html_textarea_class_init (HTMLTextAreaClass *klass,
 
 	/* HTMLObject methods.   */
 	object_class->destroy = destroy;
+	object_class->copy = copy;
+
+	parent_class = &html_embedded_class;
 }
 
 void

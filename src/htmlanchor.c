@@ -41,6 +41,15 @@ destroy (HTMLObject *object)
 }
 
 static void
+copy (HTMLObject *self,
+      HTMLObject *dest)
+{
+	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
+
+	HTML_ANCHOR (dest)->name = g_string_new (HTML_ANCHOR (self)->name->str);
+}
+
+static void
 set_max_ascent (HTMLObject *object,
 		HTMLPainter *painter,
 		gint a)
@@ -79,6 +88,7 @@ html_anchor_class_init (HTMLAnchorClass *klass,
 	html_object_class_init (object_class, type, object_size);
 
 	object_class->destroy = destroy;
+	object_class->copy = copy;
 	object_class->find_anchor = find_anchor;
 	object_class->set_max_ascent = set_max_ascent;
 

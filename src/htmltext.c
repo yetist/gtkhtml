@@ -29,6 +29,7 @@
 
 
 HTMLTextClass html_text_class;
+static HTMLObjectClass *parent_class = NULL;
 
 #define HT_CLASS(x) HTML_TEXT_CLASS (HTML_OBJECT (x)->klass)
 
@@ -167,6 +168,20 @@ get_tags (const HTMLText *text,
 
 
 /* HTMLObject methods.  */
+
+static void
+copy (HTMLObject *self,
+      HTMLObject *dest)
+{
+	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
+
+	HTML_TEXT (dest)->text = g_strdup (HTML_TEXT (self)->text);
+	HTML_TEXT (dest)->text_len = HTML_TEXT (self)->text_len;
+
+	HTML_TEXT (dest)->font_style = HTML_TEXT (self)->font_style;
+	HTML_TEXT (dest)->color = HTML_TEXT (self)->color;
+	HTML_TEXT (dest)->color_allocated = HTML_TEXT (self)->color_allocated;
+}
 
 static void
 calc_size (HTMLObject *self,
@@ -492,6 +507,7 @@ html_text_class_init (HTMLTextClass *klass,
 
 	/* FIXME destroy */
 
+	object_class->copy = copy;
 	object_class->draw = draw;
 	object_class->accepts_cursor = accepts_cursor;
 	object_class->calc_size = calc_size;

@@ -24,7 +24,29 @@
 #include <stdio.h>
 #include "htmlembedded.h"
 
+
 HTMLEmbeddedClass html_embedded_class;
+static HTMLObjectClass *parent_class = NULL;
+
+
+static void
+copy (HTMLObject *self,
+      HTMLObject *dest)
+{
+	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
+
+	g_warning ("HTMLEmbedded::copy is broken.");
+
+	HTML_EMBEDDED (dest)->name = g_strdup (HTML_EMBEDDED (self)->name);
+	HTML_EMBEDDED (dest)->value = g_strdup (HTML_EMBEDDED (self)->value);
+	HTML_EMBEDDED (dest)->form = HTML_EMBEDDED (self)->form;
+
+	HTML_EMBEDDED (dest)->widget = NULL;
+	HTML_EMBEDDED (dest)->parent = NULL;
+
+	HTML_EMBEDDED (dest)->abs_x = HTML_EMBEDDED (self)->abs_x;
+	HTML_EMBEDDED (dest)->abs_y = HTML_EMBEDDED (self)->abs_y;
+}
 
 static void
 draw (HTMLObject *o,
@@ -173,7 +195,10 @@ html_embedded_class_init (HTMLEmbeddedClass *klass,
 
 	/* HTMLObject methods.   */
 	object_class->destroy = destroy;
+	object_class->copy = copy;
 	object_class->draw = draw;
+
+	parent_class = &html_object_class;
 }
 
 void

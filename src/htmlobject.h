@@ -123,7 +123,12 @@ struct _HTMLObjectClass {
 
 	guint object_size;
 
-	void (*destroy) (HTMLObject *o);
+	/* Destroy the object.  */
+	void (* destroy) (HTMLObject *o);
+
+	/* Copy an object into another one.  @dest can just point to a memory
+           area of the proper size.  */
+	void (* copy) (HTMLObject *self, HTMLObject *dest);
 
 	/* Relayout object `o' starting from child `child'.  This method can be
            called by the child when it changes any of its layout properties.  */
@@ -202,7 +207,9 @@ void        html_object_class_init    (HTMLObjectClass      *klass,
 				       guint                 object_size);
 HTMLObject *html_object_new           (HTMLObject           *parent);
 void        html_object_destroy       (HTMLObject           *self);
-HTMLObject *html_object_copy          (HTMLObject           *self);
+void        html_object_copy          (HTMLObject           *self,
+				       HTMLObject           *dest);
+HTMLObject *html_object_dup           (HTMLObject           *self);
 void        html_object_set_parent    (HTMLObject           *self,
 				       HTMLObject           *parent);
 void        html_object_reset         (HTMLObject           *o);

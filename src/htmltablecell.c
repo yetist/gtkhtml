@@ -26,9 +26,19 @@
 
 
 HTMLTableCellClass html_table_cell_class;
+static HTMLClueVClass *parent_class = NULL;
 
 
 /* HTMLObject methods.  */
+
+static void
+copy (HTMLObject *self,
+      HTMLObject *dest)
+{
+	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
+
+	g_warning ("HTMLTableCell::copy is not implemented.");
+}
 
 static gint
 calc_min_width (HTMLObject *o,
@@ -186,10 +196,13 @@ html_table_cell_class_init (HTMLTableCellClass *klass,
 
 	/* FIXME destroy */
 
+	object_class->copy = copy;
 	object_class->calc_min_width = calc_min_width;
 	object_class->set_max_width = set_max_width;
 	object_class->draw = draw;
 	object_class->set_bg_color = set_bg_color;
+
+	parent_class = &html_cluev_class;
 }
 
 void

@@ -32,10 +32,22 @@
 
 
 HTMLClueFlowClass html_clueflow_class;
+static HTMLClueClass *parent_class;
 
 #define HCF_CLASS(x) HTML_CLUEFLOW_CLASS (HTML_OBJECT (x)->klass)
 
 
+static void
+copy (HTMLObject *self,
+      HTMLObject *dest)
+{
+	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
+
+	HTML_CLUEFLOW (dest)->style = HTML_CLUEFLOW (self)->style;
+	HTML_CLUEFLOW (dest)->list_level = HTML_CLUEFLOW (self)->list_level;
+	HTML_CLUEFLOW (dest)->quote_level = HTML_CLUEFLOW (self)->quote_level;
+}
+
 static guint
 calc_padding (HTMLPainter *painter)
 {
@@ -764,6 +776,9 @@ html_clueflow_class_init (HTMLClueFlowClass *klass,
 
 	html_clue_class_init (clue_class, type, size);
 
+	/* FIXME destroy */
+
+	object_class->copy = copy;
 	object_class->calc_size = calc_size;
 	object_class->set_max_width = set_max_width;
 	object_class->calc_min_width = calc_min_width;

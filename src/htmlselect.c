@@ -21,8 +21,11 @@
 
 #include "htmlselect.h"
 
+
 HTMLSelectClass html_select_class;
+static HTMLEmbeddedClass *parent_class = NULL;
 
+
 static void
 free_strings (gpointer o, gpointer data)
 {
@@ -54,6 +57,14 @@ destroy (HTMLObject *o)
 	HTML_OBJECT_CLASS (&html_embedded_class)->destroy (o);
 }
 
+static void
+copy (HTMLObject *self,
+      HTMLObject *dest)
+{
+	/* FIXME TODO */
+}
+
+
 static void
 reset (HTMLEmbedded *e)
 {
@@ -158,7 +169,6 @@ html_select_class_init (HTMLSelectClass *klass,
 	HTMLEmbeddedClass *element_class;
 	HTMLObjectClass *object_class;
 
-
 	element_class = HTML_EMBEDDED_CLASS (klass);
 	object_class = HTML_OBJECT_CLASS (klass);
 
@@ -170,6 +180,9 @@ html_select_class_init (HTMLSelectClass *klass,
 
 	/* HTMLObject methods.   */
 	object_class->destroy = destroy;
+	object_class->copy = copy;
+
+	parent_class = &html_embedded_class;
 }
 
 void

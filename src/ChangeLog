@@ -1,12 +1,23 @@
 2000-02-15  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* All object implementations: implement `HTMLObject::copy'.  Also,
+	keep track of the parent's class where not done already.
+
+	* htmlobject.c (copy): New function, default implementation of
+	`HTMLObject::copy'.
+	(html_object_class_init): Install it.
+	(html_object_copy): New function.
+	(html_object_dup): New function.
+
+	* htmlobject.h: New virtual method `HTMLObject::copy'.
+
 	* htmlembedded.c (html_embedded_type_init): Use
 	`HTML_TYPE_EMBEDDED', not `HTML_TYPE_ELEMENT'.
 
 	* htmltype.h: s/HTML_TYPE_ELEMENT/HTML_TYPE_EMBEDDED/.
 	* htmltype.c (html_type_name): Updated accordingly.
 
-	* All files: Use the `object_size' parameter.
+	* All object implementations: Use the `object_size' parameter.
 
 	* htmlobject.c (html_object_class_init): New parameter
 	`object_size'.

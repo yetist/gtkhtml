@@ -31,6 +31,7 @@
 /* #define HTML_TEXT_SLAVE_DEBUG */
 
 HTMLTextSlaveClass html_text_slave_class;
+static HTMLObjectClass *parent_class = NULL;
 
 
 /* Split this TextSlave at the specified offset.  */
@@ -85,6 +86,18 @@ check_newline (HTMLTextSlave *slave)
 
 
 /* HTMLObject methods.  */
+
+static void
+copy (HTMLObject *self,
+      HTMLObject *dest)
+{
+	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
+
+	/* FIXME it does not make much sense to me to share the owner.  */
+	HTML_TEXT_SLAVE (dest)->owner = HTML_TEXT_SLAVE (self)->owner;
+	HTML_TEXT_SLAVE (dest)->posStart = HTML_TEXT_SLAVE (self)->posStart;
+	HTML_TEXT_SLAVE (dest)->posLen = HTML_TEXT_SLAVE (self)->posLen;
+}
 
 static void
 calc_size (HTMLObject *self,
@@ -455,6 +468,7 @@ html_text_slave_class_init (HTMLTextSlaveClass *klass,
 
 	html_object_class_init (object_class, type, object_size);
 
+	object_class->copy = copy;
 	object_class->draw = draw;
 	object_class->calc_size = calc_size;
 	object_class->fit_line = fit_line;
@@ -462,6 +476,8 @@ html_text_slave_class_init (HTMLTextSlaveClass *klass,
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->get_url = get_url;
 	object_class->check_point = check_point;
+
+	parent_class = &html_object_class;
 }
 
 void

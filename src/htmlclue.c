@@ -27,6 +27,7 @@
 #define HC_CLASS(x) (HTML_CLUE_CLASS (HTML_OBJECT (x)->klass))
 
 HTMLClueClass html_clue_class;
+HTMLObjectClass *parent_class = NULL;
 
 
 /* HTMLObject methods.  */
@@ -45,6 +46,24 @@ destroy (HTMLObject *o)
 	}
 
 	HTML_OBJECT_CLASS (&html_object_class)->destroy (o);
+}
+
+static void
+copy (HTMLObject *self,
+      HTMLObject *dest)
+{
+	/* FIXME maybe this should copy all the children too?  I am not quite
+           sure.  For now, we don't need the code, and we just avoid going
+           through the hassle on doing this.  */
+
+	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
+
+	HTML_CLUE (dest)->head = NULL;
+	HTML_CLUE (dest)->tail = NULL;
+	HTML_CLUE (dest)->curr = NULL;
+
+	HTML_CLUE (dest)->valign = HTML_CLUE (self)->valign;
+	HTML_CLUE (dest)->halign = HTML_CLUE (self)->halign;
 }
 
 static void
@@ -353,6 +372,7 @@ html_clue_class_init (HTMLClueClass *klass,
 	
 	/* HTMLObject functions */
 	object_class->destroy = destroy;
+	object_class->copy = copy;
 	object_class->draw = draw;
 	object_class->set_max_ascent = set_max_ascent;
 	object_class->set_max_descent = set_max_descent;
@@ -375,6 +395,8 @@ html_clue_class_init (HTMLClueClass *klass,
 	klass->find_free_area = find_free_area;
 	klass->append_right_aligned = append_right_aligned;
 	klass->appended = appended;
+
+	parent_class = &html_object_class;
 }
 
 void

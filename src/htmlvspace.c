@@ -26,8 +26,18 @@
 
 
 HTMLVSpaceClass html_vspace_class;
+static HTMLObjectClass *parent_class = NULL;
 
 
+static void
+copy (HTMLObject *self,
+      HTMLObject *dest)
+{
+	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
+
+	HTML_VSPACE (dest)->clear = HTML_VSPACE (self)->clear;
+}
+
 static void
 calc_size (HTMLObject *self,
 	   HTMLPainter *painter)
@@ -65,7 +75,10 @@ html_vspace_class_init (HTMLVSpaceClass *klass,
 
 	html_object_class_init (object_class, type, object_size);
 
+	object_class->copy = copy;
 	object_class->calc_size = calc_size;
+
+	parent_class = &html_object_class;
 }
 
 void

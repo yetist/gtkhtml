@@ -26,9 +26,19 @@
 
 
 static HTMLClueAlignedClass html_cluealigned_class;
+static HTMLClueClass *parent_class = NULL;
 
 
 /* HTMLObject methods.  */
+
+static void
+copy (HTMLObject *self,
+      HTMLObject *dest)
+{
+	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
+
+	HTML_CLUEALIGNED (dest)->next_aligned = NULL;
+}
 
 static void
 calc_size (HTMLObject *o,
@@ -87,9 +97,13 @@ html_cluealigned_class_init (HTMLClueAlignedClass *klass,
 
 	html_clue_class_init (clue_class, type, size);
 
-	/* HTMLObject functions */
+	/* HTMLObject functions FIXME destroy? */
+
+	object_class->copy = copy;
 	object_class->calc_size = calc_size;
 	object_class->set_max_width = set_max_width;
+
+	parent_class = &html_clue_class;
 }
 
 void

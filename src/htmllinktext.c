@@ -26,7 +26,7 @@
 
 HTMLLinkTextClass html_link_text_class;
 
-static HTMLTextClass *parent_class;
+static HTMLTextClass *parent_class = NULL;
 
 
 /* HTMLObject methods.  */
@@ -41,6 +41,16 @@ destroy (HTMLObject *object)
 	g_free (link_text->target);
 
 	(* HTML_OBJECT_CLASS (parent_class)->destroy) (object);
+}
+
+static void
+copy (HTMLObject *self,
+      HTMLObject *dest)
+{
+	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
+
+	HTML_LINK_TEXT (dest)->url = g_strdup (HTML_LINK_TEXT (self)->url);
+	HTML_LINK_TEXT (dest)->target = g_strdup (HTML_LINK_TEXT (self)->target);
 }
 
 static const gchar *
@@ -133,6 +143,7 @@ html_link_text_class_init (HTMLLinkTextClass *klass,
 	html_text_class_init (text_class, type, size);
 
 	object_class->destroy = destroy;
+	object_class->copy = copy;
 	object_class->get_url = get_url;
 	object_class->get_target = get_target;
 	object_class->save = save;

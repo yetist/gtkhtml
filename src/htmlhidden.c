@@ -21,7 +21,9 @@
 #include "htmlhidden.h"
 
 HTMLHiddenClass html_hidden_class;
+static HTMLEmbeddedClass *parent_class = NULL;
 
+
 static gchar *
 encode (HTMLEmbedded *e)
 {
@@ -64,6 +66,8 @@ void html_hidden_class_init (HTMLHiddenClass *klass,
 	html_embedded_class_init (element_class, type, object_size);
 
 	element_class->encode = encode;
+
+	parent_class = &html_embedded_class;
 }
 
 void html_hidden_init (HTMLHidden *hidden, 

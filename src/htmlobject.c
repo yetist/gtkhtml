@@ -53,6 +53,27 @@ destroy (HTMLObject *self)
 }
 
 static void
+copy (HTMLObject *self,
+      HTMLObject *dest)
+{
+	dest->klass = self->klass;
+	dest->parent = NULL;
+	dest->prev = NULL;
+	dest->next = NULL;
+	dest->x = 0;
+	dest->y = 0;
+	dest->ascent = self->ascent;
+	dest->descent = self->descent;
+	dest->width = self->width;
+	dest->max_width = self->max_width;
+	dest->percent = self->percent;
+	dest->flags = self->flags;
+	dest->redraw_pending = self->redraw_pending;
+	dest->selected = self->selected;
+	dest->free_pending = FALSE;
+}
+
+static void
 draw (HTMLObject *o,
       HTMLPainter *p,
       gint x, gint y,
@@ -336,6 +357,7 @@ html_object_class_init (HTMLObjectClass *klass,
 
 	/* Install virtual methods.  */
 	klass->destroy = destroy;
+	klass->copy = copy;
 	klass->draw = draw;
 	klass->fit_line = fit_line;
 	klass->calc_size = calc_size;
@@ -399,6 +421,23 @@ html_object_new (HTMLObject *parent)
 	return o;
 }
 
+
+/* Object duplication.  */
+
+HTMLObject *
+html_object_dup (HTMLObject *object)
+{
+	HTMLObject *new;
+
+	g_return_val_if_fail (object != NULL, NULL);
+
+	new = g_malloc (object->klass->object_size);
+	html_object_copy (object, new);
+
+	return new;
+}
+
+
 void
 html_object_set_parent (HTMLObject *o,
 			HTMLObject *parent)
@@ -430,6 +469,13 @@ void
 html_object_destroy (HTMLObject *self)
 {
 	(* HO_CLASS (self)->destroy) (self);
+}
+
+void
+html_object_copy (HTMLObject *self,
+		  HTMLObject *dest)
+{
+	(* HO_CLASS (self)->copy) (self, dest);
 }
 
 void

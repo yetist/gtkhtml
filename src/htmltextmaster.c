@@ -28,11 +28,20 @@
 
 
 HTMLTextMasterClass html_text_master_class;
-
-static HTMLTextClass *parent_class;
+static HTMLTextClass *parent_class = NULL;
 
 
 /* HTMLObject methods.  */
+
+static void
+copy (HTMLObject *self,
+      HTMLObject *dest)
+{
+	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
+
+	HTML_TEXT_MASTER (dest)->select_start = HTML_TEXT_MASTER (self)->select_start;
+	HTML_TEXT_MASTER (dest)->select_length = HTML_TEXT_MASTER (self)->select_length;
+}
 
 static void
 draw (HTMLObject *o,
@@ -465,6 +474,7 @@ html_text_master_class_init (HTMLTextMasterClass *klass,
 
 	/* HTMLObject methods.  */
 
+	object_class->copy = copy;
 	object_class->draw = draw;
 	object_class->fit_line = fit_line;
 	object_class->calc_size = calc_size;

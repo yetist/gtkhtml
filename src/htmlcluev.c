@@ -26,7 +26,7 @@
 
 HTMLClueVClass html_cluev_class;
 
-static HTMLClueClass *parent_class;
+static HTMLClueClass *parent_class = NULL;
 
 
 /* FIXME this must be rewritten as the multiple type casts make my head spin.
@@ -81,6 +81,18 @@ remove_aligned_by_parent ( HTMLClueV *cluev,
 
 
 /* HTMLObject methods.  */
+
+static void
+copy (HTMLObject *self,
+      HTMLObject *dest)
+{
+	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
+
+	HTML_CLUEV (dest)->padding = HTML_CLUEV (self)->padding;
+
+	HTML_CLUEV (dest)->align_left_list = NULL;
+	HTML_CLUEV (dest)->align_right_list = NULL;
+}
 
 static HTMLObject *
 cluev_next_aligned (HTMLObject *aclue)
@@ -631,10 +643,11 @@ html_cluev_class_init (HTMLClueVClass *klass,
 	object_class = HTML_OBJECT_CLASS (klass);
 	clue_class = HTML_CLUE_CLASS (klass);
 
-	parent_class = &html_clue_class;
-
 	html_clue_class_init (clue_class, type, size);
 
+	/* FIXME destroy */
+
+	object_class->copy = copy;
 	object_class->calc_size = calc_size;
 	object_class->set_max_width = set_max_width;
 	object_class->reset = reset;
@@ -650,6 +663,8 @@ html_cluev_class_init (HTMLClueVClass *klass,
 	clue_class->appended = appended;
 	clue_class->append_left_aligned = append_left_aligned;
 	clue_class->append_right_aligned = append_right_aligned;
+
+	parent_class = &html_clue_class;
 }
 
 void

@@ -36,6 +36,7 @@
 
 
 HTMLImageClass html_image_class;
+static HTMLObjectClass *parent_class = NULL;
 
 
 static guint
@@ -80,6 +81,22 @@ destroy (HTMLObject *image)
 {
 	html_image_factory_unregister (HTML_IMAGE (image)->image_ptr->factory,
 				       HTML_IMAGE (image)->image_ptr, HTML_IMAGE (image));
+}
+
+static void
+copy (HTMLObject *self,
+      HTMLObject *dest)
+{
+	/* FIXME not sure this is all correct.  */
+
+	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
+
+	HTML_IMAGE (dest)->image_ptr = HTML_IMAGE (self)->image_ptr;
+	HTML_IMAGE (dest)->border = HTML_IMAGE (self)->border;
+	HTML_IMAGE (dest)->specified_width = HTML_IMAGE (self)->specified_width;
+	HTML_IMAGE (dest)->specified_height = HTML_IMAGE (self)->specified_height;
+	HTML_IMAGE (dest)->url = HTML_IMAGE (self)->url;
+	HTML_IMAGE (dest)->target = HTML_IMAGE (self)->target;
 }
 
 static gint
@@ -221,6 +238,9 @@ html_image_class_init (HTMLImageClass *image_class,
 
 	html_object_class_init (object_class, type, size);
 
+	/* FIXME destroy, dammit!!!  */
+
+	object_class->copy = copy;
 	object_class->draw = draw;
 	object_class->destroy = destroy;
 	object_class->calc_min_width = calc_min_width;
@@ -229,6 +249,8 @@ html_image_class_init (HTMLImageClass *image_class,
 	object_class->get_url = get_url;
 	object_class->get_target = get_target;
 	object_class->accepts_cursor = accepts_cursor;
+
+	parent_class = &html_object_class;
 }
 
 void

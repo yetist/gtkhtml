@@ -20,14 +20,30 @@
 */
 #include "htmlradio.h"
 
+
 HTMLRadioClass html_radio_class;
+static HTMLEmbeddedClass *parent_class = NULL;
 
+
+/* HTMLObject methods.  */
+static void
+copy (HTMLObject *self,
+      HTMLObject *dest)
+{
+	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
+
+	HTML_RADIO (dest)->default_checked = HTML_RADIO (self)->default_checked;
+}
+
+
+/* HTMLEmbedded methods.  */
 static void
 reset (HTMLEmbedded *e)
 {
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(e->widget), HTML_RADIO(e)->default_checked);
 }
 
+
 void
 html_radio_type_init (void)
 {
@@ -42,14 +58,18 @@ html_radio_class_init (HTMLRadioClass *klass,
 	HTMLEmbeddedClass *element_class;
 	HTMLObjectClass *object_class;
 
-
 	element_class = HTML_EMBEDDED_CLASS (klass);
 	object_class = HTML_OBJECT_CLASS (klass);
 
 	html_embedded_class_init (element_class, type, object_size);
 
+	/* HTMLObject methods.  */
+	object_class->copy = copy;
+
 	/* HTMLEmbedded methods.   */
 	element_class->reset = reset;
+
+	parent_class = &html_embedded_class;
 }
 
 void

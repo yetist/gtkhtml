@@ -23,12 +23,24 @@
 HTMLCheckBoxClass html_checkbox_class;
 static HTMLEmbeddedClass *parent_class = NULL;
 
+
+static void
+copy (HTMLObject *self,
+      HTMLObject *dest)
+{
+	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
+
+	HTML_CHECKBOX (dest)->default_checked = HTML_CHECKBOX (self)->default_checked;
+}
+
+
 static void
 reset (HTMLEmbedded *e)
 {
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(e->widget), HTML_CHECKBOX(e)->default_checked);
 }
 
+
 void
 html_checkbox_type_init (void)
 {
@@ -49,7 +61,10 @@ html_checkbox_class_init (HTMLCheckBoxClass *klass,
 
 	html_embedded_class_init (element_class, type, size);
 
-	/* HTMLEmbedded methods.   */
+	/* HTMLObject methods.  */
+	object_class->copy = copy;
+
+	/* HTMLEmbedded methods.  */
 	element_class->reset = reset;
 
 	parent_class = &html_embedded_class;

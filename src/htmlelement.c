@@ -25,6 +25,27 @@
 #include "htmlelement.h"
 
 HTMLElementClass html_element_class;
+static HTMLObjectClass *parent_class = NULL;
+
+
+static void
+copy (HTMLObject *self,
+      HTMLObject *dest)
+{
+	/* FIXME this cannot work.  */
+
+	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
+
+	HTML_ELEMENT (dest)->name = g_strdup (HTML_ELEMENT (self)->name);
+	HTML_ELEMENT (dest)->value = g_strdup (HTML_ELEMENT (self)->value);
+	HTML_ELEMENT (dest)->form = HTML_ELEMENT (self)->form;
+
+	HTML_ELEMENT (dest)->widget = NULL;
+	HTML_ELEMENT (dest)->parent = NULL;
+
+	HTML_ELEMENT (dest)->abs_x = HTML_ELEMENT (self)->abs_x;
+	HTML_ELEMENT (dest)->abs_y = HTML_ELEMENT (self)->abs_y;
+}
 
 static void
 draw (HTMLObject *o,
@@ -174,7 +195,10 @@ html_element_class_init (HTMLElementClass *klass,
 
 	/* HTMLObject methods.   */
 	object_class->destroy = destroy;
+	object_class->copy = copy;
 	object_class->draw = draw;
+
+	parent_class = &html_object_class;
 }
 
 void

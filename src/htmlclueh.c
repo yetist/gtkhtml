@@ -22,9 +22,20 @@
 #include "htmlclueh.h"
 
 
+static HTMLClueClass *parent_class = NULL;
+
 HTMLClueHClass html_clueh_class;
 
 
+static void
+copy (HTMLObject *self,
+      HTMLObject *dest)
+{
+	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
+
+	HTML_CLUEH (dest)->indent = HTML_CLUEH (self)->indent;
+}
+
 static void
 set_max_width (HTMLObject *o, HTMLPainter *painter, gint w)
 {
@@ -144,10 +155,13 @@ html_clueh_class_init (HTMLClueHClass *klass,
 
 	html_clue_class_init (clue_class, type, size);
 
+	object_class->copy = copy;
 	object_class->set_max_width = set_max_width;
 	object_class->calc_size = calc_size;
 	object_class->calc_min_width = calc_min_width;
 	object_class->calc_preferred_width = calc_preferred_width;
+
+	parent_class = &html_clue_class;
 }
 
 void

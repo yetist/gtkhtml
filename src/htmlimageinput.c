@@ -21,14 +21,32 @@
 #include "htmlimageinput.h"
 #include "htmlform.h"
 
+
 HTMLImageInputClass html_imageinput_class;
+static HTMLEmbeddedClass *parent_class;
 
+
 static void
 destroy (HTMLObject *o)
 {
 	html_object_destroy (HTML_OBJECT (HTML_IMAGEINPUT (o)->image));
 
 	HTML_OBJECT_CLASS (&html_embedded_class)->destroy (o);
+}
+
+static void
+copy (HTMLObject *self,
+      HTMLObject *dest)
+{
+	HTMLObject *duplicate_image;
+
+	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
+
+	HTML_IMAGEINPUT (dest)->m_x = HTML_IMAGEINPUT (self)->m_x;
+	HTML_IMAGEINPUT (dest)->m_y = HTML_IMAGEINPUT (self)->m_y;
+
+	duplicate_image = html_object_dup (HTML_OBJECT (HTML_IMAGEINPUT (self)->image));
+	HTML_IMAGEINPUT (dest)->image = HTML_IMAGE (duplicate_image);
 }
 
 static void
@@ -96,7 +114,6 @@ html_imageinput_class_init (HTMLImageInputClass *klass,
 	HTMLEmbeddedClass *element_class;
 	HTMLObjectClass *object_class;
 
-
 	element_class = HTML_EMBEDDED_CLASS (klass);
 	object_class = HTML_OBJECT_CLASS (klass);
 
@@ -107,7 +124,10 @@ html_imageinput_class_init (HTMLImageInputClass *klass,
 
 	/* HTMLObject methods.   */
 	object_class->destroy = destroy;
+	object_class->copy = copy;
 	object_class->draw = draw;
+
+	parent_class = &html_embedded_class;
 }
 
 void
