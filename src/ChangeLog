@@ -1,3 +1,8 @@
+2004-06-16  Eric Zhao  <eric.zhao@sun.com>
+
+	* htmlengine.c: (html_engine_update_focus_if_necessary):
+	disable set_focus when in edit_mode, fixes #59935.
+
 2004-06-15  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (drag_data_get): handle MOZILLA_URL, it contains
