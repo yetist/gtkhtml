@@ -252,6 +252,8 @@ extract_text (HTMLText *text,
 	return new;
 }
 
+/* #define DEBUG_NBSP */
+
 static void
 convert_nbsp (guchar *s, guint len)
 {
@@ -261,22 +263,27 @@ convert_nbsp (guchar *s, guint len)
 	*/
 	guint state=0;
 
+#ifdef DEBUG_NBSP
 	printf ("convert_nbsp: ");
-
+#endif
 	while (len) {
 		if (*s == ENTITY_NBSP || *s == ' ') {
 			*s = state ? ENTITY_NBSP : ' ';
 			state = 1;
 		} else
 			state = 0;
+#ifdef DEBUG_NBSP
 		if (*s == ENTITY_NBSP)
 			printf ("&nbsp;");
 		else
 			printf ("%c", *s);
+#endif
 		len--;
 		s++;
 	}
+#ifdef DEBUG_NBSP
 	printf ("\n");
+#endif
 }
 
 static guint

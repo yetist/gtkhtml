@@ -106,13 +106,11 @@ html_undo_do_undo (HTMLUndo *undo,
 {
 	g_return_if_fail (undo != NULL);
 	g_return_if_fail (engine != NULL);
-	g_return_if_fail (undo->undo_stack_size > 0);
 
-	g_print ("%s: %d\n", __FUNCTION__, undo->undo_stack_size);
-
-	do_action (undo, engine, &undo->undo_stack);
-
-	undo->undo_stack_size--;
+	if (undo->undo_stack_size > 0) {
+		do_action (undo, engine, &undo->undo_stack);
+		undo->undo_stack_size--;
+	}
 }
 
 void
@@ -121,11 +119,11 @@ html_undo_do_redo (HTMLUndo *undo,
 {
 	g_return_if_fail (undo != NULL);
 	g_return_if_fail (engine != NULL);
-	g_return_if_fail (undo->redo_stack_size > 0);
 
-	do_action (undo, engine, &undo->redo_stack);
-
-	undo->redo_stack_size--;
+	if (undo->redo_stack_size > 0) {
+		do_action (undo, engine, &undo->redo_stack);
+		undo->redo_stack_size--;
+	}
 }
 
 

@@ -1,5 +1,9 @@
 2000-05-06  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlundo.c (html_undo_do_undo): do undo only if stack is
+	non-empty and don't complain when called with empty stack
+	(html_undo_do_redo): likewise
+
 	* htmltext.c (insert_text): partialy rewritten, inserts whole text
 	now and calls new convert_nbsp hack
 	(convert_nbsp): new function, converts sequence of [<space>&nbsp']

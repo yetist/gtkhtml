@@ -45,8 +45,6 @@ html_engine_undo (HTMLEngine *e)
 	g_return_if_fail (e->undo != NULL);
 	g_return_if_fail (e->editable);
 
-	g_warning ("*Undo!*");
-
 	html_engine_freeze (e);
 
 	undo = e->undo;
@@ -63,8 +61,6 @@ html_engine_redo (HTMLEngine *e)
 	g_return_if_fail (e != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (e));
 	g_return_if_fail (e->undo != NULL);
-
-	g_warning ("*Redo!*");
 
 	html_engine_freeze (e);
 
