@@ -1,5 +1,8 @@
 2001-10-25  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine.c (check_cursor): new function, checks if cursor
+	position is valid
+
 	* htmlengine-edit-cut-and-paste.c (insert_object_do): save orig
 	cursor after split
 	(insert_object_do): preserve position before for orig

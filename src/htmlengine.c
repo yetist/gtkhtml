@@ -101,7 +101,8 @@
 #include "htmlshape.h"
 #include "htmlmap.h"
 
-
+/* #define CHECK_CURSOR */
+
 static void      html_engine_class_init       (HTMLEngineClass     *klass);
 static void      html_engine_init             (HTMLEngine          *engine);
 static gboolean  html_engine_timer_event      (HTMLEngine          *e);
@@ -4518,6 +4519,38 @@ do_pending_expose (HTMLEngine *e)
 	}
 }
 
+#ifdef CHECK_CURSOR
+static void
+check_cursor (HTMLEngine *e)
+{
+	HTMLCursor *cursor;
+	gboolean need_spell_check;
+
+	cursor = html_cursor_dup (e->cursor);
+	
+	need_spell_check = e->need_spell_check;
+	e->need_spell_check = FALSE;
+
+	while (html_cursor_backward (cursor, e))
+		;
+
+	if (cursor->position != 0) {
+		g_warning ("check cursor failed (%d)\n", cursor->position);
+		gnome_ok_dialog ("Eeek, BAD cursor position!\n"
+				 "\n"
+				 "If you know how to get editor to this state,\n"
+				 "please mail to gtkhtml-maintainers@ximian.com\n"
+				 "detailed description\n"
+				 "\n"
+				 "Thank you");
+		e->cursor->position -= cursor->position;
+	}
+
+	e->need_spell_check = need_spell_check;
+	html_cursor_destroy (cursor);
+}
+#endif
+
 static gint
 thaw_idle (gpointer data)
 {
@@ -4527,6 +4560,10 @@ thaw_idle (gpointer data)
 	gint w, h;
 
 	/* printf ("thaw_idle\n"); */
+
+#ifdef CHECK_CURSOR
+	check_cursor (e);
+#endif
 
 	e->thaw_idle_id = 0;
 	if (e->freeze_count != 1) {
