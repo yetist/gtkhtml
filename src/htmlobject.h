@@ -130,7 +130,7 @@ struct _HTMLObjectClass {
         /* x & y are in object coordinates (e.g. the same coordinate system as
 	   o->x and o->y) tx & ty are used to translated object coordinates
 	   into painter coordinates */
-	void (*draw) (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor,
+	void (*draw) (HTMLObject *o, HTMLPainter *painter, HTMLCursor *cursor,
 		      gint x, gint y, gint width, gint height, gint tx, gint ty);
 
 	void (*set_max_ascent) (HTMLObject *o, gint a);
@@ -174,19 +174,20 @@ struct _HTMLObjectClass {
 extern HTMLObjectClass html_object_class;
 
 
-void        html_object_type_init          (void);
-void        html_object_init               (HTMLObject      *o,
-					    HTMLObjectClass *klass);
-void        html_object_class_init         (HTMLObjectClass *klass,
-					    HTMLType         type);
-HTMLObject *html_object_new                (HTMLObject      *parent);
-void        html_object_destroy            (HTMLObject      *o);
-void        html_object_set_parent         (HTMLObject      *o,
-					    HTMLObject      *parent);
-void        html_object_reset              (HTMLObject      *o);
+/* Basics.  */
+void        html_object_type_init   (void);
+void        html_object_init        (HTMLObject      *o,
+				     HTMLObjectClass *klass);
+void        html_object_class_init  (HTMLObjectClass *klass,
+				     HTMLType         type);
+HTMLObject *html_object_new         (HTMLObject      *parent);
+void        html_object_destroy     (HTMLObject      *o);
+void        html_object_set_parent  (HTMLObject      *o,
+				     HTMLObject      *parent);
+void        html_object_reset       (HTMLObject      *o);
+gboolean    html_object_is_text     (HTMLObject      *object);
 
-gboolean  html_object_is_text  (HTMLObject *object);
-
+/* Drawing-related stuff.  */
 void  html_object_draw  (HTMLObject  *o,
 			 HTMLPainter *p,
 			 HTMLCursor  *cursor,
@@ -198,6 +199,7 @@ void  html_object_draw  (HTMLObject  *o,
 			 gint         ty);
 void html_object_set_bg_color (HTMLObject *o, GdkColor *color);
 
+/* Layout.  */
 HTMLFitType  html_object_fit_line              (HTMLObject  *o,
 						HTMLPainter *painter,
 						gboolean     start_of_line,
@@ -218,7 +220,11 @@ gint         html_object_calc_preferred_width  (HTMLObject  *o,
 void         html_object_calc_abs_position     (HTMLObject  *o,
 						gint        *x_return,
 						gint        *y_return);
+gboolean     html_object_relayout              (HTMLObject  *obj,
+						HTMLEngine  *engine,
+						HTMLObject  *child);
 
+/* Links.  */
 const gchar *html_object_get_url     (HTMLObject *o);
 const gchar *html_object_get_target  (HTMLObject *o);
 
@@ -227,32 +233,29 @@ HTMLAnchor *html_object_find_anchor  (HTMLObject  *o,
 				      gint        *x,
 				      gint        *y);
 
-HTMLObject *html_object_check_point  (HTMLObject  *clue,
-				      HTMLPainter *painter,
-				      gint         x,
-				      gint         y,
-				      guint 	  *offset_return);
+/* Cursor.  */
+gboolean    html_object_accepts_cursor   (HTMLObject  *obj);
+void        html_object_get_cursor       (HTMLObject  *obj,
+					  HTMLPainter *painter,
+					  guint        offset,
+					  gint        *x1,
+					  gint        *y1,
+					  gint        *x2,
+					  gint        *y2);
+void        html_object_get_cursor_base  (HTMLObject  *obj,
+					  HTMLPainter *painter,
+					  guint        offset,
+					  gint        *x,
+					  gint        *y);
+HTMLObject *html_object_check_point      (HTMLObject  *clue,
+					  HTMLPainter *painter,
+					  gint         x,
+					  gint         y,
+					  guint       *offset_return);
 
-gboolean  html_object_relayout  (HTMLObject *obj,
-				 HTMLEngine *engine,
-				 HTMLObject *child);
-
+/* Selection.  */
 void  html_object_select  (HTMLObject *obj,
 			   HTMLEngine *e,
 			   gboolean    select);
-
-gboolean  html_object_accepts_cursor   (HTMLObject  *obj);
-void      html_object_get_cursor       (HTMLObject  *obj,
-					HTMLPainter *painter,
-					guint        offset,
-					gint        *x1,
-					gint        *y1,
-					gint        *x2,
-					gint        *y2);
-void      html_object_get_cursor_base  (HTMLObject  *obj,
-					HTMLPainter *painter,
-					guint        offset,
-					gint        *x,
-					gint        *y);
 
 #endif /* _HTMLOBJECT_H_ */
