@@ -2364,6 +2364,7 @@ static gchar *known_protocols [] = {
 	"nntp://",
 	"news://",
 	"mailto:",
+	"file:",
 	NULL
 };
 
@@ -2385,7 +2386,7 @@ new_obj_from_uri (HTMLEngine *e, gchar *uri, gint len)
 	}
 
 	for (i = 0; known_protocols [i]; i++) {
-		if (!strcmp (uri + len - strlen (known_protocols [i]), known_protocols [i])) {
+		if (!strncmp (uri, known_protocols [i], strlen (known_protocols [i]))) {
 			return html_engine_new_link (e, uri, len, uri);
 		}
 	}	
