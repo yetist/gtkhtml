@@ -364,7 +364,9 @@ draw (HTMLObject *o,
 	      aclue = cluev_next_aligned (aclue) ) {
 		html_object_draw (aclue,
 				  p, 
-				  0, 0, width - aclue->parent->x, height,
+				  x - o->x - aclue->parent->x,
+				  y - (o->y - o->ascent) - (aclue->parent->y - aclue->parent->ascent),
+				  width - aclue->parent->x, height,
 				  tx + aclue->parent->x,
 				  ty + aclue->parent->y - aclue->parent->ascent);
 	}
@@ -374,7 +376,9 @@ draw (HTMLObject *o,
 	     aclue = cluev_next_aligned (aclue)) {
 		html_object_draw (aclue,
 				  p,
-				  0, 0, width - aclue->parent->x, height,
+				  x - o->x - aclue->parent->x,
+				  y - (o->y - o->ascent) - (aclue->parent->y - aclue->parent->ascent),
+				  width - aclue->parent->x, height,
 				  tx + aclue->parent->x,
 				  ty + aclue->parent->y - aclue->parent->ascent);
 	}

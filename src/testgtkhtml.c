@@ -811,11 +811,12 @@ goto_url(const char *url, int back_or_forward)
 
 	html_stream_handle = gtk_html_begin_content (html, "text/html; charset=utf-8");
 
-	/* Yuck yuck yuck.  Well this code is butt-ugly already anyway.  */
-	url_requested (html, url, html_stream_handle, NULL);
+	/* Yuck yuck yuck.  Well this code is butt-ugly already
+	anyway.  */
 
 	full_url = parse_href (url);
 	on_set_base (NULL, full_url, NULL);
+	url_requested (html, url, html_stream_handle, NULL);
 
 	if(!back_or_forward) {
 		if(go_position) {
