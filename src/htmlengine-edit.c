@@ -26,6 +26,9 @@
 #include <ctype.h>
 #include <glib.h>
 
+#include "gtkhtml.h"
+#include "gtkhtml-properties.h"
+
 #include "htmlobject.h"
 #include "htmlclueflow.h"
 #include "htmlcursor.h"
@@ -198,6 +201,9 @@ html_engine_spell_check_range (HTMLEngine *e, HTMLCursor *begin, HTMLCursor *end
 	HTMLInterval *i;
 
 	e->need_spell_check = FALSE;
+
+	if (!e->widget->editor_api || !GTK_HTML_CLASS (GTK_OBJECT (e->widget)->klass)->properties->live_spell_check)
+		return;
 
 	begin = html_cursor_dup (begin);
 	end   = html_cursor_dup (end);

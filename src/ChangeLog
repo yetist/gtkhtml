@@ -1,5 +1,8 @@
 2001-01-24  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine-edit.c (html_engine_spell_check_range): check for
+	properties:live spell checking
+
 	* htmltext.c (split_word_width): do renew only when words !=
 	s->words (not needed, but old way I got segv with efence, weird)
 
