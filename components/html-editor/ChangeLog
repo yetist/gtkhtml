@@ -1,5 +1,9 @@
 2001-10-28  Larry Ewing  <lewing@ximian.com>
 
+	* editor-control-factory.c (init_corba): init gnome with the
+	gtkhtml version so that we have a clue as to what version we have
+	in bug reports.
+
 	* link.c (link_apply_cb): get the positions for the insertion from
 	the saved values.  Otherwise if people make a selection while the
 	dialog is up we will lose the url.  Since people probably want to

@@ -814,7 +814,7 @@ BONOBO_OAF_SHLIB_FACTORY ("OAFIID:GNOME_GtkHTML_Editor_Factory", "GNOME HTML Edi
 static CORBA_ORB
 init_corba (int *argc, char **argv)
 {
-	gnome_init_with_popt_table ("gnome-gtkhtml-editor", "0.0",
+	gnome_init_with_popt_table ("gnome-gtkhtml-editor", VERSION,
 				    *argc, argv, oaf_popt_options, 0, NULL);
 
 	return oaf_init (*argc, argv);
