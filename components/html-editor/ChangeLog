@@ -1,3 +1,11 @@
+2000-10-04  Michael Meeks  <michael@helixcode.com>
+
+	* menubar.c (menubar_setup): simplify with new helper.
+
+2000-09-21  Michael Meeks  <michael@helixcode.com>
+
+	* editor-control-factory.c (set_frame_cb): upd.
+
 2000-09-28  Larry Ewing  <lewing@helixcode.com>
 
 	* Makefile.am: fix broken referencing of html-editor-control.xml

@@ -75,7 +75,7 @@ static void
 set_frame_cb (BonoboControl *control,
 	      gpointer data)
 {
-	Bonobo_Unknown remote_uih;
+	Bonobo_UIContainer remote_uih;
 	BonoboUIHandler *uih;
 	GtkHTMLControlData *control_data;
 	GtkWidget *toolbar;
@@ -220,7 +220,7 @@ load_from_corba (BonoboControl *control,
 		 GtkHTMLStream *handle)
 {
 	HTMLEditor_Resolver resolver;
-	Bonobo_Unknown remote_uih;
+	Bonobo_UIContainer remote_uih;
 	BonoboUIHandler *uih;
 	CORBA_Environment ev;	
 
