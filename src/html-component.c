@@ -31,13 +31,6 @@
  */
 typedef struct {
 	GnomeEmbeddable     *embeddable;
-
-	/*
-	 * Ok, the internal representation should go here. I haven't figured
-	 * that part out yet. Maybe we can cheat and have a widget per view
-	 * and just keep it at that?
-	 */
-/*	HTMLEngine          *engine;*/
 } embeddable_data_t;
 
 /*
@@ -59,8 +52,6 @@ typedef struct {
 static int running_objects = 0;                                                 
 static GnomeEmbeddableFactory *factory = NULL;                                  
                                                                                  
-void update_view (GnomeView *view);
-
 /*
  * Clean up our supplementary GnomeEmbeddable data structures.
  */
@@ -104,28 +95,13 @@ view_system_exception_cb (GnomeView *view, CORBA_Object corba_object,
 	gnome_object_destroy (GNOME_OBJECT (view));
 }
 
-/*
- * The job of this function is to update the view from the
- * embeddable's representation of the image data.
- */
-static void
-view_update (view_data_t *view_data)
-{
-	html_painter_set_background_color (view_data->html->engine->painter,
-					   view_data->html->engine->settings->bgcolor);
-	gdk_window_clear (view_data->html->engine->painter->window);
-
-	html_engine_draw (view_data->html->engine, 0, 0, view_data->html->engine->width, view_data->html->engine->height);
-}
-
-
-void 
-update_view (GnomeView *view)
+static void 
+update_view (GnomeView *view, void *data)
 {
 	view_data_t *view_data;
 
 	view_data = gtk_object_get_data (GTK_OBJECT (view), "view_data");
-	view_update (view_data);
+	gtk_widget_queue_draw (GTK_WIDGET (view_data->html));
 }
 
 /*
@@ -337,15 +313,6 @@ view_size_query_cb (GnomeView *view, int *desired_width, int *desired_height,
 }
 
 /*
- * This callback will be invoked when the container assigns us a size.
- */
-static void
-view_size_allocate_cb (GtkWidget *drawing_area, GtkAllocation *allocation,
-		       view_data_t *view_data)
-{
-}
-
-/*
  * This function is called when the "Refresh" verb is executed on
  * the component.
  */
@@ -420,13 +387,6 @@ view_factory (GnomeEmbeddable *embeddable,
 	gtk_signal_connect (GTK_OBJECT (view), "size_query",
 			    GTK_SIGNAL_FUNC (view_size_query_cb), view_data);
 
-	/*
-	 * When the container assigns us a size, we will get a
-	 * "size_allocate" signal raised on our top-level widget.
-	 */
-/*	gtk_signal_connect (GTK_OBJECT (view_data->html), "size_allocate",
-			    GTK_SIGNAL_FUNC (view_size_allocate_cb), view_data);
-*/
 
 	/*
 	 * When our container wants to activate a given view of this
@@ -543,12 +503,6 @@ embeddable_factory (GnomeEmbeddableFactory *this,
 static GnomeEmbeddableFactory *
 init_simple_paint_factory (void)
 {
-	/*
-	 * This will create a factory server for our simple paint
-	 * component.  When a container wants to create a paint
-	 * component, it will ask the factory to create one, and the
-	 * factory will invoke our embeddable_factory() function.
-	 */
 	return gnome_embeddable_factory_new (
 		"embeddable-factory:html-component",
 		embeddable_factory, NULL);

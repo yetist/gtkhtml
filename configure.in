@@ -25,24 +25,42 @@ AC_SUBST(LDFLAGS)
 dnl ******************************
 dnl Check for Bonobo
 dnl ******************************
-html_component=
+try_bonobo=true
 bonobo=
 bonobo_msg=no
 have_bonobo=false
 AC_ARG_WITH(bonobo,
 	[--{with,without}-bonobo    Compile with Bonobo support or without it],
-	if test x$withval = xyes; then
+	if test x$withval = xno; then
+		try_bonobo=false
+	fi
+)
+
+if $try_bonobo; then
+	AC_MSG_CHECKING(for Bonobo > 0.4)
+	if gnome-config --libs bonobo > /dev/null 2>&1; then
+		vers=`gnome-config --modversion bonobo`
+		case $vers
+		in
+		    bonobo-0.[[01234]]) bonobo_ok=false ;;
+		    *) bonobo_ok=true ;;
+		esac
+	else
+		bonobo_ok=false
+	fi
+	
+	if $bonobo_ok; then
 		AC_MSG_RESULT(found)
 		AC_DEFINE(ENABLE_BONOBO)
 		have_bonobo=true
 		bonobo=bonobo
 		bonobo_msg=yes
-		html_component=html-component
+	else
+		AC_MSG_RESULT(not found)
 	fi
-)
-
-#AC_SUBST(html_component)
+fi
 AM_CONDITIONAL(BONOBO, $have_bonobo)
+
 EXTRA_GNOME_LIBS=`gnome-config --libs gnomeui gdk_pixbuf $bonobo`
 EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnomeui gdk_pixbuf $bonobo`
 AC_SUBST(EXTRA_GNOME_LIBS)

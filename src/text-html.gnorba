@@ -1,0 +1,11 @@
+[embeddable-factory:text-html]
+type=exe
+repo_id=IDL:GNOME/EmbeddableFactory:1.0 IDL:GNOME/GenericFactory:1.0
+description=html renderer
+location_info=html-component
+
+[bonobo-object:application-x-pdf]
+type=factory
+repo_id=IDL:BonoboObject/text-html:1.0 IDL:GNOME/Embeddable:1.0 
+description=html renderer factory
+location_info=embeddable-factory:text-html

@@ -1,3 +1,10 @@
+1999-10-30  Michael Meeks  <mmeeks@gnu.org>
+
+	* Makefile.am (gnorba_DATA): Add gnorba install.
+
+	* html-component.c (update_view): just do a gtk_widget_queue_draw +
+	fix args. (view_update): kill.
+
 1999-10-28  Miguel de Icaza  <miguel@gnu.org>
 
 	* htmlpainter.c (html_painter_begin): Use the propper offset here
