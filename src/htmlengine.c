@@ -1581,6 +1581,8 @@ parse_iframe (HTMLEngine *e, const gchar *str, HTMLObject *_clue)
 	gint height          = -1;
 	gint border          = TRUE;
 	GtkPolicyType scroll = GTK_POLICY_AUTOMATIC;
+	gint margin_width    = -1;
+	gint margin_height   = -1;
 
 	html_string_tokenizer_tokenize (e->st, str, " >");
 
@@ -1600,12 +1602,11 @@ parse_iframe (HTMLEngine *e, const gchar *str, HTMLObject *_clue)
 		} else if (strncasecmp (token, "name=", 5) == 0) {
 			/* TODO: Ignored */
 		} else if (strncasecmp (token, "scrolling=", 10) == 0) {
-			/* TODO: Ignored */
 			scroll = parse_scroll (token + 10);
 		} else if (strncasecmp (token, "marginwidth=", 12) == 0) {
-				/* FIXME implement me */
+			margin_width = atoi (token + 12);
 		} else if (strncasecmp (token, "marginheight=", 13) == 0) {
-				/* FIXME implement me */
+			margin_height = atoi (token + 13);
 		} else if (strncasecmp (token, "frameborder=", 12) == 0) {
 			border = atoi (token + 12);
 		}
@@ -1613,10 +1614,29 @@ parse_iframe (HTMLEngine *e, const gchar *str, HTMLObject *_clue)
 	}	
 		
 	if (src) {
+#if 1
 		iframe = html_iframe_new (GTK_WIDGET (e->widget),
-					  src, width, height, border);
+					 src, width, height, border);
 		g_free (src);
 		append_element (e, _clue, iframe);
+#else 
+		{
+		HTMLObject *frame = html_frame_new (GTK_WIDGET (e->widget),
+					 src, width, height, border);
+		
+		html_frame_set_size (HTML_FRAME (frame), width, height);
+
+		if (margin_height > 0)
+			html_frame_set_margin_height (HTML_FRAME (frame), margin_height);
+		if (margin_width > 0)
+			html_frame_set_margin_width (HTML_FRAME (frame), margin_width);
+		if (scroll != GTK_POLICY_AUTOMATIC)
+			html_frame_set_scrolling (HTML_FRAME (frame), scroll);
+
+		g_free (src);
+		append_element (e, _clue, frame);
+		}
+#endif
 		discard_body (e, end);
 	} else {
 		parse_body (e, _clue, end, FALSE);
@@ -2164,12 +2184,12 @@ parse_f (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				margin_height = atoi (token + 13);
 			} else if (strncasecmp(token, "scrolling=", 10) == 0) {
 				scroll = parse_scroll (token + 10);
-				g_warning ("scroll");
 			}
 		}
 		
 		frame = html_frame_new (GTK_WIDGET (e->widget), src ? src : "", -1 , -1, FALSE);
-		html_frameset_append (html_stack_top (e->frame_stack), frame);
+		if (!html_frameset_append (html_stack_top (e->frame_stack), frame))
+			html_object_destroy (frame);
 		
 		if (margin_height > 0)
 			html_frame_set_margin_height (HTML_FRAME (frame), margin_height);
@@ -2293,13 +2313,15 @@ parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 		gchar *alt = NULL;
 		gint width = -1;
 		gint height = -1;
+		gint border = 0;
 		gint hspace = 0;
 		gint vspace = 0;
-		gint border = 0;
 		gboolean percent_width  = FALSE;
 		gboolean percent_height = FALSE;
 		gboolean ismap = FALSE;
 		color        = current_color (e);
+		if (e->url != NULL || e->target != NULL)
+			border = 2;
 
 		if (e->url != NULL || e->target != NULL)
 			border = 2;
@@ -3120,8 +3142,10 @@ html_engine_destroy (GtkObject *object)
 	gtk_object_unref (GTK_OBJECT (engine->painter));
 
 	html_stack_destroy (engine->color_stack);
+	html_stack_destroy (engine->font_face_stack);
 	html_stack_destroy (engine->font_style_stack);
 	html_stack_destroy (engine->clueflow_style_stack);
+	html_stack_destroy (engine->frame_stack);
 
 	html_stack_destroy (engine->listStack);
 	html_stack_destroy (engine->glossaryStack);
@@ -3484,6 +3508,7 @@ html_engine_stop_parser (HTMLEngine *e)
 	html_stack_clear (e->font_style_stack);
 	html_stack_clear (e->font_face_stack);
 	html_stack_clear (e->clueflow_style_stack);
+	html_stack_clear (e->frame_stack);
 }
 
 /* used for cleaning up the id hash table */
@@ -3685,7 +3710,7 @@ html_engine_update_event (HTMLEngine *e)
 		if (e->x_offset < 0)
 			e->x_offset = 0;
 	}
-
+	
 	gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->vadjustment, e->y_offset);
 	gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->hadjustment, e->x_offset);
 
@@ -4647,7 +4672,7 @@ html_engine_get_view_width (HTMLEngine *e)
 {
 	return (e->widget->iframe_parent
 		? html_engine_get_view_width (GTK_HTML (e->widget->iframe_parent)->engine)
-		: GTK_WIDGET (e->widget)->allocation.width)  - e->leftBorder - e->rightBorder;
+		: GTK_WIDGET (e->widget)->allocation.width) - e->leftBorder - e->rightBorder;
 }
 
 gint

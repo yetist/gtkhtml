@@ -1,3 +1,11 @@
+2001-06-04  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (html_engine_destroy): destroy the stacks we had
+	missed.
+	(parse_f): destroy the frame if we don't add it.
+	(parse_iframe): add disabled code to use frame here.
+	(html_engine_stop_parser): clear the frame stack.
+
 2001-06-02  Larry Ewing  <lewing@ximian.com>
 
 	* htmlframe.c (destroy): free the url.
