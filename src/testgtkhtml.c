@@ -459,8 +459,6 @@ static int
 on_button_press_event (GtkWidget *widget, GdkEventButton *event)
 {
 	GtkMenu *menu;
-	GdkEventButton *event_button;
-	int value;
 	
 	g_return_val_if_fail (widget != NULL, FALSE);
 	g_return_val_if_fail (event != NULL, FALSE);
@@ -471,34 +469,10 @@ on_button_press_event (GtkWidget *widget, GdkEventButton *event)
 	menu = GTK_MENU (popup_menu);
 	
 	if (event->type == GDK_BUTTON_PRESS) {
-		event_button = (GdkEventButton *) event;
-		if (event_button->button == 3) {
+
+		if (event->button == 3) {
 			gtk_menu_popup (menu, NULL, NULL, NULL, NULL, 
-					event_button->button, event_button->time);
-			return TRUE;
-		}
-		/* Mouse wheel scroll up */
-		if (event_button->button == 4) {
-
-			value = GTK_LAYOUT (html)->vadjustment->value - GTK_LAYOUT (html)->vadjustment->step_increment * 3;
-
-			if(value < GTK_LAYOUT (html)->vadjustment->lower)
-				value = GTK_LAYOUT (html)->vadjustment->lower;
-
-			gtk_adjustment_set_value (GTK_LAYOUT (html)->vadjustment, value);
-				
-			return TRUE;
-		} 
-		/* Mouse wheel scroll down */
-		if (event_button->button == 5) {
-
-			value = GTK_LAYOUT (html)->vadjustment->value + GTK_LAYOUT (html)->vadjustment->step_increment * 3;
-
-			if(value > (GTK_LAYOUT (html)->vadjustment->upper - GTK_LAYOUT (html)->vadjustment->page_size))
-				value = GTK_LAYOUT (html)->vadjustment->upper - GTK_LAYOUT (html)->vadjustment->page_size;
-
-			gtk_adjustment_set_value (GTK_LAYOUT (html)->vadjustment, value);
-
+					event->button, event->time);
 			return TRUE;
 		}
 	}

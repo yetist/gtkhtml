@@ -631,12 +631,41 @@ button_press_event (GtkWidget *widget,
 {
 	GtkHTML *html;
 	HTMLEngine *engine;
+	gint value;
 
 	html = GTK_HTML (widget);
 	engine = html->engine;
 
 	gtk_widget_grab_focus (widget);
 
+	if (event->type == GDK_BUTTON_PRESS) {
+
+		/* Mouse wheel scroll up */
+		if (event->button == 4) {
+
+			value = GTK_LAYOUT (widget)->vadjustment->value - GTK_LAYOUT (widget)->vadjustment->step_increment * 3;
+
+			if(value < GTK_LAYOUT (widget)->vadjustment->lower)
+				value = GTK_LAYOUT (widget)->vadjustment->lower;
+
+			gtk_adjustment_set_value (GTK_LAYOUT (widget)->vadjustment, value);
+				
+			return TRUE;
+		} 
+		/* Mouse wheel scroll down */
+		if (event->button == 5) {
+
+			value = GTK_LAYOUT (widget)->vadjustment->value + GTK_LAYOUT (widget)->vadjustment->step_increment * 3;
+
+			if(value > (GTK_LAYOUT (widget)->vadjustment->upper - GTK_LAYOUT (widget)->vadjustment->page_size))
+				value = GTK_LAYOUT (widget)->vadjustment->upper - GTK_LAYOUT (widget)->vadjustment->page_size;
+
+			gtk_adjustment_set_value (GTK_LAYOUT (widget)->vadjustment, value);
+
+			return TRUE;
+		}
+	}
+		
 	if (html_engine_get_editable (engine)) {
 		html_engine_jump_at (engine,
 				     event->x + engine->x_offset,

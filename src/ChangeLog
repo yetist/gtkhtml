@@ -1,3 +1,8 @@
+2000-04-02  Jonas Borgström  <jonas_b@bitsmart.com>
+
+	* gtkhtml.c and testgtkhtml.c (on_button_press_event): Moved mouse wheel
+	scrolling from testgtkhtml.c to gtkhtml.c.
+
 2000-04-02  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine.c: New value `ID_STRONG' for enum `ID'.
