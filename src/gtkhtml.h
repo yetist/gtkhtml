@@ -122,6 +122,9 @@ struct _GtkHTMLEditorAPI
 
 	/* input line */
 	GtkWidget * (* create_input_line)     (GtkHTML *html, gpointer data);
+
+	/* spell checking methods */
+	void      (* set_language)            (GtkHTML *html, const gchar *language, gpointer data);
 };
 
 

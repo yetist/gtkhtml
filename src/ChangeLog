@@ -1,3 +1,15 @@
+2001-10-08  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (gtk_html_api_set_language): new helper private
+	function, used to set language thru editor API
+	(gtk_html_set_editor_api): set language
+	(client_notify_widget): set language
+	(client_notify_widget): recheck spelling
+
+	* gtkhtml.h (struct _GtkHTMLEditorAPI): added set_language method
+
+	* htmlengine.c (html_engine_get_word): utf8-ize this function
+
 2001-10-06  root  <lewing@ximian.com>
 
 	* htmlimage.c (html_image_set_url): call register with reload set

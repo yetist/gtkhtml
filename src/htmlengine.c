@@ -4523,8 +4523,9 @@ html_engine_get_word (HTMLEngine *e)
 {
 	GString *text;
 	HTMLCursor *cursor;
-	gchar *word, c;
+	gchar *word;
 	gint pos;
+	gunichar uc;
 
 	if (!html_is_in_word (html_cursor_get_current_char (e->cursor))
 	    && !html_is_in_word (html_cursor_get_prev_char (e->cursor)))
@@ -4539,8 +4540,14 @@ html_engine_get_word (HTMLEngine *e)
 		html_cursor_backward (cursor, e);
 
 	/* move to the end of word */
-	while (html_is_in_word (c = html_cursor_get_current_char (cursor))) {
-		text = g_string_append_c (text, c);
+	while (html_is_in_word (uc = html_cursor_get_current_char (cursor))) {
+		gchar out [7];
+		gint size;
+
+		size = g_unichar_to_utf8 (uc, out);
+		g_assert (size < 7);
+		out [size] = 0;
+		text = g_string_append (text, out);
 		html_cursor_forward (cursor, e);
 	}
 

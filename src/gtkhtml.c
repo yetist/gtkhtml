@@ -1624,6 +1624,8 @@ client_notify_widget (GConfClient* client,
 	} else if (!strcmp (tkey, "/language")) {
 		g_free (prop->language);
 		prop->language = g_strdup (gconf_client_get_string (client, entry->key, NULL));
+		gtk_html_api_set_language (html);
+		html_engine_spell_check (html->engine);
 	}
 }
 
@@ -3697,10 +3699,26 @@ gtk_html_select_all (GtkHTML *html)
 }
 
 void
+gtk_html_api_set_language (GtkHTML *html)
+{
+	g_assert (GTK_IS_HTML (html));
+
+	if (html->editor_api) {
+		/* printf ("set language through API to '%s'\n",
+		   GTK_HTML_CLASS (GTK_OBJECT (html)->klass)->properties->language); */
+
+		html->editor_api->set_language (html, GTK_HTML_CLASS (GTK_OBJECT (html)->klass)->properties->language,
+						html->editor_data);
+	}
+}
+
+void
 gtk_html_set_editor_api (GtkHTML *html, GtkHTMLEditorAPI *api, gpointer data)
 {
 	html->editor_api  = api;
 	html->editor_data = data;
+
+	gtk_html_api_set_language (html);
 }
 
 static gchar *
