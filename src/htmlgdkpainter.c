@@ -703,23 +703,6 @@ draw_background (HTMLPainter *painter,
 	}
 }
 
-static GdkPixbuf *
-create_temporary_pixbuf (GdkPixbuf *src,
-			 gint clip_width, gint clip_height)
-{
-	GdkPixbuf *pixbuf;
-	gboolean has_alpha;
-	guint bits_per_sample;
-
-	has_alpha = gdk_pixbuf_get_has_alpha (src);
-	bits_per_sample = gdk_pixbuf_get_bits_per_sample (src);
-
-	pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, has_alpha, bits_per_sample, clip_width, clip_height);
-	gdk_pixbuf_fill (pixbuf, 0xff000000);
-	
-	return pixbuf;
-}
-
 static void
 draw_pixmap (HTMLPainter *painter,
 	     GdkPixbuf *pixbuf,
@@ -776,9 +759,13 @@ draw_pixmap (HTMLPainter *painter,
 		return;
 	}
 
-       	tmp_pixbuf = create_temporary_pixbuf (pixbuf,
-					      paint.width,
-					      paint.height);
+
+	tmp_pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, 
+				     gdk_pixbuf_get_has_alpha (pixbuf),
+				     gdk_pixbuf_get_bits_per_sample (pixbuf),
+				     paint.width, paint.height);
+
+	gdk_pixbuf_fill (tmp_pixbuf, 0xff000000);
 
 	if (tmp_pixbuf == NULL)
 		return;

@@ -1,5 +1,7 @@
 2003-02-24  Larry Ewing  <lewing@ximian.com>
 
+	* htmlgdkpainter.c (draw_pixmap): remove helper function.
+
 	* gtkhtml.c: add a couple more properties.
 
 	* htmlclueflow.c (relayout): add engine offsets to the draw call.
