@@ -1,4 +1,5 @@
 2001-01-25  Radek Doulik  <rodo@helixcode.com>
 
 	* Makefile.am: new file, copied from gdk-pixbuf and edited
+	(all): added rule all:
 

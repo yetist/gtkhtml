@@ -40,11 +40,13 @@ EXTRA_DIST = 				\
 	$(content_files)
 
 if ENABLE_GTK_DOC
+all:	html/index.html
+else
+all:
+endif
+
 html/index.html: sgml/gtkhtml-doc.bottom $(content_files)
 	$(MAKE) html
-else
-gtkhtml.html:
-endif
 
 sgml/gtkhtml-doc.bottom: $(tmpl_sources)
 	$(MAKE) sgml
