@@ -1190,8 +1190,6 @@ block_end_textarea (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 static void
 push_clue_style (HTMLEngine *e)
 {
-	printf ("push clue style\n");
-
 	//html_stack_push (e->body_stack, e->span_stack);
 	html_stack_push (e->body_stack, e->clueflow_style_stack);
 	html_stack_push (e->body_stack, e->listStack);
@@ -1211,8 +1209,6 @@ push_clue_style (HTMLEngine *e)
 static void
 push_clue (HTMLEngine *e, HTMLObject *clue)
 {
-	printf ("push clue\n");
-
 	push_clue_style (e);
 
 	html_stack_push (e->body_stack, e->parser_clue);
@@ -1224,8 +1220,6 @@ push_clue (HTMLEngine *e, HTMLObject *clue)
 static void
 pop_clue_style (HTMLEngine *e)
 {
-	printf ("pop clue style\n");
-
 	/* CLUECHECK */
 	finish_flow (e, HTML_OBJECT (e->parser_clue));
 
@@ -1244,8 +1238,6 @@ pop_clue_style (HTMLEngine *e)
 static void
 pop_clue (HTMLEngine *e)
 {
-	printf ("pop clue\n");
-
 	e->flow = html_stack_pop (e->body_stack);
 	e->parser_clue = html_stack_pop (e->body_stack);
 
