@@ -89,47 +89,25 @@ html_painter_draw_background_pixmap (HTMLPainter *painter, gint x, gint y,
 void
 html_painter_draw_pixmap (HTMLPainter *painter, gint x, gint y, GdkPixbuf *pixbuf, gint clipx, gint clipy, gint clipwidth, gint clipheight)
 {
-	gint off_x, off_y, off_width, off_height;
-
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (pixbuf != NULL);
 
-	/* This little trick helps us avoid explicitly setting clipping altogether */
+	x -= painter->x1;
+	y -= painter->y1;
 
-	off_x = MAX(clipx - x, 0);
-	off_y = MAX(clipy - y, 0);
+	if (clipwidth && clipheight)
+		html_painter_set_clip_rectangle (painter, clipx, clipy, clipwidth, clipheight);
 	
-	if(off_x >= pixbuf->art_pixbuf->width /* 0 < 16 */
-	   || off_y >= pixbuf->art_pixbuf->height) /* 14 < 20 */
-		return;
-	
-	off_width = MIN((clipx + clipwidth) - x - off_x, pixbuf->art_pixbuf->width - off_x);
-	off_height = MIN((clipy + clipheight) - y - off_y, pixbuf->art_pixbuf->height - off_y);
-	
-	if (clipwidth <= 0){
-		off_x = 0;
-		off_width = pixbuf->art_pixbuf->width;
-	}
-	
-	if (clipheight <= 0){
-		off_y = 0;
-		off_height = pixbuf->art_pixbuf->height;
-	}
-	
-	if (off_width <= 0 || off_height <= 0)
-		return;
-
-        /* The part we are actually drawing starts at the upper left of the clip rectangle */
-	x += off_x; 
-	y += off_y;
-
 	gdk_pixbuf_render_to_drawable_alpha (pixbuf, painter->pixmap,
-					     off_x, off_y, /* src x/y */
+					     0, 0,
 					     x - painter->x1, y - painter->y1, /* dest x/y in pixmap*/
-					     off_width, off_height,
+					     pixbuf->art_pixbuf->width,
+					     pixbuf->art_pixbuf->height,
 					     GDK_PIXBUF_ALPHA_BILEVEL,
 					     128, GDK_RGB_DITHER_NORMAL,
 					     x, y);
+	if (clipwidth && clipheight)
+		gdk_gc_set_clip_rectangle (painter->gc, NULL);
 }
 
 void
@@ -219,9 +197,10 @@ html_painter_new (void)
 
 	painter = g_new0 (HTMLPainter, 1);
 
-	if (getenv ("TESTDB") != NULL){
+	if (getenv ("DISABLE_DB") != NULL)
+		painter->double_buffer = FALSE;
+	else
 		painter->double_buffer = TRUE;
-	}
 	
 	return painter;
 }
@@ -263,6 +242,7 @@ html_painter_begin (HTMLPainter *painter, int x1, int y1, int x2, int y2)
 			painter->pixmap, painter->gc, TRUE,
 			0, 0, width, height);
 
+		printf ("Double buffer dim: %d %d %d %d\n", x1, y1, x2, y2);
 	} else {
 		painter->pixmap = painter->window;
 		painter->x1 = 0;
@@ -283,7 +263,7 @@ html_painter_end (HTMLPainter *painter)
 			0, 0,
 			painter->x1, painter->y1,
 			painter->x2 - painter->x1 + 1,
-			painter->y2 - painter->y1 + 1);
+			painter->y2 - painter->y1);
 		gdk_pixmap_unref (painter->pixmap);
 	}
 	painter->pixmap = NULL;
@@ -362,5 +342,5 @@ html_painter_set_clip_rectangle (HTMLPainter *painter, gint x, gint y, gint widt
 	rect.width = width;
 	rect.height = height;
 	
-	gdk_gc_set_clip_rectangle (painter->gc, (width && height)?&rect:NULL);
+	gdk_gc_set_clip_rectangle (painter->gc, (width && height) ? &rect : NULL);
 }

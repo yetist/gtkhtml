@@ -1,3 +1,11 @@
+1999-12-08  Miguel de Icaza  <miguel@gnu.org>
+
+	* htmlpainter.c (html_painter_end): Fix off by one error.
+	(html_painter_new): Double buffering is now the default.
+	(html_painter_draw_pixmap): Remove soptimization to fix image repainting.
+	(html_painter_draw_pixmap): Use proper API.  The revolution will
+	not be Soptimized.
+
 1999-12-07  Ettore Perazzoli  <ettore@gnu.org>
 
 	* htmlurl.c (scan_user_and_password): Renamed to `scan_host_info'.
