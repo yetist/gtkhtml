@@ -2273,7 +2273,7 @@ scroll (GtkHTML *html,
 	gfloat         position)
 {
 	GtkAdjustment *adj;
-	gint line_height;
+	gint line25_height;
 	gfloat delta;
 
 	/* we dont want scroll in editable (move cursor instead) */
@@ -2284,8 +2284,8 @@ scroll (GtkHTML *html,
 		? gtk_layout_get_vadjustment (GTK_LAYOUT (html)) : gtk_layout_get_hadjustment (GTK_LAYOUT (html));
 
 
-	line_height = (html->engine && adj->page_increment > html->engine->painter->font_manager.var_size)
-		? html->engine->painter->font_manager.var_size
+	line25_height = (html->engine && adj->page_increment > ((5 * html->engine->painter->font_manager.var_size) >> 1))
+		? ((5 * html->engine->painter->font_manager.var_size) >> 1)
 		: 0;
 
 	switch (scroll_type) {
@@ -2296,10 +2296,10 @@ scroll (GtkHTML *html,
 		delta = -adj->step_increment;
 		break;
 	case GTK_SCROLL_PAGE_FORWARD:
-		delta = adj->page_increment - 2 * line_height;
+		delta = adj->page_increment - line25_height;
 		break;
 	case GTK_SCROLL_PAGE_BACKWARD:
-		delta = -adj->page_increment + 2 * line_height;
+		delta = -adj->page_increment + line25_height;
 		break;
 	default:
 		g_warning ("invalid scroll parameters: %d %d %f\n", orientation, scroll_type, position);
@@ -2377,22 +2377,33 @@ cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType ski
 			g_warning ("invalid cursor_move parameters\n");
 		}
 		break;
-	case GTK_HTML_CURSOR_SKIP_PAGE:
+	case GTK_HTML_CURSOR_SKIP_PAGE: {
+		gint line25_height;
+
+		line25_height =  GTK_WIDGET (html)->allocation.height
+			> ((5 * html->engine->painter->font_manager.var_size) >> 1)
+			? ((5 * html->engine->painter->font_manager.var_size) >> 1)
+			: 0;
+
+
 		switch (dir_type) {
 		case GTK_DIR_UP:
 		case GTK_DIR_LEFT:
-			if ((amount = html_engine_scroll_up (html->engine, GTK_WIDGET (html)->allocation.height)) > 0)
+			if ((amount = html_engine_scroll_up (html->engine,
+							     GTK_WIDGET (html)->allocation.height - line25_height)) > 0)
 				scroll_by_amount (html, - amount);
 			break;
 		case GTK_DIR_DOWN:
 		case GTK_DIR_RIGHT:
-			if ((amount = html_engine_scroll_down (html->engine, GTK_WIDGET (html)->allocation.height)) > 0)
+			if ((amount = html_engine_scroll_down (html->engine,
+							       GTK_WIDGET (html)->allocation.height - line25_height)) > 0)
 				scroll_by_amount (html, amount);
 			break;
 		default:
 			g_warning ("invalid cursor_move parameters\n");
 		}
 		break;
+	}
 	case GTK_HTML_CURSOR_SKIP_ALL:
 		switch (dir_type) {
 		case GTK_DIR_LEFT:

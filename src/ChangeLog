@@ -1,6 +1,9 @@
 2001-01-11  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml.c (scroll): repeat two lines when scrolling by page
+	(scroll): use rather 2.5 * size
+	(cursor_move): try to repeat last 2 lines while scrolling by page
+	(2.5 * size)
 
 	* htmlengine-edit-clueflowstyle.c
 	(html_engine_set_clueflow_style): free/thaw engine
