@@ -76,10 +76,8 @@ rm -rf $RPM_BUILD_ROOT
 %config /etc/CORBA/servers/*.gnorba
 %{prefix}/bin/gtkhtml-properties-capplet
 %{prefix}/bin/html-editor-control
-%{prefix}/lib/*.0
-%{prefix}/lib/*.3
 %{prefix}/lib/*.sh
-%{prefix}/lib/*.so
+%{prefix}/lib/*.so*
 %{prefix}/share/control-center/Documents/*.desktop
 %{prefix}/share/gnome/apps/Settings/Documents/*.desktop
 %{prefix}/share/gtkhtml/*.emacs
