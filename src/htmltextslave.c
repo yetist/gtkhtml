@@ -796,14 +796,15 @@ get_offset_for_pointer (HTMLTextSlave *slave, HTMLPainter *painter, gint x, gint
 	i = 1;
 	word = 1;
 	space = strchr (owner->text + slave->posStart, ' ');
-	if (space && space - owner->text - slave->posStart <= slave->posLen) {
+	text = html_text_slave_get_text (slave);
+	if (space && g_utf8_pointer_to_offset (text, space) <= slave->posLen) {
 		html_text_request_word_width (owner, painter);
 
 		ww = get_words_width (owner, painter, slave->start_word, word);
 		while (ww < x && space) {
-			i = space - owner->text - slave->posStart;
+			i = g_utf8_pointer_to_offset (text, space);
 			space = strchr (space + 1, ' ');
-			if (space && space - owner->text - slave->posStart >= slave->posLen) {
+			if (space && g_utf8_pointer_to_offset (text, space) >= slave->posLen) {
 				break;
 			}
 			word ++;
@@ -811,7 +812,6 @@ get_offset_for_pointer (HTMLTextSlave *slave, HTMLPainter *painter, gint x, gint
 		}
 	}
 
-	text = html_text_slave_get_text (slave);
 	for ( ; i <= slave->posLen; i++) {
 		gint asc, dsc;
 
@@ -851,7 +851,6 @@ check_point (HTMLObject *self,
 	return NULL;
 }
 
-
 void
 html_text_slave_type_init (void)
 {

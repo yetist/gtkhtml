@@ -1,3 +1,8 @@
+2002-10-01  Radek Doulik  <rodo@ximian.com>
+
+	* htmltextslave.c (get_offset_for_pointer): fixed offset
+	computation, use utf8 functions instead of using byte positions
+
 2002-09-30  Radek Doulik  <rodo@ximian.com>
 
 	* htmlprinter.c (draw_text): removed unused local variable
