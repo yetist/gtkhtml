@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "POT-Creation-Date: 2002-10-31 05:42+0100\n"
-"PO-Revision-Date: 2002-12-27 22:19+EDT\n"
+"PO-Revision-Date: 2003-01-01 22:40+EDT\n"
 "Last-Translator: Ge'ez Frontier Foundation <locales@geez.org>\n"
 "Language-Team: Amharic <locales@geez.org>\n"
 "MIME-Version: 1.0\n"
@@ -619,7 +619,7 @@ msgstr "ብጫ"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
 msgid "_Alignment"
-msgstr "ኩልኩል (_A)"
+msgstr "በስርዓት ኰልኩል (_A)"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
 msgid "_Alphabetical List"
@@ -971,7 +971,7 @@ msgstr "እርዝማኔ፦"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:37
 msgid "Horizontal alignment:"
-msgstr ""
+msgstr "የአግድም ኩልኩል፦"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:38
 msgid "Horizontal:"
@@ -1086,7 +1086,7 @@ msgstr "ዘይቤ፦"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:73
 msgid "Table Insert"
-msgstr ""
+msgstr "ሠንጠረዥ አስገባ"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:75
 #: components/html-editor/link.c:112
@@ -1256,7 +1256,7 @@ msgstr ""
 
 #: components/html-editor/paragraph.c:145
 msgid "Align"
-msgstr "በስርዓት ኰልኩል"
+msgstr "ቀጥ አድርግ"
 
 #: components/html-editor/popup.c:394
 #, c-format
@@ -1266,7 +1266,7 @@ msgstr "የ'%s'ን አጻጻፉን አጣራ..."
 #: components/html-editor/popup.c:395
 #, c-format
 msgid "Add '%s' to dictionary"
-msgstr ""
+msgstr "'%s'ን ወደ መዝገበ ቃላቶች ጨምር"
 
 #: components/html-editor/popup.c:396
 #, c-format
@@ -1494,7 +1494,7 @@ msgstr ""
 
 #: components/html-editor/toolbar.c:538
 msgid "Unindent"
-msgstr ""
+msgstr "ወደውስጥ ገባ ያላለ"
 
 #: components/html-editor/toolbar.c:538
 msgid "Indents the paragraphs less"
