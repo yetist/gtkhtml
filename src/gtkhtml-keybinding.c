@@ -176,7 +176,7 @@ disable_selection (GtkHTML *html)
 static void
 cut (GtkHTML *html)
 {
-	html_engine_cut (html->engine);
+	html_engine_cut (html->engine, TRUE);
 }
 
 static void
@@ -189,7 +189,7 @@ copy (GtkHTML *html)
 static void
 paste (GtkHTML *html)
 {
-	html_engine_paste (html->engine);
+	html_engine_paste (html->engine, TRUE);
 }
 
 

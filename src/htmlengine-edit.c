@@ -103,13 +103,9 @@ html_engine_insert_image (HTMLEngine *e, const gchar *file)
 	image = html_image_new (e->image_factory, url, NULL, NULL, -1, -1, 0, 0, NULL, HTML_VALIGN_TOP);
 
 	printf ("insert image %s\n", url);
-
 	g_free (url);
 
-	cut_buffer = e->cut_buffer;
-	e->cut_buffer = g_list_append (NULL, image);
-	html_engine_paste (e);
-	e->cut_buffer = cut_buffer;
+	html_engine_paste_object (e, image, TRUE);
 
 	html_object_destroy (image);
 }

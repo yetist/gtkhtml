@@ -1,5 +1,25 @@
 2000-04-22  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine.c
+	(replace): Use `html_engine_paste_object()' instead of overriding
+	the engine's cut buffer and using `html_engine_paste()'.
+
+	* htmlengine-edit.c
+	(html_engine_insert_image): Use `html_engine_paste_object()'.
+
+	* htmlengine-edit-paste.c
+	(html_engine_paste_object): New function.
+
+	* htmlengine-edit-cut.c
+	(html_engine_cut): New param @do_undo.  If false, don't save undo
+	information.
+
+	* htmlengine-edit-paste.c
+	(html_engine_paste): New param @do_undo.  If false, don't save
+	undo information.
+
+2000-04-22  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* testgtkhtml.c
 	(main): We definitely don't want this test program to let users
 	edit pages.

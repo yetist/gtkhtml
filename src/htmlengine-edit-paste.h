@@ -26,6 +26,11 @@
 
 void  html_engine_paste_buffer  (HTMLEngine *engine,
 				 GList      *buffer);
-void  html_engine_paste         (HTMLEngine *engine);
+void  html_engine_paste_object  (HTMLEngine *engine,
+				 HTMLObject *object,
+				 gboolean    undo);
+
+void  html_engine_paste         (HTMLEngine *engine,
+				 gboolean    do_undo);
 
 #endif /* _HTML_ENGINE_EDIT_PASTE_H */

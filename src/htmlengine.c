@@ -4128,8 +4128,7 @@ replace (HTMLEngine *e)
 	new_text = html_text_master_new (e->replace_info->text,
 					 HTML_TEXT (first)->font_style,
 					 &HTML_TEXT (first)->color);
-	e->cut_buffer = g_list_append (NULL, new_text);
-	html_engine_paste (e);
+	html_engine_paste_object (e, new_text, TRUE);
 
 	/* update search info to point just behind replaced text */
 	g_list_free (e->search_info->found);

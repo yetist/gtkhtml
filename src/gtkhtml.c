@@ -1468,7 +1468,7 @@ gtk_html_cut (GtkHTML *html)
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
 
-	html_engine_cut (html->engine);
+	html_engine_cut (html->engine, TRUE);
 }
 
 void
@@ -1486,7 +1486,7 @@ gtk_html_paste (GtkHTML *html)
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
 
-	html_engine_paste (html->engine);
+	html_engine_paste (html->engine, TRUE);
 }
 
 

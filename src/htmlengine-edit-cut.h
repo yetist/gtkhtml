@@ -24,6 +24,7 @@
 
 #include "htmlengine.h"
 
-void  html_engine_cut  (HTMLEngine *engine);
+void  html_engine_cut  (HTMLEngine *engine,
+			gboolean do_undo);
 
 #endif

@@ -150,8 +150,17 @@ init_undo (HTMLEngine *engine,
 }
 
 
+/**
+ * html_engine_cut:
+ * @engine: An HTMLEngine
+ * @do_undo: Whether to save undo information for this command
+ *
+ * Cut the current selection and put it into @engine's cut buffer.
+ * Save undo information only if @do_undo is true.
+ **/
 void
-html_engine_cut (HTMLEngine *engine)
+html_engine_cut (HTMLEngine *engine,
+		 gboolean do_undo)
 {
 	gboolean mark_precedes_cursor;
 	guint elems_copied;
@@ -160,9 +169,8 @@ html_engine_cut (HTMLEngine *engine)
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 	g_return_if_fail (engine->active_selection);
 
-	g_warning ("Cut!");
-
-	html_undo_discard_redo (engine->undo);
+	if (do_undo)
+		html_undo_discard_redo (engine->undo);
 
 	elems_copied = html_engine_copy (engine);
 	mark_precedes_cursor = html_cursor_precedes (engine->mark, engine->cursor);
@@ -173,5 +181,6 @@ html_engine_cut (HTMLEngine *engine)
 		html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_LEFT, elems_copied);
 	html_engine_delete (engine, elems_copied);
 
-	init_undo (engine, engine->cut_buffer, elems_copied, mark_precedes_cursor);
+	if (do_undo)
+		init_undo (engine, engine->cut_buffer, elems_copied, mark_precedes_cursor);
 }

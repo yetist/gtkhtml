@@ -641,6 +641,14 @@ action_data_from_cut_buffer (HTMLEngine *engine,
 }
 
 
+/**
+ * html_engine_paste_buffer:
+ * @engine: An HTMLEngine
+ * @buffer: A cut buffer list
+ * 
+ * Paste @buffer at the current cursor position, WITHOUT SAVING UNDO
+ * INFORMATION.
+ **/
 void
 html_engine_paste_buffer (HTMLEngine *engine,
 			  GList *buffer)
@@ -653,8 +661,51 @@ html_engine_paste_buffer (HTMLEngine *engine,
 	do_paste (engine, buffer);
 }
 
+/**
+ * html_engine_paste_object:
+ * @engine: An HTMLEngine
+ * @object: Object to be pasted
+ * @do_undo: Whether we want to save undo information for this op.
+ * 
+ * Paste @buffer at the current cursor position.
+ **/
 void
-html_engine_paste (HTMLEngine *engine)
+html_engine_paste_object (HTMLEngine *engine,
+			  HTMLObject *object,
+			  gboolean do_undo)
+{
+	GList *tmp_buffer;
+	guint count;
+
+	g_return_if_fail (engine != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (engine));
+	g_return_if_fail (object != NULL);
+
+	tmp_buffer = g_list_alloc ();
+	tmp_buffer->data = object;
+
+	if (do_undo)
+		html_undo_discard_redo (engine->undo);
+
+	count = do_paste (engine, tmp_buffer);
+
+	if (do_undo)
+		setup_undo (engine, action_data_from_cut_buffer (engine, engine->cut_buffer, count));
+
+	g_list_free (tmp_buffer);
+}
+
+/**
+ * html_engine_paste:
+ * @engine: An HTMLEngine
+ * @do_undo: Whether to save undo information for this operation.
+ * 
+ * Paste the current cut buffer at the current cursor position.  Save
+ * undo information only if @do_undo is true.
+ **/
+void
+html_engine_paste (HTMLEngine *engine,
+		   gboolean do_undo)
 {
 	GList *cut_buffer;
 	guint count;
@@ -666,8 +717,10 @@ html_engine_paste (HTMLEngine *engine)
 	if (engine->cut_buffer == NULL)
 		return;
 
-	html_undo_discard_redo (engine->undo);
-	html_undo_level_begin (engine->undo, "paste");
+	if (do_undo) {
+		html_undo_discard_redo (engine->undo);
+		html_undo_level_begin (engine->undo, "paste");
+	}
 
 	/* Cut current selection.  */
 	if (engine->active_selection) {
@@ -676,7 +729,7 @@ html_engine_paste (HTMLEngine *engine)
 		engine->cut_buffer = NULL;
 
 		/* Cut current selection.  */
-		html_engine_cut (engine);
+		html_engine_cut (engine, do_undo);
 
 		/* Restore cut buffer.  */
 		if (engine->cut_buffer != NULL)
@@ -686,6 +739,8 @@ html_engine_paste (HTMLEngine *engine)
 
 	count = do_paste (engine, engine->cut_buffer);
 
-	setup_undo (engine, action_data_from_cut_buffer (engine, engine->cut_buffer, count));
-	html_undo_level_end (engine->undo);
+	if (do_undo) {
+		setup_undo (engine, action_data_from_cut_buffer (engine, engine->cut_buffer, count));
+		html_undo_level_end (engine->undo);
+	}
 }
