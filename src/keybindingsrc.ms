@@ -116,6 +116,9 @@ binding "gtkhtml-bindings-ms"
 
   bind "<Ctrl>o"              { "command" (text-color-apply) }
 
+  bind "<Ctrl>Delete"         { "command" (kill-word) }
+  bind "<Ctrl>BackSpace"      { "command" (backward-kill-word) }
+
 # Sun Edit Keys
   bind "F12"                  { "command" (redo) }
   bind "F14"                  { "command" (undo) }

@@ -1,5 +1,8 @@
 2002-07-05  Radek Doulik  <rodo@ximian.com>
 
+	* keybindingsrc.ms: added C-backspace and C-delete for delete
+	{forward,backward} word
+
 	* htmlengine-edit-fontstyle.c (get_url_or_target_from_selection):
 	removed obsolete assert
 
