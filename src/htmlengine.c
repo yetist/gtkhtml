@@ -873,13 +873,13 @@ parse_href (HTMLEngine *e,
 			} else {
 				/* Single slash at the beginning.  */
 
-				retval = html_url_dup (tmp,
+				retval = html_url_dup (e->actualURL,
 						       HTML_URL_DUP_NOPATH);
 				html_url_set_path (retval, s);
 				html_url_destroy (tmp);
 			}
 		} else {
-			retval = html_url_append_path (tmp, s);
+			retval = html_url_append_path (e->actualURL, s);
 			html_url_destroy (tmp);
 		}
 	} else {
