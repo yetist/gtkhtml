@@ -491,8 +491,8 @@ html_engine_parse (HTMLEngine *p)
 
 	/* Free the background pixmap */
 	if (p->bgPixmapPtr) {
-	  html_image_factory_unregister(p->image_factory, p->bgPixmapPtr, NULL);
-	  p->bgPixmapPtr = NULL;
+		html_image_factory_unregister(p->image_factory, p->bgPixmapPtr, NULL);
+		p->bgPixmapPtr = NULL;
 	}
 
 	/* Free the background color (if any) and alloc a new one */

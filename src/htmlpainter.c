@@ -51,31 +51,29 @@ html_painter_draw_pixmap (HTMLPainter *painter, gint x, gint y, GdkPixbuf *pixbu
 
 	off_x = MAX(clipx - x, 0);
 	off_y = MAX(clipy - y, 0);
-
+	
 	if(off_x >= pixbuf->art_pixbuf->width /* 0 < 16 */
 	   || off_y >= pixbuf->art_pixbuf->height) /* 14 < 20 */
-	  return;
-
+		return;
+	
 	off_width = MIN((clipx + clipwidth) - x - off_x, pixbuf->art_pixbuf->width - off_x);
 	off_height = MIN((clipy + clipheight) - y - off_y, pixbuf->art_pixbuf->height - off_y);
+	
+	if (clipwidth <= 0){
+		off_x = 0;
+		off_width = pixbuf->art_pixbuf->width;
+	}
+	
+	if (clipheight <= 0){
+		off_y = 0;
+		off_height = pixbuf->art_pixbuf->height;
+	}
+	
+	if (off_width <= 0 || off_height <= 0)
+		return;
 
-	if(clipwidth <= 0)
-	  {
-	    off_x = 0;
-	    off_width = pixbuf->art_pixbuf->width;
-	  }
-
-	if(clipheight <= 0)
-	  {
-	    off_y = 0;
-	    off_height = pixbuf->art_pixbuf->height;
-	  }
-
-	if(off_width <= 0
-	   || off_height <= 0)
-	  return;
-
-	x += off_x; /* The part we are actually drawing starts at the upper left of the clip rectangle */
+        /* The part we are actually drawing starts at the upper left of the clip rectangle */
+	x += off_x; 
 	y += off_y;
 
 	gdk_pixbuf_render_to_drawable_alpha (pixbuf, painter->pixmap,
