@@ -1267,15 +1267,15 @@ parse_object_params(HTMLEngine *p, HTMLObject *clue)
 	 * at which point we throw it back up. */ 
 	while (html_tokenizer_has_more_tokens (p->ht) && p->parsing) {
 		str = html_tokenizer_next_token (p->ht);
-
+		
 		if (*str == '\0' || 
 		    *str == '\n' ||
 		    (*str == ' ' && *(str + 1) == '\0')) {
-			continue;
 		} else if ((*str == TAG_ESCAPE) &&  
-			!strncmp ("<param", str+1, 6)) {
+			   !strncmp ("<param", str+1, 6)) {
 			str++;
 			parse_one_token (p, clue, str);
+			continue;
 		} else {
 			return str;
 		}
@@ -1334,8 +1334,10 @@ parse_object (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	/* evaluate params and return the first non-<param> token */
 	str       = parse_object_params (e, clue);
 	printf ("\"%s\": was the string\n", str);
-	body_left = strncmp(str, "</object", 8);
-
+	body_left = !((*str == TAG_ESCAPE) && !strncasecmp(str+1, "</object", 8));
+	if (!body_left) {
+		str++;
+	}
 	/* create the object */
         object_found = FALSE;
 	gtk_signal_emit (GTK_OBJECT (e), signals [OBJECT_REQUESTED], eb, &object_found);
@@ -1370,7 +1372,7 @@ parse_object (HTMLEngine *e, HTMLObject *clue, gint max_width,
 		html_object_destroy (HTML_OBJECT (el));
 	}
 	
-	if ((!str || strncmp( str, "</object", 8 ) == 0) && 
+	if ((!str || (strncasecmp( str, "</object", 8 ) == 0)) && 
 	    (! html_stack_is_empty (e->embeddedStack))) {
 		html_stack_pop (e->embeddedStack);
 	}
