@@ -1782,43 +1782,41 @@ parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		push_font_style (p, newSize);
 
 		push_block  (p, ID_FONT, 1, block_end_color_font, FALSE, FALSE);
-	}
-	else if (strncmp (str, "/font", 5) == 0) {
+	} else if (strncmp (str, "/font", 5) == 0) {
 		pop_block (p, ID_FONT, clue);
-	}
-	else if (strncmp (str, "form", 4) == 0) {
+	} else if (strncmp (str, "form", 4) == 0) {
                 gchar *action = NULL;
                 gchar *method = "GET";
                 gchar *target = NULL;
-                    
+
 		string_tokenizer_tokenize (p->st, str + 5, " >");
 		while (string_tokenizer_has_more_tokens (p->st)) {
 			const gchar *token = string_tokenizer_next_token (p->st);
 
-                        if ( strncasecmp( token, "action=", 7 ) == 0 )
-                        {
+                        if ( strncasecmp( token, "action=", 7 ) == 0 ) {
                                 action = g_strdup (token + 7);
-                        }
-                        else if ( strncasecmp( token, "method=", 7 ) == 0 )
-                        {
+                        } else if ( strncasecmp( token, "method=", 7 ) == 0 ) {
                                 if ( strncasecmp( token + 7, "post", 4 ) == 0 )
                                         method = "POST";
-                        }
-                        else if ( strncasecmp( token, "target=", 7 ) == 0 )
-                        {
+                        } else if ( strncasecmp( token, "target=", 7 ) == 0 ) {
 				target = g_strdup(token + 7);
                         }
                 }
 
                 p->form = html_form_new (p, action, method);
-                p->formList = g_list_append(p->formList, p->form);
+                p->formList = g_list_append (p->formList, p->form);
 		
-		if(action)
+		if (action)
 			g_free(action);
-		if(target)
+		if (target)
 			g_free(target);
-	}
-	else if (strncmp (str, "/form", 5) == 0) {
+
+		if (! p->avoid_para) {
+			close_anchor (p);
+			p->avoid_para = TRUE;
+			p->pending_para = TRUE;
+		}
+	} else if (strncmp (str, "/form", 5) == 0) {
 		p->form = NULL;
 	}
 }
@@ -2373,12 +2371,9 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			g_free(value);
 		}					
 	} else if (*(str) == 'p' && ( *(str + 1) == ' ' || *(str + 1) == '>')) {
-
 		gchar *token;
 
-		push_block (e, ID_DIV, 1,
-			    block_end_div,
-			    e->divAlign, FALSE);
+		push_block (e, ID_DIV, 1, block_end_div, e->divAlign, FALSE);
 
 		string_tokenizer_tokenize (e->st, (gchar *)(str + 2), " >");
 		while (string_tokenizer_has_more_tokens (e->st)) {
@@ -2394,9 +2389,7 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		}
 
 		if (! e->avoid_para) {
-
 			close_anchor (e);
-
 			e->avoid_para = TRUE;
 			e->pending_para = TRUE;
 		}
