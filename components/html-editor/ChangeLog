@@ -1,3 +1,10 @@
+2004-05-17  Radek Doulik  <rodo@ximian.com>
+
+	* editor-control-factory.c (editor_control_construct): do not
+	disable animations, they work nicely now
+
+	Fixes #58335
+
 2004-04-28  Pratik V. Parikh  <pratikvp@despammed.com>
 
 	* search.c (search_dialog_response):

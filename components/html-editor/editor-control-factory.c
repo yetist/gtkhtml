@@ -528,7 +528,6 @@ editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 	html_widget = gtk_html_new ();
 	gtk_html_load_empty (GTK_HTML (html_widget));
 	gtk_html_set_editable (GTK_HTML (html_widget), TRUE);
-	gtk_html_set_animate (GTK_HTML (html_widget), FALSE);
 
 	cd = gtk_html_control_data_new (GTK_HTML (html_widget), vbox);
 	g_signal_connect (control, "destroy", G_CALLBACK (control_destroy), cd);
