@@ -155,7 +155,7 @@ copy (HTMLObject *s,
 	dest->text = g_strdup (src->text);
 	dest->text_len      = src->text_len;
 	dest->font_style    = src->font_style;
-	dest->face          = src->face;
+	dest->face          = g_strdup (src->face);
 	dest->color         = src->color;
 	dest->select_start  = src->select_start;
 	dest->select_length = src->select_length;

@@ -1,3 +1,8 @@
+2001-03-02  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (copy): g_strdup face, it caused some crashes in
+	destroy method before
+
 2001-02-20  Larry Ewing  <lewing@ximian.com>
 
 	* htmlobject.c (html_object_check_point): allways return NULL when
