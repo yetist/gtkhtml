@@ -4104,6 +4104,7 @@ html_engine_thaw_idle_reset (HTMLEngine *e)
 	if (e->thaw_idle_id) {
 		gtk_idle_remove (e->thaw_idle_id);
 		e->thaw_idle_id = 0;
+		html_engine_show_cursor (e);
 	}
 }
 
