@@ -173,7 +173,7 @@ image_insertion (GtkHTMLControlData *cd, gpointer *set_data)
 
 #undef ADD_ITEM
 #define ADD_ITEM(n,f) \
-	menuitem = gtk_menu_item_new_with_label (_(n)); \
+	menuitem = gtk_menu_item_new_with_label (N_(n)); \
         gtk_menu_append (GTK_MENU (menu), menuitem); \
         gtk_widget_show (menuitem); \
         gtk_signal_connect (GTK_OBJECT (menuitem), "activate", GTK_SIGNAL_FUNC (f), data); \
