@@ -91,6 +91,10 @@ struct _HTMLEngine {
 	HTMLCursor *cursor;
 	GList *cut_buffer;
 
+	/* Font style for insertion.  If HTML_FONT_STYLE_DEFAULT, use that of
+           the text we are in.  */
+	HTMLFontStyle insertion_font_style;
+
 	/* This is set to TRUE when at least one element is selected (in whole
            or in part), to FALSE when no item is selected at all.  */
 	gboolean active_selection;

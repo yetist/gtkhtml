@@ -152,36 +152,6 @@ fit_line (HTMLObject *o,
 	return HTML_FIT_COMPLETE;
 }
 
-static HTMLText *
-split (HTMLText *self,
-       guint offset)
-{
-	HTMLTextMaster *master;
-	HTMLObject *new;
-	gchar *s;
-
-	master = HTML_TEXT_MASTER (self);
-
-	if (offset >= HTML_TEXT (self)->text_len || offset == 0)
-		return NULL;
-
-	s = g_strdup (self->text + offset);
-	new = html_text_master_new (s, self->font_style, &self->color);
-
-	self->text = g_realloc (self->text, offset + 1);
-	self->text[offset] = '\0';
-	HTML_TEXT (self)->text_len = offset;
-
-	if (master->select_length != 0 && offset < master->select_start + master->select_length) {
-		master->select_length = offset - master->select_start;
-		HTML_TEXT_MASTER (new)->select_start = 0;
-		HTML_TEXT_MASTER (new)->select_length = master->select_length - (offset
-										 - master->select_start);
-	}
-
-	return HTML_TEXT (new);
-}
-
 static HTMLObject *
 check_point (HTMLObject *self,
 	     HTMLPainter *painter,
@@ -307,51 +277,6 @@ select_range (HTMLObject *self,
 	return changed;
 }
 
-static guint
-insert_text (HTMLText *text,
-	     HTMLEngine *engine,
-	     guint offset,
-	     const gchar *p,
-	     guint len)
-{
-	HTMLTextMaster *master;
-	gboolean chars_inserted;
-
-	master = HTML_TEXT_MASTER (text);
-	chars_inserted = HTML_TEXT_CLASS (parent_class)->insert_text (text, engine, offset, p, len);
-
-	if (chars_inserted > 0
-	    && offset >= master->select_start
-	    && offset < master->select_start + master->select_length)
-		master->select_length += chars_inserted;
-
-	return chars_inserted;
-}
-
-static guint
-remove_text (HTMLText *text,
-	     HTMLEngine *engine,
-	     guint offset,
-	     guint len)
-{
-	HTMLTextMaster *master;
-	gboolean chars_removed;
-
-	master = HTML_TEXT_MASTER (text);
-	chars_removed = HTML_TEXT_CLASS (parent_class)->remove_text (text, engine, offset, len);
-
-	if (chars_removed > 0
-	    && offset >= master->select_start
-	    && offset < master->select_start + master->select_length) {
-		if (chars_removed > master->select_length)
-			master->select_length = 0;
-		else
-			master->select_length -= chars_removed;
-	}
-
-	return chars_removed;
-}
-
 static HTMLObject *
 get_selection (HTMLObject *self)
 {
@@ -367,34 +292,6 @@ get_selection (HTMLObject *self)
 	new = html_text_master_new (text, HTML_TEXT (self)->font_style, & (HTML_TEXT (self)->color));
 
 	return new;
-}
-
-
-/* HTMLText methods.  */
-
-static void
-queue_draw (HTMLText *text,
-	    HTMLEngine *engine,
-	    guint offset,
-	    guint len)
-{
-	HTMLObject *obj;
-
-	for (obj = HTML_OBJECT (text)->next; obj != NULL; obj = obj->next) {
-		HTMLTextSlave *slave;
-
-		if (HTML_OBJECT_TYPE (obj) != HTML_TYPE_TEXTSLAVE)
-			continue;
-
-		slave = HTML_TEXT_SLAVE (obj);
-
-		if (offset < slave->posStart + slave->posLen
-		    && (len == 0 || offset + len >= slave->posStart)) {
-			html_engine_queue_draw (engine, obj);
-			if (len != 0 && slave->posStart + slave->posLen > offset + len)
-				break;
-		}
-	}
 }
 
 static void
@@ -462,6 +359,151 @@ get_cursor_base (HTMLObject *self,
 }
 
 
+/* HTMLText methods.  */
+
+static void
+queue_draw (HTMLText *text,
+	    HTMLEngine *engine,
+	    guint offset,
+	    guint len)
+{
+	HTMLObject *obj;
+
+	for (obj = HTML_OBJECT (text)->next; obj != NULL; obj = obj->next) {
+		HTMLTextSlave *slave;
+
+		if (HTML_OBJECT_TYPE (obj) != HTML_TYPE_TEXTSLAVE)
+			continue;
+
+		slave = HTML_TEXT_SLAVE (obj);
+
+		if (offset < slave->posStart + slave->posLen
+		    && (len == 0 || offset + len >= slave->posStart)) {
+			html_engine_queue_draw (engine, obj);
+			if (len != 0 && slave->posStart + slave->posLen > offset + len)
+				break;
+		}
+	}
+}
+
+static HTMLText *
+split (HTMLText *self,
+       guint offset)
+{
+	HTMLTextMaster *master;
+	HTMLObject *new;
+	gchar *s;
+
+	master = HTML_TEXT_MASTER (self);
+
+	if (offset >= HTML_TEXT (self)->text_len || offset == 0)
+		return NULL;
+
+	s = g_strdup (self->text + offset);
+	new = html_text_master_new (s, self->font_style, &self->color);
+
+	self->text = g_realloc (self->text, offset + 1);
+	self->text[offset] = '\0';
+	HTML_TEXT (self)->text_len = offset;
+
+	if (master->select_length != 0 && offset < master->select_start + master->select_length) {
+		master->select_length = offset - master->select_start;
+		HTML_TEXT_MASTER (new)->select_start = 0;
+		HTML_TEXT_MASTER (new)->select_length = master->select_length - (offset
+										 - master->select_start);
+	}
+
+	return HTML_TEXT (new);
+}
+
+static void
+merge (HTMLText *self,
+       HTMLText **list)
+{
+	HTMLText **p;
+	guint total_length;
+	gchar *new_text;
+	gchar *sp;
+
+	total_length = 0;
+	for (p = list; *p != NULL; p++) {
+		HTMLTextMaster *m;
+
+		g_assert (HTML_OBJECT_TYPE (*p) == HTML_TYPE_TEXTMASTER);
+		total_length += HTML_TEXT (*p)->text_len;
+	}
+
+	new_text = g_malloc (total_length + 1);
+	sp = new_text;
+
+	if (self->text_len > 0) {
+		memcpy (sp, self->text, self->text_len);
+		sp += self->text_len;
+	}
+
+	for (p = list; *p != NULL; p++) {
+		if ((*p)->text_len > 0) {
+			memcpy (sp, (*p)->text, (*p)->text_len);
+			sp += (*p)->text_len;
+		}
+	}
+
+	*sp = 0;
+
+	g_free (self->text);
+	self->text = new_text;
+	self->text_len = total_length;
+
+	/* FIXME selection.  */
+}
+
+
+static guint
+insert_text (HTMLText *text,
+	     HTMLEngine *engine,
+	     guint offset,
+	     const gchar *p,
+	     guint len)
+{
+	HTMLTextMaster *master;
+	gboolean chars_inserted;
+
+	master = HTML_TEXT_MASTER (text);
+	chars_inserted = HTML_TEXT_CLASS (parent_class)->insert_text (text, engine, offset, p, len);
+
+	if (chars_inserted > 0
+	    && offset >= master->select_start
+	    && offset < master->select_start + master->select_length)
+		master->select_length += chars_inserted;
+
+	return chars_inserted;
+}
+
+static guint
+remove_text (HTMLText *text,
+	     HTMLEngine *engine,
+	     guint offset,
+	     guint len)
+{
+	HTMLTextMaster *master;
+	gboolean chars_removed;
+
+	master = HTML_TEXT_MASTER (text);
+	chars_removed = HTML_TEXT_CLASS (parent_class)->remove_text (text, engine, offset, len);
+
+	if (chars_removed > 0
+	    && offset >= master->select_start
+	    && offset < master->select_start + master->select_length) {
+		if (chars_removed > master->select_length)
+			master->select_length = 0;
+		else
+			master->select_length -= chars_removed;
+	}
+
+	return chars_removed;
+}
+
+
 void
 html_text_master_type_init (void)
 {
@@ -499,6 +541,7 @@ html_text_master_class_init (HTMLTextMasterClass *klass,
 
 	text_class->queue_draw = queue_draw;
 	text_class->split = split;
+	text_class->merge = merge;
 	text_class->insert_text = insert_text;
 	text_class->remove_text = remove_text;
 

@@ -435,6 +435,13 @@ split (HTMLText *self,
 	return new;
 }
 
+static void
+merge (HTMLText *text,
+       HTMLText **list)
+{
+	g_warning ("HTMLText::merge not implemented.");
+}
+
 /* This is necessary to merge the text-specified font style with that of the
    HTMLClueFlow parent.  */
 static HTMLFontStyle
@@ -503,6 +510,7 @@ html_text_class_init (HTMLTextClass *klass,
 	klass->split = split;
 	klass->get_font_style = get_font_style;
 	klass->get_color = get_color;
+	klass->merge = merge;
 
 	parent_class = &html_object_class;
 }
@@ -598,6 +606,16 @@ html_text_split (HTMLText *text,
 	g_return_val_if_fail (offset > 0, NULL);
 
 	return (* HT_CLASS (text)->split) (text, offset);
+}
+
+void
+html_text_merge (HTMLText *text,
+		 HTMLText **list)
+{
+	g_return_if_fail (text != NULL);
+	g_return_if_fail (list != NULL);
+
+	return (* HT_CLASS (text)->merge) (text, list);
 }
 
 HTMLFontStyle

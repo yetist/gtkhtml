@@ -2834,6 +2834,8 @@ html_engine_init (HTMLEngine *engine)
 	engine->active_selection = FALSE;
 	engine->cut_buffer = NULL;
 
+	engine->insertion_font_style = HTML_FONT_STYLE_DEFAULT;
+
 	engine->ht = html_tokenizer_new ();
 	engine->st = string_tokenizer_new ();
 	engine->settings = html_settings_new ();
