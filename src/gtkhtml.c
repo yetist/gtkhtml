@@ -2307,6 +2307,7 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
 		    gint x, gint y, GtkSelectionData *selection_data, guint info, guint time)
 {
 	HTMLEngine *engine = GTK_HTML (widget)->engine;
+	gboolean pasted = FALSE;
 
 	/* printf ("drag data received at %d,%d\n", x, y); */
 
@@ -2321,6 +2322,7 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
 	case DND_TARGET_TYPE_STRING:
 		/* printf ("\ttext/plain\n"); */
 		html_engine_paste_text (engine, selection_data->data, -1);
+		pasted = TRUE;
 		break;
 	case DND_TARGET_TYPE_TEXT_URI_LIST:
 	case DND_TARGET_TYPE__NETSCAPE_URL: {
@@ -2332,19 +2334,17 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
 		list_len = selection_data->length;
 		do {
 			uri = next_uri (&selection_data->data, &len, &list_len);
-			move_before_paste (widget, x, y);
 			obj = new_obj_from_uri (engine, uri, len);
-			if (obj)
-				html_engine_paste_object (engine, obj, len);
-			else {
-				gtk_drag_finish (context, FALSE, FALSE, time);
-				break;
+			if (obj) {
+				html_engine_paste_object (engine, obj, html_object_get_length (obj));
+				pasted = TRUE;
 			}
 		} while (list_len);
 		html_undo_level_end (engine->undo);
 	}
 	break;
 	}
+	gtk_drag_finish (context, pasted, FALSE, time);
 }
 
 /* dnd end */

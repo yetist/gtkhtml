@@ -1,3 +1,12 @@
+2003-05-06  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (drag_data_received): call move_before_paste only
+	before first paste
+	(drag_data_received): call gtk_drag_finish everytime with success
+	set appropriately
+	(drag_data_received): fix the len parameter in call to
+	html_engine_paste_object
+
 2003-05-02  Radek Doulik  <rodo@ximian.com>
 
 	* htmlsearch.h: make start_pos and end_pos signed
