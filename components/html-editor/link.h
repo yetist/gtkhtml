@@ -35,7 +35,8 @@ void                gtk_html_link_dialog_destroy (GtkHTMLLinkDialog *);
 void                link_insert                  (GtkHTMLControlData *cd);
 void                link_edit                    (GtkHTMLControlData *cd, HTMLLinkTextMaster *link);
 
-GtkWidget             * link_properties      (GtkHTMLControlData *cd);
-void                    link_apply_cb        (GtkHTMLControlData *cd);
+GtkWidget             * link_properties      (GtkHTMLControlData *cd, gpointer *set_data);
+void                    link_apply_cb        (GtkHTMLControlData *cd, gpointer  get_data);
+void                    link_close_cb        (GtkHTMLControlData *cd, gpointer  get_data);
 
 #endif

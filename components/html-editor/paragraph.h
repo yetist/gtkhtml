@@ -26,7 +26,8 @@
 #include <gtk/gtk.h>
 #include "control-data.h"
 
-GtkWidget             * paragraph_properties      (GtkHTMLControlData *cd);
-void                    paragraph_apply_cb        (GtkHTMLControlData *cd);
+GtkWidget             * paragraph_properties      (GtkHTMLControlData *cd, gpointer *set_data);
+void                    paragraph_apply_cb        (GtkHTMLControlData *cd, gpointer  get_data);
+void                    paragraph_close_cb        (GtkHTMLControlData *cd, gpointer  get_data);
 
 #endif

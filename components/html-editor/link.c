@@ -148,7 +148,7 @@ link_edit (GtkHTMLControlData *cd, HTMLLinkTextMaster *link)
 }
 
 GtkWidget *
-link_properties (GtkHTMLControlData *cd)
+link_properties (GtkHTMLControlData *cd, gpointer *set_data)
 {
 	GtkWidget *vbox, *hbox;
 
@@ -164,6 +164,11 @@ link_properties (GtkHTMLControlData *cd)
 }
 
 void
-link_apply_cb (GtkHTMLControlData *cd)
+link_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
+{
+}
+
+void
+link_close_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 }

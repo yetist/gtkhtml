@@ -32,6 +32,7 @@ struct _GtkHTMLEditTextProperties {
 	GtkWidget *color_picker;
 	GtkWidget *style_option;
 	GtkWidget *sel_size;
+	GtkWidget *check [4];
 
 	gboolean color_changed;
 	gboolean style_changed;
@@ -98,11 +99,19 @@ get_size (GtkHTMLFontStyle s)
 		: 2;
 }
 
+#define STYLES 4
+static GtkHTMLFontStyle styles [STYLES] = {
+	GTK_HTML_FONT_STYLE_BOLD,
+	GTK_HTML_FONT_STYLE_ITALIC,
+	GTK_HTML_FONT_STYLE_UNDERLINE,
+	GTK_HTML_FONT_STYLE_STRIKEOUT,
+};
+
 GtkWidget *
 text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 {
 	GtkHTMLEditTextProperties *data = g_new (GtkHTMLEditTextProperties, 1);
-	GtkWidget *vbox, *hbox, *frame, *table, *table1, *button, *check, *menu, *menuitem;
+	GtkWidget *vbox, *hbox, *frame, *table, *table1, *button, *menu, *menuitem;
 	GtkStyle *style;
 	GdkColor *color;
 	GtkHTMLFontStyle font_style;
@@ -129,17 +138,18 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	font_style = html_engine_get_font_style (cd->html->engine);
 	color      = html_engine_get_color      (cd->html->engine);
 
-#define ADD_CHECK(x,s) \
-	check = gtk_check_button_new_with_label (x); \
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), font_style & s); \
-        gtk_object_set_data (GTK_OBJECT (check), "style", GUINT_TO_POINTER (s)); \
-        gtk_signal_connect (GTK_OBJECT (check), "toggled", set_style, data); \
-	gtk_box_pack_start (GTK_BOX (vbox), check, FALSE, FALSE, 0);
+#define ADD_CHECK(x) \
+	data->check [i] = gtk_check_button_new_with_label (x); \
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->check [i]), font_style & styles [i]); \
+        gtk_object_set_data (GTK_OBJECT (data->check [i]), "style", GUINT_TO_POINTER (styles [i])); \
+        gtk_signal_connect (GTK_OBJECT (data->check [i]), "toggled", set_style, data); \
+	gtk_box_pack_start (GTK_BOX (vbox), data->check [i], FALSE, FALSE, 0); i++
 
-	ADD_CHECK (_("Bold"), GTK_HTML_FONT_STYLE_BOLD);
-	ADD_CHECK (_("Italic"), GTK_HTML_FONT_STYLE_ITALIC);
-	ADD_CHECK (_("Underline"), GTK_HTML_FONT_STYLE_UNDERLINE);
-	ADD_CHECK (_("Strikeout"), GTK_HTML_FONT_STYLE_STRIKEOUT);
+	i=0;
+	ADD_CHECK (_("Bold"));
+	ADD_CHECK (_("Italic"));
+	ADD_CHECK (_("Underline"));
+	ADD_CHECK (_("Strikeout"));
 
 	gtk_container_add (GTK_CONTAINER (frame), vbox);
 	gtk_table_attach_defaults (GTK_TABLE (table), frame, 0, 1, 0, 1);
@@ -217,11 +227,19 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 void
 text_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
-	GtkHTMLEditTextProperties *data = (GtkHTMLEditTextProperties *) get_data;	
+	GtkHTMLEditTextProperties *data = (GtkHTMLEditTextProperties *) get_data;
+	gint i;
 	printf ("text apply\n");
 
-	if (data->style_changed)
+	if (data->style_changed) {
+		for (i=0; i<STYLES; i++) {
+			if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (data->check [i])))
+				data->style_or |= styles [i];
+			else
+				data->style_and &= ~styles [i];
+		}
 		html_engine_set_font_style (cd->html->engine, data->style_and, data->style_or);
+	}
 
 	if (data->color_changed)
 		html_engine_set_color (cd->html->engine, &data->color);

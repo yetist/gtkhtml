@@ -33,11 +33,13 @@ menu_activate (GtkWidget *mi, GtkHTMLEditParagraphProperties *data)
 }
 
 GtkWidget *
-paragraph_properties (GtkHTMLControlData *cd)
+paragraph_properties (GtkHTMLControlData *cd, gpointer *set_data)
 {
 	GtkHTMLEditParagraphProperties *data = g_new (GtkHTMLEditParagraphProperties, 1);
 	GtkWidget *vbox, *hbox, *menu, *menuitem, *frame, *radio;
 	GSList *group;
+
+	*set_data = data;
 
 	vbox = gtk_vbox_new (FALSE, 2);
 	gtk_container_border_width (GTK_CONTAINER (vbox), 3);
@@ -97,6 +99,11 @@ paragraph_properties (GtkHTMLControlData *cd)
 }
 
 void
-paragraph_apply_cb (GtkHTMLControlData *cd)
+paragraph_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
+{
+}
+
+void
+paragraph_close_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 }

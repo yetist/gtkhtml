@@ -435,7 +435,7 @@ checked_val (GtkHTMLEditImageProperties *d, gint idx, const gchar *name)
 }
 
 GtkWidget *
-image_properties (GtkHTMLControlData *cd)
+image_properties (GtkHTMLControlData *cd, gpointer *set_data)
 {
 	GtkHTMLEditImageProperties *data = g_new0 (GtkHTMLEditImageProperties, 1);
 	GtkWidget *hbox, *hb1, *mhb;
@@ -446,6 +446,8 @@ image_properties (GtkHTMLControlData *cd)
 	GtkWidget *menuitem;
 	gchar     *dir;
 	guint      malign = 0;
+
+	*set_data = data;
 
 	mhb = gtk_hbox_new (FALSE, 3);
 	vb1 = gtk_vbox_new (FALSE, 2);
@@ -553,7 +555,13 @@ image_properties (GtkHTMLControlData *cd)
 }
 
 void
-image_apply_cb (GtkHTMLControlData *cd)
+image_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
+{
+	printf ("image apply\n");
+}
+
+void
+image_close_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	printf ("image apply\n");
 }

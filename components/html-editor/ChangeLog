@@ -1,6 +1,7 @@
 2000-06-23  Radek Doulik  <rodo@helixcode.com>
 
 	* text.c (text_properties): set initial color
+	(text_properties): fixed style setting
 
 2000-06-21  Radek Doulik  <rodo@helixcode.com>
 

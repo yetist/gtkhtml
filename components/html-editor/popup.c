@@ -105,24 +105,27 @@ prop_dialog (GtkWidget *mi, GtkHTMLControlData *cd)
 								   text_apply_cb,
 								   text_close_cb);
 			break;
-			/* case GTK_HTML_EDIT_PROPERTY_IMAGE:
+		case GTK_HTML_EDIT_PROPERTY_IMAGE:
 			gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 								   _("Image"),
 								   image_properties,
-								   image_apply_cb);
-			break;
+								   image_apply_cb,
+								   image_close_cb);
+								   break;
 		case GTK_HTML_EDIT_PROPERTY_PARAGRAPH:
 			gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 								   _("Paragraph"),
 								   paragraph_properties,
-								   paragraph_apply_cb);
+								   paragraph_apply_cb,
+								   paragraph_close_cb);
 			break;
 		case GTK_HTML_EDIT_PROPERTY_LINK:
 			gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 								   _("Link"),
 								   link_properties,
-								   link_apply_cb);
-								   break; */
+								   link_apply_cb,
+								   link_close_cb);
+								   break;
 		}
 		cur = cur->next;
 	}
