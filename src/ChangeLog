@@ -1,3 +1,12 @@
+1999-11-25  Ettore Perazzoli  <ettore@gnu.org>
+
+	* htmlengine.c (html_engine_set_named_color): Return value made
+	`gboolean': return FALSE if the color could not be parsed.
+	(parse_b): If `html_engine_set_named_color()' fails, don't mark
+	the color as set.
+	(parse_table): Likewise.
+	* htmlengine.h (html_engine_set_named_color): Updated prototype.
+
 1999-11-24  Ettore Perazzoli  <ettore@gnu.org>
 
 	* htmllinktextmaster.c (html_link_text_master_class_init): Assign

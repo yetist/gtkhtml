@@ -405,16 +405,19 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 			if (strncasecmp (token, "bgcolor=", 8) == 0) {
 				g_print ("setting color\n");
-				html_engine_set_named_color (e, &bgcolor, token + 8);
-				g_print ("bgcolor is set\n");
-				bgColorSet = TRUE;
+				if (html_engine_set_named_color (e, &bgcolor, token + 8)) {
+					g_print ("bgcolor is set\n");
+					bgColorSet = TRUE;
+				} else {
+					g_print ("`%s' could not be allocated\n", token);
+				}
 			}
 			else if (strncasecmp (token, "background=", 11) == 0) {
-			  char *realurl;
+				char *realurl;
 
-			  realurl = html_engine_canonicalize_url(e, token + 11);
-			  e->bgPixmapPtr = html_image_factory_register(e->image_factory, NULL, realurl);
-			  g_free(realurl);
+				realurl = html_engine_canonicalize_url(e, token + 11);
+				e->bgPixmapPtr = html_image_factory_register(e->image_factory, NULL, realurl);
+				g_free(realurl);
 			}
 		}
 		
@@ -438,8 +441,8 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			e->bold = TRUE;
 			html_engine_select_font (e);
 			html_engine_push_block (e, ID_B, 1, 
-						html_engine_block_end_font,
-						0, 0);
+									html_engine_block_end_font,
+									0, 0);
 		}
 	}
 	else if (strncmp (str, "/b", 2) == 0) {
@@ -891,9 +894,10 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 				align = Right;
 		}
 		else if (strncasecmp (token, "bgcolor=", 8) == 0) {
-			html_engine_set_named_color (e, &tableColor, token + 8);
-			rowColor = tableColor;
-			have_rowColor = have_tableColor = TRUE;
+			if (html_engine_set_named_color (e, &tableColor, token + 8)) {
+				rowColor = tableColor;
+				have_rowColor = have_tableColor = TRUE;
+			}
 		}
 	}
 
@@ -952,9 +956,9 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 								rowhalign = HCenter;
 						}
 						else if (strncasecmp (token, "bgcolor=", 8) == 0) {
-							html_engine_set_named_color (e, &rowColor,
-														 token + 8);
-							have_rowColor = TRUE;
+							have_rowColor
+								= html_engine_set_named_color (e, &rowColor,
+															   token + 8);
 						}
 					}
 					break;
@@ -992,14 +996,14 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					}
 
 					valign = (rowvalign == VNone ?
-						  VCenter : rowvalign);
+							  VCenter : rowvalign);
 
 					if (heading)
 						e->divAlign = (rowhalign == None ? 
-							       HCenter: rowhalign);
+									   HCenter: rowhalign);
 					else
 						e->divAlign = (rowhalign == None ?
-							       Left: rowhalign);
+									   Left: rowhalign);
 
 					if (tableEntry) {
 						string_tokenizer_tokenize (e->st, str + 4, " >");
@@ -1046,16 +1050,17 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 								}
 							}
 							else if (strncasecmp (token, "bgcolor=", 8) == 0) {
-								html_engine_set_named_color (e, &bgcolor, token + 8);
-								have_bgcolor = TRUE;
+								have_bgcolor
+									= html_engine_set_named_color (e, &bgcolor,
+																   token + 8);
 							}
 						}
 					}
 
 					cell = HTML_TABLE_CELL (html_table_cell_new (0, 0, cellwidth,
-								    cellpercent,
-								    rowSpan, colSpan,
-								    padding));
+																 cellpercent,
+																 rowSpan, colSpan,
+																 padding));
 					html_object_set_bg_color (HTML_OBJECT (cell),
 											  have_bgcolor ? &bgcolor : NULL);
 					HTML_CLUE (cell)->valign = valign;
@@ -1129,7 +1134,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 			has_cell = 1;
 		}
 		else
-				/* FIXME: destroy? */
+			/* FIXME: destroy? */
 			g_free (tmpCell);
 	}
 	
@@ -1144,7 +1149,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 		}
 		else {
 			g_print ("Aligned!!!!!\n");
-				/* FIXME: Support for aligned tables */
+			/* FIXME: Support for aligned tables */
 		}
 	}
 	else {
@@ -1950,14 +1955,14 @@ html_engine_get_current_font (HTMLEngine *p)
 	return html_font_stack_top (p->fs);
 }
 
-void
+gboolean
 html_engine_set_named_color (HTMLEngine *p, GdkColor *c, const gchar *name)
 {
-	gdk_color_parse (name, c);
-	gdk_colormap_alloc_color (
-		gdk_window_get_colormap (
-			html_painter_get_window (p->painter)),
-		c, FALSE, TRUE);
+	if (! gdk_color_parse (name, c))
+		return FALSE;
+	gdk_colormap_alloc_color (gdk_window_get_colormap
+							  (html_painter_get_window (p->painter)),
+							  c, FALSE, TRUE);
 }
 
 void

@@ -58,7 +58,7 @@ create_gdk_font (gchar *family, gint size, gboolean bold, gboolean italic)
 	GdkFont *font;
 
 	/* FIXME: a better way to find out the size */
-	realsize = size;
+	realsize = size - 2;
 
 	if (bold)
 		boldstr = "bold";
