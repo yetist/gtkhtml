@@ -703,18 +703,8 @@ check_page_split (HTMLObject *self,
 		    || HTML_OBJECT_TYPE (p) == HTML_TYPE_LINKTEXTMASTER)
 			continue;
 
-		if (HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE) {
-			printf ("Checking `%s'\n",
-				HTML_TEXT (HTML_TEXT_SLAVE (p)->owner)->text
-				+ HTML_TEXT_SLAVE (p)->posStart);
-		} else {
-			printf ("Checking [%s]\n", html_type_name (HTML_OBJECT_TYPE (p)));
-		}
-
-		if (base > y) {
-			printf ("-----> GOOD!\n");
+		if (base > y)
 			return last_base;
-		}
 
 		last_base = base;
 	}
