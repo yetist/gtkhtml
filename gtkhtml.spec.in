@@ -47,7 +47,7 @@ else
 %ifarch alpha
   CFLAGS="$RPM_OPT_FLAGS" ./configure --host=alpha-redhat-linux --prefix=%prefix --sysconfdir="/etc" --with-bonobo
 %else
-  CFLAGS="$RPM_OPT_FLAGS" ./configure --prefix=%prefix --sysconfdir="/etc" --with-
+  CFLAGS="$RPM_OPT_FLAGS" ./configure --prefix=%prefix --sysconfdir="/etc" --with-bonobo
 %endif
 fi
 
@@ -78,7 +78,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-, root, root)
 %config /etc/CORBA/servers/*.gnorba
 %{prefix}/bin/gtkhtml-properties-capplet
-%{prefix}/bin/html-editor-control
+%{prefix}/bin/gnome-gtkhtml-editor
 %{prefix}/lib/*.sh
 %{prefix}/lib/*.so*
 %{prefix}/share/control-center/Documents/*.desktop
