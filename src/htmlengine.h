@@ -66,6 +66,8 @@ typedef struct _HTMLBlockStackElement HTMLBlockStackElement;
 struct _HTMLEngine {
 	GtkObject parent;
 
+	GdkWindow *window;
+
 	gchar *reference;
 
 	gboolean editable;
@@ -198,6 +200,8 @@ struct _HTMLEngineClass {
 
 guint 	    html_engine_get_type (void);
 HTMLEngine *html_engine_new (void);
+
+void html_engine_realize (HTMLEngine *engine, GdkWindow *window);
 
 GtkHTMLStreamHandle html_engine_begin (HTMLEngine *p, const char *url);
 void        html_engine_schedule_update (HTMLEngine *p);

@@ -2719,6 +2719,7 @@ html_engine_init (HTMLEngine *engine)
 {
 	/* STUFF might be missing here!   */
 
+	engine->window = NULL;
 	engine->painter = html_painter_new ();
 
 	engine->newPage = FALSE;
@@ -2772,6 +2773,18 @@ html_engine_new (void)
 	engine = gtk_type_new (html_engine_get_type ());
 
 	return engine;
+}
+
+void
+html_engine_realize (HTMLEngine *e,
+		     GdkWindow *window)
+{
+	g_return_if_fail (e != NULL);
+	g_return_if_fail (window != NULL);
+	g_return_if_fail (e->window == NULL);
+
+	e->window = window;
+	html_painter_realize (e->painter, window);
 }
 
 

@@ -21,7 +21,6 @@
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtk.h>
 
-#include "htmlpainter.h"
 #include "htmlengine-edit.h"
 #include "gtkhtml-private.h"
 
@@ -321,10 +320,12 @@ realize (GtkWidget *widget)
 				| GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK
 				| GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK));
 
+	/* FIXME: My GOD this is awful.  */
+
 	html_settings_set_bgcolor (html->engine->settings, 
 				   &widget->style->bg[GTK_STATE_NORMAL]);
 
-	html_painter_realize (html->engine->painter, html->layout.bin_window);
+	html_engine_realize (html->engine, html->layout.bin_window);
 
 	gdk_window_set_cursor (widget->window, html->arrow_cursor);
 }
