@@ -151,7 +151,7 @@ fi
 
 dnl gdk-pixbuf checks.
 
-AC_MSG_CHECKING([for gdk-pixbuf >= 0.6.0])
+AC_MSG_CHECKING([for gdk-pixbuf >= 0.7.0])
 
 if gnome-config --libs gdk_pixbuf > /dev/null 2>&1; then
 	vers=`gnome-config --modversion gdk_pixbuf | sed 's/^gdk-pixbuf-//'`
@@ -162,7 +162,7 @@ if gnome-config --libs gdk_pixbuf > /dev/null 2>&1; then
 		gdkpixbuf_ok=false
         elif [[ "x$major" = "x0" ]] ; then
 		case "$minor" in
-			[[012345]])
+			[[0123456]])
 				gdkpixbuf_ok=false ;;
                         *)
 				gdkpixbuf_ok=true ;;
@@ -177,7 +177,7 @@ else
 fi
 
 if ! $gdkpixbuf_ok ; then
-	AC_MSG_ERROR([gdk-pixbuf 0.6.0 or later is required to compile GtkHTML.])
+	AC_MSG_ERROR([gdk-pixbuf 0.7.0 or later is required to compile GtkHTML.])
 fi
 
 dnl Setup extra GNOME library flags.

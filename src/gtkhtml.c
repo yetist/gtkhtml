@@ -933,7 +933,6 @@ selection_received (GtkWidget *widget,
 		    GtkSelectionData *selection_data, 
 		    guint time)
 {
-	GdkAtom string_atom;
 	g_return_if_fail (widget != NULL);
 	g_return_if_fail (GTK_IS_HTML (widget));
 	g_return_if_fail (selection_data != NULL);

@@ -1,5 +1,20 @@
 2000-05-09  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlprinter.c (draw_background): Param @color made const.
+
+	* htmlgdkpainter.c (draw_pixmap): Removed unused variable.
+	(draw_background): Param @color made const.
+
+	* htmlengine-edit-paste.c (do_paste): Cast to HTMLClueFlow to
+	prevent a warning.
+
+	* gtkhtml.c (selection_received): Removed unused variable.
+
+	* htmlpainter.h: Arg @color in virtual method `draw_background'
+	made const.
+
+2000-05-09  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* htmlengine-edit.c (html_engine_undo): Freeze/thaw.
 	Unfortunately something bad is going on in the relayout code.
 	(html_engine_redo): Likewise.

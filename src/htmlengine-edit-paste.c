@@ -410,7 +410,7 @@ do_paste (HTMLEngine *engine,
 
 				g_assert (HTML_OBJECT_TYPE (engine->cursor->object->parent->next) == HTML_TYPE_CLUEFLOW);
 
-				next = engine->cursor->object->parent->next;
+				next = HTML_CLUEFLOW (engine->cursor->object->parent->next);
 				if (!HTML_CLUE (next)->head)
 					add_empty_text_master_to_clueflow (next);
 				engine->cursor->object = HTML_CLUE (next)->head;

@@ -374,7 +374,7 @@ draw_panel (HTMLPainter *painter,
 
 static void
 draw_background (HTMLPainter *painter,
-		 GdkColor *color,
+		 const GdkColor *color,
 		 GdkPixbuf *pixbuf,
 		 gint x, gint y, 
 		 gint width, gint height,
@@ -515,7 +515,6 @@ draw_pixmap (HTMLPainter *painter,
 	gint orig_height;
 	gint paint_width;
 	gint paint_height;
-	GdkPixbuf *bgpix = NULL;
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 

@@ -84,8 +84,8 @@ struct _HTMLPainterClass {
 			     GtkHTMLEtchStyle inset, gint bordersize);
 
 	void (* set_clip_rectangle) (HTMLPainter *painter, gint x, gint y, gint width, gint height);
-	void (* draw_background) (HTMLPainter *painter, GdkColor *color, GdkPixbuf *pixbuf, gint x, gint y,
-				  gint width, gint height, gint tile_x, gint tile_y);
+	void (* draw_background) (HTMLPainter *painter, const GdkColor *color, GdkPixbuf *pixbuf,
+				  gint x, gint y, gint width, gint height, gint tile_x, gint tile_y);
 	
 	void (* set_color_set) (HTMLPainter *painter, HTMLColorSet *color_set);
 
