@@ -1,3 +1,26 @@
+2000-04-05  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine-edit-paste.c (split_first_clueflow_at_cursor): removed strdup
+
+	* htmllinktext.c (split): removed strdup, set text_len to new value
+
+	* htmltextmaster.c (get_selection): removed strdup
+
+	* htmlengine-edit-insert.c (html_engine_insert_para): removed strdup
+	(do_insert_different_style): removed strdup
+	(do_insert_not_text): removed strdup
+
+	* htmlengine.c (insert_text): removed strdup
+	(create_empty_text): removed strdup
+	(ensure_editable): removed strdup
+
+	* htmltextmaster.c (html_text_master_init): new arg len
+	(html_text_master_new_with_len): new constructor
+
+	* htmltext.c (html_text_init): now uses g_str(n)dup, new arg len
+	(destroy): new destructor
+	(html_text_new_with_len): new constructor
+
 2000-04-05  Larry Ewing  <lewing@helixcode.com>
 
 	* htmltable.c (calc_size): set the table width after we have

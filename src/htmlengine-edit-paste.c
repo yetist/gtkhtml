@@ -117,7 +117,7 @@ split_first_clueflow_at_cursor (HTMLEngine *engine,
 		GdkColor black = { 0, 0, 0, 0 };
 		HTMLObject *new_textmaster;
 
-		new_textmaster = html_text_master_new (g_strdup (""), GTK_HTML_FONT_STYLE_DEFAULT,
+		new_textmaster = html_text_master_new ("", GTK_HTML_FONT_STYLE_DEFAULT,
 						       &black);
 		html_clue_prepend (HTML_CLUE (curr_clue), new_textmaster);
 

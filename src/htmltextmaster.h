@@ -49,20 +49,25 @@ struct _HTMLTextMasterClass {
 extern HTMLTextMasterClass html_text_master_class;
 
 
-void        html_text_master_type_init   (void);
-void        html_text_master_class_init  (HTMLTextMasterClass *class,
-					  HTMLType             type,
-					  guint                object_size);
-void        html_text_master_init        (HTMLTextMaster      *master,
-					  HTMLTextMasterClass *klass,
-					  gchar               *text,
-					  GtkHTMLFontStyle     font_style,
-					  const GdkColor      *color);
-HTMLObject *html_text_master_new         (gchar               *text,
-					  GtkHTMLFontStyle     font_style,
-					  const GdkColor      *color);
-HTMLObject *html_text_master_get_slave   (HTMLTextMaster      *master,
-					  guint                offset);
+void        html_text_master_type_init    (void);                                
+void        html_text_master_class_init   (HTMLTextMasterClass *class,           
+					   HTMLType             type,            
+					   guint                object_size);    
+void        html_text_master_init         (HTMLTextMaster      *master,          
+					   HTMLTextMasterClass *klass,           
+					   const gchar         *text,            
+					   gint                 len,             
+					   GtkHTMLFontStyle     font_style,      
+					   const GdkColor      *color);          
+HTMLObject *html_text_master_new          (const gchar         *text,            
+					   GtkHTMLFontStyle     font_style,      
+					   const GdkColor      *color);          
+HTMLObject *html_text_master_new_with_len (const gchar         *text,
+					   gint                 len,
+					   GtkHTMLFontStyle     font_style,      
+					   const GdkColor      *color);          
+HTMLObject *html_text_master_get_slave    (HTMLTextMaster      *master,          
+					   guint                offset);
 
 gint        html_text_master_trail_space_width (HTMLTextMaster *master,
 						HTMLPainter *painter);

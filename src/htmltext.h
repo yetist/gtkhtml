@@ -71,10 +71,15 @@ void        html_text_class_init   (HTMLTextClass    *klass,
 				    guint             object_size);
 void        html_text_init         (HTMLText         *text_object,
 				    HTMLTextClass    *klass,
-				    gchar            *text,
+				    const gchar      *text,
+				    gint              len,
 				    GtkHTMLFontStyle  font_style,
 				    const GdkColor   *color);
-HTMLObject *html_text_new          (gchar            *text,
+HTMLObject *html_text_new          (const gchar      *text,
+				    GtkHTMLFontStyle  font_style,
+				    const GdkColor   *color);
+HTMLObject *html_text_new_with_len (const gchar      *text,
+				    gint              len,
 				    GtkHTMLFontStyle  font_style,
 				    const GdkColor   *color);
 guint       html_text_insert_text  (HTMLText         *text,

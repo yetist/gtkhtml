@@ -73,23 +73,20 @@ split (HTMLText *self,
 {
 	HTMLText *new;
 	HTMLLinkText *link_text;
-	guint len;
-	gchar *s;
 
 	link_text = HTML_LINK_TEXT (self);
 
-	len = strlen (self->text);
-	if (offset >= len || offset == 0)
+	if (offset >= strlen (self->text) || offset == 0)
 		return NULL;
 
-	s = g_strdup (self->text + offset);
-	new = HTML_TEXT (html_link_text_new (s,
+	new = HTML_TEXT (html_link_text_new (self->text + offset,
 					     self->font_style,
 					     &self->color,
 					     link_text->url,
 					     link_text->target));
 
 	self->text = g_realloc (self->text, offset + 1);
+	self->text_len = offset;
 	self->text[offset] = '\0';
 
 	return new;
@@ -159,7 +156,7 @@ html_link_text_class_init (HTMLLinkTextClass *klass,
 void
 html_link_text_init (HTMLLinkText *link_text_object,
 		     HTMLLinkTextClass *klass,
-		     gchar *text,
+		     const gchar *text,
 		     GtkHTMLFontStyle font_style,
 		     const GdkColor *color,
 		     const gchar *url,
@@ -168,14 +165,14 @@ html_link_text_init (HTMLLinkText *link_text_object,
 	HTMLText *text_object;
 
 	text_object = HTML_TEXT (link_text_object);
-	html_text_init (text_object, HTML_TEXT_CLASS (klass), text, font_style, color);
+	html_text_init (text_object, HTML_TEXT_CLASS (klass), text, -1, font_style, color);
 
 	link_text_object->url = g_strdup (url);
 	link_text_object->target = g_strdup (target);
 }
 
 HTMLObject *
-html_link_text_new (gchar *text,
+html_link_text_new (const gchar *text,
 		    GtkHTMLFontStyle font_style,
 		    const GdkColor *color,
 		    const gchar *url,

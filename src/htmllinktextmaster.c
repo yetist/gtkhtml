@@ -150,7 +150,7 @@ html_link_text_master_class_init (HTMLLinkTextMasterClass *klass,
 void
 html_link_text_master_init (HTMLLinkTextMaster *link_text_master_object,
 			    HTMLLinkTextMasterClass *klass,
-			    gchar *text,
+			    const gchar *text,
 			    GtkHTMLFontStyle font_style,
 			    const GdkColor *color,
 			    const gchar *url,
@@ -162,6 +162,7 @@ html_link_text_master_init (HTMLLinkTextMaster *link_text_master_object,
 	html_text_master_init (text_master_object,
 			       HTML_TEXT_MASTER_CLASS (klass),
 			       text,
+			       -1,
 			       font_style,
 			       color);
 
@@ -170,7 +171,7 @@ html_link_text_master_init (HTMLLinkTextMaster *link_text_master_object,
 }
 
 HTMLObject *
-html_link_text_master_new (gchar *text,
+html_link_text_master_new (const gchar *text,
 			   GtkHTMLFontStyle font_style,
 			   const GdkColor *color,
 			   const gchar *url,

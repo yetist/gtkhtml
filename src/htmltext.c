@@ -445,16 +445,10 @@ split (HTMLText *self,
        guint offset)
 {
 	HTMLText *new;
-	guint len;
-	gchar *s;
-
-	len = strlen (self->text);
-
-	s = g_strdup (self->text + offset);
 
 	new = g_malloc (HTML_OBJECT (self)->klass->object_size);
 	html_text_init (new, HTML_TEXT_CLASS (HTML_OBJECT (self)->klass),
-			s, self->font_style, &self->color);
+			self->text + offset, -1, self->font_style, &self->color);
 
 	self->text = g_realloc (self->text, offset + 1);
 	self->text[offset] = '\0';
@@ -550,6 +544,13 @@ set_color (HTMLText *text,
 	}
 }
 
+static void
+destroy (HTMLObject *obj)
+{
+	g_free (HTML_TEXT (obj)->text);
+	HTML_OBJECT_CLASS (parent_class)->destroy (obj);
+}
+
 
 void
 html_text_type_init (void)
@@ -568,8 +569,7 @@ html_text_class_init (HTMLTextClass *klass,
 
 	html_object_class_init (object_class, type, object_size);
 
-	/* FIXME destroy */
-
+	object_class->destroy = destroy;
 	object_class->copy = copy;
 	object_class->draw = draw;
 	object_class->accepts_cursor = accepts_cursor;
@@ -597,7 +597,8 @@ html_text_class_init (HTMLTextClass *klass,
 void
 html_text_init (HTMLText *text_object,
 		HTMLTextClass *klass,
-		gchar *text,
+		const gchar *text,
+		gint len,
 		GtkHTMLFontStyle font_style,
 		const GdkColor *color)
 {
@@ -607,7 +608,7 @@ html_text_init (HTMLText *text_object,
 
 	html_object_init (object, HTML_OBJECT_CLASS (klass));
 
-	text_object->text = text;
+	text_object->text = (len == -1) ? g_strdup (text) : g_strndup (text, len);
 	text_object->font_style = font_style;
 	text_object->text_len = strlen (text);
 
@@ -623,17 +624,26 @@ html_text_init (HTMLText *text_object,
 }
 
 HTMLObject *
-html_text_new (gchar *text,
-	       GtkHTMLFontStyle font,
-	       const GdkColor *color)
+html_text_new_with_len (const gchar *text,
+			gint len,
+			GtkHTMLFontStyle font,
+			const GdkColor *color)
 {
 	HTMLText *text_object;
 
 	text_object = g_new (HTMLText, 1);
 
-	html_text_init (text_object, &html_text_class, text, font, color);
+	html_text_init (text_object, &html_text_class, text, len, font, color);
 
 	return HTML_OBJECT (text_object);
+}
+
+HTMLObject *
+html_text_new (const gchar *text,
+	       GtkHTMLFontStyle font,
+	       const GdkColor *color)
+{
+	return html_text_new_with_len (text, -1, font, color);
 }
 
 guint

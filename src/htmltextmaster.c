@@ -99,23 +99,6 @@ calc_min_width (HTMLObject *self,
 		}
 	}
 
-	// printf ("min_width %d\n", min_width);
-
-	/* while (1) {
-		if (*p != ' ' && *p != 0) {
-			p++;
-		}
-
-			run_width +=
-		} else {
-			if (run_width > min_width)
-				min_width = run_width;
-			run_width = 0;
-			if (*p == 0)
-				break;
-		}
-		} */
-
 	return min_width;
 }
 
@@ -319,7 +302,6 @@ get_selection (HTMLObject *self,
 	HTMLObject *new;
 	HTMLText *text_self;
 	guint select_start, select_length;
-	gchar *text;
 
 	if (! self->selected)
 		return NULL;
@@ -329,9 +311,8 @@ get_selection (HTMLObject *self,
 
 	text_self = HTML_TEXT (self);
 
-	text = g_strndup (text_self->text + select_start, select_length);
-
-	new = html_text_master_new (text, text_self->font_style, & text_self->color);
+	new = html_text_master_new_with_len (text_self->text + select_start,
+					     select_length, text_self->font_style, & text_self->color);
 
 	if (size_return != NULL)
 		*size_return = select_length;
@@ -667,7 +648,8 @@ html_text_master_class_init (HTMLTextMasterClass *klass,
 void
 html_text_master_init (HTMLTextMaster *master,
 		       HTMLTextMasterClass *klass,
-		       gchar *text,
+		       const gchar *text,
+		       gint len,
 		       GtkHTMLFontStyle font_style,
 		       const GdkColor *color)
 {
@@ -677,23 +659,32 @@ html_text_master_init (HTMLTextMaster *master,
 	html_text = HTML_TEXT (master);
 	object = HTML_OBJECT (master);
 
-	html_text_init (html_text, HTML_TEXT_CLASS (klass), text, font_style, color);
+	html_text_init (html_text, HTML_TEXT_CLASS (klass), text, len, font_style, color);
 
 	master->select_start = 0;
 	master->select_length = 0;
 }
 
 HTMLObject *
-html_text_master_new (gchar *text,
-		      GtkHTMLFontStyle font_style,
-		      const GdkColor *color)
+html_text_master_new_with_len (const gchar *text,
+			       gint len,
+			       GtkHTMLFontStyle font_style,
+			       const GdkColor *color)
 {
 	HTMLTextMaster *master;
 
 	master = g_new (HTMLTextMaster, 1);
-	html_text_master_init (master, &html_text_master_class, text, font_style, color);
+	html_text_master_init (master, &html_text_master_class, text, len, font_style, color);
 
 	return HTML_OBJECT (master);
+}
+
+HTMLObject *
+html_text_master_new (const gchar *text,
+		      GtkHTMLFontStyle font_style,
+		      const GdkColor *color)
+{
+	return html_text_master_new_with_len (text, -1, font_style, color);
 }
 
 

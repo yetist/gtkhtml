@@ -228,7 +228,7 @@ static void close_flow (HTMLEngine *e, HTMLObject *clue);
 static HTMLObject *
 create_empty_text (HTMLEngine *e)
 {
-	return html_text_master_new (g_strdup (""), current_font_style (e), current_color (e));
+	return html_text_master_new ("", current_font_style (e), current_color (e));
 }
 
 static void
@@ -394,10 +394,10 @@ insert_text (HTMLEngine *e,
 		HTMLObject *obj;
 
 		if (create_link)
-			obj = html_link_text_master_new (g_strdup (text), font_style, color,
+			obj = html_link_text_master_new (text, font_style, color,
 							 e->url, e->target);
 		else
-			obj = html_text_master_new (g_strdup (text), font_style, color);
+			obj = html_text_master_new (text, font_style, color);
 
 		append_element (e, clue, obj);
 	} else {
@@ -3013,7 +3013,7 @@ ensure_editable (HTMLEngine *engine)
 		HTMLObject *text_master;
 		GdkColor black = { 0, 0, 0, 0 }; /* FIXME */
 
-		text_master = html_text_master_new (g_strdup (""), GTK_HTML_FONT_STYLE_DEFAULT,
+		text_master = html_text_master_new ("", GTK_HTML_FONT_STYLE_DEFAULT,
 						    &black);
 		html_clue_prepend (HTML_CLUE (head), text_master);
 	}

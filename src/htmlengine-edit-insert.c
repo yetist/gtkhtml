@@ -104,7 +104,7 @@ html_engine_insert_para (HTMLEngine *engine,
 			if (html_object_is_text (current)) {
 				HTMLObject *elem;
 
-				elem = html_text_master_new (g_strdup (""),
+				elem = html_text_master_new ("",
 							     HTML_TEXT (current)->font_style,
 							     &HTML_TEXT (current)->color);
 				html_clue_append (HTML_CLUE (flow), elem);
@@ -198,7 +198,7 @@ do_insert_different_style (HTMLEngine *e,
 	}
 
 	/* FIXME color.  */
-	new = html_text_master_new (g_strdup (""), e->insertion_font_style, &(HTML_TEXT (curr)->color));
+	new = html_text_master_new ("", e->insertion_font_style, &(HTML_TEXT (curr)->color));
 	retval = html_text_insert_text (HTML_TEXT (new), e, 0, text, len);
 	if (retval == 0) {
 		html_object_destroy (new);
@@ -252,7 +252,7 @@ do_insert_not_text (HTMLEngine *e,
 	curr = e->cursor->object;
 
 	/* FIXME Color */
-	new_text = html_text_master_new (g_strndup (text, len), e->insertion_font_style, &color);
+	new_text = html_text_master_new_with_len (text, len, e->insertion_font_style, &color);
 
 	if (e->cursor->offset == 0) {
 		if (curr->prev == NULL)
