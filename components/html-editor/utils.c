@@ -153,7 +153,7 @@ editor_hig_vbox_full (gchar *text, GtkWidget *control, gboolean vexpand)
 GtkWidget *
 editor_hig_vbox (gchar *text, GtkWidget *control)
 {
-	editor_hig_vbox_full (text, control, FALSE);
+	return editor_hig_vbox_full (text, control, FALSE);
 }
 
 GtkWidget *

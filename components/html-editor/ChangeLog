@@ -1,3 +1,7 @@
+2004-06-04  Radek Doulik  <rodo@ximian.com>
+
+	* utils.c (editor_hig_vbox): return value (pointed out by Miguel Ibarra)
+
 2004-05-31  Radek Doulik  <rodo@ximian.com>
 
 	* body.c (ADD_COLOR): get colors from settings and not from
