@@ -119,7 +119,7 @@ calc_size (HTMLObject *o,
 		}
 		else if (obj->flags & HTML_OBJECT_FLAG_ALIGNED) {
 			HTMLClueAligned *c = (HTMLClueAligned *)obj;
-
+			
 			if (! html_clue_appended (HTML_CLUE (parent), HTML_CLUE (c))) {
 				html_object_calc_size (obj, NULL);
 
@@ -131,10 +131,9 @@ calc_size (HTMLObject *o,
 						(HTML_CLUE (parent),
 						 HTML_CLUE (c));
 				} else {
-					g_print ("Right aligned\n");
 					obj->x = rmargin - obj->width;
 					obj->y = o->ascent + obj->ascent;
-
+					
 					html_clue_append_right_aligned
 						(HTML_CLUE (parent),
 						 HTML_CLUE (c));

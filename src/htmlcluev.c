@@ -383,7 +383,6 @@ find_free_area (HTMLClue *clue, gint y, gint width, gint height,
 	HTMLObject *aclue;
 	gint next_y, top_y, base_y=0;
 
-	
 	while (1) {
 		lmargin = indent;
 		rmargin = HTML_OBJECT (clue)->max_width;
@@ -454,7 +453,7 @@ appended (HTMLClue *clue, HTMLClue *aclue)
 	while (aligned) {
 		if (aligned == HTML_CLUEALIGNED (aclue))
 			return TRUE;
-		aligned = HTML_CLUEALIGNED (HTML_OBJECT (aligned)->next);
+		aligned = HTML_CLUEALIGNED (aligned->next_aligned);
 	}
 	return FALSE;
 }

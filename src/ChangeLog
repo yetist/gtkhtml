@@ -1,3 +1,8 @@
+1999-12-04  Anders Carlsson  <andersca@gnu.org>
+
+	* htmlcluev.c (appended): Traverse the aligned list, not the
+	regular object tree list. This fixes the slashdot bug (Finally).
+
 1999-12-04  Ettore Perazzoli  <ettore@gnu.org>
 
 	* htmltable.c (check_point): Implementation of `check_point'.
