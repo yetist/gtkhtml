@@ -26,6 +26,29 @@
 #include "gtkhtmldebug.h"
 
 
+struct _GtkHTMLPrivate {
+	guint idle_handler_id;
+	guint scroll_timeout_id;
+
+	GtkHTMLParagraphStyle paragraph_style;
+	guint paragraph_indentation;
+	GtkHTMLParagraphAlignment paragraph_alignment;
+	GtkHTMLFontStyle insertion_font_style;
+
+#ifdef GTKHTML_HAVE_PSPELL
+	guint set_font_id;
+#endif
+#ifdef GTKHTML_USE_XIM
+	GdkICAttr *ic_attr;
+	GdkIC *ic;
+#endif
+};
+
 void  gtk_html_private_calc_scrollbars  (GtkHTML *html);
 
 #endif /* _GTKHTML_PRIVATE_H */
+
+
+
+
+

@@ -1,3 +1,23 @@
+2000-10-09  Larry Ewing  <lewing@helixcode.com>
+
+	* gtkhtml.c: update to use priv structure.
+	(destroy): free priv structure.
+	(init): allocate the priv structure.
+	(class_init): always initialize the spell suggestion signal.
+
+	* gtkhtml.h: Move several of the gtkhtml public structure entries 
+	to a private structure. Always include the spell_suggestion
+	request signal so that our class structure does not change size.
+	Also always define all the entries in the Command type enum so
+	that values do not change based on the inclusion of spelling
+	support.
+
+	* gtkhtml-im.c: use html->priv for the gdk input method
+	structures.
+
+	* gtkhtml-private.h: add structure definition for GtkHTMLPrivate
+	here.
+
 2000-10-06  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml.c (BSCROLL): use GTK_TYPE_SCROLL_TYPE instead of
@@ -66,6 +86,9 @@
 
 	* gtkhtml.h: turn GTK_HTML_USE_XIM off for the time being.
 
+	* gtkhtml-im.c: wrap contents in ifdef since the structures will
+	not be defined.
+	
 2000-09-29  Larry Ewing  <lewing@helixcode.com>
 
 	* gtkhtml.c (style_set): 

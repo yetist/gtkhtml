@@ -24,6 +24,7 @@
 
 
 typedef struct _GtkHTML	            GtkHTML;
+typedef struct _GtkHTMLPrivate      GtkHTMLPrivate;
 typedef struct _GtkHTMLClass	    GtkHTMLClass;
 typedef struct _GtkHTMLInputLine    GtkHTMLInputLine;
 
@@ -153,11 +154,11 @@ enum _GtkHTMLCommandType {
 	GTK_HTML_COMMAND_CAPITALIZE_WORD,
 	GTK_HTML_COMMAND_UPCASE_WORD,
 	GTK_HTML_COMMAND_DOWNCASE_WORD,
-#ifdef GTKHTML_HAVE_PSPELL
+
 	GTK_HTML_COMMAND_SPELL_SUGGEST,
 	GTK_HTML_COMMAND_SPELL_PERSONAL_DICTIONARY_ADD,
 	GTK_HTML_COMMAND_SPELL_SESSION_DICTIONARY_ADD,
-#endif
+
 	GTK_HTML_COMMAND_SEARCH,
 	GTK_HTML_COMMAND_SEARCH_INCREMENTAL_FORWARD,
 	GTK_HTML_COMMAND_SEARCH_INCREMENTAL_BACKWARD,
@@ -208,22 +209,8 @@ struct _GtkHTML {
 	guint hadj_connection;
 	guint vadj_connection;
 
-	guint idle_handler_id;
-	guint scroll_timeout_id;
-
-	GtkHTMLParagraphStyle paragraph_style;
-	guint paragraph_indentation;
-	GtkHTMLParagraphAlignment paragraph_alignment;
-	GtkHTMLFontStyle insertion_font_style;
-
 	gboolean binding_handled;
-#ifdef GTKHTML_HAVE_PSPELL
-	guint set_font_id;
-#endif
-#ifdef GTKHTML_USE_XIM
-	GdkICAttr *ic_attr;
-	GdkIC *ic;
-#endif
+	GtkHTMLPrivate *priv;
 };
 
 /* must be forward referenced *sigh* */
@@ -256,10 +243,7 @@ struct _GtkHTMLClass {
 	void (* scroll)               (GtkHTML *html, GtkOrientation orientation, GtkScrollType scroll_type, gfloat position);
 	void (* cursor_move)          (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType skip);
 	void (* command)              (GtkHTML *html, GtkHTMLCommandType com_type);
-
-#ifdef GTKHTML_HAVE_PSPELL
 	void (* spell_suggestion_request) (GtkHTML *html, PspellManager *spell_checker, gchar *word);
-#endif
 
 	/* properties */
 	GtkHTMLClassProperties *properties;

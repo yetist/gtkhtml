@@ -1,3 +1,4 @@
+
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
 
@@ -224,21 +225,21 @@ update_styles (GtkHTML *html)
 	clueflow_style = html_engine_get_current_clueflow_style (engine);
 	paragraph_style = clueflow_style_to_paragraph_style (clueflow_style);
 
-	if (paragraph_style != html->paragraph_style) {
-		html->paragraph_style = paragraph_style;
+	if (paragraph_style != html->priv->paragraph_style) {
+		html->priv->paragraph_style = paragraph_style;
 		gtk_signal_emit (GTK_OBJECT (html), signals[CURRENT_PARAGRAPH_STYLE_CHANGED],
 				 paragraph_style);
 	}
 
 	indentation = html_engine_get_current_clueflow_indentation (engine);
-	if (indentation != html->paragraph_indentation) {
-		html->paragraph_style = paragraph_style;
+	if (indentation != html->priv->paragraph_indentation) {
+		html->priv->paragraph_style = paragraph_style;
 		gtk_signal_emit (GTK_OBJECT (html), signals[CURRENT_PARAGRAPH_STYLE_CHANGED], paragraph_style);
 	}
 
 	alignment = html_alignment_to_paragraph (html_engine_get_current_clueflow_alignment (engine));
-	if (alignment != html->paragraph_alignment) {
-		html->paragraph_alignment = alignment;
+ 	if (alignment != html->priv->paragraph_alignment) {
+		html->priv->paragraph_alignment = alignment;
 		gtk_signal_emit (GTK_OBJECT (html), signals[CURRENT_PARAGRAPH_ALIGNMENT_CHANGED], alignment);
 	}
 
@@ -272,15 +273,15 @@ idle_handler (gpointer data)
 
 	html_engine_flush_draw_queue (engine);
 
-	html->idle_handler_id = 0;
+ 	html->priv->idle_handler_id = 0;
 	return FALSE;
 }
 
 static void
 queue_draw (GtkHTML *html)
 {
-	if (html->idle_handler_id == 0)
-		html->idle_handler_id = gtk_idle_add (idle_handler, html);
+	if (html->priv->idle_handler_id == 0)
+		html->priv->idle_handler_id = gtk_idle_add (idle_handler, html);
 }
 
 
@@ -536,10 +537,10 @@ scroll_timeout_cb (gpointer data)
 static void
 setup_scroll_timeout (GtkHTML *html)
 {
-	if (html->scroll_timeout_id != 0)
+	if (html->priv->scroll_timeout_id != 0)
 		return;
 
-	html->scroll_timeout_id = gtk_timeout_add (SCROLL_TIMEOUT_INTERVAL,
+	html->priv->scroll_timeout_id = gtk_timeout_add (SCROLL_TIMEOUT_INTERVAL,
 						   scroll_timeout_cb, html);
 
 	GDK_THREADS_LEAVE();
@@ -550,11 +551,11 @@ setup_scroll_timeout (GtkHTML *html)
 static void
 remove_scroll_timeout (GtkHTML *html)
 {
-	if (html->scroll_timeout_id == 0)
+	if (html->priv->scroll_timeout_id == 0)
 		return;
 
-	gtk_timeout_remove (html->scroll_timeout_id);
-	html->scroll_timeout_id = 0;
+	gtk_timeout_remove (html->priv->scroll_timeout_id);
+	html->priv->scroll_timeout_id = 0;
 }
 
 
@@ -568,18 +569,20 @@ destroy (GtkObject *object)
 	html = GTK_HTML (object);
 
 	g_free (html->pointer_url);
-
 	gdk_cursor_destroy (html->hand_cursor);
 	gdk_cursor_destroy (html->arrow_cursor);
 	gdk_cursor_destroy (html->ibeam_cursor);
 
 	connect_adjustments (html, NULL, NULL);
 
-	if (html->idle_handler_id != 0)
-		gtk_idle_remove (html->idle_handler_id);
+	if (html->priv->idle_handler_id != 0)
+		gtk_idle_remove (html->priv->idle_handler_id);
 
-	if (html->scroll_timeout_id != 0)
-		gtk_timeout_remove (html->scroll_timeout_id);
+	if (html->priv->scroll_timeout_id != 0)
+		gtk_timeout_remove (html->priv->scroll_timeout_id);
+	
+	g_free (html->priv);
+	html->priv = NULL;
 
 	gtk_object_destroy (GTK_OBJECT (html->engine));
 	gtk_html_input_line_destroy (html->input_line);
@@ -1235,7 +1238,7 @@ set_fonts_idle (GtkHTML *html)
 		}
 	}
 #ifdef GTKHTML_HAVE_PSPELL
-	html->set_font_id = 0;
+	html->priv->set_font_id = 0;
 #endif
 
 	return FALSE;
@@ -1247,8 +1250,8 @@ static void
 set_fonts (GtkHTML *html)
 {
 #ifdef GTKHTML_HAVE_PSPELL
-	if (!html->set_font_id)
-		html->set_font_id = gtk_idle_add ((GtkFunction) set_fonts_idle, html);
+	if (!html->priv->set_font_id)
+		html->priv->set_font_id = gtk_idle_add ((GtkFunction) set_fonts_idle, html);
 #else
 	set_fonts_idle (html);
 #endif
@@ -1559,7 +1562,7 @@ class_init (GtkHTMLClass *klass)
 				GTK_SIGNAL_OFFSET (GtkHTMLClass, command),
 				gtk_marshal_NONE__ENUM,
 				GTK_TYPE_NONE, 1, GTK_TYPE_HTML_COMMAND);
-#ifdef GTKHTML_HAVE_PSPELL
+
 	signals [SPELL_SUGGESTION_REQUEST] =
 		gtk_signal_new ("spell_suggestion_request",
 				GTK_RUN_FIRST,
@@ -1569,7 +1572,7 @@ class_init (GtkHTMLClass *klass)
 				GTK_TYPE_NONE, 2,
 				GTK_TYPE_POINTER,
 				GTK_TYPE_POINTER);
-#endif
+
 	gtk_object_class_add_signals (object_class, signals, LAST_SIGNAL);
 
 	object_class->destroy = destroy;
@@ -1652,14 +1655,13 @@ init (GtkHTML* html)
 
 	html->load_in_progress = TRUE;
 
-	html->idle_handler_id = 0;
-	html->scroll_timeout_id = 0;
-
-	html->paragraph_style = GTK_HTML_PARAGRAPH_STYLE_NORMAL;
-	html->paragraph_alignment = GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT;
-	html->paragraph_indentation = 0;
-
-	html->insertion_font_style = GTK_HTML_FONT_STYLE_DEFAULT;
+	html->priv = g_new0 (GtkHTMLPrivate, 1);
+	html->priv->idle_handler_id = 0;
+	html->priv->scroll_timeout_id = 0;
+	html->priv->paragraph_style = GTK_HTML_PARAGRAPH_STYLE_NORMAL;
+	html->priv->paragraph_alignment = GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT;
+	html->priv->paragraph_indentation = 0;
+	html->priv->insertion_font_style = GTK_HTML_FONT_STYLE_DEFAULT;
 
 	gtk_selection_add_targets (GTK_WIDGET (html),
 				   GDK_SELECTION_PRIMARY,
@@ -1713,7 +1715,7 @@ gtk_html_construct (GtkWidget *htmlw)
 	html->engine        = html_engine_new (htmlw);
 	html->input_line    = gtk_html_input_line_new (html);
 	html->iframe_parent = NULL;
-
+	
 	gtk_signal_connect (GTK_OBJECT (html->engine), "title_changed",
 			    GTK_SIGNAL_FUNC (html_engine_title_changed_cb), html);
 	gtk_signal_connect (GTK_OBJECT (html->engine), "set_base",
@@ -1986,7 +1988,7 @@ gtk_html_set_paragraph_style (GtkHTML *html,
 					      HTML_ENGINE_SET_CLUEFLOW_STYLE, TRUE))
 		return;
 
-	html->paragraph_style = style;
+	html->priv->paragraph_style = style;
 
 	gtk_signal_emit (GTK_OBJECT (html), signals[CURRENT_PARAGRAPH_STYLE_CHANGED],
 			 style);

@@ -21,13 +21,14 @@
 #include <gtk/gtk.h>
 #include "gtkhtml.h"
 #include "gtkhtml-im.h"
+#include "gtkhtml-private.h"
 
 #ifdef GTKHTML_USE_XIM
 void 
 gtk_html_im_focus_in (GtkHTML *html)
 {
-	if (html->ic)
-		gdk_im_begin (html->ic, GTK_WIDGET (html)->window);
+	if (html->priv->ic)
+		gdk_im_begin (html->priv->ic, GTK_WIDGET (html)->window);
 }
 
 void
@@ -104,31 +105,31 @@ gtk_html_im_realize (GtkHTML *html)
 		
 		break;
 	}
-	html->ic_attr = attr;
-	html->ic = gdk_ic_new (attr, attrmask);
+	html->priv->ic_attr = attr;
+	html->priv->ic = gdk_ic_new (attr, attrmask);
 	
-	if (html->ic == NULL)
+	if (html->priv->ic == NULL)
 		g_warning ("Can't create input context.");
 	else {
 		mask = gdk_window_get_events (widget->window);
-		mask |= gdk_ic_get_events (html->ic);
+		mask |= gdk_ic_get_events (html->-priv->ic);
 		gdk_window_set_events (widget->window, mask);
 		
 		if (GTK_WIDGET_HAS_FOCUS(widget))
-			gdk_im_begin (html->ic, widget->window);
+			gdk_im_begin (html->priv->ic, widget->window);
 	}
 }
 
 void
 gtk_html_im_unrealize (GtkHTML *html) 
 {
-	if (html->ic) {
-		gdk_ic_destroy (html->ic);
-		html->ic = NULL;
+	if (html->priv->ic) {
+		gdk_ic_destroy (html->priv->ic);
+		html->priv->ic = NULL;
 	}
-	if (html->ic_attr) {
-		gdk_ic_attr_destroy (html->ic_attr);
-		html->ic_attr = NULL;
+	if (html->priv->ic_attr) {
+		gdk_ic_attr_destroy (html->priv->ic_attr);
+		html->priv->ic_attr = NULL;
 	}
 }
 
@@ -140,17 +141,17 @@ gtk_html_im_size_allocate (GtkHTML *html)
 	if (!GTK_WIDGET_REALIZED (widget))
 		return;
 
-	if (html->ic == NULL)
+	if (html->priv->ic == NULL)
 		return;
 
-	if (gdk_ic_get_style (html->ic) & GDK_IM_PREEDIT_POSITION) {
+	if (gdk_ic_get_style (html->priv->ic) & GDK_IM_PREEDIT_POSITION) {
 		gint width, height;
 		
 		gdk_window_get_size (widget->window,
 				     &width, &height);
-		html->ic_attr->preedit_area.width = width;
-		html->ic_attr->preedit_area.height = height;
-		gdk_ic_set_attr (html->ic, html->ic_attr,
+		html->priv->ic_attr->preedit_area.width = width;
+		html->priv->ic_attr->preedit_area.height = height;
+		gdk_ic_set_attr (html->priv->ic, html->priv->ic_attr,
 				 GDK_IC_PREEDIT_AREA);
 	}
 }
@@ -165,38 +166,44 @@ gtk_html_im_style_set (GtkHTML *html)
 	if (!GTK_WIDGET_REALIZED (widget))
 		return;
 
-	if (html->ic == NULL)
+	if (html->priv->ic == NULL)
 		return;
 
-	gdk_ic_get_attr (html->ic, html->ic_attr,
+	gdk_ic_get_attr (html->priv->ic, html->priv->ic_attr,
 			 GDK_IC_PREEDIT_FOREGROUND |
 			 GDK_IC_PREEDIT_BACKGROUND |
 			 GDK_IC_PREEDIT_FONTSET);
 	
-	if (html->ic_attr->preedit_foreground.pixel != 
+	if (html->priv->ic_attr->preedit_foreground.pixel != 
 	    widget->style->fg[GTK_STATE_NORMAL].pixel) {
 		mask |= GDK_IC_PREEDIT_FOREGROUND;
-		html->ic_attr->preedit_foreground
+		html->priv->ic_attr->preedit_foreground
 			= widget->style->fg[GTK_STATE_NORMAL];
 	}
-	if (html->ic_attr->preedit_background.pixel != 
+	if (html->priv->ic_attr->preedit_background.pixel != 
 	    widget->style->base[GTK_STATE_NORMAL].pixel) {
 		mask |= GDK_IC_PREEDIT_BACKGROUND;
-		html->ic_attr->preedit_background
+		html->priv->ic_attr->preedit_background
 			= widget->style->base[GTK_STATE_NORMAL];
 	}
-	if ((gdk_ic_get_style (html->ic) & GDK_IM_PREEDIT_POSITION) && 
+	if ((gdk_ic_get_style (html->priv->ic) & GDK_IM_PREEDIT_POSITION) && 
 	    widget->style->font != NULL &&
 	    widget->style->font->type == GDK_FONT_FONTSET &&
-	    !gdk_font_equal (html->ic_attr->preedit_fontset,
+	    !gdk_font_equal (html->priv->ic_attr->preedit_fontset,
 			     widget->style->font)) {
 		mask |= GDK_IC_PREEDIT_FONTSET;
-		html->ic_attr->preedit_fontset = widget->style->font;
+		html->priv->ic_attr->preedit_fontset = widget->style->font;
 	}
 	
 	if (mask)
-		gdk_ic_set_attr (html->ic, html->ic_attr, mask);
+		gdk_ic_set_attr (html->priv->ic, html->priv->ic_attr, mask);
 }
 
 
 #endif
+
+
+
+
+
+
