@@ -4579,11 +4579,11 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 			html->binding_handled = gtk_widget_child_focus (GTK_WIDGET (html), GTK_DIR_TAB_BACKWARD);
 		break;
 	case GTK_HTML_COMMAND_SCROLL_BOD:
-		if (!html_engine_get_editable (e))
+		if (!html_engine_get_editable (e) && !e->caret_mode)
 			gtk_adjustment_set_value (gtk_layout_get_vadjustment (GTK_LAYOUT (html)), 0);
 		break;
 	case GTK_HTML_COMMAND_SCROLL_EOD:
-		if (!html_engine_get_editable (e)) {
+		if (!html_engine_get_editable (e) && !e->caret_mode) {
 			GtkAdjustment *vadj = gtk_layout_get_vadjustment (GTK_LAYOUT (html));
 			gtk_adjustment_set_value (vadj, vadj->upper - vadj->page_size);
 		}
