@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8.2\n"
-"POT-Creation-Date: 2001-04-16 09:48-0500\n"
+"POT-Creation-Date: 2001-04-17 07:10-0500\n"
 "PO-Revision-Date: 2001-02-22 09:39+0100\n"
 "Last-Translator: Pier Luigi Fiorini <plfiorini@libero.it>\n"
 "Language-Team: Italiano <it@li.org>\n"
@@ -384,7 +384,7 @@ msgid "Top"
 msgstr "Alto"
 
 #: components/html-editor/image.c:202 components/html-editor/paragraph.c:158
-#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:486
+#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:490
 msgid "Center"
 msgstr "Centro"
 
@@ -528,23 +528,23 @@ msgstr "Apri file..."
 msgid "Save file as..."
 msgstr "Salva file come..."
 
-#: components/html-editor/text.c:180 components/html-editor/toolbar.c:497
+#: components/html-editor/text.c:180 components/html-editor/toolbar.c:501
 msgid "Bold"
 msgstr "Grassetto"
 
-#: components/html-editor/text.c:181 components/html-editor/toolbar.c:499
+#: components/html-editor/text.c:181 components/html-editor/toolbar.c:503
 msgid "Italic"
 msgstr "Corsivo"
 
-#: components/html-editor/text.c:182 components/html-editor/toolbar.c:501
+#: components/html-editor/text.c:182 components/html-editor/toolbar.c:505
 msgid "Underline"
 msgstr "Sottolineato"
 
-#: components/html-editor/text.c:183 components/html-editor/toolbar.c:503
+#: components/html-editor/text.c:183 components/html-editor/toolbar.c:507
 msgid "Strikeout"
 msgstr "Barrato"
 
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:276
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:280
 msgid "Automatic"
 msgstr "Automatico"
 
@@ -596,64 +596,64 @@ msgstr "Voce elenco (non numerato)"
 msgid "List item (roman)"
 msgstr "Voce elenco (romano)"
 
-#: components/html-editor/toolbar.c:484
+#: components/html-editor/toolbar.c:488
 msgid "Left align"
 msgstr "Allinea a sinistra"
 
-#: components/html-editor/toolbar.c:484
+#: components/html-editor/toolbar.c:488
 msgid "Left justifies the paragraphs"
 msgstr "Giustifica a sinistra i paragrafi"
 
-#: components/html-editor/toolbar.c:486
+#: components/html-editor/toolbar.c:490
 msgid "Centers justifies the paragraphs"
 msgstr "Giustifica al centro i paragrafi"
 
-#: components/html-editor/toolbar.c:488
+#: components/html-editor/toolbar.c:492
 msgid "Right align"
 msgstr "Allinea a destra"
 
-#: components/html-editor/toolbar.c:488
+#: components/html-editor/toolbar.c:492
 msgid "Right justifies the paragraphs"
 msgstr "Giustifica a destra i paragrafi"
 
-#: components/html-editor/toolbar.c:495
+#: components/html-editor/toolbar.c:499
 msgid "Typewriter"
 msgstr "Carattere non proporzionale a spaziatura fissa monospaziato"
 
-#: components/html-editor/toolbar.c:495
+#: components/html-editor/toolbar.c:499
 msgid "Toggle typewriter font style"
 msgstr ""
 "Attiva/disattiva carattere non proporzionale a spaziatura fissa monospaziato"
 
-#: components/html-editor/toolbar.c:497
+#: components/html-editor/toolbar.c:501
 msgid "Makes the text bold"
 msgstr "Rendi il testo grassetto"
 
-#: components/html-editor/toolbar.c:499
+#: components/html-editor/toolbar.c:503
 msgid "Makes the text italic"
 msgstr "Rendi il testo corsivo"
 
-#: components/html-editor/toolbar.c:501
+#: components/html-editor/toolbar.c:505
 msgid "Underlines the text"
 msgstr "Rendi il testo sottolineato"
 
-#: components/html-editor/toolbar.c:503
+#: components/html-editor/toolbar.c:507
 msgid "Strikes out the text"
 msgstr "Rendi il testo barrato"
 
-#: components/html-editor/toolbar.c:512
+#: components/html-editor/toolbar.c:516
 msgid "Unindent"
 msgstr "Togli rientro"
 
-#: components/html-editor/toolbar.c:512
+#: components/html-editor/toolbar.c:516
 msgid "Indents the paragraphs less"
 msgstr "Diminuisci rientro dei paragrafi"
 
-#: components/html-editor/toolbar.c:514
+#: components/html-editor/toolbar.c:518
 msgid "Indent"
 msgstr "Rientra"
 
-#: components/html-editor/toolbar.c:514
+#: components/html-editor/toolbar.c:518
 msgid "Indents the paragraphs more"
 msgstr "Aumenta rientro dei paragrafi"
 

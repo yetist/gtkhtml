@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
-"POT-Creation-Date: 2001-04-16 09:48-0500\n"
+"POT-Creation-Date: 2001-04-17 07:10-0500\n"
 "PO-Revision-Date: 2001-02-07 11:39+01:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -384,7 +384,7 @@ msgid "Top"
 msgstr "Topp"
 
 #: components/html-editor/image.c:202 components/html-editor/paragraph.c:158
-#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:486
+#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:490
 msgid "Center"
 msgstr "Senter"
 
@@ -528,23 +528,23 @@ msgstr "Åpne fil..."
 msgid "Save file as..."
 msgstr "Lagre fil som..."
 
-#: components/html-editor/text.c:180 components/html-editor/toolbar.c:497
+#: components/html-editor/text.c:180 components/html-editor/toolbar.c:501
 msgid "Bold"
 msgstr "Uthevet"
 
-#: components/html-editor/text.c:181 components/html-editor/toolbar.c:499
+#: components/html-editor/text.c:181 components/html-editor/toolbar.c:503
 msgid "Italic"
 msgstr "Kursiv"
 
-#: components/html-editor/text.c:182 components/html-editor/toolbar.c:501
+#: components/html-editor/text.c:182 components/html-editor/toolbar.c:505
 msgid "Underline"
 msgstr "Understreket"
 
-#: components/html-editor/text.c:183 components/html-editor/toolbar.c:503
+#: components/html-editor/text.c:183 components/html-editor/toolbar.c:507
 msgid "Strikeout"
 msgstr "Gjennomstreket"
 
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:276
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:280
 msgid "Automatic"
 msgstr "Automatisk"
 
@@ -596,63 +596,63 @@ msgstr "List oppføring (unummerert)"
 msgid "List item (roman)"
 msgstr "List oppføring (romersk)"
 
-#: components/html-editor/toolbar.c:484
+#: components/html-editor/toolbar.c:488
 msgid "Left align"
 msgstr "Venstrejustér"
 
-#: components/html-editor/toolbar.c:484
+#: components/html-editor/toolbar.c:488
 msgid "Left justifies the paragraphs"
 msgstr "Venstrejustérer avsnittene"
 
-#: components/html-editor/toolbar.c:486
+#: components/html-editor/toolbar.c:490
 msgid "Centers justifies the paragraphs"
 msgstr "Sentrerer avsnittene"
 
-#: components/html-editor/toolbar.c:488
+#: components/html-editor/toolbar.c:492
 msgid "Right align"
 msgstr "Høyrejustér"
 
-#: components/html-editor/toolbar.c:488
+#: components/html-editor/toolbar.c:492
 msgid "Right justifies the paragraphs"
 msgstr "Høyrejustérer avsnittene"
 
-#: components/html-editor/toolbar.c:495
+#: components/html-editor/toolbar.c:499
 msgid "Typewriter"
 msgstr "Skrivemaskin"
 
-#: components/html-editor/toolbar.c:495
+#: components/html-editor/toolbar.c:499
 msgid "Toggle typewriter font style"
 msgstr "Slå av/på skrivemaskin stil for skrifttype"
 
-#: components/html-editor/toolbar.c:497
+#: components/html-editor/toolbar.c:501
 msgid "Makes the text bold"
 msgstr "Gjør teksten fet"
 
-#: components/html-editor/toolbar.c:499
+#: components/html-editor/toolbar.c:503
 msgid "Makes the text italic"
 msgstr "Gjør teksten kursiv"
 
-#: components/html-editor/toolbar.c:501
+#: components/html-editor/toolbar.c:505
 msgid "Underlines the text"
 msgstr "Understreker teksten"
 
-#: components/html-editor/toolbar.c:503
+#: components/html-editor/toolbar.c:507
 msgid "Strikes out the text"
 msgstr "Uthever teksten"
 
-#: components/html-editor/toolbar.c:512
+#: components/html-editor/toolbar.c:516
 msgid "Unindent"
 msgstr "Fjern indentering"
 
-#: components/html-editor/toolbar.c:512
+#: components/html-editor/toolbar.c:516
 msgid "Indents the paragraphs less"
 msgstr "Indentérer avsnittene mindre"
 
-#: components/html-editor/toolbar.c:514
+#: components/html-editor/toolbar.c:518
 msgid "Indent"
 msgstr "Indentér"
 
-#: components/html-editor/toolbar.c:514
+#: components/html-editor/toolbar.c:518
 msgid "Indents the paragraphs more"
 msgstr "Indentérer avsnittene mer"
 

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
-"POT-Creation-Date: 2001-04-16 09:48-0500\n"
+"POT-Creation-Date: 2001-04-17 07:10-0500\n"
 "PO-Revision-Date: 2000-12-30 19:03+0100\n"
 "Last-Translator: Vasif Ismailoglu MD <azerb_linux@hotmail.com>\n"
 "Language-Team: Azerbaijani Turkish \n"
@@ -385,7 +385,7 @@ msgid "Top"
 msgstr ""
 
 #: components/html-editor/image.c:202 components/html-editor/paragraph.c:158
-#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:486
+#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:490
 msgid "Center"
 msgstr "Orta"
 
@@ -531,23 +531,23 @@ msgstr "Dosyeyi Aç ..."
 msgid "Save file as..."
 msgstr "Fərqli qeyd et ..."
 
-#: components/html-editor/text.c:180 components/html-editor/toolbar.c:497
+#: components/html-editor/text.c:180 components/html-editor/toolbar.c:501
 msgid "Bold"
 msgstr "Qalın"
 
-#: components/html-editor/text.c:181 components/html-editor/toolbar.c:499
+#: components/html-editor/text.c:181 components/html-editor/toolbar.c:503
 msgid "Italic"
 msgstr "Meyilli"
 
-#: components/html-editor/text.c:182 components/html-editor/toolbar.c:501
+#: components/html-editor/text.c:182 components/html-editor/toolbar.c:505
 msgid "Underline"
 msgstr "Alt çizgili"
 
-#: components/html-editor/text.c:183 components/html-editor/toolbar.c:503
+#: components/html-editor/text.c:183 components/html-editor/toolbar.c:507
 msgid "Strikeout"
 msgstr "Qaralanmış"
 
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:276
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:280
 msgid "Automatic"
 msgstr "Avtomatik"
 
@@ -599,70 +599,70 @@ msgstr "Siyahı üzvü ( rəqəmsiz)"
 msgid "List item (roman)"
 msgstr "Siyahı üzvü ( roman rəqəmli)"
 
-#: components/html-editor/toolbar.c:484
+#: components/html-editor/toolbar.c:488
 msgid "Left align"
 msgstr "Sola tərəflə"
 
-#: components/html-editor/toolbar.c:484
+#: components/html-editor/toolbar.c:488
 #, fuzzy
 msgid "Left justifies the paragraphs"
 msgstr "Sətirləri sola tərəflə"
 
-#: components/html-editor/toolbar.c:486
+#: components/html-editor/toolbar.c:490
 #, fuzzy
 msgid "Centers justifies the paragraphs"
 msgstr "Sətirləri sola tərəflə"
 
-#: components/html-editor/toolbar.c:488
+#: components/html-editor/toolbar.c:492
 msgid "Right align"
 msgstr "Ortaya tərəflə"
 
-#: components/html-editor/toolbar.c:488
+#: components/html-editor/toolbar.c:492
 #, fuzzy
 msgid "Right justifies the paragraphs"
 msgstr "Sətirləri saǧa tərəflə"
 
-#: components/html-editor/toolbar.c:495
+#: components/html-editor/toolbar.c:499
 msgid "Typewriter"
 msgstr ""
 
-#: components/html-editor/toolbar.c:495
+#: components/html-editor/toolbar.c:499
 msgid "Toggle typewriter font style"
 msgstr ""
 
-#: components/html-editor/toolbar.c:497
+#: components/html-editor/toolbar.c:501
 msgid "Makes the text bold"
 msgstr ""
 
-#: components/html-editor/toolbar.c:499
+#: components/html-editor/toolbar.c:503
 #, fuzzy
 msgid "Makes the text italic"
 msgstr "Seçili bölməyi əy"
 
-#: components/html-editor/toolbar.c:501
+#: components/html-editor/toolbar.c:505
 #, fuzzy
 msgid "Underlines the text"
 msgstr "Alt çizgili"
 
-#: components/html-editor/toolbar.c:503
+#: components/html-editor/toolbar.c:507
 #, fuzzy
 msgid "Strikes out the text"
 msgstr "Qaralanmış"
 
-#: components/html-editor/toolbar.c:512
+#: components/html-editor/toolbar.c:516
 msgid "Unindent"
 msgstr "Daha az arala"
 
-#: components/html-editor/toolbar.c:512
+#: components/html-editor/toolbar.c:516
 #, fuzzy
 msgid "Indents the paragraphs less"
 msgstr "Sətirləri daha az arala"
 
-#: components/html-editor/toolbar.c:514
+#: components/html-editor/toolbar.c:518
 msgid "Indent"
 msgstr "Arala"
 
-#: components/html-editor/toolbar.c:514
+#: components/html-editor/toolbar.c:518
 #, fuzzy
 msgid "Indents the paragraphs more"
 msgstr "Sətirləri daha çox arala"

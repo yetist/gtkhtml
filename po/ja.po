@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.6\n"
-"POT-Creation-Date: 2001-04-16 09:48-0500\n"
+"POT-Creation-Date: 2001-04-17 07:10-0500\n"
 "PO-Revision-Date: 2001-02-19 14:00+0900\n"
 "Last-Translator: Yukihiro Nakai <nakai@gnome.gr.jp>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
@@ -385,7 +385,7 @@ msgid "Top"
 msgstr "上"
 
 #: components/html-editor/image.c:202 components/html-editor/paragraph.c:158
-#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:486
+#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:490
 msgid "Center"
 msgstr "中央"
 
@@ -529,23 +529,23 @@ msgstr "ファイルを開く..."
 msgid "Save file as..."
 msgstr "別名で保存..."
 
-#: components/html-editor/text.c:180 components/html-editor/toolbar.c:497
+#: components/html-editor/text.c:180 components/html-editor/toolbar.c:501
 msgid "Bold"
 msgstr "太文字"
 
-#: components/html-editor/text.c:181 components/html-editor/toolbar.c:499
+#: components/html-editor/text.c:181 components/html-editor/toolbar.c:503
 msgid "Italic"
 msgstr "斜体"
 
-#: components/html-editor/text.c:182 components/html-editor/toolbar.c:501
+#: components/html-editor/text.c:182 components/html-editor/toolbar.c:505
 msgid "Underline"
 msgstr "下線"
 
-#: components/html-editor/text.c:183 components/html-editor/toolbar.c:503
+#: components/html-editor/text.c:183 components/html-editor/toolbar.c:507
 msgid "Strikeout"
 msgstr "取り消し線"
 
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:276
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:280
 msgid "Automatic"
 msgstr "自動"
 
@@ -597,63 +597,63 @@ msgstr "一覧項目 (番号無し)"
 msgid "List item (roman)"
 msgstr "一覧項目 (ローマ数字)"
 
-#: components/html-editor/toolbar.c:484
+#: components/html-editor/toolbar.c:488
 msgid "Left align"
 msgstr "左寄せ"
 
-#: components/html-editor/toolbar.c:484
+#: components/html-editor/toolbar.c:488
 msgid "Left justifies the paragraphs"
 msgstr "段落を左に寄せる"
 
-#: components/html-editor/toolbar.c:486
+#: components/html-editor/toolbar.c:490
 msgid "Centers justifies the paragraphs"
 msgstr "段落を中央に寄せる"
 
-#: components/html-editor/toolbar.c:488
+#: components/html-editor/toolbar.c:492
 msgid "Right align"
 msgstr "右寄せ"
 
-#: components/html-editor/toolbar.c:488
+#: components/html-editor/toolbar.c:492
 msgid "Right justifies the paragraphs"
 msgstr "段落を右に寄せる"
 
-#: components/html-editor/toolbar.c:495
+#: components/html-editor/toolbar.c:499
 msgid "Typewriter"
 msgstr "Typewriter"
 
-#: components/html-editor/toolbar.c:495
+#: components/html-editor/toolbar.c:499
 msgid "Toggle typewriter font style"
 msgstr "Typewriteフォントスタイルのトグル"
 
-#: components/html-editor/toolbar.c:497
+#: components/html-editor/toolbar.c:501
 msgid "Makes the text bold"
 msgstr "テキストをボールドにする"
 
-#: components/html-editor/toolbar.c:499
+#: components/html-editor/toolbar.c:503
 msgid "Makes the text italic"
 msgstr "テキストを斜体にする"
 
-#: components/html-editor/toolbar.c:501
+#: components/html-editor/toolbar.c:505
 msgid "Underlines the text"
 msgstr "テキストに下線を引く"
 
-#: components/html-editor/toolbar.c:503
+#: components/html-editor/toolbar.c:507
 msgid "Strikes out the text"
 msgstr "テキストに取り消し線を引く"
 
-#: components/html-editor/toolbar.c:512
+#: components/html-editor/toolbar.c:516
 msgid "Unindent"
 msgstr "インデント解除"
 
-#: components/html-editor/toolbar.c:512
+#: components/html-editor/toolbar.c:516
 msgid "Indents the paragraphs less"
 msgstr "段落のインデントを減らす"
 
-#: components/html-editor/toolbar.c:514
+#: components/html-editor/toolbar.c:518
 msgid "Indent"
 msgstr "インデント"
 
-#: components/html-editor/toolbar.c:514
+#: components/html-editor/toolbar.c:518
 msgid "Indents the paragraphs more"
 msgstr "段落のインデントを増やす"
 

@@ -3,12 +3,12 @@
 # Christian Rose <menthos@menthos.com>, 2000.
 # Martin Norbäck <d95mback@dtek.chalmers.se>, 2000.
 #
-# $Id: sv.po,v 1.17 2001/04/16 22:05:20 lewing Exp $
+# $Id: sv.po,v 1.18 2001/04/17 21:44:55 lewing Exp $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2001-04-16 09:48-0500\n"
+"POT-Creation-Date: 2001-04-17 07:10-0500\n"
 "PO-Revision-Date: 2000-12-13 00:22+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -388,7 +388,7 @@ msgid "Top"
 msgstr "Överst"
 
 #: components/html-editor/image.c:202 components/html-editor/paragraph.c:158
-#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:486
+#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:490
 msgid "Center"
 msgstr "Mitten"
 
@@ -532,23 +532,23 @@ msgstr "Öppna fil..."
 msgid "Save file as..."
 msgstr "Spara fil som..."
 
-#: components/html-editor/text.c:180 components/html-editor/toolbar.c:497
+#: components/html-editor/text.c:180 components/html-editor/toolbar.c:501
 msgid "Bold"
 msgstr "Fet"
 
-#: components/html-editor/text.c:181 components/html-editor/toolbar.c:499
+#: components/html-editor/text.c:181 components/html-editor/toolbar.c:503
 msgid "Italic"
 msgstr "Kursiv"
 
-#: components/html-editor/text.c:182 components/html-editor/toolbar.c:501
+#: components/html-editor/text.c:182 components/html-editor/toolbar.c:505
 msgid "Underline"
 msgstr "Understruken"
 
-#: components/html-editor/text.c:183 components/html-editor/toolbar.c:503
+#: components/html-editor/text.c:183 components/html-editor/toolbar.c:507
 msgid "Strikeout"
 msgstr "Genomstruken"
 
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:276
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:280
 msgid "Automatic"
 msgstr "Automatisk"
 
@@ -600,70 +600,70 @@ msgstr "Listpost (onumrerad)"
 msgid "List item (roman)"
 msgstr "Listpost (romersk siffra)"
 
-#: components/html-editor/toolbar.c:484
+#: components/html-editor/toolbar.c:488
 msgid "Left align"
 msgstr "Vänsterjustera"
 
-#: components/html-editor/toolbar.c:484
+#: components/html-editor/toolbar.c:488
 #, fuzzy
 msgid "Left justifies the paragraphs"
 msgstr "Vänsterjustera stycken"
 
-#: components/html-editor/toolbar.c:486
+#: components/html-editor/toolbar.c:490
 #, fuzzy
 msgid "Centers justifies the paragraphs"
 msgstr "Vänsterjustera stycken"
 
-#: components/html-editor/toolbar.c:488
+#: components/html-editor/toolbar.c:492
 msgid "Right align"
 msgstr "Högerjustera"
 
-#: components/html-editor/toolbar.c:488
+#: components/html-editor/toolbar.c:492
 #, fuzzy
 msgid "Right justifies the paragraphs"
 msgstr "Högerjustera stycken"
 
-#: components/html-editor/toolbar.c:495
+#: components/html-editor/toolbar.c:499
 msgid "Typewriter"
 msgstr ""
 
-#: components/html-editor/toolbar.c:495
+#: components/html-editor/toolbar.c:499
 msgid "Toggle typewriter font style"
 msgstr ""
 
-#: components/html-editor/toolbar.c:497
+#: components/html-editor/toolbar.c:501
 msgid "Makes the text bold"
 msgstr ""
 
-#: components/html-editor/toolbar.c:499
+#: components/html-editor/toolbar.c:503
 #, fuzzy
 msgid "Makes the text italic"
 msgstr "Gör markeringen kursiv"
 
-#: components/html-editor/toolbar.c:501
+#: components/html-editor/toolbar.c:505
 #, fuzzy
 msgid "Underlines the text"
 msgstr "Understruken"
 
-#: components/html-editor/toolbar.c:503
+#: components/html-editor/toolbar.c:507
 #, fuzzy
 msgid "Strikes out the text"
 msgstr "Genomstruken"
 
-#: components/html-editor/toolbar.c:512
+#: components/html-editor/toolbar.c:516
 msgid "Unindent"
 msgstr "Ta bort indragning"
 
-#: components/html-editor/toolbar.c:512
+#: components/html-editor/toolbar.c:516
 #, fuzzy
 msgid "Indents the paragraphs less"
 msgstr "Gör stycken mindre indragna"
 
-#: components/html-editor/toolbar.c:514
+#: components/html-editor/toolbar.c:518
 msgid "Indent"
 msgstr "Dra in"
 
-#: components/html-editor/toolbar.c:514
+#: components/html-editor/toolbar.c:518
 #, fuzzy
 msgid "Indents the paragraphs more"
 msgstr "Dra in stycken mer"
