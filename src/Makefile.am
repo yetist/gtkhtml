@@ -149,6 +149,8 @@ libgtkhtml_la_SOURCES =				\
 	htmlvspace.c				\
 	stringtokenizer.c
 
+libgtkhtml_la_LDFLAGS = -version-info $(GTKHTML_CURRENT):$(GTKHTML_REVISION):$(GTKHTML_AGE)
+
 # The test program.
 
 testgtkhtml_SOURCES = 		\
