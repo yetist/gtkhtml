@@ -1,3 +1,15 @@
+2000-11-10  Vladimir Vukicevic  <vladimir@helixcode.com>
+
+	* gtkhtml.c, gtkhtml.h (gtk_html_get_object_by_id): Added
+	more generic version of imageid hack; got rid of get_image_by_
+	imageid.
+
+	* htmlengine.c, htmlengine.h: Added
+	html_engine_add_object_with_id and html_engine_get_object_by_id,
+	for associating objects with ids. Added id= tag, but only to
+	images. Removed imageid tag. Changed parse_i to use
+	add_object for images.
+
 2000-11-10  Radek Doulik  <rodo@helixcode.com>
 
 	* htmltextslave.c (get_ys): helper function, calculates y shift

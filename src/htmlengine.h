@@ -244,8 +244,8 @@ struct _HTMLEngine {
 	HTMLSearch  *search_info;
 	HTMLReplace *replace_info;
 
-	/* image id storage */
-	GHashTable *imageid_table;
+	/* id-to-object mapping */
+	GHashTable *id_table;
 };
 
 /* must be forward referenced *sigh* */
@@ -395,4 +395,12 @@ gchar *   html_engine_get_word                  (HTMLEngine *e);
 gboolean  html_engine_word_is_valid             (HTMLEngine *e);
 void      html_engine_replace_word_with         (HTMLEngine *e,
 						 const gchar *word);
+
+/* id support */
+void        html_engine_add_object_with_id      (HTMLEngine *e,
+						 const gchar *id,
+						 HTMLObject *obj);
+HTMLObject *html_engine_get_object_by_id        (HTMLEngine *e,
+						 const gchar *id);
+
 #endif /* _HTMLENGINE_H_ */

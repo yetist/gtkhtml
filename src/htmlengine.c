@@ -2128,7 +2128,7 @@ parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 		gchar *token = 0; 
 		gint width = -1;
 		gchar *tmpurl = NULL;
-		gchar *imageid = NULL;
+		gchar *id = NULL;
 		gchar *alt = NULL;
 		gint height = -1;
 		gint percent = 0;
@@ -2179,8 +2179,8 @@ parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 				else if (strcasecmp (token + 6, "bottom") ==0)
 					valign = HTML_VALIGN_BOTTOM;
 			}
-			else if (strncasecmp (token, "imageid=", 8) == 0) {
-				imageid = token + 8;
+			else if (strncasecmp (token, "id=", 3) == 0) {
+				id = token + 8;
 			}
 			else if (strncasecmp (token, "alt=", 4) == 0) {
 				alt = g_strdup (token + 4);
@@ -2217,16 +2217,8 @@ parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 						width, height,
 						percent, border, color, valign);
 
-			if (imageid) {
-				gpointer old_key;
-				gpointer old_val;
-				if (!e->imageid_table) {
-					e->imageid_table = g_hash_table_new (g_str_hash, g_str_equal);
-				}
-				if (g_hash_table_lookup_extended (e->imageid_table, imageid, &old_key,
-								  &old_val))
-					g_free (old_key);
-				g_hash_table_insert (e->imageid_table, g_strdup (imageid), image);
+			if (id) {
+				html_engine_add_object_with_id (e, id, (HTMLObject *) image);
 			}
 
 			if (hspace < 0)
@@ -3295,9 +3287,9 @@ html_engine_stop_parser (HTMLEngine *e)
 	html_stack_clear (e->clueflow_style_stack);
 }
 
-/* used for cleaning up the image id hash table */
+/* used for cleaning up the id hash table */
 static gboolean
-imageid_table_free_func (gpointer key, gpointer val, gpointer data)
+id_table_free_func (gpointer key, gpointer val, gpointer data)
 {
 	g_free (key);
 	return TRUE;
@@ -3315,12 +3307,12 @@ html_engine_begin (HTMLEngine *e)
 	html_engine_stop_parser (e);
 	e->writing = TRUE;
 
-	if (e->imageid_table) {
-		g_hash_table_freeze (e->imageid_table);
-		g_hash_table_foreach_remove (e->imageid_table, imageid_table_free_func, NULL);
-		g_hash_table_thaw (e->imageid_table);
-		g_hash_table_destroy (e->imageid_table);
-		e->imageid_table = NULL;
+	if (e->id_table) {
+		g_hash_table_freeze (e->id_table);
+		g_hash_table_foreach_remove (e->id_table, id_table_free_func, NULL);
+		g_hash_table_thaw (e->id_table);
+		g_hash_table_destroy (e->id_table);
+		e->id_table = NULL;
 	}
 
 	html_image_factory_stop_animations (e->image_factory);
@@ -4531,4 +4523,33 @@ html_engine_set_painter (HTMLEngine *e, HTMLPainter *painter, gint max_width)
 	}
 
 	html_engine_calc_size (e);
+}
+
+/* beginnings of ID support */
+
+void
+html_engine_add_object_with_id (HTMLEngine *e, const gchar *id, HTMLObject *obj)
+{
+	gchar *old_key;
+	gpointer old_val;
+
+	if (e->id_table == NULL)
+		e->id_table = g_hash_table_new (g_str_hash, g_str_equal);
+
+	if (!g_hash_table_lookup_extended (e->id_table, id, &old_key, &old_val))
+		old_key = NULL;
+
+	g_hash_table_insert (e->id_table, g_strdup (id), obj);
+
+	if (old_key)
+		g_free (old_key);
+}
+
+HTMLObject *
+html_engine_get_object_by_id (HTMLEngine *e, const gchar *id)
+{
+	if (e->id_table == NULL)
+		return NULL;
+
+	return (HTMLObject *) g_hash_table_lookup (e->id_table, id);
 }

@@ -2150,16 +2150,14 @@ gtk_html_set_default_background_color (GtkHTML *html, GdkColor *c)
 }
 
 gpointer
-gtk_html_get_image_by_imageid (GtkHTML *html, gchar *id)
+gtk_html_get_object_by_id (GtkHTML *html, const gchar *id)
 {
 	g_return_val_if_fail (html, NULL);
 	g_return_val_if_fail (id, NULL);
 	g_return_val_if_fail (GTK_IS_HTML (html), NULL);
 	g_return_val_if_fail (html->engine, NULL);
 
-	if (!html->engine->imageid_table) return NULL;
-
-	return g_hash_table_lookup (html->engine->imageid_table, id);
+	return html_engine_get_object_by_id (html->engine, id);
 }
 
 /*******************************************
