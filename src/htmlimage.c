@@ -152,10 +152,10 @@ html_image_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint
 		}
 	} 
 	else {
-		html_painter_draw_pixmap (p, 
+	  /*		html_painter_draw_pixmap (p, 
 					  o->x + tx + HTML_IMAGE (o)->border, 
 					  o->y - o->ascent + ty + HTML_IMAGE (o)->border, 
-					  HTML_IMAGE (o)->pixmap);
+					  HTML_IMAGE (o)->pixmap, o->x + tx+ HTML_IMAGE (o)->border, o->y - o->ascent );*/
 	}
 }
 

@@ -26,6 +26,24 @@
 
 typedef struct _HTMLPainter HTMLPainter;
 
+struct _HTMLPainter {
+	GdkWindow *window; /* GdkWindow to draw on */
+
+	/*
+	 * For the double-buffering system
+	 */
+	gboolean   double_buffer;
+	GdkPixmap *pixmap;
+	int        x1, y1, x2, y2;
+	GdkColor   background;
+	gboolean   set_background;
+	gboolean  do_clear;
+	
+	GdkGC *gc;      /* The current GC used */
+	HTMLFont *font; /* The current font */
+};
+
+
 /*
  * To drive the painting process
  */
@@ -44,12 +62,15 @@ void         html_painter_draw_rect    (HTMLPainter *painter, gint x, gint y, gi
 void         html_painter_draw_text    (HTMLPainter *painter, gint x, gint y, gchar *text, gint len);
 void         html_painter_set_font     (HTMLPainter *p, HTMLFont *f);
 void         html_painter_fill_rect    (HTMLPainter *painter, gint x, gint y, gint width, gint height);
-void         html_painter_draw_pixmap  (HTMLPainter *painter, gint x, gint y, GdkPixbuf *pixbuf);
+void         html_painter_draw_pixmap  (HTMLPainter *painter, gint x, gint y, GdkPixbuf *pixbuf, gint clipx, gint clipy, gint clipwidth, gint clipheight);
+
 void         html_painter_draw_ellipse (HTMLPainter *painter, gint x, gint y, gint width, gint height);
 void         html_painter_clear        (HTMLPainter *painter);
 
 void         html_painter_set_background_color (HTMLPainter *painter, GdkColor *color);
 void         html_painter_draw_shade_line (HTMLPainter *p, gint x, gint y, gint width);
+
+void         html_painter_set_clip_rectangle (HTMLPainter *painter, gint x, gint y, gint width, gint height);
 
 HTMLFont    *html_painter_get_font (HTMLPainter *p);
 

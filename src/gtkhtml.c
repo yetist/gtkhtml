@@ -92,18 +92,6 @@ gtk_html_init (GtkHTML* html)
 	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (html), GTK_CAN_FOCUS);
 	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (html), GTK_APP_PAINTABLE);
 	
-#if 0
-	gtk_layout_set_hadjustment (GTK_LAYOUT (html), NULL);
-
-	/* Create vertical scrollbar */
-	html->vsbadjust = gtk_adjustment_new (0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-	html->vscrollbar = gtk_vscrollbar_new (GTK_ADJUSTMENT (html->vsbadjust));
-	gtk_layout_put (GTK_LAYOUT (html), html->vscrollbar,
-			0, 0);
-	gtk_layout_set_vadjustment (GTK_LAYOUT (html), html->vsbadjust);
-	gtk_signal_connect (GTK_OBJECT (html->vsbadjust), "value_changed",
-			    GTK_SIGNAL_FUNC (gtk_html_vertical_scroll), (gpointer)html);
-#endif
 }
 
 GtkWidget *
@@ -137,12 +125,6 @@ gtk_html_parse (GtkHTML *html)
 void
 gtk_html_begin (GtkHTML *html, gchar *url)
 {
-#if 0
-	html->displayVScroll = FALSE;
-	gtk_widget_hide (html->vscrollbar);
-	GTK_ADJUSTMENT (html->vsbadjust)->step_increment = 12;
-#endif
-	
 	html_engine_begin (html->engine, url);
 }
 
@@ -178,6 +160,9 @@ gtk_html_realize (GtkWidget *widget)
 			       (gdk_window_get_events (html->layout.bin_window)
 				| GDK_EXPOSURE_MASK));
 
+	html_settings_set_bgcolor (html->engine->settings, 
+				   &widget->style->bg[GTK_STATE_NORMAL]);
+
 	html_painter_realize (html->engine->painter, html->layout.bin_window);
 }
 
@@ -197,11 +182,6 @@ gtk_html_expose (GtkWidget *widget, GdkEventExpose *event)
 {
 	if (GTK_WIDGET_CLASS (parent_class)->expose_event)
 		(* GTK_WIDGET_CLASS (parent_class)->expose_event) (widget, event);
-	
-	if (GTK_HTML (widget)->engine->settings->bgcolor)
-		html_painter_set_background_color (GTK_HTML (widget)->engine->painter,
-						   GTK_HTML (widget)->engine->settings->bgcolor);
-
 	html_engine_draw (GTK_HTML (widget)->engine,
 			  event->area.x, event->area.y,
 			  event->area.width, event->area.height);
@@ -217,9 +197,6 @@ gtk_html_draw (GtkWidget *widget, GdkRectangle *area)
 	if (GTK_WIDGET_CLASS (parent_class)->draw)
 		(* GTK_WIDGET_CLASS (parent_class)->draw) (widget, area);
 	
-	html_painter_set_background_color (
-		painter, html->engine->settings->bgcolor);
-
 	html_painter_clear (painter);
 
 	html_engine_draw (GTK_HTML (widget)->engine,
@@ -279,33 +256,7 @@ gtk_html_calc_scrollbars (GtkHTML *html)
 	GTK_LAYOUT (html)->vadjustment->page_increment = html->engine->height;
 	
 	gtk_adjustment_changed (GTK_LAYOUT (html)->vadjustment);
-#if 0
-	if ((html_engine_get_doc_height (html->engine) > html->engine->height)) {
-		html->displayVScroll = TRUE;
-	}
-	else {
-		html->displayVScroll = FALSE;
-	}
-	
-	if (html->displayVScroll) {
-		GTK_ADJUSTMENT (html->vsbadjust)->lower = 0;
-		GTK_ADJUSTMENT (html->vsbadjust)->upper = html_engine_get_doc_height (html->engine);
-		GTK_ADJUSTMENT (html->vsbadjust)->page_size = html->engine->height;
-	}
 
-	if (!html->displayVScroll) {
-		gtk_widget_hide (html->vscrollbar);
-		GTK_ADJUSTMENT (html->vsbadjust)->upper = GTK_ADJUSTMENT (html->vsbadjust)->page_size = 0;
-	}
-	else {
-		gtk_html_set_geometry (html->vscrollbar,
-				       GTK_WIDGET (html)->allocation.width - html->vscrollbar->allocation.width, 
-				       0,
-				       html->vscrollbar->allocation.width,
-				       GTK_WIDGET (html)->allocation.height);
-		gtk_widget_show (html->vscrollbar);
-	}
-#endif
 }
 
 static void

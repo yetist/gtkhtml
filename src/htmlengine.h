@@ -123,7 +123,9 @@ struct _HTMLEngine {
 
 	/* The background pixmap */
 	GdkPixbuf *bgPixmap;
-	gboolean bgPixmapSet;
+  
+	/* The background color */
+	GdkColor *bgColor;
 
 	/* Stack of lists currently active */
 	HTMLListStack *listStack;

@@ -1,5 +1,6 @@
 /* This file is part of the KDE libraries
-    Copyright (C) 1997 Martin Jones (mjones@kde.org)
+    Copyright (C) 1999 Anders Carlsson (andersca@gnu.org)
+              (C) 1997 Martin Jones (mjones@kde.org)
               (C) 1997 Torben Weis (weis@kde.org)
 
     This library is free software; you can redistribute it and/or

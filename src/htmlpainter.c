@@ -23,23 +23,6 @@
 #include "htmlpainter.h"
 #include "htmlfont.h"
 
-struct _HTMLPainter {
-	GdkWindow *window; /* GdkWindow to draw on */
-
-	/*
-	 * For the double-buffering system
-	 */
-	gboolean   double_buffer;
-	GdkPixmap *pixmap;
-	int        x1, y1, x2, y2;
-	GdkColor   background;
-	gboolean   set_background;
-	gboolean  do_clear;
-	
-	GdkGC *gc;      /* The current GC used */
-	HTMLFont *font; /* The current font */
-};
-
 void
 html_painter_draw_ellipse (HTMLPainter *painter, gint x, gint y, gint width, gint height)
 {
@@ -56,14 +39,17 @@ html_painter_draw_rect (HTMLPainter *painter, gint x, gint y, gint width, gint h
 }
 
 void
-html_painter_draw_pixmap (HTMLPainter *painter, gint x, gint y, GdkPixbuf *pixbuf)
+html_painter_draw_pixmap (HTMLPainter *painter, gint x, gint y, GdkPixbuf *pixbuf, gint clipx, gint clipy, gint clipwidth, gint clipheight)
 {
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (pixbuf != NULL);
 
 	x -= painter->x1;
 	y -= painter->y1;
-	
+
+	html_painter_set_clip_rectangle (painter, clipx, clipy, 
+					 clipwidth, clipheight);
+
 	if (pixbuf->art_pixbuf->has_alpha) {
 		gdk_draw_rgb_32_image (painter->pixmap,
 				       painter->gc,
@@ -100,10 +86,10 @@ html_painter_set_background_color (HTMLPainter *painter, GdkColor *color)
 {
 	g_return_if_fail (painter != NULL);
 
+	return;
+
 	if (color){
-		if (painter->pixmap)
-			gdk_window_set_background (painter->pixmap, color);
-		else {
+		if (!painter->pixmap) {
 			painter->background = *color;
 			painter->set_background = TRUE;
 		}
@@ -225,6 +211,7 @@ html_painter_begin (HTMLPainter *painter, int x1, int y1, int x2, int y2)
 		painter->y1 = y1;
 		painter->x2 = x2;
 		painter->y2 = y2;
+
 		if (painter->set_background){
 			gdk_gc_set_background (painter->gc, &painter->background);
 			painter->set_background = FALSE;
@@ -233,6 +220,7 @@ html_painter_begin (HTMLPainter *painter, int x1, int y1, int x2, int y2)
 		gdk_draw_rectangle (
 			painter->pixmap, painter->gc, TRUE,
 			0, 0, width, height);
+
 	} else {
 		painter->pixmap = painter->window;
 		painter->x1 = 0;
@@ -309,4 +297,17 @@ html_painter_get_font (HTMLPainter *painter)
 	g_return_val_if_fail (painter != NULL, NULL);
 
 	return painter->font;
+}
+
+void
+html_painter_set_clip_rectangle (HTMLPainter *painter, gint x, gint y, gint width, gint height)
+{
+	GdkRectangle rect;
+
+	rect.x = x;
+	rect.y = y;
+	rect.width = width;
+	rect.height = height;
+	
+	gdk_gc_set_clip_rectangle (painter->gc, &rect);
 }

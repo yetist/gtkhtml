@@ -1,6 +1,7 @@
-/*  Copyright (C) 1997 Martin Jones (mjones@kde.org)
+/*  Copyright (C) 1999 Anders Carlsson (andersca@gnu.org)
+              (C) 1997 Martin Jones (mjones@kde.org)
               (C) 1997 Torben Weis (weis@kde.org)
-	      (C) 1999 Anders Carlsson (andersca@gnu.org)
+
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
@@ -190,26 +191,43 @@ html_engine_draw_background (HTMLEngine *e, gint xval, gint yval, gint x, gint y
 	gint pw, ph, yp, xp;
 	gint xOrigin, yOrigin;
 
-	/* FIXME: Should check if background should be drawn */
-	
 	xoff = xval;
 	yoff = yval;
 	xval = e->x_offset;
 	yval = e->y_offset;
+
+	g_print ("draw_background\n");
+
+	if (!e->bgPixmap) {
+		if (!e->bgColor)
+			e->bgColor = gdk_color_copy (e->settings->bgcolor);
+
+		html_painter_set_pen (e->painter, e->bgColor);
+		html_painter_fill_rect (e->painter, x, y, w, h);
+		return;
+	}
 
 	pw = e->bgPixmap->art_pixbuf->width;
 	ph = e->bgPixmap->art_pixbuf->height;
 
 	xOrigin = x / pw*pw - xval % pw;
 	yOrigin = y / ph*ph - yval % ph;
+
+	xOrigin -= e->painter->x1;
+	yOrigin -= e->painter->y1;
 	
 	for (yp = yOrigin; yp < y + h; yp += ph) {
 		for (xp = xOrigin; xp < x + w; xp += pw) {
 			html_painter_draw_pixmap (e->painter, 
-						  xp - xoff, 
-						  yp - yoff, e->bgPixmap);
+						  xp, 
+						  yp, 
+						  e->bgPixmap,
+						  x, y,
+						  w, h);
 		}
 	}
+	html_painter_set_clip_rectangle (e->painter, 0, 0, e->width, e->height);
+
 }
 
 void
@@ -257,29 +275,6 @@ html_engine_write (HTMLEngine *e, gchar *buffer)
 	}
 }
 
-static void
-html_engine_schedule_update (HTMLEngine *e, gboolean clear)
-{
-	if (clear)
-		e->bDrawBackground = TRUE;
-
-	if (!e->updateTimer) {
-		e->bDrawBackground = clear;
-		gtk_timeout_add (100, html_engine_update_event, e);
-	}
-
-}
-
-static gint
-html_engine_update_event (gpointer data)
-{
-	HTMLEngine *e = data;
-
-	html_engine_draw (e, 0, 0, e->width, e->height);
-
-	return FALSE;
-}
-
 static gboolean
 html_engine_timer_event (HTMLEngine *e)
 {
@@ -319,16 +314,8 @@ html_engine_timer_event (HTMLEngine *e)
 	/* Restoring font */
 	html_painter_set_font (e->painter, oldFont);
 
-	html_painter_set_background_color (e->painter, e->settings->bgcolor);
-	gdk_window_clear (html_painter_get_window (e->painter));
-	
 	html_engine_draw (e, 0, 0, e->width, e->height);
 	
-	/* If the visible rectangle was not filled before the parsing and
-	   if we have something to display in the visible area now then repaint. */
-	if (lastHeight - e->y_offset < e->height * 2 && html_engine_get_doc_height (e) - e->y_offset > 0)
-		html_engine_schedule_update (e, FALSE);
-
 	if (!e->parsing) {
 		/* Parsing done */
 		
@@ -370,10 +357,10 @@ html_engine_draw (HTMLEngine *e, gint x, gint y, gint width, gint height)
 	ty = -e->y_offset + e->topBorder;
 
 	html_painter_begin (e->painter, x, y, x + width, y + height);
-	/*
-	if (e->bgPixmap)
-		html_engine_draw_background (e, e->x_offset, e->y_offset, 
-		0, 0, e->width, e->height);*/
+
+	html_engine_draw_background (e, e->x_offset, e->y_offset, 
+				     x, y,
+				     width, height);
 
 	if (e->clue)
 		e->clue->draw (e->clue, e->painter,
@@ -451,6 +438,7 @@ html_engine_parse (HTMLEngine *p)
 	HTMLFont *f;
 	GdkColor *c;
 
+	g_print ("parse\n");
 	html_engine_stop_parser (p);
 
 	if (p->clue) {
@@ -473,13 +461,24 @@ html_engine_parse (HTMLEngine *p)
 
 	html_font_stack_push (p->fs, f);
 
+	/* Free the background pixmap */
+	if (p->bgPixmap) {
+		gdk_pixbuf_unref (p->bgPixmap);
+		p->bgPixmap = 0;
+	}
+
+	/* Free the background color (if any) and alloc a new one */
+	if (p->bgColor)
+		gdk_color_free (p->bgColor);
+
 	/* FIXME: is this nice to do? */
 	c = g_new0 (GdkColor, 1);
 	gdk_color_black (gdk_window_get_colormap (html_painter_get_window (p->painter)), c);
 	html_color_stack_push (p->cs, c);
 	f->textColor = html_color_stack_top (p->cs);
 
-	
+	p->bodyParsed = FALSE;
+
 	p->parsing = TRUE;
 	p->vspace_inserted = TRUE;
 
@@ -794,15 +793,19 @@ html_engine_parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		GdkColor bgcolor;
 		gboolean bgColorSet = FALSE;
 
-		if (e->bodyParsed)
+		if (e->bodyParsed) {
+			g_print ("body is parsed\n");
 			return;
+		}
 
 		e->bodyParsed = TRUE;
 		
 		string_tokenizer_tokenize (e->st, str + 5, " >");
 		while (string_tokenizer_has_more_tokens (e->st)) {
 			gchar *token = string_tokenizer_next_token (e->st);
+			g_print ("token is: %s\n", token);
 			if (strncasecmp (token, "bgcolor=", 8) == 0) {
+				g_print ("setting color\n");
 				html_engine_set_named_color (e, &bgcolor, token + 8);
 				g_print ("bgcolor is set\n");
 				bgColorSet = TRUE;
@@ -811,19 +814,18 @@ html_engine_parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				gchar *filename = g_strdup_printf ("%s/%s", e->baseURL, token + 11);
 				g_print ("should load: %s\n", filename);
 				e->bgPixmap = gdk_pixbuf_new_from_file (filename);
+				g_print ("bgpixmap is: %d\n", e->bgPixmap);
 				g_free (filename);
 				
-				e->bgPixmapSet = (e->bgPixmap != 0);
 			}
 		}
 		
-		if (!bgColorSet) {
-			/* FIXME: Do this in a better way */
+		if (bgColorSet) {
+			if (e->bgColor)
+				gdk_color_free (e->bgColor);
+			e->bgColor = gdk_color_copy (&bgcolor);
 		}
-		else {
-			html_settings_set_bgcolor (e->settings, &bgcolor);
-			html_painter_set_background_color (e->painter, e->settings->bgcolor);			
-		}
+		g_print ("parsed <body>\n");
 	}
 	else if (strncmp (str, "br", 2) == 0) {
 		ClearType clear = CNone;
