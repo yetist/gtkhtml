@@ -1,5 +1,11 @@
 2000-02-04  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlimage.c (calc_min_width): Fixed brainos.
+
+	* htmltablecell.c (html_table_cell_new): Removed parameters `x'
+	and `y'.  Renamed `max_width' to `specified_width'
+	(html_table_cell_init): Likewise.
+
 	* htmlimage.c (get_actual_width): New param `painter'.  The
 	returned value is now expressed in painter units, instead of image
 	pixel units.

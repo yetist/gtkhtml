@@ -100,13 +100,11 @@ draw (HTMLObject *o,
 			ph = cell->bgPixmap->pixbuf->art_pixbuf->height;
 
 			oheight = o->ascent;
-			base_y = o->y - o->ascent + ty /* FIXMEHTMLPainter - p->y1 */;
+			base_y = o->y - o->ascent + ty;
 
-			while(oheight > 0) {
-
-
+			while (oheight > 0) {
 				owidth = o->width;
-				base_x = o->x + tx /* FIXMEHTMLPainter - p->x1 */;
+				base_x = o->x + tx;
 				while(owidth > 0) {
 					
 					clip_width = owidth > pw ? pw :owidth;
@@ -123,8 +121,6 @@ draw (HTMLObject *o,
 				base_y += ph;
 				oheight -= ph;
 			}
-
-			
 		}
 		
 	} else if (cell->have_bg) {
@@ -199,7 +195,6 @@ html_table_cell_class_init (HTMLTableCellClass *klass,
 void
 html_table_cell_init (HTMLTableCell *cell,
 		      HTMLTableCellClass *klass,
-		      gint x, gint y,
 		      gint max_width,
 		      gint percent,
 		      gint rs, gint cs,
@@ -213,8 +208,7 @@ html_table_cell_init (HTMLTableCell *cell,
 	cluev = HTML_CLUEV (cell);
 	clue = HTML_CLUE (cell);
 
-	html_cluev_init (cluev, HTML_CLUEV_CLASS (klass),
-			 x, y, max_width, percent);
+	html_cluev_init (cluev, HTML_CLUEV_CLASS (klass), 0, 0, max_width, percent);
 
 	if (percent > 0) 
 		object->width = max_width * percent / 100;
@@ -237,14 +231,16 @@ html_table_cell_init (HTMLTableCell *cell,
 }
 
 HTMLObject *
-html_table_cell_new (gint x, gint y, gint max_width, gint percent,
-		     gint rs, gint cs, gint pad)
+html_table_cell_new (gint max_width,
+		     gint percent,
+		     gint rs, gint cs,
+		     gint pad)
 {
 	HTMLTableCell *cell;
 
 	cell = g_new (HTMLTableCell, 1);
 	html_table_cell_init (cell, &html_table_cell_class,
-			      x, y, max_width, percent, rs, cs, pad);
+			      max_width, percent, rs, cs, pad);
 
 	return HTML_OBJECT (cell);
 }
@@ -266,7 +262,9 @@ html_table_cell_unlink (HTMLTableCell *cell)
 }
 
 void
-html_table_cell_set_width (HTMLTableCell *cell, HTMLPainter *painter, gint width)
+html_table_cell_set_width (HTMLTableCell *cell,
+			   HTMLPainter *painter,
+			   gint width)
 {
 	HTMLObject *obj;
 	HTMLObject *o = HTML_OBJECT (cell);
@@ -279,9 +277,10 @@ html_table_cell_set_width (HTMLTableCell *cell, HTMLPainter *painter, gint width
 		html_object_set_max_width (obj, painter, width);
 }
 
-void html_table_cell_set_bg_pixmap (HTMLTableCell *cell, HTMLImagePointer *imagePtr) {
+void html_table_cell_set_bg_pixmap (HTMLTableCell *cell,
+				    HTMLImagePointer *imagePtr)
+{
 	if(imagePtr) {
-
 		cell->have_bgPixmap = TRUE;
 		cell->bgPixmap = imagePtr;
 	}

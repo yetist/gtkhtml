@@ -984,7 +984,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						e->pending_para = FALSE;
 					}
 
-					cell = HTML_TABLE_CELL (html_table_cell_new (0, 0, cellwidth,
+					cell = HTML_TABLE_CELL (html_table_cell_new (cellwidth,
 										     cellpercent,
 										     rowSpan, colSpan,
 										     padding));

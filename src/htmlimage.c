@@ -92,13 +92,13 @@ calc_min_width (HTMLObject *o,
 	pixel_size = html_painter_get_pixel_size (painter);
 
 	if (o->percent > 0)
-		min_width = 1;
+		min_width = pixel_size;
 	else
 		min_width = get_actual_width (HTML_IMAGE (o), painter);
 
 	min_width += HTML_IMAGE (o)->border * 2 * pixel_size;
 
-	return pixel_size;
+	return min_width;
 }
 
 static gint

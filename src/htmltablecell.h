@@ -60,8 +60,8 @@ extern HTMLTableCellClass html_table_cell_class;
 
 void html_table_cell_type_init (void);
 void html_table_cell_class_init (HTMLTableCellClass *klass, HTMLType type);
-void html_table_cell_init (HTMLTableCell *cell, HTMLTableCellClass *klass, gint x, gint y, gint max_width, gint percent, gint rs, gint cs, gint pad);
-HTMLObject *html_table_cell_new (gint x, gint y, gint max_width, gint percent, gint rs, gint cs, gint pad);
+void html_table_cell_init (HTMLTableCell *cell, HTMLTableCellClass *klass, gint max_width, gint percent, gint rs, gint cs, gint pad);
+HTMLObject *html_table_cell_new (gint max_width, gint percent, gint rs, gint cs, gint pad);
 
 void html_table_cell_link (HTMLTableCell *cell);
 void html_table_cell_unlink (HTMLTableCell *cell);
