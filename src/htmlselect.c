@@ -428,7 +428,9 @@ html_select_set_text (HTMLSelect *select, gchar *text)
 					    g_list_nth(select->strings, select->default_selected)->data);
 
 			longest = longest_string (select);
-			gtk_entry_set_width_chars (GTK_ENTRY(GTK_COMBO(w)->entry), strlen (longest));
+			if (longest)
+				gtk_entry_set_width_chars (GTK_ENTRY(GTK_COMBO(w)->entry), 
+							   strlen (longest));
 		}
 
 		gtk_widget_set_size_request (w, -1, -1);
