@@ -206,7 +206,6 @@ void        html_engine_parse_one_token (HTMLEngine *p, HTMLObject *clue, const 
 void        html_engine_parse (HTMLEngine *p);
 void        html_engine_calc_size (HTMLEngine *p);
 void        html_engine_draw (HTMLEngine *e, gint x, gint y, gint width, gint height);
-void        html_painter_set_background_color (HTMLPainter *painter, GdkColor *color);
 gint        html_engine_get_doc_height (HTMLEngine *p);
 void        html_engine_stop_parser (HTMLEngine *e);
 gchar      *html_engine_canonicalize_url (HTMLEngine *e, const char *in_url);
