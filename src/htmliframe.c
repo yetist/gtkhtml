@@ -300,7 +300,8 @@ calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 		height = html_engine_get_doc_height (e);
 		width = html_engine_get_doc_width (e);
 
-		gtk_widget_set_usize (iframe->scroll, width, height);
+		/* FIXME: fix frames for height > 32767 */
+		gtk_widget_set_usize (iframe->scroll, width, MIN (height, 32767));
 		gtk_widget_queue_resize (iframe->scroll);
 		
 		html_iframe_set_scrolling (iframe, GTK_POLICY_NEVER);
@@ -551,8 +552,8 @@ html_iframe_init (HTMLIFrame *iframe,
 	gtk_signal_emit_by_name (GTK_OBJECT (parent_html->engine), 
 				 "url_requested", src, handle);
 
-	gtk_widget_set_usize (scrolled_window, width, height);
-
+	/* FIXME: fix frames for height > 32767 */
+	gtk_widget_set_usize (scrolled_window, width, MIN (height, 32767));
 	gtk_widget_show (scrolled_window);	
 
 	html_embedded_set_widget (em, scrolled_window);

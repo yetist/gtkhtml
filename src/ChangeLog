@@ -1,3 +1,8 @@
+2002-09-17  Radek Doulik  <rodo@ximian.com>
+
+	* htmliframe.c (html_iframe_init): crop iframe height to 32767
+	because X limitations, we have to fix it though
+
 2002-09-16  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c (parse_body): push/pop block here to fix
