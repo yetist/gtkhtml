@@ -34,6 +34,10 @@
 #include "htmlselection.h"
 #include "htmlsettings.h"
 
+#ifndef USE_SCROLLED_WINDOW
+#include <gal/widgets/e-scroll-frame.h>
+#endif
+
 HTMLIFrameClass html_iframe_class;
 static HTMLEmbeddedClass *parent_class = NULL;
 static gboolean calc_size (HTMLObject *o, HTMLPainter *painter);
@@ -259,9 +263,15 @@ calc_size (HTMLObject *o,
 		gtk_widget_set_usize (iframe->scroll, width, height);
 		gtk_widget_queue_resize (iframe->scroll);
 		
+#ifdef USE_SCROLLED_WINDOW
 		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (iframe->scroll),
 						GTK_POLICY_NEVER,
 						GTK_POLICY_NEVER);
+#else
+		e_scroll_frame_set_policy (E_SCROLL_FRAME (iframe->scroll),
+					   GTK_POLICY_NEVER,
+					   GTK_POLICY_NEVER);
+#endif
 
 		o->width = width;
 		o->ascent = height;
@@ -413,10 +423,23 @@ html_iframe_init (HTMLIFrame *iframe,
 	html_embedded_init (em, HTML_EMBEDDED_CLASS (klass),
 			    parent, NULL, NULL);
 	
+#if USE_SCROLLED_WINDOW
 	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
 					GTK_POLICY_AUTOMATIC,
 					GTK_POLICY_AUTOMATIC);
+
+#else
+	scrolled_window = e_scroll_frame_new (NULL, NULL);
+        e_scroll_frame_set_policy (E_SCROLL_FRAME (scrolled_window),
+				   GTK_POLICY_AUTOMATIC,
+				   GTK_POLICY_AUTOMATIC);
+	
+	e_scroll_frame_set_shadow_type (E_SCROLL_FRAME (scrolled_window), 
+					border ? GTK_SHADOW_IN : GTK_SHADOW_NONE);
+
+#endif
+	  
 	new_widget = gtk_html_new ();
 	new_html = GTK_HTML (new_widget);
 
