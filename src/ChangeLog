@@ -1,5 +1,7 @@
 2000-05-03  Radek Doulik  <rodo@helixcode.com>
 
+	* htmltext.c (html_text_set_text): set change flags
+
 	* htmlengine.c (html_engine_parse): reset search & replace engine
 
 2000-05-02  Larry Ewing  <lewing@helixcode.com>

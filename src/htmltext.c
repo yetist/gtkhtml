@@ -833,4 +833,5 @@ html_text_set_text (HTMLText *text, const gchar *new_text)
 {
 	g_free (text->text);
 	text->text = g_strdup (new_text);
+	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
 }
