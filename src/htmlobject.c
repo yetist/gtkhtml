@@ -367,7 +367,7 @@ select_range (HTMLObject *self,
 	gboolean selected;
 	gboolean changed;
 
-	if (length != 0)
+	if (length > 0 || (length == -1 && start < html_object_get_length (self)))
 		selected = TRUE;
 	else
 		selected = FALSE;

@@ -285,6 +285,8 @@ updater_idle_callback (gpointer data)
 	HTMLEngineEditSelectionUpdater *updater;
 	HTMLEngine *engine;
 
+	printf ("updater_idle_callback\n");
+
 	updater = (HTMLEngineEditSelectionUpdater *) data;
 	engine = updater->engine;
 

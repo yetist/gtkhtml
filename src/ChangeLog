@@ -1,3 +1,13 @@
+2000-07-04  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine-edit-text.c (upper_lower): removed quick selection
+	bug fix
+	(html_engine_capitalize_word): also make tail of word lowercase
+	instead of only uppercase first letter
+
+	* htmlobject.c (select_range): mark object selected only when
+	length > 0 or start < object length
+
 2000-07-03  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine-edit-text.c (upper_lower): quick fix for bug in
