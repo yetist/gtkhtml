@@ -77,6 +77,14 @@ typedef struct
 	HTMLHAlignType  align;
 	GtkWidget      *option_align;
 
+	gboolean   has_width;
+	gboolean   changed_width;
+	gint       width;
+	gboolean   width_percent;
+	GtkWidget *spin_width;
+	GtkWidget *check_width;
+	GtkWidget *option_width;
+
 } GtkHTMLEditTableProperties;
 
 #define CHANGE gtk_html_edit_properties_dialog_change (d->cd->properties_dialog)
@@ -85,7 +93,7 @@ typedef struct
 static void
 fill_sample (GtkHTMLEditTableProperties *d)
 {
-	gchar *body, *html, *bg_color, *bg_pixmap, *spacing, *align;
+	gchar *body, *html, *bg_color, *bg_pixmap, *spacing, *align, *width;
 
 	body      = html_engine_save_get_sample_body (d->cd->html->engine, NULL);
 	bg_color  = d->has_bg_color
@@ -104,8 +112,10 @@ fill_sample (GtkHTMLEditTableProperties *d)
 				   d->align == HTML_HALIGN_CENTER ? "center"
 				   : (d->align == HTML_HALIGN_RIGHT ? "right" : "left"))
 		: g_strdup ("");
+	width   = d->width != 0 && d->has_width
+		? g_strdup_printf (" width=\"%d%s\"", d->width, d->width_percent ? "%" : "") : g_strdup ("");
 
-	html      = g_strconcat (body, "<table", bg_color, bg_pixmap, spacing, align, ">"
+	html      = g_strconcat (body, "<table", bg_color, bg_pixmap, spacing, align, width, ">"
 				 "<tr><th>Header</th><th>1</th></tr>"
 				 "<tr><td>Normal</td><td>2</td></tr></table>", NULL);
 	printf ("html: %s\n", html);
@@ -116,6 +126,7 @@ fill_sample (GtkHTMLEditTableProperties *d)
 	g_free (bg_pixmap);
 	g_free (spacing);
 	g_free (align);
+	g_free (width);
 	g_free (html);
 }
 
@@ -130,17 +141,13 @@ data_new (GtkHTMLControlData *cd)
 
 	data->bg_color          = html_colorset_get_color (data->cd->html->engine->defaultSettings->color_set,
 							   HTMLBgColor)->color;
+	data->bg_pixmap         = "";
 	data->border            = 1;
 	data->spacing           = 1;
 	data->padding           = 1;
 	data->align             = HTML_HALIGN_NONE;
-
-	/* default values
-	data->width          = 100;
-	data->size           = 2;
-	data->percent        = TRUE;
-	data->shaded         = TRUE;
-	data->align          = HTML_HALIGN_CENTER; */
+	data->width_percent     = TRUE;
+	data->width             = 100;
 
 	return data;
 }
@@ -233,6 +240,33 @@ changed_align (GtkWidget *w, GtkHTMLEditTableProperties *d)
 	CHANGE;	
 }
 
+static void
+changed_width (GtkWidget *w, GtkHTMLEditTableProperties *d)
+{
+	d->width = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_width));
+	d->changed_width = TRUE;
+	FILL;
+	CHANGE;
+}
+
+static void
+set_has_width (GtkWidget *check, GtkHTMLEditTableProperties *d)
+{
+	d->has_width = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (d->check_width));
+	d->changed_width = TRUE;
+	FILL;
+	CHANGE;
+}
+
+static void
+changed_width_percent (GtkWidget *w, GtkHTMLEditTableProperties *d)
+{
+	d->width_percent = g_list_index (GTK_MENU_SHELL (w)->children, gtk_menu_get_active (GTK_MENU (w))) ? TRUE : FALSE;
+	d->changed_width = TRUE;
+	FILL;
+	CHANGE;	
+}
+
 static GtkWidget *
 table_widget (GtkHTMLEditTableProperties *d)
 {
@@ -278,6 +312,14 @@ table_widget (GtkHTMLEditTableProperties *d)
 	gtk_signal_connect (GTK_OBJECT (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_align))), "selection-done",
 			    changed_align, d);
 
+	d->spin_width   = glade_xml_get_widget (xml, "spin_table_width");
+	gtk_signal_connect (GTK_OBJECT (d->spin_width), "changed", changed_width, d);
+	d->check_width  = glade_xml_get_widget (xml, "check_table_width");
+	gtk_signal_connect (GTK_OBJECT (d->check_width), "toggled", set_has_width, d);
+	d->option_width = glade_xml_get_widget (xml, "option_table_width");
+	gtk_signal_connect (GTK_OBJECT (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_width))), "selection-done",
+			    changed_width_percent, d);
+
 	gtk_box_pack_start (GTK_BOX (table_page), sample_frame (&d->sample), FALSE, FALSE, 0);
 	fill_sample (d);
 
@@ -292,21 +334,22 @@ static void
 set_ui (GtkHTMLEditTableProperties *d)
 {
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_bg_color), d->has_bg_color);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_bg_pixmap), d->has_bg_pixmap);
+	gdk_color_alloc (gdk_window_get_colormap (GTK_WIDGET (d->cd->html)->window), &d->bg_color);
+	color_combo_set_color (COLOR_COMBO (d->combo_bg_color), &d->bg_color);
 
-	if (d->has_bg_color) {
-		gdk_color_alloc (gdk_window_get_colormap (GTK_WIDGET (d->cd->html)->window), &d->bg_color);
-		color_combo_set_color (COLOR_COMBO (d->combo_bg_color), &d->bg_color);
-	}
-	if (d->has_bg_pixmap) {
-		gtk_entry_set_text (GTK_ENTRY (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (d->entry_bg_pixmap))),
-				    d->bg_pixmap);
-	}
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_bg_pixmap), d->has_bg_pixmap);
+	gtk_entry_set_text (GTK_ENTRY (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (d->entry_bg_pixmap))),
+			    d->bg_pixmap);
+
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_spacing), d->spacing);
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_padding), d->padding);
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_border),  d->border);
 
 	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_align), d->align - HTML_HALIGN_LEFT);
+
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_width), d->has_width);
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_width),  d->width);
+	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_width), d->width_percent ? 1 : 0);
 }
 
 static void
@@ -334,6 +377,16 @@ get_data (GtkHTMLEditTableProperties *d)
 
 	g_return_if_fail (HTML_OBJECT (d->table)->parent);
 	d->align   = HTML_CLUE (HTML_OBJECT (d->table)->parent)->halign;
+
+	if (HTML_OBJECT (d->table)->percent) {
+		d->width = HTML_OBJECT (d->table)->percent;
+		d->width_percent = TRUE;
+		d->has_width = TRUE;
+	} else if (d->table->specified_width) {
+		d->width = d->table->specified_width;
+		d->width_percent = FALSE;
+		d->has_width = TRUE;
+	}
 }
 
 
@@ -405,6 +458,11 @@ table_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 	if (d->changed_align) {
 		html_engine_table_set_align (d->cd->html->engine, d->table, d->align);
 		d->changed_align = FALSE;
+	}
+	if (d->changed_width) {
+		html_engine_table_set_width (d->cd->html->engine, d->table,
+					     d->has_width ? d->width : 0, d->has_width ? d->width_percent : FALSE);
+		d->changed_width = FALSE;
 	}
 }
 

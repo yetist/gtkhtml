@@ -229,7 +229,7 @@
 
 	  <widget>
 	    <class>GtkCheckButton</class>
-	    <name>checkbutton2</name>
+	    <name>check_table_width</name>
 	    <can_focus>True</can_focus>
 	    <label>width</label>
 	    <active>False</active>
@@ -316,7 +316,7 @@
 
 	  <widget>
 	    <class>GtkSpinButton</class>
-	    <name>spinbutton3</name>
+	    <name>spin_table_width</name>
 	    <can_focus>True</can_focus>
 	    <climb_rate>1</climb_rate>
 	    <digits>0</digits>
@@ -348,7 +348,7 @@
 
 	  <widget>
 	    <class>GtkOptionMenu</class>
-	    <name>optionmenu1</name>
+	    <name>option_table_width</name>
 	    <can_focus>True</can_focus>
 	    <items>Pixels
 Percent
