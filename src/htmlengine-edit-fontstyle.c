@@ -22,11 +22,13 @@
 #include "gtkhtmldebug.h"
 #include "htmlclue.h"
 #include "htmlcolor.h"
+#include "htmlcolorset.h"
 #include "htmltextmaster.h"
 #include "htmlselection.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-movement.h"
 #include "htmlengine-edit-selection-updater.h"
+#include "htmlsettings.h"
 
 #include "htmlengine-edit-fontstyle.h"
 
@@ -341,6 +343,9 @@ set_color (HTMLObject *o, HTMLColor *color)
 void
 html_engine_set_color (HTMLEngine *e, HTMLColor *color)
 {
+	if (!color)
+		color = html_colorset_get_color (e->settings->color_set, HTMLTextColor);
+
 	if (html_engine_is_selection_active (e)) {
 		html_engine_cut_and_paste_begin (e, "Set color");
 		g_list_foreach (e->cut_buffer, (GFunc) set_color, color);

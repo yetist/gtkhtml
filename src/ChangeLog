@@ -1,5 +1,8 @@
 2000-12-12  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine-edit-fontstyle.c (html_engine_set_color): if color ==
+	NULL use default Text color
+
 	* htmltablecell.c (calc_preferred_width): implemented
 	calc_preferred_width
 
