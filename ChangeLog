@@ -1,3 +1,7 @@
+2004-03-25  Gareth Owen  <gowen72@yahoo.com>
+
+	* configure.in: Added en_GB to ALL_LINGUAS
+
 2004-03-22  Radek Doulik  <rodo@ximian.com>
 
 	* configure.in: increment release (added editable-on/editable-off
