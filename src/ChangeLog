@@ -1,5 +1,8 @@
 2001-10-15  Radek Doulik  <rodo@ximian.com>
 
+	* gtkhtml.c (selection_received): automagic links when pasting
+	text from selection
+
 	* htmlclueflow.c (add_clear_area): new helper function
 	(calc_size): use add_clear_area in case we need to erase area
 	behind flow, which has just shrinked

@@ -50,6 +50,7 @@
 #include "htmlplainpainter.h"
 #include "htmlsettings.h"
 #include "htmltable.h"
+#include "htmltext.h"
 #include "htmlselection.h"
 
 #include "gtkhtml.h"
@@ -1393,25 +1394,29 @@ selection_received (GtkWidget *widget,
 		    GtkSelectionData *selection_data, 
 		    guint time)
 {
+	HTMLEngine *e;
+
 	g_return_if_fail (widget != NULL);
 	g_return_if_fail (GTK_IS_HTML (widget));
 	g_return_if_fail (selection_data != NULL);
 	
 	printf("got selection from system\n");
 
+	e = GTK_HTML (widget)->engine;
+
 	/* If the Widget is editable,
 	** and we are the owner of the atom requested
 	** then we are pasting between ourself and we
 	** need not do all the conversion.
 	*/
-	if (html_engine_get_editable (GTK_HTML (widget)->engine)
+	if (html_engine_get_editable (e)
 	    && widget->window == gdk_selection_owner_get (selection_data->selection)) {
 
 		/* Check which atom was requested (PRIMARY or CLIPBOARD) */
 		if (selection_data->selection == gdk_atom_intern ("CLIPBOARD", FALSE)
- 			&& GTK_HTML (widget)->engine->clipboard) {
+ 			&& e->clipboard) {
 
-			html_engine_paste (GTK_HTML (widget)->engine);
+			html_engine_paste (e);
 			return;
 
 		} else if (selection_data->selection == GDK_SELECTION_PRIMARY
@@ -1424,11 +1429,9 @@ selection_received (GtkWidget *widget,
 			** buffer
 			*/
 			copy = html_object_op_copy (GTK_HTML (widget)->priv->primary,
-				 GTK_HTML (widget)->engine, NULL, NULL, &len);
+						    e, NULL, NULL, &len);
 
-			html_engine_paste_object (GTK_HTML (widget)->engine,
-				copy,
-				GTK_HTML (widget)->priv->primary_len);
+			html_engine_paste_object (e, copy, GTK_HTML (widget)->priv->primary_len);
 			return;
 		}
 	}
@@ -1455,8 +1458,7 @@ selection_received (GtkWidget *widget,
 			selection_data->length, selection_data->data); 
 
 		if (selection_data->type != GDK_SELECTION_TYPE_STRING) {
-			html_engine_paste_text (GTK_HTML (widget)->engine, 
-						selection_data->data,
+			html_engine_paste_text (e, selection_data->data,
 						g_utf8_strlen (selection_data->data, 
 							       selection_data->length));
 		} else {
@@ -1466,17 +1468,20 @@ selection_received (GtkWidget *widget,
 						       selection_data->data,
 						       (guint) selection_data->length);
 
-			html_engine_paste_text (GTK_HTML (widget)->engine, 
-						utf8, g_utf8_strlen (utf8, -1));
+			html_engine_paste_text (e, utf8, g_utf8_strlen (utf8, -1));
 
 			g_free (utf8);
 		}
+		if (HTML_IS_TEXT (e->cursor->object))
+			html_text_magic_link (HTML_TEXT (e->cursor->object), e,
+					      html_object_get_length (e->cursor->object));
+
 		return;
 	}
 
-	if (html_engine_get_editable (GTK_HTML (widget)->engine))
-		html_engine_paste (GTK_HTML (widget)->engine);
-}  
+	if (html_engine_get_editable (e))
+		html_engine_paste (e);
+}
 
 gint
 gtk_html_request_paste (GtkHTML *html, GdkAtom selection, gint type, gint32 time)
