@@ -359,8 +359,8 @@ check_point (HTMLObject *self,
 			x1 = x;
 			y1 = y;
 		} else {
-			if (x >= p->width) {
-				x1 = MAX (0, p->width - 1);
+			if (x >= p->x + p->width) {
+				x1 = MAX (0, p->x + p->width - 1);
 			} else if (x < p->x) {
 				x1 = p->x;
 			} else {
@@ -368,7 +368,7 @@ check_point (HTMLObject *self,
 			}
 
 			if (p->next == NULL && y > p->y + p->descent - 1) {
-				x1 = MAX (0, p->width - 1);
+				x1 = MAX (0, p->x + p->width - 1);
 				y1 = p->y + p->descent - 1;
 			} else if (p->prev == NULL && y < p->y - p->ascent) {
 				y1 = p->y - p->ascent;
