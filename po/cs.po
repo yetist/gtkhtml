@@ -1,19 +1,20 @@
-# Czech message catalog for Evolution.
+# Czech translation of gtkhtml.
 # Copyright (C) 2000 Free Software Foundation, Inc.
+# Copyright (C) 2004 Miloslav Trmac <mitr@volny.cz>
 # Radka Soukupova <Radka.Soukupova@centrum.cz>
-# Miloslav Trmac <mitr@volny.cz>, 2002, 2003.
+# Miloslav Trmac <mitr@volny.cz>, 2002, 2003, 2004.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
-"POT-Creation-Date: 2003-12-29 11:44-0500\n"
-"PO-Revision-Date: 2003-06-14 16:39+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-01-03 20:28+0100\n"
+"PO-Revision-Date: 2004-01-03 23:49+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -61,11 +62,11 @@ msgstr "Vlastnosti editoru se plánují"
 
 #: capplet/gtkhtml-capplet.glade.h:10
 msgid "Configure spell checking"
-msgstr "Nastavení kontroly pravopisu"
+msgstr "Nastavení hledání překlepů"
 
 #: capplet/gtkhtml-capplet.glade.h:11
 msgid "Enable spell checking"
-msgstr "Zapnout kontrolu pravopisu"
+msgstr "Zapnout hledání překlepů"
 
 #: capplet/gtkhtml-capplet.glade.h:12
 msgid "Fixed width"
@@ -220,7 +221,7 @@ msgstr "Centruje odstavce"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:13
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
 msgid "Check spelling of the document"
-msgstr "Zkontrolovat pravopis dokumentu"
+msgstr "Hledat v dokumentu překlepy"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:14
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
@@ -266,37 +267,37 @@ msgstr "Vyjmout výběr"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
 #: components/html-editor/search.c:77 components/html-editor/search.c:129
 msgid "Find"
-msgstr "Najít"
+msgstr "Hledat"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
 msgid "Find A Regular Expression"
-msgstr "Najít regulární výraz"
+msgstr "Hledat regulární výraz"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:24
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
 msgid "Find And Replace"
-msgstr "Najít a nahradit"
+msgstr "Hledat a nahradit"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:25
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
 msgid "Find Regular E_xpression..."
-msgstr "Najít _regulární výraz..."
+msgstr "Hledat _regulární výraz..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:26
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:26
 msgid "Find _Again"
-msgstr "Najít _další"
+msgstr "Hledat _další"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:27
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
 msgid "Find again"
-msgstr "Najít další"
+msgstr "Hledat další"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
 msgid "Find and Replace"
-msgstr "Najít a nahradit"
+msgstr "Hledat a nahradit"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
@@ -456,7 +457,6 @@ msgid "Make the current Paragraph style Normal"
 msgstr "Nastavit styl aktuálního odstavce na Normální"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
-#, fuzzy
 msgid "Make the current Paragraph style Preformat"
 msgstr "Nastavit styl aktuálního odstavce na Předformátovaný"
 
@@ -765,7 +765,7 @@ msgstr "_Úpravy"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
 msgid "_Find..."
-msgstr "_Najít..."
+msgstr "_Hledat..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
@@ -895,7 +895,7 @@ msgstr "_Obličej"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:143
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:145
 msgid "_Spell Check Document..."
-msgstr "Z_kontrolovat pravopis dokumentu..."
+msgstr "_Hledat v dokumentu překlepy..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:144
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:146
@@ -955,25 +955,21 @@ msgid "GNOME HTML Editor Factory"
 msgstr "Factory pro GNOME HTML Editor"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
-#, fuzzy
 msgid "Insert Sick smiley into document..."
-msgstr "Vložit do dokumentu lízající obličej..."
+msgstr "Vložit do dokumentu nemocný obličej..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
-#, fuzzy
 msgid "Make the current Paragraph style Preformatted"
 msgstr "Nastavit styl aktuálního odstavce na Předformátovaný"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 #: components/html-editor/paragraph.c:150
-#, fuzzy
 msgid "Preformatted"
 msgstr "Předformátované"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
-#, fuzzy
 msgid "S_ick"
-msgstr "_Mrkající"
+msgstr "_Nemocný"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:154
 msgid "_Wrap Lines"
@@ -993,39 +989,35 @@ msgid "Blue Ink"
 msgstr "Modrý inkoust"
 
 #: components/html-editor/body.c:90
-#, fuzzy
 msgid "Paper"
-msgstr "Stránka"
+msgstr "Papír"
 
 #: components/html-editor/body.c:98
 msgid "Ribbon"
-msgstr ""
+msgstr "Páska"
 
 #: components/html-editor/body.c:106
-#, fuzzy
 msgid "Midnight"
-msgstr "Vpravo"
+msgstr "Půlnoc"
 
 #: components/html-editor/body.c:114
-#, fuzzy
 msgid "Confidential"
-msgstr "Odsadit méně"
+msgstr "Důvěrné"
 
 #: components/html-editor/body.c:122
 msgid "Draft"
-msgstr ""
+msgstr "Návrh"
 
 #: components/html-editor/body.c:130
 msgid "Graph paper"
-msgstr ""
+msgstr "Grafický papír"
 
 #. string marked for translations is sample text. you may want to translate it to common sample text in your language
 #: components/html-editor/body.c:163
-#, fuzzy
 msgid ""
 "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a href="
 "\"mailto:dog\">dog</a>."
-msgstr "Příliš žluťoučký kůň úpěl ďábelské ódy."
+msgstr "Příliš žluťoučký <a href=\"mailto:kun\">kůň</a> úpěl ďábelské <a href=\"mailto:ody\">ódy</a>."
 
 #: components/html-editor/body.c:316 src/gtkhtml.c:2683
 msgid "Document Title"
@@ -1423,11 +1415,11 @@ msgstr ""
 msgid ""
 "This is sample text, designed to show you how text would flow around this "
 "image if you insert the image into your message."
-msgstr ""
+msgstr "Toto je ukázkový text, který vám má ukázat, jak by text tento obrázek obtékal, kdybyste obrázek vložili do své zprávy."
 
 #: components/html-editor/image.c:270
 msgid "No image selected"
-msgstr ""
+msgstr "Nebyl vybrán obrázek"
 
 #: components/html-editor/image.c:705
 msgid ""
@@ -1471,9 +1463,8 @@ msgstr "Vložit: Textový soubor"
 
 #. string marked for translations is sample text. you may want to translate it to common sample text in your language
 #: components/html-editor/paragraph.c:62
-#, fuzzy
 msgid "The quick brown fox jumps over the lazy dog.</div>"
-msgstr "Příliš žluťoučký kůň úpěl ďábelské ódy."
+msgstr "Příliš žluťoučký kůň úpěl ďábelské ódy.</div>"
 
 #: components/html-editor/paragraph.c:134 components/html-editor/toolbar.c:54
 msgid "Header 1"
@@ -1606,11 +1597,11 @@ msgstr "Obsah políčka"
 
 #: components/html-editor/popup.c:540
 msgid "Check Word Spelling..."
-msgstr ""
+msgstr "Zkontrolovat pravopis slova..."
 
 #: components/html-editor/popup.c:545
 msgid "Add Word to"
-msgstr ""
+msgstr "Přidat slovo do"
 
 #: components/html-editor/popup.c:549
 #, c-format
@@ -1618,36 +1609,32 @@ msgid "%s Dictionary"
 msgstr "Slovník %s"
 
 #: components/html-editor/popup.c:558
-#, fuzzy
 msgid "Add Word to Dictionary"
-msgstr "Slovník %s"
+msgstr "Přidat slovo do slovníku"
 
 #: components/html-editor/popup.c:561
 msgid "Ignore Misspelled Word"
-msgstr ""
+msgstr "Ignorovat překlep"
 
 #: components/html-editor/popup.c:564
 msgid "Input Methods"
-msgstr ""
+msgstr "Vstupní metody"
 
 #: components/html-editor/replace.c:75
 msgid "Replace confirmation"
 msgstr "Potvrzení nahrazení"
 
 #: components/html-editor/replace.c:76
-#, fuzzy
 msgid "Replace _All"
-msgstr "Nahradit vše"
+msgstr "Nahradit _vše"
 
 #: components/html-editor/replace.c:77
-#, fuzzy
 msgid "_Next"
-msgstr "Další"
+msgstr "_Další"
 
 #: components/html-editor/replace.c:79
-#, fuzzy
 msgid "_Replace"
-msgstr "Nahradit"
+msgstr "_Nahradit"
 
 #: components/html-editor/replace.c:165
 msgid "Search _backward"
@@ -1687,11 +1674,11 @@ msgstr "_Pozpátku"
 
 #: components/html-editor/search.c:129
 msgid "Find Regular Expression"
-msgstr "Najít regulární výraz"
+msgstr "Hledat regulární výraz"
 
 #: components/html-editor/spell.c:278
 msgid "No misspelled word found"
-msgstr ""
+msgstr "Nenalezen žádný překlep"
 
 #: components/html-editor/spell.c:285
 msgid "Spell checker"
@@ -1731,7 +1718,7 @@ msgstr "Zarámovaný obrázek"
 
 #: components/html-editor/template.c:281
 msgid "Labels"
-msgstr ""
+msgstr "Popisky"
 
 #: components/html-editor/test-html-editor-control.c:323
 msgid "Open file..."
@@ -1957,6 +1944,3 @@ msgstr "Testovací aplikace GtkHTML"
 
 #~ msgid "Rectangles"
 #~ msgstr "Obdélníky"
-
-#~ msgid "Pre"
-#~ msgstr "Pre"
