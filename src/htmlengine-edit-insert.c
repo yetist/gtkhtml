@@ -492,14 +492,9 @@ html_engine_insert (HTMLEngine *e,
 	/* magic link */
 	if (len == 1
 	    && (text [0] == ' ' || text [0] == '\n')
-	    && HTML_OBJECT_TYPE (current_object) == HTML_TYPE_TEXTMASTER) {
-		guint pos = e->cursor->position;
-
-		if (html_text_master_magic_link (HTML_TEXT_MASTER (current_object),
-						 e, current_offset))
-			html_cursor_jump_to_position (e->cursor, e, pos);
-	}
-
+	    && HTML_OBJECT_TYPE (current_object) == HTML_TYPE_TEXTMASTER)
+		html_text_master_magic_link (HTML_TEXT_MASTER (current_object),
+					     e, current_offset);
 
 	html_engine_show_cursor (e);
 

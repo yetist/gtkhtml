@@ -1,5 +1,15 @@
 2000-06-05  Radek Doulik  <rodo@helixcode.com>
 
+	* htmltextmaster.c (html_text_master_magic_link): stop search also
+	on spaces
+	updated regex for mailto:, also remove A-Z as we ICASE
+
+	* htmllinktextmaster.c (html_link_text_master_to_text): new
+	function used to replace link by normal text
+
+	* htmlengine-edit-paste.c (html_engine_replace_by_object):
+	replaces region by new_obj (used from magic links/remove link)
+
 	* htmltextmaster.c (html_text_master_magic_link): rewritten using regex
 	(html_engine_init_magic): magic links initializations - compiles regexps
 

@@ -792,10 +792,10 @@ struct _HTMLMagicInsertMatch
 typedef struct _HTMLMagicInsertMatch HTMLMagicInsertMatch;
 
 static HTMLMagicInsertMatch mim [] = {
-	{ "(news|telnet|nttp|file|http|ftp|https)://[-A-Za-z0-9\\.]+[-A-Za-z0-9](:[0-9]*)?(/[-A-Za-z0-9_\\$\\.\\+\\!\\*\\(\\),;:@&=\\?/~\\#]*[^]'\\.}>\\) ,\\\"]*)?", NULL, NULL },
-	{ "www[-A-Za-z0-9\\.]+[-A-Za-z0-9](:[0-9]*)?(/[-A-Za-z0-9_\\$\\.\\+\\!\\*\\(\\),;:@&=\\?/~\\#]*[^]'\\.}>\\) ,\\\"]*)?", NULL, "http://" },
-	{ "ftp[-A-Za-z0-9\\.]+[-A-Za-z0-9](:[0-9]*)?(/[-A-Za-z0-9_\\$\\.\\+\\!\\*\\(\\),;:@&=\\?/~\\#]*[^]'\\.}>\\) ,\\\"]*)?", NULL, "ftp://" },
-	{ "[^ \t@]+@[^ \t@]+", NULL, "mailto:" }
+	{ "(news|telnet|nttp|file|http|ftp|https)://[-a-z0-9\\.]+[-a-z0-9](:[0-9]*)?(/[-a-z0-9_\\$\\.\\+\\!\\*\\(\\),;:@&=\\?/~\\#]*[^]'\\.}>\\) ,\\\"]*)?", NULL, NULL },
+	{ "www[-a-z0-9\\.]+[-a-z0-9](:[0-9]*)?(/[-A-Za-z0-9_\\$\\.\\+\\!\\*\\(\\),;:@&=\\?/~\\#]*[^]'\\.}>\\) ,\\\"]*)?", NULL, "http://" },
+	{ "ftp[-a-z0-9\\.]+[-a-z0-9](:[0-9]*)?(/[-A-Za-z0-9_\\$\\.\\+\\!\\*\\(\\),;:@&=\\?/~\\#]*[^]'\\.}>\\) ,\\\"]*)?", NULL, "ftp://" },
+	{ "[_-a-z0-9\\.]+@[_-a-z0-9\\.]+", NULL, "mailto:" }
 };
 
 #define MIM_N (sizeof (mim) / sizeof (mim [0]))
@@ -818,6 +818,7 @@ html_engine_init_magic_links ()
 static void
 paste_link (HTMLEngine *engine, HTMLText *text, gint so, gint eo, gchar *prefix)
 {
+	HTMLObject *new_obj;
 	gchar *href;
 	gchar *base;
 
@@ -825,18 +826,15 @@ paste_link (HTMLEngine *engine, HTMLText *text, gint so, gint eo, gchar *prefix)
 	href = (prefix) ? g_strconcat (prefix, base, NULL) : g_strdup (base);
 	g_free (base);
 
-	html_engine_disable_selection (engine);
-	html_cursor_jump_to (engine->cursor, engine, HTML_OBJECT (text), so);
-	html_engine_set_mark (engine);
-	html_cursor_jump_to (engine->cursor, engine, HTML_OBJECT (text), eo+1);
-	html_engine_edit_selection_update_now (engine->selection_updater);
-	html_engine_paste_object (engine,
-				  html_link_text_master_new_with_len
-				  (text->text+so,
-				   eo - so + 1,
-				   text->font_style,
-				   html_settings_get_color (engine->settings, HTMLLinkColor),
-				   href, NULL), TRUE);
+	new_obj = html_link_text_master_new_with_len
+		(text->text+so,
+		 eo - so + 1,
+		 text->font_style,
+		 html_settings_get_color (engine->settings, HTMLLinkColor),
+		 href, NULL);
+	html_engine_replace_by_object (engine,
+				       HTML_OBJECT (text), so, HTML_OBJECT (text), eo + 1,
+				       new_obj);
 
 	g_free (href);
 }
@@ -855,7 +853,9 @@ html_text_master_magic_link (HTMLTextMaster *master, HTMLEngine *engine,
 
 				/* match */
 				do {
-					if (o && (guchar) text->text [o-1] != ENTITY_NBSP)
+					if (o
+					    && (guchar) text->text [o-1] != ENTITY_NBSP
+					    && text->text [o-1] != ' ')
 						o--;
 					else
 						break;
