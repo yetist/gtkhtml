@@ -14,11 +14,6 @@
 #include <ebrowser.h>
 #include "test-ebrowser.h"
 
-#if 0
-#undef EBROWSER_OAFIID
-#define EBROWSER_OAFIID "OAFIID:bonobo_calculator:fab8c2a7-9576-437c-aa3a-a8617408970f"
-#endif
-
 static gint
 delete_browser (GtkWidget * w, GdkEventAny event, gpointer data)
 {
