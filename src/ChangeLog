@@ -1,3 +1,25 @@
+2005-02-28  Radek Doulik  <rodo@novell.com>
+
+	* htmltext.c (html_text_direction_pango_to_html): new helper
+	function to convert pango direction to gtkhtml's html direction
+
+	* htmlengine.c: parse BR and P direction attribute
+
+	* htmlengine-save.c: save body direction
+
+	* htmlengine-edit.c (html_engine_edit_set_direction): new helper
+	function to set direction to cursor flow
+
+	* htmlengine-edit-cut-and-paste.c
+	(html_engine_insert_empty_paragraph): use keymap direction for new
+	flow
+
+	* htmlclueflow.c: save direction to HTML output
+
+	* gtkhtml.c: use keymap_direction signal on keymap to set flow
+	direction. handle widget's direction changed signal to set body
+	direction.
+
 2005-02-27  Mengjie Yu  <meng-jie.yu@sun.com>
 
 	* gtkhtml.c: (add_bindings): Handle Sun Type 6 Keyboard's

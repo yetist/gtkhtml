@@ -28,6 +28,7 @@
 #include <string.h>
 
 #include "config.h"
+#include "htmlcluev.h"
 #include "htmlcolor.h"
 #include "htmlengine.h"
 #include "htmlimage.h"
@@ -221,6 +222,7 @@ get_body (HTMLEngine *e)
 	gchar *bg;
 	gchar *bg_image;
 	gchar *link;
+	char *dir = NULL;
 	gchar *lm, *rm, *tm, *bm;
 	gchar *url = NULL;
 
@@ -233,6 +235,12 @@ get_body (HTMLEngine *e)
 						     (e->widget, ((HTMLImagePointer *) e->bgPixmapPtr)->url))
 		: g_strdup ("");
 	g_free (url);
+	if (HTML_CLUEV (e->clue)->dir != HTML_DIRECTION_DERIVED) {
+		if (HTML_CLUEV (e->clue)->dir == HTML_DIRECTION_RTL)
+			dir = " DIR=RTL";
+		else
+			dir = " DIR=LTR";
+	}
 
 	lm = e->leftBorder != LEFT_BORDER ? g_strdup_printf (" LEFTMARGIN=\"%d\"", e->leftBorder) : g_strdup ("");
 	rm = e->rightBorder != RIGHT_BORDER ? g_strdup_printf (" RIGHTMARGIN=\"%d\"", e->rightBorder) : g_strdup ("");

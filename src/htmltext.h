@@ -294,36 +294,37 @@ void      html_link_set_url_and_target  (Link  *link,
 /*
  * protected
  */
-HTMLTextPangoInfo *html_text_pango_info_new        (gint                   n);
-void               html_text_pango_info_destroy    (HTMLTextPangoInfo     *pi);
-HTMLTextPangoInfo *html_text_get_pango_info        (HTMLText              *text,
-						    HTMLPainter           *painter);
-gint               html_text_pango_info_get_index  (HTMLTextPangoInfo     *pi,
-						    gint                   byte_offset,
-						    gint                   idx);
-PangoAttribute    *html_pango_attr_font_size_new   (GtkHTMLFontStyle       style);
-void               html_pango_attr_font_size_calc  (HTMLPangoAttrFontSize *attr,
-						    HTMLEngine            *e);
-PangoAttrList     *html_text_get_attr_list         (HTMLText              *text,
-						    gint                   start_index,
-						    gint                   end_index);
-void               html_text_calc_text_size        (HTMLText              *t,
-						    HTMLPainter           *painter,
-						    gint                   start_byte_offset,
-						    guint                  len,
-						    HTMLTextPangoInfo     *pi,
-						    GList                 *glyphs,
-						    gint                  *line_offset,
-						    gint                  *width,
-						    gint                  *asc,
-						    gint                  *dsc);
-void               html_text_change_attrs          (PangoAttrList         *attr_list,
-						    GtkHTMLFontStyle       style,
-						    HTMLEngine            *e,
-						    gint                   start_index,
-						    gint                   end_index,
-						    gboolean               avoid_default_size);
-PangoDirection     html_text_get_pango_direction   (HTMLText              *text);
+HTMLTextPangoInfo *html_text_pango_info_new           (gint                   n);
+void               html_text_pango_info_destroy       (HTMLTextPangoInfo     *pi);
+HTMLTextPangoInfo *html_text_get_pango_info           (HTMLText              *text,
+						       HTMLPainter           *painter);
+gint               html_text_pango_info_get_index     (HTMLTextPangoInfo     *pi,
+						       gint                   byte_offset,
+						       gint                   idx);
+PangoAttribute    *html_pango_attr_font_size_new      (GtkHTMLFontStyle       style);
+void               html_pango_attr_font_size_calc     (HTMLPangoAttrFontSize *attr,
+						       HTMLEngine            *e);
+PangoAttrList     *html_text_get_attr_list            (HTMLText              *text,
+						       gint                   start_index,
+						       gint                   end_index);
+void               html_text_calc_text_size           (HTMLText              *t,
+						       HTMLPainter           *painter,
+						       gint                   start_byte_offset,
+						       guint                  len,
+						       HTMLTextPangoInfo     *pi,
+						       GList                 *glyphs,
+						       gint                  *line_offset,
+						       gint                  *width,
+						       gint                  *asc,
+						       gint                  *dsc);
+void               html_text_change_attrs             (PangoAttrList         *attr_list,
+						       GtkHTMLFontStyle       style,
+						       HTMLEngine            *e,
+						       gint                   start_index,
+						       gint                   end_index,
+						       gboolean               avoid_default_size);
+PangoDirection     html_text_get_pango_direction      (HTMLText              *text);
+HTMLDirection      html_text_direction_pango_to_html  (PangoDirection         pdir);
 
 gboolean  html_text_is_line_break                (PangoLogAttr  attr);
 void      html_text_remove_unwanted_line_breaks  (char         *s,

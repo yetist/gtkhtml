@@ -375,6 +375,7 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **
 		HTML_CLUE  (cf1)->halign = HTML_CLUE (cf2)->halign;
 		HTML_CLUE  (cf1)->valign = HTML_CLUE (cf2)->valign;
 		html_object_copy_data_from_object (self, with);
+		cf1->dir = cf2->dir;
 	}
 
 	rv = (* HTML_OBJECT_CLASS (parent_class)->merge) (self, with, e, left, right, cursor);
@@ -1605,6 +1606,28 @@ save_indent_string (HTMLClueFlow *self, HTMLEngineSaveState *state, const char *
 	return retval;
 }
 
+static char *
+get_p_str (HTMLClueFlow *self, HTMLEngineSaveState *state)
+{
+	char *p_str = NULL;
+
+	if (self->dir != html_object_get_direction (state->engine->clue)) {
+		switch (self->dir) {
+		case HTML_DIRECTION_RTL:
+			p_str = "<P DIR=RTL>\n";
+			break;
+		case HTML_DIRECTION_LTR:
+			if (html_object_get_direction (state->engine->clue) != HTML_DIRECTION_DERIVED)
+				p_str = "<P DIR=LTR>\n";
+			break;
+		default:
+			;
+		}
+	}
+
+	return p_str;
+}
+
 static gboolean
 write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state) 
 {
@@ -1612,12 +1635,36 @@ write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
 	HTMLClueFlow *next = NULL;
 	HTMLClueFlow *prev = NULL;
 	HTMLHAlignType halign;
-	
+	char *br_str = "<BR>\n";
+
 	if (HTML_IS_CLUEFLOW (HTML_OBJECT (self)->next))
 		next = HTML_CLUEFLOW (HTML_OBJECT (self)->next);
 	    
 	if (HTML_IS_CLUEFLOW (HTML_OBJECT (self)->prev))
 		prev = HTML_CLUEFLOW (HTML_OBJECT (self)->prev);
+
+	if (next && next->dir != html_object_get_direction (state->engine->clue)) {
+		switch (next->dir) {
+		case HTML_DIRECTION_RTL:
+			br_str = "<BR DIR=RTL>\n";
+			break;
+		case HTML_DIRECTION_LTR:
+			if (html_object_get_direction (state->engine->clue) != HTML_DIRECTION_DERIVED)
+				br_str = "<BR DIR=LTR>\n";
+			break;
+		default:
+			;
+		}
+	}
+
+	if (!prev) {
+		char *p_str = get_p_str (self, state);
+
+		if (p_str) {
+			if (! html_engine_save_output_string (state, p_str))
+				return FALSE;
+		}
+	}
 
 	d = get_similar_depth (self, prev);
 	if (is_item (self)) {
@@ -1666,13 +1713,13 @@ write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
 
 	if (is_item (self)) {
 		if (next && is_levels_equal (self, next) && !is_item (next) && !html_clueflow_contains_table (self)) {
-			if (!html_engine_save_output_string (state, "<BR>\n"))
+			if (!html_engine_save_output_string (state, br_str))
 				return FALSE;
 		} else if (!html_engine_save_output_string (state, "\n"))
 			return FALSE;
 	} else if (is_levels_equal (self, next) && self->style == next->style) {
 		if (self->style != HTML_CLUEFLOW_STYLE_PRE && !html_clueflow_contains_table (self)) {
-			if (!html_engine_save_output_string (state, "<BR>\n"))
+			if (!html_engine_save_output_string (state, br_str))
 				return FALSE;
 		} else {
 			if (!html_engine_save_output_string (state, "\n"))
@@ -1683,7 +1730,7 @@ write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
 
 		if (self->style != HTML_CLUEFLOW_STYLE_PRE) {
 			if ((!html_clueflow_contains_table (self) && !end && next && self->style == next->style) || html_clueflow_is_empty (self)) {
-				if (!html_engine_save_output_string (state, "<BR>\n"))
+				if (!html_engine_save_output_string (state, br_str))
 					return FALSE;
 			} else {
 				if (!html_engine_save_output_string (state, "\n"))
@@ -1700,6 +1747,21 @@ write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
 		}
 	}
 	
+	if (!next) {
+		if (HTML_OBJECT (self)->parent && html_object_is_clue (HTML_OBJECT (self)->parent)) {
+			HTMLObject *head = HTML_CLUE (HTML_OBJECT (self)->parent)->head;
+
+			if (head && HTML_IS_CLUEFLOW (head)) {
+				char *head_p_str = get_p_str (HTML_CLUEFLOW (head), state);
+
+				if (head_p_str) {
+					if (! html_engine_save_output_string (state, "</P>\n"))
+						return FALSE;
+				}
+			}
+		}
+	}
+
 	return TRUE;
 }
 
@@ -2386,17 +2448,7 @@ html_clueflow_real_get_direction (HTMLObject *o)
 				if (child == HTML_CLUE (o)->head && html_object_get_length (child) == 0 && o->prev)
 					return html_object_get_direction (o->prev);
 
-				PangoDirection pdir = html_text_get_pango_direction (HTML_TEXT (child));
-				switch (pdir) {
-				case PANGO_DIRECTION_RTL:
-					dir = HTML_DIRECTION_RTL;
-					break;
-				case PANGO_DIRECTION_LTR:
-					dir = HTML_DIRECTION_LTR;
-					break;
-				default:
-					break;
-				}
+				dir = html_text_direction_pango_to_html (html_text_get_pango_direction (HTML_TEXT (child)));
 
 				break;
 			}

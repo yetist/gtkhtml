@@ -700,7 +700,7 @@ pop_clueflow_style (HTMLEngine *e)
 
 /* Utility functions.  */
 
-static void new_flow (HTMLEngine *e, HTMLObject *clue, HTMLObject *first_object, HTMLClearType clear);
+static void new_flow (HTMLEngine *e, HTMLObject *clue, HTMLObject *first_object, HTMLClearType clear, HTMLDirection dir);
 static void close_flow (HTMLEngine *e, HTMLObject *clue);
 static void finish_flow (HTMLEngine *e, HTMLObject *clue);
 static void pop_element (HTMLEngine *e, char *name);
@@ -755,11 +755,12 @@ create_empty_text (HTMLEngine *e)
 static void
 add_line_break (HTMLEngine *e,
 		HTMLObject *clue,
-		HTMLClearType clear)
+		HTMLClearType clear,
+		HTMLDirection dir)
 {
 	if (!e->flow)
-		new_flow (e, clue, create_empty_text (e), HTML_CLEAR_NONE);
-	new_flow (e, clue, NULL, clear);
+		new_flow (e, clue, create_empty_text (e), HTML_CLEAR_NONE, HTML_DIRECTION_DERIVED);
+	new_flow (e, clue, NULL, clear, dir);
 }
 
 static void
@@ -798,6 +799,7 @@ close_flow (HTMLEngine *e, HTMLObject *clue)
 static void
 update_flow_align (HTMLEngine *e, HTMLObject *clue)
 {
+	printf ("update flow align\n");
 	if (e->flow != NULL) {
 		if (HTML_CLUE (e->flow)->head != NULL)
 			close_flow (e, clue);
@@ -807,11 +809,14 @@ update_flow_align (HTMLEngine *e, HTMLObject *clue)
 }
 
 static void
-new_flow (HTMLEngine *e, HTMLObject *clue, HTMLObject *first_object, HTMLClearType clear)
+new_flow (HTMLEngine *e, HTMLObject *clue, HTMLObject *first_object, HTMLClearType clear, HTMLDirection dir)
 {
 	close_flow (e, clue);
 
 	e->flow = flow_new (e, current_clueflow_style (e), HTML_LIST_TYPE_BLOCKQUOTE, 0, clear);
+	HTML_CLUEFLOW (e->flow)->dir = dir;
+	if (dir == HTML_DIRECTION_RTL)
+		printf ("rtl\n");
 
 	HTML_CLUE (e->flow)->halign = current_alignment (e);
 
@@ -829,7 +834,7 @@ append_element (HTMLEngine *e,
 	e->avoid_para = FALSE;
 
 	if (e->flow == NULL)
-		new_flow (e, clue, obj, HTML_CLEAR_NONE);
+		new_flow (e, clue, obj, HTML_CLEAR_NONE, HTML_DIRECTION_DERIVED);
 	else
 		html_clue_append (HTML_CLUE (e->flow), obj);
 }
@@ -1157,8 +1162,8 @@ block_end_p (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 	if (e->avoid_para) {
 		finish_flow (e, clue);
 	} else {
-		new_flow (e, clue, NULL, HTML_CLEAR_NONE);
-		new_flow (e, clue, NULL, HTML_CLEAR_NONE);
+		new_flow (e, clue, NULL, HTML_CLEAR_NONE, HTML_DIRECTION_DERIVED);
+		new_flow (e, clue, NULL, HTML_CLEAR_NONE, HTML_DIRECTION_DERIVED);
 		e->avoid_para = TRUE;
 	}
 }
@@ -1254,7 +1259,7 @@ static void
 block_end_cell (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
 	if (html_clue_is_empty (HTML_CLUE (clue)))
-		new_flow (e, clue, create_empty_text (e), HTML_CLEAR_NONE);
+		new_flow (e, clue, create_empty_text (e), HTML_CLEAR_NONE, HTML_DIRECTION_DERIVED);
 	pop_clue (e);
 }
 
@@ -1332,7 +1337,7 @@ new_parse_body (HTMLEngine *e, const gchar *end[])
 			/* The tag used for line break when we are in <pre>...</pre> */
 			if (*str == '\n') {
 				if (e->inPre)
-					add_line_break (e, clue, HTML_CLEAR_NONE);
+					add_line_break (e, clue, HTML_CLEAR_NONE, HTML_DIRECTION_DERIVED);
 				else {
 					char *str_copy = g_strdup (str);
 					*str_copy = ' ';
@@ -1904,31 +1909,41 @@ element_parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	if (*str != '/') {
 		HTMLStyle *style = NULL;
+		HTMLDirection dir = HTML_DIRECTION_DERIVED;
 		gchar *class = NULL;
 		gchar *token;
 
 		html_string_tokenizer_tokenize (e->st, (gchar *)(str + 2), " >");
 		while (html_string_tokenizer_has_more_tokens (e->st)) {
 			token = html_string_tokenizer_next_token (e->st);
+			printf ("p token: %s\n", token);
 			if (strncasecmp (token, "align=", 6) == 0) {
 				style = html_style_add_text_align (style, parse_halign (token + 6, HTML_HALIGN_NONE));
 			} else if (strncasecmp (token, "class=", 6) == 0) {
 				class = g_strdup (token + 6);
+			} else if (strncasecmp (token, "dir=", 4) == 0) {
+				if (!strncasecmp (token + 4, "ltr", 3))
+					dir = HTML_DIRECTION_LTR;
+				else if (!strncasecmp (token + 4, "rtl", 3))
+					dir = HTML_DIRECTION_RTL;
 			}
 		}
 		
 		push_block_element (e, ID_P, style, DISPLAY_BLOCK, block_end_p, 0, 0);
 		if (!e->avoid_para) {	
-			new_flow (e, clue, NULL, HTML_CLEAR_NONE);
-			new_flow (e, clue, NULL, HTML_CLEAR_NONE);
+			if (e->parser_clue && HTML_CLUE (e->parser_clue)->head)
+				new_flow (e, clue, NULL, HTML_CLEAR_NONE, HTML_DIRECTION_DERIVED);
+			new_flow (e, clue, NULL, HTML_CLEAR_NONE, dir);
 		} else {
 #if 1
 			update_flow_align (e, clue);
+			if (e->flow)
+				HTML_CLUEFLOW (e->flow)->dir = dir;
 #else
 			if (e->flow)
 				HTML_CLUE (e->flow)->halign = current_alignment (e);
 			else 
-				new_flow (e, clue, NULL, HTML_CLEAR_NONE);
+				new_flow (e, clue, NULL, HTML_CLEAR_NONE, HTML_DIRECTION_DERIVED);
 
 #endif
 		}
@@ -1938,8 +1953,8 @@ element_parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	} else {
 		pop_element (e, ID_P);
 		if (!e->avoid_para) {
-			new_flow (e, clue, NULL, HTML_CLEAR_NONE);
-			new_flow (e, clue, NULL, HTML_CLEAR_NONE);
+			new_flow (e, clue, NULL, HTML_CLEAR_NONE, HTML_DIRECTION_DERIVED);
+			new_flow (e, clue, NULL, HTML_CLEAR_NONE, HTML_DIRECTION_DERIVED);
 			e->avoid_para = TRUE;
 		}		
 	}
@@ -1949,6 +1964,7 @@ static void
 element_parse_br (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	HTMLClearType clear;
+	HTMLDirection dir = HTML_DIRECTION_DERIVED;
 	
 	clear = HTML_CLEAR_NONE;
 
@@ -1969,10 +1985,16 @@ element_parse_br (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				clear = HTML_CLEAR_RIGHT;
 			else if (strncasecmp (token + 6, "all", 3) == 0)
 				clear = HTML_CLEAR_ALL;
+			
+		} else if (strncasecmp (token, "dir=", 4) == 0) {
+			if (!strncasecmp (token + 4, "ltr", 3))
+				dir = HTML_DIRECTION_LTR;
+			else if (!strncasecmp (token + 4, "rtl", 3))
+				dir = HTML_DIRECTION_RTL;
 		}
 	}
 	
-	add_line_break (e, clue, clear);
+	add_line_break (e, clue, clear, dir);
 }
 
 

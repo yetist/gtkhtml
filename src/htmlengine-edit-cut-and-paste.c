@@ -1201,7 +1201,15 @@ insert_empty_paragraph (HTMLEngine *e, HTMLUndoDirection dir, gboolean add_undo)
 void
 html_engine_insert_empty_paragraph (HTMLEngine *e)
 {
+	HTMLClueFlow *cf;
+
+	html_engine_freeze (e);
 	insert_empty_paragraph (e, HTML_UNDO_UNDO, TRUE);
+	cf = html_object_get_flow (e->cursor->object);
+	if (cf) {
+		cf->dir = html_text_direction_pango_to_html (gdk_keymap_get_direction (gdk_keymap_get_for_display (gtk_widget_get_display (GTK_WIDGET (e->widget)))));
+	}
+	html_engine_thaw (e);
 }
 
 static char *picto_chars = "DO)(|/PQ\0:-\0:\0:-\0:\0:;=-\0:;\0:-~\0:\0:\0:-\0:\0:-\0:\0:-\0:\0:-\0:\0";

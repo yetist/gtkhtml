@@ -25,6 +25,7 @@
 #include <gdk/gdkkeysyms.h>
 #include <gdk/gdkprivate.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
+#include <gtk/gtkwidget.h>
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <string.h>
@@ -34,6 +35,7 @@
 #include "../a11y/factory.h"
 
 #include "htmlcolorset.h"
+#include "htmlcluev.h"
 #include "htmlcursor.h"
 #include "htmldrawqueue.h"
 #include "htmlengine-edit.h"
@@ -1821,6 +1823,14 @@ button_release_event (GtkWidget *initial_widget,
 	return TRUE;
 }
 
+static void
+gtk_html_keymap_direction_changed (GdkKeymap *keymap, GtkHTML *html)
+{
+	if (html_engine_get_editable (html->engine)) {
+		html_engine_edit_set_direction (html->engine, html_text_direction_pango_to_html (gdk_keymap_get_direction (keymap)));
+	}		
+}
+
 static gint
 focus_in_event (GtkWidget *widget,
 		GdkEventFocus *event)
@@ -1839,6 +1849,11 @@ focus_in_event (GtkWidget *widget,
 
 	html->priv->need_im_reset = TRUE;
 	gtk_im_context_focus_in (html->priv->im_context);
+
+	gtk_html_keymap_direction_changed (gdk_keymap_get_for_display (gtk_widget_get_display (widget)),
+					   html);
+	g_signal_connect (gdk_keymap_get_for_display (gtk_widget_get_display (widget)),
+			  "direction_changed", G_CALLBACK (gtk_html_keymap_direction_changed), html);
 
 	return FALSE;
 }
@@ -1859,6 +1874,9 @@ focus_out_event (GtkWidget *widget,
 
 	html->priv->need_im_reset = TRUE;
 	gtk_im_context_focus_out (html->priv->im_context);
+
+	g_signal_handlers_disconnect_by_func (gdk_keymap_get_for_display (gtk_widget_get_display (widget)),
+					      gtk_html_keymap_direction_changed, html);
 
 	return FALSE;
 }
@@ -2674,6 +2692,33 @@ client_notify_monospace_font (GConfClient* client, guint cnxn_id, GConfEntry* en
 	}
 }
 
+static void 
+gtk_html_direction_changed (GtkWidget *widget, GtkTextDirection previous_dir)
+{
+	GtkHTML *html = GTK_HTML (widget);
+
+	if (html->engine->clue) {
+		HTMLDirection old_direction = html_object_get_direction (html->engine->clue);
+
+		switch (gtk_widget_get_direction (widget)) {
+		case GTK_TEXT_DIR_NONE:
+			HTML_CLUEV (html->engine->clue)->dir = HTML_DIRECTION_DERIVED;
+			break;
+		case GTK_TEXT_DIR_LTR:
+			HTML_CLUEV (html->engine->clue)->dir = HTML_DIRECTION_LTR;
+			break;
+		case GTK_TEXT_DIR_RTL:
+			HTML_CLUEV (html->engine->clue)->dir = HTML_DIRECTION_RTL;
+			break;
+		}
+			
+		if (old_direction != html_object_get_direction (html->engine->clue))
+			html_engine_schedule_update (html->engine);
+	}
+
+	GTK_WIDGET_CLASS (parent_class)->direction_changed (widget, previous_dir);
+}
+
 static void
 gtk_html_class_init (GtkHTMLClass *klass)
 {
@@ -3022,6 +3067,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	widget_class->drag_data_received = drag_data_received;
 	widget_class->drag_motion = drag_motion;
 	widget_class->focus = focus;
+	widget_class->direction_changed = gtk_html_direction_changed;
 
 	container_class->set_focus_child = set_focus_child;
 

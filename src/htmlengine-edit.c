@@ -750,3 +750,15 @@ html_engine_set_title (HTMLEngine *e, const gchar *title)
 	e->title = g_string_new (title);
 	g_signal_emit_by_name (e, "title_changed");
 }
+
+void html_engine_edit_set_direction (HTMLEngine *e,
+				     HTMLDirection dir)
+{
+	HTMLClueFlow *cf = html_object_get_flow (e->cursor->object);
+
+	if (cf && cf->dir != dir && html_clueflow_is_empty (cf)) {
+		html_engine_freeze (e);
+		cf->dir = dir;
+		html_engine_thaw (e);
+	}
+}

@@ -3687,3 +3687,16 @@ html_text_set_color (HTMLText *text, HTMLColor *color)
 {
 	html_text_set_color_in_range (text, color, 0, text->text_bytes);
 }
+
+HTMLDirection
+html_text_direction_pango_to_html (PangoDirection pdir)
+{
+	switch (pdir) {
+	case PANGO_DIRECTION_RTL:
+		return HTML_DIRECTION_RTL;
+	case PANGO_DIRECTION_LTR:
+		return HTML_DIRECTION_LTR;
+	default:
+		return HTML_DIRECTION_DERIVED;
+	}
+}

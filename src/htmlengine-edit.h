@@ -84,6 +84,8 @@ gboolean                   html_engine_next_cell                   (HTMLEngine  
 gboolean                   html_engine_prev_cell                   (HTMLEngine                *e);
 void                       html_engine_set_title                   (HTMLEngine                *e,
 								    const gchar               *title);
+void html_engine_edit_set_direction (HTMLEngine *e,
+				     HTMLDirection dir);
 /*
   static (non instance) methods
 */
