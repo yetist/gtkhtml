@@ -1,3 +1,13 @@
+2002-06-03  Larry Ewing  <lewing@ximian.com>
+
+	* htmltablecell.c (draw_background_helper): only draw the
+	background if we are not a plain painter.  This needs to be
+	virtualized better into the painter class, but that can wait for now.
+
+	* htmlclueflow.c (save_plain):  make sure we don't try to rewrap
+	tables once they have already been formatted.  It doesn't help
+	anyone.
+
 2002-06-02  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml-private.h: add as_citation member and change
