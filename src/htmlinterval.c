@@ -333,8 +333,15 @@ html_point_max (HTMLPoint *a, HTMLPoint *b)
 	b_downline = get_downtree_line (b->object);
 	do_downtree_lines_intersection (&a_downline, &b_downline, NULL);
 
-	rv = html_object_children_max (HTML_OBJECT (a_downline->data), HTML_OBJECT (b_downline->data))
-		== HTML_OBJECT (a_downline->data) ? a : b;
+	if (a_downline == NULL)
+		/* it means that a is parent (container) of b */
+		rv = a->offset ? a : b;
+	else if (b_downline == NULL)
+		/* it means that b is parent (container) of a */
+		rv = b->offset ? b : a;
+	else
+		rv = html_object_children_max (HTML_OBJECT (a_downline->data), HTML_OBJECT (b_downline->data))
+			== HTML_OBJECT (a_downline->data) ? a : b;
 	g_slist_free (a_downline);
 	g_slist_free (b_downline);
 

@@ -1,3 +1,8 @@
+2002-02-15  Radek Doulik  <rodo@ximian.com>
+
+	* htmlinterval.c (html_point_max): handle case, when one point's
+	object is container of another (as could happen with tables)
+
 2002-02-14  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (command): set return value for cursor-{forward,backward}
