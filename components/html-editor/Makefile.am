@@ -118,6 +118,8 @@ lib_LTLIBRARIES = libgnome-gtkhtml-editor.la
 libgnome_gtkhtml_editor_la_SOURCES =		\
 	$(GTKHTML_EDITOR_SOURCES_COMMON)
 PRGS =
+install-exec-hook:
+
 else
 PRGS = gnome-gtkhtml-editor
 gnome_gtkhtml_editor_SOURCES =			\
