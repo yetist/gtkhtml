@@ -28,6 +28,7 @@
 
 typedef GtkWidget * (*GtkHTMLEditPropertyCreateFunc) (GtkHTMLControlData *cd, gpointer *own_data);
 typedef void        (*GtkHTMLEditPropertyApplyFunc)  (GtkHTMLControlData *cd, gpointer  own_data);
+typedef void        (*GtkHTMLEditPropertyCloseFunc)  (GtkHTMLControlData *cd, gpointer  own_data);
 
 enum _GtkHTMLEditPropertyType {
 	GTK_HTML_EDIT_PROPERTY_PARAGRAPH,
@@ -42,7 +43,8 @@ void                          gtk_html_edit_properties_dialog_destroy      (GtkH
 void                          gtk_html_edit_properties_dialog_add_entry    (GtkHTMLEditPropertiesDialog *d,
 									    const gchar *name,
 									    GtkHTMLEditPropertyCreateFunc create,
-									    GtkHTMLEditPropertyApplyFunc apply_cb);
+									    GtkHTMLEditPropertyApplyFunc apply_cb,
+									    GtkHTMLEditPropertyCloseFunc close_cb);
 void                          gtk_html_edit_properties_dialog_show         (GtkHTMLEditPropertiesDialog *d);
 void                          gtk_html_edit_properties_dialog_change       (GtkHTMLEditPropertiesDialog *d);
 

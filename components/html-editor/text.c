@@ -20,6 +20,7 @@
     Boston, MA 02111-1307, USA.
 */
 
+#include "htmlengine-edit.h"
 #include "htmlengine-edit-fontstyle.h"
 #include "text.h"
 #include "properties.h"
@@ -37,6 +38,7 @@ struct _GtkHTMLEditTextProperties {
 
 	GtkHTMLFontStyle style_and;
 	GtkHTMLFontStyle style_or;
+	GdkColor color;
 };
 typedef struct _GtkHTMLEditTextProperties GtkHTMLEditTextProperties;
 
@@ -53,6 +55,9 @@ set_color (GtkWidget *w, GtkHTMLEditTextProperties *data)
 
 	if (r != rn || g != gn || b != bn) {
 		gnome_color_picker_set_d (GNOME_COLOR_PICKER (data->color_picker), rn, gn, bn, 1.0);
+		data->color.red   = w->style->bg [GTK_STATE_NORMAL].red;
+		data->color.green = w->style->bg [GTK_STATE_NORMAL].green;
+		data->color.blue  = w->style->bg [GTK_STATE_NORMAL].blue;
 		data->color_changed = TRUE;
 		gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
 	}
@@ -106,10 +111,10 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	*set_data = data;
 
 	data->cd = cd;
-	data->color_changed = FALSE;
-	data->style_changed = FALSE;
-	data->style_and     = GTK_HTML_FONT_STYLE_MAX;
-	data->style_or      = 0;
+	data->color_changed   = FALSE;
+	data->style_changed   = FALSE;
+	data->style_and       = GTK_HTML_FONT_STYLE_MAX;
+	data->style_or        = 0;
 
 	table = gtk_table_new (2, 2, FALSE);
 	gtk_container_border_width (GTK_CONTAINER (table), 3);
@@ -208,6 +213,17 @@ text_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 	if (data->style_changed)
 		html_engine_set_font_style (cd->html->engine, data->style_and, data->style_or);
 
+	if (data->color_changed)
+		html_engine_set_color (cd->html->engine, &data->color);
+
 	data->color_changed = FALSE;
 	data->style_changed = FALSE;
+}
+
+void
+text_close_cb (GtkHTMLControlData *cd, gpointer get_data)
+{
+	printf ("text close\n");
+
+	g_free (get_data);
 }

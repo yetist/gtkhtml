@@ -45,6 +45,7 @@ struct _GtkHTMLEditPropertiesDialog {
 
 struct _PageData {
 	GtkHTMLEditPropertyApplyFunc apply;
+	GtkHTMLEditPropertyCloseFunc close;
 	gpointer data;
 };
 typedef struct _PageData PageData;
@@ -64,7 +65,7 @@ apply (GtkWidget *w, GtkHTMLEditPropertiesDialog *d)
 }
 
 static void
-cancel (GtkWidget *w, GtkHTMLEditPropertiesDialog *d)
+prop_close (GtkWidget *w, GtkHTMLEditPropertiesDialog *d)
 {
 	gnome_dialog_close (GNOME_DIALOG (d->dialog));
 	gtk_html_edit_properties_dialog_destroy (d);
@@ -74,7 +75,7 @@ static void
 ok (GtkWidget *w, GtkHTMLEditPropertiesDialog *d)
 {
 	apply (w, d);
-	cancel (w,d);
+	prop_close (w,d);
 }
 
 GtkHTMLEditPropertiesDialog *
@@ -87,13 +88,13 @@ gtk_html_edit_properties_dialog_new (GtkHTMLControlData *cd)
 	d->dialog         = gnome_dialog_new (_("Properties"),
 					      GNOME_STOCK_BUTTON_OK,
 					      GNOME_STOCK_BUTTON_APPLY,
-					      GNOME_STOCK_BUTTON_CANCEL, NULL);
+					      GNOME_STOCK_BUTTON_CLOSE, NULL);
 	d->notebook = gtk_notebook_new ();
 	gtk_box_pack_start_defaults (GTK_BOX (GNOME_DIALOG (d->dialog)->vbox), d->notebook);
 
 	gnome_dialog_button_connect (GNOME_DIALOG (d->dialog), 0, ok, d);
 	gnome_dialog_button_connect (GNOME_DIALOG (d->dialog), 1, apply, d);
-	gnome_dialog_button_connect (GNOME_DIALOG (d->dialog), 2, cancel, d);
+	gnome_dialog_button_connect (GNOME_DIALOG (d->dialog), 2, prop_close, d);
 
 	gnome_dialog_set_sensitive (GNOME_DIALOG (d->dialog), 0, FALSE);
 	gnome_dialog_set_sensitive (GNOME_DIALOG (d->dialog), 1, FALSE);
@@ -101,11 +102,18 @@ gtk_html_edit_properties_dialog_new (GtkHTMLControlData *cd)
 	return d;
 }
 
+static void
+destroy (PageData *pd, GtkHTMLEditPropertiesDialog *d)
+{
+	(*pd->close) (d->control_data, pd->data);
+	g_free (pd);
+}
+
 void
 gtk_html_edit_properties_dialog_destroy (GtkHTMLEditPropertiesDialog *d)
 {
 	printf ("destroy properties\n");
-	g_list_foreach (d->page_data, (GFunc) g_free, NULL);
+	g_list_foreach (d->page_data, (GFunc) destroy, d);
 	g_list_free    (d->page_data);
 	g_free (d);
 }
@@ -114,13 +122,16 @@ void
 gtk_html_edit_properties_dialog_add_entry (GtkHTMLEditPropertiesDialog *d,
 					   const gchar *name,
 					   GtkHTMLEditPropertyCreateFunc create,
-					   GtkHTMLEditPropertyApplyFunc apply_cb)
+					   GtkHTMLEditPropertyApplyFunc apply_cb,
+					   GtkHTMLEditPropertyCloseFunc close_cb)
+
 {
 	PageData *pd = g_new (PageData, 1);
 	GtkWidget *page;
 
 	page = (*create) (d->control_data, &pd->data);
 	pd->apply = apply_cb;
+	pd->close = close_cb;
 
 	d->page_data = g_list_append (d->page_data, pd);
 	gtk_notebook_append_page (GTK_NOTEBOOK (d->notebook), page, gtk_label_new (name));

@@ -102,7 +102,8 @@ prop_dialog (GtkWidget *mi, GtkHTMLControlData *cd)
 			gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 								   _("Text"),
 								   text_properties,
-								   text_apply_cb);
+								   text_apply_cb,
+								   text_close_cb);
 			break;
 			/* case GTK_HTML_EDIT_PROPERTY_IMAGE:
 			gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
