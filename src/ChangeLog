@@ -1,3 +1,13 @@
+2000-07-18  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine-edit-paste.c (do_paste): use SPELL_CHECK
+
+	* htmlengine-edit-insert.c (do_insert): use SPELL_CHECK
+
+	* htmlengine-edit-delete.c (html_engine_delete): use SPELL_CHECK
+
+	* htmlclueflow.h (SPELL_CHECK): new macro - spell checks clue flow
+
 2000-07-15  Radek Doulik  <rodo@helixcode.com>
 
 	* WIP: spell checking

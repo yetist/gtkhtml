@@ -119,4 +119,10 @@ void               html_clueflow_spell_check      (HTMLClueFlow *flow,
 						   HTMLEngine *e);
 #endif
 
+#ifdef GTKHTML_HAVE_PSPELL
+#define SPELL_CHECK(f, e) if (f && HTML_OBJECT_TYPE (f) == HTML_TYPE_CLUEFLOW) html_clueflow_spell_check (HTML_CLUEFLOW (f), e)
+#else
+#define SPELL_CHECK(f, e)
+#endif
+
 #endif /* _HTMLCLUEFLOW_H_ */

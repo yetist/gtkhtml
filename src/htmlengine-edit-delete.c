@@ -658,6 +658,7 @@ html_engine_delete (HTMLEngine *e,
 
 		setup_undo (e, create_action_data (save_buffer, backwards));
 	}
+	SPELL_CHECK (e->cursor->object->parent, e);
 }
 
 

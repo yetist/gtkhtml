@@ -514,6 +514,7 @@ do_paste (HTMLEngine *engine,
 		else
 			remove_element_if_empty_text
 				(engine, html_object_next_not_slave (obj_copy));
+		SPELL_CHECK (engine->cursor->object->parent, engine);
 	}
 
 #ifdef PARANOID_DEBUG

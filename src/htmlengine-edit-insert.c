@@ -345,6 +345,7 @@ do_insert (HTMLEngine *engine,
 
 		if (q == NULL) {
 			count = insert_chars (engine, p, len, style, color, url, target);
+			SPELL_CHECK (engine->cursor->object->parent, engine);
 			html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_RIGHT, count);
 			insert_count += count;
 			break;
@@ -352,6 +353,7 @@ do_insert (HTMLEngine *engine,
 
 		if (q != p) {
 			count = insert_chars (engine, p, q - p, style, color, url, target);
+			SPELL_CHECK (engine->cursor->object->parent, engine);
 			html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_RIGHT, count);
 			insert_count += count;
 		}
