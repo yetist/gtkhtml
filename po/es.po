@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.6\n"
-"POT-Creation-Date: 2001-01-15 21:28+0100\n"
-"PO-Revision-Date: 2000-10-13 13:23+0200\n"
+"POT-Creation-Date: 2001-01-24 23:53+0100\n"
+"PO-Revision-Date: 2001-01-22 13:23+0200\n"
 "Last-Translator: Héctor García Álvarez <hector@scouts-es.org>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -51,7 +51,7 @@ msgstr "Borrar"
 msgid "Grab key"
 msgstr "Obtener clave"
 
-#: capplet/main.c:222
+#: capplet/main.c:227
 msgid "Could not load glade file."
 msgstr "No pude cargar el archivo glade."
 
@@ -219,8 +219,8 @@ msgid "Redo"
 msgstr "Rehacer"
 
 #: po/tmp/GNOME_GtkHTML_Editor.xml.h:24
-msgid "Redo previously undoed changes"
-msgstr "Rehacer cambios previamente deshechos"
+msgid "Redo previously undone change"
+msgstr "Rehacer cambio previamente deshecho"
 
 #: po/tmp/GNOME_GtkHTML_Editor.xml.h:25
 msgid "Redo the undone action"
@@ -372,7 +372,7 @@ msgid "Top"
 msgstr "Cabecera"
 
 #: components/html-editor/image.c:185 components/html-editor/paragraph.c:158
-#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:403
+#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:423
 msgid "Center"
 msgstr "Centro"
 
@@ -430,7 +430,7 @@ msgstr "URL"
 msgid "Could not initialize GNORBA"
 msgstr "No pude inicializar GNORBA"
 
-#: components/html-editor/main.c:78
+#: components/html-editor/main.c:80
 msgid "Could not initialize Bonobo"
 msgstr "No pude inicializar Bonobo"
 
@@ -514,125 +514,133 @@ msgstr "Abrir archivo..."
 msgid "Save file as..."
 msgstr "Guardar archivo como..."
 
-#: components/html-editor/text.c:180 components/html-editor/toolbar.c:412
+#: components/html-editor/text.c:180 components/html-editor/toolbar.c:434
 msgid "Bold"
 msgstr "Destacado"
 
-#: components/html-editor/text.c:181 components/html-editor/toolbar.c:414
+#: components/html-editor/text.c:181 components/html-editor/toolbar.c:436
 msgid "Italic"
 msgstr "Itálica"
 
-#: components/html-editor/text.c:182 components/html-editor/toolbar.c:416
+#: components/html-editor/text.c:182 components/html-editor/toolbar.c:438
 msgid "Underline"
 msgstr "Subrayado"
 
-#: components/html-editor/text.c:183 components/html-editor/toolbar.c:418
+#: components/html-editor/text.c:183 components/html-editor/toolbar.c:440
 msgid "Strikeout"
 msgstr "Tachado"
 
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:210
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:212
 msgid "Automatic"
 msgstr "Automático"
 
-#: components/html-editor/toolbar.c:48
+#: components/html-editor/toolbar.c:50
 msgid "Normal"
 msgstr "Normal"
 
-#: components/html-editor/toolbar.c:49
+#: components/html-editor/toolbar.c:51
 msgid "Header 1"
 msgstr "Cabecera 1"
 
-#: components/html-editor/toolbar.c:50
+#: components/html-editor/toolbar.c:52
 msgid "Header 2"
 msgstr "Cabecera 2"
 
-#: components/html-editor/toolbar.c:51
+#: components/html-editor/toolbar.c:53
 msgid "Header 3"
 msgstr "Cabecera 3"
 
-#: components/html-editor/toolbar.c:52
+#: components/html-editor/toolbar.c:54
 msgid "Header 4"
 msgstr "Cabecera 4"
 
-#: components/html-editor/toolbar.c:53
+#: components/html-editor/toolbar.c:55
 msgid "Header 5"
 msgstr "Cabecera 5"
 
-#: components/html-editor/toolbar.c:54
+#: components/html-editor/toolbar.c:56
 msgid "Header 6"
 msgstr "Cabecera 6"
 
-#: components/html-editor/toolbar.c:55
+#: components/html-editor/toolbar.c:57
 msgid "Address"
 msgstr "Dirección"
 
-#: components/html-editor/toolbar.c:56
+#: components/html-editor/toolbar.c:58
 msgid "Pre"
 msgstr "Pre"
 
-#: components/html-editor/toolbar.c:57
+#: components/html-editor/toolbar.c:59
 msgid "List item (digit)"
 msgstr "Listar elementos (digitos)"
 
-#: components/html-editor/toolbar.c:58
+#: components/html-editor/toolbar.c:60
 msgid "List item (unnumbered)"
 msgstr "Listar elementos (sin numerar)"
 
-#: components/html-editor/toolbar.c:59
+#: components/html-editor/toolbar.c:61
 msgid "List item (roman)"
 msgstr "List item (romano)"
 
-#: components/html-editor/toolbar.c:401
+#: components/html-editor/toolbar.c:421
 msgid "Left align"
 msgstr "Alineación izquierda"
 
-#: components/html-editor/toolbar.c:401
-msgid "Left justify paragraphs"
-msgstr "Justificar párrafos a la izquierda"
+#: components/html-editor/toolbar.c:421
+msgid "Left justifies the paragraphs"
+msgstr "Justifica los párrafos a la izquierda"
 
-#: components/html-editor/toolbar.c:403
-msgid "Centers paragraphs"
-msgstr "Centrar párrafos"
+#: components/html-editor/toolbar.c:423
+msgid "Centers justifies the paragraphs"
+msgstr "Justifica los párrafos al centro"
 
-#: components/html-editor/toolbar.c:405
+#: components/html-editor/toolbar.c:425
 msgid "Right align"
 msgstr "Alineación derecha"
 
-#: components/html-editor/toolbar.c:405
-msgid "Right justify paragraphs"
-msgstr "Justificar párrafos a la derecha"
+#: components/html-editor/toolbar.c:425
+msgid "Right justifies the paragraphs"
+msgstr "Justificar los párrafos a la derecha"
 
-#: components/html-editor/toolbar.c:412
-msgid "Sets the bold font"
-msgstr "Poner la fuente destacada"
+#: components/html-editor/toolbar.c:432
+msgid "Typewriter"
+msgstr "Máquina de escribir"
 
-#: components/html-editor/toolbar.c:414
-msgid "Make the selection italic"
-msgstr "Poner en itálica la selección"
+#: components/html-editor/toolbar.c:432
+msgid "Toggle typewriter font style"
+msgstr "Activar el estilo de fuentes de máquina de escribir"
 
-#: components/html-editor/toolbar.c:416
-msgid "Make the selection underlined"
-msgstr "Subrayar la selección"
+#: components/html-editor/toolbar.c:434
+msgid "Makes the text bold"
+msgstr "Pone el texto en negrita"
 
-#: components/html-editor/toolbar.c:418
-msgid "Make the selection striked out"
-msgstr "Tachar la selección"
+#: components/html-editor/toolbar.c:436
+msgid "Makes the text italic"
+msgstr "Pone en itálica la selección"
 
-#: components/html-editor/toolbar.c:427
+#: components/html-editor/toolbar.c:438
+msgid "Underlines the text"
+msgstr "Subraya el texto"
+
+#: components/html-editor/toolbar.c:440
+msgid "Strikes out the text"
+msgstr "Tacha el texto"
+
+#: components/html-editor/toolbar.c:449
 msgid "Unindent"
 msgstr "No indentar"
 
-#: components/html-editor/toolbar.c:427
-msgid "Indent paragraphs less"
-msgstr "Indentar menos el parrafo"
+#: components/html-editor/toolbar.c:449
+msgid "Indents the paragraphs less"
+msgstr "Indenta menos el parrafo"
 
-#: components/html-editor/toolbar.c:429
+#: components/html-editor/toolbar.c:451
 msgid "Indent"
 msgstr "Indentar"
 
-#: components/html-editor/toolbar.c:429
-msgid "Indent paragraphs more"
-msgstr "Indentar más los párrafos"
+#: components/html-editor/toolbar.c:451
+msgid "Indents the paragraphs more"
+msgstr "Indenta más los párrafos"
 
 #: components/html-editor/utils.c:104
 msgid "Sample"
@@ -645,3 +653,15 @@ msgstr "Vista pre_via"
 #: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "Vista previa"
+
+#~ msgid "Centers paragraphs"
+#~ msgstr "Centrar párrafos"
+
+#~ msgid "Sets the bold font"
+#~ msgstr "Poner la fuente destacada"
+
+#~ msgid "Make the selection underlined"
+#~ msgstr "Subrayar la selección"
+
+#~ msgid "Make the selection striked out"
+#~ msgstr "Tachar la selección"
