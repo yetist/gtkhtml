@@ -48,13 +48,9 @@ frame_url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpoi
 {
 	HTMLFrame *frame = HTML_FRAME (data);
 	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(frame)->parent);
-	char *new_url = NULL;
 
-	new_url = get_absolute (gtk_html_get_base (parent), url);
 	gtk_signal_emit_by_name (GTK_OBJECT (parent->engine), "url_requested",
-				 new_url, handle);
-	g_warning ("new_url = %s", new_url);
-	g_free (new_url);
+				 url, handle);
 }
 
 static void
@@ -561,7 +557,7 @@ html_frame_init (HTMLFrame *frame,
 	  GTK_SIGNAL_FUNC (frame_button_press_event), frame);
 	*/
 
-	gtk_signal_emit_by_name (GTK_OBJECT (new_html->engine), 
+	gtk_signal_emit_by_name (GTK_OBJECT (parent_html->engine), 
 				 "url_requested", src, handle);
 
 	gtk_widget_set_usize (scrolled_window, width, height);

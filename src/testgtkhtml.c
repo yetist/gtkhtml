@@ -1102,6 +1102,7 @@ main (gint argc, gchar *argv[])
 	gnome_app_set_contents (GNOME_APP (app), scrolled_window);
 
 	html_widget = gtk_html_new ();
+	gtk_html_set_allow_frameset (html_widget, TRUE);
 	html = GTK_HTML (html_widget);
 	gtk_html_load_empty (html);
 	/* gtk_html_set_default_background_color (GTK_HTML (html_widget), &bgColor); */

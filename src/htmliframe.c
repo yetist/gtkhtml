@@ -170,12 +170,9 @@ iframe_url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpo
 {
 	HTMLIFrame *iframe = HTML_IFRAME (data);
 	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(iframe)->parent);
-	char *new_url = NULL;
 
-	new_url = get_absolute (gtk_html_get_base (parent), url);
 	gtk_signal_emit_by_name (GTK_OBJECT (parent->engine), "url_requested",
-				 new_url, handle);
-	g_free (new_url);
+				 url, handle);
 }
 
 static void
@@ -632,7 +629,7 @@ html_iframe_init (HTMLIFrame *iframe,
 	  GTK_SIGNAL_FUNC (iframe_button_press_event), iframe);
 	*/
 
-	gtk_signal_emit_by_name (GTK_OBJECT (new_html->engine), 
+	gtk_signal_emit_by_name (GTK_OBJECT (parent_html->engine), 
 				 "url_requested", src, handle);
 
 	gtk_widget_set_usize (scrolled_window, width, height);

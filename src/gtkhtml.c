@@ -397,9 +397,12 @@ html_engine_url_requested_cb (HTMLEngine *engine,
 			      gpointer data)
 {
 	GtkHTML *gtk_html;
-
+	char *expanded = NULL;
 	gtk_html = GTK_HTML (data);
-	gtk_signal_emit (GTK_OBJECT (gtk_html), signals[URL_REQUESTED], url, handle);
+
+	expanded = get_absolute (gtk_html_get_base (gtk_html), url);
+	gtk_signal_emit (GTK_OBJECT (gtk_html), signals[URL_REQUESTED], expanded, handle);
+	g_free (expanded);
 }
 
 static void
