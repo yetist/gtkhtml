@@ -487,9 +487,7 @@ static void
 delete_object_do (HTMLEngine *e, HTMLObject **object, guint *len)
 {
 	GList *from, *to, *left, *right;
-	gint expected_len;
 
-	expected_len = MAX (e->cursor->position, e->mark->position) - MIN (e->cursor->position, e->mark->position);
 	html_engine_freeze (e);
 	prepare_delete_bounds (e, &from, &to, &left, &right);
 	place_cursor_before_mark (e);
@@ -498,8 +496,6 @@ delete_object_do (HTMLEngine *e, HTMLObject **object, guint *len)
 	*len     = 0;
 	*object  = html_object_op_cut  (HTML_OBJECT (from->data), e, from->next, to->next, left, right, len);
 	remove_empty_and_merge (e, TRUE, left ? left->next : NULL, right ? right->next : NULL, NULL);
-	if (HTML_IS_TABLE (e->cursor->object) && *len && expected_len - *len)
-		html_cursor_forward_n (e->cursor, e, 1);
 	html_engine_spell_check_range (e, e->cursor, e->cursor);
 	html_engine_thaw (e);
 }

@@ -2735,7 +2735,8 @@ move_selection (GtkHTML *html, GtkHTMLCommandType com_type)
 inline static void
 delete_one (HTMLEngine *e, gboolean forward)
 {
-	if (e->cursor->object && html_object_is_container (e->cursor->object))
+	if (e->cursor->object && html_object_is_container (e->cursor->object)
+	    && ((forward && !e->cursor->offset) || (!forward && e->cursor->offset)))
 		html_engine_delete_container (e);
 	else
 		html_engine_delete_n (e, 1, forward);
