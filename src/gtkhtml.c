@@ -817,7 +817,7 @@ key_press_event (GtkWidget *widget, GdkEventKey *event)
 	if (html_class->use_emacs_bindings && html_class->emacs_bindings && !html->binding_handled)
 		gtk_binding_set_activate (html_class->emacs_bindings, event->keyval, event->state, GTK_OBJECT (widget));
 
-	if (!html->binding_handled && !(event->state == GDK_SHIFT_MASK && (event->keyval == GDK_Tab || event->keyval == GDK_ISO_Left_Tab)))
+	if (!html->binding_handled)
 		GTK_WIDGET_CLASS (parent_class)->key_press_event (widget, event);
 	
 	retval = html->binding_handled;
@@ -4601,13 +4601,9 @@ add_bindings (GtkHTMLClass *klass)
 
 	/* tabs */
 	BCOM (0, Tab, INSERT_TAB_OR_NEXT_CELL);
-	BCOM (0, ISO_Left_Tab, INSERT_TAB_OR_NEXT_CELL);
 	BCOM (GDK_CONTROL_MASK, Tab, INDENT_INC);
-	BCOM (GDK_CONTROL_MASK, ISO_Left_Tab, INDENT_INC);
 	BCOM (GDK_CONTROL_MASK | GDK_SHIFT_MASK, Tab, INDENT_DEC);
-	BCOM (GDK_CONTROL_MASK | GDK_SHIFT_MASK, ISO_Left_Tab, INDENT_DEC);
 	BCOM (GDK_SHIFT_MASK, Tab, PREV_CELL);
-	BCOM (GDK_SHIFT_MASK, ISO_Left_Tab, PREV_CELL);
 
 	/* spell checking */
 	BCOM (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK, s, SPELL_SUGGEST);

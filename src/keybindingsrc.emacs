@@ -69,13 +69,9 @@ binding "gtkhtml-bindings-emacs"
   bind "<Ctrl><Alt>r"         { "command" (align-right) }
 
   bind "Tab"                  { "command" (insert-tab-or-next-cell) }
-  bind "ISO_Left_Tab"         { "command" (insert-tab-or-next-cell) }
   bind "<Ctrl>Tab"            { "command" (indent-more) }
-  bind "<Ctrl>ISO_Left_Tab"   { "command" (indent-more) }
   bind "<Ctrl><Shift>Tab"            { "command" (indent-less) }
-  bind "<Ctrl><Shift>ISO_Left_Tab"   { "command" (indent-less) }
   bind "<Shift>Tab"           { "command" (indent-less-or-prev-cell) }
-  bind "<Shift>ISO_Left_Tab"  { "command" (indent-less-or-prev-cell) }
 
   bind "<Alt>1"              { "command" (size-minus-2) }
   bind "<Alt>2"              { "command" (size-minus-1) }
