@@ -1,3 +1,8 @@
+2003-04-09  Radek Doulik  <rodo@ximian.com>
+
+	* configure.in: use gal for library as well (we use
+	e_iconv_locale_language now)
+
 2003-04-04  Larry Ewing  <lewing@ximian.com>
 
 	* configure.in: drop the configure check for libglade to 2.0.0
