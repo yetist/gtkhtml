@@ -1,5 +1,8 @@
 2000-12-06  Radek Doulik  <rodo@helixcode.com>
 
+	* htmltable.c (divide_into_percented): don't substract max_size
+	[c] from MIN, but from total_width part
+
 	* htmlengine.c (parse_body): set eat_space to FALSE
 	(insert_text): drop consequent spaces
 	(parse_s): set eat_space to FALSE after </select>

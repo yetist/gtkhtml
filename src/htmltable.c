@@ -635,7 +635,7 @@ divide_into_percented (HTMLTable *table, gint *col_percent, gint *max_size, gint
 			curr_percent = 100*((gdouble) max_size [c]) / max_width;
 			add = MAX (MIN (left * (col_percent [c + 1] - col_percent [c] - curr_percent)
 					/fill_percent,
-					(col_percent [c + 1] - col_percent [c])*max_width/100) - max_size [c],
+					((col_percent [c + 1] - col_percent [c])*max_width)/100 - max_size [c]),
 				   0);
 			max_size [c] += add;
 			added        += add;
@@ -645,6 +645,25 @@ divide_into_percented (HTMLTable *table, gint *col_percent, gint *max_size, gint
 
 	return added;
 }
+
+/* static gint
+calc_lowest_pw (HTMLTable *table, gint *max_size, gint *n, gint *)
+{
+	gint c, mw = COLUMN_PREF_POS (table, table->totalCols);
+
+	*n = 0;
+	for (c = 0; c < table->totalCols; c++)
+		if (col_percent [c + 1] == col_percent [c]) {
+			pw = COLUMN_PREF_POS (table, c + 1) - COLUMN_PREF_POS (table, c)
+				- pixel_size * (table->spacing + 2 * table->padding);
+			if (max_size [c] < pw) {
+				if (pw < mw) {
+					pw = mw;
+				}
+				(*n) ++;
+			}
+		}
+		} */
 
 static void
 divide_into_variable_all (HTMLTable *table, HTMLPainter *painter, gint *col_percent, gint *max_size, gint left)
@@ -660,7 +679,7 @@ divide_into_variable_all (HTMLTable *table, HTMLPainter *painter, gint *col_perc
 		pw = COLUMN_PREF_POS (table, c + 1) - COLUMN_PREF_POS (table, c)
 			- pixel_size * (table->spacing + 2 * table->padding);
 		if (col_percent [c + 1] == col_percent [c] && max_size [c] < pw) {
-			pref += pw - max_size [c];
+			pref += pw;
 			/* printf ("cell pref: %d size: %d\n", pw, max_size [c]); */
 			n++;
 		}
@@ -673,7 +692,7 @@ divide_into_variable_all (HTMLTable *table, HTMLPainter *painter, gint *col_perc
 				- pixel_size * (table->spacing + 2 * table->padding);
 			if (col_percent [c + 1] == col_percent [c] && max_size [c] < pw) {
 				/* add = MIN (pw,  ((gdouble) left / n)); */
-				add = MIN (pw, ((gdouble) left * (pw - max_size [c])) / pref);
+				add = MIN (pw - max_size [c], ((gdouble) left * pw) / pref);
 				max_size [c] += add;
 				added        += add;
 				/* printf ("col %d (add %d) --> %d\n", c, add, max_size [c]); */
