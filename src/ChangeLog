@@ -1,7 +1,15 @@
 2000-05-07  Ettore Perazzoli  <ettore@helixcode.com>
 
-	* htmlengine-edit-delete.c (html_engine_delete): Avoid looking for
-	the end point beyond the end of the text.
+	* htmlengine-edit.c
+	(html_engine_undo): Unselect all.
+	(html_engine_redo): Don't freeze/thaw.
+	(html_engine_undo): Don't freeze/thaw here either.
+
+2000-05-07  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine-edit-delete.c
+	(html_engine_delete): Avoid looking for the end point beyond the
+	end of the text.
 	(merge_text_at_cursor): If merging is not possible, return the
 	current offset unmodified.
 

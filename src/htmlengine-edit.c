@@ -45,12 +45,10 @@ html_engine_undo (HTMLEngine *e)
 	g_return_if_fail (e->undo != NULL);
 	g_return_if_fail (e->editable);
 
-	html_engine_freeze (e);
+	html_engine_unselect_all (e, TRUE);
 
 	undo = e->undo;
 	html_undo_do_undo (undo, e);
-
-	html_engine_thaw (e);
 }
 
 void
@@ -62,12 +60,10 @@ html_engine_redo (HTMLEngine *e)
 	g_return_if_fail (HTML_IS_ENGINE (e));
 	g_return_if_fail (e->undo != NULL);
 
-	html_engine_freeze (e);
+	html_engine_unselect_all (e, TRUE);
 
 	undo = e->undo;
 	html_undo_do_redo (undo, e);
-
-	html_engine_thaw (e);
 }
 
 
