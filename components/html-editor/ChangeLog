@@ -1,3 +1,10 @@
+2001-05-29  Larry Ewing  <lewing@ximian.com>
+
+	* control-data.h: add placeholders for the persist interfaces.
+
+	* editor-control-factory.c (editor_control_construct): initialize
+	the persist interfaces.
+	
 2001-05-29  Radek Doulik  <rodo@ximian.com>
 
 	* Makefile.am: removed dependency on libglade-xgettext

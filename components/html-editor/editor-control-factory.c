@@ -459,9 +459,7 @@ editor_set_prop (BonoboPropertyBag *bag,
 static void
 editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 {
-	GtkHTMLControlData *control_data;
-	BonoboPersistStream *stream_impl;
-	BonoboPersistFile *file_impl;
+	GtkHTMLControlData *cd;
 	GtkWidget *html_widget;
 	BonoboPropertyBag  *pb;
 	BonoboArg          *def;
@@ -469,32 +467,28 @@ editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 	active_controls++;
 
 	/* GtkHTML widget */
-
 	html_widget = gtk_html_new ();
 	gtk_html_load_empty (GTK_HTML (html_widget));
 	gtk_html_set_editable (GTK_HTML (html_widget), TRUE);
 
-	control_data = gtk_html_control_data_new (GTK_HTML (html_widget), vbox);
-	gtk_html_set_editor_api (GTK_HTML (html_widget), editor_api, control_data);
+	cd = gtk_html_control_data_new (GTK_HTML (html_widget), vbox);
+	gtk_html_set_editor_api (GTK_HTML (html_widget), editor_api, cd);
 
 	/* HTMLEditor::Engine */
-
-	control_data->editor_bonobo_engine = editor_engine_new (GTK_HTML (html_widget));
+	cd->editor_bonobo_engine = editor_engine_new (GTK_HTML (html_widget));
 	bonobo_object_add_interface (BONOBO_OBJECT (control), 
-				     BONOBO_OBJECT (control_data->editor_bonobo_engine));
+				     BONOBO_OBJECT (cd->editor_bonobo_engine));
 
 	/* Bonobo::PersistStream */
-
-	stream_impl = persist_stream_impl_new (GTK_HTML (html_widget));
-	bonobo_object_add_interface (BONOBO_OBJECT (control), BONOBO_OBJECT (stream_impl));
+	cd->persist_stream = persist_stream_impl_new (GTK_HTML (html_widget));
+	bonobo_object_add_interface (BONOBO_OBJECT (control), BONOBO_OBJECT (cd->persist_stream));
 
 	/* Bonobo::PersistFile */
-
-	file_impl = persist_file_impl_new (GTK_HTML (html_widget));
-	bonobo_object_add_interface (BONOBO_OBJECT (control), BONOBO_OBJECT (file_impl));
+	cd->persist_file = persist_file_impl_new (GTK_HTML (html_widget));
+	bonobo_object_add_interface (BONOBO_OBJECT (control), BONOBO_OBJECT (cd->persist_file));
 
 	/* PropertyBag */
-	pb = bonobo_property_bag_new (editor_get_prop, editor_set_prop, control_data);
+	pb = bonobo_property_bag_new (editor_get_prop, editor_set_prop, cd);
 	bonobo_control_set_properties (control, pb);
 
 	def = bonobo_arg_new (BONOBO_ARG_BOOLEAN);
@@ -523,18 +517,18 @@ editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 	   handle that.  */
 
 	gtk_signal_connect (GTK_OBJECT (control), "set_frame",
-			    GTK_SIGNAL_FUNC (set_frame_cb), control_data);
+			    GTK_SIGNAL_FUNC (set_frame_cb), cd);
 
 	gtk_signal_connect (GTK_OBJECT (control), "destroy",
-			    GTK_SIGNAL_FUNC (destroy_control_data_cb), control_data);
+			    GTK_SIGNAL_FUNC (destroy_control_data_cb), cd);
 
 	gtk_signal_connect (GTK_OBJECT (html_widget), "url_requested",
 			    GTK_SIGNAL_FUNC (url_requested_cb), control);
 
 	gtk_signal_connect (GTK_OBJECT (html_widget), "button_press_event",
-			    GTK_SIGNAL_FUNC (html_button_pressed), control_data);
+			    GTK_SIGNAL_FUNC (html_button_pressed), cd);
 
-	control_data->control = control;
+	cd->control = control;
 }
 
 static BonoboObject *

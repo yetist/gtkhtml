@@ -88,6 +88,8 @@ struct _GtkHTMLControlData {
 	GNOME_Spell_Dictionary  dict;
 	BonoboObjectClient     *dict_client;
 	EditorEngine           *editor_bonobo_engine;
+	BonoboPersistStream    *persist_stream;
+	BonoboPersistFile      *persist_file;
 	BonoboControl          *control;
 };
 
