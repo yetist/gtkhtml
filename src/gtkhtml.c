@@ -549,9 +549,9 @@ motion_notify_event (GtkWidget *widget,
 	html = GTK_HTML (widget);
 	engine = html->engine;
 
-	if (event->is_hint)
+	if (event->is_hint) {
 		gdk_window_get_pointer (GTK_LAYOUT (widget)->bin_window, &x, &y, &mask);
-	else {
+	} else {
 		x = event->x;
 		y = event->y;
 	}

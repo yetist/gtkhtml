@@ -222,15 +222,18 @@ draw_obj (HTMLDrawQueue *queue,
 
 	e = queue->engine;
 
-	tx = e->leftBorder - e->x_offset;
-	ty = e->topBorder - e->y_offset;
-
 	/* First calculate the translation offset for drawing the object.  */
+
+	tx = 0;
+	ty = 0;
 
 	for (o = obj->parent; o != NULL; o = o->parent) {
 		tx += o->x;
 		ty += o->y - o->ascent;
 	}
+
+	tx = tx + e->leftBorder - e->x_offset;
+	ty = ty + e->topBorder - e->y_offset;
 
 	/* Then prepare for drawing.  We will only update this object, so we
            only allocate enough size for it.  */
