@@ -1,3 +1,8 @@
+2001-03-07  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (parse_t): only emit the title changed signal if we
+	have a valid title and were already in a title tag.
+
 2001-03-07  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-table.c (delete_column_setup_undo): new undo
