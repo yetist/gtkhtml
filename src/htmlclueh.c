@@ -96,7 +96,7 @@ calc_size (HTMLObject *clue,
 
 	switch (HTML_CLUE (clue)->valign) {
 	case HTML_VALIGN_TOP:
-		clue->descent = a + d;
+		clue->ascent = a + d;
 		for (obj = HTML_CLUE (clue)->head; obj != 0; obj = obj->next) {
 			if (obj->y != obj->ascent) {
 				obj->y = obj->ascent;
