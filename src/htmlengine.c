@@ -983,6 +983,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					table->caption = caption;
 					table->capAlign = capAlign;
 
+					close_flow (e, HTML_OBJECT (caption));
 					e->flow = 0;
 
 					if (!str)
@@ -1196,6 +1197,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						pop_block (e, ID_TD, HTML_OBJECT (cell));
 
 						add_pending_paragraph_break (e, HTML_OBJECT (cell));
+						close_flow (e, HTML_OBJECT (cell));
 
 						html_table_end_row (table);
 						html_table_start_row (table);
@@ -1206,6 +1208,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 							insert_paragraph_break (e, HTML_OBJECT (cell));
 						pop_block (e, heading ? ID_TH : ID_TD, HTML_OBJECT (cell));
 						add_pending_paragraph_break (e, HTML_OBJECT (cell));
+						close_flow (e, HTML_OBJECT (cell));
 					}
 
 					if (!str)
@@ -1374,7 +1377,7 @@ parse_object (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	} else {
 		/* parse the body of the tag to display the alternative */
 		str = parse_body (e, clue, end, FALSE);
-
+		close_flow (e, clue);
 		html_object_destroy (HTML_OBJECT (el));
 	}
 	
@@ -1627,6 +1630,7 @@ parse_iframe (HTMLEngine *e, const gchar *str, HTMLObject *_clue)
 		discard_body (e, end);
 	} else {
 		parse_body (e, _clue, end, FALSE);
+		close_flow (e, _clue);
 	}
 	g_free (align);
 }

@@ -75,6 +75,7 @@ static void home_cb (GtkWidget *widget, gpointer data);
 static void reload_cb (GtkWidget *widget, gpointer data);
 static void redraw_cb (GtkWidget *widget, gpointer data);
 static void resize_cb (GtkWidget *widget, gpointer data);
+static void select_all_cb (GtkWidget *widget, gpointer data);
 static void title_changed_cb (GtkHTML *html, const gchar *title, gpointer data);
 static void url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpointer data);
 static void entry_goto_url(GtkWidget *widget, gpointer data);
@@ -154,6 +155,8 @@ static GnomeUIInfo debug_menu[] = {
 	  resize_cb, NULL, NULL, 0, 0, 0 },
 	{ GNOME_APP_UI_ITEM, "Force repaint", "Force a repaint event",
 	  redraw_cb, NULL, NULL, 0, 0, 0 },
+	{ GNOME_APP_UI_ITEM, "Select all", "Select all",
+	  select_all_cb, NULL, NULL, 0, 0, 0 },
 	GNOMEUIINFO_END
 };
 
@@ -361,6 +364,13 @@ resize_cb (GtkWidget *widget, gpointer data)
 {
 	g_print ("forcing resize\n");
 	html_engine_calc_size (html->engine, FALSE);
+}
+
+static void
+select_all_cb (GtkWidget *widget, gpointer data)
+{
+	g_print ("select all\n");
+	gtk_html_select_all (html);
 }
 
 static void

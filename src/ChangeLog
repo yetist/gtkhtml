@@ -1,5 +1,8 @@
 2002-01-29  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine.c: added close_flow to few places to avoid empty
+	clueflows in tree
+
 	* htmlselection.c (html_engine_select_all): as below
 
 	* htmlengine-edit-cut-and-paste.c (html_engine_copy_object): check
