@@ -1,3 +1,9 @@
+2001-01-30  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml 0.8.2 released
+	
+	* configure.in: bump versions for 0.8.2 release.
+
 2001-01-30  Simos Xenitellis  <simos@hellug.gr>
 
 	* configure.in (ALL_LINGUAS): Added el
