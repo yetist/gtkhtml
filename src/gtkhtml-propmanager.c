@@ -25,6 +25,8 @@
 #include "gtkhtml-propmanager.h"
 #include "gtkhtml-properties.h"
 
+#define d(x) x;
+
 static GtkObject *parent_class;
 
 enum {
@@ -43,7 +45,6 @@ struct _GtkHTMLPropmanagerPrivate {
 	GtkWidget *anim_check;
 	GtkWidget *bi; 
 	GtkWidget *live_spell_check;
-	GtkWidget *live_spell_frame; 
 	GtkWidget *magic_check;
 	GtkWidget *button_cfg_spell;
 	
@@ -71,10 +72,9 @@ gtk_html_propmanager_sync_ui (GtkHTMLPropmanager *pman)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->magic_check),
 					      priv->actual_prop->magic_links);
 
-	if (priv->live_spell_check) {
+	if (priv->live_spell_check)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->live_spell_check),
 					      priv->actual_prop->live_spell_check);
-	}
 
 	if (priv->button_cfg_spell) {	
 		gtk_widget_set_sensitive (GTK_WIDGET (priv->button_cfg_spell), priv->actual_prop->live_spell_check);
@@ -95,7 +95,15 @@ propmanager_client_notify (GConfClient *client, guint cnxn_id, GConfEntry *entry
 	GtkHTMLPropmanager *pman = data;
 
 	printf ("GOT MILK??");
+
+	gtk_html_class_properties_load (pman->priv->actual_prop, client);
 	gtk_html_propmanager_sync_ui (pman);
+}
+
+static void
+propmanager_changed (GtkWidget *widget, GtkHTMLPropmanager *pman)
+{
+	gtk_signal_emit (GTK_OBJECT (pman), signals[CHANGED]);
 }
 
 gboolean
@@ -115,7 +123,6 @@ gtk_html_propmanager_set_xml (GtkHTMLPropmanager *pman, GladeXML *xml)
 #else 
 	client = pman->client;
 #endif
-
 	gconf_client_add_dir (client, GTK_HTML_GCONF_DIR, GCONF_CLIENT_PRELOAD_NONE, NULL);
 
 	priv->orig_prop = gtk_html_class_properties_new ();
@@ -136,9 +143,6 @@ gtk_html_propmanager_set_xml (GtkHTMLPropmanager *pman, GladeXML *xml)
 	if ((priv->live_spell_check = glade_xml_get_widget (xml, "live_spell_check"))) {
 		found_widget = TRUE;
 	}
-	if ((priv->live_spell_frame = glade_xml_get_widget (xml, "live_spell_frame"))) {
-		found_widget = TRUE;
-	}
 	if ((priv->button_cfg_spell = glade_xml_get_widget (xml, "button_configure_spell_checking"))) {
 		found_widget = TRUE;
 	}
@@ -148,13 +152,45 @@ gtk_html_propmanager_set_xml (GtkHTMLPropmanager *pman, GladeXML *xml)
 	priv->fixed           = glade_xml_get_widget (xml, "screen_fixed");
 	priv->fixed_print     = glade_xml_get_widget (xml, "print_fixed");
 
-	gconf_client_notify_add (client, GTK_HTML_GCONF_DIR, propmanager_client_notify, pman, NULL, &gconf_error);
+	gconf_client_notify_add (client, GTK_HTML_GCONF_DIR, propmanager_client_notify, 
+				 pman, NULL, &gconf_error);
 	if (gconf_error)
 		g_warning ("gconf error: %s\n", gconf_error->message);
 				 
 	gtk_html_propmanager_sync_ui (pman);
+	glade_xml_signal_connect_data (xml, "changed", 
+				       GTK_SIGNAL_FUNC (propmanager_changed), 
+				       pman);
 	
 	return found_widget;
+}
+
+void
+gtk_html_propmanager_apply (GtkHTMLPropmanager *pman)
+{
+	GtkHTMLPropmanagerPrivate *priv;
+	g_return_if_fail (pman != NULL);
+
+	priv = pman->priv;
+	
+	if (priv->anim_check)
+		priv->actual_prop->animations = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->anim_check));
+
+	if (priv->magic_check)
+		priv->actual_prop->magic_links = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->magic_check));
+
+	if (priv->live_spell_check)
+		priv->actual_prop->live_spell_check = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->live_spell_check));
+
+	gtk_html_class_properties_update (priv->actual_prop, pman->client,
+					  priv->saved_prop);
+	gtk_html_class_properties_copy (priv->saved_prop, priv->actual_prop);
+}
+
+void
+gtk_html_propmanager_reset (GtkHTMLPropmanager *pman)
+{
+
 }
 
 static void
@@ -162,9 +198,23 @@ gtk_html_propmanager_init (GtkHTMLPropmanager *pman)
 {
 	GtkHTMLPropmanagerPrivate *priv;
 
+	d(g_warning ("init called"));
 	priv = g_new0 (GtkHTMLPropmanagerPrivate, 1);
 	
 	pman->priv = priv;
+}
+
+GtkObject *
+gtk_html_propmanager_new (GladeXML *xml)
+{
+	GtkHTMLPropmanager *pman;
+	
+	pman = GTK_HTML_PROPMANAGER ( gtk_type_new (gtk_html_propmanager_get_type ()));
+
+	if (xml)
+		gtk_html_propmanager_set_xml (pman, xml);
+
+	return (GtkObject *)pman;
 }
 
 static void

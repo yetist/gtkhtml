@@ -51,6 +51,8 @@ struct _GtkHTMLPropmanagerClass {
 GtkType          gtk_html_propmanager_get_type (void);
 GtkObject       *gtk_html_propmanager_new (GladeXML *xml);
 gboolean         gtk_html_propmanager_set_xml (GtkHTMLPropmanager *pman, GladeXML *xml);
+void             gtk_html_propmanager_apply (GtkHTMLPropmanager *pman);
+void             gtk_html_propmanager_reset (GtkHTMLPropmanager *pman);
 
 #endif /* __GTK_HTML_PROPMANAGER_H__ */
 
