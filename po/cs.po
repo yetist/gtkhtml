@@ -6,8 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
-"POT-Creation-Date: 2003-06-02 20:47+0200\n"
-"PO-Revision-Date: 2003-05-20 14:57+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-06-14 13:30+0200\n"
+"PO-Revision-Date: 2003-06-14 16:39+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -800,6 +801,10 @@ msgid "_Wink"
 msgstr "_Mrkající"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
+msgid "_Wrap Lines"
+msgstr "Za_lamovat řádky"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
 msgid "etc..."
 msgstr "atd..."
 
@@ -820,7 +825,7 @@ msgstr "Modrý inkoust"
 msgid "Rectangles"
 msgstr "Obdélníky"
 
-#: components/html-editor/body.c:275 src/gtkhtml.c:2543
+#: components/html-editor/body.c:275 src/gtkhtml.c:2547
 msgid "Document Title"
 msgstr "Nadpis dokumentu"
 
@@ -1445,7 +1450,7 @@ msgstr "Najít regulární výraz"
 msgid "Spell checker"
 msgstr "Kontrola pravopisu"
 
-#: components/html-editor/spell.c:358
+#: components/html-editor/spell.c:361
 msgid "Current _Languages"
 msgstr "Aktuální _jazyky"
 
@@ -1554,71 +1559,71 @@ msgstr "Odsadí odstavec Více"
 msgid "Sample"
 msgstr "Příklad"
 
-#: src/gtkhtml.c:2536
+#: src/gtkhtml.c:2540
 msgid "Editable"
 msgstr "Upravitelný"
 
-#: src/gtkhtml.c:2537
+#: src/gtkhtml.c:2541
 msgid "Whether the html can be edited"
 msgstr "Jestli může být html upravováno"
 
-#: src/gtkhtml.c:2544
+#: src/gtkhtml.c:2548
 msgid "The title of the current document"
 msgstr "Nadpis aktuálního dokumentu"
 
-#: src/gtkhtml.c:2550
+#: src/gtkhtml.c:2554
 msgid "Document Base"
 msgstr "Základ dokumentu"
 
-#: src/gtkhtml.c:2551
+#: src/gtkhtml.c:2555
 msgid "The base URL for relative references"
 msgstr "Základní URL pro relativní odkazy"
 
-#: src/gtkhtml.c:2557
+#: src/gtkhtml.c:2561
 msgid "Target Base"
 msgstr "Základ cíle"
 
-#: src/gtkhtml.c:2558
+#: src/gtkhtml.c:2562
 msgid "The base URL of the targe frame"
 msgstr "Základní URL cílového rámce"
 
-#: src/gtkhtml.c:2567
+#: src/gtkhtml.c:2571
 msgid "Fixed Width Font"
 msgstr "Písmo s pevnou šířkou"
 
-#: src/gtkhtml.c:2568
+#: src/gtkhtml.c:2572
 msgid "The Monospace font to use for typewriter text"
 msgstr "Písmo monospace, které použít pro text psacího stroje"
 
-#: src/gtkhtml.c:2574
+#: src/gtkhtml.c:2578
 msgid "New Link Color"
 msgstr "Barva nového odkazu"
 
-#: src/gtkhtml.c:2575
+#: src/gtkhtml.c:2579
 msgid "The color of new link elements"
 msgstr "Barva nových elementů odkaz"
 
-#: src/gtkhtml.c:2580
+#: src/gtkhtml.c:2584
 msgid "Visited Link Color"
 msgstr "Barva navštíveného odkazu"
 
-#: src/gtkhtml.c:2581
+#: src/gtkhtml.c:2585
 msgid "The color of visited link elements"
 msgstr "Barva navštívených elementů odkaz"
 
-#: src/gtkhtml.c:2586
+#: src/gtkhtml.c:2590
 msgid "Active Link Color"
 msgstr "Barva aktivního odkazu"
 
-#: src/gtkhtml.c:2587
+#: src/gtkhtml.c:2591
 msgid "The color of active link elements"
 msgstr "Barva aktivních elementů odkaz"
 
-#: src/gtkhtml.c:2592
+#: src/gtkhtml.c:2596
 msgid "Spelling Error Color"
 msgstr "Barva pravopisné chyby"
 
-#: src/gtkhtml.c:2593
+#: src/gtkhtml.c:2597
 msgid "The color of the spelling error markers"
 msgstr "Barva označení pravopisných chyb"
 
