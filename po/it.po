@@ -5,15 +5,33 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml 0.8.2\n"
+"Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-29 16:53+0100\n"
-"PO-Revision-Date: 2004-09-02 20:02+0200\n"
+"POT-Creation-Date: 2005-01-12 23:30+0100\n"
+"PO-Revision-Date: 2005-01-12 23:33+0100\n"
 "Last-Translator: Craig Jeffares <cjeffares@novell.com>\n"
-"Language-Team: Italiano <it@li.org>\n"
+"Language-Team: Italiano <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: a11y/image.c:150
+#, c-format
+msgid "URL is %s, Alternative Text is %s"
+msgstr "L'URL è %s, il testo alternativo è %s"
+
+#: a11y/image.c:152
+#, c-format
+msgid "URL is %s"
+msgstr "L'URL è %s"
+
+#: a11y/object.c:50 a11y/object.c:59 a11y/text.c:105
+msgid "grab focus"
+msgstr "prendi il focus"
+
+#: a11y/object.c:211
+msgid "Panel containing HTML"
+msgstr "Pannello che contiene HTML"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -598,7 +616,7 @@ msgstr "Ripete l'azione annullata"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: components/html-editor/replace.c:161 components/html-editor/replace.c:223
+#: components/html-editor/replace.c:163 components/html-editor/replace.c:225
 msgid "Replace"
 msgstr "Sostituisci"
 
@@ -761,7 +779,7 @@ msgstr "Tr_ova..."
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
 msgid "_Font Size"
-msgstr "_Dimesione carattere"
+msgstr "_Dimensione carattere"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
@@ -1333,7 +1351,7 @@ msgstr "<b>Collegamento</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:19
 msgid "<span weight=\"bold\">Size</span>"
-msgstr "<b>Dimesione</b>"
+msgstr "<b>Dimensione</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:20
 msgid "<span weight=\"bold\">Style</span>"
@@ -1739,19 +1757,19 @@ msgstr "S_uccessivo"
 msgid "_Replace"
 msgstr "_Sostituisci"
 
-#: components/html-editor/replace.c:169
+#: components/html-editor/replace.c:171
 msgid "Search _backward"
 msgstr "Cerca in_dietro"
 
-#: components/html-editor/replace.c:170 components/html-editor/search.c:114
+#: components/html-editor/replace.c:172 components/html-editor/search.c:114
 msgid "Case _sensitive"
 msgstr "_Maiuscole/minuscole"
 
-#: components/html-editor/replace.c:180
+#: components/html-editor/replace.c:182
 msgid "Replace:"
 msgstr "Sostituisci:"
 
-#: components/html-editor/replace.c:183
+#: components/html-editor/replace.c:185
 msgid "With:"
 msgstr "Con:"
 
@@ -1768,6 +1786,8 @@ msgid ""
 "Unable to add word to dictionary,\n"
 "language settings are broken.\n"
 msgstr ""
+"Impossibile aggiungere la parola al dizionario,\n"
+"le impostazioni della lingua non funzionano correttamente.\n"
 
 #: components/html-editor/spell.c:298
 msgid "No misspelled word found"
@@ -1885,92 +1905,92 @@ msgstr ""
 "L'oggetto modificato è stato rimosso dal documento.\n"
 "Impossibile applicare le modifiche."
 
-#: src/gtkhtml.c:2569
+#: src/gtkhtml.c:2579
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 "L'URL di mozilla rilascito sul compositore ha formato (%d) o lunghezza (%d) "
 "errati\n"
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2929
 msgid "Editable"
 msgstr "Modificabile"
 
-#: src/gtkhtml.c:2892
+#: src/gtkhtml.c:2930
 msgid "Whether the html can be edited"
 msgstr "Indica se l'html può essere modificato"
 
-#: src/gtkhtml.c:2898
+#: src/gtkhtml.c:2936
 msgid "Document Title"
 msgstr "Titolo del documento"
 
-#: src/gtkhtml.c:2899
+#: src/gtkhtml.c:2937
 msgid "The title of the current document"
 msgstr "Il titolo del documento corrente"
 
-#: src/gtkhtml.c:2905
+#: src/gtkhtml.c:2943
 msgid "Document Base"
 msgstr "Documento base"
 
-#: src/gtkhtml.c:2906
+#: src/gtkhtml.c:2944
 msgid "The base URL for relative references"
 msgstr "L'URL di base per riferimenti relativi"
 
-#: src/gtkhtml.c:2912
+#: src/gtkhtml.c:2950
 msgid "Target Base"
 msgstr "Destinazione base"
 
-#: src/gtkhtml.c:2913
+#: src/gtkhtml.c:2951
 msgid "The base URL of the targe frame"
 msgstr "L'URL di base della cornice destinazione"
 
-#: src/gtkhtml.c:2922
+#: src/gtkhtml.c:2960
 msgid "Fixed Width Font"
 msgstr "Carattere a larghezza fissa"
 
-#: src/gtkhtml.c:2923
+#: src/gtkhtml.c:2961
 msgid "The Monospace font to use for typewriter text"
 msgstr ""
 "Il tipo di carattere a spaziatura fissa da usare nel testo tipo macchina da "
 "scrivere"
 
-#: src/gtkhtml.c:2929
+#: src/gtkhtml.c:2967
 msgid "New Link Color"
 msgstr "Colore collegamento nuovo"
 
-#: src/gtkhtml.c:2930
+#: src/gtkhtml.c:2968
 msgid "The color of new link elements"
 msgstr "Il colore di un elemento collegamento nuovo"
 
-#: src/gtkhtml.c:2935
+#: src/gtkhtml.c:2973
 msgid "Visited Link Color"
 msgstr "Colore collegamento visitato"
 
-#: src/gtkhtml.c:2936
+#: src/gtkhtml.c:2974
 msgid "The color of visited link elements"
 msgstr "Il colore di un elemento collegamento visitato"
 
-#: src/gtkhtml.c:2941
+#: src/gtkhtml.c:2979
 msgid "Active Link Color"
 msgstr "Colore collegamento attivo"
 
-#: src/gtkhtml.c:2942
+#: src/gtkhtml.c:2980
 msgid "The color of active link elements"
 msgstr "Il colore di un elemento collegamento attivo"
 
-#: src/gtkhtml.c:2947
+#: src/gtkhtml.c:2985
 msgid "Spelling Error Color"
 msgstr "Colore errore grammaticale"
 
-#: src/gtkhtml.c:2948
+#: src/gtkhtml.c:2986
 msgid "The color of the spelling error markers"
 msgstr "Il colore per contraddistinguere un errore grammaticale"
 
-#: src/gtkhtml.c:2953
+#: src/gtkhtml.c:2991
 msgid "Cite Quotation Color"
 msgstr "Colore citazione"
 
-#: src/gtkhtml.c:2954
+#: src/gtkhtml.c:2992
 msgid "The color of the cited text"
 msgstr "Il colore del testo citato"
 
@@ -2039,209 +2059,14 @@ msgstr "Impossibile allocare il carattere predefinot per la stampa\n"
 msgid "GtkHTML Test"
 msgstr "Test GtkHTML"
 
-#~ msgid "Print pre_view"
-#~ msgstr "Antepri_ma di stampa"
+#: src/testgtkhtml.c:117
+msgid "Print pre_view"
+msgstr "Antepri_ma di stampa"
 
-#~ msgid "Print preview"
-#~ msgstr "Anteprima di stampa"
+#: src/testgtkhtml.c:117
+msgid "Print preview"
+msgstr "Anteprima di stampa"
 
-#~ msgid "GtkHTML Test Application"
-#~ msgstr "Applicazione test GtkHTML"
-
-#~ msgid "Plain"
-#~ msgstr "Semplice"
-
-#~ msgid ""
-#~ "@link_begin@<img@alt@@width@@height@@align@ "
-#~ "border=@border@@padh@@padv@@src@>@link_end@"
-#~ msgstr ""
-#~ "@link_begin@<img@alt@@width@@height@@align@ "
-#~ "border=@border@@padh@@padv@@src@>@link_end@"
-
-#~ msgid "Frame"
-#~ msgstr "Cornice"
-
-#~ msgid ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
-#~ "table></center>"
-#~ msgstr ""
-#~ "<center><table bgcolor=\\\"#c0c0c0\\\" cellspacing=\\\"0\\\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\\\"#f2f2f2\\\" cellspacing=\\"
-#~ "\"0\\\" cellpadding=\\\"8\\\" width=\\\"100%\\\"><tr><td align=\\\"center"
-#~ "\\\"><img @src@@alt@@width@@height@align=top border=0></td></tr></table></"
-#~ "td></tr></table></center>"
-
-#~ msgid "Caption"
-#~ msgstr "Intestazione"
-
-#~ msgid ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place "
-#~ "your comment here]</td></tr></table></td></tr></table></center>"
-#~ msgstr ""
-#~ "<center><table bgcolor=\\\"#c0c0c0\\\" cellspacing=\\\"0\\\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\\\"#f2f2f2\\\" cellspacing=\\"
-#~ "\"0\\\" cellpadding=\\\"8\\\" width=\\\"100%\\\"><tr><td align=\\\"center"
-#~ "\\\"><img @src@@alt@@width@@height@align=top border=0></td></"
-#~ "tr><tr><td><b>[Inserire qui il proprio commento]</td></tr></table></td></"
-#~ "tr></table></center>"
-
-#~ msgid "Find A Regular Expression"
-#~ msgstr "Trova un'espressione regolare"
-
-#~ msgid "Find Regular E_xpression..."
-#~ msgstr "Trova _espressione regolare..."
-
-#~ msgid ""
-#~ "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a "
-#~ "href=\"mailto:dog\">dog</a>."
-#~ msgstr ""
-#~ "Il <a href=\"mailto:mattino\">mattino</a> ha l'oro in <a href=\"mailto:"
-#~ "bocca\">bocca</a>."
-
-#~ msgid "The quick brown fox jumps over the lazy dog."
-#~ msgstr "Il mattino ha l'oro in bocca."
-
-#~ msgid "Other"
-#~ msgstr "Altro"
-
-#~ msgid ""
-#~ "The editted cell was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "La cella modificata è stata rimossa dal documento.\n"
-#~ "Impossibile applicare le modifiche."
-
-#~ msgid "************"
-#~ msgstr "************"
-
-#~ msgid "***text***"
-#~ msgstr "***testo***"
-
-#~ msgid "Apply changes to:"
-#~ msgstr "Applica modifiche a:"
-
-#~ msgid "Border"
-#~ msgstr "Bordo"
-
-#~ msgid "Click will follow this URL"
-#~ msgstr "Il clic conduce all'URL"
-
-#~ msgid "Click will follow this URL:"
-#~ msgstr "Il clic conduce all'URL:"
-
-#~ msgid "Font size"
-#~ msgstr "Dimesione carattere"
-
-#~ msgid "Foreground color"
-#~ msgstr "Colore in primo piano"
-
-#~ msgid "Header"
-#~ msgstr "Intestazione"
-
-#~ msgid "Link insert"
-#~ msgstr "Inserisci collegamento"
-
-#~ msgid "Location"
-#~ msgstr "Posizione"
-
-#~ msgid "Padding"
-#~ msgstr "Margine"
-
-#~ msgid "Percent %"
-#~ msgstr "Percentuale %"
-
-#~ msgid "Pixmap:"
-#~ msgstr "Immagine:"
-
-#~ msgid "Points"
-#~ msgstr "Punti:"
-
-#~ msgid "Spacing"
-#~ msgstr "Spaziatura"
-
-#~ msgid "Style:"
-#~ msgstr "Stile:"
-
-#~ msgid "Table Insert"
-#~ msgstr "Inserisci nella tabella"
-
-#~ msgid "Test URL..."
-#~ msgstr "Testo dell'URL.."
-
-#~ msgid "xxxxxxxxx"
-#~ msgstr "xxxxxxxxx"
-
-#~ msgid ""
-#~ "This is sample text, designed to show you how text would flow around this "
-#~ "image if you insert the image into your message."
-#~ msgstr ""
-#~ "Questo è un testo d'esempio, pensato per mostrare come il testo va a "
-#~ "diporsi intorno a questa immagine qualora la si inserisca nel messaggio."
-
-#~ msgid "No image selected"
-#~ msgstr "Nessuna immagine selezionata"
-
-#~ msgid ""
-#~ "The editted image was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "L'immagine modificata è stata rimossa dal documento.\n"
-#~ "Impossibile applicare le modifiche."
-
-#~ msgid "Link text"
-#~ msgstr "Testo del collegamento"
-
-#~ msgid ""
-#~ "The editted link was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "Il collegamento modificato è stato rimosso dal documento.\n"
-#~ "Impossibile applicare le modifiche."
-
-#~ msgid "Please fill 'Link text' and 'URL' entries"
-#~ msgstr "Riempire i campi «Testo del collegamento» e «URL»"
-
-#~ msgid "Align"
-#~ msgstr "Allinea"
-
-#~ msgid ""
-#~ "The editted paragraph was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "Il paragrafo modificato è stato rimosso dal documento.\n"
-#~ "Impossibile applicare le modifiche."
-
-#~ msgid "Blue 3D"
-#~ msgstr "Blu tridimensionale"
-
-#~ msgid "Yellow, flowers"
-#~ msgstr "Giallo floreale"
-
-#~ msgid ""
-#~ "The editted rule was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "La riga modificata è stata rimossa dal documento.\n"
-#~ "Impossibile applicare le modifiche."
-
-#~ msgid "Flat gray"
-#~ msgstr "Grigio piatto"
-
-#~ msgid "Dark header"
-#~ msgstr "Intestazione scura"
-
-#~ msgid ""
-#~ "The editted table was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "La tabella modificata è stata rimossa dal documento.\n"
-#~ "Impossibile applicare le modifiche."
-
-#~ msgid "Color"
-#~ msgstr "Colore"
+#: src/testgtkhtml.c:1004
+msgid "GtkHTML Test Application"
+msgstr "Applicazione test GtkHTML"
