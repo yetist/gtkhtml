@@ -28,6 +28,8 @@
 #include "gtkhtml.h"
 #include "gtkhtml-embedded.h"
 #include "htmlembedded.h"
+#include "htmlframe.h"
+#include "htmliframe.h"
 #include "htmlpainter.h"
 #include "htmlengine.h"
 
@@ -382,4 +384,33 @@ html_embedded_get_widget (HTMLEmbedded *e)
 	return e->widget;
 }
 
+gboolean
+html_object_is_embedded (HTMLObject *o)
+{
+	gboolean rv = FALSE;
 
+	switch (o->klass->type) {
+	case HTML_TYPE_EMBEDDED:
+	case HTML_TYPE_TEXTINPUT:
+	case HTML_TYPE_BUTTON:
+	case HTML_TYPE_IMAGEINPUT:
+	case HTML_TYPE_TEXTAREA:
+	case HTML_TYPE_HIDDEN:
+	case HTML_TYPE_RADIO:
+	case HTML_TYPE_CHECKBOX:
+	case HTML_TYPE_SELECT:
+	case HTML_TYPE_IFRAME:
+	case HTML_TYPE_FRAME:
+		rv = TRUE;
+	default:
+		;
+	}
+
+	return rv;
+}
+
+gboolean
+html_object_is_frame (HTMLObject *o)
+{
+	return HTML_IS_FRAME (o) || HTML_IS_IFRAME (o);
+}

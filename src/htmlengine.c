@@ -3592,6 +3592,7 @@ html_engine_begin (HTMLEngine *e, char *content_type)
 
 	html_engine_stop_parser (e);
 	e->writing = TRUE;
+	e->focus_object = NULL;
 
 	html_engine_id_table_clear (e);
 	html_engine_class_data_clear (e);
@@ -4013,6 +4014,8 @@ html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height)
 
 	if (e->editable)
 		html_engine_draw_cursor_in_area (e, x, y, width, height);
+	else
+		html_engine_draw_focus_object (e);
 }
 
 void
@@ -5208,4 +5211,121 @@ html_engine_set_language (HTMLEngine *e, const gchar *language)
 	e->language = g_strdup (language);
 
 	gtk_html_api_set_language (GTK_HTML (e->widget));
+}
+
+static void
+draw_link_text (HTMLLinkText *lt, HTMLEngine *e)
+{
+	HTMLObject *cur = HTML_OBJECT (lt)->next;
+
+	printf ("draw link text\n");
+	while (cur && HTML_IS_TEXT_SLAVE (cur)) {
+		printf ("slave\n");
+		html_engine_queue_draw (e, cur);
+		cur = cur->next;
+	}
+}
+
+static HTMLObject *
+next_focus_object (HTMLObject *o, HTMLEngine *e, GtkDirectionType dir, gint *offset)
+{
+	HTMLCursor cursor;
+	gboolean result;
+
+	cursor.object = o;
+	cursor.offset = HTML_IS_TABLE (o) ? *offset : (dir == GTK_DIR_TAB_FORWARD ? html_object_get_length (o) : 0);
+	result = dir == GTK_DIR_TAB_FORWARD ? html_cursor_forward (&cursor, e) : html_cursor_backward (&cursor, e);
+	*offset = cursor.offset;
+
+	return result ? cursor.object : NULL;
+}
+
+gboolean
+html_engine_focus (HTMLEngine *e, GtkDirectionType dir)
+{
+	if (e->clue && (dir == GTK_DIR_TAB_FORWARD || dir == GTK_DIR_TAB_BACKWARD)) {
+		HTMLObject *cur;
+		gint offset;
+
+		if (e->focus_object && html_object_is_embedded (e->focus_object)
+		    && gtk_container_focus (GTK_CONTAINER (HTML_EMBEDDED (e->focus_object)->widget), dir))
+			return TRUE;
+
+		if (e->focus_object) {
+			cur = next_focus_object (e->focus_object, e, dir, &offset);
+		} else
+			cur = dir == GTK_DIR_TAB_FORWARD
+				? html_object_get_head_leaf (e->clue)
+				: html_object_get_tail_leaf (e->clue);
+
+		while (cur) {
+			printf ("try child %p\n", cur);
+			if (HTML_IS_LINK_TEXT (cur)
+			    || (HTML_IS_IMAGE (cur) && HTML_IMAGE (cur)->url && *HTML_IMAGE (cur)->url)) {
+				html_engine_set_focus_object (e, cur);
+
+				return TRUE;
+			} else if (html_object_is_embedded (cur) && !html_object_is_frame (cur)) {
+				if (!GTK_WIDGET_DRAWABLE (HTML_EMBEDDED (cur)->widget)) {
+					gint x, y;
+
+					html_object_calc_abs_position (cur, &x, &y);
+					gtk_layout_put (GTK_LAYOUT (HTML_EMBEDDED (cur)->parent),
+							HTML_EMBEDDED (cur)->widget, x, y);
+				}
+
+				printf ("try to give focus to child\n");
+				if (!GTK_IS_CONTAINER (HTML_EMBEDDED (cur)->widget))
+					gtk_widget_grab_focus (HTML_EMBEDDED (cur)->widget);
+				if ((GTK_IS_CONTAINER (HTML_EMBEDDED (cur)->widget)
+				    && gtk_container_focus (GTK_CONTAINER (HTML_EMBEDDED (cur)->widget), dir))
+				    || (!GTK_IS_CONTAINER (HTML_EMBEDDED (cur)->widget) &&
+					GTK_WIDGET_HAS_FOCUS (HTML_EMBEDDED (cur)->widget))) {
+					gtk_container_set_focus_child (GTK_CONTAINER (e->widget),
+								       HTML_EMBEDDED (cur)->widget);
+					html_engine_set_focus_object (e, cur);
+					printf ("succeeded\n");
+					return TRUE;
+				}
+				printf ("unsuccessful\n");
+			}
+			cur = next_focus_object (cur, e, dir, &offset);
+		}
+		printf ("no focus\n");
+		html_engine_set_focus_object (e, NULL);
+	}
+
+	return FALSE;
+}
+
+static void
+draw_focus_object (HTMLEngine *e, HTMLObject *o)
+{
+	if (HTML_IS_LINK_TEXT (o))
+		draw_link_text (HTML_LINK_TEXT (o), e);
+	else if (HTML_IS_IMAGE (o))
+		html_engine_queue_draw (e, o);
+}
+
+void
+html_engine_draw_focus_object (HTMLEngine *e)
+{
+	draw_focus_object (e, e->focus_object);
+}
+
+void
+html_engine_set_focus_object (HTMLEngine *e, HTMLObject *o)
+{
+	if (e->focus_object) {
+		draw_focus_object (e, e->focus_object);
+		e->focus_object = NULL;
+		html_engine_flush_draw_queue (e);
+	}
+
+	e->focus_object = o;
+
+	if (o) {
+		draw_focus_object (e, o);
+		html_engine_flush_draw_queue (e);
+	}
 }

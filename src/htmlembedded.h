@@ -73,5 +73,6 @@ gchar        *html_embedded_encode_string  (gchar             *str);
 HTMLEmbedded *html_embedded_new_widget     (GtkWidget         *parent,
 					    GtkHTMLEmbedded   *eb,
 					    HTMLEngine        *engine);
-
+gboolean      html_object_is_embedded      (HTMLObject        *o);
+gboolean      html_object_is_frame         (HTMLObject        *o);
 #endif /* HTMLEMBEDDED_H */

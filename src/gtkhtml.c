@@ -49,6 +49,7 @@
 #include "htmlframe.h"
 #include "htmliframe.h"
 #include "htmlimage.h"
+#include "htmllinktext.h"
 #include "htmlplainpainter.h"
 #include "htmlsettings.h"
 #include "htmltable.h"
@@ -750,6 +751,26 @@ key_press_event (GtkWidget *widget,
 
 	html->priv->event_time = 0;
 
+	printf ("editable: %d keyval %d\n", html_engine_get_editable (html->engine), event->keyval);
+	if (!html_engine_get_editable (html->engine)) {
+		switch (event->keyval) {
+		case GDK_Return:
+		case GDK_KP_Enter:
+			if (html->engine->focus_object) {
+				gchar *url;
+				url = html_object_get_complete_url (html->engine->focus_object);
+				if (url) {
+					printf ("link clicked: %s\n", url);
+					gtk_signal_emit (GTK_OBJECT (html), signals [LINK_CLICKED], url);
+					g_free (url);
+				}
+			}
+			break;
+		default:
+			;
+		}
+	}
+
 	/* printf ("retval: %d\n", retval); */
 
 	return retval;
@@ -1389,7 +1410,15 @@ button_press_event (GtkWidget *widget,
 					    || (!engine->mark && event->state & GDK_SHIFT_MASK))
 						html_engine_set_mark (engine);
 				html_engine_jump_at (engine, x + engine->x_offset, y + engine->y_offset);
-			}
+			} else {
+				HTMLObject *obj;
+				gint offset;
+
+				obj = html_engine_get_object_at (engine, x, y, &offset, FALSE);
+				if (obj && ((HTML_IS_IMAGE (obj) && HTML_IMAGE (obj)->url && *HTML_IMAGE (obj)->url)
+					    || HTML_IS_LINK_TEXT (obj)))
+					html_engine_set_focus_object (engine, obj);
+  			}
 			if (html->allow_selection) {
 				if (event->state & GDK_SHIFT_MASK)
 					html_engine_select_region (engine,
@@ -2051,52 +2080,66 @@ get_class_properties (GtkHTML *html)
 	return klass->properties;
 }
 
-static gint
-focus (GtkContainer *container, GtkDirectionType direction)
+static void
+set_focus_child (GtkContainer *containter, GtkWidget *w)
 {
-#if 1
-	gint rv;
+	HTMLObject *o = NULL;
 
-	/* printf ("focus %d\n", direction); */
-	rv = (*GTK_CONTAINER_CLASS (parent_class)->focus) (container, direction);
-	html_engine_set_focus (GTK_HTML (container)->engine, rv);
-	return rv;
-#else
-	GtkWidget *focus_child;
-	GtkHTML *html;
+	while (w && !(o = gtk_object_get_data (GTK_OBJECT (w), "embeddedelement")))
+		w = w->parent;
 
-	g_return_val_if_fail (container != NULL, FALSE);
-	g_return_val_if_fail (GTK_IS_HTML (container), FALSE);
+	if (o)
+		html_engine_set_focus_object (GTK_HTML (containter)->engine, o);
+}
 
-	if (!GTK_WIDGET_IS_SENSITIVE (container))
-		return FALSE;
+static gboolean
+focus (GtkContainer *w, GtkDirectionType direction)
+{
+	HTMLEngine *e = GTK_HTML (w)->engine;
 
-	if (GTK_WIDGET_HAS_FOCUS (container))
-		return FALSE;
-	    
-	html = GTK_HTML (container);
-	focus_child = container->focus_child;
-	
-	switch (direction) {
-	case GTK_DIR_LEFT:
-	case GTK_DIR_RIGHT:
-		{
+	if (html_engine_focus (e, direction)) {
+		if (e->focus_object) {
+			HTMLObject *obj = e->focus_object;
+			gint x1, y1, x2, y2, xo, yo;
+
+			xo = e->x_offset;
+			yo = e->y_offset;
+
+			html_object_calc_abs_position (obj, &x1, &y1);
+			x1 += e->leftBorder;
+			y1 += e->topBorder;
+			y2 = y1 + obj->descent;
+			y1 -= obj->ascent;
+			x2 = x1 + obj->width;
+			printf ("child pos: %d,%d x %d,%d\n", x1, y1, x2, y2);
+
+			if (x2 > e->x_offset + e->width)
+				e->x_offset = MIN (x1, x2 - e->width);
+			if (x1 < e->x_offset)
+				e->x_offset = x1;
+
+			if (y2 >= e->y_offset + e->height)
+				e->y_offset = y2 - e->height + 1;
+			if (y1 < e->y_offset)
+				e->y_offset = y1;
+
+			if (e->x_offset != xo)
+				gtk_adjustment_set_value (GTK_LAYOUT (w)->hadjustment, (gfloat) e->x_offset);
+			if (e->y_offset != yo)
+				gtk_adjustment_set_value (GTK_LAYOUT (w)->vadjustment, (gfloat) e->y_offset);
+			printf ("engine pos: %d,%d x %d,%d\n",
+				e->x_offset, e->y_offset, e->x_offset + e->width, e->y_offset + e->height);
 		}
-	case GTK_DIR_DOWN:
-	case GTK_DIR_TAB_FORWARD:
-		{
-		}
-	case GTK_DIR_UP:
-	case GTK_DIR_TAB_BACKWARD:
-		{
-		}
-	default:
-		break;
+
+		if (e->focus_object && !html_object_is_embedded (e->focus_object))
+			gtk_widget_grab_focus (GTK_WIDGET (w));
+
+		return TRUE;
 	}
 
-	gtk_container_set_focus_child (container, NULL);
+	gtk_widget_grab_focus (GTK_WIDGET (w));
+
 	return FALSE;
-#endif
 }
 
 /* dnd begin */
@@ -2531,6 +2574,7 @@ class_init (GtkHTMLClass *klass)
 	widget_class->drag_data_received = drag_data_received;
 
 	container_class->focus = focus;
+	container_class->set_focus_child = set_focus_child;
 
 	layout_class->set_scroll_adjustments = set_adjustments;
 

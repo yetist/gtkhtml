@@ -975,6 +975,17 @@ html_object_get_target (HTMLObject *o)
 	return (* HO_CLASS (o)->get_target) (o);
 }
 
+gchar *
+html_object_get_complete_url (HTMLObject *o)
+{
+	const gchar *url, *target;
+
+	url = html_object_get_url (o);
+	target = html_object_get_target (o);
+	return url || target ? g_strconcat (url ? url : "#", url ? (target && *target ? "#" : NULL) : target,
+					      url ? target : NULL, NULL) : NULL;
+}
+
 const gchar *
 html_object_get_src (HTMLObject *o)
 {

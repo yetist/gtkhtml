@@ -397,6 +397,7 @@ HTMLVAlignType  html_object_get_valign            (HTMLObject            *self);
 /* Links.  */
 const gchar    *html_object_get_url               (HTMLObject            *o);
 const gchar    *html_object_get_target            (HTMLObject            *o);
+gchar          *html_object_get_complete_url      (HTMLObject            *o);
 const gchar    *html_object_get_src               (HTMLObject            *o);
 HTMLAnchor     *html_object_find_anchor           (HTMLObject            *o,
 						   const gchar           *name,
