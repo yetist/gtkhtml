@@ -26,10 +26,29 @@
 #include "htmlsearch.h"
 #include "htmltextslave.h"
 
+static HTMLEngine *
+get_root_engine (HTMLEngine *e)
+{
+	return e->widget->iframe_parent ? GTK_HTML (e->widget->iframe_parent)->engine : e;
+}
+
+static void
+add_iframe_off (HTMLEngine *e, gint *x, gint *y)
+{
+	g_assert (e);
+	g_assert (e->widget);
+
+	if (e->widget->iframe_parent) {
+		*x += e->widget->iframe_parent->allocation.x;
+		*y += e->widget->iframe_parent->allocation.y;
+	}
+}
+
 static void
 move_to_found (HTMLSearch *info)
 {
 	HTMLEngine *e = info->engine;
+	HTMLEngine *ep = get_root_engine (info->engine);
 	HTMLObject *first = HTML_OBJECT (info->found->data);
 	HTMLObject *last = HTML_OBJECT (g_list_last (info->found)->data);
 	HTMLTextSlave *slave;
@@ -39,6 +58,7 @@ move_to_found (HTMLSearch *info)
 
 	/* x,y is top-left corner, ex+w,ey+h is bottom-right */
 	html_object_calc_abs_position (HTML_OBJECT (info->found->data), &x, &y);
+	add_iframe_off (e, &x, &y);
 
 	/* find slave where starts selection and get its coordinates as upper-left corner */
 	while (first->next && HTML_OBJECT_TYPE (first->next) == HTML_TYPE_TEXTSLAVE) {
@@ -46,6 +66,7 @@ move_to_found (HTMLSearch *info)
 		slave = HTML_TEXT_SLAVE (first);
 		if (slave->posStart+slave->posLen >= info->start_pos) {
 			html_object_calc_abs_position (HTML_OBJECT (slave), &x, &y);
+			add_iframe_off (e, &x, &y);
 			break;
 		}
 	}
@@ -58,37 +79,33 @@ move_to_found (HTMLSearch *info)
 		slave = HTML_TEXT_SLAVE (last);
 		if (slave->posStart+slave->posLen >= info->start_pos) {
 			html_object_calc_abs_position (HTML_OBJECT (slave), &ex, &ey);
+			add_iframe_off (e, &x, &y);
 			break;
 		}
 	}
 
+	printf ("x %d y %d ex %d ey %d xo %d yo %d\n", x, y, ex, ey, e->x_offset, e->y_offset);
 
 	w = ex - x + last->width;
 	h = ey - y + last->ascent+last->descent;
 
 	/* now calculate gtkhtml adustments */
-	if (x <= e->x_offset)
+	if (x <= ep->x_offset)
 		nx = x;
-	else if (x + w > e->x_offset + e->width)
-		nx = x + w - e->width;
+	else if (x + w > ep->x_offset + ep->width)
+		nx = x + w - ep->width;
 
-	if (y <= e->y_offset)
+	if (y <= ep->y_offset)
 		ny = y;
-	else if (y + h > e->y_offset + e->height)
-		ny = y + h - e->height;
+	else if (y + h > ep->y_offset + ep->height)
+		ny = y + h - ep->height;
 
 	/* finally adjust them if they changed */
-	if (e->x_offset != nx)
-		gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->hadjustment, nx);
+	if (ep->x_offset != nx)
+		gtk_adjustment_set_value (GTK_LAYOUT (ep->widget)->hadjustment, nx);
 
-	if (e->y_offset != ny)
-		gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->vadjustment, ny);
-}
-
-static HTMLEngine *
-get_root_engine (HTMLEngine *e)
-{
-	return e->widget->iframe_parent ? GTK_HTML (e->widget->iframe_parent)->engine : e;
+	if (ep->y_offset != ny)
+		gtk_adjustment_set_value (GTK_LAYOUT (ep->widget)->vadjustment, ny);
 }
 
 static void

@@ -1,5 +1,8 @@
 2000-09-29  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine-search.c (add_iframe_off): new helper function
+	(move_to_found): updated to work with IFrames
+
 	* gtkhtml-search.c (changed): call html_engine_search_incremental
 	only for non "" texts
 
