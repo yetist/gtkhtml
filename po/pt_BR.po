@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml 0.6.1\n"
+"Project-Id-Version: gtkhtml 0.8\n"
 "POT-Creation-Date: 2000-10-30 11:18-0200\n"
-"PO-Revision-Date: 2000-08-20 15:17-03:00\n"
+"PO-Revision-Date: 2000-11-02 21:40-02:00\n"
 "Last-Translator: Gustavo Maciel Dias Vieira <gdvieira@zaz.com.br>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar.conectiva.com.br>\n"
 "MIME-Version: 1.0\n"
@@ -53,32 +53,31 @@ msgstr "Capturar tecla"
 
 #: capplet/main.c:220
 msgid "Spell checking"
-msgstr ""
+msgstr "Verificação ortográfica"
 
 #: capplet/main.c:223
 msgid "live spell checking"
-msgstr ""
+msgstr "verificação ortográfica enquanto escreve"
 
 #: capplet/main.c:232
 msgid "spell checking color"
-msgstr ""
+msgstr "cor da verificação ortográfica"
 
 #: capplet/main.c:239
 msgid "language"
-msgstr ""
+msgstr "língua"
 
 #: capplet/main.c:245
 msgid "Miscellaneous"
-msgstr ""
+msgstr "Diversos"
 
 #: capplet/main.c:247
 msgid "magic links"
 msgstr "vínculos mágicos"
 
 #: capplet/main.c:266
-#, fuzzy
 msgid "Bindings"
-msgstr "Associações de teclas"
+msgstr "Associações"
 
 #: capplet/main.c:267 capplet/viewer.c:188
 msgid "Behaviour"
@@ -94,16 +93,15 @@ msgstr "Fonte de largura variável"
 
 #: capplet/viewer.c:158
 msgid "Select HTML variable width font"
-msgstr "Fonte de largura variável para HTML"
+msgstr "Selecione a fonte de largura variável HTML"
 
 #: capplet/viewer.c:162 capplet/viewer.c:177
 msgid "for printing"
-msgstr ""
+msgstr "para impressão"
 
 #: capplet/viewer.c:164
-#, fuzzy
 msgid "Select HTML variable width font for printing"
-msgstr "Fonte de largura variável para HTML"
+msgstr "Selecione a fonte de largura variável HTML para impressão"
 
 #: capplet/viewer.c:169
 msgid "Fixed width font"
@@ -111,25 +109,23 @@ msgstr "Fonte de largura fixa"
 
 #: capplet/viewer.c:173
 msgid "Select HTML fixed width font"
-msgstr "Fonte de largura fixa para HTML"
+msgstr "Selecione a fonte de largura fixa HTML"
 
 #: capplet/viewer.c:179
-#, fuzzy
 msgid "Select HTML fixed width font for printing"
-msgstr "Fonte de largura fixa para HTML"
+msgstr "Selecione a fonte de largura fixa HTML para impressão"
 
 #: capplet/viewer.c:189
 msgid "Animations"
-msgstr ""
+msgstr "Animações"
 
 #: components/html-editor/body.c:123 components/html-editor/body.c:127
-#, fuzzy
 msgid "Background Image"
 msgstr "Imagem de fundo"
 
 #: components/html-editor/body.c:126
 msgid "Enable"
-msgstr ""
+msgstr "Ativar"
 
 #: components/html-editor/body.c:149
 msgid "Colors"
@@ -278,7 +274,7 @@ msgstr "por"
 
 #: components/html-editor/rule.c:270
 msgid "shaded"
-msgstr ""
+msgstr "sombreado"
 
 #: components/html-editor/search.c:64
 msgid "Regex search"
@@ -319,7 +315,7 @@ msgstr "Cor"
 
 #: components/html-editor/text.c:210 components/html-editor/toolbar.c:204
 msgid "Automatic"
-msgstr ""
+msgstr "Automático"
 
 #: components/html-editor/toolbar.c:45
 msgid "Normal"
@@ -423,7 +419,7 @@ msgstr "Aumentar recuo dos parágrafos"
 
 #: components/html-editor/utils.c:101
 msgid "Sample"
-msgstr ""
+msgstr "Amostra"
 
 #: src/testgtkhtml.c:111
 msgid "Print pre_view"
@@ -433,8 +429,9 @@ msgstr "_Visualizar impressão"
 msgid "Print preview"
 msgstr "Visualizar impressão"
 
+#, fuzzy
 msgid "use background image"
-msgstr "usar imagem de fundo"
+msgstr "Imagem de fundo"
 
 msgid "Open (PersistFile)"
 msgstr "Abrir (PersistFile)"
@@ -469,8 +466,9 @@ msgstr "Corta a seleção para a área de transferência"
 msgid "Copy selection to the clipboard"
 msgstr "Copia a seleção para a área de transferência"
 
+#, fuzzy
 msgid "Paste"
-msgstr "Colar"
+msgstr "Página"
 
 msgid "Paste contents of the clipboard"
 msgstr "Cola os conteúdos da área de transferência"
@@ -478,8 +476,9 @@ msgstr "Cola os conteúdos da área de transferência"
 msgid "text color"
 msgstr "cor do texto"
 
+#, fuzzy
 msgid "Default"
-msgstr "Padrão"
+msgstr "Excluir"
 
 msgid "Cut the selected region to the clipboard"
 msgstr "Corta a região selecionada para a área de transferência"
@@ -505,47 +504,58 @@ msgstr "Localizar rege_x..."
 msgid "Regular expressions search..."
 msgstr "Busca por expressões regulares..."
 
+#, fuzzy
 msgid "_Image..."
-msgstr "_Imagem..."
+msgstr "Imagem"
 
 msgid "Insert image into document..."
 msgstr "Insere imagem no documento..."
 
+#, fuzzy
 msgid "_Link..."
-msgstr "_Vínculo..."
+msgstr "Vínculo"
 
 msgid "Insert HTML link into document..."
 msgstr "Insere um vínculo HTML no documento..."
 
+#, fuzzy
 msgid "_Rule..."
-msgstr "_Régua..."
+msgstr "Régua"
 
 msgid "Insert rule into document..."
 msgstr "Insere uma régua no documento..."
 
+#, fuzzy
 msgid "_Insert"
-msgstr "In_serir"
+msgstr "Inserir"
 
+#, fuzzy
 msgid "Insert image"
-msgstr "Insere imagem"
+msgstr "Inserir"
 
+#, fuzzy
 msgid "Length"
-msgstr "Tamanho"
+msgstr "Esquerda"
 
+#, fuzzy
 msgid "Percent"
-msgstr "Percentagem"
+msgstr "Pre"
 
+#, fuzzy
 msgid "Left Align"
 msgstr "Alinhar à esquerda"
 
+#, fuzzy
 msgid "Center Align"
-msgstr "Alinhar ao centro"
+msgstr "Centrado"
 
+#, fuzzy
 msgid "Right Align"
 msgstr "Alinhar à direita"
 
+#, fuzzy
 msgid "None"
-msgstr "Nenhum"
+msgstr "<Nenhum>"
 
 msgid "Set Shade"
 msgstr "Ligar sombra"
