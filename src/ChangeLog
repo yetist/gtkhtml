@@ -1,3 +1,11 @@
+2002-06-24  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml-keybinding.c (handle_none): call with cite == FALSE.
+
+	* gtkhtml.c (gtk_html_paste): add as_cite parameter.  Fixup calls.
+
+	* gtkhtml.h: add parameter to prototype.
+
 2002-06-21  Radek Doulik  <rodo@ximian.com>
 
 	* htmlgdkpainter.c: updated font loading code to use less

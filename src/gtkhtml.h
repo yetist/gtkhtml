@@ -238,7 +238,8 @@ void                       gtk_html_set_paragraph_alignment       (GtkHTML      
 								   GtkHTMLParagraphAlignment  alignment);
 void                       gtk_html_cut                           (GtkHTML                   *html);
 void                       gtk_html_copy                          (GtkHTML                   *html);
-void                       gtk_html_paste                         (GtkHTML                   *html);
+void                       gtk_html_paste                         (GtkHTML                   *html, 
+								   gboolean                   as_cite);
 void                       gtk_html_undo                          (GtkHTML                   *html);
 void                       gtk_html_redo                          (GtkHTML                   *html);
 void                       gtk_html_insert_html                   (GtkHTML                   *html,

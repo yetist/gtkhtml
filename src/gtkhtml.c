@@ -1400,7 +1400,9 @@ button_press_event (GtkWidget *widget,
 						     x + engine->x_offset,
 						     y + engine->y_offset);
 				gtk_html_update_styles (html);
-				gtk_html_request_paste (html, GDK_SELECTION_PRIMARY, 0, event->time, event->state & GDK_SHIFT_MASK);
+				gtk_html_request_paste (html, GDK_SELECTION_PRIMARY, 
+							event->state & GDK_CONTROL_MASK ? 1 : 0,
+							event->time, event->state & GDK_SHIFT_MASK);
 				return TRUE;
 			}
 			break;
@@ -3378,12 +3380,13 @@ gtk_html_copy (GtkHTML *html)
 }
 
 void
-gtk_html_paste (GtkHTML *html)
+gtk_html_paste (GtkHTML *html, gboolean as_cite)
 {
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
 
-	gtk_html_request_paste (html, gdk_atom_intern ("CLIPBOARD", FALSE), 0, html_selection_current_time (), FALSE);
+	gtk_html_request_paste (html, gdk_atom_intern ("CLIPBOARD", FALSE), 
+				0, html_selection_current_time (), as_cite);
 }
 
 
@@ -3790,7 +3793,7 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		html->priv->update_styles = TRUE;
 		break;
 	case GTK_HTML_COMMAND_PASTE:
-		gtk_html_paste (html);
+		gtk_html_paste (html, FALSE);
 		html->priv->update_styles = TRUE;
 		break;
 	case GTK_HTML_COMMAND_INSERT_RULE:
