@@ -1,5 +1,8 @@
 2000-07-05  Radek Doulik  <rodo@helixcode.com>
 
+	* gtkhtml.c (load_keybindings): when keybindings file not found,
+	bind default bindings anyway
+
 	* htmlengine-edit-fontstyle.c (html_engine_set_font_style): I have
 	problems with font style setting, so I have implemented quick
 	replacement, which uses cut&paste
