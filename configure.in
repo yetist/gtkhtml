@@ -41,7 +41,19 @@ else
     AC_MSG_ERROR(Did not find GnomeAppLib (GAL) installed)
 fi
 
+dnl ******************************
+dnl capplet library check
+dnl ******************************
+AC_MSG_CHECKING(for capplet libraries)
+if gnome-config --libs capplet > /dev/null 2>&1; then
+    AC_MSG_RESULT(found)
+else
+    AC_MSG_ERROR(Did not find capplet library installed)
+fi
+
+dnl *****************************
 dnl GNU regex checking
+dnl *****************************
 
 AC_CHECK_FUNC(re_compile_pattern, AC_DEFINE(HAVE_GNU_REGEX))
 
