@@ -1,5 +1,30 @@
 2001-05-29  Larry Ewing  <lewing@ximian.com>
 
+	* htmltokenizer.c (end_tag): remove frameset wanrings.
+
+	* htmlengine.h: add new members for frame and map support.
+
+	* htmlengine.c (close_anchor): remove extra if.
+	(parse_frameset): new function to handle framsets.
+	(parse_iframe): cleanup attribute parsing, add stubs.
+	(parse_a): add initial area handling, misc cleanups.
+	(parse_f): add frame and frameset parsing.
+	(parse_m): add initial map handling.
+	(parse_n): add stub fror noframe handling.
+	(html_engine_init): initialize framestack and map.
+
+	* htmlclueflow.c (save_plain): fix the wraping function that was
+	broken in the move to g_unicode.
+
+	* htmlenums.h: add new types.
+
+	* htmltype.c (html_types_init): init new types.
+	(html_type_name): add new types.
+
+	* htmltypes.h: add new types.
+
+	* Makefile.am: add new files.
+
 	* gtkhtml.c (on_object): remove redundant checks.
 	(set_pointer_url): move logic here.
 

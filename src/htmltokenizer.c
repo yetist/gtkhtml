@@ -989,9 +989,6 @@ end_tag (HTMLTokenizer *t, const gchar **src)
 	else if (strncmp (p->buffer + 2, "/select", 7) == 0) {
 		p->select = FALSE;
 	}
-	else if (strncmp (p->buffer + 2, "frameset", 8) == 0) {
-		g_warning ("<frameset> tag not supported");
-	}
 	else if (strncmp (p->buffer + 2, "cell", 4) == 0) {
 		g_warning ("<cell> tag not supported");
 	}
@@ -1110,7 +1107,7 @@ in_quoted (HTMLTokenizer *t, const gchar **src)
 	else {
 		if (t->priv->pending)
 			html_tokenizer_add_pending (t);
-				
+
 		*(t->priv->dest)++ = **src; (*src)++;
 	}
 }

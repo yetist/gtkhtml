@@ -1282,13 +1282,13 @@ save_plain (HTMLObject *self,
 				
 				if (g_utf8_strlen (s, len) > (requested_width - pad)) {
 					space = g_utf8_offset_to_pointer (s, requested_width - pad);
-					while (space > s 
+					while (space 
 					       && (*space != ' '))
 						// || (IS_UTF8_NBSP ((guchar *)g_utf8_find_next_char (space, NULL)))
 						// || (IS_UTF8_NBSP ((guchar *)g_utf8_find_prev_char (s, space)))))
 						space = g_utf8_find_prev_char (s, space);
 					
-					if (space != s)
+					if (space != NULL)
 						len = space - s;
 				}
 			}

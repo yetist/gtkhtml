@@ -117,6 +117,7 @@ struct _HTMLEngine {
 	HTMLStack *font_face_stack;
 	HTMLStack *color_stack;	/* Color stack, elements are GdkColors.  */
 	HTMLStack *clueflow_style_stack; /* Clueflow style stack, elements are HTMLClueFlowStyles.  */
+	HTMLStack *frame_stack;
 
 	gchar *url;
 	gchar *target;
@@ -160,6 +161,7 @@ struct _HTMLEngine {
 	 */
 	GList *tempStrings;
 
+	HTMLMap *map;
 	HTMLForm *form;
 	HTMLSelect *formSelect;
 	HTMLTextArea *formTextArea;
