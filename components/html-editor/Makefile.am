@@ -47,11 +47,11 @@ html_editor_control_SOURCES =			\
 	toolbar.h
 
 if USING_OAF
-gnorbadir = $(sysconfdir)/CORBA/servers
-gnorba_DATA = html-editor-control.gnorba
-else
 oafdir = $(datadir)/oaf
 oaf_DATA = html-editor-control.oafinfo
+else
+gnorbadir = $(sysconfdir)/CORBA/servers
+gnorba_DATA = html-editor-control.gnorba
 endif
 
 # The Test program

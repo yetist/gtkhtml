@@ -1,3 +1,8 @@
+2000-05-03  Jacob Berkman  <jacob@helixcode.com>
+
+	* Makefile.am (oaf_DATA): if using oaf, actually install oaf and not
+	gnorba
+
 2000-05-02  Michael Meeks  <michael@helixcode.com>
 
 	* html-editor-control.oafinfo: correct supported_mime_types to stringv
