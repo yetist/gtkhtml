@@ -1,3 +1,7 @@
+2001-04-22  Ariel Rios  <ariel@linuxppc.org>
+
+	* test.c (button_cb): Remove stupid warning on callback.
+
 2001-04-21  Ariel Rios  <ariel@linuxppc.org>
 
 	* Makefile.am (noinst_PROGRAMS): Add gtest

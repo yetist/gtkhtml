@@ -53,8 +53,7 @@ static void
 button_cb (GtkWidget *button, gpointer data)
 {
 	gint *k = (gint *) data;
-	gint a = k;
-	read_html (html, a);
+	read_html (html, GPOINTER_TO_INT (k));
 }
 
 static void
