@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 1.1.x\n"
-"POT-Creation-Date: 2002-10-07 16:28-0500\n"
+"POT-Creation-Date: 2002-10-10 01:32+0800\n"
 "PO-Revision-Date: 2002-05-25 02:09+0800\n"
 "Last-Translator: Hasbullah Bin Pit <sebol@ikhlas.com>\n"
 "Language-Team: Projek Gabai <gabai-penyumbang@lists.sourceforge.org>\n"
@@ -263,11 +263,11 @@ msgstr "Salin Pilihan"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
 msgid "Cr_ying"
-msgstr ""
+msgstr "Me_nangis"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
 msgid "Cu_t"
-msgstr "Po_tong"
+msgstr "_Potong"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
 #: components/html-editor/popup.c:423
@@ -352,9 +352,8 @@ msgid "Image"
 msgstr "Imej"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
-#, fuzzy
 msgid "Insert Crying smiley into document..."
-msgstr "Selit ikon kenyit mata ke dokumen..."
+msgstr "Selit ikon menangis ke dokumen..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
 msgid "Insert Frown smiley into document..."
@@ -373,18 +372,16 @@ msgid "Insert HTML template into document..."
 msgstr "Selit templet HTML ke dokumen..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
-#, fuzzy
 msgid "Insert Indifferent smiley into document..."
-msgstr "Selit ikon kenyit mata ke dokumen..."
+msgstr "Selit ikon selamba ke dokumen..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
 msgid "Insert Laughing smiley into document..."
 msgstr "Selit ikon ketawa ke dokumen..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
-#, fuzzy
 msgid "Insert Lick smiley into document..."
-msgstr "Selit ikon kenyit mata ke dokumen..."
+msgstr "Selit ikon jilat mata ke dokumen..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
 msgid "Insert Oh no! smiley into document..."
@@ -399,9 +396,8 @@ msgid "Insert Surprised smiley into document..."
 msgstr "Selit smiley Terkejut ke dokumen..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
-#, fuzzy
 msgid "Insert Undecided smiley into document..."
-msgstr "Selit ikon senyuman ke dokumen..."
+msgstr "Selit ikon berfikir ke dokumen..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
 msgid "Insert Wink smiley into document..."
@@ -429,9 +425,8 @@ msgid "Left justifies the paragraphs"
 msgstr "Justifikasi kiri perenggan"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
-#, fuzzy
 msgid "Li_ck"
-msgstr "Pautan"
+msgstr "_Jilat"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
 #: components/html-editor/body.c:307 components/html-editor/menubar.c:141
@@ -526,7 +521,7 @@ msgstr "Tepek"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
 msgid "Paste _Quotation"
-msgstr ""
+msgstr "Tepek _Petikan"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
 msgid "Paste from clipboard"
@@ -537,9 +532,8 @@ msgid "Paste the clipboard"
 msgstr "Tepek clipboard"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
-#, fuzzy
 msgid "Paste the clipboard as a quotation"
-msgstr "Tepek clipboard"
+msgstr "Tepek papanklip sebagai petikan"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
 #: components/html-editor/toolbar.c:51
@@ -729,9 +723,8 @@ msgid "_Increase Indent"
 msgstr "_Naikkan Inden"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
-#, fuzzy
 msgid "_Indifferent"
-msgstr "Inden"
+msgstr "_Selamba"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
 msgid "_Insert"
@@ -828,9 +821,8 @@ msgid "_Text..."
 msgstr "_Teks..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:148
-#, fuzzy
 msgid "_Undecided"
-msgstr "_Garisbawah"
+msgstr "Ber_fikir"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:149
 msgid "_Underline"
@@ -1325,12 +1317,11 @@ msgstr "Jajar"
 
 #: components/html-editor/popup.c:425
 msgid "Paste Quotation"
-msgstr ""
+msgstr "Tepek Petikan"
 
 #: components/html-editor/popup.c:428
-#, fuzzy
 msgid "Insert link"
-msgstr "Selit"
+msgstr "Selit pautan"
 
 #: components/html-editor/popup.c:436
 msgid "Remove link"
