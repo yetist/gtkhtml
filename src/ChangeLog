@@ -1,9 +1,14 @@
 2004-03-23  Radek Doulik  <rodo@ximian.com>
 
+	* htmltable.c (save): do not write \n after </TABLE>, leave that
+	to clueflow
+
 	* htmlclueflow.c (write_flow_tag): write \n after start tag,
 	doesn't harm for non PRE and is needed fro PRE paragraphs
 	(write_flow_tag): write <BR> or \n if PRE or end of para with
 	different style than the next one, do it before end tag
+	(html_clueflow_contains_table): new helper method
+	(write_flow_tag): do not write <BR> after tables
 
 2004-03-22  Radek Doulik  <rodo@ximian.com>
 

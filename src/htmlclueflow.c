@@ -1580,13 +1580,13 @@ write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
 	}
 
 	if (is_item (self)) {
-		if (next && is_levels_equal (self, next) && !is_item (next)) {
+		if (next && is_levels_equal (self, next) && !is_item (next) && !html_clueflow_contains_table (self)) {
 			if (!html_engine_save_output_string (state, "<BR>\n"))
 				return FALSE;
 		} else if (!html_engine_save_output_string (state, "\n"))
 			return FALSE;
 	} else if (is_levels_equal (self, next) && self->style == next->style) {
-		if (self->style != HTML_CLUEFLOW_STYLE_PRE) {
+		if (self->style != HTML_CLUEFLOW_STYLE_PRE && !html_clueflow_contains_table (self)) {
 			if (!html_engine_save_output_string (state, "<BR>\n"))
 				return FALSE;
 		} else {
@@ -1597,7 +1597,7 @@ write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
 		char *end = get_start_tag (self);
 
 		if (self->style != HTML_CLUEFLOW_STYLE_PRE) {
-			if ((!end && next && self->style == next->style) || html_clueflow_is_empty (self)) {
+			if ((!html_clueflow_contains_table (self) && !end && next && self->style == next->style) || html_clueflow_is_empty (self)) {
 				if (!html_engine_save_output_string (state, "<BR>\n"))
 					return FALSE;
 			} else {
@@ -2909,6 +2909,20 @@ html_clueflow_is_empty (HTMLClueFlow *flow)
 	    || (clue->head && html_object_is_text (clue->head)
 		&& HTML_TEXT (clue->head)->text_len == 0 && !html_object_next_not_slave (clue->head)))
 		return TRUE;
+	return FALSE;
+}
+
+gboolean
+html_clueflow_contains_table (HTMLClueFlow *flow)
+{
+	HTMLClue *clue;
+	g_return_val_if_fail (HTML_IS_CLUEFLOW (flow), FALSE);
+
+	clue = HTML_CLUE (flow);
+
+	if (clue->head && HTML_IS_TABLE (clue->head))
+		return TRUE;
+
 	return FALSE;
 }
 

@@ -2129,7 +2129,7 @@ save (HTMLObject *self,
 		}
 		SB "</TR>\n" SE;
 	}
-	SB "</TABLE>\n" SE;
+	SB "</TABLE>" SE;
 
 	return TRUE;
 }
