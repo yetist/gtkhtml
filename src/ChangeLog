@@ -1,3 +1,30 @@
+2002-02-11  Radek Doulik  <rodo@ximian.com>
+
+	* htmlselection.c (html_engine_select_interval): don't activate
+	PRIMARY selection
+	(html_engine_update_selection_active_state): new helper function
+
+	* gtkhtml.c (key_press_event): set event_time
+	(button_press_event): if we are provider of PRIMARY, copy
+	selection to primary object
+	(button_release_event): don't copy to primary, just in case we are
+	provider of PRIMARY
+	(button_release_event): update selection active state, don't copy
+	to primary object
+	(selection_get): if primary is non-NULL, use it, otherwise get
+	selection from engine
+	(selection_received): don't copy primary, just use it directly and
+	reset it to NULL
+	(cursor_move): update selection active state
+	(move_selection): ditto
+	(gtk_html_select_word): ditto
+	(gtk_html_select_line): ditto
+	(gtk_html_select_paragraph): ditto
+	(gtk_html_select_paragraph_extended): ditto
+	(gtk_html_select_all): ditto, don't copy to primary
+
+	* gtkhtml-private.h: added event_time
+
 2002-02-11  Larry Ewing  <lewing@ximian.com>
 
 	* htmltokenizer.c (in_script_or_style): fix obvious error in

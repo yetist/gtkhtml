@@ -69,6 +69,8 @@ struct _GtkHTMLPrivate {
 	HTMLObject *dnd_real_object;
 	gboolean    dnd_in_progress;
 	gchar      *dnd_url;
+
+	guint32     event_time;
 };
 
 void  gtk_html_private_calc_scrollbars  (GtkHTML                 *html,

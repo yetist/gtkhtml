@@ -697,6 +697,7 @@ key_press_event (GtkWidget *widget,
 
 	html->binding_handled = FALSE;
 	html->priv->update_styles = FALSE;
+	html->priv->event_time = event->time;
 	if (html->editor_bindings && html_engine_get_editable (html->engine))
 		gtk_binding_set_activate (html->editor_bindings, 
 					  event->keyval, 
@@ -741,6 +742,8 @@ key_press_event (GtkWidget *widget,
 
 	if (retval && update)
 		gtk_html_update_styles (html);
+
+	html->priv->event_time = 0;
 
 	/* printf ("retval: %d\n", retval); */
 
@@ -1170,6 +1173,10 @@ button_press_event (GtkWidget *widget,
 			break;
 		case 2:
 			if (html_engine_get_editable (engine)) {
+				if (gdk_selection_owner_get (GDK_SELECTION_PRIMARY) == GTK_WIDGET (html)->window) {
+					html_engine_copy_object (html->engine, &html->priv->primary, &html->priv->primary_len);
+				}
+
 				html_engine_disable_selection (html->engine);
 				html_engine_jump_at (engine,
 						     x + engine->x_offset,
@@ -1244,7 +1251,7 @@ button_release_event (GtkWidget *widget,
 	if (event->button == 1) {
 		html->button1_pressed = FALSE;
 		
-		if (!GTK_HTML (widget)->priv->dnd_in_progress
+		if (!html->priv->dnd_in_progress
 		    && html->pointer_url != NULL && ! html->in_selection)
 			gtk_signal_emit (GTK_OBJECT (widget), 
 					 signals[LINK_CLICKED], 
@@ -1252,15 +1259,8 @@ button_release_event (GtkWidget *widget,
 	}
 
 	if (html->in_selection) {
-		if (!GTK_HTML (widget)->priv->dnd_in_progress) {
-			/* Copy to primary save area */
-			if (html->priv->primary) {
-				html_object_destroy (html->priv->primary);
-			}
-
-			html_engine_copy_object (html->engine, &html->priv->primary, &html->priv->primary_len);
-		}
 		html->in_selection = FALSE;
+		html_engine_update_selection_active_state (html->engine, html->priv->event_time);
 		gtk_html_update_styles (html);
 	}
 
@@ -1377,11 +1377,15 @@ selection_get (GtkWidget        *widget,
 	html = GTK_HTML (widget);
 	if (selection_data->selection == GDK_SELECTION_PRIMARY)
 	  {
-		if (html->priv->primary) {
-			selection_string =
-			   html_object_get_selection_string (html->priv->primary, html->engine);
-			/* g_print("primary paste: `%s'\n", selection_string); */
-		}
+		  if (html->priv->primary) {
+			  selection_string =  html_object_get_selection_string (html->priv->primary, html->engine);
+			  html_object_destroy (html->priv->primary);
+			  html->priv->primary = NULL;
+		  } else {
+			  selection_string = html_engine_get_selection_string (html->engine);
+		  }
+		  if (selection_string)
+			  g_print("primary paste: `%s'\n", selection_string);
 	  }
 	else	/* CLIPBOARD */
 	  {
@@ -1486,16 +1490,8 @@ selection_received (GtkWidget *widget,
 		} else if (selection_data->selection == GDK_SELECTION_PRIMARY
  			&& GTK_HTML (widget)->priv->primary) {
 
-			HTMLObject *copy;
-			guint len = 0;
-
-			/* Take a copy so that it can be put in the undo
-			** buffer
-			*/
-			copy = html_object_op_copy (GTK_HTML (widget)->priv->primary,
-						    e, NULL, NULL, &len);
-
-			html_engine_paste_object (e, copy, GTK_HTML (widget)->priv->primary_len);
+			html_engine_paste_object (e, GTK_HTML (widget)->priv->primary, GTK_HTML (widget)->priv->primary_len);
+			GTK_HTML (widget)->priv->primary = NULL;
 			return;
 		}
 	}
@@ -3251,6 +3247,7 @@ cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType ski
 	html->binding_handled = TRUE;
 	html->priv->update_styles = TRUE;
 	gtk_html_edit_make_cursor_visible (html);
+	html_engine_update_selection_active_state (html->engine, html->priv->event_time);
 }
 
 static gboolean
@@ -3319,6 +3316,8 @@ move_selection (GtkHTML *html, GtkHTMLCommandType com_type)
 
 	html->binding_handled = TRUE;
 	html->priv->update_styles = TRUE;
+
+	html_engine_update_selection_active_state (html->engine, html->priv->event_time);
 
 	return rv;
 }
@@ -4008,6 +4007,8 @@ gtk_html_select_word (GtkHTML *html)
 		html_engine_select_word_editable (e);
 	else
 		html_engine_select_word (e);
+
+	html_engine_update_selection_active_state (html->engine, html->priv->event_time);
 }
 
 void
@@ -4023,6 +4024,8 @@ gtk_html_select_line (GtkHTML *html)
 		html_engine_select_line_editable (e);
 	else
 		html_engine_select_line (e);
+
+	html_engine_update_selection_active_state (html->engine, html->priv->event_time);
 }
 
 void
@@ -4039,6 +4042,8 @@ gtk_html_select_paragraph (GtkHTML *html)
 	/* FIXME: does anybody need this? if so bother me. rodo
 	   else
 	   html_engine_select_paragraph (e); */
+
+	html_engine_update_selection_active_state (html->engine, html->priv->event_time);
 }
 
 void
@@ -4055,6 +4060,8 @@ gtk_html_select_paragraph_extended (GtkHTML *html)
 	/* FIXME: does anybody need this? if so bother me. rodo
 	   else
 	   html_engine_select_paragraph (e); */
+
+	html_engine_update_selection_active_state (html->engine, html->priv->event_time);
 }
 
 void
@@ -4073,10 +4080,7 @@ gtk_html_select_all (GtkHTML *html)
 		html_engine_select_all (e);
 	}
 
-	if (html->priv->primary) {
-		html_object_destroy (html->priv->primary);
-	}
-	html_engine_copy_object (e, &html->priv->primary, &html->priv->primary_len);
+	html_engine_update_selection_active_state (html->engine, html->priv->event_time);
 }
 
 void

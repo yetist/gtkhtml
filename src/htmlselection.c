@@ -53,7 +53,6 @@ html_engine_select_interval (HTMLEngine *e, HTMLInterval *i)
 		html_interval_select (e->selection, e);
 	}
 
-	html_engine_activate_selection (e, html_selection_current_time ());
 	html_engine_show_cursor (e);
 }
 
@@ -115,6 +114,8 @@ html_engine_select_all (HTMLEngine *e)
 void
 html_engine_clear_selection (HTMLEngine *e)
 {
+	/* printf ("clear selection\n"); */
+
 	if (e->selection) {
 		html_interval_destroy (e->selection);
 		html_engine_edit_selection_updater_reset (e->selection_updater);
@@ -288,8 +289,12 @@ html_engine_point_in_selection (HTMLEngine *e, HTMLObject *obj, guint offset)
 void
 html_engine_activate_selection (HTMLEngine *e, guint32 time)
 {
-	if (e->selection && e->block_selection == 0 && GTK_WIDGET_REALIZED (e->widget))
+	/* printf ("activate selection\n"); */
+
+	if (e->selection && e->block_selection == 0 && GTK_WIDGET_REALIZED (e->widget)) {
 		gtk_selection_owner_set (GTK_WIDGET (e->widget), GDK_SELECTION_PRIMARY, time);	
+		/* printf ("activated (%u).\n", time); */
+	}
 }
 
 void
@@ -302,4 +307,13 @@ void
 html_engine_unblock_selection (HTMLEngine *e)
 {
 	e->block_selection --;
+}
+
+void
+html_engine_update_selection_active_state (HTMLEngine *e, guint32 time)
+{
+	if (html_engine_is_selection_active (e))
+		html_engine_activate_selection (e, time ? time : html_selection_current_time ());
+	else
+		html_engine_deactivate_selection (e);
 }
