@@ -125,7 +125,7 @@ enum ID {
 	ID_ADDRESS, ID_B, ID_BIG, ID_BLOCKQUOTE, ID_CAPTION, ID_CITE, ID_CODE,
 	ID_DIR, ID_DIV, ID_EM, ID_FONT, ID_HEADER, ID_I, ID_KBD, ID_OL, ID_PRE,
 	ID_SMALL, ID_STRONG, ID_U, ID_UL, ID_TEXTAREA, ID_TD, ID_TH, ID_TT, ID_VAR,
-	ID_SUB, ID_SUP
+	ID_SUB, ID_SUP, ID_STRIKEOUT
 };
 
 
@@ -2657,6 +2657,11 @@ parse_s (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		}
 	} else if (strncmp (str, "/sup", 4) == 0) {
 		pop_block (e, ID_SUP, clue);
+	} else 	if (strncmp (str, "strike", 6) == 0 || strncmp (str, "s", 1) == 0) {
+		push_font_style (e, GTK_HTML_FONT_STYLE_STRIKEOUT);
+		push_block (e, ID_STRIKEOUT, 1, block_end_font, 0, 0);
+	} else if (strncmp (str, "/strike", 7) == 0 || strncmp (str, "s", 2) == 0) {
+		pop_block (e, ID_STRIKEOUT, clue);
 	}
 }
 

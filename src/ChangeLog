@@ -1,5 +1,8 @@
 2000-11-10  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine.c (parse_s): added <S></S><STRIKE></STRIKE> tags
+	added ID_STRIKEOUT
+
 	* Makefile.am (libgtkhtml_la_SOURCES): added htmlenum.[ch]
 
 	* htmlimageinput.c (html_imageinput_init): updated to use
