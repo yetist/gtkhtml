@@ -1,3 +1,23 @@
+2002-10-02  Larry Ewing  <lewing@ximian.com>
+
+	* search.c (gtk_html_search_dialog_new): add window icon to
+	dialog.
+
+	* replace.c (ask_dialog_new): add icon to dialog.
+	(gtk_html_replace_dialog_new): add window icon to dialog.
+
+	* properties.c (gtk_html_edit_properties_dialog_new): add new
+	icon_path parameter to dialog creation.
+
+	* properties.h: fix prototype.
+
+	* popup.c (link_prop_dialog): add icons to property widgets.
+
+	* menubar.c: add icons to property widgets.
+
+	* editor-control-factory.c (release): add icon for properties
+	dialog.
+
 2002-09-30  Larry Ewing  <lewing@ximian.com>
 
 	* popup.c (prepare_properties_and_menu): move the cut/copy/paste
