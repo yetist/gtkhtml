@@ -1,3 +1,9 @@
+2003-12-03  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (html_pango_attr_font_size_calc): pango is using
+	1/PANGO_SCALE and not 1/1000 as stated in documentation - pointed
+	out by ross
+
 2003-12-02  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (html_pango_attr_font_size_calc): scale down the font

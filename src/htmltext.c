@@ -2701,9 +2701,9 @@ html_pango_attr_font_size_calc (HTMLPangoAttrFontSize *attr, HTMLEngine *e)
 
 	base_size = e->painter->font_manager.var_size;
 	size = (attr->style & GTK_HTML_FONT_STYLE_SIZE_MASK) - GTK_HTML_FONT_STYLE_SIZE_3;
-	real_size = e->painter->font_manager.magnification * 1000 * ((gdouble) base_size + (size > 0 ? (1 << size) : size) * base_size/8.0);
+	real_size = e->painter->font_manager.magnification * ((gdouble) base_size + (size > 0 ? (1 << size) : size) * base_size/8.0);
 
-	attr->attr_int.value = PANGO_PIXELS (real_size);
+	attr->attr_int.value = real_size;
 }
 
 PangoAttribute *
