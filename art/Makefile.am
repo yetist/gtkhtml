@@ -6,8 +6,11 @@ icons_DATA = \
 	24_copy.png			\
 	16_paste.png			\
 	24_paste.png			\
+	insert-table-16.png		\
 	insert-table-24.png		\
+	insert-image-16.png		\
 	insert-image-24.png		\
+	insert-link-16.png		\
 	insert-link-24.png
 
 EXTRA_DIST = \

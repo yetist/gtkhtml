@@ -1,0 +1,7 @@
+2001-07-20  Radek Doulik  <rodo@ximian.com>
+
+	* art/Makefile.am (icons_DATA): added 24 pixel versions for
+	Cut/Copy/Paste - stolen from Evolution
+	(icons_DATA): added scaled down (16pts) versions of insert
+	image/link/table icons, they will be replaced once Jakub make
+	non-scaled versions
