@@ -1059,7 +1059,7 @@ msgstr ""
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:57
 msgid "Pixmap:"
-msgstr "ሙሻብቀሮቆ፦"
+msgstr "Pixmap፦"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:58
 msgid "Points"
