@@ -41,6 +41,7 @@ struct _HTMLImagePointer {
 	HTMLImageFactory *factory;
 	gint stall;
 	guint stall_timeout;
+	guint animation_timeout;
 };
 
 struct _HTMLImageAnimation {
@@ -55,9 +56,6 @@ struct _HTMLImageAnimation {
 	/* current frame */
 	GList *cur_frame;
 	gint cur_n;
-
-	/* animation timeout function */
-	gint timeout;
 
 	/* active draw flag */
 	gint active;

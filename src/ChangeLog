@@ -1,5 +1,14 @@
 2002-11-03  Larry Ewing  <lewing@ximian.com>
 
+	* htmlimage.c: move the timeout into the image_pointer so that we
+	only queue one per url, refactor start, stop and timeout functions
+	for the new logic.
+
+	* htmlimage.h: move animation timeout from HTMLImage to
+	HTMLImagePointer.
+
+2002-11-03  Larry Ewing  <lewing@ximian.com>
+
 	* htmlimage.h: remove pixbuf argument from HTMLImagePointer, we
 	use animations for holding everything now.  Add an iter structure.
 

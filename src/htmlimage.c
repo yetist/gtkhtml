@@ -63,13 +63,14 @@ struct _HTMLImageFactory {
 HTMLImageClass html_image_class;
 static HTMLObjectClass *parent_class = NULL;
 
-static HTMLImageAnimation *html_image_animation_new     (HTMLImage *image);
-static void                html_image_animation_destroy (HTMLImageAnimation *anim);
-static HTMLImagePointer   *html_image_pointer_new       (const char *filename, HTMLImageFactory *factory);
-static void                html_image_pointer_ref       (HTMLImagePointer *ip);
-static void                html_image_pointer_unref     (HTMLImagePointer *ip);
-static gboolean            html_image_pointer_timeout   (HTMLImagePointer *ip);
-static void                render_cur_frame             (HTMLImage *image, gint nx, gint ny, const GdkColor *highlight_color);
+static HTMLImagePointer   *html_image_pointer_new               (const char *filename, HTMLImageFactory *factory);
+static void                html_image_pointer_ref               (HTMLImagePointer *ip);
+static void                html_image_pointer_unref             (HTMLImagePointer *ip);
+static gboolean            html_image_pointer_timeout           (HTMLImagePointer *ip);
+static gint                html_image_pointer_run_animation     (HTMLImagePointer *ip);
+static void                html_image_pointer_start_animation   (HTMLImagePointer *ip);
+static HTMLImageAnimation *html_image_animation_new             (HTMLImage *image);
+static void                html_image_animation_destroy         (HTMLImageAnimation *anim);
 
 guint
 html_image_get_actual_width (HTMLImage *image, HTMLPainter *painter)
@@ -981,26 +982,8 @@ html_image_factory_end_pixbuf (GtkHTMLStream *stream,
 		if (ip->animation)
 			g_object_ref (ip->animation);
 	}
+	html_image_pointer_start_animation (ip);
 
-	if (!ip->iter && !gdk_pixbuf_animation_is_static_image (ip->animation)) 
-		ip->iter = gdk_pixbuf_animation_get_iter (ip->animation, NULL);
-	
-	if (!gdk_pixbuf_animation_is_static_image (ip->animation)) {
-		GSList *cur = ip->interests;
-		HTMLImage *image;
-		
-		while (cur) {
-			if (cur->data) {
-				image = HTML_IMAGE (cur->data);
-				if (!image->animation) {
-					image->animation = html_image_animation_new (image);
-				}
-				html_image_animation_start (image);
-			}
-			cur = cur->next;
-		}
-	}
- 
 	g_object_unref (ip->loader);
 	ip->loader = NULL;
 
@@ -1038,84 +1021,88 @@ html_image_factory_area_prepared (GdkPixbufLoader *loader, HTMLImagePointer *ip)
 		ip->animation = gdk_pixbuf_loader_get_animation (loader);
 		g_object_ref (ip->animation);
 		
-		if (!ip->iter && !gdk_pixbuf_animation_is_static_image (ip->animation))
-			ip->iter = gdk_pixbuf_animation_get_iter (ip->animation, NULL);
+		html_image_pointer_start_animation (ip);
 	}
 	update_or_redraw (ip);
 }
 
-static gint
-html_image_animation_timeout (HTMLImage *image)
+static void
+html_image_pointer_queue_animation (HTMLImagePointer *ip)
 {
-	HTMLImageAnimation      *anim = image->animation;
-	GdkPixbufAnimation      *ganim = image->image_ptr->animation;
-	GdkPixbufAnimationIter  *iter = image->image_ptr->iter;
-	HTMLEngine              *engine;
+	gint delay = gdk_pixbuf_animation_iter_get_delay_time (ip->iter);
+
+	if (delay >= 0)
+		ip->animation_timeout = g_timeout_add (delay, 
+						       (GtkFunction) html_image_pointer_run_animation, 
+						       (gpointer) ip);
+
+}
+
+static gint
+html_image_pointer_run_animation (HTMLImagePointer *ip)
+{
+	GdkPixbufAnimation      *ganim = ip->animation;
+	GdkPixbufAnimationIter  *iter = ip->iter;
+	HTMLEngine              *engine = ip->factory->engine;
 	gint nx, ny, delay;
 	
 	/* printf ("animation_timeout\n"); */
 	if (gdk_pixbuf_animation_iter_advance (iter, NULL)) {
-		
-		/* draw only if animation is active - onscreen */
-		engine = image->image_ptr->factory->engine;
+		GSList *cur = ip->interests;
 
-		nx = anim->x - (engine->x_offset - anim->ex);
-		ny = anim->y - (engine->y_offset - anim->ey);
-		
-		if (anim->active) {
-			gint aw, ah;
-			
-			aw = gdk_pixbuf_animation_get_width (ganim);
-			ah = gdk_pixbuf_animation_get_height (ganim);
+		while (cur) {
+			if (cur->data) {
+				HTMLImage           *image = cur->data;
+				HTMLImageAnimation  *anim = image->animation;
 
-			/*
-			if (MAX(0, nx) < MIN(engine->width, nx+aw)
-			    && MAX(0, ny) < MIN(engine->height, ny+ah)) {
-			*/
-				html_engine_draw (engine,
-						  nx, ny,
-						  aw, ah);
-			/*
+				/* draw only if animation is active - onscreen */
+				nx = anim->x - (engine->x_offset - anim->ex);
+				ny = anim->y - (engine->y_offset - anim->ey);
+				
+				if (anim->active) {
+					gint aw, ah;
+					
+					aw = gdk_pixbuf_animation_get_width (ganim);
+					ah = gdk_pixbuf_animation_get_height (ganim);
+					
+					/*
+					  if (MAX(0, nx) < MIN(engine->width, nx+aw)
+					  && MAX(0, ny) < MIN(engine->height, ny+ah)) {
+					*/
+					html_engine_draw (engine,
+							  nx, ny,
+							  aw, ah);
+					/*
+					  }
+					*/
+				}
 			}
-			*/
+			cur = cur->next;
 		}
 	}
 		
-	delay = gdk_pixbuf_animation_iter_get_delay_time (iter);
-
-	if (delay >= 0)
-		anim->timeout = g_timeout_add (delay, (GtkFunction) html_image_animation_timeout, (gpointer) image);
-
+	html_image_pointer_queue_animation (ip);
 	return FALSE;
 }
 
 static void
-html_image_animation_start (HTMLImage *image)
+html_image_pointer_start_animation (HTMLImagePointer *ip)
 {
-	HTMLImageAnimation *anim = image->animation;
-	HTMLImagePointer   *ip = image->image_ptr;
+	if (ip->animation && !gdk_pixbuf_animation_is_static_image (ip->animation)) {
+		if (!ip->iter)
+			ip->iter = gdk_pixbuf_animation_get_iter (ip->animation, NULL);
 
-	/* FIX2 */
-	if (anim && ip->animation && !gdk_pixbuf_animation_is_static_image (ip->animation)) {
-		if (image->animation->timeout == 0) {
-			gint delay;
-			
-			delay = gdk_pixbuf_animation_iter_get_delay_time (ip->iter);
-			
-			if (delay >= 0)
-				anim->timeout = g_timeout_add (delay, (GtkFunction) html_image_animation_timeout, (gpointer) image);
-		}
+		html_image_pointer_queue_animation (ip);
 	}
 }
 
 static void
-html_image_animation_stop (HTMLImageAnimation *anim)
+html_image_pointer_stop_animation (HTMLImagePointer *ip)
 {
-	if (anim->timeout) {
-		g_source_remove (anim->timeout);
-		anim->timeout = 0;
+	if (ip->animation_timeout) {
+		g_source_remove (ip->animation_timeout);
+		ip->animation_timeout = 0;
 	}
-	anim->active  = 0;
 }
 
 HTMLImageFactory *
@@ -1182,8 +1169,6 @@ html_image_animation_new (HTMLImage *image)
 	animation->y = 0;
 	animation->ex = 0;
 	animation->ey = 0;
-	animation->timeout = 0;
-
 	animation->active = FALSE;
 
 	return animation;
@@ -1192,7 +1177,6 @@ html_image_animation_new (HTMLImage *image)
 static void
 html_image_animation_destroy (HTMLImageAnimation *anim)
 {
-	html_image_animation_stop (anim);
 	g_free (anim);
 }
 
@@ -1215,6 +1199,7 @@ html_image_pointer_new (const char *filename, HTMLImageFactory *factory)
 	retval->stall_timeout = gtk_timeout_add (STALL_INTERVAL, 
 						 (GtkFunction)html_image_pointer_timeout,
 						 retval);
+	retval->animation_timeout = 0;
 	return retval;
 }
 
@@ -1285,6 +1270,7 @@ html_image_pointer_unref (HTMLImagePointer *ip)
 	if (ip->refcount <= 0) {
 		/* printf ("freeing %s\n", ip->url); */
 		html_image_pointer_remove_stall (ip);
+		html_image_pointer_stop_animation (ip);
 		g_free (ip->url);
 		free_image_ptr_data (ip);
 		g_free (ip);
@@ -1353,7 +1339,6 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 
 		if (retval->animation) {
 			i->animation = html_image_animation_new (i);
-			html_image_animation_start (i);
 		}
 	}
 
@@ -1386,20 +1371,8 @@ static void
 stop_anim (gpointer key, gpointer value, gpointer user_data)
 {
 	HTMLImagePointer *ip = value;
-	GSList *cur = ip->interests;
-	HTMLImage *image;
-
 	html_image_pointer_remove_stall (ip);
-
-	while (cur) {
-		if (cur->data) {
-			image = (HTMLImage *) cur->data;
-			if (image->animation) {
-				html_image_animation_stop (image->animation);
-			}
-		}
-		cur = cur->next;
-	}
+	html_image_pointer_stop_animation (ip);
 }
 
 void
@@ -1433,12 +1406,13 @@ deactivate_anim (gpointer key, gpointer value, gpointer user_data)
 	HTMLImagePointer *ip = value;
 	GSList *cur = ip->interests;
 	HTMLImage *image;
+	
 
 	while (cur) {
 		if (cur->data) {
 			image = (HTMLImage *) cur->data;
 			if (image->animation) {
-				image->animation->active = 0;
+				image->animation->active = FALSE;
 			}
 		}
 		cur = cur->next;
