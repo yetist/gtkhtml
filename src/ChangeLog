@@ -1,10 +1,16 @@
 1999-12-08  Miguel de Icaza  <miguel@gnu.org>
 
+	* htmlpainter.c (html_painter_end): Another off-by one error fix.
+	(html_painter_draw_panel): Adapt this routine to use the double
+	buffering scheme
+	(html_painter_draw_background_pixmap): Ditto.
+
+	* htmlurl.c (html_url_append_path): Memory leak fix, and crash fix.
+
 	* htmlpainter.c (html_painter_end): Fix off by one error.
 	(html_painter_new): Double buffering is now the default.
 	(html_painter_draw_pixmap): Remove soptimization to fix image repainting.
-	(html_painter_draw_pixmap): Use proper API.  The revolution will
-	not be Soptimized.
+	(html_painter_draw_pixmap): Use proper API.  
 
 1999-12-07  Ettore Perazzoli  <ettore@gnu.org>
 

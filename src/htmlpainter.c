@@ -54,6 +54,9 @@ html_painter_draw_panel (HTMLPainter *painter, gint x, gint y, gint width, gint 
 		col2 = &painter->dark;
 	}
 
+	x -= painter->x1;
+	y -= painter->y1;
+	
 	while (bordersize > 0) {
 		gdk_gc_set_foreground (painter->gc, col1);
 		gdk_draw_line (painter->pixmap, painter->gc,
@@ -79,7 +82,7 @@ html_painter_draw_background_pixmap (HTMLPainter *painter, gint x, gint y,
 {
 	gdk_pixbuf_render_to_drawable (pixbuf, painter->pixmap,
 				       painter->gc,
-				       0, 0, x, y, 
+				       0, 0, x - painter->x1, y - painter->y1, 
 				       pixbuf->art_pixbuf->width,
 				       pixbuf->art_pixbuf->height,
 				       GDK_RGB_DITHER_NORMAL,
@@ -241,8 +244,6 @@ html_painter_begin (HTMLPainter *painter, int x1, int y1, int x2, int y2)
 		gdk_draw_rectangle (
 			painter->pixmap, painter->gc, TRUE,
 			0, 0, width, height);
-
-		printf ("Double buffer dim: %d %d %d %d\n", x1, y1, x2, y2);
 	} else {
 		painter->pixmap = painter->window;
 		painter->x1 = 0;
@@ -262,7 +263,7 @@ html_painter_end (HTMLPainter *painter)
 			painter->window, painter->gc, painter->pixmap,
 			0, 0,
 			painter->x1, painter->y1,
-			painter->x2 - painter->x1 + 1,
+			painter->x2 - painter->x1,
 			painter->y2 - painter->y1);
 		gdk_pixmap_unref (painter->pixmap);
 	}

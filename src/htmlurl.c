@@ -438,8 +438,12 @@ html_url_append_path (const HTMLURL *url,
 
 	new = html_url_dup (url, HTML_URL_DUP_NOPATH);
 
-	new_path = g_concat_dir_and_file (url->path, path);
-	html_url_set_path (new, g_strconcat (url->path, "/", path, NULL));
+	if (url->path){
+		new_path = g_concat_dir_and_file (url->path, path);
+		html_url_set_path (new, new_path);
+		g_free (new_path);
+	} else 
+		html_url_set_path (new, path);
 
 	return new;
 }
