@@ -1,8 +1,8 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
 
-    Copyright (C) 2000 Helix Code, Inc.
-    Authors:           Radek Doulik (rodo@helixcode.com)
+    Copyright (C) 2000,2001,2002 Ximian, Inc.
+    Authors:  Radek Doulik (rodo@ximian.com)
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
@@ -25,8 +25,10 @@
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
 #include "htmlengine-edit.h"
+#include "htmlengine-edit-cut-and-paste.h"
 #include "htmlengine-edit-fontstyle.h"
 #include "htmlengine-save.h"
+#include "htmlselection.h"
 #include "htmlsettings.h"
 
 #include "text.h"
@@ -41,13 +43,16 @@ struct _GtkHTMLEditTextProperties {
 	GtkWidget *style_option;
 	GtkWidget *sel_size;
 	GtkWidget *check [4];
+	GtkWidget *entry_url;
 
 	gboolean color_changed;
 	gboolean style_changed;
+	gboolean url_changed;
 
 	GtkHTMLFontStyle style_and;
 	GtkHTMLFontStyle style_or;
 	HTMLColor *color;
+	gchar *url;
 
 	GtkHTML *sample;
 };
@@ -68,26 +73,29 @@ static gint get_size (GtkHTMLFontStyle s);
 static void
 fill_sample (GtkHTMLEditTextProperties *d)
 {
-	gchar *body, *size, *color, *bg;
+	gchar *body, *size, *color, *bg, *a, *sa;
 
 	bg    = html_engine_save_get_sample_body (d->cd->html->engine, NULL);
+	a     = d->url && *d->url ? g_strdup_printf ("<a href=\"%s\">", d->url) : g_strdup ("");
+	sa    = d->url && *d->url ? "</a>" : "";
 	size  = g_strdup_printf ("<font size=%d>", get_size (d->style_or) + 1);
-	color = g_strdup_printf ("<font color=#%02x%02x%02x>",
-				 d->color->color.red   >> 8,
-				 d->color->color.green >> 8,
-				 d->color->color.blue  >> 8);
-	body  = g_strconcat (bg,
+	color = d->color_changed ? g_strdup_printf ("<font color=#%02x%02x%02x>",
+						    d->color->color.red   >> 8,
+						    d->color->color.green >> 8,
+						    d->color->color.blue  >> 8)
+		: g_strdup ("");
+	body  = g_strconcat (bg, a,
 			     CVAL (0) ? "<b>" : "",
 			     CVAL (1) ? "<i>" : "",
 			     CVAL (2) ? "<u>" : "",
 			     CVAL (3) ? "<s>" : "",
-			     size,
-			     color,
-			     "The quick brown fox jumps over the lazy dog.", NULL);
+			     size, color,
+			     "The quick brown fox jumps over the lazy dog.", sa, NULL);
 
 	gtk_html_load_from_string (d->sample, body, -1);
 	g_free (color);
 	g_free (size);
+	g_free (a);
 	g_free (bg);
 	g_free (body);
 }
@@ -143,21 +151,41 @@ get_size (GtkHTMLFontStyle s)
 		: 2;
 }
 
+static void
+set_url (GtkWidget *w, GtkHTMLEditTextProperties *data)
+{
+	g_free (data->url);
+	data->url = g_strdup (gtk_entry_get_text (GTK_ENTRY (data->entry_url)));
+	data->url_changed = TRUE;
+
+	gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
+	fill_sample (data);
+}
+
 GtkWidget *
 text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 {
 	GtkHTMLEditTextProperties *data = g_new (GtkHTMLEditTextProperties, 1);
-	GtkWidget *vbox, *frame, *table, *menu, *menuitem, *hbox;
+	GtkWidget *vbox, *frame, *table, *menu, *menuitem, *hbox, *t1;
+	gboolean selection;
+	const gchar *target;
 	gint i;
+
+	selection = html_engine_is_selection_active (cd->html->engine);
 
 	*set_data = data;
 
 	data->cd = cd;
 	data->color_changed   = FALSE;
 	data->style_changed   = FALSE;
+	data->url_changed     = FALSE;
 	data->style_and       = GTK_HTML_FONT_STYLE_MAX;
 	data->style_or        = html_engine_get_font_style (cd->html->engine);
 	data->color           = html_engine_get_color (cd->html->engine);
+
+	target = html_engine_get_target (cd->html->engine);
+	data->url             = selection ? g_strconcat (html_engine_get_url (cd->html->engine),
+							 target ? "#" : "", target, NULL) : NULL;
 	html_color_ref (data->color);
 
 	table = gtk_table_new (3, 2, FALSE);
@@ -165,25 +193,46 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	gtk_table_set_col_spacings (GTK_TABLE (table), 3);
 	gtk_table_set_row_spacings (GTK_TABLE (table), 2);
 
+	vbox = gtk_vbox_new (FALSE, 0);
 	frame = gtk_frame_new (_("Style"));
-	vbox = gtk_vbox_new (FALSE, 2);
-	gtk_container_set_border_width (GTK_CONTAINER (vbox), 3);
+	t1 = gtk_table_new (2, 2, FALSE);
+	gtk_container_set_border_width (GTK_CONTAINER (t1), 3);
 
-#define ADD_CHECK(x) \
+#define ADD_CHECK(x,c,r) \
 	data->check [i] = gtk_check_button_new_with_label (x); \
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->check [i]), data->style_or & styles [i]); \
         gtk_object_set_data (GTK_OBJECT (data->check [i]), "style", GUINT_TO_POINTER (styles [i])); \
         gtk_signal_connect (GTK_OBJECT (data->check [i]), "toggled", set_style, data); \
-	gtk_box_pack_start (GTK_BOX (vbox), data->check [i], FALSE, FALSE, 0); i++
+	gtk_table_attach (GTK_TABLE (t1), data->check [i], c, c + 1, r, r + 1, GTK_FILL | GTK_EXPAND, 0, 0, 0); \
+        i++
 
 	i=0;
-	ADD_CHECK (_("Bold"));
-	ADD_CHECK (_("Italic"));
-	ADD_CHECK (_("Underline"));
-	ADD_CHECK (_("Strikeout"));
+	ADD_CHECK (_("Bold"), 0, 0);
+	ADD_CHECK (_("Italic"), 0, 1);
+	ADD_CHECK (_("Underline"), 1, 0);
+	ADD_CHECK (_("Strikeout"), 1, 1);
 
-	gtk_container_add (GTK_CONTAINER (frame), vbox);
-	gtk_table_attach (GTK_TABLE (table), frame, 0, 1, 0, 2, GTK_FILL | GTK_EXPAND, 0, 0, 0);
+	gtk_container_add (GTK_CONTAINER (frame), t1);
+	gtk_box_pack_start_defaults (GTK_BOX (vbox), frame);
+
+	if (html_engine_is_selection_active (cd->html->engine)) {
+		GtkWidget *f1;
+
+		frame = gtk_frame_new (_("Link"));
+		data->entry_url = gtk_entry_new ();
+		if (data->url) {
+			gtk_entry_set_text (GTK_ENTRY (data->entry_url), data->url);
+		}
+		f1 = gtk_frame_new (NULL);
+		gtk_container_set_border_width (GTK_CONTAINER (f1), 3);
+		gtk_frame_set_shadow_type (GTK_FRAME (f1), GTK_SHADOW_NONE);
+		gtk_container_add (GTK_CONTAINER (f1), data->entry_url);
+		gtk_container_add (GTK_CONTAINER (frame), f1);
+		gtk_box_pack_start_defaults (GTK_BOX (vbox), frame);
+		gtk_signal_connect (GTK_OBJECT (data->entry_url), "changed", GTK_SIGNAL_FUNC (set_url), data);
+	}
+
+	gtk_table_attach_defaults (GTK_TABLE (table), vbox, 0, 1, 0, 2); //, GTK_FILL | GTK_EXPAND, 0, 0, 0);
 
 	frame = gtk_frame_new (_("Size"));
 	menu = gtk_menu_new ();
@@ -248,11 +297,28 @@ text_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 	if (data->style_changed)
 		gtk_html_set_font_style (cd->html, data->style_and, data->style_or);
 
+	if (data->url_changed) {
+		gchar *h;
+
+		h = strrchr (data->url, '#');
+		if (h) {
+			gchar *url;
+
+			url = alloca (h - data->url + 1);
+			url [h - data->url] = 0;
+			strncpy (url, data->url, h - data->url);
+			html_engine_edit_set_link (cd->html->engine, url, h);
+		} else {
+			html_engine_edit_set_link (cd->html->engine, data->url, NULL);
+		}
+	}
+
 	if (data->color_changed)
 		gtk_html_set_color (cd->html, data->color);
 
 	data->color_changed = FALSE;
 	data->style_changed = FALSE;
+	data->url_changed   = FALSE;
 }
 
 void

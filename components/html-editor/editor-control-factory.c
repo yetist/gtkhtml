@@ -63,7 +63,6 @@
 #include "properties.h"
 #include "text.h"
 #include "paragraph.h"
-#include "link.h"
 #include "body.h"
 #include "spell.h"
 #include "resolver-progressive-impl.h"
@@ -219,11 +218,6 @@ release (GtkWidget *widget, GdkEventButton *event, GtkHTMLControlData *cd)
 								   paragraph_properties,
 								   paragraph_apply_cb,
 								   paragraph_close_cb);
-			gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
-								   GTK_HTML_EDIT_PROPERTY_LINK, _("Link"),
-								   link_properties,
-								   link_apply_cb,
-								   link_close_cb);
 			gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 								   GTK_HTML_EDIT_PROPERTY_BODY, _("Page"),
 								   body_properties,

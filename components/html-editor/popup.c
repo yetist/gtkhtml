@@ -44,7 +44,6 @@
 #include "body.h"
 #include "cell.h"
 #include "image.h"
-#include "link.h"
 #include "menubar.h"
 #include "popup.h"
 #include "properties.h"
@@ -82,7 +81,7 @@ remove_link (GtkWidget *mi, GtkHTMLControlData *cd)
 	html_engine_selection_push (cd->html->engine);
 	if (!html_engine_is_selection_active (cd->html->engine))
 		html_engine_select_word_editable (cd->html->engine);
-	html_engine_insert_link (cd->html->engine, NULL, NULL);
+	html_engine_edit_set_link (cd->html->engine, NULL, NULL);
 	html_engine_selection_pop (cd->html->engine);
 }
 
@@ -174,13 +173,6 @@ show_prop_dialog (GtkHTMLControlData *cd, GtkHTMLEditPropertyType start)
 								   paragraph_properties,
 								   paragraph_apply_cb,
 								   paragraph_close_cb);
-			break;
-		case GTK_HTML_EDIT_PROPERTY_LINK:
-			gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
-								   t, _("Link"),
-								   link_properties,
-								   link_apply_cb,
-								   link_close_cb);
 			break;
 		case GTK_HTML_EDIT_PROPERTY_BODY:
 			gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
@@ -413,8 +405,6 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 		ADD_PROP (TEXT);
 		ADD_ITEM (_("Paragraph..."), prop_dialog, PARAGRAPH);
 		ADD_PROP (PARAGRAPH);
-		ADD_ITEM (_("Link..."), prop_dialog, LINK);
-		ADD_PROP (LINK);
 	} else if (cd->format_html && obj) {
 		switch (HTML_OBJECT_TYPE (obj)) {
 		case HTML_TYPE_RULE:
@@ -428,8 +418,6 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 			ADD_PROP (IMAGE);
 			ADD_ITEM (_("Paragraph..."), prop_dialog, PARAGRAPH);
 			ADD_PROP (PARAGRAPH);
-			ADD_ITEM (_("Link..."), prop_dialog, LINK);
-			ADD_PROP (LINK);
 			break;
 		case HTML_TYPE_LINKTEXT:
 		case HTML_TYPE_TEXT:
@@ -438,8 +426,6 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 			ADD_ITEM (_("Text..."), prop_dialog, TEXT);
 			ADD_PROP (PARAGRAPH);
 			ADD_ITEM (_("Paragraph..."), prop_dialog, PARAGRAPH);
-			ADD_PROP (LINK);
-			ADD_ITEM (_("Link..."), prop_dialog, LINK);
 			break;
 		case HTML_TYPE_TABLE:
 			ADD_SEP;

@@ -193,6 +193,7 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	/* gtk_idle_add (hide_preview, data); */
 
 	gtk_widget_show_all (table);
+	gnome_pixmap_entry_set_preview (GNOME_PIXMAP_ENTRY (data->pixmap_entry), FALSE);
 
 	return table;
 }

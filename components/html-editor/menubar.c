@@ -31,7 +31,6 @@
 #include "properties.h"
 #include "image.h"
 #include "text.h"
-#include "link.h"
 #include "spell.h"
 #include "table.h"
 #include "template.h"
@@ -113,7 +112,7 @@ insert_image_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cna
 static void
 insert_link_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
-	if (cd->properties_dialog)
+	/* if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
 
 	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, FALSE, _("Insert"));
@@ -130,7 +129,7 @@ insert_link_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cnam
 						   link_close_cb);
 
 	gtk_html_edit_properties_dialog_show (cd->properties_dialog);
-	gtk_html_edit_properties_dialog_set_page (cd->properties_dialog, GTK_HTML_EDIT_PROPERTY_LINK);
+	gtk_html_edit_properties_dialog_set_page (cd->properties_dialog, GTK_HTML_EDIT_PROPERTY_LINK); */
 }
 
 static void
