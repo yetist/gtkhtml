@@ -160,8 +160,9 @@
 					<menuitem name="FormatUnderline" verb="" _label="_Underline"/>
 					<menuitem name="FormatStrikeout" verb="" _label="_Strikeout"/>
 					
-					<separator/>
 <!--					
+					<separator/>
+
 					<menuitem name="FormatSubscript" verb="" _label="Subs_cript"/>
 					<menuitem name="FormatSuperscript" verb="" _label="Su_perscript"/>
 -->

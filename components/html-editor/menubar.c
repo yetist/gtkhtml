@@ -259,6 +259,7 @@ static struct {
 	{GTK_HTML_FONT_STYLE_SIZE_6, "/commands/FontSizeThree"},
 	{GTK_HTML_FONT_STYLE_SIZE_7, "/commands/FontSizeFour"},
 	{GTK_HTML_FONT_STYLE_BOLD,    "/commands/FormatBold"},
+	{GTK_HTML_FONT_STYLE_ITALIC, "/commands/FormatItalic"},
 	{GTK_HTML_FONT_STYLE_UNDERLINE, "/commands/FormatUnderline"},
 	{GTK_HTML_FONT_STYLE_STRIKEOUT, "/commands/FormatStrikeout"},
 	{GTK_HTML_FONT_STYLE_FIXED, "/commands/FormatFixed"},
