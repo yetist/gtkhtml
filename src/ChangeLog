@@ -4,6 +4,10 @@
 	(gtk_html_editor_event_command): new function, "emits"
 	EditorAPI event
 	(get_value_nick): helper function
+	(load_keybindings): added KP_Enter
+	(key_press_event): use event->string if e_utf8_from_gtk_event_key
+	doesn't handle that, also use it only if length == 1 and string
+	[0] < 0x80 as we don't want illegal UTF-8 sequences
 
 	* htmltext.c (spell_error_destroy): commented out g_free 
 

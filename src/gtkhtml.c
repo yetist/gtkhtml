@@ -629,10 +629,13 @@ key_press_event (GtkWidget *widget,
 	    && event->length > 0) {
 		gchar *str;
 		html_engine_delete_selection (html->engine, TRUE);
+		/* printf ("event length: %d s[0]: %d string: '%s'\n", event->length, event->string [0], event->string); */
 		str = e_utf8_from_gtk_event_key (widget, event->keyval, event->string);
-		/* printf ("len: %d str: %s\n", unicode_strlen (str, -1), str); */
+		/* printf ("len: %d str: %s\n", str ? unicode_strlen (str, -1) : -1, str); */
 		if (str)
 			html_engine_insert (html->engine, str, unicode_strlen (str, -1));
+		else if (event->length == 1 && event->string && ((guchar)event->string [0]) < 0x80)
+			html_engine_insert (html->engine, event->string, 1);
 		g_free (str);
 		retval = TRUE;
 	}
@@ -2776,6 +2779,7 @@ load_keybindings (GtkHTMLClass *klass)
 				      GTK_TYPE_HTML_COMMAND, GTK_HTML_COMMAND_ ## com);
 
 	BCOM (0, Return, INSERT_PARAGRAPH);
+	BCOM (0, KP_Enter, INSERT_PARAGRAPH);
 	BCOM (0, BackSpace, DELETE_BACK);
 	BCOM (GDK_SHIFT_MASK, BackSpace, DELETE_BACK);
 	BCOM (0, Delete, DELETE);
