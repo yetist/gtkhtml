@@ -1,3 +1,8 @@
+2000-06-26  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine-edit-delete.c (html_engine_delete): Relayout the
+	following paragraph too.
+
 2000-06-26  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine-edit-fontstyle.c

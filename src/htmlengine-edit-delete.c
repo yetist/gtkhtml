@@ -631,6 +631,10 @@ html_engine_delete (HTMLEngine *e,
 	html_object_relayout (e->cursor->object->parent->parent, e,
 			      e->cursor->object->parent);
 
+	if (e->cursor->object->parent->next != NULL)
+		html_object_relayout (e->cursor->object->parent->next->parent, e,
+				      e->cursor->object->parent->next);
+
 	e->cursor->position = start_position;
 
 	html_cursor_normalize (e->cursor);
