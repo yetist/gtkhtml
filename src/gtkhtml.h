@@ -56,7 +56,6 @@ struct _GtkHTML {
 
 	/* The cursors we use within the widget.  */
 	GdkCursor *hand_cursor;
-	GdkCursor *arrow_cursor;
 	GdkCursor *ibeam_cursor;
 
 	gint selection_x1, selection_y1;

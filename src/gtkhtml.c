@@ -664,11 +664,6 @@ destroy (GtkObject *object)
 		html->hand_cursor = NULL;
 	}
 
-	if (html->arrow_cursor) {
-		gdk_cursor_unref (html->arrow_cursor);
-		html->arrow_cursor = NULL;
-	}
-
 	if (html->ibeam_cursor) {
 		gdk_cursor_unref (html->ibeam_cursor);
 		html->ibeam_cursor = NULL;
@@ -839,7 +834,7 @@ realize (GtkWidget *widget)
 
 	html_engine_realize (html->engine, html->layout.bin_window);
 
-	gdk_window_set_cursor (widget->window, html->arrow_cursor);
+	gdk_window_set_cursor (widget->window, NULL);
 
 	/* This sets the backing pixmap to None, so that scrolling does not
            erase the newly exposed area, thus making the thing smoother.  */
@@ -1029,7 +1024,7 @@ on_object (GtkWidget *widget, GdkWindow *window, HTMLObject *obj)
 			if (html_object_is_text (obj) && html->allow_selection)
 				gdk_window_set_cursor (window, html->ibeam_cursor);
 			else
-				gdk_window_set_cursor (window, html->arrow_cursor);
+				gdk_window_set_cursor (window, NULL);
 		}
 
 		g_free (url);
@@ -1037,7 +1032,7 @@ on_object (GtkWidget *widget, GdkWindow *window, HTMLObject *obj)
 		set_pointer_url (html, NULL);
 		dnd_link_unset (widget);			
 
-		gdk_window_set_cursor (window, html->arrow_cursor);
+		gdk_window_set_cursor (window, NULL);
 	}
 }
 
@@ -2713,7 +2708,6 @@ gtk_html_init (GtkHTML* html)
 
 	html->pointer_url = NULL;
 	html->hand_cursor = gdk_cursor_new (GDK_HAND2);
-	html->arrow_cursor = gdk_cursor_new (GDK_LEFT_PTR);
 	html->ibeam_cursor = gdk_cursor_new (GDK_XTERM);
 	html->hadj_connection = 0;
 	html->vadj_connection = 0;
