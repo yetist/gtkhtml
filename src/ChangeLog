@@ -1,6 +1,8 @@
 2002-07-05  Radek Doulik  <rodo@ximian.com>
 
 	* htmlclueflow.c (update_top_height): fixed align=top
+	(end_of_word): fix citations and spell checking 'spell check' is
+	no more marked as mispelled
 
 2002-07-03  Larry Ewing  <lewing@ximian.com>
 

@@ -2643,13 +2643,14 @@ begin_of_word (gchar *text, gchar *ct, gboolean *cited)
 static gchar *
 end_of_word (gchar *ct, gboolean cited)
 {
-	gunichar uc;
-	gchar *cn;
+	gunichar uc, ucn;
+	gchar *cn, *cnn;
 	gboolean cited2;
 
 	cited2 = FALSE;
 	while (*ct && (cn = e_unicode_get_utf8 (ct, &uc))
-	       && (html_selection_spell_word (uc, &cited2) || (!cited && cited2))) {
+	       && (html_selection_spell_word (uc, &cited2)
+		   || (!cited && cited2 && (cnn = e_unicode_get_utf8 (cn, &ucn)) && g_unichar_isalpha (ucn)))) {
 		ct = cn;
 		cited2 = FALSE;
 	}
