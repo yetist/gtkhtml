@@ -1,3 +1,7 @@
+2000-09-04  Radek Doulik  <rodo@helixcode.com>
+
+	* viewer.c: fonts for printing
+
 2000-08-17  Larry Ewing  <lewing@helixcode.com>
 
 	* Makefile.am: add pspell cflags and libs as well so that things

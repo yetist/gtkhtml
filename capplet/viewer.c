@@ -29,7 +29,7 @@
 
 #define CUSTOM_KEYMAP_NAME "Custom"
 
-static GtkWidget *capplet, *variable, *fixed, *anim_check;
+static GtkWidget *capplet, *variable, *variable_print, *fixed, *fixed_print, *anim_check;
 static gboolean active = FALSE;
 #ifdef GTKHTML_HAVE_GCONF
 static GConfError  *error  = NULL;
@@ -50,14 +50,16 @@ set_ui ()
 
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (anim_check), actual_prop->animations);
 
-	font_name = font_name = g_strdup_printf ("-*-%s-*-*-normal-*-%d-*-*-*-*-*-*-*",
-						 actual_prop->font_var_family, actual_prop->font_var_size);
-	gnome_font_picker_set_font_name (GNOME_FONT_PICKER (variable), font_name);
-	g_free (font_name);
-	font_name = font_name = g_strdup_printf ("-*-%s-*-*-normal-*-%d-*-*-*-*-*-*-*",
-						 actual_prop->font_fix_family, actual_prop->font_fix_size);
-	gnome_font_picker_set_font_name (GNOME_FONT_PICKER (fixed), font_name);
-	g_free (font_name);
+#define SET_FONT(f,s,w) \
+	font_name = g_strdup_printf ("-*-%s-*-*-normal-*-%d-*-*-*-*-*-*-*", \
+						 actual_prop-> ## f, actual_prop-> ## s); \
+	gnome_font_picker_set_font_name (GNOME_FONT_PICKER (w), font_name); \
+	g_free (font_name)
+
+	SET_FONT (font_var_family,       font_var_size,       variable);
+	SET_FONT (font_fix_family,       font_fix_size,       fixed);
+	SET_FONT (font_var_family_print, font_var_size_print, variable_print);
+	SET_FONT (font_fix_family_print, font_fix_size_print, fixed_print);
 
 	active = TRUE;
 }
@@ -88,17 +90,17 @@ apply_fonts ()
 
 	actual_prop->animations = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (anim_check));
 
-	g_free (actual_prop->font_var_family);
-	actual_prop->font_var_family = get_attr (gnome_font_picker_get_font_name (GNOME_FONT_PICKER (variable)), 2);
-	size_str = get_attr (gnome_font_picker_get_font_name (GNOME_FONT_PICKER (variable)), 7);
-	actual_prop->font_var_size = atoi (size_str);
-	g_free (size_str);
+#define APPLY(f,s,w) \
+	g_free (actual_prop-> ## f); \
+	actual_prop-> ## f = get_attr (gnome_font_picker_get_font_name (GNOME_FONT_PICKER (w)), 2); \
+	size_str = get_attr (gnome_font_picker_get_font_name (GNOME_FONT_PICKER (w)), 7); \
+	actual_prop-> ## s = atoi (size_str); \
+	g_free (size_str)
 
-	g_free (actual_prop->font_fix_family);
-	actual_prop->font_fix_family = get_attr (gnome_font_picker_get_font_name (GNOME_FONT_PICKER (fixed)), 2);
-	size_str = get_attr (gnome_font_picker_get_font_name (GNOME_FONT_PICKER (fixed)), 7);
-	actual_prop->font_fix_size = atoi (size_str);
-	g_free (size_str);
+	APPLY (font_var_family,       font_var_size,       variable);
+	APPLY (font_fix_family,       font_fix_size,       fixed);
+	APPLY (font_var_family_print, font_var_size_print, variable_print);
+	APPLY (font_fix_family_print, font_fix_size_print, fixed_print);
 }
 
 static void
@@ -145,7 +147,7 @@ setup(void)
 
 	frame = gtk_frame_new (_("Appearance"));
 	hbox  = gtk_hbox_new (FALSE, 0);
-	table = gtk_table_new (2, 2, FALSE);
+	table = gtk_table_new (2, 4, FALSE);
 	gtk_table_set_col_spacings (GTK_TABLE (table), 5);
 	gtk_container_set_border_width (GTK_CONTAINER (hbox), 3);
 
@@ -157,6 +159,12 @@ setup(void)
 	gnome_font_picker_set_mode (GNOME_FONT_PICKER (variable), GNOME_FONT_PICKER_MODE_FONT_INFO);
 	gtk_signal_connect (GTK_OBJECT (variable), "font_set", changed, NULL);
 	gtk_table_attach_defaults (GTK_TABLE (table), variable, 1, 2, 0, 1);
+	gtk_table_attach (GTK_TABLE (table), gtk_label_new (_("for printing")), 2, 3, 0, 1, 0, 0, 0, 0);
+	variable_print = gnome_font_picker_new ();
+	gnome_font_picker_set_title (GNOME_FONT_PICKER (variable_print), _("Select HTML variable width font for printing"));
+	gnome_font_picker_set_mode (GNOME_FONT_PICKER (variable_print), GNOME_FONT_PICKER_MODE_FONT_INFO);
+	gtk_signal_connect (GTK_OBJECT (variable_print), "font_set", changed, NULL);
+	gtk_table_attach_defaults (GTK_TABLE (table), variable_print, 3, 4, 0, 1);
 
 	label = gtk_label_new (_("Fixed width font"));
 	gtk_misc_set_alignment (GTK_MISC (label), 0, .5);
@@ -166,6 +174,12 @@ setup(void)
 	gnome_font_picker_set_mode (GNOME_FONT_PICKER (fixed), GNOME_FONT_PICKER_MODE_FONT_INFO);
 	gtk_signal_connect (GTK_OBJECT (fixed), "font_set", changed, NULL);
 	gtk_table_attach_defaults (GTK_TABLE (table), fixed, 1, 2, 1, 2);
+	gtk_table_attach (GTK_TABLE (table), gtk_label_new (_("for printing")), 2, 3, 1, 2, 0, 0, 0, 0);
+	fixed_print = gnome_font_picker_new ();
+	gnome_font_picker_set_title (GNOME_FONT_PICKER (fixed_print), _("Select HTML fixed width font for printing"));
+	gnome_font_picker_set_mode (GNOME_FONT_PICKER (fixed_print), GNOME_FONT_PICKER_MODE_FONT_INFO);
+	gtk_signal_connect (GTK_OBJECT (fixed_print), "font_set", changed, NULL);
+	gtk_table_attach_defaults (GTK_TABLE (table), fixed_print, 3, 4, 1, 2);
 
 	gtk_box_pack_start (GTK_BOX (hbox), table, FALSE, FALSE, 0);
 	gtk_container_add (GTK_CONTAINER (frame), hbox);
