@@ -345,6 +345,7 @@ html_engine_set_clueflow_style (HTMLEngine *engine,
 
 	html_undo_discard_redo (engine->undo);
 
+	html_engine_freeze (engine);
 	if (html_engine_is_selection_active (engine))
 		set_clueflow_style_in_region (engine,
 					      style, alignment, indentation_delta,
@@ -355,6 +356,7 @@ html_engine_set_clueflow_style (HTMLEngine *engine,
 					      style, alignment, indentation_delta,
 					      mask,
 					      do_undo);
+	html_engine_thaw (engine);
 
 	/* This operation can never fail.  */
 	return TRUE;

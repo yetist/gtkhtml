@@ -1,5 +1,8 @@
 2001-01-11  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine-edit-clueflowstyle.c
+	(html_engine_set_clueflow_style): free/thaw engine
+
 	* htmlclueflow.c (check_point): fixed case when flow indent level
 	> 0
 
