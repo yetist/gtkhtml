@@ -289,10 +289,13 @@ updater_idle_callback (gpointer data)
 	engine = updater->engine;
 
 	if (engine->mark != NULL) {
+	    if (html_cursor_get_position (engine->mark) != html_cursor_get_position (engine->cursor)) {
 		if (updater->old_point == NULL)
 			update_selection (engine, engine->mark, engine->cursor);
 		else
 			update_selection (engine, updater->old_point, engine->cursor);
+	    } else
+		    html_engine_disable_selection (engine);
 	}
 
 	if (updater->old_point != NULL)
@@ -318,8 +321,11 @@ html_engine_edit_selection_updater_schedule (HTMLEngineEditSelectionUpdater *upd
 {
 	g_return_if_fail (updater != NULL);
 
+	printf ("schedule\n");
 	if (updater->idle_id != 0)
 		return;
+
+	printf ("first\n");
 
 	updater->idle_id = gtk_idle_add (updater_idle_callback, updater);
 }
@@ -355,6 +361,7 @@ html_engine_edit_selection_updater_reset (HTMLEngineEditSelectionUpdater *update
 void
 html_engine_edit_selection_updater_update_now (HTMLEngineEditSelectionUpdater *updater)
 {
+	printf ("run now\n");
 	/* remove scheduled idle cb */
 	if (updater->idle_id != 0) {
 		gtk_idle_remove (updater->idle_id);
