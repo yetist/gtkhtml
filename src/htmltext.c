@@ -149,9 +149,9 @@ get_tags (const HTMLText *text,
 		g_string_append (ct, "</FONT>");
 		if (nt && !n_std_size
 		    && (font_style & GTK_HTML_FONT_STYLE_SIZE_MASK) == (nt->font_style & GTK_HTML_FONT_STYLE_SIZE_MASK))
-			g_string_sprintfa (ot, "<FONT SIZE=\"%d\"", nt->font_style & GTK_HTML_FONT_STYLE_SIZE_MASK);
+			g_string_sprintfa (ct, "<FONT SIZE=\"%d\">", nt->font_style & GTK_HTML_FONT_STYLE_SIZE_MASK);
 		if (nt && !n_std_color && html_color_equal (text->color, nt->color))
-			g_string_sprintfa (ot, "<FONT COLOR=\"#%02x%02x%02x\"",
+			g_string_sprintfa (ct, "<FONT COLOR=\"#%02x%02x%02x\">",
 					   nt->color->color.red   >> 8,
 					   nt->color->color.green >> 8,
 					   nt->color->color.blue  >> 8);

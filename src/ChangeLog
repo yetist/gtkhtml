@@ -1,3 +1,8 @@
+2002-09-18  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (get_tags): write opening tags for next text to
+	closing tags of this one
+
 2002-09-17  Radek Doulik  <rodo@ximian.com>
 
 	* htmliframe.c (html_iframe_init): crop iframe height to 32767
