@@ -151,6 +151,7 @@ mouse_event (HTMLObject *o,
 
 static HTMLObject*
 check_point (HTMLObject *self,
+	     HTMLPainter *painter,
 	     gint x, gint y,
 	     guint *offset_return)
 {
@@ -454,10 +455,11 @@ html_object_mouse_event (HTMLObject *self, gint x, gint y,
 
 HTMLObject *
 html_object_check_point (HTMLObject *self,
+			 HTMLPainter *painter,
 			 gint x, gint y,
 			 guint *offset_return)
 {
-	return (* HO_CLASS (self)->check_point) (self, x, y, offset_return);
+	return (* HO_CLASS (self)->check_point) (self, painter, x, y, offset_return);
 }
 
 gboolean

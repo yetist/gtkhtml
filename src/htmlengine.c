@@ -36,8 +36,11 @@
 #include <ctype.h>
 
 #include "gtkhtml-private.h"
-#include "htmlanchor.h"
+
 #include "htmlengine.h"
+#include "htmlengine-edit.h"
+
+#include "htmlanchor.h"
 #include "htmlrule.h"
 #include "htmlobject.h"
 #include "htmlclueh.h"
@@ -3234,6 +3237,7 @@ html_engine_get_link_at (HTMLEngine *e, gint x, gint y)
 #endif
 
 	obj = html_object_check_point (HTML_OBJECT (e->clue),
+				       e->painter,
 				       x + e->x_offset - e->leftBorder,
 				       y + e->y_offset - e->topBorder,
 				       NULL);
@@ -3246,15 +3250,27 @@ html_engine_get_link_at (HTMLEngine *e, gint x, gint y)
 
 HTMLObject *
 html_engine_mouse_event (HTMLEngine *e,
-	     gint x, gint y, gint button, gint state)
+			 gint x, gint y,
+			 gint button,
+			 gint state)
 {
 	HTMLObject *obj;
+
 	if ( e->clue == NULL )
 		return NULL;
 
-	obj = html_object_mouse_event (HTML_OBJECT (e->clue),
-				       x + e->x_offset - e->leftBorder,
-				       y + e->y_offset - e->topBorder, button, state);
+	x = x + e->x_offset - e->leftBorder;
+	y = y + e->y_offset - e->topBorder;
+
+	if (e->editable) {
+		guint offset;
+
+		obj = html_object_check_point (HTML_OBJECT (e->clue), e->painter, x, y, &offset);
+		if (obj != 0)
+			html_engine_jump_to (e, obj, offset);
+	} else {
+		obj = html_object_mouse_event (HTML_OBJECT (e->clue), x, y, button, state);
+	}
 
 	return obj;
 }

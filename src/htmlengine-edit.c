@@ -77,6 +77,20 @@ html_engine_move_cursor (HTMLEngine *e,
 	return c;
 }
 
+guint
+html_engine_jump_to (HTMLEngine *e,
+		     HTMLObject *object,
+		     guint offset)
+{
+	html_engine_draw_cursor (e);
+
+	e->cursor->object = object;
+	e->cursor->offset = offset;
+
+	html_engine_draw_cursor (e);
+}
+
+
 
 /* Paragraph insertion.  */
 
@@ -374,7 +388,7 @@ html_engine_delete (HTMLEngine *e,
 		return;
 
 	if (! html_object_is_text (orig_object)) {
-		/*  count++; */
+		destroy_orig = TRUE;
 	} else {
 		count -= html_text_remove_text (HTML_TEXT (orig_object), e,
 						e->cursor->offset, count);

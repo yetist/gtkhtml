@@ -1,5 +1,23 @@
 2000-01-19  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlcluev.c (check_point): Fixed to use the correct offsets.
+
+	* htmlengine.c (html_engine_mouse_event): Make the cursor jump to
+	the specified position if the engine is editable.
+
+	* htmlengine-edit.c (html_engine_jump_to): New function.
+
+	* htmltextmaster.c (check_point): New function, implementation of
+	`HTMLObject::check_point()'.
+	(html_text_master_class_init): Install it.
+
+	* htmltextslave.c (html_text_slave_get_offset_for_pointer): New
+	function.
+
+	* htmlobject.h: New arg `painter' in `check_point'.  All the
+	method implementations updated.
+	* htmlobject.c (check_point): Updated accordingly.
+
 	* htmltextslave.c (fit_line): Removed `#if 0'ed code.
 
 	* htmlobject.h: New parameter `offset_return' in

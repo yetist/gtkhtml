@@ -163,6 +163,33 @@ split (HTMLText *self,
 	return HTML_TEXT (new);
 }
 
+static HTMLObject *
+check_point (HTMLObject *self,
+	     HTMLPainter *painter,
+	     gint x, gint y,
+	     guint *offset_return)
+{
+	HTMLObject *p;
+
+	if (self->next == NULL)
+		return NULL;
+
+	for (p = self->next;
+	     p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE;
+	     p = p->next) {
+		if (html_object_check_point (p, painter, x, y, NULL) != NULL) {
+			if (offset_return != NULL) {
+				*offset_return = html_text_slave_get_offset_for_pointer
+					(HTML_TEXT_SLAVE (p), painter, x, y);
+				*offset_return += HTML_TEXT_SLAVE (p)->posStart;
+			}
+			return self;
+		}
+	}
+
+	return NULL;
+}
+
 
 /* HTMLText methods.  */
 
@@ -284,6 +311,7 @@ html_text_master_class_init (HTMLTextMasterClass *klass,
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->get_cursor = get_cursor;
 	object_class->get_cursor_base = get_cursor_base;
+	object_class->check_point = check_point;
 
 	/* HTMLText methods.  */
 

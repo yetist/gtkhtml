@@ -39,9 +39,23 @@ enum _HTMLEngineCursorMovement {
 typedef enum _HTMLEngineCursorMovement HTMLEngineCursorMovement;
 
 
-void html_engine_insert_para (HTMLEngine *e, gboolean vspace);
-guint html_engine_move_cursor (HTMLEngine *e, HTMLEngineCursorMovement movement, guint count);
-guint html_engine_insert (HTMLEngine *e, const gchar *text, guint len);
-void html_engine_delete (HTMLEngine *e, guint count);
+/* Insertion operations.  */
+void   html_engine_insert_para  (HTMLEngine               *e,
+				 gboolean                  vspace);
+guint  html_engine_insert       (HTMLEngine               *e,
+				 const gchar              *text,
+				 guint                     len);
+
+/* Deletion operations.  */
+void   html_engine_delete       (HTMLEngine               *e,
+				 guint                     count);
+
+/* Cursor movement.  */
+guint  html_engine_move_cursor  (HTMLEngine               *e,
+				 HTMLEngineCursorMovement  movement,
+				 guint                     count);
+guint  html_engine_jump_to      (HTMLEngine               *e,
+				 HTMLObject               *object,
+				 guint                     offset);
 
 #endif /* _HTMLENGINE_EDIT_H */

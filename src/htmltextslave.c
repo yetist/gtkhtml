@@ -366,3 +366,34 @@ html_text_slave_new (HTMLTextMaster *owner, gint posStart, gint posLen)
 
 	return HTML_OBJECT (slave);
 }
+
+
+guint
+html_text_slave_get_offset_for_pointer (HTMLTextSlave *slave,
+					HTMLPainter *painter,
+					gint x, gint y)
+{
+	HTMLText *owner;
+	HTMLFontStyle font_style;
+	guint width;
+	guint i;
+
+	g_return_val_if_fail (slave != NULL, 0);
+
+	owner = HTML_TEXT (slave->owner);
+	font_style = html_text_get_font_style (owner);
+
+	x -= HTML_OBJECT (slave)->x;
+
+	for (i = 1; i < slave->posLen; i++) {
+		width = html_painter_calc_text_width (painter,
+						      owner->text + slave->posStart,
+						      i,
+						      font_style);
+
+		if (width > x)
+			return i - 1;
+	}
+
+	return slave->posLen;
+}

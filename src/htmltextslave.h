@@ -46,9 +46,21 @@ struct _HTMLTextSlaveClass {
 HTMLTextSlaveClass html_text_slave_class;
 
 
-void html_text_slave_type_init (void);
-void html_text_slave_class_init (HTMLTextSlaveClass *klass, HTMLType type);
-void html_text_slave_init (HTMLTextSlave *slave, HTMLTextSlaveClass *klass, HTMLTextMaster *owner, gint posStart, gint posLen);
-HTMLObject *html_text_slave_new (HTMLTextMaster *owner, gint posStart, gint posLen);
+void        html_text_slave_type_init   (void);
+void        html_text_slave_class_init  (HTMLTextSlaveClass *klass,
+					 HTMLType            type);
+void        html_text_slave_init        (HTMLTextSlave      *slave,
+					 HTMLTextSlaveClass *klass,
+					 HTMLTextMaster     *owner,
+					 gint                posStart,
+					 gint                posLen);
+HTMLObject *html_text_slave_new         (HTMLTextMaster     *owner,
+					 gint                posStart,
+					 gint                posLen);
+
+guint  html_text_slave_get_offset_for_pointer  (HTMLTextSlave *slave,
+						HTMLPainter   *painter,
+						gint           x,
+						gint           y);
 
 #endif /* _HTMLTEXTSLAVE_H_ */

@@ -439,8 +439,9 @@ static gint
 button_press_event (GtkWidget *widget,
 		    GdkEventButton *event)
 {
-		
-	html_engine_mouse_event (GTK_HTML (widget)->engine, event->x, event->y, event->button, event->state);
+	html_engine_mouse_event (GTK_HTML (widget)->engine,
+				 event->x, event->y,
+				 event->button, event->state);
 
 	return FALSE;
 }

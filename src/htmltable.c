@@ -1116,6 +1116,7 @@ mouse_event (HTMLObject *self, gint _x, gint _y, gint button, gint state)
 
 static HTMLObject *
 check_point (HTMLObject *self,
+	     HTMLPainter *painter,
 	     gint _x, gint _y,
 	     guint *offset_return)
 {
@@ -1141,8 +1142,8 @@ check_point (HTMLObject *self,
 				continue;
 
 			if ((obj = html_object_check_point (HTML_OBJECT (cell),
-							    _x - self->x,
-							    _y - (self->y - self->ascent),
+							    painter,
+							    _x - self->x, _y - (self->y - self->ascent),
 							    offset_return)) != NULL) {
 				if (offset_return != NULL)
 					*offset_return = 0;

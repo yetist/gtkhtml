@@ -234,6 +234,7 @@ mouse_event (HTMLObject *self, gint _x, gint _y,
 
 static HTMLObject*
 check_point (HTMLObject *o,
+	     HTMLPainter *painter,
 	     gint x, gint y,
 	     guint *offset_return)
 {
@@ -244,15 +245,14 @@ check_point (HTMLObject *o,
 	    || y > o->y + o->descent || y < o->y - o->ascent)
 		return 0L;
 
+	x = x - o->x;
+	y = y - o->y + o->ascent;
+
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
-		obj2 = html_object_check_point (obj,
-						x - o->x, y - o->y + o->ascent,
-						offset_return);
-		if (obj2 != NULL) {
-			if (offset_return != NULL)
-				*offset_return = 0;
+		obj2 = html_object_check_point (obj, painter,
+						x, y, offset_return);
+		if (obj2 != NULL)
 			return obj2;
-		}
 	}
 
 	return NULL;

@@ -295,6 +295,7 @@ mouse_event ( HTMLObject *object, gint _x, gint _y, gint button, gint state )
 
 static HTMLObject *
 check_point (HTMLObject *self,
+	     HTMLPainter *painter,
 	     gint x, gint y,
 	     guint *offset_return)
 {
@@ -305,9 +306,12 @@ check_point (HTMLObject *self,
 	    || y > self->y + self->descent || y < self->y - self->ascent)
 		return NULL;
 
-	obj2 = (* HTML_OBJECT_CLASS (parent_class)->check_point) (self, x, y, offset_return);
+	obj2 = (* HTML_OBJECT_CLASS (parent_class)->check_point) (self, painter, x, y, offset_return);
 	if (obj2 != NULL)
 		return obj2;
+
+	x = x - self->x;
+	y = y - self->y + self->ascent;
 
 	for (clue = HTML_CLUEALIGNED (HTML_CLUEV (self)->align_left_list);
 	     clue != NULL;
@@ -316,8 +320,8 @@ check_point (HTMLObject *self,
 
 		parent = HTML_OBJECT (clue)->parent;
 		obj2 = html_object_check_point (HTML_OBJECT (clue),
-						x - self->x - parent->x,
-						y - (self->y - self->ascent) - parent->y - parent->ascent,
+						painter,
+						x, y,
 						offset_return);
 		if (obj2 != NULL) {
 			if (offset_return != NULL)

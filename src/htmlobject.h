@@ -12,7 +12,7 @@
 
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   MERCHcANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
 
    You should have received a copy of the GNU Library General Public License
@@ -155,7 +155,7 @@ struct _HTMLObjectClass {
 	HTMLObject * (* mouse_event) (HTMLObject *self, gint x, gint y,
 				      gint button, gint state);
 
-	HTMLObject * (* check_point) (HTMLObject *self, gint x, gint y, guint *offset_return);
+	HTMLObject * (* check_point) (HTMLObject *self, HTMLPainter *painter, gint x, gint y, guint *offset_return);
 
 	/* Relayout this object.  The object will relayout all the children
            starting from `child'.  Children before `child' are not affected.
@@ -234,6 +234,7 @@ HTMLObject *html_object_mouse_event  (HTMLObject  *clue,
 				      gint         button,
 				      gint         state);
 HTMLObject *html_object_check_point  (HTMLObject  *clue,
+				      HTMLPainter *painter,
 				      gint         x,
 				      gint         y,
 				      guint 	  *offset_return);
