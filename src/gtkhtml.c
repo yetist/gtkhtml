@@ -788,7 +788,7 @@ class_init (GtkHTMLClass *klass)
 				GTK_SIGNAL_OFFSET (GtkHTMLClass, object_requested),
 				gtk_marshal_NONE__POINTER,
 				GTK_TYPE_NONE, 1,
-				GTK_TYPE_POINTER);
+				GTK_TYPE_OBJECT);
 	
 	signals [CURRENT_PARAGRAPH_STYLE_CHANGED] =
 		gtk_signal_new ("current_paragraph_style_changed",

@@ -1,3 +1,8 @@
+2000-02-28 Paolo Molaro <lupus@linuxcare.com>
+
+	* gtkhtml.c: use GTK_TYPE_OBJECT instead of GTK_TYPE_POINTER
+	  in signal creation for args that are objects.
+
 2000-02-28  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlengine.c (parse_table): parse <th> correctly so that we
