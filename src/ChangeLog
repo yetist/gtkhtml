@@ -1,3 +1,8 @@
+2001-08-21  Radek Doulik  <rodo@ximian.com>
+
+	* htmlclueflow.c (write_pre_tags): check for curr_tag != NULL as
+	pointed out by danw
+
 2001-08-20  Radek Doulik  <rodo@ximian.com>
 
 	* htmlclueflow.c (html_clueflow_set_style): fix condition to avoid
