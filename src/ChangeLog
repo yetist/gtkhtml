@@ -1,3 +1,9 @@
+2002-09-12  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (parse_a): don't push color for links
+	(close_anchor): don't pop color
+	(insert_text): use right default color for links
+
 2002-09-09  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml.c (key_press_event): parse the keys value even when the

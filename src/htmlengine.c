@@ -442,8 +442,6 @@ close_anchor (HTMLEngine *e)
 
 	g_free (e->target);
 	e->target = NULL;
-
-	pop_color (e);
 }
 
 static void
@@ -576,7 +574,13 @@ insert_text (HTMLEngine *e,
 		HTMLObject *obj;
 
 		if (create_link)
-			obj = html_link_text_new (text, font_style, color, e->url, e->target);
+			obj = html_link_text_new (text, font_style,
+						  color
+						  && color != html_colorset_get_color (e->settings->color_set,
+										       HTMLTextColor)
+						  ? color : html_colorset_get_color (e->settings->color_set,
+										     HTMLLinkColor),
+						  e->url, e->target);
 		else
 			obj = text_new (e, text, font_style, color);
 		html_text_set_font_face (HTML_TEXT (obj), current_font_face (e));
@@ -1765,8 +1769,6 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 			e->url = url;
 		}
 		
-		if (e->url != NULL || e->target != NULL)
-			push_color (e, html_colorset_get_color (e->settings->color_set, HTMLLinkColor));
 	} else if ( strncmp( str, "/a", 2 ) == 0 ) {
 		close_anchor (e);
 		e->eat_space = FALSE;
