@@ -1,3 +1,8 @@
+2004-05-03  Radek Doulik  <rodo@ximian.com>
+
+	* htmlimage.c (ref_image_ptr): ref only successfuly loaded images
+	(unref_image_ptr): ditto
+
 2004-04-28  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-cut-and-paste.c (html_engine_paste_link): new

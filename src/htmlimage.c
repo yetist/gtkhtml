@@ -1565,14 +1565,16 @@ html_image_factory_deactivate_animations (HTMLImageFactory *factory)
 static void
 ref_image_ptr (gpointer key, gpointer val, gpointer data)
 {
-	html_image_pointer_ref (HTML_IMAGE_POINTER (val));
+	if (HTML_IMAGE_POINTER (val)->animation)
+		html_image_pointer_ref (HTML_IMAGE_POINTER (val));
 	/* printf ("ref(%p) %s --> %d\n", val, HTML_IMAGE_POINTER (val)->url, HTML_IMAGE_POINTER (val)->refcount); */
 }
 
 static void
 unref_image_ptr (gpointer key, gpointer val, gpointer data)
 {
-	html_image_pointer_unref (HTML_IMAGE_POINTER (val));
+	if (HTML_IMAGE_POINTER (val)->animation)
+		html_image_pointer_unref (HTML_IMAGE_POINTER (val));
 }
 
 void
