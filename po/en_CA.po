@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2004-03-05 12:45-0500\n"
+"POT-Creation-Date: 2004-04-02 09:51-0500\n"
 "PO-Revision-Date: 2004-02-25 19:04-0500\n"
 "Last-Translator: Adam Weinberger <adamw@FreeBSD.org>\n"
 "Language-Team: English/Canada <adamw@FreeBSD.org>\n"
@@ -263,9 +263,10 @@ msgstr "Cut selection to clipboard"
 msgid "Cut the selection"
 msgstr "Cut the selection"
 
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:77 components/html-editor/search.c:129
+#: components/html-editor/search.c:79 components/html-editor/search.c:131
 msgid "Find"
 msgstr "Find"
 
@@ -603,9 +604,10 @@ msgstr "Redo previously undone change"
 msgid "Redo the undone action"
 msgstr "Redo the undone action"
 
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
-#: components/html-editor/replace.c:157 components/html-editor/replace.c:219
+#: components/html-editor/replace.c:161 components/html-editor/replace.c:223
 msgid "Replace"
 msgstr "Replace"
 
@@ -1021,7 +1023,7 @@ msgstr ""
 "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a href="
 "\"mailto:dog\">dog</a>."
 
-#: components/html-editor/body.c:316 src/gtkhtml.c:2697
+#: components/html-editor/body.c:316 src/gtkhtml.c:2706
 msgid "Document Title"
 msgstr "Document Title"
 
@@ -1624,7 +1626,7 @@ msgstr ""
 msgid "No image selected"
 msgstr "No image selected"
 
-#: components/html-editor/image.c:704
+#: components/html-editor/image.c:707
 msgid ""
 "The editted image was removed from the document.\n"
 "Cannot apply your changes."
@@ -1822,35 +1824,36 @@ msgstr "Ignore Misspelled Word"
 msgid "Input Methods"
 msgstr "Input Methods"
 
-#: components/html-editor/replace.c:75
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: components/html-editor/replace.c:77
 msgid "Replace confirmation"
 msgstr "Replace confirmation"
 
-#: components/html-editor/replace.c:76
+#: components/html-editor/replace.c:78
 msgid "Replace _All"
 msgstr "Replace _All"
 
-#: components/html-editor/replace.c:77
+#: components/html-editor/replace.c:79
 msgid "_Next"
 msgstr "_Next"
 
-#: components/html-editor/replace.c:79
+#: components/html-editor/replace.c:81
 msgid "_Replace"
 msgstr "_Replace"
 
-#: components/html-editor/replace.c:165
+#: components/html-editor/replace.c:169
 msgid "Search _backward"
 msgstr "Search _backward"
 
-#: components/html-editor/replace.c:166 components/html-editor/search.c:83
+#: components/html-editor/replace.c:170 components/html-editor/search.c:85
 msgid "Case _sensitive"
 msgstr "Case _sensitive"
 
-#: components/html-editor/replace.c:176
+#: components/html-editor/replace.c:180
 msgid "Replace:"
 msgstr "Replace:"
 
-#: components/html-editor/replace.c:179
+#: components/html-editor/replace.c:183
 msgid "With:"
 msgstr "With:"
 
@@ -1870,11 +1873,11 @@ msgstr ""
 "The editted rule was removed from the document.\n"
 "Cannot apply your changes."
 
-#: components/html-editor/search.c:82
+#: components/html-editor/search.c:84
 msgid "_Backward"
 msgstr "_Backward"
 
-#: components/html-editor/search.c:129
+#: components/html-editor/search.c:131
 msgid "Find Regular Expression"
 msgstr "Find Regular Expression"
 
@@ -1999,71 +2002,71 @@ msgstr "Indents the paragraphs more"
 msgid "Sample"
 msgstr "Sample"
 
-#: src/gtkhtml.c:2690
+#: src/gtkhtml.c:2699
 msgid "Editable"
 msgstr "Editable"
 
-#: src/gtkhtml.c:2691
+#: src/gtkhtml.c:2700
 msgid "Whether the html can be edited"
 msgstr "Whether the html can be edited"
 
-#: src/gtkhtml.c:2698
+#: src/gtkhtml.c:2707
 msgid "The title of the current document"
 msgstr "The title of the current document"
 
-#: src/gtkhtml.c:2704
+#: src/gtkhtml.c:2713
 msgid "Document Base"
 msgstr "Document Base"
 
-#: src/gtkhtml.c:2705
+#: src/gtkhtml.c:2714
 msgid "The base URL for relative references"
 msgstr "The base URL for relative references"
 
-#: src/gtkhtml.c:2711
+#: src/gtkhtml.c:2720
 msgid "Target Base"
 msgstr "Target Base"
 
-#: src/gtkhtml.c:2712
+#: src/gtkhtml.c:2721
 msgid "The base URL of the targe frame"
 msgstr "The base URL of the targe frame"
 
-#: src/gtkhtml.c:2721
+#: src/gtkhtml.c:2730
 msgid "Fixed Width Font"
 msgstr "Fixed Width Font"
 
-#: src/gtkhtml.c:2722
+#: src/gtkhtml.c:2731
 msgid "The Monospace font to use for typewriter text"
 msgstr "The Monospace font to use for typewriter text"
 
-#: src/gtkhtml.c:2728
+#: src/gtkhtml.c:2737
 msgid "New Link Color"
 msgstr "New Link Colour"
 
-#: src/gtkhtml.c:2729
+#: src/gtkhtml.c:2738
 msgid "The color of new link elements"
 msgstr "The colour of new link elements"
 
-#: src/gtkhtml.c:2734
+#: src/gtkhtml.c:2743
 msgid "Visited Link Color"
 msgstr "Visited Link Colour"
 
-#: src/gtkhtml.c:2735
+#: src/gtkhtml.c:2744
 msgid "The color of visited link elements"
 msgstr "The colour of visited link elements"
 
-#: src/gtkhtml.c:2740
+#: src/gtkhtml.c:2749
 msgid "Active Link Color"
 msgstr "Active Link Colour"
 
-#: src/gtkhtml.c:2741
+#: src/gtkhtml.c:2750
 msgid "The color of active link elements"
 msgstr "The colour of active link elements"
 
-#: src/gtkhtml.c:2746
+#: src/gtkhtml.c:2755
 msgid "Spelling Error Color"
 msgstr "Spelling Error Colour"
 
-#: src/gtkhtml.c:2747
+#: src/gtkhtml.c:2756
 msgid "The color of the spelling error markers"
 msgstr "The colour of the spelling error markers"
 

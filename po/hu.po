@@ -6,14 +6,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-23 04:08+0100\n"
+"POT-Creation-Date: 2004-04-02 09:51-0500\n"
 "PO-Revision-Date: 2004-03-28 12:13+0200\n"
 "Last-Translator: Gabor Kelemen <kg0021@stud.unideb.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 "X-Generator: KBabel 1.3.1\n"
 "Plural-Forms:  nplurals=1; plural=0;\n"
 
@@ -1020,7 +1020,9 @@ msgstr "Milliméterpapír"
 msgid ""
 "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a href="
 "\"mailto:dog\">dog</a>."
-msgstr "<a href=\"mailto:Árvíztűrő\">Árvíztűrő</a> <a href=\"mailto:tükörfúrógép\">tükörfúrógép</a>"
+msgstr ""
+"<a href=\"mailto:Árvíztűrő\">Árvíztűrő</a> <a href=\"mailto:tükörfúrógép"
+"\">tükörfúrógép</a>"
 
 #: components/html-editor/body.c:316 src/gtkhtml.c:2706
 msgid "Document Title"
@@ -1180,7 +1182,7 @@ msgstr "vörös"
 msgid "orange"
 msgstr "narancs"
 
-#fixme
+# fixme
 #: components/html-editor/gi-color-palette.c:599
 msgid "lime"
 msgstr "borostyán"
@@ -1618,7 +1620,9 @@ msgstr ""
 msgid ""
 "This is sample text, designed to show you how text would flow around this "
 "image if you insert the image into your message."
-msgstr "Ez egy mintaszöveg, annak bemutatására, hogyan fogja a szöveg körülfolyni a képet, ha beilleszti azt az üzenetébe."
+msgstr ""
+"Ez egy mintaszöveg, annak bemutatására, hogyan fogja a szöveg körülfolyni a "
+"képet, ha beilleszti azt az üzenetébe."
 
 #: components/html-editor/image.c:270
 msgid "No image selected"
@@ -1801,7 +1805,7 @@ msgstr "Cellatartalom"
 msgid "Check Word Spelling..."
 msgstr "Helyesírás-ellenőrzés..."
 
-#fixme
+# fixme
 #: components/html-editor/popup.c:546
 msgid "Add Word to"
 msgstr "Szó hozzáadása ehhez"
@@ -1811,7 +1815,7 @@ msgstr "Szó hozzáadása ehhez"
 msgid "%s Dictionary"
 msgstr "%s szótár"
 
-#fixme
+# fixme
 #: components/html-editor/popup.c:559
 msgid "Add Word to Dictionary"
 msgstr "Szó hozzáadása a szótárhoz"
@@ -1921,7 +1925,7 @@ msgstr "Írja ide a szöveget"
 msgid "Image frame"
 msgstr "Képkeret"
 
-#fixme
+# fixme
 #: components/html-editor/template.c:281
 msgid "Labels"
 msgstr "Címkék"
@@ -2130,7 +2134,8 @@ msgstr "Alapértékek"
 #. TODO2 dialog instead of warning
 #: src/htmlengine-print.c:193
 msgid "Cannot allocate default font for printing\n"
-msgstr "Nem sikerült betölteni az alapértelmezett betűkészletet a nyomtatáshoz.\n"
+msgstr ""
+"Nem sikerült betölteni az alapértelmezett betűkészletet a nyomtatáshoz.\n"
 
 #: src/test.c:191
 msgid "GtkHTML Test"
@@ -2147,4 +2152,3 @@ msgstr "Nyomtatási kép"
 #: src/testgtkhtml.c:989
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML tesztalkalmazás"
-

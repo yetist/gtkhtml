@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GtkHTML 2.x\n"
-"POT-Creation-Date: 2004-03-05 12:45-0500\n"
+"POT-Creation-Date: 2004-04-02 09:51-0500\n"
 "PO-Revision-Date: 2003-01-03 18:29+0530\n"
 "Last-Translator: Bhopal team  <anuragseetha@yahoo.com>\n"
 "Language-Team: Gnome Hindi Team<indlinux-hindi-gnome@lists.sourceforge.net>\n"
@@ -262,9 +262,10 @@ msgstr "काटो चुने हुए को क्लिपबोर्�
 msgid "Cut the selection"
 msgstr "चुने हुए को काटो"
 
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:77 components/html-editor/search.c:129
+#: components/html-editor/search.c:79 components/html-editor/search.c:131
 msgid "Find"
 msgstr "ढूंडो"
 
@@ -612,9 +613,10 @@ msgstr ""
 msgid "Redo the undone action"
 msgstr ""
 
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
-#: components/html-editor/replace.c:157 components/html-editor/replace.c:219
+#: components/html-editor/replace.c:161 components/html-editor/replace.c:223
 msgid "Replace"
 msgstr "बदलो"
 
@@ -1038,7 +1040,7 @@ msgid ""
 "\"mailto:dog\">dog</a>."
 msgstr ""
 
-#: components/html-editor/body.c:316 src/gtkhtml.c:2697
+#: components/html-editor/body.c:316 src/gtkhtml.c:2706
 msgid "Document Title"
 msgstr "दस्तावेज शीर्षक"
 
@@ -1642,7 +1644,7 @@ msgstr ""
 msgid "No image selected"
 msgstr ""
 
-#: components/html-editor/image.c:704
+#: components/html-editor/image.c:707
 msgid ""
 "The editted image was removed from the document.\n"
 "Cannot apply your changes."
@@ -1847,40 +1849,41 @@ msgstr ""
 msgid "Input Methods"
 msgstr ""
 
-#: components/html-editor/replace.c:75
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: components/html-editor/replace.c:77
 msgid "Replace confirmation"
 msgstr ""
 
-#: components/html-editor/replace.c:76
+#: components/html-editor/replace.c:78
 #, fuzzy
 msgid "Replace _All"
 msgstr "सब बदलना"
 
-#: components/html-editor/replace.c:77
+#: components/html-editor/replace.c:79
 #, fuzzy
 msgid "_Next"
 msgstr "अगला"
 
-#: components/html-editor/replace.c:79
+#: components/html-editor/replace.c:81
 #, fuzzy
 msgid "_Replace"
 msgstr "बदलो"
 
-#: components/html-editor/replace.c:165
+#: components/html-editor/replace.c:169
 #, fuzzy
 msgid "Search _backward"
 msgstr "पीछे खोजना"
 
-#: components/html-editor/replace.c:166 components/html-editor/search.c:83
+#: components/html-editor/replace.c:170 components/html-editor/search.c:85
 msgid "Case _sensitive"
 msgstr ""
 
-#: components/html-editor/replace.c:176
+#: components/html-editor/replace.c:180
 #, fuzzy
 msgid "Replace:"
 msgstr "बदलो"
 
-#: components/html-editor/replace.c:179
+#: components/html-editor/replace.c:183
 #, fuzzy
 msgid "With:"
 msgstr "चौड़ाई"
@@ -1899,12 +1902,12 @@ msgid ""
 "Cannot apply your changes."
 msgstr ""
 
-#: components/html-editor/search.c:82
+#: components/html-editor/search.c:84
 #, fuzzy
 msgid "_Backward"
 msgstr "पीछे की तरफ"
 
-#: components/html-editor/search.c:129
+#: components/html-editor/search.c:131
 msgid "Find Regular Expression"
 msgstr "रेग्युलर एक्सप्रेशन खोजना"
 
@@ -2026,75 +2029,75 @@ msgstr ""
 msgid "Sample"
 msgstr "नमूना"
 
-#: src/gtkhtml.c:2690
+#: src/gtkhtml.c:2699
 #, fuzzy
 msgid "Editable"
 msgstr "इनेबल"
 
-#: src/gtkhtml.c:2691
+#: src/gtkhtml.c:2700
 msgid "Whether the html can be edited"
 msgstr ""
 
-#: src/gtkhtml.c:2698
+#: src/gtkhtml.c:2707
 #, fuzzy
 msgid "The title of the current document"
 msgstr "दस्तावेज में मात्रा की जांच"
 
-#: src/gtkhtml.c:2704
+#: src/gtkhtml.c:2713
 #, fuzzy
 msgid "Document Base"
 msgstr "दस्तावेज शीर्षक"
 
-#: src/gtkhtml.c:2705
+#: src/gtkhtml.c:2714
 msgid "The base URL for relative references"
 msgstr ""
 
-#: src/gtkhtml.c:2711
+#: src/gtkhtml.c:2720
 msgid "Target Base"
 msgstr ""
 
-#: src/gtkhtml.c:2712
+#: src/gtkhtml.c:2721
 msgid "The base URL of the targe frame"
 msgstr ""
 
-#: src/gtkhtml.c:2721
+#: src/gtkhtml.c:2730
 #, fuzzy
 msgid "Fixed Width Font"
 msgstr "निर्धारित चौड़ाई"
 
-#: src/gtkhtml.c:2722
+#: src/gtkhtml.c:2731
 msgid "The Monospace font to use for typewriter text"
 msgstr ""
 
-#: src/gtkhtml.c:2728
+#: src/gtkhtml.c:2737
 msgid "New Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2729
+#: src/gtkhtml.c:2738
 msgid "The color of new link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2734
+#: src/gtkhtml.c:2743
 msgid "Visited Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2735
+#: src/gtkhtml.c:2744
 msgid "The color of visited link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2740
+#: src/gtkhtml.c:2749
 msgid "Active Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2741
+#: src/gtkhtml.c:2750
 msgid "The color of active link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2746
+#: src/gtkhtml.c:2755
 msgid "Spelling Error Color"
 msgstr ""
 
-#: src/gtkhtml.c:2747
+#: src/gtkhtml.c:2756
 msgid "The color of the spelling error markers"
 msgstr ""
 

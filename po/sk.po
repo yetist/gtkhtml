@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.evolution-1-4-branch.sk\n"
-"POT-Creation-Date: 2004-03-05 12:45-0500\n"
+"POT-Creation-Date: 2004-04-02 09:51-0500\n"
 "PO-Revision-Date: 2003-09-24 19:51+0200\n"
 "Last-Translator: Stanislav Visnovsky <visnovsky@kde.org>\n"
 "Language-Team: Slovak <sk-i18n@linux.sk>\n"
@@ -267,9 +267,10 @@ msgstr "Vystrihne výber do schránky"
 msgid "Cut the selection"
 msgstr "Vystrihne výber"
 
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:77 components/html-editor/search.c:129
+#: components/html-editor/search.c:79 components/html-editor/search.c:131
 msgid "Find"
 msgstr "Nájsť"
 
@@ -608,9 +609,10 @@ msgstr "Opakovať naposledy vrátenú zmenu"
 msgid "Redo the undone action"
 msgstr "Opakovať naposledy vrátenú akciu"
 
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
-#: components/html-editor/replace.c:157 components/html-editor/replace.c:219
+#: components/html-editor/replace.c:161 components/html-editor/replace.c:223
 msgid "Replace"
 msgstr "Nahradiť"
 
@@ -1033,7 +1035,7 @@ msgstr ""
 "Rýchla hnedá <a href=\"mailto:fox\">líška</a> skáče cez lenivého <a href="
 "\"mailto:dog\">psa</a>."
 
-#: components/html-editor/body.c:316 src/gtkhtml.c:2697
+#: components/html-editor/body.c:316 src/gtkhtml.c:2706
 msgid "Document Title"
 msgstr "Titulok dokumentu"
 
@@ -1656,7 +1658,7 @@ msgstr ""
 msgid "No image selected"
 msgstr "Nevybraný žiadny obrázok"
 
-#: components/html-editor/image.c:704
+#: components/html-editor/image.c:707
 msgid ""
 "The editted image was removed from the document.\n"
 "Cannot apply your changes."
@@ -1856,38 +1858,39 @@ msgstr "Ignorovať nesprávne slovo"
 msgid "Input Methods"
 msgstr "Metódy vstupu"
 
-#: components/html-editor/replace.c:75
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: components/html-editor/replace.c:77
 msgid "Replace confirmation"
 msgstr "Potvrdenie nahradenia"
 
-#: components/html-editor/replace.c:76
+#: components/html-editor/replace.c:78
 #, fuzzy
 msgid "Replace _All"
 msgstr "Nahradiť všetky"
 
-#: components/html-editor/replace.c:77
+#: components/html-editor/replace.c:79
 #, fuzzy
 msgid "_Next"
 msgstr "Nasledujúca"
 
-#: components/html-editor/replace.c:79
+#: components/html-editor/replace.c:81
 #, fuzzy
 msgid "_Replace"
 msgstr "Nahradiť"
 
-#: components/html-editor/replace.c:165
+#: components/html-editor/replace.c:169
 msgid "Search _backward"
 msgstr "Hľadať _dozadu"
 
-#: components/html-editor/replace.c:166 components/html-editor/search.c:83
+#: components/html-editor/replace.c:170 components/html-editor/search.c:85
 msgid "Case _sensitive"
 msgstr "Rozlišovať _veľkosť písmen"
 
-#: components/html-editor/replace.c:176
+#: components/html-editor/replace.c:180
 msgid "Replace:"
 msgstr "Nahradiť:"
 
-#: components/html-editor/replace.c:179
+#: components/html-editor/replace.c:183
 msgid "With:"
 msgstr "Pomocou:"
 
@@ -1907,11 +1910,11 @@ msgstr ""
 "Upravované pravidlo bolo z dokumentu dostránené.\n"
 "Vaše zmeny nie je možné použiť."
 
-#: components/html-editor/search.c:82
+#: components/html-editor/search.c:84
 msgid "_Backward"
 msgstr "_Dozadu"
 
-#: components/html-editor/search.c:129
+#: components/html-editor/search.c:131
 msgid "Find Regular Expression"
 msgstr "Hľadať regulárny výraz"
 
@@ -2037,71 +2040,71 @@ msgstr "Zväčší odsadenie odstavcov"
 msgid "Sample"
 msgstr "Príklad"
 
-#: src/gtkhtml.c:2690
+#: src/gtkhtml.c:2699
 msgid "Editable"
 msgstr "Upraviteľné"
 
-#: src/gtkhtml.c:2691
+#: src/gtkhtml.c:2700
 msgid "Whether the html can be edited"
 msgstr "Či je možné HTML upravovať"
 
-#: src/gtkhtml.c:2698
+#: src/gtkhtml.c:2707
 msgid "The title of the current document"
 msgstr "Titulok aktuálneho dokumentu"
 
-#: src/gtkhtml.c:2704
+#: src/gtkhtml.c:2713
 msgid "Document Base"
 msgstr "Základné umiestnenie dokumentu"
 
-#: src/gtkhtml.c:2705
+#: src/gtkhtml.c:2714
 msgid "The base URL for relative references"
 msgstr "Základné URL pre relatívne odkazy"
 
-#: src/gtkhtml.c:2711
+#: src/gtkhtml.c:2720
 msgid "Target Base"
 msgstr "Základné umiestnenie rámca"
 
-#: src/gtkhtml.c:2712
+#: src/gtkhtml.c:2721
 msgid "The base URL of the targe frame"
 msgstr "Základné URL cieľového rámca"
 
-#: src/gtkhtml.c:2721
+#: src/gtkhtml.c:2730
 msgid "Fixed Width Font"
 msgstr "Písmo s pevnou šírkou"
 
-#: src/gtkhtml.c:2722
+#: src/gtkhtml.c:2731
 msgid "The Monospace font to use for typewriter text"
 msgstr "Písmo s pevnou šírkou pre text typu typewriter"
 
-#: src/gtkhtml.c:2728
+#: src/gtkhtml.c:2737
 msgid "New Link Color"
 msgstr "Farba nového odkazu"
 
-#: src/gtkhtml.c:2729
+#: src/gtkhtml.c:2738
 msgid "The color of new link elements"
 msgstr "Farba nového odkazu"
 
-#: src/gtkhtml.c:2734
+#: src/gtkhtml.c:2743
 msgid "Visited Link Color"
 msgstr "Farba navštíveného odkazu"
 
-#: src/gtkhtml.c:2735
+#: src/gtkhtml.c:2744
 msgid "The color of visited link elements"
 msgstr "Farba navštíveného odkazu"
 
-#: src/gtkhtml.c:2740
+#: src/gtkhtml.c:2749
 msgid "Active Link Color"
 msgstr "Farba aktívneho odkazu"
 
-#: src/gtkhtml.c:2741
+#: src/gtkhtml.c:2750
 msgid "The color of active link elements"
 msgstr "Farba aktívneho odkazu"
 
-#: src/gtkhtml.c:2746
+#: src/gtkhtml.c:2755
 msgid "Spelling Error Color"
 msgstr "Farba chyby pravopisu"
 
-#: src/gtkhtml.c:2747
+#: src/gtkhtml.c:2756
 msgid "The color of the spelling error markers"
 msgstr "Farba označenia chyby v pravopise"
 
