@@ -415,6 +415,27 @@ html_engine_delete_table_cell_contents (HTMLEngine *e)
 }
 
 static void
+move_cell_rd (HTMLTable *t, HTMLTableCell *cell, gint rs, gint cs)
+{
+	gint r, c;
+
+	g_assert (rs >= 0 && cs >= 0 && (cs > 0 || rs > 0));
+	printf ("move %dx%d --> %dx%d\n", cell->row, cell->col, cell->row + rs, cell->col + cs);
+	for (r = cell->row + cell->rspan - 1; r >= cell->row; r --)
+		for (c = cell->col + cell->cspan - 1; c >= cell->col; c --) {
+			if (t->cells [rs + r][cs + c] && t->cells [rs + r][cs + c]->col == cs + c && t->cells [rs + r][cs + c]->row == rs + r) {
+				printf ("move destroy: %dx%d\n", rs + r, cs + c);
+				html_object_destroy (HTML_OBJECT (t->cells [rs + r][cs + c]));
+			}
+			t->cells [r][c] = NULL;
+			t->cells [rs + r][cs + c] = cell;
+			printf ("cell %dx%d <--\n", rs + r, cs + c);
+		}
+	printf ("set  %dx%d --> %dx%d\n", cell->row, cell->col, cell->row + rs, cell->col + cs);
+	html_table_cell_set_position (cell, cell->row + rs, cell->col + cs);
+}
+
+static void
 expand_cspan (HTMLEngine *e, HTMLTableCell *cell, gint cspan, HTMLUndoDirection dir)
 {
 	HTMLTable *table = HTML_TABLE (HTML_OBJECT (cell)->parent);
@@ -432,12 +453,22 @@ expand_cspan (HTMLEngine *e, HTMLTableCell *cell, gint cspan, HTMLUndoDirection 
 		if (move_rows [r] > max_move)
 			max_move = move_rows [r];
 
-	printf ("max move: %d\n", max_move);
-	add_cols = MAX (0, cspan - (table->totalCols - cell->col)) + max_move;
+	add_cols = MAX (max_move, cspan - (table->totalCols - cell->col));
+	printf ("max move: %d add: %d\n", max_move, add_cols);
 	for (c = 0; c < add_cols; c ++)
 		html_table_insert_column (table, e, table->totalCols, NULL, dir);
 
-	g_warning ("TODO: move cells. keep old content");
+	if (max_move > 0) {
+		for (c = table->totalCols - max_move - 1; c >= cell->col + cspan - max_move; c --)
+			for (r = cell->row; r < cell->row + cell->rspan; r ++) {
+				HTMLTableCell *ccell = table->cells [r][c];
+
+				if (ccell && ccell->col == c && ccell->row == r)
+					move_cell_rd (table, ccell, 0, max_move);
+			}
+	}
+
+	g_warning ("TODO: keep old content");
 
 	cell->cspan = cspan;
 	for (r = cell->row; r < cell->row + cell->rspan; r ++)
@@ -458,6 +489,7 @@ void
 html_engine_set_cspan (HTMLEngine *e, gint cspan)
 {
 	HTMLTableCell *cell = html_engine_get_table_cell (e);
+	HTMLTable *table;
 
 	g_return_if_fail (cspan > 0);
 	g_return_if_fail (cell != NULL);
@@ -465,10 +497,13 @@ html_engine_set_cspan (HTMLEngine *e, gint cspan)
 	if (cell->cspan == cspan)
 		return;
 
+	table = HTML_TABLE (HTML_OBJECT (cell)->parent);
+	html_engine_goto_table_0 (e, table);
 	if (cspan > cell->cspan)
 		expand_cspan (e, cell, cspan, HTML_UNDO_UNDO);
 	else
 		collapse_cspan (e, cell, cspan, HTML_UNDO_UNDO);
+	html_engine_goto_table (e, table, cell->row, cell->col);
 }
 
 static void
@@ -487,14 +522,23 @@ expand_rspan (HTMLEngine *e, HTMLTableCell *cell, gint rspan, HTMLUndoDirection 
 	max_move = 0;
 	for (c = 0; c < cell->cspan; c ++)
 		if (move_cols [c] > max_move)
-			max_move = move_cols [r];
-
-	printf ("max move: %d\n", max_move);
-	add_rows = MAX (0, rspan - (table->totalRows - cell->row)) + max_move;
+			max_move = move_cols [c];
+	add_rows = MAX (max_move, rspan - (table->totalRows - cell->row));
+	printf ("max move: %d add: %d\n", max_move, add_rows);
 	for (r = 0; r < add_rows; r ++)
 		html_table_insert_row (table, e, table->totalRows, NULL, dir);
 
-	g_warning ("TODO: move cells. keep old content");
+	if (max_move > 0) {
+		for (r = table->totalRows - max_move - 1; r >= cell->row + rspan - max_move; r --)
+			for (c = cell->col; c < cell->col + cell->cspan; c ++) {
+				HTMLTableCell *ccell = table->cells [r][c];
+
+				if (ccell && ccell->col == c && ccell->row == r)
+					move_cell_rd (table, ccell, max_move, 0);
+			}
+	}
+
+	g_warning ("TODO: keep old content");
 
 	cell->rspan = rspan;
 	for (r = cell->row; r < cell->row + cell->rspan; r ++)
@@ -515,6 +559,7 @@ void
 html_engine_set_rspan (HTMLEngine *e, gint rspan)
 {
 	HTMLTableCell *cell = html_engine_get_table_cell (e);
+	HTMLTable *table;
 
 	g_return_if_fail (rspan > 0);
 	g_return_if_fail (cell != NULL);
@@ -522,8 +567,11 @@ html_engine_set_rspan (HTMLEngine *e, gint rspan)
 	if (cell->rspan == rspan)
 		return;
 
+	table = HTML_TABLE (HTML_OBJECT (cell)->parent);
+	html_engine_goto_table_0 (e, table);
 	if (rspan > cell->rspan)
 		expand_rspan (e, cell, rspan, HTML_UNDO_UNDO);
 	else
 		collapse_rspan (e, cell, rspan, HTML_UNDO_UNDO);
+	html_engine_goto_table (e, table, cell->row, cell->col);
 }

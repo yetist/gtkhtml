@@ -1,3 +1,9 @@
+2002-12-10  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit-tablecell.c (expand_rspan): move remaining cells
+	(expand_cspan): ditto
+	(move_cell_rd): helper function, move cell right/down
+
 2002-12-06  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine-edit-table.h (html_table_insert_column): fix the insert
