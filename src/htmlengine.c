@@ -1211,6 +1211,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					if ((strncmp (str, "</td", 4) == 0) ||
 					    (strncmp (str, "</th", 4) == 0)) {
 						/* HTML ok! */
+						close_anchor (e);
 						break; /* Get next token from 'ht' */
 					}
 					else {

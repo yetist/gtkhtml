@@ -1,5 +1,8 @@
 2001-03-30  Larry Ewing  <lewing@ximian.com>
 
+	* htmlengine.c (parse_table): close_anchor at the end of a row to
+	make sure stray anchors don't wrap.
+
 	* htmlclueflow.c (calc_padding): temporary hack to swtich to
 	remove padding in the text/plain case.  This will get moved into
 	the painter soon.
