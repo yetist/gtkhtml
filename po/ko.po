@@ -5,33 +5,34 @@
 # Changwoo Ryu <cwryu@debian.org>, 2004.
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml 3.1\n"
+"Project-Id-Version: gtkhtml 3.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-31 22:05+0100\n"
-"PO-Revision-Date: 2004-07-26 06:24+0900\n"
+"POT-Creation-Date: 2005-02-04 06:44+0900\n"
+"PO-Revision-Date: 2005-02-04 06:48+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: GNOME Korea <gnome-kr-hackers@lists.kldp.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
+# alternative text는 img 태그의 alt 속성을 말한다
 #: a11y/image.c:150
 #, c-format
 msgid "URL is %s, Alternative Text is %s"
-msgstr ""
+msgstr "URL은 %s, 텍스트는 %s"
 
 #: a11y/image.c:152
 #, c-format
 msgid "URL is %s"
-msgstr ""
+msgstr "URL은 %s"
 
 #: a11y/object.c:50 a11y/object.c:59 a11y/text.c:111
 msgid "grab focus"
-msgstr ""
+msgstr "포커스 잡기"
 
 #: a11y/object.c:256
 msgid "Panel containing HTML"
-msgstr ""
+msgstr "패널에 HTML 들어 있음"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
@@ -761,7 +762,7 @@ msgstr "이모티콘(_S)"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:142
 msgid "_Spell Check Document..."
-msgstr "문서 맞춤법 검사(S)..."
+msgstr "문서 맞춤법 검사(_S)..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:141
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
@@ -929,9 +930,8 @@ msgid "Background Image"
 msgstr "바탕 그림"
 
 #: components/html-editor/body.c:298
-#, fuzzy
 msgid "Background Image File Path"
-msgstr "바탕 그림"
+msgstr "바탕 그림 파일 경로"
 
 #: components/html-editor/body.c:301
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
@@ -974,9 +974,8 @@ msgid "Page"
 msgstr "페이지"
 
 #: components/html-editor/gi-color-combo.c:187
-#, fuzzy
 msgid "color preview"
-msgstr "인쇄 미리 보기"
+msgstr "색 미리 보기"
 
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:395
@@ -1180,7 +1179,7 @@ msgstr "하늘색"
 #. set the a11y name
 #: components/html-editor/gi-combo-box.c:419
 msgid "Popup"
-msgstr ""
+msgstr "팝업"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
@@ -1445,14 +1444,12 @@ msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
 #: components/html-editor/link.c:194
-#, fuzzy
 msgid "URL:"
-msgstr "_URL:"
+msgstr "URL:"
 
 #: components/html-editor/link.c:198
-#, fuzzy
 msgid "Description:"
-msgstr "설명(_D):"
+msgstr "설명:"
 
 #: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
 msgid "Insert image"
@@ -1661,14 +1658,12 @@ msgid "Case _sensitive"
 msgstr "대소문자 구별(_S)"
 
 #: components/html-editor/replace.c:182
-#, fuzzy
 msgid "R_eplace:"
-msgstr "바꾸기:"
+msgstr "바꾸기(_E):"
 
 #: components/html-editor/replace.c:186
-#, fuzzy
 msgid "_With:"
-msgstr "너비(_W):"
+msgstr "다음으로(_W):"
 
 #: components/html-editor/search.c:112
 msgid "_Backward"
@@ -1680,13 +1675,15 @@ msgstr "정규 표현식(_R)"
 
 #: components/html-editor/search.c:118
 msgid "Input the words you want to search here"
-msgstr ""
+msgstr "여기에 찾으려는 단어를 입력하십시오"
 
 #: components/html-editor/spellchecker.c:110
 msgid ""
 "Unable to add word to dictionary,\n"
 "language settings are broken.\n"
 msgstr ""
+"단어를 사전에 넣을 수 없습니다.\n"
+"언어 설정이 잘못되었습니다.\n"
 
 #: components/html-editor/spellchecker.c:298
 msgid "No misspelled word found"
@@ -1713,9 +1710,8 @@ msgid "Image frame"
 msgstr "그림 프레임"
 
 #: components/html-editor/template.c:280
-#, fuzzy
 msgid "Template Labels"
-msgstr "템플릿"
+msgstr "템플릿 레이블"
 
 #: components/html-editor/test-html-editor-control.c:333
 msgid "Open file..."
@@ -1968,100 +1964,3 @@ msgstr "인쇄 미리 보기"
 #: src/testgtkhtml.c:1004
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML 테스트 프로그램"
-
-#~ msgid "<None>"
-#~ msgstr "<없음>"
-
-#~ msgid "\n"
-#~ msgstr "\n"
-
-#~ msgid "*********************"
-#~ msgstr "*********************"
-
-#~ msgid "Add Keyboard Shortcuts"
-#~ msgstr "단축키 더하기"
-
-#~ msgid "Automatically detect links"
-#~ msgstr "바로가기 자동 감지"
-
-#~ msgid "Behavior"
-#~ msgstr "동작"
-
-#~ msgid "Composer Properties"
-#~ msgstr "작성기 등록 정보"
-
-#~ msgid "Composer Properties planned"
-#~ msgstr "작성기 등록 정보 계획"
-
-#~ msgid "Configure spell checking"
-#~ msgstr "맞춤법 검사 설정"
-
-#~ msgid "Enable spell checking"
-#~ msgstr "맞춤법 검사 사용"
-
-#~ msgid "Fixed width"
-#~ msgstr "고정폭 글꼴"
-
-#~ msgid "Fonts"
-#~ msgstr "글꼴"
-
-#~ msgid "For printing"
-#~ msgstr "인쇄용"
-
-#~ msgid "Grab keys"
-#~ msgstr "키 잡기"
-
-#~ msgid "Information"
-#~ msgstr "정보"
-
-#~ msgid "Keyboard Shortcuts"
-#~ msgstr "단축 키"
-
-#~ msgid "Miscellaneous"
-#~ msgstr "기타"
-
-#~ msgid "New shortcut:"
-#~ msgstr "새 단축키:"
-
-#~ msgid "On screen"
-#~ msgstr "화면에"
-
-#~ msgid "Select HTML fixed width font"
-#~ msgstr "HTML 고정폭 글꼴을 선택합니다"
-
-#~ msgid "Select HTML fixed width font for printing"
-#~ msgstr "인쇄용 HTML 고정폭 글꼴을 선택합니다"
-
-#~ msgid "Select HTML variable width font"
-#~ msgstr "HTML 가변폭 글꼴을 선택합니다"
-
-#~ msgid "Select HTML variable width font for printing"
-#~ msgstr "인쇄용 HTML 가변폭 글꼴을 선택합니다"
-
-#~ msgid "Shortcuts _type:"
-#~ msgstr "단축키 형식(_T):"
-
-#~ msgid "Show animated images"
-#~ msgstr "움직이는 그림 보기"
-
-#~ msgid "Variable width"
-#~ msgstr "가변폭 글꼴"
-
-#~ msgid "_Add"
-#~ msgstr "더하기(_A)"
-
-#~ msgid "_Delete"
-#~ msgstr "지우기(_D)"
-
-#~ msgid ""
-#~ "Cannot execute GNOME Spell control applet\n"
-#~ "Try to install GNOME Spell if you don't have it installed."
-#~ msgstr ""
-#~ "GNOME Spell 컨트롤 애플릿을 실행할 수 없습니다\n"
-#~ "GNOME Spell이 설치되어 있지 않으면 설치하도록 하십시오."
-
-#~ msgid "With:"
-#~ msgstr "다음으로:"
-
-#~ msgid "Labels"
-#~ msgstr "레이블"
