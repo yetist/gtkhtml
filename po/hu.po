@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
-"POT-Creation-Date: 2001-07-31 10:05-0500\n"
-"PO-Revision-Date: 2001-07-31 18:03+0200\n"
+"POT-Creation-Date: 2001-08-05 18:29+0200\n"
+"PO-Revision-Date: 2001-08-05 18:31+0200\n"
 "Last-Translator: András TÍmár <timar@gnome.hu>\n"
 "Language-Team: Hungarian <hu@gnome.hu>\n"
 "MIME-Version: 1.0\n"
@@ -54,7 +54,8 @@ msgid "Grab key"
 msgstr "Billentyû megadása"
 
 #: capplet/main.c:226 components/html-editor/cell.c:386
-#: components/html-editor/table.c:533 components/html-editor/table.c:605
+#: components/html-editor/rule.c:315 components/html-editor/table.c:532
+#: components/html-editor/table.c:618
 msgid "Could not load glade file."
 msgstr "Nem sikerült betölteni a glade fájlt."
 
@@ -284,6 +285,7 @@ msgstr "Csere"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
 #: components/html-editor/editor-control-factory.c:183
+#: components/html-editor/gtkhtml-editor-properties.glade.h:24
 #: components/html-editor/menubar.c:148 components/html-editor/popup.c:185
 msgid "Rule"
 msgstr "Szabály"
@@ -297,9 +299,9 @@ msgid "Select the entire contents of the document"
 msgstr "Kijelöli a dokumentum teljes tartalmát"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
-#: components/html-editor/gtkhtml-editor-properties.glade.h:24
+#: components/html-editor/gtkhtml-editor-properties.glade.h:29
 #: components/html-editor/menubar.c:165 components/html-editor/popup.c:192
-#: components/html-editor/popup.c:383 components/html-editor/popup.c:392
+#: components/html-editor/popup.c:385 components/html-editor/popup.c:394
 msgid "Table"
 msgstr "Táblázat"
 
@@ -379,6 +381,12 @@ msgstr "Engedélyezés"
 msgid "Colors"
 msgstr "Színek"
 
+#: components/html-editor/body.c:169 components/html-editor/cell.c:392
+#: components/html-editor/table.c:538 components/html-editor/text.c:221
+#: components/html-editor/toolbar.c:286
+msgid "Automatic"
+msgstr "Automatikus"
+
 #: components/html-editor/body.c:180
 #: components/html-editor/editor-control-factory.c:172
 #: components/html-editor/menubar.c:125 components/html-editor/popup.c:150
@@ -389,11 +397,6 @@ msgstr "Szöveg"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:4
 msgid "Background"
 msgstr "Háttér"
-
-#: components/html-editor/cell.c:392 components/html-editor/table.c:539
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:286
-msgid "Automatic"
-msgstr "Automatikus"
 
 #: components/html-editor/editor-control-factory.c:152
 #: components/html-editor/popup.c:142
@@ -448,13 +451,12 @@ msgid "Cell"
 msgstr "Cella"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:8
-#: components/html-editor/paragraph.c:158 components/html-editor/rule.c:256
-#: components/html-editor/toolbar.c:496
+#: components/html-editor/paragraph.c:158 components/html-editor/toolbar.c:496
 msgid "Center"
 msgstr "Középen"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:9
-#: components/html-editor/popup.c:394
+#: components/html-editor/popup.c:396
 msgid "Column"
 msgstr "Oszlop"
 
@@ -467,7 +469,7 @@ msgid "Header"
 msgstr "Fejléc"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:12
-#: components/html-editor/paragraph.c:157 components/html-editor/rule.c:255
+#: components/html-editor/paragraph.c:157
 msgid "Left"
 msgstr "Balra"
 
@@ -493,118 +495,138 @@ msgstr "Szokásos"
 msgid "Percent"
 msgstr "Százalék"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:18
+#: components/html-editor/gtkhtml-editor-properties.glade.h:19
+#: components/html-editor/image.c:259 components/html-editor/image.c:268
+#, no-c-format
+msgid "Percent %"
+msgstr "Százalék %"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:20
 #: components/html-editor/image.c:258 components/html-editor/image.c:267
-#: components/html-editor/rule.c:229
 msgid "Pixels"
 msgstr "Képpont"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:19
-#: components/html-editor/paragraph.c:159 components/html-editor/rule.c:257
+#: components/html-editor/gtkhtml-editor-properties.glade.h:21
+msgid "Points"
+msgstr "Pont"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:22
+#: components/html-editor/paragraph.c:159
 msgid "Right"
 msgstr "Jobbra"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:20
-#: components/html-editor/popup.c:393
+#: components/html-editor/gtkhtml-editor-properties.glade.h:23
+#: components/html-editor/popup.c:395
 msgid "Row"
 msgstr "Sor"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:21
+#: components/html-editor/gtkhtml-editor-properties.glade.h:25
 msgid "Scope"
 msgstr "Tartomány"
 
-#. size
-#: components/html-editor/gtkhtml-editor-properties.glade.h:22
-#: components/html-editor/image.c:251 components/html-editor/rule.c:224
-#: components/html-editor/text.c:188
+#: components/html-editor/gtkhtml-editor-properties.glade.h:26
+#: components/html-editor/image.c:251 components/html-editor/text.c:188
 msgid "Size"
 msgstr "Méret"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:23
+#: components/html-editor/gtkhtml-editor-properties.glade.h:27
 msgid "Spacing"
 msgstr "Távolságok"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:25
+#: components/html-editor/gtkhtml-editor-properties.glade.h:28
+#: components/html-editor/paragraph.c:110 components/html-editor/text.c:168
+msgid "Style"
+msgstr "Stílus"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:30
 msgid "Table Insert"
 msgstr "Táblázat beszúrása"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:26
+#: components/html-editor/gtkhtml-editor-properties.glade.h:31
 msgid "Template"
 msgstr "Sablon"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:27
+#: components/html-editor/gtkhtml-editor-properties.glade.h:32
 #: components/html-editor/image.c:200
 msgid "Top"
 msgstr "Fent"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:28
+#: components/html-editor/gtkhtml-editor-properties.glade.h:33
 msgid "Wrap"
 msgstr "Tördelés"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:29
+#: components/html-editor/gtkhtml-editor-properties.glade.h:34
 msgid "alignment"
 msgstr "igazítás"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:30
+#: components/html-editor/gtkhtml-editor-properties.glade.h:35
 msgid "border"
 msgstr "keret"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:31
+#: components/html-editor/gtkhtml-editor-properties.glade.h:36
 msgid "color"
 msgstr "szín"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:32
+#: components/html-editor/gtkhtml-editor-properties.glade.h:37
 msgid "column span"
 msgstr "átnyúló oszlop"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:33
+#: components/html-editor/gtkhtml-editor-properties.glade.h:38
 msgid "columns"
 msgstr "oszlopok"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:34
+#: components/html-editor/gtkhtml-editor-properties.glade.h:39
 #: components/html-editor/image.c:243 components/html-editor/image.c:275
 msgid "height"
 msgstr "magasság"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:35
+#: components/html-editor/gtkhtml-editor-properties.glade.h:40
 msgid "horizontal"
 msgstr "vízszintes"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:36
+#: components/html-editor/gtkhtml-editor-properties.glade.h:41
+msgid "length"
+msgstr "hosszúság"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:42
 msgid "padding"
 msgstr "sorkitöltés"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:37
+#: components/html-editor/gtkhtml-editor-properties.glade.h:43
 msgid "pixmap"
 msgstr "pixmap"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:38
+#: components/html-editor/gtkhtml-editor-properties.glade.h:44
 msgid "row span"
 msgstr "átnyúló sor"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:39
+#: components/html-editor/gtkhtml-editor-properties.glade.h:45
 msgid "rows"
 msgstr "sorok"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:40
+#: components/html-editor/gtkhtml-editor-properties.glade.h:46
+msgid "shaded"
+msgstr "árnyékolt"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:47
 msgid "spacing"
 msgstr "távolságok"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:41
+#: components/html-editor/gtkhtml-editor-properties.glade.h:48
 msgid "style"
 msgstr "stílus"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:42
+#: components/html-editor/gtkhtml-editor-properties.glade.h:49
 msgid "vertical"
 msgstr "függõleges"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:43
+#: components/html-editor/gtkhtml-editor-properties.glade.h:50
 #: components/html-editor/image.c:224 components/html-editor/image.c:242
-#: components/html-editor/image.c:274 components/html-editor/rule.c:266
+#: components/html-editor/image.c:274
 msgid "width"
 msgstr "szélesség"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:44
+#: components/html-editor/gtkhtml-editor-properties.glade.h:51
 msgid "wrapping"
 msgstr "tördelés"
 
@@ -619,12 +641,6 @@ msgstr "Keret"
 #: components/html-editor/image.c:231
 msgid "Padding"
 msgstr "Sorkitöltés"
-
-#: components/html-editor/image.c:259 components/html-editor/image.c:268
-#: components/html-editor/rule.c:230
-#, c-format
-msgid "Percent %"
-msgstr "Százalék %"
 
 #: components/html-editor/link.c:73
 msgid "Clear"
@@ -643,12 +659,6 @@ msgstr "Beszúrás"
 #: components/html-editor/menubar.c:184
 msgid "Cannot execute gtkhtml properties"
 msgstr "Nem lehet végrehajtani a gtkhtml tulajdonságokat"
-
-#. style
-#: components/html-editor/paragraph.c:110 components/html-editor/rule.c:248
-#: components/html-editor/text.c:168
-msgid "Style"
-msgstr "Stílus"
 
 #: components/html-editor/paragraph.c:125
 msgid "Pre"
@@ -728,35 +738,35 @@ msgstr "Szabály..."
 msgid "Image..."
 msgstr "Kép..."
 
-#: components/html-editor/popup.c:371 components/html-editor/popup.c:380
+#: components/html-editor/popup.c:371 components/html-editor/popup.c:381
 msgid "Table..."
 msgstr "Táblázat..."
 
-#: components/html-editor/popup.c:377
+#: components/html-editor/popup.c:378
 msgid "Cell..."
 msgstr "Cella..."
 
-#: components/html-editor/popup.c:385
+#: components/html-editor/popup.c:387
 msgid "Row above"
 msgstr "Egy sorral feljebb"
 
-#: components/html-editor/popup.c:386
+#: components/html-editor/popup.c:388
 msgid "Row below"
 msgstr "Egy sorral lejjebb"
 
-#: components/html-editor/popup.c:388
+#: components/html-editor/popup.c:390
 msgid "Column before"
 msgstr "Egy oszloppal elõtte"
 
-#: components/html-editor/popup.c:389
+#: components/html-editor/popup.c:391
 msgid "Column after"
 msgstr "Egy oszloppal utána"
 
-#: components/html-editor/popup.c:395
+#: components/html-editor/popup.c:397
 msgid "Cell contents"
 msgstr "Cellatartalom"
 
-#: components/html-editor/popup.c:402
+#: components/html-editor/popup.c:405
 msgid "Page..."
 msgstr "Oldal..."
 
@@ -784,13 +794,17 @@ msgstr "kis- és nagybetûk megkülönböztetése"
 msgid "with"
 msgstr "szélesség"
 
-#: components/html-editor/rule.c:238
-msgid "length"
-msgstr "hosszúság"
+#: components/html-editor/rule.c:92 components/html-editor/table.c:184
+msgid "Plain"
+msgstr "Egyszerû"
 
-#: components/html-editor/rule.c:272
-msgid "shaded"
-msgstr "árnyékolt"
+#: components/html-editor/rule.c:97
+msgid "Blue 3D"
+msgstr "Kék 3D"
+
+#: components/html-editor/rule.c:109
+msgid "Yellow, flowers"
+msgstr "Sárga, virágos"
 
 #: components/html-editor/search.c:66
 msgid "backward"
@@ -799,10 +813,6 @@ msgstr "hátrafelé"
 #: components/html-editor/search.c:107
 msgid "Regex find"
 msgstr "Regex keresés"
-
-#: components/html-editor/table.c:184
-msgid "Plain"
-msgstr "Egyszerû"
 
 #: components/html-editor/table.c:192
 msgid "Flat gray"
@@ -919,6 +929,10 @@ msgstr "Növeli a behúzást"
 #: components/html-editor/utils.c:106
 msgid "Sample"
 msgstr "Minta"
+
+#: src/htmlgdkpainter.c:211
+msgid "Can't load fixed font."
+msgstr "Nem sikerült betölteni a fix szélességû betûkészletet."
 
 #: src/testgtkhtml.c:112
 msgid "Print pre_view"
