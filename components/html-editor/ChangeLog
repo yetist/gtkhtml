@@ -1,3 +1,9 @@
+2001-10-29  Larry Ewing  <lewing@ximian.com>
+
+	* image.c (insert_or_apply): make urls that are not valid files
+	insert properly.  They will not view inline until the composer is
+	fixed but they will transfer in the html properly.
+
 2001-10-29  Radek Doulik  <rodo@ximian.com>
 
 	* spell.c (spell_add_to_session): added g_return_if_fail (word);
