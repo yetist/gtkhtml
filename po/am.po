@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "POT-Creation-Date: 2002-10-31 05:42+0100\n"
-"PO-Revision-Date: 2002-12-10 19:37+EDT\n"
+"PO-Revision-Date: 2002-12-21 22:37+EDT\n"
 "Last-Translator: Ge'ez Frontier Foundation <locales@geez.org>\n"
 "Language-Team: Amharic <locales@geez.org>\n"
 "MIME-Version: 1.0\n"
@@ -45,7 +45,7 @@ msgstr ""
 
 #: capplet/gtkhtml-capplet.glade.h:5
 msgid "Behavior"
-msgstr ""
+msgstr "ጠባይ"
 
 #: capplet/gtkhtml-capplet.glade.h:6
 msgid "Composer Properties"
@@ -542,7 +542,7 @@ msgstr ""
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 msgid "Select _All"
-msgstr "ሁሉንም ምረጥ (_A)"
+msgstr "ሁሉንም ምረጡ (_A)"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 msgid "Select the entire contents of the document"
@@ -552,7 +552,7 @@ msgstr ""
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
 #: components/html-editor/text.c:222 components/html-editor/toolbar.c:529
 msgid "Strikeout"
-msgstr "አጥፋ"
+msgstr "ስርዝ"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
 msgid "Su_perscript"
@@ -583,7 +583,7 @@ msgstr "ሠንጠረዥ"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
 msgid "Te_mplate..."
-msgstr ""
+msgstr "ንድፍ... (_M)"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 msgid "Te_xt file..."
@@ -623,7 +623,7 @@ msgstr "ኩልኩል (_A)"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
 msgid "_Alphabetical List"
-msgstr ""
+msgstr "የፊደል ዝርዝር (_A)"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
 msgid "_Bold"
@@ -759,7 +759,7 @@ msgstr ""
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:142
 msgid "_Strikeout"
-msgstr "አጥፋ (_S)"
+msgstr "ስርዝ (_S)"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
 msgid "_Style"
@@ -818,7 +818,7 @@ msgstr "የመደቡ ምስል"
 #: components/html-editor/body.c:281
 #: components/html-editor/gtkhtml-editor-properties.glade.h:25
 msgid "Colors"
-msgstr "ቀለማት"
+msgstr "ቀለሞች"
 
 #: components/html-editor/body.c:291 components/html-editor/cell.c:391
 #: components/html-editor/table.c:534 components/html-editor/text.c:279
@@ -1558,7 +1558,7 @@ msgstr "ፈተና7"
 
 #: src/html-component.c:612
 msgid "_Refresh"
-msgstr ""
+msgstr "አድስ (_R)"
 
 #: src/html-component.c:613
 msgid "Reload the page"
