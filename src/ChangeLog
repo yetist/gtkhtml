@@ -1,3 +1,10 @@
+2003-03-18  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml-properties.c (gtk_html_class_properties_new): warning
+	cleanups.
+
+	* htmlclueflow.c (calc_size): warning cleanups.
+
 2003-03-18  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (realize): call gtk_im_context_set_client_window

@@ -47,7 +47,7 @@ gtk_html_class_properties_new (GtkWidget *widget)
 	GtkHTMLClassProperties *p = g_new0 (GtkHTMLClassProperties, 1);
 	PangoFontDescription *var_desc, *fixed_desc; 
 	char *fixed_name, *var_name;
-	gint var_size, fixed_size;
+	gint var_size, fixed_size = 0;
 	GdkColor *link_color = NULL;
 	GdkColor *alink_color = NULL;
 	GdkColor *vlink_color = NULL;

@@ -564,7 +564,6 @@ get_level_indent (HTMLClueFlow *flow,
 		  gint level,
 		  HTMLPainter *painter)
 {
-	int line_offset = 0;
 	guint indent = 0;
 	gint i = 0;
 
@@ -949,7 +948,7 @@ static gboolean
 calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 {
 	HTMLClueFlow *cf = HTML_CLUEFLOW (o);
-	gint oa, od, ow, oi, padding;
+	gint oa, od, ow, padding;
 	gboolean leaf_children_changed_size = FALSE;
 	gboolean changed, changed_size = FALSE;
 
