@@ -1,3 +1,10 @@
+2000-12-07  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* spell.c (spell_suggestion_request): Use an EScrollFrame instead
+	of a GtkScrolledWindow, and set the shadow type to `E_SHADOW_IN'.
+	* utils.c (sample_frame): Likewise.
+	* editor-control-factory.c (set_frame_cb): Likewise.
+
 2000-12-07  Radek Doulik  <rodo@helixcode.com>
 
 	* menubar.c (menubar_setup): html-editor-control renamed to

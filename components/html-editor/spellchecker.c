@@ -20,6 +20,8 @@
    Boston, MA 02111-1307, USA.
 */
 
+#include <gal/widgets/e-scroll-frame.h>
+
 #include "htmlcursor.h"
 #include "htmlengine.h"
 #include "htmlobject.h"
@@ -123,7 +125,7 @@ spell_suggestion_request (GtkHTML *html, const gchar *word, gpointer data)
 	GtkHTMLControlData *cd;
 	SpellPopup *sp;
 	HTMLEngine *e = html->engine;
-	GtkWidget *scrolled_window;
+	GtkWidget *scroll_frame;
 	GtkWidget *frame;
 	gint x, y, xw, yw;
 
@@ -138,8 +140,9 @@ spell_suggestion_request (GtkHTML *html, const gchar *word, gpointer data)
 	sp->window = gtk_window_new (GTK_WINDOW_POPUP);
 	gtk_window_set_policy (GTK_WINDOW (sp->window), FALSE, FALSE, FALSE);
 	gtk_widget_set_name (sp->window, "html-editor-spell-suggestions");
-	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	scroll_frame = e_scroll_frame_new (NULL, NULL);
+	e_scroll_frame_set_shadow_type (E_SCROLL_FRAME (scroll_frame), GTK_SHADOW_IN);
+	e_scroll_frame_set_policy (E_SCROLL_FRAME (scroll_frame), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	sp->clist  = gtk_clist_new (1);
 	gtk_clist_set_selection_mode (GTK_CLIST (sp->clist), GTK_SELECTION_BROWSE);
 	frame = gtk_frame_new (NULL);
@@ -148,8 +151,8 @@ spell_suggestion_request (GtkHTML *html, const gchar *word, gpointer data)
 	fill_suggestion_clist (sp->clist, word, cd);
 
 	gtk_widget_set_usize (sp->window, gtk_clist_columns_autosize (GTK_CLIST (sp->clist)) + 40, 200);
-	gtk_container_add (GTK_CONTAINER (scrolled_window), sp->clist);
-	gtk_container_add (GTK_CONTAINER (frame), scrolled_window);
+	gtk_container_add (GTK_CONTAINER (scroll_frame), sp->clist);
+	gtk_container_add (GTK_CONTAINER (frame), scroll_frame);
 	gtk_container_add (GTK_CONTAINER (sp->window), frame);
 	gtk_widget_show_all (frame);
 
