@@ -22,6 +22,7 @@ libgtkhtmldir = $(includedir)/gtkhtml
 
 libgtkhtml_HEADERS =				\
 	gtkhtml-embedded.h			\
+	gtkhtml-im.h				\
 	gtkhtml-input.h				\
 	gtkhtml-private.h			\
 	gtkhtml-properties.h			\
@@ -108,6 +109,7 @@ libgtkhtml_HEADERS =				\
 
 libgtkhtml_la_SOURCES =				\
 	gtkhtml-embedded.c			\
+	gtkhtml-im.c				\
 	gtkhtml-input.c				\
 	gtkhtml-properties.c			\
 	gtkhtml-search.c			\

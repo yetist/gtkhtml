@@ -1,3 +1,21 @@
+2000-09-29  Larry Ewing  <lewing@helixcode.com>
+
+	* gtkhtml.c (style_set): 
+	(realize): 
+	(unrealize): 
+	(size_allocate): 
+	(focus_in_event): 
+	(focus_out_event): add entry points for XIM handling.  This is the
+	first pass integrating the XIM patches from
+	garetxe@euskalnet.net
+
+	* gtkhtml.h: define GTK_HTML_USE_XIM until the configure check is
+	written
+ 
+	* gtkhtml-im.c: file added
+
+	* gtkhtml-im.h: file added
+
 2000-09-29  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine-search.c (add_iframe_off): new helper function

@@ -43,6 +43,7 @@
 #include "htmlcolorset.h"
 
 #include "gtkhtml-embedded.h"
+#include "gtkhtml-im.h"
 #include "gtkhtml-input.h"
 #include "gtkhtml-keybinding.h"
 #include "gtkhtml-search.h"
@@ -93,7 +94,6 @@ static void scroll              (GtkHTML *html, GtkOrientation orientation, GtkS
 static void cursor_move         (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType skip);
 static void command             (GtkHTML *html, GtkHTMLCommandType com_type);
 static gint mouse_change_pos    (GtkWidget *widget, gint x, gint y);
-
 static void load_keybindings    (GtkHTMLClass *klass);
 
 /* Values for selection information.  FIXME: what about COMPOUND_STRING and
@@ -593,12 +593,17 @@ style_set (GtkWidget *widget,
 	   GtkStyle  *previous_style)
 {
 	HTMLEngine *engine = GTK_HTML (widget)->engine;
-	
+       
 	html_colorset_set_style (engine->defaultSettings->color_set,
 				 widget->style);
 	html_colorset_set_unchanged (engine->settings->color_set,
 				     engine->defaultSettings->color_set);
 	html_engine_schedule_update (engine);
+
+#ifdef GTKHTML_USE_XIM
+	if (previous_style)
+		gtk_html_im_style_set (widget);
+#endif
 }
 
 static gint
@@ -667,6 +672,10 @@ realize (GtkWidget *widget)
 	/* This sets the backing pixmap to None, so that scrolling does not
            erase the newly exposed area, thus making the thing smoother.  */
 	gdk_window_set_back_pixmap (html->layout.bin_window, NULL, FALSE);
+
+#ifdef GTKHTML_USE_XIM
+	gtk_html_im_realize (html);
+#endif /* GTKHTML_USE_XIM */
 }
 
 static void
@@ -676,6 +685,9 @@ unrealize (GtkWidget *widget)
 	
 	html_engine_unrealize (html->engine);
 
+#ifdef GTKHTML_USE_XIM	
+	gtk_html_im_unrealize (html);
+#endif
 	if (GTK_WIDGET_CLASS (parent_class)->unrealize)
 		(* GTK_WIDGET_CLASS (parent_class)->unrealize) (widget);
 }
@@ -732,6 +744,10 @@ size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 
 		gtk_html_private_calc_scrollbars (html);
 	}
+
+#ifdef GTKHTML_USE_XIM
+	gtk_html_im_size_allocate (html);
+#endif
 }
 
 static void
@@ -1016,6 +1032,10 @@ focus_in_event (GtkWidget *widget,
 			gtk_window_set_focus (GTK_WINDOW (window), html->iframe_parent);
 	}
 
+#ifdef GTKHTML_USE_XIM
+	gtk_html_im_focus_in (html);
+#endif
+
 	return FALSE;
 }
 
@@ -1028,6 +1048,10 @@ focus_out_event (GtkWidget *widget,
 		GTK_WIDGET_UNSET_FLAGS (widget, GTK_HAS_FOCUS);
 		html_engine_set_focus (html->engine, FALSE);
 	}
+
+#ifdef GTKHTML_USE_XIM
+	gtk_html_im_focus_out (html);
+#endif
 
 	return FALSE;
 }
