@@ -1,5 +1,12 @@
 2000-04-21  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine.c
+	(ensure_last_clueflow): New function.  If the last
+	HTMLClueFlow is empty, fill it with a zero-length text element.
+	(html_engine_end): Call it.
+
+2000-04-21  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* gtkhtmldebug.c
 	(gtk_html_debug_dump_tree_simple): Removed unused variable `i'.
 

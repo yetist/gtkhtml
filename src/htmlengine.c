@@ -3302,6 +3302,31 @@ html_engine_timer_event (HTMLEngine *e)
 	return retval;
 }
 
+/* This makes sure that the last HTMLClueFlow is non-empty.  */
+static void
+ensure_last_clueflow (HTMLEngine *engine)
+{
+	HTMLObject *new_textmaster;
+	HTMLClue *clue;
+	HTMLClue *last_clueflow;
+
+	clue = HTML_CLUE (engine->clue);
+	if (clue == NULL)
+		return;
+
+	last_clueflow = HTML_CLUE (clue->tail);
+	if (last_clueflow == NULL)
+		return;
+
+	if (last_clueflow->tail != NULL)
+		return;
+
+	new_textmaster = html_text_master_new ("",
+					       GTK_HTML_FONT_STYLE_DEFAULT,
+					       & engine->settings->fontBaseColor);
+	html_clue_prepend (last_clueflow, new_textmaster);
+}
+
 static void
 html_engine_end (GtkHTMLStream *stream,
 		 GtkHTMLStreamStatus status,
@@ -3322,6 +3347,8 @@ html_engine_end (GtkHTMLStream *stream,
 	}
 
 	html_tokenizer_end (e->ht);
+
+	ensure_last_clueflow (e);
 
 	if (e->editable)
 		ensure_editable (e);
