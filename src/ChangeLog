@@ -1,5 +1,12 @@
 2000-10-25  Radek Doulik  <rodo@helixcode.com>
 
+	* htmltokenizer.c: changed pre to gint to imitate stacked
+	behaviour of parser
+	(end_tag): updated for stacked pre
+
+	* htmlengine.c (parse_b): added </br> with the same meaning as
+	<br> to render broken pages
+
 	* gtkhtml-properties.c: added GTK_HTML_COMMAND_INSERT_RULE
 
 	* keybindingsrc.emacs: added popup-menu, property-dialog,

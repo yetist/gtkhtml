@@ -1744,7 +1744,7 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 		gtk_html_debug_log (e->widget, "parsed <body>\n");
 	}
-	else if (strncmp (str, "br", 2) == 0) {
+	else if (strncmp (str, "br", 2) == 0 || strncmp (str, "/br", 3) == 0) {
 		HTMLClearType clear;
 
 		clear = HTML_CLEAR_NONE;

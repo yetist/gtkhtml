@@ -72,7 +72,7 @@ struct _HTMLTokenizer {
 	gboolean style; /* Are we in a <style> block? */
 	gboolean script; /* Are we in a <script> block? */
 	gboolean textarea; /* Are we in a <textarea> block? */
-	gboolean pre; /* Are we in a <pre> block? */
+	gint     pre; /* Are we in a <pre> block? */
 	gboolean select; /* Are we in a <select> block? */
 	gboolean charEntity; /* Are we in an &... sequence? */
 
@@ -191,7 +191,7 @@ html_tokenizer_new (void)
 	t->style = FALSE;
 	t->script = FALSE;
 	t->textarea = FALSE;
-	t->pre = FALSE;
+	t->pre = 0;
 	t->select = FALSE;
 	t->charEntity = FALSE;
 
@@ -312,7 +312,7 @@ html_tokenizer_begin (HTMLTokenizer *t)
 	t->tag = FALSE;
 	t->pending = NonePending;
 	t->discard = NoneDiscard;
-	t->pre = FALSE;
+	t->pre = 0;
 	t->prePos = 0;
 	t->script = FALSE;
 	t->style = FALSE;
@@ -840,10 +840,10 @@ end_tag (HTMLTokenizer *t, const gchar **src)
 			
 	if (strncmp (t->buffer + 2, "pre", 3) == 0) {
 		t->prePos = 0;
-		t->pre = TRUE;
+		t->pre++;
 	}
 	else if (strncmp (t->buffer + 2, "/pre", 4) == 0) {
-		t->pre = FALSE;
+		t->pre--;
 	}
 	else if (strncmp (t->buffer + 2, "textarea", 8) == 0) {
 		t->textarea = TRUE;
