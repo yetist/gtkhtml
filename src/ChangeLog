@@ -1,3 +1,10 @@
+2002-01-29  Radek Doulik  <rodo@ximian.com>
+
+	* htmlselection.c (html_engine_select_all): as below
+
+	* htmlengine-edit-cut-and-paste.c (html_engine_copy_object): check
+	if e->clue is not empty
+
 2002-01-28  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-print.c (print_page): fix header printing

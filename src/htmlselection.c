@@ -97,7 +97,7 @@ html_engine_select_all (HTMLEngine *e)
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	e = html_engine_get_top_html_engine (e);
-	if (e->clue == NULL)
+	if (e->clue == NULL || HTML_CLUE (e->clue)->head == NULL)
 		return;
 
 	a = html_object_get_head_leaf (e->clue);
