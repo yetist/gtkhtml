@@ -342,96 +342,40 @@ html_text_slave_get_nb_width (HTMLTextSlave *slave, HTMLPainter *painter, gboole
 	return 0;
 }
 
-/* static HTMLFitType
-hts_fit_line_old (HTMLObject *o, HTMLPainter *painter,
-		  gboolean lineBegin, gboolean firstRun, gboolean next_to_floating, gint widthLeft)
+static gboolean
+update_lb (HTMLTextSlave *slave, HTMLPainter *painter, gint widthLeft, gint offset, gchar *s, gint ii, gint io, gint line_offset,
+	   gint *w, gint *ltw, gint *lwl, gint *lbw, gint *lbo, gchar **lbsp, gboolean *force_fit)
 {
-	HTMLFitType rv = HTML_FIT_PARTIAL;
-	HTMLTextSlave *slave;
-	HTMLText *text;
-	HTMLObject *prev;
-	guint  pos = 0;
-	gchar *sep = NULL;
-	gchar *begin;
-	guint words = 0;
-	gint orig_start_word;
-	gboolean forceFit;
+	gint new_ltw, new_lwl, aw;
 
-	slave = HTML_TEXT_SLAVE (o);
-	text  = HTML_TEXT (slave->owner);
-	orig_start_word = slave->start_word;
-
-	begin = html_text_slave_remove_leading_space (slave, painter, lineBegin);
-
-	* printf ("fit_line %d left: %d lspacetext: \"%s\"\n", firstRun, widthLeft, begin); *
-
-	prev = html_object_prev_not_slave (HTML_OBJECT (text));
-	forceFit = orig_start_word == slave->start_word
-		&& prev && html_object_is_text (prev) && HTML_TEXT (prev)->text_len && HTML_TEXT (prev)->text [strlen (HTML_TEXT (prev)->text) - 1] != ' ';
-
-	sep = begin;
-	while ((sep && *sep
-		&& widthLeft >= html_text_slave_nb_width (slave, painter, words + 1))
-	       || (words == 0 && text->words - slave->start_word > 0 && forceFit)) {
-		if (words) {
-			sep = g_utf8_next_char (sep);
-			pos++;
-		}
-		
-		words ++;
-		while (*sep && *sep != ' ') {
-			sep = g_utf8_next_char (sep);
-			pos++;
-		}
-
-		if (words + slave->start_word >= text->words)
-			break;
+	new_ltw = PANGO_PIXELS (html_text_tail_white_space (slave->owner, painter, offset, ii, io, &new_lwl, line_offset, s));
+	if (HTML_IS_GDK_PAINTER (painter) || HTML_IS_PLAIN_PAINTER (painter)) {
+		aw = *w - new_lwl;
+	} else {
+		gint lo = html_text_get_line_offset (slave->owner, painter, *lbo - *lwl);
+				/* printf ("s: %s l: %d\n", html_text_get_text (slave->owner, lbo - lwl), offset - new_lwl - lbo + lwl); */
+		html_painter_calc_text_size (painter, html_text_get_text (slave->owner, lbo - lwl),
+					     offset - new_lwl - *lbo + *lwl, NULL, NULL, 0, &lo,
+					     html_text_get_font_style (slave->owner), slave->owner->face,
+					     &aw, NULL, NULL);
+		*w += aw;
+		aw = *w;
+		new_ltw = 0;
 	}
+	if (aw <= widthLeft || *force_fit) {
+		*ltw = new_ltw;
+		*lwl = new_lwl;
+		*lbw = aw;
+		*lbo = offset;
+		*lbsp = s;
+		if (*force_fit && *lbw >= widthLeft)
+			return TRUE;
+		*force_fit = FALSE;
+	} else
+		return TRUE;
 
-	if (words + slave->start_word == text->words)
-		rv = HTML_FIT_COMPLETE;
-	else if (words == 0 || get_words_width (slave, painter, words) == 0) {
-		if (!firstRun) {
-			if (slave->posStart == 0 && text->text [0] != ' ' && HTML_OBJECT (text)->prev) {
-				HTMLObject *prev = HTML_OBJECT (text)->prev;
-				if (HTML_IS_TEXT_SLAVE (prev) && HTML_TEXT_SLAVE (prev)->posLen
-				    && HTML_TEXT_SLAVE (prev)->owner->text [strlen (HTML_TEXT_SLAVE (prev)->owner->text) - 1]
-				    != ' ')
-					rv = slave->start_word + 1 == text->words ? HTML_FIT_COMPLETE : HTML_FIT_PARTIAL;
-				else
-					rv = HTML_FIT_NONE;
-			} else
-				rv = HTML_FIT_NONE;
-		} else if (slave->start_word + 1 == text->words)
-			rv = next_to_floating ? HTML_FIT_NONE : HTML_FIT_COMPLETE;
-		else {
-			if (words && *sep) {
-				sep = g_utf8_next_char (sep);
-				pos++;
-			}
-
-			words ++;
-
-			while (*sep && *sep != ' ') {
-				sep = g_utf8_next_char (sep);
-				pos ++;
-			}
-		}
-	}
-
-	if (rv == HTML_FIT_PARTIAL)
-		if (pos < slave->posLen) {
-			split (slave, pos, slave->start_word + words, *sep ? sep : NULL);
-		o->width = get_words_width (slave, painter, words);
-	}
-
-#ifdef HTML_TEXT_SLAVE_DEBUG
-	debug_print (rv, html_text_slave_get_text (slave), slave->posLen);
-#endif
-
-	return rv;	
+	return FALSE;
 }
-*/
 
 static HTMLFitType
 hts_fit_line (HTMLObject *o, HTMLPainter *painter,
@@ -472,35 +416,9 @@ hts_fit_line (HTMLObject *o, HTMLPainter *painter,
 	lbsp = s = html_text_get_text (slave->owner, offset);
 
 	while ((force_fit || widthLeft > lbw) && offset < slave->posStart + slave->posLen) {
-		if (offset > slave->posStart && (pi->entries [ii].attrs [io].is_line_break || io == pi->entries [ii].item->num_chars - 1)) {
-			gint new_ltw, new_lwl, aw;
-
-			new_ltw = PANGO_PIXELS (html_text_tail_white_space (slave->owner, painter, offset, ii, io, &new_lwl, line_offset, s));
-			if (HTML_IS_GDK_PAINTER (painter) || HTML_IS_PLAIN_PAINTER (painter)) {
-				aw = w - new_lwl;
-			} else {
-				gint lo = html_text_get_line_offset (slave->owner, painter, lbo - lwl);
-				/* printf ("s: %s l: %d\n", html_text_get_text (slave->owner, lbo - lwl), offset - new_lwl - lbo + lwl); */
-				html_painter_calc_text_size (painter, html_text_get_text (slave->owner, lbo - lwl),
-							     offset - new_lwl - lbo + lwl, NULL, NULL, 0, &lo,
-							     html_text_get_font_style (slave->owner), slave->owner->face,
-							     &aw, NULL, NULL);
-				w += aw;
-				aw = w;
-				new_ltw = 0;
-			}
-			if (aw <= widthLeft || force_fit) {
-				ltw = new_ltw;
-				lwl = new_lwl;
-				lbw = aw;
-				lbo = offset;
-				lbsp = s;
-				if (force_fit && lbw >= widthLeft)
-					break;
-				force_fit = FALSE;
-			} else
+		if (offset > slave->posStart && pi->entries [ii].attrs [io].is_line_break)
+			if (update_lb (slave, painter, widthLeft, offset, s, ii, io, line_offset, &w, &ltw, &lwl, &lbw, &lbo, &lbsp, &force_fit))
 				break;
-		}
 
 		if (*s == '\t') {
 			gint skip = 8 - (line_offset % 8);
@@ -512,8 +430,14 @@ hts_fit_line (HTMLObject *o, HTMLPainter *painter,
 				w += PANGO_PIXELS (pi->entries [ii].widths [io]);
 			line_offset ++;
 		}
+
 		s = g_utf8_next_char (s);
 		offset ++;
+
+		if (offset > slave->posStart && ii != pi->n - 1 && io == pi->entries [ii].item->num_chars - 1)
+			if (update_lb (slave, painter, widthLeft, offset, s, ii, io, line_offset, &w, &ltw, &lwl, &lbw, &lbo, &lbsp, &force_fit))
+				break;
+
 		html_text_pi_forward (pi, &ii, &io);
 	}
 

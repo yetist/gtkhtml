@@ -1,3 +1,16 @@
+2003-08-07  Radek Doulik  <rodo@ximian.com>
+
+	* htmltextslave.c (update_lb): extracted function
+	(hts_fit_line): similar changes as in htmltext.c(calc_min_width)
+
+	* htmltext.c (calc_nb_before): fix direction. it doesn't work very
+	well now though, we need to join text objects with different
+	styles badly.
+	(calc_nb_after): likewise
+	(update_mw): new extracted function
+	(calc_min_width): use update_mw, fix line breaking between items
+	inside text
+
 2003-08-06  Radek Doulik  <rodo@ximian.com>
 
 	* htmlpainter.c (shift_glyphs): shift glyphs by 2 list items as it
