@@ -1,15 +1,16 @@
-# Big5 Translation.  # Copyright (C) 2001 Free Software Foundation, Inc.
+# traditional Chinese translation of gtkhtml.
+# Copyright (C) 2001 Free Software Foundation, Inc.
 # Joe Man <trmetal@yahoo.com.hk>, 2001.
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "POT-Creation-Date: 2001-08-06 10:19+0800\n"
-"PO-Revision-Date: 2001-08-06 14:26+0800\n"
+"PO-Revision-Date: 2001-08-10 04:07+0800\n"
 "Last-Translator: Joe Man <trmetal@yahoo.com.hk>\n"
 "Language-Team: Chinese <zh@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=big5\n"
+"Content-Type: text/plain; charset=Big5\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 # capplet/gnome-bindings-prop.c:154
@@ -111,8 +112,8 @@ msgstr "自動偵測連結"
 # capplet/gtkhtml-capplet.glade.h:2
 # capplet/gtkhtml-capplet.glade.h:2
 #: capplet/gtkhtml-capplet.glade.h:3
-#msgid "Behavior"
-#msgstr "進階功能"
+msgid "Behavior"
+msgstr "表現"
 
 # capplet/gtkhtml-capplet.glade.h:3
 # components/html-editor/text.c:218

@@ -1,3 +1,9 @@
+2001-08-10  Abel Cheung  <maddog@linux.org.hk>
+
+	* zh_TW.Big5.po: Fixed previous problem, and...
+	* TRANSLATION_WARNING: add file to warn translators about the
+	  gettext version needed. (gettext <= 0.10.35 is needed here)
+
 2001-08-09  Larry Ewing  <lewing@ximian.com>
 
 	* zh_TW.Big5.po: Comment out invalid control sequence that is
