@@ -4703,6 +4703,7 @@ gtk_html_insert_html_generic (GtkHTML *html, GtkHTML *tmp, const gchar *html_src
 	HTMLObject *o;
 
 	html_engine_freeze (html->engine);
+	html_engine_delete (html->engine);
 	if (!tmp)
 		tmp = GTK_HTML (gtk_html_new_from_string (html_src, -1));
 
