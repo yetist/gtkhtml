@@ -1,3 +1,8 @@
+2001-08-10  Zbigniew Chyla  <cyba@gnome.pl>
+
+	* popup.c (prepare_properties_and_menu): Marked two strings for
+	translation.
+
 2001-08-09  Radek Doulik  <rodo@ximian.com>
 
 	* utils.c: new helper function

@@ -381,7 +381,7 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 					ADD_ITEM (_("Table..."), prop_dialog, TABLE);
 				}
 			}
-			SUBMENU ("Table insert");
+			SUBMENU (N_("Table insert"));
 			ADD_ITEM (_("Table"), insert_table_cb, NONE);
 			ADD_SEP;
 			ADD_ITEM (_("Row above"), insert_row_above, NONE);
@@ -390,7 +390,7 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 			ADD_ITEM (_("Column before"), insert_column_before, NONE);
 			ADD_ITEM (_("Column after"), insert_column_after, NONE);
 			END_SUBMENU;
-			SUBMENU ("Table delete");
+			SUBMENU (N_("Table delete"));
 			ADD_ITEM (_("Table"), delete_table, NONE);
 			ADD_ITEM (_("Row"), delete_row, NONE);
 			ADD_ITEM (_("Column"), delete_column, NONE);
