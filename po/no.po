@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
-"POT-Creation-Date: 2002-10-07 16:28-0500\n"
-"PO-Revision-Date: 2002-10-05 10:10+0200\n"
+"POT-Creation-Date: 2002-10-15 18:31+0200\n"
+"PO-Revision-Date: 2002-10-15 18:32+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -18,9 +18,9 @@ msgid "<None>"
 msgstr "<Ingen>"
 
 #: capplet/gnome-bindings-prop.c:216 capplet/main.c:253
-#: components/html-editor/cell.c:385 components/html-editor/image.c:541
+#: components/html-editor/cell.c:391 components/html-editor/image.c:543
 #: components/html-editor/rule.c:315 components/html-editor/table.c:528
-#: components/html-editor/table.c:619 components/html-editor/template.c:244
+#: components/html-editor/table.c:619 components/html-editor/template.c:249
 msgid "Could not load glade file."
 msgstr "Kunne ikke lese glade-fil."
 
@@ -590,7 +590,7 @@ msgstr "Velg hele innholdet i dokumentet"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
 #: components/html-editor/gtkhtml-editor-properties.glade.h:68
-#: components/html-editor/text.c:222 components/html-editor/toolbar.c:534
+#: components/html-editor/text.c:233 components/html-editor/toolbar.c:534
 msgid "Strikeout"
 msgstr "Gjennomstreket"
 
@@ -861,8 +861,8 @@ msgstr "Bakgrunnsbilde"
 msgid "Colors"
 msgstr "Farger"
 
-#: components/html-editor/body.c:294 components/html-editor/cell.c:391
-#: components/html-editor/table.c:534 components/html-editor/text.c:283
+#: components/html-editor/body.c:294 components/html-editor/cell.c:397
+#: components/html-editor/table.c:534 components/html-editor/text.c:295
 #: components/html-editor/toolbar.c:306
 msgid "Automatic"
 msgstr "Automatisk"
@@ -878,6 +878,15 @@ msgstr "Tekst"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:13
 msgid "Background"
 msgstr "Bakgrunn"
+
+#: components/html-editor/cell.c:164 components/html-editor/cell.c:166
+#: components/html-editor/text.c:105
+msgid "The quick brown fox jumps over the lazy dog."
+msgstr "Dette er en prøve...testing en - to - tre."
+
+#: components/html-editor/cell.c:169
+msgid "Other"
+msgstr "Annen"
 
 #: components/html-editor/editor-control-factory.c:176
 #: components/html-editor/menubar.c:318 components/html-editor/menubar.c:336
@@ -930,7 +939,7 @@ msgid "Apply changes to:"
 msgstr "Påfør endringer til:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:15
-#: components/html-editor/text.c:219 components/html-editor/toolbar.c:528
+#: components/html-editor/text.c:230 components/html-editor/toolbar.c:528
 msgid "Bold"
 msgstr "Uthevet"
 
@@ -957,7 +966,7 @@ msgid "Center"
 msgstr "Senter"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
-#: components/html-editor/link.c:115 components/html-editor/text.c:230
+#: components/html-editor/link.c:115 components/html-editor/text.c:241
 msgid "Click will follow this URL"
 msgstr "Klikk for å følge denne URLen"
 
@@ -1023,7 +1032,7 @@ msgid "Horizontal:"
 msgstr "Horisontal:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:39
-#: components/html-editor/text.c:220 components/html-editor/toolbar.c:530
+#: components/html-editor/text.c:231 components/html-editor/toolbar.c:530
 msgid "Italic"
 msgstr "Kursiv"
 
@@ -1108,7 +1117,7 @@ msgid "Shaded"
 msgstr "Skyggelagt"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:65
-#: components/html-editor/text.c:250
+#: components/html-editor/text.c:261
 msgid "Size"
 msgstr "Størrelse"
 
@@ -1121,7 +1130,7 @@ msgid "Spacing:"
 msgstr "Mellomrom:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#: components/html-editor/paragraph.c:110 components/html-editor/text.c:206
+#: components/html-editor/paragraph.c:110 components/html-editor/text.c:217
 msgid "Style"
 msgstr "Stil"
 
@@ -1147,7 +1156,7 @@ msgid "Top"
 msgstr "Topp"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:78
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:532
+#: components/html-editor/text.c:232 components/html-editor/toolbar.c:532
 msgid "Underline"
 msgstr "Understreket"
 
@@ -1175,12 +1184,12 @@ msgstr "xxxxxxxxx"
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: components/html-editor/image.c:118 components/html-editor/rule.c:92
+#: components/html-editor/image.c:119 components/html-editor/rule.c:92
 #: components/html-editor/table.c:190
 msgid "Plain"
 msgstr "Vanlig"
 
-#: components/html-editor/image.c:120
+#: components/html-editor/image.c:121
 msgid ""
 "@link_begin@<img@alt@@width@@height@@align@ "
 "border=@border@@padh@@padv@@src@>@link_end@"
@@ -1188,11 +1197,11 @@ msgstr ""
 "@link_begin@<img@alt@width@@height@@align@ "
 "border=@border@@padh@@padv@@src@>@link_end@"
 
-#: components/html-editor/image.c:123
+#: components/html-editor/image.c:124
 msgid "Frame"
 msgstr "Ramme"
 
-#: components/html-editor/image.c:125
+#: components/html-editor/image.c:126
 msgid ""
 "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
 "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
@@ -1206,11 +1215,11 @@ msgstr ""
 "@src@@width@@height@align=top border=0></td></tr></table></td></tr></table></"
 "center>"
 
-#: components/html-editor/image.c:133
+#: components/html-editor/image.c:134
 msgid "Caption"
 msgstr "Topptekst"
 
-#: components/html-editor/image.c:135
+#: components/html-editor/image.c:136
 msgid ""
 "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
 "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
@@ -1224,11 +1233,7 @@ msgstr ""
 "@src@@width@@height@align=top border=0></td></tr><tr><td><b>[Plasser din "
 "kommentar her]</td></tr></table></td></tr></table></center>"
 
-#: components/html-editor/image.c:257
-msgid "The quick brown fox jumped over the lazy dog. "
-msgstr "Dette er en prøve...testing en - to -tre. "
-
-#: components/html-editor/image.c:259
+#: components/html-editor/image.c:258 components/html-editor/image.c:261
 msgid "The quick brown fox jumped over the lazy dog."
 msgstr "Dette er en prøve...testing en - to - tre."
 
@@ -1455,49 +1460,21 @@ msgstr "Flat grå"
 msgid "Dark header"
 msgstr "Mørk topptekst"
 
-#: components/html-editor/template.c:81
+#: components/html-editor/template.c:83
 msgid "Note"
 msgstr "Merknad"
 
-#: components/html-editor/template.c:83
-msgid ""
-"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
-"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
-"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
-msgstr ""
-"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
-"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
-"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
-
-#: components/html-editor/template.c:85
-msgid ""
-"/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
-"tr></table></td></tr></table>"
-msgstr ""
-"/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
-"tr></table></td></tr></table>"
-
 #: components/html-editor/template.c:91
+msgid "Place your text here"
+msgstr "Sett inn din tekst her"
+
+#: components/html-editor/template.c:94
 msgid "Image frame"
 msgstr "Bilderamme"
 
-#: components/html-editor/template.c:93
-msgid ""
-"<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
-"\"><tr><td align=\"center\"><img src=\"file://"
-msgstr ""
-"<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
-"\"><tr><td align=\"center\"><img src=\"file://"
-
-#: components/html-editor/template.c:97
-msgid ""
-"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
-"\"-1\">Image 1: <b>description</b></font></td></tr></table></td></tr></table>"
-msgstr ""
-"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
-"\"-1\">Image 1: <b>description</b></font></td></tr></table></td></tr></table>"
+#: components/html-editor/template.c:104
+msgid "Image 1: <b>description</b>"
+msgstr "Bilde 1: <b>beskrivelse</b>"
 
 #: components/html-editor/test-html-editor-control.c:329
 msgid "Open file..."
@@ -1508,7 +1485,7 @@ msgid "Save file as..."
 msgstr "Lagre fil som..."
 
 #. color selection
-#: components/html-editor/text.c:280
+#: components/html-editor/text.c:291
 msgid "Color"
 msgstr "Farge"
 
@@ -1579,102 +1556,3 @@ msgstr "Forhånds_visning"
 #: src/testgtkhtml.c:99
 msgid "Print preview"
 msgstr "Forhåndsvisning"
-
-#~ msgid "Insert Smiley 10 smiley into document..."
-#~ msgstr "Sett inn 10-smil i dokumentet..."
-
-#~ msgid "Insert Smiley 11 smiley into document..."
-#~ msgstr "Sett inn 11-smil i dokumentet..."
-
-#~ msgid "Insert Smiley 8 smiley into document..."
-#~ msgstr "Sett inn 8-smil i dokumentet..."
-
-#~ msgid "Insert Smiley 9 smiley into document..."
-#~ msgstr "Sett inn 9-smil i dokumentet..."
-
-#~ msgid "Modify the file's properties"
-#~ msgstr "Endre filens egenskaper"
-
-#~ msgid "Pr_operties..."
-#~ msgstr "E_genskaper..."
-
-#~ msgid "Smiley _10"
-#~ msgstr "1_0-smil"
-
-#~ msgid "Smiley _11"
-#~ msgstr "_11-smil"
-
-#~ msgid "Smiley _8"
-#~ msgstr "_8-smil"
-
-#~ msgid "Smiley _9"
-#~ msgstr "_9-smil"
-
-#~ msgid "Cannot execute gtkhtml properties"
-#~ msgstr "Kan ikke kjøre gtkhtml egenskaper"
-
-#~ msgid "Can't load fixed font."
-#~ msgstr "Kan ikke laste fast skrifttype."
-
-#~ msgid "Html"
-#~ msgstr "Html"
-
-#~ msgid "Html test"
-#~ msgstr "Html test"
-
-#~ msgid "Test1"
-#~ msgstr "Test1"
-
-#~ msgid "Test2"
-#~ msgstr "Test2"
-
-#~ msgid "Test3"
-#~ msgstr "Test3"
-
-#~ msgid "Test4"
-#~ msgstr "Test4"
-
-#~ msgid "Test5"
-#~ msgstr "Test5"
-
-#~ msgid "Test6"
-#~ msgstr "Test6"
-
-#~ msgid "Test7"
-#~ msgstr "Test7"
-
-#~ msgid "_Refresh"
-#~ msgstr "_Oppdater"
-
-#~ msgid "Reload the page"
-#~ msgstr "Les siden på nytt"
-
-#~ msgid "Could not initialize Bonobo!"
-#~ msgstr "Kunne ikke initiere Bonobo!"
-
-#~ msgid "Language"
-#~ msgstr "Språk"
-
-#~ msgid "Pick a color"
-#~ msgstr "Velg en farge"
-
-#~ msgid "Clear"
-#~ msgstr "Tøm"
-
-#~ msgid "URL"
-#~ msgstr "URL"
-
-#~ msgid "Image selection"
-#~ msgstr "Bildevalg"
-
-#~ msgid "width"
-#~ msgstr "bredde"
-
-#~ msgid "height"
-#~ msgstr "høyde"
-
-#~ msgid "_Numbered List"
-#~ msgstr "_Nummerert liste"
-
-#~ msgid "Check _spelling..."
-#~ msgstr "Sjekk _staving..."
