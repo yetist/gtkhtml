@@ -1,3 +1,35 @@
+2000-07-20  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltext.c (copy_helper): copy spell_errors here
+	(destroy): clear spell_errors here
+
+	* htmlcursor.c (html_cursor_get_prev_char): new function, returns
+	char before cursor
+
+	* gtkhtml.c: new signal spell_suggestion_request for spell checker
+	suggestions handling
+
+	* keybindingsrc.emacs: added bindings for new commands
+
+	* keybindingsrc.ms: added bindings for new commands
+
+	* gtkhtml-properties.c: added new commands
+
+	* gtkhtml.h: added spell-suggest, spell-personal-add,
+	spell-session-add commands
+
+	* htmlengine.c (html_engine_get_word): new function, returns word
+	at cursor
+	(html_engine_word_is_valid): new function, returns FALSE if word
+	at cursor is invalid by spell checker
+	(html_engine_replace_word_with): new function, replaces word at
+	cursor with new one
+
+2000-07-19  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlcursor.c (html_cursor_get_current_char): use
+	html_object_next_not_slave here
+
 2000-07-18  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine-edit-paste.c (do_paste): use SPELL_CHECK

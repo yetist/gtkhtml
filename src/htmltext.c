@@ -35,6 +35,11 @@ static HTMLObjectClass *parent_class = NULL;
 
 #define HT_CLASS(x) HTML_TEXT_CLASS (HTML_OBJECT (x)->klass)
 
+#ifdef GTKHTML_HAVE_PSPELL
+static SpellError * spell_error_new     (guint off, guint len);
+static void         spell_error_destroy (SpellError *se);
+#endif
+
 
 static void
 get_tags (const HTMLText *text,
@@ -122,6 +127,8 @@ copy_helper (HTMLText *src,
 	     guint offset,
 	     gint len)
 {
+	GList *cur;
+
 	if (len < 0)
 		len = strlen (src->text);
 
@@ -131,6 +138,16 @@ copy_helper (HTMLText *src,
 	dest->font_style = src->font_style;
 	dest->color = src->color;
 	html_color_ref (dest->color);
+
+#ifdef GTKHTML_HAVE_PSPELL
+	dest->spell_errors = g_list_copy (src->spell_errors);
+	cur = dest->spell_errors;
+	while (cur) {
+		SpellError *se = (SpellError *) cur->data;
+		cur->data = spell_error_new (se->off, se->len);
+		cur = cur->next;
+	}
+#endif
 }
 
 
@@ -567,6 +584,7 @@ destroy (HTMLObject *obj)
 {
 	HTMLText *text = HTML_TEXT (obj);
 	html_color_unref (text->color);
+	html_text_spell_errors_clear (text);
 	g_free (text->text);
 	HTML_OBJECT_CLASS (parent_class)->destroy (obj);
 }

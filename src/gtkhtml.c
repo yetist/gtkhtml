@@ -76,6 +76,10 @@ enum {
 	SCROLL,
 	CURSOR_MOVE,
 	INSERT_PARAGRAPH,
+#ifdef GTKHTML_HAVE_PSPELL
+	/* spell checking */
+	SPELL_SUGGESTION_REQUEST,
+#endif
 	/* now only last signal */
 	LAST_SIGNAL
 };
@@ -1333,6 +1337,15 @@ class_init (GtkHTMLClass *klass)
 				GTK_SIGNAL_OFFSET (GtkHTMLClass, command),
 				gtk_marshal_NONE__ENUM,
 				GTK_TYPE_NONE, 1, GTK_TYPE_HTML_COMMAND);
+	signals [SPELL_SUGGESTION_REQUEST] =
+		gtk_signal_new ("spell_suggestion_request",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (GtkHTMLClass, spell_suggestion_request),
+				gtk_marshal_NONE__POINTER_POINTER,
+				GTK_TYPE_NONE, 2,
+				GTK_TYPE_POINTER,
+				GTK_TYPE_POINTER);
 
 	gtk_object_class_add_signals (object_class, signals, LAST_SIGNAL);
 
@@ -2029,55 +2042,57 @@ move_selection (GtkHTML *html, GtkHTMLCommandType com_type)
 static void
 command (GtkHTML *html, GtkHTMLCommandType com_type)
 {
-	if (!html_engine_get_editable (html->engine))
+	HTMLEngine *e = html->engine;
+
+	if (!html_engine_get_editable (e))
 		return;
 
 	/* printf ("command %d\n", com_type); */
 
 	switch (com_type) {
 	case GTK_HTML_COMMAND_UNDO:
-		html_engine_undo (html->engine);
+		html_engine_undo (e);
 		break;
 	case GTK_HTML_COMMAND_REDO:
-		html_engine_redo (html->engine);
+		html_engine_redo (e);
 		break;
 	case GTK_HTML_COMMAND_COPY:
-		if (html->engine->active_selection)
-			html_engine_copy (html->engine);
+		if (e->active_selection)
+			html_engine_copy (e);
 		break;
 	case GTK_HTML_COMMAND_CUT:
-		html_engine_cut (html->engine, TRUE);
+		html_engine_cut (e, TRUE);
 		break;
 	case GTK_HTML_COMMAND_CUT_LINE:
-		html_engine_cut_line (html->engine, TRUE);
+		html_engine_cut_line (e, TRUE);
 		break;
 	case GTK_HTML_COMMAND_PASTE:
-		if (html->engine->cut_buffer)
-			html_engine_paste (html->engine, TRUE);
+		if (e->cut_buffer)
+			html_engine_paste (e, TRUE);
 		break;
 	case GTK_HTML_COMMAND_INSERT_PARAGRAPH:
-		html_engine_delete_selection (html->engine, TRUE);
-		html_engine_insert (html->engine, "\n", 1);
+		html_engine_delete_selection (e, TRUE);
+		html_engine_insert (e, "\n", 1);
 		break;
 	case GTK_HTML_COMMAND_DELETE:
-		if (html->engine->mark != NULL
-		    && html->engine->mark->position != html->engine->cursor->position)
-			html_engine_delete_selection (html->engine, TRUE);
+		if (e->mark != NULL
+		    && e->mark->position != e->cursor->position)
+			html_engine_delete_selection (e, TRUE);
 		else
-			html_engine_delete (html->engine, 1, TRUE, FALSE);
+			html_engine_delete (e, 1, TRUE, FALSE);
 		break;
 	case GTK_HTML_COMMAND_DELETE_BACK:
-		if (html->engine->mark != NULL
-		    && html->engine->mark->position != html->engine->cursor->position)
-			html_engine_delete_selection (html->engine, TRUE);
+		if (e->mark != NULL
+		    && e->mark->position != e->cursor->position)
+			html_engine_delete_selection (e, TRUE);
 		else
-			html_engine_delete (html->engine, 1, TRUE, TRUE);
+			html_engine_delete (e, 1, TRUE, TRUE);
 		break;
 	case GTK_HTML_COMMAND_SET_MARK:
-		html_engine_set_mark (html->engine);
+		html_engine_set_mark (e);
 		break;
 	case GTK_HTML_COMMAND_DISABLE_SELECTION:
-		html_engine_disable_selection (html->engine);
+		html_engine_disable_selection (e);
 		break;
 	case GTK_HTML_COMMAND_TOGGLE_BOLD:
 		gtk_html_toggle_font_style (html, GTK_HTML_FONT_STYLE_BOLD);
@@ -2113,10 +2128,10 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		gtk_html_set_font_style (html, ~GTK_HTML_FONT_STYLE_SIZE_MASK, GTK_HTML_FONT_STYLE_SIZE_7);
 		break;
 	case GTK_HTML_COMMAND_SIZE_INCREASE:
-		html_engine_font_size_inc_dec (html->engine, TRUE);
+		html_engine_font_size_inc_dec (e, TRUE);
 		break;
 	case GTK_HTML_COMMAND_SIZE_DECREASE:
-		html_engine_font_size_inc_dec (html->engine, FALSE);
+		html_engine_font_size_inc_dec (e, FALSE);
 		break;
 	case GTK_HTML_COMMAND_ALIGN_LEFT:
 		gtk_html_set_paragraph_alignment (html, GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT);
@@ -2182,14 +2197,35 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		move_selection (html, com_type);
 		break;
 	case GTK_HTML_COMMAND_CAPITALIZE_WORD:
-		html_engine_capitalize_word (html->engine);
+		html_engine_capitalize_word (e);
 		break;
 	case GTK_HTML_COMMAND_UPCASE_WORD:
-		html_engine_upcase_downcase_word (html->engine, TRUE);
+		html_engine_upcase_downcase_word (e, TRUE);
 		break;
 	case GTK_HTML_COMMAND_DOWNCASE_WORD:
-		html_engine_upcase_downcase_word (html->engine, FALSE);
+		html_engine_upcase_downcase_word (e, FALSE);
 		break;
+#ifdef GTKHTML_HAVE_PSPELL
+	case GTK_HTML_COMMAND_SPELL_SUGGEST:
+		if (!html_engine_word_is_valid (e))
+			gtk_signal_emit (GTK_OBJECT (html), signals [SPELL_SUGGESTION_REQUEST],
+					 e->spell_checker, html_engine_get_word (e));
+		break;
+	case GTK_HTML_COMMAND_SPELL_PERSONAL_DICTIONARY_ADD:
+	case GTK_HTML_COMMAND_SPELL_SESSION_DICTIONARY_ADD: {
+		gchar *word = html_engine_get_word (e);
+		if (word) {
+			if (com_type == GTK_HTML_COMMAND_SPELL_PERSONAL_DICTIONARY_ADD)
+				pspell_manager_add_to_personal (e->spell_checker, word);
+			else
+				pspell_manager_add_to_session (e->spell_checker, word);
+			pspell_manager_save_all_word_lists (e->spell_checker);
+			html_engine_spell_check (e);
+			gtk_widget_queue_draw (GTK_WIDGET (html));
+		}
+		break;
+	}
+#endif
 	default:
 		return;
 	}

@@ -85,8 +85,9 @@ void  html_cursor_jump_to_position  (HTMLCursor *cursor,
 				     HTMLEngine *engine,
 				     gint        position);
 
-/* Retrieving the character under the cursor.  */
+/* Retrieving the character under/before the cursor.  */
 gchar  html_cursor_get_current_char  (const HTMLCursor *cursor);
+gchar  html_cursor_get_prev_char     (const HTMLCursor *cursor);
 
 /* Comparison.  */
 gboolean  html_cursor_equal     (const HTMLCursor *a,

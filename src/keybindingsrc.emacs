@@ -92,4 +92,8 @@ binding "gtkhtml-bindings-emacs"
   bind "<Alt>c"             { "command" (capitalize-word) }
   bind "<Alt>l"             { "command" (downcase-word) }
   bind "<Alt>u"             { "command" (upcase-word) }
+
+  bind "<Ctrl><Shift>s"       { "command" (spell-suggest) }
+  bind "<Ctrl><Shift>p"       { "command" (spell-personal-add) }
+  bind "<Ctrl><Shift>n"       { "command" (spell-session-add) }
 }

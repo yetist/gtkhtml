@@ -4369,4 +4369,125 @@ html_engine_spell_check_word (HTMLEngine *e)
 {
 }
 
+gchar *
+html_engine_get_word (HTMLEngine *e)
+{
+	GString *text;
+	gchar *word, c;
+	gint pos;
+
+	if (!isalpha (html_cursor_get_current_char (e->cursor)) && !isalpha (html_cursor_get_prev_char (e->cursor)))
+		return NULL;
+
+	pos = e->cursor->position;
+	html_engine_selection_push (e);
+
+	text = g_string_new (NULL);
+	/* move to the beginning of word */
+	while (isalpha (html_cursor_get_prev_char (e->cursor)))
+		html_cursor_backward (e->cursor, e);
+
+	/* move to the end of word */
+	while (isalpha (c = html_cursor_get_current_char (e->cursor))) {
+		text = g_string_append_c (text, c);
+		html_cursor_forward (e->cursor, e);
+	}
+	word = text->str;
+	g_string_free (text, FALSE);
+
+	html_cursor_jump_to_position (e->cursor, e, pos);
+	html_engine_selection_pop (e);
+
+	return word;
+}
+
+gboolean
+html_engine_word_is_valid (HTMLEngine *e)
+{
+	HTMLObject *obj;
+	HTMLText   *text;
+	GList *cur;
+	gboolean valid = TRUE;
+	gint offset;
+	gchar prev, curr;
+
+	prev = html_cursor_get_prev_char (e->cursor);
+	curr = html_cursor_get_current_char (e->cursor);
+
+	/* if we are not in word always return TRUE so we care only about invalid words */
+	if (!isalpha (prev) && !isalpha (curr))
+		return TRUE;
+
+	if (isalpha (curr)) {
+		gboolean end;
+
+		end    = (e->cursor->offset == html_object_get_length (e->cursor->object));
+		obj    = (end) ? html_object_next_not_slave (e->cursor->object) : e->cursor->object;
+		offset = (end) ? 0 : e->cursor->offset;
+	} else {
+		obj    = (e->cursor->offset) ? e->cursor->object : html_object_prev_not_slave (e->cursor->object);
+		offset = (e->cursor->offset) ? e->cursor->offset - 1 : html_object_get_length (obj) - 1;
+	}
+
+	g_assert (html_object_is_text (obj));
+	text = HTML_TEXT (obj);
+
+	/* now we have text, so let search for spell_error area in it */
+	cur = text->spell_errors;
+	while (cur) {
+		SpellError *se = (SpellError *) cur->data;
+		if (se->off <= offset && offset <= se->off + se->len) {
+			valid = FALSE;
+			break;
+		}
+		if (offset < se->off)
+			break;
+		cur = cur->next;
+	}
+
+	printf ("is_valid: %d\n", valid);
+
+	return valid;
+}
+
+void
+html_engine_replace_word_with (HTMLEngine *e, const gchar *word)
+{
+	HTMLObject *replace;
+	HTMLText   *orig;
+	gint pos;
+
+	if (!isalpha (html_cursor_get_current_char (e->cursor)) && !isalpha (html_cursor_get_prev_char (e->cursor)))
+		return;
+
+	pos = e->cursor->position;
+	html_engine_selection_push (e);
+
+	/* move to the beginning of word */
+	while (isalpha (html_cursor_get_prev_char (e->cursor)))
+		html_cursor_backward (e->cursor, e);
+	html_engine_set_mark (e);
+
+	/* move to the end of word */
+	while (isalpha (html_cursor_get_current_char (e->cursor)))
+		html_cursor_forward (e->cursor, e);
+
+	orig = HTML_TEXT (e->mark->object);
+	switch (HTML_OBJECT_TYPE (e->mark->object)) {
+	case HTML_TYPE_TEXTMASTER:
+		replace = html_text_master_new (word, orig->font_style, orig->color);
+		break;
+	case HTML_TYPE_LINKTEXTMASTER:
+		replace = html_link_text_master_new (word, orig->font_style, orig->color,
+						     HTML_LINK_TEXT_MASTER (orig)->url,
+						     HTML_LINK_TEXT_MASTER (orig)->target);
+		break;
+	default:
+		g_assert_not_reached ();
+	}
+	html_engine_edit_selection_updater_update_now (e->selection_updater);
+	html_engine_paste_object (e, replace, TRUE);
+	html_engine_selection_pop (e);
+}
+
 #endif /* GTKHTML_HAVE_PSPELL */

@@ -152,6 +152,11 @@ enum _GtkHTMLCommandType {
 	GTK_HTML_COMMAND_CAPITALIZE_WORD,
 	GTK_HTML_COMMAND_UPCASE_WORD,
 	GTK_HTML_COMMAND_DOWNCASE_WORD,
+#ifdef GTKHTML_HAVE_PSPELL
+	GTK_HTML_COMMAND_SPELL_SUGGEST,
+	GTK_HTML_COMMAND_SPELL_PERSONAL_DICTIONARY_ADD,
+	GTK_HTML_COMMAND_SPELL_SESSION_DICTIONARY_ADD,
+#endif
 };
 typedef enum _GtkHTMLCommandType GtkHTMLCommandType;
 
@@ -235,6 +240,10 @@ struct _GtkHTMLClass {
 	void (* scroll)               (GtkHTML *html, GtkOrientation orientation, GtkScrollType scroll_type, gfloat position);
 	void (* cursor_move)          (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType skip);
 	void (* command)              (GtkHTML *html, GtkHTMLCommandType com_type);
+
+#ifdef GTKHTML_HAVE_PSPELL
+	void (* spell_suggestion_request) (GtkHTML *html, PspellManager *spell_checker, gchar *word);
+#endif
 
 	/* properties */
 	GtkHTMLClassProperties *properties;

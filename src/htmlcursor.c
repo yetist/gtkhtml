@@ -837,10 +837,10 @@ html_cursor_get_current_char (const HTMLCursor *cursor)
 	g_return_val_if_fail (cursor != NULL, 0);
 
 	if (! html_object_is_text (cursor->object)) {
-		if (cursor->offset == 0)
+		if (cursor->offset < html_object_get_length (cursor->object))
 			return 0;
 
-		next = cursor->object->next;
+		next = html_object_next_not_slave (cursor->object);
 		if (next != NULL && html_object_is_text (next))
 			return HTML_TEXT (next)->text[0];
 
@@ -851,9 +851,21 @@ html_cursor_get_current_char (const HTMLCursor *cursor)
 		return HTML_TEXT (cursor->object)->text[cursor->offset];
 
 	next = html_object_next_not_slave (cursor->object);
-
 	if (next == NULL || ! html_object_is_text (next))
 		return 0;
 
 	return HTML_TEXT (next)->text[0];
+}
+
+gchar
+html_cursor_get_prev_char (const HTMLCursor *cursor)
+{
+	HTMLObject *prev;
+
+	g_return_val_if_fail (cursor != NULL, 0);
+
+	if (cursor->offset)
+		return (html_object_is_text (cursor->object)) ? HTML_TEXT (cursor->object)->text [cursor->offset - 1] : 0;
+	prev = html_object_prev_not_slave (cursor->object);
+	return (prev && html_object_is_text (prev)) ? HTML_TEXT (prev)->text [HTML_TEXT (prev)->text_len - 1] : 0;
 }
