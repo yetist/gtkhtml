@@ -30,6 +30,7 @@
 #include "htmlengine-save.h"
 #include "htmlpainter.h"
 #include "htmltable.h"
+#include "htmltablepriv.h"
 #include "htmltablecell.h"
 
 /* FIXME: This always behaves as a transparent object, even when it
@@ -114,9 +115,20 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *ri
 
 	g_print ("merge cells %d,%d %d,%d\n", c1->row, c1->col, c2->row, c2->col);
 
-	return HTML_OBJECT_TYPE (with) == HTML_TYPE_CLUEV || c1->col == c2->col
-		? (* HTML_OBJECT_CLASS (parent_class)->merge) (self, with, e, left, right)
-		: FALSE;
+	if (HTML_OBJECT_TYPE (with) == HTML_TYPE_CLUEV || c1->col == c2->col) {
+		gboolean rv;
+		rv = (* HTML_OBJECT_CLASS (parent_class)->merge) (self, with, e, left, right);
+		if (rv && with->parent && HTML_IS_TABLE (with->parent)) {
+			self->next = NULL;
+			html_object_remove_child (with->parent, with);
+			/* FIXME spanning */
+			html_table_set_cell (HTML_TABLE (self->parent),
+					     HTML_TABLE_CELL (self)->row, HTML_TABLE_CELL (self)->col,
+					     HTML_TABLE_CELL (self));
+		}
+		return rv;
+	} else
+		return FALSE;
 }
 
 static gint

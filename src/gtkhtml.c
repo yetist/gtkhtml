@@ -630,7 +630,6 @@ key_press_event (GtkWidget *widget,
 {
 	GtkHTML *html = GTK_HTML (widget);
 	gboolean retval, update = TRUE;
-	gint position = html->engine->cursor->position;
 
 	html->binding_handled = FALSE;
 	html->priv->update_styles = FALSE;
@@ -2802,10 +2801,10 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	/* editable commands only */
 	switch (com_type) {
 	case GTK_HTML_COMMAND_UNDO:
-		html_engine_undo (e);
+		gtk_html_undo (html);
 		break;
 	case GTK_HTML_COMMAND_REDO:
-		html_engine_redo (e);
+		gtk_html_redo (html);
 		break;
 	case GTK_HTML_COMMAND_COPY:
 		gtk_html_copy (html);
@@ -2852,6 +2851,22 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 			gtk_html_modify_indent_by_delta (html, -1);
 		else
 			delete_one (e, FALSE);
+		html->priv->update_styles = TRUE;
+		break;
+	case GTK_HTML_COMMAND_DELETE_TABLE:
+		html_engine_delete_table (e);
+		html->priv->update_styles = TRUE;
+		break;
+	case GTK_HTML_COMMAND_DELETE_TABLE_ROW:
+		html_engine_delete_table_row (e);
+		html->priv->update_styles = TRUE;
+		break;
+	case GTK_HTML_COMMAND_DELETE_TABLE_COLUMN:
+		html_engine_delete_table_column (e);
+		html->priv->update_styles = TRUE;
+		break;
+	case GTK_HTML_COMMAND_DELETE_TABLE_CELL_CONTENTS:
+		html_engine_delete_table_cell_contents (e);
 		html->priv->update_styles = TRUE;
 		break;
 	case GTK_HTML_COMMAND_SELECTION_MODE:
@@ -3466,7 +3481,15 @@ gtk_html_command (GtkHTML *html, const gchar *command_name)
 	GtkEnumValue *val;
 
 	val = gtk_type_enum_find_value (GTK_TYPE_HTML_COMMAND, command_name);
-	return val ? command (html, val->value) : FALSE;
+	if (val) {
+		if (command (html, val->value)) {
+			if (html->priv->update_styles)
+				update_styles (html);
+			return TRUE;
+		}
+	}
+
+	return FALSE;
 }
 
 gboolean

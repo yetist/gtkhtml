@@ -1,5 +1,15 @@
 2001-07-26  Radek Doulik  <rodo@ximian.com>
 
+	* gtkhtml.c (gtk_html_command): update styles if needed
+
+	* gtkhtml-enums.h: added commands for delete table/row/col/cell
+	contents
+
+	* gtkhtml.c (command): use gtk_html_undo/redo rather than
+	html_engine_ ones
+
+	* htmltablecell.c (merge): fixed cells merging
+
 	* gtkhtml.c (command): set update_styles for more commands
 	(update_styles): fixed indentation change signal emiting
 	(key_press_event): don't check cursor position for update, it's
