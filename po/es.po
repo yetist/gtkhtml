@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.9.99.1\n"
-"POT-Creation-Date: 2003-01-09 14:33-0300\n"
+"POT-Creation-Date: 2003-01-26 19:19+0100\n"
 "PO-Revision-Date: 2003-01-09 14:39CLST\n"
 "Last-Translator: Germán Poo Caamaño <gpoo@ubiobio.cl>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
@@ -259,7 +259,7 @@ msgid "Cut the selection"
 msgstr "Corta la selección"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:73 components/html-editor/search.c:74
+#: components/html-editor/search.c:73 components/html-editor/search.c:75
 #: components/html-editor/search.c:118
 msgid "Find"
 msgstr "Buscar"
@@ -356,9 +356,8 @@ msgid "Insert Laughing smiley into document..."
 msgstr "Insertar emoticon de risa en el documento..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
-#, fuzzy
 msgid "Insert Lick smiley into document..."
-msgstr "Insertar emoticon de guiño en el documento..."
+msgstr "Insertar emoticon de burla en el documento..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
 msgid "Insert Oh no! smiley into document..."
@@ -402,9 +401,8 @@ msgid "Left justifies the paragraphs"
 msgstr "Justifica los párrafos a la izquierda"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
-#, fuzzy
 msgid "Li_ck"
-msgstr "Enlace"
+msgstr "Le_ngua"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
 #: components/html-editor/body.c:326 components/html-editor/menubar.c:141
@@ -467,7 +465,7 @@ msgstr "Convierte el párrafo actual en una lista alfabética"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: components/html-editor/paragraph.c:124 components/html-editor/toolbar.c:47
+#: components/html-editor/paragraph.c:127 components/html-editor/toolbar.c:47
 msgid "Normal"
 msgstr "Normal"
 
@@ -540,9 +538,9 @@ msgid "Redo the undone action"
 msgstr "Rehacer la operación deshecha"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
-#: components/html-editor/replace.c:75 components/html-editor/replace.c:151
-#: components/html-editor/replace.c:152 components/html-editor/replace.c:169
-#: components/html-editor/replace.c:205
+#: components/html-editor/replace.c:78 components/html-editor/replace.c:152
+#: components/html-editor/replace.c:154 components/html-editor/replace.c:171
+#: components/html-editor/replace.c:207
 msgid "Replace"
 msgstr "Remplazar"
 
@@ -572,7 +570,7 @@ msgstr "Selecciona el contenido completo de este documento"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#: components/html-editor/text.c:233 components/html-editor/toolbar.c:527
+#: components/html-editor/text.c:237 components/html-editor/toolbar.c:527
 msgid "Strikeout"
 msgstr "Tachado"
 
@@ -778,7 +776,7 @@ msgstr "E_moticon"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
 msgid "_Spell Check Document..."
-msgstr "_Comprobar la ortográfía del documento..."
+msgstr "_Comprobar la ortografía del documento..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:144
 msgid "_Strikeout"
@@ -848,7 +846,7 @@ msgid "Colors"
 msgstr "Colores"
 
 #: components/html-editor/body.c:313 components/html-editor/cell.c:423
-#: components/html-editor/table.c:535 components/html-editor/text.c:291
+#: components/html-editor/table.c:535 components/html-editor/text.c:295
 #: components/html-editor/toolbar.c:299
 msgid "Automatic"
 msgstr "Automático"
@@ -866,13 +864,21 @@ msgid "Background"
 msgstr "Fondo"
 
 #: components/html-editor/cell.c:172 components/html-editor/cell.c:174
-#: components/html-editor/text.c:104
+#: components/html-editor/text.c:107
 msgid "The quick brown fox jumps over the lazy dog."
 msgstr "El veloz zorro café saltaba sobre el perro flojo."
 
 #: components/html-editor/cell.c:177
 msgid "Other"
 msgstr "Otro"
+
+#: components/html-editor/cell.c:678
+msgid ""
+"The editted cell was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"La celda editada ha sido eliminada del documento.\n"
+"No se pueden aplicar los cambios."
 
 #: components/html-editor/editor-control-factory.c:165
 #: components/html-editor/menubar.c:313 components/html-editor/menubar.c:331
@@ -921,7 +927,7 @@ msgid "Apply changes to:"
 msgstr "Aplicar cambios a:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:16
-#: components/html-editor/text.c:230 components/html-editor/toolbar.c:521
+#: components/html-editor/text.c:234 components/html-editor/toolbar.c:521
 msgid "Bold"
 msgstr "Negrita"
 
@@ -943,18 +949,18 @@ msgid "Cell"
 msgstr "Celda"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
-#: components/html-editor/paragraph.c:159 components/html-editor/toolbar.c:510
+#: components/html-editor/paragraph.c:162 components/html-editor/toolbar.c:510
 msgid "Center"
 msgstr "Centro"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
-#: components/html-editor/link.c:107 components/html-editor/text.c:241
+#: components/html-editor/link.c:107 components/html-editor/text.c:245
 msgid "Click will follow this URL"
 msgstr "Pinche para seguir esta URL"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:23
 msgid "Click will follow this URL:"
-msgstr "Click para seguir esta URL:"
+msgstr "Clic para seguir esta URL:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:24
 msgid "Color:"
@@ -1014,12 +1020,12 @@ msgid "Horizontal:"
 msgstr "Horizontal:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:40
-#: components/html-editor/text.c:231 components/html-editor/toolbar.c:523
+#: components/html-editor/text.c:235 components/html-editor/toolbar.c:523
 msgid "Italic"
 msgstr "Itálica"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:41
-#: components/html-editor/paragraph.c:158
+#: components/html-editor/paragraph.c:161
 msgid "Left"
 msgstr "Izquierda"
 
@@ -1073,7 +1079,7 @@ msgid "Points"
 msgstr "Puntos"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:59
-#: components/html-editor/paragraph.c:160
+#: components/html-editor/paragraph.c:163
 msgid "Right"
 msgstr "Derecha"
 
@@ -1099,7 +1105,7 @@ msgid "Shaded"
 msgstr "Sombreado"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:66
-#: components/html-editor/text.c:257
+#: components/html-editor/text.c:261
 msgid "Size"
 msgstr "Tamaño"
 
@@ -1112,7 +1118,7 @@ msgid "Spacing:"
 msgstr "Espaciado:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:110 components/html-editor/text.c:217
+#: components/html-editor/paragraph.c:113 components/html-editor/text.c:221
 msgid "Style"
 msgstr "Estilo"
 
@@ -1138,7 +1144,7 @@ msgid "Top"
 msgstr "Cabecera"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:79
-#: components/html-editor/text.c:232 components/html-editor/toolbar.c:525
+#: components/html-editor/text.c:236 components/html-editor/toolbar.c:525
 msgid "Underline"
 msgstr "Subrayado"
 
@@ -1212,8 +1218,8 @@ msgstr ""
 "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
 "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
 "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Coloque"
-"su comentario aquí]</td></tr></table></td></tr></table></center>"
+"@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Coloque su "
+"comentario aquí]</td></tr></table></td></tr></table></center>"
 
 #: components/html-editor/image.c:256 components/html-editor/image.c:259
 msgid "The quick brown fox jumped over the lazy dog."
@@ -1221,7 +1227,7 @@ msgstr ""
 "El veloz murciélago hindú comía feliz cardillo y kiwi. La cigüeña tocaba el "
 "saxofón detrás del palenque de paja. 123456789 ¿?¡!"
 
-#: components/html-editor/image.c:689
+#: components/html-editor/image.c:692
 msgid ""
 "The editted image was removed from the document.\n"
 "Cannot apply your changes."
@@ -1233,10 +1239,18 @@ msgstr ""
 msgid "Link text"
 msgstr "Asociar texto"
 
+#: components/html-editor/link.c:180
+msgid ""
+"The editted link was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"El enlace editado ha sido eliminado del documento.\n"
+"No se pueden aplicar los cambios."
+
 #: components/html-editor/menubar.c:122 components/html-editor/menubar.c:138
 #: components/html-editor/menubar.c:156 components/html-editor/menubar.c:173
 #: components/html-editor/menubar.c:196 components/html-editor/popup.c:100
-#: components/html-editor/properties.c:139
+#: components/html-editor/properties.c:129
 msgid "Insert"
 msgstr "Insertar"
 
@@ -1248,57 +1262,65 @@ msgstr "Insertar archivo HTML"
 msgid "Insert text file"
 msgstr "Insertar archivo de texto"
 
-#: components/html-editor/paragraph.c:125
+#: components/html-editor/paragraph.c:128
 msgid "Pre"
 msgstr "Pre"
 
-#: components/html-editor/paragraph.c:126 components/html-editor/toolbar.c:53
+#: components/html-editor/paragraph.c:129 components/html-editor/toolbar.c:53
 msgid "Header 1"
 msgstr "Cabecera 1"
 
-#: components/html-editor/paragraph.c:127 components/html-editor/toolbar.c:54
+#: components/html-editor/paragraph.c:130 components/html-editor/toolbar.c:54
 msgid "Header 2"
 msgstr "Cabecera 2"
 
-#: components/html-editor/paragraph.c:128 components/html-editor/toolbar.c:55
+#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:55
 msgid "Header 3"
 msgstr "Cabecera 3"
 
-#: components/html-editor/paragraph.c:129 components/html-editor/toolbar.c:56
+#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:56
 msgid "Header 4"
 msgstr "Cabecera 4"
 
-#: components/html-editor/paragraph.c:130 components/html-editor/toolbar.c:57
+#: components/html-editor/paragraph.c:133 components/html-editor/toolbar.c:57
 msgid "Header 5"
 msgstr "Cabecera 5"
 
-#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:58
+#: components/html-editor/paragraph.c:134 components/html-editor/toolbar.c:58
 msgid "Header 6"
 msgstr "Cabecera 6"
 
-#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:59
+#: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:59
 msgid "Address"
 msgstr "Dirección"
 
-#: components/html-editor/paragraph.c:133
+#: components/html-editor/paragraph.c:136
 msgid "Dot item"
 msgstr "Elemento punto"
 
-#: components/html-editor/paragraph.c:134
+#: components/html-editor/paragraph.c:137
 msgid "Number item"
 msgstr "Elemento numérico"
 
-#: components/html-editor/paragraph.c:135
+#: components/html-editor/paragraph.c:138
 msgid "Roman item"
 msgstr "Elemento romano"
 
-#: components/html-editor/paragraph.c:136
+#: components/html-editor/paragraph.c:139
 msgid "Alphabeta item"
 msgstr "Elemento alfabético"
 
-#: components/html-editor/paragraph.c:145
+#: components/html-editor/paragraph.c:148
 msgid "Align"
 msgstr "Alineación"
+
+#: components/html-editor/paragraph.c:192
+msgid ""
+"The editted paragraph was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"El párrafo editado ha sido eliminado del documento.\n"
+"No se pueden aplicar los cambios."
 
 #: components/html-editor/popup.c:420
 msgid "Paste Quotation"
@@ -1400,23 +1422,23 @@ msgstr "Página..."
 msgid "Replace confirmation"
 msgstr "Remplazar con confirmación"
 
-#: components/html-editor/replace.c:76
+#: components/html-editor/replace.c:75
 msgid "Replace all"
 msgstr "Remplazar todos"
 
-#: components/html-editor/replace.c:77
+#: components/html-editor/replace.c:76
 msgid "Next"
 msgstr "Siguiente"
 
-#: components/html-editor/replace.c:158
+#: components/html-editor/replace.c:160
 msgid "search backward"
 msgstr "buscar hacia atrás"
 
-#: components/html-editor/replace.c:159 components/html-editor/search.c:79
+#: components/html-editor/replace.c:161 components/html-editor/search.c:79
 msgid "case sensitive"
 msgstr "sensible a mayúsculas"
 
-#: components/html-editor/replace.c:172
+#: components/html-editor/replace.c:174
 msgid "with"
 msgstr "con"
 
@@ -1428,6 +1450,14 @@ msgstr "Azul 3D"
 msgid "Yellow, flowers"
 msgstr "Amarillo, flores"
 
+#: components/html-editor/rule.c:421
+msgid ""
+"The editted rule was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"La regla editada ha sido eliminada del documento.\n"
+"No se pueden aplicar los cambios."
+
 #: components/html-editor/search.c:78
 msgid "backward"
 msgstr "hacia atrás"
@@ -1436,10 +1466,6 @@ msgstr "hacia atrás"
 msgid "Find Regular Expression"
 msgstr "Buscar una expresión regular"
 
-#: components/html-editor/spell.c:350
-msgid "Spell Checking _Languages"
-msgstr "Lenguajes de la corrección ortográfica"
-
 #: components/html-editor/table.c:199
 msgid "Flat gray"
 msgstr "Gris plano"
@@ -1447,6 +1473,14 @@ msgstr "Gris plano"
 #: components/html-editor/table.c:208
 msgid "Dark header"
 msgstr "Cabecera oscura"
+
+#: components/html-editor/table.c:812
+msgid ""
+"The editted table was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"La tabla editada ha sido eliminada del documento.\n"
+"No se pueden aplicar los cambios."
 
 #: components/html-editor/template.c:83
 msgid "Note"
@@ -1469,9 +1503,17 @@ msgid "Save file as..."
 msgstr "Guardar archivo como..."
 
 #. color selection
-#: components/html-editor/text.c:287
+#: components/html-editor/text.c:291
 msgid "Color"
 msgstr "Color"
+
+#: components/html-editor/text.c:333
+msgid ""
+"The editted text was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"El texto editado ha sido eliminado del documento.\n"
+"No se pueden aplicar los cambios."
 
 #: components/html-editor/toolbar.c:51
 msgid "Roman List"
@@ -1524,14 +1566,6 @@ msgstr "Indenta un párrafo más"
 #: components/html-editor/utils.c:105
 msgid "Sample"
 msgstr "Ejemplo"
-
-#: src/gtkhtml-properties.c:44
-msgid "Sans"
-msgstr "Sans"
-
-#: src/gtkhtml-properties.c:45
-msgid "Monospace"
-msgstr "Monospace"
 
 #: src/html-component.c:219
 msgid "Html"
@@ -1605,4 +1639,13 @@ msgstr "_Vista preliminar de impresión"
 #: src/testgtkhtml.c:103
 msgid "Print preview"
 msgstr "Vista preliminar de impresión"
+
+#~ msgid "Spell Checking _Languages"
+#~ msgstr "Lenguajes de la corrección ortográfica"
+
+#~ msgid "Sans"
+#~ msgstr "Sans"
+
+#~ msgid "Monospace"
+#~ msgstr "Monospace"
 
