@@ -1,5 +1,11 @@
 2000-03-26  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlcluev.c
+	(check_point): Check that the point expressed by the @x, @y
+	coordinates is actually in the object.
+
+2000-03-26  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* htmldrawqueue.c
 	(draw_obj): If the object is transparent, draw the background too.
 

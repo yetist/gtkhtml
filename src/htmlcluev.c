@@ -306,6 +306,10 @@ check_point (HTMLObject *self,
 	HTMLObject *obj;
 	HTMLClueAligned *clue;
 
+	if (x < self->x || x >= self->x + self->width
+	    || y < self->y - self->ascent || y >= self->y + self->descent)
+		return NULL;
+
 	x = x - self->x;
 	y = y - self->y + self->ascent;
 
