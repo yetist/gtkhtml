@@ -225,9 +225,15 @@ setup_font_size_option_menu (GtkHTMLControlData *cd)
 }
 
 static void
-color_changed (GtkWidget *w, GdkColor *gdk_color, GtkHTMLControlData *cd)
+color_changed (GtkWidget *w, GdkColor *gdk_color, gboolean by_user, GtkHTMLControlData *cd)
 {
-	HTMLColor *color = gdk_color
+	HTMLColor *color;
+	
+	/* If the color was changed programatically there's not need to set things */
+	if (!by_user)
+		return;
+		
+	color = gdk_color
 		&& gdk_color != &html_colorset_get_color (cd->html->engine->settings->color_set, HTMLTextColor)->color
 		? html_color_new_from_gdk_color (gdk_color) : NULL;
 

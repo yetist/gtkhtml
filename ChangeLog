@@ -1,3 +1,8 @@
+2001-05-12  Almer S. Tigelaar  <almer@gnome.org>
+
+	* configure.in: Depend on gal 0.7.99.5 or later
+	for the changes to the colorcombo.
+
 2001-05-11  Gediminas Paulauskas <menesis@delfi.lt>
 
 	* configure.in (ALL_LINGUAS): added lt.

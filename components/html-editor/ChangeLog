@@ -1,3 +1,13 @@
+2001-05-12  Almer S. Tigelaar  <almer@gnome.org>
+
+	* text.c (color_changed): Adjust signal callback for new
+	by_user flag.
+
+	* body.c (color_changed): Idem and don't change the color
+	if we changed it ourselves programatically.
+
+	* toolbar.c (color_changed): Same as for body.c.
+
 2001-05-11  Gediminas Paulauskas <menesis@delfi.lt>
 
 	* body.c, paragraph.c, popup.c: marked 30 strings for translation.

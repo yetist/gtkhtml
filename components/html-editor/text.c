@@ -93,7 +93,7 @@ fill_sample (GtkHTMLEditTextProperties *d)
 }
 
 static void
-color_changed (GtkWidget *w, GdkColor *color, GtkHTMLEditTextProperties *data)
+color_changed (GtkWidget *w, GdkColor *color, gboolean by_user, GtkHTMLEditTextProperties *data)
 {
 	html_color_unref (data->color);
 	data->color = color

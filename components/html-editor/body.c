@@ -75,10 +75,14 @@ fill_sample (GtkHTMLEditBodyProperties *d)
 }
 
 static void
-color_changed (GtkWidget *w, GdkColor *color, GtkHTMLEditBodyProperties *data)
+color_changed (GtkWidget *w, GdkColor *color, gboolean by_user, GtkHTMLEditBodyProperties *data)
 {
 	gint idx;
 
+	/* If the color was changed programatically there's not need to set things */
+	if (!by_user)
+		return;
+		
 	idx = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (w), "type"));
 	data->color [idx] = color
 		? *color
