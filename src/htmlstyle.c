@@ -23,9 +23,9 @@
 #include "htmlstyle.h"
 
 /* Color handling.  */
-static gboolean
-parse_color (const gchar *text,
-	     GdkColor *color)
+gboolean
+html_parse_color (const gchar *text,
+		  GdkColor *color)
 {
 	gchar c [8];
 	gint  len = strlen (text);
@@ -321,7 +321,7 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 			if (!strncasecmp ("color: ", text, 7)) {
 				GdkColor color;
 
-				if (parse_color (g_strstrip (text + 7), &color)) {
+				if (html_parse_color (g_strstrip (text + 7), &color)) {
 					HTMLColor *hc = html_color_new_from_gdk_color (&color);
 					style = html_style_add_color (style, hc);
 				        html_color_unref (hc);
@@ -330,7 +330,7 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 			} else if (!strncasecmp ("background: ", text, 12)) {
 				GdkColor color;
 
-				if (parse_color (text + 12, &color)) {
+				if (html_parse_color (text + 12, &color)) {
 					HTMLColor *hc = html_color_new_from_gdk_color (&color);
 					style = html_style_add_background_color (style, hc);
 				        html_color_unref (hc);
@@ -338,7 +338,7 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 			} else if (!strncasecmp ("background-color: ", text, 18)) {
 				GdkColor color;
 
-				if (parse_color (text + 18, &color)) {
+				if (html_parse_color (text + 18, &color)) {
 					HTMLColor *hc = html_color_new_from_gdk_color (&color);
 					style = html_style_add_background_color (style, hc);
 				        html_color_unref (hc);

@@ -1,3 +1,11 @@
+2004-03-26  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c: replace all parse_color calls with
+	html_parse_color.  Remove duplicate parse_color definition.
+
+	* htmlstyle.c: replace all parse_color calls with
+	html_parse_color.
+
 2004-04-05  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (cut_links_full): extended cut_links to handle the

@@ -406,32 +406,6 @@ free_element (gpointer data)
 
 #define DI(x)
 
-/* Color handling.  */
-static gboolean
-parse_color (const gchar *text,
-	     GdkColor *color)
-{
-	gchar c [8];
-	gint  len = strlen (text);
-
-	if (gdk_color_parse (text, color))
-		return TRUE;
-
-	c [7] = 0;
-	if (*text != '#') {
-		c[0] = '#'; 
-		strncpy (c + 1, text, 6);
-		len++;
-	} else {
-		strncpy (c, text, 7);
-	}
-	
-	if (len < 7)
-		memset (c + len, '\0', 7-len);
-
-	return gdk_color_parse (c, color);
-}
-
 static HTMLColor *
 current_color (HTMLEngine *e) {
 	HTMLElement *span;
@@ -1958,7 +1932,7 @@ element_parse_body (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		
 		if (strncasecmp (token, "bgcolor=", 8) == 0) {
 			gtk_html_debug_log (e->widget, "setting color\n");
-			if (parse_color (token + 8, &color)) {
+			if (html_parse_color (token + 8, &color)) {
 				gtk_html_debug_log (e->widget, "bgcolor is set\n");
 				html_colorset_set_color (e->settings->color_set, &color, HTMLBgColor);
 			} else {
@@ -1976,22 +1950,22 @@ element_parse_body (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			g_free (bgurl);
 		} else if ( strncasecmp( token, "text=", 5 ) == 0
 			    && !e->defaultSettings->forceDefault ) {
-			if (parse_color (token + 5, &color)) {
+			if (html_parse_color (token + 5, &color)) {
 				html_colorset_set_color (e->settings->color_set, &color, HTMLTextColor);
 				push_element (e, ID_BODY, NULL, 
 					      html_style_add_color (NULL, html_colorset_get_color (e->settings->color_set, HTMLTextColor)));
 			}
 		} else if ( strncasecmp( token, "link=", 5 ) == 0
 			    && !e->defaultSettings->forceDefault ) {
-			parse_color (token + 5, &color);
+			html_parse_color (token + 5, &color);
 			html_colorset_set_color (e->settings->color_set, &color, HTMLLinkColor);
 		} else if ( strncasecmp( token, "vlink=", 6 ) == 0
 			    && !e->defaultSettings->forceDefault ) {
-			parse_color (token + 6, &color);
+			html_parse_color (token + 6, &color);
 			html_colorset_set_color (e->settings->color_set, &color, HTMLVLinkColor);
 		} else if ( strncasecmp( token, "alink=", 6 ) == 0
 			    && !e->defaultSettings->forceDefault ) {
-			parse_color (token + 6, &color);
+			html_parse_color (token + 6, &color);
 			html_colorset_set_color (e->settings->color_set, &color, HTMLALinkColor);
 		} else if ( strncasecmp( token, "leftmargin=", 11 ) == 0) {
 			e->leftBorder = atoi (token + 11);
@@ -3001,7 +2975,7 @@ element_parse_table (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	    && !e->defaultSettings->forceDefault) {
 		GdkColor color;
 		
-		if (parse_color (value, &color)) {
+		if (html_parse_color (value, &color)) {
 			HTMLColor *hcolor = html_color_new_from_gdk_color  (&color);
 			element->style = html_style_add_background_color (element->style, hcolor);
 			html_color_unref (hcolor);
@@ -3131,7 +3105,7 @@ element_parse_tr (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	if (html_element_get_attr (element, "bgcolor", &value)) {
 		GdkColor color;
 		
-		if (parse_color (value, &color)) {
+		if (html_parse_color (value, &color)) {
 			HTMLColor *hcolor = html_color_new_from_gdk_color (&color); 
 			element->style = html_style_add_background_color (element->style, hcolor);
 			html_color_unref (hcolor);
@@ -3235,7 +3209,7 @@ element_parse_cell (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	if (html_element_get_attr (element, "bgcolor", &value)) {
 		GdkColor color;
 		
-		if (parse_color (value, &color)) {
+		if (html_parse_color (value, &color)) {
 			HTMLColor *hcolor = html_color_new_from_gdk_color (&color); 
 			element->style = html_style_add_background_color (element->style, hcolor);
 			html_color_unref (hcolor);
@@ -3499,7 +3473,7 @@ element_parse_font (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	if (html_element_get_attr (element, "color", &value)) {
 		GdkColor color;
 
-		if (parse_color (value, &color)) {
+		if (html_parse_color (value, &color)) {
 			HTMLColor *html_color = NULL;
 
 			html_color = html_color_new_from_gdk_color (&color);

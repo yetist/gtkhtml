@@ -109,4 +109,6 @@ HTMLStyle *html_style_add_width            (HTMLStyle *style, char *width);
 HTMLStyle *html_style_add_height           (HTMLStyle *style, char *height);
 void       html_style_free                 (HTMLStyle *style);
 
+gboolean   html_parse_color                (const gchar *text, GdkColor *color);
+
 #endif /* __HTML_COLOR_H__ */
