@@ -1479,7 +1479,7 @@ button_press_event (GtkWidget *widget,
 		}
 	}
 
-	return TRUE;
+	return FALSE;
 }
 
 static gint

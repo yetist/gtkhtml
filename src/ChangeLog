@@ -1,3 +1,8 @@
+2002-11-27  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (button_press_event): return TRUE so we could
+	g_connect_after in control
+
 2002-11-26  Larry Ewing  <lewing@ximian.com>
 
 	* htmltablecell.c (draw_background_helper): don't try to get a
