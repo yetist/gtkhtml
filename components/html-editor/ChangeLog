@@ -1,3 +1,8 @@
+2003-02-05  Dan Winship  <danw@ximian.com>
+
+	* editor-control-factory.c (editor_control_init): Replace
+	deprecated glade_gnome_init() with glade_init()
+
 2003-01-23  Radek Doulik  <rodo@ximian.com>
 
 	* spell.c: removed spell_create_language_menu and language_cb as

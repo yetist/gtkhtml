@@ -720,7 +720,7 @@ editor_control_init (void)
 		initialized = TRUE;
 
 		new_editor_api ();
-		glade_gnome_init ();
+		glade_init ();
 	}
 }
 
