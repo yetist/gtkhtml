@@ -84,7 +84,7 @@ static guint signals [LAST_SIGNAL] = { 0 };
 enum ID {
 	ID_ADDRESS, ID_B, ID_BIG, ID_BLOCKQUOTE, ID_CAPTION, ID_CITE, ID_CODE,
 	ID_DIR, ID_DIV, ID_EM, ID_FONT, ID_HEADER, ID_I, ID_KBD, ID_OL, ID_PRE,
-	ID_U, ID_UL, ID_TD, ID_TH, ID_TT, ID_VAR
+	ID_SMALL, ID_U, ID_UL, ID_TD, ID_TH, ID_TT, ID_VAR
 };
 
 
@@ -1117,11 +1117,7 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				gtk_signal_emit (GTK_OBJECT (e), signals[SET_BASE_TARGET], token + 7);
 			} else if ( strncasecmp( token, "href=", 5 ) == 0 ) {
 
-				if (e->actualURL != NULL)
-					html_url_destroy (e->actualURL);
-				e->actualURL = html_url_new (token + 5);
-				
-				gtk_signal_emit (GTK_OBJECT (e), signals[SET_BASE], token + 5);
+				html_engine_set_base_url(e, token + 5);
 			}
 		}
 	}
@@ -2053,6 +2049,22 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 
 /*
+  <small>             </small>
+*/
+static void
+parse_s (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	if ( strncmp(str, "small", 3 ) == 0 ) {
+		select_font_relative (e, -1);
+		push_block (e, ID_BIG, 1, block_end_font, 0, 0);
+	} else if ( strncmp(str, "/small", 4 ) == 0 ) {
+		pop_block (e, ID_BIG, clue);
+	}
+	
+}
+
+
+/*
   <table           </table>        most
   <textarea        </textarea>
   <title>          </title>
@@ -2182,7 +2194,7 @@ static HTMLParseFunc parseFuncArray[26] = {
 	parse_p,
 	NULL,
 	NULL,
-	NULL,
+	parse_s,
 	parse_t,
 	parse_u,
 	parse_v,
@@ -2339,6 +2351,7 @@ html_engine_init (HTMLEngine *engine)
 	/* STUFF might be missing here!   */
 
 	engine->actualURL = NULL;
+	engine->newPage = FALSE;
 
 	engine->show_cursor = FALSE;
 	engine->cursor = html_cursor_new ();
@@ -2463,9 +2476,9 @@ html_engine_begin (HTMLEngine *p, const char *url)
 
 	gtk_signal_emit (GTK_OBJECT(p), signals [URL_REQUESTED], url, new_stream);
 
-	if (p->actualURL != NULL)
-		html_url_destroy (p->actualURL);
-	p->actualURL = html_url_new (url);
+	html_engine_set_base_url (p, url);
+
+	p->newPage = TRUE;
 
 	return new_stream;
 }
@@ -2492,6 +2505,13 @@ html_engine_update_event (HTMLEngine *e)
 
 	html_engine_calc_size (e);
 	html_engine_calc_absolute_pos (e);
+	
+	/* Scroll page to the top on first display */
+	if(e->newPage) {
+
+		gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->vadjustment, 0);
+		e->newPage = FALSE;
+	}
 
 	html_engine_draw (e, 0, 0, e->width, e->height);
 	
@@ -3113,3 +3133,12 @@ html_engine_show_cursor (HTMLEngine *e, gboolean show)
 	e->show_cursor = show;
 }
 
+void
+html_engine_set_base_url (HTMLEngine *e, const char *url)
+{
+	if (e->actualURL != NULL)
+		html_url_destroy (e->actualURL);
+	e->actualURL = html_url_new (url);
+
+	gtk_signal_emit (GTK_OBJECT (e), signals[SET_BASE], url);
+}

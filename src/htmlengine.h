@@ -102,6 +102,8 @@ struct _HTMLEngine {
 	gboolean bold;
 	gboolean italic;
 	gboolean underline;
+
+	gboolean newPage;
  
 	gint fontsize;
 	
@@ -189,5 +191,6 @@ gchar      *html_engine_canonicalize_url (HTMLEngine *e, const char *in_url);
 const gchar *html_engine_get_link_at (HTMLEngine *e, gint x, gint y);
 void	    html_engine_show_cursor (HTMLEngine *e, gboolean show);
 gint	    html_engine_get_doc_width (HTMLEngine *e);
+void	    html_engine_set_base_url (HTMLEngine *e, const char *url);
 
 #endif /* _HTMLENGINE_H_ */

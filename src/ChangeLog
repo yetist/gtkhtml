@@ -1,3 +1,23 @@
+1999-12-11  Jonas Borgström  <jonas_b@bitsmart.com>
+
+	* htmlengine.c (html_engine_set_base_url): New function
+	(parse_s): New function, added support for <small> and </small>
+	(html_engine_begin): set newPage = TRUE
+	(html_engine_update_event): Scroll page to top if newPage is set.
+
+	* htmlengine.h:(html_engine): new member newPage
+	
+	* gtkhtml.c (gtkhtml_set_base_url): New function
+
+	* testgtkhtml.c (main): Add a default filter callback (request_terminater).
+	(request_terminater): New function. Terminates requests.
+	(url_requested): Adds filters for 4 different redirections.
+			 Redirections are now handled properly.
+	(redirectFilter): New function. calls gtk_html_set_base_url on redirection.
+	
+	* htmlurl.c (html_url_new): if path == NULL set it to "/"
+	(html_url_append_path) Cut the path at the first '/' from the right.
+	
 1999-12-11  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmltextslave.c (fit_line): Update the `prev' pointer.

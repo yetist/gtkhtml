@@ -174,6 +174,9 @@ html_url_new (const gchar *s)
 	} else {
 		new->path = strdup_nonempty_or_null (path_start);
 	}
+	/* The Path can't be NULL */
+	if(new->path == NULL)
+		new->path = g_strdup("/");
 
 #define STRING_OR_NULL(s) ((s) == NULL ? "(null)" : (s))
 	printf ("*** PARSING `%s'\n", s);
@@ -446,13 +449,28 @@ html_url_append_path (const HTMLURL *url,
 		      const gchar *path)
 {
 	HTMLURL *new;
-	gchar *new_path;
+	gchar *new_path, *tmppath;
+	int i;
 
 	new = html_url_dup (url, HTML_URL_DUP_NOPATH);
 
-	new_path = concat_dir_and_file (url->path ? url->path : *path == '/' ? "" : "/", path);
+	tmppath = g_strdup(url->path);
+	i = strlen(tmppath) - 1;
+
+	/* Remove first '/' from the right */
+	while(i && tmppath[i] != '/')
+		i--;
+
+	if(i)
+		tmppath[i] = 0;
+	else if(strlen(tmppath) > 1)
+		tmppath[i] = 0;
+
+	new_path = concat_dir_and_file (tmppath, path);
+
 	html_url_set_path (new, new_path);
 	g_free (new_path);
+	g_free (tmppath);
 
 	return new;
 }

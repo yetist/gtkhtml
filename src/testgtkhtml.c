@@ -72,6 +72,7 @@ static int netin_stream_flush (HTStream * me);
 static int netin_stream_free (HTStream * me);
 static int netin_stream_abort (HTStream * me, HTList * e);
 static HTStream *netin_stream_new (GtkHTMLStreamHandle handle, HTRequest *request);
+static int redirectFilter(HTRequest *request, HTResponse *response, void *param, int status);
 
 GtkWidget *area, *box, *button;
 GtkHTML *html;
@@ -584,37 +585,6 @@ netin_stream_new (GtkHTMLStreamHandle handle, HTRequest *request)
 	return retval;
 }
 
-static gint
-do_request_delete(gpointer req)
-{
-	g_print("do_request_delete(%p)\n", req);
-	/*  HTRequest_delete(req); */
-	
-	return FALSE;
-}
-
-static BOOL
-my_progress(HTRequest *request, HTAlertOpcode op,
-	    int msgnum, const char *dfault, void *input,
-	    HTAlertPar *reply)
-{
-	if(!request)
-		return NO;
-
-	switch(op)
-	{
-	case HT_PROG_DONE:
-	case HT_PROG_TIMEOUT:
-	case HT_PROG_INTERRUPT:
-		g_idle_add_full(G_PRIORITY_LOW, do_request_delete, request, NULL);
-		break;
-	default:
-		break;
-	}
-
-	return NO;
-}
-
 static void
 url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpointer data)
 {
@@ -628,15 +598,15 @@ url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpoin
 	g_assert(newreq);
 	ctmp = g_extension_pointer(url);
 	
-	/* Check if the url is absolute or relative */
-	/*	if (HTURL_isAbsolute (url)) {
-		g_print ("absolute\n");
-	}
-	else {
-		g_print ("relative, need to add base\n");
-		url = g_strdup_printf ("%s/%s", baseurl, url);
-		}*/
-
+ 	/* Need to catch redirections */
+ 	/* Remove old filter if any */
+ 	HTNet_deleteAfter(redirectFilter);
+ 	/* Add new filters */
+ 	HTNet_addAfter(redirectFilter, url, NULL, HT_PERM_REDIRECT, HT_FILTER_FIRST);
+ 	HTNet_addAfter(redirectFilter, url, NULL, HT_TEMP_REDIRECT, HT_FILTER_FIRST);
+ 	HTNet_addAfter(redirectFilter, url, NULL, HT_SEE_OTHER, HT_FILTER_FIRST);
+ 	HTNet_addAfter(redirectFilter, url, NULL, HT_FOUND, HT_FILTER_FIRST);
+ 
 	HTRequest_setOutputFormat(newreq, WWW_SOURCE);
 	{
 		HTStream *newstream = netin_stream_new(handle, newreq);
@@ -835,6 +805,55 @@ exit_cb (GtkWidget *widget, gpointer data)
 	gtk_main_quit ();
 }
 
+static int request_terminater (HTRequest * request, HTResponse * response, void * param, int status) {
+	if (status!=HT_LOADED) 
+		g_print("Load couldn't be completed successfully (%p)\n", request);
+	
+	HTRequest_delete(request);
+	return HT_OK;
+}
+static int redirectFilter(HTRequest *request, HTResponse *response,
+		 void *param, int status)
+{
+	HTMethod method = HTRequest_method(request);
+	HTAnchor *new_anchor = HTResponse_redirection(response);
+	gchar *new_location;
+
+	if (!new_anchor)
+		return HT_OK;
+
+	if (!HTMethod_isSafe(method))
+		return HT_OK;
+
+	HTRequest_deleteCredentialsAll(request);
+	if (HTRequest_doRetry(request)) {
+		HTRequest_setAnchor(request, new_anchor);
+		HTLoad(request, NO);
+
+		new_location = HTAnchor_address(new_anchor);
+
+		g_print("******* Redirected to '%s' *****\n", new_location);
+
+		/* Update BASE url */
+		gtk_html_set_base_url(html, new_location);
+
+		/* Update filters */
+		HTNet_deleteAfter(redirectFilter);
+		HTNet_addAfter(redirectFilter, new_location, NULL, HT_PERM_REDIRECT, HT_FILTER_FIRST);
+		HTNet_addAfter(redirectFilter, new_location, NULL, HT_TEMP_REDIRECT, HT_FILTER_FIRST);
+		HTNet_addAfter(redirectFilter, new_location, NULL, HT_FOUND, HT_FILTER_FIRST);
+		HTNet_addAfter(redirectFilter, new_location, NULL, HT_SEE_OTHER, HT_FILTER_FIRST);
+		
+		g_free(new_location);
+
+	} else {
+		HTRequest_addError(request, ERR_FATAL, NO, HTERR_MAX_REDIRECT,
+				   NULL, 0, "HTRedirectFilter");
+		return HT_OK;
+	}
+	return HT_ERROR;
+}
+
 static struct poptOption options[] = {
   {"slow-loading", '\0', POPT_ARG_NONE, &slow_loading, 0, "Load the document as slowly as possible", NULL},
   {"exit-when-done", '\0', POPT_ARG_NONE, &exit_when_done, 0, "Exit the program as soon as the document is loaded", NULL},
@@ -853,7 +872,8 @@ main (gint argc, gchar *argv[])
 	gnome_init_with_popt_table (PACKAGE, VERSION,
 				    argc, argv, options, 0, &ctx);
 	glibwww_init(PACKAGE, VERSION);
-	HTAlert_add(my_progress, HT_A_PROGRESS);
+
+	HTNet_addAfter(request_terminater, NULL, NULL, HT_ALL, HT_FILTER_LAST);
 
 	gdk_rgb_init ();
 	

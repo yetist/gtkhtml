@@ -315,9 +315,6 @@ gtk_html_begin (GtkHTML *html, const char *url)
 
 	handle = html_engine_begin (html->engine, url);
 
-	/* Scroll to the top of the page */
-	gtk_adjustment_set_value (GTK_LAYOUT (html)->vadjustment, 0);
-
 	return handle;
 }
 
@@ -506,4 +503,10 @@ gtk_html_horizontal_scroll (GtkAdjustment *adjustment, gpointer data)
 	GtkHTML *html = GTK_HTML (data);
 		
 	html->engine->x_offset = (gint)adjustment->value;
+}
+
+void
+gtk_html_set_base_url (GtkHTML *html, const char *url)
+{
+	html_engine_set_base_url(html->engine, url);
 }
