@@ -90,7 +90,7 @@ get_tags (const HTMLText *text,
 	HTMLObject *prev, *next;
 	HTMLText *pt = NULL, *nt = NULL;
 	gboolean font_tag = FALSE;
-	gboolean std_color, std_size, n_std_color, n_std_size;
+	gboolean std_color, std_size;
 
 	font_style = text->font_style;
 
@@ -115,17 +115,13 @@ get_tags (const HTMLText *text,
 									     HTMLTextColor))
 		|| html_color_equal (text->color,
 				      html_colorset_get_color (state->engine->settings->color_set, HTMLLinkColor));
-	n_std_color = nt && (html_color_equal (nt->color, html_colorset_get_color (state->engine->settings->color_set,
-										  HTMLTextColor))
-			     || html_color_equal (nt->color,
-						  html_colorset_get_color (state->engine->settings->color_set,
-									   HTMLLinkColor)));
 	std_size = (font_style & GTK_HTML_FONT_STYLE_SIZE_MASK) == 0;
-	n_std_size = nt && (nt->font_style & GTK_HTML_FONT_STYLE_SIZE_MASK) == 0;
 
-	if ((!std_color && (!pt || !html_color_equal (text->color, pt->color)))
-	    || (!std_size && (!pt || (pt->font_style & GTK_HTML_FONT_STYLE_SIZE_MASK)
-			      != (font_style & GTK_HTML_FONT_STYLE_SIZE_MASK)))) {
+
+	if ((!std_color || !std_size)
+	    && (!pt
+		|| !html_color_equal (text->color, pt->color)
+		|| (pt->font_style & GTK_HTML_FONT_STYLE_SIZE_MASK) != (font_style & GTK_HTML_FONT_STYLE_SIZE_MASK))) {
 		if (!std_color) {
 			g_string_sprintfa (ot, "<FONT COLOR=\"#%02x%02x%02x\"",
 					   text->color->color.red   >> 8,
@@ -141,21 +137,11 @@ get_tags (const HTMLText *text,
 		g_string_append_c (ot, '>');
 	}
 
-	if (((!std_color && (!nt || !html_color_equal (text->color, nt->color)))
-	     || (std_color && nt && !n_std_color))
-	    || ((!std_size && (!nt || (nt->font_style & GTK_HTML_FONT_STYLE_SIZE_MASK)
-			       != (font_style & GTK_HTML_FONT_STYLE_SIZE_MASK)))
-		|| (std_size && nt && !n_std_size))) {
+	if ((!std_color || !std_size)
+	    && (!nt
+		|| !html_color_equal (text->color, nt->color)
+		|| (nt->font_style & GTK_HTML_FONT_STYLE_SIZE_MASK) != (font_style & GTK_HTML_FONT_STYLE_SIZE_MASK))) {
 		g_string_append (ct, "</FONT>");
-		if (nt && !n_std_size
-		    && (font_style & GTK_HTML_FONT_STYLE_SIZE_MASK) == (nt->font_style & GTK_HTML_FONT_STYLE_SIZE_MASK))
-			g_string_sprintfa (ct, "<FONT SIZE=\"%d\">", nt->font_style & GTK_HTML_FONT_STYLE_SIZE_MASK);
-		if (nt && !n_std_color && html_color_equal (text->color, nt->color))
-			g_string_sprintfa (ct, "<FONT COLOR=\"#%02x%02x%02x\">",
-					   nt->color->color.red   >> 8,
-					   nt->color->color.green >> 8,
-					   nt->color->color.blue  >> 8);
-			
 	}
 
 	/* bold tag */

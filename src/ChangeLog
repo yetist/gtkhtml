@@ -2,6 +2,8 @@
 
 	* htmltext.c (get_tags): write opening tags for next text to
 	closing tags of this one
+	(get_tags): simplified and corrected <font> tag saving, it's not
+	optimal in space, but at least correct
 
 2002-09-17  Radek Doulik  <rodo@ximian.com>
 
