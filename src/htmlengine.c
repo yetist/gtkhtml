@@ -697,33 +697,33 @@ block_end_div (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
 
 
 static gchar *
-parse_body (HTMLEngine *p, HTMLObject *clue, const gchar *end[], gboolean toplevel)
+parse_body (HTMLEngine *e, HTMLObject *clue, const gchar *end[], gboolean toplevel)
 {
 	gchar *str;
 
-	p->eat_space = FALSE;
-	while (html_tokenizer_has_more_tokens (p->ht) && p->parsing) {
-		str = html_tokenizer_next_token (p->ht);
+	e->eat_space = FALSE;
+	while (html_tokenizer_has_more_tokens (e->ht) && e->parsing) {
+		str = html_tokenizer_next_token (e->ht);
 
 		if (*str == '\0')
 			continue;
 
 		if ( *str == ' ' && *(str+1) == '\0' ) {
 			/* if in* is set this text belongs in a form element */
-			if (p->inTextArea || p->inOption)
-				p->formText = g_string_append (p->formText, " ");
-			else if (p->inTitle)
-				g_string_append (p->title, " ");
+			if (e->inTextArea || e->inOption)
+				e->formText = g_string_append (e->formText, " ");
+			else if (e->inTitle)
+				g_string_append (e->title, " ");
 			else
-				insert_text (p, clue, str);
+				insert_text (e, clue, str);
 		} else if (*str != TAG_ESCAPE) {
-			if (p->inOption || p->inTextArea)
-				g_string_append (p->formText, str);
-			else if (p->inTitle) {
-				g_string_append (p->title, str);
+			if (e->inOption || e->inTextArea)
+				g_string_append (e->formText, str);
+			else if (e->inTitle) {
+				g_string_append (e->title, str);
 			}
 			else {
-				insert_text (p, clue, str);
+				insert_text (e, clue, str);
 			}
 		} else {
 			gint i  = 0;
@@ -738,14 +738,14 @@ parse_body (HTMLEngine *p, HTMLObject *clue, const gchar *end[], gboolean toplev
 			
 			/* The tag used for line break when we are in <pre>...</pre> */
 			if (*str == '\n')
-				add_line_break (p, clue, HTML_CLEAR_NONE);
+				add_line_break (e, clue, HTML_CLEAR_NONE);
 			else
-				parse_one_token (p, clue, str);
+				parse_one_token (e, clue, str);
 		}
 	}
 
-	if (!html_tokenizer_has_more_tokens (p->ht) && toplevel && !p->writing)
-		html_engine_stop_parser (p);
+	if (!html_tokenizer_has_more_tokens (e->ht) && toplevel && !e->writing)
+		html_engine_stop_parser (e);
 
 	return NULL;
 }
@@ -1501,6 +1501,7 @@ parse_input (HTMLEngine *e, const gchar *str, HTMLObject *_clue)
 		break;
 	case Button:
 		element = html_button_new(GTK_WIDGET(e->widget), name, value, BUTTON_NORMAL);
+		break;
 	case Text:
 	case Password:
 		element = html_text_input_new(GTK_WIDGET(e->widget), name, value, size, maxLen, (type == Password));

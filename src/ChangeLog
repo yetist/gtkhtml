@@ -1,3 +1,15 @@
+2001-05-06  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (parse_input): add missing break, thanks go to
+	"Giancarlo Capella" <capella@teleion.it> for finding this.
+	(parse_body): s/p/e/
+
+2001-05-03  Larry Ewing  <lewing@ximian.com>
+
+	* htmliframe.c (calc_size): use either e_scroll_frame or scrolled
+	window.
+	(html_iframe_init): ditto.
+
 2001-05-06  Jon Trowbridge  <trow@ximian.com>
 
 	* htmltext.c (text_len): Call g_utf8_validate on the string
