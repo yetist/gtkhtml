@@ -152,7 +152,6 @@ pop_font_style (HTMLEngine *e)
 static const GdkColor *
 current_color (HTMLEngine *e)
 {
-	static GdkColor black = { 0, 0, 0, 0 };
 	const GdkColor *color;
 
 	if (html_stack_is_empty (e->color_stack))
@@ -1273,30 +1272,28 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 					shape = HTMLArea::Poly;
 				else if ( strncasecmp( p+6, "circle", 6 ) == 0 )
 					shape = HTMLArea::Circle;
-			} else
-
-				if ( strncasecmp( p, "href=", 5 ) == 0 ) {
-					p += 5;
-					if ( *p == '#' ) { /* FIXME TODO */
-						g_warning ("#references are not implemented yet.");
-						KURL u( actualURL );
-						u.setReference( p + 1 );
-						href = u.url();
-					}
-					else 
-					{
-						KURL u( baseURL, p );
-						href = u.url();
-					}
+			} else if ( strncasecmp( p, "href=", 5 ) == 0 ) {
+				p += 5;
+				if ( *p == '#' ) { /* FIXME TODO */
+					g_warning ("#references are not implemented yet.");
+					KURL u( actualURL );
+					u.setReference( p + 1 );
+					href = u.url();
 				}
-				else if ( strncasecmp( p, "target=", 7 ) == 0 )
+				else 
 				{
-					atarget = p+7;
+					KURL u( baseURL, p );
+					href = u.url();
 				}
-				else if ( strncasecmp( p, "coords=", 7 ) == 0 )
-				{
-					coords = p+7;
-				}
+			}
+			else if ( strncasecmp( p, "target=", 7 ) == 0 )
+			{
+				atarget = p+7;
+			}
+			else if ( strncasecmp( p, "coords=", 7 ) == 0 )
+			{
+				coords = p+7;
+			}
 		}
 
 		if ( !coords.isEmpty() && !href.isEmpty() )
