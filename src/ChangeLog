@@ -1,3 +1,7 @@
+1999-10-17  Richard Hult  <rhult@hem2.passagen.se>
+
+	* html-component.c: Use a GtkHTML widget directly instead of duplicating the code here.
+
 1999-10-17  Anders Carlsson  <andersca@picard.andersnet>
 
 	* htmlengine.c: Fix a bug with <font> tags without size

@@ -4,8 +4,6 @@
 #include <gnome.h>
 #include <bonobo/gnome-bonobo.h>
 #include "gtkhtml.h"
-#include "htmlengine.h"
-#include "htmltokenizer.h"
 
 /*
  * The Embeddable data.
@@ -19,7 +17,8 @@ typedef struct {
 
 	/*
 	 * Ok, the internal representation should go here. I haven't figured
-	 * that part out yet.
+	 * that part out yet. Maybe we can cheat and have a widget per view
+	 * and just keep it at that?
 	 */
 /*	HTMLEngine          *engine;*/
 } embeddable_data_t;
@@ -32,16 +31,9 @@ typedef struct {
 	embeddable_data_t   *embeddable_data;
 
 	/*
-	 * The widget used to render this view of the image data.
+	 * The widget used to render this view of the html data.
 	 */
-	GtkLayout *layout;
-
-	GtkWidget *vscrollbar;
-	GtkObject *vsbadjust;
-
-	gboolean displayVScroll;
-
-	HTMLEngine *engine;
+	GtkHTML *html;
 } view_data_t;
 
 /*                                                                              
@@ -50,8 +42,6 @@ typedef struct {
 static int running_objects = 0;                                                 
 static GnomeEmbeddableFactory *factory = NULL;                                  
                                                                                  
-static void calc_scrollbars (view_data_t *view_data);
-static void vertical_scroll (GtkAdjustment *adjustment, gpointer data);
 void update_view (GnomeView *view);
 
 /*
@@ -104,11 +94,11 @@ view_system_exception_cb (GnomeView *view, CORBA_Object corba_object,
 static void
 view_update (view_data_t *view_data)
 {
-	html_painter_set_background_color (view_data->engine->painter,
-					   view_data->engine->settings->bgcolor);
-	gdk_window_clear (view_data->engine->painter->window);
+	html_painter_set_background_color (view_data->html->engine->painter,
+					   view_data->html->engine->settings->bgcolor);
+	gdk_window_clear (view_data->html->engine->painter->window);
 
-	html_engine_draw (view_data->engine, 0, 0, view_data->engine->width, view_data->engine->height);
+	html_engine_draw (view_data->html->engine, 0, 0, view_data->html->engine->width, view_data->html->engine->height);
 }
 
 
@@ -164,16 +154,16 @@ html_menu_test_cb (GnomeUIHandler *uih, view_data_t *view_data, gchar *path)
 
 	g_print ("Parsing file: %s\n", filename);
 
-	html_engine_begin (view_data->engine, filename);
-	html_engine_parse (view_data->engine);
+	gtk_html_begin (view_data->html, filename);
+	gtk_html_parse (view_data->html);
 
 	fil = fopen (filename, "r");
 	while (!feof (fil)) {
 		fgets (buffer, 32768, fil);
-		html_engine_write (view_data->engine, buffer);
+		gtk_html_write (view_data->html, buffer);
 	}
 
-	html_engine_end (view_data->engine);
+	gtk_html_end (view_data->html);
 	fclose (fil);
 	g_free (filename);
 }
@@ -313,88 +303,8 @@ view_destroy_cb (GnomeView *view, view_data_t *view_data)
 {
 	g_message ("view_destroy_cb");
 	
-	/*FIXME: free stuff. */
+	/* FIXME: free stuff. */
 	g_free (view_data);
-}
-
-/*
- * Perform the equivalence of gtk_html_realize ().
- */
-static void
-view_realize_cb (GtkWidget *widget, view_data_t *view_data)
-{
-	GtkLayout *layout;
-
-	g_return_if_fail (widget != NULL);
-	g_return_if_fail (GTK_IS_LAYOUT (widget));
-
-	layout = GTK_LAYOUT (widget);
-
-	gdk_window_set_events (layout->bin_window,
-			       (gdk_window_get_events (layout->bin_window)
-				| GDK_EXPOSURE_MASK));
-
-	/* Create our painter dc */
-	view_data->engine->painter->gc = gdk_gc_new (layout->bin_window);
-
-	/* Set our painter window */
-	view_data->engine->painter->window = layout->bin_window;
-
-	view_data->displayVScroll = FALSE;
-	gtk_widget_hide (view_data->vscrollbar);
-	GTK_ADJUSTMENT (view_data->vsbadjust)->step_increment = 12;
-
-	/* Just test the compontent in simplest possible way. */
-#if 0
-	html_engine_begin (view_data->engine, "tests/test1.html");
-	html_engine_parse (view_data->engine);
-	html_engine_write (view_data->engine, 
-			"<html>"
-			"  <body background=test.jpg>"
-			"    <p align=center>"
-			"      Det här är tänkt att vara ett väldigt långt och blandat dokument som ska göra det enkelt att se alla typer av kombinationer"
-			"      <b>fetstil</b>"
-			"      <font size=5>Annorlunda storlekar</font> och <font color=blue>färger.</font>"
-			"    </p>"
-			"    <h1>Här kommer en hr</h1>"
-			"    <hr>"
-			"    <p align='center'>Lite text efter</p>"
-			"    <p>Här ska jag skriva en jätttejättelång text för att äntligen börja på scrollningen och se om det fungerar, för det måste det ju naturligtvis göra om man ska börja lägga in så att den kan bli en WIDGET!! och det vill man ju att det ska vara så att man kan lägga in en fil som heter testgtkhtml.c i CVS sedan, för då ska den vara textbädd för gtkhtml-widgeten och sen ska jag även lägga in bättre stöd i HTMLObject, ta bort de dumma referenserna till Tex curr och head och tail. Men nu tror jag att jag har skrivit tillräckligt mycket så det så!"
-			"  </body>"
-			"</html>");
-
-	html_engine_end (view_data->engine);
-#endif
-	view_update (view_data);
-}
-
-/* 
- *
- * When a part of the window is exposed, we must redraw it.
- */
-static void
-view_expose_cb (GtkWidget *drawing_area, GdkEventExpose *event, view_data_t *view_data)
-{
-	if (view_data->engine->settings->bgcolor)
-		html_painter_set_background_color (view_data->engine->painter,
-						   view_data->engine->settings->bgcolor);
-	
-	html_engine_draw (view_data->engine,
-			  event->area.x, event->area.y,
-			  event->area.width, event->area.height);
-}
-
-static void
-set_geometry (GtkWidget *widget, gint x, gint y, gint width, gint height)
-{
-	GtkAllocation allocation;
-
-	allocation.x = x;
-	allocation.y = y;
-	allocation.width = width;
-	allocation.height = height;
-
-	gtk_widget_size_allocate (widget, &allocation);
 }
 
 /*
@@ -405,8 +315,8 @@ static void
 view_size_query_cb (GnomeView *view, int *desired_width, int *desired_height,
 		    view_data_t *view_data)
 {
-	*desired_width  = view_data->engine->width;
-	*desired_height = view_data->engine->height;
+	*desired_width  = view_data->html->engine->width;
+	*desired_height = view_data->html->engine->height;
 }
 
 /*
@@ -416,66 +326,20 @@ static void
 view_size_allocate_cb (GtkWidget *drawing_area, GtkAllocation *allocation,
 		       view_data_t *view_data)
 {
-	view_data->engine->width = allocation->width;
-	view_data->engine->height = allocation->height;
-
-	html_engine_calc_size (view_data->engine);
-
-	calc_scrollbars (view_data);
-
-	view_update (view_data);
-}
-
-static void
-calc_scrollbars (view_data_t *view_data)
-{
-	if ((html_engine_get_doc_height (view_data->engine) > view_data->engine->height)) {
-		view_data->displayVScroll = TRUE;
-	}
-	else {
-		view_data->displayVScroll = FALSE;
-	}
-	
-	if (view_data->displayVScroll) {
-		GTK_ADJUSTMENT (view_data->vsbadjust)->lower = 0;
-		GTK_ADJUSTMENT (view_data->vsbadjust)->upper = html_engine_get_doc_height (view_data->engine);
-		GTK_ADJUSTMENT (view_data->vsbadjust)->page_size = view_data->engine->height;
-	}
-	
-	if (!view_data->displayVScroll) {
-		gtk_widget_hide (view_data->vscrollbar);
-		GTK_ADJUSTMENT (view_data->vsbadjust)->upper = GTK_ADJUSTMENT (view_data->vsbadjust)->page_size = 0;
-	}
-	else {
-		set_geometry (view_data->vscrollbar,
-				    GTK_WIDGET (view_data->layout)->allocation.width - view_data->vscrollbar->allocation.width, 
-				    0,
-				    view_data->vscrollbar->allocation.width,
-				       GTK_WIDGET (view_data->layout)->allocation.height);
-		gtk_widget_show (view_data->vscrollbar);
-	}
-}
-
-static void
-vertical_scroll (GtkAdjustment *adjustment, gpointer data)
-{
-	view_data_t *view_data = (view_data_t *) data;
-
-	view_data->engine->y_offset = (gint)adjustment->value;
-	view_update (view_data);
 }
 
 /*
- * This function is called when the "ClearImage" verb is executed on
+ * This function is called when the "Refresh" verb is executed on
  * the component.
  */
 static void
-view_clear_image_cb (GnomeView *view, const char *verb_name, view_data_t *view_data)
+view_refresh_cb (GnomeView *view, const char *verb_name, view_data_t *view_data)
 {
 	embeddable_data_t *embeddable_data;
 
-	embeddable_data = view_data->embeddable_data;
+	/* FIXME: Do something here. */
 
+	embeddable_data = view_data->embeddable_data;
 	embeddable_update_all_views (embeddable_data);
 }
 
@@ -502,32 +366,11 @@ view_factory (GnomeEmbeddable *embeddable,
 	view_data = g_new0 (view_data_t, 1);
 	view_data->embeddable_data = embeddable_data;
 
-	/*
-	 * Perform the equivalent to gtk_html_init ().
-	 */
-	view_data->layout = GTK_LAYOUT (gtk_layout_new (NULL, NULL));
-	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (view_data->layout), GTK_CAN_FOCUS);
-	gtk_layout_set_hadjustment (view_data->layout, NULL);
-	gtk_layout_set_vadjustment (view_data->layout, NULL);
+	view_data->html = GTK_HTML (gtk_html_new ());
 
-	/* Create vertical scrollbar */
-	view_data->vsbadjust = gtk_adjustment_new (0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-	view_data->vscrollbar = gtk_vscrollbar_new (GTK_ADJUSTMENT (view_data->vsbadjust));
-	gtk_layout_put (view_data->layout, view_data->vscrollbar, 0, 0);
-	gtk_signal_connect (GTK_OBJECT (view_data->vsbadjust), "value_changed",
-			    GTK_SIGNAL_FUNC (vertical_scroll), view_data);
-
-	view_data->engine = html_engine_new ();
-
-	gtk_signal_connect (GTK_OBJECT (view_data->layout), "realize",
-			    GTK_SIGNAL_FUNC (view_realize_cb), view_data);
-
-	gtk_signal_connect (GTK_OBJECT (view_data->layout), "expose_event",
-			    GTK_SIGNAL_FUNC (view_expose_cb), view_data);
-	 
 	vbox = gtk_vbox_new (FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (vbox),
-			    GTK_WIDGET (view_data->layout),
+			    GTK_WIDGET (view_data->html),
 			    TRUE, TRUE, 0);
 
 	gtk_widget_show_all (vbox);
@@ -549,8 +392,8 @@ view_factory (GnomeEmbeddable *embeddable,
 	/*
 	 * Register a callback to handle the ClearImage verb.
 	 */
-	gnome_view_register_verb (view, "ClearImage",
-				  GNOME_VIEW_VERB_FUNC (view_clear_image_cb),
+	gnome_view_register_verb (view, "Refresh",
+				  GNOME_VIEW_VERB_FUNC (view_refresh_cb),
 				  view_data);
 
 	/*
@@ -564,8 +407,9 @@ view_factory (GnomeEmbeddable *embeddable,
 	 * When the container assigns us a size, we will get a
 	 * "size_allocate" signal raised on our top-level widget.
 	 */
-	gtk_signal_connect (GTK_OBJECT (view_data->layout), "size_allocate",
+/*	gtk_signal_connect (GTK_OBJECT (view_data->html), "size_allocate",
 			    GTK_SIGNAL_FUNC (view_size_allocate_cb), view_data);
+*/
 
 	/*
 	 * When our container wants to activate a given view of this
@@ -652,9 +496,9 @@ embeddable_factory (GnomeEmbeddableFactory *this,
 	 * window.
 	 */
 	gnome_embeddable_add_verb (embeddable,
-				   "ClearImage",
-				   _("_Clear Image"),
-				   _("Clear the image to black"));
+				   "Refresh",
+				   _("_Refresh"),
+				   _("Reload the page"));
 
 	/*
 	 * If the Embeddable encounters a fatal CORBA exception, it
