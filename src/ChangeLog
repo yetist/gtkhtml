@@ -1,5 +1,9 @@
 2000-11-01  Radek Doulik  <rodo@helixcode.com>
 
+	* htmltable.c (destroy): fixed cell skipping contidion
+
+	* htmlengine.c (parse_table): ignore nowrap if width is set
+
 	* htmltokenizer.c (html_tokenizer_begin): don't alloc buffer
 	(html_tokenizer_end): ser t->size to 0
 	(prepare_enough_space): grow t->size by 1/4*t->size + 5

@@ -81,11 +81,7 @@ destroy (HTMLObject *o)
 		for (c = 0; c < table->totalCols; c++) {
 			if ((cell = table->cells[r][c]) == 0)
 				continue;
-			if (c < table->totalCols - 1 &&
-			    cell == table->cells[r][c + 1])
-				continue;
-			if (r < table->totalRows - 1 &&
-			    cell == table->cells[r + 1][c])
+			if (cell->row != r || cell->col != c)
 				continue;
 
 			html_object_destroy (HTML_OBJECT (cell));

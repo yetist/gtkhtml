@@ -1077,7 +1077,6 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 							else if (strncasecmp (token, "nowrap", 6) == 0) {
 
 								e->noWrap = TRUE;
-								push_clueflow_style (e, HTML_CLUEFLOW_STYLE_NOWRAP);
 							}
 							else if (strncasecmp (token, "background=", 11) == 0
 								 && token [12]
@@ -1090,6 +1089,12 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 
 							}
 						}
+					}
+
+					if (e->noWrap && (cellpercent != -1 || fixedWidth)) {
+						e->noWrap = FALSE;
+					} else if (e->noWrap) {
+						push_clueflow_style (e, HTML_CLUEFLOW_STYLE_NOWRAP);
 					}
 
 					if (e->pending_para) {
