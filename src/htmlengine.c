@@ -254,11 +254,11 @@ html_engine_begin (HTMLEngine *p, const char *url)
 	html_engine_free_block (p); /* Clear the block stack */
 
 	if (url != 0) {
-	  char *ctmp;
+	  char *ctmp, *ctmp2;
 
 	  p->actualURL = html_engine_canonicalize_url(p, url);
 
-	  ctmp = g_dirname (p->actualURL);
+	  ctmp = g_dirname(p->actualURL);
 	  p->baseURL = html_engine_canonicalize_url(p, ctmp);
 	  g_free(ctmp);
 
@@ -1655,8 +1655,12 @@ html_engine_canonicalize_url (HTMLEngine *e, const char *in_url)
   g_assert(ctmp);
   ctmp += 3;
   ctmp = strchr(ctmp, '/');
-  if(!ctmp)
-    return retval;
+  if(!ctmp) {
+	  ctmp = retval;
+	  retval = g_strconcat(retval, "/", NULL);
+	  g_free(ctmp);
+	  return retval;
+  }
 
   removebegin = removeend = NULL;
   do {
