@@ -1,3 +1,15 @@
+2002-03-26  Larry Ewing  <lewing@ximian.com>
+
+	* Makefile.am (keybindingsdir): fix this dir from $release/gtkhtml
+	to gtkhtml-release.
+
+	* Makefile.am (libgtkhtmldir): add version to directory.
+
+2002-03-20  Larry Ewing  <lewing@ximian.com>
+
+	* htmlimage.c (html_image_factory_area_prepared): silently pass
+	through if ip->pixbuf is NULL.  gdk-pixbuf has a very screwy api.
+
 2002-03-11  Radek Doulik  <rodo@ximian.com>
 
 	* htmlprinter.c (calc_text_width): use correct len (in bytes) for
