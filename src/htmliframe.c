@@ -33,6 +33,7 @@
 #include "htmlselection.h"
 #include "htmlsettings.h"
 #include "htmltokenizer.h"
+#include "htmlembedded.h"
 
 #ifndef USE_SCROLLED_WINDOW
 #include <gal/widgets/e-scroll-frame.h>
@@ -227,7 +228,14 @@ copy (HTMLObject *self,
         HTMLIFrame *d = HTML_IFRAME (dest);
 
 	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
-
+	/*
+	html_iframe_init (s, &html_iframe_class,
+			  HTML_EMBEDDED (dest)->parent,
+			  s->url,
+			  s->width,
+			  s->height,
+			  s->frameborder);
+	*/
 	d->scroll = NULL;
 	d->html = NULL;
 	d->gdk_painter = NULL;
@@ -375,6 +383,17 @@ append_selection_string (HTMLObject *self,
 			 GString *buffer)
 {
 	html_object_append_selection_string (GTK_HTML (HTML_IFRAME (self)->html)->engine->clue, buffer);
+}
+
+static void
+reparent (HTMLEmbedded *emb, GtkWidget *html)
+{
+	HTMLIFrame *iframe = HTML_IFRAME (emb);
+
+	gtk_html_set_iframe_parent (GTK_HTML (iframe->html), 
+				    html,
+				    GTK_HTML (iframe->html)->frame);
+	(* HTML_EMBEDDED_CLASS (parent_class)->reparent) (emb, html);
 }
 
 /* static gboolean
@@ -580,4 +599,6 @@ html_iframe_class_init (HTMLIFrameClass *klass,
 	object_class->is_container            = is_container;
 	object_class->draw_background         = draw_background;
 	object_class->append_selection_string = append_selection_string;
+	
+	embedded_class->reparent = reparent;
 }

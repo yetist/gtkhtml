@@ -46,7 +46,7 @@ struct _HTMLEmbeddedClass {
 		    
 	void   (*reset)    (HTMLEmbedded *element);
 	gchar *(*encode)   (HTMLEmbedded *element);
-	void   (*reparent) (HTMLEmbedded *element, GtkHTML *new_parent);
+	void   (*reparent) (HTMLEmbedded *element, GtkWidget *new_parent);
 };
 
 
