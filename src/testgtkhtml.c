@@ -807,7 +807,7 @@ goto_url(const char *url, int back_or_forward)
 
 	use_redirect_filter = TRUE;
 
-	html_stream_handle = gtk_html_begin (html);
+	html_stream_handle = gtk_html_begin_content (html, "text/html; charset=utf-8");
 
 	/* Yuck yuck yuck.  Well this code is butt-ugly already anyway.  */
 	url_requested (html, url, html_stream_handle, NULL);
