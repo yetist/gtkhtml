@@ -1,4 +1,4 @@
-2003-06-26  Yuedong Du <yuedong.du@sun.com>
+2003-07-01  Yuedong Du <yuedong.du@sun.com>
 
 	* editor-control-factory.c : add a new signal handler (html_show_popup)
 	for "popup-menu" signal. Thus shift+f10 to activate popup menu.
