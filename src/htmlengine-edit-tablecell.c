@@ -50,7 +50,7 @@ typedef enum {
 } HTMLTableCellAttrType;
 
 union _HTMLTableCellUndoAttr {
-	gboolean nowrap;
+	gboolean no_wrap;
 	gboolean heading;
 
 	gchar *pixmap;
@@ -260,15 +260,43 @@ html_engine_table_cell_set_valign (HTMLEngine *e, HTMLTableCell *cell, HTMLVAlig
  *
  */
 
-void
-html_engine_table_cell_set_no_wrap (HTMLEngine *e, HTMLTableCell *cell, gboolean no_wrap)
+static void table_cell_set_no_wrap (HTMLEngine *e, HTMLTableCell *cell, gboolean no_wrap, HTMLUndoDirection dir);
+
+static void
+table_cell_set_no_wrap_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir)
+{
+	HTMLTableCellSetAttrUndo *data = (HTMLTableCellSetAttrUndo *) undo_data;
+
+	table_cell_set_no_wrap (e, html_engine_get_table_cell (e), data->attr.no_wrap, html_undo_direction_reverse (dir));
+}
+
+static void
+table_cell_set_no_wrap (HTMLEngine *e, HTMLTableCell *cell, gboolean no_wrap, HTMLUndoDirection dir)
 {
 	if (cell->no_wrap != no_wrap) {
+		HTMLTableCellSetAttrUndo *undo;
+
+		undo = attr_undo_new (HTML_TABLE_CELL_NOWRAP);
+		undo->attr.no_wrap = cell->no_wrap;
+		html_undo_add_action (e->undo,
+				      html_undo_action_new ("Set cell wrapping", table_cell_set_no_wrap_undo_action,
+							    HTML_UNDO_DATA (undo), html_cursor_get_position (e->cursor)), dir);
 		cell->no_wrap = no_wrap;
 		html_object_change_set (HTML_OBJECT (cell), HTML_CHANGE_ALL_CALC);
 		html_engine_schedule_update (e);
 	}
 }
+
+void
+html_engine_table_cell_set_no_wrap (HTMLEngine *e, HTMLTableCell *cell, gboolean no_wrap)
+{
+	table_cell_set_no_wrap (e, cell, no_wrap, HTML_UNDO_UNDO);
+}
+
+/*
+ * heading
+ *
+ */
 
 void
 html_engine_table_cell_set_heading (HTMLEngine *e, HTMLTableCell *cell, gboolean heading)

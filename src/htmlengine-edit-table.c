@@ -650,18 +650,26 @@ static void
 table_set_border_width (HTMLEngine *e, HTMLTable *t, gint border_width, gboolean relative, HTMLUndoDirection dir)
 {
 	HTMLTableSetAttrUndo *undo;
+	gint new_border;
 
 	if (!t || !HTML_IS_TABLE (HTML_OBJECT (t)))
+		return;
+
+	html_engine_freeze (e);
+	if (relative)
+		new_border = t->border + border_width;
+	else
+		new_border = border_width;
+	if (new_border < 0)
+		new_border = 0;
+	if (new_border == t->border)
 		return;
 
 	undo = attr_undo_new (HTML_TABLE_BORDER);
 	undo->attr.border = t->border;
 
-	html_engine_freeze (e);
-	if (relative)
-		t->border += border_width;
-	else
-		t->border = border_width;
+	t->border = new_border;
+
 	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL_CALC);
 	html_engine_thaw (e);
 
