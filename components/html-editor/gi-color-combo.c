@@ -45,15 +45,15 @@ enum {
 	LAST_SIGNAL
 };
 
-static guint color_combo_signals [LAST_SIGNAL] = { 0, };
+static guint gi_color_combo_signals [LAST_SIGNAL] = { 0, };
 
 #define PARENT_TYPE GI_COMBO_BOX_TYPE
-static GObjectClass *color_combo_parent_class;
+static GObjectClass *gi_color_combo_parent_class;
 
 #define make_color(CC,COL) (((COL) != NULL) ? (COL) : ((CC) ? ((CC)->default_color) : NULL))
 
 static void
-color_combo_set_color_internal (ColorCombo *cc, GdkColor *color)
+gi_color_combo_set_color_internal (GiColorCombo *cc, GdkColor *color)
 {
 	GdkColor *new_color;
 	GdkColor *outline_color;
@@ -69,25 +69,25 @@ color_combo_set_color_internal (ColorCombo *cc, GdkColor *color)
 }
 
 static void
-color_combo_class_init (GObjectClass *object_class)
+gi_color_combo_class_init (GObjectClass *object_class)
 {
-	color_combo_parent_class = g_type_class_ref (PARENT_TYPE);
+	gi_color_combo_parent_class = g_type_class_ref (PARENT_TYPE);
 
-	color_combo_signals [CHANGED] =
+	gi_color_combo_signals [CHANGED] =
 		g_signal_new ("color_changed",
 			      G_OBJECT_CLASS_TYPE (object_class),
 			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (ColorComboClass, color_changed),
+			      G_STRUCT_OFFSET (GiColorComboClass, color_changed),
 			      NULL, NULL,
 			      html_g_cclosure_marshal_VOID__POINTER_BOOLEAN_BOOLEAN_BOOLEAN,
 			      G_TYPE_NONE, 4, G_TYPE_POINTER,
 			      G_TYPE_BOOLEAN, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN);
 }
 
-TMP_GI_MAKE_TYPE (color_combo,
-		   "ColorCombo",
-		   ColorCombo,
-		   color_combo_class_init,
+TMP_GI_MAKE_TYPE (gi_color_combo,
+		   "GiColorCombo",
+		   GiColorCombo,
+		   gi_color_combo_class_init,
 		   NULL,
 		   PARENT_TYPE)
 
@@ -95,11 +95,11 @@ TMP_GI_MAKE_TYPE (color_combo,
  * Fires signal "color_changed" with the current color as its param
  */
 static void
-emit_color_changed (ColorCombo *cc, GdkColor *color,
+emit_color_changed (GiColorCombo *cc, GdkColor *color,
 		    gboolean is_custom, gboolean by_user, gboolean is_default)
 {
   	g_signal_emit (cc,
-		       color_combo_signals [CHANGED], 0,
+		       gi_color_combo_signals [CHANGED], 0,
 		       color, is_custom, by_user, is_default);
 	gi_combo_box_popup_hide (GI_COMBO_BOX (cc));
 }
@@ -107,14 +107,14 @@ emit_color_changed (ColorCombo *cc, GdkColor *color,
 static void
 cb_palette_color_changed (ColorPalette *P, GdkColor *color,
 		 gboolean custom, gboolean by_user, gboolean is_default,
-		 ColorCombo *cc)
+		 GiColorCombo *cc)
 {
-	color_combo_set_color_internal (cc, color);
+	gi_color_combo_set_color_internal (cc, color);
 	emit_color_changed (cc, color, custom, by_user, is_default);
 }
 
 static void
-preview_clicked (GtkWidget *button, ColorCombo *cc)
+preview_clicked (GtkWidget *button, GiColorCombo *cc)
 {
 	gboolean is_default;
 	GdkColor *color = color_palette_get_current_color (cc->palette, &is_default);
@@ -124,7 +124,7 @@ preview_clicked (GtkWidget *button, ColorCombo *cc)
 }
 
 static void
-cb_cust_color_clicked (GtkWidget *widget, ColorCombo *cc)
+cb_cust_color_clicked (GtkWidget *widget, GiColorCombo *cc)
 {
 	gi_combo_box_popup_hide (GI_COMBO_BOX (cc));
 }
@@ -133,7 +133,7 @@ cb_cust_color_clicked (GtkWidget *widget, ColorCombo *cc)
  * Creates the color table
  */
 static void
-color_table_setup (ColorCombo *cc,
+color_table_setup (GiColorCombo *cc,
 		   char const *no_color_label, ColorGroup *color_group)
 {
 	g_return_if_fail (cc != NULL);
@@ -159,10 +159,10 @@ color_table_setup (ColorCombo *cc,
 }
 
 void
-color_combo_box_set_preview_relief (ColorCombo *cc, GtkReliefStyle relief)
+gi_color_combo_box_set_preview_relief (GiColorCombo *cc, GtkReliefStyle relief)
 {
 	g_return_if_fail (cc != NULL);
-	g_return_if_fail (IS_COLOR_COMBO (cc));
+	g_return_if_fail (IS_GI_COLOR_COMBO (cc));
 
 	gtk_button_set_relief (GTK_BUTTON (cc->preview_button), relief);
 }
@@ -171,13 +171,13 @@ color_combo_box_set_preview_relief (ColorCombo *cc, GtkReliefStyle relief)
  * Where the actual construction goes on
  */
 static void
-color_combo_construct (ColorCombo *cc, GdkPixbuf *icon,
+gi_color_combo_construct (GiColorCombo *cc, GdkPixbuf *icon,
 		       char const *no_color_label,
 		       ColorGroup *color_group)
 {
 	GdkColor *color;
 	g_return_if_fail (cc != NULL);
-	g_return_if_fail (IS_COLOR_COMBO (cc));
+	g_return_if_fail (IS_GI_COLOR_COMBO (cc));
 
 	/*
 	 * Our button with the canvas preview
@@ -235,22 +235,22 @@ color_combo_construct (ColorCombo *cc, GdkPixbuf *icon,
 				 GTK_WIDGET (cc->palette));
 
 	color = color_palette_get_current_color (cc->palette, NULL);
-	color_combo_set_color_internal (cc, color);
+	gi_color_combo_set_color_internal (cc, color);
 	if (color) gdk_color_free (color);
 }
 
-/* color_combo_get_color:
+/* gi_color_combo_get_color:
  *
  * Return current color, result must be freed with gdk_color_free !
  */
 GdkColor *
-color_combo_get_color (ColorCombo *cc, gboolean *is_default)
+gi_color_combo_get_color (GiColorCombo *cc, gboolean *is_default)
 {
 	return color_palette_get_current_color (cc->palette, is_default);
 }
 
 /**
- * color_combo_set_color
+ * gi_color_combo_set_color
  * @cc     The combo
  * @color  The color
  *
@@ -258,7 +258,7 @@ color_combo_get_color (ColorCombo *cc, gboolean *is_default)
  * signal to be emitted.
  */
 void
-color_combo_set_color (ColorCombo *cc, GdkColor *color)
+gi_color_combo_set_color (GiColorCombo *cc, GdkColor *color)
 {
 	/* This will change the color on the palette than it will invoke
 	 * cb_palette_color_changed which will call emit_color_changed and
@@ -272,37 +272,37 @@ color_combo_set_color (ColorCombo *cc, GdkColor *color)
 }
 
 /**
- * color_combo_set_color_to_default
+ * gi_color_combo_set_color_to_default
  * @cc  The combo
  *
  * Set the color of the combo to the default color. Causes the color_changed
  * signal to be emitted.
  */
 void
-color_combo_set_color_to_default (ColorCombo *cc)
+gi_color_combo_set_color_to_default (GiColorCombo *cc)
 {
 	color_palette_set_color_to_default (cc->palette);
 }
 
 /**
- * color_combo_new :
+ * gi_color_combo_new :
  * icon : optionally NULL.
  * , const char *no_color_label,
  * Default constructor. Pass an optional icon and an optional label for the
  * no/auto color button.
  */
 GtkWidget *
-color_combo_new (GdkPixbuf *icon, char const *no_color_label,
+gi_color_combo_new (GdkPixbuf *icon, char const *no_color_label,
 		 GdkColor *default_color,
 		 ColorGroup *color_group)
 {
-	ColorCombo *cc;
+	GiColorCombo *cc;
 
-	cc = g_object_new (COLOR_COMBO_TYPE, NULL);
+	cc = g_object_new (GI_COLOR_COMBO_TYPE, NULL);
 
         cc->default_color = default_color;
 
-	color_combo_construct (cc, icon, no_color_label, color_group);
+	gi_color_combo_construct (cc, icon, no_color_label, color_group);
 
 	return GTK_WIDGET (cc);
 }

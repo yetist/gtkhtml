@@ -237,7 +237,7 @@ toolbar_apply_color (GtkHTMLControlData *cd)
 	GdkColor *color;
 	gboolean default_color;
 
-	color = color_combo_get_color (COLOR_COMBO (cd->combo), &default_color);
+	color = gi_color_combo_get_color (GI_COLOR_COMBO (cd->combo), &default_color);
 	apply_color (color, cd);
 	if (color)
 		gdk_color_free (color);
@@ -262,9 +262,9 @@ unset_focus (GtkWidget *w, gpointer data)
 }
 
 static void
-set_color_combo (GtkHTML *html, GtkHTMLControlData *cd)
+set_gi_color_combo (GtkHTML *html, GtkHTMLControlData *cd)
 {
-	color_combo_set_color (COLOR_COMBO (cd->combo),
+	gi_color_combo_set_color (GI_COLOR_COMBO (cd->combo),
 			       &html_colorset_get_color_allocated (html->engine->settings->color_set,
 								   html->engine->painter, HTMLTextColor)->color);
 }
@@ -272,7 +272,7 @@ set_color_combo (GtkHTML *html, GtkHTMLControlData *cd)
 static void
 realize_engine (GtkHTML *html, GtkHTMLControlData *cd)
 {
-	set_color_combo (html, cd);
+	set_gi_color_combo (html, cd);
 	g_signal_handlers_disconnect_matched (html, G_SIGNAL_MATCH_FUNC | G_SIGNAL_MATCH_DATA,
 					      0, 0, NULL, G_CALLBACK (realize_engine), cd);
 }
@@ -281,13 +281,13 @@ static void
 load_done (GtkHTML *html, GtkHTMLControlData *cd)
 {
 	if (GTK_WIDGET_REALIZED (cd->html))
-		set_color_combo (html, cd);
+		set_gi_color_combo (html, cd);
 	else
 		g_signal_connect (cd->html, "realize", G_CALLBACK (realize_engine), cd);
 }
 
 static GtkWidget *
-setup_color_combo (GtkHTMLControlData *cd)
+setup_gi_color_combo (GtkHTMLControlData *cd)
 {
 	HTMLColor *color;
 
@@ -298,7 +298,7 @@ setup_color_combo (GtkHTMLControlData *cd)
 		g_signal_connect (cd->html, "realize", G_CALLBACK (realize_engine), cd);
         g_signal_connect (cd->html, "load_done", G_CALLBACK (load_done), cd);
 
-	cd->combo = color_combo_new (NULL, _("Automatic"), &color->color, color_group_fetch ("toolbar_text", cd));
+	cd->combo = gi_color_combo_new (NULL, _("Automatic"), &color->color, color_group_fetch ("toolbar_text", cd));
         g_signal_connect (cd->combo, "color_changed", G_CALLBACK (color_changed), cd);
 
 	gtk_widget_show_all (cd->combo);
@@ -632,7 +632,7 @@ create_style_toolbar (GtkHTMLControlData *cd)
 	g_free (domain);
 
 	gtk_toolbar_append_widget (GTK_TOOLBAR (cd->toolbar_style),
-				   setup_color_combo (cd),
+				   setup_gi_color_combo (cd),
 				   NULL, NULL);
 
 	cd->font_style_changed_connection_id

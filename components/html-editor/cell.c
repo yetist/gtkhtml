@@ -150,7 +150,7 @@ cell_set_prop (GtkHTMLEditCellProperties *d, void (*set_fn)(HTMLTableCell *, Gtk
 static void
 set_bg_color (HTMLTableCell *cell, GtkHTMLEditCellProperties *d)
 {
-	html_engine_table_cell_set_bg_color (d->cd->html->engine, cell, color_combo_get_color (COLOR_COMBO (d->combo_bg_color), NULL));
+	html_engine_table_cell_set_bg_color (d->cd->html->engine, cell, gi_color_combo_get_color (GI_COLOR_COMBO (d->combo_bg_color), NULL));
 }
 
 static void
@@ -347,9 +347,9 @@ cell_widget (GtkHTMLEditCellProperties *d)
 			  gtk_image_new_from_file (ICONDIR "/table-column-16.png"),
 			  0, 1, 1, 2, 0, 0, 0, 0);
 
-	d->combo_bg_color = color_combo_new (NULL, _("Transparent"), NULL,
+	d->combo_bg_color = gi_color_combo_new (NULL, _("Transparent"), NULL,
 					     color_group_fetch ("cell_bg_color", d->cd));
-        color_combo_box_set_preview_relief (COLOR_COMBO (d->combo_bg_color), GTK_RELIEF_NORMAL); \
+        gi_color_combo_box_set_preview_relief (GI_COLOR_COMBO (d->combo_bg_color), GTK_RELIEF_NORMAL); \
         g_signal_connect (d->combo_bg_color, "color_changed", G_CALLBACK (changed_bg_color), d);
 	gtk_box_pack_start (GTK_BOX (glade_xml_get_widget (xml, "bg_color_hbox")), d->combo_bg_color, FALSE, FALSE, 0);
 
@@ -403,7 +403,7 @@ set_ui (GtkHTMLEditCellProperties *d)
 	d->disable_change = TRUE;
 
 	if (d->cell->have_bg)
-		color_combo_set_color (COLOR_COMBO (d->combo_bg_color), &d->cell->bg);
+		gi_color_combo_set_color (GI_COLOR_COMBO (d->combo_bg_color), &d->cell->bg);
 
 	if (d->cell->have_bgPixmap) {
 		int off = 0;

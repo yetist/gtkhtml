@@ -228,9 +228,9 @@ table_widget (GtkHTMLEditTableProperties *d)
 			    gtk_image_new_from_file (ICONDIR "/table-column-16.png"),
 			    FALSE, FALSE, 0);
 
-	d->combo_bg_color = color_combo_new (NULL, _("Transparent"), NULL,
+	d->combo_bg_color = gi_color_combo_new (NULL, _("Transparent"), NULL,
 					     color_group_fetch ("table_bg_color", d->cd));
-        color_combo_box_set_preview_relief (COLOR_COMBO (d->combo_bg_color), GTK_RELIEF_NORMAL); \
+        gi_color_combo_box_set_preview_relief (GI_COLOR_COMBO (d->combo_bg_color), GTK_RELIEF_NORMAL); \
         g_signal_connect (d->combo_bg_color, "color_changed", G_CALLBACK (changed_bg_color), d);
 	gtk_box_pack_start (GTK_BOX (glade_xml_get_widget (xml, "bg_color_hbox")), d->combo_bg_color, FALSE, FALSE, 0);
 
@@ -285,7 +285,7 @@ set_ui (GtkHTMLEditTableProperties *d)
 		d->disable_change = TRUE;
 
 		html_cursor_forward (d->cd->html->engine->cursor, d->cd->html->engine);
-		color_combo_set_color (COLOR_COMBO (d->combo_bg_color), d->table->bgColor);
+		gi_color_combo_set_color (GI_COLOR_COMBO (d->combo_bg_color), d->table->bgColor);
 
 		if (d->table->bgPixmap) {
 			int off = 0;

@@ -37,7 +37,7 @@
 
 G_BEGIN_DECLS
 
-typedef struct _ColorCombo {
+typedef struct _GiColorCombo {
 	GiComboBox     combo_box;
 
 	/*
@@ -50,32 +50,32 @@ typedef struct _ColorCombo {
 
         GdkColor *default_color;
 	gboolean  trigger;
-} ColorCombo;
+} GiColorCombo;
 
 typedef struct {
 	GiComboBoxClass parent_class;
 
 	/* Signals emited by this widget */
-	void (* color_changed) (ColorCombo *color_combo, GdkColor *color,
+	void (* color_changed) (GiColorCombo *gi_color_combo, GdkColor *color,
 				gboolean custom, gboolean by_user, gboolean is_default);
-} ColorComboClass;
+} GiColorComboClass;
 
-#define COLOR_COMBO_TYPE     (color_combo_get_type ())
-#define COLOR_COMBO(obj)     (G_TYPE_CHECK_INSTANCE_CAST((obj), COLOR_COMBO_TYPE, ColorCombo))
-#define COLOR_COMBO_CLASS(k) (G_TYPE_CHECK_CLASS_CAST(k), COLOR_COMBO_TYPE)
-#define IS_COLOR_COMBO(obj)  (G_TYPE_CHECK_INSTANCE_TYPE((obj), COLOR_COMBO_TYPE))
+#define GI_COLOR_COMBO_TYPE     (gi_color_combo_get_type ())
+#define GI_COLOR_COMBO(obj)     (G_TYPE_CHECK_INSTANCE_CAST((obj), GI_COLOR_COMBO_TYPE, GiColorCombo))
+#define GI_COLOR_COMBO_CLASS(k) (G_TYPE_CHECK_CLASS_CAST(k), GI_COLOR_COMBO_TYPE)
+#define IS_GI_COLOR_COMBO(obj)  (G_TYPE_CHECK_INSTANCE_TYPE((obj), GI_COLOR_COMBO_TYPE))
 
-GtkType    color_combo_get_type   (void);
-GtkWidget *color_combo_new        (GdkPixbuf   *icon,
-				   char  const *no_color_label,
-				   GdkColor    *default_color,
-				   ColorGroup  *color_group);
-void       color_combo_set_color  (ColorCombo  *cc,
-				   GdkColor    *color);
-void       color_combo_set_color_to_default (ColorCombo *cc);
-GdkColor  *color_combo_get_color  (ColorCombo  *cc, gboolean *is_default);
+GtkType    gi_color_combo_get_type   (void);
+GtkWidget *gi_color_combo_new        (GdkPixbuf   *icon,
+				      char  const *no_color_label,
+				      GdkColor    *default_color,
+				      ColorGroup  *color_group);
+void       gi_color_combo_set_color  (GiColorCombo  *cc,
+				      GdkColor    *color);
+void       gi_color_combo_set_color_to_default (GiColorCombo *cc);
+GdkColor  *gi_color_combo_get_color  (GiColorCombo  *cc, gboolean *is_default);
 
-void       color_combo_box_set_preview_relief (ColorCombo *cc, GtkReliefStyle relief);
+void       gi_color_combo_box_set_preview_relief (GiColorCombo *cc, GtkReliefStyle relief);
 
 G_END_DECLS
 

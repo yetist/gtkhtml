@@ -179,20 +179,20 @@ changed_template (GtkWidget *w, GtkHTMLEditBodyProperties *d)
 			    body_templates [template].bg_pixmap ? body_templates [template].bg_pixmap : "");
 
 	if (template) {
-		color_combo_set_color (COLOR_COMBO (d->combo [2]), &body_templates [template].bg_color);
-		color_combo_set_color (COLOR_COMBO (d->combo [0]), &body_templates [template].text_color);
-		color_combo_set_color (COLOR_COMBO (d->combo [1]), &body_templates [template].link_color);
+		gi_color_combo_set_color (GI_COLOR_COMBO (d->combo [2]), &body_templates [template].bg_color);
+		gi_color_combo_set_color (GI_COLOR_COMBO (d->combo [0]), &body_templates [template].text_color);
+		gi_color_combo_set_color (GI_COLOR_COMBO (d->combo [1]), &body_templates [template].link_color);
 		left_margin = body_templates [template].left_margin;
 	} else {
-		color_combo_set_color (COLOR_COMBO (d->combo [2]),
+		gi_color_combo_set_color (GI_COLOR_COMBO (d->combo [2]),
 				       &html_colorset_get_color_allocated (d->cd->html->engine->settings->color_set,
 									   d->cd->html->engine->painter,
 									   HTMLBgColor)->color);
-		color_combo_set_color (COLOR_COMBO (d->combo [0]),
+		gi_color_combo_set_color (GI_COLOR_COMBO (d->combo [0]),
 				       &html_colorset_get_color_allocated (d->cd->html->engine->settings->color_set,
 									   d->cd->html->engine->painter,
 									   HTMLTextColor)->color);
-		color_combo_set_color (COLOR_COMBO (d->combo [1]),
+		gi_color_combo_set_color (GI_COLOR_COMBO (d->combo [1]),
 				       &html_colorset_get_color_allocated (d->cd->html->engine->settings->color_set,
 									   d->cd->html->engine->painter,
 									   HTMLLinkColor)->color);
@@ -264,10 +264,10 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 #define ADD_COLOR(x, ct, g) \
         color = html_colorset_get_color (cd->html->engine->settings->color_set, ct); \
         html_color_alloc (color, cd->html->engine->painter); \
-	data->combo [i] = combo = color_combo_new (NULL, _("Automatic"), \
+	data->combo [i] = combo = gi_color_combo_new (NULL, _("Automatic"), \
 				 &color->color, \
 				 color_group_fetch ("body_" g, cd)); \
-        color_combo_box_set_preview_relief (COLOR_COMBO (data->combo [i]), GTK_RELIEF_NORMAL); \
+        gi_color_combo_box_set_preview_relief (GI_COLOR_COMBO (data->combo [i]), GTK_RELIEF_NORMAL); \
         g_object_set_data (G_OBJECT (combo), "type", GINT_TO_POINTER (ct)); \
 	hbox = gtk_hbox_new (FALSE, 3); \
         label = gtk_label_new_with_mnemonic (x); \
@@ -303,7 +303,7 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 
 	/* set ui */
 #define SET_COLOR(ct) \
-        color_combo_set_color (COLOR_COMBO (combo), &html_colorset_get_color_allocated (cd->html->engine->settings->color_set, cd->html->engine->painter, ct)->color);
+        gi_color_combo_set_color (GI_COLOR_COMBO (combo), &html_colorset_get_color_allocated (cd->html->engine->settings->color_set, cd->html->engine->painter, ct)->color);
 
 	SET_COLOR (HTMLTextColor);
 	SET_COLOR (HTMLLinkColor);
