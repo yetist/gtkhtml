@@ -144,10 +144,10 @@ html_button_init (HTMLButton *button,
 			widget = gtk_button_new ();
 			break;
 		case BUTTON_SUBMIT:
-			widget = gtk_button_new_with_label ("Submit Query");
+			widget = gtk_button_new_with_label (_("Submit Query"));
 			break;
 		case BUTTON_RESET:
-			widget = gtk_button_new_with_label ("Reset");
+			widget = gtk_button_new_with_label (_("Reset"));
 			break;
 		default:
 			g_assert_not_reached ();
