@@ -1,3 +1,9 @@
+2003-05-21  Pratik V. Parikh  <pratikvp@despammed.com>
+
+	* search.c (search_dialog_response): integrate the regular
+	expression search feature into the find dialog
+	(regular_toggled): make find button sensitive again
+
 2004-05-24  Radek Doulik  <rodo@ximian.com>
 
 	* menubar.c (menubar_setup): connect
@@ -22,7 +28,7 @@
 2004-04-28  Pratik V. Parikh  <pratikvp@despammed.com>
 
 	* search.c (search_dialog_response):
-	(backward_toggled): make find button sensitive again
+	(case_toggled): make find button sensitive again
 	Fixes bug #57719
 
 2004-04-16  Radek Doulik  <rodo@ximian.com>

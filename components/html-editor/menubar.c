@@ -63,13 +63,7 @@ paste_quotation_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *
 static void
 search_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
-	search (cd, FALSE);
-}
-
-static void
-search_regex_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
-{
-	search (cd, TRUE);
+	search (cd);
 }
 
 static void
@@ -380,7 +374,6 @@ static BonoboUIVerb editor_verbs [] = {
 	BONOBO_UI_UNSAFE_VERB ("EditPaste", command_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditPasteQuotation", paste_quotation_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditFind", search_cb),
-	BONOBO_UI_UNSAFE_VERB ("EditFindRegex", search_regex_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditFindAgain", search_next_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditReplace", replace_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditSelectAll", command_cb),

@@ -34,6 +34,7 @@ struct _GtkHTMLSearchDialog {
 	GtkWidget   *entry;
 	GtkWidget   *backward;
 	GtkWidget   *case_sensitive;
+	GtkWidget   *regular_exp;
 
 	GtkHTMLControlData *cd;
 };
@@ -69,6 +70,12 @@ case_toggled (GtkWidget *w, GtkHTMLSearchDialog *d)
 }
 
 static void
+regular_toggled (GtkWidget *w, GtkHTMLSearchDialog *d)
+{
+	gtk_dialog_set_response_sensitive (d->dialog, 0, TRUE);
+}
+
+static void
 search_dialog_response (GtkDialog *dialog, gint response_id, GtkHTMLSearchDialog *d)
 {
 	g_assert (d && d->dialog );
@@ -77,7 +84,7 @@ search_dialog_response (GtkDialog *dialog, gint response_id, GtkHTMLSearchDialog
 	case 0: /* Search */
 		if (!html_engine_search (d->html->engine, gtk_entry_get_text (GTK_ENTRY (d->entry)),
 					 GTK_TOGGLE_BUTTON (d->case_sensitive)->active,
-					 GTK_TOGGLE_BUTTON (d->backward)->active == 0, d->cd->regular))
+					 GTK_TOGGLE_BUTTON (d->backward)->active == 0, GTK_TOGGLE_BUTTON (d->regular_exp)->active))
 			gtk_dialog_set_response_sensitive (d->dialog, 0, FALSE);
 		break;
 
@@ -105,6 +112,7 @@ gtk_html_search_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 	dialog->entry          = gtk_entry_new ();
 	dialog->backward       = gtk_check_button_new_with_mnemonic (_("_Backward"));
 	dialog->case_sensitive = gtk_check_button_new_with_mnemonic (_("Case _sensitive"));
+	dialog->regular_exp    = gtk_check_button_new_with_mnemonic (_("_Regular Expression"));
 	dialog->html           = html;
 	dialog->cd             = cd;
 
@@ -115,7 +123,8 @@ gtk_html_search_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 
 	gtk_box_pack_start (GTK_BOX (hbox), dialog->backward, FALSE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (hbox), dialog->case_sensitive, FALSE, FALSE, 0);
-
+	gtk_box_pack_start (GTK_BOX (hbox), dialog->regular_exp, FALSE, FALSE, 0);
+	
 	vbox = gtk_vbox_new (FALSE, 6);
 	gtk_widget_show (vbox);
 	gtk_box_pack_start (GTK_BOX (vbox), dialog->entry, FALSE, FALSE, 0);
@@ -137,6 +146,7 @@ gtk_html_search_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 	g_signal_connect (dialog->entry, "activate", G_CALLBACK (entry_activate), dialog);
 	g_signal_connect (dialog->backward, "toggled", G_CALLBACK (backward_toggled), dialog);
 	g_signal_connect (dialog->case_sensitive, "toggled", G_CALLBACK (case_toggled), dialog);
+	g_signal_connect (dialog->regular_exp, "toggled", G_CALLBACK (regular_toggled), dialog);
 
 	return dialog;
 }
@@ -151,10 +161,9 @@ gtk_html_search_dialog_destroy (GtkHTMLSearchDialog *d)
 }
 
 void
-search (GtkHTMLControlData *cd, gboolean regular)
+search (GtkHTMLControlData *cd)
 {
-	cd->regular = regular;
-	RUN_DIALOG (search, regular ? _("Find Regular Expression") :  _("Find"));
+	RUN_DIALOG (search, _("Find"));
 
 	g_assert (cd->search_dialog && cd->search_dialog->dialog);
 
@@ -170,6 +179,6 @@ search_next (GtkHTMLControlData *cd)
 	if (cd->html->engine->search_info) {
 		html_engine_search_next (cd->html->engine);
 	} else {
-		search (cd, TRUE);
+		search (cd);
 	}
 }
