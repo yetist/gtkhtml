@@ -266,8 +266,8 @@ check_next_word (GtkHTMLControlData *cd, gboolean update)
 	HTMLEngine *e = cd->html->engine;
 
 	html_engine_disable_selection (e);
-	if (update && e->cursor->object->parent && HTML_IS_CLUEFLOW (e->cursor->object->parent))
-		html_clueflow_spell_check (HTML_CLUEFLOW (e->cursor->object->parent), e, NULL);
+	if (update)
+		html_engine_spell_check (e);
 
 	if (next_word (cd)) {
 		gnome_dialog_close (GNOME_DIALOG (cd->spell_dialog));
