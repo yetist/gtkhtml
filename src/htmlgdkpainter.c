@@ -18,7 +18,7 @@
    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
    Boston, MA 02111-1307, USA.
 */
-
+#include <libart_lgpl/art_rect.h>
 #include "htmlgdkpainter.h"
 
 
@@ -314,7 +314,7 @@ static void
 draw_panel (HTMLPainter *painter,
 	    gint x, gint y,
 	    gint width, gint height,
-	    gboolean inset,
+	    gint inset,
 	    gint bordersize)
 {
 	HTMLGdkPainter *gdk_painter;
@@ -363,18 +363,19 @@ draw_background_pixmap (HTMLPainter *painter,
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
-	gdk_pixbuf_render_to_drawable (pixbuf, gdk_painter->pixmap,
-				       gdk_painter->gc,
-				       0, 0, x - gdk_painter->x1, y - gdk_painter->y1, 
-				       pix_width ? pix_width : pixbuf->art_pixbuf->width,
-				       pix_height ? pix_height : pixbuf->art_pixbuf->height,
-				       GDK_RGB_DITHER_NORMAL,
-				       x, y);
+	gdk_pixbuf_render_to_drawable_alpha (pixbuf, gdk_painter->pixmap,
+					     0, 0,
+					     x - gdk_painter->x1, y - gdk_painter->y1, 
+					     pix_width ? pix_width : pixbuf->art_pixbuf->width,
+					     pix_height ? pix_height : pixbuf->art_pixbuf->height,
+					     GDK_PIXBUF_ALPHA_BILEVEL,
+					     128,
+					     GDK_RGB_DITHER_NORMAL,
+					     x, y);
 }
 
 static GdkPixbuf *
 create_temporary_pixbuf (GdkPixbuf *src,
-			 gint clip_x, gint clip_y,
 			 gint clip_width, gint clip_height)
 {
 	GdkPixbuf *pixbuf;
@@ -385,19 +386,6 @@ create_temporary_pixbuf (GdkPixbuf *src,
 
 	src_width = gdk_pixbuf_get_width (src);
 	src_height = gdk_pixbuf_get_height (src);
-
-	if (clip_width < 0)
-		clip_width = src_width;
-	if (clip_height < 0)
-		clip_height = src_height;
-
-	if (clip_x < 0 || clip_x >= src_width)
-		return NULL;
-	if (clip_y < 0 || clip_y >= src_height)
-		return NULL;
-
-	if (clip_width == 0 || clip_height == 0)
-		return NULL;
 
 	has_alpha = gdk_pixbuf_get_has_alpha (src);
 	n_channels = gdk_pixbuf_get_n_channels (src);
@@ -415,44 +403,16 @@ draw_pixmap (HTMLPainter *painter,
 	     gint scale_width, gint scale_height,
 	     const GdkColor *color)
 {
+	ArtIRect clip, image, paint;
 	HTMLGdkPainter *gdk_painter;
 	GdkPixbuf *tmp_pixbuf;
-	gint clip_x, clip_y;
-	gint clip_width, clip_height;
-	gint orig_width, orig_height;
 	guint n_channels;
+	gint orig_width;
+	gint orig_height;
+	gint paint_width;
+	gint paint_height;
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
-
-	if (x >= gdk_painter->x2 || x + scale_width < gdk_painter->x1
-	    || y >= gdk_painter->y2 || y + scale_height < gdk_painter->y1)
-		return;
-
-	if (x >= gdk_painter->x1) {
-		clip_x = 0;
-		clip_width = scale_width;
-		x -= gdk_painter->x1;
-	} else {
-		clip_x = gdk_painter->x1 - x;
-		clip_width = scale_width - (gdk_painter->x1 - x);
-		x = 0;
-	}
-
-	if (y >= gdk_painter->y1) {
-		clip_y = 0;
-		clip_height = scale_height;
-		y -= gdk_painter->y1;
-	} else {
-		clip_y = gdk_painter->y1 - y;
-		clip_height = scale_height - (gdk_painter->y1 - y);
-		y = 0;
-	}
-
-	if (x + clip_width > gdk_painter->x2 - gdk_painter->x1)
-		clip_width = gdk_painter->x2 - gdk_painter->x1 - x;
-
-	if (y + clip_height > gdk_painter->y2 - gdk_painter->y1)
-		clip_height = gdk_painter->y2 - gdk_painter->y1 - y;
 
 	orig_width = gdk_pixbuf_get_width (pixbuf);
 	orig_height = gdk_pixbuf_get_height (pixbuf);
@@ -462,40 +422,64 @@ draw_pixmap (HTMLPainter *painter,
 	if (scale_height < 0)
 		scale_height = orig_height;
 
+	image.x0 = x;
+	image.y0 = y;
+	image.x1 = x + scale_width;
+	image.y1 = y + scale_height;
+
+	clip.x0 = gdk_painter->x1;
+	clip.x1 = gdk_painter->x2;
+	clip.y0 = gdk_painter->y1;
+	clip.y1 = gdk_painter->y2;
+
+	art_irect_intersect (&paint, &clip, &image);
+	if (art_irect_empty (&paint))
+	    return;
+
+	paint_width = paint.x1 - paint.x0;
+	paint_height = paint.y1 - paint.y0;
+
 	if (scale_width == orig_width && scale_height == orig_height && color == NULL) {
 		gdk_pixbuf_render_to_drawable_alpha (pixbuf, gdk_painter->pixmap,
-						     clip_x, clip_y,
-						     x, y,
-						     clip_width, clip_height,
+						     paint.x0 - image.x0,
+						     paint.y0 - image.y0,
+						     paint.x0 - clip.x0,
+						     paint.y0 - clip.y0,
+						     paint_width,
+						     paint_height,
 						     GDK_PIXBUF_ALPHA_BILEVEL,
 						     128,
 						     GDK_RGB_DITHER_NORMAL,
-						     0, 0);
+						     x, y);
 		return;
 	}
 
-	tmp_pixbuf = create_temporary_pixbuf (pixbuf, clip_x, clip_y, clip_width, clip_height);
+	tmp_pixbuf = create_temporary_pixbuf (pixbuf,
+					      paint_width,
+					      paint_height);
 	if (tmp_pixbuf == NULL)
 		return;
 
 	gdk_pixbuf_scale (pixbuf, tmp_pixbuf,
 			  0, 0,
-			  clip_width, clip_height,
-			  -clip_x, -clip_y,
-			  (double) (scale_width + 1) / (double) orig_width,
-			  (double) (scale_height + 1) / (double) orig_height,
+			  paint_width,
+			  paint_height,
+			  -(paint.x0 - image.x0), 
+			  -(paint.y0 - image.y0),
+			  (double) scale_width/ (double) orig_width,
+			  (double) scale_height/ (double) orig_height,
 			  ART_FILTER_BILINEAR);
 
 	if (color != NULL) {
 		guchar *p, *q;
 		guint i, j;
-		
+
 		n_channels = gdk_pixbuf_get_n_channels (tmp_pixbuf);
 		p = q = gdk_pixbuf_get_pixels (tmp_pixbuf);
-		for (i = 0; i < clip_height; i++) {
+		for (i = 0; i < paint_height; i++) {
 			p = q;
 
-			for (j = 0; j < clip_width; j++) {
+			for (j = 0; j < paint_width; j++) {
 				gint r, g, b, a;
 
 				if (n_channels > 3)
@@ -522,14 +506,16 @@ draw_pixmap (HTMLPainter *painter,
 	}
 
 	gdk_pixbuf_render_to_drawable_alpha (tmp_pixbuf, gdk_painter->pixmap,
-					     0, 0,
-					     x, y,
-					     clip_width, clip_height,
+					     0,
+					     0,
+					     paint.x0 - clip.x0,
+					     paint.y0 - clip.y0,
+					     paint_width,
+					     paint_height,
 					     GDK_PIXBUF_ALPHA_BILEVEL,
 					     128,
 					     GDK_RGB_DITHER_NORMAL,
-					     0, 0);
-
+					     x, y);
 	gdk_pixbuf_unref (tmp_pixbuf);
 }
 
@@ -543,8 +529,7 @@ fill_rect (HTMLPainter *painter,
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
 	gdk_draw_rectangle (gdk_painter->pixmap, gdk_painter->gc,
-			    TRUE,
-			    x - gdk_painter->x1, y - gdk_painter->y1,
+			    TRUE, x - gdk_painter->x1, y - gdk_painter->y1,
 			    width, height);
 }
 

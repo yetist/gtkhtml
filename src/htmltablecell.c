@@ -96,9 +96,28 @@ draw (HTMLObject *o,
 	HTMLTableCell *cell = HTML_TABLE_CELL (o);
 	gint top, bottom;
 
-	if (y + height < o->y - o->ascent || y > o->y + o->descent)
+	if (y + height < o->y - o->ascent - cell->padding || y > o->y + o->descent + cell->padding)
 		return;
 
+	if (cell->have_bg) {
+ 		top = y - (o->y - o->ascent);
+		bottom = top + height;
+		if (top < -cell->padding)
+			top = -cell->padding;
+		if (bottom > o->ascent + cell->padding)
+			bottom = o->ascent + cell->padding;
+
+		if (! cell->bg_allocated) {
+			html_painter_alloc_color (p, &cell->bg);
+			cell->bg_allocated = TRUE;
+		}
+
+		html_painter_set_pen (p, &cell->bg);
+		html_painter_fill_rect (p, tx + o->x - cell->padding,
+					ty + o->y - o->ascent + top,
+					o->width + cell->padding * 2,
+					bottom - top);
+	}
 	if(cell->have_bgPixmap) {
 		int base_x, base_y;
 		int pw, ph;
@@ -109,12 +128,12 @@ draw (HTMLObject *o,
 			pw = cell->bgPixmap->pixbuf->art_pixbuf->width;
 			ph = cell->bgPixmap->pixbuf->art_pixbuf->height;
 
-			oheight = o->ascent;
-			base_y = o->y - o->ascent + ty;
+			oheight = o->ascent + 2 * cell->padding;
+			base_y = o->y - o->ascent - cell->padding + ty;
 
 			while (oheight > 0) {
-				owidth = o->width;
-				base_x = o->x + tx;
+				owidth = o->width + 2 * cell->padding;
+				base_x = o->x + tx - cell->padding;
 				while(owidth > 0) {
 					
 					clip_width = owidth > pw ? pw :owidth;
@@ -133,25 +152,7 @@ draw (HTMLObject *o,
 			}
 		}
 		
-	} else if (cell->have_bg) {
-		top = y - (o->y - o->ascent);
-		bottom = top + height;
-		if (top < -cell->padding)
-			top = -cell->padding;
-		if (bottom > o->ascent + cell->padding)
-			bottom = o->ascent + cell->padding;
-
-		if (! cell->bg_allocated) {
-			html_painter_alloc_color (p, &cell->bg);
-			cell->bg_allocated = TRUE;
-		}
-
-		html_painter_set_pen (p, &cell->bg);
-		html_painter_fill_rect (p, tx + o->x - cell->padding,
-					ty + o->y - o->ascent + top,
-					o->width + cell->padding * 2,
-					bottom - top);
-	}
+	} 
 
 	(* HTML_OBJECT_CLASS (&html_cluev_class)->draw) (o, p, x, y, width, height, tx, ty);
 }
@@ -290,7 +291,8 @@ html_table_cell_set_width (HTMLTableCell *cell,
 		html_object_set_max_width (obj, painter, width);
 }
 
-void html_table_cell_set_bg_pixmap (HTMLTableCell *cell,
+void
+html_table_cell_set_bg_pixmap (HTMLTableCell *cell,
 				    HTMLImagePointer *imagePtr)
 {
 	if(imagePtr) {

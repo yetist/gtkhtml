@@ -1,3 +1,17 @@
+2000-02-25  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlgdkpainter.c (draw_pixmap): rewrite the clipping code to use
+	irect_intersect.
+	(draw_background_pixmap): use gdk_pixbuf_render_to_drawable_alpha
+	to get proper alpha clipping.
+	(create_temporary_pixbuf): remove x and y args and the associated
+	checking bcasue they are no longer needed.
+	
+	* htmltablecell.c (draw): properly discount cell->padding for the
+	background color and pixmap.  If a background color is set paint
+	it even if a background pixmap is set so that we have the correct
+	background for the trasparent regions.
+
 2000-02-24  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlclue.c (html_clue_append_after): Added preconditions.
