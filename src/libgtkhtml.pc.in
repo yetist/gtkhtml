@@ -1,0 +1,11 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: libgtkhtml
+Description: libgtkhtml
+Requires: @GTKHTML_MODULES@
+Version: @GTKHTML_RELEASE@
+Libs: -L${libdir} -lgtkhtml-@GTKHTML_RELEASE@ -lgtkhtml-a11y-@GTKHTML_RELEASE@
+Cflags: -I${includedir}/libgtkhtml-@GTKHTML_RELEASE@
