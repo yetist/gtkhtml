@@ -3908,7 +3908,7 @@ html_engine_make_cursor_visible (HTMLEngine *e)
 {
 	gint x1, y1, x2, y2, xo, yo;
 
-	g_return_if_fail (e != NULL);
+	g_return_val_if_fail (e != NULL, FALSE);
 
 	if (! e->editable)
 		return FALSE;

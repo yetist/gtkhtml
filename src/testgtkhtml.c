@@ -324,7 +324,7 @@ print_preview_cb (GtkWidget *widget,
 
 	page_num = 1;
 	font = gnome_font_new_closest ("Helvetica", GNOME_FONT_BOOK, FALSE, 12);
-	gtk_html_print_with_header_footer (html, print_context, .0, .03, NULL, print_footer);
+	gtk_html_print_with_header_footer (html, print_context, .0, .03, NULL, print_footer, NULL);
 	if (font) gtk_object_unref (GTK_OBJECT (font));
 
 	preview = GTK_WIDGET (gnome_print_master_preview_new (print_master, "HTML Print Preview"));

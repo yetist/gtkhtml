@@ -32,7 +32,8 @@ void  html_engine_print_with_header_footer  (HTMLEngine           *e,
 					     gdouble               header_height,
 					     gdouble               footer_height,
 					     GtkHTMLPrintCallback  header_print,
-					     GtkHTMLPrintCallback  footer_print);
+					     GtkHTMLPrintCallback  footer_print,
+					     gpointer              user_data);
 void  html_engine_print_set_min_split_index (HTMLEngine           *e,
 					     gdouble               idx);
 #endif

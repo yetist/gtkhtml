@@ -1,5 +1,10 @@
 2001-01-23  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine-print.c: use user_data in printing
+
+	* gtkhtml.c (gtk_html_print_with_header_footer): added user_data
+	parameter for language bindings
+
 	* htmlengine.c (thaw_idle): use gtk_html_edit_make_cursor_visible
 
 	* gtkhtml.c (gtk_html_edit_make_cursor_visible): new function

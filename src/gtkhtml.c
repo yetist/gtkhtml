@@ -2060,13 +2060,13 @@ gtk_html_print (GtkHTML *html,
 void
 gtk_html_print_with_header_footer (GtkHTML *html, GnomePrintContext *print_context,
 				   gdouble header_height, gdouble footer_height,
-				   GtkHTMLPrintCallback header_print, GtkHTMLPrintCallback footer_print)
+				   GtkHTMLPrintCallback header_print, GtkHTMLPrintCallback footer_print, gpointer user_data)
 {
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	html_engine_print_with_header_footer (html->engine, print_context,
-					      header_height, footer_height, header_print, footer_print);
+					      header_height, footer_height, header_print, footer_print, user_data);
 }
 
 
@@ -3020,10 +3020,15 @@ gtk_html_editor_command (GtkHTML *html, const gchar *command_name)
 gboolean
 gtk_html_edit_make_cursor_visible (GtkHTML *html)
 {
+	gboolean rv = FALSE;
+
 	html_engine_hide_cursor (html->engine);
 	if (html_engine_make_cursor_visible (html->engine)) {
 		gtk_adjustment_set_value (GTK_LAYOUT (html)->hadjustment, (gfloat) html->engine->x_offset);
 		gtk_adjustment_set_value (GTK_LAYOUT (html)->vadjustment, (gfloat) html->engine->y_offset);
+		rv = TRUE;
 	}
 	html_engine_show_cursor (html->engine);
+
+	return rv;
 }
