@@ -4026,6 +4026,22 @@ html_engine_stream_end (GtkHTMLStream *stream,
 
 
 static void
+crop_iframe_to_parent (HTMLEngine *e, gint *x, gint *y, gint *width, gint *height)
+{
+	HTMLEngine *top = html_engine_get_top_html_engine (e);
+	gint abs_x, abs_y;
+
+	/* printf ("crop %d,%d %dx%d  -->  ", *x, *y, *width, *height); */
+	html_object_calc_abs_position (e->clue->parent, &abs_x, &abs_y);
+	abs_y -= e->clue->parent->ascent;
+	*width = MIN (top->width - MAX (0, abs_x + *x - top->x_offset), *width);
+	*height = MIN (top->height - MAX (0, abs_y + *y - top->y_offset), *height);
+
+	/* printf ("%d,%d %dx%d\n", *x, *y, *width, *height);
+	   printf ("y %d abs_y %d\n", *y, abs_y); */
+}
+
+static void
 html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height)
 {
 	gint tx, ty;
@@ -4086,6 +4102,9 @@ html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height)
 
 	tx = -e->x_offset + e->leftBorder;
 	ty = -e->y_offset + e->topBorder;
+
+	if (e->widget->iframe_parent)
+		crop_iframe_to_parent (e, &x, &y, &width, &height);
 
 	html_painter_begin (e->painter, x, y, x + width, y + height);
 
