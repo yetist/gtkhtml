@@ -1,3 +1,8 @@
+2000-12-02  Radek Doulik  <rodo@helixcode.com>
+
+	* toolbar.c: use N_ instead of _ for paragraph_style_items
+	(setup_paragraph_style_option_menu): use _() here
+
 2000-11-22  Radek Doulik  <rodo@helixcode.com>
 
 	* spell.c: check for cd->dict

@@ -42,18 +42,18 @@ static struct {
 	GtkHTMLParagraphStyle style;
 	const gchar *description;
 } paragraph_style_items[] = {
-	{ GTK_HTML_PARAGRAPH_STYLE_NORMAL, _("Normal") },
-	{ GTK_HTML_PARAGRAPH_STYLE_H1, _("Header 1") },
-	{ GTK_HTML_PARAGRAPH_STYLE_H2, _("Header 2") },
-	{ GTK_HTML_PARAGRAPH_STYLE_H3, _("Header 3") },
-	{ GTK_HTML_PARAGRAPH_STYLE_H4, _("Header 4") },
-	{ GTK_HTML_PARAGRAPH_STYLE_H5, _("Header 5") },
-	{ GTK_HTML_PARAGRAPH_STYLE_H6, _("Header 6") },
-	{ GTK_HTML_PARAGRAPH_STYLE_ADDRESS, _("Address") },
-	{ GTK_HTML_PARAGRAPH_STYLE_PRE, _("Pre") },
-	{ GTK_HTML_PARAGRAPH_STYLE_ITEMDIGIT, _("List item (digit)") },
-	{ GTK_HTML_PARAGRAPH_STYLE_ITEMDOTTED, _("List item (unnumbered)") },
-	{ GTK_HTML_PARAGRAPH_STYLE_ITEMROMAN, _("List item (roman)") },
+	{ GTK_HTML_PARAGRAPH_STYLE_NORMAL, N_("Normal") },
+	{ GTK_HTML_PARAGRAPH_STYLE_H1, N_("Header 1") },
+	{ GTK_HTML_PARAGRAPH_STYLE_H2, N_("Header 2") },
+	{ GTK_HTML_PARAGRAPH_STYLE_H3, N_("Header 3") },
+	{ GTK_HTML_PARAGRAPH_STYLE_H4, N_("Header 4") },
+	{ GTK_HTML_PARAGRAPH_STYLE_H5, N_("Header 5") },
+	{ GTK_HTML_PARAGRAPH_STYLE_H6, N_("Header 6") },
+	{ GTK_HTML_PARAGRAPH_STYLE_ADDRESS, N_("Address") },
+	{ GTK_HTML_PARAGRAPH_STYLE_PRE, N_("Pre") },
+	{ GTK_HTML_PARAGRAPH_STYLE_ITEMDIGIT, N_("List item (digit)") },
+	{ GTK_HTML_PARAGRAPH_STYLE_ITEMDOTTED, N_("List item (unnumbered)") },
+	{ GTK_HTML_PARAGRAPH_STYLE_ITEMROMAN, N_("List item (roman)") },
 	{ GTK_HTML_PARAGRAPH_STYLE_NORMAL, NULL },
 };
 
@@ -105,7 +105,7 @@ setup_paragraph_style_option_menu (GtkHTML *html)
 	for (i = 0; paragraph_style_items[i].description != NULL; i++) {
 		GtkWidget *menu_item;
 
-		menu_item = gtk_menu_item_new_with_label (paragraph_style_items[i].description);
+		menu_item = gtk_menu_item_new_with_label (_(paragraph_style_items[i].description));
 		gtk_widget_show (menu_item);
 
 		gtk_menu_append (GTK_MENU (menu), menu_item);
