@@ -244,6 +244,7 @@ struct _HTMLEngine {
 	gint block_events;
 
 	GSList *cursor_position_stack;
+	gboolean selection_mode;
 };
 
 /* must be forward referenced *sigh* */

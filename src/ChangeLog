@@ -1,5 +1,12 @@
 2001-06-26  Radek Doulik  <rodo@ximian.com>
 
+	* gtkhtml.c (command): renamed SET_MARK to SELECTION_MODE, use
+	selection mode flag
+	(cursor_move): use selection mode flag
+	(load_keybindings): added more hardwired bindings
+
+	* htmlengine.h: added selection_mode flag
+
 	* htmlengine.c (html_engine_get_view_width): don't allow width < 0
 	(html_engine_get_view_height): likewise
 

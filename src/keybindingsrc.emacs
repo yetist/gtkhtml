@@ -56,7 +56,6 @@ binding "gtkhtml-bindings-emacs"
   bind "<Ctrl>w"            { "command" (cut) }
   bind "<Alt>w"             { "command" (copy) }
   bind "<Ctrl>y"            { "command" (paste) }
-  bind "<Ctrl>space"        { "command" (set-mark) }
 
   bind "<Ctrl>k"            { "command" (cut-line) }
 

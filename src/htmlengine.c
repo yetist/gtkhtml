@@ -3348,6 +3348,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->insertion_target = NULL;
 	engine->selection = NULL;
 	engine->shift_selection = FALSE;
+	engine->selection_mode = FALSE;
 	engine->cursor_position_stack = NULL;
 
 	engine->selection_updater = html_engine_edit_selection_updater_new (engine);

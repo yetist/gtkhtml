@@ -2566,9 +2566,14 @@ cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType ski
 	if (!html_engine_get_editable (html->engine))
 		return;
 
-	if (html->engine->shift_selection)
+	if (html->engine->selection_mode) {
+		if (!html->engine->mark)
+			html_engine_set_mark (html->engine);
+	} else if (html->engine->shift_selection || html->engine->mark) {
 		html_engine_disable_selection (html->engine);
-
+		html_engine_edit_selection_updater_schedule (html->engine->selection_updater);
+		html->engine->shift_selection = FALSE;
+	}
 	switch (skip) {
 	case GTK_HTML_CURSOR_SKIP_ONE:
 		switch (dir_type) {
@@ -2751,6 +2756,7 @@ inset_tab_or_indent_more_or_next_cell (GtkHTML *html)
 			html_engine_insert_table_row (e, TRUE);
 		}
 		html_engine_show_cursor (e);
+		gtk_html_edit_make_cursor_visible (html);
 	} else if (!html_engine_is_selection_active (e)
 	    && html_clueflow_tabs (HTML_CLUEFLOW (e->cursor->object->parent), e->painter))
 		html_engine_insert_text (e, "\t", 1);
@@ -2770,6 +2776,7 @@ indent_less_or_prev_cell (GtkHTML *html)
 		html_cursor_beginning_of_line (e->cursor, e);
 		html_cursor_backward (e->cursor, e);
 		html_engine_show_cursor (e);
+		gtk_html_edit_make_cursor_visible (html);
 	} else
 		gtk_html_modify_indent_by_delta (html, -1);
 
@@ -2865,11 +2872,13 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		else
 			delete_one (e, FALSE);
 		break;
-	case GTK_HTML_COMMAND_SET_MARK:
-		html_engine_set_mark (e);
+	case GTK_HTML_COMMAND_SELECTION_MODE:
+		e->selection_mode = TRUE;
 		break;
 	case GTK_HTML_COMMAND_DISABLE_SELECTION:
 		html_engine_disable_selection (e);
+		html_engine_edit_selection_updater_schedule (e->selection_updater);
+		e->selection_mode = FALSE;
 		break;
 	case GTK_HTML_COMMAND_BOLD_ON:
 		gtk_html_set_font_style (html, GTK_HTML_FONT_STYLE_MAX, GTK_HTML_FONT_STYLE_BOLD);
@@ -3319,6 +3328,8 @@ load_keybindings (GtkHTMLClass *klass)
 	BCOM (GDK_CONTROL_MASK, KP_Subtract, ZOOM_OUT);
 	BCOM (GDK_CONTROL_MASK, 8, ZOOM_RESET);
 	BCOM (GDK_CONTROL_MASK, KP_Multiply, ZOOM_RESET);
+	BCOM (GDK_CONTROL_MASK, space, SELECTION_MODE);
+	BCOM (0, Escape, DISABLE_SELECTION);
 }
 
 void
