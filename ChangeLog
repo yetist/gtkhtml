@@ -1,3 +1,6 @@
+2004-08-21  Jayaradha  <njaya@redhat.com>
+
+	* configure.in: Add ta to ALL_LINGUAS.
 2004-08-27  Radek Doulik  <rodo@ximian.com>
 
 	* configure.in: increment revision number
