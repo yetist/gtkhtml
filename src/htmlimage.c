@@ -237,8 +237,8 @@ image_update_url (HTMLImage *image, gint x, gint y)
 	 * it is sick, I know.
 	 */
 	if (image->usemap != NULL) {
-		map = (HTMLMap *)html_engine_get_object_by_id (image->image_ptr->factory->engine, 
-							       image->usemap + 1);
+		map = html_engine_get_map (image->image_ptr->factory->engine, 
+					   image->usemap + 1);
 		
 		if (map) {
 			url = html_map_calc_point (map, x - o->x , y - (o->y - o->ascent));
