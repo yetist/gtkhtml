@@ -92,6 +92,8 @@ struct _HTMLObjectClass {
 					  HTMLEngine *e,
 					  GList      *from,
 					  GList      *to,
+					  GList      *left,
+					  GList      *right,
 					  guint      *len);
 	gboolean     (* merge)           (HTMLObject *self,
 					  HTMLObject *o);
@@ -263,6 +265,8 @@ HTMLObject *html_object_op_cut            (HTMLObject            *self,
 					   HTMLEngine            *e,
 					   GList                 *from,
 					   GList                 *to,
+					   GList                 *left,
+					   GList                 *right,
 					   guint                 *len);
 gboolean    html_object_merge             (HTMLObject            *self,
 					   HTMLObject            *with);
@@ -483,6 +487,12 @@ void      html_object_move_cursor_before_remove  (HTMLObject *o,
 						  HTMLEngine *e);
 gboolean  html_object_could_remove_whole         (HTMLObject *o,
 						  GList      *from,
-						  GList      *to);
+						  GList      *to,
+						  GList      *left,
+						  GList      *right);
+void      html_object_check_cut_lists            (HTMLObject *self,
+						  HTMLObject *replacement,
+						  GList      *left,
+						  GList      *right);
 
 #endif /* _HTMLOBJECT_H_ */

@@ -133,7 +133,8 @@ HTMLObject       *html_text_op_cut_helper                (HTMLText           *te
 							  HTMLEngine         *e,
 							  GList              *from,
 							  GList              *to,
+							  GList              *left,
+							  GList              *right,
 							  guint              *len,
 							  HTMLTextHelperFunc  f);
-
 #endif /* _HTMLTEXT_H_ */

@@ -196,7 +196,8 @@ html_text_op_copy_helper (HTMLText *text, GList *from, GList *to, guint *len, HT
 }
 
 HTMLObject *
-html_text_op_cut_helper (HTMLText *text, HTMLEngine *e, GList *from, GList *to, guint *len, HTMLTextHelperFunc f)
+html_text_op_cut_helper (HTMLText *text, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right,
+			 guint *len, HTMLTextHelperFunc f)
 {
 	HTMLObject *rv;
 	gint begin, end;
@@ -207,7 +208,7 @@ html_text_op_cut_helper (HTMLText *text, HTMLEngine *e, GList *from, GList *to, 
 	g_assert (begin <= end);
 	g_assert (end <= text->text_len);
 
-	if (!html_object_could_remove_whole (HTML_OBJECT (text), from, to) || begin || end < text->text_len) {
+	if (!html_object_could_remove_whole (HTML_OBJECT (text), from, to, left, right) || begin || end < text->text_len) {
 		gchar *nt, *tail;
 
 		if (begin == end)
@@ -222,7 +223,6 @@ html_text_op_cut_helper (HTMLText *text, HTMLEngine *e, GList *from, GList *to, 
 		text->text = nt;
 		text->text_len -= end - begin;
 		*len           += end - begin;
-		html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
 	} else {
 		html_object_move_cursor_before_remove (HTML_OBJECT (text), e);
 		html_object_remove_child (HTML_OBJECT (text)->parent, HTML_OBJECT (text));
@@ -249,9 +249,9 @@ op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 }
 
 static HTMLObject *
-op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
+op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len)
 {
-	return html_text_op_cut_helper (HTML_TEXT (self), e, from, to, len, new_text);
+	return html_text_op_cut_helper (HTML_TEXT (self), e, from, to, left, right, len, new_text);
 }
 
 static gboolean

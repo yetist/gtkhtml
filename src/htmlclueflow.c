@@ -73,12 +73,12 @@ op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 }
 
 static HTMLObject *
-op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
+op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len)
 {
 	if (!from)
 		(*len) ++;
 	html_clueflow_remove_text_slaves (HTML_CLUEFLOW (self));
-	return (*HTML_OBJECT_CLASS (parent_class)->op_cut) (self, e, from, to, len);
+	return (*HTML_OBJECT_CLASS (parent_class)->op_cut) (self, e, from, to, left, right, len);
 }
 
 static void

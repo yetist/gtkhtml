@@ -69,7 +69,7 @@ copy (HTMLObject *self,
 }
 
 static HTMLObject *
-op_helper (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len, gboolean cut)
+op_helper (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len, gboolean cut)
 {
 	HTMLClue *clue = HTML_CLUE (self);
 	HTMLObject *cc;
@@ -87,7 +87,7 @@ op_helper (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len, 
 		html_clue_append (HTML_CLUE (cc), cut
 				  ? html_object_op_cut (o, e,
 							html_object_get_bound_list (o, from),
-							html_object_get_bound_list (o, to), len)
+							html_object_get_bound_list (o, to), left->next, right->next, len)
 				  : html_object_op_copy (o, e,
 							 html_object_get_bound_list (o, from),
 							 html_object_get_bound_list (o, to), len));
@@ -103,17 +103,17 @@ op_helper (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len, 
 static HTMLObject *
 op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 {
-	return op_helper (self, e, from, to, len, FALSE);
+	return op_helper (self, e, from, to, NULL, NULL, len, FALSE);
 }
 
 static HTMLObject *
-op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
+op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len)
 {
 	HTMLObject *rv;
 	HTMLClue *clue;
 
 	clue = HTML_CLUE (self);
-	rv   = op_helper (self, e, from, to, len, TRUE);
+	rv   = op_helper (self, e, from, to, left, right, len, TRUE);
 	if (!clue->head) {
 		if (self->parent)
 			html_object_remove_child (self->parent, self);

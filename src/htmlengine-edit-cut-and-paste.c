@@ -102,7 +102,7 @@ html_cursor_get_right (HTMLCursor *cursor, HTMLObject **obj, gint *off)
 }
 
 static void
-html_point_get_left (HTMLPoint *source, HTMLPoint *dest, gboolean allow_null)
+html_point_get_left (HTMLPoint *source, HTMLPoint *dest)
 {
 	if (source->offset == 0) {
 		dest->object = html_object_prev_not_slave (source->object);
@@ -110,15 +110,13 @@ html_point_get_left (HTMLPoint *source, HTMLPoint *dest, gboolean allow_null)
 			dest->offset = html_object_get_length (dest->object);
 			return;
 		}
-		if (allow_null && html_object_get_length (source->object))
-			return;
 	}
 
 	*dest = *source;
 }
 
 static void
-html_point_get_right (HTMLPoint *source, HTMLPoint *dest, gboolean allow_null)
+html_point_get_right (HTMLPoint *source, HTMLPoint *dest)
 {
 	if (source->offset >= html_object_get_length (source->object)) {
 		dest->object = html_object_next_not_slave (source->object);
@@ -126,8 +124,6 @@ html_point_get_right (HTMLPoint *source, HTMLPoint *dest, gboolean allow_null)
 			dest->offset = 0;
 			return;
 		}
-		if (allow_null && html_object_get_length (source->object))
-			return;
 	}
 
 	*dest = *source;
@@ -174,8 +170,8 @@ prepare_delete_bounds (HTMLEngine *e, GList **from_list, GList **to_list,
 
 	g_assert (e->selection);
 
-	html_point_get_right (&e->selection->from, &begin, FALSE);
-	html_point_get_left  (&e->selection->to,   &end,   FALSE);
+	html_point_get_right (&e->selection->from, &begin);
+	html_point_get_left  (&e->selection->to,   &end);
 
 	level = get_parent_level (begin.object, end.object);
 
@@ -183,8 +179,8 @@ prepare_delete_bounds (HTMLEngine *e, GList **from_list, GList **to_list,
 	*to_list   = get_parent_list (&end,   level, TRUE);
 
 	if (bound_left && bound_right) {
-		html_point_get_left  (&e->selection->from, &b_left,  TRUE);
-		html_point_get_right (&e->selection->to,   &b_right, TRUE);
+		html_point_get_left  (&e->selection->from, &b_left);
+		html_point_get_right (&e->selection->to,   &b_right);
 
 		level = get_parent_level (b_left.object, b_right.object);
 
@@ -199,25 +195,36 @@ remove_empty_and_merge (HTMLEngine *e, gboolean merge, GList *left, GList *right
 	HTMLObject *lo, *ro, *prev;
 	gint len;
 
+	/* if (left && left->data) {
+		printf ("left\n");
+		gtk_html_debug_dump_tree_simple (left->data, 0);
+	}
+
+	if (right && right->data) {
+		printf ("right\n");
+		gtk_html_debug_dump_tree_simple (right->data, 0);
+		} */
+
 	while (left && left->data && right && right->data) {
 
 		lo  = HTML_OBJECT (left->data);
 		ro  = HTML_OBJECT (right->data);
 		len = html_object_get_length (lo);
 
-		if ((lo->prev || merge) &&
-		    html_object_is_text (lo) && !*HTML_TEXT (lo)->text) {
-			HTMLObject *nlo = lo->prev;
+		if (html_object_is_text (lo) && !*HTML_TEXT (lo)->text && (html_object_prev_not_slave (lo) || merge)) {
+			HTMLObject *nlo = html_object_prev_not_slave (lo);
+
 			if (e->cursor->object == lo)
 				e->cursor->object = ro;
 			if (c && c->object == lo)
 				c->object = ro;
+
 			html_object_remove_child (lo->parent, lo);
 			html_object_destroy (lo);
 			lo = nlo;
-		} else if ((ro->next || merge) &&
-			   html_object_is_text (ro) && !*HTML_TEXT (ro)->text) {
-			HTMLObject *nro = ro->next;
+		} else if (html_object_is_text (ro) && !*HTML_TEXT (ro)->text && (html_object_next_not_slave (ro) || merge)) {
+			HTMLObject *nro = html_object_next_not_slave (ro);
+
 			html_object_remove_child (ro->parent, ro);
 			html_object_destroy (ro);
 			ro = nro;
@@ -240,6 +247,9 @@ remove_empty_and_merge (HTMLEngine *e, gboolean merge, GList *left, GList *right
 		e->cursor->object = prev;
 		e->cursor->offset = html_object_get_length (e->cursor->object);
 	}
+	/* printf ("-- after\n");
+	   gtk_html_debug_dump_tree_simple (e->clue, 0);
+	   printf ("-- END merge\n"); */
 }
 
 static void
@@ -360,7 +370,7 @@ delete_object_do (HTMLEngine *e, HTMLObject **object, guint *len)
 		move_cursor_before_delete (e);
 		html_engine_disable_selection (e);
 		*len     = 0;
-		*object  = html_object_op_cut  (HTML_OBJECT (from->data), e, from->next, to->next, len);
+		*object  = html_object_op_cut  (HTML_OBJECT (from->data), e, from->next, to->next, left, right, len);
 		remove_empty_and_merge (e, TRUE, left, right, NULL);
 		html_engine_spell_check_range (e, e->cursor, e->cursor);
 		html_engine_thaw (e);

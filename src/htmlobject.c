@@ -107,18 +107,19 @@ op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 }
 
 static HTMLObject *
-op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
+op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len)
 {
 	gint l = html_object_get_length (self);
 
 	if ((!from || GPOINTER_TO_INT (from->data) == 0) && (!to || GPOINTER_TO_INT (to->data) == l)) {
-		if (!html_object_could_remove_whole (self, from, to)) {
+		if (!html_object_could_remove_whole (self, from, to, left, right)) {
 			HTMLObject *empty = html_engine_new_text_empty (e);
 
 			if (e->cursor->object == self)
 				e->cursor->object = empty;
 			html_clue_append_after (HTML_CLUE (self->parent), empty, self);
 			html_object_change_set (empty, HTML_CHANGE_ALL);
+			html_object_check_cut_lists (self, empty, left, right);
 		} else
 			html_object_move_cursor_before_remove (self, e);
 
@@ -726,9 +727,9 @@ html_object_op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, gu
 }
 
 HTMLObject *
-html_object_op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
+html_object_op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len)
 {
-	return (* HO_CLASS (self)->op_cut) (self, e, from, to, len);
+	return (* HO_CLASS (self)->op_cut) (self, e, from, to, left, right, len);
 }
 
 gboolean
@@ -1455,9 +1456,20 @@ html_object_move_cursor_before_remove (HTMLObject *o, HTMLEngine *e)
 }
 
 gboolean
-html_object_could_remove_whole (HTMLObject *o, GList *from, GList *to)
+html_object_could_remove_whole (HTMLObject *o, GList *from, GList *to, GList *left, GList *right)
 {
-	return (!from && !to)
+	return ((!from && !to)
 		|| html_object_next_not_slave (HTML_OBJECT (o))
-		|| html_object_prev_not_slave (HTML_OBJECT (o));
+		|| html_object_prev_not_slave (HTML_OBJECT (o)))
+		&& ((!left  || o != left->data) && (!right || o != right->data));
+
+}
+
+void
+html_object_check_cut_lists (HTMLObject *self, HTMLObject *replacement, GList *left, GList *right)
+{
+	if (left && left->data == self)
+		left->data = replacement;
+	if (right && right->data == self)
+		right->data = replacement;
 }

@@ -1,5 +1,13 @@
 2001-01-08  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine-edit-cut-and-paste.c (html_point_get_left): remove
+	allow_null parameter
+	(html_point_get_right): likewise
+
+	* htmlobject.c (html_object_op_cut): add left, right parameters
+
+	* gtkhtml.c (idle_handler): take care of thaw_idle handler
+
 	* htmltext.c (calc_min_width): use strlen rather than
 	unicode_index_to_offset
 
