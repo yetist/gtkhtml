@@ -710,8 +710,8 @@ key_press_event (GtkWidget *widget,
 		else if (event->length == 1 && event->string
 			 && ((guchar)event->string [0]) > 0x20 
 			 && ((guchar)event->string [0]) < 0x80)
-
 			html_engine_paste_text (html->engine, event->string, 1);
+
 		g_free (str);
 		retval = TRUE;
 		update = FALSE;
@@ -1362,7 +1362,7 @@ selection_get (GtkWidget        *widget,
 								 selection_string);
 
 			if (info == TARGET_STRING) {
-				printf ("STRING\n");
+				/* printf ("STRING\n"); */
 				gtk_selection_data_set (selection_data,
 							GDK_SELECTION_TYPE_STRING, 8,
 							(const guchar *) localized_string, 
@@ -1373,7 +1373,7 @@ selection_get (GtkWidget        *widget,
 				gint format;
 				gint new_length;
 			
-				printf ("TEXT or COMPOUND_TEXT\n");
+				/* printf ("TEXT or COMPOUND_TEXT\n"); */
 				gdk_string_to_compound_text (localized_string, 
 							     &encoding, &format,
 							     &text, &new_length);
@@ -1457,9 +1457,9 @@ selection_received (GtkWidget *widget,
 	    && (selection_data->type != gdk_atom_intern ("UTF-8", FALSE))) {
 		g_warning ("Selection \"STRING\" was not returned as strings!\n");
 	} else if (selection_data->length > 0) {
-		printf ("selection text \"%.*s\"\n",
+		/* printf ("selection text \"%.*s\"\n", 
 			selection_data->length, selection_data->data); 
-
+		*/
 		if (selection_data->type != GDK_SELECTION_TYPE_STRING) {
 			html_engine_paste_text (e, selection_data->data,
 						g_utf8_strlen (selection_data->data, 
@@ -3107,6 +3107,10 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		break;
 	case GTK_HTML_COMMAND_INSERT_PARAGRAPH:
 		html_engine_delete (e);
+
+		/* stop inserting links after newlines */
+		html_engine_set_insertion_link (e, NULL, NULL);
+
 		html_engine_insert_empty_paragraph (e);
 		html->priv->update_styles = TRUE;
 		break;

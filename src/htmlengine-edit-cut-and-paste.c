@@ -766,9 +766,6 @@ insert_empty_paragraph (HTMLEngine *e, HTMLUndoDirection dir, gboolean add_undo)
 	html_engine_thaw (e);
 
 	gtk_html_editor_event_command (e->widget, GTK_HTML_COMMAND_INSERT_PARAGRAPH);
-
-	/* break links in new paragraph */
-	html_engine_insert_link (e, NULL, NULL);
 }
 
 void
@@ -873,7 +870,7 @@ html_engine_delete_n (HTMLEngine *e, guint len, gboolean forward)
 		}
 		html_engine_delete (e);
 		html_engine_unblock_selection (e);
-		html_engine_thaw (e);
+		html_engine_thaw (e);	
 	}
 }
 
@@ -883,6 +880,7 @@ html_engine_cut_line (HTMLEngine *e)
 	g_return_if_fail (e != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
+	html_undo_level_begin (e->undo, "Cut Line", "Undo Cut Line");
 	html_engine_set_mark (e);
 	html_engine_end_of_line (e);
 
@@ -890,6 +888,7 @@ html_engine_cut_line (HTMLEngine *e)
 		html_cursor_forward (e->cursor, e);
 
 	html_engine_cut (e);
+	html_undo_level_end (e->undo);
 }
 
 typedef struct {
@@ -932,6 +931,8 @@ html_engine_set_insertion_link (HTMLEngine *e, const gchar *url, const gchar *ta
 	html_engine_set_target (e, target);
 	if (!url && e->insertion_color == html_colorset_get_color (e->settings->color_set, HTMLLinkColor))
 		html_engine_set_color (e, html_colorset_get_color (e->settings->color_set, HTMLTextColor));
+	else if (url)
+		html_engine_set_color (e, html_colorset_get_color (e->settings->color_set, HTMLLinkColor));
 }
 
 void
