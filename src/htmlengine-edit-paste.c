@@ -504,21 +504,17 @@ do_paste (HTMLEngine *engine,
 #endif
 		}
 
-		if (p->prev == NULL) {
-			if (html_object_is_text (obj_copy))
-				merge_possibly (engine, obj_copy->prev, obj_copy);
-			else
-				remove_element_if_empty_text
-					(engine, html_object_prev_not_slave (obj_copy));
-		}
+		if (html_object_is_text (obj_copy))
+			merge_possibly (engine, obj_copy->prev, obj_copy);
+		else
+			remove_element_if_empty_text
+				(engine, html_object_prev_not_slave (obj_copy));
 
-		if (p->next == NULL) {
-			if (html_object_is_text (obj_copy))
-				merge_possibly (engine, obj_copy, obj_copy->next);
-			else
-				remove_element_if_empty_text
-					(engine, html_object_next_not_slave (obj_copy));
-		}
+		if (html_object_is_text (obj_copy))
+			merge_possibly (engine, obj_copy, obj_copy->next);
+		else
+			remove_element_if_empty_text
+				(engine, html_object_next_not_slave (obj_copy));
 	}
 
 #ifdef PARANOID_DEBUG
