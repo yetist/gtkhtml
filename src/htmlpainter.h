@@ -66,8 +66,8 @@ struct _HTMLPainterClass {
 	void (* draw_rect) (HTMLPainter *painter, gint x, gint y, gint width, gint height);
 	void (* draw_text) (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len);
 	void (* fill_rect) (HTMLPainter *painter, gint x, gint y, gint width, gint height);
-	void (* draw_pixmap) (HTMLPainter *painter, gint x, gint y, GdkPixbuf *pixbuf, gint clipx, gint clipy,
-			      gint clipwidth, gint clipheight);
+	void (* draw_pixmap) (HTMLPainter *painter, GdkPixbuf *pixbuf, gint x, gint y,
+			      gint scale_width, gint scale_height, const GdkColor *color);
 	void (* draw_ellipse) (HTMLPainter *painter, gint x, gint y, gint width, gint height);
 	void (* clear) (HTMLPainter *painter);
 	void (* set_background_color) (HTMLPainter *painter, const GdkColor *color);
@@ -151,13 +151,12 @@ void  html_painter_fill_rect             (HTMLPainter    *painter,
 					  gint            width,
 					  gint            height);
 void  html_painter_draw_pixmap           (HTMLPainter    *painter,
+					  GdkPixbuf      *pixbuf,
 					  gint            x,
 					  gint            y,
-					  GdkPixbuf      *pixbuf,
-					  gint            clipx,
-					  gint            clipy,
-					  gint            clipwidth,
-					  gint            clipheight);
+					  gint            scale_width,
+					  gint            scale_height,
+					  const GdkColor *color);
 void  html_painter_draw_ellipse          (HTMLPainter    *painter,
 					  gint            x,
 					  gint            y,

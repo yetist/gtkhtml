@@ -46,19 +46,15 @@ struct _HTMLImagePointer {
 
 struct _HTMLImage {
 	HTMLObject object;
+        HTMLImagePointer *image_ptr;
 
-	gboolean predefinedWidth;
-	gboolean predefinedHeight;
 	gint border;
-	HTMLEngine *engine;
+
+	gint specified_width;
+	gint specified_height;
 
 	gchar *url;
 	gchar *target;
-
-	gboolean scaled;
-	GdkPixbuf *scaled_pixbuf;
-
-        HTMLImagePointer *image_ptr;
 };
 
 struct _HTMLImageClass {
@@ -69,25 +65,39 @@ struct _HTMLImageClass {
 extern HTMLImageClass image_class;
 
 
-void html_image_type_init (void);
-void html_image_class_init (HTMLImageClass *klass, HTMLType type);
+void  html_image_type_init   (void);
+void  html_image_class_init  (HTMLImageClass *klass,
+			      HTMLType        type);
 
-void html_image_init (HTMLImage *image, HTMLImageClass *klass,
-		      HTMLImageFactory *imf, gchar *filename,
-		      const gchar *url, const gchar *target,
-		      gint max_width, gint width, gint height, gint percent,
-		      gint border);
-HTMLObject *html_image_new (HTMLImageFactory *imf, gchar *filename,
-			    const gchar *url, const gchar *target,
-			    gint max_width, gint width, gint height,
-			    gint percent, gint border);
+void        html_image_init  (HTMLImage        *image,
+			      HTMLImageClass   *klass,
+			      HTMLImageFactory *imf,
+			      gchar            *filename,
+			      const gchar      *url,
+			      const gchar      *target,
+			      gint              width,
+			      gint              height,
+			      gint              percent,
+			      gint              border);
+HTMLObject *html_image_new   (HTMLImageFactory *imf,
+			      gchar            *filename,
+			      const gchar      *url,
+			      const gchar      *target,
+			      gint              width,
+			      gint              height,
+			      gint              percent,
+			      gint              border);
 
 /* FIXME move to htmlimagefactory.c */
-HTMLImageFactory *html_image_factory_new(HTMLEngine *e);
-void html_image_factory_free(HTMLImageFactory *factory);
-void html_image_factory_cleanup(HTMLImageFactory *factory); /* Does gc etc. - removes unused image entries */
+HTMLImageFactory *html_image_factory_new      (HTMLEngine       *e);
+void              html_image_factory_free     (HTMLImageFactory *factory);
+void              html_image_factory_cleanup  (HTMLImageFactory *factory); /* Does gc etc. - removes unused image entries */
 
-HTMLImagePointer *html_image_factory_register(HTMLImageFactory *factory, HTMLImage *i, const char *filename);
-void html_image_factory_unregister(HTMLImageFactory *factory, HTMLImagePointer *pointer, HTMLImage *i);
+HTMLImagePointer *html_image_factory_register    (HTMLImageFactory *factory,
+						  HTMLImage        *i,
+						  const char       *filename);
+void              html_image_factory_unregister  (HTMLImageFactory *factory,
+						  HTMLImagePointer *pointer,
+						  HTMLImage        *i);
 
 #endif /* _HTMLIMAGE_H_ */

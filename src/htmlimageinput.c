@@ -126,8 +126,8 @@ html_imageinput_init (HTMLImageInput *img,
 	object->width = object->ascent = 32;
 
 	img->image = HTML_IMAGE (html_image_new (imf, 
-				     url, NULL, NULL, 
-				     0, -1, -1, 0, 0));
+						 url, NULL, NULL,
+						 -1, -1, 0, 0));
 
 	object->ascent = 32;
 	object->width = 0;

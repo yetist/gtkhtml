@@ -344,16 +344,16 @@ html_painter_fill_rect (HTMLPainter *painter,
 
 void
 html_painter_draw_pixmap (HTMLPainter    *painter,
-			  gint x, gint y,
 			  GdkPixbuf *pixbuf,
-			  gint clipx, gint clipy,
-			  gint clipwidth, gint clipheight)
+			  gint x, gint y,
+			  gint scale_width, gint scale_height,
+			  const GdkColor *color)
 {
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 	g_return_if_fail (pixbuf != NULL);
 
-	(* HP_CLASS (painter)->draw_pixmap) (painter, x, y, pixbuf, clipx, clipy, clipwidth, clipheight);
+	(* HP_CLASS (painter)->draw_pixmap) (painter, pixbuf, x, y, scale_width, scale_height, color);
 }
 
 void

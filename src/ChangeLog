@@ -1,3 +1,43 @@
+2000-02-03  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlimage.c (draw): Take advantage of `scale_width',
+	`scale_height', `color' in `html_painter_draw_pixmap()'.
+	(html_image_update_scaled_pixbuf): Removed.
+	(html_image_setup): Removed.
+	(html_image_factory_area_updated): Removed.
+	(html_image_factory_register): Do not connect "area_updated"
+	anymore.
+	(html_image_factory_end_pixbuf): Don't do any scaled-related stuff
+	anymore.
+	(html_image_factory_area_prepared): Always schedule an update.
+
+	* htmlgdkpainter.c (draw_pixmap): Updated to use the new
+	parameters.
+	* htmlprinter.c (draw_pixmap): Likewise.
+
+	* htmlpainter.c (html_painter_draw_pixmap): New params
+	`scale_width', `scale_height', `color'.  Removed clipping params.
+
+	* htmlpainter.h: New params `scale_width', `scale_height', `color'
+	and removed clipping params in virtual method
+	`HTMLPainter::draw_pixmap'.
+
+	* htmlimage.c: Cleaned up the mess.
+	(html_image_init): Removed arg `max_width'.  Simplified to just do
+	what it should do.
+	(html_image_new): Updated accordingly.
+	(get_actual_width): New helper function.
+	(get_actual_height): New helper function.
+	(calc_size): Actually do what expected to.
+	(calc_preferred_width): Likewise.
+	(calc_min_width): Likewise.
+	(set_max_width): Removed.
+	(html_image_class_init): Do not install anymore.
+
+	* htmlimage.h: Get rid of `predefinedWidth', `predefinedHeight',
+	`engine', `scaled' and `scaled_pixbuf'.  New members
+	`specified_width', `specified_height'.
+
 2000-02-02  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmltablecell.c (html_table_cell_set_width): New arg

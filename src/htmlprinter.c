@@ -318,10 +318,10 @@ draw_background_pixmap (HTMLPainter *painter,
 
 static void
 draw_pixmap (HTMLPainter *painter,
-	     gint x, gint y,
 	     GdkPixbuf *pixbuf,
-	     gint clipx, gint clipy,
-	     gint clipwidth, gint clipheight)
+	     gint x, gint y,
+	     gint scale_width, gint scale_height,
+	     const GdkColor *color)
 {
 	HTMLPrinter *printer;
 

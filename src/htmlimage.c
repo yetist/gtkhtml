@@ -31,12 +31,40 @@
 #include "htmlpainter.h"
 #include "gtkhtml-private.h"
 
-static void html_image_update_scaled_pixbuf (HTMLImage *image);
+
+#define DEFAULT_SIZE 48
 
 
 HTMLImageClass html_image_class;
 
 
+static guint
+get_actual_width (HTMLImage *image)
+{
+	if (image->specified_width > 0) {
+		return image->specified_width;
+	} else if (HTML_OBJECT (image)->percent > 0) {
+		return (HTML_OBJECT (image)->max_width * HTML_OBJECT (image)->percent) / 100;
+	} else if (image->image_ptr == NULL || image->image_ptr->pixbuf == NULL) {
+		return DEFAULT_SIZE;
+	} else {
+		return gdk_pixbuf_get_width (image->image_ptr->pixbuf);
+	}
+}
+
+static guint
+get_actual_height (HTMLImage *image)
+{
+	if (image->specified_height > 0) {
+		return image->specified_height;
+	} else if (image->image_ptr == NULL || image->image_ptr->pixbuf == NULL) {
+		return DEFAULT_SIZE;
+	} else {
+		return gdk_pixbuf_get_height (image->image_ptr->pixbuf);
+	}
+}
+
+#if 0
 static GdkPixbuf *
 generate_pixbuf_for_selection (HTMLImage *image,
 			       HTMLPainter *painter,
@@ -56,10 +84,7 @@ generate_pixbuf_for_selection (HTMLImage *image,
 
 	selection_color = html_painter_get_default_highlight_color (painter);
 
-	if (image->scaled_pixbuf != NULL)
-		src = image->scaled_pixbuf;
-	else
-		src = image->image_ptr->pixbuf;
+	src = image->image_ptr->pixbuf;
 
 	src_width = gdk_pixbuf_get_width (src);
 	src_height = gdk_pixbuf_get_height (src);
@@ -121,6 +146,7 @@ generate_pixbuf_for_selection (HTMLImage *image,
 
 	return pixbuf;
 }
+#endif
 
 
 /* HTMLObject methods.  */
@@ -132,121 +158,107 @@ generate_pixbuf_for_selection (HTMLImage *image,
 static void
 destroy (HTMLObject *image)
 {
-	if (HTML_IMAGE (image)->scaled_pixbuf)
-		gdk_pixbuf_unref (HTML_IMAGE (image)->scaled_pixbuf);
-
 	html_image_factory_unregister (HTML_IMAGE (image)->image_ptr->factory,
 				       HTML_IMAGE (image)->image_ptr, HTML_IMAGE (image));
-}
-
-static void
-set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
-{
-	if (o->percent > 0)
-		o->max_width = max_width;
-
-	if (HTML_IMAGE (o)->image_ptr == NULL || HTML_IMAGE (o)->image_ptr->pixbuf == NULL)
-		return;
-
-	if (o->percent > 0) {
-		o->width = (gint) (o->max_width) * (gint) (o->percent) / 100;
-		if (!HTML_IMAGE (o)->predefinedHeight)
-			o->ascent = HTML_IMAGE (o)->image_ptr->pixbuf->art_pixbuf->height * o->width /
-				HTML_IMAGE (o)->image_ptr->pixbuf->art_pixbuf->width + HTML_IMAGE (o)->border;
-		o->width += HTML_IMAGE (o)->border * 2;
-	}
-
-	if (HTML_IMAGE (o)->scaled)
-		html_image_update_scaled_pixbuf (HTML_IMAGE (o));
 }
 
 static gint
 calc_min_width (HTMLObject *o,
 		HTMLPainter *painter)
 {
+	guint pixel_size;
+	guint min_width;
+
+	pixel_size = html_painter_get_pixel_size (painter);
+
 	if (o->percent > 0)
-		return 1;
+		min_width = 1;
+	else
+		min_width = get_actual_width (HTML_IMAGE (o));
 
-	return o->width * html_painter_get_pixel_size (painter);
-}
+	min_width += HTML_IMAGE (o)->border * 2;
 
-static void
-draw (HTMLObject *o,
-      HTMLPainter *p,
-      gint x, gint y,
-      gint width, gint height,
-      gint tx, gint ty)
-{
-	int base_x, base_y, clip_x, clip_y, clip_width, clip_height;
-
-	/* FIXME horizontal check? */
-	if (y + height < o->y - o->ascent || y > o->y + o->descent)
-		return;
-
-	/*
-	 * We need three coords, all screen-relative:
-	 * base_x/base_y
-	 * clipx/clipy
-	 * clipwidth/clipheight
-	 * 
-	 * We have three coords:
-	 * tx/ty - add this to object-relative coords to convert to screen coords
-	 * x/y - object-relative clip coordinates
-	 * width/height - clip width/height
-	 *
-	 */
-	base_x = o->x + tx + HTML_IMAGE (o)->border;
-	base_y = o->y - o->ascent + ty + HTML_IMAGE (o)->border;
-
-	clip_x = base_x + x;
-	clip_y = base_y + y;
-
-	clip_width = width;
-	clip_height = height;
-
-	if (HTML_IMAGE (o)->image_ptr->pixbuf == NULL) {
-		html_painter_draw_panel (p, 
-					 o->x + tx, o->y + ty - o->ascent, 
-					 o->width, o->ascent,
-					 TRUE, 1);
-	} else {
-		GdkPixbuf *pixbuf;
-
-		if (o->selected) {
-			/* FIXME something is wrong with the coordinates here,
-                           so I just generate the whole thing.  Also, it might
-                           be a performance problem.  */
-			pixbuf = generate_pixbuf_for_selection (HTML_IMAGE (o),
-								p,
-								0, 0,
-								-1, -1);
-		} else if (HTML_IMAGE (o)->scaled) {
-			pixbuf = gdk_pixbuf_ref (HTML_IMAGE (o)->scaled_pixbuf);
-		} else {
-			pixbuf = gdk_pixbuf_ref (HTML_IMAGE (o)->image_ptr->pixbuf);
-		}
-
-		if (pixbuf != NULL) {
-			html_painter_draw_pixmap (p, base_x, base_y,
-						  pixbuf,
-						  clip_x, clip_y,
-						  clip_width, clip_height);
-			gdk_pixbuf_unref (pixbuf);
-		}
-	}
+	return pixel_size * min_width;
 }
 
 static gint
 calc_preferred_width (HTMLObject *o,
 		      HTMLPainter *painter)
 {
-	return o->width;
+	guint pixel_size;
+	guint width;
+
+	pixel_size = html_painter_get_pixel_size (painter);
+	width = get_actual_width (HTML_IMAGE (o)) + HTML_IMAGE (o)->border * 2;
+
+	return pixel_size * width;
 }
 
 static void
 calc_size (HTMLObject *o,
 	   HTMLPainter *painter)
 {
+	HTMLImage *image;
+	guint pixel_size;
+	guint width, height;
+
+	image = HTML_IMAGE (o);
+
+	pixel_size = html_painter_get_pixel_size (painter);
+
+	width = get_actual_width (image);
+	height = get_actual_height (image);
+
+	o->width = (width + image->border * 2) * pixel_size;
+	o->descent = image->border * pixel_size;
+	o->ascent = (height + image->border) * pixel_size;
+}
+
+static void
+draw (HTMLObject *o,
+      HTMLPainter *painter,
+      gint x, gint y,
+      gint width, gint height,
+      gint tx, gint ty)
+{
+	HTMLImage *image;
+	GdkPixbuf *pixbuf;
+	gint base_x, base_y;
+	gint scale_width, scale_height;
+	const GdkColor *color;
+	guint pixel_size;
+
+#if 0
+	if (y + height < o->y - o->ascent || y > o->y + o->descent
+	    || x + width < o->x || x > o->x + o->width)
+		return;
+#endif
+
+	image = HTML_IMAGE (o);
+	pixbuf = image->image_ptr->pixbuf;
+
+	if (pixbuf == NULL) {
+		html_painter_draw_panel (painter, 
+					 o->x + tx, o->y + ty - o->ascent, 
+					 o->width, o->ascent + o->descent,
+					 TRUE, 1);
+		return;
+	}
+
+	pixel_size = html_painter_get_pixel_size (painter);
+
+	base_x = o->x + tx + image->border * pixel_size;
+	base_y = o->y - o->ascent + ty + image->border * pixel_size;
+
+	scale_width = get_actual_width (image);
+	scale_height = get_actual_height (image);
+
+	color = NULL;		/* FIXME */
+
+	html_painter_draw_pixmap (painter, pixbuf,
+				  base_x, base_y,
+				  scale_width, scale_height,
+				  color);
 }
 
 static const gchar *
@@ -292,7 +304,6 @@ html_image_class_init (HTMLImageClass *image_class,
 
 	object_class->draw = draw;
 	object_class->destroy = destroy;
-	object_class->set_max_width = set_max_width;
 	object_class->calc_min_width = calc_min_width;
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->calc_size = calc_size;
@@ -308,7 +319,6 @@ html_image_init (HTMLImage *image,
 		 gchar *filename,
 		 const gchar *url,
 		 const gchar *target,
-		 gint max_width, 
 		 gint width, gint height,
 		 gint percent, gint border)
 {
@@ -318,33 +328,14 @@ html_image_init (HTMLImage *image,
 
 	html_object_init (object, HTML_OBJECT_CLASS (klass));
 
-	image->predefinedWidth = (width < 0 && !percent) ? FALSE : TRUE;
-	image->predefinedHeight = height < 0 ? FALSE : TRUE;
-
 	image->url = g_strdup (url);
 	image->target = g_strdup (target);
 
+	image->specified_width = width;
+	image->specified_height = height;
 	image->border = border;
 
 	object->percent = percent;
-	object->max_width = max_width;
-	object->ascent = height + border;
-	object->descent = border;
-
-	if (percent > 0) {
-		object->width = (gint)max_width * (gint)percent / 100;
-		object->width += border * 2;
-	} else {
-		object->width = width + border * 2;
-	}
-
-	if (!image->predefinedWidth && !object->percent)
-		object->width = 32;
-	if (!image->predefinedHeight)
-		object->ascent = 32;
-
-	image->scaled = FALSE;
-	image->scaled_pixbuf = NULL;
 
 	image->image_ptr = html_image_factory_register (imf, image, filename);
 }
@@ -354,77 +345,17 @@ html_image_new (HTMLImageFactory *imf,
 		gchar *filename,
 		const gchar *url,
 		const gchar *target,
-		gint max_width,
-		gint width,
-		gint height,
-		gint percent,
-		gint border)
+		gint width, gint height,
+		gint percent, gint border)
 {
 	HTMLImage *image;
 
 	image = g_new(HTMLImage, 1);
+
 	html_image_init (image, &html_image_class, imf, filename,
-			 url, target, max_width, width, height, percent, border);
+			 url, target, width, height, percent, border);
 
 	return HTML_OBJECT (image);
-}
-
-
-/* FIXME this was formerly known as `html_image_init()'.  I am not sure what this is for.  */
-
-static void
-html_image_update_scaled_pixbuf (HTMLImage *image) 
-{
-	HTMLObject *object = HTML_OBJECT (image);
-
-	g_assert (image->scaled);
-
-	if (image->scaled_pixbuf)
-		gdk_pixbuf_unref (image->scaled_pixbuf);
-
-	image->scaled_pixbuf = gdk_pixbuf_scale_simple (image->image_ptr->pixbuf, 
-							object->width - 2 * image->border,
-							object->ascent - image->border,
-							ART_FILTER_TILES);
-}
-
-static void
-html_image_setup (HTMLImage *image)
-{
-	HTMLObject *object = HTML_OBJECT (image);
-
-	if (object->percent > 0) {
-		object->width = (gint) (object->max_width) * (gint) (object->percent) / 100;
-		if (!image->predefinedHeight && image->image_ptr)
-			object->ascent = image->image_ptr->pixbuf->art_pixbuf->height *
-				object->width / image->image_ptr->pixbuf->art_pixbuf->width;
-		object->flags &= ~ HTML_OBJECT_FLAG_FIXEDWIDTH;
-	}
-
-	if (image->image_ptr && image->image_ptr->pixbuf) {
-
-		if (image->predefinedWidth && object->width != 
-		    image->image_ptr->pixbuf->art_pixbuf->width)
-			image->scaled = TRUE;
-		else if (image->predefinedHeight && object->ascent != 
-			 image->image_ptr->pixbuf->art_pixbuf->height)
-			image->scaled = TRUE;
-
-		if (!image->predefinedWidth)
-			object->width = image->image_ptr->pixbuf->art_pixbuf->width;
-
-		if (!image->predefinedHeight)
-			object->ascent = image->image_ptr->pixbuf->art_pixbuf->height;
-
-		if (image->scaled)
-			html_image_update_scaled_pixbuf (image);
-	}
-	
-	if (!image->predefinedWidth)
-		object->width += image->border * 2;
-	if (!image->predefinedHeight)
-		object->ascent += image->border;
-
 }
 
 
@@ -441,26 +372,12 @@ static void html_image_factory_end_pixbuf    (GtkHTMLStreamHandle handle,
 static void html_image_factory_write_pixbuf  (GtkHTMLStreamHandle handle,
 					      const guchar *buffer, size_t size,
 					      gpointer user_data);
-static void html_image_factory_area_prepared (GdkPixbufLoader *loader, HTMLImagePointer *ip);
-static void html_image_factory_area_updated  (GdkPixbufLoader *loader,
-					      guint x, guint y, guint width, guint height,
-					      HTMLImagePointer *ip);
 
 static void
 html_image_factory_end_pixbuf (GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, gpointer user_data)
 {
 	HTMLImagePointer *ip = user_data;
-	GSList *cur;
 
-	if (ip->pixbuf) {
-		for (cur = ip->interests; cur; cur = cur->next){
-			if (cur->data){
-				HTMLImage *i = HTML_IMAGE (cur->data);
-				if (i->scaled)
-					html_image_update_scaled_pixbuf (i);
-			}
-		}
-	}
 	html_engine_schedule_update (ip->factory->engine);
 	
 	gdk_pixbuf_loader_close (ip->loader);
@@ -477,50 +394,12 @@ html_image_factory_write_pixbuf (GtkHTMLStreamHandle handle, const guchar *buffe
 }
 
 static void
-html_image_factory_area_updated  (GdkPixbufLoader *loader,
-				  guint x, guint y, guint width, guint height,
-				  HTMLImagePointer *ip)
-{
-	GSList *cur;
-	
-	for (cur = ip->interests; cur; cur = cur->next){
-		if (cur->data){
-			HTMLImage *i = HTML_IMAGE (cur->data);
-			if (i->scaled)
-				html_image_update_scaled_pixbuf (i);
-		}
-	}
-	/* XXX fixme - only if we are onscreen, and even then we just need to do something to redraw ourselves
-	   rather than the whole stupid area. Also should only redraw if a significant new amount of info has come in */
-
-#if 0
-	html_engine_schedule_update (e);
-#endif
-}
-
-static void
 html_image_factory_area_prepared (GdkPixbufLoader *loader, HTMLImagePointer *ip)
 {
-	GSList *cur;
-	gboolean need_redraw = FALSE;
-	
 	ip->pixbuf = gdk_pixbuf_loader_get_pixbuf (ip->loader);
 	g_assert (ip->pixbuf);
-	
-	for (cur = ip->interests; cur; cur = cur->next){
-		if (cur->data){
-			HTMLImage *i = HTML_IMAGE (cur->data);
-			if (!i->predefinedWidth && !i->predefinedHeight && !HTML_OBJECT (i)->percent)
-				need_redraw = TRUE;
-			html_image_setup (i);
-		} else {
-			/* Document background pixmap */
-			need_redraw = TRUE;
-		}
-	}
-	
-	if (need_redraw)
-		html_engine_schedule_update (ip->factory->engine);
+
+	html_engine_schedule_update (ip->factory->engine);
 }
 
 HTMLImageFactory *
@@ -602,10 +481,6 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 				    GTK_SIGNAL_FUNC (html_image_factory_area_prepared),
 				    retval);
 		
-		gtk_signal_connect (GTK_OBJECT (retval->loader), "area_updated",
-				    GTK_SIGNAL_FUNC (html_image_factory_area_updated),
-				    retval);
-		
 		handle = gtk_html_stream_new (GTK_HTML (factory->engine->widget),
 					      retval->url,
 					      html_image_factory_write_pixbuf,
@@ -619,12 +494,10 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 		
 		gtk_signal_emit_by_name (GTK_OBJECT (factory->engine), "url_requested", filename,
 					 handle);
-
-	} else if (i){
-
+	} else if (i) {
 		i->image_ptr = retval;
-		html_image_setup (i);
 	}
+
 	retval->interests = g_slist_prepend (retval->interests, i);
 
 	return retval;

@@ -1973,10 +1973,9 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 		}
 		if (tmpurl != 0) {
 			image = html_image_new (p->image_factory, tmpurl,
-						p->url,
-						p->target,
-						_clue->max_width, 
-						width, height, percent, border);
+						p->url, p->target,
+						width, height,
+						percent, border);
 
 			g_free(tmpurl);
 				
