@@ -173,6 +173,7 @@ struct _HTMLEngine {
 	HTMLTextArea *formTextArea;
 	GList *formList;
 	GString *formText;
+	gboolean noWrap;
 };
 
 struct _HTMLEngineClass {

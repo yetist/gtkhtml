@@ -75,6 +75,7 @@ static void html_engine_end (GtkHTMLStreamHandle handle, GtkHTMLStreamStatus sta
 static void parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str);
 static HTMLURL *parse_href (HTMLEngine *e, const gchar *s);
 static void parse_input (HTMLEngine *e, const gchar *s);
+static void parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str);
 
 
 static GtkLayoutClass *parent_class = NULL;
@@ -681,6 +682,10 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						}
 					}
 					break;
+				} /* Hack to fix broken html in bonsai */
+				else if (strncmp (str, "<form", 5) == 0 || strncmp (str, "</form", 6) == 0) {
+
+					parse_f (e, clue, str + 1);
 				}
 
 				/* Check for <td> and <th> */
@@ -706,6 +711,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					cellwidth = clue->max_width;
 					cellpercent = -1;
 					fixedWidth = FALSE;
+					e->noWrap = FALSE;
 
 					if (have_rowColor) {
 						bgColor = rowColor;
@@ -780,6 +786,12 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 								have_bgColor
 									= html_engine_set_named_color (e, &bgColor,
 												       token + 8);
+							}
+							else if (strncasecmp (token, "nowrap", 6) == 0) {
+
+								e->flow = 0;
+								e->noWrap = TRUE;
+
 							}
 							else if (strncasecmp (token, "background=", 11) == 0
 								 && !e->defaultSettings->forceDefault) {
@@ -857,6 +869,8 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						e->flow = HTML_OBJECT (oldflow);
 						return 0;
 					}
+
+					e->noWrap = FALSE;
 
 					if ((strncmp (str, "</td", 4) == 0) ||
 					    (strncmp (str, "</th", 4) == 0)) {
@@ -948,8 +962,6 @@ parse_input (HTMLEngine *e, const gchar *str) {
 				type = Text;
 			else if ( strncasecmp( p, "Image", 5 ) == 0 )
 				type = Image;
-			else
-				type = Undefined;
 		}
 		else if ( strncasecmp( token, "name=", 5 ) == 0 ) {
 			name = g_strdup(token + 5);
@@ -1499,6 +1511,9 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		html_clue_append (HTML_CLUE (e->flow),
 				  html_vspace_new (14, clear));
 
+		if(e->noWrap)
+			html_engine_new_flow (e, clue);
+
 		e->vspace_inserted = FALSE;
 	}
 	else if (strncmp (str, "b", 1) == 0) {
@@ -1737,7 +1752,12 @@ parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
                             target = g_strdup(token + 7);
                         }
                 }
-                
+                if(action == NULL) {
+			HTMLURL *url = html_url_dup (p->actualURL, HTML_URL_DUP_NOCGIARGS);
+			action = html_url_to_string (url);
+			html_url_destroy (url);
+		}
+
                 p->form = html_form_new (p, action, method);
                 p->formList = g_list_append(p->formList, p->form);
 		
@@ -2783,6 +2803,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->bottomBorder = BOTTOM_BORDER;
 
 	engine->inPre = FALSE;
+	engine->noWrap = FALSE;
 	engine->inTitle = FALSE;
 
 	engine->tempStrings = NULL;
@@ -3079,7 +3100,7 @@ html_engine_calc_size (HTMLEngine *p)
 void
 html_engine_new_flow (HTMLEngine *e, HTMLObject *clue)
 {
-	if (e->inPre) 
+	if (e->inPre || e->noWrap) 
 		e->flow = html_clueh_new ( 0, 0, clue->max_width );
 	else
 		e->flow = html_clueflow_new (html_engine_get_current_font (e),
@@ -3328,7 +3349,7 @@ html_engine_insert_text (HTMLEngine *e, const gchar *str, HTMLFont *f)
 				else
 					url_string = NULL;
 
-				if (textType == variable) {
+				if (textType == variable && !e->noWrap) {
 					if (e->url || e->target)
 						obj = html_link_text_master_new
 							(g_strdup (s), f, url_string, e->target);
@@ -3349,7 +3370,7 @@ html_engine_insert_text (HTMLEngine *e, const gchar *str, HTMLFont *f)
 			}
 
 			if (insertSpace) {
-				if (e->url || e->target) {
+				if ((e->url || e->target) && !e->noWrap) {
 					gchar *url_string;
 
 					url_string = html_url_to_string (e->url);

@@ -1,3 +1,23 @@
+2000-01-04  Jonas Borgström <jonas_b@bitsmart.com>
+
+	* htmlengine.c : (parse_b): Added "clear=xxx" support in <br> tags.
+	(parse_d): Fixed dt function. 
+	http://cvs.gnome.org/bonsai/rview.cgi?root=/cvs/gnome looks better now.
+	
+	(parse_table): Added support for nowrap argument in <td> tags.
+			Now http://www.themes.org looks ok.
+	
+	(parse_table): Added workaround for bad html in table and form combination, 
+		       to make gnome bonsai pages render ok.
+	
+	(parse_f): With a <form action=> defaults to the current URI.
+	
+	(html_engine_insert_text): Uses HTMLText instead of HTMLTextMaster with NOWRAP
+
+	* htmlengine.h: New variable gboolean noWrap.
+
+	* htmlurl.[ch] (html_url_dup): New flag HTML_URL_DUP_NOCGIARGS.
+		
 2000-01-03  Jonas Borgström <jonas_b@bitsmart.com>
 	
 	* Makefile.am : Added htmlimageinput.c and htmlimageinput.h

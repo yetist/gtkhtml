@@ -218,6 +218,7 @@ HTMLURL *
 html_url_dup (const HTMLURL *url, HTMLURLDupFlags flags)
 {
 	HTMLURL *new;
+	gchar *ptr;
 
 	if (url == NULL)
 		return NULL;
@@ -253,6 +254,13 @@ html_url_dup (const HTMLURL *url, HTMLURLDupFlags flags)
 		new->path = NULL;
 	else
 		new->path = g_strdup (url->path);
+
+	if (flags & HTML_URL_DUP_NOCGIARGS && new->path) {
+		/* Cut the path after the first '?' */
+		ptr = strchr(new->path, '?');
+		if (ptr)
+			*ptr = 0;
+	}
 
 	if (flags & HTML_URL_DUP_NOREFERENCE)
 		new->reference = NULL;
