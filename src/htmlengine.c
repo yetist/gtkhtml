@@ -199,11 +199,10 @@ html_engine_draw_background (HTMLEngine *e, gint xval, gint yval, gint x, gint y
 	g_print ("draw_background\n");
 
 	if (!e->bgPixmap) {
-		if (!e->bgColor)
-			e->bgColor = gdk_color_copy (e->settings->bgcolor);
-
-		html_painter_set_pen (e->painter, e->bgColor);
-		html_painter_fill_rect (e->painter, x, y, w, h);
+		if (e->bgColor) {
+			html_painter_set_pen (e->painter, e->bgColor);
+			html_painter_fill_rect (e->painter, x, y, w, h);
+		}
 		return;
 	}
 
@@ -470,6 +469,7 @@ html_engine_parse (HTMLEngine *p)
 	/* Free the background color (if any) and alloc a new one */
 	if (p->bgColor)
 		gdk_color_free (p->bgColor);
+	p->bgColor = gdk_color_copy (p->settings->bgcolor);
 
 	/* FIXME: is this nice to do? */
 	c = g_new0 (GdkColor, 1);
@@ -823,7 +823,9 @@ html_engine_parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		if (bgColorSet) {
 			if (e->bgColor)
 				gdk_color_free (e->bgColor);
+			g_print ("starting copy\n");
 			e->bgColor = gdk_color_copy (&bgcolor);
+			g_print ("copy done\n");
 		}
 		g_print ("parsed <body>\n");
 	}
