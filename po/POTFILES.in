@@ -17,6 +17,7 @@ components/html-editor/search.c
 components/html-editor/test-html-editor-control.c
 components/html-editor/text.c
 components/html-editor/toolbar.c
+components/html-editor/utils.c
 src/gtkhtml.c
 #src/html-component.c
 src/testgtkhtml.c
