@@ -1,5 +1,8 @@
 2000-03-30  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine.c (parse_b): added leftmargin, rightmargin, topmargin
+	and bottommargin to <body ...> to make fresheat & co. happy :)
+
 	* htmlimage.c (calc_preferred_width): added hspace
 	(calc_preferred_width):  added hspace
 	(calc_size): added hspace and vspace

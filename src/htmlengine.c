@@ -1500,12 +1500,16 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			} else if ( strncasecmp( token, "vlink=", 6 ) == 0
 				    && !e->defaultSettings->forceDefault ) {
 				parse_color (token + 6, &e->settings->vLinkColor);
+			} else if ( strncasecmp( token, "leftmargin=", 11 ) == 0) {
+				e->leftBorder = atoi (token + 11);
+			} else if ( strncasecmp( token, "rightmargin=", 12 ) == 0) {
+				e->rightBorder = atoi (token + 12);
+			} else if ( strncasecmp( token, "topmargin=", 10 ) == 0) {
+				e->topBorder = atoi (token + 10);
+			} else if ( strncasecmp( token, "bottommargin=", 13 ) == 0) {
+				e->bottomBorder = atoi (token + 13);
 			}
 		}
-		/* FIXME http://www.linux-india.org/itcom99/ shows what
-		 * happens when you don't pay attention to the various
-		 * margin settings in the body tag
-		 */
 #if 0
 		if ( !bgColorSet || defaultSettings->forceDefault )
 		{
