@@ -103,6 +103,8 @@ destroy (HTMLObject *o)
 		if (element->widget->parent && element->parent) {
 			g_assert (element->widget->parent == element->parent);
 			gtk_container_remove (GTK_CONTAINER (element->parent), element->widget);
+		} else {
+		       	gtk_object_sink (element->widget);
 		}
 	}
 

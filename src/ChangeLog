@@ -1,3 +1,8 @@
+2001-10-17  Larry Ewing  <lewing@ximian.com>
+
+	* htmlembedded.c (destroy): sink any widget that hasn't been
+	parented yet.
+
 2001-10-17  Radek Doulik  <rodo@ximian.com>
 
 	* htmlobject.c (html_object_add_to_changed): new function, adds
