@@ -1,0 +1,610 @@
+# Slovenian translation file for Balsa.
+# Copyright (C) 2000 Free Software Foundation, Inc.
+# Andraz Tori <andraz.tori1@guest.arnes.si> 2000
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: balsa\n"
+"POT-Creation-Date: 2000-08-06 22:43+0200\n"
+"PO-Revision-Date: 2000-08-06 22:43+0200\n"
+"Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
+"Language-Team: Slovenian <sl@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso8859-2\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+#: components/html-editor/body.c:107
+msgid "use background image"
+msgstr "uporabi slikoo ozadja"
+
+#: components/html-editor/body.c:109
+msgid "Background image"
+msgstr "Slika ozadja"
+
+#: components/html-editor/body.c:126
+msgid "Colors"
+msgstr "Barve"
+
+#: components/html-editor/editor-control-factory.c:132
+#: components/html-editor/popup.c:86
+msgid "Image"
+msgstr "Slika"
+
+#: components/html-editor/editor-control-factory.c:141
+#: components/html-editor/popup.c:79
+msgid "Text"
+msgstr "Besedilo"
+
+#: components/html-editor/editor-control-factory.c:153
+#: components/html-editor/popup.c:93
+msgid "Paragraph"
+msgstr "Odstavek"
+
+#: components/html-editor/editor-control-factory.c:158
+#: components/html-editor/menubar.c:157 components/html-editor/popup.c:100
+msgid "Link"
+msgstr "Povezava"
+
+#: components/html-editor/editor-control-factory.c:163
+#: components/html-editor/popup.c:107
+msgid "Page"
+msgstr "Stran"
+
+#: components/html-editor/image.c:409
+msgid "Image selection"
+msgstr "Izbira slike"
+
+#: components/html-editor/image.c:417
+msgid "Border"
+msgstr "Rob"
+
+#. ADD_ITEM("Left",   GDK_F4);
+#. ADD_ITEM("Right",  GDK_F5);
+#: components/html-editor/image.c:450
+msgid "Alignment"
+msgstr "Poravnava"
+
+#: components/html-editor/image.c:462 components/html-editor/rule.c:124
+#: components/html-editor/text.c:160
+msgid "Size"
+msgstr "Velikost"
+
+#: components/html-editor/image.c:489
+msgid "Padding"
+msgstr "Polnjenje"
+
+#: components/html-editor/link.c:72
+msgid "Clear"
+msgstr "Poèisti"
+
+#: components/html-editor/link.c:75
+msgid "URL"
+msgstr "URL"
+
+#: components/html-editor/main.c:64
+msgid "Could not initialize GNORBA"
+msgstr "Nisem mogel inicializirati GNORBA-e"
+
+#: components/html-editor/main.c:77
+msgid "Could not initialize Bonobo"
+msgstr "Nisem mogel inicializirati Bonoba"
+
+#: components/html-editor/menubar.c:60
+msgid "Find Rege_x..."
+msgstr "P_oi¹èi..."
+
+#: components/html-editor/menubar.c:60
+msgid "Regular expressions search..."
+msgstr "Iskanje s pomoèjo regularnega izraza..."
+
+#: components/html-editor/menubar.c:69
+msgid "_Image..."
+msgstr "_Slika..."
+
+#: components/html-editor/menubar.c:69
+msgid "Insert image into document..."
+msgstr "V dokument vstavi sliko..."
+
+#: components/html-editor/menubar.c:70
+msgid "_Link..."
+msgstr "_Povezava..."
+
+#: components/html-editor/menubar.c:70
+msgid "Insert HTML link into document..."
+msgstr "V dokument vstavi HTML povezavo..."
+
+#: components/html-editor/menubar.c:71
+msgid "_Rule..."
+msgstr "P_ravilo..."
+
+#: components/html-editor/menubar.c:71
+msgid "Insert rule into document..."
+msgstr "V dokument vstavi pravilo"
+
+#: components/html-editor/menubar.c:76
+msgid "_Insert"
+msgstr "Vstav_i"
+
+#: components/html-editor/menubar.c:143
+msgid "Insert image"
+msgstr "Vstavi sliko"
+
+#: components/html-editor/menubar.c:175
+msgid "Cannot execute gtkhtml properties"
+msgstr "Ne morem izvesti gtkhtml lastnosti"
+
+#: components/html-editor/paragraph.c:74 components/html-editor/text.c:138
+msgid "Style"
+msgstr "Slog"
+
+#: components/html-editor/paragraph.c:108
+msgid "Align"
+msgstr "Poravnaj"
+
+#: components/html-editor/paragraph.c:121
+msgid "Left"
+msgstr "Levo"
+
+#: components/html-editor/paragraph.c:122 components/html-editor/toolbar.c:485
+msgid "Center"
+msgstr "Na sredini"
+
+#: components/html-editor/paragraph.c:123
+msgid "Right"
+msgstr "Desno"
+
+#: components/html-editor/properties.c:92
+#: components/html-editor/properties.c:93
+msgid "Insert"
+msgstr "Vstavi"
+
+#: components/html-editor/properties.c:95
+msgid "Properties"
+msgstr "Lastnosti"
+
+#: components/html-editor/popup.c:161
+msgid "Remove link"
+msgstr "Odstrani povezavo"
+
+#: components/html-editor/replace.c:83
+msgid "Replace confirmation"
+msgstr "Potrdi zamenjavo"
+
+#: components/html-editor/replace.c:84 components/html-editor/replace.c:146
+#: components/html-editor/replace.c:158
+msgid "Replace"
+msgstr "Zamenjaj"
+
+#: components/html-editor/replace.c:84
+msgid "Replace all"
+msgstr "Zamenjaj vse"
+
+#: components/html-editor/replace.c:84
+msgid "Next"
+msgstr "Naslednji"
+
+#: components/html-editor/replace.c:152 components/html-editor/search.c:66
+msgid "search backward"
+msgstr "i¹èi nazaj"
+
+#: components/html-editor/replace.c:153 components/html-editor/search.c:67
+msgid "case sensitive"
+msgstr "razlikuj velike in male èrke"
+
+#: components/html-editor/replace.c:161
+msgid "with"
+msgstr "z"
+
+#: components/html-editor/rule.c:124
+msgid "Length"
+msgstr "Dol¾ina"
+
+#: components/html-editor/rule.c:124
+msgid "Percent"
+msgstr "Odstotek"
+
+#: components/html-editor/rule.c:125
+msgid "Left Align"
+msgstr "Leva poravnava"
+
+#: components/html-editor/rule.c:125
+msgid "Center Align"
+msgstr "Sredi¹èna poravnava"
+
+#: components/html-editor/rule.c:125
+msgid "Right Align"
+msgstr "Desna poravnava"
+
+#: components/html-editor/rule.c:125
+msgid "None"
+msgstr "Brez"
+
+#: components/html-editor/rule.c:129
+msgid "Rule"
+msgstr "Pravilo"
+
+#: components/html-editor/rule.c:132
+msgid "Set Shade"
+msgstr "Nastavi odtenek"
+
+#: components/html-editor/search.c:63
+msgid "Regex search"
+msgstr "Iskanje z reg. izrazom"
+
+#: components/html-editor/search.c:63
+msgid "Search"
+msgstr "Iskanje"
+
+#: components/html-editor/table.c:80
+msgid "Table"
+msgstr "Tabela"
+
+#: components/html-editor/test-html-editor-control.c:234
+msgid "Open file..."
+msgstr "Odpri datoteko..."
+
+#: components/html-editor/test-html-editor-control.c:236
+msgid "Save file as..."
+msgstr "Shranitev datoteke kot..."
+
+#: components/html-editor/test-html-editor-control.c:302
+msgid "Open (PersistFile)"
+msgstr "Odpri (TrajnaDatoteka)"
+
+#: components/html-editor/test-html-editor-control.c:302
+msgid "Open using the PersistFile interface"
+msgstr "Odpri z uporabo vmesnika TrajnaDatoteka"
+
+#: components/html-editor/test-html-editor-control.c:304
+msgid "Save as... (PersistFile)"
+msgstr "Shrani kot... (TrajnaDatoteka)"
+
+#: components/html-editor/test-html-editor-control.c:304
+msgid "Save using the PersistFile interface"
+msgstr "Shrani z uporabo vmesnika TrajnaDatoteka"
+
+#: components/html-editor/test-html-editor-control.c:307
+msgid "Open (PersistStream)"
+msgstr "Odpri (TrajniTok)"
+
+#: components/html-editor/test-html-editor-control.c:307
+msgid "Open using the PersistStream interface"
+msgstr "Odpri z uporabo vmesnika TrajniTok"
+
+#: components/html-editor/test-html-editor-control.c:309
+msgid "Save as... (PersistStream)"
+msgstr "Shrani kot... (TrajniTok)"
+
+#: components/html-editor/test-html-editor-control.c:309
+msgid "Save using the PersistStream interface"
+msgstr "Shrani z uporabo vmesnika TrajniTok"
+
+#: components/html-editor/test-html-editor-control.c:323
+#: components/html-editor/toolbar.c:493
+msgid "Cut"
+msgstr "Izre¾i"
+
+#: components/html-editor/test-html-editor-control.c:323
+msgid "Cut selection to the clipboard"
+msgstr "Izre¾i izbrano na odlo¾i¹èe"
+
+#: components/html-editor/test-html-editor-control.c:325
+#: components/html-editor/toolbar.c:495
+msgid "Copy"
+msgstr "Kopiraj"
+
+#: components/html-editor/test-html-editor-control.c:325
+msgid "Copy selection to the clipboard"
+msgstr "Kopiraj izbrano na odlo¾i¹èe"
+
+#: components/html-editor/test-html-editor-control.c:327
+#: components/html-editor/toolbar.c:497
+msgid "Paste"
+msgstr "Prilepi"
+
+#: components/html-editor/test-html-editor-control.c:327
+#: components/html-editor/toolbar.c:497
+msgid "Paste contents of the clipboard"
+msgstr "Prilepi vsebino odlo¾i¹èa"
+
+#: components/html-editor/text.c:152 components/html-editor/toolbar.c:511
+msgid "Bold"
+msgstr "Polkrepko"
+
+#: components/html-editor/text.c:153 components/html-editor/toolbar.c:513
+msgid "Italic"
+msgstr "Le¾eèe"
+
+#: components/html-editor/text.c:154 components/html-editor/toolbar.c:515
+msgid "Underline"
+msgstr "Podèrtano"
+
+#: components/html-editor/text.c:155 components/html-editor/toolbar.c:517
+msgid "Strikeout"
+msgstr "Preèrtano"
+
+#. color selection
+#: components/html-editor/text.c:187
+msgid "Color"
+msgstr "Barva"
+
+#: components/html-editor/text.c:201
+msgid "text color"
+msgstr "barva besedila"
+
+#: components/html-editor/toolbar.c:45
+msgid "Normal"
+msgstr "Obièajna"
+
+#: components/html-editor/toolbar.c:46
+msgid "Header 1"
+msgstr "Glava 1"
+
+#: components/html-editor/toolbar.c:47
+msgid "Header 2"
+msgstr "Glava 2"
+
+#: components/html-editor/toolbar.c:48
+msgid "Header 3"
+msgstr "Glava 3"
+
+#: components/html-editor/toolbar.c:49
+msgid "Header 4"
+msgstr "Glava 4"
+
+#: components/html-editor/toolbar.c:50
+msgid "Header 5"
+msgstr "Glava 5"
+
+#: components/html-editor/toolbar.c:51
+msgid "Header 6"
+msgstr "Glava 6"
+
+#: components/html-editor/toolbar.c:52
+msgid "Address"
+msgstr "Naslov"
+
+#: components/html-editor/toolbar.c:53
+msgid "Pre"
+msgstr "Pred"
+
+#: components/html-editor/toolbar.c:54
+msgid "List item (digit)"
+msgstr "Predmet seznama (o¹tevilèenega)"
+
+#: components/html-editor/toolbar.c:55
+msgid "List item (unnumbered)"
+msgstr "Predmet seznama (neo¹tevilèenega)"
+
+#: components/html-editor/toolbar.c:56
+msgid "List item (roman)"
+msgstr "Predmet seznama (rimske ¹tevilke)"
+
+#: components/html-editor/toolbar.c:236
+msgid "Default"
+msgstr "Privzeto"
+
+#: components/html-editor/toolbar.c:483
+msgid "Left align"
+msgstr "Poravnaj levo"
+
+#: components/html-editor/toolbar.c:483
+msgid "Left justify paragraphs"
+msgstr "Poravnaj odstavke levo"
+
+#: components/html-editor/toolbar.c:485
+msgid "Centers paragraphs"
+msgstr "Sredi¹èa poravnava odstavkov"
+
+#: components/html-editor/toolbar.c:487
+msgid "Right align"
+msgstr "Poravnaj desno"
+
+#: components/html-editor/toolbar.c:487
+msgid "Right justify paragraphs"
+msgstr "Poravnaj odstavke desno"
+
+#: components/html-editor/toolbar.c:493
+msgid "Cut the selected region to the clipboard"
+msgstr "Izre¾i izbrano podroèje na odlo¾i¹èe"
+
+#: components/html-editor/toolbar.c:495
+msgid "Copy the selected region to the clipboard"
+msgstr "Kopiraj izbrano podroèje na odlo¾i¹èe"
+
+#: components/html-editor/toolbar.c:501
+msgid "Undo"
+msgstr "Razveljavi"
+
+#: components/html-editor/toolbar.c:501
+msgid "Undo last editor operation"
+msgstr "Razveljavi zadnjo operacijo urejevalnika"
+
+#: components/html-editor/toolbar.c:503
+msgid "Redo"
+msgstr "Obnovi"
+
+#: components/html-editor/toolbar.c:503
+msgid "Redo undone editor operation"
+msgstr "Obnovi razveljavljeno operacijo urejevalnika"
+
+#: components/html-editor/toolbar.c:511
+msgid "Sets the bold font"
+msgstr "Nastavi polkrepko pisavo"
+
+#: components/html-editor/toolbar.c:513
+msgid "Make the selection italic"
+msgstr "Izbrano nastavi po¹evno"
+
+#: components/html-editor/toolbar.c:515
+msgid "Make the selection underlined"
+msgstr "Izbrano nastavi podèrtano"
+
+#: components/html-editor/toolbar.c:517
+msgid "Make the selection striked out"
+msgstr "Izbrano nastavi preèrtano"
+
+#: components/html-editor/toolbar.c:526
+msgid "Unindent"
+msgstr "Razveljavi zamik"
+
+#: components/html-editor/toolbar.c:526
+msgid "Indent paragraphs less"
+msgstr "Manj zamikaj odstavke"
+
+#: components/html-editor/toolbar.c:528
+msgid "Indent"
+msgstr "Zamik"
+
+#: components/html-editor/toolbar.c:528
+msgid "Indent paragraphs more"
+msgstr "Bolj zamikaj odstavke"
+
+#: glibwww/gnome-dialogs.c:85
+msgid "Transfer Progress"
+msgstr "Napredek prenosa"
+
+#: glibwww/gnome-dialogs.c:139
+#, c-format
+msgid "Looking up %s"
+msgstr "Poizvedujem po %s"
+
+#: glibwww/gnome-dialogs.c:145
+#, c-format
+msgid "Contacting %s"
+msgstr "Vzpostavljam stik z %s"
+
+#: glibwww/gnome-dialogs.c:152
+msgid "Waiting for a connection..."
+msgstr "Èakam na povezavo..."
+
+#: glibwww/gnome-dialogs.c:156
+msgid "Logging in..."
+msgstr "Prijavljam se..."
+
+#: glibwww/gnome-dialogs.c:165
+msgid "Read %d%%%% of %l"
+msgstr "Berem %d%%%% od %l"
+
+#: glibwww/gnome-dialogs.c:175 glibwww/gnome-dialogs.c:177
+#, c-format
+msgid "Read %d bytes"
+msgstr "Berem %d bajtov"
+
+#: glibwww/gnome-dialogs.c:179
+msgid "Reading..."
+msgstr "Branje..."
+
+#: glibwww/gnome-dialogs.c:194
+msgid "Writing %d%%%% of %l"
+msgstr "Pi¹em %d%%%% od %l"
+
+#: glibwww/gnome-dialogs.c:204 glibwww/gnome-dialogs.c:206
+#, c-format
+msgid "Writing %d bytes"
+msgstr "Pi¹em %d bajtov"
+
+#: glibwww/gnome-dialogs.c:208
+msgid "Writing..."
+msgstr "Pisanje..."
+
+#: glibwww/gnome-dialogs.c:216
+msgid "Done!"
+msgstr "Opravljeno!"
+
+#: glibwww/gnome-dialogs.c:220
+msgid "Interrupted!"
+msgstr "Prekinjeno!"
+
+#: glibwww/gnome-dialogs.c:224
+msgid "Please wait..."
+msgstr "Prosim poæakajte..."
+
+#: glibwww/gnome-dialogs.c:228
+msgid "Request timeout!"
+msgstr "Èasovna omejitev prenosa je potekla!"
+
+#: glibwww/gnome-dialogs.c:232
+msgid "Unknown"
+msgstr "Neznan"
+
+#: glibwww/gnome-dialogs.c:275
+msgid "Enter Text"
+msgstr "Vnesite besedilo"
+
+#: glibwww/gnome-dialogs.c:316 glibwww/gnome-dialogs.c:357
+msgid "Enter Password"
+msgstr "Vnesi Geslo"
+
+#: src/gtkhtml.c:2355
+#, c-format
+msgid "Couldn't find keybinding file -- %s"
+msgstr "Ni moè najti datoteke z povezavami tipk -- %s"
+
+#: src/html-component.c:219
+msgid "Html"
+msgstr "Html"
+
+#: src/html-component.c:220
+msgid "Html test"
+msgstr "Html preizkus"
+
+#: src/html-component.c:226
+msgid "Test1"
+msgstr "Test1"
+
+#: src/html-component.c:233
+msgid "Test2"
+msgstr "Test2"
+
+#: src/html-component.c:239
+msgid "Test3"
+msgstr "Test3"
+
+#: src/html-component.c:245
+msgid "Test4"
+msgstr "Test4"
+
+#: src/html-component.c:251
+msgid "Test5"
+msgstr "Test5"
+
+#: src/html-component.c:257
+msgid "Test6"
+msgstr "Test6"
+
+#: src/html-component.c:263
+msgid "Test7"
+msgstr "Test7"
+
+#: src/html-component.c:617
+msgid "_Refresh"
+msgstr "_Osve¾i"
+
+#: src/html-component.c:618
+msgid "Reload the page"
+msgstr "Znova nalo¾i stran"
+
+#: src/html-component.c:669
+msgid "Could not initialize Bonobo!"
+msgstr "Nisem mogel inicializirati Bonoba!"
+
+#: src/testgtkhtml.c:110
+msgid "Print pre_view"
+msgstr "_Predogled tiskanja"
+
+#: src/testgtkhtml.c:110
+msgid "Print preview"
+msgstr "Predogled tiskanja"
+
+
+# Smart report:
+# Total untranslated messages in file: 141 
+# Translations made:
+# full: 71
+# smart: 2
+# cond: 44
+# total: 117 ; distinct: 76
+
+
