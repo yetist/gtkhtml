@@ -1993,6 +1993,8 @@ class_init (GtkHTMLClass *klass)
 	html_class->command           = command;
 
 	init_properties (klass);
+
+	gdk_rgb_init ();
 }
 
 static void

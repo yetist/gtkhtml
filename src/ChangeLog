@@ -1,5 +1,7 @@
 2001-12-18  Radek Doulik  <rodo@ximian.com>
 
+	* gtkhtml.c (class_init): added call to gdk_rgb_init
+
 	* htmlengine-edit-clueflowstyle.c (set_clueflow_style_in_region):
 	avoid skipping end and continuing to the end of document
 
