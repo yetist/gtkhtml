@@ -48,6 +48,24 @@ merge_safely (HTMLText *text,
 	html_object_destroy (HTML_OBJECT (other));
 }
 
+/* This splits making sure that @cursor is still valid (i.e. it still points to
+   a valid offset in a valid object).  */
+static HTMLText *
+split_safely (HTMLText *text,
+	      guint offset,
+	      HTMLCursor *cursor)
+{
+	HTMLText *new;
+
+	new = html_text_split (text, offset);
+	if (cursor->object == HTML_OBJECT (text) && cursor->offset >= offset) {
+		cursor->object = HTML_OBJECT (new);
+		cursor->offset -= offset;
+	}
+
+	return new;
+}
+
 /* This handles merging of consecutive text elements with the same
    properties.  */
 static void
@@ -138,7 +156,7 @@ set_font_style_in_selection_forall (HTMLObject *self,
 	if (master->select_start == 0) {
 		curr = master;
 	} else {
-		curr = HTML_TEXT_MASTER (html_text_split (HTML_TEXT (self), master->select_start));
+		curr = HTML_TEXT_MASTER (split_safely (HTML_TEXT (self), master->select_start, data->cursor));
 		html_clue_append_after (HTML_CLUE (self->parent), HTML_OBJECT (curr), self);
 	}
 
@@ -173,8 +191,7 @@ set_font_style_in_selection_forall (HTMLObject *self,
 	    && curr->select_start + curr->select_length < HTML_TEXT (curr)->text_len) {
 		HTMLText *new;
 
-		new = html_text_split (HTML_TEXT (curr),
-				       curr->select_start + curr->select_length);
+		new = split_safely (HTML_TEXT (curr), curr->select_start + curr->select_length, data->cursor);
 		html_text_set_font_style (new, NULL, last_font_style);
 		html_clue_append_after (HTML_CLUE (HTML_OBJECT (curr)->parent),
 					HTML_OBJECT (new), HTML_OBJECT (curr));

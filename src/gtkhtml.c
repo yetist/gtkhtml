@@ -23,6 +23,7 @@
 #include <gtk/gtk.h>
 
 #include "htmlengine-edit.h"
+#include "htmlengine-edit-delete.h"
 #include "htmlengine-edit-insert.h"
 #include "htmlengine-edit-paste.h"
 #include "htmlengine-edit-clueflowstyle.h"

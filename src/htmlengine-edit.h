@@ -42,10 +42,6 @@ enum _HTMLEngineCursorMovement {
 typedef enum _HTMLEngineCursorMovement HTMLEngineCursorMovement;
 
 
-/* Deletion operations.  */
-void  html_engine_delete  (HTMLEngine *e,
-			   guint       count);
-
 /* Cursor movement.  */
 guint  html_engine_move_cursor     (HTMLEngine               *e,
 				    HTMLEngineCursorMovement  movement,

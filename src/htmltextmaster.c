@@ -435,6 +435,9 @@ split (HTMLText *self,
 			HTML_TEXT_MASTER (new)->select_start = 0;
 			HTML_TEXT_MASTER (new)->select_length = 0;
 		}
+	} else {
+		HTML_TEXT_MASTER (new)->select_start = 0;
+		HTML_TEXT_MASTER (new)->select_length = 0;
 	}
 
 	return new;

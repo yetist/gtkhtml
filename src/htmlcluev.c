@@ -79,21 +79,6 @@ remove_aligned_by_parent ( HTMLClueV *cluev,
     }
 }
 
-
-/* HTMLObject methods.  */
-
-static void
-copy (HTMLObject *self,
-      HTMLObject *dest)
-{
-	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
-
-	HTML_CLUEV (dest)->padding = HTML_CLUEV (self)->padding;
-
-	HTML_CLUEV (dest)->align_left_list = NULL;
-	HTML_CLUEV (dest)->align_right_list = NULL;
-}
-
 static HTMLObject *
 cluev_next_aligned (HTMLObject *aclue)
 {
@@ -101,8 +86,9 @@ cluev_next_aligned (HTMLObject *aclue)
 }
 
 static gboolean
-calc_size (HTMLObject *o,
-	   HTMLPainter *painter)
+do_layout (HTMLObject *o,
+	   HTMLPainter *painter,
+	   gboolean calc_size)
 {
 	HTMLClueV *cluev;
 	HTMLClue *clue;
@@ -155,7 +141,9 @@ calc_size (HTMLObject *o,
 		/* Set an initial ypos so that the alignment stuff knows where
 		   the top of this object is */
 		clue->curr->y = o->ascent;
-		changed |= html_object_calc_size (clue->curr, painter);
+
+		if (calc_size)
+			changed |= html_object_calc_size (clue->curr, painter);
 
 		if (clue->curr->width > o->width - 2 * cluev->padding)
 			o->width = clue->curr->width + 2 * cluev->padding;
@@ -163,6 +151,7 @@ calc_size (HTMLObject *o,
 		o->ascent += clue->curr->ascent + clue->curr->descent;
 		clue->curr->x = lmargin;
 		clue->curr->y = o->ascent - clue->curr->descent;
+
 		clue->curr = clue->curr->next;
 	}
 
@@ -172,7 +161,7 @@ calc_size (HTMLObject *o,
 	   we are called. */
 	clue->curr = clue->tail;
 
-	if ((o->max_width != 0) && (o->width > o->max_width))
+	if (o->max_width != 0 && o->width > o->max_width)
 		o->width = o->max_width;
 	
 	if (clue->halign == HTML_HALIGN_CENTER) {
@@ -194,9 +183,8 @@ calc_size (HTMLObject *o,
 	}
 	
 	for (aclue = cluev->align_left_list; aclue != NULL; aclue = cluev_next_aligned (aclue)) {
-		if (aclue->y + aclue->parent->y - aclue->parent->ascent > o->ascent) {
+		if (aclue->y + aclue->parent->y - aclue->parent->ascent > o->ascent)
 			o->ascent = aclue->y + aclue->parent->y - aclue->parent->ascent;
-		}
 	}
 
 	for (aclue = cluev->align_right_list; aclue != NULL; aclue = cluev_next_aligned (aclue)) {
@@ -204,10 +192,33 @@ calc_size (HTMLObject *o,
 			o->ascent = aclue->y + aclue->parent->y - aclue->parent->ascent;
 	}
 
-	if (! changed && (o->ascent != old_ascent || o->descent != old_descent || o->width != old_width))
+	if (! changed
+	    && (o->ascent != old_ascent || o->descent != old_descent || o->width != old_width))
 		changed = TRUE;
 
 	return changed;
+}
+
+
+/* HTMLObject methods.  */
+
+static void
+copy (HTMLObject *self,
+      HTMLObject *dest)
+{
+	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
+
+	HTML_CLUEV (dest)->padding = HTML_CLUEV (self)->padding;
+
+	HTML_CLUEV (dest)->align_left_list = NULL;
+	HTML_CLUEV (dest)->align_right_list = NULL;
+}
+
+static gboolean
+calc_size (HTMLObject *o,
+	   HTMLPainter *painter)
+{
+	return do_layout (o, painter, TRUE);
 }
 
 static void
@@ -324,6 +335,69 @@ check_point (HTMLObject *self,
 	}
 
 	return NULL;
+}
+
+static gboolean
+relayout (HTMLObject *self,
+	  HTMLEngine *engine,
+	  HTMLObject *child)
+{
+	gint prev_width, prev_ascent, prev_descent;
+	gboolean changed;
+
+	if (html_engine_frozen (engine))
+		return FALSE;
+
+	html_object_calc_size (child, engine->painter);
+
+	HTML_CLUE (self)->curr = NULL;
+
+	prev_width = self->width;
+	prev_ascent = self->ascent;
+	prev_descent = self->descent;
+
+	changed = do_layout (self, engine->painter, FALSE);
+	if (changed)
+		html_engine_queue_draw (engine, self);
+
+	if (prev_width == self->width
+	    && prev_ascent == self->ascent
+	    && prev_descent == self->descent)
+		return FALSE;
+
+	if (self->parent == NULL) {
+		/* FIXME resize the widget, e.g. scrollbars and such.  */
+		html_engine_queue_draw (engine, self);
+
+		/* FIXME extreme ugliness.  */
+		self->x = 0;
+		self->y = self->ascent;
+
+		/* If the object shrunk and it has no parent, we have
+		   to clean the areas around it so that we don't leave
+		   garbage on the screen.  */
+
+		if (prev_ascent + prev_descent > self->ascent + self->descent)
+			html_engine_queue_clear (engine,
+						 self->x,
+						 self->y + self->descent,
+						 self->width,
+						 (prev_ascent + prev_descent
+						  - (self->ascent + self->descent)));
+
+		if (prev_width > self->width)
+			html_engine_queue_clear (engine,
+						 self->x + self->width,
+						 self->y - self->ascent,
+						 prev_width - self->width,
+						 self->ascent + self->descent);
+	} else {
+		/* Relayout our parent starting from us.  */
+		if (! html_object_relayout (self->parent, engine, self))
+			html_engine_queue_draw (engine, self);
+	}
+
+	return TRUE;
 }
 
 static gint
@@ -674,6 +748,7 @@ html_cluev_class_init (HTMLClueVClass *klass,
 
 	object_class->copy = copy;
 	object_class->calc_size = calc_size;
+	object_class->relayout = relayout;
 	object_class->set_max_width = set_max_width;
 	object_class->reset = reset;
 	object_class->draw = draw;

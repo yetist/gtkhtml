@@ -1,3 +1,28 @@
+2000-02-27  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine-edit-delete.c: New file.
+	* htmlengine-edit-delete.h: New file.
+
+	* htmlengine-edit.c (html_engine_delete): Removed.
+
+	* htmlengine-edit-fontstyle.c (split_safely): New helper function.
+	This splits text and makes sure that the cursor's object pointer
+	and offset are still valid after the split.
+	(set_font_style_in_selection_forall): Use it.
+	(set_font_style_in_selection_forall): Likewise.
+
+	* htmlengine-edit-insert.c (html_engine_insert_para): Calc size on
+	the two halves of the paragraph that gets splitted.
+
+	* htmlcluev.c (do_layout): New helper function.
+	(calc_size): Use it.
+	(relayout): New function, implementation of
+	`HTMLObject::relayout'.  It uses `do_layout', and relayouts
+	objects in the clue without recalculating the size for each of
+	them.
+	(html_cluev_class_init): Install the new `relayout'
+	implementation.
+
 2000-02-26  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlclueh.c (calc_size): for HTML_VALIGN_TOP the clue->descent

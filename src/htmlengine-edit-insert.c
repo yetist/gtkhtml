@@ -25,6 +25,7 @@
 #include "htmltextmaster.h"
 
 #include "htmlengine-edit.h"
+#include "htmlengine-edit-delete.h"
 
 #include "htmlengine-edit-insert.h"
 
@@ -46,7 +47,7 @@ get_flow (HTMLObject *object)
 }
 
 void
-html_engine_insert_para (HTMLEngine *e,
+html_engine_insert_para (HTMLEngine *engine,
 			 gboolean vspace)
 {
 	HTMLObject *flow;
@@ -54,13 +55,13 @@ html_engine_insert_para (HTMLEngine *e,
 	HTMLObject *current;
 	guint offset;
 
-	g_return_if_fail (e != NULL);
-	g_return_if_fail (HTML_IS_ENGINE (e));
-	g_return_if_fail (e->cursor != NULL);
-	g_return_if_fail (e->cursor->object != NULL);
+	g_return_if_fail (engine != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (engine));
+	g_return_if_fail (engine->cursor != NULL);
+	g_return_if_fail (engine->cursor->object != NULL);
 
-	current = e->cursor->object;
-	offset = e->cursor->offset;
+	current = engine->cursor->object;
+	offset = engine->cursor->offset;
 
 	flow = get_flow (current);
 	if (flow == NULL) {
@@ -69,7 +70,7 @@ html_engine_insert_para (HTMLEngine *e,
 		return;
 	}
 
-	html_engine_draw_cursor (e);
+	html_engine_draw_cursor (engine);
 
 	/* Remove text slaves, if any.  */
 
@@ -121,20 +122,21 @@ html_engine_insert_para (HTMLEngine *e,
 
 		/* FIXME relative offset?  */
 
-		e->cursor->object = text_next;
-		e->cursor->offset = 0;
-		e->cursor->have_target_x = FALSE;
+		engine->cursor->object = text_next;
+		engine->cursor->offset = 0;
+		engine->cursor->have_target_x = FALSE;
 	}
 
 	if (flow->parent == NULL) {
-		html_object_relayout (flow, e, NULL);
-		html_engine_queue_draw (e, flow);
+		html_object_relayout (flow, engine, NULL);
+		html_engine_queue_draw (engine, flow);
 	} else {
-		html_object_relayout (flow->parent, e, flow);
-		html_engine_queue_draw (e, flow->parent);
+		html_object_calc_size (next_flow, engine->painter);
+		html_object_relayout (flow->parent, engine, flow);
+		html_engine_queue_draw (engine, flow->parent);
 	}
 
-	html_engine_draw_cursor (e);
+	html_engine_draw_cursor (engine);
 }
 
 

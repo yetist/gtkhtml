@@ -215,44 +215,44 @@ relayout (HTMLObject *self,
 			html_engine_queue_draw (engine, self);
 
 		return FALSE;
-	} else {
-		gtk_html_debug_log (engine->widget, "relayout: %s %p changed.\n",
-				    html_type_name (HTML_OBJECT_TYPE (self)),
-				    self);
-		if (self->parent == NULL) {
-			/* FIXME resize the widget, e.g. scrollbars and such.  */
-			html_engine_queue_draw (engine, self);
-
-			/* FIXME extreme ugliness.  */
-			self->x = 0;
-			self->y = self->ascent;
-
-			/* If the object shrunk and it has no parent, we have
-                           to clean the areas around it so that we don't leave
-                           garbage on the screen.  */
-
-			if (prev_ascent + prev_descent > self->ascent + self->descent)
-				html_engine_queue_clear (engine,
-							 self->x,
-							 self->y + self->descent,
-							 self->width,
-							 (prev_ascent + prev_descent
-							  - (self->ascent + self->descent)));
-
-			if (prev_width > self->width)
-				html_engine_queue_clear (engine,
-							 self->x + self->width,
-							 self->y - self->ascent,
-							 prev_width - self->width,
-							 self->ascent + self->descent);
-		} else {
-			/* Relayout our parent starting from us.  */
-			if (! html_object_relayout (self->parent, engine, self))
-				html_engine_queue_draw (engine, self);
-		}
-
-		return TRUE;
 	}
+	
+	gtk_html_debug_log (engine->widget, "relayout: %s %p changed.\n",
+			    html_type_name (HTML_OBJECT_TYPE (self)), self);
+
+	if (self->parent == NULL) {
+		/* FIXME resize the widget, e.g. scrollbars and such.  */
+		html_engine_queue_draw (engine, self);
+
+		/* FIXME extreme ugliness.  */
+		self->x = 0;
+		self->y = self->ascent;
+
+		/* If the object shrunk and it has no parent, we have
+		   to clean the areas around it so that we don't leave
+		   garbage on the screen.  */
+
+		if (prev_ascent + prev_descent > self->ascent + self->descent)
+			html_engine_queue_clear (engine,
+						 self->x,
+						 self->y + self->descent,
+						 self->width,
+						 (prev_ascent + prev_descent
+						  - (self->ascent + self->descent)));
+
+		if (prev_width > self->width)
+			html_engine_queue_clear (engine,
+						 self->x + self->width,
+						 self->y - self->ascent,
+						 prev_width - self->width,
+						 self->ascent + self->descent);
+	} else {
+		/* Relayout our parent starting from us.  */
+		if (! html_object_relayout (self->parent, engine, self))
+			html_engine_queue_draw (engine, self);
+	}
+
+	return TRUE;
 }
 
 static gboolean
