@@ -1,8 +1,19 @@
+1999-12-11  Elliot Turner <turnere@MimeStar.com>
+
+	* htmlengine.c (parse_m): New function to deal with the `meta'
+	tag.
+	(parse_table): Remove tmpCell stuff that resulted in random
+	segfaults.
+	(parse_i): Don't set the parent in the ClueAligned object in
+	advance.
+	(parse_table): Likewise.
+
 1999-12-11  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlcursor.c (html_cursor_forward): Some navigation fixes.
 
-	* debug.c (debug_dump_tree): Print out the value of the parent pointer too.
+	* debug.c (debug_dump_tree): Print out the value of the parent
+	pointer too.
 
 	* htmltextslave.c (fit_line): Set the parent on the slave.
 
@@ -956,5 +967,3 @@
 1999-10-17  Richard Hult  <rhult@hem2.passagen.se>
 
 	* Makefile.am: Fixed component build.
-	
-

@@ -471,7 +471,6 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	HTMLHAlignType rowhalign = HTML_HALIGN_NONE;
 	HTMLHAlignType align = HTML_HALIGN_NONE;
 	HTMLClueV *caption = 0;
-	HTMLTableCell *tmpCell = 0;
 	HTMLVAlignType capAlign = HTML_VALIGN_BOTTOM;
 	HTMLHAlignType olddivalign = e->divAlign;
 	HTMLClue *oldflow = HTML_CLUE (e->flow);
@@ -586,7 +585,6 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						html_object_destroy (HTML_OBJECT (table));
 						e->divAlign = olddivalign;
 						e->flow = HTML_OBJECT (oldflow);
-						html_object_destroy (HTML_OBJECT (tmpCell));
 						return 0;
 					}
 
@@ -786,7 +784,6 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						html_object_destroy (HTML_OBJECT (table));
 						e->divAlign = olddivalign;
 						e->flow = HTML_OBJECT (oldflow);
-						html_object_destroy (HTML_OBJECT (tmpCell));
 						return 0;
 					}
 
@@ -808,21 +805,6 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 		}
 	}
 		
-	/* Did we catch any illegal HTML */
-	if (tmpCell) {
-		if (!has_cell) {
-			if (firstRow) {
-				html_table_start_row (table);
-				firstRow = FALSE;
-			}
-			html_table_add_cell (table, tmpCell);
-			has_cell = 1;
-		}
-		else {
-			html_object_destroy (HTML_OBJECT (tmpCell));
-		}
-	}
-	
 	if (has_cell) {
 		/* The ending "</table>" might be missing, so we close the table
 		   here...  */
@@ -834,7 +816,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 		} else {
 			HTMLClueAligned *aligned;
 
-			aligned = HTML_CLUEALIGNED (html_cluealigned_new (clue,
+			aligned = HTML_CLUEALIGNED (html_cluealigned_new (NULL,
 									  0, 0,
 									  clue->max_width,
 									  100));
@@ -1733,7 +1715,7 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 		}
 		/* We need to put the image in a HTMLClueAligned */
 		else {
-			HTMLClueAligned *aligned = HTML_CLUEALIGNED (html_cluealigned_new (p->flow, 0, 0, _clue->max_width, 100));
+			HTMLClueAligned *aligned = HTML_CLUEALIGNED (html_cluealigned_new (NULL, 0, 0, _clue->max_width, 100));
 			HTML_CLUE (aligned)->halign = align;
 			html_clue_append (HTML_CLUE (aligned), HTML_OBJECT (image));
 			html_clue_append (HTML_CLUE (p->flow), HTML_OBJECT (aligned));
@@ -1899,8 +1881,18 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 	}
 }
 
+/*
+ <meta>
+*/
 
-/* FIXME TODO parse_m missing. */
+static void
+parse_m (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
+{
+	if ( strncmp( str, "meta", 4 ) == 0 ) {
+		/* do nothing. this is a meta tag */
+	}
+}
+
 /* FIXME TODO parse_n missing. */
 
 
@@ -2184,7 +2176,7 @@ static HTMLParseFunc parseFuncArray[26] = {
 	NULL,
 	parse_k,
 	parse_l,
-	NULL,
+	parse_m,
 	NULL,
 	parse_o,
 	parse_p,
