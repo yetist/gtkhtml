@@ -4,8 +4,8 @@
 
 binding "gtkhtml-bindings-emacs"
 {
-  bind "Home"               { "cursor_move" (up,    all) }
-  bind "End"                { "cursor_move" (down,  all) }
+  bind "Home"               { "cursor_move" (left,  all) }
+  bind "End"                { "cursor_move" (right, all) }
   bind "<Alt>less"          { "cursor_move" (up,    all) }
   bind "<Alt>greater"       { "cursor_move" (down,  all) }
   bind "<Ctrl>a"            { "cursor_move" (left,  all) }

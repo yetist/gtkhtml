@@ -1,3 +1,7 @@
+2003-04-07  Radek Doulik  <rodo@ximian.com>
+
+	* keybindingsrc.emacs: change Home/End bindings
+
 2003-04-07  Larry Ewing  <lewing@ximian.com>
 
 	* htmltext.c (append_selection_string): use the new helper, this
