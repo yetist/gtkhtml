@@ -1,6 +1,12 @@
 Version 1.1.2
 -------------
 
+ - Lot of bug fixes (see bugzilla).
+ - Editor UI Improvements.
+
+Version 1.1.2
+-------------
+
  - spell checking quotation improved
  - updated to new gnome-spell
    - better language selection
