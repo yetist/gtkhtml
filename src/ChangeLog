@@ -1,3 +1,11 @@
+2001-03-22  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c: remove references to load_in_progress.
+	gtk_html_write and gtk_html_end are now just proxies to
+	gtk_html_stream_write and gtk_html_stream_end.
+
+	* gtkhtml.h: remove references to load_in_progress.
+
 2001-03-22  Radek Doulik  <rodo@ximian.com>
 
 	* htmlinterval.c: removed some warnings

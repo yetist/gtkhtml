@@ -60,7 +60,6 @@ struct _GtkHTML {
 
 	guint in_selection : 1;
 	guint button1_pressed : 1;
-	guint load_in_progress : 1;
 
 	guint debug : 1;
 	guint allow_selection : 1;

@@ -1764,8 +1764,6 @@ init (GtkHTML* html)
 	html->in_selection = FALSE;
 	html->button1_pressed = FALSE;
 
-	html->load_in_progress = TRUE;
-
 	html->priv = g_new0 (GtkHTMLPrivate, 1);
 	html->priv->idle_handler_id = 0;
 	html->priv->scroll_timeout_id = 0;
@@ -1944,8 +1942,6 @@ gtk_html_begin_content (GtkHTML *html, gchar *content_type)
 
 	html_engine_parse (html->engine);
 
-	html->load_in_progress = TRUE;
-
 	return handle;
 }
 
@@ -1982,8 +1978,6 @@ gtk_html_end (GtkHTML *html,
 	      GtkHTMLStreamStatus status)
 {
 	gtk_html_stream_close (handle, status);
-
-	html->load_in_progress = FALSE;
 }
 
 
