@@ -151,7 +151,7 @@ gtk_html_update_scrollbars_on_resize (GtkHTML *html,
 static void     scroll                 (GtkHTML *html, GtkOrientation orientation, GtkScrollType scroll_type, gfloat position);
 static void     cursor_move            (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType skip);
 static gboolean command                (GtkHTML *html, GtkHTMLCommandType com_type);
-static gint     mouse_change_pos       (GtkWidget *widget, GdkWindow *window, gint x, gint y);
+static gint     mouse_change_pos       (GtkWidget *widget, GdkWindow *window, gint x, gint y, gint state);
 static void     add_bindings           (GtkHTMLClass *klass);
 static gchar *  get_value_nick         (GtkHTMLCommandType com_type);					
 
@@ -493,7 +493,7 @@ scroll_update_mouse (GtkWidget *widget)
 
 	if (GTK_WIDGET_REALIZED (widget)) {
 		gdk_window_get_pointer (GTK_LAYOUT (widget)->bin_window, &x, &y, NULL);
-		mouse_change_pos (widget, widget->window, x, y);
+		mouse_change_pos (widget, widget->window, x, y, 0);
 	}
 }
 
@@ -703,6 +703,11 @@ destroy (GtkObject *object)
 		if (html->priv->notify_spell_id) {
 			gconf_client_notify_remove (gconf_client, html->priv->notify_spell_id);
 			html->priv->notify_spell_id = 0;
+		}
+
+		if (html->priv->resize_cursor) {
+			gdk_cursor_unref (html->priv->resize_cursor);
+			html->priv->resize_cursor = NULL;
 		}
 
 		g_free (html->priv->content_type);
@@ -1079,12 +1084,26 @@ dnd_link_unset (GtkWidget *widget)
 }
 
 static void
-on_object (GtkWidget *widget, GdkWindow *window, HTMLObject *obj)
+on_object (GtkWidget *widget, GdkWindow *window, HTMLObject *obj, gint x, gint y)
 {
 	GtkHTML *html = GTK_HTML (widget);
 
 	if (obj) {
 		gchar *url;
+
+		if (gtk_html_get_editable (html)) {
+			if (HTML_IS_IMAGE (obj)) {
+				gint ox, oy;
+
+				html_object_calc_abs_position (obj, &ox, &oy);
+				if (ox + obj->width - 5 <= x && oy + obj->descent - 5 <= y) {
+					gdk_window_set_cursor (window, html->priv->resize_cursor);
+
+					return;
+				}
+			}
+		}
+
 		url = gtk_html_get_url_object_relative (html, obj, 
 							html_object_get_url (obj));
 		if (url != NULL) {
@@ -1118,7 +1137,7 @@ on_object (GtkWidget *widget, GdkWindow *window, HTMLObject *obj)
 #define HTML_DIST(x,y) sqrt(x*x + y*y)
 
 static gint
-mouse_change_pos (GtkWidget *widget, GdkWindow *window, gint x, gint y)
+mouse_change_pos (GtkWidget *widget, GdkWindow *window, gint x, gint y, gint state)
 {
 	GtkHTML *html;
 	HTMLEngine *engine;
@@ -1186,7 +1205,26 @@ mouse_change_pos (GtkWidget *widget, GdkWindow *window, gint x, gint y)
 		html_engine_select_region (engine, html->selection_x1, html->selection_y1, x, y); 
 	}
 
-	on_object (widget, window, obj);
+	if (html->priv->in_object_resize) {
+		HTMLObject *o = html->priv->resize_object;
+		gint ox, oy;
+
+		html_object_calc_abs_position (o, &ox, &oy);
+		oy -= o->ascent;
+		g_assert (HTML_IS_IMAGE (o));
+		if (x > ox && y > oy) {
+			gint w, h;
+
+			w = x - ox;
+			h = y - oy;
+			if (!(state & GDK_SHIFT_MASK)) {
+				w = MAX (w, h);
+				h = -1;
+			}
+			html_image_set_size (HTML_IMAGE (o), w, h, FALSE, FALSE);
+		}
+	} else
+		on_object (widget, window, obj, x, y);
 
 	return TRUE;
 }
@@ -1419,7 +1457,7 @@ motion_notify_event (GtkWidget *widget,
 		gdk_window_get_pointer (GTK_LAYOUT (widget)->bin_window, &x, &y, NULL);
 	}
 
-	if (!mouse_change_pos (widget, window, x, y))
+	if (!mouse_change_pos (widget, window, x, y, event->state))
 		return FALSE;
 
 	engine = GTK_HTML (widget)->engine;
@@ -1498,7 +1536,22 @@ button_press_event (GtkWidget *widget,
 		case 1:
 			html->in_selection_drag = TRUE;
 			if (html_engine_get_editable (engine)) {
-				if (html->allow_selection)
+				HTMLObject *obj;
+
+				obj = html_engine_get_object_at (engine, x, y, NULL, FALSE);
+
+				if (obj && HTML_IS_IMAGE (obj)) {
+					gint ox, oy;
+
+					html_object_calc_abs_position (obj, &ox, &oy);
+					if (ox + obj->width - 5 <= x && oy + obj->descent - 5 <= y) {
+						html->priv->in_object_resize = TRUE;
+						html->priv->resize_object = obj;
+						html->in_selection_drag = FALSE;
+					}
+				}
+
+				if (html->allow_selection && !html->priv->in_object_resize)
 					if (!(event->state & GDK_SHIFT_MASK)
 					    || (!engine->mark && event->state & GDK_SHIFT_MASK))
 						html_engine_set_mark (engine);
@@ -1519,7 +1572,7 @@ button_press_event (GtkWidget *widget,
 						html_engine_jump_at (engine, x, y);
 				}
 			}
-			if (html->allow_selection) {
+			if (html->allow_selection && !html->priv->in_object_resize) {
 				if (event->state & GDK_SHIFT_MASK)
 					html_engine_select_region (engine,
 								   html->selection_x1, html->selection_y1, x, y);
@@ -1603,6 +1656,7 @@ button_release_event (GtkWidget *initial_widget,
 	}
 
 	html->in_selection = FALSE;
+	html->priv->in_object_resize = FALSE;
 
 	return TRUE;
 }
@@ -1658,7 +1712,7 @@ enter_notify_event (GtkWidget *widget, GdkEventCrossing *event)
 	y = event->y;
 	widget = shift_to_iframe_parent (widget, &x, &y);
 
-	mouse_change_pos (widget, widget->window, x, y);
+	mouse_change_pos (widget, widget->window, x, y, event->state);
 
 	return TRUE;
 }
@@ -2348,7 +2402,7 @@ drag_motion (GtkWidget *widget, GdkDragContext *context, gint x, gint y, guint t
 	html_engine_jump_at (GTK_HTML (widget)->engine, x, y);
 	html_engine_show_cursor (GTK_HTML (widget)->engine);
 
-	mouse_change_pos (widget, window, x, y);
+	mouse_change_pos (widget, window, x, y, 0);
 
 	return TRUE;
 }
@@ -2839,6 +2893,8 @@ gtk_html_init (GtkHTML* html)
 	html->priv->selection_as_cite = FALSE;
 	html->priv->content_type = g_strdup ("html/text; charset=utf-8");
 	html->priv->search_input_line = NULL;
+	html->priv->in_object_resize = FALSE;
+	html->priv->resize_cursor = gdk_cursor_new (GDK_BOTTOM_RIGHT_CORNER);
 
 	gtk_selection_add_targets (GTK_WIDGET (html),
 				   GDK_SELECTION_PRIMARY,

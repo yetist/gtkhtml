@@ -2,6 +2,7 @@
 
 	* gtkhtml.c (drag_motion): new method, show cursor during drag
 	motion
+	image resize by moving image's right bottom corner
 
 2003-08-01  Radek Doulik  <rodo@ximian.com>
 

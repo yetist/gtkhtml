@@ -65,6 +65,10 @@ struct _GtkHTMLPrivate {
 	gboolean    magic_links;
 	gboolean    magic_smileys;
 	gboolean    inline_spelling;
+
+	gboolean in_object_resize;
+	GdkCursor *resize_cursor;
+	HTMLObject *resize_object;
 };
 
 void  gtk_html_private_calc_scrollbars  (GtkHTML                *html,
