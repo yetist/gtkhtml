@@ -457,7 +457,7 @@ html_text_slave_get_offset_for_pointer (HTMLTextSlave *slave,
 {
 	HTMLText *owner;
 	HTMLFontStyle font_style;
-	guint width;
+	guint width, prev_width;
 	guint i;
 
 	g_return_val_if_fail (slave != NULL, 0);
@@ -467,14 +467,17 @@ html_text_slave_get_offset_for_pointer (HTMLTextSlave *slave,
 
 	x -= HTML_OBJECT (slave)->x;
 
+	prev_width = 0;
 	for (i = 1; i <= slave->posLen; i++) {
 		width = html_painter_calc_text_width (painter,
 						      owner->text + slave->posStart,
 						      i,
 						      font_style);
 
-		if (width >= x)
+		if ((width + prev_width) / 2 >= x)
 			return i - 1;
+
+		prev_width = width;
 	}
 
 	return slave->posLen;

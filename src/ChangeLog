@@ -1,5 +1,9 @@
 2000-01-24  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmltextslave.c (html_text_slave_get_offset_for_pointer):
+	Compare with the middle position of the character, not the
+	leftmost border, so that it's easier to make selections.
+
 	* htmltextslave.c (draw_highlighted): Fix off-by-one selection
 	highlight.
 	(html_text_slave_get_offset_for_pointer): Consider the last
