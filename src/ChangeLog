@@ -1,3 +1,13 @@
+2001-10-25  Larry Ewing  <lewing@ximian.com>
+
+	* htmltokenizer.c (flush_entity): don't add the TAG_ESCAPE to the
+	output when fluhing the entity.
+	(in_entity): don't collapse entities in tags or attributes.
+
+	* htmlimage.c (image_update_url): don't do anything if there is no
+	map.
+	(get_url): return the image->url if final->url is NULL.
+
 2001-10-25  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-cut-and-paste.c (insert_object): use

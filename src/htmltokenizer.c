@@ -927,7 +927,8 @@ static void
 flush_entity (HTMLTokenizer *t)
 {
 	struct _HTMLTokenizerPrivate *p = t->priv;
-	const char *str = p->searchBuffer;
+	/* ignore the TAG_ESCAPE when flushing */
+	const char *str = p->searchBuffer + 1; 
 
 	 while (p->searchCount--) {
 		add_byte (t, &str);
@@ -994,34 +995,16 @@ in_entity (HTMLTokenizer *t, const gchar **src)
 		(*src)++;
 	}
 	else {
-		if(entityValue) {
+		if (entityValue && !p->tag && !p->tquote) {
 			/* Insert plain char */
 			add_unichar (t, entityValue);
 			if (**src == ';')
 				(*src)++;
 		}
-				/* FIXME: Get entities */
-		else if (!entityValue) {
+		else {
 			/* Ignore the sequence, just add it as plaintext */
 			flush_entity (t);
 		}
-#if 0
-		else if (!p->tag && !p->textarea && !p->select && !p->title) {
-			/* Add current token first */
-			if (p->dest > p->buffer) {
-				html_tokenizer_append_token (t, p->buffer,
-							     p->dest - p->buffer);
-				p->dest = p->buffer;
-			}
-
-			/* Add token with the amp sequence for further conversion */
-			html_tokenizer_append_token (t, p->searchBuffer, p->searchCount + 1);
-			p->dest = p->buffer;
-			if (**src == ';')
-				(*src)++;
-		}
-#endif
-		p->searchCount = 0;
 	}
 }
 

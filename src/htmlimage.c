@@ -249,8 +249,7 @@ image_update_url (HTMLImage *image, gint x, gint y)
 		if (image->url)
 			url = g_strdup_printf ("%s?%d,%d", image->url, x - o->x, y - (o->y - o->ascent));
 	} else {
-		if (image->url)
-			url = g_strdup (image->url);
+		return;
 	}
 	
 	g_free (image->final_url);
@@ -558,7 +557,7 @@ get_url (HTMLObject *o)
 	HTMLImage *image;
 
 	image = HTML_IMAGE (o);
-	return image->final_url;
+	return image->final_url ? image->final_url : image->url;
 }
 
 static const gchar *
