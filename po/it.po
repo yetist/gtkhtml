@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml 0.7\n"
-"POT-Creation-Date: 2000-11-26 02:13+0100\n"
-"PO-Revision-Date: 2000-11-26 02:12+01:00\n"
+"Project-Id-Version: gtkhtml 0.8\n"
+"POT-Creation-Date: 2000-12-03 17:31+0100\n"
+"PO-Revision-Date: 2000-12-02 13:50+0100\n"
 "Last-Translator: Pier Luigi Fiorini <plfiorini@users.sourceforge.net>\n"
 "Language-Team: Italiano <it@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr "<Nessuno>"
 
 #: capplet/gnome-bindings-prop.c:525
 msgid "Key"
-msgstr "Tasti"
+msgstr "Tasto"
 
 #: capplet/gnome-bindings-prop.c:525
 msgid "Command"
@@ -53,11 +53,11 @@ msgstr "Cattura tasti"
 
 #: capplet/main.c:220
 msgid "Spell checking"
-msgstr "Correzione ortografia"
+msgstr "Controllo ortografico"
 
 #: capplet/main.c:223
 msgid "live spell checking"
-msgstr "correzione ortografica durante la digitazione"
+msgstr "controllo ortografico durante la digitazione"
 
 #: capplet/main.c:232
 msgid "spell checking color"
@@ -73,27 +73,27 @@ msgstr "Varie"
 
 #: capplet/main.c:247
 msgid "magic links"
-msgstr ""
+msgstr "collegamenti magici"
 
 #: capplet/main.c:266
 msgid "Bindings"
-msgstr ""
+msgstr "Combinazioni tasti"
 
 #: capplet/main.c:267 capplet/viewer.c:188
 msgid "Behaviour"
-msgstr "Aspetto"
+msgstr "Comportamento"
 
 #: capplet/viewer.c:148
 msgid "Appearance"
-msgstr "Apparenza"
+msgstr "Aspetto"
 
 #: capplet/viewer.c:154
 msgid "Variable width font"
-msgstr "Carattere di dimensione variabile"
+msgstr "Carattere proporzionale"
 
 #: capplet/viewer.c:158
 msgid "Select HTML variable width font"
-msgstr "Seleziona un carattare HTML di dimensione variabile"
+msgstr "Seleziona un carattare HTML proporzionale"
 
 #: capplet/viewer.c:162 capplet/viewer.c:177
 msgid "for printing"
@@ -101,19 +101,19 @@ msgstr "per la stampa"
 
 #: capplet/viewer.c:164
 msgid "Select HTML variable width font for printing"
-msgstr "Seleziona un carattere HTML di dimensione variabile per la stampa"
+msgstr "Seleziona un carattere HTML proporzionale per la stampa"
 
 #: capplet/viewer.c:169
 msgid "Fixed width font"
-msgstr "Carattere di dimensione fissa"
+msgstr "Carattere a spazio fisso"
 
 #: capplet/viewer.c:173
 msgid "Select HTML fixed width font"
-msgstr "Seleziona un carattere HTML di dimensione fisa"
+msgstr "Seleziona un carattere HTML a spazio fisso"
 
 #: capplet/viewer.c:179
 msgid "Select HTML fixed width font for printing"
-msgstr "Seleziona un carattere HTML di dimensione fissa per la stampa"
+msgstr "Seleziona un carattere HTML a spazio fisso per la stampa"
 
 #: capplet/viewer.c:189
 msgid "Animations"
@@ -125,7 +125,7 @@ msgstr "Immagine di sfondo"
 
 #: components/html-editor/body.c:129
 msgid "Enable"
-msgstr ""
+msgstr "Abilita"
 
 #: components/html-editor/body.c:152
 msgid "Colors"
@@ -134,7 +134,7 @@ msgstr "Colori"
 #: components/html-editor/editor-control-factory.c:133
 #: components/html-editor/popup.c:77
 msgid "Properties"
-msgstr "Proprieta'"
+msgstr "Proprietà"
 
 #: components/html-editor/editor-control-factory.c:144
 #: components/html-editor/menubar.c:96 components/html-editor/popup.c:92
@@ -160,7 +160,7 @@ msgstr "Paragrafo"
 #: components/html-editor/menubar.c:101 components/html-editor/menubar.c:122
 #: components/html-editor/popup.c:106
 msgid "Link"
-msgstr "Collegamento"
+msgstr "Link"
 
 #: components/html-editor/editor-control-factory.c:183
 #: components/html-editor/popup.c:113
@@ -183,7 +183,7 @@ msgstr "Bordo"
 
 #: components/html-editor/image.c:215
 msgid "Padding"
-msgstr ""
+msgstr "Margine"
 
 #. size
 #: components/html-editor/image.c:235 components/html-editor/rule.c:225
@@ -199,11 +199,11 @@ msgstr "Cancella"
 msgid "URL"
 msgstr "URL"
 
-#: components/html-editor/main.c:64
+#: components/html-editor/main.c:65
 msgid "Could not initialize GNORBA"
 msgstr "Impossibile inizializzare GNORBA"
 
-#: components/html-editor/main.c:77
+#: components/html-editor/main.c:78
 msgid "Could not initialize Bonobo"
 msgstr "Impossibile inizializzare Bonobo"
 
@@ -215,7 +215,7 @@ msgstr "Inserisci"
 
 #: components/html-editor/menubar.c:153
 msgid "Cannot execute gtkhtml properties"
-msgstr "Impossibile eseguire le proprieta' di GtkHTML"
+msgstr "Impossibile eseguire le proprietà di GtkHTML"
 
 #. style
 #: components/html-editor/paragraph.c:109 components/html-editor/rule.c:249
@@ -274,7 +274,7 @@ msgstr "con"
 
 #: components/html-editor/rule.c:273
 msgid "shaded"
-msgstr ""
+msgstr "ombreggiato"
 
 #: components/html-editor/search.c:64
 msgid "Regex search"
@@ -290,7 +290,7 @@ msgstr "Apri file..."
 
 #: components/html-editor/test-html-editor-control.c:239
 msgid "Save file as..."
-msgstr "Salva file con nome..."
+msgstr "Salva file come..."
 
 #: components/html-editor/text.c:171 components/html-editor/toolbar.c:404
 msgid "Bold"
@@ -306,7 +306,7 @@ msgstr "Sottolineato"
 
 #: components/html-editor/text.c:174 components/html-editor/toolbar.c:410
 msgid "Strikeout"
-msgstr "Sovrascritto"
+msgstr "Barrato"
 
 #. color selection
 #: components/html-editor/text.c:209
@@ -315,7 +315,7 @@ msgstr "Colore"
 
 #: components/html-editor/text.c:212 components/html-editor/toolbar.c:204
 msgid "Automatic"
-msgstr ""
+msgstr "Automatico"
 
 #: components/html-editor/toolbar.c:45
 msgid "Normal"
@@ -403,29 +403,29 @@ msgstr "Rendi barrata la selezione"
 
 #: components/html-editor/toolbar.c:419
 msgid "Unindent"
-msgstr "Togli indentazione"
+msgstr "Togli rientro"
 
 #: components/html-editor/toolbar.c:419
 msgid "Indent paragraphs less"
-msgstr "Diminuisci indentazione dei paragrafi"
+msgstr "Diminuisci rientro dei paragrafi"
 
 #: components/html-editor/toolbar.c:421
 msgid "Indent"
-msgstr "Indenta"
+msgstr "Rientra"
 
 #: components/html-editor/toolbar.c:421
 msgid "Indent paragraphs more"
-msgstr "Aumenta indentazione dei paragrafi"
+msgstr "Aumenta rientro dei paragrafi"
 
 #: components/html-editor/utils.c:101
 msgid "Sample"
-msgstr ""
+msgstr "Campione"
 
-#: src/testgtkhtml.c:111
+#: src/testgtkhtml.c:112
 msgid "Print pre_view"
 msgstr "Antepri_ma di stampa"
 
-#: src/testgtkhtml.c:111
+#: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "Anteprima di stampa"
 
@@ -436,7 +436,7 @@ msgstr "Anteprima di stampa"
 #.
 #: po/tmp/html-editor-control.xml.h:7
 msgid "C_ut"
-msgstr "Taglia"
+msgstr "_Taglia"
 
 #: po/tmp/html-editor-control.xml.h:8
 msgid "Copy the selection"
@@ -448,27 +448,27 @@ msgstr "Taglia la selezione"
 
 #: po/tmp/html-editor-control.xml.h:10
 msgid "Find Rege_x..."
-msgstr ""
+msgstr "Trova e_spressioni regolari..."
 
 #: po/tmp/html-editor-control.xml.h:11
 msgid "Find _Again"
-msgstr ""
+msgstr "Ripeti trov_a"
 
 #: po/tmp/html-editor-control.xml.h:12
 msgid "Insert HTML link into document..."
-msgstr ""
+msgstr "Inserisci collegamento HTML nel documento..."
 
 #: po/tmp/html-editor-control.xml.h:13
 msgid "Insert image into document..."
-msgstr ""
+msgstr "Inserisci immagine nel documento..."
 
 #: po/tmp/html-editor-control.xml.h:14
 msgid "Insert rule into document..."
-msgstr ""
+msgstr "Inserisci riga orizzontale nel documento..."
 
 #: po/tmp/html-editor-control.xml.h:15
 msgid "Modify the file's properties"
-msgstr ""
+msgstr "Modifica le proprietà del file"
 
 #: po/tmp/html-editor-control.xml.h:16
 msgid "Paste the clipboard"
@@ -484,15 +484,15 @@ msgstr "Cerca con espressioni regolari"
 
 #: po/tmp/html-editor-control.xml.h:19
 msgid "Replace a string"
-msgstr "Sostituzione stringa"
+msgstr "Sostituisci una stringa"
 
 #: po/tmp/html-editor-control.xml.h:20
 msgid "Search again for the same string"
-msgstr ""
+msgstr "Cerca ancora la stessa stringa"
 
 #: po/tmp/html-editor-control.xml.h:21
 msgid "Search for a string"
-msgstr ""
+msgstr "Ricerca una stringa"
 
 #: po/tmp/html-editor-control.xml.h:22
 msgid "Undo the last action"
@@ -500,48 +500,48 @@ msgstr "Annulla l'ultima operazione"
 
 #: po/tmp/html-editor-control.xml.h:23
 msgid "_Copy"
-msgstr "Copia"
+msgstr "_Copia"
 
 #: po/tmp/html-editor-control.xml.h:24
 msgid "_Edit"
-msgstr ""
+msgstr "_Modifica"
 
 #: po/tmp/html-editor-control.xml.h:25
 msgid "_Find..."
-msgstr ""
+msgstr "_Trova..."
 
 #: po/tmp/html-editor-control.xml.h:26
 msgid "_Image..."
-msgstr "Immagine..."
+msgstr "_Immagine..."
 
 #: po/tmp/html-editor-control.xml.h:27
 msgid "_Insert"
-msgstr "Inserisci"
+msgstr "I_nserisci"
 
 #: po/tmp/html-editor-control.xml.h:28
 msgid "_Link..."
-msgstr "Collegamento..."
+msgstr "_Collegamento..."
 
 #: po/tmp/html-editor-control.xml.h:29
 msgid "_Paste"
-msgstr "Incolla"
+msgstr "_Incolla"
 
 #: po/tmp/html-editor-control.xml.h:30
 msgid "_Properties..."
-msgstr "Proprietà..."
+msgstr "_Proprietà..."
 
 #: po/tmp/html-editor-control.xml.h:31
 msgid "_Redo"
-msgstr "Ripeti"
+msgstr "_Ripeti"
 
 #: po/tmp/html-editor-control.xml.h:32
 msgid "_Replace..."
-msgstr "Sostituisci..."
+msgstr "_Sostituisci..."
 
 #: po/tmp/html-editor-control.xml.h:33
 msgid "_Rule..."
-msgstr "Linea orizzontale"
+msgstr "_Linea orizzontale..."
 
 #: po/tmp/html-editor-control.xml.h:34
 msgid "_Undo"
-msgstr "Annulla"
+msgstr "_Annulla"
