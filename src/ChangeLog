@@ -1,5 +1,12 @@
 2000-01-24  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* gtkhtml.c (focus_in_event): New function, implementation for
+	`GtkWidget::focus_in_event'.
+	(focus_out_event): New function, implementation for
+	`GtkWidget::focus_out_event'.
+	(class_init): Install these.
+	(button_press_event): Grab the focus.
+
 	* htmlobject.c (relayout): If the object has no parent and has
 	shrunk, queue a clear for the area that is not covered by the
 	object anymore.

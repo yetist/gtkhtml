@@ -473,6 +473,8 @@ button_press_event (GtkWidget *widget,
 	html = GTK_HTML (widget);
 	engine = html->engine;
 
+	gtk_widget_grab_focus (widget);
+
 	if (engine->editable)
 		html_engine_jump_at (engine,
 				     event->x + engine->x_offset,
@@ -513,6 +515,27 @@ button_release_event (GtkWidget *widget,
 	return TRUE;
 }
 
+static gint
+focus_in_event (GtkWidget *widget,
+		GdkEventFocus *event)
+{
+	if (GTK_WIDGET_CLASS (parent_class)->focus_in_event != NULL)
+		(* GTK_WIDGET_CLASS (parent_class)->focus_in_event) (widget, event);
+
+	return TRUE;
+}
+
+static gint
+focus_out_event (GtkWidget *widget,
+		 GdkEventFocus *event)
+{
+	if (GTK_WIDGET_CLASS (parent_class)->focus_out_event != NULL)
+		(* GTK_WIDGET_CLASS (parent_class)->focus_out_event) (widget, event);
+
+	return TRUE;
+}
+
+
 static void
 set_adjustments (GtkLayout     *layout,
 		 GtkAdjustment *hadj,
@@ -637,6 +660,8 @@ class_init (GtkHTMLClass *klass)
 	widget_class->motion_notify_event = motion_notify_event;
 	widget_class->button_press_event = button_press_event;
 	widget_class->button_release_event = button_release_event;
+	widget_class->focus_in_event = focus_in_event;
+	widget_class->focus_out_event = focus_out_event;
 
 	layout_class->set_scroll_adjustments = set_adjustments;
 }
