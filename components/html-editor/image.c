@@ -24,6 +24,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <glade/glade.h>
+#include <gal/widgets/e-unicode.h>
 
 #include "gtkhtml.h"
 #include "htmlcolorset.h"
@@ -221,8 +222,12 @@ get_sample_html (GtkHTMLEditImageProperties *d, gboolean insert)
 	border = g_strdup_printf ("%d", d->border);
 
 	if (d->url && *d->url) {
-		lbegin = g_strdup_printf ("<a href=\"%s\">", d->url);
+		gchar *encoded_url;
+
+		encoded_url = html_encode_entities (d->url, g_utf8_strlen (d->url, -1), NULL);
+		lbegin = g_strdup_printf ("<a href=\"%s\">", encoded_url);
 		lend   = "</a>";
+		g_free (encoded_url);
 	} else {
 		lbegin = g_strdup ("");
 		lend   = "";
@@ -261,7 +266,7 @@ get_sample_html (GtkHTMLEditImageProperties *d, gboolean insert)
 	g_free (align);
 	g_free (body);
 
-	printf ("IMAGE: %s\n", html);
+	/* printf ("IMAGE: %s\n", html); */
 
 	return html;
 }
@@ -298,7 +303,7 @@ static void
 url_changed (GtkWidget *entry, GtkHTMLEditImageProperties *d)
 {
 	g_free (d->url);
-	d->url = g_strdup (gtk_entry_get_text (GTK_ENTRY (entry)));
+	d->url = e_utf8_from_gtk_string (entry, gtk_entry_get_text (GTK_ENTRY (entry)));
 	CHANGE;
 	FILL;
 }
@@ -346,6 +351,8 @@ fill_templates (GtkHTMLEditImageProperties *d)
 static void
 set_ui (GtkHTMLEditImageProperties *d)
 {
+	gchar *url;
+
 	d->disable_change = TRUE;
 
 	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_template), d->template);
@@ -359,7 +366,11 @@ set_ui (GtkHTMLEditImageProperties *d)
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_padv), d->padv);
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_border), d->border);
 
-	gtk_entry_set_text (GTK_ENTRY (d->entry_url), d->url ? d->url : "");
+	printf ("set ui (8) %s\n", d->url);
+	url = e_utf8_to_gtk_string (d->entry_url, d->url ? d->url : "");
+	gtk_entry_set_text (GTK_ENTRY (d->entry_url), url);
+	g_free (url);
+
 	gtk_entry_set_text (GTK_ENTRY (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (d->pentry))),
 			    d->location ? d->location : "");
 

@@ -77,6 +77,8 @@ GTKHTML_EDITOR_SOURCES_COMMON =			\
 	engine.c				\
 	image.c					\
 	image.h					\
+	link.c					\
+	link.h					\
 	menubar.c				\
 	menubar.h				\
 	paragraph.c				\

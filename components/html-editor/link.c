@@ -22,73 +22,74 @@
 
 #include <config.h>
 #include <string.h>
+#include <gal/widgets/e-unicode.h>
+#include "htmlcolor.h"
+#include "htmlcolorset.h"
+#include "htmllinktext.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-fontstyle.h"
 #include "htmlengine-edit-cut-and-paste.h"
 #include "htmlselection.h"
+#include "htmlsettings.h"
 
 #include "properties.h"
 #include "link.h"
 
 struct _GtkHTMLEditLinkProperties {
 	GtkHTMLControlData *cd;
-	GtkWidget *entry;
-	gboolean url_changed;
-	gint cursor_postion;
-	gint mark_postion;
+	GtkWidget *entry_text;
+	GtkWidget *entry_url;
 };
 typedef struct _GtkHTMLEditLinkProperties GtkHTMLEditLinkProperties;
 
 static void
-set_link (GtkWidget *w, GtkHTMLEditLinkProperties *data)
+changed (GtkWidget *w, GtkHTMLEditLinkProperties *data)
 {
-	data->url_changed = TRUE;
 	gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
-}
-
-static void
-clear (GtkWidget *w, GtkHTMLEditLinkProperties *data)
-{
-	gtk_entry_set_text (GTK_ENTRY (data->entry), "");
 }
 
 GtkWidget *
 link_properties (GtkHTMLControlData *cd, gpointer *set_data)
 {
-	GtkWidget *vbox, *hbox, *button;
+	GtkWidget *vbox, *frame, *f1;
 	GtkHTMLEditLinkProperties *data = g_new (GtkHTMLEditLinkProperties, 1);
-	const gchar *url;
-	HTMLEngine *e = cd->html->engine;
 
 	*set_data = data;
 	data->cd = cd;
-	data->url_changed = FALSE;
 
-	vbox = gtk_vbox_new (FALSE, 0);
-	gtk_container_border_width (GTK_CONTAINER (vbox), 3);
-	hbox = gtk_hbox_new (FALSE, 3);
+	vbox = gtk_vbox_new (FALSE, 3);
 
-	data->entry = gtk_entry_new ();
-	
-	if (html_engine_is_selection_active (e)) {
-		data->cursor_postion = html_cursor_get_position (e->cursor);
-		data->mark_postion = html_cursor_get_position (e->mark);
-		url = html_engine_get_document_url (e);
-	} else {
-		data->cursor_postion = -1;
-		data->mark_postion = -1;
-		url = html_engine_get_url (e);
+	data->entry_text = gtk_entry_new ();
+	data->entry_url  = gtk_entry_new ();
+
+	frame = gtk_frame_new (_("Link text"));
+	f1    = gtk_frame_new (NULL);
+	gtk_frame_set_shadow_type (GTK_FRAME (f1), GTK_SHADOW_NONE);
+	gtk_container_set_border_width (GTK_CONTAINER (f1), 3);
+	gtk_container_add (GTK_CONTAINER (f1), data->entry_text);
+	gtk_container_add (GTK_CONTAINER (frame), f1);
+	gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, FALSE, 0);
+
+	if (html_engine_is_selection_active (cd->html->engine)) {
+		gchar *str, *str_gtk;
+
+		str = html_engine_get_selection_string (cd->html->engine);
+		str_gtk = e_utf8_to_gtk_string (data->entry_text, str);
+		gtk_entry_set_text (GTK_ENTRY (data->entry_text), str_gtk);
+		g_free (str);
+		g_free (str_gtk);
 	}
 
-	if (url)
-		gtk_entry_set_text (GTK_ENTRY (data->entry), url);
-	button = gtk_button_new_with_label (_("Clear"));
-	gtk_signal_connect (GTK_OBJECT (button), "clicked", clear, data);
-	gtk_signal_connect (GTK_OBJECT (data->entry), "changed", set_link, data);
-	gtk_box_pack_start (GTK_BOX (hbox), gtk_label_new (_("URL")), FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (hbox), data->entry, FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
+	frame = gtk_frame_new (_("Click will follow this URL"));
+	f1    = gtk_frame_new (NULL);
+	gtk_frame_set_shadow_type (GTK_FRAME (f1), GTK_SHADOW_NONE);
+	gtk_container_set_border_width (GTK_CONTAINER (f1), 3);
+	gtk_container_add (GTK_CONTAINER (f1), data->entry_url);
+	gtk_container_add (GTK_CONTAINER (frame), f1);
+	gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, FALSE, 0);
+
+	gtk_signal_connect (GTK_OBJECT (data->entry_text), "changed", changed, data);
+	gtk_signal_connect (GTK_OBJECT (data->entry_url), "changed", changed, data);
 
 	gtk_widget_show_all (vbox);
 
@@ -96,28 +97,36 @@ link_properties (GtkHTMLControlData *cd, gpointer *set_data)
 }
 
 void
-link_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
+link_insert_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditLinkProperties *data = (GtkHTMLEditLinkProperties *) get_data;
 	HTMLEngine *e = cd->html->engine;
 	gchar *url;
-	gchar *target = "";
+	gchar *target;
+	gchar *text;
 
-	if (!data->url_changed)
-		return;
+	url  = gtk_entry_get_text (GTK_ENTRY (data->entry_url));
+	text = gtk_entry_get_text (GTK_ENTRY (data->entry_text));
+	if (url && text && *url && *text) {
+		HTMLObject *new_link;
+		gchar *url_copy;
 
-	html_engine_selection_push (e);
-	if ((data->mark_postion != -1) && (data->cursor_postion != -1)) {
-		html_cursor_jump_to_position (e->cursor, e, data->mark_postion);
-		html_engine_set_mark (e);
-		html_cursor_jump_to_position (e->cursor, e, data->cursor_postion);
+		url  = e_utf8_from_gtk_string (data->entry_url, url);
+		text = e_utf8_from_gtk_string (data->entry_text, text);
+
+		target = strchr (url, '#');
+
+		url_copy = target ? g_strndup (url, target - url) : g_strdup (url);
+		new_link = html_link_text_new (text, GTK_HTML_FONT_STYLE_DEFAULT,
+					       html_colorset_get_color (e->settings->color_set, HTMLLinkColor),
+					       url_copy, target);
+
+		html_engine_paste_object (e, new_link, g_utf8_strlen (text, -1));
+
+		g_free (url_copy);
+		g_free (url);
+		g_free (text);
 	}
-	url = gtk_entry_get_text (GTK_ENTRY (data->entry));
-	if (*url)
-		html_engine_insert_link (e, url, target);
-	else
-		html_engine_insert_link (e, NULL, NULL);
-	html_engine_selection_pop (e);
 }
 
 void

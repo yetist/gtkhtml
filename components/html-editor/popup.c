@@ -146,7 +146,7 @@ show_prop_dialog (GtkHTMLControlData *cd, GtkHTMLEditPropertyType start)
 	GList *cur;
 
 	if (cd->properties_dialog)
-		gtk_html_edit_properties_dialog_destroy (cd->properties_dialog);
+		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
 	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, FALSE, _("Properties"));
 
 	cur = cd->properties_types;
@@ -422,8 +422,6 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 		case HTML_TYPE_LINKTEXT:
 		case HTML_TYPE_TEXT:
 			ADD_SEP;
-			ADD_PROP (TEXT);
-			ADD_ITEM (_("Text..."), prop_dialog, TEXT);
 			ADD_PROP (PARAGRAPH);
 			ADD_ITEM (_("Paragraph..."), prop_dialog, PARAGRAPH);
 			break;

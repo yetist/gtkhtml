@@ -21,6 +21,7 @@
 */
 
 #include <config.h>
+#include <gal/widgets/e-unicode.h>
 #include <gal/widgets/widget-color-combo.h>
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
@@ -75,8 +76,16 @@ fill_sample (GtkHTMLEditTextProperties *d)
 {
 	gchar *body, *size, *color, *bg, *a, *sa;
 
+	if (d->url && *d->url) {
+		gchar *enc_url;
+
+		enc_url = html_encode_entities (d->url, g_utf8_strlen (d->url, -1), NULL);
+		a = g_strdup_printf ("<a href=\"%s\">", d->url);
+		g_free (enc_url);
+	} else
+		a = g_strdup ("");
+
 	bg    = html_engine_save_get_sample_body (d->cd->html->engine, NULL);
-	a     = d->url && *d->url ? g_strdup_printf ("<a href=\"%s\">", d->url) : g_strdup ("");
 	sa    = d->url && *d->url ? "</a>" : "";
 	size  = g_strdup_printf ("<font size=%d>", get_size (d->style_or) + 1);
 	color = d->color_changed ? g_strdup_printf ("<font color=#%02x%02x%02x>",
@@ -155,7 +164,7 @@ static void
 set_url (GtkWidget *w, GtkHTMLEditTextProperties *data)
 {
 	g_free (data->url);
-	data->url = g_strdup (gtk_entry_get_text (GTK_ENTRY (data->entry_url)));
+	data->url = e_utf8_from_gtk_string (data->entry_url, gtk_entry_get_text (GTK_ENTRY (data->entry_url)));
 	data->url_changed = TRUE;
 
 	gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
@@ -218,10 +227,14 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	if (html_engine_is_selection_active (cd->html->engine)) {
 		GtkWidget *f1;
 
-		frame = gtk_frame_new (_("Link"));
+		frame = gtk_frame_new (_("Click will follow this URL"));
 		data->entry_url = gtk_entry_new ();
 		if (data->url) {
-			gtk_entry_set_text (GTK_ENTRY (data->entry_url), data->url);
+			gchar *url;
+
+			url = e_utf8_to_gtk_string (data->entry_url, data->url);
+			gtk_entry_set_text (GTK_ENTRY (data->entry_url), url);
+			g_free (url);
 		}
 		f1 = gtk_frame_new (NULL);
 		gtk_container_set_border_width (GTK_CONTAINER (f1), 3);
@@ -300,7 +313,7 @@ text_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 	if (data->url_changed) {
 		gchar *h;
 
-		h = strrchr (data->url, '#');
+		h = strchr (data->url, '#');
 		if (h) {
 			gchar *url;
 
