@@ -986,17 +986,38 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 			attr->end_index = text->text_bytes;
 			pango_attr_list_insert (attrs, attr);
 		} else
-			attrs = text->attr_list;
+			attrs = pango_attr_list_copy (text->attr_list);
+
+		if (text->select_length) {
+			gchar *end;
+			gchar *start;
+			GdkColor fg = html_colorset_get_color_allocated
+				(painter, painter->focus ? HTMLHighlightTextColor : HTMLHighlightTextNFColor)->color;
+			GdkColor bg = html_colorset_get_color_allocated
+				(painter, painter->focus ? HTMLHighlightColor : HTMLHighlightNFColor)->color;
+			
+			start = html_text_get_text (text,  text->select_start);
+			end = g_utf8_offset_to_pointer (start, text->select_length);
+			
+			attr = pango_attr_background_new (bg.red, bg.green, bg.blue);
+			attr->start_index = start - text->text;
+			attr->end_index = end - text->text;
+			pango_attr_list_change (attrs, attr);
+			
+			attr = pango_attr_foreground_new (fg.red, fg.green, fg.blue);
+			attr->start_index = start - text->text;
+			attr->end_index = end - text->text;
+			pango_attr_list_change (attrs, attr);
+		}
+
 		items = pango_itemize (pc, translated, 0, bytes, attrs, NULL);
-		if (HTML_IS_PLAIN_PAINTER (painter))
-			pango_attr_list_unref (attrs);
+		pango_attr_list_unref (attrs);
 
 		text->pi = html_text_pango_info_new (g_list_length (items));
 
 		for (i = 0, cur = items; i < text->pi->n; i ++, cur = cur->next) {
 			PangoGlyphString *glyphs;
 			PangoItem *item;
-
 			item = text->pi->entries [i].item = (PangoItem *) cur->data;
 
 			/* printf ("item pos %d len %d\n", item->offset, item->length); */
@@ -1702,9 +1723,16 @@ select_range (HTMLObject *self,
 	if (length < 0 || length + offset > HTML_TEXT (self)->text_len)
 		length = HTML_TEXT (self)->text_len - offset;
 
-	if (offset != text->select_start || length != text->select_length)
+	if (offset != text->select_start || length != text->select_length) {
+		HTMLObject *slave;
 		changed = TRUE;
-	else
+		html_object_change_set (self, HTML_CHANGE_RECALC_PI);
+		slave = self->next;
+		while (slave && HTML_IS_TEXT_SLAVE (slave)) {
+			html_object_change_set (slave, HTML_CHANGE_RECALC_PI);
+			slave = slave->next;
+		}
+	} else
 		changed = FALSE;
 
 	/* printf ("select range %d, %d\n", offset, length); */

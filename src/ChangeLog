@@ -1,3 +1,13 @@
+2003-10-02  Larry Ewing  <lewing@ximian.com>
+
+	* htmltext.c (select_range): reset the pango info for all the
+	objects who might be affected by the selection change.
+
+	* htmltextslave.c (draw): all drawing is handled by draw_normal
+	since the htmltext passes the selection as pango attributes.
+
+	* htmltext.c (html_text_get_pango_info): add selection drawing here.
+
 2003-09-30  Radek Doulik  <rodo@ximian.com>
 
 	* htmliframe.c (html_iframe_init): as below
@@ -16,10 +26,34 @@
 
 2003-09-29  Larry Ewing  <lewing@ximian.com>
 
+	* htmlengine.c (html_engine_finalize): use g_source_remove
+	everywhere.
+	(current_bg_color): drop ID_EQ calls.
+
 	* htmlclueflow.c (get_item_marker_str): use ascii only ("* ") for
 	plain painter, always draw glyphs no speacial path for other chars.
 	(get_item_marker_str): don't pass in the len since it is part of
 	the flow.
+
+2003-09-17  Larry Ewing  <lewing@ximian.com>
+
+	* htmlshape.h: remove HTMLLength definition.
+
+	* htmlshape.c: include htmlstyle.h and remove html_length_new
+	since it was a bit heavy.
+
+	* htmlframeset.c: include htmlsyle.h
+
+	* htmlengine.c: use the height and width style props in the table
+	parser.
+
+	* htmstyle.h: add new prototypes and HTMLLength definition.
+	
+	* htmlstyle.c: add height, width and clear settings.
+
+	* htmlenums.h: add HTML_CLEAR_INHERIT.
+
+	* htmltablecell.c (draw): remove ifdefed out code.
 
 2003-09-25  Radek Doulik  <rodo@ximian.com>
 

@@ -640,124 +640,6 @@ draw_normal (HTMLTextSlave *self,
 }
 
 static void
-draw_highlighted (HTMLTextSlave *slave,
-		  HTMLPainter *p,
-		  GtkHTMLFontStyle font_style,
-		  gint x, gint y,
-		  gint width, gint height,
-		  gint tx, gint ty)
-{
-	HTMLText *owner;
-	HTMLObject *obj;
-	GList *items1, *items2, *items3;
-	guint start, end, len;
-	gint offset_width, text_width, lo, lo_start, lo_sel, asc, dsc;
-	const gchar *text;
-	
-	char *slave_begin;
-	char *highlight_begin;
-
-	obj = HTML_OBJECT (slave);
-	owner = HTML_TEXT (slave->owner);
-	start = owner->select_start;
-	end = start + owner->select_length;
-
-	text = HTML_TEXT (owner)->text;
-
-	if (start < slave->posStart)
-		start = slave->posStart;
-	if (end > slave->posStart + slave->posLen)
-		end = slave->posStart + slave->posLen;
-	len = end - start;
-
-	slave_begin = html_text_slave_get_text (slave);
-	highlight_begin = g_utf8_offset_to_pointer (slave_begin, start - slave->posStart);
-
-	lo_start = lo = html_text_slave_get_line_offset (slave, 0, p);
-
-	html_painter_set_font_style (p, font_style);
-	html_painter_set_font_face  (p, HTML_TEXT (owner)->face);
-	html_color_alloc (HTML_TEXT (owner)->color, p);
-
-	/* 1. Draw the leftmost non-highlighted part, if any.  */
-	if (start > slave->posStart) {
-		GList *glyphs1;
-
-		glyphs1 = get_glyphs_part (slave, p, 0, start - slave->posStart);
-		html_painter_calc_text_size (p, slave_begin, start - slave->posStart, html_text_get_pango_info (owner, p), glyphs1, slave_begin - text, &lo,
-					     font_style, HTML_TEXT (owner)->face, &offset_width, &asc, &dsc);
-
-		html_painter_set_pen (p, &HTML_TEXT (owner)->color->color);
-
-		if (obj->x + offset_width >= x)
-			html_painter_draw_text (p,
-						obj->x + tx, obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
-						slave_begin,
-						start - slave->posStart, html_text_get_pango_info (owner, p), glyphs1, slave_begin - slave->owner->text,
-						lo_start);
-
-		if (glyphs1)
-			glyphs_destroy (glyphs1);
-
-	} else
-		offset_width = 0;
-
-	lo_sel = lo;
-	
-	/* Check bounds again */
-	if (obj->x + offset_width > x + width)
-		return;
-
-	/* Draw the highlighted part with a highlight background.  */
-	if (len) {
-		GList *glyphs2;
-
-		glyphs2 = get_glyphs_part (slave, p, start - slave->posStart, len);
-
-		html_painter_calc_text_size (p, highlight_begin, len, html_text_get_pango_info (owner, p), glyphs2, highlight_begin - text, &lo,
-					     font_style, HTML_TEXT (owner)->face, &text_width, &asc, &dsc);
-		/* printf ("s: %d l: %d - %d %d\n", start, len, offset_width, text_width); */
-
-		html_painter_set_pen (p, &html_colorset_get_color_allocated
-				      (p, p->focus ? HTMLHighlightColor : HTMLHighlightNFColor)->color);
-		html_painter_fill_rect (p, obj->x + tx + offset_width, obj->y + ty - obj->ascent,
-					text_width, obj->ascent + obj->descent);
-		html_painter_set_pen (p, &html_colorset_get_color_allocated
-				      (p, p->focus ? HTMLHighlightTextColor : HTMLHighlightTextNFColor)->color);
-		
-		if (obj->x + offset_width + text_width >= x)
-			html_painter_draw_text (p, obj->x + tx + offset_width, 
-						obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
-						highlight_begin, len, html_text_get_pango_info (owner, p), glyphs2, highlight_begin - slave->owner->text,
-						lo_sel);
-		if (glyphs2)
-			glyphs_destroy (glyphs2);
-	} else
-		text_width = 0;
-
-	/* Check bounds one last time */
-	if (obj->x + offset_width + text_width > x + width)
-		return;
-
-	/* 2. Draw the rightmost non-highlighted part, if any.  */
-	if (end < slave->posStart + slave->posLen) {
-		gchar *end_text;
-		GList *glyphs3;
-
-		glyphs3 = get_glyphs_part (slave, p, start + len - slave->posStart, slave->posLen - start - len + slave->posStart);
-		html_painter_set_pen (p, &HTML_TEXT (owner)->color->color);
-		end_text = g_utf8_offset_to_pointer (highlight_begin, end - start);
-		html_painter_draw_text (p,
-					obj->x + tx + offset_width + text_width,
-					obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
-					end_text,
-					slave->posStart + slave->posLen - end, html_text_get_pango_info (owner, p), glyphs3, end_text - slave->owner->text, lo);
-		if (glyphs3)
-			glyphs_destroy (glyphs3);
-	}
-}
-
-static void
 draw_focus  (HTMLPainter *painter, GdkRectangle *box)
 {
 	HTMLGdkPainter *p;
@@ -806,11 +688,7 @@ draw (HTMLObject *o,
 	font_style = html_text_get_font_style (ownertext);
 
 	end = textslave->posStart + textslave->posLen;
-	if (owner->select_start + owner->select_length <= textslave->posStart || owner->select_start >= end) {
-		draw_normal (textslave, p, font_style, x, y, width, height, tx, ty);
-	} else {
-		draw_highlighted (textslave, p, font_style, x, y, width, height, tx, ty);
-	}
+	draw_normal (textslave, p, font_style, x, y, width, height, tx, ty);
 	
 	if (owner->spell_errors)
 		draw_spell_errors (textslave, p, tx ,ty);
