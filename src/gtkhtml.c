@@ -1154,7 +1154,7 @@ set_fonts_idle (GtkHTML *html)
 
 	/* tables don't resize correctly :( who knows the solution? */
 	/* FIXME: rodo is this check correct? */
-	if (html->engine->clue) {
+	if (html->engine && html->engine->clue) {
 		html_object_reset (html->engine->clue);
 		html_object_change_set_down (html->engine->clue, HTML_CHANGE_ALL);
 		html_object_calc_min_width (html->engine->clue, html->engine->painter);
