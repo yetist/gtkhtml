@@ -284,7 +284,7 @@ struct _HTMLEngineClass {
 
 
 /* Object construction.  */
-guint       html_engine_get_type      (void);
+GType       html_engine_get_type      (void);
 HTMLEngine *html_engine_new           (GtkWidget *);
 void        html_engine_realize       (HTMLEngine *engine,
 				       GdkWindow  *window);

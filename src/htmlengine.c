@@ -3693,7 +3693,7 @@ parse_one_token (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 }
 
 
-guint
+GType
 html_engine_get_type (void)
 {
 	static GType html_engine_type = 0;
