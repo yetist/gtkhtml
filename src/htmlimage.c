@@ -73,7 +73,9 @@ draw (HTMLObject *o, HTMLPainter *p,
       gint tx, gint ty)
 {
 	/* FIXME: Should be removed */
-	
+	if (y + height < o->y - o->ascent || y > o->y + o->descent)
+		return;
+
 	if (!HTML_IMAGE (o)->image_ptr->pixbuf) {
 		html_painter_draw_rect (p, 
 					o->x + tx, 
@@ -161,7 +163,6 @@ html_image_init (HTMLImage *image,
 
 	html_object_init (object, HTML_OBJECT_CLASS (klass));
 
-	/* HTMLObject functions */
 	image->predefinedWidth = (width < 0 && !percent) ? FALSE : TRUE;
 	image->predefinedHeight = height < 0 ? FALSE : TRUE;
 

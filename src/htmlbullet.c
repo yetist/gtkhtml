@@ -35,7 +35,7 @@ draw (HTMLObject *o, HTMLPainter *p,
 {
 	gint xp, yp;
 
-	if (y + height < o->y + o->ascent || y > o->y + o->descent)
+	if (y + height < o->y - o->ascent || y > o->y + o->descent)
 		return;
 
 	yp = o->y + ty - 9;
