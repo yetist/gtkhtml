@@ -1,3 +1,10 @@
+2002-07-12  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (html_engine_set_class_data): return if class_name
+	is NULL
+	(get_class_table): ditto
+	(parse_d): be more careful when class_name is NULL
+
 2002-07-09  Larry Ewing  <lewing@ximian.com>
 
 	* htmlclueflow.c (html_clueflow_modify_indentation_by_delta): fix

@@ -2059,11 +2059,14 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 				g_free (key);
 				key = g_strdup (token + 4);
 			} else if (class_name && key && strncasecmp (token, "value=", 6) == 0) {
-				html_engine_set_class_data (e, class_name, key, token + 6);
-				if (!strcmp (class_name, "ClueFlow") && e->flow)
-					html_engine_set_object_data (e, e->flow);
+				if (class_name) {
+					html_engine_set_class_data (e, class_name, key, token + 6);
+					if (!strcmp (class_name, "ClueFlow") && e->flow)
+						html_engine_set_object_data (e, e->flow);
+				}
 			} else if (strncasecmp (token, "clear=", 6) == 0)
-				html_engine_clear_class_data (e, class_name, token + 6);
+				if (class_name)
+					html_engine_clear_class_data (e, class_name, token + 6);
 			/* TODO clear flow data */
 		}
 		g_free (class_name);
@@ -5079,10 +5082,10 @@ html_engine_get_object_by_id (HTMLEngine *e, const gchar *id)
 	return (HTMLObject *) g_hash_table_lookup (e->id_table, id);
 }
 
-static inline GHashTable *
+static GHashTable *
 get_class_table (HTMLEngine *e, const gchar *class_name)
 {
-	return e->class_data ? g_hash_table_lookup (e->class_data, class_name) : NULL;
+	return class_name && e->class_data ? g_hash_table_lookup (e->class_data, class_name) : NULL;
 }
 
 static inline GHashTable *
@@ -5102,7 +5105,7 @@ get_class_table_sure (HTMLEngine *e, const gchar *class_name)
 	return t;
 }
 
-static void
+void
 html_engine_set_class_data (HTMLEngine *e, const gchar *class_name, const gchar *key, const gchar *value)
 {
 	GHashTable *t;
@@ -5110,6 +5113,7 @@ html_engine_set_class_data (HTMLEngine *e, const gchar *class_name, const gchar 
 	gpointer old_val;
 
 	/* printf ("set (%s) %s to %s (%p)\n", class_name, key, value, e->class_data); */
+	g_return_if_fail (class_name);
 
 	t = get_class_table_sure (e, class_name);
 
