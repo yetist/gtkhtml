@@ -1,3 +1,9 @@
+2002-06-14  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (selection_received): make paste as quotation work for
+	string selections.  If we are doing a citation paste, don't use
+	the widget->window == event->window shortcut.
+
 2002-06-12  Larry Ewing  <lewing@ximian.com>
 
 	* htmlimage.c: render images with no alt text as [image] in the

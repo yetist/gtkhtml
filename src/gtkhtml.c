@@ -1692,11 +1692,13 @@ selection_received (GtkWidget *widget,
 
 	/* If the Widget is editable,
 	** and we are the owner of the atom requested
+	** and we are not pasting as a citation 
 	** then we are pasting between ourself and we
 	** need not do all the conversion.
 	*/
 	if (html_engine_get_editable (e)
-	    && widget->window == gdk_selection_owner_get (selection_data->selection)) {
+	    && widget->window == gdk_selection_owner_get (selection_data->selection)
+	    && !as_cite) {
 
 		/* Check which atom was requested (PRIMARY or CLIPBOARD) */
 		if (selection_data->selection == gdk_atom_intern ("CLIPBOARD", FALSE)
@@ -1756,25 +1758,35 @@ selection_received (GtkWidget *widget,
 			gtk_html_insert_html (GTK_HTML (widget), utf8);
 
 			g_free (utf8);			
-		} else if (selection_data->type != GDK_SELECTION_TYPE_STRING) {
-			html_engine_paste_text (e, selection_data->data,
-						g_utf8_strlen (selection_data->data, 
-							       selection_data->length));
-		} else {
-			gchar *utf8 = NULL;
+		} else  {
+			char *text = NULL;
+
+			if (selection_data->type != GDK_SELECTION_TYPE_STRING)
+				text = g_strdup (selection_data->data);
+			else
+				text = e_utf8_from_gtk_string_sized (widget, 
+								     selection_data->data,
+								     (guint) selection_data->length);
 			
-			utf8 = e_utf8_from_gtk_string_sized (widget, 
-							     selection_data->data,
-							     (guint) selection_data->length);
+			if (as_cite) {
+				char *encoded;
+				
+				/* FIXME there has to be a cleaner way to do this */
+				encoded = html_encode_entities (text, g_utf8_strlen (text, -1), NULL);
+				g_free (text);
+				text = g_strdup_printf ("<blockquote type=\"cite\">%s</blockquote>", 
+							encoded);
+				g_free (encoded);
+				gtk_html_insert_html (GTK_HTML (widget), text);
+			} else {
+				html_engine_paste_text (e, text, g_utf8_strlen (text, -1));
+			}
+			g_free (text);
 
-			html_engine_paste_text (e, utf8, g_utf8_strlen (utf8, -1));
-
-			g_free (utf8);
+			if (HTML_IS_TEXT (e->cursor->object))
+				html_text_magic_link (HTML_TEXT (e->cursor->object), e,
+						      html_object_get_length (e->cursor->object));
 		}
-		if (HTML_IS_TEXT (e->cursor->object))
-			html_text_magic_link (HTML_TEXT (e->cursor->object), e,
-					      html_object_get_length (e->cursor->object));
-
 		return;
 	}
 
