@@ -26,9 +26,6 @@
 #define HTML_TEXTAREA(x) ((HTMLTextArea *) (x))
 #define HTML_TEXTAREA_CLASS(x) ((HTMLTextAreaClass *) (x))
 
-/* typedef struct _HTMLTextArea HTMLTextArea; int htmlobject.h */
-typedef struct _HTMLTextAreaClass HTMLTextAreaClass;
-
 struct _HTMLTextArea {
 	HTMLEmbedded element;
 

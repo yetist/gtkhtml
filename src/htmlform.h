@@ -26,9 +26,6 @@
 #include "htmlembedded.h"
 #include "htmlhidden.h"
 
-
-/*typedef struct _HTMLForm HTMLForm;      In htmlobject.h for now */ 
-
 #define HTML_FORM(x) ((HTMLForm *) (x))
 
 struct _HTMLForm {

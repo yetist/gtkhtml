@@ -26,10 +26,6 @@
 #include "htmlobject.h"
 #include "htmltextmaster.h"
 
-
-typedef struct _HTMLLinkTextMaster HTMLLinkTextMaster;
-typedef struct _HTMLLinkTextMasterClass HTMLLinkTextMasterClass;
-
 #define HTML_LINK_TEXT_MASTER(x) ((HTMLLinkTextMaster *)(x))
 #define HTML_LINK_TEXT_MASTER_CLASS(x) ((HTMLLinkTextMasterClass *)(x))
 

@@ -31,6 +31,7 @@
 #include "htmlcluev.h"
 #include "htmlpainter.h"
 #include "htmlrule.h"
+#include "htmltype.h"
 #include "htmlclue.h"
 #include "htmlcursor.h"
 
@@ -385,20 +386,13 @@ select_range (HTMLObject *self,
 	gboolean selected;
 	gboolean changed;
 
-	if (length > 0 || (length == -1 && start < html_object_get_length (self)))
-		selected = TRUE;
-	else
-		selected = FALSE;
-
-	if ((! selected && self->selected) || (selected && ! self->selected))
-		changed = TRUE;
-	else
-		changed = FALSE;
+	selected = length > 0 || (length == -1 && start < html_object_get_length (self)) ? TRUE : FALSE;
+	changed  = (! selected && self->selected) || (selected && ! self->selected) ? TRUE : FALSE;
 
 	self->selected = selected;
 
-	if (queue_draw && changed)
-		html_engine_queue_draw (engine, self);
+	/* if (queue_draw && changed)
+	   html_engine_queue_draw (engine, self); */
 
 	return changed;
 }
@@ -439,6 +433,13 @@ forall (HTMLObject *self,
 	(* func) (self, e, data);
 }
 
+static HTMLEngine *
+get_engine (HTMLObject *self,
+	    HTMLEngine *e)
+{
+	return e;
+}
+
 static gboolean
 is_container (HTMLObject *self)
 {
@@ -477,13 +478,13 @@ search (HTMLObject *self, HTMLSearch *info)
 static HTMLObject *
 next (HTMLObject *self, HTMLObject *child)
 {
-	return NULL;
+	return child->next;
 }
 
 static HTMLObject *
 prev (HTMLObject *self, HTMLObject *child)
 {
-	return NULL;
+	return child->prev;
 }
 
 static HTMLObject *
@@ -561,6 +562,7 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->prev = prev;
 	klass->head = head;
 	klass->tail = tail;
+	klass->get_engine = get_engine;
 }
 
 void
@@ -918,6 +920,12 @@ html_object_append_selection_string (HTMLObject *self,
 }
 
 
+HTMLEngine *
+html_object_get_engine (HTMLObject *self, HTMLEngine *e)
+{
+	return (* HO_CLASS (self)->get_engine) (self, e);
+}
+
 void
 html_object_forall (HTMLObject *self,
 		    HTMLEngine *e,
@@ -958,10 +966,11 @@ html_object_next_not_slave (HTMLObject *object)
 	HTMLObject *p;
 
 	g_return_val_if_fail (object != NULL, NULL);
+	g_return_val_if_fail (object->parent, NULL);
 
-	p = object->next;
-	while (p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
-		p = p->next;
+	p = html_object_next (object->parent, object);
+	while (p && p->parent && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
+		p = html_object_next (p->parent, p);
 
 	return p;
 }
@@ -972,10 +981,11 @@ html_object_prev_not_slave (HTMLObject *object)
 	HTMLObject *p;
 
 	g_return_val_if_fail (object != NULL, NULL);
+	g_return_val_if_fail (object->parent, NULL);
 
-	p = object->prev;
-	while (p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
-		p = p->prev;
+	p = html_object_prev (object->parent, object);
+	while (p && p->parent && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
+		p = html_object_prev (p->parent, p);
 
 	return p;
 }
@@ -1190,16 +1200,34 @@ move_object (HTMLObject *obj, HTMLObject * (*next_fn ) (HTMLObject *, HTMLObject
 }
 
 
-HTMLObject *
+inline HTMLObject *
 html_object_next_leaf (HTMLObject *self)
 {
 	return move_object (self, html_object_next, html_object_head);
 }
 
 HTMLObject *
+html_object_next_leaf_not_type (HTMLObject *self, HTMLType t)
+{
+	HTMLObject *rv;
+	while ((rv = html_object_next_leaf (self)) && HTML_OBJECT_TYPE (rv) == t);
+
+	return rv;
+}
+
+inline HTMLObject *
 html_object_prev_leaf (HTMLObject *self)
 {
 	return move_object (self, html_object_prev, html_object_tail);
+}
+
+HTMLObject *
+html_object_prev_leaf_not_type (HTMLObject *self, HTMLType t)
+{
+	HTMLObject *rv;
+	while ((rv = html_object_prev_leaf (self)) && HTML_OBJECT_TYPE (rv) == t);
+
+	return rv;
 }
 
 guint

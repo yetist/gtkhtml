@@ -21,7 +21,7 @@
 
 */
 
-#include "htmlenum.h"
+#include "htmlenumutils.h"
 
 const gchar *
 html_valign_name (HTMLVAlignType va)

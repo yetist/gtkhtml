@@ -26,8 +26,6 @@
 
 #include <gdk/gdk.h>
 
-typedef struct _HTMLSettings HTMLSettings;
-
 #include "htmlengine.h"
 #include "htmlpainter.h"
 #include "htmlcolorset.h"

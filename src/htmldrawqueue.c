@@ -20,8 +20,9 @@
 */
 
 #include "htmlengine-edit-cursor.h"
-
 #include "htmldrawqueue.h"
+#include "htmlpainter.h"
+#include "gtkhtml.h"
 
 
 /* HTMLDrawQueueClearElement handling.  */
@@ -227,7 +228,7 @@ draw_obj (HTMLDrawQueue *queue,
 	tx = 0;
 	ty = 0;
 
-	for (p = obj->parent; p != NULL; p = p->parent) {
+	for (p = obj->parent; p != NULL && HTML_OBJECT_TYPE (p) != HTML_TYPE_IFRAME; p = p->parent) {
 		tx += p->x;
 		ty += p->y - p->ascent;
 	}
@@ -311,6 +312,7 @@ clear (HTMLDrawQueue *queue,
 	x2 = x1 + elem->width;
 	y2 = y1 + elem->height;
 
+	printf ("clear: %d,%d %d,%d\n", x1, y1, x2, y2);
 	html_painter_begin (e->painter, x1, y1, x2, y2);
 
 	if (elem->background_color != NULL) {
@@ -329,10 +331,16 @@ clear (HTMLDrawQueue *queue,
 		html_engine_draw_cursor_in_area (e, x1, y1, x2 - x1, y2 - y1);
 }
 
+#include "gtkhtml.h"
+
 void
 html_draw_queue_flush (HTMLDrawQueue *queue)
 {
 	GList *p;
+	printf ("html_draw_queue_flush %p %d,%d\n",
+		GTK_HTML   (queue->engine->widget)->iframe_parent,
+		GTK_WIDGET (queue->engine->widget)->allocation.x,
+		GTK_WIDGET (queue->engine->widget)->allocation.y);
 
 	/* Draw clear areas.  */
 

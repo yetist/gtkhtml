@@ -27,9 +27,6 @@
 #define HTML_IFRAME(x) ((HTMLIFrame *)(x))
 #define HTML_IFRAME_CLASS(x) ((HTMLIFrameClass *)(x))
 
-typedef struct _HTMLIFrame HTMLIFrame;
-typedef struct _HTMLIFrameClass HTMLIFrameClass;
-
 struct _HTMLIFrame {
 	HTMLEmbedded embedded;
 	

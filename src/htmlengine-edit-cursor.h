@@ -22,11 +22,8 @@
 #ifndef _HTMLENGINE_CURSOR_H
 #define _HTMLENGINE_CURSOR_H
 
-#include <glib.h>
+#include "htmltypes.h"
 
-#include "htmlengine.h"
-
-
 void  html_engine_hide_cursor  (HTMLEngine *engine);
 void  html_engine_show_cursor  (HTMLEngine *engine);
 

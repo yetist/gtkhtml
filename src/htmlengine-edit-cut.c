@@ -20,6 +20,9 @@
 */
 
 #include "htmltextmaster.h"
+#include "htmlselection.h"
+#include "htmlundo.h"
+#include "htmlcursor.h"
 
 #include "htmlengine-cutbuffer.h"
 #include "htmlengine-edit.h"
@@ -27,7 +30,7 @@
 #include "htmlengine-edit-delete.h"
 #include "htmlengine-edit-movement.h"
 #include "htmlengine-edit-paste.h"
-
+#include "htmlengine-edit-selection-updater.h"
 #include "htmlengine-edit-cut.h"
 
 
@@ -168,7 +171,7 @@ html_engine_cut (HTMLEngine *engine,
 
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
-	g_return_if_fail (engine->active_selection);
+	g_return_if_fail (html_engine_is_selection_active (engine));
 
 	if (do_undo)
 		html_undo_discard_redo (engine->undo);

@@ -22,14 +22,9 @@
 #define HTMLEMBEDDED_H
 
 #include "htmlobject.h"
-#include "gtkhtml-embedded.h"
-#include "htmlengine.h"
 
 #define HTML_EMBEDDED(x) ((HTMLEmbedded *)(x))
 #define HTML_EMBEDDED_CLASS(x) ((HTMLEmbeddedClass *)(x))
-
-typedef struct _HTMLEmbedded HTMLEmbedded;
-typedef struct _HTMLEmbeddedClass HTMLEmbeddedClass;
 
 struct _HTMLEmbedded {
 	HTMLObject object;

@@ -24,14 +24,8 @@
 #ifndef _HTMLENGINE_SAVE_H
 #define _HTMLENGINE_SAVE_H
 
-typedef gboolean (* HTMLEngineSaveReceiverFn)  (const HTMLEngine *engine,
-					        const gchar      *data,
-					        guint             len,
-						gpointer          user_data);
-
-typedef struct _HTMLEngineSaveState HTMLEngineSaveState;
-
-#include "htmlobject.h"
+#include "gtkhtml-enums.h"
+#include "htmltypes.h"
 
 
 struct _HTMLEngineSaveState {

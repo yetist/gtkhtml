@@ -22,14 +22,11 @@
 #ifndef _HTMLSTACK_H_
 #define _HTMLSTACK_H_
 
-typedef void (* HTMLStackFreeFunc) (gpointer data);
-
 struct _HTMLStack {
 	HTMLStackFreeFunc free_func;
 
 	GList *list;
 };
-typedef struct _HTMLStack HTMLStack;
 
 
 HTMLStack *html_stack_new (HTMLStackFreeFunc free_func);

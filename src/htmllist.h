@@ -21,30 +21,14 @@
 #ifndef _HTMLLIST_H_
 #define _HTMLLIST_H_
 
-#include "htmlobject.h"
-
-typedef enum {
-	HTML_LIST_TYPE_UNORDERED,
-	HTML_LIST_TYPE_UNORDEREDPLAIN,
-	HTML_LIST_TYPE_ORDERED,
-	HTML_LIST_TYPE_MENU,
-	HTML_LIST_TYPE_DIR
-} HTMLListType;
-
-typedef enum {
-	HTML_LIST_NUM_TYPE_NUMERIC,
-	HTML_LIST_NUM_TYPE_LOWALPHA,
-	HTML_LIST_NUM_TYPE_UPALPHA,
-	HTML_LIST_NUM_TYPE_LOWROMAN,
-	HTML_LIST_NUM_TYPE_UPROMAN
-} HTMLListNumType;
+#include "htmlenums.h"
+#include "htmltypes.h"
 
 struct _HTMLList {
 	HTMLListType type;
 	HTMLListNumType numType;
 	gint itemNumber;
 };
-typedef struct _HTMLList HTMLList;
 
 
 HTMLList *html_list_new (HTMLListType t, HTMLListNumType nt);

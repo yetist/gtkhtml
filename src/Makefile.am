@@ -65,7 +65,8 @@ libgtkhtml_HEADERS =				\
 	htmlengine-search.h			\
 	htmlengine.h				\
 	htmlentity.h				\
-	htmlenum.h				\
+	htmlenums.h				\
+	htmlenumutils.h				\
 	htmlfontmanager.h			\
 	htmlform.h				\
 	htmlgdkpainter.h			\
@@ -83,6 +84,7 @@ libgtkhtml_HEADERS =				\
 	htmlsearch.h				\
 	htmlreplace.h				\
 	htmlselect.h				\
+	htmlselection.h				\
 	htmlsettings.h				\
 	htmlstack.h				\
 	htmlstringtokenizer.h			\
@@ -96,13 +98,13 @@ libgtkhtml_HEADERS =				\
 	htmltextslave.h				\
 	htmltokenizer.h				\
 	htmltype.h				\
+	htmltypes.h				\
 	htmlundo.h				\
 	htmlundo-action.h			\
 	htmlurl.h				\
 	htmlvspace.h				\
 	gtkhtml-keybinding.h			\
 	htmliframe.h				\
-	htmlelement.h				\
 	htmlengine-edit-table.h			\
 	htmlfont.h				\
 	htmlhspace.h				\
@@ -151,7 +153,7 @@ libgtkhtml_la_SOURCES =				\
 	htmlengine-search.c			\
 	htmlengine.c				\
 	htmlentity.c				\
-	htmlenum.c				\
+	htmlenumutils.c				\
 	htmlfontmanager.c			\
 	htmlform.c				\
 	htmlgdkpainter.c			\
@@ -169,6 +171,7 @@ libgtkhtml_la_SOURCES =				\
 	htmlsearch.c				\
 	htmlreplace.c				\
 	htmlselect.c				\
+	htmlselection.c				\
 	htmlsettings.c				\
 	htmlstack.c				\
 	htmlstringtokenizer.c			\

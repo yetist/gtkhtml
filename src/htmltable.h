@@ -26,9 +26,6 @@
 #include "htmlcluev.h"
 #include "htmltablecell.h"
 
-typedef struct _HTMLTable HTMLTable;
-typedef struct _HTMLTableClass HTMLTableClass;
-
 #define HTML_TABLE(x) ((HTMLTable *)(x))
 #define HTML_TABLE_CLASS(x) ((HTMLTableClass *)(x))
 

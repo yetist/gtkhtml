@@ -23,12 +23,16 @@
 
 #include <stdio.h>
 #include <string.h>
-#include <unicode.h>
 
 #include "htmltext.h"
+#include "htmlcolor.h"
+#include "htmlcolorset.h"
 #include "htmlclueflow.h"
-#include "htmlcursor.h"
+#include "htmlengine.h"
+#include "htmlengine-save.h"
 #include "htmlentity.h"
+#include "htmlsettings.h"
+#include "htmltextslave.h"
 
 
 HTMLTextClass html_text_class;
@@ -805,6 +809,31 @@ destroy (HTMLObject *obj)
 	HTML_OBJECT_CLASS (parent_class)->destroy (obj);
 }
 
+static gboolean
+select_range (HTMLObject *self,
+	      HTMLEngine *engine,
+	      guint start,
+	      gint length,
+	      gboolean queue_draw)
+{
+	if (queue_draw && length) {
+		HTMLObject *o = self->next;
+
+		while (o && HTML_OBJECT_TYPE (o) == HTML_TYPE_TEXTSLAVE) {
+			HTMLTextSlave *slave = HTML_TEXT_SLAVE (o);
+			g_assert (HTML_OBJECT (slave->owner) == self);
+			if (MAX (slave->posStart, start) < MIN (slave->posStart + slave->posLen, start + length)
+			    && queue_draw) {
+				
+				html_engine_queue_draw (engine, o);
+			}
+			o = o->next;
+		}
+	}
+
+	return HTML_OBJECT_CLASS (parent_class)->select_range (self, engine, start, length, queue_draw);
+}
+
 
 void
 html_text_type_init (void)
@@ -834,6 +863,7 @@ html_text_class_init (HTMLTextClass *klass,
 	object_class->get_cursor_base = get_cursor_base;
 	object_class->save = save;
 	object_class->save_plain = save_plain;
+	object_class->select_range = select_range;
 	object_class->get_length = get_length;
 
 	/* HTMLText methods.  */

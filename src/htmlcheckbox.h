@@ -26,9 +26,6 @@
 #define HTML_CHECKBOX(x) ((HTMLCheckBox *) (x))
 #define HTML_CHECKBOX_CLASS(x) ((HTMLCheckBoxClass *) (x))
 
-typedef struct _HTMLCheckBox HTMLCheckBox;
-typedef struct _HTMLCheckBoxClass HTMLCheckBoxClass;
-
 struct _HTMLCheckBox {
 	HTMLEmbedded element;
 	gint default_checked;

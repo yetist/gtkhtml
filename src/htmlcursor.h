@@ -24,8 +24,6 @@
 #ifndef HTMLCURSOR_H
 #define HTMLCURSOR_H
 
-typedef struct _HTMLCursor HTMLCursor;
-
 #include <glib.h>
 #include <unicode.h>
 

@@ -26,9 +26,6 @@
 #define HTML_RADIO(x) ((HTMLRadio *) (x))
 #define HTML_RADIO_CLASS(x) ((HTMLRadioClass *) (x))
 
-typedef struct _HTMLRadio HTMLRadio;
-typedef struct _HTMLRadioClass HTMLRadioClass;
-
 struct _HTMLRadio {
 	HTMLEmbedded element;
 	gint default_checked;

@@ -24,78 +24,15 @@
 #ifndef _HTMLOBJECT_H_
 #define _HTMLOBJECT_H_
 
-#include <glib.h>
-
-typedef struct _HTMLObjectClass HTMLObjectClass;
-typedef struct _HTMLAnchor HTMLAnchor;
-typedef struct _HTMLObject HTMLObject;
-typedef struct _HTMLSearch HTMLSearch;
-
-/* FIXME fix ugly dependency on HTMLForm.  */
-typedef struct _HTMLForm HTMLForm;
-/* FIXME fix ugly dependency on HTMLSelect.  */
-typedef struct _HTMLSelect HTMLSelect;
-/* FIXME fix ugly dependency on HTMLTextArea.  */
-typedef struct _HTMLTextArea HTMLTextArea;
-
-typedef enum {
-	HTML_FIT_NONE,
-	HTML_FIT_PARTIAL,
-	HTML_FIT_COMPLETE
-} HTMLFitType;
-
-enum HTMLObjectFlags {
-	HTML_OBJECT_FLAG_NONE = 0,
-	HTML_OBJECT_FLAG_SEPARATOR = 1 << 0,
-	HTML_OBJECT_FLAG_NEWLINE = 1 << 1,
-	HTML_OBJECT_FLAG_SELECTED = 1 << 2,
-	HTML_OBJECT_FLAG_ALLSELECTED = 1 << 3,
-	HTML_OBJECT_FLAG_FIXEDWIDTH = 1 << 4,
-	HTML_OBJECT_FLAG_ALIGNED = 1 << 5,
-	HTML_OBJECT_FLAG_PRINTED = 1 << 6,
-	HTML_OBJECT_FLAG_HIDDEN = 1 << 7
-};
-
-typedef enum {
-	HTML_CLEAR_NONE,
-	HTML_CLEAR_LEFT,
-	HTML_CLEAR_RIGHT,
-	HTML_CLEAR_ALL
-} HTMLClearType;
-
-typedef enum {
-	HTML_VALIGN_TOP,
-	HTML_VALIGN_CENTER,
-	HTML_VALIGN_BOTTOM,
-	HTML_VALIGN_NONE
-} HTMLVAlignType;
-
-typedef enum {
-	HTML_HALIGN_LEFT,
-	HTML_HALIGN_CENTER,
-	HTML_HALIGN_RIGHT,
-	HTML_HALIGN_NONE
-} HTMLHAlignType;
-
-typedef enum {
-	HTML_CHANGE_NONE = 0,
-	HTML_CHANGE_MIN_WIDTH = 1 << 0,
-	HTML_CHANGE_ALL = 0x1
-} HTMLChangeFlags;
-
-
-#include "htmlengine.h"
-#include "htmlcursor.h"
-#include "htmltype.h"
-#include "htmlpainter.h"
-#include "htmlengine-save.h"
+#include <libart_lgpl/art_rect.h>
+#include <gdk/gdktypes.h>
+#include "htmltypes.h"
+#include "htmlenums.h"
 
 
 #define HTML_OBJECT(x)		((HTMLObject *) (x))
 #define HTML_OBJECT_CLASS(x)	((HTMLObjectClass *) (x))
 #define HTML_OBJECT_TYPE(x)     (HTML_OBJECT (x)->klass->type)
-
-typedef void (* HTMLObjectForallFunc)       (HTMLObject *self, HTMLEngine *e, gpointer data);
 
 struct _HTMLObject {
 	HTMLObjectClass *klass;
@@ -237,7 +174,7 @@ struct _HTMLObjectClass {
 				  gint *x, gint *y);
 
 	/* Container operations.  */
-
+	HTMLEngine * (* get_engine) (HTMLObject *o, HTMLEngine *e);
 	void (* forall) (HTMLObject *self, HTMLEngine *e, HTMLObjectForallFunc func, gpointer data);
 	gboolean (* is_container) (HTMLObject *self);
 
@@ -302,6 +239,8 @@ void        html_object_set_painter       (HTMLObject           *o,
 					   gint                  max_width);
 void        html_object_reset             (HTMLObject           *o);
 gboolean    html_object_is_text           (HTMLObject           *object);
+HTMLEngine *html_object_get_engine        (HTMLObject           *self,
+					   HTMLEngine           *e);
 void        html_object_forall            (HTMLObject           *self,
 					   HTMLEngine           *e,
 					   HTMLObjectForallFunc  func,
@@ -434,8 +373,12 @@ HTMLObject * html_object_head            (HTMLObject *self);
 HTMLObject * html_object_tail            (HTMLObject *self);
 
 /* get prev/next leaf object in scope of whole tree */
-HTMLObject * html_object_next_leaf       (HTMLObject *self);
-HTMLObject * html_object_prev_leaf       (HTMLObject *self);
+HTMLObject *html_object_next_leaf           (HTMLObject *self);
+HTMLObject *html_object_prev_leaf           (HTMLObject *self);
+HTMLObject *html_object_next_leaf_not_type  (HTMLObject *self,
+					     HTMLType    t);
+HTMLObject *html_object_prev_leaf_not_type  (HTMLObject *self,
+					     HTMLType    t);
 
 /* Page splitting.  */
 gint  html_object_check_page_split  (HTMLObject *self,

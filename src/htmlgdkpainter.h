@@ -56,12 +56,10 @@ struct _HTMLGdkPainter {
 	GdkColor light;
 	GdkColor black;
 };
-typedef struct _HTMLGdkPainter HTMLGdkPainter;
 
 struct _HTMLGdkPainterClass {
 	HTMLPainterClass base;
 };
-typedef struct _HTMLGdkPainterClass HTMLGdkPainterClass;
 
 
 GtkType      html_gdk_painter_get_type   (void);

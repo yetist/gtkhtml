@@ -22,10 +22,11 @@
    Boston, MA 02111-1307, USA.
 */
 
-#include "htmlobject.h"
-#include "htmltable.h"
-#include "htmlsearch.h"
 #include <string.h>
+#include "htmlengine-save.h"
+#include "htmlpainter.h"
+#include "htmlsearch.h"
+#include "htmltable.h"
 
 
 #define COLUMN_INFO(table, i)				\
@@ -60,12 +61,12 @@ static void do_rspan   (HTMLTable *table, gint row);
 
 
 
-static gboolean
+static inline gboolean
 invalid_cell (HTMLTable *table, gint r, gint c)
 {
-	return (table->cells[r][c] == NULL
-		|| (c < table->totalCols - 1 && table->cells[r][c] == table->cells[r][c+1])
-		|| (r < table->totalRows - 1 && table->cells[r][c] == table->cells[r+1][c]));
+	return (table->cells [r][c] == NULL
+		|| c != table->cells [r][c]->col
+		|| r != table->cells [r][c]->row);
 }
 
 /* HTMLObject methods.  */
@@ -1347,6 +1348,7 @@ find_anchor (HTMLObject *self, const char *name, gint *x, gint *y)
 	return 0;
 }
 
+
 static HTMLObject *
 check_point (HTMLObject *self,
 	     HTMLPainter *painter,
@@ -1380,11 +1382,7 @@ check_point (HTMLObject *self,
 			if (r < end_row - 1 && table->cells[r+1][c] == cell)
 				continue;
 
-			obj = html_object_check_point (HTML_OBJECT (cell),
-						       painter,
-						       x, y,
-						       offset_return,
-						       for_cursor);
+			obj = html_object_check_point (HTML_OBJECT (cell), painter, x, y, offset_return, for_cursor);
 			if (obj != NULL)
 				return obj;
 		}
@@ -1562,8 +1560,8 @@ next (HTMLObject *self, HTMLObject *child)
 
 	table = HTML_TABLE (self);
 	r = HTML_TABLE_CELL (child)->row;
-	c = HTML_TABLE_CELL (child)->col;
-	for (c++; r < table->totalRows; r++) {
+	c = HTML_TABLE_CELL (child)->col + 1;
+	for (; r < table->totalRows; r++) {
 		for (; c < table->totalCols; c++) {
 			if (invalid_cell (table, r, c))
 				continue;
@@ -1582,8 +1580,8 @@ prev (HTMLObject *self, HTMLObject *child)
 
 	table = HTML_TABLE (self);
 	r = HTML_TABLE_CELL (child)->row;
-	c = HTML_TABLE_CELL (child)->col;
-	for (c--; r >= 0; r--) {
+	c = HTML_TABLE_CELL (child)->col - 1;
+	for (; r >= 0; r--) {
 		for (; c >=0; c--) {
 			if (invalid_cell (table, r, c))
 				continue;

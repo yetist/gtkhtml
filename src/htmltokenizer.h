@@ -24,12 +24,10 @@
 #ifndef _HTMLTOKENIZER_H_
 #define _HTMLTOKENIZER_H_
 
-#include <glib.h>
+#include "htmltypes.h"
 
 #define TAG_ESCAPE 13
 #define TAB_SIZE 8
-
-typedef struct  _HTMLTokenizer HTMLTokenizer;
 
 HTMLTokenizer *html_tokenizer_new          (void);
 void           html_tokenizer_destroy      (HTMLTokenizer *tokenizer);

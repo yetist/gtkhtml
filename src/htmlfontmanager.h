@@ -24,15 +24,8 @@
 
 #define HTML_FONT_MANAGER(x) ((HTMLFontManager *)x)
 
-#include <glib.h>
-
-typedef struct     _HTMLFontManager             HTMLFontManager;
-typedef gpointer (* HTMLFontManagerAllocFont)   (gchar *face_name, gdouble size, GtkHTMLFontStyle style);
-typedef void     (* HTMLFontManagerRefFont)     (gpointer font);
-typedef void     (* HTMLFontManagerUnrefFont)   (gpointer font);
-typedef gchar       HTMLFontFace;
-typedef struct     _HTMLFontSet                 HTMLFontSet;
-
+#include "htmltypes.h"
+#include "gtkhtml-enums.h"
 #include "gtkhtmlfontstyle.h"
 
 struct _HTMLFontSet {

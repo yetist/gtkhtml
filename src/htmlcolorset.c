@@ -20,6 +20,7 @@
 */
 
 #include "htmlcolorset.h"
+#include "htmlcolor.h"
 
 
 

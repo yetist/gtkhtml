@@ -24,9 +24,6 @@
 
 #include "htmlobject.h"
 
-typedef struct _HTMLRule HTMLRule;
-typedef struct _HTMLRuleClass HTMLRuleClass;
-
 #define HTML_RULE(x) ((HTMLRule *) (x))
 #define HTML_RULE_CLASS(x) ((HTMLRuleClass *) (x))
 

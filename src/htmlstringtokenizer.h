@@ -34,7 +34,6 @@ struct _HTMLStringTokenizer {
 	gchar *pos;
 	gchar *end;
 };
-typedef struct _HTMLStringTokenizer HTMLStringTokenizer;
 
 
 HTMLStringTokenizer *html_string_tokenizer_new              (void);

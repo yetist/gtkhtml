@@ -21,7 +21,11 @@
    Boston, MA 02111-1307, USA.
 */
 
+#include "htmlcolor.h"
+#include "htmlcolorset.h"
+#include "htmlengine-save.h"
 #include "htmlrule.h"
+#include "htmlpainter.h"
 
 
 HTMLRuleClass html_rule_class;
@@ -199,13 +203,18 @@ save_plain (HTMLObject *self,
 {
 	int i;
 	
-	html_engine_save_output_string (state, "\n"); 	
+	if (!html_engine_save_output_string (state, "\n"))
+		return FALSE;
 
 	/* Fixme no alignment or percent */
 	for (i = 0; i < requested_width; i++)
-		html_engine_save_output_string (state, "_"); 
+		if (!html_engine_save_output_string (state, "_"))
+			return FALSE;
 	
-	html_engine_save_output_string (state, "\n"); 	
+	if (!html_engine_save_output_string (state, "\n"))
+		return FALSE;
+
+	return TRUE;
 }
 
 void

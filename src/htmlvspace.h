@@ -23,9 +23,6 @@
 
 #include "htmlobject.h"
 
-typedef struct _HTMLVSpace HTMLVSpace;
-typedef struct _HTMLVSpaceClass HTMLVSpaceClass;
-
 #define HTML_VSPACE(x) ((HTMLVSpace *)(x))
 
 struct _HTMLVSpace {

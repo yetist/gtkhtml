@@ -21,19 +21,22 @@
    Boston, MA 02111-1307, USA.
 */
 
-#include "htmlobject.h"
+#include <string.h>
+#include <sys/types.h>
+#include <regex.h>
+
+#include "htmlcolor.h"
+#include "htmlcolorset.h"
 #include "htmlclue.h"
 #include "htmlclueflow.h"
 #include "htmltextmaster.h"
 #include "htmltextslave.h"
 #include "htmlentity.h"
-#include <string.h>
-#include <sys/types.h>
-#include <regex.h>
 #include "htmlengine.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-paste.h"
 #include "htmllinktextmaster.h"
+#include "htmlsettings.h"
 
 
 HTMLTextMasterClass html_text_master_class;
@@ -180,6 +183,7 @@ select_range (HTMLObject *self,
 	HTMLObject *p;
 	gboolean changed;
 
+	printf ("select_range %d -- %d\n", offset, length);
 	master = HTML_TEXT_MASTER (self);
 
 	if (length < 0 || length + offset > HTML_TEXT (self)->text_len)

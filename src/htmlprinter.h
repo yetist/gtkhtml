@@ -38,12 +38,10 @@ struct _HTMLPrinter {
 
 	GnomePrintContext *print_context;
 };
-typedef struct _HTMLPrinter HTMLPrinter;
 
 struct _HTMLPrinterClass {
 	HTMLPainterClass base;
 };
-typedef struct _HTMLPrinterClass HTMLPrinterClass;
 
 
 GtkType      html_printer_get_type                    (void);

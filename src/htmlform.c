@@ -20,8 +20,9 @@
 
 */
 
-#include "htmlform.h"
 #include <string.h>
+#include "htmlform.h"
+#include "htmlengine.h"
 
 
 HTMLForm *

@@ -20,6 +20,7 @@
 */
 
 #include "htmlundo.h"
+#include "htmlcursor.h"
 
 
 static void

@@ -24,9 +24,6 @@
 #include "htmlobject.h"
 #include "htmltextmaster.h"
 
-typedef struct _HTMLTextSlave HTMLTextSlave;
-typedef struct _HTMLTextSlaveClass HTMLTextSlaveClass;
-
 #define HTML_TEXT_SLAVE(x) ((HTMLTextSlave *) (x))
 #define HTML_TEXT_SLAVE_CLASS(x) ((HTMLTextSlaveClass *) (x))
 

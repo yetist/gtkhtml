@@ -21,7 +21,9 @@
 
 #include "gtkhtmldebug.h"
 #include "htmlclue.h"
+#include "htmlcolor.h"
 #include "htmltextmaster.h"
+#include "htmlselection.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-movement.h"
 #include "htmlengine-edit-selection-updater.h"
@@ -131,7 +133,7 @@ html_engine_get_document_font_style (HTMLEngine *engine)
 		return GTK_HTML_FONT_STYLE_DEFAULT;
 	else if (! html_object_is_text (curr))
 		return GTK_HTML_FONT_STYLE_DEFAULT;
-	else if (! engine->active_selection)
+	else if (! html_engine_is_selection_active (engine))
 		return HTML_TEXT (curr)->font_style;
 	else
 		return get_font_style_from_selection (engine);
@@ -152,7 +154,7 @@ html_engine_get_document_color (HTMLEngine *engine)
 		return NULL;
 	else if (! html_object_is_text (curr))
 		return NULL;
-	else if (! engine->active_selection)
+	else if (! html_engine_is_selection_active (engine))
 		return HTML_TEXT (curr)->color;
 	else
 		return get_color_from_selection (engine);
@@ -262,7 +264,7 @@ html_engine_set_font_style (HTMLEngine *e,
 	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
 	g_return_val_if_fail (e->editable, FALSE);
 
-	if (e->active_selection) {
+	if (html_engine_is_selection_active (e)) {
 		struct tmp_font *tf = g_new (struct tmp_font, 1);
 		tf->and_mask = and_mask;
 		tf->or_mask  = or_mask;
@@ -322,7 +324,7 @@ inc_dec_size_cb (HTMLObject *obj, gpointer data)
 void
 html_engine_font_size_inc_dec (HTMLEngine *e, gboolean inc)
 {
-	if (e->active_selection)
+	if (html_engine_is_selection_active (e))
 		html_engine_cut_and_paste (e, (inc) ? "Increase font size" : "Decrease font size",
 					   (GFunc) inc_dec_size_cb, GINT_TO_POINTER (inc));
 	else
@@ -339,7 +341,7 @@ set_color (HTMLObject *o, HTMLColor *color)
 void
 html_engine_set_color (HTMLEngine *e, HTMLColor *color)
 {
-	if (e->active_selection) {
+	if (html_engine_is_selection_active (e)) {
 		html_engine_cut_and_paste_begin (e, "Set color");
 		g_list_foreach (e->cut_buffer, (GFunc) set_color, color);
 		html_engine_cut_and_paste_end (e);
@@ -393,7 +395,7 @@ get_url_or_target_from_selection (HTMLEngine *e, gboolean get_url)
 	HTMLObject *p;
 
 	g_return_val_if_fail (e->clue != NULL, NULL);
-	g_assert (e->active_selection);
+	g_assert (html_engine_is_selection_active (e));
 	g_assert (e->mark != NULL);
 
 	backwards = (e->mark->position < e->cursor->position) ? TRUE : FALSE;
@@ -413,7 +415,7 @@ get_url_or_target_from_selection (HTMLEngine *e, gboolean get_url)
 const gchar *
 html_engine_get_document_url (HTMLEngine *e)
 {
-	if (e->active_selection)
+	if (html_engine_is_selection_active (e))
 		return get_url_or_target_from_selection (e, TRUE);
 	else
 		return html_object_get_url (e->cursor->object);
@@ -422,7 +424,7 @@ html_engine_get_document_url (HTMLEngine *e)
 const gchar *
 html_engine_get_document_target (HTMLEngine *e)
 {
-	if (e->active_selection)
+	if (html_engine_is_selection_active (e))
 		return get_url_or_target_from_selection (e, FALSE);
 	else
 		return html_object_get_target (e->cursor->object);

@@ -21,25 +21,53 @@
 */
 
 #include <unicode.h>
+#include "htmlcursor.h"
 #include "htmlinterval.h"
+#include "htmlselection.h"
+
+inline void
+html_point_construct (HTMLPoint *p, HTMLObject *o, guint off)
+{
+	p->object = o;
+	p->offset = off;
+}
+
+HTMLPoint *
+html_point_new (HTMLObject *o, guint off)
+{
+	HTMLPoint *np = g_new (HTMLPoint, 1);
+	html_point_construct (np, o, off);
+
+	return np;
+}
+
+inline void
+html_point_destroy (HTMLPoint *p)
+{
+	g_free (p);
+}
 
 HTMLInterval *
 html_interval_new (HTMLObject *from, HTMLObject *to, guint from_offset, guint to_offset)
 {
 	HTMLInterval *i = g_new (HTMLInterval, 1);
 
-	i->from = from;
-	i->to   = to;
-	i->from_offset = from_offset;
-	i->to_offset   = to_offset;
+	html_point_construct (&i->from, from, from_offset);
+	html_point_construct (&i->to,   to,   to_offset);
 
 	return i;
 }
 
-HTMLInterval *
+inline HTMLInterval *
 html_interval_new_from_cursor (HTMLCursor *begin, HTMLCursor *end)
 {
 	return html_interval_new (begin->object, end->object, begin->offset, end->offset);
+}
+
+inline HTMLInterval *
+html_interval_new_from_points (HTMLPoint *from, HTMLPoint *to)
+{
+	return html_interval_new (from->object, to->object, from->offset, to->offset);
 }
 
 void
@@ -51,24 +79,24 @@ html_interval_destroy (HTMLInterval *i)
 guint
 html_interval_get_length (HTMLInterval *i, HTMLObject *obj)
 {
-	if (obj != i->from && obj != i->to)
+	if (obj != i->from.object && obj != i->to.object)
 		return html_object_get_length (obj);	
-	if (obj == i->from) {
-		if (obj == i->to)
-			return i->to_offset - i->from_offset;
+	if (obj == i->from.object) {
+		if (obj == i->to.object)
+			return i->to.offset - i->from.offset;
 		else
-			return html_object_get_length (obj) - i->from_offset;
+			return html_object_get_length (obj) - i->from.offset;
 	} else
-		return i->to_offset;
+		return i->to.offset;
 }
 
 guint
 html_interval_get_bytes (HTMLInterval *i, HTMLObject *obj)
 {
-	if (obj != i->from && obj != i->to)
+	if (obj != i->from.object && obj != i->to.object)
 		return html_object_get_bytes (obj);
-	if (obj == i->from) {
-		if (obj == i->to)
+	if (obj == i->from.object) {
+		if (obj == i->to.object)
 			return html_interval_get_to_index (i) - html_interval_get_from_index (i);
 		else
 			return html_object_get_bytes (obj) - html_interval_get_from_index (i);
@@ -79,13 +107,13 @@ html_interval_get_bytes (HTMLInterval *i, HTMLObject *obj)
 guint
 html_interval_get_start (HTMLInterval *i, HTMLObject *obj)
 {
-	return (obj != i->from) ? 0 : i->from_offset;
+	return (obj != i->from.object) ? 0 : i->from.offset;
 }
 
 guint
 html_interval_get_start_index (HTMLInterval *i, HTMLObject *obj)
 {
-	return (obj != i->from) ? 0 : html_interval_get_from_index (i);
+	return (obj != i->from.object) ? 0 : html_interval_get_from_index (i);
 }
 
 void
@@ -94,19 +122,19 @@ html_interval_select (HTMLInterval *i, HTMLEngine *e)
 	HTMLObject *obj;
 	guint offset, len;
 
-	obj = i->from;
+	obj = i->from.object;
 	while (obj) {
 		offset = html_interval_get_start  (i, obj);
 		len    = html_interval_get_length (i, obj);
 		if (len) {
-			e->active_selection = TRUE;
+			/* !!!FIXME html_engine_is_selection_active (e) = TRUE; */
 			html_object_select_range (obj, e, offset, len, TRUE);
 		}
-		if (obj == i->to)
+		if (obj == i->to.object)
 			break;
-		obj = html_object_next_not_slave (obj);
+		obj = html_object_next_leaf_not_type (obj, HTML_TYPE_TEXTSLAVE);
 	}
-	html_engine_set_active_selection (e, e->active_selection, GDK_CURRENT_TIME);
+	html_engine_set_active_selection (e, html_engine_is_selection_active (e), GDK_CURRENT_TIME);
 }
 
 gint
@@ -114,7 +142,7 @@ html_interval_get_from_index (HTMLInterval *i)
 {
 	g_assert (i);
 
-	return html_object_get_index (i->from, i->from_offset);
+	return html_object_get_index (i->from.object, i->from.offset);
 }
 
 gint
@@ -122,5 +150,194 @@ html_interval_get_to_index (HTMLInterval *i)
 {
 	g_assert (i);
 
-	return html_object_get_index (i->to, i->to_offset);
+	return html_object_get_index (i->to.object, i->to.offset);
+}
+
+static GSList *
+get_downtree_line (HTMLObject *o)
+{
+	GSList *list = NULL;
+
+	while (o) {
+		list = g_slist_prepend (list, o);
+		o = o->parent;
+	}
+
+	return list;
+}
+
+static HTMLEngine *
+do_downtree_lines_intersection (GSList **l1, GSList **l2, HTMLEngine *e)
+{
+	g_assert ((*l1)->data == (*l2)->data);
+
+	while (*l1 && *l2 && (*l1)->data == (*l2)->data) {
+		e = html_object_get_engine (HTML_OBJECT ((*l1)->data), e);
+		*l1 = g_slist_remove_link (*l1, *l1);
+		*l2 = g_slist_remove_link (*l2, *l2);
+	}
+
+	return e;
+}
+
+static void
+interval_forall (HTMLObject *parent, GSList *from_down, GSList *to_down, HTMLEngine *e, HTMLObjectForallFunc f, gpointer data)
+{
+	HTMLObject *o, *from, *to;
+
+	from = from_down ? HTML_OBJECT (from_down->data) : html_object_head (parent);
+	to   = to_down   ? HTML_OBJECT (to_down->data)   : NULL;
+
+	for (o = from; o; o = html_object_next_not_slave (o)) {
+		interval_forall (o,
+				 (from_down && o == HTML_OBJECT (from_down->data)) ? from_down->next : NULL,
+				 (to_down   && o == HTML_OBJECT (to_down->data))   ? to_down->next   : NULL,
+				 html_object_get_engine (o, e), f, data);
+		if (o == to)
+			break;
+	}
+	(*f) (parent, e, data);
+}
+
+void
+html_interval_forall (HTMLInterval *i, HTMLEngine *e, HTMLObjectForallFunc f, gpointer data)
+{
+	GSList *from_downline, *to_downline;
+	HTMLEngine *engine;
+
+	g_return_if_fail (i->from.object);
+	g_return_if_fail (i->to.object);
+
+	printf ("from: %p to: %p\n", i->from.object, i->to.object);
+	//gtk_html_debug_dump_object (i->from.object);
+	//gtk_html_debug_dump_object (i->to.object);
+
+	from_downline = get_downtree_line (i->from.object);
+	to_downline   = get_downtree_line (i->to.object);
+	engine = do_downtree_lines_intersection  (&from_downline, &to_downline, e);
+
+	if (from_downline)
+		interval_forall    (HTML_OBJECT (from_downline->data)->parent, from_downline, to_downline,
+				    html_object_get_engine (HTML_OBJECT (from_downline->data)->parent, engine), f, data);
+	else {
+		g_assert (i->from.object == i->to.object);
+		html_object_forall (i->from.object, html_object_get_engine (i->from.object, engine), f, data);
+	}
+
+	g_slist_free (from_downline);
+	g_slist_free (to_downline);
+}
+
+static HTMLObject *
+html_object_children_max (HTMLObject *a, HTMLObject *b)
+{
+	HTMLObject *o;
+
+	g_return_val_if_fail (a->parent, NULL);
+	g_return_val_if_fail (b->parent, NULL);
+	g_return_val_if_fail (a->parent == b->parent, NULL);
+
+	for (o=a; o; o = html_object_next_not_slave (o))
+		if (o == b)
+			return b;
+	return a;
+}
+
+static inline HTMLObject *
+html_object_children_min (HTMLObject *a, HTMLObject *b)
+{
+	return a == html_object_children_max (b, a) ? b : a;
+}
+
+HTMLPoint *
+html_point_max (HTMLPoint *a, HTMLPoint *b)
+{
+	GSList *a_downline, *b_downline;
+	HTMLPoint *rv = NULL;
+
+	if (a->object == b->object)
+		return a->offset < b->offset ? b : a;
+
+	a_downline = get_downtree_line (a->object);
+	b_downline = get_downtree_line (b->object);
+	do_downtree_lines_intersection (&a_downline, &b_downline, NULL);
+
+	rv = html_object_children_max (HTML_OBJECT (a_downline->data), HTML_OBJECT (b_downline->data))
+		== HTML_OBJECT (a_downline->data) ? a : b;
+	g_slist_free (a_downline);
+	g_slist_free (b_downline);
+
+	return rv;
+}
+
+inline HTMLPoint *
+html_point_min (HTMLPoint *a, HTMLPoint *b)
+{
+	return a == html_point_max (a, b) ? b : a;
+}
+
+static HTMLPoint *
+max_from (HTMLInterval *a, HTMLInterval *b)
+{
+	if (!a->from.object)
+		return &b->from;
+	if (!b->from.object)
+		return &a->from;
+
+	return html_point_max (&a->from, &b->from);
+}
+
+static HTMLPoint *
+min_to (HTMLInterval *a, HTMLInterval *b)
+{
+	if (!a->to.object)
+		return &b->to;
+	if (!b->to.object)
+		return &a->to;
+
+	return html_point_min (&a->to, &b->to);
+}
+
+HTMLInterval *
+html_interval_intersection (HTMLInterval *a, HTMLInterval *b)
+{
+	HTMLPoint *from, *to;
+
+	from = max_from (a, b);
+	to   = min_to   (a, b);
+
+	return to == html_point_max (from, to) ?
+		html_interval_new_from_points (from, to) : NULL;
+}
+
+void *
+html_interval_substract (HTMLInterval *a, HTMLInterval *b, HTMLInterval **s1, HTMLInterval **s2)
+{
+	return NULL;
+}
+
+void
+html_interval_validate (HTMLInterval *i)
+{
+	printf ("html_interval_validate\n");
+	if (&i->from == html_point_max (&i->from, &i->to)) {
+		HTMLPoint tmp;
+
+		printf ("swap\n");
+		tmp     = i->from;
+		i->from = i->to;
+		i->to   = tmp;
+	}
+}
+
+gboolean
+html_point_eq (const HTMLPoint *a, const HTMLPoint *b)
+{
+	return a->object == b->object && a->offset == b->offset;
+}
+
+gboolean
+html_interval_eq (const HTMLInterval *a, const HTMLInterval *b)
+{
+	return html_point_eq (&a->from, &b->from) && html_point_eq (&a->to, &b->to);
 }

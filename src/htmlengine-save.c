@@ -25,12 +25,16 @@
 */
 
 #include <string.h>
-
+#include <unicode.h>
+#include "config.h"
+#include "htmlcolor.h"
 #include "htmlengine.h"
 #include "htmlimage.h"
 #include "htmlentity.h"
+#include "htmlengine-save.h"
+#include "htmlsettings.h"
+
 #include "gtkhtmldebug.h"
-#include "config.h"
 
 
 /* This routine was originally written by Daniel Velliard, (C) 1998 World Wide

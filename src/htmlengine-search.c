@@ -20,11 +20,13 @@
 */
 
 #include <unicode.h>
+#include "htmlcursor.h"
 #include "htmlengine.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-search.h"
 #include "htmlsearch.h"
 #include "htmltextslave.h"
+#include "htmlselection.h"
 
 static HTMLEngine *
 get_root_engine (HTMLEngine *e)
@@ -126,7 +128,7 @@ display_search_results (HTMLSearch *info)
 		html_engine_unselect_all (get_root_engine (e));
 		if (e != get_root_engine (e))
 			html_engine_unselect_all (e);
-		e->active_selection = TRUE;
+		/* !!!FIXME html_engine_is_selection_active (e) = TRUE; */
 
 		/* go thru all objects (Text's) in found list and do select_range on it */
 		while (cur) {

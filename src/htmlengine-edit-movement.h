@@ -22,24 +22,8 @@
 #ifndef _HTMLENGINE_EDIT_MOVEMENT_H
 #define _HTMLENGINE_EDIT_MOVEMENT_H
 
-#include <glib.h>
+#include "htmltypes.h"
 
-#include "htmlengine.h"
-
-
-enum _HTMLEngineCursorMovement {
-	HTML_ENGINE_CURSOR_UP,
-	HTML_ENGINE_CURSOR_DOWN,
-	HTML_ENGINE_CURSOR_RIGHT,
-	HTML_ENGINE_CURSOR_LEFT,
-	HTML_ENGINE_CURSOR_HOME,
-	HTML_ENGINE_CURSOR_END,
-	HTML_ENGINE_CURSOR_PGUP,
-	HTML_ENGINE_CURSOR_PGDOWN
-};
-typedef enum _HTMLEngineCursorMovement HTMLEngineCursorMovement;
-
-
 guint  html_engine_move_cursor     (HTMLEngine               *e,
 				    HTMLEngineCursorMovement  movement,
 				    guint                     count);

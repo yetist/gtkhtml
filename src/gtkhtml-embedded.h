@@ -23,18 +23,14 @@
 #ifndef _GTK_HTML_EMBEDDED_H
 #define _GTK_HTML_EMBEDDED_H
 
-#include <gtk/gtk.h>
+#include <gtk/gtkbin.h>
 #include <libgnome/gnome-defs.h>
+
+#include "gtkhtml-types.h"
 
 #define GTK_HTML_EMBEDDED(obj)         GTK_CHECK_CAST (obj, gtk_html_embedded_get_type (), GtkHTMLEmbedded)
 #define GTK_HTML_EMBEDDED_CLASS(klass) GTK_CHECK_CLASS_CAST (klass, gtk_html_embedded_get_type (), GtkHTMLEmbeddedClass)
 #define GTK_IS_HTML_EMBEDDED(obj)      GTK_CHECK_TYPE (obj, gtk_html_embedded_get_type ())
-
-
-typedef struct _GtkHTMLEmbedded      GtkHTMLEmbedded;
-typedef struct _GtkHTMLEmbeddedClass GtkHTMLEmbeddedClass;
-
-typedef struct _GtkHTMLEmbeddedPrivate GtkHTMLEmbeddedPrivate;
 
 struct _GtkHTMLEmbedded {
 	GtkBin bin;

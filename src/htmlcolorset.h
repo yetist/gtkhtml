@@ -22,25 +22,9 @@
 #ifndef _HTMLCOLORSET_H_
 #define _HTMLCOLORSET_H_
 
-enum _HTMLColorId
-{
-	HTMLBgColor = 0,
-	HTMLTextColor,
-	HTMLLinkColor,
-	HTMLVLinkColor,
-	HTMLALinkColor,
-	HTMLHighlightColor,
-	HTMLHighlightTextColor,
-	HTMLSpellErrorColor,
-
-	HTMLColors
-};
-typedef enum   _HTMLColorId HTMLColorId;
-typedef struct _HTMLColorSet HTMLColorSet;
-
-#include <gdk/gdk.h>
-#include "htmlpainter.h"
-#include "htmlcolor.h"
+#include <gtk/gtkwidget.h>
+#include "htmltypes.h"
+#include "htmlenums.h"
 
 struct _HTMLColorSet
 {

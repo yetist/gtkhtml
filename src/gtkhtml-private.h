@@ -24,8 +24,8 @@
 
 #include <config.h>
 
-#include "gtkhtml.h"
-#include "gtkhtmldebug.h"
+#include "gtkhtml-types.h"
+#include "htmltypes.h"
 
 
 struct _GtkHTMLPrivate {

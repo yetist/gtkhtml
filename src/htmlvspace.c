@@ -23,6 +23,7 @@
 
 #include "htmlvspace.h"
 #include "htmlclueflow.h"
+#include "htmlpainter.h"
 
 
 HTMLVSpaceClass html_vspace_class;

@@ -1,4 +1,68 @@
+2000-11-21  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlinterval.c (do_downtree_lines_intersection): follow engine
+	on way down
+
+2000-11-20  Radek Doulik  <rodo@helixcode.com>
+
+	* htmliframe.c (is_container): iframe is container
+	(draw_background): empty method
+
+	* htmldrawqueue.c (draw_obj): take care of iframes
+
+	* htmliframe.c (html_iframe_init): set clue parent to iframe
+
+2000-11-19  Radek Doulik  <rodo@helixcode.com>
+
+	* htmliframe.c (get_engine): new method
+
+	* htmlinterval.c (html_interval_forall): use html_object_get_engine
+
+	* htmlobject.c (get_engine): new virtual method
+	(html_object_get_engine): new function
+
+	* htmliframe.c (head): new method
+	(tail): new method
+
+2000-11-16  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlobject.c (next): changed to return child->next
+	(prev): likewise
+
+	* htmlclue.c: removed next, prev methods
+
+	* htmlobject.c (html_object_next_not_slave): use html_object_next
+
+	* htmlenums.[ch]: renamed from htmlenum
+
+	* htmltypes.h: new file, I've moved some type definitions here to
+	avoid annoying circular dependency problems, more types to store
+	here in future :)
+
 2000-11-15  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine.c (html_engine_init): set selection to NULL
+
+	* replaced engine->active_selection with
+	html_engine_is_selection_active (engine) call everywhere
+
+	* htmlengine.h: removed active_selection from Engine
+
+	* htmlselection.c (html_engine_is_selection_active): new function,
+	replaces engine->active_selection
+
+	* htmlengine.h: added selection interval to engine
+
+	* htmlobject.c (html_object_next_leaf_not_type): new function,
+	does next leaf as long as leaf type is t
+	(html_object_prev_leaf_not_type): likewise
+
+	* htmlinterval.c (html_interval_select): use
+	html_object_next_leaf_not_type instead of
+	html_object_next_not_slave
+
+	* htmlselection.[ch]: new files, contain selection stuff moved
+	from htmlengine.[ch]
 
 	* htmlobject.c (html_object_forall): added engine parameter +
 	update all calls

@@ -20,6 +20,7 @@
 */
 
 #include "htmlengine-edit-cursor.h"
+#include "htmlcursor.h"
 
 
 #define BLINK_TIMEOUT 500

@@ -25,6 +25,7 @@
 #include "gtkhtml-input.h"
 #include "htmlengine-search.h"
 #include "htmlsearch.h"
+#include "htmlselection.h"
 
 struct _GtkHTMLISearch {
 	GtkHTML *html;

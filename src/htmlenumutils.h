@@ -21,10 +21,11 @@
 
 */
 
-#ifndef _HTMLENUM_H
-#define _HTMLENUM_H
+#ifndef _HTML_ENUM_UTILS_H
+#define _HTML_ENUM_UTILS_H
 
-#include "htmlobject.h"
+#include <glib.h>
+#include "htmlenums.h"
 
 const gchar *html_valign_name (HTMLVAlignType valign);
 const gchar *html_halign_name (HTMLHAlignType halign);

@@ -23,8 +23,6 @@
 
 #include <glib.h>
 
-typedef struct _HTMLDrawQueue HTMLDrawQueue;
-
 #include "htmlengine.h"
 #include "htmlobject.h"
 
@@ -36,7 +34,6 @@ struct _HTMLDrawQueueClearElement {
 	GdkPixbuf *background_image;
 	guint background_image_x_offset, background_image_y_offset;
 };
-typedef struct _HTMLDrawQueueClearElement HTMLDrawQueueClearElement;
 
 struct _HTMLDrawQueue {
 	/* The associated engine.  */

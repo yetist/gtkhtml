@@ -24,6 +24,7 @@
 #include <stdarg.h>
 #include <string.h>
 
+#include "gtkhtml.h"
 #include "htmlobject.h"
 #include "htmltext.h"
 #include "htmltextmaster.h"
@@ -32,7 +33,8 @@
 #include "htmlclue.h"
 #include "htmlclueflow.h"
 #include "htmltype.h"
-#include "htmlenum.h"
+#include "htmlenums.h"
+#include "htmlenumutils.h"
 
 #include "gtkhtmldebug.h"
 

@@ -28,9 +28,13 @@
 #include <config.h>
 #include <ctype.h>
 #include <string.h>
+#include "gtkhtml-properties.h"
+#include "htmlcolor.h"
+#include "htmlcolorset.h"
 #include "htmlclue.h"
 #include "htmlclueflow.h"
 #include "htmlcluealigned.h"
+#include "htmlpainter.h"
 #include "htmltext.h"
 #include "htmlvspace.h"
 #include "htmllinktextmaster.h"
@@ -38,6 +42,7 @@
 #include "htmlsearch.h"
 #include "htmlentity.h"
 #include "htmlengine-edit.h"
+#include "htmlengine-save.h"
 
 
 HTMLClueFlowClass html_clueflow_class;
@@ -1814,14 +1819,14 @@ get_text_bytes (HTMLClue *clue, HTMLInterval *i)
 	guint bytes;
 
 	g_assert (i);
-	g_assert (i->from);
-	g_assert (i->to);
+	g_assert (i->from.object);
+	g_assert (i->to.object);
 
 	bytes = 0;
-	obj = i->from;
+	obj = i->from.object;
 	while (1) {
 		bytes += html_interval_get_bytes (i, obj);
-		if (obj == i->to) break;
+		if (obj == i->to.object) break;
 		obj = obj->next;
 		g_assert (obj);
 	}
@@ -1840,7 +1845,7 @@ get_text (HTMLClue *clue, HTMLInterval *i)
 	ct         = text = g_malloc (bytes + 1);
 	text [bytes] = 0;
 
-	obj = i->from;
+	obj = i->from.object;
 	while (obj) {
 		cb = html_interval_get_bytes (i, obj);
 		if (html_object_is_text (obj))
@@ -1849,7 +1854,7 @@ get_text (HTMLClue *clue, HTMLInterval *i)
 			if (cb == 1) *ct = ' ';
 			else memset (ct, ' ', cb);
 		ct += cb;
-		if (obj == i->to) break;
+		if (obj == i->to.object) break;
 		obj = obj->next;
 	}
 
@@ -1961,7 +1966,7 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *i)
 	if (!i)
 		i = html_interval_new (clue->head, clue->tail, 0, html_object_get_length (clue->tail));
 	text = get_text (clue, i);
-	obj  = i->from;
+	obj  = i->from.object;
 	if (obj && html_object_is_text (obj))
 		html_text_spell_errors_clear_interval (HTML_TEXT (obj), i);
 

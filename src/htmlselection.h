@@ -2,7 +2,6 @@
 /* This file is part of the GtkHTML library
 
    Copyright (C) 2000 Helix Code, Inc.
-   Authors:           Radek Doulik (rodo@helixcode.com)
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -20,30 +19,24 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef _HTML_COLOR_H_
-#define _HTML_COLOR_H_
+#ifndef _HTML_SELECTION_H_
+#define _HTML_SELECTION_H_
 
-#include <gdk/gdk.h>
-#include "htmlpainter.h"
+#include "htmltypes.h"
 
-struct _HTMLColor {
-	GdkColor color;
-	gboolean allocated;
-	guint refcount;
-};
-
-HTMLColor * html_color_new                (void);
-HTMLColor * html_color_new_from_gdk_color (const GdkColor *color);
-HTMLColor * html_color_new_from_rgb       (gushort red, gushort green, gushort blue);
-
-void        html_color_ref                (HTMLColor *color);
-void        html_color_unref              (HTMLColor *color);
-
-void        html_color_alloc              (HTMLColor *color, HTMLPainter *painter);
-void        html_color_free               (HTMLColor *color, HTMLPainter *painter);
-
-gboolean    html_color_equal              (HTMLColor *color1, HTMLColor *color2);
-
-void        html_color_set                (HTMLColor *color, GdkColor *c);
+void      html_engine_select_region         (HTMLEngine *e,
+					     gint        x1,
+					     gint        y1,
+					     gint        x2,
+					     gint        y2);
+void      html_engine_set_active_selection  (HTMLEngine *e,
+					     gboolean    active,
+					     guint32     time);
+void      html_engine_select_word           (HTMLEngine *e);
+void      html_engine_select_line           (HTMLEngine *e);
+void      html_engine_unselect_all          (HTMLEngine *e);
+void      html_engine_disable_selection     (HTMLEngine *e);
+gchar    *html_engine_get_selection_string  (HTMLEngine *e);
+gboolean  html_engine_is_selection_active   (HTMLEngine *e);
 
 #endif

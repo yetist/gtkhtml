@@ -22,13 +22,7 @@
 #ifndef _HTML_UNDO_ACTION_H
 #define _HTML_UNDO_ACTION_H
 
-typedef struct _HTMLUndoAction HTMLUndoAction;
-
-#include "htmlengine.h"
-
-typedef void  (* HTMLUndoActionFunction)                (HTMLEngine *engine,
-							 gpointer closure);
-typedef void  (* HTMLUndoActionClosureDestroyFunction)  (gpointer closure);
+#include "htmltypes.h"
 
 struct _HTMLUndoAction {
 	/* A text description of the action, to be displayed in the menus.  */

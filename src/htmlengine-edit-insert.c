@@ -22,11 +22,20 @@
 #include <string.h>
 
 #include "gtkhtml-private.h"
+#include "gtkhtml-properties.h"
+#include "htmlcolor.h"
+#include "htmlcolorset.h"
 #include "htmlclue.h"
 #include "htmlclueflow.h"
+#include "htmlcursor.h"
+#include "htmlengine.h"
 #include "htmltext.h"
 #include "htmltextmaster.h"
 #include "htmllinktextmaster.h"
+#include "htmlselection.h"
+#include "htmlsettings.h"
+#include "htmltype.h"
+#include "htmlundo.h"
 
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-cursor.h"
@@ -590,7 +599,7 @@ html_engine_insert_link (HTMLEngine *e, const gchar *url, const gchar *target)
 	HTMLObject *linked;
 	HTMLColor *color = html_colorset_get_color (e->settings->color_set, HTMLLinkColor);
 
-	if (e->active_selection) {
+	if (html_engine_is_selection_active (e)) {
 		GList *cur;
 
 		html_engine_cut_and_paste_begin (e, "Insert link");
@@ -617,7 +626,7 @@ html_engine_remove_link (HTMLEngine *e)
 	HTMLColor *color = html_colorset_get_color (e->settings->color_set, HTMLTextColor);
 	GList *cur;
 
-	if (e->active_selection) {
+	if (html_engine_is_selection_active (e)) {
 		html_engine_cut_and_paste_begin (e, "Remove link");
 		cur = e->cut_buffer;
 		while (cur) {

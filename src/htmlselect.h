@@ -26,9 +26,6 @@
 #define HTML_SELECT(x) ((HTMLSelect *) (x))
 #define HTML_SELECT_CLASS(x) ((HTMLSelectClass *) (x))
 
-/* typedef struct _HTMLSelect HTMLSelect; In htmlobject.h for now */
-typedef struct _HTMLSelectClass HTMLSelectClass;
-
 struct _HTMLSelect {
 	HTMLEmbedded element;
 	gint size;

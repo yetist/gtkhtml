@@ -19,10 +19,15 @@
    Boston, MA 02111-1307, USA.
 */
 
+#include "htmlcolorset.h"
 #include "htmlclue.h"
 #include "htmlclueflow.h"
+#include "htmlcursor.h"
 #include "htmltext.h"
 #include "htmltextmaster.h"
+#include "htmlselection.h"
+#include "htmlsettings.h"
+#include "htmlundo.h"
 
 #include "htmlengine-cutbuffer.h"
 #include "htmlengine-edit.h"
@@ -30,6 +35,7 @@
 #include "htmlengine-edit-cut.h"
 #include "htmlengine-edit-movement.h"
 #include "htmlengine-edit-delete.h"
+#include "htmlengine-edit-selection-updater.h"
 
 #include "gtkhtmldebug.h"
 
@@ -744,7 +750,7 @@ html_engine_paste (HTMLEngine *engine,
 	orig_indentation = html_clueflow_get_indentation (current_clueflow);
 
 	/* Cut current selection.  */
-	if (engine->active_selection) {
+	if (html_engine_is_selection_active (engine)) {
 		GList *cut_buffer;
 
 		/* Keep cut buffer.  */

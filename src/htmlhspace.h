@@ -23,9 +23,6 @@
 
 #include "htmlobject.h"
 
-typedef struct _HTMLHSpace HTMLHSpace;
-typedef struct _HTMLHSpaceClass HTMLHSpaceClass;
-
 #define HTML_HSPACE(x) ((HTMLHSpace *)(x))
 #define HTML_HSPACE_CLASS(x) ((HTMLHSpaceClass *)(x))
 

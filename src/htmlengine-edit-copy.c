@@ -21,7 +21,9 @@
 
 #include "htmlengine-cutbuffer.h"
 #include "htmlengine-edit-copy.h"
+#include "htmlengine-edit-selection-updater.h"
 #include "htmltext.h"
+#include "htmlselection.h"
 
 
 struct _CopyForallData {
@@ -91,7 +93,7 @@ html_engine_copy (HTMLEngine *engine)
 {
 	g_return_val_if_fail (engine != NULL, 0);
 	g_return_val_if_fail (HTML_IS_ENGINE (engine), 0);
-	g_return_val_if_fail (engine->active_selection, 0);
+	g_return_val_if_fail (html_engine_is_selection_active (engine), 0);
 	g_return_val_if_fail (engine->clue != NULL, 0);
 
 	html_engine_edit_selection_updater_update_now (engine->selection_updater);
@@ -105,7 +107,7 @@ html_engine_copy_to_buffer (HTMLEngine *engine,
 {
 	g_return_val_if_fail (engine != NULL, 0);
 	g_return_val_if_fail (HTML_IS_ENGINE (engine), 0);
-	g_return_val_if_fail (engine->active_selection, 0);
+	g_return_val_if_fail (html_engine_is_selection_active (engine), 0);
 	g_return_val_if_fail (engine->clue != NULL, 0);
 	g_return_val_if_fail (buffer != NULL, 0);
 

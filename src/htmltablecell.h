@@ -27,10 +27,6 @@
 #include "htmlcluev.h"
 #include "htmlimage.h"
 
-
-typedef struct _HTMLTableCell HTMLTableCell;
-typedef struct _HTMLTableCellClass HTMLTableCellClass;
-
 #define HTML_TABLE_CELL(x) ((HTMLTableCell *)(x))
 #define HTML_TABLE_CELL_CLASS(x) ((HTMLTableCellClass *)(x))
 

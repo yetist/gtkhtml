@@ -23,18 +23,7 @@
 #ifndef _HTML_REPLACE_H_
 #define _HTML_REPLACE_H_
 
-#include <glib.h>
-
-enum _HTMLReplaceQueryAnswer {
-	RQA_Replace,
-	RQA_ReplaceAll,
-	RQA_Next,
-	RQA_Cancel
-};
-typedef enum   _HTMLReplaceQueryAnswer HTMLReplaceQueryAnswer;
-typedef struct _HTMLReplace HTMLReplace;
-
-#include "htmlengine.h"
+#include "htmltypes.h"
 
 struct _HTMLReplace {
 	gchar *text;

@@ -29,11 +29,6 @@
 #include "htmlengine.h"
 
 
-typedef struct _HTMLImage HTMLImage;
-typedef struct _HTMLImageClass HTMLImageClass;
-typedef struct _HTMLImagePointer HTMLImagePointer;
-typedef struct _HTMLImageFactory HTMLImageFactory;
-typedef struct _HTMLImageAnimation HTMLImageAnimation;
 
 struct _HTMLImagePointer {
 	gint refcount;

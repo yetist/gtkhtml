@@ -22,10 +22,11 @@
 */
 
 #include <glib.h>
-#include "htmlcluev.h"
-#include "htmltablecell.h"
-#include "htmlobject.h"
 #include <libart_lgpl/art_rect.h>
+#include "htmlcluev.h"
+#include "htmlengine-save.h"
+#include "htmlpainter.h"
+#include "htmltablecell.h"
 
 /* FIXME: This always behaves as a transparent object, even when it
    actually is not.  */

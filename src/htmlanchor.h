@@ -28,8 +28,6 @@
 
 #include "htmlobject.h"
 
-typedef struct _HTMLAnchorClass HTMLAnchorClass;
-
 #define HTML_ANCHOR(x) ((HTMLAnchor *) x)
 #define HTML_ANCHOR_CLASS(x) ((HTMLAnchorClass *) x)
 

@@ -22,7 +22,11 @@
 */
 #include <string.h>
 #include <stdio.h>
+#include "gtkhtml.h"
+#include "gtkhtml-embedded.h"
 #include "htmlembedded.h"
+#include "htmlpainter.h"
+#include "htmlengine.h"
 
 
 HTMLEmbeddedClass html_embedded_class;

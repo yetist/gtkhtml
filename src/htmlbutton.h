@@ -21,16 +21,12 @@
 #ifndef _HTMLBUTTON_H_
 #define _HTMLBUTTON_H_
 
+#include "htmltypes.h"
+#include "htmlenums.h"
 #include "htmlembedded.h"
 
 #define HTML_BUTTON(x) ((HTMLButton *) (x))
 #define HTML_BUTTON_CLASS(x) ((HTMLButtonClass *) (x))
-
-typedef struct _HTMLButton HTMLButton;
-typedef struct _HTMLButtonClass HTMLButtonClass;
-
-enum _HTMLButtonType { BUTTON_NORMAL, BUTTON_SUBMIT, BUTTON_RESET};
-typedef enum _HTMLButtonType HTMLButtonType;
 
 struct _HTMLButton {
 	HTMLEmbedded element;

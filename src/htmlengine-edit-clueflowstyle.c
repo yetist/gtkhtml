@@ -20,6 +20,10 @@
 */
 
 #include "htmlengine-edit-clueflowstyle.h"
+#include "htmlundo.h"
+#include "htmltype.h"
+#include "htmlcursor.h"
+#include "htmlselection.h"
 
 
 /* Properties of a paragraph.  */
@@ -352,7 +356,7 @@ html_engine_set_clueflow_style (HTMLEngine *engine,
 
 	html_undo_discard_redo (engine->undo);
 
-	if (engine->active_selection)
+	if (html_engine_is_selection_active (engine))
 		set_clueflow_style_in_region (engine,
 					      style, alignment, indentation_delta,
 					      mask,

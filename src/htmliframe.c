@@ -20,9 +20,14 @@
 */
 #include <gtk/gtk.h>
 #include <string.h>
+#include "gtkhtml.h"
+#include "htmlcolorset.h"
+#include "htmlgdkpainter.h"
 #include "htmliframe.h"
 #include "htmlengine-search.h"
 #include "htmlsearch.h"
+#include "htmlselection.h"
+#include "htmlsettings.h"
 
 HTMLIFrameClass html_iframe_class;
 static HTMLEmbeddedClass *parent_class = NULL;
@@ -148,6 +153,15 @@ reset (HTMLObject *o)
 	html_object_reset (GTK_HTML (iframe->html)->engine->clue);
 }
 
+static void
+draw_background (HTMLObject *self,
+		 HTMLPainter *p,
+		 gint x, gint y,
+		 gint width, gint height,
+		 gint tx, gint ty)
+{
+}
+
 /* FIXME rodo - draw + set_painter is not much clean now, needs refactoring */
 
 static void
@@ -175,9 +189,11 @@ draw (HTMLObject *o,
 		new_x = GTK_LAYOUT (element->parent)->hadjustment->value + o->x + tx;
 		new_y = GTK_LAYOUT (element->parent)->vadjustment->value + o->y + ty - o->ascent;
 
-		if(new_x != element->abs_x || new_y != element->abs_y)
+		if(new_x != element->abs_x || new_y != element->abs_y) {
+			printf ("moveto: %d,%d\n", new_x, new_y);
 			gtk_layout_move(GTK_LAYOUT(element->parent), element->widget,
 					new_x, new_y);
+		}
 		element->abs_x = new_x;
 		element->abs_y = new_y;
 	}
@@ -205,8 +221,8 @@ forall (HTMLObject *self,
 	HTMLIFrame *iframe;
 
 	iframe = HTML_IFRAME (self);
-	(* func) (self, e, data);
-	html_object_forall (GTK_HTML (iframe->html)->engine->clue, GTK_HTML (iframe->html)->engine, func, data);
+	(* func) (self, html_object_get_engine (self, e), data);
+	html_object_forall (GTK_HTML (iframe->html)->engine->clue, html_object_get_engine (self, e), func, data);
 }
 
 static gint
@@ -288,6 +304,45 @@ search (HTMLObject *self, HTMLSearch *info)
 	return FALSE;
 }
 
+static HTMLObject *
+head (HTMLObject *self)
+{
+	return GTK_HTML (HTML_IFRAME (self)->html)->engine->clue;
+}
+
+static HTMLObject *
+tail (HTMLObject *self)
+{
+	return GTK_HTML (HTML_IFRAME (self)->html)->engine->clue;
+}
+
+static HTMLEngine *
+get_engine (HTMLObject *self, HTMLEngine *e)
+{
+	return GTK_HTML (HTML_IFRAME (self)->html)->engine;
+}
+
+static HTMLObject*
+check_point (HTMLObject *self,
+	     HTMLPainter *painter,
+	     gint x, gint y,
+	     guint *offset_return,
+	     gboolean for_cursor)
+{
+	HTMLEngine *e = GTK_HTML (HTML_IFRAME (self)->html)->engine;
+
+	x -= self->x + e->leftBorder;
+	y -= self->y - self->ascent + e->topBorder;
+
+	return html_object_check_point (e->clue, e->painter, x, y, offset_return, for_cursor);
+}
+
+static gboolean
+is_container (HTMLObject *self)
+{
+	return TRUE;
+}
+
 /* static gboolean
 select_range (HTMLObject *self,
 	      HTMLEngine *engine,
@@ -326,7 +381,6 @@ html_iframe_init (HTMLIFrame *iframe,
 					GTK_POLICY_AUTOMATIC);
 	html = gtk_html_new ();
 	iframe->html = html;
-	/* GTK_HTML (html)->engine->clue->parent = HTML_OBJECT (iframe); */
 	gtk_html_set_iframe_parent (GTK_HTML (html), parent);
 	gtk_container_add (GTK_CONTAINER (scrolled_window), html);
 	gtk_widget_show (html);
@@ -338,6 +392,7 @@ html_iframe_init (HTMLIFrame *iframe,
 	parent_html = GTK_HTML (parent);
 
 	handle = gtk_html_begin (GTK_HTML (html));
+	GTK_HTML (html)->engine->clue->parent = HTML_OBJECT (iframe);
 
 	gtk_signal_connect (GTK_OBJECT (html), "url_requested",
 			    GTK_SIGNAL_FUNC (iframe_url_requested),
@@ -426,4 +481,10 @@ html_iframe_class_init (HTMLIFrameClass *klass,
 	object_class->forall             = forall;
 	object_class->check_page_split   = check_page_split;
 	object_class->search             = search;
+	object_class->head               = head;
+	object_class->tail               = tail;
+	object_class->get_engine         = get_engine;
+	object_class->check_point        = check_point;
+	object_class->is_container       = is_container;
+	object_class->draw_background    = draw_background;
 }

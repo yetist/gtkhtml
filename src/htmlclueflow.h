@@ -24,34 +24,11 @@
 #ifndef _HTMLCLUEFLOW_H_
 #define _HTMLCLUEFLOW_H_
 
-#include "htmlobject.h"
+#include "htmltypes.h"
 #include "htmlclue.h"
-#include "htmlinterval.h"
 
 #define HTML_CLUEFLOW(x) ((HTMLClueFlow *)(x))
 #define HTML_CLUEFLOW_CLASS(x) ((HTMLClueFlowClass *)(x))
-
-/* Paragraph style.  Notice that the `H*' elements must be consecutive.  */
-enum _HTMLClueFlowStyle {
-	HTML_CLUEFLOW_STYLE_NORMAL,
-	HTML_CLUEFLOW_STYLE_H1,
-	HTML_CLUEFLOW_STYLE_H2,
-	HTML_CLUEFLOW_STYLE_H3,
-	HTML_CLUEFLOW_STYLE_H4,
-	HTML_CLUEFLOW_STYLE_H5,
-	HTML_CLUEFLOW_STYLE_H6,
-	HTML_CLUEFLOW_STYLE_ADDRESS,
-	HTML_CLUEFLOW_STYLE_PRE,
-	HTML_CLUEFLOW_STYLE_ITEMDOTTED,
-	HTML_CLUEFLOW_STYLE_ITEMROMAN,
-	HTML_CLUEFLOW_STYLE_ITEMDIGIT,
-	HTML_CLUEFLOW_STYLE_NOWRAP,
-	HTML_CLUEFLOW_NUMSTYLES
-};
-
-typedef struct _HTMLClueFlow HTMLClueFlow;
-typedef struct _HTMLClueFlowClass HTMLClueFlowClass;
-typedef enum _HTMLClueFlowStyle HTMLClueFlowStyle;
 
 struct _HTMLClueFlow {
 	HTMLClue clue;

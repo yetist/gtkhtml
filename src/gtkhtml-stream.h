@@ -22,18 +22,7 @@
 #ifndef _GTKHTML_STREAM_H
 #define _GTKHTML_STREAM_H
 
-#include <glib.h>
-
-#include "gtkhtml.h"
-
-
-typedef void (* GtkHTMLStreamCloseFunc) (GtkHTMLStream *stream,
-					 GtkHTMLStreamStatus status,
-					 gpointer user_data);
-typedef void (* GtkHTMLStreamWriteFunc) (GtkHTMLStream *stream,
-					 const gchar *buffer,
-					 guint size,
-					 gpointer user_data);
+#include "gtkhtml-types.h"
 
 struct _GtkHTMLStream {
 	GtkHTMLStreamWriteFunc write_func;

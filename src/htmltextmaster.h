@@ -27,9 +27,6 @@
 #include "htmlobject.h"
 #include "htmltext.h"
 
-
-typedef struct _HTMLTextMaster HTMLTextMaster;
-typedef struct _HTMLTextMasterClass HTMLTextMasterClass;
 
 #define HTML_TEXT_MASTER(x) ((HTMLTextMaster *)(x))
 #define HTML_TEXT_MASTER_CLASS(x) ((HTMLTextMasterClass *)(x))

@@ -34,17 +34,19 @@
 #include <glib.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
-#include "htmlobject.h"
-#include "htmlimage.h"
-#include "htmlengine.h"
-#include "htmlpainter.h"
-#include "htmlprinter.h"
-#include "htmlenum.h"
-
-#include "gtkhtml-private.h"
+#include "gtkhtml.h"
+#include "gtkhtml-properties.h"
 #include "gtkhtml-stream.h"
 
-
+#include "htmlcolor.h"
+#include "htmlcolorset.h"
+#include "htmlengine.h"
+#include "htmlengine-save.h"
+#include "htmlenumutils.h"
+#include "htmlimage.h"
+#include "htmlobject.h"
+#include "htmlprinter.h"
+
 /* HTMLImageFactory stuff.  */
 
 struct _HTMLImageFactory {

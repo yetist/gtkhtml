@@ -21,9 +21,12 @@
    Boston, MA 02111-1307, USA.
 */
 
-#include "htmltext.h"
+#include "htmlcolorset.h"
 #include "htmllinktextmaster.h"
 #include "htmlengine-edit-paste.h"
+#include "htmlengine-save.h"
+#include "htmltext.h"
+#include "htmlsettings.h"
 
 
 HTMLLinkTextMasterClass html_link_text_master_class;

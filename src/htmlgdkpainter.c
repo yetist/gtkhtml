@@ -21,13 +21,15 @@
 
 #include <string.h>
 #include <stdlib.h>
-#include <libart_lgpl/art_rect.h>
-#include <gdk/gdkx.h>
 #include <unicode.h>
+#include <gdk/gdkx.h>
+#include <libart_lgpl/art_rect.h>
 #include <gal/widgets/e-font.h>
 
 #include "htmlentity.h"
 #include "htmlgdkpainter.h"
+#include "htmlcolor.h"
+#include "htmlcolorset.h"
 
 
 static HTMLPainterClass *parent_class = NULL;

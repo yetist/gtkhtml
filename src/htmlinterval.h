@@ -23,37 +23,63 @@
 #ifndef _HTML_INTERVAL_H_
 #define _HTML_INTERVAL_H_
 
-typedef struct _HTMLInterval HTMLInterval;
+#include "htmltypes.h"
 
-#include "htmlobject.h"
-#include "htmlengine.h"
-
-struct _HTMLInterval {
-	HTMLObject *from;
-	HTMLObject *to;
-	guint       from_offset;
-	guint       to_offset;
+struct _HTMLPoint {
+	HTMLObject *object;
+	guint       offset;
 };
 
-HTMLInterval *               html_interval_new             (HTMLObject *from,
-							    HTMLObject *to,
-							    guint from_offset,
-							    guint to_offset);
-HTMLInterval *               html_interval_new_from_cursor (HTMLCursor *begin,
-							    HTMLCursor *end);
+HTMLPoint *html_point_new        (HTMLObject      *o,
+				  guint            off);
+void       html_point_construct  (HTMLPoint       *p,
+				  HTMLObject      *o,
+				  guint            off);
+void       html_point_destroy    (HTMLPoint       *p);
+HTMLPoint *html_point_max        (HTMLPoint       *a,
+				  HTMLPoint       *b);
+HTMLPoint *html_point_min        (HTMLPoint       *a,
+				  HTMLPoint       *b);
+gboolean   html_point_eq         (const HTMLPoint *a,
+				  const HTMLPoint *b);
 
-void                         html_interval_destroy         (HTMLInterval *i);
-guint                        html_interval_get_length      (HTMLInterval *i,
-							    HTMLObject *obj);
-guint                        html_interval_get_bytes       (HTMLInterval *i,
-							    HTMLObject *obj);
-guint                        html_interval_get_start       (HTMLInterval *i,
-							    HTMLObject *obj);
-guint                        html_interval_get_start_index (HTMLInterval *i,
-							    HTMLObject *obj);
-void                         html_interval_select          (HTMLInterval *i,
-							    HTMLEngine *e);
-gint                         html_interval_get_from_index  (HTMLInterval *i);
-gint                         html_interval_get_to_index    (HTMLInterval *i);
+struct _HTMLInterval {
+	HTMLPoint from;
+	HTMLPoint to;
+};
 
+HTMLInterval *html_interval_new              (HTMLObject            *from,
+					      HTMLObject            *to,
+					      guint                  from_offset,
+					      guint                  to_offset);
+HTMLInterval *html_interval_new_from_cursor  (HTMLCursor            *begin,
+					      HTMLCursor            *end);
+HTMLInterval *html_interval_new_from_points  (HTMLPoint             *from,
+					      HTMLPoint             *to);
+void          html_interval_validate         (HTMLInterval          *i);
+void          html_interval_destroy          (HTMLInterval          *i);
+guint         html_interval_get_length       (HTMLInterval          *i,
+					      HTMLObject            *obj);
+guint         html_interval_get_bytes        (HTMLInterval          *i,
+					      HTMLObject            *obj);
+guint         html_interval_get_start        (HTMLInterval          *i,
+					      HTMLObject            *obj);
+guint         html_interval_get_start_index  (HTMLInterval          *i,
+					      HTMLObject            *obj);
+void          html_interval_select           (HTMLInterval          *i,
+					      HTMLEngine            *e);
+gint          html_interval_get_from_index   (HTMLInterval          *i);
+gint          html_interval_get_to_index     (HTMLInterval          *i);
+void          html_interval_forall           (HTMLInterval          *i,
+					      HTMLEngine            *e,
+					      HTMLObjectForallFunc   f,
+					      gpointer               data);
+gboolean      html_interval_eq               (const HTMLInterval    *a,
+					      const HTMLInterval    *b);
+HTMLInterval *html_interval_intersection     (HTMLInterval          *a,
+					      HTMLInterval          *b);
+void         *html_interval_substract        (HTMLInterval          *a,
+					      HTMLInterval          *b,
+					      HTMLInterval         **s1,
+					      HTMLInterval         **s2);
 #endif

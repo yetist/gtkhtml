@@ -21,9 +21,6 @@
 #ifndef _HTML_CLUEALIGNED_H_
 #define _HTML_CLUEALIGNED_H_
 
-typedef struct _HTMLClueAligned HTMLClueAligned;
-typedef struct _HTMLClueAlignedClass HTMLClueAlignedClass;
-
 #include "htmlobject.h"
 #include "htmlclue.h"
 

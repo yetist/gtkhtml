@@ -24,26 +24,13 @@
 #ifndef _HTMLENGINE_H_
 #define _HTMLENGINE_H_
 
-#include <glib.h>
-#include <gdk-pixbuf/gdk-pixbuf.h>
-
-typedef struct _HTMLEngine HTMLEngine;
-typedef struct _HTMLEngineClass HTMLEngineClass;
-#include "gtkhtml.h"
+#include <gdk/gdktypes.h>
+#include <gtk/gtkobject.h>
+#include <gtk/gtkwidget.h>
+#include "gtkhtml-types.h"
 
-#include "htmltokenizer.h"
-#include "htmlcursor.h"
-#include "htmldrawqueue.h"
-#include "htmlstack.h"
-#include "htmlsettings.h"
-#include "htmlpainter.h"
-#include "htmlgdkpainter.h"
-#include "htmlundo.h"
-#include "htmlstringtokenizer.h"
-#include "htmlengine-edit-selection-updater.h"
-#include "htmlreplace.h"
-
-#include "gtkhtml-embedded.h"
+#include "htmltypes.h"
+#include "htmlenums.h"
 
 
 #define HTML_TYPE_ENGINE                 (html_engine_get_type ())
@@ -60,15 +47,6 @@ typedef struct _HTMLEngineClass HTMLEngineClass;
 #define TOP_BORDER 10
 #define BOTTOM_BORDER 10
 
-enum _HTMLGlossaryEntry {
-	HTML_GLOSSARY_DL = 1,
-	HTML_GLOSSARY_DD = 2
-};
-typedef enum _HTMLGlossaryEntry HTMLGlossaryEntry;
-
-typedef struct _HTMLBlockStackElement HTMLBlockStackElement;
-
-
 /* FIXME this needs splitting.  */
 
 struct _HTMLEngine {
@@ -198,6 +176,8 @@ struct _HTMLEngine {
 	/* Whether we have the keyboard focus.  */
 	guint have_focus : 1;
 
+	HTMLInterval *selection;
+
 	/* --- */
 
 	/* Editing stuff.  -- FIXME it should be in a separate object.  */
@@ -227,9 +207,7 @@ struct _HTMLEngine {
 	gchar            *insertion_url;
 	gchar            *insertion_target;
 
-	/* This is set to TRUE when at least one element is selected (in whole
-           or in part), to FALSE when no item is selected at all.  */
-	gboolean active_selection;
+	/* if we are doing shift selection - Shift + some event (arrows, mouse motion, ...) */
 	gboolean shift_selection;
 
 	/* This object is used to update the keyboard selection in the
@@ -329,6 +307,10 @@ HTMLObject  *html_engine_get_object_at  (HTMLEngine *e,
 					 gint        y,
 					 guint      *offset_return,
 					 gboolean    for_cursor);
+HTMLPoint   *html_engine_get_point_at   (HTMLEngine *e,
+					 gint        x,
+					 gint        y,
+					 gboolean    for_cursor);
 const gchar *html_engine_get_link_at    (HTMLEngine *e,
 					 gint        x,
 					 gint        y);
@@ -343,28 +325,9 @@ void  html_engine_form_submitted  (HTMLEngine  *engine,
 gchar *html_engine_canonicalize_url  (HTMLEngine *e,
 				      const char *in_url);
 
-/* Selection.  (FIXME: Maybe `htmlengine-edit' instead?)  */
-void   html_engine_select_region         (HTMLEngine *e,
-					  gint        x1,
-					  gint        y1,
-					  gint        x2,
-					  gint        y2);
-
-void   html_engine_set_active_selection  (HTMLEngine *e,
-					  gboolean active,
-					  guint32 time);
-HTMLCursor *
-       html_engine_get_cursor            (HTMLEngine *e);
-void   html_engine_select_word           (HTMLEngine *e);
-void   html_engine_select_line           (HTMLEngine *e);
-void   html_engine_unselect_all          (HTMLEngine *e);
-
-void   html_engine_disable_selection     (HTMLEngine *e);
-gchar *html_engine_get_selection_string  (HTMLEngine *e);
-
-/* Cursor normalization.  */
-
-void  html_engine_normalize_cursor  (HTMLEngine *e);
+/* Cursor */
+HTMLCursor *html_engine_get_cursor        (HTMLEngine *e);
+void        html_engine_normalize_cursor  (HTMLEngine *e);
 
 /* Freezing/thawing.  */
 gboolean  html_engine_frozen  (HTMLEngine *engine);

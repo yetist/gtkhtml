@@ -26,9 +26,6 @@
 #define HTML_CLUE(x) ((HTMLClue *)(x))
 #define HTML_CLUE_CLASS(x) ((HTMLClueClass *)(x))
 
-typedef struct _HTMLClue HTMLClue;
-typedef struct _HTMLClueClass HTMLClueClass;
-
 struct _HTMLClue {
 	HTMLObject object;
 	

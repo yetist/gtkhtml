@@ -24,14 +24,12 @@
 #ifndef _HTMLPAINTER_H_
 #define _HTMLPAINTER_H_
 
-typedef struct _HTMLPainter HTMLPainter;
-
 #include <gdk-pixbuf/gdk-pixbuf.h>
-#include <gtk/gtk.h>
+#include <gtk/gtkobject.h>
 
-#include "gtkhtmlfontstyle.h"
+#include "gtkhtml-enums.h"
+#include "htmltypes.h"
 #include "htmlfontmanager.h"
-#include "htmlcolorset.h"
 
 
 #define HTML_TYPE_PAINTER                 (html_painter_get_type ())
@@ -39,13 +37,6 @@ typedef struct _HTMLPainter HTMLPainter;
 #define HTML_PAINTER_CLASS(klass)         (GTK_CHECK_CLASS_CAST ((klass), HTML_TYPE_PAINTER, HTMLPainterClass))
 #define HTML_IS_PAINTER(obj)              (GTK_CHECK_TYPE ((obj), HTML_TYPE_PAINTER))
 #define HTML_IS_PAINTER_CLASS(klass)      (GTK_CHECK_CLASS_TYPE ((klass), HTML_TYPE_PAINTER))
-
-
-typedef enum {
-	GTK_HTML_ETCH_IN,
-	GTK_HTML_ETCH_OUT,
-	GTK_HTML_ETCH_NONE
-} GtkHTMLEtchStyle; 
 
 
 struct _HTMLPainter {
@@ -100,7 +91,6 @@ struct _HTMLPainterClass {
 	
 	guint (* get_pixel_size) (HTMLPainter *painter);
 };
-typedef struct _HTMLPainterClass HTMLPainterClass;
 
 
 /* Creation.  */

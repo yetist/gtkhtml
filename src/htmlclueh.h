@@ -24,9 +24,6 @@
 #include "htmlobject.h"
 #include "htmlclue.h"
 
-typedef struct _HTMLClueH HTMLClueH;
-typedef struct _HTMLClueHClass HTMLClueHClass;
-
 #define HTML_CLUEH(x) ((HTMLClueH *)(x))
 #define HTML_CLUEH_CLASS(X) ((HTMLClueHClass *)(x))
 

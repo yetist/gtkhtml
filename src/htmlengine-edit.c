@@ -31,12 +31,16 @@
 #include "htmltext.h"
 #include "htmltextslave.h"
 #include "htmlimage.h"
+#include "htmlinterval.h"
+#include "htmlselection.h"
+#include "htmlundo.h"
 
 #include "htmlengine-cutbuffer.h"
 #include "htmlengine-edit-cut.h"
 #include "htmlengine-edit-cursor.h"
 #include "htmlengine-edit-movement.h"
 #include "htmlengine-edit-paste.h"
+#include "htmlengine-edit-selection-updater.h"
 #include "htmlengine-edit.h"
 
 
@@ -83,7 +87,7 @@ html_engine_set_mark (HTMLEngine *e)
 		html_engine_unselect_all (e);
 
 	e->mark = html_cursor_dup (e->cursor);
-	e->active_selection = TRUE;
+	/* !!!FIXME html_engine_is_selection_active (e) = TRUE; */
 
 	html_engine_edit_selection_updater_reset (e->selection_updater);
 	html_engine_edit_selection_updater_schedule (e->selection_updater);
@@ -108,7 +112,7 @@ html_engine_cut_buffer_pop (HTMLEngine *e)
 void
 html_engine_selection_push (HTMLEngine *e)
 {
-	if (e->active_selection) {
+	if (html_engine_is_selection_active (e)) {
 		e->selection_stack
 			= g_list_prepend (e->selection_stack, GINT_TO_POINTER (html_cursor_get_position (e->mark)));
 		e->selection_stack

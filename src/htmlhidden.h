@@ -26,9 +26,6 @@
 #define HTML_HIDDEN(x) ((HTMLHidden *) (x))
 #define HTML_HIDDEN_CLASS(x) ((HTMLHiddenClass *) (x))
 
-typedef struct _HTMLHidden HTMLHidden;
-typedef struct _HTMLHiddenClass HTMLHiddenClass;
-
 struct _HTMLHidden {
 	HTMLEmbedded element;
 };

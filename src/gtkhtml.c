@@ -41,7 +41,11 @@
 #include "htmlengine-edit-text.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-print.h"
+#include "htmlengine-save.h"
+#include "htmlsettings.h"
 #include "htmlcolorset.h"
+#include "htmlselection.h"
+#include "htmlcursor.h"
 
 #include "gtkhtml-embedded.h"
 #include "gtkhtml-im.h"
@@ -50,6 +54,7 @@
 #include "gtkhtml-search.h"
 #include "gtkhtml-stream.h"
 #include "gtkhtml-private.h"
+#include "gtkhtml-properties.h"
 #include <libgnome/gnome-util.h>
 
 
@@ -704,6 +709,7 @@ unrealize (GtkWidget *widget)
 static gint
 expose (GtkWidget *widget, GdkEventExpose *event)
 {
+	printf ("expose (allocation: %d,%d)\n", widget->allocation.x, widget->allocation.y);
 	html_engine_draw (GTK_HTML (widget)->engine,
 			  event->area.x, event->area.y,
 			  event->area.width, event->area.height);
@@ -719,6 +725,10 @@ draw (GtkWidget *widget, GdkRectangle *area)
 {
 	GtkHTML *html = GTK_HTML (widget);
 	HTMLPainter *painter = html->engine->painter;
+
+	/* if (!html->iframe_parent)
+	   return; */
+	printf ("widget draw: %d,%d %d,%d (%p)\n", area->x, area->y, area->width, area->height, html->iframe_parent);
 
 	html_painter_clear (painter);
 
@@ -813,12 +823,9 @@ mouse_change_pos (GtkWidget *widget, gint x, gint y)
 	if (!GTK_WIDGET_REALIZED (widget))
 		return FALSE;
 
-	html = GTK_HTML (widget);
+	html   = GTK_HTML (widget);
 	engine = html->engine;
-
-	obj = html_engine_get_object_at (engine,
-					 x + engine->x_offset, y + engine->y_offset,
-					 NULL, FALSE);
+	obj    = html_engine_get_object_at (engine, x + engine->x_offset, y + engine->y_offset, NULL, FALSE);
 
 	if (html->button1_pressed && html->allow_selection) {
 		gboolean need_scroll;
@@ -871,14 +878,27 @@ mouse_change_pos (GtkWidget *widget, gint x, gint y)
 		if (engine->mark == NULL && engine->editable)
 			html_engine_set_mark (engine);
 
-		html_engine_select_region (engine,
-					   html->selection_x1, html->selection_y1,
+		html_engine_select_region (engine, html->selection_x1, html->selection_y1,
 					   x + engine->x_offset, y + engine->y_offset);
 	}
 
 	on_object (widget, obj);
 
 	return TRUE;
+}
+
+static GtkWidget *
+shift_to_iframe_parent (GtkWidget *widget, gint *x, gint *y)
+{
+	while (GTK_HTML (widget)->iframe_parent) {
+		if (x)
+			*x += widget->allocation.x - 1;
+		if (y)
+			*y += widget->allocation.y - 1;
+		widget = GTK_HTML (widget)->iframe_parent;
+	}
+
+	return widget;
 }
 
 static gint
@@ -892,11 +912,14 @@ motion_notify_event (GtkWidget *widget,
 	g_return_val_if_fail (GTK_IS_HTML (widget), 0);
 	g_return_val_if_fail (event != NULL, 0);
 
-	if (event->is_hint) {
-		gdk_window_get_pointer (GTK_LAYOUT (widget)->bin_window, &x, &y, NULL);
-	} else {
+	if (!event->is_hint) {
 		x = event->x;
 		y = event->y;
+	}
+	widget = shift_to_iframe_parent (widget, &x, &y);
+
+	if (event->is_hint) {
+		gdk_window_get_pointer (GTK_LAYOUT (widget)->bin_window, &x, &y, NULL);
 	}
 
 	if (!mouse_change_pos (widget, x, y))
@@ -905,8 +928,8 @@ motion_notify_event (GtkWidget *widget,
 	engine = GTK_HTML (widget)->engine;
 	if (GTK_HTML (widget)->button1_pressed && html_engine_get_editable (engine))
 		html_engine_jump_at (engine,
-				     event->x + engine->x_offset,
-				     event->y + engine->y_offset);
+				     x + engine->x_offset,
+				     y + engine->y_offset);
 	return TRUE;
 }
 
@@ -916,9 +939,13 @@ button_press_event (GtkWidget *widget,
 {
 	GtkHTML *html;
 	HTMLEngine *engine;
-	gint value;
+	gint value, x, y;
 
-	html = GTK_HTML (widget);
+	x = event->x;
+	y = event->y;
+
+	widget = shift_to_iframe_parent (widget, &x, &y);
+	html   = GTK_HTML (widget);
 	engine = html->engine;
 
 	gtk_widget_grab_focus (widget);
@@ -926,7 +953,7 @@ button_press_event (GtkWidget *widget,
 	if (event->type == GDK_BUTTON_PRESS) {
 		GtkAdjustment *vadj;
 
-		vadj   = GTK_LAYOUT ((html->iframe_parent) ? html->iframe_parent : widget)->vadjustment;
+		vadj   = GTK_LAYOUT (widget)->vadjustment;
 		
 		switch (event->button) {
 		case 4:
@@ -965,8 +992,8 @@ button_press_event (GtkWidget *widget,
 
 	if (html_engine_get_editable (engine)) {
 		html_engine_jump_at (engine,
-				     event->x + engine->x_offset,
-				     event->y + engine->y_offset);
+				     x + engine->x_offset,
+				     y + engine->y_offset);
 		update_styles (html);
 	}
 
@@ -976,8 +1003,8 @@ button_press_event (GtkWidget *widget,
 				       | GDK_BUTTON_MOTION_MASK
 				       | GDK_POINTER_MOTION_HINT_MASK),
 				      NULL, NULL, 0) == 0) {
-			html->selection_x1 = event->x + engine->x_offset;
-			html->selection_y1 = event->y + engine->y_offset;
+			html->selection_x1 = x + engine->x_offset;
+			html->selection_y1 = y + engine->y_offset;
 
 			if (event->button == 1) {
 				if (event->type == GDK_2BUTTON_PRESS && !event->state)
@@ -996,7 +1023,7 @@ button_press_event (GtkWidget *widget,
 		else if (html->allow_selection)
 			html_engine_select_region (engine,
 						   html->selection_x1, html->selection_y1,
-						   event->x + engine->x_offset, event->y + engine->y_offset);
+						   x + engine->x_offset, y + engine->y_offset);
 	}
 
 	return TRUE;
@@ -1008,7 +1035,8 @@ button_release_event (GtkWidget *widget,
 {
 	GtkHTML *html;
 
-	html = GTK_HTML (widget);
+	widget = shift_to_iframe_parent (widget, NULL, NULL);
+	html   = GTK_HTML (widget);
 
 	gtk_grab_remove (widget);
 	gdk_pointer_ungrab (0);
@@ -2410,7 +2438,7 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		html_engine_redo (e);
 		break;
 	case GTK_HTML_COMMAND_COPY:
-		if (e->active_selection)
+		if (html_engine_is_selection_active (e))
 			html_engine_copy (e);
 		break;
 	case GTK_HTML_COMMAND_CUT:

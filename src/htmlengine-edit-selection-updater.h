@@ -23,7 +23,6 @@
 #define _HTMLENGINE_EDIT_SELECTION_UPDATER_H
 
 
-typedef struct _HTMLEngineEditSelectionUpdater HTMLEngineEditSelectionUpdater;
 
 #include "htmlengine.h"
 #include "htmlcursor.h"

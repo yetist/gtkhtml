@@ -26,9 +26,6 @@
 #define HTML_TEXTINPUT(x) ((HTMLTextInput *) (x))
 #define HTML_TEXTINPUT_CLASS(x) ((HTMLTextInputClass *) (x))
 
-typedef struct _HTMLTextInput HTMLTextInput;
-typedef struct _HTMLTextInputClass HTMLTextInputClass;
-
 struct _HTMLTextInput {
 	HTMLEmbedded element;
 	gint size, maxlen;

@@ -23,12 +23,16 @@
 #include "htmlclueflow.h"
 #include "htmltext.h"
 #include "htmltextmaster.h"
+#include "htmlselection.h"
+#include "htmlcursor.h"
+#include "htmlundo.h"
 
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-cursor.h"
 #include "htmlengine-edit-delete.h"
 #include "htmlengine-edit-movement.h"
 #include "htmlengine-edit-paste.h"
+#include "htmlengine-edit-selection-updater.h"
 #include "htmlengine-cutbuffer.h"
 
 

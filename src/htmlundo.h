@@ -24,8 +24,6 @@
 
 #define HTML_UNDO_LIMIT 1024
 
-typedef struct _HTMLUndo HTMLUndo;
-
 #include "htmlundo-action.h"
 
 struct _HTMLUndo {

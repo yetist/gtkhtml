@@ -21,7 +21,8 @@
 
 #include "htmlcluealigned.h"
 #include "htmlcluev.h"
-#include "htmlobject.h"
+#include "htmlengine.h"
+#include "htmlpainter.h"
 
 
 HTMLClueVClass html_cluev_class;

@@ -20,10 +20,12 @@
 */
 
 #include <ctype.h>
+#include "htmlcursor.h"
 #include "htmlengine-edit-text.h"
 #include "htmlengine-edit-movement.h"
 #include "htmlengine-edit.h"
 #include "htmltext.h"
+#include "htmlselection.h"
 
 static gboolean
 find_first (HTMLEngine *e)

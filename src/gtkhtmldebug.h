@@ -22,7 +22,7 @@
 #ifndef _GTKHTML_DEBUG_H_
 #define _GTKHTML_DEBUG_H_
 
-#include "htmlobject.h"
+#include "htmltypes.h"
 
 
 void  gtk_html_debug_log               (GtkHTML     *html,

@@ -21,7 +21,7 @@
 
 */
 
-#include "htmlengine.h"
+#include "htmlreplace.h"
 
 HTMLReplace *
 html_replace_new (const gchar *text, void (*ask) (HTMLEngine *, gpointer), gpointer ask_data)

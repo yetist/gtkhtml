@@ -25,6 +25,7 @@
 
 
 #include "htmlengine-edit-selection-updater.h"
+#include "htmlselection.h"
 
 
 #define SAME_SIGN(x, y) (((x) > 0 && (y) > 0) || ((x) < 0 && (y) < 0))
@@ -199,7 +200,7 @@ update_selection (HTMLEngine *engine,
 
 	if (html_cursor_equal (new_point, mark)) {
 		html_engine_unselect_all (engine);
-		engine->active_selection = TRUE;
+		/* !!!FIXME html_engine_is_selection_active (engine) = TRUE; */
 		return;
 	}
 
@@ -225,7 +226,7 @@ update_selection (HTMLEngine *engine,
 	else
 		reduce_selection (engine, old_point, new_point);
 
-	engine->active_selection = TRUE;
+	/* !!!FIXME html_engine_is_selection_active (engine) = TRUE; */
 }
 
 

@@ -27,9 +27,6 @@
 #define HTML_IMAGEINPUT(x) ((HTMLImageInput *) (x))
 #define HTML_IMAGEINPUT_CLASS(x) ((HTMLImageInputClass *) (x))
 
-typedef struct _HTMLImageInput HTMLImageInput;
-typedef struct _HTMLImageInputClass HTMLImageInputClass;
-
 struct _HTMLImageInput {
 	HTMLEmbedded element;
 

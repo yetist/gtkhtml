@@ -26,6 +26,9 @@
 #include "htmltextslave.h"
 #include "htmlclue.h"
 #include "htmlcursor.h"
+#include "htmlcolor.h"
+#include "htmlcolorset.h"
+#include "htmlpainter.h"
 
 
 /* #define HTML_TEXT_SLAVE_DEBUG */

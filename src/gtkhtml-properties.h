@@ -26,15 +26,21 @@
 #define GTK_HTML_GCONF_DIR "/GNOME/Documents/HTML_Editor"
 #define GTK_HTML_GNOME_CONFIG_PREFIX "/gtkhtml/Settings/"
 
-typedef struct _GtkHTMLClassProperties GtkHTMLClassProperties;
-
 #include <glib.h>
+#include <gdk/gdktypes.h>
+
 #ifdef GTKHTML_HAVE_GCONF
 #include <gconf/gconf-client.h>
 #else
 #include <libgnome/gnome-defs.h>
 #include <libgnome/gnome-config.h>
 #endif
+
+#include <gtk/gtkobject.h>
+#include "gtkhtml-types.h"
+#include "gtkhtml.h"
+
+#define GTK_HTML_PROPERTY(w,p)         (GTK_HTML_CLASS (GTK_OBJECT (w)->klass)->properties-> ## p)
 
 struct _GtkHTMLClassProperties {
 	/* viewer */
