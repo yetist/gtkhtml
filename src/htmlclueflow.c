@@ -430,14 +430,12 @@ get_pre_padding (HTMLClueFlow *flow, guint pad)
 		if (get_post_padding (HTML_CLUEFLOW (prev_object), 1))
 			return 0;
 
-		if (is_item (HTML_CLUEFLOW (prev_object))) {
+		if (is_item (HTML_CLUEFLOW (prev_object)) || is_item (flow)) {
 			if (is_item (flow) || is_levels_equal (HTML_CLUEFLOW (prev_object), flow)) {
 				return 0;
 			} else {
 				return pad;
 			}
-		} else if (is_item (flow)) {
-			return pad;
 		}
 
 		prev = HTML_CLUEFLOW (prev_object);
@@ -1326,18 +1324,6 @@ check_point (HTMLObject *self,
 	return NULL;
 }
 
-static void
-append_selection_string (HTMLObject *self,
-			 GString *buffer)
-{
-        (*HTML_OBJECT_CLASS (parent_class)->append_selection_string) (self, buffer);
-
-	if (self->selected) {
-		g_string_append_c (buffer, '\n');
-		plain_padding (HTML_CLUEFLOW (self), buffer, TRUE);
-	}
-}
-
 
 /* Saving support.  */
 
@@ -1735,6 +1721,18 @@ plain_padding (HTMLClueFlow *flow, GString *out, gboolean firstline)
 
 	g_string_free (pad_string, TRUE);
 	return pad_len;
+}
+
+static void
+append_selection_string (HTMLObject *self,
+			 GString *buffer)
+{
+        (*HTML_OBJECT_CLASS (parent_class)->append_selection_string) (self, buffer);
+
+	if (self->selected) {
+		g_string_append_c (buffer, '\n');
+		plain_padding (HTML_CLUEFLOW (self), buffer, TRUE);
+	}
 }
 
 static gboolean
