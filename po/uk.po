@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-13 12:58-0400\n"
-"PO-Revision-Date: 2004-04-21 12:11+0200\n"
+"POT-Creation-Date: 2004-08-23 00:10+0300\n"
+"PO-Revision-Date: 2004-08-23 00:29+0300\n"
 "Last-Translator: Maxim Dziumanenko <mvd@mylinux.com.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -229,7 +229,7 @@ msgstr "Копіювати"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:15
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
 msgid "Copy selection to clipboard"
-msgstr "Скопіювати виділене у буфер обміну"
+msgstr "Копіювати виділене у буфер обміну"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:16
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:16
@@ -690,17 +690,17 @@ msgstr "Машинописний"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
 msgid "Undo"
-msgstr "Скасувати"
+msgstr "Вернути"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
 msgid "Undo previous changes"
-msgstr "Скасувати попередні зміни"
+msgstr "Вернути попередні зміни"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
 msgid "Undo the last action"
-msgstr "Скасувати останню дію"
+msgstr "Вернути останню дію"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
@@ -919,7 +919,7 @@ msgstr "_Підкреслений"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:148
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:149
 msgid "_Undo"
-msgstr "_Скасувати"
+msgstr "В_ернути"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:149
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:150
@@ -1002,9 +1002,8 @@ msgid "Graph paper"
 msgstr "Міліметрівка"
 
 #: components/html-editor/body.c:246
-#, fuzzy
 msgid "T_emplate:"
-msgstr "Шаблон"
+msgstr "_Шаблон:"
 
 #. data->entry_title = gtk_entry_new ();
 #. if (gtk_html_get_title (data->cd->html)) {
@@ -1014,9 +1013,8 @@ msgstr "Шаблон"
 #. g_signal_connect (data->entry_title, "changed", G_CALLBACK (entry_changed), data);
 #. editor_hig_attach_row (t1, _("T_itle:"), data->entry_title, 1);
 #: components/html-editor/body.c:256 components/html-editor/paragraph.c:112
-#, fuzzy
 msgid "General"
-msgstr "В центрі"
+msgstr "Загальне"
 
 #: components/html-editor/body.c:267 components/html-editor/text.c:162
 #: components/html-editor/toolbar.c:301
@@ -1024,19 +1022,16 @@ msgid "Automatic"
 msgstr "Автоматично"
 
 #: components/html-editor/body.c:279
-#, fuzzy
 msgid "_Text:"
-msgstr "Текст"
+msgstr "_Текст:"
 
 #: components/html-editor/body.c:280
-#, fuzzy
 msgid "_Link:"
-msgstr "Посилання"
+msgstr "_Посилання:"
 
 #: components/html-editor/body.c:281
-#, fuzzy
 msgid "_Background:"
-msgstr "Тло"
+msgstr "Т_ло:"
 
 #: components/html-editor/body.c:283
 #: components/html-editor/gtkhtml-editor-properties.glade.h:30
@@ -1051,11 +1046,11 @@ msgstr "Зображення на тлі"
 #: components/html-editor/body.c:298
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
 msgid "_Source:"
-msgstr ""
+msgstr "Д_жерело:"
 
 #: components/html-editor/cell.c:350 components/html-editor/table.c:231
 msgid "Transparent"
-msgstr ""
+msgstr "Прозорий"
 
 #: components/html-editor/editor-control-factory.c:178
 #: components/html-editor/menubar.c:354 components/html-editor/menubar.c:372
@@ -1286,12 +1281,12 @@ msgstr "Елемент керування редактором HTML для се�
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:1
 msgid "    "
-msgstr ""
+msgstr "    "
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:3
 #, no-c-format
 msgid "%"
-msgstr ""
+msgstr "%"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:8
 msgid "+4"
@@ -1299,48 +1294,47 @@ msgstr "+4"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:11
 msgid "<b>Alignment &amp; Behaviour</b>"
-msgstr ""
+msgstr "<b>Поведінка та вирівнювання</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:12
-#, fuzzy
 msgid "<b>Background</b>"
-msgstr "Тло"
+msgstr "<b>Тло</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:13
 msgid "<b>General</b>"
-msgstr ""
+msgstr "<b>Загальне</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:14
 msgid "<b>Layout</b>"
-msgstr ""
+msgstr "<b>Розташування</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:15
 msgid "<b>Scope</b>"
-msgstr ""
+msgstr "<b>Область</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:16
 msgid "<span weight=\"bold\">General</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Загальне</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:17
 msgid "<span weight=\"bold\">Layout</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Розташування</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:18
 msgid "<span weight=\"bold\">Link</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Посилання</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:19
 msgid "<span weight=\"bold\">Size</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Розмір</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:20
 msgid "<span weight=\"bold\">Style</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Стиль</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
 msgid "<span weight=\"bold\">Template</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Шаблон</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
 #: components/html-editor/paragraph.c:131
@@ -1352,14 +1346,12 @@ msgid "Bottom"
 msgstr "Знизу"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:25
-#, fuzzy
 msgid "C_ell"
-msgstr "Комірка"
+msgstr "Ко_мірка"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#, fuzzy
 msgid "C_olor:"
-msgstr "Колір:"
+msgstr "_Колір:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:27
 #: components/html-editor/popup.c:237
@@ -1372,9 +1364,8 @@ msgid "Center"
 msgstr "В центрі"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:29
-#, fuzzy
 msgid "Col_umn"
-msgstr "Стовпчик"
+msgstr "С_товпчик"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:31
 msgid "Column span:"
@@ -1385,9 +1376,8 @@ msgid "Enable"
 msgstr "Увімкнути"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:33
-#, fuzzy
 msgid "Hea_der style"
-msgstr "Заголовок 6"
+msgstr "Стиль за_головку"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:34
 msgid "Horizontal alignment:"
@@ -1398,9 +1388,8 @@ msgid "Horizontal:"
 msgstr "Горизонтальне:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:36
-#, fuzzy
 msgid "I_mage:"
-msgstr "Зображення"
+msgstr "_Зображення:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:38
 #: components/html-editor/paragraph.c:127
@@ -1441,13 +1430,12 @@ msgid "Shaded"
 msgstr "Затемнене"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:50
-#, fuzzy
 msgid "Si_ze:"
-msgstr "Розмір"
+msgstr "_Розмір:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:51
 msgid "Standard"
-msgstr ""
+msgstr "Звичайний"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:55
 msgid "Thickness:"
@@ -1466,106 +1454,88 @@ msgid "Width:"
 msgstr "ширина"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:59
-#, fuzzy
 msgid "_Alignment:"
-msgstr "Вирівнювання:"
+msgstr "Вир_івнювання:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:61
-#, fuzzy
 msgid "_Border:"
-msgstr "Рамка:"
+msgstr "_Рамка:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:62
-#, fuzzy
 msgid "_Color:"
-msgstr "Колір:"
+msgstr "_Колір:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
-#, fuzzy
 msgid "_Columns:"
-msgstr "Стовпці:"
+msgstr "_Стовпці:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:64
-#, fuzzy
 msgid "_Description:"
-msgstr "Опис:"
+msgstr "_Опис:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:65
-#, fuzzy
 msgid "_Height:"
-msgstr "Висота:"
+msgstr "_Висота:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:66
-#, fuzzy
 msgid "_Image:"
-msgstr "Зображення"
+msgstr "_Зображення:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:68
-#, fuzzy
 msgid "_Padding:"
-msgstr "Заповнення:"
+msgstr "_Заповнення:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#, fuzzy
 msgid "_Row"
-msgstr "Рядок"
+msgstr "_Рядок"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#, fuzzy
 msgid "_Rows:"
-msgstr "Рядки:"
+msgstr "_Рядки:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
-#, fuzzy
 msgid "_Spacing:"
-msgstr "Інтервал:"
+msgstr "_Інтервал:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:74
-#, fuzzy
 msgid "_Table"
-msgstr "Таблиця"
+msgstr "_Таблиця"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:75
 msgid "_URL:"
-msgstr ""
+msgstr "_URL:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:77
-#, fuzzy
 msgid "_Width:"
-msgstr "ширина"
+msgstr "_Ширина:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:78
-#, fuzzy
 msgid "_Wrap Text"
-msgstr "_Перенос"
+msgstr "_Перенос тексту"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:79
-#, fuzzy
 msgid "_X-Padding:"
-msgstr "Заповнення:"
+msgstr "_X-заповнення:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:80
-#, fuzzy
 msgid "_Y-Padding:"
-msgstr "Заповнення:"
+msgstr "_Y-заповнення:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:81
-#, fuzzy
 msgid "follow"
-msgstr "Слідувати"
+msgstr "слідувати"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:82
 msgid "px"
-msgstr ""
+msgstr "пікс"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:83
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
 #: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
-#, fuzzy
 msgid "Insert image"
-msgstr "Вставити гіперпосилання"
+msgstr "Вставити зображення"
 
 #: components/html-editor/menubar.c:133 components/html-editor/menubar.c:152
 #: components/html-editor/menubar.c:173 components/html-editor/menubar.c:195
@@ -1631,9 +1601,8 @@ msgid "Address"
 msgstr "Адреса"
 
 #: components/html-editor/paragraph.c:109
-#, fuzzy
 msgid "_Style:"
-msgstr "_Шрифт"
+msgstr "_Стиль:"
 
 #: components/html-editor/popup.c:438
 msgid "Paste Quotation"
@@ -1783,9 +1752,8 @@ msgid "_Backward"
 msgstr "З_воротний пошук"
 
 #: components/html-editor/search.c:115
-#, fuzzy
 msgid "_Regular Expression"
-msgstr "Пошук за регулярним виразом"
+msgstr "_Регулярний вираз"
 
 #: components/html-editor/spell.c:278
 msgid "No misspelled word found"
@@ -1893,21 +1861,20 @@ msgstr "Зразок"
 
 #: components/html-editor/utils.c:192
 msgid "_Visit..."
-msgstr ""
+msgstr "_Відвідати..."
 
 #: components/html-editor/utils.c:232
-#, fuzzy
 msgid ""
 "The editted object was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
-"Введений текст було видалено з документа.\n"
+"Редагований об'єкт було видалено з документу.\n"
 "Не вдається застосувати зміни."
 
 #: src/gtkhtml.c:2531
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
-msgstr ""
+msgstr "Mozilla url перетягнений на Composer має неправильний формат (%d) або довжину (%d)\n"
 
 #: src/gtkhtml.c:2853
 msgid "Editable"
@@ -1982,14 +1949,12 @@ msgid "The color of the spelling error markers"
 msgstr "Колір, що означає помилки орфографії"
 
 #: src/gtkhtml.c:2915
-#, fuzzy
 msgid "Cite Quotation Color"
-msgstr "Вставити цитату"
+msgstr "Колір цитування"
 
 #: src/gtkhtml.c:2916
-#, fuzzy
 msgid "The color of the cited text"
-msgstr "Колір елементів активного посилання"
+msgstr "Колір цитованого тексту"
 
 #: src/html-component.c:219
 msgid "Html"
@@ -2067,221 +2032,3 @@ msgstr "Попередній перегляд"
 #: src/testgtkhtml.c:987
 msgid "GtkHTML Test Application"
 msgstr "Програма перевірки GtkHTML"
-
-#~ msgid "Plain"
-#~ msgstr "Простий"
-
-#~ msgid ""
-#~ "@link_begin@<img@alt@@width@@height@@align@ "
-#~ "border=@border@@padh@@padv@@src@>@link_end@"
-#~ msgstr ""
-#~ "@link_begin@<img@alt@@width@@height@@align@ "
-#~ "border=@border@@padh@@padv@@src@>@link_end@"
-
-#~ msgid "Frame"
-#~ msgstr "З рамкою"
-
-#~ msgid ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
-#~ "table></center>"
-#~ msgstr ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
-#~ "table></center>"
-
-#~ msgid "Caption"
-#~ msgstr "З підписом"
-
-#~ msgid ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place "
-#~ "your comment here]</td></tr></table></td></tr></table></center>"
-#~ msgstr ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Введіть "
-#~ "тут ваш коментар]</td></tr></table></td></tr></table></center>"
-
-#~ msgid "Find A Regular Expression"
-#~ msgstr "Знайти регулярний вираз"
-
-#~ msgid "Find Regular E_xpression..."
-#~ msgstr "Знайти регулярний ви_раз..."
-
-#~ msgid ""
-#~ "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a "
-#~ "href=\"mailto:dog\">dog</a>."
-#~ msgstr ""
-#~ "Жебракують <a href=\"mailto:philosopher\">філософи</a> при ґанку церкви в "
-#~ "Гадячі; ще й шатро <a href=\"mailto:they\">їхнє</a> знаємо."
-
-#~ msgid "The quick brown fox jumps over the lazy dog."
-#~ msgstr ""
-#~ "Жебракують філософи при ґанку церкви в Гадячі; ще й шатро їхнє знаємо."
-
-#~ msgid "Other"
-#~ msgstr "Інший"
-
-#~ msgid ""
-#~ "The editted cell was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "Комірка, що редагується, була видалена з документу.\n"
-#~ "Неможливо застосувати зміни."
-
-#~ msgid "************"
-#~ msgstr "************"
-
-#~ msgid "***text***"
-#~ msgstr "***текст***"
-
-#~ msgid "Apply changes to:"
-#~ msgstr "Застосувати зміни до:"
-
-#~ msgid "Border"
-#~ msgstr "Рамка"
-
-#~ msgid "Click will follow this URL"
-#~ msgstr "Клацніть, щоб відкрити це посилання (URL)"
-
-#~ msgid "Click will follow this URL:"
-#~ msgstr "Клацніть, щоб відкрити це посилання (URL):"
-
-#~ msgid "Don't wrap"
-#~ msgstr "Не переносити"
-
-#~ msgid "Font size"
-#~ msgstr "Розмір шрифту"
-
-#~ msgid "Foreground color"
-#~ msgstr "Колір переднього плану"
-
-#~ msgid "Header"
-#~ msgstr "Заголовок"
-
-#~ msgid "Link insert"
-#~ msgstr "Вставка гіперпосилання"
-
-#~ msgid "Location"
-#~ msgstr "Адреса"
-
-#~ msgid "Padding"
-#~ msgstr "Заповнення"
-
-#~ msgid "Percent %"
-#~ msgstr "Відсоток %"
-
-#~ msgid "Pixmap:"
-#~ msgstr "Зображення:"
-
-#~ msgid "Points"
-#~ msgstr "Пункти"
-
-#~ msgid "Scope"
-#~ msgstr "Область"
-
-#~ msgid "Spacing"
-#~ msgstr "Інтервал"
-
-#~ msgid "Style:"
-#~ msgstr "Стиль:"
-
-#~ msgid "Table Insert"
-#~ msgstr "Вставка таблиці"
-
-#~ msgid "Test URL..."
-#~ msgstr "Перевірити URL..."
-
-#~ msgid "Wrap"
-#~ msgstr "Переносити"
-
-#~ msgid "Wrapping:"
-#~ msgstr "Перенос:"
-
-#~ msgid "xxxxxxxxx"
-#~ msgstr "xxxxxxxxx"
-
-#~ msgid ""
-#~ "This is sample text, designed to show you how text would flow around this "
-#~ "image if you insert the image into your message."
-#~ msgstr ""
-#~ "Це приклад тексту, призначений для демонстрації обтікання тексту навколо "
-#~ "вашого зображення, якщо ви вставите зображення у ваше повідомлення."
-
-#~ msgid "No image selected"
-#~ msgstr "Зображення не вибрано"
-
-#~ msgid ""
-#~ "The editted image was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "Зображення, що редагується, було видалено з документу.\n"
-#~ "Не вдається застосувати зміни."
-
-#~ msgid "Link text"
-#~ msgstr "Текст гіперпосилання"
-
-#~ msgid ""
-#~ "The editted link was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "Гіперпосилання, що редагується, було видалено з документу.\n"
-#~ "Не вдається застосувати зміни."
-
-#~ msgid "Please fill 'Link text' and 'URL' entries"
-#~ msgstr "Заповніть поля \"Текст посилання\" та \"URL\""
-
-#~ msgid "Align"
-#~ msgstr "Вирівнювання"
-
-#~ msgid ""
-#~ "The editted paragraph was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "Абзац, що редагується був видалений з документу.\n"
-#~ "Не вдається застосувати зміни."
-
-#~ msgid "Blue 3D"
-#~ msgstr "Синя об'ємна"
-
-#~ msgid "Yellow, flowers"
-#~ msgstr "Жовта з квітами"
-
-#~ msgid ""
-#~ "The editted rule was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "Лінійка, що редагується була видалена з документу.\n"
-#~ "Не вдається застосувати зімни."
-
-#~ msgid "Flat gray"
-#~ msgstr "Плоска сіра"
-
-#~ msgid "Dark header"
-#~ msgstr "З чорним заголовком"
-
-#~ msgid ""
-#~ "The editted table was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "Лінійка, що редагується була видалена з документу.\n"
-#~ "Не вдається застосувати зміни."
-
-#~ msgid "Color"
-#~ msgstr "Колір"
-
-#~ msgid "Rectangles"
-#~ msgstr "Прямокутники"
-
-#~ msgid "The quick brown fox jumps over the lazy dog.</div>"
-#~ msgstr ""
-#~ "Жебракують філософи при ґанку церкви в Гадячі; ще й шатро їхнє знаємо.</"
-#~ "div>"
