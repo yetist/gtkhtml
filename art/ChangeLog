@@ -1,3 +1,8 @@
+2001-07-27  Radek Doulik  <rodo@ximian.com>
+
+	* Makefile.am (icons_DATA): added bulb.png which I get from
+	tigertie in mail, but dunno if he is author too
+
 2001-07-25  Radek Doulik  <rodo@ximian.com>
 
 	* Makefile.am (icons_DATA): added html-viewer.png from Jakub
