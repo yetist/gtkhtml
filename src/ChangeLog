@@ -2,6 +2,7 @@
 
 	* htmlengine.c (replace): use html_engine_edit_selection_update_now
 	(html_engine_replace_do): disable selection on end of replace
+	(parse_a): added missing gdk_color_copy
 
 	* htmlengine-edit-selection-updater.c
 	(html_engine_edit_selection_update_now): new function, removes

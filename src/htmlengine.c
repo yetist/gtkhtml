@@ -1433,7 +1433,7 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 			}
 
 			if (e->url != NULL || e->target != NULL)
-				push_color (e, html_settings_get_color (e->settings, HTMLLinkColor));
+				push_color (e, gdk_color_copy (html_settings_get_color (e->settings, HTMLLinkColor)));
 		} else if ( strncmp( str, "/a", 2 ) == 0 ) {
 			close_anchor (e);
 		}
