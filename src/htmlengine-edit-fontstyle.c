@@ -47,7 +47,7 @@ set_font_style_in_selection_forall (HTMLObject *self,
 
 	/* FIXME this is gross.  */
 	if (HTML_OBJECT_TYPE (self) != HTML_TYPE_TEXTMASTER
-	    || HTML_OBJECT_TYPE (self) != HTML_TYPE_LINKTEXTMASTER)
+	    && HTML_OBJECT_TYPE (self) != HTML_TYPE_LINKTEXTMASTER)
 		return;
 
 	master = HTML_TEXT_MASTER (self);
@@ -61,7 +61,7 @@ set_font_style_in_selection_forall (HTMLObject *self,
 		html_clue_append_after (HTML_CLUE (self->parent), HTML_OBJECT (curr), self);
 	}
 
-	last_font_style = html_text_get_font_style (HTML_TEXT (curr));
+	last_font_style = HTML_TEXT (curr)->font_style;
 
 	/* Merge as many selected following elements as possible.  FIXME: we
            could be faster and merge all of them at once, but for now we really
@@ -74,7 +74,7 @@ set_font_style_in_selection_forall (HTMLObject *self,
 		static HTMLText *merge_list[2] = { NULL, NULL };
 		HTMLObject *next;
 
-		last_font_style = html_text_get_font_style (HTML_TEXT (next));
+		last_font_style = HTML_TEXT (next)->font_style;
 
 		merge_list[0] = HTML_TEXT (next);
 		html_text_merge (HTML_TEXT (curr), merge_list);

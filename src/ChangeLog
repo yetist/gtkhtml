@@ -1,5 +1,12 @@
 2000-02-21  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmltextmaster.c (merge): Completed code to preserve selection
+	when merging.
+	(split): Preserve selection here too.
+
+	* htmlengine-edit-fontstyle.c
+	(set_font_style_in_selection_forall): Make it work.
+
 	* htmlembedded.c (html_embedded_grab_cursor): Removed spurious
 	debugging message.
 

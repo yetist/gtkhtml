@@ -414,11 +414,29 @@ split (HTMLText *self,
 	self->text[offset] = '\0';
 	HTML_TEXT (self)->text_len = offset;
 
-	if (master->select_length != 0 && offset < master->select_start + master->select_length) {
-		master->select_length = offset - master->select_start;
-		HTML_TEXT_MASTER (new)->select_start = 0;
-		HTML_TEXT_MASTER (new)->select_length = master->select_length - (offset
-										 - master->select_start);
+	if (master->select_length != 0) {
+		if (offset <= master->select_start) {
+			HTML_TEXT_MASTER (new)->select_start = master->select_start - offset;
+			HTML_TEXT_MASTER (new)->select_length = master->select_length;
+			new->selected = TRUE;
+
+			HTML_TEXT_MASTER (self)->select_start = 0;
+			HTML_TEXT_MASTER (self)->select_length = 0;
+			HTML_OBJECT (self)->selected = FALSE;
+		} else if (offset <= master->select_start + master->select_length) {
+			HTML_TEXT_MASTER (new)->select_start = 0;
+			HTML_TEXT_MASTER (new)->select_length
+				= master->select_start + master->select_length - offset;
+			new->selected = HTML_TEXT_MASTER (new)->select_length > 0;
+
+			HTML_TEXT_MASTER (self)->select_length = offset - master->select_start;
+			HTML_OBJECT (self)->selected = TRUE;
+
+		} else {
+			/* If the offset is past the selection, the new element
+                           gets no selection and the selection in this element
+                           is unchanged.  */
+		}
 	}
 
 	return HTML_TEXT (new);
@@ -430,19 +448,26 @@ merge (HTMLText *self,
 {
 	HTMLText **p;
 	guint total_length;
-	guint select_length;
+	guint select_start, select_length;
 	gchar *new_text;
 	gchar *sp;
 
 	total_length = self->text_len;
+
 	select_length = HTML_TEXT_MASTER (self)->select_length;
+	select_start = 0;
 
 	for (p = list; *p != NULL; p++) {
 		g_return_if_fail (HTML_OBJECT_TYPE (*p) == HTML_OBJECT_TYPE (self));
 
 		/* XXX For this to make sense, selection must always be
                    contiguous.  */
-		select_length += HTML_TEXT_MASTER (*p)->select_length;
+
+		if (HTML_TEXT_MASTER (*p)->select_length > 0) {
+			if (select_length == 0)
+				select_start = total_length + HTML_TEXT_MASTER (*p)->select_start;
+			select_length += HTML_TEXT_MASTER (*p)->select_length;
+		}
 
 		if (! HTML_OBJECT (self)->selected && HTML_OBJECT (*p)->selected)
 			HTML_TEXT_MASTER (self)->select_start = (total_length
@@ -471,6 +496,9 @@ merge (HTMLText *self,
 	g_free (self->text);
 	self->text = new_text;
 	self->text_len = total_length;
+
+	HTML_TEXT_MASTER (self)->select_start = select_start;
+	HTML_TEXT_MASTER (self)->select_length = select_length;
 }
 
 static guint
