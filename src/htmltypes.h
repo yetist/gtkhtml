@@ -113,7 +113,6 @@ typedef struct _HTMLTextSlaveClass HTMLTextSlaveClass;
 typedef struct _HTMLTokenizer HTMLTokenizer;
 typedef struct _HTMLUndo HTMLUndo;
 typedef struct _HTMLUndoAction HTMLUndoAction;
-typedef struct _HTMLURL HTMLURL;
 typedef struct _HTMLVSpace HTMLVSpace;
 typedef struct _HTMLVSpaceClass HTMLVSpaceClass;
 typedef struct _SpellError SpellError;

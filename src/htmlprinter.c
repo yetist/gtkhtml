@@ -38,8 +38,8 @@ static HTMLPainterClass *parent_class = NULL;
 /* The following macros are used to convert between the HTMLEngine coordinate
    system (which uses integers) to the GnomePrint one (which uses doubles). */
 
-#define SCALE_ENGINE_TO_GNOME_PRINT(x) (x / 1024.0)
-#define SCALE_GNOME_PRINT_TO_ENGINE(x) ((gint) (x * 1024.0 + 0.5))
+#define SCALE_ENGINE_TO_GNOME_PRINT(x) ((x) / 1024.0)
+#define SCALE_GNOME_PRINT_TO_ENGINE(x) ((gint) ((x) * 1024.0 + 0.5))
 
 /* Hm, this might need fixing.  */
 #define SPACING_FACTOR 1.2
@@ -334,13 +334,76 @@ draw_rect (HTMLPainter *painter,
 static void
 draw_panel (HTMLPainter *painter,
 	    GdkColor *bg,
-	    gint x, gint y,
-	    gint width, gint height,
+	    gint _x, gint _y,
+	    gint w, gint h,
 	    GtkHTMLEtchStyle inset,
 	    gint bordersize)
 {
-	/* FIXME bg color */
-	do_rectangle (painter, x, y, width, height, bordersize);
+	GnomePrintContext *pc = HTML_PRINTER (painter)->print_context;
+	GdkColor *col1 = NULL, *col2 = NULL;
+	GdkColor dark, light;
+	gdouble x;
+	gdouble y;
+	gdouble width, bs;
+	gdouble height;
+
+	#define INC 0x8000
+	#define DARK(c)  dark.  ## c = MAX (((gint) bg-> ## c) - INC, 0)
+	#define LIGHT(c) light. ## c = MIN (((gint) bg-> ## c) + INC, 0xffff)
+
+	DARK(red);
+	DARK(green);
+	DARK(blue);
+	LIGHT(red);
+	LIGHT(green);
+	LIGHT(blue);
+
+	switch (inset) {
+	case GTK_HTML_ETCH_NONE:
+		/* use the current pen color */
+		col1 = NULL;
+		col2 = NULL;
+		break;
+	case GTK_HTML_ETCH_OUT:
+		col1 = &light;
+		col2 = &dark;
+		break;
+	default:
+	case GTK_HTML_ETCH_IN:
+		col1 = &dark;
+		col2 = &light;
+		break;
+	}
+
+	width  = SCALE_ENGINE_TO_GNOME_PRINT (w);
+	height = SCALE_ENGINE_TO_GNOME_PRINT (h);
+	bs     = SCALE_ENGINE_TO_GNOME_PRINT (bordersize);
+
+	html_printer_coordinates_to_gnome_print (HTML_PRINTER (painter), _x, _y, &x, &y);
+
+	if (col2)
+		gnome_print_setrgbcolor (pc, col1->red / 65535.0, col1->green / 65535.0, col1->blue / 65535.0);
+
+	gnome_print_newpath (pc);
+	gnome_print_moveto  (pc, x, y);
+	gnome_print_lineto  (pc, x + width, y);
+	gnome_print_lineto  (pc, x + width - bs, y - bs);
+	gnome_print_lineto  (pc, x + bs, y - bs );
+	gnome_print_lineto  (pc, x + bs, y - height + bs);
+	gnome_print_lineto  (pc, x, y - height);
+	gnome_print_fill    (pc);
+
+	if (col1)
+		gnome_print_setrgbcolor (pc, col2->red / 65535.0, col2->green / 65535.0, col2->blue / 65535.0);
+
+	gnome_print_newpath (pc);
+	gnome_print_moveto  (pc, x, y - height);
+	gnome_print_lineto  (pc, x + width, y - height);
+	gnome_print_lineto  (pc, x + width, y);
+	gnome_print_lineto  (pc, x + width - bs, y - bs);
+	gnome_print_lineto  (pc, x + width - bs, y - height + bs);
+	gnome_print_lineto  (pc, x + bs, y - height + bs);
+	gnome_print_fill    (pc);
 }
 
 static void
@@ -386,65 +449,25 @@ draw_pixmap (HTMLPainter *painter,
 	     const GdkColor *color)
 {
 	HTMLPrinter *printer;
-	gint width, height, rowstride, n_channels;
+	gint width, height;
 	double print_x, print_y;
 	double print_scale_width, print_scale_height;
-	gchar *pixels;
 
 	printer = HTML_PRINTER (painter);
 	g_return_if_fail (printer->print_context != NULL);
 
 	width = gdk_pixbuf_get_width (pixbuf);
 	height = gdk_pixbuf_get_height (pixbuf);
-	rowstride = gdk_pixbuf_get_rowstride (pixbuf);
-	n_channels = gdk_pixbuf_get_n_channels (pixbuf);
 
 	html_printer_coordinates_to_gnome_print (printer, x, y, &print_x, &print_y);
 
-	print_scale_width = SCALE_ENGINE_TO_GNOME_PRINT (scale_width);
+	print_scale_width  = SCALE_ENGINE_TO_GNOME_PRINT (scale_width);
 	print_scale_height = SCALE_ENGINE_TO_GNOME_PRINT (scale_height);
-
-	if (n_channels == 3) {
-		pixels = gdk_pixbuf_get_pixels (pixbuf);
-	} else {
-		guint i, j;
-		guchar *slp, *sp, *dp;
-
-		/* Image has alpha channel, remove it.  FIXME: This needs
-                   fixing.  */
-
-		pixels = alloca (3 * width * height);
-
-		slp = gdk_pixbuf_get_pixels (pixbuf);
-		dp = pixels;
-		for (i = 0; i < height; i++) {
-			sp = slp;
-
-			for (j = 0; j < width; j++) {
-				if (sp[3] < 128) {
-					dp[0] = 0xff;
-					dp[1] = 0xff;
-					dp[2] = 0xff;
-				} else {
-					dp[0] = sp[0];
-					dp[1] = sp[1];
-					dp[2] = sp[2];
-				}
-
-				dp += 3;
-				sp += n_channels;
-			}
-
-			slp += rowstride;
-		}
-
-		rowstride = 3 * width;
-	}
 
 	gnome_print_gsave (printer->print_context);
 	gnome_print_translate (printer->print_context, print_x, print_y - print_scale_height);
 	gnome_print_scale (printer->print_context, print_scale_width, print_scale_height);
-	gnome_print_rgbimage (printer->print_context, pixels, width, height, rowstride);
+	gnome_print_pixbuf (printer->print_context, pixbuf);
 	gnome_print_grestore (printer->print_context);
 }
 

@@ -105,7 +105,8 @@ print_all_pages (HTMLPainter *printer,
 		new_split_offset = html_object_check_page_split (engine->clue,
 								 split_offset + body_height);
 
-		if (new_split_offset <= split_offset)
+		if (new_split_offset <= split_offset
+		    || new_split_offset - split_offset < engine->min_split_index * body_height)
 			new_split_offset = split_offset + body_height;
 
 		print_page   (printer, engine, split_offset,
@@ -152,4 +153,10 @@ html_engine_print_with_header_footer (HTMLEngine *engine, GnomePrintContext *pri
 	engine->width = old_width;
 	html_engine_set_painter (engine, old_painter, old_width);
 	gtk_object_unref (GTK_OBJECT (printer));	
+}
+
+void
+html_engine_print_set_min_split_index (HTMLEngine *e, gdouble idx)
+{
+	e->min_split_index = idx;
 }

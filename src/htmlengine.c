@@ -3259,6 +3259,8 @@ html_engine_init (HTMLEngine *engine)
 	engine->selection_updater = html_engine_edit_selection_updater_new (engine);
 
 	engine->search_info = NULL;
+
+	html_engine_print_set_min_split_index (engine, .75);
 }
 
 HTMLEngine *

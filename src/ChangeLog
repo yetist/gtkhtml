@@ -1,3 +1,19 @@
+2000-12-11  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlprinter.c (draw_pixmap): let gnome-print do alpha stuff
+
+	* htmlengine-print.c (html_engine_print_set_min_split_index): new
+	helper setting function
+	(print_all_pages): use min_split_index
+
+	* htmlengine.h: added min_split_index for printing 
+
+	* Makefile.am (testgtkhtml_SOURCES): move htmlurl.h here
+
+	* htmlprinter.c (draw_panel): do shadings
+
+	* htmltypes.h: removed HTMLURL
+
 2000-12-10  Radek Doulik  <rodo@helixcode.com>
 
 	* htmltable.c (forall): call func also on self

@@ -36,6 +36,7 @@ struct _HTMLURL {
 	gchar *path;
 	gchar *reference;
 };
+typedef struct _HTMLURL HTMLURL;
 
 HTMLURL *html_url_new (const gchar *s);
 void html_url_destroy (HTMLURL *url);

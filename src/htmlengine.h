@@ -226,6 +226,8 @@ struct _HTMLEngine {
 
 	/* id-to-object mapping */
 	GHashTable *id_table;
+
+	gdouble min_split_index;
 };
 
 /* must be forward referenced *sigh* */

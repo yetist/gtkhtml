@@ -102,7 +102,6 @@ libgtkhtml_HEADERS =				\
 	htmltypes.h				\
 	htmlundo.h				\
 	htmlundo-action.h			\
-	htmlurl.h				\
 	htmlvspace.h				\
 	gtkhtml-keybinding.h			\
 	htmliframe.h				\
@@ -201,6 +200,7 @@ libgtkhtml_la_LIBADD = $(EXTRA_GNOME_LIBS) $(GCONF_LIBS)
 
 testgtkhtml_SOURCES = 		\
 	testgtkhtml.c		\
+	htmlurl.h		\
 	htmlurl.c
 
 testgtkhtml_CFLAGS = $(GLIBWWW_CFLAGS)
