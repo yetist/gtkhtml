@@ -6,14 +6,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 3.1\n"
-"POT-Creation-Date: 2004-06-25 15:15-0400\n"
-"PO-Revision-Date: 2004-01-30 02:55+0900\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-07-26 06:16+0900\n"
+"PO-Revision-Date: 2004-07-26 06:24+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
-"Language-Team: Korean <gnome-kr-translation@lists.sourceforge.net>\n"
+"Language-Team: GNOME Korea <gnome-kr-hackers@lists.kldp.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -46,7 +46,7 @@ msgstr "단축키 더하기"
 
 #: capplet/gtkhtml-capplet.glade.h:6
 msgid "Automatically detect links"
-msgstr "링크 자동 감지"
+msgstr "바로가기 자동 감지"
 
 #: capplet/gtkhtml-capplet.glade.h:7
 msgid "Behavior"
@@ -62,11 +62,11 @@ msgstr "작성기 등록 정보 계획"
 
 #: capplet/gtkhtml-capplet.glade.h:10
 msgid "Configure spell checking"
-msgstr "철자 검사 설정"
+msgstr "맞춤법 검사 설정"
 
 #: capplet/gtkhtml-capplet.glade.h:11
 msgid "Enable spell checking"
-msgstr "철자 검사 사용"
+msgstr "맞춤법 검사 사용"
 
 #: capplet/gtkhtml-capplet.glade.h:12
 msgid "Fixed width"
@@ -354,7 +354,7 @@ msgstr "문서안에 HTML 파일을 넣습니다..."
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
 msgid "Insert HTML link into document..."
-msgstr "문서안에 HTML 링크를 넣습니다..."
+msgstr "문서안에 HTML 바로가기를 넣습니다..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:40
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
@@ -437,7 +437,7 @@ msgstr "메롱(_C)"
 #: components/html-editor/menubar.c:115 components/html-editor/popup.c:106
 #: components/html-editor/popup.c:201 components/html-editor/popup.c:267
 msgid "Link"
-msgstr "링크"
+msgstr "바로가기"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
@@ -690,7 +690,7 @@ msgstr "타자체"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
 msgid "Undo"
-msgstr "실행취소"
+msgstr "실행 취소"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
@@ -812,7 +812,7 @@ msgstr "왼쪽(_L)"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
 msgid "_Link..."
-msgstr "링크(_L)..."
+msgstr "바로가기(_L)..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
@@ -1002,9 +1002,8 @@ msgid "Graph paper"
 msgstr "그래프 종이"
 
 #: components/html-editor/body.c:246
-#, fuzzy
 msgid "T_emplate:"
-msgstr "템플릿"
+msgstr "템플릿(_E):"
 
 #. data->entry_title = gtk_entry_new ();
 #. if (gtk_html_get_title (data->cd->html)) {
@@ -1014,9 +1013,8 @@ msgstr "템플릿"
 #. g_signal_connect (data->entry_title, "changed", G_CALLBACK (entry_changed), data);
 #. editor_hig_attach_row (t1, _("T_itle:"), data->entry_title, 1);
 #: components/html-editor/body.c:256 components/html-editor/paragraph.c:112
-#, fuzzy
 msgid "General"
-msgstr "가운데"
+msgstr "일반"
 
 #: components/html-editor/body.c:267 components/html-editor/text.c:162
 #: components/html-editor/toolbar.c:301
@@ -1024,19 +1022,16 @@ msgid "Automatic"
 msgstr "자동"
 
 #: components/html-editor/body.c:279
-#, fuzzy
 msgid "_Text:"
-msgstr "글자"
+msgstr "글자(_T):"
 
 #: components/html-editor/body.c:280
-#, fuzzy
 msgid "_Link:"
-msgstr "링크"
+msgstr "바로가기(_L):"
 
 #: components/html-editor/body.c:281
-#, fuzzy
 msgid "_Background:"
-msgstr "바탕"
+msgstr "바탕(_B):"
 
 #: components/html-editor/body.c:283
 #: components/html-editor/gtkhtml-editor-properties.glade.h:30
@@ -1051,11 +1046,11 @@ msgstr "바탕 그림"
 #: components/html-editor/body.c:298
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
 msgid "_Source:"
-msgstr ""
+msgstr "원본(_S):"
 
 #: components/html-editor/cell.c:350 components/html-editor/table.c:231
 msgid "Transparent"
-msgstr ""
+msgstr "투명"
 
 #: components/html-editor/editor-control-factory.c:178
 #: components/html-editor/menubar.c:328 components/html-editor/menubar.c:346
@@ -1079,7 +1074,7 @@ msgstr "문단"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:43
 #: components/html-editor/menubar.c:332 components/html-editor/popup.c:219
 msgid "Page"
-msgstr "쪽"
+msgstr "페이지"
 
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:395
@@ -1286,61 +1281,60 @@ msgstr "GtkHTML 편집기 컨트롤"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:1
 msgid "    "
-msgstr ""
+msgstr "    "
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:3
 #, no-c-format
 msgid "%"
-msgstr ""
+msgstr "%"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:8
 msgid "+4"
-msgstr "*4"
+msgstr "+4"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:11
 msgid "<b>Alignment &amp; Behaviour</b>"
-msgstr ""
+msgstr "<b>정렬 및 동작</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:12
-#, fuzzy
 msgid "<b>Background</b>"
-msgstr "바탕"
+msgstr "<b>바탕</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:13
 msgid "<b>General</b>"
-msgstr ""
+msgstr "<b>일반</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:14
 msgid "<b>Layout</b>"
-msgstr ""
+msgstr "<b>배치</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:15
 msgid "<b>Scope</b>"
-msgstr ""
+msgstr "<b>범위</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:16
 msgid "<span weight=\"bold\">General</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">일반</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:17
 msgid "<span weight=\"bold\">Layout</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">배치</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:18
 msgid "<span weight=\"bold\">Link</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">바로가기</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:19
 msgid "<span weight=\"bold\">Size</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">크기</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:20
 msgid "<span weight=\"bold\">Style</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">스타일</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
 msgid "<span weight=\"bold\">Template</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">템플릿</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
 #: components/html-editor/paragraph.c:131
@@ -1352,14 +1346,12 @@ msgid "Bottom"
 msgstr "아래"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:25
-#, fuzzy
 msgid "C_ell"
-msgstr "셀"
+msgstr "셀(_E)"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#, fuzzy
 msgid "C_olor:"
-msgstr "색상:"
+msgstr "색(_O):"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:27
 #: components/html-editor/popup.c:237
@@ -1372,9 +1364,8 @@ msgid "Center"
 msgstr "가운데"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:29
-#, fuzzy
 msgid "Col_umn"
-msgstr "열"
+msgstr "열(_U)"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:31
 msgid "Column span:"
@@ -1385,9 +1376,8 @@ msgid "Enable"
 msgstr "사용"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:33
-#, fuzzy
 msgid "Hea_der style"
-msgstr "제목 6"
+msgstr "제목 스타일(_D)"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:34
 msgid "Horizontal alignment:"
@@ -1398,9 +1388,8 @@ msgid "Horizontal:"
 msgstr "가로:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:36
-#, fuzzy
 msgid "I_mage:"
-msgstr "그림"
+msgstr "그림(_M):"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:38
 #: components/html-editor/paragraph.c:127
@@ -1413,7 +1402,7 @@ msgstr "길이:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:40
 msgid "Link properties"
-msgstr "링크 등록 정보"
+msgstr "바로가기 등록 정보"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:41
 msgid "Middle"
@@ -1441,13 +1430,12 @@ msgid "Shaded"
 msgstr "그림자"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:50
-#, fuzzy
 msgid "Si_ze:"
-msgstr "크기"
+msgstr "크기(_Z):"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:51
 msgid "Standard"
-msgstr ""
+msgstr "표준"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:55
 msgid "Thickness:"
@@ -1466,112 +1454,94 @@ msgid "Width:"
 msgstr "너비:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:59
-#, fuzzy
 msgid "_Alignment:"
-msgstr "정렬:"
+msgstr "정렬(_A):"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:61
-#, fuzzy
 msgid "_Border:"
-msgstr "둘레:"
+msgstr "테두리(_B):"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:62
-#, fuzzy
 msgid "_Color:"
-msgstr "색상:"
+msgstr "색(_C):"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
-#, fuzzy
 msgid "_Columns:"
-msgstr "열:"
+msgstr "열(_C):"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:64
-#, fuzzy
 msgid "_Description:"
-msgstr "설명:"
+msgstr "설명(_D):"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:65
-#, fuzzy
 msgid "_Height:"
-msgstr "높이:"
+msgstr "높이(_H):"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:66
-#, fuzzy
 msgid "_Image:"
-msgstr "그림"
+msgstr "그림(_I):"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:68
-#, fuzzy
 msgid "_Padding:"
-msgstr "채움:"
+msgstr "채움(_P):"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#, fuzzy
 msgid "_Row"
-msgstr "행"
+msgstr "행(_R)"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#, fuzzy
 msgid "_Rows:"
-msgstr "행:"
+msgstr "행(_R):"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
-#, fuzzy
 msgid "_Spacing:"
-msgstr "간격:"
+msgstr "간격(_S):"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:74
-#, fuzzy
 msgid "_Table"
-msgstr "표"
+msgstr "표(_T)"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:75
 msgid "_URL:"
-msgstr ""
+msgstr "_URL:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:77
-#, fuzzy
 msgid "_Width:"
-msgstr "너비:"
+msgstr "너비(_W):"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:78
-#, fuzzy
 msgid "_Wrap Text"
 msgstr "줄 바꿈(_W)"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:79
-#, fuzzy
 msgid "_X-Padding:"
-msgstr "채움:"
+msgstr "가로 채움(_X):"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:80
-#, fuzzy
 msgid "_Y-Padding:"
-msgstr "채움:"
+msgstr "세로 채움(_Y):"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:81
-#, fuzzy
 msgid "follow"
-msgstr "원래 크기"
+msgstr "따라가기"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:82
 msgid "px"
-msgstr ""
+msgstr "픽셀"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:83
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
 #: components/html-editor/menubar.c:86
-#, fuzzy
 msgid "Insert image"
-msgstr "바로가기 넣기"
+msgstr "그림 넣기"
 
 #: components/html-editor/menubar.c:112 components/html-editor/menubar.c:131
 #: components/html-editor/menubar.c:152 components/html-editor/menubar.c:174
 #: components/html-editor/popup.c:103
 msgid "Insert"
-msgstr "삽입"
+msgstr "넣기"
 
 #: components/html-editor/menubar.c:263
 #, c-format
@@ -1631,21 +1601,18 @@ msgid "Address"
 msgstr "주소"
 
 #: components/html-editor/paragraph.c:109
-#, fuzzy
 msgid "_Style:"
-msgstr "스타일(_S)"
+msgstr "스타일(_S):"
 
 #: components/html-editor/popup.c:438
 msgid "Paste Quotation"
 msgstr "인용문 붙여 넣기"
 
 #: components/html-editor/popup.c:442
-#, fuzzy
 msgid "Insert Link"
 msgstr "바로가기 넣기"
 
 #: components/html-editor/popup.c:449
-#, fuzzy
 msgid "Remove Link"
 msgstr "바로가기 지우기"
 
@@ -1785,9 +1752,8 @@ msgid "_Backward"
 msgstr "뒤로(_B)"
 
 #: components/html-editor/search.c:115
-#, fuzzy
 msgid "_Regular Expression"
-msgstr "정규 표현식 찾기"
+msgstr "정규 표현식(_R)"
 
 #: components/html-editor/spell.c:278
 msgid "No misspelled word found"
@@ -1795,7 +1761,7 @@ msgstr "맞춤법이 잘못된 단어를 찾을 수 없습니다"
 
 #: components/html-editor/spell.c:285
 msgid "Spell checker"
-msgstr "철자 검사"
+msgstr "맞춤법 검사"
 
 #: components/html-editor/spell.c:378
 msgid "Current _Languages"
@@ -1895,103 +1861,100 @@ msgstr "예제"
 
 #: components/html-editor/utils.c:192
 msgid "_Visit..."
-msgstr ""
+msgstr "방문(_V)..."
 
 #: components/html-editor/utils.c:232
-#, fuzzy
 msgid ""
 "The editted object was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
-"편집한 텍스트가 문서에서 지워졌습니다.\n"
+"편집한 텍스트를 문서에서 지웠습니다.\n"
 "바뀐 점을 적용할 수 없습니다."
 
-#: src/gtkhtml.c:2494
+#: src/gtkhtml.c:2531
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
-msgstr ""
+msgstr "작성 창에 드롭한 Mozilla URL의 형식이 잘못되었거나(%d) 길이가 잘못되었습니다(%d)\n"
 
-#: src/gtkhtml.c:2815
+#: src/gtkhtml.c:2852
 msgid "Editable"
 msgstr "편집 가능"
 
-#: src/gtkhtml.c:2816
+#: src/gtkhtml.c:2853
 msgid "Whether the html can be edited"
 msgstr "HTML을 편집할 수 있는 지 여부"
 
-#: src/gtkhtml.c:2822
+#: src/gtkhtml.c:2859
 msgid "Document Title"
 msgstr "문서 제목"
 
-#: src/gtkhtml.c:2823
+#: src/gtkhtml.c:2860
 msgid "The title of the current document"
 msgstr "현재 문서의 제목"
 
-#: src/gtkhtml.c:2829
+#: src/gtkhtml.c:2866
 msgid "Document Base"
 msgstr "문서 기준"
 
-#: src/gtkhtml.c:2830
+#: src/gtkhtml.c:2867
 msgid "The base URL for relative references"
 msgstr "상대 참조할 때 기준 URL"
 
-#: src/gtkhtml.c:2836
+#: src/gtkhtml.c:2873
 msgid "Target Base"
 msgstr "목표 기준"
 
-#: src/gtkhtml.c:2837
+#: src/gtkhtml.c:2874
 msgid "The base URL of the targe frame"
 msgstr "목표 프레임의 기준 URL"
 
-#: src/gtkhtml.c:2846
+#: src/gtkhtml.c:2883
 msgid "Fixed Width Font"
 msgstr "고정폭 글꼴"
 
-#: src/gtkhtml.c:2847
+#: src/gtkhtml.c:2884
 msgid "The Monospace font to use for typewriter text"
 msgstr "타이프라이터 텍스트에 사용할 고정폭 글꼴"
 
-#: src/gtkhtml.c:2853
+#: src/gtkhtml.c:2890
 msgid "New Link Color"
 msgstr "새로운 바로가기 색"
 
-#: src/gtkhtml.c:2854
+#: src/gtkhtml.c:2891
 msgid "The color of new link elements"
 msgstr "새로운 바로가기에 사용할 색"
 
-#: src/gtkhtml.c:2859
+#: src/gtkhtml.c:2896
 msgid "Visited Link Color"
 msgstr "방문한 바로가기 색"
 
-#: src/gtkhtml.c:2860
+#: src/gtkhtml.c:2897
 msgid "The color of visited link elements"
 msgstr "방문한 바로가기에 사용할 색"
 
-#: src/gtkhtml.c:2865
+#: src/gtkhtml.c:2902
 msgid "Active Link Color"
 msgstr "활성 바로가기 색"
 
-#: src/gtkhtml.c:2866
+#: src/gtkhtml.c:2903
 msgid "The color of active link elements"
 msgstr "활성 바로가기에 사용할 색"
 
-#: src/gtkhtml.c:2871
+#: src/gtkhtml.c:2908
 msgid "Spelling Error Color"
 msgstr "맞춤법 오류 색"
 
-#: src/gtkhtml.c:2872
+#: src/gtkhtml.c:2909
 msgid "The color of the spelling error markers"
 msgstr "맞춤법 오류 표시할 때 사용할 색"
 
-#: src/gtkhtml.c:2877
-#, fuzzy
+#: src/gtkhtml.c:2914
 msgid "Cite Quotation Color"
-msgstr "인용문 붙여 넣기"
+msgstr "인용문 색"
 
-#: src/gtkhtml.c:2878
-#, fuzzy
+#: src/gtkhtml.c:2915
 msgid "The color of the cited text"
-msgstr "활성 바로가기에 사용할 색"
+msgstr "인용문에 사용할 색"
 
 #: src/html-component.c:219
 msgid "Html"
@@ -2060,221 +2023,12 @@ msgstr "GtkHTML 테스트"
 
 #: src/testgtkhtml.c:117
 msgid "Print pre_view"
-msgstr "인쇄 미리보기(_V)"
+msgstr "인쇄 미리 보기(_V)"
 
 #: src/testgtkhtml.c:117
 msgid "Print preview"
-msgstr "인쇄가 되는 모습을 미리 확인해봅니다"
+msgstr "인쇄 미리 보기"
 
 #: src/testgtkhtml.c:987
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML 테스트 프로그램"
-
-#~ msgid "Plain"
-#~ msgstr "보통"
-
-#~ msgid ""
-#~ "@link_begin@<img@alt@@width@@height@@align@ "
-#~ "border=@border@@padh@@padv@@src@>@link_end@"
-#~ msgstr ""
-#~ "@link_begin@<img@alt@@width@@height@@align@ "
-#~ "border=@border@@padh@@padv@@src@>@link_end@"
-
-#~ msgid "Frame"
-#~ msgstr "프레임"
-
-#~ msgid ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
-#~ "table></center>"
-#~ msgstr ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
-#~ "table></center>"
-
-#~ msgid "Caption"
-#~ msgstr "설명"
-
-#~ msgid ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place "
-#~ "your comment here]</td></tr></table></td></tr></table></center>"
-#~ msgstr ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[설명을 "
-#~ "입력하십시오]</td></tr></table></td></tr></table></center>"
-
-#~ msgid "Find A Regular Expression"
-#~ msgstr "정규 표현식으로 찾습니다"
-
-#~ msgid "Find Regular E_xpression..."
-#~ msgstr "정규 표현식으로 찾기(_X)..."
-
-#~ msgid ""
-#~ "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a "
-#~ "href=\"mailto:dog\">dog</a>."
-#~ msgstr ""
-#~ "<a href=\"mailto:flower\">무궁화</a> 꽃이 <a href=\"mailto:big\">활짝</a> "
-#~ "피었습니다."
-
-#~ msgid "The quick brown fox jumps over the lazy dog."
-#~ msgstr "무궁화 꽃이 활짝 피었습니다."
-
-#~ msgid "Other"
-#~ msgstr "그 외"
-
-#~ msgid ""
-#~ "The editted cell was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "편집한 셀이 문서에서 지워졌습니다.\n"
-#~ "바뀐 점을 저장할 수 없습니다."
-
-#~ msgid "************"
-#~ msgstr "************"
-
-#~ msgid "***text***"
-#~ msgstr "***글자***"
-
-#~ msgid "Apply changes to:"
-#~ msgstr "바뀐 점 적용:"
-
-#~ msgid "Border"
-#~ msgstr "둘레"
-
-#~ msgid "Click will follow this URL"
-#~ msgstr "누르면 이 URL을 따라갑니다"
-
-#~ msgid "Click will follow this URL:"
-#~ msgstr "누르면 이 URL을 따라갑니다:"
-
-#~ msgid "Don't wrap"
-#~ msgstr "줄 바꾸지 않기"
-
-#~ msgid "Font size"
-#~ msgstr "글꼴 크기"
-
-#~ msgid "Foreground color"
-#~ msgstr "글자색"
-
-#~ msgid "Header"
-#~ msgstr "제목"
-
-#~ msgid "Link insert"
-#~ msgstr "링크 넣기"
-
-#~ msgid "Location"
-#~ msgstr "위치"
-
-#~ msgid "Padding"
-#~ msgstr "채움"
-
-#~ msgid "Percent %"
-#~ msgstr "퍼센트 %"
-
-#~ msgid "Pixmap:"
-#~ msgstr "픽스맵:"
-
-#~ msgid "Points"
-#~ msgstr "포인트"
-
-#~ msgid "Scope"
-#~ msgstr "범위"
-
-#~ msgid "Spacing"
-#~ msgstr "간격"
-
-#~ msgid "Style:"
-#~ msgstr "스타일:"
-
-#~ msgid "Table Insert"
-#~ msgstr "표 넣기"
-
-#~ msgid "Test URL..."
-#~ msgstr "URL 테스트..."
-
-#~ msgid "Wrap"
-#~ msgstr "줄 바꾸기"
-
-#~ msgid "Wrapping:"
-#~ msgstr "줄바꿈:"
-
-#~ msgid "xxxxxxxxx"
-#~ msgstr "xxxxxxxxx"
-
-#~ msgid ""
-#~ "This is sample text, designed to show you how text would flow around this "
-#~ "image if you insert the image into your message."
-#~ msgstr ""
-#~ "예제 텍스트입니다. 이 텍스트는 이미지를 넣을 때 텍스트가 그 이미지 주변에 "
-#~ "어떻게 흘러가는 지 알려주기 위한 용도입니다."
-
-#~ msgid "No image selected"
-#~ msgstr "그림을 선택하지 않았습니다"
-
-#~ msgid ""
-#~ "The editted image was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "편집한 그림이 문서에서 지워졌습니다.\n"
-#~ "바뀐 점을 적용할 수 없습니다."
-
-#~ msgid "Link text"
-#~ msgstr "링크 글자"
-
-#~ msgid ""
-#~ "The editted link was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "편집한 바로가기가 문서에서 지워졌습니다.\n"
-#~ "바뀐 점을 적용할 수 없습니다."
-
-#~ msgid "Align"
-#~ msgstr "정렬"
-
-#~ msgid ""
-#~ "The editted paragraph was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "편집한 문단이 문서에서 지워졌습니다.\n"
-#~ "바뀐 점을 적용할 수 없습니다."
-
-#~ msgid "Blue 3D"
-#~ msgstr "파란 3D"
-
-#~ msgid "Yellow, flowers"
-#~ msgstr "노랑, 꽃"
-
-#~ msgid ""
-#~ "The editted rule was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "편집한 구분선이 문서에서 지워졌습니다.\n"
-#~ "바뀐 점을 적용할 수 없습니다."
-
-#~ msgid "Flat gray"
-#~ msgstr "회색 단색"
-
-#~ msgid "Dark header"
-#~ msgstr "어두운 제목"
-
-#~ msgid ""
-#~ "The editted table was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "편집한 표가 문서에서 지워졌습니다.\n"
-#~ "바뀐 점을 적용할 수 없습니다."
-
-#~ msgid "Color"
-#~ msgstr "색상"
-
-#~ msgid "The quick brown fox jumps over the lazy dog.</div>"
-#~ msgstr "무궁화 꽃이 활짝 피었습니다.</div>"
