@@ -69,7 +69,7 @@ struct _SetFrameData {
 };
 typedef struct _SetFrameData SetFrameData;
 
-GtkHTMLEditSpellAPI *spell_api;
+GtkHTMLEditorAPI *editor_api;
 
 static BonoboGenericFactory *factory = NULL;
 static gint active_controls = 0;
@@ -373,7 +373,7 @@ editor_control_factory (BonoboGenericFactory *factory,
 
 		control_data = gtk_html_control_data_new (GTK_HTML (html_widget), vbox);
 		if (control_data->dict_client)
-			gtk_html_set_spell_api (GTK_HTML (html_widget), spell_api, control_data);
+			gtk_html_set_editor_api (GTK_HTML (html_widget), editor_api, control_data);
 
 		gtk_signal_connect (GTK_OBJECT (control), "set_frame",
 				    GTK_SIGNAL_FUNC (set_frame_cb), control_data);
@@ -391,15 +391,36 @@ editor_control_factory (BonoboGenericFactory *factory,
 	return BONOBO_OBJECT (control);
 }
 
-static void
-new_spell_api ()
+static gboolean
+editor_api_command (GtkHTML *html, GtkHTMLCommandType com_type, gpointer data)
 {
-	spell_api = g_new (GtkHTMLEditSpellAPI, 1);
+	GtkHTMLControlData *cd = (GtkHTMLControlData *) data;
+	gboolean rv = TRUE;
 
-	spell_api->check_word = spell_check_word;
-	spell_api->suggestion_request = spell_suggestion_request;
-	spell_api->add_to_personal = spell_add_to_personal;
-	spell_api->add_to_session = spell_add_to_session;
+	switch (com_type) {
+	case GTK_HTML_COMMAND_POPUP_MENU:
+		popup_show (cd, NULL);
+		break;
+	case GTK_HTML_COMMAND_PROPERTIES_DIALOG:
+		property_dialog_show (cd);
+		break;
+	default:
+		rv = FALSE;
+	}
+
+	return rv;
+}
+
+static void
+new_editor_api ()
+{
+	editor_api = g_new (GtkHTMLEditorAPI, 1);
+
+	editor_api->check_word         = spell_check_word;
+	editor_api->suggestion_request = spell_suggestion_request;
+	editor_api->add_to_personal    = spell_add_to_personal;
+	editor_api->add_to_session     = spell_add_to_session;
+	editor_api->command            = editor_api_command;
 }
 
 void
@@ -408,7 +429,7 @@ editor_control_factory_init (void)
 	if (factory != NULL)
 		return;
 
-	new_spell_api ();
+	new_editor_api ();
 	gdk_rgb_init ();
 	factory = bonobo_generic_factory_new (CONTROL_FACTORY_ID,
 					      editor_control_factory,

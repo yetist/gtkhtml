@@ -65,10 +65,10 @@ remove_link (GtkWidget *mi, GtkHTMLControlData *cd)
 }
 
 static void
-prop_dialog (GtkWidget *mi, GtkHTMLControlData *cd)
+show_prop_dialog (GtkHTMLControlData *cd, GtkHTMLEditPropertyType start)
 {
-	GList *cur;
 	GtkHTMLEditPropertyType t;
+	GList *cur;
 
 	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, FALSE, _("Properties"));
 
@@ -122,11 +122,15 @@ prop_dialog (GtkWidget *mi, GtkHTMLControlData *cd)
 		cur = cur->next;
 	}
 
-	t = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (mi), "type"));
-
 	gtk_html_edit_properties_dialog_show (cd->properties_dialog);
-	if (t >= 0)
-		gtk_html_edit_properties_dialog_set_page (cd->properties_dialog, t);
+	if (start >= 0)
+		gtk_html_edit_properties_dialog_set_page (cd->properties_dialog, start);
+}
+
+static void
+prop_dialog (GtkWidget *mi, GtkHTMLControlData *cd)
+{
+	show_prop_dialog (cd, GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (mi), "type")));
 }
 
 static void
@@ -145,7 +149,7 @@ spell_suggest (GtkWidget *mi, GtkHTMLControlData *cd)
 		gtk_menu_append (GTK_MENU (menu), menuitem); \
 		gtk_widget_show (menuitem); \
 		gtk_signal_connect (GTK_OBJECT (menuitem), "activate", GTK_SIGNAL_FUNC (f), cd); \
-                items++; items_sep++
+                (*items)++; items_sep++
 
 #define ADD_SEP \
         if (items_sep) { \
@@ -158,18 +162,22 @@ spell_suggest (GtkWidget *mi, GtkHTMLControlData *cd)
 #define ADD_PROP(x) \
         cd->properties_types = g_list_append (cd->properties_types, GINT_TO_POINTER (GTK_HTML_EDIT_PROPERTY_ ## x))
 
-gint
-popup_show (GtkHTMLControlData *cd, GdkEventButton *event)
+static GtkWidget *
+prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 {
 	HTMLEngine *e = cd->html->engine;
 	HTMLObject *obj;
 	GtkWidget *menu;
 	GtkWidget *menuitem;
-	guint items = 0;
 	guint items_sep = 0;
 
 	obj  = cd->html->engine->cursor->object;
 	menu = gtk_menu_new ();
+
+	if (cd->properties_types) {
+		g_list_free (cd->properties_types);
+		cd->properties_types = NULL;
+	}
 
 	if (!e->active_selection && obj && html_object_is_text (obj) && !html_engine_word_is_valid (e)) {
 		ADD_SEP;
@@ -239,10 +247,31 @@ popup_show (GtkHTMLControlData *cd, GdkEventButton *event)
 	ADD_ITEM ("Page...", prop_dialog, GTK_HTML_EDIT_PROPERTY_BODY);
 
 	gtk_widget_show (menu);
+
+	return menu;
+}
+
+gint
+popup_show (GtkHTMLControlData *cd, GdkEventButton *event)
+{
+	GtkWidget *menu;
+	guint items;
+
+	menu = prepare_properties_and_menu (cd, &items);
 	if (items)
 		gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL, 
-				event->button, event->time);
+				event ? event->button : 0, event ? event->time : 0);
 	gtk_widget_unref (menu);
 
 	return (items > 0);
+}
+
+void
+property_dialog_show (GtkHTMLControlData *cd)
+{
+	guint items;
+
+	gtk_widget_unref (prepare_properties_and_menu (cd, &items));
+	if (items)
+		show_prop_dialog (cd, -1);
 }

@@ -1,3 +1,13 @@
+2000-10-25  Radek Doulik  <rodo@helixcode.com>
+
+	* popup.c (popup_show): updated, event could be NULL
+	(popup_show): clear cd->properties_types before refilling
+	(prepare_properties_and_menu): extracted function
+	(property_dialog_show): new function
+	(show_prop_dialog): extracted function
+
+	* editor-control-factory.c (new_editor_api): updated to EditorAPI
+
 2000-10-24  Radek Doulik  <rodo@helixcode.com>
 
 	* editor-control-factory.c (set_frame_cb): set vertical scrollbar

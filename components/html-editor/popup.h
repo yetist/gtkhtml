@@ -25,6 +25,8 @@
 
 #include "control-data.h"
 
-gint   popup_show      (GtkHTMLControlData *cd, GdkEventButton *event);
+gint  popup_show            (GtkHTMLControlData *cd,
+			     GdkEventButton     *event);
+void  property_dialog_show  (GtkHTMLControlData *cd);
 
 #endif
