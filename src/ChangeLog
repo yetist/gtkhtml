@@ -1,5 +1,9 @@
 2000-09-06  Radek Doulik  <rodo@helixcode.com>
 
+	* htmltokenizer.c (html_tokenizer_add_pending): don't insert 0xa0
+	instead of space - no more needed and it was causing problems as
+	0xa0 is not used for &nbsp; anymore
+
 	* htmlgdkpainter.c (draw_spell_error): fix width calculation
 
 2000-09-05  Radek Doulik  <rodo@helixcode.com>

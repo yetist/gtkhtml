@@ -419,8 +419,7 @@ html_tokenizer_add_pending (HTMLTokenizer *t)
 		
 		switch (t->pending) {
 		case SpacePending:
-			/* Insert a non breaking space */
-			*(t->dest)++ = 0xa0;
+			*(t->dest)++ = ' ';
 			t->prePos++;
 			break;
 		case LFPending:

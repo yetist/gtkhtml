@@ -1002,6 +1002,7 @@ calc_text_width (HTMLPainter *painter,
 	gdk_painter = HTML_GDK_PAINTER (painter);
 	gdk_font = html_painter_get_font (painter, face, style);
 
+
 #if 0
 	width = gdk_text_width (gdk_font, text, len);
 #endif
