@@ -1,3 +1,7 @@
+2002-03-29  Larry Ewing  <lewing@ximian.com>
+
+	* htmlgdkpainter.c (draw_background): fix mask comparison.
+
 2002-03-28  Larry Ewing  <lewing@ximian.com>
 
 	* htmlgdkpainter.c (draw_background): optimize away the single

@@ -675,7 +675,7 @@ draw_background (HTMLPainter *painter,
 		pixcol.blue = p[2] * 0xff;
 		
 		html_painter_alloc_color (painter, &pixcol);
-		if (!(gdk_pixbuf_get_has_alpha (pixbuf) && (p[3] <= 0x00))) 
+		if (!(gdk_pixbuf_get_has_alpha (pixbuf) && (p[3] < 0x80))) 
 			color = &pixcol;
 
 		if (color) {
