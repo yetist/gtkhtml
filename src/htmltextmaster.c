@@ -62,9 +62,8 @@ calc_min_width (HTMLObject *self,
 	HTMLTextMaster *master;
 	GtkHTMLFontStyle font_style;
 	HTMLText *text;
-	const gchar *p;
-	gint min_width, run_width;
-	guint space_width;
+	gchar *p, *bp;
+	gint min_width, tmp_width;
 
 	master = HTML_TEXT_MASTER (self);
 	text = HTML_TEXT (self);
@@ -79,14 +78,35 @@ calc_min_width (HTMLObject *self,
 	}
 
 	min_width = 0;
-	run_width = 0;
-	p = text->text;
+	tmp_width = 0;
+	bp = p = text->text;
 
-	space_width = html_painter_calc_text_width (painter, " ", 1, font_style);
+	while (bp && *p) {
+		bp = strchr (p, ' ');
+		if (bp) {
+			*bp = 0;
+		}
+		tmp_width = html_painter_calc_text_width (painter, p, (bp) ? bp-p : strlen (p), font_style);
+		if (tmp_width > min_width) {
+			min_width = tmp_width;
+		}
+		if (bp) {
+			*bp = ' ';
+			p = bp+1;
+			/* find the beggining of the next word */
+			while (*p == ' ')
+				p++;
+		}
+	}
 
-	while (1) {
+	// printf ("min_width %d\n", min_width);
+
+	/* while (1) {
 		if (*p != ' ' && *p != 0) {
-			run_width += html_painter_calc_text_width (painter, p, 1, font_style);
+			p++;
+		}
+
+			run_width +=
 		} else {
 			if (run_width > min_width)
 				min_width = run_width;
@@ -94,8 +114,7 @@ calc_min_width (HTMLObject *self,
 			if (*p == 0)
 				break;
 		}
-		p++;
-	}
+		} */
 
 	return min_width;
 }

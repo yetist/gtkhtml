@@ -1,3 +1,9 @@
+2000-04-03  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltextmaster.c (calc_min_width): rewritten calculating of
+	min_width, instead of calling html_painter_calc_text_width for
+	each char call it for whole words
+
 2000-04-03  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* gtkhtml.c
