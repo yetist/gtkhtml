@@ -1485,19 +1485,6 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		GdkColor bgColor;
 		gboolean bgColorSet = FALSE;
 
-		if (e->bodyParsed) {
-			gtk_html_debug_log (e->widget, "body is parsed\n"); /* FIXME */
-			return;
-		}
-
-		e->bodyParsed = TRUE;
-
-		/* reset to default border size */
-		e->leftBorder   = LEFT_BORDER;
-		e->rightBorder  = RIGHT_BORDER;
-		e->topBorder    = TOP_BORDER;
-		e->bottomBorder = BOTTOM_BORDER;
-		
 		html_string_tokenizer_tokenize (e->st, str + 5, " >");
 		while (html_string_tokenizer_has_more_tokens (e->st)) {
 			gchar *token;
@@ -1518,6 +1505,8 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				gchar *bgurl;
 
 				bgurl = g_strdup (token + 11);
+				if (e->bgPixmapPtr != NULL)
+					html_image_factory_unregister(e->image_factory, e->bgPixmapPtr, NULL);
 				e->bgPixmapPtr = html_image_factory_register(e->image_factory, NULL, bgurl);
 				g_free (bgurl);
 			} else if ( strncasecmp( token, "text=", 5 ) == 0
@@ -1547,47 +1536,6 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				e->topBorder = e->bottomBorder = atoi (token + 13);
 			}
 		}
-#if 0
-		if ( !bgColorSet || defaultSettings->forceDefault )
-		{
-			QPalette pal = palette().copy();
-			QColorGroup cg = pal.normal();
-			QColorGroup newGroup( cg.foreground(), defaultSettings->bgColor,
-					      cg.light(), cg.dark(), cg.mid(), cg.text(),
-					      defaultSettings->bgColor );
-			pal.setNormal( newGroup );
-			setPalette( pal );
-
-				// simply testing if QColor == QColor fails!?, so we must compare
-				// each RGB
-			if ( defaultSettings->bgColor.red() != settings->bgColor.red() ||
-			     defaultSettings->bgColor.green() != settings->bgColor.green() ||
-			     defaultSettings->bgColor.blue() != settings->bgColor.blue() ||
-			     bDrawBackground )
-			{
-				settings->bgColor = defaultSettings->bgColor;
-				setBackgroundColor( settings->bgColor );
-			}
-		}
-		else
-		{
-			QPalette pal = palette().copy();
-			QColorGroup cg = pal.normal();
-			QColorGroup newGroup( cg.foreground(), settings->bgColor,
-					      cg.light(), cg.dark(), cg.mid(), cg.text(), settings->bgColor );
-			pal.setNormal( newGroup );
-			setPalette( pal );
-
-			if ( settings->bgColor.red() != bgColor.red() ||
-			     settings->bgColor.green() != bgColor.green() ||
-			     settings->bgColor.blue() != bgColor.blue() ||
-			     bDrawBackground )
-			{
-				settings->bgColor = bgColor;
-				setBackgroundColor( settings->bgColor );
-			}
-		}
-#endif
 
 		if (bgColorSet) {
 			if (! gdk_color_equal (&bgColor, &e->bgColor)) {
@@ -3469,8 +3417,14 @@ html_engine_parse (HTMLEngine *p)
 	p->inTextArea = FALSE;
 	p->formText = g_string_new ("");
 
-	p->flow = 0;
+	p->flow = NULL;
 
+	/* reset to default border size */
+	p->leftBorder   = LEFT_BORDER;
+	p->rightBorder  = RIGHT_BORDER;
+	p->topBorder    = TOP_BORDER;
+	p->bottomBorder = BOTTOM_BORDER;
+		
 	p->clue = html_cluev_new (0, 0, 100);
 	HTML_CLUE (p->clue)->valign = HTML_VALIGN_TOP;
 	HTML_CLUE (p->clue)->halign = HTML_HALIGN_LEFT;
@@ -3485,17 +3439,13 @@ html_engine_parse (HTMLEngine *p)
 
 	p->bgColor = p->settings->bgColor;
 
-	p->bodyParsed = FALSE;
-
 	p->parsing = TRUE;
 	p->avoid_para = TRUE;
 	p->pending_para = FALSE;
 
 	p->pending_para_alignment = HTML_HALIGN_LEFT;
 
-	p->timerId = gtk_timeout_add (TIMER_INTERVAL,
-				      (GtkFunction) html_engine_timer_event,
-				      p);
+	p->timerId = gtk_timeout_add (TIMER_INTERVAL, (GtkFunction) html_engine_timer_event, p);
 }
 
 

@@ -1,3 +1,22 @@
+2000-04-22  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* testgtkhtml.c
+	(main): We definitely don't want this test program to let users
+	edit pages.
+
+	* htmlbutton.c
+	(html_button_init): Added an assertion for the case in which
+	`type' is unknown.
+
+	* htmlengine.c: Don't care if we have already parsed a `<body>'
+	tag; the new `<body>' will just override the existing params.
+	Don't initialize `leftBorder', `rightBorder', `topBorder' and
+	`bottomBorder' either.
+	(html_engine_parse): Do it here instead.  Don't init `bodyParsed'
+	anymore.
+
+	* htmlengine.h: Removed member `bodyParsed'.
+
 2000-04-22  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine-edit-paste.c (html_engine_paste):  use undo levels

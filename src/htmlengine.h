@@ -117,8 +117,6 @@ struct _HTMLEngine {
 	gint width;
 	gint height;
 
-	gboolean bodyParsed;
-
 	HTMLHAlignType divAlign;
 
 	/* Number of tokens parsed in the current time-slice */

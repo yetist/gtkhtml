@@ -95,6 +95,7 @@ html_button_init (HTMLButton *button,
 
 	element = HTML_EMBEDDED (button);
 	object = HTML_OBJECT (button);
+	widget = NULL;
 
 	html_embedded_init (element, HTML_EMBEDDED_CLASS (klass), parent, name, value);
 	
@@ -111,6 +112,8 @@ html_button_init (HTMLButton *button,
 		case BUTTON_RESET:
 			widget = gtk_button_new_with_label ("Reset");
 			break;
+		default:
+			g_assert_not_reached ();
 		}
 	}
 
