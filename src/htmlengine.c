@@ -1653,7 +1653,8 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 			}
 		}
 
-		e->flow = 0;
+		if (e->flow != NULL && HTML_CLUE (e->flow)->head != NULL)
+			close_flow (e, _clue);
 	} else if ( strncmp( str, "/div", 4 ) == 0 ) {
 		pop_block (e, ID_DIV, _clue );
 	} else if ( strncmp( str, "dl", 2 ) == 0 ) {
@@ -3045,52 +3046,50 @@ html_engine_stop_parser (HTMLEngine *e)
 }
 
 GtkHTMLStreamHandle
-html_engine_begin (HTMLEngine *p, const char *url)
+html_engine_begin (HTMLEngine *e, const char *url)
 {
 	GtkHTMLStream *new_stream;
 
 	/* Is it a reference? */
 	if (*url == '#') {
-		if (p->reference) {
-			g_free (p->reference);
-			p->reference = NULL;
+		if (e->reference) {
+			g_free (e->reference);
+			e->reference = NULL;
 		}
-		p->reference = g_strdup (url + 1);
+		e->reference = g_strdup (url + 1);
 		
-		if (! html_engine_goto_anchor (p, url + 1)) {
+		if (! html_engine_goto_anchor (e, url + 1)) {
 			/* If anchor not found, scroll to the top of the page */
-			gtk_adjustment_set_value (GTK_LAYOUT (p->widget)->vadjustment, 0);
+			gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->vadjustment, 0);
 		}		
 
-		gtk_signal_emit (GTK_OBJECT (p), signals[LOAD_DONE]);
+		gtk_signal_emit (GTK_OBJECT (e), signals[LOAD_DONE]);
 		
 		return NULL;
 	}
 
-	html_tokenizer_begin (p->ht);
+	html_tokenizer_begin (e->ht);
 	
-	free_block (p); /* Clear the block stack */
+	free_block (e); /* Clear the block stack */
 
-	html_engine_stop_parser (p);
-	p->writing = TRUE;
+	html_engine_stop_parser (e);
+	e->writing = TRUE;
 
-	new_stream = gtk_html_stream_new (GTK_HTML (p->widget),
+	new_stream = gtk_html_stream_new (GTK_HTML (e->widget),
 					  html_engine_write,
 					  html_engine_end,
-					  p);
+					  e);
 
-	if (p->reference) {
-		g_free (p->reference);
-		p->reference = NULL;
+	if (e->reference) {
+		g_free (e->reference);
+		e->reference = NULL;
 	}
 
 	if (strchr (url, '#'))
-		p->reference = g_strdup (strchr (url, '#') + 1);
+		e->reference = g_strdup (strchr (url, '#') + 1);
 
-	html_image_factory_stop_animations (p->image_factory);
-	p->newPage = TRUE;
-
-	gtk_signal_emit (GTK_OBJECT(p), signals [URL_REQUESTED], url, new_stream);
+	html_image_factory_stop_animations (e->image_factory);
+	e->newPage = TRUE;
 
 	return new_stream;
 }
@@ -3351,15 +3350,15 @@ html_engine_get_doc_width (HTMLEngine *e)
 }
 
 gint
-html_engine_get_doc_height (HTMLEngine *p)
+html_engine_get_doc_height (HTMLEngine *e)
 {
 	gint height;
 
-	if (p->clue) {
-		height = p->clue->ascent;
-		height += p->clue->descent;
-		height += p->topBorder;
-		height += p->bottomBorder;
+	if (e->clue) {
+		height = e->clue->ascent;
+		height += e->clue->descent;
+		height += e->topBorder;
+		height += e->bottomBorder;
 
 		return height;
 	}
@@ -3398,65 +3397,65 @@ destroy_form (gpointer data, gpointer user_data)
 }
 
 void
-html_engine_parse (HTMLEngine *p)
+html_engine_parse (HTMLEngine *e)
 {
-	html_engine_stop_parser (p);
+	html_engine_stop_parser (e);
 
 	/* reset search & replace */
-	if (p->search_info) {
-		html_search_destroy (p->search_info);
-		p->search_info = NULL;
+	if (e->search_info) {
+		html_search_destroy (e->search_info);
+		e->search_info = NULL;
 	}
-	if (p->replace_info) {
-		html_replace_destroy (p->replace_info);
-		p->replace_info = NULL;
+	if (e->replace_info) {
+		html_replace_destroy (e->replace_info);
+		e->replace_info = NULL;
 	}
 
-	if (p->clue != NULL)
-		html_object_destroy (p->clue);
+	if (e->clue != NULL)
+		html_object_destroy (e->clue);
 
-	g_list_foreach (p->formList, destroy_form, NULL);
+	g_list_foreach (e->formList, destroy_form, NULL);
 
-	g_list_free (p->formList);
+	g_list_free (e->formList);
 
-	p->formList = NULL;
-	p->form = NULL;
-	p->formSelect = NULL;
-	p->formTextArea = NULL;
-	p->inOption = FALSE;
-	p->inTextArea = FALSE;
-	p->formText = g_string_new ("");
+	e->formList = NULL;
+	e->form = NULL;
+	e->formSelect = NULL;
+	e->formTextArea = NULL;
+	e->inOption = FALSE;
+	e->inTextArea = FALSE;
+	e->formText = g_string_new ("");
 
-	p->flow = NULL;
+	e->flow = NULL;
 
 	/* reset to default border size */
-	p->leftBorder   = LEFT_BORDER;
-	p->rightBorder  = RIGHT_BORDER;
-	p->topBorder    = TOP_BORDER;
-	p->bottomBorder = BOTTOM_BORDER;
+	e->leftBorder   = LEFT_BORDER;
+	e->rightBorder  = RIGHT_BORDER;
+	e->topBorder    = TOP_BORDER;
+	e->bottomBorder = BOTTOM_BORDER;
 
 	/* reset settings to default ones */
-	html_settings_reset (p->settings, p->defaultSettings, p->painter);
+	html_settings_reset (e->settings, e->defaultSettings, e->painter);
 		
-	p->clue = html_cluev_new (0, 0, 100);
-	HTML_CLUE (p->clue)->valign = HTML_VALIGN_TOP;
-	HTML_CLUE (p->clue)->halign = HTML_HALIGN_LEFT;
+	e->clue = html_cluev_new (0, 0, 100);
+	HTML_CLUE (e->clue)->valign = HTML_VALIGN_TOP;
+	HTML_CLUE (e->clue)->halign = HTML_HALIGN_LEFT;
 
-	p->cursor->object = p->clue;
+	e->cursor->object = e->clue;
 
 	/* Free the background pixmap */
-	if (p->bgPixmapPtr) {
-		html_image_factory_unregister(p->image_factory, p->bgPixmapPtr, NULL);
-		p->bgPixmapPtr = NULL;
+	if (e->bgPixmapPtr) {
+		html_image_factory_unregister(e->image_factory, e->bgPixmapPtr, NULL);
+		e->bgPixmapPtr = NULL;
 	}
 
-	p->parsing = TRUE;
-	p->avoid_para = TRUE;
-	p->pending_para = FALSE;
+	e->parsing = TRUE;
+	e->avoid_para = TRUE;
+	e->pending_para = FALSE;
 
-	p->pending_para_alignment = HTML_HALIGN_LEFT;
+	e->pending_para_alignment = HTML_HALIGN_LEFT;
 
-	p->timerId = gtk_timeout_add (TIMER_INTERVAL, (GtkFunction) html_engine_timer_event, p);
+	e->timerId = gtk_timeout_add (TIMER_INTERVAL, (GtkFunction) html_engine_timer_event, e);
 }
 
 
