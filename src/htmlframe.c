@@ -58,32 +58,8 @@ frame_set_base (GtkHTML *html, const gchar *url, gpointer data)
 {
 	char *new_url = NULL;
 
-	new_url = get_absolute (gtk_html_get_base (html), url);
+	new_url = gtk_html_get_base_relative (html, url);
 	gtk_html_set_base (html, new_url);
-	g_free (new_url);
-}
-
-static void
-frame_on_url (GtkHTML *html, const gchar *url, gpointer data)
-{
-	HTMLFrame *frame = HTML_FRAME (data);
-	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(frame)->parent);
-	char *new_url = NULL;
-
-	url ? new_url = get_absolute (gtk_html_get_base (html), url) : NULL;
-	gtk_signal_emit_by_name (GTK_OBJECT (parent), "on_url", new_url);
-	g_free (new_url);
-}
-
-static void
-frame_link_clicked (GtkHTML *html, const gchar *url, gpointer data)
-{
-	HTMLFrame *frame = HTML_FRAME (data);
-	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(frame)->parent);
-	char *new_url = NULL;
-
-	new_url = get_absolute (gtk_html_get_base (html), url);
-	gtk_signal_emit_by_name (GTK_OBJECT (parent), "link_clicked", new_url);
 	g_free (new_url);
 }
 
@@ -523,6 +499,7 @@ html_frame_init (HTMLFrame *frame,
 	gtk_html_set_base (new_html, src);
 
 	handle = gtk_html_begin (new_html);
+	gtk_html_set_base (new_html, src);
 
 	new_html->engine->clue->parent = HTML_OBJECT (frame);
 
@@ -530,12 +507,18 @@ html_frame_init (HTMLFrame *frame,
 	gtk_signal_connect (GTK_OBJECT (new_html), "url_requested",
 			    GTK_SIGNAL_FUNC (frame_url_requested),
 			    (gpointer)frame);
+#if 0
+	/* NOTE: because of peculiarities of the frame/gtkhtml relationship
+	 * on_url and link_clicked are emitted from the toplevel widget not
+	 * proxied like url_requested is.
+	 */
 	gtk_signal_connect (GTK_OBJECT (new_html), "on_url",
 			    GTK_SIGNAL_FUNC (frame_on_url), 
 			    (gpointer)frame);
 	gtk_signal_connect (GTK_OBJECT (new_html), "link_clicked",
 			    GTK_SIGNAL_FUNC (frame_link_clicked),
 			    (gpointer)frame);	
+#endif
 	gtk_signal_connect (GTK_OBJECT (new_html), "size_changed",
 			    GTK_SIGNAL_FUNC (frame_size_changed),
 			    (gpointer)frame);	

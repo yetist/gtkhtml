@@ -400,7 +400,7 @@ html_engine_url_requested_cb (HTMLEngine *engine,
 	char *expanded = NULL;
 	gtk_html = GTK_HTML (data);
 
-	expanded = get_absolute (gtk_html_get_base (gtk_html), url);
+	expanded = gtk_html_get_base_relative (gtk_html, url);
 	gtk_signal_emit (GTK_OBJECT (gtk_html), signals[URL_REQUESTED], expanded, handle);
 	g_free (expanded);
 }
@@ -952,10 +952,11 @@ static void
 on_object (GtkWidget *widget, GdkWindow *window, HTMLObject *obj)
 {
 	GtkHTML *html = GTK_HTML (widget);
-	const gchar *url;
 
 	if (obj) {
-		url = html_object_get_url (obj);
+		gchar *url;
+		url = gtk_html_get_object_relative (html, obj, 
+						    html_object_get_url (obj));
 		if (url != NULL) {
 			set_pointer_url (html, url);
 			dnd_link_set (widget, obj);
@@ -974,6 +975,8 @@ on_object (GtkWidget *widget, GdkWindow *window, HTMLObject *obj)
 			else
 				gdk_window_set_cursor (window, html->arrow_cursor);
 		}
+
+		g_free (url);
 	} else {
 		set_pointer_url (html, NULL);
 		dnd_link_unset (widget);			
@@ -1067,6 +1070,188 @@ mouse_change_pos (GtkWidget *widget, GdkWindow *window, gint x, gint y)
 	return TRUE;
 }
 
+static const char *
+skip_host (const char *url)
+{
+	const char *host;
+	
+	host = url;
+	while (*host && (*host != '/') && (*host != ':'))
+	       host++;
+
+	if (*host == ':') {
+		url = host++;
+
+		if (*host == '/') 
+			host++;
+
+		url = host;
+
+		if (*host == '/') {
+			url = host++;
+
+			if ((host = strchr (host, '/')))
+				url = host;
+		}
+	}		
+	
+	return url;
+}
+	
+static size_t
+path_len (const char *base, gboolean absolute)
+{
+	const char *last;
+	const char *cur;
+	const char *start;
+
+	start = last = skip_host (base);
+	if (!absolute) {
+		cur = strrchr (start, '/');
+		
+		if (cur)
+			last = cur;
+	}
+
+	return last - base;
+}
+
+#if 0
+char *
+collapse_path (char *url)
+{
+	char *start;
+	char *end;
+	char *cur;
+	size_t len;
+
+	start = skip_host (url);
+
+	cur = start;
+	while ((cur = strstr (cur, "/../"))) {
+		end = cur + 3;
+		
+		/* handle the case of a rootlevel /../ specialy */
+		if (cur == start) {
+			len = strlen (end);
+			memmove (cur, end, len + 1);
+		}
+			
+		while (cur > start) {
+			cur--;
+			if ((*cur == '/') || (cur == start)) {
+				len = strlen (end);
+				memmove (cur, end, len + 1);
+				break;
+			}
+		}
+	}
+	return url;
+}
+#endif
+
+static char *
+expand_relative (const char *base, const char *url)
+{
+	char *new_url = NULL;
+	size_t base_len, url_len;
+	gboolean absolute = FALSE;
+
+	if (!base || (url && strstr (url, ":"))) {
+		/*
+		  g_warning ("base = %s url = %s new_url = %s",
+		  base, url, new_url);
+		*/
+		return g_strdup (url);
+	}		
+
+	if (*url == '/') {
+		absolute = TRUE;;
+	}
+	
+	base_len = path_len (base, absolute);
+	url_len = strlen (url);
+
+	new_url = g_malloc (base_len + url_len + 2);
+	
+	if (base_len) {
+		memcpy (new_url, base, base_len);
+
+		if (base[base_len - 1] != '/')
+			new_url[base_len++] = '/';
+		if (absolute)
+			url++;
+	}
+	
+	memcpy (new_url + base_len, url, url_len);
+	new_url[base_len + url_len] = '\0';
+	
+	/* 
+	   g_warning ("base = %s url = %s new_url = %s", 
+	   base, url, new_url);
+	*/
+	return new_url;
+}
+
+char *
+gtk_html_get_base_relative (GtkHTML *html, const char *url)
+{
+	return expand_relative (gtk_html_get_base (html), url);
+}
+
+static char *
+expand_frame_url (GtkHTML *html, const char *url)
+{
+	char *new_url;
+
+	new_url = gtk_html_get_base_relative (html, url);
+	while (html->iframe_parent) {
+		char *expanded;
+
+		expanded = gtk_html_get_base_relative (GTK_HTML (html->iframe_parent), 
+						       new_url);
+		g_free (new_url);
+		new_url = expanded;
+
+		html = GTK_HTML (html->iframe_parent);
+	}
+	return new_url;
+}
+
+char *
+gtk_html_get_object_relative (GtkHTML *html, HTMLObject *o, const char *url)
+{
+	HTMLEngine *e;
+	HTMLObject *parent;
+
+	g_return_val_if_fail (GTK_IS_HTML (html), NULL);
+
+	/* start at the top always */
+	while (html->iframe_parent)
+		html = GTK_HTML (html->iframe_parent);
+	
+	parent = o;
+	while (parent->parent) {
+		parent = parent->parent;
+		if ((HTML_OBJECT_TYPE (parent) == HTML_TYPE_FRAME)
+		    || (HTML_OBJECT_TYPE (parent) == HTML_TYPE_IFRAME))
+			break;
+	}
+
+	e = html_object_get_engine (parent, html->engine);
+	
+	if (!e) {
+		g_warning ("Cannot find object for url");
+		return NULL;
+	}
+
+	/*
+	if (e == html->engine)
+		g_warning ("engine matches engine");
+	*/
+        return url ? expand_frame_url (e->widget, url) : NULL;
+}
+	
 static GtkWidget *
 shift_to_iframe_parent (GtkWidget *widget, gint *x, gint *y)
 {
@@ -1075,7 +1260,10 @@ shift_to_iframe_parent (GtkWidget *widget, gint *x, gint *y)
 			*x += widget->allocation.x;
 		if (y)
 			*y += widget->allocation.y;
+
 		widget = GTK_HTML (widget)->iframe_parent;
+		
+			
 	}
 
 	return widget;
@@ -1240,14 +1428,15 @@ button_press_event (GtkWidget *widget,
 }
 
 static gint
-button_release_event (GtkWidget *widget,
+button_release_event (GtkWidget *initial_widget,
 		      GdkEventButton *event)
 {
+	GtkWidget *widget;
 	GtkHTML *html;
 
 	/* printf ("button_release_event\n"); */
 
-	widget = shift_to_iframe_parent (widget, NULL, NULL);
+	widget = shift_to_iframe_parent (initial_widget, NULL, NULL);
 	html   = GTK_HTML (widget);
 
 	gtk_grab_remove (widget);
@@ -2789,8 +2978,6 @@ void
 gtk_html_set_base (GtkHTML *html, const char *url)
 {
 	GtkHTMLPrivate *priv;
-	char *new_base;
-	char *end;
 
 	g_return_if_fail (GTK_IS_HTML (html));
 	

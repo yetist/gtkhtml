@@ -1,3 +1,19 @@
+2002-02-26  Larry Ewing  <lewing@ximian.com>
+
+	* htmliframe.c: remove the unused on_url and link_clicked handlers
+	and add note that these signals do not cascade.  Use
+	gtk_html_get_base_relative in set_base now.
+
+	* htmlframe.c: same as above.
+
+	* gtkhtml.c: make link_clicked and on_url resolve urls relative to
+	the frame they are in.  moved the relative url code in here.
+	gtk_html_get_base_relative and gtk_html_get_object_relative
+	function for the relative url parsing.  These should probably get
+	better names.
+
+	* gtkhtml.h: add the new function prototypes.
+
 2002-02-25  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-cut-and-paste.c (use_pictograms): set ALT text

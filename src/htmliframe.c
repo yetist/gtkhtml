@@ -41,125 +41,11 @@
 HTMLIFrameClass html_iframe_class;
 static HTMLEmbeddedClass *parent_class = NULL;
 static gboolean calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs);
-
-static char *
-skip_host (char *url)
-{
-	char *host;
 	
-	host = url;
-	while (*host && (*host != '/') && (*host != ':'))
-	       host++;
-
-	if (*host == ':') {
-		url = host++;
-
-		if (*host == '/') 
-			host++;
-
-		url = host;
-
-		if (*host == '/') {
-			url = host++;
-
-			if ((host = strchr (host, '/')))
-				url = host;
-		}
-	}		
-	
-	return url;
-}
-	
-static size_t
-path_len (char *base, gboolean absolute)
-{
-	char *last;
-	char *cur;
-	char *start;
-
-	start = last = skip_host (base);
-	if (!absolute) {
-		cur = strrchr (start, '/');
-		
-		if (cur)
-			last = cur;
-	}
-
-	return last - base;
-}
-
-#if 0
-char *
-collapse_path (char *url)
-{
-	char *start;
-	char *end;
-	char *cur;
-	size_t len;
-
-	start = skip_host (url);
-
-	cur = start;
-	while ((cur = strstr (cur, "/../"))) {
-		end = cur + 3;
-		
-		/* handle the case of a rootlevel /../ specialy */
-		if (cur == start) {
-			len = strlen (end);
-			memmove (cur, end, len + 1);
-		}
-			
-		while (cur > start) {
-			cur--;
-			if ((*cur == '/') || (cur == start)) {
-				len = strlen (end);
-				memmove (cur, end, len + 1);
-				break;
-			}
-		}
-	}
-	return url;
-}
-#endif
-
-char *
-get_absolute (char *base, char *url)
-{
-	char *new_url = NULL;
-	size_t base_len, url_len;
-	gboolean absolute = FALSE;
-
-	if (!base || (url && strstr (url, ":")))
-		return g_strdup (url);
-
-	if (*url == '/') {
-		absolute = TRUE;;
-	}
-	
-	base_len = path_len (base, absolute);
-	url_len = strlen (url);
-
-	new_url = g_malloc (base_len + url_len + 2);
-	
-	if (base_len) {
-		memcpy (new_url, base, base_len);
-
-		if (base[base_len - 1] != '/')
-			new_url[base_len++] = '/';
-		if (absolute)
-			url++;
-	}
-	
-	memcpy (new_url + base_len, url, url_len);
-	new_url[base_len + url_len] = '\0';
-	
-	return new_url;
-}
-
 static void
 iframe_set_base (GtkHTML *html, const char *url, gpointer data)
 {
-	char *new_url = get_absolute (gtk_html_get_base (html), url);
+	char *new_url = gtk_html_get_base_relative (html, url);
 
 	gtk_html_set_base (html, new_url);
 	g_free (new_url);
@@ -173,30 +59,6 @@ iframe_url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpo
 
 	gtk_signal_emit_by_name (GTK_OBJECT (parent->engine), "url_requested",
 				 url, handle);
-}
-
-static void
-iframe_on_url (GtkHTML *html, const gchar *url, gpointer data)
-{
-	HTMLIFrame *iframe = HTML_IFRAME (data);
-	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(iframe)->parent);
-	char *new_url = NULL;
-
-	new_url = get_absolute (gtk_html_get_base (parent), url);
-	gtk_signal_emit_by_name (GTK_OBJECT (parent), "on_url", url);
-	g_free (new_url);
-}
-
-static void
-iframe_link_clicked (GtkHTML *html, const gchar *url, gpointer data)
-{
-	HTMLIFrame *iframe = HTML_IFRAME (data);
-	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(iframe)->parent);
-	char *new_url = NULL;
-
-	new_url = get_absolute (gtk_html_get_base (parent), url);
-	gtk_signal_emit_by_name (GTK_OBJECT (parent), "link_clicked", url);
-	g_free (new_url);
 }
 
 static void
@@ -608,12 +470,18 @@ html_iframe_init (HTMLIFrame *iframe,
 	gtk_signal_connect (GTK_OBJECT (new_html), "url_requested",
 			    GTK_SIGNAL_FUNC (iframe_url_requested),
 			    (gpointer)iframe);
+#if 0
+	/* NOTE: because of peculiarities of the frame/gtkhtml relationship
+	 * on_url and link_clicked are emitted from the toplevel widget not
+	 * proxied like url_requested is.
+	 */
 	gtk_signal_connect (GTK_OBJECT (new_html), "on_url",
 			    GTK_SIGNAL_FUNC (iframe_on_url), 
 			    (gpointer)iframe);
 	gtk_signal_connect (GTK_OBJECT (new_html), "link_clicked",
 			    GTK_SIGNAL_FUNC (iframe_link_clicked),
 			    (gpointer)iframe);	
+#endif 
 	gtk_signal_connect (GTK_OBJECT (new_html), "size_changed",
 			    GTK_SIGNAL_FUNC (iframe_size_changed),
 			    (gpointer)iframe);	
