@@ -119,7 +119,7 @@ fill_sample (GtkHTMLEditTableProperties *d)
 	html      = g_strconcat (body, "<table", bg_color, bg_pixmap, spacing, align, width, ">"
 				 "<tr><th>Header</th><th>1</th></tr>"
 				 "<tr><td>Normal</td><td>2</td></tr></table>", NULL);
-	printf ("html: %s\n", html);
+	/* printf ("html: %s\n", html); */
 	gtk_html_load_from_string (d->sample, html, -1);
 
 	g_free (body);

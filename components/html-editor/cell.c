@@ -23,7 +23,15 @@
 #include <glade/glade.h>
 #include <gal/widgets/widget-color-combo.h>
 
+#include "htmlclue.h"
+#include "htmlcolor.h"
+#include "htmlcolorset.h"
+#include "htmlcursor.h"
+#include "htmlengine.h"
 #include "htmlengine-save.h"
+#include "htmlimage.h"
+#include "htmltable.h"
+#include "htmlsettings.h"
 
 #include "config.h"
 #include "properties.h"
@@ -60,17 +68,32 @@ typedef struct
 static void
 fill_sample (GtkHTMLEditCellProperties *d)
 {
-	gchar *body, *html;
+	gchar *body, *html, *bg_color, *bg_pixmap;
 
 	body      = html_engine_save_get_sample_body (d->cd->html->engine, NULL);
 
-	html      = g_strconcat (body, "<table border=1 cellpadding=4 cellspacing=2>"
-				 "<tr><td>&nbsp;Other&nbsp;</td><td>&nbsp;Actual&nbsp;</td><td>&nbsp;Other&nbsp;</td></tr>"
+	bg_color  = d->has_bg_color
+		? g_strdup_printf (" bgcolor=\"#%02x%02x%02x\"",
+				   d->bg_color.red >> 8,
+				   d->bg_color.green >> 8,
+				   d->bg_color.blue >> 8)
+		: g_strdup ("");
+	bg_pixmap = d->has_bg_pixmap && d->bg_pixmap
+		? g_strdup_printf (" background=\"file://%s\"", d->bg_pixmap)
+		: g_strdup ("");
+
+	html      = g_strconcat (body,
+				 "<table border=1 cellpadding=4 cellspacing=2>"
+				 "<tr><td>&nbsp;Other&nbsp;</td><td",
+				 bg_color, bg_pixmap,
+				 ">&nbsp;Actual&nbsp;</td><td>&nbsp;Other&nbsp;</td></tr>"
 				 "<tr><td>&nbsp;Other&nbsp;</td><td>&nbsp;Other&nbsp;</td><td>&nbsp;Other&nbsp;</td></tr>"
 				 "</table>", NULL);
 	printf ("html: %s\n", html);
 	gtk_html_load_from_string (d->sample, html, -1);
 
+	g_free (bg_color);
+	g_free (bg_pixmap);
 	g_free (body);
 	g_free (html);
 }
@@ -94,18 +117,91 @@ data_new (GtkHTMLControlData *cd)
 	return data;
 }
 
+static void
+set_has_bg_color (GtkWidget *check, GtkHTMLEditCellProperties *d)
+{
+	d->has_bg_color = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (d->check_bg_color));
+	FILL;
+	CHANGE;
+	d->changed_bg_color = TRUE;
+}
+
+static void
+set_has_bg_pixmap (GtkWidget *check, GtkHTMLEditCellProperties *d)
+{
+	d->has_bg_pixmap = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (d->check_bg_pixmap));
+	FILL;
+	CHANGE;
+	d->changed_bg_pixmap = TRUE;
+}
+
+static void
+changed_bg_color (GtkWidget *w, GdkColor *color, gboolean by_user, GtkHTMLEditCellProperties *d)
+{
+	/* If the color was changed programatically there's not need to set things */
+	if (!by_user)
+		return;
+		
+	d->bg_color = color
+		? *color
+		: html_colorset_get_color (d->cd->html->engine->defaultSettings->color_set, HTMLBgColor)->color;
+	d->changed_bg_color = TRUE;
+	if (!d->has_bg_color)
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_bg_color), TRUE);
+	else {
+		FILL;
+		CHANGE;
+	}
+}
+
+static void
+changed_bg_pixmap (GtkWidget *w, GtkHTMLEditCellProperties *d)
+{
+	d->bg_pixmap = gtk_entry_get_text (GTK_ENTRY (w));
+	d->changed_bg_pixmap = TRUE;
+	if (!d->has_bg_pixmap && d->bg_pixmap && *d->bg_pixmap)
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_bg_pixmap), TRUE);
+	else {
+		if (!d->bg_pixmap || !*d->bg_pixmap)
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_bg_pixmap), FALSE);
+		FILL;
+		CHANGE;
+	}
+}
+
 static GtkWidget *
 cell_widget (GtkHTMLEditCellProperties *d)
 {
+	HTMLColor *color;
 	GtkWidget *cell_page;
 	GladeXML *xml;
+	gchar     *dir;
 
 	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "cell_page");
 	if (!xml)
 		g_error (_("Could not load glade file."));
 
 	cell_page          = glade_xml_get_widget (xml, "cell_page");
+
+        color = html_colorset_get_color (d->cd->html->engine->defaultSettings->color_set, HTMLBgColor);
+	html_color_alloc (color, d->cd->html->engine->painter);
+	d->combo_bg_color = color_combo_new (NULL, _("Automatic"), &color->color,
+					     color_group_fetch ("cell_bg_color", d->cd));
+        gtk_signal_connect (GTK_OBJECT (d->combo_bg_color), "changed", GTK_SIGNAL_FUNC (changed_bg_color), d);
+	gtk_table_attach (GTK_TABLE (glade_xml_get_widget (xml, "table_cell_bg")),
+			  d->combo_bg_color,
+			  1, 2, 0, 1, 0, 0, 0, 0);
+
+	d->check_bg_color  = glade_xml_get_widget (xml, "check_cell_bg_color");
+	gtk_signal_connect (GTK_OBJECT (d->check_bg_color), "toggled", set_has_bg_color, d);
+	d->check_bg_pixmap = glade_xml_get_widget (xml, "check_cell_bg_pixmap");
+	gtk_signal_connect (GTK_OBJECT (d->check_bg_pixmap), "toggled", set_has_bg_pixmap, d);
 	d->entry_bg_pixmap = glade_xml_get_widget (xml, "entry_cell_bg_pixmap");
+	gtk_signal_connect (GTK_OBJECT (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (d->entry_bg_pixmap))),
+			    "changed", GTK_SIGNAL_FUNC (changed_bg_pixmap), d);
+	dir = getcwd (NULL, 0);
+	gnome_pixmap_entry_set_pixmap_subdir (GNOME_PIXMAP_ENTRY (d->entry_bg_pixmap), dir);
+	free (dir);
 
 	gtk_box_pack_start (GTK_BOX (cell_page), sample_frame (&d->sample), FALSE, FALSE, 0);
 
@@ -120,7 +216,7 @@ set_ui (GtkHTMLEditCellProperties *d)
 {
 	d->disable_change = TRUE;
 
-	/* gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_bg_color), d->has_bg_color);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_bg_color), d->has_bg_color);
 	gdk_color_alloc (gdk_window_get_colormap (GTK_WIDGET (d->cd->html)->window), &d->bg_color);
 	color_combo_set_color (COLOR_COMBO (d->combo_bg_color), &d->bg_color);
 
@@ -128,7 +224,7 @@ set_ui (GtkHTMLEditCellProperties *d)
 	gtk_entry_set_text (GTK_ENTRY (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (d->entry_bg_pixmap))),
 			    d->bg_pixmap);
 
-	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_spacing), d->spacing);
+	/* gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_spacing), d->spacing);
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_padding), d->padding);
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_border),  d->border);
 
@@ -146,7 +242,7 @@ set_ui (GtkHTMLEditCellProperties *d)
 static void
 get_data (GtkHTMLEditCellProperties *d)
 {
-	/* d->table = html_engine_get_table (d->cd->html->engine);
+	/* d->cell = html_engine_get_table (d->cd->html->engine);
 	g_return_if_fail (d->table);
 
 	if (d->table->bgColor) {
@@ -199,7 +295,6 @@ cell_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditCellProperties *d = (GtkHTMLEditCellProperties *) get_data;
 
-	/* html_cell_set (d->rule, cd->html->engine, VAL (WIDTH), d->percent ? VAL (WIDTH) : 0, VAL (SIZE), d->shaded, d->align); */
 }
 
 void

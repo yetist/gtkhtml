@@ -683,7 +683,7 @@ None
 
       <widget>
 	<class>GtkFrame</class>
-	<name>frame5</name>
+	<name>frame9</name>
 	<border_width>2</border_width>
 	<label>Background</label>
 	<label_xalign>0</label_xalign>
@@ -695,41 +695,57 @@ None
 	</child>
 
 	<widget>
-	  <class>GtkHBox</class>
-	  <name>hbox4</name>
-	  <border_width>2</border_width>
+	  <class>GtkTable</class>
+	  <name>table_cell_bg</name>
+	  <rows>1</rows>
+	  <columns>4</columns>
 	  <homogeneous>False</homogeneous>
-	  <spacing>2</spacing>
+	  <row_spacing>0</row_spacing>
+	  <column_spacing>0</column_spacing>
 
 	  <widget>
 	    <class>GtkCheckButton</class>
-	    <name>checkbutton8</name>
+	    <name>check_cell_bg_color</name>
 	    <can_focus>True</can_focus>
 	    <label>color</label>
 	    <active>False</active>
 	    <draw_indicator>True</draw_indicator>
 	    <child>
-	      <padding>0</padding>
-	      <expand>False</expand>
-	      <fill>False</fill>
+	      <left_attach>0</left_attach>
+	      <right_attach>1</right_attach>
+	      <top_attach>0</top_attach>
+	      <bottom_attach>1</bottom_attach>
+	      <xpad>0</xpad>
+	      <ypad>0</ypad>
+	      <xexpand>False</xexpand>
+	      <yexpand>False</yexpand>
+	      <xshrink>False</xshrink>
+	      <yshrink>False</yshrink>
+	      <xfill>True</xfill>
+	      <yfill>False</yfill>
 	    </child>
 	  </widget>
 
 	  <widget>
-	    <class>Placeholder</class>
-	  </widget>
-
-	  <widget>
 	    <class>GtkCheckButton</class>
-	    <name>checkbutton9</name>
+	    <name>check_cell_bg_pixmap</name>
 	    <can_focus>True</can_focus>
 	    <label>pixmap</label>
 	    <active>False</active>
 	    <draw_indicator>True</draw_indicator>
 	    <child>
-	      <padding>0</padding>
-	      <expand>False</expand>
-	      <fill>False</fill>
+	      <left_attach>2</left_attach>
+	      <right_attach>3</right_attach>
+	      <top_attach>0</top_attach>
+	      <bottom_attach>1</bottom_attach>
+	      <xpad>0</xpad>
+	      <ypad>0</ypad>
+	      <xexpand>False</xexpand>
+	      <yexpand>False</yexpand>
+	      <xshrink>False</xshrink>
+	      <yshrink>False</yshrink>
+	      <xfill>True</xfill>
+	      <yfill>False</yfill>
 	    </child>
 	  </widget>
 
@@ -738,9 +754,18 @@ None
 	    <name>entry_cell_bg_pixmap</name>
 	    <preview>False</preview>
 	    <child>
-	      <padding>0</padding>
-	      <expand>True</expand>
-	      <fill>True</fill>
+	      <left_attach>3</left_attach>
+	      <right_attach>4</right_attach>
+	      <top_attach>0</top_attach>
+	      <bottom_attach>1</bottom_attach>
+	      <xpad>0</xpad>
+	      <ypad>0</ypad>
+	      <xexpand>True</xexpand>
+	      <yexpand>False</yexpand>
+	      <xshrink>False</xshrink>
+	      <yshrink>False</yshrink>
+	      <xfill>True</xfill>
+	      <yfill>False</yfill>
 	    </child>
 
 	    <widget>
