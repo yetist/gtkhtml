@@ -59,6 +59,8 @@ binding "gtkhtml-bindings-emacs"
 
   bind "<Ctrl>k"              { "command" (cut-line) }
 
+  bind "<Ctrl>/"	      { "command" (undo) }
+
   bind "<Ctrl><Alt>b"         { "command" (bold-toggle) }
   bind "<Ctrl><Alt>i"         { "command" (italic-toggle) }
   bind "<Ctrl><Alt>u"         { "command" (underline-toggle) }
