@@ -152,6 +152,7 @@ gtk_html_edit_properties_dialog_show (GtkHTMLEditPropertiesDialog *d)
 void
 gtk_html_edit_properties_dialog_close (GtkHTMLEditPropertiesDialog *d)
 {
+	//gtk_window_set_modal (GTK_WINDOW (d->dialog), FALSE);
 	gnome_dialog_close (GNOME_DIALOG (d->dialog));
 }
 

@@ -1,3 +1,12 @@
+2000-07-04  Radek Doulik  <rodo@helixcode.com>
+
+	* editor-control-factory.c (html_button_pressed): updated to use
+	new properties dialog, now text/link/image could be 2x clicked
+	(html_button_pressed): use release event instead of directly
+	starting properties dialog (we wand release event of html widget
+	to be processed and it wasn't because of properties dialog
+	modality)
+
 2000-07-01  Radek Doulik  <rodo@helixcode.com>
 
 	* menubar.c (insert_link_cb): rewritten using properties dialog

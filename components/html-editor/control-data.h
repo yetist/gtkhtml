@@ -52,6 +52,9 @@ struct _GtkHTMLControlData {
 
 	/* object from last button press event */
 	HTMLObject *obj;
+
+	/* button release signal id */
+	guint releaseId;
 };
 
 GtkHTMLControlData * gtk_html_control_data_new       (GtkHTML *html, GtkWidget *vbox);

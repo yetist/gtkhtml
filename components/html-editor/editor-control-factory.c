@@ -26,12 +26,18 @@
 #include <bonobo.h>
 
 #include "gtkhtml.h"
+#include "htmlengine-edit.h"
 
 #include "menubar.h"
 #include "persist-file-impl.h"
 #include "persist-stream-impl.h"
 #include "popup.h"
 #include "toolbar.h"
+#include "properties.h"
+#include "text.h"
+#include "paragraph.h"
+#include "link.h"
+#include "body.h"
 
 #include "editor-control-factory.h"
 
@@ -85,25 +91,84 @@ set_frame_cb (BonoboControl *control,
 }
 
 static gint
-html_button_pressed (GtkWidget *html, GdkEventButton *event, GtkHTMLControlData *cd)
+release (GtkWidget *widget, GdkEventButton *event, GtkHTMLControlData *cd)
 {
 	HTMLObject *obj;
-	HTMLEngine *engine = cd->html->engine;
+	HTMLEngine *e = cd->html->engine;
+	GtkHTMLEditPropertyType start;
+	gboolean run_dialog = FALSE;
 
-	cd->obj = obj = html_engine_get_object_at (engine,
-						   event->x + engine->x_offset, event->y + engine->y_offset,
-						   NULL, FALSE);	
+	obj = e->cursor->object;
 
-	if (obj && event->type == GDK_2BUTTON_PRESS && event->button == 1) {
+	switch (HTML_OBJECT_TYPE (obj)) {
+	case HTML_TYPE_IMAGE:
+	case HTML_TYPE_LINKTEXTMASTER:
+	case HTML_TYPE_TEXTMASTER:
+		run_dialog = TRUE;
+		break;
+	default:
+	}
+	if (run_dialog) {
+		cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd);
+
+		html_cursor_jump_to (e->cursor, e, obj, 0);
+		html_engine_disable_selection (e);
+		html_engine_set_mark (e);
+		html_cursor_jump_to (e->cursor, e, obj, html_object_get_length (obj));
+		html_engine_edit_selection_updater_update_now (e->selection_updater);
+
 		switch (HTML_OBJECT_TYPE (obj)) {
 		case HTML_TYPE_IMAGE:
-			image_edit (cd, HTML_IMAGE (obj));
+			gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
+								   GTK_HTML_EDIT_PROPERTY_IMAGE, _("Image"),
+								   image_properties,
+								   image_apply_cb,
+								   image_close_cb);
+			start = GTK_HTML_EDIT_PROPERTY_IMAGE;
 			break;
 		case HTML_TYPE_LINKTEXTMASTER:
-			/* link_edit (cd, HTML_LINK_TEXT_MASTER (obj)); */
+		case HTML_TYPE_TEXTMASTER:
+			gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
+								   GTK_HTML_EDIT_PROPERTY_TEXT, _("Text"),
+								   text_properties,
+								   text_apply_cb,
+								   text_close_cb);
+			start = (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTMASTER)
+				? GTK_HTML_EDIT_PROPERTY_TEXT
+				: GTK_HTML_EDIT_PROPERTY_LINK;
+						
 			break;
 		default:
 		}
+		gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
+							   GTK_HTML_EDIT_PROPERTY_PARAGRAPH, _("Paragraph"),
+							   paragraph_properties,
+							   paragraph_apply_cb,
+							   paragraph_close_cb);
+		gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
+							   GTK_HTML_EDIT_PROPERTY_LINK, _("Link"),
+							   link_properties,
+							   link_apply_cb,
+							   link_close_cb);
+		gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
+							   GTK_HTML_EDIT_PROPERTY_BODY, _("Page"),
+							   body_properties,
+							   body_apply_cb,
+							   body_close_cb);
+		gtk_html_edit_properties_dialog_show (cd->properties_dialog);
+		gtk_html_edit_properties_dialog_set_page (cd->properties_dialog, start);
+	}
+
+	gtk_signal_disconnect (GTK_OBJECT (widget), cd->releaseId);
+
+	return FALSE;
+}
+
+static gint
+html_button_pressed (GtkWidget *html, GdkEventButton *event, GtkHTMLControlData *cd)
+{
+	if (cd->html->engine->cursor->object && event->type == GDK_2BUTTON_PRESS && event->button == 1) {
+		cd->releaseId = gtk_signal_connect (GTK_OBJECT (html), "button_release_event", GTK_SIGNAL_FUNC (release), cd);
 	} else if (event->button == 2) {
 		/* pass this for pasting */
 		return TRUE;
