@@ -108,21 +108,25 @@ pango_info_destroy (HTMLText *text)
 static void
 free_links (GSList *list)
 {
-	GSList *l;
+	if (list) {
+		GSList *l;
 
-	for (l = list; l; l = l->next)
-		html_link_free ((Link *) l->data);
-	g_slist_free (list);
+		for (l = list; l; l = l->next)
+			html_link_free ((Link *) l->data);
+		g_slist_free (list);
+	}
 }
 
 static void
 free_attrs (GSList *attrs)
 {
-	GSList *l;
+	if (attrs) {
+		GSList *l;
 
-	for (l = attrs; l; l = l->next)
-		pango_attribute_destroy ((PangoAttribute *) l->data);
-	g_slist_free (attrs);
+		for (l = attrs; l; l = l->next)
+			pango_attribute_destroy ((PangoAttribute *) l->data);
+		g_slist_free (attrs);
+	}
 }
 
 static void
@@ -157,6 +161,7 @@ copy (HTMLObject *s,
 	}
 
 	dest->links = g_slist_copy (src->links);
+
 	for (csl = dest->links; csl; csl = csl->next)
 		csl->data = html_link_dup ((Link *) csl->data);
 
@@ -528,6 +533,7 @@ split_links (HTMLText *t1, HTMLText *t2, gint offset)
 		if (!l->next) {
 			free_links (t1->links);
 			t1->links = NULL;
+			break;
 		}
 	}
 
@@ -1244,7 +1250,6 @@ save_open_attrs (HTMLEngineSaveState *state, GSList *attrs)
 static gboolean
 save_close_attrs (HTMLEngineSaveState *state, GSList *attrs)
 {
-	attrs = g_slist_reverse (attrs);
 	for (; attrs; attrs = attrs->next) {
 		PangoAttribute *attr = (PangoAttribute *) attrs->data;
 		gchar *tag = NULL;
@@ -1275,7 +1280,6 @@ save_close_attrs (HTMLEngineSaveState *state, GSList *attrs)
 			}
 	}
 
-	g_slist_free (attrs);
 	return TRUE;
 }
 
@@ -1362,7 +1366,7 @@ save (HTMLObject *self, HTMLEngineSaveState *state)
 	guint last_written = 0;
 
 	if (iter) {
-		GSList *l, *links = g_slist_reverse (text->links);
+		GSList *l, *links = g_slist_reverse (g_slist_copy (text->links));
 		gboolean link_started = FALSE;
 
 		l = links;
@@ -1388,6 +1392,7 @@ save (HTMLObject *self, HTMLEngineSaveState *state)
 				save_open_attrs (state, attrs);
 			save_text (text, state, start_index, end_index, &l, link_started);
 			if (attrs) {
+				attrs = g_slist_reverse (attrs);
 				save_close_attrs (state, attrs);
 				free_attrs (attrs);
 			}
