@@ -1142,6 +1142,7 @@ draw_quotes (HTMLObject *self, HTMLPainter *painter,
 	int i;
 	int indent = 0;
 	int last_indent = 0;
+	gint pixel_size = html_painter_get_pixel_size (painter);
 
 	flow = HTML_CLUEFLOW (self);
 
@@ -1151,8 +1152,8 @@ draw_quotes (HTMLObject *self, HTMLPainter *painter,
 		html_painter_set_pen (painter, &html_colorset_get_color_allocated (painter, HTMLLinkColor)->color);
 		if (is_cite (flow, i)) {
 			if (!HTML_IS_PLAIN_PAINTER (painter)) {
-				area.x = self->x + indent - 5;
-				area.width =  2;
+				area.x = self->x + indent - 5 * pixel_size;
+				area.width = 2 * pixel_size;
 				area.y = self->y - self->ascent;
 				area.height = self->ascent + self->descent;
 				

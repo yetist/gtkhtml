@@ -1,5 +1,7 @@
 2002-11-05  Larry Ewing  <lewing@ximian.com>
 
+	* htmlclueflow.c (draw_quotes): fix printing.
+
 	* htmlgdkpainter.c (draw_background): use GdkRectangles instead of
 	ArtIRects, support full alpha on table and body bg images.
 	(draw_pixmap): use GdkRectangles.
