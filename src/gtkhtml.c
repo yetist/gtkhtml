@@ -3058,7 +3058,7 @@ gtk_html_load_from_string  (GtkHTML *html, const gchar *str, gint len)
 {
 	GtkHTMLStream *stream;
 
-	stream = gtk_html_begin (html);
+	stream = gtk_html_begin_content (html, "text/html; charset=utf-8");
 	gtk_html_stream_write (stream, str, (len == -1) ? strlen (str) : len);
 	gtk_html_stream_close (stream, GTK_HTML_STREAM_OK);
 }
@@ -4453,14 +4453,14 @@ gtk_html_build_with_gconf ()
 }
 
 static void
-gtk_html_insert_html_generic (GtkHTML *html, const gchar *html_src, gboolean obj_only)
+gtk_html_insert_html_generic (GtkHTML *html, GtkHTML *tmp, const gchar *html_src, gboolean obj_only)
 {
-	GtkHTML *tmp;
 	GtkWidget *window, *sw;
 	HTMLObject *o;
 
 	html_engine_freeze (html->engine);
-	tmp    = GTK_HTML (gtk_html_new_from_string (html_src, -1));
+	if (!tmp)
+		tmp    = GTK_HTML (gtk_html_new_from_string (html_src, -1));
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	sw     = gtk_scrolled_window_new (NULL, NULL);
 	gtk_container_add (GTK_CONTAINER (window), GTK_WIDGET (sw));
@@ -4498,7 +4498,15 @@ gtk_html_insert_html (GtkHTML *html, const gchar *html_src)
 {
 	g_return_if_fail (GTK_IS_HTML (html));
 
-	gtk_html_insert_html_generic (html, html_src, FALSE);
+	gtk_html_insert_html_generic (html, NULL, html_src, FALSE);
+}
+
+void
+gtk_html_insert_gtk_html (GtkHTML *html, GtkHTML *to_be_destroyed)
+{
+	g_return_if_fail (GTK_IS_HTML (html));
+
+	gtk_html_insert_html_generic (html, to_be_destroyed, NULL, FALSE);
 }
 
 void
@@ -4506,7 +4514,7 @@ gtk_html_append_html (GtkHTML *html, const gchar *html_src)
 {
 	g_return_if_fail (GTK_IS_HTML (html));
 
-	gtk_html_insert_html_generic (html, html_src, TRUE);
+	gtk_html_insert_html_generic (html, NULL, html_src, TRUE);
 }
 
 static void

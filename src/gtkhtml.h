@@ -242,6 +242,8 @@ void                       gtk_html_undo                          (GtkHTML      
 void                       gtk_html_redo                          (GtkHTML                   *html);
 void                       gtk_html_insert_html                   (GtkHTML                   *html,
 								   const gchar               *html_src);
+void                       gtk_html_insert_gtk_html               (GtkHTML                   *html,
+								   GtkHTML                   *to_be_destroyed);
 void                       gtk_html_append_html                   (GtkHTML                   *html,
 								   const gchar               *html_src);
 
