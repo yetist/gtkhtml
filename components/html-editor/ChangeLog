@@ -1,3 +1,7 @@
+2000-07-03  Michael Meeks  <michael@helixcode.com>
+
+	* persist-stream-impl.c (load): update for new read.
+
 2000-07-04  Radek Doulik  <rodo@helixcode.com>
 
 	* editor-control-factory.c (html_button_pressed): updated to use
