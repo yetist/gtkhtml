@@ -1,3 +1,14 @@
+2003-09-30  Radek Doulik  <rodo@ximian.com>
+
+        * use engine->stopped everywhere where we emit url_requested
+	signal
+	
+	* gtkhtml.c (gtk_html_stop): Stop requesting any more data by
+	url_requested signal.
+
+	* htmlengine.c (html_engine_stop): new function, sets stopped flag
+	to this and all children's engines
+
 2003-09-29  Larry Ewing  <lewing@ximian.com>
 
 	* htmlclueflow.c (get_item_marker_str): use ascii only ("* ") for

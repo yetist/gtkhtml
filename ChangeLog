@@ -1,3 +1,9 @@
+2003-09-30  Radek Doulik  <rodo@ximian.com>
+
+	* configure.in: increased GTKHTML_CURRENT and also gtkhtml version
+	as gtk_html_stop was added and there is a binary incompatible
+	change as well
+
 2003-09-22  Radek Doulik  <rodo@ximian.com>
 
 	* configure.in: increase GTKHTML_CURRENT again, as we don't

@@ -3259,7 +3259,7 @@ gtk_html_end (GtkHTML *html,
 
 /**
  * gtk_html_stop:
- * @html: the GtkHTML widget the stream belongs to.
+ * @html: the GtkHTML widget.
  *
  * Stop requesting any more data by url_requested signal.
  **/
