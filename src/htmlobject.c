@@ -1655,12 +1655,12 @@ handle_object_data (gpointer key, gpointer value, gpointer data)
 	/* printf ("handle: %s %s %s %s\n", state->save_data_class_name, key, value, str); */
 	if (!str) {
 		/* printf ("clear\n"); */
-		html_engine_save_output_string (state, "<!--+GtkHTML:<DATA class=\"%s\" clear=\"%s\">",
+		html_engine_save_output_string (state, "<!--+GtkHTML:<DATA class=\"%s\" clear=\"%s\">-->",
 						state->save_data_class_name, key);
 		state->data_to_remove = g_slist_prepend (state->data_to_remove, key);
 	} else if (strcmp (value, str)) {
 		/* printf ("change\n"); */
-		html_engine_save_output_string (state, "<!--+GtkHTML:<DATA class=\"%s\" key=\"%s\" value=\"%s\">",
+		html_engine_save_output_string (state, "<!--+GtkHTML:<DATA class=\"%s\" key=\"%s\" value=\"%s\">-->",
 						state->save_data_class_name, key, str);
 		html_engine_set_class_data (state->engine, state->save_data_class_name, key, value);
 	}
