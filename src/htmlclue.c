@@ -265,6 +265,35 @@ check_point (HTMLObject *o,
 	return NULL;
 }
 
+static gint
+check_page_split (HTMLObject *self,
+		  gint y)
+{
+	HTMLClue *clue;
+	HTMLObject *p;
+	gint last_under = 0;
+
+	clue = HTML_CLUE (self);
+
+	y -= (self->y - self->ascent);
+
+	for (p = clue->head; p != NULL; p = p->next) {
+		gint y1, y2;
+
+		y1 = p->y - p->ascent;
+		y2 = p->y + p->descent;
+
+		if (y1 > y)
+			return last_under;
+
+		if (y >= y1 && y < y2)
+			return html_object_check_page_split (p, y - y1) + y1;
+		last_under = y2;
+	}
+
+	return y;
+}
+
 static void
 forall (HTMLObject *self,
 	HTMLObjectForallFunc func,
@@ -466,6 +495,7 @@ html_clue_class_init (HTMLClueClass *klass,
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->calc_min_width = calc_min_width;
 	object_class->check_point = check_point;
+	object_class->check_page_split = check_page_split;
 	object_class->find_anchor = find_anchor;
 	object_class->forall = forall;
 	object_class->is_container = is_container;

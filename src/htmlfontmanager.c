@@ -233,7 +233,7 @@ alloc_new_font (HTMLFontManager *manager, HTMLFontSet **set, gchar *face_list, G
 		g_strfreev (faces);
 		if (!(*set)) {
 			/* none of faces exist, so create empty set for him and let manager later set fixed font here */
-			*set = html_font_set_new (*face);
+			*set = html_font_set_new (face_list);
 			g_hash_table_insert (manager->font_sets, face_list, *set);
 		}
 	} else

@@ -1137,36 +1137,6 @@ save_plain (HTMLObject *self,
 }
 
 
-static gint
-check_page_split (HTMLObject *self,
-		  gint y)
-{
-	HTMLClue *clue;
-	HTMLObject *p;
-	gint last_base;
-
-	clue = HTML_CLUE (self);
-
-	last_base = 0;
-	for (p = clue->head; p != NULL; p = p->next) {
-		gint base;
-
-		base = p->y + p->descent;
-
-		if (HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTMASTER
-		    || HTML_OBJECT_TYPE (p) == HTML_TYPE_LINKTEXTMASTER)
-			continue;
-
-		if (base > y)
-			return last_base;
-
-		last_base = base;
-	}
-
-	return y;
-}
-
-
 static GtkHTMLFontStyle
 get_default_font_style (const HTMLClueFlow *self)
 {
@@ -1464,7 +1434,7 @@ html_clueflow_class_init (HTMLClueFlowClass *klass,
 	object_class->draw_background = draw_background;
 	object_class->save = save;
 	object_class->save_plain = save_plain;
-	object_class->check_page_split = check_page_split;
+	// object_class->check_page_split = check_page_split;
 	object_class->check_point = check_point;
 	object_class->append_selection_string = append_selection_string;
 	object_class->search = search;

@@ -1,5 +1,41 @@
 2000-09-08  Radek Doulik  <rodo@helixcode.com>
 
+	* testgtkhtml.c (print_preview_cb): add footer printing (- page number -)
+	(print_footer): footer printing
+
+	* htmltextslave.c (fit_line): add cast to make compiler happy
+
+	* htmlprinter.c (do_rectangle): refactored, split to do_rectangle
+	and prepare_rectangle
+	(prepare_rectangle): new helper function, also do coordinates
+	conversions here
+	(set_clip_rectangle): implemented this method, also use
+	prepare_rectangle
+
+	* htmlobject.c (check_page_split): return 0 instead of y as we
+	don't want include this object in upcoming page (it doesn't fit
+	there - this is the reason it was called)
+
+	* htmliframe.c (check_page_split): forward to Engine::clue
+
+	* htmlclueflow.c (check_page_split): removed, no more needed
+
+	* htmlclue.c (check_page_split): moved here from ClueV + updated
+
+	* htmlprinter.c (html_printer_scale_to_gnome_print): exported this
+	function for engine
+	(html_printer_coordinates_to_gnome_print): likewise
+
+	* htmlengine-print.c (html_engine_print_with_header_footer): likewise
+	(print_header_footer): helper function for header/footer printing
+	(print_page): use print_header_footer
+
+	* gtkhtml.c (gtk_html_print_with_header_footer): new function,
+	allows printing headers/footers
+
+	* htmlfontmanager.c (alloc_new_font): pass face_list to
+	html_font_set_new instead of *face which is already freed
+
 	* htmlprinter.c: likewise
 
 	* htmlpainter.c: likewise

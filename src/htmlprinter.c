@@ -104,10 +104,17 @@ get_bmargin (HTMLPrinter *printer)
 #endif
 
 
-static void
-engine_coordinates_to_gnome_print (HTMLPrinter *printer,
-				   gint engine_x, gint engine_y,
-				   gdouble *print_x_return, gdouble *print_y_return)
+
+gdouble
+html_printer_scale_to_gnome_print (gint x)
+{
+	return SCALE_ENGINE_TO_GNOME_PRINT (x);
+}
+
+void
+html_printer_coordinates_to_gnome_print (HTMLPrinter *printer,
+					 gint engine_x, gint engine_y,
+					 gdouble *print_x_return, gdouble *print_y_return)
 {
 	gdouble print_x, print_y;
 
@@ -173,7 +180,7 @@ begin (HTMLPainter *painter,
 
 	gnome_print_gsave (pc);
 
-	engine_coordinates_to_gnome_print (printer, x1, y1, &printer_x1, &printer_y1);
+	html_printer_coordinates_to_gnome_print (printer, x1, y1, &printer_x1, &printer_y1);
 	printer_x2 = printer_x1 + SCALE_ENGINE_TO_GNOME_PRINT (x2);
 	printer_y2 = printer_y1 - SCALE_ENGINE_TO_GNOME_PRINT (y2);
 
@@ -249,23 +256,45 @@ get_black (const HTMLPainter *painter)
 }
 
 static void
-do_rectangle (GnomePrintContext *context,
-	      gdouble x, gdouble y,
-	      gdouble width, gdouble height,
-	      gdouble line_width)
+prepare_rectangle (HTMLPainter *painter, gint _x, gint _y, gint w, gint h)
 {
-	gnome_print_setlinewidth (context, line_width);
+	GnomePrintContext *context = HTML_PRINTER (painter)->print_context;
+	gdouble x;
+	gdouble y;
+	gdouble width;
+	gdouble height;
+
+	width = SCALE_ENGINE_TO_GNOME_PRINT (w);
+	height = SCALE_ENGINE_TO_GNOME_PRINT (h);
+
+	html_printer_coordinates_to_gnome_print (HTML_PRINTER (painter), _x, _y, &x, &y);
 
 	gnome_print_newpath (context);
-	gnome_print_moveto (context, x, y);
-	gnome_print_lineto (context, x + width, y);
-	gnome_print_lineto (context, x + width, y - height);
-	gnome_print_lineto (context, x, y - height);
-	gnome_print_lineto (context, x, y);
+	gnome_print_moveto  (context, x, y);
+	gnome_print_lineto  (context, x + width, y);
+	gnome_print_lineto  (context, x + width, y - height);
+	gnome_print_lineto  (context, x, y - height);
+	gnome_print_lineto  (context, x, y);
+}
 
+static void
+do_rectangle (HTMLPainter *painter, gint x, gint y, gint w, gint h, gint lw)
+{
+	GnomePrintContext *context = HTML_PRINTER (painter)->print_context;
+
+	gnome_print_setlinewidth (context, SCALE_ENGINE_TO_GNOME_PRINT (lw) * PIXEL_SIZE);
+	prepare_rectangle (painter, x, y, w, h);
 	gnome_print_stroke (context);
 }
 
+static void
+set_clip_rectangle (HTMLPainter *painter,
+		    gint x, gint y,
+		    gint width, gint height)
+{
+	prepare_rectangle (painter, x, y, width, height);
+	gnome_print_clip (HTML_PRINTER (painter)->print_context);
+}
 
 /* HTMLPainter drawing functions.  */
 
@@ -281,8 +310,8 @@ draw_line (HTMLPainter *painter,
 	printer = HTML_PRINTER (painter);
 	g_return_if_fail (printer->print_context != NULL);
 
-	engine_coordinates_to_gnome_print (printer, x1, y1, &printer_x1, &printer_y1);
-	engine_coordinates_to_gnome_print (printer, x2, y2, &printer_x2, &printer_y2);
+	html_printer_coordinates_to_gnome_print (printer, x1, y1, &printer_x1, &printer_y1);
+	html_printer_coordinates_to_gnome_print (printer, x2, y2, &printer_x2, &printer_y2);
 
 	gnome_print_setlinewidth (printer->print_context, PIXEL_SIZE);
 
@@ -298,21 +327,7 @@ draw_rect (HTMLPainter *painter,
 	   gint x, gint y,
 	   gint width, gint height)
 {
-	HTMLPrinter *printer;
-	double printer_x, printer_y;
-	double printer_width, printer_height;
-
-	printer = HTML_PRINTER (painter);
-	g_return_if_fail (printer->print_context != NULL);
-
-	printer_width = SCALE_ENGINE_TO_GNOME_PRINT (width);
-	printer_height = SCALE_ENGINE_TO_GNOME_PRINT (height);
-
-	engine_coordinates_to_gnome_print (printer, x, y, &printer_x, &printer_y);
-
-	do_rectangle (printer->print_context,
-		      printer_x, printer_y, printer_width, printer_height,
-		      PIXEL_SIZE);
+	do_rectangle (painter, x, y, width, height, 1);
 }
 
 static void
@@ -322,21 +337,7 @@ draw_panel (HTMLPainter *painter,
 	    GtkHTMLEtchStyle inset,
 	    gint bordersize)
 {
-	HTMLPrinter *printer;
-	double printer_x, printer_y;
-	double printer_width, printer_height;
-
-	printer = HTML_PRINTER (painter);
-	g_return_if_fail (printer->print_context != NULL);
-
-	printer_width = SCALE_ENGINE_TO_GNOME_PRINT (width);
-	printer_height = SCALE_ENGINE_TO_GNOME_PRINT (height);
-
-	engine_coordinates_to_gnome_print (printer, x, y, &printer_x, &printer_y);
-
-	do_rectangle (printer->print_context,
-		      printer_x, printer_y, printer_width, printer_height,
-		      SCALE_ENGINE_TO_GNOME_PRINT (bordersize) * PIXEL_SIZE);
+	do_rectangle (painter, x, y, width, height, bordersize);
 }
 
 static void
@@ -358,7 +359,7 @@ draw_background (HTMLPainter *painter,
 
 	width = SCALE_ENGINE_TO_GNOME_PRINT  (pix_width);
 	height = SCALE_ENGINE_TO_GNOME_PRINT (pix_height);
-	engine_coordinates_to_gnome_print (printer, ix, iy, &x, &y);
+	html_printer_coordinates_to_gnome_print (printer, ix, iy, &x, &y);
 
 	if (color) {
 		gnome_print_setrgbcolor (pc, color->red / 65535.0, color->green / 65535.0, color->blue / 65535.0);
@@ -395,7 +396,7 @@ draw_pixmap (HTMLPainter *painter,
 	rowstride = gdk_pixbuf_get_rowstride (pixbuf);
 	n_channels = gdk_pixbuf_get_n_channels (pixbuf);
 
-	engine_coordinates_to_gnome_print (printer, x, y, &print_x, &print_y);
+	html_printer_coordinates_to_gnome_print (printer, x, y, &print_x, &print_y);
 
 	print_scale_width = SCALE_ENGINE_TO_GNOME_PRINT (scale_width);
 	print_scale_height = SCALE_ENGINE_TO_GNOME_PRINT (scale_height);
@@ -459,7 +460,7 @@ fill_rect (HTMLPainter *painter,
 	printer_width = SCALE_ENGINE_TO_GNOME_PRINT (width);
 	printer_height = SCALE_ENGINE_TO_GNOME_PRINT (height);
 
-	engine_coordinates_to_gnome_print (printer, x, y, &printer_x, &printer_y);
+	html_printer_coordinates_to_gnome_print (printer, x, y, &printer_x, &printer_y);
 
 	gnome_print_newpath (printer->print_context);
 	gnome_print_moveto (printer->print_context, printer_x, printer_y);
@@ -485,7 +486,7 @@ draw_text (HTMLPainter *painter,
 	printer = HTML_PRINTER (painter);
 	g_return_if_fail (printer->print_context != NULL);
 
-	engine_coordinates_to_gnome_print (printer, x, y, &print_x, &print_y);
+	html_printer_coordinates_to_gnome_print (printer, x, y, &print_x, &print_y);
 
 	gnome_print_newpath (printer->print_context);
 	gnome_print_moveto (printer->print_context, print_x, print_y);
@@ -683,6 +684,7 @@ class_init (GtkObjectClass *object_class)
 	painter_class->draw_shade_line = draw_shade_line;
 	painter_class->draw_background = draw_background;
 	painter_class->get_pixel_size = get_pixel_size;
+	painter_class->set_clip_rectangle = set_clip_rectangle;
 
 	parent_class = gtk_type_class (html_painter_get_type ());
 }

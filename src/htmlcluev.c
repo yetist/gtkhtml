@@ -427,33 +427,6 @@ relayout (HTMLObject *self,
 }
 
 static gint
-check_page_split (HTMLObject *self,
-		  gint y)
-{
-	HTMLClue *clue;
-	HTMLObject *p;
-
-	clue = HTML_CLUE (self);
-
-	y -= (self->y - self->ascent);
-
-	for (p = clue->head; p != NULL; p = p->next) {
-		gint y1, y2;
-
-		y1 = p->y - p->ascent;
-		y2 = p->y + p->descent;
-
-		if (y1 > y)
-			return y;
-
-		if (y >= y1 && y < y2)
-			return html_object_check_page_split (p, y - y1) + y1;
-	}
-
-	return y;
-}
-
-static gint
 get_left_margin (HTMLObject *self, gint y)
 {
 	HTMLObject *aclue;
@@ -788,7 +761,6 @@ html_cluev_class_init (HTMLClueVClass *klass,
 	object_class->reset = reset;
 	object_class->draw = draw;
 	object_class->check_point = check_point;
-	object_class->check_page_split = check_page_split;
 	object_class->get_left_margin = get_left_margin;
 	object_class->get_right_margin = get_right_margin;
 

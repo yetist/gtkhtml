@@ -1839,6 +1839,18 @@ gtk_html_print (GtkHTML *html,
 	html_engine_print (html->engine, print_context);
 }
 
+void
+gtk_html_print_with_header_footer (GtkHTML *html, GnomePrintContext *print_context,
+				   gdouble header_height, gdouble footer_height,
+				   GtkHTMLPrintCallback header_print, GtkHTMLPrintCallback footer_print)
+{
+	g_return_if_fail (html != NULL);
+	g_return_if_fail (GTK_IS_HTML (html));
+
+	html_engine_print_with_header_footer (html->engine, print_context,
+					      header_height, footer_height, header_print, footer_print);
+}
+
 
 /* Editing.  */
 

@@ -449,7 +449,7 @@ static gint
 check_page_split (HTMLObject *self,
 		  gint y)
 {
-	return y;
+	return 0;
 }
 
 static gboolean

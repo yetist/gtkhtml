@@ -171,6 +171,12 @@ forall (HTMLObject *self,
 	html_object_forall (GTK_HTML (iframe->html)->engine->clue, func, data);
 }
 
+static gint
+check_page_split (HTMLObject *self, gint y)
+{
+	return html_object_check_page_split (GTK_HTML (HTML_IFRAME (self)->html)->engine->clue, y);
+}
+
 static gboolean
 calc_size (HTMLObject *o,
 	   HTMLPainter *painter)
@@ -344,4 +350,5 @@ html_iframe_class_init (HTMLIFrameClass *klass,
 	object_class->draw = draw;
 	object_class->set_max_width = set_max_width;
 	object_class->forall = forall;
+	object_class->check_page_split = check_page_split;
 }

@@ -312,8 +312,18 @@ void      gtk_html_set_editable  (GtkHTML       *html,
 gboolean  gtk_html_get_editable  (const GtkHTML *html);
 
 /* Printing support.  */
-void  gtk_html_print  (GtkHTML           *html,
-		       GnomePrintContext *print_context);
+
+typedef void (*GtkHTMLPrintCallback) (GtkHTML *html, GnomePrintContext *print_context,
+				      gdouble x, gdouble y, gdouble width, gdouble height);
+
+void  gtk_html_print_with_header_footer  (GtkHTML              *html,
+					  GnomePrintContext    *print_context,
+					  gdouble               header_height,
+					  gdouble               footer_height,
+					  GtkHTMLPrintCallback  header_print,
+					  GtkHTMLPrintCallback  footer_print);
+void  gtk_html_print                     (GtkHTML              *html,
+					  GnomePrintContext    *print_context);
 
 /* Title.  */
 const gchar *gtk_html_get_title  (GtkHTML *html);

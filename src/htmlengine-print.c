@@ -23,36 +23,76 @@
 #include "htmlengine-print.h"
 
 
+
+/* #define CLIP_DEBUG */
+
+static void
+print_header_footer (HTMLPainter *painter, HTMLEngine *engine, gint width, gint y, gint height, GtkHTMLPrintCallback cb)
+{
+	GnomePrintContext *context = HTML_PRINTER (painter)->print_context;
+	gdouble gx, gy;
+
+	gnome_print_gsave (context);
+	html_painter_set_clip_rectangle (painter, 0, y, width, height);
+#ifdef CLIP_DEBUG
+	html_painter_draw_rect (painter, 0, y, width, height);
+#endif
+	html_printer_coordinates_to_gnome_print (HTML_PRINTER (painter), 0, y, &gx, &gy);
+	(*cb) (GTK_HTML (engine->widget), context, gx, gy,
+	       html_printer_scale_to_gnome_print (width), html_printer_scale_to_gnome_print (height));
+	gnome_print_grestore (context);
+}
+
 static void
 print_page (HTMLPainter *painter,
 	    HTMLEngine *engine,
 	    gint start_y,
-	    gint page_width, gint page_height)
+	    gint page_width, gint page_height, gint body_height,
+	    gint header_height, gint footer_height,
+	    GtkHTMLPrintCallback header_print, GtkHTMLPrintCallback footer_print)
 {
-	gint end_y;
+	GnomePrintContext *context = HTML_PRINTER (painter)->print_context;
 
-	end_y = start_y + page_height;
-
-	html_painter_begin (painter, 0, 0, page_width, end_y - start_y);
-
+	html_painter_begin (painter, 0, 0, page_width, page_height);
+	if (header_print)
+		print_header_footer (painter, engine, page_width, 0, header_height, header_print);
+	gnome_print_gsave (context);
+	html_painter_set_clip_rectangle (painter, 0, header_height, page_width, body_height);
+#ifdef CLIP_DEBUG
+	html_painter_draw_rect (painter, 0, header_height, page_width, body_height);
+#endif
 	html_object_draw (engine->clue, painter,
-			  0, start_y,
-			  page_width, end_y - start_y,
+			  0, start_y + header_height,
+			  page_width, body_height,
 			  0, -start_y);
-
+	gnome_print_grestore (context);
+	if (footer_print)
+		print_header_footer (painter, engine, page_width, page_height - footer_height, footer_height, footer_print);
 	html_painter_end (painter);
 }
 
 static void
 print_all_pages (HTMLPainter *printer,
-		 HTMLEngine *engine)
+		 HTMLEngine *engine,
+		 gdouble header_height_ratio, gdouble footer_height_ratio,
+		 GtkHTMLPrintCallback header_print, GtkHTMLPrintCallback footer_print)
 {
 	gint new_split_offset, split_offset;
-	gint page_width, page_height;
+	gint page_width, page_height, header_height, body_height, footer_height;
 	gint document_height;
+
+	if (header_height_ratio + footer_height_ratio >= 1.0) {
+		header_print = footer_print = NULL;
+		g_warning ("Page header height + footer height >= 1, disabling header/footer printing");
+	}
 
 	page_height = html_printer_get_page_height (HTML_PRINTER (printer));
 	page_width = html_printer_get_page_width (HTML_PRINTER (printer));
+
+	/* calc header/footer heights */
+	header_height = (header_print) ? header_height_ratio * page_height : 0;
+	footer_height = (footer_print) ? footer_height_ratio * page_height : 0;
+	body_height   = page_height - header_height - footer_height;
 
 	split_offset = 0;
 
@@ -60,12 +100,15 @@ print_all_pages (HTMLPainter *printer,
 
 	do {
 		new_split_offset = html_object_check_page_split (engine->clue,
-								 split_offset + page_height);
+								 split_offset + body_height);
 
 		if (new_split_offset <= split_offset)
-			new_split_offset = split_offset + page_height;
+			new_split_offset = split_offset + body_height;
 
-		print_page (printer, engine, split_offset, page_width, new_split_offset- split_offset);
+		print_page   (printer, engine, split_offset,
+			      page_width, page_height,
+			      new_split_offset - split_offset,
+			      header_height, footer_height, header_print, footer_print);
 
 		split_offset = new_split_offset;
 	}  while (split_offset < document_height);
@@ -75,6 +118,14 @@ print_all_pages (HTMLPainter *printer,
 void
 html_engine_print (HTMLEngine *engine,
 		   GnomePrintContext *print_context)
+{
+	html_engine_print_with_header_footer (engine, print_context, .0, .0, NULL, NULL);
+}
+
+void
+html_engine_print_with_header_footer (HTMLEngine *engine, GnomePrintContext *print_context,
+				     gdouble header_height, gdouble footer_height,
+				     GtkHTMLPrintCallback header_print, GtkHTMLPrintCallback footer_print)
 {
 	HTMLPainter *printer;
 	HTMLPainter *old_painter;
@@ -93,10 +144,9 @@ html_engine_print (HTMLEngine *engine,
 	max_width = engine->width = html_printer_get_page_width (HTML_PRINTER (printer));
 	html_engine_set_painter (engine, printer, max_width);
 
-	print_all_pages (HTML_PAINTER (printer), engine);
-
+	print_all_pages (HTML_PAINTER (printer), engine, header_height, footer_height, header_print, footer_print);
 
 	engine->width = old_width;
 	html_engine_set_painter (engine, old_painter, old_width);
-	gtk_object_unref (GTK_OBJECT (printer));
+	gtk_object_unref (GTK_OBJECT (printer));	
 }

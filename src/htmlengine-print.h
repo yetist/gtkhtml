@@ -23,10 +23,14 @@
 #define _HTMLENGINE_PRINT_H
 
 #include <libgnomeprint/gnome-print.h>
-
 #include "htmlengine.h"
 
-void  html_engine_print  (HTMLEngine        *e,
-			  GnomePrintContext *print_context);
-
+void  html_engine_print                     (HTMLEngine           *e,
+					     GnomePrintContext    *print_context);
+void  html_engine_print_with_header_footer  (HTMLEngine           *e,
+					     GnomePrintContext    *print_context,
+					     gdouble               header_height,
+					     gdouble               footer_height,
+					     GtkHTMLPrintCallback  header_print,
+					     GtkHTMLPrintCallback  footer_print);
 #endif
