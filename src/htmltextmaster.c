@@ -22,6 +22,7 @@
 */
 
 #include "htmlobject.h"
+#include "htmlclue.h"
 #include "htmltextmaster.h"
 #include "htmltextslave.h"
 
@@ -121,6 +122,7 @@ fit_line (HTMLObject *o,
 	while (next_obj != NULL
 	       && (HTML_OBJECT_TYPE (next_obj) == HTML_TYPE_TEXTSLAVE)) {
 		o->next = next_obj->next;
+		html_clue_remove (HTML_CLUE (next_obj->parent), next_obj);
 		html_object_destroy (next_obj);
 		next_obj = o->next;
 	}

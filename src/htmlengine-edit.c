@@ -175,6 +175,7 @@ html_engine_insert_para (HTMLEngine *e,
 		     p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE;
 		     p = pnext) {
 			pnext = p->next;
+			html_clue_remove (HTML_CLUE (p->parent), p);
 			html_object_destroy (p);
 		}
 

@@ -57,13 +57,13 @@ html_form_add_hidden (HTMLForm *form, HTMLHidden *hidden)
 static void
 destroy_hidden (gpointer o, gpointer data)
 {
-	html_object_destroy (HTML_OBJECT(o));
+	html_object_destroy (HTML_OBJECT (o));
 }
 
 static void
 reset_element (gpointer o, gpointer data)
 {
-	html_element_reset (HTML_ELEMENT(o));
+	html_element_reset (HTML_ELEMENT (o));
 }
 
 void

@@ -24,6 +24,7 @@
 #include <string.h>
 
 #include "htmltextslave.h"
+#include "htmlclue.h"
 #include "htmlcursor.h"
 
 
@@ -37,7 +38,8 @@ split (HTMLTextSlave *slave, gshort offset)
 	HTMLObject *obj;
 	HTMLObject *new;
 
-	g_return_if_fail (offset >= 0 && offset < slave->posLen);
+	g_return_if_fail (offset >= 0);
+	g_return_if_fail (offset < slave->posLen);
 
 	obj = HTML_OBJECT (slave);
 
@@ -62,7 +64,7 @@ split_at_newline (HTMLTextSlave *slave)
 	const gchar *text;
 	const gchar *p;
 
-	text = HTML_TEXT (slave)->text + slave->posStart;
+	text = HTML_TEXT (slave->owner)->text + slave->posStart;
 
 	p = memchr (text, '\n', slave->posLen);
 	if (p == NULL)
@@ -128,6 +130,7 @@ fit_line (HTMLObject *o,
 	    && (HTML_OBJECT_TYPE (next_obj) == HTML_TYPE_TEXTSLAVE)) {
 		do {
 			o->next = next_obj->next;
+			html_clue_remove (HTML_CLUE (next_obj->parent), next_obj);
 			html_object_destroy (next_obj);
 			next_obj = o->next;
 			if (next_obj != NULL)

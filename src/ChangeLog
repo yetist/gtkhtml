@@ -1,9 +1,20 @@
 2000-01-20  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmltextslave.c (fit_line): Remove the object from the parent
+	before destroying it.
+	(split): Split the assertion so that it's obvious to see what is
+	wrong.
+	(split_at_newline): Braino fix.  Get the owner's text, as we are
+	no HTMLText-derived class.
+
+	* htmlengine-edit.c (html_engine_insert_para): Remove the object
+	from the parent before destroying it.
+
+	* htmltextmaster.c (fit_line): Remove the object from the parent
+	before destroying it.
+
 	* debug.c (debug_dump_tree): Display the HTMLTextSlave intervals
 	as [start, end] instead of [start, len].
-
-2000-01-20  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* gtkhtml.c (button_press_event): Implemented.
 
