@@ -38,6 +38,8 @@ struct _GtkHTMLEditParagraphProperties {
 	gboolean style_changed;
 
 	GtkHTML *sample;
+
+	HTMLClueFlow *flow;
 };
 typedef struct _GtkHTMLEditParagraphProperties GtkHTMLEditParagraphProperties;
 
@@ -101,6 +103,7 @@ paragraph_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	data->cd = cd;
 	data->align = gtk_html_get_paragraph_alignment (cd->html);
 	data->style = gtk_html_get_paragraph_style     (cd->html);
+	data->flow  = HTML_CLUEFLOW (cd->html->engine->cursor->object->parent);
 
 	table = gtk_table_new (2, 2, FALSE);
 	gtk_container_set_border_width (GTK_CONTAINER (table), 3);
@@ -174,12 +177,32 @@ paragraph_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditParagraphProperties *data = (GtkHTMLEditParagraphProperties *) get_data;
 
-	if (data->align_changed)
-		gtk_html_set_paragraph_alignment (cd->html, data->align);
-	if (data->style_changed)
-		gtk_html_set_paragraph_style (cd->html, data->style);
+	if (data->align_changed || data->style_changed) {
+		HTMLEngine *e = cd->html->engine;
+		gint position;
 
-	/* FIXME: take care about non-modal dialog and possible meanwhile doc changes */
+		position = e->cursor->position;
+
+		if (!html_engine_selection_is_active (e) && e->cursor->object->parent != HTML_OBJECT (data->flow))
+			if (!html_cursor_jump_to (e->cursor, e, html_object_head (HTML_OBJECT (data->flow)), 0)) {
+				GtkWidget *dialog;
+				printf ("d: %p\n", data->cd->properties_dialog);
+				dialog = gtk_message_dialog_new (GTK_WINDOW (data->cd->properties_dialog->dialog),
+								 GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO, GTK_BUTTONS_OK,
+								 _("The editted paragraph was removed from the document.\nCannot apply your changes."));
+				gtk_dialog_run (GTK_DIALOG (dialog));
+				gtk_widget_destroy (dialog);
+				html_cursor_jump_to_position (e->cursor, e, position);
+				return FALSE;
+			}
+
+		if (data->align_changed)
+			gtk_html_set_paragraph_alignment (cd->html, data->align);
+		if (data->style_changed)
+			gtk_html_set_paragraph_style (cd->html, data->style);
+		html_cursor_jump_to_position (e->cursor, e, position);
+	}
+
 	return TRUE;
 }
 

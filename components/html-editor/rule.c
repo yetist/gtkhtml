@@ -407,11 +407,28 @@ gboolean
 rule_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditRuleProperties *d = (GtkHTMLEditRuleProperties *) get_data;
+	HTMLEngine *e = d->cd->html->engine;
+	gint position;
+
+	position = e->cursor->position;
+
+	if (e->cursor->object != HTML_OBJECT (d->rule))
+		if (!html_cursor_jump_to (e->cursor, e, HTML_OBJECT (d->rule), 1)) {
+			GtkWidget *dialog;
+			printf ("d: %p\n", d->cd->properties_dialog);
+			dialog = gtk_message_dialog_new (GTK_WINDOW (d->cd->properties_dialog->dialog),
+							 GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO, GTK_BUTTONS_OK,
+							 _("The editted rule was removed from the document.\nCannot apply your changes."));
+			gtk_dialog_run (GTK_DIALOG (dialog));
+			gtk_widget_destroy (dialog);
+			html_cursor_jump_to_position (e->cursor, e, position);
+			return FALSE;
+		}
 
 	html_rule_set (d->rule, cd->html->engine, d->length, d->length_percent ? d->length : 0,
 		       d->width, d->shaded, d->align);
+	html_cursor_jump_to_position (e->cursor, e, position);
 
-	/* FIXME: take care about non-modal dialog and possible meanwhile doc changes */
 	return TRUE;
 }
 

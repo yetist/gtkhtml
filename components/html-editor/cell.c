@@ -669,6 +669,21 @@ cell_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 
 	position = e->cursor->position;
 
+	if (html_engine_get_table_cell (e) != d->cell) {
+		if (!html_engine_goto_table (e, HTML_TABLE (HTML_OBJECT (d->cell)->parent), d->cell->row, d->cell->col)) {
+			GtkWidget *dialog;
+
+			dialog = gtk_message_dialog_new (GTK_WINDOW (d->cd->properties_dialog->dialog),
+							 GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO, GTK_BUTTONS_OK,
+							 _("The editted cell was removed from the document.\nCannot apply your changes."));
+			gtk_dialog_run (GTK_DIALOG (dialog));
+			gtk_widget_destroy (dialog);
+			html_cursor_jump_to_position (e->cursor, e, position);
+
+			return FALSE;
+		}
+	}
+
 	switch (d->scope) {
 	case CELL:
 		cell_apply_1 (d->cell, d);
@@ -684,7 +699,6 @@ cell_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 	}
 	html_cursor_jump_to_position (e->cursor, e, position);
 
-	/* FIXME: take care about non-modal dialog and possible meanwhile doc changes */
 	return TRUE;
 }
 

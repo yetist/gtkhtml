@@ -677,18 +677,22 @@ insert_or_apply (GtkHTMLControlData *cd, gpointer get_data, gboolean insert)
 		HTMLImage *image = HTML_IMAGE (d->image);
 		HTMLEngine *e = d->cd->html->engine;
 		gchar *location, *url, *target;
+		gint position;
+
+		position = e->cursor->position;
 
 		g_assert (HTML_OBJECT_TYPE (d->image) == HTML_TYPE_IMAGE);
 
 		if (e->cursor->object != HTML_OBJECT (d->image))
 			if (!html_cursor_jump_to (e->cursor, e, HTML_OBJECT (d->image), 1)) {
 				GtkWidget *dialog;
-
-				dialog = gtk_message_dialog_new (NULL, /*GTK_WINDOW (d->cd->properties_dialog), */
+				printf ("d: %p\n", d->cd->properties_dialog);
+				dialog = gtk_message_dialog_new (GTK_WINDOW (d->cd->properties_dialog->dialog),
 								 GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO, GTK_BUTTONS_OK,
 								 _("The editted image was removed from the document.\nCannot apply your changes."));
 				gtk_dialog_run (GTK_DIALOG (dialog));
 				gtk_widget_destroy (dialog);
+				html_cursor_jump_to_position (e->cursor, e, position);
 				return FALSE;
 			}
 
@@ -723,6 +727,7 @@ insert_or_apply (GtkHTMLControlData *cd, gpointer get_data, gboolean insert)
 		if (target)
 			g_free (url);
 		g_free (target);
+		html_cursor_jump_to_position (e->cursor, e, position);
 	}
 
 	return TRUE;

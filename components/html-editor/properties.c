@@ -37,17 +37,6 @@
 #define ALIGN_CENTER 1
 #define ALIGN_BOTTOM 2
 
-struct _GtkHTMLEditPropertiesDialog {
-	GtkWidget           *dialog;
-	GtkHTMLControlData  *control_data;
-
-	GList               *page_data;
-	GtkWidget           *notebook;
-	gboolean             insert;
-	gboolean             all_changes_applied;
-	gchar               *title;
-};
-
 struct _PageData {
 	GtkHTMLEditPropertyType      type;
 	GtkHTMLEditPropertyApplyFunc apply;

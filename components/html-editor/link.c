@@ -167,6 +167,22 @@ link_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 
 	if (data->url_changed) {
 		gchar *url_copy;
+		gint position;
+
+		position = e->cursor->position;
+
+		if (e->cursor->object != HTML_OBJECT (data->link))
+			if (!html_cursor_jump_to (e->cursor, e, HTML_OBJECT (data->link), 1)) {
+				GtkWidget *dialog;
+				printf ("d: %p\n", data->cd->properties_dialog);
+				dialog = gtk_message_dialog_new (GTK_WINDOW (data->cd->properties_dialog->dialog),
+								 GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO, GTK_BUTTONS_OK,
+								 _("The editted link was removed from the document.\nCannot apply your changes."));
+				gtk_dialog_run (GTK_DIALOG (dialog));
+				gtk_widget_destroy (dialog);
+				html_cursor_jump_to_position (e->cursor, e, position);
+				return FALSE;
+			}
 
 		url  = gtk_entry_get_text (GTK_ENTRY (data->entry_url));
 
@@ -176,9 +192,9 @@ link_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 		html_link_text_set_url (data->link, url_copy, target);
 		html_engine_update_insertion_url_and_target (e);
 		g_free (url_copy);
+		html_cursor_jump_to_position (e->cursor, e, position);
 	}
 
-	/* FIXME: take care about non-modal dialog and possible meanwhile doc changes */
 	return TRUE;
 }
 

@@ -796,6 +796,27 @@ gboolean
 table_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditTableProperties *d = (GtkHTMLEditTableProperties *) get_data;
+	HTMLEngine *e = d->cd->html->engine;
+	gint position;
+
+	position = e->cursor->position;
+
+	if (html_engine_get_table (e) != d->table) {
+		if (html_engine_goto_table_0 (e, d->table))
+			html_cursor_forward (e->cursor, e);
+		if (html_engine_get_table (e) != d->table) {
+			GtkWidget *dialog;
+
+			dialog = gtk_message_dialog_new (GTK_WINDOW (d->cd->properties_dialog->dialog),
+							 GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO, GTK_BUTTONS_OK,
+							 _("The editted table was removed from the document.\nCannot apply your changes."));
+			gtk_dialog_run (GTK_DIALOG (dialog));
+			gtk_widget_destroy (dialog);
+			html_cursor_jump_to_position (e->cursor, e, position);
+
+			return FALSE;
+		}
+	}
 
 	if (d->changed_bg_color) {
 		html_engine_table_set_bg_color (d->cd->html->engine, d->table, d->has_bg_color ? &d->bg_color : NULL);
@@ -838,7 +859,8 @@ table_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 		d->changed_rows = FALSE;
 	}
 
-	/* FIXME: take care about non-modal dialog and possible meanwhile doc changes */
+	html_cursor_jump_to_position (e->cursor, e, position);
+
 	return TRUE;
 }
 

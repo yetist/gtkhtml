@@ -32,6 +32,7 @@
 #include "htmlengine-save.h"
 #include "htmlselection.h"
 #include "htmlsettings.h"
+#include "htmltext.h"
 
 #include "text.h"
 #include "properties.h"
@@ -57,6 +58,8 @@ struct _GtkHTMLEditTextProperties {
 	gchar *url;
 
 	GtkHTML *sample;
+
+	HTMLText *text;
 };
 typedef struct _GtkHTMLEditTextProperties GtkHTMLEditTextProperties;
 
@@ -197,6 +200,7 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	data->style_and       = GTK_HTML_FONT_STYLE_MAX;
 	data->style_or        = html_engine_get_font_style (cd->html->engine);
 	data->color           = html_engine_get_color (cd->html->engine);
+	data->text            = HTML_TEXT (cd->html->engine->cursor->object);
 
 	if (!data->color)
 		data->color = html_colorset_get_color (data->cd->html->engine->settings->color_set, 
@@ -314,33 +318,53 @@ text_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditTextProperties *data = (GtkHTMLEditTextProperties *) get_data;
 
-	if (data->style_changed)
-		gtk_html_set_font_style (cd->html, data->style_and, data->style_or);
+	if (data->style_changed || data->url_changed || data->color_changed) {
+		HTMLEngine *e = cd->html->engine;
+		gint position;
 
-	if (data->url_changed) {
-		gchar *h;
+		position = e->cursor->position;
 
-		h = strchr (data->url, '#');
-		if (h) {
-			gchar *url;
+		if (!html_engine_selection_is_active (e) && e->cursor->object != HTML_OBJECT (data->text))
+			if (!html_cursor_jump_to (e->cursor, e, HTML_OBJECT (data->text), 1)) {
+				GtkWidget *dialog;
+				printf ("d: %p\n", data->cd->properties_dialog);
+				dialog = gtk_message_dialog_new (GTK_WINDOW (data->cd->properties_dialog->dialog),
+								 GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO, GTK_BUTTONS_OK,
+								 _("The editted text was removed from the document.\nCannot apply your changes."));
+				gtk_dialog_run (GTK_DIALOG (dialog));
+				gtk_widget_destroy (dialog);
+				html_cursor_jump_to_position (e->cursor, e, position);
+				return FALSE;
+			}
 
-			url = alloca (h - data->url + 1);
-			url [h - data->url] = 0;
-			strncpy (url, data->url, h - data->url);
-			html_engine_edit_set_link (cd->html->engine, url, h);
-		} else {
-			html_engine_edit_set_link (cd->html->engine, data->url, NULL);
+		if (data->style_changed)
+			gtk_html_set_font_style (cd->html, data->style_and, data->style_or);
+
+		if (data->url_changed) {
+			gchar *h;
+
+			h = strchr (data->url, '#');
+			if (h) {
+				gchar *url;
+
+				url = alloca (h - data->url + 1);
+				url [h - data->url] = 0;
+				strncpy (url, data->url, h - data->url);
+				html_engine_edit_set_link (cd->html->engine, url, h);
+			} else {
+				html_engine_edit_set_link (cd->html->engine, data->url, NULL);
+			}
 		}
+
+		if (data->color_changed)
+			gtk_html_set_color (cd->html, data->color);
+
+		data->color_changed = FALSE;
+		data->style_changed = FALSE;
+		data->url_changed   = FALSE;
+		html_cursor_jump_to_position (e->cursor, e, position);
 	}
 
-	if (data->color_changed)
-		gtk_html_set_color (cd->html, data->color);
-
-	data->color_changed = FALSE;
-	data->style_changed = FALSE;
-	data->url_changed   = FALSE;
-
-	/* FIXME: take care about non-modal dialog and possible meanwhile doc changes */
 	return TRUE;
 }
 

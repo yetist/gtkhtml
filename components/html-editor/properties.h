@@ -30,6 +30,17 @@ typedef GtkWidget * (*GtkHTMLEditPropertyCreateFunc) (GtkHTMLControlData *cd, gp
 typedef gboolean    (*GtkHTMLEditPropertyApplyFunc)  (GtkHTMLControlData *cd, gpointer  own_data);
 typedef void        (*GtkHTMLEditPropertyCloseFunc)  (GtkHTMLControlData *cd, gpointer  own_data);
 
+struct _GtkHTMLEditPropertiesDialog {
+	GtkWidget           *dialog;
+	GtkHTMLControlData  *control_data;
+
+	GList               *page_data;
+	GtkWidget           *notebook;
+	gboolean             insert;
+	gboolean             all_changes_applied;
+	gchar               *title;
+};
+
 enum _GtkHTMLEditPropertyType {
 	GTK_HTML_EDIT_PROPERTY_NONE,
 	GTK_HTML_EDIT_PROPERTY_PARAGRAPH,
