@@ -1,3 +1,7 @@
+2001-07-17  Larry Ewing  <lewing@ximian.com>
+
+	* configure.in: bump version numbers for 0.10.1 release.
+
 2001-07-15  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* configure.in: Added "nn" to ALL_LINGUAS.
