@@ -221,6 +221,52 @@ calc_min_width (HTMLObject *o)
 	return minWidth;
 }
 
+static HTMLObject *
+mouse_event (HTMLObject *self, gint _x, gint _y,
+	     gint button, gint state)
+{
+	HTMLClue *clue;
+	HTMLObject *obj;
+	HTMLObject *obj2;
+
+	clue = HTML_CLUE (self);
+
+	if ( _x < self->x
+	     || _x > self->x + self->width
+	     || _y > self->y + self->descent
+	     || _y < self->y - self->ascent)
+		return 0;
+
+	for ( obj = clue->head; obj != NULL; obj = obj->next ) {
+		if ((obj2 = html_object_mouse_event
+			( obj, _x - self->x, _y - (self->y - self->ascent),
+			  button, state )) != 0 )
+			return obj2;
+	}
+
+	return 0;
+}
+
+static HTMLObject*
+check_point (HTMLObject *o, gint _x, gint _y )
+{
+	HTMLObject *obj;
+	HTMLObject *obj2;
+
+	if ( _x < o->x || _x > o->x + o->width
+	     || _y > o->y + o->descent || _y < o->y - o->ascent)
+		return 0L;
+
+	for ( obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next ) {
+		obj2 = html_object_check_point (obj, _x - o->x,
+						_y - (o->y - o->ascent) );
+		if (obj2 != NULL)
+			return obj2;
+	}
+
+	return 0;
+}
+
 
 /* HTMLClue methods.  */
 
@@ -275,32 +321,6 @@ appended (HTMLClue *clue, HTMLClue *aclue)
 	return FALSE;
 }
 
-static HTMLObject *
-mouse_event (HTMLObject *self, gint _x, gint _y,
-	     gint button, gint state)
-{
-	HTMLClue *clue;
-	HTMLObject *obj;
-	HTMLObject *obj2;
-
-	clue = HTML_CLUE (self);
-
-	if ( _x < self->x
-	     || _x > self->x + self->width
-	     || _y > self->y + self->descent
-	     || _y < self->y - self->ascent)
-		return 0;
-
-	for ( obj = clue->head; obj != NULL; obj = obj->next ) {
-		if ((obj2 = html_object_mouse_event
-			( obj, _x - self->x, _y - (self->y - self->ascent),
-			  button, state )) != 0 )
-			return obj2;
-	}
-
-	return 0;
-}
-
 
 void
 html_clue_type_init (void)
@@ -331,6 +351,7 @@ html_clue_class_init (HTMLClueClass *klass,
 	object_class->calc_min_width = calc_min_width;
 	object_class->calc_absolute_pos = calc_absolute_pos;
 	object_class->mouse_event = mouse_event;
+	object_class->check_point = check_point;
 
 	/* HTMLClue methods.  */
 	klass->get_left_margin = get_left_margin;

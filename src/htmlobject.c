@@ -166,6 +166,16 @@ mouse_event (HTMLObject *o,
 	return NULL;
 }
 
+static HTMLObject*
+check_point (HTMLObject *o, gint _x, gint _y )
+{
+	if ( _x >= o->x && _x < o->x + o->width )
+		if ( _y > o->y - o->ascent && _y < o->y + o->descent + 1 )
+			return o;
+    
+	return 0L;
+}
+
 
 /* Class initialization.  */
 
@@ -201,6 +211,7 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->find_anchor = find_anchor;
 	klass->set_bg_color = set_bg_color;
 	klass->mouse_event = mouse_event;
+	klass->check_point = check_point;
 }
 
 void
@@ -354,9 +365,15 @@ html_object_set_bg_color (HTMLObject *o, GdkColor *color)
 	(* HO_CLASS (o)->set_bg_color) (o, color);
 }
 
-HTMLObject *html_object_mouse_event (HTMLObject *self, gint x, gint y,
-				     gint button, gint state)
+HTMLObject *
+html_object_mouse_event (HTMLObject *self, gint x, gint y,
+			 gint button, gint state)
 {
 	return (* HO_CLASS (self)->mouse_event) (self, x, y, button, state);
 }
 
+HTMLObject *
+html_object_check_point (HTMLObject *self, gint x, gint y)
+{
+	return (* HO_CLASS (self)->check_point) (self, x, y);
+}

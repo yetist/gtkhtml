@@ -1062,6 +1062,41 @@ mouse_event ( HTMLObject *self, gint _x, gint _y, gint button, gint state )
 	return 0;
 }
 
+static
+HTMLObject *check_point ( HTMLObject *o,
+			  gint _x, gint _y )
+{
+    unsigned int r, c;
+    HTMLTable *table;
+    HTMLObject *obj;
+    HTMLTableCell *cell;
+
+    if ( _x < o->x || _x > o->x + o->width
+	 || _y > o->y + o->descent || _y < o->y - o->ascent)
+	return NULL;
+
+    table = HTML_TABLE (o);
+
+    for ( r = 0; r < table->totalRows; r++ ) {
+	for ( c = 0; c < table->totalCols; c++ ) {
+	    if ( ( cell = table->cells[r][c] ) == 0 )
+		continue;
+
+	    if ( c < table->totalCols - 1 && cell == table->cells[r][c+1] )
+		continue;
+	    if ( r < table->totalRows - 1 && table->cells[r+1][c] == cell )
+		continue;
+
+	    if ((obj = html_object_check_point( HTML_OBJECT (cell),
+						_x - o->x,
+						_y - (o->y - o->ascent) )) != NULL)
+		return obj;
+	}
+    }
+
+    return NULL;
+}
+
 
 void
 html_table_type_init (void)
@@ -1089,6 +1124,7 @@ html_table_class_init (HTMLTableClass *klass,
 	object_class->calc_absolute_pos = calc_absolute_pos;
 	object_class->reset = reset;
 	object_class->mouse_event = mouse_event;
+	object_class->check_point = check_point;
 }
 
 void

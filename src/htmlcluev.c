@@ -293,6 +293,34 @@ mouse_event ( HTMLObject *object, gint _x, gint _y, gint button, gint state )
 	return NULL;
 }
 
+static HTMLObject *
+check_point ( HTMLObject *o, int _x, int _y )
+{
+	HTMLObject *obj2;
+	HTMLClueAligned *clue;
+
+	if ( ( obj2 = (* HTML_OBJECT_CLASS (parent_class)->check_point)
+	       (o, _x, _y ) ) != 0L )
+		return obj2;
+
+	if ( _x < o->x || _x > o->x + o->width
+	     || _y > o->y + o->descent || _y < o->y - o->ascent)
+		return 0L;
+
+	for ( clue = HTML_CLUEALIGNED (HTML_CLUEV (o)->align_left_list);
+	      clue != NULL;
+	      clue = clue->next_aligned ) {
+		obj2 = html_object_check_point (HTML_OBJECT (clue),
+						_x - o->x - HTML_OBJECT (clue->prnt)->x,
+						_y - (o->y - o->ascent) - HTML_OBJECT ( clue->prnt)->y -
+						HTML_OBJECT (clue->prnt)->ascent );
+		if (obj2 != 0L)
+			return obj2;
+	}
+
+	return 0L;
+}
+
 
 /* HTMLClue methods.  */
 
@@ -517,6 +545,7 @@ html_cluev_class_init (HTMLClueVClass *klass,
 	object_class->reset = reset;
 	object_class->draw = draw;
 	object_class->mouse_event = mouse_event;
+	object_class->check_point = check_point;
 
 	clue_class->get_left_margin = get_left_margin;
 	clue_class->get_right_margin = get_right_margin;

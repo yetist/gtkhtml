@@ -1,3 +1,21 @@
+1999-12-04  Ettore Perazzoli  <ettore@gnu.org>
+
+	* htmltable.c (check_point): Implementation of `check_point'.
+	(html_table_class_init): Install it.
+
+	* htmlcluev.c (check_point): Implementation of `check_point'.
+	(html_cluev_class_init): Install it.
+
+	* htmlclue.c (check_point): Implementation of `check_point'.
+	(html_clue_class_init): Install it.
+
+	* htmlobject.c (check_point): Default implementation for
+	`check_point'.
+	(html_object_class_init): Install it.
+	(html_object_check_point): New function.
+	
+	* htmlobject.h: New virtual method `check_point'.
+
 1999-12-03  Ettore Perazzoli  <ettore@gnu.org>
 
 	* htmltable.c (mouse_event): New function, implementing the
