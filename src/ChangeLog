@@ -1,3 +1,8 @@
+2002-11-11  Radek Doulik  <rodo@ximian.com>
+
+	* htmlgdkpainter.c (draw_text): fixed
+	GTK_HTML_FONT_STYLE_STRIKEOUT
+
 2002-11-07  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (parse_o): free the value.

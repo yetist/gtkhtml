@@ -83,7 +83,6 @@ text_itemize_and_prepare_glyphs (PangoContext *context, PangoFontDescription *de
 
 	if (items && items->data) {
 		PangoItem *item = (PangoItem *) items->data;
-		PangoRectangle log_rect;
 
 		*glyphs = pango_glyph_string_new ();
 		pango_shape (text, bytes, &item->analysis, *glyphs);
@@ -925,13 +924,13 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len)
 
 	if (items && items->data && glyphs && painter->font_style & (GTK_HTML_FONT_STYLE_UNDERLINE | GTK_HTML_FONT_STYLE_STRIKEOUT)) {
 		PangoRectangle log_rect;
-		gint width, height, dsc;
+		gint width, dsc, asc;
 
 		pango_glyph_string_extents (glyphs, ((PangoItem *) items->data)->analysis.font, NULL, &log_rect);
 
 		width = PANGO_PIXELS (log_rect.width);
-		height = PANGO_PIXELS (log_rect.height);
 		dsc = PANGO_PIXELS (PANGO_DESCENT (log_rect));
+		asc = PANGO_PIXELS (PANGO_ASCENT (log_rect));
 
 		if (painter->font_style & GTK_HTML_FONT_STYLE_UNDERLINE)
 			gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, 
@@ -940,8 +939,8 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len)
 
 		if (painter->font_style & GTK_HTML_FONT_STYLE_STRIKEOUT)
 			gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, 
-				       x, y + height / 2, 
-				       x + width, y + height / 2);
+				       x, y - asc + (asc + dsc)/2, 
+				       x + width, y - asc + (asc + dsc)/2);
 	}
 
 	if (glyphs)
