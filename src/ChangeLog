@@ -1,3 +1,8 @@
+2001-02-08  Frederic Crozat <fcrozat@mandrakesoft.com>
+
+	* gtkhtml.c (client_notify_widget): rename font_var_family and
+	font_fix_family to font_var and font_fix
+
 2001-02-08  Radek Doulik  <rodo@ximian.com>
 
 	* htmltable.c (divide_left_by_preferred_width): expand only

@@ -1367,12 +1367,12 @@ client_notify_widget (GConfClient* client,
 	g_assert (tkey);
 
 	if (!strcmp (tkey, "/font_variable_family")) {
-		g_free (prop->font_var_family);
-		prop->font_var_family = gconf_client_get_string (client, entry->key, NULL);
+		g_free (prop->font_var);
+		prop->font_var = gconf_client_get_string (client, entry->key, NULL);
 		set_fonts (html);
 	} else if (!strcmp (tkey, "/font_fixed_family")) {
-		g_free (prop->font_fix_family);
-		prop->font_fix_family = gconf_client_get_string (client, entry->key, NULL);
+		g_free (prop->font_fix);
+		prop->font_fix = gconf_client_get_string (client, entry->key, NULL);
 		set_fonts (html);
 	} else if (!strcmp (tkey, "/font_variable_size")) {
 		prop->font_var_size = gconf_client_get_int (client, entry->key, NULL);
