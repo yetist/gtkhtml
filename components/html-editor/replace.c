@@ -83,8 +83,10 @@ ask_dialog_new (HTMLEngine *e)
 
 	d = g_new (GtkHTMLReplaceAskDialog, 1);
 	d->dialog = GTK_DIALOG (gtk_dialog_new_with_buttons (_("Replace confirmation"), NULL, 0,
-							     _("Replace"), _("Replace all"), _("Next"),
-							     GTK_STOCK_CANCEL, NULL));
+							     _("Replace"), 0,
+							     _("Replace all"), 1,
+							     _("Next"), 2,
+							     GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE, NULL));
 	d->engine = e;
 
 	gnome_window_icon_set_from_file (GTK_WINDOW (d->dialog), ICONDIR "/search-and-replace-24.png");
@@ -146,7 +148,8 @@ gtk_html_replace_dialog_new (GtkHTML *html)
 	GtkWidget *label;
 
 	dialog->dialog         = GTK_DIALOG (gtk_dialog_new_with_buttons (_("Replace"), NULL, 0,
-									  _("Replace"), GTK_STOCK_CANCEL, NULL));
+									  _("Replace"), 0,
+									  GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE, NULL));
 
 	table = gtk_table_new (2, 2, FALSE);
 	dialog->entry_search   = gtk_entry_new ();

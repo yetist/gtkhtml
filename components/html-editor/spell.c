@@ -263,7 +263,7 @@ spell_check_dialog (GtkHTMLControlData *cd, gboolean whole_document)
 			return;
 		}
 
-	dialog  = gtk_dialog_new_with_buttons (_("Spell checker"), NULL, 0, GTK_STOCK_CLOSE, NULL);
+	dialog  = gtk_dialog_new_with_buttons (_("Spell checker"), NULL, 0, GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE, NULL);
 	control = bonobo_widget_new_control (CONTROL_IID, CORBA_OBJECT_NIL);
 
 	if (!control) {
