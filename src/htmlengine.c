@@ -3345,3 +3345,98 @@ html_engine_form_submitted (HTMLEngine *e,
 	gtk_signal_emit (GTK_OBJECT (e), signals[SUBMIT], method, action, encoding);
 
 }
+
+
+struct _SelectRegionData {
+	HTMLObject *obj1, *obj2;
+	guint offset1, offset2;
+	gboolean select;
+};
+typedef struct _SelectRegionData SelectRegionData;
+
+static void
+select_region_forall (HTMLObject *self,
+		      gpointer data)
+{
+	SelectRegionData *select_data;
+
+	select_data = (SelectRegionData *) data;
+
+	if (self == select_data->obj1 || self == select_data->obj2) {
+		if (select_data->obj1 == select_data->obj2) {
+			if (select_data->offset2 > select_data->offset1)
+				html_object_select_range (select_data->obj1,
+							  select_data->offset1,
+							  select_data->offset2 - select_data->offset1);
+			else if (select_data->offset2 < select_data->offset1)
+				html_object_select_range (select_data->obj1,
+							  select_data->offset2,
+							  select_data->offset1 - select_data->offset2);
+			select_data->select = FALSE;
+		} else {
+			guint offset;
+
+			if (self == select_data->obj1)
+				offset = select_data->offset1;
+			else
+				offset = select_data->offset2;
+
+			if (select_data->select) {
+				html_object_select_range (self, 0, offset);
+				select_data->select = FALSE;
+			} else {
+				html_object_select_range (self, offset, -1);
+				select_data->select = TRUE;
+			}
+		}
+	} else {
+		if (select_data->select) {
+			html_object_select_range (self, 0, -1);
+		} else {
+			html_object_select_range (self, 0, 0);
+		}
+	}
+}
+
+/* FIXME this implementation could be definitely smarter.  */
+/* FIXME maybe this should go into `htmlengine-edit.c'.  */
+void
+html_engine_select_region (HTMLEngine *e,
+			   gint x1, gint y1,
+			   gint x2, gint y2)
+{
+	SelectRegionData *data;
+
+	g_return_if_fail (e != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
+	if (e->clue == NULL)
+		return;
+
+	data = g_new (SelectRegionData, 1);
+
+	data->obj1 = html_engine_get_object_at (e, x1, y1, &data->offset1);
+	data->obj2 = html_engine_get_object_at (e, x2, y2, &data->offset2);
+	data->select = FALSE;
+
+	html_object_forall (e->clue, select_region_forall, data);
+}
+
+static void
+unselect_forall (HTMLObject *self,
+		 gpointer data)
+{
+	html_object_select_range (self, 0, 0);
+}
+
+void
+html_engine_unselect_all (HTMLEngine *e)
+{
+	g_return_if_fail (e != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
+	if (e->clue == NULL)
+		return;
+
+	html_object_forall (e->clue, unselect_forall, NULL);
+}

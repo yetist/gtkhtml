@@ -329,8 +329,7 @@ realize (GtkWidget *widget)
 				| GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK
 				| GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK));
 
-	/* FIXME: My GOD this is awful.  */
-
+	/* FIXME */
 	html_settings_set_bgcolor (html->engine->settings, 
 				   &widget->style->bg[GTK_STATE_NORMAL]);
 
@@ -406,6 +405,7 @@ motion_notify_event (GtkWidget *widget,
 		     GdkEventMotion *event)
 {
 	GtkHTML *html;
+	HTMLEngine *engine;
 	const gchar *url;
 
 	g_return_val_if_fail (widget != NULL, 0);
@@ -413,23 +413,37 @@ motion_notify_event (GtkWidget *widget,
 	g_return_val_if_fail (event != NULL, 0);
 
 	html = GTK_HTML (widget);
+	engine = html->engine;
 
-	url = html_engine_get_link_at (GTK_HTML (widget)->engine, event->x, event->y);
+	if (html->button_pressed) {
+		html->in_selection = TRUE;
 
-	if (url == NULL) {
-		if (html->pointer_url != NULL) {
-			g_free (html->pointer_url);
-			html->pointer_url = NULL;
-			gtk_signal_emit (GTK_OBJECT (html), signals[ON_URL], NULL);
-		}
-		gdk_window_set_cursor (widget->window, html->arrow_cursor);
+		html->selection_x2 = event->x + engine->x_offset;
+		html->selection_y2 = event->y + engine->y_offset;
+
+		html_engine_select_region (engine,
+					   html->selection_x1, html->selection_y1,
+					   html->selection_x2, html->selection_y2);
+
+		gtk_widget_queue_draw (widget);
 	} else {
-		if (html->pointer_url == NULL || strcmp (html->pointer_url, url) != 0) {
-			g_free (html->pointer_url);
-			html->pointer_url = g_strdup (url);
-			gtk_signal_emit (GTK_OBJECT (html), signals[ON_URL], url);
+		url = html_engine_get_link_at (engine, event->x, event->y);
+
+		if (url == NULL) {
+			if (html->pointer_url != NULL) {
+				g_free (html->pointer_url);
+				html->pointer_url = NULL;
+				gtk_signal_emit (GTK_OBJECT (html), signals[ON_URL], NULL);
+			}
+			gdk_window_set_cursor (widget->window, html->arrow_cursor);
+		} else {
+			if (html->pointer_url == NULL || strcmp (html->pointer_url, url) != 0) {
+				g_free (html->pointer_url);
+				html->pointer_url = g_strdup (url);
+				gtk_signal_emit (GTK_OBJECT (html), signals[ON_URL], url);
+			}
+			gdk_window_set_cursor (widget->window, html->hand_cursor);
 		}
-		gdk_window_set_cursor (widget->window, html->hand_cursor);
 	}
 
 	return TRUE;
@@ -445,17 +459,22 @@ button_press_event (GtkWidget *widget,
 	html = GTK_HTML (widget);
 	engine = html->engine;
 
-	if (! engine->editable) {
-		const gchar *url;
-
-		url = html_engine_get_link_at (engine, event->x, event->y);
-		if (url != NULL)
-			gtk_signal_emit (GTK_OBJECT (widget), signals[LINK_CLICKED], url);
-	} else {
+	if (engine->editable)
 		html_engine_jump_at (engine, event->x, event->y);
-	}
 
-	return FALSE;
+	gtk_grab_add (widget);
+	gdk_pointer_grab (widget->window, TRUE,
+			  GDK_BUTTON_RELEASE_MASK | GDK_BUTTON_MOTION_MASK,
+			  NULL, NULL, 0);
+
+	html->selection_x1 = event->x + engine->x_offset;
+	html->selection_y1 = event->y + engine->y_offset;
+
+	html->button_pressed = TRUE;
+
+	html_engine_unselect_all (engine);
+
+	return TRUE;
 }
 
 static gint
@@ -465,10 +484,15 @@ button_release_event (GtkWidget *widget,
 	GtkHTML *html;
 
 	html = GTK_HTML (widget);
-	if (event->button == 1 && html->pointer_url != NULL)
-		gtk_signal_emit (GTK_OBJECT (widget),
-				 signals[LINK_CLICKED],
-				 html->pointer_url);
+
+	gtk_grab_remove (widget);
+	gdk_pointer_ungrab (0);
+
+	if (event->button == 1 && html->pointer_url != NULL && ! html->in_selection)
+		gtk_signal_emit (GTK_OBJECT (widget), signals[LINK_CLICKED], html->pointer_url);
+
+	html->button_pressed = FALSE;
+	html->in_selection = FALSE;
 
 	return TRUE;
 }
@@ -612,6 +636,14 @@ init (GtkHTML* html)
 	html->arrow_cursor = gdk_cursor_new (GDK_LEFT_PTR);
 	html->hadj_connection = 0;
 	html->vadj_connection = 0;
+
+	html->selection_x1 = 0;
+	html->selection_y1 = 0;
+	html->selection_x2 = 0;
+	html->selection_y2 = 0;
+
+	html->in_selection = FALSE;
+	html->button_pressed = FALSE;
 
 	html->idle_handler_id = 0;
 }

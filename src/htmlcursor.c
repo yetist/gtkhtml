@@ -34,6 +34,7 @@
 #include "htmlcursor.h"
 
 
+#ifdef _HTML_CURSOR_DEBUG
 static void
 debug_location (const HTMLCursor *cursor)
 {
@@ -50,6 +51,9 @@ debug_location (const HTMLCursor *cursor)
 		 object,
 		 cursor->offset);
 }
+#else
+#define debug_location(cursor)
+#endif
 
 
 HTMLCursor *
@@ -556,3 +560,4 @@ html_cursor_down (HTMLCursor *cursor,
 		}
 	}
 }
+

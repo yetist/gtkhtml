@@ -34,12 +34,12 @@ HTMLClueClass html_clue_class;
 static void
 destroy (HTMLObject *o)
 {
-
 	while (HTML_CLUE (o)->head) {
 		HTML_CLUE (o)->curr = HTML_CLUE (o)->head->next;
 		html_object_destroy (HTML_CLUE (o)->head);
 		HTML_CLUE (o)->head = HTML_CLUE (o)->curr;
 	}
+
 	HTML_OBJECT_CLASS (&html_object_class)->destroy (o);
 }
 
@@ -236,6 +236,19 @@ check_point (HTMLObject *o,
 	return NULL;
 }
 
+static void
+forall (HTMLObject *self,
+	HTMLObjectForallFunc func,
+	gpointer data)
+{
+	HTMLObject *p;
+
+	html_object_class.forall (self, func, data);
+
+	for (p = HTML_CLUE (self)->head; p != NULL; p = p->next)
+		html_object_forall (p, func, data);
+}
+
 
 /* HTMLClue methods.  */
 
@@ -318,6 +331,7 @@ html_clue_class_init (HTMLClueClass *klass,
 	object_class->calc_min_width = calc_min_width;
 	object_class->check_point = check_point;
 	object_class->find_anchor = find_anchor;
+	object_class->forall = forall;
 
 	/* HTMLClue methods.  */
 	klass->get_left_margin = get_left_margin;

@@ -50,6 +50,12 @@ struct _GtkHTML {
 	GdkCursor *hand_cursor;
 	GdkCursor *arrow_cursor;
 
+	gint selection_x1, selection_y1;
+	gint selection_x2, selection_y2;
+
+	gboolean in_selection : 1;
+	gboolean button_pressed : 1;
+
 	guint hadj_connection;
 	guint vadj_connection;
 

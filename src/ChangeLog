@@ -1,3 +1,42 @@
+2000-01-22  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine.c (html_engine_select_region): New function.
+	(html_engine_unselect_all): New function.
+
+	* htmlclue.c (forall): New function, implementation of
+	`HTMLObject::forall'.
+	(html_clue_class_init): Install it.
+
+	* htmlobject.c (html_object_forall): New function.
+	(forall): New function, default implementation of
+	`HTMLObject::forall'.
+	(html_object_class_init): Install it.
+
+	* htmlobject.h: New virtual method `forall'.
+
+	* htmlcursor.c (html_cursor_backward_element): New function.
+
+	* htmlcursor.c (debug_location): Made a non-op by default.
+
+	* gtkhtml.c (init): Initialize the new GtkHTML member variables.
+	(button_press_event): Return `TRUE' as we always handle the press.
+	Do not emit `link_clicked' anymore.  Grab the pointer.  Set
+	`in_selection' to TRUE, and initialize `selection_x1' and
+	`selection_y1'.  Unselect all in the engine.
+	(button_release_event): Remove the grab.  Don't emit the
+	"link_clicked" signal if we are performing a selection.  Set
+	`in_button' and `in_selection' to FALSE.
+	(motion_notify_event): Handle the selection if button is pressed.
+
+	* gtkhtml.h: New members `selection_x1', `selection_y1',
+	`selection_x2', `selection_y2', `button_pressed' and
+	`in_selection' in `GtkHTML'.
+
+	* htmlobject.c (select_range): Braino fix.
+
+	* htmltextmaster.c (select_range): If the lenght is negative,
+	select the whole text.
+
 2000-01-21  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlimage.c (generate_pixbuf_for_selection): New helper

@@ -262,4 +262,12 @@ void  html_engine_form_submitted  (HTMLEngine  *engine,
 gchar *html_engine_canonicalize_url  (HTMLEngine *e,
 				      const char *in_url);
 
+/* Selection.  (FIXME: Maybe `htmlengine-edit' instead?)  */
+void  html_engine_select_region  (HTMLEngine *e,
+				  gint        x1,
+				  gint        y1,
+				  gint        x2,
+				  gint        y2);
+void  html_engine_unselect_all   (HTMLEngine *e);
+
 #endif /* _HTMLENGINE_H_ */

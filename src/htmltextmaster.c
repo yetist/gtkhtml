@@ -205,6 +205,9 @@ select_range (HTMLObject *self,
 
 	master = HTML_TEXT_MASTER (self);
 
+	if (length < 0)
+		length = HTML_TEXT (self)->text_len;
+
 	if (offset != master->select_start || length != master->select_length)
 		changed = TRUE;
 	else

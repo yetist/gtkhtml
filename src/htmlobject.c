@@ -254,9 +254,17 @@ select_range (HTMLObject *self,
 	else
 		changed = FALSE;
 
-	self->selected = TRUE;
+	self->selected = selected;
 
 	return changed;
+}
+
+static void
+forall (HTMLObject *self,
+	HTMLObjectForallFunc func,
+	gpointer data)
+{
+	(* func) (self, data);
 }
 
 
@@ -298,6 +306,7 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->get_cursor = get_cursor;
 	klass->get_cursor_base = get_cursor_base;
 	klass->select_range = select_range;
+	klass->forall = forall;
 }
 
 void
@@ -515,6 +524,14 @@ html_object_select_range (HTMLObject *self,
 			  gint length)
 {
 	return (* HO_CLASS (self)->select_range) (self, start, length);
+}
+
+void
+html_object_forall (HTMLObject *self,
+		    HTMLObjectForallFunc func,
+		    gpointer data)
+{
+	(* HO_CLASS (self)->forall) (self, func, data);
 }
 
 

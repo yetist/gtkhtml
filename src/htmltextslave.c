@@ -341,11 +341,11 @@ draw (HTMLObject *o,
 	ownertext = HTML_TEXT (owner);
 	font_style = html_text_get_font_style (ownertext);
 
-	if (textslave->posStart >= owner->select_start
-	    && textslave->posStart + textslave->posLen <= owner->select_start + owner->select_length) {
-		draw_highlighted (textslave, p, font_style, x, y, width, height, tx, ty);
-	} else {
+	if (owner->select_start + owner->select_length <= textslave->posStart
+	    || owner->select_start >= textslave->posStart + textslave->posLen) {
 		draw_normal (textslave, p, font_style, x, y, width, height, tx, ty);
+	} else {
+		draw_highlighted (textslave, p, font_style, x, y, width, height, tx, ty);
 	}
 }
 

@@ -86,6 +86,8 @@ typedef enum {
 #define HTML_OBJECT_CLASS(x)	((HTMLObjectClass *) (x))
 #define HTML_OBJECT_TYPE(x)     (HTML_OBJECT (x)->klass->type)
 
+typedef void (* HTMLObjectForallFunc) (HTMLObject *self, gpointer data);
+
 struct _HTMLObject {
 	HTMLObjectClass *klass;
 
@@ -170,6 +172,8 @@ struct _HTMLObjectClass {
 				  gint *x, gint *y);
 
 	gboolean (* select_range) (HTMLObject *self, guint start, gint length);
+
+	void (* forall) (HTMLObject *self, HTMLObjectForallFunc func, gpointer data);
 };
 
 
@@ -178,16 +182,19 @@ extern HTMLObjectClass html_object_class;
 
 /* Basics.  */
 void        html_object_type_init   (void);
-void        html_object_init        (HTMLObject      *o,
-				     HTMLObjectClass *klass);
-void        html_object_class_init  (HTMLObjectClass *klass,
-				     HTMLType         type);
-HTMLObject *html_object_new         (HTMLObject      *parent);
-void        html_object_destroy     (HTMLObject      *o);
-void        html_object_set_parent  (HTMLObject      *o,
-				     HTMLObject      *parent);
-void        html_object_reset       (HTMLObject      *o);
-gboolean    html_object_is_text     (HTMLObject      *object);
+void        html_object_init        (HTMLObject           *o,
+				     HTMLObjectClass      *klass);
+void        html_object_class_init  (HTMLObjectClass      *klass,
+				     HTMLType              type);
+HTMLObject *html_object_new         (HTMLObject           *parent);
+void        html_object_destroy     (HTMLObject           *o);
+void        html_object_set_parent  (HTMLObject           *o,
+				     HTMLObject           *parent);
+void        html_object_reset       (HTMLObject           *o);
+gboolean    html_object_is_text     (HTMLObject           *object);
+void        html_object_forall      (HTMLObject           *self,
+				     HTMLObjectForallFunc  func,
+				     gpointer              data);
 
 /* Drawing-related stuff.  */
 void  html_object_draw  (HTMLObject  *o,
