@@ -21,7 +21,9 @@
 */
 
 #include <config.h>
+#include <gal/widgets/e-unicode.h>
 #include <gal/widgets/widget-color-combo.h>
+#include "htmlengine-edit.h"
 #include "htmlengine-edit-clueflowstyle.h"
 #include "htmlimage.h"
 #include "htmlcolor.h"
@@ -35,9 +37,9 @@ struct _GtkHTMLEditBodyProperties {
 	GtkHTMLControlData *cd;
 
 	GtkWidget *pixmap_entry;
-	GtkWidget *use_bg_image;
 	GtkWidget *option_template;
 	GtkWidget *combo [3];
+	GtkWidget *entry_title;
 
 	GdkColor   color [HTMLColors];
 	gboolean   color_changed [HTMLColors];
@@ -86,8 +88,7 @@ fill_sample (GtkHTMLEditBodyProperties *d)
 	gchar *body, *body_tag, *bg_image, *fname;
 	fname = gtk_entry_get_text (GTK_ENTRY (gnome_pixmap_entry_gtk_entry
 					       (GNOME_PIXMAP_ENTRY (d->pixmap_entry))));
-	bg_image = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (d->use_bg_image)) && fname
-		? g_strdup_printf (" background=\"%s\"", fname) : g_strdup ("");
+	bg_image = fname && *fname ? g_strdup_printf (" background=\"%s\"", fname) : g_strdup ("");
 	body_tag = g_strdup_printf ("<body bgcolor=#%02x%02x%02x link=#%02x%02x%02x text=#%02x%02x%02x%s>",
 				    d->color [HTMLBgColor].red >> 8,
 				    d->color [HTMLBgColor].green >> 8,
@@ -128,13 +129,6 @@ color_changed (GtkWidget *w, GdkColor *color, gboolean by_user, GtkHTMLEditBodyP
 	fill_sample (data);
 }
 
-static void
-bg_check_cb (GtkWidget *w, GtkHTMLEditBodyProperties *data)
-{
-	gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
-	fill_sample (data);
-}
-
 /* static gboolean
 hide_preview (GtkHTMLEditBodyProperties *d)
 {
@@ -146,8 +140,6 @@ hide_preview (GtkHTMLEditBodyProperties *d)
 static void
 entry_changed (GtkWidget *w, GtkHTMLEditBodyProperties *data)
 {
-	gchar *text = gtk_entry_get_text (GTK_ENTRY (w));
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->use_bg_image), (*text) ? TRUE : FALSE);
 	gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);	
 	fill_sample (data);
 }
@@ -245,11 +237,23 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 			    "selection-done", changed_template, data);
 	gtk_box_pack_start (GTK_BOX (hbox), data->option_template, FALSE, TRUE, 0);
 	gtk_container_add (GTK_CONTAINER (frame), hbox);
-	gtk_box_pack_start_defaults (GTK_BOX (vb1), frame);
+	gtk_box_pack_start (GTK_BOX (vb1), frame, FALSE, TRUE, 0);
+	
+	hbox = gtk_hbox_new (FALSE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (hbox), 3);
+	data->entry_title = gtk_entry_new ();
+	if (data->cd->html->engine->title && data->cd->html->engine->title->str) {
+		e_utf8_gtk_entry_set_text (GTK_ENTRY (data->entry_title), data->cd->html->engine->title->str);
+	}
+	gtk_signal_connect (GTK_OBJECT (data->entry_title), "changed", entry_changed, data);
+	gtk_box_pack_start_defaults (GTK_BOX (hbox), data->entry_title);
+	frame = gtk_frame_new (_("Document Title"));
+	gtk_container_add (GTK_CONTAINER (frame), hbox);
+	gtk_box_pack_start (GTK_BOX (vb1), frame, FALSE, TRUE, 0);	
+
 	frame = gtk_frame_new (_("Background Image"));
 	vbox = gtk_vbox_new (FALSE, 2);
 	gtk_container_border_width (GTK_CONTAINER (vbox), 3);
-	data->use_bg_image = gtk_check_button_new_with_label (_("Enable"));
 	data->pixmap_entry = gnome_pixmap_entry_new ("background_image", _("Background Image"), TRUE);
 
 	/* fix for broken gnome-libs, could be removed once gnome-libs are fixed */
@@ -264,15 +268,11 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 
 		 gtk_entry_set_text (GTK_ENTRY (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (data->pixmap_entry))),
 				     ip->url + off);
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->use_bg_image), TRUE);
-	} else
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->use_bg_image), FALSE);
+	}
 
-	gtk_signal_connect (GTK_OBJECT (data->use_bg_image), "toggled", bg_check_cb, data);
 	gtk_signal_connect (GTK_OBJECT (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (data->pixmap_entry))),
 			    "changed", GTK_SIGNAL_FUNC (entry_changed), data);
 
-	gtk_box_pack_start (GTK_BOX (vbox), data->use_bg_image, FALSE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (vbox), data->pixmap_entry, FALSE, FALSE, 0);
 
 	gtk_container_add (GTK_CONTAINER (frame), vbox);
@@ -322,6 +322,7 @@ body_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditBodyProperties *data = (GtkHTMLEditBodyProperties *) get_data;
 	gboolean redraw = FALSE;
+	gchar *fname;
 
 #define APPLY_COLOR(c) \
 	if (data->color_changed [c]) { \
@@ -333,11 +334,10 @@ body_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 	APPLY_COLOR (HTMLLinkColor);
 	APPLY_COLOR (HTMLBgColor);
 
-	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (data->use_bg_image))) {
+	fname = gtk_entry_get_text (GTK_ENTRY (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (data->pixmap_entry))));
+	if (fname && *fname) {
 		HTMLEngine *e = data->cd->html->engine;
-		gchar *file = g_strconcat ("file:", gtk_entry_get_text (GTK_ENTRY
-									(gnome_pixmap_entry_gtk_entry
-									 (GNOME_PIXMAP_ENTRY (data->pixmap_entry)))), NULL);
+		gchar *file = g_strconcat ("file:", fname, NULL);
 
 		if (e->bgPixmapPtr != NULL)
 			html_image_factory_unregister (e->image_factory, e->bgPixmapPtr, NULL);
@@ -348,6 +348,7 @@ body_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 
 	if (redraw)
 		gtk_widget_queue_draw (GTK_WIDGET (cd->html));
+	html_engine_set_title (data->cd->html->engine, e_utf8_gtk_entry_get_text (GTK_ENTRY (data->entry_title)));
 }
 
 void
