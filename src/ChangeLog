@@ -1,7 +1,7 @@
 2001-09-26  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine-edit-clueflowstyle.h: make the prototype match the
-	function.
+	function (spotted by Dan Nguyen <dnn@austin.ibm.com>).
 
 2001-09-25  Lauris Kaplinski  <lauris@ximian.com>
 
