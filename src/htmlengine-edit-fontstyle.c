@@ -204,7 +204,6 @@ figure_interval (HTMLObject *p,
 		 guint *start_return,
 		 guint *end_return)
 {
-	HTMLCursor *cstart, *cend;
 	guint start, end;
 
 	start = 0;

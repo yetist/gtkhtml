@@ -537,7 +537,7 @@ merge (HTMLText *self,
 		if (HTML_TEXT_MASTER (self)->select_length == 0) {
 			select_start = (HTML_TEXT_MASTER (other)->select_length
 					+ HTML_TEXT (self)->text_len);
-			select_length = HTML_TEXT (other)->text_len;
+			select_length = HTML_TEXT_MASTER (other)->select_length;
 		} else if (HTML_TEXT_MASTER (other)->select_length == 0) {
 			select_start = HTML_TEXT_MASTER (self)->select_start;
 			select_length = HTML_TEXT_MASTER (self)->select_length;

@@ -1,3 +1,11 @@
+2000-05-08  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine-edit-fontstyle.c (figure_interval): Get rid of unused
+	variables.
+
+	* htmltextmaster.c (merge): Fix broken merging in the case in
+	which the select length of self is zero.
+
 2000-05-08  Larry Ewing  <lewing@helixcode.com>
 
 	* gtkhtml.c (button_press_event): let button 2 request a paste.
@@ -52,7 +60,6 @@
 	* htmlengine-edit-delete.c
 	(html_engine_delete): Avoid looking for the end point beyond the
 	end of the text.
-
 	(merge_text_at_cursor): If merging is not possible, return the
 	current offset unmodified.
 
