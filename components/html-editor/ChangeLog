@@ -1,3 +1,10 @@
+2001-08-20  Radek Doulik  <rodo@ximian.com>
+
+	* popup.c (prepare_properties_and_menu): added spell checker
+	submenu
+	(spell_add): new callback
+	(spell_ignore): ditto
+
 2001-08-20  Larry Ewing  <lewing@ximian.com>
 
 	* GNOME_GtkHTML_Editor.xml.in: add new format menu item that

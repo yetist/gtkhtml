@@ -25,6 +25,7 @@
 #endif
 
 #include "gtkhtml.h"
+#include "htmlclueflow.h"
 #include "htmlcursor.h"
 #include "htmlengine.h"
 #include "htmllinktext.h"
@@ -218,6 +219,13 @@ prop_dialog (GtkWidget *mi, GtkHTMLControlData *cd)
 	show_prop_dialog (cd, GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (mi), "type")));
 }
 
+static inline void
+recheck (HTMLEngine *e)
+{
+	if (e->cursor->object->parent && HTML_IS_CLUEFLOW (e->cursor->object->parent))
+		html_clueflow_spell_check (HTML_CLUEFLOW (e->cursor->object->parent), e, NULL);
+}
+
 static void
 spell_suggest (GtkWidget *mi, GtkHTMLControlData *cd)
 {
@@ -226,6 +234,24 @@ spell_suggest (GtkWidget *mi, GtkHTMLControlData *cd)
 	/* gtk_signal_emit_by_name (GTK_OBJECT (cd->html), "spell_suggestion_request",
 	   e->spell_checker, html_engine_get_word (e)); */
 	spell_suggestion_request (cd->html, html_engine_get_word (e), cd);
+}
+
+static void
+spell_add (GtkWidget *mi, GtkHTMLControlData *cd)
+{
+	HTMLEngine *e = cd->html->engine;
+
+	spell_add_to_personal (cd->html, html_engine_get_word (e), cd);
+	recheck (e);
+}
+
+static void
+spell_ignore (GtkWidget *mi, GtkHTMLControlData *cd)
+{
+	HTMLEngine *e = cd->html->engine;
+
+	spell_add_to_session (cd->html, html_engine_get_word (e), cd);
+	recheck (e);
 }
 
 #ifdef DEBUG
@@ -307,8 +333,20 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 #endif
 
 	if (!html_engine_is_selection_active (e) && obj && html_object_is_text (obj) && !html_engine_word_is_valid (e)) {
-		ADD_SEP;
+		gchar *word, *ignore, *add;
+
+		word   = html_engine_get_word (e);
+		add    = g_strdup_printf (_("Add '%s' to dictionary"), word);
+		ignore = g_strdup_printf (_("Ignore '%s'"), word);
+		SUBMENU (N_("Spell checker"));
 		ADD_ITEM (_("Suggest word"), spell_suggest, NONE);
+		ADD_ITEM (add, spell_add, NONE);
+		ADD_ITEM (ignore, spell_ignore, NONE);
+		END_SUBMENU;
+
+		g_free (add);
+		g_free (ignore);
+		g_free (word);
 	}
 
 	if (cd->format_html && (html_engine_is_selection_active (e)
@@ -317,6 +355,7 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 					|| (HTML_OBJECT_TYPE (obj) == HTML_TYPE_IMAGE
 					    && (HTML_IMAGE (obj)->url
 						|| HTML_IMAGE (obj)->target)))))) {
+		ADD_SEP;
 		ADD_ITEM (_("Remove link"), remove_link, NONE);
 	}
 
