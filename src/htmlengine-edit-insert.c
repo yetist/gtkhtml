@@ -245,6 +245,9 @@ insert_chars_at_not_text (HTMLEngine *e,
 	html_engine_queue_draw (e, new_text);
 	html_object_relayout (curr->parent, e, new_text);
 
+	e->cursor->object = new_text;
+	e->cursor->offset = 0;
+
 	return HTML_TEXT (new_text)->text_len;
 }
 

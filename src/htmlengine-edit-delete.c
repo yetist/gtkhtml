@@ -208,7 +208,7 @@ delete_same_parent (HTMLEngine *e,
 		p = pnext;
 	}
 
-	html_object_relayout (parent, e, start_object);
+	html_object_relayout (parent, e, e->cursor->object);
 }
 
 /* This destroys object from the cursor backwards to the specified
@@ -399,7 +399,12 @@ html_engine_delete (HTMLEngine *e,
 	orig_offset = e->cursor->offset;
 
 	if (! html_object_is_text (orig_object)) {
-		destroy_orig = TRUE;
+		if (orig_offset)
+			destroy_orig = FALSE;
+		else {
+			destroy_orig = TRUE;
+			count++;
+		}
 	} else {
 		append_to_buffer (&save_buffer, &save_buffer_last,
 				  HTML_OBJECT (html_text_extract_text (HTML_TEXT (orig_object),
@@ -461,24 +466,29 @@ html_engine_delete (HTMLEngine *e,
 			count--;
 	}
 
-	if (e->cursor->offset > 1 && html_object_is_text (e->cursor->object))
-		html_text_remove_text (HTML_TEXT (e->cursor->object), e,
-				       0, e->cursor->offset - 1);
-
-	e->cursor->offset = 0;
-
 	if (curr->parent == orig_object->parent)
 		delete_same_parent (e, orig_object, destroy_orig, &save_buffer, &save_buffer_last);
 	else
 		delete_different_parent (e, orig_object, destroy_orig, &save_buffer, &save_buffer_last);
 
-	e->cursor->offset += merge_text_at_cursor (e);
+	if (destroy_orig)
+		html_cursor_backward (e->cursor, e);
+
+	if (e->cursor->offset >= 1 && html_object_is_text (e->cursor->object)) {
+		append_to_buffer (&save_buffer, &save_buffer_last,
+				  HTML_OBJECT (html_text_extract_text (HTML_TEXT (e->cursor->object),
+								       0, e->cursor->offset)));
+		html_text_remove_text (HTML_TEXT (e->cursor->object), e,
+				       0, e->cursor->offset);
+	}
+
+	e->cursor->offset = merge_text_at_cursor (e);
 
  end:
+	e->cursor->position = saved_position;
+
 	if (do_undo)
 		setup_undo (e, create_action_data (save_buffer, backwards));
-
-	e->cursor->position = saved_position;
 
 	html_cursor_normalize (e->cursor);
 	html_engine_show_cursor (e);

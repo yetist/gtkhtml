@@ -1,3 +1,17 @@
+2000-05-05  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine-edit-delete.c (html_engine_delete): restore cursor
+	position before do_undo
+	(html_engine_delete): if remove text from last object, save it
+	also in save_buffer
+	(html_engine_delete): destroy_orig only if it is on object begin,
+	when offset ==0, if destroy_orig for nontext increase count,
+	so we move one more point forward, later move one point backward
+	if destroy_orig
+
+	* htmlengine-edit-insert.c (insert_chars_at_not_text): set cursor
+	to beggining of inserted text
+
 2000-05-05  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlembedded.c (draw): queue a draw on the widget when we get a
