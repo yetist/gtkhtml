@@ -1,3 +1,8 @@
+2003-06-28  Alex Jiang <alex.jiang@sun.com>
+
+	* image.c (changed_template): before clear option data, check 
+	if we are using the same template. Fixes #44705
+
 2003-07-18  Antonio Xu <antonio.xu@sun.com>
 
 	* image.c : (get_sample_html) : change some no sense text.
