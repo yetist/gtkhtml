@@ -304,7 +304,7 @@ language_cb (BonoboUIComponent *uic, const char *path, Bonobo_UIComponent_EventT
 	gchar *val;
 	gint i;
 
-	if (cd->block_language_changes)
+	if (cd->block_language_changes || !cd->languages)
 		return;
 
 	/* printf ("language callback %s\n", path); */
