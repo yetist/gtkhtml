@@ -2839,31 +2839,19 @@ scroll (GtkHTML *html,
 		return;
 	}
 
-	adj->value = CLAMP (adj->value + delta, adj->lower, adj->upper - adj->page_size);
-	gtk_adjustment_value_changed (adj);
+	gtk_adjustment_set_value (adj, CLAMP (adj->value + delta, adj->lower, MAX (0.0, adj->upper - adj->page_size)));
 
 	html->binding_handled = TRUE;
 }
 
 static void
-scroll_by_amount (GtkHTML *html,
-		  gint amount)
+scroll_by_amount (GtkHTML *html, gint amount)
 {
-	GtkLayout *layout;
 	GtkAdjustment *adj;
-	gfloat new_value;
-	gfloat max;
 
-	layout = GTK_LAYOUT (html);
-	adj = layout->vadjustment;
-
-	new_value = adj->value + (gfloat) amount;
-
-	max = MAX (0.0, adj->upper - adj->page_size);
-
-	new_value = CLAMP (new_value, adj->lower, max);
-
-	gtk_adjustment_set_value (adj, new_value);
+	adj = GTK_LAYOUT (html)->vadjustment;
+	gtk_adjustment_set_value (adj,
+				  CLAMP (adj->value + (gfloat) amount, adj->lower, MAX (0.0, adj->upper - adj->page_size)));
 }
 
 static void

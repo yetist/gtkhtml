@@ -1,3 +1,8 @@
+2001-11-26  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (scroll): use MAX (0, upper) to avoid negative values
+	(scroll_by_amount): refactored - remove redundant local variables
+
 2001-11-21  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (selection_clear_event): unselect only when widget is
