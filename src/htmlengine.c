@@ -69,8 +69,6 @@ guint html_engine_signals [LAST_SIGNAL] = { 0 };
 #define TIMER_INTERVAL 30
 #define INDENT_SIZE 30
 
-extern gint defaultFontSizes [7];
-
 enum ID {
 	ID_ADDRESS, ID_B, ID_BIG, ID_BLOCKQUOTE, ID_CAPTION, ID_CITE, ID_CODE,
 	ID_DIR, ID_DIV, ID_EM, ID_FONT, ID_HEADER, ID_I, ID_KBD, ID_OL, ID_PRE,
@@ -276,9 +274,56 @@ set_base_url (HTMLEngine *e, const gchar *url)
 /* FIXME FIXME FIXME this is just a dummy.  */
 static void
 select_font_relative (HTMLEngine *e,
-		      gint relative_font_size)
+		      gint _relative_font_size)
 {
-	html_engine_select_font (e);
+	HTMLFont *top;
+	HTMLFont *f;
+	gint fontsize;
+
+	e->fontsize = e->settings->fontBaseSize + _relative_font_size;
+
+	top = html_stack_top (e->fs);
+	if ( top == NULL) {
+		fontsize = e->settings->fontBaseSize;
+		return;
+	}
+
+	if ( e->fontsize < 0 )
+		e->fontsize = 0;
+	else if ( e->fontsize >= HTML_NUM_FONT_SIZES )
+		e->fontsize = HTML_NUM_FONT_SIZES - 1;
+
+	f = html_font_new ( top->family, e->fontsize,
+			    e->settings->fontSizes,
+			    e->bold, e->italic, e->underline);
+	html_font_set_color (f, html_stack_top (e->cs));
+
+	html_stack_push (e->fs, f);
+	html_painter_set_font (e->painter, f);
+}
+
+static void
+select_font_full (HTMLEngine *e,
+		  const gchar *_fontfamily,
+		  guint _fontsize,
+		  guint _bold,
+		  gboolean _italic,
+		  gboolean _underline)
+{
+	HTMLFont *f;
+
+	if ( _fontsize < 0 )
+		_fontsize = 0;
+	else if ( _fontsize >= HTML_NUM_FONT_SIZES )
+		_fontsize = HTML_NUM_FONT_SIZES - 1;
+
+	f = html_font_new ( _fontfamily, _fontsize, e->settings->fontSizes,
+			    _bold, _italic, _underline);
+
+	html_font_set_color (f, html_stack_top (e->cs));
+
+	html_stack_push (e->fs, f);
+	html_painter_set_font (e->painter, f);
 }
 
 /* FIXME this implementation is a bit lame.  :-) */
@@ -416,8 +461,8 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	HAlignType olddivalign = e->divAlign;
 	HTMLClue *oldflow = HTML_CLUE (e->flow);
 	gint oldindent = e->indent;
-	GdkColor tableColor, rowColor, bgcolor;
-	gboolean have_tableColor, have_rowColor, have_bgcolor;
+	GdkColor tableColor, rowColor, bgColor;
+	gboolean have_tableColor, have_rowColor, have_bgColor;
 	gint rowSpan;
 	gint colSpan;
 	gint cellwidth;
@@ -428,7 +473,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 
 	have_tableColor = FALSE;
 	have_rowColor = FALSE;
-	have_bgcolor = FALSE;
+	have_bgColor = FALSE;
 
 	g_print ("start parse\n");
 	string_tokenizer_tokenize (e->st, attr, " >");
@@ -462,7 +507,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 				align = Right;
 		}
 		else if (strncasecmp (token, "bgcolor=", 8) == 0
-			 /* && !defaultSettings->forceDefault */) {
+			 && !e->defaultSettings->forceDefault) {
 			if (html_engine_set_named_color (e, &tableColor, token + 8)) {
 				rowColor = tableColor;
 				have_rowColor = have_tableColor = TRUE;
@@ -609,10 +654,10 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					fixedWidth = FALSE;
 
 					if (have_rowColor) {
-						bgcolor = rowColor;
-						have_bgcolor = TRUE;
+						bgColor = rowColor;
+						have_bgColor = TRUE;
 					} else {
-						have_bgcolor = FALSE;
+						have_bgColor = FALSE;
 					}
 
 					valign = (rowvalign == VNone ?
@@ -670,9 +715,9 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 								}
 							}
 							else if (strncasecmp (token, "bgcolor=", 8) == 0
-								 /*&& !defaultSettings->forceDefault FIXME*/) {
-								have_bgcolor
-									= html_engine_set_named_color (e, &bgcolor,
+								 && !e->defaultSettings->forceDefault) {
+								have_bgColor
+									= html_engine_set_named_color (e, &bgColor,
 												       token + 8);
 							}
 						}
@@ -683,7 +728,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 										     rowSpan, colSpan,
 										     padding));
 					html_object_set_bg_color (HTML_OBJECT (cell),
-								  have_bgcolor ? &bgcolor : NULL);
+								  have_bgColor ? &bgColor : NULL);
 					HTML_CLUE (cell)->valign = valign;
 					if (fixedWidth)
 						HTML_OBJECT (cell)->flags |= HTML_OBJECT_FLAG_FIXEDWIDTH;
@@ -978,13 +1023,11 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 				e->vspace_inserted = FALSE;
 
 				if ( visited )
-					html_stack_push (e->cs, gdk_color_copy (html_stack_top (e->cs)));
-				/*  new QColor(settings->vLinkColor) */
+					html_stack_push (e->cs, gdk_color_copy (&e->settings->vLinkColor));
 				else
-					html_stack_push (e->cs, gdk_color_copy (html_stack_top (e->cs)));
-				/*  new QColor( settings->linkColor) */
+					html_stack_push (e->cs, gdk_color_copy (&e->settings->linkColor));
 
-				if (TRUE /*  FIXME TODO settings->underlineLinks */ )
+				if (e->settings->underlineLinks)
 					e->underline = TRUE;
 
 				html_engine_select_font (e);
@@ -1046,7 +1089,7 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	} else if ( strncmp(str, "/blockquote", 11 ) == 0 ) {
 		pop_block (e, ID_BLOCKQUOTE, clue);
 	} else if (strncmp (str, "body", 4) == 0) {
-		GdkColor bgcolor;
+		GdkColor bgColor;
 		gboolean bgColorSet = FALSE;
 
 		if (e->bodyParsed) {
@@ -1063,7 +1106,7 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 			if (strncasecmp (token, "bgcolor=", 8) == 0) {
 				g_print ("setting color\n");
-				if (html_engine_set_named_color (e, &bgcolor, token + 8)) {
+				if (html_engine_set_named_color (e, &bgColor, token + 8)) {
 					g_print ("bgcolor is set\n");
 					bgColorSet = TRUE;
 				} else {
@@ -1071,77 +1114,76 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				}
 			}
 			else if (strncasecmp (token, "background=", 11) == 0
-				 /* !defaultSettings->forceDefault */) {
+				 && !e->defaultSettings->forceDefault) {
 				char *realurl;
 
 				realurl = html_engine_canonicalize_url(e, token + 11);
 				e->bgPixmapPtr = html_image_factory_register(e->image_factory, NULL, realurl);
 				g_free(realurl);
+			} else if ( strncasecmp( token, "text=", 5 ) == 0
+				    && !e->defaultSettings->forceDefault ) {
+				html_engine_set_named_color (e,
+							     &e->settings->fontBaseColor,
+							     token+5 );
+				gdk_color_free (html_stack_pop (e->cs));
+				html_stack_push (e->cs, gdk_color_copy (&e->settings->fontBaseColor));
+				html_engine_select_font (e);
+			} else if ( strncasecmp( token, "link=", 5 ) == 0
+				    && !e->defaultSettings->forceDefault ) {
+				html_engine_set_named_color (e,
+							     &e->settings->linkColor,
+							     token+5 );
+			} else if ( strncasecmp( token, "vlink=", 6 ) == 0
+				    && !e->defaultSettings->forceDefault ) {
+				html_engine_set_named_color (e,
+							     &e->settings->vLinkColor,
+							     token+5 );
 			}
 		}
-
 #if 0
-		else if ( strncasecmp( token, "text=", 5 ) == 0 &&
-			  !defaultSettings->forceDefault )
-		{
-			setNamedColor(settings->fontBaseColor, token+5 );
-			*(colorStack.top()) = settings->fontBaseColor;
-			selectFont();
-		}
-		else if ( strncasecmp( token, "link=", 5 ) == 0 &&
-			  !defaultSettings->forceDefault )
-		{
-			setNamedColor(settings->linkColor, token+5 );
-		}
-		else if ( strncasecmp( token, "vlink=", 6 ) == 0 &&
-			  !defaultSettings->forceDefault )
-		{
-			setNamedColor(settings->vLinkColor, token+6 );
-		}
-	}
+		if ( !bgColorSet || defaultSettings->forceDefault )
+			{
+				QPalette pal = palette().copy();
+				QColorGroup cg = pal.normal();
+				QColorGroup newGroup( cg.foreground(), defaultSettings->bgColor,
+						      cg.light(), cg.dark(), cg.mid(), cg.text(),
+						      defaultSettings->bgColor );
+				pal.setNormal( newGroup );
+				setPalette( pal );
 
-	if ( !bgColorSet || defaultSettings->forceDefault )
-	{
-		QPalette pal = palette().copy();
-		QColorGroup cg = pal.normal();
-		QColorGroup newGroup( cg.foreground(), defaultSettings->bgColor,
-				      cg.light(), cg.dark(), cg.mid(), cg.text(),
-				      defaultSettings->bgColor );
-		pal.setNormal( newGroup );
-		setPalette( pal );
+				// simply testing if QColor == QColor fails!?, so we must compare
+				// each RGB
+				if ( defaultSettings->bgColor.red() != settings->bgColor.red() ||
+				     defaultSettings->bgColor.green() != settings->bgColor.green() ||
+				     defaultSettings->bgColor.blue() != settings->bgColor.blue() ||
+				     bDrawBackground )
+					{
+						settings->bgColor = defaultSettings->bgColor;
+						setBackgroundColor( settings->bgColor );
+					}
+			}
+		else
+			{
+				QPalette pal = palette().copy();
+				QColorGroup cg = pal.normal();
+				QColorGroup newGroup( cg.foreground(), settings->bgColor,
+						      cg.light(), cg.dark(), cg.mid(), cg.text(), settings->bgColor );
+				pal.setNormal( newGroup );
+				setPalette( pal );
 
-		// simply testing if QColor == QColor fails!?, so we must compare
-		// each RGB
-		if ( defaultSettings->bgColor.red() != settings->bgColor.red() ||
-		     defaultSettings->bgColor.green() != settings->bgColor.green() ||
-		     defaultSettings->bgColor.blue() != settings->bgColor.blue() ||
-		     bDrawBackground )
-		{
-			settings->bgColor = defaultSettings->bgColor;
-			setBackgroundColor( settings->bgColor );
-		}
-	}
-	else
-	{
-		QPalette pal = palette().copy();
-		QColorGroup cg = pal.normal();
-		QColorGroup newGroup( cg.foreground(), settings->bgColor,
-				      cg.light(), cg.dark(), cg.mid(), cg.text(), settings->bgColor );
-		pal.setNormal( newGroup );
-		setPalette( pal );
-
-		if ( settings->bgColor.red() != bgColor.red() ||
-		     settings->bgColor.green() != bgColor.green() ||
-		     settings->bgColor.blue() != bgColor.blue() ||
-		     bDrawBackground )
-		{
-			settings->bgColor = bgColor;
-			setBackgroundColor( settings->bgColor );
-		}
+				if ( settings->bgColor.red() != bgColor.red() ||
+				     settings->bgColor.green() != bgColor.green() ||
+				     settings->bgColor.blue() != bgColor.blue() ||
+				     bDrawBackground )
+					{
+						settings->bgColor = bgColor;
+						setBackgroundColor( settings->bgColor );
+					}
+			}
 #endif
 
 		if (bgColorSet)
-			e->bgColor = bgcolor;
+			e->bgColor = bgColor;
 
 		g_print ("parsed <body>\n");
 	}
@@ -1198,12 +1240,9 @@ parse_c (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	else if (strncmp( str, "/cite", 5) == 0) {
 		pop_block (e, ID_CITE, clue);
 	} else if (strncmp(str, "code", 4 ) == 0 ) {
-		/* FIXME wrong/TODO */
-		/* selectFont( settings->fixedFontFace, settings->fontBaseSize,
-		   QFont::Normal, FALSE ); */
-		e->italic = FALSE;
-		e->bold = FALSE;
-		html_engine_select_font (e);
+		select_font_full (e, e->settings->fixedFontFace,
+				  e->settings->fontBaseSize, FALSE,
+				  FALSE, FALSE);
 		push_block (e, ID_CODE, 1, block_end_font, 0, 0);
 	} else if (strncmp(str, "/code", 5 ) == 0 ) {
 		pop_block (e, ID_CODE, clue);
@@ -1411,48 +1450,50 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 			html_engine_new_flow (p, clue);
 		HTML_CLUE (p->flow)->halign = align;
 
+		p->bold = TRUE;
+		p->italic = FALSE;
+
 		switch (str[1]) {
 		case '1':
 			p->bold = TRUE;
-			p->fontsize += 3;
+			p->italic = FALSE;
+			select_font_relative (p, +3);
 			break;
 
 		case '2':
 			p->bold = TRUE;
 			p->italic = FALSE;
-			p->fontsize += 2;
+			select_font_relative (p, +2);
 			break;
 
 		case '3':
 			p->bold = TRUE;
 			p->italic = FALSE;
-			p->fontsize += 2;
+			select_font_relative (p, +1);
 			break;
 
 		case '4':
 			p->bold = TRUE;
 			p->italic = FALSE;
-			p->fontsize += 1;
+			select_font_relative (p, 0);
 			break;
 
 		case '5':
 			p->bold = FALSE;
 			p->italic = TRUE;
+			select_font_relative (p, 0);
 			break;
 
 		case '6':
 			p->bold = TRUE;
 			p->italic = FALSE;
-			p->fontsize -= 1;
+			select_font_relative (p, -1);
 			break;
 		}
 
-		html_engine_select_font (p);
-
 		/* Insert a vertical space and restore the old font at the closing
 		   tag.  */
-		push_block (p, ID_HEADER, 2, block_end_font,
-			    TRUE, 0);
+		push_block (p, ID_HEADER, 2, block_end_font, TRUE, 0);
 	} else if (*(str) == '/' && *(str + 1) == 'h' &&
 		   ( *(str+2)=='1' || *(str+2)=='2' || *(str+2)=='3' ||
 		     *(str+2)=='4' || *(str+2)=='5' || *(str+2)=='6' )) {
@@ -1701,7 +1742,7 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 			html_clue_append (HTML_CLUE (p->flow),
 					  html_bullet_new (font->pointSize,
 							   listLevel,
-							   &p->settings->fontbasecolor));
+							   &p->settings->fontBaseColor));
 			break;
 
 		case HTML_LIST_TYPE_ORDERED:
@@ -1881,13 +1922,10 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	if ( strncmp( str, "pre", 3 ) == 0 ) {
 		e->vspace_inserted = html_engine_insert_vspace (e, clue,
 								e->vspace_inserted );
-#if 0							/* FIXME */
-		selectFont( settings->fixedFontFace, settings->fontBaseSize,
-			    QFont::Normal, FALSE );
-#else
-		e->bold = TRUE;			/* fake, so that we get a font on the stack */
-		html_engine_select_font (e);
-#endif
+		select_font_full ( e,
+				   e->settings->fixedFontFace,
+				   e->settings->fontBaseSize,
+				   FALSE, FALSE, FALSE );
 		e->flow = 0;
 		e->inPre = TRUE;
 		push_block (e, ID_PRE, 2, block_end_pre, 0, 0);
@@ -1960,13 +1998,9 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		gtk_signal_emit (GTK_OBJECT (e->widget), html_signals[TITLE_CHANGED]);
 	}
 	else if ( strncmp( str, "tt", 2 ) == 0 ) {
-#if 0
-		selectFont( settings->fixedFontFace, settings->fontBaseSize,
-			    QFont::Normal, FALSE );
-#else
-		e->bold = TRUE;
-		html_engine_select_font (e);
-#endif
+		select_font_full ( e, e->settings->fixedFontFace,
+				   e->settings->fontBaseSize,
+				   FALSE, FALSE, FALSE );
 		push_block (e, ID_TT, 1, block_end_font, 0, 0);
 	} else if ( strncmp( str, "/tt", 3 ) == 0 ) {
 		pop_block (e, ID_TT, clue);
@@ -2133,6 +2167,7 @@ html_engine_destroy (GtkObject *object)
 	html_tokenizer_destroy   (engine->ht);
 	string_tokenizer_destroy (engine->st);
 	html_settings_destroy    (engine->settings);
+	html_settings_destroy    (engine->defaultSettings);
 	html_painter_destroy     (engine->painter);
 	html_image_factory_free  (engine->image_factory);
 
@@ -2182,6 +2217,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->ht = html_tokenizer_new ();
 	engine->st = string_tokenizer_new ();
 	engine->settings = html_settings_new ();
+	engine->defaultSettings = html_settings_new ();
 	engine->painter = html_painter_new ();
 	engine->image_factory = html_image_factory_new(engine);
 
@@ -2502,7 +2538,6 @@ void
 html_engine_parse (HTMLEngine *p)
 {
 	HTMLFont *f;
-	GdkColor *c;
 
 	g_print ("parse\n");
 	html_engine_stop_parser (p);
@@ -2522,7 +2557,10 @@ html_engine_parse (HTMLEngine *p)
 	p->bold = FALSE;
 	p->fontsize = p->settings->fontBaseSize;
 
-	f = html_font_new ("lucida", p->settings->fontBaseSize, defaultFontSizes, p->bold, p->italic, p->underline);
+	f = html_font_new (p->settings->fontBaseFace,
+			   p->settings->fontBaseSize,
+			   p->defaultSettings->fontSizes,
+			   p->bold, p->italic, p->underline);
 
 	html_stack_push (p->fs, f);
 
@@ -2532,14 +2570,15 @@ html_engine_parse (HTMLEngine *p)
 		p->bgPixmapPtr = NULL;
 	}
 
+	html_settings_alloc_colors
+		(p->defaultSettings,
+		 gdk_window_get_colormap (html_painter_get_window (p->painter)));
+	html_settings_copy (p->settings, p->defaultSettings);
+
 	/* Free the background color (if any) and alloc a new one */
-	p->bgColor = p->settings->bgcolor;
+	p->bgColor = p->settings->bgColor;
 
-	/* FIXME: is this nice to do? */
-	c = g_new0 (GdkColor, 1);
-	gdk_color_black (gdk_window_get_colormap (html_painter_get_window (p->painter)), c);
-	html_stack_push (p->cs, c);
-
+	html_stack_push (p->cs, gdk_color_copy (&p->settings->fontBaseColor));
 	html_font_set_color (f, html_stack_top (p->cs));
 
 	p->bodyParsed = FALSE;
@@ -2562,7 +2601,8 @@ html_engine_insert_vspace (HTMLEngine *e, HTMLObject *clue, gboolean vspace_inse
 		html_clue_append (HTML_CLUE (clue), f);
 
 		/* FIXME: correct font size */
-		t = html_vspace_new (defaultFontSizes[e->settings->fontBaseSize], CNone);
+		t = html_vspace_new (e->defaultSettings->fontSizes[e->settings->fontBaseSize],
+				     CNone);
 		html_clue_append (HTML_CLUE (f), t);
 		
 		e->flow = NULL;
@@ -2582,7 +2622,8 @@ html_engine_select_font (HTMLEngine *e)
 		e->fontsize = MAXFONTSIZES - 1;
 
 	g = html_stack_top (e->fs);
-	f = html_font_new (g->family, e->fontsize, defaultFontSizes,
+	f = html_font_new (g->family, e->fontsize,
+			   e->defaultSettings->fontSizes,
 			   e->bold, e->italic, e->underline);
 
 	html_font_set_color (f, html_stack_top (e->cs));

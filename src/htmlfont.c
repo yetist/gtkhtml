@@ -21,13 +21,17 @@
 */
 #include "htmlfont.h"
 
-/* FIXME: Fix a better one */
-gint defaultFontSizes [7] = {8, 10, 12, 14, 18, 24, 24};
-
+
 static GdkFont *create_gdk_font (gchar *family, gint size, gboolean bold, gboolean italic);
 
+
 HTMLFont *
-html_font_new (gchar *family, gint size, gint *fontSizes, gboolean bold, gboolean italic, gboolean underline)
+html_font_new (gchar *family,
+	       gint size,
+	       gint *fontSizes,
+	       gboolean bold,
+	       gboolean italic,
+	       gboolean underline)
 {
 	gchar *xlfd;
 	HTMLFont *f;
@@ -59,8 +63,7 @@ create_gdk_font (gchar *family, gint size, gboolean bold, gboolean italic)
 	gint realsize;
 	GdkFont *font;
 
-	/* FIXME: a better way to find out the size */
-	realsize = size - 2;
+	realsize = size;
 
 	if (bold)
 		boldstr = "bold";

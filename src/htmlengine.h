@@ -105,7 +105,9 @@ struct _HTMLEngine {
 
 	HTMLPainter *painter;
 	HTMLBlockStackElement *blockStack;
+
 	HTMLSettings *settings;
+	HTMLSettings *defaultSettings;
 
 	/* timer id to schedule paint events */
 	guint updateTimer;

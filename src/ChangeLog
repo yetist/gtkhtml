@@ -1,5 +1,40 @@
 1999-11-28  Ettore Perazzoli  <ettore@gnu.org>
 
+	* htmlengine.c (parse_b): Handle `link=', `vlink=' and `text=' in
+	`<body>'.
+	(html_engine_init): Allocate `defaultSettings'.
+	(html_engine_destroy): Free it.
+	(html_engine_parse): AAARGH!  Colors must *never* be allocated
+	with `g_new()'!  Anyway, we needed to push the default color, not
+	an arbitrary black.
+	(html_engine_parse): Allocate colors in the defaultSettings and
+	copy to the settings.  Use the settings to set the initial font.
+	(parse_a): Color and underline links according to the settings.
+	(parse_table): Honour the `forceDefault' flag in the settings.
+	(select_font_full): New helper function.
+	(parse_c): Use it.  Set the correct font for `<code>'.
+	(select_font_relative): New function.
+	(parse_h): Use it to deal with header font sizes correctly.
+	(parse_t): Use correct font for `<tt>'.
+	(parse_p): Use correct font for `<pre>'.
+
+	* htmlengine.h: New member `defaultSettings' in `HTMLEngine'.
+
+	* htmlsettings.c (html_settings_set_font_sizes): New function.
+	(html_settings_get_font_sizes): New function.
+	(html_settings_reset_font_sizes): New function.
+	(HTML_NUM_FONT_SIZES): New constant.
+	(html_settings_alloc_colors): New function.
+	(html_settings_copy): New function.
+	(html_settings_set_fixed_font_face): New function.
+	(html_settings_set_font_base_face): New function.
+
+	* htmlsettings.h: Updated `HTMLSettings' to contain all the fields
+	in the original KHTMLW code.  `fontbasesize' renamed to
+	`fontBaseSize' and `bgcolor' to `bgColor', for consistency.
+
+1999-11-28  Ettore Perazzoli  <ettore@gnu.org>
+
 	* htmlengine.c (select_font_relative): Call `html_engine_set_font'
 	so that it does not crash.
 

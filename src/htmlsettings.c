@@ -19,23 +19,43 @@
     the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
     Boston, MA 02111-1307, USA.
 */
+
 #include <gdk/gdk.h>
 #include "htmlsettings.h"
 
+
+static const int defaultFontSizes[HTML_NUM_FONT_SIZES] =
+	{ 8, 10, 12, 14, 18, 24 };
+
+
 HTMLSettings *
 html_settings_new (void)
 {
 	HTMLSettings *s = g_new0 (HTMLSettings, 1);
 	
 	s->fontBaseSize = 3;
+	s->fontBaseColor.red = 0x0000;
+	s->fontBaseColor.green = 0x0000;
+	s->fontBaseColor.blue = 0x0000;
+	s->fontBaseFace = g_strdup ("times");
+	s->fixedFontFace = g_strdup ("courier");
 
-	s->fontbasecolor.red = 0;
-	s->fontbasecolor.green = 0;
-	s->fontbasecolor.blue = 0;
+	s->linkColor.red = 0x0000;
+	s->linkColor.green = 0x0000;
+	s->linkColor.blue = 0xf000;
 
-	s->bgcolor.red = 0xff;
-	s->bgcolor.green = 0xff;
-	s->bgcolor.blue = 0xff;
+	s->vLinkColor.red = 0xf000;
+	s->vLinkColor.green = 0x0000;
+	s->vLinkColor.blue = 0xf000;
+
+	s->bgColor.red = 0xf000;
+	s->bgColor.green = 0xf000;
+	s->bgColor.blue = 0xf000;
+
+	s->underlineLinks = TRUE;
+	s->forceDefault = FALSE;
+
+	html_settings_reset_font_sizes (s);
 
 	return s;
 }
@@ -44,6 +64,9 @@ void
 html_settings_destroy (HTMLSettings *settings)
 {
 	g_return_if_fail (settings != NULL);
+
+	g_free (settings->fontBaseFace);
+	g_free (settings->fixedFontFace);
 
 	g_free (settings);
 }
@@ -54,5 +77,70 @@ html_settings_set_bgcolor (HTMLSettings *settings, GdkColor *color)
 	g_return_if_fail (settings != NULL);
 	g_return_if_fail (color != NULL);
 
-	settings->bgcolor = *color;
+	settings->bgColor = *color;
+}
+
+void
+html_settings_set_font_sizes (HTMLSettings *settings,
+			      const gint *newFontSizes)
+{
+	guint i;
+
+	for (i = 0; i < HTML_NUM_FONT_SIZES; i++)
+		settings->fontSizes[i] = newFontSizes[i];
+}
+
+void
+html_settings_get_font_sizes (HTMLSettings *settings,
+			      gint *fontSizes)
+{
+	guint i;
+
+	for (i = 0; i < HTML_NUM_FONT_SIZES; i++)
+		fontSizes[i] = settings->fontSizes[i];
+}
+
+void
+html_settings_reset_font_sizes (HTMLSettings *settings)
+{
+	html_settings_set_font_sizes (settings, defaultFontSizes);
+}
+
+void
+html_settings_alloc_colors (HTMLSettings *settings,
+			    GdkColormap *colormap)
+{
+	gdk_color_alloc (colormap, &settings->fontBaseColor);
+	gdk_color_alloc (colormap, &settings->linkColor);
+	gdk_color_alloc (colormap, &settings->vLinkColor);
+	gdk_color_alloc (colormap, &settings->bgColor);
+}
+
+void
+html_settings_copy (HTMLSettings *dest,
+		    HTMLSettings *src)
+{
+	g_free (dest->fontBaseFace);
+	g_free (dest->fixedFontFace);
+
+	memcpy (dest, src, sizeof (*dest));
+
+	dest->fontBaseFace = g_strdup (src->fontBaseFace);
+	dest->fixedFontFace = g_strdup (src->fixedFontFace);
+}
+
+void
+html_settings_set_font_base_face (HTMLSettings *settings,
+				  const gchar *face)
+{
+	g_free (settings->fontBaseFace);
+	settings->fontBaseFace = g_strdup (face);
+}
+
+void
+html_settings_set_fixed_font_face (HTMLSettings *settings,
+				   const gchar *face)
+{
+	g_free (settings->fixedFontFace);
+	settings->fixedFontFace = g_strdup (face);
 }
