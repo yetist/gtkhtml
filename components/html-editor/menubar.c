@@ -72,7 +72,13 @@ copy_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 static void
 paste_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
-	gtk_html_paste (cd->html);
+	gtk_html_paste (cd->html, FALSE);
+}
+
+static void
+paste_quotation_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
+{
+	gtk_html_paste (cd->html, TRUE);
 }
 
 static void
@@ -365,6 +371,7 @@ BonoboUIVerb verbs [] = {
 	BONOBO_UI_UNSAFE_VERB ("EditCut", cut_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditCopy", copy_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditPaste", paste_cb),
+	BONOBO_UI_UNSAFE_VERB ("EditPasteQuotation", paste_quotation_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditFind", search_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditFindRegex", search_regex_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditFindAgain", search_next_cb),
