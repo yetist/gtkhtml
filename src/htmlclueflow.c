@@ -1,5 +1,6 @@
 #include "htmlclue.h"
 #include "htmlclueflow.h"
+#include "htmlcluealigned.h"
 #include "htmlvspace.h"
 
 static void html_clueflow_calc_size (HTMLObject *clue, HTMLObject *parent);
@@ -119,7 +120,22 @@ html_clueflow_calc_size (HTMLObject *o, HTMLObject *parent)
 			obj = obj->nextObj;
 		}
 		else if (obj->flags & Aligned) {
-			g_print ("Aligned\n");
+			HTMLClueAligned *c = (HTMLClueAligned *)obj;
+
+			if (!html_cluev_appended (parent, c)) {
+				obj->calc_size (obj, NULL);
+				
+				if (HTML_CLUE (HTML_CLUE (c)->halign == Left)) {
+					g_print ("Left\n");
+				}
+				else {
+					obj->x = rmargin - obj->width;
+					obj->y = o->ascent + obj->ascent;
+
+					HTML_CLUE(parent)->append_right_aligned (parent, c);
+				}
+			}
+			obj = obj->nextObj;
 		}
 		else {
 			runWidth = 0;

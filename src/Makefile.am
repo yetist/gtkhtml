@@ -16,6 +16,8 @@ common_SOURCES =   \
 	htmlbullet.c	\
 	htmlbullet.h	\
 	htmlclue.c	\
+	htmlcluealigned.c	\
+	htmlcluealigned.h	\
 	htmlclueflow.c	\
 	htmlclueflow.h	\
 	htmlclue.h	\

@@ -1,14 +1,15 @@
 <HTML>
-<table width=200>
- <tr>
-  <td>
-  Something on a very very very very long line
-  </td>
- </tr>
- <tr>
-  <td>
-  <li>A list on a very very very same long line
-  </td>
- </tr>
-</table>
+<body>
+<img src="test.jpg" align="right">
+
+Hi,
+
+It is indeed a GTK+ bug; GtkButton keeps track of whether the mouse
+pointer is inside or outside the button by monitoring enter/leave events
+on the button. In the case you describe there is never an enter event so
+the button doesn't know the mouse is inside it. Clicks are cancelled if
+the mouse goes outside the button before you release the mouse button.
+
+Havoc
+</body>
 </HTML>

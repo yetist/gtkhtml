@@ -8,6 +8,7 @@
 #include "htmlobject.h"
 #include "htmlclueh.h"
 #include "htmlcluev.h"
+#include "htmlcluealigned.h"
 #include "htmlvspace.h"
 #include "htmlimage.h"
 #include "htmllist.h"
@@ -996,6 +997,19 @@ html_engine_parse_i (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 			else if (strncasecmp (token, "height=", 7) == 0) {
 				height = atoi (token + 7);
 			}
+			else if (strncasecmp (token, "border=", 7) == 0) {
+				border = atoi (token + 7);
+			}
+			else if (strncasecmp (token, "align=", 6) == 0) {
+				if (strcasecmp (token + 6, "left") == 0)
+					align = Left;
+				else if (strcasecmp (token + 6, "right") == 0)
+					align = Right;
+				else if (strcasecmp (token + 6, "top") == 0)
+					valign = Top;
+				else if (strcasecmp (token + 6, "bottom") ==0)
+					valign = Bottom;
+			}
 
 		}
 		if (filename != 0) {
@@ -1012,6 +1026,15 @@ html_engine_parse_i (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 			if (valign == VNone) {
 				html_clue_append (p->flow, image);
 			}
+		}
+		/* We need to put the image in a HTMLClueAligned */
+		else {
+			HTMLClueAligned *aligned = HTML_CLUEALIGNED (html_cluealigned_new (HTML_CLUE (p->flow), 0, 0, clue->max_width, 100));
+			HTML_CLUE (aligned)->halign = align;
+			html_clue_append (HTML_OBJECT (aligned),
+					  HTML_OBJECT (image));
+			html_clue_append (HTML_OBJECT (p->flow),
+					  HTML_OBJECT (aligned));
 		}
 		       
 	}

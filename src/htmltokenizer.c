@@ -129,6 +129,9 @@ html_tokenizer_end (HTMLTokenizer *t)
 	g_free (t->buffer);	
 
 	t->buffer = 0;
+
+	/* FIXME: Delete blocking tokens */
+	t->blocking = NULL;
 }
 
 void

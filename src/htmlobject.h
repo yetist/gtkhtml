@@ -20,7 +20,7 @@ typedef enum { CNone, CLeft, CRight, CAll } ClearType;
 typedef enum { Top, Bottom, VCenter, VNone } VAlignType;
 typedef enum { Left, HCenter, Right, None } HAlignType;
 
-typedef	enum { Object, Clue, ClueV, ClueH, ClueFlow, Text, HSpace, TextMaster, TextSlave, VSpace, Rule, Bullet, TableType, TableCell,
+typedef	enum { Object, Clue, ClueV, ClueH, ClueFlow, Text, HSpace, TextMaster, TextSlave, VSpace, Rule, Bullet, TableType, TableCell, ClueAligned,
 	       Image } objectType;
 
 struct _HTMLObject {
@@ -34,9 +34,6 @@ struct _HTMLObject {
 	guchar flags;
 	HTMLObject *nextObj;
 	gint objCount;
-
-	/* FIXME: For HTMLClueAligned */
-	HTMLObject *prnt;
 
 	/* The absolute position of this object on the page */
 	gint absX;
