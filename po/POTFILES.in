@@ -13,10 +13,10 @@ components/html-editor/popup.c
 components/html-editor/replace.c
 components/html-editor/rule.c
 components/html-editor/search.c
-# components/html-editor/table.c
+components/html-editor/table.c
 components/html-editor/test-html-editor-control.c
 components/html-editor/text.c
 components/html-editor/toolbar.c
 src/gtkhtml.c
-# src/html-component.c
+src/html-component.c
 src/testgtkhtml.c

@@ -1,8 +1,10 @@
 [Desktop entry]
 Name=HTML Viewer
+Name[fr]=Visualiseur HTML
 Name[gl]=Visualizador HTML
 Name[no]=HTML-visning
 Comment=HTML Viewer properties
+Comment[fr]=Propriétés du visualiseur HTML
 Comment[gl]=Propiedades do Visualizador HTML
 Comment[no]=Egenskaper for visning av HTML
 Exec=gtkhtml-properties-capplet

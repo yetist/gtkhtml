@@ -1,3 +1,7 @@
+2000-09-25  Christophe Merlet  <christophe@merlet.net>
+
+	* capplet/.desktop: Added French strings.
+
 2000-09-23  Jesus Bravo Alvarez  <jba@pobox.com>
 
 	* configure.in: Added Galician (gl) to ALL_LINGUAS.
