@@ -896,13 +896,12 @@ draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint height, gi
 			if (c < table->totalCols - 1 && 
 			    cell == table->cells[r][c + 1])
 				continue;
-			if (c < table->totalRows - 1 &&
+			if (r < table->totalRows - 1 &&
 			    table->cells[r + 1][c] == cell)
 				continue;
 			html_object_draw (HTML_OBJECT (cell), p,
 					  x - o->x, y - (o->y - o->ascent),
 					  width, height, tx, ty);
-			/* FIXME: ColsDone */
 		}
 	}
 
@@ -934,7 +933,6 @@ draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint height, gi
 				if ((rindx = r - cell->rspan + 1) < 0)
 					rindx = 0;
 				
-				/* FIXME: Shaded */
 				html_painter_draw_panel (p,
 							 tx + a_columnopt(cindx),
 							 ty + a_rowheights(rindx) + capOffset,
