@@ -147,6 +147,7 @@ gchar      *html_engine_parse_body (HTMLEngine *p, HTMLObject *clue, const gchar
 void        html_engine_parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str);
 void        html_engine_parse (HTMLEngine *p);
 void        html_engine_parse_b (HTMLEngine *p, HTMLObject *clue, const gchar *str);
+void        html_engine_parse_c (HTMLEngine *e, HTMLObject *clue, const gchar *str);
 void        html_engine_parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str);
 void        html_engine_parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str);
 void        html_engine_parse_i (HTMLEngine *p, HTMLObject *clue, const gchar *str);

@@ -134,8 +134,6 @@ html_table_calc_size (HTMLObject *o, HTMLObject *parent)
 	/* Attempt to get sensible cell widths */
 	html_table_optimize_cell_width (table);
 
-	g_print ("in calc size, rows: %d\n", table->totalRows);
-	g_print ("in calc size, cols: %d\n", table->totalCols);
 	for (r = 0; r < table->totalRows; r++) {
 		for (c = 0; c < table->totalCols; c++) {
 			if ((cell = table->cells[r][c]) == 0)
@@ -229,8 +227,6 @@ html_table_set_cells (HTMLTable *table, gint r, gint c, HTMLTableCell *cell)
 	gint endCol = c + cell->cspan;
 	gint tc;
 	
-	g_print ("endRow: %d, totalRows: %d\n", endRow, table->allocRows + 10);
-
 	if (endCol > table->totalCols)
 		html_table_add_columns (table, endCol - table->totalCols);
 
@@ -1150,10 +1146,6 @@ html_table_reset (HTMLObject *o) {
 	HTMLTable *table = HTML_TABLE (o);
 	HTMLTableCell *cell;
 	guint r, c;
-
-	g_print ("Resetting\n");
-	g_print ("totalRows: %d\n", table->totalRows);
-	g_print ("totalCols: %d\n", table->totalCols);
 
 	for (r = 0; r < table->totalRows; r++) {
 		for (c = 0; c < table->totalCols; c++) {

@@ -1,6 +1,6 @@
-/* This file is part of the KDE libraries
-    Copyright (C) 1997 Martin Jones (mjones@kde.org)
+/*  Copyright (C) 1997 Martin Jones (mjones@kde.org)
               (C) 1997 Torben Weis (weis@kde.org)
+	      (C) 1999 Anders Carlsson (andersca@gnu.org)
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
@@ -138,7 +138,7 @@ html_engine_init (HTMLEngine *engine)
 	/* Set up parser functions */
 	engine->parseFuncArray[0] = NULL;
 	engine->parseFuncArray[1] = html_engine_parse_b;
-	engine->parseFuncArray[2] = NULL;
+	engine->parseFuncArray[2] = html_engine_parse_c;
 	engine->parseFuncArray[3] = NULL;
 	engine->parseFuncArray[4] = NULL;
 	engine->parseFuncArray[5] = html_engine_parse_f;
@@ -894,6 +894,19 @@ html_engine_parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	}
 	else if (strncmp (str, "/b", 2) == 0) {
 		html_engine_pop_block (e, ID_B, clue);
+	}
+}
+
+void
+html_engine_parse_c (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	if (strncmp (str, "center", 6) == 0) {
+		e->divAlign = HCenter;
+		e->flow = 0;
+	}
+	else if (strncmp (str, "/center", 7) == 0) {
+		e->divAlign = Left;
+		e->flow = 0;
 	}
 }
 

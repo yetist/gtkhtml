@@ -128,23 +128,20 @@ html_clue_set_max_ascent (HTMLObject *o, gint a)
 	HTMLClue *clue = HTML_CLUE (o);
 	HTMLObject *obj;
 
-	g_return_if_fail ((o->ObjectType == ClueFlow) ||
-			  (o->ObjectType == ClueV) ||
-			  (o->ObjectType == ClueH) ||
-			  (o->ObjectType == TableCell));
-
 	if (clue->valign == VCenter) {
 		for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->nextObj) {
 			obj->y = obj->y + ((a - o->ascent) / 2);
 		}
 	}
+
 	else if (clue->valign == Bottom) {
 		for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->nextObj) {
-			obj->y = obj->y + a - o->descent;
+			obj->y = obj->y + a - o->ascent;
 		}
 	}
 
 	o->ascent = a;
+	
 }
 
 static void
@@ -153,10 +150,6 @@ html_clue_set_max_descent (HTMLObject *o, gint d)
 	HTMLClue *clue = HTML_CLUE (o);
 	HTMLObject *obj;
 	
-	g_return_if_fail ((o->ObjectType == ClueFlow) ||
-			  (o->ObjectType == ClueV) ||
-			  (o->ObjectType == ClueH));
-
 	if (clue->valign == VCenter) {
 		for (obj = clue->head; obj != 0; obj = obj->nextObj) {
 			obj->y = obj->y + ((d - o->descent) / 2);
@@ -169,6 +162,7 @@ html_clue_set_max_descent (HTMLObject *o, gint d)
 	}
 	
 	o->descent = d;
+
 }
 
 gint

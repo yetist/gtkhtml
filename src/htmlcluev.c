@@ -63,7 +63,6 @@ html_cluev_set_max_width (HTMLObject *o, gint max_width)
 			o->width = o->max_width;
 	}
 
-	g_print ("setting max width: %d\n", o->width);
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->nextObj)
 		obj->set_max_width (obj, o->width);
 
@@ -122,7 +121,6 @@ html_cluev_calc_size (HTMLObject *o, HTMLObject *parent)
 	/* If we have already called calc_size for the children, then just
 	   continue from the last object done in previous call. */
 	
-	g_print ("clue->curr is: %d\n", clue->curr);
 	if (clue->curr) {
 		o->ascent = cluev->padding;
 		
