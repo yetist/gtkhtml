@@ -61,11 +61,9 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p, GConfClient *client)
 
 	g_assert (client);
 
-	printf ("theme: %s\n", p->keybindings_theme);
 	GET (bool, "/magic_links", magic_links,,);
 	GET (string, "/keybindings_theme", keybindings_theme,
 	     g_free (p->keybindings_theme), p->keybindings_theme = g_strdup (p->keybindings_theme));
-	printf ("theme: %s\n", p->keybindings_theme);
 }
 
 #endif

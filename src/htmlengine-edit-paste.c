@@ -35,7 +35,7 @@
 
 #include "htmlengine-edit-paste.h"
 
-#define PARANOID_DEBUG
+/* #define PARANOID_DEBUG */
 
 static gboolean remove_element_if_empty_text (HTMLEngine *engine, HTMLObject *object);
 
@@ -88,15 +88,12 @@ split_at_cursor (HTMLEngine *engine)
 	HTMLCursor *cursor;
 	HTMLObject *current;
 
-	printf ("split_at_cursor: %d\n", engine->cursor->position);
-
 	cursor = engine->cursor;
 
 	/* If we are at the beginning of the element, we can always simply prepend stuff
            to the element itself.  */
 	if (cursor->offset == 0)
 		return FALSE;
-	printf ("split_at_cursor: %d\n", engine->cursor->position);
 
 	current = cursor->object;
 
@@ -133,8 +130,6 @@ split_first_clueflow_at_cursor (HTMLEngine *engine,
 	HTMLObject *new_clueflow;
 	HTMLObject *curr_clue;
 	HTMLObject *p, *pnext;
-
-	printf ("split_first_clueflow_at_cursor position: %d\n", engine->cursor->position);
 
 	curr_clue = curr->parent;
 
@@ -201,8 +196,6 @@ prepare_clueflows (HTMLEngine *engine,
 	GList *p;
 	gboolean first;
 	gboolean retval;
-
-	printf ("append: %d\n", append);
 
 	curr = engine->cursor->object;
 	g_return_val_if_fail (curr->parent != NULL, FALSE);

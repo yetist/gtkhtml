@@ -321,12 +321,8 @@ html_engine_edit_selection_updater_schedule (HTMLEngineEditSelectionUpdater *upd
 {
 	g_return_if_fail (updater != NULL);
 
-	printf ("schedule\n");
 	if (updater->idle_id != 0)
 		return;
-
-	printf ("first\n");
-
 	updater->idle_id = gtk_idle_add (updater_idle_callback, updater);
 }
 
@@ -361,7 +357,6 @@ html_engine_edit_selection_updater_reset (HTMLEngineEditSelectionUpdater *update
 void
 html_engine_edit_selection_updater_update_now (HTMLEngineEditSelectionUpdater *updater)
 {
-	printf ("run now\n");
 	/* remove scheduled idle cb */
 	if (updater->idle_id != 0) {
 		gtk_idle_remove (updater->idle_id);

@@ -105,8 +105,6 @@ html_engine_cut_buffer_pop (HTMLEngine *e)
 void
 html_engine_selection_push (HTMLEngine *e)
 {
-	printf ("selection_push %d %d\n", html_cursor_get_position (e->mark), html_cursor_get_position (e->cursor));
-
 	if (e->active_selection) {
 		e->selection_stack
 			= g_list_prepend (e->selection_stack, GINT_TO_POINTER (html_cursor_get_position (e->mark)));

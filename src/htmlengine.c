@@ -2881,9 +2881,7 @@ html_engine_set_arg (GtkObject        *object,
 {
 	HTMLEngine *engine = HTML_ENGINE (object);
 
-	printf ("set arg\n");
 	if (arg_id == 1) {
-		printf ("set widget\n");
 		engine->widget          = GTK_HTML (GTK_VALUE_OBJECT (*arg));
 		engine->settings        = html_settings_new (GTK_WIDGET (engine->widget));
 		engine->defaultSettings = html_settings_new (GTK_WIDGET (engine->widget));
@@ -3009,8 +3007,6 @@ html_engine_init (HTMLEngine *engine)
 
 	engine->window = NULL;
 	engine->invert_gc = NULL;
-
-	printf ("engine->widget %p\n", engine->widget);
 
 	/* settings, colors and painter init */
 	engine->painter         = html_gdk_painter_new (TRUE);
@@ -4131,8 +4127,6 @@ move_to_found (HTMLEngine *e, HTMLSearch *info)
 	w = ex - x + last->width;
 	h = ey - y + last->ascent+last->descent;
 
-	printf ("html_engine_display_area %d %d %d %d\n", x, y, w, h);
-
 	/* now calculate gtkhtml adustments */
 	if (x <= e->x_offset)
 		nx = x;
@@ -4172,8 +4166,6 @@ display_search_results (HTMLEngine *e, HTMLSearch *info)
 		/* go thru all objects (Text's) in found list and do select_range on it */
 		while (cur) {
 			cur_len = HTML_TEXT (cur->data)->text_len;
-			printf ("select len: %d range obj: %p pos: %d len: %d\n", info->found_len,
-				HTML_OBJECT (cur->data), pos, (cur_len-pos < len) ? cur_len-pos : len);
 			html_object_select_range (HTML_OBJECT (cur->data), e, pos,
 						  (cur_len-pos < len) ? cur_len-pos : len, TRUE);
 			len -= cur_len-pos;
@@ -4191,8 +4183,6 @@ html_engine_search (HTMLEngine *e, const gchar *text,
 {
 	gboolean retval;
 	HTMLSearch *info;
-
-	printf ("html_engine_search cs: %d fw: %d re: %d\n", case_sensitive, forward, regular);
 
 	if (e->search_info) {
 		html_search_destroy (e->search_info);
@@ -4218,8 +4208,6 @@ html_engine_search_next (HTMLEngine *e)
 	if (!info) {
 		return FALSE;
 	}
-
-	printf ("search_next\n");
 
 	if (info->stack) {
 		retval = html_object_search (HTML_OBJECT (info->stack->data), info);
@@ -4248,8 +4236,6 @@ html_engine_replace (HTMLEngine *e, const gchar *text, const gchar *rep_text,
 		     gboolean case_sensitive, gboolean forward, gboolean regular,
 		     void (*ask)(HTMLEngine *, gpointer), gpointer ask_data)
 {
-	printf ("html_engine_replace\n");
-
 	if (e->replace_info)
 		html_replace_destroy (e->replace_info);
 	e->replace_info = html_replace_new (rep_text, ask, ask_data);
