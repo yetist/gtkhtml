@@ -208,6 +208,9 @@ struct _GtkHTML {
 	GtkHTMLFontStyle insertion_font_style;
 
 	gboolean binding_handled;
+#ifdef GTKHTML_HAVE_PSPELL
+	guint set_font_id;
+#endif
 };
 
 /* must be forward referenced *sigh* */

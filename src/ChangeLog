@@ -1,3 +1,38 @@
+2000-08-17  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml.c (init): add gconf notification
+
+	* htmlgdkfontmanager.c (html_gdk_font_manager_set_family_var): new
+	helper function
+	(html_gdk_font_manager_set_family_fix): new helper function
+	(html_gdk_font_manager_set_size_var): new helper function
+	(html_gdk_font_manager_set_size_fix): new helper function
+	(release_fonts): new helper function - releases loaded fonts
+	(load_font): rewritten
+	(get_closest_font): helper function, tries get closest font to
+	required, if not found returns fixed font or g_assert's when fixed
+	is not available
+	(get_font): helper function
+	(test_font): helper function, uses XListFonts
+	(get_size): helper function, gets font size from font name
+
+	* htmlgdkfontmanager.h: added family_var, family_fix, size_var and
+	size_fix attributes
+
+	* gtkhtml.c (client_notify_class): class gconf notification
+	(client_notify_widget): widgets notification, font attributes are
+	set here
+	(set_fonts): helper function for font setting
+	(set_fonts_idle): idle cb for font setting
+
+	* gtkhtml-properties.c (gtk_html_class_properties_new): set
+	default values for font attributes
+	(gtk_html_class_properties_load): updated
+	(gtk_html_class_properties_update): updated
+	(gtk_html_class_properties_save): updated
+
+	* gtkhtml-properties.h: added new attributes for fonts settings
+
 2000-08-15  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml.c (button_press_event): do paste only in editable widget

@@ -27,14 +27,28 @@
 #include "gtkhtmlfontstyle.h"
 
 struct _HTMLGdkFontManager {
-	GdkFont *fonts[GTK_HTML_FONT_STYLE_MAX];
+	GdkFont *font [GTK_HTML_FONT_STYLE_MAX];
+	guint    size [GTK_HTML_FONT_STYLE_SIZE_MAX];
+
+	gchar *family_var;
+	gchar *family_fix;
+	guint  size_var;
+	guint  size_fix;
 };
 typedef struct _HTMLGdkFontManager HTMLGdkFontManager;
 
 
-HTMLGdkFontManager *html_gdk_font_manager_new  (void);
-void html_gdk_font_manager_destroy (HTMLGdkFontManager *manager);
+HTMLGdkFontManager *html_gdk_font_manager_new                        (void);
+void                html_gdk_font_manager_destroy                    (HTMLGdkFontManager *manager);
 
-GdkFont *html_gdk_font_manager_get_font (HTMLGdkFontManager *manager, GtkHTMLFontStyle style);
-
+GdkFont *           html_gdk_font_manager_get_font                   (HTMLGdkFontManager *manager,
+								      GtkHTMLFontStyle style);
+void                html_gdk_font_manager_set_family_var             (HTMLGdkFontManager *manager,
+								      const gchar *family);
+void                html_gdk_font_manager_set_family_fix             (HTMLGdkFontManager *manager,
+								      const gchar *family_fixed);
+void                html_gdk_font_manager_set_size_var               (HTMLGdkFontManager *manager,
+								      gint size);
+void                html_gdk_font_manager_set_size_fix               (HTMLGdkFontManager *manager,
+								      gint size);
 #endif /* _HTMLGDKFONTMANAGER_H_ */

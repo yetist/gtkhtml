@@ -32,6 +32,10 @@ gtk_html_class_properties_new (void)
 	/* default values */
 	p->magic_links = TRUE;
 	p->keybindings_theme = g_strdup ("emacs");
+	p->font_var_family   = g_strdup ("lucida");
+	p->font_fix_family   = g_strdup ("courier");
+	p->font_var_size     = 8;
+	p->font_fix_size     = 8;
 
 	return p;
 }
@@ -63,6 +67,12 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p, GConfClient *client)
 	GET (bool, "/magic_links", magic_links,,);
 	GET (string, "/keybindings_theme", keybindings_theme,
 	     g_free (p->keybindings_theme), g_strdup);
+	GET (string, "/font_variable_family", font_var_family,
+	     g_free (p->font_var_family), g_strdup);
+	GET (string, "/font_fixed_family", font_fix_family,
+	     g_free (p->font_fix_family), g_strdup);
+	GET (int, "/font_variable_size", font_var_size,,);
+	GET (int, "/font_fixed_size", font_fix_size,,);
 }
 
 #define SET(t,x,prop) \
@@ -79,15 +89,36 @@ gtk_html_class_properties_update (GtkHTMLClassProperties *p, GConfClient *client
 	if (p->magic_links != old->magic_links)
 		SET (bool, "/magic_links", magic_links);
 	SET (string, "/keybindings_theme", keybindings_theme);
+	if (strcmp (p->font_var_family, old->font_var_family))
+		SET (string, "/font_variable_family", font_var_family);
+	if (strcmp (p->font_fix_family, old->font_fix_family))
+		SET (string, "/font_fixed_family", font_fix_family);
+	if (p->font_var_size != old->font_var_size)
+		SET (int, "/font_variable_size", font_var_size);
+	if (p->font_fix_size != old->font_fix_size)
+		SET (int, "/font_fixed_size", font_fix_size);
 }
 
 #else
+
+#undef GET
+#define GET(t,v,s) \
+	p-> ## v = gnome_config_get_ ## t (s)
+#define GETS(v,s) \
+        g_free (p-> ## v); \
+        GET(string,v,s)
+
+
 void
 gtk_html_class_properties_load (GtkHTMLClassProperties *p)
 {
 	gnome_config_push_prefix (GTK_HTML_GNOME_CONFIG_PREFIX);
-	p->magic_links = gnome_config_get_bool ("magic_links=true");
-	p->keybindings_theme = gnome_config_get_string ("keybindings_theme=ms");
+	GET  (bool, magic_links, "magic_links=true");
+	GETS (keybindings_theme, "keybindings_theme=ms");
+	GETS (font_var_family, "font_variable_family=lucida");
+	GETS (font_fix_family, "font_fixed_family=courier");
+	GET  (int, font_var_size, "font_variable_size=8");
+	GET  (int, font_fix_size, "font_fixed_size=8");
 	gnome_config_pop_prefix ();
 	gnome_config_sync ();
 }
@@ -98,18 +129,31 @@ gtk_html_class_properties_save (GtkHTMLClassProperties *p)
 	gnome_config_push_prefix (GTK_HTML_GNOME_CONFIG_PREFIX);
 	gnome_config_set_bool ("magic_links", p->magic_links);
 	gnome_config_set_string ("keybindings_theme", p->keybindings_theme);
+	gnome_config_set_string ("font_variable_family", p->font_var_family);
+	gnome_config_set_string ("font_fixed_family", p->font_fix_family);
+	gnome_config_set_int ("font_variable_size", p->font_var_size);
+	gnome_config_set_int ("font_fixed_size", p->font_fix_size);
 	gnome_config_pop_prefix ();
 	gnome_config_sync ();
 }
 #endif
 
+#define COPYS(v) \
+        g_free (p1-> ## v); \
+        p1->## v = g_strdup (p2-> ## v);
+#define COPY(v) \
+        p1-> ## v = p2-> ## v;
+
 void
 gtk_html_class_properties_copy (GtkHTMLClassProperties *p1,
 				GtkHTMLClassProperties *p2)
 {
-	p1->magic_links = p2->magic_links;
-	g_free (p1->keybindings_theme);
-	p1->keybindings_theme = g_strdup (p2->keybindings_theme);
+	COPY  (magic_links);
+	COPYS (keybindings_theme);
+	COPYS (font_var_family);
+	COPYS (font_fix_family);
+	COPY  (font_var_size);
+	COPY  (font_fix_size);
 }
 
 /* enums */

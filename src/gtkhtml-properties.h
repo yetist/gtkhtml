@@ -40,11 +40,20 @@ typedef struct _GtkHTMLClassProperties GtkHTMLClassProperties;
 enum _GtkHTMLClassPropertiesItem {
 	GTK_HTML_CLASS_PROPERTIES_MAGIC_LINKS,
 	GTK_HTML_CLASS_PROPERTIES_KEYBINDINGS,
+	GTK_HTML_CLASS_PROPERTIES_FONT_VAR_FAMILY,
+	GTK_HTML_CLASS_PROPERTIES_FONT_VAR_SIZE,
+	GTK_HTML_CLASS_PROPERTIES_FONT_FIX_FAMILY,
+	GTK_HTML_CLASS_PROPERTIES_FONT_FIX_SIZE,
 };
 
 struct _GtkHTMLClassProperties {
 	gboolean  magic_links;
 	gchar    *keybindings_theme;
+
+	gchar    *font_var_family;
+	guint     font_var_size;
+	gchar    *font_fix_family;
+	guint     font_fix_size;
 };
 
 

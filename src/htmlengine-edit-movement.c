@@ -141,7 +141,9 @@ html_engine_jump_at (HTMLEngine *e,
 	if (obj == NULL)
 		return;
 
+	/* printf ("jump to object type %d - %p\n", HTML_OBJECT_TYPE (obj), obj); */
 	html_engine_jump_to_object (e, obj, offset);
+	/* printf ("jumped to object type %d - %p\n", HTML_OBJECT_TYPE (e->cursor->object), e->cursor->object); */
 }
 
 

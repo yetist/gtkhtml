@@ -1139,15 +1139,88 @@ set_adjustments (GtkLayout     *layout,
 
 /* Initialization.  */
 
+static gint
+set_fonts_idle (GtkHTML *html)
+{
+	HTMLGdkFontManager *manager;
+	GtkHTMLClassProperties *prop = GTK_HTML_CLASS (GTK_OBJECT (html)->klass)->properties;	
+
+	/* little hackish - will be replaced soon */
+	manager = HTML_GDK_PAINTER (html->engine->painter)->font_manager;
+	html_gdk_font_manager_set_family_var (manager, prop->font_var_family);
+	html_gdk_font_manager_set_family_fix (manager, prop->font_fix_family);
+	html_gdk_font_manager_set_size_var (manager, prop->font_var_size);
+	html_gdk_font_manager_set_size_fix (manager, prop->font_fix_size);
+
+	/* tables don't resize correctly :( who knows the solution? */
+	html_object_reset (html->engine->clue);
+	html_object_change_set_down (html->engine->clue, HTML_CHANGE_ALL);
+	html_object_calc_min_width (html->engine->clue, html->engine->painter);
+	html_object_calc_size (html->engine->clue, html->engine->painter);
+	html_engine_schedule_update (html->engine);
+
+#ifdef GTKHTML_HAVE_PSPELL
+	html->set_font_id = 0;
+#endif
+
+	return FALSE;
+}
+
+static void
+set_fonts (GtkHTML *html)
+{
+#ifdef GTKHTML_HAVE_PSPELL
+	if (!html->set_font_id)
+		html->set_font_id = gtk_idle_add ((GtkFunction) set_fonts_idle, html);
+#else
+	set_fonts_idle (html);
+#endif
+}
+
 #ifdef GTKHTML_HAVE_GCONF
 
 static void
-client_notify (GConfClient* client,
-	       guint cnxn_id,
-	       const gchar* key,
-	       GConfValue* value,
-	       gboolean is_default,
-	       gpointer user_data)
+client_notify_widget (GConfClient* client,
+		      guint cnxn_id,
+		      const gchar* key,
+		      GConfValue* value,
+		      gboolean is_default,
+		      gpointer user_data)
+{
+	GtkHTML *html = (GtkHTML *) user_data;
+	GtkHTMLClass *klass = GTK_HTML_CLASS (GTK_OBJECT (html)->klass);
+	GtkHTMLClassProperties *prop = klass->properties;	
+	gchar *tkey;
+
+	g_assert (client == gconf_client);
+	g_assert (key);
+	tkey = strrchr (key, '/');
+	g_assert (tkey);
+
+	if (!strcmp (tkey, "/font_variable_family")) {
+		g_free (prop->font_var_family);
+		prop->font_var_family = gconf_client_get_string (client, key, NULL);
+		set_fonts (html);
+	} else if (!strcmp (tkey, "/font_fixed_family")) {
+		g_free (prop->font_fix_family);
+		prop->font_fix_family = gconf_client_get_string (client, key, NULL);
+		set_fonts (html);
+	} else if (!strcmp (tkey, "/font_variable_size")) {
+		prop->font_var_size = gconf_client_get_int (client, key, NULL);
+		set_fonts (html);
+	} else if (!strcmp (tkey, "/font_fixed_size")) {
+		prop->font_fix_size = gconf_client_get_int (client, key, NULL);
+		set_fonts (html);
+	}
+}
+
+static void
+client_notify_class (GConfClient* client,
+		     guint cnxn_id,
+		     const gchar* key,
+		     GConfValue* value,
+		     gboolean is_default,
+		     gpointer user_data)
 {
 	GtkHTMLClass *klass = (GtkHTMLClass *) user_data;
 	GtkHTMLClassProperties *prop = klass->properties;	
@@ -1164,8 +1237,7 @@ client_notify (GConfClient* client,
 		g_free (prop->keybindings_theme);
 		prop->keybindings_theme = gconf_client_get_string (client, key, NULL);
 		load_keybindings (klass);
-	} else
-		g_assert_not_reached ();
+	}
 }
 
 #endif
@@ -1188,7 +1260,7 @@ init_properties (GtkHTMLClass *klass)
 #endif
 	load_keybindings (klass);
 #ifdef GTKHTML_HAVE_GCONF
-	gconf_client_notify_add (gconf_client, GTK_HTML_GCONF_DIR, client_notify, klass, NULL, NULL);
+	gconf_client_notify_add (gconf_client, GTK_HTML_GCONF_DIR, client_notify_class, klass, NULL, NULL);
 #endif
 }
 
@@ -1459,6 +1531,11 @@ init (GtkHTML* html)
 	gtk_selection_add_targets (GTK_WIDGET (html),
 				   GDK_SELECTION_PRIMARY,
 				   targets, n_targets);
+	set_fonts (html);
+#ifdef GTKHTML_HAVE_GCONF
+	html->set_font_id = 0;
+	gconf_client_notify_add (gconf_client, GTK_HTML_GCONF_DIR, client_notify_widget, html, NULL, NULL);
+#endif
 }
 
 
