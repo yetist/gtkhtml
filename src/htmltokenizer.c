@@ -1058,7 +1058,8 @@ in_plain (HTMLTokenizer *t, const gchar **src)
 	else if (t->pre) {
 		t->prePos++;
 	}
-	*(t->dest)++ = **src; (*src)++;
+	t->dest += g_unichar_to_utf8 ((guchar) **src, t->dest);
+	(*src)++;
 }
 
 void

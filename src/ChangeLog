@@ -1,3 +1,16 @@
+2000-10-02  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltable.c (prev_col_do_cspan): alloc cells before doing
+	column spanning
+
+	* htmltokenizer.c (in_plain): use g_unichar_to_utf8
+
+	* htmltable.c (scale_columns): use cell->col
+	(calc_column_widths): likewise
+	(calc_row_heights): use cell->row
+	(calc_size): use cell->col
+	(draw): use cell->col and cell->row
+
 2000-09-29  Larry Ewing  <lewing@helixcode.com>
 
 	* gtkhtml.h: turn GTK_HTML_USE_XIM off for the time being.
