@@ -1,3 +1,10 @@
+2004-09-02  Radek Doulik  <rodo@ximian.com>
+
+	* text.c (text_properties): connect signals to right widgets, they
+	were before all set to bold button
+
+	Fixes #62087
+
 2004-08-13  JP Rosevear  <jpr@ximian.com>
 
 	* menubar.c (insert_image_cb): optionally use gtk file chooser
