@@ -1,5 +1,23 @@
 2001-10-29  Radek Doulik  <rodo@ximian.com>
 
+	* htmlpainter.c (html_painter_get_font): check if font is non-NULL
+	before dereferencing
+
+	* htmlprinter.c (alloc_font): if we can't allocate selected face
+	and even Courier or Helvetica, fallback to first font from
+	gnome_font_family_list
+
+	* htmlfontmanager.c (html_font_manager_get_font): replace g_error
+	with g_warning and test if font is non-NULL when setting to font
+	manager
+
+	* htmlprinter.c (begin): added call to gnome_print_beginpage
+
+	* htmlengine-print.c (do_we_have_default_font): new helper
+	function
+	(html_engine_print_with_header_footer): don't print if we are
+	unable to allocate default font
+
 	* htmlcluev.c (check_point): check align_right_list too
 	(check_point): translate aligned clues coordinates
 

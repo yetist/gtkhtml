@@ -284,7 +284,10 @@ html_painter_set_font_face (HTMLPainter *painter,
 gpointer
 html_painter_get_font (HTMLPainter *painter, HTMLFontFace *face, GtkHTMLFontStyle style)
 {
-	return html_font_manager_get_font (&painter->font_manager, face, style)->data;
+	HTMLFont *font;
+
+	font = html_font_manager_get_font (&painter->font_manager, face, style);
+	return font ? font->data : NULL;
 }
 
 guint

@@ -185,6 +185,7 @@ begin (HTMLPainter *painter,
 	pc      = printer->print_context;
 	g_return_if_fail (pc);
 
+	gnome_print_beginpage (pc, "page");
 	gnome_print_gsave (pc);
 
 	html_printer_coordinates_to_gnome_print (printer, x1, y1, &printer_x1, &printer_y1);
@@ -710,6 +711,17 @@ alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, Gt
 	font = gnome_font_new_closest (family ? family : (style & GTK_HTML_FONT_STYLE_FIXED ? "Courier" : "Helvetica"),
 				       weight, italic, points ? size / 10 : size);
 	g_free (family);
+
+	if (font == NULL) {
+		GList *family_list;
+
+		family_list = gnome_font_family_list ();
+		if (family_list && family_list->data) {
+			font = gnome_font_new_closest (family_list->data,
+						       weight, italic, points ? size / 10 : size);
+			gnome_font_family_list_free (family_list);
+		}
+	}
 
 	return font ? html_font_new (font, gnome_font_get_width_string_n (font, " ", 1)) : NULL;
 }

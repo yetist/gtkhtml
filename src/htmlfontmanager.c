@@ -366,13 +366,14 @@ html_font_manager_get_font (HTMLFontManager *manager, gchar *face_list, GtkHTMLF
 								get_real_font_size (manager, style),
 								get_points (manager, style), style);
 				if (!font)
-					g_error ("Cannot allocate fixed font\n");
+					g_warning ("Cannot allocate fixed font\n");
 			} else {
 				/* some unavailable non-default font => use default one */
 				font = html_font_manager_get_font (manager, NULL, style);
 				html_font_ref (font, manager->painter);
 			}
-			html_font_set_font (manager, set, style, font);
+			if (font)
+				html_font_set_font (manager, set, style, font);
 		}
 	}
 

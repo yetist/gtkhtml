@@ -20,6 +20,10 @@
 */
 
 #include <config.h>
+#include <gtk/gtk.h>
+#include <libgnome/gnome-defs.h>
+#include <libgnome/gnome-i18n.h>
+#include <libgnomeui/gnome-dialog-util.h>
 #include "gtkhtml.h"
 #include "gtkhtml-properties.h"
 #include "htmlprinter.h"
@@ -121,7 +125,20 @@ print_all_pages (HTMLPainter *printer,
 	}  while (split_offset < document_height);
 }
 
-
+static gboolean
+do_we_have_default_font (HTMLPainter *painter)
+{
+	HTMLFont *font;
+	gboolean rv = FALSE;
+
+	font = html_painter_get_font (painter, NULL, GTK_HTML_FONT_STYLE_DEFAULT);
+	if (font) {
+		rv = TRUE;
+	}
+
+	return rv;
+}
+
 void
 html_engine_print (HTMLEngine *engine,
 		   GnomePrintContext *print_context)
@@ -144,26 +161,31 @@ html_engine_print_with_header_footer (HTMLEngine *engine,
 
 	g_return_if_fail (engine->clue != NULL);
 
-	old_painter = engine->painter;
-	printer     = html_printer_new (print_context);
-	html_font_manager_set_default (&printer->font_manager,
-				       prop->font_var_print,      prop->font_fix_print,
-				       prop->font_var_size_print, prop->font_var_print_points,
-				       prop->font_fix_size_print, prop->font_fix_print_points);
+	printer = html_printer_new (print_context);
+	if (do_we_have_default_font (printer)) {
+		old_painter = engine->painter;
+		html_font_manager_set_default (&printer->font_manager,
+					       prop->font_var_print,      prop->font_fix_print,
+					       prop->font_var_size_print, prop->font_var_print_points,
+					       prop->font_fix_size_print, prop->font_fix_print_points);
 
-	gtk_object_ref (GTK_OBJECT (old_painter));
-	html_engine_set_painter (engine, printer);
+		gtk_object_ref (GTK_OBJECT (old_painter));
+		html_engine_set_painter (engine, printer);
 
-	print_all_pages (HTML_PAINTER (printer), 
-			 engine, 
-			 header_height,
-			 footer_height, 
-			 header_print, 
-			 footer_print, 
-			 user_data);
+		print_all_pages (HTML_PAINTER (printer), 
+				 engine, 
+				 header_height,
+				 footer_height, 
+				 header_print, 
+				 footer_print, 
+				 user_data);
 
-	html_engine_set_painter (engine, old_painter);
-	gtk_object_unref (GTK_OBJECT (old_painter));
+		html_engine_set_painter (engine, old_painter);
+		gtk_object_unref (GTK_OBJECT (old_painter));
+	} else {
+		gnome_ok_dialog (_("Cannot allocate default font for printing\n"));
+	}
+
 	gtk_object_unref (GTK_OBJECT (printer));	
 }
 
