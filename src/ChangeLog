@@ -1,5 +1,8 @@
 2003-04-02  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine-edit-cut-and-paste.c (html_engine_delete): fix cursor
+	position afterwards
+
 	* gtkhtml.c (gtk_html_im_delete_surrounding_cb): fix cursor
 	movement, return to original position if possible
 	(key_press_event): call gtk_im_context_filter_keypress only when

@@ -1634,7 +1634,8 @@ delete_upto (HTMLEngine *e, HTMLCursor **start, HTMLCursor **end, HTMLObject *ob
 {
 	guint position;
 
-	html_cursor_destroy (e->mark);
+	if (e->mark)
+		html_cursor_destroy (e->mark);
 	e->mark = *start;
 	html_cursor_jump_to (e->cursor, e, object, offset);
 	position = e->cursor->position;
@@ -1652,6 +1653,7 @@ html_engine_delete (HTMLEngine *e)
 	if (html_engine_is_selection_active (e)) {
 		HTMLCursor *start = html_cursor_dup (e->mark->position < e->cursor->position ? e->mark : e->cursor);
 		HTMLCursor *end = html_cursor_dup (e->mark->position < e->cursor->position ? e->cursor : e->mark);
+		gint start_position = start->position;
 
 		while (start->position < end->position) {
 			if (start->object->parent->parent == end->object->parent->parent) {
@@ -1696,6 +1698,7 @@ html_engine_delete (HTMLEngine *e)
 			html_cursor_destroy (start);
 		if (end)
 			html_cursor_destroy (end);
+		html_cursor_jump_to_position (e->cursor, e, start_position);
 	}
 	html_undo_level_end (e->undo);
 }
