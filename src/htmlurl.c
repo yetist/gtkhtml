@@ -468,7 +468,7 @@ concat_dir_and_file (const char *dir, const char *file)
 {
         /* If the directory name doesn't have a / on the end, we need
 	   to add one so we get a proper path to the file */
-	if (dir [strlen(dir) - 1] != PATH_SEP)
+	if (*dir && dir [strlen(dir) - 1] != PATH_SEP)
 		return g_strconcat (dir, PATH_SEP_STR, file, NULL);
 	else
 		return g_strconcat (dir, file, NULL);
@@ -492,10 +492,10 @@ html_url_append_path (const HTMLURL *url,
 	if((ptr = strchr(tmppath, '?')))
 		*ptr = 0;
 
-	i = strlen(tmppath) - 1;
+	i = strlen(tmppath);
 
 	/* Remove first '/' from the right */
-	while(i && tmppath[i] != '/')
+	while(i && tmppath[i-1] != '/')
 		i--;
 
 	if(i)
