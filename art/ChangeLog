@@ -1,3 +1,7 @@
+2001-08-16  Radek Doulik  <rodo@ximian.com>
+
+	* Makefile.am (icons_DATA): cosmetic change
+
 2001-08-15  Jakub Steiner <jimmac@ximian.com>
 
 	* Makefile.am (icons_DATA), insert-object-{16,24}.png: these 
