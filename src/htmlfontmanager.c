@@ -30,7 +30,7 @@
 static void
 html_font_set_init (HTMLFontSet *set, gchar *face)
 {
-	bzero (set, GTK_HTML_FONT_STYLE_MAX_FONT*sizeof (gpointer));
+	memset (set, 0, GTK_HTML_FONT_STYLE_MAX_FONT * sizeof (HTMLFont *));
 	set->ref_count = 1;
 	set->face = g_strdup (face);
 }

@@ -1,5 +1,11 @@
 2001-07-31  Radek Doulik  <rodo@ximian.com>
 
+	* htmlfontmanager.c (html_font_set_init): use memset rather than
+	bzero
+
+	* htmlengine-edit-cursor.c (html_engine_hide_cursor): don't draw
+	cursor here
+
 	* htmltext.c (get_cursor_base): set base to Text coordinates if
 	there are no slaves
 	(get_cursor): if there are no slaves, use Text ascent/descent
