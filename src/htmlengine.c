@@ -386,24 +386,19 @@ insert_text (HTMLEngine *e,
 		HTMLObject *obj;
 
 		if (e->url != NULL || e->target != NULL)
-			obj = html_link_text_master_new (g_strdup (text),
-							 font_style,
+			obj = html_link_text_master_new (g_strdup (text), font_style,
 							 &e->settings->linkColor,
-							 e->url,
-							 e->target);
+							 e->url, e->target);
 		else
-			obj = html_text_master_new (g_strdup (text),
-						    font_style,
-						    color);
+			obj = html_text_master_new (g_strdup (text), font_style, color);
 
 		append_element (e, clue, obj);
 	} else {
 		HTMLText *text_prev;
 		gchar *new_text;
 
-		g_warning ("Reusing existing text.\n");
-
-		/* FIXME this sucks. */
+		/* Reuse existing element.  */
+		/* FIXME this sucks.  */
 
 		text_prev = HTML_TEXT (prev);
 
@@ -858,7 +853,6 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					break;
 				} /* Hack to fix broken html in bonsai */
 				else if (strncmp (str, "<form", 5) == 0 || strncmp (str, "</form", 6) == 0) {
-
 					parse_f (e, clue, str + 1);
 				}
 
@@ -1818,6 +1812,12 @@ parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		}
 	} else if (strncmp (str, "/form", 5) == 0) {
 		p->form = NULL;
+
+		if (! p->avoid_para) {
+			close_anchor (p);
+			p->avoid_para = TRUE;
+			p->pending_para = TRUE;
+		}
 	}
 }
 

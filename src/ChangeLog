@@ -1,6 +1,12 @@
 2000-03-31  Ettore Perazzoli  <ettore@helixcode.com>
 
-	* htmlengine.c (parse_f): `<form>' also opens a new paragraph.
+	* htmlengine.c
+	(parse_f): `</form>' opens a new paragraph too.
+
+2000-03-31  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine.c
+	(parse_f): `<form>' also opens a new paragraph.
 
 2000-03-31  Ettore Perazzoli  <ettore@helixcode.com>
 
