@@ -4,6 +4,7 @@
    Copyright (C) 1997 Martin Jones (mjones@kde.org)
    Copyright (C) 1997 Torben Weis (weis@kde.org)
    Copyright (C) 1999, 2000 Helix Code, Inc.
+   Copyright (C) 2000, 2001, 2002, 2003 Ximian, Inc.
    
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -29,6 +30,7 @@
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
 #include "htmlentity.h"
+#include "htmltext.h"
 #include "htmlpainter.h"
 
 
