@@ -1,3 +1,10 @@
+1999-10-23  Miguel de Icaza  <miguel@gnu.org>
+
+	* htmlfont.c (html_font_destroy): Add a destructor for fonts.
+	(html_font_stack_clear): Added font stack destruction code.
+
+	Added precondition entry points.
+	
 1999-10-17  Richard Hult  <rhult@hem2.passagen.se>
 
 	* htmlengine.[ch]: Turn the engine into a GtkObject.

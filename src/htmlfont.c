@@ -1,6 +1,7 @@
-/* This file is part of the KDE libraries
+/* 
     Copyright (C) 1997 Martin Jones (mjones@kde.org)
               (C) 1997 Torben Weis (weis@kde.org)
+	      (C) 1999 Anders Carlson (andersca@gnu.org)
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
@@ -27,7 +28,9 @@ html_font_new (gchar *family, gint size, gint *fontSizes, HTMLFontWeight weight,
 {
 	gchar *xlfd;
 	HTMLFont *f;
-	
+
+	g_return_if_fail (family != NULL);
+
 	f = g_new0 (HTMLFont, 1);
 	f->family = g_strdup (family);
 	f->size = size;
@@ -49,6 +52,16 @@ html_font_new (gchar *family, gint size, gint *fontSizes, HTMLFontWeight weight,
 	return f;
 }
 
+void
+html_font_destroy (HTMLFont *html_font)
+{
+	g_return_if_fail (html_font != NULL);
+
+	gdk_font_unref (html_font->gdk_font);
+	g_free (html_font->family);
+	g_free (html_font);
+}
+
 HTMLFontStack *
 html_font_stack_new (void)
 {
@@ -62,12 +75,16 @@ html_font_stack_new (void)
 gint
 html_font_calc_ascent (HTMLFont *f)
 {
+	g_return_val_if_fail (f != NULL, 0);
+	
 	return f->gdk_font->ascent;
 }
 
 gint
 html_font_calc_descent (HTMLFont *f)
 {
+	g_return_val_if_fail (f != NULL, 0);
+	
 	return f->gdk_font->descent;
 }
 
@@ -76,6 +93,9 @@ html_font_calc_width (HTMLFont *f, gchar *text, gint len)
 {
 	gint width;
 
+	g_return_val_if_fail (f != NULL, 0);
+	g_return_val_if_fail (text != NULL, 0);
+	
 	if (len == -1)
 		width = gdk_string_width (f->gdk_font, text);
 	else
@@ -87,14 +107,26 @@ html_font_calc_width (HTMLFont *f, gchar *text, gint len)
 void
 html_font_stack_push (HTMLFontStack *fs, HTMLFont *f)
 {
+	g_return_if_fail (fs != NULL);
+	g_return_if_fail (f != NULL);
+	
 	fs->list = g_list_prepend (fs->list, (gpointer) f);
 }
 
 void
 html_font_stack_clear (HTMLFontStack *fs)
 {
+	GList *stack;
 
-	/* FIXME: Should destroy the fonts*/
+	g_return_if_fail (fs != NULL);
+	
+	for (stack = fs->list; stack; stack = stack->next){
+		HTMLFont *html_font = stack->data;
+
+		html_font_destroy (html_font);
+	}
+	g_list_free (fs->list);
+	fs->list = NULL;
 }
 
 HTMLFont *
@@ -102,6 +134,8 @@ html_font_stack_top (HTMLFontStack *fs)
 {
 	HTMLFont *f;
 
+	g_return_if_fail (fs != NULL, NULL);
+	
 	f = (HTMLFont *)(g_list_first (fs->list))->data;
 
 	return f;
@@ -112,6 +146,8 @@ html_font_stack_pop (HTMLFontStack *fs)
 {
 	HTMLFont *f;
 
+	g_return_if_fail (fs != NULL, NULL);
+	
 	f = html_font_stack_top (fs);
 
 	fs->list = g_list_remove (fs->list, f);
