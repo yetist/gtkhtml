@@ -28,6 +28,8 @@
 #include "htmlpainter.h"
 #include "gtkhtml-private.h"
 
+static void html_image_update_scaled_pixbuf (HTMLImage *image);
+
 
 HTMLImageClass html_image_class;
 
@@ -41,6 +43,9 @@ HTMLImageClass html_image_class;
 static void
 destroy (HTMLObject *image)
 {
+	if (HTML_IMAGE (image)->scaled_pixbuf)
+		gdk_pixbuf_unref (HTML_IMAGE (image)->scaled_pixbuf);
+
 	html_image_factory_unregister (HTML_IMAGE (image)->image_ptr->factory,
 				       HTML_IMAGE (image)->image_ptr, HTML_IMAGE (image));
 }
@@ -61,6 +66,8 @@ set_max_width (HTMLObject *o, gint max_width)
 				HTML_IMAGE (o)->image_ptr->pixbuf->art_pixbuf->width + HTML_IMAGE (o)->border;
 		o->width += HTML_IMAGE (o)->border * 2;
 	}
+	if (HTML_IMAGE (o)->scaled)
+		html_image_update_scaled_pixbuf (HTML_IMAGE (o));
 }
 
 static gint
@@ -112,10 +119,16 @@ draw (HTMLObject *o,
 					 o->width, o->ascent,
 					 TRUE, 1);
 	} else {
-		html_painter_draw_pixmap (p, base_x, base_y,
-					  HTML_IMAGE (o)->image_ptr->pixbuf,
-					  clip_x, clip_y,
-					  clip_width, clip_height);
+		if (HTML_IMAGE (o)->scaled) 
+			html_painter_draw_pixmap (p, base_x, base_y,
+						  HTML_IMAGE (o)->scaled_pixbuf,
+						  clip_x, clip_y,
+						  clip_width, clip_height);
+		else
+			html_painter_draw_pixmap (p, base_x, base_y,
+						  HTML_IMAGE (o)->image_ptr->pixbuf,
+						  clip_x, clip_y,
+						  clip_width, clip_height);
 	}
 }
 
@@ -217,6 +230,9 @@ html_image_init (HTMLImage *image,
 	if (!image->predefinedHeight)
 		object->ascent = 32;
 
+	image->scaled = FALSE;
+	image->scaled_pixbuf = NULL;
+
 	image->image_ptr = html_image_factory_register (imf, image, filename);
 }
 
@@ -238,6 +254,22 @@ html_image_new (HTMLImageFactory *imf, gchar *filename,
 /* FIXME this was formerly known as `html_image_init()'.  I am not sure what this is for.  */
 
 static void
+html_image_update_scaled_pixbuf (HTMLImage *image) 
+{
+	HTMLObject *object = HTML_OBJECT (image);
+
+	g_assert (image->scaled);
+
+	if (image->scaled_pixbuf)
+		gdk_pixbuf_unref (image->scaled_pixbuf);
+
+	image->scaled_pixbuf = gdk_pixbuf_scale_simple (image->image_ptr->pixbuf, 
+							object->width - 2 * image->border,
+							object->ascent - image->border,
+							ART_FILTER_TILES);
+}
+
+static void
 html_image_setup (HTMLImage *image)
 {
 	HTMLObject *object = HTML_OBJECT (image);
@@ -249,18 +281,31 @@ html_image_setup (HTMLImage *image)
 				object->width / image->image_ptr->pixbuf->art_pixbuf->width;
 		object->flags &= ~ HTML_OBJECT_FLAG_FIXEDWIDTH;
 	}
-	else if (image->image_ptr) {
+
+	if (image->image_ptr && image->image_ptr->pixbuf) {
+
+		if (image->predefinedWidth && object->width != 
+		    image->image_ptr->pixbuf->art_pixbuf->width)
+			image->scaled = TRUE;
+		else if (image->predefinedHeight && object->ascent != 
+			 image->image_ptr->pixbuf->art_pixbuf->height)
+			image->scaled = TRUE;
+
 		if (!image->predefinedWidth)
 			object->width = image->image_ptr->pixbuf->art_pixbuf->width;
 
 		if (!image->predefinedHeight)
 			object->ascent = image->image_ptr->pixbuf->art_pixbuf->height;
+
+		if (image->scaled)
+			html_image_update_scaled_pixbuf (image);
 	}
 	
 	if (!image->predefinedWidth)
 		object->width += image->border * 2;
 	if (!image->predefinedHeight)
 		object->ascent += image->border;
+
 }
 
 
@@ -280,17 +325,27 @@ static void html_image_factory_write_pixbuf  (GtkHTMLStreamHandle handle,
 static void html_image_factory_area_prepared (GdkPixbufLoader *loader, HTMLImagePointer *ip);
 static void html_image_factory_area_updated  (GdkPixbufLoader *loader,
 					      guint x, guint y, guint width, guint height,
-					      HTMLEngine *e);
+					      HTMLImagePointer *ip);
 
 static void
 html_image_factory_end_pixbuf (GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, gpointer user_data)
 {
-	HTMLImagePointer *p = user_data;
+	HTMLImagePointer *ip = user_data;
+	GSList *cur;
+
+	if (ip->pixbuf) {
+		for (cur = ip->interests; cur; cur = cur->next){
+			if (cur->data){
+				HTMLImage *i = HTML_IMAGE (cur->data);
+				if (i->scaled)
+					html_image_update_scaled_pixbuf (i);
+			}
+		}
+	}
+	html_engine_schedule_update (ip->factory->engine);
 	
-	html_engine_schedule_update (p->factory->engine);
-	
-	gdk_pixbuf_loader_close (p->loader);
-	p->loader = NULL;
+	gdk_pixbuf_loader_close (ip->loader);
+	ip->loader = NULL;
 }
 
 static void
@@ -298,17 +353,27 @@ html_image_factory_write_pixbuf (GtkHTMLStreamHandle handle, const guchar *buffe
 				size_t size, gpointer user_data)
 {
 	HTMLImagePointer *p = user_data;
-	
+	/* FIXME ! Check return value */
 	gdk_pixbuf_loader_write (p->loader, buffer, size);
 }
 
 static void
 html_image_factory_area_updated  (GdkPixbufLoader *loader,
 				  guint x, guint y, guint width, guint height,
-				  HTMLEngine *e)
+				  HTMLImagePointer *ip)
 {
+	GSList *cur;
+	
+	for (cur = ip->interests; cur; cur = cur->next){
+		if (cur->data){
+			HTMLImage *i = HTML_IMAGE (cur->data);
+			if (i->scaled)
+				html_image_update_scaled_pixbuf (i);
+		}
+	}
 	/* XXX fixme - only if we are onscreen, and even then we just need to do something to redraw ourselves
 	   rather than the whole stupid area. Also should only redraw if a significant new amount of info has come in */
+
 #if 0
 	html_engine_schedule_update (e);
 #endif
@@ -420,7 +485,7 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 		
 		gtk_signal_connect (GTK_OBJECT (retval->loader), "area_updated",
 				    GTK_SIGNAL_FUNC (html_image_factory_area_updated),
-				    factory->engine);
+				    retval);
 		
 		handle = gtk_html_stream_new (GTK_HTML (factory->engine->widget),
 					      retval->url,
@@ -436,8 +501,11 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 		gtk_signal_emit_by_name (GTK_OBJECT (factory->engine), "url_requested", filename,
 					 handle);
 
-	}
+	} else {
 
+		i->image_ptr = retval;
+		html_image_setup (i);
+	}
 	retval->interests = g_slist_prepend (retval->interests, i);
 
 	return retval;

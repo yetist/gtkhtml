@@ -53,6 +53,9 @@ struct _HTMLImage {
 	gchar *url;
 	gchar *target;
 
+	gboolean scaled;
+	GdkPixbuf *scaled_pixbuf;
+
         HTMLImagePointer *image_ptr;
 };
 
