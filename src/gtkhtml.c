@@ -24,7 +24,7 @@
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtk.h>
 #include <string.h>
-#include <widgets/e-unicode.h>
+#include <gal/widgets/e-unicode.h>
 
 #include <gnome.h>
 
@@ -1708,11 +1708,20 @@ gtk_html_allow_selection (GtkHTML *html,
 }
 
 
+
+/* #define LOG_INPUT */
+#ifdef LOG_INPUT
+static FILE *log_file;
+#endif
+
 GtkHTMLStream *
 gtk_html_begin (GtkHTML *html)
 {
 	GtkHTMLStream *handle;
 
+#ifdef LOG_INPUT
+	log_file = fopen ("gtkhtml.log", "w+");
+#endif
 	g_return_val_if_fail (! gtk_html_get_editable (html), NULL);
 
 	handle = html_engine_begin (html->engine);
@@ -1732,6 +1741,11 @@ gtk_html_write (GtkHTML *html,
 		const gchar *buffer,
 		size_t size)
 {
+#ifdef LOG_INPUT
+	gint i;
+	for (i=0; i<size; i++)
+		fprintf (log_file, "%c", buffer [i]);
+#endif
 	gtk_html_stream_write (handle, buffer, size);
 }
 
@@ -1740,6 +1754,9 @@ gtk_html_end (GtkHTML *html,
 	      GtkHTMLStream *handle,
 	      GtkHTMLStreamStatus status)
 {
+#ifdef LOG_INPUT
+	fclose (log_file);
+#endif
 	gtk_html_stream_close (handle, status);
 
 	html->load_in_progress = FALSE;
