@@ -605,11 +605,11 @@ static void
 in_extension (HTMLTokenizer *t, const gchar **src)
 {
 	/* check for "-->" */
-	if (**src == '-') {
+	if (!t->tquote && **src == '-') {
 		if (t->searchCount < 2)
 			t->searchCount ++;
 		(*src) ++;
-	} else if (t->searchCount == 2 && **src == '>') {
+	} else if (!t->tquote && t->searchCount == 2 && **src == '>') {
 		t->extension = FALSE;
 		(*src) ++;
 	} else {

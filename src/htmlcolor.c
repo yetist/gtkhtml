@@ -78,8 +78,8 @@ html_color_unref (HTMLColor *color)
 	if (!color->refcount) {
 		/* if (color->allocated)
 		   g_warning ("FIXME, color free\n"); */
-		/* FIXME commented out to catch g_asserts on refcount so we could hunt "too much unrefs" bugs
-                   g_free (color); */
+		/* FIXME commented out to catch g_asserts on refcount so we could hunt "too much unrefs" bugs */
+		g_free (color);
 	}
 }
 

@@ -2000,10 +2000,11 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 		}
 
 		close_flow (e, _clue);
-	} else if (strncmp (str, "data", 4) == 0) {
+	} else if (strncmp (str, "data ", 5) == 0) {
 		gchar *key = NULL;
 		gchar *class_name = NULL;
-		html_string_tokenizer_tokenize( e->st, str + 4, " >" );
+
+		html_string_tokenizer_tokenize (e->st, str + 5, " >" );
 		while (html_string_tokenizer_has_more_tokens (e->st)) {
 			const gchar *token = html_string_tokenizer_next_token (e->st);
 			if (strncasecmp (token, "class=", 6 ) == 0) {
