@@ -1,3 +1,7 @@
+2001-09-12  Radek Doulik  <rodo@ximian.com>
+
+	* GNOME_GtkHTML_Editor.xml.in: fixed typo
+
 2001-09-11  Larry Ewing  <lewing@ximian.com>
 
 	* persist-stream-impl.c (save_receiver): if the stream is NIL set

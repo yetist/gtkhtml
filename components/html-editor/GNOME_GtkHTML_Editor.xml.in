@@ -208,7 +208,7 @@
  					<menuitem name="HeadingNumberedList" verb="" _label="_Numbered List"/> 
 
 					<menuitem name="HeadingRomanList" verb="" _label="_Roman Numeral List"/> 
-					<menuitem name="HeadingAlphabeticalList" verb="" _label="_Alpabetical List"/> 				</submenu>
+					<menuitem name="HeadingAlphabeticalList" verb="" _label="_Alphabetical List"/> 				</submenu>
                 
 				<submenu name="Alignment" _label="_Alignment">
 					<menuitem name="AlignLeft" verb="" _label="_Left"/> 
