@@ -44,5 +44,20 @@ html_engine_insert_rule (HTMLEngine      *e,
 	html_object_destroy (rule);
 }
 
+#define SET(x)  if (rule-> ## x != x) { changed = TRUE; rule-> ## x = x; }
+#define SETO(x) if (HTML_OBJECT (rule)-> ## x != x) { changed = TRUE; HTML_OBJECT (rule)-> ## x = x; }
 
-	
+void
+html_rule_set (HTMLRule *rule, HTMLEngine *e, gint length, gint percent, gint size, gboolean shade, HTMLHAlignType halign)
+{
+	gboolean changed = FALSE;
+
+	SET  (length);
+	SET  (size);
+	SETO (percent);
+	SET  (shade);
+	SET  (halign);
+
+	if (changed)
+		html_engine_schedule_update (e);
+}

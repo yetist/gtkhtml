@@ -25,11 +25,19 @@
 #include "htmlengine.h"
 #include "htmlobject.h"
 
-void html_engine_insert_rule (HTMLEngine      *e,
-			      gint            length,
-			      gint            percent,
-			      gint            size,
-			      gboolean        shade,
-			      HTMLHAlignType  halign);
+void  html_engine_insert_rule  (HTMLEngine     *e,
+				gint            length,
+				gint            percent,
+				gint            size,
+				gboolean        shade,
+				HTMLHAlignType  halign);
+
+void  html_rule_set            (HTMLRule       *rule,
+				HTMLEngine     *e,
+				gint            length,
+				gint            percent,
+				gint            size,
+				gboolean        shade,
+				HTMLHAlignType  halign);
 
 #endif

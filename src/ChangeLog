@@ -1,3 +1,8 @@
+2000-10-13  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine-edit-rule.c (html_rule_set): new function for setting
+	rule parameters
+
 2000-10-12  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlclueflow.c (save_plain): wrap the text contained within the
