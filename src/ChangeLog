@@ -1,3 +1,14 @@
+2002-11-02  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (ucs2_order): fix the names of UCS-2BE and UCS-2LE,
+	and captialize the rest for fun.
+
+	* htmlfontmanager.c (get_name_from_face): disable all the logic
+	here.  Rodo, can you look at this, is it still needed?
+
+	* gtkhtml.c (selection_received): protect ouselves from failed
+	conversions.
+
 2002-10-28  Larry Ewing  <lewing@ximian.com>
 
 	* htmlselect.c (html_select_set_text): only measure the string if

@@ -91,8 +91,6 @@ static GtkTargetEntry dnd_link_sources [] = {
 
 #define d_s(x)
 
-#define d_s(x)
-
 static GtkLayoutClass *parent_class = NULL;
 
 GConfClient *gconf_client = NULL;
@@ -1638,14 +1636,21 @@ static char *
 ucs2_order (gboolean swap)
 {
 	gboolean be;
+	
+	/* 
+	 * FIXME owen tells me this logic probably isn't needed
+	 * because smart iconvs will notice the BOM and act accordingly
+	 * I don't have as much faith in the various iconv implementations
+	 * so I am leaving it in for now
+	 */
 
 	be = G_BYTE_ORDER == G_BIG_ENDIAN;
 	be = swap ? be : !be;	
 
 	if (be)
-		return "ucs2-be";
+		return "UCS-2BE";
 	else 
-		return "ucs2-le";
+		return "UCS-2LE";
 	
 }
 
@@ -1690,7 +1695,7 @@ selection_get (GtkWidget        *widget,
 			html_object_save (selection_object, state);
 			
 			d_s(g_warning ("BUFFER = %s", buffer->str);)
-			selection_string = g_convert (buffer->str, buffer->len, "ucs2", "utf-8", NULL, &len, NULL);
+			selection_string = g_convert (buffer->str, buffer->len, "UCS-2", "UTF-8", NULL, &len, NULL);
 			
 			if (selection_string)
   				gtk_selection_data_set (selection_data,
@@ -1824,6 +1829,7 @@ selection_received (GtkWidget *widget,
 			guint    len  = (guint)selection_data->length;
 			guchar  *data = selection_data->data;
 			gchar   *utf8 = NULL;
+			GError  *error = NULL;
 
       			/* 
 			 * FIXME This hack decides the charset of the selection.  It seems that
@@ -1852,13 +1858,18 @@ selection_received (GtkWidget *widget,
 					len  -= 2;
 					break;
 				default:
-					fromcode = "ucs2";
+					fromcode = "UCS-2";
 					break;
 				}
 				
-				utf8 = g_convert (data, len, "utf-8", fromcode, &read_len, &written_len, NULL);
+				utf8 = g_convert (data, len, "UTF-8", fromcode, &read_len, &written_len, &error);
+				
+				if (error) {
+					g_warning ("g_convert error: %s\n", error->message);
+					g_error_free (error);
+				}
 
-				d_s (g_warning ("UCS2 selection = %s", utf8);)
+				d_s (g_warning ("UCS-2 selection = %s", utf8);)
 			} else if (len > 0) {
 				d_s (g_warning ("UTF-8 selection (%d) = %s", len, data);)
 
@@ -1877,7 +1888,11 @@ selection_received (GtkWidget *widget,
 				g_free (utf8);
 				utf8 = cite;
 			}
-			gtk_html_insert_html (GTK_HTML (widget), utf8);
+
+			if (utf8)
+				gtk_html_insert_html (GTK_HTML (widget), utf8);
+			else 
+				g_warning ("selection was empty");
 
 			g_free (utf8);			
 		} else if (selection_data->type != GDK_SELECTION_TYPE_STRING) {

@@ -253,8 +253,14 @@ html_font_manager_get_attr (gchar *font_name, gint n)
 static gchar *
 get_name_from_face (HTMLFontManager *m, const gchar *face)
 {
-	gchar *enc1, *enc2, *rv;
+	gchar *enc1, *enc2, *rv = NULL;
 
+	/* 
+	 * FIXME this looks wrong and breaks on pasting so I'm
+	 * going to disable it now.  Rodo if this is still needed
+	 * for something let me know.
+	 */
+#if 0
 	enc1 = html_font_manager_get_attr (m->variable.face, 13);
 	enc2 = html_font_manager_get_attr (m->variable.face, 14);
 
@@ -262,7 +268,7 @@ get_name_from_face (HTMLFontManager *m, const gchar *face)
 
 	g_free (enc1);
 	g_free (enc2);
-
+#endif
 	return rv;
 }
 
