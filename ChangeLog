@@ -1,3 +1,7 @@
+2001-07-31  Larry Ewing  <lewing@ximian.com>
+
+	* configure.in: bump to version to 0.11.99.
+
 2001-07-30  Larry Ewing  <lewing@ximian.com>
 
 	Make 0.11.0 release.
