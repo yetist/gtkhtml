@@ -166,7 +166,7 @@ html_textarea_init (HTMLTextArea *ta,
 	pango_layout_get_size (layout, &width, &height);
 	g_object_unref (layout);
 
-	gtk_widget_set_usize (ta->text, (width / PANGO_SCALE) * col + 8, (height / PANGO_SCALE) * row + 4);
+	gtk_widget_set_size_request (ta->text, (width / PANGO_SCALE) * col + 8, (height / PANGO_SCALE) * row + 4);
 
 	ta->default_text = NULL;
 }

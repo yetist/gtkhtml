@@ -122,16 +122,16 @@ get_tags (const HTMLText *text,
 		|| !html_color_equal (text->color, pt->color)
 		|| (pt->font_style & GTK_HTML_FONT_STYLE_SIZE_MASK) != (font_style & GTK_HTML_FONT_STYLE_SIZE_MASK))) {
 		if (!std_color) {
-			g_string_sprintfa (ot, "<FONT COLOR=\"#%02x%02x%02x\"",
-					   text->color->color.red   >> 8,
-					   text->color->color.green >> 8,
-					   text->color->color.blue  >> 8);
+			g_string_append_printf (ot, "<FONT COLOR=\"#%02x%02x%02x\"",
+						text->color->color.red   >> 8,
+						text->color->color.green >> 8,
+						text->color->color.blue  >> 8);
 			font_tag = TRUE;
 		}
 		if (!std_size) {
 			if (!font_tag)
 				g_string_append (ot, "<FONT");
-			g_string_sprintfa (ot, " SIZE=\"%d\"", font_style & GTK_HTML_FONT_STYLE_SIZE_MASK);
+			g_string_append_printf (ot, " SIZE=\"%d\"", font_style & GTK_HTML_FONT_STYLE_SIZE_MASK);
 		}
 		g_string_append_c (ot, '>');
 	}

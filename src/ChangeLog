@@ -1,5 +1,51 @@
 2002-11-05  Radek Doulik  <rodo@ximian.com>
 
+	* htmlframe.c (frame_submit): use g_signal_emit_by_name
+	(frame_object_requested): ditto
+	(calc_size): use set_size_request
+	(html_frame_set_size): ditto
+	(html_frame_init): ditto
+
+	* htmliframe.c (iframe_object_requested): use
+	g_signal_emit_by_name
+	(calc_size): use set_size_request
+	(html_iframe_init): ditto
+
+	* htmltextinput.c (html_text_input_key_pressed): use
+	g_signal_stop_emission_by_name
+	(html_text_input_init): use set_size_request
+
+	* htmltextarea.c (html_textarea_init): use set_size_request
+
+	* htmlselect.c (html_select_init): use set_size_request
+	(html_select_init): ditto
+	(html_select_init): use gtk_editable_set_editable
+	(html_select_set_text): use set_size_request
+	(html_select_set_text): ditto
+
+	* htmlprinter.c (draw_embedded): use g_signal_emit_by_name
+	(ref_font): use g_object_ref
+	(unref_font): use g_object_unref
+	(html_printer_new): use g_object_ref
+
+	* htmlobject.c (html_object_set_data): don't use
+	g_quark_from_string, it's already used in g_datalist_set_data_full
+	macro
+
+	* htmlfontmanager.c (manager_alloc_font): removed
+	get_name_from_face, simplified
+
+	* htmlgdkpainter.c (draw_embedded): use g_signal_emit_by_name
+
+	* htmlengine.c (update_embedded): use g_object_get_data
+
+	* htmlengine-print.c (print_with_header_footer): use g_object_ref
+
+	* gtkhtml-embedded.c (gtk_html_embedded_new): use set_size_request
+	instead of deprecated set_usize
+	(gtk_html_embedded_changed): use g_signal_emit
+	(gtk_html_embedded_new): use g_object_new
+
 	* testgtkhtml.c: ported from 1.2 version
 
 	* Makefile.am: reenabled testgtkhtml

@@ -107,7 +107,7 @@ destroy (HTMLObject *o)
 		g_signal_handlers_disconnect_matched (element->widget, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, element);
 		if (element->changed_id > 0)
 			g_signal_handler_disconnect (element->widget, element->changed_id);
-		gtk_object_set_data (GTK_OBJECT (element->widget), "embeddedelement", NULL);
+		g_object_set_data (G_OBJECT (element->widget), "embeddedelement", NULL);
 		if (element->widget->parent && element->parent) {
 			g_assert (element->widget->parent == element->parent);
 			gtk_container_remove (GTK_CONTAINER (element->parent), element->widget);
@@ -186,16 +186,6 @@ static gboolean
 accepts_cursor (HTMLObject *o)
 {
 	return TRUE;
-}
-
-static void
-reparent (HTMLEmbedded *e, GtkWidget *new_parent)
-{
-	e->parent = new_parent;
-	gtk_widget_ref (e->widget);
-	gtk_widget_unparent (e->widget);
-	gtk_layout_put (GTK_LAYOUT(e->parent), e->widget, 0, 0);
-	gtk_widget_unref (e->widget);
 }
 
 static gchar *
@@ -348,7 +338,7 @@ html_embedded_object_changed (GtkHTMLEmbedded *eb, HTMLEngine *e)
 {
 	HTMLObject *object;
 
-	object = HTML_OBJECT (gtk_object_get_data (GTK_OBJECT (eb), "embeddedelement"));
+	object = HTML_OBJECT (g_object_get_data (G_OBJECT (eb), "embeddedelement"));
 	if (object)
 		html_object_calc_size (object, e->painter, FALSE);
 	
@@ -396,7 +386,7 @@ html_embedded_set_widget (HTMLEmbedded *emb, GtkWidget *w)
 	
 	gtk_widget_show (w);
 
-	gtk_object_set_data (GTK_OBJECT (w), "embeddedelement", emb);
+	g_object_set_data (G_OBJECT (w), "embeddedelement", emb);
 	g_signal_connect (w, "size_allocate", G_CALLBACK (html_embedded_allocate), emb);
 }
 
@@ -424,6 +414,8 @@ html_object_is_embedded (HTMLObject *o)
 	case HTML_TYPE_IFRAME:
 	case HTML_TYPE_FRAME:
 		rv = TRUE;
+	default:
+		;
 	}
 
 	return rv;

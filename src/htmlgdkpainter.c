@@ -52,12 +52,12 @@ finalize (GObject *object)
 	painter = HTML_GDK_PAINTER (object);
 
 	if (painter->gc != NULL) {
-		gdk_gc_unref (painter->gc);
+		g_object_unref (painter->gc);
 		painter->gc = NULL;
 	}
 
 	if (painter->pixmap != NULL) {
-		gdk_pixmap_unref (painter->pixmap);
+		g_object_unref (painter->pixmap);
 		painter->pixmap = NULL;
 	}
 
@@ -127,7 +127,7 @@ alloc_color (HTMLPainter *painter,
 	gdk_painter = HTML_GDK_PAINTER (painter);
 	g_return_if_fail (gdk_painter->window != NULL);
 
-	colormap = gdk_window_get_colormap (gdk_painter->window);
+	colormap = gdk_drawable_get_colormap (gdk_painter->window);
 	gdk_rgb_find_color (colormap, color);
 }
 
@@ -148,7 +148,7 @@ begin (HTMLPainter *painter, int x1, int y1, int x2, int y2)
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 	g_return_if_fail (gdk_painter->window != NULL);
-	visual = gdk_window_get_visual (gdk_painter->window);
+	visual = gdk_drawable_get_visual (gdk_painter->window);
 	g_return_if_fail (visual != NULL);
 
 	if (gdk_painter->double_buffer){
@@ -199,7 +199,7 @@ end (HTMLPainter *painter)
 			   gdk_painter->x2 - gdk_painter->x1,
 			   gdk_painter->y2 - gdk_painter->y1);
 
-	gdk_pixmap_unref (gdk_painter->pixmap);
+	g_object_unref (gdk_painter->pixmap);
 	gdk_painter->pixmap = NULL;
 }
 
@@ -526,8 +526,8 @@ draw_background (HTMLPainter *painter,
 					    x - gdk_painter->x1, y - gdk_painter->y1, 
 					    width, height);
 			
-			gdk_pixmap_unref (pixmap);			
-			gdk_gc_unref (gc);			
+			g_object_unref (pixmap);			
+			g_object_unref (gc);			
 		} else {
 			int incr_x = 0;
 			int incr_y = 0;
@@ -570,10 +570,10 @@ draw_background (HTMLPainter *painter,
 								cy - h - gdk_painter->y1);
 					
 					
-					gdk_draw_pixmap (gdk_painter->pixmap, gc, pixmap,
-							 w, h, cx - gdk_painter->x1, cy - gdk_painter->y1,
-							 (cw >= incr_x) ? incr_x : cw,
-							 (ch >= incr_y) ? incr_y : ch);
+					gdk_draw_drawable (gdk_painter->pixmap, gc, pixmap,
+							   w, h, cx - gdk_painter->x1, cy - gdk_painter->y1,
+							   (cw >= incr_x) ? incr_x : cw,
+							   (ch >= incr_y) ? incr_y : ch);
 					cw -= incr_x;
 					cx += incr_x;
 					w = 0;
@@ -582,9 +582,9 @@ draw_background (HTMLPainter *painter,
 				cy += incr_y;
 				h = 0;
 			}
-			gdk_pixmap_unref (pixmap);			
-			gdk_bitmap_unref (bitmap);
-			gdk_gc_unref (gc);
+			g_object_unref (pixmap);			
+			g_object_unref (bitmap);
+			g_object_unref (gc);
 		}
 	} else {
 		if (color && gdk_pixbuf_get_has_alpha (pixbuf)) {
@@ -814,11 +814,11 @@ draw_embedded (HTMLPainter * p, HTMLEmbedded *o, gint x, gint y)
 
 	embedded_widget = html_embedded_get_widget (o);
 	if (embedded_widget && GTK_IS_HTML_EMBEDDED (embedded_widget)) {
-		gtk_signal_emit_by_name (GTK_OBJECT (embedded_widget),
-					 "draw_gdk",
-					 gdk_painter->pixmap, 
-					 gdk_painter->gc, 
-					 x, y);
+		g_signal_emit_by_name (embedded_widget,
+				       "draw_gdk", 0,
+				       gdk_painter->pixmap, 
+				       gdk_painter->gc, 
+				       x, y);
 	}
 }
 
@@ -1118,8 +1118,6 @@ void
 html_gdk_painter_realize (HTMLGdkPainter *gdk_painter,
 			  GdkWindow *window)
 {
-	GdkColormap *colormap;
-
 	g_return_if_fail (gdk_painter != NULL);
 	g_return_if_fail (window != NULL);
 	
@@ -1149,7 +1147,7 @@ html_gdk_painter_unrealize (HTMLGdkPainter *painter)
 	g_return_if_fail (HTML_IS_GDK_PAINTER (painter));
 
 	if (html_gdk_painter_realized (painter)) {
-		gdk_gc_unref (painter->gc);
+		g_object_unref (painter->gc);
 		painter->gc = NULL;
 
 		painter->window = NULL;

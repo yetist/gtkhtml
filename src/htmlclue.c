@@ -73,7 +73,6 @@ static HTMLObject *
 get_child (HTMLObject *o, gint index)
 {
 	HTMLObject *cur = HTML_CLUE (o)->head;
-	gint n_children = 0;
 
 	g_return_val_if_fail (index >= 0, NULL);
 

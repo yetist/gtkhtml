@@ -26,6 +26,7 @@
 #include <gtk/gtkentry.h>
 #include <gtk/gtkscrolledwindow.h>
 #include <gtk/gtktreeview.h>
+#include <gtk/gtktreeselection.h>
 #include <gtk/gtktreemodel.h>
 #include <gtk/gtkcellrenderertext.h>
 #include "htmlselect.h"
@@ -303,12 +304,12 @@ html_select_init (HTMLSelect *select,
 		gtk_list_store_append (select->store, &iter);
 		gtk_list_store_set (select->store, &iter, 0, "height", -1);
 		gtk_widget_size_request (select->view, &req);
-		gtk_widget_set_usize (select->view, 120, req.height * size);
+		gtk_widget_set_size_request (select->view, 120, req.height * size);
 		gtk_list_store_remove (select->store, &iter);
 	} else {
 		widget = gtk_combo_new ();
-		gtk_entry_set_editable (GTK_ENTRY(GTK_COMBO(widget)->entry), FALSE);
-		gtk_widget_set_usize ( GTK_WIDGET (widget), 120, -2);
+		gtk_editable_set_editable (GTK_EDITABLE (GTK_COMBO(widget)->entry), FALSE);
+		gtk_widget_set_size_request ( GTK_WIDGET (widget), 120, -1);
 	}
 	html_embedded_set_widget (element, widget);
 
@@ -351,7 +352,6 @@ html_select_add_option (HTMLSelect *select, gchar *value, gboolean selected)
 			gtk_tree_selection_select_iter (gtk_tree_view_get_selection (GTK_TREE_VIEW (select->view)), &iter);
 		}
 	} else {
-		GtkWidget *w = HTML_EMBEDDED (select)->widget;
 		select->strings = g_list_append (select->strings, g_strdup (""));
 
 		select->needs_update = TRUE;
@@ -411,7 +411,7 @@ html_select_set_text (HTMLSelect *select, gchar *text)
 			HTML_OBJECT (select)->width += req.width + 8;
 		}
 
-		gtk_widget_set_usize (w, HTML_OBJECT(select)->width, -2);
+		gtk_widget_set_size_request (w, HTML_OBJECT(select)->width, -1);
 	} else {
 		w = HTML_EMBEDDED (select)->widget;
 		item = g_list_length (select->strings) - 1;
@@ -431,7 +431,7 @@ html_select_set_text (HTMLSelect *select, gchar *text)
 			   HTML_OBJECT(select)->width = gdk_string_width (w->style->font, longest) + 30
 			*/
 		}
-		gtk_widget_set_usize (GTK_WIDGET (w), HTML_OBJECT (select)->width, -2);
+		gtk_widget_set_size_request (GTK_WIDGET (w), HTML_OBJECT (select)->width, -1);
 	}
 
 	if (item >= 0 && g_list_nth (select->values, item)->data == NULL)

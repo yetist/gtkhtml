@@ -136,7 +136,7 @@ gtk_html_isearch (GtkHTML *html, gboolean forward)
 		gtk_widget_ref (GTK_WIDGET (html->priv->search_input_line));
 
 		data = g_new (GtkHTMLISearch, 1);
-		gtk_object_set_data (GTK_OBJECT (html->priv->search_input_line), "search_data", data);
+		g_object_set_data (G_OBJECT (html->priv->search_input_line), "search_data", data);
 
 		data->html      = html;
 
@@ -145,7 +145,7 @@ gtk_html_isearch (GtkHTML *html, gboolean forward)
 		g_signal_connect (html->priv->search_input_line, "destroy", G_CALLBACK (destroy), data);
 	} else {
 		gtk_widget_show (GTK_WIDGET (html->priv->search_input_line));
-		data = (GtkHTMLISearch *) gtk_object_get_data (GTK_OBJECT (html->priv->search_input_line), "search_data");
+		data = (GtkHTMLISearch *) g_object_get_data (G_OBJECT (html->priv->search_input_line), "search_data");
 	}
 
 	data->forward   = forward;

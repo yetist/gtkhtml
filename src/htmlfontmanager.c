@@ -250,27 +250,6 @@ html_font_manager_get_attr (gchar *font_name, gint n)
 	    return g_strdup ("Unknown");
 }
 
-static gchar *
-get_name_from_face (HTMLFontManager *m, const gchar *face)
-{
-	gchar *enc1, *enc2, *rv = NULL;
-
-	/* 
-	 * FIXME this looks wrong and breaks on pasting so I'm
-	 * going to disable it now.  Rodo if this is still needed
-	 * for something let me know.
-	 */
-#if 0
-	enc1 = html_font_manager_get_attr (m->variable.face, 13);
-	enc2 = html_font_manager_get_attr (m->variable.face, 14);
-
-	rv = g_strdup_printf ("-*-%s-*-*-*-*-*-*-*-*-*-*-%s-%s", face, enc1, enc2);
-
-	g_free (enc1);
-	g_free (enc2);
-#endif
-	return rv;
-}
 
 static gboolean
 get_points (HTMLFontManager *manager, GtkHTMLFontStyle style)
@@ -279,19 +258,9 @@ get_points (HTMLFontManager *manager, GtkHTMLFontStyle style)
 }
 
 static gpointer
-manager_alloc_font (HTMLFontManager *manager, const gchar *face, GtkHTMLFontStyle style)
+manager_alloc_font (HTMLFontManager *manager, gchar *face, GtkHTMLFontStyle style)
 {
-	gchar *name = strcasecmp (face, manager->variable.face)
-		&& strcasecmp (face, manager->fixed.face)
-		? get_name_from_face (manager, face)
-		: g_strdup (face);
-	HTMLFont *font;
-
-	font = html_painter_alloc_font (manager->painter, name,
-					get_real_font_size (manager, style), get_points (manager, style), style);
-	g_free (name);
-
-	return font;
+	return html_painter_alloc_font (manager->painter, face, get_real_font_size (manager, style), get_points (manager, style), style);
 }
 
 static gchar *

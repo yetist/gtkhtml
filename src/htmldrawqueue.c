@@ -396,7 +396,7 @@ html_draw_queue_flush (HTMLDrawQueue *queue)
 
 	/* check to make sure we have something to draw on */
 
-	vis = queue->engine->window ? gdk_window_get_visual (queue->engine->window): NULL;
+	vis = queue->engine->window ? gdk_drawable_get_visual (queue->engine->window): NULL;
 
 	/* Draw clear areas.  */
 

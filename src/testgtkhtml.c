@@ -33,6 +33,7 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <unistd.h>
+#include <string.h>
 
 #include "config.h"
 #include "gtkhtml.h"
@@ -81,7 +82,8 @@ static gchar *parse_href (const gchar *s);
 
 static GtkHTML *html;
 static GtkHTMLStream *html_stream_handle = NULL;
-static GtkWidget *animator, *entry;
+/* static GtkWidget *animator; */
+static GtkWidget *entry;
 static GtkWidget *popup_menu, *popup_menu_back, *popup_menu_forward, *popup_menu_home;
 static GtkWidget *toolbar_back, *toolbar_forward;
 static HTMLURL *baseURL = NULL;
@@ -91,7 +93,8 @@ static int go_position;
 
 static gboolean use_redirect_filter;
 
-static gboolean slow_loading = FALSE, exit_when_done = FALSE;
+static gboolean slow_loading = FALSE;
+static gboolean exit_when_done = FALSE;
 
 static gint redirect_timerId = 0;
 static gchar *redirect_url = NULL;
@@ -170,11 +173,10 @@ static void
 create_toolbars (GtkWidget *app)
 {
 	GtkWidget *dock;
-	GtkWidget *hbox, *hbox2;
+	GtkWidget *hbox;
 	GtkWidget *frame;
-	GtkWidget *button;
 	GtkWidget *toolbar;
-	char *imgloc;
+	/* char *imgloc; */
 
 	dock = bonobo_dock_item_new ("testgtkhtml-toolbar1",
 				    (BONOBO_DOCK_ITEM_BEH_EXCLUSIVE));
@@ -267,14 +269,14 @@ create_toolbars (GtkWidget *app)
 
 }
 
-static gint page_num, pages;
-static GnomeFont *font;
+/* static gint page_num, pages;
+   static GnomeFont *font; */
 
-static void
+/* TODO2 static void
 print_footer (GtkHTML *html, GnomePrintContext *context,
 	      gdouble x, gdouble y, gdouble width, gdouble height, gpointer user_data)
 {
-	/* TODO2 gchar *text = g_strdup_printf ("- %d of %d -", page_num, pages);
+	gchar *text = g_strdup_printf ("- %d of %d -", page_num, pages);
 	gdouble tw = gnome_font_get_width_string (font, "text");
 
 	if (font) {
@@ -286,8 +288,8 @@ print_footer (GtkHTML *html, GnomePrintContext *context,
 	}
 
 	g_free (text);
-	page_num++; */
-}
+	page_num++;
+} */
 
 static void
 print_preview_cb (GtkWidget *widget,
@@ -354,7 +356,7 @@ static void
 redraw_cb (GtkWidget *widget, gpointer data)
 {
 	g_print ("forcing redraw\n");
-	gtk_widget_draw (GTK_WIDGET (html), NULL);
+	gtk_widget_queue_draw (GTK_WIDGET (html));
 }
 
 static void
@@ -867,7 +869,7 @@ goto_url(const char *url, int back_or_forward)
 			g_signal_connect (item->widget, "activate",
 					  G_CALLBACK (go_list_cb), GINT_TO_POINTER (i));
 
-			group = gtk_radio_menu_item_group(GTK_RADIO_MENU_ITEM(item->widget));
+			group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(item->widget));
 
 			if(i == 0)
 				gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item->widget), TRUE);
@@ -939,26 +941,23 @@ main (gint argc, gchar *argv[])
 	GtkWidget *html_widget;
 	GtkWidget *scrolled_window;
 	/* GdkColor   bgColor = {0, 0xc7ff, 0xc7ff, 0xc7ff}; */
-	poptContext ctx;
-#ifdef GTKHTML_HAVE_GCONF
+	/* RM2 poptContext ctx; */
 	GError  *gconf_error  = NULL;
-#endif
 
 #ifdef MEMDEBUG
 	void *p = malloc (1024);	/* to make linker happy with ccmalloc */
 #endif
-	gnome_init_with_popt_table (PACKAGE, VERSION,
-				    argc, argv, options, 0, &ctx);
-#ifdef GTKHTML_HAVE_GCONF
+	/* gnome_init_with_popt_table (PACKAGE, VERSION,
+	   argc, argv, options, 0, &ctx); */
+	gnome_program_init ("testgtkhtml", VERSION, LIBGNOMEUI_MODULE, argc, argv,
+			    GNOME_PARAM_POPT_TABLE, options,
+			    NULL);
 	if (!gconf_init (argc, argv, &gconf_error)) {
 		g_assert (gconf_error != NULL);
 		g_error ("GConf init failed:\n  %s", gconf_error->message);
 		return FALSE;
 	}
-#endif
 
-	gdk_rgb_init ();
-	
 	/* RM2 gtk_widget_set_default_colormap (gdk_rgb_get_cmap ());
 	   gtk_widget_set_default_visual (gdk_rgb_get_visual ()); */
 
@@ -1042,13 +1041,15 @@ main (gint argc, gchar *argv[])
 
 	gtk_widget_show_all (app);
 
-	{
+	if (argc > 1 && *argv [argc - 1] != '-')
+		goto_url (argv [argc - 1], 0);
+	/* RM2 {
 		const char **args;
 		args = poptGetArgs(ctx);
 
 		if (args && args[0])
 			goto_url (args[0], 0);
-	}
+			} */
 
 	gtk_main ();
 

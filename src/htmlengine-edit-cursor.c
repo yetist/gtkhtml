@@ -114,15 +114,15 @@ draw_cursor_rectangle (HTMLEngine *e, gint x1, gint y1, gint x2, gint y2,
 
 	gc = gdk_gc_new (e->window);
 	color = *on_color;
-	gdk_color_alloc (gdk_window_get_colormap (e->window), &color);
+	/* RM2 gdk_color_alloc (gdk_window_get_colormap (e->window), &color); */
 	gdk_gc_set_foreground (gc, &color);
 	color = *off_color;
-	gdk_color_alloc (gdk_window_get_colormap (e->window), &color);
+	/* RM2 gdk_color_alloc (gdk_window_get_colormap (e->window), &color); */
 	gdk_gc_set_background (gc, &color);
 	gdk_gc_set_line_attributes (gc, 1, GDK_LINE_DOUBLE_DASH, GDK_CAP_ROUND, GDK_JOIN_ROUND);
 	gdk_gc_set_dashes (gc, offset, dashes, 2);
 	gdk_draw_rectangle (e->window, gc, 0, x1, y1, x2 - x1, y2 - y1);
-	gdk_gc_unref (gc);
+	g_object_unref (gc);
 }
 
 static gint cursor_enabled = TRUE;

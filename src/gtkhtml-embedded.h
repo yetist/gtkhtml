@@ -27,9 +27,10 @@
 
 #include "gtkhtml-types.h"
 
-#define GTK_HTML_EMBEDDED(obj)         GTK_CHECK_CAST (obj, gtk_html_embedded_get_type (), GtkHTMLEmbedded)
-#define GTK_HTML_EMBEDDED_CLASS(klass) GTK_CHECK_CLASS_CAST (klass, gtk_html_embedded_get_type (), GtkHTMLEmbeddedClass)
-#define GTK_IS_HTML_EMBEDDED(obj)      GTK_CHECK_TYPE (obj, gtk_html_embedded_get_type ())
+#define GTK_TYPE_HTML_EMBEDDED         (gtk_html_embedded_get_type ())
+#define GTK_HTML_EMBEDDED(obj)         GTK_CHECK_CAST (obj, GTK_TYPE_HTML_EMBEDDED, GtkHTMLEmbedded)
+#define GTK_HTML_EMBEDDED_CLASS(klass) GTK_CHECK_CLASS_CAST (klass, GTK_TYPE_HTML_EMBEDDED, GtkHTMLEmbeddedClass)
+#define GTK_IS_HTML_EMBEDDED(obj)      GTK_CHECK_TYPE (obj, GTK_TYPE_HTML_EMBEDDED)
 
 struct _GtkHTMLEmbedded {
 	GtkBin bin;

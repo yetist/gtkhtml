@@ -81,7 +81,7 @@ iframe_object_requested (GtkHTML *html, GtkHTMLEmbedded *eb, gpointer data)
 	gboolean ret_val;
 
 	ret_val = FALSE;
-	gtk_signal_emit_by_name (GTK_OBJECT (parent), "object_requested", eb, &ret_val);
+	g_signal_emit_by_name (parent, "object_requested", eb, &ret_val);
 	return ret_val;
 }
 
@@ -344,7 +344,7 @@ calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 		height = html_engine_get_doc_height (e);
 		width = html_engine_get_doc_width (e);
 
-		gtk_widget_set_usize (iframe->scroll, width, height);
+		gtk_widget_set_size_request (iframe->scroll, width, height);
 		gtk_widget_queue_resize (iframe->scroll);
 		
 		html_iframe_set_scrolling (iframe, GTK_POLICY_NEVER);
@@ -661,7 +661,7 @@ html_iframe_init (HTMLIFrame *iframe,
 	if (depth < 10)
 		g_signal_emit_by_name (parent_html->engine, "url_requested", src, handle);
 	
-	gtk_widget_set_usize (scrolled_window, width, height);
+	gtk_widget_set_size_request (scrolled_window, width, height);
 
 	gtk_widget_show (scrolled_window);	
 

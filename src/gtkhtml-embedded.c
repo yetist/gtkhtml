@@ -96,7 +96,7 @@ gtk_html_embedded_finalize (GObject *object)
 static void
 gtk_html_embedded_changed (GtkHTMLEmbedded *ge)
 {
-	gtk_signal_emit (GTK_OBJECT (ge), signals[CHANGED]);
+	g_signal_emit (ge, signals[CHANGED], 0);
 }
 
 static void gtk_html_embedded_add (GtkContainer *container, GtkWidget *child)
@@ -265,10 +265,10 @@ gtk_html_embedded_new (char *classid, char *name, char *type, char *data, int wi
 {
 	GtkHTMLEmbedded *em;
 
-	em = (GtkHTMLEmbedded *)( gtk_type_new (gtk_html_embedded_get_type ()));
+	em = (GtkHTMLEmbedded *) g_object_new (GTK_TYPE_HTML_EMBEDDED, NULL);
 
 	if (width != -1 || height != -1)
-		gtk_widget_set_usize (GTK_WIDGET (em), width, height);
+		gtk_widget_set_size_request (GTK_WIDGET (em), width, height);
 
 	em->width = width;
 	em->height = height;

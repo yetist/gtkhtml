@@ -1570,13 +1570,13 @@ html_object_get_index (HTMLObject *self, guint offset)
 void
 html_object_set_data (HTMLObject *object, const gchar *key, const gchar *value)
 {
-	g_datalist_set_data_full (&object->object_data, g_quark_from_string (key), g_strdup (value), g_free);
+	g_datalist_set_data_full (&object->object_data, key, g_strdup (value), g_free);
 }
 
 void
 html_object_set_data_full (HTMLObject *object, const gchar *key, const gpointer value, GDestroyNotify func)
 {
-	g_datalist_set_data_full (&object->object_data, g_quark_from_string (key), value, func);
+	g_datalist_set_data_full (&object->object_data, key, value, func);
 }
 
 gpointer

@@ -171,7 +171,7 @@ print_with_header_footer (HTMLEngine *engine,
 
 		old_painter = engine->painter;
 
-		gtk_object_ref (GTK_OBJECT (old_painter));
+		g_object_ref (old_painter);
 		html_engine_set_painter (engine, printer);
 
 		min_width = html_engine_calc_min_width (engine);
@@ -194,7 +194,8 @@ print_with_header_footer (HTMLEngine *engine,
 		html_engine_set_painter (engine, old_painter);
 		g_object_unref (G_OBJECT (old_painter));
 	} else {
-		gnome_ok_dialog (_("Cannot allocate default font for printing\n"));
+		/* TODO2 dialog instead of warning */
+		g_warning (_("Cannot allocate default font for printing\n"));
 	}
 
 	g_object_unref (G_OBJECT (printer));

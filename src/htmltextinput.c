@@ -100,7 +100,7 @@ html_text_input_key_pressed (GtkWidget *w, GdkEventKey *ev, gpointer p)
 		else
 			g_warning ("Not in form's element list.  Couldn't focus successor.");
 		
-		gtk_signal_emit_stop_by_name(GTK_OBJECT(w), "key_press_event");
+		g_signal_stop_emission_by_name (w, "key_press_event");
 		return TRUE;
 	}
 	return FALSE;
@@ -200,8 +200,8 @@ html_text_input_init (HTMLTextInput *ti,
 
 	gtk_entry_set_visibility (GTK_ENTRY(element->widget), !password);
 	
-	min_width = 0; /* FIX2 gdk_char_width (element->widget->style->font, '0') * size + 8; */
-	gtk_widget_set_usize (element->widget, min_width, -1);
+	min_width = size*12; /* FIX2 gdk_char_width (element->widget->style->font, '0') * size + 8; */
+	gtk_widget_set_size_request (element->widget, min_width, -1);
 
 	ti->size = size;
 	ti->maxlen = maxlen;

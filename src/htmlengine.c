@@ -3296,7 +3296,7 @@ html_engine_finalize (GObject *object)
 	html_engine_clipboard_clear (engine);
 
 	if (engine->invert_gc != NULL) {
-		gdk_gc_unref (engine->invert_gc);
+		g_object_unref (engine->invert_gc);
 		engine->invert_gc = NULL;
 	}
 
@@ -3787,9 +3787,9 @@ static void
 html_engine_id_table_clear (HTMLEngine *e)
 {
 	if (e->id_table) {
-		g_hash_table_freeze (e->id_table);
+		/* RM2 g_hash_table_freeze (e->id_table); */
 		g_hash_table_foreach_remove (e->id_table, id_table_free_func, NULL);
-		g_hash_table_thaw (e->id_table);
+		/* RM2 g_hash_table_thaw (e->id_table); */
 		g_hash_table_destroy (e->id_table);
 		e->id_table = NULL;
 	}
@@ -3810,9 +3810,9 @@ class_data_table_free_func (gpointer key, gpointer val, gpointer data)
 	GHashTable *t;
 
 	t = (GHashTable *) val;
-	g_hash_table_freeze (t);
+	/* RM2 g_hash_table_freeze (t); */
 	g_hash_table_foreach_remove (t, class_data_free_func, NULL);
-	g_hash_table_thaw (t);
+	/* RM2 g_hash_table_thaw (t); */
 	g_hash_table_destroy (t);
 
 	g_free (key);
@@ -3824,9 +3824,9 @@ static void
 html_engine_class_data_clear (HTMLEngine *e)
 {
 	if (e->class_data) {
-		g_hash_table_freeze (e->class_data);
+		/* RM2 g_hash_table_freeze (e->class_data); */
 		g_hash_table_foreach_remove (e->class_data, class_data_table_free_func, NULL);
-		g_hash_table_thaw (e->class_data);
+		/* RM2 g_hash_table_thaw (e->class_data); */
 		g_hash_table_destroy (e->class_data);
 		e->class_data = NULL;
 	}
@@ -3919,7 +3919,7 @@ update_embedded (GtkWidget *widget, gpointer data)
 	 * enjoy having your objects out of the way :)
 	 */
 	
-	obj = HTML_OBJECT (gtk_object_get_data (GTK_OBJECT (widget), "embeddedelement"));
+	obj = HTML_OBJECT (g_object_get_data (G_OBJECT (widget), "embeddedelement"));
 	if (obj) {
 		HTMLEngine *e;
 		gint tx = 0, ty = 0;
@@ -5719,9 +5719,9 @@ static void
 html_engine_map_table_clear (HTMLEngine *e)
 {
 	if (e->map_table) {
-		g_hash_table_freeze (e->map_table);
+		/* RM2 g_hash_table_freeze (e->map_table); */
 		g_hash_table_foreach_remove (e->map_table, map_table_free_func, NULL);
-		g_hash_table_thaw (e->map_table);
+		/* RM2 g_hash_table_thaw (e->map_table); */
 		g_hash_table_destroy (e->map_table);
 		e->map_table = NULL;
 	}

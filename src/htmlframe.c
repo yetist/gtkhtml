@@ -74,7 +74,7 @@ frame_submit (GtkHTML *html,
 	HTMLFrame *frame = HTML_FRAME (data);
 	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(frame)->parent);
 
-	gtk_signal_emit_by_name (GTK_OBJECT (parent), "submit", method, action, encoding);
+	g_signal_emit_by_name (parent, "submit", method, action, encoding);
 }
 
 static void
@@ -94,7 +94,7 @@ frame_object_requested (GtkHTML *html, GtkHTMLEmbedded *eb, gpointer data)
 	gboolean ret_val;
 
 	ret_val = FALSE;
-	gtk_signal_emit_by_name (GTK_OBJECT (parent), "object_requested", eb, &ret_val);
+	g_signal_emit_by_name (parent, "object_requested", eb, &ret_val);
 	return ret_val;
 }
 
@@ -264,7 +264,7 @@ calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 		height = html_engine_get_doc_height (e);
 		width = html_engine_get_doc_width (e);
 
-		gtk_widget_set_usize (frame->scroll, width, height);
+		gtk_widget_set_size_request (frame->scroll, width, height);
 		gtk_widget_queue_resize (frame->scroll);
 		
 		html_frame_set_scrolling (frame, GTK_POLICY_NEVER);
@@ -453,7 +453,7 @@ html_frame_set_size (HTMLFrame *frame, gint width, gint height)
 	if (height > 0)
 		frame->height = height;
 	
-	gtk_widget_set_usize (frame->scroll, width, height);
+	gtk_widget_set_size_request (frame->scroll, width, height);
 }
 
 void 
@@ -545,7 +545,7 @@ html_frame_init (HTMLFrame *frame,
 
 	g_signal_emit_by_name (parent_html->engine, "url_requested", src, handle);
 
-	gtk_widget_set_usize (scrolled_window, width, height);
+	gtk_widget_set_size_request (scrolled_window, width, height);
 
 	gtk_widget_show (scrolled_window);	
 	frame->scroll = scrolled_window;

@@ -591,9 +591,9 @@ draw_embedded (HTMLPainter *p, HTMLEmbedded *o, gint x, gint y)
  
 	embedded_widget = html_embedded_get_widget(o);
 	if (embedded_widget && GTK_IS_HTML_EMBEDDED (embedded_widget)) {
-		gtk_signal_emit_by_name(GTK_OBJECT (embedded_widget), 
-					"draw_print", 
-					printer->print_context);
+		g_signal_emit_by_name(GTK_OBJECT (embedded_widget), 0,
+				      "draw_print", 
+				      printer->print_context);
 	}
 
 	gnome_print_grestore(printer->print_context); 
@@ -671,7 +671,6 @@ get_font_size (HTMLPrinter *printer, gboolean points, gdouble size)
 static HTMLFont *
 alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, GtkHTMLFontStyle style)
 {
-	HTMLPrinter *printer = HTML_PRINTER  (painter);
 	GnomeFontWeight weight;
 	GnomeFont *font;
 	gboolean italic;
@@ -720,13 +719,13 @@ alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, Gt
 static void
 ref_font (HTMLPainter *painter, HTMLFont *font)
 {
-	gtk_object_ref (GTK_OBJECT (font->data));
+	g_object_ref (font->data);
 }
 
 static void
 unref_font (HTMLPainter *painter, HTMLFont *font)
 {
-	gtk_object_unref (GTK_OBJECT (font->data));
+	g_object_unref (font->data);
 }
 
 static guint
@@ -819,7 +818,7 @@ html_printer_new (GnomePrintContext *print_context, GnomePrintMaster *print_mast
 
 	new = g_object_new (HTML_TYPE_PRINTER, NULL);
 
-	gtk_object_ref (GTK_OBJECT (print_context));
+	g_object_ref (print_context);
 	new->print_context = print_context;
 	new->print_master = print_master;
 
