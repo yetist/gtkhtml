@@ -139,13 +139,17 @@ draw_obj (HTMLDrawQueue *queue,
 
 	html_painter_end (e->painter);
 
-	html_engine_draw_cursor_in_area (e, x1, y1, x2 - x1, y2 - y1);
+	if (e->editable)
+		html_engine_draw_cursor_in_area (e, x1, y1, x2 - x1, y2 - y1);
 }
 
 void
 html_draw_queue_flush (HTMLDrawQueue *queue)
 {
+	static guint count;
 	GList *p;
+
+	printf ("%s %d\n", __FUNCTION__, ++count);
 
 	for (p = queue->elems; p != NULL; p = p->next) {
 		HTMLObject *obj;

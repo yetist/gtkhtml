@@ -1,3 +1,24 @@
+2000-01-24  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmldrawqueue.c (draw_obj): Do not paint the cursor if the
+	engine is not editable.
+
+	* htmlengine.c (html_engine_flush_draw_queue): Only draw the
+	cursor if the engine is not editable.
+	(html_engine_draw): Do not draw the cursor if not editable.
+	(html_engine_draw_cursor_in_area): g_assert() that the widget is
+	editable.
+
+	* gtkhtml.c (selection_idle_handler): New function, to perform
+	selection in the idle loop.
+	(motion_notify_event): Set it up in the idle handler to perform
+	selection.
+	(destroy): Remove the selection idle, if any.
+	(init): Initialize `selection_idle_handler_id' to zero.
+	(gtk_html_end): Removed debugging message.
+
+	* gtkhtml.h: New member `selection_idle_handler_id' in `GtkHTML'.
+
 2000-01-23  Federico Mena Quintero  <federico@helixcode.com>
 
 	* gtkhtml.c (realize): Set the background pixmap to NONE so that

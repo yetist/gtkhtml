@@ -3041,6 +3041,8 @@ html_engine_draw_cursor_in_area (HTMLEngine *e,
 	guint offset;
 	gint x1, y1, x2, y2;
 
+	g_assert (e->editable);
+
 	obj = e->cursor->object;
 	if (obj == NULL)
 		return;
@@ -3321,11 +3323,13 @@ html_engine_flush_draw_queue (HTMLEngine *e)
 {
 	g_return_if_fail (e != NULL);
 
-	html_engine_draw_cursor (e);
+	if (e->editable)
+		html_engine_draw_cursor (e);
 
 	html_draw_queue_flush (e->draw_queue);
 
-	html_engine_draw_cursor (e);
+	if (e->editable)
+		html_engine_draw_cursor (e);
 }
 
 void

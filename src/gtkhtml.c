@@ -26,6 +26,9 @@
 #include "gtkhtml-private.h"
 
 
+#define SELECTION_TIMEOUT 20
+
+
 static GtkLayoutClass *parent_class = NULL;
 
 enum {
@@ -48,8 +51,11 @@ static guint signals [LAST_SIGNAL] = { 0 };
 static gint
 idle_handler (gpointer data)
 {
+	static guint count;
 	GtkHTML *html;
 	HTMLEngine *engine;
+
+	printf ("%s (%d)\n", __FUNCTION__, ++count);
 
 	html = GTK_HTML (data);
 	engine = html->engine;
@@ -71,6 +77,28 @@ queue_draw (GtkHTML *html)
 {
 	if (html->idle_handler_id == 0)
 		html->idle_handler_id = gtk_idle_add (idle_handler, html);
+}
+
+
+static gint
+selection_idle_handler (gpointer data)
+{
+	GtkHTML *html;
+	HTMLEngine *engine;
+	static guint count;
+
+	printf ("%s (%d)\n", __FUNCTION__, ++count);
+
+	html = GTK_HTML (data);
+	engine = html->engine;
+	html_engine_select_region (engine,
+				   html->selection_x1, html->selection_y1,
+				   html->selection_x2, html->selection_y2,
+				   TRUE);
+
+	html->selection_idle_handler_id = 0;
+
+	return FALSE;
 }
 
 
@@ -231,6 +259,8 @@ destroy (GtkObject *object)
 
 	if (html->idle_handler_id != 0)
 		gtk_idle_remove (html->idle_handler_id);
+	if (html->selection_idle_handler_id != 0)
+		gtk_idle_remove (html->selection_idle_handler_id);
 
 	if (GTK_OBJECT_CLASS (parent_class)->destroy)
 		(*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
@@ -409,28 +439,44 @@ motion_notify_event (GtkWidget *widget,
 	GtkHTML *html;
 	HTMLEngine *engine;
 	const gchar *url;
+	static guint count;
+	gint x, y;
+	GdkModifierType mask;
 
 	g_return_val_if_fail (widget != NULL, 0);
 	g_return_val_if_fail (GTK_IS_HTML (widget), 0);
 	g_return_val_if_fail (event != NULL, 0);
 
+	printf ("%s %d\n", __FUNCTION__, ++count);
+
 	html = GTK_HTML (widget);
 	engine = html->engine;
+
+	if (event->is_hint)
+		gdk_window_get_pointer (GTK_LAYOUT (widget)->bin_window, &x, &y, &mask);
+	else {
+		x = event->x;
+		y = event->y;
+	}
+		
 
 	if (html->button_pressed) {
 		html->in_selection = TRUE;
 
-		html->selection_x2 = event->x + engine->x_offset;
-		html->selection_y2 = event->y + engine->y_offset;
+		html->selection_x2 = x + engine->x_offset;
+		html->selection_y2 = y + engine->y_offset;
 
-		html_engine_select_region (engine,
-					   html->selection_x1, html->selection_y1,
-					   html->selection_x2, html->selection_y2,
-					   TRUE);
+		if (html->selection_idle_handler_id == 0)
+			selection_idle_handler (html);
+#if 0
+			html->selection_idle_handler_id = gtk_timeout_add (SELECTION_TIMEOUT,
+									   selection_idle_handler,
+									   html);
+#endif
 	} else {
 		url = html_engine_get_link_at (engine,
-					       event->x + engine->x_offset,
-					       event->y + engine->y_offset);
+					       x + engine->x_offset,
+					       y + engine->y_offset);
 
 		if (url == NULL) {
 			if (html->pointer_url != NULL) {
@@ -471,7 +517,7 @@ button_press_event (GtkWidget *widget,
 
 	gtk_grab_add (widget);
 	gdk_pointer_grab (widget->window, TRUE,
-			  GDK_BUTTON_RELEASE_MASK | GDK_BUTTON_MOTION_MASK,
+			  GDK_BUTTON_RELEASE_MASK | GDK_BUTTON_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK,
 			  NULL, NULL, 0);
 
 	html->selection_x1 = event->x + engine->x_offset;
@@ -653,6 +699,7 @@ init (GtkHTML* html)
 	html->button_pressed = FALSE;
 
 	html->idle_handler_id = 0;
+	html->selection_idle_handler_id = 0;
 }
 
 
@@ -734,7 +781,6 @@ gtk_html_write (GtkHTML *html, GtkHTMLStreamHandle handle, const gchar *buffer, 
 void
 gtk_html_end (GtkHTML *html, GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status)
 {
-	g_warning (__FUNCTION__);
 	gtk_html_stream_end(handle, status);
 }
 
