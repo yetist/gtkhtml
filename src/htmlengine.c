@@ -3903,39 +3903,40 @@ html_engine_set_focus (HTMLEngine *engine,
 }
 
 
-void
+gboolean
 html_engine_make_cursor_visible (HTMLEngine *e)
 {
-	HTMLCursor *cursor;
-	HTMLObject *object;
-	gint x1, y1, x2, y2;
+	gint x1, y1, x2, y2, xo, yo;
 
 	g_return_if_fail (e != NULL);
 
 	if (! e->editable)
-		return;
+		return FALSE;
 
-	cursor = e->cursor;
-	object = cursor->object;
-	if (object == NULL)
-		return;
+	if (e->cursor->object == NULL)
+		return FALSE;
 
-	html_object_get_cursor (object, e->painter, cursor->offset, &x1, &y1, &x2, &y2);
+	html_object_get_cursor (e->cursor->object, e->painter, e->cursor->offset, &x1, &y1, &x2, &y2);
 
 	x1 += e->leftBorder;
 	y1 += e->topBorder;
 	x2 += e->leftBorder;
 	y2 += e->topBorder;
 
+	xo = e->x_offset;
+	yo = e->y_offset;
+
+	if (x1 < e->x_offset + e->leftBorder)
+		e->x_offset = x1 - e->leftBorder;
 	if (x1 + e->leftBorder >= e->x_offset + e->width)
 		e->x_offset = x1 + e->leftBorder - e->width + 1;
-	else if (x1 < e->x_offset + e->leftBorder)
-		e->x_offset = x1 - e->leftBorder;
 
+	if (y1 < e->y_offset + e->topBorder)
+		e->y_offset = y1 - e->topBorder;
 	if (y2 + e->topBorder >= e->y_offset + e->height)
 		e->y_offset = y2 + e->topBorder - e->height + 1;
-	else if (y1 < e->y_offset + e->topBorder)
-		e->y_offset = y1 - e->topBorder;
+
+	return xo != e->x_offset || yo != e->y_offset;
 }
 
 
@@ -4051,9 +4052,18 @@ thaw_idle (gpointer data)
 	e->thaw_idle_id = 0;
 
 	html_engine_calc_size (e);
+
+	gtk_html_private_calc_scrollbars (e->widget);
+	gtk_html_edit_make_cursor_visible (e->widget);
+	/* html_engine_make_cursor_visible (e);
+
+	gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->hadjustment, (gfloat) e->x_offset);
+	gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->vadjustment, (gfloat) e->y_offset);
+	*/
 	html_draw_queue_clear (e->draw_queue);
 	html_engine_draw (e, 0, 0, e->width, e->height);	
 	html_engine_show_cursor (e);
+
 
 	return FALSE;
 }

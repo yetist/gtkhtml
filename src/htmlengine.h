@@ -291,7 +291,7 @@ void  html_engine_draw_background      (HTMLEngine *e,
 
 /* Scrolling.  */
 void      html_engine_schedule_update      (HTMLEngine  *p);
-void      html_engine_make_cursor_visible  (HTMLEngine  *e);
+gboolean  html_engine_make_cursor_visible  (HTMLEngine  *e);
 gboolean  html_engine_goto_anchor          (HTMLEngine  *e,
 					    const gchar *anchor);
 

@@ -1,3 +1,15 @@
+2001-01-23  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine.c (thaw_idle): use gtk_html_edit_make_cursor_visible
+
+	* gtkhtml.c (gtk_html_edit_make_cursor_visible): new function
+	(key_press_event): don't do queue_draw here
+	(move_selection): use gtk_html_edit_make_cursor_visible
+	(cursor_move): ditto
+
+	* htmlengine.c (html_engine_make_cursor_visible): let cursor
+	always rather end in right-bottom
+
 2001-01-19  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine-edit.c (html_engine_indent_pre_paragraph): changed

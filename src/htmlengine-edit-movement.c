@@ -82,7 +82,6 @@ html_engine_move_cursor (HTMLEngine *e,
 	}
 
 	html_engine_show_cursor (e);
-
 	update_selection_if_necessary (e);
 
 	return c;

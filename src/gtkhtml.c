@@ -651,7 +651,6 @@ key_press_event (GtkWidget *widget,
 		html_engine_reset_blinking_cursor (html->engine);
 
 	if (retval) {
-		queue_draw (html);
 		if (position != html->engine->cursor->position)
 			update_styles (html);
 	}
@@ -2442,6 +2441,7 @@ cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType ski
 	}
 
 	html->binding_handled = TRUE;
+	gtk_html_edit_make_cursor_visible (html);
 }
 
 static void
@@ -2493,6 +2493,7 @@ move_selection (GtkHTML *html, GtkHTMLCommandType com_type)
 	}
 
 	html->binding_handled = TRUE;
+	gtk_html_edit_make_cursor_visible (html);
 }
 
 static void
@@ -3014,4 +3015,15 @@ gtk_html_editor_command (GtkHTML *html, const gchar *command_name)
 	val = gtk_type_enum_find_value (GTK_TYPE_HTML_COMMAND, command_name);
 	if (val)
 		command (html, val->value);
+}
+
+gboolean
+gtk_html_edit_make_cursor_visible (GtkHTML *html)
+{
+	html_engine_hide_cursor (html->engine);
+	if (html_engine_make_cursor_visible (html->engine)) {
+		gtk_adjustment_set_value (GTK_LAYOUT (html)->hadjustment, (gfloat) html->engine->x_offset);
+		gtk_adjustment_set_value (GTK_LAYOUT (html)->vadjustment, (gfloat) html->engine->y_offset);
+	}
+	html_engine_show_cursor (html->engine);
 }
