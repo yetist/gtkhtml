@@ -151,6 +151,12 @@ html_engine_search (HTMLEngine *e, const gchar *text,
 		return FALSE;
 }
 
+void
+html_engine_search_set_forward (HTMLEngine *e, gboolean forward)
+{
+	html_search_set_forward (e->search_info, forward);
+}
+
 gboolean
 html_engine_search_next (HTMLEngine *e)
 {

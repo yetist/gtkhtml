@@ -26,6 +26,8 @@ gboolean  html_engine_search                    (HTMLEngine *e,
 						 gboolean case_sensitive,
 						 gboolean forward,
 						 gboolean regular);
+void      html_engine_search_set_forward        (HTMLEngine *e,
+						 gboolean forward);
 gboolean  html_engine_search_next               (HTMLEngine *e);
 gboolean  html_engine_search_incremental        (HTMLEngine *e,
 						 const gchar *text,

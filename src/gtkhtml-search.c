@@ -170,6 +170,12 @@ gtk_html_engine_search (GtkHTML *html, const gchar *text, gboolean case_sensitiv
 	return html_engine_search (html->engine, text, case_sensitive, forward, regular);
 }
 
+void
+gtk_html_engine_search_set_forward (GtkHTML *html, gboolean forward)
+{
+	html_engine_search_set_forward (html->engine, forward);
+}
+
 gboolean
 gtk_html_engine_search_next (GtkHTML *html)
 {

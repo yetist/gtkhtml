@@ -32,6 +32,10 @@ gboolean  gtk_html_engine_search              (GtkHTML     *html,
 					       gboolean     case_sensitive,
 					       gboolean     forward,
 					       gboolean     regular);
+
+void      gtk_html_engine_search_set_forward  (GtkHTML     *html,
+					       gboolean forward);
+
 gboolean  gtk_html_engine_search_next         (GtkHTML     *html);
 gboolean  gtk_html_engine_search_incremental  (GtkHTML     *html,
 					       const gchar *text,
