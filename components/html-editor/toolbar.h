@@ -30,7 +30,7 @@
 #include "control-data.h"
 
 GtkWidget *toolbar_style  (GtkHTMLControlData *cd);
-void       toolbar_setup  (BonoboUIHandler *uih,
+void       toolbar_setup  (BonoboUIComponent  *uic,
 			   GtkHTMLControlData *cd);
 
 #endif /* _TOOLBAR_H */

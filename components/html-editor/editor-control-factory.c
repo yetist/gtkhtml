@@ -75,17 +75,17 @@ static void
 set_frame_cb (BonoboControl *control,
 	      gpointer data)
 {
-	Bonobo_UIContainer remote_uih;
-	BonoboUIHandler *uih;
+	Bonobo_UIContainer remote_ui_container;
+	BonoboUIComponent *ui_component;
 	GtkHTMLControlData *control_data;
 	GtkWidget *toolbar;
 	GtkWidget *scrolled_window;
 
 	control_data = (GtkHTMLControlData *) data;
 
-	remote_uih = bonobo_control_get_remote_ui_handler (control);
-	uih = bonobo_control_get_ui_handler (control);
-	bonobo_ui_handler_set_container (uih, remote_uih);
+	remote_ui_container = bonobo_control_get_remote_ui_container (control);
+	ui_component = bonobo_control_get_ui_component (control);
+	bonobo_ui_component_set_container (ui_component, remote_ui_container);
 
 	/* Setup the tool bar.  */
 
@@ -101,8 +101,8 @@ set_frame_cb (BonoboControl *control,
 
 	/* Setup the menu bar.  */
 
-	menubar_setup (uih, control_data);
-	toolbar_setup (uih, control_data);
+	menubar_setup (ui_component, control_data);
+	toolbar_setup (ui_component, control_data);
 }
 
 static gint
@@ -225,7 +225,8 @@ load_from_corba (BonoboControl *control,
 	CORBA_Environment ev;	
 
 	CORBA_exception_init (&ev);
-	
+
+/* FIXME: is this going to work ? it looks extremely strange */
 	uih = gtk_type_new (bonobo_ui_handler_get_type());
 	remote_uih = bonobo_control_get_remote_ui_handler (control);
 	uih = BONOBO_UI_HANDLER (bonobo_object_construct (BONOBO_OBJECT(uih), remote_uih));

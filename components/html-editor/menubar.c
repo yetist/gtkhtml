@@ -129,45 +129,35 @@ properties_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname
 }
 
 BonoboUIVerb verbs [] = {
-	BONOBO_UI_VERB ("EditUndo", undo_cb),
-	BONOBO_UI_VERB ("EditRedo", redo_cb),
-	BONOBO_UI_VERB ("EditCut", cut_cb),
-	BONOBO_UI_VERB ("EditCopy", copy_cb),
-	BONOBO_UI_VERB ("EditPaste", paste_cb),
-	BONOBO_UI_VERB ("EditFind", search_cb),
-	BONOBO_UI_VERB ("EditFindRegexp", search_regex_cb),
-	BONOBO_UI_VERB ("EditFindAgain", search_next_cb),
-	BONOBO_UI_VERB ("EditReplace", replace_cb),
-	BONOBO_UI_VERB ("EditProperties", properties_cb),
+	BONOBO_UI_UNSAFE_VERB ("EditUndo", undo_cb),
+	BONOBO_UI_UNSAFE_VERB ("EditRedo", redo_cb),
+	BONOBO_UI_UNSAFE_VERB ("EditCut", cut_cb),
+	BONOBO_UI_UNSAFE_VERB ("EditCopy", copy_cb),
+	BONOBO_UI_UNSAFE_VERB ("EditPaste", paste_cb),
+	BONOBO_UI_UNSAFE_VERB ("EditFind", search_cb),
+	BONOBO_UI_UNSAFE_VERB ("EditFindRegexp", search_regex_cb),
+	BONOBO_UI_UNSAFE_VERB ("EditFindAgain", search_next_cb),
+	BONOBO_UI_UNSAFE_VERB ("EditReplace", replace_cb),
+	BONOBO_UI_UNSAFE_VERB ("EditProperties", properties_cb),
 
-	BONOBO_UI_VERB ("InsertImage", insert_image_cb),
-	BONOBO_UI_VERB ("InsertLink", insert_link_cb),
-	BONOBO_UI_VERB ("InsertRule", insert_rule_cb),
+	BONOBO_UI_UNSAFE_VERB ("InsertImage", insert_image_cb),
+	BONOBO_UI_UNSAFE_VERB ("InsertLink", insert_link_cb),
+	BONOBO_UI_UNSAFE_VERB ("InsertRule", insert_rule_cb),
 	
 	BONOBO_UI_VERB_END
 };
 
 void
-menubar_setup (BonoboUIHandler    *uih,
+menubar_setup (BonoboUIComponent  *uic,
 	       GtkHTMLControlData *cd)
 {
-	BonoboUIComponent *uic;
-	Bonobo_UIContainer container;
-
 	g_return_if_fail (cd->html != NULL);
 	g_return_if_fail (GTK_IS_HTML (cd->html));
-	g_return_if_fail (BONOBO_IS_UI_HANDLER (uih));
-
-	uic = bonobo_ui_compat_get_component (uih);
-	g_return_if_fail (uic != NULL);
-
-	container = bonobo_ui_compat_get_container (uih);
-	g_return_if_fail (container != CORBA_OBJECT_NIL);
+	g_return_if_fail (BONOBO_IS_UI_COMPONENT (uic));
 
 	bonobo_ui_component_add_verb_list_with_data (uic, verbs, cd);
 
-	bonobo_ui_util_set_ui (uic, container,
-			       GNOMEDATADIR,
+	bonobo_ui_util_set_ui (uic, GNOMEDATADIR,
 			       "html-editor-control.xml",
 			       "html-editor-control");
 }

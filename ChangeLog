@@ -1,3 +1,7 @@
+2000-10-05  Michael Meeks  <michael@helixcode.com>
+
+	* configure.in (have_bonobo): bump config check for bonobo >= 0.20
+
 2000-09-25  Christophe Merlet  <christophe@merlet.net>
 
 	* capplet/.desktop: Added French strings.

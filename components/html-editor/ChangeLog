@@ -1,3 +1,9 @@
+2000-10-05  Michael Meeks  <michael@helixcode.com>
+
+	* toolbar.c (toolbar_setup): upd.
+
+	* menubar.c (menubar_setup): upd.
+
 2000-10-04  Michael Meeks  <michael@helixcode.com>
 
 	* menubar.c (menubar_setup): simplify with new helper.

@@ -616,10 +616,11 @@ toolbar_style (GtkHTMLControlData *cd)
 }
 
 void
-toolbar_setup (BonoboUIHandler *uih,
+toolbar_setup (BonoboUIComponent  *uic,
 	       GtkHTMLControlData *cd)
 {
 	BonoboUIHandlerToolbarItem *tree;
+	BonoboUIHandler *uih = bonobo_ui_handler_new_from_component (uic);
 
 	g_return_if_fail (uih != NULL);
 	g_return_if_fail (BONOBO_IS_UI_HANDLER (uih));
