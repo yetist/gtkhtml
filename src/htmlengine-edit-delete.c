@@ -290,21 +290,23 @@ merge_text_at_cursor (HTMLEngine *e)
 	gchar *curr_string, *prev_string;
 	gchar *new_string;
 	guint retval;
+	gint offset;
 
 	curr = e->cursor->object;
+	offset = e->cursor->offset;
 
 	prev = html_object_prev_not_slave (curr);
 	if (prev == NULL)
-		return 0;
+		return offset;
 
 	if (! html_object_is_text (curr) || ! html_object_is_text (prev))
-		return 0;
+		return offset;
 	if (HTML_OBJECT_TYPE (curr) != HTML_OBJECT_TYPE (prev))
-		return 0;
+		return offset;
 	if (! gdk_color_equal (& HTML_TEXT (curr)->color, & HTML_TEXT (prev)->color))
-		return 0;
+		return offset;
 	if (HTML_TEXT (curr)->font_style != HTML_TEXT (prev)->font_style)
-		return 0;
+		return offset;
 
 	/* The items can be merged: remove the slaves in between.  */
 
@@ -448,7 +450,10 @@ html_engine_delete (HTMLEngine *e,
 		prev = e->cursor->object;
 		prev_offset = e->cursor->offset;
 
-		html_cursor_forward (e->cursor, e);
+		if (! html_cursor_forward (e->cursor, e)) {
+			/* Cannot delete more.  */
+			goto merge;
+		}
 
 		curr = e->cursor->object;
 
@@ -482,6 +487,7 @@ html_engine_delete (HTMLEngine *e,
 				       0, e->cursor->offset);
 	}
 
+ merge:
 	e->cursor->offset = merge_text_at_cursor (e);
 
  end:
