@@ -27,31 +27,33 @@ AM_CFLAGS = \
 	-DBONOBO_DISABLE_DEPRECATED=1
 
 # CORBA stuff
-
 IDLS = Editor.idl
-
-SPELL_IDLS = Spell.idl
-
-IDL_GENERATED = 		\
-	Editor.h		\
+IDL_GENERATED_H = 		\
+	Editor.h
+IDL_GENERATED_C = 		\
 	Editor-common.c		\
 	Editor-skels.c		\
 	Editor-stubs.c
+IDL_GENERATED = $(IDL_GENERATED_C) $(IDL_GENERATED_H)
 
-SPELL_IDL_GENERATED = 		\
+SPELL_IDLS = Spell.idl
+SPELL_IDL_GENERATED_H =		\
+	Spell.h
+SPELL_IDL_GENERATED_C = 	\
 	Spell.h			\
 	Spell-common.c		\
 	Spell-skels.c		\
 	Spell-stubs.c
+SPELL_IDL_GENERATED = $(SPELL_IDL_GENERATED_C) $(SPELL_IDL_GENERATED_H)
 
-Editor-common.o: Editor.h
-Spell-common.o: Spell.h
-
-$(IDL_GENERATED): $(IDLS)
+$(IDL_GENERATED_H): $(IDLS)
 	$(ORBIT_IDL) $(BONOBO_IDL_INCLUDES) $(srcdir)/Editor.idl
 
-$(SPELL_IDL_GENERATED): $(SPELL_IDLS)
+$(IDL_GENERATED_C): $(IDL_GENERATED_H)
+
+$(SPELL_IDL_GENERATED_H): $(SPELL_IDLS)
 	$(ORBIT_IDL) $(BONOBO_IDL_INCLUDES) $(srcdir)/Spell.idl
+
 
 LDADD =	\
 	$(top_builddir)/src/libgtkhtml-@GTKHTML_RELEASE@.la	\
@@ -63,11 +65,9 @@ LDADD =	\
 
 # The Editor Control
 
-libgnome_gtkhtml_editor_3_0_la: Editor.h
-
 libgnome_gtkhtml_editor_3_0_la_SOURCES =	\
 	$(SPELL_IDL_GENERATED)			\
-	Editor.h				\
+	$(IDL_GENERATED_H)			\
 	body.h					\
 	body.c					\
 	cell.h					\

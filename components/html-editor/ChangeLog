@@ -1,3 +1,7 @@
+2003-04-03  Larry Ewing  <lewing@ximian.com>
+
+	* Makefile.am: Fix idl depends.
+
 2003-04-01  Larry Ewing  <lewing@ximian.com>
 
 	* editor-control-factory.c (activate_cb): add activate callback.
@@ -12,7 +16,7 @@
 	* test-html-editor-control.c (main): use gnome_program_init.
 
 	* Makefile.am (libgnome_gtkhtml_editor_3_0_la): add a broken dep
-	onto the shlib until I can figure somethign else out
+	onto the shlib until I can figure something else out
 
 	* htmlsourceview.c (html_source_view_destroy): make sure this is
 	safe for multiple calls
