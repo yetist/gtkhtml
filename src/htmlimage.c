@@ -1281,7 +1281,7 @@ free_image_ptr_data (HTMLImagePointer *ip)
 {
 	if (ip->loader) {
 		gdk_pixbuf_loader_close (ip->loader, NULL);
-		g_object_unref (G_OBJECT (ip->loader));
+		g_object_unref (ip->loader);
 		ip->loader = NULL;
 	}
 	if (ip->animation) {
@@ -1316,7 +1316,7 @@ html_image_pointer_unref (HTMLImagePointer *ip)
 	}
 }
 
-static void
+GtkHTMLStream *
 html_image_pointer_load (HTMLImagePointer *ip)
 {
 	GtkHTMLStream *handle;
@@ -1330,58 +1330,59 @@ html_image_pointer_load (HTMLImagePointer *ip)
 				      ip);
 	ip->factory->engine->opened_streams ++;
 
-	/* This is a bit evil, I think.  But it's a lot better here
-	   than in the HTMLImage object.  FIXME anyway -- ettore  */
-	/* printf ("url_requested(%p) %s\n", ip->factory->engine->widget, ip->url); */
-	g_signal_emit_by_name (ip->factory->engine, "url_requested", ip->url, handle);
+	return handle;
 }
 
 HTMLImagePointer *
-html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char *filename, gboolean reload)
+html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char *url, gboolean reload)
 {
-	HTMLImagePointer *retval;
+	HTMLImagePointer *ip;
+	GtkHTMLStream *stream = NULL;
 
 	g_return_val_if_fail (factory, NULL);
-	g_return_val_if_fail (filename, NULL);
+	g_return_val_if_fail (url, NULL);
 
-	retval = g_hash_table_lookup (factory->loaded_images, filename);
+	ip = g_hash_table_lookup (factory->loaded_images, url);
 
-	if (!retval){
-		retval = html_image_pointer_new (filename, factory);
-		if (*filename) {
-			g_signal_connect (G_OBJECT (retval->loader), "area_prepared",
+	if (!ip) {
+		ip = html_image_pointer_new (url, factory);
+		if (*url) {
+			g_signal_connect (G_OBJECT (ip->loader), "area_prepared",
 					  G_CALLBACK (html_image_factory_area_prepared),
-					  retval);
+					  ip);
 
-			g_signal_connect (G_OBJECT (retval->loader), "area_updated",
+			g_signal_connect (G_OBJECT (ip->loader), "area_updated",
 					  G_CALLBACK (html_image_factory_area_updated),
-					  retval);
+					  ip);
 
-			g_hash_table_insert (factory->loaded_images, retval->url, retval);
-			html_image_pointer_load (retval);
+			g_hash_table_insert (factory->loaded_images, ip->url, ip);
+			stream = html_image_pointer_load (ip);
 		}
 	} else {
 		if (reload) {
-			free_image_ptr_data (retval);
-			retval->loader = gdk_pixbuf_loader_new ();
-			html_image_pointer_load (retval);
+			free_image_ptr_data (ip);
+			ip->loader = gdk_pixbuf_loader_new ();
+			stream = html_image_pointer_load (ip);
 		}
 	}
 
-	html_image_pointer_ref (retval);
+	if (stream)
+		g_signal_emit_by_name (factory->engine, "url_requested", ip->url, stream);
+
+	html_image_pointer_ref (ip);
 
 	/* we add also NULL ptrs, as we dont want these to be cleaned out */
-	retval->interests = g_slist_prepend (retval->interests, i);
+	ip->interests = g_slist_prepend (ip->interests, i);
 
 	if (i) {
-		i->image_ptr      = retval;
+		i->image_ptr = ip;
 
-		if (retval->animation) {
+		if (ip->animation) {
 			i->animation = html_image_animation_new (i);
 		}
 	}
 
-	return retval;
+	return ip;
 }
 
 #if 0

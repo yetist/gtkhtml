@@ -1,3 +1,16 @@
+2002-11-13  Larry Ewing  <lewing@ximian.com>
+
+	* htmlimage.c (html_image_factory_register): small cleanups for
+	new stream logic.
+
+	* gtkhtml-enums.h: add begin types enum.
+
+	* gtkhtml.h: begine to move some items into a group that we can
+	hopefully remove.
+
+	* gtkhtml.c (gtk_html_begin_full): add the start of a replacement
+	for gtk_html_begin_content.
+
 2002-11-13  Not Zed  <NotZed@Ximian.com>
 
 	* htmltokenizer.h: Use g object cast checks, not gtk object ones.
