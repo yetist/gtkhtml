@@ -1010,9 +1010,6 @@ button_release_event (GtkWidget *widget,
 	if (event->button == 1) {
 		html->button1_pressed = FALSE;
 		if (html->pointer_url != NULL && ! html->in_selection) {
-			gtk_object_set_data (GTK_OBJECT (widget), "last-link-x", (gpointer) (((gint)event->x)+html->engine->x_offset));
-			gtk_object_set_data (GTK_OBJECT (widget), "last-link-y", (gpointer) (((gint)event->y)+html->engine->y_offset));
-
 			gtk_signal_emit (GTK_OBJECT (widget), signals[LINK_CLICKED], html->pointer_url);
 		}
 	}
@@ -2117,6 +2114,19 @@ void
 gtk_html_set_default_background_color (GtkHTML *html, GdkColor *c)
 {
 	html_colorset_set_color (html->engine->defaultSettings->color_set, c, HTMLBgColor);
+}
+
+gpointer
+gtk_html_get_image_by_imageid (GtkHTML *html, gchar *id)
+{
+	g_return_val_if_fail (html, NULL);
+	g_return_val_if_fail (id, NULL);
+	g_return_val_if_fail (GTK_IS_HTML (html), NULL);
+	g_return_val_if_fail (html->engine, NULL);
+
+	if (!html->engine->imageid_table) return NULL;
+
+	return g_hash_table_lookup (html->engine->imageid_table, id);
 }
 
 /*******************************************

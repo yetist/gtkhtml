@@ -1,3 +1,12 @@
+2000-10-18  Vladimir Vukicevic  <vladimir@helixcode.com>
+
+	* src/gtkhtml.c, src/gtkhtml.h: Reverted x/y patch, added
+	gtk_html_get_image_by_imageid to query new hash table.
+
+	* src/htmlengine.c, src/htmlengine.h: Added imageid property to
+	img tag. Added imageid_table hash table to HTMLEngine struct, and
+	code to clean up the table when necessary.
+
 2000-10-18  Radek Doulik  <rodo@helixcode.com>
 
 	* configure.in: added check for capplet library

@@ -243,6 +243,9 @@ struct _HTMLEngine {
 	/* search & replace */
 	HTMLSearch  *search_info;
 	HTMLReplace *replace_info;
+
+	/* image id storage */
+	GHashTable *imageid_table;
 };
 
 /* must be forward referenced *sigh* */

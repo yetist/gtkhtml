@@ -367,5 +367,6 @@ void  gtk_html_redo  (GtkHTML *html);
 /* misc utils */
 
 void  gtk_html_set_default_background_color (GtkHTML *html, GdkColor *c);
+gpointer gtk_html_get_image_by_imageid (GtkHTML *html, gchar *id);
 
 #endif /* _GTKHTML_H_ */
