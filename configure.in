@@ -10,6 +10,7 @@ AM_ACLOCAL_INCLUDE(macros)
 GNOME_INIT(capplet)
 
 AC_PROG_CC
+AC_PROG_CXX
 AC_ISC_POSIX
 AC_HEADER_STDC
 AC_ARG_PROGRAM
@@ -180,7 +181,11 @@ if $try_pspell; then
 		pspell_ver=`pspell-config version`
 		have_pspell=true
 		PSPELL_CFLAGS="-DGTKHTML_HAVE_PSPELL"
-		PSPELL_LIBS="-lpspell"
+		if test x$CC = xgcc; then
+			PSPELL_LIBS="-lpspell -lstdc++"
+		else
+			PSPELL_LIBS="-lpspell"
+		fi
 		AC_MSG_RESULT([found ($pspell_ver)])
 	else
 		have_pspell=false

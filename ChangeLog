@@ -1,3 +1,9 @@
+2000-07-24  Radek Doulik  <rodo@helixcode.com>
+
+	* configure.in (PSPELL_LIBS): add -lstdc++ when building with
+	gcc. It is not ideal solution, but better than link errors we had
+	before :-(
+
 2000-07-21  Radek Doulik  <rodo@helixcode.com>
 
 	* configure.in (try_gconf): don't try to find gconf by default,
