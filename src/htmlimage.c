@@ -475,7 +475,7 @@ save_plain (HTMLObject *self,
 	    gint requested_width)
 {
 	HTMLImage *image;
-	gboolean rv;
+	gboolean rv = TRUE;
 
 	image = HTML_IMAGE (self);
 	
