@@ -19,7 +19,7 @@
 </oaf_attribute>
 
 <oaf_attribute name="name" type="string" _value="EBrowser control"/>
-<oaf_attribute name="description" type="string" _value="HTML Browser conrtol"/>
+<oaf_attribute name="description" type="string" _value="HTML Browser control"/>
 
 <oaf_attribute name="bonobo:supported_mime_types" type="stringv">
 	<item value="text/html"/>

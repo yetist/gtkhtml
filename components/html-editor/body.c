@@ -170,12 +170,12 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
         gtk_signal_connect (GTK_OBJECT (combo), "changed", GTK_SIGNAL_FUNC (color_changed), data); \
 	hbox = gtk_hbox_new (FALSE, 3); \
 	gtk_box_pack_start (GTK_BOX (hbox), combo, FALSE, FALSE, 0); \
-	gtk_box_pack_start (GTK_BOX (hbox), gtk_label_new (_(x)), FALSE, FALSE, 0); \
+	gtk_box_pack_start (GTK_BOX (hbox), gtk_label_new (x), FALSE, FALSE, 0); \
 	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
 
-	ADD_COLOR ("Text", HTMLTextColor, "text");
-	ADD_COLOR ("Link", HTMLLinkColor, "link");
-	ADD_COLOR ("Background", HTMLBgColor, "bg");
+	ADD_COLOR (_("Text"), HTMLTextColor, "text");
+	ADD_COLOR (_("Link"), HTMLLinkColor, "link");
+	ADD_COLOR (_("Background"), HTMLBgColor, "bg");
 
 	gtk_container_add (GTK_CONTAINER (frame), vbox);
 	gtk_table_attach_defaults (GTK_TABLE (table), frame, 1, 2, 0, 1);
