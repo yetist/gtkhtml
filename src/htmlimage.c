@@ -784,7 +784,7 @@ html_image_set_url (HTMLImage *image, const gchar *url)
 		HTMLImageFactory *imf = image->image_ptr->factory;
 
 		html_image_factory_unregister (imf, image->image_ptr, HTML_IMAGE (image));
-		image->image_ptr = html_image_factory_register (imf, image, url, TRUE);
+		image->image_ptr = html_image_factory_register (imf, image, url, FALSE);
 	}
 }
 
@@ -931,8 +931,9 @@ html_image_factory_end_pixbuf (GtkHTMLStream *stream,
 		if (ip->pixbuf)
 			gdk_pixbuf_ref (ip->pixbuf);
 	}
-	update_or_redraw (ip);
 
+	update_or_redraw (ip);
+	
 	html_image_pointer_unref (ip);
 }
 
@@ -1287,6 +1288,7 @@ html_image_pointer_load (HTMLImagePointer *ip)
 	GtkHTMLStream *handle;
 
 	html_image_pointer_ref (ip);
+
 	handle = gtk_html_stream_new (GTK_HTML (ip->factory->engine->widget),
 				      html_image_factory_types,
 				      html_image_factory_write_pixbuf,

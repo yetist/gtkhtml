@@ -1,3 +1,8 @@
+2001-10-06  root  <lewing@ximian.com>
+
+	* htmlimage.c (html_image_set_url): call register with reload set
+	to false.
+
 2001-10-05  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml-stream.c (gtk_html_stream_vprintf): fix the limiting
