@@ -106,8 +106,12 @@ paragraph_style_menu_item_update (GtkWidget *widget, gpointer format_html)
 	style = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (widget), "paragraph_style_value"));
 	
 	sensitive = (format_html 
-		|| style == GTK_HTML_PARAGRAPH_STYLE_NORMAL
-		|| style == GTK_HTML_PARAGRAPH_STYLE_PRE);
+		     || style == GTK_HTML_PARAGRAPH_STYLE_NORMAL
+		     || style == GTK_HTML_PARAGRAPH_STYLE_PRE
+		     || style == GTK_HTML_PARAGRAPH_STYLE_ITEMDOTTED
+		     || style == GTK_HTML_PARAGRAPH_STYLE_ITEMROMAN
+		     || style == GTK_HTML_PARAGRAPH_STYLE_ITEMDIGIT
+		     );
 
 	gtk_widget_set_sensitive (widget, sensitive);	
 }
@@ -578,6 +582,9 @@ create_style_toolbar (GtkHTMLControlData *cd)
 	cd->center_button = editor_toolbar_alignment_group[1].widget;
 	cd->right_align_button = editor_toolbar_alignment_group[2].widget;
 
+	cd->unindent_button  = editor_toolbar_style_uiinfo [8].widget;
+	cd->indent_button    = editor_toolbar_style_uiinfo [9].widget;
+
 	/* gtk_signal_connect (GTK_OBJECT (cd->html), "destroy",
 	   GTK_SIGNAL_FUNC (html_destroy_cb), cd);
 
@@ -594,16 +601,24 @@ static void
 toolbar_item_update_sensitivity (GtkWidget *widget, gpointer data)
 {
 	GtkHTMLControlData *cd = (GtkHTMLControlData *)data;
-	
-	if (widget != cd->paragraph_option)
-		gtk_widget_set_sensitive (widget, cd->format_html);
+	gboolean sensitive;
+
+	sensitive = (cd->format_html
+		     || widget == cd->paragraph_option
+		     || widget == cd->indent_button
+		     || widget == cd->unindent_button);
+
+	gtk_widget_set_sensitive (widget, sensitive);
 }
 
 void
 toolbar_update_format (GtkHTMLControlData *cd)
 {
-	gtk_container_forall (GTK_CONTAINER (cd->toolbar_style), toolbar_item_update_sensitivity, cd);
-	paragraph_style_option_menu_set_mode (cd->paragraph_option, cd->format_html);
+	gtk_container_forall (GTK_CONTAINER (cd->toolbar_style), 
+			      toolbar_item_update_sensitivity, cd);
+
+	paragraph_style_option_menu_set_mode (cd->paragraph_option, 
+					      cd->format_html);
 }
 
 

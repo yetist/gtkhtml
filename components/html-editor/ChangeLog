@@ -1,3 +1,13 @@
+2001-04-17  Larry Ewing  <lewing@ximian.com>
+
+	* control-data.h: add indent and unindent buttons.
+
+	* toolbar.c (create_style_toolbar): store the indent and unindent
+	buttons.
+	(toolbar_item_update_sensitivity): update the list of valid
+	widgets.
+	(paragraph_style_menu_item_update): add more sensitive styles.
+
 2001-04-16  Larry Ewing  <lewing@ximian.com>
 
 	* toolbar.c (toolbar_item_update_sensitivity): fix prototype.

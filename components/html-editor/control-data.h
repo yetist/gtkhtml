@@ -77,6 +77,9 @@ struct _GtkHTMLControlData {
 	GtkWidget *center_button;
 	GtkWidget *right_align_button;
 
+	GtkWidget *indent_button;
+	GtkWidget *unindent_button;
+
 	GtkWidget *font_size_menu;
 
 	guint font_style_changed_connection_id;
