@@ -27,12 +27,21 @@
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-selection-updater.h"
 
+guint32
+html_selection_current_time (void)
+{
+	GdkEvent *event;
+
+	event = gtk_get_current_event ();
+	if (event != NULL)
+		return gdk_event_get_time (event);
+
+	return GDK_CURRENT_TIME;
+}
+
 void
 html_engine_select_interval (HTMLEngine *e, HTMLInterval *i)
 {
-	GdkEvent *event;
-	guint32 time;
-
 	e = html_engine_get_top_html_engine (e);
 	if (e->selection && html_interval_eq (e->selection, i))
 		html_interval_destroy (i);
@@ -42,13 +51,7 @@ html_engine_select_interval (HTMLEngine *e, HTMLInterval *i)
 		html_interval_select (e->selection, e);
 	}
 
-	event = gtk_get_current_event ();
-	if (event == NULL)
-		time = GDK_CURRENT_TIME;
-	else
-		time = gdk_event_get_time (event);
-
-	html_engine_activate_selection (e, time);
+	html_engine_activate_selection (e, html_selection_current_time ());
 }
 
 void
@@ -89,6 +92,11 @@ html_engine_clear_selection (HTMLEngine *e)
 		html_interval_destroy (e->selection);
 		html_engine_edit_selection_updater_reset (e->selection_updater);
 		e->selection = NULL;
+		/*
+		if (gdk_selection_owner_get (GDK_SELECTION_PRIMARY) == GTK_WIDGET (e->widget)->window)
+			gtk_selection_owner_set (NULL, GDK_SELECTION_PRIMARY, 
+						 html_selection_current_time ());    
+		*/
 	}
 }
 

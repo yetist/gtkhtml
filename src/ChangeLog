@@ -1,9 +1,17 @@
 2001-10-30  Larry Ewing  <lewing@ximian.com>
 
+	* htmlselection.c (html_selection_current_time): add helper
+	function.
+
+	* htmlselection.h (html_selection_current_time): add prototype.
+
 	* gtkhtml.c (gtk_html_set_base): add call to set the document
 	base.
 	(gtk_html_get_base): get the document base.
-
+	(gtk_html_cut): html_selection_current_time.
+	(gtk_html_copy): html_selection_current_time.
+	(gtk_html_paste): html_selection_current_time.
+	
 	* gtkhtml.h: add *_base prototypes.
 
 	* gtkhtml-private.h: add base_url member.
