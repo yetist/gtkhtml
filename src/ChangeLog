@@ -1,3 +1,8 @@
+2004-02-09  Radek Doulik  <rodo@ximian.com>
+
+	* htmltextslave.c (hts_fit_line): do not update lb again if we
+	already did at offset == lbo
+
 2004-02-03  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (get_value_nick): use g_type_class_ref/unref rather
