@@ -78,6 +78,9 @@ key_press_event (GtkWidget *widget, GdkEventKey *event, SpellPopup *sp)
 static void
 select_row (GtkCList *clist, gint row, gint column, GdkEvent *event, SpellPopup *sp)
 {
+	if (event == NULL)
+		return;
+
 	if (event->type == GDK_BUTTON_PRESS) {
 		sp->replace = TRUE;
 		gtk_widget_destroy (sp->window);
