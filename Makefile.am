@@ -13,7 +13,9 @@ endif
 confexecdir = $(libdir)
 confexec_DATA = gtkhtmlConf.sh
 
-EXTRA_DIST = gtkhtmlConf.sh.in
+EXTRA_DIST =					\
+	BUGS					\
+	gtkhtmlConf.sh.in
 
 gtkhtmlConf.sh: gtkhtmlConf.sh.in Makefile
 	sed -e 's?\@GTKHTML_LIBDIR\@?$(GTKHTML_LIBDIR)?g' \

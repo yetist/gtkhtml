@@ -1,3 +1,8 @@
+2000-03-22  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* BUGS: New file.
+	* Makefile.am: distribute it.
+
 2000-03-16  Daniel Veillard <Daniel.Veillard@w3.org>
 
 	* configure.in, Makefile.am, gtkhtml.spec.in: added a spec file
