@@ -39,7 +39,6 @@ set_style (GtkWidget *w, GtkHTMLEditParagraphProperties *data)
 	GtkHTMLParagraphStyle style = GPOINTER_TO_UINT (gtk_object_get_data (GTK_OBJECT (w), "style"));
 
 	if (data->style != style) {
-		printf ("change style\n");
 		gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
 		data->style = style;
 	}
@@ -50,7 +49,6 @@ set_align (GtkWidget *w, GtkHTMLEditParagraphProperties *data)
 {
 	GtkHTMLParagraphAlignment align = GPOINTER_TO_UINT (gtk_object_get_data (GTK_OBJECT (w), "align"));
 	if (align != data->align && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (w))) {
-		printf ("change align to %d\n", align);
 		data->align = align;
 		gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
 	}
@@ -137,7 +135,6 @@ paragraph_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 	GtkHTMLParagraphStyle     style = gtk_html_get_paragraph_style     (cd->html);
 	GtkHTMLEditParagraphProperties *data = (GtkHTMLEditParagraphProperties *) get_data;
 
-	printf ("par apply a: %d == %d s: %d == %d\n", data->align, align, data->style, style);
 	if (align != data->align)
 		gtk_html_set_paragraph_alignment (cd->html, data->align);
 	if (style != data->style)

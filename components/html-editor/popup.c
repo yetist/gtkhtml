@@ -33,6 +33,7 @@
 #include "image.h"
 #include "text.h"
 #include "link.h"
+#include "body.h"
 
 static void
 insert_link (GtkWidget *mi, GtkHTMLControlData *cd)
@@ -125,6 +126,13 @@ prop_dialog (GtkWidget *mi, GtkHTMLControlData *cd)
 								   link_properties,
 								   link_apply_cb,
 								   link_close_cb);
+								   break;
+		case GTK_HTML_EDIT_PROPERTY_BODY:
+			gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
+								   _("Page"),
+								   body_properties,
+								   body_apply_cb,
+								   body_close_cb);
 								   break;
 		}
 		cur = cur->next;
@@ -219,6 +227,7 @@ popup_show (GtkHTMLControlData *cd, GdkEventButton *event)
 			ADD_ITEM (text, prop);
 		}
 	}
+	ADD_PROP (BODY);
 	gtk_widget_show (menu);
 	if (items)
 		gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL, 

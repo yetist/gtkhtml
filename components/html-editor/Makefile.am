@@ -25,6 +25,8 @@ bin_PROGRAMS =					\
 	html-editor-control
 
 html_editor_control_SOURCES =			\
+	body.h					\
+	body.c					\
 	control-data.c				\
 	control-data.h				\
 	dialog.c				\

@@ -44,7 +44,17 @@ struct _GtkHTMLEditTextProperties {
 typedef struct _GtkHTMLEditTextProperties GtkHTMLEditTextProperties;
 
 static void
-set_color (GtkWidget *w, GtkHTMLEditTextProperties *data)
+set_color (GtkWidget *w, gushort r, gushort g, gushort b, gushort a, GtkHTMLEditTextProperties *data)
+{
+	data->color.red   = r;
+	data->color.green = g;
+	data->color.blue  = b;
+	data->color_changed = TRUE;
+	gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
+}
+
+static void
+set_color_button (GtkWidget *w, GtkHTMLEditTextProperties *data)
 {
 	gdouble r, g, b, rn, gn, bn;
 
@@ -56,11 +66,7 @@ set_color (GtkWidget *w, GtkHTMLEditTextProperties *data)
 
 	if (r != rn || g != gn || b != bn) {
 		gnome_color_picker_set_d (GNOME_COLOR_PICKER (data->color_picker), rn, gn, bn, 1.0);
-		data->color.red   = w->style->bg [GTK_STATE_NORMAL].red;
-		data->color.green = w->style->bg [GTK_STATE_NORMAL].green;
-		data->color.blue  = w->style->bg [GTK_STATE_NORMAL].blue;
-		data->color_changed = TRUE;
-		gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
+		set_color (data->color_picker, rn*0xffff, gn*0xffff, bn*0xffff, 0xffff, data);
 	}
 }
 
@@ -111,7 +117,7 @@ GtkWidget *
 text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 {
 	GtkHTMLEditTextProperties *data = g_new (GtkHTMLEditTextProperties, 1);
-	GtkWidget *vbox, *hbox, *frame, *table, *table1, *button, *menu, *menuitem;
+	GtkWidget *mvbox, *vbox, *hbox, *frame, *table, *table1, *button, *menu, *menuitem;
 	GtkStyle *style;
 	GdkColor *color;
 	GtkHTMLFontStyle font_style;
@@ -189,6 +195,7 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	bn = ((gdouble) color->blue) /0xffff;
 
 	gnome_color_picker_set_d (GNOME_COLOR_PICKER (data->color_picker), rn, gn, bn, 1.0);
+        gtk_signal_connect (GTK_OBJECT (data->color_picker), "color_set", GTK_SIGNAL_FUNC (set_color), data);
 
 	vbox = gtk_vbox_new (FALSE, 2);
 	hbox = gtk_hbox_new (FALSE, 5);
@@ -212,16 +219,19 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 			style->bg [GTK_STATE_ACTIVE] = style->bg [GTK_STATE_NORMAL];
 			style->bg [GTK_STATE_PRELIGHT] = style->bg [GTK_STATE_NORMAL];
 
-			gtk_signal_connect (GTK_OBJECT (button), "clicked", set_color, data);
+			gtk_signal_connect (GTK_OBJECT (button), "clicked", set_color_button, data);
 			gtk_widget_set_style (button, style);
 			gtk_table_attach_defaults (GTK_TABLE (table1), button, i, i+1, j, j+1);
 		}
 
 	gtk_box_pack_start (GTK_BOX (vbox), table1, FALSE, FALSE, 0);
 	gtk_container_add (GTK_CONTAINER (frame), vbox);
-	gtk_table_attach_defaults (GTK_TABLE (table), frame, 1, 2, 0, 2);
+	gtk_table_attach (GTK_TABLE (table), frame, 1, 2, 0, 2, GTK_FILL, GTK_FILL, 0, 0);
 
-	return table;
+	mvbox = gtk_vbox_new (FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (mvbox), table, FALSE, FALSE, 0);
+
+	return mvbox;
 }
 
 void

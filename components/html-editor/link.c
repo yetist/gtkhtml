@@ -22,6 +22,7 @@
 
 #include <string.h>
 #include "config.h"
+#include "properties.h"
 #include "dialog.h"
 #include "link.h"
 #include "htmlengine-edit-insert.h"
@@ -147,17 +148,35 @@ link_edit (GtkHTMLControlData *cd, HTMLLinkTextMaster *link)
 	gtk_entry_set_text (GTK_ENTRY (cd->link_dialog->link), link->url);
 }
 
+struct _GtkHTMLEditLinkProperties {
+	GtkHTMLControlData *cd;
+	GtkWidget *entry;
+};
+typedef struct _GtkHTMLEditLinkProperties GtkHTMLEditLinkProperties;
+
+static void
+set_link (GtkWidget *w, GtkHTMLEditLinkProperties *data)
+{
+	gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
+}
+
 GtkWidget *
 link_properties (GtkHTMLControlData *cd, gpointer *set_data)
 {
 	GtkWidget *vbox, *hbox;
+	GtkHTMLEditLinkProperties *data = g_new (GtkHTMLEditLinkProperties, 1);
+
+	*set_data = data;
+	data->cd = cd;
 
 	vbox = gtk_vbox_new (FALSE, 0);
 	gtk_container_border_width (GTK_CONTAINER (vbox), 3);
 	hbox = gtk_hbox_new (FALSE, 3);
 
+	data->entry = gtk_entry_new ();
+	gtk_signal_connect (GTK_OBJECT (data->entry), "changed", set_link, data);
 	gtk_box_pack_start (GTK_BOX (hbox), gtk_label_new (_("URL")), FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (hbox), gtk_entry_new (), FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), data->entry, FALSE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
 
 	return vbox;
@@ -166,9 +185,12 @@ link_properties (GtkHTMLControlData *cd, gpointer *set_data)
 void
 link_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
+	printf ("link apply\n");
 }
 
 void
 link_close_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
+	printf ("link close\n");
+	g_free (get_data);
 }

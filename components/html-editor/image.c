@@ -454,7 +454,7 @@ image_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	gtk_container_border_width (GTK_CONTAINER (mhb), 3);
 
 	data->pentry = gnome_pixmap_entry_new ("insert_image", _("Image selection"), TRUE);
-	gnome_pixmap_entry_set_preview_size (GNOME_PIXMAP_ENTRY (data->pentry), 200, 200);
+	/* gnome_pixmap_entry_set_preview_size (GNOME_PIXMAP_ENTRY (data->pentry), 200, 200); */
 	dir = getcwd (NULL, 0);
 	gnome_pixmap_entry_set_pixmap_subdir (GNOME_PIXMAP_ENTRY (data->pentry), dir);
 	free (dir);
