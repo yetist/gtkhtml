@@ -318,3 +318,110 @@ html_engine_get_indent (HTMLEngine *e)
 		&& HTML_OBJECT_TYPE (e->cursor->object->parent) == HTML_TYPE_CLUEFLOW
 		? HTML_CLUEFLOW (e->cursor->object->parent)->level : 0;
 }
+
+#define LINE_LEN 71
+
+static guint
+try_break_this_line (HTMLEngine *e, guint line_offset, guint last_space)
+{
+	HTMLObject *flow;
+	unicode_char_t uc;
+
+	flow = e->cursor->object->parent;
+
+	while (html_cursor_forward (e->cursor, e) && e->cursor->object->parent == flow) {
+		line_offset ++;
+		uc = html_cursor_get_current_char (e->cursor);
+		if (uc == ' ')
+			last_space = line_offset;
+		if (uc && line_offset >= LINE_LEN) {
+			if (last_space) {
+				html_cursor_backward_n (e->cursor, e, line_offset - last_space);
+				uc = ' ';
+			} else {
+				/* go to end of word */
+				while (html_cursor_forward (e->cursor, e)) {
+					line_offset ++;
+					uc = html_cursor_get_current_char (e->cursor);
+					if (uc == ' ' || !uc)
+						break;
+				}
+			}
+			if (uc == ' ') {
+				html_engine_insert_empty_paragraph (e);
+				html_engine_delete_n (e, 1, TRUE);
+
+				flow        = e->cursor->object->parent;
+				last_space  = 0;
+				line_offset = 0;
+			}
+		}
+		if (!uc)
+			return line_offset;
+	}
+
+	return line_offset;
+}
+
+static void
+go_to_begin_of_pre_para (HTMLEngine *e)
+{
+	HTMLObject *prev;
+
+	do {
+		html_cursor_beginning_of_paragraph (e->cursor);
+		prev = html_object_prev_leaf (e->cursor->object);
+		if (prev && html_object_get_length (prev))
+			html_cursor_backward (e->cursor, e);
+		else
+			break;
+	} while (1);
+}
+
+void
+html_engine_indent_pre_paragraph (HTMLEngine *e)
+{
+	guint position;
+	guint line_offset;
+	guint last_space;
+
+	g_assert (e->cursor->object);
+	if (HTML_OBJECT_TYPE (e->cursor->object->parent) != HTML_TYPE_CLUEFLOW
+	    || html_clueflow_get_style (HTML_CLUEFLOW (e->cursor->object->parent)) != HTML_CLUEFLOW_STYLE_PRE)
+		return;
+
+	html_engine_disable_selection (e);
+	position = e->cursor->position;
+
+	html_undo_level_begin (e->undo, "Indent paragraph");
+	html_engine_freeze (e);
+
+	go_to_begin_of_pre_para (e);
+
+	line_offset = 0;
+	last_space  = 0;
+	do {
+		line_offset = try_break_this_line (e, line_offset, last_space);
+		if (html_cursor_forward (e->cursor, e)
+		    && e->cursor->offset == 0 && html_object_get_length (e->cursor->object)
+		    && html_object_prev_not_slave (e->cursor->object) == NULL) {
+			if (line_offset < LINE_LEN - 1) {
+				html_engine_delete_n (e, 1, FALSE);
+				if (' ' != html_cursor_get_prev_char (e->cursor)) {
+					html_engine_insert_text (e, " ", 1);
+					line_offset ++;
+				} else if (position > e->cursor->position)
+					position --;
+				last_space = line_offset - 1;
+			} else {
+				line_offset = 0;
+				last_space  = 0;
+			}
+		} else
+			break;
+	} while (1);
+
+	html_cursor_jump_to_position (e->cursor, e, position);
+	html_engine_thaw (e);
+	html_undo_level_end (e->undo);
+}

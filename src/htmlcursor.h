@@ -50,6 +50,12 @@ gboolean  html_cursor_forward                (HTMLCursor *cursor,
 					      HTMLEngine *engine);
 gboolean  html_cursor_backward               (HTMLCursor *cursor,
 					      HTMLEngine *engine);
+gboolean  html_cursor_forward_n              (HTMLCursor *cursor,
+					      HTMLEngine *e,
+					      guint      n);
+gboolean  html_cursor_backward_n             (HTMLCursor *cursor,
+					      HTMLEngine *e,
+					      guint      n);
 gboolean  html_cursor_up                     (HTMLCursor *cursor,
 					      HTMLEngine *engine);
 gboolean  html_cursor_down                   (HTMLCursor *cursor,
@@ -62,6 +68,8 @@ gboolean  html_cursor_beginning_of_line      (HTMLCursor *cursor,
 					      HTMLEngine *engine);
 gboolean  html_cursor_end_of_line            (HTMLCursor *cursor,
 					      HTMLEngine *engine);
+gboolean  html_cursor_beginning_of_paragraph (HTMLCursor *cursor);
+gboolean  html_cursor_end_of_paragraph       (HTMLCursor *cursor);
 gboolean  html_cursor_jump_to                (HTMLCursor *cursor,
 					      HTMLEngine *engine,
 					      HTMLObject *obj,

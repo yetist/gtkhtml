@@ -2661,6 +2661,9 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_INDENT_DEC:
 		gtk_html_modify_indent_by_delta (html, -1);
 		break;
+	case GTK_HTML_COMMAND_INDENT_PARAGRAPH:
+		html_engine_indent_pre_paragraph (e);
+		break;
 	case GTK_HTML_COMMAND_PARAGRAPH_STYLE_NORMAL:
 		gtk_html_set_paragraph_style (html, GTK_HTML_PARAGRAPH_STYLE_NORMAL);
 		break;

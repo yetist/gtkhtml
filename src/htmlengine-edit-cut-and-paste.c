@@ -638,7 +638,7 @@ void
 html_engine_delete_n (HTMLEngine *e, guint len, gboolean forward)
 {
 	if (html_engine_is_selection_active (e))
-		html_engine_cut (e);
+		html_engine_delete (e);
 	else {
 		html_engine_set_mark (e);
 		while (len != 0) {

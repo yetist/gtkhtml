@@ -664,3 +664,56 @@ html_cursor_get_prev_char (const HTMLCursor *cursor)
 		? html_text_get_char (HTML_TEXT (prev), HTML_TEXT (prev)->text_len - 1)
 		: 0;
 }
+
+gboolean
+html_cursor_beginning_of_paragraph (HTMLCursor *cursor)
+{
+	gboolean rv = FALSE;
+
+	while (cursor->offset || html_object_prev_not_slave (cursor->object)) {
+		backward (cursor);
+		rv = TRUE;
+	}
+
+	return rv;
+}
+
+gboolean
+html_cursor_end_of_paragraph (HTMLCursor *cursor)
+{
+	gboolean rv = FALSE;
+
+	while (cursor->offset < html_object_get_length (cursor->object)
+	       || html_object_next_not_slave (cursor->object)) {
+		forward (cursor);
+		rv = TRUE;
+	}
+
+	return rv;
+}
+
+gboolean
+html_cursor_forward_n (HTMLCursor *cursor, HTMLEngine *e, guint n)
+{
+	gboolean rv = FALSE;
+
+	while (n && html_cursor_forward (cursor, e)) {
+		n --;
+		rv = TRUE;
+	}
+
+	return rv;
+}
+
+gboolean
+html_cursor_backward_n (HTMLCursor *cursor, HTMLEngine *e, guint n)
+{
+	gboolean rv = FALSE;
+
+	while (n && html_cursor_backward (cursor, e)) {
+		n --;
+		rv = TRUE;
+	}
+
+	return rv;
+}

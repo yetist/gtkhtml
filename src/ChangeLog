@@ -1,5 +1,28 @@
 2001-01-19  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlclueflow.c (html_clueflow_set_style): clear word width when
+	changing from/to PRE
+
+	* htmlengine.c (html_engine_set_painter): use
+	html_object_clear_word_width
+
+	* htmlobject.c (html_object_clear_word_width): new function
+
+	* htmlengine-edit.c (html_engine_indent_pre_paragraph): new
+	function, indents pre paragraph to 72 chars
+	(go_to_begin_of_pre_para): helper function
+	(try_break_this_line): ditto
+
+	* htmlengine.c (html_engine_thaw): add show cursor if idle already
+	added
+	(html_engine_freeze): hide always cursor
+
+	* htmlengine-edit-cut-and-paste.c (html_engine_delete_n): don't do
+	cut here, just delete
+
+	* htmlcursor.c (html_cursor_beginning_of_paragraph): new function
+	(html_cursor_end_of_paragraph): new function
+
 	* htmlengine.c (clear_word_width): new helper function
 	(html_engine_set_painter): clear word width cache
 

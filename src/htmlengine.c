@@ -4039,8 +4039,7 @@ html_engine_freeze (HTMLEngine *engine)
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 
-	if (! engine->thaw_idle_id)
-		html_engine_hide_cursor (engine);
+	html_engine_hide_cursor (engine);
 	engine->freeze_count++;
 }
 
@@ -4070,6 +4069,8 @@ html_engine_thaw (HTMLEngine *engine)
 
 	if (engine->freeze_count == 0 && engine->thaw_idle_id == 0)
 		engine->thaw_idle_id = gtk_idle_add (thaw_idle, engine);
+	else
+		html_engine_show_cursor (engine);
 }
 
 void
@@ -4324,13 +4325,6 @@ html_engine_get_cursor (HTMLEngine *e)
 	return cursor;
 }
 
-static void
-clear_word_width (HTMLObject *o, HTMLEngine *e, gpointer data)
-{
-	if (html_object_is_text (o))
-		html_text_clear_word_width (HTML_TEXT (o));
-}
-
 void
 html_engine_set_painter (HTMLEngine *e, HTMLPainter *painter, gint max_width)
 {
@@ -4340,7 +4334,7 @@ html_engine_set_painter (HTMLEngine *e, HTMLPainter *painter, gint max_width)
 
 	html_object_set_painter (e->clue, painter, max_width);
 	html_object_change_set_down (e->clue, HTML_CHANGE_ALL);
-	html_object_forall (e->clue, e, clear_word_width, NULL);
+	html_object_clear_word_width (e->clue);
 	html_object_reset (e->clue);
 
 	html_object_set_max_width (e->clue, painter, max_width);

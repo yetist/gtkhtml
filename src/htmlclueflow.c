@@ -1733,6 +1733,8 @@ html_clueflow_set_style (HTMLClueFlow *flow,
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 
+	if ((flow->style & HTML_CLUEFLOW_STYLE_PRE) ^ (style & HTML_CLUEFLOW_STYLE_PRE))
+		html_object_clear_word_width (HTML_OBJECT (flow));
 	html_object_change_set (HTML_OBJECT (flow), HTML_CHANGE_ALL);
 	flow->style = style;
 

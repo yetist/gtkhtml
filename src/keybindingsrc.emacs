@@ -105,4 +105,6 @@ binding "gtkhtml-bindings-emacs"
   bind "<Alt>space"         { "command" (popup-menu) }
   bind "<Alt>Return"        { "command" (property-dialog) }
   bind "<Alt>KP_Enter"      { "command" (property-dialog) }
+
+  bind "<Alt>q"             { "command" (indent-paragraph) }
 }

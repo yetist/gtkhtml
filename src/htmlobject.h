@@ -288,6 +288,7 @@ gint            html_object_get_right_margin      (HTMLObject            *self,
 void            html_object_set_painter           (HTMLObject            *o,
 						   HTMLPainter           *p,
 						   gint                   max_width);
+void            html_object_clear_word_width      (HTMLObject            *o);
 void            html_object_reset                 (HTMLObject            *o);
 gboolean        html_object_is_text               (HTMLObject            *object);
 HTMLEngine     *html_object_get_engine            (HTMLObject            *self,
