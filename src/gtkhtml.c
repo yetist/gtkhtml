@@ -51,6 +51,7 @@
 #include "gtkhtml-stream.h"
 #include "gtkhtml-private.h"
 #include "gtkhtml-properties.h"
+#include "math.h"
 #include <libgnome/gnome-util.h>
 
 
@@ -809,6 +810,8 @@ on_object (GtkWidget *widget, GdkWindow *window, HTMLObject *obj)
 	}
 }
 
+#define HTML_DIST(x,y) sqrt(x*x + y*y)
+
 static gint
 mouse_change_pos (GtkWidget *widget, GdkWindow *window, gint x, gint y)
 {
@@ -845,7 +848,8 @@ mouse_change_pos (GtkWidget *widget, GdkWindow *window, gint x, gint y)
 			}
 		}
 
-		if (x + engine->x_offset != html->selection_x1 || y + engine->y_offset != html->selection_y1)
+		if (HTML_DIST ((x + engine->x_offset - html->selection_x1),
+			  (y + engine->y_offset - html->selection_y1)) > 4)
 			html->in_selection = TRUE;
 
 		need_scroll = FALSE;

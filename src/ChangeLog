@@ -1,3 +1,9 @@
+2001-02-01  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (mouse_change_pos): allow a little bit of motion
+	before we decide it isn't a click on a url.  This should probably be
+	reworked to function more like netscape over urls.
+
 2001-02-01  Radek Doulik  <rodo@ximian.com>
 
 	* htmlcursor.c (html_cursor_end_of_line): take care of objects
@@ -9,7 +15,7 @@
 2001-02-01  Larry Ewing  <lewing@ximian.com>
 
 	* htmlembedded.c (calc_size): fix the bug I introduced last week
-	that caused htmliframes too loop in thier size negotiation.
+	that caused htmliframes too loop in their size negotiation.
 
 2001-01-31  Radek Doulik  <rodo@ximian.com>
 
