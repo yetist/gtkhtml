@@ -225,7 +225,7 @@ gtk_html_embedded_init (GtkHTMLEmbedded *ge)
 
 /**
  * gtk_html_embedded_new:
- *
+ * 
  * Create a new GtkHTMLEmbedded widget.
  * Note that this function should never be called outside of gtkhtml.
  * 
@@ -251,12 +251,27 @@ gtk_html_embedded_new (char *classid, char *name, char *type, char *data, int wi
 	return (GtkWidget *)em;
 }
 
+/**
+ * gtk_html_embedded_get_parameter:
+ * @ge: the #GtkHTMLEmbedded widget.
+ * @param: the parameter to examine.
+ *
+ * Returns: the value of the parameter.
+ */
 char *
 gtk_html_embedded_get_parameter (GtkHTMLEmbedded *ge, char *param)
 {
 	return g_hash_table_lookup (ge->params, param);
 }
 
+/**
+ * gtk_html_embedded_set_parameter:
+ * @ge: The #GtkHTMLEmbedded widget.
+ * @param: the name of the parameter to set.
+ * @value: the value of the parameter.
+ * 
+ * The parameter named @name to the @value.
+ */
 void
 gtk_html_embedded_set_parameter (GtkHTMLEmbedded *ge, char *param, char *value)
 {
@@ -272,6 +287,13 @@ gtk_html_embedded_set_parameter (GtkHTMLEmbedded *ge, char *param, char *value)
 			     value  ? g_strdup(value) : NULL);
 }
 
+/**
+ * gtk_html_embedded_set_descent:
+ * @ge: the GtkHTMLEmbedded widget.
+ * @descent: the value of the new descent.
+ *
+ * Set the descent of the widget beneath the baseline.
+ */
 void
 gtk_html_embedded_set_descent (GtkHTMLEmbedded *ge, int descent)
 {
@@ -281,3 +303,4 @@ gtk_html_embedded_set_descent (GtkHTMLEmbedded *ge, int descent)
 	ge->descent = descent;
 	gtk_html_embedded_changed (ge);
 }
+
