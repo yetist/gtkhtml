@@ -301,8 +301,10 @@ html_engine_draw_cursor_in_area (HTMLEngine *engine,
 
 	html_object_get_cursor (obj, engine->painter, offset, &x1, &y1, &x2, &y2);
 	move_rect (engine, &x1, &y1, &x2, &y2);
-	if (clip_rect (engine, x, y, width, height, &x1, &y1, &x2, &y2))
+	if (clip_rect (engine, x, y, width, height, &x1, &y1, &x2, &y2)) {
 		gdk_draw_line (engine->window, engine->invert_gc, x1, y1, x2, y2);
+		gtk_html_im_position_update (engine->widget, x2, y2);
+	}
 }
 
 

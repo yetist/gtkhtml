@@ -1,3 +1,16 @@
+2001-12-13  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml-im.h (gtk_html_im_position_update): add prototype for
+	html_engine_draw_cursor_in_area.
+
+	* htmlengine-edit-cursor.c (html_engine_draw_cursor_in_area):
+	update the preedit posistion.
+
+	* gtkhtml-im.c (gtk_html_im_position_update): update the posistion
+	of the XIM preedit block (This XIM patch is based on the patch by
+	ynakai@redhat.com and fixes
+	http://bugzilla.ximian.com/show_bug.cgi?id=9526)
+
 2001-12-12  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (command): implemented kill-word and
@@ -24,7 +37,7 @@
 	half margins as they are too wide in gnome-paper
 
 	* gtkhtml.c (gtk_html_print_set_master): new helper function
-
+ 
 	* gtkhtml-properties.c: set default print size back to 10
 
 	* htmlprinter.c (insure_paper): use print master to get its paper
