@@ -25,6 +25,7 @@
 
 #include <gnome.h>
 #include <bonobo.h>
+#include <gal/widgets/widget-color-combo.h>
 
 #include "toolbar.h"
 #include "utils.h"
@@ -190,61 +191,20 @@ setup_font_size_option_menu (GtkHTMLControlData *cd)
 }
 
 static void
-set_color (GtkWidget *w, gushort r, gushort g, gushort b, gushort a, GtkHTMLControlData *cd)
+color_changed (GtkWidget *w, GdkColor *gdk_color, GtkHTMLControlData *cd)
 {
-	HTMLColor *color = html_color_new_from_rgb (r, g, b);
+	HTMLColor *color = html_color_new_from_gdk_color (gdk_color);
 
 	html_engine_set_color (cd->html->engine, color);
 	html_color_unref (color);
 }
 
-static void
-color_button_clicked (GtkWidget *w, GtkHTMLControlData *cd)
-{
-	gdouble r, g, b, rn, gn, bn;
-	gtk_combo_box_popup_hide (GTK_COMBO_BOX (cd->combo));
-
-	gnome_color_picker_get_d (GNOME_COLOR_PICKER (cd->cpicker), &r, &g, &b, NULL);
-
-	rn = ((gdouble) w->style->bg [GTK_STATE_NORMAL].red)  /0xffff;
-	gn = ((gdouble) w->style->bg [GTK_STATE_NORMAL].green)/0xffff;
-	bn = ((gdouble) w->style->bg [GTK_STATE_NORMAL].blue) /0xffff;
-
-	if (r != rn || g != gn || b != bn) {
-		gnome_color_picker_set_d (GNOME_COLOR_PICKER (cd->cpicker), rn, gn, bn, 1.0);
-		set_color (cd->cpicker, rn*0xffff, gn*0xffff, bn*0xffff, 0xffff, cd);
-	}
-}
-
-static void
-default_clicked (GtkWidget *w, GtkHTMLControlData *cd)
-{
-	gtk_combo_box_popup_hide (GTK_COMBO_BOX (cd->combo));
-	gnome_color_picker_set_d (GNOME_COLOR_PICKER (cd->cpicker), 0.0, 0.0, 0.0, 1.0);
-	html_engine_set_color (cd->html->engine,
-			       html_colorset_get_color (cd->html->engine->settings->color_set, HTMLTextColor));
-	
-}
-
 static GtkWidget *
 setup_color_combo (GtkHTMLControlData *cd)
 {
-       	GtkWidget *vbox, *table, *button;
-
-	cd->cpicker = gnome_color_picker_new ();
-	GTK_WIDGET_UNSET_FLAGS (cd->cpicker, GTK_CAN_FOCUS);
-	vbox = gtk_vbox_new (FALSE, 2);
-	button = gtk_button_new_with_label (_("Default"));
-	gtk_signal_connect (GTK_OBJECT (button), "clicked", default_clicked, cd);
-	gtk_signal_connect (GTK_OBJECT (cd->cpicker), "color_set", GTK_SIGNAL_FUNC (set_color), cd);
-	table = color_table_new (color_button_clicked, cd);
-	gtk_box_pack_start_defaults (GTK_BOX (vbox), button);
-	gtk_box_pack_start_defaults (GTK_BOX (vbox), table);
-	cd->combo = gtk_combo_box_new (cd->cpicker, vbox);
-	if (!gnome_preferences_get_toolbar_relief_btn ()) {
-		gtk_combo_box_set_arrow_relief (GTK_COMBO_BOX (cd->combo), GTK_RELIEF_NONE);
-		gtk_button_set_relief (GTK_BUTTON (cd->cpicker), GTK_RELIEF_NONE);
-	}
+	cd->combo = color_combo_new (NULL, _("Automatic"), NULL, "toolbar_text");
+	GTK_WIDGET_UNSET_FLAGS (cd->combo, GTK_CAN_FOCUS);
+        gtk_signal_connect (GTK_OBJECT (cd->combo), "changed", GTK_SIGNAL_FUNC (color_changed), cd);
 
 	gtk_widget_show_all (cd->combo);
 	return cd->combo;
@@ -331,18 +291,6 @@ insertion_font_style_changed_cb (GtkHTML *widget, GtkHTMLFontStyle font_style, G
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cd->strikeout_button), FALSE);
 
 	cd->block_font_style_change = FALSE;
-}
-
-static void
-color_changed_cb (GtkHTML *widget,
-		  HTMLColor *color,
-		  GtkHTMLControlData *cd)
-{
-	gnome_color_picker_set_d (GNOME_COLOR_PICKER (cd->cpicker),
-				  ((gdouble) color->color.red)   / 0xffff,
-				  ((gdouble) color->color.green) / 0xffff,
-				  ((gdouble) color->color.blue)  / 0xffff,
-				  1.0);
 }
 
 
@@ -544,9 +492,6 @@ create_style_toolbar (GtkHTMLControlData *cd)
 
 	gtk_signal_connect (GTK_OBJECT (cd->html), "current_paragraph_alignment_changed",
 			    GTK_SIGNAL_FUNC (paragraph_alignment_changed_cb), cd);
-
-	gtk_signal_connect (GTK_OBJECT (cd->html), "insertion_color_changed",
-			    GTK_SIGNAL_FUNC (color_changed_cb), cd);
 
 	return hbox;
 }

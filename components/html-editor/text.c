@@ -207,8 +207,7 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	frame = gtk_frame_new (_("Color"));
 	hbox = gtk_hbox_new (FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (hbox), 3);
-	data->color_combo = color_combo_new (NULL, _("Automatic"), &data->color, "gtkhtml");
-
+	data->color_combo = color_combo_new (NULL, _("Automatic"), &data->color, "text");
         gtk_signal_connect (GTK_OBJECT (data->color_combo), "changed", GTK_SIGNAL_FUNC (color_changed), data);
 
 	vbox = gtk_vbox_new (FALSE, 0);
