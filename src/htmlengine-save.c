@@ -24,8 +24,10 @@
     <Daniel.Veillard@w3.org>.
 */
 
-#include "htmlengine.h"
 #include <string.h>
+
+#include "htmlengine.h"
+#include "gtkhtmldebug.h"
 
 
 /* This routine was originally written by Daniel Velliard, (C) 1998 World Wide

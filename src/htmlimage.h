@@ -114,7 +114,7 @@ void        html_image_init        (HTMLImage        *image,
 				    gint16            height,
 				    gint8             percent,
 				    gint8             border,
-				    GdkColor         *border_color,
+				    const GdkColor   *border_color,
 				    HTMLVAlignType    valign);
 HTMLObject *html_image_new         (HTMLImageFactory *imf,
 				    gchar            *filename,
@@ -124,7 +124,7 @@ HTMLObject *html_image_new         (HTMLImageFactory *imf,
 				    gint16            height,
 				    gint8             percent,
 				    gint8             border,
-				    GdkColor         *border_color,
+				    const GdkColor   *border_color,
 				    HTMLVAlignType    valign);
 
 void         html_image_set_spacing (HTMLImage *image, gint hspace, gint vspace);

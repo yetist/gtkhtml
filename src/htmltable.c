@@ -1106,7 +1106,7 @@ draw (HTMLObject *o,
 	gint cindx, rindx;
 	gint pixel_size;
 	gint r, c;
-	ArtIRect cellpaint, paint;
+	ArtIRect paint;
 
 	html_object_calc_intersection (o, &paint, x, y, width, height);
 	if (art_irect_empty (&paint))

@@ -461,7 +461,7 @@ html_image_init (HTMLImage *image,
 		 const gchar *target,
 		 gint16 width, gint16 height,
 		 gint8 percent, gint8 border,
-		 GdkColor *color,
+		 const GdkColor *color,
 		 HTMLVAlignType valign)
 {
 	HTMLObject *object;
@@ -504,7 +504,7 @@ html_image_new (HTMLImageFactory *imf,
 		const gchar *target,
 		gint16 width, gint16 height,
 		gint8 percent, gint8 border,	
-		GdkColor *color,
+		const GdkColor *color,
 		HTMLVAlignType valign)
 {
 	HTMLImage *image;

@@ -1,3 +1,17 @@
+2000-04-21  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* gtkhtmldebug.c
+	(gtk_html_debug_dump_tree_simple): Removed unused variable `i'.
+
+	* htmltable.c
+	(draw): Removed unused variable `cellpaint'.
+
+	* htmlengine-save.c: #include "gtkhtmldebug.h".
+
+	* htmlimage.c
+	(html_image_new): Constify `color'.
+	(html_image_init): Likewise.
+
 2000-04-21  Radek Doulik  <rodo@helixcode.com>
 
 	* testgtkhtml.c (image_cb): added insert image to menu + callback

@@ -231,7 +231,6 @@ gtk_html_debug_dump_tree_simple (HTMLObject *o,
 				 gint level)
 {
 	HTMLObject *obj;
-	gint i;
 
 	for (obj = o; obj != NULL; obj = obj->next) {
 		if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE)
