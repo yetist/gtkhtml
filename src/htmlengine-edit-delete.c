@@ -51,6 +51,7 @@ safe_remove (HTMLEngine *e,
 {
 	HTMLObject *p;
 	HTMLCursor *cursor;
+	HTMLObject *next;
 
 	cursor = e->cursor;
 
@@ -86,7 +87,8 @@ safe_remove (HTMLEngine *e,
 
 	for (p = object->next;
 	     p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE;
-	     p = p->next) {
+	     p = next) {
+		next = p->next;
 		html_clue_remove (HTML_CLUE (p->parent), p);
 		html_object_destroy (p);
 	}

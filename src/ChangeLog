@@ -1,3 +1,8 @@
+2000-06-28  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlengine-edit-delete.c (safe_remove): once again do not access
+	the next member after you have destroyed the object.
+
 2000-06-27  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlclueflow.c (write_pre_tags): Renamed from
