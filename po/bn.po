@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-29 16:53+0100\n"
+"POT-Creation-Date: 2005-01-24 16:35+0100\n"
 "PO-Revision-Date: 2004-08-05 13:26+0530\n"
 "Last-Translator: Runa Bhattacharjee <runa@bengalinux.org>\n"
 "Language-Team: bangla <gnome-translation@bengalinux.org>\n"
@@ -15,6 +15,24 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.3.1\n"
+
+#: a11y/image.c:150
+#, c-format
+msgid "URL is %s, Alternative Text is %s"
+msgstr ""
+
+#: a11y/image.c:152
+#, c-format
+msgid "URL is %s"
+msgstr ""
+
+#: a11y/object.c:50 a11y/object.c:59 a11y/text.c:105
+msgid "grab focus"
+msgstr ""
+
+#: a11y/object.c:211
+msgid "Panel containing HTML"
+msgstr ""
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -597,7 +615,7 @@ msgstr "বাতিল করা কর্ম পুনরায় করো"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: components/html-editor/replace.c:161 components/html-editor/replace.c:223
+#: components/html-editor/replace.c:163 components/html-editor/replace.c:225
 msgid "Replace"
 msgstr "প্রতিস্থাপন করো"
 
@@ -1735,19 +1753,19 @@ msgstr "পরবর্তী (_র)"
 msgid "_Replace"
 msgstr "প্রতিস্থাপন (_ত)"
 
-#: components/html-editor/replace.c:169
+#: components/html-editor/replace.c:171
 msgid "Search _backward"
 msgstr "বিপরীত দিক থেকে অনুসন্ধান আরম্ভ করো (_শ)"
 
-#: components/html-editor/replace.c:170 components/html-editor/search.c:114
+#: components/html-editor/replace.c:172 components/html-editor/search.c:114
 msgid "Case _sensitive"
 msgstr "ছোট এবং বড় অক্ষর সম্পর্কে সচেতন (_চ)"
 
-#: components/html-editor/replace.c:180
+#: components/html-editor/replace.c:182
 msgid "Replace:"
 msgstr "প্রতিস্থাপন:"
 
-#: components/html-editor/replace.c:183
+#: components/html-editor/replace.c:185
 msgid "With:"
 msgstr "সঙ্গে:"
 
@@ -1881,91 +1899,91 @@ msgstr ""
 "সম্পাদিত বস্তুটি ডকুমেন্ট থেকে মুছে ফেলা হয়েছে।\n"
 "আপনার করা পরিবর্তনগুলো প্রয়োগ করা সম্ভব নয়।"
 
-#: src/gtkhtml.c:2569
+#: src/gtkhtml.c:2579
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 "কম্পোসার-এ Mozilla-র যে url-টি প্রেরণ করা হয়েছে সম্ভবত তার ফরমা (%d) অথবা দৈর্ঘ  "
 "(%d)সঠিক নয়।\n"
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2929
 msgid "Editable"
 msgstr "সম্পাদনযোগ্য"
 
-#: src/gtkhtml.c:2892
+#: src/gtkhtml.c:2930
 msgid "Whether the html can be edited"
 msgstr "html এডিট করা সম্ভব কি না"
 
-#: src/gtkhtml.c:2898
+#: src/gtkhtml.c:2936
 msgid "Document Title"
 msgstr "ডকুমেন্টের শিরোনাম"
 
-#: src/gtkhtml.c:2899
+#: src/gtkhtml.c:2937
 msgid "The title of the current document"
 msgstr "বর্তমান ডকুমেন্টের শিরোনাম"
 
-#: src/gtkhtml.c:2905
+#: src/gtkhtml.c:2943
 msgid "Document Base"
 msgstr "Document Base"
 
-#: src/gtkhtml.c:2906
+#: src/gtkhtml.c:2944
 #, fuzzy
 msgid "The base URL for relative references"
 msgstr "আপেক্ষিক সম্পর্কস্থাপনের জন্য মূল URL"
 
-#: src/gtkhtml.c:2912
+#: src/gtkhtml.c:2950
 msgid "Target Base"
 msgstr "Target Base"
 
-#: src/gtkhtml.c:2913
+#: src/gtkhtml.c:2951
 msgid "The base URL of the targe frame"
 msgstr "নির্ধারিত ফ্রেম-এর মূল URL"
 
-#: src/gtkhtml.c:2922
+#: src/gtkhtml.c:2960
 msgid "Fixed Width Font"
 msgstr "অপরিবর্তনশীল প্রস্থের ফন্ট"
 
-#: src/gtkhtml.c:2923
+#: src/gtkhtml.c:2961
 msgid "The Monospace font to use for typewriter text"
 msgstr "টাইপরাইটার টেকস্টের জন্য ব্যবহৃত Monospace ফন্ট"
 
-#: src/gtkhtml.c:2929
+#: src/gtkhtml.c:2967
 msgid "New Link Color"
 msgstr "লিঙ্কের নতুন রঙ"
 
-#: src/gtkhtml.c:2930
+#: src/gtkhtml.c:2968
 msgid "The color of new link elements"
 msgstr "লিঙ্কের নতুন বস্তুর রঙ"
 
-#: src/gtkhtml.c:2935
+#: src/gtkhtml.c:2973
 msgid "Visited Link Color"
 msgstr "পরিদর্শিত লিঙ্কের রঙ"
 
-#: src/gtkhtml.c:2936
+#: src/gtkhtml.c:2974
 msgid "The color of visited link elements"
 msgstr "পরিদর্শিত লিঙ্কের বস্তুর রঙ"
 
-#: src/gtkhtml.c:2941
+#: src/gtkhtml.c:2979
 msgid "Active Link Color"
 msgstr "সক্রিয় লিঙ্কের রঙ"
 
-#: src/gtkhtml.c:2942
+#: src/gtkhtml.c:2980
 msgid "The color of active link elements"
 msgstr "সক্রিয় লিঙ্কের  বস্তুর রঙ"
 
-#: src/gtkhtml.c:2947
+#: src/gtkhtml.c:2985
 msgid "Spelling Error Color"
 msgstr "ভুল বানানের রঙ"
 
-#: src/gtkhtml.c:2948
+#: src/gtkhtml.c:2986
 msgid "The color of the spelling error markers"
 msgstr "ভুল বানান চিহ্নের রঙ"
 
-#: src/gtkhtml.c:2953
+#: src/gtkhtml.c:2991
 msgid "Cite Quotation Color"
 msgstr "উদ্ধৃতির রঙ"
 
-#: src/gtkhtml.c:2954
+#: src/gtkhtml.c:2992
 msgid "The color of the cited text"
 msgstr "উদ্ধৃতির টেকস্টের রঙ"
 
@@ -2034,11 +2052,14 @@ msgstr "প্রিন্ট প্রক্রিয়ার জন্য ডি
 msgid "GtkHTML Test"
 msgstr "GtkHTML পরীক্ষা"
 
-#~ msgid "Print pre_view"
-#~ msgstr "প্রিন্ট-এর পূর্বপ্রদর্শন (_প)"
+#: src/testgtkhtml.c:117
+msgid "Print pre_view"
+msgstr "প্রিন্ট-এর পূর্বপ্রদর্শন (_প)"
 
-#~ msgid "Print preview"
-#~ msgstr "প্রিন্ট-এর পূর্বপ্রদর্শন"
+#: src/testgtkhtml.c:117
+msgid "Print preview"
+msgstr "প্রিন্ট-এর পূর্বপ্রদর্শন"
 
-#~ msgid "GtkHTML Test Application"
-#~ msgstr "GtkHTML পরীক্ষণের অ্যাপ্লিকেশন"
+#: src/testgtkhtml.c:1004
+msgid "GtkHTML Test Application"
+msgstr "GtkHTML পরীক্ষণের অ্যাপ্লিকেশন"

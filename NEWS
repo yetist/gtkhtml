@@ -1,3 +1,20 @@
+gtkhtml-3.5.3 "Snowman" 2004-01-10
+------------------------------------------------
+
+New in this release
+
+   * fixed symbols conflict with gal's color combo
+   * fixed performance problem in paragraph direction code
+   * fixed bug in quotation code
+   * html input logging switching with GTK_HTML_LOG_INPUT_STREAM
+     environment variable
+   * color combo fixed to be accessible from keyboard (Mengjie Yu)
+   * fixed problem with unavailable toolbar icons
+   * put 2 insert icons back to be compatible with gnome icon theme
+     from gnome 2.6
+   * fixed Home/End navigation in Caret Mode (Mengjie Yu)
+   * introduced regression test suite
+
 gtkhtml-3.5.3 "Resort" 2004-01-10
 ------------------------------------------------
 
@@ -13,7 +30,7 @@ gtkhtml-3.5.2 "Valley" 2004-12-20
 
 New in this release
 
-   * run ask replace dialog until finishe
+   * run ask replace dialog until finished
    * fix symbol conflicts with gal
    * a11y fixes (Mengjie Yu)
 

@@ -5,13 +5,31 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-29 16:53+0100\n"
+"POT-Creation-Date: 2005-01-24 16:35+0100\n"
 "PO-Revision-Date: 2003-01-20 16:04+0700\n"
 "Last-Translator: pclouds <pclouds@gmx.net>\n"
 "Language-Team: GnomeVI <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: a11y/image.c:150
+#, c-format
+msgid "URL is %s, Alternative Text is %s"
+msgstr ""
+
+#: a11y/image.c:152
+#, c-format
+msgid "URL is %s"
+msgstr ""
+
+#: a11y/object.c:50 a11y/object.c:59 a11y/text.c:105
+msgid "grab focus"
+msgstr ""
+
+#: a11y/object.c:211
+msgid "Panel containing HTML"
+msgstr ""
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -592,7 +610,7 @@ msgstr "Làm lại hành động chưa hoàn thành"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: components/html-editor/replace.c:161 components/html-editor/replace.c:223
+#: components/html-editor/replace.c:163 components/html-editor/replace.c:225
 msgid "Replace"
 msgstr "Thay thế"
 
@@ -1809,22 +1827,22 @@ msgstr "Kế tiếp"
 msgid "_Replace"
 msgstr "Thay thế"
 
-#: components/html-editor/replace.c:169
+#: components/html-editor/replace.c:171
 #, fuzzy
 msgid "Search _backward"
 msgstr "Tìm ngược"
 
-#: components/html-editor/replace.c:170 components/html-editor/search.c:114
+#: components/html-editor/replace.c:172 components/html-editor/search.c:114
 #, fuzzy
 msgid "Case _sensitive"
 msgstr "phân biệt hoa/thường"
 
-#: components/html-editor/replace.c:180
+#: components/html-editor/replace.c:182
 #, fuzzy
 msgid "Replace:"
 msgstr "Thay thế"
 
-#: components/html-editor/replace.c:183
+#: components/html-editor/replace.c:185
 #, fuzzy
 msgid "With:"
 msgstr "Rộng:"
@@ -1965,93 +1983,93 @@ msgstr ""
 "Chữ bị sửa đổi đã bị loại khỏi tài liệu.\n"
 "Không thể áp dụng các thay đổi của bạn."
 
-#: src/gtkhtml.c:2569
+#: src/gtkhtml.c:2579
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2929
 #, fuzzy
 msgid "Editable"
 msgstr "Bật"
 
-#: src/gtkhtml.c:2892
+#: src/gtkhtml.c:2930
 msgid "Whether the html can be edited"
 msgstr ""
 
-#: src/gtkhtml.c:2898
+#: src/gtkhtml.c:2936
 msgid "Document Title"
 msgstr "Tựa tài liệu"
 
-#: src/gtkhtml.c:2899
+#: src/gtkhtml.c:2937
 #, fuzzy
 msgid "The title of the current document"
 msgstr "Kiểm tra chính tả tài liệu"
 
-#: src/gtkhtml.c:2905
+#: src/gtkhtml.c:2943
 #, fuzzy
 msgid "Document Base"
 msgstr "Tựa tài liệu"
 
-#: src/gtkhtml.c:2906
+#: src/gtkhtml.c:2944
 msgid "The base URL for relative references"
 msgstr ""
 
-#: src/gtkhtml.c:2912
+#: src/gtkhtml.c:2950
 msgid "Target Base"
 msgstr ""
 
-#: src/gtkhtml.c:2913
+#: src/gtkhtml.c:2951
 msgid "The base URL of the targe frame"
 msgstr ""
 
-#: src/gtkhtml.c:2922
+#: src/gtkhtml.c:2960
 #, fuzzy
 msgid "Fixed Width Font"
 msgstr "Độ rộng cứng"
 
-#: src/gtkhtml.c:2923
+#: src/gtkhtml.c:2961
 msgid "The Monospace font to use for typewriter text"
 msgstr ""
 
-#: src/gtkhtml.c:2929
+#: src/gtkhtml.c:2967
 msgid "New Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2930
+#: src/gtkhtml.c:2968
 msgid "The color of new link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2935
+#: src/gtkhtml.c:2973
 msgid "Visited Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2936
+#: src/gtkhtml.c:2974
 msgid "The color of visited link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2941
+#: src/gtkhtml.c:2979
 msgid "Active Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2942
+#: src/gtkhtml.c:2980
 msgid "The color of active link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2947
+#: src/gtkhtml.c:2985
 msgid "Spelling Error Color"
 msgstr ""
 
-#: src/gtkhtml.c:2948
+#: src/gtkhtml.c:2986
 msgid "The color of the spelling error markers"
 msgstr ""
 
-#: src/gtkhtml.c:2953
+#: src/gtkhtml.c:2991
 #, fuzzy
 msgid "Cite Quotation Color"
 msgstr "Dán trích dẫn"
 
-#: src/gtkhtml.c:2954
+#: src/gtkhtml.c:2992
 #, fuzzy
 msgid "The color of the cited text"
 msgstr "Kiểm tra chính tả tài liệu"
@@ -2121,318 +2139,325 @@ msgstr "Không thể cấp phát font in mặc định\n"
 msgid "GtkHTML Test"
 msgstr "Kiểm tra GtkHTML"
 
+#: src/testgtkhtml.c:117
 msgid "Print pre_view"
 msgstr "_Xem thử bản in"
 
+#: src/testgtkhtml.c:117
 msgid "Print preview"
 msgstr "Xem thử bản in"
 
+#: src/testgtkhtml.c:1004
 #, fuzzy
 msgid "GtkHTML Test Application"
 msgstr "Kiểm tra GtkHTML"
 
-msgid "Plain"
-msgstr "Thô"
+#~ msgid "Plain"
+#~ msgstr "Thô"
 
-msgid ""
-"@link_begin@<img@alt@@width@@height@@align@ "
-"border=@border@@padh@@padv@@src@>@link_end@"
-msgstr ""
-"@link_begin@<img@alt@@width@@height@@align@ "
-"border=@border@@padh@@padv@@src@>@link_end@"
+#~ msgid ""
+#~ "@link_begin@<img@alt@@width@@height@@align@ "
+#~ "border=@border@@padh@@padv@@src@>@link_end@"
+#~ msgstr ""
+#~ "@link_begin@<img@alt@@width@@height@@align@ "
+#~ "border=@border@@padh@@padv@@src@>@link_end@"
 
-msgid "Frame"
-msgstr "Khung"
+#~ msgid "Frame"
+#~ msgstr "Khung"
 
-msgid ""
-"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
-"table></center>"
-msgstr ""
-"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
-"table></center>"
+#~ msgid ""
+#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+#~ "@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
+#~ "table></center>"
+#~ msgstr ""
+#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+#~ "@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
+#~ "table></center>"
 
-msgid "Caption"
-msgstr "Tựa đề"
+#~ msgid "Caption"
+#~ msgstr "Tựa đề"
 
-msgid ""
-"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place your "
-"comment here]</td></tr></table></td></tr></table></center>"
-msgstr ""
-"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place your "
-"comment here]</td></tr></table></td></tr></table></center>"
+#~ msgid ""
+#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+#~ "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place "
+#~ "your comment here]</td></tr></table></td></tr></table></center>"
+#~ msgstr ""
+#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+#~ "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place "
+#~ "your comment here]</td></tr></table></td></tr></table></center>"
 
-msgid "Find A Regular Expression"
-msgstr "Tìm biểu thức chính quy"
+#~ msgid "Find A Regular Expression"
+#~ msgstr "Tìm biểu thức chính quy"
 
-msgid "Find Regular E_xpression..."
-msgstr "Tìm _biểu thức chính quy..."
-
-#, fuzzy
-msgid ""
-"The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a href="
-"\"mailto:dog\">dog</a>."
-msgstr "Con chồn xám nhanh nhẹn nhảy qua con chó lười."
-
-msgid "The quick brown fox jumps over the lazy dog."
-msgstr "Con chồn xám nhanh nhẹn nhảy qua con chó lười."
-
-msgid "Other"
-msgstr "Khác"
-
-msgid ""
-"The editted cell was removed from the document.\n"
-"Cannot apply your changes."
-msgstr ""
-"Ô được sửa đã bị loại bỏ khỏi tài liệu.\n"
-"Không thể áp dụng các thay đổi của bạn."
-
-msgid "************"
-msgstr "************"
-
-msgid "***text***"
-msgstr "***text***"
-
-msgid "Apply changes to:"
-msgstr "Áp dụng thay đổi cho:"
-
-msgid "Border"
-msgstr "Viền"
-
-msgid "Click will follow this URL"
-msgstr "Nhấn URL sau đây"
-
-msgid "Click will follow this URL:"
-msgstr "Nhấn vào sẽ dẫn tới URL này:"
-
-msgid "Don't wrap"
-msgstr "Không cuộn"
-
-msgid "Font size"
-msgstr "Cỡ font"
-
-msgid "Foreground color"
-msgstr "Màu chữ"
-
-msgid "Header"
-msgstr "Tiêu đề"
-
-msgid "Link insert"
-msgstr "Chèn liên kết"
-
-msgid "Location"
-msgstr "Địa điểm"
-
-msgid "Padding"
-msgstr "Đệm"
-
-msgid "Percent %"
-msgstr "Phần trăm %"
-
-msgid "Pixmap:"
-msgstr "Pixmap:"
-
-msgid "Points"
-msgstr "Điểm"
-
-msgid "Scope"
-msgstr "Phạm vi"
-
-msgid "Spacing"
-msgstr "Khoảng trống"
-
-msgid "Style:"
-msgstr "Kiểu:"
-
-msgid "Table Insert"
-msgstr "Chèn bảng"
-
-msgid "Test URL..."
-msgstr "Kiểm tra URL..."
-
-msgid "Wrap"
-msgstr "Cuộn"
-
-msgid "Wrapping:"
-msgstr "Cuộn:"
-
-msgid "xxxxxxxxx"
-msgstr "xxxxxxxxx"
-
-msgid ""
-"The editted image was removed from the document.\n"
-"Cannot apply your changes."
-msgstr ""
-"Ảnh bị sửa đổi đã bị loại khỏi tài liệu.\n"
-"Không thể áp dụng các thay đổi của bạn."
-
-msgid "Link text"
-msgstr "Text liên kết"
-
-msgid ""
-"The editted link was removed from the document.\n"
-"Cannot apply your changes."
-msgstr ""
-"Liên kết bị sửa đổi đã bị loại khỏi tài liệu.\n"
-"Không thể áp dụng các thay đổi của bạn."
-
-msgid "Align"
-msgstr "Canh hàng"
-
-msgid ""
-"The editted paragraph was removed from the document.\n"
-"Cannot apply your changes."
-msgstr ""
-"Đoạn bị sửa đổi đã bị loại khỏi tài liệu.\n"
-"Không thể áp dụng các thay đổi của bạn."
-
-msgid "Blue 3D"
-msgstr "Xanh 3D"
-
-msgid "Yellow, flowers"
-msgstr "Vàng, hoa"
-
-msgid ""
-"The editted rule was removed from the document.\n"
-"Cannot apply your changes."
-msgstr ""
-"Luật bị sửa đổi đã bị loại khỏi tài liệu.\n"
-"Không thể áp dụng các thay đổi của bạn."
-
-msgid "Flat gray"
-msgstr "Xám phẳng"
-
-msgid "Dark header"
-msgstr "Tiêu đề tối"
-
-msgid ""
-"The editted table was removed from the document.\n"
-"Cannot apply your changes."
-msgstr ""
-"Bảng bị sửa đổi đã bị loại khỏi tài liệu.\n"
-"Không thể áp dụng các thay đổi của bạn."
-
-msgid "Color"
-msgstr "Màu sắc"
+#~ msgid "Find Regular E_xpression..."
+#~ msgstr "Tìm _biểu thức chính quy..."
 
 #, fuzzy
-msgid "The quick brown fox jumps over the lazy dog.</div>"
-msgstr "Con chồn xám nhanh nhẹn nhảy qua con chó lười."
+#~ msgid ""
+#~ "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a "
+#~ "href=\"mailto:dog\">dog</a>."
+#~ msgstr "Con chồn xám nhanh nhẹn nhảy qua con chó lười."
 
-msgid "Rectangles"
-msgstr "Hình chữ nhật"
+#~ msgid "The quick brown fox jumps over the lazy dog."
+#~ msgstr "Con chồn xám nhanh nhẹn nhảy qua con chó lười."
 
-msgid "Pre"
-msgstr "Tiền"
+#~ msgid "Other"
+#~ msgstr "Khác"
 
-msgid "The quick brown fox jumped over the lazy dog."
-msgstr "Con chồn xám nhanh nhẩu nhảy qua con chó lười."
+#~ msgid ""
+#~ "The editted cell was removed from the document.\n"
+#~ "Cannot apply your changes."
+#~ msgstr ""
+#~ "Ô được sửa đã bị loại bỏ khỏi tài liệu.\n"
+#~ "Không thể áp dụng các thay đổi của bạn."
 
-msgid "Ignore '%s'"
-msgstr "Bỏ qua '%s'"
+#~ msgid "************"
+#~ msgstr "************"
 
-msgid "Suggest word"
-msgstr "Đề nghị từ"
+#~ msgid "***text***"
+#~ msgstr "***text***"
 
-msgid "Text..."
-msgstr "Text..."
+#~ msgid "Apply changes to:"
+#~ msgstr "Áp dụng thay đổi cho:"
 
-msgid "I could not initialize Bonobo"
-msgstr "Không thể khởi động Bonobo"
+#~ msgid "Border"
+#~ msgstr "Viền"
 
-msgid "Test"
-msgstr "Kiểm tra"
+#~ msgid "Click will follow this URL"
+#~ msgstr "Nhấn URL sau đây"
 
-msgid "Test 1"
-msgstr "Kiểm tra 1"
+#~ msgid "Click will follow this URL:"
+#~ msgstr "Nhấn vào sẽ dẫn tới URL này:"
 
-msgid "The quick brown fox jumped over the lazy dog. "
-msgstr "Con chồn xám nhanh nhẩu nhảy qua con chó lười. "
+#~ msgid "Don't wrap"
+#~ msgstr "Không cuộn"
 
-msgid ""
-"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
-"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
-"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
-msgstr ""
-"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
-"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
-"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
+#~ msgid "Font size"
+#~ msgstr "Cỡ font"
 
-msgid ""
-"/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
-"tr></table></td></tr></table>"
-msgstr ""
-"/bulb.png\" hspace=10></td><td width=\"100%\">Dat text o day</td></tr></"
-"table></td></tr></table>"
+#~ msgid "Foreground color"
+#~ msgstr "Màu chữ"
 
-msgid ""
-"<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
-"\"><tr><td align=\"center\"><img src=\"file://"
-msgstr ""
-"<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
-"\"><tr><td align=\"center\"><img src=\"file://"
+#~ msgid "Header"
+#~ msgstr "Tiêu đề"
 
-msgid ""
-"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
-"\"-1\">Image 1: <b>description</b></font></td></tr></table></td></tr></table>"
-msgstr ""
-"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
-"\"-1\">Image 1: <b>description</b></font></td></tr></table></td></tr></table>"
+#~ msgid "Link insert"
+#~ msgstr "Chèn liên kết"
 
-msgid "Sans"
-msgstr "Sans"
+#~ msgid "Location"
+#~ msgstr "Địa điểm"
 
-msgid "Monospace"
-msgstr "Cứng"
+#~ msgid "Padding"
+#~ msgstr "Đệm"
 
-msgid "Insert Smiley 10 smiley into document..."
-msgstr "Chèn Biểu tượng Smiley 10 vào tài liệu..."
+#~ msgid "Percent %"
+#~ msgstr "Phần trăm %"
 
-msgid "Insert Smiley 11 smiley into document..."
-msgstr "Chèn Biểu tượng Smiley 11 vào tài liệu..."
+#~ msgid "Pixmap:"
+#~ msgstr "Pixmap:"
 
-msgid "Insert Smiley 8 smiley into document..."
-msgstr "Chèn Biểu tượng Smiley 8 vào tài liệu..."
+#~ msgid "Points"
+#~ msgstr "Điểm"
 
-msgid "Insert Smiley 9 smiley into document..."
-msgstr "Chèn Biểu tượng Smiley 9 vào tài liệu..."
+#~ msgid "Scope"
+#~ msgstr "Phạm vi"
 
-msgid "Modify the file's properties"
-msgstr "Đổi thuộc tính tập tin"
+#~ msgid "Spacing"
+#~ msgstr "Khoảng trống"
 
-msgid "Pr_operties..."
-msgstr "_Thuộc tính..."
+#~ msgid "Style:"
+#~ msgstr "Kiểu:"
 
-msgid "Smiley _10"
-msgstr "Smiley _10"
+#~ msgid "Table Insert"
+#~ msgstr "Chèn bảng"
 
-msgid "Smiley _11"
-msgstr "Smiley _11"
+#~ msgid "Test URL..."
+#~ msgstr "Kiểm tra URL..."
 
-msgid "Smiley _8"
-msgstr "Smiley _8"
+#~ msgid "Wrap"
+#~ msgstr "Cuộn"
 
-msgid "Smiley _9"
-msgstr "Smiley _9"
+#~ msgid "Wrapping:"
+#~ msgstr "Cuộn:"
 
-msgid "Cannot execute gtkhtml properties"
-msgstr "Không thể thực hiện thuộc tính gtkhtml"
+#~ msgid "xxxxxxxxx"
+#~ msgstr "xxxxxxxxx"
 
-msgid "EBrowser control"
-msgstr "Điều khiển EBrowser"
+#~ msgid ""
+#~ "The editted image was removed from the document.\n"
+#~ "Cannot apply your changes."
+#~ msgstr ""
+#~ "Ảnh bị sửa đổi đã bị loại khỏi tài liệu.\n"
+#~ "Không thể áp dụng các thay đổi của bạn."
 
-msgid "HTML Browser control"
-msgstr "Điều khiển Bộ duyệt HTML"
+#~ msgid "Link text"
+#~ msgstr "Text liên kết"
+
+#~ msgid ""
+#~ "The editted link was removed from the document.\n"
+#~ "Cannot apply your changes."
+#~ msgstr ""
+#~ "Liên kết bị sửa đổi đã bị loại khỏi tài liệu.\n"
+#~ "Không thể áp dụng các thay đổi của bạn."
+
+#~ msgid "Align"
+#~ msgstr "Canh hàng"
+
+#~ msgid ""
+#~ "The editted paragraph was removed from the document.\n"
+#~ "Cannot apply your changes."
+#~ msgstr ""
+#~ "Đoạn bị sửa đổi đã bị loại khỏi tài liệu.\n"
+#~ "Không thể áp dụng các thay đổi của bạn."
+
+#~ msgid "Blue 3D"
+#~ msgstr "Xanh 3D"
+
+#~ msgid "Yellow, flowers"
+#~ msgstr "Vàng, hoa"
+
+#~ msgid ""
+#~ "The editted rule was removed from the document.\n"
+#~ "Cannot apply your changes."
+#~ msgstr ""
+#~ "Luật bị sửa đổi đã bị loại khỏi tài liệu.\n"
+#~ "Không thể áp dụng các thay đổi của bạn."
+
+#~ msgid "Flat gray"
+#~ msgstr "Xám phẳng"
+
+#~ msgid "Dark header"
+#~ msgstr "Tiêu đề tối"
+
+#~ msgid ""
+#~ "The editted table was removed from the document.\n"
+#~ "Cannot apply your changes."
+#~ msgstr ""
+#~ "Bảng bị sửa đổi đã bị loại khỏi tài liệu.\n"
+#~ "Không thể áp dụng các thay đổi của bạn."
+
+#~ msgid "Color"
+#~ msgstr "Màu sắc"
+
+#, fuzzy
+#~ msgid "The quick brown fox jumps over the lazy dog.</div>"
+#~ msgstr "Con chồn xám nhanh nhẹn nhảy qua con chó lười."
+
+#~ msgid "Rectangles"
+#~ msgstr "Hình chữ nhật"
+
+#~ msgid "Pre"
+#~ msgstr "Tiền"
+
+#~ msgid "The quick brown fox jumped over the lazy dog."
+#~ msgstr "Con chồn xám nhanh nhẩu nhảy qua con chó lười."
+
+#~ msgid "Ignore '%s'"
+#~ msgstr "Bỏ qua '%s'"
+
+#~ msgid "Suggest word"
+#~ msgstr "Đề nghị từ"
+
+#~ msgid "Text..."
+#~ msgstr "Text..."
+
+#~ msgid "I could not initialize Bonobo"
+#~ msgstr "Không thể khởi động Bonobo"
+
+#~ msgid "Test"
+#~ msgstr "Kiểm tra"
+
+#~ msgid "Test 1"
+#~ msgstr "Kiểm tra 1"
+
+#~ msgid "The quick brown fox jumped over the lazy dog. "
+#~ msgstr "Con chồn xám nhanh nhẩu nhảy qua con chó lười. "
+
+#~ msgid ""
+#~ "<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
+#~ "\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
+#~ "cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
+#~ msgstr ""
+#~ "<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
+#~ "\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
+#~ "cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
+
+#~ msgid ""
+#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
+#~ "tr></table></td></tr></table>"
+#~ msgstr ""
+#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Dat text o day</td></tr></"
+#~ "table></td></tr></table>"
+
+#~ msgid ""
+#~ "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+#~ "@width@@align@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img src="
+#~ "\"file://"
+#~ msgstr ""
+#~ "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+#~ "@width@@align@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img src="
+#~ "\"file://"
+
+#~ msgid ""
+#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
+#~ "size=\"-1\">Image 1: <b>description</b></font></td></tr></table></td></"
+#~ "tr></table>"
+#~ msgstr ""
+#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
+#~ "size=\"-1\">Image 1: <b>description</b></font></td></tr></table></td></"
+#~ "tr></table>"
+
+#~ msgid "Sans"
+#~ msgstr "Sans"
+
+#~ msgid "Monospace"
+#~ msgstr "Cứng"
+
+#~ msgid "Insert Smiley 10 smiley into document..."
+#~ msgstr "Chèn Biểu tượng Smiley 10 vào tài liệu..."
+
+#~ msgid "Insert Smiley 11 smiley into document..."
+#~ msgstr "Chèn Biểu tượng Smiley 11 vào tài liệu..."
+
+#~ msgid "Insert Smiley 8 smiley into document..."
+#~ msgstr "Chèn Biểu tượng Smiley 8 vào tài liệu..."
+
+#~ msgid "Insert Smiley 9 smiley into document..."
+#~ msgstr "Chèn Biểu tượng Smiley 9 vào tài liệu..."
+
+#~ msgid "Modify the file's properties"
+#~ msgstr "Đổi thuộc tính tập tin"
+
+#~ msgid "Pr_operties..."
+#~ msgstr "_Thuộc tính..."
+
+#~ msgid "Smiley _10"
+#~ msgstr "Smiley _10"
+
+#~ msgid "Smiley _11"
+#~ msgstr "Smiley _11"
+
+#~ msgid "Smiley _8"
+#~ msgstr "Smiley _8"
+
+#~ msgid "Smiley _9"
+#~ msgstr "Smiley _9"
+
+#~ msgid "Cannot execute gtkhtml properties"
+#~ msgstr "Không thể thực hiện thuộc tính gtkhtml"
+
+#~ msgid "EBrowser control"
+#~ msgstr "Điều khiển EBrowser"
+
+#~ msgid "HTML Browser control"
+#~ msgstr "Điều khiển Bộ duyệt HTML"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-29 16:53+0100\n"
+"POT-Creation-Date: 2005-01-24 16:35+0100\n"
 "PO-Revision-Date: 2002-06-16 16:26+0200\n"
 "Last-Translator: Arafat Medini <lumina@silverpen.de>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
@@ -14,6 +14,24 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.0beta1\n"
+
+#: a11y/image.c:150
+#, c-format
+msgid "URL is %s, Alternative Text is %s"
+msgstr ""
+
+#: a11y/image.c:152
+#, c-format
+msgid "URL is %s"
+msgstr ""
+
+#: a11y/object.c:50 a11y/object.c:59 a11y/text.c:105
+msgid "grab focus"
+msgstr ""
+
+#: a11y/object.c:211
+msgid "Panel containing HTML"
+msgstr ""
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -602,7 +620,7 @@ msgstr "كرّر الفعل المتراجع عنه"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: components/html-editor/replace.c:161 components/html-editor/replace.c:223
+#: components/html-editor/replace.c:163 components/html-editor/replace.c:225
 msgid "Replace"
 msgstr "بدّل"
 
@@ -1823,22 +1841,22 @@ msgstr "التالي"
 msgid "_Replace"
 msgstr "بدّل"
 
-#: components/html-editor/replace.c:169
+#: components/html-editor/replace.c:171
 #, fuzzy
 msgid "Search _backward"
 msgstr "ابحث للخلف"
 
-#: components/html-editor/replace.c:170 components/html-editor/search.c:114
+#: components/html-editor/replace.c:172 components/html-editor/search.c:114
 #, fuzzy
 msgid "Case _sensitive"
 msgstr "حساس لحالة الحرف"
 
-#: components/html-editor/replace.c:180
+#: components/html-editor/replace.c:182
 #, fuzzy
 msgid "Replace:"
 msgstr "بدّل"
 
-#: components/html-editor/replace.c:183
+#: components/html-editor/replace.c:185
 #, fuzzy
 msgid "With:"
 msgstr "العرض:"
@@ -1976,93 +1994,93 @@ msgid ""
 "Cannot apply your changes."
 msgstr ""
 
-#: src/gtkhtml.c:2569
+#: src/gtkhtml.c:2579
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2929
 #, fuzzy
 msgid "Editable"
 msgstr "تمكين"
 
-#: src/gtkhtml.c:2892
+#: src/gtkhtml.c:2930
 msgid "Whether the html can be edited"
 msgstr ""
 
-#: src/gtkhtml.c:2898
+#: src/gtkhtml.c:2936
 msgid "Document Title"
 msgstr "عنوان المستند"
 
-#: src/gtkhtml.c:2899
+#: src/gtkhtml.c:2937
 #, fuzzy
 msgid "The title of the current document"
 msgstr "دقق الإملاء للوثيقة"
 
-#: src/gtkhtml.c:2905
+#: src/gtkhtml.c:2943
 #, fuzzy
 msgid "Document Base"
 msgstr "عنوان المستند"
 
-#: src/gtkhtml.c:2906
+#: src/gtkhtml.c:2944
 msgid "The base URL for relative references"
 msgstr ""
 
-#: src/gtkhtml.c:2912
+#: src/gtkhtml.c:2950
 msgid "Target Base"
 msgstr ""
 
-#: src/gtkhtml.c:2913
+#: src/gtkhtml.c:2951
 msgid "The base URL of the targe frame"
 msgstr ""
 
-#: src/gtkhtml.c:2922
+#: src/gtkhtml.c:2960
 #, fuzzy
 msgid "Fixed Width Font"
 msgstr "عرض ثابت"
 
-#: src/gtkhtml.c:2923
+#: src/gtkhtml.c:2961
 msgid "The Monospace font to use for typewriter text"
 msgstr ""
 
-#: src/gtkhtml.c:2929
+#: src/gtkhtml.c:2967
 msgid "New Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2930
+#: src/gtkhtml.c:2968
 msgid "The color of new link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2935
+#: src/gtkhtml.c:2973
 msgid "Visited Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2936
+#: src/gtkhtml.c:2974
 msgid "The color of visited link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2941
+#: src/gtkhtml.c:2979
 msgid "Active Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2942
+#: src/gtkhtml.c:2980
 msgid "The color of active link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2947
+#: src/gtkhtml.c:2985
 msgid "Spelling Error Color"
 msgstr ""
 
-#: src/gtkhtml.c:2948
+#: src/gtkhtml.c:2986
 msgid "The color of the spelling error markers"
 msgstr ""
 
-#: src/gtkhtml.c:2953
+#: src/gtkhtml.c:2991
 #, fuzzy
 msgid "Cite Quotation Color"
 msgstr "اللون:"
 
-#: src/gtkhtml.c:2954
+#: src/gtkhtml.c:2992
 #, fuzzy
 msgid "The color of the cited text"
 msgstr "دقق الإملاء للوثيقة"
@@ -2132,15 +2150,18 @@ msgstr "تعذر تحديد خط الطباعة الإفتراضي\n"
 msgid "GtkHTML Test"
 msgstr "اختبار GtkHTML"
 
-#~ msgid "Print pre_view"
-#~ msgstr "معاينة الط_باعة"
+#: src/testgtkhtml.c:117
+msgid "Print pre_view"
+msgstr "معاينة الط_باعة"
 
-#~ msgid "Print preview"
-#~ msgstr "معاينة الطباعة"
+#: src/testgtkhtml.c:117
+msgid "Print preview"
+msgstr "معاينة الطباعة"
 
+#: src/testgtkhtml.c:1004
 #, fuzzy
-#~ msgid "GtkHTML Test Application"
-#~ msgstr "اختبار GtkHTML"
+msgid "GtkHTML Test Application"
+msgstr "اختبار GtkHTML"
 
 #~ msgid "Plain"
 #~ msgstr "بسيط"

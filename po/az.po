@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD.az\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-29 16:53+0100\n"
+"POT-Creation-Date: 2005-01-24 16:35+0100\n"
 "PO-Revision-Date: 2004-06-13 12:55+0300\n"
 "Last-Translator: Mətin Əmirov <metin@karegen.com>\n"
 "Language-Team: Azerbaijani <translation-team-az@lists.sourceforge.net>\n"
@@ -19,6 +19,24 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.3\n"
+
+#: a11y/image.c:150
+#, c-format
+msgid "URL is %s, Alternative Text is %s"
+msgstr ""
+
+#: a11y/image.c:152
+#, c-format
+msgid "URL is %s"
+msgstr ""
+
+#: a11y/object.c:50 a11y/object.c:59 a11y/text.c:105
+msgid "grab focus"
+msgstr ""
+
+#: a11y/object.c:211
+msgid "Panel containing HTML"
+msgstr ""
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -598,7 +616,7 @@ msgstr "Geri alınan dəyişikliyi yenidən et"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: components/html-editor/replace.c:161 components/html-editor/replace.c:223
+#: components/html-editor/replace.c:163 components/html-editor/replace.c:225
 msgid "Replace"
 msgstr "Əvəz Et"
 
@@ -1736,19 +1754,19 @@ msgstr "_Sonrakı"
 msgid "_Replace"
 msgstr "Ə_vəz Et"
 
-#: components/html-editor/replace.c:169
+#: components/html-editor/replace.c:171
 msgid "Search _backward"
 msgstr "_Arxaya doğru axtar"
 
-#: components/html-editor/replace.c:170 components/html-editor/search.c:114
+#: components/html-editor/replace.c:172 components/html-editor/search.c:114
 msgid "Case _sensitive"
 msgstr "Böyük/kiçik hərfə _həssas"
 
-#: components/html-editor/replace.c:180
+#: components/html-editor/replace.c:182
 msgid "Replace:"
 msgstr "Əvəz Et:"
 
-#: components/html-editor/replace.c:183
+#: components/html-editor/replace.c:185
 msgid "With:"
 msgstr "Bununla:"
 
@@ -1882,90 +1900,90 @@ msgstr ""
 "Redaktə edilən üzv sənəddən silinib.\n"
 "Dəyişikləriniz tətbiq edilə bilmir."
 
-#: src/gtkhtml.c:2569
+#: src/gtkhtml.c:2579
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 "Tərtib edici üstünə buraxılan Mozilla url ünvanı səhv format (%d) ya da "
 "uzunluğa (%d) malikdir\n"
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2929
 msgid "Editable"
 msgstr "Dəyişdirilə bilən"
 
-#: src/gtkhtml.c:2892
+#: src/gtkhtml.c:2930
 msgid "Whether the html can be edited"
 msgstr "Html-nin redaktə edilə bilməsi"
 
-#: src/gtkhtml.c:2898
+#: src/gtkhtml.c:2936
 msgid "Document Title"
 msgstr "Sənədin Başlığı"
 
-#: src/gtkhtml.c:2899
+#: src/gtkhtml.c:2937
 msgid "The title of the current document"
 msgstr "Hazırkı sənədin başlığı"
 
-#: src/gtkhtml.c:2905
+#: src/gtkhtml.c:2943
 msgid "Document Base"
 msgstr "Sənəd Əsası"
 
-#: src/gtkhtml.c:2906
+#: src/gtkhtml.c:2944
 msgid "The base URL for relative references"
 msgstr "Nisbi bildirişlər üçün baza URL-si"
 
-#: src/gtkhtml.c:2912
+#: src/gtkhtml.c:2950
 msgid "Target Base"
 msgstr "Hədəf Baza"
 
-#: src/gtkhtml.c:2913
+#: src/gtkhtml.c:2951
 msgid "The base URL of the targe frame"
 msgstr "Hədəf çərçivənin baza URL-si"
 
-#: src/gtkhtml.c:2922
+#: src/gtkhtml.c:2960
 msgid "Fixed Width Font"
 msgstr "Sabit Enli Yazı Növü"
 
-#: src/gtkhtml.c:2923
+#: src/gtkhtml.c:2961
 msgid "The Monospace font to use for typewriter text"
 msgstr "Yazı makinası tərzi mətn üçün Sabit Enli yazı növü"
 
-#: src/gtkhtml.c:2929
+#: src/gtkhtml.c:2967
 msgid "New Link Color"
 msgstr "Yeni Körpü Rəngi"
 
-#: src/gtkhtml.c:2930
+#: src/gtkhtml.c:2968
 msgid "The color of new link elements"
 msgstr "Yeni körpü elementlərinin rəngi"
 
-#: src/gtkhtml.c:2935
+#: src/gtkhtml.c:2973
 msgid "Visited Link Color"
 msgstr "Ziyarət Edilmiş Körpü Rəngi"
 
-#: src/gtkhtml.c:2936
+#: src/gtkhtml.c:2974
 msgid "The color of visited link elements"
 msgstr "Ziyarət edilmiş körpü elementlərinin rəngi"
 
-#: src/gtkhtml.c:2941
+#: src/gtkhtml.c:2979
 msgid "Active Link Color"
 msgstr "Fəal Körpü Rəngi"
 
-#: src/gtkhtml.c:2942
+#: src/gtkhtml.c:2980
 msgid "The color of active link elements"
 msgstr "Fəal körpü elementlərinin rəngi"
 
-#: src/gtkhtml.c:2947
+#: src/gtkhtml.c:2985
 msgid "Spelling Error Color"
 msgstr "İmla Xətası Rəngi"
 
-#: src/gtkhtml.c:2948
+#: src/gtkhtml.c:2986
 msgid "The color of the spelling error markers"
 msgstr "İmla xətası göstəricilərinin rəngi"
 
-#: src/gtkhtml.c:2953
+#: src/gtkhtml.c:2991
 msgid "Cite Quotation Color"
 msgstr "Sitat Rəngi"
 
-#: src/gtkhtml.c:2954
+#: src/gtkhtml.c:2992
 msgid "The color of the cited text"
 msgstr "Sitatlanmış mətnin rəngi"
 
@@ -2034,11 +2052,14 @@ msgstr "Çap etmək üçün ön qurğulu yazı növü tapıla bilmir\n"
 msgid "GtkHTML Test"
 msgstr "GtkHTML Sınağı"
 
-#~ msgid "Print pre_view"
-#~ msgstr "Çap _görünüşü"
+#: src/testgtkhtml.c:117
+msgid "Print pre_view"
+msgstr "Çap _görünüşü"
 
-#~ msgid "Print preview"
-#~ msgstr "Çap görünüşü"
+#: src/testgtkhtml.c:117
+msgid "Print preview"
+msgstr "Çap görünüşü"
 
-#~ msgid "GtkHTML Test Application"
-#~ msgstr "GtkHTML Sınaq Proqramı"
+#: src/testgtkhtml.c:1004
+msgid "GtkHTML Test Application"
+msgstr "GtkHTML Sınaq Proqramı"

@@ -7,13 +7,31 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-06 12:03+0200\n"
+"POT-Creation-Date: 2005-01-24 16:35+0100\n"
 "PO-Revision-Date: 2005-01-18 12:53+0200\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: a11y/image.c:150
+#, c-format
+msgid "URL is %s, Alternative Text is %s"
+msgstr ""
+
+#: a11y/image.c:152
+#, c-format
+msgid "URL is %s"
+msgstr ""
+
+#: a11y/object.c:50 a11y/object.c:59 a11y/text.c:105
+msgid "grab focus"
+msgstr ""
+
+#: a11y/object.c:211
+msgid "Panel containing HTML"
+msgstr ""
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -444,7 +462,7 @@ msgstr "L_ugu"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
-#: components/html-editor/menubar.c:115 components/html-editor/popup.c:106
+#: components/html-editor/menubar.c:136 components/html-editor/popup.c:106
 #: components/html-editor/popup.c:201 components/html-editor/popup.c:267
 msgid "Link"
 msgstr "Viit"
@@ -615,7 +633,7 @@ msgstr "Soorita tühistatud tegevus uuesti"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: components/html-editor/replace.c:161 components/html-editor/replace.c:223
+#: components/html-editor/replace.c:163 components/html-editor/replace.c:225
 msgid "Replace"
 msgstr "Asenda"
 
@@ -635,7 +653,7 @@ msgstr "<b>Akende nimistu sisu</b>"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 #: components/html-editor/editor-control-factory.c:207
 #: components/html-editor/gtkhtml-editor-properties.glade.h:48
-#: components/html-editor/menubar.c:134 components/html-editor/popup.c:225
+#: components/html-editor/menubar.c:155 components/html-editor/popup.c:225
 msgid "Rule"
 msgstr "Reegel"
 
@@ -683,7 +701,7 @@ msgstr "Ülatekst"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: components/html-editor/menubar.c:155 components/html-editor/popup.c:231
+#: components/html-editor/menubar.c:176 components/html-editor/popup.c:231
 #: components/html-editor/popup.c:501 components/html-editor/popup.c:513
 msgid "Table"
 msgstr "Table"
@@ -700,7 +718,7 @@ msgstr "_Tekstifail..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
 #: components/html-editor/gtkhtml-editor-properties.glade.h:53
-#: components/html-editor/menubar.c:177
+#: components/html-editor/menubar.c:198
 msgid "Template"
 msgstr "Mall"
 
@@ -1091,26 +1109,26 @@ msgid "Transparent"
 msgstr ""
 
 #: components/html-editor/editor-control-factory.c:178
-#: components/html-editor/menubar.c:328 components/html-editor/menubar.c:346
-#: components/html-editor/menubar.c:364 components/html-editor/popup.c:186
+#: components/html-editor/menubar.c:354 components/html-editor/menubar.c:372
+#: components/html-editor/menubar.c:390 components/html-editor/popup.c:186
 #: components/html-editor/popup.c:264
 msgid "Properties"
 msgstr "Omadused"
 
 #: components/html-editor/editor-control-factory.c:197
 #: components/html-editor/gtkhtml-editor-properties.glade.h:54
-#: components/html-editor/menubar.c:350 components/html-editor/popup.c:195
+#: components/html-editor/menubar.c:376 components/html-editor/popup.c:195
 msgid "Text"
 msgstr "Tekst"
 
 #: components/html-editor/editor-control-factory.c:216
-#: components/html-editor/menubar.c:368 components/html-editor/popup.c:213
+#: components/html-editor/menubar.c:394 components/html-editor/popup.c:213
 msgid "Paragraph"
 msgstr "Lõik"
 
 #: components/html-editor/editor-control-factory.c:220
 #: components/html-editor/gtkhtml-editor-properties.glade.h:43
-#: components/html-editor/menubar.c:332 components/html-editor/popup.c:219
+#: components/html-editor/menubar.c:358 components/html-editor/popup.c:219
 msgid "Page"
 msgstr "Lehekülg"
 
@@ -1603,28 +1621,28 @@ msgstr ""
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: components/html-editor/menubar.c:86
+#: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
 #, fuzzy
 msgid "Insert image"
 msgstr "Lisa viit"
 
-#: components/html-editor/menubar.c:112 components/html-editor/menubar.c:131
-#: components/html-editor/menubar.c:152 components/html-editor/menubar.c:174
+#: components/html-editor/menubar.c:133 components/html-editor/menubar.c:152
+#: components/html-editor/menubar.c:173 components/html-editor/menubar.c:195
 #: components/html-editor/popup.c:103
 msgid "Insert"
 msgstr "Lisa"
 
-#: components/html-editor/menubar.c:263
+#: components/html-editor/menubar.c:282
 #, c-format
 msgid "Error loading file '%s': %s"
 msgstr "Viga faili: '%s' laadimisel: %s"
 
-#: components/html-editor/menubar.c:290
+#: components/html-editor/menubar.c:308 components/html-editor/menubar.c:317
 #, fuzzy
 msgid "Insert: HTML File"
 msgstr "Name=HTML fail..."
 
-#: components/html-editor/menubar.c:290
+#: components/html-editor/menubar.c:308 components/html-editor/menubar.c:317
 #, fuzzy
 msgid "Insert: Text File"
 msgstr "Lisa tekstifail..."
@@ -1815,19 +1833,19 @@ msgstr "_Järgmine"
 msgid "_Replace"
 msgstr "_Asenda"
 
-#: components/html-editor/replace.c:169
+#: components/html-editor/replace.c:171
 msgid "Search _backward"
 msgstr "Otsi _tahapoole"
 
-#: components/html-editor/replace.c:170 components/html-editor/search.c:114
+#: components/html-editor/replace.c:172 components/html-editor/search.c:114
 msgid "Case _sensitive"
 msgstr "_Tõstutundlik"
 
-#: components/html-editor/replace.c:180
+#: components/html-editor/replace.c:182
 msgid "Replace:"
 msgstr "Asenda:"
 
-#: components/html-editor/replace.c:183
+#: components/html-editor/replace.c:185
 #, fuzzy
 msgid "With:"
 msgstr "_Sellega:"
@@ -1841,16 +1859,22 @@ msgstr "_Tagasi"
 msgid "_Regular Expression"
 msgstr "Vigane regulaaravaldis"
 
-#: components/html-editor/spell.c:278
+#: components/html-editor/spell.c:110
+msgid ""
+"Unable to add word to dictionary,\n"
+"language settings are broken.\n"
+msgstr ""
+
+#: components/html-editor/spell.c:298
 #, fuzzy
 msgid "No misspelled word found"
 msgstr "Faile ei leitud: "
 
-#: components/html-editor/spell.c:285
+#: components/html-editor/spell.c:305
 msgid "Spell checker"
 msgstr "Õigekirja kontroll"
 
-#: components/html-editor/spell.c:378
+#: components/html-editor/spell.c:398
 #, fuzzy
 msgid "Current _Languages"
 msgstr "Minu keeled"
@@ -1871,15 +1895,15 @@ msgstr "Pildi raam"
 msgid "Labels"
 msgstr "Sildid"
 
-#: components/html-editor/test-html-editor-control.c:323
+#: components/html-editor/test-html-editor-control.c:333
 msgid "Open file..."
 msgstr "Ava fail..."
 
-#: components/html-editor/test-html-editor-control.c:325
+#: components/html-editor/test-html-editor-control.c:335
 msgid "Save file as..."
 msgstr "Salvesta fail kui..."
 
-#: components/html-editor/test-html-editor-control.c:557
+#: components/html-editor/test-html-editor-control.c:567
 msgid "GtkHTML Editor Test Container"
 msgstr ""
 
@@ -1961,142 +1985,142 @@ msgid ""
 "Cannot apply your changes."
 msgstr ""
 
-#: src/gtkhtml.c:2531
+#: src/gtkhtml.c:2579
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 
-#: src/gtkhtml.c:2852
+#: src/gtkhtml.c:2929
 msgid "Editable"
 msgstr "Redigeeritav"
 
-#: src/gtkhtml.c:2853
+#: src/gtkhtml.c:2930
 msgid "Whether the html can be edited"
 msgstr "Kas html'i saab redigeerida"
 
-#: src/gtkhtml.c:2859
+#: src/gtkhtml.c:2936
 msgid "Document Title"
 msgstr "Dokumendi pealkiri"
 
-#: src/gtkhtml.c:2860
+#: src/gtkhtml.c:2937
 msgid "The title of the current document"
 msgstr "Aktiivse dokumendi pealkiri"
 
-#: src/gtkhtml.c:2866
+#: src/gtkhtml.c:2943
 msgid "Document Base"
 msgstr "Dokumendi baas"
 
-#: src/gtkhtml.c:2867
+#: src/gtkhtml.c:2944
 msgid "The base URL for relative references"
 msgstr ""
 
-#: src/gtkhtml.c:2873
+#: src/gtkhtml.c:2950
 #, fuzzy
 msgid "Target Base"
 msgstr "alus,astendaja"
 
-#: src/gtkhtml.c:2874
+#: src/gtkhtml.c:2951
 msgid "The base URL of the targe frame"
 msgstr ""
 
-#: src/gtkhtml.c:2883
+#: src/gtkhtml.c:2960
 msgid "Fixed Width Font"
 msgstr "Fikseeritud laiusega font"
 
-#: src/gtkhtml.c:2884
+#: src/gtkhtml.c:2961
 msgid "The Monospace font to use for typewriter text"
 msgstr ""
 
-#: src/gtkhtml.c:2890
+#: src/gtkhtml.c:2967
 msgid "New Link Color"
 msgstr "Uus viidavärv"
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2968
 msgid "The color of new link elements"
 msgstr "Uute viidaelementide värv"
 
-#: src/gtkhtml.c:2896
+#: src/gtkhtml.c:2973
 msgid "Visited Link Color"
 msgstr "Külastatud viida värv"
 
-#: src/gtkhtml.c:2897
+#: src/gtkhtml.c:2974
 msgid "The color of visited link elements"
 msgstr "Külastatud viidaelementide värv"
 
-#: src/gtkhtml.c:2902
+#: src/gtkhtml.c:2979
 msgid "Active Link Color"
 msgstr "Aktiivse viida värv"
 
-#: src/gtkhtml.c:2903
+#: src/gtkhtml.c:2980
 #, fuzzy
 msgid "The color of active link elements"
 msgstr "Uute viidaelementide värv"
 
-#: src/gtkhtml.c:2908
+#: src/gtkhtml.c:2985
 #, fuzzy
 msgid "Spelling Error Color"
 msgstr "Vali kohandatud värv"
 
-#: src/gtkhtml.c:2909
+#: src/gtkhtml.c:2986
 #, fuzzy
 msgid "The color of the spelling error markers"
 msgstr "Vea korral &muudetakse teksti värvi"
 
-#: src/gtkhtml.c:2914
+#: src/gtkhtml.c:2991
 #, fuzzy
 msgid "Cite Quotation Color"
 msgstr "Aseta _tsiteering"
 
-#: src/gtkhtml.c:2915
+#: src/gtkhtml.c:2992
 #, fuzzy
 msgid "The color of the cited text"
 msgstr "Uute viidaelementide värv"
 
-#: src/html-component.c:219
+#: src/html-component.c:220
 msgid "Html"
 msgstr "Html"
 
-#: src/html-component.c:220
+#: src/html-component.c:221
 msgid "Html test"
 msgstr "Html test"
 
-#: src/html-component.c:226
+#: src/html-component.c:227
 msgid "Test1"
 msgstr "Test1"
 
-#: src/html-component.c:233
+#: src/html-component.c:234
 msgid "Test2"
 msgstr "Test2"
 
-#: src/html-component.c:239
+#: src/html-component.c:240
 msgid "Test3"
 msgstr "Test3"
 
-#: src/html-component.c:245
+#: src/html-component.c:246
 msgid "Test4"
 msgstr "Test4"
 
-#: src/html-component.c:251
+#: src/html-component.c:252
 msgid "Test5"
 msgstr "Test5"
 
-#: src/html-component.c:257
+#: src/html-component.c:258
 msgid "Test6"
 msgstr "Test6"
 
-#: src/html-component.c:263
+#: src/html-component.c:264
 msgid "Test7"
 msgstr "Test7"
 
-#: src/html-component.c:612
+#: src/html-component.c:613
 msgid "_Refresh"
 msgstr "_Värskenda"
 
-#: src/html-component.c:613
+#: src/html-component.c:614
 msgid "Reload the page"
 msgstr "Lae lehekülg uuesti"
 
-#: src/html-component.c:660
+#: src/html-component.c:661
 msgid "Could not initialize Bonobo!"
 msgstr "Bonobo lähtestamine nurjus!"
 
@@ -2114,7 +2138,7 @@ msgstr "Algväärtusta"
 msgid "Cannot allocate default font for printing\n"
 msgstr ""
 
-#: src/test.c:191
+#: src/test.c:375
 msgid "GtkHTML Test"
 msgstr "GtkHTML test"
 
@@ -2126,7 +2150,6 @@ msgstr "Printimise eel_vaade"
 msgid "Print preview"
 msgstr "Printimise eelvaade"
 
-#: src/testgtkhtml.c:987
+#: src/testgtkhtml.c:1004
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML testrakendus"
-

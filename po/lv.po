@@ -6,13 +6,31 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-29 16:53+0100\n"
+"POT-Creation-Date: 2005-01-24 16:35+0100\n"
 "PO-Revision-Date: 2003-03-15 18:51+0200\n"
 "Last-Translator: Artis Trops  <hornet@navigator.lv>\n"
 "Language-Team: Latvian <ll10nt@os.lv>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: a11y/image.c:150
+#, c-format
+msgid "URL is %s, Alternative Text is %s"
+msgstr ""
+
+#: a11y/image.c:152
+#, c-format
+msgid "URL is %s"
+msgstr ""
+
+#: a11y/object.c:50 a11y/object.c:59 a11y/text.c:105
+msgid "grab focus"
+msgstr ""
+
+#: a11y/object.c:211
+msgid "Panel containing HTML"
+msgstr ""
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -593,7 +611,7 @@ msgstr "Pāratcelt atcelto darbību"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: components/html-editor/replace.c:161 components/html-editor/replace.c:223
+#: components/html-editor/replace.c:163 components/html-editor/replace.c:225
 msgid "Replace"
 msgstr "Aizvietot"
 
@@ -1809,22 +1827,22 @@ msgstr "Nākošais"
 msgid "_Replace"
 msgstr "Aizvietot"
 
-#: components/html-editor/replace.c:169
+#: components/html-editor/replace.c:171
 #, fuzzy
 msgid "Search _backward"
 msgstr "meklēt atpakaļ"
 
-#: components/html-editor/replace.c:170 components/html-editor/search.c:114
+#: components/html-editor/replace.c:172 components/html-editor/search.c:114
 #, fuzzy
 msgid "Case _sensitive"
 msgstr "lielo/mazo burtu jūtīgs"
 
-#: components/html-editor/replace.c:180
+#: components/html-editor/replace.c:182
 #, fuzzy
 msgid "Replace:"
 msgstr "Aizvietot"
 
-#: components/html-editor/replace.c:183
+#: components/html-editor/replace.c:185
 #, fuzzy
 msgid "With:"
 msgstr "Platums:"
@@ -1963,89 +1981,89 @@ msgstr ""
 "Rediģētais teksts tika izņemts no dokumenta.\n"
 "Nevaru pielietot jūsu izmaiņas."
 
-#: src/gtkhtml.c:2569
+#: src/gtkhtml.c:2579
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2929
 msgid "Editable"
 msgstr "Rdiģējams"
 
-#: src/gtkhtml.c:2892
+#: src/gtkhtml.c:2930
 msgid "Whether the html can be edited"
 msgstr "Vai html var tikt rediģēts"
 
-#: src/gtkhtml.c:2898
+#: src/gtkhtml.c:2936
 msgid "Document Title"
 msgstr "Dokumenta Nosaukums"
 
-#: src/gtkhtml.c:2899
+#: src/gtkhtml.c:2937
 msgid "The title of the current document"
 msgstr "Pašreizējā dokumenta nosaukums"
 
-#: src/gtkhtml.c:2905
+#: src/gtkhtml.c:2943
 msgid "Document Base"
 msgstr "Dokumenta Bāze"
 
-#: src/gtkhtml.c:2906
+#: src/gtkhtml.c:2944
 msgid "The base URL for relative references"
 msgstr "Relatīvo atsauču bāzes URL"
 
-#: src/gtkhtml.c:2912
+#: src/gtkhtml.c:2950
 msgid "Target Base"
 msgstr "Mērķa Bāze"
 
-#: src/gtkhtml.c:2913
+#: src/gtkhtml.c:2951
 msgid "The base URL of the targe frame"
 msgstr "Mērķa rāmja bāzes URL"
 
-#: src/gtkhtml.c:2922
+#: src/gtkhtml.c:2960
 msgid "Fixed Width Font"
 msgstr "Fiksēta platuma Fonts"
 
-#: src/gtkhtml.c:2923
+#: src/gtkhtml.c:2961
 msgid "The Monospace font to use for typewriter text"
 msgstr "Vienādplatuma fonts, ko lietot rakstāmmašīnas tekstā"
 
-#: src/gtkhtml.c:2929
+#: src/gtkhtml.c:2967
 msgid "New Link Color"
 msgstr "Jaunās Saites Krāsa"
 
-#: src/gtkhtml.c:2930
+#: src/gtkhtml.c:2968
 msgid "The color of new link elements"
 msgstr "Jaunās saites elementu krāsa"
 
-#: src/gtkhtml.c:2935
+#: src/gtkhtml.c:2973
 msgid "Visited Link Color"
 msgstr "Apmeklētās Saites Krāsa"
 
-#: src/gtkhtml.c:2936
+#: src/gtkhtml.c:2974
 msgid "The color of visited link elements"
 msgstr "Apmeklētās saites elementu krāsa"
 
-#: src/gtkhtml.c:2941
+#: src/gtkhtml.c:2979
 msgid "Active Link Color"
 msgstr "Aktivās Saites Krāsa"
 
-#: src/gtkhtml.c:2942
+#: src/gtkhtml.c:2980
 msgid "The color of active link elements"
 msgstr "Aktīvās saites elementu krāsa"
 
-#: src/gtkhtml.c:2947
+#: src/gtkhtml.c:2985
 msgid "Spelling Error Color"
 msgstr "Pareizrakstības Kļūdu Krāsa"
 
-#: src/gtkhtml.c:2948
+#: src/gtkhtml.c:2986
 msgid "The color of the spelling error markers"
 msgstr "Pareizrakstības kļūdu marķiera krāsa"
 
-#: src/gtkhtml.c:2953
+#: src/gtkhtml.c:2991
 #, fuzzy
 msgid "Cite Quotation Color"
 msgstr "Ievietot Citātu"
 
-#: src/gtkhtml.c:2954
+#: src/gtkhtml.c:2992
 #, fuzzy
 msgid "The color of the cited text"
 msgstr "Aktīvās saites elementu krāsa"
@@ -2115,15 +2133,18 @@ msgstr "Nevaru sameklēt noklusēto fontu drukāšanai\n"
 msgid "GtkHTML Test"
 msgstr "GtkHTML Tests"
 
-#~ msgid "Print pre_view"
-#~ msgstr "P_irmsdrukas apskate"
+#: src/testgtkhtml.c:117
+msgid "Print pre_view"
+msgstr "P_irmsdrukas apskate"
 
-#~ msgid "Print preview"
-#~ msgstr "Pirmsdrukas apskate"
+#: src/testgtkhtml.c:117
+msgid "Print preview"
+msgstr "Pirmsdrukas apskate"
 
+#: src/testgtkhtml.c:1004
 #, fuzzy
-#~ msgid "GtkHTML Test Application"
-#~ msgstr "GtkHTML Tests"
+msgid "GtkHTML Test Application"
+msgstr "GtkHTML Tests"
 
 #~ msgid "Plain"
 #~ msgstr "Līdzens"

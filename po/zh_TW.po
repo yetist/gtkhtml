@@ -7,13 +7,31 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 3.0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-29 16:53+0100\n"
+"POT-Creation-Date: 2005-01-24 16:35+0100\n"
 "PO-Revision-Date: 2003-05-17 05:23+0800\n"
 "Last-Translator: Craig Jeffares <cjeffares@novell.com>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: a11y/image.c:150
+#, c-format
+msgid "URL is %s, Alternative Text is %s"
+msgstr ""
+
+#: a11y/image.c:152
+#, c-format
+msgid "URL is %s"
+msgstr ""
+
+#: a11y/object.c:50 a11y/object.c:59 a11y/text.c:105
+msgid "grab focus"
+msgstr ""
+
+#: a11y/object.c:211
+msgid "Panel containing HTML"
+msgstr ""
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -599,7 +617,7 @@ msgstr "重複剛復原的操作程序"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: components/html-editor/replace.c:161 components/html-editor/replace.c:223
+#: components/html-editor/replace.c:163 components/html-editor/replace.c:225
 msgid "Replace"
 msgstr "取代"
 
@@ -1857,19 +1875,19 @@ msgstr "下一步(_N)"
 msgid "_Replace"
 msgstr "取代(_R)"
 
-#: components/html-editor/replace.c:169
+#: components/html-editor/replace.c:171
 msgid "Search _backward"
 msgstr "向後搜尋(_B)"
 
-#: components/html-editor/replace.c:170 components/html-editor/search.c:114
+#: components/html-editor/replace.c:172 components/html-editor/search.c:114
 msgid "Case _sensitive"
 msgstr "區分大小寫(_S)"
 
-#: components/html-editor/replace.c:180
+#: components/html-editor/replace.c:182
 msgid "Replace:"
 msgstr "取代："
 
-#: components/html-editor/replace.c:183
+#: components/html-editor/replace.c:185
 msgid "With:"
 msgstr "為："
 
@@ -2009,96 +2027,96 @@ msgstr ""
 "無法套用您的變更。"
 
 # Novell Translation
-#: src/gtkhtml.c:2569
+#: src/gtkhtml.c:2579
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr "Mozilla URL 中斷，因為作者使用錯誤的格式 (%d) 或長度 (%d)\n"
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2929
 msgid "Editable"
 msgstr "可編輯"
 
-#: src/gtkhtml.c:2892
+#: src/gtkhtml.c:2930
 msgid "Whether the html can be edited"
 msgstr "可否編輯 html"
 
-#: src/gtkhtml.c:2898
+#: src/gtkhtml.c:2936
 msgid "Document Title"
 msgstr "文件標題"
 
-#: src/gtkhtml.c:2899
+#: src/gtkhtml.c:2937
 msgid "The title of the current document"
 msgstr "目前的文件的標題"
 
 # Novell Translation
-#: src/gtkhtml.c:2905
+#: src/gtkhtml.c:2943
 msgid "Document Base"
 msgstr "文件基礎"
 
 # Novell Translation
-#: src/gtkhtml.c:2906
+#: src/gtkhtml.c:2944
 msgid "The base URL for relative references"
 msgstr "相關參考的基礎 URL"
 
 # Novell Translation
-#: src/gtkhtml.c:2912
+#: src/gtkhtml.c:2950
 msgid "Target Base"
 msgstr "目標基礎"
 
 # Novell Translation
-#: src/gtkhtml.c:2913
+#: src/gtkhtml.c:2951
 msgid "The base URL of the targe frame"
 msgstr "目標框架的基礎 URL"
 
-#: src/gtkhtml.c:2922
+#: src/gtkhtml.c:2960
 msgid "Fixed Width Font"
 msgstr "固定寬度字型"
 
-#: src/gtkhtml.c:2923
+#: src/gtkhtml.c:2961
 msgid "The Monospace font to use for typewriter text"
 msgstr "作為打字機字型使用的固定寬度字型"
 
-#: src/gtkhtml.c:2929
+#: src/gtkhtml.c:2967
 msgid "New Link Color"
 msgstr "未瀏覽鏈結顏色"
 
-#: src/gtkhtml.c:2930
+#: src/gtkhtml.c:2968
 msgid "The color of new link elements"
 msgstr "未瀏覽的鏈結的顏色"
 
-#: src/gtkhtml.c:2935
+#: src/gtkhtml.c:2973
 msgid "Visited Link Color"
 msgstr "已瀏覽鏈結顏色"
 
-#: src/gtkhtml.c:2936
+#: src/gtkhtml.c:2974
 msgid "The color of visited link elements"
 msgstr "已瀏覽的鏈結的顏色"
 
 # Novell Translation
-#: src/gtkhtml.c:2941
+#: src/gtkhtml.c:2979
 msgid "Active Link Color"
 msgstr "使用中連結的色彩"
 
 # Novell Translation
-#: src/gtkhtml.c:2942
+#: src/gtkhtml.c:2980
 msgid "The color of active link elements"
 msgstr "使用中連結元件的色彩"
 
-#: src/gtkhtml.c:2947
+#: src/gtkhtml.c:2985
 msgid "Spelling Error Color"
 msgstr "拼字錯誤顏色"
 
-#: src/gtkhtml.c:2948
+#: src/gtkhtml.c:2986
 msgid "The color of the spelling error markers"
 msgstr "表示拼字錯誤的標記的顏色"
 
 # Novell Translation
-#: src/gtkhtml.c:2953
+#: src/gtkhtml.c:2991
 msgid "Cite Quotation Color"
 msgstr "引用引文色彩"
 
 # Novell Translation
-#: src/gtkhtml.c:2954
+#: src/gtkhtml.c:2992
 msgid "The color of the cited text"
 msgstr "引用文字的色彩"
 
@@ -2169,15 +2187,18 @@ msgstr "無法配置預設字型作為列印使用\n"
 msgid "GtkHTML Test"
 msgstr "GtkHTML 測試"
 
-#~ msgid "Print pre_view"
-#~ msgstr "預覽列印(_V)"
+#: src/testgtkhtml.c:117
+msgid "Print pre_view"
+msgstr "預覽列印(_V)"
 
-#~ msgid "Print preview"
-#~ msgstr "預覽列印"
+#: src/testgtkhtml.c:117
+msgid "Print preview"
+msgstr "預覽列印"
 
 # Novell Translation
-#~ msgid "GtkHTML Test Application"
-#~ msgstr "GtkHTML 測試應用程式"
+#: src/testgtkhtml.c:1004
+msgid "GtkHTML Test Application"
+msgstr "GtkHTML 測試應用程式"
 
 #~ msgid "Plain"
 #~ msgstr "普通"

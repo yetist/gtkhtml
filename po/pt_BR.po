@@ -8,13 +8,31 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 3.1.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-29 16:53+0100\n"
+"POT-Creation-Date: 2005-01-24 16:35+0100\n"
 "PO-Revision-Date: 2004-06-17 12:56-0400\n"
 "Last-Translator: João Paulo Gomes Vanzuita <joaopaulo99@terra.com.br>\n"
 "Language-Team: Portuguese/Brazil\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: a11y/image.c:150
+#, c-format
+msgid "URL is %s, Alternative Text is %s"
+msgstr ""
+
+#: a11y/image.c:152
+#, c-format
+msgid "URL is %s"
+msgstr ""
+
+#: a11y/object.c:50 a11y/object.c:59 a11y/text.c:105
+msgid "grab focus"
+msgstr ""
+
+#: a11y/object.c:211
+msgid "Panel containing HTML"
+msgstr ""
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -594,7 +612,7 @@ msgstr "Refazer a ação desfeita"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: components/html-editor/replace.c:161 components/html-editor/replace.c:223
+#: components/html-editor/replace.c:163 components/html-editor/replace.c:225
 msgid "Replace"
 msgstr "Substituir"
 
@@ -1732,19 +1750,19 @@ msgstr "_Próximo"
 msgid "_Replace"
 msgstr "_Substituir"
 
-#: components/html-editor/replace.c:169
+#: components/html-editor/replace.c:171
 msgid "Search _backward"
 msgstr "_Busca regressiva"
 
-#: components/html-editor/replace.c:170 components/html-editor/search.c:114
+#: components/html-editor/replace.c:172 components/html-editor/search.c:114
 msgid "Case _sensitive"
 msgstr "Diferenciar maiú_sculas de minúsculas"
 
-#: components/html-editor/replace.c:180
+#: components/html-editor/replace.c:182
 msgid "Replace:"
 msgstr "Substituir:"
 
-#: components/html-editor/replace.c:183
+#: components/html-editor/replace.c:185
 msgid "With:"
 msgstr "Com:"
 
@@ -1878,90 +1896,90 @@ msgstr ""
 "O objeto editado foi removido do documento.\n"
 "Impossível aplicar suas mudanças."
 
-#: src/gtkhtml.c:2569
+#: src/gtkhtml.c:2579
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 "A URL do Mozilla colocada no redator estava no formato (%d) ou comprimento (%"
 "d) errado\n"
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2929
 msgid "Editable"
 msgstr "Editável"
 
-#: src/gtkhtml.c:2892
+#: src/gtkhtml.c:2930
 msgid "Whether the html can be edited"
 msgstr "Se o html pode ser editado"
 
-#: src/gtkhtml.c:2898
+#: src/gtkhtml.c:2936
 msgid "Document Title"
 msgstr "Título do Documento"
 
-#: src/gtkhtml.c:2899
+#: src/gtkhtml.c:2937
 msgid "The title of the current document"
 msgstr "O título do documento atual"
 
-#: src/gtkhtml.c:2905
+#: src/gtkhtml.c:2943
 msgid "Document Base"
 msgstr "Base do Documento"
 
-#: src/gtkhtml.c:2906
+#: src/gtkhtml.c:2944
 msgid "The base URL for relative references"
 msgstr "A URL base para referências relativas"
 
-#: src/gtkhtml.c:2912
+#: src/gtkhtml.c:2950
 msgid "Target Base"
 msgstr "Base do Alvo"
 
-#: src/gtkhtml.c:2913
+#: src/gtkhtml.c:2951
 msgid "The base URL of the targe frame"
 msgstr "A URL base do frame alvo"
 
-#: src/gtkhtml.c:2922
+#: src/gtkhtml.c:2960
 msgid "Fixed Width Font"
 msgstr "Fonte de Largura Fixa"
 
-#: src/gtkhtml.c:2923
+#: src/gtkhtml.c:2961
 msgid "The Monospace font to use for typewriter text"
 msgstr "A fonte monoespaçada usada para texto datilografado"
 
-#: src/gtkhtml.c:2929
+#: src/gtkhtml.c:2967
 msgid "New Link Color"
 msgstr "Cor de Vínculo Novo"
 
-#: src/gtkhtml.c:2930
+#: src/gtkhtml.c:2968
 msgid "The color of new link elements"
 msgstr "A cor dos novos elementos de vínculo"
 
-#: src/gtkhtml.c:2935
+#: src/gtkhtml.c:2973
 msgid "Visited Link Color"
 msgstr "Cor de Vínculo Visitado"
 
-#: src/gtkhtml.c:2936
+#: src/gtkhtml.c:2974
 msgid "The color of visited link elements"
 msgstr "A cor dos elementos de vínculo visitados"
 
-#: src/gtkhtml.c:2941
+#: src/gtkhtml.c:2979
 msgid "Active Link Color"
 msgstr "Cor de Vínculo Ativo"
 
-#: src/gtkhtml.c:2942
+#: src/gtkhtml.c:2980
 msgid "The color of active link elements"
 msgstr "A cor dos elementos de vínculo ativos"
 
-#: src/gtkhtml.c:2947
+#: src/gtkhtml.c:2985
 msgid "Spelling Error Color"
 msgstr "Cor de Erro de Ortografia"
 
-#: src/gtkhtml.c:2948
+#: src/gtkhtml.c:2986
 msgid "The color of the spelling error markers"
 msgstr "A cor das marcas de erros de ortografia"
 
-#: src/gtkhtml.c:2953
+#: src/gtkhtml.c:2991
 msgid "Cite Quotation Color"
 msgstr "Cor da Citação"
 
-#: src/gtkhtml.c:2954
+#: src/gtkhtml.c:2992
 msgid "The color of the cited text"
 msgstr "A cor do texto citado"
 
@@ -2030,11 +2048,14 @@ msgstr "Não é possível alocar fonte padrão para impressão\n"
 msgid "GtkHTML Test"
 msgstr "Teste do GtkHTML"
 
-#~ msgid "Print pre_view"
-#~ msgstr "_Visualizar impressão"
+#: src/testgtkhtml.c:117
+msgid "Print pre_view"
+msgstr "_Visualizar impressão"
 
-#~ msgid "Print preview"
-#~ msgstr "Visualizar impressão"
+#: src/testgtkhtml.c:117
+msgid "Print preview"
+msgstr "Visualizar impressão"
 
-#~ msgid "GtkHTML Test Application"
-#~ msgstr "Aplicação de teste do GtkHTML"
+#: src/testgtkhtml.c:1004
+msgid "GtkHTML Test Application"
+msgstr "Aplicação de teste do GtkHTML"
