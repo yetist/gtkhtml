@@ -1,3 +1,8 @@
+2002-07-03  Radek Doulik  <rodo@ximian.com>
+
+	* htmlimage.c (html_image_get_actual_width): use max_width instead
+	of engine view width
+
 2002-07-02  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (focus): disabled link navigation in editing mode

@@ -91,7 +91,7 @@ html_image_get_actual_width (HTMLImage *image, HTMLPainter *painter)
 	if (image->percent_width) {
 		/* The cast to `gdouble' is to avoid overflow (eg. when
                    printing).  */
-		width = ((gdouble) html_engine_get_view_width (image->image_ptr->factory->engine)
+		width = ((gdouble) HTML_OBJECT (image)->max_width
 			 * image->specified_width) / 100;
 	} else if (image->specified_width > 0) {
 		width = image->specified_width * pixel_size;

@@ -565,6 +565,7 @@ ht_fit_line (HTMLObject *o,
 	     HTMLPainter *painter,
 	     gboolean startOfLine,
 	     gboolean firstRun,
+	     gboolean next_to_floating,
 	     gint widthLeft) 
 {
 	HTMLText *text; 

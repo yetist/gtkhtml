@@ -34,6 +34,8 @@
 struct _HTMLClueFlow {
 	HTMLClue clue;
 
+	HTMLClearType clear;
+
 	/* Paragraph style.  */
 	HTMLClueFlowStyle style;
 
@@ -65,11 +67,13 @@ void               html_clueflow_init                         (HTMLClueFlow     
 							       HTMLClueFlowStyle   style,
 							       GByteArray         *levels,
 							       HTMLListType        item_type,
-							       gint                item_number);
+							       gint                item_number,
+							       HTMLClearType       clear);
 HTMLObject        *html_clueflow_new                          (HTMLClueFlowStyle   style,
 							       GByteArray         *leves,
 							       HTMLListType        item_type,
-							       gint                item_number);
+							       gint                item_number,
+							       HTMLClearType       clear);
 HTMLObject        *html_clueflow_new_from_flow                (HTMLClueFlow       *flow);
 GtkHTMLFontStyle   html_clueflow_get_default_font_style       (const HTMLClueFlow *self);
 HTMLClueFlow      *html_clueflow_split                        (HTMLClueFlow       *clue,

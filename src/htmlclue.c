@@ -498,6 +498,7 @@ get_right_clear (HTMLClue *o, gint y)
 
 static void
 find_free_area (HTMLClue *clue,
+		HTMLPainter *painter,
 		gint y,
 		gint width, gint height,
 		gint indent, gint *y_pos,
@@ -509,7 +510,7 @@ find_free_area (HTMLClue *clue,
 }
 
 static void
-append_right_aligned (HTMLClue *clue, HTMLClue *aclue)
+append_right_aligned (HTMLClue *clue, HTMLPainter *painter, HTMLClue *aclue, gint *lmargin, gint *rmargin, gint indent)
 {
 	/* This needs to be implemented in the subclasses.  */
 	g_warning ("`%s' does not implement `append_right_aligned()'.",
@@ -668,33 +669,36 @@ html_clue_get_right_clear (HTMLClue *clue, gint y)
 
 void
 html_clue_find_free_area (HTMLClue *clue,
+			  HTMLPainter *painter,
 			  gint y,
 			  gint width, gint height, gint indent, gint *y_pos,
 			  gint *lmargin, gint *rmargin)
 {
-	(* HC_CLASS (clue)->find_free_area) (clue, y, width, height, indent, y_pos, lmargin, rmargin);
+	(* HC_CLASS (clue)->find_free_area) (clue, painter, y, width, height, indent, y_pos, lmargin, rmargin);
 }
 
 void
-html_clue_append_right_aligned (HTMLClue *clue, HTMLClue *aclue)
+html_clue_append_right_aligned (HTMLClue *clue, HTMLPainter *painter,
+				HTMLClue *aclue, gint *lmargin, gint *rmargin, gint indent)
 {
 	g_assert (clue != NULL);
 	g_assert (aclue != NULL);
 
 	html_object_change_set (HTML_OBJECT (clue), HTML_OBJECT (aclue)->change);
 
-	(* HC_CLASS (clue)->append_right_aligned) (clue, aclue);
+	(* HC_CLASS (clue)->append_right_aligned) (clue, painter, aclue, lmargin, rmargin, indent);
 }
 
 void
-html_clue_append_left_aligned (HTMLClue *clue, HTMLClue *aclue)
+html_clue_append_left_aligned (HTMLClue *clue, HTMLPainter *painter,
+			       HTMLClue *aclue, gint *lmargin, gint *rmargin, gint indent)
 {
 	g_assert (clue != NULL);
 	g_assert (aclue != NULL);
 
 	html_object_change_set (HTML_OBJECT (clue), HTML_OBJECT (aclue)->change);
 
-	(* HC_CLASS (clue)->append_left_aligned) (clue, aclue);
+	(* HC_CLASS (clue)->append_left_aligned) (clue, painter, aclue, lmargin, rmargin, indent);
 }
 
 gboolean

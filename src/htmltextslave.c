@@ -32,6 +32,8 @@
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
 #include "htmlpainter.h"
+#include "htmlplainpainter.h"
+#include "htmlgdkpainter.h"
 
 
 /* #define HTML_TEXT_SLAVE_DEBUG */
@@ -185,6 +187,7 @@ calc_width (HTMLTextSlave *slave, HTMLPainter *painter)
 	HTMLText *text = slave->owner;
 	HTMLObject *next, *prev;
 
+	html_text_request_word_width (text, painter);
 	if (slave->posStart == 0 && slave->posLen == text->text_len)
 		return text->word_width [text->words - 1];
 
@@ -295,7 +298,8 @@ calc_size (HTMLObject *self, HTMLPainter *painter, GList **changed_objs)
 	}
 
 	new_width = MAX (1, calc_width (slave, painter));
-	if (new_width > HTML_OBJECT (owner)->max_width)
+	if ((HTML_IS_PLAIN_PAINTER (painter) || HTML_IS_GDK_PAINTER (painter))
+	    && new_width > HTML_OBJECT (owner)->max_width)
 		slave_split_if_too_long (slave, painter, &new_width);
 
 	changed = FALSE;
@@ -388,11 +392,11 @@ get_next_nb_width (HTMLTextSlave *slave, HTMLPainter *painter)
 }
 
 static gboolean
-could_remove_leading_space (HTMLTextSlave *slave, gboolean firstRun)
+could_remove_leading_space (HTMLTextSlave *slave, gboolean lineBegin)
 {
 	HTMLObject *o = HTML_OBJECT (slave->owner);
 
-	if (firstRun && (HTML_OBJECT (slave)->prev != o || o->prev))
+	if (lineBegin && (HTML_OBJECT (slave)->prev != o || o->prev))
 		return TRUE;
 
 	if (!o->prev)
@@ -404,12 +408,46 @@ could_remove_leading_space (HTMLTextSlave *slave, gboolean firstRun)
 	return o->prev ? FALSE : TRUE;
 }
 
+inline gint
+html_text_slave_nb_width (HTMLTextSlave *slave, HTMLPainter *painter, gint words)
+{
+	return get_words_width (slave->owner, painter, slave->start_word, words)
+		+ (slave->start_word + words == slave->owner->words ? get_next_nb_width (slave, painter) : 0);
+}
+
+inline gchar *
+html_text_slave_remove_leading_space (HTMLTextSlave *slave, HTMLPainter *painter, gboolean lineBegin)
+{
+	gchar *begin;
+
+	html_text_request_word_width (slave->owner, painter);
+
+	begin = html_text_slave_get_text (slave);
+	if (*begin == ' ' && could_remove_leading_space (slave, lineBegin)) {
+		if (slave->posStart == 0)
+			slave->start_word ++;
+		begin = g_utf8_next_char (begin);
+		slave->charStart = begin;
+		slave->posStart ++;
+		slave->posLen --;
+	}
+
+	return begin;
+}
+
+gint
+html_text_slave_get_nb_width (HTMLTextSlave *slave, HTMLPainter *painter, gboolean lineBegin)
+{
+	html_text_slave_remove_leading_space (slave, painter, lineBegin);
+	if (slave->owner->words - slave->start_word > 1)
+		return html_text_slave_nb_width (slave, painter, 1);
+
+	return html_object_calc_min_width (HTML_OBJECT (slave), painter);
+}
+
 static HTMLFitType
-hts_fit_line (HTMLObject *o,
-	  HTMLPainter *painter,
-	  gboolean startOfLine,
-	  gboolean firstRun,
-	  gint widthLeft)
+hts_fit_line (HTMLObject *o, HTMLPainter *painter,
+	      gboolean lineBegin, gboolean firstRun, gboolean next_to_floating, gint widthLeft)
 {
 	HTMLFitType rv = HTML_FIT_PARTIAL;
 	HTMLTextSlave *slave;
@@ -424,30 +462,11 @@ hts_fit_line (HTMLObject *o,
 	slave = HTML_TEXT_SLAVE (o);
 	text  = HTML_TEXT (slave->owner);
 
-	html_text_request_word_width (text, painter);
-
-	begin = html_text_slave_get_text (slave);
-	if (*begin == ' ') {
-		if (could_remove_leading_space (slave, firstRun)) {
-			if (slave->posStart == 0)
-				slave->start_word ++;
-			begin = g_utf8_next_char (begin);
-			slave->charStart = begin;
-			slave->posStart ++;
-			slave->posLen --;
-		} /* else {
-			if (slave->posStart == 0)
-				words ++;
-			else
-				add_width = text->space_width;
-			pos ++;
-			} */
-	}
+	begin = html_text_slave_remove_leading_space (slave, painter, lineBegin);
 
 	sep = begin;
 	while (sep
-	       && widthLeft >= get_words_width (text, painter, slave->start_word, words + 1)
-	       + (slave->start_word + words + 1 == text->words ? get_next_nb_width (slave, painter) : 0)) {
+	       && widthLeft >= html_text_slave_nb_width (slave, painter, words + 1)) {
 		words ++;
 		lsep   = sep;
 		sep    = strchr (lsep + (words > 1 ? 1 : 0), ' ');
@@ -471,7 +490,7 @@ hts_fit_line (HTMLObject *o,
 			} else
 				rv = HTML_FIT_NONE;
 		} else if (slave->start_word + 1 == text->words)
-			rv = HTML_FIT_COMPLETE;
+			rv = next_to_floating ? HTML_FIT_NONE : HTML_FIT_COMPLETE;
 		else {
 			words ++;
 			sep    = strchr (sep + (words > 1 ? 0 : 1), ' ');
