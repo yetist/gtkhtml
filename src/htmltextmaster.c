@@ -455,7 +455,7 @@ merge (HTMLText *self,
 	total_length = self->text_len;
 
 	select_length = HTML_TEXT_MASTER (self)->select_length;
-	select_start = 0;
+	select_start = HTML_TEXT_MASTER (self)->select_start;
 
 	for (p = list; *p != NULL; p++) {
 		g_return_if_fail (HTML_OBJECT_TYPE (*p) == HTML_OBJECT_TYPE (self));
@@ -470,8 +470,7 @@ merge (HTMLText *self,
 		}
 
 		if (! HTML_OBJECT (self)->selected && HTML_OBJECT (*p)->selected)
-			HTML_TEXT_MASTER (self)->select_start = (total_length
-								 + HTML_TEXT_MASTER (*p)->select_start);
+			select_start = total_length + HTML_TEXT_MASTER (*p)->select_start;
 
 		total_length += HTML_TEXT (*p)->text_len;
 	}

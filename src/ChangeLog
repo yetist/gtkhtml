@@ -1,4 +1,11 @@
+2000-02-22  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine-edit-fontstyle.c (merge_forward): Do not to attempt
+	to merge with elements that are not of the same type.
+	(merge_backward): Likewise.
+
 2000-02-22 Elliot Lee  <sopwith@redhat.com>
+
 	* htmlimageinput.c, htmllinktext.c, htmlselect.c, htmlsettings.c,
 	  htmltable.c, htmltextarea.c: #include <string.h>
 

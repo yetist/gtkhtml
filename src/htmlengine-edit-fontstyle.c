@@ -27,7 +27,8 @@
 
 
 static void
-merge_backward (HTMLObject *object)
+merge_backward (HTMLObject *object,
+		HTMLCursor *cursor)
 {
 	GtkHTMLFontStyle font_style;
 	HTMLObject *p, *pprev;
@@ -40,17 +41,27 @@ merge_backward (HTMLObject *object)
 		if (HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE) {
 			html_clue_remove (HTML_CLUE (p->parent), p);
 			html_object_destroy (p);
-		} else if (html_text_check_merge (HTML_TEXT (object), HTML_TEXT (p))) {
+		} else if (HTML_OBJECT_TYPE (object) == HTML_OBJECT_TYPE (p)
+			   && html_text_check_merge (HTML_TEXT (object), HTML_TEXT (p))) {
 			merge_list[0] = HTML_TEXT (object);
 			html_text_merge (HTML_TEXT (p), merge_list);
 			html_clue_remove (HTML_CLUE (object->parent), object);
+
+			if (object == cursor->object) {
+				cursor->object = p;
+				cursor->offset += HTML_TEXT (object)->text_len;
+			}
+
 			html_object_destroy (object);
+		} else {
+			break;
 		}
 	}
 }
 
 static void
-merge_forward (HTMLObject *object)
+merge_forward (HTMLObject *object,
+	       HTMLCursor *cursor)
 {
 	GtkHTMLFontStyle font_style;
 	HTMLObject *p, *pnext;
@@ -63,16 +74,20 @@ merge_forward (HTMLObject *object)
 		if (HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE) {
 			html_clue_remove (HTML_CLUE (p->parent), p);
 			html_object_destroy (p);
-		} else if (html_text_check_merge (HTML_TEXT (object), HTML_TEXT (p))) {
+		} else if (HTML_OBJECT_TYPE (object) == HTML_OBJECT_TYPE (p)
+			   && html_text_check_merge (HTML_TEXT (object), HTML_TEXT (p))) {
 			merge_list[0] = HTML_TEXT (p);
 			html_text_merge (HTML_TEXT (object), merge_list);
 			html_clue_remove (HTML_CLUE (p->parent), p);
 			html_object_destroy (p);
+		} else {
+			break;
 		}
 	}
 }
 
 struct _SetFontStyleForallData {
+	HTMLCursor *cursor;
 	GtkHTMLFontStyle and_mask;
 	GtkHTMLFontStyle or_mask;
 };
@@ -112,8 +127,7 @@ set_font_style_in_selection_forall (HTMLObject *self,
 	if (master->select_start == 0) {
 		curr = master;
 	} else {
-		curr = HTML_TEXT_MASTER (html_text_split (HTML_TEXT (self),
-							  master->select_start));
+		curr = HTML_TEXT_MASTER (html_text_split (HTML_TEXT (self), master->select_start));
 		html_clue_append_after (HTML_CLUE (self->parent), HTML_OBJECT (curr), self);
 	}
 
@@ -170,8 +184,8 @@ set_font_style_in_selection_forall (HTMLObject *self,
            same font style.  We don't want to have contiguous equal text
            elements, so we merge more stuff here.  */
 
-	merge_forward (HTML_OBJECT (curr));
-	merge_backward (HTML_OBJECT (curr)); /* This must be *after* `merge_forward()'.  */
+	merge_forward (HTML_OBJECT (curr), data->cursor);
+	merge_backward (HTML_OBJECT (curr), data->cursor); /* This must be *after* `merge_forward()'.  */
 }
 
 static void
@@ -189,6 +203,7 @@ set_font_style_in_selection (HTMLEngine *engine,
 	data = g_new (SetFontStyleForallData, 1);
 	data->and_mask = and_mask;
 	data->or_mask = or_mask;
+	data->cursor = engine->cursor;
 
 	html_object_forall (engine->clue, set_font_style_in_selection_forall, data);
 
