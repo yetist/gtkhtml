@@ -6,14 +6,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2004-03-05 12:45-0500\n"
-"PO-Revision-Date: 2003-09-07 11:06+0800\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-03-18 15:13+0100\n"
+"PO-Revision-Date: 2004-03-19 01:07+0800\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -262,9 +262,10 @@ msgstr "剪切选中内容到剪贴板"
 msgid "Cut the selection"
 msgstr "剪切选中内容"
 
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:77 components/html-editor/search.c:129
+#: components/html-editor/search.c:79 components/html-editor/search.c:131
 msgid "Find"
 msgstr "查找"
 
@@ -453,12 +454,11 @@ msgstr "链接"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
 msgid "Make the current Paragraph style Normal"
-msgstr "将当前段落模式设为标准模式"
+msgstr "将当前段落样式设为标准样式"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
-#, fuzzy
 msgid "Make the current Paragraph style Preformat"
-msgstr "将当前段落模式设为预格式化"
+msgstr "将当前段落样式设为预格式化"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
@@ -603,9 +603,10 @@ msgstr "重做先前撤消的更改"
 msgid "Redo the undone action"
 msgstr "重做撤消的操作"
 
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
-#: components/html-editor/replace.c:157 components/html-editor/replace.c:219
+#: components/html-editor/replace.c:161 components/html-editor/replace.c:223
 msgid "Replace"
 msgstr "替换"
 
@@ -895,7 +896,7 @@ msgstr "笑脸(_S)"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:143
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:145
 msgid "_Spell Check Document..."
-msgstr "检查文档的拼写(_S)..."
+msgstr "检查文档拼写(_S)..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:144
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:146
@@ -955,25 +956,21 @@ msgid "GNOME HTML Editor Factory"
 msgstr "GNOME HTML 编辑工厂"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
-#, fuzzy
 msgid "Insert Sick smiley into document..."
-msgstr "在文档中插入舔嘴的笑脸..."
+msgstr "在文档中插入生病的笑脸..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
-#, fuzzy
 msgid "Make the current Paragraph style Preformatted"
-msgstr "将当前段落模式设为预格式化"
+msgstr "将当前段落样式设为预格式化"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 #: components/html-editor/paragraph.c:151
-#, fuzzy
 msgid "Preformatted"
 msgstr "预格式化"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
-#, fuzzy
 msgid "S_ick"
-msgstr "眨眼(_W)"
+msgstr "生病(_I)"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:154
 msgid "_Wrap Lines"
@@ -993,18 +990,16 @@ msgid "Blue Ink"
 msgstr "蓝墨水"
 
 #: components/html-editor/body.c:90
-#, fuzzy
 msgid "Paper"
-msgstr "页面"
+msgstr "纸张"
 
 #: components/html-editor/body.c:98
 msgid "Ribbon"
 msgstr ""
 
 #: components/html-editor/body.c:106
-#, fuzzy
 msgid "Midnight"
-msgstr "右"
+msgstr "午夜"
 
 #: components/html-editor/body.c:114
 #, fuzzy
@@ -1013,19 +1008,18 @@ msgstr "取消缩进"
 
 #: components/html-editor/body.c:122
 msgid "Draft"
-msgstr ""
+msgstr "草稿"
 
 #: components/html-editor/body.c:130
 msgid "Graph paper"
-msgstr ""
+msgstr "图形纸张"
 
 #. string marked for translations is sample text. you may want to translate it to common sample text in your language
 #: components/html-editor/body.c:163
-#, fuzzy
 msgid ""
 "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a href="
 "\"mailto:dog\">dog</a>."
-msgstr "明日复明日·万事成蹉跎"
+msgstr "明日<b>复明日</b>·万事<i>成蹉跎</i>"
 
 #: components/html-editor/body.c:316 src/gtkhtml.c:2697
 msgid "Document Title"
@@ -1098,21 +1092,20 @@ msgstr "页面"
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:394
 msgid "custom"
-msgstr ""
+msgstr "自定义"
 
 #. "Custom" color - we'll pop up a GnomeColorPicker
 #: components/html-editor/gi-color-palette.c:436
-#, fuzzy
 msgid "Custom Color:"
-msgstr "颜色："
+msgstr "自定义颜色："
 
 #: components/html-editor/gi-color-palette.c:444
 msgid "Choose Custom Color"
-msgstr ""
+msgstr "选择自定义颜色"
 
 #: components/html-editor/gi-color-palette.c:577
 msgid "black"
-msgstr ""
+msgstr "黑色"
 
 #: components/html-editor/gi-color-palette.c:578
 msgid "light brown"
@@ -1670,7 +1663,7 @@ msgstr ""
 
 #: components/html-editor/link.c:270
 msgid "Please fill 'Link text' and 'URL' entries"
-msgstr ""
+msgstr "请填入“链接文本”和“URL”项"
 
 #: components/html-editor/menubar.c:88 components/html-editor/menubar.c:104
 #: components/html-editor/menubar.c:122 components/html-editor/menubar.c:139
@@ -1753,12 +1746,10 @@ msgid "Paste Quotation"
 msgstr "带引用粘贴"
 
 #: components/html-editor/popup.c:461
-#, fuzzy
 msgid "Insert Link"
 msgstr "插入链接"
 
 #: components/html-editor/popup.c:468
-#, fuzzy
 msgid "Remove Link"
 msgstr "删除链接"
 
@@ -1825,11 +1816,11 @@ msgstr "单元格内容"
 
 #: components/html-editor/popup.c:541
 msgid "Check Word Spelling..."
-msgstr ""
+msgstr "检查单词拼写..."
 
 #: components/html-editor/popup.c:546
 msgid "Add Word to"
-msgstr ""
+msgstr "添加单词到"
 
 #: components/html-editor/popup.c:550
 #, c-format
@@ -1837,50 +1828,47 @@ msgid "%s Dictionary"
 msgstr "%s 字典"
 
 #: components/html-editor/popup.c:559
-#, fuzzy
 msgid "Add Word to Dictionary"
-msgstr "%s 字典"
+msgstr "向字典中添加单词"
 
 #: components/html-editor/popup.c:562
 msgid "Ignore Misspelled Word"
-msgstr ""
+msgstr "忽略拼错的单词"
 
 #: components/html-editor/popup.c:566
 msgid "Input Methods"
-msgstr ""
+msgstr "输入法"
 
-#: components/html-editor/replace.c:75
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: components/html-editor/replace.c:77
 msgid "Replace confirmation"
 msgstr "替换确认"
 
-#: components/html-editor/replace.c:76
-#, fuzzy
+#: components/html-editor/replace.c:78
 msgid "Replace _All"
-msgstr "全部替换"
-
-#: components/html-editor/replace.c:77
-#, fuzzy
-msgid "_Next"
-msgstr "下一个"
+msgstr "全部替换(_A)"
 
 #: components/html-editor/replace.c:79
-#, fuzzy
-msgid "_Replace"
-msgstr "替换"
+msgid "_Next"
+msgstr "下一个(_N)"
 
-#: components/html-editor/replace.c:165
+#: components/html-editor/replace.c:81
+msgid "_Replace"
+msgstr "替换(_R)"
+
+#: components/html-editor/replace.c:169
 msgid "Search _backward"
 msgstr "反向搜索(_B)"
 
-#: components/html-editor/replace.c:166 components/html-editor/search.c:83
+#: components/html-editor/replace.c:170 components/html-editor/search.c:85
 msgid "Case _sensitive"
 msgstr "区分大小写(_S)"
 
-#: components/html-editor/replace.c:176
+#: components/html-editor/replace.c:180
 msgid "Replace:"
 msgstr "替换："
 
-#: components/html-editor/replace.c:179
+#: components/html-editor/replace.c:183
 msgid "With:"
 msgstr "为："
 
@@ -1900,17 +1888,17 @@ msgstr ""
 "编辑的标尺已经从文档中删除了。\n"
 "无法应用您的更改。"
 
-#: components/html-editor/search.c:82
+#: components/html-editor/search.c:84
 msgid "_Backward"
 msgstr "反向(_B)"
 
-#: components/html-editor/search.c:129
+#: components/html-editor/search.c:131
 msgid "Find Regular Expression"
 msgstr "查找正规表达式"
 
 #: components/html-editor/spell.c:278
 msgid "No misspelled word found"
-msgstr ""
+msgstr "没有找到拼错的单词"
 
 #: components/html-editor/spell.c:285
 msgid "Spell checker"
@@ -1950,7 +1938,7 @@ msgstr "图像框"
 
 #: components/html-editor/template.c:281
 msgid "Labels"
-msgstr ""
+msgstr "标签"
 
 #: components/html-editor/test-html-editor-control.c:323
 msgid "Open file..."
@@ -2174,12 +2162,3 @@ msgstr "打印预览"
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML 测试程序"
 
-#, fuzzy
-#~ msgid "The quick brown fox jumps over the lazy dog.</div>"
-#~ msgstr "明日复明日·万事成蹉跎"
-
-#~ msgid "Rectangles"
-#~ msgstr "矩形"
-
-#~ msgid "Pre"
-#~ msgstr "预格式化"
