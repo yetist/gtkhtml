@@ -3,6 +3,8 @@
 	* gtkhtml.c (new_obj_from_uri): don't remove http:// from link text
 	(new_obj_from_uri): don't be too smart about URL's, people don't
 	like ;-)
+	(idle_handler): don't just check for thaw idle handler scheduled,
+	but also if html engine isn't actually frozen
 
 	* htmlinterval.c (html_point_max): handle case, when one point's
 	object is container of another (as could happen with tables)
