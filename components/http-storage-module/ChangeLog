@@ -1,3 +1,7 @@
+2003-08-12  Larry Ewing  <lewing@ximian.com>
+
+	* *.*: remove everything this directory is no longer used.
+
 2001-03-26  Ettore Perazzoli  <ettore@ximian.com>
 
 	* Makefile.am (INCLUDES): Add `$(EXTRA_GNOME_CFLAGS)'.
