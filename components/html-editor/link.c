@@ -249,7 +249,7 @@ link_insert_cb (GtkHTMLControlData *cd, gpointer get_data)
 		url_copy = target ? g_strndup (url, target - url) : g_strdup (url);
 		new_text = html_text_new (text, GTK_HTML_FONT_STYLE_DEFAULT,
 					  html_colorset_get_color (e->settings->color_set, HTMLLinkColor));
-		html_text_add_link (HTML_TEXT (new_text), url_copy, target, 0, HTML_TEXT (new_text)->text_len);
+		html_text_add_link (HTML_TEXT (new_text), e, url_copy, target, 0, HTML_TEXT (new_text)->text_len);
 
 		html_engine_paste_object (e, new_text, g_utf8_strlen (text, -1));
 
