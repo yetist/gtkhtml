@@ -247,107 +247,45 @@ set_max_width (HTMLObject *o,
 	}
 }
 
-
-static gboolean
-should_break (HTMLObject *obj)
-{
-	/* end: last char of obj->prev, beg: beggining char of obj */
-	guchar end=' ', beg=' ';
-	HTMLObject *next;
-
-	if (!obj)
-		return TRUE;
-	next = obj->next;
-
-	/* it is on the beginning of Clue */
-	if (!next)
-		return TRUE;
-
-	/* skip prev Master */
-	if ((HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTMASTER ||
-	     HTML_OBJECT_TYPE (obj) == HTML_TYPE_LINKTEXTMASTER) &&
-	    HTML_OBJECT_TYPE (next)  == HTML_TYPE_TEXTSLAVE  &&
-	    HTML_TEXT_SLAVE (next)->owner == HTML_TEXT_MASTER (obj)) {
-		next = next->next;
-		/* it is Master->Slave */
-		if (!next)
-			return TRUE;
-	}
-
-	/* get end */
-	if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE) {
-
-		HTMLTextSlave *slave = HTML_TEXT_SLAVE (obj);
-		end = HTML_TEXT (slave->owner)->text [slave->posStart + slave->posLen - 1];
-	} else
-		if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTMASTER ||
-		    HTML_OBJECT_TYPE (obj) == HTML_TYPE_LINKTEXTMASTER) {
-
-			HTMLText *master = HTML_TEXT (obj);
-			if (master->text_len > 0)
-				end = master->text [master->text_len - 1];
-			else
-				/* XXX is this the correct return value? */
-				end = ' ';
-		}
-
-	/* get beg */
-	if (HTML_OBJECT_TYPE (next) == HTML_TYPE_TEXTSLAVE) {
-		HTMLTextSlave *slave = HTML_TEXT_SLAVE (next);
-		beg = HTML_TEXT (slave->owner)->text [slave->posStart];
-	} else if (HTML_OBJECT_TYPE (next) == HTML_TYPE_TEXTMASTER ||
-		   HTML_OBJECT_TYPE (next) == HTML_TYPE_LINKTEXTMASTER)
-		beg = HTML_TEXT (next)->text [0];
-
-	/* printf ("end: %c beg: %c ret: %d\n", end, beg, end == ' ' || beg == ' '); */
-
-	return end == ' ' || beg == ' ';
-}
-
 static gint
 calc_min_width (HTMLObject *o,
 		HTMLPainter *painter)
 {
-	HTMLObject *obj, *co;
-	gint w, cw;
-	gint cl = 0;
-	gint tempMinWidth;
-	gboolean is_pre, is_nowrap;
+	HTMLObject *cur;
+	gint min_width = 0;
+	gint w = 0;
+	gboolean add;
 
-	tempMinWidth = 0;
-	w = 0;
-	is_pre = (HTML_CLUEFLOW (o)->style == HTML_CLUEFLOW_STYLE_PRE);
-	is_nowrap = (HTML_CLUEFLOW (o)->style == HTML_CLUEFLOW_STYLE_NOWRAP);
+	add = (HTML_CLUEFLOW (o)->style == HTML_CLUEFLOW_STYLE_PRE
+	       || HTML_CLUEFLOW (o)->style == HTML_CLUEFLOW_STYLE_NOWRAP);
 
-	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
-		obj->nb_width = html_object_calc_min_width (obj, painter);
-		w += obj->nb_width;
-
-		if ((is_pre || is_nowrap)
-		    && ! (obj->flags & HTML_OBJECT_FLAG_NEWLINE)
-		    && obj->next != NULL)
-			continue;
-
-		if (w > tempMinWidth)
-			tempMinWidth = w;
-
-		if (should_break (obj) || !obj->next) {
-			co = obj->prev;
-			cw = 0;
-			while (cl) {
-				cw += co->nb_width;
-				co->nb_width = cw;
-				co = co->prev;
-				cl--;
-			}
-			w  = 0;
-		} else
-			cl++;
+	cur = HTML_CLUE (o)->head;
+	while (cur) {
+		w += (add) ? html_object_calc_preferred_width (cur, painter) : html_object_calc_min_width (cur, painter);
+		if (!add || cur->flags & HTML_OBJECT_FLAG_NEWLINE || !cur->next) {
+			if (min_width < w) min_width = w;
+			w = 0;
+		}
+		cur = cur->next;
 	}
 
-	tempMinWidth += get_indent (HTML_CLUEFLOW (o), painter);
+	/* printf ("flow min width: %d\n", min_width + get_indent (HTML_CLUEFLOW (o), painter)); */
 
-	return tempMinWidth;
+	return min_width + get_indent (HTML_CLUEFLOW (o), painter);
+}
+
+static gint
+set_line_x (HTMLObject **obj, HTMLObject *run, gint x, gboolean *changed)
+{
+	while (*obj != run) {
+		if ((*obj)->x != x) {
+			(*obj)->x = x;   
+			*changed = TRUE;
+		}
+		x   += (*obj)->width;
+		*obj = (*obj)->next;
+	}
+	return x;
 }
 
 /* EP CHECK: should be mostly OK.  */
@@ -363,7 +301,6 @@ calc_size (HTMLObject *o,
 	HTMLClearType clear;
 	gboolean newLine;
 	gboolean firstLine;
-	gboolean is_pre;
 	gint lmargin, rmargin;
 	gint indent;
 	gint oldy;
@@ -387,11 +324,6 @@ calc_size (HTMLObject *o,
 	line = clue->head;
 	clear = HTML_CLEAR_NONE;
 	indent = get_indent (HTML_CLUEFLOW (o), painter);
-
-	if (HTML_CLUEFLOW (o)->style == HTML_CLUEFLOW_STYLE_PRE)
-		is_pre = TRUE;
-	else
-		is_pre = FALSE;
 
 	o->ascent = 0;
 	o->descent = 0;
@@ -501,21 +433,18 @@ calc_size (HTMLObject *o,
 				HTMLVAlignType valign;
 				gint width_left;
 
-				if (is_pre)
-					width_left = -1;
-				else
-					width_left = rmargin - runWidth - w;
-
-				if (! is_pre && run != obj && runWidth + run->nb_width > rmargin - lmargin)
-					break;
-
+				width_left = rmargin - runWidth - w;
 				fit = html_object_fit_line (run,
 							    painter,
 							    w + runWidth == lmargin,
-							    obj == line,
+							    run == line || (HTML_OBJECT_TYPE (run) == HTML_TYPE_TEXTSLAVE
+									    && HTML_OBJECT (HTML_TEXT_SLAVE (run)->owner)
+									    == line
+									    && !HTML_TEXT_SLAVE (run)->posStart),
 							    width_left);
 
 				if (fit == HTML_FIT_NONE) {
+					w = set_line_x (&obj, run, w, &changed);
 					newLine = TRUE;
 					break;
 				}
@@ -566,9 +495,6 @@ calc_size (HTMLObject *o,
 					/* Implicit separator */
 					break;
 				}
-
-				if (! is_pre && (runWidth > rmargin - lmargin))
-					break;
 			}
 
 
@@ -616,14 +542,7 @@ calc_size (HTMLObject *o,
 					newLine = FALSE;
 					clear = HTML_CLEAR_NONE;
 				} else {
-					while (obj != run) {
-						if (obj->x != w) {
-							obj->x = w;   
-							changed = TRUE;
-						}
-						w += obj->width;
-						obj = obj->next;
-					}
+					w = set_line_x (&obj, run, w, &changed);
 					/* we've used up this line so insert a newline */
 					newLine = TRUE;
 				}

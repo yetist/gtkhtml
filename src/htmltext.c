@@ -198,6 +198,83 @@ calc_size (HTMLObject *self,
 	return changed;
 }
 
+static gint
+calc_preferred_width (HTMLObject *self,
+		      HTMLPainter *painter)
+{
+	HTMLText *text;
+	GtkHTMLFontStyle font_style;
+
+	text = HTML_TEXT (self);
+	font_style = html_text_get_font_style (text);
+
+	return html_painter_calc_text_width (painter,
+					     text->text, text->text_len,
+					     font_style);
+}
+
+/* return non-breakable text width on begin/end of this text */
+gint
+html_text_get_nb_width (HTMLText *text, HTMLPainter *painter, gboolean begin)
+{
+	gchar *t = text->text;
+
+	/* if begins/ends with ' ' the width is 0 */
+	if ((begin && t [0] == ' ') || (!begin && t [text->text_len - 1] == ' '))
+		return 0;
+
+	/* find end/begin of nb text */
+	t = (begin) ? strchr (t, ' ') : strrchr (t, ' ');
+	if (!t)
+		return html_object_calc_preferred_width (HTML_OBJECT (text), painter);
+	return html_painter_calc_text_width (painter, (begin) ? text->text : t + 1,
+					     (begin) ? t - text->text : text->text_len - (t - text->text + 1),
+					     html_text_get_font_style (text));
+}
+
+static gint
+calc_min_width (HTMLObject *self,
+		HTMLPainter *painter)
+{
+	GtkHTMLFontStyle font_style;
+	HTMLObject *obj;
+	HTMLText *text;
+	gchar *t, *space;
+	gint w = 0, min_width = 0;
+
+	text       = HTML_TEXT (self);
+	font_style = html_text_get_font_style (text);
+	t          = text->text;
+
+	if (t [0] != ' ') {
+		obj = html_object_prev_not_slave (self);
+		w = (obj && html_object_is_text (obj)) ? html_text_get_nb_width (HTML_TEXT (obj), painter, FALSE) : 0;
+	}
+
+	do {
+		space = strchr (t, ' ');
+		if (!space)
+			space = text->text + text->text_len;
+		w += html_painter_calc_text_width (painter, t, space - t, font_style);
+		t = (*space) ? space + 1 : space;
+		if (!(*t))
+			break;
+		if (w > min_width)
+			min_width = w;
+		w = 0;
+	} while (1);
+
+	if (text->text [text->text_len - 1] != ' ') {
+		obj = html_object_next_not_slave (self);
+		w += (obj && html_object_is_text (obj)) ? html_text_get_nb_width (HTML_TEXT (obj), painter, TRUE) : 0;
+	}
+
+	if (w > min_width)
+		min_width = w;
+
+	return min_width;
+}
+
 static void
 draw (HTMLObject *o,
       HTMLPainter *p,
@@ -614,6 +691,8 @@ html_text_class_init (HTMLTextClass *klass,
 	object_class->draw = draw;
 	object_class->accepts_cursor = accepts_cursor;
 	object_class->calc_size = calc_size;
+	object_class->calc_preferred_width = calc_preferred_width;
+	object_class->calc_min_width = calc_min_width;
 	object_class->get_cursor = get_cursor;
 	object_class->get_cursor_base = get_cursor_base;
 	object_class->save = save;

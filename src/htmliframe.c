@@ -122,7 +122,6 @@ static void
 set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
 {
 	/* FIXME FIXME amazingly broken to set this */
-	o->nb_width = max_width;
 	o->max_width = max_width;
 }
 

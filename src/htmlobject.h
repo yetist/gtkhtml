@@ -115,9 +115,6 @@ struct _HTMLObject {
 	gint width;
 	gint max_width;
 
-	/* With of following segment of objects in ClueFlow.  */
-	gint nb_width;
-
 	gint percent;
 
 	guchar flags;

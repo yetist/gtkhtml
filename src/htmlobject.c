@@ -68,7 +68,6 @@ copy (HTMLObject *self,
 	dest->width = self->width;
 	dest->min_width = self->min_width;
 	dest->max_width = self->max_width;
-	dest->nb_width = self->nb_width;
 	dest->percent = self->percent;
 	dest->flags = self->flags;
 	dest->redraw_pending = self->redraw_pending;
@@ -121,7 +120,8 @@ fit_line (HTMLObject *o,
 	  gboolean first_run,
 	  gint width_left)
 {
-	return HTML_FIT_COMPLETE;
+	html_object_calc_size (o, painter);
+	return (o->width < width_left || first_run) ? HTML_FIT_COMPLETE : HTML_FIT_NONE;
 }
 
 static gboolean
@@ -535,7 +535,6 @@ html_object_init (HTMLObject *o,
 
 	o->width = 0;
 	o->max_width = 0;
-	o->nb_width  = 0;
 	o->percent = 0;
 
 	o->flags = HTML_OBJECT_FLAG_FIXEDWIDTH; /* FIXME Why? */

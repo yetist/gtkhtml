@@ -74,7 +74,6 @@ html_types_init (void)
 	html_hidden_type_init ();
 	html_image_type_init ();
 	html_imageinput_type_init ();
-	html_link_text_type_init ();
 	html_link_text_master_type_init ();
 	html_object_type_init ();
 	html_radio_type_init ();

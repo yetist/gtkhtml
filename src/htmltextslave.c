@@ -51,22 +51,8 @@ split (HTMLTextSlave *slave, gshort offset)
 				   slave->posLen - offset);
 
 	html_clue_append_after (HTML_CLUE (obj->parent), new, obj);
-}
 
-/* Split this TextSlave at the first newline character.  */
-static void
-split_at_newline (HTMLTextSlave *slave)
-{
-	const gchar *text;
-	const gchar *p;
-
-	text = HTML_TEXT (slave->owner)->text + slave->posStart;
-
-	p = memchr (text, '\n', slave->posLen);
-	if (p == NULL)
-		return;
-
-	split (slave, p - text + 1);
+	slave->posLen = offset;
 }
 
 
@@ -126,6 +112,49 @@ calc_size (HTMLObject *self,
 	return changed;
 }
 
+#ifdef HTML_TEXT_SLAVE_DEBUG
+static void
+debug_print (HTMLFitType rv, gchar *text, gint len)
+{
+	gint i;
+
+	printf ("Split text");
+	switch (rv) {
+	case HTML_FIT_PARTIAL:
+		printf (" (Partial): `");
+		break;
+	case HTML_FIT_NONE:
+		printf (" (NoFit): `");
+		break;
+	case HTML_FIT_COMPLETE:
+		printf (" (Complete): `");
+		break;
+	}
+
+	for (i = 0; i < len; i++)
+		putchar (text [i]);
+
+	printf ("'\n");
+}
+#endif
+
+static gint
+get_next_nb_width (HTMLTextSlave *slave, HTMLPainter *painter)
+{
+	
+	gint width = 0;
+
+	if (HTML_TEXT (slave->owner)->text [slave->posStart + slave->posLen - 1] != ' ') {
+		HTMLObject *obj;
+		obj = html_object_next_not_slave (HTML_OBJECT (slave));
+		if (obj && html_object_is_text (obj)
+		    && HTML_TEXT (obj)->text [0] != ' ')
+			width = html_text_get_nb_width (HTML_TEXT (obj), painter, TRUE);
+	}
+
+	return width;
+}
+
 static HTMLFitType
 fit_line (HTMLObject *o,
 	  HTMLPainter *painter,
@@ -133,139 +162,72 @@ fit_line (HTMLObject *o,
 	  gboolean firstRun,
 	  gint widthLeft)
 {
-	HTMLTextSlave *textslave;
-	HTMLTextMaster *textmaster;
-	HTMLText *ownertext;
-	HTMLObject *next_obj;
-	HTMLFitType return_value;
 	GtkHTMLFontStyle font_style;
-	gint newLen;
-	gint newWidth;
-	gchar *splitPtr;
-	gchar *text;
+	HTMLFitType rv;
+	HTMLTextSlave *slave;
+	HTMLText *text;
+	gint width, next_width = 0;
 
-	textslave = HTML_TEXT_SLAVE (o);
-	textmaster = HTML_TEXT_MASTER (textslave->owner);
-	ownertext = HTML_TEXT (textmaster);
+	/* printf ("fit_line %d left: %d\n", firstRun, widthLeft); */
 
-	font_style = html_text_get_font_style (ownertext);
+	slave = HTML_TEXT_SLAVE (o);
+	text  = HTML_TEXT (slave->owner);
 
-	next_obj = o->next;
-	text = ownertext->text;
+	/* if on begin of line, remove beggining space */
+	if (firstRun && text->text [slave->posStart] == ' ') {
+		slave->posStart ++;
+		slave->posLen --;
+	}
 
-	/* Remove following existing slaves.  */
+	/* try complete fit now */
+	font_style = html_text_get_font_style (text);
+	width      = html_painter_calc_text_width (painter, text->text + slave->posStart, slave->posLen, font_style);
+	next_width = get_next_nb_width (slave, painter);
 
-	if (next_obj != NULL
-	    && (HTML_OBJECT_TYPE (next_obj) == HTML_TYPE_TEXTSLAVE)) {
+	if (width + next_width <= widthLeft)
+		rv = HTML_FIT_COMPLETE;
+	else {
+		/* so try partial fit atleast */
+		gchar *sep = NULL, *lsep;
+		gchar *begin;
+		gint width = 0;
+
+		sep = begin = text->text + slave->posStart;
+
 		do {
-			o->next = next_obj->next;
-			html_clue_remove (HTML_CLUE (next_obj->parent), next_obj);
-			html_object_destroy (next_obj);
-			next_obj = o->next;
-			if (next_obj != NULL)
-				next_obj->prev = o;
-		} while (next_obj && HTML_OBJECT_TYPE (next_obj) == HTML_TYPE_TEXTSLAVE);
-		textslave->posLen = HTML_TEXT (textslave->owner)->text_len - textslave->posStart;
-	}
-
-	split_at_newline (HTML_TEXT_SLAVE (o));
-
-	text += textslave->posStart;
-
-	o->width = html_painter_calc_text_width (painter, text, textslave->posLen, font_style);
-	if (o->width <= widthLeft || textslave->posLen <= 1 || widthLeft < 0) {
-		/* Text fits completely */
-		return_value = HTML_FIT_COMPLETE;
-		goto done;
-	} else {
-		splitPtr = index (text + 1, ' ');
-	}
-	
-	if (splitPtr) {
-		newLen = splitPtr - text + 1;
-		newWidth = html_painter_calc_text_width (painter, text, newLen, font_style);
-		if (newWidth > widthLeft) {
-			/* Splitting doesn't make it fit */
-			splitPtr = 0;
-		} else {
-			gint extraLen;
-			gint extraWidth;
-
-			for (;;) {
-				gchar *splitPtr2 = index (splitPtr + 1, ' ');
-				if (!splitPtr2)
-					break;
-				extraLen = splitPtr2 - splitPtr;
-				extraWidth = html_painter_calc_text_width (painter, splitPtr, extraLen,
-									   font_style);
-				if (extraWidth + newWidth <= widthLeft) {
-					/* We can break on the next separator cause it still fits */
-					newLen += extraLen;
-					newWidth += extraWidth;
-					splitPtr = splitPtr2;
-				} else {
-					/* Using this separator would over-do it */
-					break;
-				}
+			lsep   = sep;
+			sep    = strchr (lsep + 1, ' ');
+			if (!sep || sep - begin >= slave->posLen) {
+				sep = begin + slave->posLen;
+				break;
 			}
+			width += html_painter_calc_text_width
+				(painter, lsep, sep - lsep, font_style);
+		} while (width <= widthLeft);
+
+		g_assert (lsep);
+
+		if (lsep == begin && !firstRun)
+			rv = HTML_FIT_NONE;
+		else {
+			/* partial fit, we split this slave to this and new one which becomes next */
+			rv = HTML_FIT_PARTIAL;
+			/* if only one pass has been made */
+			if (lsep == begin) lsep = sep;
+			/* split + set attributes */
+			split (slave, lsep - begin);
+			o->width   = width;
+			o->ascent  = html_painter_calc_ascent (painter, font_style);
+			o->descent = html_painter_calc_descent (painter, font_style);
 		}
-	} else {
-		newLen = textslave->posLen;
-		newWidth = o->width;
-	}
-	
-	if (!splitPtr) {
-		/* No separator available */
-		if (firstRun == FALSE) {
-			/* Text does not fit, wait for next line */
-			return_value = HTML_FIT_NONE;
-			goto done;
-		}
-
-		/* Text doesn't fit, too bad. 
-		   newLen & newWidth are valid */
 	}
 
-	if (textslave->posLen - newLen > 0)
-		split (textslave, newLen);
-
-	textslave->posLen = newLen;
-
-	o->width = newWidth;
-	o->ascent = html_painter_calc_ascent (painter, font_style);
-	o->descent = html_painter_calc_descent (painter, font_style);
-
-	return_value = HTML_FIT_PARTIAL;
-
- done:
 #ifdef HTML_TEXT_SLAVE_DEBUG
-	/* FIXME */
-	{
-		gint i;
-
-		printf ("Split text");
-		switch (return_value) {
-		case HTML_FIT_PARTIAL:
-			printf (" (Partial): `");
-			break;
-		case HTML_FIT_NONE:
-			printf (" (NoFit): `");
-			break;
-		case HTML_FIT_COMPLETE:
-			printf (" (Complete): `");
-			break;
-		}
-
-		for (i = 0; i < textslave->posLen; i++)
-			putchar (ownertext->text[textslave->posStart + i]);
-
-		printf ("'\n");
-	}
+	debug_print (rv, text->text + slave->posStart, slave->posLen);
 #endif
 
-	return return_value;
+	return rv;	
 }
-
 static gboolean
 select_range (HTMLObject *self,
 	      HTMLEngine *engine,

@@ -71,74 +71,6 @@ draw (HTMLObject *o,
 	/* Don't paint yourself.  */
 }
 
-static gint
-calc_min_width (HTMLObject *self,
-		HTMLPainter *painter)
-{
-	HTMLTextMaster *master;
-	GtkHTMLFontStyle font_style;
-	HTMLText *text;
-	gchar *p, *bp;
-	gchar sep;
-	gint min_width, tmp_width;
-
-	master = HTML_TEXT_MASTER (self);
-	text = HTML_TEXT (self);
-
-	font_style = html_text_get_font_style (text);
-	/* Check to see if we want any word wrapping, ugly but it works. */
-	if ((self->parent != NULL && 
-	     (HTML_OBJECT_TYPE (self->parent) == HTML_TYPE_CLUEFLOW)) &&
-	    HTML_CLUEFLOW(self->parent)->style == HTML_CLUEFLOW_STYLE_NOWRAP) {
-
-			return html_painter_calc_text_width (painter, text->text, text->text_len, font_style);
-	}
-
-	min_width = 0;
-	tmp_width = 0;
-	bp = p = text->text;
-
-	sep = (HTML_CLUEFLOW(self->parent)->style == HTML_CLUEFLOW_STYLE_PRE) ? '\n' : ' ';
-
-	while (bp && *p) {
-		bp = strchr (p, sep);
-		if (bp) {
-			*bp = 0;
-		}
-		tmp_width = html_painter_calc_text_width (painter, p, (bp) ? bp-p : strlen (p), font_style);
-		if (tmp_width > min_width) {
-			min_width = tmp_width;
-		}
-		if (bp) {
-			*bp = sep;
-			p = bp+1;
-			/* find the beggining of the next word */
-			while (*p == sep)
-				p++;
-		}
-	}
-
-	return min_width;
-}
-
-static gint
-calc_preferred_width (HTMLObject *self,
-		      HTMLPainter *painter)
-{
-	HTMLText *text;
-	GtkHTMLFontStyle font_style;
-	gint width;
-
-	text = HTML_TEXT (self);
-	font_style = html_text_get_font_style (text);
-
-	width = html_painter_calc_text_width (painter,
-					      text->text, text->text_len,
-					      font_style);
-
-	return width;
-}
-
 static gboolean
 calc_size (HTMLObject *self,
 	   HTMLPainter *painter)
@@ -679,8 +611,6 @@ html_text_master_class_init (HTMLTextMasterClass *klass,
 	object_class->draw = draw;
 	object_class->fit_line = fit_line;
 	object_class->calc_size = calc_size;
-	object_class->calc_min_width = calc_min_width;
-	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->get_cursor = get_cursor;
 	object_class->get_cursor_base = get_cursor_base;
 	object_class->check_point = check_point;

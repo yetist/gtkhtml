@@ -65,7 +65,6 @@ libgtkhtml_HEADERS =				\
 	htmlhidden.h				\
 	htmlimage.h				\
 	htmlimageinput.h			\
-	htmllinktext.h				\
 	htmllinktextmaster.h			\
 	htmllist.h				\
 	htmlobject.h				\
@@ -142,7 +141,6 @@ libgtkhtml_la_SOURCES =				\
 	htmlhidden.c				\
 	htmlimage.c				\
 	htmlimageinput.c			\
-	htmllinktext.c				\
 	htmllinktextmaster.c			\
 	htmllist.c				\
 	htmlobject.c				\

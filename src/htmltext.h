@@ -128,6 +128,10 @@ void  html_text_set_color       (HTMLText             *text,
 void  html_text_set_text        (HTMLText             *text,
 				 const gchar          *new_text);
 
+gint  html_text_get_nb_width    (HTMLText *text,
+				 HTMLPainter *painter,
+				 gboolean begin);
+
 #ifdef GTKHTML_HAVE_PSPELL
 
 struct _SpellError {

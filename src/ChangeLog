@@ -1,3 +1,42 @@
+2000-08-01  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlobject.h: removed nb_width from htmlobject as it is not
+	needed/used anymore
+
+	* htmlclueflow.c (should_break): not needed anymore - removed
+	(calc_size): first try of renice of this ugly function, we don't
+	need is_pre anymore, some code extracted to helper function
+	set_line_x, fixed first_run arg value for fit_line, fixed FIT_NONE
+	case
+
+	* gtkhtmldebug.c (dump_object_simple): added dumping of TextSlave
+	text
+	(gtk_html_debug_dump_object_type): added new function
+
+	* Makefile.am: removed htmllinktext.[ch] from sources/headers
+
+	* htmltype.c (html_types_init): removed LinkText type init
+
+	* htmllinktext.[ch]: removed, they were not used anywhere
+	
+	* htmlobject.c (fit_line): do fitting here instead of simply
+	returning FIT_COMPLETE
+
+	* htmltextslave.c (debug_print): new helper function, move debug
+	stuff here
+	(fit_line): rewritten, should be exact now :)
+	(split_at_newline): removed, no more needed
+	(get_next_nb_width): new helper function
+	(fit_line): do incremental calc_text_width here, so it's much
+	faster now
+
+	* htmltext.c (calc_preferred_width): moved here from TextMaster
+	(html_text_get_nb_width): helper function returns non-breakable
+	text width on begin/end of this text
+	(calc_min_width): moved from TextMaster + rewritten
+
+	* htmlclueflow.c (calc_min_width): rewritten
+
 2000-07-31  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml.c (motion_notify_event): set ibeam cursor only when

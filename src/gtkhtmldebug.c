@@ -22,6 +22,7 @@
 /* Various debugging routines.  */
 
 #include <stdarg.h>
+#include <string.h>
 
 #include "htmlobject.h"
 #include "htmltext.h"
@@ -222,8 +223,24 @@ dump_object_simple (HTMLObject *obj,
 		g_print ("%s `%s'\n",
 			 html_type_name (HTML_OBJECT_TYPE (obj)),
 			 HTML_TEXT (obj)->text);
-	else
+	else if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE) {
+		HTMLTextSlave *slave = HTML_TEXT_SLAVE (obj);
+		gchar *text;
+
+		text = alloca (slave->posLen+1);
+		text [slave->posLen] = 0;
+		strncpy (text, slave->owner->text.text + slave->posStart, slave->posLen);
+		g_print ("%s `%s'\n",
+			 html_type_name (HTML_OBJECT_TYPE (obj)),
+			 text);
+	} else
 		g_print ("%s\n", html_type_name (HTML_OBJECT_TYPE (obj)));
+}
+
+void
+gtk_html_debug_dump_object_type (HTMLObject *o)
+{
+	dump_object_simple (o, 0);
 }
 
 void
