@@ -138,6 +138,7 @@ copy_helper (HTMLText *src,
 	dest->text_len = len;
 
 	dest->font_style = src->font_style;
+	dest->face  = src->face;
 	dest->color = src->color;
 	html_color_ref (dest->color);
 
@@ -179,9 +180,9 @@ calc_size (HTMLObject *self,
 	text = HTML_TEXT (self);
 	font_style = html_text_get_font_style (text);
 
-	new_ascent = html_painter_calc_ascent (painter, font_style);
-	new_descent = html_painter_calc_descent (painter, font_style);
-	new_width = html_painter_calc_text_width (painter, text->text, text->text_len, font_style);
+	new_ascent = html_painter_calc_ascent (painter, font_style, text->face);
+	new_descent = html_painter_calc_descent (painter, font_style, text->face);
+	new_width = html_painter_calc_text_width (painter, text->text, text->text_len, font_style, text->face);
 
 	changed = FALSE;
 
@@ -215,7 +216,7 @@ calc_preferred_width (HTMLObject *self,
 
 	return html_painter_calc_text_width (painter,
 					     text->text, text->text_len,
-					     font_style);
+					     font_style, text->face);
 }
 
 static gint
@@ -259,7 +260,7 @@ html_text_get_nb_width (HTMLText *text, HTMLPainter *painter, gboolean begin)
 		return html_object_calc_preferred_width (HTML_OBJECT (text), painter);
 	return html_painter_calc_text_width (painter, (begin) ? text->text : t + 1,
 					     (begin) ? t - text->text : text->text_len - (t - text->text + 1),
-					     html_text_get_font_style (text));
+					     html_text_get_font_style (text), text->face);
 }
 
 static gint
@@ -286,7 +287,7 @@ calc_min_width (HTMLObject *self,
 			space = strchr (t, ' ');
 			if (!space)
 				space = text->text + text->text_len;
-			w += html_painter_calc_text_width (painter, t, space - t, font_style);
+			w += html_painter_calc_text_width (painter, t, space - t, font_style, text->face);
 			t = (*space) ? space + 1 : space;
 			if (!(*t))
 				break;
@@ -620,7 +621,7 @@ get_cursor_base (HTMLObject *self,
 		font_style = html_text_get_font_style (HTML_TEXT (self));
 		*x += html_painter_calc_text_width (painter,
 						    HTML_TEXT (self)->text,
-						    offset, font_style);
+						    offset, font_style, HTML_TEXT (self)->face);
 	}
 }
 
@@ -1001,6 +1002,12 @@ html_text_set_color (HTMLText *text,
 	g_return_if_fail (color != NULL);
 
 	return (* HT_CLASS (text)->set_color) (text, engine, color);
+}
+
+void
+html_text_set_font_face (HTMLText *text, HTMLFontFace *face)
+{
+	text->face = face;
 }
 
 void

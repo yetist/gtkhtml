@@ -19,31 +19,29 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef _HTMLGDKFONTMANAGER_H_
-#define _HTMLGDKFONTMANAGER_H_
+#ifndef _HTML_FONT_FACE_H_
+#define _HTML_FONT_FACE_H_
 
 #include <gdk/gdk.h>
-
 #include "gtkhtmlfontstyle.h"
-#include "htmlfontface.h"
 
-struct _HTMLGdkFontManager {
-	HTMLFontFace *variable;
-	HTMLFontFace *fixed;
+struct _HTMLFontFace {
+	GdkFont *font [GTK_HTML_FONT_STYLE_MAX];
 
-	GHashTable *faces;
+	gchar *family;
+	guint  size;
 };
-typedef struct _HTMLGdkFontManager HTMLGdkFontManager;
+typedef struct _HTMLFontFace HTMLFontFace;
 
-
-HTMLGdkFontManager *html_gdk_font_manager_new                        (void);
-void                html_gdk_font_manager_destroy                    (HTMLGdkFontManager *manager);
+HTMLFontFace *      html_font_face_new                        (const gchar *family,
+							       gint size);
+void                html_font_face_destroy                    (HTMLFontFace *face);
+GdkFont *           html_font_face_get_font                   (HTMLFontFace *face,
+							       GtkHTMLFontStyle style);
+void                html_font_face_set_family                 (HTMLFontFace *face,
+							       const gchar *family);
+void                html_font_face_set_size                   (HTMLFontFace *face,
+							       gint size);
+gboolean            html_font_face_family_exists              (const gchar *family);
 
-HTMLFontFace *      html_gdk_font_manager_get_face                   (HTMLGdkFontManager *manager,
-								      const gchar *family);
-HTMLFontFace *      html_gdk_font_manager_get_variable               (HTMLGdkFontManager *manager);
-HTMLFontFace *      html_gdk_font_manager_get_fixed                  (HTMLGdkFontManager *manager);
-GdkFont *           html_gdk_font_manager_get_font                   (HTMLGdkFontManager *manager,
-								      GtkHTMLFontStyle style,
-								      HTMLFontFace *face);
-#endif /* _HTMLGDKFONTMANAGER_H_ */
+#endif

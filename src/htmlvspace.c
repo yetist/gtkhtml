@@ -53,8 +53,8 @@ calc_size (HTMLObject *self,
 	else
 		font_style = GTK_HTML_FONT_STYLE_SIZE_3;
 
-	new_ascent = html_painter_calc_ascent (painter, font_style);
-	new_descent = html_painter_calc_descent (painter, font_style);
+	new_ascent = html_painter_calc_ascent (painter, font_style, NULL);
+	new_descent = html_painter_calc_descent (painter, font_style, NULL);
 	new_width = 2 * html_painter_get_pixel_size (painter);
 
 	changed = FALSE;

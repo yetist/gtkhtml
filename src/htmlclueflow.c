@@ -62,8 +62,8 @@ calc_padding (HTMLPainter *painter)
 	guint ascent, descent;
 
 	/* FIXME maybe this should depend on the style.  */
-	ascent = html_painter_calc_ascent (painter, GTK_HTML_FONT_STYLE_SIZE_3);
-	descent = html_painter_calc_descent (painter, GTK_HTML_FONT_STYLE_SIZE_3);
+	ascent = html_painter_calc_ascent (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
+	descent = html_painter_calc_descent (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
 
 	return ascent + descent;
 }
@@ -73,8 +73,8 @@ calc_indent_unit (HTMLPainter *painter)
 {
 	guint ascent, descent;
 
-	ascent = html_painter_calc_ascent (painter, GTK_HTML_FONT_STYLE_SIZE_3);
-	descent = html_painter_calc_descent (painter, GTK_HTML_FONT_STYLE_SIZE_3);
+	ascent = html_painter_calc_ascent (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
+	descent = html_painter_calc_descent (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
 
 	return (ascent + descent) * 3;
 }
@@ -84,8 +84,8 @@ calc_bullet_size (HTMLPainter *painter)
 {
 	guint ascent, descent;
 
-	ascent = html_painter_calc_ascent (painter, GTK_HTML_FONT_STYLE_SIZE_3);
-	descent = html_painter_calc_descent (painter, GTK_HTML_FONT_STYLE_SIZE_3);
+	ascent = html_painter_calc_ascent (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
+	descent = html_painter_calc_descent (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
 
 	return (ascent + descent) / 3;
 }

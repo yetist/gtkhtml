@@ -583,7 +583,8 @@ draw_shade_line (HTMLPainter *painter,
 
 static guint
 calc_ascent (HTMLPainter *painter,
-	     GtkHTMLFontStyle style)
+	     GtkHTMLFontStyle style,
+	     HTMLFontFace *face)
 {
 	HTMLPrinter *printer;
 	GnomeFont *font;
@@ -601,7 +602,8 @@ calc_ascent (HTMLPainter *painter,
 
 static guint
 calc_descent (HTMLPainter *painter,
-	      GtkHTMLFontStyle style)
+	      GtkHTMLFontStyle style,
+	      HTMLFontFace *face)
 {
 	HTMLPrinter *printer;
 	GnomeFont *font;
@@ -621,7 +623,8 @@ static guint
 calc_text_width (HTMLPainter *painter,
 		 const gchar *text,
 		 guint len,
-		 GtkHTMLFontStyle style)
+		 GtkHTMLFontStyle style,
+		 HTMLFontFace *face)
 {
 	HTMLPrinter *printer;
 	GnomeFont *font;

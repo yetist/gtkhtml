@@ -30,6 +30,7 @@ typedef struct _HTMLPainter HTMLPainter;
 #include <gtk/gtk.h>
 
 #include "gtkhtmlfontstyle.h"
+#include "htmlfontface.h"
 #include "htmlcolorset.h"
 
 
@@ -63,11 +64,12 @@ struct _HTMLPainterClass {
 	void (* free_color) (HTMLPainter *painter, GdkColor *color);
 
 	void (* set_font_style) (HTMLPainter *p, GtkHTMLFontStyle  f);
+	void (* set_font_face)  (HTMLPainter *p, HTMLFontFace *face);
 	GtkHTMLFontStyle (* get_font_style) (HTMLPainter *p);
-	guint (* calc_ascent) (HTMLPainter *p, GtkHTMLFontStyle f);
-	guint (* calc_descent) (HTMLPainter *p, GtkHTMLFontStyle f);
+	guint (* calc_ascent) (HTMLPainter *p, GtkHTMLFontStyle f, HTMLFontFace *face);
+	guint (* calc_descent) (HTMLPainter *p, GtkHTMLFontStyle f, HTMLFontFace *face);
 	guint (* calc_text_width) (HTMLPainter *p, const gchar *text, guint len,
-				   GtkHTMLFontStyle font_style);
+				   GtkHTMLFontStyle font_style, HTMLFontFace *face);
 
 	void (* set_pen) (HTMLPainter *painter, const GdkColor *color);
 	const GdkColor * (* get_black) (const HTMLPainter *painter);
@@ -129,14 +131,19 @@ const GdkColor *html_painter_get_black                               (const HTML
 void              html_painter_set_font_style   (HTMLPainter      *p,
 						 GtkHTMLFontStyle  f);
 GtkHTMLFontStyle  html_painter_get_font_style   (HTMLPainter      *p);
+void              html_painter_set_font_face    (HTMLPainter      *p,
+						 HTMLFontFace     *f);
 guint             html_painter_calc_ascent      (HTMLPainter      *p,
-						 GtkHTMLFontStyle  f);
+						 GtkHTMLFontStyle  f,
+						 HTMLFontFace     *face);
 guint             html_painter_calc_descent     (HTMLPainter      *p,
-						 GtkHTMLFontStyle  f);
+						 GtkHTMLFontStyle  f,
+						 HTMLFontFace     *face);
 guint             html_painter_calc_text_width  (HTMLPainter      *p,
 						 const gchar      *text,
 						 guint             len,
-						 GtkHTMLFontStyle  font_style);
+						 GtkHTMLFontStyle  font_style,
+						 HTMLFontFace     *face);
 
 /* The actual paint operations.  */
 void  html_painter_set_pen               (HTMLPainter    *painter,

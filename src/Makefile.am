@@ -62,6 +62,7 @@ libgtkhtml_HEADERS =				\
 	htmlengine.h				\
 	htmlentity.h				\
 	htmlgdkfontmanager.h			\
+	htmlfontface.h				\
 	htmlform.h				\
 	htmlgdkpainter.h			\
 	htmlhidden.h				\
@@ -144,6 +145,7 @@ libgtkhtml_la_SOURCES =				\
 	htmlengine.c				\
 	htmlentity.c				\
 	htmlgdkfontmanager.c			\
+	htmlfontface.c				\
 	htmlform.c				\
 	htmlgdkpainter.c			\
 	htmlhidden.c				\

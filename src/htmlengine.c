@@ -127,7 +127,53 @@ enum ID {
 };
 
 
-/* Font handling.  */
+
+/*
+ *  Font handling.
+ */
+
+/* Font faces */
+
+static HTMLFontFace *
+parse_font_face (HTMLEngine *e, const gchar *families)
+{
+	HTMLFontFace *face = NULL;
+	gchar *s, *family;
+
+	/* go thru list of families separated by ',' */
+	do {
+		s = strchr (families, ',');
+		family = g_strndup (families, ((s) ? s - families : strlen (families)));
+		if (html_font_face_family_exists (family))
+			face = html_gdk_font_manager_get_face (HTML_GDK_PAINTER (e->painter)->font_manager, family);
+		g_free (family);
+		families = s + 1;
+	} while (s && !face);
+
+	return face;
+}
+
+static HTMLFontFace *
+current_font_face (HTMLEngine *e)
+{
+	return (HTMLFontFace *) (html_stack_is_empty (e->font_face_stack))
+		? NULL
+		: html_stack_top (e->font_face_stack);
+}
+
+static void
+push_font_face (HTMLEngine *e, HTMLFontFace *face)
+{
+	html_stack_push (e->font_face_stack, face);
+}
+
+static void
+pop_font_face (HTMLEngine *e)
+{
+	html_stack_pop (e->font_face_stack);
+}
+
+/* Font styles */
 
 static GtkHTMLFontStyle
 current_font_style (HTMLEngine *e)
@@ -256,7 +302,12 @@ static void close_flow (HTMLEngine *e, HTMLObject *clue);
 static HTMLObject *
 create_empty_text (HTMLEngine *e)
 {
-	return html_text_master_new ("", current_font_style (e), current_color (e));
+	HTMLText *text;
+
+	text = HTML_TEXT (html_text_master_new ("", current_font_style (e), current_color (e)));
+	html_text_set_font_face (text, current_font_face (e));
+
+	return HTML_OBJECT (text);
 }
 
 static void
@@ -432,6 +483,7 @@ insert_text (HTMLEngine *e,
 							 e->url, e->target);
 		else
 			obj = html_text_master_new (text, font_style, color);
+		html_text_set_font_face (HTML_TEXT (obj), current_font_face (e));
 
 		append_element (e, clue, obj);
 	} else {
@@ -581,6 +633,7 @@ static void
 block_end_color_font (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
 {
 	pop_color (e);
+	pop_font_face (e);
 	block_end_font (e, clue, elem);
 }
 
@@ -1904,6 +1957,7 @@ parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 {
 	if (strncmp (str, "font", 4) == 0) {
 		GdkColor *color;
+		HTMLFontFace *face = NULL;
 		gint newSize;
 
 		newSize = current_font_style (p) & GTK_HTML_FONT_STYLE_SIZE_MASK;
@@ -1928,12 +1982,14 @@ parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 				else if (newSize < GTK_HTML_FONT_STYLE_SIZE_1)
 					newSize = GTK_HTML_FONT_STYLE_SIZE_1;
 			} else if (strncasecmp (token, "face=", 5) == 0) {
+				face = parse_font_face (p, token + 5);
 			} else if (strncasecmp (token, "color=", 6) == 0) {
 				parse_color (token + 6, color);
 			}
 		}
 
 		push_color (p, html_color_new_from_gdk_color (color));
+		push_font_face (p, face);
 		push_font_style (p, newSize);
 
 		push_block  (p, ID_FONT, 1, block_end_color_font, FALSE, FALSE);
@@ -3031,7 +3087,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->invert_gc = NULL;
 
 	/* settings, colors and painter init */
-	engine->painter         = html_gdk_painter_new (TRUE);
+	engine->painter = html_gdk_painter_new (TRUE);
 	
 	engine->newPage = FALSE;
 
@@ -3047,6 +3103,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->undo = html_undo_new ();
 
 	engine->font_style_stack = html_stack_new (NULL);
+	engine->font_face_stack = html_stack_new (NULL);
 	engine->color_stack = html_stack_new ((HTMLStackFreeFunc) html_color_unref);
 	engine->clueflow_style_stack = html_stack_new (NULL);
 
@@ -3180,6 +3237,7 @@ ensure_editable (HTMLEngine *engine)
 
 		text_master = html_text_master_new ("", GTK_HTML_FONT_STYLE_DEFAULT,
 						    engine->insertion_color);
+		html_text_set_font_face (HTML_TEXT (text_master), current_font_face (engine));
 		html_clue_prepend (HTML_CLUE (head), text_master);
 	}
 }
@@ -3221,6 +3279,7 @@ html_engine_stop_parser (HTMLEngine *e)
 
 	html_stack_clear (e->color_stack);
 	html_stack_clear (e->font_style_stack);
+	html_stack_clear (e->font_face_stack);
 	html_stack_clear (e->clueflow_style_stack);
 }
 
@@ -3416,6 +3475,7 @@ ensure_last_clueflow (HTMLEngine *engine)
 	new_textmaster = html_text_master_new ("",
 					       GTK_HTML_FONT_STYLE_DEFAULT,
 					       html_colorset_get_color (engine->settings->color_set, HTMLTextColor));
+	html_text_set_font_face (HTML_TEXT (new_textmaster), current_font_face (engine));
 	html_clue_prepend (last_clueflow, new_textmaster);
 }
 
@@ -4317,6 +4377,7 @@ replace (HTMLEngine *e)
 	new_text = html_text_master_new (e->replace_info->text,
 					 HTML_TEXT (first)->font_style,
 					 HTML_TEXT (first)->color);
+	html_text_set_font_face (HTML_TEXT (new_text), HTML_TEXT (first)->face);
 	html_engine_paste_object (e, new_text, TRUE);
 
 	/* update search info to point just behind replaced text */
@@ -4503,6 +4564,7 @@ html_engine_replace_word_with (HTMLEngine *e, const gchar *word)
 	default:
 		g_assert_not_reached ();
 	}
+	html_text_set_font_face (HTML_TEXT (replace), HTML_TEXT (orig)->face);
 	html_engine_edit_selection_updater_update_now (e->selection_updater);
 	html_engine_paste_object (e, replace, TRUE);
 	html_engine_selection_pop (e);

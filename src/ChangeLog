@@ -1,5 +1,14 @@
 2000-08-21  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlgdkfontmanager.[ch]: rewritten
+
+	* htmlfontface.[ch]: new files
+
+	* htmlengine.c (current_font_face): new helper function
+	(push_font_face): likewise
+	(pop_font_face): likewise
+	(parse_font_face): likewise
+
 	* gtkhtml.c (gtk_html_construct): moved set_fonts + gconf
 	notification here, because engine is created
 	(gtk_html_construct): call set_fonts_idle instead of set_fonts

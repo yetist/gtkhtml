@@ -229,6 +229,15 @@ get_font_style (HTMLPainter *painter)
 	return gdk_painter->font_style;
 }
 
+static void
+set_font_face (HTMLPainter *painter, HTMLFontFace *face)
+{
+	HTMLGdkPainter *gdk_painter;
+
+	gdk_painter = HTML_GDK_PAINTER (painter);
+	gdk_painter->font_face = face;
+}
+
 
 /* HTMLPainter drawing functions.  */
 
@@ -733,7 +742,8 @@ draw_spell_error (HTMLPainter *painter,
 	y -= gdk_painter->y1;
 
 	gdk_font = html_gdk_font_manager_get_font (gdk_painter->font_manager,
-						   gdk_painter->font_style);
+						   gdk_painter->font_style,
+						   gdk_painter->font_face);
 
 	x_off = gdk_text_width (gdk_font, text,       off) + x;
 	width = gdk_text_width (gdk_font, text + off, len) + x_off;
@@ -754,7 +764,6 @@ draw_spell_error (HTMLPainter *painter,
 	gdk_gc_set_line_attributes (gdk_painter->gc, values.line_width,
 				    values.line_style, values.cap_style, values.join_style);
 	g_free (pt);
-	gdk_font_unref (gdk_font);
 }
 #endif
 
@@ -781,7 +790,8 @@ draw_text (HTMLPainter *painter,
 	y -= gdk_painter->y1;
 
 	gdk_font = html_gdk_font_manager_get_font (gdk_painter->font_manager,
-						   gdk_painter->font_style);
+						   gdk_painter->font_style,
+						   gdk_painter->font_face);
 
 	gdk_draw_text (gdk_painter->pixmap,
 		       gdk_font,
@@ -807,7 +817,6 @@ draw_text (HTMLPainter *painter,
 	}
 
 	g_free (pt);
-	gdk_font_unref (gdk_font);
 }
 
 static void
@@ -829,8 +838,7 @@ draw_shade_line (HTMLPainter *painter,
 }
 
 static guint
-calc_ascent (HTMLPainter *painter,
-	     GtkHTMLFontStyle style)
+calc_ascent (HTMLPainter *painter, GtkHTMLFontStyle style, HTMLFontFace *face)
 {
 	HTMLGdkPainter *gdk_painter;
 	GdkFont *gdk_font;
@@ -838,19 +846,17 @@ calc_ascent (HTMLPainter *painter,
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
-	gdk_font = html_gdk_font_manager_get_font (gdk_painter->font_manager, style);
+	gdk_font = html_gdk_font_manager_get_font (gdk_painter->font_manager, style, face);
 	if (gdk_font == NULL)
 		return 0;
 
 	ascent = gdk_font->ascent;
-	gdk_font_unref (gdk_font);
 
 	return ascent;
 }
 
 static guint
-calc_descent (HTMLPainter *painter,
-	      GtkHTMLFontStyle style)
+calc_descent (HTMLPainter *painter, GtkHTMLFontStyle style, HTMLFontFace *face)
 {
 	HTMLGdkPainter *gdk_painter;
 	GdkFont *gdk_font;
@@ -858,12 +864,11 @@ calc_descent (HTMLPainter *painter,
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
-	gdk_font = html_gdk_font_manager_get_font (gdk_painter->font_manager, style);
+	gdk_font = html_gdk_font_manager_get_font (gdk_painter->font_manager, style, face);
 	if (gdk_font == NULL)
 		return 0;
 
 	descent = gdk_font->descent;
-	gdk_font_unref (gdk_font);
 
 	return descent;
 }
@@ -872,7 +877,8 @@ static guint
 calc_text_width (HTMLPainter *painter,
 		 const gchar *text,
 		 guint len,
-		 GtkHTMLFontStyle style)
+		 GtkHTMLFontStyle style,
+		 HTMLFontFace *face)
 {
 	HTMLGdkPainter *gdk_painter;
 	GdkFont *gdk_font;
@@ -880,9 +886,8 @@ calc_text_width (HTMLPainter *painter,
 	gchar *pt = html_entity_prepare (text);
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
-	gdk_font = html_gdk_font_manager_get_font (gdk_painter->font_manager, style);
+	gdk_font = html_gdk_font_manager_get_font (gdk_painter->font_manager, style, face);
 	width = gdk_text_width (gdk_font, pt, len);
-	gdk_font_unref (gdk_font);
 	g_free (pt);
 
 	return width;
@@ -925,6 +930,7 @@ init (GtkObject *object)
 
 	gdk_painter->font_manager = html_gdk_font_manager_new ();
 	gdk_painter->font_style = GTK_HTML_FONT_STYLE_DEFAULT;
+	gdk_painter->font_face = NULL;
 
 	init_color (& gdk_painter->background, 0xffff, 0xffff, 0xffff);
 	init_color (& gdk_painter->dark, 0, 0, 0);
@@ -946,6 +952,7 @@ class_init (GtkObjectClass *object_class)
 	painter_class->free_color = free_color;
 	painter_class->set_font_style = set_font_style;
 	painter_class->get_font_style = get_font_style;
+	painter_class->set_font_face = set_font_face;
 	painter_class->calc_ascent = calc_ascent;
 	painter_class->calc_descent = calc_descent;
 	painter_class->calc_text_width = calc_text_width;

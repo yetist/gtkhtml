@@ -133,6 +133,7 @@ struct _HTMLEngine {
 	gboolean newPage;
  
 	HTMLStack *font_style_stack; /* Font style stack, elements are GtkHTMLFontStyles.  */
+	HTMLStack *font_face_stack;
 	HTMLStack *color_stack;	/* Color stack, elements are GdkColors.  */
 	HTMLStack *clueflow_style_stack; /* Clueflow style stack, elements are HTMLClueFlowStyles.  */
 

@@ -84,13 +84,13 @@ calc_size (HTMLObject *self,
 	owner = HTML_TEXT (slave->owner);
 	font_style = html_text_get_font_style (owner);
 
-	new_ascent = html_painter_calc_ascent (painter, font_style);
-	new_descent = html_painter_calc_descent (painter, font_style);
+	new_ascent = html_painter_calc_ascent (painter, font_style, owner->face);
+	new_descent = html_painter_calc_descent (painter, font_style, owner->face);
 
 	new_width = html_painter_calc_text_width (painter,
 						  owner->text + slave->posStart,
 						  slave->posLen,
-						  font_style);
+						  font_style, owner->face);
 
 	changed = FALSE;
 
@@ -182,7 +182,8 @@ fit_line (HTMLObject *o,
 
 	/* try complete fit now */
 	font_style = html_text_get_font_style (text);
-	width      = html_painter_calc_text_width (painter, text->text + slave->posStart, slave->posLen, font_style);
+	width      = html_painter_calc_text_width (painter, text->text + slave->posStart, slave->posLen,
+						   font_style, text->face);
 	next_width = get_next_nb_width (slave, painter);
 
 	if (width + next_width <= widthLeft)
@@ -203,7 +204,7 @@ fit_line (HTMLObject *o,
 				break;
 			}
 			width += html_painter_calc_text_width
-				(painter, lsep, sep - lsep, font_style);
+				(painter, lsep, sep - lsep, font_style, text->face);
 		} while (width <= widthLeft);
 
 		g_assert (lsep);
@@ -220,8 +221,8 @@ fit_line (HTMLObject *o,
 			if (len < slave->posLen)
 				split (slave, lsep - begin);
 			o->width   = width;
-			o->ascent  = html_painter_calc_ascent (painter, font_style);
-			o->descent = html_painter_calc_descent (painter, font_style);
+			o->ascent  = html_painter_calc_ascent (painter, font_style, text->face);
+			o->descent = html_painter_calc_descent (painter, font_style, text->face);
 		}
 	}
 
@@ -294,6 +295,7 @@ draw_normal (HTMLTextSlave *self,
 	obj = HTML_OBJECT (self);
 
 	html_painter_set_font_style (p, font_style);
+	html_painter_set_font_face  (p, HTML_TEXT (self->owner)->face);
 	html_color_alloc (HTML_TEXT (self->owner)->color, p);
 	html_painter_set_pen (p, &HTML_TEXT (self->owner)->color->color);
 	html_painter_draw_text (p,
@@ -330,10 +332,11 @@ draw_highlighted (HTMLTextSlave *slave,
 	len = end - start;
 
 	offset_width = html_painter_calc_text_width (p, text + slave->posStart, start - slave->posStart,
-						     font_style);
-	text_width = html_painter_calc_text_width (p, text + start, len, font_style);
+						     font_style, HTML_TEXT (owner)->face);
+	text_width = html_painter_calc_text_width (p, text + start, len, font_style, HTML_TEXT (owner)->face);
 
 	html_painter_set_font_style (p, font_style);
+	html_painter_set_font_face  (p, HTML_TEXT (owner)->face);
 
 	/* Draw the highlighted part with a highlight background.  */
 
@@ -527,7 +530,7 @@ html_text_slave_get_offset_for_pointer (HTMLTextSlave *slave,
 		width = html_painter_calc_text_width (painter,
 						      owner->text + slave->posStart,
 						      i,
-						      font_style);
+						      font_style, owner->face);
 
 		if ((width + prev_width) / 2 >= x)
 			return i - 1;
@@ -536,20 +539,4 @@ html_text_slave_get_offset_for_pointer (HTMLTextSlave *slave,
 	}
 
 	return slave->posLen;
-}
-
-gint
-html_text_slave_trail_space_width (HTMLTextSlave *slave, HTMLPainter *painter)
-{
-	if (slave->posLen == 0)
-		return 0;
-
-	if (HTML_TEXT (slave->owner)->text [slave->posStart + slave->posLen - 1] == ' ') {
-		GtkHTMLFontStyle font_style;
-
-		font_style = html_text_get_font_style (HTML_TEXT (slave->owner));
-		return html_painter_calc_text_width (painter, " ", 1, font_style);
-	} else {
-		return 0;
-	}
 }

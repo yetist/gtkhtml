@@ -24,6 +24,7 @@
 #define _HTMLTEXT_H_
 
 #include "htmlobject.h"
+#include "htmlfontface.h"
 #include "htmlcolor.h"
 #include "htmlinterval.h"
 
@@ -39,8 +40,10 @@ struct _HTMLText {
 	gchar *text;
 	guint text_len;
 
-	GtkHTMLFontStyle font_style;
-	HTMLColor *color;
+	GtkHTMLFontStyle  font_style;
+	HTMLFontFace     *face;
+	HTMLColor        *color;
+
 #ifdef GTKHTML_HAVE_PSPELL
 	GList *spell_errors;
 #endif
@@ -128,6 +131,9 @@ void  html_text_set_color       (HTMLText             *text,
 				 HTMLColor            *color);
 void  html_text_set_text        (HTMLText             *text,
 				 const gchar          *new_text);
+
+void  html_text_set_font_face   (HTMLText             *text,
+				 HTMLFontFace         *face);
 
 gint  html_text_get_nb_width    (HTMLText *text,
 				 HTMLPainter *painter,

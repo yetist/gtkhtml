@@ -63,6 +63,7 @@ DEFINE_UNIMPLEMENTED (alloc_color);
 DEFINE_UNIMPLEMENTED (free_color);
 
 DEFINE_UNIMPLEMENTED (set_font_style);
+DEFINE_UNIMPLEMENTED (set_font_face);
 DEFINE_UNIMPLEMENTED (get_font_style);
 DEFINE_UNIMPLEMENTED (calc_ascent);
 DEFINE_UNIMPLEMENTED (calc_descent);
@@ -116,6 +117,7 @@ class_init (GtkObjectClass *object_class)
 
 	class->set_font_style = (gpointer) set_font_style_unimplemented;
 	class->get_font_style = (gpointer) get_font_style_unimplemented;
+	class->set_font_face = (gpointer) set_font_face_unimplemented;
 	class->calc_ascent = (gpointer) calc_ascent_unimplemented;
 	class->calc_descent = (gpointer) calc_descent_unimplemented;
 	class->calc_text_width = (gpointer) calc_text_width_unimplemented;
@@ -243,40 +245,53 @@ html_painter_get_font_style (HTMLPainter *painter)
 	return (* HP_CLASS (painter)->get_font_style) (painter);
 }
 
+void
+html_painter_set_font_face (HTMLPainter *painter,
+			    HTMLFontFace *face)
+{
+	g_return_if_fail (painter != NULL);
+	g_return_if_fail (HTML_IS_PAINTER (painter));
+
+	(* HP_CLASS (painter)->set_font_face) (painter, face);
+}
+
 guint
 html_painter_calc_ascent (HTMLPainter *painter,
-			  GtkHTMLFontStyle font_style)
+			  GtkHTMLFontStyle font_style,
+			  HTMLFontFace *face)
 {
 	g_return_val_if_fail (painter != NULL, 0);
 	g_return_val_if_fail (HTML_IS_PAINTER (painter), 0);
 	g_return_val_if_fail (font_style != GTK_HTML_FONT_STYLE_DEFAULT, 0);
 
-	return (* HP_CLASS (painter)->calc_ascent) (painter, font_style);
+	return (* HP_CLASS (painter)->calc_ascent) (painter, font_style, face);
 }
 
 guint
 html_painter_calc_descent (HTMLPainter *painter,
-			   GtkHTMLFontStyle font_style)
+			   GtkHTMLFontStyle font_style,
+			   HTMLFontFace *face)
 {
 	g_return_val_if_fail (painter != NULL, 0);
 	g_return_val_if_fail (HTML_IS_PAINTER (painter), 0);
 	g_return_val_if_fail (font_style != GTK_HTML_FONT_STYLE_DEFAULT, 0);
 
-	return (* HP_CLASS (painter)->calc_descent) (painter, font_style);
+	return (* HP_CLASS (painter)->calc_descent) (painter, font_style, face);
 }
 
 guint
 html_painter_calc_text_width (HTMLPainter *painter,
 			      const gchar *text,
 			      guint len,
-			      GtkHTMLFontStyle font_style)
+			      GtkHTMLFontStyle font_style,
+			      HTMLFontFace *face)
 {
 	g_return_val_if_fail (painter != NULL, 0);
 	g_return_val_if_fail (HTML_IS_PAINTER (painter), 0);
 	g_return_val_if_fail (text != NULL, 0);
 	g_return_val_if_fail (font_style != GTK_HTML_FONT_STYLE_DEFAULT, 0);
 
-	return (* HP_CLASS (painter)->calc_text_width) (painter, text, len, font_style);
+	return (* HP_CLASS (painter)->calc_text_width) (painter, text, len, font_style, face);
 }
 
 

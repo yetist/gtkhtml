@@ -358,7 +358,7 @@ get_cursor_base (HTMLObject *self,
 				*x += html_painter_calc_text_width (painter,
 								    text->text + slave->posStart,
 								    offset - slave->posStart,
-								    font_style);
+								    font_style, text->face);
 			}
 
 			return;
@@ -700,7 +700,7 @@ html_text_master_trail_space_width (HTMLTextMaster *master, HTMLPainter *painter
 		GtkHTMLFontStyle font_style;
 
 		font_style = html_text_get_font_style (text);
-		return html_painter_calc_text_width (painter, " ", 1, font_style);
+		return html_painter_calc_text_width (painter, " ", 1, font_style, text->face);
 	} else {
 		return 0;
 	}
