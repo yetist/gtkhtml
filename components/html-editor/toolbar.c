@@ -604,6 +604,7 @@ create_style_toolbar (GtkHTMLControlData *cd)
 	cd->right_align_button = editor_toolbar_alignment_group[2].widget;
 
 	cd->unindent_button  = editor_toolbar_style_uiinfo [8].widget;
+	gtk_widget_set_sensitive (cd->unindent_button, gtk_html_get_paragraph_indentation (cd->html) != 0);
 	g_signal_connect (cd->html, "current_paragraph_indentation_changed",
 			  G_CALLBACK (indentation_changed), cd);
 
@@ -626,19 +627,39 @@ create_style_toolbar (GtkHTMLControlData *cd)
 	return hbox;
 }
 
+static gboolean
+toolbar_item_represents (GtkWidget *item, GtkWidget *widget)
+{
+	GtkWidget *parent;
+
+	if (item == widget)
+		return TRUE;
+
+	parent = gtk_widget_get_parent (widget);
+	while (parent) {
+		if (parent == item)
+			return TRUE;
+		parent = gtk_widget_get_parent (parent);
+	}
+
+	return FALSE;
+}
+
 static void
 toolbar_item_update_sensitivity (GtkWidget *widget, gpointer data)
 {
 	GtkHTMLControlData *cd = (GtkHTMLControlData *)data;
 	gboolean sensitive;
 
-	sensitive = ((cd->format_html && widget != cd->unindent_button)
-		     || widget == cd->paragraph_option
-		     || widget == cd->indent_button
-		     || (widget == cd->unindent_button && gtk_html_get_paragraph_indentation (cd->html))
-		     || widget == cd->left_align_button
-		     || widget == cd->center_button
-		     || widget == cd->right_align_button);
+	if (toolbar_item_represents (widget, cd->unindent_button))
+		return;
+
+	sensitive = (cd->format_html
+		     || toolbar_item_represents (widget, cd->paragraph_option)
+		     || toolbar_item_represents (widget, cd->indent_button)
+		     || toolbar_item_represents (widget, cd->left_align_button)
+		     || toolbar_item_represents (widget, cd->center_button)
+		     || toolbar_item_represents (widget, cd->right_align_button));
 
 	gtk_widget_set_sensitive (widget, sensitive);
 }
@@ -647,8 +668,8 @@ void
 toolbar_update_format (GtkHTMLControlData *cd)
 {
 	if (cd->toolbar_style)
-		gtk_container_forall (GTK_CONTAINER (cd->toolbar_style), 
-				      toolbar_item_update_sensitivity, cd);
+		gtk_container_foreach (GTK_CONTAINER (cd->toolbar_style), 
+		toolbar_item_update_sensitivity, cd);
 
 	if (cd->paragraph_option)
 		paragraph_style_option_menu_set_mode (cd->paragraph_option, 

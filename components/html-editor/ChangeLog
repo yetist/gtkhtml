@@ -1,3 +1,14 @@
+2004-01-23  Radek Doulik  <rodo@ximian.com>
+
+	* toolbar.c (create_style_toolbar): set initial unindent button
+	sensitivity
+	(toolbar_item_represents): new helper function
+	(toolbar_item_update_sensitivity): use toolbar_item_represents,
+	newer gtk toolbar contains gtktoolitems so we have to be more
+	careful
+	(toolbar_update_format): use gtk_container_foreach instead of
+	forall
+
 2003-12-15  Radek Doulik  <rodo@ximian.com>
 
 	* menubar.c (menubar_update_format): disable sick smiley for plain
