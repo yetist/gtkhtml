@@ -1,3 +1,8 @@
+2002-09-26  Radek Doulik  <rodo@ximian.com>
+
+	* menubar.c (file_dialog_ok): use html_engine_paste_text instead
+	of e-utils
+
 2002-09-25  Larry Ewing  <lewing@ximian.com>
 
 	* popup.c (copy): call with the widget not the engine.
