@@ -1,5 +1,17 @@
 2001-01-24  Larry Ewing  <lewing@ximian.com>
 
+	* htmlimage.c (html_image_pointer_timeout): draw the borders now
+	that we think we've waited long enough.  The idea here is that we
+	are too agressive about drawing the box where the image should be
+	and it results in ugly artifacts.  Now we wait a STALL_INTERVAL
+	amount of time before we start drawing the box.
+	(html_image_pointer_new): initialize the timer.
+	(html_image_pointer_unref): clear the timer if it is still around.
+	(draw): short circuit if stall is not set.
+
+	* htmlimage.h: add stall flag and stall timeout to track stream
+	progress.
+
 	* htmlembedded.c (calc_size): use the requisition because the
 	allocation fluctuates too much.
 
