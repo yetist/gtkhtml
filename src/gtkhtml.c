@@ -76,6 +76,7 @@
 enum DndTargetType {
 	DND_TARGET_TYPE_TEXT_URI_LIST,
 	DND_TARGET_TYPE__NETSCAPE_URL,
+	DND_TARGET_TYPE_TEXT_HTML,
 	DND_TARGET_TYPE_UTF8_STRING,
 	DND_TARGET_TYPE_TEXT_PLAIN,
 	DND_TARGET_TYPE_STRING,
@@ -84,6 +85,7 @@ enum DndTargetType {
 static GtkTargetEntry dnd_link_sources [] = {
 	{ "text/uri-list", 0, DND_TARGET_TYPE_TEXT_URI_LIST },
 	{ "_NETSCAPE_URL", 0, DND_TARGET_TYPE__NETSCAPE_URL },
+	{ "text/html", 0, DND_TARGET_TYPE_TEXT_HTML },
 	{ "UTF8_STRING", 0, DND_TARGET_TYPE_UTF8_STRING },
 	{ "text/plain", 0, DND_TARGET_TYPE_TEXT_PLAIN },
 	{ "STRING", 0, DND_TARGET_TYPE_STRING },
@@ -923,7 +925,8 @@ realize (GtkWidget *widget)
 				| GDK_EXPOSURE_MASK | GDK_POINTER_MOTION_MASK
 				| GDK_ENTER_NOTIFY_MASK
 				| GDK_BUTTON_PRESS_MASK 
-				| GDK_BUTTON_RELEASE_MASK
+				| GDK_BUTTON_RELEASE_MASK 
+				| GDK_VISIBILITY_NOTIFY_MASK
 				| GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK));
 
 	html_engine_realize (html->engine, html->layout.bin_window);
@@ -956,6 +959,8 @@ realize (GtkWidget *widget)
 			   dnd_link_sources, DND_LINK_SOURCES, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
 
 	gtk_im_context_set_client_window (html->priv->im_context, widget->window);
+
+	html_image_factory_start_animations (html->engine->image_factory);
 }
 
 static void
@@ -967,11 +972,12 @@ unrealize (GtkWidget *widget)
 
 	gtk_im_context_set_client_window (html->priv->im_context, widget->window);
 
+	html_image_factory_stop_animations (html->engine->image_factory);
+
 	if (GTK_WIDGET_CLASS (parent_class)->unrealize)
 		(* GTK_WIDGET_CLASS (parent_class)->unrealize) (widget);
 }
 
-static gint
 expose (GtkWidget *widget, GdkEventExpose *event)
 {
 	/* printf ("expose x: %d y: %d\n", GTK_HTML (widget)->engine->x_offset, GTK_HTML (widget)->engine->y_offset); */
@@ -1465,6 +1471,46 @@ motion_notify_event (GtkWidget *widget,
 	if (GTK_HTML (widget)->in_selection_drag && html_engine_get_editable (engine))
 		html_engine_jump_at (engine, x, y);
 	return TRUE;
+}
+
+
+static gboolean
+toplevel_unmap (GtkWidget *widget, GdkEvent *event, GtkHTML *html)
+{
+	html_image_factory_stop_animations (html->engine->image_factory);	
+}
+
+static void
+hierarchy_changed (GtkWidget *widget,
+		   GtkWidget *old_toplevel)
+{
+	GtkWidget *toplevel;
+	GtkHTMLPrivate   *priv = GTK_HTML (widget)->priv;
+	
+	if (old_toplevel && priv->toplevel_unmap_handler) {
+		g_signal_handler_disconnect (old_toplevel,
+					     priv->toplevel_unmap_handler);
+		priv->toplevel_unmap_handler = 0;
+	}
+
+	toplevel = gtk_widget_get_toplevel (widget);
+
+	if (GTK_WIDGET_TOPLEVEL (toplevel) && priv->toplevel_unmap_handler == 0) {
+		priv->toplevel_unmap_handler = g_signal_connect (G_OBJECT (toplevel), "unmap-event", 
+								 G_CALLBACK (toplevel_unmap), widget);
+	} 
+}
+
+static gint
+visibility_notify_event (GtkWidget *widget,
+			 GdkEventVisibility *event)
+{
+	if (event->state == GDK_VISIBILITY_FULLY_OBSCURED) 
+		html_image_factory_stop_animations (GTK_HTML (widget)->engine->image_factory);
+	else 
+		html_image_factory_start_animations (GTK_HTML (widget)->engine->image_factory);
+
+	return FALSE;
 }
 
 static gint
@@ -2217,6 +2263,7 @@ drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *sel
 	case DND_TARGET_TYPE_TEXT_URI_LIST:
 	case DND_TARGET_TYPE__NETSCAPE_URL:
 		/* printf ("\ttext/uri-list\n"); */
+	case DND_TARGET_TYPE_TEXT_HTML:
 	case DND_TARGET_TYPE_TEXT_PLAIN:
 	case DND_TARGET_TYPE_UTF8_STRING:
 	case DND_TARGET_TYPE_STRING: {
@@ -2350,10 +2397,8 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
 	case DND_TARGET_TYPE_TEXT_PLAIN:
 	case DND_TARGET_TYPE_UTF8_STRING:
 	case DND_TARGET_TYPE_STRING:
-		/* printf ("\ttext/plain\n"); */
-		html_engine_paste_text (engine, selection_data->data, -1);
-		pasted = TRUE;
-		break;
+	case DND_TARGET_TYPE_TEXT_HTML:
+		selection_received (widget, selection_data, time);
 	case DND_TARGET_TYPE_TEXT_URI_LIST:
 	case DND_TARGET_TYPE__NETSCAPE_URL: {
 		HTMLObject *obj;
@@ -2710,6 +2755,8 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	widget_class->expose_event  = expose;
 	widget_class->size_allocate = size_allocate;
 	widget_class->motion_notify_event = motion_notify_event;
+	widget_class->visibility_notify_event = visibility_notify_event;
+	widget_class->hierarchy_changed = hierarchy_changed;
 	widget_class->button_press_event = button_press_event;
 	widget_class->button_release_event = button_release_event;
 	widget_class->focus_in_event = focus_in_event;
@@ -3063,14 +3110,13 @@ gtk_html_begin_full (GtkHTML           *html,
 	if (handle == NULL)
 		return NULL;
 	
-	if (flags & GTK_HTML_BEGIN_KEEP_SCROLL)
-		html->engine->newPage = FALSE;
-
 	if (flags & GTK_HTML_BEGIN_KEEP_IMAGES)
 		gtk_html_images_unref (html);
 
 	html_engine_parse (html->engine);
 
+	if (flags & GTK_HTML_BEGIN_KEEP_SCROLL)
+		html->engine->newPage = FALSE;
 
 	return handle;
 }
@@ -4793,6 +4839,7 @@ gtk_html_set_iframe_parent (GtkHTML *html, GtkWidget *parent, HTMLObject *frame)
 
 	html->iframe_parent = parent;
 	html->frame = frame;
+	
 	g_signal_emit (html_engine_get_top_html_engine (html->engine)->widget, signals [IFRAME_CREATED], 0, html);
 
 	while (html->iframe_parent) {
