@@ -2171,8 +2171,9 @@ scroll (GtkHTML *html,
 		delta = -adj->page_increment + line_height;
 		break;
 	default:
+		g_warning ("invalid scroll parameters: %d %d %f\n", orientation, scroll_type, position);
 		delta = 0.0;
-		g_assert_not_reached ();
+		return;
 	}
 
 	adj->value = CLAMP (adj->value + delta, adj->lower, adj->upper - adj->page_size);
@@ -2228,7 +2229,7 @@ cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType ski
 			html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_DOWN, 1);
 			break;
 		default:
-			g_assert_not_reached ();
+			g_warning ("invalid cursor_move parameters\n");
 		}
 		break;
 	case GTK_HTML_CURSOR_SKIP_WORD:
@@ -2242,7 +2243,7 @@ cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType ski
 			html_engine_forward_word (html->engine);
 			break;
 		default:
-			g_assert_not_reached ();
+			g_warning ("invalid cursor_move parameters\n");
 		}
 		break;
 	case GTK_HTML_CURSOR_SKIP_PAGE:
@@ -2258,7 +2259,7 @@ cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType ski
 				scroll_by_amount (html, amount);
 			break;
 		default:
-			g_assert_not_reached ();
+			g_warning ("invalid cursor_move parameters\n");
 		}
 		break;
 	case GTK_HTML_CURSOR_SKIP_ALL:
@@ -2276,11 +2277,11 @@ cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType ski
 			html_engine_end_of_document (html->engine);
 			break;
 		default:
-			g_assert_not_reached ();
+			g_warning ("invalid cursor_move parameters\n");
 		}
 		break;
 	default:
-		g_assert_not_reached ();
+		g_warning ("invalid cursor_move parameters\n");
 	}
 
 	html->binding_handled = TRUE;
@@ -2331,7 +2332,7 @@ move_selection (GtkHTML *html, GtkHTMLCommandType com_type)
 			scroll_by_amount (html, amount);
 		break;
 	default:
-		g_assert_not_reached ();
+		g_warning ("invalid move_selection parameters\n");
 	}
 
 	html->binding_handled = TRUE;
