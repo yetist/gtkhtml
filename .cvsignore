@@ -12,7 +12,7 @@ config.status
 config.sub
 configure
 gtkhtml.spec
-gtkhtmlConf.sh
+gtkhtml-1.1.pc
 install-sh
 intl
 libtool
