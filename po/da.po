@@ -6,64 +6,120 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.5\n"
 "POT-Creation-Date: 2000-07-16 01:20+0200\n"
-"PO-Revision-Date: 2000-09-10 01:30+0200\n"
+"PO-Revision-Date: 2000-09-27 01:30+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: capplet/gnome-bindings-prop.c:153 capplet/gnome-bindings-prop.c:221
-#: capplet/gnome-bindings-prop.c:296 capplet/gnome-bindings-prop.c:431
-#: capplet/gnome-bindings-prop.c:432
+#: capplet/gnome-bindings-prop.c:154 capplet/gnome-bindings-prop.c:222
+#: capplet/gnome-bindings-prop.c:297 capplet/gnome-bindings-prop.c:435
+#: capplet/gnome-bindings-prop.c:436
 msgid "<None>"
 msgstr "<Ingen>"
 
-#: capplet/gnome-bindings-prop.c:521
+#: capplet/gnome-bindings-prop.c:525
 msgid "Key"
 msgstr "Nøgle"
 
-#: capplet/gnome-bindings-prop.c:521
+#: capplet/gnome-bindings-prop.c:525
 msgid "Command"
 msgstr "Kommando"
 
-#: capplet/gnome-bindings-prop.c:522
+#: capplet/gnome-bindings-prop.c:526
 msgid "Commands"
 msgstr "Kommandoer"
 
-#: capplet/gnome-bindings-prop.c:523
+#: capplet/gnome-bindings-prop.c:527
 msgid "Keymaps"
 msgstr "Tastaturtabel"
 
-#: capplet/gnome-bindings-prop.c:541
+#: capplet/gnome-bindings-prop.c:545
 msgid "Add"
 msgstr "Tilføj"
 
-#: capplet/gnome-bindings-prop.c:544
-#: components/html-editor/test-html-editor-control.c:325
+#: capplet/gnome-bindings-prop.c:548
+#: components/html-editor/test-html-editor-control.c:323
 #: components/html-editor/toolbar.c:495
 msgid "Copy"
 msgstr "Kopiér"
 
-#: capplet/gnome-bindings-prop.c:547
+#: capplet/gnome-bindings-prop.c:551
 msgid "Delete"
 msgstr "Slet"
 
-#: capplet/gnome-bindings-prop.c:578
+#: capplet/gnome-bindings-prop.c:582
 msgid "Grab key"
-msgstr "Grib tast"
+msgstr "Gribetast"
 
-#: capplet/main.c:127
-msgid "Behaviour"
-msgstr "Opførsel"
+#: capplet/main.c:220
+msgid "Spell checking"
+msgstr "Stavekontrol"
 
-#: capplet/main.c:128
+#: capplet/main.c:223
+msgid "live spell checking"
+msgstr "Løbende stavekontrol"
+
+#: capplet/main.c:232
+msgid "spell checking color"
+msgstr "Farve for stavekontrol"
+
+#: capplet/main.c:239
+msgid "language"
+msgstr "sprog"
+
+#: capplet/main.c:245
+msgid "Miscellaneous"
+msgstr "Forskelligt"
+
+#: capplet/main.c:247
 msgid "magic links"
 msgstr "magiske lænker"
 
-#: capplet/main.c:135
-msgid "Keybindings"
+#: capplet/main.c:266
+msgid "Bindings"
 msgstr "Tastebindinger"
+
+#: capplet/main.c:267 capplet/viewer.c:188
+msgid "Behaviour"
+msgstr "Opførsel"
+
+#: capplet/viewer.c:148
+msgid "Appearance"
+msgstr "Udseende"
+
+#: capplet/viewer.c:154
+msgid "Variable width font"
+msgstr "Variabel bredde på skrifttype"
+
+#: capplet/viewer.c:158
+msgid "Select HTML variable width font"
+msgstr "Vælg HTML skrifttype med variabel bredde"
+
+#: capplet/viewer.c:162 capplet/viewer.c:177
+msgid "for printing"
+msgstr "til udskrift"
+
+#: capplet/viewer.c:164
+msgid "Select HTML variable width font for printing"
+msgstr "Vælg HTML skrifttype med variabel bredde til udskrift"
+
+#: capplet/viewer.c:169
+msgid "Fixed width font"
+msgstr "Skrifttype med fast bredde"
+
+#: capplet/viewer.c:173
+msgid "Select HTML fixed width font"
+msgstr "Vælg skrifttype med fast bredde for HTML"
+
+#: capplet/viewer.c:179
+msgid "Select HTML fixed width font for printing"
+msgstr "Vælg HTML skrifttype med fast bredde for udskrift"
+
+#: capplet/viewer.c:189
+msgid "Animations"
+msgstr "Animering"
 
 #: components/html-editor/body.c:107
 msgid "use background image"
@@ -77,27 +133,27 @@ msgstr "Baggrundsbillede"
 msgid "Colors"
 msgstr "Farver"
 
-#: components/html-editor/editor-control-factory.c:133
+#: components/html-editor/editor-control-factory.c:136
 #: components/html-editor/popup.c:86
 msgid "Image"
 msgstr "Billede"
 
-#: components/html-editor/editor-control-factory.c:142
+#: components/html-editor/editor-control-factory.c:145
 #: components/html-editor/popup.c:79
 msgid "Text"
 msgstr "Tekst"
 
-#: components/html-editor/editor-control-factory.c:154
+#: components/html-editor/editor-control-factory.c:157
 #: components/html-editor/popup.c:93
 msgid "Paragraph"
 msgstr "Afsnit"
 
-#: components/html-editor/editor-control-factory.c:159
-#: components/html-editor/menubar.c:157 components/html-editor/popup.c:100
+#: components/html-editor/editor-control-factory.c:162
+#: components/html-editor/menubar.c:109 components/html-editor/popup.c:100
 msgid "Link"
 msgstr "Lænke"
 
-#: components/html-editor/editor-control-factory.c:164
+#: components/html-editor/editor-control-factory.c:167
 #: components/html-editor/popup.c:107
 msgid "Page"
 msgstr "Side"
@@ -141,47 +197,11 @@ msgstr "Kunne ikke initialisere GNORBA"
 msgid "Could not initialize Bonobo"
 msgstr "Kunne ikke initialisere Bonobo"
 
-#: components/html-editor/menubar.c:60
-msgid "Find Rege_x..."
-msgstr "Find rege_x..."
-
-#: components/html-editor/menubar.c:60
-msgid "Regular expressions search..."
-msgstr "Søg efter almindeligt udtryk..."
-
-#: components/html-editor/menubar.c:69
-msgid "_Image..."
-msgstr "B_illede..."
-
-#: components/html-editor/menubar.c:69
-msgid "Insert image into document..."
-msgstr "Indsæt billede i dokumentet..."
-
-#: components/html-editor/menubar.c:70
-msgid "_Link..."
-msgstr "_Lænke..."
-
-#: components/html-editor/menubar.c:70
-msgid "Insert HTML link into document..."
-msgstr "Indsæt HTML-lænke i dokumentet..."
-
-#: components/html-editor/menubar.c:71
-msgid "_Rule..."
-msgstr "_Regel..."
-
-#: components/html-editor/menubar.c:71
-msgid "Insert rule into document..."
-msgstr "Indsæt regel i dokumentet..."
-
-#: components/html-editor/menubar.c:76
-msgid "_Insert"
-msgstr "_Indsæt"
-
-#: components/html-editor/menubar.c:143
+#: components/html-editor/menubar.c:93
 msgid "Insert image"
 msgstr "Indsæt billede"
 
-#: components/html-editor/menubar.c:175
+#: components/html-editor/menubar.c:128
 msgid "Cannot execute gtkhtml properties"
 msgstr "Kan ikke udføre gtkhtml egenskaber"
 
@@ -235,11 +255,11 @@ msgstr "Erstat alle"
 msgid "Next"
 msgstr "Næste"
 
-#: components/html-editor/replace.c:152 components/html-editor/search.c:66
+#: components/html-editor/replace.c:152 components/html-editor/search.c:67
 msgid "search backward"
 msgstr "søg tilbage"
 
-#: components/html-editor/replace.c:153 components/html-editor/search.c:67
+#: components/html-editor/replace.c:153 components/html-editor/search.c:68
 msgid "case sensitive"
 msgstr "skeln mellem store og små bokstaver"
 
@@ -279,73 +299,73 @@ msgstr "Regel"
 msgid "Set Shade"
 msgstr "Sæt skygge"
 
-#: components/html-editor/search.c:63
+#: components/html-editor/search.c:64
 msgid "Regex search"
 msgstr "Regex-søg"
 
-#: components/html-editor/search.c:63
+#: components/html-editor/search.c:64
 msgid "Search"
 msgstr "Søg"
 
-#: components/html-editor/test-html-editor-control.c:234
+#: components/html-editor/test-html-editor-control.c:232
 msgid "Open file..."
 msgstr "Åbn fil..."
 
-#: components/html-editor/test-html-editor-control.c:236
+#: components/html-editor/test-html-editor-control.c:234
 msgid "Save file as..."
 msgstr "Gem fil som..."
 
-#: components/html-editor/test-html-editor-control.c:302
+#: components/html-editor/test-html-editor-control.c:300
 msgid "Open (PersistFile)"
 msgstr "Åbn (PersistFile)"
 
-#: components/html-editor/test-html-editor-control.c:302
+#: components/html-editor/test-html-editor-control.c:300
 msgid "Open using the PersistFile interface"
 msgstr "Åbn ved brug af PersistFile grænsesnittet"
 
-#: components/html-editor/test-html-editor-control.c:304
+#: components/html-editor/test-html-editor-control.c:302
 msgid "Save as... (PersistFile)"
 msgstr "Gem som... (PersistFile)"
 
-#: components/html-editor/test-html-editor-control.c:304
+#: components/html-editor/test-html-editor-control.c:302
 msgid "Save using the PersistFile interface"
 msgstr "Gem ved brug af PersistFile grænsesnittet"
 
-#: components/html-editor/test-html-editor-control.c:307
+#: components/html-editor/test-html-editor-control.c:305
 msgid "Open (PersistStream)"
 msgstr "Åbn (PersistStream)"
 
-#: components/html-editor/test-html-editor-control.c:307
+#: components/html-editor/test-html-editor-control.c:305
 msgid "Open using the PersistStream interface"
 msgstr "Åbn ved brug af PersistStream grænsesnittet"
 
-#: components/html-editor/test-html-editor-control.c:309
+#: components/html-editor/test-html-editor-control.c:307
 msgid "Save as... (PersistStream)"
 msgstr "Gem som... (PersistStream)"
 
-#: components/html-editor/test-html-editor-control.c:309
+#: components/html-editor/test-html-editor-control.c:307
 msgid "Save using the PersistStream interface"
 msgstr "Gem ved brug af PersistStream grænsesnittet"
 
-#: components/html-editor/test-html-editor-control.c:323
+#: components/html-editor/test-html-editor-control.c:321
 #: components/html-editor/toolbar.c:493
 msgid "Cut"
 msgstr "Klip ud"
 
-#: components/html-editor/test-html-editor-control.c:323
+#: components/html-editor/test-html-editor-control.c:321
 msgid "Cut selection to the clipboard"
 msgstr "Klip udvalget til klippebordet"
 
-#: components/html-editor/test-html-editor-control.c:325
+#: components/html-editor/test-html-editor-control.c:323
 msgid "Copy selection to the clipboard"
 msgstr "Kopiér udvalget til klippebordet"
 
-#: components/html-editor/test-html-editor-control.c:327
+#: components/html-editor/test-html-editor-control.c:325
 #: components/html-editor/toolbar.c:497
 msgid "Paste"
 msgstr "Indsæt"
 
-#: components/html-editor/test-html-editor-control.c:327
+#: components/html-editor/test-html-editor-control.c:325
 #: components/html-editor/toolbar.c:497
 msgid "Paste contents of the clipboard"
 msgstr "Indsæt indholdet af klippebordet"
@@ -511,74 +531,86 @@ msgstr "Udskriv _smugkig"
 msgid "Print preview"
 msgstr "Udskriv smugkig"
 
-msgid "Appearance"
-msgstr "Udseende"
+#~ msgid "Find Rege_x..."
+#~ msgstr "Find rege_x..."
 
-msgid "Variable width font"
-msgstr "Variabel bredde på skrifttype"
+#~ msgid "Regular expressions search..."
+#~ msgstr "Søg efter almindeligt udtryk..."
 
-msgid "Select HTML variable width font"
-msgstr "Vælg variabel bredde for skrifttype i HTML"
+#~ msgid "_Image..."
+#~ msgstr "B_illede..."
 
-msgid "Fixed width font"
-msgstr "Skrifttype med fast bredde"
+#~ msgid "Insert image into document..."
+#~ msgstr "Indsæt billede i dokumentet..."
 
-msgid "Select HTML fixed width font"
-msgstr "Vælg skrifttype med fast bredde for HTML"
+#~ msgid "_Link..."
+#~ msgstr "_Lænke..."
 
-msgid "Transfer Progress"
-msgstr "Fremskridt i overførsel"
+#~ msgid "Insert HTML link into document..."
+#~ msgstr "Indsæt HTML-lænke i dokumentet..."
 
-msgid "Looking up %s"
-msgstr "Slår %s op"
+#~ msgid "_Rule..."
+#~ msgstr "_Regel..."
 
-msgid "Contacting %s"
-msgstr "Kontakter %s"
+#~ msgid "Insert rule into document..."
+#~ msgstr "Indsæt regel i dokumentet..."
 
-msgid "Waiting for a connection..."
-msgstr "Venter på en forbindelse"
+#~ msgid "_Insert"
+#~ msgstr "_Indsæt"
 
-msgid "Logging in..."
-msgstr "Logger ind..."
+#~ msgid "Transfer Progress"
+#~ msgstr "Fremskridt i overførsel"
 
-msgid "Read %d%%%% of %l"
-msgstr "Læst %d%%%% af %l"
+#~ msgid "Looking up %s"
+#~ msgstr "Slår %s op"
 
-msgid "Read %d bytes"
-msgstr "Læst %d byte"
+#~ msgid "Contacting %s"
+#~ msgstr "Kontakter %s"
 
-msgid "Reading..."
-msgstr "Læser..."
+#~ msgid "Waiting for a connection..."
+#~ msgstr "Venter på en forbindelse"
 
-msgid "Writing %d%%%% of %l"
-msgstr "Skriver %d%%%% af %l"
+#~ msgid "Logging in..."
+#~ msgstr "Logger ind..."
 
-msgid "Writing %d bytes"
-msgstr "Skriver %d byte"
+#~ msgid "Read %d%%%% of %l"
+#~ msgstr "Læst %d%%%% af %l"
 
-msgid "Writing..."
-msgstr "Skriver..."
+#~ msgid "Read %d bytes"
+#~ msgstr "Læst %d byte"
 
-msgid "Done!"
-msgstr "Færdig!"
+#~ msgid "Reading..."
+#~ msgstr "Læser..."
 
-msgid "Interrupted!"
-msgstr "Afbrudt!"
+#~ msgid "Writing %d%%%% of %l"
+#~ msgstr "Skriver %d%%%% af %l"
 
-msgid "Please wait..."
-msgstr "Vent venligst..."
+#~ msgid "Writing %d bytes"
+#~ msgstr "Skriver %d byte"
 
-msgid "Request timeout!"
-msgstr "Tid til forespørgsel udløbet!"
+#~ msgid "Writing..."
+#~ msgstr "Skriver..."
 
-msgid "Unknown"
-msgstr "Ukendt"
+#~ msgid "Done!"
+#~ msgstr "Færdig!"
 
-msgid "Enter Text"
-msgstr "Indtast tekst"
+#~ msgid "Interrupted!"
+#~ msgstr "Afbrudt!"
 
-msgid "Enter Password"
-msgstr "Indtast adgangskode"
+#~ msgid "Please wait..."
+#~ msgstr "Vent venligst..."
+
+#~ msgid "Request timeout!"
+#~ msgstr "Tid til forespørgsel udløbet!"
+
+#~ msgid "Unknown"
+#~ msgstr "Ukendt"
+
+#~ msgid "Enter Text"
+#~ msgstr "Indtast tekst"
+
+#~ msgid "Enter Password"
+#~ msgstr "Indtast adgangskode"
 
 #~ msgid "Table"
 #~ msgstr "Tabel"
