@@ -160,7 +160,7 @@ image_widget (GtkHTMLControlData *cd, gpointer *set_data)
 {
 	GtkHTMLEditImageProperties *data = g_new0 (GtkHTMLEditImageProperties, 1);
 	GtkWidget *mhb, *hbox;
-	GtkWidget *vbox, *vb1;
+	GtkWidget *vb1;
 	GtkWidget *table;
 	GtkWidget *frame;
 	GtkWidget *menu;
@@ -228,7 +228,6 @@ image_widget (GtkHTMLControlData *cd, gpointer *set_data)
 	gtk_box_pack_start_defaults (GTK_BOX (vb1), frame);
 
 	/* spacing */
-	vbox = gtk_vbox_new (FALSE, 0);
 	frame = gtk_frame_new (_("Padding"));
 
 	table = gtk_table_new (2, 2, FALSE);
@@ -247,8 +246,6 @@ image_widget (GtkHTMLControlData *cd, gpointer *set_data)
 	gtk_box_pack_start (GTK_BOX (vb1), frame, FALSE, FALSE, 0);
 
 	/* size and spacing */
-	hbox = gtk_hbox_new (FALSE, 3);
-	vbox = gtk_vbox_new (FALSE, 0);
 	frame = gtk_frame_new (_("Size"));
 
 	table = gtk_table_new (4, 2, FALSE);

@@ -1,3 +1,8 @@
+2001-09-18  Larry Ewing  <lewing@ximian.com>
+
+	* image.c (image_widget): don't make widgets that we never
+	actually use.
+
 2001-09-14  Radek Doulik  <rodo@ximian.com>
 
 	* spell.c (spell_check_dialog): show ok dialog when there aren't
