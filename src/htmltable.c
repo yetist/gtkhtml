@@ -648,6 +648,9 @@ calc_size (HTMLObject *o,
 	old_ascent  = o->ascent;
 	pixel_size  = html_painter_get_pixel_size (painter);
 
+	if (!table->columnOpt->data)
+		html_table_set_max_width (o, painter, o->max_width);
+
 	calc_cells_size (table, painter);
 	calc_row_heights (table, painter);
 	set_cells_position (table, painter);

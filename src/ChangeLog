@@ -1,5 +1,8 @@
 2001-03-02  Radek Doulik  <rodo@ximian.com>
 
+	* htmltable.c (calc_size): test for already properly sized
+	columnOpt, if needed call set_max_width
+
 	* htmlclueflow.c (check_point): check for p != NULL
 
 	* htmltext.c (copy): g_strdup face, it caused some crashes in
