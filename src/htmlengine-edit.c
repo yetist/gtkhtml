@@ -238,6 +238,27 @@ html_engine_insert_para (HTMLEngine *e,
 }
 
 
+static void
+insert_undo_closure_destroy (gpointer closure)
+{
+	/* Nothing to do here, as the closure is actually an int.  */
+}
+
+static void
+insert_undo (HTMLEngine *engine,
+	     gpointer closure)
+{
+	guint count;
+
+	count = GPOINTER_TO_INT (closure);
+
+	/* FIXME we must make sure this delete operation does not save Undo
+           information.  */
+	html_engine_delete (engine, count);
+
+	/* FIXME TODO redo */
+}
+
 /* FIXME This should actually do a lot more.  */
 guint
 html_engine_insert (HTMLEngine *e,
@@ -245,6 +266,7 @@ html_engine_insert (HTMLEngine *e,
 		    guint len)
 {
 	HTMLObject *current_object;
+	HTMLUndoAction *undo_action;
 	guint n;
 
 	g_return_val_if_fail (e != NULL, 0);
@@ -267,7 +289,16 @@ html_engine_insert (HTMLEngine *e,
 	n = html_text_insert_text (HTML_TEXT (current_object), e,
 				   e->cursor->offset, text, len);
 
-	e->cursor->offset += n;
+	/* FIXME i18n */
+	undo_action = html_undo_action_new ("text insertion",
+					    insert_undo,
+					    insert_undo_closure_destroy,
+					    GINT_TO_POINTER (len),
+					    html_cursor_get_relative (e->cursor));
+	html_undo_add_undo_action (e->undo, undo_action);
+
+	html_cursor_reset_relative (e->cursor);
+	html_engine_move_cursor (e, HTML_ENGINE_CURSOR_RIGHT, n);
 
 	html_engine_draw_cursor (e);
 
@@ -506,4 +537,35 @@ html_engine_delete (HTMLEngine *e,
 	e->cursor->offset += merge_text_at_cursor (e);
 
 	html_engine_draw_cursor (e);
+}
+
+
+void
+html_engine_undo (HTMLEngine *e)
+{
+	HTMLUndo *undo;
+
+	g_return_if_fail (e != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (e));
+	g_return_if_fail (e->undo != NULL);
+
+	g_warning ("*Undo!*");
+
+	undo = e->undo;
+	html_undo_do_undo (undo, e);
+}
+
+void
+html_engine_redo (HTMLEngine *e)
+{
+	HTMLUndo *undo;
+
+	g_return_if_fail (e != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (e));
+	g_return_if_fail (e->undo != NULL);
+
+	g_warning ("*Redo!*");
+
+	undo = e->undo;
+	html_undo_do_redo (undo, e);
 }

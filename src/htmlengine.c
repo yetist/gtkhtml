@@ -2677,6 +2677,8 @@ html_engine_destroy (GtkObject *object)
 
 	engine = HTML_ENGINE (object);
 
+	html_undo_destroy (engine->undo);
+
 	html_color_set_destroy (engine->color_set);
 
 	if (engine->invert_gc != NULL)
@@ -2830,6 +2832,8 @@ html_engine_init (HTMLEngine *engine)
 	engine->settings = html_settings_new ();
 	engine->defaultSettings = html_settings_new ();
 	engine->image_factory = html_image_factory_new(engine);
+
+	engine->undo = html_undo_new ();
 
 	engine->font_style_stack = html_stack_new (NULL);
 	engine->color_stack = html_stack_new ((HTMLStackFreeFunc) gdk_color_free);

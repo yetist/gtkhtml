@@ -24,7 +24,6 @@
 
 #include "htmlengine-cursor.h"
 
-
 
 void
 html_engine_cursor_move (HTMLEngine *e,

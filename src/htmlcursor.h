@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library.
-   Copyright 1999, Helix Code, Inc.
+   Copyright 1999, 2000 Helix Code, Inc.
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -71,6 +71,10 @@ gboolean  html_cursor_equal  (HTMLCursor *a,
 			      HTMLCursor *b);
 
 gint  html_cursor_get_relative    (HTMLCursor *cursor);
+void  html_cursor_set_relative    (HTMLCursor *cursor,
+				   gint        relative_position);
 void  html_cursor_reset_relative  (HTMLCursor *cursor);
+void  html_cursor_goto_zero       (HTMLCursor *cursor,
+				   HTMLEngine *engine);
 
 #endif

@@ -61,4 +61,8 @@ void   html_engine_jump_at         (HTMLEngine               *e,
 				    gint                      x,
 				    gint                      y);
 
+/* Undo/redo.  */
+void  html_engine_undo  (HTMLEngine *e);
+void  html_engine_redo  (HTMLEngine *e);
+
 #endif /* _HTMLENGINE_EDIT_H */

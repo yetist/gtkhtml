@@ -1,5 +1,26 @@
 2000-02-09  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine-edit.c (html_engine_insert): Support undo.
+
+	* gtkhtml.c (key_press_event): (Temporarily) bind F1 to "undo", F2
+	to "redo".
+
+	* htmlengine-edit.c (html_engine_undo): New function.
+	(html_engine_redo): New function.
+
+	* htmlengine.c (html_engine_init): Initialize `undo'.
+	(html_engine_destroy): Destroy it.
+
+	* htmlengine.h: New member `undo' in `HTMLEngine'.
+
+	* htmlundo-action.c: New file.
+	* htmlundo-action.h: New file.
+
+	* htmlundo.c: New file.
+	* htmlundo.h: New file.
+
+	* htmlcursor.c (html_cursor_goto_zero): New function.
+
 	* htmlengine-edit.c (html_engine_jump_to_object): Use
 	`html_cursor_jump_to()'.
 

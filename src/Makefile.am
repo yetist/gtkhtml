@@ -59,6 +59,8 @@ libgtkhtml_HEADERS =				\
 	htmltextslave.h				\
 	htmltokenizer.h				\
 	htmltype.h				\
+	htmlundo.h				\
+	htmlundo-action.h			\
 	htmlurl.h				\
 	htmlvspace.h				\
 	stringtokenizer.h
@@ -114,6 +116,8 @@ libgtkhtml_la_SOURCES =				\
 	htmltextslave.c				\
 	htmltokenizer.c				\
 	htmltype.c				\
+	htmlundo.c				\
+	htmlundo-action.c			\
 	htmlvspace.c				\
 	stringtokenizer.c
 

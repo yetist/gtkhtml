@@ -40,6 +40,7 @@ typedef struct _HTMLEngineClass HTMLEngineClass;
 #include "htmlsettings.h"
 #include "htmlpainter.h"
 #include "htmlgdkpainter.h"
+#include "htmlundo.h"
 #include "stringtokenizer.h"
 #include "gtkhtml-embedded.h"
 
@@ -76,6 +77,8 @@ struct _HTMLEngine {
 
 	HTMLSettings *settings;
 	HTMLSettings *defaultSettings;
+
+	HTMLUndo *undo;
 
 	GdkWindow *window;
 	GdkGC *invert_gc;

@@ -651,9 +651,38 @@ html_cursor_get_relative (HTMLCursor *cursor)
 }
 
 void
+html_cursor_set_relative (HTMLCursor *cursor,
+			  gint relative_position)
+{
+	g_return_if_fail (cursor != NULL);
+
+	cursor->relative_position = relative_position;
+}
+
+void
 html_cursor_reset_relative (HTMLCursor *cursor)
 {
 	g_return_if_fail (cursor != NULL);
 
 	cursor->relative_position = 0;
+}
+
+void
+html_cursor_goto_zero (HTMLCursor *cursor,
+		       HTMLEngine *engine)
+{
+	g_return_if_fail (cursor != NULL);
+
+	if (cursor->relative_position == 0)
+		return;
+
+	if (cursor->relative_position > 0) {
+		while (cursor->relative_position > 0)
+			backward (cursor, engine);
+	} else {
+		while (cursor->relative_position < 0)
+			forward (cursor, engine);
+	}
+
+	debug_location (cursor);
 }

@@ -304,6 +304,17 @@ key_press_event (GtkWidget *widget,
 			html_engine_delete (engine, 1);
 		retval = TRUE;
 		break;
+
+        /* FIXME these are temporary bindings.  */
+	case GDK_F1:
+		html_engine_undo (engine);
+		retval = TRUE;
+		break;
+	case GDK_F2:
+		html_engine_redo (engine);
+		retval = TRUE;
+		break;
+
 	/* The following cases are for keys that we don't want to map yet, but
            have an annoying default behavior if not handled. */
 	case GDK_Tab:
