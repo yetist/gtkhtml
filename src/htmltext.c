@@ -1680,10 +1680,10 @@ html_text_magic_link (HTMLText *text, HTMLEngine *engine, guint offset)
 {
 	regmatch_t pmatch [2];
 	gint i;
-	gboolean rv = FALSE;
+	gboolean rv = FALSE, exec = TRUE;
 	gint saved_position;
 	gunichar uc;
-	char *str;
+	char *str, *cur;
 
 	if (!offset)
 		return FALSE;
@@ -1694,11 +1694,23 @@ html_text_magic_link (HTMLText *text, HTMLEngine *engine, guint offset)
 	html_undo_level_begin (engine->undo, "Magic link", "Remove magic link");
 	saved_position = engine->cursor->position;
 
-	str = html_text_get_text (text, offset);
+	cur = str = html_text_get_text (text, offset);
+
+	/* check forward to ensure chars are < 0x80, could be removed once we have utf8 regex */
+	do {
+		cur = g_utf8_next_char (cur);
+		if (cur && *cur && g_utf8_get_char (cur) >= 0x80)
+			exec = FALSE;
+	} while (exec && cur && *cur && uc != ' ' && uc != ENTITY_NBSP);
+
 	uc = g_utf8_get_char (str);
-	while (uc != ' ' && uc != ENTITY_NBSP && offset) {
+	if (uc >= 0x80)
+		exec = FALSE;
+	while (exec && uc != ' ' && uc != ENTITY_NBSP && offset) {
 		str = g_utf8_prev_char (str);
 		uc = g_utf8_get_char (str);
+		if (uc >= 0x80)
+			exec = FALSE;
 		offset--;
 	}
 
@@ -1707,18 +1719,20 @@ html_text_magic_link (HTMLText *text, HTMLEngine *engine, guint offset)
 		offset++;
 	}
 
-	while (offset < text->text_len && !rv) {
-		for (i=0; i<MIM_N; i++) {
-			if (mim [i].preg && !regexec (mim [i].preg, str, 2, pmatch, 0)) {
-				paste_link (engine, text,
-					    g_utf8_pointer_to_offset (text->text, str + pmatch [0].rm_so),
-					    g_utf8_pointer_to_offset (text->text, str + pmatch [0].rm_eo), mim [i].prefix);
-				rv = TRUE;
-				break;
+	if (exec) {
+		while (offset < text->text_len && !rv) {
+			for (i=0; i<MIM_N; i++) {
+				if (mim [i].preg && !regexec (mim [i].preg, str, 2, pmatch, 0)) {
+					paste_link (engine, text,
+						    g_utf8_pointer_to_offset (text->text, str + pmatch [0].rm_so),
+						    g_utf8_pointer_to_offset (text->text, str + pmatch [0].rm_eo), mim [i].prefix);
+					rv = TRUE;
+					break;
+				}
 			}
+			str = g_utf8_next_char (str);
+			offset++;
 		}
-		str = g_utf8_next_char (str);
-		offset++;
 	}
 
 	html_undo_level_end (engine->undo);
