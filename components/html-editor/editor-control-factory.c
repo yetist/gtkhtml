@@ -50,6 +50,7 @@
 #include "spell.h"
 
 #include "editor-control-factory.h"
+#include "gtkhtmldebug.h"
 
 #ifdef USING_OAF
 #define CONTROL_FACTORY_ID "OAFIID:control-factory:html-editor:97cebd11-9e8c-45c3-9a0a-5a269c760c00"
@@ -230,19 +231,18 @@ load_from_corba (BonoboControl *control,
 		resolver = bonobo_object_query_interface (BONOBO_OBJECT (uih), "IDL:HTMLEditor/Resolver:1.0");
 		
 		if (resolver == CORBA_OBJECT_NIL) {
-			g_warning ("Unable to aquire resolver interface");
+			/* g_warning ("Unable to aquire resolver interface"); */
 		} else {
-			g_warning ("found resolver - rejoice the masses");
+			/* g_warning ("found resolver - rejoice the masses"); */
 			HTMLEditor_Resolver_loadURL (resolver, CORBA_OBJECT_NIL, url, &ev);
 			if (ev._major != CORBA_NO_EXCEPTION){
-				g_warning ("Got exception!!!");
+				/* g_warning ("Got exception!!!"); */
 			} else {
-				g_warning ("No Exceptions made");
+				/* g_warning ("No Exceptions made"); */
 			}		
 			
 		}
 	}
-	g_warning ("After Test");
 	CORBA_exception_free (&ev);
 
 	return FALSE;
@@ -260,9 +260,11 @@ url_requested_cb (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpointe
 	control = BONOBO_CONTROL (data);
 
 	if (load_from_corba (control, url, handle))
-		g_warning ("valid corba reponse");
+		;
+		/* g_warning ("valid corba reponse"); */
 	else if (load_from_file (html, url, handle))
-		g_warning ("valid local reponse");
+		;
+		/* g_warning ("valid local reponse"); */
 	else
 		g_warning ("unable to resolve url: %s", url);
 

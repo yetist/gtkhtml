@@ -1,7 +1,7 @@
 2000-08-10  Larry Ewing  <lewing@helixcode.com>
 
 	* editor-control-factory.c (load_from_corba): fix some brokeness
-	and warnings.
+	and warnings, and comment out debug messages.
 
 	* resolver.c: fix some warnings.
 
