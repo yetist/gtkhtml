@@ -1,14 +1,7 @@
 Todo for gtkhtml:
 
-* Font support must be improved:
-
-	. In htmlfont.c, there's a function that takes a number of
-	  arguments, allocs a font struct and creates an xlfd. The
-	  "creating an xlfd" part must be improved so that it'll take
-	  care of font family and the fact that bold/italic is named
-	  differently on different fonts.
-
-	. Refcounting/duplication is broken all over the place.
+* Font support must be improved, so that it picks up the X font with
+  more smartness.
 
 * Full support for all HTML tags
 
@@ -16,10 +9,6 @@ Todo for gtkhtml:
 
 * Scrolling speed
 
-* Fix all those annoying bugs :)
-
-* Implement cool new features
-
-* gtk_html_write_data (GtkHTML *html, gchar *txt, guint len) API.
-
-* kill the daft PersistStream interface ( I'm a moron ), and use PersistFile.
+* Alignment is broken in some ways.  Slashdot is not always right, for
+  example: flowing around images is not correct.  Also `<br
+  align=right>' does not work as expected.
