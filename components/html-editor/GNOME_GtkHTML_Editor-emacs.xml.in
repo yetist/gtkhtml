@@ -292,7 +292,6 @@
 		pixtype="filename" pixname="@ICONSDIR@/insert-rule-24.png"/>
 		<toolitem name="InsertTable" verb="" _label="Table"
 		pixtype="filename" pixname="@ICONSDIR@/insert-table-24.png"/>
-		<toolitem name="InsertTemplate" verb="" _label="Template"/>
 	</dockitem>
 
 </Root> 
