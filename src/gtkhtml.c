@@ -5307,6 +5307,12 @@ gtk_html_set_blocking (GtkHTML *html, gboolean block)
 	html->engine->block = block;
 }
 
+void
+gtk_html_set_images_blocking (GtkHTML *html, gboolean block)
+{
+	html->engine->block_images = block;
+}
+
 gint
 gtk_html_print_get_pages_num (GtkHTML *html, GnomePrintContext *print_context, gdouble header_height, gdouble footer_height)
 {

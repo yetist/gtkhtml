@@ -1101,10 +1101,10 @@ html_image_factory_end_pixbuf (GtkHTMLStream *stream,
 	ip->loader = NULL;
 
 	update_or_redraw (ip);
-	if (ip->factory->engine->opened_streams)
+	if (ip->factory->engine->opened_streams && ip->factory->engine->block_images)
 		ip->factory->engine->opened_streams --;
 	/* printf ("IMAGE(%p) opened streams: %d\n", ip->factory->engine, ip->factory->engine->opened_streams); */
-	if (ip->factory->engine->opened_streams == 0 && ip->factory->engine->block)
+	if (ip->factory->engine->opened_streams == 0 && ip->factory->engine->block && ip->factory->engine->block_images)
 		html_engine_schedule_update (ip->factory->engine);
 	html_image_pointer_unref (ip);
 }
@@ -1377,7 +1377,8 @@ html_image_pointer_load (HTMLImagePointer *ip)
 {
 	html_image_pointer_ref (ip);
 
-	ip->factory->engine->opened_streams ++;
+	if (ip->factory->engine->block_images)
+		ip->factory->engine->opened_streams ++;
 	return gtk_html_stream_new (GTK_HTML (ip->factory->engine->widget),
 				    html_image_factory_types,
 				    html_image_factory_write_pixbuf,

@@ -299,6 +299,8 @@ void                       gtk_html_image_preload                 (GtkHTML      
 								   const gchar               *url);
 void                       gtk_html_set_blocking                  (GtkHTML                   *html,
 								   gboolean                   block);
+void                       gtk_html_set_images_blocking           (GtkHTML                   *html,
+								   gboolean                   block);
 gboolean                   gtk_html_has_undo                      (GtkHTML                   *html);
 void                       gtk_html_drop_undo                     (GtkHTML                   *html);
 

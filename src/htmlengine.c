@@ -4132,6 +4132,7 @@ html_engine_init (HTMLEngine *engine)
 	html_engine_print_set_min_split_index (engine, .75);
 
 	engine->block = FALSE;
+	engine->block_images = FALSE;
 	engine->save_data = FALSE;
 	engine->saved_step_count = -1;
 

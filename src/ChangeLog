@@ -1,3 +1,13 @@
+2003-09-18  Radek Doulik  <rodo@ximian.com>
+
+	* htmlimage.c: take care for images blocking
+
+	* gtkhtml.c (gtk_html_set_images_blocking): added new method,
+	toggles image streams blocking. set_blocking toggles content
+	blocking - when enabled, widget is updated after all content is
+	loaded, images blocking blocks updates until images are fully
+	loaded
+
 2003-09-17  Dan Winship  <danw@ximian.com>
 
 	* testgtkhtml.c: Make this compile with either soup 2.0 or 2.2

@@ -252,6 +252,7 @@ struct _HTMLEngine {
 	GList *cut_and_paste_stack;
 
 	gboolean block;
+	gboolean block_images;
 	gint opened_streams;
 
 	HTMLObject *focus_object;
