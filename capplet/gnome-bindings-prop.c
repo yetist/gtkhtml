@@ -23,6 +23,7 @@
 #include <config.h>
 #include <gtk/gtkclist.h>
 #include <gtk/gtkhbox.h>
+#include <gtk/gtkentry.h>
 #include <gtk/gtkscrolledwindow.h>
 #include <libgnome/gnome-defs.h>
 #include <libgnome/gnome-i18n.h>
@@ -146,6 +147,7 @@ binding_select_row (GtkCList       *clist,
 	GnomeBindingEntry *be = (GnomeBindingEntry *) gtk_clist_get_row_data (GTK_CLIST (clist), row);
 	KeymapEntry *ke;
 	gint command_row;
+	gchar *key_text;
 
 	if (!be)
 		return;
@@ -153,26 +155,17 @@ binding_select_row (GtkCList       *clist,
 	ke = (KeymapEntry *) gtk_clist_get_row_data (GTK_CLIST (prop->keymaps_clist),
 						     GPOINTER_TO_INT (GTK_CLIST (prop->keymaps_clist)->selection->data));
 
-	gtk_widget_set_sensitive (prop->copy_button, TRUE);
-	gtk_widget_set_sensitive (prop->delete_button, TRUE);
-
 	command_row = gtk_clist_find_row_from_data (GTK_CLIST (prop->commands_clist),
 						    GUINT_TO_POINTER (gtk_type_enum_find_value (ke->enum_type,
 												be->command)->value));
 
-	gtk_clist_moveto (GTK_CLIST (prop->commands_clist), command_row, -1, 0.0, 0.0);
 	gtk_clist_select_row (GTK_CLIST (prop->commands_clist), command_row, 0);
-}
+	if (gtk_clist_row_is_visible (GTK_CLIST (prop->commands_clist), command_row) != GTK_VISIBILITY_FULL)
+		gtk_clist_moveto (GTK_CLIST (prop->commands_clist), command_row, -1, 0.0, 0.0);
 
-static void
-binding_unselect_row (GtkCList       *clist,
-		    gint            row,
-		    gint            column,
-		    GdkEvent       *event,
-		    GnomeBindingsProperties *prop)
-{
-	gtk_widget_set_sensitive (prop->copy_button, FALSE);
-	gtk_widget_set_sensitive (prop->delete_button, FALSE);
+	key_text = string_from_key (be->keyval, be->modifiers);
+	gtk_entry_set_text (GTK_ENTRY (prop->key_entry), key_text);
+	g_free (key_text);
 }
 
 static void
@@ -203,6 +196,9 @@ keymap_select_row (GtkCList       *clist,
 	gtk_clist_freeze (clist);
 	gtk_clist_clear (clist);
 	gtk_widget_set_sensitive (GTK_WIDGET (clist), ke->editable);
+	gtk_widget_set_sensitive (prop->add_button, ke->editable);
+	gtk_widget_set_sensitive (prop->copy_button, ke->editable);
+	gtk_widget_set_sensitive (prop->delete_button, ke->editable);
 	vals  = gtk_type_enum_get_values (ke->enum_type);
 	if (vals) {
 		gchar *name [1];
@@ -239,7 +235,7 @@ keymap_select_row (GtkCList       *clist,
 static void
 init (GnomeBindingsProperties *prop)
 {
-	GtkWidget *clist, *sw, *widget = GTK_WIDGET (prop), *hbox, *button;
+	GtkWidget *clist, *sw, *widget = GTK_WIDGET (prop), *hbox, *button, *vbox, *hbox1;
 	gchar *cols1 [2] = {N_("Key"), N_("Command")};
 	gchar *cols2 [1] = {_("Commands")};
 	gchar *cols3 [1] = {_("Keymaps")};
@@ -252,7 +248,6 @@ init (GnomeBindingsProperties *prop)
 	prop->bindings_clist = clist = gtk_clist_new_with_titles (2, cols1);
 	gtk_clist_set_selection_mode (GTK_CLIST (clist), GTK_SELECTION_BROWSE);
 	gtk_signal_connect (GTK_OBJECT (clist), "select_row", binding_select_row, prop);
-	gtk_signal_connect (GTK_OBJECT (clist), "unselect_row", binding_unselect_row, prop);
 	gtk_clist_columns_autosize (GTK_CLIST (clist));
 	gtk_container_add (GTK_CONTAINER (sw), clist);
 	gtk_box_pack_start (GTK_BOX (widget), sw, TRUE, TRUE, 2);
@@ -262,10 +257,8 @@ init (GnomeBindingsProperties *prop)
 	prop->add_button = button = gtk_button_new_with_label (_("Add"));
 	gtk_box_pack_start_defaults (GTK_BOX (hbox), button);
 	prop->copy_button = button = gtk_button_new_with_label (_("Copy"));
-	gtk_widget_set_sensitive (button, FALSE);
 	gtk_box_pack_start_defaults (GTK_BOX (hbox), button);
 	prop->delete_button = button = gtk_button_new_with_label (_("Delete"));
-	gtk_widget_set_sensitive (button, FALSE);
 	gtk_box_pack_start_defaults (GTK_BOX (hbox), button);
 	gtk_box_pack_start (GTK_BOX (widget), hbox, FALSE, FALSE, 2);
 
@@ -282,6 +275,7 @@ init (GnomeBindingsProperties *prop)
 	gtk_box_pack_start_defaults (GTK_BOX (hbox), sw);
 
 	/* command names */
+	vbox = gtk_vbox_new (FALSE, 2);
 	sw = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	prop->commands_clist = clist = gtk_clist_new_with_titles (1, cols2);
@@ -289,7 +283,16 @@ init (GnomeBindingsProperties *prop)
 	gtk_clist_columns_autosize (GTK_CLIST (clist));
 	gtk_signal_connect (GTK_OBJECT (clist), "select_row", command_select_row, prop);
 	gtk_container_add (GTK_CONTAINER (sw), clist);
-	gtk_box_pack_start_defaults (GTK_BOX (hbox), sw);
+	gtk_box_pack_start_defaults (GTK_BOX (vbox), sw);
+
+	hbox1 = gtk_hbox_new (FALSE, 3);
+	prop->key_entry = gtk_entry_new ();
+	button = gtk_button_new_with_label (_("Grab key"));
+	gtk_box_pack_start_defaults (GTK_BOX (hbox1), prop->key_entry);
+	gtk_box_pack_start_defaults (GTK_BOX (hbox1), button);
+	gtk_box_pack_start (GTK_BOX (vbox), hbox1, FALSE, FALSE, 0);
+
+	gtk_box_pack_start_defaults (GTK_BOX (hbox), vbox);
 	gtk_box_pack_start (GTK_BOX (widget), hbox, TRUE, TRUE, 2);
 
 }

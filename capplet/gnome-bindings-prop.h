@@ -53,6 +53,8 @@ struct _GnomeBindingsProperties {
 	GtkWidget *copy_button;
 	GtkWidget *delete_button;
 
+	GtkWidget *key_entry;
+
 	GHashTable *bindingsets;
 };
 
@@ -78,8 +80,18 @@ void        gnome_bindings_properties_add_keymap    (GnomeBindingsProperties *pr
 						     gboolean editable);
 
 void        gnome_bindings_properties_save          (GnomeBindingsProperties *prop,
-						     gchar *filename );
+						     gchar *filename);
 
 void        gnome_bindings_properties_select_keymap (GnomeBindingsProperties *prop,
 						     gchar *name);
+
+/* binding entry */
+
+GnomeBindingEntry * gnome_binding_entry_new              (guint keyval,
+							  guint modifiers,
+							  gchar *command);
+void                gnome_binding_entry_destroy          (GnomeBindingEntry *be);
+GList             * gnome_binding_entry_list_copy        (GList *list);
+void                gnome_binding_entry_list_destroy     (GList *list);
+
 #endif
