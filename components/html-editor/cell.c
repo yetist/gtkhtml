@@ -670,13 +670,6 @@ cell_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 	}
 	html_cursor_jump_to_position (e->cursor, e, position);
 
-	d->changed_bg_color = FALSE;
-	d->changed_bg_pixmap = FALSE;
-	d->changed_halign = FALSE;
-	d->changed_valign = FALSE;
-	d->changed_wrap = FALSE;
-	d->changed_heading = FALSE;
-	d->changed_width = FALSE;
 }
 
 void

@@ -1,5 +1,9 @@
 2002-10-14  Larry Ewing  <lewing@ximian.com>
- 
+
+ 	* cell.c (cell_apply_cb): make changes accumulate over the life of
+ 	the dialog rather than reseting on apply otherwise the changing
+ 	row/column/table application will have no effect. (fixes #17612).
+	
  	* cell.c (fill_sample): Make example cell text translatable.
  
 2002-10-13  Larry Ewing  <lewing@ximian.com>
