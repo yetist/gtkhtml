@@ -2419,7 +2419,9 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 
 /*
+  <select>            </select>
   <small>             </small>
+  <strong>            </strong>
 */
 static void
 parse_s (HTMLEngine *e, HTMLObject *clue, const gchar *str)
