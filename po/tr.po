@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml 0.6.1\n"
-"POT-Creation-Date: 2000-10-11 20:35+0200\n"
-"PO-Revision-Date: 2000-10-11 20:40+0200\n"
+"Project-Id-Version: gtkhtml 0.8\n"
+"POT-Creation-Date: 2000-11-05 17:41+0100\n"
+"PO-Revision-Date: 2000-11-16 19:03+0100\n"
 "Last-Translator: Fatih Demir <kabalak@gmx.net>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -40,8 +40,6 @@ msgid "Add"
 msgstr "Ekle"
 
 #: capplet/gnome-bindings-prop.c:548
-#: components/html-editor/test-html-editor-control.c:323
-#: components/html-editor/toolbar.c:495
 msgid "Copy"
 msgstr "Kopyala"
 
@@ -121,56 +119,57 @@ msgstr "Yazdýrma için belirli en yazý tipini seç"
 msgid "Animations"
 msgstr "Animasyonlar"
 
-#: components/html-editor/body.c:107
-msgid "use background image"
-msgstr "ardalaný kullan"
-
-#: components/html-editor/body.c:109
-msgid "Background image"
-msgstr "Ardalan resmi"
+#: components/html-editor/body.c:123 components/html-editor/body.c:127
+msgid "Background Image"
+msgstr "Ardalan Resmi"
 
 #: components/html-editor/body.c:126
+msgid "Enable"
+msgstr "Aç"
+
+#: components/html-editor/body.c:149
 msgid "Colors"
 msgstr "Renkler"
 
-#: components/html-editor/editor-control-factory.c:126
-#: components/html-editor/popup.c:71
+#: components/html-editor/editor-control-factory.c:129
+#: components/html-editor/popup.c:73
 msgid "Properties"
 msgstr "Özellikler"
 
-#: components/html-editor/editor-control-factory.c:137
-#: components/html-editor/menubar.c:96 components/html-editor/popup.c:86
+#: components/html-editor/editor-control-factory.c:140
+#: components/html-editor/menubar.c:96 components/html-editor/popup.c:88
 msgid "Image"
 msgstr "Resim"
 
-#: components/html-editor/editor-control-factory.c:146
-#: components/html-editor/menubar.c:117 components/html-editor/popup.c:79
+#: components/html-editor/editor-control-factory.c:149
+#: components/html-editor/menubar.c:117 components/html-editor/popup.c:81
 msgid "Text"
 msgstr "Metin"
 
-#: components/html-editor/editor-control-factory.c:158
-#: components/html-editor/popup.c:93
+#: components/html-editor/editor-control-factory.c:160
+#: components/html-editor/menubar.c:140 components/html-editor/popup.c:116
+msgid "Rule"
+msgstr "Çubuk"
+
+#: components/html-editor/editor-control-factory.c:169
+#: components/html-editor/popup.c:95
 msgid "Paragraph"
 msgstr "Fýkra"
 
-#: components/html-editor/editor-control-factory.c:163
+#: components/html-editor/editor-control-factory.c:174
 #: components/html-editor/menubar.c:101 components/html-editor/menubar.c:122
-#: components/html-editor/popup.c:100
+#: components/html-editor/popup.c:102
 msgid "Link"
 msgstr "Bað"
 
-#: components/html-editor/editor-control-factory.c:168
-#: components/html-editor/popup.c:107
+#: components/html-editor/editor-control-factory.c:179
+#: components/html-editor/popup.c:109
 msgid "Page"
 msgstr "Sayfa"
 
-#: components/html-editor/image.c:142
+#: components/html-editor/image.c:156
 msgid "Image selection"
 msgstr "Resim seçimi"
-
-#: components/html-editor/image.c:150
-msgid "Border"
-msgstr "Kenar"
 
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
@@ -178,14 +177,19 @@ msgstr "Kenar"
 msgid "Alignment"
 msgstr "Taraflama"
 
-#: components/html-editor/image.c:195 components/html-editor/rule.c:124
-#: components/html-editor/text.c:160
-msgid "Size"
-msgstr "Boyut"
+#: components/html-editor/image.c:191
+msgid "Border"
+msgstr "Kenar"
 
-#: components/html-editor/image.c:222
+#: components/html-editor/image.c:208
 msgid "Padding"
 msgstr "Kenarlama"
+
+#. size
+#: components/html-editor/image.c:228 components/html-editor/rule.c:222
+#: components/html-editor/text.c:177
+msgid "Size"
+msgstr "Boyut"
 
 #: components/html-editor/link.c:72
 msgid "Clear"
@@ -204,35 +208,38 @@ msgid "Could not initialize Bonobo"
 msgstr "Bonobo'yu baþlatamadým"
 
 #: components/html-editor/menubar.c:94 components/html-editor/menubar.c:114
+#: components/html-editor/menubar.c:137
 #: components/html-editor/properties.c:110
 msgid "Insert"
 msgstr "Içer"
 
-#: components/html-editor/menubar.c:142
+#: components/html-editor/menubar.c:153
 msgid "Cannot execute gtkhtml properties"
 msgstr "gtkhtml ayarlarýný çalýþtýramadým"
 
-#: components/html-editor/paragraph.c:74 components/html-editor/text.c:138
+#. style
+#: components/html-editor/paragraph.c:108 components/html-editor/rule.c:246
+#: components/html-editor/text.c:157
 msgid "Style"
 msgstr "Stil"
 
-#: components/html-editor/paragraph.c:108
+#: components/html-editor/paragraph.c:142
 msgid "Align"
 msgstr "Taraflama"
 
-#: components/html-editor/paragraph.c:121
+#: components/html-editor/paragraph.c:155
 msgid "Left"
 msgstr "Sol"
 
-#: components/html-editor/paragraph.c:122 components/html-editor/toolbar.c:485
+#: components/html-editor/paragraph.c:156 components/html-editor/toolbar.c:395
 msgid "Center"
 msgstr "Orta"
 
-#: components/html-editor/paragraph.c:123
+#: components/html-editor/paragraph.c:157
 msgid "Right"
 msgstr "Sað"
 
-#: components/html-editor/popup.c:178
+#: components/html-editor/popup.c:193
 msgid "Remove link"
 msgstr "Baðý sil"
 
@@ -265,37 +272,9 @@ msgstr "imlaya dikkat et"
 msgid "with"
 msgstr " "
 
-#: components/html-editor/rule.c:124
-msgid "Length"
-msgstr "Uzunluk"
-
-#: components/html-editor/rule.c:124
-msgid "Percent"
-msgstr "Yüzde"
-
-#: components/html-editor/rule.c:125
-msgid "Left Align"
-msgstr "Sol taraflamasý"
-
-#: components/html-editor/rule.c:125
-msgid "Center Align"
-msgstr "Orta taraflamasý"
-
-#: components/html-editor/rule.c:125
-msgid "Right Align"
-msgstr "Sað taraflamasý"
-
-#: components/html-editor/rule.c:125
-msgid "None"
-msgstr "Yok"
-
-#: components/html-editor/rule.c:129
-msgid "Rule"
-msgstr "Çubuk"
-
-#: components/html-editor/rule.c:132
-msgid "Set Shade"
-msgstr "Gölgeyi belirt"
+#: components/html-editor/rule.c:270
+msgid "shaded"
+msgstr "gölgeli"
 
 #: components/html-editor/search.c:64
 msgid "Regex search"
@@ -305,93 +284,38 @@ msgstr "Erkan-ý tabir aramasý"
 msgid "Search"
 msgstr "Ara"
 
-#: components/html-editor/test-html-editor-control.c:232
+#: components/html-editor/test-html-editor-control.c:237
 msgid "Open file..."
 msgstr "Aç ..."
 
-#: components/html-editor/test-html-editor-control.c:234
+#: components/html-editor/test-html-editor-control.c:239
 msgid "Save file as..."
 msgstr "Farklý kaydet ..."
 
-#: components/html-editor/test-html-editor-control.c:300
-msgid "Open (PersistFile)"
-msgstr "Aç ( `kalýcý dosya' )"
-
-#: components/html-editor/test-html-editor-control.c:300
-msgid "Open using the PersistFile interface"
-msgstr "`Kalýcý dosya' yoluyla aç"
-
-#: components/html-editor/test-html-editor-control.c:302
-msgid "Save as... (PersistFile)"
-msgstr "Farklý kaydet ( `kalýcý dosya' olarak )"
-
-#: components/html-editor/test-html-editor-control.c:302
-msgid "Save using the PersistFile interface"
-msgstr "`Kalýcý dosya' yoluyla kaydet"
-
-#: components/html-editor/test-html-editor-control.c:305
-msgid "Open (PersistStream)"
-msgstr "Aç ( `kalýcý dosya' )"
-
-#: components/html-editor/test-html-editor-control.c:305
-msgid "Open using the PersistStream interface"
-msgstr "`Kalýcý dosya' yoluyla aç"
-
-#: components/html-editor/test-html-editor-control.c:307
-msgid "Save as... (PersistStream)"
-msgstr "Faklý kaydet ... ( `kalýcý dosya' )"
-
-#: components/html-editor/test-html-editor-control.c:307
-msgid "Save using the PersistStream interface"
-msgstr "`kalýcý dosya' yoluyla kaydet"
-
-#: components/html-editor/test-html-editor-control.c:321
-#: components/html-editor/toolbar.c:493
-msgid "Cut"
-msgstr "Kes"
-
-#: components/html-editor/test-html-editor-control.c:321
-msgid "Cut selection to the clipboard"
-msgstr "Seçimi arabelleðe kes"
-
-#: components/html-editor/test-html-editor-control.c:323
-msgid "Copy selection to the clipboard"
-msgstr "Seçimi arabelleðe kopyala"
-
-#: components/html-editor/test-html-editor-control.c:325
-#: components/html-editor/toolbar.c:497
-msgid "Paste"
-msgstr "Yapýþtýr"
-
-#: components/html-editor/test-html-editor-control.c:325
-#: components/html-editor/toolbar.c:497
-msgid "Paste contents of the clipboard"
-msgstr "Seçimi arabelleðe yapýþtýr"
-
-#: components/html-editor/text.c:152 components/html-editor/toolbar.c:511
+#: components/html-editor/text.c:169 components/html-editor/toolbar.c:404
 msgid "Bold"
 msgstr "Kalýn"
 
-#: components/html-editor/text.c:153 components/html-editor/toolbar.c:513
+#: components/html-editor/text.c:170 components/html-editor/toolbar.c:406
 msgid "Italic"
 msgstr "Eðik"
 
-#: components/html-editor/text.c:154 components/html-editor/toolbar.c:515
+#: components/html-editor/text.c:171 components/html-editor/toolbar.c:408
 msgid "Underline"
 msgstr "Altçizgili"
 
-#: components/html-editor/text.c:155 components/html-editor/toolbar.c:517
+#: components/html-editor/text.c:172 components/html-editor/toolbar.c:410
 msgid "Strikeout"
 msgstr "Karalanmýþ"
 
 #. color selection
-#: components/html-editor/text.c:187
+#: components/html-editor/text.c:207
 msgid "Color"
 msgstr "Renk"
 
-#: components/html-editor/text.c:201
-msgid "text color"
-msgstr "metin rengi"
+#: components/html-editor/text.c:210 components/html-editor/toolbar.c:204
+msgid "Automatic"
+msgstr "Otomatik"
 
 #: components/html-editor/toolbar.c:45
 msgid "Normal"
@@ -441,85 +365,61 @@ msgstr "Liste birimi ( sayýlandýrýlmamýþ )"
 msgid "List item (roman)"
 msgstr "Liste birimi ( roman sayýlý )"
 
-#: components/html-editor/toolbar.c:236
-msgid "Default"
-msgstr "Önayarlý"
-
-#: components/html-editor/toolbar.c:483
+#: components/html-editor/toolbar.c:393
 msgid "Left align"
 msgstr "Sola tarafla"
 
-#: components/html-editor/toolbar.c:483
+#: components/html-editor/toolbar.c:393
 msgid "Left justify paragraphs"
 msgstr "Satýrlarý sola tarafla"
 
-#: components/html-editor/toolbar.c:485
+#: components/html-editor/toolbar.c:395
 msgid "Centers paragraphs"
 msgstr "Satýrlarý ortaya tarafla"
 
-#: components/html-editor/toolbar.c:487
+#: components/html-editor/toolbar.c:397
 msgid "Right align"
 msgstr "Ortaya tarafla"
 
-#: components/html-editor/toolbar.c:487
+#: components/html-editor/toolbar.c:397
 msgid "Right justify paragraphs"
 msgstr "Satýrlarý saða tarafla"
 
-#: components/html-editor/toolbar.c:493
-msgid "Cut the selected region to the clipboard"
-msgstr "Seçili bölgeyi kes ve arabelleðe koy"
-
-#: components/html-editor/toolbar.c:495
-msgid "Copy the selected region to the clipboard"
-msgstr "Seçili bölgeyi arabelleðe kopyala"
-
-#: components/html-editor/toolbar.c:501
-msgid "Undo"
-msgstr "Gerit"
-
-#: components/html-editor/toolbar.c:501
-msgid "Undo last editor operation"
-msgstr "Son deðiþikliði geri al"
-
-#: components/html-editor/toolbar.c:503
-msgid "Redo"
-msgstr "Yeniden yap"
-
-#: components/html-editor/toolbar.c:503
-msgid "Redo undone editor operation"
-msgstr "Son geritilen deðiþikliði yeniden yap"
-
-#: components/html-editor/toolbar.c:511
+#: components/html-editor/toolbar.c:404
 msgid "Sets the bold font"
 msgstr "Yazýyý kalnýnlaþtýrýr"
 
-#: components/html-editor/toolbar.c:513
+#: components/html-editor/toolbar.c:406
 msgid "Make the selection italic"
 msgstr "Seçili bölgeyi eðik yap"
 
-#: components/html-editor/toolbar.c:515
+#: components/html-editor/toolbar.c:408
 msgid "Make the selection underlined"
 msgstr "Seçili bölgeyi altçizgili yap"
 
-#: components/html-editor/toolbar.c:517
+#: components/html-editor/toolbar.c:410
 msgid "Make the selection striked out"
 msgstr "Seçili bölgeyi karalanmýþ yap"
 
-#: components/html-editor/toolbar.c:526
+#: components/html-editor/toolbar.c:419
 msgid "Unindent"
 msgstr "Daha az yenle"
 
-#: components/html-editor/toolbar.c:526
+#: components/html-editor/toolbar.c:419
 msgid "Indent paragraphs less"
 msgstr "Satýrlarý daha az yenlendir"
 
-#: components/html-editor/toolbar.c:528
+#: components/html-editor/toolbar.c:421
 msgid "Indent"
 msgstr "Yenle"
 
-#: components/html-editor/toolbar.c:528
+#: components/html-editor/toolbar.c:421
 msgid "Indent paragraphs more"
 msgstr "Satýrlarý daha fazla yenlendir"
+
+#: components/html-editor/utils.c:101
+msgid "Sample"
+msgstr "Örnek"
 
 #: src/testgtkhtml.c:111
 msgid "Print pre_view"
