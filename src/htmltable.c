@@ -1073,8 +1073,26 @@ calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 	
 	if (o->width != old_width || o->ascent != old_ascent) {
 		add_to_changed (changed_objs, o);
-		if (o->width < old_width)
-			add_clear_area (changed_objs, o, o->width, old_width - o->width);
+		if (o->width < old_width) {
+			if (o->parent && HTML_IS_CLUEFLOW (o->parent)) {
+				switch (HTML_CLUE (o->parent)->halign) {
+				case HTML_HALIGN_NONE:
+				case HTML_HALIGN_LEFT:
+					add_clear_area (changed_objs, o, o->width, old_width - o->width);
+					break;
+				case HTML_HALIGN_RIGHT:
+					add_clear_area (changed_objs, o, - (old_width - o->width), old_width - o->width);
+					break;
+				case HTML_HALIGN_CENTER:
+					/* FIXME +/-1 pixel */
+					add_clear_area (changed_objs, o, -(old_width - o->width)/2,
+							(old_width - o->width) / 2);
+					add_clear_area (changed_objs, o, o->width,
+							(old_width - o->width) / 2);
+					break;
+				}
+			}
+		}
 		return TRUE;
 	}
 
