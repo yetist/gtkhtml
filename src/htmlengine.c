@@ -981,20 +981,9 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 
 					e->flow = 0;
 
-					if ( str == 0 ) { 
-						/* CC: Close table description in case of a malformed
-						   table before returning! */
-						if ( !firstRow )
-							html_table_end_row (table);
-						html_table_end_table (table); 
-						html_object_destroy (HTML_OBJECT (table));
-						e->divAlign = olddivalign;
-						e->flow = HTML_OBJECT (oldflow);
-
-						return 0;
-					}
-
-					if (strncmp( str, "</caption", 9) == 0 ) {
+					if (!str)
+						break;
+					else if (strncmp( str, "</caption", 9) == 0 ) {
 						/* HTML Ok! */
 						break; /* Get next token from 'ht' */
 					}
@@ -1215,25 +1204,13 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						add_pending_paragraph_break (e, HTML_OBJECT (cell));
 					}
 
-					if (str == 0) {
-						/* Close table description in case of
-						   a malformed table before returning! */
-						if (!firstRow)
-							html_table_end_row (table);
-						html_table_end_table (table);
-						html_object_destroy (HTML_OBJECT (table));
-						e->divAlign = olddivalign;
-						e->flow = HTML_OBJECT (oldflow);
-
-						return 0;
-					}
-
-					if ((strncmp (str, "</td", 4) == 0) ||
-					    (strncmp (str, "</th", 4) == 0)) {
+					if (!str)
+						break;
+					else if ((strncmp (str, "</td", 4) == 0) ||
+						    (strncmp (str, "</th", 4) == 0)) {
 						/* HTML ok! */
 						break; /* Get next token from 'ht' */
-					}
-					else {
+					} else {
 						/* Bad HTML */
 						continue;
 					}
