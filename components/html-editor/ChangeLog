@@ -1,3 +1,8 @@
+2003-02-28  Larry Ewing  <lewing@ximian.com>
+
+	* body.c (body_apply_cb): set the left margine if the template
+	requirtes it.
+
 2003-02-25  Larry Ewing  <lewing@ximian.com>
 
 	* image.c (set_ui): remove debug printf that could try to print

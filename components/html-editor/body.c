@@ -349,6 +349,8 @@ body_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
                 redraw = TRUE; \
         }
 
+	cd->html->engine->leftBorder = data->left_margin;
+
 	APPLY_COLOR (HTMLTextColor);
 	APPLY_COLOR (HTMLLinkColor);
 	APPLY_COLOR (HTMLBgColor);
@@ -367,6 +369,7 @@ body_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 
 	if (redraw)
 		gtk_widget_queue_draw (GTK_WIDGET (cd->html));
+	
 	gtk_html_set_title (data->cd->html, gtk_entry_get_text (GTK_ENTRY (data->entry_title)));
 
 	return TRUE;
