@@ -329,11 +329,12 @@ static gint
 html_button_pressed (GtkWidget *html, GdkEventButton *event, GtkHTMLControlData *cd)
 {
 	HTMLEngine *engine = cd->html->engine;
+	guint offset;
 
 	cd->obj = html_engine_get_object_at (engine,
 					     event->x + engine->x_offset,
 					     event->y + engine->y_offset,
-					     NULL, FALSE);
+					     &offset, FALSE);
 	switch (event->button) {
 	case 1:
 		if (event->type == GDK_2BUTTON_PRESS && cd->obj && event->state & GDK_CONTROL_MASK)
@@ -346,16 +347,12 @@ html_button_pressed (GtkWidget *html, GdkEventButton *event, GtkHTMLControlData 
 		/* pass this for pasting */
 		return TRUE;
 	case 3:
-		if (!html_engine_is_selection_active (engine)) {
+		if (!html_engine_is_selection_active (engine) || !html_engine_point_in_selection (engine, cd->obj, offset)) {
+			html_engine_disable_selection (engine);
 			html_engine_jump_at (engine,
 					     event->x + engine->x_offset,
 					     event->y + engine->y_offset);
 			gtk_html_update_styles (cd->html);
-
-			cd->obj = html_engine_get_object_at (engine,
-							     event->x + engine->x_offset,
-							     event->y + engine->y_offset,
-							     NULL, FALSE);
 		}
 
 		if (popup_show (cd, event))

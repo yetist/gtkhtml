@@ -2,6 +2,7 @@
 
 	* editor-control-factory.c (html_button_pressed): take care of
 	selection on button #3 press
+	(html_button_pressed): check if clicked point is in selection
 
 	* template.c: added hspace=10 to Note bulb.png
 
