@@ -192,6 +192,10 @@ relayout (HTMLObject *self,
 		if (self->parent == NULL) {
 			/* FIXME resize the widget, e.g. scrollbars and such.  */
 			html_engine_queue_draw (engine, self);
+
+			/* FIXME extreme ugliness.  */
+			self->x = 0;
+			self->y = self->ascent;
 		} else {
 			/* Relayout our parent starting from us.  */
 			if (! html_object_relayout (self->parent, engine, self))

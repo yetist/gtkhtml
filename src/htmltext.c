@@ -113,8 +113,10 @@ insert_text (HTMLText *text,
 	g_free (text->text);
 	text->text = new_buffer;
 
-	if (! html_object_relayout (HTML_OBJECT (text)->parent, engine, HTML_OBJECT (text)))
-		html_text_queue_draw (text, engine, offset, 0);
+	if (! html_object_relayout (HTML_OBJECT (text)->parent, engine, HTML_OBJECT (text))) {
+		/*  html_text_queue_draw (text, engine, offset, 0); */
+		html_engine_queue_draw (engine, HTML_OBJECT (text)->parent);
+	}
 }
 
 

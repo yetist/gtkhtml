@@ -1,3 +1,12 @@
+1999-12-26  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmltext.c (insert_text): Relayout the parent instead of just
+	this text.
+
+	* htmlobject.c (relayout): Set the X/Y position manually if this
+	is the toplevel object.  Ugly, but there is no way around it for
+	now.
+
 1999-12-23  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine-edit.c (html_engine_move_cursor): Queue a redraw for

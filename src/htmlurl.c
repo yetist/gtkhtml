@@ -127,12 +127,12 @@ html_url_new (const gchar *s)
 
 	s_len = strlen (s);
 	if (s_len == 0) {
-		/* The Path can't be NULL */
-		if(new->path == NULL)
-			new->path = g_strdup("/");
-
+		/* The Path can't be NULL.  */
+		if (new->path == NULL)
+			new->path = g_strdup ("/");
 		return new;
-	}		
+	}
+
 	s_end = s + s_len;
 
 	/* Scan for the protocol part.  */
@@ -179,9 +179,11 @@ html_url_new (const gchar *s)
 	} else {
 		new->path = strdup_nonempty_or_null (path_start);
 	}
-	/* The Path can't be NULL */
-	if(new->path == NULL)
-		new->path = g_strdup("/");
+
+	/* The Path can't be NULL.  */
+	if (new->path == NULL)
+		new->path = g_strdup ("/");
+
 #if 0
 #define STRING_OR_NULL(s) ((s) == NULL ? "(null)" : (s))
 	printf ("*** PARSING `%s'\n", s);
