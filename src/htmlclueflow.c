@@ -175,13 +175,13 @@ get_post_padding (HTMLClueFlow *flow,
 		    && ! is_header (next))
 			return pad;
 
-		if (is_header (flow) &&  ! is_header (next))
+		if ((is_header (flow) &&  ! is_header (next)) || (is_item (flow) && is_item (next)))
 			return pad;
 
 		return 0;
 	}
 
-	if (! is_header (flow) && flow->level == 0)
+	if (! is_header (flow) && flow->level == 0 && !is_item (flow))
 		return 0;
 
 	return pad;
