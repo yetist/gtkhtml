@@ -75,7 +75,7 @@ static void html_engine_write (GtkHTMLStreamHandle handle, gchar *buffer, size_t
 static void html_engine_end (GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, HTMLEngine *e);
 
 static void parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str);
-static void parse_input (HTMLEngine *e, const gchar *s);
+static void parse_input (HTMLEngine *e, const gchar *s, HTMLObject *_clue);
 static void parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str);
 static gboolean html_engine_goto_anchor (HTMLEngine *e);
 static void html_engine_set_base_url (HTMLEngine *e, const char *url);
@@ -1085,10 +1085,11 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 }
 
 static void
-parse_input (HTMLEngine *e, const gchar *str) {
+parse_input (HTMLEngine *e, const gchar *str, HTMLObject *_clue) {
 	enum InputType { CheckBox, Hidden, Radio, Reset, Submit, Text, Image,
 			 Button, Password, Undefined };
 
+	HTMLObject *element = NULL;
 	const char *p;
 	enum InputType type = Text;
 	gchar *name = NULL;
@@ -1149,14 +1150,8 @@ parse_input (HTMLEngine *e, const gchar *str) {
 	}
 	switch ( type ) {
 	case CheckBox:
-		{
-		HTMLObject *checkbox = html_checkbox_new(GTK_WIDGET(e->widget), name, value, checked);
-		html_clue_append (HTML_CLUE (e->flow), checkbox);
-
-		html_form_add_element (e->form, HTML_ELEMENT (checkbox));
-
+		element = html_checkbox_new(GTK_WIDGET(e->widget), name, value, checked);
 		break;
-		}
 	case Hidden:
 		{
 		HTMLObject *hidden = html_hidden_new(name, value);
@@ -1166,66 +1161,31 @@ parse_input (HTMLEngine *e, const gchar *str) {
 		break;
 		}
 	case Radio:
-		{
-		HTMLObject *radio = html_radio_new(GTK_WIDGET(e->widget), name, value, checked);
-		html_clue_append (HTML_CLUE (e->flow), radio);
-
-		html_form_add_element (e->form, HTML_ELEMENT (radio));
-
+		element = html_radio_new(GTK_WIDGET(e->widget), name, value, checked);
 		break;
-		}
 	case Reset:
-		{
-		HTMLObject *reset = html_button_new(GTK_WIDGET(e->widget), name, value, BUTTON_RESET);
-		html_clue_append (HTML_CLUE (e->flow), reset);
-
-		html_form_add_element (e->form, HTML_ELEMENT (reset));
-
+		element = html_button_new(GTK_WIDGET(e->widget), name, value, BUTTON_RESET);
 		break;
-		}
 	case Submit:
-		{
-		HTMLObject *submit = html_button_new(GTK_WIDGET(e->widget), name, value, BUTTON_SUBMIT);
-
-		html_clue_append (HTML_CLUE (e->flow), submit);
-
-		html_form_add_element (e->form, HTML_ELEMENT (submit));
-
+		element = html_button_new(GTK_WIDGET(e->widget), name, value, BUTTON_SUBMIT);
 		break;
-		}
 	case Button:
-		{
-		HTMLObject *button = html_button_new(GTK_WIDGET(e->widget), name, value, BUTTON_NORMAL);
-		html_clue_append (HTML_CLUE (e->flow), button);
-
-		html_form_add_element (e->form, HTML_ELEMENT (button));
-
-		break;
-		}
+		element = html_button_new(GTK_WIDGET(e->widget), name, value, BUTTON_NORMAL);
 	case Text:
 	case Password:
-		{
-		HTMLObject *input = html_text_input_new(GTK_WIDGET(e->widget), name, value, size, maxLen, (type == Password));
-		html_clue_append (HTML_CLUE (e->flow), input);
-
-		html_form_add_element (e->form, HTML_ELEMENT (input));
-
+		element = html_text_input_new(GTK_WIDGET(e->widget), name, value, size, maxLen, (type == Password));
 		break;
-		}
 	case Image:
-		{
-		HTMLObject *image;
-
-		image = html_imageinput_new (e->image_factory, name, imgSrc);
-		html_clue_append (HTML_CLUE (e->flow), image);
-
-		html_form_add_element (e->form, HTML_ELEMENT (image));
-
+		element = html_imageinput_new (e->image_factory, name, imgSrc);
 		break;
-		}
 	case Undefined:
 		g_warning ("Unknown <input type>\n");
 		break;
+	}
+	if (element) {
+
+		append_element (e, _clue, element);
+		html_form_add_element (e->form, HTML_ELEMENT (element));
 	}
 
 	if (name)
@@ -2014,7 +1974,7 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 		if (p->form == NULL)
 			return;
 		
-		parse_input( p, str + 6 );
+		parse_input( p, str + 6, _clue );
 	}
 	else if ( strncmp (str, "i", 1 ) == 0 ) {
 		if ( str[1] == '>' || str[1] == ' ' ) {

@@ -1,3 +1,9 @@
+2000-01-18  Jonas Borgström <jonas_b@bitsmart.com>
+
+	* htmlengine.c (parse_input): Modified the forms code to work with the
+	new htmlengine. Changed html_clue_append to append_element. And did some
+	code cleanup.
+
 2000-01-18  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine.c (append_element): Silly me.  Don't add the object
