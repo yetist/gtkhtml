@@ -73,10 +73,11 @@ static void html_engine_write (GtkHTMLStreamHandle handle, gchar *buffer, size_t
 static void html_engine_end (GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, HTMLEngine *e);
 
 static void parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str);
-static HTMLURL *parse_href (HTMLEngine *e, const gchar *s);
+/* static HTMLURL *parse_href (HTMLEngine *e, const gchar *s);*/
 static void parse_input (HTMLEngine *e, const gchar *s);
 static void parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str);
 static gboolean html_engine_goto_anchor (HTMLEngine *e);
+static void html_engine_set_base_url (HTMLEngine *e, const char *url);
 
 
 static GtkLayoutClass *parent_class = NULL;
@@ -112,7 +113,7 @@ close_anchor (HTMLEngine *e)
 	if (e->url != NULL) {
 		html_engine_pop_color (e);
 		html_engine_pop_font (e);
-		html_url_destroy (e->url);
+		g_free (e->url);
 	}
 
 	/* FIXME */
@@ -531,19 +532,11 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 		else if (strncasecmp (token, "background=", 11) == 0
 			 && !e->defaultSettings->forceDefault) {
 			
-			HTMLURL *bgurl;
-			gchar *string_url;
-			
-			if((bgurl = parse_href (e, token + 11))) {
-				string_url = html_url_to_string (bgurl);
-			
-				tablePixmapPtr = html_image_factory_register(e->image_factory, NULL, string_url);
-				if(tablePixmapPtr) {
-					rowPixmapPtr = tablePixmapPtr;
-					have_tablePixmap = have_rowPixmap = TRUE;
-				}
-				g_free(string_url);
-				html_url_destroy(bgurl);			
+			tablePixmapPtr = html_image_factory_register(e->image_factory, NULL, token + 11);
+
+			if(tablePixmapPtr) {
+				rowPixmapPtr = tablePixmapPtr;
+				have_tablePixmap = have_rowPixmap = TRUE;
 			}
 		}
 	}
@@ -667,19 +660,9 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						else if (strncasecmp (token, "background=", 11) == 0
 							 && !e->defaultSettings->forceDefault) {
 							
-							HTMLURL *bgurl;
-							gchar *string_url;
-							
-							if((bgurl = parse_href (e, token + 11))) {
-								string_url = html_url_to_string (bgurl);
-								
-								rowPixmapPtr = html_image_factory_register(e->image_factory, NULL, string_url);								
-								if(rowPixmapPtr) {
-									have_rowPixmap = TRUE;
-								}
-								g_free(string_url);
-								html_url_destroy(bgurl);
-							}			
+							rowPixmapPtr = html_image_factory_register(e->image_factory, NULL, token + 11);								
+							if(rowPixmapPtr)
+								have_rowPixmap = TRUE;
 						}
 					}
 					break;
@@ -797,19 +780,10 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 							else if (strncasecmp (token, "background=", 11) == 0
 								 && !e->defaultSettings->forceDefault) {
 								
-								HTMLURL *bgurl;
-								gchar *string_url;
-								
-								if((bgurl = parse_href (e, token + 11))) {
-									string_url = html_url_to_string (bgurl);
-									
-									bgPixmapPtr = html_image_factory_register(e->image_factory, NULL, string_url);								
-									if(bgPixmapPtr)
-										have_bgPixmap = TRUE;
-									
-									g_free(string_url);
-									html_url_destroy(bgurl);
-								}
+								bgPixmapPtr = html_image_factory_register(e->image_factory, 
+													  NULL, token + 11);
+								if(bgPixmapPtr)
+									have_bgPixmap = TRUE;
 
 							}
 						}
@@ -932,7 +906,7 @@ parse_input (HTMLEngine *e, const gchar *str) {
 	enum InputType type = Text;
 	gchar *name = NULL;
 	gchar *value = NULL;
-	HTMLURL *imgSrc = NULL;
+	gchar *imgSrc = NULL;
 	gboolean checked = FALSE;
 	int size = 20;
 	int maxLen = -1;
@@ -980,7 +954,7 @@ parse_input (HTMLEngine *e, const gchar *str) {
 			checked = TRUE;
 		}
 		else if ( strncasecmp( token, "src=", 4 ) == 0 ) {
-			imgSrc = parse_href(e, token + 4);
+			imgSrc = g_strdup (token + 4);
 		}
 		else if ( strncasecmp( token, "onClick=", 8 ) == 0 ) {
 			/* TODO: Implement Javascript */
@@ -1053,19 +1027,13 @@ parse_input (HTMLEngine *e, const gchar *str) {
 		}
 	case Image:
 		{
-		gchar *url = NULL;
 		HTMLObject *image;
 
-		if(imgSrc)
-			url = html_url_to_string(imgSrc);
-
-		image = html_imageinput_new (e->image_factory, name, url);
+		image = html_imageinput_new (e->image_factory, name, imgSrc);
 		html_clue_append (HTML_CLUE (e->flow), image);
 
 		html_form_add_element (e->form, HTML_ELEMENT (image));
 
-		if(url)
-			g_free(url);
 		break;
 		}
 	case Undefined:
@@ -1073,62 +1041,12 @@ parse_input (HTMLEngine *e, const gchar *str) {
 		break;
 	}
 
-	if(name)
-		g_free(name);
-	if(value)
-		g_free(value);
-	if(imgSrc)
-		html_url_destroy(imgSrc);
-}
-
-
-static HTMLURL *
-parse_href (HTMLEngine *e,
-	    const gchar *s)
-{
-	HTMLURL *retval;
-	HTMLURL *tmp;
-
-	if(s == NULL || *s == 0)
-		return NULL;
-
-	if (s[0] == '#') {
-		tmp = html_url_dup (e->actualURL, HTML_URL_DUP_NOREFERENCE);
-		html_url_set_reference (tmp, s + 1);
-		return tmp;
-	}
-
-	tmp = html_url_new (s);
-	if (html_url_get_protocol (tmp) == NULL) {
-		if (s[0] == '/') {
-			if (s[1] == '/') {
-				gchar *t;
-
-				/* Double slash at the beginning.  */
-
-				/* FIXME?  This is a bit sucky.  */
-				t = g_strconcat (html_url_get_protocol (e->actualURL),
-						 ":", s, NULL);
-				retval = html_url_new (t);
-				g_free (t);
-				html_url_destroy (tmp);
-			} else {
-				/* Single slash at the beginning.  */
-
-				retval = html_url_dup (e->actualURL,
-						       HTML_URL_DUP_NOPATH);
-				html_url_set_path (retval, s);
-				html_url_destroy (tmp);
-			}
-		} else {
-			retval = html_url_append_path (e->actualURL, s);
-			html_url_destroy (tmp);
-		}
-	} else {
-		retval = tmp;
-	}
-
-	return retval;
+	if (name)
+		g_free (name);
+	if (value)
+		g_free (value);
+	if (imgSrc)
+		g_free (imgSrc);
 }
 
 
@@ -1261,7 +1179,7 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 			pop_block ( e, ID_ADDRESS, _clue);
 		}
 		else if ( strncmp( str, "a ", 2 ) == 0 ) {
-			HTMLURL *tmpurl = NULL;
+			gchar *tmpurl = NULL;
 			gboolean visited = FALSE;
 			gchar *target = NULL;
 			const gchar *p;
@@ -1272,11 +1190,8 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 
 			while ( ( p = string_tokenizer_next_token (e->st) ) != 0 ) {
 				if ( strncasecmp( p, "href=", 5 ) == 0 ) {
-					if (tmpurl != NULL)
-						html_url_destroy (tmpurl);
 
-					p += 5;
-					tmpurl = parse_href (e, p);
+					tmpurl = g_strdup (p + 5);
 
 					/* FIXME visited? */
 				} else if ( strncasecmp( p, "name=", 5 ) == 0 ) {
@@ -1317,16 +1232,11 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 				html_engine_select_font (e);
 
 				if (e->url != NULL)
-					html_url_destroy (e->url);
+					g_free (e->url);
+
 				e->url = tmpurl;
 
-				{
-					gchar *url_string;
-
-					url_string = html_url_to_string (e->url);
-					g_print ("HREF: %s\n", url_string);
-					g_free (url_string);
-				}
+				g_print ("HREF: %s\n", e->url);
 
 #if 0							/* FIXME TODO */
 				url = new char [ tmpurl.length() + 1 ];
@@ -1408,16 +1318,13 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			else if (strncasecmp (token, "background=", 11) == 0
 				 && !e->defaultSettings->forceDefault) {
 
-				HTMLURL *bgurl;
-				gchar *string_url;
+				gchar *bgurl;
 
-				bgurl = parse_href (e, token + 11);
-				string_url = html_url_to_string (bgurl);
+				bgurl = g_strdup (token + 11);
 				
-				e->bgPixmapPtr = html_image_factory_register(e->image_factory, NULL, string_url);
+				e->bgPixmapPtr = html_image_factory_register(e->image_factory, NULL, bgurl);
 
-				g_free(string_url);
-				html_url_destroy(bgurl);
+				g_free (bgurl);
 
 			} else if ( strncasecmp( token, "text=", 5 ) == 0
 				    && !e->defaultSettings->forceDefault ) {
@@ -1739,9 +1646,7 @@ parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 
                         if ( strncasecmp( token, "action=", 7 ) == 0 )
                         {
-                                HTMLURL *u = parse_href( p, token + 7 );
-                                action = html_url_to_string(u);
-				html_url_destroy(u);
+                                action = g_strdup (token + 7);
                         }
                         else if ( strncasecmp( token, "method=", 7 ) == 0 )
                         {
@@ -1753,11 +1658,6 @@ parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
                             target = g_strdup(token + 7);
                         }
                 }
-                if(action == NULL) {
-			HTMLURL *url = html_url_dup (p->actualURL, HTML_URL_DUP_NOCGIARGS);
-			action = html_url_to_string (url);
-			html_url_destroy (url);
-		}
 
                 p->form = html_form_new (p, action, method);
                 p->formList = g_list_append(p->formList, p->form);
@@ -1920,8 +1820,8 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 	if (strncmp (str, "img", 3) == 0) {
 		HTMLObject *image = 0;
 		gchar *token = 0; 
-		HTMLURL *tmpurl = NULL;
 		gint width = -1;
+		gchar *tmpurl = NULL;
 		gint height = -1;
 		gint percent = 0;
 		HTMLHAlignType align = HTML_HALIGN_NONE;
@@ -1935,7 +1835,7 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 			token = string_tokenizer_next_token (p->st);
 			if (strncasecmp (token, "src=", 4) == 0) {
 
-				tmpurl = parse_href (p, token + 4);
+				tmpurl = g_strdup (token + 4);
 			}
 			else if (strncasecmp (token, "width=", 6) == 0) {
 				if (strchr (token + 6, '%'))
@@ -1980,27 +1880,18 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 #endif
 		}
 		if (tmpurl != 0) {
-			gchar *string_url;
-			gchar *string_url2;
 
 			if (!p->flow)
 				html_engine_new_flow (p, _clue);
 
-			string_url = p->url ? html_url_to_string (p->url) : NULL;
-			string_url2 = html_url_to_string (tmpurl);
-
-			html_url_destroy(tmpurl);
-
-			image = html_image_new (p->image_factory, string_url2,
-						string_url,
+			image = html_image_new (p->image_factory, tmpurl,
+						p->url,
 						p->target,
 						_clue->max_width, 
 						width, height, percent, border);
-			g_free(string_url2);
 
-			if(string_url)
-				g_free(string_url);
-			
+			g_free(tmpurl);
+				
 			if (align == HTML_HALIGN_NONE) {
 				if (valign == HTML_VALIGN_NONE) {
 					html_clue_append (HTML_CLUE (p->flow), image);
@@ -2131,7 +2022,7 @@ parse_m (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 {
 	int refresh = 0;
 	int refresh_delay = 0;
-	HTMLURL *refresh_url = NULL;
+	gchar *refresh_url = NULL;
 
 	if ( strncmp( str, "meta", 4 ) == 0 ) {
 		string_tokenizer_tokenize( e->st, str + 5, " >" );
@@ -2143,7 +2034,6 @@ parse_m (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 					refresh = 1;
 			} else if ( strncasecmp( token, "content=", 8 ) == 0 ) {
 				if(refresh) {
-					gchar *url = NULL, *actualURL = NULL;
 					const gchar *content;
 					content = token + 8;
 
@@ -2154,33 +2044,16 @@ parse_m (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 					while ( string_tokenizer_has_more_tokens (e->st) ) {
 						const gchar* token = string_tokenizer_next_token(e->st);
 						if ( strncasecmp( token, "url=", 4 ) == 0 ) {
-							token += 4;
 
-							if(*token == '#') {
-								refresh_url = html_url_dup(e->actualURL, HTML_URL_DUP_NOREFERENCE);
-								html_url_set_reference(refresh_url, token + 1);
-
-							} else {
-								refresh_url = parse_href(e, token);
-							}
+							refresh_url = g_strdup (token + 4);
 						}
 						
 					}
-					if(refresh_url == NULL)
-						refresh_url = html_url_dup(e->actualURL, 0);
+					
+					gtk_signal_emit (GTK_OBJECT (e), signals[REDIRECT], refresh_url, refresh_delay);
 					
 					if(refresh_url)
-						url = html_url_to_string(refresh_url);
-					if(e->actualURL)
-						actualURL = html_url_to_string(e->actualURL);
-					
-					if(!(refresh_delay == 0 && !strcasecmp(url, actualURL)))
-						gtk_signal_emit (GTK_OBJECT (e), signals[REDIRECT], url, refresh_delay);
-					if(url)
-						g_free(url);
-					
-					if(actualURL)
-						g_free(actualURL);
+						g_free(refresh_url);
 
 				}
 			}
@@ -2659,8 +2532,6 @@ html_engine_destroy (GtkObject *object)
 
 	html_cursor_destroy (engine->cursor);
 
-	html_url_destroy (engine->actualURL);
-	
 	html_tokenizer_destroy   (engine->ht);
 	string_tokenizer_destroy (engine->st);
 	html_settings_destroy    (engine->settings);
@@ -2777,7 +2648,6 @@ html_engine_init (HTMLEngine *engine)
 {
 	/* STUFF might be missing here!   */
 
-	engine->actualURL = NULL;
 	engine->newPage = FALSE;
 
 	engine->editable = FALSE;
@@ -2883,50 +2753,18 @@ GtkHTMLStreamHandle
 html_engine_begin (HTMLEngine *p, const char *url)
 {
 	GtkHTMLStream *new_stream;
-	HTMLURL *tmpurl1, *tmpurl2;
-	gchar *tmpstr1, *tmpstr2, *tmpreference;
 
-	tmpurl1 = html_url_new (url);
-	/* Is there any reference in the url? */
-	if (p->actualURL && tmpurl1->reference) {
+	/* Is it a reference? */
+	if (*url == '#') {
+		p->reference = g_strdup (url + 1);
+		
+		if (!html_engine_goto_anchor (p)) /* If anchor not found, scroll to the top of the page */
+			gtk_adjustment_set_value (GTK_LAYOUT (p->widget)->vadjustment, 0);
 
-		tmpreference = tmpurl1->reference;
-		tmpurl1->reference = NULL;
+		gtk_signal_emit (GTK_OBJECT (p), signals[LOAD_DONE]);
 
-		tmpurl2 = html_url_dup (p->actualURL, HTML_URL_DUP_NOREFERENCE | HTML_URL_DUP_NOCGIARGS);
-
-		tmpstr1 = html_url_to_string (tmpurl1);
-		tmpstr2 = html_url_to_string (tmpurl2);
-		/* Is it the same url? */
-		if (strcmp (tmpstr1, tmpstr2) == 0) {
-			/* Just scroll to the anchor */
-			p->reference = tmpreference;
-
-			if (!html_engine_goto_anchor (p)) /* If anchor not found, scroll to the top of the page */
-				gtk_adjustment_set_value (GTK_LAYOUT (p->widget)->vadjustment, 0);
-
-			/* Free old reference, if any*/
-			if (html_url_get_reference (p->actualURL))
-				g_free (p->actualURL->reference);
-			/* Set new reference */
-			p->actualURL->reference = p->reference;
-
-			html_url_destroy (tmpurl1);
-			html_url_destroy (tmpurl2);
-			g_free (tmpstr1);
-			g_free (tmpstr2);
-			/* Tell them we are done */
-			gtk_signal_emit (GTK_OBJECT (p), signals[LOAD_DONE]);
-			return NULL;
-		} else /* Load the page as usually */
-			g_free (tmpreference);
-
-		html_url_destroy (tmpurl1);
-		html_url_destroy (tmpurl2);
-		g_free (tmpstr1);
-		g_free (tmpstr2);
-	} else
-		html_url_destroy (tmpurl1);
+		return NULL;
+	}
 
 	html_tokenizer_begin (p->ht);
 	
@@ -2947,10 +2785,8 @@ html_engine_begin (HTMLEngine *p, const char *url)
 		p->reference = NULL;
 	}
 
-	html_engine_set_base_url (p, url);
-		
-	if (html_url_get_reference (p->actualURL))
-		p->reference = g_strdup (html_url_get_reference(p->actualURL));
+	if (strchr (url, '#'))
+		p->reference = g_strdup (strchr (url, '#') + 1);
 
 	p->newPage = TRUE;
 
@@ -3429,18 +3265,11 @@ html_engine_insert_text (HTMLEngine *e, const gchar *str, HTMLFont *f)
 
 		if (insertBlock) {
 			if (*s) {
-				gchar *url_string;
-
-				/* FIXME this sucks */
-				if (e->url != NULL)
-					url_string = html_url_to_string (e->url);
-				else
-					url_string = NULL;
 
 				if (textType == variable && !e->noWrap) {
 					if (e->url || e->target)
 						obj = html_link_text_master_new
-							(g_strdup (s), f, url_string, e->target);
+							(g_strdup (s), f, e->url, e->target);
 					else
 						obj = html_text_master_new (g_strdup (s), f);
 					html_clue_append (HTML_CLUE (e->flow), obj);
@@ -3448,25 +3277,20 @@ html_engine_insert_text (HTMLEngine *e, const gchar *str, HTMLFont *f)
 				else {
 					if (e->url || e->target)
 						obj = html_link_text_new (g_strdup (s), f,
-									  url_string, e->target);
+									  e->url, e->target);
 					else
 						obj = html_text_new (g_strdup (s), f);
 					html_clue_append (HTML_CLUE (e->flow), obj);
 				}
-
-				g_free (url_string);
 			}
 
 			if (insertSpace) {
 				if ((e->url || e->target) && !e->noWrap) {
-					gchar *url_string;
 
-					url_string = html_url_to_string (e->url);
 					obj = html_link_text_new (g_strdup (" "), f,
-								  url_string, e->target);
+								  e->url, e->target);
 					obj->flags |= HTML_OBJECT_FLAG_SEPARATOR;
 					html_clue_append (HTML_CLUE (e->flow), obj);
-					g_free (url_string);
 				} else {
 					obj = html_hspace_new (f, FALSE);
 					html_clue_append (HTML_CLUE (e->flow), obj);
@@ -3474,15 +3298,12 @@ html_engine_insert_text (HTMLEngine *e, const gchar *str, HTMLFont *f)
 			}
 			else if (insertNBSP) {
 				if (e->url || e->target) {
-					gchar *url_string;
 
 					/* FIXME this sucks */
-					url_string = html_url_to_string (e->url);
-					obj = html_link_text_new (g_strdup (" "), f, url_string,
+					obj = html_link_text_new (g_strdup (" "), f, e->url,
 								  e->target);
 					obj->flags &= ~HTML_OBJECT_FLAG_SEPARATOR;
 					html_clue_append (HTML_CLUE (e->flow), obj);
-					g_free (url_string);
 				} else {
 					obj = html_hspace_new (f, FALSE);
 					obj->flags &= ~HTML_OBJECT_FLAG_SEPARATOR;
@@ -3570,13 +3391,9 @@ html_engine_set_editable (HTMLEngine *e, gboolean editable)
 	e->editable = editable;
 }
 
-void
+static void
 html_engine_set_base_url (HTMLEngine *e, const char *url)
 {
-	if (e->actualURL != NULL)
-		html_url_destroy (e->actualURL);
-	e->actualURL = html_url_new (url);
-
 	gtk_signal_emit (GTK_OBJECT (e), signals[SET_BASE], url);
 }
 

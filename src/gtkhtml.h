@@ -80,7 +80,6 @@ void                gtk_html_write           (GtkHTML *html, GtkHTMLStreamHandle
 void                gtk_html_end             (GtkHTML *html, GtkHTMLStreamHandle handle, 
                                                GtkHTMLStreamStatus status);
 void                gtk_html_calc_scrollbars (GtkHTML *html);
-void	            gtk_html_set_base_url    (GtkHTML *html, const char *url);
 GtkHTMLStreamHandle gtk_html_stream_ref      (GtkHTMLStreamHandle handle);
 void                gtk_html_stream_unref    (GtkHTMLStreamHandle handle);
 

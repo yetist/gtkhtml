@@ -47,7 +47,6 @@ libgtkhtml_HEADERS =				\
 	htmltextslave.h				\
 	htmltokenizer.h				\
 	htmltype.h				\
-	htmlurl.h				\
 	htmlvspace.h				\
 	stringtokenizer.h			\
 	htmlform.h				\
@@ -96,7 +95,6 @@ libgtkhtml_la_SOURCES =				\
 	htmltextslave.c				\
 	htmltokenizer.c				\
 	htmltype.c				\
-	htmlurl.c				\
 	htmlvspace.c				\
 	stringtokenizer.c			\
 	htmlform.c				\
@@ -111,7 +109,8 @@ libgtkhtml_la_SOURCES =				\
 	htmlimageinput.c
 
 testgtkhtml_SOURCES = 		\
-	testgtkhtml.c
+	testgtkhtml.c		\
+	htmlurl.c
 
 if LIBWWW
 GLIBWWW=$(top_builddir)/glibwww/libglibwww.a $(LIBWWW_LIBS)

@@ -700,9 +700,3 @@ gtk_html_calc_scrollbars (GtkHTML *html)
 
 	gtk_layout_set_size (GTK_LAYOUT (html), width, height);
 }
-
-void
-gtk_html_set_base_url (GtkHTML *html, const char *url)
-{
-	html_engine_set_base_url(html->engine, url);
-}

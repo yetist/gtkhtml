@@ -19,6 +19,7 @@
 #include "config.h"
 #include "debug.h"
 #include "gtkhtml.h"
+#include "htmlurl.h"
 #include "htmlengine.h"
 
 #undef PACKAGE
@@ -60,10 +61,10 @@ static void reload_cb (GtkWidget *widget, gpointer data);
 static void redraw_cb (GtkWidget *widget, gpointer data);
 static void resize_cb (GtkWidget *widget, gpointer data);
 static void title_changed_cb (GtkHTML *html, gpointer data);
-static gboolean load_timer_event (FileInProgress *fip);
 static void url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpointer data);
 static void entry_goto_url(GtkWidget *widget, gpointer data);
 static void goto_url(const char *url, int back_or_forward);
+static void on_set_base (GtkHTML *html, const gchar *url, gpointer data);
 
 static int netin_stream_put_character (HTStream * me, char c);
 static int netin_stream_put_string (HTStream * me, const char * s);;
@@ -73,6 +74,7 @@ static int netin_stream_free (HTStream * me);
 static int netin_stream_abort (HTStream * me, HTList * e);
 static HTStream *netin_stream_new (GtkHTMLStreamHandle handle, HTRequest *request);
 static int redirectFilter(HTRequest *request, HTResponse *response, void *param, int status);
+static gchar *parse_href (const gchar *s);
 
 GtkWidget *area, *box, *button;
 GtkHTML *html;
@@ -80,11 +82,11 @@ GtkHTMLStreamHandle html_stream_handle = NULL;
 GtkWidget *animator, *entry;
 GtkWidget *popup_menu, *popup_menu_back, *popup_menu_forward, *popup_menu_home;
 GtkWidget *toolbar_back, *toolbar_forward;
+HTMLURL *baseURL;
 
 GList *go_list;
 int go_position;
 
-static gint load_timer  = -1;
 static gboolean slow_loading = FALSE, exit_when_done = FALSE;
 
 static gint redirect_timerId = 0;
@@ -318,6 +320,7 @@ entry_goto_url(GtkWidget *widget, gpointer data)
 		gchar *url;
 
 		url = g_strdup_printf("http://%s", tmpurl);
+		on_set_base (NULL, url, NULL);
 		goto_url (url, 0);
 		g_free(url);
 	}
@@ -466,6 +469,10 @@ static void
 on_set_base (GtkHTML *html, const gchar *url, gpointer data)
 {
 	gtk_entry_set_text (GTK_ENTRY (entry), url);
+	if (baseURL)
+		html_url_destroy (baseURL);
+
+	baseURL = html_url_new (url);
 }
 
 static gboolean
@@ -527,31 +534,6 @@ static void
 on_link_clicked (GtkHTML *html, const gchar *url, gpointer data)
 {
 	goto_url (url, 0);
-}
-
-static void
-fip_destroy(gpointer data)
-{
-	FileInProgress *fip = data;
-	
-	gtk_html_end (html, fip->handle, GTK_HTML_STREAM_OK);
-	fclose (fip->fil);
-	g_free (fip);
-}
-
-static gboolean
-load_timer_event (FileInProgress *fip)
-{
-	gchar buffer[32768];
-
-        if (!feof (fip->fil)) {
-		fgets (buffer, 32768, fip->fil);
-		gtk_html_write (html, fip->handle, buffer, strlen(buffer));
-		return TRUE;
-	} else {
-		load_timer = -1;
-		return FALSE;
-	}
 }
 
 /* Lame hack */
@@ -629,66 +611,89 @@ netin_stream_new (GtkHTMLStreamHandle handle, HTRequest *request)
 static void
 url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpointer data)
 {
-	FILE *fil;
-	gchar buffer[32768];
+	gchar *full_url = NULL;
 	HTRequest *newreq;
 	BOOL status;
-	const gchar *ctmp;
 
 	newreq = HTRequest_new();
 	g_assert(newreq);
-	ctmp = g_extension_pointer(url);
 	
  	/* Need to catch redirections */
  	/* Remove old filter if any */
  	HTNet_deleteAfter(redirectFilter);
  	/* Add new filters */
- 	HTNet_addAfter(redirectFilter, url, NULL, HT_PERM_REDIRECT, HT_FILTER_FIRST);
- 	HTNet_addAfter(redirectFilter, url, NULL, HT_TEMP_REDIRECT, HT_FILTER_FIRST);
- 	HTNet_addAfter(redirectFilter, url, NULL, HT_SEE_OTHER, HT_FILTER_FIRST);
- 	HTNet_addAfter(redirectFilter, url, NULL, HT_FOUND, HT_FILTER_FIRST);
+	full_url = parse_href (url);
+
+ 	HTNet_addAfter(redirectFilter, full_url, NULL, HT_PERM_REDIRECT, HT_FILTER_FIRST);
+ 	HTNet_addAfter(redirectFilter, full_url, NULL, HT_TEMP_REDIRECT, HT_FILTER_FIRST);
+ 	HTNet_addAfter(redirectFilter, full_url, NULL, HT_SEE_OTHER, HT_FILTER_FIRST);
+ 	HTNet_addAfter(redirectFilter, full_url, NULL, HT_FOUND, HT_FILTER_FIRST);
  
 	HTRequest_setOutputFormat(newreq, WWW_SOURCE);
 	{
 		HTStream *newstream = netin_stream_new(handle, newreq);
-		status = HTLoadToStream(url, newstream, newreq);
-		g_message("Loading URL %s to stream %p (status %d)", url, handle, status);
+		status = HTLoadToStream(full_url, newstream, newreq);
+		g_message("Loading URL %s to stream %p (status %d)", full_url, handle, status);
 	}
-
+	if (full_url)
+		g_free (full_url);
 	return;
+}
 
-	fil = fopen (url, "r");
+static gchar *
+parse_href (const gchar *s)
+{
+	gchar *retval;
+	gchar *tmp;
+	HTMLURL *tmpurl;
 
-	if(!fil)
-	{
-		gtk_html_end (html, handle, GTK_HTML_STREAM_ERROR);
-		return;
+	if(s == NULL || *s == 0)
+		return NULL;
+
+	if (s[0] == '#') {
+		tmpurl = html_url_dup (baseURL, HTML_URL_DUP_NOREFERENCE);
+		html_url_set_reference (tmpurl, s + 1);
+
+		tmp = html_url_to_string (tmpurl);
+		html_url_destroy (tmpurl);
+
+		return tmp;
 	}
 
-	if (slow_loading)
-	{
-		FileInProgress *fip;
-	    
-		fip = g_new(FileInProgress, 1);
-		fip->fil = fil;
-		fip->handle = handle;
-		load_timer = gtk_timeout_add_full (10,
-						   (GtkFunction) load_timer_event,
-						   NULL, fip,
-						   fip_destroy);
-		return;
+	tmpurl = html_url_new (s);
+	if (html_url_get_protocol (tmpurl) == NULL) {
+		if (s[0] == '/') {
+			if (s[1] == '/') {
+				gchar *t;
+
+				/* Double slash at the beginning.  */
+
+				/* FIXME?  This is a bit sucky.  */
+				t = g_strconcat (html_url_get_protocol (baseURL),
+						 ":", s, NULL);
+				tmpurl = html_url_new (t);
+				retval = html_url_to_string (tmpurl);
+				html_url_destroy (tmpurl);
+				g_free (t);
+			} else {
+				/* Single slash at the beginning.  */
+
+				tmpurl = html_url_dup (baseURL,
+						       HTML_URL_DUP_NOPATH);
+				html_url_set_path (tmpurl, s);
+				retval = html_url_to_string (tmpurl);
+				html_url_destroy (tmpurl);
+			}
+		} else {
+			tmpurl = html_url_append_path (baseURL, s);
+			retval = html_url_to_string (tmpurl);
+			html_url_destroy (tmpurl);
+		}
+	} else {
+		retval = html_url_to_string (tmpurl);
 	}
 
-	while (!feof (fil))
-	{
-		int nread;
-
-		nread = fread(buffer, 1, sizeof(buffer), fil);
-		gtk_html_write (html, handle, buffer, nread);
-	}
-
-	gtk_html_end (html, handle, GTK_HTML_STREAM_OK);
-	fclose (fil);
+	return retval;
 }
 
 static void
@@ -743,6 +748,7 @@ goto_url(const char *url, int back_or_forward)
 	int tmp, i;
 	go_item *item;
 	GSList *group = NULL;
+	gchar *full_url;
 
 	/* Kill all requests */
 	HTNet_killAll();
@@ -755,9 +761,13 @@ goto_url(const char *url, int back_or_forward)
 	}
 
 	gnome_animator_start (GNOME_ANIMATOR (animator));
+
+
 	if((html_stream_handle = gtk_html_begin (html, url)))
 		gtk_html_parse (html);
-	gtk_entry_set_text (GTK_ENTRY (entry), url);
+
+	full_url = parse_href (url);
+	on_set_base (NULL, full_url, NULL);
 
 	if(!back_or_forward) {
 		if(go_position) {
@@ -798,7 +808,7 @@ goto_url(const char *url, int back_or_forward)
 		gtk_widget_set_sensitive(go_menu[1].widget, FALSE);
 		
 		item = g_malloc0(sizeof(go_item));
-		item->url = g_strdup(url);
+		item->url = g_strdup(full_url);
 
 		/* Remove old go list */
 		g_list_foreach(go_list, remove_go_list, NULL);
@@ -844,6 +854,7 @@ goto_url(const char *url, int back_or_forward)
 		g_free(redirect_url);
 		redirect_url = NULL;
 	}
+	g_free (full_url);
 }
 
 static void
@@ -892,7 +903,8 @@ static int redirectFilter(HTRequest *request, HTResponse *response,
 		g_print("******* Redirected to '%s' *****\n", new_location);
 
 		/* Update BASE url */
-		gtk_html_set_base_url(html, new_location);
+
+		on_set_base (NULL, new_location, NULL);
 
 		/* Update filters */
 		HTNet_deleteAfter(redirectFilter);
