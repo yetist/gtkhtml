@@ -1,3 +1,13 @@
+2001-12-09  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (gtk_html_insert_html_generic): freeze/thaw
+
+	* htmlimage.c (save): save links
+	(html_image_get_actual_width): exported, updated to allow painter
+	== NULL
+	(html_image_get_actual_height): likewise
+	(set_link): use color
+
 2001-12-03  Radek Doulik  <rodo@ximian.com>
 
 	* htmlimage.c (draw): use new colors

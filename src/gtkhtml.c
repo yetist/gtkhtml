@@ -3871,6 +3871,7 @@ gtk_html_insert_html_generic (GtkHTML *html, const gchar *html_src, gboolean obj
 	GtkWidget *window, *sw;
 	HTMLObject *o;
 
+	html_engine_freeze (html->engine);
 	tmp    = GTK_HTML (gtk_html_new_from_string (html_src, -1));
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	sw     = gtk_scrolled_window_new (NULL, NULL);
@@ -3901,6 +3902,7 @@ gtk_html_insert_html_generic (GtkHTML *html, const gchar *html_src, gboolean obj
 					   html_object_get_insert_level (o));
 	}
 	gtk_widget_destroy (window);
+	html_engine_thaw (html->engine);
 }
 
 void

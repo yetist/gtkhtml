@@ -76,15 +76,13 @@ static void                html_image_pointer_ref       (HTMLImagePointer *ip);
 static void                html_image_pointer_unref     (HTMLImagePointer *ip);
 static gboolean            html_image_pointer_timeout   (HTMLImagePointer *ip);
 static void                render_cur_frame             (HTMLImage *image, gint nx, gint ny, const GdkColor *highlight_color);
-static guint               get_actual_height            (HTMLImage *image, HTMLPainter *painter);
-
 
-static guint
-get_actual_width (HTMLImage *image,
-		  HTMLPainter *painter)
+guint
+html_image_get_actual_width (HTMLImage *image, HTMLPainter *painter)
 {
 	GdkPixbuf *pixbuf = image->image_ptr->pixbuf;
 	GdkPixbufAnimation *anim = image->image_ptr->animation;
+	gint pixel_size = painter ? html_painter_get_pixel_size (painter) : 1;
 	gint width;
 
 	if (image->percent_width) {
@@ -93,19 +91,19 @@ get_actual_width (HTMLImage *image,
 		width = ((gdouble) html_engine_get_view_width (image->image_ptr->factory->engine)
 			 * image->specified_width) / 100;
 	} else if (image->specified_width > 0) {
-		width = image->specified_width * html_painter_get_pixel_size (painter);
+		width = image->specified_width * pixel_size;
 	} else if (image->image_ptr == NULL || pixbuf == NULL) {
-		width = DEFAULT_SIZE * html_painter_get_pixel_size (painter);
+		width = DEFAULT_SIZE * pixel_size;
 	} else {
 		width = (((anim) ? gdk_pixbuf_animation_get_width (anim) : gdk_pixbuf_get_width (pixbuf))
-			  * html_painter_get_pixel_size (painter));
+			  * pixel_size);
 
 		if (image->specified_height > 0 || image->percent_height) {
 			double scale;
 
-			scale =  ((double) get_actual_height (image, painter)) 
+			scale =  ((double) html_image_get_actual_height (image, painter)) 
 				/ (((anim) ? gdk_pixbuf_animation_get_height (anim) : gdk_pixbuf_get_height (pixbuf))
-				   * html_painter_get_pixel_size (painter));
+				   * pixel_size);
 			
 			width *= scale;
 		}
@@ -115,13 +113,12 @@ get_actual_width (HTMLImage *image,
 	return width;
 }
 
-
-static guint
-get_actual_height (HTMLImage *image,
-		   HTMLPainter *painter)
+guint
+html_image_get_actual_height (HTMLImage *image, HTMLPainter *painter)
 {
 	GdkPixbuf *pixbuf = image->image_ptr->pixbuf;
 	GdkPixbufAnimation *anim = image->image_ptr->animation;
+	gint pixel_size = painter ? html_painter_get_pixel_size (painter) : 1;
 	gint height;
 		
 	if (image->percent_height) {
@@ -130,19 +127,19 @@ get_actual_height (HTMLImage *image,
 		height = ((gdouble) html_engine_get_view_height (image->image_ptr->factory->engine)
 			  * image->specified_height) / 100;
 	} else if (image->specified_height > 0) {
-		height = image->specified_height * html_painter_get_pixel_size (painter);
+		height = image->specified_height * pixel_size;
 	} else if (image->image_ptr == NULL || pixbuf == NULL) {
-		height = DEFAULT_SIZE * html_painter_get_pixel_size (painter);
+		height = DEFAULT_SIZE * pixel_size;
 	} else {
 		height = (((anim) ? gdk_pixbuf_animation_get_height (anim) : gdk_pixbuf_get_height (pixbuf))
-			  * html_painter_get_pixel_size (painter));
+			  * pixel_size);
 
 		if (image->specified_width > 0 || image->percent_width) {
 			double scale;
 			
-			scale = ((double) get_actual_width (image, painter))
+			scale = ((double) html_image_get_actual_width (image, painter))
 				/ (((anim) ? gdk_pixbuf_animation_get_width (anim) : gdk_pixbuf_get_width (pixbuf))
-				   * html_painter_get_pixel_size (painter));
+				   * pixel_size);
 			
 			height *= scale;
 		} 
@@ -291,7 +288,7 @@ calc_min_width (HTMLObject *o,
 	if (image->percent_width || image->percent_height)
 		min_width = pixel_size;
 	else
-		min_width = get_actual_width (HTML_IMAGE (o), painter);
+		min_width = html_image_get_actual_width (HTML_IMAGE (o), painter);
 
 	min_width += (image->border * 2 + 2 * image->hspace) * pixel_size;
 
@@ -305,7 +302,7 @@ calc_preferred_width (HTMLObject *o,
 	HTMLImage *image = HTML_IMAGE (o);
 	guint width;
 
-	width = get_actual_width (HTML_IMAGE (o), painter)
+	width = html_image_get_actual_width (HTML_IMAGE (o), painter)
 		+ (image->border * 2 + 2 * image->hspace) * html_painter_get_pixel_size (painter);
 
 	return width;
@@ -327,8 +324,8 @@ calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 
 	pixel_size = html_painter_get_pixel_size (painter);
 
-	width = get_actual_width (image, painter);
-	height = get_actual_height (image, painter);
+	width = html_image_get_actual_width (image, painter);
+	height = html_image_get_actual_height (image, painter);
 
 	o->width  = width + (image->border + image->hspace) * 2 * pixel_size;
 	o->ascent = height + (image->border + image->vspace) * 2 * pixel_size;
@@ -401,8 +398,8 @@ draw (HTMLObject *o,
 	base_x = o->x + tx + (image->border + image->hspace) * pixel_size;
 	base_y = o->y + ty + (image->border + image->vspace) * pixel_size - o->ascent;
 
-	scale_width = get_actual_width (image, painter);
-	scale_height = get_actual_height (image, painter);
+	scale_width = html_image_get_actual_width (image, painter);
+	scale_height = html_image_get_actual_height (image, painter);
 
 	if (image->border) {
 		if (image->have_color) {
@@ -469,12 +466,21 @@ save (HTMLObject *self,
 {
 	HTMLImage *image;
 	gchar *url;
-	gboolean result;
+	gboolean result, link = FALSE;
 
 	g_return_val_if_fail (self != NULL, FALSE);
 	g_return_val_if_fail (state != NULL, FALSE);
 
 	image  = HTML_IMAGE (self);
+
+	if (image->url && *image->url) {
+		url  = g_strconcat (image->url, image->target ? "#" : "", image->target, NULL);
+		link = TRUE;
+		result = html_engine_save_output_string (state, "<A HREF=\"%s\">", url);
+		g_free (url);
+		if (!result)
+			return FALSE;	
+	}
 
 	url    = html_image_resolve_image_url (state->engine->widget, image->image_ptr->url);
 	result = html_engine_save_output_string (state, "<IMG SRC=\"%s\"", url);
@@ -533,6 +539,8 @@ save (HTMLObject *self,
 
 	if (!html_engine_save_output_string (state, ">"))
 		return FALSE;
+	if (link && !html_engine_save_output_string (state, "</A>"))
+		return FALSE;
 	
 	return TRUE;
 }
@@ -587,6 +595,15 @@ set_link (HTMLObject *self, HTMLColor *color, const gchar *url, const gchar *tar
 
 	STRDUP_HELPER (image->url, url);
 	STRDUP_HELPER (image->target, target);
+	if (image->have_color)
+		html_color_unref (image->color);
+	image->color = color;
+	if (color) {
+		html_color_ref (color);
+		image->have_color = TRUE;
+	} else {
+		image->have_color = FALSE;
+	}
 
 	return NULL;
 }
@@ -893,9 +910,9 @@ update_or_redraw (HTMLImagePointer *ip)
 			gint pixel_size = html_painter_get_pixel_size (ip->factory->engine->painter);
 			gint w, h;
 
-			w = get_actual_width (image, ip->factory->engine->painter)
+			w = html_image_get_actual_width (image, ip->factory->engine->painter)
 				+ (image->border * 2 + 2 * image->hspace) * pixel_size;
-			h = get_actual_height (image, ip->factory->engine->painter)
+			h = html_image_get_actual_height (image, ip->factory->engine->painter)
 				+ (image->border * 2 + 2 * image->vspace) * pixel_size;
 
 			/* printf ("%dx%d  <-->  %dx%d\n", w, h, HTML_OBJECT (list->data)->width,

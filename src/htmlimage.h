@@ -160,7 +160,10 @@ gchar      *html_image_resolve_image_url  (GtkHTML          *html,
 
 void        html_image_edit_set_url        (HTMLImage       *image,
 					    const gchar     *url);
-
+guint       html_image_get_actual_width    (HTMLImage       *image,
+					    HTMLPainter     *painter);
+guint       html_image_get_actual_height   (HTMLImage       *image,
+					    HTMLPainter     *painter);
 /* FIXME move to htmlimagefactory.c */
 HTMLImageFactory *html_image_factory_new      (HTMLEngine       *e);
 void              html_image_factory_free     (HTMLImageFactory *factory);
