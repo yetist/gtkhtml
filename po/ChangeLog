@@ -1,3 +1,7 @@
+2001-06-26  Dan Winship  <danw@ximian.com>
+
+	* POTFILES.in: removed components/html-editor/main.c
+
 2001-06-21  Zbigniew Chyla  <cyba@gnome.pl>
 
 	* pl.po: Updated Polish translation.

@@ -10,7 +10,6 @@ components/html-editor/editor-control-factory.c
 components/html-editor/gtkhtml-editor-properties.glade
 components/html-editor/image.c
 components/html-editor/link.c
-components/html-editor/main.c
 components/html-editor/menubar.c
 components/html-editor/paragraph.c
 components/html-editor/properties.c
@@ -24,5 +23,4 @@ components/html-editor/text.c
 components/html-editor/toolbar.c
 components/html-editor/utils.c
 src/gtkhtml.c
-#src/html-component.c
 src/testgtkhtml.c
