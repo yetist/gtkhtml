@@ -1153,12 +1153,14 @@ set_fonts_idle (GtkHTML *html)
 	html_gdk_font_manager_set_size_fix (manager, prop->font_fix_size);
 
 	/* tables don't resize correctly :( who knows the solution? */
-	html_object_reset (html->engine->clue);
-	html_object_change_set_down (html->engine->clue, HTML_CHANGE_ALL);
-	html_object_calc_min_width (html->engine->clue, html->engine->painter);
-	html_object_calc_size (html->engine->clue, html->engine->painter);
-	html_engine_schedule_update (html->engine);
-
+	/* FIXME: rodo is this check correct? */
+	if (html->engine->clue) {
+		html_object_reset (html->engine->clue);
+		html_object_change_set_down (html->engine->clue, HTML_CHANGE_ALL);
+		html_object_calc_min_width (html->engine->clue, html->engine->painter);
+		html_object_calc_size (html->engine->clue, html->engine->painter);
+		html_engine_schedule_update (html->engine);
+	}
 #ifdef GTKHTML_HAVE_PSPELL
 	html->set_font_id = 0;
 #endif

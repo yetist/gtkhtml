@@ -1,3 +1,9 @@
+2000-08-18  Larry Ewing  <lewing@helixcode.com>
+
+	* gtkhtml.c (set_fonts_idle): check to make sure we have a clue
+	before we start operating on it.  I'll look more carefully at this
+	tomorrow, but I need to read mail now.
+
 2000-08-17  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml.c (init): add gconf notification
