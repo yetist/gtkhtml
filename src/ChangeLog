@@ -1,3 +1,8 @@
+2002-10-16  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (check_prev): don't start a new text if both faces
+	are NULL.
+
 2002-10-11  Larry Ewing  <lewing@ximian.com>
 
 	* htmldrawqueue.c (html_draw_queue_flush): check to make sure we

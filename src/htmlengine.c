@@ -579,7 +579,7 @@ check_prev (const HTMLObject *p, HTMLType type, GtkHTMLFontStyle font_style, HTM
 		return FALSE;
 
 	if ((face && !HTML_TEXT (p)->face) || (!face && HTML_TEXT (p)->face)
-	    || (!face && !HTML_TEXT (p)->face) || !strcmp (face, HTML_TEXT (p)->face))
+	    || (face && HTML_TEXT (p)->face && !strcmp (face, HTML_TEXT (p)->face)))
 		return FALSE;
 
 	return TRUE;
