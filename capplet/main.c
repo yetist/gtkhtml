@@ -29,7 +29,7 @@
 
 #define CUSTOM_KEYMAP_NAME "Custom"
 
-static GtkWidget *capplet, *check, *menu, *option, *bi;
+static GtkWidget *capplet, *check, *menu, *option, *bi, *variable, *fixed;
 static gboolean active = FALSE;
 #ifdef GTKHTML_HAVE_GCONF
 static GConfError  *error  = NULL;
@@ -48,6 +48,7 @@ static void
 set_ui ()
 {
 	guint idx;
+	gchar *font_name;
 
 	active = FALSE;
 
@@ -62,7 +63,53 @@ set_ui ()
 		idx = 2;
 	gtk_option_menu_set_history (GTK_OPTION_MENU (option), idx);
 
+	font_name = font_name = g_strdup_printf ("-*-%s-*-*-normal-*-%d-*-*-*-*-*-*-*",
+						 actual_prop->font_var_family, actual_prop->font_var_size);
+	gnome_font_picker_set_font_name (GNOME_FONT_PICKER (variable), font_name);
+	g_free (font_name);
+	font_name = font_name = g_strdup_printf ("-*-%s-*-*-normal-*-%d-*-*-*-*-*-*-*",
+						 actual_prop->font_fix_family, actual_prop->font_fix_size);
+	gnome_font_picker_set_font_name (GNOME_FONT_PICKER (fixed), font_name);
+	g_free (font_name);
+
 	active = TRUE;
+}
+
+static gchar *
+get_attr (gchar *font_name, gint n)
+{
+    gchar *s, *end;
+
+    /* Search paramether */
+    for (s=font_name; n; n--,s++)
+	    s = strchr (s,'-');
+
+    if (s && *s != 0) {
+	    end = strchr (s, '-');
+	    if (end)
+		    return g_strndup (s, end - s);
+	    else
+		    return g_strdup (s);
+    } else
+	    return g_strdup ("Unknown");
+}
+
+static void
+apply_fonts ()
+{
+	gchar *size_str;
+
+	g_free (actual_prop->font_var_family);
+	actual_prop->font_var_family = get_attr (gnome_font_picker_get_font_name (GNOME_FONT_PICKER (variable)), 2);
+	size_str = get_attr (gnome_font_picker_get_font_name (GNOME_FONT_PICKER (variable)), 7);
+	actual_prop->font_var_size = atoi (size_str);
+	g_free (size_str);
+
+	g_free (actual_prop->font_fix_family);
+	actual_prop->font_fix_family = get_attr (gnome_font_picker_get_font_name (GNOME_FONT_PICKER (fixed)), 2);
+	size_str = get_attr (gnome_font_picker_get_font_name (GNOME_FONT_PICKER (fixed)), 7);
+	actual_prop->font_fix_size = atoi (size_str);
+	g_free (size_str);
 }
 
 static void
@@ -79,6 +126,7 @@ apply (void)
 	g_free (actual_prop->keybindings_theme);
 	actual_prop->keybindings_theme = g_strdup (gtk_object_get_data (GTK_OBJECT (gtk_menu_get_active (GTK_MENU (menu))),
 									"theme"));
+	apply_fonts ();
 #ifdef GTKHTML_HAVE_GCONF
 	gtk_html_class_properties_update (actual_prop, client, saved_prop);
 #else
@@ -108,7 +156,7 @@ revert (void)
 }
 
 static void
-changed (GtkWidget *widget, gpointer data)
+changed (GtkWidget *widget)
 {
 	if (active)
 		capplet_widget_state_changed (CAPPLET_WIDGET (capplet), TRUE);
@@ -117,12 +165,41 @@ changed (GtkWidget *widget, gpointer data)
 static void
 setup(void)
 {
-	GtkWidget *vbox, *hbox, *frame, *mi;
+	GtkWidget *vbox, *hbox, *frame, *mi, *table, *label;
 	guchar *base, *rcfile;
 
         capplet = capplet_widget_new();
 
 	vbox  = gtk_vbox_new (FALSE, 3);
+
+	frame = gtk_frame_new (_("Appearance"));
+	hbox  = gtk_hbox_new (FALSE, 0);
+	table = gtk_table_new (2, 2, FALSE);
+	gtk_table_set_col_spacings (GTK_TABLE (table), 5);
+	gtk_container_set_border_width (GTK_CONTAINER (table), 3);
+
+	label = gtk_label_new (_("Variable width font"));
+	gtk_misc_set_alignment (GTK_MISC (label), 0, .5);
+	gtk_table_attach (GTK_TABLE (table), label, 0, 1, 0, 1, 0, 0, 0, 0);
+	variable = gnome_font_picker_new ();
+	gnome_font_picker_set_title (GNOME_FONT_PICKER (variable), _("Select HTML variable width font"));
+	gnome_font_picker_set_mode (GNOME_FONT_PICKER (variable), GNOME_FONT_PICKER_MODE_FONT_INFO);
+	gtk_signal_connect (GTK_OBJECT (variable), "font_set", changed, NULL);
+	gtk_table_attach_defaults (GTK_TABLE (table), variable, 1, 2, 0, 1);
+
+	label = gtk_label_new (_("Fixed width font"));
+	gtk_misc_set_alignment (GTK_MISC (label), 0, .5);
+	gtk_table_attach_defaults (GTK_TABLE (table), label, 0, 1, 1, 2);
+	fixed = gnome_font_picker_new ();
+	gnome_font_picker_set_title (GNOME_FONT_PICKER (fixed), _("Select HTML fixed width font"));
+	gnome_font_picker_set_mode (GNOME_FONT_PICKER (fixed), GNOME_FONT_PICKER_MODE_FONT_INFO);
+	gtk_signal_connect (GTK_OBJECT (fixed), "font_set", changed, NULL);
+	gtk_table_attach_defaults (GTK_TABLE (table), fixed, 1, 2, 1, 2);
+
+	gtk_box_pack_start (GTK_BOX (hbox), table, FALSE, FALSE, 0);
+	gtk_container_add (GTK_CONTAINER (frame), hbox);
+	gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, FALSE, 0);
+
 	hbox  = gtk_hbox_new (FALSE, 3);
 	frame = gtk_frame_new (_("Behaviour"));
 	check = gtk_check_button_new_with_label (_("magic links"));
@@ -149,6 +226,7 @@ setup(void)
 	gtk_option_menu_set_menu (GTK_OPTION_MENU (option), menu);
 	gtk_container_add (GTK_CONTAINER (frame), option);
 	gtk_box_pack_start_defaults (GTK_BOX (hbox), frame);
+
 
 	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
 

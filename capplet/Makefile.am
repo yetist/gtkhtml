@@ -16,7 +16,7 @@ gtkhtml_properties_capplet_LDADD = \
 	$(GNOME_LIBDIR) \
 	$(GNOME_CAPPLET_LIBS) \
 	$(GCONF_LIBS) \
-	$(top_builddir)/src/gtkhtml-properties.o
+	$(top_builddir)/src/libgtkhtml.la
 
 EXTRA_DIST = gtkhtml-properties.desktop
 
