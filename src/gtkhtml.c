@@ -1092,6 +1092,8 @@ skip_host (const char *url)
 
 			if ((host = strchr (host, '/')))
 				url = host;
+			else
+				url += strlen (url);
 		}
 	}		
 	
