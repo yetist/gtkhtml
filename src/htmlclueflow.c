@@ -566,7 +566,6 @@ get_default_font_style (const HTMLClueFlow *self)
 {
 	switch (self->style) {
 	case HTML_CLUEFLOW_STYLE_NORMAL:
-	case HTML_CLUEFLOW_STYLE_P:
 	case HTML_CLUEFLOW_STYLE_ITEMDOTTED:
 	case HTML_CLUEFLOW_STYLE_ITEMROMAN:
 	case HTML_CLUEFLOW_STYLE_ITEMDIGIT:

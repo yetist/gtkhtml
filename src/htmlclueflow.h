@@ -37,7 +37,6 @@ typedef enum _HTMLClueFlowStyle HTMLClueFlowStyle;
 /* Paragraph style.  Notice that the `H*' elements must be consecutive.  */
 enum _HTMLClueFlowStyle {
 	HTML_CLUEFLOW_STYLE_NORMAL,
-	HTML_CLUEFLOW_STYLE_P,
 	HTML_CLUEFLOW_STYLE_H1,
 	HTML_CLUEFLOW_STYLE_H2,
 	HTML_CLUEFLOW_STYLE_H3,

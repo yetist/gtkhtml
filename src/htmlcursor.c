@@ -132,7 +132,7 @@ next_not_slave (HTMLObject *object)
 {
 	HTMLObject *p;
 
-	p = object;
+	p = object->next;
 	while (p != NULL) {
 		if (HTML_OBJECT_TYPE (p) != HTML_TYPE_TEXTSLAVE)
 			return p;
@@ -195,8 +195,10 @@ forward (HTMLCursor *cursor,
 
 			text = HTML_TEXT (obj);
 
-			if (offset == text->text_len - 1
-			    && next_not_slave (obj) == NULL) {
+			if (text->text_len == 0)
+				break;
+
+			if (offset == text->text_len - 1 && next_not_slave (obj) == NULL) {
 				offset = text->text_len;
 				goto end;
 			}
@@ -349,10 +351,6 @@ backward (HTMLCursor *cursor,
 			case HTML_TYPE_TEXTMASTER:
 			case HTML_TYPE_LINKTEXTMASTER:
 				offset = strlen (HTML_TEXT (obj)->text);
-				if (offset > 0)
-					offset--;
-				else
-					g_warning ("Zero-length text element.");
 				goto end;
 
 			case HTML_TYPE_TEXTSLAVE:

@@ -180,7 +180,7 @@ current_clueflow_style (HTMLEngine *e)
 	HTMLClueFlowStyle style;
 
 	if (html_stack_is_empty (e->clueflow_style_stack))
-		return HTML_CLUEFLOW_STYLE_P;
+		return HTML_CLUEFLOW_STYLE_NORMAL;
 
 	style = (HTMLClueFlowStyle) GPOINTER_TO_INT (html_stack_top (e->clueflow_style_stack));
 	return style;
@@ -300,8 +300,8 @@ append_element (HTMLEngine *e,
 
 	if (e->flow == NULL)
 		new_flow (e, clue, obj);
-
-	html_clue_append (HTML_CLUE (e->flow), obj);
+	else
+		html_clue_append (HTML_CLUE (e->flow), obj);
 }
 
 
@@ -2729,7 +2729,7 @@ html_engine_init (HTMLEngine *engine)
 
 	engine->newPage = FALSE;
 
-	engine->editable = FALSE;
+	engine->editable = TRUE;
 	engine->cursor = html_cursor_new ();
 
 	engine->ht = html_tokenizer_new ();

@@ -1,5 +1,26 @@
 2000-01-18  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine.c (append_element): Silly me.  Don't add the object
+	to the flow twice when creating a new flow!
+
+	* htmlcursor.c (forward): Fixed navigation at the end of the
+	element so that it works with empty elements.
+	(backward): Likewise.
+	(next_not_slave): Fixed so that it starts from the object after
+	`object', not `object' itself.
+
+	* htmlengine.c (current_clueflow_style): If the stack is empty,
+	return `HTML_CLUEFLOW_STYLE_NORMAL', not `HTML_CLUEFLOW_STYLE_P'.
+
+	* htmlclueflow.c (get_default_font_style): Removed handling of
+	`HTML_CLUEFLOW_STYLE_P'.
+
+	* debug.c (clueflow_style_to_string): Removed handling of
+	`HTML_CLUEFLOW_STYLE_P'.
+
+	* htmlclueflow.h: Get rid of `HTML_CLUEFLOW_STYLE_P' as we don't
+	need it.
+
 	* htmlengine.c (html_engine_init): The default value for
 	`editable' should be FALSE!
 

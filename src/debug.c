@@ -35,8 +35,6 @@ clueflow_style_to_string (HTMLClueFlowStyle style)
 	switch (style) {
 	case HTML_CLUEFLOW_STYLE_NORMAL:
 		return "Normal";
-	case HTML_CLUEFLOW_STYLE_P:
-		return "P";
 	case HTML_CLUEFLOW_STYLE_H1:
 		return "H1";
 	case HTML_CLUEFLOW_STYLE_H2:
