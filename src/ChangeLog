@@ -1,3 +1,12 @@
+2004-02-19  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (html_text_get_pango_info): use text->text_bytes
+	instead of strlen
+
+	* htmltokenizer.c (add_unichar_validated): use g_unichar_validate
+
+	* htmltext.c (cut_links): fixed for links behind cutted interval
+
 2004-02-11  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c: when updating link's start_offset,

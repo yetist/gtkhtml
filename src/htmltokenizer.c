@@ -809,14 +809,10 @@ flush_entity (HTMLTokenizer *t)
 static gboolean
 add_unichar_validated (HTMLTokenizer *t, gunichar uc)
 {
-	char tmp[8];
-
-	tmp [g_unichar_to_utf8 (uc, tmp)] = '\0';
-
-	if (g_utf8_validate (tmp, -1, NULL)) {
+	if (g_unichar_validate (uc)) {
 		add_unichar (t, uc);
 		return TRUE;
-	} 
+	}
 		
 	g_warning ("invalid character value: x%xd", uc);
 	return FALSE;

@@ -268,10 +268,20 @@ cut_links (HTMLText *text, gint start_offset, gint end_offset, gint start_index,
 		if (start_offset <= link->start_offset && link->end_offset <= end_offset) {
 			html_link_free (link);
 			text->links = g_slist_delete_link (text->links, l);
-		} else if (start_offset <= link->start_offset && link->start_offset <= end_offset) {
-			link->start_offset = end_offset;
-			link->start_index = end_index;
-		} else if (start_offset <= link->end_offset && link->end_offset <= end_offset) {
+		} else if (end_offset <= link->start_offset) {
+			link->start_offset -= (end_offset - start_offset);
+			link->start_index -= (end_index - start_index);
+			link->end_offset -= (end_offset - start_offset);
+			link->end_index -= (end_index - start_index);
+		} else if (start_offset <= link->start_offset)  {
+			link->start_offset = start_offset;
+			link->end_offset -= (end_offset - start_offset);
+			link->start_index = start_index;
+			link->end_index -= (end_index - start_index);
+		} else if (end_offset <= link->end_offset) {
+			link->end_offset -= (end_offset - start_offset);
+			link->end_index -= (end_index - start_index);
+		} else if (start_offset <= link->end_offset) {
 			link->end_offset = start_offset;
 			link->end_index = start_index;
 		}
@@ -1087,16 +1097,14 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 		PangoAttrList *attrs;
 		PangoAttribute *attr;
 		gchar *translated, *heap = NULL;
-		guint bytes;
 		gint i;
 
-		bytes = strlen (text->text);
-		if (bytes > HTML_ALLOCA_MAX)
-			heap = translated = g_malloc (bytes);
+		if (text->text_bytes > HTML_ALLOCA_MAX)
+			heap = translated = g_malloc (text->text_bytes);
 		else 
-			translated = alloca (bytes);
+			translated = alloca (text->text_bytes);
 
-		html_replace_tabs (text->text, translated, bytes);
+		html_replace_tabs (text->text, translated, text->text_bytes);
 		if (HTML_IS_PLAIN_PAINTER (painter)) {
 			attrs = pango_attr_list_new ();
 			attr = pango_attr_family_new (painter->font_manager.fixed.face);
@@ -1136,7 +1144,7 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 			pango_attr_list_change (attrs, attr);
 		}
 
-		items = pango_itemize (pc, translated, 0, bytes, attrs, NULL);
+		items = pango_itemize (pc, translated, 0, text->text_bytes, attrs, NULL);
 		pango_attr_list_unref (attrs);
 
 		text->pi = html_text_pango_info_new (g_list_length (items));
