@@ -1,21 +1,130 @@
-# german po for gtkhtml.
+# German translation for gtkhtml.
 # Copyright (C) 2000 Free Software Foundation, Inc.
+# Christian Meyer <cm@ggtt.de>, 2000.
 # Kai Lahmann <kl@linuxfaqs.de>, 2000.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.5\n"
-"POT-Creation-Date: 2000-10-13 17:49+0200\n"
-"PO-Revision-Date: 2000-10-13 17:58+02:00\n"
-"Last-Translator: Matthias Warkus <mawarkus@gnome.org>\n"
-"Language-Team: de <de@li.org>\n"
+"POT-Creation-Date: 2000-10-15 18:48+0200\n"
+"PO-Revision-Date: 2000-10-15 18:43+0200\n"
+"Last-Translator: Christian Meyer <cm@ggtt.de>\n"
+"Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=ISO.8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: capplet/gnome-bindings-prop.c:154 capplet/gnome-bindings-prop.c:222
+#: capplet/gnome-bindings-prop.c:297 capplet/gnome-bindings-prop.c:435
+#: capplet/gnome-bindings-prop.c:436
+msgid "<None>"
+msgstr "<Nichts>"
+
+#: capplet/gnome-bindings-prop.c:525
+msgid "Key"
+msgstr "Taste"
+
+#: capplet/gnome-bindings-prop.c:525
+msgid "Command"
+msgstr "Kommando"
+
+#: capplet/gnome-bindings-prop.c:526
+msgid "Commands"
+msgstr "Kommandos"
+
+#: capplet/gnome-bindings-prop.c:527
+msgid "Keymaps"
+msgstr "Tastaturbelegung"
+
+#: capplet/gnome-bindings-prop.c:545
+msgid "Add"
+msgstr "Hinzufügen"
+
+#: capplet/gnome-bindings-prop.c:548
+#: components/html-editor/test-html-editor-control.c:323
+#: components/html-editor/toolbar.c:495
+msgid "Copy"
+msgstr "Kopieren"
+
+#: capplet/gnome-bindings-prop.c:551
+msgid "Delete"
+msgstr "Löschen"
+
+#: capplet/gnome-bindings-prop.c:582
+msgid "Grab key"
+msgstr "Taste belegen"
+
+#: capplet/main.c:220
+msgid "Spell checking"
+msgstr "Rechtschreibprüfung"
+
+#: capplet/main.c:223
+msgid "live spell checking"
+msgstr "Live Rechtschreibprüfung"
+
+#: capplet/main.c:232
+msgid "spell checking color"
+msgstr "Farbe für Rechtschreibprüfung"
+
+#: capplet/main.c:239
+msgid "language"
+msgstr "Sprache"
+
+#: capplet/main.c:245
+msgid "Miscellaneous"
+msgstr "Verschiedenes"
+
+#: capplet/main.c:247
+msgid "magic links"
+msgstr "Magische Links"
+
+#: capplet/main.c:266
+msgid "Bindings"
+msgstr "Bindungen"
+
+#: capplet/main.c:267 capplet/viewer.c:188
+msgid "Behaviour"
+msgstr "Verhalten"
+
+#: capplet/viewer.c:148
+msgid "Appearance"
+msgstr "Erscheinungsbild"
+
+#: capplet/viewer.c:154
+msgid "Variable width font"
+msgstr "Variable Schriftbreite"
+
+#: capplet/viewer.c:158
+msgid "Select HTML variable width font"
+msgstr "Variable Schriftbreite für HTML wählen"
+
+#: capplet/viewer.c:162 capplet/viewer.c:177
+msgid "for printing"
+msgstr "für Drucken"
+
+#: capplet/viewer.c:164
+msgid "Select HTML variable width font for printing"
+msgstr "Variable Schriftbreite für HTML zum Drucken wählen"
+
+#: capplet/viewer.c:169
+msgid "Fixed width font"
+msgstr "Feste Schriftbreite"
+
+#: capplet/viewer.c:173
+msgid "Select HTML fixed width font"
+msgstr "Feste Schriftbreite für HTML wählen"
+
+#: capplet/viewer.c:179
+msgid "Select HTML fixed width font for printing"
+msgstr "Feste Schriftbreite für HTML zum Drucken wählen"
+
+#: capplet/viewer.c:189
+msgid "Animations"
+msgstr "Animationen"
 
 #: components/html-editor/body.c:107
 msgid "use background image"
-msgstr "Hintergrundbind verwenden"
+msgstr "Hintergrundbild verwenden"
 
 #: components/html-editor/body.c:109
 msgid "Background image"
@@ -189,10 +298,6 @@ msgstr "Regex-Suche"
 msgid "Search"
 msgstr "Suchen"
 
-#: components/html-editor/table.c:80
-msgid "Table"
-msgstr "Tabelle"
-
 #: components/html-editor/test-html-editor-control.c:232
 msgid "Open file..."
 msgstr "Datei öffnen..."
@@ -207,7 +312,7 @@ msgstr "Öffnen (PersistFile)"
 
 #: components/html-editor/test-html-editor-control.c:300
 msgid "Open using the PersistFile interface"
-msgstr "öffnen mit PersistFile-Interface"
+msgstr "Öffnen mit PersistFile-Interface"
 
 #: components/html-editor/test-html-editor-control.c:302
 msgid "Save as... (PersistFile)"
@@ -219,11 +324,11 @@ msgstr "Speichern mit PersistFile-Interface"
 
 #: components/html-editor/test-html-editor-control.c:305
 msgid "Open (PersistStream)"
-msgstr "öffnen (PersistStream)"
+msgstr "Öffnen (PersistStream)"
 
 #: components/html-editor/test-html-editor-control.c:305
 msgid "Open using the PersistStream interface"
-msgstr "öffnen mit PersistStream-Interface"
+msgstr "Öffnen mit PersistStream-Interface"
 
 #: components/html-editor/test-html-editor-control.c:307
 msgid "Save as... (PersistStream)"
@@ -241,11 +346,6 @@ msgstr "Ausschneiden"
 #: components/html-editor/test-html-editor-control.c:321
 msgid "Cut selection to the clipboard"
 msgstr "Auswahl in die Zwischenablage ausschneiden"
-
-#: components/html-editor/test-html-editor-control.c:323
-#: components/html-editor/toolbar.c:495
-msgid "Copy"
-msgstr "Kopieren"
 
 #: components/html-editor/test-html-editor-control.c:323
 msgid "Copy selection to the clipboard"
@@ -336,7 +436,7 @@ msgstr "Listeneintrag (römisch)"
 
 #: components/html-editor/toolbar.c:236
 msgid "Default"
-msgstr "Standard"
+msgstr "Vorgabe"
 
 #: components/html-editor/toolbar.c:483
 msgid "Left align"
@@ -414,57 +514,9 @@ msgstr "Einrücken"
 msgid "Indent paragraphs more"
 msgstr "Rückt Absätzte mehr ein"
 
-#: src/html-component.c:219
-msgid "Html"
-msgstr "HTML"
-
-#: src/html-component.c:220
-msgid "Html test"
-msgstr "HTML-Test"
-
-#: src/html-component.c:226
-msgid "Test1"
-msgstr "Test1"
-
-#: src/html-component.c:233
-msgid "Test2"
-msgstr "Test2"
-
-#: src/html-component.c:239
-msgid "Test3"
-msgstr "Test3"
-
-#: src/html-component.c:245
-msgid "Test4"
-msgstr "Test4"
-
-#: src/html-component.c:251
-msgid "Test5"
-msgstr "Test5"
-
-#: src/html-component.c:257
-msgid "Test6"
-msgstr "Test6"
-
-#: src/html-component.c:263
-msgid "Test7"
-msgstr "Test7"
-
-#: src/html-component.c:617
-msgid "_Refresh"
-msgstr "Aktualisieren"
-
-#: src/html-component.c:618
-msgid "Reload the page"
-msgstr "Die Seite neu laden"
-
-#: src/html-component.c:669
-msgid "Could not initialize Bonobo!"
-msgstr "Bonobo konnte nicht initialisiert werden!"
-
 #: src/testgtkhtml.c:111
 msgid "Print pre_view"
-msgstr "Druckvorschau"
+msgstr "Druck_vorschau"
 
 #: src/testgtkhtml.c:111
 msgid "Print preview"
