@@ -54,6 +54,7 @@
 #include "htmlsettings.h"
 #include "htmltable.h"
 #include "htmltext.h"
+#include "htmltextslave.h"
 #include "htmlselection.h"
 #include "htmlundo.h"
 
@@ -2100,6 +2101,7 @@ focus (GtkContainer *w, GtkDirectionType direction)
 	if (html_engine_focus (e, direction)) {
 		if (e->focus_object) {
 			HTMLObject *obj = e->focus_object;
+			HTMLObject *slave;
 			gint x1, y1, x2, y2, xo, yo;
 
 			xo = e->x_offset;
@@ -2109,12 +2111,29 @@ focus (GtkContainer *w, GtkDirectionType direction)
 			x1 += e->leftBorder;
 			y1 += e->topBorder;
 			y2 = y1 + obj->descent;
-			y1 -= obj->ascent;
 			x2 = x1 + obj->width;
+			y1 -= obj->ascent;
+
+			/* correct coordinates for text slaves */
+			if (html_object_is_text (obj) && obj->next) {
+				obj = obj->next;
+				while (obj && HTML_IS_TEXT_SLAVE (obj)) {
+					gint xa, ya;
+					html_object_calc_abs_position (obj, &xa, &ya);
+					xa += e->leftBorder + obj->width;
+					if (xa > x2)
+						x2 = xa;
+					ya += e->topBorder + obj->descent;
+					if (ya > y2)
+						y2 = ya;
+					obj = obj->next;
+				}
+			}
+
 			/* printf ("child pos: %d,%d x %d,%d\n", x1, y1, x2, y2); */
 
 			if (x2 > e->x_offset + e->width)
-				e->x_offset = MIN (x1, x2 - e->width);
+				e->x_offset = x2 - e->width;
 			if (x1 < e->x_offset)
 				e->x_offset = x1;
 
