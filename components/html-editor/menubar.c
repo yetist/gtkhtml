@@ -645,7 +645,7 @@ menubar_set_languages (GtkHTMLControlData *cd, const gchar *lstr)
 	str = g_string_new (NULL);
 	cd->block_language_changes = TRUE;
 	for (i = 0; i < cd->languages->_length; i ++) {
-		enabled = strstr (lstr, cd->languages->_buffer [i].abrev) != NULL;
+		enabled = strstr (lstr, cd->languages->_buffer [i].abbreviation) != NULL;
 		g_string_printf (str, "/commands/SpellLanguage%d", i + 1);
 		bonobo_ui_component_set_prop (cd->uic, str->str, "state", enabled ? "1" : "0", NULL);
 	}

@@ -113,7 +113,7 @@ spell_add_to_personal (GtkHTML *html, const gchar *word, gpointer data)
 		return;
 
 	CORBA_exception_init (&ev);
-	GNOME_Spell_Dictionary_addWordToPersonal (cd->dict, word, &ev);
+	/* FIXME spell GNOME_Spell_Dictionary_addWordToPersonal (cd->dict, word, &ev); */
 	CORBA_exception_free (&ev);
 }
 
@@ -204,7 +204,7 @@ add_cb (BonoboListener *listener, const char *event_name, const CORBA_any *arg, 
 	word = html_engine_get_spell_word (cd->html->engine);
 	g_return_if_fail (word);
 
-	GNOME_Spell_Dictionary_addWordToPersonal (cd->dict, word, ev);
+	/* FIXME spell GNOME_Spell_Dictionary_addWordToPersonal (cd->dict, word, ev); */
 	g_free (word);
 	check_next_word ((GtkHTMLControlData *) user_data, TRUE);
 }
