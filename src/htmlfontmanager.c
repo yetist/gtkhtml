@@ -21,6 +21,7 @@
 
 #include <config.h>
 #include <string.h>
+#include <math.h>
 
 #include "gtkhtmlfontstyle.h"
 
@@ -194,8 +195,10 @@ get_font_set (HTMLFontManager *manager, gchar *face, GtkHTMLFontStyle style)
 static gdouble
 get_real_font_size (HTMLFontManager *manager, GtkHTMLFontStyle style)
 {
-	return ((style & GTK_HTML_FONT_STYLE_FIXED) ? manager->fix_size : manager->var_size) * manager->magnification *
-		(1.0 + .08333 * ((get_font_num (style) & GTK_HTML_FONT_STYLE_SIZE_MASK) - GTK_HTML_FONT_STYLE_SIZE_3));
+	gint size = (get_font_num (style) & GTK_HTML_FONT_STYLE_SIZE_MASK) -  GTK_HTML_FONT_STYLE_SIZE_3;
+	gint base_size = style & GTK_HTML_FONT_STYLE_FIXED ? manager->fix_size : manager->var_size;
+
+	return manager->magnification * (base_size + (size > 0 ? (1 << size) : size) * base_size/8.0);
 }
 
 static void

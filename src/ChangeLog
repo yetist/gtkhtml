@@ -1,3 +1,10 @@
+2001-06-25  Radek Doulik  <rodo@ximian.com>
+
+	* htmlfontmanager.c (get_real_font_size): redone, now it's more
+	similiar to mozilla font scaling
+
+	* gtkhtml.c (gtk_html_set_magnification): don't allow sizes < 4
+
 2001-06-23  Larry Ewing  <lewing@ximian.com>
 
 	* htmltokenizer.c (add_byte): new function to sanitize invalid
