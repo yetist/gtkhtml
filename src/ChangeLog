@@ -1,3 +1,11 @@
+2001-11-08  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit-text.c (find_first): use g_unichar_isalnum
+	(html_engine_capitalize_word): test if next char is alnum
+	before doing forward_word
+	(upper_lower): don't g_assert here as it's not needed, just test
+	if we have text object to modify
+
 2001-11-06  Radek Doulik  <rodo@ximian.com>
 
 	* htmlgdkpainter.c (alloc_e_font_try): try to use gdk_font_load
