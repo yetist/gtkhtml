@@ -1,5 +1,17 @@
 1999-11-17  Ettore Perazzoli  <ettore@gnu.org>
 
+	* htmltokenizer.c (html_tokenizer_write): Fixed handling of space
+	after a tag, according to the KHTMLW source.  I am not sure why it
+	was done differently.  Something is still wrong though, as `<li>
+	<p>' introduces a vspace while `<li><p>' does not.
+
+	* htmlengine.c (html_engine_parse_l): Set `vspace_inserted' to
+	TRUE when parsing `li'.  Otherwise, things like
+	`<li><p>text</p></li>' incorrectly insert a newline between the
+	bullet and the text.
+
+1999-11-17  Ettore Perazzoli  <ettore@gnu.org>
+
 	* Makefile.am (dist-hook): Removed wrong `cp' line.
 	(libgtkhtml_HEADERS): Added `gtkhtml-private'.
 

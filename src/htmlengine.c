@@ -1147,6 +1147,7 @@ html_engine_parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		p->flow = html_clueflow_new (0,0, vc->max_width, 100);
 		html_clue_append (vc, p->flow);
 
+		p->vspace_inserted = TRUE;
 	}
 }
 

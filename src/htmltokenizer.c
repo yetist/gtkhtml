@@ -549,9 +549,8 @@ html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 					t->pending = NonePending;
 				}
 			}
-			else if (((*src >= 'a') && (*src <= 'z')) ||
-				 ((*src >= 'A') && 				
-(*src <= 'Z'))) {
+			else if (((*src >= 'a') && (*src <= 'z'))
+							 || ((*src >= 'A') && (*src <= 'Z'))) {
 				/* Start of a start tag */
 			}
 			else if (*src == '!') {
@@ -603,7 +602,7 @@ html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 			t->discard = NoneDiscard;
 			
 		}
-		else if (*src == '>' && t-> tag && !t->tquote) {
+		else if (*src == '>' && t->tag && !t->tquote) {
 
 			t->searchCount = 0; /* Stop looking for <!-- sequence */
 			
@@ -703,20 +702,19 @@ html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 			else if (t->pre || t->textarea) {
 				if (t->discard == LFDiscard) {
 					/* Ignore this LF */
-					t->discard = NoneDiscard;
-				}
-				else {
+					t->discard = NoneDiscard; /*  We have discarded 1 LF */
+				} else {
 					/* Process this LF */
 					if (t->pending)
 						html_tokenizer_add_pending (t);
+					t->pending = LFPending;
 				}
 			}
 			else {
 				if (t->discard == LFDiscard) {
 					/* Ignore this LF */
-					t->discard = NoneDiscard;
-				}
-				else {
+					t->discard = NoneDiscard; /* We have discarded 1 LF */
+				} else {
 					/* Process this LF */
 					if (t->pending == NonePending)
 						t->pending = LFPending;
@@ -748,7 +746,6 @@ html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 			}
 			else {
 				t->pending = SpacePending;
-				
 			}
 			src++;
 		}
