@@ -1,3 +1,7 @@
+2003-04-03  Larry Ewing  <lewing@ximian.com>
+
+	* Makefile.am: fix spell idl depends.
+
 2003-04-03  Rodney Dawes  <dobey@ximian.com>
 
 	* Makefile.am: Fix shlib support and idl dependencies
