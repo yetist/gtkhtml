@@ -646,8 +646,10 @@ get_glyphs_part (HTMLTextSlave *slave, HTMLPainter *painter, guint offset, guint
 static GList *
 get_glyphs (HTMLTextSlave *slave, HTMLPainter *painter)
 {
-	if (!slave->glyphs)
+	if (!slave->glyphs || (HTML_OBJECT (slave)->change & HTML_CHANGE_RECALC_PI)) {
+		HTML_OBJECT (slave)->change &= ~HTML_CHANGE_RECALC_PI;
 		slave->glyphs = get_glyphs_part (slave, painter, 0, slave->posLen);
+	}
 
 	return slave->glyphs;
 }

@@ -1,5 +1,10 @@
 2003-08-07  Radek Doulik  <rodo@ximian.com>
 
+	* htmltextslave.c (get_glyphs): watch for RECALC_PI changes
+
+	* htmlengine.c (html_engine_set_painter): set ALL changes to
+	recreate pango info and glyphs
+
 	* htmltextslave.c (update_lb): extracted function
 	(hts_fit_line): similar changes as in htmltext.c(calc_min_width)
 
