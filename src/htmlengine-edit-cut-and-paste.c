@@ -1119,7 +1119,8 @@ static void
 check_magic_link (HTMLEngine *e, const gchar *text, guint len)
 {
 	if (HTML_IS_TEXT (e->cursor->object)
-	    && GTK_HTML_PROPERTY (e->widget, magic_links) && len == 1
+	    && gtk_html_get_magic_links (e->widget) 
+	    && len == 1
 	    && (*text == ' ' || text [0] == '\n' || text [0] == '>' || text [0] == ')'))
 		html_text_magic_link (HTML_TEXT (e->cursor->object), e, html_object_get_length (e->cursor->object));
 }
@@ -1223,7 +1224,7 @@ use_pictograms (HTMLEngine *e)
 	gint relative;
 	gunichar uc;
 
-	if (!html_object_is_text (e->cursor->object))
+	if (!html_object_is_text (e->cursor->object) || !gtk_html_get_magic_smileys (e->widget))
 		return;
 
 	pos = e->cursor->offset - 1;

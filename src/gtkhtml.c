@@ -700,16 +700,6 @@ destroy (GtkObject *object)
 			html->priv->scroll_timeout_id = 0;
 		}
 
-		if (html->priv->set_font_id) {
-			g_source_remove (html->priv->set_font_id);
-			html->priv->set_font_id = 0;
-		}
-
-		if (html->priv->notify_id) {
-			gconf_client_notify_remove (gconf_client, html->priv->notify_id);
-			html->priv->notify_id = 0;
-		}
-
 		if (html->priv->notify_spell_id) {
 			gconf_client_notify_remove (gconf_client, html->priv->notify_spell_id);
 			html->priv->notify_spell_id = 0;
@@ -1948,33 +1938,6 @@ set_adjustments (GtkLayout     *layout,
 
 /* Initialization.  */
 static void
-client_notify_widget (GConfClient* client,
-		      guint cnxn_id,
-		      GConfEntry* entry,
-		      gpointer user_data)
-{
-	GtkHTML *html = (GtkHTML *) user_data;
-	GtkHTMLClass *klass = GTK_HTML_CLASS (GTK_WIDGET_GET_CLASS (html));
-	GtkHTMLClassProperties *prop = klass->properties;	
-	gchar *tkey;
-
-	g_assert (client == gconf_client);
-	g_assert (entry->key);
-	tkey = strrchr (entry->key, '/');
-	g_assert (tkey);
-
-	if (!strcmp (tkey, "/live_spell_check")) {
-		prop->live_spell_check = gconf_client_get_bool (client, entry->key, NULL);
-		if (html_engine_get_editable (html->engine)) {
-			if (prop->live_spell_check)
-				html_engine_spell_check (html->engine);
-			else
-				html_engine_clear_spell_check (html->engine);
-		}
-	}
-}
-
-static void
 client_notify_spell_widget (GConfClient* client, guint cnxn_id, GConfEntry* entry, gpointer user_data)
 {
 	GtkHTML *html = (GtkHTML *) user_data;
@@ -1992,26 +1955,6 @@ client_notify_spell_widget (GConfClient* client, guint cnxn_id, GConfEntry* entr
 		prop->language = g_strdup (gconf_client_get_string (client, entry->key, NULL));
 		if (!html->engine->language)
 			gtk_html_api_set_language (html);
-	}
-}
-
-static void
-client_notify_class (GConfClient* client,
-		     guint cnxn_id,
-		     GConfEntry* entry,
-		     gpointer user_data)
-{
-	GtkHTMLClass *klass = (GtkHTMLClass *) user_data;
-	GtkHTMLClassProperties *prop = klass->properties;	
-	gchar *tkey;
-
-	g_assert (client == gconf_client);
-	g_assert (entry->key);
-	tkey = strrchr (entry->key, '/');
-	g_assert (tkey);
-
-	if (!strcmp (tkey, "/magic_links")) {
-		prop->magic_links = gconf_client_get_bool (client, entry->key, NULL);
 	}
 }
 
@@ -2045,7 +1988,6 @@ get_class_properties (GtkHTML *html)
 			g_error ("gconf error: %s\n", gconf_error->message);
 		gtk_html_class_properties_load (klass->properties, gconf_client);
 
-		gconf_client_notify_add (gconf_client, GTK_HTML_GCONF_DIR, client_notify_class, klass, NULL, &gconf_error);
 		if (gconf_error)
 			g_warning ("gconf error: %s\n", gconf_error->message);
 	}
@@ -2655,7 +2597,6 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	widget_class->realize = realize;
 	widget_class->unrealize = unrealize;
 	widget_class->style_set = style_set;
-	/* RM2 widget_class->draw = draw; */
 	widget_class->key_press_event = key_press_event;
 	widget_class->key_release_event = key_release_event;
 	widget_class->expose_event  = expose;
@@ -2700,13 +2641,6 @@ init_properties_widget (GtkHTML *html)
 	GtkHTMLClassProperties *prop;
 
 	prop = get_class_properties (html);
-
-	html->priv->notify_id = gconf_client_notify_add (gconf_client, GTK_HTML_GCONF_DIR,
-							 client_notify_widget, html, NULL, &gconf_error);
-	if (gconf_error) {
-		g_warning ("gconf error: %s\n", gconf_error->message);
-		html->priv->notify_id = 0;
-	}
 
 	html->priv->notify_spell_id = gconf_client_notify_add (gconf_client, GNOME_SPELL_GCONF_DIR,
 							       client_notify_spell_widget, html, NULL, &gconf_error);
@@ -2839,9 +2773,6 @@ gtk_html_init (GtkHTML* html)
 	html->priv->selection_as_cite = FALSE;
 	html->priv->content_type = g_strdup ("html/text; charset=utf-8");
 	html->priv->search_input_line = NULL;
-
-	html->priv->set_font_id = 0;
-	html->priv->notify_id = 0;
 
 	gtk_selection_add_targets (GTK_WIDGET (html),
 				   GDK_SELECTION_PRIMARY,
@@ -3383,6 +3314,68 @@ gtk_html_get_editable  (const GtkHTML *html)
 	g_return_val_if_fail (GTK_IS_HTML (html), FALSE);
 
 	return html_engine_get_editable (html->engine);
+}
+
+void
+gtk_html_set_inline_spelling (GtkHTML *html,
+			      gboolean inline_spell)
+{
+	g_return_if_fail (html != NULL);
+	g_return_if_fail (GTK_IS_HTML (html));
+
+	html->priv->inline_spelling = inline_spell;
+
+	if (gtk_html_get_editable (html) && html->priv->inline_spelling)
+		html_engine_spell_check (html->engine);
+	else
+		html_engine_clear_spell_check (html->engine);
+}	
+
+gboolean
+gtk_html_get_inline_spelling (const GtkHTML *html)
+{
+	g_return_val_if_fail (html != NULL, FALSE);
+	g_return_val_if_fail (GTK_IS_HTML (html), FALSE);
+
+	return html->priv->inline_spelling;
+}
+
+void
+gtk_html_set_magic_links (GtkHTML *html,
+			  gboolean links)
+{
+	g_return_if_fail (html != NULL);
+	g_return_if_fail (GTK_IS_HTML (html));
+
+	html->priv->magic_links = links;
+}
+
+gboolean
+gtk_html_get_magic_links (const GtkHTML *html)
+{
+	g_return_val_if_fail (html != NULL, FALSE);
+	g_return_val_if_fail (GTK_IS_HTML (html), FALSE);
+
+	return 	html->priv->magic_links;
+}
+
+void
+gtk_html_set_magic_smileys (GtkHTML *html,
+			    gboolean smile)
+{
+	g_return_if_fail (html != NULL);
+	g_return_if_fail (GTK_IS_HTML (html));
+
+	html->priv->magic_smileys = smile;
+}
+
+gboolean
+gtk_html_get_magic_smileys (const GtkHTML *html)
+{
+	g_return_val_if_fail (html != NULL, FALSE);
+	g_return_val_if_fail (GTK_IS_HTML (html), FALSE);
+
+	return 	html->priv->magic_smileys;
 }
 
 static void

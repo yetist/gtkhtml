@@ -186,6 +186,20 @@ gboolean                   gtk_html_export                        (GtkHTML      
 void                       gtk_html_set_editable                  (GtkHTML                   *html,
 								   gboolean                   editable);
 gboolean                   gtk_html_get_editable                  (const GtkHTML             *html);
+void                       gtk_html_set_inline_spelling           (GtkHTML                   *html,
+								   gboolean                   inline_spell);
+gboolean                   gtk_html_get_inline_spelling           (const GtkHTML             *html);
+void                       gtk_html_set_magic_links               (GtkHTML                   *html,
+								   gboolean                   magic_links);
+gboolean                   gtk_html_get_magic_links               (const GtkHTML             *html);
+void                       gtk_html_set_magic_smileys             (GtkHTML                   *html,
+								   gboolean                   magic_smileys);
+gboolean                   gtk_html_get_magic_smileys             (const GtkHTML             *html);
+
+/* Animated Images */
+void                       gtk_html_set_animate                   (GtkHTML                   *html,
+								   gboolean                   animate);
+gboolean                   gtk_html_get_animate                   (const GtkHTML             *html);
 
 /* Animated Images */
 void                       gtk_html_set_animate                   (GtkHTML                   *html,

@@ -444,7 +444,10 @@ editor_set_format (GtkHTMLControlData *cd, gboolean format_html)
 
 static enum {
 	PROP_EDIT_HTML,
-	PROP_HTML_TITLE
+	PROP_HTML_TITLE,
+	PROP_INLINE_SPELLING,
+	PROP_MAGIC_LINKS,
+	PROP_MAGIC_SMILEYS
 } EditorControlProps;
 
 static void
@@ -462,6 +465,15 @@ editor_get_prop (BonoboPropertyBag *bag,
 		break;
 	case PROP_HTML_TITLE:
 		BONOBO_ARG_SET_STRING (arg, gtk_html_get_title (cd->html));
+		break;
+	case PROP_INLINE_SPELLING:
+		BONOBO_ARG_SET_BOOLEAN (arg, gtk_html_get_inline_spelling (cd->html));
+		break;
+	case PROP_MAGIC_LINKS:
+		BONOBO_ARG_SET_BOOLEAN (arg, gtk_html_get_magic_links (cd->html));
+		break;
+	case PROP_MAGIC_SMILEYS:
+		BONOBO_ARG_SET_BOOLEAN (arg, gtk_html_get_magic_smileys (cd->html));
 		break;
        	default:
 		bonobo_exception_set (ev, ex_Bonobo_PropertyBag_NotFound);
@@ -485,6 +497,15 @@ editor_set_prop (BonoboPropertyBag *bag,
 		break;
 	case PROP_HTML_TITLE:
 		gtk_html_set_title (cd->html, BONOBO_ARG_GET_STRING (arg));
+		break;
+	case PROP_INLINE_SPELLING:
+		gtk_html_set_inline_spelling (cd->html, BONOBO_ARG_GET_BOOLEAN (arg));
+		break;
+	case PROP_MAGIC_LINKS:
+		gtk_html_set_magic_links (cd->html, BONOBO_ARG_GET_BOOLEAN (arg));
+		break;
+	case PROP_MAGIC_SMILEYS:
+		gtk_html_set_magic_smileys (cd->html, BONOBO_ARG_GET_BOOLEAN (arg));
 		break;
 	default:
 		bonobo_exception_set (ev, ex_Bonobo_PropertyBag_NotFound);
@@ -536,6 +557,36 @@ editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 	bonobo_property_bag_add (pb, "FormatHTML", PROP_EDIT_HTML,
 				 BONOBO_ARG_BOOLEAN, def,
 				 "Whether or not to edit in HTML mode", 
+				 0);
+
+	CORBA_free (def);
+
+	def = bonobo_arg_new (BONOBO_ARG_BOOLEAN);
+	BONOBO_ARG_SET_BOOLEAN (def, gtk_html_get_inline_spelling (GTK_HTML (html_widget)));
+
+	bonobo_property_bag_add (pb, "InlineSpelling", PROP_INLINE_SPELLING,
+				 BONOBO_ARG_BOOLEAN, def,
+				 "Include spelling errors inline", 
+				 0);
+
+	CORBA_free (def);
+
+	def = bonobo_arg_new (BONOBO_ARG_BOOLEAN);
+	BONOBO_ARG_SET_BOOLEAN (def, gtk_html_get_magic_links (GTK_HTML (html_widget)));
+
+	bonobo_property_bag_add (pb, "MagicLinks", PROP_MAGIC_LINKS,
+				 BONOBO_ARG_BOOLEAN, def,
+				 "Recognize links in text and replace them", 
+				 0);
+
+	CORBA_free (def);
+
+	def = bonobo_arg_new (BONOBO_ARG_BOOLEAN);
+	BONOBO_ARG_SET_BOOLEAN (def, gtk_html_get_magic_smileys (GTK_HTML (html_widget)));
+
+	bonobo_property_bag_add (pb, "MagicSmileys", PROP_MAGIC_SMILEYS,
+				 BONOBO_ARG_BOOLEAN, def,
+				 "Recognize smileys in text and replace them", 
 				 0);
 
 	CORBA_free (def);

@@ -49,8 +49,6 @@ struct _GtkHTMLPrivate {
 
 	GnomePrintJob *print_master;
 
-	guint set_font_id;
-	guint notify_id;
 	guint notify_spell_id;
 
 	GtkIMContext *im_context;
@@ -63,6 +61,10 @@ struct _GtkHTMLPrivate {
 
 	guint32     event_time;
 	gboolean    selection_as_cite;
+
+	gboolean    magic_links;
+	gboolean    magic_smileys;
+	gboolean    inline_spelling;
 };
 
 void  gtk_html_private_calc_scrollbars  (GtkHTML                 *html,

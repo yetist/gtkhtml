@@ -65,13 +65,7 @@ gtk_html_class_properties_new (GtkWidget *widget)
 		fixed_size = var_size;
 	}
 
-	/* default values */
-	/* display */
-	p->animations              = TRUE;
-
 	/* editing */
-	p->magic_links             = TRUE;
-	p->live_spell_check        = TRUE;
 	p->language                = g_strdup (e_iconv_locale_language ());
 
 	/* printf ("Variable Printing Font: \"%s\"\n", p->font_var_print); */
@@ -94,13 +88,6 @@ gtk_html_class_properties_destroy (GtkHTMLClassProperties *p)
 	g_free (p);
 }
 
-#define GET(t,x,prop,f,c) \
-        key = g_strconcat (GTK_HTML_GCONF_DIR, x, NULL); \
-        val = gconf_client_get_without_default (client, key, NULL); \
-        if (val) { f; p->prop = c (gconf_value_get_ ## t (val)); \
-        gconf_value_free (val); } \
-        g_free (key);
-
 #define GNOME_SPELL_GCONF_DIR "/GNOME/Spell"
 #define GETSP(t,x,prop,f,c) \
         key = g_strconcat (GNOME_SPELL_GCONF_DIR, x, NULL); \
@@ -116,9 +103,6 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p, GConfClient *client)
 	gchar *key;
 
 	g_assert (client);
-
-	GET (bool, "/magic_links", magic_links,,);
-	GET (bool, "/animations", animations,,);
 
 	GETSP (string, "/language", language,
 	       g_free (p->language), g_strdup);
@@ -136,14 +120,6 @@ gtk_html_class_properties_update (GtkHTMLClassProperties *p, GConfClient *client
 {
 	gchar *key;
 
-	if (p->animations != old->animations)
-		SET (bool, "/animations", animations);
-	if (p->magic_links != old->magic_links)
-		SET (bool, "/magic_links", magic_links);
-	if (p->live_spell_check != old->live_spell_check)
-		SET (bool, "/live_spell_check", live_spell_check);
-
-
 	if (strcmp (p->font_var_print, old->font_var_print))
 		SET (string, "/font_variable_print", font_var_print);
 	if (strcmp (p->font_fix_print, old->font_fix_print))
@@ -156,7 +132,6 @@ gtk_html_class_properties_update (GtkHTMLClassProperties *p, GConfClient *client
 		SET (int, "/font_variable_size_print", font_var_size_print);
 	if (p->font_fix_size_print != old->font_fix_size_print || p->font_fix_print_points != old->font_fix_print_points)
 		SET (int, "/font_fixed_size_print", font_fix_size_print);
-	
 	
 	gconf_client_suggest_sync (client, NULL);
 }

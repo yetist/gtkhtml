@@ -1,5 +1,14 @@
 2003-05-20  Larry Ewing  <lewing@ximian.com>
 
+	* gtkhtml.h: add prototypes.
+
+	* htmlengine-edit-cut-and-paste.c (use_pictograms): use get_magic_smileys.
+	(check_magic_link): use get_magic_links.
+
+	* htmlengine-edit.c: use get_inline_spelling.
+
+	* htmlclueflow.c: use get_inline_spelling.
+
 	* gtkhtml.c (gtk_html_set_iframe_parent): use parents
 	animate_setting.
 

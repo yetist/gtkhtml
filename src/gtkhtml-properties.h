@@ -39,7 +39,6 @@
 
 struct _GtkHTMLClassProperties {
 	/* viewer */
-	gboolean  animations;
 	gchar    *font_var_print;
 	guint     font_var_size_print;
 	gboolean  font_var_print_points;
@@ -48,8 +47,6 @@ struct _GtkHTMLClassProperties {
 	gboolean  font_fix_print_points;
 
 	/* editor */
-	gboolean  magic_links;
-	gboolean  live_spell_check;
 	gchar    *language;
 };
 

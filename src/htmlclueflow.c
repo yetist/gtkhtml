@@ -2788,9 +2788,7 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *inte
 	   printf ("html_clueflow_spell_check %p %p %d %d\n", i->from, i->to, i->from_offset, i->to_offset); */
 
 	clue = HTML_CLUE (flow);
-	if (!e->widget->editor_api
-	    || !GTK_HTML_CLASS (GTK_WIDGET_GET_CLASS (e->widget))->properties->live_spell_check
-	    || !clue || !clue->tail)
+	if (!e->widget->editor_api || !gtk_html_get_inline_spelling (e->widget) || !clue || !clue->tail)
 		return;
 
 	off  = 0;

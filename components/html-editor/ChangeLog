@@ -1,3 +1,8 @@
+2003-05-20  Larry Ewing  <lewing@ximian.com>
+
+	* editor-control-factory.c: add inline smiley and link bonobo
+	properties.
+
 2003-05-17  Larry Ewing  <lewing@ximian.com>
 
 	* menubar.c (file_dialog_ok): rewrite file insertion to try utf-8
