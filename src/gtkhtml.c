@@ -2347,8 +2347,10 @@ focus (GtkWidget *w, GtkDirectionType direction)
 			gtk_widget_grab_focus (w);
 		if (e->caret_mode) {
 			html_engine_jump_to_object (e, obj, offset);
-			g_signal_emit (GTK_HTML (w), signals [CURSOR_CHANGED], 0);
 		}
+
+		g_signal_emit (GTK_HTML (w), signals [CURSOR_CHANGED], 0);
+
 		return TRUE;
 	}
 
