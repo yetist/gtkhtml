@@ -123,7 +123,7 @@
                                      pixtype="filename" pixname="@ICONSDIR@/16_copy.png"/>
 				     <menuitem name="EditPaste" verb="" accel="*Ctrl*V"
                                      pixtype="filename" pixname="@ICONSDIR@/16_paste.png"/>
-				     <menuitem name="EditPasteQuotation" verb="*Ctrl**Shift*V"/>
+				     <menuitem name="EditPasteQuotation" verb="" accel="*Ctrl**Shift*V"/>
 				     <separator/>
 				     <menuitem name="EditSelectAll" verb="" accel="*Ctrl*A"/>
 			</placeholder>
