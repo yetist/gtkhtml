@@ -405,7 +405,7 @@
 	      <handler>changed</handler>
 	      <last_modification_time>Mon, 11 Dec 2000 14:26:29 GMT</last_modification_time>
 	    </signal>
-	    <label>Magic links (FIXME: better label)</label>
+	    <label>Automatic Link Detection</label>
 	    <active>False</active>
 	    <draw_indicator>True</draw_indicator>
 	    <child>

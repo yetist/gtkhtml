@@ -1,5 +1,7 @@
 2001-07-13  Larry Ewing  <lewing@ximian.com>
 
+	* gtkhtml-capplet.glade: rename the Magic Links checkbox.
+
 	* Makefile.am (glade_DATA): copy the .desktop to the new control
 	centers capplet directory as well (from Richard Hestilow
 	<hestgray@hotmail.com>)
