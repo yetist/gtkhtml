@@ -1,3 +1,11 @@
+2005-02-22  Mengjie Yu  <meng-jie.yu@sun.com>
+
+	* htmlengine-edit-cut-and-paste.c: (insert_empty_paragraph):
+	emit the object_inserted signal when inserting an empty 
+	paragraph.
+
+	Fixes #72845	
+
 2005-02-21  Radek Doulik  <rodo@novell.com>
 
 	* htmltextslave.c (html_text_slave_get_glyph_item_at_offset): add

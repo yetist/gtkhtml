@@ -1195,6 +1195,7 @@ insert_empty_paragraph (HTMLEngine *e, HTMLUndoDirection dir, gboolean add_undo)
 		html_undo_level_end (e->undo);
 
 	html_engine_thaw (e);
+	g_signal_emit_by_name (e->widget, "object_inserted", 0, 0);
 }
 
 void
