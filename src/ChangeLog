@@ -2,6 +2,7 @@
 
 	* htmltable.c (save_plain): add simple test/plain save method.
 	(html_table_class_init): use save_plain.
+	(save): use the result of the calls to html_object_save.
 
 	* htmlimage.c (save_plain): only try to output the alt text if it
 	is present.

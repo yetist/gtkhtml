@@ -1614,7 +1614,7 @@ save (HTMLObject *self,
 			    || table->cells [r][c]->row != r
 			    || table->cells [r][c]->col != c)
 				continue;
-			html_object_save (HTML_OBJECT (table->cells [r][c]), state);
+			result &= html_object_save (HTML_OBJECT (table->cells [r][c]), state);
 		}
 		result &= html_engine_save_output_string (state, "</TR>\n");
 	}
