@@ -22,7 +22,7 @@
 */
 
 #include <config.h>
-#include <glib/gi18n.h>
+#include <libgnome/gnome-i18n.h>
 #include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
@@ -54,7 +54,7 @@
 #include "image.h"
 #include "text.h"
 #include "paragraph.h"
-#include "spellchecker.h"
+#include "spell.h"
 #include "table.h"
 #include "template.h"
 
@@ -722,9 +722,6 @@ static EditorUIPixmap pixmaps_map [] =
 	{ "/Toolbar/EditPaste", "stock_paste", EDITOR_ICON_TOOLBAR },
 	{ "/Toolbar/EditFind", "stock_search", EDITOR_ICON_TOOLBAR },
 	{ "/Toolbar/InsertImage", "stock_insert_image", EDITOR_ICON_TOOLBAR },
-	{ "/Toolbar/InsertLink", "stock_insert-url", EDITOR_ICON_TOOLBAR },
-/* 	{ "/Toolbar/InsertRule", "stock_insert-rule", EDITOR_ICON_TOOLBAR }, */
-/* 	{ "/Toolbar/InsertTable", "stock_insert-table", EDITOR_ICON_TOOLBAR }, */
 
 	{ "/menu/Edit/EditUndoRedo/EditUndo", "stock_undo", EDITOR_ICON_MENU },
 	{ "/menu/Edit/EditUndoRedo/EditRedo", "stock_redo", EDITOR_ICON_MENU },
@@ -739,9 +736,6 @@ static EditorUIPixmap pixmaps_map [] =
 	{ "/menu/Edit/EditMisc/EditSpellCheck", "stock_spellcheck", EDITOR_ICON_MENU },
 
 	{ "/menu/Insert/Component/InsertImage", "stock_insert_image", EDITOR_ICON_MENU },
-	{ "/menu/Insert/Component/InsertLink", "stock_insert-url", EDITOR_ICON_MENU },
-/* 	{ "/menu/Insert/Component/InsertRule", "stock_insert-rule", EDITOR_ICON_MENU }, */
-/* 	{ "/menu/Insert/Component/InsertTable", "stock_insert-table", EDITOR_ICON_MENU }, */
 };
 
 void
@@ -774,15 +768,10 @@ menubar_setup (BonoboUIComponent  *uic,
 
 	for (i = 0; i < sizeof (pixmaps_map) / sizeof (pixmaps_map [0]); i ++)
 	{
-		char *filename;
-
-		filename = gnome_icon_theme_lookup_icon (cd->icon_theme, pixmaps_map [i].stock_name, pixmaps_map [i].size, NULL, NULL);
-
-		if (filename) {
-			bonobo_ui_component_set_prop (uic, pixmaps_map [i].path, "pixtype", "filename", NULL);
-			bonobo_ui_component_set_prop (uic, pixmaps_map [i].path, "pixname", filename, NULL);
-		} else
-			g_warning ("cannot find icon: '%s' in gnome icon theme", pixmaps_map [i].stock_name);
+		bonobo_ui_component_set_prop (uic, pixmaps_map [i].path, "pixtype", "filename", NULL);
+		bonobo_ui_component_set_prop (uic, pixmaps_map [i].path, "pixname",
+					      gnome_icon_theme_lookup_icon (cd->icon_theme, pixmaps_map [i].stock_name, pixmaps_map [i].size, NULL, NULL),
+					      NULL);
 	}
 
 	spell_create_language_menu (cd);

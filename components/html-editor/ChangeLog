@@ -1,84 +1,3 @@
-2005-01-31  Hans Petter Jansson  <hpj@novell.com>
-
-	* spell.[ch]: Renamed to spellchecker.[ch] since the old name would
-	conflict with the Bonobo generated files on case-insensitive
-	file systems.
-
-	* Makefile.am: spell.[ch] -> spellchecker.[ch].
-
-	* editor-control-factory: Include spellchecker.h.
-
-2005-01-27  Mengjie Yu  <meng-jie.yu@sun.com>
-
-	* body.c: (body_properties):add atk name to some widget.
-	* gi-color-combo.c: (color_combo_construct):add atk name to the
-	color preview button.
-	* gi-combo-box.c: (gal_combo_box_init):add atk name to the popup
-	botton.
-	* link.c: (link_widget):set atk names to the entries.
-	* replace.c: (gtk_html_replace_dialog_new):add mnemonic to the
-	entry.
-	* search.c: (gtk_html_search_dialog_new):add atk desciption to
-	the search dialog.
-
-2005-01-26  Radek Doulik  <rodo@ximian.com>
-
-	* GNOME_GtkHTML_Editor-emacs.xml.in: removed forgotten insert
-	template toolbar item
-
-2005-01-26  Mengjie Yu  <meng-jie.yu@sun.com>
-
-	* template.c: (template_widget):correct the a11y name for the 
-	treeview.
-
-2005-01-24  Radek Doulik  <rodo@ximian.com>
-
-	* GNOME_GtkHTML_Editor[-emacs].xml.in: use own icons for insert
-	rule/table
-
-	* menubar.c (pixmaps_map): commented out insert rule/table icons
-	entries, use our own so that we can use gnome 2.6 gnome icon theme
-
-2005-01-21  Radek Doulik  <rodo@ximian.com>
-
-	* menubar.c (menubar_setup): simplified and fixed
-
-	* GNOME_GtkHTML_Editor-emacs.xml.in: updated so that we use gnome
-	icon theme
-
-2005-01-20  Mengjie Yu  <meng-jie.yu@sun.com>
-
-	* gi-combo-box.c: (gi_combo_box_popup_display),
-	(gi_combo_box_init): fixed the bug that the arrow button can not
-	be focused with keyboard navigation.
-
-	Fixes #46356
-
-
-2004-11-30  Radek Doulik  <rodo@ximian.com>
-
-	* gi-*.[ch]: replace all occurences of gal by gi to be sure we
-	don't have equal symbols as gal has
-
-2004-11-29  Radek Doulik  <rodo@ximian.com>
-
-	* menubar.c (menubar_setup): in case git doesn't contain an icon
-	we want print a warning
-
-	* GNOME_GtkHTML_Editor.xml.in: set pixtype to pixbuf for icons we
-	set from gnome icon theme
-	removed stalled pixtype="filename" by undo/redo icons in toolbar
-
-2004-11-24  Radek Doulik  <rodo@ximian.com>
-
-	* GNOME_GtkHTML_Editor.xml.in: remove some icons which we now have
-	in GIT
-
-	* menubar.c (menubar_setup): use bonobo_ui_util_pixbuf_to_xml to
-	quiet bonobo code (instead of setting pixtype and pixname, which
-	triggers warnings from bonobo code)
-	add more GIT icons
-
 2004-10-15  Radek Doulik  <rodo@ximian.com>
 
 	* spell.c (spell_add_to_personal_no_language): new helper method
@@ -87,6 +6,8 @@
 	language is null
 	(add_cb): ditto
 
+2004-10-15  Radek Doulik  <rodo@ximian.com>
+
 	* replace.c: add finished flag to ask dialog
 	(ask_dialog_response): set finished flag by return value from
 	html_engine_replace_do
@@ -94,16 +15,9 @@
 
 	Fixes #50646
 
-	* test-html-editor-control.c (save_through_plain_persist_stream):
-	fixed save plain
-
 2004-09-20  Radek Doulik  <rodo@ximian.com>
 
 	* menubar.c (font_style_cb): toggle style instead of setting it on
-
-2004-09-17  Radek Doulik  <rodo@ximian.com>
-
-	* Makefile.am: api version 3.1 -> 3.6
 
 2004-09-02  Radek Doulik  <rodo@ximian.com>
 
@@ -955,10 +869,6 @@ Sat Jun  5 12:20:42 2004  Owen Taylor  <otaylor@redhat.com>
 
 	* GNOME_GtkHTML_Editor.oaf.in: add Editor interface to the oaf
 	list.
-
-	* test-html-editor-control.c (save_through_plain_persist_stream):
-	give a reasonable mode for the new file.
-	add missing includes.
 
 2002-05-08  Radek Doulik  <rodo@ximian.com>
 

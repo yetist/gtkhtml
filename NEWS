@@ -1,99 +1,30 @@
-gtkhtml-3.5.6 "Winter mood" 2004-02-07
+gtkhtml-3.2.5 "hispidulum" 2005-02-14
 ------------------------------------------------
 
 New in this release
 
-   * fixed broken cursor navigation around tables
-   * fixed RTL line up/down cursor navigation
-   * allow \' in email auto recognition
-   * fixed compilation with gcc 4.0.0 (amd)
-   * fixed nested cluev's editing
-   * fixed RTL item rendering
-   * fixed RTL citations
-   * more tests in regression test suite
-   * updated translations (Changwoo Ryu, Francisco Javier F. Serrador,
-     Frank Arnold, Pauli Virtanen, Adam Weinberger, Priit Laes,
-     Miloslav Trmac)
+   * Updated translations
+	fr (Christophe Merlet)
+	de (Hendrik Brandt)
+	pl (Artur Flinta)
+	nl (Vincent van Adrighem)
+	sv (Christian Rose)
+	ja (Takeshi AIHANA)
 
-gtkhtml-3.5.5 "Try RTL" 2004-01-31
+gtkhtml-3.2.4 "Adiantum" 2004-12-06
 ------------------------------------------------
 
 New in this release
 
-   * merged fixes to RTL editing from rtl branch
-   * fixed selection drawing
-   * added more tests to regression test suite
-   * a11y fixes (Mengjie Yu)
-   * added a11y names (Mengjie Yu)
-   * fixed tabs drawwing/editing
-   * fixed nowrap keyword in table cells (Changwoo Ryu)
-   * added missing mnenonics in editor (Mengjie Yu)
-   * fixed nested iframes rendering
-   * fixed crash when deleting table/row/column when selection is active
-   * updated translations (Hendrik Brandt, Alexander Shopov, Kjartan
-     Maraas, Francisco Javier F. Serrador, Duarte Loreto, Adam Weinberger,
-     Miloslav Trmac, Priit Laes, Žygimantas Beručka, Christian Rose,
-     Vincent van Adrighem, Funda Wang)
+   * fixed capitalizing, lowering, upping functions
+   * fixed crash with broken spell checking settings
+   * fixed crash when pasting multiline text
+   * fixed few memory leaks
+   * fixed crash related to aligned images
+   * fixed multiple replace dialogs appearing
+   * fixed dnd position inside scrolled window
 
-gtkhtml-3.5.4 "Snowman" 2004-01-24
-------------------------------------------------
-
-New in this release
-
-   * fixed symbols conflict with gal's color combo
-   * fixed performance problem in paragraph direction code
-   * fixed bug in quotation code
-   * html input logging switching with GTK_HTML_LOG_INPUT_STREAM
-     environment variable
-   * color combo fixed to be accessible from keyboard (Mengjie Yu)
-   * fixed problem with unavailable toolbar icons
-   * put 2 insert icons back to be compatible with gnome icon theme
-     from gnome 2.6
-   * fixed Home/End navigation in Caret Mode (Mengjie Yu)
-   * introduced regression test suite
-
-gtkhtml-3.5.3 "Resort" 2004-01-10
-------------------------------------------------
-
-New in this release
-
-   * Right-to-Left display support
-   * fix crash on a double-click on the background of the mail header
-   * i18n fixes (Mengjie Yu)
-   * a11y fixes (Mengjie Yu)
-
-gtkhtml-3.5.2 "Valley" 2004-12-20
-------------------------------------------------
-
-New in this release
-
-   * run ask replace dialog until finished
-   * fix symbol conflicts with gal
-   * a11y fixes (Mengjie Yu)
-
-gtkhtml-3.5.1 "Fern" 2004-11-01
-------------------------------------------------
-
-New in this release
-
-   * padding, border style for DIV tag
-   * background color style for clues
-   * merged changes from gtkhtml 3.3.x (Owen Taylor, gnome-2-8-devel branch)
-   * beginning of rtl support - HTML tags
-   * i18n fixes - use glib's i18n instead of deprecated libgnome i18n (Mariano Suarez-Alvarez)
-   * fixed crash in aligned images drawing
-   * use more GIT icons
-   * fixed two memory leaks
-
-gtkhtml-3.5.0 "Frond" 2004-11-01
-------------------------------------------------
-
-New in this release
-
-   * added id attribute to objects
-   * beginning of border style
-
-gtkhtml-3.2.3 "Frond" 2004-09-23
+gtkhtml-3.2.3 "Frond" 2004-10-11
 ------------------------------------------------
 
 New in this release

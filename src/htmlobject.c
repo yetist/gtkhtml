@@ -68,9 +68,6 @@ destroy (HTMLObject *self)
 
 	g_datalist_clear (&self->object_data);
 	g_datalist_clear (&self->object_data_nocp);
-
-	g_free (self->id);
-	self->id = NULL;
 	
 	if (self->redraw_pending) {
 		self->free_pending = TRUE;
@@ -102,7 +99,6 @@ copy (HTMLObject *self,
 	dest->free_pending = FALSE;
 	dest->change = self->change;
 	dest->draw_focused = FALSE;
-	dest->id = g_strdup (self->id);
 
 	g_datalist_init (&dest->object_data);
 	html_object_copy_data_from_object (dest, self);
@@ -591,137 +587,6 @@ get_clear (HTMLObject *self)
 	return HTML_CLEAR_NONE;
 }
 
-static HTMLDirection
-html_object_real_get_direction (HTMLObject *o)
-{
-	if (o->parent)
-		return html_object_get_direction (o->parent);
-
-	return HTML_DIRECTION_DERIVED;
-}
-
-static gboolean
-html_object_real_cursor_forward (HTMLObject *self, HTMLCursor *cursor)
-{
-	gint len;
-
-	g_assert (self);
-	g_assert (cursor->object == self);
-
-	if (html_object_is_container (self))
-		return FALSE;
-
-	len = html_object_get_length (self);
-	if (cursor->offset < len) {
-		cursor->offset ++;
-		cursor->position ++;
-		return TRUE;
-	} else
-		return FALSE;
-}
-
-static gboolean
-html_object_real_cursor_backward (HTMLObject *self, HTMLCursor *cursor)
-{
-	HTMLObject *prev;
-
-	g_assert (self);
-	g_assert (cursor->object == self);
-
-	if (html_object_is_container (self))
-		return FALSE;
-
-	if (cursor->offset > 1 || (cursor->offset > 0 && (! (prev = html_object_prev_not_slave (self))
-							  || HTML_IS_CLUEALIGNED (prev) || !html_object_accepts_cursor (prev)))) {
-		cursor->offset --;
-		cursor->position --;
-		return TRUE;
-	}
-
-	return FALSE;
-}
-
-static gboolean
-html_object_real_cursor_right (HTMLObject *self, HTMLCursor *cursor)
-{
-	HTMLDirection dir = html_object_get_direction (self);
-
-	g_assert (self);
-	g_assert (cursor->object == self);
-
-	if (html_object_is_container (self))
-		return FALSE;
-
-	if (dir == HTML_DIRECTION_LTR) {
-		gint len;
-
-		len = html_object_get_length (self);
-
-		if (cursor->offset < len) {
-			cursor->offset ++;
-			cursor->position ++;
-			return TRUE;
-		}
-	} else {
-		HTMLObject *prev;
-
-		if (cursor->offset > 1 || (cursor->offset > 0 && (! (prev = html_object_prev_not_slave (self))
-								  || HTML_IS_CLUEALIGNED (prev) || !html_object_accepts_cursor (prev)))) {
-			cursor->offset --;
-			cursor->position --;
-			return TRUE;
-		}
-	}
-
-	return FALSE;
-}
-
-static gboolean
-html_object_real_cursor_left (HTMLObject *self, HTMLCursor *cursor)
-{
-	HTMLDirection dir = html_object_get_direction (self);
-
-	g_assert (self);
-	g_assert (cursor->object == self);
-
-	if (html_object_is_container (self))
-		return FALSE;
-
-	if (dir == HTML_DIRECTION_LTR) {
-		HTMLObject *prev;
-		if (cursor->offset > 1 || (cursor->offset > 0 && (! (prev = html_object_prev_not_slave (self))
-								  || HTML_IS_CLUEALIGNED (prev) || !html_object_accepts_cursor (prev)))) {
-			cursor->offset --;
-			cursor->position --;
-			return TRUE;
-		}
-	} else {
-		gint len;
-
-		len = html_object_get_length (self);
-
-		if (cursor->offset < len) {
-			cursor->offset ++;
-			cursor->position ++;
-			return TRUE;
-		}
-	}
-
-	return FALSE;
-}
-
-static int
-html_object_real_get_right_edge_offset (HTMLObject *o, int offset)
-{
-	return html_object_get_length (o);
-}
-
-static int
-html_object_real_get_left_edge_offset (HTMLObject *o, int offset)
-{
-	return 0;
-}
-
 /* Class initialization.  */
 
 void
@@ -792,13 +657,6 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->tail = tail;
 	klass->get_engine = get_engine;
 	klass->get_clear = get_clear;
-	klass->get_direction = html_object_real_get_direction;
-	klass->cursor_forward = html_object_real_cursor_forward;
-	klass->cursor_backward = html_object_real_cursor_backward;
-	klass->cursor_left = html_object_real_cursor_left;
-	klass->cursor_right = html_object_real_cursor_right;
-	klass->get_right_edge_offset = html_object_real_get_right_edge_offset;
-	klass->get_left_edge_offset = html_object_real_get_left_edge_offset;
 }
 
 void
@@ -835,8 +693,6 @@ html_object_init (HTMLObject *o,
 
 	g_datalist_init (&o->object_data);
 	g_datalist_init (&o->object_data_nocp);
-
-	o->id = NULL;
 }
 
 HTMLObject *
@@ -945,26 +801,6 @@ html_object_calc_abs_position (HTMLObject *o,
 	frame_offset (o, x_return, y_return);
 
 	for (p = o->parent; p != NULL; p = p->parent) {
-		*x_return += p->x;
-		*y_return += p->y - p->ascent;
-		
-		frame_offset (p, x_return, y_return);
-	}
-}
-
-void
-html_object_calc_abs_position_in_frame (HTMLObject *o, int *x_return, int *y_return)
-{
-	HTMLObject *p;
-
-	g_return_if_fail (o != NULL);
-
-	*x_return = o->x;
-	*y_return = o->y;
-	
-	frame_offset (o, x_return, y_return);
-
-	for (p = o->parent; p != NULL && !html_object_is_frame (p); p = p->parent) {
 		*x_return += p->x;
 		*y_return += p->y - p->ascent;
 		
@@ -1532,25 +1368,42 @@ html_object_tail_not_slave (HTMLObject *self)
 gboolean
 html_object_cursor_forward (HTMLObject *self, HTMLCursor *cursor)
 {
-	return (* HO_CLASS (self)->cursor_forward) (self, cursor);
+	gint len;
+
+	g_assert (self);
+	g_assert (cursor->object == self);
+
+	if (html_object_is_container (self))
+		return FALSE;
+
+	len = html_object_get_length (self);
+	if (cursor->offset < len) {
+		cursor->offset ++;
+		cursor->position ++;
+		return TRUE;
+	} else
+		return FALSE;
 }
 
 gboolean
 html_object_cursor_backward (HTMLObject *self, HTMLCursor *cursor)
 {
-	return (* HO_CLASS (self)->cursor_backward) (self, cursor);
-}
+	HTMLObject *prev;
 
-gboolean
-html_object_cursor_right (HTMLObject *self, HTMLCursor *cursor)
-{
-	return (* HO_CLASS (self)->cursor_right) (self, cursor);
-}
+	g_assert (self);
+	g_assert (cursor->object == self);
 
-gboolean
-html_object_cursor_left (HTMLObject *self, HTMLCursor *cursor)
-{
-	return (* HO_CLASS (self)->cursor_left) (self, cursor);
+	if (html_object_is_container (self))
+		return FALSE;
+
+	if (cursor->offset > 1 || (cursor->offset > 0 && (! (prev = html_object_prev_not_slave (self))
+							  || HTML_IS_CLUEALIGNED (prev) || !html_object_accepts_cursor (prev)))) {
+		cursor->offset --;
+		cursor->position --;
+		return TRUE;
+	}
+
+	return FALSE;
 }
 
 /*********************
@@ -1904,7 +1757,7 @@ select_object (HTMLObject *o, HTMLEngine *e, gpointer data)
 	if (o == d->i->from.object)
 		d->in = TRUE;
 	if (d->in)
-		html_object_select_range (o, e,
+		html_object_select_range (o, NULL,
 					  html_interval_get_start (d->i, o),
 					  html_interval_get_length (d->i, o), FALSE);
 
@@ -2066,16 +1919,8 @@ html_object_get_insert_level (HTMLObject *o)
 {
 	switch (HTML_OBJECT_TYPE (o)) {
 	case HTML_TYPE_TABLECELL:
-	case HTML_TYPE_CLUEV: {
-		int level = 3;
-
-		while (o && HTML_IS_CLUEV (o) && HTML_CLUE (o)->head && HTML_IS_CLUEV (HTML_CLUE (o)->head)) {
-			level ++;
-			o = HTML_CLUE (o)->head;
-		}
-
-		return level;
-	}
+	case HTML_TYPE_CLUEV:
+		return 3;
 	case HTML_TYPE_CLUEFLOW:
 		return 2;
 	default:
@@ -2211,25 +2056,6 @@ html_object_prev_cursor_leaf (HTMLObject *o, HTMLEngine *e)
 	return o;
 }
 
-HTMLDirection
-html_object_get_direction (HTMLObject *o)
-{
-	return (* HO_CLASS (o)->get_direction) (o);
-}
-
-const char *
-html_object_get_id (HTMLObject *o)
-{
-	return o->id;
-}
-
-void
-html_object_set_id (HTMLObject *o, const char *id)
-{
-	g_free (o->id);
-	o->id = g_strdup (id);
-}
-
 HTMLClueFlow *
 html_object_get_flow (HTMLObject *o)
 {
@@ -2237,16 +2063,4 @@ html_object_get_flow (HTMLObject *o)
 		o = o->parent;
 
 	return HTML_CLUEFLOW (o);
-}
-
-int
-html_object_get_right_edge_offset (HTMLObject *o, int offset)
-{
-	return (* HO_CLASS (o)->get_right_edge_offset) (o, offset);
-}
-
-int
-html_object_get_left_edge_offset (HTMLObject *o, int offset)
-{
-	return (* HO_CLASS (o)->get_left_edge_offset) (o, offset);
 }

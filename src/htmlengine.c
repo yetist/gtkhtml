@@ -142,8 +142,6 @@ static void      html_engine_map_table_clear (HTMLEngine *e);
 static void      html_engine_id_table_clear (HTMLEngine *e);
 static void      html_engine_add_map (HTMLEngine *e, const char *);
 static void      clear_pending_expose (HTMLEngine *e);
-static void      push_clue (HTMLEngine *e, HTMLObject *clue);
-static void      pop_clue (HTMLEngine *e);
 
 static GtkLayoutClass *parent_class = NULL;
 
@@ -362,17 +360,6 @@ html_element_parse_coreattrs (HTMLElement *node)
 	*/
 	if (html_element_get_attr (node, "style", &value)) {
 		node->style = html_style_add_attribute (node->style, value);
-	}
-}
-
-static void
-html_element_set_coreattr_to_object (HTMLElement *element, HTMLObject *o, HTMLEngine *engine)
-{
-	char *value;
-
-	if (html_element_get_attr (element, "id", &value)) {
-		html_object_set_id (o, value);
-		html_engine_add_object_with_id (engine, value, o);
 	}
 }
 
@@ -915,7 +902,7 @@ insert_text (HTMLEngine *e,
 }
 
 
-static void block_end_display_block (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem);
+static void block_end_div (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem);
 static void block_end_row (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem);
 static void block_end_cell (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem);
 static void pop_element_by_type (HTMLEngine *e, HTMLDisplayType display);
@@ -924,34 +911,28 @@ static void pop_element_by_type (HTMLEngine *e, HTMLDisplayType display);
 static void
 html_element_push (HTMLElement *node, HTMLEngine *e, HTMLObject *clue)
 {
-	HTMLObject *block_clue;
 	switch (node->style->display) {
 	case DISPLAY_BLOCK:
 		/* close anon p elements */
 		pop_element (e, ID_P);
-		update_flow_align (e, clue);
+		html_stack_push (e->span_stack, node);
 #if TESTING
 		if (node->style->bg_color) {
 			HTMLTableCell *cell;
 			cell = html_table_cell_new (1, 1, 0);
 			html_table_cell_set_fixed_width (cell, 50, 0);
-			html_cluev_set_style (HTML_CLUEV (cell), node->style);
 
 			html_object_set_bg_color (HTML_OBJECT (cell), node->style->bg_color);
 			append_element (e, clue, HTML_OBJECT (cell));
 			push_clue (e, HTML_OBJECT (cell));
 			node->exitFunc = block_end_cell;
 		} else {
-			node->exitFunc = block_end_display_block;
+			node->exitFunc = block_end_div;	
 		}
 #else
-		node->exitFunc = block_end_display_block;
+		node->exitFunc = block_end_div;	
 #endif
-		block_clue = html_cluev_new (0, 0, 100);
-		html_cluev_set_style (HTML_CLUEV (block_clue), node->style);
-		html_clue_append (HTML_CLUE (e->parser_clue), block_clue);
-		push_clue (e, block_clue);
-		html_stack_push (e->span_stack, node);
+		update_flow_align (e, clue);
 		break;
 	case DISPLAY_TABLE_ROW:
 		{
@@ -1000,6 +981,7 @@ push_block_element (HTMLEngine *e,
 	
 	html_stack_push (e->span_stack, element);
 }
+
 
 static void
 push_block (HTMLEngine *e,
@@ -1145,10 +1127,9 @@ pop_element (HTMLEngine *e, char *name)
 
 /* The following are callbacks that are called at the end of a block.  */
 static void
-block_end_display_block (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
+block_end_div (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
 	close_flow (e, clue);
-	pop_clue (e);
 }
 
 static void
@@ -1203,10 +1184,14 @@ block_end_textarea (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 static void
 push_clue_style (HTMLEngine *e)
 {
+	//html_stack_push (e->body_stack, e->span_stack);
 	html_stack_push (e->body_stack, e->clueflow_style_stack);
+	html_stack_push (e->body_stack, e->listStack);
 	/* CLUECHECK */
 
+	//e->span_stack = html_stack_new (free_elementggs);
 	e->clueflow_style_stack = html_stack_new (NULL);
+	e->listStack = html_stack_new ((HTMLStackFreeFunc)html_list_destroy);
 
 	html_stack_push (e->body_stack, GINT_TO_POINTER (e->avoid_para));
 	e->avoid_para = TRUE;
@@ -1236,9 +1221,12 @@ pop_clue_style (HTMLEngine *e)
 	e->avoid_para = GPOINTER_TO_INT (html_stack_pop (e->body_stack));
 	
 	html_stack_destroy (e->clueflow_style_stack);
+	//html_stack_destroy (e->span_stack);
 
 	/* CLUECHECK */
+	e->listStack = html_stack_pop (e->body_stack);
 	e->clueflow_style_stack = html_stack_pop (e->body_stack);
+	//e->span_stack = html_stack_pop (e->body_stack);
 }
 
 static void
@@ -1867,22 +1855,6 @@ element_parse_center (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 }
 
 static void
-element_parse_html (HTMLEngine *e, HTMLObject *clue, const char *str)
-{
-	HTMLElement *element;
-	char *value;
-
-	element = html_element_new (e, str);
-	
-	if (e->parser_clue && html_element_get_attr (element, "dir", &value)) {
-		if (!strcasecmp (value, "ltr"))
-			HTML_CLUEV (e->parser_clue)->dir = HTML_DIRECTION_LTR;
-		else if (!strcasecmp (value, "rtl"))
-			HTML_CLUEV (e->parser_clue)->dir = HTML_DIRECTION_RTL;
-	}
-}
-
-static void
 element_parse_div (HTMLEngine *e, HTMLObject *clue, const char *str)
 {
 	HTMLElement *element;
@@ -2037,11 +2009,6 @@ element_parse_body (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			e->leftBorder = e->rightBorder = atoi (token + 12);
 		} else if ( strncasecmp( token, "marginheight=", 13 ) == 0) {
 			e->topBorder = e->bottomBorder = atoi (token + 13);
-		} else if (e->parser_clue && strncasecmp (token, "dir=", 4) == 0) {
-			if (!strncasecmp (token + 4, "ltr", 3))
-				HTML_CLUEV (e->parser_clue)->dir = HTML_DIRECTION_LTR;
-			else if (!strncasecmp (token + 4, "rtl", 3))
-				HTML_CLUEV (e->parser_clue)->dir = HTML_DIRECTION_RTL;
 		}
 	}
 	
@@ -2482,6 +2449,7 @@ element_parse_img (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	gchar *value   = NULL; 
 	gchar *tmpurl  = NULL;
 	gchar *mapname = NULL;
+	gchar *id      = NULL;
 	gchar *alt     = NULL;
 	gint width     = -1;
 	gint height    = -1;
@@ -2528,6 +2496,8 @@ element_parse_img (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		else if (strcasecmp ("bottom", value) == 0) 
 			valign = HTML_VALIGN_BOTTOM;
 	}
+	if (html_element_get_attr (element, "id", &value))
+		id = value;
 
 	if (html_element_get_attr (element, "alt", &value))
 		alt = value;
@@ -2564,7 +2534,10 @@ element_parse_img (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				e->url, e->target,
 				width, height,
 				percent_width, percent_height, border, color, valign, FALSE);
-	html_element_set_coreattr_to_object (element, HTML_OBJECT (image), e);
+	
+	if (id) 
+		html_engine_add_object_with_id (e, id, (HTMLObject *) image);
+	
 	
 	if (hspace < 0)
 		hspace = 0;
@@ -2911,14 +2884,7 @@ element_parse_select (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	html_stack_push (e->span_stack, element);
 }
 
-static void
-pop_clue_style_for_table (HTMLEngine *e)
-{
-	html_stack_destroy (e->listStack);
-	e->listStack = html_stack_pop (e->body_stack);
-	pop_clue_style (e);
-}
-
+
 /* table parsing logic */
 static void
 block_end_table (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem) 
@@ -2927,7 +2893,7 @@ block_end_table (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 	HTMLHAlignType table_align = elem->miscData1;
 	HTMLHAlignType clue_align = elem->miscData2;
 
-	pop_clue_style_for_table (e);
+	pop_clue_style (e);
 	table = html_stack_top (e->table_stack);
 	html_stack_pop (e->table_stack);
 
@@ -2969,7 +2935,7 @@ block_end_table (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 static void
 block_end_inline_table (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem) 
 {
-	pop_clue_style_for_table (e);
+	pop_clue_style (e);
 	html_stack_pop (e->table_stack);	
 }
 
@@ -2994,14 +2960,6 @@ close_current_table (HTMLEngine *e)
 
 	DT(printf ("pop_table\n");)
 	pop_element_by_type (e, DISPLAY_TABLE);
-}
-
-static void
-push_clue_style_for_table (HTMLEngine *e)
-{
-	push_clue_style (e);
-	html_stack_push (e->body_stack, e->listStack);
-	e->listStack = html_stack_new ((HTMLStackFreeFunc)html_list_destroy);
 }
 
 static void
@@ -3066,8 +3024,6 @@ element_parse_table (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		table = HTML_TABLE (html_table_new (len && len->type != HTML_LENGTH_TYPE_PERCENT ? len->val : 0,
 						    len && len->type == HTML_LENGTH_TYPE_PERCENT ? len->val : 0,
 						    padding, spacing, border));
-		html_element_set_coreattr_to_object (element, HTML_OBJECT (table), e);
-		html_element_set_coreattr_to_object (element, HTML_OBJECT (table), e);
 		
 		if (element->style->bg_color)
 			table->bgColor = gdk_color_copy ((GdkColor *)element->style->bg_color);
@@ -3076,7 +3032,7 @@ element_parse_table (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			table->bgPixmap = html_image_factory_register (e->image_factory, NULL, element->style->bg_image, FALSE);
 		
 		html_stack_push (e->table_stack, table);
-		push_clue_style_for_table (e);
+		push_clue_style (e);
 
 		element->miscData1 = element->style->text_align;
 		element->miscData2 = current_alignment (e);
@@ -3100,7 +3056,7 @@ element_parse_table (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			table->bgPixmap = html_image_factory_register (e->image_factory, NULL, element->style->bg_image, FALSE);
 		
 		html_stack_push (e->table_stack, table);
-		push_clue_style_for_table (e);
+		push_clue_style (e);
 
 		element->exitFunc = block_end_inline_table;
 		html_stack_push (e->span_stack, element);
@@ -3251,7 +3207,6 @@ element_parse_cell (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	HTMLElement *element;
 	char *value;
 	HTMLLength *len;
-	HTMLDirection dir = HTML_DIRECTION_DERIVED;
 	
 	element = html_element_new (e, str);
 
@@ -3314,29 +3269,17 @@ element_parse_cell (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	if (html_element_has_attr (element, "nowrap"))
 			no_wrap = TRUE;
 	
-	if (html_element_get_attr (element, "dir", &value)) {
-		if (!strcasecmp (value, "rtl"))
-			dir = HTML_DIRECTION_RTL;
-		else if (!strcasecmp (value, "ltr"))
-			dir = HTML_DIRECTION_LTR;
-	}
-
 	html_element_parse_coreattrs (element);
 
 	if (!table)
 		return;
 	
-	cell = HTML_TABLE_CELL (html_table_cell_new (rowSpan, colSpan, table->padding));
-
- 	html_element_set_coreattr_to_object (element, HTML_OBJECT (cell), e);
-	html_cluev_set_style (HTML_CLUEV (cell), element->style);
-
-	cell->no_wrap = no_wrap;
-	cell->heading = heading;
-	cell->dir = dir;
-
 	pop_element_by_type (e, DISPLAY_TABLE_CELL);
 	pop_element_by_type (e, DISPLAY_TABLE_CAPTION);
+
+	cell = HTML_TABLE_CELL (html_table_cell_new (rowSpan, colSpan, table->padding));
+	cell->no_wrap = no_wrap;
+	cell->heading = heading;
 
 	html_object_set_bg_color (HTML_OBJECT (cell), element->style->bg_color ? &element->style->bg_color->color : &current_row_bg_color (e)->color);
 
@@ -3607,7 +3550,6 @@ HTMLDispatchEntry basic_table[] = {
 	{ID_FORM,             element_parse_form},
 	{"frameset",          element_parse_frameset},
 	{"frame",             element_parse_frame},
-	{ID_HTML,             element_parse_html},
 	{ID_MAP,              element_parse_map},
 	{"meta",              element_parse_meta},
 	{"noframe",           element_parse_noframe},
@@ -4241,7 +4183,7 @@ html_engine_ensure_editable (HTMLEngine *engine)
 		engine->clue = engine->parser_clue = cluev = html_cluev_new (0, 0, 100);
 
 	head = HTML_CLUE (cluev)->head;
-	if (head == NULL) {
+	if (head == NULL || HTML_OBJECT_TYPE (head) != HTML_TYPE_CLUEFLOW) {
 		HTMLObject *clueflow;
 
 		clueflow = flow_new (engine, HTML_CLUEFLOW_STYLE_NORMAL, HTML_LIST_TYPE_BLOCKQUOTE, 0, HTML_CLEAR_NONE);
@@ -4350,7 +4292,7 @@ html_engine_class_data_clear (HTMLEngine *e)
 	}
 }
 
-#define LOG_INPUT 1
+/* #define LOG_INPUT */
 
 GtkHTMLStream *
 html_engine_begin (HTMLEngine *e, char *content_type)
@@ -4376,8 +4318,7 @@ html_engine_begin (HTMLEngine *e, char *content_type)
 					  html_engine_stream_end,
 					  e);
 #ifdef LOG_INPUT
-	if (getenv("GTK_HTML_LOG_INPUT_STREAM") != NULL)
-		new_stream = gtk_html_stream_log_new (GTK_HTML (e->widget), new_stream);
+	new_stream = gtk_html_stream_log_new (GTK_HTML (e->widget), new_stream);
 #endif
 	html_engine_opened_streams_set (e, 1);
 	e->stopped = FALSE;
@@ -4951,7 +4892,6 @@ html_engine_parse (HTMLEngine *e)
 {
 	html_engine_stop_parser (e);
 
-	e->parsing = TRUE;
 	/* reset search & replace */
 	if (e->search_info) {
 		html_search_destroy (e->search_info);
@@ -4991,7 +4931,7 @@ html_engine_parse (HTMLEngine *e)
 
 	e->clue = e->parser_clue = html_cluev_new (html_engine_get_left_border (e), html_engine_get_top_border (e), 100);
 	HTML_CLUE (e->clue)->valign = HTML_VALIGN_TOP;
-	HTML_CLUE (e->clue)->halign = HTML_HALIGN_NONE;
+	HTML_CLUE (e->clue)->halign = HTML_HALIGN_LEFT;
 
 	e->cursor->object = e->clue;
 
@@ -5001,6 +4941,7 @@ html_engine_parse (HTMLEngine *e)
 		e->bgPixmapPtr = NULL;
 	}
 
+	e->parsing = TRUE;
 	e->avoid_para = FALSE;
 
 	e->timerId = gtk_idle_add ((GtkFunction) html_engine_timer_event, e);
@@ -5868,7 +5809,7 @@ html_engine_get_cursor (HTMLEngine *e)
 
 	cursor = html_cursor_new ();
 	cursor->object = html_engine_get_object_at (e, e->widget->selection_x1, e->widget->selection_y1,
-						    &cursor->offset, TRUE);
+						    &cursor->offset, FALSE);
 	return cursor;
 }
 

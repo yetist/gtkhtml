@@ -21,7 +21,7 @@
 */
 
 #include <config.h>
-#include <glib/gi18n.h>
+#include <libgnome/gnome-i18n.h>
 #include <string.h>
 #include <glade/glade.h>
 
@@ -131,9 +131,9 @@ set_ui (GtkHTMLEditTextProperties *d)
 	d->disable_change = TRUE;
 
 	if (color)
-		gi_color_combo_set_color (GI_COLOR_COMBO (d->combo_color), &color->color);
+		color_combo_set_color (COLOR_COMBO (d->combo_color), &color->color);
 	else
-		gi_color_combo_set_color (GI_COLOR_COMBO (d->combo_color), NULL);
+		color_combo_set_color (COLOR_COMBO (d->combo_color), NULL);
 
 	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_size), get_size (html_engine_get_font_style (e)));
 
@@ -159,9 +159,9 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 		g_error (_("Could not load glade file."));
 
 	text_page = glade_xml_get_widget (xml, "text_page");
-	d->combo_color = gi_color_combo_new (NULL, _("Automatic"), &html_colorset_get_color (cd->html->engine->defaultSettings->color_set, HTMLTextColor)->color,
+	d->combo_color = color_combo_new (NULL, _("Automatic"), &html_colorset_get_color (cd->html->engine->defaultSettings->color_set, HTMLTextColor)->color,
 					     color_group_fetch ("text_color", d->cd));
-        gi_color_combo_box_set_preview_relief (GI_COLOR_COMBO (d->combo_color), GTK_RELIEF_NORMAL);
+        color_combo_box_set_preview_relief (COLOR_COMBO (d->combo_color), GTK_RELIEF_NORMAL);
         g_signal_connect (d->combo_color, "color_changed", G_CALLBACK (color_changed), d);
 	gtk_box_pack_start (GTK_BOX (glade_xml_get_widget (xml, "text_color_hbox")), d->combo_color, FALSE, FALSE, 0);
 

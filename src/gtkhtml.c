@@ -26,7 +26,6 @@
 #include <gdk/gdkprivate.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gtk/gtk.h>
-#include <glib/gi18n.h>
 #include <string.h>
 
 #include <gnome.h>
@@ -124,9 +123,6 @@ enum {
 	SCROLL,
 	CURSOR_MOVE,
 	COMMAND,
-	CURSOR_CHANGED,
-	OBJECT_INSERTED,
-	OBJECT_DELETED,
 	/* now only last signal */
 	LAST_SIGNAL
 };
@@ -868,9 +864,7 @@ key_press_event (GtkWidget *widget, GdkEventKey *event)
 {
 	GtkHTML *html = GTK_HTML (widget);
 	GtkHTMLClass *html_class = GTK_HTML_CLASS (GTK_WIDGET_GET_CLASS (html));
-	gboolean retval = FALSE, update = TRUE;
-	HTMLObject *focus_object;
-	gint focus_object_offset;
+	gboolean retval, update = TRUE;
 
 	html->binding_handled = FALSE;
 	html->priv->update_styles = FALSE;
@@ -888,9 +882,9 @@ key_press_event (GtkWidget *widget, GdkEventKey *event)
 		gtk_binding_set_activate (html_class->emacs_bindings, event->keyval, event->state, GTK_OBJECT (widget));
 
 	if (!html->binding_handled)
-		retval = GTK_WIDGET_CLASS (parent_class)->key_press_event (widget, event);
+		GTK_WIDGET_CLASS (parent_class)->key_press_event (widget, event);
 
-	retval = retval || html->binding_handled;
+	retval = html->binding_handled;
 	update = html->priv->update_styles;
 
 	if (retval && update)
@@ -903,12 +897,9 @@ key_press_event (GtkWidget *widget, GdkEventKey *event)
 		switch (event->keyval) {
 		case GDK_Return:
 		case GDK_KP_Enter:
-			/* the toplevel gtkhtml's focus object may be a frame or ifame */
-			focus_object = html_engine_get_focus_object (html->engine, &focus_object_offset);
-					
-			if (focus_object) {
+			if (html->engine->focus_object) {
 				gchar *url;
-				url = html_object_get_complete_url (focus_object, focus_object_offset);
+				url = html_object_get_complete_url (html->engine->focus_object, html->engine->focus_object_offset);
 				if (url) {
 					/* printf ("link clicked: %s\n", url); */
 					g_signal_emit (html, signals [LINK_CLICKED], 0, url);
@@ -1073,7 +1064,7 @@ child_size_allocate (HTMLObject *o, HTMLEngine *e, gpointer data)
 		if (eo->widget) {
 			GtkAllocation allocation;
 
-			html_object_calc_abs_position_in_frame (o, &allocation.x, &allocation.y);
+			html_object_calc_abs_position (o, &allocation.x, &allocation.y);
 			allocation.y -= o->ascent;
 			allocation.width = o->width;
 			allocation.height = o->ascent + o->descent;
@@ -1728,7 +1719,7 @@ button_press_event (GtkWidget *widget,
 					html_engine_set_focus_object (orig_e, obj, offset);
 				else {
 					html_engine_set_focus_object (orig_e, NULL, 0);
-					if (orig_e->caret_mode || engine->caret_mode)
+					if (orig_e->caret_mode)
 						html_engine_jump_at (engine, x, y);
 				}
 			}
@@ -2345,10 +2336,9 @@ focus (GtkWidget *w, GtkDirectionType direction)
 
 		if (!GTK_WIDGET_HAS_FOCUS (w) && !html_object_is_embedded (obj))
 			gtk_widget_grab_focus (w);
-		if (e->caret_mode) {
+		if (e->caret_mode)
 			html_engine_jump_to_object (e, obj, offset);
-			g_signal_emit (GTK_HTML (w), signals [CURSOR_CHANGED], 0);
-		}
+
 		return TRUE;
 	}
 
@@ -2885,37 +2875,9 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
 			      G_STRUCT_OFFSET (GtkHTMLClass, command),
 			      NULL, NULL,
-			      html_g_cclosure_marshal_BOOL__ENUM,
-			      G_TYPE_BOOLEAN, 1, GTK_TYPE_HTML_COMMAND);
+			      g_cclosure_marshal_VOID__ENUM,
+			      G_TYPE_NONE, 1, GTK_TYPE_HTML_COMMAND);
 
-	signals [CURSOR_CHANGED] = 
-		g_signal_new ("cursor_changed",
-			      G_TYPE_FROM_CLASS (object_class),
-			      G_SIGNAL_RUN_FIRST,
-			      G_STRUCT_OFFSET (GtkHTMLClass, cursor_changed),
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__VOID,
-			      G_TYPE_NONE, 0);
-
-	signals [OBJECT_INSERTED] = 
-		g_signal_new ("object_inserted",
-			      G_TYPE_FROM_CLASS (object_class),
-			      G_SIGNAL_RUN_FIRST,
-			      G_STRUCT_OFFSET (GtkHTMLClass, object_inserted),
-			      NULL, NULL,
-			      html_g_cclosure_marshal_VOID__INT_INT,
-			      G_TYPE_NONE, 2,
-			      G_TYPE_INT, G_TYPE_INT);
-
-	signals [OBJECT_DELETED] = 
-		g_signal_new ("object_deleted",
-			      G_TYPE_FROM_CLASS (object_class),
-			      G_SIGNAL_RUN_FIRST,
-			      G_STRUCT_OFFSET (GtkHTMLClass, object_deleted),
-			      NULL, NULL,
-			      html_g_cclosure_marshal_VOID__INT_INT,
-			      G_TYPE_NONE, 2,
-			      G_TYPE_INT, G_TYPE_INT);
 	object_class->destroy = destroy;
 	
 
@@ -4269,14 +4231,12 @@ gtk_html_get_object_by_id (GtkHTML *html, const gchar *id)
 static gint
 get_line_height (GtkHTML *html)
 {
-	gint w, a, d;
+	gint line_offset = 0, w, a, d;
 
 	if (!html->engine || !html->engine->painter)
 		return 0;
 
-	html_painter_set_font_style (html->engine->painter, GTK_HTML_FONT_STYLE_SIZE_3);
-	html_painter_set_font_face (html->engine->painter, NULL);
-	html_painter_calc_text_size (html->engine->painter, "a", 1, &w, &a, &d);
+	html_painter_calc_text_size (html->engine->painter, "a", 1, NULL, NULL, NULL, 0, &line_offset, GTK_HTML_FONT_STYLE_SIZE_3, NULL, &w, &a, &d);
 
 	return a + d;
 }
@@ -4437,7 +4397,6 @@ cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType ski
 	html->priv->update_styles = TRUE;
 	gtk_html_edit_make_cursor_visible (html);
 	html_engine_update_selection_active_state (html->engine, html->priv->event_time);
-	g_signal_emit (GTK_HTML (html), signals [CURSOR_CHANGED], 0);
 }
 
 static gboolean
@@ -4579,11 +4538,11 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 			html->binding_handled = gtk_widget_child_focus (GTK_WIDGET (html), GTK_DIR_TAB_BACKWARD);
 		break;
 	case GTK_HTML_COMMAND_SCROLL_BOD:
-		if (!html_engine_get_editable (e) && !e->caret_mode)
+		if (!html_engine_get_editable (e))
 			gtk_adjustment_set_value (gtk_layout_get_vadjustment (GTK_LAYOUT (html)), 0);
 		break;
 	case GTK_HTML_COMMAND_SCROLL_EOD:
-		if (!html_engine_get_editable (e) && !e->caret_mode) {
+		if (!html_engine_get_editable (e)) {
 			GtkAdjustment *vadj = gtk_layout_get_vadjustment (GTK_LAYOUT (html));
 			gtk_adjustment_set_value (vadj, vadj->upper - vadj->page_size);
 		}
@@ -4615,7 +4574,6 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		break;
 
 	default:
-		rv = FALSE;
 		html->binding_handled = FALSE;
 	}
 
@@ -5718,20 +5676,4 @@ void
 gtk_html_flush (GtkHTML *html)
 {
 	html_engine_flush (html->engine);
-}
-
-const char *
-gtk_html_get_object_id_at (GtkHTML *html, int x, int y)
-{
-	HTMLObject *o = html_engine_get_object_at (html->engine, x, y, NULL, FALSE);
-	const char *id = NULL;
-
-	while (o) {
-		id = html_object_get_id (o);
-		if (id)
-			break;
-		o = o->parent;
-	}
-
-	return id;
 }

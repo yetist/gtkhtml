@@ -21,7 +21,7 @@
 */
 
 #include <config.h>
-#include <glib/gi18n.h>
+#include <libgnome/gnome-i18n.h>
 #include <gnome.h>
 #include <libgnomeui/gnome-window-icon.h>
 #include "replace.h"
@@ -179,12 +179,10 @@ gtk_html_replace_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 		gtk_entry_set_text (GTK_ENTRY (dialog->entry_replace), cd->replace_text_replace);
 
 	gtk_table_set_col_spacings (GTK_TABLE (table), 3);
-	label = gtk_label_new_with_mnemonic (_("R_eplace:"));
-	gtk_label_set_mnemonic_widget (label,dialog-> entry_search);
+	label = gtk_label_new (_("Replace:"));
 	gtk_misc_set_alignment (GTK_MISC (label), .0, .5);
 	gtk_table_attach (GTK_TABLE (table), label, 0, 1, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
-	label = gtk_label_new_with_mnemonic (_("_With:"));
-	gtk_label_set_mnemonic_widget (label, dialog->entry_replace);
+	label = gtk_label_new (_("With:"));
 	gtk_misc_set_alignment (GTK_MISC (label), .0, .5);
 	gtk_table_attach (GTK_TABLE (table), label, 0, 1, 1, 2, GTK_FILL, GTK_FILL, 0, 0);
 
