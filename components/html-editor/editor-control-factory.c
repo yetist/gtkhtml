@@ -44,6 +44,7 @@
 #include "paragraph.h"
 #include "link.h"
 #include "body.h"
+#include "spell.h"
 
 #include "editor-control-factory.h"
 
@@ -299,6 +300,10 @@ editor_control_factory (BonoboGenericFactory *factory,
 	gtk_signal_connect (GTK_OBJECT (html_widget), "button_press_event",
 			    GTK_SIGNAL_FUNC (html_button_pressed), control_data);
 
+#ifdef GTKHTML_HAVE_PSPELL
+	gtk_signal_connect (GTK_OBJECT (html_widget), "spell_suggestion_request",
+			    GTK_SIGNAL_FUNC (spell_suggestion_request_cb), control_data);
+#endif
 	return BONOBO_OBJECT (control);
 }
 

@@ -1,3 +1,9 @@
+2000-07-20  Radek Doulik  <rodo@helixcode.com>
+
+	* spell.c: new file, popup window with spell checker suggestions
+
+	* spell.h: new file
+
 2000-07-17  Pavel Cisler  <pavel@eazel.com>
 
 	* Makefile.am:

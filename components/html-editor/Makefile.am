@@ -61,6 +61,8 @@ html_editor_control_SOURCES =			\
 	rule.h					\
 	search.c				\
 	search.h				\
+	spell.c					\
+	spell.h					\
 	text.c					\
 	text.h					\
 	toolbar.c				\
