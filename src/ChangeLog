@@ -1,5 +1,8 @@
 2000-05-07  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine-edit-delete.c (merge_text_at_cursor): updated it to
+	merge both directions (need ie. after delete of non-text object)
+
 	* htmlimage.c (html_image_init): removed assertion on *filename
 	(html_image_factory_register): likewise
 	(html_image_factory_register): load image only if != ""

@@ -285,9 +285,9 @@ delete_different_parent (HTMLEngine *e,
 static guint
 merge_text_at_cursor (HTMLEngine *e)
 {
-	HTMLObject *curr, *prev;
+	HTMLObject *curr, *prev, *next;
 	HTMLObject *p;
-	gchar *curr_string, *prev_string;
+	gchar *next_string, *prev_string;
 	gchar *new_string;
 	guint retval;
 	gint offset;
@@ -295,17 +295,31 @@ merge_text_at_cursor (HTMLEngine *e)
 	curr = e->cursor->object;
 	offset = e->cursor->offset;
 
-	prev = html_object_prev_not_slave (curr);
-	if (prev == NULL)
+	if (! html_object_is_text (curr))
 		return offset;
 
-	if (! html_object_is_text (curr) || ! html_object_is_text (prev))
+	if (offset > 0 && offset < HTML_TEXT (curr)->text_len-1)
 		return offset;
-	if (HTML_OBJECT_TYPE (curr) != HTML_OBJECT_TYPE (prev))
+
+	if (offset) {
+		/* merge with next */
+		next = html_object_next_not_slave (curr);
+		if (next == NULL || ! html_object_is_text (next))
+			return offset;
+		prev = curr;
+	} else {
+		/* merge with prev */
+		prev = html_object_prev_not_slave (curr);
+		if (prev == NULL || ! html_object_is_text (prev))
+			return offset;
+		next = curr;
+	}
+
+	if (HTML_OBJECT_TYPE (prev) != HTML_OBJECT_TYPE (next))
 		return offset;
-	if (! gdk_color_equal (& HTML_TEXT (curr)->color, & HTML_TEXT (prev)->color))
+	if (! gdk_color_equal (& HTML_TEXT (prev)->color, & HTML_TEXT (next)->color))
 		return offset;
-	if (HTML_TEXT (curr)->font_style != HTML_TEXT (prev)->font_style)
+	if (HTML_TEXT (prev)->font_style != HTML_TEXT (next)->font_style)
 		return offset;
 
 	/* The items can be merged: remove the slaves in between.  */
@@ -320,19 +334,18 @@ merge_text_at_cursor (HTMLEngine *e)
 		p = pnext;
 	}
 
-	curr_string = HTML_TEXT (curr)->text;
 	prev_string = HTML_TEXT (prev)->text;
+	next_string = HTML_TEXT (next)->text;
 
-	new_string = g_strconcat (prev_string, curr_string, NULL);
+	new_string = g_strconcat (prev_string, next_string, NULL);
+	retval = HTML_TEXT (prev)->text_len;
 
 	g_free (HTML_TEXT (curr)->text);
 	HTML_TEXT (curr)->text = new_string;
-	HTML_TEXT (curr)->text_len += HTML_TEXT (prev)->text_len;
+	HTML_TEXT (curr)->text_len = HTML_TEXT (prev)->text_len + HTML_TEXT (next)->text_len;
 
-	retval = HTML_TEXT (prev)->text_len;
-
-	html_clue_remove (HTML_CLUE (prev->parent), prev);
-	html_object_destroy (prev);
+	html_clue_remove (HTML_CLUE (prev->parent), (curr == next) ? prev : next);
+	html_object_destroy ((curr == next) ? prev : next);
 
 	html_object_calc_size (curr->parent, e->painter);
 	if (curr->parent->parent != NULL)
