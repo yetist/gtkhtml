@@ -1,3 +1,10 @@
+2001-09-07  Radek Doulik  <rodo@ximian.com>
+
+	* htmltextslave.c (get_offset_for_bounded_width): for ' ' search
+	in sep instead of text->text
+	(calc_size): test for split only for slave->posLen > 1
+	(calc_size): split only if pos > 0
+
 2001-09-06  Radek Doulik  <rodo@ximian.com>
 
 	* htmlimage.c (update_or_redraw): new helper function, takes care

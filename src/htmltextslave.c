@@ -139,7 +139,7 @@ get_offset_for_bounded_width (HTMLTextSlave *slave, HTMLPainter *painter, gint *
 
 	*words = 0;
 	str = sep = html_text_get_text (text, slave->posStart);
-	while ((sep = strchr (text->text, ' '))) {
+	while ((sep = strchr (sep, ' '))) {
 		if (g_utf8_pointer_to_offset (str, sep) < len)
 			(*words) ++;
 		else
@@ -181,12 +181,14 @@ calc_size (HTMLObject *self,
 	}
 
 	new_width = MAX (1, calc_width (slave, painter));
-	if (new_width > HTML_OBJECT (owner)->max_width) {
+	if (new_width > HTML_OBJECT (owner)->max_width && slave->posLen > 1) {
 		gint words, pos;
 
 		pos = get_offset_for_bounded_width (slave, painter, &words, HTML_OBJECT (owner)->max_width);
-		split (slave, pos, slave->start_word + words);
-		new_width = MAX (1, calc_width (slave, painter));
+		if (pos > 0) {
+			split (slave, pos, slave->start_word + words);
+			new_width = MAX (1, calc_width (slave, painter));
+		}
 	}
 
 	changed = FALSE;
