@@ -56,6 +56,15 @@ gtk_html_stream_destroy (GtkHTMLStream *stream)
 	g_free (stream);
 }
 
+/**
+ * gtk_html_stream_write:
+ * @stream:
+ * @buffer:
+ * @size:
+ *
+ * Write data to a GtkHTMLStream.
+ *
+ */
 void
 gtk_html_stream_write (GtkHTMLStream *stream,
 		       const gchar *buffer,
@@ -75,11 +84,12 @@ gtk_html_stream_vprintf (GtkHTMLStream *stream,
 			 va_list ap)
 {
 	size_t len = g_printf_string_upper_bound (format, ap);
-	char *buf;
+	char *buf = NULL;
 	char *mbuf = NULL;
 	int rv;
 
-	buf = alloca (len);
+	if (len < 8192)
+		buf = alloca (len);
 
 	if (buf == NULL)
 		buf = mbuf = g_malloc (len);

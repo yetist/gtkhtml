@@ -1,3 +1,8 @@
+2001-10-05  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml-stream.c (gtk_html_stream_vprintf): fix the limiting
+	code.
+
 2001-10-05  Radek Doulik  <rodo@ximian.com>
 
 	* htmlimage.c (html_image_factory_end_pixbuf): call
