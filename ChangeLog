@@ -1,5 +1,10 @@
 2002-03-26  Larry Ewing  <lewing@ximian.com>
 
+	* acconfig.h: add template for GTKHTML_RELEASE_STRING
+
+	* configure.in (GTKHTML_RELEASE_STRING): define this to make life
+	simpler.
+
 	* Makefile.am: remove references to gnorba and
 	html-component.gnorba.
 
