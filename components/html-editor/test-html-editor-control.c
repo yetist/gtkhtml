@@ -25,9 +25,17 @@
 
 #include <gnome.h>
 #include <bonobo.h>
-
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+ 
+#include <glib.h>
 #include <Editor.h>
 #include "editor-control-factory.h"
+
+#include "gtkhtml.h"
+#include "gtkhtml-properties.h"
+#include "htmlsourceview.h"
 
 GtkWidget *control;
 gint formatHTML = 1;
@@ -53,6 +61,7 @@ load_through_persist_stream (const gchar *filename,
 		Bonobo_Stream corba_stream;
 
 		corba_stream = bonobo_object_corba_objref (stream);
+		Bonobo_Stream_truncate (corba_stream, 0, &ev);
 		Bonobo_PersistStream_load (pstream, corba_stream,
 					   "text/html", &ev);
 	}
@@ -113,6 +122,7 @@ save_through_plain_persist_stream (const gchar *filename,
 		Bonobo_Stream corba_stream;
 
 		corba_stream = bonobo_object_corba_objref (stream);
+		Bonobo_Stream_truncate (corba_stream, 0, &ev);
 		Bonobo_PersistStream_save (pstream, corba_stream, "text/plain", &ev);
 	}
 
@@ -190,6 +200,49 @@ file_selection_destroy_cb (GtkWidget *widget,
 			   gpointer data)
 {
 	file_selection_info.widget = NULL;
+}
+
+static void
+view_source_dialog (BonoboWindow *app, char *type, gboolean as_html)
+{
+	BonoboWidget *control;
+	GtkWidget *window;
+	GtkWidget *view;
+
+	control = BONOBO_WIDGET (bonobo_window_get_contents (app));
+
+	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+	view = html_source_view_new ();
+
+	gtk_container_add (GTK_CONTAINER (window), view);
+	html_source_view_set_source (HTML_SOURCE_VIEW (view), control, type);
+	html_source_view_set_mode (HTML_SOURCE_VIEW (view), as_html);
+	gtk_widget_show_all (window);
+
+	gtk_signal_connect_object (GTK_OBJECT (control),
+				   "destroy", GTK_SIGNAL_FUNC (gtk_object_destroy),
+				   GTK_OBJECT (window));
+}    
+
+static void
+view_html_source_cb (GtkWidget *widget,
+		     gpointer data)
+{
+	view_source_dialog (data, "text/html", FALSE);
+}
+
+static void
+view_plain_source_cb (GtkWidget *widget,
+		      gpointer data)
+{
+	view_source_dialog (data, "text/plain", FALSE);
+}
+
+static void
+view_html_source_html_cb (GtkWidget *widget,
+			  gpointer data)
+{
+	view_source_dialog (data, "text/html", TRUE);
 }
 
 static void
@@ -334,7 +387,9 @@ static BonoboUIVerb verbs [] = {
 	BONOBO_UI_UNSAFE_VERB ("OpenStream", open_through_persist_stream_cb),
 	BONOBO_UI_UNSAFE_VERB ("SaveStream", save_through_persist_stream_cb),
 	BONOBO_UI_UNSAFE_VERB ("SavePlainStream", save_through_plain_persist_stream_cb),
-
+	BONOBO_UI_UNSAFE_VERB ("ViewHTMLSource", view_html_source_cb),
+	BONOBO_UI_UNSAFE_VERB ("ViewHTMLSourceHTML", view_html_source_html_cb),
+	BONOBO_UI_UNSAFE_VERB ("ViewPlainSource", view_plain_source_cb),
 	BONOBO_UI_UNSAFE_VERB ("FileExit", exit_cb),
 
 	BONOBO_UI_VERB_END
@@ -378,6 +433,10 @@ static char ui [] =
 "			pixtype=\"stock\" pixname=\"Save\"/>"
 "			<menuitem name=\"SavePlainStream\" verb=\"\" _label=\"Save _plain(PersistStream)\" _tip=\"Save using the PersistStream interface\""
 "			pixtype=\"stock\" pixname=\"Save\"/>"
+"			<separator/>"
+"                       <menuitem name=\"ViewHTMLSource\" verb=\"\" _label=\"View HTML Source\" _tip=\"View the html source of the current document\"/>"
+"                       <menuitem name=\"ViewHTMLSourceHTML\" verb=\"\" _label=\"View HTML Output\" _tip=\"View the html source of the current document as html\"/>"
+"                       <menuitem name=\"ViewPlainSource\" verb=\"\" _label=\"View PLAIN Source\" _tip=\"View the plain text source of the current document\"/>"
 "			<separator/>"
 "			<menuitem name=\"FileExit\" verb=\"\" _label=\"E_xit\"/>"
 "		</submenu>"
@@ -481,8 +540,8 @@ load_file (const gchar *fname)
 int
 main (int argc, char **argv)
 {
-	bindtextdomain(PACKAGE, GNOMELOCALEDIR);
-	textdomain(PACKAGE);
+	bindtextdomain(GTKHTML_RELEASE_STRING, GNOMELOCALEDIR);
+	textdomain(GTKHTML_RELEASE_STRING);
 	
 	if (bonobo_ui_init ("test-gnome-gtkhtml-editor", "1.0", &argc, argv) == FALSE)
 		g_error ("Could not initialize Bonobo\n");

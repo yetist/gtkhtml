@@ -1,3 +1,9 @@
+2002-10-28  Larry Ewing  <lewing@ximian.com>
+
+	* toolbar.c (toolbar_item_update_sensitivity): silence warning.
+
+	* properties.c: add missing header.
+
 2002-10-09  Radek Doulik  <rodo@ximian.com>
 
 	* body.c: added left_margin to template, replace templates test
@@ -56,6 +62,51 @@
 
 	* menubar.c (paragraph_style_cb): don't set style if
 	block_font_style_change
+
+2002-05-15  Larry Ewing  <lewing@ximian.com>
+
+	* htmlsourceview.c: rename methods and add content type parameter
+	to set_source.
+	
+	* htmlsourceview.h: rename prototypes.
+
+	* test-html-editor-control.c (view_html_source_cb): specify html
+	output.
+	(view_plain_source_cb): specify plain output.
+	(view_source_dialog): pass the content type along to
+	html_view_source_set_source.
+
+2002-05-13  Larry Ewing  <lewing@ximian.com>
+
+	* test-html-editor-control.c (view_source_cb): new verb to start
+	up the source view.
+	(init_corba): set the version to the editor api version.
+	(main): initialize gconf.
+
+	* htmlsourceview.c: added.  This is a simple widget that pulls the
+	persist information from a control.
+
+	* htmlsourceview.h: added.
+
+	* e-html-utils.c: added, for e-text-to-html.
+
+	* e-html-utils.h: added.
+
+	* Makefile.am: add the new source files to the test-editor build.
+
+2002-05-07  Larry Ewing  <lewing@ximian.com>
+
+	* test-html-editor-control.c (save_through_persist_stream): use a
+	reasonable mode and truncate existing files.  
+	(save_through_plain_persist_stream): truncate existing stream. Wow
+	yet another way in which bonobo sucks.
+
+	* GNOME_GtkHTML_Editor.oaf.in: add Editor interface to the oaf
+	list.
+
+	* test-html-editor-control.c (save_through_plain_persist_stream):
+	give a reasonable mode for the new file.
+	add missing includes.
 
 2002-05-08  Radek Doulik  <rodo@ximian.com>
 

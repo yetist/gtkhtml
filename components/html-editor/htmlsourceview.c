@@ -26,9 +26,8 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <gtk/gtk.h>
-#include <libgnome/gnome-defs.h>
 #include <libgnome/gnome-util.h>
-#include <bonobo/bonobo-object-client.h>
+#include <bonobo/bonobo-stream.h>
 #include <bonobo/bonobo-stream-memory.h>
 #include <bonobo/bonobo-exception.h>
 
@@ -63,7 +62,7 @@ html_source_view_real_update (HTMLSourceView *view)
 static void
 html_source_view_load (HTMLSourceView *view)
 {
-	BonoboStream *smem;
+	BonoboObject *smem;
 	GtkHTMLStream *hstream;
 	CORBA_Environment ev;
 	CORBA_Object pstream;
@@ -132,23 +131,24 @@ html_source_view_set_mode (HTMLSourceView *view, gboolean as_html)
 void
 html_source_view_set_source (HTMLSourceView *view, BonoboWidget *control, char *content_type)
 {
-	BonoboObjectClient *object_client;
-
+	CORBA_Object interface;
+	CORBA_Environment ev;
 	g_return_if_fail (HTML_IS_SOURCE_VIEW (view));
 
-	object_client = bonobo_widget_get_server (control);
-	g_return_if_fail (object_client != NULL);
-	
+	CORBA_exception_init (&ev);
+	interface = Bonobo_Unknown_queryInterface (bonobo_widget_get_objref (control),
+						   "IDL:Bonobo/PersistStream:1.0", &ev);
+	if (BONOBO_EX (&ev) || interface == CORBA_OBJECT_NIL) {
+		g_warning ("Couldn't find persist stream interface");
+		return;
+	}
+ 
 	g_free (view->priv->content_type);
 	view->priv->content_type = g_strdup (content_type);
 
-	view->priv->pstream = bonobo_object_client_query_interface (object_client, "IDL:Bonobo/PersistStream:1.0", NULL);
+	view->priv->pstream = interface;
 
-	if (view->priv->pstream == CORBA_OBJECT_NIL) {
-		g_warning ("Couldn't find persist stream interface");
-	} else {
-		html_source_view_set_timeout (view, view->priv->current_interval);
-	}
+	html_source_view_set_timeout (view, view->priv->current_interval);
 }
 
 GtkWidget *
@@ -190,7 +190,8 @@ html_source_view_init (HTMLSourceView *view)
 static void
 html_source_view_destroy (GtkObject *object)
 {
-	HTMLSourceViewPrivate *priv = HTML_SOURCE_VIEW (object)->priv;
+	HTMLSourceView *view = HTML_SOURCE_VIEW (object);
+	HTMLSourceViewPrivate *priv = view->priv;
 
 	if (priv->timer_id)
 		gtk_timeout_remove (priv->timer_id);
@@ -205,20 +206,11 @@ html_source_view_destroy (GtkObject *object)
 		CORBA_exception_free (&ev);
 	}
 
-	if (GTK_OBJECT_CLASS (parent_class)->destroy != NULL)
-		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
-}
-
-static void
-html_source_view_finalize (GtkObject *object)
-{
-	HTMLSourceView *view = HTML_SOURCE_VIEW (object);
-	
 	g_free (view->priv);
 	view->priv = NULL;
 
-	if (GTK_OBJECT_CLASS (parent_class)->finalize != NULL)
-		(* GTK_OBJECT_CLASS (parent_class)->finalize) (object);
+	if (GTK_OBJECT_CLASS (parent_class)->destroy != NULL)
+		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
 
 static void
@@ -226,40 +218,40 @@ html_source_view_class_init (HTMLSourceViewClass *klass)
 {
 	GtkObjectClass *object_class;
 
-	object_class = GTK_OBJECT_CLASS (klass);
-	parent_class = gtk_type_class (gtk_vbox_get_type ());
+	object_class = (GtkObjectClass *) klass;
+	parent_class = gtk_type_class (GTK_TYPE_VBOX);
 
-	signals [UPDATE] = gtk_signal_new ("update",
-					   GTK_RUN_FIRST,
-					   object_class->type,
-					   GTK_SIGNAL_OFFSET (HTMLSourceViewClass, update),
-					   gtk_marshal_NONE__NONE,
-					   GTK_TYPE_NONE, 0);
-
-	gtk_object_class_add_signals (object_class, signals, LAST_SIGNAL);
+	signals [UPDATE] = g_signal_new ("update",
+					 G_TYPE_FROM_CLASS (object_class),
+					 G_SIGNAL_RUN_FIRST,
+					 GTK_STRUCT_OFFSET (HTMLSourceViewClass, update),
+					 NULL, NULL,
+					 g_cclosure_marshal_VOID__VOID,
+					 GTK_TYPE_NONE, 0);
 	
 	object_class->destroy = html_source_view_destroy;
-	object_class->finalize = html_source_view_finalize;
 	klass->update = html_source_view_real_update;
 }
 
 GtkType
 html_source_view_get_type ()
 {
-	static GtkType view_type = 0;
+	static GType view_type = 0;
 	
 	if (!view_type) {
-		GtkTypeInfo view_info = {
-			"HTMLSourceView",
-			sizeof (HTMLSourceView),
+		GTypeInfo view_info = {
 			sizeof (HTMLSourceViewClass),
-			(GtkClassInitFunc) html_source_view_class_init,
-			(GtkObjectInitFunc) html_source_view_init,
-			(GtkArgSetFunc) NULL,
-			(GtkArgGetFunc) NULL
+			NULL,
+			NULL,
+			(GClassInitFunc) html_source_view_class_init,
+			NULL,
+			NULL,
+			sizeof (HTMLSourceView),
+			1,
+			(GInstanceInitFunc) html_source_view_init,
 		};
 
-		view_type = gtk_type_unique (gtk_vbox_get_type (), & view_info);
+		view_type = g_type_register_static (GTK_TYPE_VBOX, "HTMLView", &view_info, 0);
 	}
 	
 	return view_type;

@@ -392,6 +392,11 @@ void
 html_draw_queue_flush (HTMLDrawQueue *queue)
 {
 	GList *p;
+	GdkVisual *vis;
+
+	/* check to make sure we have something to draw on */
+
+	vis = queue->engine->window ? gdk_window_get_visual (queue->engine->window): NULL;
 
 	/* Draw clear areas.  */
 
@@ -399,14 +404,15 @@ html_draw_queue_flush (HTMLDrawQueue *queue)
 		HTMLDrawQueueClearElement *clear_elem;
 
 		clear_elem = p->data;
-		clear (queue, clear_elem);
+		if (vis)
+			clear (queue, clear_elem);
 		clear_element_destroy (clear_elem);
 	}
 
 
 	/* Draw objects.  */
 
-	if (GTK_WIDGET (queue->engine->widget)->window) {
+	if (vis) {
 		for (p = queue->elems; p != NULL; p = p->next) {
 			HTMLObject *obj = HTML_OBJECT (p->data);
 			

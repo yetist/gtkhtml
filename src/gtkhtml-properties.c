@@ -54,11 +54,15 @@ gtk_html_class_properties_new (void)
 	p->font_var_print_points   = FALSE;
 	p->font_fix_print_points   = FALSE;
 	p->animations              = TRUE;
+	p->link_color              = g_strdup ("#0000ff");
+	p->alink_color             = g_strdup ("#0000ff");
+	p->vlink_color             = g_strdup ("#0000ff");
 
 	p->live_spell_check        = TRUE;
 	p->spell_error_color.red   = 0xffff;
 	p->spell_error_color.green = 0;
 	p->spell_error_color.blue  = 0;
+
 	p->language                = g_strdup ("en");
 
 	return p;
@@ -117,6 +121,10 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p, GConfClient *client)
 
 	GET (bool, "/live_spell_check", live_spell_check,,);
 
+	GET (string, "/link_color", link_color, g_free (p->link_color), g_strdup);
+	GET (string, "/alink_color", alink_color, g_free (p->alink_color), g_strdup);
+	GET (string, "/vlink_color", vlink_color, g_free (p->vlink_color), g_strdup);
+
 	GETSP (int, "/spell_error_color_red",   spell_error_color.red,,);
 	GETSP (int, "/spell_error_color_green", spell_error_color.green,,);
 	GETSP (int, "/spell_error_color_blue",  spell_error_color.blue,,);
@@ -165,7 +173,14 @@ gtk_html_class_properties_update (GtkHTMLClassProperties *p, GConfClient *client
 		SET (int, "/font_variable_size_print", font_var_size_print);
 	if (p->font_fix_size_print != old->font_fix_size_print || p->font_fix_print_points != old->font_fix_print_points)
 		SET (int, "/font_fixed_size_print", font_fix_size_print);
-
+	if (strcmp (p->link_color, old->link_color))
+		SET (string, "/link_color", link_color);
+	if (strcmp (p->alink_color, old->alink_color))
+		SET (string, "/alink_color", alink_color);
+	if (strcmp (p->vlink_color, old->vlink_color))
+		SET (string, "/vlink_color", vlink_color);
+	
+	
 	if (p->live_spell_check != old->live_spell_check)
 		SET (bool, "/live_spell_check", live_spell_check);
 
@@ -182,6 +197,7 @@ void
 gtk_html_class_properties_copy (GtkHTMLClassProperties *p1,
 				GtkHTMLClassProperties *p2)
 {
+	COPY  (animations)
 	COPY  (magic_links);
 	COPYS (keybindings_theme);
 	COPYS (font_var);
@@ -196,6 +212,9 @@ gtk_html_class_properties_copy (GtkHTMLClassProperties *p1,
 	COPY  (font_fix_points);
 	COPY  (font_var_print_points);
 	COPY  (font_fix_print_points);
+	COPYS  (link_color);
+	COPYS  (alink_color);
+	COPYS  (vlink_color);
 
 	COPY  (live_spell_check);
 	COPY  (spell_error_color);

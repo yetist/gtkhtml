@@ -70,6 +70,9 @@ struct _HTMLEngine {
 	guint       clipboard_len;
 	GList      *clipboard_stack;
 
+	HTMLObject *primary;
+	guint       primary_len;
+
 	/* Freeze counter.  When greater than zero, we never trigger relayouts
            nor repaints.  When going from nonzero to zero, we relayout and
            repaint everything.  */

@@ -158,7 +158,9 @@ begin (HTMLPainter *painter, int x1, int y1, int x2, int y2)
 	/* printf ("painter begin %d,%d %d,%d\n", x1, y1, x2, y2); */
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
+	g_return_if_fail (gdk_painter->window != NULL);
 	visual = gdk_window_get_visual (gdk_painter->window);
+	g_return_if_fail (visual != NULL);
 
 	if (gdk_painter->double_buffer){
 		const int width = x2 - x1 + 1;
@@ -464,6 +466,32 @@ draw_background (HTMLPainter *painter,
 	pw = gdk_pixbuf_get_width (pixbuf);
 	ph = gdk_pixbuf_get_height (pixbuf);
 
+	/* optimize out some special cases */
+	if (pw == 1 && ph == 1) {
+		GdkColor pixcol;
+		guchar *p;
+
+		p = gdk_pixbuf_get_pixels (pixbuf);
+		
+		if (!(gdk_pixbuf_get_has_alpha (pixbuf) && (p[3] < 0x80))) {
+			pixcol.red = p[0] * 0xff;
+			pixcol.green = p[1] * 0xff; 
+			pixcol.blue = p[2] * 0xff;
+			
+			html_painter_alloc_color (painter, &pixcol);
+			color = &pixcol;
+		}
+
+		if (color) {
+			gdk_gc_set_foreground (gdk_painter->gc, color);
+			gdk_draw_rectangle (gdk_painter->pixmap, gdk_painter->gc,
+					    TRUE, x - gdk_painter->x1, y - gdk_painter->y1,
+					    width, height);
+		}	
+		
+		return;
+	}
+
 	tile_width = (tile_x % pw) + width;
 	tile_height = (tile_y % ph) + height;
 
@@ -619,6 +647,7 @@ draw_pixmap (HTMLPainter *painter,
 	gint orig_height;
 	gint paint_width;
 	gint paint_height;
+	gint bilinear;
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
@@ -679,6 +708,14 @@ draw_pixmap (HTMLPainter *painter,
 	if (tmp_pixbuf == NULL)
 		return;
 
+	/* 
+	 * FIXME this is a hack to work around a gdk-pixbuf bug 
+	 * it could be removed when 
+	 * http://bugzilla.ximian.com/show_bug.cgi?id=12968
+	 * is fixed.
+	 */
+	bilinear = !((scale_width == 1) && (scale_height == 1));
+
 	gdk_pixbuf_composite (pixbuf, tmp_pixbuf,
 			      0,
 			      0,
@@ -687,7 +724,8 @@ draw_pixmap (HTMLPainter *painter,
 			      (double)-(paint.y0 - image.y0),
 			      (gdouble) scale_width/ (gdouble) orig_width,
 			      (gdouble) scale_height/ (gdouble) orig_height,
-			      GDK_INTERP_BILINEAR, 255);
+			      bilinear ? GDK_INTERP_BILINEAR : GDK_INTERP_NEAREST,
+			      255);
 
 	if (color != NULL) {
 		guchar *p, *q;

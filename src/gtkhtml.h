@@ -62,7 +62,7 @@ struct _GtkHTML {
 	gint selection_x1, selection_y1;
 
 	guint in_selection : 1;
-	guint button1_pressed : 1;
+	guint in_selection_drag : 1;
 
 	guint debug : 1;
 	guint allow_selection : 1;
@@ -139,7 +139,7 @@ void                       gtk_html_set_editor_api                (GtkHTML      
 								   gpointer                   data);
 
 /* parent iframe setting */
-void                       gtk_html_set_iframe_parent             (GtkHTML                   *html,
+gint                       gtk_html_set_iframe_parent             (GtkHTML                   *html,
 								   GtkWidget                 *parent,
 								   HTMLObject                *frame);
 
@@ -158,7 +158,8 @@ void                       gtk_html_select_all                    (GtkHTML      
 int                        gtk_html_request_paste                 (GtkHTML                   *html,
 								   GdkAtom                    selection,
 								   gint                       type,
-								   gint32                     time);
+								   gint32                     time,
+								   gboolean                   as_cite);
 /* Loading.  */
 GtkHTMLStream             *gtk_html_begin                         (GtkHTML                   *html);
 GtkHTMLStream             *gtk_html_begin_content                 (GtkHTML                   *html,
@@ -220,9 +221,10 @@ GtkHTMLParagraphStyle      gtk_html_get_paragraph_style           (GtkHTML      
 void                       gtk_html_set_paragraph_style           (GtkHTML                   *html,
 								   GtkHTMLParagraphStyle      style);
 void                       gtk_html_set_indent                    (GtkHTML                   *html,
-								   gint                       level);
-void                       gtk_html_modify_indent_by_delta        (GtkHTML                   *html,
-								   gint                       delta);
+								   GByteArray                *levels);
+void                       gtk_html_indent_push_level             (GtkHTML                   *html,
+								   HTMLListType               level_type);
+void                       gtk_html_indent_pop_level              (GtkHTML                   *html);
 guint                      gtk_html_get_paragraph_indentation     (GtkHTML                   *html);
 void                       gtk_html_set_font_style                (GtkHTML                   *html,
 								   GtkHTMLFontStyle           and_mask,
@@ -236,7 +238,8 @@ void                       gtk_html_set_paragraph_alignment       (GtkHTML      
 								   GtkHTMLParagraphAlignment  alignment);
 void                       gtk_html_cut                           (GtkHTML                   *html);
 void                       gtk_html_copy                          (GtkHTML                   *html);
-void                       gtk_html_paste                         (GtkHTML                   *html);
+void                       gtk_html_paste                         (GtkHTML                   *html, 
+								   gboolean                   as_cite);
 void                       gtk_html_undo                          (GtkHTML                   *html);
 void                       gtk_html_redo                          (GtkHTML                   *html);
 void                       gtk_html_insert_html                   (GtkHTML                   *html,

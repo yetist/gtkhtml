@@ -13,6 +13,7 @@
 <oaf_server iid="OAFIID:GNOME_GtkHTML_Editor:@EDITOR_API_VERSION@" type="factory" location="OAFIID:GNOME_GtkHTML_Editor_Factory:@EDITOR_API_VERSION@">
 
 	<oaf_attribute name="repo_ids" type="stringv">
+		<item value="IDL:GNOME/GtkHTML/Editor:1.0"/>
 		<item value="IDL:Bonobo/Control:1.0"/>
 		<item value="IDL:Bonobo/Unknown:1.0"/>
 		<item value="IDL:Bonobo/PersistStream:1.0"/>

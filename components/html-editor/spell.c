@@ -335,6 +335,10 @@ spell_create_language_menu (GtkHTMLControlData *cd)
 
 	CORBA_exception_init (&ev);
 	cd->languages = seq = GNOME_Spell_Dictionary_getLanguages (cd->dict, &ev);
+
+	if (BONOBO_EX (&ev))
+		cd->languages = seq = NULL;
+
 	CORBA_exception_free (&ev);
 
 	if (seq && seq->_length > 0) {

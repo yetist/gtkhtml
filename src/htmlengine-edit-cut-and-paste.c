@@ -478,6 +478,21 @@ haligns_equal (HTMLHAlignType a1, HTMLHAlignType a2)
 
 }
 
+static gboolean
+levels_equal (HTMLClueFlow *me, HTMLClueFlow *you)
+{
+	if (!you)
+		return FALSE;
+
+	if (me->levels->len != you->levels->len)
+		return FALSE;
+
+	if (me->levels->len == 0)
+		return TRUE;
+
+	return !memcmp (me->levels->data, you->levels->data, you->levels->len);
+}
+
 static void
 check_flows (HTMLEngine *e, HTMLUndoDirection dir)
 {
@@ -505,7 +520,7 @@ check_flows (HTMLEngine *e, HTMLUndoDirection dir)
 	if (level1 == level2
 	    && (flow1->style != flow2->style
 		|| (flow1->style == HTML_CLUEFLOW_STYLE_LIST_ITEM && flow1->item_type != flow2->item_type)
-		|| flow1->level != flow2->level
+		|| !levels_equal (flow1, flow2)
 		|| !haligns_equal (HTML_CLUE (flow1)->halign, HTML_CLUE (flow2)->halign))) {
 		HTMLCursor *dest, *source;
 
@@ -521,10 +536,11 @@ check_flows (HTMLEngine *e, HTMLUndoDirection dir)
 		html_engine_disable_selection (e);
 		html_cursor_jump_to_position_no_spell (e->cursor, e, dest->position);
 		html_engine_set_clueflow_style (e,
-						HTML_CLUEFLOW (source->object)->style,
-						HTML_CLUEFLOW (source->object)->item_type,
-						HTML_CLUE     (source->object)->halign,
-						HTML_CLUEFLOW (source->object)->level,
+						HTML_CLUEFLOW (source->object->parent)->style,
+						HTML_CLUEFLOW (source->object->parent)->item_type,
+						HTML_CLUE     (source->object->parent)->halign,
+						HTML_CLUEFLOW (source->object->parent)->levels->len,
+						HTML_CLUEFLOW (source->object->parent)->levels->data,
 						HTML_ENGINE_SET_CLUEFLOW_INDENTATION_ALL,
 						dir, TRUE);
 		html_engine_selection_pop (e);

@@ -369,6 +369,17 @@ append_selection_string (HTMLObject *self,
 	html_object_append_selection_string (GTK_HTML (HTML_FRAME (self)->html)->engine->clue, buffer);
 }
 
+static void
+reparent (HTMLEmbedded *emb, GtkWidget *html)
+{
+	HTMLFrame *frame = HTML_FRAME (emb);
+
+	gtk_html_set_iframe_parent (GTK_HTML (frame->html), 
+				    html,
+				    GTK_HTML (frame->html)->frame);
+	(* HTML_EMBEDDED_CLASS (parent_class)->reparent) (emb, html);
+}
+
 static gboolean
 select_range (HTMLObject *self,
 	      HTMLEngine *engine,
@@ -461,6 +472,7 @@ html_frame_init (HTMLFrame *frame,
 	GtkHTML   *parent_html;
 	GtkHTMLStream *handle;
 	GtkWidget *scrolled_window;
+	gint depth;
 
 	g_assert (GTK_IS_HTML (parent));
 	parent_html = GTK_HTML (parent);
@@ -489,7 +501,7 @@ html_frame_init (HTMLFrame *frame,
 	gtk_html_set_default_content_type (new_html,
 					   parent_html->priv->content_type);
 	frame->html = new_widget;
-	gtk_html_set_iframe_parent (new_html, parent, HTML_OBJECT (frame));
+	depth = gtk_html_set_iframe_parent (new_html, parent, HTML_OBJECT (frame));
 	gtk_container_add (GTK_CONTAINER (scrolled_window), new_widget);
 	gtk_widget_show (new_widget);
 
@@ -597,6 +609,8 @@ html_frame_class_init (HTMLFrameClass *klass,
 	object_class->draw_background         = draw_background;
 	object_class->append_selection_string = append_selection_string;
 	object_class->select_range            = select_range;
+
+	embedded_class->reparent = reparent;
 }
 
 

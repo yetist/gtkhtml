@@ -1,3 +1,47 @@
+2002-10-28  Larry Ewing  <lewing@ximian.com>
+
+	* htmlselect.c (html_select_set_text): only measure the string if
+	there is one.
+
+	* htmliframe.c (check_page_split): Initialize the engine from the
+	the proper pointer.
+
+	* htmlfontmanager.c (html_font_manager_set_default): add header to
+	silence warning.
+
+	* htmlgdkpainter.c (find_font_with_similar_size): silence
+	warnings.
+	
+	* htmlclueflow.c (update_line_positions): silence warning.
+
+2002-10-27  Larry Ewing  <lewing@ximian.com>
+
+	* htmlgdkpainter.c (e_font_from_face): use helper function to
+	lookup fonts in the fontset and build a new fontset.
+	(e_font_lookup_face): helper function that handles the font
+	lookup.
+
+	* htmltable.c (check_point): return with warning if we haven't had
+	calc_size called yet.
+
+2002-10-25  Larry Ewing  <lewing@ximian.com>
+
+	* keybindingsrc.ms: remove C-s binding for strikethrough.
+
+	* htmlclueflow.c (draw_quotes): use draw_gt_line to fill draw >s
+	along the edge of the flow.  Fixes #29570.
+	(draw_gt_line): helper function.
+
+2002-10-23  Larry Ewing  <lewing@ximian.com>
+
+	* htmlclueflow.c (need_blockquote_padding): add new helper
+	function to sort out the level padding issue.
+
+2002-10-25  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (button_release_event): don't clear in_selection until
+	we are done with it.
+
 2002-10-18  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c (parse_p): <p>, </p> create new flows here to have
@@ -363,6 +407,11 @@
 
 	* gtkhtml.c: moved properties initialization to instance init,
 	suggested by Michael Meeks
+
+2002-05-24  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (selection_get): handle pasting text/html.
+	(init): add text/html target.
 
 2002-05-22  Radek Doulik  <rodo@ximian.com>
 

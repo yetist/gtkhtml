@@ -367,8 +367,10 @@ gtk_html_propmanager_set_gui (GtkHTMLPropmanager *pman, GladeXML *xml, GHashTabl
 	gtk_object_ref (GTK_OBJECT (xml));
 	priv->xml = xml;
 
-	gconf_client_add_dir (priv->client, GTK_HTML_GCONF_DIR, GCONF_CLIENT_PRELOAD_NONE, NULL);
-
+	gconf_client_add_dir (priv->client, GTK_HTML_GCONF_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, &gconf_error);
+	if (gconf_error)
+		g_error ("gconf error: %s\n", gconf_error->message);
+	
 	priv->orig_prop = gtk_html_class_properties_new ();
 	priv->saved_prop = gtk_html_class_properties_new ();
 	priv->actual_prop = gtk_html_class_properties_new ();

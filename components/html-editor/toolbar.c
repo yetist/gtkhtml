@@ -490,17 +490,18 @@ paragraph_alignment_changed_cb (GtkHTML *widget,
 /* Indentation group.  */
 
 static void
+
 editor_toolbar_indent_cb (GtkWidget *widget,
 			  GtkHTMLControlData *cd)
 {
-	gtk_html_modify_indent_by_delta (GTK_HTML (cd->html), +1);
+	gtk_html_indent_push_level (GTK_HTML (cd->html), HTML_LIST_TYPE_BLOCKQUOTE);
 }
 
 static void
 editor_toolbar_unindent_cb (GtkWidget *widget,
 			    GtkHTMLControlData *cd)
 {
-	gtk_html_modify_indent_by_delta (GTK_HTML (cd->html), -1);
+	gtk_html_indent_pop_level (GTK_HTML (cd->html));
 }
 
 
@@ -633,10 +634,13 @@ toolbar_item_update_sensitivity (GtkWidget *widget, gpointer data)
 	GtkHTMLControlData *cd = (GtkHTMLControlData *)data;
 	gboolean sensitive;
 
-	sensitive = (cd->format_html && widget != cd->unindent_button
+	sensitive = ((cd->format_html && widget != cd->unindent_button)
 		     || widget == cd->paragraph_option
 		     || widget == cd->indent_button
-		     || widget == cd->unindent_button && gtk_html_get_paragraph_indentation (cd->html));
+		     || (widget == cd->unindent_button && gtk_html_get_paragraph_indentation (cd->html))
+		     || widget == cd->left_align_button
+		     || widget == cd->center_button
+		     || widget == cd->right_align_button);
 
 	gtk_widget_set_sensitive (widget, sensitive);
 }

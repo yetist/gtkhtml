@@ -386,7 +386,7 @@ handle_none (GtkHTML *html,
 		gtk_html_copy (html);
 		break;
 	case GDK_F5:
-		gtk_html_paste (html);
+		gtk_html_paste (html, FALSE);
 		break;
 	case GDK_F12:
 		if (html->engine->clue != NULL) {

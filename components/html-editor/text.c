@@ -22,6 +22,7 @@
 
 #include <config.h>
 #include <gal/widgets/widget-color-combo.h>
+
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
 #include "htmlengine-edit.h"
@@ -87,19 +88,20 @@ fill_sample (GtkHTMLEditTextProperties *d)
 	bg    = html_engine_save_get_sample_body (d->cd->html->engine, NULL);
 	sa    = d->url && *d->url ? "</a>" : "";
 	size  = g_strdup_printf ("<font size=%d>", get_size (d->style_or) + 1);
-	color = d->color_changed ? g_strdup_printf ("<font color=#%02x%02x%02x>",
-						    d->color->color.red   >> 8,
-						    d->color->color.green >> 8,
-						    d->color->color.blue  >> 8)
-		: g_strdup ("");
+	
+	color = g_strdup_printf ("<font color=#%02x%02x%02x>",
+				 d->color->color.red   >> 8,
+				 d->color->color.green >> 8,
+				 d->color->color.blue  >> 8);
+	
 	body  = g_strconcat (bg, a,
 			     CVAL (0) ? "<b>" : "",
 			     CVAL (1) ? "<i>" : "",
 			     CVAL (2) ? "<u>" : "",
 			     CVAL (3) ? "<s>" : "",
 			     size, color,
-			     "The quick brown fox jumps over the lazy dog.", sa, NULL);
-
+			     _("The quick brown fox jumps over the lazy dog."), sa, NULL);
+	
 	gtk_html_load_from_string (d->sample, body, -1);
 	g_free (color);
 	g_free (size);
@@ -144,8 +146,10 @@ set_style (GtkWidget *w, GtkHTMLEditTextProperties *d)
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (w))) {
 		d->style_or  |= style;
 		d->style_and |= style;
-	} else
+	} else {
+		d->style_or  &= ~style;
 		d->style_and &= ~style;
+	}
 
 	d->style_changed = TRUE;
 	gtk_html_edit_properties_dialog_change (d->cd->properties_dialog);
@@ -178,6 +182,7 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	GtkWidget *vbox, *frame, *table, *menu, *menuitem, *hbox, *t1;
 	gboolean selection;
 	const gchar *target;
+	const gchar *url;
 	gint i;
 
 	selection = html_engine_is_selection_active (cd->html->engine);
@@ -192,9 +197,14 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	data->style_or        = html_engine_get_font_style (cd->html->engine);
 	data->color           = html_engine_get_color (cd->html->engine);
 
+	if (!data->color)
+		data->color = html_colorset_get_color (data->cd->html->engine->settings->color_set, 
+						       HTMLTextColor);
+
 	target = html_engine_get_target (cd->html->engine);
-	data->url             = selection ? g_strconcat (html_engine_get_url (cd->html->engine),
-							 target ? "#" : "", target, NULL) : NULL;
+	url  = html_engine_get_url (cd->html->engine);
+	data->url = selection ? g_strconcat (url ? url : "", target ? "#" : "", target, NULL) : NULL;
+
 	html_color_ref (data->color);
 
 	table = gtk_table_new (3, 2, FALSE);
@@ -276,9 +286,9 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	frame = gtk_frame_new (_("Color"));
 	hbox = gtk_hbox_new (FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (hbox), 3);
+
 	data->color_combo = color_combo_new (NULL, _("Automatic"),
-					     &html_colorset_get_color (data->cd->html->engine->settings->color_set,
-								       HTMLTextColor)->color,
+					     &data->color->color,
 					     color_group_fetch ("text", data->cd));
         g_signal_connect (data->color_combo, "color_changed", G_CALLBACK (color_changed), data);
 

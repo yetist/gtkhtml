@@ -40,12 +40,7 @@ struct _GtkHTMLPrivate {
 
 	gboolean update_styles;
 
-	gint last_selection_type;
-	/* Used to hold the primary selection when
-	** pasting within ourselves
-	*/
-	HTMLObject *primary;
-	guint       primary_len;
+	gint selection_type;
 
 	gchar *content_type;
 	char  *base_url;
@@ -69,6 +64,7 @@ struct _GtkHTMLPrivate {
 	gchar      *dnd_url;
 
 	guint32     event_time;
+	gboolean    selection_as_cite;
 };
 
 void  gtk_html_private_calc_scrollbars  (GtkHTML                 *html,
@@ -83,5 +79,3 @@ void  gtk_html_editor_event             (GtkHTML                 *html,
 void  gtk_html_api_set_language         (GtkHTML                 *html);
 
 #endif /* _GTKHTML_PRIVATE_H */
-
-

@@ -36,6 +36,8 @@
 #define HP_CLASS(obj)					\
 	HTML_PAINTER_CLASS (G_OBJECT_GET_CLASS (obj))
 
+#define HTML_ALLOCA_MAX 2048
+
 /* Our parent class.  */
 static GObjectClass *parent_class = NULL;
 
@@ -61,6 +63,17 @@ finalize (GObject *object)
 }
 
 
+#ifndef GAL_NOT_SLOW
+/* NOTE see htmltextslave.c for an explanation and the h_utf8 decls */
+gint h_utf8_pointer_to_offset (const gchar *str, const gchar *pos);
+gint h_utf8_strlen (const gchar *p, gint max);
+gchar *h_utf8_offset_to_pointer  (const gchar *str, gint         offset);
+
+#define g_utf8_strlen h_utf8_strlen
+#define g_utf8_offset_to_pointer h_utf8_offset_to_pointer
+#define g_utf8_pointer_to_offset h_utf8_pointer_to_offset
+#endif
+
 #define DEFINE_UNIMPLEMENTED(method)						\
 	static gint								\
 	method##_unimplemented (GObject *obj)					\
@@ -296,17 +309,29 @@ html_painter_calc_text_size (HTMLPainter *painter,
 {
 	gchar *translated;
 	gint translated_len;
-
+	gchar *tmp = NULL;
+	gint tmp_len;
+	
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 	g_return_if_fail (text != NULL);
 	g_return_if_fail (font_style != GTK_HTML_FONT_STYLE_DEFAULT);
+
+	tmp_len =  (g_utf8_offset_to_pointer (text,len) - text) + calc_text_bytes_delta (text, len, *line_offset, &translated_len,
+											 *line_offset != -1) + 1;
+
+	if (tmp_len > HTML_ALLOCA_MAX)
+		tmp = translated = g_malloc (tmp_len);
+	else 
+		translated = alloca (tmp_len);
 
 	translated = alloca (strlen (text) + calc_text_bytes_delta (text, len, *line_offset, &translated_len,
 								    *line_offset != -1) + 1);
 	*line_offset = translate_text_special_chars (text, translated, len, *line_offset, *line_offset != -1);
 
 	(* HP_CLASS (painter)->calc_text_size) (painter, translated, translated_len, font_style, face, width, asc, dsc);
+	
+	g_free (tmp);
 }
 
 static gint
@@ -513,16 +538,26 @@ html_painter_draw_text (HTMLPainter *painter,
 			const gchar *text, gint len, gint line_offset)
 {
 	gchar *translated;
+	gchar *tmp = NULL;
 	gint translated_len;
+	gint tmp_len;
 
 	g_return_val_if_fail (painter != NULL, line_offset);
 	g_return_val_if_fail (HTML_IS_PAINTER (painter), line_offset);
 
-	translated = alloca (strlen (text) + calc_text_bytes_delta (text, len, line_offset, &translated_len,
-								    line_offset != -1) + 1);
+	tmp_len = (g_utf8_offset_to_pointer (text, len) - text) + calc_text_bytes_delta (text, len, line_offset, &translated_len,
+					       line_offset != -1) + 1;
+	
+	if (tmp_len > HTML_ALLOCA_MAX)
+		tmp = translated = g_malloc (tmp_len);
+	else 
+		translated = alloca (tmp_len);
+
 	line_offset = translate_text_special_chars (text, translated, len, line_offset, line_offset != -1);
 
 	(* HP_CLASS (painter)->draw_text) (painter, x, y, translated, translated_len);
+
+	g_free (tmp);
 
 	return line_offset;
 }

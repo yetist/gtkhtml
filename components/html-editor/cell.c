@@ -159,10 +159,15 @@ fill_sample (GtkHTMLEditCellProperties *d)
 			else
 				g_string_append (str, "<td>");
 
-			g_string_append (str, r == 0 && c == 1
-					 ? "The quick brown fox jumps over the lazy dog. "
-					 "The quick brown fox jumps over the lazy dog."
-					 : "&nbsp;Other&nbsp;");
+			if (c == 1 && r == 0) {
+				g_string_append (str, _("The quick brown fox jumps over the lazy dog."));
+				g_string_append (str, " ");
+				g_string_append (str, _("The quick brown fox jumps over the lazy dog."));
+			} else {
+				g_string_append (str, "&nbsp;");
+				g_string_append (str, _("Other"));
+				g_string_append (str, "&nbsp;");
+			}
 			g_string_append (str, "</td>");
 		}
 		g_string_append (str, "</tr>");
@@ -658,13 +663,6 @@ cell_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 	}
 	html_cursor_jump_to_position (e->cursor, e, position);
 
-	d->changed_bg_color = FALSE;
-	d->changed_bg_pixmap = FALSE;
-	d->changed_halign = FALSE;
-	d->changed_valign = FALSE;
-	d->changed_wrap = FALSE;
-	d->changed_heading = FALSE;
-	d->changed_width = FALSE;
 }
 
 void

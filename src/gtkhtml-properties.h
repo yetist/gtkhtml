@@ -60,6 +60,10 @@ struct _GtkHTMLClassProperties {
 	gboolean  live_spell_check;
 	GdkColor  spell_error_color;
 	gchar    *language;
+
+	gchar    *link_color;
+	gchar    *vlink_color;
+	gchar    *alink_color;
 };
 
 GtkHTMLClassProperties * gtk_html_class_properties_new       (void);

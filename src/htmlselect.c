@@ -417,14 +417,19 @@ html_select_set_text (HTMLSelect *select, gchar *text)
 		item = g_list_length (select->strings) - 1;
 
 		if (select->strings) {
+			char *longest;
+
 			g_list_last (select->strings)->data = g_strdup (text);
 
 			select->needs_update = TRUE;
 			gtk_entry_set_text (GTK_ENTRY(GTK_COMBO(w)->entry), 
 					    g_list_nth(select->strings, select->default_selected)->data);
 
-			/* FIX2 HTML_OBJECT(select)->width = gdk_string_width (w->style->font, 
-			   longest_string (select)) + 30; */
+			longest = NULL;
+			/* FIX2 
+			   longest = longest_string (select);
+			   HTML_OBJECT(select)->width = gdk_string_width (w->style->font, longest) + 30
+			*/
 		}
 		gtk_widget_set_usize (GTK_WIDGET (w), HTML_OBJECT (select)->width, -2);
 	}

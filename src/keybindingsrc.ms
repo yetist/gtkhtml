@@ -47,7 +47,6 @@ binding "gtkhtml-bindings-ms"
   bind "<Ctrl>b"              { "command" (bold-toggle) }
   bind "<Ctrl>i"              { "command" (italic-toggle) }
   bind "<Ctrl>u"              { "command" (underline-toggle) }
-  bind "<Ctrl>s"              { "command" (strikeout-toggle) }
 
   bind "<Ctrl>z"              { "command" (undo) }
   bind "<Ctrl>r"              { "command" (redo) }
