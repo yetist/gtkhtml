@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.5\n"
-"POT-Creation-Date: 2001-07-13 17:48-0500\n"
+"POT-Creation-Date: 2001-07-17 16:10-0500\n"
 "PO-Revision-Date: 2001-04-21 11:30+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
@@ -53,8 +53,8 @@ msgstr "Slet"
 msgid "Grab key"
 msgstr "Gribetast"
 
-#: capplet/main.c:227 components/html-editor/cell.c:345
-#: components/html-editor/table.c:342 components/html-editor/table.c:407
+#: capplet/main.c:227 components/html-editor/cell.c:344
+#: components/html-editor/table.c:341 components/html-editor/table.c:406
 msgid "Could not load glade file."
 msgstr "Kunne ikke indlæse galde fil."
 
@@ -194,7 +194,7 @@ msgid "Cut the selection"
 msgstr "Klip det valgte bort"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:8
-#: components/html-editor/search.c:64
+#: components/html-editor/search.c:64 components/html-editor/search.c:107
 msgid "Find"
 msgstr "Find"
 
@@ -274,7 +274,7 @@ msgstr "Genopret fortrudt handling"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:26
 #: components/html-editor/replace.c:84 components/html-editor/replace.c:146
-#: components/html-editor/replace.c:158
+#: components/html-editor/replace.c:158 components/html-editor/replace.c:204
 msgid "Replace"
 msgstr "Erstat"
 
@@ -382,7 +382,7 @@ msgstr "Lænke"
 msgid "Background"
 msgstr "Baggrundsbillede"
 
-#: components/html-editor/cell.c:351 components/html-editor/table.c:348
+#: components/html-editor/cell.c:350 components/html-editor/table.c:347
 #: components/html-editor/text.c:221 components/html-editor/toolbar.c:286
 msgid "Automatic"
 msgstr "Automatisk"
@@ -423,7 +423,7 @@ msgstr "Kunne ikke initialisere Bonobo"
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
 #: components/html-editor/gtkhtml-editor-properties.glade.h:1
-#: components/html-editor/image.c:207
+#: components/html-editor/image.c:206
 msgid "Alignment"
 msgstr "Justering"
 
@@ -432,7 +432,7 @@ msgid "Be careful! Tables code is still ALPHA quality."
 msgstr ""
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:4
-#: components/html-editor/image.c:203
+#: components/html-editor/image.c:202
 msgid "Bottom"
 msgstr "Bund"
 
@@ -446,7 +446,7 @@ msgid "Cells"
 msgstr ""
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:7
-#: components/html-editor/paragraph.c:158 components/html-editor/rule.c:257
+#: components/html-editor/paragraph.c:158 components/html-editor/rule.c:256
 #: components/html-editor/toolbar.c:496
 msgid "Center"
 msgstr "Center"
@@ -461,12 +461,12 @@ msgid "Header"
 msgstr "Titel 1"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:10
-#: components/html-editor/paragraph.c:157 components/html-editor/rule.c:256
+#: components/html-editor/paragraph.c:157 components/html-editor/rule.c:255
 msgid "Left"
 msgstr "Venstre"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:11
-#: components/html-editor/image.c:202
+#: components/html-editor/image.c:201
 msgid "Middle"
 msgstr ""
 
@@ -491,19 +491,19 @@ msgid "Percent"
 msgstr "Procent %"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:16
-#: components/html-editor/image.c:259 components/html-editor/image.c:268
-#: components/html-editor/rule.c:230
+#: components/html-editor/image.c:258 components/html-editor/image.c:267
+#: components/html-editor/rule.c:229
 msgid "Pixels"
 msgstr "Piksler"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:17
-#: components/html-editor/paragraph.c:159 components/html-editor/rule.c:258
+#: components/html-editor/paragraph.c:159 components/html-editor/rule.c:257
 msgid "Right"
 msgstr "Højre"
 
 #. size
 #: components/html-editor/gtkhtml-editor-properties.glade.h:18
-#: components/html-editor/image.c:252 components/html-editor/rule.c:225
+#: components/html-editor/image.c:251 components/html-editor/rule.c:224
 #: components/html-editor/text.c:188
 msgid "Size"
 msgstr "Størrelse"
@@ -525,7 +525,7 @@ msgid "Table Insert"
 msgstr "Indsæt"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
-#: components/html-editor/image.c:201
+#: components/html-editor/image.c:200
 msgid "Top"
 msgstr "Top"
 
@@ -557,7 +557,7 @@ msgid "columns"
 msgstr ""
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:29
-#: components/html-editor/image.c:244 components/html-editor/image.c:276
+#: components/html-editor/image.c:243 components/html-editor/image.c:275
 msgid "height"
 msgstr "højde"
 
@@ -596,8 +596,8 @@ msgid "vertical"
 msgstr ""
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:38
-#: components/html-editor/image.c:225 components/html-editor/image.c:243
-#: components/html-editor/image.c:275 components/html-editor/rule.c:267
+#: components/html-editor/image.c:224 components/html-editor/image.c:242
+#: components/html-editor/image.c:274 components/html-editor/rule.c:266
 msgid "width"
 msgstr "bredde"
 
@@ -605,35 +605,35 @@ msgstr "bredde"
 msgid "wrapping"
 msgstr ""
 
-#: components/html-editor/image.c:180
+#: components/html-editor/image.c:179
 msgid "Image selection"
 msgstr "Billedvalg"
 
-#: components/html-editor/image.c:215
+#: components/html-editor/image.c:214
 msgid "Border"
 msgstr "Kant"
 
-#: components/html-editor/image.c:232
+#: components/html-editor/image.c:231
 msgid "Padding"
 msgstr "Fyld"
 
-#: components/html-editor/image.c:260 components/html-editor/image.c:269
-#: components/html-editor/rule.c:231
+#: components/html-editor/image.c:259 components/html-editor/image.c:268
+#: components/html-editor/rule.c:230
 #, c-format
 msgid "Percent %"
 msgstr "Procent %"
 
-#: components/html-editor/link.c:74
+#: components/html-editor/link.c:73
 msgid "Clear"
 msgstr "Tøm"
 
-#: components/html-editor/link.c:77
+#: components/html-editor/link.c:76
 msgid "URL"
 msgstr "URL"
 
 #: components/html-editor/menubar.c:102 components/html-editor/menubar.c:122
 #: components/html-editor/menubar.c:145 components/html-editor/menubar.c:162
-#: components/html-editor/properties.c:110
+#: components/html-editor/properties.c:118
 msgid "Insert"
 msgstr "Indsæt"
 
@@ -642,7 +642,7 @@ msgid "Cannot execute gtkhtml properties"
 msgstr "Kan ikke udføre gtkhtml egenskaber"
 
 #. style
-#: components/html-editor/paragraph.c:110 components/html-editor/rule.c:249
+#: components/html-editor/paragraph.c:110 components/html-editor/rule.c:248
 #: components/html-editor/text.c:168
 msgid "Style"
 msgstr "Stil"
@@ -762,7 +762,7 @@ msgstr "Næste"
 msgid "search backward"
 msgstr "søg tilbage"
 
-#: components/html-editor/replace.c:153 components/html-editor/search.c:68
+#: components/html-editor/replace.c:153 components/html-editor/search.c:67
 msgid "case sensitive"
 msgstr "skeln mellem store og små bogstaver"
 
@@ -770,22 +770,22 @@ msgstr "skeln mellem store og små bogstaver"
 msgid "with"
 msgstr "med"
 
-#: components/html-editor/rule.c:239
+#: components/html-editor/rule.c:238
 msgid "length"
 msgstr "længde"
 
-#: components/html-editor/rule.c:273
+#: components/html-editor/rule.c:272
 msgid "shaded"
 msgstr "skygger"
 
-#: components/html-editor/search.c:64
-msgid "Regex find"
-msgstr ""
-
-#: components/html-editor/search.c:67
+#: components/html-editor/search.c:66
 #, fuzzy
 msgid "backward"
 msgstr "søg tilbage"
+
+#: components/html-editor/search.c:107
+msgid "Regex find"
+msgstr ""
 
 #: components/html-editor/test-html-editor-control.c:240
 msgid "Open file..."
