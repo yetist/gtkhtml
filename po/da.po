@@ -6,13 +6,14 @@
 # Konventioner:
 #
 #   link -> henvisning
+#   rule -> linje
 #   smiley -> smiley
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2003-04-09 17:04-0400\n"
-"PO-Revision-Date: 2003-03-10 21:25+0100\n"
+"POT-Creation-Date: 2003-04-15 20:31+0200\n"
+"PO-Revision-Date: 2003-04-15 20:42+0200\n"
 "Last-Translator: Ole Laursen <olau@hardworking.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -259,8 +260,7 @@ msgid "Cut the selection"
 msgstr "Klip det markerede"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:73 components/html-editor/search.c:75
-#: components/html-editor/search.c:118
+#: components/html-editor/search.c:73 components/html-editor/search.c:121
 msgid "Find"
 msgstr "Søg"
 
@@ -385,7 +385,7 @@ msgstr "Indsæt billede i dokumentet..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
 msgid "Insert rule into document..."
-msgstr "Indsæt regel i dokumentet..."
+msgstr "Indsæt linje i dokumentet..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
 msgid "Insert table into document..."
@@ -537,8 +537,7 @@ msgstr "Omgør den fortrudte handling"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
 #: components/html-editor/replace.c:78 components/html-editor/replace.c:152
-#: components/html-editor/replace.c:154 components/html-editor/replace.c:171
-#: components/html-editor/replace.c:207
+#: components/html-editor/replace.c:210
 msgid "Replace"
 msgstr "Erstat"
 
@@ -556,7 +555,7 @@ msgstr "Liste med romerske tal"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
 #: components/html-editor/menubar.c:125 components/html-editor/popup.c:228
 msgid "Rule"
-msgstr "Regel"
+msgstr "Linje"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
 msgid "Select _All"
@@ -761,7 +760,7 @@ msgstr "Liste med _romerske tal"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
 msgid "_Rule..."
-msgstr "_Regel..."
+msgstr "_Linje..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:141
 msgid "_Smile"
@@ -1326,45 +1325,37 @@ msgid "Remove link"
 msgstr "Fjern henvisning"
 
 #: components/html-editor/popup.c:474
-#, fuzzy
 msgid "Text Style..."
-msgstr "Te_kstfil..."
+msgstr "Tekststil..."
 
 #: components/html-editor/popup.c:476 components/html-editor/popup.c:482
 #: components/html-editor/popup.c:492
-#, fuzzy
 msgid "Paragraph Style..."
-msgstr "Afsnit..."
+msgstr "Afsnitsstil..."
 
 #: components/html-editor/popup.c:480
-#, fuzzy
 msgid "Link Style..."
-msgstr "Henvisning..."
+msgstr "Henvisningsstil..."
 
 #: components/html-editor/popup.c:486
-#, fuzzy
 msgid "Rule Style..."
-msgstr "Regel..."
+msgstr "Linjestil..."
 
 #: components/html-editor/popup.c:490
-#, fuzzy
 msgid "Image Style..."
-msgstr "Billede..."
+msgstr "Billedestil..."
 
 #: components/html-editor/popup.c:501
-#, fuzzy
 msgid "Cell Style..."
-msgstr "Celle..."
+msgstr "Cellestil..."
 
 #: components/html-editor/popup.c:504
-#, fuzzy
 msgid "Table Style..."
-msgstr "Tabel..."
+msgstr "Tabelstil..."
 
 #: components/html-editor/popup.c:510
-#, fuzzy
 msgid "Page Style..."
-msgstr "Billede..."
+msgstr "Sidestil..."
 
 #: components/html-editor/popup.c:515
 msgid "Table insert"
@@ -1395,9 +1386,9 @@ msgid "Cell contents"
 msgstr "Celleindhold"
 
 #: components/html-editor/popup.c:547
-#, fuzzy, c-format
+#, c-format
 msgid "%s Dictionary"
-msgstr "Tilføj '%s' til ordbogen"
+msgstr "%s ordbog"
 
 #: components/html-editor/replace.c:74
 msgid "Replace confirmation"
@@ -1412,16 +1403,20 @@ msgid "Next"
 msgstr "Næste"
 
 #: components/html-editor/replace.c:160
-msgid "search backward"
-msgstr "søg tilbage"
+msgid "Search _backward"
+msgstr "Søg _tilbage"
 
 #: components/html-editor/replace.c:161 components/html-editor/search.c:79
-msgid "case sensitive"
-msgstr "skeln mellem store og små bogstaver"
+msgid "Case _sensitive"
+msgstr "_Skeln mellem store og små bogstaver"
+
+#: components/html-editor/replace.c:171
+msgid "Replace:"
+msgstr "Erstat:"
 
 #: components/html-editor/replace.c:174
-msgid "with"
-msgstr "med"
+msgid "With:"
+msgstr "Med:"
 
 #: components/html-editor/rule.c:97
 msgid "Blue 3D"
@@ -1440,10 +1435,10 @@ msgstr ""
 "Kan ikke anvende dine ændringer."
 
 #: components/html-editor/search.c:78
-msgid "backward"
-msgstr "baglæns"
+msgid "_Backward"
+msgstr "_Baglæns"
 
-#: components/html-editor/search.c:118
+#: components/html-editor/search.c:121
 msgid "Find Regular Expression"
 msgstr "Søg efter regulært udtryk"
 
@@ -1452,9 +1447,8 @@ msgid "Spell checker"
 msgstr "Stavekontrol"
 
 #: components/html-editor/spell.c:358
-#, fuzzy
 msgid "Current _Languages"
-msgstr "S_prog for stavekontrol"
+msgstr "Nuværende _sprog"
 
 #: components/html-editor/table.c:199
 msgid "Flat gray"
@@ -1492,10 +1486,9 @@ msgstr "Åbn fil..."
 msgid "Save file as..."
 msgstr "Gem fil som..."
 
-#: components/html-editor/test-html-editor-control.c:554
-#, fuzzy
+#: components/html-editor/test-html-editor-control.c:540
 msgid "GtkHTML Editor Test Container"
-msgstr "GtkHTML-redigeringskontrol"
+msgstr "GtkHTML-redigeringstestbeholder"
 
 #. color selection
 #: components/html-editor/text.c:291
@@ -1702,6 +1695,9 @@ msgstr "_Vis udskrift"
 #: src/testgtkhtml.c:103
 msgid "Print preview"
 msgstr "Vis udskrift"
+
+#~ msgid "with"
+#~ msgstr "med"
 
 #~ msgid "Check '%s' spelling..."
 #~ msgstr "Kontrollér stavning af '%s'..."
