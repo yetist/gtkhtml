@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-01 16:31+0100\n"
+"POT-Creation-Date: 2004-11-29 16:53+0100\n"
 "PO-Revision-Date: 2004-05-02 23:36+0300\n"
 "Last-Translator: Priit Laes <amd@tt.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
@@ -1968,142 +1968,142 @@ msgid ""
 "Cannot apply your changes."
 msgstr ""
 
-#: src/gtkhtml.c:2568
+#: src/gtkhtml.c:2569
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 
-#: src/gtkhtml.c:2890
+#: src/gtkhtml.c:2891
 msgid "Editable"
 msgstr "Redigeeritav"
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2892
 msgid "Whether the html can be edited"
 msgstr "Kas html'i saab redigeerida"
 
-#: src/gtkhtml.c:2897
+#: src/gtkhtml.c:2898
 msgid "Document Title"
 msgstr "Dokumendi pealkiri"
 
-#: src/gtkhtml.c:2898
+#: src/gtkhtml.c:2899
 msgid "The title of the current document"
 msgstr "Aktiivse dokumendi pealkiri"
 
-#: src/gtkhtml.c:2904
+#: src/gtkhtml.c:2905
 msgid "Document Base"
 msgstr "Dokumendi baas"
 
-#: src/gtkhtml.c:2905
+#: src/gtkhtml.c:2906
 msgid "The base URL for relative references"
 msgstr ""
 
-#: src/gtkhtml.c:2911
+#: src/gtkhtml.c:2912
 #, fuzzy
 msgid "Target Base"
 msgstr "alus,astendaja"
 
-#: src/gtkhtml.c:2912
+#: src/gtkhtml.c:2913
 msgid "The base URL of the targe frame"
 msgstr ""
 
-#: src/gtkhtml.c:2921
+#: src/gtkhtml.c:2922
 msgid "Fixed Width Font"
 msgstr "Fikseeritud laiusega font"
 
-#: src/gtkhtml.c:2922
+#: src/gtkhtml.c:2923
 msgid "The Monospace font to use for typewriter text"
 msgstr ""
 
-#: src/gtkhtml.c:2928
+#: src/gtkhtml.c:2929
 msgid "New Link Color"
 msgstr "Uus viidavärv"
 
-#: src/gtkhtml.c:2929
+#: src/gtkhtml.c:2930
 msgid "The color of new link elements"
 msgstr "Uute viidaelementide värv"
 
-#: src/gtkhtml.c:2934
+#: src/gtkhtml.c:2935
 msgid "Visited Link Color"
 msgstr "Külastatud viida värv"
 
-#: src/gtkhtml.c:2935
+#: src/gtkhtml.c:2936
 msgid "The color of visited link elements"
 msgstr "Külastatud viidaelementide värv"
 
-#: src/gtkhtml.c:2940
+#: src/gtkhtml.c:2941
 msgid "Active Link Color"
 msgstr "Aktiivse viida värv"
 
-#: src/gtkhtml.c:2941
+#: src/gtkhtml.c:2942
 #, fuzzy
 msgid "The color of active link elements"
 msgstr "Uute viidaelementide värv"
 
-#: src/gtkhtml.c:2946
+#: src/gtkhtml.c:2947
 #, fuzzy
 msgid "Spelling Error Color"
 msgstr "Vali kohandatud värv"
 
-#: src/gtkhtml.c:2947
+#: src/gtkhtml.c:2948
 #, fuzzy
 msgid "The color of the spelling error markers"
 msgstr "Vea korral &muudetakse teksti värvi"
 
-#: src/gtkhtml.c:2952
+#: src/gtkhtml.c:2953
 #, fuzzy
 msgid "Cite Quotation Color"
 msgstr "Aseta _tsiteering"
 
-#: src/gtkhtml.c:2953
+#: src/gtkhtml.c:2954
 #, fuzzy
 msgid "The color of the cited text"
 msgstr "Uute viidaelementide värv"
 
-#: src/html-component.c:219
+#: src/html-component.c:220
 msgid "Html"
 msgstr "Html"
 
-#: src/html-component.c:220
+#: src/html-component.c:221
 msgid "Html test"
 msgstr "Html test"
 
-#: src/html-component.c:226
+#: src/html-component.c:227
 msgid "Test1"
 msgstr "Test1"
 
-#: src/html-component.c:233
+#: src/html-component.c:234
 msgid "Test2"
 msgstr "Test2"
 
-#: src/html-component.c:239
+#: src/html-component.c:240
 msgid "Test3"
 msgstr "Test3"
 
-#: src/html-component.c:245
+#: src/html-component.c:246
 msgid "Test4"
 msgstr "Test4"
 
-#: src/html-component.c:251
+#: src/html-component.c:252
 msgid "Test5"
 msgstr "Test5"
 
-#: src/html-component.c:257
+#: src/html-component.c:258
 msgid "Test6"
 msgstr "Test6"
 
-#: src/html-component.c:263
+#: src/html-component.c:264
 msgid "Test7"
 msgstr "Test7"
 
-#: src/html-component.c:612
+#: src/html-component.c:613
 msgid "_Refresh"
 msgstr "_Värskenda"
 
-#: src/html-component.c:613
+#: src/html-component.c:614
 msgid "Reload the page"
 msgstr "Lae lehekülg uuesti"
 
-#: src/html-component.c:660
+#: src/html-component.c:661
 #, fuzzy
 msgid "Could not initialize Bonobo!"
 msgstr "Bonobo laadimine ebaõnnestus!\n"
@@ -2122,21 +2122,18 @@ msgstr "Algväärtusta"
 msgid "Cannot allocate default font for printing\n"
 msgstr ""
 
-#: src/test.c:191
+#: src/test.c:375
 msgid "GtkHTML Test"
 msgstr "GtkHTML test"
 
-#: src/testgtkhtml.c:117
-msgid "Print pre_view"
-msgstr "Printimise eel_vaade"
+#~ msgid "Print pre_view"
+#~ msgstr "Printimise eel_vaade"
 
-#: src/testgtkhtml.c:117
-msgid "Print preview"
-msgstr "Printimise eelvaade"
+#~ msgid "Print preview"
+#~ msgstr "Printimise eelvaade"
 
-#: src/testgtkhtml.c:1004
-msgid "GtkHTML Test Application"
-msgstr "GtkHTML testrakendus"
+#~ msgid "GtkHTML Test Application"
+#~ msgstr "GtkHTML testrakendus"
 
 #~ msgid "Plain"
 #~ msgstr "Lihtne"

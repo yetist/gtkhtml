@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-01 16:31+0100\n"
+"POT-Creation-Date: 2004-11-29 16:53+0100\n"
 "PO-Revision-Date: 2004-01-29 17:50+0200\n"
 "Last-Translator: Kostas Papadimas <pkst@gnome.org>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
@@ -1971,145 +1971,145 @@ msgstr ""
 "Το επεξεργασμένο κείμενο αφαιρέθηκε από το έγγραφο.\n"
 "Αδύνατη η εφαρμογή των αλλαγών."
 
-#: src/gtkhtml.c:2568
+#: src/gtkhtml.c:2569
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 
-#: src/gtkhtml.c:2890
+#: src/gtkhtml.c:2891
 msgid "Editable"
 msgstr "Επεξεργάσιμο"
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2892
 msgid "Whether the html can be edited"
 msgstr "Αν θα μπορεί να γίνει επεξεργασία στο html"
 
-#: src/gtkhtml.c:2897
+#: src/gtkhtml.c:2898
 msgid "Document Title"
 msgstr "Τίτλος Εγγράφου"
 
-#: src/gtkhtml.c:2898
+#: src/gtkhtml.c:2899
 msgid "The title of the current document"
 msgstr "Ο τίτλος του τρέχοντος εγγράφου"
 
-#: src/gtkhtml.c:2904
+#: src/gtkhtml.c:2905
 msgid "Document Base"
 msgstr "Βάση Εγγράφου"
 
-#: src/gtkhtml.c:2905
+#: src/gtkhtml.c:2906
 msgid "The base URL for relative references"
 msgstr "Το URL βάσης γα σχετικές αναφορές"
 
-#: src/gtkhtml.c:2911
+#: src/gtkhtml.c:2912
 msgid "Target Base"
 msgstr "Βάση Στόχου"
 
-#: src/gtkhtml.c:2912
+#: src/gtkhtml.c:2913
 msgid "The base URL of the targe frame"
 msgstr "Το URL βάσης του πλαισίου στόχου"
 
-#: src/gtkhtml.c:2921
+#: src/gtkhtml.c:2922
 msgid "Fixed Width Font"
 msgstr "Γραμματοσειρά Σταθερού Πλάτους"
 
-#: src/gtkhtml.c:2922
+#: src/gtkhtml.c:2923
 msgid "The Monospace font to use for typewriter text"
 msgstr "Η γραμματοσειρά Monospace που χρησιμοποιείται για κείμενο γραφομηχανής"
 
-#: src/gtkhtml.c:2928
+#: src/gtkhtml.c:2929
 msgid "New Link Color"
 msgstr "Χρώμα Νέου Δεσμού"
 
-#: src/gtkhtml.c:2929
+#: src/gtkhtml.c:2930
 msgid "The color of new link elements"
 msgstr "Το χρώμα για στοιχεία νέων συνδέσμων"
 
-#: src/gtkhtml.c:2934
+#: src/gtkhtml.c:2935
 msgid "Visited Link Color"
 msgstr "Χρώμα Αναγνωσμένου Δεσμού"
 
-#: src/gtkhtml.c:2935
+#: src/gtkhtml.c:2936
 msgid "The color of visited link elements"
 msgstr "Το χρώμα για στοιχεία αναγνωσμένων δεσμών"
 
-#: src/gtkhtml.c:2940
+#: src/gtkhtml.c:2941
 msgid "Active Link Color"
 msgstr "Χρώμα Ενεργού Δεσμού"
 
-#: src/gtkhtml.c:2941
+#: src/gtkhtml.c:2942
 msgid "The color of active link elements"
 msgstr "Το χρώμα για στοιχεία ενεργών δεσμών"
 
-#: src/gtkhtml.c:2946
+#: src/gtkhtml.c:2947
 msgid "Spelling Error Color"
 msgstr "Χρώμα Ορθογραφικού Λάθους"
 
-#: src/gtkhtml.c:2947
+#: src/gtkhtml.c:2948
 msgid "The color of the spelling error markers"
 msgstr "Το χρώμα σήμανσης ορθογραφικών λαθών"
 
-#: src/gtkhtml.c:2952
+#: src/gtkhtml.c:2953
 #, fuzzy
 msgid "Cite Quotation Color"
 msgstr "Επικόλληση Παράθεσης"
 
-#: src/gtkhtml.c:2953
+#: src/gtkhtml.c:2954
 #, fuzzy
 msgid "The color of the cited text"
 msgstr "Το χρώμα για στοιχεία ενεργών δεσμών"
 
-#: src/html-component.c:219
+#: src/html-component.c:220
 msgid "Html"
 msgstr "Html"
 
-#: src/html-component.c:220
+#: src/html-component.c:221
 msgid "Html test"
 msgstr "Δοκιμή html"
 
 #
-#: src/html-component.c:226
+#: src/html-component.c:227
 msgid "Test1"
 msgstr "Δοκιμή1"
 
 #
-#: src/html-component.c:233
+#: src/html-component.c:234
 msgid "Test2"
 msgstr "Δοκιμή2"
 
 #
-#: src/html-component.c:239
+#: src/html-component.c:240
 msgid "Test3"
 msgstr "Δοκιμή3"
 
 #
-#: src/html-component.c:245
+#: src/html-component.c:246
 msgid "Test4"
 msgstr "Δοκιμή4"
 
 #
-#: src/html-component.c:251
+#: src/html-component.c:252
 msgid "Test5"
 msgstr "Δοκιμή4"
 
 #
-#: src/html-component.c:257
+#: src/html-component.c:258
 msgid "Test6"
 msgstr "Δοκιμή6"
 
 #
-#: src/html-component.c:263
+#: src/html-component.c:264
 msgid "Test7"
 msgstr "Δοκιμή7"
 
-#: src/html-component.c:612
+#: src/html-component.c:613
 msgid "_Refresh"
 msgstr "_Ανανέωση"
 
-#: src/html-component.c:613
+#: src/html-component.c:614
 msgid "Reload the page"
 msgstr "Επαναφόρτωση της σελίδας"
 
-#: src/html-component.c:660
+#: src/html-component.c:661
 msgid "Could not initialize Bonobo!"
 msgstr "Αδύνατη η αρχικοποίηση του Bonobo!"
 
@@ -2127,21 +2127,18 @@ msgstr "Επαναφορά"
 msgid "Cannot allocate default font for printing\n"
 msgstr "Αδυναμία διάθεσης προεπιλεγμένης γραμματοσειράς για εκτύπωση\n"
 
-#: src/test.c:191
+#: src/test.c:375
 msgid "GtkHTML Test"
 msgstr "Δοκιμή GtkHTML"
 
-#: src/testgtkhtml.c:117
-msgid "Print pre_view"
-msgstr "Προεπισκόπιση εκ_τύπωσης"
+#~ msgid "Print pre_view"
+#~ msgstr "Προεπισκόπιση εκ_τύπωσης"
 
-#: src/testgtkhtml.c:117
-msgid "Print preview"
-msgstr "Προεπισκόπιση εκτύπωσης"
+#~ msgid "Print preview"
+#~ msgstr "Προεπισκόπιση εκτύπωσης"
 
-#: src/testgtkhtml.c:1004
-msgid "GtkHTML Test Application"
-msgstr "Εφαρμογή Δοκιμής GtkHTML"
+#~ msgid "GtkHTML Test Application"
+#~ msgstr "Εφαρμογή Δοκιμής GtkHTML"
 
 #~ msgid "Plain"
 #~ msgstr "Απλό"

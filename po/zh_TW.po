@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 3.0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-01 16:31+0100\n"
+"POT-Creation-Date: 2004-11-29 16:53+0100\n"
 "PO-Revision-Date: 2003-05-17 05:23+0800\n"
 "Last-Translator: Craig Jeffares <cjeffares@novell.com>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
@@ -2009,144 +2009,144 @@ msgstr ""
 "無法套用您的變更。"
 
 # Novell Translation
-#: src/gtkhtml.c:2568
+#: src/gtkhtml.c:2569
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr "Mozilla URL 中斷，因為作者使用錯誤的格式 (%d) 或長度 (%d)\n"
 
-#: src/gtkhtml.c:2890
+#: src/gtkhtml.c:2891
 msgid "Editable"
 msgstr "可編輯"
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2892
 msgid "Whether the html can be edited"
 msgstr "可否編輯 html"
 
-#: src/gtkhtml.c:2897
+#: src/gtkhtml.c:2898
 msgid "Document Title"
 msgstr "文件標題"
 
-#: src/gtkhtml.c:2898
+#: src/gtkhtml.c:2899
 msgid "The title of the current document"
 msgstr "目前的文件的標題"
 
 # Novell Translation
-#: src/gtkhtml.c:2904
+#: src/gtkhtml.c:2905
 msgid "Document Base"
 msgstr "文件基礎"
 
 # Novell Translation
-#: src/gtkhtml.c:2905
+#: src/gtkhtml.c:2906
 msgid "The base URL for relative references"
 msgstr "相關參考的基礎 URL"
 
 # Novell Translation
-#: src/gtkhtml.c:2911
+#: src/gtkhtml.c:2912
 msgid "Target Base"
 msgstr "目標基礎"
 
 # Novell Translation
-#: src/gtkhtml.c:2912
+#: src/gtkhtml.c:2913
 msgid "The base URL of the targe frame"
 msgstr "目標框架的基礎 URL"
 
-#: src/gtkhtml.c:2921
+#: src/gtkhtml.c:2922
 msgid "Fixed Width Font"
 msgstr "固定寬度字型"
 
-#: src/gtkhtml.c:2922
+#: src/gtkhtml.c:2923
 msgid "The Monospace font to use for typewriter text"
 msgstr "作為打字機字型使用的固定寬度字型"
 
-#: src/gtkhtml.c:2928
+#: src/gtkhtml.c:2929
 msgid "New Link Color"
 msgstr "未瀏覽鏈結顏色"
 
-#: src/gtkhtml.c:2929
+#: src/gtkhtml.c:2930
 msgid "The color of new link elements"
 msgstr "未瀏覽的鏈結的顏色"
 
-#: src/gtkhtml.c:2934
+#: src/gtkhtml.c:2935
 msgid "Visited Link Color"
 msgstr "已瀏覽鏈結顏色"
 
-#: src/gtkhtml.c:2935
+#: src/gtkhtml.c:2936
 msgid "The color of visited link elements"
 msgstr "已瀏覽的鏈結的顏色"
 
 # Novell Translation
-#: src/gtkhtml.c:2940
+#: src/gtkhtml.c:2941
 msgid "Active Link Color"
 msgstr "使用中連結的色彩"
 
 # Novell Translation
-#: src/gtkhtml.c:2941
+#: src/gtkhtml.c:2942
 msgid "The color of active link elements"
 msgstr "使用中連結元件的色彩"
 
-#: src/gtkhtml.c:2946
+#: src/gtkhtml.c:2947
 msgid "Spelling Error Color"
 msgstr "拼字錯誤顏色"
 
-#: src/gtkhtml.c:2947
+#: src/gtkhtml.c:2948
 msgid "The color of the spelling error markers"
 msgstr "表示拼字錯誤的標記的顏色"
 
 # Novell Translation
-#: src/gtkhtml.c:2952
+#: src/gtkhtml.c:2953
 msgid "Cite Quotation Color"
 msgstr "引用引文色彩"
 
 # Novell Translation
-#: src/gtkhtml.c:2953
+#: src/gtkhtml.c:2954
 msgid "The color of the cited text"
 msgstr "引用文字的色彩"
 
-#: src/html-component.c:219
+#: src/html-component.c:220
 msgid "Html"
 msgstr "Html"
 
-#: src/html-component.c:220
+#: src/html-component.c:221
 msgid "Html test"
 msgstr "Html 測試"
 
-#: src/html-component.c:226
+#: src/html-component.c:227
 msgid "Test1"
 msgstr "測試1"
 
-#: src/html-component.c:233
+#: src/html-component.c:234
 msgid "Test2"
 msgstr "測試2"
 
-#: src/html-component.c:239
+#: src/html-component.c:240
 msgid "Test3"
 msgstr "測試3"
 
-#: src/html-component.c:245
+#: src/html-component.c:246
 msgid "Test4"
 msgstr "測試4"
 
-#: src/html-component.c:251
+#: src/html-component.c:252
 msgid "Test5"
 msgstr "測試5"
 
-#: src/html-component.c:257
+#: src/html-component.c:258
 msgid "Test6"
 msgstr "測試6"
 
-#: src/html-component.c:263
+#: src/html-component.c:264
 msgid "Test7"
 msgstr "測試7"
 
-#: src/html-component.c:612
+#: src/html-component.c:613
 msgid "_Refresh"
 msgstr "重新整理(_R)"
 
-#: src/html-component.c:613
+#: src/html-component.c:614
 msgid "Reload the page"
 msgstr "重新載入頁面"
 
-#: src/html-component.c:660
+#: src/html-component.c:661
 msgid "Could not initialize Bonobo!"
 msgstr "無法初始化 Bonobo！"
 
@@ -2165,22 +2165,19 @@ msgstr "重設"
 msgid "Cannot allocate default font for printing\n"
 msgstr "無法配置預設字型作為列印使用\n"
 
-#: src/test.c:191
+#: src/test.c:375
 msgid "GtkHTML Test"
 msgstr "GtkHTML 測試"
 
-#: src/testgtkhtml.c:117
-msgid "Print pre_view"
-msgstr "預覽列印(_V)"
+#~ msgid "Print pre_view"
+#~ msgstr "預覽列印(_V)"
 
-#: src/testgtkhtml.c:117
-msgid "Print preview"
-msgstr "預覽列印"
+#~ msgid "Print preview"
+#~ msgstr "預覽列印"
 
 # Novell Translation
-#: src/testgtkhtml.c:1004
-msgid "GtkHTML Test Application"
-msgstr "GtkHTML 測試應用程式"
+#~ msgid "GtkHTML Test Application"
+#~ msgstr "GtkHTML 測試應用程式"
 
 #~ msgid "Plain"
 #~ msgstr "普通"

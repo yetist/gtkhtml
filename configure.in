@@ -25,7 +25,7 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Package name for gettex
 GNOME_EXPLICIT_TRANSLATION_DOMAIN=${GTKHTML_RELEASE_STRING}
 AC_DEFINE_UNQUOTED(GNOME_EXPLICIT_TRANSLATION_DOMAIN, "${GNOME_EXPLICIT_TRANSLATION_DOMAIN}", [Gnome Explicit Translation Domain])
 
-AM_INIT_AUTOMAKE($PACKAGE, 3.5.0)
+AM_INIT_AUTOMAKE($PACKAGE, 3.5.1)
 
 AM_MAINTAINER_MODE
 
@@ -130,7 +130,7 @@ dnl **********************************
  
 dnl Increment the following if the interface has additions, changes,
 dnl removals.
-GTKHTML_CURRENT=12
+GTKHTML_CURRENT=13
 
 dnl Increment any time the source changes; set to 0 if you
 dnl increment CURRENT.

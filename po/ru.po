@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-01 16:31+0100\n"
+"POT-Creation-Date: 2004-11-29 16:53+0100\n"
 "PO-Revision-Date: 2004-09-29 19:24+0300\n"
 "Last-Translator: Leonid Kanter <leon@asplinux.ru>\n"
 "Language-Team:  <ru@li.org>\n"
@@ -1888,137 +1888,137 @@ msgstr ""
 "Редактируемый текст был удалён из документа.\n"
 "Невозможно применить изменения."
 
-#: src/gtkhtml.c:2568
+#: src/gtkhtml.c:2569
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 "URL, перетащенный из Mozilla, имеет неверный формат (%d) или длину (%d)\n"
 
-#: src/gtkhtml.c:2890
+#: src/gtkhtml.c:2891
 msgid "Editable"
 msgstr "Редактируемый"
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2892
 msgid "Whether the html can be edited"
 msgstr "Может ли текст быть редактируемым"
 
-#: src/gtkhtml.c:2897
+#: src/gtkhtml.c:2898
 msgid "Document Title"
 msgstr "Заголовок документа"
 
-#: src/gtkhtml.c:2898
+#: src/gtkhtml.c:2899
 msgid "The title of the current document"
 msgstr "Заголовок текущего документа"
 
-#: src/gtkhtml.c:2904
+#: src/gtkhtml.c:2905
 msgid "Document Base"
 msgstr "База документа"
 
-#: src/gtkhtml.c:2905
+#: src/gtkhtml.c:2906
 msgid "The base URL for relative references"
 msgstr "Базовая ссылка (URL) для относительных ссылок"
 
-#: src/gtkhtml.c:2911
+#: src/gtkhtml.c:2912
 msgid "Target Base"
 msgstr "База цели"
 
-#: src/gtkhtml.c:2912
+#: src/gtkhtml.c:2913
 msgid "The base URL of the targe frame"
 msgstr "Базовая ссылка (URL) для целевого фрейма"
 
-#: src/gtkhtml.c:2921
+#: src/gtkhtml.c:2922
 msgid "Fixed Width Font"
 msgstr "Шрифт с фиксированной шириной"
 
-#: src/gtkhtml.c:2922
+#: src/gtkhtml.c:2923
 msgid "The Monospace font to use for typewriter text"
 msgstr "Фиксированный шрифт для использования в тексте печатной машинки"
 
-#: src/gtkhtml.c:2928
+#: src/gtkhtml.c:2929
 msgid "New Link Color"
 msgstr "Цвет непосещенной ссылки"
 
-#: src/gtkhtml.c:2929
+#: src/gtkhtml.c:2930
 msgid "The color of new link elements"
 msgstr "Цвет еще не посещенной ссылки"
 
-#: src/gtkhtml.c:2934
+#: src/gtkhtml.c:2935
 msgid "Visited Link Color"
 msgstr "Цвет посещенной ссылки"
 
-#: src/gtkhtml.c:2935
+#: src/gtkhtml.c:2936
 msgid "The color of visited link elements"
 msgstr "Цвет уже посещенной ссылки"
 
-#: src/gtkhtml.c:2940
+#: src/gtkhtml.c:2941
 msgid "Active Link Color"
 msgstr "Цвет активной ссылки"
 
-#: src/gtkhtml.c:2941
+#: src/gtkhtml.c:2942
 msgid "The color of active link elements"
 msgstr "Цвет активной ссылки"
 
-#: src/gtkhtml.c:2946
+#: src/gtkhtml.c:2947
 msgid "Spelling Error Color"
 msgstr "Цвет неверного правописания"
 
-#: src/gtkhtml.c:2947
+#: src/gtkhtml.c:2948
 msgid "The color of the spelling error markers"
 msgstr "Цвет маркеров ошибок орфографии"
 
-#: src/gtkhtml.c:2952
+#: src/gtkhtml.c:2953
 msgid "Cite Quotation Color"
 msgstr "Цвет цитируемого текста"
 
-#: src/gtkhtml.c:2953
+#: src/gtkhtml.c:2954
 msgid "The color of the cited text"
 msgstr "Цвет цитируемого текста"
 
-#: src/html-component.c:219
+#: src/html-component.c:220
 msgid "Html"
 msgstr "Html"
 
-#: src/html-component.c:220
+#: src/html-component.c:221
 msgid "Html test"
 msgstr "Тест HTML"
 
-#: src/html-component.c:226
+#: src/html-component.c:227
 msgid "Test1"
 msgstr "Тест1"
 
-#: src/html-component.c:233
+#: src/html-component.c:234
 msgid "Test2"
 msgstr "Тест2"
 
-#: src/html-component.c:239
+#: src/html-component.c:240
 msgid "Test3"
 msgstr "Тест3"
 
-#: src/html-component.c:245
+#: src/html-component.c:246
 msgid "Test4"
 msgstr "Тест4"
 
-#: src/html-component.c:251
+#: src/html-component.c:252
 msgid "Test5"
 msgstr "Тест5"
 
-#: src/html-component.c:257
+#: src/html-component.c:258
 msgid "Test6"
 msgstr "Тест6"
 
-#: src/html-component.c:263
+#: src/html-component.c:264
 msgid "Test7"
 msgstr "Тест7"
 
-#: src/html-component.c:612
+#: src/html-component.c:613
 msgid "_Refresh"
 msgstr "Об_новить"
 
-#: src/html-component.c:613
+#: src/html-component.c:614
 msgid "Reload the page"
 msgstr "Перезагрузить страницу"
 
-#: src/html-component.c:660
+#: src/html-component.c:661
 msgid "Could not initialize Bonobo!"
 msgstr "Не удалось инициализировать Bonobo!"
 
@@ -2035,18 +2035,15 @@ msgstr "Сброс"
 msgid "Cannot allocate default font for printing\n"
 msgstr "Невозможно распределить исходный шрифт для печати\n"
 
-#: src/test.c:191
+#: src/test.c:375
 msgid "GtkHTML Test"
 msgstr "Проверка GtkHTML"
 
-#: src/testgtkhtml.c:117
-msgid "Print pre_view"
-msgstr "Образе_ц печати"
+#~ msgid "Print pre_view"
+#~ msgstr "Образе_ц печати"
 
-#: src/testgtkhtml.c:117
-msgid "Print preview"
-msgstr "Образец печати"
+#~ msgid "Print preview"
+#~ msgstr "Образец печати"
 
-#: src/testgtkhtml.c:1004
-msgid "GtkHTML Test Application"
-msgstr "Тест редактора формата HTML для среды Гном"
+#~ msgid "GtkHTML Test Application"
+#~ msgstr "Тест редактора формата HTML для среды Гном"

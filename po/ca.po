@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-15 00:49+0100\n"
+"POT-Creation-Date: 2004-11-29 16:53+0100\n"
 "PO-Revision-Date: 2004-11-15 00:48+0100\n"
 "Last-Translator: Xavier Conde Rueda <xaviconde@eresmas.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
@@ -1879,138 +1879,138 @@ msgstr ""
 "L'objecte editat s'ha suprimit del document.\n"
 "No es poden aplicar els vostres canvis."
 
-#: src/gtkhtml.c:2568
+#: src/gtkhtml.c:2569
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 "L'URL del Mozilla que s'ha deixat anar sobre el redactor tenia el format "
 "incorrecte (%d) o la longitud incorrecta (%d)\n"
 
-#: src/gtkhtml.c:2890
+#: src/gtkhtml.c:2891
 msgid "Editable"
 msgstr "Editable"
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2892
 msgid "Whether the html can be edited"
 msgstr "Si es pot editar l'html"
 
-#: src/gtkhtml.c:2897
+#: src/gtkhtml.c:2898
 msgid "Document Title"
 msgstr "Nom del document"
 
-#: src/gtkhtml.c:2898
+#: src/gtkhtml.c:2899
 msgid "The title of the current document"
 msgstr "El nom del document actual"
 
-#: src/gtkhtml.c:2904
+#: src/gtkhtml.c:2905
 msgid "Document Base"
 msgstr "Base del document"
 
-#: src/gtkhtml.c:2905
+#: src/gtkhtml.c:2906
 msgid "The base URL for relative references"
 msgstr "L'URL base per a referències relatives"
 
-#: src/gtkhtml.c:2911
+#: src/gtkhtml.c:2912
 msgid "Target Base"
 msgstr "Base destí"
 
-#: src/gtkhtml.c:2912
+#: src/gtkhtml.c:2913
 msgid "The base URL of the targe frame"
 msgstr "La URL base del marc destí"
 
-#: src/gtkhtml.c:2921
+#: src/gtkhtml.c:2922
 msgid "Fixed Width Font"
 msgstr "Amplada de lletra fixa"
 
-#: src/gtkhtml.c:2922
+#: src/gtkhtml.c:2923
 msgid "The Monospace font to use for typewriter text"
 msgstr "El tipus de lletra monoespai per a text de màquina d'escriure"
 
-#: src/gtkhtml.c:2928
+#: src/gtkhtml.c:2929
 msgid "New Link Color"
 msgstr "Color del nou enllaç"
 
-#: src/gtkhtml.c:2929
+#: src/gtkhtml.c:2930
 msgid "The color of new link elements"
 msgstr "El color dels nous elements d'enllaç"
 
-#: src/gtkhtml.c:2934
+#: src/gtkhtml.c:2935
 msgid "Visited Link Color"
 msgstr "Color de l'enllaç visitat"
 
-#: src/gtkhtml.c:2935
+#: src/gtkhtml.c:2936
 msgid "The color of visited link elements"
 msgstr "El color dels elements d'enllaç visitats"
 
-#: src/gtkhtml.c:2940
+#: src/gtkhtml.c:2941
 msgid "Active Link Color"
 msgstr "Color de l'enllaç actiu"
 
-#: src/gtkhtml.c:2941
+#: src/gtkhtml.c:2942
 msgid "The color of active link elements"
 msgstr "El color dels elements d'enllaç actius"
 
-#: src/gtkhtml.c:2946
+#: src/gtkhtml.c:2947
 msgid "Spelling Error Color"
 msgstr "Color de l'error ortogràfic"
 
-#: src/gtkhtml.c:2947
+#: src/gtkhtml.c:2948
 msgid "The color of the spelling error markers"
 msgstr "El color dels marcadors d'error ortogràfic"
 
-#: src/gtkhtml.c:2952
+#: src/gtkhtml.c:2953
 msgid "Cite Quotation Color"
 msgstr "Color de la cita"
 
-#: src/gtkhtml.c:2953
+#: src/gtkhtml.c:2954
 msgid "The color of the cited text"
 msgstr "El color del text citat"
 
-#: src/html-component.c:219
+#: src/html-component.c:220
 msgid "Html"
 msgstr "Html"
 
-#: src/html-component.c:220
+#: src/html-component.c:221
 msgid "Html test"
 msgstr "Prova d'html"
 
-#: src/html-component.c:226
+#: src/html-component.c:227
 msgid "Test1"
 msgstr "Prova1"
 
-#: src/html-component.c:233
+#: src/html-component.c:234
 msgid "Test2"
 msgstr "Prova2"
 
-#: src/html-component.c:239
+#: src/html-component.c:240
 msgid "Test3"
 msgstr "Prova3"
 
-#: src/html-component.c:245
+#: src/html-component.c:246
 msgid "Test4"
 msgstr "Prova4"
 
-#: src/html-component.c:251
+#: src/html-component.c:252
 msgid "Test5"
 msgstr "Prova5"
 
-#: src/html-component.c:257
+#: src/html-component.c:258
 msgid "Test6"
 msgstr "Prova6"
 
-#: src/html-component.c:263
+#: src/html-component.c:264
 msgid "Test7"
 msgstr "Prova7"
 
-#: src/html-component.c:612
+#: src/html-component.c:613
 msgid "_Refresh"
 msgstr "Actualit_za"
 
-#: src/html-component.c:613
+#: src/html-component.c:614
 msgid "Reload the page"
 msgstr "Torna a carregar la pàgina"
 
-#: src/html-component.c:660
+#: src/html-component.c:661
 msgid "Could not initialize Bonobo!"
 msgstr "No s'ha pogut inicialitzar el Bonobo"
 
@@ -2031,14 +2031,11 @@ msgstr "No es pot carregar el tipus de lletra predeterminada per imprimir\n"
 msgid "GtkHTML Test"
 msgstr "Prova de GtkHTML"
 
-#: src/testgtkhtml.c:117
-msgid "Print pre_view"
-msgstr "Pre_visualització d'impressió"
+#~ msgid "Print pre_view"
+#~ msgstr "Pre_visualització d'impressió"
 
-#: src/testgtkhtml.c:117
-msgid "Print preview"
-msgstr "Previsualització d'impressió"
+#~ msgid "Print preview"
+#~ msgstr "Previsualització d'impressió"
 
-#: src/testgtkhtml.c:1004
-msgid "GtkHTML Test Application"
-msgstr "Aplicació de prova de GtkHTML"
+#~ msgid "GtkHTML Test Application"
+#~ msgstr "Aplicació de prova de GtkHTML"

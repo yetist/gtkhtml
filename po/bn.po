@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-01 16:31+0100\n"
+"POT-Creation-Date: 2004-11-29 16:53+0100\n"
 "PO-Revision-Date: 2004-08-05 13:26+0530\n"
 "Last-Translator: Runa Bhattacharjee <runa@bengalinux.org>\n"
 "Language-Team: bangla <gnome-translation@bengalinux.org>\n"
@@ -1881,139 +1881,139 @@ msgstr ""
 "সম্পাদিত বস্তুটি ডকুমেন্ট থেকে মুছে ফেলা হয়েছে।\n"
 "আপনার করা পরিবর্তনগুলো প্রয়োগ করা সম্ভব নয়।"
 
-#: src/gtkhtml.c:2568
+#: src/gtkhtml.c:2569
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 "কম্পোসার-এ Mozilla-র যে url-টি প্রেরণ করা হয়েছে সম্ভবত তার ফরমা (%d) অথবা দৈর্ঘ  "
 "(%d)সঠিক নয়।\n"
 
-#: src/gtkhtml.c:2890
+#: src/gtkhtml.c:2891
 msgid "Editable"
 msgstr "সম্পাদনযোগ্য"
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2892
 msgid "Whether the html can be edited"
 msgstr "html এডিট করা সম্ভব কি না"
 
-#: src/gtkhtml.c:2897
+#: src/gtkhtml.c:2898
 msgid "Document Title"
 msgstr "ডকুমেন্টের শিরোনাম"
 
-#: src/gtkhtml.c:2898
+#: src/gtkhtml.c:2899
 msgid "The title of the current document"
 msgstr "বর্তমান ডকুমেন্টের শিরোনাম"
 
-#: src/gtkhtml.c:2904
+#: src/gtkhtml.c:2905
 msgid "Document Base"
 msgstr "Document Base"
 
-#: src/gtkhtml.c:2905
+#: src/gtkhtml.c:2906
 #, fuzzy
 msgid "The base URL for relative references"
 msgstr "আপেক্ষিক সম্পর্কস্থাপনের জন্য মূল URL"
 
-#: src/gtkhtml.c:2911
+#: src/gtkhtml.c:2912
 msgid "Target Base"
 msgstr "Target Base"
 
-#: src/gtkhtml.c:2912
+#: src/gtkhtml.c:2913
 msgid "The base URL of the targe frame"
 msgstr "নির্ধারিত ফ্রেম-এর মূল URL"
 
-#: src/gtkhtml.c:2921
+#: src/gtkhtml.c:2922
 msgid "Fixed Width Font"
 msgstr "অপরিবর্তনশীল প্রস্থের ফন্ট"
 
-#: src/gtkhtml.c:2922
+#: src/gtkhtml.c:2923
 msgid "The Monospace font to use for typewriter text"
 msgstr "টাইপরাইটার টেকস্টের জন্য ব্যবহৃত Monospace ফন্ট"
 
-#: src/gtkhtml.c:2928
+#: src/gtkhtml.c:2929
 msgid "New Link Color"
 msgstr "লিঙ্কের নতুন রঙ"
 
-#: src/gtkhtml.c:2929
+#: src/gtkhtml.c:2930
 msgid "The color of new link elements"
 msgstr "লিঙ্কের নতুন বস্তুর রঙ"
 
-#: src/gtkhtml.c:2934
+#: src/gtkhtml.c:2935
 msgid "Visited Link Color"
 msgstr "পরিদর্শিত লিঙ্কের রঙ"
 
-#: src/gtkhtml.c:2935
+#: src/gtkhtml.c:2936
 msgid "The color of visited link elements"
 msgstr "পরিদর্শিত লিঙ্কের বস্তুর রঙ"
 
-#: src/gtkhtml.c:2940
+#: src/gtkhtml.c:2941
 msgid "Active Link Color"
 msgstr "সক্রিয় লিঙ্কের রঙ"
 
-#: src/gtkhtml.c:2941
+#: src/gtkhtml.c:2942
 msgid "The color of active link elements"
 msgstr "সক্রিয় লিঙ্কের  বস্তুর রঙ"
 
-#: src/gtkhtml.c:2946
+#: src/gtkhtml.c:2947
 msgid "Spelling Error Color"
 msgstr "ভুল বানানের রঙ"
 
-#: src/gtkhtml.c:2947
+#: src/gtkhtml.c:2948
 msgid "The color of the spelling error markers"
 msgstr "ভুল বানান চিহ্নের রঙ"
 
-#: src/gtkhtml.c:2952
+#: src/gtkhtml.c:2953
 msgid "Cite Quotation Color"
 msgstr "উদ্ধৃতির রঙ"
 
-#: src/gtkhtml.c:2953
+#: src/gtkhtml.c:2954
 msgid "The color of the cited text"
 msgstr "উদ্ধৃতির টেকস্টের রঙ"
 
-#: src/html-component.c:219
+#: src/html-component.c:220
 msgid "Html"
 msgstr "Html"
 
-#: src/html-component.c:220
+#: src/html-component.c:221
 msgid "Html test"
 msgstr "Html পরীক্ষণ"
 
-#: src/html-component.c:226
+#: src/html-component.c:227
 msgid "Test1"
 msgstr "পরীক্ষা১"
 
-#: src/html-component.c:233
+#: src/html-component.c:234
 msgid "Test2"
 msgstr "পরীক্ষা২"
 
-#: src/html-component.c:239
+#: src/html-component.c:240
 msgid "Test3"
 msgstr "পরীক্ষা৩"
 
-#: src/html-component.c:245
+#: src/html-component.c:246
 msgid "Test4"
 msgstr "পরীক্ষা৪"
 
-#: src/html-component.c:251
+#: src/html-component.c:252
 msgid "Test5"
 msgstr "পরীক্ষা৫"
 
-#: src/html-component.c:257
+#: src/html-component.c:258
 msgid "Test6"
 msgstr "পরীক্ষা৬"
 
-#: src/html-component.c:263
+#: src/html-component.c:264
 msgid "Test7"
 msgstr "পরীক্ষা৭"
 
-#: src/html-component.c:612
+#: src/html-component.c:613
 msgid "_Refresh"
 msgstr "নতুন করে প্রদর্শন করো (_ন)"
 
-#: src/html-component.c:613
+#: src/html-component.c:614
 msgid "Reload the page"
 msgstr "পৃষ্ঠা পুনরায় লোড করো"
 
-#: src/html-component.c:660
+#: src/html-component.c:661
 msgid "Could not initialize Bonobo!"
 msgstr "Bonobo চালু করা সম্ভব হয় নি!"
 
@@ -2030,18 +2030,15 @@ msgstr "রিসেট করো"
 msgid "Cannot allocate default font for printing\n"
 msgstr "প্রিন্ট প্রক্রিয়ার জন্য ডিফল্ট ফন্ট নির্ধারণ করা সম্ভব হয় নি\n"
 
-#: src/test.c:191
+#: src/test.c:375
 msgid "GtkHTML Test"
 msgstr "GtkHTML পরীক্ষা"
 
-#: src/testgtkhtml.c:117
-msgid "Print pre_view"
-msgstr "প্রিন্ট-এর পূর্বপ্রদর্শন (_প)"
+#~ msgid "Print pre_view"
+#~ msgstr "প্রিন্ট-এর পূর্বপ্রদর্শন (_প)"
 
-#: src/testgtkhtml.c:117
-msgid "Print preview"
-msgstr "প্রিন্ট-এর পূর্বপ্রদর্শন"
+#~ msgid "Print preview"
+#~ msgstr "প্রিন্ট-এর পূর্বপ্রদর্শন"
 
-#: src/testgtkhtml.c:1004
-msgid "GtkHTML Test Application"
-msgstr "GtkHTML পরীক্ষণের অ্যাপ্লিকেশন"
+#~ msgid "GtkHTML Test Application"
+#~ msgstr "GtkHTML পরীক্ষণের অ্যাপ্লিকেশন"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 1.1.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-01 16:31+0100\n"
+"POT-Creation-Date: 2004-11-29 16:53+0100\n"
 "PO-Revision-Date: 2004-08-27 22:51+0730\n"
 "Last-Translator: Hasbullah Bin Pit <sebol@my-penguin.org>\n"
 "Language-Team: Projek Gabai <gabai-penyumbang@lists.sourceforge.org>\n"
@@ -1895,140 +1895,140 @@ msgstr ""
 "Objek yang diedit telah dibuang daripada dokumen.\n"
 " Tak dapat menerapkan perubahan"
 
-#: src/gtkhtml.c:2568
+#: src/gtkhtml.c:2569
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 "Url mozilla yang dijatuhkan pada Penggubah mempunyai format (%d) atau "
 "panjang (%d) yang salah\n"
 
-#: src/gtkhtml.c:2890
+#: src/gtkhtml.c:2891
 msgid "Editable"
 msgstr "Boleh edit"
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2892
 msgid "Whether the html can be edited"
 msgstr "Samada html boleh diedit"
 
-#: src/gtkhtml.c:2897
+#: src/gtkhtml.c:2898
 msgid "Document Title"
 msgstr "Tajuk Dokumen"
 
-#: src/gtkhtml.c:2898
+#: src/gtkhtml.c:2899
 msgid "The title of the current document"
 msgstr "Tajuk bagi dokumen semasa"
 
-#: src/gtkhtml.c:2904
+#: src/gtkhtml.c:2905
 msgid "Document Base"
 msgstr "Dokumen Dasar"
 
-#: src/gtkhtml.c:2905
+#: src/gtkhtml.c:2906
 msgid "The base URL for relative references"
 msgstr "URL dasar bagi rujukan relatif"
 
-#: src/gtkhtml.c:2911
+#: src/gtkhtml.c:2912
 msgid "Target Base"
 msgstr "Sasaran Dasar"
 
-#: src/gtkhtml.c:2912
+#: src/gtkhtml.c:2913
 msgid "The base URL of the targe frame"
 msgstr "URL dasar bagi kerangka sasaran"
 
-#: src/gtkhtml.c:2921
+#: src/gtkhtml.c:2922
 msgid "Fixed Width Font"
 msgstr "Font Lebar tetap"
 
-#: src/gtkhtml.c:2922
+#: src/gtkhtml.c:2923
 msgid "The Monospace font to use for typewriter text"
 msgstr "Font monoruang untuk digunakan bagi teks mesin taip"
 
-#: src/gtkhtml.c:2928
+#: src/gtkhtml.c:2929
 msgid "New Link Color"
 msgstr "Warna Pautan Baru"
 
-#: src/gtkhtml.c:2929
+#: src/gtkhtml.c:2930
 msgid "The color of new link elements"
 msgstr "Warna bagi unsur pautan baru"
 
-#: src/gtkhtml.c:2934
+#: src/gtkhtml.c:2935
 msgid "Visited Link Color"
 msgstr "Warna Pautan Dilawati"
 
-#: src/gtkhtml.c:2935
+#: src/gtkhtml.c:2936
 msgid "The color of visited link elements"
 msgstr "Warna bagi unsur pautan yg telah dilawati"
 
-#: src/gtkhtml.c:2940
+#: src/gtkhtml.c:2941
 msgid "Active Link Color"
 msgstr "Warna Pautan Aktif"
 
-#: src/gtkhtml.c:2941
+#: src/gtkhtml.c:2942
 msgid "The color of active link elements"
 msgstr "Warna bagi unsur pautan aktif"
 
-#: src/gtkhtml.c:2946
+#: src/gtkhtml.c:2947
 msgid "Spelling Error Color"
 msgstr "Warna Ralat Ejaan"
 
-#: src/gtkhtml.c:2947
+#: src/gtkhtml.c:2948
 msgid "The color of the spelling error markers"
 msgstr "Warna bagi tanda ralat ejaan"
 
-#: src/gtkhtml.c:2952
+#: src/gtkhtml.c:2953
 #, fuzzy
 msgid "Cite Quotation Color"
 msgstr "Tepek Warna Petikan"
 
-#: src/gtkhtml.c:2953
+#: src/gtkhtml.c:2954
 #, fuzzy
 msgid "The color of the cited text"
 msgstr "Semak ejaan dokumen"
 
-#: src/html-component.c:219
+#: src/html-component.c:220
 msgid "Html"
 msgstr "Html"
 
-#: src/html-component.c:220
+#: src/html-component.c:221
 msgid "Html test"
 msgstr "Ujian Html"
 
-#: src/html-component.c:226
+#: src/html-component.c:227
 msgid "Test1"
 msgstr "Ujian1"
 
-#: src/html-component.c:233
+#: src/html-component.c:234
 msgid "Test2"
 msgstr "Ujian2"
 
-#: src/html-component.c:239
+#: src/html-component.c:240
 msgid "Test3"
 msgstr "Ujian3"
 
-#: src/html-component.c:245
+#: src/html-component.c:246
 msgid "Test4"
 msgstr "Ujian3"
 
-#: src/html-component.c:251
+#: src/html-component.c:252
 msgid "Test5"
 msgstr "Ujian4"
 
-#: src/html-component.c:257
+#: src/html-component.c:258
 msgid "Test6"
 msgstr "Ujian6"
 
-#: src/html-component.c:263
+#: src/html-component.c:264
 msgid "Test7"
 msgstr "Ujian7"
 
-#: src/html-component.c:612
+#: src/html-component.c:613
 msgid "_Refresh"
 msgstr "_Segarkan"
 
-#: src/html-component.c:613
+#: src/html-component.c:614
 msgid "Reload the page"
 msgstr "Ulangmuat laman"
 
-#: src/html-component.c:660
+#: src/html-component.c:661
 msgid "Could not initialize Bonobo!"
 msgstr "Gagal menginitialisasikan Bonobo!"
 
@@ -2045,18 +2045,15 @@ msgstr "Ulangtetap"
 msgid "Cannot allocate default font for printing\n"
 msgstr "Tak dapat memperuntukkan font default untuk cetakan\n"
 
-#: src/test.c:191
+#: src/test.c:375
 msgid "GtkHTML Test"
 msgstr "Ujian GtkHTML"
 
-#: src/testgtkhtml.c:117
-msgid "Print pre_view"
-msgstr "Pre_biu Cetakan"
+#~ msgid "Print pre_view"
+#~ msgstr "Pre_biu Cetakan"
 
-#: src/testgtkhtml.c:117
-msgid "Print preview"
-msgstr "Prebiu Cetakan"
+#~ msgid "Print preview"
+#~ msgstr "Prebiu Cetakan"
 
-#: src/testgtkhtml.c:1004
-msgid "GtkHTML Test Application"
-msgstr "Aplikasi Ujian GtkHTML"
+#~ msgid "GtkHTML Test Application"
+#~ msgstr "Aplikasi Ujian GtkHTML"

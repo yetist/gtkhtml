@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GtkHTML 3.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-19 21:47+0100\n"
+"POT-Creation-Date: 2004-11-29 16:53+0100\n"
 "PO-Revision-Date: 2004-11-19 21:48+0100\n"
 "Last-Translator: Hendrik Richter <hendrik@gnome-de.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
@@ -2037,14 +2037,11 @@ msgstr "Voreingestellte Druckschrift konnte nicht bereitgestellt werden\n"
 msgid "GtkHTML Test"
 msgstr "GtkHTML-Test"
 
-#: src/testgtkhtml.c:117
-msgid "Print pre_view"
-msgstr "Druck_vorschau"
+#~ msgid "Print pre_view"
+#~ msgstr "Druck_vorschau"
 
-#: src/testgtkhtml.c:117
-msgid "Print preview"
-msgstr "Druckvorschau"
+#~ msgid "Print preview"
+#~ msgstr "Druckvorschau"
 
-#: src/testgtkhtml.c:1004
-msgid "GtkHTML Test Application"
-msgstr "GtkHTML-Testanwendung"
+#~ msgid "GtkHTML Test Application"
+#~ msgstr "GtkHTML-Testanwendung"

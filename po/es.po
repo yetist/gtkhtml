@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-28 15:58+0100\n"
+"POT-Creation-Date: 2004-11-29 16:53+0100\n"
 "PO-Revision-Date: 2004-11-28 15:59+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <es@li.org>\n"
@@ -1936,7 +1936,8 @@ msgstr "Tipografía de anchura fija"
 
 #: src/gtkhtml.c:2923
 msgid "The Monospace font to use for typewriter text"
-msgstr "La tipografía monoespaciada a usar para el texto de máquina de escribir"
+msgstr ""
+"La tipografía monoespaciada a usar para el texto de máquina de escribir"
 
 #: src/gtkhtml.c:2929
 msgid "New Link Color"
@@ -2043,15 +2044,11 @@ msgstr "No se pudo encontrar la tipografía predeterminada de impresión\n"
 msgid "GtkHTML Test"
 msgstr "Prueba GtkHTML"
 
-#: src/testgtkhtml.c:117
-msgid "Print pre_view"
-msgstr "_Vista preliminar de impresión"
+#~ msgid "Print pre_view"
+#~ msgstr "_Vista preliminar de impresión"
 
-#: src/testgtkhtml.c:117
-msgid "Print preview"
-msgstr "Vista preliminar de impresión"
+#~ msgid "Print preview"
+#~ msgstr "Vista preliminar de impresión"
 
-#: src/testgtkhtml.c:1004
-msgid "GtkHTML Test Application"
-msgstr "Aplicación de prueba GtkHTML"
-
+#~ msgid "GtkHTML Test Application"
+#~ msgstr "Aplicación de prueba GtkHTML"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-01 16:31+0100\n"
+"POT-Creation-Date: 2004-11-29 16:53+0100\n"
 "PO-Revision-Date: 2003-01-22 15:31+0100\n"
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -1964,142 +1964,142 @@ msgstr ""
 "Besedilo, ki ga urejate, je bilo odstranjeno iz dokumenta.\n"
 "Ne morem uveljaviti vaših sprememb."
 
-#: src/gtkhtml.c:2568
+#: src/gtkhtml.c:2569
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 
-#: src/gtkhtml.c:2890
+#: src/gtkhtml.c:2891
 #, fuzzy
 msgid "Editable"
 msgstr "Vključi"
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2892
 msgid "Whether the html can be edited"
 msgstr ""
 
-#: src/gtkhtml.c:2897
+#: src/gtkhtml.c:2898
 msgid "Document Title"
 msgstr "Naziv dokumenta"
 
-#: src/gtkhtml.c:2898
+#: src/gtkhtml.c:2899
 #, fuzzy
 msgid "The title of the current document"
 msgstr "Preveri črkovanje dokumenta"
 
-#: src/gtkhtml.c:2904
+#: src/gtkhtml.c:2905
 #, fuzzy
 msgid "Document Base"
 msgstr "Naziv dokumenta"
 
-#: src/gtkhtml.c:2905
+#: src/gtkhtml.c:2906
 msgid "The base URL for relative references"
 msgstr ""
 
-#: src/gtkhtml.c:2911
+#: src/gtkhtml.c:2912
 msgid "Target Base"
 msgstr ""
 
-#: src/gtkhtml.c:2912
+#: src/gtkhtml.c:2913
 msgid "The base URL of the targe frame"
 msgstr ""
 
-#: src/gtkhtml.c:2921
+#: src/gtkhtml.c:2922
 #, fuzzy
 msgid "Fixed Width Font"
 msgstr "Stalna širina"
 
-#: src/gtkhtml.c:2922
+#: src/gtkhtml.c:2923
 msgid "The Monospace font to use for typewriter text"
 msgstr ""
 
-#: src/gtkhtml.c:2928
+#: src/gtkhtml.c:2929
 msgid "New Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2929
+#: src/gtkhtml.c:2930
 msgid "The color of new link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2934
+#: src/gtkhtml.c:2935
 msgid "Visited Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2935
+#: src/gtkhtml.c:2936
 msgid "The color of visited link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2940
+#: src/gtkhtml.c:2941
 msgid "Active Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2941
+#: src/gtkhtml.c:2942
 msgid "The color of active link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2946
+#: src/gtkhtml.c:2947
 msgid "Spelling Error Color"
 msgstr ""
 
-#: src/gtkhtml.c:2947
+#: src/gtkhtml.c:2948
 msgid "The color of the spelling error markers"
 msgstr ""
 
-#: src/gtkhtml.c:2952
+#: src/gtkhtml.c:2953
 #, fuzzy
 msgid "Cite Quotation Color"
 msgstr "Prilepi citat"
 
-#: src/gtkhtml.c:2953
+#: src/gtkhtml.c:2954
 #, fuzzy
 msgid "The color of the cited text"
 msgstr "Preveri črkovanje dokumenta"
 
-#: src/html-component.c:219
+#: src/html-component.c:220
 msgid "Html"
 msgstr "Html"
 
-#: src/html-component.c:220
+#: src/html-component.c:221
 msgid "Html test"
 msgstr "Preizkus html"
 
-#: src/html-component.c:226
+#: src/html-component.c:227
 msgid "Test1"
 msgstr "Test1"
 
-#: src/html-component.c:233
+#: src/html-component.c:234
 msgid "Test2"
 msgstr "Test2"
 
-#: src/html-component.c:239
+#: src/html-component.c:240
 msgid "Test3"
 msgstr "Test3"
 
-#: src/html-component.c:245
+#: src/html-component.c:246
 msgid "Test4"
 msgstr "Test4"
 
-#: src/html-component.c:251
+#: src/html-component.c:252
 msgid "Test5"
 msgstr "Test5"
 
-#: src/html-component.c:257
+#: src/html-component.c:258
 msgid "Test6"
 msgstr "Test6"
 
-#: src/html-component.c:263
+#: src/html-component.c:264
 msgid "Test7"
 msgstr "Test7"
 
-#: src/html-component.c:612
+#: src/html-component.c:613
 msgid "_Refresh"
 msgstr "_Osveži"
 
-#: src/html-component.c:613
+#: src/html-component.c:614
 msgid "Reload the page"
 msgstr "Znova naloži stran"
 
-#: src/html-component.c:660
+#: src/html-component.c:661
 msgid "Could not initialize Bonobo!"
 msgstr "Nisem mogel inicializirati Bonoba!"
 
@@ -2116,22 +2116,19 @@ msgstr "Ponastavi"
 msgid "Cannot allocate default font for printing\n"
 msgstr "Ne morem dobiti privzete pisave za tiskanje\n"
 
-#: src/test.c:191
+#: src/test.c:375
 msgid "GtkHTML Test"
 msgstr "GtkHTML test"
 
-#: src/testgtkhtml.c:117
-msgid "Print pre_view"
-msgstr "_Predogled tiskanja"
+#~ msgid "Print pre_view"
+#~ msgstr "_Predogled tiskanja"
 
-#: src/testgtkhtml.c:117
-msgid "Print preview"
-msgstr "Predogled tiskanja"
+#~ msgid "Print preview"
+#~ msgstr "Predogled tiskanja"
 
-#: src/testgtkhtml.c:1004
 #, fuzzy
-msgid "GtkHTML Test Application"
-msgstr "GtkHTML test"
+#~ msgid "GtkHTML Test Application"
+#~ msgstr "GtkHTML test"
 
 #~ msgid "Plain"
 #~ msgstr "pusto"

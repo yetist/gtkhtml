@@ -1,3 +1,17 @@
+gtkhtml-3.5.1 "Fern" 2004-11-01
+------------------------------------------------
+
+New in this release
+
+   * padding, border style for DIV tag
+   * background color style for clues
+   * merged changes from gtkhtml 3.3.x (Owen Taylor, gnome-2-8-devel branch)
+   * beginning of rtl support - HTML tags
+   * i18n fixes - use glib's i18n instead of deprecated libgnome i18n (Mariano Suarez-Alvarez)
+   * fixed crash in aligned images drawing
+   * use more GIT icons
+   * fixed two memory leaks
+
 gtkhtml-3.5.0 "Frond" 2004-11-01
 ------------------------------------------------
 
