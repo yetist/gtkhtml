@@ -670,11 +670,11 @@ void
 menubar_setup (BonoboUIComponent  *uic,
 	       GtkHTMLControlData *cd)
 {
+	gchar *domain;
+
 	g_return_if_fail (cd->html != NULL);
 	g_return_if_fail (GTK_IS_HTML (cd->html));
 	g_return_if_fail (BONOBO_IS_UI_COMPONENT (uic));
-
-	gchar *domain;
 
 	/* printf ("xml: %s/%s\n", GTKHTML_DATADIR, "GNOME_GtkHTML_Editor.xml"); */
 

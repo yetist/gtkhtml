@@ -1,4 +1,7 @@
 2003-05-20  Larry Ewing  <lewing@ximian.com>
+	
+	* menubar.c (menubar_setup): move declaration to the top of the
+	function
 
 	* editor-control-factory.c (editor_control_construct): disable
 	animations while editing until it works properly.
