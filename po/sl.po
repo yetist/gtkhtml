@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2002-01-26 22:56+0100\n"
+"POT-Creation-Date: 2002-03-07 12:41+0100\n"
 "PO-Revision-Date: 2000-08-06 22:43+0200\n"
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -234,7 +234,7 @@ msgid "Bulleted List"
 msgstr "Neo¹tevilèen seznam"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
-#: components/html-editor/toolbar.c:500
+#: components/html-editor/toolbar.c:516
 msgid "Center justifies the paragraphs"
 msgstr "Sredinjenje poravna odstavke"
 
@@ -334,7 +334,7 @@ msgid "Header _6"
 msgstr "Glava _6"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
-#: components/html-editor/editor-control-factory.c:187
+#: components/html-editor/editor-control-factory.c:186
 #: components/html-editor/gtkhtml-editor-properties.glade.h:36
 #: components/html-editor/menubar.c:107 components/html-editor/popup.c:172
 msgid "Image"
@@ -361,12 +361,12 @@ msgid "Insert table into document..."
 msgstr "V dokument vstavi tabelo..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
-#: components/html-editor/toolbar.c:498
+#: components/html-editor/toolbar.c:514
 msgid "Left justifies the paragraphs"
 msgstr "Poravnaj odstavke levo"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
-#: components/html-editor/body.c:187 components/html-editor/menubar.c:123
+#: components/html-editor/body.c:307 components/html-editor/menubar.c:123
 #: components/html-editor/popup.c:165 components/html-editor/popup.c:238
 msgid "Link"
 msgstr "Povezava"
@@ -499,7 +499,7 @@ msgid "Replace"
 msgstr "Zamenjaj"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
-#: components/html-editor/toolbar.c:502
+#: components/html-editor/toolbar.c:518
 msgid "Right justifies the paragraphs"
 msgstr "Poravnaj odstavke desno"
 
@@ -508,7 +508,7 @@ msgid "Roman Numeral List"
 msgstr "Rimsko o¹tevilèen seznam"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
-#: components/html-editor/editor-control-factory.c:207
+#: components/html-editor/editor-control-factory.c:206
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
 #: components/html-editor/menubar.c:141 components/html-editor/popup.c:193
 msgid "Rule"
@@ -524,7 +524,7 @@ msgstr "Izberi celotno vsebino dokumenta"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
 #: components/html-editor/gtkhtml-editor-properties.glade.h:66
-#: components/html-editor/text.c:222 components/html-editor/toolbar.c:517
+#: components/html-editor/text.c:222 components/html-editor/toolbar.c:533
 msgid "Strikeout"
 msgstr "Preèrtano"
 
@@ -556,13 +556,14 @@ msgid "Te_mplate..."
 msgstr "©_ablona..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
+#: components/html-editor/body.c:233
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
 #: components/html-editor/menubar.c:181
 msgid "Template"
 msgstr "©ablona"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: components/html-editor/toolbar.c:509
+#: components/html-editor/toolbar.c:525
 msgid "Typewriter"
 msgstr "Typewriter"
 
@@ -726,62 +727,74 @@ msgstr "Ra_zveljavi"
 msgid "etc..."
 msgstr "itd..."
 
-#: components/html-editor/body.c:134 components/html-editor/body.c:138
+#: components/html-editor/body.c:63
+#: components/html-editor/gtkhtml-editor-properties.glade.h:45
+msgid "None"
+msgstr "Brez"
+
+#: components/html-editor/body.c:70
+msgid "Test"
+msgstr "Preizkus"
+
+#: components/html-editor/body.c:77
+msgid "Test 1"
+msgstr "Preizkus 1"
+
+#: components/html-editor/body.c:251
+msgid "Document Title"
+msgstr "Naziv dokumenta"
+
+#: components/html-editor/body.c:255 components/html-editor/body.c:258
 #: components/html-editor/gtkhtml-editor-properties.glade.h:14
 msgid "Background Image"
 msgstr "Slika v ozadju"
 
-#: components/html-editor/body.c:137
-#: components/html-editor/gtkhtml-editor-properties.glade.h:28
-msgid "Enable"
-msgstr "Vkljuèi"
-
-#: components/html-editor/body.c:166
+#: components/html-editor/body.c:284
 #: components/html-editor/gtkhtml-editor-properties.glade.h:23
 msgid "Colors"
 msgstr "Barve"
 
-#: components/html-editor/body.c:175 components/html-editor/cell.c:391
+#: components/html-editor/body.c:294 components/html-editor/cell.c:391
 #: components/html-editor/table.c:534 components/html-editor/text.c:283
-#: components/html-editor/toolbar.c:290
+#: components/html-editor/toolbar.c:306
 msgid "Automatic"
 msgstr "Samodejno"
 
-#: components/html-editor/body.c:186
-#: components/html-editor/editor-control-factory.c:196
+#: components/html-editor/body.c:306
+#: components/html-editor/editor-control-factory.c:195
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
 #: components/html-editor/menubar.c:242 components/html-editor/popup.c:158
 msgid "Text"
 msgstr "Besedilo"
 
-#: components/html-editor/body.c:188
+#: components/html-editor/body.c:308
 #: components/html-editor/gtkhtml-editor-properties.glade.h:13
 msgid "Background"
 msgstr "Ozadje"
 
-#: components/html-editor/editor-control-factory.c:177
+#: components/html-editor/editor-control-factory.c:176
 #: components/html-editor/menubar.c:221 components/html-editor/menubar.c:239
 #: components/html-editor/menubar.c:257 components/html-editor/popup.c:150
 #: components/html-editor/popup.c:235
 msgid "Properties"
 msgstr "Lastnosti"
 
-#: components/html-editor/editor-control-factory.c:217
+#: components/html-editor/editor-control-factory.c:216
 #: components/html-editor/menubar.c:260 components/html-editor/popup.c:179
 msgid "Paragraph"
 msgstr "Odstavek"
 
-#: components/html-editor/editor-control-factory.c:222
+#: components/html-editor/editor-control-factory.c:221
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
 #: components/html-editor/menubar.c:224 components/html-editor/popup.c:186
 msgid "Page"
 msgstr "Stran"
 
-#: components/html-editor/editor-control-factory.c:838
+#: components/html-editor/editor-control-factory.c:813
 msgid "Could not initialize GNORBA"
 msgstr "Nisem mogel inicializirati GNORBA-e"
 
-#: components/html-editor/editor-control-factory.c:851
+#: components/html-editor/editor-control-factory.c:826
 msgid "Could not initialize Bonobo"
 msgstr "Nisem mogel inicializirati Bonoba"
 
@@ -810,7 +823,7 @@ msgid "Apply changes to:"
 msgstr "Uveljavi spremembe nad:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:15
-#: components/html-editor/text.c:219 components/html-editor/toolbar.c:511
+#: components/html-editor/text.c:219 components/html-editor/toolbar.c:527
 msgid "Bold"
 msgstr "Polkrepko"
 
@@ -832,12 +845,12 @@ msgid "Cell"
 msgstr "Celica"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:20
-#: components/html-editor/paragraph.c:159 components/html-editor/toolbar.c:500
+#: components/html-editor/paragraph.c:159 components/html-editor/toolbar.c:516
 msgid "Center"
 msgstr "Sredina"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
-#: components/html-editor/link.c:105 components/html-editor/text.c:230
+#: components/html-editor/link.c:115 components/html-editor/text.c:230
 msgid "Click will follow this URL"
 msgstr "Klik bo sledil temu URLju"
 
@@ -861,6 +874,10 @@ msgstr "Stolpcov:"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:27
 msgid "Don't wrap"
 msgstr "Ne lomi"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:28
+msgid "Enable"
+msgstr "Vkljuèi"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:29
 msgid "Follow"
@@ -891,7 +908,7 @@ msgid "Horizontal:"
 msgstr "Vodoravno:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:37
-#: components/html-editor/text.c:220 components/html-editor/toolbar.c:513
+#: components/html-editor/text.c:220 components/html-editor/toolbar.c:529
 msgid "Italic"
 msgstr "Le¾eèe"
 
@@ -919,10 +936,6 @@ msgstr "Lokacija"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:43
 msgid "Middle"
 msgstr "Sredina"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:45
-msgid "None"
-msgstr "Brez"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:47
 msgid "Padding"
@@ -1015,7 +1028,7 @@ msgid "Top"
 msgstr "Vrh"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:75
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:515
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:531
 msgid "Underline"
 msgstr "Podèrtano"
 
@@ -1100,9 +1113,13 @@ msgstr "Pi¹kur molèe grabi fi¾ol iz dna cezijeve hoste"
 msgid "The quick brown fox jumped over the lazy dog."
 msgstr "Pi¹kur molèe grabi fi¾ol iz dna cezijeve hoste."
 
-#: components/html-editor/link.c:87
+#: components/html-editor/link.c:97
 msgid "Link text"
 msgstr "Besedilo povezave"
+
+#: components/html-editor/link.c:120
+msgid "Test URL"
+msgstr "Preizkusni URL"
 
 #: components/html-editor/menubar.c:105 components/html-editor/menubar.c:120
 #: components/html-editor/menubar.c:138 components/html-editor/menubar.c:155
@@ -1355,11 +1372,11 @@ msgstr ""
 "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
 "\"-1\">Slika 1: <b>opis</b></font></td></tr></table></td></tr></table>"
 
-#: components/html-editor/test-html-editor-control.c:276
+#: components/html-editor/test-html-editor-control.c:275
 msgid "Open file..."
 msgstr "Odpri datoteko..."
 
-#: components/html-editor/test-html-editor-control.c:278
+#: components/html-editor/test-html-editor-control.c:277
 msgid "Save file as..."
 msgstr "Shranitev datoteke kot..."
 
@@ -1372,47 +1389,47 @@ msgstr "Barva"
 msgid "Roman List"
 msgstr "Rimsko o¹tevilèen seznam"
 
-#: components/html-editor/toolbar.c:498
+#: components/html-editor/toolbar.c:514
 msgid "Left align"
 msgstr "Poravnaj levo"
 
-#: components/html-editor/toolbar.c:502
+#: components/html-editor/toolbar.c:518
 msgid "Right align"
 msgstr "Poravnaj desno"
 
-#: components/html-editor/toolbar.c:509
+#: components/html-editor/toolbar.c:525
 msgid "Toggle typewriter font style"
 msgstr "Preklopi slog pisave na typewriter (pisalni stroj)"
 
-#: components/html-editor/toolbar.c:511
+#: components/html-editor/toolbar.c:527
 msgid "Makes the text bold"
 msgstr "Nastavi besedilo krepko"
 
-#: components/html-editor/toolbar.c:513
+#: components/html-editor/toolbar.c:529
 msgid "Makes the text italic"
 msgstr "Nastavi besedilo po¹evno"
 
-#: components/html-editor/toolbar.c:515
+#: components/html-editor/toolbar.c:531
 msgid "Underlines the text"
 msgstr "Podrèrta besedilo"
 
-#: components/html-editor/toolbar.c:517
+#: components/html-editor/toolbar.c:533
 msgid "Strikes out the text"
 msgstr "Preèrta besedilo"
 
-#: components/html-editor/toolbar.c:526
+#: components/html-editor/toolbar.c:542
 msgid "Unindent"
 msgstr "Razveljavi zamik"
 
-#: components/html-editor/toolbar.c:526
+#: components/html-editor/toolbar.c:542
 msgid "Indents the paragraphs less"
 msgstr "Manj zamikni odstavke"
 
-#: components/html-editor/toolbar.c:528
+#: components/html-editor/toolbar.c:544
 msgid "Indent"
 msgstr "Zamik"
 
-#: components/html-editor/toolbar.c:528
+#: components/html-editor/toolbar.c:544
 msgid "Indents the paragraphs more"
 msgstr "Bolj zamakni odstavke"
 
@@ -1468,7 +1485,7 @@ msgstr "Znova nalo¾i stran"
 msgid "Could not initialize Bonobo!"
 msgstr "Nisem mogel inicializirati Bonoba!"
 
-#: src/htmlengine-print.c:200
+#: src/htmlengine-print.c:198
 msgid "Cannot allocate default font for printing\n"
 msgstr "Ne morem dobiti privzete pisave za tiskanje\n"
 
@@ -1476,15 +1493,15 @@ msgstr "Ne morem dobiti privzete pisave za tiskanje\n"
 msgid "Can't load fixed font."
 msgstr "Ne morem nalo¾iti pisave s stalno ¹irino"
 
-#: src/htmlprinter.c:69
+#: src/htmlprinter.c:63
 msgid "US-Letter"
 msgstr "ZDA-pismo"
 
-#: src/testgtkhtml.c:112
+#: src/testgtkhtml.c:113
 msgid "Print pre_view"
 msgstr "_Predogled tiskanja"
 
-#: src/testgtkhtml.c:112
+#: src/testgtkhtml.c:113
 msgid "Print preview"
 msgstr "Predogled tiskanja"
 
