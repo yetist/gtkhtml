@@ -269,9 +269,11 @@ html_engine_draw_cursor_in_area (HTMLEngine *engine,
 
 	g_assert (engine->editable);
 
-	html_engine_draw_table_cursor (engine);
-	html_engine_draw_cell_cursor (engine);
-	html_engine_draw_image_cursor (engine);
+	if (engine->editable && (engine->cursor_hide_count <= 0 && !engine->thaw_idle_id)) {
+		html_engine_draw_table_cursor (engine);
+		html_engine_draw_cell_cursor (engine);
+		html_engine_draw_image_cursor (engine);
+	}
 
 	if (!cursor_enabled || engine->cursor_hide_count > 0 || ! engine->editable || engine->thaw_idle_id)
 		return;
@@ -327,6 +329,7 @@ html_engine_setup_blinking_cursor (HTMLEngine *engine)
 	html_engine_show_cursor (engine);
 	engine->blinking_status = FALSE;
 
+	blink_timeout_cb (engine);
 	engine->blinking_timer_id = gtk_timeout_add (BLINK_TIMEOUT, blink_timeout_cb, engine);
 }
 

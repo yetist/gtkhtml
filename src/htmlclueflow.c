@@ -2199,8 +2199,6 @@ html_clueflow_set_style (HTMLClueFlow *flow,
 	flow->style = style;
 	if (style != HTML_CLUEFLOW_STYLE_LIST_ITEM)
 		flow->item_number = 0;
-	else
-		flow->level = MAX (1, flow->level);
 
 	html_engine_schedule_update (engine);
 	/* FIXME - make it more effective: relayout_with_siblings (flow, engine); */

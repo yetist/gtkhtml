@@ -115,6 +115,17 @@ get_props_and_set (HTMLEngine *engine,
 	props = get_props (clueflow);
 
 	if (mask & HTML_ENGINE_SET_CLUEFLOW_STYLE) {
+		if (style == HTML_CLUEFLOW_STYLE_LIST_ITEM && clueflow->style != HTML_CLUEFLOW_STYLE_LIST_ITEM
+		    && clueflow->level == 0
+		    && !(mask & (HTML_ENGINE_SET_CLUEFLOW_INDENTATION | HTML_ENGINE_SET_CLUEFLOW_INDENTATION_DELTA))) {
+			mask |= HTML_ENGINE_SET_CLUEFLOW_INDENTATION;
+			indentation = 1;
+		} else if (clueflow->style == HTML_CLUEFLOW_STYLE_LIST_ITEM && style != HTML_CLUEFLOW_STYLE_LIST_ITEM
+			   && clueflow->level == 1 
+			   && !(mask & (HTML_ENGINE_SET_CLUEFLOW_INDENTATION | HTML_ENGINE_SET_CLUEFLOW_INDENTATION_DELTA))) {
+			mask |= HTML_ENGINE_SET_CLUEFLOW_INDENTATION;
+			indentation = 0;
+		}
 		html_clueflow_set_style (clueflow, engine, style);
 		html_clueflow_set_item_type (clueflow, engine, item_type);
 	}

@@ -1,3 +1,18 @@
+2001-08-22  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit-cursor.c (html_engine_setup_blinking_cursor):
+	start with shown cursor
+	(html_engine_setup_blinking_cursor): call blink_timeout_cb
+	directly 1st time
+	(html_engine_draw_cursor_in_area): draw object cursors only when 
+
+	* htmlengine-edit-clueflowstyle.c (get_props_and_set): when we are
+	changing from !item at indent level 0, set insentation to 1 and
+	likewise for item --> !item && indentation == 1
+
+	* htmlclueflow.c (html_clueflow_set_style): don't change
+	indentation here
+
 2001-08-22  Larry Ewing  <lewing@ximian.com>
 
 	* htmlclueflow.c (check_point): fix some stupidness of mine.
