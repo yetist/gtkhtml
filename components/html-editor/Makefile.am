@@ -167,7 +167,7 @@ server_DATA = $(server_in_files:.server.in.in=-$(EDITOR_API_VERSION).server)
 %-$(EDITOR_API_VERSION).server: %.server
 	mv $< $@
 
-%.server.in: %.server.in.in Makefile
+%.server.in: %.server.in.in
 	sed -e "s|\@GNOME_GTKHTML_EDITOR_LOCATION\@|$(location)|g" \
 	-e "s|\@EDITOR_API_VERSION\@|$(EDITOR_API_VERSION)|g" \
 	-e "s|\@GNOME_GTKHTML_EDITOR_TYPE\@|$(GNOME_GTKHTML_EDITOR_TYPE)|g" $< > $@
@@ -208,8 +208,10 @@ idl_DATA = $(IDLS)
 dist-hook:
 	cd $(distdir); rm -f $(BUILT_SOURCES)
 
-BUILT_SOURCES = $(IDL_GENERATED) $(SPELL_IDL_GENERATED) $(server_DATA) $(ui_DATA)
+BUILT_SOURCES = $(IDL_GENERATED) $(SPELL_IDL_GENERATED)
 
 CLEANFILES = \
+	$(ui_DATA)		\
+	$(server_DATA)		\
 	$(BUILT_SOURCES)
 
