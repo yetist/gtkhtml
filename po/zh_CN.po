@@ -6,8 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2003-06-04 04:49+0200\n"
-"PO-Revision-Date: 2003-06-04 12:04+0800\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-06-18 04:46+0200\n"
+"PO-Revision-Date: 2003-06-18 13:17+0800\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
@@ -800,6 +801,10 @@ msgid "_Wink"
 msgstr "眨眼(_W)"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
+msgid "_Wrap Lines"
+msgstr "换行(_W)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
 msgid "etc..."
 msgstr "等等..."
 
@@ -820,7 +825,7 @@ msgstr "蓝墨水"
 msgid "Rectangles"
 msgstr "矩形"
 
-#: components/html-editor/body.c:275 src/gtkhtml.c:2543
+#: components/html-editor/body.c:275 src/gtkhtml.c:2547
 msgid "Document Title"
 msgstr "文档标题"
 
@@ -856,7 +861,7 @@ msgstr "背景"
 #: components/html-editor/image.c:257 components/html-editor/image.c:260
 #: components/html-editor/text.c:108
 msgid "The quick brown fox jumps over the lazy dog."
-msgstr "明日复明日·万事成蹉跎。"
+msgstr "明日复明日·万事成蹉跎"
 
 #: components/html-editor/cell.c:178
 msgid "Other"
@@ -927,7 +932,7 @@ msgstr "边框"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:18
 msgid "Border:"
-msgstr "边框:"
+msgstr "边框："
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:19
 msgid "Bottom"
@@ -1445,7 +1450,7 @@ msgstr "查找正规表达式"
 msgid "Spell checker"
 msgstr "拼写检查器"
 
-#: components/html-editor/spell.c:358
+#: components/html-editor/spell.c:361
 msgid "Current _Languages"
 msgstr "当前语言(_L)"
 
@@ -1554,71 +1559,71 @@ msgstr "增加段落的缩进"
 msgid "Sample"
 msgstr "样例"
 
-#: src/gtkhtml.c:2536
+#: src/gtkhtml.c:2540
 msgid "Editable"
 msgstr "可编辑"
 
-#: src/gtkhtml.c:2537
+#: src/gtkhtml.c:2541
 msgid "Whether the html can be edited"
 msgstr "HTML 是否可编辑"
 
-#: src/gtkhtml.c:2544
+#: src/gtkhtml.c:2548
 msgid "The title of the current document"
 msgstr "当前文档的标题"
 
-#: src/gtkhtml.c:2550
+#: src/gtkhtml.c:2554
 msgid "Document Base"
 msgstr "文档基础"
 
-#: src/gtkhtml.c:2551
+#: src/gtkhtml.c:2555
 msgid "The base URL for relative references"
 msgstr "相对引用的基础 URL"
 
-#: src/gtkhtml.c:2557
+#: src/gtkhtml.c:2561
 msgid "Target Base"
 msgstr "目标基础"
 
-#: src/gtkhtml.c:2558
+#: src/gtkhtml.c:2562
 msgid "The base URL of the targe frame"
 msgstr "目标框架的基础 URL"
 
-#: src/gtkhtml.c:2567
+#: src/gtkhtml.c:2571
 msgid "Fixed Width Font"
 msgstr "固定宽度字体"
 
-#: src/gtkhtml.c:2568
+#: src/gtkhtml.c:2572
 msgid "The Monospace font to use for typewriter text"
 msgstr "打字机文字所用的等宽字体"
 
-#: src/gtkhtml.c:2574
+#: src/gtkhtml.c:2578
 msgid "New Link Color"
 msgstr "新链接颜色"
 
-#: src/gtkhtml.c:2575
+#: src/gtkhtml.c:2579
 msgid "The color of new link elements"
 msgstr "新链接元素的颜色"
 
-#: src/gtkhtml.c:2580
+#: src/gtkhtml.c:2584
 msgid "Visited Link Color"
 msgstr "已浏览链接颜色"
 
-#: src/gtkhtml.c:2581
+#: src/gtkhtml.c:2585
 msgid "The color of visited link elements"
 msgstr "已浏览链接元素的颜色"
 
-#: src/gtkhtml.c:2586
+#: src/gtkhtml.c:2590
 msgid "Active Link Color"
 msgstr "激活链接颜色"
 
-#: src/gtkhtml.c:2587
+#: src/gtkhtml.c:2591
 msgid "The color of active link elements"
 msgstr "激活链接元素的颜色"
 
-#: src/gtkhtml.c:2592
+#: src/gtkhtml.c:2596
 msgid "Spelling Error Color"
 msgstr "拼写错误颜色"
 
-#: src/gtkhtml.c:2593
+#: src/gtkhtml.c:2597
 msgid "The color of the spelling error markers"
 msgstr "拼写错误标记的颜色"
 
