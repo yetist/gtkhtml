@@ -335,6 +335,7 @@ gtk_html_debug_dump_list_simple (GList *list,
 }
 
 #define D_ATTR_TYPE(x, s) if ((attr = pango_attr_iterator_get (iter, PANGO_ATTR_ ## x))) g_print ("%3d-%3d: %s\n", attr->start_index, attr->end_index, s);
+#define D_ATTR_TYPE_INT(x, s) if ((attr = pango_attr_iterator_get (iter, PANGO_ATTR_ ## x))) { g_print ("%3d-%3d: %s %d\n", attr->start_index, attr->end_index, s, ((PangoAttrInt *)attr)->value); }
 
 void
 gtk_html_debug_list_attrs (PangoAttrList *attrs)
@@ -350,7 +351,7 @@ gtk_html_debug_list_attrs (PangoAttrList *attrs)
 		D_ATTR_TYPE (WEIGHT, "Weight");
 		D_ATTR_TYPE (VARIANT, "Variant");
 		D_ATTR_TYPE (STRETCH, "Stretch");
-		D_ATTR_TYPE (SIZE, "Size");
+		D_ATTR_TYPE_INT (SIZE, "Size");
 		D_ATTR_TYPE (FONT_DESC, "Font Desc");
 		D_ATTR_TYPE (FOREGROUND, "Foreground");
 		D_ATTR_TYPE (BACKGROUND, "Background");

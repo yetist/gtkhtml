@@ -1,3 +1,9 @@
+2004-05-05  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (html_text_change_attrs): add avoid_default_size
+	parameter
+	(html_text_get_pango_info): avoid resetting font size to default
+
 2004-05-03  Radek Doulik  <rodo@ximian.com>
 
 	* htmlimage.c (ref_image_ptr): ref only successfuly loaded images

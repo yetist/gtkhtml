@@ -57,7 +57,7 @@ static void         spell_error_destroy     (SpellError *se);
 static void         move_spell_errors       (GList *spell_errors, guint offset, gint delta);
 static GList *      remove_spell_errors     (GList *spell_errors, guint offset, guint len);
 static void         remove_text_slaves      (HTMLObject *self);
-static void         html_text_change_attrs  (PangoAttrList *attr_list, GtkHTMLFontStyle style, HTMLEngine *e, gint start_index, gint end_index);
+static void         html_text_change_attrs  (PangoAttrList *attr_list, GtkHTMLFontStyle style, HTMLEngine *e, gint start_index, gint end_index, gboolean avoid_default_size);
 
 /* void
 debug_spell_errors (GList *se)
@@ -1147,13 +1147,14 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 			}
 		} else
 			attrs = pango_attr_list_copy (text->attr_list);
+
 		if (text->extra_attr_list)
 			pango_attr_list_splice (attrs, text->extra_attr_list, 0, text->text_len);
 		if (!HTML_IS_PLAIN_PAINTER (painter)) {
 			if (HTML_OBJECT (text)->parent && HTML_IS_CLUEFLOW (HTML_OBJECT (text)->parent) && painter->widget && GTK_IS_HTML (painter->widget)) {
 				GtkHTMLFontStyle parent_style = html_clueflow_get_default_font_style (HTML_CLUEFLOW (HTML_OBJECT (text)->parent));
 
-				html_text_change_attrs (attrs, parent_style, GTK_HTML (painter->widget)->engine, 0, text->text_bytes);
+				html_text_change_attrs (attrs, parent_style, GTK_HTML (painter->widget)->engine, 0, text->text_bytes, TRUE);
 			}
 			if (text->links && painter->widget && GTK_IS_HTML (painter->widget)) {
 				HTMLColor *link_color = html_colorset_get_color (GTK_HTML (painter->widget)->engine->settings->color_set, HTMLLinkColor);
@@ -1176,6 +1177,7 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 				}
 			}
 		}
+
 		if (text->select_length) {
 			gchar *end;
 			gchar *start;
@@ -3067,7 +3069,7 @@ html_text_get_style_conflicts (HTMLText *text, GtkHTMLFontStyle style, gint star
 }
 
 static void
-html_text_change_attrs (PangoAttrList *attr_list, GtkHTMLFontStyle style, HTMLEngine *e, gint start_index, gint end_index)
+html_text_change_attrs (PangoAttrList *attr_list, GtkHTMLFontStyle style, HTMLEngine *e, gint start_index, gint end_index, gboolean avoid_default_size)
 {
 	PangoAttribute *attr;
 
@@ -3107,18 +3109,21 @@ html_text_change_attrs (PangoAttrList *attr_list, GtkHTMLFontStyle style, HTMLEn
 		pango_attr_list_change (attr_list, attr);
 	}
 
-	/* always apply size so that we can zoom */
-	attr = html_pango_attr_font_size_new (style);
-	html_pango_attr_font_size_calc ((HTMLPangoAttrFontSize *) attr, e);
-	attr->start_index = start_index;
-	attr->end_index = end_index;
-	pango_attr_list_change (attr_list, attr);
+	if (!avoid_default_size
+	    || (((style & GTK_HTML_FONT_STYLE_SIZE_MASK) != GTK_HTML_FONT_STYLE_DEFAULT)
+		&& ((style & GTK_HTML_FONT_STYLE_SIZE_MASK) != GTK_HTML_FONT_STYLE_SIZE_3))) {
+		attr = html_pango_attr_font_size_new (style);
+		html_pango_attr_font_size_calc ((HTMLPangoAttrFontSize *) attr, e);
+		attr->start_index = start_index;
+		attr->end_index = end_index;
+		pango_attr_list_change (attr_list, attr);
+	}
 }
 
 void
 html_text_set_style_in_range (HTMLText *text, GtkHTMLFontStyle style, HTMLEngine *e, gint start_index, gint end_index)
 {
-	html_text_change_attrs (text->attr_list, style, e, start_index, end_index);
+	html_text_change_attrs (text->attr_list, style, e, start_index, end_index, FALSE);
 }
 
 void
