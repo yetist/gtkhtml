@@ -175,13 +175,49 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 		gtk_html_debug_dump_table (obj, level + 1);
 		break;
 	case HTML_TYPE_TEXT:
-	case HTML_TYPE_LINKTEXT:
+	case HTML_TYPE_LINKTEXT: {
+		HTMLText *text = HTML_TEXT (obj);
 		for (i = 0; i < level; i++)
 			g_print (" ");
-		g_print ("Text (%d): \"%s\"\n",
-			 HTML_TEXT (obj)->text_len, HTML_TEXT (obj)->text);
+		g_print ("Text (len %d bytes %d): \"%s\"\n",
+			 text->text_len, text->text_bytes, text->text);
+/* 		debug_spell_errors (text->spell_errors); */
+		if (text->pi) {
+			for (i =0; i < text->pi->n; i ++)
+				g_print ("item %d offset: %d length: %d\n", i, text->pi->entries [i].item->offset, text->pi->entries [i].item->length);
+				
+			for (i = 0; i < text->text_len; i ++) {
+				union {
+					PangoLogAttr attr;
+					guint as_int;
+				} u;
+				u.attr = text->pi->attrs [i];
+				g_print ("log attrs[%d]: %d\n\t", i, u.as_int & 0x7ff);
+				if (u.attr.is_line_break)
+					g_print ("line break, ");
+				if (u.attr.is_mandatory_break)
+					g_print ("mandatory break, ");
+				if (u.attr.is_char_break)
+					g_print ("char break, ");
+				if (u.attr.is_white)
+					g_print ("white, ");
+				if (u.attr.is_cursor_position)
+					g_print ("cursor position, ");
+				if (u.attr.is_word_start)
+					g_print ("word start, ");
+				if (u.attr.is_word_end)
+					g_print ("word end, ");
+				if (u.attr.is_sentence_boundary)
+					g_print ("sentence boundary, ");
+				if (u.attr.is_sentence_start)
+					g_print ("sentence start, ");
+				if (u.attr.is_sentence_end)
+					g_print ("sentence end, ");
+				g_print ("\n");
+			}
+		}
 		break;
-
+	}
 	case HTML_TYPE_CLUEH:
 	case HTML_TYPE_CLUEV:
 	case HTML_TYPE_CLUEFLOW:
@@ -257,41 +293,6 @@ dump_object_simple (HTMLObject *obj,
 		g_print ("len %d bytes %d\n", text->text_len, text->text_bytes);
 		gtk_html_debug_list_links (text);
 		gtk_html_debug_list_text_attrs (text);
-		/* debug_spell_errors (text->spell_errors); */
-		if (text->pi) {
-			for (i =0; i < text->pi->n; i ++)
-				g_print ("item %d offset: %d length: %d\n", i, text->pi->entries [i].item->offset, text->pi->entries [i].item->length);
-				
-			for (i = 0; i < text->text_len; i ++) {
-				union {
-					PangoLogAttr attr;
-					guint as_int;
-				} u;
-				u.attr = text->pi->attrs [i];
-				g_print ("log attrs[%d]: %d\n\t", i, u.as_int & 0x7ff);
-				if (u.attr.is_line_break)
-					g_print ("line break, ");
-				if (u.attr.is_mandatory_break)
-					g_print ("mandatory break, ");
-				if (u.attr.is_char_break)
-					g_print ("char break, ");
-				if (u.attr.is_white)
-					g_print ("white, ");
-				if (u.attr.is_cursor_position)
-					g_print ("cursor position, ");
-				if (u.attr.is_word_start)
-					g_print ("word start, ");
-				if (u.attr.is_word_end)
-					g_print ("word end, ");
-				if (u.attr.is_sentence_boundary)
-					g_print ("sentence boundary, ");
-				if (u.attr.is_sentence_start)
-					g_print ("sentence start, ");
-				if (u.attr.is_sentence_end)
-					g_print ("sentence end, ");
-				g_print ("\n");
-			}
-		}
 	} else if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE) {
 		HTMLTextSlave *slave = HTML_TEXT_SLAVE (obj);
 		gchar *text;

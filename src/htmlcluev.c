@@ -373,16 +373,25 @@ draw (HTMLObject *o,
 {
 	HTMLObject *aclue;
 	HTMLClueV *cluev;
+	GdkRectangle paint;
 
 	cluev = HTML_CLUEV (o);
+	
+	if (!html_object_intersect (o, &paint, x, y, width, height))
+		return;
+
+	if (cluev->background_color) {
+		html_painter_alloc_color (p, &cluev->background_color->color);
+		html_painter_draw_background (p, 
+					      &cluev->background_color->color,
+					      NULL, tx + paint.x, ty + paint.y, paint.width, paint.height, 0, 0);
+	}
+
 	HTML_OBJECT_CLASS (&html_clue_class)->draw (o,
 						    p,
 						    x, y ,
 						    width, height,
 						    tx, ty);
-
-	if (y + height < o->y - o->ascent || y > o->y + o->descent)
-		return;
 
 	tx += o->x;
 	ty += o->y - o->ascent;
@@ -936,6 +945,7 @@ html_cluev_init (HTMLClueV *cluev,
 	cluev->border_style = HTML_BORDER_NONE;
 	cluev->border_width = 0;
 	cluev->border_color = NULL;
+	cluev->background_color = NULL;
 }
 
 HTMLObject *
@@ -950,23 +960,33 @@ html_cluev_new (gint x, gint y, gint percent)
 }
 
 void
-html_cluev_set_border (HTMLClueV *cluev, HTMLStyle *style)
+html_cluev_set_style (HTMLClueV *cluev, HTMLStyle *style)
 {
 	if (style != NULL) {
 		if (cluev->border_color)
 			html_color_unref (cluev->border_color);
+
+		cluev->padding = style->padding;
 
 		cluev->border_style = style->border_style;
 		cluev->border_width = style->border_width;
 		cluev->border_color = style->border_color;
 		if (cluev->border_color)
 			html_color_ref (cluev->border_color);
+
+		cluev->background_color = style->bg_color;
+		if (cluev->background_color)
+			html_color_ref (cluev->background_color);
 	} else {
 		if (cluev->border_color)
 			html_color_unref (cluev->border_color);
 
+		if (cluev->border_color)
+			html_color_unref (cluev->background_color);
+
 		cluev->border_style = HTML_BORDER_NONE;
 		cluev->border_width = 0;
 		cluev->border_color = NULL;
+		cluev->background_color = NULL;
 	}
 }

@@ -142,6 +142,8 @@ static void      html_engine_map_table_clear (HTMLEngine *e);
 static void      html_engine_id_table_clear (HTMLEngine *e);
 static void      html_engine_add_map (HTMLEngine *e, const char *);
 static void      clear_pending_expose (HTMLEngine *e);
+static void      push_clue (HTMLEngine *e, HTMLObject *clue);
+static void      pop_clue (HTMLEngine *e);
 
 static GtkLayoutClass *parent_class = NULL;
 
@@ -919,7 +921,7 @@ insert_text (HTMLEngine *e,
 }
 
 
-static void block_end_div (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem);
+static void block_end_display_block (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem);
 static void block_end_row (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem);
 static void block_end_cell (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem);
 static void pop_element_by_type (HTMLEngine *e, HTMLDisplayType display);
@@ -928,29 +930,34 @@ static void pop_element_by_type (HTMLEngine *e, HTMLDisplayType display);
 static void
 html_element_push (HTMLElement *node, HTMLEngine *e, HTMLObject *clue)
 {
+	HTMLObject *block_clue;
 	switch (node->style->display) {
 	case DISPLAY_BLOCK:
 		/* close anon p elements */
 		pop_element (e, ID_P);
-		html_stack_push (e->span_stack, node);
+		update_flow_align (e, clue);
 #if TESTING
 		if (node->style->bg_color) {
 			HTMLTableCell *cell;
 			cell = html_table_cell_new (1, 1, 0);
 			html_table_cell_set_fixed_width (cell, 50, 0);
-			html_cluev_set_border (HTML_CLUEV (cell), node->style);
+			html_cluev_set_style (HTML_CLUEV (cell), node->style);
 
 			html_object_set_bg_color (HTML_OBJECT (cell), node->style->bg_color);
 			append_element (e, clue, HTML_OBJECT (cell));
 			push_clue (e, HTML_OBJECT (cell));
 			node->exitFunc = block_end_cell;
 		} else {
-			node->exitFunc = block_end_div;	
+			node->exitFunc = block_end_display_block;
 		}
 #else
-		node->exitFunc = block_end_div;	
+		node->exitFunc = block_end_display_block;
 #endif
-		update_flow_align (e, clue);
+		block_clue = html_cluev_new (0, 0, 100);
+		html_cluev_set_style (HTML_CLUEV (block_clue), node->style);
+		html_clue_append (HTML_CLUE (e->parser_clue), block_clue);
+		push_clue (e, block_clue);
+		html_stack_push (e->span_stack, node);
 		break;
 	case DISPLAY_TABLE_ROW:
 		{
@@ -999,7 +1006,6 @@ push_block_element (HTMLEngine *e,
 	
 	html_stack_push (e->span_stack, element);
 }
-
 
 static void
 push_block (HTMLEngine *e,
@@ -1145,9 +1151,10 @@ pop_element (HTMLEngine *e, char *name)
 
 /* The following are callbacks that are called at the end of a block.  */
 static void
-block_end_div (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
+block_end_display_block (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
 	close_flow (e, clue);
+	pop_clue (e);
 }
 
 static void
@@ -3291,7 +3298,7 @@ element_parse_cell (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	cell = HTML_TABLE_CELL (html_table_cell_new (rowSpan, colSpan, table->padding));
 
  	html_element_set_coreattr_to_object (element, HTML_OBJECT (cell), e);
-	html_cluev_set_border (HTML_CLUEV (cell), element->style);
+	html_cluev_set_style (HTML_CLUEV (cell), element->style);
 
 	cell->no_wrap = no_wrap;
 	cell->heading = heading;

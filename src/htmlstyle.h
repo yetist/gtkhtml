@@ -56,6 +56,7 @@ struct _HTMLStyle {
 	int border_width;
 	HTMLBorderStyle border_style;
 	HTMLColor *border_color;
+	int padding;
 };	
 
 HTMLStyle *html_style_new                  (void);
@@ -68,6 +69,7 @@ HTMLStyle *html_style_set_clear            (HTMLStyle *style, HTMLClearType clea
 HTMLStyle *html_style_set_border_style     (HTMLStyle *style, HTMLBorderStyle bstyle);
 HTMLStyle *html_style_set_border_width     (HTMLStyle *style, int width);
 HTMLStyle *html_style_set_border_color     (HTMLStyle *style, HTMLColor *color);
+HTMLStyle *html_style_set_padding          (HTMLStyle *style, int padding);
 HTMLStyle *html_style_add_text_align       (HTMLStyle *style, HTMLHAlignType type);
 HTMLStyle *html_style_add_text_valign      (HTMLStyle *style, HTMLVAlignType type);
 HTMLStyle *html_style_add_font_face        (HTMLStyle *style, const HTMLFontFace *face);

@@ -39,6 +39,8 @@ struct _HTMLClueV {
 	int border_width;
 	HTMLBorderStyle border_style;
 	HTMLColor *border_color;
+
+	HTMLColor *background_color;
 };
 
 struct _HTMLClueVClass {
@@ -62,7 +64,7 @@ HTMLObject *html_cluev_new         (gint            x,
 				    gint            y,
 				    gint            percent);
 
-void        html_cluev_set_border  (HTMLClueV      *cluev,
+void        html_cluev_set_style   (HTMLClueV      *cluev,
 				    HTMLStyle      *style);
 
 #endif /* _HTMLCLUEV_H_ */

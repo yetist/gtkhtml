@@ -1,3 +1,8 @@
+2004-11-02  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtmldebug.c (gtk_html_debug_dump_object): moved debug details
+	for text object from simple to normal debug dump
+
 2004-11-01  Radek Doulik  <rodo@ximian.com>
 
 	* added id to html object and border to html cluev

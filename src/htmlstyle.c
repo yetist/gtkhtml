@@ -330,6 +330,17 @@ html_style_set_border_width (HTMLStyle *style, int width)
 }
 
 HTMLStyle *
+html_style_set_padding (HTMLStyle *style, int padding)
+{
+	if (!style)
+		style = html_style_new ();
+
+	style->padding = padding;
+
+	return style;
+}
+
+HTMLStyle *
 html_style_set_border_color (HTMLStyle *style, HTMLColor *color)
 {
 	HTMLColor *old;
@@ -421,6 +432,10 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 					style = html_style_set_border_width (style, 5);
 				else
 					style = html_style_set_border_width (style, atoi (value));
+			} else if (!strncasecmp ("padding: ", text, 9)) {
+				char *value = text + 9;
+
+				style = html_style_set_padding (style, atoi (value));
 			} else if (!strncasecmp ("white-space: ", text, 13)) {
 				/* normal, pre, nowrap, pre-wrap, pre-line, inherit  */
 				/*
