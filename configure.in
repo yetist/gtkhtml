@@ -225,10 +225,15 @@ if $try_gconf; then
 	AC_MSG_CHECKING([for gconf])
 	if gconf-config --version > /dev/null 2>&1; then
 		gconf_ver=`gconf-config --version`
-		have_gconf=true
-		GCONF_CFLAGS="`gconf-config --cflags gconf-gtk` -DGTKHTML_HAVE_GCONF"
-		GCONF_LIBS="`gconf-config --libs gconf-gtk`"
-		AC_MSG_RESULT([found ($gconf_ver)])
+		vers=`echo ${gconf_ver} | awk 'BEGIN { FS = "."; } { print $1 * 1000000 + $2 * 1000 + $3;}'`
+		if test "$vers" -ge 1000007; then
+			have_gconf=true
+			GCONF_CFLAGS="`gconf-config --cflags gconf-gtk` -DGTKHTML_HAVE_GCONF"
+			GCONF_LIBS="`gconf-config --libs gconf-gtk`"
+			AC_MSG_RESULT([found ($gconf_ver)])
+		else
+		        AC_MSG_ERROR(You need at least GConf 1.0.7 for this version of GtkHTML)
+		fi
 	else
 		have_gconf=false
 		AC_MSG_RESULT([not found, gtkhtml will be built without gconf support])
