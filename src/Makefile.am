@@ -224,6 +224,9 @@ EXTRA_DIST =			\
 install-data-hook:
 	mv $(DESTDIR)$(libdir)/pkgconfig/libgtkhtml.pc $(DESTDIR)$(libdir)/pkgconfig/libgtkhtml-@GTKHTML_RELEASE@.pc
 
+uninstall-hook:
+	rm -f $(DESTDIR)$(libdir)/pkgconfig/libgtkhtml-@GTKHTML_RELEASE@.pc	
+
 htmlmarshal.h:	htmlclosures.list
 	glib-genmarshal --header --prefix=html_g_cclosure_marshal $< > $@
 

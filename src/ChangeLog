@@ -1,3 +1,8 @@
+2003-03-05  Larry Ewing  <lewing@ximian.com>
+
+	* Makefile.am (uninstall-hook): add unistall-hook to remove
+	renamed .pc file.
+
 2003-03-04  Larry Ewing  <lewing@ximian.com>
 
 	* htmltext.c (get_glyphs): use item->offset rather than adding
