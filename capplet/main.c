@@ -60,7 +60,6 @@ set_ui ()
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (anim_check), actual_prop->animations);
 
 #define SET_FONT(f,w) \
-        printf ("%s\n", actual_prop-> ## f); \
 	gnome_font_picker_set_font_name (GNOME_FONT_PICKER (w), actual_prop-> ## f);
 
 	SET_FONT (font_var,       variable);

@@ -544,7 +544,8 @@ init (GnomeBindingsProperties *prop)
 	gtk_clist_columns_autosize (GTK_CLIST (clist));
 	gtk_container_add (GTK_CONTAINER (sw), clist);
 	gtk_box_pack_start (GTK_BOX (widget), sw, TRUE, TRUE, 2);
-
+	gtk_widget_set_usize (clist, 300, 130);
+	
 	/* buttons */
 	hbox = gtk_hbox_new (FALSE, 3);
 	prop->add_button = button = gtk_button_new_with_label (_("Add"));
@@ -569,6 +570,7 @@ init (GnomeBindingsProperties *prop)
 	gtk_signal_connect (GTK_OBJECT (clist), "select_row", keymap_select_row, prop);
 	gtk_container_add (GTK_CONTAINER (sw), clist);
 	gtk_box_pack_start_defaults (GTK_BOX (hbox), sw);
+	gtk_widget_set_usize (clist, 200, 130);
 
 	/* command names */
 	vbox = gtk_vbox_new (FALSE, 2);
@@ -580,7 +582,8 @@ init (GnomeBindingsProperties *prop)
 	gtk_signal_connect (GTK_OBJECT (clist), "select_row", command_select_row, prop);
 	gtk_container_add (GTK_CONTAINER (sw), clist);
 	gtk_box_pack_start_defaults (GTK_BOX (vbox), sw);
-
+	gtk_widget_set_usize (clist, 200, 130);
+	
 	hbox1 = gtk_hbox_new (FALSE, 3);
 	prop->key_entry = gtk_entry_new ();
 	gtk_signal_connect (GTK_OBJECT (prop->key_entry), "changed", key_entry_changed, prop);
