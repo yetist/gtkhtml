@@ -21,6 +21,7 @@
     Boston, MA 02111-1307, USA.
 */
 #include <string.h>
+#include <stdio.h>
 #include "htmlelement.h"
 
 HTMLElementClass html_element_class;
