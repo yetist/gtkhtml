@@ -1,3 +1,8 @@
+2001-07-30  Tuomas Kuosmanen  <tigert@ximian.com>
+
+	* table.c: Changed the color of the Note table template so it
+	looks nicer.
+
 2001-07-30  Radek Doulik  <rodo@ximian.com>
 
 	* GNOME_GtkHTML_Editor.xml.in: use new rule icons

@@ -211,8 +211,8 @@ static TableInsertTemplate table_templates [TEMPLATES] = {
 	{
 		N_("Note"), 5,
 		1, 1, 3, 1, 1,
-		"<table cellspacing=0 cellpadding=@border@ bgcolor=\"#dfdf30\"@width@@align@><tr><td>"
-		"<table bgcolor=\"#ffff30\" cellpadding=3 cellspacing=0 width=\"100%\">"
+		"<table cellspacing=0 cellpadding=@border@ bgcolor=\"#ccccc0\"@width@@align@><tr><td>"
+		"<table bgcolor=\"#fffff0\" cellpadding=3 cellspacing=0 width=\"100%\">"
 		"<tr><td valign=top><img src=\"file://" ICONDIR "/bulb.png\"></td>"
 		"<td width=\"100%\"><table cellspacing=@spacing@ cellpadding=@padding@ width=\"100%\"",
 		"</table></td></tr></table></td></tr></table>",
