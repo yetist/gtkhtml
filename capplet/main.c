@@ -28,7 +28,9 @@
 #include "gnome-bindings-prop.h"
 #include "../src/gtkhtml.h"
 
-static GtkWidget *capplet, *check, *menu, *option;
+#define CUSTOM_KEYMAP_NAME "Custom"
+
+static GtkWidget *capplet, *check, *menu, *option, *bi;
 static gboolean active = FALSE;
 static GConfError  *error  = NULL;
 static GConfClient *client = NULL;
@@ -36,6 +38,9 @@ static GConfClient *client = NULL;
 static GtkHTMLClassProperties *saved_prop;
 static GtkHTMLClassProperties *orig_prop;
 static GtkHTMLClassProperties *actual_prop;
+
+static GList *saved_bindings;
+static GList *orig_bindings;
 
 static void
 set_ui ()
@@ -76,6 +81,10 @@ revert (void)
 	gtk_html_class_properties_copy   (saved_prop, orig_prop);
 	gtk_html_class_properties_copy   (actual_prop, orig_prop);
 
+	gnome_bindings_properties_set_keymap (GNOME_BINDINGS_PROPERTIES (bi), CUSTOM_KEYMAP_NAME, orig_bindings);
+	gnome_binding_entry_list_destroy (saved_bindings);
+	saved_bindings = gnome_binding_entry_list_copy (orig_bindings);
+
 	set_ui ();
 }
 
@@ -89,7 +98,7 @@ changed (GtkWidget *widget, gpointer data)
 static void
 setup(void)
 {
-	GtkWidget *vbox, *hbox, *frame, *mi, *bi;
+	GtkWidget *vbox, *hbox, *frame, *mi;
 	guchar *base, *rcfile;
 
         capplet = capplet_widget_new();
@@ -116,7 +125,7 @@ setup(void)
 
 	ADD ("Emacs like", "emacs");
 	ADD ("MS like", "ms");
-	ADD ("Custom", "custom");
+	ADD (CUSTOM_KEYMAP_NAME, "custom");
 	/* to be implemented */
 	gtk_widget_set_sensitive (mi, FALSE);
 
@@ -147,9 +156,13 @@ setup(void)
 					      "MS like", "gtkhtml-bindings-ms", "command",
 					      GTK_TYPE_HTML_COMMAND, FALSE);
 	gnome_bindings_properties_add_keymap (GNOME_BINDINGS_PROPERTIES (bi),
-					      "Custom", "gtkhtml-bindings-custom", "command",
+					      CUSTOM_KEYMAP_NAME, "gtkhtml-bindings-custom", "command",
 					      GTK_TYPE_HTML_COMMAND, TRUE);
-	gnome_bindings_properties_select_keymap (GNOME_BINDINGS_PROPERTIES (bi), "Custom");
+	gnome_bindings_properties_select_keymap (GNOME_BINDINGS_PROPERTIES (bi), CUSTOM_KEYMAP_NAME);
+	orig_bindings = gnome_binding_entry_list_copy (gnome_bindings_properties_get_keymap
+						       (GNOME_BINDINGS_PROPERTIES (bi), CUSTOM_KEYMAP_NAME));
+	saved_bindings = gnome_binding_entry_list_copy (gnome_bindings_properties_get_keymap
+							(GNOME_BINDINGS_PROPERTIES (bi), CUSTOM_KEYMAP_NAME));
 	gtk_signal_connect (GTK_OBJECT (bi), "changed", changed, NULL);
 	gtk_box_pack_start_defaults (GTK_BOX (vbox), bi);
 

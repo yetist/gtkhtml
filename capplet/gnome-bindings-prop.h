@@ -84,8 +84,14 @@ void        gnome_bindings_properties_add_keymap    (GnomeBindingsProperties *pr
 						     gchar *signal_name,
 						     GtkType arg_enum_type,
 						     gboolean editable);
+void        gnome_bindings_properties_set_keymap    (GnomeBindingsProperties *prop,
+						     gchar *name,
+						     GList *list);
+GList *     gnome_bindings_properties_get_keymap    (GnomeBindingsProperties *prop,
+						     gchar *name);
 
-void        gnome_bindings_properties_save          (GnomeBindingsProperties *prop,
+void        gnome_bindings_properties_save_keymap   (GnomeBindingsProperties *prop,
+						     gchar *name,
 						     gchar *filename);
 
 void        gnome_bindings_properties_select_keymap (GnomeBindingsProperties *prop,

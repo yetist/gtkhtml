@@ -97,7 +97,7 @@ gnome_binding_entry_list_destroy (GList *list)
 		cur = cur->next;
 	}
 
-	g_list_free (cur);
+	g_list_free (list);
 }
 
 static KeymapEntry *
@@ -407,6 +407,7 @@ add_button_clicked (GtkButton *button, GnomeBindingsProperties *prop)
 
 	prop->commands_active = TRUE;
 	gtk_clist_select_row (GTK_CLIST (prop->bindings_clist), binding_row, 0);
+	gtk_signal_emit (GTK_OBJECT (prop), gnome_bindings_properties_signals [CHANGED]);
 }
 
 static void
@@ -430,16 +431,17 @@ copy_button_clicked (GtkButton *button, GnomeBindingsProperties *prop)
 	binding_row = gtk_clist_insert (GTK_CLIST (prop->bindings_clist), binding_row, name);
 	g_free (name [0]);
 
-	be = gnome_binding_entry_new (be->keyval, be->modifiers, be->command);
-	gtk_clist_set_row_data (GTK_CLIST (prop->bindings_clist), binding_row, be);
+	new_be = gnome_binding_entry_new (be->keyval, be->modifiers, be->command);
+	gtk_clist_set_row_data (GTK_CLIST (prop->bindings_clist), binding_row, new_be);
 
 	list = g_list_find (ke->bindings, be);
 	list = g_list_prepend (list, new_be);
 	if (!list->prev)
-		ke->bindings = list;
+	ke->bindings = list;
 
 	prop->commands_active = TRUE;
 	gtk_clist_select_row (GTK_CLIST (prop->bindings_clist), binding_row, 0);
+	gtk_signal_emit (GTK_OBJECT (prop), gnome_bindings_properties_signals [CHANGED]);
 }
 
 static void
@@ -455,8 +457,9 @@ delete_button_clicked (GtkButton *button, GnomeBindingsProperties *prop)
 						     GPOINTER_TO_INT (GTK_CLIST (prop->keymaps_clist)->selection->data));
 
 	gtk_clist_remove (GTK_CLIST (prop->bindings_clist), binding_row);
-	g_list_remove (ke->bindings, be);
+	ke->bindings = g_list_remove (ke->bindings, be);
 	gnome_binding_entry_destroy (be);
+	gtk_signal_emit (GTK_OBJECT (prop), gnome_bindings_properties_signals [CHANGED]);
 }
 
 static void
@@ -606,6 +609,31 @@ gnome_bindings_properties_add_keymap (GnomeBindingsProperties *prop,
 	gtk_clist_set_row_data (GTK_CLIST (prop->keymaps_clist), row, ke);
 
 	g_hash_table_insert (prop->bindingsets, name, ke);
+}
+
+GList *
+gnome_bindings_properties_get_keymap (GnomeBindingsProperties *prop, gchar *name)
+{
+	return ((KeymapEntry *) g_hash_table_lookup (prop->bindingsets, name))->bindings;
+}
+
+void
+gnome_bindings_properties_set_keymap (GnomeBindingsProperties *prop, gchar *name, GList *list)
+{
+	KeymapEntry *ke, *cur_ke;
+	gboolean need_update = FALSE;
+	gint row;
+
+	row = GPOINTER_TO_INT (GTK_CLIST (prop->keymaps_clist)->selection->data);
+	cur_ke = (KeymapEntry *) gtk_clist_get_row_data (GTK_CLIST (prop->keymaps_clist), row);
+	ke = (KeymapEntry *) g_hash_table_lookup (prop->bindingsets, name);
+	if (ke->bindings == cur_ke->bindings)
+		need_update = TRUE;
+	gnome_binding_entry_list_destroy (ke->bindings);
+	ke->bindings = gnome_binding_entry_list_copy (list);
+
+	if (need_update)
+		gtk_clist_select_row (GTK_CLIST (prop->keymaps_clist), row, 0);
 }
 
 void
