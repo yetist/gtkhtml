@@ -734,7 +734,7 @@ delete_object (HTMLEngine *e, HTMLObject **ret_object, guint *ret_len, HTMLUndoD
 			check_table_1 (e);
 			html_engine_edit_selection_updater_update_now (e->selection_updater);
 		}
-		if (e->cursor->position == e->mark->position) {
+		if (!html_engine_is_selection_active (e) || e->cursor->position == e->mark->position) {
 			html_engine_disable_selection (e);
 			html_cursor_jump_to_position (e->cursor, e, end_position);
 			return 0;
