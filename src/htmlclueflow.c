@@ -1217,6 +1217,7 @@ draw_item (HTMLObject *self, HTMLPainter *painter, gint x, gint y, gint width, g
 		gint xp, yp;
 		bullet_size = MAX (3, calc_bullet_size (painter));
 
+		xp = self->x + indent - 2 * bullet_size;	
 		yp = self->y - self->ascent 
 			+ (first->y - first->ascent) 
 			+ (first->ascent + first->descent)/2 

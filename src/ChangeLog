@@ -1,3 +1,7 @@
+2002-11-04  Larry Ewing  <lewing@ximian.com>
+
+	* htmlclueflow.c (draw_item): fix the x position of the bullet.
+
 2002-10-10  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-cut-and-paste.c (check_flows): set style just
