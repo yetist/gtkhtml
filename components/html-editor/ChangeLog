@@ -1,3 +1,9 @@
+2000-10-06  Radek Doulik  <rodo@helixcode.com>
+
+	* menubar.c (insert_image_cb): added link properties while
+	inserting image
+	(insert_link_cb): added text properties while inserting link
+
 2000-10-06  Larry Ewing  <lewing@helixcode.com>
 
 	* resolver.c (impl_HTMLEditor_Resolver_loadURL): only set the

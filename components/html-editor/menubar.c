@@ -28,6 +28,9 @@
 #include "gtkhtml.h"
 #include "control-data.h"
 #include "properties.h"
+#include "image.h"
+#include "text.h"
+#include "link.h"
 
 static void
 undo_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
@@ -94,6 +97,11 @@ insert_image_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cna
 						   image_insertion,
 						   image_insert_cb,
 						   image_close_cb);
+	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
+						   GTK_HTML_EDIT_PROPERTY_LINK, _("Link"),
+						   link_properties,
+						   link_apply_cb,
+						   link_close_cb);
 	gtk_html_edit_properties_dialog_show (cd->properties_dialog);
 }
 
@@ -106,12 +114,18 @@ insert_link_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cnam
 	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, FALSE, _("Insert"));
 
 	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
+						   GTK_HTML_EDIT_PROPERTY_TEXT, _("Text"),
+						   text_properties,
+						   text_apply_cb,
+						   text_close_cb);
+	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 						   GTK_HTML_EDIT_PROPERTY_LINK, _("Link"),
 						   link_properties,
 						   link_apply_cb,
 						   link_close_cb);
 
 	gtk_html_edit_properties_dialog_show (cd->properties_dialog);
+	gtk_html_edit_properties_dialog_set_page (cd->properties_dialog, GTK_HTML_EDIT_PROPERTY_LINK);
 }
 
 static void
