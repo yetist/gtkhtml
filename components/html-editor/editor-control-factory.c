@@ -247,7 +247,6 @@ load_from_file (GtkHTML *html,
         const char *path;
 
         if (strncmp (url, "file:", 5) != 0) {
-		g_warning ("Unsupported image url: %s", url);
 		return FALSE;
 	} 
 	path = url + 5; 

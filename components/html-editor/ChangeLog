@@ -1,3 +1,10 @@
+2001-10-16  Larry Ewing  <lewing@ximian.com>
+
+	* persist-stream-impl.c (ps_impl_load): clean up exit code.
+
+	* editor-control-factory.c (load_from_file): remove annoying
+	warning.
+
 2001-10-16  Radek Doulik  <rodo@ximian.com>
 
 	* menubar.c (menubar_update_paragraph_alignment): block changes
