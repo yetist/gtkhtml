@@ -1,3 +1,9 @@
+2003-04-04  Larry Ewing  <lewing@ximian.com>
+
+	* htmlimage.c (html_image_factory_unregister): make sure we always
+	clear the factory when we are removed from it, ad guard against
+	double removal.  Fixes Ximian #40627
+
 2003-04-03  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml.c (selection_received): add UTF8_STRING dnd support.

@@ -57,7 +57,6 @@ struct _HTMLImageFactory {
 
 
 #define DEFAULT_SIZE 48
-#define ANIMATIONS(i) GTK_HTML_CLASS (GTK_WIDGET_GET_CLASS (i->image_ptr->factory->engine->widget))->properties->animations
 #define STRDUP_HELPER(i,j) if (i != j) {char *tmp = g_strdup (j); g_free(i); i = tmp;}
 
 HTMLImageClass html_image_class;
@@ -1075,6 +1074,8 @@ html_image_pointer_run_animation (HTMLImagePointer *ip)
 	GdkPixbufAnimationIter  *iter = ip->iter;
 	HTMLEngine              *engine = ip->factory->engine;
 	
+	g_return_val_if_fail (ip->factory != NULL, FALSE);
+
 	/* printf ("animation_timeout\n"); */
 	if (gdk_pixbuf_animation_iter_advance (iter, NULL)) {
 		GSList *cur;
@@ -1124,27 +1125,26 @@ html_image_factory_new (HTMLEngine *e)
 }
 
 static gboolean
-cleanup_images (gpointer key, gpointer value, gpointer user_data)
+cleanup_images (gpointer key, gpointer value, gpointer free_everything)
 {
-	HTMLImagePointer *ptr;
-	gboolean retval = FALSE;
+	HTMLImagePointer *ip = value;
 
-	ptr = value;
-	/* user data means: NULL only clean, non-NULL free */
-	if (user_data){
-		if (ptr->interests != NULL) {
-			g_slist_free (ptr->interests);
-			ptr->interests = NULL;
+	/* free_everything means: NULL only clean, non-NULL free */
+	if (free_everything){
+		if (ip->interests != NULL) {
+			g_slist_free (ip->interests);
+			ip->interests = NULL;
 		}
 	}
 
 	/* clean only if this image is not used anymore */
-	if (!ptr->interests){
-		retval = TRUE;
-		html_image_pointer_unref (ptr);
+	if (!ip->interests){
+		html_image_pointer_unref (ip);
+		ip->factory = NULL;
+		return TRUE;
 	}
 
-	return retval;
+	return FALSE;
 }
 
 void
@@ -1192,6 +1192,8 @@ html_image_pointer_timeout (HTMLImagePointer *ip)
 {
 	GSList *list;
 	HTMLImage *image;
+
+	g_return_if_fail (ip->factory != NULL);
 
 	ip->stall = TRUE;
 
@@ -1336,10 +1338,20 @@ html_image_factory_unregister (HTMLImageFactory *factory, HTMLImagePointer *poin
 	pointer->interests = g_slist_remove (pointer->interests, i);
 
 	html_image_pointer_unref (pointer);
+
 	if (pointer->refcount == 1) {
 		g_assert (pointer->interests == NULL);
-		/* printf ("remove %s\n", pointer->url); */
-		g_hash_table_remove (factory->loaded_images, pointer->url);
+		/*
+		 * FIXME The factory can be NULL if the image was from an iframe 
+		 * that has been destroyed and the image is living in the cut buffer
+		 * this isn't particularly clean and should be refactored.
+		 *
+		 * We really need a way to let cut objects know they are living outside
+		 * the normal flow.
+		 */
+		if (factory) 
+			g_hash_table_remove (factory->loaded_images, pointer->url);
+		pointer->factory = NULL;
 		html_image_pointer_unref (pointer);
 	}
 }
@@ -1365,6 +1377,7 @@ move_image_pointers (gpointer key, gpointer value, gpointer data)
 	HTMLImagePointer *ip  = HTML_IMAGE_POINTER (value);
 
 	ip->factory = dst;
+	
 	g_hash_table_insert (dst->loaded_images, ip->url, ip);
 	g_signal_emit_by_name (ip->factory->engine, "url_requested", ip->url, html_image_pointer_load (ip));
 
