@@ -1,3 +1,14 @@
+2001-02-07  Radek Doulik  <rodo@ximian.com>
+
+	* ebrowser-widget.c (ebrowser_url_requested): try to create
+	moniker eloader for UNKNOWN protocol
+	(ebrowser_link_clicked): load for UNKNOWN too
+	(ebrowser_load): try to create moniker eloader for UNKNOWN
+	protocol
+
+	* eloader-moniker.[ch]: new files, new eloader implementation,
+	tries to use monikers to get text/html bonobo/stream
+
 2001-01-04  Dietmar Maurer  <dietmar@helixcode.com>
 
 	* test-ebrowser.c (open_browser): _unref the property bag

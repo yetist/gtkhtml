@@ -21,6 +21,8 @@ EBROWSER_ENGINE_FILES = 		\
 	eloader-file.h 			\
 	eloader-http.c 			\
 	eloader-http.h			\
+	eloader-moniker.c 		\
+	eloader-moniker.h		\
 	ebrowser-history.h		\
 	ebrowser-widget.h
 

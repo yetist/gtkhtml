@@ -25,6 +25,7 @@
 #include <string.h>
 #include "eloader-http.h"
 #include "eloader-file.h"
+#include "eloader-moniker.h"
 #include "ebrowser-widget.h"
 
 enum {ARG_0, ARG_HTTP_PROXY, ARG_URL, ARG_FOLLOW_LINKS, ARG_FOLLOW_REDIRECT, ARG_ALLOW_SUBMIT, ARG_DEFAULT_BGCOLOR, ARG_DEFAULT_FONT, ARG_HISTORY_SIZE};
@@ -332,7 +333,7 @@ ebrowser_url_requested (GtkHTML * html, const gchar * url, GtkHTMLStream * handl
 
 	ebr = EBROWSER (html);
 
-	g_print ("url_requested: %s\n", url);
+	g_print ("url_requested: %s handle: %p\n", url, handle);
 
 	el = NULL;
 
@@ -372,7 +373,7 @@ ebrowser_url_requested (GtkHTML * html, const gchar * url, GtkHTMLStream * handl
 			return;
 		}
 	case EBROWSER_PROTOCOL_UNKNOWN:
-		gtk_html_stream_close (handle, GTK_HTML_STREAM_ERROR);
+		el = eloader_moniker_new (ebr, location, handle);
 		break;
 	default:
 		g_assert_not_reached ();
@@ -408,6 +409,7 @@ ebrowser_link_clicked (GtkHTML * html, const gchar * url)
 	switch (proto) {
 	case EBROWSER_PROTOCOL_HTTP:
 	case EBROWSER_PROTOCOL_FILE:
+	case EBROWSER_PROTOCOL_UNKNOWN:
 		ebrowser_load (ebr, url);
 		return;
 		break;
@@ -426,7 +428,6 @@ ebrowser_link_clicked (GtkHTML * html, const gchar * url)
 		return;
 		break;
 	case EBROWSER_PROTOCOL_INTERNAL:
-	case EBROWSER_PROTOCOL_UNKNOWN:
 		gtk_signal_emit (GTK_OBJECT (ebr), ebr_signals[REQUEST], url);
 		return;
 		break;
@@ -545,7 +546,6 @@ ebrowser_submit (GtkHTML * html, const gchar * method, const gchar * url, const 
 static void
 ebrowser_load (EBrowser * ebr, const gchar * uri)
 {
-	GtkHTMLStream * stream;
 	EBrowserProtocol proto;
 	const gchar * location;
 	gchar * new = NULL;
@@ -612,7 +612,10 @@ ebrowser_load (EBrowser * ebr, const gchar * uri)
 		g_free (new);
 		break;
 	case EBROWSER_PROTOCOL_INTERNAL:
+		break;
 	case EBROWSER_PROTOCOL_UNKNOWN:
+		ebr->baseprotocol = proto;
+		el = eloader_moniker_new (ebr, location, NULL);
 		break;
 	default:
 		g_assert_not_reached ();
@@ -723,7 +726,7 @@ ebrowser_body_connect (ELoader * el, const gchar * url, const gchar * content_ty
 			eloader_set_stream (el, stream);
 		} else {
 			/* Unhandled type */
-			return;
+			eloader_set_stream (el, gtk_html_begin (GTK_HTML (ebr)));
 		}
 	}
 
@@ -738,6 +741,10 @@ ebrowser_body_connect (ELoader * el, const gchar * url, const gchar * content_ty
 	case EBROWSER_PROTOCOL_FILE:
 	case EBROWSER_PROTOCOL_RELATIVE:
 		ebrowser_file_base (location, &ebr->baseroot, &ebr->basedir);
+		break;
+	case EBROWSER_PROTOCOL_UNKNOWN:
+		ebr->baseroot = g_strdup ("");
+		ebr->basedir  = g_strdup ("");
 		break;
 	default:
 		g_assert_not_reached ();
