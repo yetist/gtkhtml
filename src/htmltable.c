@@ -1721,9 +1721,11 @@ append_selection_string (HTMLObject *self,
 			len = buffer->len;
 			html_object_append_selection_string (HTML_OBJECT (cell), buffer);
 			/* remove last \n from added text */
-			if (buffer->len != len && buffer->str [buffer->len-1] == '\n')
-				g_string_truncate (buffer, buffer->len - 1);
-			tab = TRUE;
+			if (buffer->len != len) {
+				tab = TRUE;
+				if (buffer->str [buffer->len-1] == '\n')
+					g_string_truncate (buffer, buffer->len - 1);
+			}
 		}
 		if (rlen + tabs == buffer->len)
 			g_string_truncate (buffer, rlen);

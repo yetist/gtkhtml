@@ -1,5 +1,8 @@
 2001-03-27  Radek Doulik  <rodo@ximian.com>
 
+	* htmltable.c (append_selection_string): start tabbing on first
+	non-empty cell
+
 	* htmlclueflow.c (merge): use style of second flow if first one is
 	empty
 	(pref_right_margin): removed unused variable
