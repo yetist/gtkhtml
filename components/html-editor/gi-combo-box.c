@@ -334,6 +334,7 @@ gi_combo_box_popup_display (GiComboBox *combo_box)
 			  GDK_BUTTON_RELEASE_MASK |
 			  GDK_POINTER_MOTION_MASK,
 			  NULL, NULL, GDK_CURRENT_TIME);
+	gdk_keyboard_grab (combo_box->priv->toplevel->window, TRUE, GDK_CURRENT_TIME);
 }
 
 static int
@@ -405,7 +406,7 @@ gi_combo_box_init (GiComboBox *combo_box)
 	 */
 	combo_box->priv->arrow_button = gtk_toggle_button_new ();
 	gtk_button_set_relief (GTK_BUTTON (combo_box->priv->arrow_button), GTK_RELIEF_NONE);
-	GTK_WIDGET_UNSET_FLAGS (combo_box->priv->arrow_button, GTK_CAN_FOCUS);
+	GTK_WIDGET_SET_FLAGS (combo_box->priv->arrow_button, GTK_CAN_FOCUS);
 
 	arrow = gtk_arrow_new (GTK_ARROW_DOWN, GTK_SHADOW_IN);
 	gtk_container_add (GTK_CONTAINER (combo_box->priv->arrow_button), arrow);

@@ -1,3 +1,12 @@
+2005-01-20  Mengjie Yu  <meng-jie.yu@sun.com>
+
+	* gi-combo-box.c: (gi_combo_box_popup_display),
+	(gi_combo_box_init): fixed the bug that the arrow button can not
+	be focused with keyboard navigation.
+
+	Fixes #46356
+
+
 2004-11-30  Radek Doulik  <rodo@ximian.com>
 
 	* gi-*.[ch]: replace all occurences of gal by gi to be sure we
