@@ -1623,6 +1623,31 @@ save (HTMLObject *self,
 	return result;
 }
 
+static gboolean
+save_plain (HTMLObject *self,
+	    HTMLEngineSaveState *state,
+	    gint requested_width)
+{
+	HTMLTable *table;
+	gint r, c;
+	gboolean result = TRUE;
+
+	table = HTML_TABLE (self);
+
+	for (r = 0; r < table->totalRows; r++) {
+		for (c = 0; c < table->totalCols; c++) {
+			if (!table->cells [r][c]
+			    || table->cells [r][c]->row != r
+			    || table->cells [r][c]->col != c)
+				continue;
+			/*  FIXME the width calculation for the column here is completely broken */
+			result &= html_object_save_plain (HTML_OBJECT (table->cells [r][c]), state, requested_width / table->totalCols);
+		}
+	}
+
+	return result;
+}
+
 
 void
 html_table_type_init (void)
@@ -1661,6 +1686,7 @@ html_table_class_init (HTMLTableClass *klass,
 	object_class->next = next;
 	object_class->prev = prev;
 	object_class->save = save;
+	object_class->save_plain = save_plain;
 
 	parent_class = &html_object_class;
 }

@@ -1,5 +1,8 @@
 2000-11-08  Larry Ewing  <lewing@helixcode.com>
 
+	* htmltable.c (save_plain): add simple test/plain save method.
+	(html_table_class_init): use save_plain.
+
 	* htmlimage.c (save_plain): only try to output the alt text if it
 	is present.
 
