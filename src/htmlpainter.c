@@ -5,7 +5,7 @@
    Copyright (C) 1997 Torben Weis (weis@kde.org)
    Copyright (C) 1999, 2000 Helix Code, Inc.
    Copyright (C) 2000, 2001, 2002, 2003 Ximian, Inc.
-   
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License as published by the Free Software Foundation; either
@@ -55,6 +55,9 @@ finalize (GObject *object)
 
 	g_free (painter->font_face);
 
+	if (painter->pango_context)
+		g_object_unref (painter->pango_context);
+
 	/* FIXME ownership of the color set?  */
 
 	(* G_OBJECT_CLASS (parent_class)->finalize) (object);
@@ -78,15 +81,8 @@ finalize (GObject *object)
 DEFINE_UNIMPLEMENTED (begin)
 DEFINE_UNIMPLEMENTED (end)
 
-DEFINE_UNIMPLEMENTED (alloc_font)
-DEFINE_UNIMPLEMENTED (  ref_font)
-DEFINE_UNIMPLEMENTED (unref_font)
-
 DEFINE_UNIMPLEMENTED (alloc_color)
 DEFINE_UNIMPLEMENTED (free_color)
-
-DEFINE_UNIMPLEMENTED (calc_text_size)
-DEFINE_UNIMPLEMENTED (calc_text_size_bytes)
 
 DEFINE_UNIMPLEMENTED (set_pen)
 DEFINE_UNIMPLEMENTED (get_black)
@@ -131,6 +127,143 @@ html_painter_real_set_widget (HTMLPainter *painter, GtkWidget *widget)
 	g_object_ref (widget);
 }
 
+static gint
+text_width (HTMLPainter *painter, PangoFontDescription *desc, const gchar *text, gint bytes)
+{
+	HTMLTextPangoInfo *pi;
+	GList *glyphs;
+	gint width = 0;
+
+	pi = html_painter_text_itemize_and_prepare_glyphs (HTML_PAINTER (painter), desc, text, bytes, &glyphs, NULL);
+
+	if (pi && glyphs) {
+		GList *list;
+		int i;
+		for (list = glyphs, i = 0; list; list = list->next->next, i++) {
+			PangoGlyphString *str = (PangoGlyphString *) list->data;
+			for (i=0; i < str->num_glyphs; i ++)
+				width += str->glyphs [i].geometry.width;
+		}
+	}
+	if (glyphs)
+		html_painter_glyphs_destroy (glyphs);
+	if (pi)
+		html_text_pango_info_destroy (pi);
+	/* printf ("text_width %d\n", PANGO_PIXELS (width)); */
+	return html_painter_pango_to_engine (painter, width);
+}
+
+static void
+text_size (HTMLPainter *painter, PangoFontDescription *desc, const gchar *text, gint bytes,
+	   HTMLTextPangoInfo *pi, PangoAttrList *attrs, GList *glyphs, gint start_byte_offset,
+	   gint *width_out, gint *ascent_out, gint *descent_out)
+{
+	gboolean temp_pi = FALSE;
+	gint ascent = 0;
+	gint descent = 0;
+	gint width = 0;
+	
+	if (!pi) {
+		pi = html_painter_text_itemize_and_prepare_glyphs (painter, desc, text, bytes, &glyphs, attrs);
+		temp_pi = TRUE;
+	}
+
+	if (pi && pi->n && glyphs) {
+		GList *gl;
+		PangoRectangle log_rect;
+		PangoItem *item;
+		PangoGlyphString *str;
+		const gchar *c_text = text;
+		gint c_bytes, ii;
+
+		c_bytes = 0;
+		for (gl = glyphs; gl && c_bytes < bytes; gl = gl->next) {
+			str = (PangoGlyphString *) gl->data;
+			gl = gl->next;
+			ii = GPOINTER_TO_INT (gl->data);
+			item = pi->entries [ii].item;
+			pango_glyph_string_extents (str, item->analysis.font, NULL, &log_rect);
+			width += log_rect.width;
+
+			if (ascent_out || descent_out) {
+				PangoFontMetrics *pfm;
+
+				pfm = pango_font_get_metrics (item->analysis.font, item->analysis.language);
+				ascent = MAX (ascent, pango_font_metrics_get_ascent (pfm));
+				descent = MAX (descent, pango_font_metrics_get_descent (pfm));
+				pango_font_metrics_unref (pfm);
+			}
+	
+			c_text = g_utf8_offset_to_pointer (c_text, str->num_glyphs);
+			if (*text == '\t')
+				c_text ++;
+			c_bytes = c_text - text;
+		}
+	}
+
+	if (width_out)
+		*width_out = html_painter_pango_to_engine (painter, width);
+	if (ascent_out)
+		*ascent_out = html_painter_pango_to_engine (painter, ascent);
+	if (descent_out)
+		*descent_out = html_painter_pango_to_engine (painter, descent);
+
+	if (temp_pi) {
+		if (glyphs)
+			html_painter_glyphs_destroy (glyphs);
+		if (pi)
+			html_text_pango_info_destroy (pi);
+	}
+}
+
+static HTMLFont *
+html_painter_real_alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, GtkHTMLFontStyle style)
+{
+	PangoFontDescription *desc = NULL;
+	gint space_width, space_asc, space_dsc;
+
+	if (face) {
+		desc = pango_font_description_from_string (face);
+		pango_font_description_set_size (desc, (gint) size);
+	}
+
+	if (!desc || !pango_font_description_get_family (desc)) {
+		if (desc)
+			pango_font_description_free (desc);
+
+		desc = pango_font_description_copy (gtk_widget_get_style (painter->widget)->font_desc);
+	}
+
+	pango_font_description_set_size (desc, size);
+	pango_font_description_set_style (desc, style & GTK_HTML_FONT_STYLE_ITALIC ? PANGO_STYLE_ITALIC : PANGO_STYLE_NORMAL);
+	pango_font_description_set_weight (desc, style & GTK_HTML_FONT_STYLE_BOLD ? PANGO_WEIGHT_BOLD : PANGO_WEIGHT_NORMAL);
+
+	text_size (painter, desc, " ", 1, NULL, NULL, NULL, 0, &space_width, &space_asc, &space_dsc);
+
+	return html_font_new (desc,
+			      space_width,
+			      space_asc, space_dsc,
+			      text_width (painter, desc, "\xc2\xa0", 2),
+			      text_width (painter, desc, "\t", 1),
+			      text_width (painter, desc, "e", 1),
+			      text_width (painter, desc, HTML_BLOCK_INDENT, strlen (HTML_BLOCK_INDENT)),
+			      text_width (painter, desc, HTML_BLOCK_CITE, strlen (HTML_BLOCK_CITE)));
+}
+
+static void
+html_painter_real_ref_font (HTMLPainter *painter, HTMLFont *font)
+{
+}
+
+static void
+html_painter_real_unref_font (HTMLPainter *painter, HTMLFont *font)
+{
+	if (font->ref_count < 1) {
+		pango_font_description_free (font->data);
+		font->data = NULL;
+	}
+}
+
 static void
 html_painter_class_init (GObjectClass *object_class)
 {
@@ -145,15 +278,12 @@ html_painter_class_init (GObjectClass *object_class)
 	class->begin = (gpointer) begin_unimplemented;
 	class->end = (gpointer) end_unimplemented;
 
-	class->alloc_font = (gpointer) alloc_font_unimplemented;
-	class->ref_font   = (gpointer)   ref_font_unimplemented;
-	class->unref_font = (gpointer) unref_font_unimplemented;
+	class->alloc_font = html_painter_real_alloc_font;
+	class->ref_font   = html_painter_real_ref_font;
+	class->unref_font = html_painter_real_unref_font;
 
 	class->alloc_color = (gpointer) alloc_color_unimplemented;
 	class->free_color = (gpointer) free_color_unimplemented;
-
-	class->calc_text_size = (gpointer) calc_text_size_unimplemented;
-	class->calc_text_size_bytes = (gpointer) calc_text_size_bytes_unimplemented;
 
 	class->set_pen = (gpointer) set_pen_unimplemented;
 	class->get_black = (gpointer) get_black_unimplemented;
@@ -300,11 +430,17 @@ html_painter_calc_text_size (HTMLPainter *painter,
 			     HTMLFontFace *face,
 			     gint *width, gint *asc, gint *dsc)
 {
+	HTMLFont *font;
+	
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 	g_return_if_fail (text != NULL);
 
-	(* HP_CLASS (painter)->calc_text_size) (painter, text, len, pi, attrs, glyphs, start_byte_offset, font_style, face, width, asc, dsc);
+	font = html_font_manager_get_font (&painter->font_manager, face, font_style);
+
+	text_size (painter, (PangoFontDescription *) font->data, text, g_utf8_offset_to_pointer (text, len) - text,
+		   pi, attrs, glyphs, start_byte_offset, width, asc, dsc);
+	/* g_print ("calc_text_size %s %d %d %d\n", text, *width, asc ? *asc : -1, dsc ? *dsc : -1); */
 
 	if (line_offset) {
 		gint tabs;
@@ -324,7 +460,10 @@ html_painter_calc_text_size_bytes (HTMLPainter *painter,
 	g_return_if_fail (text != NULL);
 	g_return_if_fail (style != GTK_HTML_FONT_STYLE_DEFAULT);
 
-	(* HP_CLASS (painter)->calc_text_size_bytes) (painter, text, bytes_len, pi, attrs, glyphs, start_byte_offset, font, style, width, asc, dsc);
+	text_size (painter, (PangoFontDescription *) font->data, text, bytes_len, pi, attrs, glyphs, start_byte_offset, width, asc, dsc);
+	
+	/* g_print ("calc_text_size_bytes %d %d %d\n", *width, asc ? *asc : -1, dsc ? *dsc : -1); */
+	
 	if (line_offset) {
 		gint tabs, len = g_utf8_pointer_to_offset (text, text + bytes_len);
 		*width += (html_text_text_line_length (text, line_offset, len, &tabs) - len + tabs)*font->space_width;
@@ -654,6 +793,44 @@ html_painter_get_page_height (HTMLPainter *painter, HTMLEngine *e)
 	return 	(* HP_CLASS (painter)->get_page_height) (painter, e);
 }
 
+/**
+ * html_painter_pango_to_engine:
+ * @painter: a #HTMLPainter
+ * @pango_units: distance in Pango units
+ * 
+ * Convert a distance in Pango units (used for character layout) to
+ * a distance in engine coordinates. Note that the computation is
+ * only correct for positive values of @pango_units
+ * 
+ * Return value: distance converted to engine coordinates.
+ **/
+gint
+html_painter_pango_to_engine (HTMLPainter       *painter,
+			      gint               pango_units)
+{
+	gdouble tmp = 0.5 + pango_units / painter->engine_to_pango;
+	return (gint) CLAMP(tmp, G_MININT, G_MAXINT);
+}
+
+/**
+ * html_painter_engine_to_pango:
+ * @painter: a #HTMLPainter
+ * @engine_coordiantes: distance in Pango units
+ * 
+ * Convert a distance in engine coordinates to a distance in Pango
+ * units (used for character layout). Note that the computation is
+ * only correct for positive values of @pango_units
+ * 
+ * Return value: distance converted to Pango units
+ **/
+gint
+html_painter_engine_to_pango (HTMLPainter       *painter,
+			      gint               engine_units)
+{
+	gdouble tmp = 0.5 + engine_units * painter->engine_to_pango;
+	return (gint) CLAMP(tmp, G_MININT, G_MAXINT);
+}
+
 void
 html_painter_set_focus (HTMLPainter *p, gboolean focus)
 {
@@ -683,7 +860,7 @@ html_painter_text_itemize_and_prepare_glyphs (HTMLPainter *painter, PangoFontDes
 		attr->end_index = bytes;
 		pango_attr_list_insert (attrs, attr);
 	}
-	items = pango_itemize (gtk_widget_get_pango_context (painter->widget), text, 0, bytes, attrs, NULL);
+	items = pango_itemize (painter->pango_context, text, 0, bytes, attrs, NULL);
 	if (empty_attrs)
 		pango_attr_list_unref (attrs);
 
@@ -720,4 +897,49 @@ html_painter_glyphs_destroy (GList *glyphs)
 	for (l = glyphs; l; l = l->next->next)
 		pango_glyph_string_free ((PangoGlyphString *) l->data);
 	g_list_free (glyphs);
+}
+
+/**
+ * html_pango_get_item_properties:
+ * @item: a #PangoItem
+ * @properties: a #HTMLPangoProperties structure
+ * 
+ * Converts the list of extra attributes from @item into a more convenient
+ * structure form.
+ **/
+void
+html_pango_get_item_properties (PangoItem *item, HTMLPangoProperties *properties)
+{
+	GSList *tmp_list = item->analysis.extra_attrs;
+
+	properties->underline = FALSE;
+	properties->strikethrough = FALSE;
+	properties->fg_color = NULL;
+	properties->bg_color = NULL;
+
+	while (tmp_list) {
+		PangoAttribute *attr = tmp_list->data;
+	  
+		switch (attr->klass->type) {
+		case PANGO_ATTR_UNDERLINE:
+			properties->underline = ((PangoAttrInt *)attr)->value != PANGO_UNDERLINE_NONE;
+			break;
+		  
+		case PANGO_ATTR_STRIKETHROUGH:
+			properties->strikethrough = ((PangoAttrInt *)attr)->value;
+			break;
+		  
+		case PANGO_ATTR_FOREGROUND:
+			properties->fg_color = &((PangoAttrColor *)attr)->color;
+			break;
+		  
+		case PANGO_ATTR_BACKGROUND:
+			properties->bg_color = &((PangoAttrColor *)attr)->color;
+			break;
+		
+		default:
+			break;
+		}
+		tmp_list = tmp_list->next;
+	}
 }

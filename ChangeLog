@@ -1,6 +1,11 @@
-2004-08-21  Jayaradha  <njaya@redhat.com>
+Wed Aug  4 10:54:35 2004  Owen Taylor  <otaylor@redhat.com>
 
-	* configure.in: Add ta to ALL_LINGUAS.
+	* Released 3.3.1
+
+	* NEWS: Minimal update
+
+	* configure.in: Increment package version.
+
 2004-08-27  Radek Doulik  <rodo@ximian.com>
 
 	* configure.in: increment revision number
@@ -18,30 +23,40 @@
 	* configure.in: add file chooser check
 
 2004-08-07  Runa Bhattacharjee <runab@redhat.com>
+
 	* configure.in: Added Bengali(bn) in ALL_LINGUAS.
 
-2004-08-02  JP Rosevear  <jpr@novell.com>
+Wed Aug  4 10:54:35 2004  Owen Taylor  <otaylor@redhat.com>
 
-	* configure.in: bump version, libtool numbers
+	* Released 3.3.0
 
-2004-07-22  Rodney Dawes  <dobey@novell.com>
+	* NEWS: Minimal update
+	
+2004-07-16  Alexander Shopov  <ash@contact.bg>
+ 
+ 	* configure.in (ALL_LINGUAS): Added "bg" (Bulgarian)
+ 
+2004-07-21  Rodney Dawes  <dobey@novell.com>
 
-	* configure.in:
+	* configure.in: Bump version to 3.3.0
+	Require at least intltool 0.30
+	Require at least gnome-icon-theme 1.2.3
+
 	(GTKHTML_RELEASE): Get rid of this variable
 	(GTKHTML_API_VERSION): Define thise variable
 	(EDITOR_API_VERSION): Don't duplicate this, and move it up to
 	where we are defining other similar variables
-	(AM_INIT_AUTOMAKE): Don't use GTKHTML_RELEASE in the version number
-	(AC_PROG_INTLTOOL): Require at least intltool 0.30
 	(GTKHTML_RELEASE_STRING): Use GTKHTML_API_VERSION
 
-2004-07-19  JP Rosevear  <jpr@novell.com>
+Thu Jul 15 12:49:11 2004  Owen Taylor  <otaylor@redhat.com>
 
-	* configure.in: bump version, libtool numbers
+	* configure.in (GTKHTML_MODULES): Require libgnomeprint-2.7
+	for new Pango integration.
 
-2004-07-16  Alexander Shopov  <ash@contact.bg>
+Thu Jul 15 10:11:08 2004  Owen Taylor  <otaylor@redhat.com>
 
-	* configure.in (ALL_LINGUAS): Added "bg" (Bulgarian)
+	* configure.in (GTKHTML_MODULES): Require GTK+-2.4
+	for GtkComboBox usage in src/tests.c.
 
 2004-06-25  JP Rosevear  <jpr@novell.com>
 

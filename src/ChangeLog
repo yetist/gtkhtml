@@ -1,3 +1,8 @@
+Thu Sep  2 14:00:08 2004  Owen Taylor  <otaylor@redhat.com>
+
+	* htmltextslave.c: Fix HTMLObject->width to be in engine
+	coordinates not Pango units. (Patch from Radek Doulik, #64430)
+
 2004-08-16  Radek Doulik  <rodo@ximian.com>
 
 	* htmliframe.c (html_iframe_init): load empty iframe if depth > 10
@@ -53,18 +58,17 @@
 
 	Fixes #62086
 
+Mon Aug  9 16:52:07 2004  Owen Taylor  <otaylor@redhat.com>
+
+	* htmlpainter.c (html_painter_pango_to_engine/engine_to_pango): 
+	Guard against overflow.
+
 2004-07-28  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c: ref embedded widget when pushing it to the
 	embedded stack and unref it when poping back
 
 	Fixes #61997
-
-2004-07-22  Rodney Dawes  <dobey@novell.com>
-
-	* Makefile.am (AM_CFLAGS, *dir, *_LDADD): Use GTKHTML_API_VERSION
-	* gtkhtml.c (gtk_html_class_init): Use GTKHTML_RELEASE_STRING
-	* libgtkhtml.pc.in: Use GTKHTML_API_VERSION for directory paths
 
 2004-07-20  Radek Doulik  <rodo@ximian.com>
 
@@ -90,6 +94,73 @@
 
 	* htmltext.c (save_open_attrs): save <TT>
 	(save_close_attrs): save </TT>
+
+2004-07-21  Rodney Dawes  <dobey@novell.com>
+
+	* Makefile.am (AM_CFLAGS, *dir, *_LDADD): Use GTKHTML_API_VERSION
+	* gtkhtml.c (gtk_html_class_init): Use GTKHTML_RELEASE_STRING
+	* libgtkhtml.pc.in: Use GTKHTML_API_VERSION for directory paths
+
+Tue Jul 20 11:27:40 2004  Owen Taylor  <otaylor@redhat.com>
+
+	* htmltext.c (html_text_calc_part_width): Fix ascent and descent
+	for empty strings.
+
+2004-07-15  Owen Taylor  <otaylor@redhat.com>
+ 
+	* htmlpainter.[ch]  htmlgdkpainter.c htmlprinter.c: 
+	Add a common implementation of text size calculation and font handling
+	in HTMLPainter and use that for HTMLGdkPainter and HtmlPrinter.
+
+	* htmlprinter.[ch]: Rewrite text rendering to use new facilities
+	in gnome-print for painting PangoGlyphStrings.
+
+	* htmlprinter.c: Use pango_font_metrics_get_strikethrough/underline_thickness()
+	for underline/strikethrough positioning.
+	
+	* htmlpainter.[ch] htmlplainpainter.c htmlgdkpainter.[ch]
+	htmlclueflow.c: Add a PangoContext field to the HTMLPainter structure, 
+	use it when we need a context rather than gtk_widget_get_pango_context().
+
+	* htmlpainter.[ch] htmlgdkpainter.c htmlprinter.c: Add
+	html_painter_pango_to_engine(), html_painter_engine_to_pango() for
+	unit conversion, engine_to_pango struct field.
+
+	* htmlprinter.[ch] htmlengine-print.c: Add html_print_set_scale(),
+	use it rather than changing fields directly.
+
+	* htmlpainter.[ch]: Remove calc_text_size/calc_text_size_bytes 
+	virtual functions and just used fixed Pango-only implementations
+
+	* htmltext.c htmltextslave.c: Remove
+	(HTML_IS_GDK_PAINTER (painter) || HTML_IS_PLAIN_PAINTER (painter))
+	conditionalizations; fallbacks are no longer necessary since all
+	backends are properly Pango based.
+
+	* htmltext.c htmltextslave.c: Do width computations in Pango
+	units, convert with html_painter_pango_to_engine(), rather than
+	using PANGO_PIXELS().
+
+	* htmltext.c (html_text_tail_white_space): Change to return 
+	Pango units, add a doc comment.
+
+	* htmlpainter.[ch] htmltypes.h htmlgdkpainter.c htmlprinter.c:
+	Encapsulate Pango attributes => drawing properties into
+	html_pango_get_item_properties ().
+
+	* htmltextslave.c (update_lb): Remove an unused parameter, add
+	some comments.
+	
+2004-07-15  Owen Taylor  <otaylor@redhat.com>
+
+	* test.c: Automatically scan tests/ directories for
+	files and display them in a popup menu. Add a "Print"
+	button to generate a PS file and run ggv on it.
+	(#59711)
+
+	* tests/pango.html: Add a test that stresses the
+	internationalization abilities of GtkHTML's Pango
+	usage a bit more.
 
 2004-06-25  Radek Doulik  <rodo@ximian.com>
 
