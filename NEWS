@@ -1,9 +1,69 @@
-gtkhtml-3.1.6 "Tree" 2004-01-26
+gtkhtml-3.4.0 "Going stable" 2004-08-26
 ------------------------------------------------
 
 New in this release
    
-   * fixed font attribute handling.
+   * make sure backstore pixmap has a colormap (Robert McQueen)
+
+New in 3.1.20
+
+   * optionally use new gtk file chooser
+   * fixed table layout calculation
+   * fixed embedded widgets width
+   * do not use title from MOZILLA_URL in text mode
+   * fixed table cell cursor
+   * a11y fixes (Eric Zhao)
+   * fixed style setting in editor
+
+New in 3.1.19
+
+   * fixed crash in embedded widgets code
+   * auto* files fixes (release string vs. api version)
+   * better size request/allocation handling for child widgets
+   * memory leak fix
+
+New in 3.1.18
+
+   * save TT tag again
+
+New in 3.1.17
+
+   * fixed links editing
+   * fixed problems with gnome print and &nbsp;'s
+   * fixed crash when pasting html with embedded widgets
+   * display link attributes in plain text
+   * fixed cursor movement
+   * set iframe's base url before emitting iframe_created signal
+   * disable focus forwarding in editor (Eric Zhao)
+   * fixed MOZILLA_URL pasting again
+   * fixed leaking pango glyphs (Owen Taylor)
+   * removed line breaks around puntuation in links
+   * caret is now consistent with focus (Eric Zhao)
+   * more compiler warnings fixes (Owen Taylor)
+
+New in 3.1.16
+
+   * compiler warnings fixes
+   * font settings fixes
+   * fixed pasting MOZILLA_URL crash
+   * added missing KP_Home, KP_End bindings
+
+New in 3.1.15
+
+   * fixed printing
+   * fixed page color editing
+   * fixed table editing
+   * fixed local image url's
+   * optimalizations
+   * colorset fixes
+   * fixed crash related to displaying spell errors
+   * a11y fixes (Eric Zhao)
+   * search dialog fixes (Pratik V. Parikh)
+   * line breaking fixes in links
+   * make Wrap Lines menu item usable again
+   * fixed line breaking
+   * use GIT
+   * HIGifications   
 
 New in 3.1.5
 
