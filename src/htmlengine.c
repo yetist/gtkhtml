@@ -2095,7 +2095,7 @@ parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		}
 
 		html_color = html_color_new_from_gdk_color (color);
-		push_color (p, html_color_new_from_gdk_color (color));
+		push_color (p, html_color);
 		html_color_unref (html_color);
 
 		push_font_face (p, face);
