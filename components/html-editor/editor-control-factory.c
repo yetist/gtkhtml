@@ -407,7 +407,7 @@ editor_set_format (GtkHTMLControlData *cd, gboolean format_html)
 		html_engine_set_painter (html->engine, HTML_PAINTER (p), 
 					 html->engine->width);
 		
-		html_engine_draw (html->engine, 0, 0, html->engine->width, html->engine->height);
+		html_engine_schedule_redraw (html->engine);
 	}
 		
 }

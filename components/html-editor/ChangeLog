@@ -1,5 +1,8 @@
 2001-04-25  Radek Doulik  <rodo@ximian.com>
 
+	* editor-control-factory.c (editor_set_format): use
+	schedule_redraw
+
 	* engine.c (impl_get_paragraph_data): update for data type change
 	(impl_set_paragraph_data): likewise
 	(impl_set_object_data_by_type): likewise
