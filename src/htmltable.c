@@ -1469,11 +1469,12 @@ divide_into_percented (HTMLTable *table, gint *col_percent, gint *max_size, gint
 
 static gboolean
 calc_lowest_fill (HTMLTable *table, GArray *pref, gint *max_size, gint *col_percent, gint pixel_size,
-		  gint *ret_col, gint *ret_total_pref)
+		  gint *ret_col, gint *ret_total_pref, gint *ret_total)
 {
 	gint c, pw, border_extra = table->border ? 2 : 0, min_fill = COLUMN_PREF (table, table->totalCols);
 
 	*ret_total_pref = 0;
+	*ret_total = 0;
 	for (c = 0; c < table->totalCols; c++)
 		if (col_percent [c + 1] == col_percent [c]) {
 			pw = PREF (c + 1) - PREF (c)
@@ -1486,6 +1487,7 @@ calc_lowest_fill (HTMLTable *table, GArray *pref, gint *max_size, gint *col_perc
 				}
 
 				(*ret_total_pref) += pw;
+				(*ret_total) += max_size [c];
 			}
 		}
 
@@ -1497,27 +1499,25 @@ divide_upto_preferred_width (HTMLTable *table, HTMLPainter *painter, GArray *pre
 			     gint *col_percent, gint *max_size, gint left)
 {
 	gint added, part, c, pw, pixel_size = html_painter_get_pixel_size (painter);
-	gint total_fill, min_col, min_fill, min_pw, processed_pw, border_extra = table->border ? 2 : 0;
+	gint total, total_fill, to_fill, min_col, min_fill, min_pw, processed_pw, border_extra = table->border ? 2 : 0;
 
-	while (left && calc_lowest_fill (table, pref, max_size, col_percent, pixel_size, &min_col, &total_fill)) {
+	/* printf ("cols: %d left: %d\n", table->totalCols, left); */
+	while (left > 0 && calc_lowest_fill (table, pref, max_size, col_percent, pixel_size, &min_col, &total_fill, &total)) {
 		min_pw   = PREF (min_col + 1) - PREF (min_col)
 			- pixel_size * (table->spacing + border_extra);
-		min_fill = MIN (min_pw - max_size [min_col], ((gdouble) min_pw * left) / total_fill);
-		if (min_fill <= 0)
-			break;
-		/* printf ("min_col %d min_pw %d MIN(%d,%d)\n", min_col, min_pw, min_pw - max_size [min_col],
-		   (gint)(((gdouble) min_pw * left) / total_fill)); */
-
-		if (min_fill == min_pw - max_size [min_col]) {
-			/* first add to minimal one */
-			max_size [min_col] += min_fill;
-			left -= min_fill;
+		/* printf ("min: %d left: %d\n", min_col, left); */
+		to_fill = MIN (total, left);
+		if (min_pw - max_size [min_col] < ((gdouble) min_pw * to_fill) / total_fill) {
+			
+			left -= min_pw - max_size [min_col];
+			max_size [min_col] = min_pw;
+			min_fill = to_fill - min_pw;
 			total_fill -= min_pw;
-			/* printf ("min satisfied %d, (%d=%d)left: %d\n", min_fill, max_size [min_col], min_pw, left); */
+		} else {
+			min_fill = to_fill;
 		}
-		if (!left)
-			break;
 
+		/* printf ("min satisfied %d, (%d=%d)left: %d\n", min_fill, max_size [min_col], min_pw, left); */
 		processed_pw = 0;
 		added = 0;
 
@@ -1532,6 +1532,8 @@ divide_upto_preferred_width (HTMLTable *table, HTMLPainter *painter, GArray *pre
 					    > LL (part + 1) * total_fill - LL min_fill * processed_pw)
 						part ++;
 					part         -= added;
+					if (max_size [c] + part > pw)
+						part = pw - max_size [c];
 					added        += part;
 					max_size [c] += part;
 					left         -= part;
@@ -1540,6 +1542,8 @@ divide_upto_preferred_width (HTMLTable *table, HTMLPainter *painter, GArray *pre
 			}
 		}
 	}
+
+	/* printf ("cols: %d left: %d (END)\n", table->totalCols, left); */
 
 	return left;
 }
