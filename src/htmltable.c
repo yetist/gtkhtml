@@ -165,36 +165,28 @@ previous_rows_do_cspan (HTMLTable *table, gint c)
 static void
 expand_columns (HTMLTable *table, gint num)
 {
-	HTMLTableCell **newCells;
 	gint r;
 
 	for (r = 0; r < table->allocRows; r++) {
-		newCells = g_new (HTMLTableCell *, table->totalCols + num);
-		memcpy (newCells, table->cells[r], table->totalCols * sizeof (HTMLTableCell *));
-		memset (newCells + table->totalCols, 0, num * sizeof (HTMLTableCell *));
-		g_free (table->cells[r]);
-		table->cells[r] = newCells;
+		table->cells [r] = g_renew (HTMLTableCell *, table->cells [r], table->totalCols + num);
+		memset (table->cells [r] + table->totalCols, 0, num * sizeof (HTMLTableCell *));
 	}
+	table->totalCols += num;
 }
 
 static void
 inc_columns (HTMLTable *table, gint num)
 {
 	expand_columns (table, num);
-	table->totalCols += num;
 	previous_rows_do_cspan (table, table->totalCols - num);
 }
 
 static void
 expand_rows (HTMLTable *table, gint num)
 {
-	HTMLTableCell ***newRows = g_new (HTMLTableCell **, table->allocRows + num);
 	gint r;
 
-	memcpy (newRows, table->cells, table->allocRows * sizeof (HTMLTableCell **));
-
-	g_free (table->cells);
-	table->cells = newRows;
+	table->cells = g_renew (HTMLTableCell **, table->cells, table->allocRows + num);
 
 	for (r = table->allocRows; r < table->allocRows + num; r++) {
 		table->cells [r] = g_new (HTMLTableCell *, table->totalCols);
@@ -208,7 +200,7 @@ static void
 inc_rows (HTMLTable *table, gint num)
 {
 	if (table->totalRows + num > table->allocRows)
-		expand_rows (table, num + 10);
+		expand_rows (table, num + MAX (10, table->allocRows >> 2));
 	table->totalRows += num;
 	if (table->totalRows - num > 0)
 		do_rspan (table, table->totalRows - num);

@@ -1,3 +1,9 @@
+2000-10-10  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltable.c (expand_columns): use g_renew
+	(expand_rows): likewise
+	(inc_rows): expand rows by .25*allocRows instead of +10
+
 2000-10-09  Larry Ewing  <lewing@helixcode.com>
 
 	* htmltext.c (convert_nbsp): initialize rv and rp to NULL.
