@@ -1,3 +1,11 @@
+2003-09-10  Larry Ewing  <lewing@ximian.com>
+
+	* htmlstyle.c (html_style_add_attribute): add some new atttributes
+	to the attribute parsing code.
+
+	* htmlengine.c: refactor the inline parsers to use html_element
+	code.
+
 2003-09-06  Larry Ewing  <lewing@ximian.com>
 
 	* htmltablecell.c (save): use the right tag when closing cells

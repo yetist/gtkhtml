@@ -228,9 +228,22 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 					HTMLColor *hc = html_color_new_from_gdk_color (&color);
 					style = html_style_add_color (style, hc);
 				        html_color_unref (hc);
+				
 				}
+			} else if (!strncasecmp ("background: ", text, 12)) {
+				GdkColor color;
+
+				if (parse_color (g_strstrip (text + 12), &color)) {
+					HTMLColor *hc = html_color_new_from_gdk_color (&color);
+					style = html_style_add_background_color (style, hc);
+				        html_color_unref (hc);
+				}
+			} else if (!strncasecmp ("background-image: ", text, 18)) {
+				style = html_style_add_background_image (text + 18);
 			} else if (!strncasecmp ("text-decoration: none", text, 21)) {
 				style = html_style_unset_decoration (style, ~GTK_HTML_FONT_STYLE_SIZE_MASK);
+			} else if (!strncasecmp ("display: block", text, 14)) {
+				style = html_style_set_display (style, DISPLAY_BLOCK);
 			}
 		}
 		g_strfreev (prop);

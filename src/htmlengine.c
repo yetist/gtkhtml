@@ -164,7 +164,7 @@ static guint signals [LAST_SIGNAL] = { 0 };
 #define TIMER_INTERVAL 300
 #define DT(x) ;
 #define DF(x) ;
-#define DE(x) x
+#define DE(x) ;
 
 #define ID_A "a"
 #define ID_ADDRESS "address"
@@ -270,27 +270,33 @@ html_element_new (HTMLEngine *e, const char *str) {
 
 	element = g_new0 (HTMLElement, 1);
 	element->id = g_quark_from_string (name);
-	g_free (name);
 
 	element->attributes = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 
-	html_string_tokenizer_tokenize (e->st, str, " >");
+	html_string_tokenizer_tokenize (e->st, str + strlen (name), " >");
+	g_free (name);
+
 	while (html_string_tokenizer_has_more_tokens (e->st)) {
 		const gchar *token = html_string_tokenizer_next_token (e->st);
 		gchar **attr;
-		
-		g_strsplit (token, "=", 2);
+
+		DE(g_print ("token = %s\n", token));
+		attr = g_strsplit (token, "=", 2);
 		
 		if (attr[0]) {
-			if (!g_hash_table_lookup (element->attributes, attr[0])) {
+			char *lower = g_ascii_strdown (attr[0], -1);
+
+			if (!g_hash_table_lookup (element->attributes, lower)) {
 				DE (g_print ("attrs (%s, %s)", attr[0], attr[1]));
-				g_hash_table_insert (element->attributes, attr[0], attr[1]);
+				g_hash_table_insert (element->attributes, lower, attr[1]);
 
 				/* just free the array */
-				g_free (attr);  
+				g_free (attr[0]);
+				g_free (attr);				
 			} else {
 				/* free the whole vector */
-				g_strfreev (attr); 
+				g_strfreev (attr);
+				g_free (lower);
 			}
 		}
 
@@ -746,18 +752,6 @@ add_line_break (HTMLEngine *e,
 }
 
 static void
-block_end_anchor (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
-{
-	g_free (e->url);
-	e->url = NULL;
-
-	g_free (e->target);
-	e->target = NULL;
-
-	e->eat_space = FALSE;
-}
-
-static void
 finish_flow (HTMLEngine *e, HTMLObject *clue) {
 	if (e->flow && HTML_CLUE (e->flow)->tail == NULL) {
 		html_clue_remove (HTML_CLUE (clue), e->flow);
@@ -917,7 +911,25 @@ insert_text (HTMLEngine *e,
 }
 
 
+static void block_end_div (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem);
 /* Block stack.  */
+static void
+html_element_push (HTMLElement *node, HTMLEngine *e, HTMLObject *clue)
+{
+	html_stack_push (e->span_stack, node);
+
+	switch (node->style->display) {
+	case DISPLAY_BLOCK:
+		/* close anon p elements */
+		pop_element (e, ID_P);
+		update_flow_align (e, clue);
+		node->exitFunc = block_end_div;
+		break;
+	case DISPLAY_INLINE:
+	default:
+		break;
+	}
+}
 
 static void
 push_block_element (HTMLEngine *e,
@@ -941,6 +953,7 @@ push_block_element (HTMLEngine *e,
 	
 	html_stack_push (e->span_stack, element);
 }
+
 
 static void
 push_block (HTMLEngine *e,
@@ -1713,9 +1726,21 @@ element_parse_area (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 }
 
 static void
+block_end_anchor (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
+{
+	g_free (e->url);
+	e->url = NULL;
+
+	g_free (e->target);
+	e->target = NULL;
+
+	e->eat_space = FALSE;
+}
+
+static void
 element_parse_a (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	HTMLShape *shape;
+	HTMLElement *element;
 	gchar *url = NULL;
 	gchar *id = NULL;
 	HTMLStyle *style = NULL;
@@ -1723,48 +1748,45 @@ element_parse_a (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	char *type = NULL;
 	char *coords = NULL;
 	char *target = NULL;
+	char *value;
 	
 	const gchar *p;
 	
 	pop_element (e, ID_A);
 	
-	html_string_tokenizer_tokenize( e->st, str + 2, " >" );
+	element = html_element_new (e, str);
+	element->style = html_style_set_display (element->style, DISPLAY_INLINE);
 	
-	while ((p = html_string_tokenizer_next_token (e->st)) != 0) {
-		if (strncasecmp (p, "href=", 5) == 0) {
-			url = g_strdup (p + 5);
-			/* FIXME visited? */
-		} else if (strncasecmp (p, "id=", 3) == 0) {
-			/*
-			 * FIXME this doesn't handle the 
-			 * case where id and name are both set
-			 * properly but it will do for now
-			 */
-			if (id == NULL)
-				id = g_strdup (p + 3);
-		} else if (strncasecmp (p, "name=", 5) == 0) {
-			if (id == NULL)
-				id = g_strdup (p + 5);
-		} else if (strncasecmp (p, "shape=", 6) == 0) {
-			type = g_strdup (p + 6);
-		} else if ( strncasecmp (p, "coords=", 7) == 0) {
-			coords = g_strdup (p + 7);
-		} else if (strncasecmp (p, "style=", 6) == 0) {
-			style_attr = g_strdup (p + 6);
-		} else if (strncasecmp (p, "target=", 7) == 0) {
-			target = g_strdup (p + 7);
-		}
+	if (html_element_get_attr (element, "href", &value)) {
+		url = g_strdup (value);
+
+		g_free (e->url);
+		e->url = url;
+
+		element->style = html_style_add_color (element->style, html_colorset_get_color (e->settings->color_set, HTMLLinkColor));
+		element->style = html_style_set_decoration (element->style, GTK_HTML_FONT_STYLE_UNDERLINE);
 	}
 	
-	if (type || coords) {
+	if (html_element_get_attr (element, "target", &target))
+		target = g_strdup (value);
+
+	if (html_element_get_attr (element, "id", &value))
+		id = g_strdup (value);
+
+	if (id == NULL && html_element_get_attr (element, "name", &value))
+		id = g_strdup (value);
+       
+	if (html_element_get_attr (element, "shape", &type)
+	    || html_element_get_attr (element, "coords", &coords)) {
+		HTMLShape *shape;
+		
 		shape = html_shape_new (type, coords, url, target);
-		if (shape != NULL) {
+		if (shape) 
 			html_map_add_shape (e->map, shape);
-		}
 	}
-	
+
 	if (id != NULL) {
-		if (e->flow == 0)
+		if (e->flow == NULL)
 			html_clue_append (HTML_CLUE (clue),
 					  html_anchor_new (id));
 		else
@@ -1773,20 +1795,10 @@ element_parse_a (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		g_free (id);
 	}
 	
-	if (url != NULL) {
-		g_free (e->url);
-		e->url = url;
-	}
-	if (e->url || e->target) {
-		style = html_style_add_color (style, html_colorset_get_color (e->settings->color_set, HTMLLinkColor));
-		style = html_style_set_decoration (style, GTK_HTML_FONT_STYLE_UNDERLINE);
-	}
-	if (style_attr) {
-		style = html_style_add_attribute (style, style_attr);
-		g_free (style_attr);
-	}
-	push_element (e, ID_A, NULL, style);
-	((HTMLElement *)html_stack_top (e->span_stack))->exitFunc = block_end_anchor;
+	html_element_parse_coreattrs (element);
+	
+	element->exitFunc = block_end_anchor;
+	html_element_push (element, e, clue);
 }
 
 
@@ -1838,59 +1850,33 @@ static void
 element_parse_center (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	HTMLStyle *style = NULL;
-	
-	style = html_style_add_text_align (style, HTML_HALIGN_CENTER);
-	push_block_element (e, ID_CENTER, style, DISPLAY_BLOCK, block_end_div, 0, FALSE);
-	
-	update_flow_align (e, clue);
-}
+	HTMLElement *element;
+	char *value;
 
-static void
-block_end_blockquote (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
-{
-	finish_flow (e, clue);
-
-	html_list_destroy (html_stack_pop (e->listStack));
-
-	e->avoid_para = TRUE;
-}
-
-static void
-element_parse_blockquote (HTMLEngine *e, HTMLObject *clue, const gchar *str)
-{
-	gboolean type = HTML_LIST_TYPE_BLOCKQUOTE;
+	element = html_element_new (e, str);
 	
-	html_string_tokenizer_tokenize (e->st, str + 11, " >");
-	while (html_string_tokenizer_has_more_tokens (e->st)) {
-		const char *token = html_string_tokenizer_next_token (e->st);
-		if (strncasecmp (token, "type=", 5) == 0) {
-			if (strncasecmp (token + 5, "cite", 5) == 0) {
-				type = HTML_LIST_TYPE_BLOCKQUOTE_CITE;
-			}
-		}	 
-	}
-	
-	html_stack_push (e->listStack, html_list_new (type));
-	push_block (e, ID_BLOCKQUOTE, DISPLAY_BLOCK, block_end_blockquote, FALSE, FALSE);
-	e->avoid_para = TRUE;
-	close_flow (e, clue);
+	element->style = html_style_set_display (element->style, DISPLAY_BLOCK);
+	element->style = html_style_add_text_align (element->style, HTML_HALIGN_CENTER);
+
+	html_element_parse_coreattrs (element);
+	html_element_push (element, e, clue);
 }
 
 static void
 element_parse_div (HTMLEngine *e, HTMLObject *clue, const char *str)
 {
-	HTMLStyle *style = NULL;
+	HTMLElement *element;
+	char *value;
+
+	element = html_element_new (e, str);
+
+	element->style = html_style_set_display (element->style, DISPLAY_BLOCK);
+
+	if (html_element_get_attr (element, "align", &value))
+		element->style = html_style_add_text_align (element->style, parse_halign (value, HTML_HALIGN_NONE));
 	
-	html_string_tokenizer_tokenize (e->st, str + 4, " >");
-	while (html_string_tokenizer_has_more_tokens (e->st)) {
-		const char* token = html_string_tokenizer_next_token (e->st);
-		if (strncasecmp (token, "align=", 6 ) == 0) {
-			style = html_style_add_text_align (style, parse_halign (token + 6, HTML_HALIGN_NONE));
-		}
-	}
-	
-	push_block_element (e, ID_DIV, style, DISPLAY_BLOCK, block_end_div, 0, 0);
-	update_flow_align (e, clue);
+	html_element_parse_coreattrs (element);
+	html_element_push (element, e, clue);
 }
 
 static void
@@ -1916,11 +1902,15 @@ element_parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			new_flow (e, clue, NULL, HTML_CLEAR_NONE);
 			new_flow (e, clue, NULL, HTML_CLEAR_NONE);
 		} else {
+#if 1
+			update_flow_align (e, clue);
+#else
 			if (e->flow)
 				HTML_CLUE (e->flow)->halign = current_alignment (e);
 			else 
 				new_flow (e, clue, NULL, HTML_CLEAR_NONE);
 
+#endif
 		}
 		g_free (class);
 
@@ -2673,7 +2663,6 @@ element_parse_li (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	push_block (e, ID_LI, DISPLAY_BLOCK, block_end_item, FALSE, FALSE);
 }
 
-
 static void
 block_end_list (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
@@ -2698,11 +2687,11 @@ element_parse_ol (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	
 	html_string_tokenizer_tokenize( e->st, str + 3, " >" );
 	
-	while ( html_string_tokenizer_has_more_tokens (e->st) ) {
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
 		const char* token;
 		
 		token = html_string_tokenizer_next_token (e->st);
-		if ( strncasecmp( token, "type=", 5 ) == 0 )
+		if (strncasecmp( token, "type=", 5 ) == 0)
 			listType = get_list_type (token [5]);
 	}
 	
@@ -2727,6 +2716,27 @@ element_parse_ul (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_UNORDERED));
 	
 	e->avoid_para = TRUE;
+}
+
+static void
+element_parse_blockquote (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	gboolean type = HTML_LIST_TYPE_BLOCKQUOTE;
+	
+	html_string_tokenizer_tokenize (e->st, str + 11, " >");
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
+		const char *token = html_string_tokenizer_next_token (e->st);
+		if (strncasecmp (token, "type=", 5) == 0) {
+			if (strncasecmp (token + 5, "cite", 5) == 0) {
+				type = HTML_LIST_TYPE_BLOCKQUOTE_CITE;
+			}
+		}	 
+	}
+	
+	html_stack_push (e->listStack, html_list_new (type));
+	push_block (e, ID_BLOCKQUOTE, DISPLAY_BLOCK, block_end_list, FALSE, FALSE);
+	e->avoid_para = TRUE;
+	close_flow (e, clue);
 }
 
 static void
@@ -3222,11 +3232,8 @@ element_parse_td (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		else if (strncasecmp (token, "bgcolor=", 8) == 0
 			 && !e->defaultSettings->forceDefault) {
 			
-			if (!strncasecmp (token + 8, "f3f2f1", 6))
-				DT (g_warning ("magic table");)
-					
-					if (parse_color (token + 8, &bgColor))
-						have_bgColor = TRUE;
+			if (parse_color (token + 8, &bgColor))
+				have_bgColor = TRUE;
 		}
 		else if (strncasecmp (token, "nowrap", 6) == 0) {
 			no_wrap = TRUE;
@@ -3352,7 +3359,7 @@ element_parse_th (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				cellheight = atoi (token + 7);
 				cellheight_percent = FALSE;
 				fixedHeight = TRUE;
-				}
+			}
 		}
 		else if (strncasecmp (token, "width=", 6) == 0) {
 			if (strchr (token + 6, '%')) {
@@ -3459,74 +3466,74 @@ element_parse_textarea (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 static void
 element_parse_big (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	push_element (e, ID_BIG, NULL, html_style_set_font_size (NULL, GTK_HTML_FONT_STYLE_SIZE_4));
+	HTMLElement *element = html_element_new (e, str);
+
+	element->style = html_style_set_font_size (element->style, GTK_HTML_FONT_STYLE_SIZE_4);
+	element->style = html_style_set_display (element->style, DISPLAY_INLINE);
+
+	html_element_parse_coreattrs  (element);
+	html_element_push (element, e, clue);
 }
 
 static void
 element_parse_cite (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	push_element (e, ID_CITE, NULL, 
-		      html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_ITALIC | GTK_HTML_FONT_STYLE_BOLD));
-}
+	HTMLElement *element = html_element_new (e, str);
 
-static void
-element_parse_code (HTMLEngine *e, HTMLObject *clue, const gchar *str)
-{
-	push_element (e, ID_CODE, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_FIXED));
-}
+	element->style = html_style_set_decoration (element->style, GTK_HTML_FONT_STYLE_ITALIC | GTK_HTML_FONT_STYLE_BOLD);
+	element->style = html_style_set_display (element->style, DISPLAY_INLINE);
 
-static void
-element_parse_em (HTMLEngine *e, HTMLObject *clue, const gchar *str)
-{
-	push_element (e, ID_EM, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_ITALIC));
-}
+	html_element_parse_coreattrs  (element);
+	html_element_push (element, e, clue);
 
-static void
-element_parse_kbd (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
-{
-	push_element (e, ID_KBD, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_FIXED));
 }
 
 static void
 element_parse_small (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	push_element (e, ID_SMALL, NULL, html_style_set_font_size (NULL, GTK_HTML_FONT_STYLE_SIZE_2));
-}
+	HTMLElement *element = html_element_new (e, str);
 
-static void
-element_parse_strong (HTMLEngine *e, HTMLObject *clue, const gchar *str)
-{
-	push_element (e, ID_STRONG, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_BOLD));
+	element->style = html_style_set_font_size (element->style, GTK_HTML_FONT_STYLE_SIZE_2);
+	element->style = html_style_set_display (element->style, DISPLAY_INLINE);
+
+	html_element_parse_coreattrs  (element);
+	html_element_push (element, e, clue);
 }
 
 static void
 element_parse_sub (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	push_element (e, ID_SUB, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_SUBSCRIPT));
+	HTMLElement *element = html_element_new (e, str);
+
+	element->style = html_style_set_decoration (element->style, GTK_HTML_FONT_STYLE_SUBSCRIPT);
+	element->style = html_style_set_display (element->style, DISPLAY_INLINE);
+
+	html_element_parse_coreattrs  (element);
+	html_element_push (element, e, clue);
 }
 
 static void
 element_parse_sup (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	push_element (e, ID_SUP, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_SUPERSCRIPT));
+	HTMLElement *element = html_element_new (e, str);
+
+	element->style = html_style_set_decoration (element->style, GTK_HTML_FONT_STYLE_SUPERSCRIPT);
+	element->style = html_style_set_display (element->style, DISPLAY_INLINE);
+
+	html_element_parse_coreattrs  (element);
+	html_element_push (element, e, clue);
 }
 
 static void
-element_parse_strike (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+element_parse_inline_strikeout (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	push_element (e, ID_STRIKE, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_STRIKEOUT));
-}
+	HTMLElement *element = html_element_new (e, str);
 
-static void
-element_parse_s (HTMLEngine *e, HTMLObject *clue, const gchar *str)
-{
-	push_element (e, ID_S, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_STRIKEOUT));
-}
+	element->style = html_style_set_decoration (element->style, GTK_HTML_FONT_STYLE_STRIKEOUT);
+	element->style = html_style_set_display (element->style, DISPLAY_INLINE);
 
-static void
-element_parse_tt (HTMLEngine *e, HTMLObject *clue, const gchar *str)
-{
-	push_element (e, ID_TT, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_FIXED));
+	html_element_parse_coreattrs  (element);
+	html_element_push (element, e, clue);
 }
 
 static void
@@ -3536,107 +3543,89 @@ element_parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 }
 
 static void
-element_parse_var (HTMLEngine *e, HTMLObject * _clue, const char *str )
+element_parse_inline_fixed (HTMLEngine *e, HTMLObject *clue, const char *str )
 {
-	push_element (e, ID_VAR, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_FIXED));
+	HTMLElement *element = html_element_new (e, str);
+
+	element->style = html_style_set_decoration (element->style, GTK_HTML_FONT_STYLE_FIXED);
+	element->style = html_style_set_display (element->style, DISPLAY_INLINE);
+
+	html_element_parse_coreattrs  (element);
+	html_element_push (element, e, clue);
 }
 
 static void
-element_parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
+element_parse_inline_italic (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	
-	HTMLStyle *style = NULL;
-	gchar *token = 0; 
-	gchar *id;
-	
-	style = html_style_set_decoration (style, GTK_HTML_FONT_STYLE_ITALIC);
-	
-	html_string_tokenizer_tokenize (e->st, str + 1, " >");
-	while (html_string_tokenizer_has_more_tokens (e->st)) {
-		token = html_string_tokenizer_next_token (e->st);
-		if (strncasecmp (token, "style=", 6) == 0) {
-			style = html_style_add_attribute (style, token + 6);
-		} else if (strncasecmp (token, "id=", 3) == 0) {
-			id = token + 3;
-		}
-	}
-	push_element (e, ID_I, NULL, style);
+	HTMLElement *element = html_element_new (e, str);
+
+	element->style = html_style_set_decoration (element->style, GTK_HTML_FONT_STYLE_ITALIC);
+	element->style = html_style_set_display (element->style, DISPLAY_INLINE);
+
+	html_element_parse_coreattrs  (element);
+	html_element_push (element, e, clue);
 }
 
 static void
-element_parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+element_parse_inline_bold (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	HTMLStyle *style = NULL;
-	style = html_style_set_decoration (style, GTK_HTML_FONT_STYLE_BOLD);
-	
-	html_string_tokenizer_tokenize (e->st, str + 1, " >");
-	while (html_string_tokenizer_has_more_tokens (e->st)) {
-		gchar *token = html_string_tokenizer_next_token (e->st);
-		
-		if (strncasecmp (token, "style=", 6) == 0) {
-			html_style_add_attribute (style, token + 6);
-		}
-	}
-	push_element (e, ID_B, NULL, style);
+	HTMLElement *element = html_element_new (e, str);
+
+	element->style = html_style_set_decoration (element->style, GTK_HTML_FONT_STYLE_BOLD);
+	element->style = html_style_set_display (element->style, DISPLAY_INLINE);
+
+	html_element_parse_coreattrs  (element);
+	html_element_push (element, e, clue);
 }
 
 static void
 element_parse_span (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	HTMLStyle *style = NULL;
-	char *class = NULL;
-	
-	html_string_tokenizer_tokenize (e->st, str + 4, " >");
-	while (html_string_tokenizer_has_more_tokens (e->st)) {
-		gchar *token = html_string_tokenizer_next_token (e->st);
-		
-		if (strncasecmp (token, "style=", 6 ) == 0 ) {
-			style = html_style_add_attribute (style, token + 6);
-		} else if (strncasecmp (token, "class=", 6 ) == 0) {
-			class = g_strdup (token + 6);
-		}
-	}
-	
-	push_element (e, ID_SPAN, class, style);
-	g_free (class);
+	HTMLElement *element = html_element_new (e, str);
+
+	element->style = html_style_set_display (element->style, DISPLAY_INLINE);
+
+	html_element_parse_coreattrs  (element);
+	html_element_push (element, e, clue);
 }
 
 static void
 element_parse_font (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	GdkColor *color;
-	HTMLColor *html_color = NULL;
-	const HTMLFontFace *face = NULL;
-	HTMLStyle *style = NULL;
+	HTMLElement *element = html_element_new (e, str);
+	char *value;
 	
-	/* The GdkColor API is not const safe!  */
-	color = gdk_color_copy ((GdkColor *) current_color (e));
-	
-	html_string_tokenizer_tokenize (e->st, str + 5, " >");
-	while (html_string_tokenizer_has_more_tokens (e->st)) {
-		const gchar *token = html_string_tokenizer_next_token (e->st);
-		if (strncasecmp (token, "size=", 5) == 0) {
-			gint size = atoi (token + 5);
-			
-			/* FIXME implement basefont */
-			if (*(token + 5) == '+' || *(token + 5) == '-')
-				size += GTK_HTML_FONT_STYLE_SIZE_3;
-			
-			CLAMP (size, GTK_HTML_FONT_STYLE_SIZE_1, GTK_HTML_FONT_STYLE_SIZE_MAX);
-			
-				style = html_style_set_font_size (style, size);
-		} else if (strncasecmp (token, "face=", 5) == 0) {
-			style = html_style_add_font_face (style, token + 5);
-		} else if (strncasecmp (token, "color=", 6) == 0) {
-			if (parse_color (token + 6, color)) {
-				html_color = html_color_new_from_gdk_color (color);
-				style = html_style_add_color (style, html_color);
-				html_color_unref (html_color);
-			}
-		}
+	if (html_element_get_attr (element, "size", &value)) {
+		gint size = atoi (value);
+		
+		/* FIXME implement basefont */
+		if (*value == '+' || *value == '-')
+			size += GTK_HTML_FONT_STYLE_SIZE_3;
+		
+		CLAMP (size, GTK_HTML_FONT_STYLE_SIZE_1, GTK_HTML_FONT_STYLE_SIZE_MAX);
+		element->style = html_style_set_font_size (element->style, size);
 	}
 	
-	push_element (e, ID_FONT, NULL, style);
+	if (html_element_get_attr (element, "face", &value)) {
+			element->style = html_style_add_font_face (element->style, value);
+	}
+	
+	if (html_element_get_attr (element, "color", &value)) {
+		GdkColor color;
+
+		if (parse_color (value, &color)) {
+			HTMLColor *html_color = NULL;
+
+			html_color = html_color_new_from_gdk_color (&color);
+			element->style = html_style_add_color (element->style, html_color);
+			html_color_unref (html_color);
+		}
+	}
+
+	element->style = html_style_set_display (element->style, DISPLAY_INLINE);
+
+	html_element_parse_coreattrs  (element);
+	html_element_push (element, e, clue);
 }
 
 #ifdef TESTING		
@@ -3649,21 +3638,27 @@ block_end_test (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 static void
 element_parse_test (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	if (strncmp (str, "test", 4) == 0) {
-		HTMLTableCell *cell;
-		GdkColor color;
+	HTMLElement *element = html_element_new (e, str);
+	HTMLTableCell *cell;
+	char *value;
+	GdkColor color;
+	
 
-		close_flow (e, clue);
+	html_style_set_display (element, DISPLAY_BLOCK);
+	html_element_parse_coreattrs (element);
 
-		cell = html_table_cell_new (1, 1, 20);
-		if (parse_color ("red", &color)) {
-			html_object_set_bg_color (HTML_OBJECT (cell), &color);
-		}
 
-		append_element (e, clue, HTML_OBJECT (cell));
-		push_clue (e, HTML_OBJECT (cell));
-		push_block (e, ID_TEST, DISPLAY_BLOCK, block_end_test, 0, 0);
+	close_flow (e, clue);
+
+	cell = html_table_cell_new (1, 1, 20);
+	if (parse_color ("red", &color)) {
+		html_object_set_bg_color (HTML_OBJECT (cell), &color);
 	}
+	
+	append_element (e, clue, HTML_OBJECT (cell));
+	push_clue (e, HTML_OBJECT (cell));
+
+	html_element_push (element, e, clue);
 }
 #endif /* TESTING */		
 
@@ -3680,7 +3675,7 @@ HTMLDispatchEntry basic_table[] = {
 	{ID_A,                element_parse_a},
 	{"area",              element_parse_area},
 	{ID_ADDRESS,          element_parse_address},
-	{ID_B,                element_parse_b},
+	{ID_B,                element_parse_inline_bold},
 	{"base",              element_parse_base},
 	{ID_BIG,              element_parse_big},
 	{ID_BLOCKQUOTE,       element_parse_blockquote},
@@ -3688,7 +3683,7 @@ HTMLDispatchEntry basic_table[] = {
 	{ID_CAPTION,          element_parse_caption},
 	{ID_CENTER,           element_parse_center},
 	{ID_CITE,             element_parse_cite},
-	{ID_CODE,             element_parse_code},
+	{ID_CODE,             element_parse_inline_fixed},
 	{ID_DIR,              element_parse_dir},
 	{ID_DIV,              element_parse_div},
 	{"data",              element_parse_data},
@@ -3696,7 +3691,7 @@ HTMLDispatchEntry basic_table[] = {
 	{ID_DT,               element_parse_dt},
 	{ID_DD,               element_parse_dd},
 	{ID_LI,               element_parse_li},
-	{ID_EM,               element_parse_em},
+	{ID_EM,               element_parse_inline_italic},
 	{ID_FONT,             element_parse_font},
 	{ID_FORM,             element_parse_form},
 	{"frameset",          element_parse_frameset},
@@ -3704,11 +3699,11 @@ HTMLDispatchEntry basic_table[] = {
 	{ID_MAP,              element_parse_map},
 	{"meta",              element_parse_meta},
 	{"noframe",           element_parse_noframe},
-	{ID_I,                element_parse_i},
+	{ID_I,                element_parse_inline_italic},
 	{"img",               element_parse_img},
 	{"input",             element_parse_input},
 	{"iframe",            element_parse_iframe},
-	{ID_KBD,              element_parse_kbd},
+	{ID_KBD,              element_parse_inline_fixed},
 	{ID_OL,               element_parse_ol},
 	{ID_OPTION,           element_parse_option},	
 	{"object",            parse_object},
@@ -3716,12 +3711,12 @@ HTMLDispatchEntry basic_table[] = {
 	{ID_PRE,              element_parse_pre},
 	{ID_SMALL,            element_parse_small},
 	{ID_SPAN,             element_parse_span},
-	{ID_STRONG,           element_parse_strong},
+	{ID_STRONG,           element_parse_inline_bold},
 	{ID_SELECT,           element_parse_select},
-	{ID_S,                element_parse_s},
+	{ID_S,                element_parse_inline_strikeout},
 	{ID_SUB,              element_parse_sup},
 	{ID_SUP,              element_parse_sup},
-	{ID_STRIKE,           element_parse_strike},
+	{ID_STRIKE,           element_parse_inline_strikeout},
 	{ID_U,                element_parse_u},
 	{ID_UL,               element_parse_ul},
 	{ID_TEXTAREA,         element_parse_textarea},
@@ -3729,9 +3724,9 @@ HTMLDispatchEntry basic_table[] = {
 	{ID_TD,               element_parse_td},
 	{ID_TH,               element_parse_th},
 	{ID_TR,               element_parse_tr},
-	{ID_TT,               element_parse_tt},
+	{ID_TT,               element_parse_inline_fixed},
 	{"title",             element_parse_title},
-	{ID_VAR,              element_parse_var},
+	{ID_VAR,              element_parse_inline_fixed},
 #ifdef TESTING
 	{ID_TEST,             element_parse_test},
 #endif
@@ -3774,6 +3769,7 @@ dispatch_table_new (HTMLDispatchEntry *entry)
 	
 	return table;
 }
+
 
 static void
 parse_one_token (HTMLEngine *e, HTMLObject *clue, const gchar *str)
@@ -4268,6 +4264,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->need_update = FALSE;
 
 	engine->language = NULL;
+
 }
 
 HTMLEngine *
