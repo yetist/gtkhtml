@@ -6,6 +6,8 @@
 	(init_properties_widget): remember client notify ID
 	(init): zero gconf and XIM fields (it isn't needed because gnew0,
 	but we does this for other fields too anyway)
+	(init_properties): initialize gconf by itself if needed and print
+	warning about it
 
 	* Makefile.am (gtest_LDADD): added GCONF_LIBS
 

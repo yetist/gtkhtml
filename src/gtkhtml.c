@@ -1659,18 +1659,25 @@ init_properties (GtkHTMLClass *klass)
 {
 	klass->properties = gtk_html_class_properties_new ();
 #ifdef GTKHTML_HAVE_GCONF
-	if (gconf_is_initialized ()) {
-		gconf_client = gconf_client_get_default ();
-		if (!gconf_client)
-			g_error ("cannot create gconf_client\n");
-		gconf_client_add_dir (gconf_client, GTK_HTML_GCONF_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, &gconf_error);
+	if (!gconf_is_initialized ()) {
+		char *argv[] = { "gtkhtml", NULL };
+
+		g_warning ("gconf is not initialized, please call gconf_init before using GtkHTML library. "
+			   "Meanwhile it's initialized by gtkhtml itself.");
+		gconf_init (1, argv, &gconf_error);
 		if (gconf_error)
 			g_error ("gconf error: %s\n", gconf_error->message);
-		gtk_html_class_properties_load (klass->properties, gconf_client);
-	} else
-		g_error ("gconf is not initialized, please call gconf_init before using GtkHTML library\n");
+	}
+
+	gconf_client = gconf_client_get_default ();
+	if (!gconf_client)
+		g_error ("cannot create gconf_client\n");
+	gconf_client_add_dir (gconf_client, GTK_HTML_GCONF_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, &gconf_error);
+	if (gconf_error)
+		g_error ("gconf error: %s\n", gconf_error->message);
+	gtk_html_class_properties_load (klass->properties, gconf_client);
 #else
-		gtk_html_class_properties_load (klass->properties);
+	gtk_html_class_properties_load (klass->properties);
 #endif
 	load_keybindings (klass);
 #ifdef GTKHTML_HAVE_GCONF
