@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
-"POT-Creation-Date: 2003-05-16 20:56+0200\n"
-"PO-Revision-Date: 2003-05-16 23:19+0200\n"
+"POT-Creation-Date: 2003-05-20 13:05+0200\n"
+"PO-Revision-Date: 2003-05-20 14:57+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -843,7 +843,7 @@ msgstr "Automatický"
 #: components/html-editor/body.c:326
 #: components/html-editor/editor-control-factory.c:207
 #: components/html-editor/gtkhtml-editor-properties.glade.h:76
-#: components/html-editor/menubar.c:288 components/html-editor/popup.c:194
+#: components/html-editor/menubar.c:338 components/html-editor/popup.c:194
 msgid "Text"
 msgstr "Text"
 
@@ -871,20 +871,20 @@ msgstr ""
 "Nemohu použít vaše změny."
 
 #: components/html-editor/editor-control-factory.c:187
-#: components/html-editor/menubar.c:267 components/html-editor/menubar.c:285
-#: components/html-editor/menubar.c:303 components/html-editor/popup.c:186
+#: components/html-editor/menubar.c:317 components/html-editor/menubar.c:335
+#: components/html-editor/menubar.c:353 components/html-editor/popup.c:186
 #: components/html-editor/popup.c:271
 msgid "Properties"
 msgstr "Vlastnosti"
 
 #: components/html-editor/editor-control-factory.c:228
-#: components/html-editor/menubar.c:306 components/html-editor/popup.c:215
+#: components/html-editor/menubar.c:356 components/html-editor/popup.c:215
 msgid "Paragraph"
 msgstr "Odstavec"
 
 #: components/html-editor/editor-control-factory.c:233
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: components/html-editor/menubar.c:270 components/html-editor/popup.c:222
+#: components/html-editor/menubar.c:320 components/html-editor/popup.c:222
 msgid "Page"
 msgstr "Stránka"
 
@@ -1238,11 +1238,16 @@ msgstr ""
 msgid "Insert"
 msgstr "Vložit"
 
-#: components/html-editor/menubar.c:229
+#: components/html-editor/menubar.c:252
+#, c-format
+msgid "Error loading file '%s': %s"
+msgstr "Chyba při načítání souboru '%s': %s"
+
+#: components/html-editor/menubar.c:279
 msgid "Insert: HTML File"
 msgstr "Vložit: HTML soubor"
 
-#: components/html-editor/menubar.c:229
+#: components/html-editor/menubar.c:279
 msgid "Insert: Text File"
 msgstr "Vložit: Textový soubor"
 
@@ -1674,7 +1679,7 @@ msgid "Reset"
 msgstr "Vymazat"
 
 #. TODO2 dialog instead of warning
-#: src/htmlengine-print.c:198
+#: src/htmlengine-print.c:196
 msgid "Cannot allocate default font for printing\n"
 msgstr "Nemohu alokovat základní písmo pro tisk\n"
 
@@ -1682,10 +1687,14 @@ msgstr "Nemohu alokovat základní písmo pro tisk\n"
 msgid "GtkHTML Test"
 msgstr "GtkHTML Test"
 
-#: src/testgtkhtml.c:103
+#: src/testgtkhtml.c:110
 msgid "Print pre_view"
 msgstr "_Náhled tisku"
 
-#: src/testgtkhtml.c:103
+#: src/testgtkhtml.c:110
 msgid "Print preview"
 msgstr "Náhled tisku"
+
+#: src/testgtkhtml.c:973
+msgid "GtkHTML Test Application"
+msgstr "Testovací aplikace GtkHTML"
