@@ -1,3 +1,11 @@
+2003-07-19  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c: remove all occurances of push/pop_span, use the
+	element interface directly.  Start work on new element interface.
+
+	* htmlstyle.c (html_style_set_font_size): make sure to mask the
+	whole size when setting the size.
+
 2003-07-17  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (parse_p): still push the element if avoid para is

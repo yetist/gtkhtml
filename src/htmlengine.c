@@ -180,11 +180,33 @@ typedef enum {
 	ID_SUP,     ID_STRIKE,   ID_HTML, ID_DOCUMENT
 } HTMLElementID;
 
+typedef enum {
+	DISPLAY_INLINE,
+	DISPLAY_BLOCK,
+	DISPLAY_LIST_ITEM,
+	DISPLAY_MARKER,
+	DISPLAY_NONE,
+	DISPLAY_RUN_IN,
+	DISPLAY_COMPACT,
+	DISPLAY_TABLE,
+	DISPLAY_INLINE_TABLE,
+	DISPLAY_TABLE_ROW_GROUP,
+	DISPLAY_TABLE_COLUMN,
+	DISPLAY_TABLE_COLUMN_GROUP,
+	DISPLAY_TABLE_HEADER_GROUP,
+	DISPLAY_TABLE_FOOTER_GROUP,
+	DISPLAY_TABLE_ROW,
+	DISPLAY_TABLE_CELL,
+        DISPLAY_TABLE_CAPTION
+} HTMLDisplayType;
 
 
 /*
  *  Font handling.
  */
+
+
+
 
 /* Font styles */
 typedef struct _HTMLElement HTMLElement;
@@ -193,6 +215,77 @@ struct _HTMLElement {
 	char            *class;
 	HTMLStyle       *style;
 };
+
+typedef void (*BlockFunc)(HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *el);
+struct _HTMLBlockStackElement {
+	BlockFunc exitFunc;
+
+	gint id;
+	gint level;
+	gint miscData1;
+	gint miscData2;
+	HTMLBlockStackElement *next;
+};
+
+#if 0
+struct _HTMLElement {
+	const char *name;        /* the name of the element */
+
+	GHashTable *attributes;  /* the parsed attributes */
+
+	HTMLDisplayType;
+	HTMLStyle  *style;
+}
+
+HTMLElement *
+html_element_new (const char *str) {
+	HTMLElement *element;
+	gint i = 0;
+
+	while (*str && *str != ' ' && *str != '>')
+		i++;
+	
+	if (i == 0)
+		return;
+
+	element = g_new0 (HTMLElement, 1);
+	element->name = g_strndup (str, i);
+
+	element->attributes = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+
+	html_string_tokenizer_tokenize (e->st, str, " >");
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
+		const gchar *token = html_string_tokenizer_next_token (e->st);
+		gchar **attr;
+		
+		g_strsplit (token, '=', 2);
+		
+		if (attr[0]) {
+			if (!g_hash_table_lookup (element->attributes, attr[0])) {
+				DE (g_print ("attrs (%s, %s)", attr[0], attr[1]));
+				g_hash_table_insert (element->attributes, attr[0], attr[1]);
+				/* just free the array */
+				g_free (attr);  
+			} else {
+				/* free the whole vector */
+				g_strfreev (attr); 
+			}
+		}
+
+	}
+	
+	return element;
+}
+
+html_element_free (HTMLElement *element}
+{
+	g_free (element->name);
+	g_hash_table_destroy (element->attributes);
+
+	html_style_free (element->style);
+	g_free (element);
+}
+#endif
 
 static void
 push_element (HTMLEngine *e, guint id, char *class, HTMLStyle *style)
@@ -206,23 +299,6 @@ push_element (HTMLEngine *e, guint id, char *class, HTMLStyle *style)
 }
 
 static void
-push_span (HTMLEngine *e, guint id, HTMLColor *color, const HTMLFontFace *face, GtkHTMLFontStyle settings, GtkHTMLFontStyle mask)
-{
-	HTMLStyle *style = NULL;
-
-	if (color || face || mask) {
-		style = html_style_new ();
-
-		html_style_add_color (style, color);
-		html_style_add_font_face  (style, face);
-		style->settings = settings;
-		style->mask = mask;
-	}
-
-	push_element (e, id, NULL, style);
-}
-
-static void
 free_element (gpointer data)
 {
 	HTMLElement *span = data;
@@ -232,7 +308,6 @@ free_element (gpointer data)
 	g_free (span);
 }
 
-#define pop_span(a,b) pop_element(a,b)
 #define DI(x)
 
 static void
@@ -606,7 +681,7 @@ close_anchor (HTMLEngine *e)
 	g_free (e->target);
 	e->target = NULL;
 
-	pop_span (e, ID_A);
+	pop_element (e, ID_A);
 }
 
 static void
@@ -776,18 +851,6 @@ insert_text (HTMLEngine *e,
 
 
 /* Block stack.  */
-
-typedef void (*BlockFunc)(HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *el);
-
-struct _HTMLBlockStackElement {
-	BlockFunc exitFunc;
-
-	gint id;
-	gint level;
-	gint miscData1;
-	gint miscData2;
-	HTMLBlockStackElement *next;
-};
 
 static HTMLBlockStackElement *
 block_stack_element_new (gint id, gint level, BlockFunc exitFunc, 
@@ -1688,9 +1751,9 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			}
 		}
 	} else if ( strncmp(str, "big", 3 ) == 0 ) {
-		push_span (e, ID_BIG, NULL, NULL, GTK_HTML_FONT_STYLE_SIZE_4, GTK_HTML_FONT_STYLE_SIZE_MASK);
+		push_element (e, ID_BIG, NULL, html_style_set_font_size (NULL, GTK_HTML_FONT_STYLE_SIZE_4));
 	} else if ( strncmp(str, "/big", 4 ) == 0 ) {
-		pop_span (e, ID_BIG);
+		pop_element (e, ID_BIG);
 	} else if ( strncmp(str, "blockquote", 10 ) == 0 ) {
 		gboolean type = HTML_LIST_TYPE_BLOCKQUOTE;
 
@@ -1744,8 +1807,8 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				    && !e->defaultSettings->forceDefault ) {
 				if (parse_color (token + 5, &color)) {
 					html_colorset_set_color (e->settings->color_set, &color, HTMLTextColor);
-					push_span (e, ID_BODY, 
-						   html_colorset_get_color (e->settings->color_set, HTMLTextColor), NULL, 0, 0);
+					push_element (e, ID_BODY, NULL, 
+						      html_style_add_color (NULL, html_colorset_get_color (e->settings->color_set, HTMLTextColor)));
 				}
 			} else if ( strncasecmp( token, "link=", 5 ) == 0
 				    && !e->defaultSettings->forceDefault ) {
@@ -1813,7 +1876,7 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			push_element (e, ID_B, NULL, style);
 		}
 	} else if (strncmp (str, "/b", 2) == 0) {
-		pop_span (e, ID_B);
+		pop_element (e, ID_B);
 	}
 }
 
@@ -1878,15 +1941,14 @@ parse_c (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	} else if (strncmp (str, "/caption", 8) == 0) {
 		pop_block (e, ID_CAPTION);
 	} else if (strncmp( str, "cite", 4 ) == 0) {
-		push_span (e, ID_CITE, NULL, NULL, 
-			   GTK_HTML_FONT_STYLE_ITALIC | GTK_HTML_FONT_STYLE_BOLD, 
-			   GTK_HTML_FONT_STYLE_ITALIC | GTK_HTML_FONT_STYLE_BOLD);
+		push_element (e, ID_CITE, NULL, 
+			      html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_ITALIC | GTK_HTML_FONT_STYLE_BOLD));
 	} else if (strncmp( str, "/cite", 5) == 0) {
-		pop_span (e, ID_CITE);
+		pop_element (e, ID_CITE);
 	} else if (strncmp(str, "code", 4 ) == 0 ) {
-		push_span (e, ID_CODE, NULL, NULL, GTK_HTML_FONT_STYLE_FIXED, GTK_HTML_FONT_STYLE_FIXED);
+		push_element (e, ID_CODE, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_FIXED));
 	} else if (strncmp(str, "/code", 5 ) == 0 ) {
-		pop_span (e, ID_CODE);
+		pop_element (e, ID_CODE);
 	}
 }
 
@@ -2014,9 +2076,9 @@ static void
 parse_e (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 {
 	if ( strncmp( str, "em", 2 ) == 0 ) {
-		push_span (e, ID_EM, NULL, NULL, GTK_HTML_FONT_STYLE_ITALIC, GTK_HTML_FONT_STYLE_ITALIC);
+		push_element (e, ID_EM, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_ITALIC));
 	} else if ( strncmp( str, "/em", 3 ) == 0 ) {
-		pop_span (e, ID_EM);
+		pop_element (e, ID_EM);
 	}
 }
 
@@ -2025,7 +2087,7 @@ form_begin (HTMLEngine *e, HTMLObject *clue, gchar *action, gchar *method, gbool
 {
 	e->form = html_form_new (e, action, method);
 	e->formList = g_list_append (e->formList, e->form);
-		
+	/*	
 	if (! e->avoid_para && close_paragraph) {
 		close_anchor (e);
 		if (e->flow && HTML_CLUE (e->flow)->head)
@@ -2033,18 +2095,20 @@ form_begin (HTMLEngine *e, HTMLObject *clue, gchar *action, gchar *method, gbool
 		e->avoid_para = FALSE;
 		e->pending_para = FALSE;
 	}
+	*/
 }
 
 static void
 form_end (HTMLEngine *e, gboolean close_paragraph)
 {
 	e->form = NULL;
-
+	/*
 	if (! e->avoid_para && close_paragraph) {
 		close_anchor (e);
 		e->avoid_para = TRUE;
 		e->pending_para = TRUE;
 	}
+	*/
 }
 
 /*
@@ -2061,9 +2125,7 @@ parse_f (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		GdkColor *color;
 		HTMLColor *html_color = NULL;
 		const HTMLFontFace *face = NULL;
-		gint oldSize, newSize;
-
-		oldSize = newSize = current_font_style (e) & GTK_HTML_FONT_STYLE_SIZE_MASK;
+		HTMLStyle *style = NULL;
 
 		/* The GdkColor API is not const safe!  */
 		color = gdk_color_copy ((GdkColor *) current_color (e));
@@ -2073,32 +2135,29 @@ parse_f (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		while (html_string_tokenizer_has_more_tokens (e->st)) {
 			const gchar *token = html_string_tokenizer_next_token (e->st);
 			if (strncasecmp (token, "size=", 5) == 0) {
-				gint num = atoi (token + 5);
+				gint size = atoi (token + 5);
 
 				/* FIXME implement basefont */
 				if (*(token + 5) == '+' || *(token + 5) == '-')
-					newSize = GTK_HTML_FONT_STYLE_SIZE_3 + num;
-				else
-					newSize = num;
-				if (newSize > GTK_HTML_FONT_STYLE_SIZE_MAX)
-					newSize = GTK_HTML_FONT_STYLE_SIZE_MAX;
-				else if (newSize < GTK_HTML_FONT_STYLE_SIZE_1)
-					newSize = GTK_HTML_FONT_STYLE_SIZE_1;
+					size += GTK_HTML_FONT_STYLE_SIZE_3;
+
+				CLAMP (size, GTK_HTML_FONT_STYLE_SIZE_1, GTK_HTML_FONT_STYLE_SIZE_MAX);
+
+				style = html_style_set_font_size (style, size);
 			} else if (strncasecmp (token, "face=", 5) == 0) {
-				face = token + 5;
+				style = html_style_add_font_face (style, token + 5);
 			} else if (strncasecmp (token, "color=", 6) == 0) {
-				parse_color (token + 6, color);
-				html_color = html_color_new_from_gdk_color (color);
+				if (parse_color (token + 6, color)) {
+					html_color = html_color_new_from_gdk_color (color);
+					style = html_style_add_color (style, html_color);
+					html_color_unref (html_color);
+				}
 			}
 		}
 
-		push_span (e, ID_FONT, html_color, face, newSize, GTK_HTML_FONT_STYLE_SIZE_MASK);
-
-		if (html_color)
-			html_color_unref (html_color);
-
+		push_element (e, ID_FONT, NULL, style);
 	} else if (strncmp (str, "/font", 5) == 0) {
-		pop_span (e, ID_FONT);
+		pop_element (e, ID_FONT);
 	} else if (strncmp (str, "form", 4) == 0) {
                 gchar *action = NULL;
                 gchar *method = "GET";
@@ -2122,12 +2181,13 @@ parse_f (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		
 		g_free(action);
 		g_free(target);
-
+		/*
 		if (! e->avoid_para) {
 			close_anchor (e);
 			e->avoid_para = TRUE;
 			e->pending_para = FALSE;
 		}
+		*/
 	} else if (strncmp (str, "/form", 5) == 0) {
 		form_end (e, TRUE);
 	} else if (strncmp (str, "frameset", 8) == 0) {
@@ -2447,7 +2507,7 @@ parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 			push_element (e, ID_I, NULL, style);
 		}
 	} else if ( strncmp( str, "/i", 2 ) == 0 ) {
-		pop_span (e, ID_I);
+		pop_element (e, ID_I);
 	}
 }
 
@@ -2460,9 +2520,9 @@ static void
 parse_k (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 {
 	if ( strncmp(str, "kbd", 3 ) == 0 ) {
-		push_span (e, ID_KBD, NULL, NULL, GTK_HTML_FONT_STYLE_FIXED, GTK_HTML_FONT_STYLE_FIXED);
+		push_element (e, ID_KBD, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_FIXED));
 	} else if ( strncmp(str, "/kbd", 4 ) == 0 ) {
-		pop_span (e, ID_KBD);
+		pop_element (e, ID_KBD);
 	}
 }
 
@@ -2796,9 +2856,9 @@ parse_s (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	} else if (strncmp (str, "/small", 6) == 0 ) {
 		pop_element (e, ID_SMALL);
 	} else if (strncmp (str, "strong", 6) == 0) {
-		push_span (e, ID_STRONG, NULL, NULL, GTK_HTML_FONT_STYLE_BOLD, GTK_HTML_FONT_STYLE_BOLD);
+		push_element (e, ID_STRONG, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_BOLD));
 	} else if (strncmp (str, "/strong", 7) == 0) {
-		pop_span (e, ID_STRONG);
+		pop_element (e, ID_STRONG);
 	} else if (strncmp (str, "select", 6) == 0) {
                 gchar *name = NULL;
 		gint size = 0;
@@ -2854,24 +2914,24 @@ parse_s (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		pop_element (e, ID_SPAN);
 	} else if (strncmp (str, "sub", 3) == 0) {
 		if (str[3] == '>' || str[3] == ' ') {
-			push_span (e, ID_SUB, NULL, NULL, GTK_HTML_FONT_STYLE_SUBSCRIPT, GTK_HTML_FONT_STYLE_SUBSCRIPT);
+			push_element (e, ID_SUB, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_SUBSCRIPT));
 		}
 	} else if (strncmp (str, "/sub", 4) == 0) {
-		pop_span (e, ID_SUB);
+		pop_element (e, ID_SUB);
 	} else if (strncmp (str, "sup", 3) == 0) {
 		if (str[3] == '>' || str[3] == ' ') {
-			push_span (e, ID_SUP, NULL, NULL, GTK_HTML_FONT_STYLE_SUPERSCRIPT, GTK_HTML_FONT_STYLE_SUPERSCRIPT);
+			push_element (e, ID_SUP, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_SUPERSCRIPT));
 		}
 	} else if (strncmp (str, "/sup", 4) == 0) {
-		pop_span (e, ID_SUP);
+		pop_element (e, ID_SUP);
 	} else if (strncmp (str, "strike", 6) == 0) {
-		push_span (e, ID_STRIKE, NULL, NULL, GTK_HTML_FONT_STYLE_STRIKEOUT, GTK_HTML_FONT_STYLE_STRIKEOUT);
+		push_element (e, ID_STRIKE, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_STRIKEOUT));
 	} else if (strncmp (str, "s", 1) == 0 && (str[1] == '>' || str[1] == ' ')) {
-		push_span (e, ID_S, NULL, NULL, GTK_HTML_FONT_STYLE_STRIKEOUT, GTK_HTML_FONT_STYLE_STRIKEOUT);
+		push_element (e, ID_S, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_STRIKEOUT));
 	} else if (strncmp (str, "/strike", 7) == 0) {
-		pop_span (e, ID_STRIKE);
+		pop_element (e, ID_STRIKE);
 	} else if (strncmp (str, "/s", 2) == 0 && (str[2] == '>' || str[2] == ' ')) {
-		pop_span (e, ID_S);
+		pop_element (e, ID_S);
 	}
 }
 
@@ -3397,9 +3457,9 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			g_signal_emit (e, signals [TITLE_CHANGED], 0);
 		e->inTitle = FALSE;
 	} else if ( strncmp( str, "tt", 2 ) == 0 ) {
-		push_span (e, ID_TT, NULL, NULL, GTK_HTML_FONT_STYLE_FIXED, GTK_HTML_FONT_STYLE_FIXED);
+		push_element (e, ID_TT, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_FIXED));
 	} else if ( strncmp( str, "/tt", 3 ) == 0 ) {
-		pop_span (e, ID_TT);
+		pop_element (e, ID_TT);
 	} else if (strncmp (str, "textarea", 8) == 0) {
                 gchar *name = NULL;
 		gint rows = 5, cols = 40;
@@ -3485,10 +3545,10 @@ parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		new_flow (e, clue, NULL, HTML_CLEAR_NONE);
 	} else if (strncmp (str, "u", 1) == 0) {
 		if (str[1] == '>' || str[1] == ' ') {
-			push_span (e, ID_U, NULL, NULL, GTK_HTML_FONT_STYLE_UNDERLINE, GTK_HTML_FONT_STYLE_UNDERLINE);
+			push_element (e, ID_U, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_UNDERLINE));
 		}
 	} else if (strncmp (str, "/u", 2) == 0) {
-		pop_span (e, ID_U);
+		pop_element (e, ID_U);
 	}
 }
 
@@ -3500,10 +3560,10 @@ parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 static void
 parse_v (HTMLEngine *e, HTMLObject * _clue, const char *str )
 {
-	if ( strncmp(str, "var", 3 ) == 0 ) {
-		push_span (e, ID_VAR, NULL, NULL, GTK_HTML_FONT_STYLE_FIXED, GTK_HTML_FONT_STYLE_FIXED);
-	} else if ( strncmp( str, "/var", 4 ) == 0) {
-		pop_span (e, ID_VAR);
+	if (strncmp (str, "var", 3) == 0) {
+		push_element (e, ID_VAR, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_FIXED));
+	} else if (strncmp (str, "/var", 4) == 0) {
+		pop_element (e, ID_VAR);
 	}
 }
 
@@ -4951,7 +5011,7 @@ html_engine_set_editable (HTMLEngine *e,
 		if (e->have_focus)
 			html_engine_setup_blinking_cursor (e);
 	} else {
-		if (e->have_focus )
+		if (e->have_focus)
 			if (e->caret_mode)
 				html_engine_setup_blinking_cursor (e);
 			else 

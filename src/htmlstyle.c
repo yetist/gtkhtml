@@ -133,7 +133,7 @@ html_style_set_font_size (HTMLStyle *style, GtkHTMLFontStyle font_style)
 		style = html_style_new ();
 
 	font_style &= GTK_HTML_FONT_STYLE_SIZE_MASK;
-	style->mask |= font_style;
+	style->mask |= GTK_HTML_FONT_STYLE_SIZE_MASK;
 	style->settings |= font_style;
 
 	return style;
