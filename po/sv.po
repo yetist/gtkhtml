@@ -3,21 +3,29 @@
 # Christian Rose <menthos@menthos.com>, 2000, 2001, 2002, 2003, 2004.
 # Martin Norbäck <d95mback@dtek.chalmers.se>, 2000.
 #
-# $Id: sv.po,v 1.93 2004/12/28 23:04:12 menthos Exp $
+# $Id: sv.po,v 1.94 2004/12/29 23:44:54 menthos Exp $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-29 00:03+0100\n"
-"PO-Revision-Date: 2004-12-29 00:03+0100\n"
+"POT-Creation-Date: 2004-12-30 00:43+0100\n"
+"PO-Revision-Date: 2004-12-30 00:43+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: a11y/object.c:50 a11y/object.c:59
+#: a11y/image.c:149
+msgid "URL is "
+msgstr "URL är "
+
+#: a11y/image.c:152
+msgid ", Alternative Text is "
+msgstr ", alternativ text är "
+
+#: a11y/object.c:50 a11y/object.c:59 a11y/text.c:105
 msgid "grab focus"
 msgstr "fånga fokus"
 
@@ -2055,6 +2063,9 @@ msgstr "Förhandsgranska"
 #: src/testgtkhtml.c:1004
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML-testprogram"
+
+#~ msgid "URL is %s, Alternative Text is %s"
+#~ msgstr "URL är %s, alternativ text är %s"
 
 #~ msgid "Grab focus"
 #~ msgstr "Fånga fokus"
