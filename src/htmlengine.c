@@ -2599,6 +2599,9 @@ html_engine_destroy (GtkObject *object)
 
 	/* FIXME FIXME FIXME */
 
+	if (engine->invert_gc != NULL)
+		gdk_gc_destroy (engine->invert_gc);
+
 	html_cursor_destroy (engine->cursor);
 
 	html_tokenizer_destroy   (engine->ht);
@@ -2720,11 +2723,13 @@ html_engine_init (HTMLEngine *engine)
 	/* STUFF might be missing here!   */
 
 	engine->window = NULL;
+	engine->invert_gc = NULL;
+
 	engine->painter = html_painter_new ();
 
 	engine->newPage = FALSE;
 
-	engine->editable = TRUE;
+	engine->editable = FALSE;
 	engine->cursor = html_cursor_new ();
 
 	engine->ht = html_tokenizer_new ();
@@ -2779,12 +2784,17 @@ void
 html_engine_realize (HTMLEngine *e,
 		     GdkWindow *window)
 {
+	GdkGCValues gc_values;
+
 	g_return_if_fail (e != NULL);
 	g_return_if_fail (window != NULL);
 	g_return_if_fail (e->window == NULL);
 
 	e->window = window;
 	html_painter_realize (e->painter, window);
+
+	gc_values.function = GDK_INVERT;
+	e->invert_gc = gdk_gc_new_with_values (e->window, &gc_values, GDK_GC_FUNCTION);
 }
 
 
@@ -3054,25 +3064,57 @@ draw_cursor (HTMLEngine *e,
 	     gint x, gint y,
 	     gint width, gint height)
 {
-	static GdkColor white = { 0, 0xff, 0xff, 0xff };
 	HTMLObject *obj;
+	guint offset;
+	gint abs_x1, abs_y1, abs_x2, abs_y2;
 	gint x1, y1, x2, y2;
-	GdkGC *gc;
 
 	obj = e->cursor->object;
 	if (obj == NULL)
 		return;
 
-	/* Notice that, when we are here, the object has certainly updated its
-           size.  So there is no need to call `html_object_calc_size()'.
-           Kludgy, I know.  */
+	offset = e->cursor->offset;
 
-	html_object_calc_abs_position (obj, &x1, &y1);
-	
-	x2 = x1;
-	y2 = y1 - obj->ascent;
+	if (width < 0 || height < 0) {
+		width = e->width;
+		height = e->height;
+		x = 0;
+		y = 0;
+	}
 
-	y1 += obj->descent;
+	html_object_get_cursor (obj, e->painter, offset, &x1, &y1, &x2, &y2);
+
+	x1 += e->leftBorder;
+	y1 += e->topBorder;
+	x2 += e->leftBorder;
+	y2 += e->topBorder;
+
+	abs_x1 = x + e->x_offset;
+	abs_y1 = y + e->y_offset;
+	abs_x2 = abs_x1 + width;
+	abs_y2 = abs_y1 + height;
+
+	if (x1 >= abs_x2)
+		return;
+	if (y1 >= abs_y2)
+		return;
+
+	if (x2 < abs_x1)
+		return;
+	if (y2 < abs_y1)
+		return;
+
+	if (x2 >= abs_x2)
+		x2 = abs_x2;
+	if (y2 >= abs_y2)
+		y2 = abs_y2;
+
+	if (x1 < abs_x1)
+		x1 = abs_x1;
+	if (y1 < abs_y1)
+		y1 = abs_y1;
+
+	gdk_draw_line (e->window, e->invert_gc, x1, y1, x2, y2);
 }
 
 void
@@ -3103,6 +3145,13 @@ html_engine_draw (HTMLEngine *e,
 		draw_cursor (e, x, y, width, height);
 }
 
+void
+html_engine_draw_cursor (HTMLEngine *e)
+{
+	draw_cursor (e, 0, 0, -1, -1);
+}
+
+
 gint
 html_engine_get_doc_width (HTMLEngine *e)
 {
@@ -3270,7 +3319,7 @@ html_engine_make_cursor_visible (HTMLEngine *e)
 {
 	HTMLCursor *cursor;
 	HTMLObject *object;
-	gint x, y;
+	gint x1, y1, x2, y2;
 
 	g_return_if_fail (e != NULL);
 
@@ -3282,23 +3331,22 @@ html_engine_make_cursor_visible (HTMLEngine *e)
 	if (object == NULL)
 		return;
 
-	if (cursor->offset == 0)
-		html_object_calc_abs_position (object, &x, &y);
-	else
-		html_text_calc_char_position (HTML_TEXT (object), cursor->offset, &x, &y);
+	html_object_get_cursor (object, e->painter, cursor->offset, &x1, &y1, &x2, &y2);
 
-	x += e->leftBorder;
-	y += e->topBorder;
+	x1 += e->leftBorder;
+	y1 += e->topBorder;
+	x2 += e->leftBorder;
+	y2 += e->topBorder;
 
-	if (x + e->leftBorder >= e->x_offset + e->width)
-		e->x_offset = x + e->leftBorder - e->width + 1;
-	else if (x - e->leftBorder < e->x_offset)
-		e->x_offset = x - e->leftBorder;
+	if (x1 + e->leftBorder >= e->x_offset + e->width)
+		e->x_offset = x1 + e->leftBorder - e->width + 1;
+	else if (x1 - e->leftBorder < e->x_offset)
+		e->x_offset = x1 - e->leftBorder;
 
-	if (y + object->descent + e->topBorder >= e->y_offset + e->height)
-		e->y_offset = y + object->descent + e->topBorder - e->height + 1;
-	else if (y - object->ascent - e->topBorder < e->y_offset)
-		e->y_offset = y - object->ascent - e->topBorder;
+	if (y2 + e->rightBorder >= e->y_offset + e->height)
+		e->y_offset = y2 + e->rightBorder - e->height + 1;
+	else if (y1 < e->y_offset - e->topBorder)
+		e->y_offset = y1 + e->topBorder;
 }
 
 
@@ -3307,7 +3355,11 @@ html_engine_flush_draw_queue (HTMLEngine *e)
 {
 	g_return_if_fail (e != NULL);
 
+	html_engine_draw_cursor (e);
+
 	html_draw_queue_flush (e->draw_queue);
+
+	html_engine_draw_cursor (e);
 }
 
 void

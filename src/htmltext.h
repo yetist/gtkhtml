@@ -49,7 +49,6 @@ struct _HTMLTextClass {
 	guint (* insert_text) (HTMLText *text, HTMLEngine *engine, guint offset, const gchar *p, guint len);
 	guint (* remove_text) (HTMLText *text, HTMLEngine *engine, guint offset, guint len);
 	void  (* queue_draw) (HTMLText *text, HTMLEngine *engine, guint offset, guint len);
-	void  (* calc_char_position) (HTMLText *text, guint offset, gint *x_return, gint *y_return);
 	HTMLText *(* split) (HTMLText *text, guint offset);
 	HTMLFontStyle (* get_font_style) (const HTMLText *text);
 	const GdkColor * (* get_color) (HTMLText *text, HTMLPainter *painter);
@@ -83,10 +82,6 @@ void        html_text_queue_draw          (HTMLText       *text,
 					   HTMLEngine     *engine,
 					   guint           offset,
 					   guint           len);
-void        html_text_calc_char_position  (HTMLText       *text,
-					   guint           offset,
-					   gint           *x_return,
-					   gint           *y_return);
 HTMLText   *html_text_split               (HTMLText       *text,
 					   guint           offset);
 

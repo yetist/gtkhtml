@@ -289,18 +289,26 @@ remove_text (HTMLText *text,
 }
 
 static void
-calc_char_position (HTMLText *self,
-		    guint offset,
-		    gint *x_return, gint *y_return)
+get_cursor (HTMLObject *self,
+	    HTMLPainter *painter,
+	    guint offset,
+	    gint *x1, gint *y1,
+	    gint *x2, gint *y2)
 {
-	html_object_calc_abs_position (HTML_OBJECT (self), x_return, y_return);
+	HTMLFontStyle font_style;
 
-	/* FIXME FIXME */
-#if 0
-	*x_return += gdk_text_width (self->font->gdk_font,
-				     self->text,
-				     offset);
-#endif
+	html_object_calc_abs_position (HTML_OBJECT (self), x2, y2);
+
+	if (offset > 0) {
+		font_style = html_text_get_font_style (HTML_TEXT (self));
+		*x2 += html_painter_calc_text_width (painter,
+						     HTML_TEXT (self)->text,
+						     offset, font_style);
+	}
+
+	*x1 = *x2;
+	*y1 = *y2 - self->ascent;
+	*y2 += self->descent - 1;
 }
 
 static HTMLText *
@@ -378,13 +386,13 @@ html_text_class_init (HTMLTextClass *klass,
 	object_class->draw = draw;
 	object_class->accepts_cursor = accepts_cursor;
 	object_class->calc_size = calc_size;
+	object_class->get_cursor = get_cursor;
 
 	/* HTMLText methods.  */
 
 	klass->insert_text = insert_text;
 	klass->remove_text = remove_text;
 	klass->queue_draw = queue_draw;
-	klass->calc_char_position = calc_char_position;
 	klass->split = split;
 	klass->get_font_style = get_font_style;
 	klass->get_color = get_color;
@@ -471,19 +479,6 @@ html_text_queue_draw (HTMLText *text,
 	g_return_if_fail (engine != NULL);
 
 	(* HT_CLASS (text)->queue_draw) (text, engine, offset, len);
-}
-
-void
-html_text_calc_char_position (HTMLText *text,
-			      guint offset,
-			      gint *x_return, gint *y_return)
-{
-	g_return_if_fail (text != NULL);
-	g_return_if_fail (x_return != NULL);
-	g_return_if_fail (y_return != NULL);
-
-	(* HT_CLASS (text)->calc_char_position) (text, offset,
-						 x_return, y_return);
 }
 
 HTMLText *

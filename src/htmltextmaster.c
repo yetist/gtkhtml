@@ -192,32 +192,44 @@ queue_draw (HTMLText *text,
 }
 
 static void
-calc_char_position (HTMLText *text,
-		    guint offset,
-		    gint *x_return, gint *y_return)
+get_cursor (HTMLObject *self,
+	    HTMLPainter *painter,
+	    guint offset,
+	    gint *x1, gint *y1,
+	    gint *x2, gint *y2)
 {
 	HTMLObject *obj;
 
-	for (obj = HTML_OBJECT (text)->next; obj != NULL; obj = obj->next) {
+	for (obj = self->next; obj != NULL; obj = obj->next) {
 		HTMLTextSlave *slave;
 
 		if (HTML_OBJECT_TYPE (obj) != HTML_TYPE_TEXTSLAVE)
-			continue;
+			break;
 
 		slave = HTML_TEXT_SLAVE (obj);
 
-#if 0
 		if (offset < slave->posStart + slave->posLen
 		    || obj->next == NULL
 		    || HTML_OBJECT_TYPE (obj->next) != HTML_TYPE_TEXTSLAVE) {
-			html_object_calc_abs_position (obj, x_return, y_return);
-			if (offset != slave->posStart)
-				*x_return += gdk_text_width (text->font->gdk_font,
-							     text->text + slave->posStart,
-							     offset - slave->posStart);
+			html_object_calc_abs_position (obj, x2, y2);
+			if (offset != slave->posStart) {
+				HTMLText *text;
+				HTMLFontStyle font_style;
+
+				text = HTML_TEXT (self);
+
+				font_style = html_text_get_font_style (text);
+				*x2 += html_painter_calc_text_width (painter,
+								     text->text + slave->posStart,
+								     offset - slave->posStart,
+								     font_style);
+			}
+
+			*x1 = *x2;
+			*y1 = *y2 - obj->ascent;
+			*y2 += obj->descent - 1;
 			return;
 		}
-#endif
 	}
 }
 
@@ -241,14 +253,18 @@ html_text_master_class_init (HTMLTextMasterClass *klass,
 
 	html_text_class_init (text_class, type);
 
+	/* HTMLObject methods.  */
+
 	object_class->draw = draw;
 	object_class->fit_line = fit_line;
 	object_class->calc_size = calc_size;
 	object_class->calc_min_width = calc_min_width;
 	object_class->calc_preferred_width = calc_preferred_width;
+	object_class->get_cursor = get_cursor;
+
+	/* HTMLText methods.  */
 
 	text_class->queue_draw = queue_draw;
-	text_class->calc_char_position = calc_char_position;
 	text_class->split = split;
 }
 

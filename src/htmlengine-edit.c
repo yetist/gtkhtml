@@ -30,22 +30,6 @@
 #include "htmlengine-edit.h"
 
 
-static void
-queue_draw_for_cursor (HTMLEngine *e)
-{
-	HTMLObject *current;
-
-	current = e->cursor->object;
-	if (current == NULL)
-		return;
-
-	if (html_object_is_text (current))
-		html_text_queue_draw (HTML_TEXT (current),
-				      e, e->cursor->offset, 1);
-	else
-		html_engine_queue_draw (e, current);
-}
-
 guint
 html_engine_move_cursor (HTMLEngine *e,
 			 HTMLEngineCursorMovement movement,
@@ -81,14 +65,14 @@ html_engine_move_cursor (HTMLEngine *e,
 		return 0;
 	}
 
-	queue_draw_for_cursor (e);
+	html_engine_draw_cursor (e);
 
 	for (c = 0; c < count; c++) {
 		if (! (* movement_func) (e->cursor, e))
 			break;
 	}
 
-	queue_draw_for_cursor (e);
+	html_engine_draw_cursor (e);
 
 	return c;
 }
@@ -133,6 +117,8 @@ html_engine_insert_para (HTMLEngine *e,
 			   __FUNCTION__, current, html_type_name (HTML_OBJECT_TYPE (current)));
 		return;
 	}
+
+	html_engine_draw_cursor (e);
 
 	/* Remove text slaves, if any.  */
 
@@ -196,6 +182,8 @@ html_engine_insert_para (HTMLEngine *e,
 		html_object_relayout (flow->parent, e, flow);
 		html_engine_queue_draw (e, flow->parent);
 	}
+
+	html_engine_draw_cursor (e);
 }
 
 
@@ -206,6 +194,7 @@ html_engine_insert (HTMLEngine *e,
 		    guint len)
 {
 	HTMLObject *current_object;
+	guint retval;
 
 	g_return_val_if_fail (e != NULL, 0);
 	g_return_val_if_fail (HTML_IS_ENGINE (e), 0);
@@ -222,8 +211,14 @@ html_engine_insert (HTMLEngine *e,
 		return 0;
 	}
 
-	return html_text_insert_text (HTML_TEXT (current_object), e,
-				      e->cursor->offset, text, len);
+	html_engine_draw_cursor (e);
+
+	retval = html_text_insert_text (HTML_TEXT (current_object), e,
+					e->cursor->offset, text, len);
+
+	html_engine_draw_cursor (e);
+
+	return retval;
 }
 
 
@@ -301,7 +296,7 @@ html_engine_delete (HTMLEngine *e,
 	guint orig_offset;
 	guint prev_offset;
 
-	queue_draw_for_cursor (e);
+	html_engine_draw_cursor (e);
 
 	orig_object = e->cursor->object;
 	orig_offset = e->cursor->offset;
@@ -361,5 +356,5 @@ html_engine_delete (HTMLEngine *e,
 	else
 		delete_different_parent (e, orig_object);
 
-	queue_draw_for_cursor (e);
+	html_engine_draw_cursor (e);
 }

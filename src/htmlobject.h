@@ -164,6 +164,9 @@ struct _HTMLObjectClass {
 	gboolean (* relayout) (HTMLObject *self, HTMLEngine *engine, HTMLObject *child);
 
 	gboolean (* accepts_cursor) (HTMLObject *self);
+
+	void (* get_cursor) (HTMLObject *self, HTMLPainter *painter, guint offset,
+			     gint *x1, gint *y1, gint *x2, gint *y2);
 };
 
 
@@ -200,7 +203,10 @@ HTMLObject *html_object_mouse_event (HTMLObject *clue, gint x, gint y,
 HTMLObject *html_object_check_point (HTMLObject *clue, gint x, gint y);
 
 gboolean html_object_relayout (HTMLObject *obj, HTMLEngine *engine, HTMLObject *child);
+
 gboolean html_object_accepts_cursor (HTMLObject *obj);
+void     html_object_get_cursor     (HTMLObject *obj, HTMLPainter *painter, guint offset,
+				     gint *x1, gint *y1, gint *x2, gint *y2);
 
 gboolean html_object_is_text (HTMLObject *object);
 

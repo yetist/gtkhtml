@@ -214,6 +214,23 @@ accepts_cursor (HTMLObject *self)
 	return FALSE;
 }
 
+static void
+get_cursor (HTMLObject *self,
+	    HTMLPainter *painter,
+	    guint offset,
+	    gint *x1, gint *y1,
+	    gint *x2, gint *y2)
+{
+	html_object_calc_abs_position (self, x2, y2);
+
+	if (offset > 0)
+		*x2 += self->width;
+
+	*x1 = *x2;
+	*y1 = *y2 - self->ascent;
+	*y2 += self->descent - 1;
+}
+
 
 /* Class initialization.  */
 
@@ -251,6 +268,7 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->check_point = check_point;
 	klass->relayout = relayout;
 	klass->accepts_cursor = accepts_cursor;
+	klass->get_cursor = get_cursor;
 }
 
 void
@@ -437,6 +455,18 @@ gboolean
 html_object_accepts_cursor (HTMLObject *self)
 {
 	return (* HO_CLASS (self)->accepts_cursor) (self);
+}
+
+/* Warning: `calc_size()' must have been called on `self' before this so that
+   this works correctly.  */
+void
+html_object_get_cursor (HTMLObject *self,
+			HTMLPainter *painter,
+			guint offset,
+			gint *x1, gint *y1,
+			gint *x2, gint *y2)
+{
+	(* HO_CLASS (self)->get_cursor) (self, painter, offset, x1, y1, x2, y2);
 }
 
 
