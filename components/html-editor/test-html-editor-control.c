@@ -260,9 +260,8 @@ container_create (void)
 	uih = bonobo_ui_handler_new ();
 	bonobo_ui_handler_set_app (uih, GNOME_APP (app));
 
-	control = bonobo_widget_new_control
-		("control:html-editor",
-		 bonobo_object_corba_objref (BONOBO_OBJECT (uih)));
+	control = bonobo_widget_new_control ("control:html-editor",
+					     bonobo_object_corba_objref (BONOBO_OBJECT (uih)));
 
 	if (control == NULL)
 		g_error ("Cannot get `control:html-editor'.");

@@ -28,7 +28,7 @@
 
 #include "gtkhtml.h"
 
-void  toolbar_setup  (BonoboUIHandler *uih,
-		      GtkHTML         *html);
+GtkWidget *toolbar_setup  (BonoboUIHandler *uih,
+			   GtkHTML         *html);
 
 #endif /* _TOOLBAR_H */

@@ -450,15 +450,21 @@ toolbar_destroy_cb (GtkObject *object,
 	g_free (toolbar_data);
 }
 
-static Bonobo_Control
+static GtkWidget *
 create_editor_toolbar (GtkHTML *html)
 {
 	ToolbarData *data;
 	BonoboControl *toolbar_control;
 	GtkWidget *toolbar;
+	GtkWidget *toolbar_frame;
 
 	toolbar = gtk_toolbar_new (GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_ICONS);
 	gtk_widget_show (toolbar);
+
+	toolbar_frame = gtk_frame_new (NULL);
+	gtk_frame_set_shadow_type (GTK_FRAME (toolbar_frame), GTK_SHADOW_OUT);
+	gtk_container_add (GTK_CONTAINER (toolbar_frame), toolbar);
+	gtk_widget_show (toolbar_frame);
 
 	gtk_toolbar_prepend_widget (GTK_TOOLBAR (toolbar),
 				    setup_paragraph_style_option_menu (html),
@@ -492,25 +498,22 @@ create_editor_toolbar (GtkHTML *html)
 	gtk_signal_connect (GTK_OBJECT (html), "current_paragraph_alignment_changed",
 			    GTK_SIGNAL_FUNC (paragraph_alignment_changed_cb), data);
 
-	toolbar_control = bonobo_control_new (toolbar);
-	return (Bonobo_Control) bonobo_object_corba_objref (BONOBO_OBJECT (toolbar_control));
+	return toolbar_frame;
 }
 
 
-void
+GtkWidget *
 toolbar_setup (BonoboUIHandler *uih,
 	       GtkHTML *html)
 {
-	Bonobo_Control toolbar_control;
+	GtkWidget *toolbar;
 
 	g_return_if_fail (uih != NULL);
 	g_return_if_fail (BONOBO_IS_UI_HANDLER (uih));
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
 
-	bonobo_ui_handler_create_toolbar (uih, "HTMLEditor");
+	toolbar = create_editor_toolbar (html);
 
-	toolbar_control = create_editor_toolbar (html);
-
-	bonobo_ui_handler_toolbar_new_control (uih, EDITOR_TOOLBAR_PATH, 0, toolbar_control);
+	return toolbar;
 }
