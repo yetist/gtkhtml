@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2002-03-07 12:41+0100\n"
+"POT-Creation-Date: 2002-04-25 19:56+0200\n"
 "PO-Revision-Date: 2000-08-06 22:43+0200\n"
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -1437,54 +1437,6 @@ msgstr "Bolj zamakni odstavke"
 msgid "Sample"
 msgstr "Vzorec"
 
-#: src/html-component.c:219
-msgid "Html"
-msgstr "Html"
-
-#: src/html-component.c:220
-msgid "Html test"
-msgstr "Html preizkus"
-
-#: src/html-component.c:226
-msgid "Test1"
-msgstr "Test1"
-
-#: src/html-component.c:233
-msgid "Test2"
-msgstr "Test2"
-
-#: src/html-component.c:239
-msgid "Test3"
-msgstr "Test3"
-
-#: src/html-component.c:245
-msgid "Test4"
-msgstr "Test4"
-
-#: src/html-component.c:251
-msgid "Test5"
-msgstr "Test5"
-
-#: src/html-component.c:257
-msgid "Test6"
-msgstr "Test6"
-
-#: src/html-component.c:263
-msgid "Test7"
-msgstr "Test7"
-
-#: src/html-component.c:617
-msgid "_Refresh"
-msgstr "_Osve푝"
-
-#: src/html-component.c:618
-msgid "Reload the page"
-msgstr "Znova nalo푝 stran"
-
-#: src/html-component.c:669
-msgid "Could not initialize Bonobo!"
-msgstr "Nisem mogel inicializirati Bonoba!"
-
 #: src/htmlengine-print.c:198
 msgid "Cannot allocate default font for printing\n"
 msgstr "Ne morem dobiti privzete pisave za tiskanje\n"
@@ -1504,6 +1456,42 @@ msgstr "_Predogled tiskanja"
 #: src/testgtkhtml.c:113
 msgid "Print preview"
 msgstr "Predogled tiskanja"
+
+#~ msgid "Html"
+#~ msgstr "Html"
+
+#~ msgid "Html test"
+#~ msgstr "Html preizkus"
+
+#~ msgid "Test1"
+#~ msgstr "Test1"
+
+#~ msgid "Test2"
+#~ msgstr "Test2"
+
+#~ msgid "Test3"
+#~ msgstr "Test3"
+
+#~ msgid "Test4"
+#~ msgstr "Test4"
+
+#~ msgid "Test5"
+#~ msgstr "Test5"
+
+#~ msgid "Test6"
+#~ msgstr "Test6"
+
+#~ msgid "Test7"
+#~ msgstr "Test7"
+
+#~ msgid "_Refresh"
+#~ msgstr "_Osve푝"
+
+#~ msgid "Reload the page"
+#~ msgstr "Znova nalo푝 stran"
+
+#~ msgid "Could not initialize Bonobo!"
+#~ msgstr "Nisem mogel inicializirati Bonoba!"
 
 #~ msgid "Language"
 #~ msgstr "Jezik"
