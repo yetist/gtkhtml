@@ -1,5 +1,8 @@
 2001-05-31  Larry Ewing  <lewing@ximian.com>
 
+	* htmlframe.c (check_point): take the scrolling into account when
+	doing check_point.
+
 	* htmlframeset.c (html_frameset_init): ugh, fix bug introduced in
 	the reworking.
 

@@ -395,8 +395,8 @@ check_point (HTMLObject *self,
 	    || y >= self->y + self->descent || y < self->y - self->ascent)
 		return NULL;
 
-	x -= self->x + e->leftBorder;
-	y -= self->y - self->ascent + e->topBorder;
+	x -= self->x + e->leftBorder - e->x_offset;
+	y -= self->y - self->ascent + e->topBorder - e->y_offset;
 
 	if (for_cursor && (x < 0 || y < e->clue->y - e->clue->ascent))
 		return html_object_check_point (e->clue, e->painter, 0, e->clue->y - e->clue->ascent,
@@ -567,11 +567,10 @@ html_frame_init (HTMLFrame *frame,
 	gtk_signal_connect (GTK_OBJECT (new_html), "object_requested",
 			    GTK_SIGNAL_FUNC (frame_object_requested),
 			    (gpointer)frame);	
-/*
-	gtk_signal_connect (GTK_OBJECT (new_html), "set_base",
-			    GTK_SIGNAL_FUNC (frame_set_base), (gpointer)frame);
-*/      
-        /*
+	/*
+	  gtk_signal_connect (GTK_OBJECT (new_html), "set_base",
+	  GTK_SIGNAL_FUNC (frame_set_base), (gpointer)frame);
+
 	  gtk_signal_connect (GTK_OBJECT (html), "button_press_event",
 	  GTK_SIGNAL_FUNC (frame_button_press_event), frame);
 	*/
