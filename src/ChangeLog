@@ -1,3 +1,8 @@
+2005-02-15  Radek Doulik  <rodo@novell.com>
+
+	* htmltextslave.c (draw_text): scale down run_width to engine
+	coordinates
+
 2005-02-11  Radek Doulik  <rodo@novell.com>
 
 	* htmlclueflow.c (plain_padding): append/prepend space to cite string

@@ -828,7 +828,7 @@ draw_text (HTMLTextSlave *self,
 												     p, HTMLSpellErrorColor)->color);
 				        /* printf ("spell error: %s\n", html_text_get_text (slave->owner, off)); */
 			
-					html_painter_draw_spell_error (p, obj->x + tx + run_width + html_painter_pango_to_engine (p, start_x),
+					html_painter_draw_spell_error (p, obj->x + tx + html_painter_pango_to_engine (p, run_width + start_x),
 								       obj->y + ty + get_ys (self->owner, p), html_painter_pango_to_engine (p, width));
 				}
 			}
