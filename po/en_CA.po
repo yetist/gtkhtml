@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-31 22:05+0100\n"
-"PO-Revision-Date: 2005-01-29 15:11-0400\n"
+"POT-Creation-Date: 2005-02-01 02:37-0500\n"
+"PO-Revision-Date: 2005-02-01 15:11-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: English/Canada <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -974,9 +974,8 @@ msgid "Page"
 msgstr "Page"
 
 #: components/html-editor/gi-color-combo.c:187
-#, fuzzy
 msgid "color preview"
-msgstr "Print preview"
+msgstr "colour preview"
 
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:395
@@ -1180,7 +1179,7 @@ msgstr "sky blue"
 #. set the a11y name
 #: components/html-editor/gi-combo-box.c:419
 msgid "Popup"
-msgstr ""
+msgstr "Popup"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
@@ -1963,94 +1962,3 @@ msgstr "Print preview"
 #: src/testgtkhtml.c:1004
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML Test Application"
-
-#~ msgid "<None>"
-#~ msgstr "<None>"
-
-#~ msgid "\n"
-#~ msgstr "\n"
-
-#~ msgid "*********************"
-#~ msgstr "*********************"
-
-#~ msgid "Add Keyboard Shortcuts"
-#~ msgstr "Add Keyboard Shortcuts"
-
-#~ msgid "Automatically detect links"
-#~ msgstr "Automatically detect links"
-
-#~ msgid "Behavior"
-#~ msgstr "Behaviour"
-
-#~ msgid "Composer Properties"
-#~ msgstr "Composer Properties"
-
-#~ msgid "Composer Properties planned"
-#~ msgstr "Composer Properties planned"
-
-#~ msgid "Configure spell checking"
-#~ msgstr "Configure spell checking"
-
-#~ msgid "Enable spell checking"
-#~ msgstr "Enable spell checking"
-
-#~ msgid "Fixed width"
-#~ msgstr "Fixed width"
-
-#~ msgid "Fonts"
-#~ msgstr "Fonts"
-
-#~ msgid "For printing"
-#~ msgstr "For printing"
-
-#~ msgid "Grab keys"
-#~ msgstr "Grab keys"
-
-#~ msgid "Information"
-#~ msgstr "Information"
-
-#~ msgid "Keyboard Shortcuts"
-#~ msgstr "Keyboard Shortcuts"
-
-#~ msgid "Miscellaneous"
-#~ msgstr "Miscellaneous"
-
-#~ msgid "New shortcut:"
-#~ msgstr "New shortcut:"
-
-#~ msgid "On screen"
-#~ msgstr "On screen"
-
-#~ msgid "Select HTML fixed width font"
-#~ msgstr "Select HTML fixed width font"
-
-#~ msgid "Select HTML fixed width font for printing"
-#~ msgstr "Select HTML fixed width font for printing"
-
-#~ msgid "Select HTML variable width font"
-#~ msgstr "Select HTML variable width font"
-
-#~ msgid "Select HTML variable width font for printing"
-#~ msgstr "Select HTML variable width font for printing"
-
-#~ msgid "Shortcuts _type:"
-#~ msgstr "Shortcuts _type:"
-
-#~ msgid "Show animated images"
-#~ msgstr "Show animated images"
-
-#~ msgid "Variable width"
-#~ msgstr "Variable width"
-
-#~ msgid "_Add"
-#~ msgstr "_Add"
-
-#~ msgid "_Delete"
-#~ msgstr "_Delete"
-
-#~ msgid ""
-#~ "Cannot execute GNOME Spell control applet\n"
-#~ "Try to install GNOME Spell if you don't have it installed."
-#~ msgstr ""
-#~ "Cannot execute GNOME Spell control applet\n"
-#~ "Try to install GNOME Spell if you don't have it installed."
