@@ -1508,16 +1508,16 @@ divide_upto_preferred_width (HTMLTable *table, HTMLPainter *painter, GArray *pre
 		/* printf ("min: %d left: %d\n", min_col, left); */
 		to_fill = MIN (total, left);
 		if (min_pw - max_size [min_col] < ((gdouble) min_pw * to_fill) / total_fill) {
-			
-			left -= min_pw - max_size [min_col];
-			max_size [min_col] = min_pw;
-			min_fill = to_fill - min_pw;
+			added = min_pw - max_size [min_col];
+			left -= added;
+			min_fill = to_fill - added;
+			max_size [min_col] += added;
 			total_fill -= min_pw;
 		} else {
 			min_fill = to_fill;
 		}
 
-		/* printf ("min satisfied %d, (%d=%d)left: %d\n", min_fill, max_size [min_col], min_pw, left); */
+		/* printf ("min satisfied %d, (%d=%d) left: %d\n", min_fill, max_size [min_col], min_pw, left); */
 		processed_pw = 0;
 		added = 0;
 

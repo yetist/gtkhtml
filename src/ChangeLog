@@ -1,3 +1,10 @@
+2004-08-12  Radek Doulik  <rodo@ximian.com>
+
+	* htmltable.c (divide_upto_preferred_width): in case we are
+	extending column missing minimal width completely, set min_fill to
+	to_fill minus added width and not whole preferred width of that
+	column (that lead to negative values before)
+
 2004-08-10  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-cursor.c (refresh_under_cursor): do not refresh
