@@ -182,7 +182,7 @@ inc_columns (HTMLTable *table, gint num)
 {
 	expand_columns (table, num);
 	table->totalCols += num;
-	previous_rows_do_cspan (table, table->totalCols - num - 1);
+	previous_rows_do_cspan (table, table->totalCols - num);
 }
 
 static void
