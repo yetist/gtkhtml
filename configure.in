@@ -77,6 +77,15 @@ BONOBO_IDL_INCLUDES="-I`$PKG_CONFIG --variable=idldir libbonobo-2.0` -I`$PKG_CON
 AC_SUBST(BONOBO_IDL_INCLUDES)
 
 dnl **********************************
+dnl soup for testgtkhtml
+dnl **********************************
+
+PKG_CHECK_MODULES(SOUP, soup >= 0.7.9,have_soup="yes",have_soup="no")
+AM_CONDITIONAL(HAVE_SOUP, test x$have_soup = xyes)
+AC_SUBST(SOUP_CFLAGS)
+AC_SUBST(SOUP_LIBS)
+
+dnl **********************************
 dnl Editor component
 dnl **********************************
 

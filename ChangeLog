@@ -1,3 +1,7 @@
+2002-11-05  Radek Doulik  <rodo@ximian.com>
+
+	* configure.in: added SOUP pkgconfig stuff
+
 2002-06-03  Pablo Saratxaga <pablo@mandrakesoft.com>
 
 	* configure.in: Added Catalan (ca) to ALL_LINGUAS
