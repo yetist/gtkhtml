@@ -4486,10 +4486,10 @@ html_engine_update_event (HTMLEngine *e)
 void
 html_engine_schedule_update (HTMLEngine *e)
 {
-	/* printf ("html_engine_schedule_update (may block)\n"); */
+	DI (printf ("html_engine_schedule_update (may block %d)\n", e->opened_streams));
 	if (e->block && e->opened_streams)
 		return;
-	/* printf ("html_engine_schedule_update\n"); */
+	DI (printf ("html_engine_schedule_update - timer %d\n", e->updateTimer));
 	if (e->updateTimer == 0)
 		e->updateTimer = gtk_idle_add ((GtkFunction) html_engine_update_event, e);
 }
@@ -4639,7 +4639,7 @@ html_engine_stream_end (GtkHTMLStream *stream,
 
 	if (e->opened_streams)
 		e->opened_streams --;
-	/* printf ("ENGINE(%p) opened streams: %d\n", e, e->opened_streams); */
+	DI (printf ("ENGINE(%p) opened streams: %d\n", e, e->opened_streams));
 	if (e->block && e->opened_streams == 0)
 		html_engine_schedule_update (e);
 
