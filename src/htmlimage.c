@@ -784,7 +784,7 @@ html_image_set_url (HTMLImage *image, const gchar *url)
 		HTMLImageFactory *imf = image->image_ptr->factory;
 
 		html_image_factory_unregister (imf, image->image_ptr, HTML_IMAGE (image));
-		image->image_ptr = html_image_factory_register (imf, image, url, FALSE);
+		image->image_ptr = html_image_factory_register (imf, image, url, TRUE);
 	}
 }
 

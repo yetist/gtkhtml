@@ -9,6 +9,7 @@
 	(free_image_ptr_data): new helper function
 	(html_image_pointer_unref): use free_image_ptr_data
 	(html_image_factory_register): ditto, fixed reload
+	(html_image_set_url): call html_image_factory_register with reaload TRUE
 
 2001-10-03  Larry Ewing  <lewing@ximian.com>
 
