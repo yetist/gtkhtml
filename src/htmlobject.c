@@ -94,7 +94,7 @@ copy (HTMLObject *self,
 	dest->percent = self->percent;
 	dest->flags = self->flags;
 	dest->redraw_pending = FALSE;
-	dest->selected = self->selected;
+	dest->selected = FALSE;
 	dest->free_pending = FALSE;
 	dest->change = self->change;
 	dest->draw_focused = FALSE;

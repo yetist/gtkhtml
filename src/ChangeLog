@@ -1,3 +1,9 @@
+2004-03-09  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (copy): reset selection
+
+	* htmlobject.c (copy): reset selected to FALSE
+
 2004-03-05  Radek Doulik  <rodo@ximian.com>
 
 	* htmlclueflow.c (search): use is_text instead of calling

@@ -148,8 +148,8 @@ copy (HTMLObject *s,
 	dest->font_style    = src->font_style;
 	dest->face          = g_strdup (src->face);
 	dest->color         = src->color;
-	dest->select_start  = src->select_start;
-	dest->select_length = src->select_length;
+	dest->select_start  = 0;
+	dest->select_length = 0;
 	dest->attr_list     = pango_attr_list_copy (src->attr_list);
 	dest->extra_attr_list = src->extra_attr_list ? pango_attr_list_copy (src->extra_attr_list) : NULL;
 
