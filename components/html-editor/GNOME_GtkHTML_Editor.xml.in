@@ -1,11 +1,8 @@
 <Root>
 		<commands>
 
-			<cmd name="EditUndo" _label="_Undo" _tip="Undo the last action"
-			pixtype="stock" pixname="Undo"/>
-
-			<cmd name="EditRedo" _label="_Redo" _tip="Redo the undone action"
-			pixtype="stock" pixname="Redo"/>
+			<cmd name="EditUndo" _label="_Undo" _tip="Undo the last action"/>
+			<cmd name="EditRedo" _label="_Redo" _tip="Redo the undone action"/>
 
 			<cmd name="EditCut" _label="Cu_t" _tip="Cut the selection"/>
 			<cmd name="EditCopy" _label="_Copy" _tip="Copy the selection"/>
@@ -42,8 +39,10 @@
 	<menu>
 		<submenu name="Edit" _label="_Edit">
 			<placeholder name="EditUndoRedo">
-				     <menuitem name="EditUndo" verb="" accel="*Ctrl*Z"/>
-				     <menuitem name="EditRedo" verb="" accel="*Ctrl*R"/>
+				     <menuitem name="EditUndo" verb="" accel="*Ctrl*Z"
+			             pixtype="filename" pixname="@ICONSDIR@/undo-16.png"/>
+				     <menuitem name="EditRedo" verb="" accel="*Ctrl*R"
+			             pixtype="filename" pixname="@ICONSDIR@/redo-16.png"/>
 			</placeholder>
 
 			<placeholder name="EditCutCopyPaste">
@@ -86,9 +85,9 @@
 	</menu>
 	<dockitem name="Toolbar">
 		<toolitem name="EditUndo" verb="" _label="Undo" _tip="Undo previous changes"
-		pixtype="stock" pixname="Undo"/>
+		pixtype="filename" pixname="@ICONSDIR@/undo-24.png"/>
 		<toolitem name="EditRedo" verb="" _label="Redo"  _tip="Redo previously undone change"
-		pixtype="stock" pixname="Redo"/>
+		pixtype="filename" pixname="@ICONSDIR@/redo-24.png"/>
 		<separator/>
 		<toolitem name="EditCut" verb=""  _label="Cut" _tip="Cut selection to clipboard"
 		pixtype="filename" pixname="@ICONSDIR@/24_cut.png"/>

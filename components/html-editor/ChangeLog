@@ -1,5 +1,8 @@
 2001-08-15  Radek Doulik  <rodo@ximian.com>
 
+	* GNOME_GtkHTML_Editor.xml.in: plug in new tigert's undo/redo
+	icons
+
 	* paragraph.c (paragraph_properties): like below
 
 	* toolbar.c: added Alphabeta item
