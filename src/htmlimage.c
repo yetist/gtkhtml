@@ -1319,18 +1319,14 @@ html_image_pointer_unref (HTMLImagePointer *ip)
 GtkHTMLStream *
 html_image_pointer_load (HTMLImagePointer *ip)
 {
-	GtkHTMLStream *handle;
-
 	html_image_pointer_ref (ip);
 
-	handle = gtk_html_stream_new (GTK_HTML (ip->factory->engine->widget),
-				      html_image_factory_types,
-				      html_image_factory_write_pixbuf,
-				      html_image_factory_end_pixbuf,
-				      ip);
 	ip->factory->engine->opened_streams ++;
-
-	return handle;
+	return gtk_html_stream_new (GTK_HTML (ip->factory->engine->widget),
+				    html_image_factory_types,
+				    html_image_factory_write_pixbuf,
+				    html_image_factory_end_pixbuf,
+				    ip);
 }
 
 HTMLImagePointer *
@@ -1429,7 +1425,7 @@ move_image_pointers (gpointer key, gpointer value, gpointer data)
 
 	ip->factory = dst;
 	g_hash_table_insert (dst->loaded_images, ip->url, ip);
-	html_image_pointer_load (ip);
+	g_signal_emit_by_name (ip->factory->engine, "url_requested", ip->url, html_image_pointer_load (ip));
 
 	return TRUE;
 }

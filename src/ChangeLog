@@ -1,3 +1,8 @@
+2002-12-02  Radek Doulik  <rodo@ximian.com>
+
+	* htmlimage.c (move_image_pointers): emit url requested signal, so
+	moved image pointers are loaded
+
 2002-11-27  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (button_press_event): return TRUE so we could
