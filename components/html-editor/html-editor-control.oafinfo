@@ -4,7 +4,7 @@
             type="exe"
             location="html-editor-control">
 	<oaf_attribute name="repo_ids" type="stringv">
-		<item value="IDL:Bonobo/GenericFactory:1.0"/>
+		<item value="IDL:GNOME/GenericFactory:1.0"/>
 	</oaf_attribute>
 
 	<oaf_attribute name="description" type="string" value="HTML Editor control"/>
@@ -15,11 +15,22 @@
             location="OAFIID:control-factory:html-editor:97cebd11-9e8c-45c3-9a0a-5a269c760c00">
 
 	<oaf_attribute name="repo_ids" type="stringv">
-		<item value="IDL:BonoboControl/html-editor-control:1.0"/>
 		<item value="IDL:Bonobo/Control:1.0"/>
+		<item value="IDL:Bonobo/Unknown:1.0"/>
+		<item value="IDL:Bonobo/PersistStream:1.0"/>
+		<item value="IDL:Bonobo/Persist:1.0"/>
 	</oaf_attribute>
 
+	<oaf_attribute name="name" type="string" value="HTML editor component"/>
+
 	<oaf_attribute name="description" type="string" value="An html-editor component"/>
+
+	<oaf_attribute name="bonobo:editable" type="boolean" value="true"/>
+
+	<oaf_attribute name="bonobo:supported_mime_types" type="string">
+		<item value="text/html"/>
+	</oaf_attribute>
+
 </oaf_server>
 
 </oaf_info>

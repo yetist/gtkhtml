@@ -1,3 +1,9 @@
+2000-04-29  Maciej Stachowiak  <mjs@eazel.com>
+
+	* html-editor-control.oafinfo: Added most standard OAF attributes
+	that apply, and corrected repo_ids to include all supported
+	interfaces and exclude hackish pseudo-ids.
+
 2000-04-28  Radek Doulik  <rodo@helixcode.com>
 
 	* editor-control-factory.c (html_button_pressed): in case we show
