@@ -405,7 +405,7 @@
 
 	  <widget>
 	    <class>GtkCheckButton</class>
-	    <name>magic_check</name>
+	    <name>magic_links_check</name>
 	    <can_focus>True</can_focus>
 	    <signal>
 	      <name>toggled</name>
@@ -413,6 +413,25 @@
 	      <last_modification_time>Mon, 11 Dec 2000 14:26:29 GMT</last_modification_time>
 	    </signal>
 	    <label>Automatically detect links</label>
+	    <active>False</active>
+	    <draw_indicator>True</draw_indicator>
+	    <child>
+	      <padding>0</padding>
+	      <expand>False</expand>
+	      <fill>False</fill>
+	    </child>
+	  </widget>
+
+	  <widget>
+	    <class>GtkCheckButton</class>
+	    <name>magic_smileys_check</name>
+	    <can_focus>True</can_focus>
+	    <signal>
+	      <name>toggled</name>
+	      <handler>changed</handler>
+	      <last_modification_time>Thu, 23 May 2002 20:08:19 GMT</last_modification_time>
+	    </signal>
+	    <label>Automatically insert smiley images</label>
 	    <active>False</active>
 	    <draw_indicator>True</draw_indicator>
 	    <child>

@@ -1,3 +1,7 @@
+2002-05-23  Radek Doulik  <rodo@ximian.com>
+
+	* main.c: let capplet know about smileys
+
 2002-03-27  Larry Ewing  <lewing@ximian.com>
 
 	* Makefile.am (gladedir): add the version to the glade path.
