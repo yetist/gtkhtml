@@ -2190,7 +2190,7 @@ relayout (HTMLObject *self,
 	if (mw <= self->max_width)
 		return (*HTML_OBJECT_CLASS (parent_class)->relayout) (self, engine, child);
 	html_engine_calc_size (engine, FALSE);
-	html_engine_draw (engine, 0, 0, engine->width, engine->height);
+	html_engine_draw (engine, engine->x_offset, engine->y_offset, engine->width, engine->height);
 
 	return TRUE;
 }
