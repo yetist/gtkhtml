@@ -23,7 +23,7 @@
 
 
 HTMLTextInputClass html_text_input_class;
-static HTMLEmbedded *parent_class = NULL;
+static HTMLEmbeddedClass *parent_class = NULL;
 
 
 static void

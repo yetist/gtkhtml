@@ -1,5 +1,8 @@
 2000-02-15  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmltextinput.c: `parent_class' should be `HTMLEmbeddedClass *',
+	not `HTMLEmbedded *'.
+
 	* htmlobject.c (html_object_get_selection): New function.
 	(get_selection): New function, default implementation of
 	`HTMLObject::get_selection'.

@@ -805,7 +805,7 @@ html_clueflow_init (HTMLClueFlow *clueflow,
 
 	html_clue_init (clue, HTML_CLUE_CLASS (klass));
 
-	object->flags &= ~ HTML_OBJECT_FLAG_FIXEDWIDTH;
+	object->flags &= ~HTML_OBJECT_FLAG_FIXEDWIDTH;
 
 	clue->valign = HTML_VALIGN_BOTTOM;
 	clue->halign = HTML_HALIGN_LEFT;
