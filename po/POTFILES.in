@@ -1,6 +1,7 @@
 capplet/gnome-bindings-prop.c
 capplet/main.c
 capplet/gtkhtml-capplet.glade.h
+components/html-editor/GNOME_GtkHTML_Editor.xml
 components/html-editor/body.c
 components/html-editor/editor-control-factory.c
 components/html-editor/image.c
