@@ -1,5 +1,10 @@
 1999-11-27  Ettore Perazzoli  <ettore@gnu.org>
 
+	* htmltokenizer.c (html_tokenizer_add_pending): Fixed typo: `%
+	TAB_SIZE' instead of `& TAB_SIZE'.
+
+1999-11-27  Ettore Perazzoli  <ettore@gnu.org>
+
 	* htmlengine.h: Removed `parseFuncArray[]' from `struct
 	_HTMLEngine'.
 	* htmlengine.c: Moved here.

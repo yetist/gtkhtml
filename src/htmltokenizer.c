@@ -225,6 +225,7 @@ html_tokenizer_append_token_buffer (HTMLTokenizer *t, gint min_size)
 
 }
 
+/* EP CHECK: OK.  */
 void
 html_tokenizer_add_pending (HTMLTokenizer *t)
 {
@@ -260,8 +261,8 @@ html_tokenizer_add_pending (HTMLTokenizer *t)
 			t->prePos = 0;
 			break;
 		case TabPending:
-			p = TAB_SIZE - (t->prePos & TAB_SIZE);
-			for (x = 0; x < p; p++) {
+			p = TAB_SIZE - (t->prePos % TAB_SIZE);
+			for (x = 0; x < p; x++) {
 				*(t->dest) = ' ';
 				t->dest++;
 			}
@@ -277,9 +278,6 @@ html_tokenizer_add_pending (HTMLTokenizer *t)
 	}
 	
 	t->pending = NonePending;
-
-		
-
 }
 
 void
