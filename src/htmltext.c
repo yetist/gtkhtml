@@ -51,7 +51,6 @@ static SpellError * spell_error_new         (guint off, guint len);
 static void         spell_error_destroy     (SpellError *se);
 static void         move_spell_errors       (GList *spell_errors, guint offset, gint delta);
 static GList *      remove_spell_errors     (GList *spell_errors, guint offset, guint len);
-static gboolean     html_text_convert_nbsp  (HTMLText *text, gboolean free_text);
 static guint        get_words               (const gchar *s);
 
 /* static void
@@ -220,6 +219,33 @@ clear_word_width (HTMLText *text)
 }
 
 static void
+merge_word_width (HTMLText *t1, HTMLText *t2, HTMLPainter *p)
+{
+	guint len, i, words;
+
+	if (!t1->word_width)
+		return;
+
+	len = strlen (t1->text);
+	if (((len && t1->text [len - 1] == ' ')
+	     || (len > 1 && (guchar) t1->text [len - 1] == 0xa0 && (guchar) t1->text [len - 1] == 0xc2))
+	    && t2->text [0] == ' ') {
+		clear_word_width (t1);
+		return; /* we don't want do merge as convert_nbsp will 100% happen */
+	}
+
+	if (!t2->word_width)
+		html_text_request_word_width (t2, p);
+
+	words          = t1->words;
+	t1->words      = words + t2->words - 1;
+	t1->word_width = g_renew (guint, t1->word_width, t1->words);
+
+	for (i = 0; i < t2->words; i ++)
+		t1->word_width [words + i - 1] = t2->word_width [i] + t1->word_width [words - 1];
+}
+
+static void
 split_word_width (HTMLText *s, HTMLText *d, HTMLPainter *p, gint offset)
 {
 	gchar *str;
@@ -362,7 +388,7 @@ op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GL
 }
 
 static gboolean
-object_merge (HTMLObject *self, HTMLObject *with)
+object_merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e)
 {
 	HTMLText *t1, *t2;
 	gchar *to_free;
@@ -370,12 +396,14 @@ object_merge (HTMLObject *self, HTMLObject *with)
 	t1 = HTML_TEXT (self);
 	t2 = HTML_TEXT (with);
 
+	if (t1->font_style != t2->font_style || t1->color != t2->color)
+		return FALSE;
+
 	/* printf ("before merge '%s' '%s'\n", t1->text, t2->text);
 	debug_word_width (t1);
 	debug_word_width (t2); */
 
-	if (t1->font_style != t2->font_style || t1->color != t2->color)
-		return FALSE;
+	merge_word_width (t1, t2, e->painter);
 
 	move_spell_errors (t2->spell_errors, 0, t1->text_len);
 	t1->spell_errors = g_list_concat (t1->spell_errors, t2->spell_errors);
@@ -386,14 +414,11 @@ object_merge (HTMLObject *self, HTMLObject *with)
 	t1->text_len += t2->text_len;
 	g_free (to_free);
 	html_text_convert_nbsp (t1, TRUE);
-
-	/* printf ("--- after merge\n");
-	debug_spell_errors (t1->spell_errors);
-	printf ("---\n"); */
-	
-	clear_word_width (t1);
 	html_object_change_set (self, HTML_CHANGE_ALL);
 
+	/* printf ("--- after merge\n");
+	   debug_spell_errors (t1->spell_errors);
+	   printf ("---\n"); */
 	/* printf ("after merge '%s'\n", t1->text);
 	   debug_word_width (t1); */
 
@@ -430,11 +455,11 @@ object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, g
 	html_clue_append_after (HTML_CLUE (self->parent), dup, self);
 
 	prev = self->prev;
-	if (HTML_TEXT (self)->text_len == 0 && prev && html_object_merge (prev, self))
+	if (HTML_TEXT (self)->text_len == 0 && prev && html_object_merge (prev, self, e))
 		self = prev;
 
 	if (HTML_TEXT (dup)->text_len == 0 && dup->next)
-		html_object_merge (dup, dup->next);
+		html_object_merge (dup, dup->next, e);
 
 	/* printf ("--- before split offset %d dup len %d\n", offset, HTML_TEXT (dup)->text_len);
 	   debug_spell_errors (HTML_TEXT (self)->spell_errors); */
@@ -798,7 +823,7 @@ convert_nbsp (gchar *fill, const gchar *p)
 #endif
 }
 
-static gboolean
+gboolean
 html_text_convert_nbsp (HTMLText *text, gboolean free_text)
 {
 	gint delta;

@@ -96,7 +96,8 @@ struct _HTMLObjectClass {
 					  GList      *right,
 					  guint      *len);
 	gboolean     (* merge)           (HTMLObject *self,
-					  HTMLObject *o);
+					  HTMLObject *o,
+					  HTMLEngine *e);
 	void         (* remove_child)    (HTMLObject *self,
 					  HTMLObject *child);
 	void         (* split)           (HTMLObject *self,
@@ -267,7 +268,8 @@ HTMLObject     *html_object_op_cut                (HTMLObject            *self,
 						   GList                 *right,
 						   guint                 *len);
 gboolean        html_object_merge                 (HTMLObject            *self,
-						   HTMLObject            *with);
+						   HTMLObject            *with,
+						   HTMLEngine            *e);
 void            html_object_remove_child          (HTMLObject            *self,
 						   HTMLObject            *child);
 void            html_object_split                 (HTMLObject            *self,

@@ -241,7 +241,7 @@ remove_empty_and_merge (HTMLEngine *e, gboolean merge, GList *left, GList *right
 		}
 
 		if (merge && lo && ro) {
-			if (!html_object_merge (lo, ro))
+			if (!html_object_merge (lo, ro, e))
 				break;
 			if (ro == e->cursor->object) {
 				e->cursor->object  = lo;
@@ -610,8 +610,12 @@ html_engine_insert_text (HTMLEngine *e, const gchar *text, guint len)
 		nl   = unicode_strchr (text, '\n');
 		alen = nl ? unicode_index_to_offset (text, nl - text) : len;
 		if (alen) {
+			HTMLObject *o;
+
 			check_magic_link (e, text, alen);
-			html_engine_insert_object (e, html_engine_new_text (e, text, alen), alen);
+			o = html_engine_new_text (e, text, alen);
+			html_text_convert_nbsp (HTML_TEXT (o), TRUE);
+			html_engine_insert_object (e, o, html_object_get_length (o));
 		}
 		if (nl) {
 			html_engine_insert_empty_paragraph (e);
@@ -687,7 +691,7 @@ change_link (HTMLObject *o, HTMLEngine *e, gpointer data)
 			html_clue_remove (HTML_CLUE (o->parent), o);
 			html_object_destroy (o);
 			if (changed->prev)
-				html_object_merge (changed->prev, changed);
+				html_object_merge (changed->prev, changed, e);
 		} else {
 			html_object_destroy (e->clipboard);
 			e->clipboard     = changed;

@@ -57,6 +57,8 @@ HTMLObject                *html_engine_new_text               (HTMLEngine       
 							       const gchar               *text,
 							       gint                       len);
 HTMLObject                *html_engine_new_text_empty         (HTMLEngine                *e);
+gboolean                   html_engine_cursor_on_bop          (HTMLEngine                *e);
+guint                      html_engine_get_indent             (HTMLEngine                *e);
 /*
   static (non instance) methods
 */

@@ -296,3 +296,25 @@ html_engine_new_text_empty (HTMLEngine *e)
 {
 	return html_engine_new_text (e, "", 0);
 }
+
+gboolean
+html_engine_cursor_on_bop (HTMLEngine *e)
+{
+	g_assert (e);
+	g_assert (e->cursor);
+	g_assert (e->cursor->object);
+
+	return e->cursor->offset == 0 && html_object_prev_not_slave (e->cursor->object) == NULL;
+}
+
+guint
+html_engine_get_indent (HTMLEngine *e)
+{
+	g_assert (e);
+	g_assert (e->cursor);
+	g_assert (e->cursor->object);
+
+	return e->cursor->object && e->cursor->object->parent
+		&& HTML_OBJECT_TYPE (e->cursor->object->parent) == HTML_TYPE_CLUEFLOW
+		? HTML_CLUEFLOW (e->cursor->object->parent)->level : 0;
+}

@@ -1,5 +1,20 @@
 2001-01-18  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlobject.c (html_object_merge): added engine parameter
+
+	* htmlengine-edit-cut-and-paste.c (html_engine_insert_text): call
+	convert nbsp
+
+	* htmltext.c (merge_word_width): new function
+	(object_merge): use merge_word_width
+
+	* gtkhtml.c (command): added
+	GTK_HTML_COMMAND_DELETE_BACK_OR_INDENT_DEC command
+	(load_keybindings): bind backspace to new command
+
+	* htmlengine-edit.c (html_engine_cursor_on_bop): new function
+	(html_engine_get_indent): new function
+
 	* htmlrule.c (save): save all attributes
 
 	* htmltext.c (html_text_op_cut_helper): convert nbsp

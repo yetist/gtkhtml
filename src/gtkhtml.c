@@ -2561,9 +2561,16 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 			html_engine_delete_n (e, 1, TRUE);
 		break;
 	case GTK_HTML_COMMAND_DELETE_BACK:
-		if (e->mark != NULL
-		    && e->mark->position != e->cursor->position)
+		if (html_engine_is_selection_active (e))
 			html_engine_delete (e);
+		else
+			html_engine_delete_n (e, 1, FALSE);
+		break;
+	case GTK_HTML_COMMAND_DELETE_BACK_OR_INDENT_DEC:
+		if (html_engine_is_selection_active (e))
+			html_engine_delete (e);
+		else if (html_engine_cursor_on_bop (e) && html_engine_get_indent (e) > 0)
+			gtk_html_modify_indent_by_delta (html, -1);
 		else
 			html_engine_delete_n (e, 1, FALSE);
 		break;
@@ -2908,8 +2915,8 @@ load_keybindings (GtkHTMLClass *klass)
 
 	BCOM (0, Return, INSERT_PARAGRAPH);
 	BCOM (0, KP_Enter, INSERT_PARAGRAPH);
-	BCOM (0, BackSpace, DELETE_BACK);
-	BCOM (GDK_SHIFT_MASK, BackSpace, DELETE_BACK);
+	BCOM (0, BackSpace, DELETE_BACK_OR_INDENT_DEC);
+	BCOM (GDK_SHIFT_MASK, BackSpace, DELETE_BACK_OR_INDENT_DEC);
 	BCOM (0, Delete, DELETE);
 	BCOM (0, KP_Delete, DELETE);
 

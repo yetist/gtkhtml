@@ -127,6 +127,8 @@ gint              html_text_trail_space_width            (HTMLText           *te
 							  HTMLPainter        *painter);
 void              html_text_request_word_width           (HTMLText           *text,
 							  HTMLPainter        *painter);
+gboolean          html_text_convert_nbsp                 (HTMLText           *text,
+							  gboolean           free_text);
 /*
  * protected
  */

@@ -135,7 +135,7 @@ op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GL
 }
 
 static gboolean
-merge (HTMLObject *self, HTMLObject *with)
+merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e)
 {
 	return FALSE;
 }
@@ -712,10 +712,10 @@ html_object_op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GLi
 }
 
 gboolean
-html_object_merge (HTMLObject *self, HTMLObject *with)
+html_object_merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e)
 {
 	if (HTML_OBJECT_TYPE (self) == HTML_OBJECT_TYPE (with)
-	    && (* HO_CLASS (self)->merge) (self, with)) {
+	    && (* HO_CLASS (self)->merge) (self, with, e)) {
 		if (with->parent)
 			html_object_remove_child (with->parent, with);
 		html_object_destroy (with);

@@ -125,7 +125,7 @@ op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GL
 }
 
 static gboolean
-merge (HTMLObject *self, HTMLObject *with)
+merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e)
 {
 	HTMLClue   *clue1, *clue2;
 
