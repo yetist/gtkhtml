@@ -274,9 +274,6 @@ check_page_split (HTMLObject *self,
 	gint last_under = 0;
 
 	clue = HTML_CLUE (self);
-
-	y -= (self->y - self->ascent);
-
 	for (p = clue->head; p != NULL; p = p->next) {
 		gint y1, y2;
 

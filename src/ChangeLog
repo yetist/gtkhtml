@@ -1,5 +1,13 @@
 2000-11-14  Radek Doulik  <rodo@helixcode.com>
 
+	* htmltable.c (check_page_split): new method
+	(html_table_class_init): use check_page_split
+
+	* htmlclue.c (check_page_split): don't move y to relative
+	coordinates as it's already in them
+
+	* htmltable.c (forall): simplified cell condition
+
 	* htmlprinter.c (html_printer_new): don't save context here
 
 2000-11-13  Radek Doulik  <rodo@helixcode.com>

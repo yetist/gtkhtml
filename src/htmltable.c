@@ -134,11 +134,7 @@ forall (HTMLObject *self,
 		for (c = 0; c < table->totalCols; c++) {
 			cell = table->cells[r][c];
 
-			if (cell == NULL)
-				continue;
-			if (c < table->totalCols - 1 && cell == table->cells[r][c + 1])
-				continue;
-			if (r < table->totalRows - 1 && table->cells[r + 1][c] == cell)
+			if (cell == NULL || cell->col != c || cell->row != r)
 				continue;
 
 			html_object_forall (HTML_OBJECT (cell), func, data);
@@ -1650,6 +1646,45 @@ save_plain (HTMLObject *self,
 	return result;
 }
 
+static gint
+check_page_split (HTMLObject *self,
+		  gint y)
+{
+	HTMLTable     *table;
+	HTMLTableCell *cell;
+	gint r, c, min_y, cs;
+
+	table = HTML_TABLE (self);
+	r     = bin_search_eq_or_lower_index (table->rowHeights, table->totalRows + 1, y, 0);
+
+	/* printf ("y: %d rh: %d rh+1: %d\n", y, ROW_HEIGHT (table, r), ROW_HEIGHT (table, r+1)); */
+
+	if (r >= table->totalRows)
+		return ROW_HEIGHT (table, table->totalRows);
+
+	min_y = ROW_HEIGHT (table, r+1);
+	for (c = 0; c < table->totalCols; c++) {
+		gint y1, y2;
+
+		cell = table->cells[r][c];
+		if (cell == NULL || cell->col != c)
+			continue;
+
+		y1 = HTML_OBJECT (cell)->y - HTML_OBJECT (cell)->ascent;
+		y2 = HTML_OBJECT (cell)->y + HTML_OBJECT (cell)->descent;
+
+		if (y1 <= y && y < y2) {
+			cs = html_object_check_page_split (HTML_OBJECT (cell), y - y1) + y1;
+			/* printf ("y: %d y1: %d y2: %d --> cs=%d\n", y, y1, y2, cs); */
+
+			if (cs < min_y)
+				min_y = cs;
+		}
+	}
+
+	return min_y;
+}
+
 
 void
 html_table_type_init (void)
@@ -1689,6 +1724,7 @@ html_table_class_init (HTMLTableClass *klass,
 	object_class->prev = prev;
 	object_class->save = save;
 	object_class->save_plain = save_plain;
+	object_class->check_page_split = check_page_split;
 
 	parent_class = &html_object_class;
 }

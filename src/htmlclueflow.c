@@ -1497,7 +1497,6 @@ html_clueflow_class_init (HTMLClueFlowClass *klass,
 	object_class->draw_background = draw_background;
 	object_class->save = save;
 	object_class->save_plain = save_plain;
-	// object_class->check_page_split = check_page_split;
 	object_class->check_point = check_point;
 	object_class->append_selection_string = append_selection_string;
 	object_class->search = search;
