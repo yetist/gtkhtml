@@ -39,6 +39,9 @@ void      html_engine_deactivate_selection  (HTMLEngine *e);
 void      html_engine_disable_selection     (HTMLEngine *e);
 gchar    *html_engine_get_selection_string  (HTMLEngine *e);
 gboolean  html_engine_is_selection_active   (HTMLEngine *e);
+gboolean  html_engine_point_in_selection    (HTMLEngine *e,
+					     HTMLObject *obj,
+					     guint       offset);
 void      html_engine_activate_selection    (HTMLEngine *e,
 					     guint32     time);
 void      html_engine_block_selection       (HTMLEngine *e);

@@ -1,5 +1,9 @@
 2001-08-13  Radek Doulik  <rodo@ximian.com>
 
+	* htmlselection.c (test_point): new helper function
+	(html_engine_point_in_selection): new method, tests if point is in
+	the selection
+
 	* htmlclueflow.c (merge): ops, remove HTML_CLUEV cast
 
 	* gtkhtml.c (gtk_html_update_styles): exported

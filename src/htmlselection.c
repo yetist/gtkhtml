@@ -183,6 +183,40 @@ html_engine_is_selection_active (HTMLEngine *e)
 	return e->selection ? TRUE : FALSE;
 }
 
+static void
+test_point (HTMLObject *o, HTMLEngine *e, gpointer data)
+{
+	HTMLPoint *point = (HTMLPoint *) data;
+
+	if (point->object == o) {
+		if (point->object == e->selection->from.object && point->offset < e->selection->from.offset)
+			return;
+		if (point->object == e->selection->to.object && point->offset > e->selection->to.offset)
+			return;
+
+		/* this indicates that object is IN the selection */
+		point->object = NULL;
+	}
+}
+
+gboolean
+html_engine_point_in_selection (HTMLEngine *e, HTMLObject *obj, guint offset)
+{
+	HTMLPoint *point;
+	gboolean rv;
+
+	if (!html_engine_is_selection_active (e) || !obj)
+		return FALSE;
+
+	point = html_point_new (obj, offset);
+	html_interval_forall (e->selection, e, test_point, point);
+	rv = point->object == NULL;
+
+	html_point_destroy (point);
+
+	return rv;
+}
+
 void
 html_engine_activate_selection (HTMLEngine *e, guint32 time)
 {
