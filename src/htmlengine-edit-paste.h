@@ -24,6 +24,8 @@
 
 #include "htmlengine.h"
 
-void html_engine_paste (HTMLEngine *engine);
+void  html_engine_paste_buffer  (HTMLEngine *engine,
+				 GList      *buffer);
+void  html_engine_paste         (HTMLEngine *engine);
 
 #endif /* _HTML_ENGINE_EDIT_PASTE_H */

@@ -23,6 +23,8 @@
 #include <gtk/gtk.h>
 
 #include "htmlengine-edit-clueflowstyle.h"
+#include "htmlengine-edit-copy.h"
+#include "htmlengine-edit-cut.h"
 #include "htmlengine-edit-delete.h"
 #include "htmlengine-edit-fontstyle.h"
 #include "htmlengine-edit-insert.h"
@@ -1505,7 +1507,7 @@ static void
 search (GtkHTML *html, gboolean regular)
 {
 	if (html->search_dialog) {
-		gtk_widget_show (html->search_dialog->dialog);
+		gtk_widget_show (GTK_WIDGET (html->search_dialog->dialog));
 		gdk_window_raise (GTK_WIDGET (html->search_dialog->dialog)->window);
 		gtk_widget_grab_focus (html->search_dialog->entry);
 	} else {

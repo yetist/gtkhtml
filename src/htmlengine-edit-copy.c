@@ -66,7 +66,7 @@ copy (HTMLEngine *engine,
 	guint size;
 
 	if (*buffer != NULL) {
-		html_engine_cut_buffer_destroy (engine, *buffer);
+		html_engine_cut_buffer_destroy (*buffer);
 		*buffer = NULL;
 	}
 

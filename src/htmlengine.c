@@ -2753,7 +2753,7 @@ html_engine_destroy (GtkObject *object)
 	html_undo_destroy (engine->undo);
 
 	if (engine->cut_buffer != NULL)
-		html_engine_cut_buffer_destroy (engine, engine->cut_buffer);
+		html_engine_cut_buffer_destroy (engine->cut_buffer);
 
 	html_color_set_destroy (engine->color_set);
 

@@ -1,5 +1,25 @@
 2000-04-17  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* gtkhtml.c
+	(search): Added missing `GTK_WIDGET()' cast.
+
+	* htmlengine-edit-cut.c: Rewritten to use the new cursor/region
+	handling code.  Also implemented support for undo and redo.
+
+	* htmlengine-edit-paste.c
+	(closure_destroy): Use `html_cut_buffer_destroy ()'.
+	(html_engine_paste_buffer): New function.
+
+	* htmlengine-edit-paste.c
+	(action_data_from_cut_buffer): Use the new function
+	`html_engine_cut_buffer_dup()'.
+
+	* htmlengine-cutbuffer.c
+	(html_engine_cut_buffer_destroy): Removed arg @engine.
+	(html_engine_cut_buffer_dup): New function.
+
+2000-04-17  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* htmlengine.c (html_engine_destroy): Remove the timeout
 	associated with `timerId', if any.
 

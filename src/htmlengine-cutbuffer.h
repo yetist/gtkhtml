@@ -24,6 +24,7 @@
 
 #include "htmlengine.h"
 
-void html_engine_cut_buffer_destroy (HTMLEngine *engine, GList *cut_buffer);
+void   html_engine_cut_buffer_destroy  (GList *cut_buffer);
+GList *html_engine_cut_buffer_dup      (GList *cut_buffer);
 
 #endif

@@ -33,13 +33,9 @@
 
 
 void
-html_engine_cut_buffer_destroy (HTMLEngine *engine,
-				GList *cut_buffer)
+html_engine_cut_buffer_destroy (GList *cut_buffer)
 {
 	GList *p;
-
-	g_return_if_fail (engine != NULL);
-	g_return_if_fail (HTML_IS_ENGINE (engine));
 
 	if (cut_buffer == NULL)
 		return;
@@ -48,4 +44,31 @@ html_engine_cut_buffer_destroy (HTMLEngine *engine,
 		html_object_destroy (HTML_OBJECT (p->data));
 
 	g_list_free (cut_buffer);
+}
+
+
+GList *
+html_engine_cut_buffer_dup (GList *cut_buffer)
+{
+	GList *new_buffer, *new_buffer_tail;
+	GList *p;
+
+	if (cut_buffer == NULL)
+		return NULL;
+
+	new_buffer = NULL;
+	new_buffer_tail = NULL;
+
+	for (p = cut_buffer; p != NULL; p = p->next) {
+		HTMLObject *obj_copy;
+
+		obj_copy = html_object_dup (HTML_OBJECT (p->data));
+
+		new_buffer_tail = g_list_append (new_buffer_tail, obj_copy);
+		if (new_buffer == NULL)
+			new_buffer = new_buffer_tail;
+		new_buffer_tail = new_buffer_tail->next;
+	}
+
+	return new_buffer;
 }

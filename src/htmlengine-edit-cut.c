@@ -21,52 +21,139 @@
 
 #include "htmltextmaster.h"
 
+#include "htmlengine-cutbuffer.h"
 #include "htmlengine-edit-copy.h"
 #include "htmlengine-edit-delete.h"
 #include "htmlengine-edit-movement.h"
+#include "htmlengine-edit-paste.h"
 
 #include "htmlengine-edit-cut.h"
 
 
-/* FIXME this is a dirty hack.  */
-static gboolean
-cursor_at_end_of_region (HTMLEngine *engine)
+/* Undo/redo.  */
+
+struct _ActionData {
+	/* Reference count.  This is necessary because we want to share the data between
+           undo and redo.  */
+	guint ref_count;
+
+	/* Contents of the cut buffer.  */
+	GList *buffer;
+
+	/* Number of character elements in the buffer.  */
+	guint buffer_count;
+
+	/* Whether the mark preceded the cursor when cut happened.  */
+	guint mark_precedes_cursor;
+};
+typedef struct _ActionData ActionData;
+
+static void  closure_destroy  (gpointer closure);
+static void  do_redo          (HTMLEngine *engine, gpointer closure);
+static void  do_undo          (HTMLEngine *engine, gpointer closure);
+static void  setup_redo       (HTMLEngine *engine, ActionData *data);
+static void  setup_undo       (HTMLEngine *engine, ActionData *data);
+
+static void
+closure_destroy (gpointer closure)
 {
-	HTMLCursor *cursor;
-	HTMLObject *obj;
+	ActionData *data;
 
-	cursor = engine->cursor;
-	obj = cursor->object;
+	data = (ActionData *) closure;
+	g_assert (data->ref_count > 0);
 
-	if (html_object_is_text (obj)) {
-		HTMLTextMaster *text_master;
+	data->ref_count --;
+	if (data->ref_count > 0)
+		return;
 
-		text_master = HTML_TEXT_MASTER (obj);
-		if (text_master->select_start < cursor->offset)
-			return TRUE;
-		else
-			return FALSE;
-	}
+	html_engine_cut_buffer_destroy (data->buffer);
 
-	if (obj->selected) {
-		if (cursor->offset == 0)
-			return FALSE;
-		else
-			return TRUE;
-	} else {
-		if (cursor->offset == 0)
-			return TRUE;
-		else
-			return FALSE;
-	}
+	g_free (data);
+}
+
+static void
+do_undo (HTMLEngine *engine,
+	 gpointer closure)
+{
+	ActionData *data;
+
+	data = (ActionData *) closure;
+
+	html_engine_paste_buffer (engine, data->buffer);
+
+	if (! data->mark_precedes_cursor)
+		html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_LEFT, data->buffer_count);
+
+	setup_redo (engine, data);
+}
+
+static void
+setup_undo (HTMLEngine *engine,
+	    ActionData *data)
+{
+	HTMLUndoAction *action;
+
+	data->ref_count ++;
+
+	/* FIXME i18n */
+	action = html_undo_action_new ("cut", do_undo, closure_destroy, data,
+				       html_cursor_get_position (engine->cursor));
+	html_undo_add_undo_action (engine->undo, action);
+}
+
+static void
+do_redo (HTMLEngine *engine,
+	 gpointer closure)
+{
+	ActionData *data;
+
+	data = (ActionData *) closure;
+
+	if (data->mark_precedes_cursor)
+		html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_LEFT, data->buffer_count);
+
+	html_engine_delete (engine, data->buffer_count);
+
+	setup_undo (engine, data);
+}
+
+static void
+setup_redo (HTMLEngine *engine,
+	    ActionData *data)
+{
+	HTMLUndoAction *action;
+
+	data->ref_count ++;
+
+	/* FIXME i18n */
+	action = html_undo_action_new ("cut", do_redo, closure_destroy, data,
+				       html_cursor_get_position (engine->cursor));
+	html_undo_add_redo_action (engine->undo, action);
+}
+
+static void
+init_undo (HTMLEngine *engine,
+	   GList *buffer,
+	   guint num_elems,
+	   gboolean mark_precedes_cursor)
+{
+	ActionData *data;
+
+	data = g_new (ActionData, 1);
+
+	data->ref_count = 0;
+	data->buffer = html_engine_cut_buffer_dup (buffer);
+	data->buffer_count = num_elems;
+	data->mark_precedes_cursor = mark_precedes_cursor;
+
+	setup_undo (engine, data);
 }
 
 
-/* WARNING: this assumes that the cursor is always at either the
-   beginning or the end of the selected region.  */
 void
 html_engine_cut (HTMLEngine *engine)
 {
+	gboolean mark_precedes_cursor;
 	guint elems_copied;
 
 	g_return_if_fail (engine != NULL);
@@ -75,19 +162,15 @@ html_engine_cut (HTMLEngine *engine)
 
 	g_warning ("Cut!");
 
-	html_engine_freeze (engine);
+	html_undo_discard_redo (engine->undo);
 
 	elems_copied = html_engine_copy (engine);
+	mark_precedes_cursor = html_cursor_precedes (engine->mark, engine->cursor);
 
-	if (elems_copied > 0) {
-		if (cursor_at_end_of_region (engine))
-			html_engine_move_cursor (engine,
-						 HTML_ENGINE_CURSOR_LEFT,
-						 elems_copied);
+	if (mark_precedes_cursor)
+		html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_LEFT, elems_copied);
 
-		html_engine_delete (engine, elems_copied);
-	}
+	html_engine_delete (engine, elems_copied);
 
-	html_engine_disable_selection (engine);
-	html_engine_thaw (engine);
+	init_undo (engine, engine->cut_buffer, elems_copied, mark_precedes_cursor);
 }

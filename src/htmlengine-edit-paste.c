@@ -24,6 +24,7 @@
 #include "htmltext.h"
 #include "htmltextmaster.h"
 
+#include "htmlengine-cutbuffer.h"
 #include "htmlengine-edit-movement.h"
 #include "htmlengine-edit-delete.h"
 
@@ -554,32 +555,27 @@ struct _ActionData {
 };
 typedef struct _ActionData ActionData;
 
-static void  closure_destroy        (gpointer closure);
-static void  do_redo                (HTMLEngine *engine, gpointer closure);
-static void  do_undo                (HTMLEngine *engine, gpointer closure);
-static void  setup_undo             (HTMLEngine *engine, ActionData *data);
-static void  setup_redo             (HTMLEngine *engine, ActionData *data);
+static void  closure_destroy  (gpointer closure);
+static void  do_redo          (HTMLEngine *engine, gpointer closure);
+static void  do_undo          (HTMLEngine *engine, gpointer closure);
+static void  setup_undo       (HTMLEngine *engine, ActionData *data);
+static void  setup_redo       (HTMLEngine *engine, ActionData *data);
 
 static void
 closure_destroy (gpointer closure)
 {
 	ActionData *data;
-	GList *buffer;
-	GList *p;
 
 	data = (ActionData *) closure;
 	g_assert (data->ref_count > 0);
 
 	data->ref_count --;
-	if (data->ref_count == 0) {
-		buffer = data->buffer;
+	if (data->ref_count > 0)
+		return;
 
-		for (p = buffer; p != NULL; p = p->next)
-			html_object_destroy (HTML_OBJECT (p->data));
+	html_engine_cut_buffer_destroy (data->buffer);
 
-		g_list_free (buffer);
-		g_free (data);
-	}
+	g_free (data);
 
 	return;
 }
@@ -648,36 +644,33 @@ setup_undo (HTMLEngine *engine,
 }
 
 static ActionData *
-action_data_from_cut_buffer (const GList *buffer,
+action_data_from_cut_buffer (HTMLEngine *engine,
+			     GList *buffer,
 			     guint count)
 {
 	ActionData *data;
-	GList *new_buffer, *new_buffer_tail;
-	const GList *p;
-
-	new_buffer = NULL;
-	new_buffer_tail = NULL;
-
-	for (p = buffer; p != NULL; p = p->next) {
-		HTMLObject *obj_copy;
-
-		obj_copy = html_object_dup (HTML_OBJECT (p->data));
-
-		new_buffer_tail = g_list_append (new_buffer_tail, obj_copy);
-		if (new_buffer == NULL)
-			new_buffer = new_buffer_tail;
-		new_buffer_tail = new_buffer_tail->next;
-	}
 
 	data = g_new (ActionData, 1);
 	data->ref_count = 0;
-	data->buffer = new_buffer;
+	data->buffer = html_engine_cut_buffer_dup (buffer);
 	data->buffer_count = count;
 
 	return data;
 }
 
 
+void
+html_engine_paste_buffer (HTMLEngine *engine,
+			  GList *buffer)
+{
+	g_return_if_fail (engine != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (engine));
+	g_return_if_fail (engine->clue != NULL);
+	g_return_if_fail (buffer != NULL);
+
+	do_paste (engine, buffer);
+}
+
 void
 html_engine_paste (HTMLEngine *engine)
 {
@@ -694,5 +687,5 @@ html_engine_paste (HTMLEngine *engine)
 
 	count = do_paste (engine, engine->cut_buffer);
 
-	setup_undo (engine, action_data_from_cut_buffer (engine->cut_buffer, count));
+	setup_undo (engine, action_data_from_cut_buffer (engine, engine->cut_buffer, count));
 }
