@@ -26,9 +26,6 @@
 #include "gtkhtml-private.h"
 
 
-#define SELECTION_TIMEOUT 20
-
-
 static GtkLayoutClass *parent_class = NULL;
 
 enum {
