@@ -23,8 +23,13 @@
 HTMLButtonClass html_button_class;
 
 static void
-draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor, gint x, gint y, gint width, gint height, gint tx, gint ty) {
-
+draw (HTMLObject *o, 
+      HTMLPainter *p, 
+      HTMLCursor *cursor, 
+      gint x, gint y, 
+      gint width, gint height, 
+      gint tx, gint ty)
+{
 	HTMLElement *element = HTML_ELEMENT(o);
 	gint new_x, new_y;
 
@@ -64,8 +69,11 @@ html_button_class_init (HTMLButtonClass *klass,
 }
 
 void
-html_button_init (HTMLButton *button, HTMLButtonClass *klass, GtkWidget *parent, gchar *name, gchar *value) {
-
+html_button_init (HTMLButton *button, 
+		  HTMLButtonClass *klass, 
+		  GtkWidget *parent, 
+		  gchar *name, gchar *value)
+{
 	HTMLElement *element;
 	HTMLObject *object;
 	GtkRequisition req;
@@ -91,7 +99,9 @@ html_button_init (HTMLButton *button, HTMLButtonClass *klass, GtkWidget *parent,
 }
 
 HTMLObject *
-html_button_new (GtkWidget *parent, gchar *name, gchar *value)
+html_button_new (GtkWidget *parent, 
+		 gchar *name, 
+		 gchar *value)
 {
 	HTMLButton *button;
 

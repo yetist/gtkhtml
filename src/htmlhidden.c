@@ -40,8 +40,11 @@ void html_hidden_class_init (HTMLHiddenClass *klass,
 	html_element_class_init (element_class, type);
 }
 
-void html_hidden_init (HTMLHidden *hidden, HTMLHiddenClass *klass, gchar *name, gchar *value) {
-
+void html_hidden_init (HTMLHidden *hidden, 
+		       HTMLHiddenClass *klass, 
+		       gchar *name, 
+		       gchar *value)
+{
 	HTMLElement *element;
 	HTMLObject *object;
 

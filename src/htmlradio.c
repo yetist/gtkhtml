@@ -23,8 +23,13 @@
 HTMLRadioClass html_radio_class;
 
 static void
-draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor, gint x, gint y, gint width, gint height, gint tx, gint ty) {
-
+draw (HTMLObject *o, 
+      HTMLPainter *p, 
+      HTMLCursor *cursor, 
+      gint x, gint y, gint width, 
+      gint height, 
+      gint tx, gint ty)
+{
 	HTMLElement *element = HTML_ELEMENT(o);
 	gint new_x, new_y;
 
@@ -48,7 +53,7 @@ html_radio_type_init (void)
 
 void
 html_radio_class_init (HTMLRadioClass *klass,
-			HTMLType type)
+		       HTMLType type)
 {
 	HTMLElementClass *element_class;
 	HTMLObjectClass *object_class;
@@ -64,8 +69,13 @@ html_radio_class_init (HTMLRadioClass *klass,
 }
 
 void
-html_radio_init (HTMLRadio *radio, HTMLRadioClass *klass, GtkWidget *parent, gchar *name, gchar *value, gboolean checked) {
-
+html_radio_init (HTMLRadio *radio, 
+		 HTMLRadioClass *klass, 
+		 GtkWidget *parent, 
+		 gchar *name, 
+		 gchar *value, 
+		 gboolean checked)
+{
 	HTMLElement *element;
 	HTMLObject *object;
 	GtkRequisition req;
@@ -90,7 +100,10 @@ html_radio_init (HTMLRadio *radio, HTMLRadioClass *klass, GtkWidget *parent, gch
 }
 
 HTMLObject *
-html_radio_new (GtkWidget *parent, gchar *name, gchar *value, gboolean checked)
+html_radio_new (GtkWidget *parent, 
+		gchar *name, 
+		gchar *value, 
+		gboolean checked)
 {
 	HTMLRadio *radio;
 

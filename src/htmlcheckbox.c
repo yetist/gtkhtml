@@ -23,8 +23,13 @@
 HTMLCheckBoxClass html_checkbox_class;
 
 static void
-draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor, gint x, gint y, gint width, gint height, gint tx, gint ty) {
-
+draw (HTMLObject *o, 
+      HTMLPainter *p, 
+      HTMLCursor *cursor, 
+      gint x, gint y, 
+      gint width, gint height, 
+      gint tx, gint ty)
+{
 	HTMLElement *element = HTML_ELEMENT(o);
 	gint new_x, new_y;
 
@@ -64,8 +69,13 @@ html_checkbox_class_init (HTMLCheckBoxClass *klass,
 }
 
 void
-html_checkbox_init (HTMLCheckBox *checkbox, HTMLCheckBoxClass *klass, GtkWidget *parent, gchar *name, gchar *value, gboolean checked) {
-
+html_checkbox_init (HTMLCheckBox *checkbox, 
+		    HTMLCheckBoxClass *klass, 
+		    GtkWidget *parent, 
+		    gchar *name, 
+		    gchar *value, 
+		    gboolean checked) 
+{
 	HTMLElement *element;
 	HTMLObject *object;
 	GtkRequisition req;
@@ -90,7 +100,10 @@ html_checkbox_init (HTMLCheckBox *checkbox, HTMLCheckBoxClass *klass, GtkWidget 
 }
 
 HTMLObject *
-html_checkbox_new (GtkWidget *parent, gchar *name, gchar *value, gboolean checked)
+html_checkbox_new (GtkWidget *parent, 
+		   gchar *name, 
+		   gchar *value, 
+		   gboolean checked)
 {
 	HTMLCheckBox *checkbox;
 
