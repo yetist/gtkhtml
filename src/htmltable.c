@@ -389,7 +389,7 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *ri
 	HTMLTable *t2 = HTML_TABLE (with);
 	HTMLTableCell *c1 = HTML_TABLE_CELL (left->data);
 	HTMLTableCell *c2 = HTML_TABLE_CELL (right->data);
-	gint r, c, end_col, end_row;
+	gint r, c, end_col, end_row, start_col;
 
 	if (t1->specified_width != t2->specified_width
 	    || t1->spacing != t2->spacing
@@ -412,28 +412,52 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *ri
 	gtk_html_debug_dump_tree_simple (with, 0);
 	printf ("-- end with --\n");
 
+	if (t1->totalRows == 1) {
+		HTMLTableCell *head = HTML_TABLE_CELL (html_object_head (HTML_OBJECT (t2)));
+
+		if (head->col + 1 > t1->totalCols) {
+			gint inc_col = head->col - t1->totalCols + 1;
+
+			alloc_cell (t1, 0, head->col + 1);
+			for (c = t1->totalCols - 1; c >= 0; c--) {
+				HTMLTableCell *cell = t1->cells [0][c];
+
+				if (cell) {
+					if (cell->col == c)
+						html_table_cell_set_position (cell, 0, c + inc_col);
+					set_cell (t1, 0, c + inc_col, cell);
+					t1->cells [0][c] = NULL;
+				}
+			}
+		}
+	}
+
 	for (c = 0; c < t1->totalCols; c++)
 		if (t1->cells [t1->totalRows - 1][c])
 			end_col = c;
 
-	end_row = t1->totalRows - 1;
-	for (c = 0; c < MIN (end_col, t2->totalCols); c++)
-		if (t2->cells [0][c]) {
-			end_row ++;
-			break;
-		}
+	end_row   = t1->totalRows - 1;
+	start_col = end_col;
+	if (t2->totalRows > 1) {
+		for (c = 0; c < MIN (end_col, t2->totalCols); c++)
+			if (t2->cells [0][c]) {
+				end_row ++;
+				start_col = 0;
+				break;
+			}
+	}
 
 	for (r = 0; r < t2->totalRows; r ++, end_row ++)
 		for (c = 0; c < t2->totalCols; c ++) {
 			HTMLTableCell *cell = t2->cells [r][c];
 
 			if (cell) {
-				if (c1->col != c2->col || cell != c2) {
-					if (cell->row == r && cell->col == c)
-						html_table_cell_set_position (cell, end_row, c);
-					alloc_cell (t1, end_row, c);
+				if (cell->row == r && cell->col == c)
+					html_table_cell_set_position (cell, end_row, c);
+				alloc_cell (t1, end_row, c);
+				if (cell != c2 || c1->col != c2->col)
 					set_cell (t1, end_row, c, cell);
-				} else
+				else
 					HTML_OBJECT (c2)->parent = NULL;
 
 				t2->cells [r][c] = NULL;

@@ -152,20 +152,6 @@ point_get_parent_list (HTMLPoint *point, gint level, gboolean include_offset)
 }
 
 static gint
-get_parent_level_deprecated (HTMLObject *from, HTMLObject *to)
-{
-	gint level = 1;
-
-	while (from && to && from != to) {
-		from = from->parent;
-		to   = to->parent;
-		level++;
-	}
-
-	return level;
-}
-
-static gint
 get_parent_depth (HTMLObject *o, HTMLObject *parent)
 {
 	gint level = 1;
@@ -501,25 +487,6 @@ place_cursor_before_mark (HTMLEngine *e)
 		tmp = e->cursor;
 		e->cursor = e->mark;
 		e->mark = tmp;
-	}
-}
-
-static void
-delete_object_do_old (HTMLEngine *e, HTMLObject **object, guint *len)
-{
-	GList *from, *to, *left, *right;
-
-	if (html_engine_is_selection_active (e)) {
-		html_engine_freeze (e);
-		prepare_delete_bounds (e, &from, &to, &left, &right);
-		place_cursor_before_mark (e);
-		move_cursor_before_delete (e);
-		html_engine_disable_selection (e);
-		*len     = 0;
-		*object  = html_object_op_cut  (HTML_OBJECT (from->data), e, from->next, to->next, left, right, len);
-		remove_empty_and_merge (e, TRUE, left ? left->next : NULL, right ? right->next : NULL, NULL);
-		html_engine_spell_check_range (e, e->cursor, e->cursor);
-		html_engine_thaw (e);
 	}
 }
 

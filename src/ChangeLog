@@ -1,3 +1,9 @@
+2001-03-06  Radek Doulik  <rodo@ximian.com>
+
+	* htmltable.c (merge): take care of merging 1 row table with other
+	one
+	(merge): fixed cells setting in output (t1) table
+
 2001-03-02  Radek Doulik  <rodo@ximian.com>
 
 	* htmltable.c (calc_size): test for already properly sized
