@@ -1,3 +1,8 @@
+2000-06-27  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlclue.c (destroy): don't read the next member from an object
+	after we have destroyed that object.
+
 2000-06-26  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine-edit-delete.c (html_engine_delete): Relayout the
