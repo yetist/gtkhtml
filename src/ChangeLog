@@ -1,6 +1,8 @@
 2001-08-21  Larry Ewing  <lewing@ximian.com>
 
-	* gtkhtml.c (gtk_html_set_paragraph_alignment): emit aligNment
+	* htmlclueflow.c (write_pre_tags): add some parens.
+
+	* gtkhtml.c (gtk_html_set_paragraph_alignment): emit alignment
 	changed signals for we we change the alignment.
 
 2001-08-21  Radek Doulik  <rodo@ximian.com>
