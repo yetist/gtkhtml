@@ -1,3 +1,9 @@
+2000-02-26  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* toolbar.c: Implemented buttons to indent paragraphs more or
+	less.  Actually make the center/left/right alignment buttons
+	behave as expected.  Added cut/copy/paste toolbar buttons.
+
 2000-02-24  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* toolbar.c (create_editor_toolbar): Add the paragraph style

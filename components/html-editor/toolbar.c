@@ -21,6 +21,8 @@
     Author: Ettore Perazzoli <ettore@helixcode.com>
 */
 
+/* FIXME: Should use BonoboUIHandler.  */
+
 #include <gnome.h>
 #include <bonobo.h>
 
@@ -122,10 +124,10 @@ setup_paragraph_style_option_menu (GtkHTML *html)
 }
 
 
-/* Toolbar button callbacks.  */
+/* Data for the toolbar button callbacks.  */
 /* (GnomeUIInfo sucks BTW.)  */
 
-struct _ToolbarFontStyleData {
+struct _ToolbarData {
 	guint font_style_changed_connection_id;
 
 	GtkWidget *html;
@@ -134,18 +136,60 @@ struct _ToolbarFontStyleData {
 	GtkWidget *italic_button;
 	GtkWidget *underline_button;
 	GtkWidget *strikeout_button;
-};
-typedef struct _ToolbarFontStyleData ToolbarFontStyleData;
 
+	GtkWidget *left_align_button;
+	GtkWidget *center_button;
+	GtkWidget *right_align_button;
+};
+typedef struct _ToolbarData ToolbarData;
+
+
+/* Clipboard group.  */
+
+static void
+editor_toolbar_cut_cb (GtkWidget *widget,
+		       gpointer data)
+{
+	ToolbarData *toolbar_data;
+
+	toolbar_data = (ToolbarData *) data;
+
+	gtk_html_cut (GTK_HTML (toolbar_data->html));
+}
+
+static void
+editor_toolbar_copy_cb (GtkWidget *widget,
+			gpointer data)
+{
+	ToolbarData *toolbar_data;
+
+	toolbar_data = (ToolbarData *) data;
+
+	gtk_html_copy (GTK_HTML (toolbar_data->html));
+}
+
+static void
+editor_toolbar_paste_cb (GtkWidget *widget,
+			 gpointer data)
+{
+	ToolbarData *toolbar_data;
+
+	toolbar_data = (ToolbarData *) data;
+
+	gtk_html_paste (GTK_HTML (toolbar_data->html));
+}
+
+
+/* Font style group.  */
 
 static void
 editor_toolbar_bold_cb (GtkWidget *widget,
 			gpointer data)
 {
-	ToolbarFontStyleData *toolbar_data;
+	ToolbarData *toolbar_data;
 	gboolean active;
 
-	toolbar_data = (ToolbarFontStyleData *) data;
+	toolbar_data = (ToolbarData *) data;
 	active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
 	if (active)
 		gtk_html_set_font_style (GTK_HTML (toolbar_data->html),
@@ -159,10 +203,10 @@ static void
 editor_toolbar_italic_cb (GtkWidget *widget,
 			  gpointer data)
 {
-	ToolbarFontStyleData *toolbar_data;
+	ToolbarData *toolbar_data;
 	gboolean active;
 
-	toolbar_data = (ToolbarFontStyleData *) data;
+	toolbar_data = (ToolbarData *) data;
 
 	active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
 	if (active)
@@ -177,10 +221,10 @@ static void
 editor_toolbar_underline_cb (GtkWidget *widget,
 			     gpointer data)
 {
-	ToolbarFontStyleData *toolbar_data;
+	ToolbarData *toolbar_data;
 	gboolean active;
 
-	toolbar_data = (ToolbarFontStyleData *) data;
+	toolbar_data = (ToolbarData *) data;
 
 	active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
 	if (active)
@@ -195,10 +239,10 @@ static void
 editor_toolbar_strikeout_cb (GtkWidget *widget,
 			     gpointer data)
 {
-	ToolbarFontStyleData *toolbar_data;
+	ToolbarData *toolbar_data;
 	gboolean active;
 
-	toolbar_data = (ToolbarFontStyleData *) data;
+	toolbar_data = (ToolbarData *) data;
 
 	active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
 	if (active)
@@ -214,9 +258,9 @@ insertion_font_style_changed_cb (GtkHTML *widget,
 				 GtkHTMLFontStyle font_style,
 				 gpointer data)
 {
-	ToolbarFontStyleData *toolbar_data;
+	ToolbarData *toolbar_data;
 
-	toolbar_data = (ToolbarFontStyleData *) data;
+	toolbar_data = (ToolbarData *) data;
 
 #define BLOCK_SIGNAL(w)									\
 	gtk_signal_handler_block_by_func (GTK_OBJECT (toolbar_data->w##_button),	\
@@ -262,50 +306,132 @@ insertion_font_style_changed_cb (GtkHTML *widget,
 }
 
 
+/* Alignment group.  */
+
 static void
-editor_toolbar_left_align_cb (gpointer data)
+editor_toolbar_left_align_cb (GtkWidget *widget,
+			      gpointer data)
 {
+	ToolbarData *toolbar_data;
+
+	toolbar_data = (ToolbarData *) data;
+	gtk_html_align_paragraph (GTK_HTML (toolbar_data->html),
+				  GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT);
 }
 
 static void
-editor_toolbar_center_cb (gpointer data)
+editor_toolbar_center_cb (GtkWidget *widget,
+			  gpointer data)
 {
+	ToolbarData *toolbar_data;
+
+	toolbar_data = (ToolbarData *) data;
+	gtk_html_align_paragraph (GTK_HTML (toolbar_data->html),
+				  GTK_HTML_PARAGRAPH_ALIGNMENT_CENTER);
 }
 
 static void
-editor_toolbar_right_align_cb (gpointer data)
+editor_toolbar_right_align_cb (GtkWidget *widget,
+			       gpointer data)
 {
+	ToolbarData *toolbar_data;
+
+	toolbar_data = (ToolbarData *) data;
+	gtk_html_align_paragraph (GTK_HTML (toolbar_data->html),
+				  GTK_HTML_PARAGRAPH_ALIGNMENT_RIGHT);
+}
+
+static void
+paragraph_alignment_changed_cb (GtkHTML *widget,
+				GtkHTMLParagraphAlignment alignment,
+				gpointer data)
+{
+	ToolbarData *toolbar_data;
+
+	toolbar_data = (ToolbarData *) data;
+
+	switch (alignment) {
+	case GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT:
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toolbar_data->left_align_button), TRUE);
+		break;
+	case GTK_HTML_PARAGRAPH_ALIGNMENT_CENTER:
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toolbar_data->center_button), TRUE);
+		break;
+	case GTK_HTML_PARAGRAPH_ALIGNMENT_RIGHT:
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toolbar_data->right_align_button), TRUE);
+		break;
+	default:
+		g_warning ("Unknown GtkHTMLParagraphAlignment %d.", alignment);
+	}
+}
+
+
+/* Indentation group.  */
+
+static void
+editor_toolbar_indent_cb (GtkWidget *widget,
+			  gpointer data)
+{
+	ToolbarData *toolbar_data;
+
+	toolbar_data = (ToolbarData *) data;
+	gtk_html_indent (GTK_HTML (toolbar_data->html), +1);
+}
+
+static void
+editor_toolbar_unindent_cb (GtkWidget *widget,
+			    gpointer data)
+{
+	ToolbarData *toolbar_data;
+
+	toolbar_data = (ToolbarData *) data;
+	gtk_html_indent (GTK_HTML (toolbar_data->html), -1);
 }
 
 
 /* Editor toolbar.  */
 
 static GnomeUIInfo editor_toolbar_alignment_group[] = {
-	GNOMEUIINFO_ITEM_STOCK (N_("Left align"), N_("Left justifies the cell contents"),
+	GNOMEUIINFO_ITEM_STOCK (N_("Left align"), N_("Left justify paragraphs"),
 				editor_toolbar_left_align_cb, GNOME_STOCK_PIXMAP_ALIGN_LEFT),
-	GNOMEUIINFO_ITEM_STOCK (N_("Center"), N_("Centers the cell contents"),
+	GNOMEUIINFO_ITEM_STOCK (N_("Center"), N_("Centers paragraphs"),
 				editor_toolbar_center_cb, GNOME_STOCK_PIXMAP_ALIGN_CENTER),
-	GNOMEUIINFO_ITEM_STOCK (N_("Right align"), N_("Right justifies the cell contents"),
+	GNOMEUIINFO_ITEM_STOCK (N_("Right align"), N_("Right justify paragraphs"),
 				editor_toolbar_right_align_cb, GNOME_STOCK_PIXMAP_ALIGN_RIGHT),
 	GNOMEUIINFO_END
 };
 
 static GnomeUIInfo editor_toolbar_uiinfo[] = {
+	GNOMEUIINFO_SEPARATOR,
+
+	GNOMEUIINFO_ITEM_STOCK (N_("Cut"), N_("Cut the selected region to the clipboard"),
+				editor_toolbar_cut_cb, GNOME_STOCK_PIXMAP_CUT),
+	GNOMEUIINFO_ITEM_STOCK (N_("Copy"), N_("Copy the selected region to the clipboard"),
+				editor_toolbar_copy_cb, GNOME_STOCK_PIXMAP_COPY),
+	GNOMEUIINFO_ITEM_STOCK (N_("Paste"), N_("Paste contents of the clipboard"),
+				editor_toolbar_paste_cb, GNOME_STOCK_PIXMAP_PASTE),
+
+	GNOMEUIINFO_SEPARATOR,
+
 	{ GNOME_APP_UI_TOGGLEITEM, N_("Bold"), N_("Sets the bold font"),
 	  editor_toolbar_bold_cb, NULL, NULL, GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_PIXMAP_TEXT_BOLD },
-
 	{ GNOME_APP_UI_TOGGLEITEM, N_("Italic"), N_("Make the selection italic"),
 	  editor_toolbar_italic_cb, NULL, NULL, GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_PIXMAP_TEXT_ITALIC },
-
 	{ GNOME_APP_UI_TOGGLEITEM, N_("Underline"), N_("Make the selection underlined"),
 	  editor_toolbar_underline_cb, NULL, NULL, GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_PIXMAP_TEXT_UNDERLINE },
-
 	{ GNOME_APP_UI_TOGGLEITEM, N_("Strikeout"), N_("Make the selection striked out"),
 	  editor_toolbar_strikeout_cb, NULL, NULL, GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_PIXMAP_TEXT_STRIKEOUT },
 
 	GNOMEUIINFO_SEPARATOR,
 
 	GNOMEUIINFO_RADIOLIST (editor_toolbar_alignment_group),
+
+	GNOMEUIINFO_SEPARATOR,
+
+	GNOMEUIINFO_ITEM_STOCK (N_("Unindent"), N_("Indent paragraphs less"),
+				editor_toolbar_unindent_cb, GNOME_STOCK_PIXMAP_TEXT_UNINDENT),
+	GNOMEUIINFO_ITEM_STOCK (N_("Indent"), N_("Indent paragraphs more"),
+				editor_toolbar_indent_cb, GNOME_STOCK_PIXMAP_TEXT_INDENT),
 
 	GNOMEUIINFO_END
 };
@@ -314,9 +440,9 @@ static void
 toolbar_destroy_cb (GtkObject *object,
 		    gpointer data)
 {
-	ToolbarFontStyleData *toolbar_data;
+	ToolbarData *toolbar_data;
 
-	toolbar_data = (ToolbarFontStyleData *) data;
+	toolbar_data = (ToolbarData *) data;
 
 	gtk_signal_disconnect (GTK_OBJECT (toolbar_data->html),
 			       toolbar_data->font_style_changed_connection_id);
@@ -327,7 +453,7 @@ toolbar_destroy_cb (GtkObject *object,
 static Bonobo_Control
 create_editor_toolbar (GtkHTML *html)
 {
-	ToolbarFontStyleData *data;
+	ToolbarData *data;
 	BonoboControl *toolbar_control;
 	GtkWidget *toolbar;
 
@@ -338,7 +464,7 @@ create_editor_toolbar (GtkHTML *html)
 				    setup_paragraph_style_option_menu (html),
 				    NULL, NULL);
 
-	data = g_new (ToolbarFontStyleData, 1);
+	data = g_new (ToolbarData, 1);
 
 	gnome_app_fill_toolbar_with_data (GTK_TOOLBAR (toolbar), editor_toolbar_uiinfo, NULL, data);
 
@@ -347,16 +473,24 @@ create_editor_toolbar (GtkHTML *html)
 				      GTK_SIGNAL_FUNC (insertion_font_style_changed_cb),
 				      data);
 
-	/* This SUCKS!  */
+	/* The following SUCKS!  */
+
 	data->html = GTK_WIDGET (html);
-	data->bold_button = editor_toolbar_uiinfo[0].widget;
-	data->italic_button = editor_toolbar_uiinfo[1].widget;
-	data->underline_button = editor_toolbar_uiinfo[2].widget;
-	data->strikeout_button = editor_toolbar_uiinfo[3].widget;
-	/* FIXME TODO: Button for "fixed" style.  */
+	data->bold_button = editor_toolbar_uiinfo[5].widget;
+	data->italic_button = editor_toolbar_uiinfo[6].widget;
+	data->underline_button = editor_toolbar_uiinfo[7].widget;
+	data->strikeout_button = editor_toolbar_uiinfo[8].widget;
+	/* (FIXME TODO: Button for "fixed" style.)  */
+
+	data->left_align_button = editor_toolbar_alignment_group[0].widget;
+	data->center_button = editor_toolbar_alignment_group[1].widget;
+	data->right_align_button = editor_toolbar_alignment_group[2].widget;
 
 	gtk_signal_connect (GTK_OBJECT (toolbar), "destroy",
 			    GTK_SIGNAL_FUNC (toolbar_destroy_cb), data);
+
+	gtk_signal_connect (GTK_OBJECT (html), "current_paragraph_alignment_changed",
+			    GTK_SIGNAL_FUNC (paragraph_alignment_changed_cb), data);
 
 	toolbar_control = bonobo_control_new (toolbar);
 	return (Bonobo_Control) bonobo_object_corba_objref (BONOBO_OBJECT (toolbar_control));
