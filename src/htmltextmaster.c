@@ -26,6 +26,7 @@
 #include "htmlclueflow.h"
 #include "htmltextmaster.h"
 #include "htmltextslave.h"
+#include "htmlentity.h"
 #include <string.h>
 
 
@@ -778,7 +779,7 @@ html_text_master_magic_link (HTMLTextMaster *master, HTMLEngine *engine,
 			     guint offset)
 {
 	HTMLText *text = HTML_TEXT (master);
-	gchar *p1;
+	gchar *p1, *p2;
 	gchar *name = NULL, *href = NULL;
 
 	/* printf ("magic link '%s' off: %d\n", text->text, offset); */
@@ -789,6 +790,11 @@ html_text_master_magic_link (HTMLTextMaster *master, HTMLEngine *engine,
 		/* mailto hrefs - in format " [^ @]+@[^ ]+ " */
 		name = strrchr (text->text, ' ');
 		if (!name) name = text->text; else name++;
+		/* process &nbsp; as space */
+		p2   = strrchr (text->text, ENTITY_NBSP);
+		if (p2 && p2 > name)
+			name = p2+1;
+		/* check that begin is of address is before @ */
 		if (name < p1)
 			href = g_strconcat ("mailto:", name, NULL);
 		else
@@ -798,12 +804,18 @@ html_text_master_magic_link (HTMLTextMaster *master, HTMLEngine *engine,
 		if ((name = strstr (text->text, "http://"))
 		    || (name = strstr (text->text, "ftp://"))
 		    || (name = strstr (text->text, "www."))
+		    || (name = strstr (text->text, "ftp."))
 		    ) {
 			p1 = strrchr (text->text, ' ');
+			/* process &nbsp; as space */
+			p2 = strrchr (text->text, ENTITY_NBSP);
+			if (p2 && p1 && p1 < p2)
+				p1 = p2;
+			/* check that address is on the end */
 			if (p1 && p1 > name)
 				name = NULL;
 			else
-				href = (name [0] == 'w') ? g_strconcat ((name [0] == 'h')
+				href = (name [3] == '.') ? g_strconcat ((name [0] == 'w')
 									? "http://" : "ftp://", name, NULL)
 					: g_strdup (name);
 		}

@@ -1,3 +1,8 @@
+2000-06-04  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltextmaster.c (html_text_master_magic_link): process &nbsp;
+	as space
+
 2000-06-04  Ariel Rios  <ariel@arcavia.com>
 
 	* htmlengine-edit-table.h: (html_engine_create_table) Added proto.
