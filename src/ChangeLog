@@ -1,5 +1,9 @@
 2000-04-07  Larry Ewing  <lewing@helixcode.com>
 
+	* htmltablecell.c (draw_background_helper): account for pixel_size
+	when drawing background color and pixmaps.
+	(draw): account for pixel_size when checking bounds.
+
 	* htmlengine.c (parse_h): set the default size of rules to 2 pixels.
 	(html_engine_update_event): Jump to the anchor after adjusting the
 	document bounds and Keep jumping to the position of the

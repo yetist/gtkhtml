@@ -43,16 +43,19 @@ draw_background_helper (HTMLTableCell *cell,
 {
 	HTMLObject *o;
 	gint top, bottom;
+	gint padding;
+	
+	padding = cell->padding * html_painter_get_pixel_size (p);
 
 	o = HTML_OBJECT (cell);
 
 	if (cell->have_bg) {
  		top = y - (o->y - o->ascent);
 		bottom = top + height;
-		if (top < -cell->padding)
-			top = -cell->padding;
-		if (bottom > o->ascent + cell->padding)
-			bottom = o->ascent + cell->padding;
+		if (top < -padding)
+			top = -padding;
+		if (bottom > o->ascent + padding)
+			bottom = o->ascent + padding;
 
 		if (! cell->bg_allocated) {
 			html_painter_alloc_color (p, &cell->bg);
@@ -60,11 +63,11 @@ draw_background_helper (HTMLTableCell *cell,
 		}
 
 		html_painter_set_pen (p, &cell->bg);
-		html_painter_fill_rect (p, tx + o->x - cell->padding,
+		html_painter_fill_rect (p, tx + o->x - padding,
 					ty + o->y - o->ascent + top,
-					o->width + cell->padding * 2,
+					o->width + padding * 2,
 					bottom - top);
-
+		
 	}
 
 	if (cell->have_bgPixmap) {
@@ -77,12 +80,12 @@ draw_background_helper (HTMLTableCell *cell,
 			pw = gdk_pixbuf_get_width (cell->bgPixmap->pixbuf);
 			ph = gdk_pixbuf_get_height (cell->bgPixmap->pixbuf);
 
-			oheight = o->ascent + 2 * cell->padding;
-			base_y = o->y - o->ascent - cell->padding + ty;
+			oheight = o->ascent + 2 * padding;
+			base_y = o->y - o->ascent - padding + ty;
 
 			while (oheight > 0) {
-				owidth = o->width + 2 * cell->padding;
-				base_x = o->x + tx - cell->padding;
+				owidth = o->width + 2 * padding;
+				base_x = o->x + tx - padding;
 				while(owidth > 0) {
 					
 					clip_width = owidth > pw ? pw :owidth;
@@ -181,8 +184,10 @@ draw (HTMLObject *o,
       gint tx, gint ty)
 {
 	HTMLTableCell *cell = HTML_TABLE_CELL (o);
+	gint padding = cell->padding * html_painter_get_pixel_size (p);
 
-	if (y + height < o->y - o->ascent - cell->padding || y > o->y + o->descent + cell->padding)
+
+	if (y + height < o->y - o->ascent - padding || y > o->y + o->descent + padding)
 		return;
 
 	draw_background_helper (cell, p, x, y, width, height, tx, ty);
