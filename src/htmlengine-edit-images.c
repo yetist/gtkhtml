@@ -36,7 +36,7 @@ html_engine_insert_image (HTMLEngine *e,
 			  gint16 height,
 			  gint8 percent,
 			  gint8 border,
-			  const GdkColor *border_color,
+			  HTMLColor *border_color,
 			  HTMLHAlignType halign,
 			  HTMLVAlignType valign,
 			  gint8 hspace,
@@ -54,7 +54,7 @@ html_engine_insert_image (HTMLEngine *e,
 				width, height,
 				percent,
 				border,
-				html_color_new_from_gdk_color (border_color),
+				border_color,
 				valign);
 
 	html_image_set_spacing (HTML_IMAGE (image), hspace, vspace);

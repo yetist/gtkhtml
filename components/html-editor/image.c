@@ -119,7 +119,8 @@ insert (GtkWidget *w, GtkHTMLImageDialog *d)
 		html_engine_insert_image (d->html->engine,
 					  file,
 					  NULL, NULL,
-					  width, height, percent, border, NULL,
+					  width, height, percent, border,
+					  html_colorset_get_color (d->html->engine->settings->color_set, HTMLLinkColor),
 					  halign, valign,
 					  hspace, vspace);
 
