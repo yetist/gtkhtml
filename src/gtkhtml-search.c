@@ -86,7 +86,7 @@ gtk_html_search_dialog_new (GtkHTML *html, gboolean regular)
 	return dialog;
 }
 
-void
+static void
 gtk_html_search_dialog_destroy (GtkHTMLSearchDialog *d)
 {
 	g_free (d);

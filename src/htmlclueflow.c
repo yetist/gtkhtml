@@ -1156,8 +1156,11 @@ search_set_info (HTMLObject *cur, HTMLSearch *info, guint pos, guint len)
 				info->found = g_list_append (info->found, cur);
 			}
 			text_len += cur_len;
-			if (text_len >= pos+info->found_len)
+			if (text_len >= pos+info->found_len) {
+				info->stop_pos = cur_len - (text_len - pos - info->found_len);
+				info->last     = HTML_OBJECT (cur);
 				return;
+			}
 		} else if (HTML_OBJECT_TYPE (cur) != HTML_TYPE_TEXTSLAVE) {
 			break;
 		}		

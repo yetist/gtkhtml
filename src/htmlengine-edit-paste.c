@@ -678,6 +678,7 @@ html_engine_paste_buffer (HTMLEngine *engine,
 void
 html_engine_paste (HTMLEngine *engine)
 {
+	GList *cut_buffer;
 	guint count;
 
 	g_return_if_fail (engine != NULL);
@@ -686,6 +687,17 @@ html_engine_paste (HTMLEngine *engine)
 
 	if (engine->cut_buffer == NULL)
 		return;
+
+	/* cut current selection */
+	if (engine->active_selection) {
+		/* keep cut_buffer */
+		cut_buffer = engine->cut_buffer;
+		engine->cut_buffer = NULL;
+		/* cut current selection */
+		html_engine_cut (engine);
+		/* restore cut_buffer */
+		engine->cut_buffer = cut_buffer;
+	}
 
 	html_undo_discard_redo (engine->undo);
 

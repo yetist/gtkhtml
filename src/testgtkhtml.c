@@ -73,6 +73,7 @@ static void home_cb (GtkWidget *widget, gpointer data);
 static void search_cb (GtkWidget *widget, gpointer data);
 static void search_regex_cb (GtkWidget *widget, gpointer data);
 static void search_next_cb (GtkWidget *widget, gpointer data);
+static void replace_cb (GtkWidget *widget, gpointer data);
 static void reload_cb (GtkWidget *widget, gpointer data);
 static void redraw_cb (GtkWidget *widget, gpointer data);
 static void resize_cb (GtkWidget *widget, gpointer data);
@@ -114,6 +115,13 @@ static GnomeUIInfo file_menu [] = {
 	  print_preview_cb },
 	GNOMEUIINFO_SEPARATOR,
 	GNOMEUIINFO_MENU_EXIT_ITEM (exit_cb, NULL),
+	GNOMEUIINFO_END
+};
+
+static GnomeUIInfo edit_menu[] = {
+	GNOMEUIINFO_MENU_FIND_ITEM (search_cb, NULL),
+	GNOMEUIINFO_MENU_FIND_AGAIN_ITEM (search_next_cb, NULL),
+	GNOMEUIINFO_MENU_REPLACE_ITEM (replace_cb, NULL),
 	GNOMEUIINFO_END
 };
 
@@ -169,6 +177,7 @@ static GnomeUIInfo go_menu[] = {
 
 static GnomeUIInfo main_menu[] = {
 	GNOMEUIINFO_MENU_FILE_TREE (file_menu),
+	GNOMEUIINFO_MENU_EDIT_TREE (edit_menu),
 	GNOMEUIINFO_SUBTREE (("_Tests"), test_menu),
 	GNOMEUIINFO_SUBTREE (("_Debug"), debug_menu),
 	GNOMEUIINFO_SUBTREE (("_Go"), go_menu),
@@ -477,6 +486,11 @@ search_next_cb (GtkWidget *widget, gpointer data)
 	gtk_html_search_next (html);
 }
 
+static void
+replace_cb (GtkWidget *widget, gpointer data)
+{
+	gtk_html_replace (html);
+}
 static void
 load_done (GtkHTML *html)
 {
@@ -1071,7 +1085,7 @@ main (gint argc, gchar *argv[])
 	html_widget = gtk_html_new ();
 	html = GTK_HTML (html_widget);
 	gtk_html_load_empty (html);
-	// gtk_html_set_editable (GTK_HTML (html_widget), TRUE);
+	gtk_html_set_editable (GTK_HTML (html_widget), TRUE);
 	
 	gtk_container_add (GTK_CONTAINER (scrolled_window), html_widget);
 

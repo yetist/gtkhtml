@@ -29,7 +29,6 @@
 
 typedef struct _HTMLEngine HTMLEngine;
 typedef struct _HTMLEngineClass HTMLEngineClass;
-
 #include "gtkhtml.h"
 
 #include "htmltokenizer.h"
@@ -43,6 +42,7 @@ typedef struct _HTMLEngineClass HTMLEngineClass;
 #include "htmlundo.h"
 #include "htmlstringtokenizer.h"
 #include "htmlengine-edit-selection-updater.h"
+#include "htmlreplace.h"
 
 #include "gtkhtml-embedded.h"
 
@@ -246,8 +246,9 @@ struct _HTMLEngine {
            idle loop.  */
 	HTMLEngineEditSelectionUpdater *selection_updater;
 
-	/* search info */
-	HTMLSearch *search_info;
+	/* search & replace */
+	HTMLSearch  *search_info;
+	HTMLReplace *replace_info;
 };
 
 /* must be forward referenced *sigh* */
@@ -376,7 +377,14 @@ gboolean  html_engine_search                    (HTMLEngine *e,
 gboolean  html_engine_search_next               (HTMLEngine *e);
 gboolean  html_engine_search_incremental        (HTMLEngine *e);
 
-void      html_engine_replace                   (HTMLEngine *e, const gchar *rep_text);
-guint     html_engine_replace_all               (HTMLEngine *e, const gchar *rep_text);
+void      html_engine_replace                   (HTMLEngine *e,
+						 const gchar *text,
+						 const gchar *rep_text,
+						 gboolean case_sensitive,
+						 gboolean forward,
+						 gboolean regular,
+						 void (*ask)(HTMLEngine *));
+void      html_engine_replace_do                (HTMLEngine *e, HTMLReplaceQueryAnswer answer);
+gint      html_engine_replaced                  ();
 
 #endif /* _HTMLENGINE_H_ */

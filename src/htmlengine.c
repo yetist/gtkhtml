@@ -43,6 +43,7 @@
 #include "htmlengine-edit-cursor.h"
 #include "htmlengine-edit-movement.h"
 #include "htmlengine-cutbuffer.h"
+#include "htmlengine-edit-paste.h"
 
 #include "htmlanchor.h"
 #include "htmlrule.h"
@@ -58,6 +59,7 @@
 #include "htmltable.h"
 #include "htmltablecell.h"
 #include "htmltextmaster.h"
+#include "htmltextslave.h"
 #include "htmltext.h"
 #include "htmlclueflow.h"
 #include "htmlstack.h"
@@ -3969,6 +3971,66 @@ html_engine_load_empty (HTMLEngine *engine)
 }
 
 static void
+move_to_found (HTMLEngine *e, HTMLSearch *info)
+{
+	HTMLObject *first = HTML_OBJECT (info->found->data);
+	HTMLObject *last = HTML_OBJECT (g_list_last (info->found)->data);
+	HTMLTextSlave *slave;
+	gint x, y, ex, ey, w, h;
+	gint nx = e->x_offset;
+	gint ny = e->y_offset;
+
+	/* x,y is top-left corner, ex+w,ey+h is bottom-right */
+	html_object_calc_abs_position (HTML_OBJECT (info->found->data), &x, &y);
+
+	/* find slave where starts selection and get its coordinates as upper-left corner */
+	while (first->next && HTML_OBJECT_TYPE (first->next) == HTML_TYPE_TEXTSLAVE) {
+		first = first->next;
+		slave = HTML_TEXT_SLAVE (first);
+		if (slave->posStart+slave->posLen >= info->start_pos) {
+			html_object_calc_abs_position (HTML_OBJECT (slave), &x, &y);
+			break;
+		}
+	}
+
+	/* the same with last */
+	html_object_calc_abs_position (last, &ex, &ey);
+
+	while (last->next && HTML_OBJECT_TYPE (last->next) == HTML_TYPE_TEXTSLAVE) {
+		last = last->next;
+		slave = HTML_TEXT_SLAVE (last);
+		if (slave->posStart+slave->posLen >= info->start_pos) {
+			html_object_calc_abs_position (HTML_OBJECT (slave), &ex, &ey);
+			break;
+		}
+	}
+
+
+	w = ex - x + last->width;
+	h = ey - y + last->ascent+last->descent;
+
+	printf ("html_engine_display_area %d %d %d %d\n", x, y, w, h);
+
+	/* now calculate gtkhtml adustments */
+	if (x <= e->x_offset)
+		nx = x;
+	else if (x + w > e->x_offset + e->width)
+		nx = x + w - e->width;
+
+	if (y <= e->y_offset)
+		ny = y;
+	else if (y + h > e->y_offset + e->height)
+		ny = y + h - e->height;
+
+	/* finally adjust them if they changed */
+	if (e->x_offset != nx)
+		gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->hadjustment, nx);
+
+	if (e->y_offset != ny)
+		gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->vadjustment, ny);
+}
+
+static void
 display_search_results (HTMLEngine *e, HTMLSearch *info)
 {
 	GList *cur = info->found;
@@ -3990,12 +4052,8 @@ display_search_results (HTMLEngine *e, HTMLSearch *info)
 		pos  = 0;
 		cur  = cur->next;
 	}
-	/* html_engine_edit_selection_updater_reset    (e->selection_updater);
-	   html_engine_edit_selection_updater_schedule (e->selection_updater); */
-
-	if (info->found) {
-		html_engine_jump_to_object (e, HTML_OBJECT (info->found->data), 0);
-	}
+	if (info->found)
+		move_to_found (e, info);
 }
 
 gboolean
@@ -4026,7 +4084,7 @@ gboolean
 html_engine_search_next (HTMLEngine *e)
 {
 	HTMLSearch *info = e->search_info;
-	gboolean retval;
+	gboolean retval = FALSE;
 
 	if (!info) {
 		return FALSE;
@@ -4047,7 +4105,7 @@ html_engine_search_next (HTMLEngine *e)
 		html_engine_unselect_all (e, TRUE);
 	}
 
-	return FALSE;
+	return retval;
 }
 
 gboolean
@@ -4057,14 +4115,65 @@ html_engine_search_incremental (HTMLEngine *e)
 }
 
 void
-html_engine_replace
-(HTMLEngine *e, const gchar *rep_text)
+html_engine_replace (HTMLEngine *e, const gchar *text, const gchar *rep_text,
+		     gboolean case_sensitive, gboolean forward, gboolean regular,
+		     void (*ask)(HTMLEngine *))
 {
+	printf ("html_engine_replace\n");
+
+	if (e->replace_info)
+		html_replace_destroy (e->replace_info);
+	e->replace_info = html_replace_new (rep_text, ask);
+
+	if (html_engine_search (e, text, case_sensitive, forward, regular))
+		ask (e);
 }
 
-guint
-html_engine_replace_all
-(HTMLEngine *e, const gchar *rep_text)
+static void
+replace (HTMLEngine *e)
 {
-	return 0;
+	HTMLObject *first = HTML_OBJECT (e->search_info->found->data);
+	HTMLObject *new_text;
+
+	html_cursor_jump_to (e->cursor, e, first, e->search_info->start_pos);
+	html_engine_set_mark (e);
+	html_cursor_jump_to (e->cursor, e, e->search_info->last, e->search_info->stop_pos);
+
+	new_text = html_text_master_new (e->replace_info->text,
+					 HTML_TEXT (first)->font_style,
+					 &HTML_TEXT (first)->color);
+	e->cut_buffer = g_list_append (NULL, new_text);
+	html_engine_paste (e);
+
+	/* update search info to point just behind replaced text */
+	g_list_free (e->search_info->found);
+	e->search_info->found = g_list_append (NULL, e->cursor->object);
+	e->search_info->start_pos = e->search_info->stop_pos = e->cursor->offset-1;
+	e->search_info->found_len = 0;
+	html_search_pop  (e->search_info);
+	html_search_push (e->search_info, e->cursor->object->parent);
+}
+
+void
+html_engine_replace_do (HTMLEngine *e, HTMLReplaceQueryAnswer answer)
+{
+	g_assert (e->replace_info);
+
+	switch (answer) {
+	case RQA_ReplaceAll:
+		replace (e);
+		while (html_engine_search_next (e))
+			replace (e);
+	case RQA_Cancel:
+		html_replace_destroy (e->replace_info);
+		e->replace_info = NULL;
+		break;
+
+	case RQA_Replace:
+		replace (e);
+	case RQA_Next:
+		if (html_engine_search_next (e))
+			e->replace_info->ask (e);
+		break;
+	}
 }

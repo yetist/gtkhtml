@@ -38,7 +38,7 @@ struct _HTMLEmbedded {
 	gchar *value;
 	HTMLForm *form;
 	GtkWidget *widget, *parent;
-	gint width, height;
+	gint16 width, height;
 	gboolean allocated;
 
 	gint abs_x, abs_y;

@@ -1353,7 +1353,7 @@ search (HTMLObject *obj, HTMLSearch *info)
 					continue;
 
 				if (next && cur) {
-					if (cell == cur) {
+					if (HTML_OBJECT (cell) == cur) {
 						cur = NULL;
 					}
 					continue;
@@ -1380,17 +1380,21 @@ search (HTMLObject *obj, HTMLSearch *info)
 				if (r < table->totalRows - 1 &&
 				    cell == table->cells[r + 1][c])
 					continue;
-			
 
-				if (next && cell == cur) {
-					cur = NULL;
-				} else if (!next || (next && !cur)) {
-					html_search_push (info, HTML_OBJECT (cell));
-					if (html_object_search (HTML_OBJECT (cell), info)) {
-						return TRUE;
+				if (next && cur) {
+					if (HTML_OBJECT (cell) == cur) {
+						cur = NULL;
 					}
-					html_search_pop (info);
+					continue;
 				}
+
+				printf ("search backward table cell %d,%d %p\n", r, c, cell);
+
+				html_search_push (info, HTML_OBJECT (cell));
+				if (html_object_search (HTML_OBJECT (cell), info)) {
+					return TRUE;
+				}
+				html_search_pop (info);
 			}
 		}
 	}

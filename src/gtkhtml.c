@@ -35,9 +35,11 @@
 
 #include "gtkhtml-embedded.h"
 #include "gtkhtml-keybinding.h"
-#include "gtkhtml-search.h"
 #include "gtkhtml-stream.h"
 #include "gtkhtml-private.h"
+
+#include "gtkhtml-search.h"
+#include "gtkhtml-replace.h"
 
 
 static GtkLayoutClass *parent_class = NULL;
@@ -1211,7 +1213,9 @@ gtk_html_construct (GtkWidget *htmlw)
 	gtk_signal_connect (GTK_OBJECT (html->engine), "object_requested",
 			    GTK_SIGNAL_FUNC (html_engine_object_requested_cb), html);
 
-	html->search_dialog = NULL;
+	html->search_dialog       = NULL;
+	html->replace_dialog      = NULL;
+	html->replace_ask_dialog  = NULL;
 }
 
 
@@ -1507,6 +1511,7 @@ static void
 search (GtkHTML *html, gboolean regular)
 {
 	if (html->search_dialog) {
+		printf ("search only shows dialog\n");
 		html->search_dialog->regular = regular;
 		gtk_widget_show (GTK_WIDGET (html->search_dialog->dialog));
 		gdk_window_raise (GTK_WIDGET (html->search_dialog->dialog)->window);
@@ -1536,5 +1541,18 @@ gtk_html_search_next (GtkHTML *html)
 		html_engine_search_next (html->engine);
 	} else {
 		gtk_html_search (html);
+	}
+}
+
+void
+gtk_html_replace (GtkHTML *html)
+{
+	if (html->replace_dialog) {
+		gtk_widget_show (GTK_WIDGET (html->replace_dialog->dialog));
+		gdk_window_raise (GTK_WIDGET (html->replace_dialog->dialog)->window);
+		gtk_widget_grab_focus (html->replace_dialog->entry_search);
+	} else {
+		html->replace_dialog = gtk_html_replace_dialog_new (html);
+		gtk_html_replace_dialog_run (html->replace_dialog);
 	}
 }

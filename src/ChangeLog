@@ -1,3 +1,61 @@
+2000-04-20  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml-replace.c (gtk_html_replace_dialog_new): replace dialog ctor
+	(ask_dialog_new): ask dialog ctor
+	(replace_do): calls html_engine_replace_do, it is used from button
+	callbacks
+
+	* gtkhtml-replace.h: replace and replace ask dialogs iface
+
+	* htmlreplace.c (html_replace_new): new ctor
+	(html_replace_destroy): new dtor
+
+	* htmlreplace.h: replace info struct iface
+
+	* testgtkhtml.c: new menu "Edit" for search/replace testing
+	(main): make widget editable, so we could test some of editing
+	stuff here instead of fiddling with components all the time
+	(load_done): new replace callback
+
+	* htmltable.c (search): hopefully fixed backward search
+
+	* htmlengine.c (move_to_found): new function, implements jump to
+	resulty of search. It nows focuses to whole text slaves, so maybe
+	I could enhance it by Slave offset precission
+	(html_engine_search_next): fixed, now it returns right retval
+	instead of FALSE
+	(html_engine_replace): text replacing, does search and ask caller
+	then what to do
+	(html_engine_replace_do): this one is called from
+	html_engine_replace's caller with approriate answer, so it could
+	do Replace, ReplaceAll, Next(aka skip) and Cancel.
+	(replace): this one does the work, yes replaces text. it prepares
+	cut_buffer and then calls html_edit_paste. after paste it updates
+	search_info
+
+	* htmlengine-edit-paste.c (html_engine_paste): do this: if there
+	is selection, cut first this selection and then do paste. I mean
+	this is the right behaviour we want, comments? It needs check, if
+	it is oook with undo stuff
+
+	* htmlclueflow.c (search_set_info): updated to use stop_pos and tail
+
+	* htmlsearch.h: added fields stop_pos and last to remember tail of
+	founded selection
+
+	* gtkhtml.c (gtk_html_replace): new function, launches/shows
+	replace dialog
+
+	* gtkhtml.h: added fields for Replace and Replace Ask dialogs
+
+	* Makefile.am: added new files htmlreplace.[hc], gtkhtml-replace.[hc]
+
+	* htmlengine.c (display_search_results): now it correctly jumps to
+	founded text
+
+	* htmlembedded.c (calc_size): set width and height to minimize updates
+	(calc_min_width): likewise
+
 2000-04-19  Larry Ewing  <lewing@helixcode.com>
 
 	* htmltablecell.c (draw_background_helper): use the new super cool

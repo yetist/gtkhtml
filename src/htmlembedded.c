@@ -111,6 +111,7 @@ static gint
 calc_min_width (HTMLObject *self,
 		HTMLPainter *painter)
 {
+	HTMLEmbedded *emb = HTML_EMBEDDED (self);
 	GtkWidget *widget;
 	gint pixel_size;
 	gint min_width;
@@ -122,11 +123,18 @@ calc_min_width (HTMLObject *self,
 	pixel_size = html_painter_get_pixel_size (painter);
 
 	if (HTML_EMBEDDED (self)->allocated) {
+		/* set width and height to minimize updates */
+		emb->width  = widget->allocation.width;
+		emb->height = widget->allocation.height;
 		min_width = widget->allocation.width * pixel_size;
 	} else {
 		GtkRequisition req;
 
 		gtk_widget_size_request (widget, &req);
+
+		/* set width and height to minimize updates */
+		emb->width   = req.width;
+		emb->height  = req.height;
 		min_width = req.width * pixel_size;
 	}
 
@@ -138,10 +146,11 @@ calc_size (HTMLObject *self,
 	   HTMLPainter *painter)
 {
 	GtkWidget *widget;
+	HTMLEmbedded *emb = HTML_EMBEDDED (self);
 	gint pixel_size;
 	gint old_width, old_ascent;
 
-	widget = HTML_EMBEDDED (self)->widget;
+	widget = emb->widget;
 	if (widget == NULL)
 		return FALSE;
 
@@ -151,12 +160,18 @@ calc_size (HTMLObject *self,
 	old_ascent = self->ascent;
 
 	if (HTML_EMBEDDED (self)->allocated) {
-		self->width = widget->allocation.width * pixel_size;
+		/* set width and height to minimize updates */
+		emb->width   = widget->allocation.width;
+		emb->height  = widget->allocation.height;
+		self->width  = widget->allocation.width * pixel_size;
 		self->ascent = widget->allocation.height * pixel_size;
 	} else {
 		GtkRequisition req;
 
 		gtk_widget_size_request (widget, &req);
+		/* set width and height to minimize updates */
+		emb->width   = req.width;
+		emb->height  = req.height;
 		self->width  = req.width * pixel_size;
 		self->ascent = req.height * pixel_size;
 	}
@@ -350,15 +365,15 @@ html_embedded_new_widget(GtkWidget *parent, GtkHTMLEmbedded *eb)
 static void
 allocate (GtkWidget *w, GtkAllocation  *allocation, HTMLEmbedded *e)
 {
-	if (e->width != allocation->width) {
-		html_object_change_set (HTML_OBJECT (e), HTML_CHANGE_MIN_WIDTH);
-		e->width = allocation->width;
+	if (e->width != allocation->width || e->height != allocation->height) {
+		if (e->width != allocation->width) {
+			html_object_change_set (HTML_OBJECT (e), HTML_CHANGE_MIN_WIDTH);
+			e->width = allocation->width;
+		}
+		e->height = allocation->height;
 
 		g_assert (GTK_IS_HTML (w->parent));
 		html_engine_schedule_update (GTK_HTML (w->parent)->engine);
-	}
-	if (e->height != allocation->height) {
-		e->height = allocation->height;
 	}
 
 	e->allocated = TRUE;

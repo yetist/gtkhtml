@@ -20,39 +20,27 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef _HTML_SEARCH_H_
-#define _HTML_SEARCH_H_
+#ifndef _GTK_HTML_REPLACE_H_
+#define _GTK_HTML_REPLACE_H_
 
-#include <sys/types.h>
-#include <regex.h>
-#include "htmlobject.h"
+#include "gtkhtml.h"
+#include <gnome.h>
 
-struct _HTMLSearch {
-	gchar *trans;
-	gchar *text;
-	guint  text_len;
-	guint  found_len;
-
-	gboolean case_sensitive;
-	gboolean forward;
-
-	GSList      *stack;
-	GList       *found;
-	HTMLObject *last;
-
-	guint start_pos;
-	guint stop_pos;
-
-	regex_t *reb;        /* regex buffer */
+struct _GtkHTMLReplaceDialog {
+	GtkHTML     *html;
+	GnomeDialog *dialog;
+	GtkWidget   *entry_search;
+	GtkWidget   *entry_replace;
+	GtkWidget   *backward;
+	GtkWidget   *case_sensitive;
 };
 
-HTMLSearch      *html_search_new            (const gchar *text,
-					     gboolean case_sensitive,
-					     gboolean forward,
-					     gboolean regular);
-void             html_search_destroy        (HTMLSearch *search);
-void             html_search_push           (HTMLSearch *search, HTMLObject *obj);
-HTMLObject      *html_search_pop            (HTMLSearch *search);
-gboolean         html_search_child_on_stack (HTMLSearch *search, HTMLObject *obj);
-gboolean         html_search_next_parent    (HTMLSearch *search);
+struct _GtkHTMLReplaceAskDialog {
+	GnomeDialog *dialog;
+	HTMLEngine  *engine;
+};
+
+GtkHTMLReplaceDialog * gtk_html_replace_dialog_new (GtkHTML *html);
+void                   gtk_html_replace_dialog_run (GtkHTMLReplaceDialog *d);
+
 #endif

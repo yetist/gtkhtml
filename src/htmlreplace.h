@@ -20,39 +20,30 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef _HTML_SEARCH_H_
-#define _HTML_SEARCH_H_
+#ifndef _HTML_REPLACE_H_
+#define _HTML_REPLACE_H_
 
-#include <sys/types.h>
-#include <regex.h>
-#include "htmlobject.h"
+#include <glib.h>
 
-struct _HTMLSearch {
-	gchar *trans;
-	gchar *text;
-	guint  text_len;
-	guint  found_len;
+typedef enum   _HTMLReplaceQueryAnswer HTMLReplaceQueryAnswer;
+typedef struct _HTMLReplace HTMLReplace;
 
-	gboolean case_sensitive;
-	gboolean forward;
+#include "htmlengine.h"
 
-	GSList      *stack;
-	GList       *found;
-	HTMLObject *last;
-
-	guint start_pos;
-	guint stop_pos;
-
-	regex_t *reb;        /* regex buffer */
+enum _HTMLReplaceQueryAnswer {
+	RQA_Replace,
+	RQA_ReplaceAll,
+	RQA_Next,
+	RQA_Cancel,
 };
 
-HTMLSearch      *html_search_new            (const gchar *text,
-					     gboolean case_sensitive,
-					     gboolean forward,
-					     gboolean regular);
-void             html_search_destroy        (HTMLSearch *search);
-void             html_search_push           (HTMLSearch *search, HTMLObject *obj);
-HTMLObject      *html_search_pop            (HTMLSearch *search);
-gboolean         html_search_child_on_stack (HTMLSearch *search, HTMLObject *obj);
-gboolean         html_search_next_parent    (HTMLSearch *search);
+struct _HTMLReplace {
+	gchar *text;
+	gint   replaced;
+	void (*ask) (HTMLEngine *);
+};
+
+HTMLReplace     *html_replace_new            (const gchar *text, void (*ask) (HTMLEngine *));
+void             html_replace_destroy        (HTMLReplace *replace);
+
 #endif

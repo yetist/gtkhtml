@@ -21,6 +21,7 @@ libgtkhtml_HEADERS =				\
 	gtkhtml-private.h			\
 	gtkhtml-search.h			\
 	gtkhtml-stream.h			\
+	gtkhtml-replace.h			\
 	gtkhtml.h				\
 	gtkhtmldebug.h				\
 	gtkhtmlfontstyle.h			\
@@ -68,6 +69,7 @@ libgtkhtml_HEADERS =				\
 	htmlradio.h				\
 	htmlrule.h				\
 	htmlsearch.h				\
+	htmlreplace.h				\
 	htmlselect.h				\
 	htmlsettings.h				\
 	htmlstack.h				\
@@ -92,6 +94,7 @@ libgtkhtml_la_SOURCES =				\
 	gtkhtml-keybinding.c			\
 	gtkhtml-search.c			\
 	gtkhtml-stream.c			\
+	gtkhtml-replace.c			\
 	gtkhtml.c				\
 	gtkhtmldebug.c				\
 	gtkhtmlfontstyle.c			\
@@ -139,6 +142,7 @@ libgtkhtml_la_SOURCES =				\
 	htmlradio.c				\
 	htmlrule.c				\
 	htmlsearch.c				\
+	htmlreplace.c				\
 	htmlselect.c				\
 	htmlsettings.c				\
 	htmlstack.c				\
