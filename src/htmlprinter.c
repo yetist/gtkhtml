@@ -358,7 +358,7 @@ draw_panel (HTMLPainter *painter,
 
 	do_rectangle (printer->print_context,
 		      printer_x, printer_y, printer_width, printer_height,
-		      bordersize * PIXEL_SIZE);
+		      SCALE_ENGINE_TO_GNOME_PRINT (bordersize) * PIXEL_SIZE);
 }
 
 static void

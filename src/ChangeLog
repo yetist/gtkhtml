@@ -1,5 +1,8 @@
 2000-08-04  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlprinter.c (draw_panel): scale border size to printer
+	coordinates
+
 	* htmlengine-print.c (html_engine_print): use
 	html_object_change_set_down here to force complete calcsize
 
