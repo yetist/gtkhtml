@@ -1,3 +1,9 @@
+2005-02-03  Radek Doulik  <rodo@novell.com>
+
+	* htmltext.c: added ' to regexp for mail address recognition
+
+	Fixes #71250
+
 2005-02-02  Radek Doulik  <rodo@novell.com>
 
 	* test-suite.c (test_cursor_around_containers): added new test for
