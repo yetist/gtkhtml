@@ -801,7 +801,7 @@ motion_notify_event (GtkWidget *widget,
 			gtk_signal_emit (GTK_OBJECT (html), signals[ON_URL], NULL);
 		}
 
-		if (obj != NULL && html_object_is_text (obj))
+		if (obj != NULL && html_object_is_text (obj) && html->allow_selection)
 			gdk_window_set_cursor (widget->window, html->ibeam_cursor);
 		else
 			gdk_window_set_cursor (widget->window, html->arrow_cursor);

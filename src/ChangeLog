@@ -1,5 +1,8 @@
 2000-07-31  Radek Doulik  <rodo@helixcode.com>
 
+	* gtkhtml.c (motion_notify_event): set ibeam cursor only when
+	selection allowed
+
 	* htmlengine.c (parse_color): try to pad color string with 0 when
 	too short
 	(parse_table): do | on parse_color result so when color not
@@ -34,7 +37,6 @@
 	* src/htmltokenizer.c (html_tokenizer_write): Initialize the tokenizer
 	if it hasn't been already.
 	
->>>>>>> 1.593
 2000-07-27  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlclueflow.c (spell_check_word): fixed bad condition in
