@@ -1078,6 +1078,12 @@ html_engine_parse_i (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 			if (valign == VNone) {
 				html_clue_append (p->flow, image);
 			}
+			else {
+				HTMLObject *valigned = html_clueh_new (0, 0, clue->max_width);
+				HTML_CLUE (valigned)->valign = valign;
+				html_clue_append (valigned, HTML_OBJECT (image));
+				html_clue_append (HTML_OBJECT (p->flow), valigned);
+			}
 		}
 		/* We need to put the image in a HTMLClueAligned */
 		else {
