@@ -19,8 +19,9 @@
 			<cmd name="EditFind" _label="_Find..." _tip="Find"
 			pixtype="stock" pixname="Search"/>
 
-			<cmd name="EditFindRegex" _label="Find
-			Rege_x..." _tip="Find A Regular Expression"/>
+			<cmd name="EditFindRegex"
+			     _label="Find Rege_x..."
+			     _tip="Find A Regular Expression"/>
 	
 			<cmd name="EditFindAgain" _label="Find _Again"
 			_tip="Find again"

@@ -161,7 +161,7 @@ BonoboUIVerb verbs [] = {
 	BONOBO_UI_UNSAFE_VERB ("EditCopy", copy_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditPaste", paste_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditFind", search_cb),
-	BONOBO_UI_UNSAFE_VERB ("EditFindRegexp", search_regex_cb),
+	BONOBO_UI_UNSAFE_VERB ("EditFindRegex", search_regex_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditFindAgain", search_next_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditReplace", replace_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditProperties", properties_cb),
