@@ -20,6 +20,8 @@
 */
 
 #include <config.h>
+#include "gtkhtml-compat.h"
+
 #include <string.h>
 #include <stdlib.h>
 #include <gdk/gdkx.h>

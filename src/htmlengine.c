@@ -26,6 +26,10 @@
 /* RULE: You should never create a new flow without inserting anything in it.
    If `e->flow' is not NULL, it must contain something.  */
 
+
+#include <config.h>
+#include "gtkhtml-compat.h"
+
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -973,13 +977,13 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					}
 
 					if (strncmp( str, "</caption", 9) == 0 ) {
-						// HTML Ok!
-						break; // Get next token from 'ht'
+						/* HTML Ok! */
+						break; /* Get next token from 'ht' */
 					}
 					else {
-						// Bad HTML
-						// caption ended with </table> <td> <tr> or <th>
-						continue; // parse the returned tag
+						/* Bad HTML
+						   caption ended with </table> <td> <tr> or <th> */
+						continue; /* parse the returned tag */
 					}
 				}
 
@@ -1698,7 +1702,6 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 		pop_block (e, ID_ADDRESS, _clue);
 	} else if ( strncmp( str, "a ", 2 ) == 0 ) {
 		gchar *url = NULL;
-		gchar *target = NULL;
 		
 		const gchar *p;
 		

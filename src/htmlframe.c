@@ -226,7 +226,7 @@ set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
 	html_object_set_max_width (e->clue, e->painter, max_width - e->leftBorder - e->rightBorder);
 }
 
-static void
+/* static void
 reset (HTMLObject *o)
 {
 	HTMLFrame *frame;
@@ -234,7 +234,7 @@ reset (HTMLObject *o)
 	(* HTML_OBJECT_CLASS (parent_class)->reset) (o);
 	frame = HTML_FRAME (o);
 	html_object_reset (GTK_HTML (frame->html)->engine->clue);
-}
+} */
 
 static void
 draw_background (HTMLObject *self,
@@ -662,7 +662,7 @@ html_frame_class_init (HTMLFrameClass *klass,
 	object_class->calc_size               = calc_size;
 	object_class->calc_min_width          = calc_min_width;
 	object_class->set_painter             = set_painter;
-	//object_class->reset                   = reset;
+	/* object_class->reset                   = reset; */
 	object_class->draw                    = draw;
 	object_class->set_max_width           = set_max_width;
 	object_class->forall                  = forall;

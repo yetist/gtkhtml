@@ -21,6 +21,7 @@ libgtkhtmldir = $(includedir)/gtkhtml
 # FIXME not all the stuff should be installed!
 
 libgtkhtml_HEADERS =				\
+	gtkhtml-compat.h			\
 	gtkhtml-embedded.h			\
 	gtkhtml-enums.h				\
 	gtkhtml-im.h				\

@@ -224,16 +224,11 @@ class_init (GtkObjectClass *object_class)
 
 	painter_class = HTML_PAINTER_CLASS (object_class);
 
-	//object_class->finalize = finalize;
-
 	painter_class->alloc_font = alloc_fixed_font;
-	//painter_class->calc_text_width = calc_text_width;
-	//painter_class->draw_line = draw_line;
 	painter_class->draw_rect = draw_rect;
 	painter_class->draw_text = draw_text;
 	painter_class->fill_rect = fill_rect;
 	painter_class->draw_pixmap = draw_pixmap;
-	//	painter_class->draw_ellipse = draw_ellipse;
 	painter_class->draw_shade_line = draw_shade_line;
 	painter_class->draw_panel = draw_panel;
 	painter_class->draw_background = draw_background;

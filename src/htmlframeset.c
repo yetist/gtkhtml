@@ -252,12 +252,14 @@ draw (HTMLObject *o,
 				  tx, ty);
 	}
 }
-static void
+
+/* static void
 draw_background (HTMLObject *self,
 		 HTMLPainter *painter,
 		 gint x, gint y, 
 		 gint width, gint height,
-		 gint tx, gint ty){
+		 gint tx, gint ty)
+{
 	ArtIRect paint;
 	GdkColor color;
 
@@ -276,7 +278,7 @@ draw_background (HTMLObject *self,
 				      paint.y1 - paint.y0,
 				      paint.x0 - self->x,
 				      paint.y0 - (self->y - self->ascent));
-}
+} */
 
 static void
 destroy (HTMLObject *self)
@@ -341,7 +343,7 @@ is_container (HTMLObject *self)
 	return TRUE;
 }
 
-static void
+/* static void
 reset (HTMLObject *self)
 {
 	HTMLFrameset *set;
@@ -352,7 +354,7 @@ reset (HTMLObject *self)
 	for (i = 0; i < set->frames->len; i++)
 		html_object_reset (g_ptr_array_index (set->frames, i));
 
-}
+} */
 
 static void
 forall (HTMLObject *self,
@@ -409,9 +411,9 @@ html_frameset_class_init (HTMLFramesetClass *klass,
 	object_class->check_point = check_point;
 	object_class->set_max_width = set_max_width;
 
-	//object_class->draw_background = draw_background;
+	/* object_class->draw_background = draw_background; */
 	object_class->forall = forall;
-	//object_class->reset = reset;
+	/* object_class->reset = reset; */
 	object_class->is_container = is_container;
 
 	object_class->calc_min_width = calc_min_width;

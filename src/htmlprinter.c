@@ -20,6 +20,8 @@
 */
 
 #include <config.h>
+#include "gtkhtml-compat.h"
+
 #include <gnome.h>
 #include <ctype.h>
 #include <libgnomeprint/gnome-print.h>

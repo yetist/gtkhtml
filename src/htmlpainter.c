@@ -156,6 +156,9 @@ class_init (GtkObjectClass *object_class)
 
 	class->get_pixel_size = (gpointer) get_pixel_size_unimplemented;
 
+	class->get_page_width  = (gpointer) get_page_width_unimplemented;
+	class->get_page_height = (gpointer) get_page_height_unimplemented;
+
 	parent_class = gtk_type_class (gtk_object_get_type ());
 }
 

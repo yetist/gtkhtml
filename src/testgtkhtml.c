@@ -681,7 +681,8 @@ object_requested_cmd (GtkHTML *html, GtkHTMLEmbedded *eb, void *data)
 
 	gtk_widget_ref (GTK_WIDGET (eb));
 	gtk_timeout_add(rand() % 5000 + 1000, (GtkFunction) object_timeout, eb);
-	// object_timeout (eb);
+	/* object_timeout (eb); */
+
 	return TRUE;
 }
 

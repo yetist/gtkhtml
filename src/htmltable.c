@@ -632,7 +632,6 @@ cell_end_row (HTMLTable *table, HTMLTableCell *cell)
 
 #define ARR(i) (g_array_index (array, gint, i))
 #define LL (unsigned long long)
-// #define LL (gdouble)
 
 static gboolean
 calc_column_width_step (HTMLTable *table, HTMLPainter *painter, GArray *array, gint *sizes,

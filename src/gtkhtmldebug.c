@@ -21,6 +21,9 @@
 
 /* Various debugging routines.  */
 
+#include <config.h>
+#include "gtkhtml-compat.h"
+
 #include <stdarg.h>
 #include <string.h>
 

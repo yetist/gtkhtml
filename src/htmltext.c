@@ -175,7 +175,7 @@ copy (HTMLObject *s,
 	dest->word_width = NULL;
 }
 
-static void
+/* static void
 debug_word_width (HTMLText *t)
 {
 	guint i;
@@ -208,8 +208,8 @@ word_get_position (HTMLText *text, guint off, guint *word_out, guint *left_out, 
 	*left_out  = off - loff;
 	*right_out = coff - off;
 
-	/* printf ("get position w: %d l: %d r: %d\n", *word_out, *left_out, *right_out); */
-}
+	/* printf ("get position w: %d l: %d r: %d\n", *word_out, *left_out, *right_out);
+} */
 
 void
 html_text_clear_word_width (HTMLText *text)
@@ -1401,7 +1401,7 @@ html_text_set_font_style (HTMLText *text,
 {
 	g_return_if_fail (text != NULL);
 
-	return (* HT_CLASS (text)->set_font_style) (text, engine, style);
+	(* HT_CLASS (text)->set_font_style) (text, engine, style);
 }
 
 void
@@ -1412,7 +1412,7 @@ html_text_set_color (HTMLText *text,
 	g_return_if_fail (text != NULL);
 	g_return_if_fail (color != NULL);
 
-	return (* HT_CLASS (text)->set_color) (text, engine, color);
+	(* HT_CLASS (text)->set_color) (text, engine, color);
 }
 
 void
