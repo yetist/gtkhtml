@@ -1,3 +1,7 @@
+2003-04-03  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c: don't try to create image inputs with no src url.
+
 2003-04-03  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (gtk_html_set_paragraph_style): if selection is

@@ -40,8 +40,6 @@
 #include <gtk/gtksignal.h>
 #include <gtk/gtkscrolledwindow.h>
 
-/* FIX2 #include <gal/widgets/e-scroll-frame.h> */
-
 #include "gtkhtml-embedded.h"
 #include "gtkhtml-private.h"
 #include "gtkhtml-stream.h"
@@ -225,6 +223,7 @@ free_element (gpointer data)
 }
 
 #define pop_span(a,b) pop_element(a,b)
+#define DI(x)
 
 static void
 pop_element (HTMLEngine *e, guint id)
@@ -1622,9 +1621,11 @@ parse_input (HTMLEngine *e, const gchar *str, HTMLObject *_clue)
 		element = html_text_input_new(GTK_WIDGET(e->widget), name, value, size, maxLen, (type == Password));
 		break;
 	case Image:
-		element = html_imageinput_new (e->image_factory, name, imgSrc);
-		html_image_set_spacing (HTML_IMAGE (HTML_IMAGEINPUT (element)->image), imgHSpace, imgVSpace);
-
+		/* FIXME fixup missing url */
+		if (imgSrc) {
+			element = html_imageinput_new (e->image_factory, name, imgSrc);
+			html_image_set_spacing (HTML_IMAGE (HTML_IMAGEINPUT (element)->image), imgHSpace, imgVSpace);
+		}
 		break;
 	case Undefined:
 		g_warning ("Unknown <input type>\n");
@@ -1733,6 +1734,7 @@ parse_iframe (HTMLEngine *e, const gchar *str, HTMLObject *_clue)
 
 	}	
 		
+	/* FIXME fixup missing url */
 	if (src) {
 		iframe = html_iframe_new (GTK_WIDGET (e->widget),
 					  src, width, height, border);
@@ -2521,6 +2523,7 @@ parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 			}
 		}
 
+		/* FIXME fixup missing url */
 		if (tmpurl != 0) {
 			if (align != HTML_HALIGN_NONE)
 				valign = HTML_VALIGN_BOTTOM;
@@ -3936,7 +3939,7 @@ update_embedded (GtkWidget *widget, gpointer data)
 static gboolean
 html_engine_update_event (HTMLEngine *e)
 {
-	/* printf ("html_engine_update_event\n"); */
+	DI (printf ("html_engine_update_event idle\n");)
 
 	e->updateTimer = 0;
 
@@ -4063,8 +4066,8 @@ html_engine_timer_event (HTMLEngine *e)
 	gint lastHeight;
 	gboolean retval = TRUE;
 
+	DI (printf ("html_engine_timer_event idle\n");)
 
-	/* printf ("timer event"); */
 	/* Has more tokens? */
 	if (!html_tokenizer_has_more_tokens (e->ht) && e->writing) {
 		retval = FALSE;
