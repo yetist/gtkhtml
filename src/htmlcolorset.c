@@ -126,8 +126,10 @@ html_colorset_set_unchanged (HTMLColorSet *s, HTMLColorSet *o)
 }	
 
 #define SET_GCOLOR(t,c) \
-        if (s->color [HTML ## t ## Color]) html_color_unref (s->color [HTML ## t ## Color]); \
-        s->color [HTML ## t ## Color] = html_color_new_from_gdk_color (&c);
+        if (!s->changed [HTML ## t ## Color]) { \
+                if (s->color [HTML ## t ## Color]) html_color_unref (s->color [HTML ## t ## Color]); \
+                s->color [HTML ## t ## Color] = html_color_new_from_gdk_color (&c); \
+        }
 
 void
 html_colorset_set_style (HTMLColorSet *s, GtkStyle *style)
