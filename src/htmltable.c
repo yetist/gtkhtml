@@ -222,90 +222,102 @@ remove_cell (HTMLTable *t, HTMLTableCell *cell)
 }
 
 static HTMLObject *
-op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len)
+cut_whole (HTMLObject *self, guint *len)
+{
+	if (self->parent)
+		html_object_remove_child (self->parent, self);
+	*len = html_object_get_recursive_length (self) + 1;
+	printf ("removed whole table len: %d\n", *len);
+
+	return self;
+}
+
+static HTMLObject *
+cut_partial (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len)
 {
 	HTMLObject *rv;
 
-	if (from || to) {
-		HTMLTableCell *start, *end, *cell;
-		HTMLTable *t, *nt;
-		gint r, c, rows, cols;
-		gint start_row, start_col, end_row, end_col;
-		gboolean shrink;
+	HTMLTableCell *start, *end, *cell;
+	HTMLTable *t, *nt;
+	gint r, c, rows, cols;
+	gint start_row, start_col, end_row, end_col;
+	gboolean shrink;
 
-		printf ("partial cut\n");
+	printf ("partial cut\n");
 
-		start = HTML_TABLE_CELL (from ? from->data : html_object_head (self));
-		end   = HTML_TABLE_CELL (to   ? to->data   : html_object_tail (self));
+	start = HTML_TABLE_CELL (from ? from->data : html_object_head (self));
+	end   = HTML_TABLE_CELL (to   ? to->data   : html_object_tail (self));
 
-		start_row = start->row;
-		start_col = start->col;
-		end_row   = end->row;
-		end_col   = end->col;
+	start_row = start->row;
+	start_col = start->col;
+	end_row   = end->row;
+	end_col   = end->col;
 
-		*len = 0;
-		t    = HTML_TABLE (self);
-		rows = end_row - start_row + 1;
-		cols = end_row == start_row ? end_col - start_col + 1 : t->totalCols;
-		rv   = HTML_OBJECT (g_new0 (HTMLTable, 1));
-		nt   = HTML_TABLE (rv);
-		copy_sized (self, rv, rows, cols);
+	*len = 0;
+	t    = HTML_TABLE (self);
+	rows = end_row - start_row + 1;
+	cols = end_row == start_row ? end_col - start_col + 1 : t->totalCols;
+	rv   = HTML_OBJECT (g_new0 (HTMLTable, 1));
+	nt   = HTML_TABLE (rv);
+	copy_sized (self, rv, rows, cols);
 
-		/* remove selected and move it to new one */
-		for (r = start_row; r <= end_row; r++)
-			for (c = 0; c < t->totalCols; c++) {
+	/* remove selected and move it to new one */
+	for (r = start_row; r <= end_row; r++)
+		for (c = 0; c < t->totalCols; c++) {
+			cell = t->cells [r][c];
+			if (cell && (r > start_row || c >= start_col) && (r < end_row || c <= end_col)) {
+				HTMLTableCell *cell_cut;
+				gint row, col;
+
+				row = r - start_row;
+				col = end_row == start_row ? c - start_col : c;
+
+				cell_cut = HTML_TABLE_CELL
+					(html_object_op_cut
+					 (HTML_OBJECT (cell), e,
+					  html_object_get_bound_list (HTML_OBJECT (cell), from),
+					  html_object_get_bound_list (HTML_OBJECT (cell), to),
+					  left ? left->next : NULL, right ? right->next : NULL, len));
+				html_table_set_cell (nt, row, col, cell_cut);
+				html_table_cell_set_position (cell_cut, row, col);
+			}
+		}
+
+	shrink = start_row == 0 && end_row == t->totalRows - 1;
+	/* move remaining cells in old table */
+	if (start_col >= end_col)
+		start_row ++;
+	if (start_row != end_row)
+		for (r = end_row; r < t->totalRows; r ++)
+			for (c = 0; c < t->totalCols; c ++) {
+				HTMLTableCell *cell;
+
 				cell = t->cells [r][c];
-				if (cell && (r > start_row || c >= start_col) && (r < end_row || c <= end_col)) {
-					HTMLTableCell *cell_cut;
-					gint row, col;
-
-					row = r - start_row;
-					col = end_row == start_row ? c - start_col : c;
-
-					cell_cut = HTML_TABLE_CELL
-						(html_object_op_cut
-						 (HTML_OBJECT (cell), e,
-						  html_object_get_bound_list (HTML_OBJECT (cell), from),
-						  html_object_get_bound_list (HTML_OBJECT (cell), to),
-						  left->next, right->next, len));
-					html_table_set_cell (nt, row, col, cell_cut);
-					html_table_cell_set_position (cell_cut, row, col);
+				if (cell && (r > end_row || c >= end_col)) {
+					gint new_c = shrink ? c - end_col + start_col + 1: c;
+					if (cell->row == r && cell->col == c)
+						html_table_cell_set_position (cell, r - end_row + start_row,
+									      new_c);
+					t->cells [r - end_row + start_row][new_c] = cell;
+					t->cells [r][c] = NULL;
 				}
 			}
-
-		shrink = start_row == 0 && end_row == t->totalRows - 1;
-		/* move remaining cells in old table */
-		if (start_col >= end_col)
-			start_row ++;
-		if (start_row != end_row)
-			for (r = end_row; r < t->totalRows; r ++)
-				for (c = 0; c < t->totalCols; c ++) {
-					HTMLTableCell *cell;
-
-					cell = t->cells [r][c];
-					if (cell && (r > end_row || c >= end_col)) {
-						gint new_c = shrink ? c - end_col + start_col + 1: c;
-						if (cell->row == r && cell->col == c)
-							html_table_cell_set_position (cell, r - end_row + start_row,
-										      new_c);
-						t->cells [r - end_row + start_row][new_c] = cell;
-						t->cells [r][c] = NULL;
-					}
-				}
-		if (shrink)
-			t->totalCols -= end_col - start_col - 1;
-		t->totalRows -= end_row - start_row;
-		printf ("removed partial table len: %d\n", *len);
-
-	} else {
-		rv = self;
-		if (self->parent)
-			html_object_remove_child (self->parent, self);
-		*len = html_object_get_recursive_length (rv) + 1;
-		printf ("removed whole table len: %d\n", *len);
-	}
+	if (shrink)
+		t->totalCols -= end_col - start_col - 1;
+	t->totalRows -= end_row - start_row;
+	printf ("removed partial table len: %d\n", *len);
 
 	return rv;
+}
+
+static HTMLObject *
+op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len)
+{
+
+	if (from || to)
+		return cut_partial (self, e, from, to, left, right, len);
+	else
+		return cut_whole (self, len);
 }
 
 static void
@@ -479,6 +491,12 @@ static void
 remove_child (HTMLObject *self, HTMLObject *child)
 {
 	remove_cell (HTML_TABLE (self), HTML_TABLE_CELL (child));
+}
+
+static gboolean
+accepts_cursor (HTMLObject *self)
+{
+	return TRUE;
 }
 
 static gboolean
@@ -1915,6 +1933,7 @@ html_table_class_init (HTMLTableClass *klass,
 	object_class->op_cut = op_cut;
 	object_class->split = split;
 	object_class->merge = merge;
+	object_class->accepts_cursor = accepts_cursor;
 	object_class->calc_size = calc_size;
 	object_class->draw = draw;
 	object_class->destroy = destroy;

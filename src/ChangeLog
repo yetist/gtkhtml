@@ -1,3 +1,10 @@
+2001-03-15  Radek Doulik  <rodo@ximian.com>
+
+	* htmltable.c (accepts_cursor): accept cursor
+
+	* htmlobject.c (move_object_downtree): stop on containers, which
+	accepts cursor (like tables)
+
 2001-03-18  Larry Ewing  <lewing@ximian.com>
 
 	* keybindingsrc.emacs: add bindings for space-and-fill and

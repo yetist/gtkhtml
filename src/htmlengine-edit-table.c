@@ -185,6 +185,40 @@ html_engine_insert_table_column (HTMLEngine *e, gboolean after)
  * Delete column
  */
 
+struct _DeleteCellsUndo {
+	HTMLUndoData data;
+
+	HTMLTableCell **cells;
+	gint size;
+	gboolean after;
+};
+typedef struct _DeleteCellsUndo DeleteCellsUndo;
+
+static void
+delete_cells_undo_destroy (HTMLUndoData *undo_data)
+{
+	DeleteCellsUndo *data = (DeleteCellsUndo *) undo_data;
+	gint i;
+
+	for (i = 0; i < data->size; i ++)
+		html_object_destroy (HTML_OBJECT (data->cells [i]));
+}
+
+static DeleteCellsUndo *
+delete_cells_undo_new (HTMLTableCell **cells)
+{
+	DeleteCellsUndo *data;
+
+	data = g_new0 (DeleteCellsUndo, 1);
+
+	html_undo_data_init (HTML_UNDO_DATA (data));
+
+	data->data.destroy = delete_cells_undo_destroy;
+	data->cells        = cells;
+
+	return data;
+}
+
 static void
 delete_column_undo_action_after (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir)
 {
@@ -200,6 +234,8 @@ delete_column_undo_action_before (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDir
 static void
 delete_column_setup_undo (HTMLEngine *e, gboolean after, HTMLUndoDirection dir)
 {
+	
+
 	html_undo_add_action (e->undo,
 			      html_undo_action_new ("Delete table column", after
 						    ? delete_column_undo_action_after : delete_column_undo_action_before,

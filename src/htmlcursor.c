@@ -193,9 +193,10 @@ forward (HTMLCursor *cursor)
 	if (!html_object_cursor_forward (cursor->object, cursor)) {
 		HTMLObject *next;
 
-		next = html_object_next_leaf_not_type (cursor->object, HTML_TYPE_TEXTSLAVE);
+		next = html_object_next_cursor (cursor->object, &cursor->offset);
 		if (next) {
-			cursor->offset = (next->parent == cursor->object->parent) ? 1 : 0;
+			if (!html_object_is_container (next))
+				cursor->offset = (next->parent == cursor->object->parent) ? 1 : 0;
 			cursor->object = next;
 			cursor->position ++;
 		} else
@@ -234,10 +235,11 @@ backward (HTMLCursor *cursor)
 	if (!html_object_cursor_backward (cursor->object, cursor)) {
 		HTMLObject *prev;
 
-		prev = html_object_prev_leaf_not_type (cursor->object, HTML_TYPE_TEXTSLAVE);
+		prev = html_object_prev_cursor (cursor->object, &cursor->offset);
 		if (prev) {
+			if (!html_object_is_container (prev))
+				cursor->offset = html_object_get_length (prev);
 			cursor->object = prev;
-			cursor->offset = html_object_get_length (prev);
 			cursor->position --;
 		} else
 			retval = FALSE;

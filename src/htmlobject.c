@@ -1297,6 +1297,9 @@ html_object_cursor_forward (HTMLObject *self, HTMLCursor *cursor)
 	g_assert (self);
 	g_assert (cursor->object == self);
 
+	if (html_object_is_container (self))
+		return FALSE;
+
 	len = html_object_get_length (self);
 	if (cursor->offset < len) {
 		cursor->offset ++;
@@ -1312,6 +1315,9 @@ html_object_cursor_backward (HTMLObject *self, HTMLCursor *cursor)
 	g_assert (self);
 	g_assert (cursor->object == self);
 
+	if (html_object_is_container (self))
+		return FALSE;
+
 	if (cursor->offset > 1 || (!html_object_prev_not_slave (self) && cursor->offset > 0)) {
 		cursor->offset --;
 		cursor->position --;
@@ -1321,7 +1327,9 @@ html_object_cursor_backward (HTMLObject *self, HTMLCursor *cursor)
 	return FALSE;
 }
 
-/* movement on leafs */
+/*********************
+ * movement on leafs
+ */
 
 /* go up in tree so long as we can get object in neighborhood given by function next_fn */
 
@@ -1358,7 +1366,6 @@ move_object (HTMLObject *obj, HTMLObject * (*next_fn ) (HTMLObject *, HTMLObject
 	return obj;
 }
 
-
 inline HTMLObject *
 html_object_next_leaf (HTMLObject *self)
 {
@@ -1388,6 +1395,85 @@ html_object_prev_leaf_not_type (HTMLObject *self, HTMLType t)
 
 	return rv;
 }
+
+/* movement on cursor accepting objects */
+
+/* go up in tree so long as we can get object in neighborhood given by function next_fn */
+
+static HTMLObject *
+next_object_uptree_cursor (HTMLObject *obj, HTMLObject * (*next_fn ) (HTMLObject *))
+{
+	HTMLObject *next = NULL;
+
+	while (obj->parent && !(next = (*next_fn) (obj))) {
+		obj = obj->parent;
+		if (html_object_accepts_cursor (obj))
+			return obj;
+	}
+
+	return next;
+}
+
+/* go down in tree to leaf in way given by down_fn children */
+
+static HTMLObject *
+move_object_downtree_cursor (HTMLObject *obj, HTMLObject * (*down_fn ) (HTMLObject *))
+{
+	HTMLObject *down;
+
+	while ((down = (*down_fn) (obj))) {
+		obj = down;
+		if (html_object_accepts_cursor (obj))
+			break;
+	}
+
+	return obj;
+}
+
+static HTMLObject *
+move_object_cursor (HTMLObject *obj, gint *offset, gboolean forward,
+		    HTMLObject * (*next_fn ) (HTMLObject *), HTMLObject * (*down_fn ) (HTMLObject *))
+{
+	HTMLObject *down;
+
+	if (((*offset == 0 && forward) || (*offset && !forward)) && html_object_is_container (obj))
+		if ((down = (*down_fn) (obj))) {
+			down = move_object_downtree_cursor (down, down_fn);
+			if (down) {
+				if (html_object_is_container (down))
+					*offset = forward ? 0 : 1; /* FIXME for prev it's reversed */
+				return down;
+			}
+		}
+
+	obj = next_object_uptree_cursor (obj, next_fn);
+	if (obj) {
+		if (html_object_accepts_cursor (obj)) {
+			if (html_object_is_container (obj))
+				*offset = forward ? 1 : 0; /* FIXME for prev it's reversed */
+		} else {
+			obj = move_object_downtree_cursor (obj, down_fn);
+			if (html_object_is_container (obj))
+				*offset = forward ? 0 : 1; /* FIXME for prev it's reversed */
+		}
+	}
+
+	return obj;
+}
+
+inline HTMLObject *
+html_object_next_cursor (HTMLObject *self, gint *offset)
+{
+	return move_object_cursor (self, offset, TRUE, html_object_next_not_slave, html_object_head);
+}
+
+inline HTMLObject *
+html_object_prev_cursor (HTMLObject *self, gint *offset)
+{
+	return move_object_cursor (self, offset, FALSE, html_object_prev_not_slave, html_object_tail_not_slave);
+}
+
+/***/
 
 guint
 html_object_get_bytes (HTMLObject *self)

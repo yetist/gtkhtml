@@ -259,8 +259,8 @@ remove_empty_and_merge (HTMLEngine *e, gboolean merge, GList *left, GList *right
 		ro  = HTML_OBJECT (right->data);
 		len = html_object_get_length (lo);
 
-		left  = left->next;
-		right = right->next;
+		left  = left ? left->next : NULL;
+		right = right ? right->next : NULL;
 
 		if (html_object_is_text (lo) && !*HTML_TEXT (lo)->text && (html_object_prev_not_slave (lo) || merge)) {
 			HTMLObject *nlo = html_object_prev_not_slave (lo);

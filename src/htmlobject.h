@@ -445,6 +445,10 @@ HTMLObject     *html_object_prev_leaf_not_type    (HTMLObject            *self,
 						   HTMLType               t);
 HTMLObject     *html_object_get_head_leaf         (HTMLObject            *o);
 HTMLObject     *html_object_get_tail_leaf         (HTMLObject            *o);
+HTMLObject     *html_object_next_cursor           (HTMLObject            *self,
+						   gint                  *offset);
+HTMLObject     *html_object_prev_cursor           (HTMLObject            *self,
+						   gint                  *offset);
 
 /* Page splitting.  */
 gint  html_object_check_page_split  (HTMLObject *self,

@@ -101,7 +101,8 @@ op_helper (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left,
 		html_clue_append (HTML_CLUE (cc), cut
 				  ? html_object_op_cut (o, e,
 							html_object_get_bound_list (o, from),
-							html_object_get_bound_list (o, to), left->next, right->next, len)
+							html_object_get_bound_list (o, to),
+							left ? left->next : NULL, right ? right->next : NULL, len)
 				  : html_object_op_copy (o, e,
 							 html_object_get_bound_list (o, from),
 							 html_object_get_bound_list (o, to), len));

@@ -42,7 +42,7 @@ get_font_style_from_selection (HTMLEngine *engine)
 	GtkHTMLFontStyle style;
 	GtkHTMLFontStyle conflicts;
 	gboolean first;
-	HTMLObject *p;
+	HTMLPoint p;
 
 	g_return_val_if_fail (engine->clue != NULL, GTK_HTML_FONT_STYLE_DEFAULT);
 	g_assert (html_engine_is_selection_active (engine));
@@ -57,22 +57,22 @@ get_font_style_from_selection (HTMLEngine *engine)
 	conflicts = GTK_HTML_FONT_STYLE_DEFAULT;
 	first = TRUE;
 
-	p = engine->selection->from.object;
+	p = engine->selection->from;
 
 	while (1) {
-		if (html_object_is_text (p)) {
+		if (html_object_is_text (p.object)) {
 			if (first) {
-				style = HTML_TEXT (p)->font_style;
+				style = HTML_TEXT (p.object)->font_style;
 				first = FALSE;
 			} else
-				conflicts |= HTML_TEXT (p)->font_style ^ style;
+				conflicts |= HTML_TEXT (p.object)->font_style ^ style;
 		}
 
-		if (p == engine->selection->to.object)
+		if (html_point_cursor_object_eq (&p, &engine->selection->to))
 			break;
 
-		p = html_object_next_leaf (p);
-		g_assert (p != NULL);
+		html_point_next_cursor (&p);
+		g_assert (p.object != NULL);
 	}
 
 	return style & ~conflicts;
@@ -400,19 +400,19 @@ static const gchar *
 get_url_or_target_from_selection (HTMLEngine *e, gboolean get_url)
 {
 	const gchar *str = NULL;
-	HTMLObject *p;
+	HTMLPoint p;
 
 	g_return_val_if_fail (e->clue != NULL, NULL);
 	g_assert (html_engine_is_selection_active (e));
 	g_assert (e->mark != NULL);
 
-	p = e->selection->from.object;
+	p = e->selection->from;
 	while (1) {
-		str = get_url ? html_object_get_url (p) : html_object_get_target (p);
-		if (str || p == e->selection->to.object)
+		str = get_url ? html_object_get_url (p.object) : html_object_get_target (p.object);
+		if (str || html_point_cursor_object_eq (&p, &e->selection->to))
 			break;
-		p = html_object_next_leaf (p);
-		g_assert (p != NULL);
+		html_point_next_cursor (&p);
+		g_assert (p.object != NULL);
 	}
 
 	return str;

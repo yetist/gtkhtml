@@ -30,18 +30,21 @@ struct _HTMLPoint {
 	guint       offset;
 };
 
-HTMLPoint *html_point_new        (HTMLObject      *o,
-				  guint            off);
-void       html_point_construct  (HTMLPoint       *p,
-				  HTMLObject      *o,
-				  guint            off);
-void       html_point_destroy    (HTMLPoint       *p);
-HTMLPoint *html_point_max        (HTMLPoint       *a,
-				  HTMLPoint       *b);
-HTMLPoint *html_point_min        (HTMLPoint       *a,
-				  HTMLPoint       *b);
-gboolean   html_point_eq         (const HTMLPoint *a,
-				  const HTMLPoint *b);
+HTMLPoint  *html_point_new               (HTMLObject      *o,
+					  guint            off);
+void        html_point_construct         (HTMLPoint       *p,
+					  HTMLObject      *o,
+					  guint            off);
+void        html_point_destroy           (HTMLPoint       *p);
+HTMLPoint  *html_point_max               (HTMLPoint       *a,
+					  HTMLPoint       *b);
+HTMLPoint  *html_point_min               (HTMLPoint       *a,
+					  HTMLPoint       *b);
+gboolean    html_point_eq                (const HTMLPoint *a,
+					  const HTMLPoint *b);
+gboolean    html_point_cursor_object_eq  (HTMLPoint       *p,
+					  HTMLPoint       *c);
+void        html_point_next_cursor       (HTMLPoint       *p);
 
 struct _HTMLInterval {
 	HTMLPoint from;

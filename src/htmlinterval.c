@@ -50,6 +50,18 @@ html_point_destroy (HTMLPoint *p)
 	g_free (p);
 }
 
+gboolean
+html_point_cursor_object_eq (HTMLPoint *p, HTMLPoint *c)
+{
+	return p->object == c->object && (!html_object_is_container (p->object) || p->offset == c->offset);
+}
+
+inline void
+html_point_next_cursor (HTMLPoint *p)
+{
+	p->object = html_object_next_cursor (p->object, &p->offset);
+}
+
 HTMLInterval *
 html_interval_new (HTMLObject *from, HTMLObject *to, guint from_offset, guint to_offset)
 {
