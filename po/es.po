@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.6\n"
-"POT-Creation-Date: 2001-04-17 10:08-0500\n"
+"POT-Creation-Date: 2001-04-18 01:08+0200\n"
 "PO-Revision-Date: 2001-01-22 13:23+0200\n"
 "Last-Translator: Héctor García Álvarez <hector@scouts-es.org>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -339,6 +339,11 @@ msgstr "Permitir"
 msgid "Colors"
 msgstr "Colores"
 
+#: components/html-editor/body.c:165 components/html-editor/text.c:221
+#: components/html-editor/toolbar.c:280
+msgid "Automatic"
+msgstr "Automático"
+
 #: components/html-editor/editor-control-factory.c:145
 #: components/html-editor/popup.c:81
 msgid "Properties"
@@ -544,17 +549,13 @@ msgstr "Subrayado"
 msgid "Strikeout"
 msgstr "Tachado"
 
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:280
-msgid "Automatic"
-msgstr "Automático"
-
 #: components/html-editor/toolbar.c:50
 msgid "Normal"
 msgstr "Normal"
 
 #: components/html-editor/toolbar.c:51
 msgid "Preformat"
-msgstr ""
+msgstr "Preformato"
 
 #: components/html-editor/toolbar.c:52
 msgid "Header 1"
