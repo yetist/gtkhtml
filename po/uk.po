@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-23 00:10+0300\n"
+"POT-Creation-Date: 2004-08-26 15:35+0200\n"
 "PO-Revision-Date: 2004-08-23 00:29+0300\n"
 "Last-Translator: Maxim Dziumanenko <mvd@mylinux.com.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -1874,7 +1874,9 @@ msgstr ""
 #: src/gtkhtml.c:2531
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
-msgstr "Mozilla url перетягнений на Composer має неправильний формат (%d) або довжину (%d)\n"
+msgstr ""
+"Mozilla url перетягнений на Composer має неправильний формат (%d) або "
+"довжину (%d)\n"
 
 #: src/gtkhtml.c:2853
 msgid "Editable"

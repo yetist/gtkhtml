@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-19 12:04+0200\n"
+"POT-Creation-Date: 2004-08-26 15:35+0200\n"
 "PO-Revision-Date: 2004-08-19 19:51+0300\n"
 "Last-Translator: Leonid Kanter <leon@asplinux.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -17,7 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.3.1\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: capplet/gnome-bindings-prop.c:157
@@ -461,7 +462,8 @@ msgstr "Изменить стиль текущего параграфа на м�
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
 msgid "Make the current paragraph a list with roman numerals"
-msgstr "Изменить стиль текущего параграфа на маркированный список с римскими цифрами"
+msgstr ""
+"Изменить стиль текущего параграфа на маркированный список с римскими цифрами"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
@@ -1881,7 +1883,8 @@ msgstr ""
 #: src/gtkhtml.c:2531
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
-msgstr "URL, перетащенный из Mozilla, имеет неверный формат (%d) или длину (%d)\n"
+msgstr ""
+"URL, перетащенный из Mozilla, имеет неверный формат (%d) или длину (%d)\n"
 
 #: src/gtkhtml.c:2853
 msgid "Editable"
@@ -2039,4 +2042,3 @@ msgstr "Образец печати"
 #: src/testgtkhtml.c:987
 msgid "GtkHTML Test Application"
 msgstr "Тест редактора формата HTML для среды Гном"
-

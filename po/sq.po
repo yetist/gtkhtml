@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-19 12:04+0200\n"
+"POT-Creation-Date: 2004-08-26 15:35+0200\n"
 "PO-Revision-Date: 2004-06-28 18:20+0200\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
@@ -88,7 +88,6 @@ msgstr "Rrëmbe kyçet"
 msgid "Information"
 msgstr "Informacione"
 
-#. GRUT modified this item
 #: capplet/gtkhtml-capplet.glade.h:17
 msgid "Keyboard Shortcuts"
 msgstr "Kombinacione përshpejtuese nga tastiera"
@@ -701,7 +700,6 @@ msgstr ""
 msgid "Undo the last action"
 msgstr "Anullo veprimin e fundit"
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
 msgid "Yellow"
@@ -788,7 +786,6 @@ msgstr ""
 msgid "_Indifferent"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
 msgid "_Insert"
@@ -1736,7 +1733,6 @@ msgstr "_Zëvendëso"
 msgid "Search _backward"
 msgstr ""
 
-#. GRUT modified this item
 #: components/html-editor/replace.c:170 components/html-editor/search.c:114
 msgid "Case _sensitive"
 msgstr "Ndje_shmëri gërma të mëdha/të vogla"
@@ -1876,7 +1872,6 @@ msgstr ""
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 
-#. GRUT modified this item
 #: src/gtkhtml.c:2853
 msgid "Editable"
 msgstr "Pjesë e ndryshueshme"
@@ -1993,7 +1988,6 @@ msgstr ""
 msgid "Test7"
 msgstr ""
 
-#. GRUT modified this item
 #: src/html-component.c:612
 msgid "_Refresh"
 msgstr "_Rifreskim"
@@ -2034,4 +2028,3 @@ msgstr "Pamja e parë e printimit"
 #: src/testgtkhtml.c:987
 msgid "GtkHTML Test Application"
 msgstr ""
-

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 1.1.0.99\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-18 23:07+0300\n"
+"POT-Creation-Date: 2004-08-26 15:35+0200\n"
 "PO-Revision-Date: 2004-08-19 01:57+0300\n"
 "Last-Translator: Pauli Virtanen <pauli.virtanen@hut.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
@@ -1874,7 +1874,9 @@ msgstr ""
 #: src/gtkhtml.c:2531
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
-msgstr "Mozillasta editoriin pudotettu URL oli väärän muotoinen (%d) tai pituinen (%d)\n"
+msgstr ""
+"Mozillasta editoriin pudotettu URL oli väärän muotoinen (%d) tai pituinen (%"
+"d)\n"
 
 #: src/gtkhtml.c:2853
 msgid "Editable"
