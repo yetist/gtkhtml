@@ -4366,3 +4366,15 @@ gtk_html_print_get_pages_num (GtkHTML *html, GnomePrintContext *print_context, g
 {
 	return html_engine_print_get_pages_num (html->engine, print_context, header_height, footer_height);
 }
+
+gboolean
+gtk_html_is_dirty (GtkHTML *html)
+{
+	return html_undo_is_dirty (html->engine->undo);
+}
+
+void
+gtk_html_drop_undo (GtkHTML *html)
+{
+	html_undo_reset (html->engine->undo);
+}

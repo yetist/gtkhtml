@@ -277,4 +277,6 @@ void                       gtk_html_image_preload                 (GtkHTML      
 								   const gchar               *url);
 void                       gtk_html_set_blocking                  (GtkHTML                   *html,
 								   gboolean                   block);
+gboolean                   gtk_html_is_dirty                      (GtkHTML                   *html);
+void                       gtk_html_drop_undo                     (GtkHTML                   *html);
 #endif /* _GTKHTML_H_ */
