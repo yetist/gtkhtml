@@ -73,8 +73,8 @@ html_color_unref (HTMLColor *color)
 	color->refcount --;
 
 	if (!color->refcount) {
-		if (color->allocated)
-			g_warning ("FIXME, color free\n");
+		/* if (color->allocated)
+		   g_warning ("FIXME, color free\n"); */
 		/* FIXME commented out to catch g_asserts on refcount so we could hunt "too much unrefs" bugs
                    g_free (color); */
 	}
@@ -103,8 +103,8 @@ html_color_equal (HTMLColor *color1, HTMLColor *color2)
 void
 html_color_set (HTMLColor *color, GdkColor *c)
 {
-	if (color->allocated)
-			g_warning ("FIXME, color free\n");
+	/* if (color->allocated)
+	   g_warning ("FIXME, color free\n"); */
 	color->allocated = FALSE;
 	color->color = *c;
 }

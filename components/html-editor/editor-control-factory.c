@@ -208,7 +208,7 @@ editor_control_factory (BonoboGenericFactory *factory,
 	vbox = gtk_vbox_new (FALSE, 0);
 	gtk_widget_show (vbox);
 
-	g_warning ("Creating a new GtkHTML editor control.");
+	/* g_warning ("Creating a new GtkHTML editor control."); */
 	control = bonobo_control_new (vbox);
 
 	/* Bonobo::PersistStream */

@@ -2243,12 +2243,12 @@ load_keybindings (GtkHTMLClass *klass)
 
 	if (g_file_exists (rcfile)) {
 
-		g_warning ("Loading keybindings -- %s", rcfile);
+		/* g_warning ("Loading keybindings -- %s", rcfile); */
 		gtk_rc_parse (rcfile);
 
 		name = g_strconcat ("gtkhtml-bindings-", klass->properties->keybindings_theme, NULL);
 		binding_set = gtk_binding_set_find (name);
-		g_warning ("Looking for %s set", name);
+		/* g_warning ("Looking for %s set", name); */
 		g_assert (binding_set);
 		gtk_binding_set_add_path (binding_set,
 					  GTK_PATH_CLASS,
