@@ -1,0 +1,7 @@
+In order to compile GtkHTML, you need the latest gdk-pixbuf and
+gnome-print from CVS.
+
+You also need libwww, but this is going to change soon.  Libwww is
+available from:
+
+    http://www.w3.org/Library/
