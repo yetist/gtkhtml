@@ -1,5 +1,12 @@
 2000-03-17  Jonas Borgström  <jonas_b@bitsmart.com>
 
+	* htmltextslave.c (calc_size): Set ascent and descent
+	to zero if the width also is zero. This helps <br> not make to much space.
+
+	* tests/bugs.html: Removed www.gimp.org entry, it looks great now.
+
+2000-03-17  Jonas Borgström  <jonas_b@bitsmart.com>
+
 	* htmlengine.c (parse_p): Handle <p align=xxx>.
 	
 	* tests/bugs.html: Removed gtk.themes.org entry, it looks great now.
