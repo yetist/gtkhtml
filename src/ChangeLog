@@ -1,3 +1,8 @@
+2001-08-22  Larry Ewing  <lewing@ximian.com>
+
+	* htmlclueflow.c (check_point): make sure that head and tail are
+	not NULL before we dereference them.  Fixes ximian #5434.
+
 2001-08-21  Larry Ewing  <lewing@ximian.com>
 
 	* htmlclueflow.c (write_pre_tags): add some parens.
