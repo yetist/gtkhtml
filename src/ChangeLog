@@ -1,3 +1,8 @@
+2003-01-16  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (gtk_html_set_magnification): only try to change the
+	clue if it exists.
+
 2003-01-15  Larry Ewing  <lewing@ximian.com>
 
 	* htmlgdkpainter.c (html_gdk_painter_new): initialize the style.

@@ -4784,9 +4784,13 @@ gtk_html_set_magnification (GtkHTML *html, gdouble magnification)
 	if (magnification > 0.05 && magnification < 20.0
 	    && magnification * html->engine->painter->font_manager.var_size >= 4
 	    && magnification * html->engine->painter->font_manager.fix_size >= 4) {
-		html_object_forall (html->engine->clue, html->engine, set_magnification, &magnification);
 		html_font_manager_set_magnification (&html->engine->painter->font_manager, magnification);
-		html_object_change_set_down (html->engine->clue, HTML_CHANGE_ALL);
+		if (html->engine->clue) {
+			html_object_forall (html->engine->clue, html->engine, 
+					    set_magnification, &magnification);		
+			html_object_change_set_down (html->engine->clue, HTML_CHANGE_ALL);
+		}
+
 		html_engine_schedule_update (html->engine);
 	}
 }
