@@ -23,7 +23,6 @@
 #include <config.h>
 #include <gnome.h>
 #include <capplet-widget.h>
-#include <gconf/gconf-client.h>
 #include <gtkhtml-properties.h>
 #include "gnome-bindings-prop.h"
 #include "../src/gtkhtml.h"
@@ -32,9 +31,10 @@
 
 static GtkWidget *capplet, *check, *menu, *option, *bi;
 static gboolean active = FALSE;
+#ifdef GTKHTML_HAVE_GCONF
 static GConfError  *error  = NULL;
 static GConfClient *client = NULL;
-
+#endif
 static GtkHTMLClassProperties *saved_prop;
 static GtkHTMLClassProperties *orig_prop;
 static GtkHTMLClassProperties *actual_prop;
@@ -79,7 +79,11 @@ apply (void)
 	g_free (actual_prop->keybindings_theme);
 	actual_prop->keybindings_theme = g_strdup (gtk_object_get_data (GTK_OBJECT (gtk_menu_get_active (GTK_MENU (menu))),
 									"theme"));
+#ifdef GTKHTML_HAVE_GCONF
 	gtk_html_class_properties_update (actual_prop, client, saved_prop);
+#else
+	gtk_html_class_properties_save (actual_prop);
+#endif
 	gtk_html_class_properties_copy   (saved_prop, actual_prop);
 
 }
@@ -92,7 +96,11 @@ revert (void)
 	saved_bindings = gnome_binding_entry_list_copy (orig_bindings);
 	gnome_bindings_properties_save_keymap (GNOME_BINDINGS_PROPERTIES (bi), CUSTOM_KEYMAP_NAME, home_rcfile);
 
+#ifdef GTKHTML_HAVE_GCONF
 	gtk_html_class_properties_update (orig_prop, client, saved_prop);
+#else
+	gtk_html_class_properties_save (orig_prop);
+#endif
 	gtk_html_class_properties_copy   (saved_prop, orig_prop);
 	gtk_html_class_properties_copy   (actual_prop, orig_prop);
 
@@ -189,6 +197,7 @@ main (int argc, char **argv)
         if (gnome_capplet_init ("gtkhtml-properties", VERSION, argc, argv, NULL, 0, NULL) < 0)
 		return 1;
 
+#ifdef GTKHTML_HAVE_GCONF
 	if (!gconf_init(argc, argv, &error)) {
 		g_assert(error != NULL);
 		g_warning("GConf init failed:\n  %s", error->str);
@@ -197,11 +206,15 @@ main (int argc, char **argv)
 
 	client = gconf_client_get_default ();
 	gconf_client_add_dir(client, GTK_HTML_GCONF_DIR, GCONF_CLIENT_PRELOAD_NONE, NULL);
-
+#endif
 	orig_prop = gtk_html_class_properties_new ();
 	saved_prop = gtk_html_class_properties_new ();
 	actual_prop = gtk_html_class_properties_new ();
+#ifdef GTKHTML_HAVE_GCONF
 	gtk_html_class_properties_load (actual_prop, client);
+#else
+	gtk_html_class_properties_load (actual_prop);
+#endif
 	gtk_html_class_properties_copy (saved_prop, actual_prop);
 	gtk_html_class_properties_copy (orig_prop, actual_prop);
 
