@@ -967,13 +967,13 @@ html_engine_table_set_width (HTMLEngine *e, HTMLTable *t, gint width, gboolean p
 	table_set_width (e, t, width, percent, HTML_UNDO_UNDO);
 }
 
-static gboolean
-goto_begin (HTMLEngine *e)
+gboolean
+html_engine_table_goto_0_0 (HTMLEngine *e)
 {
 	HTMLTableCell *cell;
 
 	cell = html_engine_get_table_cell (e);
-	while (cell && cell->row != 0 && cell->col != 0) {
+	while (cell && (cell->row != 0 || cell->col != 0)) {
 		html_engine_prev_cell (e);
 		cell = html_engine_get_table_cell (e);
 	}
@@ -981,12 +981,12 @@ goto_begin (HTMLEngine *e)
 	return cell != NULL;
 }
 
-static gboolean
-goto_col (HTMLEngine *e, gint col)
+gboolean
+html_engine_table_goto_col (HTMLEngine *e, gint col)
 {
 	HTMLTableCell *cell;
 
-	if (goto_begin (e)) {
+	if (html_engine_table_goto_0_0 (e)) {
 		cell = html_engine_get_table_cell (e);
 		while (cell && cell->col != col) {
 			html_engine_next_cell (e, FALSE);
@@ -999,12 +999,12 @@ goto_col (HTMLEngine *e, gint col)
 	return FALSE;
 }
 
-static gboolean
-goto_row (HTMLEngine *e, gint row)
+gboolean
+html_engine_table_goto_row (HTMLEngine *e, gint row)
 {
 	HTMLTableCell *cell;
 
-	if (goto_begin (e)) {
+	if (html_engine_table_goto_0_0 (e)) {
 		cell = html_engine_get_table_cell (e);
 		while (cell && cell->row != row) {
 			html_engine_next_cell (e, FALSE);
@@ -1017,6 +1017,24 @@ goto_row (HTMLEngine *e, gint row)
 	return FALSE;
 }
 
+
+gboolean
+html_engine_table_goto_pos (HTMLEngine *e, gint row, gint col)
+{
+	HTMLTableCell *cell;
+
+	if (html_engine_table_goto_0_0 (e)) {
+		cell = html_engine_get_table_cell (e);
+		while (cell && cell->row != row && cell->col != col) {
+			html_engine_next_cell (e, FALSE);
+			cell = html_engine_get_table_cell (e);
+		}
+
+		return cell != NULL;
+	}
+
+	return FALSE;
+}
 
 /*
  * set number of columns in current table
@@ -1034,11 +1052,11 @@ html_engine_table_set_cols (HTMLEngine *e, gint cols)
 		return;
 
 	if (table->totalCols < cols) {
-		goto_col (e, table->totalCols - 1);
+		html_engine_table_goto_col (e, table->totalCols - 1);
 		while (table->totalCols < cols)
 			html_engine_insert_table_column (e, TRUE);
 	} else {
-		goto_col (e, table->totalCols - 1);
+		html_engine_table_goto_col (e, table->totalCols - 1);
 		while (table->totalCols > cols)
 			html_engine_delete_table_column (e);
 	}
@@ -1065,11 +1083,11 @@ html_engine_table_set_rows (HTMLEngine *e, gint rows)
 		return;
 
 	if (table->totalRows < rows) {
-		goto_row (e, table->totalRows - 1);
+		html_engine_table_goto_row (e, table->totalRows - 1);
 		while (table->totalRows < rows)
 			html_engine_insert_table_row (e, TRUE);
 	} else {
-		goto_row (e, table->totalRows - 1);
+		html_engine_table_goto_row (e, table->totalRows - 1);
 		while (table->totalRows > rows)
 			html_engine_delete_table_row (e);
 	}
