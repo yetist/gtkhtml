@@ -1,33 +1,31 @@
 # translation of el.po to Greek
 # Greek gtkhtml translation
 # Copyright (C) 2001, 2004 Free Software Foundation, Inc.
-# Simos Xenitellis <simos@hellug.gr>, 2001.
-# Kostas Papadimas <pkst@gnome.org>, 2004.
 # Nikos Charonitakis <frolix68@yahoo.gr> 2004.
 # Nikos 27Jan2004 convertion to utf8 and  fixes, 424 messages.
+# Simos Xenitellis <simos@hellug.gr>, 2001.
+# Kostas Papadimas <pkst@gnome.org>, 2004.
 msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
-"POT-Creation-Date: 2004-01-27 23:41+0200\n"
-"PO-Revision-Date: 2004-01-27 23:57-0200\n"
-"Last-Translator: Nikos Charonitakis <charosn@her.fothnet.gr>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-01-29 17:41+0200\n"
+"PO-Revision-Date: 2004-01-29 17:50+0200\n"
+"Last-Translator: Kostas Papadimas <pkst@gnome.org>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.0.2\n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
 msgstr "<Κενό>"
 
-#: capplet/gnome-bindings-prop.c:211
-#: capplet/main.c:241
-#: components/html-editor/cell.c:419
-#: components/html-editor/image.c:545
-#: components/html-editor/rule.c:316
-#: components/html-editor/table.c:530
-#: components/html-editor/table.c:614
-#: components/html-editor/template.c:272
+#: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
+#: components/html-editor/cell.c:419 components/html-editor/image.c:545
+#: components/html-editor/rule.c:316 components/html-editor/table.c:530
+#: components/html-editor/table.c:614 components/html-editor/template.c:272
 msgid "Could not load glade file."
 msgstr "Αδυναμία φόρτωσης αρχείου glade."
 
@@ -155,7 +153,8 @@ msgid ""
 "Try to install GNOME Spell if you don't have it installed."
 msgstr ""
 "Αδυναμία εκτέλεσης εφαρμογιδίου ελέγχου ορθογραφίας του GNOME\n"
-"Προσπαθείστε να εγκαταστήσετε το GNOME Spell αν δεν το έχετε εγκαταστήσει ακόμη."
+"Προσπαθείστε να εγκαταστήσετε το GNOME Spell αν δεν το έχετε εγκαταστήσει "
+"ακόμη."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
@@ -278,8 +277,7 @@ msgstr "Αποκοπή επιλογής"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:77
-#: components/html-editor/search.c:129
+#: components/html-editor/search.c:77 components/html-editor/search.c:129
 msgid "Find"
 msgstr "Εύρεση"
 
@@ -358,8 +356,7 @@ msgstr "Κεφαλίδα _6"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
 #: components/html-editor/editor-control-factory.c:189
 #: components/html-editor/gtkhtml-editor-properties.glade.h:39
-#: components/html-editor/menubar.c:91
-#: components/html-editor/popup.c:209
+#: components/html-editor/menubar.c:91 components/html-editor/popup.c:209
 msgid "Image"
 msgstr "Εικόνα"
 
@@ -463,10 +460,8 @@ msgstr "Li_ck"
 #
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
-#: components/html-editor/body.c:368
-#: components/html-editor/menubar.c:107
-#: components/html-editor/popup.c:106
-#: components/html-editor/popup.c:202
+#: components/html-editor/body.c:368 components/html-editor/menubar.c:107
+#: components/html-editor/popup.c:106 components/html-editor/popup.c:202
 #: components/html-editor/popup.c:275
 msgid "Link"
 msgstr "Σύνδεσμος"
@@ -538,8 +533,7 @@ msgstr "Μετατροπή της τρέχουσας παραγράφου σε �
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: components/html-editor/paragraph.c:131
-#: components/html-editor/toolbar.c:48
+#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:48
 msgid "Normal"
 msgstr "Κανονική"
 
@@ -628,8 +622,7 @@ msgstr "Ακύρωση της ανηρημένης ενέργειας"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
-#: components/html-editor/replace.c:157
-#: components/html-editor/replace.c:219
+#: components/html-editor/replace.c:157 components/html-editor/replace.c:219
 msgid "Replace"
 msgstr "Αντικατάσταση"
 
@@ -648,8 +641,7 @@ msgstr "Αριθμημένη λίστα με ρωμαικούς αριθμούς
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
 #: components/html-editor/editor-control-factory.c:209
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
-#: components/html-editor/menubar.c:125
-#: components/html-editor/popup.c:230
+#: components/html-editor/menubar.c:125 components/html-editor/popup.c:230
 msgid "Rule"
 msgstr "Κανόνας"
 
@@ -666,8 +658,7 @@ msgstr "Επιλογή όλου του περιεχομένου του εγγρ�
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:94
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#: components/html-editor/text.c:239
-#: components/html-editor/toolbar.c:528
+#: components/html-editor/text.c:239 components/html-editor/toolbar.c:528
 msgid "Strikeout"
 msgstr "Strikeout"
 
@@ -699,10 +690,8 @@ msgstr "Εκθέτης"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
-#: components/html-editor/menubar.c:142
-#: components/html-editor/popup.c:237
-#: components/html-editor/popup.c:518
-#: components/html-editor/popup.c:527
+#: components/html-editor/menubar.c:142 components/html-editor/popup.c:237
+#: components/html-editor/popup.c:518 components/html-editor/popup.c:527
 msgid "Table"
 msgstr "Πίνακας"
 
@@ -1052,16 +1041,18 @@ msgstr "Χαρτί γραφήματος"
 
 #. string marked for translations is sample text. you may want to translate it to common sample text in your language
 #: components/html-editor/body.c:163
-msgid "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a href=\"mailto:dog\">dog</a>."
-msgstr "Και ο νούς του σαν τον <a href=\"mailto:αχνό\">αχνό</a> του λιβανιού στης Παναγιάς την <a href=\"mailto:όψη\">όψη</a>."
+msgid ""
+"The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a href="
+"\"mailto:dog\">dog</a>."
+msgstr ""
+"Και ο νούς του σαν τον <a href=\"mailto:αχνό\">αχνό</a> του λιβανιού στης "
+"Παναγιάς την <a href=\"mailto:όψη\">όψη</a>."
 
-#: components/html-editor/body.c:316
-#: src/gtkhtml.c:2683
+#: components/html-editor/body.c:316 src/gtkhtml.c:2683
 msgid "Document Title"
 msgstr "Τίτλος Εγγράφου"
 
-#: components/html-editor/body.c:320
-#: components/html-editor/body.c:323
+#: components/html-editor/body.c:320 components/html-editor/body.c:323
 #: components/html-editor/gtkhtml-editor-properties.glade.h:15
 msgid "Background Image"
 msgstr "Εικόνα Παρασκηνίου"
@@ -1072,10 +1063,8 @@ msgstr "Εικόνα Παρασκηνίου"
 msgid "Colors"
 msgstr "Χρώματα"
 
-#: components/html-editor/body.c:355
-#: components/html-editor/cell.c:425
-#: components/html-editor/table.c:536
-#: components/html-editor/text.c:297
+#: components/html-editor/body.c:355 components/html-editor/cell.c:425
+#: components/html-editor/table.c:536 components/html-editor/text.c:297
 #: components/html-editor/toolbar.c:300
 msgid "Automatic"
 msgstr "Αυτόματο"
@@ -1084,8 +1073,7 @@ msgstr "Αυτόματο"
 #: components/html-editor/body.c:367
 #: components/html-editor/editor-control-factory.c:198
 #: components/html-editor/gtkhtml-editor-properties.glade.h:76
-#: components/html-editor/menubar.c:338
-#: components/html-editor/popup.c:195
+#: components/html-editor/menubar.c:338 components/html-editor/popup.c:195
 msgid "Text"
 msgstr "Κείμενο"
 
@@ -1095,8 +1083,7 @@ msgid "Background"
 msgstr "Παρασκήνιο"
 
 #. string marked for translations is sample text. you may want to translate it to common sample text in your language
-#: components/html-editor/cell.c:174
-#: components/html-editor/cell.c:176
+#: components/html-editor/cell.c:174 components/html-editor/cell.c:176
 #: components/html-editor/text.c:109
 msgid "The quick brown fox jumps over the lazy dog."
 msgstr "Και ο νους του σαν τον αχνό του λιβανιού στης Παναγιάς την όψη."
@@ -1115,46 +1102,41 @@ msgstr ""
 
 #
 #: components/html-editor/editor-control-factory.c:178
-#: components/html-editor/menubar.c:317
-#: components/html-editor/menubar.c:335
-#: components/html-editor/menubar.c:353
-#: components/html-editor/popup.c:187
+#: components/html-editor/menubar.c:317 components/html-editor/menubar.c:335
+#: components/html-editor/menubar.c:353 components/html-editor/popup.c:187
 #: components/html-editor/popup.c:272
 msgid "Properties"
 msgstr "Ιδιότητες"
 
 #: components/html-editor/editor-control-factory.c:219
-#: components/html-editor/menubar.c:356
-#: components/html-editor/popup.c:216
+#: components/html-editor/menubar.c:356 components/html-editor/popup.c:216
 msgid "Paragraph"
 msgstr "Παράγραφος"
 
 #: components/html-editor/editor-control-factory.c:224
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: components/html-editor/menubar.c:320
-#: components/html-editor/popup.c:223
+#: components/html-editor/menubar.c:320 components/html-editor/popup.c:223
 msgid "Page"
 msgstr "Σελίδα"
 
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:394
 msgid "custom"
-msgstr ""
+msgstr "προσαρμοσμένο"
 
 #
 #. "Custom" color - we'll pop up a GnomeColorPicker
 #: components/html-editor/gi-color-palette.c:436
-#, fuzzy
 msgid "Custom Color:"
-msgstr "Χρώμα:"
+msgstr "Προσαρμοσμένο Χρώμα:"
 
 #: components/html-editor/gi-color-palette.c:444
 msgid "Choose Custom Color"
-msgstr ""
+msgstr "Επιλογή προσαρμοσμένου χρώματος"
 
 #: components/html-editor/gi-color-palette.c:577
 msgid "black"
-msgstr ""
+msgstr "μαύρο"
 
 #: components/html-editor/gi-color-palette.c:578
 msgid "light brown"
@@ -1162,40 +1144,37 @@ msgstr "απαλό καφέ"
 
 #: components/html-editor/gi-color-palette.c:579
 msgid "brown gold"
-msgstr ""
+msgstr "χρυσό καφέ"
 
 #: components/html-editor/gi-color-palette.c:580
 msgid "dark green #2"
-msgstr ""
+msgstr "σκούρο πράσινο #2"
 
 #: components/html-editor/gi-color-palette.c:581
 msgid "navy"
-msgstr ""
+msgstr "navy"
 
 #: components/html-editor/gi-color-palette.c:582
 #: components/html-editor/gi-color-palette.c:638
 msgid "dark blue"
-msgstr ""
+msgstr "σκοτεινό μπλέ"
 
 #: components/html-editor/gi-color-palette.c:583
-#, fuzzy
 msgid "purple #2"
-msgstr "Μώβ"
+msgstr "Μώβ #2"
 
 #: components/html-editor/gi-color-palette.c:584
 msgid "very dark gray"
-msgstr ""
+msgstr "πολύ σκοτενό γκρί"
 
 #: components/html-editor/gi-color-palette.c:587
 #: components/html-editor/gi-color-palette.c:643
-#, fuzzy
 msgid "dark red"
-msgstr "Μαύρη κεφαλίδα"
+msgstr "σκοτεινό κόκκινο"
 
 #: components/html-editor/gi-color-palette.c:588
-#, fuzzy
 msgid "red-orange"
-msgstr "Πορτοκαλί"
+msgstr "Πορτοκαλί-κόκκινο"
 
 #
 #: components/html-editor/gi-color-palette.c:589
@@ -1204,12 +1183,12 @@ msgstr "χρυσαφί"
 
 #: components/html-editor/gi-color-palette.c:590
 msgid "dark green"
-msgstr ""
+msgstr "σκοτεινό πράσινο"
 
 #: components/html-editor/gi-color-palette.c:591
 #: components/html-editor/gi-color-palette.c:644
 msgid "dull blue"
-msgstr ""
+msgstr "μουντό μπλέ"
 
 #: components/html-editor/gi-color-palette.c:592
 #: components/html-editor/gi-color-palette.c:645
@@ -1218,11 +1197,11 @@ msgstr "μπλε"
 
 #: components/html-editor/gi-color-palette.c:593
 msgid "dull purple"
-msgstr ""
+msgstr "μουντό μώβ"
 
 #: components/html-editor/gi-color-palette.c:594
 msgid "dark grey"
-msgstr ""
+msgstr "σκοτεινό γκρί"
 
 #: components/html-editor/gi-color-palette.c:597
 msgid "red"
@@ -1233,25 +1212,23 @@ msgid "orange"
 msgstr "πορτοκαλί"
 
 #: components/html-editor/gi-color-palette.c:599
-#, fuzzy
 msgid "lime"
-msgstr "Στοίχιση"
+msgstr "lime"
 
 #: components/html-editor/gi-color-palette.c:600
 msgid "dull green"
-msgstr ""
+msgstr "μουντό πράσινο"
 
 #: components/html-editor/gi-color-palette.c:601
 msgid "dull blue #2"
-msgstr ""
+msgstr "μουντό μπλέ #2"
 
 #: components/html-editor/gi-color-palette.c:602
 msgid "sky blue #2"
-msgstr ""
+msgstr "μπλέ ουρανί #2"
 
 #: components/html-editor/gi-color-palette.c:603
 #: components/html-editor/gi-color-palette.c:642
-#, fuzzy
 msgid "purple"
 msgstr "Μώβ"
 
@@ -1262,13 +1239,12 @@ msgstr "γκρι"
 #
 #: components/html-editor/gi-color-palette.c:607
 #: components/html-editor/gi-color-palette.c:639
-#, fuzzy
 msgid "magenta"
-msgstr "Εικόνα"
+msgstr "magenta"
 
 #: components/html-editor/gi-color-palette.c:608
 msgid "bright orange"
-msgstr ""
+msgstr "φωτεινό πορτοκαλί"
 
 #: components/html-editor/gi-color-palette.c:609
 #: components/html-editor/gi-color-palette.c:640
@@ -1282,21 +1258,20 @@ msgstr "πράσινο"
 #: components/html-editor/gi-color-palette.c:611
 #: components/html-editor/gi-color-palette.c:641
 msgid "cyan"
-msgstr ""
+msgstr "κυανό"
 
 #: components/html-editor/gi-color-palette.c:612
 msgid "bright blue"
-msgstr ""
+msgstr "φωτεινό μπλέ"
 
 #: components/html-editor/gi-color-palette.c:613
 #: components/html-editor/gi-color-palette.c:630
-#, fuzzy
 msgid "red purple"
-msgstr "Μώβ"
+msgstr "Μώβ-κόκκινο"
 
 #: components/html-editor/gi-color-palette.c:614
 msgid "light grey"
-msgstr "απαλό γκρι"
+msgstr "φωτεινό γκρι"
 
 #
 #: components/html-editor/gi-color-palette.c:617
@@ -1318,19 +1293,18 @@ msgid "light green"
 msgstr "απαλό πράσινο"
 
 #: components/html-editor/gi-color-palette.c:621
-#, fuzzy
 msgid "light cyan"
-msgstr "Στοίχιση στα δεξιά"
+msgstr "φωτεινό κυανό"
 
 #: components/html-editor/gi-color-palette.c:622
 #: components/html-editor/gi-color-palette.c:632
 msgid "light blue"
-msgstr "απαλό μπλε"
+msgstr "φωτεινό μπλε"
 
 #: components/html-editor/gi-color-palette.c:623
 #: components/html-editor/gi-color-palette.c:636
 msgid "light purple"
-msgstr ""
+msgstr "φωτεινό μώβ"
 
 #: components/html-editor/gi-color-palette.c:624
 msgid "white"
@@ -1338,11 +1312,11 @@ msgstr "Λευκό"
 
 #: components/html-editor/gi-color-palette.c:629
 msgid "purplish blue"
-msgstr ""
+msgstr "μωβίζον μπλέ"
 
 #: components/html-editor/gi-color-palette.c:633
 msgid "dark purple"
-msgstr ""
+msgstr "σκοτεινό μώβ"
 
 #: components/html-editor/gi-color-palette.c:635
 msgid "sky blue"
@@ -1378,8 +1352,7 @@ msgstr "Εφαρμογή αλλαγών σε:"
 
 #
 #: components/html-editor/gtkhtml-editor-properties.glade.h:16
-#: components/html-editor/text.c:236
-#: components/html-editor/toolbar.c:522
+#: components/html-editor/text.c:236 components/html-editor/toolbar.c:522
 msgid "Bold"
 msgstr "Έντονα"
 
@@ -1401,14 +1374,12 @@ msgid "Cell"
 msgstr "Κελί"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
-#: components/html-editor/paragraph.c:173
-#: components/html-editor/toolbar.c:511
+#: components/html-editor/paragraph.c:173 components/html-editor/toolbar.c:511
 msgid "Center"
 msgstr "Κέντρο"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
-#: components/html-editor/link.c:137
-#: components/html-editor/text.c:247
+#: components/html-editor/link.c:137 components/html-editor/text.c:247
 msgid "Click will follow this URL"
 msgstr "Με κλικ ακολούθηση συτού του URL"
 
@@ -1479,8 +1450,7 @@ msgstr "Οριζόντια:"
 
 #
 #: components/html-editor/gtkhtml-editor-properties.glade.h:40
-#: components/html-editor/text.c:237
-#: components/html-editor/toolbar.c:524
+#: components/html-editor/text.c:237 components/html-editor/toolbar.c:524
 msgid "Italic"
 msgstr "Πλάγια"
 
@@ -1584,8 +1554,7 @@ msgid "Spacing:"
 msgstr "Διάστιχο:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:116
-#: components/html-editor/popup.c:473
+#: components/html-editor/paragraph.c:116 components/html-editor/popup.c:473
 #: components/html-editor/text.c:223
 msgid "Style"
 msgstr "Στυλ"
@@ -1614,8 +1583,7 @@ msgstr "Επάνω"
 
 #
 #: components/html-editor/gtkhtml-editor-properties.glade.h:79
-#: components/html-editor/text.c:238
-#: components/html-editor/toolbar.c:526
+#: components/html-editor/text.c:238 components/html-editor/toolbar.c:526
 msgid "Underline"
 msgstr "Υπογραμμισμένα"
 
@@ -1643,36 +1611,62 @@ msgstr "xxxxxxxxx"
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: components/html-editor/image.c:118
-#: components/html-editor/rule.c:93
+#: components/html-editor/image.c:118 components/html-editor/rule.c:93
 #: components/html-editor/table.c:192
 msgid "Plain"
 msgstr "Απλό"
 
 #: components/html-editor/image.c:120
-msgid "@link_begin@<img@alt@@width@@height@@align@ border=@border@@padh@@padv@@src@>@link_end@"
-msgstr "@link_begin@<img@alt@@width@@height@@align@ border=@border@@padh@@padv@@src@>@link_end@"
+msgid ""
+"@link_begin@<img@alt@@width@@height@@align@ "
+"border=@border@@padh@@padv@@src@>@link_end@"
+msgstr ""
+"@link_begin@<img@alt@@width@@height@@align@ "
+"border=@border@@padh@@padv@@src@>@link_end@"
 
 #: components/html-editor/image.c:123
 msgid "Frame"
 msgstr "Πλαίσιο"
 
 #: components/html-editor/image.c:125
-msgid "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img @src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></table></center>"
-msgstr "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img @src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></table></center>"
+msgid ""
+"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+"@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
+"table></center>"
+msgstr ""
+"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+"@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
+"table></center>"
 
 #: components/html-editor/image.c:133
 msgid "Caption"
 msgstr "Λεζάντα"
 
 #: components/html-editor/image.c:135
-msgid "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img @src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place your comment here]</td></tr></table></td></tr></table></center>"
-msgstr "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img @src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Το σχόλιο σας εδώ]</td></tr></table></td></tr></table></center>"
+msgid ""
+"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+"@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place your "
+"comment here]</td></tr></table></td></tr></table></center>"
+msgstr ""
+"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+"@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Το σχόλιο "
+"σας εδώ]</td></tr></table></td></tr></table></center>"
 
-#: components/html-editor/image.c:258
-#: components/html-editor/image.c:264
-msgid "This is sample text, designed to show you how text would flow around this image if you insert the image into your message."
-msgstr "Αυτό είναι ένα δείγμα κειμένου που σχεδιάστηκε για να σας δείξει το τρόπο ροής του κειμένου γύρω από την εικόνα αν εισ'αγετε μια εικόνα στο μήνυμα σας."
+#: components/html-editor/image.c:258 components/html-editor/image.c:264
+msgid ""
+"This is sample text, designed to show you how text would flow around this "
+"image if you insert the image into your message."
+msgstr ""
+"Αυτό είναι ένα δείγμα κειμένου που σχεδιάστηκε για να σας δείξει το τρόπο "
+"ροής του κειμένου γύρω από την εικόνα αν εισ'αγετε μια εικόνα στο μήνυμα σας."
 
 #: components/html-editor/image.c:270
 msgid "No image selected"
@@ -1698,12 +1692,9 @@ msgstr ""
 "Ο επεξεργασμένος δεσμός αφαιρέθηκε από το έγγραφο.\n"
 "Αδύνατη η εφαρμογή των αλλαγών."
 
-#: components/html-editor/menubar.c:88
-#: components/html-editor/menubar.c:104
-#: components/html-editor/menubar.c:122
-#: components/html-editor/menubar.c:139
-#: components/html-editor/menubar.c:162
-#: components/html-editor/popup.c:103
+#: components/html-editor/menubar.c:88 components/html-editor/menubar.c:104
+#: components/html-editor/menubar.c:122 components/html-editor/menubar.c:139
+#: components/html-editor/menubar.c:162 components/html-editor/popup.c:103
 #: components/html-editor/properties.c:122
 msgid "Insert"
 msgstr "Εισαγωγή"
@@ -1726,33 +1717,27 @@ msgstr "Εισαγωγή: Αρχείο Κειμένου"
 msgid "The quick brown fox jumps over the lazy dog.</div>"
 msgstr "Και ο νους του σαν τον αχνό του λιβανιού στης Παναγιάς την όψη.</div>"
 
-#: components/html-editor/paragraph.c:134
-#: components/html-editor/toolbar.c:54
+#: components/html-editor/paragraph.c:134 components/html-editor/toolbar.c:54
 msgid "Header 1"
 msgstr "Κεφαλίδα 1"
 
-#: components/html-editor/paragraph.c:135
-#: components/html-editor/toolbar.c:55
+#: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:55
 msgid "Header 2"
 msgstr "Κεφαλίδα 2"
 
-#: components/html-editor/paragraph.c:136
-#: components/html-editor/toolbar.c:56
+#: components/html-editor/paragraph.c:136 components/html-editor/toolbar.c:56
 msgid "Header 3"
 msgstr "Κεφαλίδα 3"
 
-#: components/html-editor/paragraph.c:137
-#: components/html-editor/toolbar.c:57
+#: components/html-editor/paragraph.c:137 components/html-editor/toolbar.c:57
 msgid "Header 4"
 msgstr "Κεφαλίδα 4"
 
-#: components/html-editor/paragraph.c:138
-#: components/html-editor/toolbar.c:58
+#: components/html-editor/paragraph.c:138 components/html-editor/toolbar.c:58
 msgid "Header 5"
 msgstr "Κεφαλίδα 5"
 
-#: components/html-editor/paragraph.c:139
-#: components/html-editor/toolbar.c:59
+#: components/html-editor/paragraph.c:139 components/html-editor/toolbar.c:59
 msgid "Header 6"
 msgstr "Κεφαλίδα 6"
 
@@ -1772,8 +1757,7 @@ msgstr "Αντικείμενο ρωμαϊκού αριθμού"
 msgid "Alphabeta item"
 msgstr "Αντικείμενο αλφάβητου"
 
-#: components/html-editor/paragraph.c:148
-#: components/html-editor/toolbar.c:60
+#: components/html-editor/paragraph.c:148 components/html-editor/toolbar.c:60
 msgid "Address"
 msgstr "Διεύθυνση"
 
@@ -1805,8 +1789,7 @@ msgstr "Διαγραφή συνδέσμου"
 msgid "Text Style..."
 msgstr "Στυλ Κειμένου..."
 
-#: components/html-editor/popup.c:478
-#: components/html-editor/popup.c:484
+#: components/html-editor/popup.c:478 components/html-editor/popup.c:484
 #: components/html-editor/popup.c:494
 msgid "Paragraph Style..."
 msgstr "Στυλ Παραγράφου..."
@@ -1911,8 +1894,7 @@ msgstr "_Αντικατάσταση"
 msgid "Search _backward"
 msgstr "Αναζήτηση προς τα _πίσω"
 
-#: components/html-editor/replace.c:166
-#: components/html-editor/search.c:83
+#: components/html-editor/replace.c:166 components/html-editor/search.c:83
 msgid "Case _sensitive"
 msgstr "Case _sensitive"
 
@@ -1980,8 +1962,7 @@ msgstr ""
 msgid "Note"
 msgstr "Σημείωση"
 
-#: components/html-editor/template.c:94
-#: components/html-editor/template.c:113
+#: components/html-editor/template.c:94 components/html-editor/template.c:113
 msgid "Place your text here"
 msgstr "Τοποθέτηση κείμενου εδώ"
 
