@@ -178,7 +178,8 @@ typedef enum {
 	ID_PRE,     ID_SMALL,    ID_SPAN,   ID_STRONG,   ID_U,
 	ID_UL,      ID_TEXTAREA, ID_TABLE,  ID_TD,       ID_TH, 
 	ID_TR,      ID_TT,       ID_VAR,    ID_S,        ID_SUB, 
-	ID_SUP,     ID_STRIKE,   ID_HTML,   ID_DOCUMENT, ID_OPTION
+	ID_SUP,     ID_STRIKE,   ID_HTML,   ID_DOCUMENT, ID_OPTION,
+	ID_SELECT
 } HTMLElementID;
 
 typedef enum {
@@ -340,7 +341,7 @@ current_color (HTMLEngine *e) {
 	for (item = e->span_stack->list; item; item = item->next) {
 		span = item->data;
 		
-		if (span->level > 2)
+		if (span->id == ID_TH || span->id == ID_TD)
 			break;
 
 		if (span->style && span->style->color)
@@ -655,18 +656,22 @@ add_line_break (HTMLEngine *e,
 	new_flow (e, clue, NULL, clear);
 }
 
-static void
-close_anchor (HTMLEngine *e)
-{
-	if (e->url == NULL && e->target == NULL)
-		return;
 
+static void
+block_end_anchor (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
+{
 	g_free (e->url);
 	e->url = NULL;
 
 	g_free (e->target);
 	e->target = NULL;
 
+	e->eat_space = FALSE;
+}
+
+static void
+close_anchor (HTMLEngine *e)
+{
 	pop_element (e, ID_A);
 }
 
@@ -693,9 +698,6 @@ close_flow (HTMLEngine *e, HTMLObject *clue)
 	last = HTML_CLUE (e->flow)->tail;
 	if (last == NULL) {
 		html_clue_append (HTML_CLUE (e->flow), create_empty_text (e));
-	} else if (HTML_OBJECT_TYPE (last) == HTML_TYPE_VSPACE) {
-		html_clue_remove (HTML_CLUE (e->flow), last);
-		html_object_destroy (last);
 	} else if (HTML_CLUE (e->flow)->tail != HTML_CLUE (e->flow)->head
 		   && html_object_is_text (last)
 		   && HTML_TEXT (last)->text_len == 1
@@ -1054,6 +1056,12 @@ block_end_div (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 }
 
 static void
+block_end_p (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
+{
+	finish_flow (e, clue);
+}
+
+static void
 block_end_map (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
 	e->map = NULL;
@@ -1066,6 +1074,28 @@ block_end_option (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 		html_select_set_text (e->formSelect, e->formText->str);
 	
 	e->inOption = FALSE;
+}
+
+static void
+block_end_select (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
+{
+	if ( e->inOption )
+		html_select_set_text (e->formSelect, e->formText->str);
+	
+	e->inOption = FALSE;
+	e->formSelect = NULL;
+	e->eat_space = FALSE;
+}
+
+static void
+block_end_textarea (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
+{
+	if ( e->inTextArea )
+		html_textarea_set_text (e->formTextArea, e->formText->str);
+	
+	e->inTextArea = FALSE;
+	e->formTextArea = NULL;
+	e->eat_space = FALSE;
 }
 
 static void
@@ -1679,6 +1709,7 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 		}
 		
 		if (type || coords) {
+
 			shape = html_shape_new (type, coords, href, target);
 			if (shape != NULL) {
 				html_map_add_shape (e->map, shape);
@@ -1691,22 +1722,27 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 		g_free (target);
 	} else if ( strncmp( str, "address", 7) == 0 ) {
 		HTMLStyle *style = NULL;
+		
+		close_flow (e, _clue);
 
 		style = html_style_set_decoration (style, GTK_HTML_FONT_STYLE_ITALIC);
-		close_flow (e, _clue);
 		push_clueflow_style (e, HTML_CLUEFLOW_STYLE_ADDRESS);
 		push_block_element (e, ID_ADDRESS, style, 1, block_end_clueflow_style, 0, 0);
-	} else if ( strncmp( str, "/address", 8) == 0 ) {
+	} else if (strncmp (str, "/address", 8) == 0) {
 		pop_element (e, ID_ADDRESS);
-	} else if ( strncmp( str, "a ", 2 ) == 0 ) {
+	} else if (strncmp (str, "a ", 2) == 0) {
+		HTMLShape *shape;
 		gchar *url = NULL;
 		gchar *id = NULL;
 		HTMLStyle *style = NULL;
 		char *style_attr = NULL;
+		char *type = NULL;
+		char *coords = NULL;
+		char *target = NULL;
 		
 		const gchar *p;
 		
-		close_anchor (e);
+		pop_element (e, ID_A);
 		
 		html_string_tokenizer_tokenize( e->st, str + 2, " >" );
 		
@@ -1726,17 +1762,22 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 				if (id == NULL)
 					id = g_strdup (p + 5);
 			} else if (strncasecmp (p, "shape=", 6) == 0) {
-				/* FIXME todo */
+				type = g_strdup (p + 6);
+			} else if ( strncasecmp (p, "coords=", 7) == 0) {
+				coords = g_strdup (p + 7);
 			} else if (strncasecmp (p, "style=", 6) == 0) {
 				style_attr = g_strdup (p + 6);
-#if 0
 			} else if (strncasecmp (p, "target=", 7) == 0) {
 				target = g_strdup (p + 7);
-				parsedTargets.append( target );
-#endif
 			}
 		}
 		
+		if (type || coords) {
+			shape = html_shape_new (type, coords, url, target);
+			if (shape != NULL) {
+				html_map_add_shape (e->map, shape);
+			}
+		}
 
 		if (id != NULL) {
 			if (e->flow == 0)
@@ -1747,14 +1788,6 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 						  html_anchor_new (id));
 			g_free (id);
 		}
-#if 0
-		if ( !target
-		     && e->baseTarget != NULL
-		     && e->baseTarget[0] != '\0' ) {
-			target = g_strdup (e->baseTarget);
-				/*  parsedTargets.append( target ); FIXME TODO */		
-		}
-#endif
 		
 		if (url != NULL) {
 			g_free (e->url);
@@ -1769,10 +1802,9 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 			g_free (style_attr);
 		}
 		push_element (e, ID_A, NULL, style);
-
-	} else if ( strncmp( str, "/a", 2 ) == 0 ) {
-		close_anchor (e);
-		e->eat_space = FALSE;
+		((HTMLElement *)html_stack_top (e->span_stack))->exitFunc = block_end_anchor;
+	} else if (strncmp (str, "/a", 2) == 0) {
+		pop_element (e, ID_A);
 	}
 }
 
@@ -1823,7 +1855,7 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		push_block (e, ID_BLOCKQUOTE, 1, block_end_quote, FALSE, FALSE);
 		e->avoid_para = TRUE;
 		e->pending_para = FALSE;
-		finish_flow (e, clue);
+		close_flow (e, clue);
 	} else if ( strncmp(str, "/blockquote", 11 ) == 0 ) {
 		pop_element (e, ID_BLOCKQUOTE);
 	} else if (strncmp (str, "body", 4) == 0) {
@@ -2012,7 +2044,9 @@ static void
 parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 {
 	if ( strncmp( str, "dir", 3 ) == 0 ) {
-		close_anchor(e);
+		pop_element (e, ID_LI);
+		finish_flow (e, _clue);
+
 		push_block (e, ID_DIR, 1, block_end_list, FALSE, FALSE);
 		html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_DIR));
 
@@ -2035,8 +2069,7 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 	} else if ( strncmp( str, "/div", 4 ) == 0 ) {
 		pop_element (e, ID_DIV);
 	} else if ( strncmp( str, "dl", 2 ) == 0 ) {
-		close_anchor (e);
-		finish_flow (e, _clue);
+		close_flow (e, _clue);
 
 		push_block (e, ID_DL, 1, block_end_list, FALSE, FALSE);
 		html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_GLOSSARY_DL));
@@ -2046,7 +2079,6 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 		pop_element (e, ID_DT);
 		pop_element (e, ID_DD);
 
-		close_anchor (e);
 		close_flow (e, _clue);
 		
 		/* FIXME this should set the item flag */
@@ -2057,7 +2089,6 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 		pop_element (e, ID_DT);
 		pop_element (e, ID_DD);
 
-		close_anchor (e);
 		close_flow (e, _clue);
 
 		push_block (e, ID_DD, 1, block_end_glossary, FALSE, FALSE);
@@ -2127,7 +2158,6 @@ block_end_form (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 	e->form = NULL;
 
 	if (!e->avoid_para && elem && elem->miscData1) {
-		close_anchor (e);
 		close_flow (e, clue);
 	}
 }
@@ -2569,8 +2599,6 @@ parse_l (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		
 		pop_element (e, ID_LI);
 
-		close_anchor (e);
-		
 		if (!html_stack_is_empty (e->listStack)) {
 			HTMLList *top;
 			
@@ -2699,7 +2727,6 @@ parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 		HTMLListType listType = HTML_LIST_TYPE_ORDERED_ARABIC;
 
 		pop_element (e, ID_LI);
-		close_anchor (e);
 		finish_flow (e, _clue);
 
 		/* FIXME */
@@ -2819,8 +2846,7 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			}
 		}
 		
-		close_anchor (e);
-		push_block_element (e, ID_P, style, 0, NULL, 0, 0);
+		push_block_element (e, ID_P, style, 1, block_end_p, 0, 0);
 		g_free (class);
 		if (! e->avoid_para) {	
 			new_flow (e, clue, NULL, HTML_CLEAR_NONE);
@@ -2890,13 +2916,9 @@ parse_s (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		append_element (e, clue, HTML_OBJECT (e->formSelect));
 		
 		g_free(name);
+		push_block (e, ID_SELECT, 0, block_end_select, FALSE, FALSE);
 	} else if (strncmp (str, "/select", 7) == 0) {
-		if ( e->inOption )
-			html_select_set_text (e->formSelect, e->formText->str);
-
-		e->inOption = FALSE;
-		e->formSelect = NULL;
-		e->eat_space = FALSE;
+		pop_element (e, ID_SELECT);
 	} else if (strncmp (str, "span", 4) == 0) {
 		HTMLStyle *style = NULL;
 		char *class = NULL;
@@ -3070,7 +3092,8 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		gint spacing = 2;
 		gint border = 0;
 
-		close_anchor (e);
+		/* see test16.html test0023.html and test0024.html */
+		/* pop_element (e, ID_A); */
 		close_current_table (e);
 
 		html_string_tokenizer_tokenize (e->st, str + 5, " >");
@@ -3503,20 +3526,11 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		g_string_assign (e->formText, "");
 		e->inTextArea = TRUE;
 
-		push_block(e, ID_TEXTAREA, 3, NULL, 0, 0);
-		
-		if(name)
-			g_free(name);
+		g_free(name);
+		push_block (e, ID_TEXTAREA, 3, block_end_textarea, 0, 0);
 	}
 	else if (strncmp (str, "/textarea", 9) == 0) {
-		pop_element(e, ID_TEXTAREA);
-
-		if ( e->inTextArea )
-			html_textarea_set_text (e->formTextArea, e->formText->str);
-
-		e->inTextArea = FALSE;
-		e->formTextArea = NULL;
-		e->eat_space = FALSE;
+		pop_element (e, ID_TEXTAREA);
 	}
 
 }
@@ -3531,7 +3545,6 @@ parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	if (strncmp (str, "ul", 2) == 0) {
 		pop_element (e, ID_LI);
-		close_anchor (e);
 		finish_flow (e, clue);
 
 		push_block (e, ID_UL, 1, block_end_list, FALSE, FALSE);
@@ -3541,11 +3554,6 @@ parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			html_string_tokenizer_next_token (e->st);
 		
 		e->flow = NULL;
-
-		/*
-		if (!html_stack_is_empty (e->listStack))
-			add_pending_paragraph_break (e, clue);
-		*/
 
 		html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_UNORDERED));
 

@@ -167,8 +167,6 @@ html_type_name (HTMLType type)
  		return "TextInput";
 	case HTML_TYPE_TEXTSLAVE:
  		return "TextSlave";
-	case HTML_TYPE_VSPACE:
- 		return "VSpace";
 	case HTML_TYPE_IFRAME:
 		return "IFrame";
 	case HTML_TYPE_FRAME:

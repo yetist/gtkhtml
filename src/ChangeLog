@@ -1,8 +1,19 @@
 2003-07-24  Larry Ewing  <lewing@ximian.com>
 
+	* htmlvspace.[ch]: remove these files that haven't been in the
+	build for ages.
+	
+	* htmltypes.h: remove vspace reference.
+
+	* htmltype.c (html_type_name): remove vspace reference.
+
+	* htmlenums.h: remove vspace references.
+
+	* htmlengine.c: redo anchor closing logic.  Change dir parsing.
+	
 	* htmlengine.c (parse_d): don't push another level for DT just
 	keep the DL level.  We should however set the item flag but we can
-	do that later.
+	do that later.	
 
 2003-07-23  Larry Ewing  <lewing@ximian.com>
 

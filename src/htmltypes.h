@@ -130,8 +130,6 @@ typedef struct _HTMLTokenizerClass HTMLTokenizerClass;
 typedef struct _HTMLUndo HTMLUndo;
 typedef struct _HTMLUndoData HTMLUndoData;
 typedef struct _HTMLUndoAction HTMLUndoAction;
-typedef struct _HTMLVSpace HTMLVSpace;
-typedef struct _HTMLVSpaceClass HTMLVSpaceClass;
 typedef struct _SpellError SpellError;
 
 typedef void     (* HTMLObjectForallFunc)       (HTMLObject        *self,
