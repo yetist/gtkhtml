@@ -60,7 +60,9 @@ struct _GtkHTMLEditImageProperties {
 	gboolean     set   [GTK_HTML_EDIT_IMAGE_SPINS];
 
 	GtkWidget   *width_measure;
-	gboolean     percent;
+	gboolean     width_percent;
+	GtkWidget   *height_measure;
+	gboolean     height_percent;
 
 	GtkWidget   *sel_align;
 	HTMLImage   *image;
@@ -94,9 +96,16 @@ align_menu_activate (GtkWidget *mi, GtkHTMLEditImageProperties *d)
 }
 
 static void
-percent_menu_activate (GtkWidget *mi, GtkHTMLEditImageProperties *d)
+percent_menu_activate_width (GtkWidget *mi, GtkHTMLEditImageProperties *d)
 {
-	d->percent = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (mi), "idx"));
+	d->width_percent = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (mi), "idx"));
+	CHANGE;
+}
+
+static void
+percent_menu_activate_height (GtkWidget *mi, GtkHTMLEditImageProperties *d)
+{
+	d->height_percent = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (mi), "idx"));
 	CHANGE;
 }
 
@@ -104,6 +113,14 @@ static void
 width_toggled (GtkWidget *check, GtkHTMLEditImageProperties *d)
 {
 	gtk_widget_set_sensitive (d->width_measure,
+				  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check)));
+	CHANGE;
+}
+
+static void
+height_toggled (GtkWidget *check, GtkHTMLEditImageProperties *d)
+{
+	gtk_widget_set_sensitive (d->height_measure,
 				  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check)));
 	CHANGE;
 }
@@ -234,24 +251,36 @@ image_insertion (GtkHTMLControlData *cd, gpointer *set_data)
 	vbox = gtk_vbox_new (FALSE, 0);
 	frame = gtk_frame_new (_("Size"));
 
-	table = gtk_table_new (3, 2, FALSE);
+	table = gtk_table_new (4, 2, FALSE);
 	gtk_container_border_width (GTK_CONTAINER (table), 3);
 
 	menu = gtk_menu_new ();
 	mcounter = 0;
-	ADD_ITEM (_("Pixels"), percent_menu_activate);
-	ADD_ITEM (_("Percent %"), percent_menu_activate);
+	ADD_ITEM (_("Pixels"), percent_menu_activate_width);
+	ADD_ITEM (_("Percent %"), percent_menu_activate_width);
 	data->width_measure = gtk_option_menu_new ();
 	gtk_option_menu_set_menu (GTK_OPTION_MENU (data->width_measure), menu);
-	gtk_option_menu_set_history (GTK_OPTION_MENU (data->width_measure), data->percent);
+	gtk_option_menu_set_history (GTK_OPTION_MENU (data->width_measure), data->width_percent);
 	gtk_table_attach (GTK_TABLE (table), data->width_measure,  0, 2, 0, 1, GTK_FILL, 0, 0, 0);
 
+	menu = gtk_menu_new ();
+	mcounter = 0;
+	ADD_ITEM (_("Pixels"), percent_menu_activate_height);
+	ADD_ITEM (_("Percent %"), percent_menu_activate_height);
+	data->height_measure = gtk_option_menu_new ();
+	gtk_option_menu_set_menu (GTK_OPTION_MENU (data->height_measure), menu);
+	gtk_option_menu_set_history (GTK_OPTION_MENU (data->height_measure), data->height_percent);
+	gtk_table_attach (GTK_TABLE (table), data->height_measure,  0, 2, 2, 3, GTK_FILL, 0, 0, 0);
+
 	ADD_VAL (0, 1, GTK_HTML_EDIT_IMAGE_WIDTH,  _("width"));
-	ADD_VAL (0, 2, GTK_HTML_EDIT_IMAGE_HEIGHT, _("height"));
+	ADD_VAL (0, 3, GTK_HTML_EDIT_IMAGE_HEIGHT, _("height"));
 
 	gtk_widget_set_sensitive (data->width_measure, data->set [GTK_HTML_EDIT_IMAGE_WIDTH]);
 	gtk_signal_connect (GTK_OBJECT (data->check [GTK_HTML_EDIT_IMAGE_WIDTH]), "toggled",
 					GTK_SIGNAL_FUNC (width_toggled), data);
+	gtk_widget_set_sensitive (data->height_measure, data->set [GTK_HTML_EDIT_IMAGE_HEIGHT]);
+	gtk_signal_connect (GTK_OBJECT (data->check [GTK_HTML_EDIT_IMAGE_HEIGHT]), "toggled",
+					GTK_SIGNAL_FUNC (height_toggled), data);
 
 	gtk_container_add (GTK_CONTAINER (frame), table);
 	gtk_box_pack_start_defaults (GTK_BOX (vb1), frame);
@@ -301,14 +330,23 @@ image_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	SET_ADJ (GTK_HTML_EDIT_IMAGE_HSPACE,  0, hspace);
 	SET_ADJ (GTK_HTML_EDIT_IMAGE_VSPACE,  0, vspace);
 
-	if (HTML_OBJECT (image)->percent > 0) {
+	if (image->percent_width > 0) {
 		gtk_adjustment_set_value (GTK_ADJUSTMENT (d->adj [GTK_HTML_EDIT_IMAGE_WIDTH]),
-					  HTML_OBJECT (image)->percent);
+					  image->percent_width);
 		gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (d->check [GTK_HTML_EDIT_IMAGE_WIDTH]), TRUE);
 		gtk_option_menu_set_history (GTK_OPTION_MENU (d->width_measure), 1);
-		d->percent = TRUE;
+		d->width_percent = TRUE;
 	} else
 		gtk_option_menu_set_history (GTK_OPTION_MENU (d->width_measure), 0);
+
+	if (image->percent_height > 0) {
+		gtk_adjustment_set_value (GTK_ADJUSTMENT (d->adj [GTK_HTML_EDIT_IMAGE_HEIGHT]),
+					  image->percent_height);
+		gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (d->check [GTK_HTML_EDIT_IMAGE_HEIGHT]), TRUE);
+		gtk_option_menu_set_history (GTK_OPTION_MENU (d->height_measure), 1);
+		d->height_percent = TRUE;
+	} else
+		gtk_option_menu_set_history (GTK_OPTION_MENU (d->height_measure), 0);
 
 	switch (image->valign) {
 	case HTML_VALIGN_TOP:
@@ -337,7 +375,8 @@ insert_or_apply (GtkHTMLControlData *cd, gpointer get_data, gboolean insert)
 	gchar *file;
 	gint16 width;
 	gint16 height;
-	gint8 percent;
+	gboolean width_percent;
+	gboolean height_percent;
 	gint8 border;
 	gint8 hspace;
 	gint8 vspace;
@@ -346,16 +385,24 @@ insert_or_apply (GtkHTMLControlData *cd, gpointer get_data, gboolean insert)
 
 	file    = g_strconcat ("file://", gnome_pixmap_entry_get_filename (GNOME_PIXMAP_ENTRY (data->pentry)), NULL);
 	width   = -1;
-	percent =  0;
+	height  = -1;
+	width_percent  = FALSE;
+	height_percent = FALSE;
 	if (data->set [GTK_HTML_EDIT_IMAGE_WIDTH]) {
-		if (data->percent) {
-			percent = GTK_ADJUSTMENT (data->adj [GTK_HTML_EDIT_IMAGE_WIDTH])->value;
+		if (data->width_percent) {
+			width_percent = GTK_ADJUSTMENT (data->adj [GTK_HTML_EDIT_IMAGE_WIDTH])->value;
 		} else {
 			width   = GTK_ADJUSTMENT (data->adj [GTK_HTML_EDIT_IMAGE_WIDTH])->value;
 		}
 	}
-	height = (data->set [GTK_HTML_EDIT_IMAGE_HEIGHT])
-		? GTK_ADJUSTMENT (data->adj [GTK_HTML_EDIT_IMAGE_HEIGHT])->value : -1;
+	if (data->set [GTK_HTML_EDIT_IMAGE_HEIGHT]) {
+		if (data->height_percent) {
+			height_percent = GTK_ADJUSTMENT (data->adj [GTK_HTML_EDIT_IMAGE_HEIGHT])->value;
+		} else {
+			height   = GTK_ADJUSTMENT (data->adj [GTK_HTML_EDIT_IMAGE_HEIGHT])->value;
+		}
+	}
+
 	hspace = (data->set [GTK_HTML_EDIT_IMAGE_HSPACE])
 		? GTK_ADJUSTMENT (data->adj [GTK_HTML_EDIT_IMAGE_HSPACE])->value : 0;
 	vspace = (data->set [GTK_HTML_EDIT_IMAGE_VSPACE])
@@ -381,7 +428,7 @@ insert_or_apply (GtkHTMLControlData *cd, gpointer get_data, gboolean insert)
 		html_engine_insert_image (data->cd->html->engine,
 					  file,
 					  NULL, NULL,
-					  width, height, percent, percent, border,
+					  width, height, width_percent, height_percent, border,
 					  html_colorset_get_color (data->cd->html->engine->settings->color_set,
 								   HTMLLinkColor),
 					  halign, valign,
@@ -393,7 +440,7 @@ insert_or_apply (GtkHTMLControlData *cd, gpointer get_data, gboolean insert)
 
 		if (data->set [GTK_HTML_EDIT_IMAGE_BWIDTH])
 			html_image_set_border (image, border);
-		html_image_set_size     (image, width, percent, percent, height);
+		html_image_set_size     (image, width, height, width_percent, height_percent);
 		html_image_set_url      (image, file);
 		html_image_set_spacing  (image, hspace, vspace);
 		html_image_set_valign   (image, valign);
