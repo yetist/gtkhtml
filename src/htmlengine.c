@@ -1038,8 +1038,9 @@ remove_element (HTMLEngine *e, GList *item)
 	HTMLElement *elem = item->data;
 	GList *next = item->next;
 
+	/* CLUECHECK */
 	if (elem->exitFunc)
-		(*(elem->exitFunc))(e, e->clue, elem);
+		(*(elem->exitFunc))(e, e->parser_clue, elem);
 
 	e->span_stack->list = g_list_remove_link (e->span_stack->list, item);
 
@@ -1233,13 +1234,14 @@ push_clue (HTMLEngine *e, HTMLObject *clue)
 	//html_stack_push (e->body_stack, e->span_stack);
 	html_stack_push (e->body_stack, e->clueflow_style_stack);
 	html_stack_push (e->body_stack, e->listStack);
-	html_stack_push (e->body_stack, e->clue);
+	/* CLUECHECK */
+	html_stack_push (e->body_stack, e->parser_clue);
 	html_stack_push (e->body_stack, e->flow);
 
-	//e->span_stack = html_stack_new (free_element);
+	//e->span_stack = html_stack_new (free_elementggs);
 	e->clueflow_style_stack = html_stack_new (NULL);
 	e->listStack = html_stack_new ((HTMLStackFreeFunc)html_list_destroy);
-	e->clue = clue;
+	e->parser_clue = clue;
 	e->flow = NULL;
 
 	html_stack_push (e->body_stack, GINT_TO_POINTER (e->avoid_para));
@@ -1250,15 +1252,8 @@ push_clue (HTMLEngine *e, HTMLObject *clue)
 static void
 pop_clue (HTMLEngine *e)
 {
-	
-#if 0
-	if (HTML_CLUE (e->clue)->head == NULL)
-		insert_paragraph_break (e, HTML_OBJECT (e->clue));
-	close_flow (e, HTML_OBJECT (e->clue));
-#else
-
-	finish_flow (e, HTML_OBJECT (e->clue));
-#endif
+	/* CLUECHECK */
+	finish_flow (e, HTML_OBJECT (e->parser_clue));
 
 	e->avoid_para = GPOINTER_TO_INT (html_stack_pop (e->body_stack));
 	
@@ -1266,7 +1261,8 @@ pop_clue (HTMLEngine *e)
 	//html_stack_destroy (e->span_stack);
 
 	e->flow = html_stack_pop (e->body_stack);
-	e->clue = html_stack_pop (e->body_stack);
+	/* CLUECHECK */
+	e->parser_clue = html_stack_pop (e->body_stack);
 	e->listStack = html_stack_pop (e->body_stack);
 	e->clueflow_style_stack = html_stack_pop (e->body_stack);
 	//e->span_stack = html_stack_pop (e->body_stack);
@@ -1315,7 +1311,8 @@ new_parse_body (HTMLEngine *e, const gchar *end[])
 		str = html_tokenizer_next_token (e->ht);
 
 		/* The token parser has pushed a body we want to use it. */
-		clue = e->clue;
+		/* CLUECHECK */
+		clue = e->parser_clue;
 		//printf ("%p <-- clue\n", clue);
 
 		if (*str == '\0')
@@ -1350,69 +1347,6 @@ new_parse_body (HTMLEngine *e, const gchar *end[])
 	
 	if (!html_tokenizer_has_more_tokens (e->ht) && !e->writing)
 		html_engine_stop_parser (e);
-
-	return rv;
-}
-
-static gchar *
-parse_body (HTMLEngine *e, HTMLObject *clue, const gchar *end[], gboolean toplevel, gboolean begin)
-{
-	gchar *str;
-	gchar *rv = NULL;
-	gboolean final = FALSE;
-
-	if (begin && !toplevel) {
-		push_clue (e, clue);
-	}
-
-	e->eat_space = FALSE;
-	while (html_tokenizer_has_more_tokens (e->ht) && e->parsing) {
-		str = html_tokenizer_next_token (e->ht);
-
-		if (*str == '\0')
-			continue;
-
-		if (*str != TAG_ESCAPE) {
-			if (e->inOption || e->inTextArea) {
-				g_string_append (e->formText, str);
-			} else if (e->inTitle) {
-				g_string_append (e->title, str);
-			} else {
-				insert_text (e, clue, str);
-			}
-		} else {
-			gint i  = 0;
-			str++;
-
-			while (end [i] != 0) {
-				if (strncasecmp (str, end[i], strlen(end[i])) == 0) {
-					rv = str;
-					final = TRUE;
-					goto end_body;
-				}
-				i++;
-			}
-			
-			/* The tag used for line break when we are in <pre>...</pre> */
-			if (*str == '\n')
-				add_line_break (e, clue, HTML_CLEAR_NONE);
-			else
-				parse_one_token (e, clue, str);
-		}
-	}
-
-	if (!html_tokenizer_has_more_tokens (e->ht) && toplevel && !e->writing)
-		html_engine_stop_parser (e);
-
- end_body:
-	if (final) {
-		if (e->flow && HTML_CLUE (e->flow)->tail == NULL) {
-			html_clue_remove (HTML_CLUE (clue), e->flow);
-			html_object_destroy (e->flow);
-			e->flow = NULL;
-		}
-		pop_clue (e);
-	}
 
 	return rv;
 }
@@ -1524,7 +1458,7 @@ block_end_object (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 }
 
 static void
-parse_object (HTMLEngine *e, HTMLObject *clue, const gchar *attr)
+element_parse_object (HTMLEngine *e, HTMLObject *clue, const gchar *attr)
 {
 	char *classid = NULL;
 	char *name    = NULL;
@@ -1596,16 +1530,10 @@ parse_object (HTMLEngine *e, HTMLObject *clue, const gchar *attr)
 		/* throw away the contents we can deal with the object */
 		str = discard_body (e, end);
 	} else {
-		/* parse the body of the tag to display the alternative */
-		str = parse_body (e, clue, end, FALSE, TRUE);
-		close_flow (e, clue);
 		html_object_destroy (HTML_OBJECT (el));
 	}
 	
-	if ((!str || (strncasecmp (str, "</object", 8) == 0)) && 
-	    (!html_stack_is_empty (e->embeddedStack))) {
-		html_stack_pop (e->embeddedStack);
-	}
+	push_block (e, "object", DISPLAY_NONE, block_end_object, FALSE, FALSE);
 
 	g_free (type);
 	g_free (data);
@@ -1757,11 +1685,8 @@ element_parse_iframe (HTMLEngine *e, HTMLObject *clue, const char *str)
 			append_element (e, clue, iframe);
 		}
 		discard_body (e, end);
-	} else {
-		parse_body (e, clue, end, FALSE, TRUE);
-		close_flow (e, clue);
 	}
-	
+  
 	html_element_free (element);
 }
 
@@ -3650,7 +3575,7 @@ HTMLDispatchEntry basic_table[] = {
 	{ID_KBD,              element_parse_inline_fixed},
 	{ID_OL,               element_parse_ol},
 	{ID_OPTION,           element_parse_option},	
-	{"object",            parse_object},
+	{"object",            element_parse_object},
 	{"param",             element_parse_param},
 	{ID_PRE,              element_parse_pre},
 	{ID_SMALL,            element_parse_small},
@@ -3881,7 +3806,7 @@ html_engine_finalize (GObject *object)
 		/* extra safety in reentrant situations
 		 * remove the clue before we destroy it
 		 */
-		engine->clue = NULL;
+		engine->clue = engine->parser_clue = NULL;
 		html_object_destroy (clue);
 	}
 
@@ -4110,7 +4035,7 @@ html_engine_class_init (HTMLEngineClass *klass)
 static void
 html_engine_init (HTMLEngine *engine)
 {
-	engine->clue = NULL;
+	engine->clue = engine->parser_clue = NULL;
 
 	/* STUFF might be missing here!   */
 	engine->freeze_count = 0;
@@ -4267,7 +4192,7 @@ html_engine_ensure_editable (HTMLEngine *engine)
 
 	cluev = engine->clue;
 	if (cluev == NULL)
-		engine->clue = cluev = html_cluev_new (0, 0, 100);
+		engine->clue = engine->parser_clue = cluev = html_cluev_new (0, 0, 100);
 
 	head = HTML_CLUE (cluev)->head;
 	if (head == NULL || HTML_OBJECT_TYPE (head) != HTML_TYPE_CLUEFLOW) {
@@ -5017,7 +4942,7 @@ html_engine_parse (HTMLEngine *e)
 	/* reset settings to default ones */
 	html_colorset_set_by (e->settings->color_set, e->defaultSettings->color_set);
 
-	e->clue = html_cluev_new (html_engine_get_left_border (e), html_engine_get_top_border (e), 100);
+	e->clue = e->parser_clue = html_cluev_new (html_engine_get_left_border (e), html_engine_get_top_border (e), 100);
 	HTML_CLUE (e->clue)->valign = HTML_VALIGN_TOP;
 	HTML_CLUE (e->clue)->halign = HTML_HALIGN_LEFT;
 

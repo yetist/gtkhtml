@@ -1,3 +1,12 @@
+2003-12-03  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c:  Use parser_clue whereever the the parser is
+	actively adding elements.  Us the generic clue where the display
+	engine is processing.
+
+	* htmlengine.h: add parser_clue to hold the root of the current
+	block.
+	
 2003-12-03  Radek Doulik  <rodo@ximian.com>
 
 	* htmlprinter.c (get_font_size): scale font size down from pango

@@ -86,7 +86,7 @@ struct _HTMLEngine {
 	gboolean parsing;
 	HTMLTokenizer *ht;
 	HTMLStringTokenizer *st;
-	HTMLObject *clue;
+	HTMLObject *clue;         /* the document root */
 	
 	HTMLObject *flow;
 
@@ -264,6 +264,8 @@ struct _HTMLEngine {
 
 	gboolean expose;
 	gboolean need_update;
+
+	HTMLObject *parser_clue;  /* the root of the currently parsed block */
 };
 
 /* must be forward referenced *sigh* */
