@@ -205,7 +205,7 @@ alloc_e_font_try (gchar *face, gdouble size, GtkHTMLFontStyle style,
 
 		gdk_font = gdk_font_load (name);
 		if (gdk_font) {
-			font = e_font_from_gdk_font (gdk_font);
+			font = e_font_from_gdk_name (name);
 			gdk_font_unref (gdk_font);
 		} else
 			font = NULL;

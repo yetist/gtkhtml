@@ -9,6 +9,8 @@
 	fixed font creation
 	(alloc_e_font_try): comment out fixed font test which was
 	probably wrong
+	(alloc_e_font_try): use e_font_from_gdk_name to be sure that
+	fontset is used when needed
 
 	* gtkhtml.c (client_notify_widget): update tkey compares for
 	/font_variable instead of /font_variable_family and likewise for
