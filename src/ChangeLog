@@ -1,3 +1,13 @@
+1999-12-30  Jonas Borgström <jonas_b@bitsmart.com>
+
+	* htmlengine.c (parse_m): Added support for META refresh
+	
+	* htmlengine.[ch] (redirect): New signal
+	
+	* gtkhtml.[ch] (redirect): New signal
+
+	* testgtkhtml.c (on_redirect): New function, support for META redirection.
+
 1999-12-30  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlobject.c (destroy): Do not deal with the font anymore.

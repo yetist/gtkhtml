@@ -87,6 +87,9 @@ int go_position;
 static gint load_timer  = -1;
 static gboolean slow_loading = FALSE, exit_when_done = FALSE;
 
+static gint redirect_timerId = 0;
+static gchar *redirect_url = NULL;
+
 static GnomeUIInfo file_menu [] = {
 	GNOMEUIINFO_MENU_EXIT_ITEM (exit_cb, NULL),
 	GNOMEUIINFO_END
@@ -462,6 +465,28 @@ on_set_base (GtkHTML *html, const gchar *url, gpointer data)
 	gtk_entry_set_text (GTK_ENTRY (entry), url);
 }
 
+static gboolean
+redirect_timer_event (gpointer data) {
+	g_print("Redirecting to '%s' NOW\n", redirect_url);
+	goto_url(redirect_url, 0);
+
+	/*	OBS: redirect_url is freed in goto_url */
+
+	return FALSE;
+}
+
+static void
+on_redirect (GtkHTML *html, const gchar *url, int delay, gpointer data) {
+	g_print("Redirecting to '%s' in %d seconds\n", url, delay);
+
+	if(redirect_timerId == 0) {
+
+		redirect_url = g_strdup(url);
+		
+		redirect_timerId = gtk_timeout_add (delay * 1000,(GtkFunction) redirect_timer_event, NULL);
+	}
+}
+
 static void
 on_url (GtkHTML *html, const gchar *url, gpointer data)
 {
@@ -699,6 +724,13 @@ goto_url(const char *url, int back_or_forward)
 	/* Kill all requests */
 	HTNet_killAll();
 
+	/* Remove any pending redirection */
+	if(redirect_timerId) {
+		gtk_timeout_remove(redirect_timerId);
+
+		redirect_timerId = 0;
+	}
+
 	gnome_animator_start (GNOME_ANIMATOR (animator));
 	html_stream_handle = gtk_html_begin (html, url);
 	gtk_html_parse (html);
@@ -782,6 +814,12 @@ goto_url(const char *url, int back_or_forward)
 		/* Update current link in the go list */
 		item = g_list_nth_data(go_list, go_position);
 		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item->widget), TRUE);
+	}
+
+	if(redirect_url) {
+
+		g_free(redirect_url);
+		redirect_url = NULL;
 	}
 }
 
@@ -946,6 +984,8 @@ main (gint argc, gchar *argv[])
 			    GTK_SIGNAL_FUNC (on_button_press_event), popup_menu);
 	gtk_signal_connect (GTK_OBJECT (html), "link_clicked",
 			    GTK_SIGNAL_FUNC (on_link_clicked), NULL);
+	gtk_signal_connect (GTK_OBJECT (html), "redirect",
+			    GTK_SIGNAL_FUNC (on_redirect), NULL);
 
 #if 0
 	gtk_box_pack_start_defaults (GTK_BOX (hbox), GTK_WIDGET (html));

@@ -176,6 +176,7 @@ struct _HTMLEngineClass {
 	void (* load_done) (HTMLEngine *engine);
         void (* url_requested) (HTMLEngine *engine, const char *url, GtkHTMLStreamHandle handle);
 	void (* draw_pending) (HTMLEngine *engine);
+        void (* redirect) (HTMLEngine *engine, const char *url, int delay);
 };
 
 

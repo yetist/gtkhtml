@@ -76,6 +76,7 @@ enum {
 	TITLE_CHANGED,
 	URL_REQUESTED,
 	DRAW_PENDING,
+	REDIRECT,
 	LAST_SIGNAL
 };
 	
@@ -1989,8 +1990,62 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 static void
 parse_m (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 {
+	int refresh = 0;
+	int refresh_delay = 0;
+	HTMLURL *refresh_url = NULL;
+
 	if ( strncmp( str, "meta", 4 ) == 0 ) {
-		/* do nothing. this is a meta tag */
+		string_tokenizer_tokenize( e->st, str + 5, " >" );
+		while ( string_tokenizer_has_more_tokens (e->st) ) {
+
+			const gchar* token = string_tokenizer_next_token(e->st);
+			if ( strncasecmp( token, "http-equiv=", 11 ) == 0 ) {
+				if ( strncasecmp( token + 11, "refresh", 7 ) == 0 )
+					refresh = 1;
+			} else if ( strncasecmp( token, "content=", 8 ) == 0 ) {
+				if(refresh) {
+					gchar *url = NULL, *actualURL = NULL;
+					gchar *content;
+					content = token + 8;
+
+					/* The time in seconds until the refresh */
+					refresh_delay = atoi(content);
+
+					string_tokenizer_tokenize(e->st, content, ",;>");
+					while ( string_tokenizer_has_more_tokens (e->st) ) {
+						const gchar* token = string_tokenizer_next_token(e->st);
+						if ( strncasecmp( token, "url=", 4 ) == 0 ) {
+							token += 4;
+
+							if(*token == '#') {
+								refresh_url = html_url_dup(e->actualURL, HTML_URL_DUP_NOREFERENCE);
+								html_url_set_reference(refresh_url, token + 1);
+
+							} else {
+								refresh_url = parse_href(e, token);
+							}
+						}
+						
+					}
+					if(refresh_url == NULL)
+						refresh_url = html_url_dup(e->actualURL, 0);
+					
+					if(refresh_url)
+						url = html_url_to_string(refresh_url);
+					if(e->actualURL)
+						actualURL = html_url_to_string(e->actualURL);
+					
+					if(!(refresh_delay == 0 && !strcasecmp(url, actualURL)))
+						gtk_signal_emit (GTK_OBJECT (e), signals[REDIRECT], url, refresh_delay);
+					if(url)
+						g_free(url);
+					
+					if(actualURL)
+						g_free(actualURL);
+
+				}
+			}
+		}
 	}
 }
 
@@ -2451,6 +2506,16 @@ html_engine_class_init (HTMLEngineClass *klass)
 				GTK_SIGNAL_OFFSET (HTMLEngineClass, draw_pending),
 				gtk_marshal_NONE__NONE,
 				GTK_TYPE_NONE, 0);
+
+	signals [REDIRECT] =
+		gtk_signal_new ("redirect",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (HTMLEngineClass, redirect),
+				gtk_marshal_NONE__POINTER_INT,
+				GTK_TYPE_NONE, 2,
+				GTK_TYPE_STRING,
+				GTK_TYPE_INT);
 
 	gtk_object_class_add_signals (object_class, signals, LAST_SIGNAL);
 

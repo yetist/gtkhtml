@@ -36,6 +36,7 @@ enum {
 	SET_BASE,
 	SET_BASE_TARGET,
 	ON_URL,
+	REDIRECT,
 	LAST_SIGNAL
 };
 static guint signals [LAST_SIGNAL] = { 0 };
@@ -130,6 +131,17 @@ html_engine_draw_pending_cb (HTMLEngine *engine,
 
 	html = GTK_HTML (data);
 	queue_draw (html);
+}
+
+static void
+html_engine_redirect_cb (HTMLEngine *engine,
+			     const char *url, int delay, gpointer data)
+{
+	GtkHTML *gtk_html;
+
+	gtk_html = GTK_HTML (data);
+
+	gtk_signal_emit (GTK_OBJECT (gtk_html), signals[REDIRECT], url, delay);
 }
 
 
@@ -512,6 +524,16 @@ class_init (GtkHTMLClass *klass)
 				GTK_TYPE_NONE, 1,
 				GTK_TYPE_STRING);
 	
+	signals [REDIRECT] =
+		gtk_signal_new ("redirect",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (GtkHTMLClass, redirect),
+				gtk_marshal_NONE__POINTER_INT,
+				GTK_TYPE_NONE, 2,
+				GTK_TYPE_STRING,
+				GTK_TYPE_INT);
+	
 	gtk_object_class_add_signals (object_class, signals, LAST_SIGNAL);
 
 	object_class->destroy = destroy;
@@ -590,6 +612,8 @@ gtk_html_new (void)
 			    GTK_SIGNAL_FUNC (html_engine_url_requested_cb), html);
 	gtk_signal_connect (GTK_OBJECT (html->engine), "draw_pending",
 			    GTK_SIGNAL_FUNC (html_engine_draw_pending_cb), html);
+	gtk_signal_connect (GTK_OBJECT (html->engine), "redirect",
+			    GTK_SIGNAL_FUNC (html_engine_redirect_cb), html);
 
 	return GTK_WIDGET (html);
 }
