@@ -1,3 +1,8 @@
+2000-08-18  Larry Ewing  <lewing@helixcode.com>
+
+	* toolbar.c (paragraph_style_menu_item_activated_cb): remove
+	warning that printed out the value of the new style.
+
 2000-08-14  Radek Doulik  <rodo@helixcode.com>
 
 	* editor-control-factory.c (html_button_pressed): use

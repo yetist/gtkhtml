@@ -87,7 +87,7 @@ paragraph_style_menu_item_activated_cb (GtkWidget *widget,
 	html = GTK_HTML (data);
 	style = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (widget), "paragraph_style_value"));
 
-	g_warning ("Setting paragraph style to %d.", style);
+	/* g_warning ("Setting paragraph style to %d.", style); */
 
 	gtk_html_set_paragraph_style (html, style);
 }
