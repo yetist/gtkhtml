@@ -38,20 +38,20 @@ typedef struct _GtkHTMLPropmanagerClass GtkHTMLPropmanagerClass;
 typedef struct _GtkHTMLPropmanager GtkHTMLPropmanager;
 
 struct _GtkHTMLPropmanager {
-	GtkObject object;
+	GObject object;
 
 	GtkHTMLPropmanagerPrivate *priv;
 	GConfClient *client;
 };
 
 struct _GtkHTMLPropmanagerClass {
-	GtkObjectClass parent_class;
+	GObjectClass parent_class;
 	
 	void (*changed)(GtkHTMLPropmanager *);
 };
 
 GtkType          gtk_html_propmanager_get_type (void);
-GtkObject *      gtk_html_propmanager_new (GConfClient *client);
+GObject *        gtk_html_propmanager_new (GConfClient *client);
 gboolean         gtk_html_propmanager_set_gui (GtkHTMLPropmanager *pman, GladeXML *xml, GHashTable *nametable);
 void             gtk_html_propmanager_apply (GtkHTMLPropmanager *pman);
 void             gtk_html_propmanager_reset (GtkHTMLPropmanager *pman);

@@ -1,5 +1,7 @@
 2003-04-08  Larry Ewing  <lewing@ximian.com>
 
+	* gtkhtml-propmanager.h: fix object and class types.
+
 	* gtkhtml-properties.c (gtk_html_class_properties_new): NULL
 	protect the widget parameter.
 
