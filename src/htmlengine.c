@@ -582,10 +582,15 @@ current_font_style (HTMLEngine *e)
 	GList *item;
 	GtkHTMLFontStyle style = GTK_HTML_FONT_STYLE_DEFAULT;
 	
-	for (item = g_list_last (e->span_stack->list); item; item = item->prev) {
+	for (item = e->span_stack->list; item && item->next; item = item->next) {
 		span = item->data;
-		if (span->style)
-			style = (style & ~span->style->mask) | (span->style->settings & span->style->mask);
+		if (span->style->display == DISPLAY_TABLE_CELL)
+			break;
+	}
+
+	for (; item; item = item->prev) {
+		span = item->data;
+		style = (style & ~span->style->mask) | (span->style->settings & span->style->mask);
 	}
 	return style;
 }

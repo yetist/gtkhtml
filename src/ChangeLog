@@ -1,5 +1,9 @@
 2003-09-04  Larry Ewing  <lewing@ximian.com>
 
+	* htmlengine.c (current_font_style): optimize this a little and
+	don't traverse above table cells when looking for the font style
+	(this happens a lot and we might be deep in a table).
+
 	* htmlstyle.c: add html_style_set_display.
 	
 	* htmlstyle.h: add html_style_set_display prototype and
