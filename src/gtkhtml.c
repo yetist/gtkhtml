@@ -3197,6 +3197,12 @@ gtk_html_get_paragraph_style (GtkHTML *html)
 	return clueflow_style_to_paragraph_style (style, item_type);
 }
 
+guint
+gtk_html_get_paragraph_indentation (GtkHTML *html)
+{
+	return html_engine_get_current_clueflow_indentation (html->engine);
+}
+
 void
 gtk_html_set_indent (GtkHTML *html,
 		     gint level)
