@@ -631,7 +631,8 @@ get_offset_for_pointer (HTMLTextSlave *slave, HTMLPainter *painter, gint x, gint
 	GtkHTMLFontStyle font_style;
 	guint width, prev_width;
 	guint i;
-	gint line_offset, lo;
+	gint line_offset, lo, word, ww;
+	gchar *space;
 
 	g_return_val_if_fail (slave != NULL, 0);
 
@@ -642,7 +643,26 @@ get_offset_for_pointer (HTMLTextSlave *slave, HTMLPainter *painter, gint x, gint
 
 	prev_width  = 0;
 	line_offset = html_text_slave_get_line_offset (slave, html_text_get_line_offset (slave->owner, painter), 0, painter);
-	for (i = 1; i <= slave->posLen; i++) {
+
+	i = 1;
+	word = 1;
+	space = strchr (owner->text + slave->posStart, ' ');
+	if (space && space - owner->text - slave->posStart <= slave->posLen) {
+		html_text_request_word_width (owner, painter);
+
+		ww = get_words_width (owner, painter, slave->start_word, word);
+		while (ww < x) {
+			i = space - owner->text - slave->posStart - 1;
+			space = strchr (space + 1, ' ');
+			if (space && space - owner->text - slave->posStart >= slave->posLen) {
+				break;
+			}
+			word ++;
+			ww = get_words_width (owner, painter, slave->start_word, word);
+		}
+	}
+
+	for ( ; i <= slave->posLen; i++) {
 		lo = line_offset;
 		width = html_painter_calc_text_width (painter,
 						      html_text_get_text (owner, slave->posStart),

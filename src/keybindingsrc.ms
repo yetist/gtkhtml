@@ -77,6 +77,7 @@ binding "gtkhtml-bindings-ms"
   bind "<Ctrl><Alt>1"         { "command" (style-itemdot) }
   bind "<Ctrl><Alt>2"         { "command" (style-itemroman) }
   bind "<Ctrl><Alt>3"         { "command" (style-itemdigit) }
+  bind "<Ctrl><Alt>4"         { "command" (style-itemalpha) }
 
   bind "<Alt>1"               { "command" (size-minus-2) }
   bind "<Alt>2"               { "command" (size-minus-1) }

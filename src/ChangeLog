@@ -1,3 +1,14 @@
+2002-01-14  Radek Doulik  <rodo@ximian.com>
+
+	* keybindingsrc.*: bind style-itemalpha command
+
+	* gtkhtml.c (command): implement style-itemalpha command
+
+2002-01-11  Radek Doulik  <rodo@ximian.com>
+
+	* htmltextslave.c (get_offset_for_pointer): optimized to use word
+	width cache
+
 2002-01-10  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit.c (html_engine_new_text): could return link

@@ -1051,6 +1051,7 @@ select_range (HTMLObject *self,
 	else
 		changed = FALSE;
 
+	/* printf ("select range %d, %d\n", offset, length); */
 	if (queue_draw) {
 		for (p = self->next;
 		     p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE;
@@ -1080,6 +1081,7 @@ select_range (HTMLObject *self,
 				diff1 = offset - slave->posStart;
 				diff2 = text->select_start - slave->posStart;
 
+				/* printf ("offsets diff 1: %d 2: %d\n", diff1, diff2); */
 				if (diff1 != diff2) {
 					html_engine_queue_draw (engine, p);
 				} else {
@@ -1087,6 +1089,7 @@ select_range (HTMLObject *self,
 					diff2 = (text->select_start + text->select_length
 						 - slave->posStart);
 
+					/* printf ("lens diff 1: %d 2: %d\n", diff1, diff2); */
 					if (diff1 != diff2)
 						html_engine_queue_draw (engine, p);
 				}
