@@ -1,3 +1,8 @@
+2002-12-05  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit-cut-and-paste.c (html_engine_delete):
+	reimplemented, make it work better with tables
+
 2002-12-02  Radek Doulik  <rodo@ximian.com>
 
 	* htmlimage.c (move_image_pointers): emit url requested signal, so

@@ -769,14 +769,6 @@ delete_object (HTMLEngine *e, HTMLObject **ret_object, guint *ret_len, HTMLUndoD
 	return 0;
 }
 
-void
-html_engine_delete (HTMLEngine *e)
-{
-	html_undo_level_begin (e->undo, "Delete", "Undelete");
-	delete_object (e, NULL, NULL, HTML_UNDO_UNDO, TRUE);
-	html_undo_level_end (e->undo);
-}
-
 gint
 html_engine_cut (HTMLEngine *e)
 {
@@ -1635,4 +1627,75 @@ html_engine_cut_and_paste (HTMLEngine *e, const gchar *undo_op_name, const gchar
 	if (e->clipboard)
 		html_object_forall (e->clipboard, e, iterator, data);
 	html_engine_cut_and_paste_end (e);
+}
+
+static void
+delete_upto (HTMLEngine *e, HTMLCursor **start, HTMLCursor **end, HTMLObject *object, guint offset)
+{
+	guint position;
+
+	html_cursor_destroy (e->mark);
+	e->mark = *start;
+	html_cursor_jump_to (e->cursor, e, object, offset);
+	position = e->cursor->position;
+	delete_object (e, NULL, NULL, HTML_UNDO_UNDO, TRUE);
+	*start = html_cursor_dup (e->cursor);
+	html_cursor_forward (*start, e);
+	(*end)->position -= position - e->cursor->position;
+}
+
+void
+html_engine_delete (HTMLEngine *e)
+{
+	html_undo_level_begin (e->undo, "Delete", "Undelete");
+	html_engine_edit_selection_updater_update_now (e->selection_updater);
+	if (html_engine_is_selection_active (e)) {
+		HTMLCursor *start = html_cursor_dup (e->mark->position < e->cursor->position ? e->mark : e->cursor);
+		HTMLCursor *end = html_cursor_dup (e->mark->position < e->cursor->position ? e->cursor : e->mark);
+
+		while (start->position < end->position) {
+			if (start->object->parent->parent == end->object->parent->parent) {
+				if (e->mark)
+					html_cursor_destroy (e->mark);
+				html_cursor_destroy (e->cursor);
+				e->mark = start;
+				e->cursor = end;
+				start = end = NULL;
+				delete_object (e, NULL, NULL, HTML_UNDO_UNDO, TRUE);
+				break;
+			} else {
+				HTMLObject *prev = NULL, *cur = start->object;
+
+				/* go thru current cluev */
+				do {
+				        /* go thru current flow */
+					while (cur) {
+				                /* lets look if container is whole contained in the selection */
+						if (html_object_is_container (cur)) {
+							html_cursor_jump_to (e->cursor, e, cur, html_object_get_length (cur));
+							if (e->cursor->position > end->position) {
+								/* it's not => delete upto this container */
+
+								delete_upto (e, &start, &end, cur, 0);
+								prev = NULL;
+								break;
+							}
+						}
+						prev = cur;
+						cur = html_object_next_not_slave (cur);
+					}
+				} while (prev && prev->parent->next && (cur = html_object_head (prev->parent->next)));
+
+				if (prev)
+				        /* cluev end is in the selection */
+					delete_upto (e, &start, &end, prev, html_object_get_length (prev));
+			}
+		}
+
+		if (start)
+			html_cursor_destroy (start);
+		if (end)
+			html_cursor_destroy (end);
+	}
+	html_undo_level_end (e->undo);
 }
