@@ -459,9 +459,18 @@ hts_fit_line (HTMLObject *o,
 	if (words + slave->start_word == text->words)
 		rv = HTML_FIT_COMPLETE;
 	else if (words == 0 || get_words_width (text, painter, slave->start_word, words) == 0) {
-		if (!firstRun)
-			rv = HTML_FIT_NONE;
-		else if (slave->start_word + 1 == text->words)
+		if (!firstRun) {
+			if (slave->posStart == 0 && text->text [0] != ' ' && HTML_OBJECT (text)->prev) {
+				HTMLObject *prev = HTML_OBJECT (text)->prev;
+				if (HTML_IS_TEXT_SLAVE (prev) && HTML_TEXT_SLAVE (prev)->posLen
+				    && HTML_TEXT_SLAVE (prev)->owner->text [strlen (HTML_TEXT_SLAVE (prev)->owner->text) - 1]
+				    != ' ')
+					rv = slave->start_word + 1 == text->words ? HTML_FIT_COMPLETE : HTML_FIT_PARTIAL;
+				else
+					rv = HTML_FIT_NONE;
+			} else
+				rv = HTML_FIT_NONE;
+		} else if (slave->start_word + 1 == text->words)
 			rv = HTML_FIT_COMPLETE;
 		else {
 			words ++;

@@ -1,3 +1,8 @@
+2002-06-25  Radek Doulik  <rodo@ximian.com>
+
+	* htmltextslave.c (hts_fit_line): take care about line breaking
+	here as well as we don't usually calculate min width anymore.
+
 2002-06-24  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml-keybinding.c (handle_none): call with cite == FALSE.
