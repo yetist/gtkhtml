@@ -1389,8 +1389,8 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 						html_clue_append (HTML_CLUE (e->flow),
 								  html_anchor_new (p+5));
 				} else if ( strncasecmp( p, "target=", 7 ) == 0 ) {
-					target = g_strdup (p + 7);
 #if 0							/* FIXME TODO */
+					target = g_strdup (p + 7);
 					parsedTargets.append( target );
 #endif
 				}

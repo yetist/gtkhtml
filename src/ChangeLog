@@ -1,3 +1,23 @@
+2000-04-06  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltokenizer.c (html_tokenizer_end): destroy blocking tokens to
+	be sure
+
+	* htmlengine.c (parse_a): moved target = g_strdup (p + 7); behind
+	#if 0 to not leak memory
+
+	* htmltokenizer.c (html_tokenizer_write): g_free blocking token
+
+	* htmlembedded.c (destroy): if widget has parent then destroy else
+	unref
+
+	* htmltable.c (destroy): loop thru allocRows and not thru
+	totalRows
+	removed add_row_info one line function as it has been used only
+	once, from HTMLTable removed rowInfo as it has ben used only in
+	calc_col_info
+	(calc_col_info): g_free rowInfo
+
 2000-04-06  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine-edit-clueflowstyle.c: Added members `mask',
@@ -37,6 +57,9 @@
 	(html_image_factory_frame_done): ref animation
 	(html_image_factory_end_pixbuf): unref loader instead of only
 	closing it
+	(html_image_factory_area_prepared): catch only first pixbuf
+	(copy): use g_strdup for url and target
+	(destroy): g_free url and target
 
 	* htmlcluev.c (html_cluev_class_init): removed FIXME as it don't
 	need destroy

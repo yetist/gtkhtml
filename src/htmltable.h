@@ -79,8 +79,6 @@ struct _HTMLTable {
 	GArray *columnOpt; /* integer array */
 	GArray *colSpan; /* integer array */
 	GArray *rowHeights; /* integer array */
-
-	RowInfo *rowInfo;
 };
 
 struct _HTMLTableClass {

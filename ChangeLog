@@ -1,6 +1,7 @@
 2000-04-06  Radek Doulik  <rodo@helixcode.com>
 
 	* BUGS: removed http://www.stjerneskolan.com as it looks nice now
+	updated leaks item, added explanation of bug in ImageFactory
 
 2000-04-05  Radek Doulik  <rodo@helixcode.com>
 

@@ -192,6 +192,12 @@ html_tokenizer_begin (HTMLTokenizer *t)
 	t->charEntity = FALSE;
 }
 
+static void
+destroy_blocking (gpointer data, gpointer user_data)
+{
+	g_free (data);
+}
+
 void
 html_tokenizer_end (HTMLTokenizer *t)
 {
@@ -207,7 +213,10 @@ html_tokenizer_end (HTMLTokenizer *t)
 
 	t->buffer = 0;
 
-	/* FIXME: Delete blocking tokens */
+	if (t->blocking) {
+		g_warning ("blocking token(s) remain(s)\n");
+		g_list_foreach (t->blocking, destroy_blocking, NULL);
+	}
 	t->blocking = NULL;
 }
 
@@ -693,10 +702,14 @@ html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 				html_blocking_token_append (t, html_blocking_token_new (Table, t->last));
 			}
 			else {
-				if (!html_blocking_token_is_empty (t) &&
-				    strncmp (t->buffer + 1, html_blocking_token_get_token_name (html_blocking_token_get_last (t)), 
-					     strlen (html_blocking_token_get_token_name (html_blocking_token_get_last (t)))) == 0) {
-					html_blocking_token_remove_last (t);
+				if (!html_blocking_token_is_empty (t)) {
+					HTMLBlockingToken * bt = html_blocking_token_get_last (t);
+					const gchar *bn = html_blocking_token_get_token_name (bt);
+
+					if (strncmp (t->buffer + 1, bn, strlen (bn)) == 0) {
+						html_blocking_token_remove_last (t);
+						g_free (bt);
+					}
 				}
 			}
 		}

@@ -25,7 +25,17 @@ Table problems
 - If a page renders with a link under the cursor, the link cannot be
   clicked unless you move the cursor off the link and then back on
 
-- Lots of memory leaks.
+- Remaining Memory leaks:
+   * new_context in gdk_pixbuf - loader need to be fixed to know when
+     to stop, send animation_done and free context
+   * sometimes there are some lost TextSlaves
+   * leak in test_cb - don't worry about it, it is only debugging stuff
+   * any more? sure :-)
+
+- We store images in ImageFactory by name and not by complete URL, so when
+  you have equaly named images on different sites, we don't load new ones
+  and happily using old "incorrect" ones (try freshmeat.net and
+  then helixcode.com and you will see what I am talking about)
 
 * Sites that look wrong
 -----------------------

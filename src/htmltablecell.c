@@ -241,8 +241,6 @@ html_table_cell_class_init (HTMLTableCellClass *klass,
 
 	html_cluev_class_init (cluev_class, type, object_size);
 
-	/* FIXME destroy */
-
 	object_class->reset = reset;
 	object_class->copy = copy;
 	object_class->calc_min_width = calc_min_width;

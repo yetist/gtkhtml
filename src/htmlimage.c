@@ -173,6 +173,9 @@ destroy (HTMLObject *o)
 	if (image->animation)
 		html_image_animation_destroy (image->animation);
 
+	g_free (image->url);
+	g_free (image->target);
+
 	HTML_OBJECT_CLASS (parent_class)->destroy (o);
 }
 
@@ -188,8 +191,8 @@ copy (HTMLObject *self,
 	HTML_IMAGE (dest)->border = HTML_IMAGE (self)->border;
 	HTML_IMAGE (dest)->specified_width = HTML_IMAGE (self)->specified_width;
 	HTML_IMAGE (dest)->specified_height = HTML_IMAGE (self)->specified_height;
-	HTML_IMAGE (dest)->url = HTML_IMAGE (self)->url;
-	HTML_IMAGE (dest)->target = HTML_IMAGE (self)->target;
+	HTML_IMAGE (dest)->url = g_strdup (HTML_IMAGE (self)->url);
+	HTML_IMAGE (dest)->target = g_strdup (HTML_IMAGE (self)->target);
 }
 
 static gint

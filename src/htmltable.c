@@ -61,10 +61,9 @@ destroy (HTMLObject *o)
 	HTMLTable *table = HTML_TABLE (o);
 	HTMLTableCell *cell;
 	guint r, c;
-	
-	for (r = 0; r < table->totalRows; r++) {
+
+	for (r = 0; r < table->allocRows; r++) {
 		for (c = 0; c < table->totalCols; c++) {
-			
 			if ((cell = table->cells[r][c]) == 0)
 				continue;
 			if (c < table->totalCols - 1 &&
@@ -73,21 +72,12 @@ destroy (HTMLObject *o)
 			if (r < table->totalRows - 1 &&
 			    cell == table->cells[r + 1][c])
 				continue;
-			
+
 			html_object_destroy (HTML_OBJECT (cell));
 		}
 		g_free (table->cells [r]);
-		/* FIXME it looks like there could be duplicit values
-		   if (table->rowInfo) {
-			if (table->rowInfo [r].entry) {
-				g_free (table->rowInfo [r].entry);
-			}
-			} */
 	}
 	g_free (table->cells);
-	if (table->rowInfo) {
-		g_free (table->rowInfo);
-	}
 
 	g_array_free (table->colInfo, TRUE);
 	g_array_free (table->colType, TRUE);
@@ -146,11 +136,6 @@ forall (HTMLObject *self,
 }
 
 
-static void
-add_row_info (HTMLTable *table, gint row, gint colInfoIndex)
-{
-	table->rowInfo[row].entry[table->rowInfo[row].nrEntries++] = colInfoIndex;
-}
 
 static void
 add_columns (HTMLTable *table, gint num)
@@ -193,6 +178,7 @@ static void
 calc_col_info (HTMLTable *table,
 	       HTMLPainter *painter)
 {
+	RowInfo *rowInfo;
 	gint pixel_size;
 	gint r, c;
 	gint borderExtra;
@@ -207,15 +193,12 @@ calc_col_info (HTMLTable *table,
 
 	/* Allocate some memory for column info */
 	g_array_set_size (table->colInfo, table->totalCols * 2);
-	if (table->rowInfo) {
-		g_free (table->rowInfo);
-	}
-	table->rowInfo = g_new (RowInfo, table->totalRows);
+	rowInfo = g_new (RowInfo, table->totalRows);
 	table->totalColumnInfos = 0;
 
 	for (r = 0; r < table->totalRows; r++) {
-		table->rowInfo[r].entry = g_new0 (gint, table->totalCols);
-		table->rowInfo[r].nrEntries = 0;
+		rowInfo[r].entry = g_new0 (gint, table->totalCols);
+		rowInfo[r].nrEntries = 0;
 		for (c = 0; c < table->totalCols; c++) {
 			HTMLTableCell *cell = table->cells[r][c];
 			gint min_size;
@@ -267,7 +250,8 @@ calc_col_info (HTMLTable *table,
 								min_size, pref_size,
 								HTML_OBJECT (table)->max_width,
 								col_type);
-			add_row_info (table, r, colInfoIndex);
+
+			rowInfo[r].entry[rowInfo[r].nrEntries++] = colInfoIndex;
 		}
 	}
 
@@ -277,14 +261,14 @@ calc_col_info (HTMLTable *table,
 		gboolean unique = TRUE;
 		for (j = 0; (j < totalRowInfos) && (unique == TRUE); j++) {
 			gint k;
-			if (table->rowInfo[i].nrEntries == table->rowInfo[j].nrEntries)
+			if (rowInfo[i].nrEntries == rowInfo[j].nrEntries)
 				unique = FALSE;
 			else {
 				gboolean match = TRUE;
-				k = table->rowInfo[i].nrEntries;
+				k = rowInfo[i].nrEntries;
 				while (k--) {
-					if (table->rowInfo[i].entry[k] != 
-					    table->rowInfo[j].entry[k]) {
+					if (rowInfo[i].entry[k] != 
+					    rowInfo[j].entry[k]) {
 						match = FALSE;
 						break;
 					}
@@ -295,12 +279,12 @@ calc_col_info (HTMLTable *table,
 			}
 		}
 		if (!unique) {
-			g_free (table->rowInfo[i].entry);
-			table->rowInfo[i].entry = NULL;
+			g_free (rowInfo[i].entry);
+			rowInfo[i].entry = NULL;
 		} else {
 			if (totalRowInfos != i) {
-				table->rowInfo[totalRowInfos].entry = table->rowInfo[i].entry;
-				table->rowInfo[totalRowInfos].nrEntries = table->rowInfo[i].nrEntries;
+				rowInfo[totalRowInfos].entry = rowInfo[i].entry;
+				rowInfo[totalRowInfos].nrEntries = rowInfo[i].nrEntries;
 			}
 			totalRowInfos++;
 		}
@@ -315,16 +299,16 @@ calc_col_info (HTMLTable *table,
 		gint pref = 0;
 		gint j;
 
-		for (j = 0; j < table->rowInfo[i].nrEntries; j++) {
+		for (j = 0; j < rowInfo[i].nrEntries; j++) {
 			gint index;
 
-			index = table->rowInfo[i].entry[j];
+			index = rowInfo[i].entry[j];
 			min += COLUMN_INFO (table, index).minSize;
 			pref += COLUMN_INFO (table, index).prefSize;
 		}
 
-		table->rowInfo[i].minSize = min;
-		table->rowInfo[i].prefSize = pref;
+		rowInfo[i].minSize = min;
+		rowInfo[i].prefSize = pref;
 
 		if (table->_minWidth < min)
 			table->_minWidth = min;
@@ -342,6 +326,11 @@ calc_col_info (HTMLTable *table,
 
 	if (table->_minWidth > table->_prefWidth)
 		table->_prefWidth = table->_minWidth;
+
+	for (r=0; r<totalRowInfos; r++) {
+		g_free (rowInfo [r].entry);
+	}
+	g_free (rowInfo);
 }
 
 static gint
@@ -1406,8 +1395,6 @@ html_table_init (HTMLTable *table,
 	table->colSpan = g_array_new (FALSE, FALSE, sizeof (gint));
 	table->columnOpt = g_array_new (FALSE, FALSE, sizeof (gint));
 	table->rowHeights = g_array_new (FALSE, FALSE, sizeof (gint));
-
-	table->rowInfo = NULL;
 }
 
 HTMLObject *
