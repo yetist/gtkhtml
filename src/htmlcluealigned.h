@@ -1,10 +1,10 @@
 #ifndef _HTML_CLUEALIGNED_H_
 #define _HTML_CLUEALIGNED_H_
 
+typedef struct _HTMLClueAligned HTMLClueAligned;
+
 #include "htmlobject.h"
 #include "htmlclue.h"
-
-typedef struct _HTMLClueAligned HTMLClueAligned;
 
 #define HTML_CLUEALIGNED(x) ((HTMLClueAligned *)(x))
 

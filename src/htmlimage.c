@@ -9,6 +9,7 @@ static void html_image_set_max_width (HTMLObject *o, gint max_width);
 static gint html_image_calc_min_width (HTMLObject *o);
 static void html_image_init (HTMLImage *image);
 static gint html_image_calc_preferred_width (HTMLObject *o);
+static void html_image_calc_size (HTMLObject *o, HTMLObject *parent);
 
 HTMLObject *
 html_image_new (HTMLEngine *e, gchar *filename, gint max_width, 
@@ -23,6 +24,7 @@ html_image_new (HTMLEngine *e, gchar *filename, gint max_width,
 	object->set_max_width = html_image_set_max_width;
 	object->calc_min_width = html_image_calc_min_width;
 	object->calc_preferred_width = html_image_calc_preferred_width;
+	object->calc_size = html_image_calc_size;
 
 	image->engine = e;
 	image->url = filename;
@@ -142,4 +144,10 @@ static gint
 html_image_calc_preferred_width (HTMLObject *o)
 {
 	return o->width;
+}
+
+static void
+html_image_calc_size (HTMLObject *o, HTMLObject *parent)
+{
+	/* Do nothing */
 }

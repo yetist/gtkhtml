@@ -1,10 +1,9 @@
 #ifndef HTMLCLUE_H
 #define HTMLCLUE_H
 
-typedef struct _HTMLClue HTMLClue;
-
 #include "htmlobject.h"
-#include "htmlcluealigned.h"
+
+typedef struct _HTMLClue HTMLClue;
 
 #define HTML_CLUE(x) ((HTMLClue *)(x))
 
@@ -24,7 +23,9 @@ struct _HTMLClue {
   
 	void (*find_free_area) (HTMLClue *clue, gint y, gint width, gint height, gint indent, gint *y_pos, gint *lmargin, gint *rmargin);
 
-	void (*append_right_aligned) (HTMLClue *clue, HTMLClueAligned *aclue);
+	void (*append_right_aligned) (HTMLClue *clue, HTMLClue *aclue);
+	
+	gboolean (*appended) (HTMLClue *clue, HTMLClue *aclue);
 };
 
 void        html_clue_init (HTMLClue *clue, objectType ObjectType);

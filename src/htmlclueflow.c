@@ -122,7 +122,7 @@ html_clueflow_calc_size (HTMLObject *o, HTMLObject *parent)
 		else if (obj->flags & Aligned) {
 			HTMLClueAligned *c = (HTMLClueAligned *)obj;
 
-			if (!html_cluev_appended (parent, c)) {
+			if (!HTML_CLUE (parent)->appended (HTML_CLUE (parent), c)) {
 				obj->calc_size (obj, NULL);
 				
 				if (HTML_CLUE (HTML_CLUE (c)->halign == Left)) {

@@ -1,5 +1,7 @@
 #include "htmlcluealigned.h"
 
+static void html_cluealigned_calc_size (HTMLObject *o, HTMLObject *parent);
+
 HTMLObject *
 html_cluealigned_new (HTMLClue *parent, gint x, gint y, gint max_width, gint percent)
 {
@@ -7,7 +9,10 @@ html_cluealigned_new (HTMLClue *parent, gint x, gint y, gint max_width, gint per
 	HTMLClue *clue = HTML_CLUE (aclue);
 	HTMLObject *object = HTML_OBJECT (aclue);
 	html_clue_init (clue, ClueAligned);
-	
+
+	/* HTMLObject functions */
+	object->calc_size = html_cluealigned_calc_size;
+
 	object->x = x;
 	object->y = y;
 	object->max_width = max_width;
@@ -33,4 +38,10 @@ html_cluealigned_new (HTMLClue *parent, gint x, gint y, gint max_width, gint per
 	object->flags |= Aligned;
 
 	return object;
+}
+
+static void
+html_cluealigned_calc_size (HTMLObject *o, HTMLObject *parent)
+{
+	html_clue_calc_size (o, parent);
 }
