@@ -1,3 +1,8 @@
+2001-11-15  Radek Doulik  <rodo@ximian.com>
+
+	* htmlcluev.c (do_layout): test if it's new flow by old_y and not
+	old_y_off
+
 2001-11-15  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml-properties.c (get_font_name): 
