@@ -99,6 +99,9 @@ html_button_pressed (GtkWidget *html, GdkEventButton *event, GtkHTMLControlData 
 		case HTML_TYPE_IMAGE:
 			image_edit (cd, HTML_IMAGE (obj));
 			break;
+		case HTML_TYPE_LINKTEXTMASTER:
+			link_edit (cd, HTML_LINK_TEXT_MASTER (obj));
+			break;
 		default:
 		}
 	} else if (event->button == 3) {

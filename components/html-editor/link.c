@@ -32,6 +32,7 @@ struct _GtkHTMLLinkDialog {
 	HTMLLinkTextMaster *html_link;
 
 	GtkWidget   *text;
+	GtkWidget   *text_label;
 	GtkWidget   *link;
 };
 
@@ -112,7 +113,7 @@ gtk_html_link_dialog_new (GtkHTML *html)
 
 	table = gtk_table_new (2, 2, FALSE);
 	gtk_table_set_col_spacings (GTK_TABLE (table), 3);
-	label = gtk_label_new (_("Text"));
+	d->text_label = label = gtk_label_new (_("Text"));
 	gtk_misc_set_alignment (GTK_MISC (label), 1.0, .5);
 	gtk_table_attach_defaults (GTK_TABLE (table), label,   0, 1, 0, 1);
 	gtk_table_attach_defaults (GTK_TABLE (table), d->text, 1, 2, 0, 1);
@@ -146,6 +147,8 @@ link_insert (GtkHTMLControlData *cd)
 	if (cd->link_dialog)
 		set_entries (cd->html->engine, cd->link_dialog->text, cd->link_dialog->link);
 	RUN_DIALOG (link);
+	gtk_widget_show (cd->link_dialog->text);
+	gtk_widget_show (cd->link_dialog->text_label);
 	cd->link_dialog->html_link = NULL;
 }
 
@@ -154,6 +157,8 @@ link_edit (GtkHTMLControlData *cd, HTMLLinkTextMaster *link)
 {
 	RUN_DIALOG (link);
 	cd->link_dialog->html_link = link;
+	gtk_widget_hide (cd->link_dialog->text);
+	gtk_widget_hide (cd->link_dialog->text_label);
 	gtk_entry_set_text (GTK_ENTRY (cd->link_dialog->text), HTML_TEXT (link)->text);
 	gtk_entry_set_text (GTK_ENTRY (cd->link_dialog->link), link->url);
 }
