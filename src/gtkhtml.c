@@ -2399,6 +2399,8 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
 	case DND_TARGET_TYPE_STRING:
 	case DND_TARGET_TYPE_TEXT_HTML:
 		selection_received (widget, selection_data, time);
+		pasted = TRUE;
+		break;
 	case DND_TARGET_TYPE_TEXT_URI_LIST:
 	case DND_TARGET_TYPE__NETSCAPE_URL: {
 		HTMLObject *obj;

@@ -1,3 +1,12 @@
+2003-08-28  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (drag_data_received): add back some missing logic.
+
+2003-08-27  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (drag_data_received): use selection_recieved to handle
+	incoming drops and add text/html as a supported drop type.
+
 2003-08-23  Larry Ewing  <lewing@ximian.com>
 
 	* htmlstyle.c (parse_color): fix copy length.
