@@ -470,7 +470,15 @@ gpointer  html_object_get_data               (HTMLObject  *object,
 					      const gchar *key);
 void      html_object_copy_data_from_object  (HTMLObject  *dst,
 					      HTMLObject  *src);
-GList *   html_object_get_bound_list         (HTMLObject *obj,
-					      GList *list);
+/*
+ * editing
+*/
+GList    *html_object_get_bound_list             (HTMLObject *obj,
+						  GList      *list);
+void      html_object_move_cursor_before_remove  (HTMLObject *o,
+						  HTMLEngine *e);
+gboolean  html_object_could_remove_whole         (HTMLObject *o,
+						  GList      *from,
+						  GList      *to);
 
 #endif /* _HTMLOBJECT_H_ */

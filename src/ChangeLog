@@ -1,5 +1,13 @@
 2001-01-05  Radek Doulik  <rodo@helixcode.com>
 
+	* htmltext.c (html_text_op_cut_helper): use new object helper
+	functions
+
+	* htmlobject.c (html_object_move_cursor_before_remove): new helper
+	function
+	(html_object_move_cursor_before_remove): ditto
+	(op_cut): use these helper functions
+
 	* htmlengine-edit-cut-and-paste.c (delete_object_do): use disable
 	selection instead of deactivate to deselect deleted objects
 	(html_point_get_left): added allow_null parameter
@@ -8,6 +16,13 @@
 	to
 	(remove_empty_and_merge): make sure cursor have no zero offset if
 	there is prev object
+	(html_point_get_right): don't allow NULL for ''
+	(html_point_get_left): likewise
+	(move_cursor_before_delete): extracted from delete_object_do,
+	fixed
+	(place_cursor_before_mark): extracted from delete_object_do
+	(delete_object_do): refactored, use move_cursor_before_delete and
+	place_cursor_before_mark
 
 	* htmlengine.c (html_engine_thaw): use html_draw_queue_clear
 

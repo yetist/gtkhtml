@@ -207,9 +207,7 @@ html_text_op_cut_helper (HTMLText *text, HTMLEngine *e, GList *from, GList *to, 
 	g_assert (begin <= end);
 	g_assert (end <= text->text_len);
 
-	if (((from || to)
-	     && !html_object_next_not_slave (HTML_OBJECT (text))
-	     && !html_object_prev_not_slave (HTML_OBJECT (text))) || begin || end < text->text_len) {
+	if (!html_object_could_remove_whole (HTML_OBJECT (text), from, to) || begin || end < text->text_len) {
 		gchar *nt, *tail;
 
 		if (begin == end)
@@ -226,13 +224,7 @@ html_text_op_cut_helper (HTMLText *text, HTMLEngine *e, GList *from, GList *to, 
 		*len           += end - begin;
 		html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
 	} else {
-		if (e->cursor->object == text) {
-			if (html_object_next_not_slave (text))
-				e->cursor->object = html_object_next_not_slave (text);
-			else
-				e->cursor->object = html_object_prev_not_slave (text);
-		}
-
+		html_object_move_cursor_before_remove (HTML_OBJECT (text), e);
 		html_object_remove_child (HTML_OBJECT (text)->parent, HTML_OBJECT (text));
 
 		rv    = HTML_OBJECT (text);
