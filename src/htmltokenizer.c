@@ -49,7 +49,6 @@ struct _HTMLTokenBuffer {
 	gint used;
 	gchar * data;
 };
-
 struct _HTMLTokenizerPrivate {
 
 	/* token buffers list */
@@ -754,131 +753,6 @@ in_script_or_style (HTMLTokenizer *t, const gchar **src)
 		p->scriptCode [p->scriptCodeSize] = **src;
 		(*src)++;
 	}
-}
-
-/*
- * These were cut and pasted from gal/gal/uncode/gutf8.c
- * since they are static there.  The extended function is quite useful
- * for what we need.
- */
-#define UTF8_LENGTH(Char)              \
-  ((Char) < 0x80 ? 1 :                 \
-   ((Char) < 0x800 ? 2 :               \
-    ((Char) < 0x10000 ? 3 :            \
-     ((Char) < 0x200000 ? 4 :          \
-      ((Char) < 0x4000000 ? 5 : 6)))))
-
-#define UNICODE_VALID(Char)                   \
-    ((Char) < 0x110000 &&                     \
-     ((Char) < 0xD800 || (Char) >= 0xE000) && \
-     (Char) != 0xFFFE && (Char) != 0xFFFF)
-   
-/* Like g_utf8_get_char, but take a maximum length
- * and return (gunichar)-2 on incomplete trailing character
- */
-static inline gunichar
-g_utf8_get_char_extended (const  gchar *p,
-			  gssize max_len)  
-{
-  guint i, len;
-  gunichar wc = (guchar) *p;
-
-  if (wc < 0x80)
-    {
-      return wc;
-    }
-  else if (wc < 0xc0)
-    {
-      return (gunichar)-1;
-    }
-  else if (wc < 0xe0)
-    {
-      len = 2;
-      wc &= 0x1f;
-    }
-  else if (wc < 0xf0)
-    {
-      len = 3;
-      wc &= 0x0f;
-    }
-  else if (wc < 0xf8)
-    {
-      len = 4;
-      wc &= 0x07;
-    }
-  else if (wc < 0xfc)
-    {
-      len = 5;
-      wc &= 0x03;
-    }
-  else if (wc < 0xfe)
-    {
-      len = 6;
-      wc &= 0x01;
-    }
-  else
-    {
-      return (gunichar)-1;
-    }
-  
-  if (max_len >= 0 && len > max_len)
-    {
-      for (i = 1; i < max_len; i++)
-	{
-	  if ((((guchar *)p)[i] & 0xc0) != 0x80)
-	    return (gunichar)-1;
-	}
-      return (gunichar)-2;
-    }
-
-  for (i = 1; i < len; ++i)
-    {
-      gunichar ch = ((guchar *)p)[i];
-      
-      if ((ch & 0xc0) != 0x80)
-	{
-	  if (ch)
-	    return (gunichar)-1;
-	  else
-	    return (gunichar)-2;
-	}
-
-      wc <<= 6;
-      wc |= (ch & 0x3f);
-    }
-
-  if (UTF8_LENGTH(wc) != len)
-    return (gunichar)-1;
-  
-  return wc;
-}
-/**
- * g_utf8_get_char_validated:
- * @p: a pointer to Unicode character encoded as UTF-8
- * @max_len: the maximum number of bytes to read, or -1, for no maximum.
- * 
- * Convert a sequence of bytes encoded as UTF-8 to a Unicode character.
- * This function checks for incomplete characters, for invalid characters
- * such as characters that are out of the range of Unicode, and for
- * overlong encodings of valid characters.
- * 
- * Return value: the resulting character. If @p points to a partial
- *    sequence at the end of a string that could begin a valid character,
- *    returns (gunichar)-2; otherwise, if @p does not point to a valid
- *    UTF-8 encoded Unicode character, returns (gunichar)-1.
- **/
-static gunichar
-g_utf8_get_char_validated (const  gchar *p,
-			   gssize max_len)
-{
-  gunichar result = g_utf8_get_char_extended (p, max_len);
-
-  if (result & 0x80000000)
-    return result;
-  else if (!UNICODE_VALID (result))
-    return (gunichar)-1;
-  else
-    return result;
 }
 
 static void

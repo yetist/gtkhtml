@@ -1,3 +1,8 @@
+2001-10-30  Larry Ewing  <lewing@ximian.com>
+
+	* htmltokenizer.c: get rid of cut & pasted functions they are in
+	gal now.
+
 2001-10-29  Larry Ewing  <lewing@ximian.com>
 
 	* htmltable.c (merge): shut up the compiler.
