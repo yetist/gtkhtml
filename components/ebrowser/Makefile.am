@@ -50,7 +50,7 @@ test_history_SOURCES = \
 
 oafdir = $(datadir)/oaf
 
-OAF_FILES = GNOME_EBrowser.oafinfo
+OAF_FILES = GNOME_GtkHTML_EBrowser.oafinfo
 
 oaf_DATA = $(OAF_FILES)
 

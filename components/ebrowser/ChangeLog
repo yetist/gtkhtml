@@ -1,3 +1,12 @@
+2000-12-07  Radek Doulik  <rodo@helixcode.com>
+
+	* Makefile.am: rename GNOME_EBrowser.oafinfo to GNOME_GtkHTML_EBrowser.oafinfo
+
+	* ebrowser.h: updated OAFIIDs
+
+	* GNOME_EBrowser.oafinfo: shift EBrowser to GNOME_GtkHTML
+	namespace as Michael suggested
+
 2000-11-02  Larry Ewing  <lewing@helixcode.com>
 
 	* test-ebrowser.c (open_browser): studly caps that were missed.

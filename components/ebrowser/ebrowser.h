@@ -27,8 +27,8 @@
 
 BEGIN_GNOME_DECLS
 
-#define EBROWSER_FACTORY_OAFIID "OAFIID:GNOME_EBrowserFactory"
-#define EBROWSER_OAFIID "OAFIID:GNOME_EBrowser"
+#define EBROWSER_FACTORY_OAFIID "OAFIID:GNOME_GtkHTML_EBrowserFactory"
+#define EBROWSER_OAFIID "OAFIID:GNOME_GtkHTML_EBrowser"
 
 void ebrowser_factory_init (void);
 
