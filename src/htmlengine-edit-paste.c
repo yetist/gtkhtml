@@ -87,31 +87,30 @@ split_at_cursor (HTMLEngine *engine)
 
 	cursor = engine->cursor;
 
-	/* If we are at the beginning of the element, we can always simply
-           prepend stuff to the element itself.  */
+	/* If we are at the beginning of the element, we can always simply prepend stuff
+           to the element itself.  */
 	if (cursor->offset == 0)
 		return FALSE;
 
 	current = cursor->object;
 
 	if (html_object_is_text (current)) {
-		/* If we are at the end of a text element, we just have to
-                   append elements.  */
+		/* If we are at the end of a text element, we just have to append
+                   elements.  */
 		if (cursor->offset >= HTML_TEXT (current)->text_len)
 			return TRUE;
 
-		/* Bad luck, we have to split at the current position.  After
-                   calling `split_text()', the cursor will be positioned at the
-                   beginning of the second half of the split text, so we just
-                   have to prepend the new elements there.  */
+		/* Bad luck, we have to split at the current position.  After calling
+                   `split_text()', the cursor will be positioned at the beginning of the
+                   second half of the split text, so we just have to prepend the new
+                   elements there.  */
 
 		split_text (engine);
 		return FALSE;
 	}
 
-	/* We are not in a text element, so no splitting is needed.
-           If we are at the end of the non-texte element, we must
-           append; otherwise, we must prepend.  */
+	/* We are not in a text element, so no splitting is needed.  If we are at the end
+           of the non-text element, we must append; otherwise, we must prepend.  */
 	if (cursor->offset == 0)
 		return FALSE;
 	else
@@ -154,7 +153,8 @@ split_first_clueflow_at_cursor (HTMLEngine *engine,
 	if (curr_clue->prev == NULL)
 		html_clue_prepend (HTML_CLUE (curr_clue->parent), new_clueflow);
 	else
-		html_clue_append_after (HTML_CLUE (curr_clue->parent), new_clueflow, curr_clue->prev);
+		html_clue_append_after (HTML_CLUE (curr_clue->parent), new_clueflow,
+					curr_clue->prev);
 
 	/* Move the stuff until the cursor position into the new HTMLClueFlow.  */
 
@@ -202,7 +202,7 @@ prepare_clueflows (HTMLEngine *engine,
 	g_return_val_if_fail (curr->parent != NULL, FALSE);
 	g_return_val_if_fail (HTML_OBJECT_TYPE (curr->parent) == HTML_TYPE_CLUEFLOW, FALSE);
 
-	clue = NULL;		/* Make compiler happy.  */
+	clue = NULL;
 
 	first = TRUE;
 	retval = FALSE;
@@ -221,12 +221,13 @@ prepare_clueflows (HTMLEngine *engine,
 
 			first = FALSE;
 			retval = TRUE;
-		} else {
-			if (first)
+		} else {	/* ! first || append */
+			if (first) { /* first && append */
 				clue = engine->cursor->object->parent;
+				first = FALSE;
+			}
 
 			g_assert (clue != NULL);
-
 			clue = add_new_clueflow (engine, HTML_CLUEFLOW (obj), clue);
 		}
 	}
@@ -380,7 +381,7 @@ do_paste (HTMLEngine *engine,
 		HTMLObject *obj_copy;
 		HTMLObject *obj;
 
-		obj = (HTMLObject *) p->data;
+		obj = HTML_OBJECT (p->data);
 
 		if (HTML_OBJECT_TYPE (obj) != HTML_TYPE_CLUEFLOW) {
 #ifdef PARANOID_DEBUG
@@ -401,50 +402,34 @@ do_paste (HTMLEngine *engine,
 			g_print ("*** Pasting HTMLClueFlow\n");
 #endif
 
-			/* This is an HTMLClueFlow, which we have already added to the
-                           tree: move to the next element in the cut buffer, and insert it
-                           into the next HTMLClueFlow (which is the one we created).  If
-                           we get another ClueFlow after this one, we need to fill the
-                           empty HTMLClueFlow with an empty text element.  */
-
-			if (p->next == NULL) {
-				html_engine_move_cursor (engine,
-							 HTML_ENGINE_CURSOR_RIGHT,
-							 1);
-				break;
-			}
-
-			engine->cursor->position ++;
-			p = p->next;
-
-			obj = HTML_OBJECT (p->data);
-
 			clueflow = engine->cursor->object->parent->next;
 			g_assert (clueflow != NULL);
 			g_assert (HTML_OBJECT_TYPE (clueflow) == HTML_TYPE_CLUEFLOW);
 
-			while (HTML_OBJECT_TYPE (obj) == HTML_TYPE_CLUEFLOW) {
+			while (p->next != NULL
+			       && HTML_OBJECT_TYPE (p->next->data) == HTML_TYPE_CLUEFLOW) {
 				add_empty_text_master_to_clueflow (HTML_CLUEFLOW (clueflow));
 
-				p = p->next;
-				if (p == NULL) {
-					engine->cursor->object = HTML_CLUE (clueflow)->head;
-					engine->cursor->offset = 0;
-					html_engine_move_cursor (engine,
-								 HTML_ENGINE_CURSOR_RIGHT,
-								 1);
-					break;
-				}
-
 				engine->cursor->position ++;
+
+				if (p->next == NULL)
+					break;
+
+				p = p->next;
 				clueflow = clueflow->next;
-				obj = HTML_OBJECT (p->data);
 			}
 
-			if (p == NULL)
-				break;
+			engine->cursor->position ++;
 
-			obj_copy = html_object_dup (obj);
+			if (p->next == NULL) {
+				engine->cursor->object = HTML_CLUE (clueflow)->head;
+				engine->cursor->offset = 0;
+				break;
+			}
+
+			p = p->next;
+
+			obj_copy = html_object_dup (HTML_OBJECT (p->data));
 			html_object_change_set (obj_copy, HTML_CHANGE_ALL);
 
 			html_clue_prepend (HTML_CLUE (clueflow), obj_copy);
@@ -481,6 +466,8 @@ do_paste (HTMLEngine *engine,
 
 	/* 9. Normalize the cursor pointer.  */
 	html_cursor_normalize (engine->cursor);
+
+	g_print ("%s -- %d element(s).\n", __FUNCTION__, engine->cursor->position - oldpos);
 
 	/* Return the number of character elements pasted, to make undo/redo possible.  */
 	return engine->cursor->position - oldpos;

@@ -1,5 +1,11 @@
 2000-05-18  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine-edit-paste.c (prepare_clueflows): Make sure `first'
+	is made false after the first round in all cases.
+	(do_paste): Fix pasting of consecutive HTMLClueFlows.
+
+2000-05-18  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* htmlengine-edit-fontstyle.c (set_font_style): Added
 	slow-but-working relayout-and-redraw machinery.
 	(move_to_next_text_segment_forwards): Use
