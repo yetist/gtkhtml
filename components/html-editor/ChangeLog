@@ -1,3 +1,8 @@
+2003-02-25  Larry Ewing  <lewing@ximian.com>
+
+	* image.c (set_ui): remove debug printf that could try to print
+	NULL.
+
 2003-02-24  Radek Doulik  <rodo@ximian.com>
 
 	* popup.c (prepare_properties_and_menu): count property pages
