@@ -1,3 +1,14 @@
+2003-04-14  Radek Doulik  <rodo@ximian.com>
+
+	* test-html-editor-control.c (app_delete_cb): call quit
+	(container_create): don't connect to window destroy signal, it's
+	no more needed + was calling unref on uic which we didn't have
+	reference to
+	(container_create): remove control frame activate call - I guess
+	it was committed by mistake, right Larry? after I removed this
+	call things started to work again - menu items work and no warning
+	on exit
+
 2003-04-09  Larry Ewing  <lewing@ximian.com>
 
 	* editor-control-factory.c (editor_init_painters): use the gdk painter

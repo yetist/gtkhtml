@@ -378,6 +378,7 @@ exit_cb (GtkWidget *widget,
 	 gpointer data)
 {
 	gtk_widget_destroy (GTK_WIDGET (data));
+	bonobo_main_quit ();
 }
 
 
@@ -451,18 +452,11 @@ static char ui [] =
 "	</dockitem>"
 "</Root>";
 
-static void
-app_destroy_cb (GtkWidget *app, BonoboUIContainer *uic)
-{
-	bonobo_object_unref (BONOBO_OBJECT (uic));
-
-	bonobo_main_quit ();
-}
-
 static int
 app_delete_cb (GtkWidget *widget, GdkEvent *event, gpointer dummy)
 {
 	gtk_widget_destroy (GTK_WIDGET (widget));
+	bonobo_main_quit ();
 
 	return FALSE;
 }
@@ -476,7 +470,6 @@ container_create (void)
 	BonoboUIContainer *container;
 	CORBA_Environment ev;
 	GNOME_GtkHTML_Editor_Engine engine;
-	BonoboControlFrame *cf;
 
 	win = bonobo_window_new ("test-editor",
 				 "HTML Editor Control Test");
@@ -485,8 +478,6 @@ container_create (void)
 	container = bonobo_window_get_ui_container (BONOBO_WINDOW (win));
 
 	g_signal_connect (window, "delete_event", G_CALLBACK (app_delete_cb), NULL);
-
-	g_signal_connect (window, "destroy", G_CALLBACK (app_destroy_cb), container);
 
 	gtk_window_set_default_size (window, 600, 440);
 	gtk_window_set_resizable (window, TRUE);
@@ -503,10 +494,6 @@ container_create (void)
 	if (control == NULL)
 		g_error ("Cannot get `%s'.", CONTROL_ID);
 
-	cf = bonobo_widget_get_control_frame (BONOBO_WIDGET (control));
-	bonobo_control_frame_control_activate (cf);
-	//bonobo_control_frame_set_autoactivate (cf, TRUE);
-
 	bonobo_widget_set_property (BONOBO_WIDGET (control), "FormatHTML", TC_CORBA_boolean, formatHTML, NULL);
 	bonobo_ui_component_set_prop (component, "/commands/FormatHTML", "state", formatHTML ? "1" : "0", NULL);
 	bonobo_ui_component_add_listener (component, "FormatHTML", menu_format_html_cb, control);
@@ -520,8 +507,7 @@ container_create (void)
 	engine = (GNOME_GtkHTML_Editor_Engine) Bonobo_Unknown_queryInterface
 		(bonobo_widget_get_objref (BONOBO_WIDGET (control)), "IDL:GNOME/GtkHTML/Editor/Engine:1.0", &ev);
 	GNOME_GtkHTML_Editor_Engine_runCommand (engine, "grab-focus", &ev);
-	Bonobo_Unknown_unref (engine, &ev);
-	CORBA_Object_release (engine, &ev);
+	bonobo_object_release_unref (engine, &ev);
 	CORBA_exception_free (&ev);
 
 	return FALSE;
