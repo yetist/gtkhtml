@@ -688,8 +688,6 @@ void
 menubar_setup (BonoboUIComponent  *uic,
 	       GtkHTMLControlData *cd)
 {
-	int i;
-
 	g_return_if_fail (cd->html != NULL);
 	g_return_if_fail (GTK_IS_HTML (cd->html));
 	g_return_if_fail (BONOBO_IS_UI_COMPONENT (uic));
