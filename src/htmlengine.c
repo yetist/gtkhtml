@@ -2500,7 +2500,7 @@ element_parse_img (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		percent_height = element->style->height->type == HTML_LENGTH_TYPE_PERCENT;
 	}
 
-	image = html_image_new (e->image_factory, tmpurl,
+	image = html_image_new (html_engine_get_image_factory (e), tmpurl,
 				e->url, e->target,
 				width, height,
 				percent_width, percent_height, border, color, valign, FALSE);
@@ -6349,4 +6349,10 @@ html_engine_flush (HTMLEngine *e)
 		while (html_engine_timer_event (e))
 			;
 	}
+}
+
+HTMLImageFactory *
+html_engine_get_image_factory (HTMLEngine *e)
+{
+	return html_engine_get_top_html_engine (e)->image_factory;
 }

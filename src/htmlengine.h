@@ -483,4 +483,6 @@ gint  html_engine_get_right_border   (HTMLEngine *e);
 gint  html_engine_get_top_border     (HTMLEngine *e);
 gint  html_engine_get_bottom_border  (HTMLEngine *e);
 
+HTMLImageFactory *html_engine_get_image_factory (HTMLEngine *e);
+
 #endif /* _HTMLENGINE_H_ */

@@ -1262,7 +1262,7 @@ use_pictograms (HTMLEngine *e)
 		html_cursor_forward_n (e->cursor, e, len);
 
 		filename = g_strconcat ("file://" ICONDIR "/", picto_images [-state - 1], NULL);
-		picto = html_image_new (e->image_factory, filename, NULL, NULL, -1, -1, FALSE, FALSE, 0, NULL,
+		picto = html_image_new (html_engine_get_image_factory (e), filename, NULL, NULL, -1, -1, FALSE, FALSE, 0, NULL,
 					HTML_VALIGN_MIDDLE, FALSE);
 		html_image_set_alt (HTML_IMAGE (picto), alt);
 		html_object_set_data (HTML_OBJECT (picto), "picto", alt);

@@ -2349,7 +2349,7 @@ new_obj_from_uri (HTMLEngine *e, gchar *uri, gint len)
 			}
 			if (pixbuf) {
 				g_object_unref (pixbuf);
-				return html_image_new (e->image_factory, uri,
+				return html_image_new (html_engine_get_image_factory (e), uri,
 						       NULL, NULL, -1, -1, FALSE, FALSE, 0,
 						       html_colorset_get_color (e->settings->color_set, HTMLTextColor),
 						       HTML_VALIGN_BOTTOM, TRUE);
@@ -3219,7 +3219,7 @@ gtk_html_begin_full (GtkHTML           *html,
 	GtkHTMLStream *handle;
 	
 	g_return_val_if_fail (!gtk_html_get_editable (html), NULL);
-	
+
 	if (flags & GTK_HTML_BEGIN_KEEP_IMAGES)
 		gtk_html_images_ref (html);
 
@@ -3230,10 +3230,10 @@ gtk_html_begin_full (GtkHTML           *html,
 	if (handle == NULL)
 		return NULL;
 	
+	html_engine_parse (html->engine);
+
 	if (flags & GTK_HTML_BEGIN_KEEP_IMAGES)
 		gtk_html_images_unref (html);
-
-	html_engine_parse (html->engine);
 
 	if (flags & GTK_HTML_BEGIN_KEEP_SCROLL)
 		html->engine->newPage = FALSE;
