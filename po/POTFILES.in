@@ -21,3 +21,4 @@ components/html-editor/utils.c
 src/gtkhtml.c
 #src/html-component.c
 src/testgtkhtml.c
+components/html-editor/html-editor-control.xml
