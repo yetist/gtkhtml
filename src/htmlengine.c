@@ -5600,7 +5600,7 @@ replace (HTMLEngine *e)
 	g_list_free (e->search_info->found);
 	e->search_info->found = g_list_append (NULL, e->cursor->object);
 	e->search_info->start_pos = e->search_info->stop_pos = e->cursor->offset - 1;
-	e->search_info->found_len = 0;
+	e->search_info->found_bytes = 0;
 	html_search_pop  (e->search_info);
 	html_search_push (e->search_info, e->cursor->object->parent);
 }

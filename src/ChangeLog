@@ -1,3 +1,21 @@
+2004-03-05  Radek Doulik  <rodo@ximian.com>
+
+	* htmlclueflow.c (search): use is_text instead of calling
+	html_object_is_text again
+	(search_text): fix for utf8, mostly use index instead of characted
+	position and bytes length instead of character length
+	(search_set_info): ditto
+
+	* htmlengine.c (replace): initialize found_bytes instead of
+	found_len
+
+	* htmlsearch.c (set_text): use bytes instead of character length
+	(html_search_new): use text_bytes field
+
+	* htmlsearch.h: len --> bytes
+
+	Fixes #54029
+
 2004-03-04  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (cursor_move): do not proceed if we are not in

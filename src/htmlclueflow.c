@@ -1976,12 +1976,12 @@ get_default_font_style (const HTMLClueFlow *self)
 }
 
 static void
-search_set_info (HTMLObject *cur, HTMLSearch *info, guchar *text, guint pos, guint len)
+search_set_info (HTMLObject *cur, HTMLSearch *info, guchar *text, guint index, guint bytes)
 {
-	guint text_len = 0;
-	guint cur_len;
+	guint text_bytes = 0;
+	guint cur_bytes;
 
-	info->found_len = len;
+	info->found_bytes = bytes;
 
 	if (info->found) {
 		g_list_free (info->found);
@@ -1990,17 +1990,18 @@ search_set_info (HTMLObject *cur, HTMLSearch *info, guchar *text, guint pos, gui
 
 	while (cur) {
 		if (html_object_is_text (cur)) {
-			cur_len = strlen (HTML_TEXT (cur)->text);
-			if (text_len + cur_len > pos) {
+			cur_bytes = HTML_TEXT (cur)->text_bytes;
+			if (text_bytes + cur_bytes > index) {
 				if (!info->found) {
-					info->start_pos = g_utf8_pointer_to_offset (text + text_len,
-										    text + pos);
+					info->start_pos = g_utf8_pointer_to_offset (text + text_bytes,
+										    text + index);
 				}
 				info->found = g_list_append (info->found, cur);
 			}
-			text_len += cur_len;
-			if (text_len >= pos+info->found_len) {
-				info->stop_pos = info->start_pos + info->found_len;
+			text_bytes += cur_bytes;
+			if (text_bytes >= index + info->found_bytes) {
+				info->stop_pos = info->start_pos + g_utf8_pointer_to_offset (text + index,
+											     text + index + info->found_bytes);
 				info->last     = HTML_OBJECT (cur);
 				return;
 			}
@@ -2021,18 +2022,18 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 	HTMLObject *end = cur;
 	HTMLObject *head;
 	guchar *par, *pp;
-	guint text_len;
-	guint eq_len;
-	gint  pos;
+	guint text_bytes;
+	guint eq_bytes;
+	gint index;
 	gboolean retval = FALSE;
 
 	/* printf ("search flow look for \"text\" %s\n", info->text); */
 
-	/* first get flow text_len */
-	text_len = 0;
+	/* first get flow text_bytes */
+	text_bytes = 0;
 	while (cur) {
 		if (html_object_is_text (cur)) {
-			text_len += strlen (HTML_TEXT (cur)->text);
+			text_bytes += HTML_TEXT (cur)->text_bytes;
 			end = cur;
 		} else if (HTML_OBJECT_TYPE (cur) != HTML_TYPE_TEXTSLAVE) {
 			break;
@@ -2040,11 +2041,11 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 		cur = (info->forward) ? cur->next : cur->prev;
 	}
 
-	if (text_len > 0) {
-		par = g_new (gchar, text_len+1);
-		par [text_len] = 0;
+	if (text_bytes > 0) {
+		par = g_new (gchar, text_bytes + 1);
+		par [text_bytes] = 0;
 
-		pp = (info->forward) ? par : par+text_len;
+		pp = (info->forward) ? par : par + text_bytes;
 
 		/* now fill par with text */
 		head = cur = (info->forward) ? *beg : end;
@@ -2052,11 +2053,11 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 		while (cur) {
 			if (html_object_is_text (cur)) {
 				if (!info->forward) {
-					pp -= strlen (HTML_TEXT (cur)->text);
+					pp -= HTML_TEXT (cur)->text_bytes;
 				}
-				strncpy (pp, HTML_TEXT (cur)->text, strlen (HTML_TEXT (cur)->text));
+				strncpy (pp, HTML_TEXT (cur)->text, HTML_TEXT (cur)->text_bytes);
 				if (info->forward) {
-					pp += strlen (HTML_TEXT (cur)->text);
+					pp += HTML_TEXT (cur)->text_bytes;
 				}
 			} else if (HTML_OBJECT_TYPE (cur) != HTML_TYPE_TEXTSLAVE) {
 				break;
@@ -2064,20 +2065,20 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 			cur = (info->forward) ? cur->next : cur->prev;
 		}
 
-		/* set eq_len and pos counters */
-		eq_len = 0;
+		/* set eq_bytes and pos counters */
+		eq_bytes = 0;
 		if (info->found) {
-			pos = info->start_pos + ((info->forward) ? 1 : -1);
+			index = ((guchar *)g_utf8_offset_to_pointer (par, info->start_pos + ((info->forward) ? 1 : -1))) - par;
 		} else {
-			pos = (info->forward) ? 0 : text_len - 1;
+			index = (info->forward) ? 0 : text_bytes - 1;
 		}
 
 		/* FIXME make shorter text instead */
 		if (!info->forward)
-			par [pos+1] = 0;
+			par [index+1] = 0;
 
-		if ((info->forward && pos < text_len)
-		    || (!info->forward && pos>0)) {
+		if ((info->forward && index < text_bytes)
+		    || (!info->forward && index > 0)) {
 			if (info->reb) {
 				/* regex search */
 				gint rv;
@@ -2094,29 +2095,31 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 					p += (info->forward) ? 1 : -1;
 					} */
 
-				while ((info->forward && pos < text_len)
-				       || (!info->forward && pos >= 0)) {
+				while ((info->forward && index < text_bytes)
+				       || (!info->forward && index >= 0)) {
 					rv = regexec (info->reb,
-						      par + pos,
+						      par + index,
 						      1, &match, 0);
 					if (rv == 0) {
 						search_set_info (head, info, par,
-								 pos + match.rm_so, match.rm_eo - match.rm_so);
+								 index + match.rm_so, match.rm_eo - match.rm_so);
 						retval = TRUE;
 						break;
 					}
-					pos += (info->forward) ? 1 : -1;
+					index += (info->forward)
+						? (((guchar *) g_utf8_next_char (par + index)) - par - index)
+						: (((guchar *) g_utf8_prev_char (par + index)) - par - index);
 				}
 #else
-				rv = re_search (info->reb, par, text_len, pos,
-						(info->forward) ? text_len-pos : -pos, NULL);
-				if (rv>=0) {
-					guint found_pos = rv;
-					rv = re_match (info->reb, par, text_len, found_pos, NULL);
+				rv = re_search (info->reb, par, text_bytes, index,
+						(info->forward) ? text_bytes - index : -index, NULL);
+				if (rv >= 0) {
+					guint found_index = rv;
+					rv = re_match (info->reb, par, text_bytes, found_index, NULL);
 					if (rv < 0) {
 						g_warning ("re_match (...) error");
 					}
-					search_set_info (head, info, par, found_pos, rv);
+					search_set_info (head, info, par, found_index, rv);
 					retval = TRUE;
 				} else {
 					if (rv < -1) {
@@ -2127,23 +2130,27 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 			} else {
 				/* substring search - simple one - could be improved
 				   go thru par and look for info->text */
-				while (par [pos]) {
+				while (par [index]) {
 					if (info->trans [(guchar) info->text
-							[(info->forward) ? eq_len : info->text_len - eq_len - 1]]
-					    == info->trans [par [pos]]) {
-						eq_len++;
-						if (eq_len == info->text_len) {
+							[(info->forward) ? eq_bytes : info->text_bytes - eq_bytes - 1]]
+					    == info->trans [par [index]]) {
+						eq_bytes ++;
+						if (eq_bytes == info->text_bytes) {
 							search_set_info (head, info, par,
-									 pos - (info->forward ? eq_len-1 : 0),
-									 info->text_len);
+									 index - (info->forward
+										  ? -(((guchar *) g_utf8_next_char (par + index - eq_bytes)) - par - index)
+										  : 0),
+									 info->text_bytes);
 							retval=TRUE;
 							break;
 						}
 					} else {
-						pos += (info->forward) ? -eq_len : eq_len;
-						eq_len = 0;
+						index += (info->forward) ? -eq_bytes : eq_bytes;
+						eq_bytes = 0;
 					}
-					pos += (info->forward) ? 1 : -1;
+					index += (info->forward)
+						? (((guchar *) g_utf8_next_char (par + index)) - par - index)
+						: (((guchar *) g_utf8_prev_char (par + index)) - par - index);
 				}
 			}
 		}
@@ -2183,7 +2190,7 @@ search (HTMLObject *obj, HTMLSearch *info)
 
 		is_text = html_object_is_text (cur);
 
-		if (html_object_is_text (cur)) {
+		if (is_text) {
 			if (search_text (&cur, info))
 				return TRUE;
 		}
