@@ -1,3 +1,8 @@
+2000-12-06  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlinterval.c (select_object): use top engine for select_in and
+	"right one" for select_range call
+
 2000-12-06  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlengine.c (parse_object): change ret_val to object_found to
