@@ -21,7 +21,7 @@ AC_SUBST(CFLAGS)
 AC_SUBST(CPPFLAGS)
 AC_SUBST(LDFLAGS)
 
-ALL_LINGUAS = de nl ru
+ALL_LINGUAS = de nl ru tr
 AM_GNOME_GETTEXT
 
 dnl GNU regex checking
