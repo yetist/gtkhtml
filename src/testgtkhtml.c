@@ -21,11 +21,10 @@
 #include "gtkhtml.h"
 #include "htmlengine.h"
 
-#ifdef HAVE_LIBWWW
-
 #undef PACKAGE
 #undef VERSION
 
+#include <WWWApp.h>
 #include <WWWLib.h>
 #include <WWWStream.h>
 #include <WWWInit.h>
@@ -35,7 +34,6 @@
 #include "config.h"
 
 #include <glibwww/glibwww.h>
-#endif
 
 typedef struct {
   FILE *fil;
@@ -55,7 +53,6 @@ static void url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle h
 static void entry_goto_url(GtkWidget *widget, gpointer data);
 static void goto_url(const char *url);
 
-#ifdef HAVE_LIBWWW
 static int netin_stream_put_character (HTStream * me, char c);
 static int netin_stream_put_string (HTStream * me, const char * s);;
 static int netin_stream_write (HTStream * me, const char * s, int l);
@@ -63,11 +60,11 @@ static int netin_stream_flush (HTStream * me);
 static int netin_stream_free (HTStream * me);
 static int netin_stream_abort (HTStream * me, HTList * e);
 static HTStream *netin_stream_new (GtkHTMLStreamHandle handle, HTRequest *request);
-#endif
 
 GtkWidget *area, *box, *button;
 GtkHTML *html;
 GtkWidget *animator, *entry;
+gchar *baseurl;
 
 static gint load_timer  = -1;
 static gboolean slow_loading = FALSE, exit_when_done = FALSE;
@@ -317,7 +314,6 @@ load_timer_event (FileInProgress *fip)
 	}
 }
 
-#ifdef HAVE_LIBWWW
 /* Lame hack */
 struct _HTStream {
 	const HTStreamClass *	isa;
@@ -419,7 +415,6 @@ my_progress(HTRequest *request, HTAlertOpcode op,
 
 	return NO;
 }
-#endif
 
 static void
 url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpointer data)
@@ -427,7 +422,6 @@ url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpoin
 	FILE *fil;
 	gchar buffer[32768];
 
-#ifdef HAVE_LIBWWW
 	HTRequest *newreq;
 	BOOL status;
 	char *ctmp;
@@ -435,6 +429,15 @@ url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpoin
 	newreq = HTRequest_new();
 	g_assert(newreq);
 	ctmp = g_extension_pointer(url);
+	
+	/* Check if the url is absolute or relative */
+	if (HTURL_isAbsolute (url)) {
+		g_print ("absolute\n");
+	}
+	else {
+		g_print ("relative, need to add base\n");
+		url = g_strdup_printf ("%s/%s", baseurl, url);
+	}
 
 	HTRequest_setOutputFormat(newreq, WWW_SOURCE);
 	{
@@ -444,7 +447,6 @@ url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpoin
 	}
 
 	return;
-#endif
 
 	fil = fopen (url, "r");
 
@@ -493,12 +495,13 @@ static void
 test_cb (GtkWidget *widget, gpointer data)
 {
 	gchar *filename;
-
+	
 	/* Don't start loading if another file is already being loaded. */
 	if (load_timer != -1)
 		return;
-
-	filename = g_strdup_printf ("tests/test%d.html", GPOINTER_TO_INT (data));
+	
+	baseurl = g_strdup_printf ("%s/tests", HTGetCurrentDirectoryURL ());
+	filename = g_strdup_printf ("%s/test%d.html", baseurl, GPOINTER_TO_INT (data));
 	goto_url(filename);
 	g_free(filename);
 }
@@ -524,10 +527,8 @@ main (gint argc, gchar *argv[])
 	
 	gnome_init_with_popt_table (PACKAGE, VERSION,
 				    argc, argv, options, 0, &ctx);
-#ifdef HAVE_LIBWWW
 	glibwww_init(PACKAGE, VERSION);
 	HTAlert_add(my_progress, HT_A_PROGRESS);
-#endif
 
 	gdk_rgb_init ();
 	
