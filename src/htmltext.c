@@ -773,8 +773,9 @@ items_destroy (GList *items)
 GList *
 html_text_get_items (HTMLText *text, HTMLPainter *painter)
 {
-	if (!text->items && 
-	    (HTML_IS_GDK_PAINTER (painter) || HTML_IS_PLAIN_PAINTER (painter))) {
+	if (!HTML_IS_GDK_PAINTER (painter) && !HTML_IS_PLAIN_PAINTER (painter))
+		return NULL;
+	if (!text->items) {
 		PangoContext *pc = HTML_GDK_PAINTER (painter)->pc;
 		PangoAttrList *attrs;
 

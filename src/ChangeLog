@@ -2,6 +2,8 @@
 
 	* htmltext.c (calc_word_width): use cached items and call shape
 	just once
+	(html_text_get_items): return items just for gdk and plain painter
+	so printing works right again
 
 	* htmltextslave.c (get_items): use html_text_get_items
 	(draw_highlighted): use cached items and glyphs
