@@ -26,6 +26,7 @@
 #include <string.h>
 #include <sys/types.h>
 #include <regex.h>
+#include <math.h>
 
 #include <pango/pango.h>
 
@@ -1196,14 +1197,21 @@ prepare_attrs (HTMLText *text, HTMLPainter *painter)
 		attr->start_index = 0;
 		attr->end_index = text->text_bytes;
 		pango_attr_list_insert (attrs, attr);
-		if (painter->font_manager.fix_size != painter->font_manager.var_size) {
-			attr = pango_attr_size_new (painter->font_manager.fix_size);
+		if (painter->font_manager.fix_size != painter->font_manager.var_size || fabs (painter->font_manager.magnification - 1.0) > 0.001) {
+			attr = pango_attr_size_new (painter->font_manager.fix_size*painter->font_manager.magnification);
 			attr->start_index = 0;
 			attr->end_index = text->text_bytes;
 			pango_attr_list_insert (attrs, attr);
 		}
-	} else
+	} else {
+		if (fabs (painter->font_manager.magnification - 1.0) > 0.001) {
+			attr = pango_attr_size_new (painter->font_manager.var_size*painter->font_manager.magnification);
+			attr->start_index = 0;
+			attr->end_index = text->text_bytes;
+			pango_attr_list_insert (attrs, attr);
+		}
 		pango_attr_list_splice (attrs, text->attr_list, 0, 0);
+	}
 
 	if (text->extra_attr_list)
 		pango_attr_list_splice (attrs, text->extra_attr_list, 0, 0);

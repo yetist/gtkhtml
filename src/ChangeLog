@@ -1,3 +1,8 @@
+2005-03-15  Radek Doulik  <rodo@novell.com>
+
+	* htmltext.c (prepare_attrs): add size attributes in case
+	magnification != 1.0
+
 2005-03-14  Radek Doulik  <rodo@novell.com>
 
 	* test-suite.c (test_cursor_around_image): added new test for
