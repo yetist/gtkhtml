@@ -1,8 +1,32 @@
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
+/* This file is part of the GtkHTML library
+
+   Copyright (C) 2000 Helix Code, Inc.
+   Authors:           Radek Doulik (rodo@helixcode.com)
+
+   This library is free software; you can redistribute it and/or
+   modify it under the terms of the GNU Library General Public
+   License as published by the Free Software Foundation; either
+   version 2 of the License, or (at your option) any later version.
+
+   This library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHcANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   Library General Public License for more details.
+
+   You should have received a copy of the GNU Library General Public License
+   along with this library; see the file COPYING.LIB.  If not, write to
+   the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+   Boston, MA 02111-1307, USA.
+*/
+
 #include <config.h>
 #include <gnome.h>
 #include <capplet-widget.h>
 #include <gconf/gconf-client.h>
 #include <gtkhtml-properties.h>
+#include "gnome-bindings-prop.h"
+#include "../src/gtkhtml.h"
 
 static GtkWidget *capplet, *check, *menu, *option;
 static gboolean active = FALSE;
@@ -65,11 +89,12 @@ changed (GtkWidget *widget, gpointer data)
 static void
 setup(void)
 {
-	GtkWidget *vbox, *hbox, *frame, *mi;
+	GtkWidget *vbox, *hbox, *frame, *mi, *bi;
+	guchar *base, *rcfile;
 
         capplet = capplet_widget_new();
 
-	vbox  = gtk_vbox_new (FALSE, 0);
+	vbox  = gtk_vbox_new (FALSE, 3);
 	hbox  = gtk_hbox_new (FALSE, 3);
 	frame = gtk_frame_new (_("Behaviour"));
 	check = gtk_check_button_new_with_label (_("magic links"));
@@ -100,6 +125,30 @@ setup(void)
 	gtk_box_pack_start_defaults (GTK_BOX (hbox), frame);
 
 	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
+
+#define LOAD(x) \
+	base = g_strconcat ("gtkhtml/keybindingsrc.", x, NULL); \
+	rcfile = gnome_unconditional_datadir_file (base); \
+        gtk_rc_parse (rcfile); \
+        g_free (base); \
+	g_free (rcfile)
+
+	rcfile = g_strconcat (gnome_util_user_home (), "/.gnome/gtkhtml-bindings-custom", NULL);
+	gtk_rc_parse (rcfile);
+	g_free (rcfile);
+	LOAD ("emacs");
+	LOAD ("ms");
+
+	bi = gnome_bindings_properties_new ();
+	gnome_bindings_properties_add_keymap (GNOME_BINDINGS_PROPERTIES (bi),
+					      "Emacs like", "gtkhtml-bindings-emacs", "command", GTK_TYPE_HTML_COMMAND);
+	gnome_bindings_properties_add_keymap (GNOME_BINDINGS_PROPERTIES (bi),
+					      "MS like", "gtkhtml-bindings-ms", "command", GTK_TYPE_HTML_COMMAND);
+	gnome_bindings_properties_add_keymap (GNOME_BINDINGS_PROPERTIES (bi),
+					      "Custom", "gtkhtml-bindings-custom", "command", GTK_TYPE_HTML_COMMAND);
+	gnome_bindings_properties_select_keymap (GNOME_BINDINGS_PROPERTIES (bi), "Custom");
+	gtk_box_pack_start_defaults (GTK_BOX (vbox), bi);
+
         gtk_container_add (GTK_CONTAINER (capplet), vbox);
         gtk_widget_show_all (capplet);
 

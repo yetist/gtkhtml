@@ -3,13 +3,18 @@ CFLAGS +=  $(GCONF_CFLAGS)
 
 bin_PROGRAMS = gtkhtml-properties-capplet
 gtkhtml_properties_capplet_SOURCES = \
+	gnome-bindings-prop.c	\
 	main.c
 
 gtkhtml_properties_capplet_LDADD = \
 	$(GNOME_LIBDIR) \
 	$(GNOME_CAPPLET_LIBS) \
 	$(GCONF_LIBS) ../src/gtkhtml-properties.o
-	
+
+#	../src/libgtkhtml.la \
+#	$(GNOMEUI_LIBS)				\
+#	$(GNOME_LIBDIR)				\
+#	$(EXTRA_GNOME_LIBS)
 
 EXTRA_DIST = gtkhtml-properties.desktop
 
