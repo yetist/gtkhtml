@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
-"POT-Creation-Date: 2001-05-11 14:11+0200\n"
-"PO-Revision-Date: 2001-05-11 14:21+02:00\n"
+"POT-Creation-Date: 2001-05-14 10:45+0200\n"
+"PO-Revision-Date: 2001-05-14 10:48+02:00\n"
 "Last-Translator: András TÍmár <timar@gnome.hu>\n"
 "Language-Team: Hungarian <hu@gnome.hu>\n"
 "MIME-Version: 1.0\n"
@@ -264,62 +264,70 @@ msgid "Replace"
 msgstr "Csere"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:26
+msgid "Select _All"
+msgstr "_Mindent kijelöl"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:27
+msgid "Select the entire contents of the document"
+msgstr "Kijelöli a dokumentum teljes tartalmát"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:28
 msgid "Undo"
 msgstr "Visszavonás"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:27
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:29
 msgid "Undo previous changes"
 msgstr "Elõzõ változtatások visszavonása"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:28
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:30
 msgid "Undo the last action"
 msgstr "Az utolsó mûvelet visszavonása"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:29
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:31
 msgid "_Copy"
 msgstr "_Másolás"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:30
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:32
 msgid "_Edit"
 msgstr "S_zerkesztés"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:31
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:33
 msgid "_Find..."
 msgstr "_Keresés..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:32
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:34
 msgid "_Image..."
 msgstr "_Kép..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:33
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:35
 msgid "_Insert"
 msgstr "_Beszúrás"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:34
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:36
 msgid "_Link..."
 msgstr "_Hivatkozás..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:35
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:37
 msgid "_Paste"
 msgstr "_Beillesztés"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:36
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:38
 msgid "_Properties..."
 msgstr "_Tulajdonságok"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:37
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:39
 msgid "_Redo"
 msgstr "Új_ra"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:38
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:40
 msgid "_Replace..."
 msgstr "_Csere..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:39
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:41
 msgid "_Rule..."
 msgstr "_Szabály"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:40
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:42
 msgid "_Undo"
 msgstr "_Visszavonás"
 
