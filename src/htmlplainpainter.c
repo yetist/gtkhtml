@@ -145,7 +145,7 @@ glyphs_destroy (GList *glyphs)
 {
 	GList *l;
 
-	for (l = glyphs; l; l = l->next)
+	for (l = glyphs; l; l = l->next->next)
 		pango_glyph_string_free ((PangoGlyphString *) l->data);
 	g_list_free (glyphs);
 }
@@ -190,14 +190,14 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, HT
 		guint i, char_offset = 0;
 		const gchar *c_text = text;
 
-		ii = html_text_pango_info_get_index (pi, start_byte_offset, 0);
 		for (gl = glyphs; gl && char_offset < len; gl = gl->next) {
 			str = (PangoGlyphString *) gl->data;
+			gl = gl->next;
+			ii = GPOINTER_TO_INT (gl->data);
 			gdk_draw_glyphs (gdk_painter->pixmap, gdk_painter->gc, pi->entries [ii].item->analysis.font, x + width, y, str);
 			for (i=0; i < str->num_glyphs; i ++)
 				width += PANGO_PIXELS (str->glyphs [i].geometry.width);
 			c_text = g_utf8_offset_to_pointer (c_text, str->num_glyphs);
-			ii = html_text_pango_info_get_index (pi, start_byte_offset + (c_text - text), ii);
 			char_offset += str->num_glyphs;
 		}
 	}

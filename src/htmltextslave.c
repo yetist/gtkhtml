@@ -120,7 +120,7 @@ glyphs_destroy (GList *glyphs)
 {
 	GList *l;
 
-	for (l = glyphs; l; l = l->next)
+	for (l = glyphs; l; l = l->next->next)
 		pango_glyph_string_free ((PangoGlyphString *) l->data);
 	g_list_free (glyphs);
 }
@@ -652,32 +652,33 @@ get_pango_info_offset (HTMLTextSlave *slave, HTMLPainter *painter)
 }
 
 static inline GList *
-get_glyphs_base_text (GList *glyphs, PangoItem *item, const gchar *text, gint bytes)
+get_glyphs_base_text (GList *glyphs, PangoItem *item, gint ii, const gchar *text, gint bytes)
 {
 	PangoGlyphString *str;
 
 	str = pango_glyph_string_new ();
 	pango_shape (text, bytes, &item->analysis, str);
 	glyphs = g_list_prepend (glyphs, str);
+	glyphs = g_list_prepend (glyphs, GINT_TO_POINTER (ii));
 
 	return glyphs;
 }
 
 GList *
-html_get_glyphs_non_tab (GList *glyphs, PangoItem *item, const gchar *text, gint bytes, gint len)
+html_get_glyphs_non_tab (GList *glyphs, PangoItem *item, gint ii, const gchar *text, gint bytes, gint len)
 {
 	gchar *tab;
 
 	while ((tab = memchr (text, (unsigned char) '\t', bytes))) {
 		gint c_bytes = tab - text;
 		if (c_bytes > 0)
-			glyphs = get_glyphs_base_text (glyphs, item, text, c_bytes);
+			glyphs = get_glyphs_base_text (glyphs, item, ii, text, c_bytes);
 		text += c_bytes + 1;
 		bytes -= c_bytes + 1;
 	}
 
 	if (bytes > 0)
-		glyphs = get_glyphs_base_text (glyphs, item, text, bytes);
+		glyphs = get_glyphs_base_text (glyphs, item, ii, text, bytes);
 
 	return glyphs;
 }
@@ -707,7 +708,7 @@ get_glyphs_part (HTMLTextSlave *slave, HTMLPainter *painter, guint offset, guint
 			c_len = MIN (item->num_chars - g_utf8_pointer_to_offset (owner_text + item->offset, text), len - index);
 
 			end = g_utf8_offset_to_pointer (text, c_len);
-			glyphs = html_get_glyphs_non_tab (glyphs, item, text, end - text, c_len);
+			glyphs = html_get_glyphs_non_tab (glyphs, item, ii, text, end - text, c_len);
 			text = end;
 			index += c_len;
 			ii ++;

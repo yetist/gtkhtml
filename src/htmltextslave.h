@@ -71,6 +71,7 @@ gint        html_text_slave_get_nb_width          (HTMLTextSlave      *slave,
 						   gboolean            lineBegin);
 GList      *html_get_glyphs_non_tab               (GList              *glyphs,
 						   PangoItem          *item,
+						   gint                ii,
 						   const gchar        *text,
 						   gint                bytes,
 						   gint                len);
