@@ -83,15 +83,27 @@ html_cursor_destroy (HTMLCursor *cursor)
 	g_free (cursor);
 }
 
+void
+html_cursor_copy (HTMLCursor *dest,
+		  const HTMLCursor *src)
+{
+	g_return_if_fail (dest != NULL);
+	g_return_if_fail (src != NULL);
+
+	dest->object = src->object;
+	dest->offset = src->offset;
+	dest->target_x = src->target_x;
+	dest->have_target_x = src->have_target_x;
+	dest->relative_position = src->relative_position;
+}
+
 HTMLCursor *
 html_cursor_dup (const HTMLCursor *cursor)
 {
 	HTMLCursor *new;
 
 	new = html_cursor_new ();
-
-	new->object = cursor->object;
-	new->offset = cursor->offset;
+	html_cursor_copy (new, cursor);
 
 	return new;
 }
@@ -175,6 +187,7 @@ html_cursor_home (HTMLCursor *cursor,
 	cursor->relative_position = 0;
 
 	html_cursor_forward (cursor, engine);
+	html_cursor_reset_relative (cursor);
 
 	debug_location (cursor);
 }
@@ -431,7 +444,7 @@ html_cursor_up (HTMLCursor *cursor,
 		return TRUE;
 	}
 
-	orig_cursor = *cursor;
+	html_cursor_copy (&orig_cursor, cursor);
 
 	html_object_get_cursor_base (cursor->object,
 				     engine->painter, cursor->offset,
@@ -449,7 +462,8 @@ html_cursor_up (HTMLCursor *cursor,
 	new_line = FALSE;
 
 	while (1) {
-		prev_cursor = *cursor;
+		html_cursor_copy (&prev_cursor, cursor);
+
 		prev_x = x;
 		prev_y = y;
 
@@ -461,13 +475,13 @@ html_cursor_up (HTMLCursor *cursor,
 					     &x, &y);
 
 		if (html_cursor_equal (&prev_cursor, cursor)) {
-			*cursor = orig_cursor;
+			html_cursor_copy (cursor, &orig_cursor);
 			return FALSE;
 		}
 
 		if (prev_y != y) {
 			if (new_line) {
-				*cursor = prev_cursor;
+				html_cursor_copy (cursor, &prev_cursor);
 				return FALSE;
 			}
 
@@ -542,13 +556,13 @@ html_cursor_down (HTMLCursor *cursor,
 					     &x, &y);
 
 		if (html_cursor_equal (&prev_cursor, cursor)) {
-			*cursor = orig_cursor;
+			html_cursor_copy (cursor, &orig_cursor);
 			return FALSE;
 		}
 
 		if (prev_y != y) {
 			if (new_line) {
-				*cursor = prev_cursor;
+				html_cursor_copy (cursor, &prev_cursor);
 				return FALSE;
 			}
 
@@ -576,6 +590,48 @@ html_cursor_down (HTMLCursor *cursor,
 }
 
 
+/**
+ * html_cursor_jump_to:
+ * @cursor: 
+ * @object: 
+ * @offset: 
+ * 
+ * Move the cursor to the specified @offset in the specified @object.
+ * 
+ * Return value: %TRUE if successfull, %FALSE if failed.
+ **/
+gboolean
+html_cursor_jump_to (HTMLCursor *cursor,
+		     HTMLEngine *engine,
+		     HTMLObject *object,
+		     guint offset)
+{
+	HTMLCursor original;
+
+	g_return_val_if_fail (cursor != NULL, FALSE);
+	g_return_val_if_fail (object != NULL, FALSE);
+
+	if (cursor->object == object && cursor->offset == offset)
+		return TRUE;
+
+	html_cursor_copy (&original, cursor);
+
+	while (forward (cursor, engine)) {
+		if (cursor->object == object && cursor->offset == offset)
+			return TRUE;
+	}
+
+	html_cursor_copy (cursor, &original);
+
+	while (backward (cursor, engine)) {
+		if (cursor->object == object && cursor->offset == offset)
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
+
 gboolean
 html_cursor_equal (HTMLCursor *a, HTMLCursor *b)
 {
@@ -597,7 +653,7 @@ html_cursor_get_relative (HTMLCursor *cursor)
 void
 html_cursor_reset_relative (HTMLCursor *cursor)
 {
-	g_return_val_if_fail (cursor != NULL, 0);
+	g_return_if_fail (cursor != NULL);
 
 	cursor->relative_position = 0;
 }

@@ -1,5 +1,17 @@
 2000-02-09  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine-edit.c (html_engine_jump_to_object): Use
+	`html_cursor_jump_to()'.
+
+	* htmlcursor.c (html_cursor_copy): New function.
+	(html_cursor_dup): Use it.
+	(html_cursor_up): Use it instead of doing direct C assignments
+	between the structs.
+	(html_cursor_down): Likewise.
+	(html_cursor_jump_to): New function.  It is necessary to jump to a
+	position while keeping the relative position value intact.
+	(html_cursor_home): Reset relative position.
+
 	* htmlcursor.c (html_cursor_new): Initialize `relative_position'.
 	(html_cursor_get_relative): New function.
 	(html_cursor_reset_relative): New function.

@@ -44,6 +44,8 @@ typedef struct _HTMLCursor HTMLCursor;
 HTMLCursor *html_cursor_new      (void);
 void        html_cursor_destroy  (HTMLCursor       *cursor);
 HTMLCursor *html_cursor_dup      (const HTMLCursor *cursor);
+void        html_cursor_copy     (HTMLCursor       *dest,
+				  const HTMLCursor *src);
 
 void  html_cursor_set_position  (HTMLCursor *cursor,
 				 HTMLObject *object,
@@ -59,6 +61,11 @@ gboolean  html_cursor_up        (HTMLCursor *cursor,
 				 HTMLEngine *engine);
 gboolean  html_cursor_down      (HTMLCursor *cursor,
 				 HTMLEngine *engine);
+
+gboolean  html_cursor_jump_to  (HTMLCursor *cursor,
+				HTMLEngine *engine,
+				HTMLObject *obj,
+				guint       offset);
 
 gboolean  html_cursor_equal  (HTMLCursor *a,
 			      HTMLCursor *b);

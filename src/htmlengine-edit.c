@@ -95,11 +95,13 @@ html_engine_jump_to_object (HTMLEngine *e,
 			    HTMLObject *object,
 			    guint offset)
 {
+	/* Delete the cursor in the original position.  */
 	html_engine_draw_cursor (e);
 
-	e->cursor->object = object;
-	e->cursor->offset = offset;
+	/* Jump to the specified position.  FIXME: Beep if it fails?  */
+	html_cursor_jump_to (e->cursor, e, object, offset);
 
+	/* Draw the cursor in the new position.  */
 	html_engine_draw_cursor (e);
 }
 
