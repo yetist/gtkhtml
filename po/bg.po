@@ -9,10 +9,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 2.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-07 17:25+0100\n"
-"PO-Revision-Date: 2005-01-26 01:26+0200\n"
-"Last-Translator: Vladimir Petkov <vpetkov@i-space.org>\n"
-"Language-Team: Bulgarian <dict@linux.zonebg.com>\n"
+"POT-Creation-Date: 2005-02-14 10:04+0200\n"
+"PO-Revision-Date: 2005-02-14 10:04+0200\n"
+"Last-Translator: Alexander Shopov <ash@contact.bg>\n"
+"Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -932,9 +932,8 @@ msgid "Background Image"
 msgstr "Фоново изображение"
 
 #: components/html-editor/body.c:298
-#, fuzzy
 msgid "Background Image File Path"
-msgstr "Фоново изображение"
+msgstr "Път до фоново изображение"
 
 #: components/html-editor/body.c:301
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
@@ -977,9 +976,8 @@ msgid "Page"
 msgstr "Страница"
 
 #: components/html-editor/gi-color-combo.c:187
-#, fuzzy
 msgid "color preview"
-msgstr "Печатен преглед"
+msgstr "цветен преглед"
 
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:395
@@ -1183,7 +1181,7 @@ msgstr "небесно синьо"
 #. set the a11y name
 #: components/html-editor/gi-combo-box.c:419
 msgid "Popup"
-msgstr ""
+msgstr "Изскачащ прозорец"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
@@ -1448,14 +1446,12 @@ msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
 #: components/html-editor/link.c:194
-#, fuzzy
 msgid "URL:"
-msgstr "_URL:"
+msgstr "URL:"
 
 #: components/html-editor/link.c:198
-#, fuzzy
 msgid "Description:"
-msgstr "_Описание:"
+msgstr "Описание:"
 
 #: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
 msgid "Insert image"
@@ -1664,14 +1660,12 @@ msgid "Case _sensitive"
 msgstr "_Различаване на главни и малки"
 
 #: components/html-editor/replace.c:182
-#, fuzzy
 msgid "R_eplace:"
-msgstr "Заместване:"
+msgstr "_Заместване:"
 
 #: components/html-editor/replace.c:186
-#, fuzzy
 msgid "_With:"
-msgstr "_Ширина:"
+msgstr "_с:"
 
 #: components/html-editor/search.c:112
 msgid "_Backward"
@@ -1683,7 +1677,7 @@ msgstr "_Регулярен израз"
 
 #: components/html-editor/search.c:118
 msgid "Input the words you want to search here"
-msgstr ""
+msgstr "Тук въведете думити, които търсите"
 
 #: components/html-editor/spellchecker.c:110
 msgid ""
@@ -1718,9 +1712,8 @@ msgid "Image frame"
 msgstr "Рамка на изображение"
 
 #: components/html-editor/template.c:280
-#, fuzzy
 msgid "Template Labels"
-msgstr "Шаблон"
+msgstr "Етикети на шаблон"
 
 #: components/html-editor/test-html-editor-control.c:333
 msgid "Open file..."
@@ -1973,100 +1966,3 @@ msgstr "Печатен преглед"
 #: src/testgtkhtml.c:1004
 msgid "GtkHTML Test Application"
 msgstr "Тестова програма на GtkHTML"
-
-#~ msgid "<None>"
-#~ msgstr "<Няма>"
-
-#~ msgid "\n"
-#~ msgstr "\n"
-
-#~ msgid "*********************"
-#~ msgstr "*********************"
-
-#~ msgid "Add Keyboard Shortcuts"
-#~ msgstr "Добавяне на бързи клавиши"
-
-#~ msgid "Automatically detect links"
-#~ msgstr "Автоматично засичане на връзките"
-
-#~ msgid "Behavior"
-#~ msgstr "Поведение"
-
-#~ msgid "Composer Properties"
-#~ msgstr "Настройки на редактора"
-
-#~ msgid "Composer Properties planned"
-#~ msgstr "Планирани настройки на редактора"
-
-#~ msgid "Configure spell checking"
-#~ msgstr "Настройка на проверката на правописа"
-
-#~ msgid "Enable spell checking"
-#~ msgstr "Стартиране на проверката на правописа"
-
-#~ msgid "Fixed width"
-#~ msgstr "Непропорционални"
-
-#~ msgid "Fonts"
-#~ msgstr "Шрифтове"
-
-#~ msgid "For printing"
-#~ msgstr "За печатане"
-
-#~ msgid "Grab keys"
-#~ msgstr "Вземане на клавиш"
-
-#~ msgid "Information"
-#~ msgstr "Информация"
-
-#~ msgid "Keyboard Shortcuts"
-#~ msgstr "Бързи клавиши"
-
-#~ msgid "Miscellaneous"
-#~ msgstr "Други"
-
-#~ msgid "New shortcut:"
-#~ msgstr "Нов бърз клавиш:"
-
-#~ msgid "On screen"
-#~ msgstr "На екрана"
-
-#~ msgid "Select HTML fixed width font"
-#~ msgstr "Избор на непропорционален шрифт за HTML"
-
-#~ msgid "Select HTML fixed width font for printing"
-#~ msgstr "Избор на непропорционален шрифт за HTML при печат"
-
-#~ msgid "Select HTML variable width font"
-#~ msgstr "Избор на пропорционален шрифт за HTML"
-
-#~ msgid "Select HTML variable width font for printing"
-#~ msgstr "Избор на пропорционален шрифт за HTML при печат"
-
-#~ msgid "Shortcuts _type:"
-#~ msgstr "Вид бърз клавиш:"
-
-#~ msgid "Show animated images"
-#~ msgstr "Показване на анимирани изображения"
-
-#~ msgid "Variable width"
-#~ msgstr "Пропорционални"
-
-#~ msgid "_Add"
-#~ msgstr "_Добавяне"
-
-#~ msgid "_Delete"
-#~ msgstr "_Изтриване"
-
-#~ msgid ""
-#~ "Cannot execute GNOME Spell control applet\n"
-#~ "Try to install GNOME Spell if you don't have it installed."
-#~ msgstr ""
-#~ "Не може да се изпълни аплетът на GNOME за контрол на правописа\n"
-#~ "Опитайте се да инсталирате GNOME Spell, ако не е инсталиран."
-
-#~ msgid "With:"
-#~ msgstr "Ширина:"
-
-#~ msgid "Labels"
-#~ msgstr "Етикети"
