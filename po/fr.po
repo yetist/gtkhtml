@@ -8,15 +8,15 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml 3.1.8\n"
-"POT-Creation-Date: 2004-03-05 12:45-0500\n"
-"PO-Revision-Date: 2004-02-16 20:31+0100\n"
+"Project-Id-Version: gtkhtml 3.1.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-03-07 15:33+0100\n"
+"PO-Revision-Date: 2004-03-07 15:32+0100\n"
 "Last-Translator: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -1731,12 +1731,10 @@ msgid "Paste Quotation"
 msgstr "Coller la citation"
 
 #: components/html-editor/popup.c:461
-#, fuzzy
 msgid "Insert Link"
 msgstr "Insérer un lien"
 
 #: components/html-editor/popup.c:468
-#, fuzzy
 msgid "Remove Link"
 msgstr "Enlever le lien"
 
