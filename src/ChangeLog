@@ -1,3 +1,8 @@
+2001-03-29  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (on_object): free the pointer_url before we set it to
+	NULL.
+
 2001-03-28  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-table.c (insert_table_column): added column

@@ -811,8 +811,8 @@ on_object (GtkWidget *widget, GdkWindow *window, HTMLObject *obj)
 		}
 	} else {
 		if (html->pointer_url) {
-			html->pointer_url = NULL;
 			g_free (html->pointer_url);
+			html->pointer_url = NULL;
 			gtk_signal_emit (GTK_OBJECT (html), signals [ON_URL], NULL);
 		}
 		gdk_window_set_cursor (window, html->arrow_cursor);
