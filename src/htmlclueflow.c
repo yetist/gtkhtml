@@ -75,21 +75,30 @@ get_recursive_length (HTMLObject *self)
 }
 
 static HTMLObject *
-op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
+op_helper (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len, gboolean cut)
 {
-	if (!from)
+	if (!from && to && HTML_IS_TABLE (to->data) && to->next && GPOINTER_TO_INT (to->next->data) == 0)
+		return NULL;
+	if (!to && from && HTML_IS_TABLE (from->data) && from->next && GPOINTER_TO_INT (from->next->data) == 1)
+		return NULL;
+	if (!from && (*len || !(self->prev && HTML_IS_CLUEFLOW (self->prev) && HTML_IS_TABLE (HTML_CLUE (self->prev)->tail))))
 		(*len) ++;
 	html_clueflow_remove_text_slaves (HTML_CLUEFLOW (self));
-	return (*HTML_OBJECT_CLASS (parent_class)->op_copy) (self, e, from, to, len);
+	return cut
+		? (*HTML_OBJECT_CLASS (parent_class)->op_cut) (self, e, from, to, left, right, len)
+		: (*HTML_OBJECT_CLASS (parent_class)->op_copy) (self, e, from, to, len);
+}
+
+static HTMLObject *
+op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
+{
+	return op_helper (self, e, from, to, NULL, NULL, len, FALSE);
 }
 
 static HTMLObject *
 op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len)
 {
-	if (!from)
-		(*len) ++;
-	html_clueflow_remove_text_slaves (HTML_CLUEFLOW (self));
-	return (*HTML_OBJECT_CLASS (parent_class)->op_cut) (self, e, from, to, left, right, len);
+	return op_helper (self, e, from, to, left, right, len, TRUE);
 }
 
 static void
@@ -97,6 +106,15 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 {
 	html_clueflow_remove_text_slaves (HTML_CLUEFLOW (self));
 	(*HTML_OBJECT_CLASS (parent_class)->split) (self, e, child, offset, level, left, right);
+}
+
+inline static gboolean
+could_merge (HTMLClueFlow *cf1, HTMLClueFlow *cf2)
+{
+	return ((HTML_IS_TABLE (HTML_CLUE (cf1)->tail) && !html_clueflow_is_empty (cf2))
+		|| (HTML_IS_TABLE (HTML_CLUE (cf2)->head) && !html_clueflow_is_empty (cf1)))
+		? FALSE
+		: TRUE;
 }
 
 static gboolean
@@ -112,8 +130,7 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *ri
 
 	printf ("merge flows\n");
 
-	if ((HTML_IS_TABLE (HTML_CLUE (self)->tail) && !html_clueflow_is_empty (cf2))
-	    || (HTML_IS_TABLE (HTML_CLUE (with)->head) && !html_clueflow_is_empty (cf1)))
+	if (!could_merge (cf1, cf2))
 		return FALSE;
 
 	if (html_clueflow_is_empty (cf1)) {

@@ -182,7 +182,6 @@ op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 
 	printf ("cols: %d rows: %d\n", cols, rows);
 
-	*len = 0;
 	for (r = 0; r < rows; r++)
 		for (c = 0; c < cols; c++) {
 			HTMLTableCell *cell = t->cells [start->row + r][c + start_col];
@@ -201,7 +200,7 @@ op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 			} else
 				nt->cells [r][c] = nt->cells [cell->row - start->row][cell->col - start_col];
 		}
-
+	(*len) ++;
 	if (end->col - start_col < cols - 1)
 		do_cspan (nt, nt->totalRows - 1, end->col - start_col, nt->cells [nt->totalRows - 1][end->col - start_col]);
 
@@ -273,7 +272,6 @@ cut_partial (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *lef
 	end_row   = end->row;
 	end_col   = end->col;
 
-	*len = 0;
 	t    = HTML_TABLE (self);
 	rows = end_row - start_row + 1;
 	cols = end_row == start_row ? end_col - start_col + 1 : t->totalCols;
@@ -302,7 +300,7 @@ cut_partial (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *lef
 				html_table_cell_set_position (cell_cut, row, col);
 			}
 		}
-
+	(*len) ++;
 	shrink = start_row == 0 && end_row == t->totalRows - 1;
 	/* move remaining cells in old table */
 	if (start_col > end_col)

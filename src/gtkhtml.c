@@ -2341,6 +2341,7 @@ gtk_html_undo (GtkHTML *html)
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	html_engine_undo (html->engine);
+	update_styles (html);
 }
 
 void
@@ -2350,6 +2351,7 @@ gtk_html_redo (GtkHTML *html)
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	html_engine_redo (html->engine);
+	update_styles (html);
 }
 
 /* misc utils */
@@ -3246,7 +3248,7 @@ get_value_nick (GtkHTMLCommandType com_type)
 void
 gtk_html_editor_event_command (GtkHTML *html, GtkHTMLCommandType com_type)
 {
-	if (html->editor_api) {
+	if (html->editor_api && !html->engine->block_events) {
 		GtkArg *args [1];
 
 		args [0] = gtk_arg_new (GTK_TYPE_STRING);

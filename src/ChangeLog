@@ -1,3 +1,37 @@
+2001-05-03  Radek Doulik  <rodo@ximian.com>
+
+	* htmlundo.c (html_undo_do_undo): block events during undo/redo
+	(html_undo_do_redo): ditto
+
+	* htmlengine-edit-cut-and-paste.c (delete_object_do): move cursor
+	to right position after cut & merge
+
+	* htmlclue.c (op_helper): append only non-null cut/copied objects
+	to result
+
+	* htmlclueflow.c (could_merge): new helper function, extracted
+	from merge
+	(op_helper): new helper function, extracted from op_cut and
+	op_copy
+	(op_helper): take care of operations which boundary begins/ends on
+	table end/begin
+
+	* gtkhtml.c (gtk_html_editor_event_command): take care of
+	block_events flag
+
+	* htmlengine.h: added block_events flag
+
+	* gtkhtml.c (gtk_html_undo): added update_styles call
+	(gtk_html_redo): ditto
+
+	* htmlenums.h: added HTML_ENGINE_SET_CLUEFLOW_INDENTATION_ALL
+
+	* htmlengine-edit-cut-and-paste.c (append_object):
+	added dir parameter
+	(append_object): new method, extracted from
+	html_engine_append_object
+	(insert_object_do): added dir parameter
+
 2001-05-02  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml.c (gtk_html_load_from_string): use stream_write instead

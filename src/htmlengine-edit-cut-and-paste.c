@@ -49,6 +49,7 @@
 
 static void        delete_object (HTMLEngine *e, HTMLObject **ret_object, guint *ret_len, HTMLUndoDirection dir);
 static void        insert_object (HTMLEngine *e, HTMLObject *obj, guint len, HTMLUndoDirection dir, gboolean check);
+static void        append_object (HTMLEngine *e, HTMLObject *o, guint len, HTMLUndoDirection dir);
 
 /* helper functions -- need refactor */
 
@@ -484,8 +485,10 @@ static void
 delete_object_do (HTMLEngine *e, HTMLObject **object, guint *len)
 {
 	GList *from, *to, *left, *right;
+	gint expected_len;
 
 	if (html_engine_is_selection_active (e)) {
+		expected_len = MAX (e->cursor->position, e->mark->position) - MIN (e->cursor->position, e->mark->position);
 		html_engine_freeze (e);
 		prepare_delete_bounds (e, &from, &to, &left, &right);
 		place_cursor_before_mark (e);
@@ -494,6 +497,8 @@ delete_object_do (HTMLEngine *e, HTMLObject **object, guint *len)
 		*len     = 0;
 		*object  = html_object_op_cut  (HTML_OBJECT (from->data), e, from->next, to->next, left, right, len);
 		remove_empty_and_merge (e, TRUE, left ? left->next : NULL, right ? right->next : NULL, NULL);
+		if (HTML_IS_TABLE (e->cursor->object) && *len && expected_len - *len)
+			html_cursor_forward_n (e->cursor, e, 1);
 		html_engine_spell_check_range (e, e->cursor, e->cursor);
 		html_engine_thaw (e);
 	}
@@ -549,7 +554,7 @@ set_cursor_at_end_of_object (HTMLEngine *e, HTMLObject *o, guint len)
 }
 
 static void
-insert_object_do (HTMLEngine *e, HTMLObject *obj, guint len, gboolean check)
+insert_object_do (HTMLEngine *e, HTMLObject *obj, guint len, gboolean check, HTMLUndoDirection dir)
 {
 	HTMLObject *cur;
 	HTMLCursor *orig;
@@ -559,7 +564,7 @@ insert_object_do (HTMLEngine *e, HTMLObject *obj, guint len, gboolean check)
 
 	/* FIXME for tables */
 	if (obj->klass->type == HTML_TYPE_TABLE) {
-		html_engine_append_object (e, obj, len);
+		append_object (e, obj, len, dir);
 		return;
 	}
 
@@ -581,7 +586,7 @@ insert_object_do (HTMLEngine *e, HTMLObject *obj, guint len, gboolean check)
 	orig = html_cursor_dup (e->cursor);
 
 	html_object_change_set_down (obj, HTML_CHANGE_ALL);
-	split_and_add_empty_texts (e, level, &left, &right);
+	split_and_add_empty_texts (e, MIN (3, level), &left, &right);
 	first = html_object_heads_list (obj);
 	last  = html_object_tails_list (obj);
 	set_cursor_at_end_of_object (e, obj, len);
@@ -648,7 +653,7 @@ insert_setup_undo (HTMLEngine *e, guint len, HTMLUndoDirection dir)
 static void
 insert_object (HTMLEngine *e, HTMLObject *obj, guint len, HTMLUndoDirection dir, gboolean check)
 {
-	insert_object_do (e, obj, len, check);
+	insert_object_do (e, obj, len, check, dir);
 	insert_setup_undo (e, len, dir);
 }
 
@@ -868,13 +873,12 @@ html_engine_insert_link (HTMLEngine *e, const gchar *url, const gchar *target)
 		html_engine_set_insertion_link (e, url, target);
 }
 
-void
-html_engine_append_object (HTMLEngine *e, HTMLObject *o, guint len)
+static void
+append_object (HTMLEngine *e, HTMLObject *o, guint len, HTMLUndoDirection dir)
 {
 	GList *left = NULL, *right = NULL;
 	HTMLObject *where;
 
-	html_engine_freeze (e);
 	if (html_clueflow_is_empty (HTML_CLUEFLOW (e->cursor->object->parent))) {
 		HTMLObject *c, *cn;
 		HTMLClue *clue = HTML_CLUE (e->cursor->object->parent);
@@ -899,6 +903,13 @@ html_engine_append_object (HTMLEngine *e, HTMLObject *o, guint len)
 	}
 
 	html_cursor_forward_n (e->cursor, e, len);
-	insert_setup_undo (e, len, HTML_UNDO_UNDO);	
+	insert_setup_undo (e, len, dir);
+}
+
+void
+html_engine_append_object (HTMLEngine *e, HTMLObject *o, guint len)
+{
+	html_engine_freeze (e);
+	append_object (e, o, len, HTML_UNDO_UNDO);
 	html_engine_thaw (e);
 }

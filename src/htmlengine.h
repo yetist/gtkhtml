@@ -240,6 +240,7 @@ struct _HTMLEngine {
 	gdouble min_split_index;
 
 	gboolean need_spell_check;
+	gint block_events;
 
 	GSList *cursor_position_stack;
 };

@@ -151,8 +151,10 @@ html_undo_do_undo (HTMLUndo *undo,
 			DEBUG (undo);
 		}
 #endif
+		engine->block_events ++;
 		action_do_and_destroy_undo (engine, undo, HTML_UNDO_UNDO);
 		undo->undo.size--;
+		engine->block_events --;
 #ifdef UNDO_DEBUG
 		if (!undo->level) {
 			DEBUG (undo);
@@ -177,8 +179,10 @@ html_undo_do_redo (HTMLUndo *undo,
 		}
 #endif
 		undo->in_redo ++;
+		engine->block_events ++;
 		action_do_and_destroy_redo (engine, undo, &undo->redo.stack, HTML_UNDO_REDO);
 		undo->redo.size--;
+		engine->block_events --;
 		undo->in_redo --;
 
 #ifdef UNDO_DEBUG

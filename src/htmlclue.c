@@ -87,7 +87,7 @@ op_helper (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left,
 {
 	HTMLClue *clue = HTML_CLUE (self);
 	HTMLObject *cc;
-	HTMLObject *o, *last, *cnext;
+	HTMLObject *o, *last, *cnext, *child;
 
 	cc   = html_object_dup (self);
 	o    = (from) ? HTML_OBJECT (from->data) : clue->head;
@@ -98,14 +98,15 @@ op_helper (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left,
 
 	while (1) {
 		cnext = html_object_next_not_slave (o);
-		html_clue_append (HTML_CLUE (cc), cut
-				  ? html_object_op_cut (o, e,
-							html_object_get_bound_list (o, from),
-							html_object_get_bound_list (o, to),
-							left ? left->next : NULL, right ? right->next : NULL, len)
-				  : html_object_op_copy (o, e,
-							 html_object_get_bound_list (o, from),
-							 html_object_get_bound_list (o, to), len));
+		child = cut ? html_object_op_cut (o, e,
+					      html_object_get_bound_list (o, from),
+					      html_object_get_bound_list (o, to),
+					      left ? left->next : NULL, right ? right->next : NULL, len)
+			: html_object_op_copy (o, e,
+					       html_object_get_bound_list (o, from),
+					       html_object_get_bound_list (o, to), len);
+		if (child)
+			html_clue_append (HTML_CLUE (cc), child);
 
 		if (o == last)
 			break;
