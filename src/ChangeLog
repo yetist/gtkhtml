@@ -1,5 +1,12 @@
 2003-05-02  Radek Doulik  <rodo@ximian.com>
 
+	* htmlsearch.h: make start_pos and end_pos signed
+
+	* htmlclueflow.c (search): handle containers in search, take care
+	about start_pos
+
+2003-05-02  Radek Doulik  <rodo@ximian.com>
+
 	* htmlimage.c (html_image_factory_register): insert ip into loaded
 	images table even if url == "" so we keep track of all ip's. this
 	fixes the crash when inserting html src with image with "" url and

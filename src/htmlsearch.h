@@ -42,8 +42,8 @@ struct _HTMLSearch {
 	GList       *found;
 	HTMLObject *last;
 
-	guint start_pos;
-	guint stop_pos;
+	gint start_pos;
+	gint stop_pos;
 
 	regex_t *reb;        /* regex buffer */
 };

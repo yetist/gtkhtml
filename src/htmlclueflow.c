@@ -2138,20 +2138,31 @@ search (HTMLObject *obj, HTMLSearch *info)
 		}
 	}
 	while (cur) {
+		gboolean found = FALSE;
+		gboolean is_text;
+
+		is_text = html_object_is_text (cur);
+
 		if (html_object_is_text (cur)) {
 			if (search_text (&cur, info))
 				return TRUE;
-		} else {
-			html_search_push (info, cur);
-			if (html_object_search (cur, info))
-				return TRUE;
-			html_search_pop (info);
-			cur = (info->forward) ? cur->next : cur->prev;
 		}
+
 		if (info->found) {
 			g_list_free (info->found);
 			info->found = NULL;
 			info->start_pos = 0;
+			found = TRUE;
+		}
+
+		if (!is_text) {
+			if (!found || (info->start_pos < 0 && info->forward) || (info->start_pos >= 0 && !info->forward)) {
+				html_search_push (info, cur);
+				if (html_object_search (cur, info))
+					return TRUE;
+				html_search_pop (info);
+			}
+			cur = (info->forward) ? cur->next : cur->prev;
 		}
 	}
 
