@@ -165,16 +165,6 @@ undo_insert (HTMLEngine *engine,
 
 
 static guint
-do_insert_not_text (HTMLEngine *e,
-		    const gchar *text,
-		    guint len)
-{
-	g_warning ("Insertion on an element that is not text is not implemented yet.");
-
-	return 0;
-}
-
-static guint
 do_insert_different_style (HTMLEngine *e,
 			   const gchar *text,
 			   guint len)
@@ -250,6 +240,35 @@ do_insert_same_style (HTMLEngine *e,
 }
 
 static guint
+do_insert_not_text (HTMLEngine *e,
+		    const gchar *text,
+		    guint len)
+{
+	GdkColor color = { 0, 0, 0, 0 };
+	HTMLObject *curr;
+	HTMLObject *new_text;
+
+	curr = e->cursor->object;
+
+	/* FIXME Color */
+	new_text = html_text_master_new (g_strndup (text, len), e->insertion_font_style, &color);
+
+	if (e->cursor->offset == 0) {
+		if (curr->prev == NULL)
+			html_clue_prepend (HTML_CLUE (curr->parent), new_text);
+		else
+			html_clue_append_after (HTML_CLUE (curr->parent), new_text, curr->prev);
+	} else {
+		html_clue_append_after (HTML_CLUE (curr->parent), new_text, curr);
+	}
+
+	html_engine_queue_draw (e, new_text);
+	html_object_relayout (curr->parent, e, new_text);
+
+	return HTML_TEXT (new_text)->text_len;
+}
+
+static guint
 do_insert (HTMLEngine *e,
 	   const gchar *text,
 	   guint len)
@@ -259,8 +278,19 @@ do_insert (HTMLEngine *e,
 	curr = e->cursor->object;
 
 	/* Case #1: the cursor is on an element that is not text.  */
-	if (! html_object_is_text (curr))
-		return do_insert_not_text (e, text, len);
+	if (! html_object_is_text (curr)) {
+		if (e->cursor->offset == 0) {
+			if (curr->prev == NULL || ! html_object_is_text (curr->prev))
+				return do_insert_not_text (e, text, len);
+			e->cursor->object = curr->prev;
+			e->cursor->offset = HTML_TEXT (curr->prev)->text_len;
+		} else {
+			if (curr->next == NULL || ! html_object_is_text (curr->next))
+				return do_insert_not_text (e, text, len);
+			e->cursor->object = curr->next;
+			e->cursor->offset = 0;
+		}
+	}
 
 	/* Case #2: the cursor is on a text, element, but the style is
            different.  This means that we possibly have to split the

@@ -234,20 +234,22 @@ forward (HTMLCursor *cursor,
 			if (text->text_len == 0)
 				break;
 
-			if (offset == text->text_len - 1 && next_not_slave (obj) == NULL) {
-				offset = text->text_len;
-				goto end;
-			}
-
-			if (offset < text->text_len - 1) {
+			if (offset < text->text_len) {
 				offset++;
 				goto end;
 			}
+
+			if (next_not_slave (obj) == NULL)
+				offset = 0;
+			else
+				offset = 1;
+
 			break;
 		}
 
 		case HTML_TYPE_TEXTSLAVE:
 			/* Do nothing: go to the next element.  */
+			offset = 0;
 			break;
 
 		default:
@@ -255,8 +257,6 @@ forward (HTMLCursor *cursor,
 		}
 		
 		obj = next (obj);
-		offset = 0;
-
 		while (obj != NULL && html_object_is_text (obj)) {
 			if (HTML_OBJECT_TYPE (obj) != HTML_TYPE_TEXTMASTER
 			    && HTML_OBJECT_TYPE (obj) != HTML_TYPE_LINKTEXTMASTER) {
@@ -293,7 +293,6 @@ forward (HTMLCursor *cursor,
 			break;
 
 		obj = next (obj);
-		offset = 0;
 	}
 
 	if (obj == NULL)
@@ -349,7 +348,7 @@ backward (HTMLCursor *cursor,
 		case HTML_TYPE_LINKTEXT:
 		case HTML_TYPE_TEXTMASTER:
 		case HTML_TYPE_LINKTEXTMASTER:
-			if (offset > 0) {
+			if (offset > 1 || (offset == 1 && obj->prev == NULL)) {
 				offset--;
 				goto end;
 			}
@@ -388,8 +387,6 @@ backward (HTMLCursor *cursor,
 			case HTML_TYPE_TEXTMASTER:
 			case HTML_TYPE_LINKTEXTMASTER:
 				offset = HTML_TEXT (obj)->text_len;
-				if (next_not_slave (obj) != NULL)
-					offset--;
 				goto end;
 
 			case HTML_TYPE_TEXTSLAVE:

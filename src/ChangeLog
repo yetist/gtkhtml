@@ -1,5 +1,18 @@
 2000-03-03  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine-edit-delete.c (html_engine_delete): Move to the next
+	object without changing the actual position if we are at the very
+	end of a text object, and this is not the last object.
+
+	* htmlcursor.c (forward): When choosing between an object and the
+	next one, choose the first one.
+	(backward): Likewise.
+
+	* htmlengine-edit-insert.c (do_insert): Play with the cursor
+	pointer so that it points to an adiacent text object if possible.
+	Otherwise, just call `do_insert_not_text()'.
+	(do_insert_not_text): Implemented.
+
 	* gtkhtml.c (update_styles): Do nothing if the widget is not
 	editable.
 

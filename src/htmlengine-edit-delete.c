@@ -173,6 +173,13 @@ merge_text_at_cursor (HTMLEngine *e)
 }
 
 
+/**
+ * html_engine_delete:
+ * @e: 
+ * @count: 
+ * 
+ * Delete @count characters forward, starting at the current cursor position.
+ **/
 void
 html_engine_delete (HTMLEngine *e,
 		    guint count)
@@ -184,13 +191,27 @@ html_engine_delete (HTMLEngine *e,
 	guint prev_offset;
 	gboolean destroy_orig;
 
+	if (orig_object->parent == NULL || orig_object->parent == NULL)
+		return;
+
 	html_engine_draw_cursor (e);
 
 	orig_object = e->cursor->object;
 	orig_offset = e->cursor->offset;
 
-	if (orig_object->parent == NULL || orig_object->parent == NULL)
-		return;
+	if (html_object_is_text (e->cursor->object)
+	    && e->cursor->offset == HTML_TEXT (e->cursor->object)->text_len) {
+		HTMLObject *next;
+
+		next = e->cursor->object->next;
+		while (next != NULL && HTML_OBJECT_TYPE (next) == HTML_TYPE_TEXTSLAVE)
+			next = next->next;
+
+		if (next != NULL) {
+			e->cursor->object = next;
+			e->cursor->offset = 0;
+		}
+	}
 
 	if (! html_object_is_text (orig_object)) {
 		destroy_orig = TRUE;
