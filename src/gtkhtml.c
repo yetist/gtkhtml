@@ -34,6 +34,7 @@
 #include "htmlengine-edit-delete.h"
 #include "htmlengine-edit-fontstyle.h"
 #include "htmlengine-edit-insert.h"
+#include "htmlengine-edit-rule.h"
 #include "htmlengine-edit-movement.h"
 #include "htmlengine-edit-cursor.h"
 #include "htmlengine-edit-paste.h"
@@ -2404,6 +2405,10 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_PASTE:
 		if (e->cut_buffer)
 			html_engine_paste (e, TRUE);
+		break;
+	case GTK_HTML_COMMAND_INSERT_RULE:
+		html_engine_delete_selection (e, TRUE);
+		html_engine_insert_rule (e, 0, 100, 2, TRUE, HTML_HALIGN_LEFT);
 		break;
 	case GTK_HTML_COMMAND_INSERT_PARAGRAPH:
 		html_engine_delete_selection (e, TRUE);

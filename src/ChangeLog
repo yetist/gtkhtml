@@ -1,5 +1,16 @@
 2000-10-25  Radek Doulik  <rodo@helixcode.com>
 
+	* gtkhtml-properties.c: added GTK_HTML_COMMAND_INSERT_RULE
+
+	* keybindingsrc.emacs: added popup-menu, property-dialog,
+	insert-rule
+
+	* keybindingsrc.ms: added popup-menu, property-dialog
+
+	* gtkhtml.c (command): implemented insert-rule
+
+	* keybindingsrc.ms: added insert-rule
+
 	* htmlclueflow.c (html_clueflow_spell_check): likewise
 
 	* gtkhtml.c (command): use editor_data instead of spell_data

@@ -97,6 +97,12 @@ binding "gtkhtml-bindings-emacs"
   bind "<Ctrl><Shift>p"     { "command" (spell-personal-add) }
   bind "<Ctrl><Shift>n"     { "command" (spell-session-add) }
 
+  bind "<Ctrl><Shift>r"     { "command" (insert-rule) }
+
   bind "<Ctrl>s"            { "command" (isearch-forward) }
   bind "<Ctrl>r"            { "command" (isearch-backward) }
+
+  bind "<Alt>space"         { "command" (popup-menu) }
+  bind "<Alt>Return"        { "command" (property-dialog) }
+  bind "<Alt>KP_Enter"      { "command" (property-dialog) }
 }

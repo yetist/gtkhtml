@@ -22,6 +22,7 @@
 #ifndef _HTMLENGINE_EDIT_RULE_H
 #define _HTMLENGINE_EDIT_RULE_H
 
+#include "htmlrule.h"
 #include "htmlengine.h"
 #include "htmlobject.h"
 
