@@ -456,7 +456,7 @@ void
 html_image_init (HTMLImage *image,
 		 HTMLImageClass *klass,
 		 HTMLImageFactory *imf,
-		 gchar *filename,
+		 const gchar *filename,
 		 const gchar *url,
 		 const gchar *target,
 		 gint16 width, gint16 height,
@@ -499,7 +499,7 @@ html_image_init (HTMLImage *image,
 
 HTMLObject *
 html_image_new (HTMLImageFactory *imf,
-		gchar *filename,
+		const gchar *filename,
 		const gchar *url,
 		const gchar *target,
 		gint16 width, gint16 height,

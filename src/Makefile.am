@@ -46,6 +46,7 @@ libgtkhtml_HEADERS =				\
 	htmlengine-edit-cut.h			\
 	htmlengine-edit-delete.h		\
 	htmlengine-edit-fontstyle.h		\
+	htmlengine-edit-images.c		\
 	htmlengine-edit-insert.h		\
 	htmlengine-edit-movement.h		\
 	htmlengine-edit-paste.h			\
@@ -120,6 +121,7 @@ libgtkhtml_la_SOURCES =				\
 	htmlengine-edit-cut.c			\
 	htmlengine-edit-delete.c		\
 	htmlengine-edit-fontstyle.c		\
+	htmlengine-edit-images.c		\
 	htmlengine-edit-insert.c		\
 	htmlengine-edit-movement.c		\
 	htmlengine-edit-paste.c			\

@@ -1932,10 +1932,8 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 		while (html_string_tokenizer_has_more_tokens (p->st)) {
 			token = html_string_tokenizer_next_token (p->st);
 			if (strncasecmp (token, "src=", 4) == 0) {
-
 				tmpurl = g_strdup (token + 4);
-			}
-			else if (strncasecmp (token, "width=", 6) == 0) {
+			} else if (strncasecmp (token, "width=", 6) == 0) {
 				if (strchr (token + 6, '%'))
 					percent = atoi (token + 6);
 				else if (isdigit (*(token + 6)))

@@ -91,21 +91,3 @@ html_engine_set_mark (HTMLEngine *e)
 	html_engine_edit_selection_updater_reset (e->selection_updater);
 	html_engine_edit_selection_updater_schedule (e->selection_updater);
 }
-
-void
-html_engine_insert_image (HTMLEngine *e, const gchar *file)
-{
-	HTMLObject *image;
-	GList *cut_buffer;
-	gchar *url;
-
-	url = g_strconcat ("file:", file, NULL);
-	image = html_image_new (e->image_factory, url, NULL, NULL, -1, -1, 0, 0, NULL, HTML_VALIGN_TOP);
-
-	printf ("insert image %s\n", url);
-	g_free (url);
-
-	html_engine_paste_object (e, image, TRUE);
-
-	html_object_destroy (image);
-}

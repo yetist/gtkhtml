@@ -27,6 +27,7 @@
 #include <glib.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
+
 typedef struct _HTMLEngine HTMLEngine;
 typedef struct _HTMLEngineClass HTMLEngineClass;
 #include "gtkhtml.h"
@@ -383,8 +384,6 @@ void      html_engine_replace                   (HTMLEngine *e,
 						 gboolean regular,
 						 void (*ask)(HTMLEngine *));
 void      html_engine_replace_do                (HTMLEngine *e, HTMLReplaceQueryAnswer answer);
-gint      html_engine_replaced                  ();
-
-void      html_engine_insert_image              (HTMLEngine *e, const gchar *file);
+gint      html_engine_replaced                  (void);
 
 #endif /* _HTMLENGINE_H_ */

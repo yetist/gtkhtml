@@ -1,3 +1,13 @@
+2000-04-23  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlimage.c
+	(html_image_new): @filename made const-safe.
+	(html_image_init): Likewise.
+
+	* htmlengine-edit-images.c: New file.
+	(html_engine_insert_image): Moved here from `htmlengine-edit.c'.
+	New params for all the properties of the image object.
+
 2000-04-22  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine.c
