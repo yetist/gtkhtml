@@ -22,6 +22,7 @@
 #include <config.h>
 #include "gtkhtml-compat.h"
 
+#include <string.h>
 #include <gnome.h>
 #include <ctype.h>
 #include <libgnomeprint/gnome-print.h>
@@ -561,7 +562,7 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GL
 	double text_width, asc, dsc;
 
 	printer = HTML_PRINTER (painter);
-	g_return_if_fail (printer->context != NULL);
+	g_return_val_if_fail (printer->context != NULL, 0);
 
 
 	bytes = g_utf8_offset_to_pointer (text, len) - text;

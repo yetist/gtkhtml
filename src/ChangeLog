@@ -1,5 +1,7 @@
 2003-03-18  Larry Ewing  <lewing@ximian.com>
 
+	* htmlprinter.c (draw_text): add return value.
+
 	* htmlpainter.c: add missing include.
 
 	* htmlimage.c (html_image_pointer_run_animation): remove unused
