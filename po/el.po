@@ -1,22 +1,25 @@
+# translation of el.po to 
 # translation of gtkhtml.HEAD.el.po to Greek
 # Greek gtkhtml translation
-# Copyright (C) 2001, 2004 Free Software Foundation, Inc.
+# Copyright (C) 2001, 2004, 2005 Free Software Foundation, Inc.
 # Nikos Charonitakis <frolix68@yahoo.gr> 2004.
 # Nikos 27Jan2004 convertion to utf8 and  fixes, 424 messages.
 # Simos Xenitellis <simos@hellug.gr>, 2001.
 # Kostas Papadimas <pkst@gnome.org>, 2004.
+# Nikos Charonitakis <charosn@her.forthnet.gr>, 2005.
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml.HEAD.el\n"
+"Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-11 12:34+0200\n"
-"PO-Revision-Date: 2005-02-11 12:33+0200\n"
-"Last-Translator: Kostas Papadimas <pkst@gnome.org>\n"
-"Language-Team: Greek <nls@tux.hellug.gr>\n"
+"POT-Creation-Date: 2005-02-19 14:51+0200\n"
+"PO-Revision-Date: 2005-02-19 15:32+0200\n"
+"Last-Translator: Nikos Charonitakis <charosn@her.forthnet.gr>\n"
+"Language-Team:  <team@gnome.gr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.9.1\n"
 
 #: a11y/image.c:150
 #, c-format
@@ -90,7 +93,7 @@ msgstr "Χρώμα Παρασκηνίου"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:10
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:10
 msgid "Blue"
-msgstr "Μπλέ"
+msgstr "Μπλε"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:11
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
@@ -152,7 +155,7 @@ msgstr "Αποκοπή επιλογής στο πρόχειρο"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:21
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
 msgid "Cut the selection"
-msgstr "Αποκοπή επιλογής"
+msgstr "Αποκοπή της επιλογής"
 
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
@@ -338,11 +341,11 @@ msgstr "Σύνδεσμος"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
 msgid "Make the current Paragraph style Normal"
-msgstr "Μετατροπή της τρέχουσας παραγράφου σε κανονική"
+msgstr "Μετατροπή της τρέχουσας Παραγράφου σε Κανονική"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
 msgid "Make the current Paragraph style Preformat"
-msgstr "Μετατροπή της τρέχουσας παραγράφου σε προμορφοποιημένη"
+msgstr "Μετατροπή της τρέχουσας Παραγράφου σε Προμορφοποιημένη"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
@@ -466,7 +469,7 @@ msgstr "Προμορφοποιημένο"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
 msgid "Purple"
-msgstr "Μώβ"
+msgstr "Μωβ"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
@@ -553,7 +556,7 @@ msgstr "Subscript"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
 msgid "Superscript"
-msgstr "Εκθέτης"
+msgstr "Superscript"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
@@ -634,7 +637,7 @@ msgstr "Αντι_γραφή"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
 msgid "_Decrease Indent"
-msgstr "Μείωση Εσοχής"
+msgstr "_Μείωση Εσοχής"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
@@ -649,7 +652,7 @@ msgstr "_Εύρεση..."
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
 msgid "_Font Size"
-msgstr "Μέγε_θος Γραμματοσειράς "
+msgstr "Μέγε_θος Γραμματοσειράς"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
@@ -675,7 +678,7 @@ msgstr "_Εικόνα..."
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
 msgid "_Increase Indent"
-msgstr "Αύ_ξηση Εσοχής "
+msgstr "Αύ_ξηση Εσοχής"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
@@ -818,7 +821,7 @@ msgstr "_Υπογράμμιση"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:147
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:149
 msgid "_Undo"
-msgstr "_Ακύρωση"
+msgstr "_Αναίρεση"
 
 #
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:148
@@ -937,11 +940,11 @@ msgstr "_Κείμενο:"
 #
 #: components/html-editor/body.c:281
 msgid "_Link:"
-msgstr "Δεσ_μός:"
+msgstr "Σύνδεσ_μος:"
 
 #: components/html-editor/body.c:282
 msgid "_Background:"
-msgstr "Π_αρασκήνιο"
+msgstr "Π_αρασκήνιο:"
 
 #
 #: components/html-editor/body.c:284
@@ -956,7 +959,7 @@ msgstr "Εικόνα Παρασκηνίου"
 
 #: components/html-editor/body.c:298
 msgid "Background Image File Path"
-msgstr "Διαδρομή αρχείου εικόνας παρασκηνίου"
+msgstr "Διαδρομή Αρχείου Εικόνας Παρασκηνίου"
 
 #: components/html-editor/body.c:301
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
@@ -1002,7 +1005,7 @@ msgstr "Σελίδα"
 
 #: components/html-editor/gi-color-combo.c:187
 msgid "color preview"
-msgstr "Προεπισκόπιση χρώματος"
+msgstr "προεπισκόπιση χρώματος"
 
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:395
@@ -1017,7 +1020,7 @@ msgstr "Προσαρμοσμένο Χρώμα:"
 
 #: components/html-editor/gi-color-palette.c:445
 msgid "Choose Custom Color"
-msgstr "Επιλογή προσαρμοσμένου χρώματος"
+msgstr "Επιλογή Προσαρμοσμένου Χρώματος"
 
 #: components/html-editor/gi-color-palette.c:578
 msgid "black"
@@ -1025,11 +1028,11 @@ msgstr "μαύρο"
 
 #: components/html-editor/gi-color-palette.c:579
 msgid "light brown"
-msgstr "απαλό καφέ"
+msgstr "ανοιχτό καφέ"
 
 #: components/html-editor/gi-color-palette.c:580
 msgid "brown gold"
-msgstr "χρυσό καφέ"
+msgstr "χρυσαφί καφέ"
 
 #: components/html-editor/gi-color-palette.c:581
 msgid "dark green #2"
@@ -1037,29 +1040,29 @@ msgstr "σκούρο πράσινο #2"
 
 #: components/html-editor/gi-color-palette.c:582
 msgid "navy"
-msgstr "navy"
+msgstr "ναυτικό μπλε"
 
 #: components/html-editor/gi-color-palette.c:583
 #: components/html-editor/gi-color-palette.c:639
 msgid "dark blue"
-msgstr "σκοτεινό μπλέ"
+msgstr "σκούρο μπλε"
 
 #: components/html-editor/gi-color-palette.c:584
 msgid "purple #2"
-msgstr "Μώβ #2"
+msgstr "μωβ #2"
 
 #: components/html-editor/gi-color-palette.c:585
 msgid "very dark gray"
-msgstr "πολύ σκοτενό γκρί"
+msgstr "πολύ σκούρο γκρί"
 
 #: components/html-editor/gi-color-palette.c:588
 #: components/html-editor/gi-color-palette.c:644
 msgid "dark red"
-msgstr "σκοτεινό κόκκινο"
+msgstr "σκούρο κόκκινο"
 
 #: components/html-editor/gi-color-palette.c:589
 msgid "red-orange"
-msgstr "Πορτοκαλί-κόκκινο"
+msgstr "κόκκινο-πορτοκαλί"
 
 #
 #: components/html-editor/gi-color-palette.c:590
@@ -1068,12 +1071,12 @@ msgstr "χρυσαφί"
 
 #: components/html-editor/gi-color-palette.c:591
 msgid "dark green"
-msgstr "σκοτεινό πράσινο"
+msgstr "σκούρο πράσινο"
 
 #: components/html-editor/gi-color-palette.c:592
 #: components/html-editor/gi-color-palette.c:645
 msgid "dull blue"
-msgstr "μουντό μπλέ"
+msgstr "μουντό μπλε"
 
 #: components/html-editor/gi-color-palette.c:593
 #: components/html-editor/gi-color-palette.c:646
@@ -1082,11 +1085,11 @@ msgstr "μπλε"
 
 #: components/html-editor/gi-color-palette.c:594
 msgid "dull purple"
-msgstr "μουντό μώβ"
+msgstr "μουντό μωβ"
 
 #: components/html-editor/gi-color-palette.c:595
 msgid "dark grey"
-msgstr "σκοτεινό γκρί"
+msgstr "σκούρο γκρί"
 
 #: components/html-editor/gi-color-palette.c:598
 msgid "red"
@@ -1106,16 +1109,16 @@ msgstr "μουντό πράσινο"
 
 #: components/html-editor/gi-color-palette.c:602
 msgid "dull blue #2"
-msgstr "μουντό μπλέ #2"
+msgstr "μουντό μπλε #2"
 
 #: components/html-editor/gi-color-palette.c:603
 msgid "sky blue #2"
-msgstr "μπλέ ουρανί #2"
+msgstr "μπλε ουρανού #2"
 
 #: components/html-editor/gi-color-palette.c:604
 #: components/html-editor/gi-color-palette.c:643
 msgid "purple"
-msgstr "Μώβ"
+msgstr "μωβ"
 
 #: components/html-editor/gi-color-palette.c:605
 msgid "gray"
@@ -1147,16 +1150,16 @@ msgstr "κυανό"
 
 #: components/html-editor/gi-color-palette.c:613
 msgid "bright blue"
-msgstr "φωτεινό μπλέ"
+msgstr "ανοιχτό μπλε"
 
 #: components/html-editor/gi-color-palette.c:614
 #: components/html-editor/gi-color-palette.c:631
 msgid "red purple"
-msgstr "Μώβ-κόκκινο"
+msgstr "κόκκινο μωβ"
 
 #: components/html-editor/gi-color-palette.c:615
 msgid "light grey"
-msgstr "φωτεινό γκρι"
+msgstr "ανοιχτό γκρι"
 
 #
 #: components/html-editor/gi-color-palette.c:618
@@ -1166,46 +1169,46 @@ msgstr "ροζ"
 
 #: components/html-editor/gi-color-palette.c:619
 msgid "light orange"
-msgstr "απαλό πορτοκαλί"
+msgstr "ανοιχτό πορτοκαλί"
 
 #: components/html-editor/gi-color-palette.c:620
 #: components/html-editor/gi-color-palette.c:632
 msgid "light yellow"
-msgstr "απαλό κίτρινο"
+msgstr "ανιχτό κίτρινο"
 
 #: components/html-editor/gi-color-palette.c:621
 msgid "light green"
-msgstr "απαλό πράσινο"
+msgstr "ανοιχτό πράσινο"
 
 #: components/html-editor/gi-color-palette.c:622
 msgid "light cyan"
-msgstr "φωτεινό κυανό"
+msgstr "ανοιχτό κυανό"
 
 #: components/html-editor/gi-color-palette.c:623
 #: components/html-editor/gi-color-palette.c:633
 msgid "light blue"
-msgstr "φωτεινό μπλε"
+msgstr "ανοιχτό μπλε"
 
 #: components/html-editor/gi-color-palette.c:624
 #: components/html-editor/gi-color-palette.c:637
 msgid "light purple"
-msgstr "φωτεινό μώβ"
+msgstr "ανοιχτό μωβ"
 
 #: components/html-editor/gi-color-palette.c:625
 msgid "white"
-msgstr "Λευκό"
+msgstr "λευκό"
 
 #: components/html-editor/gi-color-palette.c:630
 msgid "purplish blue"
-msgstr "μωβίζον μπλέ"
+msgstr "μωβίζον μπλε"
 
 #: components/html-editor/gi-color-palette.c:634
 msgid "dark purple"
-msgstr "σκοτεινό μώβ"
+msgstr "σκούρο μωβ"
 
 #: components/html-editor/gi-color-palette.c:636
 msgid "sky blue"
-msgstr "μπλέ ουρανού"
+msgstr "μπλε ουρανού"
 
 #. set the a11y name
 #: components/html-editor/gi-combo-box.c:419
@@ -1263,7 +1266,7 @@ msgstr "<span weight=\"bold\">Διάταξη</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:18
 msgid "<span weight=\"bold\">Link</span>"
-msgstr "<span weight=\"bold\">Δεσμός</span>"
+msgstr "<span weight=\"bold\">Σύνδεσμος</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:19
 msgid "<span weight=\"bold\">Size</span>"
@@ -1334,7 +1337,7 @@ msgstr "Οριζόντια:"
 #
 #: components/html-editor/gtkhtml-editor-properties.glade.h:36
 msgid "I_mage:"
-msgstr "Ε_ικόνα"
+msgstr "Ε_ικόνα:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:38
 #: components/html-editor/paragraph.c:127
@@ -1348,7 +1351,7 @@ msgstr "Μήκος:"
 #
 #: components/html-editor/gtkhtml-editor-properties.glade.h:40
 msgid "Link properties"
-msgstr "Ιδιότητες δεσμού"
+msgstr "Ιδιότητες συνδέσμου"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:41
 msgid "Middle"
@@ -1378,7 +1381,7 @@ msgstr "Σκιασμένο"
 #
 #: components/html-editor/gtkhtml-editor-properties.glade.h:50
 msgid "Si_ze:"
-msgstr "Μέ_γεθος"
+msgstr "Μέ_γεθος:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:51
 msgid "Standard"
@@ -1429,7 +1432,7 @@ msgstr "Ύ_ψος:"
 #
 #: components/html-editor/gtkhtml-editor-properties.glade.h:66
 msgid "_Image:"
-msgstr "Ει_κόνα"
+msgstr "Ει_κόνα:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:68
 msgid "_Padding:"
@@ -1591,11 +1594,11 @@ msgstr "Στυλ Παραγράφου..."
 
 #: components/html-editor/popup.c:465
 msgid "Link Style..."
-msgstr "Στύλ Δεσμού..."
+msgstr "Στυλ Συνδέσμου..."
 
 #: components/html-editor/popup.c:471
 msgid "Rule Style..."
-msgstr "Στύλ Κανόνα..."
+msgstr "Στυλ Κανόνα..."
 
 #
 #: components/html-editor/popup.c:475
@@ -1608,7 +1611,7 @@ msgstr "Στυλ Κελιού..."
 
 #: components/html-editor/popup.c:489
 msgid "Table Style..."
-msgstr "Στύλ Πίνακα..."
+msgstr "Στυλ Πίνακα..."
 
 #
 #: components/html-editor/popup.c:495
@@ -1701,7 +1704,7 @@ msgstr "Αναζήτηση προς τα _πίσω"
 
 #: components/html-editor/replace.c:172 components/html-editor/search.c:113
 msgid "Case _sensitive"
-msgstr "Case _sensitive"
+msgstr "_Διάκριση πεζών από κεφαλαία"
 
 #: components/html-editor/replace.c:182
 msgid "R_eplace:"
@@ -1858,7 +1861,7 @@ msgstr ""
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
-"Ο Mozilla έδωσε ένα url στον Composer που είχε λάθος μορφή  (%d) ή μάκρος (%"
+"Ο Mozilla έδωσε ένα url στον Composer που είχε λάθος μορφή (%d) ή μάκρος (%"
 "d)\n"
 
 #: src/gtkhtml.c:2929
@@ -1903,7 +1906,7 @@ msgstr "Η γραμματοσειρά Monospace που χρησιμοποιεί�
 
 #: src/gtkhtml.c:2967
 msgid "New Link Color"
-msgstr "Χρώμα Νέου Δεσμού"
+msgstr "Χρώμα Νέου Συνδέσμου"
 
 #: src/gtkhtml.c:2968
 msgid "The color of new link elements"
@@ -1919,7 +1922,7 @@ msgstr "Το χρώμα για στοιχεία αναγνωσμένων δεσ�
 
 #: src/gtkhtml.c:2979
 msgid "Active Link Color"
-msgstr "Χρώμα Ενεργού Δεσμού"
+msgstr "Χρώμα Ενεργού Συνδέσμου"
 
 #: src/gtkhtml.c:2980
 msgid "The color of active link elements"
@@ -2016,114 +2019,13 @@ msgstr "Δοκιμή GtkHTML"
 
 #: src/testgtkhtml.c:117
 msgid "Print pre_view"
-msgstr "Προεπισκόπιση εκ_τύπωσης"
+msgstr "Προεπισκόπηση εκ_τύπωσης"
 
 #: src/testgtkhtml.c:117
 msgid "Print preview"
-msgstr "Προεπισκόπιση εκτύπωσης"
+msgstr "Προεπισκόπηση εκτύπωσης"
 
 #: src/testgtkhtml.c:1004
 msgid "GtkHTML Test Application"
 msgstr "Εφαρμογή Δοκιμής GtkHTML"
 
-#~ msgid "<None>"
-#~ msgstr "<Κενό>"
-
-#~ msgid "\n"
-#~ msgstr "\n"
-
-#~ msgid "*********************"
-#~ msgstr "*********************"
-
-#~ msgid "Add Keyboard Shortcuts"
-#~ msgstr "Προσθήκη Συντομεύσεων Πληκτρολογίου"
-
-#~ msgid "Automatically detect links"
-#~ msgstr "Αυτόματος εντοπισμός δεσμών"
-
-#~ msgid "Behavior"
-#~ msgstr "Συμπεριφορά"
-
-#
-#~ msgid "Composer Properties"
-#~ msgstr "Ιδιότητες Composer"
-
-#~ msgid "Composer Properties planned"
-#~ msgstr "Σχεδιαζόμενες Ιδιότητες Composer"
-
-#~ msgid "Configure spell checking"
-#~ msgstr "Ρύθμιση ελέγχου ορθογραφίας"
-
-#~ msgid "Enable spell checking"
-#~ msgstr "Ενεργοποίηση ελέγχου ορθογραφίας"
-
-#~ msgid "Fixed width"
-#~ msgstr "Σταθερoύ πλάτους"
-
-#~ msgid "Fonts"
-#~ msgstr "Γραμματοσειρές"
-
-#
-#~ msgid "For printing"
-#~ msgstr "Για εκτύπωση"
-
-#~ msgid "Grab keys"
-#~ msgstr "Αρπαγή πλήκτρων"
-
-#~ msgid "Information"
-#~ msgstr "Πληροφορίες"
-
-#~ msgid "Keyboard Shortcuts"
-#~ msgstr "Συντομεύσεις Πληκτρολογίου"
-
-#~ msgid "Miscellaneous"
-#~ msgstr "Διάφορα"
-
-#~ msgid "New shortcut:"
-#~ msgstr "Νέα συντόμευση:"
-
-#~ msgid "On screen"
-#~ msgstr "Στην οθόνη"
-
-#~ msgid "Select HTML fixed width font"
-#~ msgstr "Επιλογή γραμματοσειράς HTML σταθερού πλάτους"
-
-#~ msgid "Select HTML fixed width font for printing"
-#~ msgstr "Επιλογή γραμματοσειράς HTML σταθερού πλάτους για εκτύπωση"
-
-#~ msgid "Select HTML variable width font"
-#~ msgstr "Επιλογή γραμματοσειράς HTML μεταβλητού πλάτους"
-
-#~ msgid "Select HTML variable width font for printing"
-#~ msgstr "Επιλογή γραμματοσειράς HTML μεταβλητού πλάτους για εκτύπωση"
-
-#~ msgid "Shortcuts _type:"
-#~ msgstr "_Είδος συντομεύσεων: "
-
-#~ msgid "Show animated images"
-#~ msgstr "Εμφάνιση κινούμενων εικόνων"
-
-#~ msgid "Variable width"
-#~ msgstr "Μεταβλητού πλάτους"
-
-#
-#~ msgid "_Add"
-#~ msgstr "_Προσθήκη"
-
-#
-#~ msgid "_Delete"
-#~ msgstr "_Διαγραφή"
-
-#~ msgid ""
-#~ "Cannot execute GNOME Spell control applet\n"
-#~ "Try to install GNOME Spell if you don't have it installed."
-#~ msgstr ""
-#~ "Αδυναμία εκτέλεσης εφαρμογιδίου ελέγχου ορθογραφίας του GNOME\n"
-#~ "Προσπαθείστε να εγκαταστήσετε το GNOME Spell αν δεν το έχετε εγκαταστήσει "
-#~ "ακόμη."
-
-#~ msgid "With:"
-#~ msgstr "Με:"
-
-#~ msgid "Labels"
-#~ msgstr "Ετικέτες"
