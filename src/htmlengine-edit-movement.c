@@ -97,6 +97,7 @@ html_engine_jump_to_object (HTMLEngine *e,
 
 	/* Jump to the specified position.  FIXME: Beep if it fails?  */
 	html_cursor_jump_to (e->cursor, e, object, offset);
+	html_cursor_normalize (e->cursor);
 
 	/* Draw the cursor in the new position.  */
 	html_engine_draw_cursor (e);

@@ -297,9 +297,7 @@ new_flow (HTMLEngine *e,
 {
 	close_flow (e, clue);
 
-	e->flow = html_clueflow_new (current_clueflow_style (e),
-				     e->list_level,
-				     e->quote_level);
+	e->flow = html_clueflow_new (current_clueflow_style (e), e->indent_level);
 
 	HTML_CLUE (e->flow)->halign = e->divAlign;
 
@@ -548,9 +546,9 @@ block_end_list (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
 
 	close_flow (e, clue);
 	
-	e->list_level = elem->miscData1;
+	e->indent_level = elem->miscData1;
 
-	if (e->list_level == 0) {
+	if (e->indent_level == 0) {
 		e->pending_para = FALSE;
 		e->avoid_para = TRUE;
 	}
@@ -561,8 +559,7 @@ block_end_quote (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
 {
 	close_flow (e, clue);
 
-	e->quote_level = elem->miscData1;
-	e->list_level = elem->miscData2;
+	e->indent_level = elem->miscData1;
 
 	e->pending_para = FALSE;
 	e->avoid_para = TRUE;
@@ -660,8 +657,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	HTMLVAlignType capAlign = HTML_VALIGN_BOTTOM;
 	HTMLHAlignType olddivalign = e->divAlign;
 	HTMLClue *oldflow = HTML_CLUE (e->flow);
-	gint old_quote_level = e->quote_level;
-	gint old_list_level = e->list_level;
+	gint old_indent_level = e->indent_level;
 	GdkColor tableColor, rowColor, bgColor;
 	gboolean have_tableColor, have_rowColor, have_bgColor;
 	gboolean have_tablePixmap, have_rowPixmap, have_bgPixmap;
@@ -737,8 +733,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	table = HTML_TABLE (html_table_new (0, 0, max_width, width, 
 					    percent, padding,
 					    spacing, border));
-	e->list_level = 0;
-	e->quote_level = 0;
+	e->indent_level = 0;
 
 	while (!done && html_tokenizer_has_more_tokens (e->ht)) {
 		str = html_tokenizer_next_token (e->ht);
@@ -1075,8 +1070,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 		}
 	}
 		
-	e->quote_level = old_quote_level;
-	e->list_level = old_list_level;
+	e->indent_level = old_indent_level;
 
 	e->divAlign = olddivalign;
 
@@ -1434,11 +1428,10 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	} else if ( strncmp(str, "/big", 4 ) == 0 ) {
 		pop_block (e, ID_BIG, clue);
 	} else if ( strncmp(str, "blockquote", 10 ) == 0 ) {
-		push_block (e, ID_BLOCKQUOTE, 2, block_end_quote, e->quote_level, e->list_level);
+		push_block (e, ID_BLOCKQUOTE, 2, block_end_quote, e->indent_level, e->indent_level);
 		e->avoid_para = TRUE;
 		e->pending_para = FALSE;
-		e->quote_level = e->quote_level + e->list_level + 1;
-		e->list_level = 0;
+		e->indent_level = e->indent_level + 1;
 		close_flow (e, clue);
 	} else if ( strncmp(str, "/blockquote", 11 ) == 0 ) {
 		e->avoid_para = TRUE;
@@ -1631,10 +1624,10 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 {
 	if ( strncmp( str, "dir", 3 ) == 0 ) {
 		close_anchor(e);
-		push_block (e, ID_DIR, 2, block_end_list, e->list_level, FALSE);
+		push_block (e, ID_DIR, 2, block_end_list, e->indent_level, FALSE);
 		html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_DIR,
 							      HTML_LIST_NUM_TYPE_NUMERIC));
-		e->list_level++;
+		e->indent_level++;
 		/* FIXME shouldn't it create a new flow? */
 	} else if ( strncmp( str, "/dir", 4 ) == 0 ) {
 		pop_block (e, ID_DIR, _clue);
@@ -1662,7 +1655,7 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 	} else if ( strncmp( str, "dl", 2 ) == 0 ) {
 		close_anchor (e);
 		if ( html_stack_top(e->glossaryStack) != NULL )
-			e->quote_level++;
+			e->indent_level++;
 		html_stack_push (e->glossaryStack, GINT_TO_POINTER (HTML_GLOSSARY_DL));
 		/* FIXME shouldn't it create a new flow? */
 		add_line_break (e, _clue, HTML_CLEAR_ALL);
@@ -1670,17 +1663,16 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 		if ( html_stack_top (e->glossaryStack) == NULL)
 			return;
 
-		if ( GPOINTER_TO_INT (html_stack_top (e->glossaryStack))
-		     == HTML_GLOSSARY_DD ) {
+		if ( GPOINTER_TO_INT (html_stack_top (e->glossaryStack)) == HTML_GLOSSARY_DD ) {
 			html_stack_pop (e->glossaryStack);
-			if (e->quote_level > 0)
-				e->quote_level--;
+			if (e->indent_level > 0)
+				e->indent_level--;
 		}
 
 		html_stack_pop (e->glossaryStack);
 		if ( html_stack_top (e->glossaryStack) != NULL ) {
-			if (e->quote_level > 0)
-				e->quote_level--;
+			if (e->indent_level > 0)
+				e->indent_level--;
 		}
 
 		add_line_break (e, _clue, HTML_CLEAR_ALL);
@@ -1690,8 +1682,8 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 
 		if (GPOINTER_TO_INT (html_stack_top (e->glossaryStack)) == HTML_GLOSSARY_DD) {
 			html_stack_pop (e->glossaryStack);
-			if (e->quote_level > 0)
-				e->quote_level--;
+			if (e->indent_level > 0)
+				e->indent_level--;
 		}
 
 		close_flow (e, _clue);
@@ -1702,7 +1694,7 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 		if (GPOINTER_TO_INT (html_stack_top (e->glossaryStack)) != HTML_GLOSSARY_DD ) {
 			html_stack_push (e->glossaryStack,
 					 GINT_TO_POINTER (HTML_GLOSSARY_DD) );
-			e->quote_level++;
+			e->indent_level++;
 		}
 
 		close_flow (e, _clue);
@@ -2078,9 +2070,7 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 
 		close_flow (p, clue);
 
-		p->flow = html_clueflow_new (HTML_CLUEFLOW_STYLE_ITEMDOTTED,
-					     p->list_level,
-					     p->quote_level);
+		p->flow = html_clueflow_new (HTML_CLUEFLOW_STYLE_ITEMDOTTED, p->indent_level);
 		html_clue_append (HTML_CLUE (clue), p->flow);
 
 		p->avoid_para = TRUE;
@@ -2172,9 +2162,9 @@ parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 
 		if ( html_stack_is_empty (e->listStack) ) {
 			/* FIXME */
-			push_block (e, ID_OL, 2, block_end_list, e->list_level, TRUE);
+			push_block (e, ID_OL, 2, block_end_list, e->indent_level, TRUE);
 		} else {
-			push_block (e, ID_OL, 2, block_end_list, e->list_level, FALSE);
+			push_block (e, ID_OL, 2, block_end_list, e->indent_level, FALSE);
 		}
 
 		listNumType = HTML_LIST_NUM_TYPE_NUMERIC;
@@ -2211,7 +2201,7 @@ parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 		list = html_list_new (HTML_LIST_TYPE_ORDERED, listNumType);
 		html_stack_push (e->listStack, list);
 
-		e->list_level++;
+		e->indent_level++;
 	}
 	else if ( strncmp( str, "/ol", 3 ) == 0 ) {
 		pop_block (e, ID_OL, _clue);
@@ -2539,9 +2529,9 @@ parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		close_flow (e, clue);
 
 		if (html_stack_is_empty (e->listStack))
-			push_block (e, ID_UL, 2, block_end_list, e->list_level, TRUE);
+			push_block (e, ID_UL, 2, block_end_list, e->indent_level, TRUE);
 		else
-			push_block (e, ID_UL, 2, block_end_list, e->list_level, FALSE);
+			push_block (e, ID_UL, 2, block_end_list, e->indent_level, FALSE);
 
 		type = HTML_LIST_TYPE_UNORDERED;
 
@@ -2555,10 +2545,10 @@ parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		html_stack_push (e->listStack, html_list_new (type, HTML_LIST_NUM_TYPE_NUMERIC));
 		e->flow = NULL;
 
-		if (e->pending_para && e->list_level > 0)
+		if (e->pending_para && e->indent_level > 0)
 			insert_paragraph_break (e, clue);
 
-		e->list_level++;
+		e->indent_level++;
 
 		e->avoid_para = TRUE;
 		e->pending_para = FALSE;
@@ -2881,8 +2871,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->avoid_para = TRUE;
 	engine->pending_para = FALSE;
 
-	engine->quote_level = 0;
-	engine->list_level = 0;
+	engine->indent_level = 0;
 }
 
 HTMLEngine *
@@ -2911,6 +2900,49 @@ html_engine_realize (HTMLEngine *e,
 
 	gc_values.function = GDK_INVERT;
 	e->invert_gc = gdk_gc_new_with_values (e->window, &gc_values, GDK_GC_FUNCTION);
+}
+
+
+/* This function makes sure @engine can be edited properly.  In order
+   to be editable, the beginning of the document must have the
+   following structure:
+   
+     HTMLClueV (cluev)
+       HTMLClueFlow (head)
+ 	 HTMLObject (child) */
+static void
+ensure_editable (HTMLEngine *engine)
+{
+	HTMLObject *cluev;
+	HTMLObject *head;
+	HTMLObject *child;
+
+	g_return_if_fail (engine != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (engine));
+
+	cluev = engine->clue;
+	if (cluev == NULL)
+		engine->clue = cluev = html_cluev_new (0, 0, 0, 100);
+
+	head = HTML_CLUE (cluev)->head;
+	if (head == NULL || HTML_OBJECT_TYPE (head) != HTML_TYPE_CLUEFLOW) {
+		HTMLObject *clueflow;
+
+		clueflow = html_clueflow_new (HTML_CLUEFLOW_STYLE_NORMAL, 0);
+		html_clue_prepend (HTML_CLUE (cluev), clueflow);
+
+		head = clueflow;
+	}
+
+	child = HTML_CLUE (head)->head;
+	if (child == NULL) {
+		HTMLObject *text_master;
+		GdkColor black = { 0, 0, 0, 0 }; /* FIXME */
+
+		text_master = html_text_master_new (g_strdup (""), GTK_HTML_FONT_STYLE_DEFAULT,
+						    &black);
+		html_clue_prepend (HTML_CLUE (head), text_master);
+	}
 }
 
 
@@ -2970,7 +3002,7 @@ html_engine_stop_parser (HTMLEngine *e)
 
 	if (e->timerId != 0) {
 		gtk_timeout_remove (e->timerId);
-		/*		e->timerId = 0;*/
+		e->timerId = 0;
 	}
 	
 	e->parsing = FALSE;
@@ -3155,7 +3187,7 @@ html_engine_timer_event (HTMLEngine *e)
 		retval = FALSE;
 
  out:
-	if(!retval)
+	if (!retval)
 		e->timerId = 0;
 
 	return retval;
@@ -3167,6 +3199,15 @@ html_engine_end (GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, HTMLEng
 	e->writing = FALSE;
 
 	html_tokenizer_end (e->ht);
+
+	while (html_engine_timer_event (e))
+		;
+	gtk_timeout_remove (e->timerId);
+	e->timerId = 0;
+
+	if (e->editable)
+		ensure_editable (e);
+	
 	gtk_signal_emit (GTK_OBJECT (e), signals[LOAD_DONE]);
 	html_image_factory_cleanup (e->image_factory);
 }
@@ -3411,48 +3452,6 @@ html_engine_get_link_at (HTMLEngine *e, gint x, gint y)
 }
 
 
-/* This function makes sure @engine can be edited properly.  In order
-   to be editable, the beginning of the document must have the
-   following structure:
-   
-     HTMLClueV (cluev)
-       HTMLClueFlow (head)
- 	 HTMLObject (child) */
-static void
-ensure_editable (HTMLEngine *engine)
-{
-	HTMLObject *cluev;
-	HTMLObject *head;
-	HTMLObject *child;
-
-	g_return_if_fail (engine != NULL);
-	g_return_if_fail (HTML_IS_ENGINE (engine));
-
-	cluev = engine->clue;
-	if (cluev == NULL)
-		engine->clue = cluev = html_cluev_new (0, 0, 0, 100);
-
-	head = HTML_CLUE (cluev)->head;
-	if (head == NULL || HTML_OBJECT_TYPE (head) != HTML_TYPE_CLUEFLOW) {
-		HTMLObject *clueflow;
-
-		clueflow = html_clueflow_new (HTML_CLUEFLOW_STYLE_NORMAL, 0, 0);
-		html_clue_prepend (HTML_CLUE (cluev), clueflow);
-
-		head = clueflow;
-	}
-
-	child = HTML_CLUE (head)->head;
-	if (child == NULL) {
-		HTMLObject *text_master;
-		GdkColor black = { 0, 0, 0, 0 }; /* FIXME */
-
-		text_master = html_text_master_new (g_strdup (""), GTK_HTML_FONT_STYLE_DEFAULT,
-						    &black);
-		html_clue_prepend (HTML_CLUE (head), text_master);
-	}
-}
-
 /**
  * html_engine_set_editable:
  * @e: An HTMLEngine object
@@ -3465,6 +3464,9 @@ void
 html_engine_set_editable (HTMLEngine *e,
 			  gboolean editable)
 {
+	g_return_if_fail (e != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
 	if ((! e->editable && editable) || (e->editable && ! editable)) {
 		if (! e->editable && editable)
 			html_cursor_home (e->cursor, e);
@@ -3475,6 +3477,18 @@ html_engine_set_editable (HTMLEngine *e,
 		if (editable)
 			ensure_editable (e);
 	}
+}
+
+gboolean
+html_engine_get_editable (HTMLEngine *e)
+{
+	g_return_val_if_fail (e != NULL, FALSE);
+	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
+
+	if (e->editable && ! e->parsing && e->timerId == 0)
+		return TRUE;
+	else
+		return FALSE;
 }
 
 
@@ -3722,6 +3736,9 @@ html_engine_unselect_all (HTMLEngine *e,
 
 	g_return_if_fail (e != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (e));
+
+	if (! e->active_selection)
+		return;
 
 	if (e->clue == NULL)
 		return;

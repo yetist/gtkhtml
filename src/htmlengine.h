@@ -117,8 +117,7 @@ struct _HTMLEngine {
 	gint bottomBorder;
 
 	/* Current indentation level.  */
-	guint quote_level;
-	guint list_level;
+	guint indent_level;
 
 	/* For the widget */
 	gint width;
@@ -240,8 +239,11 @@ guint       html_engine_get_type      (void);
 HTMLEngine *html_engine_new           (void);
 void        html_engine_realize       (HTMLEngine *engine,
 				       GdkWindow  *window);
-void        html_engine_set_editable  (HTMLEngine *e,
-				       gboolean    editable);
+
+/* Editability control.  */
+void      html_engine_set_editable  (HTMLEngine *e,
+				     gboolean    editable);
+gboolean  html_engine_get_editable  (HTMLEngine *e);
 
 /* Parsing control.  */
 GtkHTMLStreamHandle  html_engine_begin            (HTMLEngine  *p,

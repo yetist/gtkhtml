@@ -58,11 +58,8 @@ struct _HTMLClueFlow {
 	/* Paragraph style.  */
 	HTMLClueFlowStyle style;
 
-	/* Level for itemized lists.  */
-	guint8 list_level;
-
-	/* Level for blockquote.  */
-	guint8 quote_level;
+	/* Indentation level for blockquote and lists.  */
+	guint8 level;
 };
 
 struct _HTMLClueFlowClass {
@@ -82,11 +79,9 @@ void           html_clueflow_class_init              (HTMLClueFlowClass  *klass,
 void           html_clueflow_init                    (HTMLClueFlow       *flow,
 						      HTMLClueFlowClass  *klass,
 						      HTMLClueFlowStyle   style,
-						      guint8              list_level,
-						      guint8              quote_level);
+						      guint8              level);
 HTMLObject    *html_clueflow_new                     (HTMLClueFlowStyle   style,
-						      guint8              list_level,
-						      guint8              quote_level);
+						      guint8              level);
 
 GtkHTMLFontStyle  html_clueflow_get_default_font_style  (const HTMLClueFlow *self);
 HTMLClueFlow     *html_clueflow_split                   (HTMLClueFlow       *clue,
@@ -106,13 +101,11 @@ void  html_clueflow_indent  (HTMLClueFlow *flow,
 void  html_clueflow_set_properties  (HTMLClueFlow      *flow,
 				     HTMLEngine        *engine,
 				     HTMLClueFlowStyle  style,
-				     guint8             list_level,
-				     guint8             quote_level,
+				     guint8             level,
 				     HTMLHAlignType     alignment);
 void  html_clueflow_get_properties  (HTMLClueFlow      *flow,
 				     HTMLClueFlowStyle *style_return,
-				     guint8            *list_level_return,
-				     guint8            *quote_level_return,
+				     guint8            *level_return,
 				     HTMLHAlignType    *alignment_return);
 
 #endif /* _HTMLCLUEFLOW_H_ */

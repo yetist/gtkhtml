@@ -94,7 +94,6 @@ struct _GtkHTML {
 
 	gboolean in_selection : 1;
 	gboolean button_pressed : 1;
-	gboolean editable : 1;
 	gboolean load_in_progress : 1;
 
 	gboolean debug : 1;

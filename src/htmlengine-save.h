@@ -37,8 +37,7 @@ struct _HTMLEngineSaveState {
 
 	gboolean error : 1;
 
-	guint last_quote_level;
-	guint last_list_level;
+	guint last_level;
 
 	gpointer user_data;
 };

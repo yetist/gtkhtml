@@ -95,8 +95,7 @@ html_engine_insert_para (HTMLEngine *engine,
 		} else {
 			/* FIXME we need a `html_clueflow_like_another_one()'.  */
 			next_flow = html_clueflow_new (HTML_CLUEFLOW (flow)->style,
-						       HTML_CLUEFLOW (flow)->list_level,
-						       HTML_CLUEFLOW (flow)->quote_level);
+						       HTML_CLUEFLOW (flow)->level);
 		}
 	} else {
 		next_flow = HTML_OBJECT (html_clueflow_split (HTML_CLUEFLOW (flow), current));

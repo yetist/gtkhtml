@@ -163,7 +163,7 @@ update_styles (GtkHTML *html)
 	HTMLEngine *engine;
 	guint indentation;
 
-	if (! html->editable)
+	if (! html_engine_get_editable (html->engine))
 		return;
 
 	engine = html->engine;
@@ -415,7 +415,7 @@ key_press_event (GtkWidget *widget,
 	html = GTK_HTML (widget);
 	engine = html->engine;
 
-	if (! engine->editable) {
+	if (! html_engine_get_editable (engine)) {
 		/* FIXME handle differently in this case */
 		return FALSE;
 	}
@@ -558,7 +558,7 @@ motion_notify_event (GtkWidget *widget,
 					   x + engine->x_offset, y + engine->y_offset,
 					   TRUE);
 
-		if (engine->editable)
+		if (html_engine_get_editable (engine))
 			html_engine_jump_at (engine,
 					     event->x + engine->x_offset,
 					     event->y + engine->y_offset);
@@ -601,7 +601,7 @@ button_press_event (GtkWidget *widget,
 
 	gtk_widget_grab_focus (widget);
 
-	if (engine->editable) {
+	if (html_engine_get_editable (engine)) {
 		html_engine_jump_at (engine,
 				     event->x + engine->x_offset,
 				     event->y + engine->y_offset);
@@ -868,7 +868,6 @@ init (GtkHTML* html)
 	html->in_selection = FALSE;
 	html->button_pressed = FALSE;
 
-	html->editable = FALSE;
 	html->load_in_progress = TRUE;
 
 	html->idle_handler_id = 0;
@@ -974,7 +973,6 @@ gtk_html_begin (GtkHTML *html, const char *url)
 	if (handle == NULL)
 		return NULL;
 
-	html_engine_set_editable (html->engine, FALSE);
 	html_engine_parse (html->engine);
 
 	html->load_in_progress = TRUE;
@@ -999,9 +997,6 @@ gtk_html_end (GtkHTML *html,
 	gtk_html_stream_end (handle, status);
 
 	html->load_in_progress = FALSE;
-
-	if (html->editable)
-		html_engine_set_editable (html->engine, TRUE);
 }
 
 
@@ -1022,8 +1017,6 @@ void
 gtk_html_calc_scrollbars (GtkHTML *html)
 {
 	gint width, height;
-
-	puts (__FUNCTION__);
 
 	height = html_engine_get_doc_height (html->engine);
 	width = html_engine_get_doc_width (html->engine);
@@ -1050,10 +1043,7 @@ gtk_html_set_editable (GtkHTML *html,
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
 
-	html->editable = editable;
-
-	if (! html->load_in_progress)
-		html_engine_set_editable (html->engine, editable);
+	html_engine_set_editable (html->engine, editable);
 }
 
 gboolean
@@ -1062,7 +1052,7 @@ gtk_html_get_editable  (const GtkHTML *html)
 	g_return_val_if_fail (html != NULL, FALSE);
 	g_return_val_if_fail (GTK_IS_HTML (html), FALSE);
 
-	return html->editable;
+	return html_engine_get_editable (html->engine);
 }
 
 void

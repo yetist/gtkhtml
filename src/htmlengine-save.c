@@ -212,8 +212,7 @@ html_engine_save (const HTMLEngine *engine,
 	state.br_count = 0;
 	state.error = FALSE;
 	state.user_data = user_data;
-	state.last_quote_level = 0;
-	state.last_list_level = 0;
+	state.last_level = 0;
 
 	if (! write_header (&state))
 		return FALSE;

@@ -1,6 +1,104 @@
-2000-03-07 Elliot Lee  <sopwith@redhat.com>
-	* htmlbutton.c, htmlcheckbox.c, htmlengine-save.c, htmlgdkfontmanager.c, htmlgdkpainter.c
-	 htmlhidden.c, htmlprintfontmanager.c, htmlradio.c, htmltext.c, htmltextinput.c,
+2000-03-08  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine.c
+	(block_end_quote): Use `HTMLEngine' member `indent_level' instead
+	of `list_level', `quote_level'.
+	(block_end_list): Likewise.
+	(parse_table): Likewise.
+	(parse_b): Likewise.
+	(parse_d): Likewise.
+	(parse_l): Likewise.
+	(parse_o): Likewise.
+	(parse_u): Likewise.
+	(html_engine_init): Likewise.
+	(ensure_editable): Updated for `html_clueflow_new()'.
+
+	* htmlengine-edit-clueflowstyle.c: Removed members `quote_level',
+	`list_level' in `OriginalClueFlowProps'; replaced them with a
+	single `level' member.
+	(get_props): Updated accordingly.
+	(set_props): Likewise.
+	(html_engine_get_current_clueflow_indentation): Just use the
+	`level' member in `HTMLClueFlow' instead of the old `list_level'
+	and `quote_level'.
+
+	* gtkhtmldebug.c
+	(gtk_html_debug_dump_tree): Print `level' instead of `quote_level'
+	and `list_level' that do not exist anymore.
+
+	* htmlclueflow.c
+	(copy): Copy `level'.  Don't copy `list_level' and `quote_level'
+	anymore as they are gone.
+	(add_pre_padding): Updated to use `level' instead of
+	`list_level'/`quote_level'.
+	(add_post_padding): Likewise.
+	(draw): Use `level' instead of `list_level'.
+	(write_indentation_tags): Use `last_level' in
+	`HTMLEngineSaveState' instead of `last_quote_level',
+	`last_list_level'.
+	(html_clueflow_init): Removed parameters `quote_level',
+	`indent_level'.  Only get a generic `level' parameter instead.
+	(html_clueflow_new): Likewise.
+	(html_clueflow_set_properties): Likewise.
+	(html_clueflow_get_properties): Likewise for `list_level_return'
+	and `quote_level_return'.
+	(html_clueflow_split): Updated accordingly.
+	(html_clueflow_indent): Simply increase/decrease `level'.
+
+	* htmlengine-save.c
+	(html_engine_save): Initialize `last_level' instead of
+	`last_quote_level' and `last_list_level', that don't exist
+	anymore.
+
+	* htmlengine-save.h: Members `last_quote_level',
+	`last_list_level' in `HTMLEngineSaveState' removed.  New member
+	`last_level'.
+
+	* htmlclueflow.h: Members `quote_level' and `list_level' removed
+	from `HTMLClueFlow'.  New member `level' which is used for both
+	lists and blockquotes.
+
+	* gtkhtml.c
+	(update_styles): Use `html_engine_get_editable' instead of the
+	`editable' member that does not exist anymore.
+	(key_press_event): Likewise.
+	(motion_notify_event): Likewise.
+	(button_press_event): Likewise.
+	(gtk_html_get_editable): Likewise.
+	(init): Do not init `editable' anymore.
+	(gtk_html_end): Do not call `html_engine_set_editable()' anymore.
+	(gtk_html_set_editable): Inconditionally call
+	`html_engine_set_editable()'.
+	(gtk_html_begin): Do not make the engine non-editable anymore.
+
+	* gtkhtml.h: Removed member `editable'.
+
+	* htmlengine.c
+	(html_engine_set_editable): Added preconditions.
+	(html_engine_get_editable): New function.
+	(html_engine_end): Make sure the thing is editable if `editable'
+	is true, by calling `ensure_editable()'.
+
+	* htmlengine.c
+	(html_engine_end): Just before emitting the "load_done" signal,
+	call `html_engine_timer_event()' repeatedly, until it returns
+	FALSE: this way, we make sure all the pending text is parsed.
+	Then remove the timeout, as it is not necessary anymore.
+	(html_engine_stop_parser): Reset `timerId'.
+
+	* htmlengine-edit-movement.c
+	(html_engine_jump_to_object): Normalize cursor after changing it.
+
+	* htmlengine.c
+	(html_engine_unselect_all): Do not traverse the whole tree if we
+	are sure there is no current selection [`active_selection' is
+	FALSE].
+
+2000-03-07  Elliot Lee  <sopwith@redhat.com>
+	
+	* htmlbutton.c, htmlcheckbox.c, htmlengine-save.c,
+	 htmlgdkfontmanager.c, htmlgdkpainter.c htmlhidden.c,
+	 htmlprintfontmanager.c, htmlradio.c, htmltext.c, htmltextinput.c,
 	 htmltextmaster.c: #include <string.h>
 
 2000-03-07  Ettore Perazzoli  <ettore@helixcode.com>

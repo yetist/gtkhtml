@@ -44,8 +44,7 @@ copy (HTMLObject *self,
 	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
 
 	HTML_CLUEFLOW (dest)->style = HTML_CLUEFLOW (self)->style;
-	HTML_CLUEFLOW (dest)->list_level = HTML_CLUEFLOW (self)->list_level;
-	HTML_CLUEFLOW (dest)->quote_level = HTML_CLUEFLOW (self)->quote_level;
+	HTML_CLUEFLOW (dest)->level = HTML_CLUEFLOW (self)->level;
 }
 
 static guint
@@ -126,12 +125,7 @@ add_pre_padding (HTMLClueFlow *flow,
 		HTMLClueFlow *prev;
 
 		prev = HTML_CLUEFLOW (prev_object);
-		if (prev->list_level > 0 && flow->list_level == 0) {
-			HTML_OBJECT (flow)->ascent += pad;
-			return;
-		}
-
-		if (prev->quote_level != flow->quote_level) {
+		if (prev->level > 0 && flow->level == 0) {
 			HTML_OBJECT (flow)->ascent += pad;
 			return;
 		}
@@ -151,7 +145,7 @@ add_pre_padding (HTMLClueFlow *flow,
 		return;
 	}
 
-	if (is_header (flow) || flow->quote_level > 0 || flow->list_level > 0)
+	if (is_header (flow) || flow->level > 0)
 		HTML_OBJECT (flow)->ascent += pad;
 }
 
@@ -169,12 +163,7 @@ add_post_padding (HTMLClueFlow *flow,
 		HTMLClueFlow *next;
 
 		next = HTML_CLUEFLOW (next_object);
-		if (next->list_level > 0 && flow->list_level == 0) {
-			HTML_OBJECT (flow)->ascent += pad;
-			return;
-		}
-
-		if (next->quote_level != flow->quote_level) {
+		if (next->level > 0 && flow->level == 0) {
 			HTML_OBJECT (flow)->ascent += pad;
 			return;
 		}
@@ -194,7 +183,7 @@ add_post_padding (HTMLClueFlow *flow,
 		return;
 	}
 
-	if (is_header (flow) || flow->quote_level > 0 || flow->list_level > 0)
+	if (is_header (flow) || flow->level > 0)
 		HTML_OBJECT (flow)->ascent += pad;
 }
 
@@ -202,13 +191,13 @@ static guint
 get_indent (HTMLClueFlow *flow,
 	    HTMLPainter *painter)
 {
-	guint total_level;
+	guint level;
 	guint indent;
 
-	total_level = flow->quote_level + flow->list_level;
+	level = flow->level;
 
-	if (total_level > 0 || ! is_item (flow))
-		indent = total_level * calc_indent_unit (painter);
+	if (level > 0 || ! is_item (flow))
+		indent = level * calc_indent_unit (painter);
 	else
 		indent = 2 * calc_bullet_size (painter);
 
@@ -642,7 +631,7 @@ draw (HTMLObject *self,
 
 		html_painter_set_pen (painter, html_painter_get_black (painter));
 
-		if (clueflow->list_level == 0 || (clueflow->list_level & 1) != 0)
+		if (clueflow->level == 0 || (clueflow->level & 1) != 0)
 			html_painter_fill_rect (painter, xp, yp, bullet_size, bullet_size);
 		else
 			html_painter_draw_rect (painter, xp, yp, bullet_size, bullet_size);
@@ -701,24 +690,18 @@ static gboolean
 write_indentation_tags (HTMLClueFlow *self,
 			HTMLEngineSaveState *state)
 {
-	if (state->last_quote_level == self->quote_level
-	    && state->last_list_level == self->list_level)
+	if (state->last_level == self->level)
 		return TRUE;
 
+	/* FIXME should use UL appropriately.  */
+
 	if (! write_indentation_tags_helper (state,
-					     state->last_quote_level,
-					     self->quote_level,
+					     state->last_level,
+					     self->level,
 					     "BLOCKQUOTE"))
 		return FALSE;
 
-	if (! write_indentation_tags_helper (state,
-					     state->last_list_level,
-					     self->list_level,
-					     "UL"))
-		return FALSE;
-	
-	state->last_quote_level = self->quote_level;
-	state->last_list_level = self->list_level;
+	state->last_level = self->level;
 
 	return TRUE;
 }
@@ -903,8 +886,7 @@ void
 html_clueflow_init (HTMLClueFlow *clueflow,
 		    HTMLClueFlowClass *klass,
 		    HTMLClueFlowStyle style,
-		    guint8 list_level,
-		    guint8 quote_level)
+		    guint8 level)
 {
 	HTMLObject *object;
 	HTMLClue *clue;
@@ -920,21 +902,17 @@ html_clueflow_init (HTMLClueFlow *clueflow,
 	clue->halign = HTML_HALIGN_LEFT;
 
 	clueflow->style = style;
-
-	clueflow->list_level = list_level;
-	clueflow->quote_level = quote_level; 
+	clueflow->level = level; 
 }
 
 HTMLObject *
 html_clueflow_new (HTMLClueFlowStyle style,
-		   guint8 list_level,
-		   guint8 quote_level)
+		   guint8 level)
 {
 	HTMLClueFlow *clueflow;
 
 	clueflow = g_new (HTMLClueFlow, 1);
-	html_clueflow_init (clueflow, &html_clueflow_class, style,
-			    list_level, quote_level);
+	html_clueflow_init (clueflow, &html_clueflow_class, style, level);
 
 	return HTML_OBJECT (clueflow);
 }
@@ -975,9 +953,7 @@ html_clueflow_split (HTMLClueFlow *clue,
 
 	/* Create the new clue.  */
 
-	new = HTML_CLUEFLOW (html_clueflow_new (clue->style,
-						clue->list_level,
-						clue->quote_level));
+	new = HTML_CLUEFLOW (html_clueflow_new (clue->style, clue->level));
 
 	/* Remove the children from the original clue.  */
 
@@ -1044,25 +1020,12 @@ html_clueflow_indent (HTMLClueFlow *flow,
 {
 	g_return_if_fail (flow != NULL);
 
-	if (indentation != 0 && flow->quote_level > 0) {
-		if (indentation > 0) {
-			flow->quote_level += indentation;
-		} else if (flow->quote_level < -indentation) {
-			indentation -= flow->quote_level;
-			flow->quote_level = 0;
-		} else {
-			flow->quote_level += indentation;
-		}
-	}
-
-	if (indentation != 0) {
-		if (indentation > 0) {
-			flow->list_level += indentation;
-		} else if (flow->list_level < -indentation) {
-			flow->list_level = 0;
-		} else {
-			flow->list_level += indentation;
-		}
+	if (indentation > 0) {
+		flow->level += indentation;
+	} else if ((- indentation) < flow->level) {
+		flow->level += indentation;
+	} else {
+		flow->level = 0;
 	}
 
 	relayout_and_draw (flow, engine);
@@ -1072,8 +1035,7 @@ void
 html_clueflow_set_properties (HTMLClueFlow *flow,
 			      HTMLEngine *engine,
 			      HTMLClueFlowStyle style,
-			      guint8 list_level,
-			      guint8 quote_level,
+			      guint8 level,
 			      HTMLHAlignType alignment)
 {
 	g_return_if_fail (flow != NULL);
@@ -1081,8 +1043,7 @@ html_clueflow_set_properties (HTMLClueFlow *flow,
 	HTML_CLUE (flow)->halign = alignment;
 
 	flow->style = style;
-	flow->list_level = list_level;
-	flow->quote_level = quote_level;
+	flow->level = level;
 
 	relayout_and_draw (flow, engine);
 }
@@ -1090,18 +1051,15 @@ html_clueflow_set_properties (HTMLClueFlow *flow,
 void
 html_clueflow_get_properties (HTMLClueFlow *flow,
 			      HTMLClueFlowStyle *style_return,
-			      guint8 *list_level_return,
-			      guint8 *quote_level_return,
+			      guint8 *level_return,
 			      HTMLHAlignType *alignment_return)
 {
 	g_return_if_fail (flow != NULL);
 
 	if (style_return != NULL)
 		*style_return = flow->style;
-	if (list_level_return != NULL)
-		*list_level_return = flow->list_level;
-	if (quote_level_return != NULL)
-		*quote_level_return = flow->quote_level;
+	if (level_return != NULL)
+		*level_return = flow->level;
 	if (alignment_return != NULL)
 		*alignment_return = HTML_CLUE (flow)->halign;
 }

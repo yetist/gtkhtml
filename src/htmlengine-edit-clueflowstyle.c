@@ -29,8 +29,7 @@
 
 struct _OriginalClueFlowProps {
 	HTMLClueFlowStyle style;
-	guint8 list_level;
-	guint8 quote_level;
+	guint8 level;
 	HTMLHAlignType alignment;
 };
 typedef struct _OriginalClueFlowProps OriginalClueFlowProps;
@@ -42,7 +41,7 @@ get_props (HTMLClueFlow *flow)
 
 	props = g_new (OriginalClueFlowProps, 1);
 
-	html_clueflow_get_properties (flow, &props->style, &props->list_level, &props->quote_level, &props->alignment);
+	html_clueflow_get_properties (flow, &props->style, &props->level, &props->alignment);
 
 	return props;
 }
@@ -55,8 +54,7 @@ set_props (HTMLClueFlow *flow,
 	html_clueflow_set_properties (flow,
 				      engine,
 				      props->style,
-				      props->list_level,
-				      props->quote_level,
+				      props->level,
 				      props->alignment);
 }
 
@@ -126,7 +124,7 @@ html_engine_get_current_clueflow_indentation (HTMLEngine *engine)
 	if (para == NULL)
 		return 0;
 
-	return para->quote_level + para->list_level;
+	return para->level;
 }
 
 
