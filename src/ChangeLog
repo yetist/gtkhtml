@@ -1,3 +1,8 @@
+1999-12-15  Havoc Pennington  <hp@pobox.com>
+
+	* gtkhtml.c (gtk_html_set_adjustments): zero the connection ID
+	if we don't fill it in, avoids a warning message.
+
 1999-12-14  Havoc Pennington  <hp@pobox.com>
 
 	* gtkhtml.c (gtk_html_new): Use

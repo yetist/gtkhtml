@@ -520,12 +520,16 @@ gtk_html_set_adjustments    (GtkLayout     *layout,
 		html->vadj_connection =
 			gtk_signal_connect (GTK_OBJECT (vadj), "value_changed",
 					    GTK_SIGNAL_FUNC (gtk_html_vertical_scroll), (gpointer)html);
+	else
+		html->vadj_connection = 0;
 	
 	if (hadj != NULL)
 		html->hadj_connection =
 			gtk_signal_connect (GTK_OBJECT (hadj), "value_changed",
 					    GTK_SIGNAL_FUNC (gtk_html_horizontal_scroll), (gpointer)html);
-
+	else
+		html->hadj_connection = 0;
+	
 	if (parent_class->set_scroll_adjustments)
 		(* parent_class->set_scroll_adjustments) (layout, hadj, vadj);
 }
