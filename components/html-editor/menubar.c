@@ -153,8 +153,8 @@ insert_rule_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cnam
 	gtk_html_edit_properties_dialog_show (cd->properties_dialog);
 }
 
-static void
-insert_table_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
+void
+insert_table (GtkHTMLControlData *cd)
 {
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
@@ -168,6 +168,12 @@ insert_table_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cna
 						   table_close_cb);
 
 	gtk_html_edit_properties_dialog_show (cd->properties_dialog);
+}
+
+static void
+insert_table_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
+{
+	insert_table (cd);
 }
 
 static void

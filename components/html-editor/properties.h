@@ -31,6 +31,7 @@ typedef void        (*GtkHTMLEditPropertyApplyFunc)  (GtkHTMLControlData *cd, gp
 typedef void        (*GtkHTMLEditPropertyCloseFunc)  (GtkHTMLControlData *cd, gpointer  own_data);
 
 enum _GtkHTMLEditPropertyType {
+	GTK_HTML_EDIT_PROPERTY_NONE,
 	GTK_HTML_EDIT_PROPERTY_PARAGRAPH,
 	GTK_HTML_EDIT_PROPERTY_TEXT,
 	GTK_HTML_EDIT_PROPERTY_IMAGE,

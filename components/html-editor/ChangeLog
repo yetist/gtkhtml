@@ -1,3 +1,18 @@
+2001-07-24  Radek Doulik  <rodo@ximian.com>
+
+	* popup.c (insert_table_cb): new menuitem callback
+	(insert_row_above): ditto
+	(insert_row_below): ditto
+	(insert_column_before): ditto
+	(insert_column_after): ditto
+	(delete_table): ditto
+	(delete_column): ditto
+	(delete_row): ditto
+	(delete_cell_contents): ditto
+	(prepare_properties_and_menu): added table insert/delete submenus
+
+	* menubar.c (insert_table): new extracted function
+
 2001-07-23  Radek Doulik  <rodo@ximian.com>
 
 	* GNOME_GtkHTML_Editor.xml.in: use new search icons for toolbar

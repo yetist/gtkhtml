@@ -30,4 +30,5 @@
 void  menubar_setup         (BonoboUIComponent  *uic,
 		             GtkHTMLControlData *cd);
 void  menubar_update_format (GtkHTMLControlData *cd);
+void  insert_table          (GtkHTMLControlData *cd);
 #endif /* _MENUBAR_H */

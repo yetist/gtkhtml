@@ -29,6 +29,8 @@
 #include "htmlengine.h"
 #include "htmllinktext.h"
 #include "htmlengine-edit-cut-and-paste.h"
+#include "htmlengine-edit-table.h"
+#include "htmlengine-edit-tablecell.h"
 #include "htmlimage.h"
 #include "htmlselection.h"
 #include "htmltable.h"
@@ -38,6 +40,7 @@
 #include "cell.h"
 #include "image.h"
 #include "link.h"
+#include "menubar.h"
 #include "popup.h"
 #include "properties.h"
 #include "paragraph.h"
@@ -74,6 +77,60 @@ remove_link (GtkWidget *mi, GtkHTMLControlData *cd)
 	if (!html_engine_is_selection_active (cd->html->engine))
 		html_engine_select_word (cd->html->engine);
 	html_engine_insert_link (cd->html->engine, NULL, NULL);
+}
+
+static void
+insert_table_cb (GtkWidget *mi, GtkHTMLControlData *cd)
+{
+	insert_table (cd);
+}
+
+static void
+insert_row_above (GtkWidget *mi, GtkHTMLControlData *cd)
+{
+	html_engine_insert_table_row (cd->html->engine, FALSE);
+}
+
+static void
+insert_row_below (GtkWidget *mi, GtkHTMLControlData *cd)
+{
+	html_engine_insert_table_row (cd->html->engine, TRUE);
+}
+
+static void
+insert_column_before (GtkWidget *mi, GtkHTMLControlData *cd)
+{
+	html_engine_insert_table_column (cd->html->engine, FALSE);
+}
+
+static void
+insert_column_after (GtkWidget *mi, GtkHTMLControlData *cd)
+{
+	html_engine_insert_table_column (cd->html->engine, TRUE);
+}
+
+static void
+delete_table (GtkWidget *mi, GtkHTMLControlData *cd)
+{
+	html_engine_delete_table (cd->html->engine);
+}
+
+static void
+delete_row (GtkWidget *mi, GtkHTMLControlData *cd)
+{
+	html_engine_delete_table_row (cd->html->engine);
+}
+
+static void
+delete_column (GtkWidget *mi, GtkHTMLControlData *cd)
+{
+	html_engine_delete_table_column (cd->html->engine);
+}
+
+static void
+delete_cell_contents (GtkWidget *mi, GtkHTMLControlData *cd)
+{
+	html_engine_delete_table_cell_contents (cd->html->engine);
 }
 
 static void
@@ -144,12 +201,14 @@ show_prop_dialog (GtkHTMLControlData *cd, GtkHTMLEditPropertyType start)
 								   cell_apply_cb,
 								   cell_close_cb);
 			break;
+		default:
+			;
 		}
 		cur = cur->next;
 	}
 
 	gtk_html_edit_properties_dialog_show (cd->properties_dialog);
-	if (start >= 0)
+	if (start > GTK_HTML_EDIT_PROPERTY_NONE)
 		gtk_html_edit_properties_dialog_set_page (cd->properties_dialog, start);
 }
 
@@ -191,7 +250,7 @@ insert_html (GtkWidget *mi, GtkHTMLControlData *cd)
 
 #define ADD_ITEM(l,f,t) \
 		menuitem = gtk_menu_item_new_with_label (l); \
-                gtk_object_set_data (GTK_OBJECT (menuitem), "type", GINT_TO_POINTER (t)); \
+                gtk_object_set_data (GTK_OBJECT (menuitem), "type", GINT_TO_POINTER (GTK_HTML_EDIT_PROPERTY_ ## t)); \
 		gtk_menu_append (GTK_MENU (menu), menuitem); \
 		gtk_widget_show (menuitem); \
 		gtk_signal_connect (GTK_OBJECT (menuitem), "activate", GTK_SIGNAL_FUNC (f), cd); \
@@ -208,12 +267,27 @@ insert_html (GtkWidget *mi, GtkHTMLControlData *cd)
 #define ADD_PROP(x) \
         cd->properties_types = g_list_append (cd->properties_types, GINT_TO_POINTER (GTK_HTML_EDIT_PROPERTY_ ## x))
 
+#define SUBMENU(l) \
+		        menuitem = gtk_menu_item_new_with_label (_(l)); \
+			gtk_menu_append (GTK_MENU (menu), menuitem); \
+			gtk_widget_show (menuitem); \
+			(*items)++; items_sep++; \
+			submenu = gtk_menu_new (); \
+			gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem), submenu); \
+			menuparent = menu; \
+			menu = submenu
+
+#define END_SUBMENU \
+			gtk_widget_show (menu); \
+			menu = menuparent
+
 static GtkWidget *
 prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 {
 	HTMLEngine *e = cd->html->engine;
 	HTMLObject *obj;
 	GtkWidget *menu;
+	GtkWidget *submenu, *menuparent;
 	GtkWidget *menuitem;
 	guint items_sep = 0;
 
@@ -226,15 +300,15 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 	}
 
 #ifdef DEBUG
-	ADD_ITEM ("Dump tree (simple)", dump_tree_simple, -1);
-	ADD_ITEM ("Dump tree", dump_tree, -1);
-	ADD_ITEM ("Insert HTML", insert_html, -1);
+	ADD_ITEM ("Dump tree (simple)", dump_tree_simple, NONE);
+	ADD_ITEM ("Dump tree", dump_tree, NONE);
+	ADD_ITEM ("Insert HTML", insert_html, NONE);
 	ADD_SEP;
 #endif
 
 	if (!html_engine_is_selection_active (e) && obj && html_object_is_text (obj) && !html_engine_word_is_valid (e)) {
 		ADD_SEP;
-		ADD_ITEM (_("Suggest word"), spell_suggest, -1);
+		ADD_ITEM (_("Suggest word"), spell_suggest, NONE);
 	}
 
 	if (html_engine_is_selection_active (e)
@@ -243,74 +317,89 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 		    || (HTML_OBJECT_TYPE (obj) == HTML_TYPE_IMAGE
 			&& (HTML_IMAGE (obj)->url
 			    || HTML_IMAGE (obj)->target))))) {
-		    ADD_ITEM (_("Remove link"), remove_link, -1);
+		    ADD_ITEM (_("Remove link"), remove_link, NONE);
 	}
 
 	if (html_engine_is_selection_active (e)) {
 		ADD_SEP;
-		ADD_ITEM (_("Copy"), copy, -1);
-		ADD_ITEM (_("Cut"),  cut, -1);
+		ADD_ITEM (_("Copy"), copy, NONE);
+		ADD_ITEM (_("Cut"),  cut, NONE);
 	}
 	if (e->clipboard) {
 		if (!html_engine_is_selection_active (e)) {
 			ADD_SEP;
 		}
-		ADD_ITEM (_("Paste"),  paste, -1);
+		ADD_ITEM (_("Paste"),  paste, NONE);
 	}
 	if (html_engine_is_selection_active (e)) {
 		ADD_SEP;
-		ADD_ITEM (_("Text..."), prop_dialog, GTK_HTML_EDIT_PROPERTY_TEXT);
+		ADD_ITEM (_("Text..."), prop_dialog, TEXT);
 		ADD_PROP (TEXT);
-		ADD_ITEM (_("Paragraph..."), prop_dialog, GTK_HTML_EDIT_PROPERTY_PARAGRAPH);
+		ADD_ITEM (_("Paragraph..."), prop_dialog, PARAGRAPH);
 		ADD_PROP (PARAGRAPH);
-		ADD_ITEM (_("Link..."), prop_dialog, GTK_HTML_EDIT_PROPERTY_LINK);
+		ADD_ITEM (_("Link..."), prop_dialog, LINK);
 		ADD_PROP (LINK);
 	} else if (obj) {
 		switch (HTML_OBJECT_TYPE (obj)) {
 		case HTML_TYPE_RULE:
 			ADD_SEP;
-			ADD_ITEM (_("Rule..."), prop_dialog, GTK_HTML_EDIT_PROPERTY_RULE);
+			ADD_ITEM (_("Rule..."), prop_dialog, RULE);
 			ADD_PROP (RULE);
 			break;
 		case HTML_TYPE_IMAGE:
 			ADD_SEP;
-			ADD_ITEM (_("Image..."), prop_dialog, GTK_HTML_EDIT_PROPERTY_IMAGE);
+			ADD_ITEM (_("Image..."), prop_dialog, IMAGE);
 			ADD_PROP (IMAGE);
-			ADD_ITEM (_("Paragraph..."), prop_dialog, GTK_HTML_EDIT_PROPERTY_PARAGRAPH);
+			ADD_ITEM (_("Paragraph..."), prop_dialog, PARAGRAPH);
 			ADD_PROP (PARAGRAPH);
-			ADD_ITEM (_("Link..."), prop_dialog, GTK_HTML_EDIT_PROPERTY_LINK);
+			ADD_ITEM (_("Link..."), prop_dialog, LINK);
 			ADD_PROP (LINK);
 			break;
 		case HTML_TYPE_LINKTEXT:
 		case HTML_TYPE_TEXT:
 			ADD_SEP;
 			ADD_PROP (TEXT);
-			ADD_ITEM (_("Text..."), prop_dialog, GTK_HTML_EDIT_PROPERTY_TEXT);
+			ADD_ITEM (_("Text..."), prop_dialog, TEXT);
 			ADD_PROP (PARAGRAPH);
-			ADD_ITEM (_("Paragraph..."), prop_dialog, GTK_HTML_EDIT_PROPERTY_PARAGRAPH);
+			ADD_ITEM (_("Paragraph..."), prop_dialog, PARAGRAPH);
 			ADD_PROP (LINK);
-			ADD_ITEM (_("Link..."), prop_dialog, GTK_HTML_EDIT_PROPERTY_LINK);
+			ADD_ITEM (_("Link..."), prop_dialog, LINK);
 			break;
 		case HTML_TYPE_TABLE:
 			ADD_SEP;
 			ADD_PROP (TABLE);
-			ADD_ITEM (_("Table..."), prop_dialog, GTK_HTML_EDIT_PROPERTY_TABLE);
+			ADD_ITEM (_("Table..."), prop_dialog, TABLE);
 		default:
 		}
 		if (obj->parent && obj->parent->parent && HTML_IS_TABLE_CELL (obj->parent->parent)) {
 			ADD_SEP;
 			ADD_PROP (CELL);
-			ADD_ITEM (_("Cell..."), prop_dialog, GTK_HTML_EDIT_PROPERTY_CELL);
+			ADD_ITEM (_("Cell..."), prop_dialog, CELL);
 			if (obj->parent->parent->parent && HTML_IS_TABLE (obj->parent->parent->parent)) {
 				ADD_PROP (TABLE);
-				ADD_ITEM (_("Table..."), prop_dialog, GTK_HTML_EDIT_PROPERTY_TABLE);
+				ADD_ITEM (_("Table..."), prop_dialog, TABLE);
 			}
+			SUBMENU ("Table insert");
+			ADD_ITEM (_("Table"), insert_table_cb, NONE);
+			ADD_SEP;
+			ADD_ITEM (_("Row above"), insert_row_above, NONE);
+			ADD_ITEM (_("Row below"), insert_row_below, NONE);
+			ADD_SEP;
+			ADD_ITEM (_("Column before"), insert_column_before, NONE);
+			ADD_ITEM (_("Column after"), insert_column_after, NONE);
+			END_SUBMENU;
+			SUBMENU ("Table delete");
+			ADD_ITEM (_("Table"), delete_table, NONE);
+			ADD_ITEM (_("Row"), delete_row, NONE);
+			ADD_ITEM (_("Column"), delete_column, NONE);
+			ADD_ITEM (_("Cell contents"), delete_cell_contents, NONE);
+			END_SUBMENU;
 		}
 	}
 
 	ADD_SEP;
 	ADD_PROP (BODY);
-	ADD_ITEM (_("Page..."), prop_dialog, GTK_HTML_EDIT_PROPERTY_BODY);
+	ADD_ITEM (_("Page..."), prop_dialog, BODY);
 
 	gtk_widget_show (menu);
 
@@ -339,5 +428,5 @@ property_dialog_show (GtkHTMLControlData *cd)
 
 	gtk_widget_unref (prepare_properties_and_menu (cd, &items));
 	if (items)
-		show_prop_dialog (cd, -1);
+		show_prop_dialog (cd, GTK_HTML_EDIT_PROPERTY_NONE);
 }
