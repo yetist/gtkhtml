@@ -1639,7 +1639,7 @@ object_save_data (GQuark key_id, gpointer data, gpointer user_data)
 	/* printf ("object %s %s\n", g_quark_to_string (key_id), str); */
 	if (!str) {
 		/* printf ("save %s %s -> %s\n", state->save_data_class_name, g_quark_to_string (key_id), (gchar *) data); */
-		html_engine_save_output_string (state, "<!--+GtkHTML:<DATA class=\"%s\" key=\"%s\" value=\"%s\">",
+		html_engine_save_output_string (state, "<!--+GtkHTML:<DATA class=\"%s\" key=\"%s\" value=\"%s\">-->",
 						state->save_data_class_name, g_quark_to_string (key_id), data);
 		html_engine_set_class_data (state->engine, state->save_data_class_name, g_quark_to_string (key_id), data);
 	}

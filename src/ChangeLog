@@ -1,3 +1,8 @@
+2003-10-13  Frederic Crozat  <fcrozat@mandrakesoft.com>
+
+	* htmlobject.c: (object_save_data):
+	Close comment when saving object data (bug #38589).
+
 2003-10-06  Larry Ewing  <lewing@ximian.com>
 
 	* htmlobject.c (html_object_fit_line): remove explicit call to
