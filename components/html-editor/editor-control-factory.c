@@ -98,7 +98,7 @@ struct _SetFrameData {
 };
 typedef struct _SetFrameData SetFrameData;
 
-GtkHTMLEditorAPI *editor_api;
+static GtkHTMLEditorAPI *editor_api;
 
 static gint
 gtk_toolbar_focus (GtkContainer     *container,
@@ -768,12 +768,16 @@ new_editor_api ()
 static void
 editor_control_init (void)
 {
-	new_editor_api ();
-	gdk_rgb_init ();
-	glade_gnome_init ();
-}
+	static gboolean initialized = FALSE;
 
-static gboolean editor_control_initialized = FALSE;
+	if (!initialized) {
+		initialized = TRUE;
+
+		new_editor_api ();
+		gdk_rgb_init ();
+		glade_gnome_init ();
+	}
+}
 
 static BonoboObject *
 editor_control_factory (BonoboGenericFactory *factory, gpointer closure)
@@ -781,8 +785,7 @@ editor_control_factory (BonoboGenericFactory *factory, gpointer closure)
 	BonoboControl *control;
 	GtkWidget *vbox;
 
-	if (!editor_control_initialized)
-		editor_control_init ();
+	editor_control_init ();
 
 	vbox = gtk_vbox_new (FALSE, 0);
 	gtk_widget_show (vbox);

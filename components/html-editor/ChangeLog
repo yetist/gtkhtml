@@ -1,3 +1,9 @@
+2001-10-09  Larry Ewing  <lewing@ximian.com>
+
+	* editor-control-factory.c (editor_control_init): make the
+	intialized test here rather than up a level.
+	make editor_api static.
+
 2001-10-08  Radek Doulik  <rodo@ximian.com>
 
 	* popup.c (prepare_properties_and_menu): utf8-ize popup menu
