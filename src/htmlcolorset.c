@@ -49,6 +49,7 @@ html_colorset_new (GtkWidget *w)
 		s->color [HTMLHighlightNFColor]     = html_color_new ();
 		s->color [HTMLHighlightTextNFColor] = html_color_new ();
 		s->color [HTMLTextColor]            = html_color_new ();
+		s->color [HTMLCiteColor]            = html_color_new ();
 	}
 
 	return s;
@@ -173,6 +174,7 @@ html_colorset_set_style (HTMLColorSet *s, GtkWidget *w)
 	SET_GCOLOR (HighlightText,   style->text [GTK_STATE_SELECTED]);
 	SET_GCOLOR (HighlightNF,     style->base [GTK_STATE_ACTIVE]);
 	SET_GCOLOR (HighlightTextNF, style->text [GTK_STATE_ACTIVE]);
+	SET_GCOLOR (Cite,            style->text [GTK_STATE_NORMAL]);
 	color = get_prop_color (w, "link_color", "#0000ff");
 	SET_GCOLOR (Link, *color);
 	gdk_color_free (color);

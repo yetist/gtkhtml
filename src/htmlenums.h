@@ -77,6 +77,7 @@ typedef enum {
 	HTMLHighlightNFColor,
 	HTMLHighlightTextNFColor,
 	HTMLSpellErrorColor,
+	HTMLCiteColor,
 
 	HTMLColors
 } HTMLColorId;

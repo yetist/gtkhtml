@@ -1,3 +1,12 @@
+2004-05-07  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (html_text_get_pango_info): use Cite color for text
+	objects in HTML_LIST_TYPE_BLOCKQUOTE_CITE flows
+
+	* htmlcolorset.c: set default Cite color
+
+	* gtkhtml.c (gtk_html_class_init): added cite_color property
+
 2004-05-06  David Malcolm  <dmalcolm@redhat.com>
 
 	* htmlimage.c (save): printf-style string should use a "%%" for 
@@ -36,6 +45,8 @@
 	th existing code from here, so call ucs2_to_utf8_with_bom_check.
  
 2004-05-06  Radek Doulik  <rodo@ximian.com>
+
+	* htmlenums.h: added cite color
 
 	* gtkhtml.c (style_set): use html_engine_refresh_fonts
 	(client_notify_monospace_font): ditto

@@ -1110,6 +1110,21 @@ html_text_pango_info_get_index (HTMLTextPangoInfo *pi, gint byte_offset, gint id
 }
 
 
+static void
+html_text_add_cite_color (PangoAttrList *attrs, HTMLText *text, HTMLClueFlow *flow, HTMLEngine *e)
+{
+	HTMLColor *cite_color = html_colorset_get_color (e->settings->color_set, HTMLCiteColor);
+
+	if (cite_color && flow->levels->len > 0 && flow->levels->data[0] == HTML_LIST_TYPE_BLOCKQUOTE_CITE) {
+		PangoAttribute *attr;
+
+		attr = pango_attr_foreground_new (cite_color->color.red, cite_color->color.green, cite_color->color.blue);
+		attr->start_index = 0;
+		attr->end_index = text->text_bytes;
+		pango_attr_list_change (attrs, attr);
+	}
+}
+
 HTMLTextPangoInfo *
 html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 {
@@ -1124,6 +1139,8 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 		GList *items, *cur;
 		PangoAttrList *attrs;
 		PangoAttribute *attr;
+		HTMLClueFlow *flow = NULL;
+		HTMLEngine *e = NULL;
 		gchar *translated, *heap = NULL;
 		gint i;
 
@@ -1133,8 +1150,18 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 			translated = alloca (text->text_bytes);
 
 		html_replace_tabs (text->text, translated, text->text_bytes);
+		attrs = pango_attr_list_new ();
+
+		if (HTML_OBJECT (text)->parent && HTML_IS_CLUEFLOW (HTML_OBJECT (text)->parent))
+			flow = HTML_CLUEFLOW (HTML_OBJECT (text)->parent);
+		
+		if (painter->widget && GTK_IS_HTML (painter->widget))
+			e = GTK_HTML (painter->widget)->engine;
+
+		if (flow && e)
+			html_text_add_cite_color (attrs, text, flow, e);
+
 		if (HTML_IS_PLAIN_PAINTER (painter)) {
-			attrs = pango_attr_list_new ();
 			attr = pango_attr_family_new (painter->font_manager.fixed.face);
 			attr->start_index = 0;
 			attr->end_index = text->text_bytes;
@@ -1146,18 +1173,16 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 				pango_attr_list_insert (attrs, attr);
 			}
 		} else
-			attrs = pango_attr_list_copy (text->attr_list);
+			pango_attr_list_splice (attrs, text->attr_list, 0, 0);
 
 		if (text->extra_attr_list)
-			pango_attr_list_splice (attrs, text->extra_attr_list, 0, text->text_len);
+			pango_attr_list_splice (attrs, text->extra_attr_list, 0, 0);
 		if (!HTML_IS_PLAIN_PAINTER (painter)) {
-			if (HTML_OBJECT (text)->parent && HTML_IS_CLUEFLOW (HTML_OBJECT (text)->parent) && painter->widget && GTK_IS_HTML (painter->widget)) {
-				GtkHTMLFontStyle parent_style = html_clueflow_get_default_font_style (HTML_CLUEFLOW (HTML_OBJECT (text)->parent));
+			if (flow && e)
+				html_text_change_attrs (attrs, html_clueflow_get_default_font_style (flow), GTK_HTML (painter->widget)->engine, 0, text->text_bytes, TRUE);
 
-				html_text_change_attrs (attrs, parent_style, GTK_HTML (painter->widget)->engine, 0, text->text_bytes, TRUE);
-			}
-			if (text->links && painter->widget && GTK_IS_HTML (painter->widget)) {
-				HTMLColor *link_color = html_colorset_get_color (GTK_HTML (painter->widget)->engine->settings->color_set, HTMLLinkColor);
+			if (text->links && e) {
+				HTMLColor *link_color = html_colorset_get_color (e->settings->color_set, HTMLLinkColor);
 				GSList *l;
 
 				for (l = text->links; l; l = l->next) {

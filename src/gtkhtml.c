@@ -2829,6 +2829,12 @@ gtk_html_class_init (GtkHTMLClass *klass)
 								     _("The color of the spelling error markers"),
 								     GDK_TYPE_COLOR,
 								     G_PARAM_READABLE));
+	gtk_widget_class_install_style_property (widget_class,
+						 g_param_spec_boxed ("cite_color",
+								     _("Cite Quotation Color"),
+								     _("The color of the cited text"),
+								     GDK_TYPE_COLOR,
+								     G_PARAM_READABLE));
 
 
 	widget_class->realize = realize;
