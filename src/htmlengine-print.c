@@ -39,7 +39,7 @@ print_header_footer (HTMLPainter *painter, HTMLEngine *engine, gint width, gint 
 		     GtkHTMLPrintCallback cb, gpointer user_data)
 {
 	HTMLPrinter *printer = HTML_PRINTER (painter);
-	GnomePrintContext *context = printer->print_context;
+	GnomePrintContext *context = printer->context;
 	gdouble gx, gy;
 
 	gnome_print_gsave (context);
@@ -63,7 +63,7 @@ print_page (HTMLPainter *painter,
 	    GtkHTMLPrintCallback header_print, GtkHTMLPrintCallback footer_print, gpointer user_data)
 {
 	HTMLPrinter *printer = HTML_PRINTER (painter);
-	GnomePrintContext *context = printer->print_context;
+	GnomePrintContext *context = printer->context;
 
 	html_painter_begin (painter, 0, 0, page_width, page_height);
 	if (header_print)

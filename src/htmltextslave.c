@@ -620,7 +620,7 @@ draw_normal (HTMLTextSlave *self,
 	html_color_alloc (HTML_TEXT (self->owner)->color, p);
 	html_painter_set_pen (p, &HTML_TEXT (self->owner)->color->color);
 	html_painter_draw_text (p,
-				obj->x + tx, obj->y - obj->ascent + ty + get_ys (HTML_TEXT (self->owner), p),
+				obj->x + tx, obj->y + ty + get_ys (HTML_TEXT (self->owner), p),
 				html_text_slave_get_text (self),
 				self->posLen,
 				html_text_slave_get_line_offset (self, line_offset, self->posStart, p));
@@ -682,7 +682,7 @@ draw_highlighted (HTMLTextSlave *slave,
 	html_painter_set_pen (p, &html_colorset_get_color_allocated
 			      (p, p->focus ? HTMLHighlightTextColor : HTMLHighlightTextNFColor)->color);
 	html_painter_draw_text (p, obj->x + tx + offset_width, 
-				obj->y + ty - obj->ascent + get_ys (HTML_TEXT (slave->owner), p),
+				obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
 				highlight_begin, len,
 				lo_sel);
 
@@ -694,7 +694,7 @@ draw_highlighted (HTMLTextSlave *slave,
 
 	if (start > slave->posStart)
 		html_painter_draw_text (p,
-					obj->x + tx, obj->y + ty - obj->ascent + get_ys (HTML_TEXT (slave->owner), p),
+					obj->x + tx, obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
 					slave_begin,
 					start - slave->posStart,
 					lo_start);
@@ -704,7 +704,7 @@ draw_highlighted (HTMLTextSlave *slave,
 	if (end < slave->posStart + slave->posLen)
 		html_painter_draw_text (p,
 					obj->x + tx + offset_width + text_width,
-					obj->y + ty - obj->ascent + get_ys (HTML_TEXT (slave->owner), p),
+					obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
 					g_utf8_offset_to_pointer (highlight_begin, end - start),
 					slave->posStart + slave->posLen - end,
 					lo);

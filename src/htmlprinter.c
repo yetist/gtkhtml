@@ -25,6 +25,7 @@
 #include <gnome.h>
 #include <ctype.h>
 #include <libgnomeprint/gnome-print.h>
+#include <libgnomeprint/gnome-print-paper.h>
 
 #include "htmlembedded.h"
 #include "gtkhtml-embedded.h"
@@ -43,74 +44,77 @@ static HTMLPainterClass *parent_class = NULL;
 /* Hm, this might need fixing.  */
 #define SPACING_FACTOR 1.2
 
-
-/* static void
-insure_paper (HTMLPrinter *printer)
+static void
+insure_config (HTMLPrinter *p)
 {
-	if (paper != NULL)
-		return;
-
-	if (printer->print_master) {
-		paper = gnome_print_master_get_paper (printer->print_master);
-	}
-	if (!paper)
-		paper = gnome_paper_with_name (_("US-Letter"));
-	if (!paper)
-		paper = gnome_paper_with_name (gnome_paper_name_default ()); 
-	g_assert (paper != NULL);
-} */
+	if (!p->config)
+		p->config = p->master ? gnome_print_master_get_config (p->master) : gnome_print_config_default ();
+}
 
 static gdouble
 printer_get_page_height (HTMLPrinter *printer)
 {
-	/* FIX2 insure_paper (printer);
-	  return gnome_paper_psheight (paper); */
-	return 0;
+	gdouble height = 0.0;
+
+	insure_config (printer);
+	gnome_print_config_get_double (printer->config, GNOME_PRINT_KEY_PAPER_HEIGHT, &height);
+
+	return height;
 }
 
 static gdouble
 printer_get_page_width (HTMLPrinter *printer)
 {
-	/* FIX2 insure_paper (printer);
-	   return gnome_paper_pswidth (paper); */
-	return 0;
+	gdouble width = 0.0;
+
+	insure_config (printer);
+	gnome_print_config_get_double (printer->config, GNOME_PRINT_KEY_PAPER_WIDTH, &width);
+
+	return width;
 }
 
 static gdouble
 get_lmargin (HTMLPrinter *printer)
 {
-	/* FIX2
-	insure_paper (printer);
-	return gnome_paper_lmargin (paper) / 2; */
+	gdouble lmargin = 0.0;
 
-	return 0;
+	insure_config (printer);
+	gnome_print_config_get_double (printer->config, GNOME_PRINT_KEY_PAGE_MARGIN_LEFT, &lmargin);
+
+	return lmargin;
 }
 
 static gdouble
 get_rmargin (HTMLPrinter *printer)
 {
-	/* FIX2 insure_paper (printer);
-	   return gnome_paper_rmargin (paper) / 2; */
+	gdouble rmargin = 0.0;
 
-	return 0; 
+	insure_config (printer);
+	gnome_print_config_get_double (printer->config, GNOME_PRINT_KEY_PAGE_MARGIN_RIGHT, &rmargin);
+
+	return rmargin;
 }
 
 static gdouble
 get_tmargin (HTMLPrinter *printer)
 {
-	/* FIX2 insure_paper (printer);
-	   return gnome_paper_tmargin (paper) / 2; */
+	gdouble tmargin = 0.0;
 
-	return 0;
+	insure_config (printer);
+	gnome_print_config_get_double (printer->config, GNOME_PRINT_KEY_PAGE_MARGIN_TOP, &tmargin);
+
+	return tmargin;
 }
 
 static gdouble
 get_bmargin (HTMLPrinter *printer)
 {
-	/* FIX2 insure_paper (printer);
-	   return gnome_paper_bmargin (paper) / 2; */
+	gdouble bmargin = 0.0;
 
-	return 0;
+	insure_config (printer);
+	gnome_print_config_get_double (printer->config, GNOME_PRINT_KEY_PAGE_MARGIN_BOTTOM, &bmargin);
+
+	return bmargin;
 }
 
 gdouble
@@ -160,9 +164,14 @@ finalize (GObject *object)
 
 	printer = HTML_PRINTER (object);
 
-	if (printer->print_context != NULL) {
-		gnome_print_context_close (printer->print_context);
-		g_object_unref (G_OBJECT (printer->print_context));
+	if (printer->config != NULL) {
+		/* FIXME g_object_unref (printer->config); */
+		printer->config = NULL;
+	}
+	if (printer->context != NULL) {
+		gnome_print_context_close (printer->context);
+		g_object_unref (printer->context);
+		printer->context = NULL;
 	}
 
 	(* G_OBJECT_CLASS (parent_class)->finalize) (object);
@@ -183,7 +192,7 @@ begin (HTMLPainter *painter,
 #endif
 	printer = HTML_PRINTER (painter);
 	g_return_if_fail (printer);
-	pc      = printer->print_context;
+	pc      = printer->context;
 	g_return_if_fail (pc);
 
 	gnome_print_beginpage (pc, "page");
@@ -221,10 +230,10 @@ end (HTMLPainter *painter)
 	HTMLPrinter *printer;
 
 	printer = HTML_PRINTER (painter);
-	g_return_if_fail (printer->print_context != NULL);
+	g_return_if_fail (printer->context != NULL);
 
-	gnome_print_grestore (printer->print_context);
-	gnome_print_showpage (printer->print_context);
+	gnome_print_grestore (printer->context);
+	gnome_print_showpage (printer->context);
 }
 
 static void
@@ -251,9 +260,9 @@ set_pen (HTMLPainter *painter,
 	HTMLPrinter *printer;
 
 	printer = HTML_PRINTER (painter);
-	g_return_if_fail (printer->print_context != NULL);
+	g_return_if_fail (printer->context != NULL);
 
-	gnome_print_setrgbcolor (printer->print_context,
+	gnome_print_setrgbcolor (printer->context,
 				 color->red / 65535.0, color->green / 65535.0, color->blue / 65535.0);
 }
 
@@ -269,7 +278,7 @@ static void
 prepare_rectangle (HTMLPainter *painter, gint _x, gint _y, gint w, gint h)
 {
 	HTMLPrinter *printer = HTML_PRINTER (painter);
-	GnomePrintContext *context = printer->print_context;
+	GnomePrintContext *context = printer->context;
 	gdouble x;
 	gdouble y;
 	gdouble width;
@@ -293,7 +302,7 @@ static void
 do_rectangle (HTMLPainter *painter, gint x, gint y, gint w, gint h, gint lw)
 {
 	HTMLPrinter *printer = HTML_PRINTER (painter);
-	GnomePrintContext *context = printer->print_context;
+	GnomePrintContext *context = printer->context;
 
 	gnome_print_setlinewidth (context, SCALE_ENGINE_TO_GNOME_PRINT (lw) * PIXEL_SIZE);
 	prepare_rectangle (painter, x, y, w, h);
@@ -306,7 +315,7 @@ set_clip_rectangle (HTMLPainter *painter,
 		    gint width, gint height)
 {
 	prepare_rectangle (painter, x, y, width, height);
-	gnome_print_clip (HTML_PRINTER (painter)->print_context);
+	gnome_print_clip (HTML_PRINTER (painter)->context);
 }
 
 /* HTMLPainter drawing functions.  */
@@ -321,18 +330,18 @@ draw_line (HTMLPainter *painter,
 	double printer_x2, printer_y2;
 
 	printer = HTML_PRINTER (painter);
-	g_return_if_fail (printer->print_context != NULL);
+	g_return_if_fail (printer->context != NULL);
 
 	html_printer_coordinates_to_gnome_print (printer, x1, y1, &printer_x1, &printer_y1);
 	html_printer_coordinates_to_gnome_print (printer, x2, y2, &printer_x2, &printer_y2);
 
-	gnome_print_setlinewidth (printer->print_context, PIXEL_SIZE);
+	gnome_print_setlinewidth (printer->context, PIXEL_SIZE);
 
-	gnome_print_newpath (printer->print_context);
-	gnome_print_moveto (printer->print_context, printer_x1, printer_y1);
-	gnome_print_lineto (printer->print_context, printer_x2, printer_y2);
+	gnome_print_newpath (printer->context);
+	gnome_print_moveto (printer->context, printer_x1, printer_y1);
+	gnome_print_lineto (printer->context, printer_x2, printer_y2);
 
-	gnome_print_stroke (printer->print_context);
+	gnome_print_stroke (printer->context);
 }
 
 static void
@@ -352,7 +361,7 @@ draw_panel (HTMLPainter *painter,
 	    gint bordersize)
 {
 	HTMLPrinter *printer = HTML_PRINTER (painter);
-	GnomePrintContext *pc = printer->print_context;
+	GnomePrintContext *pc = printer->context;
 	GdkColor *col1 = NULL, *col2 = NULL;
 	GdkColor dark, light;
 	gdouble x;
@@ -435,8 +444,8 @@ draw_background (HTMLPainter *painter,
 
 	printer = HTML_PRINTER (painter);
 	g_return_if_fail (printer);
-	pc = printer->print_context;
-	g_return_if_fail (printer->print_context);
+	pc = printer->context;
+	g_return_if_fail (printer->context);
 
 	width = SCALE_ENGINE_TO_GNOME_PRINT  (pix_width);
 	height = SCALE_ENGINE_TO_GNOME_PRINT (pix_height);
@@ -470,7 +479,7 @@ draw_pixmap (HTMLPainter *painter,
 	double print_scale_width, print_scale_height;
 
 	printer = HTML_PRINTER (painter);
-	g_return_if_fail (printer->print_context != NULL);
+	g_return_if_fail (printer->context != NULL);
 
 	width = gdk_pixbuf_get_width (pixbuf);
 	height = gdk_pixbuf_get_height (pixbuf);
@@ -480,11 +489,11 @@ draw_pixmap (HTMLPainter *painter,
 	print_scale_width  = SCALE_ENGINE_TO_GNOME_PRINT (scale_width);
 	print_scale_height = SCALE_ENGINE_TO_GNOME_PRINT (scale_height);
 
-	gnome_print_gsave (printer->print_context);
-	gnome_print_translate (printer->print_context, print_x, print_y - print_scale_height);
-	gnome_print_scale (printer->print_context, print_scale_width, print_scale_height);
-	/* FIX2 gnome_print_pixbuf (printer->print_context, pixbuf); */
-	gnome_print_grestore (printer->print_context);
+	gnome_print_gsave (printer->context);
+	gnome_print_translate (printer->context, print_x, print_y - print_scale_height);
+	gnome_print_scale (printer->context, print_scale_width, print_scale_height);
+	/* FIX2 gnome_print_pixbuf (printer->context, pixbuf); */
+	gnome_print_grestore (printer->context);
 }
 
 static void
@@ -497,22 +506,22 @@ fill_rect (HTMLPainter *painter,
 	double printer_width, printer_height;
 
 	printer = HTML_PRINTER (painter);
-	g_return_if_fail (printer->print_context != NULL);
+	g_return_if_fail (printer->context != NULL);
 
 	printer_width = SCALE_ENGINE_TO_GNOME_PRINT (width);
 	printer_height = SCALE_ENGINE_TO_GNOME_PRINT (height);
 
 	html_printer_coordinates_to_gnome_print (printer, x, y, &printer_x, &printer_y);
 
-	gnome_print_newpath (printer->print_context);
-	gnome_print_moveto (printer->print_context, printer_x, printer_y);
-	gnome_print_lineto (printer->print_context, printer_x + printer_width, printer_y);
-	gnome_print_lineto (printer->print_context, printer_x + printer_width, printer_y - printer_height);
-	gnome_print_lineto (printer->print_context, printer_x, printer_y - printer_height);
-	gnome_print_lineto (printer->print_context, printer_x, printer_y);
-	gnome_print_closepath (printer->print_context);
+	gnome_print_newpath (printer->context);
+	gnome_print_moveto (printer->context, printer_x, printer_y);
+	gnome_print_lineto (printer->context, printer_x + printer_width, printer_y);
+	gnome_print_lineto (printer->context, printer_x + printer_width, printer_y - printer_height);
+	gnome_print_lineto (printer->context, printer_x, printer_y - printer_height);
+	gnome_print_lineto (printer->context, printer_x, printer_y);
+	gnome_print_closepath (printer->context);
 
-	gnome_print_fill (printer->print_context);
+	gnome_print_fill (printer->context);
 }
 
 static void
@@ -526,53 +535,53 @@ draw_text (HTMLPainter *painter,
 	gdouble print_x, print_y;
 
 	printer = HTML_PRINTER (painter);
-	g_return_if_fail (printer->print_context != NULL);
+	g_return_if_fail (printer->context != NULL);
 
 	html_printer_coordinates_to_gnome_print (printer, x, y, &print_x, &print_y);
 
-	gnome_print_newpath (printer->print_context);
-	gnome_print_moveto (printer->print_context, print_x, print_y);
+	gnome_print_newpath (printer->context);
+	gnome_print_moveto (printer->context, print_x, print_y);
 
 	font = html_painter_get_font (painter, painter->font_face, painter->font_style);
-	gnome_print_setfont (printer->print_context, font);
-	gnome_print_show_sized (printer->print_context, text, g_utf8_offset_to_pointer (text, len) - text);
+	gnome_print_setfont (printer->context, font);
+	gnome_print_show_sized (printer->context, text, g_utf8_offset_to_pointer (text, len) - text);
 
 	if (painter->font_style & (GTK_HTML_FONT_STYLE_UNDERLINE | GTK_HTML_FONT_STYLE_STRIKEOUT)) {
 		double text_width;
 		double ascender, descender;
 		double y;
 
-		gnome_print_gsave (printer->print_context);
+		gnome_print_gsave (printer->context);
 
 		/* FIXME: We need something in GnomeFont to do this right.  */
-		gnome_print_setlinewidth (printer->print_context, 1.0);
-		gnome_print_setlinecap (printer->print_context, GDK_CAP_BUTT);
+		gnome_print_setlinewidth (printer->context, 1.0);
+		gnome_print_setlinecap (printer->context, GDK_CAP_BUTT);
 
 		text_width = gnome_font_get_width_utf8_sized (font, text, len);
 		if (painter->font_style & GTK_HTML_FONT_STYLE_UNDERLINE) {
 			descender = gnome_font_get_descender (font);
 			y = print_y + gnome_font_get_underline_position (font);
 
-			gnome_print_newpath (printer->print_context);
-			gnome_print_moveto (printer->print_context, print_x, y);
-			gnome_print_lineto (printer->print_context, print_x + text_width, y);
-			gnome_print_setlinewidth (printer->print_context,
+			gnome_print_newpath (printer->context);
+			gnome_print_moveto (printer->context, print_x, y);
+			gnome_print_lineto (printer->context, print_x + text_width, y);
+			gnome_print_setlinewidth (printer->context,
 						  gnome_font_get_underline_thickness (font));
-			gnome_print_stroke (printer->print_context);
+			gnome_print_stroke (printer->context);
 		}
 
 		if (painter->font_style & GTK_HTML_FONT_STYLE_STRIKEOUT) {
 			ascender = gnome_font_get_ascender (font);
 			y = print_y + ascender / 2.0;
-			gnome_print_newpath (printer->print_context);
-			gnome_print_moveto (printer->print_context, print_x, y);
-			gnome_print_lineto (printer->print_context, print_x + text_width, y);
-			gnome_print_setlinewidth (printer->print_context,
+			gnome_print_newpath (printer->context);
+			gnome_print_moveto (printer->context, print_x, y);
+			gnome_print_lineto (printer->context, print_x + text_width, y);
+			gnome_print_setlinewidth (printer->context,
 						  gnome_font_get_underline_thickness (font));
-			gnome_print_stroke (printer->print_context);
+			gnome_print_stroke (printer->context);
 		}
 
-		gnome_print_grestore (printer->print_context);
+		gnome_print_grestore (printer->context);
 	}
 }
 
@@ -584,19 +593,19 @@ draw_embedded (HTMLPainter *p, HTMLEmbedded *o, gint x, gint y)
 	GtkWidget *embedded_widget;
 
 	html_printer_coordinates_to_gnome_print (printer, x, y, &print_x, &print_y);
-	gnome_print_gsave(printer->print_context); 
+	gnome_print_gsave(printer->context); 
 
-	gnome_print_translate(printer->print_context, 
+	gnome_print_translate(printer->context, 
 			      print_x, print_y - o->height * PIXEL_SIZE);
  
 	embedded_widget = html_embedded_get_widget(o);
 	if (embedded_widget && GTK_IS_HTML_EMBEDDED (embedded_widget)) {
 		g_signal_emit_by_name(GTK_OBJECT (embedded_widget), 0,
 				      "draw_print", 
-				      printer->print_context);
+				      printer->context);
 	}
 
-	gnome_print_grestore(printer->print_context); 
+	gnome_print_grestore(printer->context); 
 }
 
 static void
@@ -607,7 +616,7 @@ draw_shade_line (HTMLPainter *painter,
 	HTMLPrinter *printer;
 
 	printer = HTML_PRINTER (painter);
-	g_return_if_fail (printer->print_context != NULL);
+	g_return_if_fail (printer->context != NULL);
 
 	/* FIXME */
 }
@@ -624,7 +633,7 @@ calc_text_size (HTMLPainter *painter,
 	GnomeFont *font;
 
 	printer = HTML_PRINTER (painter);
-	g_return_if_fail (printer->print_context != NULL);
+	g_return_if_fail (printer->context != NULL);
 
 	font = html_painter_get_font (painter, face, style);
 	g_return_if_fail (font != NULL);
@@ -646,7 +655,7 @@ calc_text_size_bytes (HTMLPainter *painter,
 	HTMLPrinter *printer;
 
 	printer = HTML_PRINTER (painter);
-	g_return_if_fail (printer->print_context != NULL);
+	g_return_if_fail (printer->context != NULL);
 	g_return_if_fail (font != NULL);
 
 	*width = SCALE_GNOME_PRINT_TO_ENGINE (gnome_font_get_width_utf8_sized (font->data, text, len));
@@ -671,6 +680,7 @@ get_font_size (HTMLPrinter *printer, gboolean points, gdouble size)
 static HTMLFont *
 alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, GtkHTMLFontStyle style)
 {
+	HTMLPrinter *printer = HTML_PRINTER (painter);
 	GnomeFontWeight weight;
 	GnomeFont *font;
 	gboolean italic;
@@ -694,8 +704,8 @@ alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, Gt
 		}
 	}
 
-	font = NULL; /* FIX2 gnome_font_new_closest (family ? family : (style & GTK_HTML_FONT_STYLE_FIXED ? "Courier" : "Helvetica"),
-			weight, italic, get_font_size (printer, points, size)); */
+	font = gnome_font_find_closest_from_weight_slant (family ? family : (style & GTK_HTML_FONT_STYLE_FIXED ? "Courier" : "Helvetica"),
+							  weight, italic, get_font_size (printer, points, size));
 	g_free (family);
 
 	if (font == NULL) {
@@ -703,8 +713,7 @@ alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, Gt
 
 		family_list = gnome_font_family_list ();
 		if (family_list && family_list->data) {
-			font = NULL; /* FIX2 gnome_font_new_closest (family_list->data,
-				  weight, italic, get_font_size (printer, points, size)); */
+			font = gnome_font_find_closest_from_weight_slant (family_list->data, weight, italic, get_font_size (printer, points, size));
 			gnome_font_family_list_free (family_list);
 		}
 	}
@@ -746,7 +755,8 @@ html_printer_init (GObject *object)
 	HTMLPrinter *printer;
 
 	printer                = HTML_PRINTER (object);
-	printer->print_context = NULL;
+	printer->context       = NULL;
+	printer->config        = NULL;
 	printer->scale         = 1.0;
 }
 
@@ -812,15 +822,15 @@ html_printer_get_type (void)
 }
 
 HTMLPainter *
-html_printer_new (GnomePrintContext *print_context, GnomePrintMaster *print_master)
+html_printer_new (GnomePrintContext *context, GnomePrintMaster *master)
 {
 	HTMLPrinter *new;
 
 	new = g_object_new (HTML_TYPE_PRINTER, NULL);
 
-	g_object_ref (print_context);
-	new->print_context = print_context;
-	new->print_master = print_master;
+	g_object_ref (context);
+	new->context = context;
+	new->master = master;
 
 	return HTML_PAINTER (new);
 }

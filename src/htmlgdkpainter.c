@@ -906,7 +906,6 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len)
 	HTMLGdkPainter *gdk_painter;
 	PangoFontDescription *desc;
 	PangoGlyphString *glyphs;
-	PangoRectangle log_rect;
 	GList *items;
 	gint blen;
 
@@ -916,32 +915,28 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len)
 	gdk_painter = HTML_GDK_PAINTER (painter);
 	desc = html_painter_get_font (painter, painter->font_face, painter->font_style);
 
-	/* go_layout_set_font_description (gdk_painter->layout, desc);
-	blen = g_utf8_offset_to_pointer (text, len) - text;
-	pango_layout_set_text (gdk_painter->layout, text, blen); */
-
 	x -= gdk_painter->x1;
 	y -= gdk_painter->y1;
 
 	blen = g_utf8_offset_to_pointer (text, len) - text;
 	items = text_itemize_and_prepare_glyphs (gdk_painter->pc, desc, text, blen, &glyphs);
-	if (items && items->data) {
-		pango_glyph_string_extents (glyphs, ((PangoItem *) items->data)->analysis.font, NULL, &log_rect);
-		gdk_draw_glyphs (gdk_painter->pixmap, gdk_painter->gc, ((PangoItem *) items->data)->analysis.font, x, y + PANGO_PIXELS (PANGO_ASCENT (log_rect)), glyphs);
-	}
-	/* _draw_layout (gdk_painter->pixmap, gdk_painter->gc, x, y, gdk_painter->layout); */
+	if (items && items->data)
+		gdk_draw_glyphs (gdk_painter->pixmap, gdk_painter->gc, ((PangoItem *) items->data)->analysis.font, x, y, glyphs);
 
 	if (items && items->data && glyphs && painter->font_style & (GTK_HTML_FONT_STYLE_UNDERLINE | GTK_HTML_FONT_STYLE_STRIKEOUT)) {
-		gint width, height;
+		PangoRectangle log_rect;
+		gint width, height, dsc;
 
-		/* pango_layout_get_size (gdk_painter->layout, &width, &height); */
+		pango_glyph_string_extents (glyphs, ((PangoItem *) items->data)->analysis.font, NULL, &log_rect);
+
 		width = PANGO_PIXELS (log_rect.width);
 		height = PANGO_PIXELS (log_rect.height);
+		dsc = PANGO_PIXELS (PANGO_DESCENT (log_rect));
 
 		if (painter->font_style & GTK_HTML_FONT_STYLE_UNDERLINE)
 			gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, 
-				       x, y + height - 2, 
-				       x + width, y + height - 2);
+				       x, y + dsc - 2, 
+				       x + width, y + dsc - 2);
 
 		if (painter->font_style & GTK_HTML_FONT_STYLE_STRIKEOUT)
 			gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, 

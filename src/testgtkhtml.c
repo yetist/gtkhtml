@@ -26,7 +26,7 @@
 
 #include <libgnomeprint/gnome-print.h>
 #include <libgnomeprint/gnome-print-master.h>
-/* TODO2 #include <libgnomeprint/gnome-print-master-preview.h> */
+#include <libgnomeprintui/gnome-print-master-preview.h>
 
 #include <libsoup/soup.h>
 #include <sys/stat.h>
@@ -269,15 +269,15 @@ create_toolbars (GtkWidget *app)
 
 }
 
-/* static gint page_num, pages;
-   static GnomeFont *font; */
+static gint page_num, pages;
+static GnomeFont *font;
 
-/* TODO2 static void
+static void
 print_footer (GtkHTML *html, GnomePrintContext *context,
 	      gdouble x, gdouble y, gdouble width, gdouble height, gpointer user_data)
 {
 	gchar *text = g_strdup_printf ("- %d of %d -", page_num, pages);
-	gdouble tw = gnome_font_get_width_string (font, "text");
+	gdouble tw = gnome_font_get_width_utf8 (font, "text");
 
 	if (font) {
 		gnome_print_newpath     (context);
@@ -289,35 +289,36 @@ print_footer (GtkHTML *html, GnomePrintContext *context,
 
 	g_free (text);
 	page_num++;
-} */
+}
 
 static void
 print_preview_cb (GtkWidget *widget,
 		  gpointer data)
 {
-	/* TODO2 GnomePrintMaster *print_master;
+	GnomePrintMaster *print_master;
 	GnomePrintContext *print_context;
 	GtkWidget *preview;
 
 	print_master = gnome_print_master_new ();
-	gnome_print_master_set_paper (print_master, gnome_paper_with_name ("US-Letter"));
+	/* FIX2 gnome_print_master_set_paper (print_master, gnome_paper_with_name ("US-Letter")); */
 	gtk_html_print_set_master (html, print_master);
 
 	print_context = gnome_print_master_get_context (print_master);
+	font = gnome_font_find_closest ("Helvetica", 12);
 
 	page_num = 1;
 	pages = gtk_html_print_get_pages_num (html, print_context,
 					      .0, gnome_font_get_ascender (font) + gnome_font_get_descender (font));
-	font = gnome_font_new_closest ("Helvetica", GNOME_FONT_BOOK, FALSE, 12);
 	gtk_html_print_with_header_footer (html, print_context,
 					   .0, gnome_font_get_ascender (font) + gnome_font_get_descender (font),
 					   NULL, print_footer, NULL);
-	if (font) gtk_object_unref (GTK_OBJECT (font));
-
-	preview = GTK_WIDGET (gnome_print_master_preview_new (print_master, "HTML Print Preview"));
+	if (font)
+		g_object_unref (font);
+	
+	preview = gnome_print_master_preview_new (print_master, "Print Preview");
 	gtk_widget_show (preview);
 
-	gtk_object_unref (GTK_OBJECT (print_master)); */
+	g_object_unref (print_master);
 }
 
 static void
