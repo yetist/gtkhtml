@@ -1,5 +1,28 @@
 2000-03-08  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmldrawqueue.c
+	(html_draw_queue_flush): Flush the clearing queue before the
+	drawing one.
+
+	* htmlclueflow.c
+	(relayout_and_draw): Removed.
+	(relayout_for_level_change): New helper function.
+	(html_clueflow_indent): Just return if `indentation' is zero.
+	Avoid doing a relayout if indentation does not change.  Use
+	`relayout_for_level_change'.
+	(html_clueflow_set_style): Use `html_object_relayout ()' instead
+	of `relayout_and_draw()'.
+	(html_clueflow_set_halignment): Likewise.
+	(html_clueflow_set_properties): Likewise.
+
+	* htmlcluev.c
+	(do_layout): New parameter `engine'.  New parameter `relayout'.  If
+	true, use `html_object_relayout()' instead of
+	`html_object_calc_size()'.
+	(relayout): If `child' is NULL, use `head'.
+
+2000-03-08  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* htmlengine.c
 	(block_end_quote): Use `HTMLEngine' member `indent_level' instead
 	of `list_level', `quote_level'.
@@ -245,7 +268,7 @@
 	(end_of_line): New function.
 	(handle_ctrl): `C-a' moves to the beginning of the current line;
 	`C-e' to the end.
-	(handle_none): `GDK_Home' moves to the beginning of the current;
+	(handle_none): `GDK_Home' moves to the beginning of the current line;
 	`GDK_End' to the end.
 
 	* htmlengine-edit-movement.c (html_engine_end_of_line): New function.

@@ -979,16 +979,39 @@ html_clueflow_split (HTMLClueFlow *clue,
 
 
 static void
-relayout_and_draw (HTMLClueFlow *flow,
+relayout_and_draw (HTMLObject *object,
 		   HTMLEngine *engine)
 {
 	if (engine == NULL)
 		return;
 
-	html_object_relayout (HTML_OBJECT (flow)->parent, engine, HTML_OBJECT (flow));
-	html_engine_queue_draw (engine, HTML_OBJECT (flow));
+	html_object_relayout (object, engine, NULL);
+	html_engine_queue_draw (engine, object);
 }
 
+/* This performs a relayout of the object when the indentation level
+   has changed.  In this case, we need to relayout the previous
+   paragraph and the following one, because their padding might change
+   after the level change. */
+static void
+relayout_for_level_change (HTMLClueFlow *flow,
+			   HTMLEngine *engine)
+{
+	if (engine == NULL)
+		return;
+
+	/* FIXME this is ugly and inefficient.  */
+
+	if (HTML_OBJECT (flow)->prev != NULL)
+		relayout_and_draw (HTML_OBJECT (flow)->prev, engine);
+
+	relayout_and_draw (HTML_OBJECT (flow), engine);
+
+	if (HTML_OBJECT (flow)->next != NULL)
+		relayout_and_draw (HTML_OBJECT (flow)->next, engine);
+}
+
+
 void
 html_clueflow_set_style (HTMLClueFlow *flow,
 			 HTMLEngine *engine,
@@ -998,7 +1021,7 @@ html_clueflow_set_style (HTMLClueFlow *flow,
 
 	flow->style = style;
 
-	relayout_and_draw (flow, engine);
+	relayout_and_draw (HTML_OBJECT (flow), engine);
 }
 
 void
@@ -1010,7 +1033,7 @@ html_clueflow_set_halignment (HTMLClueFlow *flow,
 
 	HTML_CLUE (flow)->halign = alignment;
 
-	relayout_and_draw (flow, engine);
+	relayout_and_draw (HTML_OBJECT (flow), engine);
 }
 
 void
@@ -1020,15 +1043,21 @@ html_clueflow_indent (HTMLClueFlow *flow,
 {
 	g_return_if_fail (flow != NULL);
 
+	if (indentation == 0)
+		return;
+
 	if (indentation > 0) {
 		flow->level += indentation;
 	} else if ((- indentation) < flow->level) {
 		flow->level += indentation;
-	} else {
+	} else if (flow->level != 0) {
 		flow->level = 0;
+	} else {
+		/* No change.  */
+		return;
 	}
 
-	relayout_and_draw (flow, engine);
+	relayout_for_level_change (flow, engine);
 }
 
 void
@@ -1045,7 +1074,7 @@ html_clueflow_set_properties (HTMLClueFlow *flow,
 	flow->style = style;
 	flow->level = level;
 
-	relayout_and_draw (flow, engine);
+	relayout_and_draw (HTML_OBJECT (flow), engine);
 }
 
 void

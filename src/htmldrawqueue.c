@@ -310,6 +310,21 @@ html_draw_queue_flush (HTMLDrawQueue *queue)
 {
 	GList *p;
 
+	/* Draw clear areas.  */
+
+	for (p = queue->clear_elems; p != NULL; p = p->next) {
+		HTMLDrawQueueClearElement *clear_elem;
+
+		clear_elem = p->data;
+		clear (queue, clear_elem);
+		clear_element_destroy (clear_elem);
+	}
+
+	g_list_free (queue->clear_elems);
+
+	queue->clear_elems = NULL;
+	queue->clear_last = NULL;
+
 	/* Draw objects.  */
 
 	for (p = queue->elems; p != NULL; p = p->next) {
@@ -329,19 +344,4 @@ html_draw_queue_flush (HTMLDrawQueue *queue)
 
 	queue->elems = NULL;
 	queue->last = NULL;
-
-	/* Draw clear areas.  */
-
-	for (p = queue->clear_elems; p != NULL; p = p->next) {
-		HTMLDrawQueueClearElement *clear_elem;
-
-		clear_elem = p->data;
-		clear (queue, clear_elem);
-		clear_element_destroy (clear_elem);
-	}
-
-	g_list_free (queue->clear_elems);
-
-	queue->clear_elems = NULL;
-	queue->clear_last = NULL;
 }

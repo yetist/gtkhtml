@@ -348,6 +348,8 @@ relayout (HTMLObject *self,
 	if (html_engine_frozen (engine))
 		return FALSE;
 
+	if (child == NULL)
+		child = HTML_CLUE (self)->head;
 	html_object_calc_size (child, engine->painter);
 
 	HTML_CLUE (self)->curr = NULL;
