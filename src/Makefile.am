@@ -192,12 +192,6 @@ dist-hook:
 	cp -f $(srcdir)/tests/*.html $(distdir)/tests
 	cp -f $(srcdir)/tests/*.jpg $(distdir)/tests
 
-keybindingsdir = $(datadir)/gtkhtml-@GTKHTML_RELEASE@
-keybindings_DATA =		\
-	keybindingsrc.emacs	\
-	keybindingsrc.xemacs	\
-	keybindingsrc.ms
-
 if HAVE_SOUP
 test_programs = testgtkhtml
 endif
@@ -207,6 +201,7 @@ testgtkhtml_SOURCES = 		\
 	testgtkhtml.c		\
 	htmlurl.h		\
 	htmlurl.c
+testgtkhtml_LDFLAGS = -static
 testgtkhtml_LDADD =					\
 	libgtkhtml-@GTKHTML_RELEASE@.la			\
 	../a11y/libgtkhtml-a11y-@GTKHTML_RELEASE@.la 	\
@@ -223,7 +218,6 @@ pkgconfig_DATA = libgtkhtml.pc
 
 EXTRA_DIST =			\
 	htmlclosures.list	\
-	$(keybindings_DATA)	\
 	$(pkgconfig_DATA)	\
 	$(NULL)
 

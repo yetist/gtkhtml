@@ -144,8 +144,7 @@ static void     scroll                 (GtkHTML *html, GtkOrientation orientatio
 static void     cursor_move            (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType skip);
 static gboolean command                (GtkHTML *html, GtkHTMLCommandType com_type);
 static gint     mouse_change_pos       (GtkWidget *widget, GdkWindow *window, gint x, gint y);
-static void     load_keybindings       (GtkHTMLClass *klass);
-static void     set_editor_keybindings (GtkHTML *html, gboolean editable);
+static void     add_bindings           (GtkHTMLClass *klass);
 static gchar *  get_value_nick         (GtkHTMLCommandType com_type);
 
 static void     gtk_html_get_property  (GObject *object, guint prop_id, GValue *value, GParamSpec *pspec);
@@ -769,11 +768,6 @@ key_press_event (GtkWidget *widget,
 	html->binding_handled = FALSE;
 	html->priv->update_styles = FALSE;
 	html->priv->event_time = event->time;
-	if (html->editor_bindings && html_engine_get_editable (html->engine))
-		gtk_binding_set_activate (html->editor_bindings, 
-					  event->keyval, 
-					  event->state, 
-					  GTK_OBJECT (widget));
 
 	if (!html->binding_handled)
 		gtk_bindings_activate (GTK_OBJECT (widget), 
@@ -2027,15 +2021,6 @@ client_notify_widget (GConfClient* client,
 			else
 				html_engine_clear_spell_check (html->engine);
 		}
-	} else if (!strcmp (tkey, "/keybindings_theme")) {
-		gchar *theme = gconf_client_get_string (client, entry->key, NULL);
-		if (strcmp (theme, prop->keybindings_theme)) {
-			g_free (prop->keybindings_theme);
-			prop->keybindings_theme = theme;
-			load_keybindings (klass);
-		} else
-			g_free (theme);
-		set_editor_keybindings (html, html_engine_get_editable (html->engine));
 	}
 }
 
@@ -2121,8 +2106,6 @@ get_class_properties (GtkHTML *html)
 		if (gconf_error)
 			g_error ("gconf error: %s\n", gconf_error->message);
 		gtk_html_class_properties_load (klass->properties, gconf_client);
-
-		load_keybindings (klass);
 
 		gconf_client_notify_add (gconf_client, GTK_HTML_GCONF_DIR, client_notify_class, klass, NULL, &gconf_error);
 		if (gconf_error)
@@ -2728,7 +2711,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	html_class->cursor_move       = cursor_move;
 	html_class->command           = command;
 
-	/* RM2 gdk_rgb_init (); */
+	add_bindings (klass);
 	gtk_html_accessibility_init ();
 }
 
@@ -2782,7 +2765,6 @@ gtk_html_init (GtkHTML* html)
 	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (html), GTK_CAN_FOCUS);
 	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (html), GTK_APP_PAINTABLE);
 
-	html->editor_bindings = NULL;
 	html->editor_api = NULL;
 	html->debug = FALSE;
 	html->allow_selection = TRUE;
@@ -3322,7 +3304,6 @@ gtk_html_set_editable (GtkHTML *html,
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	html_engine_set_editable (html->engine, editable);
-	set_editor_keybindings (html, editable);
 
 	if (editable)
 		gtk_html_update_styles (html);
@@ -4402,105 +4383,14 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	return rv;
 }
 
-/*
-  default keybindings:
-
-  Viewer:
-
-  Up/Down ............................. scroll one line up/down
-  PageUp/PageDown ..................... scroll one page up/down
-  Space/BackSpace ..................... scroll one page up/down
-
-  Left/Right .......................... scroll one char left/right
-  Shift Left/Right .................... scroll more left/right
-
-  Editor:
-
-  Up/Down ............................. move cursor one line up/down
-  PageUp/PageDown ..................... move cursor one page up/down
-
-  Return .............................. insert paragraph
-  Delete .............................. delete one char
-  BackSpace ........................... delete one char backwards
-
-*/
-
 static void
-clean_bindings_set (GtkBindingSet *binding_set)
-{
-	GtkBindingEntry *cur;
-	GList *mods, *vals, *cm, *cv;
-
-	if (!binding_set)
-		return;
-
-	mods = NULL;
-	vals = NULL;
-	cur = binding_set->entries;
-	while (cur) {
-		mods = g_list_prepend (mods, GUINT_TO_POINTER (cur->modifiers));
-		vals = g_list_prepend (vals, GUINT_TO_POINTER (cur->keyval));
-		cur = cur->set_next;
-	}
-	cm = mods; cv = vals;
-	while (cm) {
-		gtk_binding_entry_remove (binding_set, GPOINTER_TO_UINT (cv->data), GPOINTER_TO_UINT (cm->data));
-		cv = cv->next; cm = cm->next;
-	}
-	g_list_free (mods);
-	g_list_free (vals);
-}
-
-static void
-set_editor_keybindings (GtkHTML *html, gboolean editable)
-{
-	if (editable) {
-		gchar *name;
-		GtkHTMLClassProperties *prop;
-		
-		prop = get_class_properties (html);
-		name = g_strconcat ("gtkhtml-bindings-", prop->keybindings_theme, NULL);
-
-		html->editor_bindings = gtk_binding_set_find (name);
-		if (!html->editor_bindings)
-			g_warning ("cannot find %s bindings", name);
-		g_free (name);
-	} else
-		html->editor_bindings = NULL;
-}
-
-static void
-load_bindings_from_file (gboolean from_share, gchar *name)
-{
-	gchar *rcfile;
-
-	rcfile = g_strconcat ((from_share ? PREFIX "/share/gtkhtml-" GTKHTML_RELEASE "/": g_get_home_dir ()),
-			      (from_share ? "" : "/.gnome/"), name, NULL);
-	/* FIX2 if (g_file_test (rcfile, G_FILE_TEST_ISFILE)) */
-		gtk_rc_parse (rcfile);
-	g_free (rcfile);
-}
-
-static void
-load_keybindings (GtkHTMLClass *klass)
+add_bindings (GtkHTMLClass *klass)
 {
 	GtkBindingSet *binding_set;
-
-	/* FIXME add to gtk gtk_binding_set_clear & gtk_binding_set_remove_path */
-	clean_bindings_set (gtk_binding_set_by_class (klass));
-	clean_bindings_set (gtk_binding_set_find ("gtkhtml-bindings-emacs"));
-	clean_bindings_set (gtk_binding_set_find ("gtkhtml-bindings-xemacs"));
-	clean_bindings_set (gtk_binding_set_find ("gtkhtml-bindings-ms"));
-	clean_bindings_set (gtk_binding_set_find ("gtkhtml-bindings-custom"));
 
 	/* ensure enums are defined */
 	gtk_html_cursor_skip_get_type ();
 	gtk_html_command_get_type ();
-
-	load_bindings_from_file (TRUE,  "keybindingsrc.emacs");
-	load_bindings_from_file (TRUE,  "keybindingsrc.xemacs");
-	load_bindings_from_file (TRUE,  "keybindingsrc.ms");
-	load_bindings_from_file (FALSE, "gtkhtml-bindings-custom");
 
 	binding_set = gtk_binding_set_by_class (klass);
 
@@ -4564,6 +4454,11 @@ load_keybindings (GtkHTMLClass *klass)
 	BMOVE (0, Page_Down,     DOWN, PAGE);
 	BMOVE (0, KP_Page_Down,  DOWN, PAGE);
 
+	BMOVE (0, Home, LEFT, ALL);
+	BMOVE (0, End, RIGHT, ALL);
+	BMOVE (GDK_CONTROL_MASK, Home, UP, ALL);
+	BMOVE (GDK_CONTROL_MASK, End, DOWN, ALL);
+
 #define BCOM(m,key,com) \
 	gtk_binding_entry_add_signal (binding_set, GDK_ ## key, m, \
 				      "command", 1, \
@@ -4588,9 +4483,104 @@ load_keybindings (GtkHTMLClass *klass)
 	BCOM (GDK_CONTROL_MASK, KP_Add, ZOOM_IN);
 	BCOM (GDK_CONTROL_MASK, minus, ZOOM_OUT);
 	BCOM (GDK_CONTROL_MASK, KP_Subtract, ZOOM_OUT);
-	BCOM (GDK_CONTROL_MASK, 8, ZOOM_RESET);
+	BCOM (GDK_CONTROL_MASK, 8, ZOOM_IN);
+	BCOM (GDK_CONTROL_MASK, 9, ZOOM_RESET);
+	BCOM (GDK_CONTROL_MASK, 0, ZOOM_OUT);
 	BCOM (GDK_CONTROL_MASK, KP_Multiply, ZOOM_RESET);
 	BCOM (GDK_CONTROL_MASK, space, SELECTION_MODE);
+
+	/* selection */
+	BCOM (GDK_SHIFT_MASK, Up, MODIFY_SELECTION_UP);
+	BCOM (GDK_SHIFT_MASK, Down, MODIFY_SELECTION_DOWN);
+	BCOM (GDK_SHIFT_MASK, Left, MODIFY_SELECTION_LEFT);
+	BCOM (GDK_SHIFT_MASK, Right, MODIFY_SELECTION_RIGHT);
+	BCOM (GDK_SHIFT_MASK | GDK_CONTROL_MASK, Left, MODIFY_SELECTION_PREV_WORD);
+	BCOM (GDK_SHIFT_MASK | GDK_CONTROL_MASK, Right, MODIFY_SELECTION_NEXT_WORD);
+	BCOM (GDK_SHIFT_MASK, Home, MODIFY_SELECTION_BOL);
+	BCOM (GDK_SHIFT_MASK, End, MODIFY_SELECTION_EOL);
+	BCOM (GDK_SHIFT_MASK | GDK_CONTROL_MASK, Home, MODIFY_SELECTION_BOD);
+	BCOM (GDK_SHIFT_MASK | GDK_CONTROL_MASK, End, MODIFY_SELECTION_EOD);
+	BCOM (GDK_SHIFT_MASK, Page_Up, MODIFY_SELECTION_PAGEUP);
+	BCOM (GDK_SHIFT_MASK, Page_Down, MODIFY_SELECTION_PAGEDOWN);
+	BCOM (GDK_SHIFT_MASK, KP_Page_Up, MODIFY_SELECTION_PAGEUP);
+	BCOM (GDK_SHIFT_MASK, KP_Page_Down, MODIFY_SELECTION_PAGEDOWN);
+	BCOM (GDK_CONTROL_MASK, a, SELECT_ALL);
+	BCOM (GDK_CONTROL_MASK, p, SELECT_PARAGRAPH);
+
+	/* copy, cut, paste, delete */
+	BCOM (GDK_CONTROL_MASK, c, COPY);
+	BCOM (GDK_CONTROL_MASK, Insert, COPY);
+	BCOM (GDK_CONTROL_MASK, KP_Insert, COPY);
+	BCOM (GDK_CONTROL_MASK, x, CUT);
+	BCOM (GDK_SHIFT_MASK, Delete, CUT);
+	BCOM (GDK_SHIFT_MASK, KP_Delete, CUT);
+	BCOM (GDK_CONTROL_MASK, v, PASTE);
+	BCOM (GDK_SHIFT_MASK, Insert, PASTE);
+	BCOM (GDK_SHIFT_MASK, KP_Insert, PASTE);
+	BCOM (GDK_CONTROL_MASK, Delete, KILL_WORD);
+	BCOM (GDK_CONTROL_MASK, BackSpace, KILL_WORD_BACKWARD);
+
+	/* font style */
+	BCOM (GDK_CONTROL_MASK, b, BOLD_TOGGLE);
+	BCOM (GDK_CONTROL_MASK, i, ITALIC_TOGGLE);
+	BCOM (GDK_CONTROL_MASK, u, UNDERLINE_TOGGLE);
+	BCOM (GDK_CONTROL_MASK, o, TEXT_COLOR_APPLY);
+	BCOM (GDK_MOD1_MASK, 1, SIZE_MINUS_2);
+	BCOM (GDK_MOD1_MASK, 2, SIZE_MINUS_1);
+	BCOM (GDK_MOD1_MASK, 3, SIZE_PLUS_0);
+	BCOM (GDK_MOD1_MASK, 4, SIZE_PLUS_1);
+	BCOM (GDK_MOD1_MASK, 5, SIZE_PLUS_2);
+	BCOM (GDK_MOD1_MASK, 6, SIZE_PLUS_3);
+	BCOM (GDK_MOD1_MASK, 7, SIZE_PLUS_4);
+	BCOM (GDK_MOD1_MASK, 8, SIZE_INCREASE);
+	BCOM (GDK_MOD1_MASK, 9, SIZE_DECREASE);
+
+	/* undo/redo */
+	BCOM (GDK_CONTROL_MASK, z, UNDO);
+	BCOM (GDK_CONTROL_MASK, r, REDO);
+
+	/* paragraph style */
+	BCOM (GDK_CONTROL_MASK | GDK_MOD1_MASK, l, ALIGN_LEFT);
+	BCOM (GDK_CONTROL_MASK | GDK_MOD1_MASK, r, ALIGN_RIGHT);
+	BCOM (GDK_CONTROL_MASK | GDK_MOD1_MASK, c, ALIGN_CENTER);
+
+	/* tabs */
+	BCOM (0, Tab, INSERT_TAB_OR_NEXT_CELL);
+	BCOM (0, ISO_Left_Tab, INSERT_TAB_OR_NEXT_CELL);
+	BCOM (GDK_CONTROL_MASK, Tab, INDENT_INC);
+	BCOM (GDK_CONTROL_MASK, ISO_Left_Tab, INDENT_INC);
+	BCOM (GDK_CONTROL_MASK | GDK_SHIFT_MASK, Tab, INDENT_DEC);
+	BCOM (GDK_CONTROL_MASK | GDK_SHIFT_MASK, ISO_Left_Tab, INDENT_DEC);
+	BCOM (GDK_SHIFT_MASK, Tab, PREV_CELL);
+	BCOM (GDK_SHIFT_MASK, ISO_Left_Tab, PREV_CELL);
+
+	/* spell checking */
+	BCOM (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK, s, SPELL_SUGGEST);
+	BCOM (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK, p, SPELL_PERSONAL_DICTIONARY_ADD);
+	BCOM (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK, n, SPELL_SESSION_DICTIONARY_ADD);
+
+	/* popup menu, properties dialog */
+	BCOM (GDK_MOD1_MASK, space, POPUP_MENU);
+	BCOM (GDK_MOD1_MASK, Return, PROPERTIES_DIALOG);
+	BCOM (GDK_MOD1_MASK, KP_Enter, PROPERTIES_DIALOG);
+
+	/* tables */
+	BCOM (GDK_CONTROL_MASK | GDK_SHIFT_MASK, t, INSERT_TABLE_1_1);
+	BCOM (GDK_SHIFT_MASK | GDK_CONTROL_MASK, c, TABLE_INSERT_COL_AFTER);
+	BCOM (GDK_SHIFT_MASK | GDK_CONTROL_MASK, r, TABLE_INSERT_ROW_AFTER);
+	BCOM (GDK_SHIFT_MASK | GDK_CONTROL_MASK, s, TABLE_SPACING_INC);
+	BCOM (GDK_SHIFT_MASK | GDK_CONTROL_MASK, p, TABLE_PADDING_INC);
+	BCOM (GDK_SHIFT_MASK | GDK_CONTROL_MASK, b, TABLE_BORDER_WIDTH_INC);
+	BCOM (GDK_MOD1_MASK | GDK_CONTROL_MASK, c, TABLE_INSERT_COL_BEFORE);
+	BCOM (GDK_MOD1_MASK | GDK_CONTROL_MASK, r, TABLE_INSERT_ROW_BEFORE);
+	BCOM (GDK_MOD1_MASK | GDK_CONTROL_MASK, s, TABLE_SPACING_DEC);
+	BCOM (GDK_MOD1_MASK | GDK_CONTROL_MASK, p, TABLE_PADDING_DEC);
+	BCOM (GDK_MOD1_MASK | GDK_CONTROL_MASK, b, TABLE_BORDER_WIDTH_DEC);
+	BCOM (GDK_SHIFT_MASK | GDK_MOD1_MASK, c, TABLE_DELETE_COL);
+	BCOM (GDK_SHIFT_MASK | GDK_MOD1_MASK, r, TABLE_DELETE_ROW);
+	BCOM (GDK_SHIFT_MASK | GDK_MOD1_MASK, s, TABLE_SPACING_ZERO);
+	BCOM (GDK_SHIFT_MASK | GDK_MOD1_MASK, p, TABLE_PADDING_ZERO);
+	BCOM (GDK_SHIFT_MASK | GDK_MOD1_MASK, b, TABLE_BORDER_WIDTH_ZERO);
 }
 
 gint

@@ -23,7 +23,6 @@
 #define _GTKHTML_H_
 
 #include <sys/types.h>
-#include <gtk/gtkbindings.h>
 #include <gtk/gtklayout.h>
 #include <libgnomeprint/gnome-print.h>
 #include <libgnomeprint/gnome-print-job.h>
@@ -43,7 +42,6 @@
 struct _GtkHTML {
 	GtkLayout layout;
 
-	GtkBindingSet        *editor_bindings;
 	GtkWidget            *iframe_parent;
 	HTMLObject           *frame;
 	GtkHTMLEditorAPI     *editor_api;

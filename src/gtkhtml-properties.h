@@ -55,7 +55,6 @@ struct _GtkHTMLClassProperties {
 
 	/* editor */
 	gboolean  magic_links;
-	gchar    *keybindings_theme;
 
 	gboolean  live_spell_check;
 	GdkColor  spell_error_color;

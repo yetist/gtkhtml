@@ -84,7 +84,6 @@ gtk_html_class_properties_new (GtkWidget *widget)
 
 	/* default values */
 	p->magic_links             = TRUE;
-	p->keybindings_theme       = g_strdup ("ms");
 	p->font_var                = var_name;
 	printf ("Variable Font: \"%s\"\n", p->font_var);
 	p->font_fix                = fixed_name;
@@ -125,7 +124,6 @@ gtk_html_class_properties_new (GtkWidget *widget)
 void
 gtk_html_class_properties_destroy (GtkHTMLClassProperties *p)
 {
-	g_free (p->keybindings_theme);
 	g_free (p);
 }
 
@@ -154,8 +152,6 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p, GConfClient *client)
 
 	GET (bool, "/magic_links", magic_links,,);
 	GET (bool, "/animations", animations,,);
-	GET (string, "/keybindings_theme", keybindings_theme,
-	     g_free (p->keybindings_theme), g_strdup);
 #if 0 /* fonts are not controlled via gconf any more */
 	GET (string, "/font_variable", font_var,
 	     g_free (p->font_var), g_strdup);
@@ -204,7 +200,6 @@ gtk_html_class_properties_update (GtkHTMLClassProperties *p, GConfClient *client
 		SET (bool, "/animations", animations);
 	if (p->magic_links != old->magic_links)
 		SET (bool, "/magic_links", magic_links);
-	SET (string, "/keybindings_theme", keybindings_theme);
 #if 0 /* fonts are not controlled via gconf any more */
 	if (strcmp (p->font_var, old->font_var))
 		SET (string, "/font_variable", font_var);
@@ -257,7 +252,6 @@ gtk_html_class_properties_copy (GtkHTMLClassProperties *p1,
 {
 	COPY  (animations)
 	COPY  (magic_links);
-	COPYS (keybindings_theme);
 	COPYS (font_var);
 	COPYS (font_fix);
 	COPY  (font_var_size);
