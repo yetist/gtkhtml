@@ -1,3 +1,20 @@
+1999-12-15  Ariel Rios <jarios@usa.net>
+
+	* gtkhtml-private.h: Add ref_count element in GtkHTML struct.
+	  (gtk_html_stream_unref), (gtk_html_stream_ref): New prototypes added.
+	  These two functions would maintain a reference count on a
+	  GtkHTMLStream handle so that the struct would only be freed when the
+	  ref count reaches zero. gtk_html_stream_new would return a stream
+	  with ref_count == 1 and gtk_html_stream_end would flag the stream as
+	  terminated and call gtk_html_stream_unref; gtk_html_stream_write
+	  would recognize a terminated stream.
+	* htmlstream.c: (gtk_html_stream_unref) Added.
+	  (gtk_html_stream_ref) Added.
+	  (gtk_html_stream_new) Added declararion of new ref_count element.
+	  (gtk_html_stream_write) Instead of g_freeing the stream here,
+	  we set write_callback and end_callback as NULL. Then we call
+	  gtk_html_stream_unref to g_free the handle.
+
 1999-12-15  Havoc Pennington  <hp@redhat.com>
 
 	* gtkhtml.c (gtk_html_realize): Add button press/release to the

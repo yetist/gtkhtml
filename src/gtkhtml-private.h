@@ -9,6 +9,7 @@ typedef void (*GtkHTMLStreamEndFunc)(GtkHTMLStreamHandle handle, GtkHTMLStreamSt
 typedef void (*GtkHTMLStreamWriteFunc)(GtkHTMLStreamHandle handle, const guchar *buffer, size_t size, gpointer user_data);
 
 typedef struct {
+	int ref_count;
 	GtkHTMLStreamWriteFunc write_callback;
 	GtkHTMLStreamEndFunc end_callback;
 	gpointer user_data;
@@ -18,6 +19,8 @@ GtkHTMLStreamHandle gtk_html_stream_new   (GtkHTML *html, const char *url,
 					   GtkHTMLStreamWriteFunc write_callback,
 					   GtkHTMLStreamEndFunc end_callback,
 					   gpointer user_data);
+GtkHTMLStreamHandle gtk_html_stream_ref (GtkHTMLStreamHandle handle);
+void                gtk_html_stream_unref (GtkHTMLStreamHandle handle);
 void                gtk_html_stream_write (GtkHTMLStreamHandle handle,
 					   const gchar *buffer,
 					   size_t size);
