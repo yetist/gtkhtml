@@ -461,6 +461,10 @@ html_image_animation_timeout (HTMLImage *image)
 	gint nx, ny, nex, ney;
 	gint w, h;
 
+	anim->cur_frame = anim->cur_frame->next;
+	if (!anim->cur_frame)
+		anim->cur_frame = gdk_pixbuf_animation_get_frames (image->image_ptr->animation);
+
 	frame = (GdkPixbufFrame *) anim->cur_frame->data;
 
 	w = gdk_pixbuf_get_width (frame->pixbuf);
@@ -514,9 +518,6 @@ html_image_animation_timeout (HTMLImage *image)
 
 	anim->timeout = gtk_timeout_add (10*frame->delay_time,
 					 (GtkFunction) html_image_animation_timeout, (gpointer) image);
-	anim->cur_frame = anim->cur_frame->next;
-	if (!anim->cur_frame)
-		anim->cur_frame = gdk_pixbuf_animation_get_frames (image->image_ptr->animation);
 
 	return FALSE;
 }
