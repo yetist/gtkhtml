@@ -67,7 +67,7 @@ draw (HTMLObject *o,
 	HTMLEmbedded *element = HTML_EMBEDDED(o);
 	gint new_x, new_y;
 
-	d (printf ("draw embedded\n"));
+	d (printf ("draw embedded %p\n", element));
 	if (!element->widget)
 		return;
 
@@ -92,7 +92,7 @@ draw (HTMLObject *o,
 		}
 	}
 
-	d (printf ("draw embedded - call painter\n"));
+	d (printf ("draw embedded %p - call painter\n", element));
 	html_painter_draw_embedded (p, element, tx, ty);
 }
 
@@ -101,7 +101,7 @@ destroy (HTMLObject *o)
 {
 	HTMLEmbedded *element;
 
-	d (printf ("destroy embedded\n"));
+	d (printf ("destroy embedded %p\n", o));
 	element = HTML_EMBEDDED (o);
 
 	if(element->name)
@@ -310,6 +310,8 @@ html_embedded_init (HTMLEmbedded *element,
 {
 	HTMLObject *object;
 
+	d (printf ("embedded %p init\n", element));
+
 	object = HTML_OBJECT (element);
 	html_object_init (object, HTML_OBJECT_CLASS (klass));
 
@@ -357,6 +359,8 @@ html_embedded_new_widget (GtkWidget *parent, GtkHTMLEmbedded *eb, HTMLEngine *en
 	HTMLEmbedded *em;
 
 	em = g_new0(HTMLEmbedded, 1);
+	d (printf ("embedded %p new widget\n", em));
+
 	html_embedded_init (em, HTML_EMBEDDED_CLASS (&html_embedded_class), parent, eb->name, "");
 	html_embedded_set_widget (em, GTK_WIDGET (eb));
 
