@@ -1,3 +1,7 @@
+2002-10-14  Larry Ewing  <lewing@ximian.com>
+ 
+ 	* cell.c (fill_sample): Make example cell text translatable.
+ 
 2002-10-13  Larry Ewing  <lewing@ximian.com>
 
 	* text.c (fill_sample): always draw the current color and mark the
