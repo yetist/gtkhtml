@@ -1,3 +1,8 @@
+2003-09-16  Larry Ewing  <lewing@ximian.com>
+
+	* htmltext.c: remove ;; in several places so it will compile on
+	old compilers.
+
 2003-09-04  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c (element_parse_font): parse style
@@ -84,6 +89,8 @@
         * htmlobject.h: ditto
 
 2003-08-28  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml-private.h: add toplevel_unmap_handler.
 
 	* gtkhtml.c (drag_data_received): add back some missing logic.
 

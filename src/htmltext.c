@@ -964,7 +964,7 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 		HTML_OBJECT (text)->change &= ~HTML_CHANGE_RECALC_PI;
 	}
 	if (!text->pi) {
-		PangoContext *pc = gtk_widget_get_pango_context (painter->widget);;
+		PangoContext *pc = gtk_widget_get_pango_context (painter->widget);
 		GList *items, *cur;
 		PangoAttrList *attrs;
 		PangoAttribute *attr;
@@ -1001,7 +1001,7 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 
 			/* printf ("item pos %d len %d\n", item->offset, item->length); */
 
-			text->pi->entries [i].attrs = g_new (PangoLogAttr, item->num_chars + 1);;
+			text->pi->entries [i].attrs = g_new (PangoLogAttr, item->num_chars + 1);
 			pango_break (translated + item->offset, item->length, &item->analysis, text->pi->entries [i].attrs, item->num_chars + 1);
 
 			glyphs = pango_glyph_string_new ();
@@ -1336,7 +1336,7 @@ static gboolean
 save (HTMLObject *self, HTMLEngineSaveState *state)
 {
 	HTMLText *text = HTML_TEXT (self);
-	PangoAttrIterator *iter = pango_attr_list_get_iterator (text->attr_list);;
+	PangoAttrIterator *iter = pango_attr_list_get_iterator (text->attr_list);
 	guint last_index = 0;
 	guint last_written = 0;
 
