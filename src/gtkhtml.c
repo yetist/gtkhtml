@@ -3659,8 +3659,6 @@ gtk_html_redo (GtkHTML *html)
 void
 gtk_html_set_default_content_type (GtkHTML *html, gchar *content_type)
 {
-	gchar *lower;
-
 	g_free (html->priv->content_type);	
 
 	if (content_type) {

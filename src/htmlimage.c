@@ -1325,6 +1325,7 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 
 	if (!ip) {
 		ip = html_image_pointer_new (url, factory);
+		g_hash_table_insert (factory->loaded_images, ip->url, ip);
 		if (*url) {
 			g_signal_connect (G_OBJECT (ip->loader), "area_prepared",
 					  G_CALLBACK (html_image_factory_area_prepared),
@@ -1333,8 +1334,6 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 			g_signal_connect (G_OBJECT (ip->loader), "area_updated",
 					  G_CALLBACK (html_image_factory_area_updated),
 					  ip);
-
-			g_hash_table_insert (factory->loaded_images, ip->url, ip);
 			stream = html_image_pointer_load (ip);
 		}
 	} else {

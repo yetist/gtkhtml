@@ -1,3 +1,13 @@
+2003-05-02  Radek Doulik  <rodo@ximian.com>
+
+	* htmlimage.c (html_image_factory_register): insert ip into loaded
+	images table even if url == "" so we keep track of all ip's. this
+	fixes the crash when inserting html src with image with "" url and
+	also doesn't leak ip's
+
+	* gtkhtml.c (gtk_html_set_default_content_type): remove unused
+	variable
+
 2003-05-01  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (html_engine_thaw_idle_flush): actually remove the
