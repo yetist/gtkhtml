@@ -65,6 +65,8 @@ struct _HTMLObject {
 	gint absX;
 	gint absY;
 
+        /* x & y are in object coordinates (e.g. the same coordinate system as o->x and o->y)
+	   tx & ty are used to translated object coordinates into painter coordinates */
 	void (*draw) (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint height,
 		      gint tx, gint ty);
 

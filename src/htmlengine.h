@@ -121,8 +121,8 @@ struct _HTMLEngine {
 	gchar *actualURL;
 	gchar *baseURL;
 
-	/* The background pixmap */
-	GdkPixbuf *bgPixmap;
+	/* The background pixmap, an HTMLImagePointer */
+        gpointer bgPixmapPtr;
   
 	/* The background color */
 	GdkColor *bgColor;
@@ -132,6 +132,8 @@ struct _HTMLEngine {
 
 	/* the widget, used for signal emission*/
 	GtkHTML *widget;
+
+        gpointer image_factory;
 };
 
 

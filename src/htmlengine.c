@@ -95,7 +95,8 @@ html_engine_destroy (GtkObject *object)
 	html_list_stack_destroy  (engine->listStack);
 	html_settings_destroy    (engine->settings);
 	html_painter_destroy     (engine->painter);
-	
+	html_image_factory_free  (engine->image_factory);
+
 	GTK_OBJECT_CLASS (parent_class)->destroy (object);
 }
 
@@ -131,6 +132,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->listStack = html_list_stack_new ();
 	engine->settings = html_settings_new ();
 	engine->painter = html_painter_new ();
+	engine->image_factory = html_image_factory_new(engine);
 
 	engine->leftBorder = LEFT_BORDER;
 	engine->rightBorder = RIGHT_BORDER;
@@ -191,14 +193,15 @@ html_engine_draw_background (HTMLEngine *e, gint xval, gint yval, gint x, gint y
 	gint yoff = 0;
 	gint pw, ph, yp, xp;
 	gint xOrigin, yOrigin;
+	HTMLImagePointer *bgpixmap;
 
 	xoff = xval;
 	yoff = yval;
 	xval = e->x_offset;
 	yval = e->y_offset;
 
-	if (!e->bgPixmap) {
-	  g_print("Draw background with no pixmap\n");
+	bgpixmap = e->bgPixmapPtr;
+	if (!bgpixmap || !bgpixmap->pixbuf) {
 		if (e->bgColor) {
 			html_painter_set_pen (e->painter, e->bgColor);
 			html_painter_fill_rect (e->painter, x, y, w, h);
@@ -207,8 +210,8 @@ html_engine_draw_background (HTMLEngine *e, gint xval, gint yval, gint x, gint y
 		return;
 	}
 
-	pw = e->bgPixmap->art_pixbuf->width;
-	ph = e->bgPixmap->art_pixbuf->height;
+	pw = bgpixmap->pixbuf->art_pixbuf->width;
+	ph = bgpixmap->pixbuf->art_pixbuf->height;
 
 	xOrigin = x / pw*pw - xval % pw;
 	yOrigin = y / ph*ph - yval % ph;
@@ -218,25 +221,16 @@ html_engine_draw_background (HTMLEngine *e, gint xval, gint yval, gint x, gint y
 
 	html_painter_set_clip_rectangle(e->painter, x, y, w, h);
 
-	g_print("drawing background pixmap from (%d, %d) to (%d, %d)\n",
-		xOrigin, yOrigin,
-		x + w, y + h);
 	/* Do the bgimage tiling */
 	for (yp = yOrigin; yp < y + h; yp += ph) {
 	        for (xp = xOrigin; xp < x + w; xp += pw) {
-		        g_print("Drawing bgPixmap at (%d, %d)\n", xp, yp);
-
 			html_painter_draw_pixmap (e->painter, 
 						  xp, 
 						  yp,
-						  e->bgPixmap,
+						  bgpixmap->pixbuf,
 						  0, 0, 0, 0);
 		}
 	}
-
-	/* Remove clip rectangle */
-	html_painter_set_clip_rectangle (e->painter, 0, 0, 0, 0);
-
 }
 
 void
@@ -383,6 +377,7 @@ html_engine_end (GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, HTMLEng
 
 	html_tokenizer_end (e->ht);
 	gtk_signal_emit(GTK_OBJECT(e->widget), html_signals[LOAD_DONE]);
+	html_image_factory_cleanup(e->image_factory);
 }
 
 void
@@ -495,9 +490,9 @@ html_engine_parse (HTMLEngine *p)
 	html_font_stack_push (p->fs, f);
 
 	/* Free the background pixmap */
-	if (p->bgPixmap) {
-		gdk_pixbuf_unref (p->bgPixmap);
-		p->bgPixmap = NULL;
+	if (p->bgPixmapPtr) {
+	  html_image_factory_unregister(p->image_factory, p->bgPixmapPtr, NULL);
+	  p->bgPixmapPtr = NULL;
 	}
 
 	/* Free the background color (if any) and alloc a new one */
@@ -820,29 +815,6 @@ html_engine_parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 	}
 }
 
-static void
-html_bg_write_pixbuf(GtkHTMLStreamHandle handle, const guchar *buffer, size_t size, gpointer user_data)
-{
-  g_print("stream %p - bg_write_pixbuf(%p, %d)\n", handle, user_data, size);
-  gdk_pixbuf_loader_write(GDK_PIXBUF_LOADER(user_data), buffer, size);
-}
-
-static void
-html_bg_end_pixbuf(GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, gpointer user_data)
-{
-  HTMLEngine *eng;
-  eng = gtk_object_get_data(GTK_OBJECT(user_data), "engine");
-
-  if(eng)
-    {
-      eng->bgPixmap = gdk_pixbuf_loader_get_pixbuf(GDK_PIXBUF_LOADER(user_data));
-      g_print("end_pixbuf on background - %p!!!!\n", eng->bgPixmap);
-      html_engine_schedule_update(eng);
-    }
-
-  gdk_pixbuf_loader_close(GDK_PIXBUF_LOADER(user_data));
-}
-
 void
 html_engine_parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
@@ -869,16 +841,10 @@ html_engine_parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				bgColorSet = TRUE;
 			}
 			else if (strncasecmp (token, "background=", 11) == 0) {
-			  GdkPixbufLoader *loader;
 			  char *realurl;
 
-			  loader = gdk_pixbuf_loader_new();
-			  gtk_object_set_data(GTK_OBJECT(loader), "engine", e);
 			  realurl = html_engine_canonicalize_url(e, token + 11);
-			  gtk_html_stream_new(GTK_HTML(e->widget), realurl,
-					      html_bg_write_pixbuf,
-					      html_bg_end_pixbuf,
-					      loader);
+			  e->bgPixmapPtr = html_image_factory_register(e->image_factory, NULL, realurl);
 			  g_free(realurl);
 			}
 		}
@@ -1088,7 +1054,7 @@ html_engine_parse_i (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		  if (!p->flow)
 		    html_engine_new_flow (p, clue);
 
-		  image = html_image_new (p, filename, clue->max_width, 
+		  image = html_image_new (p->image_factory, filename, clue->max_width, 
 					  width, height, percent, border);
 		}
 
@@ -1619,7 +1585,6 @@ html_engine_block_end_color_font (HTMLEngine *e, HTMLObject *clue, HTMLStackElem
 	html_engine_pop_color (e);
 
 	html_engine_pop_font (e);
-	
 }
 
 void
@@ -1640,7 +1605,6 @@ char *
 html_engine_canonicalize_url (HTMLEngine *e, const char *in_url)
 {
   char *ctmp, *ctmp2, *retval, *removebegin, *removeend, *curpos;
-  int rvlen;
 
   g_return_val_if_fail(e, NULL);
   g_return_val_if_fail(in_url, NULL);
@@ -1656,7 +1620,7 @@ html_engine_canonicalize_url (HTMLEngine *e, const char *in_url)
       ctmp = e->baseURL?strstr(e->baseURL, "://"):NULL;
       if(!ctmp)
 	{
-	  retval = g_strconcat("file://localhost", in_url, NULL);
+	  retval = g_strconcat("file://", in_url, NULL);
 	  goto out;
 	}
 
@@ -1674,7 +1638,7 @@ html_engine_canonicalize_url (HTMLEngine *e, const char *in_url)
       char *cwd;
 
       cwd = g_get_current_dir();
-      ctmp = g_strconcat("file://localhost", cwd, "/", in_url, NULL);
+      ctmp = g_strconcat("file://", cwd, "/", in_url, NULL);
       g_free(cwd);
 
       retval = ctmp;

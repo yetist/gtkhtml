@@ -25,6 +25,16 @@
 #include "htmlobject.h"
 #include "htmlengine.h"
 
+typedef struct _HTMLImageFactory HTMLImageFactory;
+
+typedef struct {
+  char *url;
+  GdkPixbufLoader *loader;
+  GdkPixbuf *pixbuf;
+  GSList *interests; /* A list of HTMLImage's, or a NULL pointer for the background pixmap */
+  HTMLImageFactory *factory;
+} HTMLImagePointer;
+
 typedef struct _HTMLImage HTMLImage;
 
 #define HTML_IMAGE(x) ((HTMLImage *)(x))
@@ -34,15 +44,19 @@ struct _HTMLImage {
 
 	gboolean predefinedWidth;
 	gboolean predefinedHeight;
-	gchar *url;
 	gint border;
 	HTMLEngine *engine;
 
-	GdkPixbuf *pixmap;
-        GdkPixbufLoader *loader;
+        HTMLImagePointer *image_ptr;
 };
 
-HTMLObject *html_image_new (HTMLEngine *e, gchar *filename, gint max_width, gint width, gint height,
+HTMLObject *html_image_new (HTMLImageFactory *imf, gchar *filename, gint max_width, gint width, gint height,
 			    gint percent, gint border);
+
+HTMLImageFactory *html_image_factory_new(HTMLEngine *e);
+void html_image_factory_free(HTMLImageFactory *factory);
+void html_image_factory_cleanup(HTMLImageFactory *factory); /* Does gc etc. - removes unused image entries */
+HTMLImagePointer *html_image_factory_register(HTMLImageFactory *factory, HTMLImage *i, const char *filename);
+void html_image_factory_unregister(HTMLImageFactory *factory, HTMLImagePointer *pointer, HTMLImage *i);
 
 #endif /* _HTMLIMAGE_H_ */

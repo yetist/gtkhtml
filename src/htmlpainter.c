@@ -42,39 +42,49 @@ html_painter_draw_rect (HTMLPainter *painter, gint x, gint y, gint width, gint h
 void
 html_painter_draw_pixmap (HTMLPainter *painter, gint x, gint y, GdkPixbuf *pixbuf, gint clipx, gint clipy, gint clipwidth, gint clipheight)
 {
+	gint off_x, off_y, off_width, off_height;
+
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (pixbuf != NULL);
 
-	x -= painter->x1;
-	y -= painter->y1;
+	/* This little trick helps us avoid explicitly setting clipping altogether */
 
-	if(clipwidth && clipheight)
-	  html_painter_set_clip_rectangle (painter, clipx, clipy, 
-					   clipwidth, clipheight);
+	off_x = MAX(clipx - x, 0);
+	off_y = MAX(clipy - y, 0);
 
-	if (pixbuf->art_pixbuf->has_alpha) {
-		gdk_draw_rgb_32_image (painter->pixmap,
-				       painter->gc,
-				       x, y,
-				       pixbuf->art_pixbuf->width,
-				       pixbuf->art_pixbuf->height,
-				       GDK_RGB_DITHER_NORMAL,
-				       pixbuf->art_pixbuf->pixels,
-				       pixbuf->art_pixbuf->rowstride);
-	}
-	else {
-		gdk_draw_rgb_image (painter->pixmap,
-				    painter->gc,
-				    x, y,
-				    pixbuf->art_pixbuf->width,
-				    pixbuf->art_pixbuf->height,
-				    GDK_RGB_DITHER_NORMAL,
-				    pixbuf->art_pixbuf->pixels,
-				    pixbuf->art_pixbuf->rowstride);
-	}
+	if(off_x >= pixbuf->art_pixbuf->width /* 0 < 16 */
+	   || off_y >= pixbuf->art_pixbuf->height) /* 14 < 20 */
+	  return;
 
-	if(clipwidth && clipheight)
-	  html_painter_set_clip_rectangle(painter, 0, 0, 0, 0);
+	off_width = MIN((clipx + clipwidth) - x - off_x, pixbuf->art_pixbuf->width - off_x);
+	off_height = MIN((clipy + clipheight) - y - off_y, pixbuf->art_pixbuf->height - off_y);
+
+	if(clipwidth <= 0)
+	  {
+	    off_x = 0;
+	    off_width = pixbuf->art_pixbuf->width;
+	  }
+
+	if(clipheight <= 0)
+	  {
+	    off_y = 0;
+	    off_height = pixbuf->art_pixbuf->height;
+	  }
+
+	if(off_width <= 0
+	   || off_height <= 0)
+	  return;
+
+	x += off_x; /* The part we are actually drawing starts at the upper left of the clip rectangle */
+	y += off_y;
+
+	gdk_pixbuf_render_to_drawable_alpha (pixbuf, painter->pixmap,
+					     off_x, off_y, /* src x/y */
+					     x - painter->x1, y - painter->y1, /* dest x/y in pixmap*/
+					     off_width, off_height,
+					     GDK_PIXBUF_ALPHA_BILEVEL,
+					     128, GDK_RGB_DITHER_NORMAL,
+					     x, y);
 }
 
 void
