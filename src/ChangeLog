@@ -1,3 +1,8 @@
+1999-12-11  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmltextslave.c (fit_line): Do not assign to `next_obj->prev' if
+	`next_obj' is NULL.
+
 1999-12-11  Jonas Borgström  <jonas_b@bitsmart.com>
 
 	* htmlengine.c (html_engine_set_base_url): New function

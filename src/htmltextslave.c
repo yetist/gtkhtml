@@ -53,7 +53,8 @@ fit_line (HTMLObject *o,
 			o->next = next_obj->next;
 			g_free (next_obj); /* FIXME FIXME FIXME */
 			next_obj = o->next;
-			next_obj->prev = o;
+			if (next_obj != NULL)
+				next_obj->prev = o;
 		} while (next_obj && (HTML_OBJECT_TYPE (next_obj)
 				      == HTML_TYPE_TEXTSLAVE));
 		textslave->posLen = textslave->owner->strLen - textslave->posStart;
