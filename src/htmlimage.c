@@ -22,6 +22,7 @@
 #include "htmlimage.h"
 #include "htmlengine.h"
 #include "htmlpainter.h"
+#include "gtkhtml-private.h"
 
 static void html_image_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint height, gint tx, gint ty);
 static void html_image_set_max_width (HTMLObject *o, gint max_width);
@@ -29,6 +30,9 @@ static gint html_image_calc_min_width (HTMLObject *o);
 static void html_image_init (HTMLImage *image);
 static gint html_image_calc_preferred_width (HTMLObject *o);
 static void html_image_calc_size (HTMLObject *o, HTMLObject *parent);
+static void html_image_end_pixbuf(GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, gpointer user_data);
+static void html_image_write_pixbuf(GtkHTMLStreamHandle handle, const guchar *buffer, size_t size, gpointer user_data);
+static void html_image_area_prepared(GdkPixbufLoader *loader, HTMLImage *i);
 
 HTMLObject *
 html_image_new (HTMLEngine *e, gchar *filename, gint max_width, 
@@ -66,19 +70,24 @@ html_image_new (HTMLEngine *e, gchar *filename, gint max_width,
 		object->width = width + border * 2;
 	}
 
+	
 	/* Always assume local file */
-	image->pixmap = gdk_pixbuf_new_from_file (image->url);
+	image->loader = gdk_pixbuf_loader_new();
 
-	if (image->pixmap)
-		html_image_init (image);
+	gtk_signal_connect(GTK_OBJECT(image->loader), "area_prepared",
+			   GTK_SIGNAL_FUNC(html_image_area_prepared),
+			   image);
 
-	/* Is the image available? */
-	if (!image->pixmap) {
-		if (!image->predefinedWidth && !object->percent)
-			object->width = 32;
-		if (!image->predefinedHeight)
-			object->ascent = 32;
-	}
+	gtk_html_stream_new(GTK_HTML(e->widget), image->url,
+			    html_image_write_pixbuf,
+			    html_image_end_pixbuf,
+			    image);
+
+
+	if (!image->predefinedWidth && !object->percent)
+	  object->width = 32;
+	if (!image->predefinedHeight)
+	  object->ascent = 32;
 
 	return object;
 }
@@ -108,6 +117,37 @@ html_image_init (HTMLImage *image)
 		object->width += image->border * 2;
 	if (!image->predefinedHeight)
 		object->ascent += image->border;
+}
+
+static void
+html_image_end_pixbuf(GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, gpointer user_data)
+{
+  HTMLImage *i = user_data;
+
+  if(!i->pixmap)
+      html_image_area_prepared(i->loader, i);
+
+  gdk_pixbuf_loader_close(i->loader);
+  i->loader = NULL;
+}
+
+static void
+html_image_write_pixbuf(GtkHTMLStreamHandle handle, const guchar *buffer, size_t size, gpointer user_data)
+{
+  HTMLImage *i = user_data;
+
+  gdk_pixbuf_loader_write(i->loader, buffer, size);
+}
+
+static void
+html_image_area_prepared(GdkPixbufLoader *loader, HTMLImage *i)
+{
+  g_return_if_fail(!i->pixmap);
+
+  i->pixmap = gdk_pixbuf_loader_get_pixbuf(i->loader);
+
+  if(i->pixmap)
+    html_image_init (i);
 }
 
 static void
@@ -142,20 +182,17 @@ html_image_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint
 	/* FIXME: Should be removed */
 	
 	if (!HTML_IMAGE (o)->pixmap) {
-		/*
-		if (!HTML_IMAGE (o)->predefinedWidth || 
-		!HTML_IMAGE (o)->predefinedHeight)*/ {
-		  html_painter_draw_rect (p, 
-					  o->x + tx, 
-					  o->y - o->ascent + ty, 
-					  o->width, o->ascent);
-		}
+	  html_painter_draw_rect (p, 
+				  o->x + tx, 
+				  o->y - o->ascent + ty, 
+				  o->width, o->ascent);
 	} 
 	else {
-	  /*		html_painter_draw_pixmap (p, 
-					  o->x + tx + HTML_IMAGE (o)->border, 
-					  o->y - o->ascent + ty + HTML_IMAGE (o)->border, 
-					  HTML_IMAGE (o)->pixmap, o->x + tx+ HTML_IMAGE (o)->border, o->y - o->ascent );*/
+	  html_painter_draw_pixmap (p, 
+				    o->x + tx + HTML_IMAGE (o)->border, o->y - o->ascent + ty + HTML_IMAGE (o)->border, 
+				    HTML_IMAGE (o)->pixmap,
+				    o->x + tx+ HTML_IMAGE (o)->border, o->y - o->ascent,
+				    o->width, o->ascent);
 	}
 }
 

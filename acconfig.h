@@ -12,6 +12,7 @@
 #undef ENABLE_BONOBO
 #undef HAVE_IEEEFP_H
 #undef ENABLE_GNOME
+#undef HAVE_LIBWWW
 
 @BOTTOM@
 /* This is from libglade */

@@ -1,4 +1,11 @@
-SUBDIRS = macros src
+if LIBWWW
+DIR_GLIBWWW=glibwww
+else
+DIR_GLIBWWW=
+endif
+
+SUBDIRS = macros $(DIR_GLIBWWW) src
+
 
 EXTRA_DIST = \
 	html-component.gnorba

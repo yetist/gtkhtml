@@ -61,6 +61,31 @@ if $try_bonobo; then
 fi
 AM_CONDITIONAL(BONOBO, $have_bonobo)
 
+dnl
+dnl Check for libwww
+dnl
+AC_PATH_PROG(LIBWWW_CONFIG,libwww-config,no)
+if test "$LIBWWW_CONFIG" = no; then
+	have_libwww=false
+else
+	LIBWWW_CFLAGS="`$LIBWWW_CONFIG --cflags`"
+	LIBWWW_LIBS="`$LIBWWW_CONFIG --libs`"
+
+dnl if we have the mini libwww's, trim the list we link with
+	if echo "$LIBWWW_LIBS" | grep wwwcore > /dev/null; then
+	    changequote(,)dnl
+	    LIBWWW_LIBS="`echo $LIBWWW_LIBS | sed 's/-lxml[^ ]* //g;s/-lwww[^ ]* //g;s/-ldl//;s/-lz//'`"
+	    changequote([,])dnl
+	    LIBWWW_LIBS="$LIBWWW_LIBS -lwwwzip -lwwwhttp -lwwwmime -lwwwftp -lwwwfile -lwwwdir -lwwwhtml -lwwwcache -lwwwstream -lwwwtrans -lwwwcore -lwwwutils -lz"
+	fi
+	have_libwww=true
+	AC_DEFINE(HAVE_LIBWWW)
+fi
+
+AC_SUBST(LIBWWW_CFLAGS)
+AC_SUBST(LIBWWW_LIBS)
+AM_CONDITIONAL(LIBWWW, $have_libwww)
+
 EXTRA_GNOME_LIBS=`gnome-config --libs gnomeui gdk_pixbuf $bonobo`
 EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnomeui gdk_pixbuf $bonobo`
 AC_SUBST(EXTRA_GNOME_LIBS)
@@ -70,6 +95,5 @@ AC_OUTPUT([
 Makefile
 macros/Makefile
 src/Makefile
+glibwww/Makefile
 ])
-
-

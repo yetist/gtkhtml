@@ -1,3 +1,5 @@
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
+
 /*  This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
     License as published by the Free Software Foundation; either
@@ -16,7 +18,7 @@
 #include <stdio.h>
 #include <gtk/gtk.h>
 #include "htmlpainter.h"
-#include "gtkhtml.h"
+#include "gtkhtml-private.h"
 
 guint           gtk_html_get_type (void);
 static void     gtk_html_class_init (GtkHTMLClass *klass);
@@ -71,12 +73,37 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	parent_class = gtk_type_class (GTK_TYPE_LAYOUT);
 
 	html_signals [TITLE_CHANGED] = 
-		gtk_signal_new ("title_changed",
-				GTK_RUN_FIRST,
-				object_class->type,
-				GTK_SIGNAL_OFFSET (GtkHTMLClass, title_changed),
-				gtk_marshal_NONE__NONE,
-				GTK_TYPE_NONE, 0);
+	  gtk_signal_new ("title_changed",
+			  GTK_RUN_FIRST,
+			  object_class->type,
+			  GTK_SIGNAL_OFFSET (GtkHTMLClass, title_changed),
+			  gtk_marshal_NONE__NONE,
+			  GTK_TYPE_NONE, 0);
+	html_signals [URL_REQUESTED] =
+	  gtk_signal_new ("url_requested",
+			  GTK_RUN_FIRST,
+			  object_class->type,
+			  GTK_SIGNAL_OFFSET (GtkHTMLClass, url_requested),
+			  gtk_marshal_NONE__POINTER_POINTER,
+			  GTK_TYPE_NONE, 2,
+			  GTK_TYPE_STRING,
+			  GTK_TYPE_POINTER);
+	html_signals [LOAD_DONE] = 
+	  gtk_signal_new ("load_done",
+			  GTK_RUN_FIRST,
+			  object_class->type,
+			  GTK_SIGNAL_OFFSET (GtkHTMLClass, load_done),
+			  gtk_marshal_NONE__NONE,
+			  GTK_TYPE_NONE, 0);
+	html_signals [LINK_FOLLOWED] =
+	  gtk_signal_new ("link_followed",
+			  GTK_RUN_FIRST,
+			  object_class->type,
+			  GTK_SIGNAL_OFFSET (GtkHTMLClass, link_followed),
+			  gtk_marshal_NONE__STRING,
+			  GTK_TYPE_NONE, 1,
+			  GTK_TYPE_STRING);
+	
 	gtk_object_class_add_signals (object_class, html_signals, LAST_SIGNAL);
 
 	widget_class->realize = gtk_html_realize;
@@ -122,22 +149,22 @@ gtk_html_parse (GtkHTML *html)
 	html_engine_parse (html->engine);
 }
 
-void
-gtk_html_begin (GtkHTML *html, gchar *url)
+GtkHTMLStreamHandle
+gtk_html_begin (GtkHTML *html, const char *url)
 {
-	html_engine_begin (html->engine, url);
+	return html_engine_begin (html->engine, url);
 }
 
 void
-gtk_html_write (GtkHTML *html, gchar *buffer)
+gtk_html_write (GtkHTML *html, GtkHTMLStreamHandle handle, const gchar *buffer, size_t size)
 {
-	html_engine_write (html->engine, buffer);
+	gtk_html_stream_write(handle, buffer, size);
 }
 
 void
-gtk_html_end (GtkHTML *html)
+gtk_html_end (GtkHTML *html, GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status)
 {
-	html_engine_end (html->engine);
+	gtk_html_stream_end(handle, status);
 }
 
 static void

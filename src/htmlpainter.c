@@ -22,6 +22,7 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include "htmlpainter.h"
 #include "htmlfont.h"
+#include <gdk-pixbuf/gdk-pixbuf-loader.h>
 
 void
 html_painter_draw_ellipse (HTMLPainter *painter, gint x, gint y, gint width, gint height)

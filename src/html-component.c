@@ -134,6 +134,7 @@ html_menu_test_cb (GnomeUIHandler *uih, view_data_t *view_data, gchar *path)
 	gchar buffer[32768];
 	gchar *filename;
 	gint test_nr = 0;
+	GtkHTMLStreamHandle handle;
 
 	if (strstr (path, "Test 1") != 0)
 		test_nr = 1;
@@ -156,17 +157,22 @@ html_menu_test_cb (GnomeUIHandler *uih, view_data_t *view_data, gchar *path)
 
 	g_print ("Parsing file: %s\n", filename);
 
-	gtk_html_begin (view_data->bed->html, filename);
-	gtk_html_parse (view_data->bed->html);
+	handle = gtk_html_begin (view_data->bed->html, filename);
 
 	fil = fopen (filename, "r");
-	while (!feof (fil)) {
-		fgets (buffer, 32768, fil);
-		gtk_html_write (view_data->bed->html, buffer);
-	}
+	if(fil)
+	  {
+	    while (!feof (fil)) {
+	      fgets (buffer, 32768, fil);
+	      gtk_html_write (view_data->bed->html, handle, buffer, strlen(buffer));
+	    }
+	    fclose (fil);
+	    gtk_html_parse (view_data->bed->html);
+	    gtk_html_end (view_data->bed->html, handle, GTK_HTML_STREAM_OK);
+	  }
+	else
+	  gtk_html_end (view_data->bed->html, handle, GTK_HTML_STREAM_ERROR);
 
-	gtk_html_end (view_data->bed->html);
-	fclose (fil);
 	g_free (filename);
 }
 
@@ -466,6 +472,28 @@ embeddable_load (embeddable_data_t *bed)
 /*
  * Loads a HTML from a GNOME_Stream
  */
+static void
+load_url(GtkHTML *html, const char *url, GtkHTMLStreamHandle handle)
+{
+  FILE *fil;
+
+  fil = fopen(url, "r");
+  if(!fil)
+    {
+      gtk_html_end(html, handle, GTK_HTML_STREAM_ERROR);
+      return;
+    }
+
+  while(!feof(fil))
+    {
+      gchar buffer[32768];
+      fgets(buffer, 32768, fil);
+      gtk_html_write(html, handle, buffer, strlen(buffer));
+    }
+  fclose(fil);
+  gtk_html_end(html, handle, GTK_HTML_STREAM_OK);
+}
+
 static int
 load_html_from_stream (GnomePersistStream *ps,
 		       GNOME_Stream stream, void *data)
@@ -543,6 +571,8 @@ embeddable_factory (GnomeEmbeddableFactory *this,
 	embeddable_data->embeddable = embeddable;
 	embeddable_data->stream = NULL;
 	embeddable_data->html = GTK_HTML (gtk_html_new (NULL, NULL));
+	gtk_signal_connect(GTK_OBJECT(embeddable_data->html), "url_requested",
+			   load_url, embeddable_data);
 	embeddable_data->views = 0;
 	stream = gnome_persist_stream_new ("embeddable:html-component",
 					   load_html_from_stream,

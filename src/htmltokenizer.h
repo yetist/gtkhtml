@@ -100,7 +100,7 @@ void           html_tokenizer_begin        (HTMLTokenizer *t);
 void           html_tokenizer_add_pending  (HTMLTokenizer *t);
 void           html_tokenizer_append_token (HTMLTokenizer *t,
 					    const gchar *string, gint len);
-void           html_tokenizer_write        (HTMLTokenizer *t, gchar *string);
+void           html_tokenizer_write        (HTMLTokenizer *t, const gchar *string, size_t size);
 gchar *        html_tokenizer_next_token   (HTMLTokenizer *t);
 void           html_tokenizer_end          (HTMLTokenizer *t);
 

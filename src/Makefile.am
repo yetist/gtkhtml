@@ -1,4 +1,4 @@
-INCLUDES = -I$(top_srcdir) -I$(includedir) $(GNOME_INCLUDEDIR) \
+INCLUDES = -I$(top_srcdir) -I$(srcdir) -I$(includedir) $(GNOME_INCLUDEDIR) \
 	$(EXTRA_GNOME_CFLAGS) \
 	-DG_LOG_DOMAIN=\"gtkhtml\"
 
@@ -47,6 +47,7 @@ common_SOURCES =   \
 	htmlsettings.h	\
 	htmlstack.c	\
 	htmlstack.h	\
+	htmlstream.c	\
 	htmltable.c	\
 	htmltable.h	\
 	htmltablecell.c	\
@@ -68,7 +69,14 @@ testgtkhtml_SOURCES = 		\
 	$(common_SOURCES) 	\
 	testgtkhtml.c
 
+if LIBWWW
+GLIBWWW=-L$(top_builddir)/glibwww -lglibwww $(LIBWWW_LIBS)
+else
+GLIBWWW=
+endif
+
 testgtkhtml_LDADD = 		\
+	$(GLIBWWW)		\
 	$(GNOMEUI_LIBS) 	\
 	$(GNOME_LIBDIR) 	\
 	$(EXTRA_GNOME_LIBS)

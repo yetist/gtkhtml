@@ -211,7 +211,7 @@ html_tokenizer_append_token_buffer (HTMLTokenizer *t, gint min_size)
 	}
 	newBuffer = g_malloc (newBufSize + 1);
 	
-	g_print ("newBuffer: %d\n", newBuffer);
+	g_print ("newBuffer: %p\n", newBuffer);
 
 	t->tokenBufferList = g_list_prepend (t->tokenBufferList, newBuffer);
 	t->next = newBuffer;
@@ -282,13 +282,13 @@ html_tokenizer_add_pending (HTMLTokenizer *t)
 }
 
 void
-html_tokenizer_write (HTMLTokenizer *t, gchar *string)
+html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 {
 	const gchar *src = string;
 	gchar *p, *ptr;
 	gchar *srcPtr = 0;
 
-	while ( *src != 0) {
+	while ((src - string) < size) {
 		/* Check if the buffer is too big */
 		if ((t->dest - t->buffer) > t->size) {
 			gchar *newbuf = g_malloc (t->size + 1024 + 20);

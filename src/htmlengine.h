@@ -143,7 +143,7 @@ struct _HTMLEngineClass
 };
 
 HTMLEngine *html_engine_new (void);
-void        html_engine_begin (HTMLEngine *p, gchar *url);
+GtkHTMLStreamHandle html_engine_begin (HTMLEngine *p, const char *url);
 void        html_engine_draw_background (HTMLEngine *e, gint xval, gint yval, gint x, gint y, gint w, gint h);
 gchar      *html_engine_parse_body (HTMLEngine *p, HTMLObject *clue, const gchar *end[], gboolean toplevel);
 void        html_engine_parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str);
@@ -175,8 +175,6 @@ void        html_engine_set_named_color (HTMLEngine *p, GdkColor *c, const gchar
 void        html_painter_set_background_color (HTMLPainter *painter, GdkColor *color);
 gint        html_engine_get_doc_height (HTMLEngine *p);
 void        html_engine_stop_parser (HTMLEngine *e);
-void        html_engine_write (HTMLEngine *e, gchar *buffer);
-void        html_engine_end (HTMLEngine *e);
 void        html_engine_block_end_list (HTMLEngine *e, HTMLObject *clue, HTMLStackElement *elem);
 void        html_engine_free_block (HTMLEngine *e);
 void        html_engine_calc_absolute_pos (HTMLEngine *e);

@@ -21,6 +21,7 @@
 #define _HTMLIMAGE_H_
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
+#include <gdk-pixbuf/gdk-pixbuf-loader.h>
 #include "htmlobject.h"
 #include "htmlengine.h"
 
@@ -38,6 +39,7 @@ struct _HTMLImage {
 	HTMLEngine *engine;
 
 	GdkPixbuf *pixmap;
+        GdkPixbufLoader *loader;
 };
 
 HTMLObject *html_image_new (HTMLEngine *e, gchar *filename, gint max_width, gint width, gint height,

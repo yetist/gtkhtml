@@ -19,19 +19,31 @@
 #include "debug.h"
 #include "gtkhtml.h"
 #include "htmlengine.h"
+#ifdef HAVE_LIBWWW
+#include <glibwww/glibwww.h>
+#endif
+
+typedef struct {
+  FILE *fil;
+  GtkHTMLStreamHandle handle;
+} FileInProgress;
 
 static void exit_cb (GtkWidget *widget, gpointer data);
 static void test_cb (GtkWidget *widget, gpointer data);
 static void slow_cb (GtkWidget *widget, gpointer data);
+static void stop_cb (GtkWidget *widget, gpointer data);
 static void dump_cb (GtkWidget *widget, gpointer data);
 static void redraw_cb (GtkWidget *widget, gpointer data);
 static void resize_cb (GtkWidget *widget, gpointer data);
 static void title_changed_cb (HTMLEngine *engine, gpointer data);
-static gboolean load_timer_event (FILE *fil);
+static gboolean load_timer_event (FileInProgress *fip);
+static void url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpointer data);
+static void entry_goto_url(GtkWidget *widget, gpointer data);
+static void goto_url(const char *url);
 
 GtkWidget *area, *box, *button;
 GtkHTML *html;
-GtkWidget *animator;
+GtkWidget *animator, *entry;
 
 static gint load_timer  = -1;
 static gboolean slow_loading = FALSE;
@@ -56,6 +68,8 @@ static GnomeUIInfo test_menu[] = {
 	  test_cb, GINT_TO_POINTER (6), NULL, 0, 0, 0, 0},
 	{ GNOME_APP_UI_ITEM, "Test 7", "Run test 7 (FreshMeat)",
 	  test_cb, GINT_TO_POINTER (7), NULL, 0, 0, 0, 0},
+	{ GNOME_APP_UI_ITEM, "Test 8", "Run test 8 (local test)",
+	  test_cb, GINT_TO_POINTER (8), NULL, 0, 0, 0, 0},
 	GNOMEUIINFO_END
 };
 
@@ -71,9 +85,9 @@ static GnomeUIInfo debug_menu[] = {
 };
 
 static GnomeUIInfo main_menu[] = {
-	GNOMEUIINFO_SUBTREE (("File"), file_menu),
-	GNOMEUIINFO_SUBTREE (("Tests"), test_menu),
-	GNOMEUIINFO_SUBTREE (("Debug"), debug_menu),
+	GNOMEUIINFO_MENU_FILE_TREE (file_menu),
+	GNOMEUIINFO_SUBTREE (("_Tests"), test_menu),
+	GNOMEUIINFO_SUBTREE (("_Debug"), debug_menu),
 	GNOMEUIINFO_END
 };
 
@@ -81,7 +95,6 @@ static void
 create_toolbars (GtkWidget *app)
 {
 	GtkWidget *dock;
-	GtkWidget *entry;
 	GtkWidget *hbox, *hbox2;
 	GtkWidget *frame;
 	GtkWidget *button;
@@ -120,7 +133,8 @@ create_toolbars (GtkWidget *app)
 				 "Stop loading",
 				 "Stop",
 				 gnome_stock_new_with_icon (GNOME_STOCK_PIXMAP_STOP),
-				 NULL, NULL);
+				 stop_cb,
+				 NULL);
 	gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
 				 NULL,
 				 "Reload page",
@@ -175,6 +189,7 @@ create_toolbars (GtkWidget *app)
 	gtk_box_pack_start (GTK_BOX (hbox),
 			    gtk_label_new ("Location:"), FALSE, FALSE, 0);
 	entry = gtk_entry_new ();
+	gtk_signal_connect(GTK_OBJECT(entry), "activate", GTK_SIGNAL_FUNC(entry_goto_url), NULL);
 	gtk_box_pack_start (GTK_BOX (hbox),
 			    entry, TRUE, TRUE, 0);
 	gnome_dock_add_item (GNOME_DOCK (GNOME_APP (app)->dock),
@@ -223,10 +238,122 @@ title_changed_cb (HTMLEngine *engine, gpointer data)
 }
 
 static void
-test_cb (GtkWidget *widget, gpointer data)
+entry_goto_url(GtkWidget *widget, gpointer data)
+{
+  goto_url(gtk_entry_get_text(GTK_ENTRY(widget)));
+}
+
+
+#ifdef HAVE_LIBWWW
+
+static void
+www_incoming(const char *url, const char *buffer, int size, int status, GtkHTMLStreamHandle handle)
+{
+  gtk_html_write(html, handle, buffer, size);
+  gtk_html_end(html, handle, GTK_HTML_STREAM_OK);
+}
+#endif
+
+static void
+stop_cb (GtkWidget *widget, gpointer data)
+{
+}
+
+static void
+load_done(GtkHTML *html)
+{
+  gnome_animator_stop (GNOME_ANIMATOR (animator));
+  gnome_animator_goto_frame (GNOME_ANIMATOR (animator), 1);
+  gtk_entry_set_text(GTK_ENTRY(entry), html->engine->baseURL);
+}
+
+static void
+fip_destroy(gpointer data)
+{
+  FileInProgress *fip = data;
+
+  gtk_html_end(html, fip->handle, GTK_HTML_STREAM_OK);
+  fclose(fip->fil);
+  g_free(fip);
+}
+
+static gboolean
+load_timer_event (FileInProgress *fip)
+{
+	gchar buffer[32768];
+
+	g_print ("LOAD\n");
+
+        if (!feof (fip->fil)) {
+		fgets (buffer, 32768, fip->fil);
+		gtk_html_write (html, fip->handle, buffer, strlen(buffer));
+		return TRUE;
+	} else {
+		load_timer = -1;
+		return FALSE;
+	}
+}
+
+static void
+url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpointer data)
 {
 	FILE *fil;
 	gchar buffer[32768];
+
+#ifdef HAVE_LIBWWW
+	GWWWRequest *req;
+
+	req = glibwww_load_to_mem(url, www_incoming, handle);
+
+	if(req)
+	  return;
+#endif
+
+	fil = fopen (url, "r");
+
+	if(!fil)
+	  {
+	    gtk_html_end (html, handle, GTK_HTML_STREAM_ERROR);
+	    return;
+	  }
+
+	if (slow_loading)
+	  {
+	    FileInProgress *fip;
+	    
+	    fip = g_new(FileInProgress, 1);
+	    fip->fil = fil;
+	    fip->handle = handle;
+	    load_timer = gtk_timeout_add_full (10,
+					       (GtkFunction) load_timer_event,
+					       NULL, fip,
+					       fip_destroy);
+	    return;
+	  }
+
+	while (!feof (fil))
+	  {
+	    int nread;
+
+	    nread = fread(buffer, 1, sizeof(buffer), fil);
+	    gtk_html_write (html, handle, buffer, nread);
+	  }
+
+	gtk_html_end (html, handle, GTK_HTML_STREAM_OK);
+	fclose (fil);
+}
+
+static void
+goto_url(const char *url)
+{
+	gnome_animator_start (GNOME_ANIMATOR (animator));
+	gtk_html_begin (html, url);
+	gtk_html_parse (html);
+}
+
+static void
+test_cb (GtkWidget *widget, gpointer data)
+{
 	gchar *filename;
 
 	/* Don't start loading if another file is already being loaded. */
@@ -234,51 +361,8 @@ test_cb (GtkWidget *widget, gpointer data)
 		return;
 
 	filename = g_strdup_printf ("tests/test%d.html", GPOINTER_TO_INT (data));
-	gnome_animator_start (GNOME_ANIMATOR (animator));
-	gtk_html_begin (html, filename);
-	gtk_html_parse (html);
-
-	fil = fopen (filename, "r");
-
-	if (slow_loading) {
-		load_timer = gtk_timeout_add (
-			10,
-			(GtkFunction) load_timer_event,
-			fil);
-		return;
-	}
-
-	while (!feof (fil)) {
-		fgets (buffer, 32768, fil);
-		gtk_html_write (html, buffer);
-	}
-
-	gnome_animator_stop (GNOME_ANIMATOR (animator));
-	gnome_animator_goto_frame (GNOME_ANIMATOR (animator), 1);
-
-	gtk_html_end (html);
-	fclose (fil);
-}
-
-static gboolean
-load_timer_event (FILE *fil)
-{
-	gchar buffer[32768];
-
-	g_print ("LOAD\n");
-
-        if (!feof (fil)) {
-		fgets (buffer, 32768, fil);
-		gtk_html_write (html, buffer);
-		return TRUE;
-	} else {
-		gnome_animator_stop (GNOME_ANIMATOR (animator));
-		gnome_animator_goto_frame (GNOME_ANIMATOR (animator), 1);
-		gtk_html_end (html);
-		fclose (fil);
-		load_timer = -1;
-		return FALSE;
-	}
+	goto_url(filename);
+	g_free(filename);
 }
 
 static void
@@ -295,6 +379,10 @@ main (gint argc, gchar *argv[])
 	
 	gnome_init (PACKAGE, VERSION,
 		    argc, argv);
+#ifdef HAVE_LIBWWW
+	glibwww_init(PACKAGE, VERSION);
+	glibwww_register_gnome_dialogs();
+#endif
 
 	gdk_rgb_init ();
 	
@@ -319,8 +407,12 @@ main (gint argc, gchar *argv[])
 	gtk_box_pack_start_defaults (GTK_BOX (box), GTK_WIDGET (hbox));
 
 	html = GTK_HTML (gtk_html_new (NULL, NULL));
-	gtk_signal_connect (GTK_OBJECT (html->engine), "title_changed",
+	gtk_signal_connect (GTK_OBJECT (html), "title_changed",
 			    GTK_SIGNAL_FUNC (title_changed_cb), (gpointer)app);
+	gtk_signal_connect (GTK_OBJECT (html), "url_requested",
+			    GTK_SIGNAL_FUNC (url_requested), (gpointer)app);
+	gtk_signal_connect (GTK_OBJECT (html), "load_done",
+			    GTK_SIGNAL_FUNC (load_done), (gpointer)app);
 
 	gtk_box_pack_start_defaults (GTK_BOX (hbox), GTK_WIDGET (html));
 	vscrollbar = gtk_vscrollbar_new (GTK_LAYOUT (html)->vadjustment);
@@ -331,7 +423,6 @@ main (gint argc, gchar *argv[])
 	gtk_window_set_default_size (GTK_WINDOW (app), 500, 400);
 
 	gtk_widget_show_all (app);
-
 
 	gtk_main ();
 

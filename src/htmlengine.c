@@ -21,7 +21,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include "gtkhtml.h"
+#include "gtkhtml-private.h"
 #include "htmlbullet.h"
 #include "htmlengine.h"
 #include "htmlrule.h"
@@ -48,9 +48,11 @@ static void     html_engine_init (HTMLEngine *engine);
 static gboolean html_engine_timer_event (HTMLEngine *e);
 static gint     html_engine_update_event (gpointer data);
 static void html_engine_schedule_update (HTMLEngine *e, gboolean clear);
+static void html_engine_write (GtkHTMLStreamHandle handle, gchar *buffer, size_t size, HTMLEngine *e);
+static void html_engine_end (GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, HTMLEngine *e);
+
 static GtkLayoutClass *parent_class = NULL;
 guint html_engine_signals [LAST_SIGNAL] = { 0 };
-
 
 #define TIMER_INTERVAL 30
 #define INDENT_SIZE 30
@@ -241,8 +243,8 @@ html_engine_stop_parser (HTMLEngine *e)
 	e->parsing = FALSE;
 }
 
-void
-html_engine_begin (HTMLEngine *p, gchar *url)
+GtkHTMLStreamHandle
+html_engine_begin (HTMLEngine *p, const char *url)
 {
 	html_tokenizer_begin (p->ht);
 	
@@ -257,16 +259,22 @@ html_engine_begin (HTMLEngine *p, gchar *url)
 
 	html_engine_stop_parser (p);
 	p->writing = TRUE;
+
+	return gtk_html_stream_new(GTK_HTML(p->widget),
+				   url,
+				   (GtkHTMLStreamWriteFunc)html_engine_write,
+				   (GtkHTMLStreamEndFunc)html_engine_end,
+				   (gpointer)p);
 }
 
 void
-html_engine_write (HTMLEngine *e, gchar *buffer)
+html_engine_write (GtkHTMLStreamHandle handle, gchar *buffer, size_t size, HTMLEngine *e)
 {
 	if (buffer == 0)
 		return;
 
-	html_tokenizer_write (e->ht, buffer);
-	
+	html_tokenizer_write (e->ht, buffer, size);
+
 	if (e->parsing && e->timerId == 0) {
 		e->timerId = gtk_timeout_add (TIMER_INTERVAL,
 					      (GtkFunction) html_engine_timer_event,
@@ -338,13 +346,13 @@ html_engine_timer_event (HTMLEngine *e)
 	return TRUE;
 }
 
-void
-html_engine_end (HTMLEngine *e)
+static void
+html_engine_end (GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, HTMLEngine *e)
 {
 	e->writing = FALSE;
 
 	html_tokenizer_end (e->ht);
-
+	gtk_signal_emit(GTK_OBJECT(e->widget), html_signals[LOAD_DONE]);
 }
 
 void
@@ -814,7 +822,7 @@ html_engine_parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				gchar *filename = g_strdup_printf ("%s/%s", e->baseURL, token + 11);
 				g_print ("should load: %s\n", filename);
 				e->bgPixmap = gdk_pixbuf_new_from_file (filename);
-				g_print ("bgpixmap is: %d\n", e->bgPixmap);
+				g_print ("bgpixmap is: %p\n", e->bgPixmap);
 				g_free (filename);
 				
 			}
