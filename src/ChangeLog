@@ -1,6 +1,12 @@
+2000-09-29  Joe Shaw  <joe@helixcode.com>
+
+	* htmltable.c (do_rspan): Remove printf.
+	(html_table_add_cell): call do_cspan after setting the cell so that
+	column spanning works correctly.
+
 2000-09-29  Radek Doulik  <rodo@helixcode.com>
 
-	* htmltable.c (inc_columns): fix col caalculation
+	* htmltable.c (inc_columns): fix col calculation
 
 2000-09-28  Radek Doulik  <rodo@helixcode.com>
 

@@ -993,8 +993,6 @@ do_rspan (HTMLTable *table, gint row)
 
 	g_assert (row > 0);
 
-	printf ("do_rspan\n");
-
 	for (i=0; i<table->totalCols; i++)
 		if (table->cells [row - 1][i]
 		    && (table->cells [row - 1][i])->row + (table->cells [row - 1][i])->rspan
@@ -1715,6 +1713,7 @@ html_table_add_cell (HTMLTable *table, HTMLTableCell *cell)
 	alloc_cell (table, table->row, table->col);
 	set_cell (table, table->row, table->col, cell);
 	html_table_cell_set_position (cell, table->row, table->col);
+	do_cspan(table, table->row, table->col, cell);
 }
 
 void
