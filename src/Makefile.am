@@ -249,3 +249,9 @@ htmlmarshal.h:	htmlclosures.list
 htmlmarshal.c:	htmlclosures.list
 	( echo '#include "htmlmarshal.h"' > $@ &&				\
 	glib-genmarshal --body --prefix=html_g_cclosure_marshal $< >> $@ ) || rm -f $@
+
+test:	test-suite
+	./test-suite > /dev/null
+
+test-verbose:	test-suite
+	./test-suite

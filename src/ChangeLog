@@ -1,5 +1,7 @@
 2005-01-25  Radek Doulik  <rodo@ximian.com>
 
+	* Makefile.am: added test and test-verbose rules
+
 	* test-suite.c (test_cursor_left_right_on_items_boundaries): added
 	new test
 
