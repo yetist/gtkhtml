@@ -60,9 +60,14 @@ static HTMLClueClass *parent_class = NULL;
 #define HCF_CLASS(x) HTML_CLUEFLOW_CLASS (HTML_OBJECT (x)->klass)
 #define HTML_IS_PLAIN_PAINTER(obj)              (GTK_CHECK_TYPE ((obj), HTML_TYPE_PLAIN_PAINTER))
 
-inline HTMLHAlignType html_clueflow_get_halignment (HTMLClueFlow *flow);
-static gchar * get_item_number_str (HTMLClueFlow *flow);
-static void update_items_after_indentation_change (HTMLClueFlow *flow);
+inline HTMLHAlignType html_clueflow_get_halignment          (HTMLClueFlow *flow);
+static gchar *        get_item_number_str                   (HTMLClueFlow *flow);
+static void           update_items_after_indentation_change (HTMLClueFlow *flow);
+static guint          get_post_padding                      (HTMLClueFlow *flow, 
+							     guint pad);
+static int            get_similar_depth                     (HTMLClueFlow *self, 
+							     HTMLClueFlow *neighbor);
+
 
 #define CLUEFLOW_INDENT             "        "
 #define CLUEFLOW_BLOCKQUOTE_CITE    "> "
@@ -412,7 +417,44 @@ is_header (HTMLClueFlow *flow)
 	}
 }
 
-static guint get_post_padding (HTMLClueFlow *flow, guint pad);
+static gboolean
+need_blockquote_padding  (HTMLClueFlow *flow, HTMLClueFlow *prev)
+{
+	int i = get_similar_depth (flow, prev);
+	
+	/* 
+	 * If the levels don't match up the the current flow
+	 * level the padding should be handled the other way.
+	 */
+	if (i < flow->levels->len || flow->levels->len == 0) {
+		if (i < prev->levels->len)
+			return TRUE;
+                else 
+			return FALSE;
+	}
+	
+	i = prev->levels->len - i;
+	
+	/*
+	 * now we check each level greater than the current flow level
+	 * and see if it is a blockquote and therefore needs padding
+	 */
+	while (i > 0) {
+		HTMLListType type;
+		
+		type = prev->levels->data [prev->levels->len - i];
+
+		if (is_blockquote (type)) {
+			return TRUE;
+		}
+		i--;
+	}
+
+	/*
+	 * If all the levels were items we don't need padding
+	 */
+	return FALSE;
+}
 
 static guint
 get_pre_padding (HTMLClueFlow *flow, guint pad)
@@ -424,22 +466,17 @@ get_pre_padding (HTMLClueFlow *flow, guint pad)
 		return 0;
 
 	if (HTML_OBJECT_TYPE (prev_object) == HTML_TYPE_CLUEFLOW) {
-		HTMLClueFlow *prev;
+		HTMLClueFlow *prev = HTML_CLUEFLOW (prev_object);
 
-		if (get_post_padding (HTML_CLUEFLOW (prev_object), 1))
+		if (get_post_padding (prev, 1))
 			return 0;
-
-		if (is_item (HTML_CLUEFLOW (prev_object)) || is_item (flow)) {
-			if (is_item (flow) || is_levels_equal (HTML_CLUEFLOW (prev_object), flow)) {
-				return 0;
-			} else {
+			
+		if (!is_levels_equal (flow, prev)) {
+			if (need_blockquote_padding (flow, prev))
 				return pad;
-			}
+			else 
+				return 0;
 		}
-
-		prev = HTML_CLUEFLOW (prev_object);
-		if (prev->levels->len > flow->levels->len)
-			return pad;
 
 		if (flow->style == HTML_CLUEFLOW_STYLE_PRE
 		    && prev->style != HTML_CLUEFLOW_STYLE_PRE
@@ -454,7 +491,7 @@ get_pre_padding (HTMLClueFlow *flow, guint pad)
 
 	if (! is_header (flow) && flow->levels->len == 0)
 		return 0;
-
+	
 	return pad;
 }
 
@@ -471,13 +508,14 @@ get_post_padding (HTMLClueFlow *flow,
 	if (HTML_OBJECT_TYPE (next_object) == HTML_TYPE_CLUEFLOW) {
 		HTMLClueFlow *next;
 
-		if (is_item (flow) && is_item (HTML_CLUEFLOW (next_object)))
-			return 0;
-
 		next = HTML_CLUEFLOW (next_object);
-		if ((next->levels->len >= flow->levels->len)
-		    && !is_levels_equal (next, flow))
-			return pad;
+
+		if (!is_levels_equal (next, flow)) {
+			if (need_blockquote_padding (flow, next)) 
+				return pad;
+			else 
+				return 0;
+		}
 
 		if (flow->style == HTML_CLUEFLOW_STYLE_PRE
 		    && next->style != HTML_CLUEFLOW_STYLE_PRE
