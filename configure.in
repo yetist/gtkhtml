@@ -21,7 +21,6 @@ AC_SUBST(CFLAGS)
 AC_SUBST(CPPFLAGS)
 AC_SUBST(LDFLAGS)
 
-AM_PATH_GCONF(,,,gconf-gtk)
 AM_GNOME_GETTEXT
 
 dnl GNU regex checking
@@ -124,7 +123,29 @@ AC_MSG_RESULT("$using_oaf")
 
 AM_CONDITIONAL(USING_OAF, test "x$using_oaf" = "xyes")
 
+dnl gconf checks
+
+try_gconf=true
+have_gconf=false
+
+AC_ARG_WITH(gconf,
+	[--{with,without}-gconf    Compile with Gconf support or without it],
+	if test x$withval = xno; then
+		try_gconf=false
+	fi
+	if test x$withval = xyes; then
+		try_gconf=true
+	fi
+)
+
+if $try_gconf; then
+	AM_PATH_GCONF(,have_gconf=true,have_gconf=false,gconf-gtk)
+	
+fi
+AM_CONDITIONAL(GCONF, $have_gconf)
+
 dnl gnome-print checks.
+
 
 AC_MSG_CHECKING([for gnome-print >= 0.16])
 if gnome-config --libs print > /dev/null 2>&1; then
