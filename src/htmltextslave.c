@@ -704,7 +704,7 @@ draw_highlighted (HTMLTextSlave *slave,
 {
 	HTMLText *owner;
 	HTMLObject *obj;
-	PangoGlyphString *glyphs;
+	PangoGlyphString *glyphs1, *glyphs2, *glyphs3;
 	guint start, end, len;
 	gint offset_width, text_width, lo, lo_start, lo_sel, asc, dsc;
 	const gchar *text;
@@ -729,16 +729,26 @@ draw_highlighted (HTMLTextSlave *slave,
 	highlight_begin = g_utf8_offset_to_pointer (slave_begin, start - slave->posStart);
 
 	lo_start = lo = html_text_slave_get_line_offset (slave, line_offset, slave->posStart, p);
-	/* FIXME: cache items and glyphs? */
-	html_painter_calc_text_size (p, slave_begin,
-				     start - slave->posStart, NULL, NULL,
-				     &lo,
-				     font_style, HTML_TEXT (owner)->face, &offset_width, &asc, &dsc);
+
+	if (start > slave->posStart) {
+		glyphs1 = get_glyphs_part (slave, p, 0, start - slave->posStart);
+		html_painter_calc_text_size (p, slave_begin,
+					     start - slave->posStart, get_items (slave, p), glyphs1,
+					     &lo,
+					     font_style, HTML_TEXT (owner)->face, &offset_width, &asc, &dsc);
+	} else
+		offset_width = 0;
 	lo_sel = lo;
-	/* FIXME: cache items and glyphs? */
-	html_painter_calc_text_size (p, highlight_begin, len, NULL, NULL, &lo,
-				     font_style, HTML_TEXT (owner)->face, &text_width, &asc, &dsc);
-	/* printf ("s: %d l: %d - %d %d\n", start, len, offset_width, text_width); */
+
+	if (len) {
+		glyphs2 = get_glyphs_part (slave, p, start - slave->posStart, len);
+
+		/* FIXME: cache items and glyphs? */
+		html_painter_calc_text_size (p, highlight_begin, len, get_items (slave, p), glyphs2, &lo,
+					     font_style, HTML_TEXT (owner)->face, &text_width, &asc, &dsc);
+		/* printf ("s: %d l: %d - %d %d\n", start, len, offset_width, text_width); */
+	} else
+		text_width = 0;
 
 	html_painter_set_font_style (p, font_style);
 	html_painter_set_font_face  (p, HTML_TEXT (owner)->face);
@@ -754,39 +764,37 @@ draw_highlighted (HTMLTextSlave *slave,
 			      (p, p->focus ? HTMLHighlightTextColor : HTMLHighlightTextNFColor)->color);
 
 	if (len) {
-		glyphs = get_glyphs_part (slave, p, start - slave->posStart, len);
 		html_painter_draw_text (p, obj->x + tx + offset_width, 
 					obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
-					highlight_begin, len, get_items (slave, p), glyphs,
+					highlight_begin, len, get_items (slave, p), glyphs2,
 					lo_sel);
-		if (glyphs)
-			pango_glyph_string_free (glyphs);
+		if (glyphs2)
+			pango_glyph_string_free (glyphs2);
 	}
 	/* Draw the non-highlighted part.  */
 	html_painter_set_pen (p, &HTML_TEXT (owner)->color->color);
 
 	/* 1. Draw the leftmost non-highlighted part, if any.  */
 	if (start > slave->posStart) {
-		glyphs = get_glyphs_part (slave, p, 0, start - slave->posStart);
 		html_painter_draw_text (p,
 					obj->x + tx, obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
 					slave_begin,
-					start - slave->posStart, get_items (slave, p), glyphs,
+					start - slave->posStart, get_items (slave, p), glyphs1,
 					lo_start);
-		if (glyphs)
-			pango_glyph_string_free (glyphs);
+		if (glyphs1)
+			pango_glyph_string_free (glyphs1);
 	}
 
 	/* 2. Draw the rightmost non-highlighted part, if any.  */
 	if (end < slave->posStart + slave->posLen) {
-		glyphs = get_glyphs_part (slave, p, start + len - slave->posStart, slave->posLen - start - len + slave->posStart);
+		glyphs3 = get_glyphs_part (slave, p, start + len - slave->posStart, slave->posLen - start - len + slave->posStart);
 		html_painter_draw_text (p,
 					obj->x + tx + offset_width + text_width,
 					obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
 					g_utf8_offset_to_pointer (highlight_begin, end - start),
-					slave->posStart + slave->posLen - end, get_items (slave, p), glyphs, lo);
-		if (glyphs)
-			pango_glyph_string_free (glyphs);
+					slave->posStart + slave->posLen - end, get_items (slave, p), glyphs3, lo);
+		if (glyphs3)
+			pango_glyph_string_free (glyphs3);
 	}
 }
 
