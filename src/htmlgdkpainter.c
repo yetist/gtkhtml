@@ -32,6 +32,7 @@
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
 #include "htmlembedded.h"
+#include "htmlengine.h"
 #include "gtkhtml-embedded.h"
 
 static HTMLPainterClass *parent_class = NULL;
@@ -1051,6 +1052,17 @@ get_pixel_size (HTMLPainter *painter)
 	return 1;
 }
 
+static guint
+get_page_width (HTMLPainter *painter, HTMLEngine *e)
+{
+	return html_engine_get_view_width (e) + e->leftBorder + e->rightBorder;
+}
+
+static guint
+get_page_height (HTMLPainter *painter, HTMLEngine *e)
+{
+	return html_engine_get_view_height (e) + e->topBorder + e->bottomBorder;
+}
 
 static void
 init_color (GdkColor *color, gushort red, gushort green, gushort blue)
@@ -1121,6 +1133,8 @@ class_init (GtkObjectClass *object_class)
 	painter_class->draw_background = draw_background;
 	painter_class->get_pixel_size = get_pixel_size;
 	painter_class->draw_embedded = draw_embedded;
+	painter_class->get_page_width = get_page_width;
+	painter_class->get_page_height = get_page_height;
 
 	parent_class = gtk_type_class (html_painter_get_type ());
 }

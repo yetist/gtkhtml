@@ -3937,24 +3937,22 @@ html_engine_calc_min_width (HTMLEngine *e)
 	return html_object_calc_min_width (e->clue, e->painter) + e->leftBorder + e->rightBorder;
 }
 
+static guint
+get_max_width (HTMLEngine *e)
+{
+	return html_painter_get_page_width (e->painter, e)
+		- (e->leftBorder + e->rightBorder) * html_painter_get_pixel_size (e->painter);
+}
+
 void
 html_engine_calc_size (HTMLEngine *e)
 {
-	gint max_width, min_width;
-
 	if (e->clue == 0)
 		return;
 
 	html_object_reset (e->clue);
 
-	max_width = e->width - e->leftBorder - e->rightBorder;
-	e->clue->width = max_width;
-
-	min_width = html_object_calc_min_width (e->clue, e->painter);
-	if (min_width > max_width)
-		max_width = min_width;
-
-	html_object_set_max_width (e->clue, e->painter, max_width);
+	html_object_set_max_width (e->clue, e->painter, get_max_width (e));
 	html_object_calc_size (e->clue, e->painter);
 
 	e->clue->x = 0;
@@ -4629,9 +4627,8 @@ html_engine_get_cursor (HTMLEngine *e)
 }
 
 void
-html_engine_set_painter (HTMLEngine *e, HTMLPainter *painter, gint max_width)
+html_engine_set_painter (HTMLEngine *e, HTMLPainter *painter)
 {
-	gint min_width, pixel_size = html_painter_get_pixel_size (painter);
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (e != NULL);
 
@@ -4639,23 +4636,9 @@ html_engine_set_painter (HTMLEngine *e, HTMLPainter *painter, gint max_width)
 	gtk_object_unref (GTK_OBJECT (e->painter));
 	e->painter = painter;
 	
-	max_width -= pixel_size * (e->leftBorder + e->rightBorder);
-
-	html_object_set_painter (e->clue, painter, max_width);
+	html_object_set_painter (e->clue, painter);
 	html_object_change_set_down (e->clue, HTML_CHANGE_ALL);
-	html_object_clear_word_width (e->clue);
 	html_object_reset (e->clue);
-
-	html_object_set_max_width (e->clue, painter, max_width);
-
-	min_width = html_engine_calc_min_width (e);
-	if (min_width > max_width) {
-		max_width = min_width;
-
-		html_object_change_set_down (e->clue, HTML_CHANGE_ALL);
-		html_object_set_max_width (e->clue, painter, max_width - pixel_size * (e->leftBorder + e->rightBorder));
-	}
-
 	html_engine_calc_size (e);
 }
 

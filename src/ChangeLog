@@ -1,5 +1,37 @@
 2001-05-30  Radek Doulik  <rodo@ximian.com>
 
+	* htmlobject.c (set_painter): as below
+	(html_object_set_painter): as below, simplyfied
+
+	* htmliframe.c (set_painter): as below
+
+	* htmlframe.c (set_painter): removed max_width parameter
+
+	* htmlengine.c (html_engine_set_painter): don't call
+	html_object_clear_word_width as it's no more needed
+	(html_engine_set_painter): don't call calc_min_width as this is
+	also no more needed
+	(html_engine_set_painter): don't compute max_width as it's now
+	handled properly in calc_size using get_page_width/height
+	(html_engine_calc_size): use get_page_width/height, simplified
+	(get_max_width): new helper function
+
+	* htmlclueflow.c (pref_right_margin): removed obsolete method
+	(calc_size): use html_object_get_right_margin instead of
+	pref_right_margin
+	(calc_size): take care of PRE when calling fit_line
+
+	* gtkhtml.c (size_allocate): do calc size always
+
+	* htmlprinter.c (class_init): as below
+
+	* htmlplainpainter.c (class_init): as below
+
+	* htmlgdkpainter.c (class_init): implemented and plugged in new
+	virtual methods
+
+	* htmlpainter.h: added new virtual methods get_page_width/height
+
 	* htmltablecell.c (save): updated to use percent_width
 	(html_table_cell_init): initialize percent_width, percent_height
 

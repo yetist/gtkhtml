@@ -32,6 +32,7 @@
 #include "htmlplainpainter.h"
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
+#include "htmlengine.h"
 
 static HTMLGdkPainterClass *parent_class = NULL;
 
@@ -203,6 +204,19 @@ draw_rect (HTMLPainter *painter,
 {
 }
 
+static guint
+get_page_width (HTMLPainter *painter, HTMLEngine *e)
+{
+	return MIN (72 * html_painter_get_space_width (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL),
+		    html_engine_get_view_width (e)) + e->leftBorder + e->rightBorder;
+}
+
+static guint
+get_page_height (HTMLPainter *painter, HTMLEngine *e)
+{
+	return html_engine_get_view_height (e) + e->topBorder + e->bottomBorder;
+}
+
 static void
 class_init (GtkObjectClass *object_class)
 {
@@ -223,7 +237,8 @@ class_init (GtkObjectClass *object_class)
 	painter_class->draw_shade_line = draw_shade_line;
 	painter_class->draw_panel = draw_panel;
 	painter_class->draw_background = draw_background;
-	//painter_class->get_pixel_size = get_pixel_size;
+	painter_class->get_page_width = get_page_width;
+	painter_class->get_page_height = get_page_height;
 
 	parent_class = gtk_type_class (html_gdk_painter_get_type ());
 }

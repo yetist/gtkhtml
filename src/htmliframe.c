@@ -205,7 +205,7 @@ draw (HTMLObject *o,
 }
 
 static void
-set_painter (HTMLObject *o, HTMLPainter *painter, gint max_width)
+set_painter (HTMLObject *o, HTMLPainter *painter)
 {
 	HTMLIFrame *iframe;
 
@@ -215,8 +215,7 @@ set_painter (HTMLObject *o, HTMLPainter *painter, gint max_width)
 	}
 	
 	html_engine_set_painter (GTK_HTML (iframe->html)->engine,
-				 GTK_OBJECT_TYPE (painter) != HTML_TYPE_PRINTER ? iframe->gdk_painter : painter,
-				 max_width);
+				 GTK_OBJECT_TYPE (painter) != HTML_TYPE_PRINTER ? iframe->gdk_painter : painter);
 }
 
 static void

@@ -64,14 +64,14 @@ insure_paper (void)
 }
 
 static gdouble
-get_page_height (HTMLPrinter *printer)
+printer_get_page_height (HTMLPrinter *printer)
 {
 	insure_paper ();
 	return gnome_paper_psheight (paper);
 }
 
 static gdouble
-get_page_width (HTMLPrinter *printer)
+printer_get_page_width (HTMLPrinter *printer)
 {
 	insure_paper ();
 	return gnome_paper_pswidth (paper);
@@ -126,7 +126,7 @@ html_printer_coordinates_to_gnome_print (HTMLPrinter *printer,
 	print_y = SCALE_ENGINE_TO_GNOME_PRINT (engine_y);
 
 	print_x = print_x + get_lmargin (printer);
-	print_y = (get_page_height (printer) - print_y) - get_tmargin (printer);
+	print_y = (printer_get_page_height (printer) - print_y) - get_tmargin (printer);
 
 	*print_x_return = print_x;
 	*print_y_return = print_y;
@@ -712,6 +712,17 @@ unref_font (HTMLPainter *painter, HTMLFont *font)
 	gtk_object_unref (GTK_OBJECT (font->data));
 }
 
+static guint
+get_page_width (HTMLPainter *painter, HTMLEngine *e)
+{
+	return html_printer_get_page_width (HTML_PRINTER (painter));
+}
+
+static guint
+get_page_height (HTMLPainter *painter, HTMLEngine *e)
+{
+	return html_printer_get_page_height (HTML_PRINTER (painter));
+}
 
 static void
 init (GtkObject *object)
@@ -755,6 +766,8 @@ class_init (GtkObjectClass *object_class)
 	painter_class->get_pixel_size = get_pixel_size;
 	painter_class->set_clip_rectangle = set_clip_rectangle;
 	painter_class->draw_embedded = draw_embedded;
+	painter_class->get_page_width = get_page_width;
+	painter_class->get_page_height = get_page_height;
 
 	parent_class = gtk_type_class (html_painter_get_type ());
 }
@@ -806,7 +819,7 @@ html_printer_get_page_width (HTMLPrinter *printer)
 	g_return_val_if_fail (printer != NULL, 0);
 	g_return_val_if_fail (HTML_IS_PRINTER (printer), 0);
 
-	printer_width = get_page_width (printer) - get_lmargin (printer) - get_rmargin (printer);
+	printer_width = printer_get_page_width (printer) - get_lmargin (printer) - get_rmargin (printer);
 	engine_width = SCALE_GNOME_PRINT_TO_ENGINE (printer_width);
 
 	return engine_width;
@@ -821,7 +834,7 @@ html_printer_get_page_height (HTMLPrinter *printer)
 	g_return_val_if_fail (printer != NULL, 0);
 	g_return_val_if_fail (HTML_IS_PRINTER (printer), 0);
 
-	printer_height = get_page_height (printer) - get_lmargin (printer) - get_rmargin (printer);
+	printer_height = printer_get_page_height (printer) - get_lmargin (printer) - get_rmargin (printer);
 	engine_height = SCALE_GNOME_PRINT_TO_ENGINE (printer_height);
 
 	return engine_height;

@@ -96,6 +96,9 @@ DEFINE_UNIMPLEMENTED (draw_background);
 DEFINE_UNIMPLEMENTED (draw_embedded);
 
 DEFINE_UNIMPLEMENTED (get_pixel_size);
+DEFINE_UNIMPLEMENTED (get_page_width);
+DEFINE_UNIMPLEMENTED (get_page_height);
+
 
 static void
 init (GtkObject *object, HTMLPainterClass *real_klass)
@@ -568,4 +571,16 @@ guint
 html_painter_get_space_width (HTMLPainter *painter, GtkHTMLFontStyle style, HTMLFontFace *face)
 {
 	return html_font_manager_get_font (&painter->font_manager, face, style)->space_width;
+}
+
+guint
+html_painter_get_page_width (HTMLPainter *painter, HTMLEngine *e)
+{
+	return 	(* HP_CLASS (painter)->get_page_width) (painter, e);
+}
+
+guint
+html_painter_get_page_height (HTMLPainter *painter, HTMLEngine *e)
+{
+	return 	(* HP_CLASS (painter)->get_page_height) (painter, e);
 }
