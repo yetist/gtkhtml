@@ -1,3 +1,7 @@
+2000-09-23  Jesus Bravo Alvarez  <jba@pobox.com>
+
+	* *.desktop: Added Galician translations.
+
 2000-09-15  Radek Doulik  <rodo@helixcode.com>
 
 	* main.c (setup_behaviour): fixed typo

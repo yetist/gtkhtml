@@ -1,3 +1,8 @@
+2000-09-23  Jesus Bravo Alvarez  <jba@pobox.com>
+
+	* configure.in: Added Galician (gl) to ALL_LINGUAS.
+	* configure.in: Added missing pt_BR to ALL_LINGUAS.
+
 2000-09-13  Michael Meeks  <michael@helixcode.com>
 
 	* configure.in (have_bonobo): update check; only allow 0.19

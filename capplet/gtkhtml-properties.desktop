@@ -1,7 +1,9 @@
 [Desktop entry]
 Name=HTML Viewer
+Name[gl]=Visualizador HTML
 Name[no]=HTML-visning
 Comment=HTML Viewer properties
+Comment[gl]=Propiedades do Visualizador HTML
 Comment[no]=Egenskaper for visning av HTML
 Exec=gtkhtml-properties-capplet
 Icon=gnome-unknown.png
