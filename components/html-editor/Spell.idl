@@ -37,30 +37,30 @@ module GNOME {
 			/**
 			 * sets various pspell tags - see pspell manual
 			 */
-			void set (in string key, in string value);
+			void setTag (in string key, in string value);
 		
 			/**
 			 * checks word
 			 *
 			 * returns true if word is valid
 			 */
-			boolean check_word (in string word) raises (Error);
+			boolean checkWord (in string word) raises (Error);
 
 			/**
 			 * returns suggestions for word
 			 */
-			StringSeq suggestions (in string word) raises (Error);
+			StringSeq getSuggestions (in string word) raises (Error);
 
 			/**
 			 * add to session/personal dictionary
 			 */
-			void add_word_to_session  (in string word) raises (Error);
-			void add_word_to_personal (in string word) raises (Error);
+			void addWordToSession  (in string word) raises (Error);
+			void addWordToPersonal (in string word) raises (Error);
 
 			/**
 			 * informs dictionary, that word 'word' will be replaced/corrected by word 'replacement'
 			 */
-			void correction (in string word, in string replacement);
+			void setCorrection (in string word, in string replacement);
 		};
 
 		struct Suggestion {
@@ -77,24 +77,24 @@ module GNOME {
 			/**
 			 * adds dictionary to checker
 			 */
-			void add (in Dictionary dictionary) raises (SpellError);
+			void addDictionary (in Dictionary dictionary) raises (SpellError);
 
 			/**
 			 * removes dictionary from checker
 			 */
-			void remove_dictionary (in Dictionary dictionary);
+			void removeDictionary (in Dictionary dictionary);
 
 			/**
 			 * checks word
 			 *
 			 * returns true if word is valid for at least one (active) dictionary
 			 */
-			boolean check_word (in string word) raises (SpellError);
+			boolean checkWord (in string word) raises (SpellError);
 
 			/**
 			 * returns suggestions for word from all (active) dictionaries
 			 */
-			SuggestionSeq suggestions (in string word) raises (SpellError);
+			SuggestionSeq getSuggestions (in string word) raises (SpellError);
 		};
 	};
 };

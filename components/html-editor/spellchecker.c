@@ -45,7 +45,7 @@ destroy (GtkWidget *w, SpellPopup *sp)
 			CORBA_Environment ev;
 
 			CORBA_exception_init (&ev);
-			GNOME_Spell_Dictionary_correction (sp->cd->dict, sp->misspeled_word, replacement, &ev);
+			GNOME_Spell_Dictionary_setCorrection (sp->cd->dict, sp->misspeled_word, replacement, &ev);
 			CORBA_exception_free (&ev);
 
 			gtk_clist_get_text (GTK_CLIST (sp->clist),
@@ -99,7 +99,7 @@ fill_suggestion_clist (GtkWidget *clist, const gchar *word, GtkHTMLControlData *
 	gint i;
 
 	CORBA_exception_init (&ev);
-	seq = GNOME_Spell_Dictionary_suggestions (cd->dict, word, &ev );
+	seq = GNOME_Spell_Dictionary_getSuggestions (cd->dict, word, &ev );
 
 	if (ev._major == CORBA_NO_EXCEPTION) {
 		for (i=0; i < seq->_length; i++) {
@@ -188,7 +188,7 @@ spell_check_word (GtkHTML *html, const gchar *word, gpointer data)
 	gboolean rv;
 
 	CORBA_exception_init (&ev);
-	rv = GNOME_Spell_Dictionary_check_word (cd->dict, word, &ev);
+	rv = GNOME_Spell_Dictionary_checkWord (cd->dict, word, &ev);
 	if (ev._major != CORBA_NO_EXCEPTION)
 		rv = TRUE;
 	CORBA_exception_free (&ev);
@@ -203,7 +203,7 @@ spell_add_to_session (GtkHTML *html, const gchar *word, gpointer data)
 	CORBA_Environment   ev;
 
 	CORBA_exception_init (&ev);
-	GNOME_Spell_Dictionary_add_word_to_session (cd->dict, word, &ev);
+	GNOME_Spell_Dictionary_addWordToSession (cd->dict, word, &ev);
 	CORBA_exception_free (&ev);
 }
 
@@ -214,6 +214,6 @@ spell_add_to_personal (GtkHTML *html, const gchar *word, gpointer data)
 	CORBA_Environment   ev;
 
 	CORBA_exception_init (&ev);
-	GNOME_Spell_Dictionary_add_word_to_personal (cd->dict, word, &ev);
+	GNOME_Spell_Dictionary_addWordToPersonal (cd->dict, word, &ev);
 	CORBA_exception_free (&ev);
 }
