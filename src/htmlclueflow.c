@@ -2070,7 +2070,8 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *inte
 	gchar *text, *ct, *word;
 	HTMLInterval *new_interval = NULL;
 
-	g_assert (HTML_OBJECT_TYPE (flow) == HTML_TYPE_CLUEFLOW);
+	g_return_if_fail (flow != NULL);
+	g_return_if_fail (HTML_OBJECT_TYPE (flow) == HTML_TYPE_CLUEFLOW);
 
 	/* if (interval)
 	   printf ("html_clueflow_spell_check %p %p %d %d\n", i->from, i->to, i->from_offset, i->to_offset); */
