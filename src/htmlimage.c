@@ -100,16 +100,10 @@ draw (HTMLObject *o, HTMLPainter *p,
 	clip_height = height;
 
 	if (!HTML_IMAGE (o)->image_ptr->pixbuf) {
-		static GdkColor black = { 0, 0, 0 };
-
-		/* FIXME tmp hack */
-		gdk_colormap_alloc_color (gdk_window_get_colormap (html_painter_get_window (p)),
-					  &black, FALSE, TRUE);
-
-		html_painter_set_pen (p, &black);
-		html_painter_draw_rect (p, 
-					o->x + tx, o->y + ty - o->ascent, 
-					o->width, o->ascent);
+		html_painter_draw_panel (p, 
+					 o->x + tx, o->y + ty - o->ascent, 
+					 o->width, o->ascent,
+					 TRUE, 1);
 	} else {
 		html_painter_draw_pixmap (p, base_x, base_y,
 					  HTML_IMAGE (o)->image_ptr->pixbuf,

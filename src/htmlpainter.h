@@ -42,6 +42,9 @@ struct _HTMLPainter {
 	
 	GdkGC *gc;      /* The current GC used */
 	HTMLFont *font; /* The current font */
+
+	GdkColor dark; /* Dark color */
+	GdkColor light; /* Light color */
 };
 
 

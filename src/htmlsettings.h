@@ -29,7 +29,7 @@ typedef struct _HTMLSettings HTMLSettings;
 #include "htmlengine.h"
 
 
-#define HTML_NUM_FONT_SIZES 6
+#define HTML_NUM_FONT_SIZES 7
 
 struct _HTMLSettings {
 	gint fontSizes[HTML_NUM_FONT_SIZES];

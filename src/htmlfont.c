@@ -77,7 +77,7 @@ create_gdk_font (gchar *family, gint size, gboolean bold, gboolean italic)
 	
 	fontname = g_strdup_printf ("-*-%s-%s-%s-normal-*-%d-*-*-*-*-*-*-*",
 				    family, boldstr, italicstr, realsize);
-
+	
 	font = gdk_font_load (fontname);
 	if (font)
 		return font;

@@ -23,7 +23,6 @@
 
 #include <gdk/gdk.h>
 
-#define MAXFONTSIZES 7
 
 typedef struct _HTMLFont HTMLFont;
 typedef struct _HTMLFontStack HTMLFontStack;
@@ -56,3 +55,9 @@ gint  	       html_font_calc_ascent   (HTMLFont *f);
 void	       html_font_set_color     (HTMLFont *f, const GdkColor *color);
 
 #endif /* _HTMLFONT_H_ */
+
+
+
+
+
+

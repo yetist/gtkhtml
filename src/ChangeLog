@@ -1,3 +1,16 @@
+1999-12-04  Anders Carlsson  <andersca@picard.andersnet>
+
+	* htmlsettings.c: Fix the correct number of font sizes, it's 7 not 6.
+
+	* htmltable.c (draw): Use html_painter_draw_panel for table borders.
+
+	* htmlpainter.c (html_painter_draw_panel): New function for drawing a
+	3d panel.
+
+	* htmlimage.c (draw): Use html_painter_draw_panel for pictures that
+	are not yet loaded.
+
+
 1999-12-04  Ettore Perazzoli  <ettore@gnu.org>
 
 	* htmllinktextmaster.c (html_link_text_master_init): `url' and

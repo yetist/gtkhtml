@@ -41,6 +41,39 @@ html_painter_draw_rect (HTMLPainter *painter, gint x, gint y, gint width, gint h
 }
 
 void
+html_painter_draw_panel (HTMLPainter *painter, gint x, gint y, gint width, gint height, gboolean inset, gint bordersize)
+{
+	GdkColor *col1, *col2;
+
+	if (inset) {
+		col1 = &painter->dark;
+		col2 = &painter->light;
+	}
+	else {
+		col1 = &painter->light;
+		col2 = &painter->dark;
+	}
+
+	while (bordersize > 0) {
+		gdk_gc_set_foreground (painter->gc, col1);
+		gdk_draw_line (painter->pixmap, painter->gc,
+			       x, y, x + width - 2, y);
+		gdk_draw_line (painter->pixmap, painter->gc,
+			       x, y, x, y + height - 1);
+		gdk_gc_set_foreground (painter->gc, col2);
+		gdk_draw_line (painter->pixmap, painter->gc,
+			       x + width - 1, y, x + width - 1, y + height - 1);
+		gdk_draw_line (painter->pixmap, painter->gc,
+			       x + 1, y + height - 1, x + width - 1, y + height - 1);
+		bordersize--;
+		x++;
+		y++;
+		width-=2;
+		height-=2;
+	}
+}
+
+void
 html_painter_draw_background_pixmap (HTMLPainter *painter, gint x, gint y, 
 				     GdkPixbuf *pixbuf)
 {
@@ -160,32 +193,14 @@ html_painter_draw_text (HTMLPainter *painter, gint x, gint y, gchar *text, gint 
 void
 html_painter_draw_shade_line (HTMLPainter *p, gint x, gint y, gint width)
 {
-	static GdkColor* dark = NULL;
-	static GdkColor* light = NULL;
-
 	g_return_if_fail (p != NULL);
 	
-	if (!dark) {
-		dark = g_new0 (GdkColor, 1);
-		dark->red = 32767;
-		dark->green = 32767;
-		dark->blue = 32767;
-		gdk_colormap_alloc_color (gdk_window_get_colormap (p->pixmap), dark, TRUE, TRUE);
-	}
-	
-	if (!light) {
-		light = g_new0 (GdkColor, 1);
-		light->red = 49151;
-		light->green = 49151;
-		light->blue = 49151;
-		gdk_colormap_alloc_color (gdk_window_get_colormap (p->pixmap), light, TRUE, TRUE);
-	}
 	x -= p->x1;
 	y -= p->y1;
 	
-	gdk_gc_set_foreground (p->gc, dark);
+	gdk_gc_set_foreground (p->gc, &p->dark);
 	gdk_draw_line (p->pixmap, p->gc, x, y, x+width, y);
-	gdk_gc_set_foreground (p->gc, light);
+	gdk_gc_set_foreground (p->gc, &p->light);
 	gdk_draw_line (p->pixmap, p->gc, x, y + 1, x+width, y + 1);
 }
 
@@ -285,6 +300,17 @@ html_painter_realize (HTMLPainter *painter, GdkWindow *window)
 
 	/* Set our painter window */
 	painter->window = window;
+
+	/* Allocate dark/light colors */
+	painter->light.red = 49151;
+	painter->light.green = 49151;
+	painter->light.blue = 49151;
+	gdk_colormap_alloc_color (gdk_window_get_colormap (window), &painter->light, TRUE, TRUE);
+
+	painter->dark.red = 32767;
+	painter->dark.green = 32767;
+	painter->dark.blue = 32767;
+	gdk_colormap_alloc_color (gdk_window_get_colormap (window), &painter->dark, TRUE, TRUE);
 }
 
 void

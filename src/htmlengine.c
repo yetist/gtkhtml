@@ -436,7 +436,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	gint percent = 0;
 	gint padding = 1;
 	gint spacing = 2;
-	gint border = 1;
+	gint border = 0;
 	gchar has_cell = 0;
 	gboolean done = FALSE;
 	gboolean tableTag = TRUE;
@@ -2593,8 +2593,8 @@ html_engine_select_font (HTMLEngine *e)
 
 	if (e->fontsize <0)
 		e->fontsize = 0;
-	else if (e->fontsize >= MAXFONTSIZES)
-		e->fontsize = MAXFONTSIZES - 1;
+	else if (e->fontsize >= HTML_NUM_FONT_SIZES)
+		e->fontsize = HTML_NUM_FONT_SIZES - 1;
 
 	g = html_stack_top (e->fs);
 	f = html_font_new (g->family, e->fontsize,

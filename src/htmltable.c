@@ -905,14 +905,18 @@ draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint height, gi
 			/* FIXME: ColsDone */
 		}
 	}
-#if 0
+
 	/* Draw the border */
-	{
+	if (table->border > 0) {
 		gint capOffset = 0;
-		if (table->caption && table->capAlign == Top) {
+
+		if (table->caption && table->capAlign == HTML_VALIGN_TOP) {
 			g_print ("fIXME: Support captions\n");
 		}
-
+		html_painter_draw_panel (p,  tx, ty + capOffset, 
+					HTML_OBJECT (table)->width,
+					a_rowheights (table->totalRows) +
+					table->border, FALSE, table->border);
 		/* Draw borders around each cell */
 		for (r = 0; r < table->totalRows; r++) {
 			for (c = 0; c < table->totalCols; c++) {
@@ -931,16 +935,17 @@ draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint height, gi
 					rindx = 0;
 				
 				/* FIXME: Shaded */
-				html_painter_draw_rect (p,
-							tx + a_columnopt(cindx),
-							ty + a_rowheights(rindx) + capOffset,
-							a_columnopt (c + 1) - a_columnopt (cindx) - table->spacing,
-							a_rowheights (r + 1) - a_rowheights (rindx) - table->spacing);
+				html_painter_draw_panel (p,
+							 tx + a_columnopt(cindx),
+							 ty + a_rowheights(rindx) + capOffset,
+							 a_columnopt (c + 1) - a_columnopt (cindx) - table->spacing,
+							 a_rowheights (r + 1) - a_rowheights (rindx) - table->spacing,
+							 TRUE, 1);
 						      
 			}
 		}
 	}
-#endif
+
 }
 
 

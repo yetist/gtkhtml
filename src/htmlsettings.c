@@ -25,7 +25,7 @@
 
 
 static const int defaultFontSizes[HTML_NUM_FONT_SIZES] =
-	{ 8, 10, 12, 14, 18, 24 };
+	{ 8, 10, 12, 14, 18, 24, 32 };
 
 
 HTMLSettings *
