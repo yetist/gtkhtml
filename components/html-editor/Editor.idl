@@ -86,6 +86,9 @@ module Editor {
 		void undoEnd ();
 
 		void ignoreWord (in string word);
+
+		boolean isDirty ();
+		void dropUndo ();
 	};
 	
 	struct URLRequestEvent {

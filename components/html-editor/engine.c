@@ -205,9 +205,29 @@ impl_ignore_word (PortableServer_Servant servant, const CORBA_char * word, CORBA
 {
 	EditorEngine *e = html_editor_engine_from_servant (servant);
 
-	printf ("ignoreWord: %s\n", word);
+	/* printf ("ignoreWord: %s\n", word); */
 
 	spell_add_to_session (e->cd->html, word, e->cd);
+}
+
+static CORBA_boolean
+impl_is_dirty (PortableServer_Servant servant, CORBA_Environment * ev)
+{
+	EditorEngine *e = html_editor_engine_from_servant (servant);
+
+	/* printf ("isDirty\n"); */
+
+	return gtk_html_is_dirty (e->cd->html);
+}
+
+static void
+impl_drop_undo (PortableServer_Servant servant, CORBA_Environment * ev)
+{
+	EditorEngine *e = html_editor_engine_from_servant (servant);
+
+	/* printf ("dropUndo\n"); */
+
+	gtk_html_drop_undo (e->cd->html);
 }
 
 POA_GNOME_GtkHTML_Editor_Engine__epv *
@@ -232,6 +252,8 @@ editor_engine_get_epv (void)
 	epv->undoBegin                = impl_undo_begin;
 	epv->undoEnd                  = impl_undo_end;
 	epv->ignoreWord               = impl_ignore_word;
+	epv->isDirty                  = impl_is_dirty;
+	epv->dropUndo                 = impl_drop_undo;
 
 	return epv;
 }
