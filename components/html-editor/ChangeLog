@@ -1,3 +1,9 @@
+2003-09-05  Antonio Xu  <antonio.xu@sun.com>
+
+	* editor-control-factory.c (load_from_file): use
+	g_filename_from_uri to get image file's real path, bug fix
+	#47990.
+
 2003-09-03  Dan Winship  <danw@ximian.com>
 
 	* Makefile.am (libgnome_gtkhtml_editor_3_1_la_LDFLAGS): Remove

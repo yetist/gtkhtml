@@ -2344,14 +2344,20 @@ new_obj_from_uri (HTMLEngine *e, gchar *uri, gint len)
 	gint i;
 
 	if (!strncmp (uri, "file:", 5)) {
-		GdkPixbuf *pixbuf;
-		pixbuf = gdk_pixbuf_new_from_file(uri + 5, NULL);
-		if (pixbuf) {
-			g_object_unref (pixbuf);
-		 	return html_image_new (e->image_factory, uri,
-					       NULL, NULL, -1, -1, FALSE, FALSE, 0,
-					       html_colorset_get_color (e->settings->color_set, HTMLTextColor),
-					       HTML_VALIGN_BOTTOM, TRUE);
+		if (!HTML_IS_PLAIN_PAINTER(e->painter)) {
+			GdkPixbuf *pixbuf;
+			char *img_path = g_filename_from_uri (uri, NULL, NULL);
+			if (img_path) {
+				pixbuf = gdk_pixbuf_new_from_file(img_path, NULL);
+				g_free(img_path);
+			}
+			if (pixbuf) {
+				g_object_unref (pixbuf);
+				return html_image_new (e->image_factory, uri,
+						       NULL, NULL, -1, -1, FALSE, FALSE, 0,
+						       html_colorset_get_color (e->settings->color_set, HTMLTextColor),
+						       HTML_VALIGN_BOTTOM, TRUE);
+			}
 		}
 	}
 

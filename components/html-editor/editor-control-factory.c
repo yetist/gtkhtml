@@ -256,9 +256,14 @@ load_from_file (GtkHTML *html,
         const char *path;
 
         if (strncmp (url, "file:", 5) == 0)
-		path = url + 5; 
+		path = g_filename_from_uri(url, NULL, NULL);
+	else
+		path = g_strdup(url);
 
-	if ((fd = open (path, O_RDONLY)) == -1) {
+	fd = open (path, O_RDONLY);
+	g_free(path);
+
+	if (fd == -1) {
 		g_warning ("%s", g_strerror (errno));
 		return FALSE;
 	}

@@ -1,3 +1,9 @@
+2003-09-05  Antonio Xu  <antonio.xu@sun.com>
+
+	* gtkhtml.c (new_obj_from_uri): Use HTML_IS_PLAIN_PAINTER to judge
+	html edit model, and use g_filename_from_uri to get the image file's
+	real path, fix bug #47988 #47990.
+
 2003-09-04  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (current_font_style): optimize this a little and
