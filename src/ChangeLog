@@ -1,3 +1,7 @@
+2003-09-17  Dan Winship  <danw@ximian.com>
+
+	* testgtkhtml.c: Make this compile with either soup 2.0 or 2.2
+
 2003-09-16  Larry Ewing  <lewing@ximian.com>
 
 	* htmltext.c: remove ;; in several places so it will compile on
