@@ -1,3 +1,10 @@
+2001-09-10  Zbigniew Chyla  <cyba@gnome.pl>
+
+	Fixes #9522
+
+	* search.c (search_cb): Use e_utf8_gtk_entry_get_text instead of
+	gtk_entry_get_text (we need UTF-8 string).
+
 2001-08-27  Radek Doulik  <rodo@ximian.com>
 
 	* body.c (body_apply_cb): update to html_image_factory_register change

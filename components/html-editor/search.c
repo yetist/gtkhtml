@@ -21,6 +21,7 @@
 */
 
 #include <config.h>
+#include <gal/widgets/e-unicode.h>
 #include "search.h"
 #include "dialog.h"
 #include "htmlengine-search.h"
@@ -38,9 +39,13 @@ struct _GtkHTMLSearchDialog {
 static void
 search_cb (GtkWidget *but, GtkHTMLSearchDialog *d)
 {
-	html_engine_search (d->html->engine, gtk_entry_get_text (GTK_ENTRY (d->entry)),
+	char *text;
+
+	text = e_utf8_gtk_entry_get_text (GTK_ENTRY (d->entry));
+	html_engine_search (d->html->engine, text,
 			    GTK_TOGGLE_BUTTON (d->case_sensitive)->active,
 			    GTK_TOGGLE_BUTTON (d->backward)->active == 0, d->regular);
+	g_free (text);
 }
 
 static void
