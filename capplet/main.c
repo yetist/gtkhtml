@@ -141,11 +141,14 @@ setup(void)
 
 	bi = gnome_bindings_properties_new ();
 	gnome_bindings_properties_add_keymap (GNOME_BINDINGS_PROPERTIES (bi),
-					      "Emacs like", "gtkhtml-bindings-emacs", "command", GTK_TYPE_HTML_COMMAND);
+					      "Emacs like", "gtkhtml-bindings-emacs", "command",
+					      GTK_TYPE_HTML_COMMAND, FALSE);
 	gnome_bindings_properties_add_keymap (GNOME_BINDINGS_PROPERTIES (bi),
-					      "MS like", "gtkhtml-bindings-ms", "command", GTK_TYPE_HTML_COMMAND);
+					      "MS like", "gtkhtml-bindings-ms", "command",
+					      GTK_TYPE_HTML_COMMAND, FALSE);
 	gnome_bindings_properties_add_keymap (GNOME_BINDINGS_PROPERTIES (bi),
-					      "Custom", "gtkhtml-bindings-custom", "command", GTK_TYPE_HTML_COMMAND);
+					      "Custom", "gtkhtml-bindings-custom", "command",
+					      GTK_TYPE_HTML_COMMAND, TRUE);
 	gnome_bindings_properties_select_keymap (GNOME_BINDINGS_PROPERTIES (bi), "Custom");
 	gtk_box_pack_start_defaults (GTK_BOX (vbox), bi);
 

@@ -23,6 +23,7 @@
 #ifndef _GNOME_BINDINGS_PROPERTIES_
 #define _GNOME_BINDINGS_PROPERTIES_
 
+typedef struct _GnomeBindingEntry GnomeBindingEntry;
 typedef struct _GnomeBindingsProperties GnomeBindingsProperties;
 typedef struct _GnomeBindingsPropertiesClass GnomeBindingsPropertiesClass;
 
@@ -47,10 +48,23 @@ struct _GnomeBindingsProperties {
 	GtkWidget *keymaps_clist;
 	GtkWidget *commands_clist;
 	GtkWidget *bindings_clist;
+
+	GtkWidget *add_button;
+	GtkWidget *copy_button;
+	GtkWidget *delete_button;
+
+	GHashTable *bindingsets;
 };
 
 struct _GnomeBindingsPropertiesClass {
 	GtkVBoxClass parent_class;
+};
+
+struct _GnomeBindingEntry {
+	guint keyval;
+	guint modifiers;
+
+	gchar *command;
 };
 
 GtkType     gnome_bindings_properties_get_type      (void);
@@ -60,7 +74,8 @@ void        gnome_bindings_properties_add_keymap    (GnomeBindingsProperties *pr
 						     gchar *name,
 						     gchar *bindings,
 						     gchar *signal_name,
-						     GtkType arg_enum_type);
+						     GtkType arg_enum_type,
+						     gboolean editable);
 
 void        gnome_bindings_properties_save          (GnomeBindingsProperties *prop,
 						     gchar *filename );

@@ -33,20 +33,87 @@ struct _KeymapEntry {
 	gchar *bindings_name;
 	gchar *signal_name;
 	GtkType enum_type;
-
-	
+	gboolean editable;
+	GList *bindings;
 };
 typedef struct _KeymapEntry KeymapEntry;
 
+GnomeBindingEntry *
+gnome_binding_entry_new (guint keyval, guint modifiers, gchar *command)
+{
+	GnomeBindingEntry *be = g_new (GnomeBindingEntry, 1);
+
+	be->command = g_strdup (command);
+	be->keyval = keyval;
+	be->modifiers = modifiers;
+
+	return be;
+}
+
+void
+gnome_binding_entry_destroy (GnomeBindingEntry *be)
+{
+	g_free (be->command);
+	g_free (be);
+}
+
+GList *
+gnome_binding_entry_list_copy (GList *list)
+{
+	GList *new_list = NULL;
+	GnomeBindingEntry *be;
+
+	list = g_list_last (list);
+	while (list) {
+		be = (GnomeBindingEntry *) list->data;
+		new_list = g_list_prepend (new_list, gnome_binding_entry_new (be->keyval, be->modifiers, be->command));
+		list = list->prev;
+	}
+
+	return new_list;
+}
+
+void
+gnome_binding_entry_list_destroy (GList *list)
+{
+	GList *cur = list;
+
+	while (cur) {
+		gnome_binding_entry_destroy ((GnomeBindingEntry *) cur->data);
+		cur = cur->next;
+	}
+
+	g_list_free (cur);
+}
+
 static KeymapEntry *
-keymap_entry_new (gchar *n, gchar *bn, gchar *sn, GtkType t)
+keymap_entry_new (gchar *n, gchar *bn, gchar *sn, GtkType t, gboolean editable)
 {
 	KeymapEntry *ke = g_new (KeymapEntry, 1);
+	GtkBindingSet *bset;
+	GtkBindingEntry *bentry;
 
 	ke->name          = g_strdup (n);
 	ke->bindings_name = g_strdup (bn);
 	ke->signal_name   = g_strdup (sn);
 	ke->enum_type     = t;
+	ke->editable      = editable;
+	ke->bindings      = NULL;
+
+	bset = gtk_binding_set_find (bn);
+	if (bset) {
+		for (bentry = bset->entries ;bentry; bentry = bentry->set_next) {
+			if (!strcmp (bentry->signals->signal_name, sn)
+			    && bentry->signals->args->arg_type == GTK_TYPE_IDENTIFIER) {
+
+				ke->bindings = g_list_prepend
+					(ke->bindings,
+					 gnome_binding_entry_new (bentry->keyval,
+								  bentry->modifiers,
+								  bentry->signals->args->d.string_data));
+			}
+		}
+	}
 
 	return ke;
 }
@@ -70,67 +137,137 @@ string_from_key (guint keyval, guint mods)
 }
 
 static void
-select_row (GtkCList       *clist,
-	    gint            row,
-	    gint            column,
-	    GdkEvent       *event,
-	    GnomeBindingsProperties *prop)
+binding_select_row (GtkCList       *clist,
+		    gint            row,
+		    gint            column,
+		    GdkEvent       *event,
+		    GnomeBindingsProperties *prop)
+{
+	GnomeBindingEntry *be = (GnomeBindingEntry *) gtk_clist_get_row_data (GTK_CLIST (clist), row);
+	KeymapEntry *ke;
+	gint command_row;
+
+	if (!be)
+		return;
+
+	ke = (KeymapEntry *) gtk_clist_get_row_data (GTK_CLIST (prop->keymaps_clist),
+						     GPOINTER_TO_INT (GTK_CLIST (prop->keymaps_clist)->selection->data));
+
+	gtk_widget_set_sensitive (prop->copy_button, TRUE);
+	gtk_widget_set_sensitive (prop->delete_button, TRUE);
+
+	command_row = gtk_clist_find_row_from_data (GTK_CLIST (prop->commands_clist),
+						    GUINT_TO_POINTER (gtk_type_enum_find_value (ke->enum_type,
+												be->command)->value));
+
+	gtk_clist_moveto (GTK_CLIST (prop->commands_clist), command_row, -1, 0.0, 0.0);
+	gtk_clist_select_row (GTK_CLIST (prop->commands_clist), command_row, 0);
+}
+
+static void
+binding_unselect_row (GtkCList       *clist,
+		    gint            row,
+		    gint            column,
+		    GdkEvent       *event,
+		    GnomeBindingsProperties *prop)
+{
+	gtk_widget_set_sensitive (prop->copy_button, FALSE);
+	gtk_widget_set_sensitive (prop->delete_button, FALSE);
+}
+
+static void
+command_select_row (GtkCList       *clist,
+		    gint            row,
+		    gint            column,
+		    GdkEvent       *event,
+		    GnomeBindingsProperties *prop)
+{
+}
+
+static void
+keymap_select_row (GtkCList       *clist,
+		   gint            row,
+		   gint            column,
+		   GdkEvent       *event,
+		   GnomeBindingsProperties *prop)
 {
 	KeymapEntry *ke = gtk_clist_get_row_data (clist, row);
-	GtkBindingSet *bset;
-	GtkBindingEntry *bentry;
+	GnomeBindingEntry *be;
 	GtkEnumValue *vals;
+	GList *cur;
 	gint num;
 
-	g_assert (ke);
+	if (!ke) return;
 
 	clist = GTK_CLIST (prop->commands_clist);
+	gtk_clist_freeze (clist);
 	gtk_clist_clear (clist);
+	gtk_widget_set_sensitive (GTK_WIDGET (clist), ke->editable);
 	vals  = gtk_type_enum_get_values (ke->enum_type);
 	if (vals) {
 		gchar *name [1];
 
 		for (num=0; vals [num].value_name; num++) {
 			name [0] = vals [num].value_nick;
-			gtk_clist_append (clist, name);
+			gtk_clist_set_row_data (clist, gtk_clist_append (clist, name),
+						GUINT_TO_POINTER (vals [num].value));
 		}
-		gtk_clist_columns_autosize (GTK_CLIST (clist));
 	}
+	gtk_clist_columns_autosize (clist);
+	gtk_clist_thaw (clist);
 
 	clist = GTK_CLIST (prop->bindings_clist);
+	gtk_clist_freeze (clist);
 	gtk_clist_clear (clist);
-	bset = gtk_binding_set_find (ke->bindings_name);
-	if (bset) {
-		for (bentry = bset->entries ;bentry; bentry = bentry->set_next) {
-			gchar *name [2];
-			if (!strcmp (bentry->signals->signal_name, ke->signal_name)
-			    && bentry->signals->args->arg_type == GTK_TYPE_IDENTIFIER) {
-				name [0] = string_from_key (bentry->keyval, bentry->modifiers);
-				name [1] = bentry->signals->args->d.string_data;
-				gtk_clist_prepend (GTK_CLIST (clist), name);
-				g_free (name [0]);
-			}
-		}
+	cur = ke->bindings;
+	while (cur) {
+		gchar *name [2];
+
+		be = (GnomeBindingEntry *) cur->data;
+		name [0] = string_from_key (be->keyval, be->modifiers);
+		name [1] = be->command;
+		gtk_clist_set_row_data (clist, gtk_clist_append (clist, name), be);
+		g_free (name [0]);
+		
+		cur = cur->next;
 	}
-	gtk_clist_columns_autosize (GTK_CLIST (clist));
+	gtk_clist_columns_autosize (clist);
+	gtk_clist_thaw (clist);
+	gtk_clist_select_row (clist, 0, 0);
 }
 
 static void
 init (GnomeBindingsProperties *prop)
 {
-	GtkWidget *clist, *sw, *widget = GTK_WIDGET (prop), *hbox;
+	GtkWidget *clist, *sw, *widget = GTK_WIDGET (prop), *hbox, *button;
 	gchar *cols1 [2] = {N_("Key"), N_("Command")};
 	gchar *cols2 [1] = {_("Commands")};
 	gchar *cols3 [1] = {_("Keymaps")};
+
+	prop->bindingsets = g_hash_table_new (g_str_hash, g_str_equal);
 
 	/* bindings */
 	sw = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	prop->bindings_clist = clist = gtk_clist_new_with_titles (2, cols1);
-
+	gtk_clist_set_selection_mode (GTK_CLIST (clist), GTK_SELECTION_BROWSE);
+	gtk_signal_connect (GTK_OBJECT (clist), "select_row", binding_select_row, prop);
+	gtk_signal_connect (GTK_OBJECT (clist), "unselect_row", binding_unselect_row, prop);
 	gtk_clist_columns_autosize (GTK_CLIST (clist));
 	gtk_container_add (GTK_CONTAINER (sw), clist);
 	gtk_box_pack_start (GTK_BOX (widget), sw, TRUE, TRUE, 2);
+
+	/* buttons */
+	hbox = gtk_hbox_new (FALSE, 3);
+	prop->add_button = button = gtk_button_new_with_label (_("Add"));
+	gtk_box_pack_start_defaults (GTK_BOX (hbox), button);
+	prop->copy_button = button = gtk_button_new_with_label (_("Copy"));
+	gtk_widget_set_sensitive (button, FALSE);
+	gtk_box_pack_start_defaults (GTK_BOX (hbox), button);
+	prop->delete_button = button = gtk_button_new_with_label (_("Delete"));
+	gtk_widget_set_sensitive (button, FALSE);
+	gtk_box_pack_start_defaults (GTK_BOX (hbox), button);
+	gtk_box_pack_start (GTK_BOX (widget), hbox, FALSE, FALSE, 2);
 
 	hbox = gtk_hbox_new (FALSE, 3);
 
@@ -138,8 +275,9 @@ init (GnomeBindingsProperties *prop)
 	sw = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	prop->keymaps_clist = clist = gtk_clist_new_with_titles (1, cols3);
+	gtk_clist_set_selection_mode (GTK_CLIST (clist), GTK_SELECTION_BROWSE);
 	gtk_clist_columns_autosize (GTK_CLIST (clist));
-	gtk_signal_connect (GTK_OBJECT (clist), "select_row", select_row, prop);
+	gtk_signal_connect (GTK_OBJECT (clist), "select_row", keymap_select_row, prop);
 	gtk_container_add (GTK_CONTAINER (sw), clist);
 	gtk_box_pack_start_defaults (GTK_BOX (hbox), sw);
 
@@ -147,7 +285,9 @@ init (GnomeBindingsProperties *prop)
 	sw = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	prop->commands_clist = clist = gtk_clist_new_with_titles (1, cols2);
+	gtk_clist_set_selection_mode (GTK_CLIST (clist), GTK_SELECTION_BROWSE);
 	gtk_clist_columns_autosize (GTK_CLIST (clist));
+	gtk_signal_connect (GTK_OBJECT (clist), "select_row", command_select_row, prop);
 	gtk_container_add (GTK_CONTAINER (sw), clist);
 	gtk_box_pack_start_defaults (GTK_BOX (hbox), sw);
 	gtk_box_pack_start (GTK_BOX (widget), hbox, TRUE, TRUE, 2);
@@ -205,15 +345,18 @@ gnome_bindings_properties_add_keymap (GnomeBindingsProperties *prop,
 				      gchar *name,
 				      gchar *bindings,
 				      gchar *signal_name,
-				      GtkType arg_enum_type)
+				      GtkType arg_enum_type,
+				      gboolean editable)
 {
-	KeymapEntry *ke = keymap_entry_new (name, bindings, signal_name, arg_enum_type);
+	KeymapEntry *ke = keymap_entry_new (name, bindings, signal_name, arg_enum_type, editable);
 	gchar *n [1];
+	gint row;
 
 	n [0] = name;
-	gtk_clist_set_row_data (GTK_CLIST (prop->keymaps_clist),
-				gtk_clist_append (GTK_CLIST (prop->keymaps_clist), n),
-				ke);
+	row = gtk_clist_append (GTK_CLIST (prop->keymaps_clist), n);
+	gtk_clist_set_row_data (GTK_CLIST (prop->keymaps_clist), row, ke);
+
+	g_hash_table_insert (prop->bindingsets, name, ke);
 }
 
 void
