@@ -1,3 +1,10 @@
+2001-07-26  Radek Doulik  <rodo@ximian.com>
+
+	* popup.c (delete_table): use gtk_html_command
+	(delete_row): ditto
+	(delete_column): ditto
+	(delete_cell_contents): ditto
+
 2001-07-25  Radek Doulik  <rodo@ximian.com>
 
 	* table.c (table_apply_cb): updated for API changes

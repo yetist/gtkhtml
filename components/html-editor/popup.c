@@ -48,7 +48,7 @@
 #include "table.h"
 #include "text.h"
 
-/* #define DEBUG */
+#define DEBUG
 #ifdef DEBUG
 #include "gtkhtmldebug.h"
 #endif
@@ -112,25 +112,25 @@ insert_column_after (GtkWidget *mi, GtkHTMLControlData *cd)
 static void
 delete_table (GtkWidget *mi, GtkHTMLControlData *cd)
 {
-	html_engine_delete_table (cd->html->engine);
+	gtk_html_command (cd->html, "delete-table");
 }
 
 static void
 delete_row (GtkWidget *mi, GtkHTMLControlData *cd)
 {
-	html_engine_delete_table_row (cd->html->engine);
+	gtk_html_command (cd->html, "delete-table-row");
 }
 
 static void
 delete_column (GtkWidget *mi, GtkHTMLControlData *cd)
 {
-	html_engine_delete_table_column (cd->html->engine);
+	gtk_html_command (cd->html, "delete-table-column");
 }
 
 static void
 delete_cell_contents (GtkWidget *mi, GtkHTMLControlData *cd)
 {
-	html_engine_delete_table_cell_contents (cd->html->engine);
+	gtk_html_command (cd->html, "delete-cell-contents");
 }
 
 static void
