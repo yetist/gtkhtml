@@ -1224,7 +1224,6 @@ set_fonts_idle (GtkHTML *html)
 
 	if (html->engine) {
 		html_font_manager_set_default (&html->engine->painter->font_manager,
-					       prop->font_var_vendor, prop->font_fix_vendor,
 					       prop->font_var_family, prop->font_fix_family,
 					       prop->font_var_size,   prop->font_fix_size);
 
@@ -1275,15 +1274,7 @@ client_notify_widget (GConfClient* client,
 	tkey = strrchr (key, '/');
 	g_assert (tkey);
 
-	if (!strcmp (tkey, "/font_variable_vendor")) {
-		g_free (prop->font_var_vendor);
-		prop->font_var_vendor = gconf_client_get_string (client, key, NULL);
-		set_fonts (html);
-	} else if (!strcmp (tkey, "/font_fixed_vendor")) {
-		g_free (prop->font_fix_vendor);
-		prop->font_fix_vendor = gconf_client_get_string (client, key, NULL);
-		set_fonts (html);
-	} else if (!strcmp (tkey, "/font_variable_family")) {
+	if (!strcmp (tkey, "/font_variable_family")) {
 		g_free (prop->font_var_family);
 		prop->font_var_family = gconf_client_get_string (client, key, NULL);
 		set_fonts (html);

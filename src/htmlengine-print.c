@@ -138,7 +138,6 @@ html_engine_print_with_header_footer (HTMLEngine *engine, GnomePrintContext *pri
 	old_painter = engine->painter;
 	printer     = html_printer_new (print_context);
 	html_font_manager_set_default (&printer->font_manager,
-				       prop->font_var_vendor_print, prop->font_fix_vendor_print,
 				       prop->font_var_family_print, prop->font_fix_family_print,
 				       prop->font_var_size_print,   prop->font_fix_size_print);
 

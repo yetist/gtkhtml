@@ -37,14 +37,10 @@ gtk_html_class_properties_new (void)
 	/* default values */
 	p->magic_links             = TRUE;
 	p->keybindings_theme       = g_strdup ("emacs");
-	p->font_var_vendor         = g_strdup ("adobe");
-	p->font_fix_vendor         = g_strdup ("adobe");
 	p->font_var_family         = g_strdup ("helvetica");
 	p->font_fix_family         = g_strdup ("courier");
 	p->font_var_size           = DEFAULT_FONT_SIZE;
 	p->font_fix_size           = DEFAULT_FONT_SIZE;
-	p->font_var_vendor_print   = g_strdup ("adobe");
-	p->font_fix_vendor_print   = g_strdup ("adobe");
 	p->font_var_family_print   = g_strdup ("helvetica");
 	p->font_fix_family_print   = g_strdup ("courier");
 	p->font_var_size_print     = DEFAULT_FONT_SIZE;
@@ -88,20 +84,12 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p, GConfClient *client)
 	GET (bool, "/animations", animations,,);
 	GET (string, "/keybindings_theme", keybindings_theme,
 	     g_free (p->keybindings_theme), g_strdup);
-	GET (string, "/font_variable_vendor", font_var_vendor,
-	     g_free (p->font_var_vendor), g_strdup);
-	GET (string, "/font_fixed_vendor", font_fix_vendor,
-	     g_free (p->font_fix_vendor), g_strdup);
 	GET (string, "/font_variable_family", font_var_family,
 	     g_free (p->font_var_family), g_strdup);
 	GET (string, "/font_fixed_family", font_fix_family,
 	     g_free (p->font_fix_family), g_strdup);
 	GET (int, "/font_variable_size", font_var_size,,);
 	GET (int, "/font_fixed_size", font_fix_size,,);
-	GET (string, "/font_variable_vendor_print", font_var_vendor_print,
-	     g_free (p->font_var_vendor_print), g_strdup);
-	GET (string, "/font_fixed_vendor_print", font_fix_vendor_print,
-	     g_free (p->font_fix_vendor_print), g_strdup);
 	GET (string, "/font_variable_family_print", font_var_family_print,
 	     g_free (p->font_var_family_print), g_strdup);
 	GET (string, "/font_fixed_family_print", font_fix_family_print,
@@ -133,10 +121,6 @@ gtk_html_class_properties_update (GtkHTMLClassProperties *p, GConfClient *client
 	if (p->magic_links != old->magic_links)
 		SET (bool, "/magic_links", magic_links);
 	SET (string, "/keybindings_theme", keybindings_theme);
-	if (strcmp (p->font_var_vendor, old->font_var_vendor))
-		SET (string, "/font_variable_vendor", font_var_vendor);
-	if (strcmp (p->font_fix_vendor, old->font_fix_vendor))
-		SET (string, "/font_fixed_vendor", font_fix_vendor);
 	if (strcmp (p->font_var_family, old->font_var_family))
 		SET (string, "/font_variable_family", font_var_family);
 	if (strcmp (p->font_fix_family, old->font_fix_family))
@@ -145,10 +129,6 @@ gtk_html_class_properties_update (GtkHTMLClassProperties *p, GConfClient *client
 		SET (int, "/font_variable_size", font_var_size);
 	if (p->font_fix_size != old->font_fix_size)
 		SET (int, "/font_fixed_size", font_fix_size);
-	if (strcmp (p->font_var_vendor_print, old->font_var_vendor_print))
-		SET (string, "/font_variable_vendor_print", font_var_vendor_print);
-	if (strcmp (p->font_fix_vendor_print, old->font_fix_vendor_print))
-		SET (string, "/font_fixed_vendor_print", font_fix_vendor_print);
 	if (strcmp (p->font_var_family_print, old->font_var_family_print))
 		SET (string, "/font_variable_family_print", font_var_family_print);
 	if (strcmp (p->font_fix_family_print, old->font_fix_family_print))
@@ -188,12 +168,8 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p)
 	GET  (bool, magic_links, "magic_links=true");
 	GET  (bool, animations, "animations=true");
 	GETS (keybindings_theme, "keybindings_theme=ms");
-	GETS (font_var_vendor, "font_variable_vendor=adobe");
-	GETS (font_fix_vendor, "font_fixed_vendor=adobe");
 	GETS (font_var_family, "font_variable_family=helvetica");
 	GETS (font_fix_family, "font_fixed_family=courier");
-	GETS (font_var_vendor_print, "font_variable_vendor_print=adobe");
-	GETS (font_fix_vendor_print, "font_fixed_vendor_print=adobe");
 	GETS (font_var_family_print, "font_variable_family_print=helvetica");
 	GETS (font_fix_family_print, "font_fixed_family_print=courier");
 
@@ -229,14 +205,10 @@ gtk_html_class_properties_save (GtkHTMLClassProperties *p)
 	gnome_config_set_bool ("magic_links", p->magic_links);
 	gnome_config_set_bool ("animations", p->animations);
 	gnome_config_set_string ("keybindings_theme", p->keybindings_theme);
-	gnome_config_set_string ("font_variable_vendor", p->font_var_vendor);
-	gnome_config_set_string ("font_fixed_vendor", p->font_fix_vendor);
 	gnome_config_set_string ("font_variable_family", p->font_var_family);
 	gnome_config_set_string ("font_fixed_family", p->font_fix_family);
 	gnome_config_set_int ("font_variable_size", p->font_var_size);
 	gnome_config_set_int ("font_fixed_size", p->font_fix_size);
-	gnome_config_set_string ("font_variable_vendor_print", p->font_var_vendor_print);
-	gnome_config_set_string ("font_fixed_vendor_print", p->font_fix_vendor_print);
 	gnome_config_set_string ("font_variable_family_print", p->font_var_family_print);
 	gnome_config_set_string ("font_fixed_family_print", p->font_fix_family_print);
 	gnome_config_set_int ("font_variable_size_print", p->font_var_size_print);
@@ -265,14 +237,10 @@ gtk_html_class_properties_copy (GtkHTMLClassProperties *p1,
 {
 	COPY  (magic_links);
 	COPYS (keybindings_theme);
-	COPYS (font_var_vendor);
-	COPYS (font_fix_vendor);
 	COPYS (font_var_family);
 	COPYS (font_fix_family);
 	COPY  (font_var_size);
 	COPY  (font_fix_size);
-	COPYS (font_var_vendor_print);
-	COPYS (font_fix_vendor_print);
 	COPYS (font_var_family_print);
 	COPYS (font_fix_family_print);
 	COPY  (font_var_size_print);

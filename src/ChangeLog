@@ -1,14 +1,4 @@
-2000-10-26  Miguel de Icaza  <miguel@helixcode.com>
-
-	* htmlfontmanager.c (alloc_new_font): Pass NULL as the first
-	argument for the vendor argument, as in this case, we can not
-	dereference set->vendor (as set is NULL).   Radek, could you take
-	a look at my fix?
-	(html_font_set_init): Init set->vendor to NULL.
-
 2000-10-25  Radek Doulik  <rodo@helixcode.com>
-
-        * aplied patch from Akira TAGOH <tagoh@gnome.gr.jp>
 
 	* htmltokenizer.c: changed pre to gint to imitate stacked
 	behaviour of parser
