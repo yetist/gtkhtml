@@ -1740,13 +1740,13 @@ selection_received (GtkWidget *widget,
 
 		/* Check which atom was requested (PRIMARY or CLIPBOARD) */
 		if (selection_data->selection == gdk_atom_intern ("CLIPBOARD", FALSE)
- 			&& e->clipboard) {
+		    && e->clipboard) {
 
 			html_engine_paste (e);
 			return;
 
 		} else if (selection_data->selection == GDK_SELECTION_PRIMARY
- 			&& GTK_HTML (widget)->priv->primary) {
+			   && GTK_HTML (widget)->priv->primary) {
 
 			html_engine_paste_object (e, GTK_HTML (widget)->priv->primary, GTK_HTML (widget)->priv->primary_len);
 			GTK_HTML (widget)->priv->primary = NULL;
@@ -2020,6 +2020,42 @@ client_notify_spell_widget (GConfClient* client, guint cnxn_id, GConfEntry* entr
 		html_colorset_set_color (html->engine->settings->color_set,
 					 &prop->spell_error_color, HTMLSpellErrorColor);
 		if (html_engine_get_editable (html->engine) && !strcmp (tkey, "/spell_error_color_blue"))
+			gtk_widget_queue_draw (GTK_WIDGET (html));
+	} else if (!strcmp (tkey, "/link_color_red")) {
+		prop->link_color.red = gconf_client_get_int (client, entry->key, NULL);
+	} else if (!strcmp (tkey, "/link_color_green")) {
+		prop->link_color.green = gconf_client_get_int (client, entry->key, NULL);
+	} else if (!strcmp (tkey, "/link_color_blue")) {
+		prop->link_color.blue = gconf_client_get_int (client, entry->key, NULL);
+		html_colorset_set_color (html->engine->defaultSettings->color_set,
+					 &prop->link_color, HTMLLinkColor);
+		html_colorset_set_color (html->engine->settings->color_set,
+					 &prop->link_color, HTMLLinkColor);
+		if (html_engine_get_editable (html->engine) && !strcmp (tkey, "/link_color_blue"))
+			gtk_widget_queue_draw (GTK_WIDGET (html));
+	} else if (!strcmp (tkey, "/alink_color_red")) {
+		prop->alink_color.red = gconf_client_get_int (client, entry->key, NULL);
+	} else if (!strcmp (tkey, "/alink_color_green")) {
+		prop->alink_color.green = gconf_client_get_int (client, entry->key, NULL);
+	} else if (!strcmp (tkey, "/alink_color_blue")) {
+		prop->alink_color.blue = gconf_client_get_int (client, entry->key, NULL);
+		html_colorset_set_color (html->engine->defaultSettings->color_set,
+					 &prop->alink_color, HTMLALinkColor);
+		html_colorset_set_color (html->engine->settings->color_set,
+					 &prop->alink_color, HTMLALinkColor);
+		if (html_engine_get_editable (html->engine) && !strcmp (tkey, "/alink_color_blue"))
+			gtk_widget_queue_draw (GTK_WIDGET (html));
+	} else if (!strcmp (tkey, "/vlink_color_red")) {
+		prop->vlink_color.red = gconf_client_get_int (client, entry->key, NULL);
+	} else if (!strcmp (tkey, "/vlink_color_green")) {
+		prop->vlink_color.green = gconf_client_get_int (client, entry->key, NULL);
+	} else if (!strcmp (tkey, "/vlink_color_blue")) {
+		prop->vlink_color.blue = gconf_client_get_int (client, entry->key, NULL);
+		html_colorset_set_color (html->engine->defaultSettings->color_set,
+					 &prop->vlink_color, HTMLVLinkColor);
+		html_colorset_set_color (html->engine->settings->color_set,
+					 &prop->vlink_color, HTMLVLinkColor);
+		if (html_engine_get_editable (html->engine) && !strcmp (tkey, "/vlink_color_blue"))
 			gtk_widget_queue_draw (GTK_WIDGET (html));
 	} else if (!strcmp (tkey, "/language")) {
 		g_free (prop->language);
@@ -2647,6 +2683,9 @@ init_properties_widget (GtkHTML *html)
 
 	set_fonts_idle (html);
 	html_colorset_set_color (html->engine->defaultSettings->color_set, &prop->spell_error_color, HTMLSpellErrorColor);
+	html_colorset_set_color (html->engine->defaultSettings->color_set, &prop->link_color, HTMLLinkColor);
+	html_colorset_set_color (html->engine->defaultSettings->color_set, &prop->alink_color, HTMLALinkColor);
+	html_colorset_set_color (html->engine->defaultSettings->color_set, &prop->vlink_color, HTMLVLinkColor);
 
 #ifdef GTKHTML_HAVE_GCONF
 

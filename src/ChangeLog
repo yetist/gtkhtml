@@ -1,3 +1,11 @@
+2002-08-06  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (client_notify_spell_widget): listen to link_color
+	changes.
+	(init_properties_widget): initialize link colors.
+
+	* gtkhtml-properties.c: add color properties for link colors.
+
 2002-07-30  Larry Ewing  <lewing@ximian.com>
 
 	* htmlembedded.c (reparent): protect against NULL widgets in the
