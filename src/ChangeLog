@@ -1,3 +1,9 @@
+2001-11-15  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml-properties.c (get_font_name): 
+	(get_default_fonts): move these out of the gconf #ifdef.  Patch
+	from Michael Granger <ged@FaerieMUD.org>. Fixes Ximian 15251
+	
 2001-11-14  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c (parse_halign): allow halign be "middle", which is
