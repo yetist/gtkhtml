@@ -35,6 +35,8 @@
 #include "htmlengine-edit-fontstyle.h"
 #include "htmlsettings.h"
 
+#include "tt.xpm"
+
 
 #define EDITOR_TOOLBAR_PATH "/HTMLEditor"
 
@@ -221,6 +223,19 @@ setup_color_combo (GtkHTMLControlData *cd)
 /* Font style group.  */
 
 static void
+editor_toolbar_tt_cb (GtkWidget *widget, GtkHTMLControlData *cd)
+{
+	if (!cd->block_font_style_change) {
+		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
+			gtk_html_set_font_style (GTK_HTML (cd->html),
+						 GTK_HTML_FONT_STYLE_MAX,
+						 GTK_HTML_FONT_STYLE_FIXED);
+		else
+			gtk_html_set_font_style (GTK_HTML (cd->html), ~GTK_HTML_FONT_STYLE_FIXED, 0);
+	}
+}
+
+static void
 editor_toolbar_bold_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
 	if (!cd->block_font_style_change) {
@@ -276,6 +291,11 @@ static void
 insertion_font_style_changed_cb (GtkHTML *widget, GtkHTMLFontStyle font_style, GtkHTMLControlData *cd)
 {
 	cd->block_font_style_change = TRUE;
+
+	if (font_style & GTK_HTML_FONT_STYLE_FIXED)
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cd->tt_button), TRUE);
+	else
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cd->tt_button), FALSE);
 
 	if (font_style & GTK_HTML_FONT_STYLE_BOLD)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cd->bold_button), TRUE);
@@ -409,6 +429,8 @@ static GnomeUIInfo editor_toolbar_alignment_group[] = {
 
 static GnomeUIInfo editor_toolbar_style_uiinfo[] = {
 
+	{ GNOME_APP_UI_TOGGLEITEM, N_("Typewriter"), N_("Toggle typewriter font style"),
+	  editor_toolbar_tt_cb, NULL, NULL, GNOME_APP_PIXMAP_DATA, tt_xpm },
 	{ GNOME_APP_UI_TOGGLEITEM, N_("Bold"), N_("Makes the text bold"),
 	  editor_toolbar_bold_cb, NULL, NULL, GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_PIXMAP_TEXT_BOLD },
 	{ GNOME_APP_UI_TOGGLEITEM, N_("Italic"), N_("Makes the text italic"),
@@ -481,11 +503,11 @@ create_style_toolbar (GtkHTMLControlData *cd)
 				      GTK_SIGNAL_FUNC (insertion_font_style_changed_cb), cd);
 
 	/* The following SUCKS!  */
-	cd->bold_button = editor_toolbar_style_uiinfo[0].widget;
-	cd->italic_button = editor_toolbar_style_uiinfo[1].widget;
-	cd->underline_button = editor_toolbar_style_uiinfo[2].widget;
-	cd->strikeout_button = editor_toolbar_style_uiinfo[3].widget;
-	/* (FIXME TODO: Button for "fixed" style.)  */
+	cd->tt_button        = editor_toolbar_style_uiinfo [0].widget;
+	cd->bold_button      = editor_toolbar_style_uiinfo [1].widget;
+	cd->italic_button    = editor_toolbar_style_uiinfo [2].widget;
+	cd->underline_button = editor_toolbar_style_uiinfo [3].widget;
+	cd->strikeout_button = editor_toolbar_style_uiinfo [4].widget;
 
 	cd->left_align_button = editor_toolbar_alignment_group[0].widget;
 	cd->center_button = editor_toolbar_alignment_group[1].widget;

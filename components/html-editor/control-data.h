@@ -58,6 +58,7 @@ struct _GtkHTMLControlData {
 	/* toolbars */
 	GtkWidget *toolbar_commands, *toolbar_style;
 
+	GtkWidget *tt_button;
 	GtkWidget *bold_button;
 	GtkWidget *italic_button;
 	GtkWidget *underline_button;
