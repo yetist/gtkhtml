@@ -1,3 +1,8 @@
+2003-09-04  Larry Ewing  <lewing@ximian.com>
+
+	* Makefile.am: change CLEANFILES to DISTCLEANFILES to fix Ximian
+	#43015.
+
 2003-08-13  Mike Kestner  <mkestner@ximian.com>
 
 	* configure.in : update for gal-2.2
