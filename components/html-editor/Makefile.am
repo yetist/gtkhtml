@@ -1,6 +1,7 @@
 # Basic setup
 
 INCLUDES =						\
+        -DGNOMEDATADIR=\""$(datadir)"\"		\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"	\
 	-I$(top_srcdir)/src				\
 	-I$(srcdir)					\

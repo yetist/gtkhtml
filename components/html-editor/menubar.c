@@ -168,10 +168,11 @@ menubar_setup (BonoboUIHandler    *uih,
 
 	bonobo_ui_component_add_verb_list_with_data (uic, verbs, cd);
 
-	fname = bonobo_ui_util_get_ui_fname ("html-editor-control.xml");
+	fname = bonobo_ui_util_get_ui_fname (
+		GNOMEDATADIR, "html-editor-control.xml");
 	g_warning ("Loading ui from '%s'", fname);
 
-	ui = bonobo_ui_util_new_ui (container, fname, "html-editor-control");
+	ui = bonobo_ui_util_new_ui (uic, fname, "html-editor-control");
 
 	bonobo_ui_component_set_tree (uic, container, "/", ui, NULL);
 	g_free (fname);
