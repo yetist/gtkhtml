@@ -124,7 +124,8 @@ endif
 
 bin_PROGRAMS = $(PRGS)
 
-oaf_in_files = GNOME_GtkHTML_Editor.oaf.in GNOME_GtkHTML_Editor.oaf.in.in
+oaf_in_in_files = GNOME_GtkHTML_Editor.oaf.in.in
+oaf_in_files = GNOME_GtkHTML_Editor.oaf.in
 oaf_DATA = $(oaf_in_files:.oaf.in=.oaf)
 
 oafdir = $(datadir)/oaf

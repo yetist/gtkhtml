@@ -1,3 +1,9 @@
+2001-07-30  Larry Ewing  <lewing@ximian.com>
+
+	* Makefile.am (oaf_in_in_files): move
+	GNOME_GtkHTML_Editor.oaf.in.in here so that it doesn't get
+	installed (from Ettore).
+
 2001-07-30  Radek Doulik  <rodo@ximian.com>
 
 	* cell.c (fill_sample): make preview respect cell/row/column/table
