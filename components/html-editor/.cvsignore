@@ -4,3 +4,7 @@ Makefile
 .libs
 html-editor-control
 test-html-editor-control
+HTMLEditor-stubs.c
+HTMLEditor-skels.c
+HTMLEditor-common.c
+HTMLEditor.h
