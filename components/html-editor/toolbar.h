@@ -31,4 +31,4 @@
 
 GtkWidget *toolbar_style         (GtkHTMLControlData *cd);
 void       toolbar_update_format (GtkHTMLControlData *cd);
-#endif /* _TOOLBAR_H */k
+#endif /* _TOOLBAR_H */
