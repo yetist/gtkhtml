@@ -491,10 +491,48 @@ expand_cspan (HTMLEngine *e, HTMLTableCell *cell, gint cspan, HTMLUndoDirection 
 	html_object_change_set (HTML_OBJECT (cell), HTML_CHANGE_ALL);
 }
 
+struct _CollapseSpanUndo {
+	HTMLUndoData data;
+
+	gint span;
+};
+typedef struct _CollapseSpanUndo CollapseSpanUndo;
+#define COLLAPSE_UNDO(x) ((CollapseSpanUndo *) x)
+
+static HTMLUndoData *
+collapse_undo_data_new (gint span)
+{
+	CollapseSpanUndo *ud = g_new0 (CollapseSpanUndo, 1);
+
+	html_undo_data_init (HTML_UNDO_DATA (ud));
+	ud->span = span;
+
+	return HTML_UNDO_DATA (ud);
+}
+
+static void
+collapse_cspan_undo_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir, guint position_after)
+{
+	html_engine_freeze (e);
+	expand_cspan (e, html_engine_get_table_cell (e), COLLAPSE_UNDO (data)->span, html_undo_direction_reverse (dir));
+	html_engine_thaw (e);
+}
+
+static void
+collapse_cspan_setup_undo (HTMLEngine *e, gint cspan, guint position_before, HTMLUndoDirection dir)
+{
+	html_undo_add_action (e->undo,
+			      html_undo_action_new ("Insert table column", collapse_cspan_undo_action,
+						    collapse_undo_data_new (cspan), html_cursor_get_position (e->cursor),
+						    position_before),
+			      dir);
+}
+
 static void
 collapse_cspan (HTMLEngine *e, HTMLTableCell *cell, gint cspan, HTMLUndoDirection dir)
 {
 	HTMLTable *table;
+	guint position_before = e->cursor->position;
 	gint r, c;
 
 	table = HTML_TABLE (HTML_OBJECT (cell)->parent);
@@ -505,6 +543,7 @@ collapse_cspan (HTMLEngine *e, HTMLTableCell *cell, gint cspan, HTMLUndoDirectio
 			html_table_cell_set_position (table->cells [r][c], r, c);
 		}
 
+	collapse_cspan_setup_undo (e, cell->cspan, position_before, dir);
 	cell->cspan = cspan;
 	html_object_change_set (HTML_OBJECT (cell), HTML_CHANGE_ALL);
 }
@@ -513,7 +552,6 @@ void
 html_engine_set_cspan (HTMLEngine *e, gint cspan)
 {
 	HTMLTableCell *cell = html_engine_get_table_cell (e);
-	HTMLTable *table;
 
 	g_return_if_fail (cspan > 0);
 	g_return_if_fail (cell != NULL);
@@ -522,7 +560,6 @@ html_engine_set_cspan (HTMLEngine *e, gint cspan)
 		return;
 
 	html_engine_freeze (e);
-	table = HTML_TABLE (HTML_OBJECT (cell)->parent);
 	if (cspan > cell->cspan)
 		expand_cspan (e, cell, cspan, HTML_UNDO_UNDO);
 	else
@@ -574,9 +611,28 @@ expand_rspan (HTMLEngine *e, HTMLTableCell *cell, gint rspan, HTMLUndoDirection 
 }
 
 static void
+collapse_rspan_undo_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir, guint position_after)
+{
+	html_engine_freeze (e);
+	expand_rspan (e, html_engine_get_table_cell (e), COLLAPSE_UNDO (data)->span, html_undo_direction_reverse (dir));
+	html_engine_thaw (e);
+}
+
+static void
+collapse_rspan_setup_undo (HTMLEngine *e, gint rspan, guint position_before, HTMLUndoDirection dir)
+{
+	html_undo_add_action (e->undo,
+			      html_undo_action_new ("Insert table column", collapse_rspan_undo_action,
+						    collapse_undo_data_new (rspan), html_cursor_get_position (e->cursor),
+						    position_before),
+			      dir);
+}
+
+static void
 collapse_rspan (HTMLEngine *e, HTMLTableCell *cell, gint rspan, HTMLUndoDirection dir)
 {
 	HTMLTable *table;
+	guint position_before = e->cursor->position;
 	gint r, c;
 
 	table = HTML_TABLE (HTML_OBJECT (cell)->parent);
@@ -587,6 +643,7 @@ collapse_rspan (HTMLEngine *e, HTMLTableCell *cell, gint rspan, HTMLUndoDirectio
 			html_table_cell_set_position (table->cells [r][c], r, c);
 		}
 
+	collapse_rspan_setup_undo (e, cell->rspan, position_before, dir);
 	cell->rspan = rspan;
 	html_object_change_set (HTML_OBJECT (cell), HTML_CHANGE_ALL);
 }
