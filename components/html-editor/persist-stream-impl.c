@@ -39,11 +39,11 @@
 #define READ_CHUNK_SIZE 4096
 
 static void
-load (BonoboPersistStream *ps,
-      Bonobo_Stream stream,
-      Bonobo_Persist_ContentType type,
-      gpointer data,
-      CORBA_Environment *ev)
+ps_impl_load (BonoboPersistStream *ps,
+	      Bonobo_Stream stream,
+	      Bonobo_Persist_ContentType type,
+	      gpointer data,
+	      CORBA_Environment *ev)
 {
 	GtkHTML *html;
 	Bonobo_Stream_iobuf *buffer;
@@ -77,9 +77,10 @@ load (BonoboPersistStream *ps,
 		CORBA_free (buffer);
 	} while (1);
 
-	if (ev->_major != CORBA_NO_EXCEPTION)
+	if (ev->_major != CORBA_NO_EXCEPTION) {
 		gtk_html_end (html, handle, GTK_HTML_STREAM_ERROR);
-	else {
+		bonobo_persist_stream_set_dirty (ps, FALSE);
+	} else {
 		CORBA_free (buffer);
 		gtk_html_end (html, handle, GTK_HTML_STREAM_OK);
 	}
@@ -119,15 +120,16 @@ save_receiver (const HTMLEngine *engine,
 	if (state->ev->_major != CORBA_NO_EXCEPTION)
 		return FALSE;
 
+
 	return TRUE;
 }
 
 static void
-save (BonoboPersistStream *ps,
-      Bonobo_Stream stream,
-      Bonobo_Persist_ContentType type,
-      gpointer data,
-      CORBA_Environment *ev)
+ps_impl_save (BonoboPersistStream *ps,
+	      Bonobo_Stream stream,
+	      Bonobo_Persist_ContentType type,
+	      gpointer data,
+	      CORBA_Environment *ev)
 {
 	GtkHTML *html;
 	SaveState save_state;
@@ -139,15 +141,15 @@ save (BonoboPersistStream *ps,
 		save_state.ev = ev;
 		save_state.stream = CORBA_Object_duplicate (stream, ev);
 		if (ev->_major == CORBA_NO_EXCEPTION)
-			gtk_html_export (html, 
-					 (char *)type, 
-					 (GtkHTMLSaveReceiverFn)save_receiver,
-					 &save_state);
-
+			if (gtk_html_export (html, 
+					     (char *)type, 
+					     (GtkHTMLSaveReceiverFn)save_receiver,
+					     &save_state))
+				bonobo_persist_stream_set_dirty (ps, FALSE);
+				
 		CORBA_Object_release (save_state.stream, ev);
 
 	} else {
-		
 		CORBA_exception_set (ev, CORBA_USER_EXCEPTION,
 				     ex_Bonobo_Persist_WrongDataType, NULL);
 		
@@ -156,17 +158,38 @@ save (BonoboPersistStream *ps,
 }
 
 static Bonobo_Persist_ContentTypeList *
-get_content_types (BonoboPersistStream *ps, gpointer data,
+ps_impl_get_content_types (BonoboPersistStream *ps, gpointer data,
 		   CORBA_Environment *ev)
 {
 	return bonobo_persist_generate_content_types (2, "text/html",
 						      "text/plain");
 }
 
+static void
+ps_destroy (BonoboPersistStream *stream, GtkHTML *html) 
+{
+	g_return_if_fail (GTK_IS_HTML (html));
+	
+	gtk_object_unref (GTK_OBJECT (html));
+}
+
 
 BonoboPersistStream *
 persist_stream_impl_new (GtkHTML *html)
 {
-	return bonobo_persist_stream_new (load, save, NULL, get_content_types,
-					  html);
+	BonoboPersistStream *stream;
+
+	gtk_object_ref (GTK_OBJECT (html));
+
+	stream = bonobo_persist_stream_new (ps_impl_load, ps_impl_save, NULL, 
+					    ps_impl_get_content_types,
+					    html);
+
+	gtk_signal_connect (GTK_OBJECT (stream), "destroy",
+			    ps_destroy, html);
+
+	return stream;
 }
+
+
+
