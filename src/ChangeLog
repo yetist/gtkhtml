@@ -1,3 +1,9 @@
+2004-01-02  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (gtk_html_im_commit_cb): update im_pre_pos
+	(gtk_html_im_preedit_changed_cb): restore initial position when
+	preedit string deleted
+
 2003-12-18  Dan Winship  <danw@ximian.com>
 
 	* testgtkhtml.c (main): s/soup_session_new/soup_session_async_new/

@@ -2813,11 +2813,20 @@ static void
 gtk_html_im_commit_cb (GtkIMContext *context, const gchar *str, GtkHTML *html)
 {
 	gboolean state = html->priv->im_block_reset;
+	gint pos;
+
+	pos = html->engine->cursor->position;
+	if (html->engine->mark && html->engine->mark->position > pos)
+		pos = html->engine->mark->position;
 
 	html->priv->im_block_reset = TRUE;
 	D_IM (printf ("IM commit %s\n", str);)
 	html_engine_paste_text (html->engine, str, -1);
 	html->priv->im_block_reset = state;
+
+	D_IM (printf ("IM commit pos: %d pre_pos: %d\n", pos, html->priv->im_pre_pos);)
+	if (html->priv->im_pre_pos >= pos)
+		html->priv->im_pre_pos += html->engine->cursor->position - pos;
 }
 
 static void
@@ -2848,8 +2857,9 @@ gtk_html_im_preedit_changed_cb (GtkIMContext *context, GtkHTML *html)
 		html_engine_disable_selection (html->engine);
 		html_engine_edit_selection_updater_update_now (html->engine->selection_updater);
 		pop_selection = TRUE;
-	} else
-		initial_position = html->engine->cursor->position;
+	}
+	initial_position = html->engine->cursor->position;
+	D_IM (printf ("IM initial position %d\n", initial_position);)
 
 	if (html->priv->im_pre_len > 0) {
 		D_IM (printf ("IM delete last preedit %d + %d\n", html->priv->im_pre_pos, html->priv->im_pre_len);)
@@ -2883,8 +2893,12 @@ gtk_html_im_preedit_changed_cb (GtkIMContext *context, GtkHTML *html)
 		if (position < MAX (cpos, mpos) + html->priv->im_pre_len - deleted)
 			g_assert (html_engine_selection_stack_top_modify (html->engine, html->priv->im_pre_len - deleted));
 		html_engine_selection_pop (html->engine);
-	} else if (html->priv->im_pre_len == 0)
-		html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine, initial_position + html->priv->im_pre_len - deleted);
+	}
+	/* that works for now, but idealy we should be able to have cursor positioned outside selection, so that preedit
+	   cursor is in the right place */
+	if (html->priv->im_pre_len == 0)
+		html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine,
+						       initial_position >= html->priv->im_pre_pos + deleted ? initial_position - deleted : initial_position);
 
 	if (html->engine->freeze_count == 1)
 		html_engine_thaw_idle_flush (html->engine);
