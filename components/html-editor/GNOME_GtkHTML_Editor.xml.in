@@ -39,73 +39,72 @@
 
 			<cmd name="HeadingNormal" _label="Normal"
 		        _tip="Make the current Paragraph style Normal"
-		        accel="*Ctrl*0"/>
+		        type="radio" group="paragraph_heading" accel="*Ctrl*0"/>
 			<cmd name="HeadingPreformat" _label="Preformat"
 		        _tip="Make the current Paragraph style Preformat"
-		        accel="*Ctrl*7"/>
+		        type="radio" group="paragraph_heading" accel="*Ctrl*7"/>
 			<cmd name="HeadingH1" _label="Header _1"
 		        _tip="Make the current paragraph an H1 header"
-		        accel="*Ctrl*1"/>
+		        type="radio" group="paragraph_heading" accel="*Ctrl*1"/>
 			<cmd name="HeadingH2" _label="Header _2"
 		        _tip="Make the current paragraph an H2 header"
-		        accel="*Ctrl*2"/>
+		        type="radio" group="paragraph_heading" accel="*Ctrl*2"/>
 			<cmd name="HeadingH3" _label="Header _3"
 		        _tip="Make the current paragraph an H3 header"
-		        accel="*Ctrl*3"/>
+		        type="radio" group="paragraph_heading" accel="*Ctrl*3"/>
 			<cmd name="HeadingH4" _label="Header _4"
 		        _tip="Make the current paragraph an H4 header"
-		        accel="*Ctrl*4"/>
+		        type="radio" group="paragraph_heading" accel="*Ctrl*4"/>
 			<cmd name="HeadingH5" _label="Header _5"
 		        _tip="Make the current paragraph an H5 header"
-		        accel="*Ctrl*5"/>
+		        type="radio" group="paragraph_heading" accel="*Ctrl*5"/>
 			<cmd name="HeadingH6" _label="Header _6"
 		        _tip="Make the current paragraph an H6 header"
-		        accel="*Ctrl*6"/>
+		        type="radio" group="paragraph_heading" accel="*Ctrl*6"/>
 			<cmd name="HeadingAddress" _label="A_ddress"
 		        _tip="Make the current paragraph an address"
-		        accel="*Ctrl*8"/>
+		        type="radio" group="paragraph_heading" accel="*Ctrl*8"/>
 			<cmd name="HeadingBulletedList" 
 			_label="Bulleted List"
 		        _tip="Make the current paragraph a bulleted list"
-		        accel="*Ctrl**Alt*1"/>
+		        type="radio" group="paragraph_heading" accel="*Ctrl**Alt*1"/>
 			<cmd name="HeadingRomanList" 
 			_label="Roman Numeral List"
 		        _tip="Make the current paragraph a list with roman numerals"
-		        accel="*Ctrl**Alt*2"/>
+		        type="radio" group="paragraph_heading" accel="*Ctrl**Alt*2"/>
 			<cmd name="HeadingNumberedList" 
 			_label="Numbered List"
 		        _tip="Make the current paragraph a numbered list"
-		        accel="*Ctrl**Alt*3"/>
+		        type="radio" group="paragraph_heading" accel="*Ctrl**Alt*3"/>
 			<cmd name="HeadingAlphabeticalList" 
 			_label="Alphabetical List"
 		        _tip="Make the current paragraph an alphabetical list"
-		        accel="*Ctrl**Alt*4"/>
+		        type="radio" group="paragraph_heading" accel="*Ctrl**Alt*4"/>
 
 			<cmd name="AlignLeft" _label="_Left"
 			_tip="Left justifies the paragraphs"
-			/>
+			type="radio" group="paragraph_alignment"/>
 			<cmd name="AlignCenter" _label="_Center"
 			_tip="Center justifies the paragraphs"
-			/>
+			type="radio" group="paragraph_alignment"/>
 			<cmd name="AlignRight" _label="_Right"
 			_tip="Right justifies the paragraphs"
-			/>
+			type="radio" group="paragraph_alignment"/>
 
-			<cmd name="FormatBold" _label="_Bold" accel="*Ctrl*b"/>
-			<cmd name="FormatItalic" _label="_Italic" accel="*Ctrl*i"/>
-			<cmd name="FormatUnderline" _label="_Underline" accel="*Ctrl*u"/>
-			<cmd name="FormatStrikeout" _label="Strikeout"/>
-			<cmd name="FormatFixed" _label="Typewriter" accel="*Ctrl*t"
-				pixtype="filename" pixname="@ICONSDIR@/font-tt-16.png"/>
-			<cmd name="FormatSubscript" _label="Subscript"/>
-			<cmd name="FormatSuperscript" _label="Superscript"/>
+			<cmd name="FormatBold" _label="_Bold" type="toggle" accel="*Ctrl*b"/>
+			<cmd name="FormatItalic" _label="_Italic" type="toggle" accel="*Ctrl*i"/>
+			<cmd name="FormatUnderline" _label="_Underline" type="toggle" accel="*Ctrl*u"/>
+			<cmd name="FormatStrikeout" _label="Strikeout" type="toggle"/>
+			<cmd name="FormatFixed" _label="Typewriter" type="toggle" accel="*Ctrl*t"/>
+			<cmd name="FormatSubscript" _label="Subscript" type="toggle"/>
+			<cmd name="FormatSuperscript" _label="Superscript" type="toggle"/>
 
-			<cmd name="FontSizeNegTwo"/>
-			<cmd name="FontSizeNegOne"/>
-			<cmd name="FontSizeZero"/>
-			<cmd name="FontSizeOne"/>
-			<cmd name="FontSizeTwo"/>
-			<cmd name="FontSizeThree"/>
+			<cmd name="FontSizeNegTwo" type="radio" group="font_size"/>
+			<cmd name="FontSizeNegOne" type="radio" group="font_size"/>
+			<cmd name="FontSizeZero" type="radio" group="font_size"/>
+			<cmd name="FontSizeOne" type="radio" group="font_size"/>
+			<cmd name="FontSizeTwo" type="radio" group="font_size"/>
+			<cmd name="FontSizeThree" type="radio" group="font_size"/>
 		</commands>
 	<menu>
 		<submenu name="Edit" _label="_Edit">
@@ -123,7 +122,7 @@
                                      pixtype="filename" pixname="@ICONSDIR@/16_copy.png"/>
 				     <menuitem name="EditPaste" verb="" accel="*Ctrl*V"
                                      pixtype="filename" pixname="@ICONSDIR@/16_paste.png"/>
-				     <menuitem name="EditPasteQuotation" verb="*Ctrl**Shift*V"/>
+				     <menuitem name="EditPasteQuotation" verb=""/>
 				     <separator/>
 				     <menuitem name="EditSelectAll" verb="" accel="*Ctrl*A"/>
 			</placeholder>

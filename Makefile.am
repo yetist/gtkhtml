@@ -1,8 +1,19 @@
+if BONOBO
+DIR_COMPONENTS = components
+else
+DIR_COMPONENTS =
+endif
+
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = gtkhtml-@GTKHTML_RELEASE@.pc
+
 SUBDIRS =					\
-	a11y					\
+	macros					\
 	src					\
-	components				\
+	capplet					\
+	doc					\
 	art					\
+	$(DIR_COMPONENTS)			\
 	po
 
 EXTRA_DIST =					\
@@ -10,6 +21,8 @@ EXTRA_DIST =					\
 	gtkhtml.spec                            \
 	COPYING.LIB				\
 	BUGS					\
-	intltool-extract.in			\
-	intltool-update.in			\
-	intltool-merge.in
+	xml-i18n-extract.in			\
+	xml-i18n-update.in			\
+	xml-i18n-merge.in
+
+ACLOCAL_AMFLAGS = -I m4

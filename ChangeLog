@@ -1,64 +1,125 @@
-2003-03-16  Larry Ewing  <lewing@ximian.com>
+2003-03-25  Larry Ewing  <lewing@ximian.com>
 
-	* configure.in: remove server.in from AC_OUTPUT.
+	* configure.in: make gtkhtml-1.1.9 release.
 
-2003-03-15  Larry Ewing  <lewing@ximian.com>
+2003-03-14  gettextize  <bug-gnu-gettext@gnu.org>
 
-	* configure.in (GNOME_GTKHTML_EDITOR_LOCATION): add an explicit
-	prefix to the editor location.
-
-2003-02-12  Larry Ewing  <lewing@ximian.com>
-
-	* configure.in: bump version to 3.0.1
-	
-	* configure.in (GETTEXT_PACKAGE): work around intltool bug that
-	pulls GETTEXT_PACAKAGE out of configure.in without doing variable
-	substitution.
+	* Makefile.am (SUBDIRS): Remove intl.
+	(ACLOCAL_AMFLAGS): New variable.
 
 2003-02-07  Larry Ewing  <lewing@ximian.com>
 
-	* configure.in: fix the GETTEXT_PACKAGE mess and define
-	GNOME_EXPLICIT_TRANSLATION_DOMAIN.
+	* configure.in: Apply reworked patch form Akira TAGOH
+	<tagoh@redhat.com> to set GNOME_EXPLICIT_TRANSLATION_DOMAIN to
+	GTKHTML_RELEASE_STRING.
 
-	* acconfig.h: add GNOME_EXPLICIT_TRANSLATION_DOMAIN.
+	* acconfig.h: add GNOME_EXPLICIT_TRANSLATION_DOMAIN
 
-2003-01-22  Pablo Saratxaga <pablo@mandrakesoft.com>
+2003-02-04  Larry Ewing  <lewing@ximian.com>
 
-	* configure.in: Added Amharic (am) and Arabic (ar) to ALL_LINGUAS
+	* configure.in (GTKHTML_RELEASE_STRING): bump for snapshots.
 
-2003-01-13  Rodney Dawes  <dobey@ximian.com>
+	* Make gtkhtml-1.1.8 release.
 
-	* src/Makefile.am: Handle $(DESTDIR) when moving the libgtkhtml.pc file
+2002-12-05  Larry Ewing  <lewing@ximian.com>
+
+	* Make gtkhtml-1.1.7 release.
+
+2002-11-06  Larry Ewing  <lewing@ximian.com>
+
+	* Make gtkhtml-1.1.6 release (Egyptian Cartoon).
 	
-2003-01-13  Rodney Dawes  <dobey@ximian.com>
+	* configure.in: bump version for 1.1.6 release, this release is
+	intended to go out with eovlution 1.2.0
 
-	* configure.in: Remove the capplet stuff
+2002-10-28  Larry Ewing  <lewing@ximian.com>
+
+	* Make gtkhtml-1.1.5 release (eye of fatima).
 	
-2003-01-10  Naba Kumar  <naba@gnome.org>
+	* configure.in: bump versions for 1.1.5 release.
 
-	* configure.in: Added hi (hindi) in ALL_LINGUAS
+2002-10-16  Larry Ewing  <lewing@ximian.com>
+
+	* configure.in: require latest gal version for fejj's e-unicode
+	fix.
+
+2002-10-08  Larry Ewing  <lewing@ximian.com>
+
+	* configure.in: bump the gtkhtml version for snapshots.
+
+2002-10-07  Larry Ewing  <lewing@ximian.com>
+
+	* Make gtkhtml-1.1.4 release (don't ask).
+
+	* configure.in: fix the .mo installation hack properly this
+        time and bump the version for good measure.
+
+2002-10-07  Larry Ewing  <lewing@ximian.com>
+
+        * Make gtkhtml-1.1.3 release.
 	
-2002-11-28  Bastien Nocera  <hadess@hadess.net>
+	* configure.in: make the po versioning hack avoid unintended side
+	effects.  Bump version numbers for 1.1.3 release.
+	
+	* NEWS: update for 1.1.3.
 
-	* configure.in: added GETTEXT_PACKAGE substitution, so the .po files
-	install correctly
+2002-09-19  Larry Ewing  <lewing@ximian.com>
 
-2002-11-05  Larry Ewing  <lewing@ximian.com>
+	* configure.in (GTKHTML_RELEASE_STRING): bump for snapshots to
+	1.1.2.99.
 
-	* configure.in: look four soup-2.0 
+2002-09-09  Larry Ewing  <lewing@ximian.com>
 
-2002-11-05  Radek Doulik  <rodo@ximian.com>
+	* Make gtkhtml-1.1.2 release.
 
-	* configure.in: added SOUP pkgconfig stuff
+	* configure.in: update for 1.1.2 release, bump soname to 1.0.0
 
-2002-06-03  Pablo Saratxaga <pablo@mandrakesoft.com>
+	* NEWS: add a few entries for 1.1.2
+
+2002-06-03  Pablo Saratxaga  <pablo@mandrakesoft.com>
 
 	* configure.in: Added Catalan (ca) to ALL_LINGUAS
 
-2002-05-15  Pablo Saratxaga <pablo@mandrakesoft.com>
+2002-06-02  Larry Ewing  <lewing@ximian.com>
+
+	* configure.in (GTKHTML_RELEASE_STRING): bump the version number
+	so that evolution can pick up the multicite changes.
+
+2002-05-09  Dan Winship  <danw@ximian.com>
+
+	* configure.in: Check for soup instead of glibwww
+
+	* acconfig.h: Change HAVE_GLIBWWW to HAVE_SOUP
+
+2002-05-04  Pablo Saratxaga  <pablo@mandrakesoft.com>
 
 	* configure.in: Added Vietnamese (vi) to ALL_LINGUAS
 
+2002-04-28  Larry Ewing  <lewing@ximian.com>
+
+	* configure.in (GTKHTML_RELEASE_STRING): bump the version so that
+	evo will pick up the new interfaces.
+
+2002-03-27  Larry Ewing  <lewing@ximian.com>
+
+	* configure.in: add horrible cruft to version translation files.
+	fix cruft a little.
+	(GTKHTML_DATADIR): append version information here.
+
+2002-03-26  Larry Ewing  <lewing@ximian.com>
+
+	* acconfig.h: add template for GTKHTML_RELEASE_STRING
+
+	* configure.in (GTKHTML_RELEASE_STRING): define this to make life
+	simpler.
+
+	* Makefile.am: remove references to gnorba and
+	html-component.gnorba.
+
+	* configure.in: fix GTKHTML_INCLUDEDIR to add version.
+
+	* html-component.gnorba: removed.
+	
 2002-03-15  Radek Doulik  <rodo@ximian.com>
 
 	* configure.in: added EDITOR_API_VERSION
