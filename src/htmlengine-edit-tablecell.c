@@ -173,7 +173,7 @@ table_cell_set_bg_pixmap (HTMLEngine *e, HTMLTableCell *cell, gchar *url, HTMLUn
 						    HTML_UNDO_DATA (undo), html_cursor_get_position (e->cursor)), dir);
 
 	iptr = cell->bgPixmap;
-	cell->bgPixmap = url ? html_image_factory_register (e->image_factory, NULL, url) : NULL;
+	cell->bgPixmap = url ? html_image_factory_register (e->image_factory, NULL, url, TRUE) : NULL;
 	if (cell->have_bgPixmap && iptr)
 		html_image_factory_unregister (e->image_factory, iptr, NULL);
 	cell->have_bgPixmap = url ? TRUE : FALSE;

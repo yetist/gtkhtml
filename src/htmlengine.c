@@ -923,7 +923,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 		else if (strncasecmp (token, "background=", 11) == 0
 			 && token [12]
 			 && !e->defaultSettings->forceDefault) {
-			tablePixmapPtr = html_image_factory_register(e->image_factory, NULL, token + 11);
+			tablePixmapPtr = html_image_factory_register(e->image_factory, NULL, token + 11, FALSE);
 
 			if(tablePixmapPtr) {
 				rowPixmapPtr = tablePixmapPtr;
@@ -1033,7 +1033,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						} else if (strncasecmp (token, "background=", 11) == 0
 							   && token [12]
 							   && !e->defaultSettings->forceDefault) {
-							rowPixmapPtr = html_image_factory_register(e->image_factory, NULL, token + 11);
+							rowPixmapPtr = html_image_factory_register(e->image_factory, NULL, token + 11, FALSE);
 							if(rowPixmapPtr)
 								have_rowPixmap = TRUE;
 						}
@@ -1162,7 +1162,8 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 								 && !e->defaultSettings->forceDefault) {
 								
 								bgPixmapPtr = html_image_factory_register(e->image_factory, 
-													  NULL, token + 11);
+													  NULL, token + 11,
+													  FALSE);
 								if(bgPixmapPtr)
 									have_bgPixmap = TRUE;
 
@@ -1836,7 +1837,7 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				bgurl = g_strdup (token + 11);
 				if (e->bgPixmapPtr != NULL)
 					html_image_factory_unregister(e->image_factory, e->bgPixmapPtr, NULL);
-				e->bgPixmapPtr = html_image_factory_register(e->image_factory, NULL, bgurl);
+				e->bgPixmapPtr = html_image_factory_register(e->image_factory, NULL, bgurl, FALSE);
 				g_free (bgurl);
 			} else if ( strncasecmp( token, "text=", 5 ) == 0
 				    && !e->defaultSettings->forceDefault ) {
@@ -3672,7 +3673,7 @@ html_engine_update_event (HTMLEngine *e)
 		return FALSE;
 	
 	/* Adjust the scrollbars */
-	gtk_html_private_calc_scrollbars (e->widget);
+	gtk_html_private_calc_scrollbars (e->widget, NULL, NULL);
 
 	/* Scroll page to the top on first display */
 	if (e->newPage) {
@@ -3999,6 +4000,7 @@ html_engine_calc_size (HTMLEngine *e)
 
 	html_object_set_max_width (e->clue, e->painter,
 				   MAX (html_object_calc_min_width (e->clue, e->painter), html_engine_get_max_width (e)));
+	/* printf ("calc size %d\n", e->clue->max_width); */
 	html_object_calc_size (e->clue, e->painter);
 
 	e->clue->x = 0;
@@ -4388,7 +4390,7 @@ thaw_idle (gpointer data)
 
 	html_engine_calc_size (e);
 
-	gtk_html_private_calc_scrollbars (e->widget);
+	gtk_html_private_calc_scrollbars (e->widget, NULL, NULL);
 	gtk_html_edit_make_cursor_visible (e->widget);
 	/* html_engine_make_cursor_visible (e);
 

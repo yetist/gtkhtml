@@ -708,7 +708,7 @@ html_image_init (HTMLImage *image,
 		valign = HTML_VALIGN_BOTTOM;
 	image->valign = valign;
 
-	image->image_ptr = html_image_factory_register (imf, image, filename);
+	image->image_ptr = html_image_factory_register (imf, image, filename, FALSE);
 }
 
 HTMLObject *
@@ -755,19 +755,23 @@ html_image_set_spacing (HTMLImage *image, gint hspace, gint vspace)
 		changed = TRUE;
 	}
 
-	if (changed)
+	if (changed) {
+		html_object_change_set (HTML_OBJECT (image), HTML_CHANGE_ALL_CALC);
 		html_engine_schedule_update (image->image_ptr->factory->engine);
+	}
 }
 
 void
 html_image_set_url (HTMLImage *image, const gchar *url)
 {
-	if (url && strcmp (image->image_ptr->url, url)) {
+	if (url) {
 		HTMLImageFactory *imf = image->image_ptr->factory;
 
 		html_object_change_set (HTML_OBJECT (image), HTML_CHANGE_ALL_CALC);
 		html_image_factory_unregister (imf, image->image_ptr, HTML_IMAGE (image));
-		image->image_ptr = html_image_factory_register (imf, image, url);
+		image->image_ptr = html_image_factory_register (imf, image, url, TRUE);
+		html_object_change_set (HTML_OBJECT (image), HTML_CHANGE_ALL_CALC);
+		html_engine_schedule_update (imf->engine);
 	}
 }
 
@@ -785,6 +789,7 @@ html_image_set_border (HTMLImage *image, gint border)
 {
 	if (image->border != border) {
 		image->border = border;
+		html_object_change_set (HTML_OBJECT (image), HTML_CHANGE_ALL_CALC);
 		html_engine_schedule_update (image->image_ptr->factory->engine);
 	}
 }
@@ -837,8 +842,10 @@ html_image_set_size (HTMLImage *image, gint w, gint h, gboolean pw, gboolean ph)
 		changed = TRUE;
 	}
 
-	if (changed)
+	if (changed) {
+		html_object_change_set (HTML_OBJECT (image), HTML_CHANGE_ALL_CALC);
 		html_engine_schedule_update (image->image_ptr->factory->engine);
+	}
 }
 
 char *image_content_types[] = {"image/*", NULL};
@@ -1231,7 +1238,7 @@ html_image_pointer_load (HTMLImagePointer *ip)
 }
 
 HTMLImagePointer *
-html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char *filename)
+html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char *filename, gboolean reload)
 {
 	HTMLImagePointer *retval;
 
@@ -1262,7 +1269,8 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 			g_hash_table_insert (factory->loaded_images, retval->url, retval);
 			html_image_pointer_load (retval);
 		}
-	}
+	} else if (reload)
+		html_image_pointer_load (retval);
 
 	html_image_pointer_ref (retval);
 
@@ -1293,11 +1301,12 @@ void
 html_image_factory_unregister (HTMLImageFactory *factory, HTMLImagePointer *pointer, HTMLImage *i)
 {
 	pointer->interests = g_slist_remove (pointer->interests, i);
-	if (pointer->refcount <= 1) {
-		g_assert (pointer->interests);
-		g_hash_table_remove (factory->loaded_images, pointer->url);
-	}
 	html_image_pointer_unref (pointer);
+	if (pointer->refcount <= 1) {
+		g_assert (pointer->interests == NULL);
+		g_hash_table_remove (factory->loaded_images, pointer->url);
+		html_image_pointer_unref (pointer);
+	}
 }
 
 static void

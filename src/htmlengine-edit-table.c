@@ -761,7 +761,7 @@ table_set_bg_pixmap (HTMLEngine *e, HTMLTable *t, gchar *url, HTMLUndoDirection 
 						    HTML_UNDO_DATA (undo), html_cursor_get_position (e->cursor)), dir);
 
 	iptr = t->bgPixmap;
-	t->bgPixmap = url ? html_image_factory_register (e->image_factory, NULL, url) : NULL;
+	t->bgPixmap = url ? html_image_factory_register (e->image_factory, NULL, url, TRUE) : NULL;
 	if (iptr)
 		html_image_factory_unregister (e->image_factory, iptr, NULL);
 	html_engine_queue_draw (e, HTML_OBJECT (t));

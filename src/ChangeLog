@@ -1,3 +1,26 @@
+2001-08-27  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (gtk_html_private_calc_scrollbars): don't let
+	adjustment values go out of bounds
+	(gtk_html_update_scrollbars_on_resize): new function, updates
+	scroll bars after widget is resized, tries to keep view position
+	({x,y}_offset on the same place
+	(gtk_html_private_calc_scrollbars): keep scrollbars in bounds,
+	it's probably unneeded now, but to be sure
+	(size_allocate): use gtk_html_update_scrollbars_on_resize, take
+	care of adjustment changes
+
+	* htmlimage.c (html_image_set_url): re-register image pointer even
+	if url is the same as before as image could actually change
+	between
+	(html_image_set_url): schedule update and set change
+	(html_image_set_border): set change
+	(html_image_set_size): ditto
+	(html_image_set_spacing): ditto
+	(html_image_factory_unregister): unref before test for refcount,
+	fix g_assert condition, unref when removing from factory hash
+	table
+
 2001-08-24  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (update_embedded): fix the x and y offsets of the

@@ -98,6 +98,12 @@ enum {
 };
 static guint signals [LAST_SIGNAL] = { 0 };
 
+static void
+gtk_html_update_scrollbars_on_resize (GtkHTML *html,
+				      gdouble old_doc_width, gdouble old_doc_height,
+				      gdouble old_width, gdouble old_height,
+				      gboolean *changed_x, gboolean *changed_y);
+
 /* keybindings signal hadlers */
 static void     scroll                 (GtkHTML *html, GtkOrientation orientation, GtkScrollType scroll_type, gfloat position);
 static void     cursor_move            (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType skip);
@@ -310,7 +316,7 @@ idle_handler (gpointer data)
 	gtk_adjustment_set_value (GTK_LAYOUT (html)->hadjustment, (gfloat) engine->x_offset);
 	gtk_adjustment_set_value (GTK_LAYOUT (html)->vadjustment, (gfloat) engine->y_offset);
 
-	gtk_html_private_calc_scrollbars (html);
+	gtk_html_private_calc_scrollbars (html, NULL, NULL);
 
 	if (html->engine->thaw_idle_id == 0)
 		html_engine_flush_draw_queue (engine);
@@ -791,6 +797,8 @@ unrealize (GtkWidget *widget)
 static gint
 expose (GtkWidget *widget, GdkEventExpose *event)
 {
+	/* printf ("expose x: %d y: %d\n", GTK_HTML (widget)->engine->x_offset, GTK_HTML (widget)->engine->y_offset); */
+
 	html_engine_draw (GTK_HTML (widget)->engine,
 			  event->area.x, event->area.y,
 			  event->area.width, event->area.height);
@@ -826,27 +834,44 @@ size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 	g_return_if_fail (GTK_IS_HTML (widget));
 	g_return_if_fail (allocation != NULL);
 	
-	html = GTK_HTML (widget);
-
 	if (GTK_WIDGET_CLASS (parent_class)->size_allocate)
 		( *GTK_WIDGET_CLASS (parent_class)->size_allocate) (widget, allocation);
 
+	/* printf ("size allocate\n"); */
+
+	html = GTK_HTML (widget);
+
 	if (html->engine->width != allocation->width
 	    || html->engine->height != allocation->height) {
-
 		HTMLEngine *e = html->engine;
+		gint old_doc_width, old_doc_height, old_width, old_height;
+		gboolean changed_x = FALSE, changed_y = FALSE;
+
+		old_doc_width = html_engine_get_doc_width (html->engine);
+		old_doc_height = html_engine_get_doc_height (html->engine);
+		old_width = e->width;
+		old_height = e->height;
+
+		/* printf ("allocate %d x %d\n", allocation->width, allocation->height); */
 
 		e->width  = allocation->width;
 		e->height = allocation->height;
 
 		html_engine_calc_size (html->engine);
+		gtk_html_update_scrollbars_on_resize (html, old_doc_width, old_doc_height, old_width, old_height,
+						      &changed_x, &changed_y);
+		gtk_html_private_calc_scrollbars (html, &changed_x, &changed_y);
 
-		gtk_html_private_calc_scrollbars (html);
+		if (changed_x)
+			gtk_adjustment_value_changed (GTK_LAYOUT (html)->hadjustment);
+		if (changed_y)
+			gtk_adjustment_value_changed (GTK_LAYOUT (html)->vadjustment);
 	}
 
 #ifdef GTK_HTML_USE_XIM
 	gtk_html_im_size_allocate (html);
 #endif
+
 }
 
 static void
@@ -1516,7 +1541,6 @@ set_fonts_idle (GtkHTML *html)
 					       prop->font_var,      prop->font_fix,
 					       prop->font_var_size, prop->font_fix_size);
 
-		/* tables don't resize correctly :( who knows the solution? */
 		if (html->engine->clue) {
 			html_object_reset (html->engine->clue);
 			html_object_change_set_down (html->engine->clue, HTML_CHANGE_ALL);
@@ -2297,12 +2321,59 @@ gtk_html_export (GtkHTML *html,
 }
 
 
+
+static void
+gtk_html_update_scrollbars_on_resize (GtkHTML *html,
+				      gdouble old_doc_width, gdouble old_doc_height,
+				      gdouble old_width, gdouble old_height,
+				      gboolean *changed_x, gboolean *changed_y)
+{
+	GtkLayout *layout;
+	GtkAdjustment *vadj, *hadj;
+	gdouble doc_width, doc_height;
+
+	/* printf ("update on resize\n"); */
+
+	layout = GTK_LAYOUT (html);
+	hadj = layout->hadjustment;
+	vadj = layout->vadjustment;
+
+	doc_height = html_engine_get_doc_height (html->engine);
+	doc_width  = html_engine_get_doc_width (html->engine);
+
+	if (old_doc_width - old_width > 0) {
+		html->engine->x_offset = (gint) (hadj->value * (doc_width - html->engine->width)
+						 / (old_doc_width - old_width));
+
+		/* hacky part, I set layout {x,y}offset by hand to avoid unneccessary flicker */
+		if (layout->xoffset != html->engine->x_offset) {
+			layout->xoffset = html->engine->x_offset;
+			if (changed_x)
+				*changed_x = TRUE;
+		}
+		gtk_adjustment_set_value (hadj, html->engine->x_offset);
+	}
+
+	if (old_doc_height - old_height > 0) {
+		html->engine->y_offset = (gint) (vadj->value * (doc_height - html->engine->height)
+						 / (old_doc_height - old_height));
+		if (layout->yoffset != html->engine->y_offset) {
+			layout->yoffset = html->engine->y_offset;
+			if (changed_y)
+				*changed_y = TRUE;
+		}
+		gtk_adjustment_set_value (vadj, html->engine->y_offset);
+	}
+}
+
 void
-gtk_html_private_calc_scrollbars (GtkHTML *html)
+gtk_html_private_calc_scrollbars (GtkHTML *html, gboolean *changed_x, gboolean *changed_y)
 {
 	GtkLayout *layout;
 	GtkAdjustment *vadj, *hadj;
 	gint width, height;
+
+	/* printf ("calc scrollbars\n"); */
 
 	height = html_engine_get_doc_height (html->engine);
 	width = html_engine_get_doc_width (html->engine);
@@ -2323,7 +2394,19 @@ gtk_html_private_calc_scrollbars (GtkHTML *html)
 	hadj->step_increment = 14; /* FIXME */
 	hadj->page_increment = html->engine->width;
 
+	if (hadj->value > width - html->engine->width) {
+		gtk_adjustment_set_value (hadj, width - html->engine->width);
+		if (changed_x)
+			*changed_x = TRUE;
+	}
+	if (vadj->value > height - html->engine->height) {
+		gtk_adjustment_set_value (vadj, height - html->engine->height);
+		if (changed_y)
+			*changed_y = TRUE;
+	}
+
 	if ((width != layout->width) || (height != layout->height)) {
+		/* printf ("set size\n"); */
 		gtk_signal_emit (GTK_OBJECT (html), signals[SIZE_CHANGED]);
 		gtk_layout_set_size (layout, width, height);
 	}

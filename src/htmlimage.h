@@ -165,7 +165,8 @@ void              html_image_factory_deactivate_animations (HTMLImageFactory *fa
 
 HTMLImagePointer *html_image_factory_register    (HTMLImageFactory *factory,
 						  HTMLImage        *i,
-						  const char       *filename);
+						  const char       *filename,
+						  gboolean          reload);
 void              html_image_factory_unregister  (HTMLImageFactory *factory,
 						  HTMLImagePointer *pointer,
 						  HTMLImage        *i);
