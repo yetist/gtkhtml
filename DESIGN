@@ -2,15 +2,41 @@
 
 Some thoughts on the necessary signals for gtkhtml.
 
-/* For things like <img src=url> */
-void (* url_requested) (GtkHTML *html, gchar *url, gint handle);
-
 /* For things like <bgsound src="coolsong.mp3"> and <x-gnome-nifty-tag src="guaca"> */
 void (* unhandled_tag) (GtkHTML *html, gchar *tag);
+
+void (* anchor_clicked) (GtkHTML *html, gchar *url);
+
+----------------------------------------------------
+/* For things like <img src=url> */
+void (* url_requested) (GtkHTML *html, gchar *url, gint handle);
 
 /* for use with url_requested */
 /* if handle == 0, maybe make it the main page? */
 gtk_html_write (GtkHTML *html, gint handle, guchar *buf, size_t size);
 gtk_html_write_stream (GtkHTML *html, gint handle, FILE *file);
 
-void (* anchor_clicked) (GtkHTML *html, gchar *url);
+		The Elliot version:
+
+Have all handles be of opaque type GtkHTMLStreamHandle. Plus, change
+the gtk_html_end function to operate only on a specific stream, and to
+take an argument that tells whether the stream was loaded successfully
+or not (e.g. for handling 404's etc.)
+
+When GtkHTML needs to load some data object (be it the main HTML page,
+or an image used by that page, or whatever), it emits the
+url_requested signal. The application then writes the data for that
+URL in its callbacks via the gtk_html_write() function, and calls
+gtk_html_end() when all data has arrived.
+
+So far, it appears that one would need to take the following steps to implement this scheme:
+
+	Create the stream abstraction itself (probably just a callback mechanism so that
+	when the app does write(), the right object gets its write() method invoked).
+
+	Overhaul HTMLImage to read from arbitrary data sources (not
+	very hard, you'd just need to add another "not loaded" state).
+
+	Overhaul HTMLEngine to use the stream mechanism (not very hard).
+
+	Add proper handling for errors as indicated by gtk_html_end() (hard).
