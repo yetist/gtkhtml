@@ -70,8 +70,13 @@ html_style_free (HTMLStyle *style)
 		return;
 
 	g_free (style->face);
+	g_free (style->bg_image);
+
 	if (style->color)
 		html_color_unref (style->color);
+
+	if (style->bg_color)
+		gdk_color_free (style->bg_color);
 }
 
 HTMLStyle *
@@ -154,7 +159,30 @@ html_style_add_text_align (HTMLStyle *style, HTMLHAlignType type)
 }
 
 HTMLStyle *
-html_style_add_attribute (HTMLStyle *style, char *attr)
+html_style_add_background_color (HTMLStyle *style, GdkColor *color)
+{
+	if (!style)
+		style = html_style_new ();
+
+	style->bg_color = gdk_color_copy (color);
+
+	return style;
+}
+
+HTMLStyle *
+html_style_add_background_image (HTMLStyle *style, const char *url)
+{
+	if (!style)
+		style = html_style_new ();
+
+	g_free (style->bg_image);
+	style->bg_image = g_strdup (url);
+
+	return style;
+}
+
+HTMLStyle *
+html_style_add_attribute (HTMLStyle *style, const char *attr)
 {
 	gchar **prop;
 
