@@ -27,7 +27,7 @@
 
 HTMLLinkTextMasterClass html_link_text_master_class;
 
-static HTMLLinkTextMasterClass *parent_class;
+static HTMLTextMasterClass *parent_class;
 
 
 /* HTMLObject methods.  */
@@ -68,19 +68,33 @@ split (HTMLText *self,
 	master = HTML_TEXT_MASTER (self);
 	link_master = HTML_LINK_TEXT_MASTER (self);
 
-	if (offset >= master->strLen || offset == 0)
+	if (offset >= HTML_TEXT (self)->text_len || offset == 0)
 		return NULL;
 
 	s = g_strdup (self->text + offset);
-	new = html_link_text_master_new (s, self->font,
+
+	new = html_link_text_master_new (s,
+					 self->font_style,
+					 &self->color,
 					 link_master->url,
 					 link_master->target);
 
 	self->text = g_realloc (self->text, offset + 1);
 	self->text[offset] = '\0';
-	master->strLen = offset;
+	HTML_TEXT (self)->text_len = offset;
 
 	return HTML_TEXT (new);
+}
+
+static HTMLFontStyle
+get_font_style (const HTMLText *text)
+{
+	HTMLFontStyle font_style;
+
+	font_style = HTML_TEXT_CLASS (parent_class)->get_font_style (text);
+	font_style = html_font_style_merge (font_style, HTML_FONT_STYLE_UNDERLINE);
+
+	return font_style;
 }
 
 
@@ -110,6 +124,7 @@ html_link_text_master_class_init (HTMLLinkTextMasterClass *klass,
 	object_class->get_target = get_target;
 
 	text_class->split = split;
+	text_class->get_font_style = get_font_style;
 
 	parent_class = &html_text_master_class;
 }
@@ -118,23 +133,30 @@ void
 html_link_text_master_init (HTMLLinkTextMaster *link_text_master_object,
 			    HTMLLinkTextMasterClass *klass,
 			    gchar *text,
-			    HTMLFont *font,
+			    HTMLFontStyle font_style,
+			    const GdkColor *color,
 			    const gchar *url,
 			    const gchar *target)
 {
 	HTMLTextMaster *text_master_object;
 
 	text_master_object = HTML_TEXT_MASTER (link_text_master_object);
-	html_text_master_init (text_master_object, HTML_TEXT_MASTER_CLASS (klass),
-			       text, font);
+	html_text_master_init (text_master_object,
+			       HTML_TEXT_MASTER_CLASS (klass),
+			       text,
+			       font_style,
+			       color);
 
 	link_text_master_object->url = g_strdup (url);
 	link_text_master_object->target = g_strdup (target);
 }
 
 HTMLObject *
-html_link_text_master_new (gchar *text, HTMLFont *font,
-			   const gchar *url, const gchar *target)
+html_link_text_master_new (gchar *text,
+			   HTMLFontStyle font_style,
+			   const GdkColor *color,
+			   const gchar *url,
+			   const gchar *target)
 {
 	HTMLLinkTextMaster *link_text_master_object;
 
@@ -142,7 +164,11 @@ html_link_text_master_new (gchar *text, HTMLFont *font,
 
 	html_link_text_master_init (link_text_master_object,
 				    &html_link_text_master_class,
-				    text, font, url, target);
+				    text,
+				    font_style,
+				    color,
+				    url,
+				    target);
 
 	return HTML_OBJECT (link_text_master_object);
 }

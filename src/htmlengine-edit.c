@@ -24,7 +24,6 @@
 #include "htmlobject.h"
 #include "htmlclueflow.h"
 #include "htmlcursor.h"
-#include "htmlhspace.h"
 #include "htmltext.h"
 #include "htmltextslave.h"
 
@@ -166,17 +165,13 @@ html_engine_insert_para (HTMLEngine *e,
 	} else {
 		next_flow = HTML_OBJECT (html_clueflow_split (HTML_CLUEFLOW (flow), current));
 		if (current->prev == NULL) {
-			HTMLObject *hspace;
-
-			/* We don't want the clue to be empty: so we add an
-                           hidden hspace with an appropriate font.  FIXME FIXME
-                           FIXME: Currently, "appropriate font" makes sense
-                           when we are on a text object only.  So, in the other
-                           cases, we don't do anything, which is broken.  */
-
 			if (html_object_is_text (current)) {
-				hspace = html_hspace_new (HTML_TEXT (current)->font, TRUE);
-				html_clue_append (HTML_CLUE (flow), hspace);
+				HTMLObject *elem;
+
+				elem = html_text_master_new (g_strdup (""),
+							     HTML_TEXT (current)->font_style,
+							     &HTML_TEXT (current)->color);
+				html_clue_append (HTML_CLUE (flow), elem);
 			}
 		}
 	}
@@ -188,10 +183,6 @@ html_engine_insert_para (HTMLEngine *e,
 
 		text_next = HTML_OBJECT (html_text_split (HTML_TEXT (current), offset));
 		html_clue_prepend (HTML_CLUE (next_flow), text_next);
-
-		html_clue_append_after (HTML_CLUE (current->parent),
-					html_hspace_new (HTML_TEXT (current)->font, TRUE),
-					current);
 
 		e->cursor->object = text_next;
 		e->cursor->offset = 0;
@@ -209,30 +200,30 @@ html_engine_insert_para (HTMLEngine *e,
 
 
 /* FIXME This should actually do a lot more.  */
-void
+guint
 html_engine_insert (HTMLEngine *e,
 		    const gchar *text,
 		    guint len)
 {
 	HTMLObject *current_object;
 
-	g_return_if_fail (e != NULL);
-	g_return_if_fail (HTML_IS_ENGINE (e));
-	g_return_if_fail (text != NULL);
+	g_return_val_if_fail (e != NULL, 0);
+	g_return_val_if_fail (HTML_IS_ENGINE (e), 0);
+	g_return_val_if_fail (text != NULL, 0);
 
 	if (len == 0)
-		return;
+		return 0;
 
 	current_object = e->cursor->object;
 
 	if (! html_object_is_text (current_object)) {
 		g_warning ("Cannot insert text in object of type `%s'",
 			   html_type_name (HTML_OBJECT_TYPE (current_object)));
-		return;
+		return 0;
 	}
 
-	html_text_insert_text (HTML_TEXT (current_object), e,
-			       e->cursor->offset, text, len);
+	return html_text_insert_text (HTML_TEXT (current_object), e,
+				      e->cursor->offset, text, len);
 }
 
 

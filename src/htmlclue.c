@@ -146,7 +146,7 @@ reset (HTMLObject *clue)
 
 static void
 calc_size (HTMLObject *o,
-	   HTMLObject *parent)
+	   HTMLPainter *painter)
 {
 	/* If we have already called calc_size for the children, then just
 	   continue from the last object done in previous call. */
@@ -156,7 +156,7 @@ calc_size (HTMLObject *o,
 	}
 
 	while (HTML_CLUE (o)->curr != NULL) {
-		html_object_calc_size (HTML_CLUE (o)->curr, o);
+		html_object_calc_size (HTML_CLUE (o)->curr, painter);
 		HTML_CLUE (o)->curr = HTML_CLUE (o)->curr->next;
 	}
 
@@ -166,7 +166,8 @@ calc_size (HTMLObject *o,
 }
 
 static gint
-calc_preferred_width (HTMLObject *o)
+calc_preferred_width (HTMLObject *o,
+		      HTMLPainter *painter)
 {
 	gint prefWidth = 0;
 	HTMLObject *obj;
@@ -177,7 +178,7 @@ calc_preferred_width (HTMLObject *o)
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
 		gint w;
 
-		w = html_object_calc_preferred_width (obj);
+		w = html_object_calc_preferred_width (obj, painter);
 		if (w > prefWidth)
 			prefWidth = w;
 	}
@@ -186,7 +187,8 @@ calc_preferred_width (HTMLObject *o)
 }
 
 static gint
-calc_min_width (HTMLObject *o)
+calc_min_width (HTMLObject *o,
+		HTMLPainter *painter)
 {
 	HTMLObject *obj;
 	gint minWidth = 0;
@@ -194,7 +196,7 @@ calc_min_width (HTMLObject *o)
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
 		gint w;
 
-		w = html_object_calc_min_width (obj);
+		w = html_object_calc_min_width (obj, painter);
 		if (w > minWidth)
 			minWidth = w;
 	}

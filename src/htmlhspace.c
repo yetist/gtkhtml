@@ -20,7 +20,6 @@
 */
 
 #include "htmlobject.h"
-#include "htmlhspace.h"
 
 
 HTMLHSpaceClass html_hspace_class;
@@ -31,15 +30,6 @@ draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor,
       gint x, gint y, gint width, gint height,
       gint tx, gint ty)
 {
-	HTMLHSpace *hspace = HTML_HSPACE (o);
-
-	html_painter_set_font (p, hspace->font);
-
-	/* FIXME: Sane Check */
-	
-	html_painter_draw_text (p, o->x + tx, o->y + ty, " ", 1);
-
-	(* html_object_class.draw) (o, p, cursor, x, y, width, height, tx, ty);
 }
 
 static gboolean

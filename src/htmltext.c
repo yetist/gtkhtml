@@ -22,7 +22,7 @@
 */
 
 #include "htmltext.h"
-#include "htmltextslave.h"
+#include "htmlclueflow.h"
 #include "htmlcursor.h"
 
 
@@ -31,7 +31,106 @@ HTMLTextClass html_text_class;
 #define HT_CLASS(x) HTML_TEXT_CLASS (HTML_OBJECT (x)->klass)
 
 
+/* Calculcate the length of the string after collapsing multiple spaces into
+   single ones and, optionally, removing leading/trailing space completely.  */
+static guint
+calc_actual_len (const gchar *s,
+		 guint len,
+		 gboolean remove_leading_space,
+		 gboolean remove_trailing_space,
+		 const gchar **first_return)
+{
+	guint i;
+	guint actual_len;
+
+	if (len == 0)
+		return 0;
+
+	i = 0;
+	actual_len = 0;
+
+	if (remove_leading_space) {
+		while (i < len && s[i] == ' ')
+			i++;
+		len -= i;
+		if (len == 0)
+			return 0;
+	} 
+
+	*first_return = s + i;
+
+	if (remove_trailing_space) {
+		while (len > 0 && s[len - 1] == ' ')
+			len--;
+		if (len == 0)
+			return 0;
+	}
+
+	while (i < len) {
+		if (s[i] == ' ') {
+			actual_len++;
+			while (i < len && s[i] == ' ')
+				i++;
+		} else {
+			actual_len++;
+			i++;
+		}
+	}
+
+	if (remove_trailing_space && s[i - 1] == ' ')
+		actual_len--;
+
+	return actual_len;
+}
+
+static void
+copy_collapsing_spaces (gchar *dst,
+			const gchar *src,
+			guint actual_len)
+{
+	const gchar *sp;
+	gchar *dp;
+	guint count;
+
+	if (actual_len == 0)
+		return;
+
+	sp = src;
+	dp = dst;
+	count = 0;
+
+	while (count < actual_len) {
+		if (*sp == ' ') {
+			*dp = ' ';
+			dp++, count++, sp++;
+			if (count < actual_len) {
+				while (*sp == ' ')
+					sp++;
+			}
+		} else {
+			*dp = *sp;
+			dp++, count++, sp++;
+		}
+	}
+}
+
+
 /* HTMLObject methods.  */
+
+static void
+calc_size (HTMLObject *self,
+	   HTMLPainter *painter)
+{
+	HTMLText *text;
+	HTMLFontStyle font_style;
+
+	text = HTML_TEXT (self);
+	font_style = html_text_get_font_style (text);
+
+	self->ascent = html_painter_calc_ascent (painter, font_style);
+	self->descent = html_painter_calc_descent (painter, font_style);
+	self->width = html_painter_calc_text_width (painter, text->text, text->text_len, font_style);
+}
 
 static void
 draw (HTMLObject *o,
@@ -41,27 +140,20 @@ draw (HTMLObject *o,
       gint width, gint height,
       gint tx, gint ty)
 {
+	HTMLFontStyle font_style;
 	HTMLText *htmltext;
-	gint x_offset;
 
 	htmltext = HTML_TEXT (o);
 
 	if (y + height < o->y - o->ascent || y > o->y + o->descent)
 		return;
 
-	html_painter_set_font (p, htmltext->font);
-	html_painter_set_pen (p, htmltext->font->textColor);
+	font_style = html_text_get_font_style (htmltext);
+	html_painter_set_font_style (p, font_style);
+
+	html_painter_set_pen (p, html_text_get_color (htmltext, p));
 
 	html_painter_draw_text (p, o->x + tx, o->y + ty, htmltext->text, -1);
-
-	if (cursor != NULL && cursor->object == o) {
-		x_offset = gdk_text_width (htmltext->font->gdk_font,
-					   htmltext->text,
-					   cursor->offset);
-		html_painter_draw_cursor (p,
-					  o->x + tx + x_offset, o->y + ty,
-					  o->ascent, o->descent);
-	}
 }
 
 static gboolean
@@ -82,24 +174,25 @@ queue_draw (HTMLText *text,
 	html_engine_queue_draw (engine, HTML_OBJECT (text));
 }
 
-static void
+static guint
 insert_text (HTMLText *text,
 	     HTMLEngine *engine,
 	     guint offset,
 	     const gchar *s,
 	     guint len)
 {
+	gboolean remove_leading_space, remove_trailing_space;
+	const gchar *start;
 	gchar *new_buffer;
 	guint old_len;
 	guint new_len;
+	guint actual_len;
 
 	/* The following code is very stupid and quite inefficient, but it is
            just for interactive editing so most likely people won't even
            notice.  */
 
-	old_len = strlen (text->text);
-	new_len = old_len + len;
-
+	old_len = text->text_len;
 	if (offset > old_len) {
 		g_warning ("Cursor offset out of range for HTMLText::insert_text().");
 
@@ -108,24 +201,47 @@ insert_text (HTMLText *text,
 		offset = old_len;
 	}
 
+	if (offset > 0 && text->text[offset - 1] == ' ')
+		remove_leading_space = TRUE;
+	else
+		remove_leading_space = FALSE;
+
+	if (text->text[offset] == ' ')
+		remove_trailing_space = TRUE;
+	else
+		remove_trailing_space = FALSE;
+
+	actual_len = calc_actual_len (s, len,
+				      remove_leading_space,
+				      remove_trailing_space,
+				      &start);
+	if (actual_len == 0)
+		return 0;
+
+	new_len = old_len + actual_len;
 	new_buffer = g_malloc (new_len + 1);
 
 	if (offset > 0)
 		memcpy (new_buffer, text->text, offset);
 
-	memcpy (new_buffer + offset, s, len);
+	copy_collapsing_spaces (new_buffer + offset, start, actual_len);
 
 	if (offset < old_len)
-		memcpy (new_buffer + offset + len, text->text + offset,
+		memcpy (new_buffer + offset + actual_len,
+			text->text + offset,
 			old_len - offset);
 
 	new_buffer[new_len] = '\0';
 
 	g_free (text->text);
+
 	text->text = new_buffer;
+	text->text_len = new_len;
 
 	if (! html_object_relayout (HTML_OBJECT (text)->parent, engine, HTML_OBJECT (text)))
 		html_engine_queue_draw (engine, HTML_OBJECT (text)->parent);
+
+	return actual_len;
 }
 
 static guint
@@ -162,7 +278,9 @@ remove_text (HTMLText *text,
 	memcpy (new_buffer + offset, text->text + offset + len, old_len - offset - len + 1);
 
 	g_free (text->text);
+
 	text->text = new_buffer;
+	text->text_len = new_len;
 
 	html_object_relayout (HTML_OBJECT (text)->parent, engine, HTML_OBJECT (text));
 	html_engine_queue_draw (engine, HTML_OBJECT (text)->parent);
@@ -177,9 +295,12 @@ calc_char_position (HTMLText *self,
 {
 	html_object_calc_abs_position (HTML_OBJECT (self), x_return, y_return);
 
+	/* FIXME FIXME */
+#if 0
 	*x_return += gdk_text_width (self->font->gdk_font,
 				     self->text,
 				     offset);
+#endif
 }
 
 static HTMLText *
@@ -195,12 +316,44 @@ split (HTMLText *self,
 		return NULL;
 
 	s = g_strdup (self->text + offset);
-	new = HTML_TEXT (html_text_new (s, self->font));
+	new = HTML_TEXT (html_text_new (s, self->font_style, &self->color));
 
 	self->text = g_realloc (self->text, offset + 1);
 	self->text[offset] = '\0';
 
 	return new;
+}
+
+/* This is necessary to merge the text-specified font style with that of the
+   HTMLClueFlow parent.  */
+static HTMLFontStyle
+get_font_style (const HTMLText *text)
+{
+	HTMLObject *parent;
+	HTMLFontStyle font_style;
+
+	parent = HTML_OBJECT (text)->parent;
+
+	if (HTML_OBJECT_TYPE (parent) == HTML_TYPE_CLUEFLOW) {
+		HTMLFontStyle parent_style;
+
+		parent_style = html_clueflow_get_default_font_style (HTML_CLUEFLOW (parent));
+		font_style = html_font_style_merge (parent_style, text->font_style);
+	} else {
+		font_style = html_font_style_merge (HTML_FONT_STYLE_SIZE_3, text->font_style);
+	}
+
+	return font_style;
+}
+
+static const GdkColor *
+get_color (HTMLText *text,
+	   HTMLPainter *painter)
+{
+	if (! text->color_allocated)
+		html_painter_alloc_color (painter, &text->color);
+
+	return &text->color;
 }
 
 
@@ -224,6 +377,7 @@ html_text_class_init (HTMLTextClass *klass,
 
 	object_class->draw = draw;
 	object_class->accepts_cursor = accepts_cursor;
+	object_class->calc_size = calc_size;
 
 	/* HTMLText methods.  */
 
@@ -232,57 +386,67 @@ html_text_class_init (HTMLTextClass *klass,
 	klass->queue_draw = queue_draw;
 	klass->calc_char_position = calc_char_position;
 	klass->split = split;
+	klass->get_font_style = get_font_style;
+	klass->get_color = get_color;
 }
 
 void
 html_text_init (HTMLText *text_object,
 		HTMLTextClass *klass,
 		gchar *text,
-		HTMLFont *font)
+		HTMLFontStyle font_style,
+		const GdkColor *color)
 {
 	HTMLObject *object;
-
-	g_return_if_fail (font != NULL);
 
 	object = HTML_OBJECT (text_object);
 
 	html_object_init (object, HTML_OBJECT_CLASS (klass));
 
-	object->width = html_font_calc_width (font, text, -1);
-	object->ascent = html_font_calc_ascent (font);
-	object->descent = html_font_calc_descent (font);
-
 	text_object->text = text;
-	text_object->font = font;
+	text_object->font_style = font_style;
+	text_object->text_len = strlen (text);
+
+	if (color != NULL) {
+		text_object->color = *color;
+	} else {
+		text_object->color.red = 0;
+		text_object->color.green = 0;
+		text_object->color.blue = 0;
+	}
+
+	text_object->color_allocated = FALSE;
 }
 
 HTMLObject *
-html_text_new (gchar *text, HTMLFont *font)
+html_text_new (gchar *text,
+	       HTMLFontStyle font,
+	       const GdkColor *color)
 {
 	HTMLText *text_object;
 
 	text_object = g_new (HTMLText, 1);
 
-	html_text_init (text_object, &html_text_class, text, font);
+	html_text_init (text_object, &html_text_class, text, font, color);
 
 	return HTML_OBJECT (text_object);
 }
 
-void
+guint
 html_text_insert_text (HTMLText *text,
 		       HTMLEngine *engine,
 		       guint offset,
 		       const gchar *p,
 		       guint len)
 {
-	g_return_if_fail (text != NULL);
-	g_return_if_fail (engine != NULL);
-	g_return_if_fail (p != NULL);
+	g_return_val_if_fail (text != NULL, 0);
+	g_return_val_if_fail (engine != NULL, 0);
+	g_return_val_if_fail (p != NULL, 0);
 
 	if (len == 0)
-		return;
+		return 0;
 
-	(* HT_CLASS (text)->insert_text) (text, engine, offset, p, len);
+	return (* HT_CLASS (text)->insert_text) (text, engine, offset, p, len);
 }
 
 guint
@@ -330,4 +494,22 @@ html_text_split (HTMLText *text,
 	g_return_val_if_fail (offset > 0, NULL);
 
 	return (* HT_CLASS (text)->split) (text, offset);
+}
+
+HTMLFontStyle
+html_text_get_font_style (const HTMLText *text)
+{
+	g_return_val_if_fail (text != NULL, HTML_FONT_STYLE_DEFAULT);
+
+	return (* HT_CLASS (text)->get_font_style) (text);
+}
+
+const GdkColor *
+html_text_get_color (HTMLText *text,
+		     HTMLPainter *painter)
+{
+	g_return_val_if_fail (text != NULL, NULL);
+	g_return_val_if_fail (painter != NULL, NULL);
+
+	return (* HT_CLASS (text)->get_color) (text, painter);
 }

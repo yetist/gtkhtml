@@ -28,8 +28,7 @@ libgtkhtml_HEADERS =				\
 	htmlengine.h				\
 	htmlengine-edit.h			\
 	htmlentity.h				\
-	htmlfont.h				\
-	htmlhspace.h				\
+	htmlfontmanager.h			\
 	htmlimage.h				\
 	htmllinktext.h				\
 	htmllinktextmaster.h			\
@@ -47,6 +46,7 @@ libgtkhtml_HEADERS =				\
 	htmltextslave.h				\
 	htmltokenizer.h				\
 	htmltype.h				\
+	htmlurl.h				\
 	htmlvspace.h				\
 	stringtokenizer.h			\
 	htmlform.h				\
@@ -76,8 +76,7 @@ libgtkhtml_la_SOURCES =				\
 	htmlengine.c				\
 	htmlengine-edit.c			\
 	htmlentity.c				\
-	htmlfont.c				\
-	htmlhspace.c				\
+	htmlfontmanager.c			\
 	htmlimage.c				\
 	htmllinktext.c				\
 	htmllinktextmaster.c			\

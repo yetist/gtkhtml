@@ -33,7 +33,7 @@ static HTMLClueClass *parent_class;
    The types in `HTMLClueAligned' are chosen wrong.  */
 static void
 remove_aligned_by_parent ( HTMLClueV *cluev,
-						   HTMLObject *p )
+			   HTMLObject *p )
 {
     HTMLClueAligned *tmp;
 	HTMLObject *obj;
@@ -90,7 +90,7 @@ cluev_next_aligned (HTMLObject *aclue)
 
 static void
 calc_size (HTMLObject *o,
-	   HTMLObject *parent)
+	   HTMLPainter *painter)
 {
 	HTMLClueV *cluev;
 	HTMLClue *clue;
@@ -101,8 +101,8 @@ calc_size (HTMLObject *o,
 	cluev = HTML_CLUEV (o);
 	clue = HTML_CLUE (o);
 
-	if (parent != NULL) {
-		lmargin = html_clue_get_left_margin (HTML_CLUE (parent), o->y);
+	if (o->parent != NULL) {
+		lmargin = html_clue_get_left_margin (HTML_CLUE (o->parent), o->y);
 		lmargin += cluev->padding;
 	} else {
 		lmargin = cluev->padding;
@@ -111,7 +111,7 @@ calc_size (HTMLObject *o,
 	/* If we have already called calc_size for the children, then just
 	   continue from the last object done in previous call. */
 	
-	if (clue->curr) {
+	if (clue->curr != NULL) {
 		o->ascent = cluev->padding;
 		
 		/* Get the current ascent not including curr */
@@ -124,18 +124,17 @@ calc_size (HTMLObject *o,
 		/* Remove any aligned objects previously added by the current
 		   object.  */
 		remove_aligned_by_parent (cluev, clue->curr);
-	}
-	else {
+	} else {
 		o->ascent = cluev->padding;
 		o->descent = 0;
 		clue->curr = clue->head;
 	}
 
-	while (clue->curr != 0) {
+	while (clue->curr != NULL) {
 		/* Set an initial ypos so that the alignment stuff knows where
 		   the top of this object is */
 		clue->curr->y = o->ascent;
-		html_object_calc_size (clue->curr, o);
+		html_object_calc_size (clue->curr, painter);
 
 		if (clue->curr->width > o->width - 2 * cluev->padding)
 			o->width = clue->curr->width + 2 * cluev->padding;
@@ -576,6 +575,50 @@ append_right_aligned (HTMLClue *clue, HTMLClue *aclue)
 	}
 }
 
+static gint
+get_left_clear (HTMLClue *self,
+		gint y)
+{
+	HTMLObject *p;
+	gint top_y, base_y;
+
+	/* XXX we assume the parent's size has already been calculated here.  */
+    	
+	for (p = HTML_CLUEV (self)->align_left_list;
+	     p != NULL;
+	     p = HTML_OBJECT (HTML_CLUEALIGNED (p)->next_aligned)) {
+		base_y = p->y + p->parent->y - p->parent->ascent;
+		top_y = base_y - p->ascent;
+
+		if (top_y <= y && base_y > y)
+			y = base_y;
+	}
+
+	return y;
+}
+
+static gint
+get_right_clear (HTMLClue *self,
+		 gint y)
+{
+	HTMLObject *p;
+	gint top_y, base_y;
+
+	/* XXX we assume the parent's size has already been calculated here.  */
+    	
+	for (p = HTML_CLUEV (self)->align_right_list;
+	     p != NULL;
+	     p = HTML_OBJECT (HTML_CLUEALIGNED (p)->next_aligned)) {
+		base_y = p->y + p->parent->y - p->parent->ascent;
+		top_y = base_y - p->ascent;
+
+		if (top_y <= y && base_y > y)
+			y = base_y;
+	}
+
+	return y;
+}
+
 
 void
 html_cluev_type_init (void)
@@ -608,6 +651,8 @@ html_cluev_class_init (HTMLClueVClass *klass,
 
 	clue_class->get_left_margin = get_left_margin;
 	clue_class->get_right_margin = get_right_margin;
+	clue_class->get_left_clear = get_left_clear;
+	clue_class->get_right_clear = get_right_clear;
 	clue_class->find_free_area = find_free_area;
 	clue_class->appended = appended;
 	clue_class->append_left_aligned = append_left_aligned;

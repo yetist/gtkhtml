@@ -21,28 +21,35 @@
    Boston, MA 02111-1307, USA.
 */
 
+/* This is the object that defines a paragraph in the HTML document.  */
+
 #include "htmlclue.h"
 #include "htmlclueflow.h"
 #include "htmlcluealigned.h"
 #include "htmltext.h"
-#include "htmlhspace.h"
 #include "htmlvspace.h"
 
 
 /* Indentation width.  */
 #define INDENT_UNIT 25
 
+/* Vertical spacing.  FIXME: Maybe this should depend on the paragraph type.  */
+#define VERTICAL_PAD 10
+
+/* Bullet geometry (for itemized lists).  */
 #define BULLET_SIZE 4
 #define BULLET_HPAD  4
 #define BULLET_VPAD  2
 
 HTMLClueFlowClass html_clueflow_class;
 
+#define HCF_CLASS(x) HTML_CLUEFLOW_CLASS (HTML_OBJECT (x)->klass)
+
 
 static gboolean
-style_is_item (HTMLClueFlowStyle style)
+is_item (HTMLClueFlow *flow)
 {
-	switch (style) {
+	switch (flow->style) {
 	case HTML_CLUEFLOW_STYLE_ITEMDOTTED:
 	case HTML_CLUEFLOW_STYLE_ITEMROMAN:
 	case HTML_CLUEFLOW_STYLE_ITEMDIGIT:
@@ -52,7 +59,98 @@ style_is_item (HTMLClueFlowStyle style)
 	}
 }
 
+static gboolean
+is_header (HTMLClueFlow *flow)
+{
+	switch (flow->style) {
+	case HTML_CLUEFLOW_STYLE_H1:
+	case HTML_CLUEFLOW_STYLE_H2:
+	case HTML_CLUEFLOW_STYLE_H3:
+	case HTML_CLUEFLOW_STYLE_H4:
+	case HTML_CLUEFLOW_STYLE_H5:
+	case HTML_CLUEFLOW_STYLE_H6:
+		return TRUE;
+	default:
+		return FALSE;
+	}
+}
+
+static void
+add_pre_padding (HTMLClueFlow *flow)
+{
+	HTMLObject *prev_object;
+
+	prev_object = HTML_OBJECT (flow)->prev;
+	if (prev_object == NULL)
+		return;
+
+	if (HTML_OBJECT_TYPE (prev_object) == HTML_TYPE_CLUEFLOW) {
+		HTMLClueFlow *prev;
+
+		prev = HTML_CLUEFLOW (prev_object);
+		if (prev->level > 0 && flow->level == 0) {
+			HTML_OBJECT (flow)->ascent += VERTICAL_PAD;
+			return;
+		}
+
+		if (is_header (flow) && ! is_header (prev)) {
+			HTML_OBJECT (flow)->ascent += VERTICAL_PAD;
+			return;
+		}
+
+		return;
+	}
+
+	if (is_header (flow) || flow->level > 0)
+		HTML_OBJECT (flow)->ascent += VERTICAL_PAD;
+}
+
+static void
+add_post_padding (HTMLClueFlow *flow)
+{
+	HTMLObject *next_object;
+
+	next_object = HTML_OBJECT (flow)->next;
+	if (next_object == NULL)
+		return;
+
+	if (HTML_OBJECT_TYPE (next_object) == HTML_TYPE_CLUEFLOW) {
+		HTMLClueFlow *next;
+
+		next = HTML_CLUEFLOW (next_object);
+		if (next->level > 0 && flow->level == 0) {
+			HTML_OBJECT (flow)->ascent += VERTICAL_PAD;
+			return;
+		}
+
+		next = HTML_CLUEFLOW (next_object);
+		if (is_header (flow)) {
+			HTML_OBJECT (flow)->ascent += VERTICAL_PAD;
+			return;
+		}
+
+		return;
+	}
+
+	if (is_header (flow) || flow->level > 0)
+		HTML_OBJECT (flow)->ascent += VERTICAL_PAD;
+}
+
+static guint
+get_indent (HTMLClueFlow *flow)
+{
+	guint indent;
+
+	if (flow->level > 0 || ! is_item (flow))
+		indent = flow->level * INDENT_UNIT;
+	else
+		indent = BULLET_SIZE + 2 * BULLET_HPAD;
+
+	return indent;
+}
+	
 
+/* HTMLObject methods.  */
 static void
 set_max_width (HTMLObject *o, gint max_width)
 {
@@ -60,28 +158,41 @@ set_max_width (HTMLObject *o, gint max_width)
 	guint indent;
 
 	o->max_width = max_width;
-	indent = HTML_CLUEFLOW (o)->level * INDENT_UNIT;
-	
+
+	indent = get_indent (HTML_CLUEFLOW (o));
+
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next)
 		html_object_set_max_width (obj, o->max_width - indent);
 }
 
 static gint
-calc_min_width (HTMLObject *o)
+calc_min_width (HTMLObject *o,
+		HTMLPainter *painter)
 {
 	HTMLObject *obj;
 	gint w;
 	gint tempMinWidth;
+	gboolean is_pre;
 
 	tempMinWidth = 0;
+	w = 0;
+	is_pre = (HTML_CLUEFLOW (o)->style == HTML_CLUEFLOW_STYLE_PRE);
 
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
-		w = html_object_calc_min_width (obj);
+		w += html_object_calc_min_width (obj, painter);
+
+		if (is_pre
+		    && ! (obj->flags & HTML_OBJECT_FLAG_NEWLINE)
+		    && obj->next != NULL)
+			continue;
+
 		if (w > tempMinWidth)
 			tempMinWidth = w;
+
+		w = 0;
 	}
 
-	tempMinWidth += HTML_CLUEFLOW (o)->level * INDENT_UNIT;
+	tempMinWidth += get_indent (HTML_CLUEFLOW (o));
 
 	return tempMinWidth;
 }
@@ -90,7 +201,7 @@ calc_min_width (HTMLObject *o)
 /* FIXME: But it's awful.  Too big and ugly.  */
 static void
 calc_size (HTMLObject *o,
-	   HTMLObject *parent)
+	   HTMLPainter *painter)
 {
 	HTMLVSpace *vspace;
 	HTMLClue *clue;
@@ -99,6 +210,7 @@ calc_size (HTMLObject *o,
 	HTMLClearType clear;
 	gboolean newLine;
 	gboolean firstLine;
+	gboolean is_pre;
 	gint lmargin, rmargin;
 	gint indent;
 	gint oldy;
@@ -109,16 +221,23 @@ calc_size (HTMLObject *o,
 	obj = clue->head;
 	line = clue->head;
 	clear = HTML_CLEAR_NONE;
-	indent = HTML_CLUEFLOW (o)->level * INDENT_UNIT;
+	indent = get_indent (HTML_CLUEFLOW (o));
+
+	if (HTML_CLUEFLOW (o)->style == HTML_CLUEFLOW_STYLE_PRE)
+		is_pre = TRUE;
+	else
+		is_pre = FALSE;
 
 	o->ascent = 0;
 	o->descent = 0;
 	o->width = 0;
 
-	lmargin = html_clue_get_left_margin (HTML_CLUE (parent), o->y);
+	add_pre_padding (HTML_CLUEFLOW (o));
+
+	lmargin = html_clue_get_left_margin (HTML_CLUE (o->parent), o->y);
 	if (indent > lmargin)
 		lmargin = indent;
-	rmargin = html_clue_get_right_margin (HTML_CLUE (parent), o->y);
+	rmargin = html_clue_get_right_margin (HTML_CLUE (o->parent), o->y);
 
 	w = lmargin;
 	a = 0;
@@ -138,10 +257,6 @@ calc_size (HTMLObject *o,
 			obj = obj->next;
 		} else if (obj->flags & HTML_OBJECT_FLAG_SEPARATOR) {
 			obj->x = w;
-
-			/* FIXME I am not sure why this check is here, but it
-                           causes a stand-alone hspace in a clueflow to be
-                           given zero height.  -- EP */
 			if (TRUE /* w != lmargin */) {
 				w += obj->width;
 				if (obj->ascent > a)
@@ -153,25 +268,24 @@ calc_size (HTMLObject *o,
 		} else if (obj->flags & HTML_OBJECT_FLAG_ALIGNED) {
 			HTMLClueAligned *c = (HTMLClueAligned *)obj;
 			
-			if (! html_clue_appended (HTML_CLUE (parent), HTML_CLUE (c))) {
-				html_object_calc_size (obj, NULL);
+			if (! html_clue_appended (HTML_CLUE (o->parent), HTML_CLUE (c))) {
+				html_object_calc_size (obj, painter);
 
 				if (HTML_CLUE (c)->halign == HTML_HALIGN_LEFT) {
 					obj->x = lmargin;
 					obj->y = o->ascent + obj->ascent;
 
-					html_clue_append_left_aligned
-						(HTML_CLUE (parent),
-						 HTML_CLUE (c));
+					html_clue_append_left_aligned (HTML_CLUE (o->parent),
+								       HTML_CLUE (c));
 				} else {
 					obj->x = rmargin - obj->width;
 					obj->y = o->ascent + obj->ascent;
 					
-					html_clue_append_right_aligned
-						(HTML_CLUE (parent),
-						 HTML_CLUE (c));
+					html_clue_append_right_aligned (HTML_CLUE (o->parent),
+									HTML_CLUE (c));
 				}
 			}
+
 			obj = obj->next;
 		}
 		/* This is a normal object.  We must add all objects upto the next
@@ -180,9 +294,9 @@ calc_size (HTMLObject *o,
 			gint runWidth;
 			HTMLObject *run;
 
-			/* By setting "newLine = true" we move the complete run to
-			   a new line.
-			   We shouldn't set newLine if we are at the start of a line.  */
+			/* By setting "newLine = true" we move the complete run
+			   to a new line.  We shouldn't set newLine if we are
+			   at the start of a line.  */
 
 			runWidth = 0;
 			run = obj;
@@ -191,24 +305,31 @@ calc_size (HTMLObject *o,
 				&& ! (run->flags & HTML_OBJECT_FLAG_NEWLINE)
 				&& ! (run->flags & HTML_OBJECT_FLAG_ALIGNED)) {
 				HTMLFitType fit;
+				gint width_left;
 			  
 				run->max_width = rmargin - lmargin;
+
+				if (is_pre)
+					width_left = -1;
+				else
+					width_left = rmargin - runWidth - w;
+
 				fit = html_object_fit_line (run,
+							    painter,
 							    w + runWidth == lmargin,
 							    obj == line,
-							    rmargin - runWidth - w);
-
+							    width_left);
 				if (fit == HTML_FIT_NONE) {
 					newLine = TRUE;
 					break;
 				}
 				
-				html_object_calc_size (run, o);
+				html_object_calc_size (run, painter);
 				runWidth += run->width;
 
 				/* If this run cannot fit in the allowed area, break it
 				   on a non-separator */
-				if ((run != obj) && (runWidth > rmargin - lmargin))
+				if (! is_pre && run != obj && runWidth > rmargin - lmargin)
 					break;
 				
 				if (run->ascent > a)
@@ -223,28 +344,25 @@ calc_size (HTMLObject *o,
 					break;
 				}
 
-				if (runWidth > rmargin - lmargin)
+				if (! is_pre && runWidth > rmargin - lmargin)
 					break;
 			}
 
 			/* If these objects do not fit in the current line and we are
 			   not at the start of a line then end the current line in
 			   preparation to add this run in the next pass. */
-			if (w > lmargin && w + runWidth > rmargin)
+			if (! is_pre && w > lmargin && w + runWidth > rmargin)
 				newLine = TRUE;
 
 			if (! newLine) {
 				gint new_y, new_lmargin, new_rmargin;
-				guint indent;
-
-				indent = HTML_CLUEFLOW (o)->level * INDENT_UNIT;
 
 				/* Check if the run fits in the current flow area 
 				   especially with respect to its height.
 				   If not, find a rectangle with height a+b. The size of
 				   the rectangle will be rmargin-lmargin. */
 
-				html_clue_find_free_area (HTML_CLUE (parent),
+				html_clue_find_free_area (HTML_CLUE (o->parent),
 							  o->y,
 							  line->width,
 							  a+d,
@@ -287,7 +405,6 @@ calc_size (HTMLObject *o,
 					}
 				}
 			}
-			
 		}
 		
 		/* if we need a new line, or all objects have been processed
@@ -333,26 +450,25 @@ calc_size (HTMLObject *o,
 			if (clear == HTML_CLEAR_ALL) {
 				int new_lmargin, new_rmargin;
 				
-				html_clue_find_free_area (HTML_CLUE (parent), oldy,
+				html_clue_find_free_area (HTML_CLUE (o->parent),
+							  oldy,
 							  o->max_width,
 							  1, 0,
 							  &o->y,
 							  &new_lmargin,
 							  &new_rmargin);
 			} else if (clear == HTML_CLEAR_LEFT) {
-				o->y = html_clue_get_left_clear (HTML_CLUE (parent), oldy);
+				o->y = html_clue_get_left_clear (HTML_CLUE (o->parent), oldy);
 			} else if (clear == HTML_CLEAR_RIGHT) {
-				o->y = html_clue_get_right_clear (HTML_CLUE (parent), oldy);
+				o->y = html_clue_get_right_clear (HTML_CLUE (o->parent), oldy);
 			}
 
 			o->ascent += o->y - oldy;
 
-			lmargin = html_clue_get_left_margin (HTML_CLUE (parent),
-							     o->y);
-			if (HTML_CLUEFLOW (o)->level * INDENT_UNIT > lmargin)
-				lmargin = HTML_CLUEFLOW (o)->level * INDENT_UNIT;
-			rmargin = html_clue_get_right_margin (HTML_CLUE (parent),
-							      o->y);
+			lmargin = html_clue_get_left_margin (HTML_CLUE (o->parent), o->y);
+			if (indent > lmargin)
+				lmargin = indent;
+			rmargin = html_clue_get_right_margin (HTML_CLUE (o->parent), o->y);
 
 			w = lmargin;
 			d = 0;
@@ -365,17 +481,20 @@ calc_size (HTMLObject *o,
 	
 	if (o->width < o->max_width)
 		o->width = o->max_width;
+
+	add_post_padding (HTML_CLUEFLOW (o));
 }
 
 static gint
-calc_preferred_width (HTMLObject *o)
+calc_preferred_width (HTMLObject *o,
+		      HTMLPainter *painter)
 {
 	HTMLObject *obj;
 	gint maxw = 0, w = 0;
 
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
 		if (!(obj->flags & HTML_OBJECT_FLAG_NEWLINE)) {
-			w += html_object_calc_preferred_width (obj);
+			w += html_object_calc_preferred_width (obj, painter);
 		} else {
 			if (w > maxw)
 				maxw = w;
@@ -386,7 +505,7 @@ calc_preferred_width (HTMLObject *o)
 	if (w > maxw)
 		maxw = w;
 
-	return maxw + HTML_CLUEFLOW (o)->level * INDENT_UNIT;
+	return maxw + get_indent (HTML_CLUEFLOW (o));
 }
 
 static void
@@ -407,19 +526,16 @@ draw (HTMLObject *self,
 	clueflow = HTML_CLUEFLOW (self);
 	first = HTML_CLUE (self)->head;
 
-	if (first != NULL
-	    && clueflow->level > 0
-	    && style_is_item (clueflow->style)) {
+	if (first != NULL && is_item (clueflow)) {
 		gint xp, yp;
 
-		html_painter_set_pen (painter, clueflow->font->textColor);
-
+		/* FIXME pen */
 		xp = self->x + first->x - BULLET_SIZE - BULLET_HPAD;
 		yp = self->y - self->ascent + first->y - BULLET_SIZE - BULLET_VPAD;
 
 		xp += tx, yp += ty;
 
-		if (clueflow->level & 1)
+		if (clueflow->level == 0 || (clueflow->level & 1) != 0)
 			html_painter_fill_rect (painter, xp, yp, BULLET_SIZE, BULLET_SIZE);
 		else
 			html_painter_draw_rect (painter, xp, yp, BULLET_SIZE, BULLET_SIZE);
@@ -427,6 +543,39 @@ draw (HTMLObject *self,
 
 	(* HTML_OBJECT_CLASS (&html_clue_class)->draw) (self, painter, cursor,
 							x, y, width, height, tx, ty);
+}
+
+
+static HTMLFontStyle
+get_default_font_style (const HTMLClueFlow *self)
+{
+	switch (self->style) {
+	case HTML_CLUEFLOW_STYLE_NORMAL:
+	case HTML_CLUEFLOW_STYLE_P:
+	case HTML_CLUEFLOW_STYLE_ITEMDOTTED:
+	case HTML_CLUEFLOW_STYLE_ITEMROMAN:
+	case HTML_CLUEFLOW_STYLE_ITEMDIGIT:
+		return HTML_FONT_STYLE_SIZE_3;
+	case HTML_CLUEFLOW_STYLE_ADDRESS:
+		return HTML_FONT_STYLE_SIZE_3 | HTML_FONT_STYLE_ITALIC;
+	case HTML_CLUEFLOW_STYLE_PRE:
+		return HTML_FONT_STYLE_SIZE_3 | HTML_FONT_STYLE_FIXED;
+	case HTML_CLUEFLOW_STYLE_H1:
+		return HTML_FONT_STYLE_SIZE_6 | HTML_FONT_STYLE_BOLD;
+	case HTML_CLUEFLOW_STYLE_H2:
+		return HTML_FONT_STYLE_SIZE_5 | HTML_FONT_STYLE_BOLD;
+	case HTML_CLUEFLOW_STYLE_H3:
+		return HTML_FONT_STYLE_SIZE_4 | HTML_FONT_STYLE_BOLD;
+	case HTML_CLUEFLOW_STYLE_H4:
+		return HTML_FONT_STYLE_SIZE_3 | HTML_FONT_STYLE_BOLD;
+	case HTML_CLUEFLOW_STYLE_H5:
+		return HTML_FONT_STYLE_SIZE_2 | HTML_FONT_STYLE_BOLD;
+	case HTML_CLUEFLOW_STYLE_H6:
+		return HTML_FONT_STYLE_SIZE_1 | HTML_FONT_STYLE_BOLD;
+	default:
+		g_warning ("Unexpected HTMLClueFlow style %d", self->style);
+		return HTML_FONT_STYLE_DEFAULT;
+	}
 }
 
 
@@ -453,6 +602,8 @@ html_clueflow_class_init (HTMLClueFlowClass *klass,
 	object_class->calc_min_width = calc_min_width;
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->draw = draw;
+
+	klass->get_default_font_style = get_default_font_style;
 }
 
 void
@@ -495,6 +646,17 @@ html_clueflow_new (HTMLFont *font,
 }
 
 
+/* Virtual methods.  */
+
+HTMLFontStyle
+html_clueflow_get_default_font_style (const HTMLClueFlow *self)
+{
+	g_return_val_if_fail (self != NULL, HTML_FONT_STYLE_DEFAULT);
+
+	return (* HCF_CLASS (self)->get_default_font_style) (self);
+}
+
+
 /* Clue splitting (for editing).  */
 
 /**
@@ -533,16 +695,6 @@ html_clueflow_split (HTMLClueFlow *clue,
 	}
 
 	child->prev = NULL;
-
-	/* The last text element in an HTMLClueFlow must be followed by an
-           hidden hspace.  */
-
-	if (prev != NULL && html_object_is_text (prev)) {
-		HTMLObject *hspace;
-
-		hspace = html_hspace_new (HTML_TEXT (prev)->font, TRUE);
-		html_clue_append (HTML_CLUE (clue), hspace);
-	}
 
 	/* Put the children into the new clue.  */
 

@@ -21,7 +21,10 @@
    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
    Boston, MA 02111-1307, USA.
 */
+
 #include <glib.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
+
 #include "htmlobject.h"
 #include "htmlimage.h"
 #include "htmlengine.h"
@@ -71,7 +74,8 @@ set_max_width (HTMLObject *o, gint max_width)
 }
 
 static gint
-calc_min_width (HTMLObject *o)
+calc_min_width (HTMLObject *o,
+		HTMLPainter *painter)
 {
 	if (o->percent > 0)
 		return 1;
@@ -133,13 +137,15 @@ draw (HTMLObject *o,
 }
 
 static gint
-calc_preferred_width (HTMLObject *o)
+calc_preferred_width (HTMLObject *o,
+		      HTMLPainter *painter)
 {
 	return o->width;
 }
 
 static void
-calc_size (HTMLObject *o, HTMLObject *parent)
+calc_size (HTMLObject *o,
+	   HTMLPainter *painter)
 {
 }
 

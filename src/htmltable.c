@@ -1,23 +1,25 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/* 
-    Copyright (C) 1997 Martin Jones (mjones@kde.org)
-              (C) 1997 Torben Weis (weis@kde.org)
-	      (C) 1999 Anders Carlsson (andersca@gnu.org)
+/* This file is part of the GtkHTML library.
 
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-    Boston, MA 02111-1307, USA.
+   Copyright (C) 1997 Martin Jones (mjones@kde.org)
+   Copyright (C) 1997 Torben Weis (weis@kde.org)
+   Copyright (C) 1999 Anders Carlsson (andersca@gnu.org)
+   Copyright (C) 2000 Helix Code, Inc.
+   
+   This library is free software; you can redistribute it and/or
+   modify it under the terms of the GNU Library General Public
+   License as published by the Free Software Foundation; either
+   version 2 of the License, or (at your option) any later version.
+   
+   This library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   Library General Public License for more details.
+   
+   You should have received a copy of the GNU Library General Public License
+   along with this library; see the file COPYING.LIB.  If not, write to
+   the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+   Boston, MA 02111-1307, USA.
 */
 #include "htmlobject.h"
 #include "htmltable.h"
@@ -34,7 +36,9 @@
 
 HTMLTableClass html_table_class;
 
-static void destroy (HTMLObject *o) {
+static void
+destroy (HTMLObject *o)
+{
 	HTMLTable *table = HTML_TABLE (o);
 	HTMLTableCell *cell;
 	guint r, c;
@@ -107,7 +111,8 @@ add_rows (HTMLTable *table, gint num)
 }
 
 static void
-calc_col_info (HTMLTable *table)
+calc_col_info (HTMLTable *table,
+	       HTMLPainter *painter)
 {
 	gint r, c;
 	gint borderExtra = (table->border == 0) ? 0 : 1;
@@ -138,7 +143,7 @@ calc_col_info (HTMLTable *table)
 				continue;
 
 			/* calculate minimum size */
-			min_size = html_object_calc_min_width (HTML_OBJECT (cell));
+			min_size = html_object_calc_min_width (HTML_OBJECT (cell), painter);
 			min_size += table->padding * 2 + table->spacing + borderExtra;
 
 			/* calculate preferred pos */
@@ -155,7 +160,8 @@ calc_col_info (HTMLTable *table)
 				col_type = Fixed;
 			}
 			else {
-				pref_size = html_object_calc_preferred_width (HTML_OBJECT (cell)) + table->padding * 2+ table->spacing + borderExtra;
+				pref_size = html_object_calc_preferred_width (HTML_OBJECT (cell), painter)
+					+ table->padding * 2+ table->spacing + borderExtra;
 				col_type = Variable;
 			}
 
@@ -275,7 +281,8 @@ scale_selected_columns (HTMLTable *table, gint c_start, gint c_end,
 }
 
 static void
-scale_columns (HTMLTable *table, gint c_start, gint c_end, gint tooAdd)
+scale_columns (HTMLTable *table, HTMLPainter *painter,
+	       gint c_start, gint c_end, gint tooAdd)
 {
 	gint r, c;
 	gint colspan;
@@ -349,7 +356,7 @@ scale_columns (HTMLTable *table, gint c_start, gint c_end, gint tooAdd)
 						continue;
 
 					/* Scale the columns covered by 'cell' first */
-					scale_columns (table, c_b, c, addSize);
+					scale_columns (table, painter, c_b, c, addSize);
 				}
 			}
 		}
@@ -481,7 +488,7 @@ scale_columns (HTMLTable *table, gint c_start, gint c_end, gint tooAdd)
 
 					/* Scale the columns covered by 'cell'
                                            first */
-					scale_columns (table, c_b, c, addSize);
+					scale_columns (table, painter, c_b, c, addSize);
 				}
 			}
 		}
@@ -534,7 +541,9 @@ scale_columns (HTMLTable *table, gint c_start, gint c_end, gint tooAdd)
 			}
 			else {
 				/* variable width */
-				prefCellWidth = html_object_calc_preferred_width (HTML_OBJECT (cell)) + table->padding * 2 + table->spacing + borderExtra;
+				prefCellWidth = html_object_calc_preferred_width (HTML_OBJECT (cell),
+										  painter)
+					+ table->padding * 2 + table->spacing + borderExtra;
 			}
 			
 			prefCellWidth = prefCellWidth / cell->cspan;
@@ -606,7 +615,8 @@ scale_columns (HTMLTable *table, gint c_start, gint c_end, gint tooAdd)
 /* Both the minimum and preferred column sizes are calculated here.
    The hard part is choosing the actual sizes based on these two. */
 static void
-calc_column_widths (HTMLTable *table)
+calc_column_widths (HTMLTable *table,
+		    HTMLPainter *painter)
 {
 	gint r, c, i;
 	gint indx, borderExtra = (table->border == 0) ? 0 : 1;
@@ -649,7 +659,7 @@ calc_column_widths (HTMLTable *table)
 
 			/* calculate minimum pos */
 			colPos = (a_columnpos (indx)
-				  + html_object_calc_min_width (HTML_OBJECT (cell))
+				  + html_object_calc_min_width (HTML_OBJECT (cell), painter)
 				  + table->padding * 2
 				  + table->padding
 				  + borderExtra);
@@ -678,7 +688,8 @@ calc_column_widths (HTMLTable *table)
 				a_columnprefpos (c + 1) = colPos;
 			}
 			else {
-				colPos = html_object_calc_preferred_width (HTML_OBJECT (cell));
+				colPos = html_object_calc_preferred_width (HTML_OBJECT (cell),
+									   painter);
 				colPos += a_columnprefpos (indx) + table->padding * 2 + table->spacing + borderExtra;
 				if (a_columnprefpos (c + 1) < colPos)
 					a_columnprefpos (c + 1) = colPos;
@@ -740,7 +751,8 @@ calc_row_heights (HTMLTable *table)
 }
 
 static void
-optimize_cell_width (HTMLTable *table)
+optimize_cell_width (HTMLTable *table,
+		     HTMLPainter *painter)
 {
 	gint tableWidth = HTML_OBJECT (table)->width - table->border;
 	gint addSize = 0;
@@ -769,7 +781,7 @@ optimize_cell_width (HTMLTable *table)
 	}
 	
 	if (addSize > 0)
-		scale_columns (table, 0, table->totalCols - 1, addSize);
+		scale_columns (table, painter, 0, table->totalCols - 1, addSize);
 }
 
 static void
@@ -802,15 +814,16 @@ set_cells (HTMLTable *table, gint r, gint c, HTMLTableCell *cell)
 /* HTMLObject methods.  */
 
 static void
-calc_size (HTMLObject *o, HTMLObject *parent)
+calc_size (HTMLObject *o,
+	   HTMLPainter *painter)
 {
 	gint r, c;
 	gint indx, w;
 	HTMLTableCell *cell;
 	HTMLTable *table = HTML_TABLE (o);
 
-	/* Recalculate min/max widths */
-	calc_column_widths (table);
+	calc_col_info (table, painter);
+	calc_column_widths (table, painter);
 
 	/* If it doesn't fit... MAKE IT FIT!! */
 	for (c = 0; c < table->totalCols; c++) {
@@ -819,7 +832,7 @@ calc_size (HTMLObject *o, HTMLObject *parent)
 	}
 
 	/* Attempt to get sensible cell widths */
-	optimize_cell_width (table);
+	optimize_cell_width (table, painter);
 
 	for (r = 0; r < table->totalRows; r++) {
 		for (c = 0; c < table->totalCols; c++) {
@@ -839,7 +852,7 @@ calc_size (HTMLObject *o, HTMLObject *parent)
 				table->spacing - table->padding * 2;
 
 			html_table_cell_set_width (cell, w);
-			html_object_calc_size (HTML_OBJECT (cell), NULL);
+			html_object_calc_size (HTML_OBJECT (cell), painter);
 		}
 	}
 
@@ -907,10 +920,8 @@ draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor,
 	gint cindx, rindx;
 	gint r, c;
 
-	if (y + height < o->y - o->ascent || y > o->y + o->descent) {
-		g_print ("nonono\n");
+	if (y + height < o->y - o->ascent || y > o->y + o->descent)
 		return;
-	}
 	
 	tx += o->x;
 	ty += o->y - o->ascent;
@@ -975,20 +986,23 @@ draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor,
 
 
 static gint
-calc_min_width (HTMLObject *o) {
+calc_min_width (HTMLObject *o,
+		HTMLPainter *painter)
+{
 	return HTML_TABLE(o)->_minWidth;
 }
 
 static gint
-calc_preferred_width (HTMLObject *o) {
+calc_preferred_width (HTMLObject *o,
+		      HTMLPainter *painter)
+{
 	return HTML_TABLE (o)->_prefWidth;
 }
 
 static void
-set_max_width (HTMLObject *o, gint max_width)
+set_max_width (HTMLObject *o,
+	       gint max_width)
 {
-	HTMLTable *table = HTML_TABLE (o);
-	
 	o->max_width = max_width;
 	
 	if (!(o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH)) {
@@ -996,12 +1010,12 @@ set_max_width (HTMLObject *o, gint max_width)
 			o->width = o->max_width * o->percent / 100;
 		else
 			o->width = o->max_width;
-		calc_column_widths (table);
 	}
 }
 
 static void
-reset (HTMLObject *o) {
+reset (HTMLObject *o)
+{
 	HTMLTable *table = HTML_TABLE (o);
 	HTMLTableCell *cell;
 	guint r, c;
@@ -1021,16 +1035,12 @@ reset (HTMLObject *o) {
 			html_object_reset (HTML_OBJECT (cell));
 		}
 	}
-
-	calc_col_info (table);
-
 }
 
 static HTMLAnchor *
 find_anchor (HTMLObject *self, const char *name, gint *x, gint *y)
 {
 	HTMLTable *table;
-	HTMLObject *obj;
 	HTMLTableCell *cell;
 	HTMLAnchor *anchor;
 	unsigned int r, c;
@@ -1277,8 +1287,12 @@ html_table_end_row (HTMLTable *table)
 void
 html_table_end_table (HTMLTable *table)
 {
+	/* FIXME this should not be needed, as the functions are already called
+           by `calc_size()'.  */
+#if 0
 	calc_col_info (table);
 	calc_column_widths (table);
+#endif
 }
 
 gint

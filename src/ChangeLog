@@ -1,3 +1,441 @@
+2000-01-17  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine.c (html_engine_init): Initialize `avoid_para' to
+	`TRUE', `pending_para' to FALSE.
+	(html_engine_parse): Likewise.
+	(all functions): Updated to use these new members.
+	(block_end_list): Avoid adding empty paragraph breaks after this.
+	(block_end_indent): Likewise.
+	(parse_f): Fix relative font size.
+
+	* htmlengine.h: New elements `avoid_para', `pending_para'.
+
+	* htmlengine.c (close_flow): Added ugly hack to check if the flow
+	ends with a vspace.  If it does, the vspace is killed.  Yes, I
+	should do it differently, but let's just get it to work now.
+
+2000-01-16  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlcluev.c (get_right_clear): New function, implementation of
+	`HTMLClue::get_right_clear'.
+	(get_left_clear): New function, implementation of
+	`HTMLClue::get_left_clear'.
+	(html_cluev_class_init): Install virtual methods.
+
+	* htmlclueflow.c (add_post_padding): Add padding even if the next
+	object is an header.
+
+	* htmlfontmanager.c: Use a static array for calculating the real
+	font size.  (Yes, this is just a temporary hack.)
+
+	* htmlclueflow.c (calc_preferred_width): Use `get_indent()'
+	correctly instead of simply multiplying the level by the indent
+	size.
+
+	* htmlrule.c (draw): Fix braino: `HTML_HALIGN_RIGHT' and
+	`HTML_HALIGN_LEFT' were swapped.
+
+2000-01-13  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlclueflow.c: Changed to display bullets correctly even if
+	`level' is zero.  (Which should not happen according to the
+	standard, but it does happen in practice.)
+
+	* htmlengine.c (html_engine_init): Initialize `pending_vspace' to
+	zero.
+	(html_engine_insert_text): Removed.
+	(insert_pending_vspace): New function.
+	(insert_text): New function.
+	(add_line_break): New function.
+	(block_end_font): No longer insert a vspace.
+	(block_end_list): Likewise.
+	(parse_body): Do not set `vspace_inserted' anymore.  `\n' just
+	causes `pending_vspace' to be inconditionally incremented.
+	(All functions): Use `add_line_break' to force line breaks instead
+	of `html_engine_insert_vspace()'.
+	(parse_h): Set `pending_vspace' to 0 when opening/closing headers.
+	Insert pending vspace before adding a rule.
+	(parse_i): Insert pending vspace before adding the image.
+	(parse_l): Insert pending vspace before creating the new clue.
+	(html_engine_insert_vspace): Removed.
+	(close_flow): New parameter `clue'.
+
+	* htmlengine.h: `vspace_inserted' removed.  New member
+	`pending_vspace'.
+
+	* htmlvspace.c (html_vspace_new): Removed parameter `space'.
+	(html_vspace_init): Removed parameter `space'.  Do not init
+	`ascent', `descent' anymore.
+	(calc_size): New function, implementation for
+	`HTMLObject::calc_size'.
+	(html_vspace_class_init): Install it.
+
+2000-01-11  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlclueflow.c (calc_size): Add padding at the end only.
+
+	* htmlstack.c (html_stack_pop): Added precondition.
+
+	* htmlengine.c (parse_a): Do not force color and font for links
+	anymore.
+
+	* htmllinktextmaster.c (get_font_style): New function,
+	implementing `HTMLText::get_font_style'.  It forces the font style
+	to be underlined.
+	(html_link_text_master_class_init): Install it.
+
+	* htmllinktext.c (get_font_style): New function, implementing
+	`HTMLText::get_font_style'.  It forces the font style to be
+	underlined.
+	(html_link_text_class_init): Install it.
+
+	* htmltablecell.c (html_table_cell_init): Initialize
+	`bg_allocated' to `FALSE'.
+	(set_bg_color): Set `bg_allocated' to `FALSE' if the new color is
+	different from the existing one.
+	(draw): If `bg_allocated' is `FALSE', allocate the color and set
+	`bg_allocated' to `TRUE'.
+
+	* htmltablecell.h: New member `bg_allocated' in `HTMLTableCell'.
+
+	* htmlengine.c (html_engine_init): Set `bgColor_allocated' to
+	`FALSE'.
+	(draw_background): If `bgColor_allocated' is `FALSE', allocate
+	`bgColor' in the engine's painter.
+	(parse_b): Set `bgColor_allocated' to FALSE when setting a new
+	`bgColor'.
+	(close_anchor): Do not pop color on links anymore.
+
+	* htmlengine.h: New member `bgColor_allocated' in `HTMLEngine'.
+
+2000-01-10  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine.c (current_color): New function.
+	(html_engine_set_named_color): Removed.
+	(push_color): New function.
+	(pop_color): New function.
+	(html_engine_stop_parser): Clear all the stacks except the
+	list/glossary ones as I am still unsure how to handle them.
+	(html_engine_pop_color): Removed.
+	(All functions): Updated to use these new color stack functions.
+	Also, use `gdk_color_parse()' instead of
+	`html_engine_set_named_color'.
+
+	* htmlengine.h (html_painter_set_background_color): Removed
+	prototype (what the hell is this doing here!?).
+
+	* htmllinktext.c (html_link_text_init): New parameter `color'.
+	(html_link_text_new): New parameter `color'.
+
+	* htmltextslave.c (draw): Set the color using
+	`html_text_get_color()'.
+
+	* htmltext.c (html_text_init): New parameter `color', to
+	initialize the `color' member.  Alos, set `color_allocated' to
+	FALSE.
+	(html_text_new): New parameter `color'.
+	(get_color): New function, default implementation for
+	`HTMLText::get_color'.
+	(html_text_get_color): New function.
+	(draw): Use it.
+
+	* htmltext.h: New members `color', `color_allocated'.  New virtual
+	method `HTMLText::get_color'.
+
+	* htmltable.c (draw): Removed stupid "nonono" message.  :-)
+
+	* htmlengine.c (parse_t): Don't put the a new table in itw own
+	HTMLClueFlow anymore: close the current flow, and append to the
+	specified clue.
+
+	* htmltextslave.c (calc_size): New function, implementation for
+	`HTMLObject::calc_size'.
+	(html_text_slave_class_init): Install it.
+
+	* htmlclueflow.c (html_clueflow_get_default_font_style): New
+	function.
+	(get_default_font_style): Default implementation for
+	`HTMLClueFlow::get_default_font_style'; just a stub for now.
+	(html_clueflow_class_init): Install it.
+
+	* htmlclueflow.h: New virtual method
+	`HTMLClueFlow::get_default_font' to get the font associated with
+	the HTMLClueFlow's style.
+
+	* htmlclueflow.h (HTML_CLUEFLOW_CLASS): Fixed (do the correct
+	cast).
+
+	* htmltextmaster.c (calc_min_width): Implemented.
+	(calc_preferred_width): Implemented.
+	(calc_size): New function, implementing `HTMLObject::calc_size'.
+	(html_text_master_class_init): Install it.
+
+	* htmltext.c (calc_size): New function, implementation of
+	`HTMLObject::calc_size()'.
+	(html_text_class_init): Install it.
+
+	* htmltext.c (html_text_get_font_style): New function.
+	(get_font_style): Default implementation for
+	`HTMLText::get_font_style'.
+	(html_text_class_init): Install it.
+	(draw): Use it.
+	(calc_size): Use it.
+
+	* htmltext.h: New virtual method `HTMLText::get_font_style'.
+
+2000-01-09  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlobject.h: New arg `painter' in `HTMLObject::calc_size';
+	removed arg `parent'.  New arg `painter' in
+	`HTMLObject::calc_preferred_width', `HTMLObject::calc_min_width'
+	and `HTMLObject::fit_line' as well.
+	* htmlclue.c: Updated accordingly.
+	* htmlclue.h: Updated accordingly.
+	* htmlcluealigned.c: Updated accordingly.
+	* htmlcluealigned.h: Updated accordingly.
+	* htmlclueflow.c: Updated accordingly.
+	* htmlclueflow.h: Updated accordingly.
+	* htmlclueh.c: Updated accordingly.
+	* htmlclueh.h: Updated accordingly.
+	* htmlcluev.c: Updated accordingly.
+	* htmlcluev.h: Updated accordingly.
+	* htmlengine.c: Updated accordingly.
+	* htmlimage.c: Updated accordingly.
+	* htmlimage.h: Updated accordingly.
+	* htmllinktext.c: Updated accordingly.
+	* htmllinktext.h: Updated accordingly.
+	* htmllinktextmaster.c: Updated accordingly.
+	* htmllinktextmaster.h: Updated accordingly.
+	* htmlobject.c: Updated accordingly.
+	* htmlobject.h: Updated accordingly.
+	* htmlrule.c: Updated accordingly.
+	* htmlrule.h: Updated accordingly.
+	* htmlstream.c: Updated accordingly.
+	* htmltable.c: Updated accordingly.
+	* htmltablecell.c: Updated accordingly.
+	* htmltext.c: Updated accordingly.
+	* htmltextmaster.c: Updated accordingly.
+	* htmltextslave.c: Updated accordingly.
+	* htmlvspace.c: Updated accordingly.
+	* htmlvspace.h: Updated accordingly.
+
+	* htmlpainter.c (html_painter_calc_ascent): New function.
+	(html_painter_calc_descent): New function.
+	(html_painter_calc_text_width): New function.
+
+	* htmltable.c (find_anchor): Kill unused variable.
+
+	* htmltype.c (html_types_init): Don't call `html_hspace_init()'
+	anymore.
+
+	* htmlhspace.c: Removed.
+	* htmlhspace.h: Removed.
+
+	* htmlengine.c: Updated to use `HTMLFontStyle' instead of
+	`HTMLFont'.  Also, we do not hardcode the font and color all the
+	time anymore: instead, we let the HTMLClueFlow specify the default
+	font.
+	(select_font_full): Removed.
+	(select_font_relative): Removed.
+	(current_font_style): New utility function.
+	(push_font_style): New utility function.
+	(pop_font_style): New utility function.
+	(current_clueflow_style): New utility function.
+	(push_clueflow_style): New utility function.
+	(pop_clueflow_style): New utility function.
+	(close_anchor): No longer pop the font.
+	(html_engine_parse): Initialize the font stack with
+	`HTML_FONT_STYLE_DEFAULT'.
+	(html_engine_select_font): Removed.
+	(html_engine_get_current_font): Removed.
+	(html_engine_insert_text): Parameter `font' removed.  Always use
+	the current font style.
+	(new_flow): Removed parameter `style'.  Get the style from the top
+	of the ClueFlow style stack using `current_clueflow_style'.
+	(block_end_clueflow_style): New function.
+
+	* htmlengine-edit.c (html_engine_insert_para): Use an empty
+	HTMLTextMaster element instead of an hspace for the new clue.
+
+	* htmlengine.h: New member `clueflow_style_stack' in `HTMLEngine'.
+
+	* htmltextmaster.c (calc_min_width): Always return 0.
+	(calc_preferred_width): Return bogus 100 for now.
+
+	* htmltextmaster.h: Removed members `minWidth', `prefWidth'.
+
+	* htmlclueflow.h: Updated to use `HTMLFontStyle' instead of
+	`HTMLFont'.
+	* htmlclueflow.c: Likewise.
+
+	* htmllinktextmaster.h: Updated to use `HTMLFontStyle' instead of
+	`HTMLFont'.
+	* htmllinktextmaster.c: Likewise.
+
+	* htmllinktext.h: Updated to use `HTMLFontStyle' instead of
+	`HTMLFont'.
+	* htmllnktext.c: Likewise.
+
+	* htmltext.h: Updated to use `HTMLFontStyle' instead of
+	`HTMLFont'.
+	* htmltext.c: Likewise.
+
+	* htmltextmaster.h: Updated to use `HTMLFontStyle' instead of
+	`HTMLFont'.
+	* htmltextmaster.c: Likewise.
+
+2000-01-08  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlclueflow.c (draw): Temporarily disabled bullet painting
+	code.
+
+	* htmlpainter.c (html_painter_set_font): Removed.
+	(html_painter_set_font_style): Replaced by this one.
+	(html_painter_get_font): Removed.
+	(html_painter_get_font_style): Replaced by this one.
+	(html_painter_new): New arg `font_manager', to set the
+	`font_manager' member.
+	(html_painter_draw_text): Retrieve the font using
+	`html_font_manager_get_gdk_font()'.  Also, handle underline and
+	strikeout according to the value of the `style' member.
+
+	* htmlpainter.h: Member `font' removed: replaced by `font_style'.
+	New member `font_manager', pointer to an HTMLFontManager.
+
+	* htmlfont.c: Removed.
+	* htmlfont.h: Removed.
+
+	* htmlengine.c (html_engine_init): Initialize member
+	`font_manager'.
+	(html_engine_destroy): Destroy the font manager.
+
+	* htmlengine.h: New member `font_manager' in `HTMLEngine'.
+	Members `fs', `cs' renamed to `font_stack' and `color_stack',
+	respectively.  `bold', `underline', `fontsize' removedq.
+
+	* htmlfontmanager.c: New file.
+	* htmlfontmanager.h: New file.
+
+	* htmlpainter.c: Moved some functions around to make the code
+	cleaner.
+	(html_painter_alloc_color): New function.
+	(html_painter_free_color): New function.
+
+2000-01-07  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlfont.c, htmlfont.h: Removed.
+
+	* Makefile.am (libgtkhtml_HEADERS): Added `htmlurl.h'.
+
+	* htmlengine.c (parse_body): Insert vspace instead of creating a
+	new flow for every newline in the `<pre>' case.
+	(html_engine_new_flow): Removed.
+	(new_flow): New function, replaces `html_engine_new_flow'.  It has
+	a `style' parameter to specify the HTMLClueFlowStyle for the new
+	flow.  Callers updated.
+	(parse_p): Inconditionally create a new `HTML_CLUEFLOW_STYLE_P'
+	flow for the `<p>' tag.  Always close the current one when you get
+	a `</p>' tag.  Likewise with `HTML_CLUEFLOW_STYLE_PRE' and
+	`<pre>'/`</pre>'.
+	(parse_h): Inconditionally create a new flow of the appropriate
+	`HTML_CLUEFLOW_STYLE_H*' style.
+	(parse_t): Inconditionally create a new flow.
+
+	* debug.c (clueflow_style_to_string): New helper function.
+	(debug_dump_tree): Print the ClueFlowStyle for HTMLClueFlow
+	objects using it.  Also, print the text for `HTMLLinkText' and
+	`HTMLLinkTextMaster' objects as well.
+
+	* htmlclueflow.c (calc_size): Do not split lines if style is
+	`HTML_CLUEFLOW_STYLE_PRE'.
+	(calc_min_width): Handle HTML_CLUEFLOW_STYLE_PRE correctly.
+
+	* htmlclueflow.h: Added `HTML_CLUEFLOW_STYLE_PRE'.
+
+2000-01-06  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* gtkhtml.c (key_press_event): Move the cursor forward by the
+	number of characters inserted.
+
+	* htmlengine-edit.c (html_engine_insert): Return the number of
+	characters actually inserted.
+
+	* htmltextslave.c (draw): Updated to use `HTMLText::text_len'
+	instead of `HTMLTextMaster::strLen'.
+	(fit_line): Likewise.
+
+	* htmltextmaster.c (fit_line): Updated to use `HTMLText::text_len'
+	instead of `HTMLTextMaster::strLen'.
+	(split): Likewise.
+	(insert_text): Removed.
+	(remove_text): Removed.
+	(html_text_master_class_init): Updated accordingly.
+	(html_text_master_init): Do not initialize `strLen' anymore.
+
+	* htmllinktextmaster.c (split): Updated to use `HTMLText::text_len'
+	instead of `HTMLTextMaster::strLen'.
+
+	* htmltextmaster.h: Removed member `strLen'.
+
+	* htmltext.c (insert_text): Return value changed from `void' to
+	`guint': return the number of characters actually inserted.  Also,
+	make sure there are never two consecutive spaces in the resulting
+	string.
+	(html_text_insert_text): Updated accordingly.
+	(calc_actual_len): New helper function for `insert_text'.
+	(copy_collapsing_spaces): New helper function for `insert_text'.
+	(html_text_init): Initialize `text_len'.
+	(remove_text): Update `text_len'.
+	(insert_text): Update `text_len'.
+
+	* htmltext.h: New member `text_len' for storing the text's length.
+
+	* htmlengine.c (parse_h): Do not create a new flow for the rule,
+	unless there is no current flow.
+
+	* htmlrule.c (html_rule_new): New parameter `halign'.
+	(html_rule_init): Likewise.
+	(set_max_width): Always set `width' to `max_width'.
+	(draw): Only draw the specified percent of the width, and align
+	according to the `halign' value.
+
+	* htmlrule.h: New member `halign'.
+
+	* htmlengine-edit.c (html_engine_insert_para): Do not add an
+	`HTMLHSpace' at the end of the paragraph anymore.
+
+	* htmlclueflow.c (html_clueflow_split): Removed HTMLHSpace kludge.
+
+	* htmlvspace.c (accepts_cursor): New function, implementation for
+	`HTMLObject::accepts_cursor()'.  Always return `TRUE'.
+	(html_vspace_class_init): Install it.
+
+	* htmlclueflow.c: New constant `VERTICAL_PAD'.
+	(calc_size): Add `VERTICAL_PAD' to the `ascent' value before the
+	size computation and to the `descent' value after it, if the style
+	is not that of an itemized list: this pads the HTMLClueFlow
+	vertically.
+
+	* htmlimage.c: #include <gdk-pixbuf/gdk-pixbuf.h>.
+
+2000-01-05  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine.c (html_engine_insert_text): Rewritten to always
+	create HTMLTextMasters and no HTMLHSpaces.
+	(html_engine_insert_vspace): Do not create a new clueflow for the
+	vspace: the vspace will just be at the end of the existing flow.
+	(parse_h): Do not put the rule in a new HTMLClueFlow (that's a
+	waste!).
+	(close_flow): No longer append an hspace.
+	(parse_p): Always create a new flow with `html_engine_new_flow()'.
+
+	* htmlfont.c (html_font_equal): New function.
+
+	* htmltextslave.c (split): New helper function.
+	(split_at_newline): New helper function.
+	(fit_line): Use them.  The TextSlave is now split at the first
+	newline character before starting the fit process.
+
 2000-01-06  Jonas Borgström <jonas_b@bitsmart.com>
 
 	* Makefile.am : Moving htmlurl.c from libgtkhtml_SOURCES to testgtkhtml_SOURCES
@@ -13,42 +451,54 @@
 	* testgtkhtml.c : testgtkhtml.c is now doing ALL url handing, it shouldn't be in htmlengine.c
 	
 2000-01-06  Jonas Borgström <jonas_b@bitsmart.com>
+ 
 	This adds support for scaling images.
 	OBS! You need a fresh gdk_pixbuf from the CVS.
 
 	* htmlimage.h : New members: gboolean scaled and GdkPixbuf *scaled_pixbuf;
 
 	* htmlimage.c : (destroy) : unref scaled_pixbuf if used;
-	(html_image_update_scaled_pixbuf) : New function updates the local scaled copy of image_ptr->pixbuf
-	(html_image_setup) : Set scaled to TRUE if object->width != image_ptr->pixbuf->art_pixbuf->width.
-	(html_image_factory_area_updated) : Call html_image_update_scaled_pixbuf if scaled.	
-	(html_image_factory_end_pixbuf) : Call html_image_update_scaled_pixbuf if scaled.
-	(html_image_factory_register) : Scale the image if necesary if it already is loaded. 
+	(html_image_update_scaled_pixbuf) : New function updates the local
+	scaled copy of image_ptr->pixbuf
+	(html_image_setup) : Set scaled to TRUE if object->width !=
+	image_ptr->pixbuf->art_pixbuf->width.
+	(html_image_factory_area_updated) : Call
+	html_image_update_scaled_pixbuf if scaled.
+	(html_image_factory_end_pixbuf) : Call
+	html_image_update_scaled_pixbuf if scaled.
+	(html_image_factory_register) : Scale the image if necesary if it
+	already is loaded.
 	
 2000-01-05  Jonas Borgström <jonas_b@bitsmart.com>
-	This adds support for references in urls.
+
+	[This adds support for references in urls.]
 	
-	* htmlanchor.c : (find_anchor): New function.
+	* htmlanchor.c (find_anchor): New function.
 	
-	* htmlclue.c : (find_anchor): New function.
+	* htmlclue.c (find_anchor): New function.
 	
-	* htmltable.c : (find_anchor): New function.
+	* htmltable.c (find_anchor): New function.
 
-	* htmlengine.c : (html_engine_begin): Check if the url wants to view a reference on
-	the current page, if so don't load it again, just scroll.
+	* htmlengine.c (html_engine_begin): Check if the url wants to view
+	a reference on the current page, if so don't load it again, just
+	scroll.
 	
-	(html_engine_goto_anchor): New function. Searches for an anchor and scrolls the page.
+	(html_engine_goto_anchor): New function. Searches for an anchor
+	and scrolls the page.
 
-	* htmlengine.h : Added new member, reference. It is the reference html_engine_goto_anchor
-	searches for.
+	* htmlengine.h : Added new member, reference. It is the reference
+	html_engine_goto_anchor searches for.
 
-	* htmlimage.c : (cleanup_images) Only destroy ptr->pixbuf if it's not NULL.
+	* htmlimage.c (cleanup_images): Only destroy ptr->pixbuf if it's not NULL.
 
-	* htmlurl.c : (html_url_to_string) : Add the reference to the string also.
+	* htmlurl.c (html_url_to_string): Add the reference to the string
+	also.
 
-	* testgtkhtml.c : (entry_goto_url) : g_strdup the string from the entry.
-	(goto_url) : Only call gtk_html_parse () When gtk_html_begin returns non NULL. Don't call gtk_html_parse
-	when the engine only scrolls the page (On a #reference).
+	* testgtkhtml.c (entry_goto_url): g_strdup the string from the
+	entry.
+	(goto_url): Only call gtk_html_parse () When gtk_html_begin
+	returns non NULL. Don't call gtk_html_parse when the engine only
+	scrolls the page (On a #reference).
 
 2000-01-04  Jonas Borgström <jonas_b@bitsmart.com>
 

@@ -31,15 +31,18 @@ static HTMLClueAlignedClass html_cluealigned_class;
 /* HTMLObject methods.  */
 
 static void
-calc_size (HTMLObject *o, HTMLObject *parent)
+calc_size (HTMLObject *o,
+	   HTMLPainter *painter)
 {
 	HTMLObject *obj;
 
-	HTML_OBJECT_CLASS (&html_clue_class)->calc_size (o, parent);
+	HTML_OBJECT_CLASS (&html_clue_class)->calc_size (o, painter);
 
 	o->width = 0;
 	o->ascent = ALIGN_BORDER;
 	o->descent = 0;
+
+	/* FIXME: Shouldn't it call `calc_size()' on the children first!?!  */
 
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
 		if (obj->width > o->width)
@@ -50,7 +53,7 @@ calc_size (HTMLObject *o, HTMLObject *parent)
 	}
 	
 	o->ascent += ALIGN_BORDER;
-	o->width += (ALIGN_BORDER * 2);
+	o->width += ALIGN_BORDER * 2;
 }
 
 static void

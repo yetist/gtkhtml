@@ -63,6 +63,8 @@ html_stack_pop (HTMLStack *stack)
 	GList *first;
 	gpointer data;
 
+	g_return_val_if_fail (! html_stack_is_empty (stack), NULL);
+
 	first = stack->list;
 	stack->list = g_list_remove_link (stack->list, first);
 

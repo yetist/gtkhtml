@@ -127,6 +127,22 @@ next (HTMLObject *object)
 		return object->next;
 }
 
+static HTMLObject *
+next_not_slave (HTMLObject *object)
+{
+	HTMLObject *p;
+
+	p = object;
+	while (p != NULL) {
+		if (HTML_OBJECT_TYPE (p) != HTML_TYPE_TEXTSLAVE)
+			return p;
+
+		p = p->next;
+	}
+
+	return p;
+}
+
 
 void
 html_cursor_home (HTMLCursor *cursor,
@@ -175,10 +191,17 @@ forward (HTMLCursor *cursor,
 		case HTML_TYPE_TEXTMASTER:
 		case HTML_TYPE_LINKTEXTMASTER:
 		{
-			const gchar *text;
+			HTMLText *text;
 
-			text = HTML_TEXT (obj)->text;
-			if (text[offset + 1] != 0) {
+			text = HTML_TEXT (obj);
+
+			if (offset == text->text_len - 1
+			    && next_not_slave (obj) == NULL) {
+				offset = text->text_len;
+				goto end;
+			}
+
+			if (offset < text->text_len - 1) {
 				offset++;
 				goto end;
 			}
@@ -206,12 +229,21 @@ forward (HTMLCursor *cursor,
 		}
 	} else if (! is_clue (obj)) {
 		/* Objects that are not a clue or text are always skipped, as
-                   they are a unique non-splittable element.  */
+                   they are a unique non-splittable element.  But if the
+                   element is the last in a clue, then we let the offset be 1
+                   so that you have the cursor positioned at the end of the
+                   clue.  */
+
+		if (obj->next == NULL && offset == 0) {
+			offset++;
+			goto end;
+		}
+
 		obj = next (obj);
 	}
 
 	/* No more text.  Traverse the tree in top-bottom, left-right order
-           until a text element is found.  */
+           until an element that accepts the cursor is found.  */
 
 	while (obj != NULL) {
 		if (is_clue (obj)) {

@@ -22,7 +22,6 @@
 #define _HTMLHSPACE_H_
 
 #include "htmlobject.h"
-#include "htmlfont.h"
 
 typedef struct _HTMLHSpace HTMLHSpace;
 typedef struct _HTMLHSpaceClass HTMLHSpaceClass;

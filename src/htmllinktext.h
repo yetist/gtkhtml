@@ -50,11 +50,12 @@ extern HTMLLinkTextClass html_link_text_class;
 
 void html_link_text_type_init (void);
 void html_link_text_class_init (HTMLLinkTextClass *klass, HTMLType type);
-void html_link_text_init (HTMLLinkText *link_text_object,
-			  HTMLLinkTextClass *klass,
-			  gchar *text, HTMLFont *font,
+void html_link_text_init (HTMLLinkText *link_text_object, HTMLLinkTextClass *klass,
+			  gchar *text, HTMLFontStyle font_style, const GdkColor *color,
 			  const gchar *url, const gchar *target);
-HTMLObject *html_link_text_new (gchar *text, HTMLFont *font,
+HTMLObject *html_link_text_new (gchar *text,
+				HTMLFontStyle font_style,
+				const GdkColor *color,
 				const gchar *url, const gchar *target);
 
 #endif /* _HTMLLINKTEXT_H_ */

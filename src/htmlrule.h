@@ -34,6 +34,7 @@ struct _HTMLRule {
 	HTMLObject object;
 
 	gboolean shade;
+	HTMLHAlignType halign;
 };
 
 struct _HTMLRuleClass {
@@ -46,7 +47,9 @@ extern HTMLRuleClass html_rule_class;
 
 void html_rule_type_init (void);
 void html_rule_class_init (HTMLRuleClass *klass, HTMLType type);
-void html_rule_init (HTMLRule *rule, HTMLRuleClass *klass, gint max_width, gint percent, gint size, gboolean shade);
-HTMLObject *html_rule_new (gint max_width, gint percent, gint size, gboolean shade);
+void html_rule_init (HTMLRule *rule, HTMLRuleClass *klass, gint max_width, gint percent,
+		     gint size, gboolean shade, HTMLHAlignType halign);
+HTMLObject *html_rule_new (gint max_width, gint percent, gint size,
+			   gboolean shade, HTMLHAlignType halign);
 
 #endif /* _HTMLRULE_H_ */

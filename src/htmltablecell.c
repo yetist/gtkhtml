@@ -31,13 +31,14 @@ HTMLTableCellClass html_table_cell_class;
 /* HTMLObject methods.  */
 
 static gint
-calc_min_width (HTMLObject *o)
+calc_min_width (HTMLObject *o,
+		HTMLPainter *painter)
 {
 	HTMLObject *obj;
 	gint minWidth = 0;
 
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
-		gint w = html_object_calc_min_width (obj);
+		gint w = html_object_calc_min_width (obj, painter);
 		if (w > minWidth)
 			minWidth = w;
 	}
@@ -130,6 +131,12 @@ draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor, gint x, gint y,
 			top = -cell->padding;
 		if (bottom > o->ascent + cell->padding)
 			bottom = o->ascent + cell->padding;
+
+		if (! cell->bg_allocated) {
+			html_painter_alloc_color (p, &cell->bg);
+			cell->bg_allocated = TRUE;
+		}
+
 		html_painter_set_pen (p, &cell->bg);
 		html_painter_fill_rect (p, tx + o->x - cell->padding,
 					ty + o->y - o->ascent + top,
@@ -152,6 +159,9 @@ set_bg_color (HTMLObject *object, GdkColor *color)
 		cell->have_bg = FALSE;
 		return;
 	}
+
+	if (cell->have_bg && ! gdk_color_equal (&cell->bg, color))
+		cell->bg_allocated = FALSE;
 
 	cell->bg = *color;
 	cell->have_bg = TRUE;
@@ -221,6 +231,7 @@ html_table_cell_init (HTMLTableCell *cell,
 
 	cell->have_bg = FALSE;
 	cell->have_bgPixmap = FALSE;
+	cell->bg_allocated = FALSE;
 }
 
 HTMLObject *

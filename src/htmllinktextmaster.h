@@ -2,7 +2,7 @@
 /* This file is part of the KDE libraries
     Copyright (C) 1997 Martin Jones (mjones@kde.org)
               (C) 1997 Torben Weis (weis@kde.org)
-	      (C) 1999 Ettore Perazzoli (ettore@gnu.org)
+	      (C) 1999, 2000 Helix Code, Inc.
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
@@ -48,14 +48,20 @@ struct _HTMLLinkTextMasterClass {
 extern HTMLLinkTextMasterClass html_link_text_master_class;
 
 
-void html_link_text_master_type_init (void);
-void html_link_text_master_class_init (HTMLLinkTextMasterClass *klass,
-				       HTMLType type);
-void html_link_text_master_init (HTMLLinkTextMaster *link_text_master_object,
-				 HTMLLinkTextMasterClass *klass,
-				 gchar *text, HTMLFont *font,
-				 const gchar *url, const gchar *target);
-HTMLObject *html_link_text_master_new (gchar *text, HTMLFont *font,
-				       const gchar *url, const gchar *target);
+void        html_link_text_master_type_init   (void);
+void        html_link_text_master_class_init  (HTMLLinkTextMasterClass *klass,
+					       HTMLType                 type);
+void        html_link_text_master_init        (HTMLLinkTextMaster      *link_text_master,
+					       HTMLLinkTextMasterClass *klass,
+					       gchar                   *text,
+					       HTMLFontStyle            font_style,
+					       const GdkColor          *color,
+					       const gchar             *url,
+					       const gchar             *target);
+HTMLObject *html_link_text_master_new         (gchar                   *text,
+					       HTMLFontStyle            font_style,
+					       const GdkColor          *color,
+					       const gchar             *url,
+					       const gchar             *target);
 
 #endif /* _HTMLLINKTEXTMASTER_H_ */

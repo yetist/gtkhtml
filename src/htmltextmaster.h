@@ -1,23 +1,26 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the KDE libraries
-    Copyright (C) 1997 Martin Jones (mjones@kde.org)
-              (C) 1997 Torben Weis (weis@kde.org)
 
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-    Boston, MA 02111-1307, USA.
+   Copyright (C) 1997 Martin Jones (mjones@kde.org)
+   Copyright (C) 1997 Torben Weis (weis@kde.org)
+   Copyright (C) 2000 Helix Code, Inc.
+   
+   This library is free software; you can redistribute it and/or
+   modify it under the terms of the GNU Library General Public
+   License as published by the Free Software Foundation; either
+   version 2 of the License, or (at your option) any later version.
+   
+   This library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   Library General Public License for more details.
+   
+   You should have received a copy of the GNU Library General Public License
+   along with this library; see the file COPYING.LIB.  If not, write to
+   the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+   Boston, MA 02111-1307, USA.
 */
+
 #ifndef _HTMLTEXTMASTER_H_
 #define _HTMLTEXTMASTER_H_
 
@@ -33,10 +36,6 @@ typedef struct _HTMLTextMasterClass HTMLTextMasterClass;
 
 struct _HTMLTextMaster {
 	HTMLText text;
-
-	gint minWidth;
-	gint prefWidth;
-	gint strLen;
 };
 
 struct _HTMLTextMasterClass {
@@ -49,8 +48,9 @@ extern HTMLTextMasterClass html_text_master_class;
 
 void html_text_master_type_init (void);
 void html_text_master_class_init (HTMLTextMasterClass *class, HTMLType type);
-void html_text_master_init (HTMLTextMaster *master, HTMLTextMasterClass *klass, gchar *text, HTMLFont *font);
-HTMLObject *html_text_master_new (gchar *text, HTMLFont *font);
+void html_text_master_init (HTMLTextMaster *master, HTMLTextMasterClass *klass, gchar *text,
+			    HTMLFontStyle font_style, const GdkColor *color);
+HTMLObject *html_text_master_new (gchar *text, HTMLFontStyle font_style, const GdkColor *color);
 HTMLObject *html_text_master_get_slave (HTMLTextMaster *master, guint offset);
 
 #endif /* _HTMLTEXTMASTER_H_ */

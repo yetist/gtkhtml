@@ -33,7 +33,7 @@ typedef struct _HTMLClueVClass HTMLClueVClass;
 struct _HTMLClueV {
 	HTMLClue clue;
 	
-	/* fixme: htmlcluealigned */
+	/* FIXME: htmlcluealigned */
 	HTMLObject *align_left_list;
 	HTMLObject *align_right_list;
 	gushort padding;

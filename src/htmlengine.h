@@ -3,7 +3,7 @@
 
    Copyright (C) 1997 Martin Jones (mjones@kde.org)
    Copyright (C) 1997 Torben Weis (weis@kde.org)
-   Copyright (C) 1999 Helix Code, Inc.
+   Copyright (C) 1999, 2000 Helix Code, Inc.
    
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -35,7 +35,6 @@ typedef struct _HTMLEngineClass HTMLEngineClass;
 #include "htmltokenizer.h"
 #include "htmlcursor.h"
 #include "htmldrawqueue.h"
-#include "htmlfont.h"
 #include "htmlstack.h"
 #include "htmlsettings.h"
 #include "htmlpainter.h"
@@ -91,7 +90,6 @@ struct _HTMLEngine {
 	gint width;
 	gint height;
 
-	gboolean vspace_inserted;
 	gboolean bodyParsed;
 
 	HTMLHAlignType divAlign;
@@ -108,16 +106,11 @@ struct _HTMLEngine {
 	gboolean inOption;
 	gboolean inTextArea;
 
-	gboolean bold;
-	gboolean italic;
-	gboolean underline;
-
 	gboolean newPage;
  
-	gint fontsize;
-	
-	HTMLStack *fs;		/* Font stack, elements are HTMLFonts.  */
-	HTMLStack *cs;		/* Color stack, elements are GdkColors.  */
+	HTMLStack *font_style_stack; /* Font style stack, elements are HTMLFontStyles.  */
+	HTMLStack *color_stack;	/* Color stack, elements are GdkColors.  */
+	HTMLStack *clueflow_style_stack; /* Clueflow style stack, elements are HTMLClueFlowStyles.  */
 
 	gchar *url;
 	gchar *target;
@@ -147,6 +140,9 @@ struct _HTMLEngine {
 	/* The background color */
 	GdkColor bgColor;
 
+	/* Whether the background color has been allocated in the painter.  */
+	gboolean bgColor_allocated;
+
 	/* Stack of lists currently active */
 	HTMLStack *listStack;
 
@@ -173,6 +169,17 @@ struct _HTMLEngine {
 	GList *formList;
 	GString *formText;
 	gboolean noWrap;
+
+	/* This is TRUE if we cannot insert a paragraph break (which is just an
+           extra empty line).  It's set to FALSE as soon as some element is
+           added to a flow.  The purpose is to avoid having paragraph breaks to
+           be inserted in sequence, or after elements that have some vspace of
+           their own.  */
+	gboolean avoid_para : 1;
+
+	/* This is TRUE if we want a paragraph break to be inserted before the
+           next element.  */
+	gboolean pending_para : 1;
 };
 
 struct _HTMLEngineClass {
@@ -197,16 +204,8 @@ void        html_engine_schedule_update (HTMLEngine *p);
 gchar      *html_engine_parse_body (HTMLEngine *p, HTMLObject *clue, const gchar *end[], gboolean toplevel);
 void        html_engine_parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str);
 void        html_engine_parse (HTMLEngine *p);
-HTMLFont *  html_engine_get_current_font (HTMLEngine *p);
-void        html_engine_select_font (HTMLEngine *e);
-void        html_engine_pop_font (HTMLEngine *e);
-void        html_engine_insert_text (HTMLEngine *e, const gchar *str, HTMLFont *f);
 void        html_engine_calc_size (HTMLEngine *p);
-void        html_engine_new_flow (HTMLEngine *p, HTMLObject *clue);
 void        html_engine_draw (HTMLEngine *e, gint x, gint y, gint width, gint height);
-gboolean    html_engine_insert_vspace (HTMLEngine *e, HTMLObject *clue, gboolean vspace_inserted);
-void        html_engine_pop_color (HTMLEngine *e);
-gboolean    html_engine_set_named_color (HTMLEngine *p, GdkColor *c, const gchar *name);
 void        html_painter_set_background_color (HTMLPainter *painter, GdkColor *color);
 gint        html_engine_get_doc_height (HTMLEngine *p);
 void        html_engine_stop_parser (HTMLEngine *e);
@@ -217,8 +216,9 @@ gint	    html_engine_get_doc_width (HTMLEngine *e);
 
 void	    html_engine_make_cursor_visible (HTMLEngine *e);
 
-void	    html_engine_flush_draw_queue (HTMLEngine *e);
-void	    html_engine_queue_draw (HTMLEngine *e, HTMLObject *o);
+void  html_engine_flush_draw_queue  (HTMLEngine *e);
+void  html_engine_queue_draw        (HTMLEngine *e, HTMLObject *o);
+
 void        html_engine_form_submitted (HTMLEngine *engine, const gchar *method, const gchar *action, const gchar *encoding);
 HTMLObject *html_engine_mouse_event (HTMLEngine *e, gint x, gint y, gint button, gint state);
 

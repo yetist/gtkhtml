@@ -24,7 +24,6 @@
 #include <string.h>
 
 #include "htmlobject.h"
-#include "htmlfont.h"
 #include "htmlclue.h"
 #include "htmltext.h"
 #include "htmltextmaster.h"
@@ -70,6 +69,7 @@ draw (HTMLObject *o,
 
 static HTMLFitType
 fit_line (HTMLObject *o,
+	  HTMLPainter *painter,
 	  gboolean start_of_line,
 	  gboolean first_run,
 	  gint width_left)
@@ -79,8 +79,22 @@ fit_line (HTMLObject *o,
 
 static void
 calc_size (HTMLObject *o,
-	   HTMLObject *parent)
+	   HTMLPainter *painter)
 {
+}
+
+static gint
+calc_min_width (HTMLObject *o,
+		HTMLPainter *painter)
+{
+	return o->width;
+}
+
+static gint
+calc_preferred_width (HTMLObject *o,
+		      HTMLPainter *painter)
+{
+	return o->width;
 }
 
 static void
@@ -102,18 +116,6 @@ set_max_width (HTMLObject *o, gint max_width)
 static void
 reset (HTMLObject *o)
 {
-}
-
-static gint
-calc_min_width (HTMLObject *o)
-{
-	return o->width;
-}
-
-static gint
-calc_preferred_width (HTMLObject *o)
-{
-	return o->width;
 }
 
 static const gchar *
@@ -176,10 +178,7 @@ relayout (HTMLObject *self,
 	prev_descent = self->descent;
 
 	html_object_reset (self);
-
-	/* FIXME extreme ugliness here.  It should use the `parent' member in
-           the object, instead of asking us to provide it ourselves.  */
-	html_object_calc_size (self, self->parent);
+	html_object_calc_size (self, engine->painter);
 
 	if (prev_width == self->width
 	    && prev_ascent == self->ascent
@@ -332,17 +331,21 @@ html_object_draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor,
 }
 
 HTMLFitType
-html_object_fit_line (HTMLObject *o, gboolean start_of_line, 
-		      gboolean first_run, gint width_left)
+html_object_fit_line (HTMLObject *o,
+		      HTMLPainter *painter,
+		      gboolean start_of_line, 
+		      gboolean first_run,
+		      gint width_left)
 {
-	return (* HO_CLASS (o)->fit_line) (o, start_of_line,
+	return (* HO_CLASS (o)->fit_line) (o, painter, start_of_line,
 					   first_run, width_left);
 }
 
 void
-html_object_calc_size (HTMLObject *o, HTMLObject *parent)
+html_object_calc_size (HTMLObject *o,
+		       HTMLPainter *painter)
 {
-	(* HO_CLASS (o)->calc_size) (o, parent);
+	(* HO_CLASS (o)->calc_size) (o, painter);
 }
 
 void
@@ -370,15 +373,17 @@ html_object_reset (HTMLObject *o)
 }
 
 gint
-html_object_calc_min_width (HTMLObject *o)
+html_object_calc_min_width (HTMLObject *o,
+			    HTMLPainter *painter)
 {
-	return (* HO_CLASS (o)->calc_min_width) (o);
+	return (* HO_CLASS (o)->calc_min_width) (o, painter);
 }
 
 gint
-html_object_calc_preferred_width (HTMLObject *o)
+html_object_calc_preferred_width (HTMLObject *o,
+				  HTMLPainter *painter)
 {
-	return (* HO_CLASS (o)->calc_preferred_width) (o);
+	return (* HO_CLASS (o)->calc_preferred_width) (o, painter);
 }
 
 const gchar *

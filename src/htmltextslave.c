@@ -30,27 +30,102 @@
 HTMLTextSlaveClass html_text_slave_class;
 
 
+/* Split this TextSlave at the specified offset.  */
+static void
+split (HTMLTextSlave *slave, gshort offset)
+{
+	HTMLObject *obj;
+	HTMLObject *new;
+
+	g_return_if_fail (offset >= 0 && offset < slave->posLen);
+
+	obj = HTML_OBJECT (slave);
+
+	new = html_text_slave_new (slave->owner,
+				   slave->posStart + offset,
+				   slave->posLen - offset);
+
+	new->next = obj->next;
+	new->prev = obj;
+	new->parent = obj->parent;
+
+	if (obj->next != NULL)
+		obj->next->prev = new;
+
+	obj->next = new;
+}
+
+/* Split this TextSlave at the first newline character.  */
+static void
+split_at_newline (HTMLTextSlave *slave)
+{
+	const gchar *text;
+	const gchar *p;
+
+	text = HTML_TEXT (slave)->text + slave->posStart;
+
+	p = memchr (text, '\n', slave->posLen);
+	if (p == NULL)
+		return;
+
+	split (slave, p - text + 1);
+}
+
+
+/* HTMLObject methods.  */
+
+static void
+calc_size (HTMLObject *self,
+	   HTMLPainter *painter)
+{
+	HTMLText *owner;
+	HTMLTextSlave *slave;
+	HTMLFontStyle font_style;
+
+	slave = HTML_TEXT_SLAVE (self);
+	owner = HTML_TEXT (slave->owner);
+	font_style = html_text_get_font_style (owner);
+
+	self->ascent = html_painter_calc_ascent (painter, font_style);
+	self->descent = html_painter_calc_descent (painter, font_style);
+
+	self->width = html_painter_calc_text_width (painter,
+						    owner->text + slave->posStart,
+						    slave->posLen,
+						    font_style);
+}
+
 static HTMLFitType
 fit_line (HTMLObject *o,
+	  HTMLPainter *painter,
 	  gboolean startOfLine,
 	  gboolean firstRun,
 	  gint widthLeft)
 {
+	HTMLTextSlave *textslave;
+	HTMLTextMaster *textmaster;
+	HTMLText *ownertext;
+	HTMLObject *next_obj;
+	HTMLFitType return_value;
+	HTMLFontStyle font_style;
 	gint newLen;
 	gint newWidth;
 	gchar *splitPtr;
-	HTMLTextSlave *textslave = HTML_TEXT_SLAVE (o);
-	HTMLTextMaster *textmaster = HTML_TEXT_MASTER (textslave->owner);
-	HTMLText *ownertext = HTML_TEXT (textmaster);
+	gchar *text;
 
-	gchar *text = ownertext->text;
+	textslave = HTML_TEXT_SLAVE (o);
+	textmaster = HTML_TEXT_MASTER (textslave->owner);
+	ownertext = HTML_TEXT (textmaster);
 
-	/* Remove existing slaves */
-	HTMLObject *next_obj = o->next;
+	font_style = html_text_get_font_style (ownertext);
 
-	HTMLFitType return_value;
+	next_obj = o->next;
+	text = ownertext->text;
 
-	if (next_obj && (HTML_OBJECT_TYPE (next_obj) == HTML_TYPE_TEXTSLAVE)) {
+	/* Remove following existing slaves.  */
+
+	if (next_obj != NULL
+	    && (HTML_OBJECT_TYPE (next_obj) == HTML_TYPE_TEXTSLAVE)) {
 		do {
 			o->next = next_obj->next;
 			html_object_destroy (next_obj);
@@ -59,21 +134,25 @@ fit_line (HTMLObject *o,
 				next_obj->prev = o;
 		} while (next_obj && (HTML_OBJECT_TYPE (next_obj)
 				      == HTML_TYPE_TEXTSLAVE));
-		textslave->posLen = textslave->owner->strLen - textslave->posStart;
+		textslave->posLen = HTML_TEXT (textslave->owner)->text_len - textslave->posStart;
 	}
-	
-	if (startOfLine && (text[textslave->posStart] == ' ') && (widthLeft >= 0)) {
+
+	split_at_newline (HTML_TEXT_SLAVE (o));
+
+	if (startOfLine && text[textslave->posStart] == ' ' && widthLeft >= 0) {
 		/* Skip leading space */
 		textslave->posStart++;
 		textslave->posLen--;
 	}
 	text += textslave->posStart;
-	
-	o->width = html_font_calc_width (ownertext->font, text, textslave->posLen);
+
+	o->width = html_painter_calc_text_width (painter, text, textslave->posLen, font_style);
 	if (o->width <= widthLeft || textslave->posLen <= 1 || widthLeft < 0) {
 		/* Text fits completely */
-		if (!o->next || (o->next->flags & (HTML_OBJECT_FLAG_SEPARATOR
-						   | HTML_OBJECT_FLAG_NEWLINE))) {
+		if (o->next == NULL
+		    || text[textslave->posLen - 1] == '\n'
+		    || (o->next->flags & (HTML_OBJECT_FLAG_SEPARATOR
+					  | HTML_OBJECT_FLAG_NEWLINE))) {
 			return_value = HTML_FIT_COMPLETE;
 			goto done;
 		}
@@ -90,7 +169,7 @@ fit_line (HTMLObject *o,
 	
 	if (splitPtr) {
 		newLen = splitPtr - text + 1;
-		newWidth = html_font_calc_width (ownertext->font, text, newLen);
+		newWidth = html_painter_calc_text_width (painter, text, newLen, font_style);
 		if (newWidth > widthLeft) {
 			/* Splitting doesn't make it fit */
 			splitPtr = 0;
@@ -103,7 +182,8 @@ fit_line (HTMLObject *o,
 				if (!splitPtr2)
 					break;
 				extraLen = splitPtr2 - splitPtr;
-				extraWidth = html_font_calc_width (ownertext->font, splitPtr, extraLen);
+				extraWidth = html_painter_calc_text_width (painter, splitPtr, extraLen,
+									   font_style);
 				if (extraWidth + newWidth <= widthLeft) {
 					/* We can break on the next separator cause it still fits */
 					newLen += extraLen;
@@ -132,26 +212,14 @@ fit_line (HTMLObject *o,
 		   newLen & newWidth are valid */
 	}
 
-	if (textslave->posLen - newLen > 0) {
-		/* Move remaining text to our text-slave */
-		HTMLObject *textSlave;
-
-		textSlave = html_text_slave_new (textmaster,
-						 textslave->posStart + newLen,
-						 textslave->posLen - newLen);
-
-		textSlave->next = o->next;
-		textSlave->prev = o;
-		textSlave->parent = o->parent;
-
-		if (o->next != NULL)
-			o->next->prev = textSlave;
-
-		o->next = textSlave;
-	}
+	if (textslave->posLen - newLen > 0)
+		split (textslave, newLen);
 
 	textslave->posLen = newLen;
+
 	o->width = newWidth;
+	o->ascent = html_painter_calc_ascent (painter, font_style);
+	o->descent = html_painter_calc_descent (painter, font_style);
 
 	return_value = HTML_FIT_PARTIAL;
 
@@ -192,14 +260,19 @@ draw (HTMLObject *o,
       gint width, gint height,
       gint tx, gint ty)
 {
-	HTMLTextSlave *textslave = HTML_TEXT_SLAVE (o);
-	HTMLText *ownertext = HTML_TEXT (textslave->owner);
+	HTMLTextSlave *textslave;
+	HTMLText *ownertext;
+	HTMLFontStyle font_style;
 
 	if (y + height < o->y - o->ascent || y > o->y + o->descent)
 		return;
 
-	html_painter_set_pen (p, ownertext->font->textColor);
-	html_painter_set_font (p, ownertext->font);
+	textslave = HTML_TEXT_SLAVE (o);
+	ownertext = HTML_TEXT (textslave->owner);
+	font_style = html_text_get_font_style (ownertext);
+
+	html_painter_set_font_style (p, font_style);
+	html_painter_set_pen (p, html_text_get_color (ownertext, p));
 
 	html_painter_draw_text (p,
 				o->x + tx, o->y + ty, 
@@ -215,11 +288,12 @@ draw (HTMLObject *o,
 	}
 #endif
 
+#if 0
 	if (cursor != NULL
 	    && cursor->object == HTML_OBJECT (textslave->owner)
 	    && ((cursor->offset >= textslave->posStart
 		 && cursor->offset < textslave->posStart + textslave->posLen)
-		|| cursor->offset == textslave->owner->strLen)) {
+		|| cursor->offset == HTML_TEXT (textslave->owner)->text_len)) {
 		gint x_offset;
 
 		x_offset = gdk_text_width (ownertext->font->gdk_font,
@@ -230,16 +304,19 @@ draw (HTMLObject *o,
 					  o->x + tx + x_offset, o->y + ty,
 					  o->ascent, o->descent);
 	}
+#endif
 }
 
 static gint
-calc_min_width (HTMLObject *o)
+calc_min_width (HTMLObject *o,
+		HTMLPainter *painter)
 {
 	return 0;
 }
 
 static gint
-calc_perferred_width (HTMLObject *o)
+calc_preferred_width (HTMLObject *o,
+		      HTMLPainter *painter)
 {
 	return 0;
 }
@@ -272,9 +349,10 @@ html_text_slave_class_init (HTMLTextSlaveClass *klass,
 	html_object_class_init (object_class, type);
 
 	object_class->draw = draw;
+	object_class->calc_size = calc_size;
 	object_class->fit_line = fit_line;
 	object_class->calc_min_width = calc_min_width;
-	object_class->calc_preferred_width = calc_perferred_width;
+	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->get_url = get_url;
 }
 
@@ -299,10 +377,6 @@ html_text_slave_init (HTMLTextSlave *slave,
 	slave->posStart = posStart;
 	slave->posLen = posLen;
 	slave->owner = owner;
-	
-	object->width = html_font_calc_width (owner_text->font,
-					      owner_text->text + posStart,
-					      posLen);
 }
 
 HTMLObject *
@@ -311,9 +385,7 @@ html_text_slave_new (HTMLTextMaster *owner, gint posStart, gint posLen)
 	HTMLTextSlave *slave;
 
 	slave = g_new (HTMLTextSlave, 1);
-	html_text_slave_init (slave, &html_text_slave_class, owner,
-			      posStart, posLen);
+	html_text_slave_init (slave, &html_text_slave_class, owner, posStart, posLen);
 
 	return HTML_OBJECT (slave);
 }
-

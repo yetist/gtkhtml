@@ -47,7 +47,8 @@ set_max_width (HTMLObject *o, gint w)
 }
 
 static void
-calc_size (HTMLObject *clue, HTMLObject *parent)
+calc_size (HTMLObject *clue,
+	   HTMLPainter *painter)
 {
 	HTMLObject *obj;
 	gint lmargin = 0;
@@ -56,11 +57,10 @@ calc_size (HTMLObject *clue, HTMLObject *parent)
 	/* Make sure the children are properly sized */
 	html_object_set_max_width (clue, clue->max_width);
 
-	HTML_OBJECT_CLASS (&html_clue_class)->calc_size (clue, parent);
+	HTML_OBJECT_CLASS (&html_clue_class)->calc_size (clue, painter);
 
-	if (parent)
-		lmargin = html_clue_get_left_margin (HTML_CLUE (parent),
-						     clue->y);
+	if (clue->parent != NULL)
+		lmargin = html_clue_get_left_margin (HTML_CLUE (clue->parent), clue->y);
 
 	clue->width = lmargin + HTML_CLUEH (clue)->indent;
 	clue->descent = 0;
@@ -68,6 +68,7 @@ calc_size (HTMLObject *clue, HTMLObject *parent)
 
 	for (obj = HTML_CLUE (clue)->head; obj != 0; obj = obj->next) {
 		html_object_fit_line (obj,
+				      painter,
 				      (obj == HTML_CLUE (clue)->head),
 				      TRUE, -1);
 		obj->x = clue->width;
@@ -98,25 +99,27 @@ calc_size (HTMLObject *clue, HTMLObject *parent)
 }
 
 static gint
-calc_min_width (HTMLObject *o)
+calc_min_width (HTMLObject *o,
+		HTMLPainter *painter)
 {
 	HTMLObject *obj;
 	gint minWidth = 0;
 
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next)
-		minWidth += html_object_calc_min_width (obj);
+		minWidth += html_object_calc_min_width (obj, painter);
 
 	return minWidth + HTML_CLUEH (o)->indent;
 }
 
 static gint
-calc_preferred_width (HTMLObject *o)
+calc_preferred_width (HTMLObject *o,
+		      HTMLPainter *painter)
 {
 	HTMLObject *obj;
 	gint prefWidth = 0;
 
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) 
-		prefWidth += html_object_calc_preferred_width (obj);
+		prefWidth += html_object_calc_preferred_width (obj, painter);
 
 	return prefWidth + HTML_CLUEH (o)->indent;
 }

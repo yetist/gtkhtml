@@ -153,7 +153,6 @@ html_tokenizer_begin (HTMLTokenizer *t)
 	t->searchCount = 0;
 	t->title = FALSE;
 	t->charEntity = FALSE;
-
 }
 
 void
@@ -247,7 +246,7 @@ html_tokenizer_add_pending (HTMLTokenizer *t)
 			*(t->dest)++ = 0xa0;
 			t->prePos++;
 			break;
-		case LFPending:;
+		case LFPending:
 			if (t->dest > t->buffer) {
 				*(t->dest) = 0;
 				html_tokenizer_append_token (t, t->buffer, t->dest - t->buffer);
@@ -735,11 +734,10 @@ html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 			t->discard = NoneDiscard;
 			if (t->tag) {
 				t->searchCount = 0; /* Stop looking for <!-- sequence */
-				if (((t->tquote == SINGLE_QUOTE) && (*src == '\"')) ||
-				    ((t->tquote == DOUBLE_QUOTE) && (*src == '\''))) {
+				if ((t->tquote == SINGLE_QUOTE && *src == '\"')
+				    || (t->tquote == DOUBLE_QUOTE && *src == '\'')) {
 					*(t->dest)++ = *src;
-				}
-				else if (*(t->dest-1) == '=' && !t->tquote) {
+				} else if (*(t->dest-1) == '=' && !t->tquote) {
 					t->discard = SpaceDiscard;
 					t->pending = NonePending;
 					

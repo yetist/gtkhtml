@@ -28,12 +28,13 @@
 #include "htmlclue.h"
 
 #define HTML_CLUEFLOW(x) ((HTMLClueFlow *)(x))
-#define HTML_CLUEFLOW_CLASS(x) ((HTMLClueFlow *)(x))
+#define HTML_CLUEFLOW_CLASS(x) ((HTMLClueFlowClass *)(x))
 
 typedef struct _HTMLClueFlow HTMLClueFlow;
 typedef struct _HTMLClueFlowClass HTMLClueFlowClass;
 typedef enum _HTMLClueFlowStyle HTMLClueFlowStyle;
 
+/* Paragraph style.  Notice that the `H*' elements must be consecutive.  */
 enum _HTMLClueFlowStyle {
 	HTML_CLUEFLOW_STYLE_NORMAL,
 	HTML_CLUEFLOW_STYLE_P,
@@ -44,9 +45,11 @@ enum _HTMLClueFlowStyle {
 	HTML_CLUEFLOW_STYLE_H5,
 	HTML_CLUEFLOW_STYLE_H6,
 	HTML_CLUEFLOW_STYLE_ADDRESS,
+	HTML_CLUEFLOW_STYLE_PRE,
 	HTML_CLUEFLOW_STYLE_ITEMDOTTED,
 	HTML_CLUEFLOW_STYLE_ITEMROMAN,
-	HTML_CLUEFLOW_STYLE_ITEMDIGIT
+	HTML_CLUEFLOW_STYLE_ITEMDIGIT,
+	HTML_CLUEFLOW_NUMSTYLES
 };
 
 struct _HTMLClueFlow {
@@ -64,6 +67,8 @@ struct _HTMLClueFlow {
 
 struct _HTMLClueFlowClass {
 	HTMLClueClass clue_class;
+
+	HTMLFontStyle (* get_default_font_style) (const HTMLClueFlow *self);
 };
 
 
@@ -75,6 +80,8 @@ void html_clueflow_class_init (HTMLClueFlowClass *klass, HTMLType type);
 void html_clueflow_init (HTMLClueFlow *flow, HTMLClueFlowClass *klass,
 			 HTMLFont *font, HTMLClueFlowStyle style, guint8 level);
 HTMLObject *html_clueflow_new (HTMLFont *font, HTMLClueFlowStyle style, guint8 level);
+
+HTMLFontStyle html_clueflow_get_default_font_style (const HTMLClueFlow *self);
 
 HTMLClueFlow *html_clueflow_split (HTMLClueFlow *clue, HTMLObject *child);
 

@@ -129,36 +129,26 @@ struct _HTMLObjectClass {
         /* x & y are in object coordinates (e.g. the same coordinate system as
 	   o->x and o->y) tx & ty are used to translated object coordinates
 	   into painter coordinates */
-	void (*draw) (HTMLObject *o,
-		      HTMLPainter *p,
-		      HTMLCursor *cursor,
-		      gint x, gint y,
-		      gint width, gint height,
-		      gint tx, gint ty);
-
-	HTMLFitType (*fit_line) (HTMLObject *o, gboolean start_of_line, 
-				 gboolean first_run, gint width_left);
-
-	void (*calc_size) (HTMLObject *o, HTMLObject *parent);
+	void (*draw) (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor,
+		      gint x, gint y, gint width, gint height, gint tx, gint ty);
 
 	void (*set_max_ascent) (HTMLObject *o, gint a);
-	
 	void (*set_max_descent) (HTMLObject *o, gint d);
-	
 	void (*set_max_width) (HTMLObject *o, gint max_width);
-	
+
 	void (*reset) (HTMLObject *o);
 	
-	gint (*calc_min_width) (HTMLObject *o);
-	
-	gint (*calc_preferred_width) (HTMLObject *o);
+	HTMLFitType (*fit_line) (HTMLObject *o, HTMLPainter *painter,
+				 gboolean start_of_line, gboolean first_run, gint width_left);
+
+	void (*calc_size) (HTMLObject *o, HTMLPainter *painter);
+	gint (*calc_min_width) (HTMLObject *o, HTMLPainter *painter);
+	gint (*calc_preferred_width) (HTMLObject *o, HTMLPainter *painter);
 
 	const gchar * (*get_url) (HTMLObject *o);
-
 	const gchar * (*get_target) (HTMLObject *o);
 
-	HTMLAnchor * (*find_anchor) (HTMLObject *o, const gchar *name,
-				     gint *x, gint *y);
+	HTMLAnchor * (*find_anchor) (HTMLObject *o, const gchar *name, gint *x, gint *y);
 
 	void (* set_bg_color) (HTMLObject *o, GdkColor *color);
 
@@ -190,16 +180,16 @@ void html_object_calc_abs_position (HTMLObject *o, gint *x_return, gint *y_retur
 
 void html_object_draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor, gint x, gint y,
 		       gint width, gint height, gint tx, gint ty);
-HTMLFitType html_object_fit_line (HTMLObject *o, gboolean start_of_line, 
-				  gboolean first_run, gint width_left);
-void html_object_calc_size (HTMLObject *o, HTMLObject *parent);
+HTMLFitType html_object_fit_line (HTMLObject *o, HTMLPainter *painter,
+				  gboolean start_of_line, gboolean first_run, gint width_left);
+void html_object_calc_size (HTMLObject *o, HTMLPainter *painter);
 void html_object_set_max_ascent (HTMLObject *o, gint a);
 void html_object_set_max_descent (HTMLObject *o, gint d);
 void html_object_destroy (HTMLObject *o);
 void html_object_set_max_width (HTMLObject *o, gint max_width);
 void html_object_reset (HTMLObject *o);
-gint html_object_calc_min_width (HTMLObject *o);
-gint html_object_calc_preferred_width (HTMLObject *o);
+gint html_object_calc_min_width (HTMLObject *o, HTMLPainter *painter);
+gint html_object_calc_preferred_width (HTMLObject *o, HTMLPainter *painter);
 const gchar *html_object_get_url (HTMLObject *o);
 const gchar *html_object_get_target (HTMLObject *o);
 HTMLAnchor *html_object_find_anchor (HTMLObject *o, const gchar *name,

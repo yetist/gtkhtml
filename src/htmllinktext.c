@@ -71,7 +71,9 @@ split (HTMLText *self,
 		return NULL;
 
 	s = g_strdup (self->text + offset);
-	new = HTML_TEXT (html_link_text_new (s, self->font,
+	new = HTML_TEXT (html_link_text_new (s,
+					     self->font_style,
+					     &self->color,
 					     link_text->url,
 					     link_text->target));
 
@@ -79,6 +81,17 @@ split (HTMLText *self,
 	self->text[offset] = '\0';
 
 	return new;
+}
+
+static HTMLFontStyle
+get_font_style (const HTMLText *text)
+{
+	HTMLFontStyle font_style;
+
+	font_style = parent_class->get_font_style (text);
+	font_style = html_font_style_merge (font_style, HTML_FONT_STYLE_UNDERLINE);
+
+	return font_style;
 }
 
 
@@ -105,6 +118,7 @@ html_link_text_class_init (HTMLLinkTextClass *klass,
 	object_class->get_target = get_target;
 
 	text_class->split = split;
+	text_class->get_font_style = get_font_style;
 
 	parent_class = &html_text_class;
 }
@@ -113,14 +127,15 @@ void
 html_link_text_init (HTMLLinkText *link_text_object,
 		     HTMLLinkTextClass *klass,
 		     gchar *text,
-		     HTMLFont *font,
+		     HTMLFontStyle font_style,
+		     const GdkColor *color,
 		     const gchar *url,
 		     const gchar *target)
 {
 	HTMLText *text_object;
 
 	text_object = HTML_TEXT (link_text_object);
-	html_text_init (text_object, HTML_TEXT_CLASS (klass), text, font);
+	html_text_init (text_object, HTML_TEXT_CLASS (klass), text, font_style, color);
 
 	link_text_object->url = g_strdup (url);
 	link_text_object->target = g_strdup (target);
@@ -128,7 +143,8 @@ html_link_text_init (HTMLLinkText *link_text_object,
 
 HTMLObject *
 html_link_text_new (gchar *text,
-		    HTMLFont *font,
+		    HTMLFontStyle font_style,
+		    const GdkColor *color,
 		    const gchar *url,
 		    const gchar *target)
 {
@@ -144,7 +160,7 @@ html_link_text_new (gchar *text,
 	g_print (")\n");
 
 	html_link_text_init (link_text_object, &html_link_text_class,
-			     text, font, url, target);
+			     text, font_style, color, url, target);
 
 	return HTML_OBJECT (link_text_object);
 }

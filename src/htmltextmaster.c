@@ -39,19 +39,70 @@ draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor,
 }
 
 static gint
-calc_min_width (HTMLObject *o)
+calc_min_width (HTMLObject *self,
+		HTMLPainter *painter)
 {
-	return HTML_TEXT_MASTER (o)->minWidth;
+	HTMLTextMaster *master;
+	HTMLFontStyle font_style;
+	HTMLText *text;
+	const gchar *p;
+	gint min_width, run_width;
+
+	master = HTML_TEXT_MASTER (self);
+	text = HTML_TEXT (self);
+
+	font_style = html_text_get_font_style (text);
+
+	min_width = 0;
+	run_width = 0;
+	p = text->text;
+
+	while (1) {
+		if (*p != ' ' && *p != 0) {
+			run_width += html_painter_calc_text_width (painter, p, 1, font_style);
+		} else {
+			if (run_width > min_width)
+				min_width = run_width;
+			run_width = 0;
+			if (*p == 0)
+				break;
+		}
+		p++;
+	}
+
+	return min_width;
 }
 
 static gint
-calc_preferred_width (HTMLObject *o)
+calc_preferred_width (HTMLObject *self,
+		      HTMLPainter *painter)
 {
-	return HTML_TEXT_MASTER (o)->prefWidth;
+	HTMLText *text;
+	HTMLFontStyle font_style;
+	gint width;
+
+	text = HTML_TEXT (self);
+	font_style = html_text_get_font_style (text);
+
+	width = html_painter_calc_text_width (painter,
+					      text->text, text->text_len,
+					      font_style);
+
+	return width;
+}
+
+static void
+calc_size (HTMLObject *self,
+	   HTMLPainter *painter)
+{
+	self->width = 0;
+	self->ascent = 0;
+	self->descent = 0;
 }
 
 static HTMLFitType
 fit_line (HTMLObject *o,
+	  HTMLPainter *painter,
 	  gboolean startOfLine,
 	  gboolean firstRun,
 	  gint widthLeft) 
@@ -75,7 +126,7 @@ fit_line (HTMLObject *o,
 	}
 	
 	/* Turn all text over to our slaves */
-	text_slave = html_text_slave_new (textmaster, 0, textmaster->strLen);
+	text_slave = html_text_slave_new (textmaster, 0, HTML_TEXT (textmaster)->text_len);
 
 	text_slave->next = o->next;
 	text_slave->parent = o->parent;
@@ -99,59 +150,21 @@ split (HTMLText *self,
 
 	master = HTML_TEXT_MASTER (self);
 
-	if (offset >= master->strLen || offset == 0)
+	if (offset >= HTML_TEXT (self)->text_len || offset == 0)
 		return NULL;
 
 	s = g_strdup (self->text + offset);
-	new = html_text_master_new (s, self->font);
+	new = html_text_master_new (s, self->font_style, &self->color);
 
 	self->text = g_realloc (self->text, offset + 1);
 	self->text[offset] = '\0';
-	master->strLen = offset;
+	HTML_TEXT (self)->text_len = offset;
 
 	return HTML_TEXT (new);
 }
 
 
 /* HTMLText methods.  */
-
-static void
-insert_text (HTMLText *self,
-	     HTMLEngine *engine,
-	     guint offset,
-	     const gchar *p,
-	     guint len)
-{
-	/* Notice that the following must be done before actually inserting
-           text.  Otherwise, relayout won't work.  This is very lame.  (FIXME)
-           Probably we should make `strLen' a member of `HTMLText'.  */
-
-	HTML_TEXT_MASTER (self)->strLen += len;
-
-	(* html_text_class.insert_text) (self, engine, offset, p, len);
-}
-
-static guint
-remove_text (HTMLText *self,
-	     HTMLEngine *engine,
-	     guint offset,
-	     guint len)
-{
-	HTMLTextMaster *master;
-
-	master = HTML_TEXT_MASTER (self);
-
-	/* Notice that the following must be done before actually removing
-           text.  Otherwise, relayout won't work.  This is very lame.  (FIXME)
-           Probably we should make `strLen' a member of `HTMLText'.  */
-
-	if (offset + len > master->strLen)
-		len = master->strLen - offset;
-
-	master->strLen -= len;
-
-	return (* html_text_class.remove_text) (self, engine, offset, len);
-}
 
 static void
 queue_draw (HTMLText *text,
@@ -193,6 +206,7 @@ calc_char_position (HTMLText *text,
 
 		slave = HTML_TEXT_SLAVE (obj);
 
+#if 0
 		if (offset < slave->posStart + slave->posLen
 		    || obj->next == NULL
 		    || HTML_OBJECT_TYPE (obj->next) != HTML_TYPE_TEXTSLAVE) {
@@ -203,6 +217,7 @@ calc_char_position (HTMLText *text,
 							     offset - slave->posStart);
 			return;
 		}
+#endif
 	}
 }
 
@@ -228,11 +243,10 @@ html_text_master_class_init (HTMLTextMasterClass *klass,
 
 	object_class->draw = draw;
 	object_class->fit_line = fit_line;
+	object_class->calc_size = calc_size;
 	object_class->calc_min_width = calc_min_width;
 	object_class->calc_preferred_width = calc_preferred_width;
 
-	text_class->insert_text = insert_text;
-	text_class->remove_text = remove_text;
 	text_class->queue_draw = queue_draw;
 	text_class->calc_char_position = calc_char_position;
 	text_class->split = split;
@@ -242,52 +256,27 @@ void
 html_text_master_init (HTMLTextMaster *master,
 		       HTMLTextMasterClass *klass,
 		       gchar *text,
-		       HTMLFont *font)
+		       HTMLFontStyle font_style,
+		       const GdkColor *color)
 {
 	HTMLText* html_text;
 	HTMLObject *object;
-	gint runWidth;
-	gchar *textPtr;
 
 	html_text = HTML_TEXT (master);
 	object = HTML_OBJECT (master);
 
-	html_text_init (html_text, HTML_TEXT_CLASS (klass), text, font);
-
-	object->width = 0;	/* FIXME why? */
-	object->ascent = html_font_calc_ascent (font);
-	object->descent = html_font_calc_descent (font);
-	
-	master->prefWidth = html_font_calc_width (font, text, -1);
-	master->minWidth = 0;
-
-	runWidth = 0;
-	textPtr = text;
-
-	while (*textPtr) {
-		if (*textPtr != ' ') {
-			runWidth += html_font_calc_width (font, textPtr, 1);
-		} else {
-			if (runWidth > master->minWidth)
-				master->minWidth = runWidth;
-			runWidth = 0;
-		}
-		textPtr++;
-	}
-	
-	if (runWidth > master->minWidth)
-		master->minWidth = runWidth;
-
-	master->strLen = strlen (text);
+	html_text_init (html_text, HTML_TEXT_CLASS (klass), text, font_style, color);
 }
 
 HTMLObject *
-html_text_master_new (gchar *text, HTMLFont *font)
+html_text_master_new (gchar *text,
+		      HTMLFontStyle font_style,
+		      const GdkColor *color)
 {
 	HTMLTextMaster *master;
 
 	master = g_new (HTMLTextMaster, 1);
-	html_text_master_init (master, &html_text_master_class, text, font);
+	html_text_master_init (master, &html_text_master_class, text, font_style, color);
 
 	return HTML_OBJECT (master);
 }

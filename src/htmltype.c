@@ -34,7 +34,6 @@
 #include "htmlcluev.h"
 #include "htmlelement.h"
 #include "htmlhidden.h"
-#include "htmlhspace.h"
 #include "htmlimage.h"
 #include "htmlimageinput.h"
 #include "htmllinktext.h"
@@ -74,7 +73,6 @@ html_types_init (void)
 	html_cluev_type_init ();
 	html_element_type_init ();
 	html_hidden_type_init ();
-	html_hspace_type_init ();
 	html_image_type_init ();
 	html_imageinput_type_init ();
 	html_link_text_type_init ();

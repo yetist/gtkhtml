@@ -21,11 +21,50 @@
 #include "htmltextslave.h"
 #include "htmltable.h"
 #include "htmlclue.h"
+#include "htmlclueflow.h"
 #include "htmltype.h"
 #include "debug.h"
 
 /* Various debugging routines */
+/* FIXME namespace! */
 
+
+static const gchar *
+clueflow_style_to_string (HTMLClueFlowStyle style)
+{
+	switch (style) {
+	case HTML_CLUEFLOW_STYLE_NORMAL:
+		return "Normal";
+	case HTML_CLUEFLOW_STYLE_P:
+		return "P";
+	case HTML_CLUEFLOW_STYLE_H1:
+		return "H1";
+	case HTML_CLUEFLOW_STYLE_H2:
+		return "H2";
+	case HTML_CLUEFLOW_STYLE_H3:
+		return "H3";
+	case HTML_CLUEFLOW_STYLE_H4:
+		return "H4";
+	case HTML_CLUEFLOW_STYLE_H5:
+		return "H5";
+	case HTML_CLUEFLOW_STYLE_H6:
+		return "H6";
+	case HTML_CLUEFLOW_STYLE_ADDRESS:
+		return "Address";
+	case HTML_CLUEFLOW_STYLE_PRE:
+		return "Pre";
+	case HTML_CLUEFLOW_STYLE_ITEMDOTTED:
+		return "ItemDotted";
+	case HTML_CLUEFLOW_STYLE_ITEMROMAN:
+		return "ItemRoman";
+	case HTML_CLUEFLOW_STYLE_ITEMDIGIT:
+		return "ItemDigit";
+	default:
+		return "UNKNOWN";
+	}
+}
+
+
 void
 debug_dump_table (HTMLObject *o, gint level)
 {
@@ -51,8 +90,13 @@ debug_dump_tree (HTMLObject *o, gint level)
 		for (i = 0; i < level; i++)
 			g_print (" ");
 
-		g_print ("Obj: %p, Parent: %p  Prev: %p Next: %p ObjectType: %s\n",
+		g_print ("Obj: %p, Parent: %p  Prev: %p Next: %p ObjectType: %s",
 			 obj, obj->parent, obj->prev, obj->next, html_type_name (HTML_OBJECT_TYPE (obj)));
+
+		if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_CLUEFLOW)
+			g_print (" [%s]", clueflow_style_to_string (HTML_CLUEFLOW (obj)->style));
+
+		g_print ("\n");
 
 		switch (HTML_OBJECT_TYPE (obj)) {
 		case HTML_TYPE_TABLE:
@@ -60,13 +104,15 @@ debug_dump_tree (HTMLObject *o, gint level)
 			break;
 		case HTML_TYPE_TEXT:
 		case HTML_TYPE_TEXTMASTER:
+		case HTML_TYPE_LINKTEXT:
+		case HTML_TYPE_LINKTEXTMASTER:
 			for (i = 0; i < level; i++)
 				g_print (" ");
 			g_print ("Text: %s\n", HTML_TEXT (obj)->text);
 			break;
 		case HTML_TYPE_CLUEH:
-		case HTML_TYPE_CLUEFLOW:
 		case HTML_TYPE_CLUEV:
+		case HTML_TYPE_CLUEFLOW:
 		case HTML_TYPE_CLUEALIGNED:
 			debug_dump_tree (HTML_CLUE (obj)->head, level + 1);
 			break;
