@@ -1,3 +1,9 @@
+2004-05-24  Radek Doulik  <rodo@ximian.com>
+
+	* menubar.c (menubar_setup): connect
+	menubar_paragraph_style_changed_cb, it was probably unconnected by
+	mistake, causing Wrap Lines menu item unaccessible
+
 2004-05-14  Radek Doulik  <rodo@ximian.com>
 
 	* menubar.c (insert_image_cb): use html_engine_get_image_factory

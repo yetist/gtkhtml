@@ -764,6 +764,7 @@ menubar_setup (BonoboUIComponent  *uic,
 	g_free (domain);
 
 	menubar_paragraph_style_changed_cb (cd->html, gtk_html_get_paragraph_style (cd->html), cd);
+	g_signal_connect (cd->html, "current_paragraph_style_changed", G_CALLBACK (menubar_paragraph_style_changed_cb), cd);
 
 	if (!cd->has_spell_control_set) {
 		cd->has_spell_control = spell_has_control ();
