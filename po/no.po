@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
-"POT-Creation-Date: 2001-01-30 14:08-0600\n"
-"PO-Revision-Date: 2001-01-18 15:43+01:00\n"
+"POT-Creation-Date: 2001-01-30 22:35+0100\n"
+"PO-Revision-Date: 2001-01-30 22:36+01:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -40,6 +40,7 @@ msgid "Add"
 msgstr "Legg til"
 
 #: capplet/gnome-bindings-prop.c:548
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:2
 msgid "Copy"
 msgstr "Kopiér"
 
@@ -145,6 +146,172 @@ msgstr "Velg en farge"
 #: capplet/gtkhtml-capplet.glade.h:32
 msgid "Miscellaneous"
 msgstr "Forskjellig"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:1
+msgid "C_ut"
+msgstr "Klipp _ut"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:3
+msgid "Copy selection to clipboard"
+msgstr "Kopiér utvalget til utklippstavlen"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:4
+msgid "Copy the selection"
+msgstr "Kopiér utvalget"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:5
+msgid "Cut"
+msgstr "Klipp ut"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:6
+msgid "Cut selection to clipboard"
+msgstr "Klipp utvalget til utklippstavlen"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:7
+msgid "Cut the selection"
+msgstr "Klipp ut utvalget"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:8
+msgid "Find"
+msgstr "Finn"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:9
+msgid "Find Rege_x..."
+msgstr "Finn rege_x..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:10
+msgid "Find _Again"
+msgstr "Finn _igjen"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:11
+msgid "Insert HTML link into document..."
+msgstr "Sett inn HTML-lenke i dokumentet..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:12
+msgid "Insert image into document..."
+msgstr "Sett inn bilde i dokumentet..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:13
+msgid "Insert rule into document..."
+msgstr "Sett inn regel i dokumentet..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:14
+msgid "Modify the file's properties"
+msgstr "Endre filens egenskaper"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:15
+msgid "Paste"
+msgstr "Lim inn"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:16
+msgid "Paste from clipboard"
+msgstr "Lim inn fra utklippstavlen"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:17
+msgid "Paste the clipboard"
+msgstr "Lim inn utklippstavlen"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:18
+msgid "Redo"
+msgstr "Gjenopprett"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:19
+msgid "Redo previously undone change"
+msgstr "Gjenopprett tidligere angret endring"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:20
+msgid "Redo the undone action"
+msgstr "Gjenopprett angret handling"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:21
+msgid "Regular expression search"
+msgstr "Søk på vanlige uttrykk"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:22
+#: components/html-editor/replace.c:84 components/html-editor/replace.c:146
+#: components/html-editor/replace.c:158
+msgid "Replace"
+msgstr "Erstatt"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:23
+msgid "Replace a string"
+msgstr "Erstatt en streng"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:24
+msgid "Search again for the same string"
+msgstr "Søk etter samme streng igjen"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:25
+msgid "Search and replace string"
+msgstr "Søk og erstatt streng"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:26
+msgid "Search for a string"
+msgstr "Søk etter en streng"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:27
+msgid "Search string"
+msgstr "Søk etter en streng"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:28
+msgid "Undo"
+msgstr "Angre"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:29
+msgid "Undo previous changes"
+msgstr "Angre forrige endringer"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:30
+msgid "Undo the last action"
+msgstr "Angre forrige handling"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:31
+msgid "_Copy"
+msgstr "_Kopiér"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:32
+msgid "_Edit"
+msgstr "_Redigér"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:33
+msgid "_Find..."
+msgstr "_Finn..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:34
+msgid "_Image..."
+msgstr "B_ilde..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:35
+msgid "_Insert"
+msgstr "Sett _inn"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:36
+msgid "_Link..."
+msgstr "_Lenke..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:37
+msgid "_Paste"
+msgstr "_Lim inn"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:38
+msgid "_Properties..."
+msgstr "E_genskaper..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:39
+msgid "_Redo"
+msgstr "Gjenopp_rett"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:40
+msgid "_Replace..."
+msgstr "E_rstatt..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:41
+msgid "_Rule..."
+msgstr "_Regel..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:42
+msgid "_Undo"
+msgstr "An_gre"
 
 #: components/html-editor/body.c:127 components/html-editor/body.c:131
 msgid "Background Image"
@@ -301,11 +468,6 @@ msgstr "Fjern lenke"
 msgid "Replace confirmation"
 msgstr "Erstatt bekreftelse"
 
-#: components/html-editor/replace.c:84 components/html-editor/replace.c:146
-#: components/html-editor/replace.c:158
-msgid "Replace"
-msgstr "Erstatt"
-
 #: components/html-editor/replace.c:84
 msgid "Replace all"
 msgstr "Erstatt alle"
@@ -440,11 +602,11 @@ msgstr "Høyrejustérer avsnittene"
 
 #: components/html-editor/toolbar.c:432
 msgid "Typewriter"
-msgstr ""
+msgstr "Skrivemaskin"
 
 #: components/html-editor/toolbar.c:432
 msgid "Toggle typewriter font style"
-msgstr ""
+msgstr "Slå av/på skrivemaskin stil for skrifttype"
 
 #: components/html-editor/toolbar.c:434
 msgid "Makes the text bold"
@@ -489,123 +651,3 @@ msgstr "Forhånds_visning"
 #: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "Forhåndsvisning"
-
-#~ msgid "C_ut"
-#~ msgstr "Klipp _ut"
-
-#~ msgid "Copy selection to clipboard"
-#~ msgstr "Kopiér utvalget til utklippstavlen"
-
-#~ msgid "Copy the selection"
-#~ msgstr "Kopiér utvalget"
-
-#~ msgid "Cut"
-#~ msgstr "Klipp ut"
-
-#~ msgid "Cut selection to clipboard"
-#~ msgstr "Klipp utvalget til utklippstavlen"
-
-#~ msgid "Cut the selection"
-#~ msgstr "Klipp ut utvalget"
-
-#~ msgid "Find"
-#~ msgstr "Finn"
-
-#~ msgid "Find Rege_x..."
-#~ msgstr "Finn rege_x..."
-
-#~ msgid "Find _Again"
-#~ msgstr "Finn _igjen"
-
-#~ msgid "Insert HTML link into document..."
-#~ msgstr "Sett inn HTML-lenke i dokumentet..."
-
-#~ msgid "Insert image into document..."
-#~ msgstr "Sett inn bilde i dokumentet..."
-
-#~ msgid "Insert rule into document..."
-#~ msgstr "Sett inn regel i dokumentet..."
-
-#~ msgid "Modify the file's properties"
-#~ msgstr "Endre filens egenskaper"
-
-#~ msgid "Paste"
-#~ msgstr "Lim inn"
-
-#~ msgid "Paste from clipboard"
-#~ msgstr "Lim inn fra utklippstavlen"
-
-#~ msgid "Paste the clipboard"
-#~ msgstr "Lim inn utklippstavlen"
-
-#~ msgid "Redo"
-#~ msgstr "Gjenopprett"
-
-#~ msgid "Redo previously undone change"
-#~ msgstr "Gjenopprett tidligere angret endring"
-
-#~ msgid "Redo the undone action"
-#~ msgstr "Gjenopprett angret handling"
-
-#~ msgid "Regular expression search"
-#~ msgstr "Søk på vanlige uttrykk"
-
-#~ msgid "Replace a string"
-#~ msgstr "Erstatt en streng"
-
-#~ msgid "Search again for the same string"
-#~ msgstr "Søk etter samme streng igjen"
-
-#~ msgid "Search and replace string"
-#~ msgstr "Søk og erstatt streng"
-
-#~ msgid "Search for a string"
-#~ msgstr "Søk etter en streng"
-
-#~ msgid "Search string"
-#~ msgstr "Søk etter en streng"
-
-#~ msgid "Undo"
-#~ msgstr "Angre"
-
-#~ msgid "Undo previous changes"
-#~ msgstr "Angre forrige endringer"
-
-#~ msgid "Undo the last action"
-#~ msgstr "Angre forrige handling"
-
-#~ msgid "_Copy"
-#~ msgstr "_Kopiér"
-
-#~ msgid "_Edit"
-#~ msgstr "_Redigér"
-
-#~ msgid "_Find..."
-#~ msgstr "_Finn..."
-
-#~ msgid "_Image..."
-#~ msgstr "B_ilde..."
-
-#~ msgid "_Insert"
-#~ msgstr "Sett _inn"
-
-#~ msgid "_Link..."
-#~ msgstr "_Lenke..."
-
-#~ msgid "_Paste"
-#~ msgstr "_Lim inn"
-
-#~ msgid "_Properties..."
-#~ msgstr "E_genskaper..."
-
-#~ msgid "_Redo"
-#~ msgstr "Gjenopp_rett"
-
-#~ msgid "_Replace..."
-#~ msgstr "E_rstatt..."
-
-#~ msgid "_Rule..."
-#~ msgstr "_Regel..."
-
-#~ msgid "_Undo"
-#~ msgstr "An_gre"
