@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.0\n"
-"POT-Creation-Date: 2002-02-10 02:38+0000\n"
+"POT-Creation-Date: 2002-02-10 14:58-0600\n"
 "PO-Revision-Date: 2002-02-10 02:40+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <none@none.org>\n"
@@ -754,12 +754,6 @@ msgstr "Imagem de Fundo"
 msgid "Colors"
 msgstr "Cores"
 
-#: components/html-editor/body.c:294 components/html-editor/cell.c:391
-#: components/html-editor/table.c:534 components/html-editor/text.c:283
-#: components/html-editor/toolbar.c:306
-msgid "Automatic"
-msgstr "Automático"
-
 #: components/html-editor/body.c:306
 #: components/html-editor/editor-control-factory.c:196
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
@@ -771,6 +765,11 @@ msgstr "Texto"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:13
 msgid "Background"
 msgstr "Fundo"
+
+#: components/html-editor/cell.c:391 components/html-editor/table.c:534
+#: components/html-editor/text.c:283 components/html-editor/toolbar.c:306
+msgid "Automatic"
+msgstr "Automático"
 
 #: components/html-editor/editor-control-factory.c:177
 #: components/html-editor/menubar.c:221 components/html-editor/menubar.c:239
@@ -790,11 +789,11 @@ msgstr "Parágrafo"
 msgid "Page"
 msgstr "Página"
 
-#: components/html-editor/editor-control-factory.c:857
+#: components/html-editor/editor-control-factory.c:873
 msgid "Could not initialize GNORBA"
 msgstr "Incapaz de inicializar GNORBA"
 
-#: components/html-editor/editor-control-factory.c:870
+#: components/html-editor/editor-control-factory.c:886
 msgid "Could not initialize Bonobo"
 msgstr "Incapaz de inicializar Bonobo"
 
@@ -992,7 +991,6 @@ msgstr "Âmbito"
 msgid "Shaded"
 msgstr "Sombreado"
 
-#. , GTK_FILL | GTK_EXPAND, 0, 0, 0);
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
 #: components/html-editor/text.c:250
 msgid "Size"
@@ -1078,14 +1076,14 @@ msgid ""
 "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
 "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
 "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@width@@height@align=top border=0></td></tr></table></td></tr></table></"
-"center>"
+"@src@@width@@height@align=top "
+"border=0></td></tr></table></td></tr></table></center>"
 msgstr ""
 "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
 "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
 "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@width@@height@align=top border=0></td></tr></table></td></tr></table></"
-"center>"
+"@src@@width@@height@align=top "
+"border=0></td></tr></table></td></tr></table></center>"
 
 #: components/html-editor/image.c:130
 msgid "Caption"
@@ -1334,21 +1332,15 @@ msgstr "Nota"
 
 #: components/html-editor/template.c:83
 msgid ""
-"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
-"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
-"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
+"<table cellspacing=0 cellpadding=1 "
+"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" "
+"cellpadding=3 cellspacing=0 width=\"100%\"><tr><td valign=top><img "
+"src=\"file://"
 msgstr ""
-"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
-"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
-"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
-
-#: components/html-editor/template.c:85
-msgid ""
-"/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
-"tr></table></td></tr></table>"
-msgstr ""
-"/bulb.png\" hspace=10></td><td width=\"100%\">Coloque o seu texto aqui</td></"
-"tr></table></td></tr></table>"
+"<table cellspacing=0 cellpadding=1 "
+"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" "
+"cellpadding=3 cellspacing=0 width=\"100%\"><tr><td valign=top><img "
+"src=\"file://"
 
 #: components/html-editor/template.c:91
 msgid "Image frame"
@@ -1357,21 +1349,12 @@ msgstr "Fram de imagem"
 #: components/html-editor/template.c:93
 msgid ""
 "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
-"\"><tr><td align=\"center\"><img src=\"file://"
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" "
+"width=\"100%\"><tr><td align=\"center\"><img src=\"file://"
 msgstr ""
 "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
-"\"><tr><td align=\"center\"><img src=\"file://"
-
-#: components/html-editor/template.c:97
-msgid ""
-"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
-"\"-1\">Image 1: <b>description</b></font></td></tr></table></td></tr></table>"
-msgstr ""
-"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
-"\"-1\">Imagem 1: <b>description</b></font></td></tr></table></td></tr></"
-"table>"
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" "
+"width=\"100%\"><tr><td align=\"center\"><img src=\"file://"
 
 #: components/html-editor/test-html-editor-control.c:276
 msgid "Open file..."
@@ -1505,6 +1488,22 @@ msgstr "Pre_ver impressão"
 #: src/testgtkhtml.c:113
 msgid "Print preview"
 msgstr "Prever impressão"
+
+#~ msgid ""
+#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Place your text "
+#~ "here</td></tr></table></td></tr></table>"
+#~ msgstr ""
+#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Coloque o seu texto "
+#~ "aqui</td></tr></table></td></tr></table>"
+
+#~ msgid ""
+#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
+#~ "size=\"-1\">Image 1: "
+#~ "<b>description</b></font></td></tr></table></td></tr></table>"
+#~ msgstr ""
+#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
+#~ "size=\"-1\">Imagem 1: "
+#~ "<b>description</b></font></td></tr></table></td></tr></table>"
 
 #~ msgid "Clear"
 #~ msgstr "Limpar"

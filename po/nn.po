@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.10\n"
-"POT-Creation-Date: 2002-01-26 01:35+0100\n"
+"POT-Creation-Date: 2002-02-10 14:58-0600\n"
 "PO-Revision-Date: 2002-01-26 01:46+0100\n"
 "Last-Translator: Roy-Magne Mo <rmo@sunnmore.net>\n"
 "Language-Team: Norwegian/Nynorsk <no@li.org>\n"
@@ -236,7 +236,7 @@ msgid "Bulleted List"
 msgstr "Punktmerka liste"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
-#: components/html-editor/toolbar.c:500
+#: components/html-editor/toolbar.c:516
 msgid "Center justifies the paragraphs"
 msgstr "Sentrerar avsnittet"
 
@@ -363,12 +363,12 @@ msgid "Insert table into document..."
 msgstr "Sett inn tabell i dokumentet ..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
-#: components/html-editor/toolbar.c:498
+#: components/html-editor/toolbar.c:514
 msgid "Left justifies the paragraphs"
 msgstr "Venstrejusterar avsnitta"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
-#: components/html-editor/body.c:306 components/html-editor/menubar.c:123
+#: components/html-editor/body.c:307 components/html-editor/menubar.c:123
 #: components/html-editor/popup.c:165 components/html-editor/popup.c:238
 msgid "Link"
 msgstr "Lenkje"
@@ -501,7 +501,7 @@ msgid "Replace"
 msgstr "Byt ut"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
-#: components/html-editor/toolbar.c:502
+#: components/html-editor/toolbar.c:518
 msgid "Right justifies the paragraphs"
 msgstr "Høgrejusterar avsnittet"
 
@@ -526,7 +526,7 @@ msgstr "Vel heile innhaldet i dokumentet"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
 #: components/html-editor/gtkhtml-editor-properties.glade.h:66
-#: components/html-editor/text.c:222 components/html-editor/toolbar.c:517
+#: components/html-editor/text.c:222 components/html-editor/toolbar.c:533
 msgid "Strikeout"
 msgstr "Gjennomstreking"
 
@@ -565,7 +565,7 @@ msgid "Template"
 msgstr "Mal"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: components/html-editor/toolbar.c:509
+#: components/html-editor/toolbar.c:525
 msgid "Typewriter"
 msgstr "Skrivemaskin"
 
@@ -742,37 +742,36 @@ msgstr "Tekst"
 msgid "Test 1"
 msgstr "Test 1"
 
-#: components/html-editor/body.c:250
+#: components/html-editor/body.c:251
 msgid "Document Title"
 msgstr "Dokument-tittel"
 
-#: components/html-editor/body.c:254 components/html-editor/body.c:257
+#: components/html-editor/body.c:255 components/html-editor/body.c:258
 #: components/html-editor/gtkhtml-editor-properties.glade.h:14
 msgid "Background Image"
 msgstr "Bakgrunnsbilete"
 
-#: components/html-editor/body.c:283
+#: components/html-editor/body.c:284
 #: components/html-editor/gtkhtml-editor-properties.glade.h:23
 msgid "Colors"
 msgstr "Fargar"
 
-#: components/html-editor/body.c:293 components/html-editor/cell.c:391
-#: components/html-editor/table.c:534 components/html-editor/text.c:283
-#: components/html-editor/toolbar.c:290
-msgid "Automatic"
-msgstr "Automatisk"
-
-#: components/html-editor/body.c:305
+#: components/html-editor/body.c:306
 #: components/html-editor/editor-control-factory.c:196
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
 #: components/html-editor/menubar.c:242 components/html-editor/popup.c:158
 msgid "Text"
 msgstr "Tekst"
 
-#: components/html-editor/body.c:307
+#: components/html-editor/body.c:308
 #: components/html-editor/gtkhtml-editor-properties.glade.h:13
 msgid "Background"
 msgstr "Bakgrunn"
+
+#: components/html-editor/cell.c:391 components/html-editor/table.c:534
+#: components/html-editor/text.c:283 components/html-editor/toolbar.c:306
+msgid "Automatic"
+msgstr "Automatisk"
 
 #: components/html-editor/editor-control-factory.c:177
 #: components/html-editor/menubar.c:221 components/html-editor/menubar.c:239
@@ -792,11 +791,11 @@ msgstr "Avsnitt"
 msgid "Page"
 msgstr "Side"
 
-#: components/html-editor/editor-control-factory.c:838
+#: components/html-editor/editor-control-factory.c:873
 msgid "Could not initialize GNORBA"
 msgstr "Klarte ikkje å initialisere GNORBA"
 
-#: components/html-editor/editor-control-factory.c:851
+#: components/html-editor/editor-control-factory.c:886
 msgid "Could not initialize Bonobo"
 msgstr "Klarte ikkje initialisere Bonobo"
 
@@ -825,7 +824,7 @@ msgid "Apply changes to:"
 msgstr "Påfør endringar på:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:15
-#: components/html-editor/text.c:219 components/html-editor/toolbar.c:511
+#: components/html-editor/text.c:219 components/html-editor/toolbar.c:527
 msgid "Bold"
 msgstr "Feit"
 
@@ -847,12 +846,12 @@ msgid "Cell"
 msgstr "Celle"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:20
-#: components/html-editor/paragraph.c:159 components/html-editor/toolbar.c:500
+#: components/html-editor/paragraph.c:159 components/html-editor/toolbar.c:516
 msgid "Center"
 msgstr "Midtstill"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
-#: components/html-editor/link.c:105 components/html-editor/text.c:230
+#: components/html-editor/link.c:115 components/html-editor/text.c:230
 msgid "Click will follow this URL"
 msgstr "Klikk for å følgje denne URLen"
 
@@ -910,7 +909,7 @@ msgid "Horizontal:"
 msgstr "Vassrett:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:37
-#: components/html-editor/text.c:220 components/html-editor/toolbar.c:513
+#: components/html-editor/text.c:220 components/html-editor/toolbar.c:529
 msgid "Italic"
 msgstr "Kursiv"
 
@@ -994,7 +993,6 @@ msgstr "Område"
 msgid "Shaded"
 msgstr "Skuggelagd"
 
-#. , GTK_FILL | GTK_EXPAND, 0, 0, 0);
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
 #: components/html-editor/text.c:250
 msgid "Size"
@@ -1030,7 +1028,7 @@ msgid "Top"
 msgstr "Øverst"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:75
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:515
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:531
 msgid "Underline"
 msgstr "Understreking"
 
@@ -1115,9 +1113,14 @@ msgstr "The quick brown fox jumped over the lazy dog.  æøå"
 msgid "The quick brown fox jumped over the lazy dog."
 msgstr "The quick brown fox jumped over the lazy dog. æøå "
 
-#: components/html-editor/link.c:87
+#: components/html-editor/link.c:97
 msgid "Link text"
 msgstr "Lenkjetekst"
+
+#: components/html-editor/link.c:120
+#, fuzzy
+msgid "Test URL"
+msgstr "Test 1"
 
 #: components/html-editor/menubar.c:105 components/html-editor/menubar.c:120
 #: components/html-editor/menubar.c:138 components/html-editor/menubar.c:155
@@ -1333,20 +1336,14 @@ msgstr "Merknad"
 #: components/html-editor/template.c:83
 msgid ""
 "<table cellspacing=0 cellpadding=1 "
-"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 cellspacing=0 "
-"width=\"100%\"><tr><td valign=top><img src=\"file://"
+"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" "
+"cellpadding=3 cellspacing=0 width=\"100%\"><tr><td valign=top><img "
+"src=\"file://"
 msgstr ""
 "<table cellspacing=0 cellpadding=1 "
-"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 cellspacing=0 "
-"width=\"100%\"><tr><td valign=top><img src=\"file://"
-
-#: components/html-editor/template.c:85
-msgid ""
-"/bulb.png\" hspace=10></td><td width=\"100%\">Place your text "
-"here</td></tr></table></td></tr></table>"
-msgstr ""
-"/bulb.png\" hspace=10></td><td width=\"100%\">Plasser teksta di "
-"her</td></tr></table></td></tr></table>"
+"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" "
+"cellpadding=3 cellspacing=0 width=\"100%\"><tr><td valign=top><img "
+"src=\"file://"
 
 #: components/html-editor/template.c:91
 msgid "Image frame"
@@ -1361,14 +1358,6 @@ msgstr ""
 "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
 "bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" "
 "width=\"100%\"><tr><td align=\"center\"><img src=\"file://"
-
-#: components/html-editor/template.c:97
-msgid ""
-"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
-"size=\"-1\">Image 1: <b>description</b></font></td></tr></table></td></tr></table>"
-msgstr ""
-"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
-"size=\"-1\">Bilete 1: <b>skildring</b></font></td></tr></table></td></tr></table>"
 
 #: components/html-editor/test-html-editor-control.c:276
 msgid "Open file..."
@@ -1387,47 +1376,47 @@ msgstr "Farge"
 msgid "Roman List"
 msgstr "Romersk liste"
 
-#: components/html-editor/toolbar.c:498
+#: components/html-editor/toolbar.c:514
 msgid "Left align"
 msgstr "Venstrejustering"
 
-#: components/html-editor/toolbar.c:502
+#: components/html-editor/toolbar.c:518
 msgid "Right align"
 msgstr "Høgrejustering"
 
-#: components/html-editor/toolbar.c:509
+#: components/html-editor/toolbar.c:525
 msgid "Toggle typewriter font style"
 msgstr "Skru av/på skrivemaskin stil for skrifttype"
 
-#: components/html-editor/toolbar.c:511
+#: components/html-editor/toolbar.c:527
 msgid "Makes the text bold"
 msgstr "Gjer teksta feit"
 
-#: components/html-editor/toolbar.c:513
+#: components/html-editor/toolbar.c:529
 msgid "Makes the text italic"
 msgstr "Gjer teksta kursivert"
 
-#: components/html-editor/toolbar.c:515
+#: components/html-editor/toolbar.c:531
 msgid "Underlines the text"
 msgstr "Understrekar teksta"
 
-#: components/html-editor/toolbar.c:517
+#: components/html-editor/toolbar.c:533
 msgid "Strikes out the text"
 msgstr "Gjennomstrekar teksta"
 
-#: components/html-editor/toolbar.c:526
+#: components/html-editor/toolbar.c:542
 msgid "Unindent"
 msgstr "Fjern innrykk"
 
-#: components/html-editor/toolbar.c:526
+#: components/html-editor/toolbar.c:542
 msgid "Indents the paragraphs less"
 msgstr "Rykker mindre inn avsnittet"
 
-#: components/html-editor/toolbar.c:528
+#: components/html-editor/toolbar.c:544
 msgid "Indent"
 msgstr "Innrykk"
 
-#: components/html-editor/toolbar.c:528
+#: components/html-editor/toolbar.c:544
 msgid "Indents the paragraphs more"
 msgstr "Rykker inn avsnittet"
 
@@ -1483,7 +1472,7 @@ msgstr "Last om att denne sida"
 msgid "Could not initialize Bonobo!"
 msgstr "Klarte ikkje initialisere Bonobo!"
 
-#: src/htmlengine-print.c:200
+#: src/htmlengine-print.c:198
 msgid "Cannot allocate default font for printing\n"
 msgstr "Klarar ikkje å allokére standard skrifttype for utskrift\n"
 
@@ -1491,17 +1480,33 @@ msgstr "Klarar ikkje å allokére standard skrifttype for utskrift\n"
 msgid "Can't load fixed font."
 msgstr "Kan ikkje laste fast skrifttype"
 
-#: src/htmlprinter.c:69
+#: src/htmlprinter.c:63
 msgid "US-Letter"
 msgstr "US-Letter"
 
-#: src/testgtkhtml.c:112
+#: src/testgtkhtml.c:113
 msgid "Print pre_view"
 msgstr "Førehands_vising av utskrift"
 
-#: src/testgtkhtml.c:112
+#: src/testgtkhtml.c:113
 msgid "Print preview"
 msgstr "Førehandsvising av utskrift"
+
+#~ msgid ""
+#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Place your text "
+#~ "here</td></tr></table></td></tr></table>"
+#~ msgstr ""
+#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Plasser teksta di "
+#~ "her</td></tr></table></td></tr></table>"
+
+#~ msgid ""
+#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
+#~ "size=\"-1\">Image 1: "
+#~ "<b>description</b></font></td></tr></table></td></tr></table>"
+#~ msgstr ""
+#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
+#~ "size=\"-1\">Bilete 1: "
+#~ "<b>skildring</b></font></td></tr></table></td></tr></table>"
 
 #~ msgid "Language"
 #~ msgstr "Språk"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.13.0\n"
-"POT-Creation-Date: 2002-01-30 16:34+0100\n"
+"POT-Creation-Date: 2002-02-10 14:58-0600\n"
 "PO-Revision-Date: 2002-01-30 16:34CET\n"
 "Last-Translator: Stanislav Višňovský <visnovsky@nenya.ms.mff.cuni.cz>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -31,7 +31,9 @@ msgstr "*********************"
 
 #: capplet/gtkhtml-capplet.glade.h:2
 msgid "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz"
-msgstr "AaÁáBbCcČčDdEeÉéFfGgHhIiÍíJjKkLlĽľMmNnŇňOoÔôPpQqRrSsŠšTtŤťUuÚúVvWwXxYyÝýZzŽž"
+msgstr ""
+"AaÁáBbCcČčDdEeÉéFfGgHhIiÍíJjKkLlĽľMmNnŇňOoÔôPpQqRrSsŠšTtŤťU"
+"uÚúVvWwXxYyÝýZzŽž"
 
 #: capplet/gtkhtml-capplet.glade.h:3
 msgid "Add Keyboard Shortcuts"
@@ -235,7 +237,7 @@ msgid "Bulleted List"
 msgstr "Zoznam s odrážkami"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
-#: components/html-editor/toolbar.c:500
+#: components/html-editor/toolbar.c:516
 msgid "Center justifies the paragraphs"
 msgstr "Zarovná odstavce na stred"
 
@@ -362,7 +364,7 @@ msgid "Insert table into document..."
 msgstr "Vložiť tabuľku do dokumentu..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
-#: components/html-editor/toolbar.c:498
+#: components/html-editor/toolbar.c:514
 msgid "Left justifies the paragraphs"
 msgstr "Zarovná odstavce vľavo"
 
@@ -500,7 +502,7 @@ msgid "Replace"
 msgstr "Nahradiť"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
-#: components/html-editor/toolbar.c:502
+#: components/html-editor/toolbar.c:518
 msgid "Right justifies the paragraphs"
 msgstr "Zarovná odstavce vpravo"
 
@@ -525,7 +527,7 @@ msgstr "Vyberie celý obsah dokumentu"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
 #: components/html-editor/gtkhtml-editor-properties.glade.h:66
-#: components/html-editor/text.c:222 components/html-editor/toolbar.c:517
+#: components/html-editor/text.c:222 components/html-editor/toolbar.c:533
 msgid "Strikeout"
 msgstr "Prečiarknuté"
 
@@ -564,7 +566,7 @@ msgid "Template"
 msgstr "Šablóna"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: components/html-editor/toolbar.c:509
+#: components/html-editor/toolbar.c:525
 msgid "Typewriter"
 msgstr "Pevná šírka"
 
@@ -755,12 +757,6 @@ msgstr "Obrázok na pozadí"
 msgid "Colors"
 msgstr "Farby"
 
-#: components/html-editor/body.c:294 components/html-editor/cell.c:391
-#: components/html-editor/table.c:534 components/html-editor/text.c:283
-#: components/html-editor/toolbar.c:290
-msgid "Automatic"
-msgstr "Automatické"
-
 #: components/html-editor/body.c:306
 #: components/html-editor/editor-control-factory.c:196
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
@@ -772,6 +768,11 @@ msgstr "Text"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:13
 msgid "Background"
 msgstr "Pozadie"
+
+#: components/html-editor/cell.c:391 components/html-editor/table.c:534
+#: components/html-editor/text.c:283 components/html-editor/toolbar.c:306
+msgid "Automatic"
+msgstr "Automatické"
 
 #: components/html-editor/editor-control-factory.c:177
 #: components/html-editor/menubar.c:221 components/html-editor/menubar.c:239
@@ -791,11 +792,11 @@ msgstr "Odstavec"
 msgid "Page"
 msgstr "Stránka"
 
-#: components/html-editor/editor-control-factory.c:854
+#: components/html-editor/editor-control-factory.c:873
 msgid "Could not initialize GNORBA"
 msgstr "Nie je možné inicializovať GNORBA"
 
-#: components/html-editor/editor-control-factory.c:867
+#: components/html-editor/editor-control-factory.c:886
 msgid "Could not initialize Bonobo"
 msgstr "Nie je možné inicializovať Bonobo"
 
@@ -824,7 +825,7 @@ msgid "Apply changes to:"
 msgstr "Použiť zmeny na:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:15
-#: components/html-editor/text.c:219 components/html-editor/toolbar.c:511
+#: components/html-editor/text.c:219 components/html-editor/toolbar.c:527
 msgid "Bold"
 msgstr "Tučné"
 
@@ -846,12 +847,12 @@ msgid "Cell"
 msgstr "Bunka"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:20
-#: components/html-editor/paragraph.c:159 components/html-editor/toolbar.c:500
+#: components/html-editor/paragraph.c:159 components/html-editor/toolbar.c:516
 msgid "Center"
 msgstr "V strede"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
-#: components/html-editor/link.c:105 components/html-editor/text.c:230
+#: components/html-editor/link.c:115 components/html-editor/text.c:230
 msgid "Click will follow this URL"
 msgstr "Kliknutím zobrazíte toto URL"
 
@@ -909,7 +910,7 @@ msgid "Horizontal:"
 msgstr "Horizontálne:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:37
-#: components/html-editor/text.c:220 components/html-editor/toolbar.c:513
+#: components/html-editor/text.c:220 components/html-editor/toolbar.c:529
 msgid "Italic"
 msgstr "Šikmé"
 
@@ -993,7 +994,6 @@ msgstr "Rozsah"
 msgid "Shaded"
 msgstr "Tieňované"
 
-#. , GTK_FILL | GTK_EXPAND, 0, 0, 0);
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
 #: components/html-editor/text.c:250
 msgid "Size"
@@ -1029,7 +1029,7 @@ msgid "Top"
 msgstr "Hore"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:75
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:515
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:531
 msgid "Underline"
 msgstr "Podčiarknuté"
 
@@ -1079,14 +1079,14 @@ msgid ""
 "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
 "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
 "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@width@@height@align=top border=0></td></tr></table></td></tr></table></"
-"center>"
+"@src@@width@@height@align=top "
+"border=0></td></tr></table></td></tr></table></center>"
 msgstr ""
 "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
 "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
 "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@width@@height@align=top border=0></td></tr></table></td></tr></table></"
-"center>"
+"@src@@width@@height@align=top "
+"border=0></td></tr></table></td></tr></table></center>"
 
 #: components/html-editor/image.c:130
 msgid "Caption"
@@ -1114,9 +1114,14 @@ msgstr "Rýchla hnedá líška skáče cez lenivého psa."
 msgid "The quick brown fox jumped over the lazy dog."
 msgstr "Rýchla hnedá líška skáče cez lenivého psa."
 
-#: components/html-editor/link.c:87
+#: components/html-editor/link.c:97
 msgid "Link text"
 msgstr "Text odkazu"
+
+#: components/html-editor/link.c:120
+#, fuzzy
+msgid "Test URL"
+msgstr "Test 1"
 
 #: components/html-editor/menubar.c:105 components/html-editor/menubar.c:120
 #: components/html-editor/menubar.c:138 components/html-editor/menubar.c:155
@@ -1331,21 +1336,15 @@ msgstr "Poznámka"
 
 #: components/html-editor/template.c:83
 msgid ""
-"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
-"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
-"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
+"<table cellspacing=0 cellpadding=1 "
+"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" "
+"cellpadding=3 cellspacing=0 width=\"100%\"><tr><td valign=top><img "
+"src=\"file://"
 msgstr ""
-"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
-"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
-"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
-
-#: components/html-editor/template.c:85
-msgid ""
-"/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
-"tr></table></td></tr></table>"
-msgstr ""
-"/bulb.png\" hspace=10></td><td width=\"100%\">Sem zadajte svoj text</td></"
-"tr></table></td></tr></table>"
+"<table cellspacing=0 cellpadding=1 "
+"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" "
+"cellpadding=3 cellspacing=0 width=\"100%\"><tr><td valign=top><img "
+"src=\"file://"
 
 #: components/html-editor/template.c:91
 msgid "Image frame"
@@ -1354,20 +1353,12 @@ msgstr "Rámec obrázku"
 #: components/html-editor/template.c:93
 msgid ""
 "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
-"\"><tr><td align=\"center\"><img src=\"file://"
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" "
+"width=\"100%\"><tr><td align=\"center\"><img src=\"file://"
 msgstr ""
 "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
-"\"><tr><td align=\"center\"><img src=\"file://"
-
-#: components/html-editor/template.c:97
-msgid ""
-"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
-"\"-1\">Image 1: <b>description</b></font></td></tr></table></td></tr></table>"
-msgstr ""
-"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
-"\"-1\">Obrázok 1: <b>popis</b></font></td></tr></table></td></tr></table>"
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" "
+"width=\"100%\"><tr><td align=\"center\"><img src=\"file://"
 
 #: components/html-editor/test-html-editor-control.c:276
 msgid "Open file..."
@@ -1386,47 +1377,47 @@ msgstr "Farba"
 msgid "Roman List"
 msgstr "Zoznam s rímskymi číslicami"
 
-#: components/html-editor/toolbar.c:498
+#: components/html-editor/toolbar.c:514
 msgid "Left align"
 msgstr "Zarovnať vľavo"
 
-#: components/html-editor/toolbar.c:502
+#: components/html-editor/toolbar.c:518
 msgid "Right align"
 msgstr "Zarovnať vpravo"
 
-#: components/html-editor/toolbar.c:509
+#: components/html-editor/toolbar.c:525
 msgid "Toggle typewriter font style"
 msgstr "Prepne štýl písma na pevnú šírku"
 
-#: components/html-editor/toolbar.c:511
+#: components/html-editor/toolbar.c:527
 msgid "Makes the text bold"
 msgstr "Nastaví výber na tučné písmo"
 
-#: components/html-editor/toolbar.c:513
+#: components/html-editor/toolbar.c:529
 msgid "Makes the text italic"
 msgstr "Nastaví výber na šikmé písmo"
 
-#: components/html-editor/toolbar.c:515
+#: components/html-editor/toolbar.c:531
 msgid "Underlines the text"
 msgstr "Podčiarkne text"
 
-#: components/html-editor/toolbar.c:517
+#: components/html-editor/toolbar.c:533
 msgid "Strikes out the text"
 msgstr "Prečiarkne text"
 
-#: components/html-editor/toolbar.c:526
+#: components/html-editor/toolbar.c:542
 msgid "Unindent"
 msgstr "Zrušiť odsadenie"
 
-#: components/html-editor/toolbar.c:526
+#: components/html-editor/toolbar.c:542
 msgid "Indents the paragraphs less"
 msgstr "Zmenší odsadenie odstavcov"
 
-#: components/html-editor/toolbar.c:528
+#: components/html-editor/toolbar.c:544
 msgid "Indent"
 msgstr "Odsadiť"
 
-#: components/html-editor/toolbar.c:528
+#: components/html-editor/toolbar.c:544
 msgid "Indents the paragraphs more"
 msgstr "Zväčší odsadenie odstavcov"
 
@@ -1502,3 +1493,18 @@ msgstr "U_kážka pred tlačou"
 msgid "Print preview"
 msgstr "Ukážka pred tlačou"
 
+#~ msgid ""
+#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Place your text "
+#~ "here</td></tr></table></td></tr></table>"
+#~ msgstr ""
+#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Sem zadajte svoj "
+#~ "text</td></tr></table></td></tr></table>"
+
+#~ msgid ""
+#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
+#~ "size=\"-1\">Image 1: "
+#~ "<b>description</b></font></td></tr></table></td></tr></table>"
+#~ msgstr ""
+#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
+#~ "size=\"-1\">Obrázok 1: "
+#~ "<b>popis</b></font></td></tr></table></td></tr></table>"
