@@ -1267,11 +1267,13 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 	return retval;
 }
 
+#if 0
 HTMLEngine *
 html_image_factory_get_engine (HTMLImageFactory *factory)
 {
 	return factory->engine;
 }
+#endif
 
 void
 html_image_factory_unregister (HTMLImageFactory *factory, HTMLImagePointer *pointer, HTMLImage *i)

@@ -949,10 +949,13 @@ html_object_calc_preferred_width (HTMLObject *o,
 	return o->pref_width;
 }
 
+#if 0
 gint
-html_object_get_uris (HTMLObject *o, char **link, char **target, char **src) {
+html_object_get_uris (HTMLObject *o, char **link, char **target, char **src) 
+{
 	return TRUE;
 }
+#endif 
 
 const gchar *
 html_object_get_url (HTMLObject *o)
