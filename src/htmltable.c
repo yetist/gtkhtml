@@ -961,7 +961,7 @@ calc_size (HTMLObject *o,
 		COLUMN_OPT (table, i) = COLUMN_POS (table, i);
 
 	if (o->percent == 0 && ! (o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH)) {
-		o->width = COLUMN_OPT (table, table->totalCols);
+		o->width = COLUMN_OPT (table, table->totalCols) + pixel_size * table->border;
 		available_width = o->max_width;
 	} else {
 		if (o->percent != 0)
@@ -1043,7 +1043,8 @@ calc_size (HTMLObject *o,
 		g_print ("FIXME: Caption support\n");
 	}
 
-	HTML_OBJECT (table)->ascent = ROW_HEIGHT (table, table->totalRows) + pixel_size * table->border;
+	o->ascent = ROW_HEIGHT (table, table->totalRows) + pixel_size * table->border;
+	o->width = COLUMN_OPT (table, table->totalCols) + pixel_size * table->border;
 	
 	if (table->caption) {
 		g_print ("FIXME: Caption support\n");
@@ -1109,7 +1110,7 @@ draw (HTMLObject *o,
 					 ROW_HEIGHT (table, table->totalRows) +
 					 pixel_size * table->border, FALSE,
 					 pixel_size * table->border);
-
+		
 		/* Draw borders around each cell */
 		for (r = 0; r < table->totalRows; r++) {
 			for (c = 0; c < table->totalCols; c++) {

@@ -1,3 +1,9 @@
+2000-04-05  Larry Ewing  <lewing@helixcode.com>
+
+	* htmltable.c (calc_size): set the table width after we have
+	calculated the optimal size.  Fixes rendering of tables with
+	borders (tests/test6.html).
+
 2000-04-05  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmltable.c
