@@ -33,6 +33,7 @@
 #include "htmlclueflow.h"
 #include "htmlcursor.h"
 #include "htmllinktext.h"
+#include "htmltable.h"
 #include "htmltext.h"
 #include "htmltextslave.h"
 #include "htmlimage.h"
@@ -40,11 +41,13 @@
 #include "htmlselection.h"
 #include "htmlundo.h"
 
+#include "htmlengine-edit.h"
 #include "htmlengine-edit-cut-and-paste.h"
 #include "htmlengine-edit-cursor.h"
 #include "htmlengine-edit-movement.h"
 #include "htmlengine-edit-selection-updater.h"
-#include "htmlengine-edit.h"
+#include "htmlengine-edit-table.h"
+#include "htmlengine-edit-tablecell.h"
 
 
 void
@@ -618,4 +621,40 @@ html_engine_break_and_fill_line (HTMLEngine *e)
 	html_engine_insert_empty_paragraph (e);
 	html_engine_thaw (e);
 	html_undo_level_end (e->undo);
+}
+
+gboolean
+html_engine_next_cell (HTMLEngine *e, gboolean create)
+{
+	if (html_engine_get_table_cell (e)) {
+		html_engine_hide_cursor (e);
+		html_cursor_end_of_line (e->cursor, e);
+		html_cursor_forward (e->cursor, e);
+		if (create && HTML_IS_TABLE (e->cursor->object)) {
+			html_cursor_backward (e->cursor, e);
+			html_engine_insert_table_row (e, TRUE);
+		}
+		html_engine_show_cursor (e);
+		gtk_html_edit_make_cursor_visible (e->widget);
+
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+gboolean
+html_engine_prev_cell (HTMLEngine *e)
+{
+	if (html_engine_get_table_cell (e)) {
+		html_engine_hide_cursor (e);
+		html_cursor_beginning_of_line (e->cursor, e);
+		html_cursor_backward (e->cursor, e);
+		html_engine_show_cursor (e);
+		gtk_html_edit_make_cursor_visible (e->widget);
+
+		return TRUE;
+	}
+
+	return FALSE;
 }

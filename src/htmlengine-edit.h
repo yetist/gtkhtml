@@ -69,6 +69,9 @@ void                       html_engine_indent_pre_line            (HTMLEngine   
 void                       html_engine_fill_pre_line              (HTMLEngine                *e);
 void                       html_engine_space_and_fill_line        (HTMLEngine                *e);
 void                       html_engine_break_and_fill_line        (HTMLEngine                *e);
+gboolean                   html_engine_next_cell                  (HTMLEngine                *e,
+								   gboolean                   create);
+gboolean                   html_engine_prev_cell                  (HTMLEngine                *e);
 /*
   static (non instance) methods
 */

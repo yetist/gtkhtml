@@ -65,6 +65,10 @@ void       html_engine_table_set_width         (HTMLEngine     *e,
 						HTMLTable      *t,
 						gint            width,
 						gboolean        percent);
+void       html_engine_table_set_cols          (HTMLEngine     *e,
+						gint            cols);
+void       html_engine_table_set_rows          (HTMLEngine     *e,
+						gint            rows);
 HTMLTable *html_engine_get_table               (HTMLEngine     *e);
 			       
 #endif

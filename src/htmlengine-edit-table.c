@@ -30,6 +30,7 @@
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-cut-and-paste.h"
 #include "htmlengine-edit-table.h"
+#include "htmlengine-edit-tablecell.h"
 #include "htmltable.h"
 #include "htmltablecell.h"
 #include "htmltablepriv.h"
@@ -964,4 +965,116 @@ void
 html_engine_table_set_width (HTMLEngine *e, HTMLTable *t, gint width, gboolean percent)
 {
 	table_set_width (e, t, width, percent, HTML_UNDO_UNDO);
+}
+
+static gboolean
+goto_begin (HTMLEngine *e)
+{
+	HTMLTableCell *cell;
+
+	cell = html_engine_get_table_cell (e);
+	while (cell && cell->row != 0 && cell->col != 0) {
+		html_engine_prev_cell (e);
+		cell = html_engine_get_table_cell (e);
+	}
+
+	return cell != NULL;
+}
+
+static gboolean
+goto_col (HTMLEngine *e, gint col)
+{
+	HTMLTableCell *cell;
+
+	if (goto_begin (e)) {
+		cell = html_engine_get_table_cell (e);
+		while (cell && cell->col != col) {
+			html_engine_next_cell (e, FALSE);
+			cell = html_engine_get_table_cell (e);
+		}
+
+		return cell != NULL;
+	}
+
+	return FALSE;
+}
+
+static gboolean
+goto_row (HTMLEngine *e, gint row)
+{
+	HTMLTableCell *cell;
+
+	if (goto_begin (e)) {
+		cell = html_engine_get_table_cell (e);
+		while (cell && cell->row != row) {
+			html_engine_next_cell (e, FALSE);
+			cell = html_engine_get_table_cell (e);
+		}
+
+		return cell != NULL;
+	}
+
+	return FALSE;
+}
+
+
+/*
+ * set number of columns in current table
+ */
+
+void
+html_engine_table_set_cols (HTMLEngine *e, gint cols)
+{
+	HTMLTable *table = html_engine_get_table (e);
+
+	if (!table)
+		return;
+
+	if (table->totalCols == cols)
+		return;
+
+	if (table->totalCols < cols) {
+		goto_col (e, table->totalCols - 1);
+		while (table->totalCols < cols)
+			html_engine_insert_table_column (e, TRUE);
+	} else {
+		goto_col (e, table->totalCols - 1);
+		while (table->totalCols > cols)
+			html_engine_delete_table_column (e);
+	}
+
+	/*
+	  FIXME: jump to some well defined position (like the same position as before
+	  or at beginning of 1st new column or to last position in remaining cells
+	*/
+}
+
+/*
+ * set number of rows in current table
+ */
+
+void
+html_engine_table_set_rows (HTMLEngine *e, gint rows)
+{
+	HTMLTable *table = html_engine_get_table (e);
+
+	if (!table)
+		return;
+
+	if (table->totalRows == rows)
+		return;
+
+	if (table->totalRows < rows) {
+		goto_row (e, table->totalRows - 1);
+		while (table->totalRows < rows)
+			html_engine_insert_table_row (e, TRUE);
+	} else {
+		goto_row (e, table->totalRows - 1);
+		while (table->totalRows > rows)
+			html_engine_delete_table_row (e);
+	}
+
+	/*
+	  FIXME: like set_cols
+	*/
 }

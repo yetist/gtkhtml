@@ -1,3 +1,20 @@
+2001-07-20  Radek Doulik  <rodo@ximian.com>
+
+	* htmlcursor.c: reverted ettore's revert of begin/end line
+	enhancement for table cells, because otherwise it breaks prev/next
+	cell methods. I hope to consult that with ettore to find out
+	solution for his "cursor is going outside document range" problem
+
+	* htmlengine-edit-table.c (goto_col): new helper function
+	(goto_row): likewise
+	(goto_begin): likewise
+	(html_engine_table_set_rows): new method
+	(html_engine_table_set_cols): new method
+
+	* htmlengine-edit.c (html_engine_next_cell): new function,
+	extracted
+	(html_engine_prev_cell): new function, extracted
+
 2001-07-19  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml-stream.c (gtk_html_stream_new): add a types function
