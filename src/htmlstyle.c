@@ -36,14 +36,14 @@ parse_color (const gchar *text,
 	c [7] = 0;
 	if (*text != '#') {
 		c[0] = '#'; 
-		strncpy (c + 1, text, 6);
+		strncpy (c + 1, text, len);
 		len++;
 	} else {
-		strncpy (c, text, 7);
+		strncpy (c, text, len);
 	}
 	
 	if (len < 7)
-		memset (c + len, '0', 7-len);
+		memset (c + len, '\0', 7-len);
 
 	return gdk_color_parse (c, color);
 }

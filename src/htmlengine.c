@@ -274,7 +274,7 @@ parse_color (const gchar *text,
 	}
 	
 	if (len < 7)
-		memset (c + len, '0', 7-len);
+		memset (c + len, '\0', 7-len);
 
 	return gdk_color_parse (c, color);
 }
@@ -366,6 +366,41 @@ current_row_valign (HTMLEngine *e)
 	if (span->id != ID_TR)
 		DT(g_warning ("no row");)
 
+
+	return rv;
+}
+
+static HTMLHAlignType
+current_row_align (HTMLEngine *e)
+{
+	HTMLElement *span;
+	GList *item;
+	HTMLHAlignType rv = HTML_HALIGN_NONE;
+
+	if (!html_stack_top (e->table_stack)) {
+		DT (g_warning ("missing table");)
+		return;
+	}
+
+	for (item = e->span_stack->list; item; item = item->next) {
+		span = item->data;
+		if (span->id == ID_TR) {
+			DT(g_warning ("found row");)
+
+			if (span->style)
+				rv = span->style->text_align;
+
+			break;
+		}
+
+		if (span->id == ID_TABLE) {
+			DT(g_warning ("found table before row");)
+			break;
+		}
+	}
+
+	if (span->id != ID_TR)
+		DT(g_warning ("no row");)
 
 	return rv;
 }
@@ -1998,7 +2033,6 @@ form_begin (HTMLEngine *e, HTMLObject *clue, gchar *action, gchar *method, gbool
 		e->avoid_para = FALSE;
 		e->pending_para = FALSE;
 	}
-
 }
 
 static void
@@ -3040,7 +3074,7 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		gboolean fixedWidth = FALSE;
 		gboolean fixedHeight = FALSE;
 		HTMLVAlignType valign = current_row_valign (e); 
-		HTMLHAlignType halign = HTML_HALIGN_NONE;
+		HTMLHAlignType halign = current_row_align (e);
 		HTMLTableCell *cell = NULL;
 		char *image_url = NULL;
 
@@ -3057,7 +3091,6 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		pop_block (e, ID_CAPTION);
 
 		style = html_style_unset_decoration (style, 0xffff);
-		style = html_style_add_text_align (style, HTML_HALIGN_LEFT);
 		style = html_style_set_font_size (style, GTK_HTML_FONT_STYLE_SIZE_3);
 
 		html_string_tokenizer_tokenize (e->st, str + 2, " >");
@@ -3183,7 +3216,7 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		gboolean fixedWidth = FALSE;
 		gboolean fixedHeight = FALSE;
 		HTMLVAlignType valign = current_row_valign (e);
-		HTMLHAlignType halign = HTML_HALIGN_NONE;
+		HTMLHAlignType halign = current_row_align (e);
 		HTMLTableCell *cell = NULL;
 		char *image_url = NULL;
 		
@@ -3918,6 +3951,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->span_stack = html_stack_new (free_element);
 	engine->clueflow_style_stack = html_stack_new (NULL);
 	engine->frame_stack = html_stack_new (NULL);
+	engine->table_stack = html_stack_new (NULL);
 
 	engine->listStack = html_stack_new ((HTMLStackFreeFunc) html_list_destroy);
 	/* FIXME rodo engine->embeddedStack = html_stack_new ((HTMLStackFreeFunc) gtk_object_unref); */
@@ -3982,7 +4016,6 @@ html_engine_init (HTMLEngine *engine)
 	engine->need_update = FALSE;
 
 	engine->language = NULL;
-	engine->table_stack = html_stack_new (NULL);
 }
 
 HTMLEngine *
