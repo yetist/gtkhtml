@@ -1525,7 +1525,6 @@ button_release_event (GtkWidget *initial_widget,
 	engine = html->engine;
 
 	if (html->in_selection) {
-		html->in_selection = FALSE;
 		if (html->in_selection_drag)
 			html_engine_select_region (engine, html->selection_x1, html->selection_y1,
 						   x + engine->x_offset, y + engine->y_offset);
@@ -1547,6 +1546,8 @@ button_release_event (GtkWidget *initial_widget,
 					 signals[LINK_CLICKED], 
 					 html->pointer_url);
 	}
+
+	html->in_selection = FALSE;
 
 	return TRUE;
 }

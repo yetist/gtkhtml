@@ -1,3 +1,8 @@
+2002-10-25  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (button_release_event): don't clear in_selection until
+	we are done with it.
+
 2002-10-18  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c (parse_p): <p>, </p> create new flows here to have
