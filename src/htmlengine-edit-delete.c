@@ -333,9 +333,8 @@ delete_different_parent (HTMLEngine *e,
 	/* First destroy the elements in the `start_object's paragraph.  */
 
 	while (p != NULL) {
-		html_clue_remove (HTML_CLUE (start_object->parent), p);
-
 		pnext = p->next;
+		html_clue_remove (HTML_CLUE (start_object->parent), p);
 
 		if (HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
 			html_object_destroy (p);

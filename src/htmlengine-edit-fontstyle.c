@@ -880,9 +880,9 @@ html_engine_update_insertion_color (HTMLEngine *engine)
  *
  **/
 void
-html_engine_set_font_style (HTMLEngine *engine,
-			    GtkHTMLFontStyle and_mask,
-			    GtkHTMLFontStyle or_mask)
+html_engine_set_font_style_old (HTMLEngine *engine,
+				GtkHTMLFontStyle and_mask,
+				GtkHTMLFontStyle or_mask)
 {
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
@@ -897,6 +897,42 @@ html_engine_set_font_style (HTMLEngine *engine,
 	} else {
 		engine->insertion_font_style &= and_mask;
 		engine->insertion_font_style |= or_mask;
+	}
+}
+
+struct tmp_font {
+	GtkHTMLFontStyle and_mask;
+	GtkHTMLFontStyle or_mask;
+};
+
+static void
+object_set_font_style (HTMLObject *o, struct tmp_font *tf)
+{
+	if (html_object_is_text (o)) {
+		HTML_TEXT (o)->font_style &= tf->and_mask;
+		HTML_TEXT (o)->font_style |= tf->or_mask;
+	}
+}
+
+void
+html_engine_set_font_style (HTMLEngine *e,
+			    GtkHTMLFontStyle and_mask,
+			    GtkHTMLFontStyle or_mask)
+{
+	g_return_if_fail (e != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (e));
+	g_return_if_fail (e->editable);
+
+	if (e->active_selection) {
+		struct tmp_font *tf = g_new (struct tmp_font, 1);
+		tf->and_mask = and_mask;
+		tf->or_mask  = or_mask;
+		html_engine_cut_and_paste (e, "Set font style", (GFunc) object_set_font_style, tf);
+		g_free (tf);
+		return;
+	} else {
+		e->insertion_font_style &= and_mask;
+		e->insertion_font_style |= or_mask;
 	}
 }
 

@@ -35,7 +35,7 @@
 
 #include "htmlengine-edit-paste.h"
 
-/* #define PARANOID_DEBUG */
+#define PARANOID_DEBUG
 
 static gboolean remove_element_if_empty_text (HTMLEngine *engine, HTMLObject *object);
 

@@ -105,7 +105,7 @@ html_engine_cut_buffer_pop (HTMLEngine *e)
 void
 html_engine_selection_push (HTMLEngine *e)
 {
-	if (e->active_selection) {
+	if (e->mark) {
 		e->selection_stack
 			= g_list_prepend (e->selection_stack, GINT_TO_POINTER (html_cursor_get_position (e->mark)));
 		e->selection_stack
@@ -126,6 +126,8 @@ html_engine_selection_pop (HTMLEngine *e)
 	selection = GPOINTER_TO_INT (e->selection_stack->data);
 	e->selection_stack = g_list_remove (e->selection_stack, e->selection_stack->data);
 
+	html_engine_disable_selection (e);
+
 	if (selection) {
 		gint cursor, mark;
 
@@ -137,9 +139,8 @@ html_engine_selection_pop (HTMLEngine *e)
 		html_cursor_jump_to_position (e->cursor, e, mark);
 		html_engine_set_mark (e);
 		html_cursor_jump_to_position (e->cursor, e, cursor);
-
-		html_engine_edit_selection_updater_update_now (e->selection_updater);
 	}
+	html_engine_edit_selection_updater_update_now (e->selection_updater);
 }
 
 void
