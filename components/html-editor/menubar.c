@@ -86,9 +86,16 @@ insert_image_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cna
 
 	if (filesel) {
 		if (gtk_dialog_run (GTK_DIALOG (filesel)) == GTK_RESPONSE_OK) {
-			img = html_image_new (html_engine_get_image_factory (cd->html->engine), gtk_file_selection_get_filename (GTK_FILE_SELECTION (filesel)),
+			const char *filename;
+			char *url = NULL;
+
+			filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION (filesel));
+			if (filename)
+				url = g_strconcat ("file://", filename, NULL);
+			img = html_image_new (html_engine_get_image_factory (cd->html->engine), url,
 					      NULL, NULL, 0, 0, 0, 0, 0, NULL, HTML_VALIGN_NONE, FALSE);
 			html_engine_paste_object (cd->html->engine, img, 1);
+			g_free (url);
 		}
 		gtk_widget_destroy (filesel);
 	}

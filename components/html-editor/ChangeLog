@@ -1,3 +1,10 @@
+2004-05-31  Radek Doulik  <rodo@ximian.com>
+
+	* menubar.c (insert_image_cb): complete the image url (prepend
+	"file://" prefix)
+
+	Fixes #59263
+
 2004-05-27  Radek Doulik  <rodo@ximian.com>
 
 	* updated for color set changes
