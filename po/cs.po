@@ -7,14 +7,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
-"POT-Creation-Date: 2004-01-12 18:08+0100\n"
-"PO-Revision-Date: 2004-01-03 23:49+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-01-24 04:51+0100\n"
+"PO-Revision-Date: 2004-01-26 23:15+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -246,7 +246,7 @@ msgstr "P_lačící"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
 msgid "Cu_t"
-msgstr "_Vyříznout"
+msgstr "_Vyjmout"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:19
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
@@ -820,7 +820,7 @@ msgstr "_Smějící se"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
 msgid "_Left"
-msgstr "_Vlevo"
+msgstr "V_levo"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
@@ -860,7 +860,7 @@ msgstr "_Předformátované"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
 msgid "_Redo"
-msgstr "_Vrátit zrušení"
+msgstr "Zn_ovu"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
@@ -870,7 +870,7 @@ msgstr "_Nahradit..."
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
 msgid "_Right"
-msgstr "Vp_ravo"
+msgstr "V_pravo"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:139
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:141
@@ -930,7 +930,7 @@ msgstr "_Podtržené"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:150
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
 msgid "_Undo"
-msgstr "_Vrátit"
+msgstr "_Zpět"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:151
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
@@ -952,7 +952,7 @@ msgstr "Ovládací prvek GNOME HTML Editoru"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
 msgid "GNOME HTML Editor Factory"
-msgstr "Factory pro GNOME HTML Editor"
+msgstr "Generátor GNOME editoru HTML"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
 msgid "Insert Sick smiley into document..."
@@ -1325,7 +1325,7 @@ msgstr "Vkládání tabulky"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:75
 #: components/html-editor/link.c:85
 msgid "Test URL..."
-msgstr "Test URL..."
+msgstr "Otestovat URL..."
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:77
 msgid "Thickness:"
@@ -1406,12 +1406,7 @@ msgid ""
 "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
 "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place your "
 "comment here]</td></tr></table></td></tr></table></center>"
-msgstr ""
-"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place your "
-"comment here]</td></tr></table></td></tr></table></center>"
+msgstr "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img @src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Sem vložte váš komentář]</td></tr></table></td></tr></table></center>"
 
 #: components/html-editor/image.c:258 components/html-editor/image.c:264
 msgid ""
@@ -1646,7 +1641,7 @@ msgstr "Hledat _pozpátku"
 
 #: components/html-editor/replace.c:166 components/html-editor/search.c:83
 msgid "Case _sensitive"
-msgstr "_Rozlišovat velká/malá písmena"
+msgstr "_Rozlišovat velikost písmen"
 
 #: components/html-editor/replace.c:176
 msgid "Replace:"
@@ -1714,7 +1709,7 @@ msgstr "Poznámka"
 
 #: components/html-editor/template.c:94 components/html-editor/template.c:113
 msgid "Place your text here"
-msgstr "Zde vložte svůj text"
+msgstr "Zde vložte váš text"
 
 #: components/html-editor/template.c:97
 msgid "Image frame"
