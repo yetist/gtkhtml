@@ -53,7 +53,13 @@ static void         spell_error_destroy (SpellError *se);
 static void         move_spell_errors   (GList *spell_errors, guint offset, gint delta);
 static GList *      remove_spell_errors (GList *spell_errors, guint offset, guint len);
 
-
+/* static void
+debug_spell_errors (GList *se)
+{
+	for (;se;se = se->next)
+		printf ("SE: %4d, %4d\n", ((SpellError *) se->data)->off, ((SpellError *) se->data)->len);
+} */
+
 static void
 get_tags (const HTMLText *text,
 	  const HTMLEngineSaveState *state,
@@ -223,7 +229,10 @@ html_text_op_cut_helper (HTMLText *text, HTMLEngine *e, GList *from, GList *to, 
 		text->text = nt;
 		text->text_len -= end - begin;
 		*len           += end - begin;
+
+		move_spell_errors (text->spell_errors, end, - (end - begin));
 	} else {
+		text->spell_errors = remove_spell_errors (text->spell_errors, 0, text->text_len);
 		html_object_move_cursor_before_remove (HTML_OBJECT (text), e);
 		html_object_remove_child (HTML_OBJECT (text)->parent, HTML_OBJECT (text));
 
@@ -266,10 +275,18 @@ object_merge (HTMLObject *self, HTMLObject *with)
 	if (t1->font_style != t2->font_style || t1->color != t2->color)
 		return FALSE;
 
+	move_spell_errors (t2->spell_errors, 0, t1->text_len);
+	t1->spell_errors = g_list_concat (t1->spell_errors, t2->spell_errors);
+	t2->spell_errors = NULL;
+
 	to_free       = t1->text;
 	t1->text      = g_strconcat (t1->text, t2->text, NULL);
 	t1->text_len += t2->text_len;
 	g_free (to_free);
+
+	/* printf ("--- after merge\n");
+	debug_spell_errors (t1->spell_errors);
+	printf ("---\n"); */
 
 	html_object_change_set (self, HTML_CHANGE_ALL);
 
@@ -308,6 +325,22 @@ object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, g
 
 	if (HTML_TEXT (dup)->text_len == 0 && dup->next)
 		html_object_merge (dup, dup->next);
+
+	/* printf ("--- before split offset %d dup len %d\n", offset, HTML_TEXT (dup)->text_len);
+	   debug_spell_errors (HTML_TEXT (self)->spell_errors); */
+
+	HTML_TEXT (self)->spell_errors = remove_spell_errors (HTML_TEXT (self)->spell_errors,
+							      offset, HTML_TEXT (dup)->text_len);
+	HTML_TEXT (dup)->spell_errors  = remove_spell_errors (HTML_TEXT (dup)->spell_errors,
+							      0, HTML_TEXT (self)->text_len);
+	move_spell_errors   (HTML_TEXT (dup)->spell_errors, 0, - HTML_TEXT (self)->text_len);
+
+	/* printf ("--- after split\n");
+	printf ("left\n");
+	debug_spell_errors (HTML_TEXT (self)->spell_errors);
+	printf ("right\n");
+	debug_spell_errors (HTML_TEXT (dup)->spell_errors);
+	printf ("---\n"); */
 
 	*left  = g_list_prepend (*left, self);
 	*right = g_list_prepend (*right, dup);
@@ -621,6 +654,13 @@ move_spell_errors (GList *spell_errors, guint offset, gint delta)
   	} 
 } 
 
+inline static GList *
+remove_one (GList *list, GList *link)
+{
+	spell_error_destroy ((SpellError *) link->data);
+	return g_list_remove_link (list, link);
+}
+
 static GList *
 remove_spell_errors (GList *spell_errors, guint offset, guint len)
 {
@@ -630,10 +670,25 @@ remove_spell_errors (GList *spell_errors, guint offset, guint len)
 	cur = spell_errors;
 	while (cur) { 
 		cnext = cur->next;
-		se = (SpellError *) cur->data; 
-		if (offset <= se->off && se->off <= offset + len) {
-			spell_errors = g_list_remove_link (spell_errors, cur);
-			spell_error_destroy (se);
+		se = (SpellError *) cur->data;
+		if (se->off < offset) {
+			if (se->off + se->len > offset) {
+				if (se->off + se->len <= offset + len)
+					se->len = offset - se->off;
+				else
+					se->len -= len;
+				if (se->len < 2)
+					spell_errors = remove_one (spell_errors, cur);
+			}
+		} else if (se->off < offset + len) {
+			if (se->off + se->len <= offset + len)
+				spell_errors = remove_one (spell_errors, cur);
+			else {
+				se->len -= offset + len - se->off;
+				se->off  = offset + len;
+				if (se->len < 2)
+					spell_errors = remove_one (spell_errors, cur);
+			}
 		}
  		cur = cnext;
   	} 
@@ -648,29 +703,6 @@ check_point (HTMLObject *self,
 	     gboolean for_cursor)
 {
 	return NULL;
-}
-
-
-static void
-split_spell_errors (HTMLText *self, HTMLText *new, guint offset)
-{
-	GList *cur;
-	SpellError *se;
-
-	cur = self->spell_errors;
-	while (cur) {
-		se = (SpellError *) cur->data;
-		if (se->off >= offset) {
-			if (cur->prev)
-				cur->prev->next = NULL;
-			else
-				self->spell_errors = NULL;
-			new->spell_errors = cur;
-			move_spell_errors (new->spell_errors, offset, -offset);
-			break;
-		}
-		cur = cur->next;
-	}
 }
 
 static void
