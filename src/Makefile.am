@@ -56,6 +56,7 @@ libgtkhtml_HEADERS =				\
 	htmlengine-edit-rule.h			\
 	htmlengine-edit-selection-updater.h	\
 	htmlengine-edit-table.h			\
+	htmlengine-edit-tablecell.h		\
 	htmlengine-edit-text.h			\
 	htmlengine-print.h			\
 	htmlengine-save.h			\
@@ -137,6 +138,7 @@ libgtkhtml_la_SOURCES =				\
 	htmlengine-edit-rule.c			\
 	htmlengine-edit-selection-updater.c	\
 	htmlengine-edit-table.c			\
+	htmlengine-edit-tablecell.c		\
 	htmlengine-edit-text.c			\
 	htmlengine-print.c			\
 	htmlengine-save.c			\

@@ -2,6 +2,8 @@
 /*  This file is part of the GtkHTML library.
 
     Copyright (C) 2000 Helix Code, Inc.
+    Copyright (C) 2001 Ximian, Inc.
+    Authors: Radek Doulik
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
@@ -563,7 +565,7 @@ html_engine_table_set_bg_pixmap (HTMLEngine *e, HTMLTable *t, gchar *url)
 	HTMLImagePointer *iptr;
 
 	iptr = t->bgPixmap;
-	t->bgPixmap = url ? html_image_factory_register(e->image_factory, NULL, url) : NULL;
+	t->bgPixmap = url ? html_image_factory_register (e->image_factory, NULL, url) : NULL;
 	if (iptr)
 		html_image_factory_unregister (e->image_factory, iptr, NULL);
 	html_engine_queue_draw (e, HTML_OBJECT (t));
