@@ -1,8 +1,13 @@
+2000-11-03  Dan Winship  <danw@helixcode.com>
+
+	* htmlobject.c (destroy): Free self->object_data before freeing
+	self.
+
 2000-11-03  Larry Ewing  <lewing@helixcode.com>
 
 	* htmliframe.c (html_iframe_init): remove out of date comment.
 	(iframe_size_changed): correct type of the first arg in the
-	finction prototype.
+	function prototype.
 
 	* htmlobject.c (copy): init the datalist before we start copying
 	the items into it.  This was cause lots of segfaults in the

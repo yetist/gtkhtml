@@ -58,9 +58,8 @@ destroy (HTMLObject *self)
 		self->next = NULL;
 		self->prev = NULL;
 #endif
-		g_free (self);
-
 		g_datalist_clear (&self->object_data);
+		g_free (self);
 	}
 }
 
