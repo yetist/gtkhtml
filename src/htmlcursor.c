@@ -144,22 +144,6 @@ html_cursor_normalize (HTMLCursor *cursor)
 	normalize (&cursor->object, &cursor->offset);
 }
 
-
-/* This is a gross hack as we don't have a `is_a()' function in the object
-   system.  */
-
-static gboolean
-is_clue (HTMLObject *object)
-{
-	HTMLType type;
-
-	type = HTML_OBJECT_TYPE (object);
-
-	return (type == HTML_TYPE_CLUE || type == HTML_TYPE_CLUEV
-		|| type == HTML_TYPE_CLUEH || type == HTML_TYPE_CLUEFLOW);
-}
-
-
 void
 html_cursor_home (HTMLCursor *cursor,
 		  HTMLEngine *engine)
@@ -179,11 +163,20 @@ html_cursor_home (HTMLCursor *cursor,
 		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
 
 	obj = engine->clue;
-	while (is_clue (obj))
-		obj = HTML_CLUE (obj)->head;
+	while (!html_object_accepts_cursor (obj)) {
+		HTMLObject *head = html_object_head (obj);
+		if (obj)
+			obj = head;
+		else
+			break;
+	}
 
 	cursor->object = obj;
 	cursor->offset = 0;
+
+	if (!html_object_accepts_cursor (obj))
+		html_cursor_forward (cursor, engine);
+
 	cursor->position = 0;
 
 	debug_location (cursor);

@@ -849,3 +849,21 @@ html_clue_remove (HTMLClue *clue,
 	o->prev = NULL;
 	o->next = NULL;
 }
+
+void
+html_clue_remove_text_slaves (HTMLClue *clue)
+{
+	HTMLObject *p;
+	HTMLObject *pnext;
+
+	g_return_if_fail (clue != NULL);
+
+	for (p = clue->head; p != NULL; p = pnext) {
+		pnext = p->next;
+
+		if (HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE) {
+			html_clue_remove (clue, p);
+			html_object_destroy (p);
+		}
+	}
+}

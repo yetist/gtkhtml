@@ -246,13 +246,13 @@ op_helper (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left,
 		   e->cursor->position --; */
 	}
 	if (cut)
-		html_clueflow_remove_text_slaves (HTML_CLUEFLOW (self));
+		html_clue_remove_text_slaves (HTML_CLUE (self));
 	o = cut
 		? (*HTML_OBJECT_CLASS (parent_class)->op_cut) (self, e, from, to, left, right, len)
 		: (*HTML_OBJECT_CLASS (parent_class)->op_copy) (self, NULL, e, from, to, len);
 
 	if (!cut && o) {
-		html_clueflow_remove_text_slaves (HTML_CLUEFLOW (o));
+		html_clue_remove_text_slaves (HTML_CLUE (o));
 	}
 
 	return o;
@@ -318,7 +318,7 @@ static void
 split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint level, GList **left, GList **right)
 {
 	set_around_size (child);
-	html_clueflow_remove_text_slaves (HTML_CLUEFLOW (self));
+	html_clue_remove_text_slaves (HTML_CLUE (self));
 	(*HTML_OBJECT_CLASS (parent_class)->split) (self, e, child, offset, level, left, right);
 
 	update_item_number (self);
@@ -333,8 +333,8 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **
 	cf1 = HTML_CLUEFLOW (self);
 	cf2 = HTML_CLUEFLOW (with);
 
-	html_clueflow_remove_text_slaves (cf1);
-	html_clueflow_remove_text_slaves (cf2);
+	html_clue_remove_text_slaves (HTML_CLUE (cf1));
+	html_clue_remove_text_slaves (HTML_CLUE (cf2));
 
 	set_tail_size (self);
 	set_head_size (with);
@@ -2604,27 +2604,6 @@ html_clueflow_get_properties (HTMLClueFlow *flow,
 		*alignment_return = HTML_CLUE (flow)->halign;
 }
 #endif
-
-
-void
-html_clueflow_remove_text_slaves (HTMLClueFlow *flow)
-{
-	HTMLClue *clue;
-	HTMLObject *p;
-	HTMLObject *pnext;
-
-	g_return_if_fail (flow != NULL);
-
-	clue = HTML_CLUE (flow);
-	for (p = clue->head; p != NULL; p = pnext) {
-		pnext = p->next;
-
-		if (HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE) {
-			html_clue_remove (clue, p);
-			html_object_destroy (p);
-		}
-	}
-}
 
 /* spell checking */
 
