@@ -34,9 +34,6 @@ struct _EntityEntry {
 };
 typedef struct _EntityEntry EntityEntry;
 
-/* char used for &nbsp; - must correspond to table below */
-#define ENTITY_NBSP 160
-
 static EntityEntry entity_table[] = {
 	/*
 	 * the 4 absolute ones,

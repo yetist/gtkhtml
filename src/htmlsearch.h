@@ -23,20 +23,25 @@
 #ifndef _HTML_SEARCH_H_
 #define _HTML_SEARCH_H_
 
+#include <sys/types.h>
+#include <regex.h>
 #include "htmlobject.h"
 
 struct _HTMLSearch {
+	gchar *trans;
 	gchar *text;
 	guint  text_len;
+	guint  found_len;
 
 	gboolean case_sensitive;
 	gboolean forward;
-	gboolean regular;
 
 	GSList *stack;
 	GList  *found;
 
 	guint start_pos;
+
+	regex_t *reb;        /* regex buffer */
 };
 
 HTMLSearch      *html_search_new            (const gchar *text,

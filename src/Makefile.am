@@ -166,7 +166,7 @@ testgtkhtml_SOURCES = 		\
 
 GLIBWWW=$(top_builddir)/glibwww/libglibwww.a $(LIBWWW_LIBS)
 
-# testgtkhtml_LDFLAGS += -static
+testgtkhtml_LDFLAGS += -static
 testgtkhtml_LDADD =				\
 	libgtkhtml.la				\
 	$(GNOMEUI_LIBS)				\

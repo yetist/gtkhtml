@@ -32,9 +32,11 @@ struct _GtkHTMLSearchDialog {
 	GtkWidget   *entry;
 	GtkWidget   *backward;
 	GtkWidget   *case_sensitive;
+
+	gboolean     regular;
 };
 
-GtkHTMLSearchDialog * gtk_html_search_dialog_new (GtkHTML *html);
+GtkHTMLSearchDialog * gtk_html_search_dialog_new (GtkHTML *html, gboolean regular);
 void                  gtk_html_search_dialog_run (GtkHTMLSearchDialog *d);
 
 #endif

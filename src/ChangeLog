@@ -1,5 +1,28 @@
 2000-04-14  Radek Doulik  <rodo@helixcode.com>
 
+	* gtkhtml-search.c (gtk_html_search_dialog_new): updated to
+	support regex
+
+	* gtkhtml.c (gtk_html_search_regex): new function to invoke regex
+	search dialog
+
+	* htmlclueflow.c (search_text): use regex for search_regex
+
+	* htmlsearch.c (html_search_new): use ENTITY_NBSP in translation
+	table, so &nbsp;'s will be correctly translated to spaces when
+	searching
+	(html_search_new): updated to support regex
+
+	* htmlentity.h (ENTITY_NBSP): ENTITY_NBSP moved here as it is used
+	in htmlsearch
+
+	* htmlsearch.c (html_search_new): added translation table for
+	non-case-sensitive searches
+	(html_search_destroy): destroy trans table
+
+	* htmlclueflow.c (search): added test for search_next as clueflow
+	could also act as any other clue, so may contain non-text childern
+
 	* htmlengine.c (html_engine_search): search for text and selects
 	found text
 	(html_engine_search_next): continue search

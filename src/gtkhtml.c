@@ -1501,16 +1501,29 @@ gtk_html_redo (GtkHTML *html)
 	html_engine_redo (html->engine);
 }
 
-void
-gtk_html_search (GtkHTML *html)
+static void
+search (GtkHTML *html, gboolean regular)
 {
 	if (html->search_dialog) {
 		gtk_widget_show (html->search_dialog->dialog);
 		gdk_window_raise (GTK_WIDGET (html->search_dialog->dialog)->window);
+		gtk_widget_grab_focus (html->search_dialog->entry);
 	} else {
-		html->search_dialog = gtk_html_search_dialog_new (html);
+		html->search_dialog = gtk_html_search_dialog_new (html, regular);
 		gtk_html_search_dialog_run (html->search_dialog);
 	}
+}
+
+void
+gtk_html_search (GtkHTML *html)
+{
+	search (html, FALSE);
+}
+
+void
+gtk_html_search_regex (GtkHTML *html)
+{
+	search (html, TRUE);
 }
 
 void

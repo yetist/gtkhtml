@@ -30,7 +30,7 @@ search (GtkWidget *but, GtkHTMLSearchDialog *d)
 
 	html_engine_search (d->html->engine, gtk_entry_get_text (GTK_ENTRY (d->entry)),
 			    GTK_TOGGLE_BUTTON (d->case_sensitive)->active,
-			    GTK_TOGGLE_BUTTON (d->backward)->active == 0, FALSE);
+			    GTK_TOGGLE_BUTTON (d->backward)->active == 0, d->regular);
 }
 
 static void
@@ -48,16 +48,18 @@ entry_activate (GtkWidget *entry, GtkHTMLSearchDialog *d)
 }
 
 GtkHTMLSearchDialog *
-gtk_html_search_dialog_new (GtkHTML *html)
+gtk_html_search_dialog_new (GtkHTML *html, gboolean regular)
 {
 	GtkHTMLSearchDialog *dialog = g_new (GtkHTMLSearchDialog, 1);
 	GtkWidget *hbox;
 
-	dialog->dialog         = GNOME_DIALOG (gnome_dialog_new (_("Search"), _("Search"), GNOME_STOCK_BUTTON_CANCEL, NULL));
+	dialog->dialog         = GNOME_DIALOG (gnome_dialog_new ((regular) ? _("Regex search") :  _("Search"), _("Search"),
+								 GNOME_STOCK_BUTTON_CANCEL, NULL));
 	dialog->entry          = gtk_entry_new_with_max_length (20);
 	dialog->backward       = gtk_check_button_new_with_label (_("search backward"));
 	dialog->case_sensitive = gtk_check_button_new_with_label (_("case sensitive"));
 	dialog->html           = html;
+	dialog->regular        = regular;
 
 	hbox = gtk_hbox_new (FALSE, 0);
 

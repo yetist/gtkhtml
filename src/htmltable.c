@@ -1333,6 +1333,7 @@ search (HTMLObject *obj, HTMLSearch *info)
 	if (html_search_child_on_stack (info, obj)) {
 		cur  = html_search_pop (info);
 		next = TRUE;
+		printf ("search table next\n");
 	}
 
 	if (info->forward) {
@@ -1348,10 +1349,14 @@ search (HTMLObject *obj, HTMLSearch *info)
 				    cell == table->cells[r + 1][c])
 					continue;
 
-				if (next && cell == cur) {
-					cur = NULL;
+				if (next && cur) {
+					if (cell == cur) {
+						cur = NULL;
+					}
 					continue;
 				}
+
+				printf ("search table cell %d,%d %p\n", r, c, cell);
 
 				html_search_push (info, HTML_OBJECT (cell));
 				if (html_object_search (HTML_OBJECT (cell), info)) {

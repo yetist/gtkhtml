@@ -212,7 +212,8 @@ void  gtk_html_paste  (GtkHTML *html);
 void  gtk_html_undo  (GtkHTML *html);
 void  gtk_html_redo  (GtkHTML *html);
 
-void  gtk_html_search      (GtkHTML *html);
-void  gtk_html_search_next (GtkHTML *html);
+void  gtk_html_search       (GtkHTML *html);
+void  gtk_html_search_regex (GtkHTML *html);
+void  gtk_html_search_next  (GtkHTML *html);
 
 #endif /* _GTKHTML_H_ */

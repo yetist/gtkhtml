@@ -271,7 +271,7 @@ should_break (HTMLObject *obj)
 		HTMLTextSlave *slave = HTML_TEXT_SLAVE (next);
 		beg = HTML_TEXT (slave->owner)->text [slave->posStart];
 	} else if (HTML_OBJECT_TYPE (next) == HTML_TYPE_TEXTMASTER ||
-		 HTML_OBJECT_TYPE (next) == HTML_TYPE_LINKTEXTMASTER)
+		   HTML_OBJECT_TYPE (next) == HTML_TYPE_LINKTEXTMASTER)
 		beg = HTML_TEXT (next)->text [0];
 
 	/* printf ("end: %c beg: %c ret: %d\n", end, beg, end == ' ' || beg == ' '); */
@@ -1142,7 +1142,7 @@ search_set_info (HTMLObject *cur, HTMLSearch *info, guint pos)
 				info->found = g_list_append (info->found, cur);
 			}
 			text_len += cur_len;
-			if (text_len >= pos+info->text_len)
+			if (text_len >= pos+info->found_len)
 				return;
 		} else if (HTML_OBJECT_TYPE (cur) != HTML_TYPE_TEXTSLAVE) {
 			break;
@@ -1195,7 +1195,7 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 			cur = cur->next;
 		}
 
-		printf ("text (%d): %s\n", text_len, par);
+		/* printf ("text (%d): %s\n", text_len, par); */
 
 		/* set eq_len and pos counters */
 		eq_len = 0;
@@ -1208,23 +1208,43 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 			pos = 0;
 		}
 
-		/* go thru par and look for info->text */
-		while (par [pos]) {
-			if (info->text [eq_len] == par [pos]) {
-				eq_len++;
-				if (eq_len == info->text_len) {
-					printf ("found!\n");
-					search_set_info (*beg, info, pos-eq_len+1);
+		if (pos < text_len) {
+			if (info->reb) {
+				gint rv;
+				/* regex search */
+				rv = re_search (info->reb, par, text_len, pos, text_len-pos, NULL);
+				if (rv>=0) {
+					gint start = rv;
+
+					rv = re_match (info->reb, par, text_len, start, NULL);
+					printf ("found! start: %d len: %d\n", start, rv);
+					info->found_len = rv;
+					search_set_info (*beg, info, start);
 					retval=TRUE;
-					break;
+				}
+				if (rv == -2) {
+					g_warning ("regex internal error");
 				}
 			} else {
-				pos -= eq_len;
-				eq_len = 0;
+				/* go thru par and look for info->text */
+				while (par [pos]) {
+					if (info->trans [info->text [eq_len]] == info->trans [par [pos]]) {
+						eq_len++;
+						if (eq_len == info->text_len) {
+							printf ("found!\n");
+							info->found_len = info->text_len;
+							search_set_info (*beg, info, pos-eq_len+1);
+							retval=TRUE;
+							break;
+						}
+					} else {
+						pos -= eq_len;
+						eq_len = 0;
+					}
+					pos++;
+				}
 			}
-			pos++;
 		}
-
 		g_free (par);
 	}
 

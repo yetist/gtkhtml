@@ -27,6 +27,10 @@
 #include <glib.h>
 
 
+
+/* char used for &nbsp; - must correspond to table below */
+#define ENTITY_NBSP 160
+
 gulong html_entity_parse (const gchar *s, guint len);
 
 /* prepares text to draw/get_width, returned text is allocated using g_strdup so it could be g_free'ed */

@@ -3981,7 +3981,7 @@ static void
 display_search_results (HTMLEngine *e, HTMLSearch *info)
 {
 	GList *cur = info->found;
-	guint len  = info->text_len;
+	guint len  = info->found_len;
 	guint pos  = info->start_pos;
 	guint cur_len;
 
@@ -3991,7 +3991,7 @@ display_search_results (HTMLEngine *e, HTMLSearch *info)
 	/* go thru all objects (Text's) in found list and do select_range on it */
 	while (cur) {
 		cur_len = HTML_TEXT (cur->data)->text_len;
-		printf ("select len: %d range obj: %p pos: %d len: %d\n", info->text_len,
+		printf ("select len: %d range obj: %p pos: %d len: %d\n", info->found_len,
 			HTML_OBJECT (cur->data), pos, (cur_len-pos < len) ? cur_len-pos : len);
 		html_object_select_range (HTML_OBJECT (cur->data), e, pos,
 					  (cur_len-pos < len) ? cur_len-pos : len, TRUE);
@@ -4030,19 +4030,26 @@ html_engine_search (HTMLEngine *e, const gchar *text,
 gboolean
 html_engine_search_next (HTMLEngine *e)
 {
+	HTMLSearch *info = e->search_info;
 	gboolean retval;
 
-	if (!e->search_info) {
+	if (!info) {
 		return FALSE;
 	}
 
 	printf ("search_next\n");
 
-	if (e->search_info->stack) {
-		retval = html_object_search (HTML_OBJECT (e->search_info->stack->data), e->search_info);
+	if (info->stack) {
+		retval = html_object_search (HTML_OBJECT (info->stack->data), info);
+	} else {
+		html_search_push (info, e->clue);
+		retval = html_object_search (e->clue, info);
 	}
 	if (retval) {
-		display_search_results (e, e->search_info);
+		display_search_results (e, info);
+	} else {
+		html_search_pop (info);
+		html_engine_unselect_all (e, TRUE);
 	}
 
 	return FALSE;

@@ -71,6 +71,7 @@ static void forward_cb (GtkWidget *widget, gpointer data);
 static void back_cb (GtkWidget *widget, gpointer data);
 static void home_cb (GtkWidget *widget, gpointer data);
 static void search_cb (GtkWidget *widget, gpointer data);
+static void search_regex_cb (GtkWidget *widget, gpointer data);
 static void search_next_cb (GtkWidget *widget, gpointer data);
 static void reload_cb (GtkWidget *widget, gpointer data);
 static void redraw_cb (GtkWidget *widget, gpointer data);
@@ -94,7 +95,7 @@ static gchar *parse_href (const gchar *s);
 static GtkHTML *html;
 static GtkHTMLStreamHandle html_stream_handle = NULL;
 static GtkWidget *animator, *entry;
-static GtkWidget *popup_menu, *popup_menu_back, *popup_menu_forward, *popup_menu_home;
+static GtkWidget *popup_menu, *popup_menu_back, *popup_menu_forward, *popup_menu_home, *menu_item;
 static GtkWidget *toolbar_back, *toolbar_forward;
 static HTMLURL *baseURL;
 
@@ -237,14 +238,20 @@ create_toolbars (GtkWidget *app)
 
 	gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
 				 NULL, 
-				 "Search bar",
-				 "Search",
+				 "Search...",
+				 "Text search",
 				 gnome_stock_new_with_icon (GNOME_STOCK_PIXMAP_SEARCH),
 				 search_cb, NULL);
 	gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
 				 NULL, 
-				 "Search next bar",
+				 "Search regex...",
+				 "Regular expression text search",
+				 gnome_stock_new_with_icon (GNOME_STOCK_PIXMAP_SEARCH),
+				 search_regex_cb, NULL);
+	gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
+				 NULL, 
 				 "Search next",
+				 "Continue search",
 				 gnome_stock_new_with_icon (GNOME_STOCK_PIXMAP_SEARCH),
 				 search_next_cb, NULL);
 	animator = gnome_animator_new_with_size (32, 32);
@@ -459,6 +466,12 @@ static void
 search_cb (GtkWidget *widget, gpointer data)
 {
 	gtk_html_search (html);
+}
+
+static void
+search_regex_cb (GtkWidget *widget, gpointer data)
+{
+	gtk_html_search_regex (html);
 }
 
 static void
@@ -1087,6 +1100,24 @@ main (gint argc, gchar *argv[])
 	gtk_widget_show(popup_menu_home);
 	gtk_signal_connect (GTK_OBJECT (popup_menu_home), "activate",
 			    GTK_SIGNAL_FUNC (home_cb), NULL);
+
+	menu_item = gtk_menu_item_new_with_label ("Search...");
+	gtk_menu_append (GTK_MENU(popup_menu), menu_item);
+	gtk_widget_show (menu_item);
+	gtk_signal_connect (GTK_OBJECT (menu_item), "activate",
+			    GTK_SIGNAL_FUNC (search_cb), NULL);
+
+	menu_item = gtk_menu_item_new_with_label ("Search regex...");
+	gtk_menu_append (GTK_MENU(popup_menu), menu_item);
+	gtk_widget_show (menu_item);
+	gtk_signal_connect (GTK_OBJECT (menu_item), "activate",
+			    GTK_SIGNAL_FUNC (search_cb), NULL);
+
+	menu_item = gtk_menu_item_new_with_label ("Search next");
+	gtk_menu_append (GTK_MENU(popup_menu), menu_item);
+	gtk_widget_show (menu_item);
+	gtk_signal_connect (GTK_OBJECT (menu_item), "activate",
+			    GTK_SIGNAL_FUNC (search_next_cb), NULL);
 
 	/* End of menu creation */
 

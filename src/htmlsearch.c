@@ -31,20 +31,46 @@
 
 #include "htmlsearch.h"
 #include "htmlobject.h"
+#include "htmlentity.h"
 
 HTMLSearch *
 html_search_new (const gchar *text, gboolean case_sensitive, gboolean forward, gboolean regular)
 {
 	HTMLSearch *ns = g_new (HTMLSearch, 1);
+	gint i;
 
 	ns->text           = g_strdup (text);
 	ns->text_len       = strlen (text);
 	ns->case_sensitive = case_sensitive;
 	ns->forward        = forward;
-	ns->regular        = regular;
 	ns->stack          = NULL;
 	ns->start_pos      = 0;
 	ns->found          = NULL;
+
+	/* translate table
+	   could translate uppercase to lowercase if non case_sensitive */
+	ns->trans = g_new (gchar, 256);
+	for (i=0; i<256; i++) {
+		ns->trans [i] = (case_sensitive) ? i : ((i>='A' && i<='Z') ? i+('a'-'A') : i);
+	}
+	ns->trans [ENTITY_NBSP] = ' ';
+
+	if (regular) {
+		const gchar *rv;
+
+		ns->reb = g_new (regex_t, 1);
+		ns->reb->buffer = NULL;
+		ns->reb->allocated = 0;
+		ns->reb->fastmap = NULL;
+		ns->reb->translate = ns->trans;
+
+		rv = re_compile_pattern (ns->text, ns->text_len, ns->reb);
+		if (rv) {
+			g_warning (rv);
+		}
+	} else {
+		ns->reb = NULL;
+	}
 
 	return ns;
 }
@@ -55,6 +81,11 @@ html_search_destroy (HTMLSearch *search)
 	g_free (search->text);
 	if (search->stack)
 		g_slist_free (search->stack);
+	if (search->reb) {
+		/* regfree (search->reb); */
+		g_free (search->reb);
+	}
+	g_free (search->trans);
 
 	g_free (search);
 }
