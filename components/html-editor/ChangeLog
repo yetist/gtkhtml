@@ -1,3 +1,16 @@
+2002-06-02  Larry Ewing  <lewing@ximian.com>
+
+	* ChangeLog: merge the multicite branch.
+
+2002-05-21  Larry Ewing  <lewing@ximian.com>
+
+	* htmlsourceview.c (html_source_view_load): change the
+	e_text_to_html options to make the text preformatted.
+
+	* toolbar.c (toolbar_item_update_sensitivity): make the alignment
+	items sensitive now that alignment is reflected in the plain text
+	output.
+
 2002-05-28  Radek Doulik  <rodo@ximian.com>
 
 	* menubar.c (menubar_update_format): take care of smiley menuitems
@@ -14,6 +27,51 @@
 
 	* menubar.c (paragraph_style_cb): don't set style if
 	block_font_style_change
+
+2002-05-15  Larry Ewing  <lewing@ximian.com>
+
+	* htmlsourceview.c: rename methods and add content type parameter
+	to set_source.
+	
+	* htmlsourceview.h: rename prototypes.
+
+	* test-html-editor-control.c (view_html_source_cb): specify html
+	output.
+	(view_plain_source_cb): specify plain output.
+	(view_source_dialog): pass the content type along to
+	html_view_source_set_source.
+
+2002-05-13  Larry Ewing  <lewing@ximian.com>
+
+	* test-html-editor-control.c (view_source_cb): new verb to start
+	up the source view.
+	(init_corba): set the version to the editor api version.
+	(main): initialize gconf.
+
+	* htmlsourceview.c: added.  This is a simple widget that pulls the
+	persist information from a control.
+
+	* htmlsourceview.h: added.
+
+	* e-html-utils.c: added, for e-text-to-html.
+
+	* e-html-utils.h: added.
+
+	* Makefile.am: add the new source files to the test-editor build.
+
+2002-05-07  Larry Ewing  <lewing@ximian.com>
+
+	* test-html-editor-control.c (save_through_persist_stream): use a
+	reasonable mode and truncate existing files.  
+	(save_through_plain_persist_stream): truncate existing stream. Wow
+	yet another way in which bonobo sucks.
+
+	* GNOME_GtkHTML_Editor.oaf.in: add Editor interface to the oaf
+	list.
+
+	* test-html-editor-control.c (save_through_plain_persist_stream):
+	give a reasonable mode for the new file.
+	add missing includes.
 
 2002-05-08  Radek Doulik  <rodo@ximian.com>
 

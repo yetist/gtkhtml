@@ -151,6 +151,10 @@ noinst_PROGRAMS =				\
 
 test_editor_SOURCES =				\
 	$(IDL_GENERATED)			\
+	e-html-utils.c				\
+	e-html-utils.h				\
+	htmlsourceview.c			\
+	htmlsourceview.h			\
 	test-html-editor-control.c
 
 # Extra stuff to distribute.
