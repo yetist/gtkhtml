@@ -1,3 +1,8 @@
+2001-06-18  Radek Doulik  <rodo@ximian.com>
+
+	* configure.in (GTKHTML_CURRENT): raised to 12 because of GtkHTML
+	struct binary incompatible change
+
 2001-06-05  JP Rosevear  <jpr@ximian.com>
 
 	* configure.in: Bump version to 0.9.99.0
