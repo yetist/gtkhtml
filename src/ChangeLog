@@ -1,3 +1,15 @@
+2001-10-12  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (get_tags): don't use </FONT size=...>, but just
+	</FONT>
+	(get_tags): join <tag> and </tag> additions together
+
+	* htmlclueflow.c (save): in case of PRE paragraph, write final \n
+	just after content
+	(write_pre_tags): don't write \n for PRE here
+	(save): don't put \n after <DIV>, </DIV>
+	(save): put alignment tags inside
+
 2001-10-12  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml.c (gtk_html_private_calc_scrollbars): don't clip the

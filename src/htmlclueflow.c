@@ -676,9 +676,7 @@ calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 			if (lmargin >= rmargin) {
 				gint new_y;
 
-				if (html_object_calc_size (run, painter, changed_objs)) {
-					//add_to_changed (changed_objs, run);
-                                }
+				html_object_calc_size (run, painter, changed_objs);
 				html_clue_find_free_area (HTML_CLUE (o->parent), o->y, run->min_width,
 							  run->ascent + run->descent, indent, &new_y,
 							  &lmargin, &rmargin);
@@ -715,12 +713,8 @@ calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 					break;
 				}
 
-				if (html_object_calc_size (run, painter, changed_objs)) {
-					//add_to_changed (changed_objs, run);
-                                }
-
+				html_object_calc_size (run, painter, changed_objs);
 				runWidth += run->width;
-
 				valign = html_object_get_valign (run);
 
 				/* Algorithm for dealing vertical alignment.
@@ -832,7 +826,7 @@ calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 			halign = html_clueflow_get_halignment (flow);
 
 			if (w > o->width)
-				o->width = w; // MIN (w, o->max_width);
+				o->width = w;
 
 			if (halign == HTML_HALIGN_CENTER) {
 				extra = (rmargin - w) / 2;
@@ -1382,10 +1376,6 @@ write_pre_tags (HTMLClueFlow *self,
 			if (! write_indent (state, self->level))
 				return FALSE;
 			return html_engine_save_output_string (state, "<BR>\n");
-		} else if (self->style == HTML_CLUEFLOW_STYLE_PRE) {
-			if (! write_indent (state, self->level))
-				return FALSE;
-			return html_engine_save_output_string (state, "\n");
 		} else
 			return TRUE;
 	}
@@ -1599,15 +1589,6 @@ save (HTMLObject *self,
 	
 	INDENT (clueflow);
 
-	/* Alignment tag.  */
-	if (halign != HTML_HALIGN_NONE && halign != HTML_HALIGN_LEFT) {
-		if (! html_engine_save_output_string
-		    (state, "<DIV ALIGN=%s>\n",
-		     html_engine_save_get_paragraph_align (html_alignment_to_paragraph (halign))))
-			return FALSE;
-		INDENT (clueflow);
-	}
-
 	/* Start tag.  */
 	tag = get_start_tag (self);
 	if (start || is_item (clueflow)) {
@@ -1632,9 +1613,23 @@ save (HTMLObject *self,
 	}
 	g_free (tag);
 
+	/* Alignment tag.  */
+	if (halign != HTML_HALIGN_NONE && halign != HTML_HALIGN_LEFT) {
+		if (! html_engine_save_output_string
+		    (state, "<DIV ALIGN=%s>",
+		     html_engine_save_get_paragraph_align (html_alignment_to_paragraph (halign))))
+			return FALSE;
+	}
+
 	/* Paragraph's content.  */
 	if (! HTML_OBJECT_CLASS (&html_clue_class)->save (self, state))
 		return FALSE;
+
+	/* Close alignment tag.  */
+	if (halign != HTML_HALIGN_NONE && halign != HTML_HALIGN_LEFT) {
+		if (! html_engine_save_output_string (state, "</DIV>"))
+			return FALSE;
+	}
 
 	/* End tag.  */
 	tag = get_end_tag (self);
@@ -1659,14 +1654,8 @@ save (HTMLObject *self,
 	}
 	g_free (tag);
 
-	/* Close alignment tag.  */
-	if (halign != HTML_HALIGN_NONE && halign != HTML_HALIGN_LEFT) {
-		if (! html_engine_save_output_string (state, "</DIV>\n"))
-			return FALSE;
-	} else if (HTML_CLUEFLOW (self)->style != HTML_CLUEFLOW_STYLE_PRE) {
-		if (! html_engine_save_output_string (state, "\n"))
-			return FALSE;
-	}
+	if (! html_engine_save_output_string (state, "\n"))
+		return FALSE;
 
 	return write_post_tags (HTML_CLUEFLOW (self), state);
 }
