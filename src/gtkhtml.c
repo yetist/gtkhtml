@@ -724,6 +724,8 @@ style_set (GtkWidget *widget,
 
 	g_free (prop->font_var);
 	prop->font_var = pango_font_description_to_string (widget->style->font_desc);
+	prop->font_var_size = PANGO_PIXELS (pango_font_description_get_size (widget->style->font_desc));
+	prop->font_fix_size = PANGO_PIXELS (pango_font_description_get_size (widget->style->font_desc));
 	set_fonts (GTK_HTML (widget));
 
 	html_colorset_set_style (engine->defaultSettings->color_set,
