@@ -1,3 +1,7 @@
+2002-02-06  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (drag_data_received): remove \n\r in the end of url's
+
 2002-02-05  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (realize): changed defaults to all

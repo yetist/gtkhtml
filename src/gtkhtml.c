@@ -1923,6 +1923,9 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
 			}
 		} else
 			text = selection_data->data;
+		while (selection_data->data [selection_data->length - 1] == '\n'
+		       || selection_data->data [selection_data->length - 1] == '\r')
+			selection_data->length --;
 		len = selection_data->length - (gint) (text - selection_data->data);
 		new_text = html_engine_new_link (engine, text, len,
 						 selection_data->data);
