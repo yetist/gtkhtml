@@ -17,3 +17,5 @@ Todo for gtkhtml:
 * Implement cool new features
 
 * gtk_html_write_data (GtkHTML *html, gchar *txt, guint len) API.
+
+* kill the daft PersistStream interface ( I'm a moron ), and use PersistFile.
