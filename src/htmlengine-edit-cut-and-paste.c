@@ -1198,8 +1198,8 @@ html_engine_insert_empty_paragraph (HTMLEngine *e)
 	insert_empty_paragraph (e, HTML_UNDO_UNDO, TRUE);
 }
 
-static char *picto_chars = "DO)(|/P\0:-\0:\0:-\0:\0:;=-\0:;\0:-~\0:\0:\0:-\0:\0:-\0:\0:-\0:\0";
-static gint picto_states [] = { 8, 13, 18, 26, 34, 39, 44, 0, -1, 11, 0, -1, 0, -2, 16, 0, -2, 0, -3, -4, -5, 23, 0, -3, -4, 0, -6, 30, 32, 0, -6, 0, -11, 0, -8, 37, 0, -8, 0, -9, 42, 0, -9, 0, -10, 47, 0, -10, 0};
+static char *picto_chars = "DO)(|/PQ\0:-\0:\0:-\0:\0:;=-\0:;\0:-~\0:\0:\0:-\0:\0:-\0:\0:-\0:\0:-\0:\0";
+static gint picto_states [] = { 9, 14, 19, 27, 35, 40, 45, 50, 0, -1, 12, 0, -1, 0, -2, 17, 0, -2, 0, -3, -4, -5, 24, 0, -3, -4, 0, -6, 31, 33, 0, -6, 0, -11, 0, -8, 38, 0, -8, 0, -9, 43, 0, -9, 0, -10, 48, 0, -10, 0, -12, 53, 0, -12, 0};
 static gchar *picto_images [] = {
 	"smiley-1.png",
 	"smiley-2.png",
@@ -1212,6 +1212,7 @@ static gchar *picto_images [] = {
 	"smiley-9.png",
 	"smiley-10.png",
 	"smiley-11.png",
+	"smiley-12.png",
 };
 
 static void
