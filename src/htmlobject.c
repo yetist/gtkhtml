@@ -452,7 +452,7 @@ get_cursor_base (HTMLObject *self,
 static guint
 get_length (HTMLObject *self)
 {
-	return 1;
+	return html_object_accepts_cursor (self) ? 1 : 0;
 }
 
 static guint
