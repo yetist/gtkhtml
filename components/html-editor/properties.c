@@ -121,7 +121,8 @@ gtk_html_edit_properties_dialog_new (GtkHTMLControlData *cd, gboolean insert, gc
 	gnome_dialog_button_connect (GNOME_DIALOG (d->dialog), 0, ok, d);
 	if (!insert)
 		gnome_dialog_button_connect (GNOME_DIALOG (d->dialog), 1, apply, d);
-	gnome_dialog_button_connect (GNOME_DIALOG (d->dialog), (insert) ? 1 : 2, prop_close, d);
+	gnome_dialog_button_connect (GNOME_DIALOG (d->dialog), insert ? 1 : 2, prop_close, d);
+	gnome_dialog_set_default (GNOME_DIALOG (d->dialog), 0);
 
 	gnome_dialog_set_sensitive (GNOME_DIALOG (d->dialog), 0, FALSE);
 	if (!insert)

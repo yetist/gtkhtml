@@ -58,6 +58,7 @@
 	<widget>
 	  <class>GtkTable</class>
 	  <name>bg_table</name>
+	  <border_width>2</border_width>
 	  <rows>1</rows>
 	  <columns>4</columns>
 	  <homogeneous>False</homogeneous>
@@ -779,6 +780,7 @@ None
 	<widget>
 	  <class>GtkTable</class>
 	  <name>table_cell_bg</name>
+	  <border_width>2</border_width>
 	  <rows>1</rows>
 	  <columns>4</columns>
 	  <homogeneous>False</homogeneous>

@@ -1,5 +1,8 @@
 2001-06-13  Radek Doulik  <rodo@ximian.com>
 
+	* properties.c (gtk_html_edit_properties_dialog_new): set default
+	button to 0 (Insert/Ok)
+
 	* cell.c: use disable_change
 
 	* table.c (get_data): set has_width to FALSE if needed
