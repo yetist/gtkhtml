@@ -22,9 +22,11 @@
 
 #include <gal/widgets/widget-color-combo.h>
 #include "htmlcolor.h"
+#include "htmlcolorset.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-fontstyle.h"
 #include "htmlengine-save.h"
+#include "htmlsettings.h"
 
 #include "text.h"
 #include "properties.h"
@@ -44,7 +46,7 @@ struct _GtkHTMLEditTextProperties {
 
 	GtkHTMLFontStyle style_and;
 	GtkHTMLFontStyle style_or;
-	GdkColor color;
+	HTMLColor *color;
 
 	GtkHTML *sample;
 };
@@ -70,9 +72,9 @@ fill_sample (GtkHTMLEditTextProperties *d)
 	bg    = html_engine_save_get_sample_body (d->cd->html->engine, NULL);
 	size  = g_strdup_printf ("<font size=%d>", get_size (d->style_or) + 1);
 	color = g_strdup_printf ("<font color=#%02x%02x%02x>",
-				 d->color.red >> 8,
-				 d->color.green >> 8,
-				 d->color.blue >> 8);
+				 d->color->color.red   >> 8,
+				 d->color->color.green >> 8,
+				 d->color->color.blue  >> 8);
 	body  = g_strconcat (bg,
 			     CVAL (0) ? "<b>" : "",
 			     CVAL (1) ? "<i>" : "",
@@ -92,7 +94,12 @@ fill_sample (GtkHTMLEditTextProperties *d)
 static void
 color_changed (GtkWidget *w, GdkColor *color, GtkHTMLEditTextProperties *data)
 {
-	data->color = *color;
+	html_color_unref (data->color);
+	data->color = color
+		&& color != &html_colorset_get_color (data->cd->html->engine->settings->color_set, HTMLTextColor)->color
+		? html_color_new_from_gdk_color (color)
+		: html_colorset_get_color (data->cd->html->engine->settings->color_set, HTMLTextColor);
+	html_color_ref (data->color);
 	data->color_changed = TRUE;
 	gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
 	fill_sample (data);
@@ -149,7 +156,8 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	data->style_changed   = FALSE;
 	data->style_and       = GTK_HTML_FONT_STYLE_MAX;
 	data->style_or        = html_engine_get_font_style (cd->html->engine);
-	data->color           = html_engine_get_color (cd->html->engine)->color;
+	data->color           = html_engine_get_color (cd->html->engine);
+	html_color_ref (data->color);
 
 	table = gtk_table_new (3, 2, FALSE);
 	gtk_container_border_width (GTK_CONTAINER (table), 3);
@@ -209,7 +217,9 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	frame = gtk_frame_new (_("Color"));
 	hbox = gtk_hbox_new (FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (hbox), 3);
-	data->color_combo = color_combo_new (NULL, _("Automatic"), &data->color, "text");
+	data->color_combo = color_combo_new (NULL, _("Automatic"),
+					     &html_colorset_get_color (data->cd->html->engine->settings->color_set,
+								       HTMLTextColor)->color, "text");
         gtk_signal_connect (GTK_OBJECT (data->color_combo), "changed", GTK_SIGNAL_FUNC (color_changed), data);
 
 	vbox = gtk_vbox_new (FALSE, 0);
@@ -234,11 +244,8 @@ text_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 	if (data->style_changed)
 		html_engine_set_font_style (cd->html->engine, data->style_and, data->style_or);
 
-	if (data->color_changed) {
-		HTMLColor *color = html_color_new_from_gdk_color (&data->color);
-		html_engine_set_color (cd->html->engine, color);
-		html_color_unref (color);
-	}
+	if (data->color_changed)
+		html_engine_set_color (cd->html->engine, data->color);
 
 	data->color_changed = FALSE;
 	data->style_changed = FALSE;
@@ -247,5 +254,9 @@ text_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 void
 text_close_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
+	GtkHTMLEditTextProperties *data = (GtkHTMLEditTextProperties *) get_data;
+
+	html_color_unref (data->color);
+
 	g_free (get_data);
 }

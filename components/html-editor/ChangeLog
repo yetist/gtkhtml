@@ -1,5 +1,13 @@
 2000-12-12  Radek Doulik  <rodo@helixcode.com>
 
+	* text.c (color_changed): take care of automatic color
+	(text_properties): use HTMLTextColor as automatic color
+	remember HTMLColor instead of GdkColor
+
+	* toolbar.c (setup_color_combo): use HTMLTextColor as automatic
+	color
+	(color_changed): take care of automatic color
+
 	* test-html-editor-control.c: added toolbar
 
 	* GNOME_GtkHTML_Editor.xml: added toolbar items

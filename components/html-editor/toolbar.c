@@ -30,7 +30,9 @@
 #include "toolbar.h"
 #include "utils.h"
 #include "htmlcolor.h"
+#include "htmlcolorset.h"
 #include "htmlengine-edit-fontstyle.h"
+#include "htmlsettings.h"
 
 
 #define EDITOR_TOOLBAR_PATH "/HTMLEditor"
@@ -192,16 +194,21 @@ setup_font_size_option_menu (GtkHTMLControlData *cd)
 static void
 color_changed (GtkWidget *w, GdkColor *gdk_color, GtkHTMLControlData *cd)
 {
-	HTMLColor *color = html_color_new_from_gdk_color (gdk_color);
+	HTMLColor *color = gdk_color
+		&& gdk_color != &html_colorset_get_color (cd->html->engine->settings->color_set, HTMLTextColor)->color
+		? html_color_new_from_gdk_color (gdk_color) : NULL;
 
 	html_engine_set_color (cd->html->engine, color);
-	html_color_unref (color);
+	if (color)
+		html_color_unref (color);
 }
 
 static GtkWidget *
 setup_color_combo (GtkHTMLControlData *cd)
 {
-	cd->combo = color_combo_new (NULL, _("Automatic"), NULL, "toolbar_text");
+	cd->combo = color_combo_new (NULL, _("Automatic"),
+				     &html_colorset_get_color (cd->html->engine->settings->color_set,
+							       HTMLTextColor)->color, "toolbar_text");
 	GTK_WIDGET_UNSET_FLAGS (cd->combo, GTK_CAN_FOCUS);
         gtk_signal_connect (GTK_OBJECT (cd->combo), "changed", GTK_SIGNAL_FUNC (color_changed), cd);
 
