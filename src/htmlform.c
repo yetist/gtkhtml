@@ -67,6 +67,12 @@ html_form_add_radio (HTMLForm *form, char *name, GtkRadioButton *button)
 	GSList *group;
 	char *key = name;
 
+	/*
+	 * FIXME a null name makes them all share the same "" group.  I doubt this
+	 *  is the correct behaviour but I'm not sure what is.  The spec doesn't seem clear.
+	 */
+	if (key == NULL) key = "";
+
 	master = g_hash_table_lookup (form->radio_group, key);
 	if (master == NULL) {
 		/* if there is no entry we dup the key because the table will own it */
