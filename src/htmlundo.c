@@ -87,8 +87,10 @@ do_action (HTMLUndo *undo,
 
 	if (*action_list == NULL)
 		g_warning ("No more actions in list!");
+	else
+		(*action_list)->prev = NULL;
 
-	g_list_remove_link (first, first);
+	first->next = NULL;
 	g_list_free (first);
 }
 
@@ -99,6 +101,8 @@ html_undo_do_undo (HTMLUndo *undo,
 	g_return_if_fail (undo != NULL);
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (undo->undo_stack_size > 0);
+
+	printf ("%s: %d\n", __FUNCTION__, undo->undo_stack_size);
 
 	do_action (undo, engine, &undo->undo_stack);
 
@@ -152,6 +156,8 @@ html_undo_add_undo_action  (HTMLUndo *undo,
 		g_list_free (last);
 
 		html_undo_action_destroy (last_action);
+
+		undo->undo_stack_size--;
 	}
 
 	undo->undo_stack = g_list_prepend (undo->undo_stack, action);

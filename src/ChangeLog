@@ -1,3 +1,8 @@
+2000-02-10  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlundo.c (html_undo_add_undo_action): Update the stack size
+	value when removing an element.
+
 2000-02-09  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine-edit.c (html_engine_insert): Support undo.
