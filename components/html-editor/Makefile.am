@@ -148,8 +148,7 @@ noinst_LTLIBRARIES = libgnome-gtkhtml-editor.la
 privlibdir = "$(libdir)/gtkhtml"
 privlib_LTLIBRARIES = $(MY_LIBS)
 
-noinst_PROGRAMS = 		
-	test_editor
+noinst_PROGRAMS = test_editor
 
 libexec_PROGRAMS = $(MY_PRGS)
 
