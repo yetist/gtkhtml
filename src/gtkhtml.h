@@ -146,6 +146,7 @@ void  gtk_html_allow_selection  (GtkHTML  *html,
 void  gtk_html_select_word      (GtkHTML  *html);
 void  gtk_html_select_line      (GtkHTML  *html);
 int   gtk_html_request_paste    (GtkWidget *widget,
+				 gint type,
 				 gint32 time);
 /* Loading.  */
 GtkHTMLStream *gtk_html_begin             (GtkHTML             *html);

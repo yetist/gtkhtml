@@ -106,10 +106,11 @@ static gchar * get_value_nick         (GtkHTMLCommandType com_type);
 enum _TargetInfo {  
 	TARGET_UTF8_STRING,
 	TARGET_UTF8,
+	TARGET_COMPOUND_TEXT,
 	TARGET_STRING,
-	TARGET_TEXT,
-	TARGET_COMPOUND_TEXT
+	TARGET_TEXT
 };
+
 typedef enum _TargetInfo TargetInfo;
 
 /* Interval for scrolling during selection.  */
@@ -976,7 +977,7 @@ button_press_event (GtkWidget *widget,
 			break;
 		case 2:
 			if (html_engine_get_editable (engine)) {
-				gtk_html_request_paste (widget, event->time);
+				gtk_html_request_paste (widget, 0, event->time);
 				return TRUE;
 			}
 			break;
@@ -1117,25 +1118,25 @@ selection_get (GtkWidget        *widget,
 	selection_string = html_engine_get_selection_string (html->engine);
 	
 	if (selection_string != NULL) {
-		if (info == TARGET_STRING) {
-			localized_string = e_utf8_to_gtk_string (widget,
-								 selection_string);
-
+		if (info == TARGET_UTF8_STRING) {
 			gtk_selection_data_set (selection_data,
-						GDK_SELECTION_TYPE_STRING, 8,
-						(const guchar *) localized_string, 
-						strlen (localized_string));
-			
+						gdk_atom_intern ("UTF8_STRING", FALSE), 8,
+						(const guchar *) selection_string,
+						strlen (selection_string));
 		} else if (info == TARGET_UTF8) {
 			gtk_selection_data_set (selection_data,
 						gdk_atom_intern ("UTF-8", FALSE), 8,
 						(const guchar *) selection_string,
 						strlen (selection_string));
-		} else if (info == TARGET_UTF8_STRING) {
+		} else if (info == TARGET_STRING) {
+			localized_string = e_utf8_to_gtk_string (widget,
+								 selection_string);
+			
 			gtk_selection_data_set (selection_data,
-						gdk_atom_intern ("UTF8_STRING", FALSE), 8,
-						(const guchar *) selection_string,
-						strlen (selection_string));
+						GDK_SELECTION_TYPE_STRING, 8,
+						(const guchar *) localized_string, 
+						strlen (localized_string));
+			
 		} else if ((info == TARGET_TEXT) 
 			   || (info == TARGET_COMPOUND_TEXT)) {
 			guchar *text;
@@ -1153,6 +1154,7 @@ selection_get (GtkWidget        *widget,
 			gdk_free_compound_text (text);
 		}
 		g_free (selection_string);
+		g_free (localized_string);
 	}
 }
 
@@ -1169,55 +1171,73 @@ selection_received (GtkWidget *widget,
 	
 	printf("got selection from system\n");
 	
-#if 0
 	/* **** IMPORTANT **** Check to see if retrieval succeeded  */
 	/* If we have more selection types we can ask for, try the next one,
 	   until there are none left */
 	if (selection_data->length < 0) {
-		struct _zvtprivate *zp = _ZVT_PRIVATE(widget);
+		gint type = GTK_HTML (widget)->priv->last_selection_type;
 		
 		/* now, try again with next selection type */
-		if (gtk_html_request_paste(widget, zp->lastselectiontype+1, time)==0)
-			g_print ("Selection retrieval failed\n");
+		if (!gtk_html_request_paste(widget, type + 1, time))
+			g_warning ("Selection retrieval failed\n");
 		return;
 	}
-#endif
-	
-	/* we will get a selection type of atom(UTF-8) for utf text,
-	   perhaps that needs to do something different if the terminal
-	   isn't actually in utf8 mode? */
-	
+
 	/* Make sure we got the data in the expected form */
-	if (selection_data->type != GDK_SELECTION_TYPE_STRING) {
-		g_print ("Selection \"STRING\" was not returned as strings!\n");
+	if ((selection_data->type != gdk_atom_intern ("UTF8_STRING", FALSE))
+	    && (selection_data->type != GDK_SELECTION_TYPE_STRING)
+	    && (selection_data->type != gdk_atom_intern ("UTF-8", FALSE))) {
+		g_warning ("Selection \"STRING\" was not returned as strings!\n");
 		return;
 	}
 	
-	if (selection_data->length) {
+	if (selection_data->length > 0) {
 		printf ("selection text \"%.*s\"\n",
 			selection_data->length, selection_data->data); 
 
 		html_engine_delete_selection (GTK_HTML (widget)->engine, TRUE);
-		html_engine_insert (GTK_HTML (widget)->engine, 
-				    selection_data->data,
-				    (guint) selection_data->length);
+		
+		if (selection_data->type != GDK_SELECTION_TYPE_STRING) {
+			html_engine_insert (GTK_HTML (widget)->engine, 
+					    selection_data->data,
+					    (guint) selection_data->length);
+		} else {
+			gchar *utf8 = NULL;
+			
+			utf8 = e_utf8_from_gtk_string_sized (widget, 
+						       selection_data->data,
+						       (guint) selection_data->length);
+
+			html_engine_insert (GTK_HTML (widget)->engine, 
+					    utf8, strlen (utf8));
+
+			g_free (utf8);
+		} 
 	}
 }  
 
-int
-gtk_html_request_paste (GtkWidget *widget, gint32 time)
+gint
+gtk_html_request_paste (GtkWidget *widget, gint type, gint32 time)
 {
-  GdkAtom string_atom;
+	GdkAtom format_atom;
+	char *formats[] = {"UTF8_STRING", "UTF-8", "STRING"};
 
-  string_atom = gdk_atom_intern ("STRING", FALSE);
-
-  if (string_atom == GDK_NONE) {
-	  g_warning("WARNING: Could not get string atom\n");
-  }
-  /* And request the "STRING" target for the primary selection */
-  gtk_selection_convert (widget, GDK_SELECTION_PRIMARY, string_atom,
-			 time);
-  return 1;
+	if (type >= sizeof (formats) / sizeof (formats[0])) {
+		/* we have now tried all the slection types we support */
+		GTK_HTML (widget)->priv->last_selection_type = -1;
+		return FALSE;
+	}
+	
+	GTK_HTML (widget)->priv->last_selection_type = type;
+	format_atom = gdk_atom_intern (formats[type], FALSE);
+	
+	if (format_atom == GDK_NONE) {
+		g_warning("Could not get requested atom\n");
+	}
+	/* And request the format target for the primary selection */
+	gtk_selection_convert (widget, GDK_SELECTION_PRIMARY, format_atom,
+			       time);
+	return TRUE;
 }
 
 
@@ -1664,8 +1684,8 @@ init (GtkHTML* html)
 	static const GtkTargetEntry targets[] = {
 		{ "UTF8_STRING", 0, TARGET_UTF8_STRING },
 		{ "UTF-8", 0, TARGET_UTF8 },
-		{ "STRING", 0, TARGET_STRING },
 		{ "COMPOUND_TEXT", 0, TARGET_COMPOUND_TEXT },
+		{ "STRING", 0, TARGET_STRING },
 		{ "TEXT",   0, TARGET_TEXT }
 	};
 	static const gint n_targets = sizeof(targets) / sizeof(targets[0]);
@@ -1700,6 +1720,7 @@ init (GtkHTML* html)
 	html->priv->paragraph_alignment = GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT;
 	html->priv->paragraph_indentation = 0;
 	html->priv->insertion_font_style = GTK_HTML_FONT_STYLE_DEFAULT;
+	html->priv->last_selection_type = -1;
 
 	gtk_selection_add_targets (GTK_WIDGET (html),
 				   GDK_SELECTION_PRIMARY,

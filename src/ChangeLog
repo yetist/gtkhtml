@@ -1,3 +1,16 @@
+2000-12-07  Larry Ewing  <lewing@helixcode.com>
+
+	* gtkhtml-private.h: add last_selection_type parameter to the the
+	private stucture to track what selections whe have requested.
+
+	* gtkhtml.h: change gtk_html_request_paste prototype to
+	include type parameter.
+
+	* gtkhtml.c: added UTF8_STRING (and UTF-8) targets to support the
+	various X selection atoms people are using.
+	(selection_get): support the new targets.
+	(init): add new targets.
+
 2000-12-07  Radek Doulik  <rodo@helixcode.com>
 
 	* htmltable.c: border extra tweakings
