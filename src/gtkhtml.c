@@ -751,6 +751,7 @@ size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 
 	if (html->engine->width != allocation->width
 	    || html->engine->height != allocation->height) {
+
 		HTMLEngine *e = html->engine;
 
 		e->width  = allocation->width;

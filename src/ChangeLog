@@ -1,3 +1,21 @@
+2001-01-30  Radek Doulik  <rodo@ximian.com>
+
+	* htmlimage.c (get_actual_width): use actual engine
+	(get_actual_height): likewise
+
+	* htmliframe.c (set_max_width): implemented set max width
+	(calc_min_width): rewritten, use html_engine_calc_min_width, this
+	fixes Evolution welcome message problem
+
+	* htmlengine.c (html_engine_get_view_width): take care of iframes
+	(html_engine_get_view_height): likewise
+	(html_engine_calc_min_width): new method
+
+2001-01-29  Radek Doulik  <rodo@ximian.com>
+
+	* htmlimage.c (calc_min_width): fix min width for images with
+	percented height
+
 2001-01-29  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (html_engine_begin): call html_engine_id_table_clear.

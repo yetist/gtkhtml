@@ -1155,6 +1155,7 @@ check_point (HTMLObject *self,
 					return obj;
 			}
 		}
+
 		/* check after */
 		for (c=table->totalCols - 1; c >= 0; c--)
 			if (table->cells [start_row][c])

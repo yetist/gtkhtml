@@ -31,6 +31,8 @@
 #include "htmltable.h"
 #include "htmlclue.h"
 #include "htmlclueflow.h"
+#include "htmliframe.h"
+#include "htmlengine.h"
 #include "htmltype.h"
 #include "htmlenums.h"
 #include "htmlenumutils.h"
@@ -167,7 +169,8 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 			 html_valign_name (HTML_CLUE (obj)->valign));
 		gtk_html_debug_dump_tree (HTML_CLUE (obj)->head, level + 1);
 		break;
-
+	case HTML_TYPE_IFRAME:
+		gtk_html_debug_dump_tree (GTK_HTML (HTML_IFRAME (obj)->html)->engine->clue, level + 1);
 	default:
 		break;
 	}

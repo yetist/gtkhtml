@@ -3676,6 +3676,12 @@ html_engine_get_doc_height (HTMLEngine *e)
 	return 0;
 }
 
+gint
+html_engine_calc_min_width (HTMLEngine *e)
+{
+	return html_object_calc_min_width (e->clue, e->painter) + e->leftBorder + e->rightBorder;
+}
+
 void
 html_engine_calc_size (HTMLEngine *e)
 {
@@ -4377,13 +4383,17 @@ html_engine_set_painter (HTMLEngine *e, HTMLPainter *painter, gint max_width)
 gint
 html_engine_get_view_width (HTMLEngine *e)
 {
-	return GTK_WIDGET (e->widget)->allocation.width  - e->leftBorder - e->rightBorder;
+	return (e->widget->iframe_parent
+		? html_engine_get_view_width (GTK_HTML (e->widget->iframe_parent)->engine)
+		: GTK_WIDGET (e->widget)->allocation.width)  - e->leftBorder - e->rightBorder;
 }
 
 gint
 html_engine_get_view_height (HTMLEngine *e)
 {
-	return GTK_WIDGET (e->widget)->allocation.height - e->topBorder - e->bottomBorder;
+	return (e->widget->iframe_parent
+		? html_engine_get_view_height (GTK_HTML (e->widget->iframe_parent)->engine)
+		: GTK_WIDGET (e->widget)->allocation.height) - e->topBorder - e->bottomBorder;
 }
 
 /* beginnings of ID support */

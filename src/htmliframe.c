@@ -127,24 +127,16 @@ static gint
 calc_min_width (HTMLObject *o,
 		HTMLPainter *painter)
 {
-	HTMLIFrame *iframe = HTML_IFRAME (o);
-	GtkHTML *html;
-	gint min_width;
-
-	html = GTK_HTML (iframe->html);
-	min_width = html_object_calc_min_width (html->engine->clue,
-						html->engine->painter);
-	html->engine->width = min_width;
-	min_width = html_engine_get_doc_width (html->engine);
-    
-	return min_width;
+	return html_engine_calc_min_width (GTK_HTML (HTML_IFRAME (o)->html)->engine);
 }
 
 static void
 set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
 {
-	/* FIXME FIXME amazingly broken to set this */
+	HTMLEngine *e = GTK_HTML (HTML_IFRAME (o)->html)->engine;
+
 	o->max_width = max_width;
+	html_object_set_max_width (e->clue, e->painter, max_width - e->leftBorder - e->rightBorder);
 }
 
 static void
