@@ -47,10 +47,20 @@ HTMLObjectClass html_object_class;
 static void
 destroy (HTMLObject *self)
 {
-	if (self->redraw_pending)
+	if (self->redraw_pending) {
 		self->free_pending = TRUE;
-	else
+	} else {
+
+#if GTKHTML_MEM_DEBUG
+		self->next = 0xdeadbeef;
+		self->prev = 0xdeadbeef;
+#else
+		self->next = NULL;
+		self->prev = NULL;
+#endif
 		g_free (self);
+
+	}
 }
 
 static void

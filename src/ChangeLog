@@ -1,3 +1,10 @@
+2000-10-10  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlengine-edit-selection-updater.c (extend_selection): make
+	sure tht we deal gracefully when next/prev leaf is NULL.
+
+	* htmlobject.c (destroy): add code to poison destroyed memory.
+
 2000-10-10  Radek Doulik  <rodo@helixcode.com>
 
 	* htmltable.c (expand_columns): use g_renew
