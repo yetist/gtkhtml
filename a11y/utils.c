@@ -90,7 +90,7 @@ html_utils_get_accessible (HTMLObject *o, AtkObject *parent)
 {
 	AtkObject *accessible;
 
-	if (!o) return NULL;
+	g_return_val_if_fail(o != NULL, NULL);
 
 	accessible = html_object_get_data (o, ACCESSIBLE_ID);
 

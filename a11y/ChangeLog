@@ -1,4 +1,18 @@
-2003-07-24  Yuedong Du  <yuedong.du>
+2003-08-06  Yuedong Du  <yuedong.du@sun.com>
+
+	* html.c: (html_a11y_get_parent): use html_utils_get_accessible() to
+	find the a11y parent.
+	* object.c: (gtk_html_a11y_grab_focus_cb), 
+	(gtk_html_a11y_cursor_move_cb), (gtk_html_a11y_new): when focus
+	change, or new gtkhtml a11y object, need to setup or re-setup
+	parent relationship between gtkhtml and corresponding cluev html 
+	object.
+	* text.c: (atk_text_interface_init),
+	(html_a11y_text_get_caret_offset),
+	(html_a11y_text_set_caret_offset): add implementation of get/set
+	_caret_offset method.
+
+2003-07-24  Yuedong Du  <yuedong.du@sun.com>
 
 	* object.c: (gtk_html_a11y_get_focus_object),
 	(gtk_html_a11y_grab_focus_cb), (gtk_html_a11y_cursor_move_cb),
