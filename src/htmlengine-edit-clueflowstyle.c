@@ -39,9 +39,6 @@ typedef struct _ClueFlowProps ClueFlowProps;
 struct _ClueFlowStyleOperation {
 	HTMLUndoData data;
 	
-	/* Whether this is an undo or a redo operation.  */
-	gboolean undo;
-
 	/* Whether we should go backward or forward when re-setting
            the style.  */
 	gboolean forward;
@@ -73,7 +70,7 @@ style_operation_destroy (HTMLUndoData *data)
 }
 
 static ClueFlowStyleOperation *
-style_operation_new (GList *prop_list, gboolean undo, gboolean forward)
+style_operation_new (GList *prop_list, gboolean forward)
 {
 	ClueFlowStyleOperation *op;
 
@@ -83,7 +80,6 @@ style_operation_new (GList *prop_list, gboolean undo, gboolean forward)
 
 	op->data.destroy = style_operation_destroy;
 	op->prop_list    = prop_list;
-	op->undo         = undo;
 	op->forward      = forward;
 
 	return op;
@@ -205,9 +201,9 @@ undo_or_redo (HTMLEngine *engine, HTMLUndoData *data, HTMLUndoDirection dir)
 
 	prop_list = g_list_reverse (prop_list);
 
-	new_op = style_operation_new (prop_list, ! op->undo, op->forward);
+	new_op = style_operation_new (prop_list, op->forward);
 
-	if (new_op->undo)
+	if (dir == HTML_UNDO_REDO)
 		add_undo (engine, new_op);
 	else
 		add_redo (engine, new_op);
@@ -297,7 +293,7 @@ set_clueflow_style_in_region (HTMLEngine *engine,
 	if (! do_undo)
 		return;
 
-	add_undo (engine, style_operation_new (undo_forward ? g_list_reverse (prop_list) : prop_list, TRUE, undo_forward));
+	add_undo (engine, style_operation_new (undo_forward ? g_list_reverse (prop_list) : prop_list, undo_forward));
 }
 
 static void
@@ -328,7 +324,7 @@ set_clueflow_style_at_cursor (HTMLEngine *engine,
 		return;
 	}
 
-	add_undo (engine, style_operation_new (g_list_append (NULL, props), TRUE, TRUE));
+	add_undo (engine, style_operation_new (g_list_append (NULL, props), TRUE));
 }
 
 

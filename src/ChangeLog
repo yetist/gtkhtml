@@ -1,5 +1,10 @@
 2001-07-23  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine-edit-clueflowstyle.c: remove undo field as it's not
+	needed
+	(undo_or_redo): use dir parameter
+	(style_operation_new): remove undo parameter
+
 	* htmlengine-edit-table.c (html_engine_table_goto_0_0): fixed loop
 	condition
 	(html_engine_table_goto_0_0): renamed, exported
