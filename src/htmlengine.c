@@ -3641,12 +3641,12 @@ update_embedded (GtkWidget *widget, gpointer data)
 		
 		/* Then prepare for drawing.  We will only update this object, so we
 		   only allocate enough size for it.  */
-		x = obj->y;
+		x = obj->x;
 		y = obj->y - obj->ascent;
 		width = obj->width;
 		height = obj->ascent + obj->descent;
 
-		html_painter_begin (e->painter, x, y, x + width, y + height);
+		html_painter_begin (e->painter, tx + x, ty + y, tx+ x + width, ty + y + height);
 
 		html_object_draw (obj,
 				  e->painter, 

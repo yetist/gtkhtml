@@ -1,3 +1,8 @@
+2001-08-24  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (update_embedded): fix the x and y offsets of the
+	area we begin the painter on.
+
 2001-08-24  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-search.c (html_engine_search): update to respect
