@@ -131,7 +131,7 @@ gnome_gtkhtml_editor_3_0_LDADD = \
 
 gnome_gtkhtml_editor_3_0_SOURCES = \
 	$(IDL_GENERATED)		\
-	gnome-gtkhtml-editor..c
+	gnome-gtkhtml-editor.c
 
 noinst_LTLIBRARIES = $(MY_NOINSTLIBS)
 

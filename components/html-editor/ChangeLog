@@ -1,3 +1,7 @@
+2003-03-28  JP Rosevear  <jpr@ximian.com>
+
+	* Makefile.am: fix build typo
+
 2003-03-27  Larry Ewing  <lewing@ximian.com>
 
 	* editor-control-factory.c: remove main move it to
