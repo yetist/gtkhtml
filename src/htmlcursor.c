@@ -322,7 +322,7 @@ html_cursor_up (HTMLCursor *cursor,
 			return FALSE;
 		}
 
-		if (prev_y != y) {
+		if (y + cursor->object->descent - 1 < prev_y - prev_cursor.object->ascent) {
 			if (new_line) {
 				html_cursor_copy (cursor, &prev_cursor);
 				return FALSE;
@@ -405,7 +405,7 @@ html_cursor_down (HTMLCursor *cursor,
 			return FALSE;
 		}
 
-		if (prev_y != y) {
+		if (y - cursor->object->ascent > prev_y + prev_cursor.object->descent - 1) {
 			if (new_line) {
 				html_cursor_copy (cursor, &prev_cursor);
 				return FALSE;
@@ -542,11 +542,11 @@ html_cursor_end_of_line (HTMLCursor *cursor,
 		html_object_get_cursor_base (cursor->object, engine->painter, cursor->offset,
 					     &x, &y);
 
-		if (y != prev_y) {
+		if (y - cursor->object->ascent > prev_y + prev_cursor.object->descent - 1) {
 			html_cursor_copy (cursor, &prev_cursor);
 			return TRUE;
 		}
-
+		prev_y = y;
 		html_cursor_copy (&prev_cursor, cursor);
 	}
 }
@@ -578,11 +578,12 @@ html_cursor_beginning_of_line (HTMLCursor *cursor,
 		html_object_get_cursor_base (cursor->object, engine->painter, cursor->offset,
 					     &x, &y);
 
-		if (y != prev_y) {
+		if (y + cursor->object->descent - 1 < prev_y - prev_cursor.object->ascent) {
 			html_cursor_copy (cursor, &prev_cursor);
 			return TRUE;
 		}
 
+		prev_y = y;
 		html_cursor_copy (&prev_cursor, cursor);
 	}
 }

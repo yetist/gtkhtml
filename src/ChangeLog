@@ -1,3 +1,11 @@
+2001-02-01  Radek Doulik  <rodo@ximian.com>
+
+	* htmlcursor.c (html_cursor_end_of_line): take care of objects
+	with different height on one line
+	(html_cursor_beginning_of_line): ditto
+	(html_cursor_up): ditto
+	(html_cursor_down): ditto
+
 2001-02-01  Larry Ewing  <lewing@ximian.com>
 
 	* htmlembedded.c (calc_size): fix the bug I introduced last week
