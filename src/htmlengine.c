@@ -1816,9 +1816,8 @@ parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 static void
 parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 {
-	if (*(str) == 'h' &&
-	    ( *(str+1)=='1' || *(str+1)=='2' || *(str+1)=='3' ||
-	      *(str+1)=='4' || *(str+1)=='5' || *(str+1)=='6' ) ) {
+	if (*str == 'h'
+	    && (str[1] >= '1' && str[1] <= '6')) {
 		HTMLHAlignType align;
 
 		align = p->divAlign;
@@ -1850,9 +1849,8 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 
 		p->pending_para = FALSE;
 		p->avoid_para = TRUE;
-	} else if (*(str) == '/' && *(str + 1) == 'h' &&
-		   ( *(str+2)=='1' || *(str+2)=='2' || *(str+2)=='3' ||
-		     *(str+2)=='4' || *(str+2)=='5' || *(str+2)=='6' )) {
+	} else if (*(str) == '/' && *(str + 1) == 'h'
+		   && (*(str + 2) >= '1' && *(str + 2) <= '6')) {
 		/* Close tag.  */
 		pop_block (p, ID_HEADER, clue);
 		p->avoid_para = TRUE;

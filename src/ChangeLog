@@ -1,3 +1,16 @@
+2000-02-08  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine-print.c (html_engine_print): When you call
+	`html_engine_calc_size()', it uses `html_object_calc_min_size()'
+	to decide the layout width, but the minimum HTMLTable width does
+	not really change before you call `html_object_calc_size()' on it.
+	So, we have to add an extra call to `html_engine_calc_size()'
+	here, to make sure the minimum width is correct when we go back
+	from the GnomePrint painter to the GDK one.
+
+	* htmlengine.c (parse_h): Optimize and make more readable the
+	H[1-6] checks.
+
 2000-02-07  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmltable.c (calc_preferred_width): Do not calc_size.
