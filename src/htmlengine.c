@@ -5165,7 +5165,7 @@ html_engine_get_spell_word (HTMLEngine *e)
 	gchar *word;
 	gint pos;
 	gunichar uc;
-	gboolean cited, cited2;
+	gboolean cited, cited_tmp, cited2;
 
 	cited = FALSE;
 	if (!html_selection_spell_word (html_cursor_get_current_char (e->cursor), &cited) && !cited
@@ -5177,9 +5177,13 @@ html_engine_get_spell_word (HTMLEngine *e)
 	text   = g_string_new (NULL);
 
 	/* move to the beginning of word */
-	cited = FALSE;
-	while (html_selection_spell_word (html_cursor_get_prev_char (cursor), &cited))
+	cited = cited_tmp = FALSE;
+	while (html_selection_spell_word (html_cursor_get_prev_char (cursor), &cited_tmp) || cited_tmp) {
 		html_cursor_backward (cursor, e);
+		if (cited_tmp)
+			cited_tmp = TRUE;
+		cited_tmp = FALSE;
+	}
 
 	/* move to the end of word */
 	cited2 = FALSE;

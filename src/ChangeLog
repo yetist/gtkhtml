@@ -1,3 +1,11 @@
+2003-03-27  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (html_engine_get_spell_word): fix move to the
+	beginning of a word
+
+	* htmlclueflow.c (end_of_word): fix the logic for citation so
+	couldn't is one word and not two
+
 2003-03-26  Radek Doulik  <rodo@ximian.com>
 
 	* htmltextslave.c (draw_spell_errors): as below
