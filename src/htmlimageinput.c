@@ -28,7 +28,7 @@ destroy (HTMLObject *o)
 {
 	html_object_destroy (HTML_OBJECT (HTML_IMAGEINPUT (o)->image));
 
-	HTML_OBJECT_CLASS (&html_element_class)->destroy (o);
+	HTML_OBJECT_CLASS (&html_embedded_class)->destroy (o);
 }
 
 static void
@@ -53,13 +53,13 @@ draw (HTMLObject *o,
 }
 
 static gchar *
-encode (HTMLElement *e)
+encode (HTMLEmbedded *e)
 {
 	GString *encoding = g_string_new ("");
 	gchar *ptr;
 
 	if(strlen (e->name)) {
-		ptr = html_element_encode_string (e->name);
+		ptr = html_embedded_encode_string (e->name);
 		encoding = g_string_assign (encoding, ptr);
 		g_free (ptr);
 
@@ -67,7 +67,7 @@ encode (HTMLElement *e)
 		encoding = g_string_append (encoding, ptr);
 		g_free (ptr);
 
-		ptr = html_element_encode_string (e->name);
+		ptr = html_embedded_encode_string (e->name);
 		encoding = g_string_append (encoding, ptr);
 		g_free (ptr);
 
@@ -92,16 +92,16 @@ void
 html_imageinput_class_init (HTMLImageInputClass *klass,
 			    HTMLType type)
 {
-	HTMLElementClass *element_class;
+	HTMLEmbeddedClass *element_class;
 	HTMLObjectClass *object_class;
 
 
-	element_class = HTML_ELEMENT_CLASS (klass);
+	element_class = HTML_EMBEDDED_CLASS (klass);
 	object_class = HTML_OBJECT_CLASS (klass);
 
-	html_element_class_init (element_class, type);
+	html_embedded_class_init (element_class, type);
 
-	/* HTMLElement methods.  */
+	/* HTMLEmbedded methods.  */
 	element_class->encode = encode;
 
 	/* HTMLObject methods.   */
@@ -115,13 +115,13 @@ html_imageinput_init (HTMLImageInput *img,
 		      HTMLImageFactory *imf,
 		      gchar *name, gchar *url)
 {
-	HTMLElement *element;
+	HTMLEmbedded *element;
 	HTMLObject *object;
 
-	element = HTML_ELEMENT (img);
+	element = HTML_EMBEDDED (img);
 	object = HTML_OBJECT (img);
 
-	html_element_init (element, HTML_ELEMENT_CLASS (klass), NULL, name, NULL);
+	html_embedded_init (element, HTML_EMBEDDED_CLASS (klass), NULL, name, NULL);
 
 	object->width = object->ascent = 32;
 

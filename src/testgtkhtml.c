@@ -16,11 +16,13 @@
     Boston, MA 02111-1307, USA.
 */
 #include <gnome.h>
+#include <gtk/gtk.h>
 #include "config.h"
 #include "debug.h"
 #include "gtkhtml.h"
 #include "htmlurl.h"
 #include "htmlengine.h"
+#include "gtkhtml-embedded.h"
 
 #undef PACKAGE
 #undef VERSION
@@ -116,6 +118,8 @@ static GnomeUIInfo test_menu[] = {
 	  test_cb, GINT_TO_POINTER (8), NULL, 0, 0, 0, 0},
 	{ GNOME_APP_UI_ITEM, "Test 9", "Run test 9 (Form Test)",
 	  test_cb, GINT_TO_POINTER (9), NULL, 0, 0, 0, 0},
+	{ GNOME_APP_UI_ITEM, "Test 10", "Run test 9 (Object Test)",
+	  test_cb, GINT_TO_POINTER (10), NULL, 0, 0, 0, 0},
 	GNOMEUIINFO_END
 };
 
@@ -608,6 +612,32 @@ netin_stream_new (GtkHTMLStreamHandle handle, HTRequest *request)
 	return retval;
 }
 
+/* simulate an async object isntantiation */
+static int
+object_timeout(GtkHTMLEmbedded *eb)
+{
+	GtkWidget *w;
+
+	w = gnome_color_picker_new();
+	gtk_widget_show(w);
+
+	printf("inserting custom widget after a delay ...\n");
+
+	gtk_html_embedded_set_descent(eb, rand()%8);
+	gtk_container_add(GTK_CONTAINER(eb), w);
+	gtk_object_unref(eb);
+	return FALSE;
+}
+
+static void
+object_requested_cmd (GtkHTML *html, GtkHTMLEmbedded *eb, void *data)
+{
+	printf("object requested, wiaint a bit before creating it ...\n");
+
+	gtk_object_ref(eb);
+	gtk_timeout_add(rand() % 5000 + 1000, object_timeout, eb);
+}
+
 static void
 url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpointer data)
 {
@@ -1021,6 +1051,8 @@ main (gint argc, gchar *argv[])
 			    GTK_SIGNAL_FUNC (on_redirect), NULL);
 	gtk_signal_connect (GTK_OBJECT (html), "submit",
 			    GTK_SIGNAL_FUNC (on_submit), NULL);
+	gtk_signal_connect (GTK_OBJECT (html), "object_requested",
+			    GTK_SIGNAL_FUNC (object_requested_cmd), NULL);
 
 #if 0
 	gtk_box_pack_start_defaults (GTK_BOX (hbox), GTK_WIDGET (html));

@@ -33,23 +33,23 @@ destroy (HTMLObject *o)
 	if (ta->default_text)
 		g_free (ta->default_text);
 
-	HTML_OBJECT_CLASS (&html_element_class)->destroy (o);
+	HTML_OBJECT_CLASS (&html_embedded_class)->destroy (o);
 }
 
 static void
-reset (HTMLElement *e)
+reset (HTMLEmbedded *e)
 {
 	html_textarea_set_text ( HTML_TEXTAREA (e), HTML_TEXTAREA (e)->default_text);
 }
 
 static gchar *
-encode (HTMLElement *e)
+encode (HTMLEmbedded *e)
 {
 	GString *encoding = g_string_new ("");
 	gchar *ptr, *ptr2;
 
 	if(strlen (e->name)) {
-		ptr = html_element_encode_string (e->name);
+		ptr = html_embedded_encode_string (e->name);
 		encoding = g_string_append (encoding, ptr);
 		g_free (ptr);
 
@@ -57,7 +57,7 @@ encode (HTMLElement *e)
 
 		ptr2 = gtk_editable_get_chars (GTK_EDITABLE (HTML_TEXTAREA(e)->text), 0, -1);
 
-		ptr = html_element_encode_string ( ptr2 );
+		ptr = html_embedded_encode_string ( ptr2 );
 		encoding = g_string_append (encoding, ptr);
 		g_free (ptr);
 		g_free (ptr2);
@@ -79,16 +79,16 @@ void
 html_textarea_class_init (HTMLTextAreaClass *klass,
 			    HTMLType type)
 {
-	HTMLElementClass *element_class;
+	HTMLEmbeddedClass *element_class;
 	HTMLObjectClass *object_class;
 
 
-	element_class = HTML_ELEMENT_CLASS (klass);
+	element_class = HTML_EMBEDDED_CLASS (klass);
 	object_class = HTML_OBJECT_CLASS (klass);
 
-	html_element_class_init (element_class, type);
+	html_embedded_class_init (element_class, type);
 
-	/* HTMLElement methods.   */
+	/* HTMLEmbedded methods.   */
 	element_class->reset = reset;
 	element_class->encode = encode;
 
@@ -104,14 +104,14 @@ html_textarea_init (HTMLTextArea *ta,
 		      gint row,
 		      gint col)
 {
-	HTMLElement *element;
+	HTMLEmbedded *element;
 	HTMLObject *object;
 	GtkRequisition req;
 
-	element = HTML_ELEMENT (ta);
+	element = HTML_EMBEDDED (ta);
 	object = HTML_OBJECT (ta);
 
-	html_element_init (element, HTML_ELEMENT_CLASS (klass),
+	html_embedded_init (element, HTML_EMBEDDED_CLASS (klass),
 			   parent, name, NULL);
 
 	ta->text = gtk_text_new (NULL, NULL);

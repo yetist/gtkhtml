@@ -51,11 +51,11 @@ destroy (HTMLObject *o)
 		g_list_free (select->strings);
 	}
 
-	HTML_OBJECT_CLASS (&html_element_class)->destroy (o);
+	HTML_OBJECT_CLASS (&html_embedded_class)->destroy (o);
 }
 
 static void
-reset (HTMLElement *e)
+reset (HTMLEmbedded *e)
 {
 	HTMLSelect *s = HTML_SELECT(e);
 	GList *i = s->default_selection;
@@ -79,7 +79,7 @@ reset (HTMLElement *e)
 }
 
 static gchar *
-encode (HTMLElement *e)
+encode (HTMLEmbedded *e)
 {
 	HTMLSelect *s = HTML_SELECT(e);
 	GList *i;
@@ -99,13 +99,13 @@ encode (HTMLElement *e)
 					if (encoding->len) {
 						encoding = g_string_append_c (encoding, '&');
 					}
-					ptr = html_element_encode_string (e->name);
+					ptr = html_embedded_encode_string (e->name);
 					encoding = g_string_append (encoding, ptr);
 					g_free (ptr);
 					
 					encoding = g_string_append_c (encoding, '=');
 					
-					ptr = html_element_encode_string ((gchar *)g_list_nth (s->values, i)->data);
+					ptr = html_embedded_encode_string ((gchar *)g_list_nth (s->values, i)->data);
 					encoding = g_string_append (encoding, ptr);
 					g_free (ptr);
 				}
@@ -113,7 +113,7 @@ encode (HTMLElement *e)
 		} else {
 			gint item;
 
-			ptr = html_element_encode_string (e->name);
+			ptr = html_embedded_encode_string (e->name);
 			encoding = g_string_assign (encoding, ptr);
 			g_free (ptr);
 			encoding = g_string_append_c (encoding, '=');
@@ -126,7 +126,7 @@ encode (HTMLElement *e)
 
 				if (strcmp(txt, (gchar *)i->data) == 0) {
 
-					ptr = html_element_encode_string ((gchar *)g_list_nth (s->values, item)->data);
+					ptr = html_embedded_encode_string ((gchar *)g_list_nth (s->values, item)->data);
 					encoding = g_string_append (encoding, ptr);
 					g_free (ptr);
 					
@@ -154,16 +154,16 @@ void
 html_select_class_init (HTMLSelectClass *klass,
 			    HTMLType type)
 {
-	HTMLElementClass *element_class;
+	HTMLEmbeddedClass *element_class;
 	HTMLObjectClass *object_class;
 
 
-	element_class = HTML_ELEMENT_CLASS (klass);
+	element_class = HTML_EMBEDDED_CLASS (klass);
 	object_class = HTML_OBJECT_CLASS (klass);
 
-	html_element_class_init (element_class, type);
+	html_embedded_class_init (element_class, type);
 
-	/* HTMLElement methods.   */
+	/* HTMLEmbedded methods.   */
 	element_class->reset = reset;
 	element_class->encode = encode;
 
@@ -180,14 +180,14 @@ html_select_init (HTMLSelect *select,
 		      gboolean multi)
 {
 
-	HTMLElement *element;
+	HTMLEmbedded *element;
 	HTMLObject *object;
 	GtkRequisition req;
 
-	element = HTML_ELEMENT (select);
+	element = HTML_EMBEDDED (select);
 	object = HTML_OBJECT (select);
 
-	html_element_init (element, HTML_ELEMENT_CLASS (klass),
+	html_embedded_init (element, HTML_EMBEDDED_CLASS (klass),
 			   parent, name, NULL);
 
 	if (size > 1 || multi) {
@@ -262,7 +262,7 @@ void html_select_add_option (HTMLSelect *select,
 			gtk_clist_unselect_row (GTK_CLIST(w), 0, 0);
 		}
 	} else {
-		w = HTML_ELEMENT (select)->widget;
+		w = HTML_EMBEDDED (select)->widget;
 		select->strings = g_list_append (select->strings, "");
 		gtk_combo_set_popdown_strings (GTK_COMBO(w), select->strings);
 
@@ -300,7 +300,7 @@ longest_string(HTMLSelect *s)
 void html_select_set_text (HTMLSelect *select, 
 			   gchar *text) 
 {
-	GtkWidget *w = GTK_WIDGET (HTML_ELEMENT (select)->widget);
+	GtkWidget *w = GTK_WIDGET (HTML_EMBEDDED (select)->widget);
 	gint item;
 
 	if(select->size > 1 || select->multi) {
@@ -319,7 +319,7 @@ void html_select_set_text (HTMLSelect *select,
 		gtk_widget_set_usize ( w, HTML_OBJECT(select)->width, -2);
 	} else {
 		item = g_list_length (select->strings) - 1;
-		w = HTML_ELEMENT (select)->widget;
+		w = HTML_EMBEDDED (select)->widget;
 		g_list_last (select->strings)->data = g_strdup (text);
 		gtk_combo_set_popdown_strings (GTK_COMBO(w), select->strings);
 

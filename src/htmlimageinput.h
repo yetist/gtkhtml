@@ -22,7 +22,7 @@
 #define _HTMLIMAGEINPUT_H_
 
 #include "htmlimage.h"
-#include "htmlelement.h"
+#include "htmlembedded.h"
 
 #define HTML_IMAGEINPUT(x) ((HTMLImageInput *) (x))
 #define HTML_IMAGEINPUT_CLASS(x) ((HTMLImageInputClass *) (x))
@@ -31,14 +31,14 @@ typedef struct _HTMLImageInput HTMLImageInput;
 typedef struct _HTMLImageInputClass HTMLImageInputClass;
 
 struct _HTMLImageInput {
-	HTMLElement element;
+	HTMLEmbedded element;
 
         HTMLImage *image;
 	gint m_x, m_y;
 };
 
 struct _HTMLImageInputClass {
-	HTMLElementClass element_class;
+	HTMLEmbeddedClass element_class;
 };
 
 

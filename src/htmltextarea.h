@@ -21,7 +21,7 @@
 #ifndef _HTMLTEXTAREA_H_
 #define _HTMLTEXTAREA_H_
 
-#include "htmlelement.h"
+#include "htmlembedded.h"
 
 #define HTML_TEXTAREA(x) ((HTMLTextArea *) (x))
 #define HTML_TEXTAREA_CLASS(x) ((HTMLTextAreaClass *) (x))
@@ -30,7 +30,7 @@
 typedef struct _HTMLTextAreaClass HTMLTextAreaClass;
 
 struct _HTMLTextArea {
-	HTMLElement element;
+	HTMLEmbedded element;
 
 	GtkWidget *text;
 
@@ -38,7 +38,7 @@ struct _HTMLTextArea {
 };
 
 struct _HTMLTextAreaClass {
-	HTMLElementClass element_class;
+	HTMLEmbeddedClass element_class;
 };
 
 

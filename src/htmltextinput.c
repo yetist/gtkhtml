@@ -33,29 +33,29 @@ destroy (HTMLObject *o)
 	if (ti->default_text)
 		g_free (ti->default_text);
 
-	HTML_OBJECT_CLASS (&html_element_class)->destroy (o);
+	HTML_OBJECT_CLASS (&html_embedded_class)->destroy (o);
 }
 
 static void
-reset (HTMLElement *e)
+reset (HTMLEmbedded *e)
 {
 	gtk_entry_set_text (GTK_ENTRY(e->widget), HTML_TEXTINPUT(e)->default_text);
 }
 
 static gchar *
-encode (HTMLElement *e)
+encode (HTMLEmbedded *e)
 {
 	GString *encoding = g_string_new ("");
 	gchar *ptr;
 
 	if(strlen (e->name)) {
-		ptr = html_element_encode_string (e->name);
+		ptr = html_embedded_encode_string (e->name);
 		encoding = g_string_append (encoding, ptr);
 		g_free (ptr);
 
 		encoding = g_string_append_c (encoding, '=');
 
-		ptr = html_element_encode_string (gtk_entry_get_text (GTK_ENTRY (e->widget)));
+		ptr = html_embedded_encode_string (gtk_entry_get_text (GTK_ENTRY (e->widget)));
 		encoding = g_string_append (encoding, ptr);
 		g_free (ptr);
 	}
@@ -76,16 +76,16 @@ void
 html_text_input_class_init (HTMLTextInputClass *klass,
 			    HTMLType type)
 {
-	HTMLElementClass *element_class;
+	HTMLEmbeddedClass *element_class;
 	HTMLObjectClass *object_class;
 
 
-	element_class = HTML_ELEMENT_CLASS (klass);
+	element_class = HTML_EMBEDDED_CLASS (klass);
 	object_class = HTML_OBJECT_CLASS (klass);
 
-	html_element_class_init (element_class, type);
+	html_embedded_class_init (element_class, type);
 
-	/* HTMLElement methods.   */
+	/* HTMLEmbedded methods.   */
 	element_class->reset = reset;
 	element_class->encode = encode;
 
@@ -104,14 +104,14 @@ html_text_input_init (HTMLTextInput *ti,
 		      gboolean password)
 {
 
-	HTMLElement *element;
+	HTMLEmbedded *element;
 	HTMLObject *object;
 	GtkRequisition req;
 
-	element = HTML_ELEMENT (ti);
+	element = HTML_EMBEDDED (ti);
 	object = HTML_OBJECT (ti);
 
-	html_element_init (element, HTML_ELEMENT_CLASS (klass),
+	html_embedded_init (element, HTML_EMBEDDED_CLASS (klass),
 			   parent, name, value);
 
 	element->widget = gtk_entry_new();

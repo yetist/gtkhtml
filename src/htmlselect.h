@@ -21,7 +21,7 @@
 #ifndef _HTMLSELECT_H_
 #define _HTMLSELECT_H_
 
-#include "htmlelement.h"
+#include "htmlembedded.h"
 
 #define HTML_SELECT(x) ((HTMLSelect *) (x))
 #define HTML_SELECT_CLASS(x) ((HTMLSelectClass *) (x))
@@ -30,7 +30,7 @@
 typedef struct _HTMLSelectClass HTMLSelectClass;
 
 struct _HTMLSelect {
-	HTMLElement element;
+	HTMLEmbedded element;
 	gint size;
 	gboolean multi;
 
@@ -44,7 +44,7 @@ struct _HTMLSelect {
 };
 
 struct _HTMLSelectClass {
-	HTMLElementClass element_class;
+	HTMLEmbeddedClass element_class;
 };
 
 

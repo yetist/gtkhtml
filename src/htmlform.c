@@ -40,17 +40,17 @@ html_form_new (HTMLEngine *engine, gchar *_action, gchar *_method) {
 }
 
 void
-html_form_add_element (HTMLForm *form, HTMLElement *element)
+html_form_add_element (HTMLForm *form, HTMLEmbedded *element)
 {
 	form->elements = g_list_append (form->elements, element);
 
-	html_element_set_form (element, form);
+	html_embedded_set_form (element, form);
 }
 
 void
 html_form_add_hidden (HTMLForm *form, HTMLHidden *hidden)
 {
-	html_form_add_element (form, HTML_ELEMENT (hidden));
+	html_form_add_element (form, HTML_EMBEDDED (hidden));
 
 	form->hidden = g_list_append (form->hidden, hidden);
 }
@@ -64,7 +64,7 @@ destroy_hidden (gpointer o, gpointer data)
 static void
 reset_element (gpointer o, gpointer data)
 {
-	html_element_reset (HTML_ELEMENT (o));
+	html_embedded_reset (HTML_EMBEDDED (o));
 }
 
 void
@@ -93,7 +93,7 @@ html_form_submit (HTMLForm *form)
 	gchar *ptr;
 
 	while (i) {
-		ptr = html_element_encode (HTML_ELEMENT (i->data));
+		ptr = html_embedded_encode (HTML_EMBEDDED (i->data));
 
 		if (strlen (ptr)) {
 			if(!first)

@@ -21,6 +21,8 @@ libgtkhtml_HEADERS =				\
 	htmlcursor.h				\
 	htmldrawqueue.h				\
 	htmlengine.h				\
+	htmlembedded.h				\
+	gtkhtml-embedded.h			\
 	htmlcolorset.h				\
 	htmlengine-edit.h			\
 	htmlengine-save.h			\
@@ -47,7 +49,6 @@ libgtkhtml_HEADERS =				\
 	htmlvspace.h				\
 	stringtokenizer.h			\
 	htmlform.h				\
-	htmlelement.h				\
 	htmlbutton.h				\
 	htmltextinput.h				\
 	htmlradio.h				\
@@ -70,6 +71,8 @@ libgtkhtml_la_SOURCES =				\
 	htmlcursor.c				\
 	htmldrawqueue.c				\
 	htmlengine.c				\
+	htmlembedded.c				\
+	gtkhtml-embedded.c			\
 	htmlengine-edit.c			\
 	htmlengine-save.c			\
 	htmlcolorset.c				\
@@ -95,7 +98,6 @@ libgtkhtml_la_SOURCES =				\
 	htmlvspace.c				\
 	stringtokenizer.c			\
 	htmlform.c				\
-	htmlelement.c				\
 	htmlbutton.c				\
 	htmltextinput.c				\
 	htmlradio.c				\

@@ -27,7 +27,7 @@ static void
 clicked_event (GtkWidget *widget, gpointer data)
 {
 	HTMLButton *b = HTML_BUTTON (data);
-	HTMLElement *e = HTML_ELEMENT (data);
+	HTMLEmbedded *e = HTML_EMBEDDED (data);
 
 	switch (b->type) {
 	case BUTTON_SUBMIT:
@@ -52,14 +52,14 @@ void
 html_button_class_init (HTMLButtonClass *klass,
 			HTMLType type)
 {
-	HTMLElementClass *element_class;
+	HTMLEmbeddedClass *element_class;
 	HTMLObjectClass *object_class;
 
 
-	element_class = HTML_ELEMENT_CLASS (klass);
+	element_class = HTML_EMBEDDED_CLASS (klass);
 	object_class = HTML_OBJECT_CLASS (klass);
 
-	html_element_class_init (element_class, type);
+	html_embedded_class_init (element_class, type);
 }
 
 void
@@ -69,14 +69,14 @@ html_button_init (HTMLButton *button,
 		  gchar *name, gchar *value,
 		  HTMLButtonType type)
 {
-	HTMLElement *element;
+	HTMLEmbedded *element;
 	HTMLObject *object;
 	GtkRequisition req;
 
-	element = HTML_ELEMENT (button);
+	element = HTML_EMBEDDED (button);
 	object = HTML_OBJECT (button);
 
-	html_element_init (element, HTML_ELEMENT_CLASS (klass), parent, name, value);
+	html_embedded_init (element, HTML_EMBEDDED_CLASS (klass), parent, name, value);
 	
 	if( strlen (element->value))
 		element->widget = gtk_button_new_with_label (element->value);

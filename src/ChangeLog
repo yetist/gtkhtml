@@ -1,3 +1,58 @@
+2000-01-26  NotZed  <notzed@zedzone.helixcode.com>
+
+	* Makefile.am (libgtkhtml_HEADERS): Renamed htmlelement.h,
+	to htmlembedded.h, added gtkhtml-embedded.h.
+
+	* testgtkhtml.c (object_requested_cmd): Add a signal handler for
+	testing custom widgets using the object specifier.
+
+	* htmlengine.c (html_engine_class_init): Create object_requested
+	signal.
+
+	* gtkhtml.c (gtk_html_new): Link to object_requested signal of
+	htmlengine to proxy the call.
+	(class_init): Create the new object_requested signal.
+	(html_engine_object_requested_cb): Implement the signal proxy.
+
+	* htmlengine.c (html_engine_stop_parser): Clear timerID if we
+	remove the timeout.
+	(html_object_changed): Use schedule_update to update, dont update
+	directly.
+
+	* htmlembedded.c (html_embedded_size_recalc): Force a size
+	recalculation of an embedded widget.
+	(html_embedded_new_widget): Create a new html embedded element
+	from a htmlembedded widget.
+
+	* htmlelement.[ch]: Renamed to htmlembedded.[ch], should probably
+	be somehting more different to gtkhtml-embedded, but its not that
+	hard to change.
+	
+	* htmlengine.c (html_engine_init): Initialise the embeddedStack, a
+	stack of gtkhtmlembedded widgets.
+	(html_engine_destroy): Destroy the embeddedStack.
+
+	* gtkhtml.h: Added object_requested signal, for embedding widgets.
+
+	* htmlengine.h (HTMLEngine): Added embeddedStack for embedded
+	widgets.
+	(HTMLEngineClass): Added object_requested signal, for embedding
+	object widgets.
+
+	* htmlengine.c (html_object_changed): Called when an embedded
+	changes, causes a re-layout.  This should probably be queued until
+	an idle time.
+	(parse_o): Added support for <OBJECT> element.  Returns a callback
+	"object_requested" to application.  The semantic of having
+	alternative text for non-instantiationable objects is not
+	implemented.
+	(parse_p): Added <PARAM> element, for object parameters.
+
+	* gtkhtml-embedded.c/h: New object.  A container object for
+	embeddeing custom widgets into gtk-html.  It basically notifies
+	the caller when its content or layout information about it
+	changes.
+
 2000-01-26  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmllinktextmaster.c (save): New function, implementing
@@ -51,6 +106,11 @@
 	buffer.
 	(html_engine_save_encode_string): New to write an encoded
 	zero-terminated string.
+
+2000-01-25  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlclue.c (destroy): Always ensure the tree is in a valid state
+	by removing the clue node before destroying it.
 
 2000-01-25  Ettore Perazzoli  <ettore@helixcode.com>
 

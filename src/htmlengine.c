@@ -95,6 +95,7 @@ enum {
 	DRAW_PENDING,
 	REDIRECT,
 	SUBMIT,
+	OBJECT_REQUESTED,
 	LAST_SIGNAL
 };
 	
@@ -201,6 +202,7 @@ pop_clueflow_style (HTMLEngine *e)
 {
 	html_stack_pop (e->clueflow_style_stack);
 }
+
 
 
 /* Utility functions.  */
@@ -1188,7 +1190,7 @@ parse_input (HTMLEngine *e, const gchar *str, HTMLObject *_clue) {
 	if (element) {
 
 		append_element (e, _clue, element);
-		html_form_add_element (e->form, HTML_ELEMENT (element));
+		html_form_add_element (e->form, HTML_EMBEDDED (element));
 	}
 
 	if (name)
@@ -2112,6 +2114,21 @@ parse_m (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 
 /* FIXME TODO parse_n missing. */
 
+/* called when some state in an embedded html object has changed ... do a redraw */
+static void
+html_object_changed(GtkHTMLEmbedded *eb, HTMLEngine *e)
+{
+	void html_engine_schedule_update (HTMLEngine *p);
+	static gboolean html_engine_update_event (HTMLEngine *e);
+	HTMLEmbedded *el;
+
+	el = gtk_object_get_data(GTK_OBJECT(eb), "embeddedelement");
+	if (el) {
+		html_embedded_size_recalc(el);
+	}
+	html_engine_schedule_update(e);
+}
+
 
 /*
 <ol>             </ol>           partial
@@ -2209,6 +2226,60 @@ parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 			html_select_set_text (e->formSelect, e->formText->str);
 
 		e->inOption = FALSE;
+	} else if ( strncmp( str, "object", 6 ) == 0 ) {
+		char *classid=NULL, *name=NULL;
+		int width=-1,height=-1;
+
+		string_tokenizer_tokenize( e->st, str + 7, " >" );
+
+		/* this might have to do something different for form object
+		   elements - check the spec MPZ */
+		while ( string_tokenizer_has_more_tokens (e->st) ) {
+			const char* token;
+
+			token = string_tokenizer_next_token (e->st);
+			if ( strncasecmp( token, "classid=", 8 ) == 0 ) {
+				classid = g_strdup(token+8);
+			} else if ( strncasecmp( token, "name=", 6 ) == 0 ) {
+				name = g_strdup(token+6);
+			} else if ( strncasecmp( token, "width=", 6 ) == 0 ) {
+				width = atoi(token+6);
+			} else if ( strncasecmp( token, "height=", 7 ) == 0 ) {
+				height = atoi(token+7);
+			}
+		}
+
+		if (classid) {
+			GtkHTMLEmbedded *eb;
+
+			eb = (GtkHTMLEmbedded *)gtk_html_embedded_new(classid, name, width, height);
+			html_stack_push (e->embeddedStack, eb);
+			g_free(classid);
+			g_free(name);
+		} else {
+			g_warning("Object with no classid, ignored\n");
+		}
+
+	} else if ( strncmp( str, "/object", 7 ) == 0 ) {
+
+		if (! html_stack_is_empty (e->embeddedStack)) {
+			HTMLEmbedded *el;
+			GtkHTMLEmbedded *eb;
+
+			eb = html_stack_pop (e->embeddedStack);
+
+			gtk_signal_emit (GTK_OBJECT (e), signals[OBJECT_REQUESTED], eb);
+
+			el = html_embedded_new_widget(e->widget, eb);
+			gtk_object_set_data(GTK_OBJECT(eb), "embeddedelement", el);
+			gtk_signal_connect(GTK_OBJECT(eb), "changed", html_object_changed, e);
+
+			append_element(e, _clue, HTML_OBJECT(el));
+			/* automatically add this to a form if it is part of one */
+			if (e->form) {
+				html_form_add_element (e->form, HTML_EMBEDDED (el));
+			}
+		}
 	}
 }
 
@@ -2228,6 +2299,28 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	} else if ( strncmp( str, "/pre", 4 ) == 0 ) {
 		pop_block (e, ID_PRE, clue);
 		close_flow (e, clue);
+	} else if ( strncmp( str, "param", 5) == 0 ) {
+		if (! html_stack_is_empty (e->embeddedStack)) {
+			GtkHTMLEmbedded *eb;
+			char *name = NULL, *value = NULL;
+
+			eb = html_stack_top (e->embeddedStack);
+			string_tokenizer_tokenize (e->st, str + 6, " >");
+			while ( string_tokenizer_has_more_tokens (e->st) ) {
+				const char *token = string_tokenizer_next_token (e->st);
+				if ( strncasecmp( token, "name=", 5 ) == 0 ) {
+					name = g_strdup(token+5);
+				} else if ( strncasecmp( token, "value=", 6 ) == 0 ) {
+					value = g_strdup(token+6);
+				}
+			}
+
+			if (name!=NULL) {
+				gtk_html_embedded_set_parameter(eb, name, value);
+			}
+			g_free(name);
+			g_free(value);
+		}					
 	} else if (*(str) == 'p' && ( *(str + 1) == ' ' || *(str + 1) == '>')) {
 		if (! e->avoid_para) {
 			HTMLHAlignType align;
@@ -2304,7 +2397,7 @@ parse_s (HTMLEngine *e, HTMLObject *clue, const gchar *str)
                 }
                 
                 e->formSelect = HTML_SELECT (html_select_new (GTK_WIDGET(e->widget), name, size, multi));
-                html_form_add_element (e->form, HTML_ELEMENT ( e->formSelect ));
+                html_form_add_element (e->form, HTML_EMBEDDED ( e->formSelect ));
 
 		append_element (e, clue, HTML_OBJECT (e->formSelect));
 		
@@ -2380,7 +2473,7 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
                 }
                 
                 e->formTextArea = HTML_TEXTAREA (html_textarea_new (GTK_WIDGET(e->widget), name, rows, cols));
-                html_form_add_element (e->form, HTML_ELEMENT ( e->formTextArea ));
+                html_form_add_element (e->form, HTML_EMBEDDED ( e->formTextArea ));
 
 		append_element (e, clue, HTML_OBJECT (e->formTextArea));
 
@@ -2582,6 +2675,7 @@ html_engine_destroy (GtkObject *object)
 
 	html_stack_destroy (engine->listStack);
 	html_stack_destroy (engine->glossaryStack);
+	html_stack_destroy (engine->embeddedStack);
 
 	for (p = engine->tempStrings; p != NULL; p = p->next)
 		g_free (p->data);
@@ -2674,6 +2768,15 @@ html_engine_class_init (HTMLEngineClass *klass)
 				GTK_TYPE_STRING,
 				GTK_TYPE_STRING);
 
+	signals [OBJECT_REQUESTED] =
+		gtk_signal_new ("object_requested",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (HTMLEngineClass, object_requested),
+				gtk_marshal_NONE__POINTER,
+				GTK_TYPE_NONE, 1,
+				GTK_TYPE_POINTER);
+
 	gtk_object_class_add_signals (object_class, signals, LAST_SIGNAL);
 
 	object_class->destroy = html_engine_destroy;
@@ -2711,6 +2814,7 @@ html_engine_init (HTMLEngine *engine)
 
 	engine->listStack = html_stack_new ((HTMLStackFreeFunc) html_list_destroy);
 	engine->glossaryStack = html_stack_new (NULL);
+	engine->embeddedStack = html_stack_new ((HTMLStackFreeFunc) gtk_object_unref);
 
 	engine->url = NULL;
 	engine->target = NULL;
@@ -2818,8 +2922,10 @@ html_engine_stop_parser (HTMLEngine *e)
 	if (!e->parsing)
 		return;
 
-	if (e->timerId != 0)
+	if (e->timerId != 0) {
 		gtk_timeout_remove (e->timerId);
+		/*		e->timerId = 0;*/
+	}
 	
 	e->parsing = FALSE;
 

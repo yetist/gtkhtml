@@ -40,6 +40,7 @@ typedef struct _HTMLEngineClass HTMLEngineClass;
 #include "htmlsettings.h"
 #include "htmlpainter.h"
 #include "stringtokenizer.h"
+#include "gtkhtml-embedded.h"
 
 #define HTML_TYPE_ENGINE                 (html_engine_get_type ())
 #define HTML_ENGINE(obj)                 (GTK_CHECK_CAST ((obj), HTML_TYPE_ENGINE, HTMLEngine))
@@ -154,6 +155,9 @@ struct _HTMLEngine {
 	/* Stack of lists currently active */
 	HTMLStack *listStack;
 
+	/* Stack of embedded "object"'s */
+	HTMLStack *embeddedStack;
+
 	/* the widget, used for signal emission*/
 	GtkHTML *widget;
 
@@ -188,6 +192,9 @@ struct _HTMLEngine {
 	gboolean pending_para : 1;
 };
 
+/* must be forward referenced *sigh* */
+struct _HTMLEmbedded;
+
 struct _HTMLEngineClass {
 	GtkObjectClass parent_class;
 	
@@ -199,6 +206,7 @@ struct _HTMLEngineClass {
 	void (* draw_pending) (HTMLEngine *engine);
         void (* redirect) (HTMLEngine *engine, const char *url, int delay);
         void (* submit) (HTMLEngine *engine, const gchar *method, const gchar *action, const gchar *encoding);
+	void (* object_requested) (HTMLEngine *engine, GtkHTMLEmbedded *);
 };
 
 

@@ -21,7 +21,7 @@
 #ifndef _HTMLRADIO_H_
 #define _HTMLRADIO_H_
 
-#include "htmlelement.h"
+#include "htmlembedded.h"
 
 #define HTML_RADIO(x) ((HTMLRadio *) (x))
 #define HTML_RADIO_CLASS(x) ((HTMLRadioClass *) (x))
@@ -30,12 +30,12 @@ typedef struct _HTMLRadio HTMLRadio;
 typedef struct _HTMLRadioClass HTMLRadioClass;
 
 struct _HTMLRadio {
-	HTMLElement element;
+	HTMLEmbedded element;
 	gint default_checked;
 };
 
 struct _HTMLRadioClass {
-	HTMLElementClass element_class;
+	HTMLEmbeddedClass element_class;
 };
 
 

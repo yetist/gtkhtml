@@ -21,7 +21,7 @@
 #ifndef _HTMLCHECKBOX_H_
 #define _HTMLCHECKBOX_H_
 
-#include "htmlelement.h"
+#include "htmlembedded.h"
 
 #define HTML_CHECKBOX(x) ((HTMLCheckBox *) (x))
 #define HTML_CHECKBOX_CLASS(x) ((HTMLCheckBoxClass *) (x))
@@ -30,12 +30,12 @@ typedef struct _HTMLCheckBox HTMLCheckBox;
 typedef struct _HTMLCheckBoxClass HTMLCheckBoxClass;
 
 struct _HTMLCheckBox {
-	HTMLElement element;
+	HTMLEmbedded element;
 	gint default_checked;
 };
 
 struct _HTMLCheckBoxClass {
-	HTMLElementClass element_class;
+	HTMLEmbeddedClass element_class;
 };
 
 

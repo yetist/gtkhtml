@@ -23,7 +23,7 @@
 HTMLCheckBoxClass html_checkbox_class;
 
 static void
-reset (HTMLElement *e)
+reset (HTMLEmbedded *e)
 {
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(e->widget), HTML_CHECKBOX(e)->default_checked);
 }
@@ -38,16 +38,16 @@ void
 html_checkbox_class_init (HTMLCheckBoxClass *klass,
 			HTMLType type)
 {
-	HTMLElementClass *element_class;
+	HTMLEmbeddedClass *element_class;
 	HTMLObjectClass *object_class;
 
 
-	element_class = HTML_ELEMENT_CLASS (klass);
+	element_class = HTML_EMBEDDED_CLASS (klass);
 	object_class = HTML_OBJECT_CLASS (klass);
 
-	html_element_class_init (element_class, type);
+	html_embedded_class_init (element_class, type);
 
-	/* HTMLElement methods.   */
+	/* HTMLEmbedded methods.   */
 	element_class->reset = reset;
 }
 
@@ -59,14 +59,14 @@ html_checkbox_init (HTMLCheckBox *checkbox,
 		    gchar *value, 
 		    gboolean checked) 
 {
-	HTMLElement *element;
+	HTMLEmbedded *element;
 	HTMLObject *object;
 	GtkRequisition req;
 
-	element = HTML_ELEMENT (checkbox);
+	element = HTML_EMBEDDED (checkbox);
 	object = HTML_OBJECT (checkbox);
 
-	html_element_init (element, HTML_ELEMENT_CLASS (klass), parent, name, value);
+	html_embedded_init (element, HTML_EMBEDDED_CLASS (klass), parent, name, value);
 
 	element->widget = gtk_toggle_button_new();
 

@@ -31,7 +31,7 @@
 #include "htmlclueflow.h"
 #include "htmlclueh.h"
 #include "htmlcluev.h"
-#include "htmlelement.h"
+#include "htmlembedded.h"
 #include "htmlhidden.h"
 #include "htmlimage.h"
 #include "htmlimageinput.h"
@@ -69,7 +69,7 @@ html_types_init (void)
 	html_clueflow_type_init ();
 	html_clueh_type_init ();
 	html_cluev_type_init ();
-	html_element_type_init ();
+	html_embedded_type_init ();
 	html_hidden_type_init ();
 	html_image_type_init ();
 	html_imageinput_type_init ();

@@ -21,7 +21,7 @@
 #ifndef _HTMLTEXTINPUT_H_
 #define _HTMLTEXTINPUT_H_
 
-#include "htmlelement.h"
+#include "htmlembedded.h"
 
 #define HTML_TEXTINPUT(x) ((HTMLTextInput *) (x))
 #define HTML_TEXTINPUT_CLASS(x) ((HTMLTextInputClass *) (x))
@@ -30,7 +30,7 @@ typedef struct _HTMLTextInput HTMLTextInput;
 typedef struct _HTMLTextInputClass HTMLTextInputClass;
 
 struct _HTMLTextInput {
-	HTMLElement element;
+	HTMLEmbedded element;
 	gint size, maxlen;
 	gboolean password;
 
@@ -38,7 +38,7 @@ struct _HTMLTextInput {
 };
 
 struct _HTMLTextInputClass {
-	HTMLElementClass element_class;
+	HTMLEmbeddedClass element_class;
 };
 
 

@@ -34,10 +34,13 @@ HTMLClueClass html_clue_class;
 static void
 destroy (HTMLObject *o)
 {
+	HTMLClue *c;
+
 	while (HTML_CLUE (o)->head) {
 		HTML_CLUE (o)->curr = HTML_CLUE (o)->head->next;
-		html_object_destroy (HTML_CLUE (o)->head);
+		c = HTML_CLUE(o)->head;
 		HTML_CLUE (o)->head = HTML_CLUE (o)->curr;
+		html_object_destroy (c);
 	}
 
 	HTML_OBJECT_CLASS (&html_object_class)->destroy (o);

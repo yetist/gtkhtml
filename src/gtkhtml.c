@@ -25,6 +25,8 @@
 #include "htmlengine-edit.h"
 #include "gtkhtml-private.h"
 
+#include "gtkhtml-embedded.h"
+
 
 static GtkLayoutClass *parent_class = NULL;
 
@@ -38,6 +40,7 @@ enum {
 	ON_URL,
 	REDIRECT,
 	SUBMIT,
+	OBJECT_REQUESTED,
 	LAST_SIGNAL
 };
 static guint signals [LAST_SIGNAL] = { 0 };
@@ -161,6 +164,18 @@ html_engine_submit_cb (HTMLEngine *engine,
 	gtk_html = GTK_HTML (data);
 
 	gtk_signal_emit (GTK_OBJECT (gtk_html), signals[SUBMIT], method, url, encoding);
+}
+
+static void
+html_engine_object_requested_cb (HTMLEngine *engine,
+		       GtkHTMLEmbedded *eb,
+		       gpointer data)
+{
+	GtkHTML *gtk_html;
+
+	gtk_html = GTK_HTML (data);
+
+	gtk_signal_emit (GTK_OBJECT (gtk_html), signals[OBJECT_REQUESTED], eb);
 }
 
 
@@ -645,6 +660,15 @@ class_init (GtkHTMLClass *klass)
 				GTK_TYPE_STRING,
 				GTK_TYPE_STRING,
 				GTK_TYPE_STRING);
+
+	signals [OBJECT_REQUESTED] =
+		gtk_signal_new ("object_requested",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (GtkHTMLClass, object_requested),
+				gtk_marshal_NONE__POINTER,
+				GTK_TYPE_NONE, 1,
+				GTK_TYPE_POINTER);
 	
 	gtk_object_class_add_signals (object_class, signals, LAST_SIGNAL);
 
@@ -739,6 +763,8 @@ gtk_html_new (void)
 			    GTK_SIGNAL_FUNC (html_engine_redirect_cb), html);
 	gtk_signal_connect (GTK_OBJECT (html->engine), "submit",
 			    GTK_SIGNAL_FUNC (html_engine_submit_cb), html);
+	gtk_signal_connect (GTK_OBJECT (html->engine), "object_requested",
+			    GTK_SIGNAL_FUNC (html_engine_object_requested_cb), html);
 
 	return GTK_WIDGET (html);
 }

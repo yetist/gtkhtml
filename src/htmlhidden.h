@@ -21,7 +21,7 @@
 #ifndef _HTMLHIDDEN_H_
 #define _HTMLHIDDEN_H_
 
-#include "htmlelement.h"
+#include "htmlembedded.h"
 
 #define HTML_HIDDEN(x) ((HTMLHidden *) (x))
 #define HTML_HIDDEN_CLASS(x) ((HTMLHiddenClass *) (x))
@@ -30,11 +30,11 @@ typedef struct _HTMLHidden HTMLHidden;
 typedef struct _HTMLHiddenClass HTMLHiddenClass;
 
 struct _HTMLHidden {
-	HTMLElement element;
+	HTMLEmbedded element;
 };
 
 struct _HTMLHiddenClass {
-	HTMLElementClass element_class;
+	HTMLEmbeddedClass element_class;
 };
 
 

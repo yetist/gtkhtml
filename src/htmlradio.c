@@ -23,7 +23,7 @@
 HTMLRadioClass html_radio_class;
 
 static void
-reset (HTMLElement *e)
+reset (HTMLEmbedded *e)
 {
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(e->widget), HTML_RADIO(e)->default_checked);
 }
@@ -38,16 +38,16 @@ void
 html_radio_class_init (HTMLRadioClass *klass,
 		       HTMLType type)
 {
-	HTMLElementClass *element_class;
+	HTMLEmbeddedClass *element_class;
 	HTMLObjectClass *object_class;
 
 
-	element_class = HTML_ELEMENT_CLASS (klass);
+	element_class = HTML_EMBEDDED_CLASS (klass);
 	object_class = HTML_OBJECT_CLASS (klass);
 
-	html_element_class_init (element_class, type);
+	html_embedded_class_init (element_class, type);
 
-	/* HTMLElement methods.   */
+	/* HTMLEmbedded methods.   */
 	element_class->reset = reset;
 }
 
@@ -59,14 +59,14 @@ html_radio_init (HTMLRadio *radio,
 		 gchar *value, 
 		 gboolean checked)
 {
-	HTMLElement *element;
+	HTMLEmbedded *element;
 	HTMLObject *object;
 	GtkRequisition req;
 
-	element = HTML_ELEMENT (radio);
+	element = HTML_EMBEDDED (radio);
 	object = HTML_OBJECT (radio);
 
-	html_element_init (element, HTML_ELEMENT_CLASS (klass), parent, name, value);
+	html_embedded_init (element, HTML_EMBEDDED_CLASS (klass), parent, name, value);
 
 	element->widget = gtk_radio_button_new (NULL);
 

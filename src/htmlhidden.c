@@ -23,19 +23,19 @@
 HTMLHiddenClass html_hidden_class;
 
 static gchar *
-encode (HTMLElement *e)
+encode (HTMLEmbedded *e)
 {
 	GString *encoding = g_string_new ("");
 	gchar *ptr;
 
 	if(strlen (e->name)) {
-		ptr = html_element_encode_string (e->name);
+		ptr = html_embedded_encode_string (e->name);
 		encoding = g_string_append (encoding, ptr);
 		g_free (ptr);
 
 		encoding = g_string_append_c (encoding, '=');
 
-		ptr = html_element_encode_string (e->value);
+		ptr = html_embedded_encode_string (e->value);
 		encoding = g_string_append (encoding, ptr);
 		g_free (ptr);
 	}
@@ -54,14 +54,14 @@ void html_hidden_type_init (void)
 void html_hidden_class_init (HTMLHiddenClass *klass,
 			HTMLType type)
 {
-	HTMLElementClass *element_class;
+	HTMLEmbeddedClass *element_class;
 	HTMLObjectClass *object_class;
 
 
-	element_class = HTML_ELEMENT_CLASS (klass);
+	element_class = HTML_EMBEDDED_CLASS (klass);
 	object_class = HTML_OBJECT_CLASS (klass);
 
-	html_element_class_init (element_class, type);
+	html_embedded_class_init (element_class, type);
 
 	element_class->encode = encode;
 }
@@ -71,13 +71,13 @@ void html_hidden_init (HTMLHidden *hidden,
 		       gchar *name, 
 		       gchar *value)
 {
-	HTMLElement *element;
+	HTMLEmbedded *element;
 	HTMLObject *object;
 
-	element = HTML_ELEMENT (hidden);
+	element = HTML_EMBEDDED (hidden);
 	object = HTML_OBJECT (hidden);
 
-	html_element_init (element, HTML_ELEMENT_CLASS (klass), NULL, name, value);
+	html_embedded_init (element, HTML_EMBEDDED_CLASS (klass), NULL, name, value);
 
 	object->descent = 0;
 	object->width = 0;

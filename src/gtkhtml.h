@@ -35,6 +35,7 @@ typedef struct _GtkHTMLClass	GtkHTMLClass;
 typedef gpointer GtkHTMLStreamHandle;
 typedef enum { GTK_HTML_STREAM_OK, GTK_HTML_STREAM_ERROR } GtkHTMLStreamStatus;
 
+#include "gtkhtml-embedded.h"
 #include "htmlengine.h"
 #include "htmlengine-save.h"
 
@@ -66,6 +67,9 @@ struct _GtkHTML {
 	guint idle_handler_id;
 };
 
+/* must be forward referenced *sigh* */
+struct _HTMLEmbedded;
+
 struct _GtkHTMLClass {
 	GtkLayoutClass parent_class;
 	
@@ -78,7 +82,8 @@ struct _GtkHTMLClass {
 
 	void (* on_url)		 (GtkHTML *html, const gchar *url);
 	void (* redirect)        (GtkHTML *html, const gchar *url, int delay);
-	void (* submit)        (GtkHTML *html, const gchar *method, const gchar *url, const gchar *encoding);
+	void (* submit)          (GtkHTML *html, const gchar *method, const gchar *url, const gchar *encoding);
+	void (* object_requested)(GtkHTML *html, GtkHTMLEmbedded *);
 };
 
 
