@@ -182,6 +182,7 @@ typedef HTMLEngineSaveReceiverFn GtkHTMLSaveReceiverFn;
 struct _GtkHTML {
 	GtkLayout layout;
 
+	GtkBindingSet      *editor_bindings;
 	GtkWidget          *iframe_parent;
 	GtkHTMLInputLine   *input_line;
 	HTMLEngine         *engine;
@@ -213,7 +214,6 @@ struct _GtkHTML {
 	GtkHTMLParagraphStyle paragraph_style;
 	guint paragraph_indentation;
 	GtkHTMLParagraphAlignment paragraph_alignment;
-
 	GtkHTMLFontStyle insertion_font_style;
 
 	gboolean binding_handled;

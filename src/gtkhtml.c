@@ -90,11 +90,13 @@ enum {
 static guint signals [LAST_SIGNAL] = { 0 };
 
 /* keybindings signal hadlers */
-static void scroll              (GtkHTML *html, GtkOrientation orientation, GtkScrollType scroll_type, gfloat position);
-static void cursor_move         (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType skip);
-static void command             (GtkHTML *html, GtkHTMLCommandType com_type);
-static gint mouse_change_pos    (GtkWidget *widget, gint x, gint y);
-static void load_keybindings    (GtkHTMLClass *klass);
+static void scroll                 (GtkHTML *html, GtkOrientation orientation, GtkScrollType scroll_type, gfloat position);
+static void cursor_move            (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType skip);
+static void command                (GtkHTML *html, GtkHTMLCommandType com_type);
+static gint mouse_change_pos       (GtkWidget *widget, gint x, gint y);
+static void load_keybindings       (GtkHTMLClass *klass);
+static void set_editor_keybindings (GtkHTML *html, gboolean editable);
+
 
 /* Values for selection information.  FIXME: what about COMPOUND_STRING and
    TEXT?  */
@@ -615,6 +617,8 @@ key_press_event (GtkWidget *widget,
 	gint position = html->engine->cursor->position;
 
 	html->binding_handled = FALSE;
+	if (html->editor_bindings && html_engine_get_editable (html->engine))
+		gtk_binding_set_activate (html->editor_bindings, event->keyval, event->state, GTK_OBJECT (widget));
 	gtk_bindings_activate (GTK_OBJECT (widget), event->keyval, event->state);
 	retval = html->binding_handled;
 
@@ -1353,12 +1357,16 @@ init_properties (GtkHTMLClass *klass)
 #endif
 }
 
-static void
-focus (GtkHTML *html, GtkDirectionType direction)
+static gint
+focus (GtkContainer *c, GtkDirectionType direction)
 {
-	GTK_WIDGET_UNSET_FLAGS (GTK_WIDGET (html), GTK_CAN_FOCUS);
-	(*GTK_CONTAINER_CLASS (parent_class)->focus) (GTK_CONTAINER (html), direction);
-	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (html), GTK_CAN_FOCUS);
+	gint rv;
+
+	GTK_WIDGET_UNSET_FLAGS (GTK_WIDGET (c), GTK_CAN_FOCUS);
+	rv = (*GTK_CONTAINER_CLASS (parent_class)->focus) (c, direction);
+	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (c), GTK_CAN_FOCUS);
+
+	return rv;
 }
 
 static void
@@ -1619,6 +1627,8 @@ init (GtkHTML* html)
 
 	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (html), GTK_CAN_FOCUS);
 	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (html), GTK_APP_PAINTABLE);
+
+	html->editor_bindings = NULL;
 
 	html->debug = FALSE;
 	html->allow_selection = TRUE;
@@ -1898,6 +1908,7 @@ gtk_html_set_editable (GtkHTML *html,
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	html_engine_set_editable (html->engine, editable);
+	set_editor_keybindings (html, editable);
 
 	if (editable)
 		update_styles (html);
@@ -2572,11 +2583,39 @@ clean_bindings_set (GtkBindingSet *binding_set)
 }
 
 static void
+set_editor_keybindings (GtkHTML *html, gboolean editable)
+{
+	if (editable) {
+		gchar *name;
+
+		name = g_strconcat ("gtkhtml-bindings-",
+				    GTK_HTML_CLASS (GTK_OBJECT (html)->klass)->properties->keybindings_theme, NULL);
+		printf ("looking for %s\n", name);
+		html->editor_bindings = gtk_binding_set_find (name);
+		if (!html->editor_bindings)
+			g_warning ("cannot find %s bindings", name);
+		g_free (name);
+	} else
+		html->editor_bindings = NULL;
+}
+
+static void
+load_bindings_from_file (gboolean from_share, gchar *name)
+{
+	gchar *rcfile;
+
+	rcfile = g_strconcat ((from_share ? PREFIX "/share/gtkhtml/" : gnome_util_user_home ()),
+			      (from_share ? "" : "/.gnome/"), name, NULL);
+	printf ("trying load %s\n", rcfile);
+	if (g_file_exists (rcfile))
+		gtk_rc_parse (rcfile);
+	g_free (rcfile);
+}
+
+static void
 load_keybindings (GtkHTMLClass *klass)
 {
 	GtkBindingSet *binding_set;
-	gchar *base = NULL;
-	gchar *rcfile, *name;
 
 	/* FIXME add to gtk gtk_binding_set_clear & gtk_binding_set_remove_path */
 	clean_bindings_set (gtk_binding_set_by_class (klass));
@@ -2588,32 +2627,9 @@ load_keybindings (GtkHTMLClass *klass)
 	gtk_html_cursor_skip_get_type ();
 	gtk_html_command_get_type ();
 
-	if (strcmp (klass->properties->keybindings_theme, "custom")) {
-		base = g_strconcat ("keybindingsrc.", klass->properties->keybindings_theme, NULL);
-		rcfile = g_concat_dir_and_file (PREFIX "/share/gtkhtml", base);
-		g_free (base);
-	} else {
-		rcfile = g_strconcat (gnome_util_user_home (), "/.gnome/gtkhtml-bindings-custom", NULL);
-	}
-
-	if (g_file_exists (rcfile)) {
-
-		/* g_warning ("Loading keybindings -- %s", rcfile); */
-		gtk_rc_parse (rcfile);
-
-		name = g_strconcat ("gtkhtml-bindings-", klass->properties->keybindings_theme, NULL);
-		binding_set = gtk_binding_set_find (name);
-		/* g_warning ("Looking for %s set", name); */
-		g_assert (binding_set);
-		gtk_binding_set_add_path (binding_set,
-					  GTK_PATH_CLASS,
-					  gtk_type_name (GTK_OBJECT_CLASS (klass)->type),
-					  GTK_PATH_PRIO_GTK);
-		g_free (name);
-	}
-	/* else
-		g_warning (_("Couldn't find keybinding file -- %s"), rcfile); */
-	g_free (rcfile);
+	load_bindings_from_file (TRUE,  "keybindingsrc.emacs");
+	load_bindings_from_file (TRUE,  "keybindingsrc.ms");
+	load_bindings_from_file (FALSE, "gtkhtml-bindings-custom");
 
 	binding_set = gtk_binding_set_by_class (klass);
 

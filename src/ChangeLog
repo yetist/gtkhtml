@@ -1,5 +1,12 @@
 2000-10-04  Radek Doulik  <rodo@helixcode.com>
 
+	* gtkhtml.c (set_editor_keybindings): new helper function
+	(gtk_html_set_editable): use set_editor_keybindings
+	(load_bindings_from_file): new extracted function
+	(load_keybindings): use load_bindings_from_file
+
+	* gtkhtml.h: add editor_bindings to GtkHTML
+
 	* gtkhtml.c (command): new commands implementation
 
 	* gtkhtml.h: new commands - focus-forward/backward
