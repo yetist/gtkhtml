@@ -22,6 +22,7 @@ static int test_cursor_beol_rtl (GtkHTML *html);
 static int test_cursor_left_right_on_items_boundaries (GtkHTML *html);
 static int test_cursor_left_right_on_lines_boundaries (GtkHTML *html);
 static int test_cursor_left_right_on_lines_boundaries_rtl (GtkHTML *html);
+static int test_cursor_around_containers (GtkHTML *html);
 
 static int test_quotes_in_div_block (GtkHTML *html);
 static int test_capitalize_upcase_lowcase_word (GtkHTML *html);
@@ -33,6 +34,7 @@ static Test tests[] = {
 	{ "left/right on lines boundaries (RTL)", test_cursor_left_right_on_lines_boundaries_rtl },
 	{ "begin/end of line", test_cursor_beol },
 	{ "begin/end of line (RTL)", test_cursor_beol_rtl },
+	{ "around containers", test_cursor_around_containers },
 	{ "various fixed bugs", NULL },
 	{ "outer quotes inside div block", test_quotes_in_div_block },
 	{ "capitalize, upcase/lowcase word", test_capitalize_upcase_lowcase_word },
@@ -45,6 +47,45 @@ static void load_editable (GtkHTML *html, char *s)
 	gtk_html_load_from_string (html, s, -1);
 /* 	gtk_html_debug_dump_tree_simple (html->engine->clue, 0); */
 	gtk_html_set_editable (html, TRUE);
+}
+
+static int test_cursor_around_containers (GtkHTML *html)
+{
+	load_editable (html, "abc<table><tr><td>abc</td></tr></table>");
+
+	html_cursor_jump_to_position (html->engine->cursor, html->engine, 9);
+	if (html->engine->cursor->offset != 1
+	    || html->engine->cursor->position != 9
+	    || !html_cursor_beginning_of_line (html->engine->cursor, html->engine)
+	    || html->engine->cursor->offset != 0
+	    || html->engine->cursor->position != 4)
+		return FALSE;
+
+	html_cursor_jump_to_position (html->engine->cursor, html->engine, 4);
+	if (html->engine->cursor->offset != 0
+	    || html->engine->cursor->position != 4
+	    || !html_cursor_end_of_line (html->engine->cursor, html->engine)
+	    || html->engine->cursor->offset != 1
+	    || html->engine->cursor->position != 9)
+		return FALSE;
+
+	html_cursor_jump_to_position (html->engine->cursor, html->engine, 5);
+	if (html->engine->cursor->offset != 0
+	    || html->engine->cursor->position != 5
+	    || !html_cursor_left (html->engine->cursor, html->engine)
+	    || html->engine->cursor->offset != 0
+	    || html->engine->cursor->position != 4)
+		return FALSE;
+
+	html_cursor_jump_to_position (html->engine->cursor, html->engine, 8);
+	if (html->engine->cursor->offset != 3
+	    || html->engine->cursor->position != 8
+	    || !html_cursor_right (html->engine->cursor, html->engine)
+	    || html->engine->cursor->offset != 1
+	    || html->engine->cursor->position != 9)
+		return FALSE;
+
+	return TRUE;
 }
 
 static int test_cursor_left_right_on_items_boundaries (GtkHTML *html)
@@ -349,7 +390,7 @@ int main (int argc, char *argv[])
 
 	n_all = n_successful = 0;
 
-	fprintf (stderr, "GtkHTML test suite\n");
+	fprintf (stderr, "\nGtkHTML test suite\n");
 	fprintf (stderr, "--------------------------------------------------------------------------------\n");
 	for (i = 0; tests [i].name; i ++) {
 		int j, result;
@@ -370,7 +411,7 @@ int main (int argc, char *argv[])
 	}
 
 	fprintf (stderr, "--------------------------------------------------------------------------------\n");
-	fprintf (stderr, "%d tests failed %d tests passed (of %d tests)\n", n_all - n_successful, n_successful, n_all);
+	fprintf (stderr, "%d tests failed %d tests passed (of %d tests)\n\n", n_all - n_successful, n_successful, n_all);
 
 	return n_all != n_successful;
 }

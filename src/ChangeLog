@@ -1,3 +1,14 @@
+2005-02-02  Radek Doulik  <rodo@novell.com>
+
+	* test-suite.c (test_cursor_around_containers): added new test for
+	cursor movement around containers (tables)
+
+	* htmlcursor.c (move_to_prev_object): set cursor offset to edges
+	only for non container objects
+	(move_to_next_object): ditto
+
+	Fixes #72055
+
 2005-02-01  Radek Doulik  <rodo@novell.com>
 
 	* test-suite.c (test_cursor_beol_rtl): finished this test

@@ -850,12 +850,14 @@ move_to_next_object (HTMLCursor *cursor)
 		cursor->object = next;
 		cursor->position ++;
 
-		if (html_object_get_direction (next->parent) == HTML_DIRECTION_RTL) {
-			cursor->offset = html_object_get_right_edge_offset (next, 0);
-		} else {
-			cursor->offset = html_object_get_left_edge_offset (next, 0);
+		if (!html_object_is_container (next)) {
+			if (html_object_get_direction (next->parent) == HTML_DIRECTION_RTL) {
+				cursor->offset = html_object_get_right_edge_offset (next, 0);
+			} else {
+				cursor->offset = html_object_get_left_edge_offset (next, 0);
+			}
+			cursor->position += cursor->offset;
 		}
-		cursor->position += cursor->offset;
 
 		return TRUE;
 	} else
@@ -872,12 +874,14 @@ move_to_prev_object (HTMLCursor *cursor)
 		cursor->object = prev;
 		cursor->position --;
 
-		if (html_object_get_direction (prev->parent) == HTML_DIRECTION_RTL) {
-			cursor->offset = html_object_get_left_edge_offset (prev, html_object_get_length (prev));
-		} else {
-			cursor->offset = html_object_get_right_edge_offset (prev, html_object_get_length (prev));
+		if (!html_object_is_container (prev)) {
+			if (html_object_get_direction (prev->parent) == HTML_DIRECTION_RTL) {
+				cursor->offset = html_object_get_left_edge_offset (prev, html_object_get_length (prev));
+			} else {
+				cursor->offset = html_object_get_right_edge_offset (prev, html_object_get_length (prev));
+			}
+			cursor->position -= cursor->offset - html_object_get_length (prev);
 		}
-		cursor->position -= cursor->offset - html_object_get_length (prev);
 
 		return TRUE;
 	} else
