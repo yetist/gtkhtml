@@ -32,6 +32,7 @@
 #include "properties.h"
 #include "image.h"
 #include "text.h"
+#include "paragraph.h"
 #include "spell.h"
 #include "table.h"
 #include "template.h"
@@ -217,7 +218,7 @@ format_page_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cnam
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
 
-	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, TRUE, _("Properties"));
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, FALSE, _("Properties"));
 
 	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 						   GTK_HTML_EDIT_PROPERTY_BODY, _("Page"),
@@ -227,6 +228,42 @@ format_page_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cnam
 
 	gtk_html_edit_properties_dialog_show (cd->properties_dialog);
 	gtk_html_edit_properties_dialog_set_page (cd->properties_dialog, GTK_HTML_EDIT_PROPERTY_BODY);
+}
+
+static void
+format_text_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
+{
+	if (cd->properties_dialog)
+		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
+
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, FALSE, _("Properties"));
+
+	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
+						   GTK_HTML_EDIT_PROPERTY_BODY, _("Text"),
+						   text_properties,
+						   text_apply_cb,
+						   text_close_cb);
+
+	gtk_html_edit_properties_dialog_show (cd->properties_dialog);
+	gtk_html_edit_properties_dialog_set_page (cd->properties_dialog, GTK_HTML_EDIT_PROPERTY_TEXT);
+}
+
+static void
+format_paragraph_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
+{
+	if (cd->properties_dialog)
+		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
+
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, FALSE, _("Properties"));
+
+	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
+						   GTK_HTML_EDIT_PROPERTY_BODY, _("Paragraph"),
+						   paragraph_properties,
+						   paragraph_apply_cb,
+						   paragraph_close_cb);
+
+	gtk_html_edit_properties_dialog_show (cd->properties_dialog);
+	gtk_html_edit_properties_dialog_set_page (cd->properties_dialog, GTK_HTML_EDIT_PROPERTY_PARAGRAPH);
 }
 
 BonoboUIVerb verbs [] = {
@@ -252,6 +289,8 @@ BonoboUIVerb verbs [] = {
 	BONOBO_UI_UNSAFE_VERB ("IndentMore", indent_more_cb),
 	BONOBO_UI_UNSAFE_VERB ("IndentLess", indent_less_cb),
 
+	BONOBO_UI_UNSAFE_VERB ("FormatText", format_text_cb),
+	BONOBO_UI_UNSAFE_VERB ("FormatParagraph", format_paragraph_cb),
 	BONOBO_UI_UNSAFE_VERB ("FormatPage", format_page_cb),
 
 	BONOBO_UI_VERB_END

@@ -194,7 +194,8 @@
 					<menuitem name="Other" verb="" _label="Other..."/>
 				</submenu>
 -->		
-                
+                			<menuitem name="FormatText" verb="" _label="_Text..."/>
+
 				<separator/>
                 
 				<submenu name="Heading" _label="_Heading">
@@ -218,6 +219,8 @@
 					<menuitem name="AlignCenter" verb="" _label="_Center"/>
 					<menuitem name="AlignRight" verb="" _label="_Right"/>
 				</submenu>
+
+				<menuitem name="FormatParagraph" verb="" _label="_Paragraph..."/>
 
 				<separator/>
 
