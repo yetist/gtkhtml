@@ -320,8 +320,8 @@ editor_toolbar_left_align_cb (GtkWidget *widget,
 		return;
 
 	toolbar_data = (ToolbarData *) data;
-	gtk_html_align_paragraph (GTK_HTML (toolbar_data->html),
-				  GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT);
+	gtk_html_set_paragraph_alignment (GTK_HTML (toolbar_data->html),
+					  GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT);
 }
 
 static void
@@ -336,8 +336,8 @@ editor_toolbar_center_cb (GtkWidget *widget,
 		return;
 
 	toolbar_data = (ToolbarData *) data;
-	gtk_html_align_paragraph (GTK_HTML (toolbar_data->html),
-				  GTK_HTML_PARAGRAPH_ALIGNMENT_CENTER);
+	gtk_html_set_paragraph_alignment (GTK_HTML (toolbar_data->html),
+					  GTK_HTML_PARAGRAPH_ALIGNMENT_CENTER);
 }
 
 static void
@@ -352,8 +352,8 @@ editor_toolbar_right_align_cb (GtkWidget *widget,
 		return;
 
 	toolbar_data = (ToolbarData *) data;
-	gtk_html_align_paragraph (GTK_HTML (toolbar_data->html),
-				  GTK_HTML_PARAGRAPH_ALIGNMENT_RIGHT);
+	gtk_html_set_paragraph_alignment (GTK_HTML (toolbar_data->html),
+					  GTK_HTML_PARAGRAPH_ALIGNMENT_RIGHT);
 }
 
 static void
