@@ -79,6 +79,8 @@ html_style_free (HTMLStyle *style)
 
 	if (style->bg_color)
 		gdk_color_free (style->bg_color);
+
+	g_free (style);
 }
 
 HTMLStyle *

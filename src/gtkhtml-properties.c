@@ -53,28 +53,30 @@ gtk_html_class_properties_new (GtkWidget *widget)
 		fixed_desc = pango_font_description_from_string (fixed_name);
 		if (pango_font_description_get_family (fixed_desc)) {
 			fixed_size = PANGO_PIXELS (pango_font_description_get_size (fixed_desc));
-			pango_font_description_free (fixed_desc);
 		} else {
 			g_free (fixed_name);
 			fixed_name = NULL;
 		}
+		pango_font_description_free (fixed_desc);
 	}
 
 	if (!fixed_name) {
 		fixed_name = g_strdup ("Monospace");
-		fixed_desc = pango_font_description_from_string (fixed_name);
 		fixed_size = var_size;
 	}
 
 	/* default values */
-	p->magic_links             = TRUE;
+	/* display */
 	p->animations              = TRUE;
-	p->language                = g_strdup (e_iconv_locale_language ());
-	p->live_spell_check        = TRUE;
 
-	p->font_var_print          = g_strdup (pango_font_description_get_family (var_desc));
+	/* editing */
+	p->magic_links             = TRUE;
+	p->live_spell_check        = TRUE;
+	p->language                = g_strdup (e_iconv_locale_language ());
+
 	/* printf ("Variable Printing Font: \"%s\"\n", p->font_var_print); */
-	p->font_fix_print          = g_strdup (fixed_name);
+	p->font_var_print          = g_strdup (pango_font_description_get_family (var_desc));
+	p->font_fix_print          = fixed_name;
 	p->font_var_size_print     = DEFAULT_FONT_SIZE_PRINT;
 	p->font_fix_size_print     = DEFAULT_FONT_SIZE_PRINT;
 	p->font_var_print_points   = FALSE;
@@ -86,6 +88,9 @@ gtk_html_class_properties_new (GtkWidget *widget)
 void
 gtk_html_class_properties_destroy (GtkHTMLClassProperties *p)
 {
+	g_free (p->font_fix_print);
+	g_free (p->font_var_print);
+	g_free (p->language);
 	g_free (p);
 }
 

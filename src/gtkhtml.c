@@ -752,16 +752,15 @@ style_set (GtkWidget *widget, GtkStyle  *previous_style)
 			fixed_desc = pango_font_description_from_string (fixed_name);
 			if (pango_font_description_get_family (fixed_desc)) {
 				fixed_size = PANGO_PIXELS (pango_font_description_get_size (fixed_desc));
-				pango_font_description_free (fixed_desc);
 			} else {
 				g_free (fixed_name);
 				fixed_name = NULL;
 			}
+			pango_font_description_free (fixed_desc);
 		}
 		
 		if (!fixed_name) {
 			fixed_name = g_strdup ("Monospace");
-			fixed_desc = pango_font_description_from_string (fixed_name);
 			fixed_size = font_var_size;
 		}
 
@@ -776,6 +775,8 @@ style_set (GtkWidget *widget, GtkStyle  *previous_style)
 			html_engine_calc_size (engine, FALSE);
 			html_engine_schedule_update (engine);
 		}
+		
+		g_free (fixed_name);
 	}
 
 
@@ -1000,6 +1001,7 @@ size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 		gtk_adjustment_value_changed (GTK_LAYOUT (html)->hadjustment);
 	if (changed_y)
 		gtk_adjustment_value_changed (GTK_LAYOUT (html)->vadjustment);
+
 }
 
 static void
@@ -3655,9 +3657,7 @@ gtk_html_set_default_content_type (GtkHTML *html, gchar *content_type)
 	g_free (html->priv->content_type);	
 
 	if (content_type) {
-		lower = g_strdup (content_type);
-		g_ascii_strdown (lower, strlen (lower));
-		html->priv->content_type = lower;
+		html->priv->content_type = g_ascii_strdown (content_type, -1);
 	} else
 		html->priv->content_type = NULL;
 }

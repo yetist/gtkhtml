@@ -1,3 +1,15 @@
+2003-04-16  Larry Ewing  <lewing@ximian.com>
+
+	* htmlstyle.c (html_style_free): actually free the style.
+
+	* gtkhtml-properties.c (gtk_html_class_properties_new): don't dup
+	the name string, and don't alloc an uneeded font description.
+
+	* gtkhtml.c (style_set): free the name string, and don't alloc an
+	uneeded font description.
+	(gtk_html_set_default_content_type): use g_ascii_strdown
+	correctly.
+
 2003-04-15  Larry Ewing  <lewing@ximian.com>
 
 	* htmldrawqueue.c (clear): clip the cleared area to the visible
