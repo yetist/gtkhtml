@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.6.1\n"
-"POT-Creation-Date: 2000-10-19 16:33-0200\n"
+"POT-Creation-Date: 2000-10-26 18:43-0200\n"
 "PO-Revision-Date: 2000-08-20 15:17-03:00\n"
 "Last-Translator: Gustavo Maciel Dias Vieira <gdvieira@zaz.com.br>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar.conectiva.com.br>\n"
@@ -40,8 +40,6 @@ msgid "Add"
 msgstr "Incluir"
 
 #: capplet/gnome-bindings-prop.c:548
-#: components/html-editor/test-html-editor-control.c:323
-#: components/html-editor/toolbar.c:496
 msgid "Copy"
 msgstr "Copiar"
 
@@ -124,75 +122,76 @@ msgstr "Fonte de largura fixa para HTML"
 msgid "Animations"
 msgstr ""
 
-#: components/html-editor/body.c:107
-msgid "use background image"
-msgstr "usar imagem de fundo"
-
-#: components/html-editor/body.c:109
-msgid "Background image"
+#: components/html-editor/body.c:123 components/html-editor/body.c:127
+#, fuzzy
+msgid "Background Image"
 msgstr "Imagem de fundo"
 
 #: components/html-editor/body.c:126
+msgid "Enable"
+msgstr ""
+
+#: components/html-editor/body.c:149
 msgid "Colors"
 msgstr "Cores"
 
-#: components/html-editor/editor-control-factory.c:129
+#: components/html-editor/editor-control-factory.c:128
 #: components/html-editor/popup.c:73
 msgid "Properties"
 msgstr "Propriedades"
 
-#: components/html-editor/editor-control-factory.c:140
+#: components/html-editor/editor-control-factory.c:139
 #: components/html-editor/menubar.c:96 components/html-editor/popup.c:88
 msgid "Image"
 msgstr "Imagem"
 
-#: components/html-editor/editor-control-factory.c:149
+#: components/html-editor/editor-control-factory.c:148
 #: components/html-editor/menubar.c:117 components/html-editor/popup.c:81
 msgid "Text"
 msgstr "Texto"
 
-#: components/html-editor/editor-control-factory.c:160
+#: components/html-editor/editor-control-factory.c:159
 #: components/html-editor/menubar.c:140 components/html-editor/popup.c:116
 msgid "Rule"
 msgstr "Régua"
 
-#: components/html-editor/editor-control-factory.c:169
+#: components/html-editor/editor-control-factory.c:168
 #: components/html-editor/popup.c:95
 msgid "Paragraph"
 msgstr "Parágrafo"
 
-#: components/html-editor/editor-control-factory.c:174
+#: components/html-editor/editor-control-factory.c:173
 #: components/html-editor/menubar.c:101 components/html-editor/menubar.c:122
 #: components/html-editor/popup.c:102
 msgid "Link"
 msgstr "Vínculo"
 
-#: components/html-editor/editor-control-factory.c:179
+#: components/html-editor/editor-control-factory.c:178
 #: components/html-editor/popup.c:109
 msgid "Page"
 msgstr "Página"
 
-#: components/html-editor/image.c:149
+#: components/html-editor/image.c:156
 msgid "Image selection"
 msgstr "Seleção de imagem"
 
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
-#: components/html-editor/image.c:176
+#: components/html-editor/image.c:183
 msgid "Alignment"
 msgstr "Alinhamento"
 
-#: components/html-editor/image.c:184
+#: components/html-editor/image.c:191
 msgid "Border"
 msgstr "Borda"
 
-#: components/html-editor/image.c:201
+#: components/html-editor/image.c:208
 msgid "Padding"
 msgstr "Espaçamento"
 
 #. size
-#: components/html-editor/image.c:221 components/html-editor/rule.c:220
-#: components/html-editor/text.c:190
+#: components/html-editor/image.c:228 components/html-editor/rule.c:222
+#: components/html-editor/text.c:177
 msgid "Size"
 msgstr "Tamanho"
 
@@ -223,28 +222,28 @@ msgid "Cannot execute gtkhtml properties"
 msgstr "Não é possível executar propriedades gtkhtml"
 
 #. style
-#: components/html-editor/paragraph.c:74 components/html-editor/rule.c:244
-#: components/html-editor/text.c:171
+#: components/html-editor/paragraph.c:108 components/html-editor/rule.c:246
+#: components/html-editor/text.c:157
 msgid "Style"
 msgstr "Estilo"
 
-#: components/html-editor/paragraph.c:108
+#: components/html-editor/paragraph.c:142
 msgid "Align"
 msgstr "Alinhamento"
 
-#: components/html-editor/paragraph.c:121
+#: components/html-editor/paragraph.c:155
 msgid "Left"
 msgstr "Esquerda"
 
-#: components/html-editor/paragraph.c:122 components/html-editor/toolbar.c:486
+#: components/html-editor/paragraph.c:156 components/html-editor/toolbar.c:395
 msgid "Center"
 msgstr "Centrado"
 
-#: components/html-editor/paragraph.c:123
+#: components/html-editor/paragraph.c:157
 msgid "Right"
 msgstr "Direita"
 
-#: components/html-editor/popup.c:185
+#: components/html-editor/popup.c:193
 msgid "Remove link"
 msgstr "Excluir vínculo"
 
@@ -277,7 +276,7 @@ msgstr "diferenciar maiúsculas de minúsculas"
 msgid "with"
 msgstr "por"
 
-#: components/html-editor/rule.c:268
+#: components/html-editor/rule.c:270
 msgid "shaded"
 msgstr ""
 
@@ -289,93 +288,38 @@ msgstr "Busca por regex"
 msgid "Search"
 msgstr "Busca"
 
-#: components/html-editor/test-html-editor-control.c:232
+#: components/html-editor/test-html-editor-control.c:237
 msgid "Open file..."
 msgstr "Abrir arquivo..."
 
-#: components/html-editor/test-html-editor-control.c:234
+#: components/html-editor/test-html-editor-control.c:239
 msgid "Save file as..."
 msgstr "Salvar arquivo como..."
 
-#: components/html-editor/test-html-editor-control.c:300
-msgid "Open (PersistFile)"
-msgstr "Abrir (PersistFile)"
-
-#: components/html-editor/test-html-editor-control.c:300
-msgid "Open using the PersistFile interface"
-msgstr "Abre usando a interface PersistFile"
-
-#: components/html-editor/test-html-editor-control.c:302
-msgid "Save as... (PersistFile)"
-msgstr "Salvar como... (PersistFile)"
-
-#: components/html-editor/test-html-editor-control.c:302
-msgid "Save using the PersistFile interface"
-msgstr "Salva usando a interface PersistFile"
-
-#: components/html-editor/test-html-editor-control.c:305
-msgid "Open (PersistStream)"
-msgstr "Abrir (PersistStream)"
-
-#: components/html-editor/test-html-editor-control.c:305
-msgid "Open using the PersistStream interface"
-msgstr "Abre usando a interface PersistStream"
-
-#: components/html-editor/test-html-editor-control.c:307
-msgid "Save as... (PersistStream)"
-msgstr "Salvar como... (PersistStream)"
-
-#: components/html-editor/test-html-editor-control.c:307
-msgid "Save using the PersistStream interface"
-msgstr "Salva usando a interface PersistStream"
-
-#: components/html-editor/test-html-editor-control.c:321
-#: components/html-editor/toolbar.c:494
-msgid "Cut"
-msgstr "Cortar"
-
-#: components/html-editor/test-html-editor-control.c:321
-msgid "Cut selection to the clipboard"
-msgstr "Corta a seleção para a área de transferência"
-
-#: components/html-editor/test-html-editor-control.c:323
-msgid "Copy selection to the clipboard"
-msgstr "Copia a seleção para a área de transferência"
-
-#: components/html-editor/test-html-editor-control.c:325
-#: components/html-editor/toolbar.c:498
-msgid "Paste"
-msgstr "Colar"
-
-#: components/html-editor/test-html-editor-control.c:325
-#: components/html-editor/toolbar.c:498
-msgid "Paste contents of the clipboard"
-msgstr "Cola os conteúdos da área de transferência"
-
-#: components/html-editor/text.c:182 components/html-editor/toolbar.c:512
+#: components/html-editor/text.c:169 components/html-editor/toolbar.c:404
 msgid "Bold"
 msgstr "Negrito"
 
-#: components/html-editor/text.c:183 components/html-editor/toolbar.c:514
+#: components/html-editor/text.c:170 components/html-editor/toolbar.c:406
 msgid "Italic"
 msgstr "Itálico"
 
-#: components/html-editor/text.c:184 components/html-editor/toolbar.c:516
+#: components/html-editor/text.c:171 components/html-editor/toolbar.c:408
 msgid "Underline"
 msgstr "Sublinhado"
 
-#: components/html-editor/text.c:185 components/html-editor/toolbar.c:518
+#: components/html-editor/text.c:172 components/html-editor/toolbar.c:410
 msgid "Strikeout"
 msgstr "Riscado"
 
 #. color selection
-#: components/html-editor/text.c:217
+#: components/html-editor/text.c:207
 msgid "Color"
 msgstr "Cor"
 
-#: components/html-editor/text.c:231
-msgid "text color"
-msgstr "cor do texto"
+#: components/html-editor/text.c:210 components/html-editor/toolbar.c:204
+msgid "Automatic"
+msgstr ""
 
 #: components/html-editor/toolbar.c:45
 msgid "Normal"
@@ -425,85 +369,61 @@ msgstr "Item de lista (sem numeração)"
 msgid "List item (roman)"
 msgstr "Item de lista (romanos)"
 
-#: components/html-editor/toolbar.c:237
-msgid "Default"
-msgstr "Padrão"
-
-#: components/html-editor/toolbar.c:484
+#: components/html-editor/toolbar.c:393
 msgid "Left align"
 msgstr "Alinhar à esquerda"
 
-#: components/html-editor/toolbar.c:484
+#: components/html-editor/toolbar.c:393
 msgid "Left justify paragraphs"
 msgstr "Justifica os parágrafos à esquerda"
 
-#: components/html-editor/toolbar.c:486
+#: components/html-editor/toolbar.c:395
 msgid "Centers paragraphs"
 msgstr "Centra os parágrafos"
 
-#: components/html-editor/toolbar.c:488
+#: components/html-editor/toolbar.c:397
 msgid "Right align"
 msgstr "Alinhar à direita"
 
-#: components/html-editor/toolbar.c:488
+#: components/html-editor/toolbar.c:397
 msgid "Right justify paragraphs"
 msgstr "Justifica os parágrafos à direita"
 
-#: components/html-editor/toolbar.c:494
-msgid "Cut the selected region to the clipboard"
-msgstr "Corta a região selecionada para a área de transferência"
-
-#: components/html-editor/toolbar.c:496
-msgid "Copy the selected region to the clipboard"
-msgstr "Copia a região selecionada para a área de transferência"
-
-#: components/html-editor/toolbar.c:502
-msgid "Undo"
-msgstr "Desfazer"
-
-#: components/html-editor/toolbar.c:502
-msgid "Undo last editor operation"
-msgstr "Desfaz a última operação do editor"
-
-#: components/html-editor/toolbar.c:504
-msgid "Redo"
-msgstr "Refazer"
-
-#: components/html-editor/toolbar.c:504
-msgid "Redo undone editor operation"
-msgstr "Refaz a operação do editor desfeita"
-
-#: components/html-editor/toolbar.c:512
+#: components/html-editor/toolbar.c:404
 msgid "Sets the bold font"
 msgstr "Ativa a fonte do negrito"
 
-#: components/html-editor/toolbar.c:514
+#: components/html-editor/toolbar.c:406
 msgid "Make the selection italic"
 msgstr "Coloca a seleção em itálico"
 
-#: components/html-editor/toolbar.c:516
+#: components/html-editor/toolbar.c:408
 msgid "Make the selection underlined"
 msgstr "Sublinha a seleção"
 
-#: components/html-editor/toolbar.c:518
+#: components/html-editor/toolbar.c:410
 msgid "Make the selection striked out"
 msgstr "Risca a seleção"
 
-#: components/html-editor/toolbar.c:527
+#: components/html-editor/toolbar.c:419
 msgid "Unindent"
 msgstr "Avançar"
 
-#: components/html-editor/toolbar.c:527
+#: components/html-editor/toolbar.c:419
 msgid "Indent paragraphs less"
 msgstr "Diminuir recuo dos parágrafos"
 
-#: components/html-editor/toolbar.c:529
+#: components/html-editor/toolbar.c:421
 msgid "Indent"
 msgstr "Recuar"
 
-#: components/html-editor/toolbar.c:529
+#: components/html-editor/toolbar.c:421
 msgid "Indent paragraphs more"
 msgstr "Aumentar recuo dos parágrafos"
+
+#: components/html-editor/utils.c:101
+msgid "Sample"
+msgstr ""
 
 #: src/testgtkhtml.c:111
 msgid "Print pre_view"
@@ -513,107 +433,173 @@ msgstr "_Visualizar impressão"
 msgid "Print preview"
 msgstr "Visualizar impressão"
 
-msgid "Find Rege_x..."
-msgstr "Localizar rege_x..."
+#~ msgid "use background image"
+#~ msgstr "usar imagem de fundo"
 
-msgid "Regular expressions search..."
-msgstr "Busca por expressões regulares..."
+#~ msgid "Open (PersistFile)"
+#~ msgstr "Abrir (PersistFile)"
 
-msgid "_Image..."
-msgstr "_Imagem..."
+#~ msgid "Open using the PersistFile interface"
+#~ msgstr "Abre usando a interface PersistFile"
 
-msgid "Insert image into document..."
-msgstr "Insere imagem no documento..."
+#~ msgid "Save as... (PersistFile)"
+#~ msgstr "Salvar como... (PersistFile)"
 
-msgid "_Link..."
-msgstr "_Vínculo..."
+#~ msgid "Save using the PersistFile interface"
+#~ msgstr "Salva usando a interface PersistFile"
 
-msgid "Insert HTML link into document..."
-msgstr "Insere um vínculo HTML no documento..."
+#~ msgid "Open (PersistStream)"
+#~ msgstr "Abrir (PersistStream)"
 
-msgid "_Rule..."
-msgstr "_Régua..."
+#~ msgid "Open using the PersistStream interface"
+#~ msgstr "Abre usando a interface PersistStream"
 
-msgid "Insert rule into document..."
-msgstr "Insere uma régua no documento..."
+#~ msgid "Save as... (PersistStream)"
+#~ msgstr "Salvar como... (PersistStream)"
 
-msgid "_Insert"
-msgstr "In_serir"
+#~ msgid "Save using the PersistStream interface"
+#~ msgstr "Salva usando a interface PersistStream"
 
-msgid "Insert image"
-msgstr "Insere imagem"
+#~ msgid "Cut"
+#~ msgstr "Cortar"
 
-msgid "Length"
-msgstr "Tamanho"
+#~ msgid "Cut selection to the clipboard"
+#~ msgstr "Corta a seleção para a área de transferência"
 
-msgid "Percent"
-msgstr "Percentagem"
+#~ msgid "Copy selection to the clipboard"
+#~ msgstr "Copia a seleção para a área de transferência"
 
-msgid "Left Align"
-msgstr "Alinhar à esquerda"
+#~ msgid "Paste"
+#~ msgstr "Colar"
 
-msgid "Center Align"
-msgstr "Alinhar ao centro"
+#~ msgid "Paste contents of the clipboard"
+#~ msgstr "Cola os conteúdos da área de transferência"
 
-msgid "Right Align"
-msgstr "Alinhar à direita"
+#~ msgid "text color"
+#~ msgstr "cor do texto"
 
-msgid "None"
-msgstr "Nenhum"
+#~ msgid "Default"
+#~ msgstr "Padrão"
 
-msgid "Set Shade"
-msgstr "Ligar sombra"
+#~ msgid "Cut the selected region to the clipboard"
+#~ msgstr "Corta a região selecionada para a área de transferência"
 
-msgid "Transfer Progress"
-msgstr "Progresso da transferência"
+#~ msgid "Copy the selected region to the clipboard"
+#~ msgstr "Copia a região selecionada para a área de transferência"
 
-msgid "Looking up %s"
-msgstr "Procurando %s"
+#~ msgid "Undo"
+#~ msgstr "Desfazer"
 
-msgid "Contacting %s"
-msgstr "Contactando %s"
+#~ msgid "Undo last editor operation"
+#~ msgstr "Desfaz a última operação do editor"
 
-msgid "Waiting for a connection..."
-msgstr "Esperando por uma conexão..."
+#~ msgid "Redo"
+#~ msgstr "Refazer"
 
-msgid "Logging in..."
-msgstr "Efetuando login..."
+#~ msgid "Redo undone editor operation"
+#~ msgstr "Refaz a operação do editor desfeita"
 
-msgid "Read %d%%%% of %l"
-msgstr "Lidos %d%%%% de %l"
+#~ msgid "Find Rege_x..."
+#~ msgstr "Localizar rege_x..."
 
-msgid "Read %d bytes"
-msgstr "Lidos %d bytes"
+#~ msgid "Regular expressions search..."
+#~ msgstr "Busca por expressões regulares..."
 
-msgid "Reading..."
-msgstr "Lendo..."
+#~ msgid "_Image..."
+#~ msgstr "_Imagem..."
 
-msgid "Writing %d%%%% of %l"
-msgstr "Escritos %d%%%% of %l"
+#~ msgid "Insert image into document..."
+#~ msgstr "Insere imagem no documento..."
 
-msgid "Writing %d bytes"
-msgstr "Escritos %d bytes"
+#~ msgid "_Link..."
+#~ msgstr "_Vínculo..."
 
-msgid "Writing..."
-msgstr "Escrevendo..."
+#~ msgid "Insert HTML link into document..."
+#~ msgstr "Insere um vínculo HTML no documento..."
 
-msgid "Done!"
-msgstr "Concluído!"
+#~ msgid "_Rule..."
+#~ msgstr "_Régua..."
 
-msgid "Interrupted!"
-msgstr "Interrompido!"
+#~ msgid "Insert rule into document..."
+#~ msgstr "Insere uma régua no documento..."
 
-msgid "Please wait..."
-msgstr "Aguarde por favor..."
+#~ msgid "_Insert"
+#~ msgstr "In_serir"
 
-msgid "Request timeout!"
-msgstr "Tempo limite do pedido excedido!"
+#~ msgid "Insert image"
+#~ msgstr "Insere imagem"
 
-msgid "Unknown"
-msgstr "Desconhecido"
+#~ msgid "Length"
+#~ msgstr "Tamanho"
 
-msgid "Enter Text"
-msgstr "Entre texto"
+#~ msgid "Percent"
+#~ msgstr "Percentagem"
 
-msgid "Enter Password"
-msgstr "Entre senha"
+#~ msgid "Left Align"
+#~ msgstr "Alinhar à esquerda"
+
+#~ msgid "Center Align"
+#~ msgstr "Alinhar ao centro"
+
+#~ msgid "Right Align"
+#~ msgstr "Alinhar à direita"
+
+#~ msgid "None"
+#~ msgstr "Nenhum"
+
+#~ msgid "Set Shade"
+#~ msgstr "Ligar sombra"
+
+#~ msgid "Transfer Progress"
+#~ msgstr "Progresso da transferência"
+
+#~ msgid "Looking up %s"
+#~ msgstr "Procurando %s"
+
+#~ msgid "Contacting %s"
+#~ msgstr "Contactando %s"
+
+#~ msgid "Waiting for a connection..."
+#~ msgstr "Esperando por uma conexão..."
+
+#~ msgid "Logging in..."
+#~ msgstr "Efetuando login..."
+
+#~ msgid "Read %d%%%% of %l"
+#~ msgstr "Lidos %d%%%% de %l"
+
+#~ msgid "Read %d bytes"
+#~ msgstr "Lidos %d bytes"
+
+#~ msgid "Reading..."
+#~ msgstr "Lendo..."
+
+#~ msgid "Writing %d%%%% of %l"
+#~ msgstr "Escritos %d%%%% of %l"
+
+#~ msgid "Writing %d bytes"
+#~ msgstr "Escritos %d bytes"
+
+#~ msgid "Writing..."
+#~ msgstr "Escrevendo..."
+
+#~ msgid "Done!"
+#~ msgstr "Concluído!"
+
+#~ msgid "Interrupted!"
+#~ msgstr "Interrompido!"
+
+#~ msgid "Please wait..."
+#~ msgstr "Aguarde por favor..."
+
+#~ msgid "Request timeout!"
+#~ msgstr "Tempo limite do pedido excedido!"
+
+#~ msgid "Unknown"
+#~ msgstr "Desconhecido"
+
+#~ msgid "Enter Text"
+#~ msgstr "Entre texto"
+
+#~ msgid "Enter Password"
+#~ msgstr "Entre senha"
