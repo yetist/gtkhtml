@@ -8,7 +8,4 @@ void gtk_html_im_unrealize (GtkHTML *html);
 void gtk_html_im_size_allocate (GtkHTML *html); 
 void gtk_html_im_style_set (GtkHTML *html);
 
-#endif GTK_HTML_IM_H_
-
-
-
+#endif

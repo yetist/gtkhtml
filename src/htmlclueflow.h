@@ -31,10 +31,6 @@
 #define HTML_CLUEFLOW(x) ((HTMLClueFlow *)(x))
 #define HTML_CLUEFLOW_CLASS(x) ((HTMLClueFlowClass *)(x))
 
-typedef struct _HTMLClueFlow HTMLClueFlow;
-typedef struct _HTMLClueFlowClass HTMLClueFlowClass;
-typedef enum _HTMLClueFlowStyle HTMLClueFlowStyle;
-
 /* Paragraph style.  Notice that the `H*' elements must be consecutive.  */
 enum _HTMLClueFlowStyle {
 	HTML_CLUEFLOW_STYLE_NORMAL,
@@ -52,6 +48,10 @@ enum _HTMLClueFlowStyle {
 	HTML_CLUEFLOW_STYLE_NOWRAP,
 	HTML_CLUEFLOW_NUMSTYLES
 };
+
+typedef struct _HTMLClueFlow HTMLClueFlow;
+typedef struct _HTMLClueFlowClass HTMLClueFlowClass;
+typedef enum _HTMLClueFlowStyle HTMLClueFlowStyle;
 
 struct _HTMLClueFlow {
 	HTMLClue clue;

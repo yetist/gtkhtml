@@ -1,5 +1,7 @@
 2000-10-02  Radek Doulik  <rodo@helixcode.com>
 
+	* kill some warnings
+
 	* htmltable.c (prev_col_do_cspan): alloc cells before doing
 	column spanning
 

@@ -26,7 +26,6 @@
 #define GTK_HTML_GCONF_DIR "/GNOME/Documents/HTML_Editor"
 #define GTK_HTML_GNOME_CONFIG_PREFIX "/gtkhtml/Settings/"
 
-typedef enum _GtkHTMLClassPropertiesItem GtkHTMLClassPropertiesItem;
 typedef struct _GtkHTMLClassProperties GtkHTMLClassProperties;
 
 #include <glib.h>

@@ -22,13 +22,6 @@
 #ifndef _HTMLCOLORSET_H_
 #define _HTMLCOLORSET_H_
 
-typedef enum   _HTMLColorId HTMLColorId;
-typedef struct _HTMLColorSet HTMLColorSet;
-
-#include <gdk/gdk.h>
-#include "htmlpainter.h"
-#include "htmlcolor.h"
-
 enum _HTMLColorId
 {
 	HTMLBgColor = 0,
@@ -42,6 +35,12 @@ enum _HTMLColorId
 
 	HTMLColors
 };
+typedef enum   _HTMLColorId HTMLColorId;
+typedef struct _HTMLColorSet HTMLColorSet;
+
+#include <gdk/gdk.h>
+#include "htmlpainter.h"
+#include "htmlcolor.h"
 
 struct _HTMLColorSet
 {

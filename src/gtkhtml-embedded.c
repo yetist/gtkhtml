@@ -29,9 +29,6 @@
 static void gtk_html_embedded_class_init (GtkHTMLEmbeddedClass *class);
 static void gtk_html_embedded_init       (GtkHTMLEmbedded *gspaper);
 
-struct _GtkHTMLEmbeddedPrivate {
-};
-
 static void gtk_html_embedded_size_request (GtkWidget *widget, GtkRequisition *requisition);
 static void gtk_html_embedded_size_allocate (GtkWidget *widget, GtkAllocation *allocation);
 
@@ -60,8 +57,8 @@ gtk_html_embedded_get_type (void)
 			sizeof (GtkHTMLEmbeddedClass),
 			(GtkClassInitFunc) gtk_html_embedded_class_init,
 			(GtkObjectInitFunc) gtk_html_embedded_init,
-			(GtkArgSetFunc) NULL,
-			(GtkArgGetFunc) NULL
+			NULL,
+			NULL
 		};
     
 		select_paper_type = gtk_type_unique (gtk_bin_get_type (), &html_embedded_info);
@@ -85,7 +82,6 @@ gtk_html_embedded_finalize (GtkObject *object)
 	g_hash_table_foreach(eb->params, free_param, 0);
 	g_hash_table_destroy(eb->params);
 	g_free(eb->classid);
-	g_free(eb->priv);
 	g_free(eb->type);
 
 	GTK_OBJECT_CLASS(parent_class)->finalize (object);
@@ -191,9 +187,7 @@ static void
 gtk_html_embedded_init (GtkHTMLEmbedded *ge)
 {
 	ge->descent = 0;
-	ge->priv = g_malloc0(sizeof(*ge->priv));
-
-	ge->params = g_hash_table_new (g_str_hash, g_str_equal);
+	ge->params  = g_hash_table_new (g_str_hash, g_str_equal);
 }
 
 /**

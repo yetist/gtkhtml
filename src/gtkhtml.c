@@ -1086,7 +1086,7 @@ selection_get (GtkWidget        *widget,
 			{
 				gtk_selection_data_set (selection_data_ptr,
 							GDK_SELECTION_TYPE_STRING, 8,
-							selection_string, 
+							(const guchar *) selection_string, 
 							strlen (selection_string));
 			}
 		else if ((info == TARGET_TEXT) || (info == TARGET_COMPOUND_TEXT))
@@ -1153,7 +1153,7 @@ selection_received (GtkWidget *widget,
 		html_engine_delete_selection (GTK_HTML (widget)->engine, TRUE);
 		html_engine_insert (GTK_HTML (widget)->engine, 
 				    selection_data->data,
-				    selection_data->length);
+				    (guint) selection_data->length);
 	}
 }  
 
