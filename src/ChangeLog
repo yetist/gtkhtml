@@ -1,5 +1,7 @@
 2000-09-06  Radek Doulik  <rodo@helixcode.com>
 
+	* htmltextslave.c (fit_line): fixed eating condition once again
+
 	* htmlgdkpainter.h: removed font_style from gdk_painter as it is
 	obsolete
 

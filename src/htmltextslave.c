@@ -174,8 +174,9 @@ fit_line (HTMLObject *o,
 	slave = HTML_TEXT_SLAVE (o);
 	text  = HTML_TEXT (slave->owner);
 
+	printf ("%p %s\n", HTML_OBJECT (text)->prev, text->text);
 	/* if on begin of line (firstRun) and not on begin of para, remove beggining space */
-	if (firstRun && text->text [slave->posStart] == ' ' && HTML_OBJECT (text)->prev) {
+	if (firstRun && text->text [slave->posStart] == ' ' && (o->prev != text || HTML_OBJECT (text)->prev)) {
 		slave->posStart ++;
 		slave->posLen --;
 	}
