@@ -3858,6 +3858,9 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		GtkAdjustment *vadj = gtk_layout_get_vadjustment (GTK_LAYOUT (html));
 		gtk_adjustment_set_value (vadj, vadj->upper - vadj->page_size);
 		break;
+	case GTK_HTML_COMMAND_COPY:
+		gtk_html_copy (html);
+		break;
 	}
 	default:
 		html->binding_handled = FALSE;
@@ -3876,9 +3879,6 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		break;
 	case GTK_HTML_COMMAND_REDO:
 		gtk_html_redo (html);
-		break;
-	case GTK_HTML_COMMAND_COPY:
-		gtk_html_copy (html);
 		break;
 	case GTK_HTML_COMMAND_COPY_AND_DISABLE_SELECTION:
 		gtk_html_copy (html);
@@ -4453,6 +4453,8 @@ load_keybindings (GtkHTMLClass *klass)
 	BCOM (0, KP_Home, SCROLL_BOD);
 	BCOM (0, End, SCROLL_EOD);
 	BCOM (0, KP_End, SCROLL_EOD);
+
+	BCOM (GDK_CONTROL_MASK, c, COPY);
 
 	BCOM (0, Return, INSERT_PARAGRAPH);
 	BCOM (0, KP_Enter, INSERT_PARAGRAPH);
