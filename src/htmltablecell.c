@@ -318,7 +318,7 @@ save (HTMLObject *self,
 	    && HTML_IS_CLUEFLOW (HTML_CLUE (self)->head) && html_clueflow_is_empty (HTML_CLUEFLOW (HTML_CLUE (self)->head)))
 	    SB "&nbsp;" SE; */
 
-	SB "</TD>\n" SE;
+	SB cell->heading ? "</TH>\n" : "</TD>\n" SE;
 
 	return TRUE;
 }
