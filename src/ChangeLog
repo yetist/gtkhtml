@@ -1,5 +1,8 @@
 2003-03-18  Larry Ewing  <lewing@ximian.com>
 
+	* htmlimage.c (html_image_pointer_run_animation): remove unused
+	variables.
+
 	* htmlgdkpainter.c (draw_spell_error): remove unsued variable, add
 	a return value.
 

@@ -1071,10 +1071,8 @@ html_image_pointer_queue_animation (HTMLImagePointer *ip)
 static gint
 html_image_pointer_run_animation (HTMLImagePointer *ip)
 {
-	GdkPixbufAnimation      *ganim = ip->animation;
 	GdkPixbufAnimationIter  *iter = ip->iter;
 	HTMLEngine              *engine = ip->factory->engine;
-	gint nx, ny;
 	
 	/* printf ("animation_timeout\n"); */
 	if (gdk_pixbuf_animation_iter_advance (iter, NULL)) {
