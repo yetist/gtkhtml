@@ -1,3 +1,8 @@
+2003-04-23  Larry Ewing  <lewing@ximian.com>
+
+	* htmlanchor.c (check_point): override the default check_point
+	with one that always returns NULL.
+
 2003-04-16  Larry Ewing  <lewing@ximian.com>
 
 	* htmlembedded.c (copy): comment out debug wanring.

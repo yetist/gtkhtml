@@ -65,6 +65,28 @@ find_anchor (HTMLObject *o, const char *name, gint *x, gint *y)
 	return NULL;
 }
 
+static HTMLObject *
+check_point (HTMLObject *self,
+	     HTMLPainter *painter,
+	     gint x, gint y,
+	     guint *offset_return,
+	     gboolean for_cursor)
+{
+	return NULL;
+}
+
+static gboolean
+calc_size (HTMLObject *self, HTMLPainter *painter, GList **changed_objs)
+{
+	/* RM2 HTMLText *text = HTML_TEXT (self);
+	   GtkHTMLFontStyle style = html_text_get_font_style (text); */
+
+	self->width = 0;
+	self->ascent = 1;
+	self->descent = 0;
+
+	return FALSE;
+}
 
 void
 html_anchor_type_init (void)
@@ -86,6 +108,8 @@ html_anchor_class_init (HTMLAnchorClass *klass,
 	object_class->destroy = destroy;
 	object_class->copy = copy;
 	object_class->find_anchor = find_anchor;
+	object_class->check_point = check_point;
+	object_class->calc_size = calc_size;
 
 	parent_class = &html_object_class;
 }
