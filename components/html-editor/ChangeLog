@@ -1,3 +1,8 @@
+2004-02-03  Radek Doulik  <rodo@ximian.com>
+
+	* toolbar.c (create_style_toolbar): unset focus for all toolbar
+	widgets
+
 2004-02-02  Radek Doulik  <rodo@ximian.com>
 
 	* properties.c (gtk_html_edit_properties_dialog_new): make the

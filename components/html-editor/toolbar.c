@@ -298,8 +298,6 @@ setup_color_combo (GtkHTMLControlData *cd)
         g_signal_connect (cd->html, "load_done", G_CALLBACK (load_done), cd);
 
 	cd->combo = color_combo_new (NULL, _("Automatic"), &color->color, color_group_fetch ("toolbar_text", cd));
-	GTK_WIDGET_UNSET_FLAGS (cd->combo, GTK_CAN_FOCUS);
-	gtk_container_forall (GTK_CONTAINER (cd->combo), unset_focus, NULL);
         g_signal_connect (cd->combo, "color_changed", G_CALLBACK (color_changed), cd);
 
 	gtk_widget_show_all (cd->combo);
@@ -623,6 +621,8 @@ create_style_toolbar (GtkHTMLControlData *cd)
 	gtk_widget_show_all (hbox);
 
 	toolbar_update_format (cd);
+	GTK_WIDGET_UNSET_FLAGS (cd->toolbar_style, GTK_CAN_FOCUS);
+	gtk_container_forall (GTK_CONTAINER (cd->toolbar_style), unset_focus, NULL);
 
 	return hbox;
 }
