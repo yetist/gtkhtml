@@ -1,3 +1,15 @@
+2000-08-31  Lauris Kaplinski  <lauris@helixcode.com>
+
+	* htmlgdkfontmanager.h:
+	* htmlgdkfontmanager.c (html_gdk_text_width): Calculate UTF-8 text width
+	(html_gdk_draw_text): Draw UTF-8 text
+
+	* htmlgdkpainter.c (draw_spell_error): Use fontmanager text width
+	(draw_text): Use fontmanager methods
+	(calc_text_width): Same
+
+	* htmltokenizer.c (html_tokenizer_write): Convert entityValue to UTF-8
+	
 2000-08-31  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlgdkfontmanager.c (font_face_exists): free list

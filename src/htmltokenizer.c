@@ -456,6 +456,57 @@ html_tokenizer_add_pending (HTMLTokenizer *t)
 	t->pending = NonePending;
 }
 
+static int
+g_unichar_to_utf8 (gint c, gchar *outbuf)
+{
+  size_t len = 0;
+  int first;
+  int i;
+
+  if (c < 0x80)
+    {
+      first = 0;
+      len = 1;
+    }
+  else if (c < 0x800)
+    {
+      first = 0xc0;
+      len = 2;
+    }
+  else if (c < 0x10000)
+    {
+      first = 0xe0;
+      len = 3;
+    }
+   else if (c < 0x200000)
+    {
+      first = 0xf0;
+      len = 4;
+    }
+  else if (c < 0x4000000)
+    {
+      first = 0xf8;
+      len = 5;
+    }
+  else
+    {
+      first = 0xfc;
+      len = 6;
+    }
+
+  if (outbuf)
+    {
+      for (i = len - 1; i > 0; --i)
+	{
+	  outbuf[i] = (c & 0x3f) | 0x80;
+	  c >>= 6;
+	}
+      outbuf[0] = c | first;
+    }
+
+  return len;
+}
+
 void
 html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 {
@@ -468,7 +519,8 @@ html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 
 	while ((src - string) < size) {
 		/* Check if the buffer is too big */
-		if ((t->dest - t->buffer) > t->size) {
+		/* I really do not understand it, but I added 5 for UTF-8 (Lauris) */
+		if ((t->dest - t->buffer + 5) > t->size) {
 			gchar *newbuf = g_malloc (t->size + 1024 + 20);
 			memcpy (newbuf, t->buffer, 
 				t->dest - t->buffer + 1);
@@ -664,11 +716,18 @@ html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 			else {
 				if(entityValue) {
 					/* Insert plain ASCII */
+					/* I really do not understand it, but let's test it out (Lauris) */
+#if 0
 					*(t->dest)++ = (gchar) entityValue;
 					if (t->pre)
 						t->prePos++;
 					if (*src == ';')
 						src++;
+#else
+					t->dest += g_unichar_to_utf8 (entityValue, t->dest);
+					if (t->pre) t->prePos++;
+					if (*src == ';') src++;
+#endif
 				}
 				/* FIXME: Get entities */
 				else if (!entityValue) {

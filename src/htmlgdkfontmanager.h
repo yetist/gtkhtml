@@ -61,4 +61,20 @@ void                html_gdk_font_manager_set_fixed                  (HTMLGdkFon
 								      gint size);
 void                html_gdk_font_manager_set_size                   (HTMLGdkFontManager *manager,
 								      gint size);
+
+/* UTF-8 Wrappers */
+
+gint html_gdk_text_width (HTMLGdkFontManager *manager,
+			  HTMLGdkFontFace *face,
+			  GtkHTMLFontStyle style,
+			  gchar *text, gint bytes);
+
+void html_gdk_draw_text (HTMLGdkFontManager *manager,
+			 HTMLGdkFontFace *face,
+			 GtkHTMLFontStyle style,
+			 GdkDrawable *drawable,
+			 GdkGC *gc,
+			 gint x, gint y,
+			 gchar *text, gint bytes);
+
 #endif /* _HTMLGDKFONTMANAGER_H_ */

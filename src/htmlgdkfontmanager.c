@@ -24,6 +24,7 @@
 #include <gdk/gdkx.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unicode.h>
 
 static void release_fonts (HTMLGdkFontFace *face);
 static GdkFont * get_closest_font (HTMLGdkFontFace *face, const gchar *weight, const gchar *slant, guint html_size);
@@ -216,6 +217,74 @@ html_gdk_font_manager_set_size (HTMLGdkFontManager *manager, gint size)
 {
 	g_hash_table_foreach (manager->faces, (GHFunc) set_size, GINT_TO_POINTER (size));
 }
+
+gint html_gdk_text_width (HTMLGdkFontManager *manager,
+			  HTMLGdkFontFace *face,
+			  GtkHTMLFontStyle style,
+			  gchar *text, gint bytes)
+{
+	GdkFont *font;
+	gchar *p;
+	gint width;
+
+	g_return_val_if_fail (manager != NULL, 0);
+
+	if (!text) return 0;
+
+	if (!face) face = (style & GTK_HTML_FONT_STYLE_FIXED) ? manager->fixed : manager->variable;
+
+	font = html_gdk_font_face_get_font (face, style);
+
+	width = 0;
+
+	for (p = text; p && *p && p - text < bytes; p = unicode_next_utf8 (p)) {
+		unicode_char_t unival;
+		guchar c;
+		unicode_get_utf8 (p, &unival);
+		if (unival < 0) unival = ' ';
+		if (unival > 255) unival = ' ';
+		c = unival;
+		width += gdk_text_width (font, &c, 1);
+	}
+
+	return width;
+}
+
+void html_gdk_draw_text (HTMLGdkFontManager *manager,
+			 HTMLGdkFontFace *face,
+			 GtkHTMLFontStyle style,
+			 GdkDrawable *drawable,
+			 GdkGC *gc,
+			 gint x, gint y,
+			 gchar *text, gint bytes)
+{
+	GdkFont *font;
+	gchar *p;
+	guchar *b;
+	gint len;
+
+	g_return_if_fail (manager != NULL);
+
+	if (!text) return;
+
+	if (!face) face = (style & GTK_HTML_FONT_STYLE_FIXED) ? manager->fixed : manager->variable;
+
+	font = html_gdk_font_face_get_font (face, style);
+
+	b = alloca (bytes);
+	len = 0;
+
+	for (p = text; p && *p && p - text < bytes; p = unicode_next_utf8 (p)) {
+		unicode_char_t unival;
+		unicode_get_utf8 (p, &unival);
+		if (unival < 0) unival = ' ';
+		if (unival > 255) unival = ' ';
+		b[len++] = unival;
+	}
+
+	gdk_draw_text (drawable, font, gc, x, y, b, len);
+}
+
 
 /* static helper functions */
 

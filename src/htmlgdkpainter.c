@@ -740,7 +740,9 @@ draw_spell_error (HTMLPainter *painter,
 		  guint off, gint len)
 {
 	HTMLGdkPainter *gdk_painter;
+#if 0
 	GdkFont *gdk_font;
+#endif
 	GdkGCValues values;
 	guint x_off, width;
 	gchar dash [2];
@@ -750,13 +752,23 @@ draw_spell_error (HTMLPainter *painter,
 	x -= gdk_painter->x1;
 	y -= gdk_painter->y1;
 
+#if 0
 	gdk_font = html_gdk_font_manager_get_font (gdk_painter->font_manager,
 						   gdk_painter->font_style,
 						   gdk_painter->font_face);
 
 	x_off = gdk_text_width (gdk_font, text,       off) + x;
 	width = gdk_text_width (gdk_font, text + off, len) + x_off;
-	
+#endif
+	x_off = html_gdk_text_width (gdk->painter->font_manager,
+				     gdk_painter->font_face,
+				     gdk_painter->font_style,
+				     text, off) + x;
+	x_off = html_gdk_text_width (gdk->painter->font_manager,
+				     gdk_painter->font_face,
+				     gdk_painter->font_style,
+				     text + off, len) + x_off;
+
 	gdk_gc_get_values (gdk_painter->gc, &values);
 	gdk_gc_set_fill (gdk_painter->gc, GDK_OPAQUE_STIPPLED);
 	dash [0] = 2;
@@ -795,18 +807,33 @@ draw_text (HTMLPainter *painter,
 	gdk_font = html_gdk_font_manager_get_font (gdk_painter->font_manager,
 						   gdk_painter->font_style,
 						   (HTMLGdkFontFace *) gdk_painter->font_face);
-
+#if 0
 	gdk_draw_text (gdk_painter->pixmap,
 		       gdk_font,
 		       gdk_painter->gc,
 		       x, y,
 		       text, len);
+#endif
+	html_gdk_draw_text (gdk_painter->font_manager,
+			    (HTMLGdkFontFace *) gdk_painter->font_face,
+			    gdk_painter->font_style,
+			    gdk_painter->pixmap,
+			    gdk_painter->gc,
+			    x, y,
+			    text, len);
+			    
 
 	if (gdk_painter->font_style & (GTK_HTML_FONT_STYLE_UNDERLINE
 				       | GTK_HTML_FONT_STYLE_STRIKEOUT)) {
 		guint width;
 
+#if 0
 		width = gdk_text_width (gdk_font, text, len);
+#endif
+		width = html_gdk_text_width (gdk_painter->font_manager,
+					     (HTMLGdkFontFace *) gdk_painter->font_face,
+					     gdk_painter->font_style,
+					     text, len);
 
 		if (gdk_painter->font_style & GTK_HTML_FONT_STYLE_UNDERLINE)
 			gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, 
@@ -882,12 +909,20 @@ calc_text_width (HTMLPainter *painter,
 		 HTMLFontFace *face)
 {
 	HTMLGdkPainter *gdk_painter;
+#if 0
 	GdkFont *gdk_font;
+#endif
 	gint width;
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
+#if 0
 	gdk_font = html_gdk_font_manager_get_font (gdk_painter->font_manager, style, (HTMLGdkFontFace *) face);
 	width = gdk_text_width (gdk_font, text, len);
+#endif
+	width = html_gdk_text_width (gdk_painter->font_manager,
+				     (HTMLGdkFontFace *) gdk_painter->font_face,
+				     gdk_painter->font_style,
+				     text, len);
 
 	return width;
 }
