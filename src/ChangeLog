@@ -1,5 +1,16 @@
 2000-03-12  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine-edit-cursor.c
+	(html_engine_hide_cursor): Draw the cursor only if the engine is
+	editable.
+	(html_engine_show_cursor): Likewise.
+
+	* htmldrawqueue.c
+	(draw_obj): Draw the cursor only if the engine is editable.
+	(clear): Likewise.
+
+2000-03-12  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* htmltextmaster.c
 	(check_point): Do not make the offset be greater than the string's
 	length.

@@ -31,7 +31,7 @@ html_engine_hide_cursor  (HTMLEngine *engine)
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 
-	if (engine->cursor_hide_count == 0)
+	if (engine->editable && engine->cursor_hide_count == 0)
 		html_engine_draw_cursor_in_area (engine, 0, 0, -1, -1);
 
 	engine->cursor_hide_count++;
@@ -45,7 +45,7 @@ html_engine_show_cursor  (HTMLEngine *engine)
 
 	if (engine->cursor_hide_count > 0) {
 		engine->cursor_hide_count--;
-		if (engine->cursor_hide_count == 0)
+		if (engine->editable && engine->cursor_hide_count == 0)
 			html_engine_draw_cursor_in_area (engine, 0, 0, -1, -1);
 	}
 }

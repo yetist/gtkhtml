@@ -278,7 +278,8 @@ draw_obj (HTMLDrawQueue *queue,
 
 	html_painter_end (e->painter);
 
-	html_engine_draw_cursor_in_area (e, x1, y1, x2 - x1, y2 - y1);
+	if (e->editable)
+		html_engine_draw_cursor_in_area (e, x1, y1, x2 - x1, y2 - y1);
 }
 
 static void
@@ -313,7 +314,8 @@ clear (HTMLDrawQueue *queue,
 
 	html_painter_end (e->painter);
 
-	html_engine_draw_cursor_in_area (e, x1, y1, x2 - x1, y2 - y1);
+	if (e->editable)
+		html_engine_draw_cursor_in_area (e, x1, y1, x2 - x1, y2 - y1);
 }
 
 void
