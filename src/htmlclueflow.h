@@ -23,9 +23,11 @@
 
 #include "htmlobject.h"
 
-typedef struct _HTMLClueFlow HTMLClueFlow;
-
 #define HTML_CLUEFLOW(x) ((HTMLClueFlow *)(x))
+#define HTML_CLUEFLOW_CLASS(x) ((HTMLClueFlow *)(x))
+
+typedef struct _HTMLClueFlow HTMLClueFlow;
+typedef struct _HTMLClueFlowClass HTMLClueFlowClass;
 
 struct _HTMLClueFlow {
 	HTMLClue parent;
@@ -33,7 +35,18 @@ struct _HTMLClueFlow {
 	gshort indent;
 };
 
-void        html_clueflow_set_max_width (HTMLObject *o, gint max_width);
+struct _HTMLClueFlowClass {
+	HTMLClue parent;
+};
+
+
+extern HTMLClueFlowClass html_clueflow_class;
+
+
+void html_clueflow_type_init (void);
+void html_clueflow_class_init (HTMLClueFlowClass *klass, HTMLType type);
+void html_clueflow_init (HTMLClueFlow *flow, HTMLClueFlowClass *klass,
+			 gint x, gint y, gint max_width, gint percent);
 HTMLObject *html_clueflow_new (gint x, gint y, gint max_width, gint percent);
 
 #endif /* _HTMLCLUEFLOW_H_ */

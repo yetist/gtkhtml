@@ -18,11 +18,18 @@
     the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
     Boston, MA 02111-1307, USA.
 */
+
 #include "htmlobject.h"
 #include "htmlhspace.h"
 
-void
-html_hspace_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint height, gint tx, gint ty)
+
+HTMLHSpaceClass html_hspace_class;
+
+
+static void
+draw (HTMLObject *o, HTMLPainter *p,
+      gint x, gint y, gint width, gint height,
+      gint tx, gint ty)
 {
 	HTMLHSpace *hspace = HTML_HSPACE (o);
 
@@ -33,17 +40,41 @@ html_hspace_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gin
 	html_painter_draw_text (p, o->x + tx, o->y + ty, " ", 1);
 }
 
-HTMLObject *
-html_hspace_new (HTMLFont *font, HTMLPainter *painter, gboolean hidden)
+
+void
+html_hspace_type_init (void)
 {
-	HTMLHSpace *hspace = g_new0 (HTMLHSpace, 1);
-	HTMLObject *object = HTML_OBJECT (hspace);
-	html_object_init (object, HSpace);
-	
-	/* HTMLObject functions */
-	object->draw = html_hspace_draw;
+	html_hspace_class_init (&html_hspace_class, HTML_TYPE_HSPACE);
+}
 
-	object->ObjectType = HSpace;
+void
+html_hspace_class_init (HTMLHSpaceClass *klass,
+			HTMLType type)
+{
+	HTMLObjectClass *object_class;
+
+	object_class = HTML_OBJECT_CLASS (klass);
+
+	html_object_class_init (object_class, type);
+
+	/* FIXME destroy? */
+
+	object_class->draw = draw;
+}
+
+void
+html_hspace_init (HTMLHSpace *hspace,
+		  HTMLHSpaceClass *klass,
+		  HTMLFont *font,
+		  HTMLPainter *painter,
+		  gboolean hidden)
+{
+	HTMLObject *object;
+
+	object = HTML_OBJECT (hspace);
+
+	html_object_init (object, HTML_OBJECT_CLASS (klass));
+	
 	object->ascent = html_font_calc_ascent (font);
 	object->descent = html_font_calc_descent (font) + 1;
 
@@ -54,8 +85,17 @@ html_hspace_new (HTMLFont *font, HTMLPainter *painter, gboolean hidden)
 	else
 		object->width = 0;
 
-	object->flags |= Separator;
-	object->flags &= ~Hidden;
+	object->flags |= HTML_OBJECT_FLAG_SEPARATOR;
+	object->flags &= ~HTML_OBJECT_FLAG_HIDDEN;
+}
 
-	return object;
+HTMLObject *
+html_hspace_new (HTMLFont *font, HTMLPainter *painter, gboolean hidden)
+{
+	HTMLHSpace *hspace;
+
+	hspace = g_new0 (HTMLHSpace, 1);
+	html_hspace_init (hspace, &html_hspace_class, font, painter, hidden);
+
+	return HTML_OBJECT (hspace);
 }

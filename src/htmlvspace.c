@@ -18,21 +18,57 @@
     the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
     Boston, MA 02111-1307, USA.
 */
+
 #include "htmlvspace.h"
 
-HTMLObject *
-html_vspace_new (gint space, ClearType clear)
+
+HTMLVSpaceClass html_vspace_class;
+
+
+void
+html_vspace_type_init (void)
 {
-	HTMLVSpace *vspace = g_new0 (HTMLVSpace, 1);
-	HTMLObject *object = HTML_OBJECT (vspace);
-	html_object_init (object, VSpace);
+	html_vspace_class_init (&html_vspace_class, HTML_TYPE_VSPACE);
+}
+
+void
+html_vspace_class_init (HTMLVSpaceClass *klass,
+			HTMLType type)
+{
+	HTMLObjectClass *object_class;
+
+	object_class = HTML_OBJECT_CLASS (klass);
+
+	html_object_class_init (object_class, type);
+}
+
+void
+html_vspace_init (HTMLVSpace *vspace,
+		  HTMLVSpaceClass *klass,
+		  gint space,
+		  ClearType clear)
+{
+	HTMLObject *object;
+
+	object = HTML_OBJECT (vspace);
+
+	html_object_init (object, HTML_OBJECT_CLASS (klass));
 	
 	object->ascent = space;
 	object->descent = 0;
 	object->width = 1;
-	object->flags |= NewLine;
+	object->flags |= HTML_OBJECT_FLAG_NEWLINE;
 	
 	vspace->clear = clear;
+}
 
-	return object;
+HTMLObject *
+html_vspace_new (gint space, ClearType clear)
+{
+	HTMLVSpace *vspace;
+
+	vspace = g_new (HTMLVSpace, 1);
+	html_vspace_init (vspace, &html_vspace_class, space, clear);
+
+	return HTML_OBJECT (vspace);
 }

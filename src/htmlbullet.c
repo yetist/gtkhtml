@@ -21,30 +21,17 @@
 #include <gdk/gdk.h>
 #include "htmlbullet.h"
 
-void html_bullet_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint height, gint tx, gint ty);
+
+HTMLBulletClass html_bullet_class;
 
-HTMLObject *
-html_bullet_new (gint height, gint level, GdkColor *color)
-{
-	HTMLBullet *bullet = g_new0 (HTMLBullet, 1);
-	HTMLObject *object = HTML_OBJECT (bullet);
-	html_object_init (object, Bullet);
+
+/* HTMLObject methods.  */
 
-	/* HTMLObject functions */
-	object->draw = html_bullet_draw;
-
-	object->ascent = height;
-	object->descent = 0;
-	object->width = 14;
-
-	bullet->level = level;
-	bullet->color = color;
-
-	return object;
-}
-
-void
-html_bullet_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint height, gint tx, gint ty)
+static void
+draw (HTMLObject *o, HTMLPainter *p,
+      gint x, gint y,
+      gint width, gint height,
+      gint tx, gint ty)
 {
 	gint xp, yp;
 
@@ -66,4 +53,54 @@ html_bullet_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gin
 	}
 }
 
+
+void
+html_bullet_type_init (void)
+{
+	html_bullet_class_init (&html_bullet_class, HTML_TYPE_BULLET);
+}
 
+void
+html_bullet_class_init (HTMLBulletClass *klass,
+			HTMLType type)
+{
+	HTMLObjectClass *object_class;
+
+	object_class = HTML_OBJECT_CLASS (klass);
+
+	html_object_class_init (object_class, type);
+
+	object_class->draw = draw;
+}
+
+void
+html_bullet_init (HTMLBullet *bullet,
+		  HTMLBulletClass *klass,
+		  gint height,
+		  gint level,
+		  GdkColor *color)
+{
+	HTMLObject *object;
+
+	object = HTML_OBJECT (bullet);
+
+	html_object_init (object, HTML_OBJECT_CLASS (klass));
+
+	object->ascent = height;
+	object->descent = 0;
+	object->width = 14;
+
+	bullet->level = level;
+	bullet->color = color;
+}
+
+HTMLObject *
+html_bullet_new (gint height, gint level, GdkColor *color)
+{
+	HTMLBullet *bullet;
+
+	bullet = g_new0 (HTMLBullet, 1);
+	html_bullet_init (bullet, &html_bullet_class, height, level, color);
+
+	return HTML_OBJECT (bullet);
+}

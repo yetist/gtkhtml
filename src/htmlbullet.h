@@ -24,9 +24,11 @@
 #include <gdk/gdk.h>
 #include "htmlobject.h"
 
-typedef struct _HTMLBullet HTMLBullet;
+#define HTML_BULLET(x) ((HTMLBullet *) (x))
+#define HTML_BULLET_CLASS(x) ((HTMLBulletClass *) (x))
 
-#define HTML_BULLET(x) ((HTMLBullet *)(x))
+typedef struct _HTMLBullet HTMLBullet;
+typedef struct _HTMLBulletClass HTMLBulletClass;
 
 struct _HTMLBullet {
 	HTMLObject parent;
@@ -35,6 +37,17 @@ struct _HTMLBullet {
 	GdkColor *color;
 };
 
+struct _HTMLBulletClass {
+	HTMLObjectClass parent;
+};
+
+
+extern HTMLBulletClass html_bullet_class;
+
+
+void html_bullet_type_init (void);
+void html_bullet_class_init (HTMLBulletClass *klass, HTMLType type);
+void html_bullet_init (HTMLBullet *bullet, HTMLBulletClass *klass, gint height, gint level, GdkColor *color);
 HTMLObject *html_bullet_new (gint height, gint level, GdkColor *color);
 
 #endif /* _HTMLBULLET_H_ */

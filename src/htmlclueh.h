@@ -25,8 +25,10 @@
 #include "htmlclue.h"
 
 typedef struct _HTMLClueH HTMLClueH;
+typedef struct _HTMLClueHClass HTMLClueHClass;
 
 #define HTML_CLUEH(x) ((HTMLClueH *)(x))
+#define HTML_CLUEH_CLASS(X) ((HTMLClueHClass *)(x))
 
 struct _HTMLClueH {
 	HTMLClue parent;
@@ -34,10 +36,18 @@ struct _HTMLClueH {
 	gshort indent;
 };
 
+struct _HTMLClueHClass {
+	HTMLClueClass parent;
+};
+
+
+extern HTMLClueHClass html_clue_h_class;
+
+
+void html_clueh_type_init (void);
+void html_clueh_class_init (HTMLClueHClass *klass, HTMLType type);
+void html_clueh_init (HTMLClueH *clue, HTMLClueHClass *klass,
+		      gint x, gint y, gint max_width);
 HTMLObject *html_clueh_new (gint x, gint y, gint max_width);
 
 #endif /* _HTMLCLUEH_H_ */
-
-
-
-

@@ -26,85 +26,14 @@
 #include "htmlpainter.h"
 #include "gtkhtml-private.h"
 
-static void html_image_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint height, gint tx, gint ty);
-static void html_image_set_max_width (HTMLObject *o, gint max_width);
-static gint html_image_calc_min_width (HTMLObject *o);
-static void html_image_init (HTMLImage *image);
-static void html_image_destroy (HTMLObject *image);
-static gint html_image_calc_preferred_width (HTMLObject *o);
-static void html_image_calc_size (HTMLObject *o, HTMLObject *parent);
+
+HTMLImageClass html_image_class;
 
-HTMLObject *
-html_image_new (HTMLImageFactory *imf, gchar *filename, gint max_width, 
-		gint width, gint height, gint percent, gint border)
-{
-	HTMLImage *image = g_new0 (HTMLImage, 1);
-	HTMLObject *object = HTML_OBJECT (image);
-	html_object_init (object, Image);
-
-	/* HTMLObject functions */
-	object->draw = html_image_draw;
-	object->destroy = html_image_destroy;
-	object->set_max_width = html_image_set_max_width;
-	object->calc_min_width = html_image_calc_min_width;
-	object->calc_preferred_width = html_image_calc_preferred_width;
-	object->calc_size = html_image_calc_size;
-
-	image->predefinedWidth = (width < 0 && !percent) ? FALSE : TRUE;
-	image->predefinedHeight = height < 0 ? FALSE : TRUE;
-
-	image->border = border;
-
-	object->percent = percent;
-	object->max_width = max_width;
-	object->ascent = height + border;
-	object->descent = border;
-
-	if (percent > 0) {
-		object->width = (gint)max_width * (gint)percent / 100;
-		object->width += border * 2;
-	} else {
-		object->width = width + border * 2;
-	}
-
-	if (!image->predefinedWidth && !object->percent)
-		object->width = 32;
-	if (!image->predefinedHeight)
-		object->ascent = 32;
-
-	image->image_ptr = html_image_factory_register (imf, image, filename);
-
-	return object;
-}
+
+/* HTMLObject methods.  */
 
 static void
-html_image_init (HTMLImage *image) 
-{
-	HTMLObject *object = HTML_OBJECT (image);
-
-	if (object->percent > 0) {
-		object->width = (gint) (object->max_width) * (gint) (object->percent) / 100;
-		if (!image->predefinedHeight && image->image_ptr)
-			object->ascent = image->image_ptr->pixbuf->art_pixbuf->height *
-				object->width / image->image_ptr->pixbuf->art_pixbuf->width;
-		object->flags &= ~FixedWidth;
-	}
-	else if (image->image_ptr) {
-		if (!image->predefinedWidth)
-			object->width = image->image_ptr->pixbuf->art_pixbuf->width;
-
-		if (!image->predefinedHeight)
-			object->ascent = image->image_ptr->pixbuf->art_pixbuf->height;
-	}
-	
-	if (!image->predefinedWidth)
-		object->width += image->border * 2;
-	if (!image->predefinedHeight)
-		object->ascent += image->border;
-}
-
-static void
-html_image_destroy (HTMLObject *image)
+destroy (HTMLObject *image)
 {
 	html_image_factory_unregister (
 		HTML_IMAGE (image)->image_ptr->factory,
@@ -112,7 +41,7 @@ html_image_destroy (HTMLObject *image)
 }
 
 static void
-html_image_set_max_width (HTMLObject *o, gint max_width)
+set_max_width (HTMLObject *o, gint max_width)
 {
 	if (o->percent > 0)
 		o->max_width = max_width;
@@ -129,8 +58,8 @@ html_image_set_max_width (HTMLObject *o, gint max_width)
 	}
 }
 
-gint
-html_image_calc_min_width (HTMLObject *o)
+static gint
+calc_min_width (HTMLObject *o)
 {
 	if (o->percent > 0)
 		return 1;
@@ -138,7 +67,10 @@ html_image_calc_min_width (HTMLObject *o)
 }
 
 static void
-html_image_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint height, gint tx, gint ty)
+draw (HTMLObject *o, HTMLPainter *p,
+      gint x, gint y,
+      gint width, gint height,
+      gint tx, gint ty)
 {
 	/* FIXME: Should be removed */
 	
@@ -179,15 +111,126 @@ html_image_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint
 }
 
 static gint
-html_image_calc_preferred_width (HTMLObject *o)
+calc_preferred_width (HTMLObject *o)
 {
 	return o->width;
 }
 
 static void
-html_image_calc_size (HTMLObject *o, HTMLObject *parent)
+calc_size (HTMLObject *o, HTMLObject *parent)
 {
 }
+
+
+void
+html_image_type_init (void)
+{
+	html_image_class_init (&html_image_class, HTML_TYPE_IMAGE);
+}
+
+void
+html_image_class_init (HTMLImageClass *image_class,
+		       HTMLType type)
+{
+	HTMLObjectClass *object_class;
+
+	object_class = HTML_OBJECT_CLASS (image_class);
+
+	html_object_class_init (object_class, type);
+
+	object_class->draw = draw;
+	object_class->destroy = destroy;
+	object_class->set_max_width = set_max_width;
+	object_class->calc_min_width = calc_min_width;
+	object_class->calc_preferred_width = calc_preferred_width;
+	object_class->calc_size = calc_size;
+}
+
+void
+html_image_init (HTMLImage *image,
+		 HTMLImageClass *klass,
+		 HTMLImageFactory *imf,
+		 gchar *filename,
+		 gint max_width, 
+		 gint width, gint height,
+		 gint percent, gint border)
+{
+	HTMLObject *object;
+
+	object = HTML_OBJECT (image);
+
+	html_object_init (object, HTML_OBJECT_CLASS (klass));
+
+	/* HTMLObject functions */
+	image->predefinedWidth = (width < 0 && !percent) ? FALSE : TRUE;
+	image->predefinedHeight = height < 0 ? FALSE : TRUE;
+
+	image->border = border;
+
+	object->percent = percent;
+	object->max_width = max_width;
+	object->ascent = height + border;
+	object->descent = border;
+
+	if (percent > 0) {
+		object->width = (gint)max_width * (gint)percent / 100;
+		object->width += border * 2;
+	} else {
+		object->width = width + border * 2;
+	}
+
+	if (!image->predefinedWidth && !object->percent)
+		object->width = 32;
+	if (!image->predefinedHeight)
+		object->ascent = 32;
+
+	image->image_ptr = html_image_factory_register (imf, image, filename);
+}
+
+HTMLObject *
+html_image_new (HTMLImageFactory *imf, gchar *filename, gint max_width, 
+		gint width, gint height, gint percent, gint border)
+{
+	HTMLImage *image;
+
+	image = g_new(HTMLImage, 1);
+	html_image_init (image, &html_image_class, imf, filename,
+			 max_width, width, height, percent, border);
+
+	return HTML_OBJECT (image);
+}
+
+
+/* FIXME this was formerly known as `html_image_init()'.  I am not sure what this is for.  */
+
+static void
+html_image_setup (HTMLImage *image)
+{
+	HTMLObject *object = HTML_OBJECT (image);
+
+	if (object->percent > 0) {
+		object->width = (gint) (object->max_width) * (gint) (object->percent) / 100;
+		if (!image->predefinedHeight && image->image_ptr)
+			object->ascent = image->image_ptr->pixbuf->art_pixbuf->height *
+				object->width / image->image_ptr->pixbuf->art_pixbuf->width;
+		object->flags &= ~ HTML_OBJECT_FLAG_FIXEDWIDTH;
+	}
+	else if (image->image_ptr) {
+		if (!image->predefinedWidth)
+			object->width = image->image_ptr->pixbuf->art_pixbuf->width;
+
+		if (!image->predefinedHeight)
+			object->ascent = image->image_ptr->pixbuf->art_pixbuf->height;
+	}
+	
+	if (!image->predefinedWidth)
+		object->width += image->border * 2;
+	if (!image->predefinedHeight)
+		object->ascent += image->border;
+}
+
+
+/* HTMLImageFactory stuff.  */
 
 struct _HTMLImageFactory {
 	HTMLEngine *engine;
@@ -251,7 +294,7 @@ html_image_factory_area_prepared (GdkPixbufLoader *loader, HTMLImagePointer *ip)
 			HTMLImage *i = HTML_IMAGE (cur->data);
 			if (!i->predefinedWidth && !i->predefinedHeight && !HTML_OBJECT (i)->percent)
 				need_redraw = TRUE;
-			html_image_init (i);
+			html_image_setup (i);
 		} else {
 			/* Document background pixmap */
 			need_redraw = TRUE;

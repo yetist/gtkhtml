@@ -24,29 +24,32 @@
 #include "htmlobject.h"
 #include "htmlclue.h"
 
-typedef struct _HTMLClueV HTMLClueV;
-
 #define HTML_CLUEV(x) ((HTMLClueV *)(x))
+#define HTML_CLUEV_CLASS(x) ((HTMLClueVClass *)(x))
+
+typedef struct _HTMLClueV HTMLClueV;
+typedef struct _HTMLClueVClass HTMLClueVClass;
 
 struct _HTMLClueV {
 	HTMLClue parent;
 	
 	/* fixme: htmlcluealigned */
-	HTMLObject *alignLeftList;
-	HTMLObject *alignRightList;
+	HTMLObject *align_left_list;
+	HTMLObject *align_right_list;
 	gushort padding;
 };
 
-void       html_cluev_find_free_area (HTMLClue *clue, gint y, gint width, gint height, gint indent, gint *y_pos, gint *_lmargin, gint *_rmargin);
-HTMLObject *html_cluev_new (int x, int y, int max_width, int percent);
+struct _HTMLClueVClass {
+	HTMLClue parent;
+};
 
-void        html_cluev_set_max_width (HTMLObject *o, gint max_width);
-void        html_cluev_reset (HTMLObject *clue);
-void        html_cluev_calc_size (HTMLObject *clue, HTMLObject *parent);
-gint        html_cluev_get_left_margin (HTMLClue *clue, gint y);
-gint        html_cluev_get_right_margin (HTMLClue *o, gint y);
-void        html_cluev_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint height, gint tx, gint ty);
-gboolean    html_cluev_appended (HTMLClue *clue, HTMLClue *aclue);
-void        html_cluev_append_right_aligned (HTMLClue *clue, HTMLClue *aclue);
+
+extern HTMLClueVClass html_cluev_class;
+
+
+void html_cluev_type_init (void);
+void html_cluev_class_init (HTMLClueVClass *klass, HTMLType type);
+void html_cluev_init (HTMLClueV *cluev, HTMLClueVClass *klass, gint x, gint y, gint max_width, gint percent);
+HTMLObject *html_cluev_new (gint x, gint y, gint max_width, gint percent);
 
 #endif /* _HTMLCLUEV_H_ */

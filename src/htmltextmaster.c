@@ -18,98 +18,143 @@
     the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
     Boston, MA 02111-1307, USA.
 */
+
 #include "htmlobject.h"
 #include "htmltextmaster.h"
 #include "htmltextslave.h"
 
-static gint html_text_master_calc_min_width (HTMLObject *o);
-static gint html_text_master_calc_preferred_width (HTMLObject *o);
+
+HTMLTextMasterClass html_text_master_class;
 
-HTMLObject *
-html_text_master_new (gchar *text, HTMLFont *font, HTMLPainter *painter)
+
+static void
+draw (HTMLObject *o, HTMLPainter *p,
+      gint x, gint y, gint width, gint height, gint tx, gint ty)
 {
-	gint runWidth = 0;
-	gchar *textPtr = text;
-
-	HTMLTextMaster* textmaster = g_new0 (HTMLTextMaster, 1);
-	HTMLText* htmltext = HTML_TEXT (textmaster);
-	HTMLObject *object = HTML_OBJECT (textmaster);
-	html_object_init (object, TextMaster);
-
-	/* Functions */
-	object->fit_line = html_text_master_fit_line;
-	object->calc_min_width = html_text_master_calc_min_width;
-	object->calc_preferred_width = html_text_master_calc_preferred_width;
-
-	object->width = 0;
-	object->ascent = html_font_calc_ascent (font);
-	object->descent = html_font_calc_descent (font);
-	
-	htmltext->font = font;
-	htmltext->text = text;
-	textmaster->prefWidth = html_font_calc_width (font, text, -1);
-	textmaster->minWidth = 0;
-
-	while (*textPtr) {
-		if (*textPtr != ' ') {
-			runWidth += html_font_calc_width (font, textPtr, 1);
-		}
-		else {
-			if (runWidth > textmaster->minWidth) {
-				textmaster->minWidth = runWidth;
-			}
-			runWidth = 0;
-		}
-		textPtr++;
-	}
-	
-	if (runWidth > textmaster->minWidth) {
-		textmaster->minWidth = runWidth;
-	}
-
-
-	textmaster->strLen = strlen (text);
-
-	return object;
+	/* Don't paint yourself.  */
 }
 
 static gint
-html_text_master_calc_min_width (HTMLObject *o)
+calc_min_width (HTMLObject *o)
 {
 	return HTML_TEXT_MASTER (o)->minWidth;
 }
 
-HTMLFitType
-html_text_master_fit_line (HTMLObject *o, gboolean startOfLine, gboolean firstRun, gint widthLeft) 
+static gint
+calc_preferred_width (HTMLObject *o)
+{
+	return HTML_TEXT_MASTER (o)->prefWidth;
+}
+
+static HTMLFitType
+fit_line (HTMLObject *o, gboolean startOfLine, gboolean firstRun,
+	  gint widthLeft) 
 {
 	HTMLTextMaster *textmaster = HTML_TEXT_MASTER (o);
 
 	HTMLObject *next_obj;
 	HTMLObject *text_slave;
 
-	if (o->flags & NewLine)
+	if (o->flags & HTML_OBJECT_FLAG_NEWLINE)
 		return HTMLCompleteFit;
 	
 	/* Remove existing slaves */
-	next_obj = o->nextObj;
-	while (next_obj && (next_obj->ObjectType == TextSlave)) {
-		o->nextObj = next_obj->nextObj;
+	next_obj = o->next;
+	while (next_obj != NULL
+	       && (HTML_OBJECT_TYPE (next_obj) == HTML_TYPE_TEXTSLAVE)) {
+		o->next = next_obj->next;
 		html_object_destroy (next_obj);
-		next_obj = o->nextObj;
+		next_obj = o->next;
 	}
 	
 	/* Turn all text over to our slaves */
 	text_slave = html_text_slave_new (textmaster, 0, textmaster->strLen);
 
-	text_slave->nextObj = o->nextObj;
-	o->nextObj = text_slave;
+	text_slave->next = o->next;
+	o->next = text_slave;
 	
 	return HTMLCompleteFit;
-
 }
 
-static gint
-html_text_master_calc_preferred_width (HTMLObject *o)
+
+void
+html_text_master_type_init (void)
 {
-	return HTML_TEXT_MASTER (o)->prefWidth;
+	html_text_master_class_init (&html_text_master_class,
+				     HTML_TYPE_TEXTMASTER);
+}
+
+void
+html_text_master_class_init (HTMLTextMasterClass *klass,
+			     HTMLType type)
+{
+	HTMLObjectClass *object_class;
+	HTMLTextClass *text_class;
+
+	object_class = HTML_OBJECT_CLASS (klass);
+	text_class = HTML_TEXT_CLASS (klass);
+
+	html_text_class_init (text_class, type);
+
+	object_class->draw = draw;
+	object_class->fit_line = fit_line;
+	object_class->calc_min_width = calc_min_width;
+	object_class->calc_preferred_width = calc_preferred_width;
+}
+
+void
+html_text_master_init (HTMLTextMaster *master,
+		       HTMLTextMasterClass *klass,
+		       gchar *text,
+		       HTMLFont *font,
+		       HTMLPainter *painter)
+{
+	HTMLText* html_text;
+	HTMLObject *object;
+	gint runWidth;
+	gchar *textPtr;
+
+	html_text = HTML_TEXT (master);
+	object = HTML_OBJECT (master);
+
+	html_text_init (html_text, HTML_TEXT_CLASS (klass),
+			text, font, painter);
+
+	object->width = 0;	/* FIXME why? */
+	object->ascent = html_font_calc_ascent (font);
+	object->descent = html_font_calc_descent (font);
+	
+	master->prefWidth = html_font_calc_width (font, text, -1);
+	master->minWidth = 0;
+
+	runWidth = 0;
+	textPtr = text;
+
+	while (*textPtr) {
+		if (*textPtr != ' ') {
+			runWidth += html_font_calc_width (font, textPtr, 1);
+		} else {
+			if (runWidth > master->minWidth)
+				master->minWidth = runWidth;
+			runWidth = 0;
+		}
+		textPtr++;
+	}
+	
+	if (runWidth > master->minWidth)
+		master->minWidth = runWidth;
+
+	master->strLen = strlen (text);
+}
+
+HTMLObject *
+html_text_master_new (gchar *text, HTMLFont *font, HTMLPainter *painter)
+{
+	HTMLTextMaster *master;
+
+	master = g_new (HTMLTextMaster, 1);
+	html_text_master_init (master, &html_text_master_class,
+			       text, font, painter);
+
+	return HTML_OBJECT (master);
 }

@@ -25,16 +25,29 @@
 #include "htmlfont.h"
 
 typedef struct _HTMLHSpace HTMLHSpace;
+typedef struct _HTMLHSpaceClass HTMLHSpaceClass;
 
 #define HTML_HSPACE(x) ((HTMLHSpace *)(x))
+#define HTML_HSPACE_CLASS(x) ((HTMLHSpaceClass *)(x))
 
 struct _HTMLHSpace {
 	HTMLObject parent;
 
+	/* FIXME!!!  WHY!?!?!?  Shouldn't we use the one from HTMLObject???  */
 	HTMLFont *font;
 };
 
+struct _HTMLHSpaceClass {
+	HTMLObjectClass parent;
+};
+
+
+extern HTMLHSpaceClass html_hspace_class;
+
+
+void html_hspace_type_init (void);
+void html_hspace_class_init (HTMLHSpaceClass *klass, HTMLType type);
+void html_hspace_init (HTMLHSpace *hspace, HTMLHSpaceClass *klass, HTMLFont *font, HTMLPainter *painter, gboolean hidden);
 HTMLObject *html_hspace_new (HTMLFont *font, HTMLPainter *painter, gboolean hidden);
-void        html_hspace_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint height, gint tx, gint ty);
 
 #endif /* _HTMLHSPACE_H_ */

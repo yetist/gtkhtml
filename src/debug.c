@@ -42,16 +42,19 @@ debug_dump_table (HTMLObject *o, gint level)
 void
 debug_dump_tree (HTMLObject *o, gint level)
 {
-	HTMLObject *obj = o;
+	HTMLObject *obj;
 	gint i;
 
+	obj = o;
 	while (obj) {
-		for (i=0;i<level;i++) g_print (" ");
+		for (i = 0; i < level; i++)
+			g_print (" ");
 
-		g_print ("Obj: %p, Object Type: ", obj);
-		debug_dump_object_type (obj);
+#if 0
+		g_print ("Obj: %p, Object Type: %s\n",
+			 obj, html_type_name (HTML_OBJECT_TYPE (obj)));
 
-		switch (obj->ObjectType) {
+		switch (HTML_OBJECT_TYPE (obj)) {
 		case TableType:
 			debug_dump_table (obj, level + 1);
 			break;
@@ -75,55 +78,6 @@ debug_dump_tree (HTMLObject *o, gint level)
 		}
 
 		obj = obj->nextObj;
+#endif
 	}
 }
-
-void
-debug_dump_object_type (HTMLObject *o)
-{
-	switch (o->ObjectType) {
-
-	case TableCell:
-		g_print ("HTMLTableCell\n");
-		break;
-	case TableType:
-		g_print ("HTMLTable\n");
-		break;
-	case Bullet:
-		g_print ("HTMLBullet\n");
-		break;
-	case ClueH:
-		g_print ("HTMLClueH\n");
-		break;
-	case ClueV:
-		g_print ("HTMLClueV\n");
-		break;
-	case ClueFlow:
-		g_print ("HTMLClueFlow\n");
-		break;
-	case TextMaster:
-		g_print ("HTMLTextMaster\n");
-		break;
-	case TextSlave:
-		g_print ("HTMLTextSlave\n");
-		break;
-	case HSpace:
-		g_print ("HTMLHSpace\n");
-		break;
-	case Text:
-		g_print ("HTMLText\n");
-		break;
-	case VSpace:
-		g_print ("HTMLVspace\n");
-		break;
-	case Image:
-		g_print ("HTMLImage\n");
-		break;
-	case ClueAligned:
-		g_print ("HTMLClueAligned\n");
-		break;
-        default:
-		g_print ("Unknown: %d\n", o->ObjectType);
-	}
-}
-

@@ -26,17 +26,19 @@
 #include "htmlobject.h"
 #include "htmlengine.h"
 
+
+typedef struct _HTMLImage HTMLImage;
+typedef struct _HTMLImageClass HTMLImageClass;
+typedef struct _HTMLImagePointer HTMLImagePointer;
 typedef struct _HTMLImageFactory HTMLImageFactory;
 
-typedef struct {
-  char *url;
-  GdkPixbufLoader *loader;
-  GdkPixbuf *pixbuf;
-  GSList *interests; /* A list of HTMLImage's, or a NULL pointer for the background pixmap */
-  HTMLImageFactory *factory;
-} HTMLImagePointer;
-
-typedef struct _HTMLImage HTMLImage;
+struct _HTMLImagePointer {
+	char *url;
+	GdkPixbufLoader *loader;
+	GdkPixbuf *pixbuf;
+	GSList *interests; /* A list of HTMLImage's, or a NULL pointer for the background pixmap */
+	HTMLImageFactory *factory;
+};
 
 #define HTML_IMAGE(x) ((HTMLImage *)(x))
 
@@ -51,13 +53,31 @@ struct _HTMLImage {
         HTMLImagePointer *image_ptr;
 };
 
-HTMLObject *html_image_new (HTMLImageFactory *imf, gchar *filename, gint max_width, gint width, gint height,
+struct _HTMLImageClass {
+	HTMLObjectClass parent_class;
+};
+
+
+extern HTMLImageClass image_class;
+
+
+void html_image_type_init (void);
+void html_image_class_init (HTMLImageClass *klass, HTMLType type);
+void html_image_init (HTMLImage *image, HTMLImageClass *klass,
+		      HTMLImageFactory *imf, gchar *filename,
+		      gint max_width, gint width, gint height, gint percent,
+		      gint border);
+HTMLObject *html_image_new (HTMLImageFactory *imf, gchar *filename,
+			    gint max_width, gint width, gint height,
 			    gint percent, gint border);
 
+/* FIXME move to htmlimagefactory.c */
 HTMLImageFactory *html_image_factory_new(HTMLEngine *e);
 void html_image_factory_free(HTMLImageFactory *factory);
 void html_image_factory_cleanup(HTMLImageFactory *factory); /* Does gc etc. - removes unused image entries */
+
 HTMLImagePointer *html_image_factory_register(HTMLImageFactory *factory, HTMLImage *i, const char *filename);
 void html_image_factory_unregister(HTMLImageFactory *factory, HTMLImagePointer *pointer, HTMLImage *i);
+
 
 #endif /* _HTMLIMAGE_H_ */

@@ -19,9 +19,11 @@
     the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
     Boston, MA 02111-1307, USA.
 */
+
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+
 #include "gtkhtml-private.h"
 #include "htmlbullet.h"
 #include "htmlengine.h"
@@ -120,12 +122,14 @@ html_engine_class_init (HTMLEngineClass *klass)
 	gtk_object_class_add_signals (object_class, html_engine_signals, LAST_SIGNAL);
 
 	object_class->destroy = html_engine_destroy;
+
+	/* Initialize the HTML objects.  */
+	html_types_init ();
 }
 
 static void
 html_engine_init (HTMLEngine *engine)
 {
-
 	engine->ht = html_tokenizer_new ();
 	engine->st = string_tokenizer_new ();
 	engine->fs = html_font_stack_new ();
@@ -184,7 +188,7 @@ void
 html_engine_calc_absolute_pos (HTMLEngine *e)
 {
 	if (e->clue)
-		e->clue->calc_absolute_pos (e->clue, 0, 0);
+		html_object_calc_absolute_pos (e->clue, 0, 0);
 }
 
 void
@@ -396,12 +400,13 @@ html_engine_draw (HTMLEngine *e, gint x, gint y, gint width, gint height)
 				     width, height);
 
 	if (e->clue)
-		e->clue->draw (e->clue, e->painter,
-			       x - e->x_offset,
-			       y + e->y_offset - e->topBorder,
-			       width,
-			       height,
-			       tx, ty);
+		html_object_draw (e->clue, e->painter,
+				  x - e->x_offset,
+				  y + e->y_offset - e->topBorder,
+				  width,
+				  height,
+				  tx, ty);
+
 	html_painter_end (e->painter);
 }
 
@@ -430,21 +435,22 @@ html_engine_calc_size (HTMLEngine *p)
 	if (p->clue == 0)
 		return;
 
-	p->clue->reset (p->clue);
+	html_object_reset (p->clue);
 
 	max_width = p->width - p->leftBorder - p->rightBorder;
 
 	/* Set the clue size */
 	p->clue->width = p->width - p->leftBorder - p->rightBorder;
 
-	min_width = p->clue->calc_min_width (p->clue);
+	min_width = html_object_calc_min_width (p->clue);
 
 	if (min_width > max_width) {
 		max_width = min_width;
 	}
 
-	p->clue->set_max_width (p->clue, max_width);
-	p->clue->calc_size (p->clue, NULL);
+	html_object_set_max_width (p->clue, max_width);
+	html_object_calc_size (p->clue, NULL);
+
 	p->clue->x = 0;
 	p->clue->y = p->clue->ascent;
 }
@@ -458,6 +464,7 @@ html_engine_new_flow (HTMLEngine *p, HTMLObject *clue)
 
 	HTML_CLUEFLOW (p->flow)->indent = HTML_CLUEFLOW (clue)->indent;
 	HTML_CLUE (p->flow)->halign = p->divAlign;
+
 	html_clue_append (clue, p->flow);
 }
 
@@ -470,10 +477,9 @@ html_engine_parse (HTMLEngine *p)
 	g_print ("parse\n");
 	html_engine_stop_parser (p);
 
-	if (p->clue) {
-		p->clue->destroy (p->clue);
-	}
-	
+	if (p->clue != NULL)
+		html_object_destroy (p->clue);
+
 	p->flow = 0;
 
 	p->clue = html_cluev_new (0, 0, p->width - p->leftBorder - p->rightBorder, 100);
@@ -1469,7 +1475,7 @@ html_engine_parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					cell->bg = bgcolor;
 					HTML_CLUE (cell)->valign = valign;
 					if (fixedWidth)
-						HTML_OBJECT (cell)->flags |= FixedWidth;
+						HTML_OBJECT (cell)->flags |= HTML_OBJECT_FLAG_FIXEDWIDTH;
 					html_table_add_cell (table, cell);
 					has_cell = 1;
 					e->flow = 0;

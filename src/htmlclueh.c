@@ -20,81 +20,55 @@
 */
 #include "htmlclueh.h"
 
-static void html_clueh_set_max_width (HTMLObject *o, gint w);
-static void html_clueh_calc_size (HTMLObject *clue, HTMLObject *parent);
-static gint html_clueh_calc_min_width (HTMLObject *o);
-static gint html_clueh_calc_preferred_width (HTMLObject *o);
+
+HTMLClueHClass html_clueh_class;
 
-HTMLObject *
-html_clueh_new (gint x, gint y, gint max_width)
-{
-	HTMLClueH *clueh = g_new0 (HTMLClueH, 1);
-	HTMLObject *object = HTML_OBJECT (clueh);
-	HTMLClue *clue = HTML_CLUE (clueh);
-	html_clue_init (clue, ClueH);
-
-	/* HTMLObject functions */
-	object->set_max_width = html_clueh_set_max_width;
-	object->calc_size = html_clueh_calc_size;
-	object->calc_min_width = html_clueh_calc_min_width;
-	object->calc_preferred_width = html_clueh_calc_preferred_width;
-
-	object->x = x;
-	object->y = y;
-	object->max_width = max_width;
-	object->percent = 100;
-
-	clue->valign = Bottom;
-	clue->halign = Left;
-	clue->head = clue->tail = clue->curr = 0;
-
-	object->width = object->max_width;
-	object->flags &= ~FixedWidth;
-
-	return object;
-
-}
-
+
 static void
-html_clueh_set_max_width (HTMLObject *o, gint w)
+set_max_width (HTMLObject *o, gint w)
 {
 	HTMLObject *obj;
+
 	o->max_width = w;
 
 	/* First calculate width minus fixed width objects */
-	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->nextObj) {
+	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
 		if (obj->percent <= 0) /* i.e. fixed width objects */
 			w -= obj->width;
 	}
 
 	/* Now call set_max_width for variable objects */
-	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->nextObj) {
+	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
 		if (obj->percent > 0)
-			obj->set_max_width (obj, w - HTML_CLUEH (o)->indent);
+			html_object_set_max_width (obj,
+						   w - HTML_CLUEH (o)->indent);
 	}
 }
 
 static void
-html_clueh_calc_size (HTMLObject *clue, HTMLObject *parent)
+calc_size (HTMLObject *clue, HTMLObject *parent)
 {
 	HTMLObject *obj;
-
 	gint lmargin = 0;
 	gint a = 0, d = 0;
 
 	/* Make sure the children are properly sized */
-	clue->set_max_width (clue, clue->max_width);
+	html_object_set_max_width (clue, clue->max_width);
 
-	html_clue_calc_size (clue, parent);
+	HTML_OBJECT_CLASS (&html_clue_class)->calc_size (clue, parent);
 
 	if (parent)
-		lmargin = HTML_CLUE (parent)->get_left_margin (HTML_CLUE (parent), clue->y);
+		lmargin = html_clue_get_left_margin (HTML_CLUE (parent),
+						     clue->y);
+
 	clue->width = lmargin + HTML_CLUEH (clue)->indent;
 	clue->descent = 0;
 	clue->ascent = 0;
 
-	for (obj = HTML_CLUE (clue)->head; obj != 0; obj = obj->nextObj) {
-		obj->fit_line (obj, (obj == HTML_CLUE (clue)->head), TRUE, -1);
+	for (obj = HTML_CLUE (clue)->head; obj != 0; obj = obj->next) {
+		html_object_fit_line (obj,
+				      (obj == HTML_CLUE (clue)->head),
+				      TRUE, -1);
 		obj->x = clue->width;
 		clue->width += obj->width;
 		if (obj->ascent > a)
@@ -107,41 +81,101 @@ html_clueh_calc_size (HTMLObject *clue, HTMLObject *parent)
 
 	switch (HTML_CLUE (clue)->valign) {
 	case Top:
-		for (obj = HTML_CLUE (clue)->head; obj != 0; obj = obj->nextObj)
+		for (obj = HTML_CLUE (clue)->head; obj != 0; obj = obj->next)
 			obj->y = obj->ascent;
 		break;
 
 	case VCenter:
-		for (obj = HTML_CLUE (clue)->head; obj != 0; obj = obj->nextObj)
+		for (obj = HTML_CLUE (clue)->head; obj != 0; obj = obj->next)
 			obj->y = clue->ascent / 2;
 		break;
 
 	default:
-		for (obj = HTML_CLUE (clue)->head; obj != 0; obj = obj->nextObj)
+		for (obj = HTML_CLUE (clue)->head; obj != 0; obj = obj->next)
 			obj->y = clue->ascent - d;
 	}
 }
 
 static gint
-html_clueh_calc_min_width (HTMLObject *o)
+calc_min_width (HTMLObject *o)
 {
 	HTMLObject *obj;
 	gint minWidth = 0;
 
-	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->nextObj)
-		minWidth += obj->calc_min_width (obj);
+	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next)
+		minWidth += html_object_calc_min_width (obj);
 
 	return minWidth + HTML_CLUEH (o)->indent;
 }
 
 static gint
-html_clueh_calc_preferred_width (HTMLObject *o)
+calc_preferred_width (HTMLObject *o)
 {
 	HTMLObject *obj;
 	gint prefWidth = 0;
 
-	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->nextObj) 
-		prefWidth += obj->calc_preferred_width (obj);
+	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) 
+		prefWidth += html_object_calc_preferred_width (obj);
 
 	return prefWidth + HTML_CLUEH (o)->indent;
+}
+
+
+void
+html_clueh_type_init (void)
+{
+	html_clueh_class_init (&html_clueh_class, HTML_TYPE_CLUEH);
+}
+
+void
+html_clueh_class_init (HTMLClueHClass *klass,
+		       HTMLType type)
+{
+	HTMLClueClass *clue_class;
+	HTMLObjectClass *object_class;
+
+	clue_class = HTML_CLUE_CLASS (klass);
+	object_class = HTML_OBJECT_CLASS (klass);
+
+	html_clue_class_init (clue_class, type);
+
+	object_class->set_max_width = set_max_width;
+	object_class->calc_size = calc_size;
+	object_class->calc_min_width = calc_min_width;
+	object_class->calc_preferred_width = calc_preferred_width;
+}
+
+void
+html_clueh_init (HTMLClueH *clueh, HTMLClueHClass *klass,
+		 gint x, gint y, gint max_width)
+{
+	HTMLObject *object;
+	HTMLClue *clue;
+
+	clue = HTML_CLUE (clueh);
+	object = HTML_OBJECT (clueh);
+
+	html_clue_init (clue, HTML_CLUE_CLASS (klass));
+
+	clue->valign = Bottom;
+	clue->halign = Left;
+	clue->head = clue->tail = clue->curr = 0;
+
+	object->x = x;
+	object->y = y;
+	object->max_width = max_width;
+	object->percent = 100;
+	object->width = object->max_width;
+	object->flags &= ~ HTML_OBJECT_FLAG_FIXEDWIDTH;
+}
+
+HTMLObject *
+html_clueh_new (gint x, gint y, gint max_width)
+{
+	HTMLClueH *clueh;
+
+	clueh = g_new0 (HTMLClueH, 1);
+	html_clueh_init (clueh, &html_clueh_class, x, y, max_width);
+
+	return HTML_OBJECT (clueh);
 }

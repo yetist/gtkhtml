@@ -25,8 +25,10 @@
 #include "htmlfont.h"
 
 typedef struct _HTMLText HTMLText;
+typedef struct _HTMLTextClass HTMLTextClass;
 
 #define HTML_TEXT(x) ((HTMLText *)(x))
+#define HTML_TEXT_CLASS(x) ((HTMLTextClass *)(x))
 
 struct _HTMLText {
 	HTMLObject parent;
@@ -35,8 +37,17 @@ struct _HTMLText {
 	HTMLFont *font;
 };
 
+struct _HTMLTextClass {
+	HTMLObjectClass parent;
+};
+
+
+extern HTMLTextClass html_text_class;
+
+
+void html_text_type_init (void);
+void html_text_class_init (HTMLTextClass *klass, HTMLType type);
+void html_text_init (HTMLText *text_object, HTMLTextClass *klass, gchar *text, HTMLFont *font, HTMLPainter *painter);
 HTMLObject *html_text_new  (gchar *text, HTMLFont *font, HTMLPainter *painter);
-void        html_text_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y,
-			    gint width, gint height, gint tx, gint ty);
 
 #endif /* _HTMLTEXT_H_ */

@@ -16,6 +16,7 @@ libgtkhtmldir = $(includedir)/gtkhtml
 libgtkhtml_HEADERS =				\
 	debug.h					\
 	gtkhtml.h				\
+	gtkhtml-private.h			\
 	htmlbullet.h				\
 	htmlcluealigned.h			\
 	htmlclueflow.h				\
@@ -40,6 +41,7 @@ libgtkhtml_HEADERS =				\
 	htmltextmaster.h			\
 	htmltextslave.h				\
 	htmltokenizer.h				\
+	htmltype.h				\
 	htmlvspace.h				\
 	stringtokenizer.h
 
@@ -70,6 +72,7 @@ libgtkhtml_la_SOURCES =				\
 	htmltextmaster.c			\
 	htmltextslave.c				\
 	htmltokenizer.c				\
+	htmltype.c				\
 	htmlvspace.c				\
 	stringtokenizer.c
 
@@ -106,4 +109,3 @@ dist-hook:
 	mkdir $(distdir)/tests
 	cp -f $(srcdir)/tests/*.html $(distdir)/tests
 	cp -f $(srcdir)/tests/*.jpg $(distdir)/tests
-	cp -f $(srcdir)/

@@ -18,31 +18,17 @@
     the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
     Boston, MA 02111-1307, USA.
 */
+
 #include "htmltext.h"
 
-HTMLObject *
-html_text_new (gchar *text, HTMLFont *font, HTMLPainter *painter)
-{
-	HTMLText *htmltext = g_new0 (HTMLText, 1);
-	HTMLObject *object = HTML_OBJECT (htmltext);
-	html_object_init (object, Text);
+HTMLTextClass html_text_class;
 
-	/* Functions */
-	object->draw = html_text_draw;
+
+/* HTMLObject methods.  */
 
-	object->width = html_font_calc_width (font, text, -1);
-	object->ascent = html_font_calc_ascent (font);
-	object->descent = html_font_calc_descent (font);
-
-	htmltext->text = text;
-	htmltext->font = font;
-
-	return object;
-}
-
-void
-html_text_draw (HTMLObject *o, HTMLPainter *p,
-		gint x, gint y, gint width, gint height, gint tx, gint ty)
+static void
+draw (HTMLObject *o, HTMLPainter *p,
+      gint x, gint y, gint width, gint height, gint tx, gint ty)
 {
 	HTMLText *htmltext = HTML_TEXT (o);
 
@@ -52,4 +38,59 @@ html_text_draw (HTMLObject *o, HTMLPainter *p,
 	html_painter_set_font (p, htmltext->font);
 	html_painter_set_pen (p, htmltext->font->textColor);
 	html_painter_draw_text (p, o->x + tx, o->y + ty, htmltext->text, -1);
+}
+
+
+void
+html_text_type_init (void)
+{
+	html_text_class_init (&html_text_class, HTML_TYPE_TEXT);
+}
+
+void
+html_text_class_init (HTMLTextClass *klass,
+		      HTMLType type)
+{
+	HTMLObjectClass *object_class;
+
+	object_class = HTML_OBJECT_CLASS (klass);
+
+	html_object_class_init (object_class, type);
+
+	/* FIXME destroy */
+
+	object_class->draw = draw;
+}
+
+void
+html_text_init (HTMLText *text_object,
+		HTMLTextClass *klass,
+		gchar *text,
+		HTMLFont *font,
+		HTMLPainter *painter)
+{
+	HTMLObject *object;
+
+	object = HTML_OBJECT (text_object);
+
+	html_object_init (object, HTML_OBJECT_CLASS (klass));
+
+	object->width = html_font_calc_width (font, text, -1);
+	object->ascent = html_font_calc_ascent (font);
+	object->descent = html_font_calc_descent (font);
+
+	text_object->text = text;
+	text_object->font = font;
+}
+
+HTMLObject *
+html_text_new (gchar *text, HTMLFont *font, HTMLPainter *painter)
+{
+	HTMLText *text_object;
+
+	text_object = g_new (HTMLText, 1);
+
+	html_text_init (text_object, &html_text_class, text, font, painter);
+
+	return HTML_OBJECT (text_object);
 }

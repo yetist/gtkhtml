@@ -18,7 +18,9 @@
     the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
     Boston, MA 02111-1307, USA.
 */
+
 #include <string.h>
+
 #include "htmlobject.h"
 #include "htmlfont.h"
 #include "htmlclue.h"
@@ -31,44 +33,161 @@
 #include "htmlclue.h"
 #include "debug.h"
 
-static gint html_object_calc_min_width (HTMLObject *o);
-static void html_object_set_max_width(HTMLObject *o, gint max_width);
-static HTMLFitType html_object_fit_line (HTMLObject *o, gboolean startOfLine, gboolean firstRun, gint widthLeft);
-static void html_object_reset (HTMLObject *o);
-static gint html_object_calc_preferred_width (HTMLObject *o);
-static void html_object_calc_absolute_pos (HTMLObject *o, gint x, gint y);
+
+HTMLObjectClass html_object_class;
 
-void
-html_object_destroy (HTMLObject *o)
+#define HO_CLASS(x) HTML_OBJECT_CLASS (HTML_OBJECT (x)->klass)
+
+
+/* HTMLObject virtual methods.  */
+
+static void
+destroy (HTMLObject *o)
 {
+	/* FIXME do we kill the `next' member as well?  This depends on whether
+           we want objects to work like lists or not.  */
+
+	if (o->font != NULL)
+		html_font_destroy (o->font);
+
 	g_free (o);
 }
 
-void
-html_object_init (HTMLObject *o, objectType ObjectType)
+static void
+draw (HTMLObject *o, HTMLPainter *p,
+      gint x, gint y,
+      gint width, gint height,
+      gint tx, gint ty)
 {
-	o->ObjectType = ObjectType;
+#if 0
+	g_warning ("`%s' does not implement `draw'.",
+		   html_type_name (HTML_OBJECT_TYPE (o)));
+#endif
+}
 
-	/* Default HTMLObject functions */
-	o->fit_line = html_object_fit_line;
-	o->destroy = html_object_destroy;
-	o->set_max_width = html_object_set_max_width;
-	o->reset = html_object_reset;
-	o->calc_min_width = html_object_calc_min_width;
-	o->calc_preferred_width = html_object_calc_preferred_width;
-	o->calc_absolute_pos = html_object_calc_absolute_pos;
+static HTMLFitType
+fit_line (HTMLObject *o,
+	  gboolean start_of_line,
+	  gboolean first_run,
+	  gint width_left)
+{
+	return HTMLCompleteFit;
+}
 
-	/* Default variables */
-	o->flags = 0;
-	o->flags |= FixedWidth;
-	o->max_width = 0;
-	o->width = 0;
-	o->ascent = 0;
-	o->descent = 0;
-	o->objCount++;
-	o->nextObj = 0;
+static void
+calc_size (HTMLObject *o,
+	   HTMLObject *parent)
+{
+#if 0
+	g_warning ("`%s' does not implement `calc_size'.",
+		   html_type_name (HTML_OBJECT_TYPE (o)));
+#endif
+}
+
+static void
+set_max_ascent (HTMLObject *o, gint a)
+{
+#if 0
+	g_warning ("`%s' does not implement `set_max_ascent'.",
+		   html_type_name (HTML_OBJECT_TYPE (o)));
+#endif
+}
+	
+static void
+set_max_descent (HTMLObject *o, gint d)
+{
+#if 0
+	g_warning ("`%s' does not implement `set_max_descent'.",
+		   html_type_name (HTML_OBJECT_TYPE (o)));
+#endif
+}
+	
+static void
+set_max_width (HTMLObject *o, gint max_width)
+{
+	o->max_width = max_width;
+}
+
+static void
+reset (HTMLObject *o)
+{
+	/* FIXME: Do something here */
+}
+
+static gint
+calc_min_width (HTMLObject *o)
+{
+	return o->width;
+}
+
+static gint
+calc_preferred_width (HTMLObject *o)
+{
+	return o->width;
+}
+
+static void
+calc_absolute_pos (HTMLObject *o, gint x, gint y)
+{
+	o->abs_x = x + o->x;
+	o->abs_y = y + o->y - o->ascent;
+}
+
+
+/* Class initialization.  */
+
+void
+html_object_type_init (void)
+{
+	html_object_class_init (&html_object_class, HTML_TYPE_OBJECT);
+}
+
+void
+html_object_class_init (HTMLObjectClass *klass,
+			HTMLType type)
+{
+	g_return_if_fail (klass != NULL);
+
+	/* Set type.  */
+	klass->type = type;
+
+	/* Install virtual methods.  */
+	klass->destroy = destroy;
+	klass->draw = draw;
+	klass->fit_line = fit_line;
+	klass->calc_size = calc_size;
+	klass->set_max_ascent = set_max_ascent;
+	klass->set_max_descent = set_max_descent;
+	klass->set_max_width = set_max_width;
+	klass->reset = reset;
+	klass->calc_min_width = calc_min_width;
+	klass->calc_preferred_width = calc_preferred_width;
+	klass->calc_absolute_pos = calc_absolute_pos;
+}
+
+void
+html_object_init (HTMLObject *o,
+		  HTMLObjectClass *klass)
+{
+	o->klass = klass;
+
 	o->x = 0;
 	o->y = 0;
+
+	o->ascent = 0;
+	o->descent = 0;
+	o->font = NULL;
+
+	o->width = 0;
+	o->max_width = 0;
+	o->percent = 0;
+
+	o->flags = HTML_OBJECT_FLAG_FIXEDWIDTH; /* FIXME Why? */
+
+	o->abs_x = 0;
+	o->abs_y = 0;
+
+	o->next = NULL;
 }
 
 HTMLObject *
@@ -77,45 +196,85 @@ html_object_new (void)
 	HTMLObject *o;
 	
 	o = g_new0 (HTMLObject, 1);
-
-	html_object_init (o, Object);
+	html_object_init (o, &html_object_class);
 
 	return o;
 }
 
-static void
-html_object_calc_absolute_pos (HTMLObject *o, gint x, gint y)
+
+void
+html_object_destroy (HTMLObject *o)
 {
-	o->absX = x + o->x;
-	o->absY = y + o->y - o->ascent;
+	(* HO_CLASS (o)->destroy) (o);
 }
 
-static void
-html_object_set_max_width(HTMLObject *o, gint max_width)
+void
+html_object_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y,
+		  gint width, gint height, gint tx, gint ty)
 {
-	o->max_width = max_width;
+	(* HO_CLASS (o)->draw) (o, p, x, y, width, height, tx, ty);
 }
 
-static HTMLFitType
-html_object_fit_line (HTMLObject *o, gboolean startOfLine, gboolean firstRun, gint widthLeft)
+HTMLFitType
+html_object_fit_line (HTMLObject *o, gboolean start_of_line, 
+		      gboolean first_run, gint width_left)
 {
-	return HTMLCompleteFit;
+	return (* HO_CLASS (o)->fit_line) (o, start_of_line,
+					   first_run, width_left);
 }
 
-static void
+void
+html_object_calc_size (HTMLObject *o, HTMLObject *parent)
+{
+	(* HO_CLASS (o)->calc_size) (o, parent);
+}
+
+void
+html_object_set_max_ascent (HTMLObject *o, gint a)
+{
+	(* HO_CLASS (o)->set_max_ascent) (o, a);
+}
+
+void
+html_object_set_max_descent (HTMLObject *o, gint d)
+{
+	(* HO_CLASS (o)->set_max_descent) (o, d);
+}
+
+void
+html_object_set_max_width (HTMLObject *o, gint max_width)
+{
+	(* HO_CLASS (o)->set_max_width) (o, max_width);
+}
+
+void
 html_object_reset (HTMLObject *o)
 {
-	/* FIXME: Do something here */
+	(* HO_CLASS (o)->reset) (o);
 }
 
-static gint
+gint
 html_object_calc_min_width (HTMLObject *o)
 {
-	return o->width;
+	gint value = (* HO_CLASS (o)->calc_min_width) (o);
+
+#if 0
+	printf ("%s: min_width %d\n", html_type_name (HTML_OBJECT_TYPE (o)),
+  		value);
+#endif
+
+	return value;
 }
 
-static gint
+gint
 html_object_calc_preferred_width (HTMLObject *o)
 {
-	return o->width;
+	return (* HO_CLASS (o)->calc_preferred_width) (o);
 }
+
+void
+html_object_calc_absolute_pos (HTMLObject *o, gint x, gint y)
+{
+	return (* HO_CLASS (o)->calc_absolute_pos) (o, x, y);
+}
+

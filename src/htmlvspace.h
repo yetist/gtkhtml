@@ -24,6 +24,7 @@
 #include "htmlobject.h"
 
 typedef struct _HTMLVSpace HTMLVSpace;
+typedef struct _HTMLVSpaceClass HTMLVSpaceClass;
 
 #define HTML_VSPACE(x) ((HTMLVSpace *)(x))
 
@@ -32,6 +33,17 @@ struct _HTMLVSpace {
 	ClearType clear;
 };
 
+struct _HTMLVSpaceClass {
+	HTMLObjectClass parent;
+};
+
+
+extern HTMLVSpaceClass html_vspace_class;
+
+
+void html_vspace_type_init (void);
+void html_vspace_class_init (HTMLVSpaceClass *klass, HTMLType type);
+void html_vspace_init (HTMLVSpace *vspace, HTMLVSpaceClass *klass, gint space, ClearType clear);
 HTMLObject *html_vspace_new (gint space, ClearType clear);
 
 #endif /* _HTMLVSPACE_H_ */

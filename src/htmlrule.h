@@ -18,24 +18,35 @@
     the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
     Boston, MA 02111-1307, USA.
 */
+
 #ifndef _HTMLRULE_H_
 #define _HTMLRULE_H_
 
 #include "htmlobject.h"
 
 typedef struct _HTMLRule HTMLRule;
+typedef struct _HTMLRuleClass HTMLRuleClass;
 
-#define HTML_RULE(x) ((HTMLRule *)(x))
+#define HTML_RULE(x) ((HTMLRule *) (x))
+#define HTML_RULE_CLASS(x) ((HTMLRuleClass *) (x))
 
 struct _HTMLRule {
 	HTMLObject parent;
 
-	gint shade;
+	gboolean shade;
 };
 
+struct _HTMLRuleClass {
+	HTMLObjectClass parent;
+};
+
+
+extern HTMLRuleClass html_rule_class;
+
+
+void html_rule_type_init (void);
+void html_rule_class_init (HTMLRuleClass *klass, HTMLType type);
+void html_rule_init (HTMLRule *rule, HTMLRuleClass *klass, gint max_width, gint percent, gint size, gboolean shade);
 HTMLObject *html_rule_new (gint max_width, gint percent, gint size, gboolean shade);
-gint        html_rule_calc_min_width (HTMLObject *o);
-void        html_rule_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint height, gint tx, gint ty);
-void        html_rule_set_max_width (HTMLObject *o, gint max_width);
 
 #endif /* _HTMLRULE_H_ */

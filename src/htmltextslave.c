@@ -21,12 +21,15 @@
 #include <string.h>
 #include "htmltextslave.h"
 
-static gint html_text_slave_calc_min_width (HTMLObject *o);
-static gint html_text_slave_calc_perferred_width (HTMLObject *o);
+
+HTMLTextSlaveClass html_text_slave_class;
 
-HTMLFitType
-html_text_slave_fit_line (HTMLObject *o, gboolean startOfLine, gboolean firstRun,
-			  gint widthLeft)
+
+static HTMLFitType
+fit_line (HTMLObject *o,
+	  gboolean startOfLine,
+	  gboolean firstRun,
+	  gint widthLeft)
 {
 	gint newLen;
 	gint newWidth;
@@ -38,15 +41,15 @@ html_text_slave_fit_line (HTMLObject *o, gboolean startOfLine, gboolean firstRun
 	gchar *text = ownertext->text;
 
 	/* Remove existing slaves */
-	HTMLObject *next_obj = o->nextObj;
+	HTMLObject *next_obj = o->next;
 
-	if (next_obj && (next_obj->ObjectType == TextSlave)) {
+	if (next_obj && (HTML_OBJECT_TYPE (next_obj) == HTML_TYPE_TEXTSLAVE)) {
 		do {
-			o->nextObj = next_obj->nextObj;
-			g_free (next_obj);
-			next_obj = o->nextObj;
-		}
-		while (next_obj && (next_obj->ObjectType == TextSlave));
+			o->next = next_obj->next;
+			g_free (next_obj); /* FIXME FIXME FIXME */
+			next_obj = o->next;
+		} while (next_obj && (HTML_OBJECT_TYPE (next_obj)
+				      == HTML_TYPE_TEXTSLAVE));
 		textslave->posLen = textslave->owner->strLen - textslave->posStart;
 	}
 	
@@ -60,7 +63,8 @@ html_text_slave_fit_line (HTMLObject *o, gboolean startOfLine, gboolean firstRun
 	o->width = html_font_calc_width (ownertext->font, text, textslave->posLen);
 	if ((o->width <= widthLeft) || (textslave->posLen <= 1) || (widthLeft < 0)) {
 		/* Text fits completely */
-		if (!o->nextObj || (o->nextObj->flags & Separator) || (o->nextObj->flags & NewLine))
+		if (!o->next || (o->next->flags & (HTML_OBJECT_FLAG_SEPARATOR
+						   | HTML_OBJECT_FLAG_NEWLINE)))
 			return HTMLCompleteFit;
 
 		/* Text is followed by more text...break it before the last word */
@@ -122,8 +126,8 @@ html_text_slave_fit_line (HTMLObject *o, gboolean startOfLine, gboolean firstRun
 		/* Move remaining text to our text-slave */
 		HTMLObject *textSlave = html_text_slave_new (textmaster, textslave->posStart + newLen, textslave->posLen - newLen);
 
-		textSlave->nextObj = o->nextObj;
-		o->nextObj = textSlave;
+		textSlave->next = o->next;
+		o->next = textSlave;
 	}
 
 	textslave->posLen = newLen;
@@ -132,9 +136,12 @@ html_text_slave_fit_line (HTMLObject *o, gboolean startOfLine, gboolean firstRun
 	return HTMLPartialFit;
 }
 
-void
-html_text_slave_draw (HTMLObject *o, HTMLPainter *p,
-		      gint x, gint y, gint width, gint height, gint tx, gint ty)
+static void
+draw (HTMLObject *o,
+      HTMLPainter *p,
+      gint x, gint y,
+      gint width, gint height,
+      gint tx, gint ty)
 {
 	HTMLTextSlave *textslave = HTML_TEXT_SLAVE (o);
 	HTMLText *ownertext = HTML_TEXT (textslave->owner);
@@ -151,39 +158,77 @@ html_text_slave_draw (HTMLObject *o, HTMLPainter *p,
 }
 
 static gint
-html_text_slave_calc_min_width (HTMLObject *o)
+calc_min_width (HTMLObject *o)
 {
 	return 0;
+}
+
+static gint
+calc_perferred_width (HTMLObject *o)
+{
+	return 0;
+}
+
+
+void
+html_text_slave_type_init (void)
+{
+	html_text_slave_class_init (&html_text_slave_class,
+				    HTML_TYPE_TEXTSLAVE);
+}
+
+void
+html_text_slave_class_init (HTMLTextSlaveClass *klass,
+			    HTMLType type)
+{
+	HTMLObjectClass *object_class;
+
+	object_class = HTML_OBJECT_CLASS (klass);
+
+	html_object_class_init (object_class, type);
+
+	object_class->draw = draw;
+	object_class->fit_line = fit_line;
+	object_class->calc_min_width = calc_min_width;
+	object_class->calc_preferred_width = calc_perferred_width;
+}
+
+void
+html_text_slave_init (HTMLTextSlave *slave,
+		      HTMLTextSlaveClass *klass,
+		      HTMLTextMaster *owner,
+		      gint posStart,
+		      gint posLen)
+{
+	HTMLText *owner_text;
+	HTMLObject *object;
+
+	object = HTML_OBJECT (slave);
+	owner_text = HTML_TEXT (owner);
+
+	html_object_init (object, HTML_OBJECT_CLASS (klass));
+
+	object->ascent = HTML_OBJECT (owner)->ascent;
+	object->descent = HTML_OBJECT (owner)->descent;
+
+	slave->posStart = posStart;
+	slave->posLen = posLen;
+	slave->owner = owner;
+	
+	object->width = html_font_calc_width (owner_text->font,
+					      owner_text->text + posStart,
+					      posLen);
 }
 
 HTMLObject *
 html_text_slave_new (HTMLTextMaster *owner, gint posStart, gint posLen)
 {
-	HTMLText *ownertext = HTML_TEXT (owner);
-	HTMLTextSlave *textslave = g_new0 (HTMLTextSlave, 1);
-	HTMLObject *object = HTML_OBJECT (textslave);
-	html_object_init (object, TextSlave);
+	HTMLTextSlave *slave;
 
-	/* HTMLObject functions */
-	object->draw = html_text_slave_draw;
-	object->fit_line = html_text_slave_fit_line;
-	object->calc_min_width = html_text_slave_calc_min_width;
-	object->calc_preferred_width = html_text_slave_calc_perferred_width;
+	slave = g_new (HTMLTextSlave, 1);
+	html_text_slave_init (slave, &html_text_slave_class, owner,
+			      posStart, posLen);
 
-	object->ascent = HTML_OBJECT (owner)->ascent;
-	object->descent = HTML_OBJECT (owner)->descent;
-
-	textslave->posStart = posStart;
-	textslave->posLen = posLen;
-	textslave->owner = owner;
-	
-	object->width = html_font_calc_width (ownertext->font, &(ownertext->text[posStart]), posLen);
-
-	return object;
+	return HTML_OBJECT (slave);
 }
 
-static gint
-html_text_slave_calc_perferred_width (HTMLObject *o)
-{
-	return 0;
-}

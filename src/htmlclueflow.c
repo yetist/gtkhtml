@@ -1,81 +1,54 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the KDE libraries
-    Copyright (C) 1997 Martin Jones (mjones@kde.org)
-              (C) 1997 Torben Weis (weis@kde.org)
+   Copyright (C) 1997 Martin Jones (mjones@kde.org)
+   (C) 1997 Torben Weis (weis@kde.org)
 
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
+   This library is free software; you can redistribute it and/or
+   modify it under the terms of the GNU Library General Public
+   License as published by the Free Software Foundation; either
+   version 2 of the License, or (at your option) any later version.
 
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
+   This library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   Library General Public License for more details.
 
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-    Boston, MA 02111-1307, USA.
+   You should have received a copy of the GNU Library General Public License
+   along with this library; see the file COPYING.LIB.  If not, write to
+   the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+   Boston, MA 02111-1307, USA.
 */
 #include "htmlclue.h"
 #include "htmlclueflow.h"
 #include "htmlcluealigned.h"
 #include "htmlvspace.h"
 
-static void html_clueflow_calc_size (HTMLObject *clue, HTMLObject *parent);
-static gint html_clueflow_calc_min_width (HTMLObject *o);
-static gint html_clueflow_calc_preferred_width (HTMLObject *o);
+
+HTMLClueFlowClass html_clueflow_class;
 
-HTMLObject *
-html_clueflow_new (int x, int y, int max_width, gint percent)
-{
-	HTMLClueFlow *clueflow = g_new0 (HTMLClueFlow, 1);
-	HTMLObject *object = HTML_OBJECT (clueflow);
-	HTMLClue *clue = HTML_CLUE (clueflow);
-	html_clue_init (clue, ClueFlow);
-
-	/* HTMLObject functions */
-	object->calc_size = html_clueflow_calc_size;
-	object->set_max_width = html_clueflow_set_max_width;
-	object->calc_min_width = html_clueflow_calc_min_width;
-	object->calc_preferred_width = html_clueflow_calc_preferred_width;
-
-	object->x = x;
-	object->y = y;
-	object->max_width = max_width;
-	object->percent = percent;
-
-	clue->valign = Bottom;
-	clue->halign = Left;
-	clue->head = clue->tail = clue->curr = 0;
-	object->width = max_width;
-	object->flags &= ~FixedWidth;
-
-	return object;
-}
-
-void
-html_clueflow_set_max_width (HTMLObject *o, gint max_width)
+
+static void
+set_max_width (HTMLObject *o, gint max_width)
 {
 	HTMLObject *obj;
 
 	o->max_width = max_width;
 	
-	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->nextObj)
-		obj->set_max_width (obj, o->max_width - HTML_CLUEFLOW (o)->indent);
+	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next)
+		html_object_set_max_width
+			(obj, o->max_width - HTML_CLUEFLOW (o)->indent);
 
 }
 
 static gint
-html_clueflow_calc_min_width (HTMLObject *o)
+calc_min_width (HTMLObject *o)
 {
 	HTMLObject *obj;
 	gint w;
 	gint tempMinWidth=0;
 
-	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->nextObj) {
-		w = obj->calc_min_width (obj);
+	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
+		w = html_object_calc_min_width (obj);
 		if (w > tempMinWidth)
 			tempMinWidth = w;
 	}
@@ -85,7 +58,8 @@ html_clueflow_calc_min_width (HTMLObject *o)
 }
 
 static void
-html_clueflow_calc_size (HTMLObject *o, HTMLObject *parent)
+calc_size (HTMLObject *o,
+	   HTMLObject *parent)
 {
 
 	HTMLVSpace *vspace;
@@ -105,17 +79,17 @@ html_clueflow_calc_size (HTMLObject *o, HTMLObject *parent)
 	o->ascent = 0;
 	o->descent = 0;
 	o->width = 0;
-	lmargin = HTML_CLUE (parent)->get_left_margin (HTML_CLUE (parent), o->y);
+	lmargin = html_clue_get_left_margin (HTML_CLUE (parent), o->y);
 	if (HTML_CLUEFLOW (o)->indent > lmargin)
 		lmargin = HTML_CLUEFLOW (o)->indent;
-	rmargin = HTML_CLUE (parent)->get_right_margin (HTML_CLUE (parent), o->y);
+	rmargin = html_clue_get_right_margin (HTML_CLUE (parent), o->y);
 	w = lmargin;
 	a = d = 0;
 	newLine = FALSE;
 
 	while (obj != 0) {
 
-		if (obj->flags & NewLine) {
+		if (obj->flags & HTML_OBJECT_FLAG_NEWLINE) {
 			if (!a)
 				a = obj->ascent;
 			if (!a && (obj->descent > d))
@@ -123,10 +97,10 @@ html_clueflow_calc_size (HTMLObject *o, HTMLObject *parent)
 			newLine = TRUE;
 			vspace = HTML_VSPACE (obj);
 			clear = vspace->clear;
-			obj = obj->nextObj;
+			obj = obj->next;
 			
 		}
-		else if (obj->flags & Separator) {
+		else if (obj->flags & HTML_OBJECT_FLAG_SEPARATOR) {
 			obj->x = w;
 
 			if (w != lmargin) {
@@ -136,44 +110,47 @@ html_clueflow_calc_size (HTMLObject *o, HTMLObject *parent)
 				if (obj->descent > d)
 					d = obj->descent;
 			}
-			obj = obj->nextObj;
+			obj = obj->next;
 		}
-		else if (obj->flags & Aligned) {
+		else if (obj->flags & HTML_OBJECT_FLAG_ALIGNED) {
 			HTMLClueAligned *c = (HTMLClueAligned *)obj;
 
-			if (!HTML_CLUE (parent)->appended (HTML_CLUE (parent), HTML_CLUE (c))) {
-				obj->calc_size (obj, NULL);
-				
+			if (! html_clue_appended (HTML_CLUE (parent),
+						  HTML_CLUE (c))) {
+				html_object_calc_size (obj, NULL);
+
 				if (HTML_CLUE (HTML_CLUE (c)->halign == Left)) {
 					g_print ("Left\n");
-				}
-				else {
+				} else {
 					obj->x = rmargin - obj->width;
 					obj->y = o->ascent + obj->ascent;
 
-					HTML_CLUE(parent)->append_right_aligned (HTML_CLUE (parent), HTML_CLUE (c));
+					html_clue_append_right_aligned
+						(HTML_CLUE (parent),
+						 HTML_CLUE (c));
 				}
 			}
-			obj = obj->nextObj;
+			obj = obj->next;
 		}
 		else {
 			runWidth = 0;
 			run = obj;
-			while ( run && !(run->flags & Separator) && 
-				!(run->flags & NewLine) &&
-				!(run->flags & Aligned)) {
+			while ( run
+				&& ! (run->flags & HTML_OBJECT_FLAG_SEPARATOR)
+				&& ! (run->flags & HTML_OBJECT_FLAG_NEWLINE)
+				&& ! (run->flags & HTML_OBJECT_FLAG_ALIGNED)) {
 			  
 				run->max_width = rmargin - lmargin;
-				fit = run->fit_line (run, (w + runWidth == lmargin),
-							    (obj == line),
-							    rmargin - runWidth - w);
+				fit = html_object_fit_line
+					(run, (w + runWidth == lmargin),
+					 (obj == line),
+					 rmargin - runWidth - w);
 				if (fit == HTMLNoFit) {
 					newLine = TRUE;
 					break;
 				}
 				
-				if (run->calc_size)
-					run->calc_size (run, o);
+				html_object_calc_size (run, o);
 				runWidth += run->width;
 
 				/* If this run cannot fit in the allowed area, break it
@@ -187,7 +164,7 @@ html_clueflow_calc_size (HTMLObject *o, HTMLObject *parent)
 				if (run->descent > d)
 					d = run->descent;
 
-				run = run->nextObj;
+				run = run->next;
 
 				if (fit == HTMLPartialFit) {
 					/* Implicit separator */
@@ -211,8 +188,13 @@ html_clueflow_calc_size (HTMLObject *o, HTMLObject *parent)
 				gint new_y, new_lmargin, new_rmargin;
 
 				/* Check if the run fits in the current flow area */
-				HTML_CLUE (parent)->find_free_area (HTML_CLUE (parent), o->y,line->width, a+d, HTML_CLUEFLOW (o)->indent,
-								    &new_y, &new_lmargin, &new_rmargin);
+				html_clue_find_free_area (HTML_CLUE (parent),
+							  o->y,
+							  line->width,
+							  a+d,
+							  HTML_CLUEFLOW (o)->indent,
+							  &new_y, &new_lmargin,
+							  &new_rmargin);
 				
 				if ((new_y != o->y) ||
 				    (new_lmargin > lmargin) ||
@@ -242,7 +224,7 @@ html_clueflow_calc_size (HTMLObject *o, HTMLObject *parent)
 					while (obj != run) {
 						obj->x = w;
 						w += obj->width;
-						obj = obj->nextObj;
+						obj = obj->next;
 					}
 				}
 			}
@@ -270,19 +252,16 @@ html_clueflow_calc_size (HTMLObject *o, HTMLObject *parent)
 			}
 			
 			while (line != obj) {
-				if (!(line->flags & Aligned)) {
-
+				if (!(line->flags & HTML_OBJECT_FLAG_ALIGNED)) {
 					line->y = o->ascent - d;
-					if (line->set_max_ascent)
-						line->set_max_ascent (line, a);
-					if (line->set_max_descent)
-						line->set_max_descent (line, d);
+					html_object_set_max_ascent (line, a);
+					html_object_set_max_descent (line, d);
 					if (clue->halign == HCenter || 
 					    clue->halign == Right) {
 						line->x += extra;
 					}
 				}
-				line = line->nextObj;
+				line = line->next;
 			}
 
 			oldy = o->y;
@@ -290,23 +269,32 @@ html_clueflow_calc_size (HTMLObject *o, HTMLObject *parent)
 			if (clear == CAll) {
 				int new_lmargin, new_rmargin;
 				
-				HTML_CLUE (parent)->find_free_area (HTML_CLUE (parent), oldy, o->max_width,
-							  1, 0, &o->y, &new_lmargin,
-							  &new_rmargin);
+				html_clue_find_free_area
+					(HTML_CLUE (parent), oldy,
+					 o->max_width,
+					 1, 0, &o->y, &new_lmargin,
+					 &new_rmargin);
 			}
+
+#if 0
+			/* FIXME the left_clear/right_clear functions were
+                           no-ops.  */
 			else if (clear == CLeft) {
 				o->y = html_clue_get_left_clear (parent, oldy);
 			}
 			else if (clear == CRight) {
 				o->y = html_clue_get_right_clear (parent, oldy);
 			}
+#endif
 
 			o->ascent += o->y - oldy;
 
-			lmargin = HTML_CLUE (parent)->get_left_margin (HTML_CLUE (parent), o->y);
+			lmargin = html_clue_get_left_margin (HTML_CLUE (parent),
+							     o->y);
 			if (HTML_CLUEFLOW (o)->indent > lmargin)
 				lmargin = HTML_CLUEFLOW (o)->indent;
-			rmargin = HTML_CLUE (parent)->get_right_margin (HTML_CLUE (parent), o->y);
+			rmargin = html_clue_get_right_margin (HTML_CLUE (parent),
+							      o->y);
 
 			w = lmargin;
 			d = 0;
@@ -323,13 +311,14 @@ html_clueflow_calc_size (HTMLObject *o, HTMLObject *parent)
 }
 
 static gint
-html_clueflow_calc_preferred_width (HTMLObject *o) {
+calc_preferred_width (HTMLObject *o)
+{
 	HTMLObject *obj;
 	gint maxw = 0, w = 0;
 
-	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->nextObj) {
-		if (!(obj->flags & NewLine)) {
-			w += obj->calc_preferred_width (obj);
+	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
+		if (!(obj->flags & HTML_OBJECT_FLAG_NEWLINE)) {
+			w += html_object_calc_preferred_width (obj);
 		}
 		else {
 			if (w > maxw)
@@ -342,4 +331,71 @@ html_clueflow_calc_preferred_width (HTMLObject *o) {
 		maxw = w;
 
 	return maxw + HTML_CLUEFLOW (o)->indent;
+}
+
+
+void
+html_clueflow_type_init (void)
+{
+	html_clueflow_class_init (&html_clueflow_class, HTML_TYPE_CLUEFLOW);
+}
+
+void
+html_clueflow_class_init (HTMLClueFlowClass *klass,
+			  HTMLType type)
+{
+	HTMLClueClass *clue_class;
+	HTMLObjectClass *object_class;
+
+	clue_class = HTML_CLUE_CLASS (klass);
+	object_class = HTML_OBJECT_CLASS (klass);
+
+	html_clue_class_init (clue_class, type);
+
+	object_class->calc_size = calc_size;
+	object_class->set_max_width = set_max_width;
+	object_class->calc_min_width = calc_min_width;
+	object_class->calc_preferred_width = calc_preferred_width;
+}
+
+void
+html_clueflow_init (HTMLClueFlow *clueflow,
+		    HTMLClueFlowClass *klass,
+		    gint x, gint y,
+		    gint max_width, gint percent)
+{
+	HTMLObject *object;
+	HTMLClue *clue;
+
+	object = HTML_OBJECT (clueflow);
+	clue = HTML_CLUE (clueflow);
+
+	html_clue_init (clue, HTML_CLUE_CLASS (klass));
+
+	object->x = x;
+	object->y = y;
+	object->max_width = max_width;
+	object->percent = percent;
+	object->width = max_width;
+	object->flags &= ~ HTML_OBJECT_FLAG_FIXEDWIDTH;
+
+	clue->valign = Bottom;
+	clue->halign = Left;
+	clue->head = 0;
+	clue->tail = 0;
+	clue->curr = 0;
+
+	clueflow->indent = 0;
+}
+
+HTMLObject *
+html_clueflow_new (gint x, gint y, gint max_width, gint percent)
+{
+	HTMLClueFlow *clueflow;
+
+	clueflow = g_new (HTMLClueFlow, 1);
+	html_clueflow_init (clueflow, &html_clueflow_class,
+			    x, y, max_width, percent);
+
+	return HTML_OBJECT (clueflow);
 }

@@ -25,8 +25,10 @@
 #include "htmltextmaster.h"
 
 typedef struct _HTMLTextSlave HTMLTextSlave;
+typedef struct _HTMLTextSlaveClass HTMLTextSlaveClass;
 
-#define HTML_TEXT_SLAVE(x) ((HTMLTextSlave *)(x))
+#define HTML_TEXT_SLAVE(x) ((HTMLTextSlave *) (x))
+#define HTML_TEXT_SLAVE_CLASS(x) ((HTMLTextSlaveClass *) (x))
 
 struct _HTMLTextSlave {
 	HTMLObject parent;
@@ -36,8 +38,17 @@ struct _HTMLTextSlave {
 	gshort posLen;
 };
 
+struct _HTMLTextSlaveClass {
+	HTMLObjectClass parent;
+};
+
+
+HTMLTextSlaveClass html_text_slave_class;
+
+
+void html_text_slave_type_init (void);
+void html_text_slave_class_init (HTMLTextSlaveClass *klass, HTMLType type);
+void html_text_slave_init (HTMLTextSlave *slave, HTMLTextSlaveClass *klass, HTMLTextMaster *owner, gint posStart, gint posLen);
 HTMLObject *html_text_slave_new (HTMLTextMaster *owner, gint posStart, gint posLen);
-HTMLFitType html_text_slave_fit_line (HTMLObject *o, gboolean startOfLine, gboolean firstRun, gint widthLeft);
-void        html_text_slave_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint height, gint tx, gint ty);
 
 #endif /* _HTMLTEXTSLAVE_H_ */

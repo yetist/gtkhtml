@@ -24,9 +24,12 @@
 #include "htmlobject.h"
 #include "htmltext.h"
 
+
 typedef struct _HTMLTextMaster HTMLTextMaster;
+typedef struct _HTMLTextMasterClass HTMLTextMasterClass;
 
 #define HTML_TEXT_MASTER(x) ((HTMLTextMaster *)(x))
+#define HTML_TEXT_MASTER_CLASS(x) ((HTMLTextMasterClass *)(x))
 
 struct _HTMLTextMaster {
 	HTMLText parent;
@@ -36,8 +39,17 @@ struct _HTMLTextMaster {
 	gint strLen;
 };
 
-HTMLFitType html_text_master_fit_line (HTMLObject *o, gboolean startOfLine, gboolean firstRun, gint widthLeft);
-HTMLObject *html_text_master_new (gchar *text, HTMLFont *font, HTMLPainter *painter);
+struct _HTMLTextMasterClass {
+	HTMLTextClass parent;
+};
 
+
+extern HTMLTextMasterClass html_text_master_class;
+
+
+void html_text_master_type_init (void);
+void html_text_master_class_init (HTMLTextMasterClass *class, HTMLType type);
+void html_text_master_init (HTMLTextMaster *master, HTMLTextMasterClass *klass, gchar *text, HTMLFont *font, HTMLPainter *painter);
+HTMLObject *html_text_master_new (gchar *text, HTMLFont *font, HTMLPainter *painter);
 
 #endif /* _HTMLTEXTMASTER_H_ */

@@ -35,16 +35,13 @@ typedef enum { GTK_HTML_STREAM_OK, GTK_HTML_STREAM_ERROR } GtkHTMLStreamStatus;
 
 #include "htmlengine.h"
 
-struct _GtkHTML
-{
+struct _GtkHTML {
 	GtkLayout layout;
 
 	HTMLEngine *engine;
-  
 };
 
-struct _GtkHTMLClass
-{
+struct _GtkHTMLClass {
 	GtkLayoutClass parent_class;
 	
         void (* title_changed)  (GtkHTML *html);

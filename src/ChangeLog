@@ -1,3 +1,19 @@
+1999-11-17  Ettore Perazzoli  <ettore@gnu.org>
+
+	* Makefile.am (dist-hook): Removed wrong `cp' line.
+	(libgtkhtml_HEADERS): Added `gtkhtml-private'.
+
+	* Reimplemented object handling for all the object classes.  We
+	still need to fix all the `destroy' handlers and generally
+	double-check that things are working right.
+
+	* htmltype.c, htmltype.h: New files implementing a very minimal
+	static object system.
+
+	* debug.c (debug_dump_object_type): Removed.
+	(debug_dump_tree): Do nothing for now, while we fix the object
+	system.
+
 1999-11-11  Elliot Lee  <sopwith@redhat.com>
 
 	* testgtkhtml.c: WWW_SOURCE, not WWW_PRESENT (so it will work with local files).
