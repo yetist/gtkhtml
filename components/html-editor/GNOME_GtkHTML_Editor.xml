@@ -44,26 +44,28 @@
 
 	<menu>
 		<submenu name="Edit" _label="_Edit">
+			<placeholder name="EditUndoRedo">
+				     <menuitem name="EditUndo" verb="" accel="*Ctrl*Z"/>
+				     <menuitem name="EditRedo" verb="" accel="*Ctrl*R"/>
+			</placeholder>
 
-		        <menuitem name="EditUndo" verb="" accel="*Ctrl*Z"/>
-			<menuitem name="EditRedo" verb="" accel="*Ctrl*R"/>
+			<placeholder name="EditCutCopyPaste">
+				     <menuitem name="EditCut" verb="" accel="*Ctrl*X"/>
+				     <menuitem name="EditCopy" verb="" accel="*Ctrl*C"/>
+				     <menuitem name="EditPaste" verb="" accel="*Ctrl*V"/>
+			</placeholder>
 
-			<separator/>
+			<placeholder name="EditFindReplace">
+				     <menuitem name="EditFind" verb="" accel="*Ctrl*F"/>
+				     <menuitem name="EditFindRegex" verb="" accel="*Ctrl*E"/>
+				     <menuitem name="EditFindAgain" verb="" accel="*Ctrl*G"/>
+				     <menuitem name="EditReplace" verb="" accel="*Ctrl**Shift*F"/>
+			</placeholder>
 
-			<menuitem name="EditCut" verb="" accel="*Ctrl*X"/>
-			<menuitem name="EditCopy" verb="" accel="*Ctrl*C"/>
-			<menuitem name="EditPaste" verb="" accel="*Ctrl*V"/>
-	
-			<separator/>
-
-			<menuitem name="EditFind" verb="" accel="*Ctrl*F"/>
-			<menuitem name="EditFindRegex" verb="" accel="*Ctrl*E"/>
-			<menuitem name="EditFindAgain" verb="" accel="*Ctrl*G"/>
-			<menuitem name="EditReplace" verb="" accel="*Ctrl**Shift*F"/>
-
-			<separator/>
-			<menuitem name="EditSelectAll" verb="" accel="*Ctrl*A"/>
-			<menuitem name="EditProperties" verb=""/>
+			<placeholder name="EditMisc">
+				     <menuitem name="EditSelectAll" verb="" accel="*Ctrl*A"/>
+				     <menuitem name="EditProperties" verb=""/>
+			</placeholder>
 		</submenu>
 
                  

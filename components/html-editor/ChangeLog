@@ -1,5 +1,7 @@
 2001-05-24  Radek Doulik  <rodo@ximian.com>
 
+	* GNOME_GtkHTML_Editor.xml: split edit menu to placeholders
+
 	* replaced HTML_VALIGN_CENTER with HTML_VALIGN_MIDDLE everywhere
 
 	* image.c: replaced center align with middle
