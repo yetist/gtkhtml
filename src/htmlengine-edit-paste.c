@@ -325,6 +325,60 @@ remove_slaves_at_cursor (HTMLEngine *engine)
 	html_clueflow_remove_text_slaves (HTML_CLUEFLOW (parent));
 }
 
+static void
+move_cursor_to_safe_object (HTMLEngine *engine,
+			    HTMLObject *object)
+{
+	HTMLObject *prev;
+	HTMLObject *next;
+
+	next = html_object_next_not_slave (object);
+	if (next != NULL) {
+		engine->cursor->object = next;
+		engine->cursor->offset = 0;
+
+		return;
+	}
+
+	prev = html_object_prev_not_slave (object);
+	if (prev != NULL) {
+		engine->cursor->object = prev;
+
+		if (html_object_is_text (prev))
+			engine->cursor->offset = HTML_TEXT (prev)->text_len;
+		else
+			engine->cursor->offset = 1;
+
+		return;
+	}
+
+	g_assert_not_reached ();
+}
+
+static void
+remove_element_if_empty_text (HTMLEngine *engine,
+			      HTMLObject *object)
+{
+	if (object == NULL)
+		return;
+	if (! html_object_is_text (object))
+		return;
+	if (HTML_TEXT (object)->text_len != 0)
+		return;
+
+	if (engine->cursor->object == object) {
+		/* Of course, if we are destroying this object, it must be empty and
+                   consequently, if the cursor is in it, its offset into the object must
+                   be zero.  */
+		g_assert (engine->cursor->offset == 0);
+		move_cursor_to_safe_object (engine, object);
+	}
+
+	html_clue_remove (HTML_CLUE (object->parent), object);
+	html_text_master_destroy_slaves (HTML_TEXT_MASTER (object));
+	html_object_destroy (object);
+}
+
 
 static guint
 do_paste (HTMLEngine *engine,
@@ -448,13 +502,21 @@ do_paste (HTMLEngine *engine,
 #endif
 		}
 
-		/* Merge the first element with the previous one if possible.  */
-		if (p->prev == NULL)
-			merge_possibly (engine, obj_copy->prev, obj_copy);
+		if (p->prev == NULL) {
+			if (html_object_is_text (obj_copy))
+				merge_possibly (engine, obj_copy->prev, obj_copy);
+			else
+				remove_element_if_empty_text
+					(engine, html_object_prev_not_slave (obj_copy));
+		}
 
-		/* Merge the last element with the following one if possible.  */
-		if (p->next == NULL)
-			merge_possibly (engine, obj_copy, obj_copy->next);
+		if (p->next == NULL) {
+			if (html_object_is_text (obj_copy))
+				merge_possibly (engine, obj_copy, obj_copy->next);
+			else
+				remove_element_if_empty_text
+					(engine, html_object_next_not_slave (obj_copy));
+		}
 	}
 
 #ifdef PARANOID_DEBUG
@@ -686,11 +748,14 @@ html_engine_paste_object (HTMLEngine *engine,
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 	g_return_if_fail (object != NULL);
 
+	/* FIXME: Nasty, nasty, nasty hack.  */
+
 	tmp_buffer = engine->cut_buffer;
 	engine->cut_buffer = g_list_alloc ();
 	engine->cut_buffer->data = object;
 
 	html_engine_paste (engine, do_undo);
 
-	g_list_free (tmp_buffer);
+	g_list_free (engine->cut_buffer);
+	engine->cut_buffer = tmp_buffer;
 }

@@ -47,9 +47,6 @@ html_engine_insert_image (HTMLEngine *e,
 	g_return_if_fail (e != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
-	printf ("insert image bw: %d hs: %d vs: %d file: %s percent: %d w: %d h: %d\n",
-		border, hspace, vspace, file, percent, width, height);
-
 	image = html_image_new (e->image_factory,
 				file,
 				url,

@@ -323,12 +323,8 @@ delete_different_parent (HTMLEngine *e,
 			 GList **buffer_last)
 {
 	HTMLObject *p, *pnext, *pprev;
-	HTMLObject *start_parent;
-	HTMLObject *end_parent;
+	HTMLObject *end_paragraph;
 	GList *merge, *m;
-
-	start_parent = start_object->parent;
-	end_parent = e->cursor->object->parent;
 
 	if (destroy_start)
 		p = start_object;
@@ -338,9 +334,10 @@ delete_different_parent (HTMLEngine *e,
 	/* First destroy the elements in the `start_object's paragraph.  */
 
 	while (p != NULL) {
+		html_clue_remove (HTML_CLUE (start_object->parent), p);
+
 		pnext = p->next;
 
-		html_clue_remove (HTML_CLUE (start_parent), p);
 		if (HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
 			html_object_destroy (p);
 		else
@@ -349,31 +346,15 @@ delete_different_parent (HTMLEngine *e,
 		p = pnext;
 	}
 
-	/* now collect remaining objects from start_parent */
-	p = HTML_CLUE (start_parent)->tail;
-	merge = NULL;
-	while (p) {
-		pprev = p->prev;
-		html_clue_remove (HTML_CLUE (start_parent), p);
+	/* Then destroy all the paragraphs from the one after `start_object's, until the
+	   cursor's paragraph.  Of course, we don't destroy the cursor's paragraph.  */
 
-		if (HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
-			html_object_destroy (p);
-		else
-			merge = g_list_append (merge, p);
-		p = pprev;
-	}
-
-	/* Finally destroy all the paragraphs from the one after `start_object's, until
-	   the cursor's paragraph.  Of course, we don't destroy the cursor's paragraph.  */
-
-	p = start_parent;
+	p = start_object->parent->next;
 	while (1) {
-		pnext = p->next;
-
-		if (p == end_parent) {
-			add_par_objects (HTML_CLUE (p), e->cursor->object, buffer, buffer_last, TRUE);
+		if (p == e->cursor->object->parent)
 			break;
-		}
+
+		pnext = p->next;
 
 		if (p->parent != NULL)
 			html_clue_remove (HTML_CLUE (p->parent), p);
@@ -382,17 +363,50 @@ delete_different_parent (HTMLEngine *e,
 		add_par_objects (HTML_CLUE (p), NULL, buffer, buffer_last, FALSE);
 
 		html_object_destroy (p);
+		p = pnext;
+	}
+
+	/* Destroy the elements before the cursor object.  */
+	/* FIXME ugly cut & pasted code.  */
+
+	p = HTML_CLUE (e->cursor->object->parent)->head;
+	while (p != NULL && p != e->cursor->object) {
+		pnext = p->next;
+
+		html_clue_remove (HTML_CLUE (p->parent), p);
+
+		if (HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
+			html_object_destroy (p);
+		else
+			append_to_buffer (buffer, buffer_last, p);
 
 		p = pnext;
 	}
 
-	/* prepend all remaining objects from start_parent to end_parent */
-	m = merge;
-	while (m) {
-		html_clue_prepend (HTML_CLUE (end_parent), HTML_OBJECT (m->data));
-		m = m->next;
+	/* Copy elements from the cursor to the end into the starting paragraph.  */
+
+	end_paragraph = e->cursor->object->parent;
+	g_assert (end_paragraph != NULL);
+
+	g_assert (p == e->cursor->object);
+	while (p != NULL) {
+		pnext = p->next;
+
+		html_clue_remove (HTML_CLUE (p->parent), p);
+		if (HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE) {
+			html_object_destroy (p);
+		} else {
+			append_to_buffer (buffer, buffer_last, html_object_dup (p));
+			html_clue_append (HTML_CLUE (start_object->parent), p);
+		}
+
+		p = pnext;
 	}
-	g_list_free (merge);
+
+	/* Remove the end paragraph.  */
+
+	html_clue_remove (HTML_CLUE (end_paragraph->parent), end_paragraph);
+	html_object_destroy (end_paragraph);
 }
 
 static void
@@ -429,9 +443,6 @@ merge_text_at_cursor (HTMLEngine *e)
 	cursor = e->cursor;
 	object = cursor->object;
 
-	if (! html_object_is_text (object))
-		return;
-
 	prev = html_object_prev_not_slave (object);
 	if (prev != NULL
 	    && html_object_is_text (prev)
@@ -453,6 +464,40 @@ merge_text_at_cursor (HTMLEngine *e)
 	}
 }
 
+static void
+remove_empty_text_at_cursor_if_necessary (HTMLEngine *e)
+{
+	HTMLObject *object;
+	HTMLObject *prev;
+	HTMLObject *next;
+
+	object = e->cursor->object;
+
+	g_assert (html_object_is_text (object));
+	g_assert (HTML_TEXT (object)->text_len == 0);
+	g_assert (e->cursor->offset == 0);
+
+	prev = html_object_prev_not_slave (object);
+	next = html_object_next_not_slave (object);
+
+	if (prev == NULL && next == NULL)
+		return;
+
+	if (prev != NULL) {
+		e->cursor->object = prev;
+		if (html_object_is_text (prev))
+			e->cursor->offset = HTML_TEXT (prev)->text_len;
+		else
+			e->cursor->offset = 1;
+	} else {
+		e->cursor->object = next;
+		e->cursor->offset = 0;
+	}
+
+	html_clue_remove (HTML_CLUE (object->parent), object);
+	html_object_destroy (object);
+}
+
 
 static HTMLObject *
 delete_in_object (HTMLEngine *e,
@@ -465,8 +510,16 @@ delete_in_object (HTMLEngine *e,
 	if (end_offset == start_offset)
 		return NULL;
 
-	if (! html_object_is_text (object)
-	    || (start_offset == 0 && end_offset >= HTML_TEXT (object)->text_len)) {
+	if (! html_object_is_text (object)) {
+		if (start_offset == 0 && end_offset > 0) {
+			safe_remove (e, object);
+			return object;
+		} else {
+			return NULL;
+		}
+	}
+
+	if (start_offset == 0 && end_offset >= HTML_TEXT (object)->text_len) {
 		safe_remove (e, object);
 		return object;
 	}
@@ -554,7 +607,12 @@ html_engine_delete (HTMLEngine *e,
 			append (&save_buffer, &save_buffer_tail, obj);
 	}
 
-	merge_text_at_cursor (e);
+	if (html_object_is_text (e->cursor->object)) {
+		merge_text_at_cursor (e);
+
+		if (HTML_TEXT (e->cursor->object)->text_len == 0)
+			remove_empty_text_at_cursor_if_necessary (e);
+	}
 
 	html_object_relayout (e->cursor->object->parent->parent, e,
 			      e->cursor->object->parent);

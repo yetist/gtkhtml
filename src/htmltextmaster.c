@@ -546,6 +546,12 @@ merge (HTMLText *self,
 	if (other->text_len == 0)
 		return;
 
+	if (self->text_len == 0) {
+		self->font_style = other->font_style;
+		self->color = other->color;
+		self->color_allocated = other->color_allocated;
+	}
+
 	if (prepend)
 		calculate_new_selection (other, self, &select_start, &select_length);
 	else

@@ -52,6 +52,19 @@ get_flow (HTMLObject *object)
 	return p;
 }
 
+static HTMLObject *
+split_object (HTMLObject *object,
+	      guint offset)
+{
+	GdkColor black = { 0, 0, 0, 0 };
+
+	if (html_object_is_text (object))
+		return HTML_OBJECT (html_text_split (HTML_TEXT (object), offset));
+
+	/* FIXME black */
+	return html_text_master_new ("", GTK_HTML_FONT_STYLE_DEFAULT, &black);
+}
+
 static void
 insert_para (HTMLEngine *engine)
 {
@@ -72,20 +85,8 @@ insert_para (HTMLEngine *engine)
 
 	html_engine_hide_cursor (engine);
 
-	/* Remove text slaves, if any.  */
-
-	if (html_object_is_text (current) && current->next != NULL) {
-		HTMLObject *p;
-		HTMLObject *pnext;
-
-		for (p = current->next;
-		     p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE;
-		     p = pnext) {
-			pnext = p->next;
-			html_clue_remove (HTML_CLUE (p->parent), p);
-			html_object_destroy (p);
-		}
-	}
+	if (html_object_is_text (current))
+		html_text_master_destroy_slaves (HTML_TEXT_MASTER (current));
 
 	if (offset > 0) {
 		if (current->next != NULL) {
@@ -99,29 +100,35 @@ insert_para (HTMLEngine *engine)
 	} else {
 		next_flow = HTML_OBJECT (html_clueflow_split (HTML_CLUEFLOW (flow), current));
 		if (current->prev == NULL) {
-			if (html_object_is_text (current)) {
-				HTMLObject *elem;
+			HTMLObject *empty_text_element;
+			GtkHTMLFontStyle font_style;
+			GdkColor *color;
 
-				elem = html_text_master_new ("",
-							     HTML_TEXT (current)->font_style,
-							     &HTML_TEXT (current)->color);
-				html_clue_append (HTML_CLUE (flow), elem);
+			if (html_object_is_text (current)) {
+				font_style = HTML_TEXT (current)->font_style;
+				color = & HTML_TEXT (current)->color;
+			} else {
+				static GdkColor black = { 0, 0, 0 };
+
+				font_style = GTK_HTML_FONT_STYLE_DEFAULT;
+				color = &black; /* FIXME */
 			}
+
+
+			empty_text_element = html_text_master_new ("", font_style, color);
+			html_clue_append (HTML_CLUE (flow), empty_text_element);
 		}
 	}
 
 	html_clue_append_after (HTML_CLUE (flow->parent), next_flow, flow);
 
-	if (offset > 0 && html_object_is_text (current)) {
-		HTMLObject *text_next;
+	if (offset > 0) {
+		HTMLObject *second_half;
 
-		text_next = HTML_OBJECT (html_text_split (HTML_TEXT (current), offset));
+		second_half = split_object (current, offset);
+		html_clue_prepend (HTML_CLUE (next_flow), second_half);
 
-		html_clue_prepend (HTML_CLUE (next_flow), text_next);
-
-		/* FIXME relative offset?  */
-
-		engine->cursor->object = text_next;
+		engine->cursor->object = second_half;
 		engine->cursor->offset = 0;
 		engine->cursor->have_target_x = FALSE;
 	}

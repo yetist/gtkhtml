@@ -447,6 +447,8 @@ check_merge (HTMLText *self,
 {
 	if (HTML_OBJECT_TYPE (self) != HTML_OBJECT_TYPE (text))
 		return FALSE;
+	if (self->text_len == 0 || text->text_len == 0)
+		return TRUE;
 	if (self->font_style != text->font_style)
 		return FALSE;
 	if (! gdk_color_equal (&self->color, &text->color))

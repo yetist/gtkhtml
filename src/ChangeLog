@@ -1,5 +1,50 @@
 2000-05-21  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine-edit-paste.c (html_engine_paste_object): Eeek!  Free
+	the temporary cut buffer, not the real cut buffer.
+
+	* htmlengine-edit-insert.c (insert_para): Create the empty
+	HTMLTextMaster when splitting at offset == 0 even when the
+	cursor's object is not text.
+
+	* htmlengine-edit-delete.c (delete_in_object): Destroy a non-text
+	object only if the starting offset is zero and the end offset is
+	greater than zero.
+	(delete_different_parent): Rewritten to make more sense.
+
+	* htmltextmaster.c (merge): If this object is empty, copy font
+	style and color from the other one.
+
+	* htmltext.c (check_merge): If either of the two text elements is
+	empty, return TRUE.
+
+	* htmlengine-edit-insert.c (insert_para): Use
+	`html_text_master_destroy_slaves' instead of destroying slaves
+	manually.
+	(split_object): New helper function, that splits a text object
+	into two text objects or a non-text object into itself and an
+	empty text object.
+
+	* gtkhtml-keybinding.c (handle_none): Use
+	`gtk_html_debug_dump_tree_simple' instead of
+	`gtk_html_debug_dump_tree'.  The latter is too unreadable to be
+	useful.  [Maybe we should actually get rid of it at some point.]
+	(handle_alt): Removed stale debugging message.
+
+	* htmlengine-edit-paste.c (remove_element_if_empty_text): New
+	helper function to destroy an object if it is an empty text
+	element.
+	(move_cursor_to_safe_object): Helper function for
+	`remove_element_if_empty_text'.
+	(do_paste): Call `remove_element_if_empty_text' on the first and
+	last inserted elements, so that we eat resulting stale empty text
+	elements.
+
+	* htmlengine-edit-images.c (html_engine_insert_image): Removed
+	debugging message.
+
+2000-05-21  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* gtkhtml-keybinding.c (handle_ctrl): Make `C-d' delete forwards
 	instead of backwards.
 

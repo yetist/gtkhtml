@@ -290,8 +290,6 @@ handle_alt (GtkHTML *html,
 {
 	gboolean retval;
 
-	puts (__FUNCTION__);
-
 	retval = FALSE;
 
 	switch (event->keyval) {
@@ -392,7 +390,7 @@ handle_none (GtkHTML *html,
 	case GDK_F12:
 		if (html->engine->clue != NULL) {
 			g_print ("\n*** TREE DUMP:\n");
-			gtk_html_debug_dump_tree (html->engine->clue, 4);
+			gtk_html_debug_dump_tree_simple (html->engine->clue, 1);
 			g_print ("\n");
 		}
 		break;
