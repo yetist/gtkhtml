@@ -50,7 +50,6 @@
 #include "table.h"
 #include "text.h"
 
-#define DEBUG
 #ifdef DEBUG
 #include "gtkhtmldebug.h"
 #endif
