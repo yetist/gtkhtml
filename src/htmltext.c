@@ -556,20 +556,30 @@ get_words (const gchar *s)
 	return words;
 }
 
-static PangoGlyphString *
+static GList *
 get_glyphs (HTMLText *text, HTMLPainter *painter, gint line_offset)
 {
-	PangoGlyphString *glyphs = NULL;
+	GList *glyphs = NULL;
+	PangoGlyphString *str = NULL;
 	GList *items = html_text_get_items (text, painter);
 
 	if (items) {
-		gchar *translated_text;
-		gint bytes;
+		PangoItem *item;
+		GList *il, *gl;
+		gchar *t, *translated_text;
+		gint bytes, lo = -1;
 
-		translated_text = html_painter_translate_text (text->text, text->text_len, &line_offset, &bytes);
-		glyphs = pango_glyph_string_new ();
-		pango_shape (translated_text, bytes, &((PangoItem *) items->data)->analysis, glyphs);
-		g_free (translated_text);
+		t = text->text;
+		for (il = items; il; il = il->next) {
+			item = (PangoItem *) il->data;
+			str = pango_glyph_string_new ();
+			translated_text = html_painter_translate_text (t, item->num_chars, &lo, &bytes);
+			pango_shape (translated_text, bytes, &item->analysis, str);
+			g_free (translated_text);
+			glyphs = g_list_prepend (glyphs, str);
+			t = g_utf8_offset_to_pointer (t, item->num_chars);
+		}
+		glyphs = g_list_reverse (glyphs);
 	}
 
 	return glyphs;
@@ -584,16 +594,56 @@ translated_len (gchar *begin, gchar *end, gint *line_offset)
 	return html_text_text_line_length (begin, line_offset, len);
 }
 
+static gint
+word_size (gint cl, gint so, gint eo, GList **items, GList **glyphs, gint *width, gint *asc, gint *dsc)
+{
+	PangoItem *item;
+	PangoRectangle rect;
+	gint ceo, offset;
+
+	*width = *asc = *dsc = 0;
+	while (so < eo) {
+		item = (PangoItem *) (*items)->data;
+		ceo = MIN (cl + item->num_chars, eo);
+		pango_glyph_string_extents_range ((PangoGlyphString *)(*glyphs)->data, so - cl, ceo - cl, item->analysis.font, NULL, &rect);
+
+		*width += PANGO_PIXELS (rect.width);
+		*asc = MAX (PANGO_PIXELS (PANGO_ASCENT (rect)), *asc);
+		*dsc = MAX (PANGO_PIXELS (PANGO_DESCENT (rect)), *dsc);
+
+		if (cl + item->num_chars <= eo) {
+			cl += item->num_chars;
+			*items = (*items)->next;
+			*glyphs = (*glyphs)->next;
+		}
+		so += ceo - so;
+	}
+
+	/* printf ("word width: %d\n", *width); */
+
+	return cl;
+}
+
+inline static void
+glyphs_destroy (GList *glyphs)
+{
+	GList *l;
+
+	for (l = glyphs; l; l = l->next)
+		pango_glyph_string_free ((PangoGlyphString *) l->data);
+	g_list_free (glyphs);
+}
+
 static void
 calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 {
 	GtkHTMLFontStyle style;
-	PangoGlyphString *glyphs = NULL;
-	GList *items = NULL;
+	GList *gl, *glyphs = NULL;
+	GList *il, *items = NULL;
 	HTMLFont *font;
 	HTMLObject *obj = HTML_OBJECT (text);
 	gchar *begin, *end;
-	gint i, width, asc, dsc, start_offset, end_offset;
+	gint i, cl, width, asc, dsc, start_offset, end_offset;
 
 	/* printf ("calc ww begin\n"); */
 
@@ -615,20 +665,19 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 	/* printf ("calc ww m1\n"); */
 	begin = text->text;
 	start_offset = end_offset = 0;
+	il = items;
+	gl = glyphs;
+	cl = 0;
 	for (i = 0; i < text->words; i++) {
 		end   = strchr (begin + (i ? 1 : 0), ' ');
 
-		if (items && glyphs) {
+		if (il && gl) {
 			PangoRectangle log_rect;
 
 			/* end_offset = start_offset + (end ? g_utf8_pointer_to_offset (begin, end) : g_utf8_strlen (begin, -1)); */
 			end_offset = start_offset + translated_len (begin, end, &line_offset);
 			/* printf ("start offset: %d (%d)\n", start_offset, end_offset - start_offset); */
-			pango_glyph_string_extents_range (glyphs, start_offset, end_offset,
-							  ((PangoItem *) items->data)->analysis.font, NULL, &log_rect);
-			width = PANGO_PIXELS (log_rect.width);
-			asc   = PANGO_PIXELS (PANGO_ASCENT (log_rect));
-			dsc   = PANGO_PIXELS (PANGO_DESCENT (log_rect));
+			cl = word_size (cl, start_offset, end_offset, &il, &gl, &width, &asc, &dsc);
 		} else
 			html_painter_calc_text_size_bytes (painter,
 							   begin, end ? end - begin : strlen (begin), NULL, NULL,
@@ -645,7 +694,7 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 	/* printf ("calc ww m2\n"); */
 
 	if (glyphs) {
-		pango_glyph_string_free (glyphs);
+		glyphs_destroy (glyphs);
 		glyphs = NULL;
 	}
 	if (text->text_len == 0) {
@@ -732,8 +781,8 @@ forward_get_nb_width (HTMLText *text, HTMLPainter *painter, gboolean begin)
 
 	/* find prev/next object */
 	obj = begin
-		? html_object_prev_not_slave (HTML_OBJECT (text))
-		: html_object_next_not_slave (HTML_OBJECT (text));
+		? html_object_next_not_slave (HTML_OBJECT (text))
+		: html_object_prev_not_slave (HTML_OBJECT (text));
 
 	/* if not found or not text return 0, otherwise forward get_nb_with there */
 	if (!obj || !html_object_is_text (obj))
@@ -1477,13 +1526,14 @@ html_text_class_init (HTMLTextClass *klass,
 }
 
 static gint
-text_len (const gchar *str, gint len)
+text_len (HTMLText *text, gint len)
 {
-	if (len == -1) {
-		return g_utf8_validate (str, -1, NULL) ? g_utf8_strlen (str, -1) : 0;
+	if (g_utf8_validate (text->text, -1, NULL))
+		return len != -1 ? len : g_utf8_strlen (text->text, -1);
+	else {
+		text->text = g_strdup ("[?]");
+		return 3;
 	}
-
-	return len;
 }
 
 void
@@ -1499,7 +1549,7 @@ html_text_init (HTMLText *text,
 	html_object_init (HTML_OBJECT (text), HTML_OBJECT_CLASS (klass));
 
 	text->text          = len == -1 ? g_strdup (str) : g_strndup (str, g_utf8_offset_to_pointer (str, len) - str);
-	text->text_len      = text_len (str, len);
+	text->text_len      = text_len (text, len);
 	text->font_style    = font_style;
 	text->face          = NULL;
 	text->color         = color;
@@ -1598,7 +1648,7 @@ html_text_set_text (HTMLText *text, const gchar *new_text)
 {
 	g_free (text->text);
 	text->text = g_strdup (new_text);
-	text->text_len = text_len (new_text, -1);
+	text->text_len = text_len (text, -1);
 	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
 }
 
@@ -1871,7 +1921,7 @@ html_text_append (HTMLText *text, const gchar *str, gint len)
 
 	to_delete       = text->text;
 	text->text      = g_strconcat (to_delete, str, NULL);
-	text->text_len += text_len (str, len);
+	text->text_len += text_len (text, len);
 
 	g_free (to_delete);
 

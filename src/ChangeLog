@@ -1,3 +1,14 @@
+2003-02-27  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (text_len): replace invalid utf8 with [?]
+
+	* htmltokenizer.c (in_entity): extend the max length of number to
+	10 digits (0xffffffff = 4294967295)
+
+	* htmltext.c (forward_get_nb_width): reverse prev/next to avoid
+	infinite loops in broken html documents (where empty text objects
+	are created)
+
 2003-02-25  Larry Ewing  <lewing@ximian.com>
 
 	* htmlpainter.c: remove h_utf8*

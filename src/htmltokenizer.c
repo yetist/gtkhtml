@@ -855,7 +855,7 @@ in_entity (HTMLTokenizer *t, const gchar **src)
 				
 	}
 
-	if (p->searchCount > 9) {
+	if (p->searchCount > 13) {
 		/* Ignore this sequence since it's too long */
 		p->charEntity = FALSE;
 		flush_entity (t);

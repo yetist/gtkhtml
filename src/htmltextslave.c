@@ -632,7 +632,7 @@ get_glyphs (HTMLTextSlave *slave, HTMLPainter *painter, gint line_offset)
 				pango_shape (translated_text, bytes, &item->analysis, str);
 				g_free (translated_text);
 				slave->glyphs = g_list_prepend (slave->glyphs, str);
-				text += item->length;
+				text = g_utf8_offset_to_pointer (text, len);
 				index += len;
 				il = il->next;
 			}

@@ -3797,7 +3797,7 @@ html_engine_class_data_clear (HTMLEngine *e)
 	}
 }
 
-/* #define LOG_INPUT */
+#define LOG_INPUT
 
 GtkHTMLStream *
 html_engine_begin (HTMLEngine *e, char *content_type)
