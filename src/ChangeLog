@@ -1,5 +1,9 @@
 2001-06-11  Radek Doulik  <rodo@ximian.com>
 
+	* gtkhtml.c (replace_nbsp): new helper function
+	(selection_get): replace &nbsp; with ' ' for
+	STRING/TEXT/COMPOUND_TEXT
+
 	* htmlengine-edit-table.c (html_engine_insert_table): new function
 
 2001-06-08  Radek Doulik  <rodo@ximian.com>

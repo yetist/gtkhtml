@@ -1147,6 +1147,37 @@ enter_notify_event (GtkWidget *widget, GdkEventCrossing *event)
 
 /* X11 selection support.  */
 
+static guchar *
+replace_nbsp (const guchar *text)
+{
+	guchar *nt, *ntext = g_new (guchar, strlen (text) + 1);
+	gint pos = 0;
+
+	nt = ntext;
+	while (*text) {
+		if (*text == 0xc2 && pos == 0)
+			pos = 1;
+		else if (*text == 0xa0 && pos == 1) {
+			*nt = ' ';
+			nt ++;
+			pos = 0;
+		} else {
+			if (pos) {
+				*nt = 0xc2;
+				nt ++;
+				pos = 0;
+			}
+			*nt = *text;
+			nt ++;
+		}
+		text ++;
+	}
+
+	*nt = 0;
+
+	return ntext;
+}
+
 static void
 selection_get (GtkWidget        *widget, 
 	       GtkSelectionData *selection_data,
@@ -1175,42 +1206,49 @@ selection_get (GtkWidget        *widget,
 	
 	if (selection_string != NULL) {
 		if (info == TARGET_UTF8_STRING) {
+			printf ("UTF8_STRING\n");
 			gtk_selection_data_set (selection_data,
 						gdk_atom_intern ("UTF8_STRING", FALSE), 8,
 						(const guchar *) selection_string,
 						strlen (selection_string));
 		} else if (info == TARGET_UTF8) {
+			printf ("UTF-8\n");
 			gtk_selection_data_set (selection_data,
 						gdk_atom_intern ("UTF-8", FALSE), 8,
 						(const guchar *) selection_string,
 						strlen (selection_string));
-		} else if (info == TARGET_STRING) {
+		} else if (info == TARGET_STRING || info == TARGET_TEXT || info == TARGET_COMPOUND_TEXT) {
+			gchar *to_be_freed;
+
+			to_be_freed = selection_string;
+			selection_string = replace_nbsp (selection_string);
+			g_free (to_be_freed);
 			localized_string = e_utf8_to_gtk_string (widget,
 								 selection_string);
+
+			if (info == TARGET_STRING) {
+				printf ("STRING\n");
+				gtk_selection_data_set (selection_data,
+							GDK_SELECTION_TYPE_STRING, 8,
+							(const guchar *) localized_string, 
+							strlen (localized_string));
+			} else {
+				guchar *text;
+				GdkAtom encoding;
+				gint format;
+				gint new_length;
 			
-			gtk_selection_data_set (selection_data,
-						GDK_SELECTION_TYPE_STRING, 8,
-						(const guchar *) localized_string, 
-						strlen (localized_string));
+				printf ("TEXT or COMPOUND_TEXT\n");
+				gdk_string_to_compound_text (localized_string, 
+							     &encoding, &format,
+							     &text, &new_length);
+
+				gtk_selection_data_set (selection_data,
+							encoding, format,
+							text, new_length);
+				gdk_free_compound_text (text);
+			}
 			
-		} else if ((info == TARGET_TEXT) 
-			   || (info == TARGET_COMPOUND_TEXT)) {
-			guchar *text;
-			GdkAtom encoding;
-			gint format;
-			gint new_length;
-			
-			localized_string = e_utf8_to_gtk_string (widget,
-								 selection_string);
-			
-			gdk_string_to_compound_text (localized_string, 
-						     &encoding, &format,
-						     &text, &new_length);
-			
-			gtk_selection_data_set (selection_data,
-						encoding, format,
-						text, new_length);
-			gdk_free_compound_text (text);
 		}
 		g_free (selection_string);
 		g_free (localized_string);
