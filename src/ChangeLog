@@ -1,5 +1,8 @@
 2001-05-23  Larry Ewing  <lewing@ximian.com>
 
+	* htmlprinter.c (draw_text): terminate the temporary string at the
+	last character, not the last character + 1.
+
 	* htmltokenizer.c (end_tag): do not discard the line feeds
 	following a opening tag inside a pre tag, but discard them
 	otherwise.  This should avoid the unintentional spaces introduced

@@ -525,7 +525,7 @@ draw_text (HTMLPainter *painter,
 	end = g_utf8_offset_to_pointer (text, len);
 	text_tmp = alloca (end - text + 1);
 	memcpy (text_tmp, text, end - text);
-	text_tmp [end - text + 1] = '\0';
+	text_tmp [end - text] = '\0';
 
 	font = html_painter_get_font (painter, painter->font_face, painter->font_style);
 	gnome_print_setfont (printer->print_context, font);
