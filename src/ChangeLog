@@ -1,3 +1,8 @@
+2000-05-11  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlgdkpainter.c (draw_background): optimize this greatly for a couple
+	of special cases.
+
 2000-05-09  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* Version 0.2.
@@ -53,7 +58,7 @@
 	(selection_get): add TEXT and COMPOUND_TEXT types.
 	(selection_received): add preliminary handler for receiving
 	seletions.
-	(class_init): add select_recieved handler to the class.
+	(class_init): add select_received handler to the class.
 	(init): add the extra targets.
 
 	* gtkhtml.h: expose gtk_html_request_paste to the world.
