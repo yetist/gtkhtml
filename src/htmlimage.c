@@ -467,7 +467,6 @@ html_image_init (HTMLImage *image,
 	HTMLObject *object;
 
 	g_assert (filename);
-	g_assert (*filename);
 
 	object = HTML_OBJECT (image);
 
@@ -942,7 +941,6 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 
 	g_return_val_if_fail (factory, NULL);
 	g_return_val_if_fail (filename, NULL);
-	g_return_val_if_fail (*filename, NULL);
 
 	retval = g_hash_table_lookup (factory->loaded_images, filename);
 
@@ -950,30 +948,32 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 		GtkHTMLStreamHandle handle;
 
 		retval = html_image_pointer_new (filename, factory);
-		gtk_signal_connect (GTK_OBJECT (retval->loader), "area_prepared",
-				    GTK_SIGNAL_FUNC (html_image_factory_area_prepared),
-				    retval);
+		if (*filename) {
+			gtk_signal_connect (GTK_OBJECT (retval->loader), "area_prepared",
+					    GTK_SIGNAL_FUNC (html_image_factory_area_prepared),
+					    retval);
 
-		gtk_signal_connect (GTK_OBJECT (retval->loader), "frame_done",
-				    GTK_SIGNAL_FUNC (html_image_factory_frame_done),
-				    retval);
+			gtk_signal_connect (GTK_OBJECT (retval->loader), "frame_done",
+					    GTK_SIGNAL_FUNC (html_image_factory_frame_done),
+					    retval);
 
-		gtk_signal_connect (GTK_OBJECT (retval->loader), "animation_done",
-				    GTK_SIGNAL_FUNC (html_image_factory_animation_done),
-				    retval);
+			gtk_signal_connect (GTK_OBJECT (retval->loader), "animation_done",
+					    GTK_SIGNAL_FUNC (html_image_factory_animation_done),
+					    retval);
 		
-		handle = gtk_html_stream_new (GTK_HTML (factory->engine->widget),
-					      html_image_factory_write_pixbuf,
-					      html_image_factory_end_pixbuf,
-					      retval);
+			handle = gtk_html_stream_new (GTK_HTML (factory->engine->widget),
+						      html_image_factory_write_pixbuf,
+						      html_image_factory_end_pixbuf,
+						      retval);
 
-		g_hash_table_insert (factory->loaded_images, retval->url, retval);
+			g_hash_table_insert (factory->loaded_images, retval->url, retval);
 
 		/* This is a bit evil, I think.  But it's a lot better here
 		   than in the HTMLImage object.  FIXME anyway -- ettore  */
 		
-		gtk_signal_emit_by_name (GTK_OBJECT (factory->engine), "url_requested", filename,
-					 handle);
+			gtk_signal_emit_by_name (GTK_OBJECT (factory->engine), "url_requested", filename,
+						 handle);
+		}
 	}
 
 	/* we add also NULL ptrs, as we dont want these to be cleaned out */
