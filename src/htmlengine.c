@@ -5854,7 +5854,7 @@ html_engine_get_cursor (HTMLEngine *e)
 
 	cursor = html_cursor_new ();
 	cursor->object = html_engine_get_object_at (e, e->widget->selection_x1, e->widget->selection_y1,
-						    &cursor->offset, FALSE);
+						    &cursor->offset, TRUE);
 	return cursor;
 }
 
