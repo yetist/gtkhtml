@@ -14,7 +14,7 @@ INCLUDES =						\
 	$(GTK_CFLAGS)					\
 	-DGLADE_DATADIR=\"$(gladedir)\"
 
-CFLAGS +=  $(GCONF_CFLAGS) $(PSPELL_CFLAGS)
+CFLAGS +=  $(GCONF_CFLAGS) $(PSPELL_CFLAGS) -DICONDIR=\"$(datadir)/gtkhtml/icons\"
 
 # CORBA stuff
 

@@ -92,14 +92,20 @@ typedef struct
 	gint       rows;
 	GtkWidget *spin_rows;
 
+	gint       template;
+	GtkWidget *option_template;
+
 	gboolean   disable_change;
+	gboolean   insert;
 } GtkHTMLEditTableProperties;
+
+static void set_insert_ui (GtkHTMLEditTableProperties *d);
 
 #define CHANGE if (!d->disable_change) gtk_html_edit_properties_dialog_change (d->cd->properties_dialog)
 #define FILL   if (!d->disable_change && d->sample) fill_sample (d)
 
 static void
-fill_sample (GtkHTMLEditTableProperties *d)
+fill_prop_sample (GtkHTMLEditTableProperties *d)
 {
 	GString *cells;
 	gchar *body, *html, *bg_color, *bg_pixmap, *spacing, *align, *width;
@@ -131,7 +137,7 @@ fill_sample (GtkHTMLEditTableProperties *d)
 		for (c = 0; c < d->cols; c ++) {
 			gchar *cell;
 
-			cell = g_strdup_printf ("<td>%d</td>", d->cols*r + c + 1);
+			cell = g_strdup_printf ("<td>*%03d*</td>", d->cols*r + c + 1);
 			g_string_append (cells, cell);
 			g_free (cell);
 		}
@@ -140,10 +146,9 @@ fill_sample (GtkHTMLEditTableProperties *d)
 			
 	html      = g_strconcat (body, "<table", bg_color, bg_pixmap, spacing, align, width, ">",
 				 cells->str, "</table>", NULL);
-	/* printf ("html: %s\n", html); */
+	g_string_free (cells, TRUE);
 	gtk_html_load_from_string (d->sample, html, -1);
 
-	g_string_free (cells, TRUE);
 	g_free (body);
 	g_free (bg_color);
 	g_free (bg_pixmap);
@@ -151,6 +156,169 @@ fill_sample (GtkHTMLEditTableProperties *d)
 	g_free (align);
 	g_free (width);
 	g_free (html);
+
+	/* printf ("html: %s\n", html); */
+}
+
+#define TEMPLATES 4
+typedef struct {
+	gchar *name;
+	gint offset;
+
+	gint default_border;
+	gint default_spacing;
+	gint default_padding;
+
+	gint default_rows;
+	gint default_columns;
+
+	gchar *table_begin;
+	gchar *table_end;
+	gchar *cell_begin;
+	gchar *cell_end;
+} TableInsertTemplate;
+
+
+static TableInsertTemplate table_templates [TEMPLATES] = {
+	{
+		N_("Plain"), 1,
+		1, 2, 1, 3, 3,
+		"<table border=@border@ cellspacing=@spacing@ cellpadding=@padding@@align@@width@>",
+		"</table>",
+		"<td>",
+		"</td>"
+	},
+	{
+		N_("Flat gray"), 2,
+		0, 1, 3, 3, 3,
+		"<table cellspacing=0 cellpadding=@border@ bgcolor=\"#5f5f5f\"@width@@align@><tr><td>"
+		"<table bgcolor=\"#efefef\" cellspacing=@spacing@ cellpadding=@padding@ width=\"100%\">",
+		"</table></td></tr></table>",
+		"<td>",
+		"</td>"
+	},
+	{
+		N_("Dark header"), 11,
+		0, 1, 3, 3, 3,
+		"<table bgcolor=\"#5f5f5f\" cellpadding=3 cellspacing=0>"
+		"<tr><td><font color=\"#ffffff\"><b>Header</td></tr></table>"
+		"<table cellspacing=0 cellpadding=@border@ bgcolor=\"#5f5f5f\"@width@@align@><tr><td>"
+		"<table bgcolor=\"#efefef\" cellspacing=@spacing@ cellpadding=@padding@ width=\"100%\">",
+		"</table></td></tr></table>",
+		"<td>",
+		"</td>"
+	},
+	{
+		N_("Note"), 5,
+		1, 1, 3, 1, 1,
+		"<table cellspacing=0 cellpadding=@border@ bgcolor=\"#dfdf30\"@width@@align@><tr><td>"
+		"<table bgcolor=\"#ffff30\" cellpadding=3 cellspacing=0 width=\"100%\">"
+		"<tr><td valign=top><img src=\"file://" ICONDIR "/bulb.png\"></td>"
+		"<td width=\"100%\"><table cellspacing=@spacing@ cellpadding=@padding@ width=\"100%\"",
+		"</table></td></tr></table></td></tr></table>",
+		"<td>",
+		"</td>"
+	}
+};
+
+static gchar *
+substitute_int (gchar *str, const gchar *var_name, gint value)
+{
+	gchar *substr;
+
+	substr = strstr (str, var_name);
+	if (substr) {
+		gchar *new_str;
+
+		*substr = 0;
+		new_str = g_strdup_printf ("%s%d%s", str, value, substr + strlen (var_name));
+		g_free (str);
+		str = new_str;
+	}
+
+	return str;
+}
+
+static gchar *
+substitute_char (gchar *str, const gchar *var_name, const gchar *value)
+{
+	gchar *substr;
+
+	substr = strstr (str, var_name);
+	if (substr) {
+		gchar *new_str;
+
+		*substr = 0;
+		new_str = g_strdup_printf ("%s%s%s", str, value, substr + strlen (var_name));
+		g_free (str);
+		str = new_str;
+	}
+
+	return str;
+}
+
+static gchar *
+get_sample_html (GtkHTMLEditTableProperties *d, gboolean preview)
+{
+	GString *cells;
+	gchar *body, *html, *table_begin, *width;
+	gint r, c;
+
+	body      = html_engine_save_get_sample_body (d->cd->html->engine, NULL);
+
+	table_begin = g_strdup (table_templates [d->template].table_begin);
+	table_begin = substitute_int (table_begin, "@border@",  d->border);
+	table_begin = substitute_int (table_begin, "@spacing@", d->spacing);
+	table_begin = substitute_int (table_begin, "@padding@", d->padding);
+	table_begin = substitute_char (table_begin, "@align@", d->align == HTML_HALIGN_NONE ? ""
+				       : (d->align == HTML_HALIGN_CENTER ? " align=\"center\""
+					  : (d->align == HTML_HALIGN_RIGHT ? " align=\"right\"" : " align=\"left\"")));
+
+	width   = d->width != 0 && d->has_width
+		? g_strdup_printf (" width=\"%d%s\"", d->width, d->width_percent ? "%" : "") : g_strdup ("");
+	table_begin = substitute_char (table_begin, "@width@", width);
+	g_free (width);
+
+	cells  = g_string_new (NULL);
+	for (r = 0; r < d->rows; r ++) {
+		g_string_append (cells, "<tr>");
+		for (c = 0; c < d->cols; c ++) {
+			gchar *cell;
+
+			cell = g_strdup_printf (preview ? "<td>*%03d*</td>" : "<td></td>", d->cols*r + c + 1);
+			g_string_append (cells, cell);
+			g_free (cell);
+		}
+		g_string_append (cells, "</tr>");
+	}
+			
+	html      = g_strconcat (body, table_begin, cells->str, table_templates [d->template].table_end, NULL);
+	g_string_free (cells, TRUE);
+
+	g_free (body);
+	g_free (table_begin);
+
+	return html;
+}
+
+static void
+fill_insert_sample (GtkHTMLEditTableProperties *d)
+{
+	gchar *html;
+
+	html = get_sample_html (d, TRUE);
+	gtk_html_load_from_string (d->sample, html, -1);
+
+	g_free (html);
+}
+
+static void
+fill_sample (GtkHTMLEditTableProperties *d)
+{
+	if (d->insert)
+		fill_insert_sample (d);
+	else
+		fill_prop_sample (d);
 }
 
 static GtkHTMLEditTableProperties *
@@ -328,6 +496,24 @@ changed_rows (GtkWidget *w, GtkHTMLEditTableProperties *d)
 	CHANGE;
 }
 
+static void
+changed_template (GtkWidget *w, GtkHTMLEditTableProperties *d)
+{
+	d->template = g_list_index (GTK_MENU_SHELL (w)->children, gtk_menu_get_active (GTK_MENU (w)));
+
+	d->border  = table_templates [d->template].default_border;
+	d->spacing = table_templates [d->template].default_spacing;
+	d->padding = table_templates [d->template].default_padding;
+
+	d->rows    = table_templates [d->template].default_rows;
+	d->cols    = table_templates [d->template].default_columns;
+
+	set_insert_ui (d);
+
+	FILL;
+	CHANGE;	
+}
+
 /*
  * FIX: set spin adjustment upper to 100000
  *      as glade cannot set it now
@@ -413,7 +599,8 @@ table_insert_widget (GtkHTMLEditTableProperties *d)
 	GtkWidget *table_page;
 	GladeXML *xml;
 
-	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "table_insert_page");
+	d->insert = TRUE;
+	xml       = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "table_insert_page");
 	if (!xml)
 		g_error (_("Could not load glade file."));
 
@@ -444,6 +631,25 @@ table_insert_widget (GtkHTMLEditTableProperties *d)
 	UPPER_FIX (padding);
 	UPPER_FIX (spacing);
 	UPPER_FIX (border);
+
+	d->option_template = glade_xml_get_widget (xml, "option_table_template");
+	gtk_signal_connect (GTK_OBJECT (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_template))), "selection-done",
+			    changed_template, d);
+	{
+		GtkWidget *menu;
+		gint i;
+
+		menu = gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_template));
+
+		for (i = 0; i < TEMPLATES; i ++)
+			gtk_menu_append (GTK_MENU (menu), gtk_menu_item_new_with_label (_(table_templates [i].name)));
+		//gtk_option_menu_remove_menu (GTK_OPTION_MENU (d->option_template));
+		//gtk_option_menu_set_menu (GTK_OPTION_MENU (d->option_template), menu);
+		gtk_menu_set_active (GTK_MENU (menu), 0);
+		gtk_container_remove (GTK_CONTAINER (menu), gtk_menu_get_active (GTK_MENU (menu)));
+	}
+
+	gtk_box_pack_start (GTK_BOX (table_page), sample_frame (&d->sample), FALSE, FALSE, 0);
 
 	gtk_widget_show_all (table_page);
 
@@ -500,7 +706,11 @@ set_insert_ui (GtkHTMLEditTableProperties *d)
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_padding), d->padding);
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_border),  d->border);
 
+	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_template), d->template);
+
 	d->disable_change = FALSE;
+
+	FILL;
 }
 
 static void
@@ -576,11 +786,16 @@ void
 table_insert_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditTableProperties *d = (GtkHTMLEditTableProperties *) get_data;
+	HTMLEngine *e = d->cd->html->engine;
+	gchar *html;
+	gint position;
 
-	html_engine_insert_table (cd->html->engine, d->cols, d->rows,
-				  d->has_width ? (d->width_percent ? 0 : d->width) : 0,
-				  d->has_width ? (d->width_percent ? d->width : 0) : 0,
-				  d->padding, d->spacing, d->border);
+	position = e->cursor->position + table_templates [d->template].offset;
+	html = get_sample_html (d, FALSE);
+	printf ("INSERT(%d):\n%s\n", d->template, html);
+	gtk_html_insert_html (cd->html, html);
+	g_free (html);
+	html_cursor_jump_to_position (e->cursor, e, position);
 }
 
 void
