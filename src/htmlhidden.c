@@ -22,6 +22,30 @@
 
 HTMLHiddenClass html_hidden_class;
 
+static gchar *
+encode (HTMLElement *e)
+{
+	GString *encoding = g_string_new ("");
+	gchar *ptr;
+
+	if(strlen (e->name)) {
+		ptr = html_element_encode_string (e->name);
+		encoding = g_string_append (encoding, ptr);
+		g_free (ptr);
+
+		encoding = g_string_append_c (encoding, '=');
+
+		ptr = html_element_encode_string (e->value);
+		encoding = g_string_append (encoding, ptr);
+		g_free (ptr);
+	}
+
+	ptr = encoding->str;
+	g_string_free(encoding, FALSE);
+
+	return ptr;
+}
+
 void html_hidden_type_init (void)
 {
 	html_hidden_class_init (&html_hidden_class, HTML_TYPE_HIDDEN);
@@ -38,6 +62,8 @@ void html_hidden_class_init (HTMLHiddenClass *klass,
 	object_class = HTML_OBJECT_CLASS (klass);
 
 	html_element_class_init (element_class, type);
+
+	element_class->encode = encode;
 }
 
 void html_hidden_init (HTMLHidden *hidden, 

@@ -41,7 +41,6 @@ typedef struct _HTMLEngineClass HTMLEngineClass;
 #include "htmlpainter.h"
 #include "htmlurl.h"
 #include "stringtokenizer.h"
-#include "htmlform.h"
 
 #define HTML_TYPE_ENGINE                 (html_engine_get_type ())
 #define HTML_ENGINE(obj)                 (GTK_CHECK_CAST ((obj), HTML_TYPE_ENGINE, HTMLEngine))
@@ -181,6 +180,7 @@ struct _HTMLEngineClass {
         void (* url_requested) (HTMLEngine *engine, const char *url, GtkHTMLStreamHandle handle);
 	void (* draw_pending) (HTMLEngine *engine);
         void (* redirect) (HTMLEngine *engine, const char *url, int delay);
+        void (* submit) (HTMLEngine *engine, const gchar *method, const gchar *action, const gchar *encoding);
 };
 
 
@@ -215,5 +215,7 @@ void	    html_engine_make_cursor_visible (HTMLEngine *e);
 
 void	    html_engine_flush_draw_queue (HTMLEngine *e);
 void	    html_engine_queue_draw (HTMLEngine *e, HTMLObject *o);
+void        html_engine_form_submitted (HTMLEngine *engine, const gchar *method, const gchar *action, const gchar *encoding);
+
 
 #endif /* _HTMLENGINE_H_ */

@@ -1,3 +1,16 @@
+2000-01-02  Jonas Borgström <jonas_b@bitsmart.com>
+
+	* htmlengine.c (parse_input): Added more support for <input> tag
+	
+	* htmlbutton.[ch], htmltextinput.[ch], 
+	  htmlradio.[ch], htmlcheckbox.[ch],
+	  htmlhidden.[ch], htmlform.[ch] and
+	  htmlelement.[ch] More frame work.
+
+	* gtkhtml.[ch], htmlengine.[ch]: Added New signal 'submit'
+
+	* testgtkhtml.c: Added submit support.
+
 2000-01-02  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlfont.c (html_font_calc_width): Made const safe.

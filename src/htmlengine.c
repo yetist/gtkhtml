@@ -84,6 +84,7 @@ enum {
 	URL_REQUESTED,
 	DRAW_PENDING,
 	REDIRECT,
+	SUBMIT,
 	LAST_SIGNAL
 };
 	
@@ -946,6 +947,8 @@ parse_input (HTMLEngine *e, const gchar *str) {
 				type = Text;
 			else if ( strncasecmp( p, "Image", 5 ) == 0 )
 				type = Image;
+			else
+				type = Undefined;
 		}
 		else if ( strncasecmp( token, "name=", 5 ) == 0 ) {
 			name = g_strdup(token + 5);
@@ -975,6 +978,8 @@ parse_input (HTMLEngine *e, const gchar *str) {
 		HTMLObject *checkbox = html_checkbox_new(GTK_WIDGET(e->widget), name, value, checked);
 		html_clue_append (HTML_CLUE (e->flow), checkbox);
 
+		html_form_add_element (e->form, HTML_ELEMENT (checkbox));
+
 		g_print("CheckBox: name = '%s' value = '%s' checked = '%d'\n", name, value, checked);
 		
 		break;
@@ -982,7 +987,9 @@ parse_input (HTMLEngine *e, const gchar *str) {
 	case Hidden:
 		{
 		HTMLObject *hidden = html_hidden_new(name, value);
-		html_clue_append (HTML_CLUE (e->flow), hidden);
+		/* html_clue_append (HTML_CLUE (e->flow), hidden); */
+
+		html_form_add_hidden (e->form, HTML_HIDDEN (hidden));
 
 		g_print("Hidden: name = '%s' value = '%s'\n", name, value);
 		
@@ -993,18 +1000,18 @@ parse_input (HTMLEngine *e, const gchar *str) {
 		HTMLObject *radio = html_radio_new(GTK_WIDGET(e->widget), name, value, checked);
 		html_clue_append (HTML_CLUE (e->flow), radio);
 
+		html_form_add_element (e->form, HTML_ELEMENT (radio));
+
 		g_print("Radio: name = '%s' value = '%s' checked = '%d'\n", name, value, checked);
 		
 		break;
 		}
 	case Reset:
 		{
-		HTMLObject *reset;
-		if(value)
-			reset = html_button_new(GTK_WIDGET(e->widget), name, value);
-		else
-			reset = html_button_new(GTK_WIDGET(e->widget), name, "Reset");
+		HTMLObject *reset = html_button_new(GTK_WIDGET(e->widget), name, value, BUTTON_RESET);
 		html_clue_append (HTML_CLUE (e->flow), reset);
+
+		html_form_add_element (e->form, HTML_ELEMENT (reset));
 
 		g_print("Reset: name = '%s' value = '%s'\n", name, value);
 		
@@ -1012,12 +1019,11 @@ parse_input (HTMLEngine *e, const gchar *str) {
 		}
 	case Submit:
 		{
-		HTMLObject *submit;
-		if(value)
-			submit = html_button_new(GTK_WIDGET(e->widget), name, value);
-		else
-			submit = html_button_new(GTK_WIDGET(e->widget), name, "Submit Query");
+		HTMLObject *submit = html_button_new(GTK_WIDGET(e->widget), name, value, BUTTON_SUBMIT);
+
 		html_clue_append (HTML_CLUE (e->flow), submit);
+
+		html_form_add_element (e->form, HTML_ELEMENT (submit));
 
 		g_print("Button: name = '%s' value = '%s'\n", name, value);
 		
@@ -1025,8 +1031,10 @@ parse_input (HTMLEngine *e, const gchar *str) {
 		}
 	case Button:
 		{
-		HTMLObject *button = html_button_new(GTK_WIDGET(e->widget), name, value);
+		HTMLObject *button = html_button_new(GTK_WIDGET(e->widget), name, value, BUTTON_NORMAL);
 		html_clue_append (HTML_CLUE (e->flow), button);
+
+		html_form_add_element (e->form, HTML_ELEMENT (button));
 
 		g_print("Button: name = '%s' value = '%s'\n", name, value);
 		
@@ -1035,8 +1043,10 @@ parse_input (HTMLEngine *e, const gchar *str) {
 	case Text:
 	case Password:
 		{
-		HTMLObject *button = html_text_input_new(GTK_WIDGET(e->widget), name, value, size, maxLen, (type == Password));
-		html_clue_append (HTML_CLUE (e->flow), button);
+		HTMLObject *input = html_text_input_new(GTK_WIDGET(e->widget), name, value, size, maxLen, (type == Password));
+		html_clue_append (HTML_CLUE (e->flow), input);
+
+		html_form_add_element (e->form, HTML_ELEMENT (input));
 
 		g_print("text/password: name = '%s' value = '%s'\n", name, value);
 		
@@ -1056,6 +1066,7 @@ parse_input (HTMLEngine *e, const gchar *str) {
 		break;
 		}
 	case Undefined:
+		g_warning ("Unknown <input type>\n");
 		break;
 	}
 
@@ -1722,7 +1733,7 @@ parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
                         }
                 }
                 
-                p->form = html_form_new(action, method);
+                p->form = html_form_new (p, action, method);
                 p->formList = g_list_append(p->formList, p->form);
 		
 		if(action)
@@ -2619,6 +2630,17 @@ html_engine_class_init (HTMLEngineClass *klass)
 				GTK_TYPE_STRING,
 				GTK_TYPE_INT);
 
+	signals [SUBMIT] =
+		gtk_signal_new ("submit",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (HTMLEngineClass, submit),
+				gtk_marshal_NONE__POINTER_POINTER_POINTER,
+				GTK_TYPE_NONE, 3,
+				GTK_TYPE_STRING,
+				GTK_TYPE_STRING,
+				GTK_TYPE_STRING);
+
 	gtk_object_class_add_signals (object_class, signals, LAST_SIGNAL);
 
 	object_class->destroy = html_engine_destroy;
@@ -2966,6 +2988,12 @@ html_engine_new_flow (HTMLEngine *e, HTMLObject *clue)
 	html_clue_append (HTML_CLUE (clue), e->flow);
 }
 
+static void
+destroy_form (gpointer data, gpointer user_data)
+{
+	html_form_destroy (HTML_FORM(data));
+}
+
 void
 html_engine_parse (HTMLEngine *p)
 {
@@ -2976,6 +3004,13 @@ html_engine_parse (HTMLEngine *p)
 
 	if (p->clue != NULL)
 		html_object_destroy (p->clue);
+
+	g_list_foreach (p->formList, destroy_form, NULL);
+
+	g_list_free (p->formList);
+
+	p->formList = NULL;
+	p->form = NULL;
 
 	p->flow = 0;
 
@@ -3367,4 +3402,10 @@ html_engine_queue_draw (HTMLEngine *e, HTMLObject *o)
 	g_return_if_fail (o != NULL);
 
 	html_draw_queue_add (e->draw_queue, o);
+}
+
+void html_engine_form_submitted (HTMLEngine *e, const gchar *method, const gchar *action, const gchar *encoding)
+{
+	gtk_signal_emit (GTK_OBJECT (e), signals[SUBMIT], method, action, encoding);
+
 }

@@ -31,6 +31,7 @@ typedef struct _HTMLRadioClass HTMLRadioClass;
 
 struct _HTMLRadio {
 	HTMLElement element;
+	gint default_checked;
 };
 
 struct _HTMLRadioClass {

@@ -33,6 +33,8 @@ struct _HTMLTextInput {
 	HTMLElement element;
 	gint size, maxlen;
 	gboolean password;
+
+	gchar *default_text;
 };
 
 struct _HTMLTextInputClass {

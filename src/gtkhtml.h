@@ -68,6 +68,7 @@ struct _GtkHTMLClass {
 
 	void (* on_url)		 (GtkHTML *html, const gchar *url);
 	void (* redirect)        (GtkHTML *html, const gchar *url, int delay);
+	void (* submit)        (GtkHTML *html, const gchar *method, const gchar *url, const gchar *encoding);
 };
 
 GtkType		    gtk_html_get_type	     (void);

@@ -490,6 +490,26 @@ on_redirect (GtkHTML *html, const gchar *url, int delay, gpointer data) {
 }
 
 static void
+on_submit (GtkHTML *html, const gchar *method, const gchar *action, const gchar *encoding, gpointer data) {
+	GString *tmpstr = g_string_new (action);
+
+	g_print("submitting '%s' to '%s' using method '%s'\n", encoding, action, method);
+
+	if(strcasecmp(method, "GET") == 0) {
+
+		tmpstr = g_string_append_c (tmpstr, '?');
+		tmpstr = g_string_append (tmpstr, encoding);
+		
+		goto_url(tmpstr->str, 0);
+		
+		g_string_free (tmpstr, TRUE);
+	} else {
+		g_warning ("Unsuported submit method '%s'\n", method);
+	}
+
+}
+
+static void
 on_url (GtkHTML *html, const gchar *url, gpointer data)
 {
 	GnomeApp *app;
@@ -988,6 +1008,8 @@ main (gint argc, gchar *argv[])
 			    GTK_SIGNAL_FUNC (on_link_clicked), NULL);
 	gtk_signal_connect (GTK_OBJECT (html), "redirect",
 			    GTK_SIGNAL_FUNC (on_redirect), NULL);
+	gtk_signal_connect (GTK_OBJECT (html), "submit",
+			    GTK_SIGNAL_FUNC (on_submit), NULL);
 
 #if 0
 	gtk_box_pack_start_defaults (GTK_BOX (hbox), GTK_WIDGET (html));

@@ -20,9 +20,7 @@
 */
 #ifndef HTMLELEMENT_H
 #define HTMLELEMENT_H
-
 #include "htmlobject.h"
-#include "htmlform.h"
 
 #define HTML_ELEMENT(x) ((HTMLElement *)(x))
 #define HTML_ELEMENT_CLASS(x) ((HTMLElementClass *)(x))
@@ -40,11 +38,11 @@ struct _HTMLElement {
 
 	gint abs_x, abs_y;
 };
-
 struct _HTMLElementClass {
 	HTMLObjectClass object_class;
 
-	void (*position) (HTMLElement *element, gint x, gint y, gint width, gint height);
+	void (*reset) (HTMLElement *element);
+	gchar *(*encode) (HTMLElement *element);
 };
 
 
@@ -55,6 +53,8 @@ void html_element_type_init (void);
 void html_element_class_init (HTMLElementClass *klass, HTMLType type);
 void html_element_init (HTMLElement *element, HTMLElementClass *klass, GtkWidget *parent, gchar *name, gchar *value);
 gchar *html_element_get_name (HTMLElement *element);
-void html_element_set_form(HTMLElement *element, HTMLForm *_form);
-
+void html_element_set_form (HTMLElement *element, HTMLForm *form);
+void html_element_reset (HTMLElement *element);
+gchar *html_element_encode (HTMLElement *element);
+gchar *html_element_encode_string (gchar *str);
 #endif /* HTMLELEMENT_H */

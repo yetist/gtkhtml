@@ -31,6 +31,7 @@ typedef struct _HTMLCheckBoxClass HTMLCheckBoxClass;
 
 struct _HTMLCheckBox {
 	HTMLElement element;
+	gint default_checked;
 };
 
 struct _HTMLCheckBoxClass {

@@ -20,6 +20,7 @@
     the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
     Boston, MA 02111-1307, USA.
 */
+#include <string.h>
 #include "htmlelement.h"
 
 HTMLElementClass html_element_class;
@@ -40,9 +41,81 @@ destroy (HTMLObject *o)
 		gtk_widget_destroy(element->widget);
 
 	HTML_OBJECT_CLASS (&html_object_class)->destroy (o);
-   
-	g_warning("Element->distroy()\n");
 }
+
+static void
+reset (HTMLElement *e)
+{
+}
+
+void
+html_element_reset (HTMLElement *e)
+{
+	HTML_ELEMENT_CLASS (HTML_OBJECT (e)->klass)->reset (e);
+}
+
+static gchar *
+encode (HTMLElement *e)
+{
+	return g_strdup("");
+}
+
+gchar *
+html_element_encode (HTMLElement *e)
+{
+	return HTML_ELEMENT_CLASS (HTML_OBJECT (e)->klass)->encode (e);
+}
+
+void
+html_element_set_form (HTMLElement *e, HTMLForm *form)
+{
+	e->form = form;
+}
+
+gchar *
+html_element_encode_string (gchar *str)
+{
+        static gchar *safe = "$-._!*(),"; /* RFC 1738 */
+        unsigned pos = 0;
+        GString *encoded = g_string_new ("");
+        gchar buffer[5], *ptr;
+	guchar c;
+	
+        while ( pos < strlen(str) ) {
+
+		c = (unsigned char) str[pos];
+			
+		if ( (( c >= 'A') && ( c <= 'Z')) ||
+		     (( c >= 'a') && ( c <= 'z')) ||
+		     (( c >= '0') && ( c <= '9')) ||
+		     (strchr(safe, c))
+		     )
+			{
+				encoded = g_string_append_c (encoded, c);
+			}
+		else if ( c == ' ' )
+			{
+				encoded = g_string_append_c (encoded, '+');
+			}
+		else if ( c == '\n' )
+			{
+				encoded = g_string_append (encoded, "%0D%0A");
+			}
+		else if ( c != '\r' )
+			{
+				sprintf( buffer, "%%%02X", (int)c );
+				encoded = g_string_append (encoded, buffer);
+				}
+		pos++;
+	}
+	
+	ptr = encoded->str;
+
+	g_string_free (encoded, FALSE);
+
+        return ptr;
+}
+
 
 void
 html_element_type_init (void)
@@ -51,8 +124,9 @@ html_element_type_init (void)
 }
 
 void
-html_element_class_init (HTMLElementClass *klass, HTMLType type) {
-
+html_element_class_init (HTMLElementClass *klass, 
+			 HTMLType type)
+{
 	HTMLObjectClass *object_class;
 
 	g_return_if_fail (klass != NULL);
@@ -60,20 +134,35 @@ html_element_class_init (HTMLElementClass *klass, HTMLType type) {
 	object_class = HTML_OBJECT_CLASS (klass);
 	html_object_class_init (object_class, type);
 
+	/* HTMLElement methods.   */
+	klass->reset = reset;
+	klass->encode = encode;
+
 	/* HTMLObject methods.   */
 	object_class->destroy = destroy;
 }
 
 void
-html_element_init (HTMLElement *element, HTMLElementClass *klass, GtkWidget *parent, gchar *name, gchar *value) {
+html_element_init (HTMLElement *element, 
+		   HTMLElementClass *klass, 
+		   GtkWidget *parent, 
+		   gchar *name, 
+		   gchar *value)
+{
 	HTMLObject *object;
 
 	object = HTML_OBJECT (element);
 	html_object_init (object, HTML_OBJECT_CLASS (klass));
 
 	element->form = NULL;
-	element->name = g_strdup(name);
-	element->value = g_strdup(value);
+	if (name)
+		element->name = g_strdup(name);
+	else
+		element->name = g_strdup("");
+	if (value)
+		element->value = g_strdup(value);
+	else
+		element->value = g_strdup("");
 	element->widget = NULL;
 	element->parent = parent;
 

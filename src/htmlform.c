@@ -24,7 +24,7 @@
 
 
 HTMLForm *
-html_form_new (gchar *_action, gchar *_method) {
+html_form_new (HTMLEngine *engine, gchar *_action, gchar *_method) {
 	HTMLForm *new;
 	
 	new = g_new (HTMLForm, 1);
@@ -32,9 +32,88 @@ html_form_new (gchar *_action, gchar *_method) {
 	new->method = g_strdup(_method);
 
 	new->elements = NULL;
+	new->hidden = NULL;
+	new->engine = engine;
 
-	g_print("html_form_new action = '%s' method = '%s'\n", new->action, new->method);
-	
 	return new;
+}
+
+void
+html_form_add_element (HTMLForm *form, HTMLElement *element)
+{
+	form->elements = g_list_append (form->elements, element);
+
+	html_element_set_form (element, form);
+}
+
+void
+html_form_add_hidden (HTMLForm *form, HTMLHidden *hidden)
+{
+	html_form_add_element (form, HTML_ELEMENT (hidden));
+
+	form->hidden = g_list_append (form->hidden, hidden);
+}
+
+static void
+destroy_hidden (gpointer o, gpointer data)
+{
+	html_object_destroy (HTML_OBJECT(o));
+}
+
+static void
+reset_element (gpointer o, gpointer data)
+{
+	html_element_reset (HTML_ELEMENT(o));
+}
+
+void
+html_form_destroy (HTMLForm *form)
+{
+	g_list_foreach (form->hidden, destroy_hidden, NULL);
+	g_list_free (form->hidden);
+
+	g_list_free (form->elements);
+
+	if (form->action)
+		g_free (form->action);
+
+	if (form->method)
+		g_free (form->method);
+
+	g_free (form);
+}
+
+void
+html_form_submit (HTMLForm *form)
+{
+	GString *encoding = g_string_new ("");
+	gint first = TRUE;
+	GList *i = form->elements;
+	gchar *ptr;
+
+	while (i) {
+		ptr = html_element_encode (HTML_ELEMENT (i->data));
+
+		if (strlen (ptr)) {
+			if(!first)
+				encoding = g_string_append_c (encoding, '&');
+			else
+				first = FALSE;
+			
+			encoding = g_string_append (encoding, ptr);
+			g_free (ptr);
+		}
+		i = g_list_next (i);		
+	}
+
+	html_engine_form_submitted (form->engine, form->method, form->action, encoding->str);
+
+	g_string_free (encoding, TRUE);
+}
+
+void
+html_form_reset (HTMLForm *form)
+{
+	g_list_foreach (form->elements, reset_element, NULL);
 }
 

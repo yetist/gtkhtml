@@ -23,16 +23,31 @@
 #define _HTMLFORM_H_
 
 #include <glib.h>
+#include "htmlelement.h"
+#include "htmlhidden.h"
+
+
+/*typedef struct _HTMLForm HTMLForm;      In htmlobject.h for now */ 
+
+#define HTML_FORM(x) ((HTMLForm *) (x))
 
 struct _HTMLForm {
 
 	gchar *action;
 	gchar *method;
 	GList *elements;
+	GList *hidden;
+
+	HTMLEngine *engine;
 };
-typedef struct _HTMLForm HTMLForm;
 
 
-HTMLForm *html_form_new (gchar *_action, gchar *_method);
+HTMLForm *html_form_new (HTMLEngine *engine, gchar *_action, gchar *_method);
+void html_form_add_element (HTMLForm *form, HTMLElement *e);
+void html_form_add_hidden (HTMLForm *form, HTMLHidden *h);
+void html_form_remove_element (HTMLForm *form, HTMLElement *e);
+void html_form_submit (HTMLForm *form);
+void html_form_reset (HTMLForm *form);
+void html_form_destroy (HTMLForm *form);
 
 #endif /* _HTMLFORM_H_ */

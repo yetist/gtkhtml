@@ -48,6 +48,37 @@ draw (HTMLObject *o,
 	}
 }
 
+static void
+reset (HTMLElement *e)
+{
+	g_print("textinput reset\n");
+	gtk_entry_set_text (GTK_ENTRY(e->widget), HTML_TEXTINPUT(e)->default_text);
+}
+
+static gchar *
+encode (HTMLElement *e)
+{
+	GString *encoding = g_string_new ("");
+	gchar *ptr;
+
+	if(strlen (e->name)) {
+		ptr = html_element_encode_string (e->name);
+		encoding = g_string_append (encoding, ptr);
+		g_free (ptr);
+
+		encoding = g_string_append_c (encoding, '=');
+
+		ptr = html_element_encode_string (gtk_entry_get_text (e->widget));
+		encoding = g_string_append (encoding, ptr);
+		g_free (ptr);
+	}
+
+	ptr = encoding->str;
+	g_string_free(encoding, FALSE);
+
+	return ptr;
+}
+
 void
 html_text_input_type_init (void)
 {
@@ -66,6 +97,10 @@ html_text_input_class_init (HTMLTextInputClass *klass,
 	object_class = HTML_OBJECT_CLASS (klass);
 
 	html_element_class_init (element_class, type);
+
+	/* HTMLElement methods.   */
+	element_class->reset = reset;
+	element_class->encode = encode;
 
 	/* HTMLObject methods.   */
 	object_class->draw = draw;
@@ -95,12 +130,15 @@ html_text_input_init (HTMLTextInput *ti,
 	element->widget = gtk_entry_new();
 	gtk_widget_size_request(element->widget, &req);
 
-	if(value)
-		gtk_entry_set_text(GTK_ENTRY(element->widget), value);
+	if(strlen (element->value))	
+		gtk_entry_set_text(GTK_ENTRY(element->widget), element->value);
+
+	ti->default_text = g_strdup (element->value);
+
 	if(maxlen != -1)
 		gtk_entry_set_max_length(GTK_ENTRY(element->widget), maxlen);
 	
-	req.width = gdk_char_width(element->widget->style->font, 'W') * size + 4;
+	req.width = gdk_char_width(element->widget->style->font, 'a') * size + 4;
 
 	gtk_widget_set_usize(element->widget, req.width, req.height);
 

@@ -19,6 +19,7 @@
     Boston, MA 02111-1307, USA.
 */
 #include "htmlbutton.h"
+#include "htmlform.h"
 
 HTMLButtonClass html_button_class;
 
@@ -42,6 +43,25 @@ draw (HTMLObject *o,
 
 		element->abs_x = new_x;
 		element->abs_y = new_y;
+	}
+}
+
+static void
+clicked_event (GtkWidget *widget, gpointer data)
+{
+	HTMLButton *b = HTML_BUTTON (data);
+	HTMLElement *e = HTML_ELEMENT (data);
+
+	switch (b->type) {
+	case BUTTON_SUBMIT:
+		html_form_submit (HTML_FORM (e->form));
+		break;
+
+	case BUTTON_RESET:
+		html_form_reset (HTML_FORM (e->form));
+		break;
+	default:
+		return;
 	}
 }
 
@@ -72,7 +92,8 @@ void
 html_button_init (HTMLButton *button, 
 		  HTMLButtonClass *klass, 
 		  GtkWidget *parent, 
-		  gchar *name, gchar *value)
+		  gchar *name, gchar *value,
+		  HTMLButtonType type)
 {
 	HTMLElement *element;
 	HTMLObject *object;
@@ -83,16 +104,32 @@ html_button_init (HTMLButton *button,
 
 	html_element_init (element, HTML_ELEMENT_CLASS (klass), parent, name, value);
 	
-	if(value)
-		element->widget = gtk_button_new_with_label (value);
-	else
-		element->widget = gtk_button_new ();
+	if( strlen (element->value))
+		element->widget = gtk_button_new_with_label (element->value);
+	else {
+		switch(type) {
+		case BUTTON_NORMAL:
+			element->widget = gtk_button_new ();
+			break;
+		case BUTTON_SUBMIT:
+			element->widget = gtk_button_new_with_label ("Submit Query");
+			break;
+		case BUTTON_RESET:
+			element->widget = gtk_button_new_with_label ("Reset");
+			break;
+		}
+	}
+
+	gtk_signal_connect (GTK_OBJECT (element->widget), "clicked",
+                            GTK_SIGNAL_FUNC (clicked_event), button);
 
 	gtk_widget_size_request(element->widget, &req);
 
 	object->descent = 0;
 	object->width = req.width;
 	object->ascent = req.height;
+
+	button->type = type;
 
 	gtk_widget_show(element->widget);
 	gtk_layout_put(GTK_LAYOUT(parent), element->widget, 0, 0);
@@ -101,12 +138,13 @@ html_button_init (HTMLButton *button,
 HTMLObject *
 html_button_new (GtkWidget *parent, 
 		 gchar *name, 
-		 gchar *value)
+		 gchar *value, 
+		 HTMLButtonType type)
 {
 	HTMLButton *button;
 
 	button = g_new0 (HTMLButton, 1);
-	html_button_init (button, &html_button_class, parent, name, value);
+	html_button_init (button, &html_button_class, parent, name, value, type);
 
 	return HTML_OBJECT (button);
 }

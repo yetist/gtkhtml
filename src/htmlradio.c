@@ -45,6 +45,12 @@ draw (HTMLObject *o,
 	}
 }
 
+static void
+reset (HTMLElement *e)
+{
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(e->widget), HTML_RADIO(e)->default_checked);
+}
+
 void
 html_radio_type_init (void)
 {
@@ -63,6 +69,9 @@ html_radio_class_init (HTMLRadioClass *klass,
 	object_class = HTML_OBJECT_CLASS (klass);
 
 	html_element_class_init (element_class, type);
+
+	/* HTMLElement methods.   */
+	element_class->reset = reset;
 
 	/* HTMLObject methods.   */
 	object_class->draw = draw;
@@ -88,6 +97,8 @@ html_radio_init (HTMLRadio *radio,
 	element->widget = gtk_radio_button_new (NULL);
 
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(element->widget), checked);
+
+	radio->default_checked = checked;
 
 	gtk_widget_size_request(element->widget, &req);
 

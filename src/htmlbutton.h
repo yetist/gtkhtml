@@ -29,8 +29,12 @@
 typedef struct _HTMLButton HTMLButton;
 typedef struct _HTMLButtonClass HTMLButtonClass;
 
+enum _HTMLButtonType { BUTTON_NORMAL, BUTTON_SUBMIT, BUTTON_RESET};
+typedef enum _HTMLButtonType HTMLButtonType;
+
 struct _HTMLButton {
 	HTMLElement element;
+	HTMLButtonType type;
 };
 
 struct _HTMLButtonClass {
@@ -43,7 +47,7 @@ extern HTMLButtonClass html_button_class;
 
 void html_button_type_init (void);
 void html_button_class_init (HTMLButtonClass *klass, HTMLType type);
-void html_button_init (HTMLButton *button, HTMLButtonClass *klass, GtkWidget *parent, gchar *name, gchar *value);
-HTMLObject *html_button_new (GtkWidget *parent, gchar *name, gchar *value);
+void html_button_init (HTMLButton *button, HTMLButtonClass *klass, GtkWidget *parent, gchar *name, gchar *value, HTMLButtonType type);
+HTMLObject *html_button_new (GtkWidget *parent, gchar *name, gchar *value, HTMLButtonType type);
 
 #endif /* _HTMLBUTTON_H_ */
