@@ -235,6 +235,10 @@ set_ui (GtkHTMLEditTableProperties *d)
 		gdk_color_alloc (gdk_window_get_colormap (GTK_WIDGET (d->cd->html)->window), &d->bg_color);
 		color_combo_set_color (COLOR_COMBO (d->combo_bg_color), &d->bg_color);
 	}
+	if (d->has_bg_pixmap) {
+		gtk_entry_set_text (GTK_ENTRY (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (d->entry_bg_pixmap))),
+				    d->bg_pixmap);
+	}
 }
 
 static void
@@ -257,9 +261,11 @@ get_data (GtkHTMLEditTableProperties *d)
 	}
 	if (d->table->bgPixmap) {
 		d->has_bg_pixmap = TRUE;
-		d->bg_pixmap = strncasecmp ("file:", d->table->bgPixmap->url, 5)
-			? d->table->bgPixmap->url
-			: d->table->bgPixmap->url + 5;
+		d->bg_pixmap = strncasecmp ("file://", d->table->bgPixmap->url, 7)
+			? (strncasecmp ("file://", d->table->bgPixmap->url, 5)
+			   ? d->table->bgPixmap->url
+			   : d->table->bgPixmap->url + 5)
+			: d->table->bgPixmap->url + 7;
 	}
 }
 
@@ -307,9 +313,9 @@ table_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 	GtkHTMLEditTableProperties *d = (GtkHTMLEditTableProperties *) get_data;
 
 	if (d->changed_bg_color)
-		html_engine_table_set_bg_color (d->cd->html->engine, d->table, &d->bg_color);
+		html_engine_table_set_bg_color (d->cd->html->engine, d->table, d->has_bg_color ? &d->bg_color : NULL);
 	if (d->changed_bg_pixmap) {
-		gchar *url = g_strconcat ("file://", d->bg_pixmap, NULL);
+		gchar *url = d->has_bg_pixmap ? g_strconcat ("file://", d->bg_pixmap, NULL) : NULL;
 
 		html_engine_table_set_bg_pixmap (d->cd->html->engine, d->table, url);
 		g_free (url);
