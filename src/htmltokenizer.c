@@ -950,7 +950,7 @@ in_tag (HTMLTokenizer *t, const gchar **src)
 
 	p->startTag = FALSE;
 	if (**src == '/') {
-		if (p->pending == LFPending) {
+		if (p->pending == LFPending  && !p->pre) {
 			p->pending = NonePending;
 		}
 	}

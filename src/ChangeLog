@@ -1,3 +1,17 @@
+2004-03-25  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (add_line_break): do not check clue->head, it's not
+	necessary and wrong
+	(block_end_pre): finish flow
+	(element_parse_pre): use finish flow instead of close flow so that
+	we don't loose empty paragraph
+	(element_parse_blockquote): ditto
+
+	* htmltokenizer.c (in_tag): do not discard pending LF in pre
+	(insert_paragraph_break): removed unused function
+
+	Fixes #55460
+
 2004-03-23  Radek Doulik  <rodo@ximian.com>
 
 	* htmltable.c (save): do not write \n after </TABLE>, leave that

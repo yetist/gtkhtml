@@ -758,21 +758,11 @@ create_empty_text (HTMLEngine *e)
 }
 
 static void
-insert_paragraph_break (HTMLEngine *e,
-		     HTMLObject *clue)
-{
-	
-	close_flow (e, clue);
-	new_flow (e, clue, create_empty_text (e), HTML_CLEAR_NONE);
-	close_flow (e, clue);
-}
-
-static void
 add_line_break (HTMLEngine *e,
 		HTMLObject *clue,
 		HTMLClearType clear)
 {
-	if (!e->flow && !HTML_CLUE (clue)->head)
+	if (!e->flow)
 		new_flow (e, clue, create_empty_text (e), HTML_CLEAR_NONE);
 	new_flow (e, clue, NULL, clear);
 }
@@ -1837,9 +1827,11 @@ element_parse_address (HTMLEngine *e, HTMLObject *clue, const char *str)
 }
 
 static void
-block_end_pre (HTMLEngine *e, HTMLObject *_clue, HTMLElement *elem)
+block_end_pre (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
-	block_end_clueflow_style (e, _clue, elem);
+	block_end_clueflow_style (e, clue, elem);
+
+	finish_flow (e, clue);
 
 	e->inPre--;
 }
@@ -1850,7 +1842,7 @@ element_parse_pre (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	push_block (e, ID_PRE, DISPLAY_BLOCK, block_end_pre, 0, 0);
 
 	push_clueflow_style (e, HTML_CLUEFLOW_STYLE_PRE);
-	close_flow (e, clue);
+	finish_flow (e, clue);
 
 	e->inPre++;
 	e->avoid_para = TRUE;
@@ -2784,7 +2776,7 @@ element_parse_blockquote (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	html_stack_push (e->listStack, html_list_new (type));
 	push_block (e, ID_BLOCKQUOTE, DISPLAY_BLOCK, block_end_list, FALSE, FALSE);
 	e->avoid_para = TRUE;
-	close_flow (e, clue);
+	finish_flow (e, clue);
 }
 
 static void
