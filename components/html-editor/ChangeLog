@@ -1,3 +1,10 @@
+2005-01-21  Radek Doulik  <rodo@ximian.com>
+
+	* menubar.c (menubar_setup): simplified and fixed
+
+	* GNOME_GtkHTML_Editor-emacs.xml.in: updated so that we use gnome
+	icon theme
+
 2005-01-20  Mengjie Yu  <meng-jie.yu@sun.com>
 
 	* gi-combo-box.c: (gi_combo_box_popup_display),

@@ -1,15 +1,15 @@
 <Root>
 		<commands>
 
-			<cmd name="EditUndo" _label="_Undo" pixtype="stock" pixname="gtk-undo" _tip="Undo the last action"/>
-			<cmd name="EditRedo" _label="_Redo" pixtype="stock" pixname="gtk-redo" _tip="Redo the undone action"/>
+			<cmd name="EditUndo" _label="_Undo" _tip="Undo the last action"/>
+			<cmd name="EditRedo" _label="_Redo" _tip="Redo the undone action"/>
 
-			<cmd name="EditCut" _label="Cu_t" pixtype="stock" pixname="gtk-cut" _tip="Cut the selection"/>
-			<cmd name="EditCopy" _label="_Copy" pixtype="stock" pixname="gtk-copy" _tip="Copy the selection"/>
-			<cmd name="EditPaste" _label="_Paste" pixtype="stock" pixname="gtk-paste" _tip="Paste the clipboard"/>
+			<cmd name="EditCut" _label="Cu_t" _tip="Cut the selection"/>
+			<cmd name="EditCopy" _label="_Copy" _tip="Copy the selection"/>
+			<cmd name="EditPaste" _label="_Paste" _tip="Paste the clipboard"/>
 			<cmd name="EditPasteQuotation" _label="Paste _Quotation" _tip="Paste the clipboard as a quotation"/>
 
-			<cmd name="EditFind" _label="_Find..." pixtype="stock" pixname="Find" _tip="Find"/>
+			<cmd name="EditFind" _label="_Find..." _tip="Find"/>
 			<cmd name="EditFindAgain" _label="Find _Again" _tip="Find again"/>
 			<cmd name="EditReplace" _label="_Replace..." _tip="Find and Replace"
 			pixtype="stock" pixname="gtk-find-and-replace"/>
@@ -17,8 +17,7 @@
 			<cmd name="EditSelectAll" _label="Select _All"
 			_tip="Select the entire contents of the document"/>
 			<cmd name="EditSpellCheck" _label="_Spell Check Document..."
-			_tip="Check spelling of the document" accel="*Ctrl**Shift*l"
-			pixtype="stock" pixname="gtk-spell-check"/>
+			_tip="Check spelling of the document" accel="*Ctrl**Shift*l"/>
 
 			<cmd name="InsertImage" _label="_Image..." _tip="Insert image into document..."/>
 			<cmd name="InsertLink"  _label="_Link..." _tip="Insert HTML link into document..."/>
@@ -126,21 +125,18 @@
 
 			<placeholder name="EditCutCopyPaste">
 				     <menuitem name="EditCut" verb="" accel="*Ctrl*X"/>
-				     <menuitem name="EditCopy" verb="" accel="*Ctrl*C"
-                                     pixtype="filename" pixname="@ICONSDIR@/16_copy.png"/>
-				     <menuitem name="EditPaste" verb="" accel="*Ctrl*V"
-                                     pixtype="filename" pixname="@ICONSDIR@/16_paste.png"/>
+				     <menuitem name="EditCopy" verb="" accel="*Ctrl*C"/>
+				     <menuitem name="EditPaste" verb="" accel="*Ctrl*V"/>
 				     <menuitem name="EditPasteQuotation" verb="" accel="*Ctrl**Shift*V"/>
 				     <separator/>
 				     <menuitem name="EditSelectAll" verb="" accel=""/>
 			</placeholder>
 
 			<placeholder name="EditFindReplace">
-				     <menuitem name="EditFind" verb="" accel=""
-                                     pixtype="filename" pixname="@ICONSDIR@/search-16.png"/>
+				     <menuitem name="EditFind" verb="" accel=""/>
 				     <menuitem name="EditFindAgain" verb="" accel="*Ctrl*G"/>
 				     <menuitem name="EditReplace" verb="" accel="*Ctrl**Shift*F"
-                                     pixtype="filename" pixname="@ICONSDIR@/search-and-replace-16.png"/>
+                                      pixtype="stock" pixname="gtk-find-and-replace"/>
 			</placeholder>
 
 			<placeholder name="EditMisc">
@@ -153,16 +149,10 @@
                  
 		<submenu name="Insert" _label="_Insert">
 			<placeholder name="Component">
-				<menuitem name="InsertImage" verb=""
-                                pixtype="filename" pixname="@ICONSDIR@/insert-image-16.png"/>
-				<menuitem name="InsertLink"  verb=""
-                                pixtype="filename" pixname="@ICONSDIR@/insert-link-16.png"/>
-				<menuitem name="InsertRule"  verb=""
-				pixtype="filename" pixname="@ICONSDIR@/insert-rule-16.png"/>
-				<menuitem name="InsertTable" verb=""
-                                pixtype="filename" pixname="@ICONSDIR@/insert-table-16.png"/>
-				<menuitem name="InsertTemplate" verb=""
-                                pixtype="filename" pixname="@ICONSDIR@/insert-object-16.png"/>
+				<menuitem name="InsertImage" verb=""/>
+				<menuitem name="InsertLink"  verb=""/>
+				<menuitem name="InsertRule"  verb=""/>
+				<menuitem name="InsertTable" verb=""/>
 				<menuitem name="InsertTextFile" verb=""/>
 				<menuitem name="InsertHTMLFile" verb=""/>
 				<submenu name="Smiley" _label="_Smiley"
@@ -294,16 +284,11 @@
 
 		<separator/>
 
-		<toolitem name="InsertImage" verb="" _label="Image"
-                pixtype="filename" pixname="@ICONSDIR@/insert-image-24.png"/>
-		<toolitem name="InsertLink" verb="" _label="Link"
-                pixtype="filename" pixname="@ICONSDIR@/insert-link-24.png"/>
-		<toolitem name="InsertRule" verb="" _label="Rule"
-                pixtype="filename" pixname="@ICONSDIR@/insert-rule-24.png"/>
-		<toolitem name="InsertTable" verb="" _label="Table"
-                pixtype="filename" pixname="@ICONSDIR@/insert-table-24.png"/>
-		<toolitem name="InsertTemplate" verb="" _label="Template"
-                pixtype="filename" pixname="@ICONSDIR@/insert-object-24.png"/>
+		<toolitem name="InsertImage" verb="" _label="Image"/>
+		<toolitem name="InsertLink" verb="" _label="Link"/>
+		<toolitem name="InsertRule" verb="" _label="Rule"/>
+		<toolitem name="InsertTable" verb="" _label="Table"/>
+		<toolitem name="InsertTemplate" verb="" _label="Template"/>
 	</dockitem>
 
 </Root> 
