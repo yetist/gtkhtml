@@ -1,5 +1,10 @@
 2003-09-30  Radek Doulik  <rodo@ximian.com>
 
+	* htmliframe.c (html_iframe_init): as below
+
+	* htmlframe.c (html_frame_init): load content before setting
+	parent
+
         * use engine->stopped everywhere where we emit url_requested
 	signal
 	

@@ -498,11 +498,20 @@ html_frame_init (HTMLFrame *frame,
 	gtk_html_set_base (new_html, src);
 
 	gtk_html_set_base (new_html, src);
+	g_signal_connect (new_html, "url_requested", G_CALLBACK (frame_url_requested), frame);
+
+	if (parent_html->engine->stopped) {
+		gtk_html_stop (new_html);
+		gtk_html_load_empty (new_html);
+	} else {
+		GtkHTMLStream *handle;
+
+		handle = gtk_html_begin (new_html);
+		g_signal_emit_by_name (parent_html->engine, "url_requested", src, handle);
+	}
 
 	new_html->engine->clue->parent = HTML_OBJECT (frame);
 
-
-	g_signal_connect (new_html, "url_requested", G_CALLBACK (frame_url_requested), frame);
 #if 0
 	/* NOTE: because of peculiarities of the frame/gtkhtml relationship
 	 * on_url and link_clicked are emitted from the toplevel widget not
@@ -528,14 +537,6 @@ html_frame_init (HTMLFrame *frame,
 	  GTK_SIGNAL_FUNC (frame_button_press_event), frame);
 	*/
 
-	if (parent_html->engine->stopped)
-		gtk_html_stop (new_html);
-	else {
-		GtkHTMLStream *handle;
-
-		handle = gtk_html_begin (new_html);
-		g_signal_emit_by_name (parent_html->engine, "url_requested", src, handle);
-	}
 	gtk_widget_set_size_request (scrolled_window, width, height);
 
 	gtk_widget_show (scrolled_window);	

@@ -327,9 +327,9 @@ gtk_html_debug_dump_list_simple (GList *list,
 #define D_ATTR_TYPE(x, s) if ((attr = pango_attr_iterator_get (iter, PANGO_ATTR_ ## x))) g_print ("%3d-%3d: %s\n", attr->start_index, attr->end_index, s);
 
 void
-gtk_html_debug_list_text_attrs (HTMLText *text)
+gtk_html_debug_list_attrs (PangoAttrList *attrs)
 {
-	PangoAttrIterator *iter = pango_attr_list_get_iterator (text->attr_list);
+	PangoAttrIterator *iter = pango_attr_list_get_iterator (attrs);
 	PangoAttribute *attr;
 	
 	do {
@@ -351,6 +351,12 @@ gtk_html_debug_list_text_attrs (HTMLText *text)
 		D_ATTR_TYPE (SCALE, "Scale");
 		g_print ("------------\n");
 	} while (pango_attr_iterator_next (iter));
+}
+
+void
+gtk_html_debug_list_text_attrs (HTMLText *text)
+{
+	gtk_html_debug_list_attrs (text->attr_list);
 }
 
 void
