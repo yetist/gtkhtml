@@ -11,6 +11,8 @@ bin_PROGRAMS = testgtkhtml $(hc)
 common_SOURCES =   \
 	debug.c		\
 	debug.h		\
+	gtkhtml.c       \
+	gtkhtml.h	\
 	htmlbullet.c	\
 	htmlbullet.h	\
 	htmlclue.c	\
@@ -62,8 +64,6 @@ common_SOURCES =   \
 
 testgtkhtml_SOURCES = 		\
 	$(common_SOURCES) 	\
-	gtkhtml.c       	\
-	gtkhtml.h		\
 	testgtkhtml.c
 
 testgtkhtml_LDADD = 		\

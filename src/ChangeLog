@@ -1,0 +1,5 @@
+1999-10-17  Richard Hult  <rhult@hem2.passagen.se>
+
+	* Makefile.am: Fixed component build.
+	
+
