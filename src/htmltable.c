@@ -1257,12 +1257,12 @@ draw (HTMLObject *o,
 		if (table->caption && table->capAlign == HTML_VALIGN_TOP)
 			g_print ("FIXME: Support captions\n");
 
-		html_painter_draw_panel (p, html_object_get_bg_color (o->parent, p),
-					 tx, ty + capOffset, 
-					 HTML_OBJECT (table)->width,
-					 ROW_HEIGHT (table, table->totalRows) +
-					 pixel_size * table->border, GTK_HTML_ETCH_OUT,
-					 pixel_size * table->border);
+		html_painter_draw_border (p, html_object_get_bg_color (o->parent, p),
+					  tx, ty + capOffset, 
+					  HTML_OBJECT (table)->width,
+					  ROW_HEIGHT (table, table->totalRows) +
+					  pixel_size * table->border, HTML_BORDER_OUTSET,
+					  pixel_size * table->border);
 
 		/* Draw borders around each cell */
 		for (r = start_row; r <= end_row; r++) {
@@ -1276,16 +1276,16 @@ draw (HTMLObject *o,
 				    table->cells[r + 1][c] == cell)
 					continue;
 
-				html_painter_draw_panel (p, html_object_get_bg_color (HTML_OBJECT (cell), p),
-							 tx + COLUMN_OPT (table, cell->col),
-							 ty + ROW_HEIGHT (table, cell->row) + capOffset,
-							 (COLUMN_OPT (table, c + 1)
-							  - COLUMN_OPT (table, cell->col)
-							  - pixel_size * table->spacing),
-							 (ROW_HEIGHT (table, r + 1)
-							  - ROW_HEIGHT (table, cell->row)
-							  - pixel_size * table->spacing),
-							 GTK_HTML_ETCH_IN, pixel_size);
+				html_painter_draw_border (p, html_object_get_bg_color (HTML_OBJECT (cell), p),
+							  tx + COLUMN_OPT (table, cell->col),
+							  ty + ROW_HEIGHT (table, cell->row) + capOffset,
+							  (COLUMN_OPT (table, c + 1)
+							   - COLUMN_OPT (table, cell->col)
+							   - pixel_size * table->spacing),
+							  (ROW_HEIGHT (table, r + 1)
+							   - ROW_HEIGHT (table, cell->row)
+							   - pixel_size * table->spacing),
+							  HTML_BORDER_INSET, pixel_size);
 						      
 			}
 		}
@@ -1877,22 +1877,36 @@ check_point (HTMLObject *self,
 			if (r < end_row - 1 && table->cells[r+1][c] == cell)
 				continue;
 
-			/* correct to include cell spacing */
 			co = HTML_OBJECT (cell);
 			cx = x;
 			cy = y;
-			if (x < co->x && x >= co->x - hsa - tbc)
-				cx = co->x;
-			if (x >= co->x + co->width && x < co->x + co->width + hsb + tbc)
-				cx = co->x + co->width - 1;
-			if (y < co->y - co->ascent && y >= co->y - co->ascent - hsa - tbc)
-				cy = co->y - co->ascent;
-			if (y >= co->y + co->descent && y < co->y + co->descent + hsb + tbc)
-				cy = co->y + co->descent - 1;
+			if (for_cursor) {
+				/* correct to include cell spacing */
+				if (x < co->x && x >= co->x - hsa - tbc)
+					cx = co->x;
+				if (x >= co->x + co->width && x < co->x + co->width + hsb + tbc)
+					cx = co->x + co->width - 1;
+				if (y < co->y - co->ascent && y >= co->y - co->ascent - hsa - tbc)
+					cy = co->y - co->ascent;
+				if (y >= co->y + co->descent && y < co->y + co->descent + hsb + tbc)
+					cy = co->y + co->descent - 1;
+			}
 
 			obj = html_object_check_point (HTML_OBJECT (cell), painter, cx, cy, offset_return, for_cursor);
 			if (obj != NULL)
 				return obj;
+		}
+	}
+
+	if (!for_cursor) {
+		if (x >= 0 && y >= 0 && x < self->width && y < self->ascent + self->descent) {
+			if (offset_return) {
+				if (x < self->width/2)
+					*offset_return = 0;
+				else
+					*offset_return = 1;
+			}
+			return self;
 		}
 	}
 

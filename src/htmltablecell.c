@@ -49,11 +49,14 @@ draw_background_helper (HTMLTableCell *cell,
 			gint tx, gint ty)
 {
 	HTMLObject *o;
+	HTMLClueV *cluev;
 	HTMLTable  *t;
 	GdkPixbuf  *pixbuf = NULL;
 	GdkColor   *color = NULL;
+	int pixel_size = html_painter_get_pixel_size (p);
 
 	o = HTML_OBJECT (cell);
+	cluev = HTML_CLUEV (cell);
 	t = HTML_IS_TABLE (o->parent) ? HTML_TABLE (o->parent) : NULL;
 
 	if (cell->have_bg) {
@@ -73,12 +76,12 @@ draw_background_helper (HTMLTableCell *cell,
 		html_painter_draw_background (p,
 					      color,
 					      pixbuf,
-					      tx + paint->x,
-					      ty + paint->y,
-					      paint->width,
-					      paint->height,
-					      paint->x - o->x,
-					      paint->y - (o->y - o->ascent));
+					      tx + paint->x + pixel_size*cluev->border_width,
+					      ty + paint->y + pixel_size*cluev->border_width,
+					      paint->width - 2*pixel_size*cluev->border_width,
+					      paint->height - 2*pixel_size*cluev->border_width,
+					      paint->x - o->x + pixel_size*cluev->border_width,
+					      paint->y - (o->y - o->ascent) + pixel_size*cluev->border_width);
 }
 
 

@@ -72,6 +72,8 @@ struct _HTMLObject {
 
 	GData *object_data;
 	GData *object_data_nocp;
+
+	char *id;
 };
 
 struct _HTMLObjectClearRectangle {
@@ -594,4 +596,8 @@ HTMLObject *html_object_next_cursor_leaf    (HTMLObject *o,
 					     HTMLEngine *e);
 HTMLObject *html_object_prev_cursor_leaf    (HTMLObject *o,
 					     HTMLEngine *e);
+
+const char *html_object_get_id  (HTMLObject *o);
+void        html_object_set_id  (HTMLObject *o,
+				 const char *id);
 #endif /* _HTMLOBJECT_H_ */

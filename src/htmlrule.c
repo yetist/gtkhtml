@@ -184,9 +184,9 @@ html_rule_draw (HTMLObject *o,
 	}
 
 	if (rule->shade)
-		html_painter_draw_panel (p,
-					 &((html_colorset_get_color (e->settings->color_set, HTMLBgColor))->color),
-					 xp, yp, w, h, GTK_HTML_ETCH_IN, 1);
+		html_painter_draw_border (p,
+					  &((html_colorset_get_color (e->settings->color_set, HTMLBgColor))->color),
+					  xp, yp, w, h, HTML_BORDER_INSET, 1);
 	else {
 		html_painter_set_pen (p, &html_colorset_get_color_allocated (e->settings->color_set, p,
 									     HTMLTextColor)->color);

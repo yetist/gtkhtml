@@ -479,13 +479,13 @@ draw (HTMLObject *o,
 						o->width - 2 * hspace,
 						o->ascent + o->descent - 2 * vspace);
 		}
-		html_painter_draw_panel (painter,
-					 &((html_colorset_get_color (e->settings->color_set, HTMLBgColor))->color),
-					 o->x + tx + hspace,
-					 o->y + ty - o->ascent + vspace,
-					 o->width - 2 * hspace,
-					 o->ascent + o->descent - 2 * vspace,
-					 GTK_HTML_ETCH_IN, 1);
+		html_painter_draw_border (painter,
+					  &((html_colorset_get_color (e->settings->color_set, HTMLBgColor))->color),
+					  o->x + tx + hspace,
+					  o->y + ty - o->ascent + vspace,
+					  o->width - 2 * hspace,
+					  o->ascent + o->descent - 2 * vspace,
+					  HTML_BORDER_INSET, 1);
 
 		if (ip->factory)
 			pixbuf = html_image_factory_get_missing (ip->factory);
@@ -525,13 +525,13 @@ draw (HTMLObject *o,
 			html_painter_set_pen (painter, &image->color->color);
 		}
 		
-		html_painter_draw_panel (painter,
-					 &((html_colorset_get_color (e->settings->color_set, HTMLBgColor))->color),
-					 base_x - image->border * pixel_size,
-					 base_y - image->border * pixel_size,
-					 scale_width + (2 * image->border) * pixel_size,
-					 scale_height + (2 * image->border) * pixel_size,
-					 GTK_HTML_ETCH_NONE, image->border);
+		html_painter_draw_border (painter,
+					  &((html_colorset_get_color (e->settings->color_set, HTMLBgColor))->color),
+					  base_x - image->border * pixel_size,
+					  base_y - image->border * pixel_size,
+					  scale_width + (2 * image->border) * pixel_size,
+					  scale_height + (2 * image->border) * pixel_size,
+					  HTML_BORDER_SOLID, image->border);
 		
 	}
 	

@@ -415,12 +415,12 @@ draw_rect (HTMLPainter *painter,
 }
 
 static void
-draw_panel (HTMLPainter *painter,
-	    GdkColor *bg,
-	    gint x, gint y,
-	    gint width, gint height,
-	    GtkHTMLEtchStyle inset,
-	    gint bordersize)
+draw_border (HTMLPainter *painter,
+	     GdkColor *bg,
+	     gint x, gint y,
+	     gint width, gint height,
+	     HTMLBorderStyle style,
+	     gint bordersize)
 {
 	HTMLGdkPainter *gdk_painter;
 	GdkColor *col1 = NULL, *col2 = NULL;
@@ -442,18 +442,17 @@ draw_panel (HTMLPainter *painter,
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
-	switch (inset) {
-	case GTK_HTML_ETCH_NONE:
-		/* use the current pen color */
-		col1 = NULL;
-		col2 = NULL;
+	switch (style) {
+	case HTML_BORDER_SOLID:
+		col1 = bg;
+		col2 = bg;
 		break;
-	case GTK_HTML_ETCH_OUT:
+	case HTML_BORDER_OUTSET:
 		col1 = &light;
 		col2 = &dark;
 		break;
 	default:
-	case GTK_HTML_ETCH_IN:
+	case HTML_BORDER_INSET:
 		col1 = &dark;
 		col2 = &light;
 		break;
@@ -1163,7 +1162,7 @@ html_gdk_painter_class_init (GObjectClass *object_class)
 	painter_class->clear = clear;
 	painter_class->set_background_color = set_background_color;
 	painter_class->draw_shade_line = draw_shade_line;
-	painter_class->draw_panel = draw_panel;
+	painter_class->draw_border = draw_border;
 	painter_class->set_clip_rectangle = set_clip_rectangle;
 	painter_class->draw_background = draw_background;
 	painter_class->get_pixel_size = get_pixel_size;

@@ -970,6 +970,23 @@ exit_cb (GtkWidget *widget, gpointer data)
   {NULL}
   }; */
 
+static gboolean
+motion_notify_event (GtkHTML *html, GdkEventMotion *event, gpointer data)
+{
+	const char *id;
+	GnomeApp *app;
+
+	app = GNOME_APP (data);
+
+	id = gtk_html_get_object_id_at (html, event->x, event->y);
+	if (id)
+		gnome_appbar_set_status (GNOME_APPBAR (app->statusbar), id);
+	else
+		gnome_appbar_set_status (GNOME_APPBAR (app->statusbar), "");
+
+	return FALSE;
+}
+
 gint
 main (gint argc, gchar *argv[])
 {
@@ -1057,6 +1074,7 @@ main (gint argc, gchar *argv[])
 	g_signal_connect (html, "redirect", G_CALLBACK (on_redirect), NULL);
 	g_signal_connect (html, "submit", G_CALLBACK (on_submit), NULL);
 	g_signal_connect (html, "object_requested", G_CALLBACK (object_requested_cmd), NULL);
+	g_signal_connect (html, "motion_notify_event", G_CALLBACK (motion_notify_event), app);
 
 #if 0
 	gtk_box_pack_start_defaults (GTK_BOX (hbox), GTK_WIDGET (html));

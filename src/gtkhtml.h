@@ -271,6 +271,9 @@ void                       gtk_html_append_html                   (GtkHTML      
 /* misc utils */
 gpointer                   gtk_html_get_object_by_id              (GtkHTML                   *html,
 								   const gchar               *id);
+const char *               gtk_html_get_object_id_at              (GtkHTML                   *html,
+								   int                        x,
+								   int                        y);
 gboolean                   gtk_html_command                       (GtkHTML                   *html,
 								   const gchar               *command_name);
 gboolean                   gtk_html_edit_make_cursor_visible      (GtkHTML                   *html);

@@ -308,6 +308,49 @@ html_style_add_background_image (HTMLStyle *style, const char *url)
 }
 
 HTMLStyle *
+html_style_set_border_style (HTMLStyle *style, HTMLBorderStyle bstyle)
+{
+	if (!style)
+		style = html_style_new ();
+
+	style->border_style = bstyle;
+
+	return style;
+}
+
+HTMLStyle *
+html_style_set_border_width (HTMLStyle *style, int width)
+{
+	if (!style)
+		style = html_style_new ();
+
+	style->border_width = width;
+
+	return style;
+}
+
+HTMLStyle *
+html_style_set_border_color (HTMLStyle *style, HTMLColor *color)
+{
+	HTMLColor *old;
+
+	if (!style)
+		style = html_style_new ();
+
+	old = style->border_color;
+
+	style->border_color = color;
+
+	if (color)
+		html_color_ref (color);
+
+	if (old)
+		html_color_unref (old);
+
+	return style;
+}
+
+HTMLStyle *
 html_style_add_attribute (HTMLStyle *style, const char *attr)
 {
 	gchar **prop;
@@ -346,6 +389,38 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 				}
 			} else if (!strncasecmp ("background-image: ", text, 18)) {
 				style = html_style_add_background_image (style, text + 18);
+			} else if (!strncasecmp ("border-style: ", text, 14)) {
+				char *value = text + 14;
+
+				while (isspace (*value))
+					value ++;
+
+				if (!strcasecmp (value, "solid"))
+					style = html_style_set_border_style (style, HTML_BORDER_SOLID);
+				else if (!strcasecmp (value, "inset"))
+					style = html_style_set_border_style (style, HTML_BORDER_INSET);
+			} else if (!strncasecmp ("border-color: ", text, 14)) {
+				GdkColor color;
+
+				if (html_parse_color (text + 14, &color)) {
+					HTMLColor *hc = html_color_new_from_gdk_color (&color);
+					style = html_style_set_border_color (style, hc);
+				        html_color_unref (hc);
+				}
+			} else if (!strncasecmp ("border-width: ", text, 14)) {
+				char *value = text + 14;
+
+				while (isspace (*value))
+					value ++;
+
+				if (!strcasecmp (value, "thin"))
+					style = html_style_set_border_width (style, 1);
+				else if (!strcasecmp (value, "medium"))
+					style = html_style_set_border_width (style, 2);
+				else if (!strcasecmp (value, "thick"))
+					style = html_style_set_border_width (style, 5);
+				else
+					style = html_style_set_border_width (style, atoi (value));
 			} else if (!strncasecmp ("white-space: ", text, 13)) {
 				/* normal, pre, nowrap, pre-wrap, pre-line, inherit  */
 				/*

@@ -365,12 +365,12 @@ draw_rect (HTMLPainter *painter,
 }
 
 static void
-draw_panel (HTMLPainter *painter,
-	    GdkColor *bg,
-	    gint _x, gint _y,
-	    gint w, gint h,
-	    GtkHTMLEtchStyle inset,
-	    gint bordersize)
+draw_border (HTMLPainter *painter,
+	     GdkColor *bg,
+	     gint _x, gint _y,
+	     gint w, gint h,
+	     HTMLBorderStyle style,
+	     gint bordersize)
 {
 	HTMLPrinter *printer = HTML_PRINTER (painter);
 	GnomePrintContext *pc = printer->context;
@@ -392,18 +392,17 @@ draw_panel (HTMLPainter *painter,
 	LIGHT(green);
 	LIGHT(blue);
 
-	switch (inset) {
-	case GTK_HTML_ETCH_NONE:
-		/* use the current pen color */
-		col1 = NULL;
-		col2 = NULL;
+	switch (style) {
+	case HTML_BORDER_SOLID:
+		col1 = bg;
+		col2 = bg;
 		break;
-	case GTK_HTML_ETCH_OUT:
+	case HTML_BORDER_OUTSET:
 		col1 = &light;
 		col2 = &dark;
 		break;
 	default:
-	case GTK_HTML_ETCH_IN:
+	case HTML_BORDER_INSET:
 		col1 = &dark;
 		col2 = &light;
 		break;
@@ -1035,7 +1034,7 @@ html_printer_class_init (GObjectClass *object_class)
 	painter_class->get_black = get_black;
 	painter_class->draw_line = draw_line;
 	painter_class->draw_rect = draw_rect;
-	painter_class->draw_panel = draw_panel;
+	painter_class->draw_border = draw_border;
 	painter_class->draw_text = draw_text;
 	painter_class->fill_rect = fill_rect;
 	painter_class->draw_pixmap = draw_pixmap;

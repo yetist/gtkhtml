@@ -100,7 +100,7 @@ DEFINE_UNIMPLEMENTED (draw_ellipse)
 DEFINE_UNIMPLEMENTED (clear)
 DEFINE_UNIMPLEMENTED (set_background_color)
 DEFINE_UNIMPLEMENTED (draw_shade_line)
-DEFINE_UNIMPLEMENTED (draw_panel)
+DEFINE_UNIMPLEMENTED (draw_border)
 
 DEFINE_UNIMPLEMENTED (set_clip_rectangle)
 DEFINE_UNIMPLEMENTED (draw_background)
@@ -167,7 +167,7 @@ html_painter_class_init (GObjectClass *object_class)
 	class->clear = (gpointer) clear_unimplemented;
 	class->set_background_color = (gpointer) set_background_color_unimplemented;
 	class->draw_shade_line = (gpointer) draw_shade_line_unimplemented;
-	class->draw_panel = (gpointer) draw_panel_unimplemented;
+	class->draw_border = (gpointer) draw_border_unimplemented;
 
 	class->set_clip_rectangle = (gpointer) set_clip_rectangle_unimplemented;
 	class->draw_background = (gpointer) draw_background_unimplemented;
@@ -520,17 +520,17 @@ html_painter_draw_shade_line (HTMLPainter *painter,
 }
 
 void
-html_painter_draw_panel (HTMLPainter *painter,
-			 GdkColor *bg,
-			 gint x, gint y,
-			 gint width, gint height,
-			 GtkHTMLEtchStyle inset,
-			 gint bordersize)
+html_painter_draw_border (HTMLPainter *painter,
+			  GdkColor *bg,
+			  gint x, gint y,
+			  gint width, gint height,
+			  HTMLBorderStyle style,
+			  gint bordersize)
 {
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 
-	(* HP_CLASS (painter)->draw_panel) (painter, bg, x, y, width, height, inset, bordersize);
+	(* HP_CLASS (painter)->draw_border) (painter, bg, x, y, width, height, style, bordersize);
 }
 
 void  

@@ -21,6 +21,7 @@
 #ifndef _HTMLCLUEV_H_
 #define _HTMLCLUEV_H_
 
+#include "htmltypes.h"
 #include "htmlclue.h"
 
 #define HTML_CLUEV(x) ((HTMLClueV *)(x))
@@ -33,6 +34,11 @@ struct _HTMLClueV {
 	HTMLObject *align_left_list;
 	HTMLObject *align_right_list;
 	gushort padding;
+
+	/* border */
+	int border_width;
+	HTMLBorderStyle border_style;
+	HTMLColor *border_color;
 };
 
 struct _HTMLClueVClass {
@@ -55,5 +61,8 @@ void        html_cluev_init        (HTMLClueV      *cluev,
 HTMLObject *html_cluev_new         (gint            x,
 				    gint            y,
 				    gint            percent);
+
+void        html_cluev_set_border  (HTMLClueV      *cluev,
+				    HTMLStyle      *style);
 
 #endif /* _HTMLCLUEV_H_ */

@@ -87,9 +87,9 @@ struct _HTMLPainterClass {
 	void (* clear)            (HTMLPainter *painter);
 	void (* set_background_color) (HTMLPainter *painter, const GdkColor *color);
 	void (* draw_shade_line)  (HTMLPainter *p, gint x, gint y, gint width);
-	void (* draw_panel)       (HTMLPainter *painter, GdkColor *bg,
+	void (* draw_border)      (HTMLPainter *painter, GdkColor *bg,
 			           gint x, gint y, gint width, gint height,
-			           GtkHTMLEtchStyle inset, gint bordersize);
+			           HTMLBorderStyle style, gint bordersize);
 
 	void (* set_clip_rectangle) (HTMLPainter *painter, gint x, gint y, gint width, gint height);
 	void (* draw_background)    (HTMLPainter *painter, GdkColor *color, GdkPixbuf *pixbuf,
@@ -215,13 +215,13 @@ void              html_painter_draw_shade_line                         (HTMLPain
 									gint               x,
 									gint               y,
 									gint               width);
-void              html_painter_draw_panel                              (HTMLPainter       *painter,
+void              html_painter_draw_border                             (HTMLPainter       *painter,
 									GdkColor          *bg,
 									gint               x,
 									gint               y,
 									gint               width,
 									gint               height,
-									GtkHTMLEtchStyle   inset,
+									HTMLBorderStyle    style,
 									gint               bordersize);
 
 /* Passing 0 for width/height means remove clip rectangle */

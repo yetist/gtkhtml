@@ -20,10 +20,15 @@
 */
 
 #include <config.h>
+#include "gtkhtml.h"
 #include "htmlcluealigned.h"
 #include "htmlcluev.h"
 #include "htmlengine.h"
 #include "htmlpainter.h"
+#include "htmlcolor.h"
+#include "htmlcolorset.h"
+#include "htmlsettings.h"
+#include "htmlstyle.h"
 
 
 HTMLClueVClass html_cluev_class;
@@ -90,7 +95,7 @@ cluev_next_aligned (HTMLObject *aclue)
 static gint
 get_lmargin (HTMLObject *o, HTMLPainter *painter)
 {
-	return HTML_CLUEV (o)->padding * html_painter_get_pixel_size (painter)
+	return (HTML_CLUEV (o)->padding + HTML_CLUEV (o)->border_width) * html_painter_get_pixel_size (painter)
 		+ (o->parent ?  html_object_get_left_margin (o->parent, painter, o->y, TRUE) : 0);
 }
 
@@ -136,7 +141,7 @@ html_cluev_do_layout (HTMLObject *o, HTMLPainter *painter, gboolean calc_size, G
 	clue = HTML_CLUE (o);
 
 	pixel_size = html_painter_get_pixel_size (painter);
-	padding    = pixel_size * cluev->padding;
+	padding    = pixel_size * (cluev->padding + cluev->border_width);
 	padding2   = 2 * padding;
 
 	old_width = o->width;
@@ -291,6 +296,12 @@ copy (HTMLObject *self,
 
 	HTML_CLUEV (dest)->padding = HTML_CLUEV (self)->padding;
 
+	HTML_CLUEV (dest)->border_width = HTML_CLUEV (self)->border_width;
+	HTML_CLUEV (dest)->border_style = HTML_CLUEV (self)->border_style;
+	HTML_CLUEV (dest)->border_color = HTML_CLUEV (self)->border_color;
+	if (HTML_CLUEV (dest)->border_color)
+		html_color_ref (HTML_CLUEV (dest)->border_color);
+
 	HTML_CLUEV (dest)->align_left_list = NULL;
 	HTML_CLUEV (dest)->align_right_list = NULL;
 }
@@ -306,7 +317,7 @@ calc_min_width (HTMLObject *o,
 		HTMLPainter *painter)
 {
 	return (* HTML_OBJECT_CLASS (parent_class)->calc_min_width) (o, painter)
-		+ 2 * html_painter_get_pixel_size (painter) * HTML_CLUEV (o)->padding;
+		+ 2 * html_painter_get_pixel_size (painter) * (HTML_CLUEV (o)->padding + HTML_CLUEV (o)->border_width);
 }
 
 static gint
@@ -314,7 +325,7 @@ calc_preferred_width (HTMLObject *o,
 		      HTMLPainter *painter)
 {
 	return (* HTML_OBJECT_CLASS (parent_class)->calc_preferred_width) (o, painter)
-		+ 2 * html_painter_get_pixel_size (painter) * HTML_CLUEV (o)->padding;
+		+ 2 * html_painter_get_pixel_size (painter) * (HTML_CLUEV (o)->padding + HTML_CLUEV (o)->border_width);
 }
 
 static void
@@ -323,7 +334,7 @@ set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
 	HTMLObject *obj;
 
 	o->max_width = max_width;
-	max_width   -= 2 * HTML_CLUEV (o)->padding * html_painter_get_pixel_size (painter);
+	max_width   -= 2 * (HTML_CLUEV (o)->padding + HTML_CLUEV (o)->border_width) * html_painter_get_pixel_size (painter);
 	for (obj = HTML_CLUE (o)->head; obj != NULL; obj = obj->next)
 		html_object_set_max_width (obj, painter, max_width);
 }
@@ -361,7 +372,9 @@ draw (HTMLObject *o,
       gint tx, gint ty)
 {
 	HTMLObject *aclue;
+	HTMLClueV *cluev;
 
+	cluev = HTML_CLUEV (o);
 	HTML_OBJECT_CLASS (&html_clue_class)->draw (o,
 						    p,
 						    x, y ,
@@ -397,6 +410,23 @@ draw (HTMLObject *o,
 				  tx + aclue->parent->x,
 				  ty + aclue->parent->y - aclue->parent->ascent);
 	}
+
+	if (cluev->border_style != HTML_BORDER_NONE && cluev->border_width > 0) {
+		GdkColor *color;
+
+		if (cluev->border_color) {
+			html_painter_alloc_color (p, &cluev->border_color->color);
+			color = &cluev->border_color->color;
+		} else
+			color = &html_colorset_get_color_allocated (GTK_HTML (p->widget)->engine->settings->color_set,
+								    p, HTMLTextColor)->color;
+		html_painter_draw_border (p, color,
+					  tx, ty, 
+					  o->width,
+					  o->ascent + o->descent,
+					  cluev->border_style,
+					  html_painter_get_pixel_size (p) * cluev->border_width);
+	}
 }
 
 static HTMLObject *
@@ -409,6 +439,7 @@ check_point (HTMLObject *self,
 	HTMLObject *p;
 	HTMLObject *obj;
 	HTMLClueAligned *clue;
+	int padding = HTML_CLUEV (self)->padding;
 
 	if (x < self->x || x >= self->x + self->width
 	    || y < self->y - self->ascent || y >= self->y + self->descent)
@@ -416,6 +447,19 @@ check_point (HTMLObject *self,
 
 	x = x - self->x;
 	y = y - self->y + self->ascent;
+
+	if (!for_cursor) {
+		if (x < padding || y < padding) {
+			if (offset_return)
+				*offset_return = 0;
+			return self;
+		}
+		if (x >= self->width - padding || y >= self->ascent + self->descent - padding) {
+			if (offset_return)
+				*offset_return = 1;
+			return self;
+		}
+	}
 
 	for (clue = HTML_CLUEALIGNED (HTML_CLUEV (self)->align_left_list);
 	     clue != NULL;
@@ -479,6 +523,18 @@ check_point (HTMLObject *self,
 		obj = html_object_check_point (p, painter, x1, y1, offset_return, for_cursor);
 		if (obj != NULL)
 			return obj;
+	}
+
+	if (!for_cursor) {
+		if (x >= 0 && y >= 0 && x < self->width && y < self->ascent + self->descent) {
+			if (offset_return) {
+				if (x < self->width/2)
+					*offset_return = 0;
+				else
+					*offset_return = 1;
+			}
+			return self;
+		}
 	}
 
 	return NULL;
@@ -583,7 +639,7 @@ get_right_margin (HTMLObject *self, HTMLPainter *painter, gint y, gboolean with_
 	gint margin;
 	
 	cluev = HTML_CLUEV (self);
-	margin = self->max_width - 2 * cluev->padding * html_painter_get_pixel_size (painter);
+	margin = self->max_width - 2 * (cluev->padding + cluev->border_width)* html_painter_get_pixel_size (painter);
 
 	if (with_aligned)
 		for (aclue = cluev->align_right_list;
@@ -615,7 +671,7 @@ find_free_area (HTMLClue *clue, HTMLPainter *painter, gint y, gint width, gint h
 	next_y = 0;
 	while (1) {
 		lmargin = indent;
-		rmargin = HTML_OBJECT (clue)->max_width - 2 * cluev->padding * html_painter_get_pixel_size (painter);
+		rmargin = HTML_OBJECT (clue)->max_width - 2 * (cluev->padding + cluev->border_width) * html_painter_get_pixel_size (painter);
 		
 		for (aclue = cluev->align_left_list; aclue != 0; aclue = cluev_next_aligned (aclue)) {
 			base_y = (aclue->y + aclue->parent->y
@@ -877,6 +933,9 @@ html_cluev_init (HTMLClueV *cluev,
 	cluev->align_left_list = 0;
 	cluev->align_right_list = 0;
 	cluev->padding = 0;
+	cluev->border_style = HTML_BORDER_NONE;
+	cluev->border_width = 0;
+	cluev->border_color = NULL;
 }
 
 HTMLObject *
@@ -888,4 +947,26 @@ html_cluev_new (gint x, gint y, gint percent)
 	html_cluev_init (cluev, &html_cluev_class, x, y, percent);
 	
 	return HTML_OBJECT (cluev);
+}
+
+void
+html_cluev_set_border (HTMLClueV *cluev, HTMLStyle *style)
+{
+	if (style != NULL) {
+		if (cluev->border_color)
+			html_color_unref (cluev->border_color);
+
+		cluev->border_style = style->border_style;
+		cluev->border_width = style->border_width;
+		cluev->border_color = style->border_color;
+		if (cluev->border_color)
+			html_color_ref (cluev->border_color);
+	} else {
+		if (cluev->border_color)
+			html_color_unref (cluev->border_color);
+
+		cluev->border_style = HTML_BORDER_NONE;
+		cluev->border_width = 0;
+		cluev->border_color = NULL;
+	}
 }

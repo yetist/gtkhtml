@@ -1,3 +1,7 @@
+2004-11-01  Radek Doulik  <rodo@ximian.com>
+
+	* added id to html object and border to html cluev
+
 2004-10-22  Changwoo Ryu  <cwryu@debian.org>
 
 	* htmlclueflow.c (utf8_width): new function to calculate UTF-8

@@ -68,6 +68,9 @@ destroy (HTMLObject *self)
 
 	g_datalist_clear (&self->object_data);
 	g_datalist_clear (&self->object_data_nocp);
+
+	g_free (self->id);
+	self->id = NULL;
 	
 	if (self->redraw_pending) {
 		self->free_pending = TRUE;
@@ -99,6 +102,7 @@ copy (HTMLObject *self,
 	dest->free_pending = FALSE;
 	dest->change = self->change;
 	dest->draw_focused = FALSE;
+	dest->id = g_strdup (self->id);
 
 	g_datalist_init (&dest->object_data);
 	html_object_copy_data_from_object (dest, self);
@@ -693,6 +697,8 @@ html_object_init (HTMLObject *o,
 
 	g_datalist_init (&o->object_data);
 	g_datalist_init (&o->object_data_nocp);
+
+	o->id = NULL;
 }
 
 HTMLObject *
@@ -2054,4 +2060,17 @@ html_object_prev_cursor_leaf (HTMLObject *o, HTMLEngine *e)
 		o = html_object_prev_cursor_object (o, e, &offset);
 
 	return o;
+}
+
+const char *
+html_object_get_id (HTMLObject *o)
+{
+	return o->id;
+}
+
+void
+html_object_set_id (HTMLObject *o, const char *id)
+{
+	g_free (o->id);
+	o->id = g_strdup (id);
 }

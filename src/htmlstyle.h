@@ -22,53 +22,15 @@
 #ifndef __HTML_STYLE_H__
 #define __HTML_STYLE_H__
 #include "gtkhtml-enums.h"
+#include "htmlenums.h"
 #include "htmltypes.h"
 #include "htmlcolor.h"
 
-typedef enum {
-	DISPLAY_NONE,
-	DISPLAY_INLINE,
-	DISPLAY_LIST_ITEM,
-	DISPLAY_INLINE_BLOCK,
-	DISPLAY_BLOCK,
-	DISPLAY_MARKER,
-	DISPLAY_RUN_IN,
-	DISPLAY_COMPACT,
-	DISPLAY_TABLE_ROW_GROUP,
-	DISPLAY_TABLE_COLUMN,
-	DISPLAY_TABLE_COLUMN_GROUP,
-	DISPLAY_TABLE_HEADER_GROUP,
-	DISPLAY_TABLE_FOOTER_GROUP,
-	DISPLAY_TABLE_ROW,
-	DISPLAY_TABLE_CELL,
-        DISPLAY_TABLE_CAPTION,
-	DISPLAY_INLINE_TABLE,
-	DISPLAY_TABLE,
-	DISPLAY_DOCUMENT
-} HTMLDisplayType;
-
-typedef enum {
-	HTML_WHITE_SPACE_NORMAL,
-	HTML_WHITE_SPACE_PRE,
-	HTML_WHITE_SPACE_NOWRAP,
-	HTML_WHITE_SPACE_PRE_WRAP,
-	HTML_WHITE_SPACE_PRE_LINE,
-	HTML_WHITE_SPACE_INHERIT
-} HTMLWhiteSpaceType;
-
-typedef enum {
-	HTML_LENGTH_TYPE_PIXELS,
-	HTML_LENGTH_TYPE_PERCENT,
-	HTML_LENGTH_TYPE_FRACTION
-} HTMLLengthType;
-
-typedef struct _HTMLLength HTMLLength;
 struct _HTMLLength {
 	gint           val;
 	HTMLLengthType type;
 };
 
-typedef struct _HTMLStyle HTMLStyle;
 struct _HTMLStyle {
 	HTMLColor          *color;
 	HTMLFontFace       *face;
@@ -89,6 +51,11 @@ struct _HTMLStyle {
 	char           *bg_image;
 	HTMLColor      *bg_color;
 	HTMLDisplayType display;
+
+	/* border */
+	int border_width;
+	HTMLBorderStyle border_style;
+	HTMLColor *border_color;
 };	
 
 HTMLStyle *html_style_new                  (void);
@@ -98,6 +65,9 @@ HTMLStyle *html_style_set_font_size        (HTMLStyle *style, GtkHTMLFontStyle d
 HTMLStyle *html_style_set_size             (HTMLStyle *style, GtkHTMLFontStyle size);
 HTMLStyle *html_style_set_display          (HTMLStyle *style, HTMLDisplayType display);
 HTMLStyle *html_style_set_clear            (HTMLStyle *style, HTMLClearType clear);
+HTMLStyle *html_style_set_border_style     (HTMLStyle *style, HTMLBorderStyle bstyle);
+HTMLStyle *html_style_set_border_width     (HTMLStyle *style, int width);
+HTMLStyle *html_style_set_border_color     (HTMLStyle *style, HTMLColor *color);
 HTMLStyle *html_style_add_text_align       (HTMLStyle *style, HTMLHAlignType type);
 HTMLStyle *html_style_add_text_valign      (HTMLStyle *style, HTMLVAlignType type);
 HTMLStyle *html_style_add_font_face        (HTMLStyle *style, const HTMLFontFace *face);

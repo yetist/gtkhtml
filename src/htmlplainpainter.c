@@ -36,12 +36,12 @@
 static HTMLGdkPainterClass *parent_class = NULL;
 
 static void
-draw_panel (HTMLPainter *painter,
-	    GdkColor *bg,
-	    gint x, gint y,
-	    gint width, gint height,
-	    GtkHTMLEtchStyle inset,
-	    gint bordersize)
+draw_border (HTMLPainter *painter,
+	     GdkColor *bg,
+	     gint x, gint y,
+	     gint width, gint height,
+	     HTMLBorderStyle style,
+	     gint bordersize)
 {
 }
 
@@ -164,7 +164,7 @@ html_plain_painter_class_init (GObjectClass *object_class)
 	painter_class->fill_rect = fill_rect;
 	painter_class->draw_pixmap = draw_pixmap;
 	painter_class->draw_shade_line = draw_shade_line;
-	painter_class->draw_panel = draw_panel;
+	painter_class->draw_border = draw_border;
 	painter_class->draw_background = draw_background;
 	painter_class->get_page_width = get_page_width;
 	painter_class->get_page_height = get_page_height;

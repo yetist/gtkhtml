@@ -369,6 +369,17 @@ html_element_parse_coreattrs (HTMLElement *node)
 	}
 }
 
+static void
+html_element_set_coreattr_to_object (HTMLElement *element, HTMLObject *o, HTMLEngine *engine)
+{
+	char *value;
+
+	if (html_element_get_attr (element, "id", &value)) {
+		html_object_set_id (o, value);
+		html_engine_add_object_with_id (engine, value, o);
+	}
+}
+
 #if 0
 static void
 html_element_parse_events (HTMLElement *node)
@@ -927,6 +938,7 @@ html_element_push (HTMLElement *node, HTMLEngine *e, HTMLObject *clue)
 			HTMLTableCell *cell;
 			cell = html_table_cell_new (1, 1, 0);
 			html_table_cell_set_fixed_width (cell, 50, 0);
+			html_cluev_set_border (HTML_CLUEV (cell), node->style);
 
 			html_object_set_bg_color (HTML_OBJECT (cell), node->style->bg_color);
 			append_element (e, clue, HTML_OBJECT (cell));
@@ -2455,7 +2467,6 @@ element_parse_img (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	gchar *value   = NULL; 
 	gchar *tmpurl  = NULL;
 	gchar *mapname = NULL;
-	gchar *id      = NULL;
 	gchar *alt     = NULL;
 	gint width     = -1;
 	gint height    = -1;
@@ -2502,8 +2513,6 @@ element_parse_img (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		else if (strcasecmp ("bottom", value) == 0) 
 			valign = HTML_VALIGN_BOTTOM;
 	}
-	if (html_element_get_attr (element, "id", &value))
-		id = value;
 
 	if (html_element_get_attr (element, "alt", &value))
 		alt = value;
@@ -2540,10 +2549,7 @@ element_parse_img (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				e->url, e->target,
 				width, height,
 				percent_width, percent_height, border, color, valign, FALSE);
-	
-	if (id) 
-		html_engine_add_object_with_id (e, id, (HTMLObject *) image);
-	
+	html_element_set_coreattr_to_object (element, HTML_OBJECT (image), e);
 	
 	if (hspace < 0)
 		hspace = 0;
@@ -3030,6 +3036,8 @@ element_parse_table (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		table = HTML_TABLE (html_table_new (len && len->type != HTML_LENGTH_TYPE_PERCENT ? len->val : 0,
 						    len && len->type == HTML_LENGTH_TYPE_PERCENT ? len->val : 0,
 						    padding, spacing, border));
+		html_element_set_coreattr_to_object (element, HTML_OBJECT (table), e);
+		html_element_set_coreattr_to_object (element, HTML_OBJECT (table), e);
 		
 		if (element->style->bg_color)
 			table->bgColor = gdk_color_copy ((GdkColor *)element->style->bg_color);
@@ -3280,12 +3288,16 @@ element_parse_cell (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	if (!table)
 		return;
 	
-	pop_element_by_type (e, DISPLAY_TABLE_CELL);
-	pop_element_by_type (e, DISPLAY_TABLE_CAPTION);
-
 	cell = HTML_TABLE_CELL (html_table_cell_new (rowSpan, colSpan, table->padding));
+
+ 	html_element_set_coreattr_to_object (element, HTML_OBJECT (cell), e);
+	html_cluev_set_border (HTML_CLUEV (cell), element->style);
+
 	cell->no_wrap = no_wrap;
 	cell->heading = heading;
+
+	pop_element_by_type (e, DISPLAY_TABLE_CELL);
+	pop_element_by_type (e, DISPLAY_TABLE_CAPTION);
 
 	html_object_set_bg_color (HTML_OBJECT (cell), element->style->bg_color ? &element->style->bg_color->color : &current_row_bg_color (e)->color);
 

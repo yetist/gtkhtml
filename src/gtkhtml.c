@@ -5676,3 +5676,19 @@ gtk_html_flush (GtkHTML *html)
 {
 	html_engine_flush (html->engine);
 }
+
+const char *
+gtk_html_get_object_id_at (GtkHTML *html, int x, int y)
+{
+	HTMLObject *o = html_engine_get_object_at (html->engine, x, y, NULL, FALSE);
+	const char *id = NULL;
+
+	while (o) {
+		id = html_object_get_id (o);
+		if (id)
+			break;
+		o = o->parent;
+	}
+
+	return id;
+}
