@@ -1,5 +1,11 @@
 2000-09-14  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine-edit-movement.c (html_engine_forward_word): refactored
+	(html_engine_backward_word): likewise
+
+	* gtkhtml.c (load_keybindings): added M-left, M-b bindings for
+	backward-word and likewise for forward-word
+
 	* htmltable.c (set_cell): new helper function, sets cell in table
 	on col,row
 	(add_cell): refactored set_cells function, filling table with

@@ -313,84 +313,41 @@ html_engine_scroll_up (HTMLEngine *engine,
 
 
 gboolean
-html_engine_forward_word (HTMLEngine *engine)
+html_engine_forward_word (HTMLEngine *e)
 {
-	HTMLCursor *cursor;
-	gboolean skip_non_alnum;
-	gchar c;
+	gboolean rv = FALSE;
 
-	g_return_val_if_fail (engine != NULL, FALSE);
-	g_return_val_if_fail (HTML_IS_ENGINE (engine), FALSE);
+	g_return_val_if_fail (e != NULL, FALSE);
+	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
 
-	cursor = engine->cursor;
-	html_engine_hide_cursor (engine);
-
-	c = html_cursor_get_current_char (cursor);
-	if (c == 0 || ! isalnum ((gint) c))
-		skip_non_alnum = TRUE;
-	else
-		skip_non_alnum = FALSE;
-
-	while (1) {
-		if (! html_cursor_forward (cursor, engine))
-			break;
-
-		c = html_cursor_get_current_char (cursor);
-		if (c == 0 || ! isalnum ((gint) c)) {
-			if (! skip_non_alnum)
-				break;
-		} else {
-			skip_non_alnum = FALSE;
-		}
+	html_engine_hide_cursor (e);
+	if (html_cursor_forward (e->cursor, e)) {
+		while (!unicode_isalnum (html_cursor_get_current_char (e->cursor)) && html_cursor_forward (e->cursor, e));
+		while (unicode_isalnum (html_cursor_get_current_char (e->cursor)) && html_cursor_forward (e->cursor, e));
+		rv = TRUE;
 	}
+	html_engine_show_cursor (e);
+	update_selection_if_necessary (e);
 
-	html_engine_show_cursor (engine);
-
-	update_selection_if_necessary (engine);
-
-	return TRUE;
+	return rv;
 }
 
 gboolean
-html_engine_backward_word (HTMLEngine *engine)
+html_engine_backward_word (HTMLEngine *e)
 {
-	HTMLCursor *cursor;
-	gboolean skip_non_alnum;
-	gchar c;
+	gboolean rv = FALSE;
 
-	g_return_val_if_fail (engine != NULL, FALSE);
-	g_return_val_if_fail (HTML_IS_ENGINE (engine), FALSE);
+	g_return_val_if_fail (e != NULL, FALSE);
+	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
 
-	cursor = engine->cursor;
-	html_engine_hide_cursor (engine);
-
-	if (! html_cursor_backward (cursor, engine)) {
-		html_engine_show_cursor (engine);
-		return FALSE;
+	html_engine_hide_cursor (e);
+	if (html_cursor_backward (e->cursor, e)) {
+		while (!unicode_isalnum (html_cursor_get_current_char (e->cursor)) && html_cursor_backward (e->cursor, e));
+		while (unicode_isalnum (html_cursor_get_prev_char (e->cursor)) && html_cursor_backward (e->cursor, e));
+		rv = TRUE;
 	}
-		
-	c = html_cursor_get_current_char (cursor);
-	if (c == 0 || ! isalnum ((gint) c))
-		skip_non_alnum = TRUE;
-	else
-		skip_non_alnum = FALSE;
+	html_engine_show_cursor (e);
+	update_selection_if_necessary (e);
 
-	while (1) {
-		if (! html_cursor_backward (cursor, engine))
-			break;
-
-		c = html_cursor_get_current_char (cursor);
-		if (c == 0 || ! isalnum ((gint) c)) {
-			if (! skip_non_alnum)
-				break;
-		} else {
-			skip_non_alnum = FALSE;
-		}
-	}
-
-	html_engine_show_cursor (engine);
-
-	update_selection_if_necessary (engine);
-
-	return TRUE;
+	return rv;
 }
