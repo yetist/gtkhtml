@@ -109,8 +109,16 @@ calc_min_width (HTMLObject *o,
 	html->engine->width = min_width;
 	html_engine_calc_size (html->engine);
 	min_width = html_engine_get_doc_width (html->engine);
-	
+    
 	return min_width;
+}
+
+static void
+set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
+{
+	/* FIXME FIXME amazingly broken to set this */
+	o->nb_width = max_width;
+	o->max_width = max_width;
 }
 
 static void
@@ -134,7 +142,7 @@ calc_size (HTMLObject *o,
 	GtkHTML *html;
 	
 	pixel_size = html_painter_get_pixel_size (painter);
-	
+       
 	old_width = o->width;
 	old_ascent = o->ascent;
 	old_descent = o->descent;
@@ -149,9 +157,8 @@ calc_size (HTMLObject *o,
 
 		height = html_engine_get_doc_height (html->engine);
 		width = html_engine_get_doc_width (html->engine);
-		gtk_widget_set_usize (iframe->scroll,
-				      width, height);
 
+		gtk_widget_set_usize (iframe->scroll, width, height);
 		gtk_widget_queue_resize (iframe->scroll);
 		
 		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (iframe->scroll),
@@ -185,8 +192,6 @@ html_iframe_init (HTMLIFrame *iframe,
 {
 	HTMLEmbedded *em = HTML_EMBEDDED (iframe);
 	GtkWidget *html;
-	GtkObject *object;
-	GtkHTMLStream *stream;
 	GtkHTML   *parent_html;
 	GtkHTMLStream *handle;
 	GtkWidget *scrolled_window;
@@ -221,6 +226,7 @@ html_iframe_init (HTMLIFrame *iframe,
 	gtk_signal_connect (GTK_OBJECT (html), "link_clicked",
 			    GTK_SIGNAL_FUNC (iframe_link_clicked),
 			    (gpointer)iframe);	
+
 	/*
 	  gtk_signal_connect (GTK_OBJECT (html), "button_press_event",
 	  GTK_SIGNAL_FUNC (iframe_button_press_event), iframe);
@@ -229,9 +235,9 @@ html_iframe_init (HTMLIFrame *iframe,
 				 "url_requested", src, handle);
 
 	gtk_widget_set_usize (scrolled_window, width, height);
+
 	iframe->scroll = scrolled_window;
 
-	html_embedded_size_recalc(em);
 	html_embedded_set_widget (em, scrolled_window);	
 	html_embedded_size_recalc(em);
 
@@ -241,8 +247,6 @@ html_iframe_init (HTMLIFrame *iframe,
 	/*
 	gtk_signal_connect (GTK_OBJECT (html), "title_changed",
 			    GTK_SIGNAL_FUNC (title_changed_cb), (gpointer)app);
-	gtk_signal_connect (GTK_OBJECT (html), "load_done",
-			    GTK_SIGNAL_FUNC (load_done), (gpointer)app);
 	gtk_signal_connect (GTK_OBJECT (html), "set_base",
 			    GTK_SIGNAL_FUNC (on_set_base), (gpointer)app);
 	gtk_signal_connect (GTK_OBJECT (html), "button_press_event",
@@ -256,6 +260,7 @@ html_iframe_init (HTMLIFrame *iframe,
 	*/
 	
 }
+
 
 void
 html_iframe_type_init (void)
@@ -282,17 +287,5 @@ html_iframe_class_init (HTMLIFrameClass *klass,
 	object_class->calc_size = calc_size;
 	object_class->calc_min_width = calc_min_width;
 	object_class->reset = reset;
+	object_class->set_max_width = set_max_width;
 }
-	
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,6 +1,14 @@
+2000-05-31  Larry Ewing  <lewing@helixcode.com>
+
+	* htmliframe.c (set_max_width): a huge hack to trick the clueflow
+	into doing the right thing for the time being.
+
+	* htmlembedded.c (html_embedded_size_recalc): fix assumption that
+	em->widget is a gtk_html_embedded.
+
 2000-05-30  Larry Ewing  <lewing@helixcode.com>
 
-	* htmlengien.c (html_engine_destroy): destroy the clue as well
+	* htmlengine.c (html_engine_destroy): destroy the clue as well
 	fixes http://bugzilla.helixcode.com/show_bug.cgi?id=200
 	
 2000-05-30  Larry Ewing  <lewing@helixcode.com>
