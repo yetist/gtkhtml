@@ -7,7 +7,7 @@
 			<cmd name="EditRedo" _label="_Redo" _tip="Redo the undone action"
 			pixtype="stock" pixname="Redo"/>
 
-			<cmd name="EditCut" _label="C_ut" _tip="Cut the selection"/>
+			<cmd name="EditCut" _label="Cu_t" _tip="Cut the selection"/>
 			<cmd name="EditCopy" _label="_Copy" _tip="Copy the selection"/>
 			<cmd name="EditPaste" _label="_Paste" _tip="Paste the clipboard"/>
 	
@@ -15,7 +15,7 @@
 			pixtype="stock" pixname="Search"/>
 
 			<cmd name="EditFindRegex"
-			     _label="Find Rege_x..."
+			     _label="Find Regular E_xpression..."
 			     _tip="Find A Regular Expression"/>
 	
 			<cmd name="EditFindAgain" _label="Find _Again"
@@ -28,7 +28,7 @@
 			<cmd name="EditSelectAll" _label="Select _All"
 			_tip="Select the entire contents of the document"/>
 
-			<cmd name="EditProperties" _label="_Properties..." _tip="Modify the file's properties"
+			<cmd name="EditProperties" _label="Pr_operties..." _tip="Modify the file's properties"
 			pixtype="stock" pixname="Properties"/>
 
 			<cmd name="InsertImage" _label="_Image..." _tip="Insert image into document..."/>

@@ -1,3 +1,10 @@
+2001-08-10  Anna Marie Dirks <anna@ximian.com>
+	* GNOME_GtkHTML_Editor.xml.in: Changed label for "Find Regex"
+	to "Find Regular Expression (as per bug #2658 ). Also fixed duplicate
+	accelerators (Properties and Paste were both using _P, while
+	Undo and Cut were both using _U)
+
+
 2001-08-10  Zbigniew Chyla  <cyba@gnome.pl>
 
 	* popup.c (prepare_properties_and_menu): Marked two strings for
@@ -58,6 +65,7 @@
 
 	* gtkhtml-editor-properties.glade: added Rule page
 
+>>>>>>> 1.237
 2001-07-31  Radek Doulik  <rodo@ximian.com>
 
 	* table.c: tuned template colors
