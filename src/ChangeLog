@@ -1,3 +1,8 @@
+2001-09-16  Radek Doulik  <rodo@ximian.com>
+
+	* htmlcluev.c (find_free_area): fixed test for checking if margins
+	changed
+
 2001-09-14  Radek Doulik  <rodo@ximian.com>
 
 	* htmlclueflow.c (calc_size): take care of case when lmargin >=

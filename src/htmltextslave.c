@@ -151,7 +151,8 @@ get_offset_for_bounded_width (HTMLTextSlave *slave, HTMLPainter *painter, gint *
 }
 
 static void
-slave_split_if_too_long (HTMLTextSlave *slave, HTMLPainter *painter, gint *width) {
+slave_split_if_too_long (HTMLTextSlave *slave, HTMLPainter *painter, gint *width)
+{
 	gint x, y;
 
 	html_object_calc_abs_position (HTML_OBJECT (slave), &x, &y);

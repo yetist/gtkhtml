@@ -549,7 +549,8 @@ find_free_area (HTMLClue *clue, gint y, gint width, gint height,
 			}
 		}
 		
-		if ((lmargin == indent) && (rmargin == HTML_OBJECT (clue)->max_width))
+		if (lmargin == indent
+		    && rmargin == MAX (HTML_OBJECT (clue)->max_width, HTML_OBJECT (clue)->width))
 			break;
 		
 		if ((rmargin - lmargin) >= width)
