@@ -13,3 +13,4 @@ config.cache
 libtool
 config.status
 stamp-h
+Makefile
