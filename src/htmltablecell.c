@@ -121,22 +121,26 @@ calc_min_width (HTMLObject *o,
 		HTMLPainter *painter)
 {
 	HTMLObject *obj;
-	gint minWidth = 0;
+	gint minWidth;
 
+	minWidth = 0;
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
 		gint w = html_object_calc_min_width (obj, painter);
 		if (w > minWidth)
 			minWidth = w;
 	}
 
-	if ((o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH)) {
-		/* Our minimum width is at least our fixed width */
-		if (o->max_width > minWidth)
-			minWidth = o->max_width;
+	if (o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH) {
+		gint fixed_width;
+		gint pixel_size;
 
-		/* And our actual width is at least our minimum width */
-		if (o->width < minWidth)
-			o->width = minWidth;
+		/* Our minimum width is at least our fixed width */
+
+		pixel_size = html_painter_get_pixel_size (painter);
+		fixed_width = HTML_TABLE_CELL (o)->fixed_width * pixel_size;
+		
+		if (fixed_width > minWidth)
+			minWidth = fixed_width;
 	}
 
 	return minWidth;
@@ -245,7 +249,6 @@ html_table_cell_class_init (HTMLTableCellClass *klass,
 void
 html_table_cell_init (HTMLTableCell *cell,
 		      HTMLTableCellClass *klass,
-		      gint max_width,
 		      gint percent,
 		      gint rs, gint cs,
 		      gint pad)
@@ -258,17 +261,14 @@ html_table_cell_init (HTMLTableCell *cell,
 	cluev = HTML_CLUEV (cell);
 	clue = HTML_CLUE (cell);
 
-	html_cluev_init (cluev, HTML_CLUEV_CLASS (klass), 0, 0, max_width, percent);
+	html_cluev_init (cluev, HTML_CLUEV_CLASS (klass), 0, 0, percent);
 
-	if (percent > 0) 
-		object->width = max_width * percent / 100;
-	else if (percent < 0) 
-		object->width = max_width;
-	
 	object->flags &= ~HTML_OBJECT_FLAG_FIXEDWIDTH;
 
 	clue->valign = HTML_VALIGN_BOTTOM;
 	clue->halign = HTML_HALIGN_LEFT;
+
+	cell->fixed_width = 0;
 
 	cell->padding = pad;
 	cell->refcount = 0;
@@ -281,16 +281,14 @@ html_table_cell_init (HTMLTableCell *cell,
 }
 
 HTMLObject *
-html_table_cell_new (gint max_width,
-		     gint percent,
+html_table_cell_new (gint percent,
 		     gint rs, gint cs,
 		     gint pad)
 {
 	HTMLTableCell *cell;
 
 	cell = g_new (HTMLTableCell, 1);
-	html_table_cell_init (cell, &html_table_cell_class,
-			      max_width, percent, rs, cs, pad);
+	html_table_cell_init (cell, &html_table_cell_class, percent, rs, cs, pad);
 
 	return HTML_OBJECT (cell);
 }
@@ -312,19 +310,15 @@ html_table_cell_unlink (HTMLTableCell *cell)
 }
 
 void
-html_table_cell_set_width (HTMLTableCell *cell,
-			   HTMLPainter *painter,
-			   gint width)
+html_table_cell_set_fixed_width (HTMLTableCell *cell,
+				 gint width)
 {
 	HTMLObject *obj;
-	HTMLObject *o = HTML_OBJECT (cell);
 
-	o->width = width;
-	if (!(o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH))
-	    o->max_width = width;
+	obj = HTML_OBJECT (cell);
+	obj->flags |= HTML_OBJECT_FLAG_FIXEDWIDTH;
 
-	for (obj = HTML_CLUE (cell)->head; obj != 0; obj = obj->next)
-		html_object_set_max_width (obj, painter, width);
+	cell->fixed_width = width;
 }
 
 void

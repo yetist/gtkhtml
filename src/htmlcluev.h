@@ -55,11 +55,9 @@ void        html_cluev_init        (HTMLClueV      *cluev,
 				    HTMLClueVClass *klass,
 				    gint            x,
 				    gint            y,
-				    gint            max_width,
 				    gint            percent);
 HTMLObject *html_cluev_new         (gint            x,
 				    gint            y,
-				    gint            max_width,
 				    gint            percent);
 
 #endif /* _HTMLCLUEV_H_ */

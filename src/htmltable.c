@@ -21,18 +21,32 @@
    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
    Boston, MA 02111-1307, USA.
 */
+
 #include "htmlobject.h"
 #include "htmltable.h"
 #include <string.h>
 
 
-#define a_colinfo(x) (((ColInfo_t *)(table->colInfo)->data)[x])
-#define a_coltype(x) (((ColType *)(table->colType)->data)[x])
-#define a_columnpos(x) (((gint *)(table->columnPos)->data)[x])
-#define a_columnprefpos(x) (((gint *)(table->columnPrefPos)->data)[x])
-#define a_colspan(x) (((gint *)(table->colSpan)->data)[x])
-#define a_columnopt(x) (((gint *)(table->columnOpt)->data)[x])
-#define a_rowheights(x) (((gint *)(table->rowHeights)->data)[x])
+#define COLUMN_INFO(table, i)				\
+	(g_array_index (table->colInfo, ColumnInfo, i))
+
+#define COLUMN_TYPE(table, i)				\
+	(g_array_index (table->colType, ColumnType, i))
+
+#define COLUMN_POS(table, i)				\
+	(g_array_index (table->columnPos, gint, i))
+
+#define COLUMN_PREF_POS(table, i)				\
+	(g_array_index (table->columnPrefPos, gint, i))
+
+#define COLUMN_SPAN(table, i)				\
+	(g_array_index (table->colSpan, gint, i))
+
+#define COLUMN_OPT(table, i)				\
+	(g_array_index (table->columnOpt, gint, i))
+
+#define ROW_HEIGHT(table, i)				\
+	(g_array_index (table->rowHeights, gint, i))
 
 
 HTMLTableClass html_table_class;
@@ -162,16 +176,23 @@ static void
 calc_col_info (HTMLTable *table,
 	       HTMLPainter *painter)
 {
+	gint pixel_size;
 	gint r, c;
-	gint borderExtra = (table->border == 0) ? 0 : 1;
-
+	gint borderExtra;
 	gint i, j, totalRowInfos;
+
+	pixel_size = html_painter_get_pixel_size (painter);
+
+	if (table->border == 0)
+		borderExtra = 0;
+	else
+		borderExtra = 1;
 
 	/* Allocate some memory for column info */
 	g_array_set_size (table->colInfo, table->totalCols * 2);
 	g_free (table->rowInfo);
-	table->rowInfo = g_new (RowInfo_t, table->totalRows);
-	table->totalColInfos = 0;
+	table->rowInfo = g_new (RowInfo, table->totalRows);
+	table->totalColumnInfos = 0;
 
 	for (r = 0; r < table->totalRows; r++) {
 		table->rowInfo[r].entry = g_new (gint, table->totalCols);
@@ -181,7 +202,7 @@ calc_col_info (HTMLTable *table,
 			gint min_size;
 			gint pref_size;
 			gint colInfoIndex;
-			ColType col_type;
+			ColumnType col_type;
 
 			if (cell == 0)
 				continue;
@@ -192,30 +213,38 @@ calc_col_info (HTMLTable *table,
 
 			/* calculate minimum size */
 			min_size = html_object_calc_min_width (HTML_OBJECT (cell), painter);
-			min_size += table->padding * 2 + table->spacing + borderExtra;
+
+			min_size += (table->padding * 2
+				     + table->spacing
+				     + borderExtra) * pixel_size;
 
 			/* calculate preferred pos */
 			if (HTML_OBJECT (cell)->percent > 0) {
 				pref_size = (HTML_OBJECT (table)->max_width * 
-					     HTML_OBJECT (cell)->percent / 100) +
-					table->padding * 2 + table->spacing + borderExtra;
-				col_type = Percent;
-			}
-			else if (HTML_OBJECT (cell)->flags
+					     HTML_OBJECT (cell)->percent / 100);
+				pref_size += pixel_size * (table->padding * 2
+							   + table->spacing
+							   + borderExtra);
+				col_type = COLUMN_TYPE_PERCENT;
+			} else if (HTML_OBJECT (cell)->flags
 				 & HTML_OBJECT_FLAG_FIXEDWIDTH) {
-				pref_size = HTML_OBJECT (cell)->width + 
-					table->padding * 2 + table->spacing + borderExtra;
-				col_type = Fixed;
-			}
-			else {
-				pref_size = html_object_calc_preferred_width (HTML_OBJECT (cell), painter)
-					+ table->padding * 2+ table->spacing + borderExtra;
-				col_type = Variable;
+				pref_size = HTML_OBJECT (cell)->width;
+				pref_size += pixel_size * (table->padding * 2
+							   + table->spacing
+							   + borderExtra);
+				col_type = COLUMN_TYPE_FIXED;
+			} else {
+				pref_size = html_object_calc_preferred_width (HTML_OBJECT (cell), painter);
+				pref_size += pixel_size * (table->padding * 2
+							   + table->spacing
+							   + borderExtra);
+				col_type = COLUMN_TYPE_VARIABLE;
 			}
 
 			colInfoIndex = html_table_add_col_info (table, c, cell->cspan,
 								min_size, pref_size,
-								HTML_OBJECT (table)->max_width, col_type);
+								HTML_OBJECT (table)->max_width,
+								col_type);
 			add_row_info (table, r, colInfoIndex);
 		}
 					
@@ -256,6 +285,7 @@ calc_col_info (HTMLTable *table,
 	}
 
 	/* Calculate pref width and min width for each row */
+
 	table->_minWidth = 0;
 	table->_prefWidth = 0;
 	for (i = 0; i < totalRowInfos; i++) {
@@ -263,31 +293,37 @@ calc_col_info (HTMLTable *table,
 		gint pref = 0;
 		gint j;
 		for (j = 0; j < table->rowInfo[i].nrEntries; j++) {
-			gint index = table->rowInfo[i].entry[j];
-			min += a_colinfo (index).minSize;
-			pref += a_colinfo (index).prefSize;
+			gint index;
+
+			index = table->rowInfo[i].entry[j];
+			min += COLUMN_INFO (table, index).minSize;
+			pref += COLUMN_INFO (table, index).prefSize;
 		}
 		table->rowInfo[i].minSize = min;
 		table->rowInfo[i].prefSize = pref;
 
-		if (table->_minWidth < min) {
+		if (table->_minWidth < min)
 			table->_minWidth = min;
-		}
-		if (table->_prefWidth < pref) {
+
+		if (table->_prefWidth < pref)
 			table->_prefWidth = pref;
-		}
 	       
 	}
 
 	if (HTML_OBJECT (table)->flags & HTML_OBJECT_FLAG_FIXEDWIDTH) {
 		/* Our minimum width is at least our fixed width */
-		if (HTML_OBJECT (table)->width > table->_minWidth)
-			table->_minWidth = HTML_OBJECT(table)->width;
+		if (table->specified_width > table->_minWidth)
+			table->_minWidth = table->specified_width;
+	} else if (HTML_OBJECT (table)->percent > 0) {
+		gint min;
 
-		/* And our actual width is at least our minimum width */
-		if (HTML_OBJECT (table)->width < table->_minWidth)
-			HTML_OBJECT (table)->width = table->_minWidth;
+		min = HTML_OBJECT (table)->width * HTML_OBJECT (table)->percent / 100;
+		if (table->_minWidth < min)
+			table->_minWidth = min;
 	}
+
+	if (table->_minWidth > table->_prefWidth)
+		table->_prefWidth = table->_minWidth;
 }
 
 static gint
@@ -316,9 +352,9 @@ scale_selected_columns (HTMLTable *table, gint c_start, gint c_end,
 			continue;
 		tooAdd -= addSize;
 		for (c1 = c + 1; c1 <= (gint)table->totalCols; c1++) {
-			a_columnopt (c1) += addSize;
+			COLUMN_OPT (table, c1) += addSize;
 			if (left)
-				a_columnopt (c1)++;
+				COLUMN_OPT (table, c1)++;
 		}
 		if (left) {
 			tooAdd--;
@@ -337,13 +373,22 @@ scale_columns (HTMLTable *table, HTMLPainter *painter,
 	gint addSize;
 	gint minWidth, prefWidth;
 	gint totalAllowed, totalRequested;
-	gint borderExtra = (table->border == 0) ? 0 : 1;
-	gint tableWidth = HTML_OBJECT (table)->width - table->border;
+	gint borderExtra;
 
+	gint tableWidth;
+	gint pixel_size;
 	gint *prefColumnWidth;
 	gboolean *fixedCol;
 	gboolean *percentCol;
 	gboolean *variableCol;
+
+	pixel_size = html_painter_get_pixel_size (painter);
+	tableWidth = HTML_OBJECT (table)->width - table->border * pixel_size;
+
+	if (table->border == 0)
+		borderExtra = 0;
+	else
+		borderExtra = 1;
 
 	/* Satisfy fixed width cells */
 	for (colspan = 0; colspan <= 1; colspan++) {
@@ -358,7 +403,7 @@ scale_columns (HTMLTable *table, HTMLPainter *painter,
 				    table->cells[r + 1][c] == cell)
 					continue;
 
-				/* Fixed cells only */
+				/* COLUMN_TYPE_FIXED cells only */
 				if (!(HTML_OBJECT(cell)->flags
 				      & HTML_OBJECT_FLAG_FIXEDWIDTH))
 					continue;
@@ -377,22 +422,25 @@ scale_columns (HTMLTable *table, HTMLPainter *painter,
 						continue;
 				}
 
-				minWidth = a_columnopt (c + 1) - a_columnopt (c + 1 - cell->cspan);
-				prefWidth = HTML_OBJECT (cell)->width + table->padding * 2 +
-					table->spacing + borderExtra;
+				minWidth = (COLUMN_OPT (table, c + 1)
+					    - COLUMN_OPT (table, c + 1 - cell->cspan));
+
+				prefWidth = (cell->fixed_width
+					     + pixel_size * (table->padding * 2
+							     + table->spacing
+							     + borderExtra));
 
 				if (prefWidth <= minWidth)
 					continue;
 				
-				addSize = (prefWidth - minWidth);
-				
+				addSize = prefWidth - minWidth;
 				tooAdd -= addSize;
 
 				if (colspan == 0) {
 					gint c1;
 					/* Just add this to the column size */
 					for (c1 = c + 1; c1 <= table->totalCols; c1++)
-						a_columnopt (c1) += addSize;
+						COLUMN_OPT (table, c1) += addSize;
 				}
 				else {
 					gint c_b = c + 1 - cell->cspan;
@@ -440,20 +488,21 @@ scale_columns (HTMLTable *table, HTMLPainter *painter,
 
 				if (c_b < c_start)
 					continue;
-				if ((c_b == c_start) && (c == c_end))
+				if (c_b == c_start && c == c_end)
 					continue;
 			}
 
-			minWidth = a_columnopt (c + 1) - 
-				a_columnopt (c + 1 - cell->cspan);
-			prefWidth = tableWidth * HTML_OBJECT (cell)->percent /
-				100 + table->padding * 2 + table->spacing +
-				borderExtra;
+			minWidth = (COLUMN_OPT (table, c + 1)
+				    - COLUMN_OPT (table, c + 1 - cell->cspan));
+			prefWidth = (tableWidth * HTML_OBJECT (cell)->percent / 100
+				     + pixel_size * (table->padding * 2
+						     + table->spacing
+						     + borderExtra));
 
 			if (prefWidth <= minWidth)
 				continue;
 
-			totalRequested += (prefWidth - minWidth);
+			totalRequested += prefWidth - minWidth;
 		}
 
 		if (totalRequested == 0) /* Nothing to do */
@@ -497,21 +546,22 @@ scale_columns (HTMLTable *table, HTMLPainter *painter,
 						continue;
 				}
 
-				minWidth = a_columnopt (c + 1) - 
-					a_columnopt (c + 1 - cell->cspan);
-				prefWidth = tableWidth * HTML_OBJECT (cell)->percent / 100 + 
-					table->padding * 2 + table->spacing +
-					borderExtra;
+				minWidth = COLUMN_OPT (table, c + 1) - 
+					COLUMN_OPT (table, c + 1 - cell->cspan);
+				prefWidth = (tableWidth * HTML_OBJECT (cell)->percent / 100
+					     + pixel_size * (table->padding * 2
+							     + table->spacing
+							     + borderExtra));
 
 				if (prefWidth <= minWidth)
 					continue;
 
-				addSize = (prefWidth - minWidth);
+				addSize = prefWidth - minWidth;
 
 				if (totalRequested > totalAllowed) { 
 					/* We can't honour the request, scale it */
 					addSize = addSize * totalAllowed / totalRequested;
-					totalRequested -= (prefWidth - minWidth);
+					totalRequested -= prefWidth - minWidth;
 					totalAllowed -= addSize;
 				}
 
@@ -522,7 +572,7 @@ scale_columns (HTMLTable *table, HTMLPainter *painter,
 
 					/* Just add this to the column size */
 					for (c1 = c + 1; c1 <= table->totalCols; c1++)
-						a_columnopt (c1) += addSize;
+						COLUMN_OPT (table, c1) += addSize;
 				}
 				else {
 					gint c_b = c + 1 - cell->cspan;
@@ -555,7 +605,7 @@ scale_columns (HTMLTable *table, HTMLPainter *painter,
 
 	/* first calculate how much we would like to add in each column */
 	for (c = c_start; c <= c_end; c++) {
-		minWidth = a_columnopt (c + 1) - a_columnopt (c);
+		minWidth = COLUMN_OPT (table, c + 1) - COLUMN_OPT (table, c);
 		prefColumnWidth [c] = minWidth;
 		fixedCol[c] = FALSE;
 		percentCol[c] = FALSE;
@@ -572,26 +622,31 @@ scale_columns (HTMLTable *table, HTMLPainter *painter,
 			if (HTML_OBJECT(cell)->flags
 			    & HTML_OBJECT_FLAG_FIXEDWIDTH) {
 				/* fixed width */
-				prefCellWidth = HTML_OBJECT (cell)->width + table->padding * 2 +
-					table->spacing + borderExtra;
+				prefCellWidth = (HTML_OBJECT (cell)->width
+						 + pixel_size * (table->padding * 2
+								 + table->spacing
+								 + borderExtra));
 				fixedCol[c] = TRUE;
 				variableCol[c] = FALSE;
 
 			}
 			else if (HTML_OBJECT (cell)->percent > 0) {
 				/* percentage width */
-				prefCellWidth = tableWidth * HTML_OBJECT (cell)->percent / 100 +
-					table->padding * 2 + table->spacing +
-					borderExtra;
+				prefCellWidth = (tableWidth * HTML_OBJECT (cell)->percent / 100
+						 + pixel_size * (table->padding * 2
+								 + table->spacing
+								 + borderExtra));
 				percentCol[c] = TRUE;
 				variableCol[c] = FALSE;
 
 			}
 			else {
 				/* variable width */
-				prefCellWidth = html_object_calc_preferred_width (HTML_OBJECT (cell),
-										  painter)
-					+ table->padding * 2 + table->spacing + borderExtra;
+				prefCellWidth = (html_object_calc_preferred_width (HTML_OBJECT (cell),
+										   painter)
+						 + pixel_size * (table->padding * 2
+								 + table->spacing
+								 + borderExtra));
 			}
 			
 			prefCellWidth = prefCellWidth / cell->cspan;
@@ -616,17 +671,17 @@ scale_columns (HTMLTable *table, HTMLPainter *painter,
 		for (c = c_start; c <= c_end; c++) {
 			gint c1;
 
-			minWidth = a_columnopt (c + 1) - a_columnopt (c);
+			minWidth = COLUMN_OPT (table, c + 1) - COLUMN_OPT (table, c);
 			prefWidth = prefColumnWidth [c];
 
 			if (prefWidth <= minWidth || fixedCol[c] || percentCol[c])
 				continue;
 
-			addSize = (prefWidth - minWidth);
+			addSize = prefWidth - minWidth;
 
 			if (totalRequested > totalAllowed) {/* We can't honour the request, scale it */
 				addSize = addSize * totalAllowed / totalRequested;
-				totalRequested -= (prefWidth - minWidth);
+				totalRequested -= prefWidth - minWidth;
 				totalAllowed -= addSize;
 			}
 
@@ -634,7 +689,7 @@ scale_columns (HTMLTable *table, HTMLPainter *painter,
 
 			/* Just add this to the column size */
 			for (c1 = c + 1; c1 <= table->totalCols; c1++)
-				a_columnopt (c1) += addSize;
+				COLUMN_OPT (table, c1) += addSize;
 		}
 		
 	}
@@ -668,25 +723,27 @@ calc_column_widths (HTMLTable *table,
 {
 	gint r, c, i;
 	gint indx, borderExtra = (table->border == 0) ? 0 : 1;
+	gint pixel_size;
+
+	pixel_size = html_painter_get_pixel_size (painter);
 
 	g_array_set_size (table->colType, table->totalCols + 1);
-	for (i=0; i < table->colType->len; i++) {
-		a_coltype (i) = Variable;
-	}
+	for (i = 0; i < table->colType->len; i++)
+		COLUMN_TYPE (table, i) = COLUMN_TYPE_VARIABLE;
 
 	g_array_set_size (table->columnPos, table->totalCols + 1);
-	a_columnpos (0) = table->border + table->spacing;
+	COLUMN_POS (table, 0) = table->border + table->spacing;
 	
 	g_array_set_size (table->columnPrefPos, table->totalCols + 1);
-	a_columnprefpos (0) = table->border + table->spacing;
+	COLUMN_PREF_POS (table, 0) = table->border + table->spacing;
 
 	g_array_set_size (table->colSpan, table->totalCols + 1);
 	for (i = 0; i < table->colSpan->len; i++)
-		a_colspan (i) = 1;
+		COLUMN_SPAN (table, i) = 1;
 
 	for (c = 0; c < table->totalCols; c++) {
-		a_columnpos (c + 1) = 0;
-		a_columnprefpos (c + 1) = 0;
+		COLUMN_POS (table, c + 1) = 0;
+		COLUMN_PREF_POS (table, c + 1) = 0;
 
 		for (r = 0; r < table->totalRows; r++) {
 			HTMLTableCell *cell = table->cells[r][c];
@@ -706,69 +763,82 @@ calc_column_widths (HTMLTable *table,
 				indx = 0;
 
 			/* calculate minimum pos */
-			colPos = (a_columnpos (indx)
+			colPos = (COLUMN_POS (table, indx)
 				  + html_object_calc_min_width (HTML_OBJECT (cell), painter)
-				  + table->padding * 2
-				  + table->spacing
-				  + borderExtra);
+				  + pixel_size * (table->padding * 2
+						  + table->spacing
+						  + borderExtra));
 			
-			if (a_columnpos (c + 1) < colPos)
-				a_columnpos (c + 1) = colPos;
+			if (COLUMN_POS (table, c + 1) < colPos)
+				COLUMN_POS (table, c + 1) = colPos;
 
-			if (a_coltype (c + 1) != Variable) {
+			if (COLUMN_TYPE (table, c + 1) != COLUMN_TYPE_VARIABLE) {
 				continue;
 			}
 
 			/* Calculate preferred pos */
 			if (HTML_OBJECT (cell)->percent > 0) {
-				colPos = a_columnprefpos (indx) + (HTML_OBJECT (table)->max_width * HTML_OBJECT (cell)->percent / 100) + table->padding * 2 + table->spacing + borderExtra;
-				a_coltype (c + 1) = Percent;
-				a_colspan (c + 1) = cell->cspan;
-				a_columnprefpos (c + 1) = colPos;
+				colPos = (COLUMN_PREF_POS (table, indx)
+					  + (HTML_OBJECT (table)->max_width * HTML_OBJECT (cell)->percent / 100)
+					  + pixel_size * (table->padding * 2
+							  + table->spacing
+							  + borderExtra));
+				COLUMN_TYPE (table, c + 1) = COLUMN_TYPE_PERCENT;
+				COLUMN_SPAN (table, c + 1) = cell->cspan;
+				COLUMN_PREF_POS (table, c + 1) = colPos;
 			}
 			else if (HTML_OBJECT (cell)->flags
 				 & HTML_OBJECT_FLAG_FIXEDWIDTH) {
-				colPos = a_columnprefpos (indx) + 
-					HTML_OBJECT (cell)->width + 
-					table->padding * 2 + table->spacing + borderExtra;
-				a_coltype (c + 1) = Fixed;
-				a_colspan (c + 1) = cell->cspan;
-				a_columnprefpos (c + 1) = colPos;
+				colPos = (COLUMN_PREF_POS (table, indx)
+					  + HTML_OBJECT (cell)->width
+					  + pixel_size * (table->padding * 2
+							  + table->spacing
+							  + borderExtra));
+				COLUMN_TYPE (table, c + 1) = COLUMN_TYPE_FIXED;
+				COLUMN_SPAN (table, c + 1) = cell->cspan;
+				COLUMN_PREF_POS (table, c + 1) = colPos;
 			}
 			else {
 				colPos = html_object_calc_preferred_width (HTML_OBJECT (cell),
 									   painter);
-				colPos += a_columnprefpos (indx) + table->padding * 2 + table->spacing + borderExtra;
-				if (a_columnprefpos (c + 1) < colPos)
-					a_columnprefpos (c + 1) = colPos;
+				colPos += (COLUMN_PREF_POS (table, indx)
+					   + pixel_size * (table->padding * 2
+							   + table->spacing
+							   + borderExtra));
+
+				if (COLUMN_PREF_POS (table, c + 1) < colPos)
+					COLUMN_PREF_POS (table, c + 1) = colPos;
 
 			}
 			
-			if (a_columnprefpos (c + 1) < a_columnpos (c + 1))
-				a_columnprefpos (c + 1) = a_columnpos (c + 1);
+			if (COLUMN_PREF_POS (table, c + 1) < COLUMN_POS (table, c + 1))
+				COLUMN_PREF_POS (table, c + 1) = COLUMN_POS (table, c + 1);
 		}
 
-		if (a_columnpos (c + 1) <= a_columnpos (c))
-			a_columnpos (c + 1) = a_columnpos (c);
+		if (COLUMN_POS (table, c + 1) <= COLUMN_POS (table, c))
+			COLUMN_POS (table, c + 1) = COLUMN_POS (table, c);
 
-		if (a_columnprefpos (c + 1) <= a_columnprefpos (c))
-			a_columnprefpos (c + 1) = a_columnprefpos (c) + 1;
-
+		if (COLUMN_PREF_POS (table, c + 1) <= COLUMN_PREF_POS (table, c))
+			COLUMN_PREF_POS (table, c + 1) = COLUMN_PREF_POS (table, c) + 1;
 	}
 }
 
 static void
-calc_row_heights (HTMLTable *table)
+calc_row_heights (HTMLTable *table,
+		  HTMLPainter *painter)
 {
 	gint r, c;
 	gint rowPos, indx, borderExtra = table->border ? 1: 0;
 	HTMLTableCell *cell;
+	gint pixel_size;
+
+	pixel_size = html_painter_get_pixel_size (painter);
 
 	g_array_set_size (table->rowHeights, table->totalRows + 1);
-	a_rowheights (0) = table->border + table->spacing;
+	ROW_HEIGHT (table, 0) = table->border + table->spacing;
 
 	for (r = 0; r < table->totalRows; r++) {
-		a_rowheights (r + 1) = 0;
+		ROW_HEIGHT (table, r + 1) = 0;
 		for (c = 0; c < table->totalCols; c++) {
 			if ((cell = table->cells[r][c]) == 0)
 				continue;
@@ -782,48 +852,43 @@ calc_row_heights (HTMLTable *table)
 			if ((indx = r - cell->rspan + 1) < 0)
 				indx = 0;
 
-			rowPos = a_rowheights (indx) + 
-				HTML_OBJECT (cell)->ascent +
-				HTML_OBJECT (cell)->descent +
-				table->padding * 2 + 
-				table->spacing +
-				borderExtra;
+			rowPos = (ROW_HEIGHT (table, indx) + 
+				  HTML_OBJECT (cell)->ascent +
+				  HTML_OBJECT (cell)->descent
+				  + (pixel_size * (table->padding * 2
+						   + table->spacing
+						   + borderExtra)));
 
-			if (rowPos > a_rowheights (r + 1))
-				a_rowheights (r + 1) = rowPos;
+			if (rowPos > ROW_HEIGHT (table, r + 1))
+				ROW_HEIGHT (table, r + 1) = rowPos;
 		}
 		
-		if (a_rowheights (r + 1) < a_rowheights (r))
-			a_rowheights (r + 1) = a_rowheights (r);
+		if (ROW_HEIGHT (table, r + 1) < ROW_HEIGHT (table, r))
+			ROW_HEIGHT (table, r + 1) = ROW_HEIGHT (table, r);
 	}
 }
 
 static void
 optimize_cell_width (HTMLTable *table,
-		     HTMLPainter *painter)
+		     HTMLPainter *painter,
+		     gint width)
 {
-	gint tableWidth = HTML_OBJECT (table)->width - table->border;
-	gint addSize = 0;
-	gint i;
+	gint addSize;
 
-	g_array_set_size (table->columnOpt, table->totalCols + 1);
-	for (i = 0; i < table->columnOpt->len; i++) 
-		a_columnopt (i) = a_columnpos (i);
-
-	if (tableWidth > a_columnpos (table->totalCols)) {
+	addSize = 0;
+	if (width > COLUMN_POS (table, table->totalCols)) {
 		/* We have some space to spare */
-		addSize = tableWidth - a_columnpos (table->totalCols);
+		addSize = width - COLUMN_POS (table, table->totalCols);
 
-		if ((HTML_OBJECT (table)->percent <= 0) && 
-		    (!(HTML_OBJECT (table)->flags
-		       & HTML_OBJECT_FLAG_FIXEDWIDTH))) {
+		if ((HTML_OBJECT (table)->percent <= 0)
+		    && (!(HTML_OBJECT (table)->flags
+			  & HTML_OBJECT_FLAG_FIXEDWIDTH))) {
 
-			/* Variable width table */
-			if (a_columnprefpos (table->totalCols) < tableWidth) {
-
+			/* COLUMN_TYPE_VARIABLE width table */
+			if (COLUMN_PREF_POS (table, table->totalCols) < width) {
 				/* Don't scale beyond preferred width */
-				addSize = a_columnprefpos (table->totalCols) -
-					a_columnpos (table->totalCols);
+				addSize = (COLUMN_PREF_POS (table, table->totalCols)
+					   - COLUMN_POS (table, table->totalCols));
 			}
 		}
 	}
@@ -869,11 +934,16 @@ static gboolean
 calc_size (HTMLObject *o,
 	   HTMLPainter *painter)
 {
-	gint r, c;
 	gint indx, w;
-	HTMLTableCell *cell;
 	gint old_width, old_ascent, old_descent;
+	gint pixel_size;
+	gint r, c;
+	gint i;
+	gint available_width;
+	HTMLTableCell *cell;
 	HTMLTable *table;
+
+	pixel_size = html_painter_get_pixel_size (painter);
 
 	old_width = o->width;
 	old_ascent = o->ascent;
@@ -886,12 +956,27 @@ calc_size (HTMLObject *o,
 
 	/* If it doesn't fit... MAKE IT FIT!! */
 	for (c = 0; c < table->totalCols; c++) {
-		if (a_columnpos (c + 1) > o->max_width - table->border)
-			a_columnpos (c + 1) = o->max_width - table->border;
+		if (COLUMN_POS (table, c + 1) > o->max_width - pixel_size * table->border)
+			COLUMN_POS (table, c + 1) = o->max_width - pixel_size * table->border;
 	}
 
+	g_array_set_size (table->columnOpt, table->totalCols + 1);
+	for (i = 0; i < table->columnOpt->len; i++) 
+		COLUMN_OPT (table, i) = COLUMN_POS (table, i);
+
+	if (o->percent == 0 && ! (o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH)) {
+		o->width = COLUMN_OPT (table, table->totalCols);
+		available_width = o->max_width;
+	} else {
+		if (o->percent != 0)
+			o->width = o->max_width * o->percent / 100;
+		else /* if (o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH) */
+			o->width = table->specified_width;
+		available_width = o->width;
+	}
+		
 	/* Attempt to get sensible cell widths */
-	optimize_cell_width (table, painter);
+	optimize_cell_width (table, painter, available_width);
 
 	for (r = 0; r < table->totalRows; r++) {
 		for (c = 0; c < table->totalCols; c++) {
@@ -907,10 +992,10 @@ calc_size (HTMLObject *o,
 			if ((indx = c - cell->cspan + 1) < 0)
 				indx = 0;
 
-			w = a_columnopt (c + 1) - a_columnopt (indx) - 
-				table->spacing - table->padding * 2;
+			w = (COLUMN_OPT (table, c + 1) - COLUMN_OPT (table, indx)
+			     - pixel_size * (table->spacing + table->padding * 2));
 
-			html_table_cell_set_width (cell, painter, w);
+			html_object_set_max_width (HTML_OBJECT (cell), painter, w);
 			html_object_calc_size (HTML_OBJECT (cell), painter);
 		}
 	}
@@ -920,13 +1005,15 @@ calc_size (HTMLObject *o,
 	}
 
 	/* We have all the cell sizes now, so calculate the vertical positions */
-	calc_row_heights (table);
+	calc_row_heights (table, painter);
 
 	/* Set cell positions */
 	for (r = 0; r < table->totalRows; r++) {
 		gint cellHeight;
 		
-		HTML_OBJECT (table)->ascent = a_rowheights (r + 1) - table->padding - table->spacing;
+		HTML_OBJECT (table)->ascent = (ROW_HEIGHT (table, r + 1)
+					       - pixel_size * (table->padding + table->spacing));
+
 		if (table->caption && table->capAlign == HTML_VALIGN_TOP) {
 			g_print ("FIXME: caption support\n");
 		}
@@ -944,13 +1031,13 @@ calc_size (HTMLObject *o,
 			if ((indx = c - cell->cspan + 1) < 0)
 				indx = 0;
 
-			HTML_OBJECT (cell)->x = a_columnopt (indx) + table->padding;
+			HTML_OBJECT (cell)->x = COLUMN_OPT (table, indx) + pixel_size * table->padding;
 			HTML_OBJECT (cell)->y = HTML_OBJECT (table)->ascent - HTML_OBJECT (cell)->descent;
 			if ((indx = r - cell->rspan + 1) < 0) 
 				indx = 0;
 			
-			cellHeight = a_rowheights (r + 1) - a_rowheights (indx) -
-				table->padding * 2 - table->spacing;
+			cellHeight = (ROW_HEIGHT (table, r + 1) - ROW_HEIGHT (table, indx)
+				      - pixel_size * (table->padding * 2 + table->spacing));
 			html_object_set_max_ascent (HTML_OBJECT (cell), painter, cellHeight);
 		}
 
@@ -960,8 +1047,7 @@ calc_size (HTMLObject *o,
 		g_print ("FIXME: Caption support\n");
 	}
 
-	HTML_OBJECT (table)->width = a_columnopt (table->totalCols) + table->border;
-	HTML_OBJECT (table)->ascent = a_rowheights (table->totalRows) + table->border;
+	HTML_OBJECT (table)->ascent = ROW_HEIGHT (table, table->totalRows) + pixel_size * table->border;
 	
 	if (table->caption) {
 		g_print ("FIXME: Caption support\n");
@@ -984,10 +1070,13 @@ draw (HTMLObject *o,
 	HTMLTableCell *cell;
 	HTMLTable *table = HTML_TABLE (o);
 	gint cindx, rindx;
+	gint pixel_size;
 	gint r, c;
 
 	if (y + height < o->y - o->ascent || y > o->y + o->descent)
 		return;
+
+	pixel_size = html_painter_get_pixel_size (p);
 	
 	tx += o->x;
 	ty += o->y - o->ascent;
@@ -1018,10 +1107,13 @@ draw (HTMLObject *o,
 		if (table->caption && table->capAlign == HTML_VALIGN_TOP) {
 			g_print ("fIXME: Support captions\n");
 		}
+
 		html_painter_draw_panel (p,  tx, ty + capOffset, 
-					HTML_OBJECT (table)->width,
-					a_rowheights (table->totalRows) +
-					table->border, FALSE, table->border);
+					 HTML_OBJECT (table)->width,
+					 ROW_HEIGHT (table, table->totalRows) +
+					 pixel_size * table->border, FALSE,
+					 pixel_size * table->border);
+
 		/* Draw borders around each cell */
 		for (r = 0; r < table->totalRows; r++) {
 			for (c = 0; c < table->totalCols; c++) {
@@ -1040,18 +1132,20 @@ draw (HTMLObject *o,
 					rindx = 0;
 				
 				html_painter_draw_panel (p,
-							 tx + a_columnopt(cindx),
-							 ty + a_rowheights(rindx) + capOffset,
-							 a_columnopt (c + 1) - a_columnopt (cindx) - table->spacing,
-							 a_rowheights (r + 1) - a_rowheights (rindx) - table->spacing,
+							 tx + COLUMN_OPT (table, cindx),
+							 ty + ROW_HEIGHT (table, rindx) + capOffset,
+							 (COLUMN_OPT (table, c + 1)
+							  - COLUMN_OPT (table, cindx)
+							  - pixel_size * table->spacing),
+							 (ROW_HEIGHT (table, r + 1)
+							  - ROW_HEIGHT (table, rindx)
+							  - pixel_size * table->spacing),
 							 TRUE, 1);
 						      
 			}
 		}
 	}
-
 }
-
 
 static gint
 calc_min_width (HTMLObject *o,
@@ -1066,6 +1160,7 @@ calc_preferred_width (HTMLObject *o,
 		      HTMLPainter *painter)
 {
 	calc_col_info (HTML_TABLE (o), painter);
+
 	return HTML_TABLE (o)->_prefWidth;
 }
 
@@ -1228,7 +1323,7 @@ html_table_class_init (HTMLTableClass *klass,
 void
 html_table_init (HTMLTable *table,
 		 HTMLTableClass *klass,
-		 gint x, gint y, gint max_width, gint width, gint percent,
+		 gint width, gint percent,
 		 gint padding, gint spacing, gint border)
 {
 	HTMLObject *object;
@@ -1238,12 +1333,13 @@ html_table_init (HTMLTable *table,
 
 	html_object_init (object, HTML_OBJECT_CLASS (klass));
 
-	object->x = x;
-	object->y = y;
-	object->width = width;
-	object->max_width = max_width;
 	object->percent = percent;
-	object->flags &= ~ HTML_OBJECT_FLAG_FIXEDWIDTH;
+
+	table->specified_width = width;
+	if (width == 0)
+		object->flags &= ~ HTML_OBJECT_FLAG_FIXEDWIDTH;
+	else
+		object->flags |= HTML_OBJECT_FLAG_FIXEDWIDTH;
 
 	table->_minWidth = 0;
 	table->_prefWidth = 0;
@@ -1263,24 +1359,13 @@ html_table_init (HTMLTable *table,
 	table->allocRows = 5; /* allocate five rows initially */
 
 	table->cells = g_new0 (HTMLTableCell **, table->allocRows);
-
 	for (r = 0; r < table->allocRows; r++)
 		table->cells[r] = g_new0 (HTMLTableCell *, table->totalCols);;
 	
-	if (percent > 0)
-		object->width = max_width * percent / 100;
-	else if (width == 0)
-		object->width = max_width;
-	else {
-		object->max_width = object->width;
-		object->flags |= HTML_OBJECT_FLAG_FIXEDWIDTH;
-	}
+	table->totalColumnInfos = 0;
 
-	table->totalColInfos = 0;
-
-	/* Set up arrays */
-	table->colInfo = g_array_new (FALSE, TRUE, sizeof (ColInfo_t));
-	table->colType = g_array_new (FALSE, FALSE, sizeof (ColType));
+	table->colInfo = g_array_new (FALSE, TRUE, sizeof (ColumnInfo));
+	table->colType = g_array_new (FALSE, FALSE, sizeof (ColumnType));
 	table->columnPos = g_array_new (FALSE, FALSE, sizeof (gint));
 	table->columnPrefPos = g_array_new (FALSE, FALSE, sizeof (gint));
 	table->colSpan = g_array_new (FALSE, FALSE, sizeof (gint));
@@ -1291,15 +1376,14 @@ html_table_init (HTMLTable *table,
 }
 
 HTMLObject *
-html_table_new (gint x, gint y, gint max_width, gint width, gint percent,
+html_table_new (gint width, gint percent,
 		gint padding, gint spacing, gint border)
 {
 	HTMLTable *table;
 
 	table = g_new (HTMLTable, 1);
 	html_table_init (table, &html_table_class,
-			 x, y, max_width, width,
-			 percent, padding, spacing, border);
+			 width, percent, padding, spacing, border);
 
 	return HTML_OBJECT (table);
 }
@@ -1345,43 +1429,43 @@ html_table_end_table (HTMLTable *table)
 gint
 html_table_add_col_info (HTMLTable *table, gint startCol, gint colSpan,
 			 gint minSize, gint prefSize, gint maxSize,
-			 ColType coltype)
+			 ColumnType coltype)
 {
 	gint indx;
 	
 	/* Is there already some info present? */
-	for (indx = 0; indx < table->totalColInfos; indx++) {
-		if ((a_colinfo (indx).startCol == startCol) &&
-		    (a_colinfo (indx).colSpan == colSpan))
+	for (indx = 0; indx < table->totalColumnInfos; indx++) {
+		if ((COLUMN_INFO (table, indx).startCol == startCol) &&
+		    (COLUMN_INFO (table, indx).colSpan == colSpan))
 			break;
 	}
-	if (indx == table->totalColInfos) {
+	if (indx == table->totalColumnInfos) {
 		/* No colInfo present, allocate some */
-		table->totalColInfos++;
-		if (table->totalColInfos >= table->colInfo->len) {
+		table->totalColumnInfos++;
+		if (table->totalColumnInfos >= table->colInfo->len)
 			g_array_set_size (table->colInfo, table->colInfo->len + table->totalCols);
-		}
-		a_colinfo (indx).startCol = startCol;
-		a_colinfo (indx).colSpan = colSpan;
-		a_colinfo (indx).minSize = minSize;
-		a_colinfo (indx).prefSize = prefSize;
-		a_colinfo (indx).maxSize = maxSize;
-		a_colinfo (indx).colType = coltype;
+
+		COLUMN_INFO (table, indx).startCol = startCol;
+		COLUMN_INFO (table, indx).colSpan = colSpan;
+		COLUMN_INFO (table, indx).minSize = minSize;
+		COLUMN_INFO (table, indx).prefSize = prefSize;
+		COLUMN_INFO (table, indx).maxSize = maxSize;
+		COLUMN_INFO (table, indx).colType = coltype;
 
 	}
 	else {
-		if (minSize > (a_colinfo (indx).minSize))
-			a_colinfo (indx).minSize = minSize;
+		if (minSize > (COLUMN_INFO (table, indx).minSize))
+			COLUMN_INFO (table, indx).minSize = minSize;
 
-		/* Fixed < Percent < Variable */
-		if (coltype < a_colinfo (indx).colType) {
-			a_colinfo (indx).prefSize = prefSize;
+		/* COLUMN_TYPE_FIXED < COLUMN_TYPE_PERCENT < COLUMN_TYPE_VARIABLE */
+		if (coltype < COLUMN_INFO (table, indx).colType) {
+			COLUMN_INFO (table, indx).prefSize = prefSize;
 		}
-		else if (coltype == a_colinfo (indx).colType) {
-			if (prefSize > a_colinfo (indx).prefSize)
-				a_colinfo (indx).prefSize = prefSize;
+		else if (coltype == COLUMN_INFO (table, indx).colType) {
+			if (prefSize > COLUMN_INFO (table, indx).prefSize)
+				COLUMN_INFO (table, indx).prefSize = prefSize;
 		}
 	}
 
-	return indx; /* Return the ColInfo Index */
+	return indx; /* Return the ColumnInfo Index */
 }

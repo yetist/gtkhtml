@@ -537,6 +537,9 @@ html_text_slave_get_offset_for_pointer (HTMLTextSlave *slave,
 gint
 html_text_slave_trail_space_width (HTMLTextSlave *slave, HTMLPainter *painter)
 {
+	if (slave->posLen == 0)
+		return 0;
+
 	if (HTML_TEXT (slave->owner)->text [slave->posStart + slave->posLen - 1] == ' ') {
 		GtkHTMLFontStyle font_style;
 

@@ -738,6 +738,7 @@ parse_href (const gchar *s)
 		}
 	} else {
 		retval = html_url_to_string (tmpurl);
+		html_url_destroy (tmpurl);
 	}
 
 	return retval;

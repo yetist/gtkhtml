@@ -353,7 +353,6 @@ html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 			}
 			src++;
 		}
-
 		/* We are inside a <script> or a <style> tag. Look for ending
 		   tag which is </script> or </style> */
 		else if (t->script || t->style) {
@@ -562,7 +561,7 @@ html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 				}
 			}
 			else if (((*src >= 'a') && (*src <= 'z'))
-							 || ((*src >= 'A') && (*src <= 'Z'))) {
+				 || ((*src >= 'A') && (*src <= 'Z'))) {
 				/* Start of a start tag */
 			}
 			else if (*src == '!') {

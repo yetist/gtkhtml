@@ -197,7 +197,7 @@ calc_min_width (HTMLObject *o,
 	else
 		min_width = get_actual_width (HTML_IMAGE (o), painter);
 
-	min_width += image->border * 2 * pixel_size + 2*image->hspace;
+	min_width += (image->border * 2 + 2 * image->hspace) * pixel_size;
 
 	return min_width;
 }
@@ -212,7 +212,7 @@ calc_preferred_width (HTMLObject *o,
 
 	pixel_size = html_painter_get_pixel_size (painter);
 	width = get_actual_width (HTML_IMAGE (o), painter)
-		+ image->border * 2 * pixel_size + 2*image->hspace;
+		+ (image->border * 2 + 2*image->hspace) * pixel_size;
 
 	return width;
 }
@@ -237,8 +237,8 @@ calc_size (HTMLObject *o,
 	width = get_actual_width (image, painter);
 	height = get_actual_height (image, painter);
 
-	o->width  = width + image->border * 2 * pixel_size + 2 * image->hspace;
-	o->ascent = height + 2 * image->border * pixel_size + 2 * image->vspace;
+	o->width  = width + (image->border + image->hspace) * 2 * pixel_size;
+	o->ascent = height + (image->border + image->vspace) * 2 * pixel_size;
 	o->descent = 0;
 
 	if (o->descent != old_descent
@@ -266,20 +266,25 @@ draw (HTMLObject *o,
 	image = HTML_IMAGE (o);
 
 	pixbuf = image->image_ptr->pixbuf;
+	pixel_size = html_painter_get_pixel_size (painter);
 
 	if (pixbuf == NULL) {
+		gint vspace, hspace;
+
+		hspace = image->hspace * pixel_size;
+		vspace = image->vspace * pixel_size;
+
 		html_painter_draw_panel (painter, 
-					 o->x + tx + image->hspace,
-					 o->y + ty + image->vspace - o->ascent,
-					 o->width - 2*image->hspace, o->ascent + o->descent - 2 * image->vspace,
+					 o->x + tx + hspace,
+					 o->y + ty - o->ascent + vspace,
+					 o->width - 2 * hspace,
+					 o->ascent + o->descent - 2 * vspace,
 					 TRUE, 1);
 		return;
 	}
 
-	pixel_size = html_painter_get_pixel_size (painter);
-
-	base_x = o->x + tx + image->border * pixel_size + image->hspace;
-	base_y = o->y + ty + image->border * pixel_size + image->vspace - o->ascent;
+	base_x = o->x + tx + (image->border + image->hspace) * pixel_size;
+	base_y = o->y + ty + (image->border + image->vspace) * pixel_size - o->ascent;
 
 	scale_width = get_actual_width (image, painter);
 	scale_height = get_actual_height (image, painter);

@@ -175,6 +175,9 @@ get_right_margin (HTMLObject *self, gint y)
 static void
 reset (HTMLObject *o)
 {
+	o->width = 0;
+	o->ascent = 0;
+	o->descent = 0;
 }
 
 static const gchar *

@@ -145,6 +145,8 @@ reset (HTMLObject *clue)
 		html_object_reset (obj);
 
 	HTML_CLUE (clue)->curr = NULL;
+
+	(* HTML_OBJECT_CLASS (parent_class)->reset) (HTML_OBJECT (clue));
 }
 
 static gboolean

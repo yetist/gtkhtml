@@ -32,31 +32,38 @@ typedef struct _HTMLTableClass HTMLTableClass;
 #define HTML_TABLE(x) ((HTMLTable *)(x))
 #define HTML_TABLE_CLASS(x) ((HTMLTableClass *)(x))
 
-typedef enum { Fixed, Percent, Variable } ColType;
+enum _ColumnType {
+	COLUMN_TYPE_FIXED,
+	COLUMN_TYPE_PERCENT,
+	COLUMN_TYPE_VARIABLE
+};
+typedef enum _ColumnType ColumnType;
 
-typedef struct _ColInfo {
+typedef struct _ColumnInfo {
 	gint startCol;
 	gint colSpan;
 	gint minSize;
 	gint prefSize;
 	gint maxSize;
-	ColType colType;
-} ColInfo_t;
+	ColumnType colType;
+} ColumnInfo;
 
 typedef struct _RowInfo {
 	gint *entry;
 	gint nrEntries;
 	gint minSize;
 	gint prefSize;
-} RowInfo_t;
+} RowInfo;
 
 struct _HTMLTable {
 	HTMLObject object;
 
+	gint specified_width;
+
 	gint _minWidth;
 	gint _prefWidth;
 	HTMLTableCell ***cells;
-	gint totalColInfos;
+	gint totalColumnInfos;
 	gint col, totalCols;
 	gint row, totalRows, allocRows;
 	gint spacing;
@@ -65,7 +72,7 @@ struct _HTMLTable {
 	HTMLClueV *caption;
 	HTMLVAlignType capAlign;
 	
-	GArray *colInfo; /* ColInfo_t array */
+	GArray *colInfo; /* ColumnInfo array */
 	GArray *colType; /* ColType array */
 	GArray *columnPos; /* integer array */
 	GArray *columnPrefPos; /* integer array */
@@ -73,7 +80,7 @@ struct _HTMLTable {
 	GArray *colSpan; /* integer array */
 	GArray *rowHeights; /* integer array */
 
-	RowInfo_t *rowInfo;
+	RowInfo *rowInfo;
 };
 
 struct _HTMLTableClass {
@@ -90,18 +97,12 @@ void        html_table_class_init  (HTMLTableClass *klass,
 				    guint           object_size);
 void        html_table_init        (HTMLTable      *table,
 				    HTMLTableClass *klass,
-				    gint            x,
-				    gint            y,
-				    gint            max_width,
 				    gint            width,
 				    gint            percent,
 				    gint            padding,
 				    gint            spacing,
 				    gint            border);
-HTMLObject *html_table_new         (gint            x,
-				    gint            y,
-				    gint            max_width,
-				    gint            width,
+HTMLObject *html_table_new         (gint            width,
 				    gint            percent,
 				    gint            padding,
 				    gint            spacing,
@@ -118,6 +119,6 @@ gint  html_table_add_col_info  (HTMLTable     *table,
 				gint           minSize,
 				gint           prefSize,
 				gint           maxSize,
-				ColType        coltype);
+				ColumnType     coltype);
 
 #endif /* _HTMLTABLE_H_ */

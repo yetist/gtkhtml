@@ -1,3 +1,90 @@
+2000-04-05  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* testgtkhtml.c
+	(parse_href): Make sure `tmpurl' is always destroyed.
+
+	* htmlcluev.c
+	(do_layout): If we are doing the layout from scratch, initially
+	set the width to zero.
+
+	* htmlclue.c
+	(reset): Invoke the parent class' reset implementation too.
+
+	* htmlobject.c
+	(reset): Set width, descent and ascent to zero.
+
+	* htmltablecell.c
+	(calc_min_width): Do not set the object's width.
+	This is BROKEN.
+
+	* htmltable.c
+	(a_colinfo): Removed.
+	(COLUMN_INFO): New, saner macro replacing it.
+	(a_coltype): Removed.
+	(COLUMN_TYPE): New, saner macro replacing it.
+	(a_columnpos): Removed.
+	(COLUMN_TYPE): New, saner macro replacing it.
+	(a_columnprefpos): Removed.
+	(COLUMN_PREF_POS): New, saner macro replacing it.
+	(a_colspan): Removed.
+	(COLUMN_SPAN): New, saner macro replacing it.
+	(a_columnopt): Removed.
+	(COLUMN_OPT): New, saner macro replacing it.
+	(a_rowheights): Removed.
+	(ROW_HEIGHT): New, saner macro replacing it.
+	(calc_col_info): Consider pixel size throughout.
+	(optimize_cell_width): Likewise.
+	(scale_columns): Likewise.
+	(calc_column_widths): Likewise.
+	(calc_row_heights): Likewise.
+	(calc_size): Likewise.
+	(draw): Likewise.
+	(html_table_new): Removed params @x, @y, @max_width.
+	(html_table_init): Likewise.  Initialize `specified_width'.
+	Removed broken percent handling.
+	(calc_size): Use `html_object_set_max_width' instead of
+	`html_table_cell_set_width()'.
+	(calc_col_info): Use `specified_width' for the size.
+	(calc_size): If the object has a fixed width or has a
+	percent-specified size, set the width accordingly and then call
+	`optimize_cell_width()'.  Otherwise, just set the width and avoid
+	calling `optimize_cell_width()'.
+
+	* htmltable.h: Renamed `ColType' to `ColumnType' and changed the
+	value names so that they make more sense.  `ColInfo_t' renamed to
+	`ColumnInfo'.  `RowInfo_t' renamed to `RowInfo'.  New member
+	`specified_width' in `HTMLTable'.
+
+	* htmlimage.c
+	(calc_min_width): Use the pixel size when dealing with `hspace'
+	and `vspace'.
+	(calc_preferred_width): Likewise.
+	(calc_size): Likewise.
+
+	* htmltablecell.c
+	(html_table_cell_init): Remove parameter `max_width'.  Initialize
+	`fixed_width' to be zero.  Also, do not set the object's `width'
+	field here.  This is BROKEN!
+	(html_table_cell_new): Remove parameter `max_width'.
+	(html_table_cell_set_width): Removed.
+	(html_table_cell_set_fixed_width): New function.
+	(calc_min_width): Use `fixed_width' instead of `maxWidth'.  Also,
+	consider the pixel size as retrieved through
+	`html_painter_get_pixel_size()'.
+
+	* htmltablecell.h: New member `fixed_width' in `HTMLTableCell'.
+
+	* htmlcluev.c
+	(html_cluev_new): Removed parameter `max_width'.
+	(html_cluev_init): Likewise.
+
+	* htmlengine.c
+	(parse_t): Do not suppress paragraphs after the table.
+
+	* htmltextslave.c
+	(html_text_slave_trail_space_width): Always return zero for a
+	zero-length slave.
+
 2000-04-05  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlimage.c (html_image_animation_timeout): use html_engine_draw
@@ -61,8 +148,6 @@
 	GDK_PIXBUF_FRAME_DISPOSE.	
 
 2000-04-04  Ettore Perazzoli  <ettore@helixcode.com>
-
-	* htmlcluev.h: New parameter `specified_width' in `HTMLClueV'.
 
 	* htmlengine.c
 	(parse_h): Close the current flow before adding the object.

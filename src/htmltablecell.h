@@ -37,6 +37,8 @@ typedef struct _HTMLTableCellClass HTMLTableCellClass;
 struct _HTMLTableCell {
 	HTMLClueV cluev;
 
+	gint fixed_width;
+
 	gint rspan;
 	gint cspan;
 	gint padding;
@@ -58,28 +60,25 @@ struct _HTMLTableCellClass {
 extern HTMLTableCellClass html_table_cell_class;
 
 
-void        html_table_cell_type_init      (void);
-void        html_table_cell_class_init     (HTMLTableCellClass *klass,
-					    HTMLType            type,
-					    guint               object_size);
-void        html_table_cell_init           (HTMLTableCell      *cell,
-					    HTMLTableCellClass *klass,
-					    gint                max_width,
-					    gint                percent,
-					    gint                rs,
-					    gint                cs,
-					    gint                pad);
-HTMLObject *html_table_cell_new            (gint                max_width,
-					    gint                percent,
-					    gint                rs,
-					    gint                cs,
-					    gint                pad);
-void        html_table_cell_link           (HTMLTableCell      *cell);
-void        html_table_cell_unlink         (HTMLTableCell      *cell);
-void        html_table_cell_set_width      (HTMLTableCell      *cell,
-					    HTMLPainter        *painter,
-					    gint                width);
-void        html_table_cell_set_bg_pixmap  (HTMLTableCell      *cell,
-					    HTMLImagePointer   *imagePtr);
+void        html_table_cell_type_init        (void);
+void        html_table_cell_class_init       (HTMLTableCellClass *klass,
+					      HTMLType            type,
+					      guint               object_size);
+void        html_table_cell_init             (HTMLTableCell      *cell,
+					      HTMLTableCellClass *klass,
+					      gint                percent,
+					      gint                rs,
+					      gint                cs,
+					      gint                pad);
+HTMLObject *html_table_cell_new              (gint                percent,
+					      gint                rs,
+					      gint                cs,
+					      gint                pad);
+void        html_table_cell_link             (HTMLTableCell      *cell);
+void        html_table_cell_unlink           (HTMLTableCell      *cell);
+void        html_table_cell_set_fixed_width  (HTMLTableCell      *cell,
+					      gint                width);
+void        html_table_cell_set_bg_pixmap    (HTMLTableCell      *cell,
+					      HTMLImagePointer   *imagePtr);
 
 #endif /* _HTMLTABLECELL_H_ */

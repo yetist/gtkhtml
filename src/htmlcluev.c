@@ -132,6 +132,7 @@ do_layout (HTMLObject *o,
 		   object.  */
 		remove_aligned_by_parent (cluev, clue->curr);
 	} else {
+		o->width = 0;
 		o->ascent = cluev->padding;
 		o->descent = 0;
 		clue->curr = clue->head;
@@ -237,7 +238,6 @@ set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
 
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next)
 		html_object_set_max_width (obj, painter, o->width);
-
 }
 
 static void
@@ -815,7 +815,7 @@ void
 html_cluev_init (HTMLClueV *cluev,
 		 HTMLClueVClass *klass,
 		 gint x, gint y,
-		 gint max_width, gint percent)
+		 gint percent)
 {
 	HTMLObject *object;
 	HTMLClue *clue;
@@ -827,19 +827,7 @@ html_cluev_init (HTMLClueV *cluev,
 
 	object->x = x;
 	object->y = y;
-	object->max_width = max_width;
 	object->percent = percent;
-
-	if (object->percent > 0) {
-		object->width = max_width * percent / 100;
-		object->flags &= ~HTML_OBJECT_FLAG_FIXEDWIDTH;
-	}
-	else if (percent < 0) {
-		object->width = max_width;
-		object->flags &= ~HTML_OBJECT_FLAG_FIXEDWIDTH;
-	}
-	else
-		object->width = max_width;
 
 	clue->valign = HTML_VALIGN_BOTTOM;
 	clue->halign = HTML_HALIGN_LEFT;
@@ -851,12 +839,12 @@ html_cluev_init (HTMLClueV *cluev,
 }
 
 HTMLObject *
-html_cluev_new (gint x, gint y, gint max_width, gint percent)
+html_cluev_new (gint x, gint y, gint percent)
 {
 	HTMLClueV *cluev;
 
 	cluev = g_new (HTMLClueV, 1);
-	html_cluev_init (cluev, &html_cluev_class, x, y, max_width, percent);
+	html_cluev_init (cluev, &html_cluev_class, x, y, percent);
 	
 	return HTML_OBJECT (cluev);
 }

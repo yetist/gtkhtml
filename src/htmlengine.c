@@ -706,19 +706,21 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 				border = 1;
 		}
 		else if (strncasecmp (token, "width=", 6) == 0) {
-			if (strchr (token + 6, '%'))
+			if (strchr (token + 6, '%')) {
 				percent = atoi (token + 6);
-			else if (strchr (token + 6, '*')) {
+			} else if (strchr (token + 6, '*')) {
 				/* Ignore */
-			}
-			else if (isdigit (*(token + 6)))
+			} else if (isdigit (*(token + 6))) {
 				width = atoi (token + 6);
+			}
 		}
 		else if (strncasecmp (token, "align=", 6) == 0) {
 			if (strcasecmp (token + 6, "left") == 0)
 				align = HTML_HALIGN_LEFT;
 			else if (strcasecmp (token + 6, "right") == 0)
 				align = HTML_HALIGN_RIGHT;
+			else if (strcasecmp (token + 6, "center") == 0)
+				align = HTML_HALIGN_CENTER;
 		}
 		else if (strncasecmp (token, "bgcolor=", 8) == 0
 			 && !e->defaultSettings->forceDefault) {
@@ -738,7 +740,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 		}
 	}
 
-	table = HTML_TABLE (html_table_new (0, 0, max_width, width, 
+	table = HTML_TABLE (html_table_new (width, 
 					    percent, padding,
 					    spacing, border));
 	e->indent_level = 0;
@@ -769,10 +771,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						}
 					}
 
-					caption = HTML_CLUEV (html_cluev_new
-							      ( 0, 0,
-								HTML_OBJECT (clue)->max_width,
-								100 ));
+					caption = HTML_CLUEV (html_cluev_new (0, 0, 100));
 
 					e->divAlign = HTML_HALIGN_CENTER;
 					e->flow = 0;
@@ -989,8 +988,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						e->pending_para = FALSE;
 					}
 
-					cell = HTML_TABLE_CELL (html_table_cell_new (cellwidth,
-										     cellpercent,
+					cell = HTML_TABLE_CELL (html_table_cell_new (cellpercent,
 										     rowSpan, colSpan,
 										     padding));
 					html_object_set_bg_color (HTML_OBJECT (cell),
@@ -1001,7 +999,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 
 					HTML_CLUE (cell)->valign = valign;
 					if (fixedWidth)
-						HTML_OBJECT (cell)->flags |= HTML_OBJECT_FLAG_FIXEDWIDTH;
+						html_table_cell_set_fixed_width (cell, cellwidth);
  
 					html_table_add_cell (table, cell);
 					has_cell = 1;
@@ -1090,10 +1088,16 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 			html_table_end_row (table);
 		html_table_end_table (table);
 
-		if (align != HTML_HALIGN_LEFT && align != HTML_HALIGN_RIGHT) {
+		if (1 || (align != HTML_HALIGN_LEFT && align != HTML_HALIGN_RIGHT)) {
 			close_flow (e, clue);
+
+			olddivalign = e->divAlign;
+			e->divAlign = align;
 			append_element (e, clue, HTML_OBJECT (table));
+
 			close_flow (e, clue);
+
+			e->divAlign = olddivalign;
 		} else {
 			HTMLClueAligned *aligned;
 
@@ -2504,6 +2508,8 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		close_flow (e, clue);
 		parse_table (e, clue, clue->max_width, str + 6);
 		close_flow (e, clue);
+
+		e->avoid_para = FALSE;
 	}
 	else if (strncmp (str, "title", 5) == 0) {
 		e->inTitle = TRUE;
@@ -2987,7 +2993,7 @@ ensure_editable (HTMLEngine *engine)
 
 	cluev = engine->clue;
 	if (cluev == NULL)
-		engine->clue = cluev = html_cluev_new (0, 0, 0, 100);
+		engine->clue = cluev = html_cluev_new (0, 0, 100);
 
 	head = HTML_CLUE (cluev)->head;
 	if (head == NULL || HTML_OBJECT_TYPE (head) != HTML_TYPE_CLUEFLOW) {
@@ -3401,7 +3407,7 @@ html_engine_parse (HTMLEngine *p)
 
 	p->flow = 0;
 
-	p->clue = html_cluev_new (0, 0, p->width - p->leftBorder - p->rightBorder, 100);
+	p->clue = html_cluev_new (0, 0, 100);
 	HTML_CLUE (p->clue)->valign = HTML_VALIGN_TOP;
 	HTML_CLUE (p->clue)->halign = HTML_HALIGN_LEFT;
 
