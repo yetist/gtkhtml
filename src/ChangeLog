@@ -1,3 +1,10 @@
+2001-07-17  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (html_engine_calc_size): set max_width to MAX(view
+	width, min_width)
+
+	* htmlclueflow.c (calc_size): do not allow width exceed max_width
+
 2001-07-17  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml-embedded.c: add some missing documentation.

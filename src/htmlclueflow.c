@@ -654,7 +654,7 @@ calc_size (HTMLObject *o,
 			halign = html_clueflow_get_halignment (flow);
 
 			if (w > o->width)
-				o->width = w;
+				o->width = MIN (w, o->max_width);
 
 			if (halign == HTML_HALIGN_CENTER) {
 				extra = (rmargin - w) / 2;
