@@ -1,3 +1,8 @@
+2000-06-12  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlcolorset.c (html_colorset_set_style): Use ->base instead of
+	->bg so we look like GtkEntry, GtkCList and the like.
+
 2000-06-12  Radek Doulik  <rodo@helixcode.com>
 
 	* keybindingsrc.emacs: added new bindings
