@@ -1,3 +1,8 @@
+2001-04-12  Radek Doulik  <rodo@ximian.com>
+
+	* htmlgdkpainter.c (html_gdk_painter_unrealize): check if painter
+	is already realized
+
 2001-04-11  Radek Doulik  <rodo@ximian.com>
 
 	* htmlplainpainter.c (alloc_fixed_font): if face == NULL pass NULL

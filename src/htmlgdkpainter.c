@@ -1230,11 +1230,13 @@ html_gdk_painter_unrealize (HTMLGdkPainter *painter)
 {
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_GDK_PAINTER (painter));
-	
-	gdk_gc_unref (painter->gc);
-	painter->gc = NULL;
 
-	painter->window = NULL;
+	if (html_gdk_painter_realized (painter)) {
+		gdk_gc_unref (painter->gc);
+		painter->gc = NULL;
+
+		painter->window = NULL;
+	}
 }
 
 gboolean
