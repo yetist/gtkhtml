@@ -2351,8 +2351,9 @@ load_keybindings (GtkHTMLClass *klass)
 					  gtk_type_name (GTK_OBJECT_CLASS (klass)->type),
 					  GTK_PATH_PRIO_GTK);
 		g_free (name);
-	} else
-		g_warning (_("Couldn't find keybinding file -- %s"), rcfile);
+	}
+	/* else
+		g_warning (_("Couldn't find keybinding file -- %s"), rcfile); */
 	g_free (rcfile);
 
 	binding_set = gtk_binding_set_by_class (klass);
