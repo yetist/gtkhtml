@@ -78,9 +78,12 @@ static gboolean
 calc_size (HTMLObject *self,
 	   HTMLPainter *painter)
 {
+	HTMLText *text = HTML_TEXT (self);
+	GtkHTMLFontStyle style = html_text_get_font_style (text);
+
 	self->width = 0;
-	self->ascent = 0;
-	self->descent = 0;
+	self->ascent = html_painter_calc_ascent (painter, style, text->face);
+	self->descent = html_painter_calc_descent (painter, style, text->face);
 
 	return FALSE;
 }

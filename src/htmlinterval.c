@@ -22,6 +22,7 @@
 
 #include <unicode.h>
 #include "htmlcursor.h"
+#include "htmlengine.h"
 #include "htmlinterval.h"
 #include "htmlobject.h"
 #include "htmlselection.h"
@@ -132,12 +133,20 @@ select_object (HTMLObject *o, HTMLEngine *e, gpointer data)
 {
 	HTMLInterval *i = (HTMLInterval *) data;
 
-	html_object_select_range (o, e, html_interval_get_start (i, o), html_interval_get_length (i, o), TRUE);
+	e = html_engine_get_top_html_engine (e);
+	if (o == i->from.object)
+		e->selected_in = TRUE;
+	if (e->selected_in)
+		html_object_select_range (o, e, html_interval_get_start (i, o), html_interval_get_length (i, o), TRUE);
+
+	if (o == i->to.object)
+		e->selected_in = FALSE;
 }
 
 void
 html_interval_select (HTMLInterval *i, HTMLEngine *e)
 {
+	html_engine_get_top_html_engine (e)->selected_in = FALSE;
 	html_interval_forall (i, e, select_object, i);
 }
 

@@ -177,6 +177,7 @@ struct _HTMLEngine {
 	guint have_focus : 1;
 
 	HTMLInterval *selection;
+	gboolean selected_in;
 
 	/* --- */
 
