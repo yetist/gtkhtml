@@ -58,7 +58,7 @@ fill_sample (GtkHTMLEditParagraphProperties *d)
 	body  = g_strconcat (bg,
 			     style,
 			     align,
-			     "The quick brown fox jumps over the lazy dog.</div>",
+			     _("The quick brown fox jumps over the lazy dog.</div>"),
 			     NULL);
 
 	gtk_html_load_from_string (d->sample, body, -1);
