@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 2.0.8\n"
-"POT-Creation-Date: 2003-06-26 07:56-0500\n"
+"POT-Creation-Date: 2003-06-26 11:33-0500\n"
 "PO-Revision-Date: 2001-05-25 13:35+0200\n"
 "Last-Translator: Josu Waliño <josu@elhuyar.com>\n"
 "Language-Team: Euskara\n"
@@ -1742,7 +1742,7 @@ msgstr "Inprimatzeko _aurrebista"
 msgid "Print preview"
 msgstr "Inprimatzeko aurrebista"
 
-#: src/testgtkhtml.c:974
+#: src/testgtkhtml.c:973
 #, fuzzy
 msgid "GtkHTML Test Application"
 msgstr "GNOME HTML Editorearen kontrola"

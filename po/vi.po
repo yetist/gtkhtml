@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
-"POT-Creation-Date: 2003-06-26 07:56-0500\n"
+"POT-Creation-Date: 2003-06-26 11:33-0500\n"
 "PO-Revision-Date: 2003-01-20 16:04+0700\n"
 "Last-Translator: pclouds <pclouds@gmx.net>\n"
 "Language-Team: GnomeVI <gnomevi-list@lists.sourceforge.net>\n"
@@ -1720,7 +1720,7 @@ msgstr "_Xem thử bản in"
 msgid "Print preview"
 msgstr "Xem thử bản in"
 
-#: src/testgtkhtml.c:974
+#: src/testgtkhtml.c:973
 #, fuzzy
 msgid "GtkHTML Test Application"
 msgstr "Kiểm tra GtkHTML"

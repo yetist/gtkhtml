@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.4\n"
-"POT-Creation-Date: 2003-06-26 07:56-0500\n"
+"POT-Creation-Date: 2003-06-26 11:33-0500\n"
 "PO-Revision-Date: 2003-05-22 01:48+0100\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
@@ -1700,7 +1700,7 @@ msgstr "Ante_ver impressão"
 msgid "Print preview"
 msgstr "Antever impressão"
 
-#: src/testgtkhtml.c:974
+#: src/testgtkhtml.c:973
 msgid "GtkHTML Test Application"
 msgstr "Aplicação Teste GtkHTML"
 

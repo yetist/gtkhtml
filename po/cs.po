@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
-"POT-Creation-Date: 2003-06-26 07:56-0500\n"
+"POT-Creation-Date: 2003-06-26 11:33-0500\n"
 "PO-Revision-Date: 2003-06-14 16:39+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: czech <cs@li.org>\n"
@@ -1700,6 +1700,6 @@ msgstr "_Náhled tisku"
 msgid "Print preview"
 msgstr "Náhled tisku"
 
-#: src/testgtkhtml.c:974
+#: src/testgtkhtml.c:973
 msgid "GtkHTML Test Application"
 msgstr "Testovací aplikace GtkHTML"

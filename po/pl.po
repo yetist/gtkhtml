@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2003-06-26 07:56-0500\n"
+"POT-Creation-Date: 2003-06-26 11:33-0500\n"
 "PO-Revision-Date: 2002-06-07 23:00+0200\n"
 "Last-Translator: GNOME PL Team <translators@gnome.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -1724,7 +1724,7 @@ msgstr "Podgląd _wydruku"
 msgid "Print preview"
 msgstr "Podgląd wydruku"
 
-#: src/testgtkhtml.c:974
+#: src/testgtkhtml.c:973
 #, fuzzy
 msgid "GtkHTML Test Application"
 msgstr "Test GtkHTML-a"

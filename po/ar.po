@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2003-06-26 07:56-0500\n"
+"POT-Creation-Date: 2003-06-26 11:33-0500\n"
 "PO-Revision-Date: 2002-06-16 16:26+0200\n"
 "Last-Translator: Arafat Medini <lumina@silverpen.de>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
@@ -1723,7 +1723,7 @@ msgstr "معاينة الط_باعة"
 msgid "Print preview"
 msgstr "معاينة الطباعة"
 
-#: src/testgtkhtml.c:974
+#: src/testgtkhtml.c:973
 #, fuzzy
 msgid "GtkHTML Test Application"
 msgstr "اختبار GtkHTML"

@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD.es\n"
-"POT-Creation-Date: 2003-06-26 07:56-0500\n"
+"POT-Creation-Date: 2003-06-26 11:33-0500\n"
 "PO-Revision-Date: 2003-05-24 12:11+0000\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@arrakis.es>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
@@ -1708,7 +1708,7 @@ msgstr "_Vista preliminar de impresión"
 msgid "Print preview"
 msgstr "Vista preliminar de impresión"
 
-#: src/testgtkhtml.c:974
+#: src/testgtkhtml.c:973
 msgid "GtkHTML Test Application"
 msgstr "Aplicación de prueba GtkHTML"
 

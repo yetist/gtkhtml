@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2003-06-26 07:56-0500\n"
+"POT-Creation-Date: 2003-06-26 11:33-0500\n"
 "PO-Revision-Date: 2003-05-22 00:50+0200\n"
 "Last-Translator: Danilo Šegan <danilo@prevod.org>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
@@ -1706,6 +1706,6 @@ msgstr "Pre_gled pred štampu"
 msgid "Print preview"
 msgstr "Pregled pred štampu"
 
-#: src/testgtkhtml.c:974
+#: src/testgtkhtml.c:973
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML program za isprobavanje"

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD.be\n"
-"POT-Creation-Date: 2003-06-26 07:56-0500\n"
+"POT-Creation-Date: 2003-06-26 11:33-0500\n"
 "PO-Revision-Date: 2003-06-16 23:02+0300\n"
 "Last-Translator: Vital Khilko <dojlid@mova.org>\n"
 "Language-Team: Belarusian <i18n@mova.org>\n"
@@ -1702,7 +1702,7 @@ msgstr "Перад_прагляд друку"
 msgid "Print preview"
 msgstr "Прагляд друку"
 
-#: src/testgtkhtml.c:974
+#: src/testgtkhtml.c:973
 msgid "GtkHTML Test Application"
 msgstr "Дастасаваньне тэставаньня GtkHTML"
 

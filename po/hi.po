@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GtkHTML 2.x\n"
-"POT-Creation-Date: 2003-06-26 07:56-0500\n"
+"POT-Creation-Date: 2003-06-26 11:33-0500\n"
 "PO-Revision-Date: 2003-01-03 18:29+0530\n"
 "Last-Translator: Bhopal team  <anuragseetha@yahoo.com>\n"
 "Language-Team: Gnome Hindi Team<indlinux-hindi-gnome@lists.sourceforge.net>\n"
@@ -1709,7 +1709,7 @@ msgstr ""
 msgid "Print preview"
 msgstr ""
 
-#: src/testgtkhtml.c:974
+#: src/testgtkhtml.c:973
 #, fuzzy
 msgid "GtkHTML Test Application"
 msgstr "जीटीके एच टी एम एल टेस्ट"
