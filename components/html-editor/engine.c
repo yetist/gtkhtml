@@ -98,7 +98,7 @@ impl_set_listener (PortableServer_Servant servant, const GNOME_GtkHTML_Editor_Li
 	/* printf ("set listener\n"); */
 
 	unref_listener (e);
-	e->listener_client = bonobo_object_client_from_corba (value);
+	e->listener_client = bonobo_object_client_from_corba (CORBA_Object_duplicate (value, ev));
 	e->listener        = bonobo_object_client_query_interface (e->listener_client,
 								   "IDL:GNOME/GtkHTML/Editor/Listener:1.0", ev);
 }

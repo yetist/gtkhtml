@@ -1,3 +1,9 @@
+2002-05-16  Michael Meeks  <michael@ximian.com>
+
+        * engine.c (impl_set_listener): dup the CORBA reference we pass to
+	bonobo_object_client_from_corba - [ this method is just totally
+	broken, as is most of the object_client API ( gone in 2.0 ) ].
+
 2002-05-22  Radek Doulik  <rodo@ximian.com>
 
 	* menubar.c (paragraph_style_cb): don't set style if
