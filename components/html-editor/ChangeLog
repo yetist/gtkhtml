@@ -1,3 +1,8 @@
+2003-11-07  Radek Doulik  <rodo@ximian.com>
+
+	* test-html-editor-control.c (container_create): enable magic
+	smileys, links and inline spell checking
+
 2003-10-14  Frederic Crozat  <fcrozat@mandrakesoft.com>
 
 	* popup.c: Add missing header include.

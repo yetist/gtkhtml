@@ -511,6 +511,17 @@ container_create (void)
 	bonobo_object_release_unref (engine, &ev);
 	CORBA_exception_free (&ev);
 
+	bonobo_widget_set_property (BONOBO_WIDGET (control),
+				    "MagicSmileys", TC_CORBA_boolean, TRUE,
+				    NULL);
+	bonobo_widget_set_property (BONOBO_WIDGET (control),
+				    "MagicLinks", TC_CORBA_boolean, TRUE,
+				    NULL);
+	bonobo_widget_set_property (BONOBO_WIDGET (control),
+				   "InlineSpelling", TC_CORBA_boolean, TRUE,
+				   NULL);
+
+
 	return FALSE;
 }
 
