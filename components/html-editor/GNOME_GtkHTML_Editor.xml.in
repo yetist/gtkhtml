@@ -91,14 +91,10 @@
 			_tip="Right justifies the paragraphs"
 			pixtype="stock" pixname="gtk-justify-right"/>
 
-			<cmd name="FormatBold" _label="_Bold" accel="*Ctrl*b"
-			pixtype="stock" pixname="gtk-bold"/>
-			<cmd name="FormatItalic" _label="_Italic" accel="*Ctrl*i"
-			pixtype="stock" pixname="gtk-italic"/>
-			<cmd name="FormatUnderline" _label="_Underline" accel="*Ctrl*u"
-			pixtype="stock" pixname="gtk-underline"/>
-			<cmd name="FormatStrikeout" _label="Strikeout"
-			pixtype="stock" pixname="gtk-strikethrough"/>
+			<cmd name="FormatBold" _label="_Bold" accel="*Ctrl*b" pixtype="stock" pixname="gtk-bold"/>
+			<cmd name="FormatItalic" _label="_Italic" accel="*Ctrl*i" pixtype="stock" pixname="gtk-italic"/>
+			<cmd name="FormatUnderline" _label="_Underline" accel="*Ctrl*u" pixtype="stock" pixname="gtk-underline"/>
+			<cmd name="FormatStrikeout" _label="Strikeout" pixtype="stock" pixname="gtk-strikethrough"/>
 			<cmd name="FormatFixed" _label="Typewriter" accel="*Ctrl*t"/>
 			<cmd name="FormatSubscript" _label="Subscript"/>
 			<cmd name="FormatSuperscript" _label="Superscript"/>
@@ -149,12 +145,9 @@
 		<submenu name="Insert" _label="_Insert">
 			<placeholder name="Component">
 				<menuitem name="InsertImage" verb=""/>
-				<menuitem name="InsertLink"  verb=""
-                                pixtype="filename" pixname="@ICONSDIR@/insert-link-16.png"/>
-				<menuitem name="InsertRule"  verb=""
-				pixtype="filename" pixname="@ICONSDIR@/insert-rule-16.png"/>
+				<menuitem name="InsertLink"  verb=""/>
+				<menuitem name="InsertRule"  verb=""/>
 				<menuitem name="InsertTable" verb=""/>
-                                pixtype="filename" pixname="@ICONSDIR@/insert-table-16.png"/>
 				<menuitem name="InsertTextFile" verb=""/>
 				<menuitem name="InsertHTMLFile" verb=""/>
 				<submenu name="Smiley" _label="_Smiley"
@@ -277,8 +270,8 @@
 	</menu>
 
 	<dockitem name="Toolbar">
-		<toolitem name="EditUndo" verb="" _label="Undo" _tip="Undo previous changes"/>
-		<toolitem name="EditRedo" verb="" _label="Redo" _tip="Redo previously undone change"/>
+		<toolitem name="EditUndo" pixtype="filename" verb="" _label="Undo" _tip="Undo previous changes"/>
+		<toolitem name="EditRedo" pixtype="filename" verb="" _label="Redo" _tip="Redo previously undone change"/>
 
 		<separator/>
 
@@ -295,12 +288,9 @@
 		<separator/>
 
 		<toolitem name="InsertImage" verb="" _label="Image"/>
-		<toolitem name="InsertLink" verb="" _label="Link"
-                pixtype="filename" pixname="@ICONSDIR@/insert-link-24.png"/>
-		<toolitem name="InsertRule" verb="" _label="Rule"
-                pixtype="filename" pixname="@ICONSDIR@/insert-rule-24.png"/>
-		<toolitem name="InsertTable" verb="" _label="Table"
-                pixtype="filename" pixname="@ICONSDIR@/insert-table-24.png"/>
+		<toolitem name="InsertLink" verb="" _label="Link"/>
+		<toolitem name="InsertRule" verb="" _label="Rule"/>
+		<toolitem name="InsertTable" verb="" _label="Table"/>
 	</dockitem>
 
 </Root> 

@@ -722,6 +722,9 @@ static EditorUIPixmap pixmaps_map [] =
 	{ "/Toolbar/EditPaste", "stock_paste", EDITOR_ICON_TOOLBAR },
 	{ "/Toolbar/EditFind", "stock_search", EDITOR_ICON_TOOLBAR },
 	{ "/Toolbar/InsertImage", "stock_insert_image", EDITOR_ICON_TOOLBAR },
+	{ "/Toolbar/InsertLink", "stock_insert-url", EDITOR_ICON_TOOLBAR },
+	{ "/Toolbar/InsertRule", "stock_insert-rule", EDITOR_ICON_TOOLBAR },
+	{ "/Toolbar/InsertTable", "stock_insert-table", EDITOR_ICON_TOOLBAR },
 
 	{ "/menu/Edit/EditUndoRedo/EditUndo", "stock_undo", EDITOR_ICON_MENU },
 	{ "/menu/Edit/EditUndoRedo/EditRedo", "stock_redo", EDITOR_ICON_MENU },
@@ -736,6 +739,9 @@ static EditorUIPixmap pixmaps_map [] =
 	{ "/menu/Edit/EditMisc/EditSpellCheck", "stock_spellcheck", EDITOR_ICON_MENU },
 
 	{ "/menu/Insert/Component/InsertImage", "stock_insert_image", EDITOR_ICON_MENU },
+	{ "/menu/Insert/Component/InsertLink", "stock_insert-url", EDITOR_ICON_MENU },
+	{ "/menu/Insert/Component/InsertRule", "stock_insert-rule", EDITOR_ICON_MENU },
+	{ "/menu/Insert/Component/InsertTable", "stock_insert-table", EDITOR_ICON_MENU },
 };
 
 void
@@ -768,10 +774,14 @@ menubar_setup (BonoboUIComponent  *uic,
 
 	for (i = 0; i < sizeof (pixmaps_map) / sizeof (pixmaps_map [0]); i ++)
 	{
-		bonobo_ui_component_set_prop (uic, pixmaps_map [i].path, "pixtype", "filename", NULL);
-		bonobo_ui_component_set_prop (uic, pixmaps_map [i].path, "pixname",
-					      gnome_icon_theme_lookup_icon (cd->icon_theme, pixmaps_map [i].stock_name, pixmaps_map [i].size, NULL, NULL),
-					      NULL);
+		GdkPixbuf *pixbuf;
+		char *xml_pixbuf;
+
+		pixbuf = gdk_pixbuf_new_from_file (gnome_icon_theme_lookup_icon (cd->icon_theme, pixmaps_map [i].stock_name, pixmaps_map [i].size, NULL, NULL), NULL);
+		xml_pixbuf = bonobo_ui_util_pixbuf_to_xml (pixbuf);
+		g_object_unref (pixbuf);
+
+		bonobo_ui_component_set_prop (uic, pixmaps_map [i].path, "pixname", xml_pixbuf, NULL);
 	}
 
 	spell_create_language_menu (cd);
