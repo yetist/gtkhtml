@@ -1,5 +1,10 @@
 2001-08-15  Radek Doulik  <rodo@ximian.com>
 
+	* htmlclueflow.c (save_plain): add padding even to empty lines,
+	so we get item headings
+	(plain_get_marker): new helper function
+	(plain_padding): use plain_get_marker
+
 	* htmlengine-edit-clueflowstyle.c: updated for list changes
 
 	* htmlengine.c: rewritten/updated [un]ordered lists
