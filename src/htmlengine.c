@@ -1009,7 +1009,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	gboolean done = FALSE;
 	gboolean tableTag = TRUE;
 	gboolean newRow = TRUE;
-	gboolean noCell = FALSE;
+	gboolean noCell = TRUE;
 	gboolean tableEntry;
 	HTMLVAlignType rowvalign = HTML_VALIGN_NONE;
 	HTMLHAlignType rowhalign = HTML_HALIGN_NONE;
