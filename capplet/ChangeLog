@@ -1,3 +1,7 @@
+2001-05-07  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml-capplet.glade: fix spelling of keyboard.
+
 2001-04-01  Fatih Demir <kabalak@gtranslator.org>
 
 	* .cvsignore: Added "gtkhtml-capplet.glade.h" to the
