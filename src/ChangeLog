@@ -1,3 +1,9 @@
+2000-04-24  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine-edit-images.c
+	(html_engine_insert_image): We cannot support editing of haligned
+	images, so avoid doing that.
+
 2000-04-24  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml-edit-image.c (gtk_html_image_dialog_new): lifted dialog
