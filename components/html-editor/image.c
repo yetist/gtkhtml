@@ -22,8 +22,34 @@
 
 #include <unistd.h>
 #include "config.h"
-#include "gtkhtml-edit-image.h"
+#include "image.h"
 #include "htmlengine-edit-images.h"
+
+#define GTK_HTML_EDIT_IMAGE_BWIDTH      0
+#define GTK_HTML_EDIT_IMAGE_WIDTH       1
+#define GTK_HTML_EDIT_IMAGE_HEIGHT      2
+#define GTK_HTML_EDIT_IMAGE_HSPACE      3
+#define GTK_HTML_EDIT_IMAGE_VSPACE      4
+#define GTK_HTML_EDIT_IMAGE_SPINS       5
+
+struct _GtkHTMLImageDialog {
+	GtkHTML     *html;
+	GnomeDialog *dialog;
+	GtkWidget   *pentry;
+	GtkWidget   *entry_alt;
+
+	GtkWidget   *check [GTK_HTML_EDIT_IMAGE_SPINS];
+	GtkWidget   *spin  [GTK_HTML_EDIT_IMAGE_SPINS];
+	GtkObject   *adj   [GTK_HTML_EDIT_IMAGE_SPINS];
+	gint         val   [GTK_HTML_EDIT_IMAGE_SPINS];
+	gboolean     set   [GTK_HTML_EDIT_IMAGE_SPINS];
+
+	GtkWidget   *check_percent;
+	gboolean     percent;
+
+	GtkWidget   *sel_align;
+	guint        align;
+};
 
 static void
 insert (GtkWidget *w, GtkHTMLImageDialog *d)
@@ -193,8 +219,8 @@ gtk_html_image_dialog_new (GtkHTML *html)
 	ADD_ITEM("Top",    GDK_F2);
 	ADD_ITEM("Bottom", GDK_F3);
 	ADD_ITEM("Center", GDK_F4);
-	ADD_ITEM("Left",   GDK_F5);
-	ADD_ITEM("Right",  GDK_F6);
+	/* ADD_ITEM("Left",   GDK_F5);
+	   ADD_ITEM("Right",  GDK_F6); */
 
 	frame = gtk_frame_new (_("Alignment"));
 	dialog->sel_align = gtk_option_menu_new ();
@@ -257,4 +283,22 @@ gtk_html_image_dialog_new (GtkHTML *html)
 	gnome_dialog_set_default (dialog->dialog, 0);
 
 	return dialog;
+}
+
+void
+gtk_html_image_dialog_destroy (GtkHTMLImageDialog *d)
+{
+	g_free (d);
+}
+
+void
+insert_image (GtkHTMLControlData *cd)
+{
+	if (cd->image_dialog) {
+		gtk_widget_show (GTK_WIDGET (cd->image_dialog->dialog));
+		gdk_window_raise (GTK_WIDGET (cd->image_dialog->dialog)->window);
+	} else {
+		cd->image_dialog = gtk_html_image_dialog_new (cd->html);
+		gnome_dialog_run (cd->image_dialog->dialog);
+	}
 }

@@ -20,38 +20,19 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef _GTK_HTML_EDIT_IMAGE_H_
-#define _GTK_HTML_EDIT_IMAGE_H_
+#ifndef _GTK_HTML_SEARCH_H_
+#define _GTK_HTML_SEARCH_H_
 
-#include "gtkhtml.h"
+typedef struct _GtkHTMLSearchDialog  GtkHTMLSearchDialog;
+
 #include <gnome.h>
+#include "gtkhtml.h"
+#include "control-data.h"
 
-#define GTK_HTML_EDIT_IMAGE_BWIDTH      0
-#define GTK_HTML_EDIT_IMAGE_WIDTH       1
-#define GTK_HTML_EDIT_IMAGE_HEIGHT      2
-#define GTK_HTML_EDIT_IMAGE_HSPACE      3
-#define GTK_HTML_EDIT_IMAGE_VSPACE      4
-#define GTK_HTML_EDIT_IMAGE_SPINS       5
+GtkHTMLSearchDialog * gtk_html_search_dialog_new     (GtkHTML *html, gboolean regular);
+void                  gtk_html_search_dialog_destroy (GtkHTMLSearchDialog *d);
 
-struct _GtkHTMLImageDialog {
-	GtkHTML     *html;
-	GnomeDialog *dialog;
-	GtkWidget   *pentry;
-	GtkWidget   *entry_alt;
-
-	GtkWidget   *check [GTK_HTML_EDIT_IMAGE_SPINS];
-	GtkWidget   *spin  [GTK_HTML_EDIT_IMAGE_SPINS];
-	GtkObject   *adj   [GTK_HTML_EDIT_IMAGE_SPINS];
-	gint         val   [GTK_HTML_EDIT_IMAGE_SPINS];
-	gboolean     set   [GTK_HTML_EDIT_IMAGE_SPINS];
-
-	GtkWidget   *check_percent;
-	gboolean     percent;
-
-	GtkWidget   *sel_align;
-	guint        align;
-};
-
-GtkHTMLImageDialog * gtk_html_image_dialog_new (GtkHTML *html);
+void                  search                         (GtkHTMLControlData *cd, gboolean regular);
+void                  search_next                    (GtkHTMLControlData *cd);
 
 #endif

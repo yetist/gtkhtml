@@ -20,27 +20,17 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef _GTK_HTML_REPLACE_H_
-#define _GTK_HTML_REPLACE_H_
+#ifndef _GTK_HTML_EDIT_IMAGE_H_
+#define _GTK_HTML_EDIT_IMAGE_H_
 
-#include "gtkhtml.h"
+typedef struct _GtkHTMLImageDialog GtkHTMLImageDialog;
+
 #include <gnome.h>
+#include "control-data.h"
 
-struct _GtkHTMLReplaceDialog {
-	GtkHTML     *html;
-	GnomeDialog *dialog;
-	GtkWidget   *entry_search;
-	GtkWidget   *entry_replace;
-	GtkWidget   *backward;
-	GtkWidget   *case_sensitive;
-};
+GtkHTMLImageDialog * gtk_html_image_dialog_new     (GtkHTML *html);
+void                 gtk_html_image_dialog_destroy (GtkHTMLImageDialog *);
 
-struct _GtkHTMLReplaceAskDialog {
-	GnomeDialog *dialog;
-	HTMLEngine  *engine;
-};
-
-GtkHTMLReplaceDialog * gtk_html_replace_dialog_new (GtkHTML *html);
-void                   gtk_html_replace_dialog_run (GtkHTMLReplaceDialog *d);
+void                 insert_image                  (GtkHTMLControlData *cd);
 
 #endif

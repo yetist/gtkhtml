@@ -21,8 +21,26 @@
 */
 
 #include "config.h"
-#include "gtkhtml-replace.h"
+#include "replace.h"
 #include "htmlengine.h"
+
+struct _GtkHTMLReplaceAskDialog {
+	GnomeDialog *dialog;
+	HTMLEngine  *engine;
+};
+
+typedef struct _GtkHTMLReplaceAskDialog GtkHTMLReplaceAskDialog;
+
+struct _GtkHTMLReplaceDialog {
+	GtkHTML     *html;
+	GnomeDialog *dialog;
+	GtkWidget   *entry_search;
+	GtkWidget   *entry_replace;
+	GtkWidget   *backward;
+	GtkWidget   *case_sensitive;
+
+	GtkHTMLReplaceAskDialog *ask_dialog;
+};
 
 static void
 replace_do (GtkHTMLReplaceAskDialog *d, HTMLReplaceQueryAnswer answer)
@@ -80,20 +98,22 @@ ask_dialog_new (HTMLEngine *e)
 }
 
 static void
-ask (HTMLEngine *e)
+ask (HTMLEngine *e, gpointer data)
 {
-	if (!e->widget->replace_ask_dialog) {
-		e->widget->replace_ask_dialog = ask_dialog_new (e);
-		gnome_dialog_run (e->widget->replace_ask_dialog->dialog);
+	GtkHTMLReplaceDialog *d = (GtkHTMLReplaceDialog *) data;
+
+	if (!d->ask_dialog) {
+		d->ask_dialog = ask_dialog_new (e);
+		gnome_dialog_run (d->ask_dialog->dialog);
 	} else {
-		printf ("ask going to show %p\n", e->widget->replace_ask_dialog->dialog);
-		gtk_widget_show (GTK_WIDGET (e->widget->replace_ask_dialog->dialog));
-		gdk_window_raise (GTK_WIDGET (e->widget->replace_ask_dialog->dialog)->window);
+		printf ("ask going to show %p\n", d->ask_dialog->dialog);
+		gtk_widget_show (GTK_WIDGET (d->ask_dialog->dialog));
+		gdk_window_raise (GTK_WIDGET (d->ask_dialog->dialog)->window);
 	}	
 }
 
 static void
-replace (GtkWidget *but, GtkHTMLReplaceDialog *d)
+button_replace_cb (GtkWidget *but, GtkHTMLReplaceDialog *d)
 {
 	printf ("replace\n");
 
@@ -103,7 +123,7 @@ replace (GtkWidget *but, GtkHTMLReplaceDialog *d)
 			     gtk_entry_get_text (GTK_ENTRY (d->entry_replace)),
 			     GTK_TOGGLE_BUTTON (d->case_sensitive)->active,
 			     GTK_TOGGLE_BUTTON (d->backward)->active == 0, FALSE,
-			     ask);
+			     ask, d);
 }
 
 static void
@@ -116,7 +136,7 @@ static void
 entry_activate (GtkWidget *entry, GtkHTMLReplaceDialog *d)
 {
 	printf ("entry activate\n");
-	replace (NULL, d);
+	button_replace_cb (NULL, d);
 }
 
 GtkHTMLReplaceDialog *
@@ -136,6 +156,7 @@ gtk_html_replace_dialog_new (GtkHTML *html)
 	dialog->backward       = gtk_check_button_new_with_label (_("search backward"));
 	dialog->case_sensitive = gtk_check_button_new_with_label (_("case sensitive"));
 	dialog->html           = html;
+	dialog->ask_dialog     = NULL;
 
 	label = gtk_label_new (_("Replace"));
 	gtk_misc_set_alignment (GTK_MISC (label), 1.0, .5);
@@ -157,7 +178,7 @@ gtk_html_replace_dialog_new (GtkHTML *html)
 	gtk_widget_show_all (table);
 	gtk_widget_show_all (hbox);
 
-	gnome_dialog_button_connect (dialog->dialog, 0, replace, dialog);
+	gnome_dialog_button_connect (dialog->dialog, 0, button_replace_cb, dialog);
 	gnome_dialog_close_hides (dialog->dialog, TRUE);
 	gnome_dialog_set_close (dialog->dialog, TRUE);
 
@@ -174,7 +195,7 @@ gtk_html_replace_dialog_new (GtkHTML *html)
 	return dialog;
 }
 
-static void
+void
 gtk_html_replace_dialog_destroy (GtkHTMLReplaceDialog *d)
 {
 	g_free (d);
@@ -186,4 +207,17 @@ gtk_html_replace_dialog_run (GtkHTMLReplaceDialog *d)
 	gint action;
 
 	action = gnome_dialog_run (d->dialog);
+}
+
+void
+replace (GtkHTMLControlData *cd)
+{
+	if (cd->replace_dialog) {
+		gtk_widget_show (GTK_WIDGET (cd->replace_dialog->dialog));
+		gdk_window_raise (GTK_WIDGET (cd->replace_dialog->dialog)->window);
+		gtk_widget_grab_focus (cd->replace_dialog->entry_search);
+	} else {
+		cd->replace_dialog = gtk_html_replace_dialog_new (cd->html);
+		gnome_dialog_run (cd->replace_dialog->dialog);
+	}
 }

@@ -20,23 +20,17 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef _GTK_HTML_SEARCH_H_
-#define _GTK_HTML_SEARCH_H_
+#ifndef _GTK_HTML_REPLACE_H_
+#define _GTK_HTML_REPLACE_H_
 
-#include "gtkhtml.h"
+typedef struct _GtkHTMLReplaceDialog GtkHTMLReplaceDialog;
+
 #include <gnome.h>
+#include "control-data.h"
 
-struct _GtkHTMLSearchDialog {
-	GtkHTML     *html;
-	GnomeDialog *dialog;
-	GtkWidget   *entry;
-	GtkWidget   *backward;
-	GtkWidget   *case_sensitive;
+GtkHTMLReplaceDialog * gtk_html_replace_dialog_new     (GtkHTML *html);
+void                   gtk_html_replace_dialog_destroy (GtkHTMLReplaceDialog *d);
 
-	gboolean     regular;
-};
-
-GtkHTMLSearchDialog * gtk_html_search_dialog_new (GtkHTML *html, gboolean regular);
-void                  gtk_html_search_dialog_run (GtkHTMLSearchDialog *d);
+void                   replace                         (GtkHTMLControlData *cd);
 
 #endif

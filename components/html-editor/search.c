@@ -21,10 +21,20 @@
 */
 
 #include "config.h"
-#include "gtkhtml-search.h"
+#include "search.h"
+
+struct _GtkHTMLSearchDialog {
+	GtkHTML     *html;
+	GnomeDialog *dialog;
+	GtkWidget   *entry;
+	GtkWidget   *backward;
+	GtkWidget   *case_sensitive;
+
+	gboolean     regular;
+};
 
 static void
-search (GtkWidget *but, GtkHTMLSearchDialog *d)
+search_cb (GtkWidget *but, GtkHTMLSearchDialog *d)
 {
 	printf ("search\n");
 
@@ -44,7 +54,7 @@ entry_activate (GtkWidget *entry, GtkHTMLSearchDialog *d)
 {
 	printf ("entry activate\n");
 	gnome_dialog_close (d->dialog);
-	search (NULL, d);
+	search_cb (NULL, d);
 }
 
 GtkHTMLSearchDialog *
@@ -71,7 +81,7 @@ gtk_html_search_dialog_new (GtkHTML *html, gboolean regular)
 	gtk_widget_show (dialog->entry);
 	gtk_widget_show_all (hbox);
 
-	gnome_dialog_button_connect (dialog->dialog, 0, search, dialog);
+	gnome_dialog_button_connect (dialog->dialog, 0, search_cb, dialog);
 	gnome_dialog_close_hides (dialog->dialog, TRUE);
 	gnome_dialog_set_close (dialog->dialog, TRUE);
 
@@ -86,16 +96,33 @@ gtk_html_search_dialog_new (GtkHTML *html, gboolean regular)
 	return dialog;
 }
 
-static void
+void
 gtk_html_search_dialog_destroy (GtkHTMLSearchDialog *d)
 {
 	g_free (d);
 }
 
 void
-gtk_html_search_dialog_run (GtkHTMLSearchDialog *d)
+search (GtkHTMLControlData *cd, gboolean regular)
 {
-	gint action;
+	if (cd->search_dialog) {
+		printf ("search only shows dialog\n");
+		cd->search_dialog->regular = regular;
+		gtk_widget_show (GTK_WIDGET (cd->search_dialog->dialog));
+		gdk_window_raise (GTK_WIDGET (cd->search_dialog->dialog)->window);
+		gtk_widget_grab_focus (cd->search_dialog->entry);
+	} else {
+		cd->search_dialog = gtk_html_search_dialog_new (cd->html, regular);
+		gnome_dialog_run (cd->search_dialog->dialog);
+	}
+}
 
-	action = gnome_dialog_run (d->dialog);
+void
+search_next (GtkHTMLControlData *cd)
+{
+	if (cd->html->engine->search_info) {
+		html_engine_search_next (cd->html->engine);
+	} else {
+		search (cd, TRUE);
+	}
 }
