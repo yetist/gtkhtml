@@ -51,7 +51,7 @@ struct _GtkHTMLEditBodyProperties {
 };
 typedef struct _GtkHTMLEditBodyProperties GtkHTMLEditBodyProperties;
 
-#define TEMPLATES 4
+#define TEMPLATES 9
 typedef struct {
 	gchar *name;
 	gchar *bg_pixmap;
@@ -87,11 +87,51 @@ static BodyTemplate body_templates [TEMPLATES] = {
 		10,
 	},
 	{
-		N_("Rectangles"),
+		N_("Paper"),
 		ICONDIR "/rect.png",
 		{0, 0xffff, 0xffff, 0xffff},
 		{0, 0, 0, 0},
 		{0, 0, 0, 0xffff},
+		10,
+  	},
+	{
+		N_("Ribbon"),
+		ICONDIR "/ribbon.jpg",
+		{0, 0xffff, 0xffff, 0xffff},
+		{0, 0, 0, 0},
+		{0, 0x9900, 0x3300, 0x6600},
+		70,
+  	},
+	{
+		N_("Midnight"),
+		ICONDIR "/midnight-stars.jpg",
+		{0, 0, 0, 0},
+		{0, 0xffff, 0xffff, 0xffff},
+		{0, 0xffff, 0x9900, 0},
+		10,
+  	},
+	{
+		N_("Confidential"),
+		ICONDIR "/confidential-stamp.jpg",
+		{0, 0xffff, 0xffff, 0xffff},
+		{0, 0, 0, 0},
+		{0, 0, 0, 0xffff},
+		10,
+  	},
+	{
+		N_("Draft"),
+		ICONDIR "/draft-stamp.jpg",
+		{0, 0xffff, 0xffff, 0xffff},
+		{0, 0, 0, 0},
+		{0, 0, 0, 0xffff},
+		10,
+  	},
+	{
+		N_("Draft paper"),
+		ICONDIR "/draft-paper.png",
+		{0, 0xffff, 0xffff, 0xffff},
+		{0, 0, 0, 0x8000},
+		{0, 0xe300, 0x2100, 0x2300},
 		10,
   	},
 };
@@ -298,7 +338,7 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 
 	gtk_container_add (GTK_CONTAINER (frame), vbox);
 	gtk_box_pack_start_defaults (GTK_BOX (vb1), frame);
-	gtk_table_attach_defaults (GTK_TABLE (table), vb1, 0, 1, 0, 1);
+	gtk_table_attach (GTK_TABLE (table), vb1, 0, 1, 0, 1, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
 	gtk_table_attach_defaults (GTK_TABLE (table), sample_frame (&data->sample), 0, 2, 1, 2);
 
 	frame = gtk_frame_new (_("Colors"));
