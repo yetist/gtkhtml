@@ -219,13 +219,6 @@ prop_dialog (GtkWidget *mi, GtkHTMLControlData *cd)
 	show_prop_dialog (cd, GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (mi), "type")));
 }
 
-static inline void
-recheck (HTMLEngine *e)
-{
-	if (e->cursor->object->parent && HTML_IS_CLUEFLOW (e->cursor->object->parent))
-		html_clueflow_spell_check (HTML_CLUEFLOW (e->cursor->object->parent), e, NULL);
-}
-
 static void
 spell_suggest (GtkWidget *mi, GtkHTMLControlData *cd)
 {
@@ -248,7 +241,7 @@ spell_add (GtkWidget *mi, GtkHTMLControlData *cd)
 	HTMLEngine *e = cd->html->engine;
 
 	spell_add_to_personal (cd->html, html_engine_get_word (e), cd);
-	recheck (e);
+	html_engine_spell_check (e);
 }
 
 static void
@@ -257,7 +250,7 @@ spell_ignore (GtkWidget *mi, GtkHTMLControlData *cd)
 	HTMLEngine *e = cd->html->engine;
 
 	spell_add_to_session (cd->html, html_engine_get_word (e), cd);
-	recheck (e);
+	html_engine_spell_check (e);
 }
 
 #ifdef DEBUG

@@ -1,5 +1,8 @@
 2001-09-13  Radek Doulik  <rodo@ximian.com>
 
+	* popup.c (spell_add): use html_engine_spell_check
+	(spell_ignore): ditto
+
 	* spell.c (check_next_word): update whole document, not just
 	current paragraph
 
