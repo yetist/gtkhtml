@@ -149,8 +149,19 @@ glyphs_destroy (GList *glyphs)
 	g_list_free (glyphs);
 }
 
+static inline GList *
+shift_items (GList *items, gint byte_offset)
+{
+	PangoItem *item;
+
+	while (items && (item = (PangoItem *)items->data) && item->offset + item->length <= byte_offset)
+		items = items->next;
+
+	return items;
+}
+
 static gint
-draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GList *items, GList *glyphs)
+draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GList *items, GList *glyphs, gint start_byte_offset)
 {
 	HTMLGdkPainter *gdk_painter;
 	PangoFontDescription *desc;
@@ -174,13 +185,18 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GL
 	if (items && items->data) {
 		PangoGlyphString *str;
 		GList *gl, *il;
-		guint i;
+		guint i, char_offset = 0;
+		const gchar *c_text = text;
 
-		for (gl = glyphs, il = items; il && gl; gl = gl->next, il = il->next) {
+		il = shift_items (items, start_byte_offset);
+		for (gl = glyphs; gl && char_offset < len; gl = gl->next) {
 			str = (PangoGlyphString *) gl->data;
 			gdk_draw_glyphs (gdk_painter->pixmap, gdk_painter->gc, ((PangoItem *) il->data)->analysis.font, x + width, y, str);
 			for (i=0; i < str->num_glyphs; i ++)
 				width += PANGO_PIXELS (str->glyphs [i].geometry.width);
+			c_text = g_utf8_offset_to_pointer (c_text, str->num_glyphs);
+			il = shift_items (il, start_byte_offset + (c_text - text));
+			char_offset += str->num_glyphs;
 		}
 	}
 	if (temp_items) {
