@@ -9,10 +9,13 @@
  */
 
 #include <gdk/gdkkeysyms.h>
+#include <string.h>
 #include "ebrowser-widget.h"
 #include "test.h"
 
 GtkWidget * browser;
+GList *url_list = NULL;
+GList *p = NULL;
 
 static gint
 delete_window (GtkWidget * widget, GdkEventAny * event, gpointer data)
@@ -56,13 +59,40 @@ uri_set (EBrowser * ebr, const gchar * uri, gpointer data)
 	}
 }
 
-int
-main (int argc, char ** argv)
+static void
+load_next_url_if_testing (void)
+{
+	if (p == NULL)
+		p = url_list;
+	else
+		p = p->next;
+
+	if (p)
+		gtk_object_set (GTK_OBJECT (browser), "url", p->data, NULL);
+}
+
+static int
+queue (gpointer data)
+{
+	printf ("************* Loading new url\n");
+	load_next_url_if_testing ();
+	return FALSE;
+}
+
+static void
+done (EBrowser *eb, void *data)
+{
+	printf ("::::::::: Done\n");
+	if (url_list)
+		gtk_timeout_add (10000, queue, NULL);
+}
+
+static void
+init (void)
+
 {
 	GtkWidget * window, * vb, * hb, * urientry, * entry, * w;
-
-	gtk_init (&argc, &argv);
-
+	       
 	gdk_rgb_init ();
 	gtk_widget_set_default_colormap (gdk_rgb_get_cmap ());
 	gtk_widget_set_default_visual (gdk_rgb_get_visual ());
@@ -132,9 +162,47 @@ main (int argc, char ** argv)
 			"allow_submit", TRUE, NULL);
 	gtk_signal_connect (GTK_OBJECT (browser), "url_set",
 			    GTK_SIGNAL_FUNC (uri_set), urientry);
+	gtk_signal_connect (GTK_OBJECT (browser), "done",
+			    GTK_SIGNAL_FUNC (done), NULL);
 	gtk_widget_show (browser);
 
 	gtk_widget_show (window);
+}
+
+static void
+load_test (char *file)
+{
+	FILE *test_file = fopen (file, "r");
+	char buffer [200];
+	
+	g_assert (test_file);
+
+	while (fgets (buffer, sizeof (buffer), test_file)){
+		char *str, *p;
+		
+		str = g_strdup (buffer);
+
+		p = strchr (str, '\n');
+		if (p)
+			*p = 0;
+		
+		url_list = g_list_prepend (url_list, str);
+	}
+}
+
+int
+main (int argc, char ** argv)
+{
+	gtk_init (&argc, &argv);
+
+	init ();
+
+	if (argc >= 2){
+		if (strncmp (argv [1], "--test=", 7) == 0){
+			load_test (&argv [1][7]);
+			load_next_url_if_testing ();
+		}
+	}
 
 	gtk_main ();
 

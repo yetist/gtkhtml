@@ -176,7 +176,6 @@ setup_client (ELoaderHTTP * elh)
 		client = e_http_client_new_get (elh->url, elh->loader.ebrowser->http_proxy);
 		if (!client) {
 			eloader_done (ELOADER (elh), ELOADER_ERROR);
-			gtk_object_unref (GTK_OBJECT (elh));
 			return FALSE;
 		}
 		g_hash_table_insert (clients, client->url, client);
@@ -378,6 +377,7 @@ client_done (EHTTPClient * client, EHTTPClientStatus status, gpointer data)
 
 	elh = ELOADER_HTTP (data);
 
+	gtk_html_stream_close (elh->loader.stream, GTK_HTML_STREAM_OK);
 	eloader_done (ELOADER (elh), (status == E_HTTP_CLIENT_OK) ? ELOADER_OK : ELOADER_ERROR);
 }
 

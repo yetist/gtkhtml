@@ -582,8 +582,10 @@ static void
 ebrowser_stop_loading (EBrowser * ebr)
 {
 	while (ebr->loaders) {
-		gtk_object_unref (GTK_OBJECT (ebr->loaders->data));
-		ebr->loaders = g_slist_remove (ebr->loaders, ebr->loaders->data);
+		ELoader *loader = ebr->loaders->data;
+		
+		gtk_object_unref (GTK_OBJECT (loader));
+		ebr->loaders = g_slist_remove (ebr->loaders, loader);
 	}
 }
 

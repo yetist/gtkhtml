@@ -1,3 +1,12 @@
+2000-10-27  Miguel de Icaza  <miguel@helixcode.com>
+
+	* eloader-http.c (client_done): Close stream with
+	GTKHTML_STREAM_OK, fixes memory leak.
+
+	* test.c: Added --test= argument, now you can use:
+	--test=sample.test to have the browser loop over the urls on
+	sample.test, good for testing
+
 2000-10-27  Lauris Kaplinski  <lauris@helixcode.com>
 
 	* ebrowser-stream.*: PersistStream implementation - for example
