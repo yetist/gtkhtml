@@ -1054,7 +1054,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					e->divAlign = HTML_HALIGN_NONE;
 					valign = rowvalign == HTML_VALIGN_NONE ? HTML_VALIGN_MIDDLE : rowvalign;
 					halign = rowhalign == HTML_HALIGN_NONE
-						? (heading ? HTML_HALIGN_CENTER : HTML_HALIGN_LEFT)
+						? (heading ? HTML_HALIGN_CENTER : HTML_HALIGN_NONE)
 						: rowhalign;
 
 					if (tableEntry) {
@@ -1908,7 +1908,7 @@ parse_c (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	}
 	else if (strncmp (str, "/center", 7) == 0) {
 		close_flow (e, clue);
-		e->divAlign = HTML_HALIGN_LEFT;
+		e->divAlign = HTML_HALIGN_NONE;
 	}
 	else if (strncmp( str, "cite", 4 ) == 0) {
 		push_font_style (e, GTK_HTML_FONT_STYLE_ITALIC | GTK_HTML_FONT_STYLE_BOLD);
@@ -3956,7 +3956,7 @@ html_engine_parse (HTMLEngine *e)
 	e->formText = g_string_new ("");
 
 	e->flow = NULL;
-	e->divAlign = HTML_HALIGN_LEFT;
+	e->divAlign = HTML_HALIGN_NONE;
 	e->indent_level = 0;
 
 	/* reset to default border size */
