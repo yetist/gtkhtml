@@ -1,3 +1,10 @@
+2000-07-24  Peter Williams  <peterw@helixcode.com>
+
+	* gtkhtml.c (setup_scroll_timeout): Use GDK_THREADS_LEAVE/ENTER
+	around our direct call the scroll_timeout_cb so that we don't
+	deadlock, as we're in a GDK event loop so the threads are locked
+	already.
+
 2000-07-21  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml-properties.c (gtk_html_class_properties_load):

@@ -524,7 +524,9 @@ setup_scroll_timeout (GtkHTML *html)
 	html->scroll_timeout_id = gtk_timeout_add (SCROLL_TIMEOUT_INTERVAL,
 						   scroll_timeout_cb, html);
 
+	GDK_THREADS_LEAVE();
 	scroll_timeout_cb (html);
+	GDK_THREADS_ENTER();
 }
 
 static void
