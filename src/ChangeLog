@@ -1,3 +1,14 @@
+2003-04-24  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (html_engine_freeze): call gtk_html_im_reset when
+	freezing (count == 0)
+
+	* htmlcursor.c: call gtk_html_im_reset whenever we move cursor
+
+	* gtkhtml.c (gtk_html_im_reset): new function, resets im context
+	if need_im_reset is TRUE
+	(key_press_event): call im context first, set need_im_reset
+
 2003-04-23  Larry Ewing  <lewing@ximian.com>
 
 	* htmlanchor.c (check_point): override the default check_point

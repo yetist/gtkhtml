@@ -786,6 +786,15 @@ style_set (GtkWidget *widget, GtkStyle  *previous_style)
 	html_engine_schedule_update (engine);
 }
 
+void
+gtk_html_im_reset (GtkHTML *html)
+{
+	if (html->priv->need_im_reset) {
+		html->priv->need_im_reset = FALSE;
+		gtk_im_context_reset (html->priv->im_context);
+	}
+}
+
 static gint
 key_press_event (GtkWidget *widget, GdkEventKey *event)
 {
@@ -797,23 +806,22 @@ key_press_event (GtkWidget *widget, GdkEventKey *event)
 	html->priv->update_styles = FALSE;
 	html->priv->event_time = event->time;
 
+	if (html_engine_get_editable (html->engine)) {
+		if (gtk_im_context_filter_keypress (html->priv->im_context, event)) {
+			html_engine_reset_blinking_cursor (html->engine);
+			html->priv->need_im_reset = TRUE;
+			return TRUE;
+		}
+	}
+
 	if (html_class->use_emacs_bindings && html_class->emacs_bindings && !html->binding_handled)
 		gtk_binding_set_activate (html_class->emacs_bindings, event->keyval, event->state, GTK_OBJECT (widget));
 
 	if (!html->binding_handled)
-		gtk_bindings_activate (GTK_OBJECT (widget), event->keyval, event->state);
+		GTK_WIDGET_CLASS (parent_class)->key_press_event (widget, event);
 	
 	retval = html->binding_handled;
 	update = html->priv->update_styles;
-
-	if (!html->binding_handled && html_engine_get_editable (html->engine)) {
-		if (gtk_im_context_filter_keypress (html->priv->im_context, event)) {
-			html_engine_reset_blinking_cursor (html->engine);
-			/* entry->need_im_reset = TRUE; */
-			retval = TRUE;
-			update = FALSE;
-		}
-	}
 
 	if (retval && update)
 		gtk_html_update_styles (html);
@@ -2712,7 +2720,6 @@ static void
 gtk_html_im_commit_cb (GtkIMContext *context, const gchar *str, GtkHTML *html)
 {
 	html_engine_paste_text (html->engine, str, -1);
-	html->priv->need_im_reset = TRUE;
 }
 
 static void

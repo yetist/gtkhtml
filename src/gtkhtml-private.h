@@ -75,5 +75,6 @@ void  gtk_html_editor_event             (GtkHTML                 *html,
 					 GtkHTMLEditorEventType   event,
 					 GValue                  *args);
 void  gtk_html_api_set_language         (GtkHTML                 *html);
+void  gtk_html_im_reset                 (GtkHTML                 *html);
 
 #endif /* _GTKHTML_PRIVATE_H */

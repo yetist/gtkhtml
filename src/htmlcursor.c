@@ -27,6 +27,7 @@
 #include <config.h>
 #include <glib.h>
 
+#include "gtkhtml-private.h"
 #include "htmlclue.h"
 #include "htmlengine.h"
 #include "htmlengine-edit.h"
@@ -153,6 +154,8 @@ html_cursor_home (HTMLCursor *cursor,
 	g_return_if_fail (cursor != NULL);
 	g_return_if_fail (engine != NULL);
 
+	gtk_html_im_reset (engine->widget);
+
 	if (engine->clue == NULL) {
 		cursor->object = NULL;
 		cursor->offset = 0;
@@ -238,6 +241,8 @@ html_cursor_forward (HTMLCursor *cursor, HTMLEngine *engine)
 	g_return_val_if_fail (cursor != NULL, FALSE);
 	g_return_val_if_fail (engine != NULL, FALSE);
 
+	gtk_html_im_reset (engine->widget);
+
 	if (engine->need_spell_check)
 		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
 
@@ -303,6 +308,8 @@ html_cursor_backward (HTMLCursor *cursor,
 	g_return_val_if_fail (cursor != NULL, FALSE);
 	g_return_val_if_fail (engine != NULL, FALSE);
 
+	gtk_html_im_reset (engine->widget);
+
 	if (engine->need_spell_check)
 		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
 
@@ -326,6 +333,8 @@ html_cursor_up (HTMLCursor *cursor,
 	gint target_x;
 	gint orig_y;
 	gboolean new_line;
+
+	gtk_html_im_reset (engine->widget);
 
 	if (cursor->object == NULL) {
 		g_warning ("The cursor is in a NULL position: going home.");
@@ -412,6 +421,8 @@ html_cursor_down (HTMLCursor *cursor,
 	gint target_x;
 	gint orig_y;
 	gboolean new_line;
+
+	gtk_html_im_reset (engine->widget);
 
 	if (cursor->object == NULL) {
 		g_warning ("The cursor is in a NULL position: going home.");
@@ -505,6 +516,8 @@ html_cursor_jump_to (HTMLCursor *cursor,
 	g_return_val_if_fail (cursor != NULL, FALSE);
 	g_return_val_if_fail (object != NULL, FALSE);
 
+	gtk_html_im_reset (engine->widget);
+
 	if (engine->need_spell_check)
 		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
 
@@ -542,6 +555,8 @@ html_cursor_beginning_of_document (HTMLCursor *cursor,
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 
+	gtk_html_im_reset (engine->widget);
+
 	if (engine->need_spell_check)
 		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
 
@@ -556,6 +571,8 @@ html_cursor_end_of_document (HTMLCursor *cursor,
 	g_return_if_fail (cursor != NULL);
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
+
+	gtk_html_im_reset (engine->widget);
 
 	if (engine->need_spell_check)
 		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
@@ -574,6 +591,8 @@ html_cursor_end_of_line (HTMLCursor *cursor,
 	g_return_val_if_fail (cursor != NULL, FALSE);
 	g_return_val_if_fail (engine != NULL, FALSE);
 	g_return_val_if_fail (HTML_IS_ENGINE (engine), FALSE);
+
+	gtk_html_im_reset (engine->widget);
 
 	cursor->have_target_x = FALSE;
 
@@ -610,6 +629,8 @@ html_cursor_beginning_of_line (HTMLCursor *cursor,
 	g_return_val_if_fail (cursor != NULL, FALSE);
 	g_return_val_if_fail (engine != NULL, FALSE);
 	g_return_val_if_fail (HTML_IS_ENGINE (engine), FALSE);
+
+	gtk_html_im_reset (engine->widget);
 
 	cursor->have_target_x = FALSE;
 
@@ -662,6 +683,8 @@ html_cursor_jump_to_position (HTMLCursor *cursor, HTMLEngine *engine, gint posit
 {
 	g_return_if_fail (cursor != NULL);
 	g_return_if_fail (position >= 0);
+
+	gtk_html_im_reset (engine->widget);
 
 	if (engine->need_spell_check)
 		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
@@ -766,6 +789,8 @@ html_cursor_beginning_of_paragraph (HTMLCursor *cursor, HTMLEngine *engine)
 	gboolean rv = FALSE;
 	gint level, new_level;
 
+	gtk_html_im_reset (engine->widget);
+
 	level = html_object_get_parent_level (cursor->object);
 	flow  = cursor->object->parent;
 
@@ -802,6 +827,8 @@ html_cursor_end_of_paragraph (HTMLCursor *cursor, HTMLEngine *engine)
 	HTMLObject *flow;
 	gboolean rv = FALSE;
 	gint level, new_level;
+
+	gtk_html_im_reset (engine->widget);
 
 	level = html_object_get_parent_level (cursor->object);
 	flow  = cursor->object->parent;

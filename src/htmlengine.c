@@ -4781,6 +4781,9 @@ html_engine_freeze (HTMLEngine *engine)
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 
+	if (engine->freeze_count == 0)
+		gtk_html_im_reset (engine->widget);
+
 	html_engine_flush_draw_queue (engine);
 	/* printf ("html_engine_freeze %d\n", engine->freeze_count); */
 
