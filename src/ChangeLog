@@ -1,3 +1,7 @@
+2001-10-17  Radek Doulik  <rodo@ximian.com>
+
+	* htmltable.c (calc_size): fix rendering issues
+
 2001-10-16  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (html_text_get_nb_width): fix for case where more
