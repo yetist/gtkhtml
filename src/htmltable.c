@@ -746,12 +746,9 @@ divide_into_percented_all (HTMLTable *table, gint *col_percent, gint *max_size, 
 	} while (!all_active);
 
 	/* printf ("sub_width %d\n", sub_width); */
-	for (c = 0; c < table->totalCols; c++) {
-		if (active [c] && max_size [c] < ((gdouble) width * PERC (c)) / percent) {
+	for (c = 0; c < table->totalCols; c++)
+		if (active [c] && max_size [c] < ((gdouble) width * PERC (c)) / percent)
 			max_size [c] = ((gdouble) width) * (PERC (c)) / percent;
-			printf ("%c set to %d\n", c, max_size [c]);
-		}
-	}
 }
 
 #define CSPAN (MIN (cell->col + cell->cspan, table->totalCols) - cell->col - 1)

@@ -1,5 +1,8 @@
 2000-12-06  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlgdkpainter.c (alloc_e_font): drop our heuristic and let
+	EFont do the job
+
 	* htmltable.c (divide_into_variable_all): more tuning
 
 	* htmlengine.c (parse_p): don't reset divAlign

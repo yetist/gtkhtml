@@ -172,11 +172,15 @@ alloc_font (gchar *face, gdouble size, GtkHTMLFontStyle style)
 static gpointer
 alloc_e_font (gchar *face, gdouble size, GtkHTMLFontStyle style)
 {
-	GdkFont *font;
+	EFont *font;
+	gchar *name = g_strdup_printf ("-*-%s-%s-%s-normal-*-%d-*-*-*-*-*-*",
+				       face, style & GTK_HTML_FONT_STYLE_BOLD ? "bold" : "medium",
+				       style & GTK_HTML_FONT_STYLE_ITALIC ? "i" : "r",
+				       (gint) size);
+	font = e_font_from_gdk_name (name);
+	g_free (name);
 
-	font = alloc_font (face, size, style);
-
-	return font ? e_font_from_gdk_font (font) : NULL;
+	return font;
 }
 
 static void
