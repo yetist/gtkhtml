@@ -309,7 +309,9 @@ image_properties (GtkHTMLControlData *cd, gpointer *set_data)
 
 	d->disable_change = TRUE;
 
-        if (!strncmp (ip->url, "file:", 5))
+        if (!strncmp (ip->url, "file://", 7))
+		off = 7;
+        else if (!strncmp (ip->url, "file:", 5))
 		off = 5;
 
 	gtk_entry_set_text (GTK_ENTRY (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (d->pentry))),
