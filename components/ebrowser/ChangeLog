@@ -1,3 +1,8 @@
+2000-10-31  Radek Doulik  <rodo@helixcode.com>
+
+	* ebrowser-stream.c: include "gtkhtml-stream.h" instead of
+	<gtkhtml/gtkhtml-stream.h>
+
 2000-10-30  Fatih Demir	<kabalak@gmx.net>
 
 	* ebrowser.oafinfo: Corrected missing '/>' tag

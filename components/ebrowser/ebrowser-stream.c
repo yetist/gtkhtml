@@ -22,7 +22,7 @@
     Author: Lauris Kaplinski  <lauris@helixcode.com>
 */
 
-#include <gtkhtml/gtkhtml-stream.h>
+#include "gtkhtml-stream.h"
 #include "ebrowser-widget.h"
 #include "ebrowser-stream.h"
 
