@@ -1,3 +1,8 @@
+2000-02-28  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlengine.c (parse_table): parse <th> correctly so that we
+	don't end up with spurious blocks which cause cells to grow.
+
 2000-02-27  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlimage.c (calc_preferred_width): return the width we calculate not
