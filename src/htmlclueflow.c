@@ -1242,12 +1242,21 @@ search (HTMLObject *obj, HTMLSearch *info)
 
 	printf ("search clueflow\n");
 
+	/* does last search end here? */
 	if (info->found) {
-		cur = HTML_OBJECT (g_list_last (info->found)->data);
+		cur  = HTML_OBJECT (g_list_last (info->found)->data);
 		next = TRUE;
-		printf ("search next clueflow\n");
+		printf ("search next clueflow continue\n");
 	} else {
-		cur = (info->forward) ? clue->head : clue->tail;
+		/* search_next? */
+		if (html_search_child_on_stack (info, obj)) {
+			cur  = html_search_pop (info);
+			cur  = (info->forward) ? cur->next : cur->prev;
+			next = TRUE;
+		} else {
+			/* normal search */
+			cur  = (info->forward) ? clue->head : clue->tail;
+		}
 	}
 	while (cur) {
 		if (HTML_OBJECT_TYPE (cur) == HTML_TYPE_TEXTMASTER
