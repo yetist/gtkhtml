@@ -469,61 +469,65 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items, guint *props)
 		}
 	}
 
-	if (cd->format_html && obj) {
-		ADD_SEP;
-		SUBMENU (_("Style"));
-		switch (HTML_OBJECT_TYPE (obj)) {
-		case HTML_TYPE_TEXT:
-			ADD_ITEM (_("Text Style..."), prop_dialog, TEXT);
-			ADD_PROP (TEXT);
-			ADD_ITEM (_("Paragraph Style..."), prop_dialog, PARAGRAPH);
-			ADD_PROP (PARAGRAPH);
-			break;
-		case HTML_TYPE_LINKTEXT:
-			ADD_ITEM (_("Link Style..."), link_prop_dialog, LINK);
-			ADD_PROP (LINK);
-			ADD_ITEM (_("Paragraph Style..."), prop_dialog, PARAGRAPH);
-			ADD_PROP (PARAGRAPH);
-			break;
-		case HTML_TYPE_RULE:
-			ADD_ITEM (_("Rule Style..."), prop_dialog, RULE);
-			ADD_PROP (RULE);
-			break;
-		case HTML_TYPE_IMAGE:
-			ADD_ITEM (_("Image Style..."), prop_dialog, IMAGE);
-			ADD_PROP (IMAGE);
-			ADD_ITEM (_("Paragraph Style..."), prop_dialog, PARAGRAPH);
-			ADD_PROP (PARAGRAPH);
-			break;
-		default:
-			;
-		}
-		if (obj->parent && obj->parent->parent && HTML_IS_TABLE_CELL (obj->parent->parent)) {
-			if (cd->format_html) {
-				ADD_PROP (CELL);
-				ADD_ITEM (_("Cell Style..."), prop_dialog, CELL);
-				if (obj->parent->parent->parent && HTML_IS_TABLE (obj->parent->parent->parent)) {
-					ADD_PROP (TABLE);
-					ADD_ITEM (_("Table Style..."), prop_dialog, TABLE);
+	if (obj) {
+		if (cd->format_html) {
+			ADD_SEP;
+			SUBMENU (_("Style"));
+			switch (HTML_OBJECT_TYPE (obj)) {
+			case HTML_TYPE_TEXT:
+				ADD_ITEM (_("Text Style..."), prop_dialog, TEXT);
+				ADD_PROP (TEXT);
+				ADD_ITEM (_("Paragraph Style..."), prop_dialog, PARAGRAPH);
+				ADD_PROP (PARAGRAPH);
+				break;
+			case HTML_TYPE_LINKTEXT:
+				ADD_ITEM (_("Link Style..."), link_prop_dialog, LINK);
+				ADD_PROP (LINK);
+				ADD_ITEM (_("Paragraph Style..."), prop_dialog, PARAGRAPH);
+				ADD_PROP (PARAGRAPH);
+				break;
+			case HTML_TYPE_RULE:
+				ADD_ITEM (_("Rule Style..."), prop_dialog, RULE);
+				ADD_PROP (RULE);
+				break;
+			case HTML_TYPE_IMAGE:
+				ADD_ITEM (_("Image Style..."), prop_dialog, IMAGE);
+				ADD_PROP (IMAGE);
+				ADD_ITEM (_("Paragraph Style..."), prop_dialog, PARAGRAPH);
+				ADD_PROP (PARAGRAPH);
+				break;
+			default:
+				;
+			}
+			if (obj->parent && obj->parent->parent && HTML_IS_TABLE_CELL (obj->parent->parent)) {
+				if (cd->format_html) {
+					ADD_PROP (CELL);
+					ADD_ITEM (_("Cell Style..."), prop_dialog, CELL);
+					if (obj->parent->parent->parent && HTML_IS_TABLE (obj->parent->parent->parent)) {
+						ADD_PROP (TABLE);
+						ADD_ITEM (_("Table Style..."), prop_dialog, TABLE);
+					}
 				}
 			}
-		}
-		if (cd->format_html) {
-			ADD_PROP (BODY);
-			ADD_ITEM (_("Page Style..."), prop_dialog, BODY);
-		}
-		END_SUBMENU;
-		if (obj->parent && obj->parent->parent && HTML_IS_TABLE_CELL (obj->parent->parent)) {
-			ADD_SEP;
-			SUBMENU (_("Table insert"));
-			ADD_ITEM (_("Table"), insert_table_cb, NONE);
-			ADD_SEP;
-			ADD_ITEM (_("Row above"), insert_row_above, NONE);
-			ADD_ITEM (_("Row below"), insert_row_below, NONE);
-			ADD_SEP;
-			ADD_ITEM (_("Column before"), insert_column_before, NONE);
-			ADD_ITEM (_("Column after"), insert_column_after, NONE);
+			if (cd->format_html) {
+				ADD_PROP (BODY);
+				ADD_ITEM (_("Page Style..."), prop_dialog, BODY);
+			}
 			END_SUBMENU;
+			if (obj->parent && obj->parent->parent && HTML_IS_TABLE_CELL (obj->parent->parent)) {
+				ADD_SEP;
+				SUBMENU (_("Table insert"));
+				ADD_ITEM (_("Table"), insert_table_cb, NONE);
+				ADD_SEP;
+				ADD_ITEM (_("Row above"), insert_row_above, NONE);
+				ADD_ITEM (_("Row below"), insert_row_below, NONE);
+				ADD_SEP;
+				ADD_ITEM (_("Column before"), insert_column_before, NONE);
+				ADD_ITEM (_("Column after"), insert_column_after, NONE);
+				END_SUBMENU;
+			}
+		}
+		if (obj->parent && obj->parent->parent && HTML_IS_TABLE_CELL (obj->parent->parent)) {
 			SUBMENU (_("Table delete"));
 			ADD_ITEM (_("Table"), delete_table, NONE);
 			ADD_ITEM (_("Row"), delete_row, NONE);

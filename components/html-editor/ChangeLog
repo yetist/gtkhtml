@@ -1,3 +1,9 @@
+2004-04-15  Radek Doulik  <rodo@ximian.com>
+
+	* popup.c (prepare_properties_and_menu): keep table delete submenu
+	in plain text editor. it may contain tables and we would like to
+	give the user a possibility to delete table/table parts
+
 2004-04-09  Radek Doulik  <rodo@ximian.com>
 
 	* toolbar.c (create_style_toolbar): do not use gtk 2.4 new toolbar
