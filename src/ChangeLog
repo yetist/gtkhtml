@@ -1,5 +1,10 @@
 2000-01-26  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine-save.c (write_header): New function to write the
+	start of the HTML file.
+	(write_end): New function to write the end of the HTML file.
+	(html_engine_save): Use them.
+
 	* htmlengine-save.c (html_engine_save_output_string): New function
 	to write a plain, unencoded string.
 

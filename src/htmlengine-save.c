@@ -174,13 +174,57 @@ save_forall (HTMLObject *object,
 		s->error = TRUE;
 }
 
+static gboolean
+write_header (HTMLEngineSaveState *state)
+{
+	/* Preface.  */
+	if (! html_engine_save_output_string
+	            (state,
+		     "<!doctype html public \"-//w3c//dtd html 4.0 transitional//en\">\n"
+		     "<html>\n"))
+		return FALSE;
+
+	/* Header start.  FIXME: `GENERATOR' string?  */
+	if (! html_engine_save_output_string
+		     (state,
+		      "<head>\n"
+		      "  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">\n"
+		      "  <meta name=\"GENERATOR\" content=\"GtkHTML/0.0\">\n"))
+		return FALSE;
+
+	/* Title.  */
+	if (! html_engine_save_output_string (state, "  <title>")
+	    || ! html_engine_save_encode_string (state, state->engine->title->str)
+	    || ! html_engine_save_output_string (state, "</title>\n"))
+		return FALSE;
+
+	/* End of header.  */
+	if (! html_engine_save_output_string (state, "</head>\n"))
+		return FALSE;
+
+	/* Start of body.  */
+
+	if (! html_engine_save_output_string (state, "<body>\n"))
+		return FALSE;
+
+	return TRUE;
+}
+
+static gboolean
+write_end (HTMLEngineSaveState *state)
+{
+	if (! html_engine_save_output_string (state, "</body>\n</html>\n"))
+		return FALSE;
+
+	return TRUE;
+}
+
 gboolean
 html_engine_save (const HTMLEngine *engine,
 		  HTMLEngineSaveReceiverFn receiver,
 		  gpointer user_data)
 {
 	HTMLEngineSaveState state;
-	gboolean retval;
 
 	if (engine->clue == NULL) {
 		/* Empty document.  */
@@ -193,9 +237,15 @@ html_engine_save (const HTMLEngine *engine,
 	state.error = FALSE;
 	state.user_data = user_data;
 
+	if (! write_header (&state))
+		return FALSE;
+
 	html_object_forall (engine->clue, save_forall, &state);
+	if (state.error)
+		return FALSE;
 
-	retval = ! state.error;
+	if (! write_end (&state))
+		return FALSE;
 
-	return retval;
+	return TRUE;
 }
