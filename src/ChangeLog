@@ -1,3 +1,8 @@
+2003-09-23  Radek Doulik  <rodo@ximian.com>
+
+	* htmlpainter.c (html_painter_calc_text_size): remove obsolete
+	g_return_if_fail
+
 2003-09-22  Radek Doulik  <rodo@ximian.com>
 
 	* libgtkhtml.pc.in (Cflags): remove a11y lib reference

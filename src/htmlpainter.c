@@ -295,7 +295,6 @@ html_painter_calc_text_size (HTMLPainter *painter,
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 	g_return_if_fail (text != NULL);
-	g_return_if_fail (font_style != GTK_HTML_FONT_STYLE_DEFAULT);
 
 	(* HP_CLASS (painter)->calc_text_size) (painter, text, len, pi, glyphs, start_byte_offset, font_style, face, width, asc, dsc);
 
