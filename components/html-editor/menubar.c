@@ -696,6 +696,8 @@ menubar_setup (BonoboUIComponent  *uic,
 
 	bonobo_ui_component_add_verb_list_with_data (uic, verbs, cd);
 
+	printf ("xml: %s/%s\n", GTKHTML_DATADIR, "GNOME_GtkHTML_Editor.xml");
 	bonobo_ui_util_set_ui (uic, GTKHTML_DATADIR, "GNOME_GtkHTML_Editor.xml", "GNOME_GtkHTML_Editor", NULL);
+	spell_create_language_menu (cd);
 	menubar_update_format (cd);
 }

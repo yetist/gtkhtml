@@ -63,16 +63,6 @@
 	* editor-control-factory.c (editor_control_init): Replace
 	deprecated glade_gnome_init() with glade_init()
 
-2003-01-23  Radek Doulik  <rodo@ximian.com>
-
-	* spell.c: removed spell_create_language_menu and language_cb as
-	they are not needed any more
-
-	* menubar.c (menubar_setup): don't create language menu
-
-	* GNOME_GtkHTML_Editor.xml.in: removed place holder for language
-	menu
-
 2003-01-09  Radek Doulik  <rodo@ximian.com>
 
 	* spell.c (spell_check_dialog): as below
