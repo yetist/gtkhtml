@@ -12,6 +12,8 @@
 #include "htmlengine-edit-cut-and-paste.h"
 #include "htmlengine-edit-movement.h"
 #include "htmlengine-edit-text.h"
+#include "htmltable.h"
+#include "htmltablecell.h"
 #include "htmltext.h"
 
 typedef struct {
@@ -27,6 +29,7 @@ static int test_cursor_left_right_on_lines_boundaries_rtl (GtkHTML *html);
 static int test_cursor_around_containers (GtkHTML *html);
 
 static int test_quotes_in_div_block (GtkHTML *html);
+static int test_quotes_in_table (GtkHTML *html);
 static int test_capitalize_upcase_lowcase_word (GtkHTML *html);
 static int test_delete_nested_cluevs_and_undo (GtkHTML *html);
 
@@ -40,6 +43,7 @@ static Test tests[] = {
 	{ "around containers", test_cursor_around_containers },
 	{ "various fixed bugs", NULL },
 	{ "outer quotes inside div block", test_quotes_in_div_block },
+	{ "outer quotes inside table", test_quotes_in_table },
 	{ "capitalize, upcase/lowcase word", test_capitalize_upcase_lowcase_word },
 	{ "delete across nested cluev's and undo", test_delete_nested_cluevs_and_undo },
 	{ NULL, NULL }
@@ -341,6 +345,42 @@ test_quotes_in_div_block (GtkHTML *html)
 
 	/* test if levels are OK */
 	if (!flow_levels || !flow_levels->len == 1 || flow_levels->data [0] != HTML_LIST_TYPE_BLOCKQUOTE_CITE)
+		return FALSE;
+
+	return TRUE;
+}
+
+static int
+test_quotes_in_table (GtkHTML *html)
+{
+	GByteArray *flow_levels;
+	HTMLEngine *e = html->engine;
+	HTMLTable *table;
+
+	load_editable (html,
+		       "<blockquote type=cite>"
+		       "quoted text"
+		       "<table><tr><td>"
+		       "quoted text without inner cite"
+		       "</td></tr></table>"
+		       "quoted text"
+		       "</blockquote>");
+
+	/* test for right object hierarhy */
+	if (!e->clue || !HTML_CLUE (e->clue)->head || !HTML_CLUE (e->clue)->head->next || !HTML_IS_CLUEFLOW (HTML_CLUE (e->clue)->head->next)
+	    || !HTML_CLUE (HTML_CLUE (e->clue)->head->next)->head || !HTML_IS_TABLE (HTML_CLUE (HTML_CLUE (e->clue)->head->next)->head))
+		return FALSE;
+
+ 	table = HTML_TABLE (HTML_CLUE (HTML_CLUE (e->clue)->head->next)->head);
+
+ 	if (table->totalCols != 1 || table->totalRows != 1 || !table->cells [0][0] || !HTML_IS_TABLE_CELL (table->cells [0][0])
+	    || !HTML_CLUE (table->cells [0][0])->head || !HTML_IS_CLUEFLOW (HTML_CLUE (table->cells [0][0])->head))
+ 		return FALSE;
+
+	flow_levels = HTML_CLUEFLOW (HTML_CLUE (table->cells [0][0])->head)->levels;
+
+	/* test if levels are OK */
+	if (!flow_levels || !flow_levels->len == 0)
 		return FALSE;
 
 	return TRUE;

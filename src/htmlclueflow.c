@@ -686,18 +686,37 @@ calc_min_width (HTMLObject *o,
 }
 
 static gint
-pref_right_margin (HTMLPainter *p, HTMLClueFlow *clueflow, HTMLObject *o, gint y, gboolean with_aligned) 
+pref_left_margin (HTMLPainter *p, HTMLObject *o, int indent)
 {
-	gint fixed_margin = html_object_get_right_margin (o, p, y, with_aligned);
+	int margin = html_object_get_left_margin (o->parent, p, o->y, TRUE);
 
-	/* FIXME: this hack lets us wrap the display at 72 characters when we are using
-	   a plain painter */
-	  
-	if (clueflow->style == HTML_CLUEFLOW_STYLE_PRE || ! HTML_IS_PLAIN_PAINTER(p))
-		return fixed_margin;
+	if (html_object_get_direction (o) == HTML_DIRECTION_RTL) {
+		if (HTML_CLUEFLOW (o)->style != HTML_CLUEFLOW_STYLE_PRE && HTML_IS_PLAIN_PAINTER(p))
+			return MAX (margin, o->width - (int)(72 * (MAX (html_painter_get_space_width (p, GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_FIXED, NULL),
+									html_painter_get_e_width (p, GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_FIXED, NULL)))));
+	} else {
+		if (indent > margin)
+			margin = indent;
+	}
 
-	return MIN (fixed_margin, 72 * (MAX (html_painter_get_space_width (p, GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_FIXED, NULL),
-					     html_painter_get_e_width (p, GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_FIXED, NULL))));
+	return margin;
+}
+
+static gint
+pref_right_margin (HTMLPainter *p, HTMLObject *o, int indent)
+{
+	gint margin = html_object_get_right_margin (o->parent, p, o->y, TRUE);
+
+	if (html_object_get_direction (o) != HTML_DIRECTION_RTL) {
+		if (HTML_CLUEFLOW (o)->style != HTML_CLUEFLOW_STYLE_PRE && HTML_IS_PLAIN_PAINTER(p))
+			return MIN (margin, 72 * (MAX (html_painter_get_space_width (p, GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_FIXED, NULL),
+						       html_painter_get_e_width (p, GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_FIXED, NULL))));
+	} else {
+		if (indent > o->width - margin)
+			margin = o->width - indent;
+	}
+
+	return margin;
 }
 
 static void
@@ -721,10 +740,8 @@ add_clear_area (GList **changed_objs, HTMLObject *o, gint x, gint w)
 static void
 calc_margins (HTMLObject *o, HTMLPainter *painter, gint indent, gint *lmargin, gint *rmargin)
 {
-	*lmargin = html_object_get_left_margin (o->parent, painter, o->y, TRUE);
-	if (indent > *lmargin)
-		*lmargin = indent;
-	*rmargin = pref_right_margin (painter, HTML_CLUEFLOW (o), o->parent, o->y, TRUE);
+	*lmargin = pref_left_margin (painter, o, indent);
+	*rmargin = pref_right_margin (painter, o, indent);
 }
 
 static inline gint

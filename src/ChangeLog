@@ -1,3 +1,11 @@
+2005-02-09  Radek Doulik  <rodo@novell.com>
+
+	* test-suite.c: added test for outer quotes inside table
+
+	* htmlengine.c: push list stack around table parsing
+
+	* htmlclueflow.c: fixed margins calculation for RTL
+
 2005-02-07  Radek Doulik  <rodo@novell.com>
 
 	* htmlclueflow.c (draw_item): fixed RTL rendering
