@@ -1501,5 +1501,5 @@ gtk_html_redo (GtkHTML *html)
 void
 gtk_html_set_default_background_color (GtkHTML *html, GdkColor *c)
 {
-	html_settings_set_color (html->engine->settings, HTMLBgColor, c);
+	html_settings_set_color (html->engine->defaultSettings, HTMLBgColor, c);
 }

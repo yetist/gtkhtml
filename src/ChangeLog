@@ -1,5 +1,8 @@
 2000-04-30  Radek Doulik  <rodo@helixcode.com>
 
+	* gtkhtml.c (gtk_html_set_default_background_color): set bgcolor
+	in default settings
+
 	* htmlpainter.c (html_painter_draw_background): added const to
 	color arg
 
