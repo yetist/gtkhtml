@@ -23,7 +23,7 @@
 */
 
 #include <config.h>
-#include <libgnome/gnome-i18n.h>
+#include <glib/gi18n.h>
 #include <bonobo.h>
 #include <stdio.h>
 #include <glib.h>

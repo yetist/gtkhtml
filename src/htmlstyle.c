@@ -413,7 +413,7 @@ parse_border (HTMLStyle *style, char *value)
 	while (value && *value) {
 		char *next;
 		int modified;
-		char orig;
+		char orig = 0;
 
 		while (isspace (*value))
 			value ++;

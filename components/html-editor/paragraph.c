@@ -21,7 +21,7 @@
 */
 
 #include <config.h>
-#include <libgnome/gnome-i18n.h>
+#include <glib/gi18n.h>
 #include "htmlengine-edit-clueflowstyle.h"
 #include "htmlengine-save.h"
 #include "htmlselection.h"

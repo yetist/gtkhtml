@@ -1,3 +1,7 @@
+2004-11-19  Radek Doulik  <rodo@ximian.com>
+
+	* htmlstyle.c (parse_border): quiet compiler
+
 2004-11-11  Radek Doulik  <rodo@ximian.com>
 
 	* htmltablecell.c: handle direction

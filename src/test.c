@@ -38,7 +38,7 @@
 #include <gtk/gtkbutton.h>
 #include <gtk/gtksignal.h>
 
-#include <libgnome/gnome-i18n.h>
+#include <glib/gi18n.h>
 #include <libgnomeui/gnome-ui-init.h>
 
 #include "gtkhtml.h"

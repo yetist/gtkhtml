@@ -28,7 +28,7 @@
 #endif
 
 #include <bonobo/bonobo-shlib-factory.h>
-#include <libgnome/gnome-i18n.h>
+#include <glib/gi18n.h>
 
 #include "editor-control-factory.h"
 

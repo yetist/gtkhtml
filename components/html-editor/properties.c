@@ -22,7 +22,7 @@
 
 
 #include <config.h>
-#include <libgnome/gnome-i18n.h>
+#include <glib/gi18n.h>
 #include <libgnomeui/gnome-window-icon.h>
 #include "dialog.h"
 #include "properties.h"

@@ -22,6 +22,7 @@
 #endif
 #include <gnome.h>
 #include <bonobo/gnome-bonobo.h>
+#include <glib/gi18n.h>
 #include "gtkhtml.h"
 
 /*

@@ -25,7 +25,7 @@
 #include <glib-object.h>
 #include <atk/atkcomponent.h>
 #include <atk/atkstateset.h>
-#include <libgnome/gnome-i18n.h>
+#include <glib/gi18n.h>
 
 #include "html.h"
 #include "object.h"
