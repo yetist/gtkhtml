@@ -2987,7 +2987,9 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_DELETE_BACK_OR_INDENT_DEC:
 		if (html_engine_is_selection_active (e))
 			html_engine_delete (e);
-		else if (html_engine_cursor_on_bop (e) && html_engine_get_indent (e) > 0)
+		else if (html_engine_cursor_on_bop (e) && html_engine_get_indent (e) > 0
+			 && e->cursor->object->parent && HTML_IS_CLUEFLOW (e->cursor->object->parent)
+			 && HTML_CLUEFLOW (e->cursor->object->parent)->style != HTML_CLUEFLOW_STYLE_LIST_ITEM)
 			gtk_html_modify_indent_by_delta (html, -1);
 		else
 			delete_one (e, FALSE);
