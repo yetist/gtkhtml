@@ -4638,8 +4638,6 @@ add_bindings (GtkHTMLClass *klass)
 
 	/* tabs */
 	BCOM (0, Tab, INSERT_TAB_OR_NEXT_CELL);
-	BCOM (GDK_CONTROL_MASK, Tab, INDENT_INC);
-	BCOM (GDK_CONTROL_MASK | GDK_SHIFT_MASK, Tab, INDENT_DEC);
 	BCOM (GDK_SHIFT_MASK, Tab, PREV_CELL);
 
 	/* spell checking */
