@@ -1,3 +1,8 @@
+2001-09-08  Dan Winship  <danw@ximian.com>
+
+	* gtkhtml.c (destroy): unref the engine rather than explicitly
+	destroying it.
+
 2001-09-07  Radek Doulik  <rodo@ximian.com>
 
 	* applied boc's patch

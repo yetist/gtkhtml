@@ -642,7 +642,7 @@ destroy (GtkObject *object)
 
 	html->priv = NULL;
 
-	gtk_object_destroy (GTK_OBJECT (html->engine));
+	gtk_object_unref (GTK_OBJECT (html->engine));
 
 	if (GTK_OBJECT_CLASS (parent_class)->destroy != NULL)
 		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
