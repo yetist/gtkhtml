@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml HEAD\n"
-"POT-Creation-Date: 2004-06-25 15:15-0400\n"
+"POT-Creation-Date: 2004-08-02 11:38-0400\n"
 "PO-Revision-Date: 2004-06-05 19:04+0900\n"
 "Last-Translator: Takeshi AIHANA <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
@@ -1874,90 +1874,90 @@ msgstr ""
 "編集したテキストがドキュメントから削除されました。\n"
 "変更点を適用することができません。"
 
-#: src/gtkhtml.c:2494
+#: src/gtkhtml.c:2531
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 "コンポーザにドロップした Mozilla の URL の書式 (%d) またはサイズ (%d) が間"
 "違っています\n"
 
-#: src/gtkhtml.c:2815
+#: src/gtkhtml.c:2852
 msgid "Editable"
 msgstr "編集可"
 
-#: src/gtkhtml.c:2816
+#: src/gtkhtml.c:2853
 msgid "Whether the html can be edited"
 msgstr "HTML が編集可能かどうか"
 
-#: src/gtkhtml.c:2822
+#: src/gtkhtml.c:2859
 msgid "Document Title"
 msgstr "文書のタイトル"
 
-#: src/gtkhtml.c:2823
+#: src/gtkhtml.c:2860
 msgid "The title of the current document"
 msgstr "このドキュメントのタイトルです"
 
-#: src/gtkhtml.c:2829
+#: src/gtkhtml.c:2866
 msgid "Document Base"
 msgstr "ドキュメント・ベース"
 
-#: src/gtkhtml.c:2830
+#: src/gtkhtml.c:2867
 msgid "The base URL for relative references"
 msgstr "関連するリファレンスのベース URL です"
 
-#: src/gtkhtml.c:2836
+#: src/gtkhtml.c:2873
 msgid "Target Base"
 msgstr "ターゲット・ベース"
 
-#: src/gtkhtml.c:2837
+#: src/gtkhtml.c:2874
 msgid "The base URL of the targe frame"
 msgstr "ターゲット・フレームのベース URL です"
 
-#: src/gtkhtml.c:2846
+#: src/gtkhtml.c:2883
 msgid "Fixed Width Font"
 msgstr "等幅フォント"
 
-#: src/gtkhtml.c:2847
+#: src/gtkhtml.c:2884
 msgid "The Monospace font to use for typewriter text"
 msgstr "タイプライタのテキストに使用する等幅フォントです"
 
-#: src/gtkhtml.c:2853
+#: src/gtkhtml.c:2890
 msgid "New Link Color"
 msgstr "新しいリンクの色"
 
-#: src/gtkhtml.c:2854
+#: src/gtkhtml.c:2891
 msgid "The color of new link elements"
 msgstr "新しいリンク要素の色です"
 
-#: src/gtkhtml.c:2859
+#: src/gtkhtml.c:2896
 msgid "Visited Link Color"
 msgstr "訪問済みリンクの色"
 
-#: src/gtkhtml.c:2860
+#: src/gtkhtml.c:2897
 msgid "The color of visited link elements"
 msgstr "訪問したリンク要素の色です"
 
-#: src/gtkhtml.c:2865
+#: src/gtkhtml.c:2902
 msgid "Active Link Color"
 msgstr "アクティブなリンクの色"
 
-#: src/gtkhtml.c:2866
+#: src/gtkhtml.c:2903
 msgid "The color of active link elements"
 msgstr "有効なリンク要素の色です"
 
-#: src/gtkhtml.c:2871
+#: src/gtkhtml.c:2908
 msgid "Spelling Error Color"
 msgstr "スペルミスの色"
 
-#: src/gtkhtml.c:2872
+#: src/gtkhtml.c:2909
 msgid "The color of the spelling error markers"
 msgstr "スペル・チェックでエラーとなった色です"
 
-#: src/gtkhtml.c:2877
+#: src/gtkhtml.c:2914
 msgid "Cite Quotation Color"
 msgstr "引用の色"
 
-#: src/gtkhtml.c:2878
+#: src/gtkhtml.c:2915
 msgid "The color of the cited text"
 msgstr "引用したテキストの色です"
 

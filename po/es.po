@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
-"POT-Creation-Date: 2004-06-25 15:15-0400\n"
+"POT-Creation-Date: 2004-08-02 11:38-0400\n"
 "PO-Revision-Date: 2004-07-07 23:42+0200\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
@@ -1882,91 +1882,91 @@ msgstr ""
 "El texto editado ha sido eliminado del documento.\n"
 "No se pueden aplicar los cambios."
 
-#: src/gtkhtml.c:2494
+#: src/gtkhtml.c:2531
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 "La url de Mozilla soltada en el editor tenía un formato erróneo (%d) o "
 "longitud (%d)\n"
 
-#: src/gtkhtml.c:2815
+#: src/gtkhtml.c:2852
 msgid "Editable"
 msgstr "Editable"
 
-#: src/gtkhtml.c:2816
+#: src/gtkhtml.c:2853
 msgid "Whether the html can be edited"
 msgstr "Indica si el html puede ser editado"
 
-#: src/gtkhtml.c:2822
+#: src/gtkhtml.c:2859
 msgid "Document Title"
 msgstr "Título del documento"
 
-#: src/gtkhtml.c:2823
+#: src/gtkhtml.c:2860
 msgid "The title of the current document"
 msgstr "El título del documento actual"
 
-#: src/gtkhtml.c:2829
+#: src/gtkhtml.c:2866
 msgid "Document Base"
 msgstr "Base del documento"
 
-#: src/gtkhtml.c:2830
+#: src/gtkhtml.c:2867
 msgid "The base URL for relative references"
 msgstr "La URL de base para referencias relativas"
 
-#: src/gtkhtml.c:2836
+#: src/gtkhtml.c:2873
 msgid "Target Base"
 msgstr "Base del destino"
 
-#: src/gtkhtml.c:2837
+#: src/gtkhtml.c:2874
 msgid "The base URL of the targe frame"
 msgstr "La URL base del marco destino"
 
-#: src/gtkhtml.c:2846
+#: src/gtkhtml.c:2883
 msgid "Fixed Width Font"
 msgstr "Tipografía de anchura fija"
 
-#: src/gtkhtml.c:2847
+#: src/gtkhtml.c:2884
 msgid "The Monospace font to use for typewriter text"
 msgstr ""
 "La tipografía monoespaciada a usar para el texto de máquina de escribir"
 
-#: src/gtkhtml.c:2853
+#: src/gtkhtml.c:2890
 msgid "New Link Color"
 msgstr "Color de enlaces nuevos"
 
-#: src/gtkhtml.c:2854
+#: src/gtkhtml.c:2891
 msgid "The color of new link elements"
 msgstr "El color de los elementos de enlace nuevos"
 
-#: src/gtkhtml.c:2859
+#: src/gtkhtml.c:2896
 msgid "Visited Link Color"
 msgstr "Color de enlaces visitados"
 
-#: src/gtkhtml.c:2860
+#: src/gtkhtml.c:2897
 msgid "The color of visited link elements"
 msgstr "El color de los elementos de enlace visitados"
 
-#: src/gtkhtml.c:2865
+#: src/gtkhtml.c:2902
 msgid "Active Link Color"
 msgstr "Color del enlace activo"
 
-#: src/gtkhtml.c:2866
+#: src/gtkhtml.c:2903
 msgid "The color of active link elements"
 msgstr "El color de los elementos de enlace activos"
 
-#: src/gtkhtml.c:2871
+#: src/gtkhtml.c:2908
 msgid "Spelling Error Color"
 msgstr "Color del error ortográfico"
 
-#: src/gtkhtml.c:2872
+#: src/gtkhtml.c:2909
 msgid "The color of the spelling error markers"
 msgstr "El color de los marcadores de error ortográfico"
 
-#: src/gtkhtml.c:2877
+#: src/gtkhtml.c:2914
 msgid "Cite Quotation Color"
 msgstr "Color de cita literal"
 
-#: src/gtkhtml.c:2878
+#: src/gtkhtml.c:2915
 msgid "The color of the cited text"
 msgstr "El color del elemento citado literalmente"
 

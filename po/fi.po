@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 1.1.0.99\n"
-"POT-Creation-Date: 2004-06-25 15:15-0400\n"
+"POT-Creation-Date: 2004-08-02 11:38-0400\n"
 "PO-Revision-Date: 2003-06-17 20:41+0200\n"
 "Last-Translator: Pauli Virtanen <pauli.virtanen@hut.fi>\n"
 "Language-Team: Gnome Finnish Translation Team <gnome-fi-laatu@lists."
@@ -1939,89 +1939,89 @@ msgstr ""
 "Muokattu teksti on poistettu asiakirjasta.\n"
 "Muutoksia ei voi ottaa käyttöön."
 
-#: src/gtkhtml.c:2494
+#: src/gtkhtml.c:2531
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 
-#: src/gtkhtml.c:2815
+#: src/gtkhtml.c:2852
 msgid "Editable"
 msgstr "Muokattava"
 
-#: src/gtkhtml.c:2816
+#: src/gtkhtml.c:2853
 msgid "Whether the html can be edited"
 msgstr "Voiko HTML-tiedostoa muokata"
 
-#: src/gtkhtml.c:2822
+#: src/gtkhtml.c:2859
 msgid "Document Title"
 msgstr "Asiakirjan otsikko"
 
-#: src/gtkhtml.c:2823
+#: src/gtkhtml.c:2860
 msgid "The title of the current document"
 msgstr "Nykyisen asiakirjan otsikko"
 
-#: src/gtkhtml.c:2829
+#: src/gtkhtml.c:2866
 msgid "Document Base"
 msgstr "Asiakirjan kanta"
 
-#: src/gtkhtml.c:2830
+#: src/gtkhtml.c:2867
 msgid "The base URL for relative references"
 msgstr "Suhteellisten viittausten kanta-URL"
 
-#: src/gtkhtml.c:2836
+#: src/gtkhtml.c:2873
 msgid "Target Base"
 msgstr "Kohteen kanta"
 
-#: src/gtkhtml.c:2837
+#: src/gtkhtml.c:2874
 msgid "The base URL of the targe frame"
 msgstr "Kohdekehyksen kanta-URL"
 
-#: src/gtkhtml.c:2846
+#: src/gtkhtml.c:2883
 msgid "Fixed Width Font"
 msgstr "Tasavälinen kirjasin"
 
-#: src/gtkhtml.c:2847
+#: src/gtkhtml.c:2884
 msgid "The Monospace font to use for typewriter text"
 msgstr "Kirjoituskonetekstissä käytettävä tasavälinen kirjasin"
 
-#: src/gtkhtml.c:2853
+#: src/gtkhtml.c:2890
 msgid "New Link Color"
 msgstr "Uuden linkin väri"
 
-#: src/gtkhtml.c:2854
+#: src/gtkhtml.c:2891
 msgid "The color of new link elements"
 msgstr "Uusien linkkielementtien väri"
 
-#: src/gtkhtml.c:2859
+#: src/gtkhtml.c:2896
 msgid "Visited Link Color"
 msgstr "Käydyn linkin väri"
 
-#: src/gtkhtml.c:2860
+#: src/gtkhtml.c:2897
 msgid "The color of visited link elements"
 msgstr "Käytyjen linkkielementtien väri"
 
-#: src/gtkhtml.c:2865
+#: src/gtkhtml.c:2902
 msgid "Active Link Color"
 msgstr "Aktiivisen linkkielementin väri"
 
-#: src/gtkhtml.c:2866
+#: src/gtkhtml.c:2903
 msgid "The color of active link elements"
 msgstr "Aktiivisten linkkielementtien väri"
 
-#: src/gtkhtml.c:2871
+#: src/gtkhtml.c:2908
 msgid "Spelling Error Color"
 msgstr "Kirjoitusvirheen väri"
 
-#: src/gtkhtml.c:2872
+#: src/gtkhtml.c:2909
 msgid "The color of the spelling error markers"
 msgstr "Kirjoitusvirheilmaisimen väri"
 
-#: src/gtkhtml.c:2877
+#: src/gtkhtml.c:2914
 #, fuzzy
 msgid "Cite Quotation Color"
 msgstr "Liitä lainaus"
 
-#: src/gtkhtml.c:2878
+#: src/gtkhtml.c:2915
 #, fuzzy
 msgid "The color of the cited text"
 msgstr "Aktiivisten linkkielementtien väri"
