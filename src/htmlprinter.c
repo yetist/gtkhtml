@@ -553,6 +553,8 @@ fill_rect (HTMLPainter *painter, gint x, gint y, gint width, gint height)
 static void
 process_attrs (HTMLPrinter *printer, GSList *attrs, GtkHTMLFontStyle *style, gboolean *bgcolor, gboolean *underline, gboolean *strikethrough, gboolean set_context)
 {
+	gboolean set_color = FALSE;
+
 	while (attrs) {
 		PangoAttribute *attr = attrs->data;
 
@@ -564,6 +566,7 @@ process_attrs (HTMLPrinter *printer, GSList *attrs, GtkHTMLFontStyle *style, gbo
 				pc = ((PangoAttrColor *) attr)->color;
 				gnome_print_setrgbcolor (printer->context,
 							 pc.red / 65535.0, pc.green / 65535.0, pc.blue / 65535.0);
+				set_color = TRUE;
 			}
 		}
 		break;
@@ -593,6 +596,9 @@ process_attrs (HTMLPrinter *printer, GSList *attrs, GtkHTMLFontStyle *style, gbo
 		}
 		attrs = attrs->next;
 	}
+
+	if (set_context && !set_color)
+		gnome_print_setrgbcolor (printer->context, 0.0, 0.0, 0.0);
 }
 
 static gint

@@ -324,7 +324,7 @@ update_lb (HTMLTextSlave *slave, HTMLPainter *painter, gint widthLeft, gint offs
 	} else {
 		gint lo = html_text_get_line_offset (slave->owner, painter, *lbo - *lwl);
 				/* printf ("s: %s l: %d\n", html_text_get_text (slave->owner, lbo - lwl), offset - new_lwl - lbo + lwl); */
-		html_text_calc_text_size (slave->owner, painter, html_text_get_text (slave->owner, lbo - lwl),
+		html_text_calc_text_size (slave->owner, painter, html_text_get_text (slave->owner, *lbo - *lwl),
 					  offset - new_lwl - *lbo + *lwl, NULL, NULL, 0, &lo,
 					  html_text_get_font_style (slave->owner), slave->owner->face,
 					  &aw, NULL, NULL);

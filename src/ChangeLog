@@ -1,3 +1,9 @@
+2003-11-14  Radek Doulik  <rodo@ximian.com>
+
+	* htmlprinter.c (process_attrs): set default font fg color
+
+	* htmltextslave.c (update_lb): get the right text portion
+
 2003-11-10  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml.c (D_IM): move all the IM debug spewage into D_IM
