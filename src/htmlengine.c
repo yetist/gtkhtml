@@ -4244,7 +4244,15 @@ html_engine_get_editable (HTMLEngine *e)
 		return FALSE;
 }
 
-
+static void
+set_focus (HTMLObject *o, HTMLEngine *e, gpointer data)
+{
+	if (HTML_IS_IFRAME (o) || HTML_IS_FRAME (o)) {
+		HTMLEngine *cur_e = GTK_HTML (HTML_IS_FRAME (o) ? HTML_FRAME (o)->html : HTML_IFRAME (o)->html)->engine;
+		html_painter_set_focus (cur_e->painter, GPOINTER_TO_INT (data));
+	}
+}
+
 void
 html_engine_set_focus (HTMLEngine *engine,
 		       gboolean have_focus)
@@ -4260,6 +4268,10 @@ html_engine_set_focus (HTMLEngine *engine,
 	}
 
 	engine->have_focus = have_focus;
+
+	html_painter_set_focus (engine->painter, engine->have_focus);
+	html_object_forall (engine->clue, engine, set_focus, GINT_TO_POINTER (have_focus));
+	html_engine_redraw_selection (engine);
 }
 
 

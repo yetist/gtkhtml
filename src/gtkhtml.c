@@ -1217,8 +1217,6 @@ focus_in_event (GtkWidget *widget,
 	GtkHTML *html = GTK_HTML (widget);
 
 	/* printf ("focus in\n"); */
-	html_painter_set_focus (html->engine->painter, TRUE);
-	html_engine_redraw_selection (html->engine);
 	if (!html->iframe_parent) {
 		GTK_WIDGET_SET_FLAGS (widget, GTK_HAS_FOCUS);
 		html_engine_set_focus (html->engine, TRUE);

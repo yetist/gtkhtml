@@ -517,6 +517,7 @@ html_iframe_init (HTMLIFrame *iframe,
 				     parent_html->engine->settings->color_set);
 	html_colorset_set_unchanged (new_html->engine->settings->color_set,
 				     parent_html->engine->settings->color_set);
+	html_painter_set_focus (new_html->engine->painter, parent_html->engine->have_focus);
 	/*
 	gtk_signal_connect (GTK_OBJECT (html), "title_changed",
 			    GTK_SIGNAL_FUNC (title_changed_cb), (gpointer)app);

@@ -1,3 +1,17 @@
+2001-12-03  Radek Doulik  <rodo@ximian.com>
+
+	* htmlframe.c (html_frame_init): as below, BTW, iframe and frame
+	has so much shared code, that I believe they should be inherit
+	from generic frame parent which should hold shared code
+
+	* htmliframe.c (html_iframe_init): set focus by parent
+
+2001-11-29  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (set_focus): new helper function
+	(html_engine_set_focus): foreach frame/iframe set painter focus,
+	uses set_focus helper
+
 2001-11-27  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (html_text_magic_link): use
