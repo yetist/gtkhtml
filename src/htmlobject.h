@@ -76,6 +76,12 @@ typedef enum {
 	HTML_HALIGN_NONE
 } HTMLHAlignType;
 
+typedef enum {
+	HTML_CHANGE_NONE = 0,
+	HTML_CHANGE_MIN_WIDTH = 1 << 0,
+	HTML_CHANGE_ALL = 0x1,
+} HTMLChangeFlags;
+
 
 #include "htmlengine.h"
 #include "htmltype.h"
@@ -98,10 +104,13 @@ struct _HTMLObject {
 	HTMLObject *prev;
 	HTMLObject *next;
 
+	HTMLChangeFlags change;
+
 	gint x, y;
 
 	gint ascent, descent;
 
+	gint min_width;
 	gint width;
 	gint max_width;
 
@@ -374,5 +383,9 @@ void        html_object_append_selection_string  (HTMLObject *self,
 /* Saving.  */
 gboolean  html_object_save  (HTMLObject          *self,
 			     HTMLEngineSaveState *state);
+
+/* set change flag f of this object and of all its parents */
+void html_object_change_set   (HTMLObject *self,
+			       HTMLChangeFlags f);
 
 #endif /* _HTMLOBJECT_H_ */

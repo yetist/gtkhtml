@@ -491,8 +491,21 @@ static void
 html_image_factory_area_prepared (GdkPixbufLoader *loader, HTMLImagePointer *ip)
 {
 	if (!ip->animation) {
+		GSList *cur;
+		HTMLObject *o;
+
 		ip->pixbuf    = gdk_pixbuf_loader_get_pixbuf (ip->loader);
 		g_assert (ip->pixbuf);
+
+		/* set change flags on images using this image_ptr */
+		cur = ip->interests;
+		while (cur) {
+			if (cur->data) {
+				o = HTML_OBJECT (cur->data);
+				html_object_change_set (o, HTML_CHANGE_MIN_WIDTH);
+			}
+			cur = cur->next;
+		}
 
 		gdk_pixbuf_ref (ip->pixbuf);
 		html_engine_schedule_update (ip->factory->engine);

@@ -491,6 +491,9 @@ html_object_init (HTMLObject *o,
 	o->prev = NULL;
 	o->next = NULL;
 
+	/* we don't have any info cached in the beginning */
+	o->change = HTML_CHANGE_ALL;
+
 	o->x = 0;
 	o->y = 0;
 
@@ -663,7 +666,11 @@ gint
 html_object_calc_min_width (HTMLObject *o,
 			    HTMLPainter *painter)
 {
-	return (* HO_CLASS (o)->calc_min_width) (o, painter);
+	if (o->change & HTML_CHANGE_MIN_WIDTH) {
+		o->min_width = (* HO_CLASS (o)->calc_min_width) (o, painter);
+		o->change &= ~HTML_CHANGE_MIN_WIDTH;
+	}
+	return o->min_width;
 }
 
 gint
@@ -862,3 +869,17 @@ html_object_check_page_split  (HTMLObject *self,
 	return (* HO_CLASS (self)->check_page_split) (self, y);
 }
 
+void
+html_object_change_set (HTMLObject *self, HTMLChangeFlags f)
+{
+	HTMLObject *obj = self;
+
+	g_assert (self != NULL);
+
+	if (f != HTML_CHANGE_NONE) {
+		while (obj) {
+			obj->change |= f;
+			obj = obj->parent;
+		}
+	}
+}

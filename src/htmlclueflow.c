@@ -1247,6 +1247,7 @@ html_clueflow_split (HTMLClueFlow *clue,
 	}
 
 	child->prev = NULL;
+	html_object_change_set (HTML_OBJECT (clue), HTML_CHANGE_ALL);
 
 	/* Put the children into the new clue.  */
 

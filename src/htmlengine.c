@@ -673,6 +673,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	gboolean firstRow = TRUE;
 	gboolean noCell = TRUE;
 	gboolean tableEntry;
+	gboolean noWrap_save;
 	HTMLVAlignType rowvalign = HTML_VALIGN_NONE;
 	HTMLHAlignType rowhalign = HTML_HALIGN_NONE;
 	HTMLHAlignType align = HTML_HALIGN_NONE;
@@ -704,6 +705,8 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	have_bgColor = FALSE;
 
 	gtk_html_debug_log (e->widget, "start parse\n");
+
+	noWrap_save = e->noWrap;
 
 	html_string_tokenizer_tokenize (e->st, attr, " >");
 	while (html_string_tokenizer_has_more_tokens (e->st)) {
@@ -811,6 +814,8 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						html_object_destroy (HTML_OBJECT (table));
 						e->divAlign = olddivalign;
 						e->flow = HTML_OBJECT (oldflow);
+						e->noWrap = noWrap_save;
+
 						return 0;
 					}
 
@@ -1066,6 +1071,8 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						html_object_destroy (HTML_OBJECT (table));
 						e->divAlign = olddivalign;
 						e->flow = HTML_OBJECT (oldflow);
+						e->noWrap = noWrap_save;
+
 						return 0;
 					}
 					if (e->noWrap) {
@@ -1093,9 +1100,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	}
 		
 	e->indent_level = old_indent_level;
-
 	e->divAlign = olddivalign;
-
 	e->flow = HTML_OBJECT (oldflow);
 
 	if (has_cell) {
@@ -1133,6 +1138,8 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 		/* Last resort: remove tables that do not contain any cells */
 		html_object_destroy (HTML_OBJECT (table));
 	}
+
+	e->noWrap = noWrap_save;
 	
 	gtk_html_debug_log (e->widget, "Returning: %s\n", str);
 	return str;
@@ -1382,6 +1389,8 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 			pop_block (e, ID_ADDRESS, _clue);
 		} else if ( strncmp( str, "a ", 2 ) == 0 ) {
 			gchar *tmpurl = NULL;
+			/* gchar *target = NULL; */
+
 			const gchar *p;
 
 			close_anchor (e);
@@ -3051,17 +3060,21 @@ draw_background (HTMLEngine *e,
 	xval = e->x_offset;
 	yval = e->y_offset;
 
+	/* draw bgColor */
+	if (! e->bgColor_allocated) {
+		html_painter_alloc_color (e->painter, &e->bgColor);
+		e->bgColor_allocated = TRUE;
+	}
+	html_painter_set_pen (e->painter, &e->bgColor);
+	html_painter_fill_rect (e->painter, x, y, w, h);
+
+	/* return if no background pixmap is set */
 	bgpixmap = e->bgPixmapPtr;
 	if (!bgpixmap || !bgpixmap->pixbuf) {
-		if (! e->bgColor_allocated) {
-			html_painter_alloc_color (e->painter, &e->bgColor);
-			e->bgColor_allocated = TRUE;
-		}
-		html_painter_set_pen (e->painter, &e->bgColor);
-		html_painter_fill_rect (e->painter, x, y, w, h);
 		return;
 	}
 
+	/* draw background pixmap */
 	pw = gdk_pixbuf_get_width (bgpixmap->pixbuf);
 	ph = gdk_pixbuf_get_height (bgpixmap->pixbuf);
 
@@ -3312,8 +3325,6 @@ html_engine_end (GtkHTMLStream *stream,
 
 	e->writing = FALSE;
 
-	html_tokenizer_end (e->ht);
-
 	while (html_engine_timer_event (e))
 		;
 
@@ -3321,6 +3332,8 @@ html_engine_end (GtkHTMLStream *stream,
 		gtk_timeout_remove (e->timerId);
 		e->timerId = 0;
 	}
+
+	html_tokenizer_end (e->ht);
 
 	if (e->editable)
 		ensure_editable (e);

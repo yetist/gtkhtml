@@ -429,12 +429,22 @@ html_clue_find_free_area (HTMLClue *clue, gint y,
 void
 html_clue_append_right_aligned (HTMLClue *clue, HTMLClue *aclue)
 {
+	g_assert (clue != NULL);
+	g_assert (aclue != NULL);
+
+	html_object_change_set (HTML_OBJECT (clue), HTML_OBJECT (aclue)->change);
+
 	(* HC_CLASS (clue)->append_right_aligned) (clue, aclue);
 }
 
 void
 html_clue_append_left_aligned (HTMLClue *clue, HTMLClue *aclue)
 {
+	g_assert (clue != NULL);
+	g_assert (aclue != NULL);
+
+	html_object_change_set (HTML_OBJECT (clue), HTML_OBJECT (aclue)->change);
+
 	(* HC_CLASS (clue)->append_left_aligned) (clue, aclue);
 }
 
@@ -491,6 +501,8 @@ html_clue_append_after (HTMLClue *clue,
 	g_return_if_fail (o != NULL);
 	g_return_if_fail (where != NULL);
 
+	html_object_change_set (HTML_OBJECT (clue), o->change);
+
 	tail = get_tail (o);
 
 	if (where->next != NULL)
@@ -521,6 +533,8 @@ html_clue_append (HTMLClue *clue,
 
 	g_return_if_fail (clue != NULL);
 	g_return_if_fail (o != NULL);
+
+	html_object_change_set (HTML_OBJECT (clue), o->change);
 
 	tail = get_tail (o);
 
@@ -555,6 +569,8 @@ html_clue_prepend (HTMLClue *clue,
 
 	g_return_if_fail (clue != NULL);
 	g_return_if_fail (o != NULL);
+
+	html_object_change_set (HTML_OBJECT (clue), o->change);
 
 	tail = get_tail (o);
 

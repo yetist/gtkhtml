@@ -487,6 +487,10 @@ html_text_slave_init (HTMLTextSlave *slave,
 	slave->posStart = posStart;
 	slave->posLen = posLen;
 	slave->owner = owner;
+
+	/* text slaves has always min_width 0 */
+	object->min_width = 0;
+	object->change   &= ~HTML_CHANGE_MIN_WIDTH;
 }
 
 HTMLObject *

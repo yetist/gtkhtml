@@ -214,7 +214,6 @@ html_tokenizer_end (HTMLTokenizer *t)
 	t->buffer = 0;
 
 	if (t->blocking) {
-		g_warning ("blocking token(s) remain(s)\n");
 		g_list_foreach (t->blocking, destroy_blocking, NULL);
 	}
 	t->blocking = NULL;

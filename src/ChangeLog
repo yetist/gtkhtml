@@ -1,3 +1,41 @@
+2000-04-09  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine.c (parse_table): save e->noWrap in noWrap_save and
+	restore it on return (this fixes case when there are nested table
+	cells with nowrap option set)
+
+	* gtkhtmldebug.c (gtk_html_debug_dump_tree): dump also min_width
+
+	* htmltext.c (insert_text): set change flags
+	(remove_text): likewise
+
+	* htmlclueflow.c (html_clueflow_split): set change flags for
+	original clue
+
+	* htmltext.c (split): set min_width change flag for original Text
+
+	* htmlimage.c (html_image_factory_area_prepared): set change flags on images using this image_ptr
+
+	* htmltextslave.c (html_text_slave_init): clear min_width change
+	bit as textslaves have min_width always 0
+
+	* htmlclue.c (html_clue_append_after): added call to html_object_change_set
+	(html_clue_append): likewise
+	(html_clue_prepend): likewise
+	(html_clue_append_right_aligned): likewise
+	(html_clue_append_left_aligned): likewise
+
+	* htmlobject.c (html_object_change_set): new function - set change
+	flags of object and of all its parents
+
+	* htmlobject.h: new enum for change flag bits
+	flag for info about cached info added to HTMLObject
+	added min_width to cache calc_min_width
+
+	* htmlengine.c (draw_background): fill with bgColor also when it
+	has background pixmap, because it could contain transparent
+	pixels as www.post.cz
+
 2000-04-09  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlimage.c

@@ -364,6 +364,8 @@ insert_text (HTMLText *text,
 	text->text = new_buffer;
 	text->text_len = new_len;
 
+	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
+
 	if (HTML_OBJECT (text)->parent != NULL) {
 		if (! html_object_relayout (HTML_OBJECT (text)->parent,
 					    engine,
@@ -411,6 +413,8 @@ remove_text (HTMLText *text,
 
 	text->text = new_buffer;
 	text->text_len = new_len;
+
+	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
 
 	html_object_relayout (HTML_OBJECT (text)->parent, engine, HTML_OBJECT (text));
 	html_engine_queue_draw (engine, HTML_OBJECT (text)->parent);
@@ -464,6 +468,7 @@ split (HTMLText *self,
 	self->text = g_realloc (self->text, offset + 1);
 	self->text[offset] = '\0';
 	self->text_len = offset;
+	html_object_change_set (HTML_OBJECT (self), HTML_CHANGE_MIN_WIDTH);
 
 	return new;
 }
