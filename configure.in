@@ -77,12 +77,15 @@ AC_ARG_WITH(bonobo,
 )
 
 if $try_bonobo; then
-	AC_MSG_CHECKING(for Bonobo >= 0.9)
+	AC_MSG_CHECKING(for Bonobo >= 0.15)
 	if gnome-config --libs bonobo > /dev/null 2>&1; then
 		vers=`gnome-config --modversion bonobo | sed 's/^bonobo-//'`
 		case $vers
 		in
-			0.[[012345678]])
+			0.[[0123456789]])
+				bonobo_ok=false ;;
+
+			0.1[[01234]])
 				bonobo_ok=false ;;
 
 			*)
@@ -120,7 +123,7 @@ AM_CONDITIONAL(USING_OAF, test "x$using_oaf" = "xyes")
 
 dnl gnome-print checks.
 
-AC_MSG_CHECKING([for gnome-print >= 0.13])
+AC_MSG_CHECKING([for gnome-print >= 0.16])
 if gnome-config --libs print > /dev/null 2>&1; then
 	vers=`gnome-config --modversion print | sed 's/^gnome-print-//'`
 	if [[ "x$vers" = "x" ]] ; then
@@ -130,7 +133,7 @@ if gnome-config --libs print > /dev/null 2>&1; then
 			0.[[0123456789]])
 				gnomeprint_ok=false ;;
 
-			0.1[[012]])
+			0.1[[012345]])
 				gnomeprint_ok=false ;;
 
 			*)
@@ -145,7 +148,7 @@ else
 fi
 
 if test "x$gnomeprint_ok" = "xfalse"; then
-	AC_MSG_ERROR([gnome-print 0.13 or later is required to compile GtkHTML.])
+	AC_MSG_ERROR([gnome-print 0.16 or later is required to compile GtkHTML.])
 fi
 
 dnl gdk-pixbuf checks.
