@@ -1,5 +1,11 @@
 2003-04-08  Larry Ewing  <lewing@ximian.com>
 
+	* gtkhtml-properties.c (gtk_html_class_properties_new): NULL
+	protect the widget parameter.
+
+	* gtkhtml.c (style_set): rework the logic to read the style
+	property.
+
 	* htmlengine-save.c (html_engine_save_string_append_nonbsp): add
 	const.
 

@@ -46,30 +46,32 @@ gtk_html_class_properties_new (GtkWidget *widget)
 {
 	GtkHTMLClassProperties *p = g_new0 (GtkHTMLClassProperties, 1);
 	PangoFontDescription *var_desc, *fixed_desc; 
-	char *fixed_name, *var_name;
+	char *fixed_name = NULL;
+	char *var_name;
 	gint var_size, fixed_size = 0;
 	GdkColor *link_color = NULL;
 	GdkColor *alink_color = NULL;
 	GdkColor *vlink_color = NULL;
 	GdkColor *spell_error_color = NULL;
 
-	var_desc = widget->style->font_desc;
-	gtk_widget_style_get (widget,
-			      "fixed_font",        &fixed_name,
-			      "link_color",        &link_color,
-			      "alink_color",       &alink_color,
-			      "vlink_color",       &vlink_color,
-			      "spell_error_color", &spell_error_color,
-			      NULL);
+	if (widget) {
+		var_desc = widget->style->font_desc;
+		gtk_widget_style_get (widget,
+				      "fixed_font",        &fixed_name,
+				      "link_color",        &link_color,
+				      "alink_color",       &alink_color,
+				      "vlink_color",       &vlink_color,
+				      "spell_error_color", &spell_error_color,
+				      NULL);
+	}
        
-	//fixed_name = g_value_get_string (value);
 	var_size = pango_font_description_get_size (var_desc);
 	var_name = pango_font_description_to_string (var_desc);
 
 	if (fixed_name) {
 		fixed_desc = pango_font_description_from_string (fixed_name);
 		if (pango_font_description_get_family (fixed_desc)) {
-			fixed_size = pango_font_description_get_size (fixed_desc);
+			fixed_size = PANGO_PIXELS (pango_font_description_get_size (fixed_desc));
 			pango_font_description_free (fixed_desc);
 		} else {
 			g_free (fixed_name);
@@ -79,6 +81,7 @@ gtk_html_class_properties_new (GtkWidget *widget)
 
 	if (!fixed_name) {
 		fixed_name = g_strdup ("Monospace");
+		fixed_desc = pango_font_description_from_string (fixed_name);
 		fixed_size = var_size;
 	}
 
@@ -91,7 +94,7 @@ gtk_html_class_properties_new (GtkWidget *widget)
 	p->font_fix_size           = PANGO_PIXELS (fixed_size);
 	p->font_var_points         = FALSE;
 	p->font_fix_points         = FALSE;
-	p->font_var_print          = g_strdup (pango_font_description_get_family (widget->style->font_desc));
+	p->font_var_print          = g_strdup (pango_font_description_get_family (var_desc));
 	/* printf ("Variable Printing Font: \"%s\"\n", p->font_var_print); */
 	p->font_fix_print          = g_strdup (fixed_name);
 	p->font_var_size_print     = DEFAULT_FONT_SIZE_PRINT;
