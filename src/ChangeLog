@@ -1,3 +1,10 @@
+2000-12-13  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml.c (shift_to_iframe_parent): remove -1
+	(enter_notify_event): use shift_to_iframe_parent
+	(mouse_change_pos): set in_selection only if selection non-empy
+	(compare coordinates)
+
 2000-12-12  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine-edit-fontstyle.c (html_engine_set_color): if color ==

@@ -845,7 +845,8 @@ mouse_change_pos (GtkWidget *widget, GdkWindow *window, gint x, gint y)
 			}
 		}
 
-		html->in_selection = TRUE;
+		if (x + engine->x_offset != html->selection_x1 || y + engine->y_offset != html->selection_y1)
+			html->in_selection = TRUE;
 
 		need_scroll = FALSE;
 
@@ -889,9 +890,9 @@ shift_to_iframe_parent (GtkWidget *widget, gint *x, gint *y)
 {
 	while (GTK_HTML (widget)->iframe_parent) {
 		if (x)
-			*x += widget->allocation.x - 1;
+			*x += widget->allocation.x;
 		if (y)
-			*y += widget->allocation.y - 1;
+			*y += widget->allocation.y;
 		widget = GTK_HTML (widget)->iframe_parent;
 	}
 
@@ -1035,9 +1036,8 @@ button_release_event (GtkWidget *widget,
 
 	if (event->button == 1) {
 		html->button1_pressed = FALSE;
-		if (html->pointer_url != NULL && ! html->in_selection) {
+		if (html->pointer_url != NULL && ! html->in_selection)
 			gtk_signal_emit (GTK_OBJECT (widget), signals[LINK_CLICKED], html->pointer_url);
-		}
 	}
 
 	if (html->in_selection) {
@@ -1093,7 +1093,14 @@ focus_out_event (GtkWidget *widget,
 static gint
 enter_notify_event (GtkWidget *widget, GdkEventCrossing *event)
 {
-	mouse_change_pos (widget, widget->window, event->x, event->y);
+	gint x, y;
+
+	x = event->x;
+	y = event->y;
+	widget = shift_to_iframe_parent (widget, &x, &y);
+
+	mouse_change_pos (widget, widget->window, x, y);
+
 	return TRUE;
 }
 
