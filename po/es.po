@@ -14,14 +14,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
-"POT-Creation-Date: 2004-01-12 18:08+0100\n"
-"PO-Revision-Date: 2004-01-03 22:39+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-01-28 19:48+0100\n"
+"PO-Revision-Date: 2004-01-28 19:54+0100\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 "X-Generator: KBabel 1.0.2\n"
 
 #: capplet/gnome-bindings-prop.c:157
@@ -1100,6 +1100,205 @@ msgstr "Párrafo"
 msgid "Page"
 msgstr "Página"
 
+#. This is the default custom color
+#: components/html-editor/gi-color-palette.c:394
+msgid "custom"
+msgstr "personallizado"
+
+#. "Custom" color - we'll pop up a GnomeColorPicker
+#: components/html-editor/gi-color-palette.c:436
+msgid "Custom Color:"
+msgstr "Color personalizado:"
+
+#: components/html-editor/gi-color-palette.c:444
+msgid "Choose Custom Color"
+msgstr "Elija el color personalizado"
+
+#: components/html-editor/gi-color-palette.c:577
+msgid "black"
+msgstr "negro"
+
+#: components/html-editor/gi-color-palette.c:578
+msgid "light brown"
+msgstr "marrón claro"
+
+#: components/html-editor/gi-color-palette.c:579
+msgid "brown gold"
+msgstr "marrón dorado"
+
+#: components/html-editor/gi-color-palette.c:580
+msgid "dark green #2"
+msgstr "verde oscuro #2"
+
+#: components/html-editor/gi-color-palette.c:581
+msgid "navy"
+msgstr "azul marino"
+
+#: components/html-editor/gi-color-palette.c:582
+#: components/html-editor/gi-color-palette.c:638
+msgid "dark blue"
+msgstr "azul oscuro"
+
+#: components/html-editor/gi-color-palette.c:583
+msgid "purple #2"
+msgstr "púrpura #2"
+
+#: components/html-editor/gi-color-palette.c:584
+msgid "very dark gray"
+msgstr "gris muy oscuro"
+
+#: components/html-editor/gi-color-palette.c:587
+#: components/html-editor/gi-color-palette.c:643
+msgid "dark red"
+msgstr "rojo oscuro"
+
+#: components/html-editor/gi-color-palette.c:588
+msgid "red-orange"
+msgstr "rojo-anaranjado"
+
+#: components/html-editor/gi-color-palette.c:589
+msgid "gold"
+msgstr "dorado"
+
+#: components/html-editor/gi-color-palette.c:590
+msgid "dark green"
+msgstr "verde oscuro"
+
+#: components/html-editor/gi-color-palette.c:591
+#: components/html-editor/gi-color-palette.c:644
+msgid "dull blue"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:592
+#: components/html-editor/gi-color-palette.c:645
+msgid "blue"
+msgstr "azul"
+
+#: components/html-editor/gi-color-palette.c:593
+msgid "dull purple"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:594
+msgid "dark grey"
+msgstr "gris oscuro"
+
+#: components/html-editor/gi-color-palette.c:597
+msgid "red"
+msgstr "rojo"
+
+#: components/html-editor/gi-color-palette.c:598
+msgid "orange"
+msgstr "naranja"
+
+#: components/html-editor/gi-color-palette.c:599
+msgid "lime"
+msgstr "lima"
+
+#: components/html-editor/gi-color-palette.c:600
+msgid "dull green"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:601
+msgid "dull blue #2"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:602
+msgid "sky blue #2"
+msgstr "azul cielo #2"
+
+#: components/html-editor/gi-color-palette.c:603
+#: components/html-editor/gi-color-palette.c:642
+msgid "purple"
+msgstr "púrpura"
+
+#: components/html-editor/gi-color-palette.c:604
+msgid "gray"
+msgstr "gris"
+
+#: components/html-editor/gi-color-palette.c:607
+#: components/html-editor/gi-color-palette.c:639
+msgid "magenta"
+msgstr "magenta"
+
+#: components/html-editor/gi-color-palette.c:608
+msgid "bright orange"
+msgstr "naranja brillante"
+
+#: components/html-editor/gi-color-palette.c:609
+#: components/html-editor/gi-color-palette.c:640
+msgid "yellow"
+msgstr "amarillo"
+
+#: components/html-editor/gi-color-palette.c:610
+msgid "green"
+msgstr "verde"
+
+#: components/html-editor/gi-color-palette.c:611
+#: components/html-editor/gi-color-palette.c:641
+msgid "cyan"
+msgstr "cyan"
+
+#: components/html-editor/gi-color-palette.c:612
+msgid "bright blue"
+msgstr "azul brillante"
+
+#: components/html-editor/gi-color-palette.c:613
+#: components/html-editor/gi-color-palette.c:630
+msgid "red purple"
+msgstr "rojo púrpura"
+
+#: components/html-editor/gi-color-palette.c:614
+msgid "light grey"
+msgstr "gris claro"
+
+#: components/html-editor/gi-color-palette.c:617
+#: components/html-editor/gi-color-palette.c:634
+msgid "pink"
+msgstr "rosa"
+
+#: components/html-editor/gi-color-palette.c:618
+msgid "light orange"
+msgstr "naranja claro"
+
+#: components/html-editor/gi-color-palette.c:619
+#: components/html-editor/gi-color-palette.c:631
+msgid "light yellow"
+msgstr "amarillo claro"
+
+#: components/html-editor/gi-color-palette.c:620
+msgid "light green"
+msgstr "verde claro"
+
+#: components/html-editor/gi-color-palette.c:621
+msgid "light cyan"
+msgstr "cyan claro"
+
+#: components/html-editor/gi-color-palette.c:622
+#: components/html-editor/gi-color-palette.c:632
+msgid "light blue"
+msgstr "azul claro"
+
+#: components/html-editor/gi-color-palette.c:623
+#: components/html-editor/gi-color-palette.c:636
+msgid "light purple"
+msgstr "púrpura claro"
+
+#: components/html-editor/gi-color-palette.c:624
+msgid "white"
+msgstr "blanco"
+
+#: components/html-editor/gi-color-palette.c:629
+msgid "purplish blue"
+msgstr "azul purpúreo"
+
+#: components/html-editor/gi-color-palette.c:633
+msgid "dark purple"
+msgstr "púrpura oscuro"
+
+#: components/html-editor/gi-color-palette.c:635
+msgid "sky blue"
+msgstr "azul cielo"
+
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
 msgstr "Control del editor GtkHTML"
@@ -1849,8 +2048,7 @@ msgstr "Tipografía de anchura fija"
 
 #: src/gtkhtml.c:2708
 msgid "The Monospace font to use for typewriter text"
-msgstr ""
-"La tipografía monoespaciada a usar para el texto de máquina de escribir"
+msgstr "La tipografía monoespaciada a usar para el texto de máquina de escribir"
 
 #: src/gtkhtml.c:2714
 msgid "New Link Color"
@@ -1964,16 +2162,10 @@ msgstr "Aplicación de prueba GtkHTML"
 #~ msgid "Rectangles"
 #~ msgstr "Rectángulos"
 
-#~ msgid "Pre"
-#~ msgstr "Pre"
-
 #~ msgid "The quick brown fox jumped over the lazy dog."
 #~ msgstr ""
 #~ "El veloz murciélago hindú comía feliz cardillo y kiwi. La cigüeña tocaba "
 #~ "el saxofón detrás del palenque de paja. 123456789 ¿?¡!"
-
-#~ msgid "with"
-#~ msgstr "con"
 
 #~ msgid "Ignore '%s'"
 #~ msgstr "Ignorar '%s'"
@@ -1992,3 +2184,4 @@ msgstr "Aplicación de prueba GtkHTML"
 
 #~ msgid "Monospace"
 #~ msgstr "Monospace"
+
