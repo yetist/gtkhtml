@@ -278,7 +278,7 @@ write_end (HTMLEngineSaveState *state)
 }
 
 gboolean
-html_engine_save (const HTMLEngine *engine,
+html_engine_save (HTMLEngine *engine,
 		  HTMLEngineSaveReceiverFn receiver,
 		  gpointer user_data)
 {
@@ -312,7 +312,7 @@ html_engine_save (const HTMLEngine *engine,
 }
 
 gboolean
-html_engine_save_plain (const HTMLEngine *engine,
+html_engine_save_plain (HTMLEngine *engine,
 			HTMLEngineSaveReceiverFn receiver,
 			gpointer user_data)
 {
@@ -382,7 +382,7 @@ html_engine_save_buffer_new (HTMLEngine *engine)
 
 	if (state) {
 		state->engine = engine;
-		state->receiver = html_engine_save_buffer_receiver;
+		state->receiver = (HTMLEngineSaveReceiverFn)html_engine_save_buffer_receiver;
 		state->br_count = 0;
 		state->error = FALSE;
 		state->user_data = (gpointer) g_string_new ("");

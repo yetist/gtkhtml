@@ -56,10 +56,10 @@ gboolean             html_engine_save_output_string        (HTMLEngineSaveState 
 							    ...);
 
 /* Saving a whole tree.  */
-gboolean             html_engine_save                      (const HTMLEngine          *engine,
+gboolean             html_engine_save                      (HTMLEngine          *engine,
 							    HTMLEngineSaveReceiverFn   receiver,
 							    gpointer                   user_data);
-gboolean             html_engine_save_plain                (const HTMLEngine          *engine,
+gboolean             html_engine_save_plain                (HTMLEngine          *engine,
 							    HTMLEngineSaveReceiverFn   receiver,
 							    gpointer                   user_data);
 void                 html_engine_save_buffer_free          (HTMLEngineSaveState       *state);

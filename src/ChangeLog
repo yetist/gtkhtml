@@ -1,5 +1,12 @@
 2000-12-07  Larry Ewing  <lewing@helixcode.com>
 
+	* htmlengine-save.c (html_engine_save_buffer_new): add cast to
+	cleanup warning.
+	(html_engine_save): cleanup warning.
+	(html_engine_save_plain): cleanup warning.
+
+	* htmlengine-save.h: make prototypes match.
+	
 	* gtkhtml-private.h: add last_selection_type parameter to the the
 	private stucture to track what selections whe have requested.
 
