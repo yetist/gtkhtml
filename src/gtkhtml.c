@@ -220,15 +220,15 @@ html_alignment_to_paragraph (HTMLHAlignType alignment)
 	}
 }
 
-static void
-update_styles (GtkHTML *html)
+void
+gtk_html_update_styles (GtkHTML *html)
 {
 	GtkHTMLParagraphStyle paragraph_style;
 	GtkHTMLParagraphAlignment alignment;
 	HTMLEngine *engine;
 	guint indentation;
 
-	/* printf ("update_styles called\n"); */
+	/* printf ("gtk_html_update_styles called\n"); */
 
 	if (! html_engine_get_editable (html->engine))
 		return;
@@ -676,7 +676,7 @@ key_press_event (GtkWidget *widget,
 		html_engine_reset_blinking_cursor (html->engine);
 
 	if (retval && update)
-		update_styles (html);
+		gtk_html_update_styles (html);
 
 	/* printf ("retval: %d\n", retval); */
 
@@ -1056,7 +1056,7 @@ button_press_event (GtkWidget *widget,
 				html_engine_jump_at (engine,
 						     x + engine->x_offset,
 						     y + engine->y_offset);
-				update_styles (html);
+				gtk_html_update_styles (html);
 				gtk_html_request_paste (html, GDK_SELECTION_PRIMARY, 0, event->time);
 				return TRUE;
 			}
@@ -1090,7 +1090,7 @@ button_press_event (GtkWidget *widget,
 
 			engine->selection_mode = FALSE;
 			if (html_engine_get_editable (engine))
-				update_styles (html);
+				gtk_html_update_styles (html);
 			break;
 		default:
 			break;
@@ -1136,7 +1136,7 @@ button_release_event (GtkWidget *widget,
 					&html->priv->primary,
 					&html->priv->primary_len);
 		html->in_selection = FALSE;
-		update_styles (html);
+		gtk_html_update_styles (html);
 	}
 
 	remove_scroll_timeout (html);
@@ -2312,7 +2312,7 @@ gtk_html_set_editable (GtkHTML *html,
 	set_editor_keybindings (html, editable);
 
 	if (editable)
-		update_styles (html);
+		gtk_html_update_styles (html);
 }
 
 gboolean
@@ -2416,7 +2416,7 @@ gtk_html_set_indent (GtkHTML *html,
 	html_engine_set_clueflow_style (html->engine, 0, 0, level,
 					HTML_ENGINE_SET_CLUEFLOW_INDENTATION, TRUE);
 
-	update_styles (html);
+	gtk_html_update_styles (html);
 }
 
 void
@@ -2429,7 +2429,7 @@ gtk_html_modify_indent_by_delta (GtkHTML *html,
 	html_engine_set_clueflow_style (html->engine, 0, 0, delta,
 					HTML_ENGINE_SET_CLUEFLOW_INDENTATION_DELTA, TRUE);
 
-	update_styles (html);
+	gtk_html_update_styles (html);
 }
 
 void
@@ -2531,7 +2531,7 @@ gtk_html_undo (GtkHTML *html)
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	html_engine_undo (html->engine);
-	update_styles (html);
+	gtk_html_update_styles (html);
 }
 
 void
@@ -2541,7 +2541,7 @@ gtk_html_redo (GtkHTML *html)
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	html_engine_redo (html->engine);
-	update_styles (html);
+	gtk_html_update_styles (html);
 }
 
 /* misc utils */
@@ -3596,7 +3596,7 @@ gtk_html_command (GtkHTML *html, const gchar *command_name)
 	if (val) {
 		if (command (html, val->value)) {
 			if (html->priv->update_styles)
-				update_styles (html);
+				gtk_html_update_styles (html);
 			return TRUE;
 		}
 	}

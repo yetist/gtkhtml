@@ -1,5 +1,7 @@
 2001-08-13  Radek Doulik  <rodo@ximian.com>
 
+	* gtkhtml.c (gtk_html_update_styles): exported
+
 	* htmlengine-edit-table.c: be more careful about HTMLObject types
 
 	* htmlimage.c (html_image_set_url): set object change flags on url

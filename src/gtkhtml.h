@@ -256,4 +256,7 @@ void      gtk_html_set_magnification             (GtkHTML *html,
 void      gtk_html_zoom_in                       (GtkHTML *html);
 void      gtk_html_zoom_out                      (GtkHTML *html);
 void      gtk_html_zoom_reset                    (GtkHTML *html);
+
+void      gtk_html_update_styles                 (GtkHTML *html);
+
 #endif /* _GTKHTML_H_ */
