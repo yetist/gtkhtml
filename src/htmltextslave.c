@@ -296,7 +296,6 @@ draw_normal (HTMLTextSlave *self,
 				obj->x + tx, obj->y + ty, 
 				HTML_TEXT (self->owner)->text + self->posStart,
 				self->posLen);
-	printf ("draw text %s len %d\n", HTML_TEXT (self->owner)->text + self->posStart, self->posLen);
 }
 
 static void
