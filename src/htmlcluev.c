@@ -555,8 +555,8 @@ find_free_area (HTMLClue *clue, gint y, gint width, gint height,
 		if ((rmargin - lmargin) >= width)
 			break;
 
-		/* if (try_y == next_y)
-		   break; */
+		if (try_y == next_y)
+			break;
 
 		try_y = next_y;
 	}

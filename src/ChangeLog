@@ -1,5 +1,9 @@
 2001-06-20  Radek Doulik  <rodo@ximian.com>
 
+	* htmlcluev.c (find_free_area): uncomment loop break try_y ==
+	next_y - not sure why it was commented out, I am going to
+	investigate it more
+
 	* gtkhtml.c (set_magnification): new helper function
 	(gtk_html_set_magnification): make it work for pages with
 	frames/iframes
