@@ -270,6 +270,7 @@ struct _HTMLEngine {
 	gint saved_step_count;
 
 	gboolean expose;
+	gboolean need_update;
 };
 
 /* must be forward referenced *sigh* */

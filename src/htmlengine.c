@@ -3635,6 +3635,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->map_table = NULL;
 
 	engine->expose = FALSE;
+	engine->need_update = FALSE;
 
 	engine->language = NULL;
 }
@@ -3665,6 +3666,9 @@ html_engine_realize (HTMLEngine *e,
 
 	gc_values.function = GDK_INVERT;
 	e->invert_gc = gdk_gc_new_with_values (e->window, &gc_values, GDK_GC_FUNCTION);
+
+	if (e->need_update)
+		html_engine_schedule_update (e);
 }
 
 void
@@ -3923,7 +3927,7 @@ update_embedded (GtkWidget *widget, gpointer data)
 static gboolean
 html_engine_update_event (HTMLEngine *e)
 {
-	DI (printf ("html_engine_update_event idle\n");)
+	DI (printf ("html_engine_update_event idle %p\n", e);)
 
 	e->updateTimer = 0;
 
@@ -3932,9 +3936,14 @@ html_engine_update_event (HTMLEngine *e)
 	html_engine_calc_size (e, FALSE);
 
 	if (GTK_LAYOUT (e->widget)->vadjustment == NULL
-	    || ! html_gdk_painter_realized (HTML_GDK_PAINTER (e->painter)))
+	    || ! html_gdk_painter_realized (HTML_GDK_PAINTER (e->painter))) {
+		e->need_update = TRUE;
 		return FALSE;
-	
+	}
+
+	e->need_update = FALSE;
+	DI (printf ("continue %p\n", e);)
+
 	/* Adjust the scrollbars */
 	gtk_html_private_calc_scrollbars (e->widget, NULL, NULL);
 
@@ -4050,7 +4059,7 @@ html_engine_timer_event (HTMLEngine *e)
 	gint lastHeight;
 	gboolean retval = TRUE;
 
-	DI (printf ("html_engine_timer_event idle\n");)
+	DI (printf ("html_engine_timer_event idle %p\n", e);)
 
 	/* Has more tokens? */
 	if (!html_tokenizer_has_more_tokens (e->ht) && e->writing) {

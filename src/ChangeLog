@@ -1,3 +1,9 @@
+2003-05-19  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (html_engine_update_event): set need_update flag
+	when not realized
+	(html_engine_realize): schedule update if need_update is TRUE
+
 2003-05-19  Larry Ewing  <lewing@ximian.com>
 
 	* htmlurl.c: fix some of the url code to make testgtkhtml happier.
