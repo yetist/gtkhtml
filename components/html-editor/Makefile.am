@@ -63,6 +63,8 @@ LDADD =	\
 
 # The Editor Control
 
+libgnome_gtkhtml_editor_3_0_la: Editor.h
+
 libgnome_gtkhtml_editor_3_0_la_SOURCES =	\
 	$(SPELL_IDL_GENERATED)			\
 	Editor.h				\

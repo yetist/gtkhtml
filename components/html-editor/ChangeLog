@@ -1,5 +1,8 @@
 2003-03-30  Larry Ewing  <lewing@ximian.com>
 
+	* Makefile.am (libgnome_gtkhtml_editor_3_0_la): add a broken dep
+	onto the shlib until I can figure somethign else out
+
 	* htmlsourceview.c (html_source_view_destroy): make sure this is
 	safe for multiple calls
 
