@@ -305,6 +305,12 @@ get_target (HTMLObject *o)
 	return NULL;
 }
 
+static const gchar *
+get_src (HTMLObject *o)
+{
+	return NULL;
+}
+
 static HTMLAnchor *
 find_anchor (HTMLObject *o,
 	     const gchar *name,
@@ -632,6 +638,7 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->calc_preferred_width = calc_preferred_width;
 	klass->get_url = get_url;
 	klass->get_target = get_target;
+	klass->get_src = get_src;
 	klass->find_anchor = find_anchor;
 	klass->set_link = NULL;
 	klass->set_bg_color = set_bg_color;
@@ -957,6 +964,12 @@ const gchar *
 html_object_get_target (HTMLObject *o)
 {
 	return (* HO_CLASS (o)->get_target) (o);
+}
+
+const gchar *
+html_object_get_src (HTMLObject *o)
+{
+	return (* HO_CLASS (o)->get_src) (o);
 }
 
 HTMLAnchor *

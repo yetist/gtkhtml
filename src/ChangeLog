@@ -1,3 +1,14 @@
+2001-07-02  Larry Ewing  <lewing@ximian.com>
+
+	* htmlimage.c (html_image_class_init): hook up get_src.
+	(get_src): add get_src implementation.
+
+	* htmlobject.h: add html_object_get_src prototype, and get_src
+	class method.
+
+	* htmlobject.c (get_src): add default get_src implementation.
+	(html_object_get_src): add public method for getting source url.
+
 2001-07-01  Larry Ewing  <lewing@ximian.com>
 
 	* htmltext.c (set_link): respect new semantics.

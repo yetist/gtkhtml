@@ -568,6 +568,14 @@ get_target (HTMLObject *o)
 	return image->target;
 }
 
+get_src (HTMLObject *o)
+{
+	HTMLImage *image;
+	
+	image = HTML_IMAGE (o);
+	return image->image_ptr->url;
+}
+
 static HTMLObject *
 set_link (HTMLObject *self, HTMLColor *color, const gchar *url, const gchar *target)
 {
@@ -636,6 +644,7 @@ html_image_class_init (HTMLImageClass *image_class,
 	object_class->check_point = check_point;
 	object_class->get_url = get_url;
 	object_class->get_target = get_target;
+	object_class->get_src = get_src;
 	object_class->set_link = set_link;
 	object_class->accepts_cursor = accepts_cursor;
 	object_class->get_valign = get_valign;

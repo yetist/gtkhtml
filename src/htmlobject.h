@@ -171,8 +171,9 @@ struct _HTMLObjectClass {
 
 	void (* reset) (HTMLObject *o);
 
-	const gchar * (* get_url) (HTMLObject *o);
+	const gchar * (* get_url)    (HTMLObject *o);
 	const gchar * (* get_target) (HTMLObject *o);
+	const gchar * (* get_src)    (HTMLObject *o);
 
 	HTMLAnchor * (* find_anchor) (HTMLObject *o, const gchar *name, gint *x, gint *y);
 
@@ -384,6 +385,7 @@ HTMLVAlignType  html_object_get_valign            (HTMLObject            *self);
 /* Links.  */
 const gchar    *html_object_get_url               (HTMLObject            *o);
 const gchar    *html_object_get_target            (HTMLObject            *o);
+const gchar    *html_object_get_src               (HTMLObject            *o);
 HTMLAnchor     *html_object_find_anchor           (HTMLObject            *o,
 						   const gchar           *name,
 						   gint                  *x,
