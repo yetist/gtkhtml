@@ -594,16 +594,8 @@ get_clear (HTMLObject *self)
 static HTMLDirection
 html_object_real_get_direction (HTMLObject *o)
 {
-	if (o->parent) {
-		while (o->parent) {
-			HTMLDirection dir = html_object_get_direction (o->parent);
-
-			if (dir != HTML_DIRECTION_DERIVED)
-				return dir;
-
-			o = o->parent;
-		}
-	}
+	if (o->parent)
+		return html_object_get_direction (o->parent);
 
 	return HTML_DIRECTION_DERIVED;
 }
