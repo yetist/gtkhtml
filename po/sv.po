@@ -1,15 +1,15 @@
 # Swedish messages for gtkhtml.
-# Copyright (C) 2000, 2001, 2002 Free Software Foundation, Inc.
-# Christian Rose <menthos@menthos.com>, 2000, 2001, 2002.
+# Copyright (C) 2000, 2001, 2002, 2003 Free Software Foundation, Inc.
+# Christian Rose <menthos@menthos.com>, 2000, 2001, 2002, 2003.
 # Martin Norbäck <d95mback@dtek.chalmers.se>, 2000.
 #
-# $Id: sv.po,v 1.58 2002/11/20 00:44:32 menthos Exp $
+# $Id: sv.po,v 1.59 2003/01/10 14:27:01 menthos Exp $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2002-11-20 01:43+0100\n"
-"PO-Revision-Date: 2002-11-20 01:44+0100\n"
+"POT-Creation-Date: 2003-01-10 15:23+0100\n"
+"PO-Revision-Date: 2003-01-10 15:25+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,9 +21,9 @@ msgid "<None>"
 msgstr "<Ingen>"
 
 #: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
-#: components/html-editor/cell.c:391 components/html-editor/image.c:532
+#: components/html-editor/cell.c:417 components/html-editor/image.c:532
 #: components/html-editor/rule.c:315 components/html-editor/table.c:529
-#: components/html-editor/table.c:613 components/html-editor/template.c:263
+#: components/html-editor/table.c:613 components/html-editor/template.c:271
 msgid "Could not load glade file."
 msgstr "Kunde inte läsa in glade-filen."
 
@@ -319,7 +319,7 @@ msgid "Header _6"
 msgstr "Rubrik _6"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
-#: components/html-editor/editor-control-factory.c:172
+#: components/html-editor/editor-control-factory.c:176
 #: components/html-editor/gtkhtml-editor-properties.glade.h:39
 #: components/html-editor/menubar.c:125 components/html-editor/popup.c:206
 msgid "Image"
@@ -554,7 +554,7 @@ msgid "Roman Numeral List"
 msgstr "Romerskt numrerad lista"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
-#: components/html-editor/editor-control-factory.c:192
+#: components/html-editor/editor-control-factory.c:196
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
 #: components/html-editor/menubar.c:159 components/html-editor/popup.c:227
 msgid "Rule"
@@ -597,7 +597,7 @@ msgstr "Upphöjd"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
 #: components/html-editor/menubar.c:176 components/html-editor/popup.c:234
-#: components/html-editor/popup.c:505 components/html-editor/popup.c:514
+#: components/html-editor/popup.c:501 components/html-editor/popup.c:510
 msgid "Table"
 msgstr "Tabell"
 
@@ -845,14 +845,14 @@ msgstr "Bakgrundsbild"
 msgid "Colors"
 msgstr "Färger"
 
-#: components/html-editor/body.c:313 components/html-editor/cell.c:397
+#: components/html-editor/body.c:313 components/html-editor/cell.c:423
 #: components/html-editor/table.c:535 components/html-editor/text.c:291
 #: components/html-editor/toolbar.c:299
 msgid "Automatic"
 msgstr "Automatisk"
 
 #: components/html-editor/body.c:325
-#: components/html-editor/editor-control-factory.c:181
+#: components/html-editor/editor-control-factory.c:185
 #: components/html-editor/gtkhtml-editor-properties.glade.h:76
 #: components/html-editor/menubar.c:334 components/html-editor/popup.c:192
 msgid "Text"
@@ -863,34 +863,34 @@ msgstr "Text"
 msgid "Background"
 msgstr "Bakgrund"
 
-#: components/html-editor/cell.c:164 components/html-editor/cell.c:166
+#: components/html-editor/cell.c:172 components/html-editor/cell.c:174
 #: components/html-editor/text.c:104
 msgid "The quick brown fox jumps over the lazy dog."
 msgstr "Flygande bäckasiner söka strax hwila på mjuka tuvor."
 
-#: components/html-editor/cell.c:169
+#: components/html-editor/cell.c:177
 msgid "Other"
 msgstr "Annat"
 
-#: components/html-editor/editor-control-factory.c:161
+#: components/html-editor/editor-control-factory.c:165
 #: components/html-editor/menubar.c:313 components/html-editor/menubar.c:331
 #: components/html-editor/menubar.c:349 components/html-editor/popup.c:184
 #: components/html-editor/popup.c:269
 msgid "Properties"
 msgstr "Egenskaper"
 
-#: components/html-editor/editor-control-factory.c:202
+#: components/html-editor/editor-control-factory.c:206
 #: components/html-editor/menubar.c:352 components/html-editor/popup.c:213
 msgid "Paragraph"
 msgstr "Stycke"
 
-#: components/html-editor/editor-control-factory.c:207
+#: components/html-editor/editor-control-factory.c:211
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
 #: components/html-editor/menubar.c:316 components/html-editor/popup.c:220
 msgid "Page"
 msgstr "Sida"
 
-#: components/html-editor/editor-control-factory.c:746
+#: components/html-editor/editor-control-factory.c:770
 msgid "I could not initialize Bonobo"
 msgstr "Jag kunde inte initiera Bonobo"
 
@@ -959,7 +959,7 @@ msgid "Color:"
 msgstr "Färg:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#: components/html-editor/popup.c:516
+#: components/html-editor/popup.c:512
 msgid "Column"
 msgstr "Kolumn"
 
@@ -1076,7 +1076,7 @@ msgid "Right"
 msgstr "Höger"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
-#: components/html-editor/popup.c:515
+#: components/html-editor/popup.c:511
 msgid "Row"
 msgstr "Rad"
 
@@ -1217,6 +1217,14 @@ msgstr ""
 msgid "The quick brown fox jumped over the lazy dog."
 msgstr "Flygande bäckasiner söka strax hwila på mjuka tuvor."
 
+#: components/html-editor/image.c:689
+msgid ""
+"The editted image was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Den redigerade bilden har tagits bort från dokumentet.\n"
+"Kan inte verkställa dina ändringar."
+
 #: components/html-editor/link.c:91
 msgid "Link text"
 msgstr "Länktext"
@@ -1224,7 +1232,7 @@ msgstr "Länktext"
 #: components/html-editor/menubar.c:122 components/html-editor/menubar.c:138
 #: components/html-editor/menubar.c:156 components/html-editor/menubar.c:173
 #: components/html-editor/menubar.c:196 components/html-editor/popup.c:100
-#: components/html-editor/properties.c:134
+#: components/html-editor/properties.c:139
 msgid "Insert"
 msgstr "Infoga"
 
@@ -1344,43 +1352,43 @@ msgstr "Linje..."
 msgid "Image..."
 msgstr "Bild..."
 
-#: components/html-editor/popup.c:490 components/html-editor/popup.c:501
-msgid "Table..."
-msgstr "Tabell..."
-
-#: components/html-editor/popup.c:498
+#: components/html-editor/popup.c:494
 msgid "Cell..."
 msgstr "Cell..."
 
-#: components/html-editor/popup.c:504
+#: components/html-editor/popup.c:497
+msgid "Table..."
+msgstr "Tabell..."
+
+#: components/html-editor/popup.c:500
 msgid "Table insert"
 msgstr "Tabellinfogning"
 
-#: components/html-editor/popup.c:507
+#: components/html-editor/popup.c:503
 msgid "Row above"
 msgstr "Raden ovanför"
 
-#: components/html-editor/popup.c:508
+#: components/html-editor/popup.c:504
 msgid "Row below"
 msgstr "Raden nedanför"
 
-#: components/html-editor/popup.c:510
+#: components/html-editor/popup.c:506
 msgid "Column before"
 msgstr "Kolumnen före"
 
-#: components/html-editor/popup.c:511
+#: components/html-editor/popup.c:507
 msgid "Column after"
 msgstr "Kolumnen efter"
 
-#: components/html-editor/popup.c:513
+#: components/html-editor/popup.c:509
 msgid "Table delete"
 msgstr "Tabellborttagning"
 
-#: components/html-editor/popup.c:517
+#: components/html-editor/popup.c:513
 msgid "Cell contents"
 msgstr "Cellinnehåll"
 
-#: components/html-editor/popup.c:525
+#: components/html-editor/popup.c:521
 msgid "Page..."
 msgstr "Sida..."
 
@@ -1424,7 +1432,7 @@ msgstr "bakåt"
 msgid "Find Regular Expression"
 msgstr "Sök reguljärt uttryck"
 
-#: components/html-editor/spell.c:351
+#: components/html-editor/spell.c:350
 msgid "Spell Checking _Languages"
 msgstr "_Språk för stavningskontroll"
 
@@ -1440,17 +1448,13 @@ msgstr "Mörk rubrik"
 msgid "Note"
 msgstr "Anteckning"
 
-#: components/html-editor/template.c:91
+#: components/html-editor/template.c:93 components/html-editor/template.c:112
 msgid "Place your text here"
 msgstr "Placera din text här"
 
-#: components/html-editor/template.c:94
+#: components/html-editor/template.c:96
 msgid "Image frame"
 msgstr "Bildram"
-
-#: components/html-editor/template.c:104
-msgid "Image 1: <b>description</b>"
-msgstr "Bild 1: <b>beskrivning</b>"
 
 #: components/html-editor/test-html-editor-control.c:312
 msgid "Open file..."
@@ -1597,6 +1601,9 @@ msgstr "Förhands_granska"
 #: src/testgtkhtml.c:103
 msgid "Print preview"
 msgstr "Förhandsgranska"
+
+#~ msgid "Image 1: <b>description</b>"
+#~ msgstr "Bild 1: <b>beskrivning</b>"
 
 #~ msgid "Test"
 #~ msgstr "Test"
