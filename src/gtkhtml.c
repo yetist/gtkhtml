@@ -2543,6 +2543,7 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
 	if (!selection_data->data || selection_data->length < 0 || !html_engine_get_editable (engine))
 		return;
 
+	gdk_window_get_pointer (GTK_LAYOUT (widget)->bin_window, &x, &y, NULL);
 	move_before_paste (widget, x, y);
 
 	switch (info) {
