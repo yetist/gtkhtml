@@ -204,8 +204,7 @@ static int test_cursor_beol (GtkHTML *html)
 
 static int test_cursor_beol_rtl (GtkHTML *html)
 {
-	load_editable (html, "<pre>أوروبا, برمجيات الحاسوب + انترنيت :\noooooooooooooooooooooooooooooooooooooooooooooooo");
-	//load_editable (html, "<pre>أوروبا, برمجيات الحاسوب + انترنيت :\nتصبح عالميا مع يونيكود\n");
+	load_editable (html, "<pre>أوروبا, برمجيات الحاسوب + انترنيت :\nتصبح عالميا مع يونيكود\n");
 
 	/* first test it on 1st line */
 	printf ("test_cursor_beol_rtl: testing 1st line eol\n");
@@ -214,30 +213,30 @@ static int test_cursor_beol_rtl (GtkHTML *html)
 	    || html->engine->cursor->offset != 35)
 		return FALSE;
 
-/* 	printf ("test_cursor_beol_rtl: testing 1st line bol\n"); */
-/* 	if (!html_engine_beginning_of_line (html->engine) */
-/* 	    || html->engine->cursor->offset != html->engine->cursor->position */
-/* 	    || html->engine->cursor->offset != 0) */
-/* 		return FALSE; */
+	printf ("test_cursor_beol_rtl: testing 1st line bol\n");
+	if (!html_engine_beginning_of_line (html->engine)
+	    || html->engine->cursor->offset != html->engine->cursor->position
+	    || html->engine->cursor->offset != 0)
+		return FALSE;
 
-/* 	/\* move to 2nd and test again *\/ */
-/* 	printf ("test_cursor_beol_rtl: testing 2nd line\n"); */
-/* 	if (!html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_DOWN, 1)) */
-/* 		return FALSE; */
+	/* move to 2nd and test again */
+	printf ("test_cursor_beol_rtl: testing 2nd line\n");
+	if (!html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_DOWN, 1))
+		return FALSE;
 
-/* 	printf ("test_cursor_beol_rtl: testing 2nd line eol\n"); */
-/* 	if (!html_engine_end_of_line (html->engine) */
-/* 	    || html->engine->cursor->offset != 11 */
-/* 	    || html->engine->cursor->position != 23) */
-/* 		return FALSE; */
+	printf ("test_cursor_beol_rtl: testing 2nd line eol\n");
+	if (!html_engine_end_of_line (html->engine)
+	    || html->engine->cursor->offset != 22
+	    || html->engine->cursor->position != 58)
+		return FALSE;
 
-/* 	printf ("test_cursor_beol_rtl: testing 2nd line bol\n"); */
-/* 	if (!html_engine_beginning_of_line (html->engine) */
-/* 	    || html->engine->cursor->offset != 0 */
-/* 	    || html->engine->cursor->position != 12) */
-/* 		return FALSE; */
+	printf ("test_cursor_beol_rtl: testing 2nd line bol\n");
+	if (!html_engine_beginning_of_line (html->engine)
+	    || html->engine->cursor->offset != 0
+	    || html->engine->cursor->position != 36)
+		return FALSE;
 
-/* 	printf ("test_cursor_beol_rtl: passed\n"); */
+	printf ("test_cursor_beol_rtl: passed\n");
 
 	return TRUE;
 }
@@ -347,8 +346,6 @@ int main (int argc, char *argv[])
 	gtk_html_set_editable (html, TRUE);
 	win = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_container_add (GTK_CONTAINER (win), html_widget);
-	gtk_widget_show_all (win);
-	gtk_widget_show_now (win);
 
 	n_all = n_successful = 0;
 

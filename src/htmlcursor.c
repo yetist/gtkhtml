@@ -37,6 +37,9 @@
 
 #include "htmlcursor.h"
 
+static gboolean move_right (HTMLCursor *cursor);
+static gboolean move_left (HTMLCursor *cursor);
+
 /* #define _HTML_CURSOR_DEBUG */
 
 #ifdef _HTML_CURSOR_DEBUG
@@ -279,6 +282,7 @@ html_cursor_up (HTMLCursor *cursor,
 {
 	HTMLCursor orig_cursor;
 	HTMLCursor prev_cursor;
+	HTMLDirection dir;
 	gint prev_x, prev_y;
 	gint x, y;
 	gint target_x;
@@ -295,6 +299,11 @@ html_cursor_up (HTMLCursor *cursor,
 
 	if (engine->need_spell_check)
 		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
+
+	if (cursor->object->parent)
+		dir = html_object_get_direction (cursor->object->parent);
+	else
+		dir = HTML_DIRECTION_LTR;
 
 	html_cursor_copy (&orig_cursor, cursor);
 
@@ -334,28 +343,52 @@ html_cursor_up (HTMLCursor *cursor,
 		if (y + cursor->object->descent - 1 < prev_y - prev_cursor.object->ascent) {
 			if (new_line) {
 				html_cursor_copy (cursor, &prev_cursor);
-				return FALSE;
+				return TRUE;
 			}
 
 			new_line = TRUE;
+			if (cursor->object->parent)
+				dir = html_object_get_direction (cursor->object->parent);
+			else
+				dir = HTML_DIRECTION_LTR;
 		}
 
-		if (new_line && x <= target_x) {
-			if (! cursor->have_target_x) {
-				cursor->have_target_x = TRUE;
-				cursor->target_x = target_x;
-			}
+		if (dir == HTML_DIRECTION_RTL) {
+			if (new_line && x >= target_x) {
+				if (! cursor->have_target_x) {
+					cursor->have_target_x = TRUE;
+					cursor->target_x = target_x;
+				}
 
-			/* Choose the character which is the nearest to the
-                           target X.  */
-			if (prev_y == y && target_x - x >= prev_x - target_x) {
-				cursor->object = prev_cursor.object;
-				cursor->offset = prev_cursor.offset;
-				cursor->position = prev_cursor.position;
-			}
+				/* Choose the character which is the nearest to the
+				   target X.  */
+				if (prev_y == y && x - target_x >= target_x - prev_x) {
+					cursor->object = prev_cursor.object;
+					cursor->offset = prev_cursor.offset;
+					cursor->position = prev_cursor.position;
+				}
 
-			debug_location (cursor);
-			return TRUE;
+				debug_location (cursor);
+				return TRUE;
+			}
+		} else {
+			if (new_line && x <= target_x) {
+				if (! cursor->have_target_x) {
+					cursor->have_target_x = TRUE;
+					cursor->target_x = target_x;
+				}
+
+				/* Choose the character which is the nearest to the
+				   target X.  */
+				if (prev_y == y && target_x - x >= prev_x - target_x) {
+					cursor->object = prev_cursor.object;
+					cursor->offset = prev_cursor.offset;
+					cursor->position = prev_cursor.position;
+				}
+
+				debug_location (cursor);
+				return TRUE;
+			}
 		}
 	}
 }
@@ -367,6 +400,7 @@ html_cursor_down (HTMLCursor *cursor,
 {
 	HTMLCursor orig_cursor;
 	HTMLCursor prev_cursor;
+	HTMLDirection dir;
 	gint prev_x, prev_y;
 	gint x, y;
 	gint target_x;
@@ -383,6 +417,11 @@ html_cursor_down (HTMLCursor *cursor,
 
 	if (engine->need_spell_check)
 		html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
+
+	if (cursor->object->parent)
+		dir = html_object_get_direction (cursor->object->parent);
+	else
+		dir = HTML_DIRECTION_LTR;
 
 	html_object_get_cursor_base (cursor->object,
 				     engine->painter, cursor->offset,
@@ -404,8 +443,13 @@ html_cursor_down (HTMLCursor *cursor,
 		prev_x = x;
 		prev_y = y;
 
-		if (! forward (cursor))
-			return FALSE;
+		if (dir == HTML_DIRECTION_RTL) {
+			if (! move_left (cursor))
+				return FALSE;
+		} else {
+			if (! move_right (cursor))
+				return FALSE;
+		}
 
 		html_object_get_cursor_base (cursor->object,
 					     engine->painter, cursor->offset,
@@ -419,28 +463,52 @@ html_cursor_down (HTMLCursor *cursor,
 		if (y - cursor->object->ascent > prev_y + prev_cursor.object->descent - 1) {
 			if (new_line) {
 				html_cursor_copy (cursor, &prev_cursor);
-				return FALSE;
+				return TRUE;
 			}
 
 			new_line = TRUE;
+			if (cursor->object->parent)
+				dir = html_object_get_direction (cursor->object->parent);
+			else
+				dir = HTML_DIRECTION_LTR;
 		}
 
-		if (new_line && x >= target_x) {
-			if (! cursor->have_target_x) {
-				cursor->have_target_x = TRUE;
-				cursor->target_x = target_x;
-			}
+		if (dir == HTML_DIRECTION_RTL) {
+			if (new_line && x <= target_x) {
+				if (! cursor->have_target_x) {
+					cursor->have_target_x = TRUE;
+					cursor->target_x = target_x;
+				}
 
-			/* Choose the character which is the nearest to the
-                           target X.  */
-			if (prev_y == y && x - target_x >= target_x - prev_x) {
-				cursor->object = prev_cursor.object;
-				cursor->offset = prev_cursor.offset;
-				cursor->position = prev_cursor.position;
-			}
+				/* Choose the character which is the nearest to the
+				   target X.  */
+				if (prev_y == y && target_x - x >= prev_x - target_x) {
+					cursor->object = prev_cursor.object;
+					cursor->offset = prev_cursor.offset;
+					cursor->position = prev_cursor.position;
+				}
 
-			debug_location (cursor);
-			return TRUE;
+				debug_location (cursor);
+				return TRUE;
+			}
+		} else {
+			if (new_line && x >= target_x) {
+				if (! cursor->have_target_x) {
+					cursor->have_target_x = TRUE;
+					cursor->target_x = target_x;
+				}
+
+				/* Choose the character which is the nearest to the
+				   target X.  */
+				if (prev_y == y && x - target_x >= target_x - prev_x) {
+					cursor->object = prev_cursor.object;
+					cursor->offset = prev_cursor.offset;
+					cursor->position = prev_cursor.position;
+				}
+
+				debug_location (cursor);
+				return TRUE;
+			}
 		}
 	}
 }

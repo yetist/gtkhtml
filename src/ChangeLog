@@ -1,3 +1,10 @@
+2005-02-01  Radek Doulik  <rodo@novell.com>
+
+	* test-suite.c (test_cursor_beol_rtl): finished this test
+	(main): don't show the widgets, it's not needed so far
+
+	* htmlcursor.c: fixed line up/down to work OK with RTL direction
+
 2005-01-31  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-table.c: disable selection before deleting
