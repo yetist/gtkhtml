@@ -1,5 +1,9 @@
 2003-03-31  Radek Doulik  <rodo@ximian.com>
 
+	* htmltext.c (word_width): fixed for tabs
+
+	* htmltextslave.c (get_words_width): fixed for tabs
+
 	* gtkhtml.c: load emacs keybindings, use them if gconf value of
 	/desktop/gnome/interface/gtk_key_theme is Emacs
 

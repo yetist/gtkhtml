@@ -93,13 +93,38 @@ copy (HTMLObject *self,
 }
 
 static guint
-get_words_width (HTMLText *text, HTMLPainter *p, guint start_word, guint words)
+get_words_width (HTMLTextSlave *slave, HTMLPainter *p, guint words)
 {
-	return words > 0
-		? text->word_width [start_word + words - 1]
-		- (start_word ? text->word_width [start_word - 1]
-		   + html_painter_get_space_width (p, html_text_get_font_style (text), text->face) : 0)
-		: 0;
+	HTMLText *text = slave->owner;
+	gint width;
+
+	if (words <= 0)
+		return 0;
+
+	width =  text->word_width [slave->start_word + words - 1]
+		- (slave->start_word ? text->word_width [slave->start_word - 1]
+		   + html_painter_get_space_width (p, html_text_get_font_style (text), text->face) : 0);
+
+	if (html_clueflow_tabs (HTML_CLUEFLOW (HTML_OBJECT (slave)->parent), p)) {
+		gchar *space, *str = html_text_slave_get_text (slave);
+		gint tabs, len, line_offset = html_text_slave_get_line_offset (slave, 0, p);
+
+		space = str;
+		while (words && space && *space) {
+			space = strchr (space, ' ');
+			words --;
+		}
+
+		if (!space || !*space)
+			len = slave->posLen;
+		else
+			len = g_utf8_pointer_to_offset (str, space);
+		/* printf ("width %d --> ", width); */
+		width += html_painter_get_space_width (p, html_text_get_font_style (text), text->face)*(html_text_text_line_length (str, &line_offset, len, &tabs) - len - tabs);
+		/* printf ("%d\n", width); */
+	}
+
+	return width;
 }
 
 static inline gint
@@ -143,7 +168,7 @@ calc_width (HTMLTextSlave *slave, HTMLPainter *painter, gint *asc, gint *dsc)
 						     text->face, &w, asc, dsc);
 			width += w + tabs*html_painter_get_space_width (painter, html_text_get_font_style (text), text->face);
 		} else {
-			width += get_words_width (text, painter, slave->start_word,
+			width += get_words_width (slave, painter,
 						  (next && HTML_OBJECT_TYPE (next) == HTML_TYPE_TEXTSLAVE
 						   ? HTML_TEXT_SLAVE (next)->start_word : text->words) - slave->start_word);
 			*asc = HTML_OBJECT (text)->ascent;
@@ -374,7 +399,7 @@ could_remove_leading_space (HTMLTextSlave *slave, gboolean lineBegin)
 inline gint
 html_text_slave_nb_width (HTMLTextSlave *slave, HTMLPainter *painter, gint words)
 {
-	return get_words_width (slave->owner, painter, slave->start_word, words)
+	return get_words_width (slave, painter, words)
 		+ (slave->start_word + words == slave->owner->words ? get_next_nb_width (slave, painter) : 0);
 }
 
@@ -440,7 +465,7 @@ hts_fit_line (HTMLObject *o, HTMLPainter *painter,
 
 	if (words + slave->start_word == text->words)
 		rv = HTML_FIT_COMPLETE;
-	else if (words == 0 || get_words_width (text, painter, slave->start_word, words) == 0) {
+	else if (words == 0 || get_words_width (slave, painter, words) == 0) {
 		if (!firstRun) {
 			if (slave->posStart == 0 && text->text [0] != ' ' && HTML_OBJECT (text)->prev) {
 				HTMLObject *prev = HTML_OBJECT (text)->prev;
@@ -467,7 +492,7 @@ hts_fit_line (HTMLObject *o, HTMLPainter *painter,
 	if (rv == HTML_FIT_PARTIAL)
 		if (pos < slave->posLen) {
 			split (slave, pos, slave->start_word + words, sep);
-		o->width = get_words_width (text, painter, slave->start_word, words);
+		o->width = get_words_width (slave, painter, words);
 	}
 
 #ifdef HTML_TEXT_SLAVE_DEBUG

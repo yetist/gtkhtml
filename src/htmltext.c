@@ -800,6 +800,40 @@ get_next_nb_width (HTMLText *text, HTMLPainter *painter, gboolean begin)
 		return html_text_get_nb_width (HTML_TEXT (obj), painter, begin);
 }
 
+static inline gint
+word_tabs (HTMLText *text, HTMLPainter *p, gint idx)
+{
+	gchar *str, *end;
+	gint rv = 0, line_offset, t1, t2, l1, l2;
+
+	if (!html_clueflow_tabs (HTML_CLUEFLOW (HTML_OBJECT (text)->parent), p))
+		return 0;
+
+	str = text->text;
+	while (idx > 0 && str && *str) {
+		str = strchr (str, ' ');
+		if (str)
+			str ++;
+		idx --;
+	}
+
+	if (!str || !*str)
+		return 0;
+
+	end = strchr (str, ' ');
+	if (!end)
+		end = str + strlen (str);
+
+	line_offset = html_text_get_line_offset (text, p);
+	l1 = html_text_text_line_length (text->text, &line_offset, g_utf8_pointer_to_offset (text->text, str), &t1);
+	l2 = html_text_text_line_length (text->text, &line_offset, g_utf8_pointer_to_offset (str, end), &t2);
+
+	rv = l2 - l1 - g_utf8_pointer_to_offset (str, end);
+
+	/* printf ("tabs delta %d\n", rv); */
+	return rv;
+}
+
 static guint
 word_width (HTMLText *text, HTMLPainter *p, guint i)
 {
@@ -807,7 +841,8 @@ word_width (HTMLText *text, HTMLPainter *p, guint i)
 
 	return text->word_width [i]
 		- (i > 0 ? text->word_width [i - 1]
-		   + html_painter_get_space_width (p, html_text_get_font_style (text), text->face) : 0);
+		   + html_painter_get_space_width (p, html_text_get_font_style (text), text->face) : 0)
+		+ word_tabs (text, p, i)*html_painter_get_space_width (p, html_text_get_font_style (text), text->face);
 }
 
 /* return non-breakable text width on begin/end of this text */
