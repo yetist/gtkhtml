@@ -26,9 +26,83 @@
 #include "htmltablecell.h"
 #include "htmlobject.h"
 
+/* FIXME: This always behaves as a transparent object, even when it
+   actually is not.  */
+
 
 HTMLTableCellClass html_table_cell_class;
 static HTMLClueVClass *parent_class = NULL;
+
+
+static void
+draw_background_helper (HTMLTableCell *cell,
+			HTMLPainter *p,
+			gint x, gint y, 
+			gint width, gint height,
+			gint tx, gint ty)
+{
+	HTMLObject *o;
+	gint top, bottom;
+
+	o = HTML_OBJECT (cell);
+
+	if (cell->have_bg) {
+ 		top = y - (o->y - o->ascent);
+		bottom = top + height;
+		if (top < -cell->padding)
+			top = -cell->padding;
+		if (bottom > o->ascent + cell->padding)
+			bottom = o->ascent + cell->padding;
+
+		if (! cell->bg_allocated) {
+			html_painter_alloc_color (p, &cell->bg);
+			cell->bg_allocated = TRUE;
+		}
+
+		html_painter_set_pen (p, &cell->bg);
+		html_painter_fill_rect (p, tx + o->x - cell->padding,
+					ty + o->y - o->ascent + top,
+					o->width + cell->padding * 2,
+					bottom - top);
+
+	}
+
+	if (cell->have_bgPixmap) {
+		int base_x, base_y;
+		int pw, ph;
+		int owidth, oheight;
+		int clip_width, clip_height;
+
+		if (cell->bgPixmap->pixbuf) {
+			pw = cell->bgPixmap->pixbuf->art_pixbuf->width;
+			ph = cell->bgPixmap->pixbuf->art_pixbuf->height;
+
+			oheight = o->ascent + 2 * cell->padding;
+			base_y = o->y - o->ascent - cell->padding + ty;
+
+			while (oheight > 0) {
+				owidth = o->width + 2 * cell->padding;
+				base_x = o->x + tx - cell->padding;
+				while(owidth > 0) {
+					
+					clip_width = owidth > pw ? pw :owidth;
+					clip_height = oheight > ph ? ph : oheight;
+					
+					html_painter_draw_background_pixmap (p, base_x, base_y,
+									     cell->bgPixmap->pixbuf,
+									     clip_width, clip_height);
+
+					base_x += pw;
+					owidth -= pw;
+					
+				}
+				base_y += ph;
+				oheight -= ph;
+			}
+		}
+		
+	}
+}
 
 
 /* HTMLObject methods.  */
@@ -96,68 +170,25 @@ draw (HTMLObject *o,
       gint tx, gint ty)
 {
 	HTMLTableCell *cell = HTML_TABLE_CELL (o);
-	gint top, bottom;
 
 	if (y + height < o->y - o->ascent - cell->padding || y > o->y + o->descent + cell->padding)
 		return;
 
-	if (cell->have_bg) {
- 		top = y - (o->y - o->ascent);
-		bottom = top + height;
-		if (top < -cell->padding)
-			top = -cell->padding;
-		if (bottom > o->ascent + cell->padding)
-			bottom = o->ascent + cell->padding;
-
-		if (! cell->bg_allocated) {
-			html_painter_alloc_color (p, &cell->bg);
-			cell->bg_allocated = TRUE;
-		}
-
-		html_painter_set_pen (p, &cell->bg);
-		html_painter_fill_rect (p, tx + o->x - cell->padding,
-					ty + o->y - o->ascent + top,
-					o->width + cell->padding * 2,
-					bottom - top);
-	}
-
-	if (cell->have_bgPixmap) {
-		int base_x, base_y;
-		int pw, ph;
-		int owidth, oheight;
-		int clip_width, clip_height;
-
-		if (cell->bgPixmap->pixbuf) {
-			pw = cell->bgPixmap->pixbuf->art_pixbuf->width;
-			ph = cell->bgPixmap->pixbuf->art_pixbuf->height;
-
-			oheight = o->ascent + 2 * cell->padding;
-			base_y = o->y - o->ascent - cell->padding + ty;
-
-			while (oheight > 0) {
-				owidth = o->width + 2 * cell->padding;
-				base_x = o->x + tx - cell->padding;
-				while(owidth > 0) {
-					
-					clip_width = owidth > pw ? pw :owidth;
-					clip_height = oheight > ph ? ph : oheight;
-					
-					html_painter_draw_background_pixmap (p, base_x, base_y,
-									     cell->bgPixmap->pixbuf,
-									     clip_width, clip_height);
-
-					base_x += pw;
-					owidth -= pw;
-					
-				}
-				base_y += ph;
-				oheight -= ph;
-			}
-		}
-		
-	} 
+	draw_background_helper (cell, p, x, y, width, height, tx, ty);
 
 	(* HTML_OBJECT_CLASS (&html_cluev_class)->draw) (o, p, x, y, width, height, tx, ty);
+}
+
+static void
+draw_background (HTMLObject *self,
+		 HTMLPainter *painter,
+		 gint x, gint y, 
+		 gint width, gint height,
+		 gint tx, gint ty)
+{
+	(* HTML_OBJECT_CLASS (parent_class)->draw_background) (self, painter, x, y, width, height, tx, ty);
+
+	draw_background_helper (HTML_TABLE_CELL (self), painter, x, y, width, height, tx, ty);
 }
 
 static void
@@ -205,6 +236,7 @@ html_table_cell_class_init (HTMLTableCellClass *klass,
 	object_class->calc_min_width = calc_min_width;
 	object_class->set_max_width = set_max_width;
 	object_class->draw = draw;
+	object_class->draw_background = draw_background;
 	object_class->set_bg_color = set_bg_color;
 
 	parent_class = &html_cluev_class;

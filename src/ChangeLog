@@ -1,3 +1,28 @@
+2000-03-26  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmldrawqueue.c
+	(draw_obj): If the object is transparent, draw the background too.
+
+	* htmltablecell.c
+	(draw_background_helper): New helper function.
+	(draw): Use it.
+	(draw_background): New function, implementation of
+	`HTMLObject::draw_background()'.
+	(html_table_cell_class_init): Install the `draw_background'
+	implementation.
+
+	* htmlobject.c
+	(is_transparent): New function, default implementation for
+	`HTMLObject::is_transparent()'.
+	(draw_background): New function, default implementation for
+	`HTMLObject::draw_background'.
+	(html_object_class_init): Install them.
+	(html_object_is_transparent): New function.
+	(html_object_draw_background): New function.
+
+	* htmlobject.h: New virtual methods `is_transparent',
+	`draw_background'.
+
 2000-03-36  Jonas Borgström  <jonas_b@bitsmart.com>
 
 	* htmltextarea.c (on_button_press_event): New function.

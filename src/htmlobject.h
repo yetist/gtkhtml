@@ -127,48 +127,71 @@ struct _HTMLObjectClass {
 	/* Destroy the object.  */
 	void (* destroy) (HTMLObject *o);
 
-	/* Copy an object into another one.  @dest can just point to a memory
-           area of the proper size.  */
+	/* Copy an object into another one.  @dest can just point to a
+           memory area of the proper size.  */
 	void (* copy) (HTMLObject *self, HTMLObject *dest);
 
-	/* Relayout object `o' starting from child `child'.  This method can be
-           called by the child when it changes any of its layout properties.  */
+	/* Layout management and geometry handling.  */
+
+	HTMLFitType (* fit_line) (HTMLObject *o, HTMLPainter *painter,
+				  gboolean start_of_line, gboolean first_run,
+				  gint width_left);
+	gboolean (* calc_size) (HTMLObject *o, HTMLPainter *painter);
+	gint (* calc_min_width) (HTMLObject *o, HTMLPainter *painter);
+	gint (* calc_preferred_width) (HTMLObject *o, HTMLPainter *painter);
+	void (* set_max_ascent) (HTMLObject *o, HTMLPainter *painter, gint a);
+	void (* set_max_descent) (HTMLObject *o, HTMLPainter *painter, gint d);
+	void (* set_max_width) (HTMLObject *o, HTMLPainter *painter, gint max_width);
+
+	/* Relayout object `o' starting from child `child'.  This
+           method can be called by the child when it changes any of
+           its layout properties.  */
+
 	gboolean (* layout) (HTMLObject *o, HTMLObject *child);
 
-        /* x & y are in object coordinates (e.g. the same coordinate system as
-	   o->x and o->y) tx & ty are used to translated object coordinates
-	   into painter coordinates */
-	void (*draw) (HTMLObject *o,
-		      HTMLPainter *painter,
-		      gint x, gint y,
-		      gint width, gint height,
-		      gint tx, gint ty);
+        /* This method is used to draw the object.  @x & @y are in
+	   object coordinates (e.g. the same coordinate system as o->x
+	   and o->y). @tx & @ty are used to translate the object
+	   coordinates into painter coordinates.  */
 
-	void (*set_max_ascent) (HTMLObject *o, HTMLPainter *painter, gint a);
-	void (*set_max_descent) (HTMLObject *o, HTMLPainter *painter, gint d);
-	void (*set_max_width) (HTMLObject *o, HTMLPainter *painter, gint max_width);
+	void (* draw) (HTMLObject *o,
+		       HTMLPainter *painter,
+		       gint x, gint y,
+		       gint width, gint height,
+		       gint tx, gint ty);
+
+	/* "Transparent" objects (i.e. objects that don't draw all the
+           area they occupy, such as text) should return `TRUE' here.  */
+
+	gboolean (* is_transparent) (HTMLObject *self);
+
+	/* This draws the background only.  If the object is
+           transparent, it should simply forward the method to the
+           parent.  */
+
+	void (* draw_background) (HTMLObject *o,
+				  HTMLPainter *painter,
+				  gint x, gint y,
+				  gint width, gint height,
+				  gint tx, gint ty);
 
 	/* Margins.  This should actually be used only by objects that
            contain other objects, so it should be in HTMLClue.  But
            HTMLTable does not derive from HTMLClue and we don't want
            to spend time reorganizing the hierarchy now.  */
-	gint (*get_left_margin) (HTMLObject *self, gint y);
-	gint (*get_right_margin) (HTMLObject *self, gint y);
 
-	void (*reset) (HTMLObject *o);
-	
-	HTMLFitType (*fit_line) (HTMLObject *o, HTMLPainter *painter,
-				 gboolean start_of_line, gboolean first_run, gint width_left);
+	gint (* get_left_margin) (HTMLObject *self, gint y);
+	gint (* get_right_margin) (HTMLObject *self, gint y);
 
-	gboolean (*calc_size) (HTMLObject *o, HTMLPainter *painter);
+	/* Resetting the object.  Do this before using a different
+           HTMLPainter.  */
 
-	gint (*calc_min_width) (HTMLObject *o, HTMLPainter *painter);
-	gint (*calc_preferred_width) (HTMLObject *o, HTMLPainter *painter);
+	void (* reset) (HTMLObject *o);
 
-	const gchar * (*get_url) (HTMLObject *o);
-	const gchar * (*get_target) (HTMLObject *o);
+	const gchar * (* get_url) (HTMLObject *o);
+	const gchar * (* get_target) (HTMLObject *o);
 
-	HTMLAnchor * (*find_anchor) (HTMLObject *o, const gchar *name, gint *x, gint *y);
+	HTMLAnchor * (* find_anchor) (HTMLObject *o, const gchar *name, gint *x, gint *y);
 
 	void (* set_bg_color) (HTMLObject *o, GdkColor *color);
 
@@ -183,17 +206,23 @@ struct _HTMLObjectClass {
 	gboolean (* relayout) (HTMLObject *self, HTMLEngine *engine, HTMLObject *child);
 
 	/* Cursor handling.  */
+
 	gboolean (* accepts_cursor) (HTMLObject *self);
 	void (* get_cursor) (HTMLObject *self, HTMLPainter *painter, guint offset,
 			     gint *x1, gint *y1, gint *x2, gint *y2);
 	void (* get_cursor_base) (HTMLObject *self, HTMLPainter *painter, guint offset,
 				  gint *x, gint *y);
 
-	void (* forall) (HTMLObject *self, HTMLObjectForallFunc func, gpointer data);
+	/* Container operations.  */
 
+	void (* forall) (HTMLObject *self, HTMLObjectForallFunc func, gpointer data);
 	gboolean (* is_container) (HTMLObject *self);
 
+	/* Saving.  */
+
 	gboolean (* save) (HTMLObject *self, HTMLEngineSaveState *state);
+
+	/* Page splitting (for printing).  */
 
 	gint (* check_page_split) (HTMLObject *self, gint y);
 
@@ -236,15 +265,25 @@ HTMLObject *html_object_next_not_slave    (HTMLObject           *self);
 HTMLObject *html_object_prev_not_slave    (HTMLObject           *self);
 
 /* Drawing-related stuff.  */
-void  html_object_draw  (HTMLObject  *o,
-			 HTMLPainter *p,
-			 gint         x,
-			 gint         y,
-			 gint         width,
-			 gint         height,
-			 gint         tx,
-			 gint         ty);
-void html_object_set_bg_color (HTMLObject *o, GdkColor *color);
+void      html_object_draw             (HTMLObject  *o,
+					HTMLPainter *p,
+					gint         x,
+					gint         y,
+					gint         width,
+					gint         height,
+					gint         tx,
+					gint         ty);
+void      html_object_draw_background  (HTMLObject  *o,
+					HTMLPainter *p,
+					gint         x,
+					gint         y,
+					gint         width,
+					gint         height,
+					gint         tx,
+					gint         ty);
+gboolean  html_object_is_transparent   (HTMLObject  *self);
+void      html_object_set_bg_color     (HTMLObject  *o,
+					GdkColor    *color);
 
 /* Layout.  */
 HTMLFitType  html_object_fit_line              (HTMLObject  *o,

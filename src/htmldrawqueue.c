@@ -213,7 +213,7 @@ draw_obj (HTMLDrawQueue *queue,
 	  HTMLObject *obj)
 {
 	HTMLEngine *e;
-	HTMLObject *o;
+	HTMLObject *p;
 	gint x1, y1, x2, y2;
 	gint tx, ty;
 
@@ -227,9 +227,9 @@ draw_obj (HTMLDrawQueue *queue,
 	tx = 0;
 	ty = 0;
 
-	for (o = obj->parent; o != NULL; o = o->parent) {
-		tx += o->x;
-		ty += o->y - o->ascent;
+	for (p = obj->parent; p != NULL; p = p->parent) {
+		tx += p->x;
+		ty += p->y - p->ascent;
 	}
 
 	tx = tx + e->leftBorder - e->x_offset;
@@ -257,13 +257,20 @@ draw_obj (HTMLDrawQueue *queue,
 
 	html_painter_begin (e->painter, x1, y1, x2, y2);
 
-	/* FIXME we are duplicating code from HTMLEngine here.  Instead, there
-           should be a function in HTMLEngine to paint stuff.  */
+	/* FIXME we are duplicating code from HTMLEngine here.
+           Instead, there should be a function in HTMLEngine to paint
+           stuff.  */
 
 	html_painter_set_pen (e->painter, &e->bgColor);
 	html_painter_fill_rect (e->painter, x1, y1, x2, y2);
 
 	/* Draw the actual object.  */
+
+	if (html_object_is_transparent (obj))
+		html_object_draw_background (obj, e->painter,
+					     obj->x, obj->y - obj->ascent,
+					     obj->width, obj->ascent + obj->descent,
+					     tx, ty);
 
 	html_object_draw (obj,
 			  e->painter, 
@@ -272,9 +279,14 @@ draw_obj (HTMLDrawQueue *queue,
 			  tx, ty);
 
 #if 0
-	html_painter_set_pen (e->painter, html_painter_get_black (e->painter));
-	html_painter_draw_line (e->painter, x1, y1, x2 - 1, y2 - 1);
-	html_painter_draw_line (e->painter, x2 - 1, y1, x1, y2 - 1);
+	{
+		GdkColor c;
+
+		c.pixel = rand ();
+		html_painter_set_pen (e->painter, &c);
+		html_painter_draw_line (e->painter, x1, y1, x2 - 1, y2 - 1);
+		html_painter_draw_line (e->painter, x2 - 1, y1, x1, y2 - 1);
+	}
 #endif
 
 	/* Done.  */
