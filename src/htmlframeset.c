@@ -20,9 +20,6 @@
 */
 
 #include <config.h>
-#include <string.h>
-#include <ctype.h>
-#include <stdlib.h>
 #include "gtkhtmldebug.h"
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
@@ -36,25 +33,13 @@
 #include "htmltablepriv.h"
 #include "htmltablecell.h"
 
+#include "htmlshape.h"
 #include "htmlframe.h"
 #include "htmlframeset.h"
 
 
 HTMLFramesetClass html_frameset_class;
 static HTMLObjectClass *parent_class = NULL;
-
-typedef enum {
-	HTML_LENGTH_TYPE_PERCENT,
-	HTML_LENGTH_TYPE_PIXELS,
-	HTML_LENGTH_TYPE_FRACTION
-} HTMLLengthType;
-
-typedef struct _HTMLLength HTMLLength;
-
-struct _HTMLLength {
-	gint           val;
-	HTMLLengthType type;
-};
 
 static gint
 html_frameset_get_view_height (HTMLFrameset *set)
@@ -98,60 +83,6 @@ html_frameset_append (HTMLFrameset *set, HTMLObject *frame)
 	g_ptr_array_add (set->frames, frame);
 	html_object_set_parent (frame, HTML_OBJECT (set));
 	return TRUE;
-}
-
-static HTMLLength *
-parse_length (char **str)
-{
-	char *cur = *str;
-	HTMLLength *len = g_new (HTMLLength, 1);
-	
-	/* g_warning ("begin \"%s\"", *str); */
-
-	while (isspace (*cur)) cur++;
-
-	len->val = atoi (cur);
-	len->type = HTML_LENGTH_TYPE_PIXELS;
-
-	while (isdigit (*cur)) cur++;
-
-	switch (*cur) {
-	case '*':
-		if (len->val == 0)
-			len->val = 1;
-		len->type = HTML_LENGTH_TYPE_FRACTION;
-		cur++;
-		break;
-	case '%':
-		len->type = HTML_LENGTH_TYPE_PERCENT;
-                cur++;
-		break;
-	}
-	
-	if (cur <= *str) {
-		g_free (len);
-		return NULL;
-	} 
-
-	/* g_warning ("length len->val=%d, len->type=%d", len->val, len->type); */
-	*str = cur;
-	cur = strstr (cur, ",");	
-	if (cur) {
-		cur++;
-		*str = cur;
-	}
-
-	return len;
-}
-	
-static void
-parse_dimension (GPtrArray *dim, char *str)
-{
-	HTMLLength *length;
-
-	while ((length = parse_length (&str)))
-	       g_ptr_array_add (dim, length);
-
 }
 
 static void	       
@@ -269,8 +200,6 @@ calc_size (HTMLObject *o,
 	return TRUE;
 }
 
-	
-
 void
 html_frameset_init (HTMLFrameset *set, GtkHTML *parent, char *rows, char *cols)
 {
@@ -281,26 +210,16 @@ html_frameset_init (HTMLFrameset *set, GtkHTML *parent, char *rows, char *cols)
 	set->rows = NULL;
 
 	set->cols = g_ptr_array_new ();
-	if (cols) { 
-		parse_dimension (set->cols, cols);
-	} else {
-		HTMLLength *len = g_new (HTMLLength, 1);
-		len->val = 100;
-		len->type = HTML_LENGTH_TYPE_PERCENT;
-		
-		g_ptr_array_add (set->cols, len);
-	}
+	if (cols == NULL)
+		cols = "100%";
 
-	set->rows = g_ptr_array_new ();
-	if (rows) { 
-		parse_dimension (set->rows, rows);
-	} else {
-		HTMLLength *len = g_new (HTMLLength, 1);
-		len->val = 100;
-		len->type = HTML_LENGTH_TYPE_PERCENT;
-		
-		g_ptr_array_add (set->rows, len);
-	}
+	html_length_array_parse (set->cols, cols);
+
+	if (rows == NULL) 
+		rows = "100%";
+	
+	html_length_array_parse (set->rows, rows);
+
 	set->frames = g_ptr_array_new ();
 }
 
@@ -363,6 +282,9 @@ destroy (HTMLObject *self)
 	set = HTML_FRAMESET (self);
 	for (i = 0; i < set->frames->len; i++)
 		html_object_destroy (g_ptr_array_index (set->frames, i));
+
+	html_length_array_destroy (set->cols);
+	html_length_array_destroy (set->rows);
 
 	(* parent_class->destroy) (self);
 }

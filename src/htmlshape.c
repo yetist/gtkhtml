@@ -22,126 +22,168 @@
 #include <glib.h>
 #include <string.h>
 #include <math.h>
+#include <ctype.h>
+#include <stdlib.h>
 #include "htmlshape.h"
 
 struct _HTMLShape {
 	HTMLShapeType type;
 	gchar *url;
 	gchar *target;
+	GPtrArray *coords;
 };
 
-typedef struct _HTMLShapeRect HTMLShapeRect;
-struct _HTMLShapeRect {
-	HTMLShape shape;
-	gint x0, y0;
-	gint x1, y1;
-};
+static HTMLLength *
+html_length_new (gint val, HTMLLengthType type) {
+	HTMLLength *len = g_new (HTMLLength, 1);
+	
+	len->val = val;
+	len->type = type;
+	
+	return len;
+}
 
-typedef struct _HTMLShapeCircle HTMLShapeCircle;
-struct _HTMLShapeCircle {
-	HTMLShape shape;
-	gint cx, cy;
-	gint r;
-};
+static HTMLLength *
+parse_length (char **str) {
+	char *cur = *str;
+	HTMLLength *len;
+	
+	/* g_warning ("begin \"%s\"", *str); */
 
-typedef struct _HTMLShapePoly HTMLShapePoly;
-struct _HTMLShapePoly {
-	HTMLShape shape;
-	gint count;
-	gint *points;
-};
+	while (isspace (*cur)) cur++;
 
-#define HTML_DIST(x,y) ((gint)sqrt(x*x+y*y))
+	len = html_length_new (atoi (cur), HTML_LENGTH_TYPE_PIXELS);
+
+	while (isdigit (*cur)) cur++;
+
+	switch (*cur) {
+	case '*':
+		if (len->val == 0)
+			len->val = 1;
+		len->type = HTML_LENGTH_TYPE_FRACTION;
+		cur++;
+		break;
+	case '%':
+		len->type = HTML_LENGTH_TYPE_PERCENT;
+                cur++;
+		break;
+	}
+	
+	if (cur <= *str) {
+		g_free (len);
+		return NULL;
+	} 
+
+	/* g_warning ("length len->val=%d, len->type=%d", len->val, len->type); */
+	*str = cur;
+	cur = strstr (cur, ",");	
+	if (cur) {
+		cur++;
+		*str = cur;
+	}
+
+	return len;
+}
+
+void
+html_length_array_parse (GPtrArray *array, char *str)
+{
+	HTMLLength *length;
+
+	if (str == NULL)
+		return;
+
+	while ((length = parse_length (&str)))
+	       g_ptr_array_add (array, length);
+
+}
+
+void
+html_length_array_destroy (GPtrArray *array)
+{
+	int i;
+	
+	for (i = 0; i < array->len; i++)
+		g_free (g_ptr_array_index (array, i));
+}
+
+#define HTML_DIST(x,y) sqrt(x*x+y*y)
+
+#define X0(a)  a[0]->val
+#define X1(a)  a[2]->val
+#define Y0(a)  a[1]->val
+#define Y1(a)  a[3]->val
+
+#define CX(a)  a[0]->val
+#define CY(a)  a[1]->val
+#define  R(a)  a[2]->val
 
 gboolean
 html_shape_point (HTMLShape *shape, gint x, gint y)
 {
-	HTMLShapeRect *rect;
-	HTMLShapeCircle *circle;
+	int i;
+	int j = 0;
+	int odd = 0;
+	int dx, dy;
+
+	HTMLLength **poly = (HTMLLength **)shape->coords->pdata;
+
+	/*
+	 * TODO: Add support for percentage lengths, The information is stored
+	 * so it is simply a matter of modifying the point routine to know the
+	 * the overall size, then scaling the values.
+	 */
 
 	switch (shape->type) {
 	case HTML_SHAPE_RECT:
-		rect = (HTMLShapeRect *)shape;
-		
-		if ((x >= rect->x0) 
-		    && (x <= rect->x1) 
-		    && (y >= rect->y0) 
-		    && (y <= rect->y1))
+		if ((x >= X0 (poly)) 
+		    && (x <= X1 (poly)) 
+		    && (y >= Y0 (poly)) 
+		    && (y <= Y1 (poly)))
 			return TRUE;
 		break;
 	case HTML_SHAPE_CIRCLE:
-		circle = (HTMLShapeCircle *)shape;
-		
-		if (HTML_DIST (x - circle->cx, y - circle->cy) <= circle->r)
+		if (HTML_DIST ( x - CX (poly), y - CY (poly)) < R (poly))
 			return TRUE;
 		
 		break;
 	case HTML_SHAPE_POLY:
+		for (i=0; i < shape->coords->len; i+=2) {
+			j+=2; 
+			if (j == shape->coords->len) 
+				j=0;
+			
+			if ((poly[i+1]->val < y && poly[j+1]->val >= y)
+			    || (poly[j+1]->val < y && poly[i+1]->val >= y)) {
+				
+				if (poly[i]->val + (y - poly[i+1]->val) 
+				    / (poly[j+1]->val - poly[i+1]->val) 
+				    * (poly[j]->val - poly[i]->val) < x) {
+					odd = !odd;
+				}
+			}
+		}
+		return odd;
+		break;
+	case HTML_SHAPE_DEFAULT:
+		return TRUE;
 		break;
 	}
 	return FALSE;
 }
 
-
-static HTMLShape *
-html_shape_construct (HTMLShape *shape, char *url, char *target, HTMLShapeType type) 
-{
-	shape->url = g_strdup (url);
-	shape->target = g_strdup (target);
-	shape->type = type;
-
-	return shape;
-}
-
-static HTMLShape *
-html_shape_rect_new (char *url, char *target, gint x0, gint y0, gint x1, gint y1)
-{
-	HTMLShapeRect *rect;
-	
-	rect = g_new (HTMLShapeRect, 1);
-	rect->x0 = x0;
-	rect->y0 = y0;
-	rect->x1 = x1;
-	rect->y1 = y1;
-
-	return html_shape_construct ((HTMLShape *)rect, url, target, HTML_SHAPE_RECT);
-}
-
-static HTMLShape *
-html_shape_circle_new (char *url, char *target, gint cx, gint cy, gint r)
-{
-	HTMLShapeCircle *circle;
-
-	circle = g_new (HTMLShapeCircle, 1);
-	circle->cx = cx;
-	circle->cy = cy;
-	circle->r = r;
-
-	return html_shape_construct ((HTMLShape *)circle, url, target, HTML_SHAPE_CIRCLE);
-}
-
-static HTMLShape *
-html_shape_poly_new (char *url, char *target, int count, int points[])
-{
-	HTMLShapePoly *poly;
-	
-	poly = g_new (HTMLShapePoly, 1);
-	poly->count  = count;
-	poly->points = points; 
-
-	return html_shape_construct ((HTMLShape *)poly, url, target, HTML_SHAPE_POLY);
-}
-
 static HTMLShapeType
 parse_shape_type (char *token) {
-	HTMLShapeType type = HTML_SHAPE_DEFAULT;
+	HTMLShapeType type = HTML_SHAPE_RECT;
 
-	if (strncasecmp (token, "rect", 4) == 0)
+	if (!token || strncasecmp (token, "rect", 4) == 0)
 		type = HTML_SHAPE_RECT;
 	else if (strncasecmp (token, "poly", 4) == 0)
 		type = HTML_SHAPE_POLY;
 	else if (strncasecmp (token, "circle", 6) == 0)
 		type = HTML_SHAPE_CIRCLE;
+	else if (strncasecmp (token, "default", 7) == 0)
+		type = HTML_SHAPE_DEFAULT;
 
 	return type;
 }
@@ -153,56 +195,40 @@ html_shape_get_url (HTMLShape *shape)
 }
 
 HTMLShape *
-html_shape_new (char *type, char *coords, char *url, char *target)
+html_shape_new (char *type_str, char *coords, char *url, char *target)
 {
-	HTMLShape *shape = NULL;
+	HTMLShape *shape;
+	HTMLShapeType type = parse_shape_type (type_str);
+	
+	if (coords == NULL && type != HTML_SHAPE_DEFAULT)
+		return NULL;
 
-	switch (parse_shape_type (type)) {
+	shape = g_new (HTMLShape, 1);
+
+	shape->type = type;
+	shape->url = g_strdup (url);
+	shape->target = g_strdup (target);
+	shape->coords = g_ptr_array_new ();
+
+	html_length_array_parse (shape->coords, coords);
+	
+	switch (shape->type) {
 	case HTML_SHAPE_RECT:
-	{
-		int x0, y0, x1, y1;
-		sscanf( coords, "%d,%d,%d,%d", &x0, &y0, &x1, &y1 );
-		//gtk_html_debug_log (e->widget, "Area Rect %d, %d, %d, %d\n", x0, y0, x1, y1);
-		shape = html_shape_rect_new (url, target, x0, y0, x1, y1);
-		break;
-	}
+		while (shape->coords->len < 4)
+			g_ptr_array_add (shape->coords, 
+					 html_length_new (0, HTML_LENGTH_TYPE_PIXELS));
 	case HTML_SHAPE_CIRCLE:
-	{
-		int cx, cy, r;
-		sscanf (coords, "%d,%d,%d", &cx, &cy, &r);
-		//gtk_html_debug_log (e->widget, "Area Circle %d, %d, %d\n", cx, cy, r);
-		shape = html_shape_circle_new (url, target, cx, cy, r);
-	break;
-	}
-#if 0				
+		while (shape->coords->len < 3)
+			g_ptr_array_add (shape->coords, 
+					 html_length_new (0, HTML_LENGTH_TYPE_PIXELS));
 	case HTML_SHAPE_POLY:
-	{
-		gtk_html_debug_log (e->widget, "Area Poly " );
-		int count = 0, x, y;
-		QPointArray parray;
-		const char *ptr = coords;
-		while ( ptr )
-		{
-			x = atoi( ptr );
-			ptr = strchr( ptr, ',' );
-			if ( ptr )
-			{
-				y = atoi( ++ptr );
-				parray.resize( count + 1 );
-				parray.setPoint( count, x, y );
-				gtk_html_debug_log (e->widget, "%d, %d  ", x, y );
-				count++;
-				ptr = strchr( ptr, ',' );
-				if ( ptr ) ptr++;
-			}
-		}
-		gtk_html_debug_log (e->widget, "\n" );
-		if ( count > 2 ) 
-			//html_shape_poly_new 
-			}
-	break;
-#endif
+		if (shape->coords->len % 2)
+			g_ptr_array_add (shape->coords, 
+					 html_length_new (0, HTML_LENGTH_TYPE_PIXELS));
+
+		break;
 	default:
+		break;
 	}
 	return shape;
 }
@@ -212,10 +238,9 @@ html_shape_destroy (HTMLShape *shape)
 {
 	g_free (shape->url);
 	g_free (shape->target);
-
-	if (shape->type == HTML_SHAPE_POLY) {
-		/* free poly stuff */
-	}
+	html_length_array_destroy (shape->coords);
+	
+	g_free (shape);
 }
 		
 

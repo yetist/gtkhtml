@@ -1658,12 +1658,13 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 			}
 		}
 		
-		if (type && coords) {
+		if (type || coords) {
 			shape = html_shape_new (type, coords, href, target);
 			if (shape != NULL) {
 				html_map_add_shape (e->map, shape);
 			}
 		}
+
 		g_free (type);
 		g_free (href);
 		g_free (coords);
@@ -1712,8 +1713,7 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 		     && e->baseTarget != NULL
 		     && e->baseTarget[0] != '\0' ) {
 			target = g_strdup (e->baseTarget);
-				/*  parsedTargets.append( target ); FIXME TODO */
-		}
+				/*  parsedTargets.append( target ); FIXME TODO */		}
 #endif
 		
 		if (url != NULL) {

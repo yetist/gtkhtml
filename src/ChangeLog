@@ -1,5 +1,23 @@
 2001-05-31  Larry Ewing  <lewing@ximian.com>
 
+	* htmlshape.c (html_shape_point): add tests for poly and default.
+	(html_shape_new): move from separate shape structures to a single
+	structure with a pointer array holding HTMLLengths.  I still need
+	to add support for actually using the percentage lengths.
+
+	* htmlshape.h: add prototypes for HTMLLength functions.
+
+	* htmlframeset.c (html_frameset_init): move the HTMLLength
+	functions into htmlshape since we can use them there, and make
+	them public.
+
+	* htmlengine.c (parse_a): let the shape routine figure out if the
+	shape is valid if we have either a type or coords.
+
+	* htmlimage.c (image_update_url): translate x and y by o->x and o->y.
+
+2001-05-31  Larry Ewing  <lewing@ximian.com>
+
 	* htmlimage.c (html_image_set_map): rename and add ismap logic. 
 	(destroy): free final_url.
 	(copy): copy new members.
