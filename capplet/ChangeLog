@@ -1,3 +1,8 @@
+2000-06-17  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* Makefile.am (INCLUDES): Use `top_builddir' so that it works with
+	builddir != srcdir.
+
 2000-06-14  Radek Doulik  <rodo@helixcode.com>
 
 	* Makefile.am (gtkhtml_properties_capplet_LDADD): we include

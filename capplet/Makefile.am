@@ -1,4 +1,9 @@
-INCLUDES = -I../src -I$(includedir) $(GNOME_INCLUDEDIR) -DGNOMELOCALEDIR=\"$(datadir)/locale\"
+INCLUDES =					\
+	-I$(top_srcdir)/src			\
+	-I$(includedir)				\
+	$(GNOME_INCLUDEDIR)			\
+	-DGNOMELOCALEDIR=\"$(datadir)/locale\"
+
 CFLAGS +=  $(GCONF_CFLAGS)
 
 bin_PROGRAMS = gtkhtml-properties-capplet
@@ -9,12 +14,8 @@ gtkhtml_properties_capplet_SOURCES = \
 gtkhtml_properties_capplet_LDADD = \
 	$(GNOME_LIBDIR) \
 	$(GNOME_CAPPLET_LIBS) \
-	$(GCONF_LIBS) ../src/gtkhtml-properties.o
-
-#	../src/libgtkhtml.la \
-#	$(GNOMEUI_LIBS)				\
-#	$(GNOME_LIBDIR)				\
-#	$(EXTRA_GNOME_LIBS)
+	$(GCONF_LIBS) \
+	$(top_builddir)/src/gtkhtml-properties.o
 
 EXTRA_DIST = gtkhtml-properties.desktop
 
