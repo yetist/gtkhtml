@@ -2234,6 +2234,7 @@ load_keybindings (GtkHTMLClass *klass)
 	gchar *rcfile, *name;
 
 	/* FIXME add to gtk gtk_binding_set_clear & gtk_binding_set_remove_path */
+	clean_bindings_set (gtk_binding_set_by_class (klass));
 	clean_bindings_set (gtk_binding_set_find ("gtkhtml-bindings-emacs"));
 	clean_bindings_set (gtk_binding_set_find ("gtkhtml-bindings-ms"));
 	clean_bindings_set (gtk_binding_set_find ("gtkhtml-bindings-custom"));
@@ -2268,8 +2269,9 @@ load_keybindings (GtkHTMLClass *klass)
 		g_warning (_("Couldn't find keybinding file -- %s"), rcfile);
 	g_free (rcfile);
 
-	/* layout scrolling */
+	binding_set = gtk_binding_set_by_class (klass);
 
+	/* layout scrolling */
 #define BSCROLL(m,key,orient,sc) \
 	gtk_binding_entry_add_signal (binding_set, GDK_ ## key, m, \
 				      "scroll", 3, \
