@@ -68,9 +68,6 @@ destroy (HTMLObject *self)
 
 	g_datalist_clear (&self->object_data);
 	g_datalist_clear (&self->object_data_nocp);
-
-	g_free (self->id);
-	self->id = NULL;
 	
 	if (self->redraw_pending) {
 		self->free_pending = TRUE;
@@ -102,7 +99,6 @@ copy (HTMLObject *self,
 	dest->free_pending = FALSE;
 	dest->change = self->change;
 	dest->draw_focused = FALSE;
-	dest->id = g_strdup (self->id);
 
 	g_datalist_init (&dest->object_data);
 	html_object_copy_data_from_object (dest, self);
@@ -591,23 +587,6 @@ get_clear (HTMLObject *self)
 	return HTML_CLEAR_NONE;
 }
 
-static HTMLDirection
-html_object_real_get_direction (HTMLObject *o)
-{
-	if (o->parent) {
-		while (o->parent) {
-			HTMLDirection dir = html_object_get_direction (o->parent);
-
-			if (dir != HTML_DIRECTION_DERIVED)
-				return dir;
-
-			o = o->parent;
-		}
-	}
-
-	return HTML_DIRECTION_DERIVED;
-}
-
 /* Class initialization.  */
 
 void
@@ -678,7 +657,6 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->tail = tail;
 	klass->get_engine = get_engine;
 	klass->get_clear = get_clear;
-	klass->get_direction = html_object_real_get_direction;
 }
 
 void
@@ -715,8 +693,6 @@ html_object_init (HTMLObject *o,
 
 	g_datalist_init (&o->object_data);
 	g_datalist_init (&o->object_data_nocp);
-
-	o->id = NULL;
 }
 
 HTMLObject *
@@ -2078,25 +2054,6 @@ html_object_prev_cursor_leaf (HTMLObject *o, HTMLEngine *e)
 		o = html_object_prev_cursor_object (o, e, &offset);
 
 	return o;
-}
-
-HTMLDirection
-html_object_get_direction (HTMLObject *o)
-{
-	return (* HO_CLASS (o)->get_direction) (o);
-}
-
-const char *
-html_object_get_id (HTMLObject *o)
-{
-	return o->id;
-}
-
-void
-html_object_set_id (HTMLObject *o, const char *id)
-{
-	g_free (o->id);
-	o->id = g_strdup (id);
 }
 
 HTMLClueFlow *

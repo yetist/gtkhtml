@@ -1125,23 +1125,27 @@ get_item_marker_str (HTMLClueFlow *flow, gboolean ascii_only)
 static void
 draw_gt_line (HTMLObject *cur, HTMLPainter *p, gint offset, gint x, gint y)
 {
-	gint cy, w, a, d;
+	gint cy, w, a, d, line_offset = 0;
 
 	/* FIXME: cache items and glyphs? */
-	html_painter_calc_text_size (p, HTML_BLOCK_CITE, strlen (HTML_BLOCK_CITE),
+	html_painter_calc_text_size (p, HTML_BLOCK_CITE, 
+				     strlen (HTML_BLOCK_CITE), NULL, NULL, NULL, 0, &line_offset,
+				     GTK_HTML_FONT_STYLE_SIZE_3, NULL,
 				     &w, &a, &d);
 
 	cy = offset;
 	while (cy + a <= cur->ascent) {
 		/* FIXME: cache items and glyphs? */
-		html_painter_draw_text (p, x, y + cur->y - cy, HTML_BLOCK_CITE, 1);
+		html_painter_draw_text (p, x, y + cur->y - cy,
+					HTML_BLOCK_CITE, 1, NULL, NULL, NULL, 0, 0);
 		cy += a + d;
 	}
 
 	cy = - offset + a + d;
 	while (cy + d <= cur->descent) {
 		/* FIXME: cache items and glyphs? */
-		html_painter_draw_text (p, x, y + cur->y + cy, HTML_BLOCK_CITE, 1);
+		html_painter_draw_text (p, x, y + cur->y + cy,
+					HTML_BLOCK_CITE, 1, NULL, NULL, NULL, 0, 0);
 		cy += a + d;
 	}
 }
@@ -1242,18 +1246,19 @@ draw_item (HTMLObject *self, HTMLPainter *painter, gint x, gint y, gint width, g
 
 	marker = get_item_marker_str (flow, HTML_IS_PLAIN_PAINTER (painter));
 	if (marker) {
-		gint width, len, asc, dsc;
+		gint width, len, line_offset = 0, asc, dsc;
 		
 		len   = g_utf8_strlen (marker, -1);
+		/* FIXME: cache items and glyphs? */
+		html_painter_calc_text_size (painter, marker, len, NULL, NULL, NULL, 0, &line_offset,
+					     html_clueflow_get_default_font_style (flow), NULL, &width, &asc, &dsc);
+		width += html_painter_get_space_width (painter, html_clueflow_get_default_font_style (flow), NULL);
 		html_painter_set_font_style (painter, html_clueflow_get_default_font_style (flow));
 		html_painter_set_font_face  (painter, NULL);
 		/* FIXME: cache items and glyphs? */
-		html_painter_calc_text_size (painter, marker, len, &width, &asc, &dsc);
-		width += html_painter_get_space_width (painter, html_clueflow_get_default_font_style (flow), NULL);
-		/* FIXME: cache items and glyphs? */
 		html_painter_draw_text (painter, self->x + first->x - width + tx,
 					self->y - self->ascent + first->y + ty,
-					marker, len);
+					marker, len, NULL, NULL, NULL, 0, 0);
 	}
 	g_free (marker);
 }
@@ -1768,47 +1773,6 @@ append_selection_string (HTMLObject *self,
 	}
 }
 
-/*
- * Calculate given UTF-8 string's "cell width", determined by
- * g_unichar_iswide() on each character.  (So it doesn't work on
- * zero-width or combined characters.)
- */
-static gint
-utf8_width (const char *str, gint len)
-{
-	gunichar c;
-	gint width = 0;
-
-	while (len--) {
-		c = g_utf8_get_char (str);
-		width += g_unichar_iswide (c) ? 2 : 1;
-		str = g_utf8_next_char (str);
-	}
-	return width;
-}
-
-/*
- * Returns the length of string starting on the given string which is
- * not exceeding the given width.
- */
-static gint
-utf8_length_in_width (const char *str, gint len, gint width)
-{
-	gunichar c;
-	gint l = 0;
-
-	while (len--) {
-		c = g_utf8_get_char (str);
-		width -= g_unichar_iswide (c) ? 2 : 1;
-		if (width < 0)
-			break;
-		str = g_utf8_next_char (str);
-		l++;
-	}
-
-	return l;
-}
-
 static gboolean
 save_plain (HTMLObject *self,
 	    HTMLEngineSaveState *state,
@@ -1820,18 +1784,18 @@ save_plain (HTMLObject *self,
 	gint pad;
 	gint align_pad;
 	gboolean firstline = TRUE;
-	gint max_width;
+	gint max_len;
 
 	flow = HTML_CLUEFLOW (self);
 
 	pad = plain_padding (flow, NULL, FALSE);
 	buffer_state = html_engine_save_buffer_new (state->engine, 
 						    state->inline_frames);
-	max_width = MAX (requested_width - pad, 0);
+	max_len = MAX (requested_width - pad, 0);
 	/* buffer the paragraph's content into the save buffer */
 	if (HTML_OBJECT_CLASS (&html_clue_class)->save_plain (self, 
 							      buffer_state, 
-							      max_width)) {
+							      max_len)) {
 		guchar *s;
 		int offset;
 		
@@ -1849,10 +1813,10 @@ save_plain (HTMLObject *self,
 			PangoAttrList *attrs = pango_attr_list_new ();
 			gint bytes = html_engine_save_buffer_peek_text_bytes (buffer_state), slen = g_utf8_strlen (s, -1), i, clen, n_items;
 			GList *items_list, *cur;
-			PangoContext *pc = state->engine->painter->pango_context;
+			PangoContext *pc = gtk_widget_get_pango_context (GTK_WIDGET (state->engine->widget));
 			PangoLogAttr *lattrs;
 			PangoItem **items;
-			gint len, width, skip;
+			gint len, skip;
 
 			items_list = pango_itemize (pc, s, 0, bytes, attrs, NULL);
 			lattrs = g_new (PangoLogAttr, slen + 1);
@@ -1895,18 +1859,15 @@ save_plain (HTMLObject *self,
 			while (*s) {
 				len = strcspn (s, "\n");
 				len = g_utf8_strlen (s, len);
-				width = utf8_width (s, len);
 				skip = 0;
 			
 				if ((flow->style != HTML_CLUEFLOW_STYLE_PRE) 
 				    && !HTML_IS_TABLE (HTML_CLUE (flow)->head)) {
-					if (width > max_width) {
+					if (len > max_len) {
 						gboolean look_backward = TRUE;
-						gint wmax;
 						gint wi, wl;
 
-						wmax = clen + utf8_length_in_width (s, len, max_width);
-						wl = wmax;
+						wl = clen + max_len;
 
 						if (lattrs [wl].is_white) {
 
@@ -1916,7 +1877,7 @@ save_plain (HTMLObject *self,
 							if (wl < slen && html_text_is_line_break (lattrs [wl]))
 								look_backward = FALSE;
 							else
-								wl = wmax;
+								wl = clen + max_len;
 						}
 
 						if (look_backward) {
@@ -1928,11 +1889,10 @@ save_plain (HTMLObject *self,
 						}
 
 						if (wl > clen && wl < slen && html_text_is_line_break (lattrs [wl])) {
-							wi = MIN (wl, wmax);
+							wi = MIN (wl, clen + max_len);
 							while (wi > clen && lattrs [wi - 1].is_white)
 								wi --;
 							len = wi - clen;
-							width = utf8_width (s, len);
 							skip = wl - wi;
 						}
 					}
@@ -1945,10 +1905,10 @@ save_plain (HTMLObject *self,
 
 				switch (html_clueflow_get_halignment (flow)) {
 				case HTML_HALIGN_RIGHT:
-					align_pad = max_width - width;
+					align_pad = max_len - len;
 					break;
 				case HTML_HALIGN_CENTER:
-					align_pad = (max_width - width) / 2;
+					align_pad = (max_len - len) / 2;
 					break;
 				default:
 					align_pad = 0;
@@ -2303,16 +2263,6 @@ html_clueflow_type_init (void)
 	html_clueflow_class_init (&html_clueflow_class, HTML_TYPE_CLUEFLOW, sizeof (HTMLClueFlow));
 }
 
-static HTMLDirection
-html_clueflow_real_get_direction (HTMLObject *o)
-{
-	if (HTML_CLUEFLOW (o)->dir == HTML_DIRECTION_DERIVED && o->parent) {
-		return html_object_get_direction (o->parent);
-	}
-
-	return HTML_CLUEFLOW (o)->dir;
-}
-
 void
 html_clueflow_class_init (HTMLClueFlowClass *klass,
 			  HTMLType type,
@@ -2348,7 +2298,6 @@ html_clueflow_class_init (HTMLClueFlowClass *klass,
 	object_class->get_recursive_length = get_recursive_length;
 	object_class->get_clear = get_clear;
 	object_class->set_painter = set_painter;
-	object_class->get_direction = html_clueflow_real_get_direction;
 
 	klass->get_default_font_style = get_default_font_style;
 
@@ -2372,7 +2321,6 @@ html_clueflow_init (HTMLClueFlow *clueflow, HTMLClueFlowClass *klass,
 
 	clue->valign = HTML_VALIGN_BOTTOM;
 	clue->halign = HTML_HALIGN_NONE;
-	clueflow->dir = HTML_DIRECTION_DERIVED;
 
 	clueflow->style = style;
 	clueflow->levels = levels; 
@@ -2610,30 +2558,13 @@ html_clueflow_get_halignment (HTMLClueFlow *flow)
 	g_return_val_if_fail (flow != NULL, HTML_HALIGN_NONE);
 
 	if (HTML_CLUE (flow)->halign == HTML_HALIGN_NONE) {
-		HTMLHAlignType halign;
-
 		if (HTML_OBJECT (flow)->parent && HTML_IS_TABLE_CELL (HTML_OBJECT (flow)->parent))
-			halign = HTML_CLUE (HTML_OBJECT (flow)->parent)->halign == HTML_HALIGN_NONE
-				? HTML_TABLE_CELL (HTML_OBJECT (flow)->parent)->heading ? HTML_HALIGN_CENTER : HTML_HALIGN_NONE
+			return HTML_CLUE (HTML_OBJECT (flow)->parent)->halign == HTML_HALIGN_NONE
+				? HTML_TABLE_CELL (HTML_OBJECT (flow)->parent)->heading ? HTML_HALIGN_CENTER : HTML_HALIGN_LEFT
 				: HTML_CLUE (HTML_OBJECT (flow)->parent)->halign;
 		else
-			halign = HTML_CLUE (HTML_OBJECT (flow)->parent)->halign;
-
-		if (halign == HTML_HALIGN_NONE) {
-			switch (html_object_get_direction (HTML_OBJECT (flow))) {
-			case HTML_DIRECTION_LTR:
-				halign = HTML_HALIGN_LEFT;
-				break;
-			case HTML_DIRECTION_RTL:
-				halign = HTML_HALIGN_RIGHT;
-				break;
-			default:
-				break;
-			}
-		}
-
-		return halign;
-
+			return HTML_CLUE (HTML_OBJECT (flow)->parent)->halign == HTML_HALIGN_NONE
+				? HTML_HALIGN_LEFT : HTML_CLUE (HTML_OBJECT (flow)->parent)->halign;
 	} else
 		return HTML_CLUE (flow)->halign;
 }

@@ -52,10 +52,6 @@ struct _HTMLTextPangoInfo {
 	HTMLTextPangoInfoEntry *entries;
 	PangoLogAttr *attrs;
 	gint n;
-	
-	gboolean have_font;
-	GtkHTMLFontStyle font_style;
-	HTMLFontFace *face;
 };
 
 struct _HTMLPangoAttrFontSize {
@@ -272,9 +268,6 @@ void              html_text_set_color_in_range           (HTMLText           *te
 void              html_text_set_color                    (HTMLText           *text,
 							  HTMLColor          *color);
 
-gsize             html_text_sanitize                     (const gchar       **str,
-							  gint               *len);
-
 Link     *html_link_new                 (gchar *url,
 					 gchar *target,
 					 guint  start_index,
@@ -312,6 +305,8 @@ void               html_text_calc_text_size        (HTMLText              *t,
 						    HTMLTextPangoInfo     *pi,
 						    GList                 *glyphs,
 						    gint                  *line_offset,
+						    GtkHTMLFontStyle       font_style,
+						    HTMLFontFace          *face,
 						    gint                  *width,
 						    gint                  *asc,
 						    gint                  *dsc);

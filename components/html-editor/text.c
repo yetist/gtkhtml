@@ -21,7 +21,7 @@
 */
 
 #include <config.h>
-#include <glib/gi18n.h>
+#include <libgnome/gnome-i18n.h>
 #include <string.h>
 #include <glade/glade.h>
 

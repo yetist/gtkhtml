@@ -21,7 +21,7 @@
 */
 
 #include <config.h>
-#include <glib/gi18n.h>
+#include <libgnome/gnome-i18n.h>
 #include <gnome.h>
 #include <libgnomeui/gnome-window-icon.h>
 #include "replace.h"

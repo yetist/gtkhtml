@@ -317,15 +317,16 @@ html_image_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_
 	pixel_size = html_painter_get_pixel_size (painter);
 
 	if (o->parent && HTML_IS_PLAIN_PAINTER (painter) && image->alt && *image->alt) {
+		GtkHTMLFontStyle style = GTK_HTML_FONT_STYLE_DEFAULT;
 		HTMLClueFlow *cf = html_object_get_flow (o);
+		gint lo = 0;
 
 		if (cf)
-			html_painter_set_font_style (painter, html_clueflow_get_default_font_style (cf));
+			style = html_clueflow_get_default_font_style (cf);
 
-		html_painter_set_font_face (painter, NULL);
 		/* FIXME: cache items and glyphs? */
-		html_painter_calc_text_size (painter, image->alt, g_utf8_strlen (image->alt, -1),
-					     &o->width, &o->ascent, &o->descent);
+		html_painter_calc_text_size (painter, image->alt, g_utf8_strlen (image->alt, -1), NULL, NULL, NULL, 0, &lo,
+					     style, NULL, &o->width, &o->ascent, &o->descent);
 	} else {
 		width = html_image_get_actual_width (image, painter);
 		height = html_image_get_actual_height (image, painter);
@@ -370,12 +371,11 @@ draw_plain (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint heig
 			html_painter_set_pen (p, &html_colorset_get_color_allocated (e->settings->color_set, p,
 										     HTMLTextColor)->color);
 		}
-		
 		if (cf)
 			html_painter_set_font_style (p, html_clueflow_get_default_font_style (cf));
 
-		html_painter_set_font_face (p, NULL);
-		html_painter_draw_text (p, o->x + tx, o->y + ty, img->alt, g_utf8_strlen (img->alt, -1));
+  		html_painter_set_font_face (p, NULL);
+		html_painter_draw_text (p, o->x + tx, o->y + ty, img->alt, g_utf8_strlen (img->alt, -1), NULL, NULL, NULL, 0, 0);
 	}
 }
 
@@ -486,13 +486,13 @@ draw (HTMLObject *o,
 						o->width - 2 * hspace,
 						o->ascent + o->descent - 2 * vspace);
 		}
-		html_painter_draw_border (painter,
-					  &((html_colorset_get_color (e->settings->color_set, HTMLBgColor))->color),
-					  o->x + tx + hspace,
-					  o->y + ty - o->ascent + vspace,
-					  o->width - 2 * hspace,
-					  o->ascent + o->descent - 2 * vspace,
-					  HTML_BORDER_INSET, 1);
+		html_painter_draw_panel (painter,
+					 &((html_colorset_get_color (e->settings->color_set, HTMLBgColor))->color),
+					 o->x + tx + hspace,
+					 o->y + ty - o->ascent + vspace,
+					 o->width - 2 * hspace,
+					 o->ascent + o->descent - 2 * vspace,
+					 GTK_HTML_ETCH_IN, 1);
 
 		if (ip->factory)
 			pixbuf = html_image_factory_get_missing (ip->factory);
@@ -532,13 +532,13 @@ draw (HTMLObject *o,
 			html_painter_set_pen (painter, &image->color->color);
 		}
 		
-		html_painter_draw_border (painter,
-					  &((html_colorset_get_color (e->settings->color_set, HTMLBgColor))->color),
-					  base_x - image->border * pixel_size,
-					  base_y - image->border * pixel_size,
-					  scale_width + (2 * image->border) * pixel_size,
-					  scale_height + (2 * image->border) * pixel_size,
-					  HTML_BORDER_SOLID, image->border);
+		html_painter_draw_panel (painter,
+					 &((html_colorset_get_color (e->settings->color_set, HTMLBgColor))->color),
+					 base_x - image->border * pixel_size,
+					 base_y - image->border * pixel_size,
+					 scale_width + (2 * image->border) * pixel_size,
+					 scale_height + (2 * image->border) * pixel_size,
+					 GTK_HTML_ETCH_NONE, image->border);
 		
 	}
 	

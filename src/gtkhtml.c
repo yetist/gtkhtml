@@ -26,7 +26,6 @@
 #include <gdk/gdkprivate.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gtk/gtk.h>
-#include <glib/gi18n.h>
 #include <string.h>
 
 #include <gnome.h>
@@ -4232,14 +4231,12 @@ gtk_html_get_object_by_id (GtkHTML *html, const gchar *id)
 static gint
 get_line_height (GtkHTML *html)
 {
-	gint w, a, d;
+	gint line_offset = 0, w, a, d;
 
 	if (!html->engine || !html->engine->painter)
 		return 0;
 
-	html_painter_set_font_style (html->engine->painter, GTK_HTML_FONT_STYLE_SIZE_3);
-	html_painter_set_font_face (html->engine->painter, NULL);
-	html_painter_calc_text_size (html->engine->painter, "a", 1, &w, &a, &d);
+	html_painter_calc_text_size (html->engine->painter, "a", 1, NULL, NULL, NULL, 0, &line_offset, GTK_HTML_FONT_STYLE_SIZE_3, NULL, &w, &a, &d);
 
 	return a + d;
 }
@@ -5679,20 +5676,4 @@ void
 gtk_html_flush (GtkHTML *html)
 {
 	html_engine_flush (html->engine);
-}
-
-const char *
-gtk_html_get_object_id_at (GtkHTML *html, int x, int y)
-{
-	HTMLObject *o = html_engine_get_object_at (html->engine, x, y, NULL, FALSE);
-	const char *id = NULL;
-
-	while (o) {
-		id = html_object_get_id (o);
-		if (id)
-			break;
-		o = o->parent;
-	}
-
-	return id;
 }

@@ -12,12 +12,6 @@
 
 	Fixes #50646
 
-2004-11-29  Radek Doulik  <rodo@ximian.com>
-
-	* htmlengine.c: make sure we free whole array from g_strsplit
-
-	* htmltext.c (html_text_pango_info_destroy): free entries as well
-
 2004-11-23  Radek Doulik  <rodo@ximian.com>
 
 	* htmlimage.c (html_image_real_calc_size): use
@@ -30,205 +24,18 @@
 
 	Fixes #67763
 
-2004-11-19  Radek Doulik  <rodo@ximian.com>
+2004-12-02  Radek Doulik  <rodo@ximian.com>
 
-	* htmlstyle.c (parse_border): quiet compiler
+	* htmltext.c (html_text_init): make sure text_bytes is initialized
+	correctly in case we call with str longer than requested len
 
-2004-11-11  Radek Doulik  <rodo@ximian.com>
+	Fixes #69634
 
-	* htmltablecell.c: handle direction
+2004-11-29  Radek Doulik  <rodo@ximian.com>
 
-	* htmlobject.c: added virtual direction property
+	* htmlengine.c: make sure we free whole array from g_strsplit
 
-	* htmlengine.c: added direction property, added HTML tag
-
-	* htmlclueflow.c: handle direction, align accordingly to direction
-
-	* htmlcluev.c: added direction property
-
-	* gtkhtmldebug.c (gtk_html_debug_log): display direction info
-
-2004-11-10  Radek Doulik  <rodo@ximian.com>
-
-	* gtkhtml.c (gtk_html_im_commit_cb): reverted patch from Leon Ho
-	as it breaks non IM input
-
-Thu Sep 16 18:05:52 2004  Owen Taylor  <otaylor@redhat.com>
-
-	* gtkhtml.c (gtk_html_im_commit_cb): Commit text before
-	any preedit text, not after. This is needed to get partial
-	commits to work properly. (#65670, Leon Ho)
-
-Thu Sep 16 14:07:31 2004  Owen Taylor  <otaylor@redhat.com>
-
-	Bug #66127
- 
- 	* htmltext.[ch] (html_text_sanitize): Convert text_len() into
- 	a more-public helper function, fix problem where text_len()
- 	was calling g_utf8_validate() without a length even when
- 	the length was being passed in.
- 
- 	* htmltext.c (html_text_init, html_text_append,
-	html_engine_insert_text_with_extra_attributes): Use
- 	html_text_sanitize() to fix bugs where strlen(str) was being
-	used ignoring the passed in length.
- 
- 	* htmlengine-edit-cut-and-paste.[ch]: Fix len argument of
- 	html_engine_insert_text_with_extra_attributes() to be gint,
- 	not guint, -1 was supported and used.
- 
-Tue Sep  7 21:27:44 2004  Owen Taylor  <otaylor@redhat.com>
-
-	* gtkhtmlpainter.[ch]: Split html_painter_calc_text_size()
-	into a simple html_painter_calc_text_size() and a complex 
-	html_painter_calc_entries_size(), and
-	html_painter_draw_text() into a simple html_painter_draw_text()
-	and a complex html_painter_draw_entries()
-
-	* gtkhtml.c htmlclueflow.c htmlimage.c: Adapt to the above, fix 
-	some places where inconsistent font styles/faces were being used
-	for measuring and drawing. Fix a place in htmlimage.c where
-	a random font style/face was being used to draw text.
-
-	* gtkhtmlpainter.[ch]: Remove unused html_painter_calc_text_size_bytes()
-
-	* htmlpainter.[ch] htmltextslave.c htmlgdkpainter.c: 
-	Remove lots of useless parameters from html_painter_draw_spell_error().
-
-	* htmlpainter.[ch] htmlgdkpainter.c htmlprinter.c:
-	Change draw_text() virtual method into draw_glyphs() which takes
-	a single PangoGlyphString rather than an indefinite combination
-	of text and/or HTMLTextPangoInfo/GList.
-
-	* htmlpainter.c: Rewrite the text drawing code to fix
-	character/glyph confusion, and a bug where we drawing too
-	much around tabs.
-
-	* htmltext.[ch] htmlpainter.c: Keep the family/style we used 
-	for itemization in the HTMLTextPangoInfo structure, so that
-	when we later need the space width, we can get the correct one.
-
-	* htmltextslave.c (draw_normal) htmltext.c (html_text_calc_text_size): 
-	Remove a left-over HTML_IS_PRINTER() checks.
-
-	* htmltext.c: Add a size attribute if we are overriding the font
-	with the fixed font, and the fixed font size is different from
-	the variable font size.
-
-	* htmlgdkpainter.h: Remove leftover declaration of 
-	html_gdk_painter_text_itemize_and_prepare_glyphs().
-	
-Thu Sep  2 14:00:08 2004  Owen Taylor  <otaylor@redhat.com>
-
-	* htmltextslave.c: Fix HTMLObject->width to be in engine
-	coordinates not Pango units. (Patch from Radek Doulik, #64430)
-
-Mon Aug  9 16:52:07 2004  Owen Taylor  <otaylor@redhat.com>
-
-	* htmlpainter.c (html_painter_pango_to_engine/engine_to_pango): 
-	Guard against overflow.
-
-Tue Jul 20 11:27:40 2004  Owen Taylor  <otaylor@redhat.com>
-
-	* htmltext.c (html_text_calc_part_width): Fix ascent and descent
-	for empty strings.
-
-2004-07-15  Owen Taylor  <otaylor@redhat.com>
- 
-	* htmlpainter.[ch]  htmlgdkpainter.c htmlprinter.c: 
-	Add a common implementation of text size calculation and font handling
-	in HTMLPainter and use that for HTMLGdkPainter and HtmlPrinter.
-
-	* htmlprinter.[ch]: Rewrite text rendering to use new facilities
-	in gnome-print for painting PangoGlyphStrings.
-
-	* htmlprinter.c: Use pango_font_metrics_get_strikethrough/underline_thickness()
-	for underline/strikethrough positioning.
-	
-	* htmlpainter.[ch] htmlplainpainter.c htmlgdkpainter.[ch]
-	htmlclueflow.c: Add a PangoContext field to the HTMLPainter structure, 
-	use it when we need a context rather than gtk_widget_get_pango_context().
-
-	* htmlpainter.[ch] htmlgdkpainter.c htmlprinter.c: Add
-	html_painter_pango_to_engine(), html_painter_engine_to_pango() for
-	unit conversion, engine_to_pango struct field.
-
-	* htmlprinter.[ch] htmlengine-print.c: Add html_print_set_scale(),
-	use it rather than changing fields directly.
-
-	* htmlpainter.[ch]: Remove calc_text_size/calc_text_size_bytes 
-	virtual functions and just used fixed Pango-only implementations
-
-	* htmltext.c htmltextslave.c: Remove
-	(HTML_IS_GDK_PAINTER (painter) || HTML_IS_PLAIN_PAINTER (painter))
-	conditionalizations; fallbacks are no longer necessary since all
-	backends are properly Pango based.
-
-	* htmltext.c htmltextslave.c: Do width computations in Pango
-	units, convert with html_painter_pango_to_engine(), rather than
-	using PANGO_PIXELS().
-
-	* htmltext.c (html_text_tail_white_space): Change to return 
-	Pango units, add a doc comment.
-
-	* htmlpainter.[ch] htmltypes.h htmlgdkpainter.c htmlprinter.c:
-	Encapsulate Pango attributes => drawing properties into
-	html_pango_get_item_properties ().
-
-	* htmltextslave.c (update_lb): Remove an unused parameter, add
-	some comments.
-	
-2004-07-15  Owen Taylor  <otaylor@redhat.com>
-
-	* test.c: Automatically scan tests/ directories for
-	files and display them in a popup menu. Add a "Print"
-	button to generate a PS file and run ggv on it.
-	(#59711)
-
-	* tests/pango.html: Add a test that stresses the
-	internationalization abilities of GtkHTML's Pango
-	usage a bit more.
-
-2004-11-09  Radek Doulik  <rodo@ximian.com>
-
-	* htmltext.c (html_text_init): make sure the text ends with \0 (in
-	case someone gives us string str longer then length len)
-	(html_text_set_text): ditto, alloc last byte as well
-
-	* htmlpainter.c (html_painter_text_itemize_and_prepare_glyphs):
-	reset *glyphs to NULL before if blocks
-	(html_painter_get_type): make alloc font, ref font, unref font non
-	virtual methods
-	(html_painter_calc_entries_size): get font only if needed
-
-2004-11-02  Radek Doulik  <rodo@ximian.com>
-
-	* htmlstyle.c: added padding
-	parse shorthand border: property
-
-	* htmlengine.c: put additional cluev around display blocks to be
-	able to draw borders specified in style="...", we will use that in
-	evolution mail view in <DIV></DIV> blocks
-
-	* htmlcluev.c: added background color, use padding from style
-
-	* gtkhtmldebug.c (gtk_html_debug_dump_object): moved debug details
-	for text object from simple to normal debug dump
-
-2004-11-01  Radek Doulik  <rodo@ximian.com>
-
-	* added id to html object and border to html cluev
-
-2004-10-22  Changwoo Ryu  <cwryu@debian.org>
-
-	* htmlclueflow.c (utf8_width): new function to calculate UTF-8
-	string's cell width
-	(utf8_length_in_width): new function to find the length of string
-	starting on the given string which is not exceeding the specified
-	width
-	(save_plain): wrap lines by cell widths rather than byte lengths.
-
-	Fixes #67022
+	* htmltext.c (html_text_pango_info_destroy): free entries as well
 
 2004-10-13  Radek Doulik  <rodo@ximian.com>
 
@@ -251,10 +58,6 @@ Tue Jul 20 11:27:40 2004  Owen Taylor  <otaylor@redhat.com>
 	to nonbreaking characters (comon in urls)
 
 	Addition to #54852 fix
-
-2004-10-01  JP Rosevear  <jpr@novell.com>
-
-	* libgtkhtml.pc.in: expose gtkhtml_apiverison as a variable
 
 2004-09-28  Radek Doulik  <rodo@ximian.com>
 
@@ -300,10 +103,6 @@ Tue Jul 20 11:27:40 2004  Owen Taylor  <otaylor@redhat.com>
 	* htmltext.c (style_from_attrs): handle PANGO_ATTR_FAMILY, we use
 	that now only for FIXED style
 	(unset_style_filter): ditto
-
-2004-09-17  Radek Doulik  <rodo@ximian.com>
-
-	* Makefile.am: api version 3.1 -> 3.6
 
 2004-09-16  Radek Doulik  <rodo@ximian.com>
 
