@@ -179,6 +179,7 @@ alloc_e_font_try (gchar *face, gdouble size, GtkHTMLFontStyle style,
 	gchar *name;
 
 	if (face) {
+		GdkFont *gdk_font;
 		gchar *n1, *n2, *n3, *s;
 		gint tsize;
 
@@ -202,7 +203,12 @@ alloc_e_font_try (gchar *face, gdouble size, GtkHTMLFontStyle style,
 
 		/* printf ("try: %s\n", name); */
 
-		font = e_font_from_gdk_name (name);
+		gdk_font = gdk_font_load (name);
+		if (gdk_font) {
+			font = e_font_from_gdk_font (gdk_font);
+			gdk_font_unref (gdk_font);
+		} else
+			font = NULL;
 		g_free (name);
 	} else {
 		GdkFont *fixed = gdk_font_load ("fixed");
@@ -214,7 +220,7 @@ alloc_e_font_try (gchar *face, gdouble size, GtkHTMLFontStyle style,
 	}
 
 
-	if (face) {
+	/* if (font && face) {
 		gchar *c [14];
 
 		name = e_font_get_name (font);
@@ -226,7 +232,7 @@ alloc_e_font_try (gchar *face, gdouble size, GtkHTMLFontStyle style,
 			}
 			g_free (name);
 		}
-	}
+		} */
 
 	return font;
 }
@@ -252,7 +258,7 @@ try_font_possible_names (HTMLPainter *painter, gchar *face, gdouble size, GtkHTM
 }
 
 static HTMLFont *
-alloc_e_font (HTMLPainter *painter, gchar *face, gdouble size, GtkHTMLFontStyle style)
+alloc_e_font_do (HTMLPainter *painter, gchar *face, gdouble size, GtkHTMLFontStyle style)
 {
 	EFont *font;
 
@@ -261,6 +267,23 @@ alloc_e_font (HTMLPainter *painter, gchar *face, gdouble size, GtkHTMLFontStyle 
 		font = try_font_possible_names (painter, face, size, style, TRUE);
 
 	return font ? html_font_new (font, e_font_utf8_text_width (font, e_style (style), " ", 1)) : NULL;
+}
+
+static HTMLFont *
+alloc_e_font (HTMLPainter *painter, gchar *face, gdouble size, GtkHTMLFontStyle style)
+{
+	HTMLFont *font;
+
+	font = alloc_e_font_do (painter, face, size, style);
+	if (!font && style & GTK_HTML_FONT_STYLE_BOLD)
+		font = alloc_e_font_do (painter, face, size, style & (~GTK_HTML_FONT_STYLE_BOLD));
+	if (!font && style & GTK_HTML_FONT_STYLE_ITALIC)
+		font = alloc_e_font_do (painter, face, size, style & (~GTK_HTML_FONT_STYLE_ITALIC));
+	if (!font && style & GTK_HTML_FONT_STYLE_ITALIC && style & GTK_HTML_FONT_STYLE_BOLD)
+		font = alloc_e_font_do (painter, face, size,
+					style & ((~GTK_HTML_FONT_STYLE_ITALIC) & (~GTK_HTML_FONT_STYLE_BOLD)));
+
+	return font;
 }
 
 static void

@@ -1,5 +1,15 @@
 2001-09-12  Radek Doulik  <rodo@ximian.com>
 
+	* htmlgdkpainter.c (alloc_e_font_do): renamed from alloc_e_font
+	(alloc_e_font): if we cannot alloc font with requsted style, try
+	to allocate simplified styles of the same face before we fallback
+	to fixed
+	(alloc_e_font_try): use gdk_font_load and then
+	e_font_from_gdk_font instead of e_font_from_gdk_name to avoid
+	fixed font creation
+	(alloc_e_font_try): comment out fixed font test which was
+	probably wrong
+
 	* gtkhtml.c (client_notify_widget): update tkey compares for
 	/font_variable instead of /font_variable_family and likewise for
 	/font_fixed
