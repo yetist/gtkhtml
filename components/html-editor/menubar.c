@@ -30,6 +30,12 @@
 #include <fcntl.h>
 
 #include <gnome.h>
+#ifdef USE_GTKFILECHOOSER
+#include <gtk/gtkfilechooser.h>
+#include <gtk/gtkfilechooserdialog.h>
+#else
+#include <gtk/gtkfilesel.h>
+#endif
 #include <bonobo.h>
 
 #include "htmlengine.h"
@@ -83,15 +89,30 @@ replace_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 static void
 insert_image_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
-	GtkWidget *filesel = gtk_file_selection_new (_("Insert image"));
+	GtkWidget *filesel;
 	HTMLObject *img;
 
+#ifdef USE_GTKFILECHOOSER
+	filesel = gtk_file_chooser_dialog_new (_("Insert image"),
+					       NULL,
+					       GTK_FILE_CHOOSER_ACTION_OPEN,
+					       GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+					       GTK_STOCK_OPEN, GTK_RESPONSE_OK,
+					       NULL);
+	gtk_dialog_set_default_response (GTK_DIALOG (filesel), GTK_RESPONSE_OK);
+#else
+	filesel = gtk_file_selection_new (_("Insert image"));
+#endif
 	if (filesel) {
 		if (gtk_dialog_run (GTK_DIALOG (filesel)) == GTK_RESPONSE_OK) {
 			const char *filename;
 			char *url = NULL;
 
+#ifdef USE_GTKFILECHOOSER
+			filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filesel));
+#else
 			filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION (filesel));
+#endif
 			if (filename)
 				url = g_strconcat ("file://", filename, NULL);
 			img = html_image_new (html_engine_get_image_factory (cd->html->engine), url,
@@ -182,12 +203,6 @@ insert_template_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *
 }
 
 static void
-file_dialog_destroy (GtkWidget *w, GtkHTMLControlData *cd)
-{
-	cd->file_dialog = NULL;
-}
-
-static void
 file_dialog_ok (GtkWidget *w, GtkHTMLControlData *cd)
 {
 	const gchar *filename;
@@ -196,8 +211,12 @@ file_dialog_ok (GtkWidget *w, GtkHTMLControlData *cd)
 	gchar *data = NULL;
 	gsize len = 0;
 	const char *charset;
-	
+
+#ifdef USE_GTKFILECHOOSER
+	filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (cd->file_dialog));
+#else	
 	filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION (cd->file_dialog));
+#endif
 	io = g_io_channel_new_file (filename, "r", &error);
 
 	if (error || !io)
@@ -274,8 +293,6 @@ file_dialog_ok (GtkWidget *w, GtkHTMLControlData *cd)
 		}
 		g_error_free (error);
 	}
-
-	gtk_widget_destroy (cd->file_dialog);
 }
 
 static void
@@ -287,18 +304,27 @@ insert_file_dialog (GtkHTMLControlData *cd, gboolean html)
 		return;
 	}
 
+#ifdef USE_GTKFILECHOOSER
+	cd->file_dialog = gtk_file_chooser_dialog_new (html ? _("Insert: HTML File") : _("Insert: Text File"),
+						       NULL,
+						       GTK_FILE_CHOOSER_ACTION_OPEN,
+						       GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+						       GTK_STOCK_OPEN, GTK_RESPONSE_OK,
+						       NULL);
+	gtk_dialog_set_default_response (GTK_DIALOG (cd->file_dialog), GTK_RESPONSE_OK);
+	gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (cd->file_dialog), g_get_home_dir ());
+#else
 	cd->file_dialog = gtk_file_selection_new (html ? _("Insert: HTML File") : _("Insert: Text File"));
 	gtk_file_selection_set_filename (GTK_FILE_SELECTION (cd->file_dialog), "~/");
+#endif
 
-	g_signal_connect_object (GTK_FILE_SELECTION (cd->file_dialog)->cancel_button,
-				 "clicked", G_CALLBACK (gtk_widget_destroy), GTK_OBJECT (cd->file_dialog),
-				 G_CONNECT_SWAPPED);
-
-	g_signal_connect (GTK_FILE_SELECTION (cd->file_dialog)->ok_button, "clicked", G_CALLBACK (file_dialog_ok), cd);
-
-	g_signal_connect (cd->file_dialog, "destroy", G_CALLBACK (file_dialog_destroy), cd);
-
-	gtk_widget_show (cd->file_dialog);
+	if (cd->file_dialog) {
+		if (gtk_dialog_run (GTK_DIALOG (cd->file_dialog)) == GTK_RESPONSE_OK) {
+			file_dialog_ok (cd->file_dialog, cd);
+		}
+		gtk_widget_destroy (cd->file_dialog);
+		cd->file_dialog = NULL;
+	}
 }
 
 static void
