@@ -1,3 +1,8 @@
+2001-10-23  Larry Ewing  <lewing@ximian.com>
+
+	* search.c (search): initialize regular, even on the first time
+	they run the dialog.
+
 2001-10-22  Larry Ewing  <lewing@ximian.com>
 
 	* template.c (get_sample_html): don't leak the template html.
