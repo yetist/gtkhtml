@@ -10,7 +10,7 @@ msgstr ""
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso8859-2\n"
+"Content-Type: text/plain; charset=iso-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: capplet/gnome-bindings-prop.c:154 capplet/gnome-bindings-prop.c:222
@@ -99,7 +99,7 @@ msgstr "Razno"
 
 #: capplet/gtkhtml-capplet.glade.h:11
 msgid "On screen"
-msgstr "Na zaslon"
+msgstr "Za zaslon"
 
 #: capplet/gtkhtml-capplet.glade.h:12
 msgid "Pick a color"
