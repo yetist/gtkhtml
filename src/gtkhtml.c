@@ -39,6 +39,7 @@
 #include "gtkhtml-keybinding.h"
 #include "gtkhtml-stream.h"
 #include "gtkhtml-private.h"
+#include <libgnome/gnome-util.h>
 
 
 static GtkLayoutClass *parent_class = NULL;
@@ -1889,6 +1890,18 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_DISABLE_SELECTION:
 		html_engine_disable_selection (html->engine);
 		break;
+	case GTK_HTML_COMMAND_TOGGLE_BOLD:
+		html_engine_font_style_toggle (html->engine, GTK_HTML_FONT_STYLE_BOLD);
+		break;
+	case GTK_HTML_COMMAND_TOGGLE_ITALIC:
+		html_engine_font_style_toggle (html->engine, GTK_HTML_FONT_STYLE_ITALIC);
+		break;
+	case GTK_HTML_COMMAND_TOGGLE_UNDERLINE:
+		html_engine_font_style_toggle (html->engine, GTK_HTML_FONT_STYLE_UNDERLINE);
+		break;
+	case GTK_HTML_COMMAND_TOGGLE_STRIKEOUT:
+		html_engine_font_style_toggle (html->engine, GTK_HTML_FONT_STYLE_STRIKEOUT);
+		break;
 	default:
 		return;
 	}
@@ -1914,6 +1927,10 @@ static GtkEnumValue _gtk_html_command_values[] = {
   { GTK_HTML_COMMAND_DELETE, "GTK_HTML_COMMAND_DELETE", "delete" },
   { GTK_HTML_COMMAND_SET_MARK, "GTK_HTML_COMMAND_SET_MARK", "set-mark" },
   { GTK_HTML_COMMAND_DISABLE_SELECTION, "GTK_HTML_COMMAND_DISABLE_SELECTION", "disable-selection" },
+  { GTK_HTML_COMMAND_TOGGLE_BOLD, "GTK_HTML_COMMAND_TOGGLE_BOLD", "toggle-bold" },
+  { GTK_HTML_COMMAND_TOGGLE_ITALIC, "GTK_HTML_COMMAND_TOGGLE_ITALIC", "toggle-italic" },
+  { GTK_HTML_COMMAND_TOGGLE_UNDERLINE, "GTK_HTML_COMMAND_TOGGLE_BOLD", "toggle-underline" },
+  { GTK_HTML_COMMAND_TOGGLE_STRIKEOUT, "GTK_HTML_COMMAND_TOGGLE_BOLD", "toggle-strikeout" },
   { 0, NULL, NULL }
 };
 
@@ -1947,8 +1964,9 @@ load_keybindings (GtkHTMLClass *klass)
 	/* keybindings */
 	binding_set = gtk_binding_set_by_class (klass);
 
-	rcfile = gnome_unconditional_datadir_file ("keybindingsrc.emacs");
+	rcfile = gnome_unconditional_datadir_file ("gtkhtml/keybindingsrc.emacs");
 	gtk_rc_parse (rcfile);
+	/* gtk_rc_parse ("/home/rodo/gtkhtml/src/keybindingsrc.ms"); */
 	g_free (rcfile);
 
 	/* layout scrolling */

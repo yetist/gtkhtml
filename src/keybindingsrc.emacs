@@ -28,6 +28,11 @@ binding "html-keys"
   bind "<Alt>w"             { "command" (copy) }
   bind "<Ctrl>y"            { "command" (paste) }
   bind "<Ctrl>space"        { "command" (set-mark) }
+
+  bind "<Ctrl><Alt>b"       { "command" (toggle-bold) }
+  bind "<Ctrl><Alt>i"       { "command" (toggle-italic) }
+  bind "<Ctrl><Alt>u"       { "command" (toggle-underline) }
+  bind "<Ctrl><Alt>s"       { "command" (toggle-strikeout) }
 }
 
 class "GtkHTML" binding "html-keys"

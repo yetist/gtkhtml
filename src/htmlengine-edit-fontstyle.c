@@ -784,3 +784,13 @@ html_engine_set_font_style (HTMLEngine *engine,
 	engine->insertion_font_style &= and_mask;
 	engine->insertion_font_style |= or_mask;
 }
+
+void
+html_engine_font_style_toggle (HTMLEngine *engine, GtkHTMLFontStyle style)
+{
+	html_engine_update_insertion_font_style (engine);
+	if (engine->insertion_font_style & style)
+		html_engine_set_font_style (engine, GTK_HTML_FONT_STYLE_MAX & ~style, 0);
+	else
+		html_engine_set_font_style (engine, GTK_HTML_FONT_STYLE_MAX, style);
+}

@@ -1,5 +1,19 @@
 2000-06-12  Radek Doulik  <rodo@helixcode.com>
 
+	* gtkhtml.c (load_keybindings): fixed keybindings file path (added
+	gtkhtml to it)
+
+	* keybindingsrc.ms:  added font style bindings
+
+	* keybindingsrc.emacs: added font style bindings
+
+	* gtkhtml.c (command): new commands implementation
+
+	* htmlengine-edit-fontstyle.c (html_engine_font_style_toggle): new
+	function, used to toggle font style
+
+	* gtkhtml.h: added new commands for font style toggling
+
 	* Makefile.am (keybindings_DATA): added keybindingsrc.emacs and
 	keybindingsrc.ms to EXTRA_DIST and let it install
 
