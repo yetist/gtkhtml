@@ -909,9 +909,9 @@ update_or_redraw (HTMLImagePointer *ip)
 		/* printf ("REDRAW\n"); */
 		for (list = ip->interests; list; list = list->next)
 			if (list->data) // && html_object_is_visible (HTML_OBJECT (list->data)))
-				html_draw_queue_add (ip->factory->engine->draw_queue, HTML_OBJECT (list->data));
+				html_engine_queue_draw (ip->factory->engine, HTML_OBJECT (list->data));
 		if (ip->interests)
-			html_draw_queue_flush (ip->factory->engine->draw_queue);
+			html_engine_flush_draw_queue (ip->factory->engine);
 	} else {
 		/* printf ("UPDATE\n"); */
 		html_engine_schedule_update (ip->factory->engine);

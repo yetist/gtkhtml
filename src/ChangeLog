@@ -1,5 +1,17 @@
 2001-10-19  Radek Doulik  <rodo@ximian.com>
 
+	* htmlinterval.c (unselect_object): queue draw only if engine is
+	not frozen
+	(select_object): ditto
+
+	* htmlimage.c (update_or_redraw): use html_engine_flush_draw_queue
+	instead of html_draw_queue_flush and html_engine_queue_draw
+	instead of html_draw_queue_add
+
+	* htmlengine.c (html_engine_flush_draw_queue): flush only if not
+	frozen
+	(html_engine_freeze): flush draw queue before freeze
+
 	* htmlengine-edit-cut-and-paste.c (set_cursor_at_end_of_object):
 	preserve need_spell_check flag
 

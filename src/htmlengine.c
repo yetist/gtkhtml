@@ -4310,8 +4310,8 @@ html_engine_flush_draw_queue (HTMLEngine *e)
 	g_return_if_fail (e != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
-	/* if (e->freeze_count == 0) */
-	html_draw_queue_flush (e->draw_queue);
+	if (!html_engine_frozen (e))
+		html_draw_queue_flush (e->draw_queue);
 }
 
 void
@@ -4403,6 +4403,7 @@ html_engine_freeze (HTMLEngine *engine)
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 
+	html_engine_flush_draw_queue (engine);
 	/* printf ("html_engine_freeze %d\n", engine->freeze_count); */
 
 	html_engine_hide_cursor (engine);

@@ -422,10 +422,6 @@ delete_object_do (HTMLEngine *e, HTMLObject **object, guint *len)
 	place_cursor_before_mark (e);
 	move_cursor_before_delete (e);
 	html_engine_disable_selection (e);
-
-	/* draw pending */
-	html_engine_flush_draw_queue (e);
-
 	*len     = 0;
 	*object  = html_object_op_cut  (HTML_OBJECT (from->data), e, from->next, to->next, left, right, len);
 	position = e->cursor->position;
