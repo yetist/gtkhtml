@@ -380,13 +380,13 @@ html_engine_object_requested_cb (HTMLEngine *engine,
 		       gpointer data)
 {
 	GtkHTML *gtk_html;
-	gboolean ret_val = FALSE;
+	gboolean object_found = FALSE;
 
 	gtk_html = GTK_HTML (data);
 
-	ret_val = FALSE;
-	gtk_signal_emit (GTK_OBJECT (gtk_html), signals[OBJECT_REQUESTED], eb, &ret_val);
-	return ret_val;
+	object_found = FALSE;
+	gtk_signal_emit (GTK_OBJECT (gtk_html), signals[OBJECT_REQUESTED], eb, &object_found);
+	return object_found;
 }
 
 

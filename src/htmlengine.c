@@ -1298,7 +1298,7 @@ parse_object (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	static const gchar *end[] = { "</object", 0};
 	GtkHTMLEmbedded *eb;
 	HTMLEmbedded *el;
-	gboolean ret_val;
+	gboolean object_found;
 	
 	
 	html_string_tokenizer_tokenize( e->st, attr, " >" );
@@ -1323,24 +1323,36 @@ parse_object (HTMLEngine *e, HTMLObject *clue, gint max_width,
 			data = g_strdup (token + 5);
 		}
 	}
-
+	
 	eb = (GtkHTMLEmbedded *) gtk_html_embedded_new (classid, name, type, data, width, height);
 	html_stack_push (e->embeddedStack, eb);
-
+	
 	el = html_embedded_new_widget (GTK_WIDGET (e->widget), eb);		
 	gtk_object_set_data (GTK_OBJECT(eb), "embeddedelement", el);
 	gtk_signal_connect (GTK_OBJECT(eb), "changed", html_object_changed, e);
 	
 	/* evaluate params and return the first non-<param> token */
 	str       = parse_object_params (e, clue);
+	printf ("\"%s\": was the string\n", str);
 	body_left = strncmp(str, "</object", 8);
 
 	/* create the object */
-	ret_val = FALSE;
-	gtk_signal_emit (GTK_OBJECT (e), signals [OBJECT_REQUESTED], eb, &ret_val);
+        object_found = FALSE;
+	gtk_signal_emit (GTK_OBJECT (e), signals [OBJECT_REQUESTED], eb, &object_found);
 	
 	/* show alt text on TRUE */ 
-	if (ret_val) {
+	if (object_found) {
+		printf ("appending embedded object %p\n", el);
+		append_element(e, clue, HTML_OBJECT(el));
+		/* automatically add this to a form if it is part of one */
+		if (e->form)
+			html_form_add_element (e->form, HTML_EMBEDDED (el));
+		
+		/* ignore the body, the object is good. */
+		if (body_left) {
+			str = discard_body(e, end);
+		}
+	} else {
 		if (body_left) {
 			/* we have to deal with the first token specially */
 			if (*str != TAG_ESCAPE) {
@@ -1352,19 +1364,10 @@ parse_object (HTMLEngine *e, HTMLObject *clue, gint max_width,
 			/* parse the rest of the body to show the alt text */
 			str = parse_body (e, clue, end, FALSE);
 		}
-
+		
 		/* we won't be needing this .. */
+		printf ("destroying embedded object %p\n", el);
 		html_object_destroy (HTML_OBJECT (el));
-	} else {
-		append_element(e, clue, HTML_OBJECT(el));
-		/* automatically add this to a form if it is part of one */
-		if (e->form)
-			html_form_add_element (e->form, HTML_EMBEDDED (el));
-
-		/* ignore the body, the object is good. */
-		if (body_left) {
-			str = discard_body(e, end);
-		}
 	}
 	
 	if ((!str || strncmp( str, "</object", 8 ) == 0) && 
@@ -1372,6 +1375,8 @@ parse_object (HTMLEngine *e, HTMLObject *clue, gint max_width,
 		html_stack_pop (e->embeddedStack);
 	}
 	
+	g_free (type);
+	g_free (data);
 	g_free (classid);
 	g_free (name);
 }

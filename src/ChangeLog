@@ -1,3 +1,14 @@
+2000-12-06  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlengine.c (parse_object): change ret_val to object_found to
+	make the meaning clear. Let me make this clear if you return TRUE
+	in your object_requested signal we will use the embedded element,
+	if you return false we will parse and use the contents between
+	<object> and </object>.  Also free type and classid.
+
+	* gtkhtml.c (html_engine_object_requested_cb): change ret_val to
+	object_found to make the meaning clear.
+
 2000-12-06  Radek Doulik  <rodo@helixcode.com>
 
 	* htmltable.c (calc_column_width_step): take care of cspan
