@@ -95,7 +95,7 @@ typedef enum {
 #define HTML_OBJECT_CLASS(x)	((HTMLObjectClass *) (x))
 #define HTML_OBJECT_TYPE(x)     (HTML_OBJECT (x)->klass->type)
 
-typedef void (* HTMLObjectForallFunc) (HTMLObject *self, gpointer data);
+typedef void (* HTMLObjectForallFunc)       (HTMLObject *self, HTMLEngine *e, gpointer data);
 
 struct _HTMLObject {
 	HTMLObjectClass *klass;
@@ -238,7 +238,7 @@ struct _HTMLObjectClass {
 
 	/* Container operations.  */
 
-	void (* forall) (HTMLObject *self, HTMLObjectForallFunc func, gpointer data);
+	void (* forall) (HTMLObject *self, HTMLEngine *e, HTMLObjectForallFunc func, gpointer data);
 	gboolean (* is_container) (HTMLObject *self);
 
 	/* Saving.  */
@@ -303,6 +303,7 @@ void        html_object_set_painter       (HTMLObject           *o,
 void        html_object_reset             (HTMLObject           *o);
 gboolean    html_object_is_text           (HTMLObject           *object);
 void        html_object_forall            (HTMLObject           *self,
+					   HTMLEngine           *e,
 					   HTMLObjectForallFunc  func,
 					   gpointer              data);
 gboolean    html_object_is_container      (HTMLObject           *self);

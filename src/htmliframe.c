@@ -198,14 +198,15 @@ set_painter (HTMLObject *o, HTMLPainter *painter, gint max_width)
 
 static void
 forall (HTMLObject *self,
+	HTMLEngine *e,
 	HTMLObjectForallFunc func,
 	gpointer data)
 {
 	HTMLIFrame *iframe;
 
 	iframe = HTML_IFRAME (self);
-	(* func) (self, data);
-	html_object_forall (GTK_HTML (iframe->html)->engine->clue, func, data);
+	(* func) (self, e, data);
+	html_object_forall (GTK_HTML (iframe->html)->engine->clue, GTK_HTML (iframe->html)->engine, func, data);
 }
 
 static gint
@@ -287,6 +288,17 @@ search (HTMLObject *self, HTMLSearch *info)
 	return FALSE;
 }
 
+/* static gboolean
+select_range (HTMLObject *self,
+	      HTMLEngine *engine,
+	      guint start,
+	      gint length,
+	      gboolean queue_draw)
+{
+	return html_object_select_range (GTK_HTML (HTML_IFRAME (self)->html)->engine->clue,
+					 GTK_HTML (HTML_IFRAME (self)->html)->engine,
+					 start, length, queue_draw);
+} */
 
 void 
 html_iframe_init (HTMLIFrame *iframe,
@@ -405,13 +417,13 @@ html_iframe_class_init (HTMLIFrameClass *klass,
 	html_embedded_class_init (embedded_class, type, size);
 	parent_class = &html_embedded_class;
 
-	object_class->calc_size = calc_size;
-	object_class->calc_min_width = calc_min_width;
-	object_class->set_painter = set_painter;
-	object_class->reset = reset;
-	object_class->draw = draw;
-	object_class->set_max_width = set_max_width;
-	object_class->forall = forall;
-	object_class->check_page_split = check_page_split;
-	object_class->search = search;
+	object_class->calc_size          = calc_size;
+	object_class->calc_min_width     = calc_min_width;
+	object_class->set_painter        = set_painter;
+	object_class->reset              = reset;
+	object_class->draw               = draw;
+	object_class->set_max_width      = set_max_width;
+	object_class->forall             = forall;
+	object_class->check_page_split   = check_page_split;
+	object_class->search             = search;
 }

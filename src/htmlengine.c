@@ -3914,7 +3914,6 @@ html_engine_form_submitted (HTMLEngine *e,
 /* Selection handling.  */
 
 struct _SelectRegionData {
-	HTMLEngine *engine;
 	HTMLObject *obj1, *obj2;
 	guint offset1, offset2;
 	gint x1, y1, x2, y2;
@@ -3925,6 +3924,7 @@ typedef struct _SelectRegionData SelectRegionData;
 
 static void
 select_region_forall (HTMLObject *self,
+		      HTMLEngine *engine,
 		      gpointer data)
 {
 	SelectRegionData *select_data;
@@ -3938,13 +3938,13 @@ select_region_forall (HTMLObject *self,
 		if (select_data->obj1 == select_data->obj2) {
 			if (select_data->offset2 > select_data->offset1)
 				changed = html_object_select_range (select_data->obj1,
-								    select_data->engine,
+								    engine,
 								    select_data->offset1,
 								    select_data->offset2 - select_data->offset1,
 								    TRUE);
 			else if (select_data->offset2 < select_data->offset1)
 				changed = html_object_select_range (select_data->obj1,
-								    select_data->engine,
+								    engine,
 								    select_data->offset2,
 								    select_data->offset1 - select_data->offset2,
 								    TRUE);
@@ -3959,13 +3959,13 @@ select_region_forall (HTMLObject *self,
 
 			if (select_data->select) {
 				changed = html_object_select_range (self,
-								    select_data->engine,
+								    engine,
 								    0, offset,
 								    TRUE);
 				select_data->select = FALSE;
 			} else {
 				changed = html_object_select_range (self,
-								    select_data->engine,
+								    engine,
 								    offset, -1,
 								    TRUE);
 				select_data->select = TRUE;
@@ -3973,11 +3973,11 @@ select_region_forall (HTMLObject *self,
 		}
 	} else {
 		if (select_data->select) {
-			changed = html_object_select_range (self, select_data->engine,
+			changed = html_object_select_range (self, engine,
 							    0, -1, TRUE);
 			select_data->active_selection = TRUE;
 		} else {
-			changed = html_object_select_range (self, select_data->engine,
+			changed = html_object_select_range (self, engine,
 							    0, 0, TRUE);
 		}
 	}
@@ -4048,7 +4048,6 @@ html_engine_select_region (HTMLEngine *e,
 		return;
 
 	data = g_new (SelectRegionData, 1);
-	data->engine = e;
 	data->obj1 = html_engine_get_object_at (e, x1, y1, &data->offset1, TRUE);
 	data->obj2 = html_engine_get_object_at (e, x2, y2, &data->offset2, TRUE);
 	data->select = FALSE;
@@ -4067,7 +4066,7 @@ html_engine_select_region (HTMLEngine *e,
 	data->x2 = x2 - x;
 	data->y2 = y2 - y;
 
-	html_object_forall (e->clue, select_region_forall, data);
+	html_object_forall (e->clue, e, select_region_forall, data);
 
 	e->active_selection = data->active_selection;
 	gtk_html_debug_log (e->widget, "Active selection: %s\n", e->active_selection ? "TRUE" : "FALSE");
@@ -4076,12 +4075,13 @@ html_engine_select_region (HTMLEngine *e,
 
 static void
 unselect_forall (HTMLObject *self,
+		 HTMLEngine *e,
 		 gpointer data)
 {
 	SelectRegionData *select_data;
 
 	select_data = (SelectRegionData *) data;
-	html_object_select_range (self, select_data->engine, 0, 0, TRUE);
+	html_object_select_range (self, e, 0, 0, TRUE);
 }
 
 void
@@ -4099,9 +4099,7 @@ html_engine_unselect_all (HTMLEngine *e)
 		return;
 
 	select_data = g_new (SelectRegionData, 1);
-	select_data->engine = e;
-
-	html_object_forall (e->clue, unselect_forall, select_data);
+	html_object_forall (e->clue, e, unselect_forall, select_data);
 
 	g_free (select_data);
 
@@ -4298,7 +4296,7 @@ html_engine_replace_do (HTMLEngine *e, HTMLReplaceQueryAnswer answer)
 /* spell checking */
 
 static void
-check_paragraph (HTMLObject *o, HTMLEngine *e)
+check_paragraph (HTMLObject *o, HTMLEngine *unused, HTMLEngine *e)
 {
 	if (HTML_OBJECT_TYPE (o) == HTML_TYPE_CLUEFLOW)
 		html_clueflow_spell_check (HTML_CLUEFLOW (o), e, NULL);
@@ -4311,7 +4309,7 @@ html_engine_spell_check (HTMLEngine *e)
 	g_assert (e->clue);
 
 	if (e->widget->editor_api && e->widget->editor_api->check_word)
-		html_object_forall (e->clue, (HTMLObjectForallFunc) check_paragraph, e);
+		html_object_forall (e->clue, NULL, (HTMLObjectForallFunc) check_paragraph, e);
 }
 
 gchar *

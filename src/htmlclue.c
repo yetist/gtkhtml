@@ -293,15 +293,16 @@ check_page_split (HTMLObject *self,
 
 static void
 forall (HTMLObject *self,
+	HTMLEngine *e,
 	HTMLObjectForallFunc func,
 	gpointer data)
 {
 	HTMLObject *p;
 
 	for (p = HTML_CLUE (self)->head; p != NULL; p = p->next)
-		html_object_forall (p, func, data);
+		html_object_forall (p, e, func, data);
 
-	html_object_class.forall (self, func, data);
+	html_object_class.forall (self, e, func, data);
 }
 
 static gboolean

@@ -234,7 +234,7 @@ struct SetData {
 };
 
 static void
-set_data (HTMLObject *o, gpointer p)
+set_data (HTMLObject *o, HTMLEngine *e, gpointer p)
 {
 	struct SetData *data = (struct SetData *) p;
 
@@ -255,7 +255,7 @@ html_engine_set_data_by_type (HTMLEngine *e, HTMLType object_type, const gchar *
 	data->key         = key;
 	data->value       = value;
 
-	html_object_forall (e->clue, set_data, data);
+	html_object_forall (e->clue, NULL, set_data, data);
 
 	g_free (data);
 }

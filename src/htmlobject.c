@@ -432,10 +432,11 @@ append_selection_string (HTMLObject *self,
 
 static void
 forall (HTMLObject *self,
+	HTMLEngine *e,
 	HTMLObjectForallFunc func,
 	gpointer data)
 {
-	(* func) (self, data);
+	(* func) (self, e, data);
 }
 
 static gboolean
@@ -762,7 +763,7 @@ struct _hlpSetPainter {
 typedef struct _hlpSetPainter hlpSetPainter;
 
 static void
-set_painter_forall (HTMLObject *o, gpointer data)
+set_painter_forall (HTMLObject *o, HTMLEngine *e, gpointer data)
 {
 	hlpSetPainter *sp;
 
@@ -778,7 +779,7 @@ html_object_set_painter (HTMLObject *o, HTMLPainter *painter, gint max_width)
 	sp = g_new (hlpSetPainter, 1);
 	sp->painter = painter;
 	sp->max_width = max_width;
-	html_object_forall (o, set_painter_forall, sp);
+	html_object_forall (o, NULL, set_painter_forall, sp);
 	g_free (sp);
 }
 
@@ -919,10 +920,11 @@ html_object_append_selection_string (HTMLObject *self,
 
 void
 html_object_forall (HTMLObject *self,
+		    HTMLEngine *e,
 		    HTMLObjectForallFunc func,
 		    gpointer data)
 {
-	(* HO_CLASS (self)->forall) (self, func, data);
+	(* HO_CLASS (self)->forall) (self, e, func, data);
 }
 
 /* Ugly.  We should have an `is_a' implementation.  */
@@ -1019,7 +1021,7 @@ html_object_change_set (HTMLObject *self, HTMLChangeFlags f)
 }
 
 static void
-change (HTMLObject *o, gpointer data)
+change (HTMLObject *o, HTMLEngine *e, gpointer data)
 {
 	o->change |= GPOINTER_TO_INT (data);
 }
@@ -1027,7 +1029,7 @@ change (HTMLObject *o, gpointer data)
 void
 html_object_change_set_down (HTMLObject *self, HTMLChangeFlags f)
 {
-	html_object_forall (self, (HTMLObjectForallFunc) change, GINT_TO_POINTER (f));
+	html_object_forall (self, NULL, (HTMLObjectForallFunc) change, GINT_TO_POINTER (f));
 }
 
 gboolean

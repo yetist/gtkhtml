@@ -1058,6 +1058,7 @@ focus_out_event (GtkWidget *widget,
 		 GdkEventFocus *event)
 {
 	GtkHTML *html = GTK_HTML (widget);
+
 	if (!html->iframe_parent) {
 		GTK_WIDGET_UNSET_FLAGS (widget, GTK_HAS_FOCUS);
 		html_engine_set_focus (html->engine, FALSE);

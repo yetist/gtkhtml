@@ -33,6 +33,7 @@ typedef struct _CopyForallData CopyForallData;
 
 static void
 copy_forall (HTMLObject *obj,
+	     HTMLEngine *e,
 	     gpointer closure)
 {
 	HTMLObject *selection;
@@ -74,7 +75,7 @@ copy (HTMLEngine *engine,
 	forall_data->buffer = NULL;
 	forall_data->size = 0;
 
-	html_object_forall (engine->clue, copy_forall, forall_data);
+	html_object_forall (engine->clue, NULL, copy_forall, forall_data);
 
 	*buffer = g_list_reverse (forall_data->buffer);
 	size = forall_data->size;

@@ -1,3 +1,12 @@
+2000-11-15  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlobject.c (html_object_forall): added engine parameter +
+	update all calls
+
+	* htmltable.c (check_row_split): new helper function
+	(check_page_split): try to split row so long as all cells are
+	happy with it
+
 2000-11-14  Radek Doulik  <rodo@helixcode.com>
 
 	* htmltable.c (check_page_split): new method
