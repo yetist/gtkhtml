@@ -1,3 +1,15 @@
+2000-05-30  Larry Ewing  <lewing@helixcode.com>
+
+	* htmliframe.c (calc_size): preliminary code to try to get a
+	proper size when width and height are not set.
+	(html_iframe_init): initialize the new variables and properly set
+	width and height.
+
+	* htmliframe.h: add variables for the scroll widget and the html
+	widget for now.
+	
+	* htmlengine.c (parse_iframe): change default size.
+
 2000-05-29  Dan Winship  <danw@helixcode.com>
 
 	* htmlclueflow.c (html_clueflow_class_init): Fix typo. (Don't use

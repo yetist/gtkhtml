@@ -1274,8 +1274,8 @@ parse_iframe (HTMLEngine *e, const gchar *str, HTMLObject *_clue)
 	char *align = NULL;
 	HTMLObject *iframe;
 	
-	width = "100";
-	height = "100";
+	width = "-1";
+	height = "-1";
 
 	html_string_tokenizer_tokenize (e->st, str, " >");
 

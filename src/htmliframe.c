@@ -101,25 +101,43 @@ calc_size (HTMLObject *o,
 {
 	HTMLIFrame *iframe;
 	guint pixel_size;
-	guint width, height;
+	gint width, height;
 	gint old_width, old_ascent, old_descent;
 	GtkHTML *html;
-
+	
+	pixel_size = html_painter_get_pixel_size (painter);
+	
 	old_width = o->width;
 	old_ascent = o->ascent;
 	old_descent = o->descent;
 
 	iframe = HTML_IFRAME (o);
 	
-	html = GTK_HTML (HTML_EMBEDDED (iframe)->parent);
+	html = GTK_HTML (iframe->html);
 
-	if (iframe->width < 0)
-		width = o->max_width;
-	
-	gtk_widget_set_usize (HTML_EMBEDDED (iframe)->widget, 100, width);
+	if ((iframe->width < 0) && (iframe->height < 0)) {
+		html->engine->width = o->max_width;
+		html_engine_calc_size (html->engine);
 
-	if (iframe->height < 0)
+		height = html_engine_get_doc_height (html->engine);
+		width = html_engine_get_doc_width (html->engine);
+		gtk_widget_set_usize (iframe->scroll,
+				      width, height);
+
+		gtk_widget_queue_resize (iframe->scroll);
 		
+		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (iframe->scroll),
+						GTK_POLICY_NEVER,
+						GTK_POLICY_NEVER);
+
+		o->width = width * pixel_size;
+		o->ascent = height * pixel_size;
+		o->descent = 0;
+	} else {
+		return (* HTML_OBJECT_CLASS (parent_class)->calc_size) 
+			(o, painter);
+	}
+
 	if (o->descent != old_descent
 	    || o->ascent != old_ascent
 	    || o->width != old_width)
@@ -153,12 +171,15 @@ html_iframe_init (HTMLIFrame *iframe,
 					GTK_POLICY_AUTOMATIC,
 					GTK_POLICY_AUTOMATIC);
 	html = gtk_html_new ();
-       
+	iframe->html = html;
+
 	gtk_container_add (GTK_CONTAINER (scrolled_window), html);
 	gtk_widget_show (html);
 
 	iframe->url = src;
-	
+	iframe->width = width;
+	iframe->height = height;
+
 	parent_html = GTK_HTML (parent);
 
 	handle = gtk_html_begin (GTK_HTML (html));
@@ -180,6 +201,7 @@ html_iframe_init (HTMLIFrame *iframe,
 				 "url_requested", src, handle);
 
 	gtk_widget_set_usize (scrolled_window, width, height);
+	iframe->scroll = scrolled_window;
 
 	html_embedded_size_recalc(em);
 	html_embedded_set_widget (em, scrolled_window);	
@@ -228,6 +250,8 @@ html_iframe_class_init (HTMLIFrameClass *klass,
 
 	html_embedded_class_init (embedded_class, type, size);
 	parent_class = &html_embedded_class;
+
+	object_class->calc_size = calc_size;
 }
 	
 

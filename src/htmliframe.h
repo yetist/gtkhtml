@@ -34,8 +34,10 @@ struct _HTMLIFrame {
 	HTMLEmbedded embedded;
 	
 	char *url;
-	guint width;
-	guint height;
+	GtkWidget *scroll;
+	GtkWidget *html;
+	gint width;
+	gint height;
 	gboolean frameborder;
 };
 
