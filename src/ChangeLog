@@ -1,3 +1,8 @@
+2002-11-21  Radek Doulik  <rodo@ximian.com>
+
+	* htmlclueflow.c (object_nb_width): fixed typo, use
+	html_text_slave_get_nb_width instead of html_text_slave_nb_width
+
 2002-11-20  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (parse_i): parse style args.

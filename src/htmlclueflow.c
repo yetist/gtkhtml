@@ -718,7 +718,7 @@ static gint
 object_nb_width (HTMLObject *o, HTMLPainter *painter, gboolean lineBegin)
 {
 	if (HTML_IS_TEXT_SLAVE (o))
-		return html_text_slave_nb_width (HTML_TEXT_SLAVE (o), painter, lineBegin);
+		return html_text_slave_get_nb_width (HTML_TEXT_SLAVE (o), painter, lineBegin);
 		
 	return html_object_calc_min_width (o, painter);
 }

@@ -69,7 +69,9 @@ printer_get_page_width (HTMLPrinter *printer)
 
 	insure_config (printer);
 	gnome_print_master_get_page_size_from_config (printer->config, &width, &height);
+	gnome_print_convert_distance (&width, gnome_print_unit_get_identity (GNOME_PRINT_UNIT_DEVICE), GNOME_PRINT_PS_UNIT);
 
+	printf ("lmargin %f\n", width);
 	return width;
 }
 
@@ -81,6 +83,7 @@ get_lmargin (HTMLPrinter *printer)
 	insure_config (printer);
 	gnome_print_config_get_double (printer->config, GNOME_PRINT_KEY_PAGE_MARGIN_LEFT, &lmargin);
 
+	printf ("lmargin %f\n", lmargin);
 	return lmargin;
 }
 
