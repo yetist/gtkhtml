@@ -1,3 +1,9 @@
+2005-01-05  Mengjie Yu  <meng-jie.yu@sun.com>
+
+	Fixes #70871
+	* image.c: (html_a11y_image_get_name):
+	Don't split sentence in gtkhtml.
+
 2004-12-29  Mengjie Yu  <meng-jie.yu@sun.com>
 
 	* image.c: (html_a11y_image_get_name),

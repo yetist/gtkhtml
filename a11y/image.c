@@ -141,18 +141,15 @@ static G_CONST_RETURN gchar *
 html_a11y_image_get_name (AtkObject *accessible)
 {
 	HTMLImage *img = HTML_IMAGE (HTML_A11Y_HTML (accessible));
-	gchar *name, *tmpName;
+	gchar *name;
 
 	if (accessible->name)
 		return accessible->name;
 
-	tmpName = g_strconcat (_("URL is "), img->image_ptr->url, NULL);
-
 	if (img->alt) {
-		name = g_strconcat (tmpName, _(", Alternative Text is "), img->alt, NULL);
-		g_free (tmpName);
+		name = g_strdup_printf (_("URL is %s, Alternative Text is %s"), img->image_ptr->url, img->alt);
 	} else
-		name = tmpName;
+		name = g_strdup_printf (_("URL is %s"), img->image_ptr->url);
 
 	atk_object_set_name (accessible, name);
 	g_free (name);
