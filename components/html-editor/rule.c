@@ -218,7 +218,7 @@ rule_widget (GtkHTMLEditRuleProperties *data)
 
 	/* size */
 	frame = gtk_frame_new (_("Size"));
-	vb1   = gtk_vbox_new (FALSE, 2);
+	vb1   = gtk_vbox_new (FALSE, 0);
 	menu  = gtk_menu_new ();
 	mcounter = 0;
 	HBOX;
@@ -242,27 +242,29 @@ rule_widget (GtkHTMLEditRuleProperties *data)
 
 	/* style */
 	frame = gtk_frame_new (_("Style"));
-	vb1   = gtk_vbox_new (FALSE, 2);
+	vb1   = gtk_vbox_new (FALSE, 0);
 
 	/* align */
 	HBOX;
 	menu  = gtk_menu_new ();
 	mcounter = HTML_HALIGN_LEFT;
-	ADD_ITEM ("Left aligned", align_menu_activate);
-	ADD_ITEM ("Centered", align_menu_activate);
-	ADD_ITEM ("Right aligned", align_menu_activate);
+	ADD_ITEM ("Left", align_menu_activate);
+	ADD_ITEM ("Center", align_menu_activate);
+	ADD_ITEM ("Right", align_menu_activate);
 	data->align_option = gtk_option_menu_new ();
 	gtk_option_menu_set_menu (GTK_OPTION_MENU (data->align_option), menu);
 	gtk_option_menu_set_history (GTK_OPTION_MENU (data->align_option), data->align);
-	gtk_box_pack_start (GTK_BOX (hbox), data->align_option, FALSE, FALSE, 0);
+	gtk_box_pack_start_defaults (GTK_BOX (hbox), data->align_option);
 	gtk_box_pack_start (GTK_BOX (vb1), hbox, FALSE, FALSE, 0);
 
 	/* weight */
 	HBOX;
 	ADD_VAL (GTK_HTML_EDIT_RULE_SIZE, "width");
 	gtk_adjustment_set_value (GTK_ADJUSTMENT (data->adj [GTK_HTML_EDIT_RULE_SIZE]), data->size);
+	gtk_box_pack_start_defaults (GTK_BOX (vb1), hbox);
 
 	/* shaded */
+	HBOX;
 	data->shaded_check = gtk_check_button_new_with_label (_("shaded"));
 	gtk_signal_connect (GTK_OBJECT (data->shaded_check), "toggled", shade_toggled, data);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->shaded_check), data->shaded);
