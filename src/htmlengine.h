@@ -130,7 +130,7 @@ struct _HTMLEngine {
         gpointer bgPixmapPtr;
   
 	/* The background color */
-	GdkColor *bgColor;
+	GdkColor bgColor;
 
 	/* Stack of lists currently active */
 	HTMLListStack *listStack;
@@ -155,17 +155,6 @@ void        html_engine_draw_background (HTMLEngine *e, gint xval, gint yval, gi
 gchar      *html_engine_parse_body (HTMLEngine *p, HTMLObject *clue, const gchar *end[], gboolean toplevel);
 void        html_engine_parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str);
 void        html_engine_parse (HTMLEngine *p);
-void        html_engine_parse_a (HTMLEngine *p, HTMLObject *clue, const gchar *str);
-void        html_engine_parse_b (HTMLEngine *p, HTMLObject *clue, const gchar *str);
-void        html_engine_parse_c (HTMLEngine *e, HTMLObject *clue, const gchar *str);
-void        html_engine_parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str);
-void        html_engine_parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str);
-void        html_engine_parse_i (HTMLEngine *p, HTMLObject *clue, const gchar *str);
-void        html_engine_parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str);
-void        html_engine_parse_p (HTMLEngine *p, HTMLObject *clue, const gchar *str);
-void        html_engine_parse_t (HTMLEngine *p, HTMLObject *clue, const gchar *str);
-void        html_engine_parse_u (HTMLEngine *p, HTMLObject *clue, const gchar *str);
-const gchar *html_engine_parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width, const gchar *attr);
 HTMLFont *  html_engine_get_current_font (HTMLEngine *p);
 void        html_engine_select_font (HTMLEngine *e);
 void        html_engine_pop_font (HTMLEngine *e);

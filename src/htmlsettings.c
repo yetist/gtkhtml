@@ -28,7 +28,15 @@ html_settings_new (void)
 	HTMLSettings *s = g_new0 (HTMLSettings, 1);
 	
 	s->fontBaseSize = 3;
-	s->fontbasecolor = 0;
+
+	s->fontbasecolor.red = 0;
+	s->fontbasecolor.green = 0;
+	s->fontbasecolor.blue = 0;
+
+	s->bgcolor.red = 0xff;
+	s->bgcolor.green = 0xff;
+	s->bgcolor.blue = 0xff;
+
 	return s;
 }
 
@@ -37,8 +45,6 @@ html_settings_destroy (HTMLSettings *settings)
 {
 	g_return_if_fail (settings != NULL);
 
-	if (settings->bgcolor)
-		gdk_color_free (settings->bgcolor);
 	g_free (settings);
 }
 
@@ -48,6 +54,5 @@ html_settings_set_bgcolor (HTMLSettings *settings, GdkColor *color)
 	g_return_if_fail (settings != NULL);
 	g_return_if_fail (color != NULL);
 
-	settings->bgcolor = gdk_color_copy (color);
+	settings->bgcolor = *color;
 }
-

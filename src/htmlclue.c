@@ -69,6 +69,7 @@ draw (HTMLObject *o, HTMLPainter *p,
 					  &blue, FALSE, TRUE);
 	}
 
+#if 0
 	/* FIXME FIXME!  Temporary hack.  :-)  */
 	/* Draw a rect around the clue */
 	if (HTML_OBJECT_TYPE (o) == HTML_TYPE_CLUEV) {
@@ -79,6 +80,7 @@ draw (HTMLObject *o, HTMLPainter *p,
 	} else if (HTML_OBJECT_TYPE (o) == HTML_TYPE_TABLECELL) {
 		html_painter_set_pen (p, &blue);
 	}
+#endif
 
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
 		if (!(obj->flags & HTML_OBJECT_FLAG_ALIGNED)) {

@@ -80,23 +80,22 @@ draw (HTMLObject *o, HTMLPainter *p, gint x, gint y,
       gint width, gint height, gint tx, gint ty)
 {
 	HTMLTableCell *cell = HTML_TABLE_CELL (o);
+	gint top, bottom;
 
 	if (y + height < o->y - o->ascent || y > o->y + o->descent)
 		return;
 
-	if (cell->bg.pixel != 0) {
-		gint top = y - (o->y - o->ascent);
-		gint bottom = top + height;
-		if (top < -cell->padding)
-			top = -cell->padding;
-		if (bottom > o->ascent + cell->padding)
-			bottom = o->ascent + cell->padding;
-		html_painter_set_pen (p, &cell->bg);
-		html_painter_fill_rect (p, tx + o->x - cell->padding,
-					ty + o->y - o->ascent + top,
-					o->width + cell->padding * 2,
-					bottom - top);
-	}
+	top = y - (o->y - o->ascent);
+	bottom = top + height;
+	if (top < -cell->padding)
+		top = -cell->padding;
+	if (bottom > o->ascent + cell->padding)
+		bottom = o->ascent + cell->padding;
+	html_painter_set_pen (p, &cell->bg);
+	html_painter_fill_rect (p, tx + o->x - cell->padding,
+				ty + o->y - o->ascent + top,
+				o->width + cell->padding * 2,
+				bottom - top);
 
 	(* HTML_OBJECT_CLASS (&html_cluev_class)->draw) (o, p, x, y,
 							 width, height, tx, ty);

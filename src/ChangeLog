@@ -1,3 +1,36 @@
+1999-11-24  Ettore Perazzoli  <ettore@gnu.org>
+
+	* htmlengine.c (parse_l): Removed allocation of `fontbasecolor'.
+	(html_engine_draw_background): `bgColor' is now always allocated.
+	(html_engine_parse): `settings->bgcolor' is no longer a pointer,
+	so deal with it.
+
+	* htmlsettings.h: Type of members `bgcolor' and `fontbasecolor' in
+	`HTMLSettings' changed from `GdkColor *' to `GdkColor'.
+	* htmlsettings.c (html_settings_destroy): Updated accordingly.
+	(html_settings_new): Likewise.
+
+	* htmlengine.c (parse_b): Updated accordingly.
+	(html_engine_parse): Likewise.
+	(html_engine_draw_background): Likewise.
+
+	* htmlengine.h: Type of member `bgcolor' in `HTMLEngine' changed
+	from `GdkColor *' to `GdkColor'.
+
+	* htmlclue.c (draw): Do not draw a green rect around the clue
+	anymore.
+
+	* htmltablecell.c (draw): Removed meaningless check for a non-zero
+	pixel value.
+
+	* htmlengine.c: Added `ID_EM' to enum `ID'.
+	(parse_e): New function, imported from KHTMLW.
+	(html_engine_init): Install it.
+
+	* htmlengine.c: Renamed all the `html_engine_parse_*()' functions
+	to `parse_*()', made static and moved to the top of the file.
+	* htmlengine.h: Removed public prototypes accordingly.
+
 1999-11-23  Ettore Perazzoli  <ettore@gnu.org>
 
 	* htmlengine.c (html_engine_new_flow): Updated accordingly.
