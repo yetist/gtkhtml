@@ -122,11 +122,6 @@ remove_link (GtkWidget *mi, GtkHTMLControlData *cd)
 }
 
 static void
-open_link (GtkWidget *mi, GtkHTMLControlData *cd)
-{
-}
-
-static void
 insert_table_cb (GtkWidget *mi, GtkHTMLControlData *cd)
 {
 	insert_table (cd);
