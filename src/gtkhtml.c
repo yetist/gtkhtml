@@ -4356,6 +4356,12 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		if (html->engine->caret_mode || html_engine_get_editable(e))
 			rv = move_selection (html, com_type);
 		break;
+	case GTK_HTML_COMMAND_EDITABLE_ON:
+		gtk_html_set_editable (html, TRUE);
+		break;
+	case GTK_HTML_COMMAND_EDITABLE_OFF:
+		gtk_html_set_editable (html, FALSE);
+		break;
 
 	default:
 		html->binding_handled = FALSE;
