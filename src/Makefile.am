@@ -1,3 +1,5 @@
+NULL=
+
 INCLUDES = -I$(top_srcdir) -I$(srcdir) -I$(includedir) $(GNOME_INCLUDEDIR) \
 	$(EXTRA_GNOME_CFLAGS) \
 	-DG_LOG_DOMAIN=\"gtkhtml\" $(LIBWWW_CFLAGS) \
@@ -94,7 +96,12 @@ libgtkhtml_HEADERS =				\
 	htmlurl.h				\
 	htmlvspace.h				\
 	gtkhtml-keybinding.h			\
-	htmliframe.h
+	htmliframe.h				\
+	htmlelement.h				\
+	htmlengine-edit-table.h			\
+	htmlfont.h				\
+	htmlhspace.h				\
+	$(NULL)
 
 libgtkhtml_la_SOURCES =				\
 	gtkhtml-embedded.c			\
@@ -167,7 +174,14 @@ libgtkhtml_la_SOURCES =				\
 	htmlundo.c				\
 	htmlundo-action.c			\
 	htmlvspace.c				\
-	htmliframe.c
+	htmliframe.c				\
+	gtkhtml-keybinding.c			\
+	html-component.c			\
+	htmlelement.c				\
+	htmlengine-edit-table.c			\
+	htmlfont.c				\
+	htmlhspace.c				\
+	$(NULL)
 
 libgtkhtml_la_LDFLAGS = -version-info $(GTKHTML_CURRENT):$(GTKHTML_REVISION):$(GTKHTML_AGE)
 
