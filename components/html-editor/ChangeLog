@@ -1,3 +1,7 @@
+2001-07-30  Radek Doulik  <rodo@ximian.com>
+
+	* GNOME_GtkHTML_Editor.xml.in: use new rule icons
+
 2001-07-29  Larry Ewing  <lewing@ximian.com>
 
 	* GNOME_GtkHTML_Editor.xml.in: fix typos so that label is

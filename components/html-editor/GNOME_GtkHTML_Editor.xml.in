@@ -74,7 +74,8 @@
                                 pixtype="filename" pixname="@ICONSDIR@/insert-image-16.png"/>
 				<menuitem name="InsertLink"  verb="" accel="*Ctrl**Alt*L"
                                 pixtype="filename" pixname="@ICONSDIR@/insert-link-16.png"/>
-				<menuitem name="InsertRule"  verb="" accel="*Ctrl**Alt*R"/>
+				<menuitem name="InsertRule"  verb="" accel="*Ctrl**Alt*R"
+				pixtype="filename" pixname="@ICONSDIR@/insert-rule-16.png"/>
 				<menuitem name="InsertTable" verb="" accel="*Ctrl**Alt*T"
                                 pixtype="filename" pixname="@ICONSDIR@/insert-table-16.png"/>
 			</placeholder>
@@ -102,6 +103,8 @@
                 pixtype="filename" pixname="@ICONSDIR@/insert-image-24.png"/>
 		<toolitem name="InsertLink" verb="" _label="Link"
                 pixtype="filename" pixname="@ICONSDIR@/insert-link-24.png"/>
+		<toolitem name="InsertRule" verb="" _label="Rule"
+                pixtype="filename" pixname="@ICONSDIR@/insert-rule-24.png"/>
 		<toolitem name="InsertTable" verb="" _label="Table"
                 pixtype="filename" pixname="@ICONSDIR@/insert-table-24.png"/>
 	</dockitem>
