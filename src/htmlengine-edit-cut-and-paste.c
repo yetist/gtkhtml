@@ -790,13 +790,13 @@ html_engine_delete_container (HTMLEngine *e)
 	g_assert (e->cursor->object);
 	g_assert (html_object_is_container (e->cursor->object));
 
-	html_engine_freeze (e);
 	html_engine_set_mark (e);
+	html_engine_update_selection_if_necessary (e);
+	html_engine_freeze (e);
 	if (e->cursor->offset)
 		html_cursor_beginning_of_line (e->cursor, e);
 	else
 		html_cursor_end_of_line (e->cursor, e);
-	html_engine_update_selection_if_necessary (e);
 	html_engine_delete (e);
 	html_engine_thaw (e);
 }
@@ -809,6 +809,8 @@ html_engine_delete_n (HTMLEngine *e, guint len, gboolean forward)
 	else {
 		html_engine_block_selection (e);
 		html_engine_set_mark (e);
+		html_engine_update_selection_if_necessary (e);
+		html_engine_freeze (e);
 		while (len != 0) {
 			if (forward)
 				html_cursor_forward (e->cursor, e);
@@ -818,6 +820,7 @@ html_engine_delete_n (HTMLEngine *e, guint len, gboolean forward)
 		}
 		html_engine_delete (e);
 		html_engine_unblock_selection (e);
+		html_engine_thaw (e);
 	}
 }
 
