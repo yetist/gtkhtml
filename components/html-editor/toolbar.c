@@ -566,7 +566,8 @@ static GtkWidget *
 create_style_toolbar (GtkHTMLControlData *cd)
 {
 	GtkWidget *hbox;
-
+	gchar *domain;
+	
 	hbox = gtk_hbox_new (FALSE, 0);
 
 	cd->toolbar_style = gtk_toolbar_new ();
@@ -581,7 +582,19 @@ create_style_toolbar (GtkHTMLControlData *cd)
 				    setup_font_size_option_menu (cd),
 				    NULL, NULL);
 
+	/* 
+	 * FIXME: steal textdomain temporarily from main-process,  and set it to 
+	 * GETTEXT_PACKAGE, after create the widgets, restore it.
+	 */
+	domain = g_strdup (textdomain (NULL));
+	textdomain (GETTEXT_PACKAGE);
+	
 	gnome_app_fill_toolbar_with_data (GTK_TOOLBAR (cd->toolbar_style), editor_toolbar_style_uiinfo, NULL, cd);
+
+	/* restore the stolen domain */
+	textdomain (domain);
+	g_free (domain);
+
 	gtk_toolbar_append_widget (GTK_TOOLBAR (cd->toolbar_style),
 				   setup_color_combo (cd),
 				   NULL, NULL);

@@ -1,3 +1,8 @@
+2004-02-11  Yong Sun <Yong.Sun@sun.com>
+
+	* toolbar.c: (create_style_toolbar) steal domain for libgnomeui to 
+	create toolbar.
+
 2004-02-03  Radek Doulik  <rodo@ximian.com>
 
 	* paragraph.c (fill_sample): don't include </div> in translateable
