@@ -1,5 +1,8 @@
 2000-06-26  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine-edit-fontstyle.c
+	(html_engine_update_insertion_color): test for NULL new_color
+
 	* gtkhtml.c (gtk_html_set_paragraph_alignment): renamed
 	(gtk_html_get_paragraph_alignment): new wrapper function
 	(gtk_html_get_paragraph_style): likewise

@@ -852,7 +852,7 @@ html_engine_update_insertion_color (HTMLEngine *engine)
 
 	new_color = html_engine_get_document_color (engine);
 
-	if (!gdk_color_equal (new_color, &engine->insertion_color)) {
+	if (new_color && !gdk_color_equal (new_color, &engine->insertion_color)) {
 		engine->insertion_color = *new_color;
 		return TRUE;
 	}
