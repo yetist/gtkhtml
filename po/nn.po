@@ -661,14 +661,13 @@ msgstr "_Preformater"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
 msgid "_Redo"
-msgstr "_Gjer om"
+msgstr "Gje_r om"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
 msgid "_Replace..."
 msgstr "_Erstatt ..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
-#, fuzzy
 msgid "_Right"
 msgstr "Høg_re"
 
@@ -786,7 +785,7 @@ msgstr "Kantlinje:"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:7
 #: components/html-editor/image.c:203
 msgid "Bottom"
-msgstr "Botn"
+msgstr "Nederst"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:8
 #: components/html-editor/popup.c:203
@@ -936,7 +935,7 @@ msgstr "Sett inn tabell"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:47
 #: components/html-editor/image.c:201
 msgid "Top"
-msgstr "Topp"
+msgstr "Øverst"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:48
 msgid "Vertical:"
