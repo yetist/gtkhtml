@@ -368,14 +368,18 @@ split_and_add_empty_texts (HTMLEngine *e, gint level, GList **left, GList **righ
 {
 	HTMLObject *object = NULL;
 
-	if (e->cursor->offset == 0 || (html_object_get_length (e->cursor->object) == e->cursor->offset)) {
+	if ((e->cursor->offset == 0 || (html_object_get_length (e->cursor->object) == e->cursor->offset))) {
+		//    && !(html_object_is_text (e->cursor->object) && *HTML_TEXT (e->cursor->object)->text == 0)) {
 		HTMLObject *leaf;
+		gboolean prev;
 
-		leaf = e->cursor->offset == 0
+		prev = html_object_get_length (e->cursor->object) != e->cursor->offset;
+
+		leaf = prev
 		? html_object_prev_leaf_not_type (e->cursor->object, HTML_TYPE_TEXTSLAVE)
 		: html_object_next_leaf_not_type (e->cursor->object, HTML_TYPE_TEXTSLAVE);
 		if (leaf) {
-			if (e->cursor->offset == 0)
+			if (prev)
 				object = split_between_objects (e->cursor->object, leaf, right, left, &level);
 			else
 				object = split_between_objects (e->cursor->object, leaf, left, right, &level);
