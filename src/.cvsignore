@@ -4,6 +4,7 @@ Makefile.in
 .libs
 gtkhtml
 testgtkhtml
+gtest
 html-component
 *.lo
 *.la
