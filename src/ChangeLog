@@ -1,3 +1,10 @@
+2000-12-12  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltable.c (draw): use pixel size for cell content panel
+	(calc_column_width_template): take care for cspan
+	(calc_column_width_step): likewise, calc exactly
+	(divide_into_percented): calc exactly
+
 2000-12-12  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlclueflow.c (draw): fix list item marker position tweak and
