@@ -53,6 +53,8 @@ html_style_new (void)
 {
 	HTMLStyle *style = g_new0 (HTMLStyle, 1);
 
+	style->display = DISPLAY_NONE;
+
 	style->color = NULL;
 	style->mask = 0;
 	style->settings = 0;
@@ -180,6 +182,17 @@ html_style_add_background_color (HTMLStyle *style, GdkColor *color)
 		style = html_style_new ();
 
 	style->bg_color = gdk_color_copy (color);
+
+	return style;
+}
+
+HTMLStyle *
+html_style_set_display (HTMLStyle *style, HTMLDisplayType display)
+{
+	if (!style)
+		style = html_style_new ();
+
+	style->display = display;
 
 	return style;
 }

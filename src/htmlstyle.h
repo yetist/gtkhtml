@@ -25,6 +25,27 @@
 #include "htmltypes.h"
 #include "htmlcolor.h"
 
+typedef enum {
+	DISPLAY_NONE,
+	DISPLAY_INLINE,
+	DISPLAY_LIST_ITEM,
+	DISPLAY_BLOCK,
+	DISPLAY_MARKER,
+	DISPLAY_RUN_IN,
+	DISPLAY_COMPACT,
+	DISPLAY_TABLE_ROW_GROUP,
+	DISPLAY_TABLE_COLUMN,
+	DISPLAY_TABLE_COLUMN_GROUP,
+	DISPLAY_TABLE_HEADER_GROUP,
+	DISPLAY_TABLE_FOOTER_GROUP,
+	DISPLAY_TABLE_ROW,
+	DISPLAY_TABLE_CELL,
+        DISPLAY_TABLE_CAPTION,
+	DISPLAY_INLINE_TABLE,
+	DISPLAY_TABLE,
+	DISPLAY_DOCUMENT
+} HTMLDisplayType;
+
 typedef struct _HTMLStyle HTMLStyle;
 struct _HTMLStyle {
 	HTMLColor          *color;
@@ -41,14 +62,15 @@ struct _HTMLStyle {
 	/* bg settings */
 	char     *bg_image;
 	GdkColor *bg_color;
+	HTMLDisplayType display;
 };	
-
 
 HTMLStyle *html_style_new                  (void);
 HTMLStyle *html_style_unset_decoration     (HTMLStyle *style, GtkHTMLFontStyle decoration);
 HTMLStyle *html_style_set_decoration       (HTMLStyle *style, GtkHTMLFontStyle decoration);
 HTMLStyle *html_style_set_font_size        (HTMLStyle *style, GtkHTMLFontStyle decoration);
 HTMLStyle *html_style_set_size             (HTMLStyle *style, GtkHTMLFontStyle size);
+HTMLStyle *html_style_set_display          (HTMLStyle *style, HTMLDisplayType display);
 HTMLStyle *html_style_add_text_align       (HTMLStyle *style, HTMLHAlignType type);
 HTMLStyle *html_style_add_text_valign       (HTMLStyle *style, HTMLVAlignType type);
 HTMLStyle *html_style_add_font_face        (HTMLStyle *style, const HTMLFontFace *face);

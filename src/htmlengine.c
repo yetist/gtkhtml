@@ -216,33 +216,11 @@ static guint signals [LAST_SIGNAL] = { 0 };
 
 #define ID_EQ(x,y) (x == g_quark_from_string (y))
 
-typedef enum {
-	DISPLAY_INLINE,
-	DISPLAY_LIST_ITEM,
-	DISPLAY_BLOCK,
-	DISPLAY_MARKER,
-	DISPLAY_NONE,
-	DISPLAY_RUN_IN,
-	DISPLAY_COMPACT,
-	DISPLAY_INLINE_TABLE,
-	DISPLAY_TABLE_ROW_GROUP,
-	DISPLAY_TABLE_COLUMN,
-	DISPLAY_TABLE_COLUMN_GROUP,
-	DISPLAY_TABLE_HEADER_GROUP,
-	DISPLAY_TABLE_FOOTER_GROUP,
-	DISPLAY_TABLE_ROW,
-	DISPLAY_TABLE_CELL,
-        DISPLAY_TABLE_CAPTION,
-	DISPLAY_TABLE
-} HTMLDisplayType;
 
 
 /*
  *  Font handling.
  */
-
-
-
 
 /* Font styles */
 typedef struct _HTMLElement HTMLElement;
@@ -250,7 +228,6 @@ typedef void (*BlockFunc)(HTMLEngine *e, HTMLObject *clue, HTMLElement *el);
 struct _HTMLElement {
 	GQuark          id;
 	HTMLStyle      *style;
-	HTMLDisplayType  display;
 
 	GHashTable     *attributes;  /* the parsed attributes */
 
@@ -408,7 +385,7 @@ push_element (HTMLEngine *e, char *name, char *class, HTMLStyle *style)
 	HTMLElement *element = g_new0 (HTMLElement, 1);
 
 	element->id = g_quark_from_string (name);
-	element->style = style;
+	element->style = html_style_set_display (style, DISPLAY_INLINE);
 	html_stack_push (e->span_stack, element);
 }
 
@@ -457,7 +434,7 @@ current_color (HTMLEngine *e) {
 	for (item = e->span_stack->list; item; item = item->next) {
 		span = item->data;
 		
-		if (ID_EQ (span->id,ID_TH) || ID_EQ (span->id, ID_TD))
+		if (span->style->display >= DISPLAY_TABLE_CELL)
 			break;
 
 		if (span->style && span->style->color)
@@ -479,10 +456,10 @@ current_row_bg_color (HTMLEngine *e)
 		
 	for (item = e->span_stack->list; item; item = item->next) {
 		span = item->data;
-		if (ID_EQ (span->id, ID_TR) && span->style)
+		if (span->style->display == DISPLAY_TABLE_ROW)
 			return span->style->bg_color;
 
-		if (ID_EQ (span->id, ID_TABLE))
+		if (span->style->display == DISPLAY_TABLE)
 			break;
 	}
 
@@ -497,10 +474,10 @@ current_row_bg_image (HTMLEngine *e)
 		
 	for (item = e->span_stack->list; item; item = item->next) {
 		span = item->data;
-		if (ID_EQ (span->id, ID_TR) && span->style)
+		if (span->style->display == DISPLAY_TABLE_ROW)
 			return span->style->bg_image;
 
-		if (ID_EQ (span->id, ID_TABLE))
+		if (span->style->display == DISPLAY_TABLE)
 			break;
 	}
 
@@ -521,24 +498,24 @@ current_row_valign (HTMLEngine *e)
 
 	for (item = e->span_stack->list; item; item = item->next) {
 		span = item->data;
-		if (ID_EQ (span->id, ID_TR)) {
+		if (span->style->display == DISPLAY_TABLE_ROW) {
 			DT(g_warning ("found row");)
 
-			if (span->style)
-				rv = span->style->text_valign;
+			rv = span->style->text_valign;
 
 			break;
 		}
 
-		if (ID_EQ (span->id,ID_TABLE)) {
+		if (span->style->display == DISPLAY_TABLE) {
 			DT(g_warning ("found table before row");)
-			//break;
+			break;
 		}
 	}
 
+	DT(
 	if (ID_EQ (span->id, ID_TR))
 		DT(g_warning ("no row");)
-
+	);
 
 	return rv;
 }
@@ -557,7 +534,7 @@ current_row_align (HTMLEngine *e)
 
 	for (item = e->span_stack->list; item; item = item->next) {
 		span = item->data;
-		if (ID_EQ (span->id, ID_TR)) {
+		if (span->style->display == DISPLAY_TABLE_ROW) {
 			DT(g_warning ("found row");)
 
 			if (span->style)
@@ -566,7 +543,7 @@ current_row_align (HTMLEngine *e)
 			break;
 		}
 
-		if (ID_EQ (span->id, ID_TABLE)) {
+		if (span->style->display == DISPLAY_TABLE) {
 			DT(g_warning ("found table before row");)
 			break;
 		}
@@ -625,7 +602,7 @@ current_alignment (HTMLEngine *e)
 		if (span->style && (span->style->text_align != HTML_HALIGN_NONE))
 			return span->style->text_align;
 		
-		if (span->level > 2)
+		if (span->style->display > DISPLAY_BLOCK)
 			break;
 	}
 	return HTML_HALIGN_NONE;
@@ -941,23 +918,22 @@ static void
 push_block_element (HTMLEngine *e,
 		    char *name,
 		    HTMLStyle *style,
-		    gint level,
+		    HTMLDisplayType level,
 		    BlockFunc exitFunc,
 		    gint miscData1,
 		    gint miscData2)
 {
 	HTMLElement *element = g_new0 (HTMLElement, 1);
 	
-	pop_element (e, ID_P);
-
 	element->id = g_quark_from_string (name);
-	element->style = style;
-	element->display = DISPLAY_BLOCK;
-	element->level = level;
+	element->style = html_style_set_display (style, level);
 	element->exitFunc = exitFunc;
 	element->miscData1 = miscData1;
 	element->miscData2 = miscData2;
 
+	if (element->style->display == DISPLAY_BLOCK)
+		pop_element (e, ID_P);
+	
 	html_stack_push (e->span_stack, element);
 }
 
@@ -1006,15 +982,13 @@ pop_block (HTMLEngine *e, HTMLElement *elem)
 {
 	GList *l = e->span_stack->list;
 
-	g_return_if_fail (elem->display == DISPLAY_BLOCK);
-	
 	while (l) {
 		HTMLElement *cur = l->data;
 
 		if (cur == elem) {
 			l = remove_element (e, l);
 			return;
-		} else if (cur->display == DISPLAY_BLOCK || elem->level > 2) {
+		} else if (cur->style->display != DISPLAY_INLINE || elem->style->display > DISPLAY_BLOCK) {
 			l = remove_element (e, l);
 		} else {
 			l = l->next;
@@ -1030,7 +1004,7 @@ pop_inline (HTMLEngine *e, HTMLElement *elem)
 	while (l) {
 		HTMLElement *cur = l->data;
 
-		if (cur->level > 2)
+		if (cur->level > DISPLAY_BLOCK)
 			break;
 
 		if (cur == elem) {
@@ -1059,28 +1033,20 @@ pop_element (HTMLEngine *e, char *name)
 		if (elem->id == id)
 			break;
 
-		maxLevel = MAX (maxLevel, elem->level);
+		maxLevel = MAX (maxLevel, elem->style->display);
 		l = l->next;
 	}
 
 	if (l == NULL)
 		return;
 
-	switch (elem->display) {
-	case DISPLAY_BLOCK:
-		if (maxLevel > elem->level)
+	if (elem->style->display == DISPLAY_INLINE) {
+		pop_inline (e, elem);
+	} else {
+		if (maxLevel > elem->style->display)
 			return;
 	
 		pop_block (e, elem);
-		break;
-	case DISPLAY_INLINE:
-		pop_inline (e, elem);
-		break;
-	case DISPLAY_TABLE_CELL:
-		pop_cell (e, elem);
-	default:
-		pop_inline (e, elem);
-		break;
 	}
 }
 
@@ -1211,7 +1177,7 @@ element_parse_title (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	e->inTitle = TRUE;
 	e->title = g_string_new ("");
 	
-	push_block (e, "title", 0, block_end_title, 0, 0);
+	push_block (e, "title", DISPLAY_NONE, block_end_title, 0, 0);
 }
 
 static gchar *
@@ -1593,7 +1559,7 @@ element_parse_frameset (HTMLEngine *e, HTMLObject *clue, const gchar *attr)
 	g_free (rows);
 	g_free (cols);
 
-	push_block (e, "frameset", 0, block_end_frameset, 0, 0);
+	push_block (e, "frameset", DISPLAY_NONE, block_end_frameset, 0, 0);
 }
 
 static void
@@ -1795,7 +1761,7 @@ element_parse_address (HTMLEngine *e, HTMLObject *clue, const char *str)
 	HTMLStyle *style = NULL;
 	
 	style = html_style_set_decoration (style, GTK_HTML_FONT_STYLE_ITALIC);
-	push_block_element (e, ID_ADDRESS, style, 1, block_end_clueflow_style, 0, 0);
+	push_block_element (e, ID_ADDRESS, style, DISPLAY_BLOCK, block_end_clueflow_style, 0, 0);
 	
 	push_clueflow_style (e, HTML_CLUEFLOW_STYLE_ADDRESS);
 	close_flow (e, clue);
@@ -1814,7 +1780,7 @@ block_end_pre (HTMLEngine *e, HTMLObject *_clue, HTMLElement *elem)
 static void
 element_parse_pre (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	push_block (e, ID_PRE, 1, block_end_pre, 0, 0);
+	push_block (e, ID_PRE, DISPLAY_BLOCK, block_end_pre, 0, 0);
 
 	push_clueflow_style (e, HTML_CLUEFLOW_STYLE_PRE);
 	close_flow (e, clue);
@@ -1829,7 +1795,7 @@ element_parse_center (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	HTMLStyle *style = NULL;
 	
 	style = html_style_add_text_align (style, HTML_HALIGN_CENTER);
-	push_block_element (e, ID_CENTER, style, 1, block_end_div, 0, FALSE);
+	push_block_element (e, ID_CENTER, style, DISPLAY_BLOCK, block_end_div, 0, FALSE);
 	
 	update_flow_align (e, clue);
 }
@@ -1860,7 +1826,7 @@ element_parse_blockquote (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	}
 	
 	html_stack_push (e->listStack, html_list_new (type));
-	push_block (e, ID_BLOCKQUOTE, 1, block_end_blockquote, FALSE, FALSE);
+	push_block (e, ID_BLOCKQUOTE, DISPLAY_BLOCK, block_end_blockquote, FALSE, FALSE);
 	e->avoid_para = TRUE;
 	close_flow (e, clue);
 }
@@ -1878,7 +1844,7 @@ element_parse_div (HTMLEngine *e, HTMLObject *clue, const char *str)
 		}
 	}
 	
-	push_block_element (e, ID_DIV, style, 1, block_end_div, 0, 0);
+	push_block_element (e, ID_DIV, style, DISPLAY_BLOCK, block_end_div, 0, 0);
 	update_flow_align (e, clue);
 }
 
@@ -1900,7 +1866,7 @@ element_parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			}
 		}
 		
-		push_block_element (e, ID_P, style, 1, block_end_p, 0, 0);
+		push_block_element (e, ID_P, style, DISPLAY_BLOCK, block_end_p, 0, 0);
 		if (!e->avoid_para) {	
 			new_flow (e, clue, NULL, HTML_CLEAR_NONE);
 			new_flow (e, clue, NULL, HTML_CLEAR_NONE);
@@ -2247,7 +2213,7 @@ element_parse_form (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	g_free(action);
 	g_free(target);
 	
-	push_block (e, ID_FORM, 1, block_end_form, TRUE, 0);
+	push_block (e, ID_FORM, DISPLAY_BLOCK, block_end_form, TRUE, 0);
 }
 
 static void
@@ -2408,7 +2374,7 @@ element_parse_heading (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	/* FIXME this is temporary until the paring can be moved.*/
 	{
 		char *name = parse_element_name (str);
-		push_block_element (e, name, style, 1, block_end_heading, 0, 0);
+		push_block_element (e, name, style, DISPLAY_BLOCK, block_end_heading, 0, 0);
 		g_free (name);
 	}
 	push_clueflow_style (e, fstyle);	
@@ -2533,28 +2499,6 @@ element_parse_img (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	}
 }
 
-static void
-element_parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
-{
-	
-	HTMLStyle *style = NULL;
-	gchar *token = 0; 
-	gchar *id;
-	
-	style = html_style_set_decoration (style, GTK_HTML_FONT_STYLE_ITALIC);
-	
-	html_string_tokenizer_tokenize (e->st, str + 1, " >");
-	while (html_string_tokenizer_has_more_tokens (e->st)) {
-		token = html_string_tokenizer_next_token (e->st);
-		if (strncasecmp (token, "style=", 6) == 0) {
-			style = html_style_add_attribute (style, token + 6);
-		} else if (strncasecmp (token, "id=", 3) == 0) {
-			id = token + 3;
-		}
-	}
-	push_element (e, ID_I, NULL, style);
-}
-
 
 static void
 element_parse_meta (HTMLEngine *e, HTMLObject *clue, const gchar *str)
@@ -2608,7 +2552,7 @@ element_parse_map (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		}
 	}
 	/* FIXME map nesting */
-	push_block (e, ID_MAP, 0, block_end_map, FALSE, FALSE);
+	push_block (e, ID_MAP, DISPLAY_NONE, block_end_map, FALSE, FALSE);
 }
 
 
@@ -2681,7 +2625,7 @@ element_parse_li (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	
 	html_clue_append (HTML_CLUE (clue), e->flow);
 	e->avoid_para = TRUE;
-	push_block (e, ID_LI, 1, block_end_item, FALSE, FALSE);
+	push_block (e, ID_LI, DISPLAY_BLOCK, block_end_item, FALSE, FALSE);
 }
 
 
@@ -2705,7 +2649,7 @@ element_parse_ol (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	finish_flow (e, clue);
 
 	/* FIXME */
-	push_block (e, ID_OL, 1, block_end_list, FALSE, FALSE);
+	push_block (e, ID_OL, DISPLAY_BLOCK, block_end_list, FALSE, FALSE);
 	
 	html_string_tokenizer_tokenize( e->st, str + 3, " >" );
 	
@@ -2727,7 +2671,7 @@ element_parse_ul (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	pop_element (e, ID_LI);
 	finish_flow (e, clue);
 	
-	push_block (e, ID_UL, 1, block_end_list, FALSE, FALSE);
+	push_block (e, ID_UL, DISPLAY_BLOCK, block_end_list, FALSE, FALSE);
 	
 	html_string_tokenizer_tokenize (e->st, str + 3, " >");
 	while (html_string_tokenizer_has_more_tokens (e->st))
@@ -2755,7 +2699,7 @@ element_parse_dd (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	
 	close_flow (e, clue);
 	
-	push_block (e, ID_DD, 1, block_end_glossary, FALSE, FALSE);
+	push_block (e, ID_DD, DISPLAY_BLOCK, block_end_glossary, FALSE, FALSE);
 	html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_GLOSSARY_DD));
 }
 
@@ -2768,7 +2712,7 @@ element_parse_dt (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	close_flow (e, clue);
 	
 	/* FIXME this should set the item flag */
-	push_block (e, ID_DT, 1, block_end_item, FALSE, FALSE);		
+	push_block (e, ID_DT, DISPLAY_BLOCK, block_end_item, FALSE, FALSE);		
 }
 
 static void
@@ -2776,7 +2720,7 @@ element_parse_dl (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	close_flow (e, clue);
 	
-	push_block (e, ID_DL, 1, block_end_list, FALSE, FALSE);
+	push_block (e, ID_DL, DISPLAY_BLOCK, block_end_list, FALSE, FALSE);
 	html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_GLOSSARY_DL));
 }
 
@@ -2786,7 +2730,7 @@ element_parse_dir (HTMLEngine *e, HTMLObject *clue, const char *str)
 	pop_element (e, ID_LI);
 	finish_flow (e, clue);
 	
-	push_block (e, ID_DIR, 1, block_end_list, FALSE, FALSE);
+	push_block (e, ID_DIR, DISPLAY_BLOCK, block_end_list, FALSE, FALSE);
 	html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_DIR));
 	
 	/* FIXME shouldn't it create a new flow? */
@@ -2824,7 +2768,7 @@ element_parse_option (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	e->inOption = TRUE;
 	g_string_assign (e->formText, "");
 	
-	push_block (e, ID_OPTION, 0, block_end_option, FALSE, FALSE);
+	push_block (e, ID_OPTION, DISPLAY_NONE, block_end_option, FALSE, FALSE);
 }
 
 static void
@@ -2856,7 +2800,7 @@ element_parse_select (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	append_element (e, clue, HTML_OBJECT (e->formSelect));
 	
 	g_free(name);
-	push_block (e, ID_SELECT, 0, block_end_select, FALSE, FALSE);
+	push_block (e, ID_SELECT, DISPLAY_NONE, block_end_select, FALSE, FALSE);
 }
 
 /* table parsing logic */
@@ -2915,10 +2859,10 @@ close_current_table (HTMLEngine *e)
 		span = item->data;
 		
 		DT(printf ("%d:", span->id);)
-		if (ID_EQ (span->id, ID_TABLE))
+		if (span->style->display == DISPLAY_TABLE)
 			break;
 
-		if (ID_EQ (span->id, ID_TH) || ID_EQ (span->id, ID_TD)) {
+		if (span->style->display == DISPLAY_TABLE_CELL) {
 			DT(printf ("found cell\n");)
 			return;
 		}
@@ -2998,7 +2942,7 @@ element_parse_table (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	}
 	
 	html_stack_push (e->table_stack, table);
-	push_block_element (e, ID_TABLE, style, 6, block_end_table, align, current_alignment (e));
+	push_block_element (e, ID_TABLE, style, DISPLAY_TABLE, block_end_table, align, current_alignment (e));
 	
 	e->avoid_para = FALSE;
 }
@@ -3028,18 +2972,18 @@ block_ensure_row (HTMLEngine *e)
 		span = item->data;
 
 		DT(printf ("%d:", span->id);)
-		if (ID_EQ (span->id, ID_TR)) {
+		if (span->style->display == DISPLAY_TABLE_ROW) {
 			DT(printf ("no ensure row\n");)
 			return;
 		}
 
-		if (ID_EQ (span->id, ID_TABLE))
+		if (span->style->display == DISPLAY_TABLE)
 			break;
 		    
 	}
 	
 	html_table_start_row (table);
-	push_block_element (e, ID_TR, NULL, 3, block_end_row, 0, 0);
+	push_block_element (e, ID_TR, NULL, DISPLAY_TABLE_ROW, block_end_row, 0, 0);
 }
 
 static void
@@ -3082,7 +3026,7 @@ element_parse_tr (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	}
 	
 	html_table_start_row (table);
-	push_block_element (e, ID_TR, style, 3, block_end_row, 0, 0);
+	push_block_element (e, ID_TR, style, DISPLAY_TABLE_ROW, block_end_row, 0, 0);
 }
 
 static void
@@ -3117,7 +3061,7 @@ element_parse_caption (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	style = html_style_add_text_align (style, HTML_HALIGN_CENTER);
 	
 	push_clue (e, HTML_OBJECT (caption));
-	push_block_element (e, ID_CAPTION, style, 3, block_end_cell, 0, 0);
+	push_block_element (e, ID_CAPTION, style, DISPLAY_TABLE_CAPTION, block_end_cell, 0, 0);
 	
 	table->caption = caption;
 	//FIXME caption alignment should be based on the flow.... or something.... 
@@ -3264,8 +3208,7 @@ element_parse_td (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	block_ensure_row (e);
 	html_table_add_cell (table, cell);
 	push_clue (e, HTML_OBJECT (cell));
-	push_block_element (e, ID_TD, style, 3, block_end_cell, 0, 0);
-	//((HTMLElement *)html_stack_top (e->span_stack))->display = DISPLAY_TABLE_CELL;
+	push_block_element (e, ID_TD, style, DISPLAY_TABLE_CELL, block_end_cell, 0, 0);
 }
 
 static void
@@ -3410,8 +3353,7 @@ element_parse_th (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	block_ensure_row (e);
 	html_table_add_cell (table, cell);
 	push_clue (e, HTML_OBJECT (cell));
-	push_block_element (e, ID_TH, style, 3, block_end_cell, 0, 0);
-	//((HTMLElement *)html_stack_top (e->span_stack))->display = DISPLAY_TABLE_CELL;
+	push_block_element (e, ID_TH, style, DISPLAY_TABLE_CELL, block_end_cell, 0, 0);
 }
 
 static void
@@ -3445,7 +3387,7 @@ element_parse_textarea (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	e->inTextArea = TRUE;
 	
 	g_free(name);
-	push_block (e, ID_TEXTAREA, 3, block_end_textarea, 0, 0);
+	push_block (e, ID_TEXTAREA, DISPLAY_BLOCK, block_end_textarea, 0, 0);
 }
 
 /* inline elements */
@@ -3532,6 +3474,28 @@ static void
 element_parse_var (HTMLEngine *e, HTMLObject * _clue, const char *str )
 {
 	push_element (e, ID_VAR, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_FIXED));
+}
+
+static void
+element_parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
+{
+	
+	HTMLStyle *style = NULL;
+	gchar *token = 0; 
+	gchar *id;
+	
+	style = html_style_set_decoration (style, GTK_HTML_FONT_STYLE_ITALIC);
+	
+	html_string_tokenizer_tokenize (e->st, str + 1, " >");
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
+		token = html_string_tokenizer_next_token (e->st);
+		if (strncasecmp (token, "style=", 6) == 0) {
+			style = html_style_add_attribute (style, token + 6);
+		} else if (strncasecmp (token, "id=", 3) == 0) {
+			id = token + 3;
+		}
+	}
+	push_element (e, ID_I, NULL, style);
 }
 
 static void
@@ -3633,7 +3597,7 @@ element_parse_test (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 		append_element (e, clue, HTML_OBJECT (cell));
 		push_clue (e, HTML_OBJECT (cell));
-		push_block (e, ID_TEST, 3, block_end_test, 0, 0);
+		push_block (e, ID_TEST, DISPLAY_BLOCK, block_end_test, 0, 0);
 	}
 }
 #endif /* TESTING */		
@@ -4454,7 +4418,7 @@ html_engine_begin (HTMLEngine *e, char *content_type)
 	g_slist_free (e->cursor_position_stack);
 	e->cursor_position_stack = NULL;
 
-	push_block_element (e, ID_DOCUMENT, NULL, 10, NULL, 0, 0);
+	push_block_element (e, ID_DOCUMENT, NULL, DISPLAY_DOCUMENT, NULL, 0, 0);
 
 	return new_stream;
 }

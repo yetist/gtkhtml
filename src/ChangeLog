@@ -1,3 +1,14 @@
+2003-09-04  Larry Ewing  <lewing@ximian.com>
+
+	* htmlstyle.c: add html_style_set_display.
+	
+	* htmlstyle.h: add html_style_set_display prototype and
+	HTMLDisplayType enum.
+	
+	* htmlengine.c: add style display type and move from using the id
+	to using the display type for document fixups and style lookups.
+	Remove the level setting as well and only use the display style.
+
 2003-09-03  Dan Winship  <danw@ximian.com>
 
 	* Makefile.am (testgtkhtml_LDFLAGS): Remove -static again
