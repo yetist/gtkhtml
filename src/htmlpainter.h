@@ -269,6 +269,10 @@ guint             html_painter_get_page_height                         (HTMLPain
 								        HTMLEngine        *e);
 void              html_painter_set_focus                               (HTMLPainter       *painter,
 									gboolean           focus);
+gchar *           html_painter_translate_text                          (const gchar       *text,
+									gint               len,
+									gint              *line_offset,
+									gint              *bytes);
 
 #define HTML_BLOCK_INDENT   "        "
 #define HTML_BLOCK_CITE     "> "
