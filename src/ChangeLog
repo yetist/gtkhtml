@@ -1,3 +1,8 @@
+2002-07-29  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (html_engine_focus): make sure embedded object
+	widget is non NULL
+
 2002-07-26  Radek Doulik  <rodo@ximian.com>
 
 	* htmlobject.c (handle_object_data): don't clear class data here
