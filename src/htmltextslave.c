@@ -440,7 +440,7 @@ hts_fit_line (HTMLObject *o, HTMLPainter *painter,
 	HTMLTextSlave *slave = HTML_TEXT_SLAVE (o);
 	gint lbw, w, lbo, ltw, lwl, offset;
 	gint ii, io, line_offset;
-	gchar *s;
+	gchar *s, *lbsp;
 	HTMLFitType rv = HTML_FIT_NONE;
 	HTMLTextPangoInfo *pi = html_text_get_pango_info (slave->owner, painter);
 	gboolean force_fit = lineBegin;
@@ -469,7 +469,7 @@ hts_fit_line (HTMLObject *o, HTMLPainter *painter,
 	ii = html_text_get_item_index (slave->owner, painter, offset, &io);
 
 	line_offset = html_text_get_line_offset (slave->owner, painter, offset);
-	s = html_text_get_text (slave->owner, offset);
+	lbsp = s = html_text_get_text (slave->owner, offset);
 
 	while ((force_fit || widthLeft > lbw) && offset < slave->posStart + slave->posLen) {
 		if (offset > slave->posStart && pi->entries [ii].attrs [io].is_line_break) {
@@ -494,6 +494,7 @@ hts_fit_line (HTMLObject *o, HTMLPainter *painter,
 				lwl = new_lwl;
 				lbw = aw;
 				lbo = offset;
+				lbsp = s;
 				if (force_fit && lbw >= widthLeft)
 					break;
 				force_fit = FALSE;
@@ -533,7 +534,7 @@ hts_fit_line (HTMLObject *o, HTMLPainter *painter,
 		if (slave->posLen)
 			o->width = w;
 	} else if (lbo > slave->posStart) {
-		split (slave, lbo - slave->posStart, NULL);
+		split (slave, lbo - slave->posStart, lbsp);
 		rv = HTML_FIT_PARTIAL;
 		o->width = lbw;
 		slave->posLen -= lwl;

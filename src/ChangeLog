@@ -6,6 +6,7 @@
 	conditions
 	(get_offset_for_pointer): extracted calc_offset function, handle
 	slave->posLen < 2 as special case
+	(hts_fit_line): pass start_pointer to split, hinted by Larry
 
 2003-07-24  Larry Ewing  <lewing@ximian.com>
 
