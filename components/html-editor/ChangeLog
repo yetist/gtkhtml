@@ -1,5 +1,8 @@
 2001-10-09  Larry Ewing  <lewing@ximian.com>
 
+	* html-stream-mem.c (html_stream_mem_write): remove debugging code
+	that slipped in.
+
 	* editor-control-factory.c (editor_control_init): make the
 	intialized test here rather than up a level.
 	make editor_api static.
