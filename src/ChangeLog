@@ -1,3 +1,10 @@
+2002-04-24  Radek Doulik  <rodo@ximian.com>
+
+	* htmlgdkpainter.c (calc_text_width_bytes): don't assume fixed
+	style characters are monospaced - this is not true with fontsets,
+	fixes Ximian #23829
+	(calc_text_width): likewise
+
 2002-04-23  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml-propmanager.c: and keymap option menu logic.
