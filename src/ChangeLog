@@ -1,3 +1,10 @@
+2000-01-30  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine.c (check_prev): Take account for the color too.
+	(insert_text): Updated accordingly.
+	(parse_b): Use `e->settings->vLinkColor' for vlink colors, instead of
+	`e->settings->linkColor'.
+
 2000-01-29  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmldrawqueue.c (clear_element_new_with_background): Use the

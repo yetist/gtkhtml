@@ -330,7 +330,8 @@ append_element (HTMLEngine *e,
 static gboolean
 check_prev (const HTMLObject *p,
 	    HTMLType type,
-	    HTMLFontStyle font_style)
+	    HTMLFontStyle font_style,
+	    const GdkColor *color)
 {
 	if (p == NULL)
 		return FALSE;
@@ -339,6 +340,9 @@ check_prev (const HTMLObject *p,
 		return FALSE;
 
 	if (HTML_TEXT (p)->font_style != font_style)
+		return FALSE;
+
+	if (! gdk_color_equal (&HTML_TEXT (p)->color, color))
 		return FALSE;
 
 	return TRUE;
@@ -375,7 +379,7 @@ insert_text (HTMLEngine *e,
 	else
 		type = HTML_TYPE_TEXT;
 
-	if (! check_prev (prev, type, font_style)) {
+	if (! check_prev (prev, type, font_style, color)) {
 		HTMLObject *obj;
 
 		if (e->url != NULL || e->target != NULL)
@@ -1487,7 +1491,7 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				parse_color (token + 5, &e->settings->linkColor);
 			} else if ( strncasecmp( token, "vlink=", 6 ) == 0
 				    && !e->defaultSettings->forceDefault ) {
-				parse_color (token + 6, &e->settings->linkColor);
+				parse_color (token + 6, &e->settings->vLinkColor);
 			}
 		}
 #if 0
