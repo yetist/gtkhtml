@@ -1,3 +1,13 @@
+2000-03-22  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlclueflow.c (add_pre_padding): Also increment the `y' value
+	if we add padding.
+	(add_post_padding): Likewise.
+
+	* htmlobject.c (relayout): Subtract `ascent + descent' from the y
+	position to make the HTMLClueFlow::calc_size() code happy.  Sigh.
+	This code is so ugly.
+
 2000-03-20  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine.c (parse_m): When parsing `content=', spaces are
@@ -10,8 +20,8 @@
 
 2000-03-18  Jonas Borgström  <jonas_b@bitsmart.com>
 
-	testgtkhtml.c (url_requested): Only use redirect filters on the first file
-	requested on each page load (the main html file).
+	* testgtkhtml.c (url_requested): Only use redirect filters on the
+	first file requested on each page load (the main html file).
 
 2000-03-18  Jonas Borgström  <jonas_b@bitsmart.com>
 

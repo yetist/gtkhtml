@@ -125,28 +125,26 @@ add_pre_padding (HTMLClueFlow *flow,
 		HTMLClueFlow *prev;
 
 		prev = HTML_CLUEFLOW (prev_object);
-		if (prev->level > 0 && flow->level == 0) {
-			HTML_OBJECT (flow)->ascent += pad;
-			return;
-		}
+		if (prev->level > 0 && flow->level == 0)
+			goto add_pad;
 
 		if (flow->style == HTML_CLUEFLOW_STYLE_PRE
 		    && prev->style != HTML_CLUEFLOW_STYLE_PRE
-		    && ! is_header (prev)) {
-			HTML_OBJECT (flow)->ascent += pad;
-			return;
-		}
+		    && ! is_header (prev))
+			goto add_pad;
 
-		if (is_header (flow) && ! is_header (prev)) {
-			HTML_OBJECT (flow)->ascent += pad;
-			return;
-		}
+		if (is_header (flow) && ! is_header (prev))
+			goto add_pad;
 
 		return;
 	}
 
-	if (is_header (flow) || flow->level > 0)
-		HTML_OBJECT (flow)->ascent += pad;
+	if (! is_header (flow) && flow->level == 0)
+		return;
+
+ add_pad:
+	HTML_OBJECT (flow)->ascent += pad;
+	HTML_OBJECT (flow)->y += pad;
 }
 
 static void
@@ -163,28 +161,26 @@ add_post_padding (HTMLClueFlow *flow,
 		HTMLClueFlow *next;
 
 		next = HTML_CLUEFLOW (next_object);
-		if (next->level > 0 && flow->level == 0) {
-			HTML_OBJECT (flow)->ascent += pad;
-			return;
-		}
+		if (next->level > 0 && flow->level == 0)
+			goto add_pad;
 
 		if (flow->style == HTML_CLUEFLOW_STYLE_PRE
 		    && next->style != HTML_CLUEFLOW_STYLE_PRE
-		    && ! is_header (next)) {
-			HTML_OBJECT (flow)->ascent += pad;
-			return;
-		}
+		    && ! is_header (next))
+			goto add_pad;
 
-		if (is_header (flow)) {
-			HTML_OBJECT (flow)->ascent += pad;
-			return;
-		}
+		if (is_header (flow))
+			goto add_pad;
 
 		return;
 	}
 
-	if (is_header (flow) || flow->level > 0)
-		HTML_OBJECT (flow)->ascent += pad;
+	if (! is_header (flow) && flow->level == 0)
+		return;
+
+ add_pad:
+	HTML_OBJECT (flow)->ascent += pad;
+	HTML_OBJECT (flow)->y += pad;
 }
 
 static guint
@@ -518,7 +514,6 @@ calc_size (HTMLObject *o,
 			extra = 0;
 
 			o->ascent += a + d;
-
 			o->y += a + d;
 
 			if (w > o->width)

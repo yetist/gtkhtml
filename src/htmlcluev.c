@@ -149,6 +149,7 @@ do_layout (HTMLObject *o,
 			o->width = clue->curr->width + 2 * cluev->padding;
 
 		o->ascent += clue->curr->ascent + clue->curr->descent;
+
 		clue->curr->x = lmargin;
 		clue->curr->y = o->ascent - clue->curr->descent;
 

@@ -202,6 +202,15 @@ relayout (HTMLObject *self,
 
 	html_object_reset (self);
 
+	/* Crappy hack to make crappy htmlclueflow.c happy.  */
+	if (self->y < self->ascent + self->descent) {
+		g_warning ("htmlobject.c:relayout -- Eeek! This should not happen!  "
+			   "Y value < height of object!\n");
+		self->y = 0;
+	} else {
+		self->y -= self->ascent + self->descent;
+	}
+
 	changed = html_object_calc_size (self, engine->painter);
 
 	if (prev_width == self->width
