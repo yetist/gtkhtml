@@ -1,5 +1,8 @@
 2004-05-07  Radek Doulik  <rodo@ximian.com>
 
+	* htmlcolorset.c (html_colorset_set_style): use cite_color
+	property for default value or text color from style
+
 	* htmltext.c (html_text_get_pango_info): use Cite color for text
 	objects in HTML_LIST_TYPE_BLOCKQUOTE_CITE flows
 
