@@ -65,7 +65,7 @@ destroy (HTMLObject *o)
 		g_free(table->cells[r]);
 	}
 	
-	HTML_OBJECT_CLASS (&html_object_class)->destroy (o);
+	HTML_OBJECT_CLASS (parent_class)->destroy (o);
 }
 
 static void
@@ -1221,6 +1221,8 @@ html_table_class_init (HTMLTableClass *klass,
 	object_class->find_anchor = find_anchor;
 	object_class->is_container = is_container;
 	object_class->forall = forall;
+
+	parent_class = &html_object_class;
 }
 
 void

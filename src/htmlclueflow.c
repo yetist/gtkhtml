@@ -226,38 +226,38 @@ static gboolean
 should_break (HTMLObject *obj)
 {
 	/* end: last char of obj->prev, beg: beggining char of obj */
-	guchar end=0, beg=0;
-	HTMLObject *prev;
+	guchar end=' ', beg=' ';
+	HTMLObject *next;
 
 	if (!obj)
 		return TRUE;
-	prev = obj->prev;
+	next = obj->next;
 
 	/* it is on the beginning of Clue */
-	if (!prev)
-		return FALSE;
+	if (!next)
+		return TRUE;
 
 	/* skip prev Master */
-	if ((HTML_OBJECT_TYPE (prev) == HTML_TYPE_TEXTMASTER ||
-	     HTML_OBJECT_TYPE (prev) == HTML_TYPE_LINKTEXTMASTER) &&
-	    HTML_OBJECT_TYPE (obj)  == HTML_TYPE_TEXTSLAVE  &&
-	    HTML_TEXT_SLAVE (obj)->owner == HTML_TEXT_MASTER (prev)) {
-		prev = prev->prev;
-		/* it is Master->Slave on the beginning */
-		if (!prev)
-			return FALSE;
+	if ((HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTMASTER ||
+	     HTML_OBJECT_TYPE (obj) == HTML_TYPE_LINKTEXTMASTER) &&
+	    HTML_OBJECT_TYPE (next)  == HTML_TYPE_TEXTSLAVE  &&
+	    HTML_TEXT_SLAVE (next)->owner == HTML_TEXT_MASTER (obj)) {
+		next = next->next;
+		/* it is Master->Slave */
+		if (!next)
+			return TRUE;
 	}
 
 	/* get end */
-	if (HTML_OBJECT_TYPE (prev) == HTML_TYPE_TEXTSLAVE) {
+	if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE) {
 
-		HTMLTextSlave *slave = HTML_TEXT_SLAVE (prev);
+		HTMLTextSlave *slave = HTML_TEXT_SLAVE (obj);
 		end = HTML_TEXT (slave->owner)->text [slave->posStart + slave->posLen - 1];
 	} else
-		if (HTML_OBJECT_TYPE (prev) == HTML_TYPE_TEXTMASTER ||
-		    HTML_OBJECT_TYPE (prev) == HTML_TYPE_LINKTEXTMASTER) {
+		if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTMASTER ||
+		    HTML_OBJECT_TYPE (obj) == HTML_TYPE_LINKTEXTMASTER) {
 
-			HTMLText *master = HTML_TEXT (prev);
+			HTMLText *master = HTML_TEXT (obj);
 			if (master->text_len > 0)
 				end = master->text [master->text_len - 1];
 			else
@@ -266,12 +266,12 @@ should_break (HTMLObject *obj)
 		}
 
 	/* get beg */
-	if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE) {
-		HTMLTextSlave *slave = HTML_TEXT_SLAVE (obj);
+	if (HTML_OBJECT_TYPE (next) == HTML_TYPE_TEXTSLAVE) {
+		HTMLTextSlave *slave = HTML_TEXT_SLAVE (next);
 		beg = HTML_TEXT (slave->owner)->text [slave->posStart];
-	} else if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTMASTER ||
-		 HTML_OBJECT_TYPE (obj) == HTML_TYPE_LINKTEXTMASTER)
-		beg = HTML_TEXT (obj)->text [0];
+	} else if (HTML_OBJECT_TYPE (next) == HTML_TYPE_TEXTMASTER ||
+		 HTML_OBJECT_TYPE (next) == HTML_TYPE_LINKTEXTMASTER)
+		beg = HTML_TEXT (next)->text [0];
 
 	/* printf ("end: %c beg: %c ret: %d\n", end, beg, end == ' ' || beg == ' '); */
 

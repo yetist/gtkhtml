@@ -1,3 +1,45 @@
+2000-04-05  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlclueflow.c (should_break): fixed to break between text and
+	non-text objects, return if it shold break after obj instead as
+	before before object (this makes http://www.stjerneskolan.com more
+	happy, but there remains some ?table? problems)
+
+	* htmlengine.c (parse_b): reset to default border size
+
+	* htmltable.c (html_table_class_init): set parent_class
+
+2000-04-04  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlimage.c (render_cur_frame): implement
+	GDK_PIXBUF_FRAME_DISPOSE, fix: fill background rectangle first
+
+	* htmlstringtokenizer.c (html_string_tokenizer_destroy): make sure
+	that buffer exists before g_free it
+
+	* htmltextarea.c (destroy): replaced html_embedded_class with parent_class
+
+	* htmltable.c (destroy): replaced html_object_class with parent_class
+
+	* htmlselect.c (destroy): replaced html_embedded_class with parent_class
+
+	* htmlimageinput.c (destroy): replaced html_embedded_class with parent_class
+
+	* htmlembedded.c (destroy): replaced html_object_class with parent_class
+
+	* htmlelement.c (destroy): replaced html_object_class with parent_class
+
+	* htmlclue.c (destroy): replaced html_object_class with parent_class
+
+	* htmlanchor.c (destroy): added call to parent_class destroy
+
+	* htmlimage.c: don't use members of GdkPixbufAnimation directly
+	and use gdk_pixbuf functions instead, so code is cleaner now
+	(destroy): destroy animation structure, call parent_class destroy
+	(html_image_animation_destroy): new HTMLImageAnimation destructor
+	(html_image_pointer_new): new constructor
+	(html_image_pointer_destroy): new detructor
+
 2000-04-04  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlimage.c (html_image_animation_timeout): increment the
@@ -12,11 +54,6 @@
 
 	* htmlengine.c
 	(parse_h): Close the current flow before adding the object.
-
-2000-04-04  Radek Doulik  <rodo@helixcode.com>
-
-	* htmlimage.c: don't use members of GdkPixbufAnimation directly
-	and use gdk_pixbuf functions instead, so code is cleaner now
 
 2000-04-03  Ettore Perazzoli  <ettore@helixcode.com>
 

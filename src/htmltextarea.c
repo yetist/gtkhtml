@@ -37,7 +37,7 @@ destroy (HTMLObject *o)
 	if (ta->default_text)
 		g_free (ta->default_text);
 
-	HTML_OBJECT_CLASS (&html_embedded_class)->destroy (o);
+	HTML_OBJECT_CLASS (parent_class)->destroy (o);
 }
 
 static void

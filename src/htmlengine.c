@@ -1463,6 +1463,12 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		}
 
 		e->bodyParsed = TRUE;
+
+		/* reset to default border size */
+		e->leftBorder   = LEFT_BORDER;
+		e->rightBorder  = RIGHT_BORDER;
+		e->topBorder    = TOP_BORDER;
+		e->bottomBorder = BOTTOM_BORDER;
 		
 		html_string_tokenizer_tokenize (e->st, str + 5, " >");
 		while (html_string_tokenizer_has_more_tokens (e->st)) {
@@ -3005,7 +3011,7 @@ ensure_editable (HTMLEngine *engine)
 }
 
 
-static void
+void
 draw_background (HTMLEngine *e,
 		 gint xval, gint yval,
 		 gint x, gint y, gint w, gint h)

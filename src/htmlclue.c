@@ -45,7 +45,7 @@ destroy (HTMLObject *o)
 		html_object_destroy (obj);
 	}
 
-	HTML_OBJECT_CLASS (&html_object_class)->destroy (o);
+	HTML_OBJECT_CLASS (parent_class)->destroy (o);
 }
 
 static void

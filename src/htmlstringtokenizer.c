@@ -50,7 +50,8 @@ html_string_tokenizer_destroy (HTMLStringTokenizer *st)
 {
 	g_return_if_fail (st != NULL);
 
-	g_free (st->buffer);
+	if (st->buffer)
+		g_free (st->buffer);
 	g_free (st);
 }
 
@@ -107,7 +108,7 @@ html_string_tokenizer_tokenize (HTMLStringTokenizer *t,
 	*(t->end) = 0;
 	
 	if (t->end - t->buffer <= 1)
-		t->pos = 0; /* No tokens */
+		t->pos = NULL; /* No tokens */
 	else
 		t->pos = t->buffer;
 }
@@ -115,7 +116,7 @@ html_string_tokenizer_tokenize (HTMLStringTokenizer *t,
 gboolean
 html_string_tokenizer_has_more_tokens (HTMLStringTokenizer *t)
 {
-	return (t->pos != 0);
+	return (t->pos != NULL);
 }
 
 gchar *
@@ -123,13 +124,13 @@ html_string_tokenizer_next_token (HTMLStringTokenizer *t)
 {
 	gchar *ret;
 
-	if (t->pos == 0)
-		return 0;
+	if (t->pos == NULL)
+		return NULL;
 	
 	ret = t->pos;
 	t->pos += strlen (ret) + 1;
 	if (t->pos >= t->end)
-		t->pos = 0;
+		t->pos = NULL;
 	
 	return ret;
 }

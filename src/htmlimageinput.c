@@ -32,7 +32,7 @@ destroy (HTMLObject *o)
 {
 	html_object_destroy (HTML_OBJECT (HTML_IMAGEINPUT (o)->image));
 
-	HTML_OBJECT_CLASS (&html_embedded_class)->destroy (o);
+	HTML_OBJECT_CLASS (parent_class)->destroy (o);
 }
 
 static void

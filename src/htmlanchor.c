@@ -38,6 +38,8 @@ destroy (HTMLObject *object)
 	anchor = HTML_ANCHOR (object);
 
 	g_string_free (anchor->name, TRUE);
+
+	HTML_OBJECT_CLASS (parent_class)->destroy (object);
 }
 
 static void
