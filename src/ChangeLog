@@ -1,3 +1,8 @@
+2000-04-01  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine.c (parse_b): add support for marginwidth and
+	marginheight in the <BODY> tag
+
 2000-04-01  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* gtkhtml.c

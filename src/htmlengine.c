@@ -1508,6 +1508,10 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				e->topBorder = atoi (token + 10);
 			} else if ( strncasecmp( token, "bottommargin=", 13 ) == 0) {
 				e->bottomBorder = atoi (token + 13);
+			} else if ( strncasecmp( token, "marginwidth=", 12 ) == 0) {
+				e->leftBorder = e->rightBorder = atoi (token + 12);
+			} else if ( strncasecmp( token, "marginheight=", 13 ) == 0) {
+				e->topBorder = e->bottomBorder = atoi (token + 13);
 			}
 		}
 #if 0
