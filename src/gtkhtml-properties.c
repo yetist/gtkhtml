@@ -37,12 +37,12 @@ gtk_html_class_properties_new (void)
 	/* default values */
 	p->magic_links             = TRUE;
 	p->keybindings_theme       = g_strdup ("emacs");
-	p->font_var_family         = g_strdup ("helvetica");
-	p->font_fix_family         = g_strdup ("courier");
+	p->font_var         = g_strdup ("-*-helvetica-*-*-*-*-12-*-*-*-*-*-*-*");
+	p->font_fix         = g_strdup ("-*-courier-*-*-*-*-12-*-*-*-*-*-*-*");
 	p->font_var_size           = DEFAULT_FONT_SIZE;
 	p->font_fix_size           = DEFAULT_FONT_SIZE;
-	p->font_var_family_print   = g_strdup ("helvetica");
-	p->font_fix_family_print   = g_strdup ("courier");
+	p->font_var_print   = g_strdup ("-*-helvetica-*-*-*-*-12-*-*-*-*-*-*-*");
+	p->font_fix_print   = g_strdup ("-*-courier-*-*-*-*-12-*-*-*-*-*-*-*");
 	p->font_var_size_print     = DEFAULT_FONT_SIZE;
 	p->font_fix_size_print     = DEFAULT_FONT_SIZE;
 	p->animations              = TRUE;
@@ -83,16 +83,16 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p, GConfClient *client)
 	GET (bool, "/animations", animations,,);
 	GET (string, "/keybindings_theme", keybindings_theme,
 	     g_free (p->keybindings_theme), g_strdup);
-	GET (string, "/font_variable_family", font_var_family,
-	     g_free (p->font_var_family), g_strdup);
-	GET (string, "/font_fixed_family", font_fix_family,
-	     g_free (p->font_fix_family), g_strdup);
+	GET (string, "/font_variable", font_var,
+	     g_free (p->font_var), g_strdup);
+	GET (string, "/font_fixed", font_fix,
+	     g_free (p->font_fix), g_strdup);
 	GET (int, "/font_variable_size", font_var_size,,);
 	GET (int, "/font_fixed_size", font_fix_size,,);
-	GET (string, "/font_variable_family_print", font_var_family_print,
-	     g_free (p->font_var_family_print), g_strdup);
-	GET (string, "/font_fixed_family_print", font_fix_family_print,
-	     g_free (p->font_fix_family_print), g_strdup);
+	GET (string, "/font_variable_print", font_var_print,
+	     g_free (p->font_var_print), g_strdup);
+	GET (string, "/font_fixed_print", font_fix_print,
+	     g_free (p->font_fix_print), g_strdup);
 	GET (int, "/font_variable_size_print", font_var_size_print,,);
 	GET (int, "/font_fixed_size_print", font_fix_size_print,,);
 
@@ -120,18 +120,18 @@ gtk_html_class_properties_update (GtkHTMLClassProperties *p, GConfClient *client
 	if (p->magic_links != old->magic_links)
 		SET (bool, "/magic_links", magic_links);
 	SET (string, "/keybindings_theme", keybindings_theme);
-	if (strcmp (p->font_var_family, old->font_var_family))
-		SET (string, "/font_variable_family", font_var_family);
-	if (strcmp (p->font_fix_family, old->font_fix_family))
-		SET (string, "/font_fixed_family", font_fix_family);
+	if (strcmp (p->font_var, old->font_var))
+		SET (string, "/font_variable", font_var);
+	if (strcmp (p->font_fix, old->font_fix))
+		SET (string, "/font_fixed", font_fix);
 	if (p->font_var_size != old->font_var_size)
 		SET (int, "/font_variable_size", font_var_size);
 	if (p->font_fix_size != old->font_fix_size)
 		SET (int, "/font_fixed_size", font_fix_size);
-	if (strcmp (p->font_var_family_print, old->font_var_family_print))
-		SET (string, "/font_variable_family_print", font_var_family_print);
-	if (strcmp (p->font_fix_family_print, old->font_fix_family_print))
-		SET (string, "/font_fixed_family_print", font_fix_family_print);
+	if (strcmp (p->font_var_print, old->font_var_print))
+		SET (string, "/font_variable_print", font_var_print);
+	if (strcmp (p->font_fix_print, old->font_fix_print))
+		SET (string, "/font_fixed_print", font_fix_print);
 	if (p->font_var_size_print != old->font_var_size_print)
 		SET (int, "/font_variable_size_print", font_var_size_print);
 	if (p->font_fix_size_print != old->font_fix_size_print)
@@ -167,10 +167,10 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p)
 	GET  (bool, magic_links, "magic_links=true");
 	GET  (bool, animations, "animations=true");
 	GETS (keybindings_theme, "keybindings_theme=ms");
-	GETS (font_var_family, "font_variable_family=helvetica");
-	GETS (font_fix_family, "font_fixed_family=courier");
-	GETS (font_var_family_print, "font_variable_family_print=helvetica");
-	GETS (font_fix_family_print, "font_fixed_family_print=courier");
+	GETS (font_var, "font_variable=-*-helvetica-*-*-*-*-12-*-*-*-*-*-*-*");
+	GETS (font_fix, "font_fixed=-*-courier-*-*-*-*-12-*-*-*-*-*-*-*");
+	GETS (font_var_print, "font_variable_print=-*-helvetica-*-*-*-*-12-*-*-*-*-*-*-*");
+	GETS (font_fix_print, "font_fixed_print=-*-courier-*-*-*-*-12-*-*-*-*-*-*-*");
 
 	s = g_strdup_printf ("font_variable_size=%d", DEFAULT_FONT_SIZE);
 	GET  (int, font_var_size, s);
@@ -204,12 +204,12 @@ gtk_html_class_properties_save (GtkHTMLClassProperties *p)
 	gnome_config_set_bool ("magic_links", p->magic_links);
 	gnome_config_set_bool ("animations", p->animations);
 	gnome_config_set_string ("keybindings_theme", p->keybindings_theme);
-	gnome_config_set_string ("font_variable_family", p->font_var_family);
-	gnome_config_set_string ("font_fixed_family", p->font_fix_family);
+	gnome_config_set_string ("font_variable", p->font_var);
+	gnome_config_set_string ("font_fixed", p->font_fix);
 	gnome_config_set_int ("font_variable_size", p->font_var_size);
 	gnome_config_set_int ("font_fixed_size", p->font_fix_size);
-	gnome_config_set_string ("font_variable_family_print", p->font_var_family_print);
-	gnome_config_set_string ("font_fixed_family_print", p->font_fix_family_print);
+	gnome_config_set_string ("font_variable_print", p->font_var_print);
+	gnome_config_set_string ("font_fixed_print", p->font_fix_print);
 	gnome_config_set_int ("font_variable_size_print", p->font_var_size_print);
 	gnome_config_set_int ("font_fixed_size_print", p->font_fix_size_print);
 
@@ -236,12 +236,12 @@ gtk_html_class_properties_copy (GtkHTMLClassProperties *p1,
 {
 	COPY  (magic_links);
 	COPYS (keybindings_theme);
-	COPYS (font_var_family);
-	COPYS (font_fix_family);
+	COPYS (font_var);
+	COPYS (font_fix);
 	COPY  (font_var_size);
 	COPY  (font_fix_size);
-	COPYS (font_var_family_print);
-	COPYS (font_fix_family_print);
+	COPYS (font_var_print);
+	COPYS (font_fix_print);
 	COPY  (font_var_size_print);
 	COPY  (font_fix_size_print);
 

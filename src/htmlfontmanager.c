@@ -87,8 +87,8 @@ html_font_manager_init (HTMLFontManager *manager,
 			HTMLFontManagerUnrefFont unref_font)
 {
 	manager->font_sets     = g_hash_table_new (g_str_hash, g_str_equal);
-	manager->var_size      = 14;
-	manager->fix_size      = 14;
+	manager->var_size      = 12;
+	manager->fix_size      = 12;
 	manager->alloc_font    = alloc_font;
 	manager->ref_font      =   ref_font;
 	manager->unref_font    = unref_font;
@@ -205,6 +205,56 @@ get_font (HTMLFontManager *manager, HTMLFontSet **set, gchar *face, GtkHTMLFontS
 	return font;
 }
 
+static gchar *
+get_attr (gchar *font_name, gint n)
+{
+    gchar *s, *end;
+
+    /* Search paramether */
+    for (s=font_name; n; n--,s++)
+	    s = strchr (s,'-');
+
+    if (s && *s != 0) {
+	    end = strchr (s, '-');
+	    if (end)
+		    return g_strndup (s, end - s);
+	    else
+		    return g_strdup (s);
+    } else
+	    return g_strdup ("Unknown");
+}
+
+static gchar *
+get_name_from_face (HTMLFontManager *m, const gchar *face)
+{
+	gchar *enc1, *enc2, *rv;
+
+	enc1 = get_attr (m->variable.face, 12);
+	enc2 = get_attr (m->variable.face, 13);
+
+	rv = g_strdup_printf ("-*-%s-*-*-*-*-*-*-*-*-*-%s-%s", face, enc1, enc2);
+
+	g_free (enc1);
+	g_free (enc2);
+
+	return rv;
+}
+
+static gpointer
+manager_alloc_font (HTMLFontManager *manager, const gchar *face, GtkHTMLFontStyle style)
+{
+	gchar *name = strcasecmp (face, manager->variable.face)
+		&& strcasecmp (face, manager->fixed.face)
+		? get_name_from_face (manager, face)
+		: g_strdup (face);
+	gpointer font;
+
+	font = (*manager->alloc_font) (name, get_real_font_size (manager, style), style);
+	g_free (name);
+
+	return font;
+}
+
 static gpointer
 alloc_new_font (HTMLFontManager *manager, HTMLFontSet **set, gchar *face_list, GtkHTMLFontStyle style)
 {
@@ -218,7 +268,7 @@ alloc_new_font (HTMLFontManager *manager, HTMLFontSet **set, gchar *face_list, G
 			/* first try to get font from available sets */
 			font = get_font (manager, set, *face, style);
 			if (!font)
-				font = (*manager->alloc_font) (*face, get_real_font_size (manager, style), style);
+				font = manager_alloc_font (manager, *face, style);
 			if (font) {
 				if (!(*set)) {
 					*set = html_font_set_new (*face);
@@ -239,7 +289,7 @@ alloc_new_font (HTMLFontManager *manager, HTMLFontSet **set, gchar *face_list, G
 			g_hash_table_insert (manager->font_sets, g_strdup (face_list), *set);
 		}
 	} else
-		font = (*manager->alloc_font) ((*set)->face, get_real_font_size (manager, style), style);
+		font = manager_alloc_font (manager, (*set)->face, style);
 
 	if ((*set) && font)
 		html_font_set_font (manager, (*set), style, font);

@@ -1,3 +1,12 @@
+2001-01-11  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlclueflow.c (check_point): fixed case when flow indent level
+	> 0
+
+	* htmlfontmanager.c: use full font name
+
+	* gtkhtml-properties.c: read/store full font name
+
 2001-01-10  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlobject.c (html_object_get_tail_leaf): new function, moved

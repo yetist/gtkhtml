@@ -45,13 +45,13 @@
 struct _GtkHTMLClassProperties {
 	/* viewer */
 	gboolean  animations;
-	gchar    *font_var_family;
+	gchar    *font_var;
 	guint     font_var_size;
-	gchar    *font_fix_family;
+	gchar    *font_fix;
 	guint     font_fix_size;
-	gchar    *font_var_family_print;
+	gchar    *font_var_print;
 	guint     font_var_size_print;
-	gchar    *font_fix_family_print;
+	gchar    *font_fix_print;
 	guint     font_fix_size_print;
 
 	/* editor */

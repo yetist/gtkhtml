@@ -138,6 +138,27 @@ gtkhtml_private_split_name (gchar * c[], gchar * name)
 	c[i] = p;
 }
 
+static gchar *
+font_name_substitute_attr (const gchar *name, gint nth, gchar *val)
+{
+	const gchar *s;
+	gchar *s1, *s2, *rv;
+
+	for (s = name; nth; nth--) {
+		s = strchr (s, '-');
+		g_assert (s);
+		s ++;
+	}
+	s1 = g_strndup (name, s - name);
+	s2 = strchr (s, '-');
+	g_assert (s);
+
+	rv = g_strconcat (s1, val, s2, NULL);
+	g_free (s1);
+
+	return rv;
+}
+
 static gpointer
 alloc_e_font_it (gchar *face, gdouble size, GtkHTMLFontStyle style, gchar *it)
 {
@@ -146,17 +167,19 @@ alloc_e_font_it (gchar *face, gdouble size, GtkHTMLFontStyle style, gchar *it)
 
 
 	if (face) {
+		gchar *n1, *n2, *s;
 		gint tsize;
 
-		name = g_strdup_printf ("-*-%s-%s-%s-normal-*-*-*-*-*-*-*-*",
-					face, style & GTK_HTML_FONT_STYLE_BOLD ? "bold" : "medium",
-					style & GTK_HTML_FONT_STYLE_ITALIC ? it : "r");
-		if (!find_font (name, size, &tsize, style))
+		n1 = font_name_substitute_attr (face, 3, style & GTK_HTML_FONT_STYLE_BOLD ? "bold" : "medium");
+		n2 = font_name_substitute_attr (n1,   4, style & GTK_HTML_FONT_STYLE_ITALIC ? it : "r");
+
+		if (!find_font (n2, size, &tsize, style))
 			tsize = size;
-		g_free (name);
-		name = g_strdup_printf ("-*-%s-%s-%s-normal-*-%d-*-*-*-*-*-*",
-					face, style & GTK_HTML_FONT_STYLE_BOLD ? "bold" : "medium",
-					style & GTK_HTML_FONT_STYLE_ITALIC ? it : "r", tsize);
+		g_free (n1);
+		s    = g_strdup_printf ("%d", tsize);
+		name = font_name_substitute_attr (n2,   7, s);
+		g_free (n2);
+		g_free (s);
 	} else
 		name = g_strdup ("fixed");
 

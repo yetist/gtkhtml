@@ -1310,8 +1310,8 @@ set_fonts_idle (GtkHTML *html)
 
 	if (html->engine) {
 		html_font_manager_set_default (&html->engine->painter->font_manager,
-					       prop->font_var_family, prop->font_fix_family,
-					       prop->font_var_size,   prop->font_fix_size);
+					       prop->font_var,      prop->font_fix,
+					       prop->font_var_size, prop->font_fix_size);
 
 		/* tables don't resize correctly :( who knows the solution? */
 		if (html->engine->clue) {
