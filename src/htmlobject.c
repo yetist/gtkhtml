@@ -242,7 +242,24 @@ void
 html_object_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y,
 		  gint width, gint height, gint tx, gint ty)
 {
+#if 0
+	static guint level = 0;
+	guint i;
+
+	level++;
+	for (i = 0; i < level; i++)
+		putchar (' ');
+
+	printf ("Drawing %s %d %d %d %d %d %d\n",
+		html_type_name (o->klass->type),
+		x, y, width, height, tx, ty);
+#endif
+
 	(* HO_CLASS (o)->draw) (o, p, x, y, width, height, tx, ty);
+
+#if 0
+	level--;
+#endif
 }
 
 HTMLFitType

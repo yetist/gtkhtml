@@ -43,7 +43,7 @@ struct _HTMLTableCell {
 };
 
 struct _HTMLTableCellClass {
-	HTMLClueV parent;
+	HTMLClueVClass parent;
 };
 
 

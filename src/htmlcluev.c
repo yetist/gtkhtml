@@ -222,16 +222,28 @@ draw (HTMLObject *o,
 	/* print aligned objects */
 	if (y + height < o->y - o->ascent || y > o->y + o->descent)
 		return;
-	
-	/* FIXME: left aligned objects too */
 
-	for (aclue = HTML_CLUEV (o)->align_right_list; aclue != 0; aclue = cluev_next_aligned (aclue)) {
-		html_object_draw (aclue, p, 
+	tx += o->x;
+	ty += o->y - o->ascent;
+
+	for ( aclue = HTML_CLUEV (o)->align_left_list;
+	      aclue != 0;
+	      aclue = cluev_next_aligned (aclue) ) {
+		html_object_draw (aclue, p, 0, 0, 0xffff, 0xffff,
 				  tx + HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->x, 
 				  (ty + HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->y
-				   - HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->ascent),
-				  width, height, tx, ty);
+				   - HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->ascent));
 	}
+
+	for (aclue = HTML_CLUEV (o)->align_right_list;
+	     aclue != 0;
+	     aclue = cluev_next_aligned (aclue)) {
+		html_object_draw (aclue, p, 0, 0, 0xffff, 0xffff,
+				  tx + HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->x, 
+				  (ty + HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->y
+				   - HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->ascent));
+	}
+
 }
 
 

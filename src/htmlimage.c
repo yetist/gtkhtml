@@ -72,39 +72,45 @@ draw (HTMLObject *o, HTMLPainter *p,
       gint width, gint height,
       gint tx, gint ty)
 {
+	int base_x, base_y, clip_x, clip_y, clip_width, clip_height;
+
 	/* FIXME: Should be removed */
 	if (y + height < o->y - o->ascent || y > o->y + o->descent)
 		return;
 
+	/*
+	 * We need three coords, all screen-relative:
+	 * base_x/base_y
+	 * clipx/clipy
+	 * clipwidth/clipheight
+	 * 
+	 * We have three coords:
+	 * tx/ty - add this to object-relative coords to convert to screen coords
+	 * x/y - object-relative clip coordinates
+	 * width/height - clip width/height
+	 *
+	 */
+	base_x = o->x + tx + HTML_IMAGE (o)->border;
+	base_y = o->y - o->ascent + ty + HTML_IMAGE (o)->border;
+
+	clip_x = base_x + x;
+	clip_y = base_y + y;
+
+	clip_width = width;
+	clip_height = height;
+
 	if (!HTML_IMAGE (o)->image_ptr->pixbuf) {
+		static GdkColor black = { 0, 0, 0 };
+
+		/* FIXME tmp hack */
+		gdk_colormap_alloc_color (gdk_window_get_colormap (html_painter_get_window (p)),
+					  &black, FALSE, TRUE);
+
+		html_painter_set_pen (p, &black);
 		html_painter_draw_rect (p, 
-					o->x + tx, 
-					o->y - o->ascent + ty, 
+					o->x + tx, o->y + ty - o->ascent, 
 					o->width, o->ascent);
 	} else {
-		int base_x, base_y, clip_x, clip_y, clip_width, clip_height;
-
-		/*
-		 * We need three coords, all screen-relative:
-		 * base_x/base_y
-		 * clipx/clipy
-		 * clipwidth/clipheight
-		 * 
-		 * We have three coords:
-		 * tx/ty - add this to object-relative coords to convert to screen coords
-		 * x/y - object-relative clip coordinates
-		 * width/height - clip width/height
-		 *
-		 */
-		base_x = o->x + tx + HTML_IMAGE (o)->border;
-		base_y = o->y - o->ascent + ty + HTML_IMAGE (o)->border;
-
-		clip_x = base_x + x;
-		clip_y = base_y + y;
-
-		clip_width = width;
-		clip_height = height;
-
 		html_painter_draw_pixmap (p, base_x, base_y,
 					  HTML_IMAGE (o)->image_ptr->pixbuf,
 					  clip_x, clip_y,
