@@ -31,7 +31,6 @@
 
 #include "htmlcolorset.h"
 #include "htmlcursor.h"
-#include "htmldrawqueue.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-clueflowstyle.h"
 #include "htmlengine-edit-cut-and-paste.h"
@@ -1642,8 +1641,8 @@ client_notify_widget (GConfClient* client,
 	} else if (!strcmp (tkey, "/language")) {
 		g_free (prop->language);
 		prop->language = g_strdup (gconf_client_get_string (client, entry->key, NULL));
-		if (!html->engine->language)
-			gtk_html_api_set_language (html);
+		gtk_html_api_set_language (html);
+		html_engine_spell_check (html->engine);
 	}
 }
 
@@ -3475,20 +3474,6 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_GRAB_FOCUS:
 		gtk_widget_grab_focus (GTK_WIDGET (html));
 		break;
-	case GTK_HTML_COMMAND_KILL_WORD:
-	case GTK_HTML_COMMAND_KILL_WORD_BACKWARD:
-		html_engine_disable_selection (e);
-		html_engine_edit_selection_updater_schedule (e->selection_updater);
-		html_engine_set_mark (html->engine);
-		rv = com_type == GTK_HTML_COMMAND_KILL_WORD
-			? html_engine_forward_word (html->engine)
-			: html_engine_backward_word (html->engine);
-		html_engine_edit_selection_updater_update_now (e->selection_updater);
-		html_draw_queue_clear (e->draw_queue);
-		if (rv)
-			gtk_html_cut (html);
-		html_engine_disable_selection (e);
-		break;
 
 	default:
 		html->binding_handled = FALSE;
@@ -3779,16 +3764,11 @@ gtk_html_api_set_language (GtkHTML *html)
 	g_assert (GTK_IS_HTML (html));
 
 	if (html->editor_api) {
-		gchar *language;
-
 		/* printf ("set language through API to '%s'\n",
 		   GTK_HTML_CLASS (GTK_OBJECT (html)->klass)->properties->language); */
 
-		language = html->engine->language
-			? html->engine->language
-			: GTK_HTML_CLASS (GTK_OBJECT (html)->klass)->properties->language;
-		html->editor_api->set_language (html, language, html->editor_data);
-		html_engine_spell_check (html->engine);
+		html->editor_api->set_language (html, GTK_HTML_CLASS (GTK_OBJECT (html)->klass)->properties->language,
+						html->editor_data);
 	}
 }
 
@@ -3891,7 +3871,6 @@ gtk_html_insert_html_generic (GtkHTML *html, const gchar *html_src, gboolean obj
 	GtkWidget *window, *sw;
 	HTMLObject *o;
 
-	html_engine_freeze (html->engine);
 	tmp    = GTK_HTML (gtk_html_new_from_string (html_src, -1));
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	sw     = gtk_scrolled_window_new (NULL, NULL);
@@ -3922,7 +3901,6 @@ gtk_html_insert_html_generic (GtkHTML *html, const gchar *html_src, gboolean obj
 					   html_object_get_insert_level (o));
 	}
 	gtk_widget_destroy (window);
-	html_engine_thaw (html->engine);
 }
 
 void
