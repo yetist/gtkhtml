@@ -18,7 +18,7 @@
     the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
     Boston, MA 02111-1307, USA.
 
-    Author: Larry Ewing (lewing@helixcode.com)
+    Author: Larry Ewing <lewing@helixcode.com>
 
 */
 
@@ -41,14 +41,21 @@ HTMLEditor_Resolver *htmleditor_resolver_corba_object_create (BonoboObject *obje
 
 static void
 impl_HTMLEditor_Resolver_loadURL (PortableServer_Servant servant,
-				  const Bonobo_Stream stream,
+				  const Bonobo_ProgressiveDataSink sink,
 				  const CORBA_char *url,
 				  CORBA_Environment *ev)
 {
+	CORBA_Environment ev2;
+
 	if (!strncmp (url, "/dev/null", 6)) {
 		g_warning ("how about a url: %s", url);
 	} else {
 		g_warning ("perhaps this sounds better: %s", url);
+		if (sink != CORBA_OBJECT_NIL) {
+			Bonobo_ProgressiveDataSink_start (sink, &ev2);
+		} else {
+			g_warning ("what the hell are we fighting for");
+		}
 		CORBA_exception_set (ev,
 				     CORBA_USER_EXCEPTION,
 				     ex_HTMLEditor_Resolver_NotFound,

@@ -48,6 +48,7 @@
 #include "link.h"
 #include "body.h"
 #include "spell.h"
+#include "resolver-progressive-impl.h"
 
 #include "editor-control-factory.h"
 #include "gtkhtmldebug.h"
@@ -216,6 +217,7 @@ load_from_file (GtkHTML *html,
 
 static int
 load_from_corba (BonoboControl *control,
+		 GtkHTML *html,
 		 const char *url, 
 		 GtkHTMLStream *handle)
 {
@@ -234,7 +236,11 @@ load_from_corba (BonoboControl *control,
 			/* g_warning ("Unable to aquire resolver interface"); */
 		} else {
 			/* g_warning ("found resolver - rejoice the masses"); */
-			HTMLEditor_Resolver_loadURL (resolver, CORBA_OBJECT_NIL, url, &ev);
+			Bonobo_ProgressiveDataSink sink;
+
+			sink = bonobo_object_corba_objref (BONOBO_OBJECT (resolver_sink (html, url, handle)));
+			
+			HTMLEditor_Resolver_loadURL (resolver, sink, url, &ev);
 			if (ev._major != CORBA_NO_EXCEPTION){
 				/* g_warning ("Got exception!!!"); */
 			} else {
@@ -259,7 +265,7 @@ url_requested_cb (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpointe
 
 	control = BONOBO_CONTROL (data);
 
-	if (load_from_corba (control, url, handle))
+	if (load_from_corba (control, html, url, handle))
 		;
 		/* g_warning ("valid corba reponse"); */
 	else if (load_from_file (html, url, handle))

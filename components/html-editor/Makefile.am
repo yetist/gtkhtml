@@ -80,6 +80,8 @@ html_editor_control_SOURCES =			\
 	properties.h				\
 	replace.c				\
 	replace.h				\
+	resolver-progressive-impl.c		\
+	resolver-progressive-impl.h		\
 	rule.c					\
 	rule.h					\
 	search.c				\

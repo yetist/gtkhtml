@@ -1,3 +1,24 @@
+2000-10-06  Larry Ewing  <lewing@helixcode.com>
+
+	* resolver-progressive-impl.[ch]: files added. The start of the
+	progressive data sink implmentation.
+
+	* resolver.c (impl_HTMLEditor_Resolver_loadURL): change prototype
+	to match the new idl, and add some test code to try out the sink
+	interface.
+
+	* editor-control-factory.c (load_from_corba): pass the html widget
+	along too.
+	(url_requested_cb): pass the html widget.
+	(load_from_corba): create the sink add pass it in the loadURL
+	call.
+
+	* Makefile.am (html_editor_control_SOURCES): add
+	resolver-progressive-impl.[ch]
+
+	* HTMLEditor.idl: Change the loadURL prototype to use the
+	ProgressiveDataSink interface.
+
 2000-10-05  Larry Ewing  <lewing@helixcode.com>
 
 	* test-html-editor-control.c (container_create): attach the
@@ -5,7 +26,7 @@
 	there.
 
 	* editor-control-factory.c (load_from_corba): fix the extreme
-	brokeness involing the uih.  Now we try to resolve the interface
+	brokeness involving the uih.  Now we try to resolve the interface
 	through the control frame.
 
 2000-10-05  Michael Meeks  <michael@helixcode.com>

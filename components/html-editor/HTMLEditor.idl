@@ -14,6 +14,6 @@ module HTMLEditor {
 	interface Resolver : Bonobo::Unknown {
 		exception NotFound {};
 		
-		void loadURL (in Bonobo::Stream stream, in string url) raises (NotFound);
+		void loadURL (in Bonobo::ProgressiveDataSink sink, in string url) raises (NotFound);
 	};
 };
