@@ -2007,7 +2007,7 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 			if (align != HTML_HALIGN_NONE)
 				valign = HTML_VALIGN_BOTTOM;
 			else if (valign == HTML_VALIGN_NONE)
-				valign = HTML_VALIGN_NONE;
+				valign = HTML_VALIGN_BOTTOM;
 
 			image = html_image_new (p->image_factory, tmpurl,
 						p->url, p->target,

@@ -646,30 +646,31 @@ button_press_event (GtkWidget *widget,
 
 	gtk_widget_grab_focus (widget);
 
-	if (event->type == GDK_BUTTON_PRESS) {
+	if (event->type == GDK_BUTTON_PRESS
+	    && (event->button == 4 || event->button == 5)) {
+		GtkAdjustment *vadj;
 
-		/* Mouse wheel scroll up */
+		vadj = GTK_LAYOUT (widget)->vadjustment;
+
+		/* Mouse wheel scroll up.  */
 		if (event->button == 4) {
+			value = vadj->value - vadj->step_increment * 3;
 
-			value = GTK_LAYOUT (widget)->vadjustment->value - GTK_LAYOUT (widget)->vadjustment->step_increment * 3;
+			if (value < vadj->lower)
+				value = vadj->lower;
 
-			if(value < GTK_LAYOUT (widget)->vadjustment->lower)
-				value = GTK_LAYOUT (widget)->vadjustment->lower;
-
-			gtk_adjustment_set_value (GTK_LAYOUT (widget)->vadjustment, value);
-				
+			gtk_adjustment_set_value (vadj, value);
 			return TRUE;
-		} 
-		/* Mouse wheel scroll down */
+		}
+
+		/* Mouse wheel scroll down.  */
 		if (event->button == 5) {
+			value = vadj->value + vadj->step_increment * 3;
 
-			value = GTK_LAYOUT (widget)->vadjustment->value + GTK_LAYOUT (widget)->vadjustment->step_increment * 3;
+			if (value > (vadj->upper - vadj->page_size))
+				value = vadj->upper - vadj->page_size;
 
-			if(value > (GTK_LAYOUT (widget)->vadjustment->upper - GTK_LAYOUT (widget)->vadjustment->page_size))
-				value = GTK_LAYOUT (widget)->vadjustment->upper - GTK_LAYOUT (widget)->vadjustment->page_size;
-
-			gtk_adjustment_set_value (GTK_LAYOUT (widget)->vadjustment, value);
-
+			gtk_adjustment_set_value (vadj, value);
 			return TRUE;
 		}
 	}

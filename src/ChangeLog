@@ -1,5 +1,14 @@
 2000-04-03  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* gtkhtml.c
+	(button_press_event): Clean up and re-indent a bit.
+
+	* htmlengine.c
+	(parse_i): Fix braino: make sure `valign' is set to
+	`HTML_ALIGN_BOTTOM' if initially `HTML_VALIGN_NONE".
+
+2000-04-03  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* htmltextmaster.c
 	(select_range): Make sure we don't select beyond the end of the
 	text.
@@ -75,6 +84,7 @@
 	(html_image_factory_animation_done): animation_done - does nothing
 	for now
 
+>>>>>>> 1.339
 2000-04-03  Jacob Berkman  <jacob@helixcode.com>
 
 	* gtkhtml.c (gtk_html_get_title): return NULL if title is NULL (should
