@@ -25,7 +25,8 @@ icons_DATA = \
 	flowers.png			\
 	rule-yellow-flowers-left.png	\
 	rule-yellow-flowers-center.png	\
-	rule-yellow-flowers-right.png
+	rule-yellow-flowers-right.png	\
+	empty_image.png
 
 EXTRA_DIST = \
 	$(icons_DATA)
