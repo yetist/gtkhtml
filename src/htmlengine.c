@@ -289,18 +289,12 @@ html_element_new (HTMLEngine *e, const char *str) {
 
 			if (!g_hash_table_lookup (element->attributes, lower)) {
 				DE (g_print ("attrs (%s, %s)", attr[0], attr[1]));
-				g_hash_table_insert (element->attributes, lower, attr[1]);
-
-				/* just free the array */
-				g_free (attr[0]);
-				g_free (attr);				
-			} else {
-				/* free the whole vector */
-				g_strfreev (attr);
+				g_hash_table_insert (element->attributes, lower, g_strdup (attr[1]));
+			} else
 				g_free (lower);
-			}
 		}
 
+		g_strfreev (attr);
 	}
 	
 	return element;

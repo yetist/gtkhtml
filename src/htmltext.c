@@ -98,6 +98,7 @@ html_text_pango_info_destroy (HTMLTextPangoInfo *pi)
 		pango_item_free (pi->entries [i].item);
 		g_free (pi->entries [i].widths);
 	}
+	g_free (pi->entries);
 	g_free (pi->attrs);
 	g_free (pi->face);
 	g_free (pi);
