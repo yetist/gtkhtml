@@ -171,6 +171,7 @@ void
 html_engine_spell_check_range (HTMLEngine *e, HTMLCursor *begin, HTMLCursor *end)
 {
 	HTMLInterval *i;
+	gboolean cited;
 
 	e->need_spell_check = FALSE;
 
@@ -181,10 +182,19 @@ html_engine_spell_check_range (HTMLEngine *e, HTMLCursor *begin, HTMLCursor *end
 	begin = html_cursor_dup (begin);
 	end   = html_cursor_dup (end);
 
-	while (html_is_in_word (html_cursor_get_prev_char (begin)))
-		if (html_cursor_backward (begin, e));
-	while (html_is_in_word (html_cursor_get_current_char (end)))
-		if (html_cursor_forward (end, e));
+	cited = FALSE;
+	while (html_selection_spell_word (html_cursor_get_prev_char (begin), &cited) || cited) {
+		if (html_cursor_backward (begin, e))
+			;
+		cited = FALSE;
+	}
+
+	cited = FALSE;
+	while (html_selection_spell_word (html_cursor_get_current_char (end), &cited) || cited) {
+		if (html_cursor_forward (end, e))
+			;
+		cited = FALSE;
+	}
 
 	i = html_interval_new_from_cursor (begin, end);
 	if (begin->object->parent != end->object->parent)
@@ -211,6 +221,21 @@ html_engine_select_word_editable (HTMLEngine *e)
 	html_engine_set_mark (e);
 	while (html_selection_word (html_cursor_get_current_char (e->cursor)))
 		html_cursor_forward (e->cursor, e);
+}
+
+void
+html_engine_select_spell_word_editable (HTMLEngine *e)
+{
+	gboolean cited, cited2;
+
+	cited = cited2 = FALSE;
+	while (html_selection_spell_word (html_cursor_get_prev_char (e->cursor), &cited))
+		html_cursor_backward (e->cursor, e);
+	html_engine_set_mark (e);
+	while (html_selection_spell_word (html_cursor_get_current_char (e->cursor), &cited2) || (!cited && cited2)) {
+		html_cursor_forward (e->cursor, e);
+		cited2 = FALSE;
+	}
 }
 
 void

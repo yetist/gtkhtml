@@ -160,6 +160,17 @@ html_selection_word (gunichar uc)
 		&& uc != '(' && uc != ')' && uc != '[' && uc != ']';
 }
 
+gboolean
+html_selection_spell_word (gunichar uc, gboolean *cited)
+{
+	if (uc == '\'' || uc == '`') {
+		*cited = TRUE;
+		return FALSE;
+	} else {
+		return g_unichar_isalpha (uc);
+	}
+}
+
 static gboolean
 word_interval (HTMLEngine *e, HTMLCursor *begin, HTMLCursor *end)
 {

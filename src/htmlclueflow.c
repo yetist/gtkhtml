@@ -45,11 +45,12 @@
 #include "htmllinktext.h"
 #include "htmlpainter.h"
 #include "htmlplainpainter.h"
+#include "htmlsearch.h"
+#include "htmlselection.h"
 #include "htmltable.h"
 #include "htmltablecell.h"
 #include "htmltext.h"
 #include "htmltextslave.h"	/* FIXME */
-#include "htmlsearch.h"
 #include "htmlvspace.h"
 
 
@@ -2678,25 +2679,31 @@ spell_check_word_mark (HTMLObject *obj, const gchar *text, const gchar *word, gu
 }
 
 static gchar *
-begin_of_word (gchar *text, gchar *ct)
+begin_of_word (gchar *text, gchar *ct, gboolean *cited)
 {
 	gunichar uc;
 
+	*cited = FALSE;
 	do
 		uc = g_utf8_get_char (ct);
-	while (!html_is_in_word (uc) && (ct = g_utf8_next_char (ct)) && *ct);
+	while (!html_selection_spell_word (uc, cited) && (ct = g_utf8_next_char (ct)) && *ct);
 
 	return ct;
 }
 
 static gchar *
-end_of_word (gchar *ct)
+end_of_word (gchar *ct, gboolean cited)
 {
 	gunichar uc;
 	gchar *cn;
+	gboolean cited2;
 
-	while (*ct && (cn = e_unicode_get_utf8 (ct, &uc)) && html_is_in_word (uc))
+	cited2 = FALSE;
+	while (*ct && (cn = e_unicode_get_utf8 (ct, &uc))
+	       && (html_selection_spell_word (uc, &cited2) || (!cited && cited2))) {
 		ct = cn;
+		cited2 = FALSE;
+	}
 
 	return ct;
 }
@@ -2744,8 +2751,10 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *inte
 	if (text) {
 		ct = text;
 		while (*ct) {
-			word = ct = begin_of_word (text, ct);
-			ct        =   end_of_word (ct);
+			gboolean cited;
+
+			word = ct = begin_of_word (text, ct, &cited);
+			ct        =   end_of_word (ct, cited);
 
 			/* test if we have found word */
 			if (word != ct) {

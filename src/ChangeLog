@@ -1,3 +1,29 @@
+2001-11-27  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (html_text_magic_link): use
+	html_cursor_jump_to_position_no_spell instead of
+	html_cursor_jump_to_position to avoid unwanted spell checker calls
+	which are performance expensive
+
+	* gtkhtml.c: updated for spell checking changes
+
+	* htmlengine.c (html_engine_get_spell_word): renamed from
+	html_engine_get_word and updated
+	(html_engine_spell_word_is_valid): likewise
+	(html_engine_replace_spell_word_with): likewise
+
+	* htmlengine-edit.c (html_engine_spell_check_range): updated
+
+	* htmlclueflow.c (begin_of_word): update for spell word selection
+	(end_of_word): ditto
+
+	* htmlselection.c (html_selection_spell_word): new helper
+	function used for word selection for spell checking
+
+	* htmlengine-edit.c (html_engine_select_spell_word_editable): new
+	function, selects word for spell checking, it differs from word
+	selection by 2xclick
+
 2001-11-26  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (scroll): use MAX (0, upper) to avoid negative values

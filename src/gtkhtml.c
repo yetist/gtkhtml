@@ -3385,13 +3385,13 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		html_engine_upcase_downcase_word (e, FALSE);
 		break;
 	case GTK_HTML_COMMAND_SPELL_SUGGEST:
-		if (html->editor_api && !html_engine_word_is_valid (e))
-			(*html->editor_api->suggestion_request) (html, html_engine_get_word (e), html->editor_data);
+		if (html->editor_api && !html_engine_spell_word_is_valid (e))
+			(*html->editor_api->suggestion_request) (html, html_engine_get_spell_word (e), html->editor_data);
 		break;
 	case GTK_HTML_COMMAND_SPELL_PERSONAL_DICTIONARY_ADD:
 	case GTK_HTML_COMMAND_SPELL_SESSION_DICTIONARY_ADD: {
 		gchar *word;
-		word = html_engine_get_word (e);
+		word = html_engine_get_spell_word (e);
 
 		if (word && html->editor_api) {
 			if (com_type == GTK_HTML_COMMAND_SPELL_PERSONAL_DICTIONARY_ADD)
