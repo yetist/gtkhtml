@@ -1,5 +1,7 @@
 2000-12-14  Larry Ewing  <lewing@helixcode.com>
 
+	* README: update dependency numbers.
+
 	* configure.in: update bonobo dependency to 0.29 and GAL to 0.3
 
 2000-12-13  Larry Ewing  <lewing@helixcode.com>
