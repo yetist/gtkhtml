@@ -1,3 +1,7 @@
+2001-02-08  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (merge_word_width): fixed
+
 2001-02-07  Larry Ewing  <lewing@ximian.com>
 
 	* htmlimage.c (draw): use HTML_IS_PRINTER to detect printer object

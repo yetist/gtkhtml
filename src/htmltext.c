@@ -224,8 +224,8 @@ merge_word_width (HTMLText *t1, HTMLText *t2, HTMLPainter *p)
 	guint len, i, words;
 
 	/* printf ("before merge '%s' '%s'\n", t1->text, t2->text);
-	debug_word_width (t1);
-	debug_word_width (t2); */
+	   debug_word_width (t1);
+	   debug_word_width (t2); */
 
 	if (!t1->word_width)
 		return;
@@ -245,8 +245,9 @@ merge_word_width (HTMLText *t1, HTMLText *t2, HTMLPainter *p)
 	t1->words      = words + t2->words - 1;
 	t1->word_width = g_renew (guint, t1->word_width, t1->words);
 
-	for (i = 0; i < t2->words; i ++)
+	for (i = 1; i < t2->words; i ++)
 		t1->word_width [words + i - 1] = t2->word_width [i] + t1->word_width [words - 1];
+	t1->word_width [words - 1] += t2->word_width [0];
 
 	/* printf ("after merge '%s%s'\n", t1->text, t2->text);
 	   debug_word_width (t1); */
