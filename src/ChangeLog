@@ -1,3 +1,11 @@
+2004-10-11  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (gtk_html_size_request): make sure we keep layout in
+	the same state as before we were called (scrolled window may issue
+	additional size request after widget was already allocated)
+
+	Fixes #67707
+
 2004-10-08  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (html_text_remove_unwanted_line_breaks): added "$+?"
