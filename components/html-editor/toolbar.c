@@ -605,8 +605,8 @@ create_style_toolbar (GtkHTMLControlData *cd)
 	cd->right_align_button = editor_toolbar_alignment_group[2].widget;
 
 	cd->unindent_button  = editor_toolbar_style_uiinfo [8].widget;
-	gtk_signal_connect (GTK_OBJECT (cd->html), "current_paragraph_indentation_changed",
-			    indentation_changed, cd);
+	g_signal_connect (cd->html, "current_paragraph_indentation_changed",
+			  G_CALLBACK (indentation_changed), cd);
 
 	cd->indent_button    = editor_toolbar_style_uiinfo [9].widget;
 
@@ -616,7 +616,7 @@ create_style_toolbar (GtkHTMLControlData *cd)
 	   g_signal_connect (GTK_OBJECT (cd->toolbar_style), "destroy",
 	   G_CALLBACK (toolbar_destroy_cb), cd); */
 
-	g_signal_connect (GTK_OBJECT (cd->html), "current_paragraph_alignment_changed",
+	g_signal_connect (cd->html, "current_paragraph_alignment_changed",
 			  G_CALLBACK (paragraph_alignment_changed_cb), cd);
 
 	gtk_toolbar_set_style (GTK_TOOLBAR (cd->toolbar_style), GTK_TOOLBAR_ICONS);
