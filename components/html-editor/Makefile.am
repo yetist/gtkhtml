@@ -163,8 +163,7 @@ libexec_PROGRAMS = $(MY_PRGS)
 serverdir = $(libdir)/bonobo/servers
 server_in_files = GNOME_GtkHTML_Editor.server.in.in
 
-editor_server_filename = $(server_in_files:.server.in.in=-$(EDITOR_API_VERSION).server)
-server_DATA = $(editor_server_filename)
+server_DATA = $(server_in_files:.server.in.in=-$(EDITOR_API_VERSION).server)
 %-$(EDITOR_API_VERSION).server: %.server
 	mv $< $@
 
@@ -211,9 +210,8 @@ dist-hook:
 
 BUILT_SOURCES = $(IDL_GENERATED) $(SPELL_IDL_GENERATED)
 
-CLEANFILES = 				\
-	$(ui_DATA)			\
-	$(server_DATA)			\
-	$(editor_server_filename).in	\
+CLEANFILES = \
+	$(ui_DATA)		\
+	$(server_DATA)		\
 	$(BUILT_SOURCES)
 
