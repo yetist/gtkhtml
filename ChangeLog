@@ -1,6 +1,7 @@
 2000-11-01  Radek Doulik  <rodo@helixcode.com>
 
 	* configure.in: rewritten XIM test
+	save and restore LDFLAGS in XIM test
 
 2000-10-27  Joe Shaw  <joe@helixcode.com>
 

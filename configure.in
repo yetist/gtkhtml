@@ -59,8 +59,10 @@ dnl ******************************
 AC_ARG_ENABLE(xim, [  --enable-xim            support XIM [default=yes]],, enable_xim="yes")
 
 if test "x$enable_xim" = "xyes"; then
-	LDFLAGS=`gtk-config --libs`
+	BACKUP_LDFLAGS=$LDFLAGS
+	LDFLAGS="$LDFLAGS `gtk-config --libs`"
 	AC_CHECK_FUNC(gdk_im_begin, AC_DEFINE(GTK_HTML_USE_XIM), AC_MSG_RESULT(Gtk lacks XIM support => GtkHTML will be build without XIM support))
+	LDFLAGS=$BACKUP_LDFLAGS
 fi
 
 dnl *****************************
