@@ -70,7 +70,19 @@ iframe_size_changed (GtkAdjustment *adj, gpointer data)
 	
 	html_engine_schedule_update (parent->engine);
 }
-	
+
+static gboolean
+iframe_object_requested (GtkHTML *html, GtkHTMLEmbedded *eb, gpointer data)
+{
+	HTMLIFrame *iframe = HTML_IFRAME (data);
+	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(iframe)->parent);
+	gboolean ret_val = FALSE;
+
+	ret_val = FALSE;
+	gtk_signal_emit_by_name (GTK_OBJECT (parent), "object_requested", eb, &ret_val);
+	return ret_val;
+}
+		
 HTMLObject *
 html_iframe_new (GtkWidget *parent, 
 		 char *src, 
@@ -273,6 +285,9 @@ html_iframe_init (HTMLIFrame *iframe,
 			    (gpointer)iframe);	
 	gtk_signal_connect (GTK_OBJECT (html), "size_changed",
 			    GTK_SIGNAL_FUNC (iframe_size_changed),
+			    (gpointer)iframe);	
+	gtk_signal_connect (GTK_OBJECT (html), "object_requested",
+			    GTK_SIGNAL_FUNC (iframe_object_requested),
 			    (gpointer)iframe);	
 	/*
 	  gtk_signal_connect (GTK_OBJECT (html), "button_press_event",

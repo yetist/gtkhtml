@@ -1,3 +1,8 @@
+2000-9-13  Larry Ewing  <lewing@helixcode.com>
+
+	* htmliframe.c (iframe_object_requested): hook up the object
+	requested signal.
+
 2000-09-13  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine.c (html_engine_set_arg): configure pspell to use utf8
