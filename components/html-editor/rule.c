@@ -248,9 +248,9 @@ rule_widget (GtkHTMLEditRuleProperties *data)
 	HBOX;
 	menu  = gtk_menu_new ();
 	mcounter = HTML_HALIGN_LEFT;
-	ADD_ITEM ("Left", align_menu_activate);
-	ADD_ITEM ("Center", align_menu_activate);
-	ADD_ITEM ("Right", align_menu_activate);
+	ADD_ITEM ("Left aligned", align_menu_activate);
+	ADD_ITEM ("Centered", align_menu_activate);
+	ADD_ITEM ("Right aligned", align_menu_activate);
 	data->align_option = gtk_option_menu_new ();
 	gtk_option_menu_set_menu (GTK_OPTION_MENU (data->align_option), menu);
 	gtk_option_menu_set_history (GTK_OPTION_MENU (data->align_option), data->align);
