@@ -51,6 +51,10 @@ void       html_engine_table_set_padding       (HTMLEngine     *e,
 void       html_engine_table_set_align         (HTMLEngine     *e,
 						HTMLTable      *t,
 						HTMLHAlignType  align);
+void       html_engine_table_set_width         (HTMLEngine     *e,
+						HTMLTable      *t,
+						gint            width,
+						gboolean        percent);
 HTMLTable *html_engine_get_table               (HTMLEngine     *e);
 			       
 #endif

@@ -639,3 +639,22 @@ html_engine_table_set_align (HTMLEngine *e, HTMLTable *t, HTMLHAlignType align)
 	html_object_change_set (HTML_OBJECT (t)->parent, HTML_CHANGE_ALL_CALC);
 	html_engine_schedule_update (e);
 }
+
+void
+html_engine_table_set_width (HTMLEngine *e, HTMLTable *t, gint width, gboolean percent)
+{
+	if (percent) {
+		HTML_OBJECT (t)->percent = width;
+		HTML_OBJECT (t)->flags  &= ~ HTML_OBJECT_FLAG_FIXEDWIDTH;
+		t->specified_width       = 0;
+	} else {
+		HTML_OBJECT (t)->percent = 0;
+		t->specified_width       = width;
+		if (width)
+			HTML_OBJECT (t)->flags |= HTML_OBJECT_FLAG_FIXEDWIDTH;
+		else
+			HTML_OBJECT (t)->flags &= ~ HTML_OBJECT_FLAG_FIXEDWIDTH;
+	}
+	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL_CALC);
+	html_engine_schedule_update (e);
+}

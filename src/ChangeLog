@@ -2,6 +2,7 @@
 
 	* htmlengine-edit-table.c (html_engine_table_set_align): updated
 	to use ClueAligned
+	(html_engine_table_set_width): new function
 
 2001-05-18  Radek Doulik  <rodo@ximian.com>
 
