@@ -477,6 +477,7 @@ get_indent (HTMLClueFlow *flow,
 
 	if (level > 0 || ! is_item (flow)) {
 		if (HTML_IS_PLAIN_PAINTER (painter) && is_cite (flow)) {
+#define DRAW_QUOTES
 #ifdef DRAW_QUOTES
 			int line_offset = 0;
 			
@@ -1142,7 +1143,6 @@ draw_quotes (HTMLObject *self, HTMLPainter *painter,
 	flow = HTML_CLUEFLOW (self);
 
 	if (is_cite (flow)) {
-		
 		html_painter_set_pen (painter, &html_colorset_get_color_allocated (painter, HTMLLinkColor)->color);
 			
 		if (!HTML_IS_PLAIN_PAINTER (painter)) {
@@ -1171,15 +1171,12 @@ draw_quotes (HTMLObject *self, HTMLPainter *painter,
 			while (cur) {
 				if (cur->y != last_y) {
 					gint width, line_offset = 0;
-					GtkHTMLFontStyle style;
 					
-					style = html_clueflow_get_default_font_style (flow);
+					html_painter_set_font_style (painter, 
+								     html_clueflow_get_default_font_style (flow));
 
-					width = html_painter_calc_text_width (painter, ">", 1, &line_offset, style, NULL)
-						+ html_painter_get_space_width (painter, style, NULL);
-					html_painter_set_font_style (painter, style);
 					html_painter_set_font_face  (painter, NULL);
-					html_painter_draw_text (painter, MAX (0, self->x + cur->x - width + tx),
+					html_painter_draw_text (painter, self->x + tx,
 								self->y - self->ascent + cur->y + ty,
 								">", 1, 0);
 				}
