@@ -1,3 +1,9 @@
+2005-01-26  Mengjie Yu  <meng-jie.yu@sun.com>
+
+	* htmlengine.c: (html_engine_parse):
+	fix #70083 We need to set engine is parsing before all
+	content are destroied.
+
 2005-01-25  Radek Doulik  <rodo@ximian.com>
 
 	* Makefile.am: added test and test-verbose rules

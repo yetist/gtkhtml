@@ -4931,6 +4931,7 @@ html_engine_parse (HTMLEngine *e)
 {
 	html_engine_stop_parser (e);
 
+	e->parsing = TRUE;
 	/* reset search & replace */
 	if (e->search_info) {
 		html_search_destroy (e->search_info);
@@ -4980,7 +4981,6 @@ html_engine_parse (HTMLEngine *e)
 		e->bgPixmapPtr = NULL;
 	}
 
-	e->parsing = TRUE;
 	e->avoid_para = FALSE;
 
 	e->timerId = gtk_idle_add ((GtkFunction) html_engine_timer_event, e);
