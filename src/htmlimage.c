@@ -456,7 +456,7 @@ html_image_animation_timeout (HTMLImage *image)
 	GdkPixbufAnimation *ganim = image->image_ptr->animation;
 	GdkPixbufFrame    *frame;
 	HTMLPainter       *painter;
-	HTMLObject        *o = HTML_OBJECT (image);
+	/* HTMLObject        *o = HTML_OBJECT (image); */
 	HTMLEngine        *engine;
 	gint nx, ny, nex, ney;
 	gint w, h;
@@ -649,7 +649,7 @@ html_image_animation_new (HTMLImage *image)
 	animation->timeout = 0;
 	animation->pixbuf = gdk_pixbuf_new (ART_PIX_RGB, TRUE, 8,
 					    gdk_pixbuf_animation_get_width (image->image_ptr->animation),
-					    gdk_pixbuf_animation_get_height (height));
+					    gdk_pixbuf_animation_get_height (image->image_ptr->animation));
 	animation->active = FALSE;
 
 	return animation;
