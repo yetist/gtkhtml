@@ -1,3 +1,25 @@
+2001-12-05  Radek Doulik  <rodo@ximian.com>
+
+	* htmlprinter.c (insure_paper): use _("US-Letter") as fallback,
+	add printer parameter to be able to get paper from master
+	(html_printer_new): add master parameter, to be remembered, needed
+	for paper
+	half margins as they are too wide in gnome-paper
+
+	* gtkhtml.c (gtk_html_print_set_master): new helper function
+
+	* gtkhtml-properties.c: set default print size back to 10
+
+	* htmlprinter.c (insure_paper): use print master to get its paper
+
+	* gtkhtml-private.h: added print_master
+
+	* htmlprinter.c (html_printer_get_page_height): use top and bottom
+	margins
+
+	* gtkhtml-properties.c: change default size for printing fonts to
+	9
+
 2001-12-09  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (gtk_html_insert_html_generic): freeze/thaw

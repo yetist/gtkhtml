@@ -3993,3 +3993,8 @@ gtk_html_get_allow_frameset (GtkHTML *html)
 	return html->engine->allow_frameset;	
 }
 
+void
+gtk_html_print_set_master (GtkHTML *html, GnomePrintMaster *print_master)
+{
+	html->priv->print_master = print_master;
+}
