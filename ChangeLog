@@ -1,3 +1,7 @@
+2003-01-13  Rodney Dawes  <dobey@ximian.com>
+
+	* configure.in: Remove the capplet stuff
+	
 2003-01-10  Naba Kumar  <naba@gnome.org>
 
 	* configure.in: Added hi (hindi) in ALL_LINGUAS

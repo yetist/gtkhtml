@@ -62,11 +62,6 @@ AC_SUBST(GTKHTML_CFLAGS)
 AC_SUBST(GTKHTML_LIBS)
 AC_SUBST(GTKHTML_MODULES)
 
-CAPPLET_MODULES="${GTKHTML_MODULES} libglade-2.0 >= 1.99.9"
-PKG_CHECK_MODULES(CAPPLET, ${CAPPLET_MODULES})
-AC_SUBST(CAPPLET_CFLAGS)
-AC_SUBST(CAPPLET_LIBS)
-
 EDITOR_MODULES="${GTKHTML_MODULES} libbonoboui-2.0 >= 1.112.1 gal-2.0 >= 0.0.2"
 PKG_CHECK_MODULES(EDITOR, $EDITOR_MODULES)
 AC_SUBST(EDITOR_CFLAGS)
@@ -141,7 +136,6 @@ po/Makefile.in
 src/Makefile
 src/libgtkhtml.pc
 a11y/Makefile
-capplet/Makefile
 components/Makefile
 components/html-editor/Makefile
 components/html-editor/GNOME_GtkHTML_Editor.server.in
