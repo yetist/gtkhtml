@@ -396,6 +396,11 @@ draw_current (HTMLPainter *p, gint *x, gint y, const gchar *last,
 	*current_len = 0;
 }
 
+
+/* OPTIMIZE:
+   instead of drawing text as parts of it we could try to translate text to another one, where &nbsp; and \t are replaced
+   by proper amount of spaces and look if it's not faster - it could be as we save some costly X calls */
+
 void
 html_painter_draw_text (HTMLPainter *painter,
 			gint x, gint y,
