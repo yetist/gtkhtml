@@ -1,3 +1,9 @@
+2000-07-06  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml.c: removed gtkhtmllib_init
+	(init_properties): complain if gconf is not initialized (g_error)
+	(init_properties): create gconf_client here
+
 2000-07-05  Radek Doulik  <rodo@helixcode.com>
 
 	* patch from LotR applied

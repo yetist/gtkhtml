@@ -1129,7 +1129,12 @@ init_properties (GtkHTMLClass *klass)
 {
 	klass->properties = gtk_html_class_properties_new ();
 #ifdef GTKHTML_HAVE_GCONF
-	gtk_html_class_properties_load (klass->properties, gconf_client);
+	if (gconf_is_initialized ()) {
+		gconf_client = gconf_client_new ();
+		gconf_client_add_dir (gconf_client, GTK_HTML_GCONF_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
+		gtk_html_class_properties_load (klass->properties, gconf_client);
+	} else
+		g_error ("gconf is not initialized, please call gconf_init before using GtkHTML library\n");
 #endif
 	load_keybindings (klass);
 #ifdef GTKHTML_HAVE_GCONF
@@ -2330,30 +2335,4 @@ load_keybindings (GtkHTMLClass *klass)
 	BCOM (GDK_SHIFT_MASK, BackSpace, DELETE_BACK);
 	BCOM (0, Delete, DELETE);
 	BCOM (0, KP_Delete, DELETE);
-}
-
-gboolean
-gtkhtmllib_is_initialized (void)
-{
-	return gconf_initialized;
-}
-
-gboolean
-gtkhtmllib_init (gint argc, gchar **argv)
-{
-#ifdef GTKHTML_HAVE_GCONF
-	if (!gconf_is_initialized() &&
-	    !gconf_init (argc, argv, &gconf_error)) {
-		g_assert (gconf_error != NULL);
-		g_warning ("GConf init failed:\n  %s", gconf_error->str);
-		return FALSE;
-	}
-
-	gconf_client = gconf_client_new ();
-	gconf_client_add_dir (gconf_client, GTK_HTML_GCONF_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
-#endif
-
-	gconf_initialized = TRUE;
-
-	return TRUE;
 }
