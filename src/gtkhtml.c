@@ -406,6 +406,7 @@ key_press_event (GtkWidget *widget,
 	GtkHTML *html;
 	HTMLEngine *engine;
 	gboolean retval;
+	gboolean do_update_styles;
 
 	html = GTK_HTML (widget);
 	engine = html->engine;
@@ -415,86 +416,12 @@ key_press_event (GtkWidget *widget,
 		return FALSE;
 	}
 
-	switch (event->keyval) {
-	case GDK_Right:
-		html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_RIGHT, 1);
-		html_engine_unselect_all (engine, TRUE);
-		retval = TRUE;
-		break;
-	case GDK_Left:
-		html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_LEFT, 1);
-		html_engine_unselect_all (engine, TRUE);
-		retval = TRUE;
-		break;
-	case GDK_Up:
-		html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_UP, 1);
-		html_engine_unselect_all (engine, TRUE);
-		retval = TRUE;
-		break;
-	case GDK_Down:
-		html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_DOWN, 1);
-		html_engine_unselect_all (engine, TRUE);
-		retval = TRUE;
-		break;
-	case GDK_Delete:
-	case GDK_KP_Delete:
-		html_engine_unselect_all (engine, TRUE);
-		html_engine_delete (engine, 1);
-		retval = TRUE;
-		break;
-	case GDK_Return:
-		html_engine_unselect_all (engine, TRUE);
-		html_engine_insert_para (engine, TRUE);
-		retval = TRUE;
-		break;
-	case GDK_BackSpace:
-		html_engine_unselect_all (engine, TRUE);
-		if (html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_LEFT, 1) == 1)
-			html_engine_delete (engine, 1);
-		retval = TRUE;
-		break;
-
-		/* FIXME these are temporary bindings.  */
-	case GDK_F1:
-		gtk_html_undo (html);
-		retval = TRUE;
-		break;
-	case GDK_F2:
-		gtk_html_redo (html);
-		retval = TRUE;
-		break;
-	case GDK_F3:
-		gtk_html_cut (html);
-		retval = TRUE;
-		break;
-	case GDK_F4:
-		gtk_html_copy (html);
-		retval = TRUE;
-		break;
-	case GDK_F5:
-		gtk_html_paste (html);
-		retval = TRUE;
-		break;
-
-		/* The following cases are for keys that we don't want to map yet, but
-		   have an annoying default behavior if not handled. */
-	case GDK_Tab:
-		retval = TRUE;
-		break;
-	default:
-		if (event->length == 0) {
-			retval = FALSE;
-		} else {
-			html_engine_insert (engine, event->string, event->length);
-			queue_draw (html);
-			/* We don't want to update the insertion style here.  */
-			return TRUE;
-		}
-	}
+	retval = gtk_html_handle_key_event (GTK_HTML (widget), event, &do_update_styles);
 
 	if (retval == TRUE) {
 		queue_draw (html);
-		update_styles (html);
+		if (do_update_styles)
+			update_styles (html);
 	}
 
 	return retval;
