@@ -23,6 +23,7 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <glib.h>
+#include <stdlib.h>
 
 #include "gtkhtml-compat.h"
 #include "gtkhtml-stream.h"

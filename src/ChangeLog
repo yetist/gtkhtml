@@ -1,5 +1,10 @@
 2001-10-01  Larry Ewing  <lewing@ximian.com>
 
+	* htmlsearch.c (html_search_new): silence wanrings for unused
+	variables.
+
+	* gtkhtml-stream.c: add stdlib.h include.
+
 	* htmlsearch.c (html_search_new): handle the nongnu regex case
 	properly.  From David Kaelbling <drk@sgi.com>
 

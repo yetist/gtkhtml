@@ -80,17 +80,21 @@ html_search_new (HTMLEngine *e, const gchar *text, gboolean case_sensitive, gboo
 
 	ns->regular = regular;
 	if (regular) {
+#ifdef HAVE_GNU_REGEX
 		const gchar *rv;
-		int rv_int;
 
 		ns->reb = g_new0 (regex_t, 1);
-#ifdef HAVE_GNU_REGEX
+
 		ns->reb->translate = ns->trans;
 		rv = re_compile_pattern (ns->text, ns->text_len, ns->reb);
 		if (rv) {
 			g_warning (rv);
 		}
 #else
+		int rv_int;
+
+		ns->reb = g_new0 (regex_t, 1);
+
 		rv_int = regcomp (ns->reb, ns->text, (case_sensitive) ? 0 : REG_ICASE);
 		if (rv_int) {
 			char buf[1024];
