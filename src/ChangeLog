@@ -1,3 +1,7 @@
+2001-10-17  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (html_text_op_cut_helper): fix rendering
+
 2001-10-16  Larry Ewing  <lewing@ximian.com>
 
 	* htmlselect.c (copy): implement enough of copy that it no longer

@@ -266,6 +266,9 @@ html_text_op_cut_helper (HTMLText *text, HTMLEngine *e, GList *from, GList *to, 
 	} else {
 		text->spell_errors = remove_spell_errors (text->spell_errors, 0, text->text_len);
 		html_object_move_cursor_before_remove (HTML_OBJECT (text), e);
+		html_object_change_set (HTML_OBJECT (text)->parent, HTML_CHANGE_ALL_CALC);
+		/* force parent redraw */
+		HTML_OBJECT (text)->parent->width = 0;
 		html_object_remove_child (HTML_OBJECT (text)->parent, HTML_OBJECT (text));
 
 		rv    = HTML_OBJECT (text);
