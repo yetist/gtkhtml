@@ -129,6 +129,14 @@ html_painter_free_color (HTMLPainter *painter,
 	gdk_colormap_free_colors (colormap, color, 1);
 }
 
+const GdkColor *
+html_painter_get_black (const HTMLPainter *painter)
+{
+	g_return_val_if_fail (painter != NULL, NULL);
+
+	return &painter->black;
+}
+
 
 void
 html_painter_begin (HTMLPainter *painter, int x1, int y1, int x2, int y2)

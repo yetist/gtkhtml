@@ -68,8 +68,9 @@ void         html_painter_unrealize (HTMLPainter *painter);
 /*
  * Color control
  */
-void html_painter_alloc_color (HTMLPainter *painter, GdkColor *color);
-void html_painter_free_color  (HTMLPainter *painter, GdkColor *color);
+void            html_painter_alloc_color  (HTMLPainter *painter, GdkColor    *color);
+void            html_painter_free_color   (HTMLPainter *painter, GdkColor    *color);
+const GdkColor *html_painter_get_black    (const HTMLPainter *painter);
 
 /*
  * Font handling. 
