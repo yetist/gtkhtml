@@ -21,17 +21,28 @@
 
     Author: Lauris Kaplinski  <lauris@helixcode.com>
 */
-
+#include <config.h>
 #include <gnome.h>
 #include <liboaf/liboaf.h>
 #include <bonobo.h>
 #include "ebrowser-widget.h"
 #include "ebrowser-stream.h"
 #include "ebrowser.h"
+#include "ebrowser-ui.h"
 
 static gint refcount = 0;
 
-enum {ARG_0, ARG_URL, ARG_HTTP_PROXY, ARG_FOLLOW_LINKS, ARG_FOLLOW_REDIRECT, ARG_ALLOW_SUBMIT, ARG_DEFAULT_BGCOLOR, ARG_DEFAULT_FONT};
+enum {
+	ARG_0,
+	ARG_URL,
+	ARG_HTTP_PROXY,
+	ARG_FOLLOW_LINKS,
+	ARG_FOLLOW_REDIRECT,
+	ARG_ALLOW_SUBMIT,
+	ARG_DEFAULT_BGCOLOR,
+	ARG_DEFAULT_FONT,
+	ARG_HISTORY_SIZE
+};
 
 static void
 get_prop (BonoboPropertyBag * bag, BonoboArg * arg, guint arg_id, gpointer data)
@@ -43,6 +54,8 @@ get_prop (BonoboPropertyBag * bag, BonoboArg * arg, guint arg_id, gpointer data)
 	switch (arg_id) {
 	case ARG_URL:
 		BONOBO_ARG_SET_STRING (arg, ebr->url);
+		if (ebr->history)
+			ebrowser_history_push (ebr->history, ebr->url);
 		break;
 	case ARG_HTTP_PROXY:
 		BONOBO_ARG_SET_STRING (arg, ebr->http_proxy);
@@ -62,6 +75,12 @@ get_prop (BonoboPropertyBag * bag, BonoboArg * arg, guint arg_id, gpointer data)
 	case ARG_DEFAULT_FONT:
 		BONOBO_ARG_SET_STRING (arg, ebr->defaultfont);
 		break;
+	case ARG_HISTORY_SIZE:
+		if (ebr->history)
+			BONOBO_ARG_SET_INT (arg, ebr->history->max_size);
+		else
+			BONOBO_ARG_SET_INT (arg, 0);
+		break;
 	default:
 		break;
 	}
@@ -69,30 +88,32 @@ get_prop (BonoboPropertyBag * bag, BonoboArg * arg, guint arg_id, gpointer data)
 }
 
 static void
-set_prop (BonoboPropertyBag * bag, const BonoboArg * arg, guint arg_id, gpointer data)
+set_prop (BonoboPropertyBag * bag, const BonoboArg * arg, guint arg_id, gpointer browser)
 {
 	switch (arg_id) {
 	case ARG_URL:
-		gtk_object_set (GTK_OBJECT (data), "url", BONOBO_ARG_GET_STRING (arg), NULL);
+		gtk_object_set (GTK_OBJECT (browser), "url", BONOBO_ARG_GET_STRING (arg), NULL);
 		break;
 	case ARG_HTTP_PROXY:
-		gtk_object_set (GTK_OBJECT (data), "http_proxy", BONOBO_ARG_GET_STRING (arg), NULL);
+		gtk_object_set (GTK_OBJECT (browser), "http_proxy", BONOBO_ARG_GET_STRING (arg), NULL);
 		break;
 	case ARG_FOLLOW_LINKS:
-		gtk_object_set (GTK_OBJECT (data), "follow_links", BONOBO_ARG_GET_BOOLEAN (arg), NULL);
+		gtk_object_set (GTK_OBJECT (browser), "follow_links", BONOBO_ARG_GET_BOOLEAN (arg), NULL);
 		break;
 	case ARG_FOLLOW_REDIRECT:
-		gtk_object_set (GTK_OBJECT (data), "follow_redirect", BONOBO_ARG_GET_BOOLEAN (arg), NULL);
+		gtk_object_set (GTK_OBJECT (browser), "follow_redirect", BONOBO_ARG_GET_BOOLEAN (arg), NULL);
 		break;
 	case ARG_ALLOW_SUBMIT:
-		gtk_object_set (GTK_OBJECT (data), "allow_submit", BONOBO_ARG_GET_BOOLEAN (arg), NULL);
+		gtk_object_set (GTK_OBJECT (browser), "allow_submit", BONOBO_ARG_GET_BOOLEAN (arg), NULL);
 		break;
 	case ARG_DEFAULT_BGCOLOR:
-		gtk_object_set (GTK_OBJECT (data), "default_bgcolor", BONOBO_ARG_GET_INT (arg), NULL);
+		gtk_object_set (GTK_OBJECT (browser), "default_bgcolor", BONOBO_ARG_GET_INT (arg), NULL);
 		break;
 	case ARG_DEFAULT_FONT:
-		gtk_object_set (GTK_OBJECT (data), "default_font", BONOBO_ARG_GET_STRING (arg), NULL);
+		gtk_object_set (GTK_OBJECT (browser), "default_font", BONOBO_ARG_GET_STRING (arg), NULL);
 		break;
+	case ARG_HISTORY_SIZE:
+		gtk_object_set (GTK_OBJECT (browser), "history_size", BONOBO_ARG_GET_INT (arg), NULL);
 	default:
 		g_print ("Arg %d set\n", arg_id);
 		break;
@@ -138,59 +159,11 @@ browser_status_set (EBrowser * ebr, const gchar * status, gpointer data)
 }
 
 static void
-stop_loading (GtkWidget * widget, gpointer data)
-{
-	g_print ("Stop loading\n");
-	ebrowser_stop (EBROWSER (data));
-}
-
-static BonoboUIVerb verbs [] = {
-	BONOBO_UI_UNSAFE_VERB ("Stop", stop_loading),
-	BONOBO_UI_VERB_END
-};
-
-static gchar * ui = 
-"<Root>"
-"  <commands>"
-"    <cmd name=\"Stop\" _label=\"Stop\" _tip=\"Stop loading\" pixtype=\"stock\" pixname=\"Stop\"/>"
-"  </commands>"
-"  <menu>"
-"    <submenu name=\"File\" _label=\"File\">"
-"      <menuitem name=\"Stop\" verb=\"\"/>"
-"    </submenu>"
-"  </menu>"
-"  <status>"
-"    <item name=\"main\"/>"
-"  </status>"
-"</Root>";
-
-
-static void
-control_activate_cb (BonoboControl * control, gboolean activate, gpointer data)
-{
-	BonoboUIComponent * component;
-
-	component = bonobo_control_get_ui_component (control);
-	g_assert (component != NULL);
-
-	if (activate) {
-#if 1
-		bonobo_ui_component_add_verb_list_with_data (component, verbs, data);
-#endif
-#if 1
-		bonobo_ui_component_set_translate (component, "/", ui, NULL);
-#endif
-	}
-
-	g_print ("Activate: %d\n", activate);
-}
-
-static void
 control_destroy_cb (BonoboControl * control, gpointer data)
 {
-	g_print ("Destroy\n");
 	bonobo_object_unref (BONOBO_OBJECT (data));
-	if (--refcount < 1) gtk_main_quit ();
+	if (--refcount < 1)
+		gtk_main_quit ();
 }
 
 static BonoboObject *
@@ -240,6 +213,7 @@ ebrowser_factory (BonoboGenericFactory * factory, void * closure)
 				 "Whether to send HTML FORM data", 0);
 	bonobo_property_bag_add (pbag, "default_font", ARG_DEFAULT_FONT, BONOBO_ARG_STRING, NULL,
 				 "Whether to send HTML FORM data", 0);
+
 	bonobo_object_add_interface(BONOBO_OBJECT(control), 
 				    BONOBO_OBJECT(pbag));
 
@@ -249,7 +223,7 @@ ebrowser_factory (BonoboGenericFactory * factory, void * closure)
 			    GTK_SIGNAL_FUNC (browser_status_set), control);
 
 	gtk_signal_connect (GTK_OBJECT (control), "activate",
-			    control_activate_cb, browser);
+			    ebrowser_control_activate_cb, browser);
 
 #if 0
 	gtk_signal_connect (GTK_OBJECT (control), "destroy",
@@ -270,7 +244,8 @@ ebrowser_factory_init (void)
 
 	if (!ebfact) {
 		ebfact = bonobo_generic_factory_new (EBROWSER_FACTORY_OAFIID, ebrowser_factory, NULL);
-		if (!ebfact) g_error ("Cannot create ebrowser factory");
+		if (!ebfact)
+			g_error ("Cannot create ebrowser factory");
 	}
 }
 
@@ -281,15 +256,14 @@ int main (int argc, gchar ** argv)
 
 	CORBA_exception_init (&ev);
 
-	gnome_init_with_popt_table ("ebrowser-factory", "0.0",
+	gnome_init_with_popt_table ("EBrowser", VERSION,
 				    argc, argv,
 				    oaf_popt_options, 0, NULL);
 
 	orb = oaf_init (argc, argv);
 
-	if (bonobo_init (orb, NULL, NULL) == FALSE) {
+	if (bonobo_init (orb, NULL, NULL) == FALSE)
 		g_error ("Couldn't initialize Bonobo");
-	}
 
 	gdk_rgb_init ();
 	gtk_widget_set_default_colormap (gdk_rgb_get_cmap ());

@@ -25,6 +25,7 @@
 
 #include <libgnome/gnome-defs.h>
 #include <gtkhtml.h>
+#include <ebrowser/ebrowser-history.h>
 
 BEGIN_GNOME_DECLS
 
@@ -57,6 +58,9 @@ struct _EBrowser {
 	gchar * defaultfont;
 
 	GSList * loaders;
+
+	EBrowserHistory *history;
+	short            history_size;
 };
 
 struct _EBrowserClass {
@@ -67,11 +71,9 @@ struct _EBrowserClass {
 	void (* done)       (EBrowser * ebrower);
 };
 
-GtkType ebrowser_get_type (void);
-
-GtkWidget * ebrowser_new (void);
-
-void ebrowser_stop (EBrowser * ebrowser);
+GtkType    ebrowser_get_type (void);
+GtkWidget *ebrowser_new      (void);
+void       ebrowser_stop     (EBrowser * ebrowser);
 
 /*
  * fixme: Implement via loaders?

@@ -27,7 +27,7 @@
 #include "eloader-file.h"
 #include "ebrowser-widget.h"
 
-enum {ARG_0, ARG_HTTP_PROXY, ARG_URL, ARG_FOLLOW_LINKS, ARG_FOLLOW_REDIRECT, ARG_ALLOW_SUBMIT, ARG_DEFAULT_BGCOLOR, ARG_DEFAULT_FONT};
+enum {ARG_0, ARG_HTTP_PROXY, ARG_URL, ARG_FOLLOW_LINKS, ARG_FOLLOW_REDIRECT, ARG_ALLOW_SUBMIT, ARG_DEFAULT_BGCOLOR, ARG_DEFAULT_FONT, ARG_HISTORY_SIZE};
 
 static void ebrowser_class_init (GtkObjectClass * klass);
 static void ebrowser_init (GtkObject * object);
@@ -99,6 +99,7 @@ ebrowser_class_init (GtkObjectClass * klass)
 	gtk_object_add_arg_type ("EBrowser::allow_submit", GTK_TYPE_BOOL, GTK_ARG_WRITABLE, ARG_ALLOW_SUBMIT);
 	gtk_object_add_arg_type ("EBrowser::default_bgcolor", GTK_TYPE_UINT, GTK_ARG_WRITABLE, ARG_DEFAULT_BGCOLOR);
 	gtk_object_add_arg_type ("EBrowser::default_font", GTK_TYPE_STRING, GTK_ARG_WRITABLE, ARG_DEFAULT_FONT);
+	gtk_object_add_arg_type ("EBrowser::history_size", GTK_TYPE_UINT, GTK_ARG_WRITABLE, ARG_HISTORY_SIZE);
 
 	ebr_signals[URL_SET] = gtk_signal_new ("url_set",
 					       GTK_RUN_FIRST,
@@ -162,6 +163,10 @@ ebrowser_init (GtkObject * object)
 	ebr->defaultfont = NULL;
 
 	ebr->loaders = NULL;
+
+	ebr->history_size = 50;
+	
+	ebr->history = ebrowser_history_new (ebr->history_size);
 }
 
 static void
@@ -193,7 +198,11 @@ ebrowser_destroy (GtkObject * object)
 		g_free (ebr->defaultfont);
 		ebr->defaultfont = NULL;
 	}
-
+	if (ebr->history){
+		ebrowser_history_destroy (ebr->history);
+		ebr->history = NULL;
+	}
+	
 	if (GTK_OBJECT_CLASS (parent_class)->destroy)
 		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
@@ -242,6 +251,21 @@ ebrowser_set_arg (GtkObject * object, GtkArg * arg, guint arg_id)
 			ebr->defaultfont = g_strdup (str);
 		}
 		break;
+
+	case ARG_HISTORY_SIZE:
+		ebr->history_size = GTK_VALUE_UINT (*arg);
+		if (ebr->history_size == 0){
+			if (ebr->history){
+				ebrowser_history_destroy (ebr->history);
+			}
+		} else {
+			if (!ebr->history){
+				ebr->history = ebrowser_history_new (ebr->history_size);
+			} else
+				ebrowser_history_set_size (ebr->history, ebr->history_size);
+		}
+		break;
+		
 	default:
 		g_assert_not_reached ();
 		break;

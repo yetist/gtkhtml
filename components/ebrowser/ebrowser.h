@@ -26,6 +26,7 @@
 #include <libgnome/gnome-defs.h>
 
 BEGIN_GNOME_DECLS
+
 #define EBROWSER_FACTORY_OAFIID "OAFIID:control-factory:ebrowser:d56b4d02-7f0e-4e93-96a7-aac184c14aad"
 #define EBROWSER_OAFIID "OAFIID:control:ebrowser:2b45f4d6-dc8d-49ad-9435-5af899b9ee4c"
 

@@ -1,3 +1,19 @@
+2000-11-01  Miguel de Icaza  <miguel@helixcode.com>
+
+	* ebrowser-widget.c (ebrowser_destroy): Destroy history.
+	(ebrowser_init): Init history
+	(ebrowser_set_arg): Handle ARG_HISTORY
+
+	* test-history.c (main): New file, used to test the history code. 
+
+	* ebrowser-ui.c, ebrowser-ui.h: Move the UI code here.  Add new verbs.
+
+	* ebrowser-history.c, ebrowser-history.h: New files.
+
+2000-10-31  Miguel de Icaza  <miguel@helixcode.com>
+
+	* ebrowser.c: Include <config.h>
+
 2000-10-31  Radek Doulik  <rodo@helixcode.com>
 
 	* ebrowser-stream.c: include "gtkhtml-stream.h" instead of
