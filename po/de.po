@@ -2,13 +2,14 @@
 # Copyright (C) 2000 Free Software Foundation, Inc.
 # Christian Meyer <cm@ggtt.de>, 2000.
 # Kai Lahmann <kl@linuxfaqs.de>, 2000.
+# Matthias Warkus <mawarkus@gnome.org>, 2000.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.7\n"
 "POT-Creation-Date: 2000-10-28 16:41+0200\n"
-"PO-Revision-Date: 2000-10-28 16:42+0200\n"
-"Last-Translator: Kai Lahmann <kl@linuxfaqs.de>\n"
+"PO-Revision-Date: 2000-10-28 18:18+02:00\n"
+"Last-Translator: Matthias Warkus <mawarkus@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
@@ -26,15 +27,15 @@ msgstr "Taste"
 
 #: capplet/gnome-bindings-prop.c:525
 msgid "Command"
-msgstr "Kommando"
+msgstr "Befehl"
 
 #: capplet/gnome-bindings-prop.c:526
 msgid "Commands"
-msgstr "Kommandos"
+msgstr "Befehle"
 
 #: capplet/gnome-bindings-prop.c:527
 msgid "Keymaps"
-msgstr "Tastaturbelegung"
+msgstr "Tastaturbelegungen"
 
 #: capplet/gnome-bindings-prop.c:545
 msgid "Add"
@@ -50,7 +51,7 @@ msgstr "Löschen"
 
 #: capplet/gnome-bindings-prop.c:582
 msgid "Grab key"
-msgstr "Taste belegen"
+msgstr "Taste abfragen"
 
 #: capplet/main.c:220
 msgid "Spell checking"
@@ -58,7 +59,7 @@ msgstr "Rechtschreibprüfung"
 
 #: capplet/main.c:223
 msgid "live spell checking"
-msgstr "Live Rechtschreibprüfung"
+msgstr "Rechtschreibprüfung beim Schreiben"
 
 #: capplet/main.c:232
 msgid "spell checking color"
@@ -90,31 +91,31 @@ msgstr "Erscheinungsbild"
 
 #: capplet/viewer.c:154
 msgid "Variable width font"
-msgstr "Variable Schriftbreite"
+msgstr "Proportionalschrift"
 
 #: capplet/viewer.c:158
 msgid "Select HTML variable width font"
-msgstr "Variable Schriftbreite für HTML wählen"
+msgstr "Proportionalschrift für HTML wählen"
 
 #: capplet/viewer.c:162 capplet/viewer.c:177
 msgid "for printing"
-msgstr "für Drucken"
+msgstr "zum Drucken"
 
 #: capplet/viewer.c:164
 msgid "Select HTML variable width font for printing"
-msgstr "Variable Schriftbreite für HTML zum Drucken wählen"
+msgstr "Proportionalschrift zum Drucken von HTML wählen"
 
 #: capplet/viewer.c:169
 msgid "Fixed width font"
-msgstr "Feste Schriftbreite"
+msgstr "Nichtproportionalschrift"
 
 #: capplet/viewer.c:173
 msgid "Select HTML fixed width font"
-msgstr "Feste Schriftbreite für HTML wählen"
+msgstr "Nichtproportionalschrift für HTML wählen"
 
 #: capplet/viewer.c:179
 msgid "Select HTML fixed width font for printing"
-msgstr "Feste Schriftbreite für HTML zum Drucken wählen"
+msgstr "Nichtproportionalschrift zum Drucken von HTML wählen"
 
 #: capplet/viewer.c:189
 msgid "Animations"
@@ -135,7 +136,7 @@ msgstr "Farben"
 #: components/html-editor/editor-control-factory.c:128
 #: components/html-editor/popup.c:73
 msgid "Properties"
-msgstr "Einstellungen"
+msgstr "Eigenschaften"
 
 #: components/html-editor/editor-control-factory.c:139
 #: components/html-editor/menubar.c:96 components/html-editor/popup.c:88
@@ -216,7 +217,7 @@ msgstr "Einfügen"
 
 #: components/html-editor/menubar.c:153
 msgid "Cannot execute gtkhtml properties"
-msgstr "Die gtkhtml-Einstellungen konnten nicht ausgeführt werden"
+msgstr "Die gtkhtml-Einstellungen konnten nicht aufgerufen werden"
 
 #. style
 #: components/html-editor/paragraph.c:108 components/html-editor/rule.c:246
@@ -408,7 +409,7 @@ msgstr "Ausrücken"
 
 #: components/html-editor/toolbar.c:419
 msgid "Indent paragraphs less"
-msgstr "Rückt Absätze weniger ein"
+msgstr "Absätze weniger einrücken"
 
 #: components/html-editor/toolbar.c:421
 msgid "Indent"
@@ -416,7 +417,7 @@ msgstr "Einrücken"
 
 #: components/html-editor/toolbar.c:421
 msgid "Indent paragraphs more"
-msgstr "Rückt Absätzte mehr ein"
+msgstr "Absätze weiter einrücken"
 
 #: components/html-editor/utils.c:101
 msgid "Sample"
