@@ -1,3 +1,8 @@
+2003-08-12  Abel Cheung  <maddog@linux.org.hk>
+
+	* configure.in: Fixed GETTEXT_PACKAGE (ximian #37784), and make sure
+	that newest intltool is used.
+
 2003-07-25  Larry Ewing  <lewing@ximian.com>
 
 	* configure.in: bump interface version from 3.0 to 3.1 clear .so

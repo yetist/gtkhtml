@@ -14,11 +14,7 @@ AC_DEFINE_UNQUOTED(GTKHTML_RELEASE_STRING, "${GTKHTML_RELEASE_STRING}",
 					   [GtkHTML Release String])
 AC_SUBST(GTKHTML_RELEASE_STRING)
 
-dnl because intltool has an extremely broken way of getting the
-dnl GETTEXT_PACKAGE name we cannot do variable substitution here
-dnl so we have to hard code it instead.
-dnl GETTEXT_PACKAGE=${GTKHTML_RELEASE_STRING}
-GETTEXT_PACKAGE=gtkhtml-3.1
+GETTEXT_PACKAGE=${GTKHTML_RELEASE_STRING}
 AC_SUBST(GETTEXT_PACKAGE)
 
 GNOME_EXPLICIT_TRANSLATION_DOMAIN=${GTKHTML_RELEASE_STRING}
@@ -36,7 +32,7 @@ dnl
 dnl Due to the sed scripts being split on 90 line
 dnl blocks, this macro needs to be right at the beggining.
 dnl
-AC_PROG_INTLTOOL
+AC_PROG_INTLTOOL([0.27.1])
 
 AC_ISC_POSIX
 AC_PROG_CC
