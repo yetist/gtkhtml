@@ -77,10 +77,20 @@ html_engine_move_cursor (HTMLEngine *e,
 	return c;
 }
 
-guint
-html_engine_jump_to (HTMLEngine *e,
-		     HTMLObject *object,
-		     guint offset)
+/**
+ * html_engine_jump_to_object:
+ * @e: An HTMLEngine object
+ * @object: Object to move the cursor to
+ * @offset: Cursor offset within @object
+ * 
+ * Move the cursor to object @object, at the specified @offset.
+ * 
+ * Return value: 
+ **/
+void
+html_engine_jump_to_object (HTMLEngine *e,
+			    HTMLObject *object,
+			    guint offset)
 {
 	html_engine_draw_cursor (e);
 
@@ -90,6 +100,27 @@ html_engine_jump_to (HTMLEngine *e,
 	html_engine_draw_cursor (e);
 }
 
+/**
+ * html_engine_jump_at:
+ * @e: An HTMLEngine object
+ * @x: X coordinate
+ * @y: Y coordinate
+ * 
+ * Make the cursor jump at the specified @x, @y pointer position.
+ **/
+void
+html_engine_jump_at (HTMLEngine *e,
+		     gint x, gint y)
+{
+	HTMLObject *obj;
+	guint offset;
+
+	obj = html_engine_get_object_at (e, x, y, &offset);
+	if (obj == NULL)
+		return;
+
+	html_engine_jump_to_object (e, obj, offset);
+}
 
 
 /* Paragraph insertion.  */

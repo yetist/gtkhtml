@@ -199,34 +199,66 @@ struct _HTMLEngineClass {
 };
 
 
-guint 	    html_engine_get_type (void);
-HTMLEngine *html_engine_new (void);
+/* Object construction.  */
+guint       html_engine_get_type      (void);
+HTMLEngine *html_engine_new           (void);
+void        html_engine_realize       (HTMLEngine *engine,
+				       GdkWindow  *window);
+void        html_engine_set_editable  (HTMLEngine *e,
+				       gboolean    editable);
 
-void html_engine_realize (HTMLEngine *engine, GdkWindow *window);
+/* Misc.  (FIXME: Should die?) */
+gchar *html_engine_canonicalize_url  (HTMLEngine *e,
+				      const char *in_url);
 
-GtkHTMLStreamHandle html_engine_begin (HTMLEngine *p, const char *url);
-gchar      *html_engine_parse_body (HTMLEngine *p, HTMLObject *clue, const gchar *end[], gboolean toplevel);
-void        html_engine_parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str);
-void        html_engine_parse (HTMLEngine *p);
-void        html_engine_calc_size (HTMLEngine *p);
+/* Parsing control.  */
+GtkHTMLStreamHandle  html_engine_begin            (HTMLEngine  *p,
+						   const char  *url);
+void                 html_engine_parse            (HTMLEngine  *p);
+gchar               *html_engine_parse_body       (HTMLEngine  *p,
+						   HTMLObject  *clue,
+						   const gchar *end[],
+						   gboolean     toplevel);
+void                 html_engine_parse_one_token  (HTMLEngine  *p,
+						   HTMLObject  *clue,
+						   const gchar *str);
+void                 html_engine_stop_parser      (HTMLEngine  *e);
+
+/* Rendering control.  */
+void  html_engine_calc_size            (HTMLEngine *p);
 gint        html_engine_get_doc_height (HTMLEngine *p);
-void        html_engine_stop_parser (HTMLEngine *e);
-gchar      *html_engine_canonicalize_url (HTMLEngine *e, const char *in_url);
-const gchar *html_engine_get_link_at (HTMLEngine *e, gint x, gint y);
-void	    html_engine_set_editable (HTMLEngine *e, gboolean show);
-gint	    html_engine_get_doc_width (HTMLEngine *e);
 
-void	    html_engine_make_cursor_visible (HTMLEngine *e);
+gint  html_engine_get_doc_width        (HTMLEngine *e);
+void  html_engine_draw                 (HTMLEngine *e,
+					gint        x,
+					gint        y,
+					gint        width,
+					gint        height);
+void  html_engine_draw_cursor          (HTMLEngine *e);
+void  html_engine_draw_cursor_in_area  (HTMLEngine *e,
+					gint        x,
+					gint        y,
+					gint        width,
+					gint        height);
+void  html_engine_flush_draw_queue     (HTMLEngine *e);
+void  html_engine_queue_draw           (HTMLEngine *e,
+					HTMLObject *o);
+void  html_engine_schedule_update      (HTMLEngine *p);
+void  html_engine_make_cursor_visible  (HTMLEngine *e);
 
-void  html_engine_draw                (HTMLEngine *e, gint x, gint y, gint width, gint height);
-void  html_engine_draw_cursor         (HTMLEngine *e);
-void  html_engine_draw_cursor_in_area (HTMLEngine *e, gint x, gint y, gint width, gint height);
+/* Getting objects through pointer positions.  */
+HTMLObject  *html_engine_get_object_at  (HTMLEngine *e,
+					 gint        x,
+					 gint        y,
+					 guint      *offset_return);
+const gchar *html_engine_get_link_at    (HTMLEngine *e,
+					 gint        x,
+					 gint        y);
 
-void  html_engine_flush_draw_queue            (HTMLEngine *e);
-void  html_engine_queue_draw                  (HTMLEngine *e, HTMLObject *o);
-void  html_engine_schedule_update             (HTMLEngine *p);
-
-void        html_engine_form_submitted (HTMLEngine *engine, const gchar *method, const gchar *action, const gchar *encoding);
-
+/* Form support.  */
+void  html_engine_form_submitted  (HTMLEngine  *engine,
+				   const gchar *method,
+				   const gchar *action,
+				   const gchar *encoding);
 
 #endif /* _HTMLENGINE_H_ */

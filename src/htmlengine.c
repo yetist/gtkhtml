@@ -2692,7 +2692,7 @@ html_engine_init (HTMLEngine *engine)
 
 	engine->newPage = FALSE;
 
-	engine->editable = FALSE;
+	engine->editable = TRUE;
 	engine->cursor = html_cursor_new ();
 
 	engine->ht = html_tokenizer_new ();
@@ -3222,34 +3222,44 @@ html_engine_parse (HTMLEngine *p)
 }
 
 
-const gchar *
-html_engine_get_link_at (HTMLEngine *e, gint x, gint y)
+HTMLObject *
+html_engine_get_object_at (HTMLEngine *e,
+			   gint x, gint y,
+			   guint *offset_return)
 {
 	HTMLObject *obj;
 
-	if ( e->clue == NULL )
+	if (e->clue == NULL)
 		return NULL;
-
-#if 0
-	// Make this frame the active one
-	if ( bIsFrame && !bIsSelected )
-		htmlView->setSelected( TRUE );
-#endif
 
 	obj = html_object_check_point (HTML_OBJECT (e->clue),
 				       e->painter,
 				       x + e->x_offset - e->leftBorder,
 				       y + e->y_offset - e->topBorder,
-				       NULL);
+				       offset_return);
 
-	if (obj != 0)
+	return obj;
+}
+
+const gchar *
+html_engine_get_link_at (HTMLEngine *e, gint x, gint y)
+{
+	HTMLObject *obj;
+
+	if (e->clue == NULL)
+		return NULL;
+
+	obj = html_engine_get_object_at (e, x, y, NULL);
+
+	if (obj != NULL)
 		return html_object_get_url (obj);
 
 	return NULL;
 }
 
 void
-html_engine_set_editable (HTMLEngine *e, gboolean editable)
+html_engine_set_editable (HTMLEngine *e,
+			  gboolean editable)
 {
 	e->editable = editable;
 }

@@ -1,3 +1,13 @@
+2000-01-20  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* gtkhtml.c (button_press_event): Implemented.
+
+	* htmlengine-edit.c (html_engine_jump_to): Renamed to
+	`html_engine_jump_to_object' and made void.
+	(html_engine_jump_at): New function.
+
+	* htmlengine.c (html_engine_get_object_at): New function.
+
 2000-01-19  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmltable.c (mouse_event): Removed.

@@ -439,6 +439,22 @@ static gint
 button_press_event (GtkWidget *widget,
 		    GdkEventButton *event)
 {
+	GtkHTML *html;
+	HTMLEngine *engine;
+
+	html = GTK_HTML (widget);
+	engine = html->engine;
+
+	if (! engine->editable) {
+		const gchar *url;
+
+		url = html_engine_get_link_at (engine, event->x, event->y);
+		if (url != NULL)
+			gtk_signal_emit (GTK_OBJECT (widget), signals[LINK_CLICKED], url);
+	} else {
+		html_engine_jump_at (engine, event->x, event->y);
+	}
+
 	return FALSE;
 }
 
