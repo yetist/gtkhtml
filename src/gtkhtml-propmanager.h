@@ -23,6 +23,7 @@
 #define __GTK_HTML_PROPMANAGER_H__
 
 #include <gtk/gtkobject.h>
+#include <gconf/gconf-client.h>
 #include <glade/glade.h>
 #include "gtkhtml-properties.h"
 

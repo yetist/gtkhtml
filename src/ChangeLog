@@ -1,3 +1,7 @@
+2002-04-30  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml-propmanager.h: include gconf-client.h
+
 2002-04-29  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml-propmanager.c (gtk_html_propmanager_real_changed): add cast.
