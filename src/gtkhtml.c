@@ -2999,6 +2999,18 @@ gtk_html_im_commit_cb (GtkIMContext *context, const gchar *str, GtkHTML *html)
 	gboolean state = html->priv->im_block_reset;
 	gint pos;
 
+        if (html->priv->im_pre_len > 0) {
+                D_IM (printf ("IM delete last preedit %d + %d\n", html->priv->im_pre_pos, html->priv->im_pre_len);)
+                                                                                
+                html_undo_freeze (html->engine->undo);
+                html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine, html->priv->im_pre_pos);
+                html_engine_set_mark (html->engine);
+                html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine, html->priv->im_pre_pos + html->priv->im_pre_len);
+                html_engine_delete (html->engine);
+                html->priv->im_pre_len = 0;
+                html_undo_thaw (html->engine->undo);
+        }
+
 	pos = html->engine->cursor->position;
 	if (html->engine->mark && html->engine->mark->position > pos)
 		pos = html->engine->mark->position;
@@ -3045,6 +3057,8 @@ gtk_html_im_preedit_changed_cb (GtkIMContext *context, GtkHTML *html)
 	initial_position = html->engine->cursor->position;
 	D_IM (printf ("IM initial position %d\n", initial_position);)
 
+	html_undo_freeze (html->engine->undo);
+
 	if (html->priv->im_pre_len > 0) {
 		D_IM (printf ("IM delete last preedit %d + %d\n", html->priv->im_pre_pos, html->priv->im_pre_len);)
 		
@@ -3088,6 +3102,8 @@ gtk_html_im_preedit_changed_cb (GtkIMContext *context, GtkHTML *html)
 		html_engine_thaw_idle_flush (html->engine);
 	/* FIXME gtk_im_context_set_cursor_location (im_context, &area); */
 	html->priv->im_block_reset = state;
+
+	html_undo_thaw (html->engine->undo);
 
 	D_IM (printf ("IM preedit changed cb [end] cursor %d(%p) mark %d(%p) active: %d\n",
 		      html->engine->cursor ? html->engine->cursor->position : 0, html->engine->cursor,

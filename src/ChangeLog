@@ -1,3 +1,15 @@
+2004-09-16  Radek Doulik  <rodo@ximian.com>
+
+	* htmlundo.c: revert the freeze_counter test
+
+	* gtkhtml.c (gtk_html_im_commit_cb): use undo freeze/thaw (patch
+	from Yukihiro Nakai <ynakai@redhat.com>)
+
+	* htmlundo.c: added freeze/thaw API (patch from Yukihiro Nakai
+	<ynakai@redhat.com>)
+
+	Fixes #62637
+
 2004-09-02  Radek Doulik  <rodo@ximian.com>
 
 	* htmlrule.c (fit_line): make sure the rule width doesn't exceed
