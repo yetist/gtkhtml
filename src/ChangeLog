@@ -1,3 +1,8 @@
+2002-10-01  Radek Doulik  <rodo@ximian.com>
+
+	* htmltextslave.c (get_offset_for_pointer): fixed offset
+	computation, use utf8 functions instead of using byte positions
+
 2002-10-01  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml.c (new_obj_from_uri): fix the uri strcmp to actually
