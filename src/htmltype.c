@@ -33,11 +33,14 @@
 #include "htmlclueh.h"
 #include "htmlcluev.h"
 #include "htmlembedded.h"
+#include "htmlframe.h"
+#include "htmlframeset.h"
 #include "htmlhidden.h"
 #include "htmliframe.h"
 #include "htmlimage.h"
 #include "htmlimageinput.h"
 #include "htmllinktext.h"
+#include "htmlmap.h"
 #include "htmlobject.h"
 #include "htmlradio.h"
 #include "htmlrule.h"
@@ -88,6 +91,7 @@ html_types_init (void)
 	html_image_type_init ();
 	html_imageinput_type_init ();
 	html_link_text_type_init ();
+	html_map_type_init ();
 	html_object_type_init ();
 	html_radio_type_init ();
 	html_rule_type_init ();
@@ -99,7 +103,10 @@ html_types_init (void)
 	html_text_slave_type_init ();
 	html_text_type_init ();
 	html_vspace_type_init ();
-	html_iframe_type_init ();
+
+	html_frameset_type_init ();
+	html_frame_type_init ();
+	html_iframe_type_init ();	
 
 	build_type_names_table ();
 
@@ -144,6 +151,8 @@ html_type_name (HTMLType type)
  		return "ImageInput";
 	case HTML_TYPE_LINKTEXT:
  		return "LinkText";
+	case HTML_TYPE_MAP:
+ 		return "Map";
 	case HTML_TYPE_OBJECT:
  		return "Object";
 	case HTML_TYPE_RADIO:
@@ -168,6 +177,10 @@ html_type_name (HTMLType type)
  		return "VSpace";
 	case HTML_TYPE_IFRAME:
 		return "IFrame";
+	case HTML_TYPE_FRAME:
+		return "Frame";
+	case HTML_TYPE_FRAMESET:
+		return "Framset";
 	case HTML_TYPE_NONE:
  	case HTML_NUM_TYPES:
 		/* Make compiler happy.  */

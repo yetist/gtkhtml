@@ -75,6 +75,7 @@ libgtkhtml_HEADERS =				\
 	htmlinterval.h				\
 	htmllinktext.h				\
 	htmllist.h				\
+	htmlmap.h				\
 	htmlobject.h				\
 	htmlpainter.h				\
 	htmlprinter.h				\
@@ -85,6 +86,7 @@ libgtkhtml_HEADERS =				\
 	htmlselect.h				\
 	htmlselection.h				\
 	htmlsettings.h				\
+	htmlshape.h				\
 	htmlstack.h				\
 	htmlstringtokenizer.h			\
 	htmltable.h				\
@@ -102,6 +104,8 @@ libgtkhtml_HEADERS =				\
 	htmlvspace.h				\
 	gtkhtml-keybinding.h			\
 	htmliframe.h				\
+	htmlframe.h				\
+	htmlframeset.h				\
 	htmlengine-edit-table.h			\
 	htmlhspace.h				\
 	$(NULL)
@@ -156,6 +160,7 @@ libgtkhtml_la_SOURCES =				\
 	htmlinterval.c				\
 	htmllinktext.c				\
 	htmllist.c				\
+	htmlmap.c				\
 	htmlobject.c				\
 	htmlpainter.c				\
 	htmlprinter.c				\
@@ -166,6 +171,7 @@ libgtkhtml_la_SOURCES =				\
 	htmlselect.c				\
 	htmlselection.c				\
 	htmlsettings.c				\
+	htmlshape.c				\
 	htmlstack.c				\
 	htmlstringtokenizer.c			\
 	htmltable.c				\
@@ -180,6 +186,8 @@ libgtkhtml_la_SOURCES =				\
 	htmlundo-action.c			\
 	htmlvspace.c				\
 	htmliframe.c				\
+	htmlframe.c				\
+	htmlframeset.c				\
 	$(NULL)
 #	htmlhspace.c				\
 #	htmlelement.c				\
