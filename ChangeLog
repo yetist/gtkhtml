@@ -1,3 +1,8 @@
+2002-01-27  Larry Ewing  <lewing@ximian.com>
+
+	* configure.in: update requirement for gal to pull
+	in the scrollframe functions.
+
 2002-01-24  Hasbullah Bin Pit <sebol@ikhlas.com>
 
 	* configure.ini: Added Malay (ms)to ALL_LINGUAS.

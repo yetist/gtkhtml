@@ -61,7 +61,7 @@ dnl ******************************
 dnl Gnome App Lib checking
 dnl ******************************
 
-HTML_REQUIRE_LIB(Gnome App libraries (GAL), 0.15.99.9, gal)
+HTML_REQUIRE_LIB(Gnome App libraries (GAL), 0.19.99.1, gal)
 
 dnl ******************************
 dnl capplet library check
