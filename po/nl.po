@@ -9,21 +9,21 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml cvs\n"
-"POT-Creation-Date: 2004-02-09 14:38-0500\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-02-24 05:18+0100\n"
 "PO-Revision-Date: 2004-01-28 11:25+0100\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
 msgstr "<Geen>"
 
 #: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
-#: components/html-editor/cell.c:419 components/html-editor/image.c:545
+#: components/html-editor/cell.c:419 components/html-editor/image.c:543
 #: components/html-editor/rule.c:316 components/html-editor/table.c:530
 #: components/html-editor/table.c:614 components/html-editor/template.c:272
 msgid "Could not load glade file."
@@ -74,9 +74,10 @@ msgstr "Directe spellingscontrole"
 msgid "Fixed width"
 msgstr "Vaste breedte"
 
+#. GRUT modified this item
 #: capplet/gtkhtml-capplet.glade.h:13
 msgid "Fonts"
-msgstr "Lettertypes"
+msgstr "Lettertypen"
 
 #: capplet/gtkhtml-capplet.glade.h:14
 msgid "For printing"
@@ -236,10 +237,11 @@ msgstr "Kopiëren"
 msgid "Copy selection to clipboard"
 msgstr "Selectie naar het prikbord kopiëren"
 
+#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:16
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:16
 msgid "Copy the selection"
-msgstr "De selectie kopiëren"
+msgstr "Selectie kopiëren"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
@@ -261,10 +263,11 @@ msgstr "Knippen"
 msgid "Cut selection to clipboard"
 msgstr "Selectie naar het prikbord knippen"
 
+#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:21
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
 msgid "Cut the selection"
-msgstr "De selectie knippen"
+msgstr "Selectie knippen"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
@@ -566,10 +569,11 @@ msgstr "_Citaat plakken"
 msgid "Paste from clipboard"
 msgstr "Plak van klembord"
 
+#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
 msgid "Paste the clipboard"
-msgstr "Plak de inhoud van het klembord"
+msgstr "Plakken vanuit klembord"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
@@ -601,10 +605,11 @@ msgstr "Opnieuw"
 msgid "Redo previously undone change"
 msgstr "Doe herstelbewerking opnieuw"
 
+#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
 msgid "Redo the undone action"
-msgstr "Herstelbewerking annuleren"
+msgstr "De ongedaan gemaakte actie opnieuw uitvoeren"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
@@ -677,7 +682,7 @@ msgstr "Bovenschrift"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
 #: components/html-editor/menubar.c:142 components/html-editor/popup.c:237
-#: components/html-editor/popup.c:518 components/html-editor/popup.c:527
+#: components/html-editor/popup.c:519 components/html-editor/popup.c:528
 msgid "Table"
 msgstr "Tabel"
 
@@ -715,10 +720,11 @@ msgstr "Ongedaan maken"
 msgid "Undo previous changes"
 msgstr "Vorige verandering herstellen"
 
+#. GRUT modified this item
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
 msgid "Undo the last action"
-msgstr "Maak laatste bewerking ongedaan"
+msgstr "Laatste bewerking ongedaan maken"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
@@ -1361,7 +1367,7 @@ msgid "Color:"
 msgstr "Kleur:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#: components/html-editor/popup.c:529
+#: components/html-editor/popup.c:530
 msgid "Column"
 msgstr "Kolom"
 
@@ -1478,7 +1484,7 @@ msgid "Right"
 msgstr "Rechts"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
-#: components/html-editor/popup.c:528
+#: components/html-editor/popup.c:529
 msgid "Row"
 msgstr "Rij"
 
@@ -1512,7 +1518,7 @@ msgid "Spacing:"
 msgstr "Spatiëring:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:117 components/html-editor/popup.c:473
+#: components/html-editor/paragraph.c:117 components/html-editor/popup.c:474
 #: components/html-editor/text.c:223
 msgid "Style"
 msgstr "Stijl"
@@ -1628,7 +1634,7 @@ msgstr ""
 msgid "No image selected"
 msgstr "Geen afbeelding geselecteerd"
 
-#: components/html-editor/image.c:705
+#: components/html-editor/image.c:704
 msgid ""
 "The editted image was removed from the document.\n"
 "Cannot apply your changes."
@@ -1733,99 +1739,101 @@ msgstr ""
 msgid "Paste Quotation"
 msgstr "Citaat plakken"
 
-#: components/html-editor/popup.c:460
-msgid "Insert link"
+#: components/html-editor/popup.c:461
+#, fuzzy
+msgid "Insert Link"
 msgstr "Link invoegen"
 
 #: components/html-editor/popup.c:468
-msgid "Remove link"
+#, fuzzy
+msgid "Remove Link"
 msgstr "Verwijder link"
 
-#: components/html-editor/popup.c:476
+#: components/html-editor/popup.c:477
 msgid "Text Style..."
 msgstr "Tekststijl..."
 
 # alineastijl?
-#: components/html-editor/popup.c:478 components/html-editor/popup.c:484
-#: components/html-editor/popup.c:494
+#: components/html-editor/popup.c:479 components/html-editor/popup.c:485
+#: components/html-editor/popup.c:495
 msgid "Paragraph Style..."
 msgstr "Paragraafstijl..."
 
 # verwijzingstijl?
-#: components/html-editor/popup.c:482
+#: components/html-editor/popup.c:483
 msgid "Link Style..."
 msgstr "Linkstijl..."
 
-#: components/html-editor/popup.c:488
+#: components/html-editor/popup.c:489
 msgid "Rule Style..."
 msgstr "Regelstijl..."
 
-#: components/html-editor/popup.c:492
+#: components/html-editor/popup.c:493
 msgid "Image Style..."
 msgstr "Afbeeldingstijl..."
 
-#: components/html-editor/popup.c:503
+#: components/html-editor/popup.c:504
 msgid "Cell Style..."
 msgstr "Celstijl..."
 
-#: components/html-editor/popup.c:506
+#: components/html-editor/popup.c:507
 msgid "Table Style..."
 msgstr "Tabelstijl..."
 
-#: components/html-editor/popup.c:512
+#: components/html-editor/popup.c:513
 msgid "Page Style..."
 msgstr "Paginastijl..."
 
-#: components/html-editor/popup.c:517
+#: components/html-editor/popup.c:518
 msgid "Table insert"
 msgstr "Tabel-invoeging"
 
-#: components/html-editor/popup.c:520
+#: components/html-editor/popup.c:521
 msgid "Row above"
 msgstr "Rij boven"
 
-#: components/html-editor/popup.c:521
+#: components/html-editor/popup.c:522
 msgid "Row below"
 msgstr "Rij onder"
 
-#: components/html-editor/popup.c:523
+#: components/html-editor/popup.c:524
 msgid "Column before"
 msgstr "Kolom voor"
 
-#: components/html-editor/popup.c:524
+#: components/html-editor/popup.c:525
 msgid "Column after"
 msgstr "Kolom na"
 
-#: components/html-editor/popup.c:526
+#: components/html-editor/popup.c:527
 msgid "Table delete"
 msgstr "Tabel verwijdering"
 
-#: components/html-editor/popup.c:530
+#: components/html-editor/popup.c:531
 msgid "Cell contents"
 msgstr "Cel-inhoud"
 
-#: components/html-editor/popup.c:540
+#: components/html-editor/popup.c:541
 msgid "Check Word Spelling..."
 msgstr "Woorspelling controleren..."
 
-#: components/html-editor/popup.c:545
+#: components/html-editor/popup.c:546
 msgid "Add Word to"
 msgstr "Woord toevoegen"
 
-#: components/html-editor/popup.c:549
+#: components/html-editor/popup.c:550
 #, c-format
 msgid "%s Dictionary"
 msgstr "%s woordenboek"
 
-#: components/html-editor/popup.c:558
+#: components/html-editor/popup.c:559
 msgid "Add Word to Dictionary"
 msgstr "Woord aan woordenboek toevoegen"
 
-#: components/html-editor/popup.c:561
+#: components/html-editor/popup.c:562
 msgid "Ignore Misspelled Word"
 msgstr "Foutief gespelde woord negeren"
 
-#: components/html-editor/popup.c:564
+#: components/html-editor/popup.c:566
 msgid "Input Methods"
 msgstr "Invoermethoden"
 
