@@ -1885,8 +1885,9 @@ save_plain (HTMLObject *self,
 		} else while (*s) {
 			len = strcspn (s, "\n");
 			
-			if (flow->style != HTML_CLUEFLOW_STYLE_PRE) {
-
+			if ((flow->style != HTML_CLUEFLOW_STYLE_PRE) 
+			    && !HTML_IS_TABLE (HTML_CLUE (flow)->head)) {
+				
 				if (g_utf8_strlen (s, len) > max_len) {
 					space = g_utf8_offset_to_pointer (s, max_len);
 					while (space 
@@ -1900,6 +1901,9 @@ save_plain (HTMLObject *self,
 				}
 			}
 			
+			/* FIXME plain padding doesn't work properly with tables aligment
+			 * at the moment.
+			 */
 		        plain_padding (flow, out, firstline);
 
 			switch (html_clueflow_get_halignment (flow)) {
