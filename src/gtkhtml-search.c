@@ -114,8 +114,8 @@ focus_out_event (GtkWidget *widget, GdkEventFocus *event, GtkHTMLISearch *data)
 static void
 destroy (GtkWidget *w, GtkHTMLISearch *data)
 {
-	data_destroy (data);
 	data->html->priv->search_input_line = NULL;
+	data_destroy (data);
 }
 
 void

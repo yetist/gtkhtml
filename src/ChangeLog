@@ -1,3 +1,8 @@
+2001-03-10  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml-search.c (destroy): dereference data before we destroy
+	it, this should fix the crashes ettore has been seeing.
+
 2001-03-08  Larry Ewing  <lewing@ximian.com>
 
 	* htmlbutton.c (html_button_class_init): add encode method.
