@@ -1,3 +1,10 @@
+2001-01-16  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlclueflow.c (get_post_padding): add post padding for header
+	preceding another header too
+
+	* htmlengine.c (insert_text): create new text if para is pending
+
 2001-01-12  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlclueflow.c (search): fixed crash for empty document

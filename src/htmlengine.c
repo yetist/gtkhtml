@@ -470,7 +470,7 @@ insert_text (HTMLEngine *e,
 	else
 		type = HTML_TYPE_TEXT;
 
-	if (! check_prev (prev, type, font_style, color)) {
+	if (! check_prev (prev, type, font_style, color) || e->pending_para) {
 		HTMLObject *obj;
 
 		if (create_link)
@@ -2117,6 +2117,7 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		   && (*(str + 2) >= '1' && *(str + 2) <= '6')) {
 		/* Close tag.  */
 		pop_block (p, ID_HEADER, clue);
+
 		p->avoid_para = TRUE;
 		p->pending_para = FALSE;
 	}
