@@ -4340,7 +4340,7 @@ scroll (GtkHTML *html,
 	gfloat delta;
 
 	/* we dont want scroll in editable (move cursor instead) */
-	if (html_engine_get_editable (html->engine) || html->engine->caret_mode)
+	if (html_engine_get_editable (html->engine))
 		return;
 
 	adj = (orientation == GTK_ORIENTATION_VERTICAL)

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: gtkhtml.gnome-2-10\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-01 23:21+0100\n"
-"PO-Revision-Date: 2005-03-04 12:03+0000\n"
+"PO-Revision-Date: 2005-03-16 11:28+0000\n"
 "Last-Translator: Jyotsna Shrestha <jyoshrestha@hotmail.com>\n"
 "Language-Team: Nepali <info@mpp.org.np>\n"
 "MIME-Version: 1.0\n"
@@ -225,87 +225,87 @@ msgstr "चित्र॒"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
 msgid "Insert Crying smiley into document..."
-msgstr "कागजातमा क्रयाइङ स्माइली जोड्नुहोला॰॰॰॰॰"
+msgstr "कागजात॰॰॰मा क्रयाइङ स्माइली जोड्नुहोला।"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
 msgid "Insert Frown smiley into document..."
-msgstr "कागजातमा फ्राउन स्माइली जोड्नुहोला॰॰॰॰"
+msgstr "कागजात॰॰॰मा फ्राउन स्माइली जोड्नुहोला।"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
 msgid "Insert HTML file into document..."
-msgstr "कागजातमा एचटिएमएल फाइल जोड्नुहोला॰॰॰॰"
+msgstr "कागजात॰॰॰मा एचटिएमएल फाइल जोड्नुहोला।"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
 msgid "Insert HTML link into document..."
-msgstr "कागजातमा एचटिएमएल लिन्क जोड्नुहोला ॰॰॰॰॰॰॰॰॰"
+msgstr "कागजात॰॰॰मा एचटिएमएल लिन्क जोड्नुहोला।"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:40
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
 msgid "Insert HTML template into document..."
-msgstr "कागजातमा एचटिएमएल टेमप्लेटन्क जोड्नुहोला ॰॰॰॰॰॰॰॰॰"
+msgstr "कागजात॰॰॰मा एचटिएमएल टेमप्लेट जोड्नुहोला।"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
 msgid "Insert Indifferent smiley into document..."
-msgstr "कागजातमा अनेक थरीका स्माइली क जोड्नुहोला ॰॰॰॰॰॰॰॰॰"
+msgstr "कागजात॰॰॰मा अनेक थरीका स्माइली जोड्नुहोला।"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
 msgid "Insert Laughing smiley into document..."
-msgstr "कागजातमा लाफिङ स्माइलि जोड्नुहोला ॰॰॰॰॰॰॰॰॰"
+msgstr "कागजात॰॰॰मा लाफिङ स्माइलि जोड्नुहोला।"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
 msgid "Insert Lick smiley into document..."
-msgstr "कागजातमा चाट्नु स्माईलि जोड्नुहोला ॰॰॰॰॰॰॰॰॰"
+msgstr "कागजात॰॰॰॰मा चाट्नु स्माईलि जोड्नुहोला।"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
 msgid "Insert Oh no! smiley into document..."
-msgstr "कागजातमा नाई स्माईलि जोड्नुहोला ॰॰॰॰॰॰॰॰॰."
+msgstr "कागजात॰॰॰॰मा नाई स्माईलि जोड्नुहोला।"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
 msgid "Insert Smile smiley into document..."
-msgstr "कागजातमा हाँस्नु स्माईलि जोड्नुहोला ॰॰॰॰॰॰॰॰॰"
+msgstr "कागजात॰॰॰मा हाँस्नु स्माईलि जोड्नुहोला।"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
 msgid "Insert Surprised smiley into document..."
-msgstr "कागजातमा अचम्म स्माईलि जोड्नुहोला ॰॰॰॰॰॰॰॰॰"
+msgstr "कागजात॰॰॰॰मा अचम्म स्माईलि जोड्नुहोला।"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
 msgid "Insert Undecided smiley into document..."
-msgstr "कागजातमा निर्णय नभएको स्माईलि जोड्नुहोला ॰॰॰॰॰॰॰॰॰"
+msgstr "कागजात॰॰॰॰मा निर्णय नभएको स्माईलि जोड्नुहोला।"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
 msgid "Insert Wink smiley into document..."
-msgstr "कागजातमा आखाँ झिमकाउने स्माईलि जोड्नुहोला ॰॰॰॰॰॰॰॰॰"
+msgstr "कागजात॰॰॰॰मा आखाँ झिमकाउने स्माईलि जोड्नुहोला।"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
 msgid "Insert image into document..."
-msgstr "कागजातमा छवि जोड्नुहोला ॰॰॰॰॰॰॰॰॰ "
+msgstr "कागजात॰॰॰॰मा छवि जोड्नुहोला।"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
 msgid "Insert rule into document..."
-msgstr "कागजातमा नियम जोड्नुहोला ॰॰॰॰॰॰॰॰॰"
+msgstr "कागजात॰॰॰॰मा नियम जोड्नुहोला।"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
 msgid "Insert table into document..."
-msgstr "कागजातमा तालिका जोड्नुहोला ॰॰॰॰॰॰॰॰॰"
+msgstr "कागजात॰॰॰॰मा तालिका जोड्नुहोला।"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:52
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
 msgid "Insert text file into document..."
-msgstr "कागजातमा पाठ फाइल जोड्नुहोला ॰॰॰॰॰॰॰॰॰."
+msgstr "कागजात॰॰॰मा पाठ फाइल जोड्नुहोला।"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
@@ -419,7 +419,7 @@ msgstr "सुन्तला॒"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
 msgid "Other..."
-msgstr "अन्य."
+msgstr "अन्य॰॰॰"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:75
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
@@ -646,7 +646,7 @@ msgstr "फ्राउन"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
 msgid "_HTML file..."
-msgstr "एचटिएमएल फाइल"
+msgstr "एचटिएमएल फाइल॰॰॰"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
@@ -1291,7 +1291,7 @@ msgstr "शीर्षक शैली"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:34
 msgid "Horizontal alignment:"
-msgstr "तेर्सो पंक्तिवद्व"
+msgstr "तेर्सो पंक्तिवद्व:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:35
 msgid "Horizontal:"
@@ -1445,7 +1445,7 @@ msgstr "xxxxxxxxxxxxxxx"
 
 #: components/html-editor/link.c:194
 msgid "URL:"
-msgstr "URL:"
+msgstr "युआरएल:"
 
 #: components/html-editor/link.c:198
 msgid "Description:"
@@ -1715,11 +1715,11 @@ msgstr "टेमप्लेट लेबल"
 
 #: components/html-editor/test-html-editor-control.c:333
 msgid "Open file..."
-msgstr "फाइल खोल्नुहाला॰॰॰॰"
+msgstr "फाइल खोल्नुहोला॰॰॰॰"
 
 #: components/html-editor/test-html-editor-control.c:335
 msgid "Save file as..."
-msgstr "लेखनपत्रसंग बचत"
+msgstr "फाईल॰॰॰मा संग्रह गर्नुहोला।"
 
 #: components/html-editor/test-html-editor-control.c:567
 msgid "GtkHTML Editor Test Container"
@@ -1791,7 +1791,7 @@ msgstr "नमुना॒"
 
 #: components/html-editor/utils.c:192
 msgid "_Visit..."
-msgstr "भेट्नुहोला॒॰॰॰"
+msgstr "॒भेट्नुहोला॒॰॰॰"
 
 #: components/html-editor/utils.c:232
 msgid ""
@@ -1799,7 +1799,7 @@ msgid ""
 "Cannot apply your changes."
 msgstr ""
 "कागजातबाट सम्पादन गरिएका वस्तुहरू हटियो।\n"
-"तपाईको परिवर्तनलाई लागु गर्न सकिएन ।"
+"तपाईको परिवर्तनलाई लागु गर्न सकिएन।"
 
 #: src/gtkhtml.c:2599
 #, c-format
@@ -1945,7 +1945,7 @@ msgstr "फेरि मिलाउनुहोला ।"
 #. TODO2 dialog instead of warning
 #: src/htmlengine-print.c:192
 msgid "Cannot allocate default font for printing\n"
-msgstr "छाप्नकोलागी पूर्वनिर्धारित वर्ण निर्धारण भएन ।\n"
+msgstr "छाप्नकोलागी पूर्वनिर्धारित वर्ण निर्धारण भएन।\n"
 
 #: src/test.c:375
 msgid "GtkHTML Test"

@@ -8,13 +8,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-27 15:17+0100\n"
+"POT-Creation-Date: 2005-03-16 20:48+0700\n"
 "PO-Revision-Date: 2005-03-16 09:20+0700\n"
 "Last-Translator: Ahmad Riza H Nst <ari@160c.afraid.org>\n"
 "Language-Team: Indonesian <sukarelawan@gnome.linux.or.id>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: a11y/image.c:150
 #, c-format
@@ -98,7 +98,7 @@ msgstr "List Bulet"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
-#: components/html-editor/toolbar.c:515
+#: components/html-editor/toolbar.c:523
 msgid "Center justifies the paragraphs"
 msgstr "Rata tengahkan paragraf"
 
@@ -309,7 +309,7 @@ msgstr "Masukkan file teks ke dalam dokumen..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
-#: components/html-editor/toolbar.c:513
+#: components/html-editor/toolbar.c:521
 msgid "Left justifies the paragraphs"
 msgstr "Rata kirikan paragraf"
 
@@ -485,7 +485,7 @@ msgstr "Ganti"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
-#: components/html-editor/toolbar.c:517
+#: components/html-editor/toolbar.c:525
 msgid "Right justifies the paragraphs"
 msgstr "Rata Kanankan paragraf"
 
@@ -514,7 +514,7 @@ msgstr "Pilih seluruh isi dari dokumen"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
-#: components/html-editor/toolbar.c:545
+#: components/html-editor/toolbar.c:553
 msgid "Strikeout"
 msgstr "Coret"
 
@@ -563,7 +563,7 @@ msgstr "File teks..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
-#: components/html-editor/toolbar.c:537
+#: components/html-editor/toolbar.c:545
 msgid "Typewriter"
 msgstr "Tukang ketik"
 
@@ -903,7 +903,7 @@ msgid "General"
 msgstr "Umum"
 
 #: components/html-editor/body.c:268 components/html-editor/text.c:162
-#: components/html-editor/toolbar.c:301
+#: components/html-editor/toolbar.c:308
 msgid "Automatic"
 msgstr "Otomatis"
 
@@ -1269,7 +1269,7 @@ msgid "Cell"
 msgstr "Cell"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:28
-#: components/html-editor/paragraph.c:128 components/html-editor/toolbar.c:515
+#: components/html-editor/paragraph.c:128 components/html-editor/toolbar.c:523
 msgid "Center"
 msgstr "Tengah-tengah"
 
@@ -1729,59 +1729,59 @@ msgstr "Pemeriksa Isi GtkHTML Editor"
 msgid "Roman List"
 msgstr "Daftar Romawi"
 
-#: components/html-editor/toolbar.c:513
+#: components/html-editor/toolbar.c:521
 msgid "Left align"
 msgstr "Alinea Kiri"
 
-#: components/html-editor/toolbar.c:517
+#: components/html-editor/toolbar.c:525
 msgid "Right align"
 msgstr "Alinea Kanan"
 
-#: components/html-editor/toolbar.c:537
+#: components/html-editor/toolbar.c:545
 msgid "Toggle typewriter font style"
 msgstr "Toggle gaya jenis huruf pengetik"
 
-#: components/html-editor/toolbar.c:539
+#: components/html-editor/toolbar.c:547
 msgid "Bold"
 msgstr "Tebal"
 
-#: components/html-editor/toolbar.c:539
+#: components/html-editor/toolbar.c:547
 msgid "Makes the text bold"
 msgstr "Buka teks menjadi tebal"
 
-#: components/html-editor/toolbar.c:541
+#: components/html-editor/toolbar.c:549
 msgid "Italic"
 msgstr "Miring"
 
-#: components/html-editor/toolbar.c:541
+#: components/html-editor/toolbar.c:549
 msgid "Makes the text italic"
 msgstr "Buat teks menjadi miring"
 
-#: components/html-editor/toolbar.c:543
+#: components/html-editor/toolbar.c:551
 msgid "Underline"
 msgstr "Garis bawah"
 
-#: components/html-editor/toolbar.c:543
+#: components/html-editor/toolbar.c:551
 msgid "Underlines the text"
 msgstr "Garis bawahi teks"
 
-#: components/html-editor/toolbar.c:545
+#: components/html-editor/toolbar.c:553
 msgid "Strikes out the text"
 msgstr "Coret teks"
 
-#: components/html-editor/toolbar.c:554
+#: components/html-editor/toolbar.c:562
 msgid "Unindent"
 msgstr "Jangan indentasikan"
 
-#: components/html-editor/toolbar.c:554
+#: components/html-editor/toolbar.c:562
 msgid "Indents the paragraphs less"
 msgstr "Kurangi indentasi pada paragaf"
 
-#: components/html-editor/toolbar.c:556
+#: components/html-editor/toolbar.c:564
 msgid "Indent"
 msgstr "Indentasi"
 
-#: components/html-editor/toolbar.c:556
+#: components/html-editor/toolbar.c:564
 msgid "Indents the paragraphs more"
 msgstr "Tambahkan indentasi pada paragraf"
 
@@ -1801,88 +1801,90 @@ msgstr ""
 "Objek yang telah di edit telah di buang dari dokumen.\n"
 "Tidak dapat menerapkan perubahan anda."
 
-#: src/gtkhtml.c:2581
+#: src/gtkhtml.c:2599
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
-msgstr "Url Mozilla yang telah diletakkan pada Composser memiliki bentuk yang salah (%d) atau panjang (%d)\n"
+msgstr ""
+"Url Mozilla yang telah diletakkan pada Composser memiliki bentuk yang salah "
+"(%d) atau panjang (%d)\n"
 
-#: src/gtkhtml.c:2931
+#: src/gtkhtml.c:2976
 msgid "Editable"
 msgstr "Bisa diedit"
 
-#: src/gtkhtml.c:2932
+#: src/gtkhtml.c:2977
 msgid "Whether the html can be edited"
 msgstr "Apakah html dapat diedit"
 
-#: src/gtkhtml.c:2938
+#: src/gtkhtml.c:2983
 msgid "Document Title"
 msgstr "Judul Dokumen"
 
-#: src/gtkhtml.c:2939
+#: src/gtkhtml.c:2984
 msgid "The title of the current document"
 msgstr "Judul dari dokumen"
 
-#: src/gtkhtml.c:2945
+#: src/gtkhtml.c:2990
 msgid "Document Base"
 msgstr "Basis Dokumen"
 
-#: src/gtkhtml.c:2946
+#: src/gtkhtml.c:2991
 msgid "The base URL for relative references"
 msgstr "Basis URL untuk referensi yang berhubungan"
 
-#: src/gtkhtml.c:2952
+#: src/gtkhtml.c:2997
 msgid "Target Base"
 msgstr "Basis Target"
 
-#: src/gtkhtml.c:2953
+#: src/gtkhtml.c:2998
 msgid "The base URL of the targe frame"
 msgstr "Basis URL dari kerangka target"
 
-#: src/gtkhtml.c:2962
+#: src/gtkhtml.c:3007
 msgid "Fixed Width Font"
 msgstr "Jenis Huruf Fixed"
 
-#: src/gtkhtml.c:2963
+#: src/gtkhtml.c:3008
 msgid "The Monospace font to use for typewriter text"
 msgstr "Jenis huruf Monospace untuk dipergunakan pada teks pengetik"
 
-#: src/gtkhtml.c:2969
+#: src/gtkhtml.c:3014
 msgid "New Link Color"
 msgstr "Warna Sambungan yang Baru"
 
-#: src/gtkhtml.c:2970
+#: src/gtkhtml.c:3015
 msgid "The color of new link elements"
 msgstr "Warna dari bagian sambungan yang baru"
 
-#: src/gtkhtml.c:2975
+#: src/gtkhtml.c:3020
 msgid "Visited Link Color"
 msgstr "Warna Sambungan yang telah dikunjungi"
 
-#: src/gtkhtml.c:2976
+#: src/gtkhtml.c:3021
 msgid "The color of visited link elements"
 msgstr "Warna dari bagian sambungan yang telah di kunjungi"
 
-#: src/gtkhtml.c:2981
+#: src/gtkhtml.c:3026
 msgid "Active Link Color"
 msgstr "Warna Sambungan Aktif"
 
-#: src/gtkhtml.c:2982
+#: src/gtkhtml.c:3027
 msgid "The color of active link elements"
 msgstr "Warna dari bagian sambungan aktif "
 
-#: src/gtkhtml.c:2987
+#: src/gtkhtml.c:3032
 msgid "Spelling Error Color"
 msgstr "Warna Ejaan yang Salah"
 
-#: src/gtkhtml.c:2988
+#: src/gtkhtml.c:3033
 msgid "The color of the spelling error markers"
 msgstr "Warna dari penanda kesalahan ejaan"
 
-#: src/gtkhtml.c:2993
+#: src/gtkhtml.c:3038
 msgid "Cite Quotation Color"
 msgstr "Warna Penyebutan Kutipan"
 
-#: src/gtkhtml.c:2994
+#: src/gtkhtml.c:3039
 msgid "The color of the cited text"
 msgstr "Warna dari teks yang disebutkan"
 
@@ -1962,4 +1964,3 @@ msgstr "Tampilan cetak"
 #: src/testgtkhtml.c:1004
 msgid "GtkHTML Test Application"
 msgstr "Pencoba Aplikasi GtkHTML"
-

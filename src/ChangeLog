@@ -14,13 +14,6 @@
 	environment variable
 	(html_cursor_home): fix typo causing crash
 
-2005-03-26  Yu Mengjie  <meng-jie.yu@sun.com>
-
-	* gtkhtml.c: (scroll):
-	we should not scroll gtkhtml widget if caret mode is on.
-
-	Fixes 74053
-
 2005-03-23  Radek Doulik  <rodo@novell.com>
 
 	* htmlgdkpainter.c (draw_glyphs): maintain fg color unchanged
@@ -87,39 +80,10 @@
 
 	Fixes: #73216
 
-
 2005-03-07  Radek Doulik  <rodo@novell.com>
 
 	* htmltext.c (html_text_cursor_next_slave): make sure we handle
 	the case where there is second or later empty slave
-
-2005-03-07  Radek Doulik  <rodo@novell.com>
-
-	* htmltextslave.c (html_text_slave_get_left_edge_offset): make
-	sure offset is in slave boundaries (should not happen with below
-	fixes anymore, but to be sure)
-
-	* htmlcursor.c: pass engine deeper in cursor function so that we
-	can call object funtions with painter
-
-	* htmlobject.c: as below
-
-	* htmltext.c: as below
-
-	* htmltextslave.c: add painter to cursor movements function
-	arguments to be able to recalculate items. there was a race
-	condition where cursor movement happened before line breaks were
-	recalculated which lead to infinite loop.
-
-2005-03-03  Radek Doulik  <rodo@novell.com>
-
-	* test-suite.c (test_insert_nested_cluevs): added test for
-	inserting nested cluevs
-
-	* htmlengine-edit.c (html_engine_get_insert_level_for_object): new
-	helper function, calculates insert level at cursor position for
-	object. it makes sure that insert level isn't greater than cursor
-	level
 
 2005-02-28  Radek Doulik  <rodo@novell.com>
 

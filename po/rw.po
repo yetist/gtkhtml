@@ -1,6 +1,6 @@
-# translation of gtkhtml to Kinyarwanda.
+# translation of XXXFILEXXX to Kinyarwanda.
 # Copyright (C) 2005 Free Software Foundation, Inc.
-# This file is distributed under the same license as the gtkhtml package.
+# This file is distributed under the same license as the GNOME package.
 # Steve Murphy <murf@e-tools.com>, 2005
 # Steve performed initial rough translation from compendium built from translations provided by the following translators:
 # Philibert Ndandali  <ndandali@yahoo.fr>, 2005.
@@ -13,9 +13,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml 2.11\n"
+"Project-Id-Version: Gnome 2.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-31 18:08-0700\n"
+"POT-Creation-Date: 2005-04-01 07:17-0700\n"
 "PO-Revision-Date: 2005-03-28 18:54-0700\n"
 "Last-Translator: Steve Murphy <murf@e-tools.com>\n"
 "Language-Team: Kinyarwanda <translation-team-rw@lists.sourceforge.net>\n"
