@@ -103,6 +103,7 @@ destroy (HTMLObject *o)
 	g_array_free (table->columnMin, TRUE);
 	g_array_free (table->columnPref, TRUE);
 	g_array_free (table->columnOpt, TRUE);
+	g_array_free (table->columnFixed, TRUE);
 	g_array_free (table->rowHeights, TRUE);
 
 	if (table->bgColor)

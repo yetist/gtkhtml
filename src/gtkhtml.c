@@ -706,6 +706,7 @@ destroy (GtkObject *object)
 		}
 
 		g_free (html->priv->content_type);
+		g_free (html->priv->base_url);
 		g_free (html->priv);
 		html->priv = NULL;
 	}

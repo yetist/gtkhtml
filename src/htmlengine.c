@@ -143,6 +143,7 @@ static void      update_embedded           (GtkWidget *widget,
 					    gpointer );
 
 static void      html_engine_map_table_clear (HTMLEngine *e);
+static void      html_engine_id_table_clear (HTMLEngine *e);
 static void      html_engine_add_map (HTMLEngine *e, HTMLMap *map);
 static void      clear_pending_expose (HTMLEngine *e);
 
@@ -3395,6 +3396,9 @@ html_engine_finalize (GObject *object)
 	}
 
 	clear_selection (engine);
+	html_engine_map_table_clear (engine);
+	html_engine_id_table_clear (engine);
+	html_engine_clear_all_class_data (engine);
 
 	if (engine->insertion_url) {
 		g_free (engine->insertion_url);

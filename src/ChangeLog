@@ -1,3 +1,14 @@
+2003-06-13  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (html_engine_finalize): clear some of the various
+	state tables.
+
+2003-06-12  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (destroy): free base_url.
+
+	* htmltable.c (destroy): free columnFixed array.
+
 2003-06-10  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml.c (style_set): free the var_name.
