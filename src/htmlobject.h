@@ -194,6 +194,8 @@ struct _HTMLObjectClass {
 	gint (* get_left_margin) (HTMLObject *self, gint y);
 	gint (* get_right_margin) (HTMLObject *self, gint y);
 
+	void (* set_painter) (HTMLObject *o, HTMLPainter *painter, gint max_width);
+
 	/* Resetting the object.  Do this before using a different
            HTMLPainter.  */
 
@@ -293,6 +295,9 @@ gint        html_object_get_left_margin   (HTMLObject           *self,
 					   gint                  y);
 gint        html_object_get_right_margin  (HTMLObject           *self,
 					   gint                  y);
+void        html_object_set_painter       (HTMLObject           *o,
+					   HTMLPainter          *p,
+					   gint                  max_width);
 void        html_object_reset             (HTMLObject           *o);
 gboolean    html_object_is_text           (HTMLObject           *object);
 void        html_object_forall            (HTMLObject           *self,

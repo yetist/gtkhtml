@@ -176,6 +176,11 @@ get_right_margin (HTMLObject *self, gint y)
 }
 
 static void
+set_painter (HTMLObject *o, HTMLPainter *painter, gint max_width)
+{
+}
+
+static void
 reset (HTMLObject *o)
 {
 	o->width = 0;
@@ -511,6 +516,7 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->set_max_width = set_max_width;
 	klass->get_left_margin = get_left_margin;
 	klass->get_right_margin = get_right_margin;
+	klass->set_painter = set_painter;
 	klass->reset = reset;
 	klass->calc_min_width = calc_min_width;
 	klass->calc_preferred_width = calc_preferred_width;
@@ -601,8 +607,7 @@ html_object_dup (HTMLObject *object)
 
 
 void
-html_object_set_parent (HTMLObject *o,
-			HTMLObject *parent)
+html_object_set_parent (HTMLObject *o, HTMLObject *parent)
 {
 	o->parent = parent;
 }
@@ -732,6 +737,33 @@ gint
 html_object_get_right_margin (HTMLObject *self, gint y)
 {
 	return (* HO_CLASS (self)->get_right_margin) (self, y);
+}
+
+struct _hlpSetPainter {
+	HTMLPainter *painter;
+	gint max_width;
+};
+typedef struct _hlpSetPainter hlpSetPainter;
+
+static void
+set_painter_forall (HTMLObject *o, gpointer data)
+{
+	hlpSetPainter *sp;
+
+	sp = (hlpSetPainter *) data;
+	(* HO_CLASS (o)->set_painter) (o, sp->painter, sp->max_width);
+}
+
+void
+html_object_set_painter (HTMLObject *o, HTMLPainter *painter, gint max_width)
+{
+	hlpSetPainter *sp;
+
+	sp = g_new (hlpSetPainter, 1);
+	sp->painter = painter;
+	sp->max_width = max_width;
+	html_object_forall (o, set_painter_forall, sp);
+	g_free (sp);
 }
 
 void

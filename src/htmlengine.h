@@ -325,6 +325,10 @@ void  html_engine_queue_clear       (HTMLEngine *e,
 				     guint       width,
 				     guint       height);
 
+void  html_engine_set_painter       (HTMLEngine  *e,
+				     HTMLPainter *painter,
+				     gint max_width);
+
 /* Getting objects through pointer positions.  */
 HTMLObject  *html_engine_get_object_at  (HTMLEngine *e,
 					 gint        x,

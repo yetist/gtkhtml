@@ -135,19 +135,51 @@ reset (HTMLObject *o)
 	html_object_reset (GTK_HTML (iframe->html)->engine->clue);
 }
 
+static void
+draw (HTMLObject *o,
+      HTMLPainter *p,
+      gint x, gint y,
+      gint width, gint height,
+      gint tx, gint ty)
+{
+	HTMLIFrame *iframe;
+
+	iframe = HTML_IFRAME (o);
+	html_object_draw (GTK_HTML (iframe->html)->engine->clue, p, x, y, width, height, tx, ty);
+}
+
+static void
+set_painter (HTMLObject *o, HTMLPainter *painter, gint max_width)
+{
+	HTMLIFrame *iframe;
+
+	printf ("iframe set painter\n");
+	iframe = HTML_IFRAME (o);
+	html_engine_set_painter (GTK_HTML (iframe->html)->engine, painter, max_width);
+	printf ("iframe set painter end\n");
+}
+
+static void
+forall (HTMLObject *self,
+	HTMLObjectForallFunc func,
+	gpointer data)
+{
+	HTMLIFrame *iframe;
+
+	iframe = HTML_IFRAME (self);
+	(* func) (self, data);
+	html_object_forall (GTK_HTML (iframe->html)->engine->clue, func, data);
+}
+
 static gboolean
 calc_size (HTMLObject *o,
 	   HTMLPainter *painter)
 {
 	HTMLIFrame *iframe;
-	guint pixel_size = 1;
 	gint width, height;
 	gint old_width, old_ascent, old_descent;
 	GtkHTML *html;
 	
-	if (painter)
-		pixel_size = html_painter_get_pixel_size (painter);
-       
 	old_width = o->width;
 	old_ascent = o->ascent;
 	old_descent = o->descent;
@@ -170,8 +202,8 @@ calc_size (HTMLObject *o,
 						GTK_POLICY_NEVER,
 						GTK_POLICY_NEVER);
 
-		o->width = width * pixel_size;
-		o->ascent = height * pixel_size;
+		o->width = width;
+		o->ascent = height;
 		o->descent = 0;
 	} else {
 		return (* HTML_OBJECT_CLASS (parent_class)->calc_size) 
@@ -280,7 +312,6 @@ html_iframe_init (HTMLIFrame *iframe,
 	gtk_signal_connect (GTK_OBJECT (html), "object_requested",
 			    GTK_SIGNAL_FUNC (object_requested_cmd), NULL);
 	*/
-	
 }
 
 
@@ -308,7 +339,9 @@ html_iframe_class_init (HTMLIFrameClass *klass,
 
 	object_class->calc_size = calc_size;
 	object_class->calc_min_width = calc_min_width;
+	object_class->set_painter = set_painter;
 	object_class->reset = reset;
+	object_class->draw = draw;
 	object_class->set_max_width = set_max_width;
-	
+	object_class->forall = forall;
 }

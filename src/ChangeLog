@@ -1,3 +1,25 @@
+2000-08-31  Radek Doulik  <rodo@helixcode.com>
+
+	* htmliframe.c (draw): forwards draw to embeded widget
+	(set_painter): sets painter to embeded widget's engine
+	(forall): forward forall method
+	(calc_size): don't use pixel_size here
+	(html_iframe_class_init): set new virtual function implementations
+
+	* htmlengine-print.c (html_engine_print): use
+	html_engine_set_painter
+
+	* htmlengine.c (html_engine_set_painter): new function, sets
+	painter to engine
+
+	* htmlobject.c (set_painter): new virtual method
+	(html_object_set_painter): new function, uses forall to call
+	set_painter on all objects
+	(set_painter_forall): helper function
+
+	* gtkhtml-input.c (gtk_html_input_line_destroy): deactivate only
+	if previosly activated, fixed unref of ebox instead of frame
+
 2000-08-30  Radek Doulik  <rodo@helixcode.com>
 
 	* testgtkhtml.c: added Simple tree dump to debug menu

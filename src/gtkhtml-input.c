@@ -143,8 +143,9 @@ gtk_html_input_line_new (GtkHTML *html)
 void
 gtk_html_input_line_destroy (GtkHTMLInputLine *il)
 {
-	gtk_html_input_line_deactivate (il);
-	gtk_widget_unref (il->frame);
+	if (il->activated)
+		gtk_html_input_line_deactivate (il);
+	gtk_widget_unref (il->ebox);
 	g_free (il);
 }
 

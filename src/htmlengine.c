@@ -4646,3 +4646,27 @@ html_engine_select_line (HTMLEngine *e)
 {
 	selection_helper (e, line_interval);
 }
+
+void
+html_engine_set_painter (HTMLEngine *e, HTMLPainter *painter, gint max_width)
+{
+	gint min_width;
+
+	e->painter = painter;
+
+	html_object_set_painter (e->clue, painter, max_width);
+	html_object_change_set_down (e->clue, HTML_CHANGE_ALL);
+	html_object_reset (e->clue);
+
+	html_object_set_max_width (e->clue, painter, max_width);
+
+	min_width = html_object_calc_min_width (e->clue, painter);
+	if (min_width > max_width) {
+		max_width = min_width;
+
+		html_object_change_set_down (e->clue, HTML_CHANGE_ALL);
+		html_object_set_max_width (e->clue, painter, max_width);
+	}
+
+	html_engine_calc_size (e);
+}

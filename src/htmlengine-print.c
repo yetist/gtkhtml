@@ -77,46 +77,22 @@ html_engine_print (HTMLEngine *engine,
 		   GnomePrintContext *print_context)
 {
 	HTMLPainter *printer;
+	HTMLPainter *old_painter;
 	guint old_width, max_width, min_width;
 
 	g_return_if_fail (engine->clue != NULL);
 
-	printer = html_printer_new (print_context);
+	old_width   = engine->width;
+	old_painter = engine->painter;
+	printer     = html_printer_new (print_context);
 
-	/* FIXME ugly hack, but this is the way it's supposed to work with the
-           current ugly framework.  */
-
-	old_width = engine->width;
-
-	html_object_change_set_down (engine->clue, HTML_CHANGE_ALL);
-	html_object_reset (engine->clue);
 	max_width = engine->width = html_printer_get_page_width (HTML_PRINTER (printer));
-	engine->clue->width = max_width;
-	html_object_set_max_width (engine->clue, printer, max_width);
-	html_object_calc_size (engine->clue, printer);
-
-	min_width = html_object_calc_min_width (engine->clue, printer);
-	if (min_width > max_width) {
-		max_width = min_width;
-
-		html_object_change_set_down (engine->clue, HTML_CHANGE_ALL);
-		html_object_set_max_width (engine->clue, printer, max_width);
-		html_object_calc_size (engine->clue, printer);
-	}
-	engine->clue->x = 0;
-	engine->clue->y = engine->clue->ascent;
+	html_engine_set_painter (engine, printer, max_width);
 
 	print_all_pages (HTML_PAINTER (printer), engine);
 
-	gtk_object_unref (GTK_OBJECT (printer));
 
-	/* FIXME ugly hack pt. 2.  */
 	engine->width = old_width;
-	html_object_reset (engine->clue);
-	html_object_change_set_down (engine->clue, HTML_CHANGE_ALL);
-
-	/* FIXME this is because of HTMLTable/HTMLEngine brokenness.  */
-	html_object_set_max_width (engine->clue, engine->painter, engine->width);
-	html_object_calc_size (engine->clue, engine->painter);
-	html_engine_calc_size (engine);
+	html_engine_set_painter (engine, old_painter, old_width);
+	gtk_object_unref (GTK_OBJECT (printer));
 }
