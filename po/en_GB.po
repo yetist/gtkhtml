@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-07 17:25+0100\n"
-"PO-Revision-Date: 2004-11-21 21:47+0100\n"
+"POT-Creation-Date: 2005-02-13 20:27+0000\n"
+"PO-Revision-Date: 2005-02-13 20:27+0100\n"
 "Last-Translator: David Lodge <dave@cirt.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,20 +18,22 @@ msgstr ""
 #: a11y/image.c:150
 #, c-format
 msgid "URL is %s, Alternative Text is %s"
-msgstr ""
+msgstr "URL is %s, Alternative Text is %s"
 
 #: a11y/image.c:152
 #, c-format
 msgid "URL is %s"
-msgstr ""
+msgstr "URL is %s"
 
-#: a11y/object.c:50 a11y/object.c:59 a11y/text.c:111
+#: a11y/object.c:50
+#: a11y/object.c:59
+#: a11y/text.c:111
 msgid "grab focus"
-msgstr ""
+msgstr "grab focus"
 
 #: a11y/object.c:256
 msgid "Panel containing HTML"
-msgstr ""
+msgstr "Panel containing HTML"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
@@ -149,7 +151,8 @@ msgstr "Cut the selection"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:107 components/html-editor/search.c:167
+#: components/html-editor/search.c:107
+#: components/html-editor/search.c:167
 msgid "Find"
 msgstr "Find"
 
@@ -319,8 +322,10 @@ msgstr "Li_ck"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
-#: components/html-editor/menubar.c:136 components/html-editor/popup.c:106
-#: components/html-editor/popup.c:201 components/html-editor/popup.c:267
+#: components/html-editor/menubar.c:136
+#: components/html-editor/popup.c:106
+#: components/html-editor/popup.c:201
+#: components/html-editor/popup.c:267
 msgid "Link"
 msgstr "Link"
 
@@ -390,7 +395,8 @@ msgstr "Make the current paragraph an alphabetical list"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:69
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
-#: components/html-editor/paragraph.c:83 components/html-editor/toolbar.c:48
+#: components/html-editor/paragraph.c:83
+#: components/html-editor/toolbar.c:48
 msgid "Normal"
 msgstr "Normal"
 
@@ -478,7 +484,8 @@ msgstr "Redo the undone action"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: components/html-editor/replace.c:163 components/html-editor/replace.c:227
+#: components/html-editor/replace.c:163
+#: components/html-editor/replace.c:227
 msgid "Replace"
 msgstr "Replace"
 
@@ -497,7 +504,8 @@ msgstr "Roman Numeral List"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 #: components/html-editor/editor-control-factory.c:207
 #: components/html-editor/gtkhtml-editor-properties.glade.h:48
-#: components/html-editor/menubar.c:155 components/html-editor/popup.c:225
+#: components/html-editor/menubar.c:155
+#: components/html-editor/popup.c:225
 msgid "Rule"
 msgstr "Rule"
 
@@ -545,8 +553,10 @@ msgstr "Superscript"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: components/html-editor/menubar.c:176 components/html-editor/popup.c:231
-#: components/html-editor/popup.c:501 components/html-editor/popup.c:513
+#: components/html-editor/menubar.c:176
+#: components/html-editor/popup.c:231
+#: components/html-editor/popup.c:501
+#: components/html-editor/popup.c:513
 msgid "Table"
 msgstr "Table"
 
@@ -891,17 +901,16 @@ msgid "T_emplate:"
 msgstr "T_emplate:"
 
 #. data->entry_title = gtk_entry_new ();
-#. if (gtk_html_get_title (data->cd->html)) {
 #. gtk_entry_set_text (GTK_ENTRY (data->entry_title),
-#. gtk_html_get_title (data->cd->html));
 #. }
-#. g_signal_connect (data->entry_title, "changed", G_CALLBACK (entry_changed), data);
 #. editor_hig_attach_row (t1, _("T_itle:"), data->entry_title, 1);
-#: components/html-editor/body.c:257 components/html-editor/paragraph.c:112
+#: components/html-editor/body.c:257
+#: components/html-editor/paragraph.c:112
 msgid "General"
 msgstr "General"
 
-#: components/html-editor/body.c:268 components/html-editor/text.c:162
+#: components/html-editor/body.c:268
+#: components/html-editor/text.c:162
 #: components/html-editor/toolbar.c:301
 msgid "Automatic"
 msgstr "Automatic"
@@ -923,60 +932,68 @@ msgstr "_Background:"
 msgid "Colors"
 msgstr "Colours"
 
-#: components/html-editor/body.c:286 components/html-editor/body.c:303
+#: components/html-editor/body.c:286
+#: components/html-editor/body.c:303
 #: components/html-editor/gtkhtml-editor-properties.glade.h:23
 msgid "Background Image"
 msgstr "Background Image"
 
 #: components/html-editor/body.c:298
-#, fuzzy
 msgid "Background Image File Path"
-msgstr "Background Image"
+msgstr "Background Image File Path"
 
 #: components/html-editor/body.c:301
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
 msgid "_Source:"
 msgstr "_Source:"
 
-#: components/html-editor/cell.c:333 components/html-editor/image.c:350
-#: components/html-editor/link.c:182 components/html-editor/rule.c:174
-#: components/html-editor/table.c:220 components/html-editor/template.c:271
+#: components/html-editor/cell.c:333
+#: components/html-editor/image.c:350
+#: components/html-editor/link.c:182
+#: components/html-editor/rule.c:174
+#: components/html-editor/table.c:220
+#: components/html-editor/template.c:271
 #: components/html-editor/text.c:159
 msgid "Could not load glade file."
 msgstr "Could not load glade file."
 
-#: components/html-editor/cell.c:350 components/html-editor/table.c:231
+#: components/html-editor/cell.c:350
+#: components/html-editor/table.c:231
 msgid "Transparent"
 msgstr "Transparent"
 
 #: components/html-editor/editor-control-factory.c:178
-#: components/html-editor/menubar.c:354 components/html-editor/menubar.c:372
-#: components/html-editor/menubar.c:390 components/html-editor/popup.c:186
+#: components/html-editor/menubar.c:354
+#: components/html-editor/menubar.c:372
+#: components/html-editor/menubar.c:390
+#: components/html-editor/popup.c:186
 #: components/html-editor/popup.c:264
 msgid "Properties"
 msgstr "Properties"
 
 #: components/html-editor/editor-control-factory.c:197
 #: components/html-editor/gtkhtml-editor-properties.glade.h:54
-#: components/html-editor/menubar.c:376 components/html-editor/popup.c:195
+#: components/html-editor/menubar.c:376
+#: components/html-editor/popup.c:195
 msgid "Text"
 msgstr "Text"
 
 #: components/html-editor/editor-control-factory.c:216
-#: components/html-editor/menubar.c:394 components/html-editor/popup.c:213
+#: components/html-editor/menubar.c:394
+#: components/html-editor/popup.c:213
 msgid "Paragraph"
 msgstr "Paragraph"
 
 #: components/html-editor/editor-control-factory.c:220
 #: components/html-editor/gtkhtml-editor-properties.glade.h:43
-#: components/html-editor/menubar.c:358 components/html-editor/popup.c:219
+#: components/html-editor/menubar.c:358
+#: components/html-editor/popup.c:219
 msgid "Page"
 msgstr "Page"
 
 #: components/html-editor/gi-color-combo.c:187
-#, fuzzy
 msgid "color preview"
-msgstr "Print preview"
+msgstr "colour preview"
 
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:395
@@ -1180,7 +1197,7 @@ msgstr "sky blue"
 #. set the a11y name
 #: components/html-editor/gi-combo-box.c:419
 msgid "Popup"
-msgstr ""
+msgstr "Popup"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
@@ -1270,7 +1287,8 @@ msgid "Cell"
 msgstr "Cell"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:28
-#: components/html-editor/paragraph.c:128 components/html-editor/toolbar.c:515
+#: components/html-editor/paragraph.c:128
+#: components/html-editor/toolbar.c:515
 msgid "Center"
 msgstr "Centre"
 
@@ -1445,21 +1463,22 @@ msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
 #: components/html-editor/link.c:194
-#, fuzzy
 msgid "URL:"
-msgstr "_URL:"
+msgstr "URL:"
 
 #: components/html-editor/link.c:198
-#, fuzzy
 msgid "Description:"
-msgstr "_Description:"
+msgstr "Description:"
 
-#: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
+#: components/html-editor/menubar.c:96
+#: components/html-editor/menubar.c:104
 msgid "Insert image"
 msgstr "Insert image"
 
-#: components/html-editor/menubar.c:133 components/html-editor/menubar.c:152
-#: components/html-editor/menubar.c:173 components/html-editor/menubar.c:195
+#: components/html-editor/menubar.c:133
+#: components/html-editor/menubar.c:152
+#: components/html-editor/menubar.c:173
+#: components/html-editor/menubar.c:195
 #: components/html-editor/popup.c:103
 msgid "Insert"
 msgstr "Insert"
@@ -1469,35 +1488,43 @@ msgstr "Insert"
 msgid "Error loading file '%s': %s"
 msgstr "Error loading file '%s': %s"
 
-#: components/html-editor/menubar.c:308 components/html-editor/menubar.c:317
+#: components/html-editor/menubar.c:308
+#: components/html-editor/menubar.c:317
 msgid "Insert: HTML File"
 msgstr "Insert: HTML File"
 
-#: components/html-editor/menubar.c:308 components/html-editor/menubar.c:317
+#: components/html-editor/menubar.c:308
+#: components/html-editor/menubar.c:317
 msgid "Insert: Text File"
 msgstr "Insert: Text File"
 
-#: components/html-editor/paragraph.c:86 components/html-editor/toolbar.c:54
+#: components/html-editor/paragraph.c:86
+#: components/html-editor/toolbar.c:54
 msgid "Header 1"
 msgstr "Header 1"
 
-#: components/html-editor/paragraph.c:87 components/html-editor/toolbar.c:55
+#: components/html-editor/paragraph.c:87
+#: components/html-editor/toolbar.c:55
 msgid "Header 2"
 msgstr "Header 2"
 
-#: components/html-editor/paragraph.c:88 components/html-editor/toolbar.c:56
+#: components/html-editor/paragraph.c:88
+#: components/html-editor/toolbar.c:56
 msgid "Header 3"
 msgstr "Header 3"
 
-#: components/html-editor/paragraph.c:89 components/html-editor/toolbar.c:57
+#: components/html-editor/paragraph.c:89
+#: components/html-editor/toolbar.c:57
 msgid "Header 4"
 msgstr "Header 4"
 
-#: components/html-editor/paragraph.c:90 components/html-editor/toolbar.c:58
+#: components/html-editor/paragraph.c:90
+#: components/html-editor/toolbar.c:58
 msgid "Header 5"
 msgstr "Header 5"
 
-#: components/html-editor/paragraph.c:91 components/html-editor/toolbar.c:59
+#: components/html-editor/paragraph.c:91
+#: components/html-editor/toolbar.c:59
 msgid "Header 6"
 msgstr "Header 6"
 
@@ -1517,7 +1544,8 @@ msgstr "Roman item"
 msgid "Alphabeta item"
 msgstr "Alphabeta item"
 
-#: components/html-editor/paragraph.c:100 components/html-editor/toolbar.c:60
+#: components/html-editor/paragraph.c:100
+#: components/html-editor/toolbar.c:60
 msgid "Address"
 msgstr "Address"
 
@@ -1545,7 +1573,8 @@ msgstr "Style"
 msgid "Text Style..."
 msgstr "Text Style..."
 
-#: components/html-editor/popup.c:461 components/html-editor/popup.c:467
+#: components/html-editor/popup.c:461
+#: components/html-editor/popup.c:467
 #: components/html-editor/popup.c:477
 msgid "Paragraph Style..."
 msgstr "Paragraph Style..."
@@ -1656,19 +1685,18 @@ msgstr "_Replace"
 msgid "Search _backward"
 msgstr "Search _backward"
 
-#: components/html-editor/replace.c:172 components/html-editor/search.c:113
+#: components/html-editor/replace.c:172
+#: components/html-editor/search.c:113
 msgid "Case _sensitive"
 msgstr "Case _sensitive"
 
 #: components/html-editor/replace.c:182
-#, fuzzy
 msgid "R_eplace:"
-msgstr "Replace:"
+msgstr "R_eplace:"
 
 #: components/html-editor/replace.c:186
-#, fuzzy
 msgid "_With:"
-msgstr "_Width:"
+msgstr "_With:"
 
 #: components/html-editor/search.c:112
 msgid "_Backward"
@@ -1680,7 +1708,7 @@ msgstr "_Regular Expression"
 
 #: components/html-editor/search.c:118
 msgid "Input the words you want to search here"
-msgstr ""
+msgstr "Input the words you want to search here"
 
 #: components/html-editor/spellchecker.c:110
 msgid ""
@@ -1706,7 +1734,8 @@ msgstr "Current _Languages"
 msgid "Note"
 msgstr "Note"
 
-#: components/html-editor/template.c:94 components/html-editor/template.c:113
+#: components/html-editor/template.c:94
+#: components/html-editor/template.c:113
 msgid "Place your text here"
 msgstr "Place your text here"
 
@@ -1715,9 +1744,8 @@ msgid "Image frame"
 msgstr "Image frame"
 
 #: components/html-editor/template.c:280
-#, fuzzy
 msgid "Template Labels"
-msgstr "Template"
+msgstr "Template Labels"
 
 #: components/html-editor/test-html-editor-control.c:333
 msgid "Open file..."
@@ -1969,99 +1997,3 @@ msgstr "Print preview"
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML Test Application"
 
-#~ msgid "<None>"
-#~ msgstr "<None>"
-
-#~ msgid "\n"
-#~ msgstr "\n"
-
-#~ msgid "*********************"
-#~ msgstr "*********************"
-
-#~ msgid "Add Keyboard Shortcuts"
-#~ msgstr "Add Keyboard Shortcuts"
-
-#~ msgid "Automatically detect links"
-#~ msgstr "Automatically detect links"
-
-#~ msgid "Behavior"
-#~ msgstr "Behaviour"
-
-#~ msgid "Composer Properties"
-#~ msgstr "Composer Properties"
-
-#~ msgid "Composer Properties planned"
-#~ msgstr "Composer Properties planned"
-
-#~ msgid "Configure spell checking"
-#~ msgstr "Configure spell checking"
-
-#~ msgid "Enable spell checking"
-#~ msgstr "Enable spell checking"
-
-#~ msgid "Fixed width"
-#~ msgstr "Fixed width"
-
-#~ msgid "Fonts"
-#~ msgstr "Fonts"
-
-#~ msgid "For printing"
-#~ msgstr "For printing"
-
-#~ msgid "Grab keys"
-#~ msgstr "Grab keys"
-
-#~ msgid "Information"
-#~ msgstr "Information"
-
-#~ msgid "Keyboard Shortcuts"
-#~ msgstr "Keyboard Shortcuts"
-
-#~ msgid "Miscellaneous"
-#~ msgstr "Miscellaneous"
-
-#~ msgid "New shortcut:"
-#~ msgstr "New shortcut:"
-
-#~ msgid "On screen"
-#~ msgstr "On screen"
-
-#~ msgid "Select HTML fixed width font"
-#~ msgstr "Select HTML fixed width font"
-
-#~ msgid "Select HTML fixed width font for printing"
-#~ msgstr "Select HTML fixed width font for printing"
-
-#~ msgid "Select HTML variable width font"
-#~ msgstr "Select HTML variable width font"
-
-#~ msgid "Select HTML variable width font for printing"
-#~ msgstr "Select HTML variable width font for printing"
-
-#~ msgid "Shortcuts _type:"
-#~ msgstr "Shortcuts _type:"
-
-#~ msgid "Show animated images"
-#~ msgstr "Show animated images"
-
-#~ msgid "Variable width"
-#~ msgstr "Variable width"
-
-#~ msgid "_Add"
-#~ msgstr "_Add"
-
-#~ msgid "_Delete"
-#~ msgstr "_Delete"
-
-#~ msgid ""
-#~ "Cannot execute GNOME Spell control applet\n"
-#~ "Try to install GNOME Spell if you don't have it installed."
-#~ msgstr ""
-#~ "Cannot execute GNOME Spell control applet\n"
-#~ "Try to install GNOME Spell if you don't have it installed."
-
-#~ msgid "With:"
-#~ msgstr "With:"
-
-#~ msgid "Labels"
-#~ msgstr "Labels"
