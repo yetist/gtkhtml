@@ -50,16 +50,16 @@ set_ui ()
 
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (anim_check), actual_prop->animations);
 
-#define SET_FONT(v,f,s,w) \
-	font_name = g_strdup_printf ("-%s-%s-*-*-normal-*-%d-*-*-*-*-*-*-*", \
-				 actual_prop-> ## v, actual_prop-> ## f, actual_prop-> ## s); \
+#define SET_FONT(f,s,w) \
+	font_name = g_strdup_printf ("-*-%s-*-*-normal-*-%d-*-*-*-*-*-*-*", \
+						 actual_prop-> ## f, actual_prop-> ## s); \
 	gnome_font_picker_set_font_name (GNOME_FONT_PICKER (w), font_name); \
 	g_free (font_name)
 
-	SET_FONT (font_var_vendor,       font_var_family,       font_var_size,       variable);
-	SET_FONT (font_fix_vendor,       font_fix_family,       font_fix_size,       fixed);
-	SET_FONT (font_var_vendor_print, font_var_family_print, font_var_size_print, variable_print);
-	SET_FONT (font_fix_vendor_print, font_fix_family_print, font_fix_size_print, fixed_print);
+	SET_FONT (font_var_family,       font_var_size,       variable);
+	SET_FONT (font_fix_family,       font_fix_size,       fixed);
+	SET_FONT (font_var_family_print, font_var_size_print, variable_print);
+	SET_FONT (font_fix_family_print, font_fix_size_print, fixed_print);
 
 	active = TRUE;
 }
@@ -90,19 +90,17 @@ apply_fonts ()
 
 	actual_prop->animations = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (anim_check));
 
-#define APPLY(v,f,s,w) \
-	g_free (actual_prop-> ## v); \
-	actual_prop-> ## v = get_attr (gnome_font_picker_get_font_name (GNOME_FONT_PICKER (w)), 1); \
+#define APPLY(f,s,w) \
 	g_free (actual_prop-> ## f); \
 	actual_prop-> ## f = get_attr (gnome_font_picker_get_font_name (GNOME_FONT_PICKER (w)), 2); \
 	size_str = get_attr (gnome_font_picker_get_font_name (GNOME_FONT_PICKER (w)), 7); \
 	actual_prop-> ## s = atoi (size_str); \
 	g_free (size_str)
 
-	APPLY (font_var_vendor,       font_var_family,       font_var_size,       variable);
-	APPLY (font_fix_vendor,       font_fix_family,       font_fix_size,       fixed);
-	APPLY (font_var_vendor_print, font_var_family_print, font_var_size_print, variable_print);
-	APPLY (font_fix_vendor_print, font_fix_family_print, font_fix_size_print, fixed_print);
+	APPLY (font_var_family,       font_var_size,       variable);
+	APPLY (font_fix_family,       font_fix_size,       fixed);
+	APPLY (font_var_family_print, font_var_size_print, variable_print);
+	APPLY (font_fix_family_print, font_fix_size_print, fixed_print);
 }
 
 static void
