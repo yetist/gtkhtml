@@ -1,5 +1,8 @@
 2001-01-19  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine-edit.c (html_engine_indent_pre_paragraph): changed
+	undo name
+
 	* htmlclueflow.c (html_clueflow_set_style): clear word width when
 	changing from/to PRE
 

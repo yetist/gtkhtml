@@ -393,7 +393,7 @@ html_engine_indent_pre_paragraph (HTMLEngine *e)
 	html_engine_disable_selection (e);
 	position = e->cursor->position;
 
-	html_undo_level_begin (e->undo, "Indent paragraph");
+	html_undo_level_begin (e->undo, "Indent PRE paragraph");
 	html_engine_freeze (e);
 
 	go_to_begin_of_pre_para (e);
