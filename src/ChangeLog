@@ -5,6 +5,8 @@
 	like ;-)
 	(idle_handler): don't just check for thaw idle handler scheduled,
 	but also if html engine isn't actually frozen
+	(button_press_event): unset button1_pressed flag for 2x and 3x
+	click, it fixes word and line selection in iframes
 
 	* htmlinterval.c (html_point_max): handle case, when one point's
 	object is container of another (as could happen with tables)

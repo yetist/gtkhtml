@@ -1222,10 +1222,12 @@ button_press_event (GtkWidget *widget,
 		}
 	} else if (event->button == 1 && html->allow_selection) {
 		if (event->type == GDK_2BUTTON_PRESS) {
+			html->button1_pressed = FALSE;
 			gtk_html_select_word (html);
 			html->in_selection = TRUE;
 		}
 		else if (event->type == GDK_3BUTTON_PRESS) {
+			html->button1_pressed = FALSE;
 			gtk_html_select_line (html);
 			html->in_selection = TRUE;
 		}
