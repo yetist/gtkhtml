@@ -1,5 +1,8 @@
 2001-05-31  Larry Ewing  <lewing@ximian.com>
 
+	* htmlshape.c (html_shape_point): remove silly macros and fix
+	distance macro so that circles actually work.
+
 	* htmlimage.c (image_update_url): fix this properly this time.
 
 	* htmlshape.c (html_shape_point): add tests for poly and default.

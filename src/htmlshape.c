@@ -107,16 +107,7 @@ html_length_array_destroy (GPtrArray *array)
 		g_free (g_ptr_array_index (array, i));
 }
 
-#define HTML_DIST(x,y) sqrt(x*x+y*y)
-
-#define X0(a)  a[0]->val
-#define X1(a)  a[2]->val
-#define Y0(a)  a[1]->val
-#define Y1(a)  a[3]->val
-
-#define CX(a)  a[0]->val
-#define CY(a)  a[1]->val
-#define  R(a)  a[2]->val
+#define HTML_DIST(x,y) (gint)sqrt((x)*(x) + (y)*(y))
 
 gboolean
 html_shape_point (HTMLShape *shape, gint x, gint y)
@@ -124,7 +115,6 @@ html_shape_point (HTMLShape *shape, gint x, gint y)
 	int i;
 	int j = 0;
 	int odd = 0;
-	int dx, dy;
 
 	HTMLLength **poly = (HTMLLength **)shape->coords->pdata;
 
@@ -136,14 +126,14 @@ html_shape_point (HTMLShape *shape, gint x, gint y)
 
 	switch (shape->type) {
 	case HTML_SHAPE_RECT:
-		if ((x >= X0 (poly)) 
-		    && (x <= X1 (poly)) 
-		    && (y >= Y0 (poly)) 
-		    && (y <= Y1 (poly)))
+		if ((x >= poly[0]->val) 
+		    && (x <= poly[2]->val) 
+		    && (y >= poly[1]->val) 
+			    && (y <= poly[3]->val))
 			return TRUE;
 		break;
 	case HTML_SHAPE_CIRCLE:
-		if (HTML_DIST ( x - CX (poly), y - CY (poly)) < R (poly))
+		if (HTML_DIST (x - poly[0]->val, y - poly[1]->val) <= poly[2]->val)
 			return TRUE;
 		
 		break;
