@@ -7,14 +7,9 @@
 			<cmd name="EditRedo" _label="_Redo" _tip="Redo the undone action"
 			pixtype="stock" pixname="Redo"/>
 
-			<cmd name="EditCut" _label="C_ut" _tip="Cut the selection"
-			pixtype="stock" pixname="Cut"/>
-	
-			<cmd name="EditCopy" _label="_Copy"
-			_tip="Copy the selection" pixtype="stock" pixname="Copy"/>
-	
-			<cmd name="EditPaste" _label="_Paste"
-			_tip="Paste the clipboard" pixtype="stock" pixname="Paste"/>
+			<cmd name="EditCut" _label="C_ut" _tip="Cut the selection"/>
+			<cmd name="EditCopy" _label="_Copy" _tip="Copy the selection"/>
+			<cmd name="EditPaste" _label="_Paste" _tip="Paste the clipboard"/>
 	
 			<cmd name="EditFind" _label="_Find..." _tip="Find"
 			pixtype="stock" pixname="Search"/>
@@ -51,9 +46,12 @@
 			</placeholder>
 
 			<placeholder name="EditCutCopyPaste">
-				     <menuitem name="EditCut" verb="" accel="*Ctrl*X"/>
-				     <menuitem name="EditCopy" verb="" accel="*Ctrl*C"/>
-				     <menuitem name="EditPaste" verb="" accel="*Ctrl*V"/>
+				     <menuitem name="EditCut" verb="" accel="*Ctrl*X"
+                                     pixtype="filename" pixname="@ICONSDIR@/16_cut.png"/>
+				     <menuitem name="EditCopy" verb="" accel="*Ctrl*C"
+                                     pixtype="filename" pixname="@ICONSDIR@/16_copy.png"/>
+				     <menuitem name="EditPaste" verb="" accel="*Ctrl*V"
+                                     pixtype="filename" pixname="@ICONSDIR@/16_paste.png"/>
 			</placeholder>
 
 			<placeholder name="EditFindReplace">
@@ -86,11 +84,11 @@
 		pixtype="stock" pixname="Redo"/>
 		<separator/>
 		<toolitem name="EditCut" verb=""  _label="Cut" _tip="Cut selection to clipboard"
-		pixtype="filename" pixname="@ICONSDIR@/16_cut.png"/>
+		pixtype="filename" pixname="@ICONSDIR@/24_cut.png"/>
                 <toolitem name="EditCopy" verb=""  _label="Copy" _tip="Copy selection to clipboard"
-		pixtype="filename" pixname="@ICONSDIR@/16_copy.png"/>
+		pixtype="filename" pixname="@ICONSDIR@/24_copy.png"/>
 		<toolitem name="EditPaste" verb=""  _label="Paste" _tip="Paste from clipboard"
-		pixtype="filename" pixname="@ICONSDIR@/16_paste.png"/>
+		pixtype="filename" pixname="@ICONSDIR@/24_paste.png"/>
 		<separator/>
 		<toolitem name="EditFind" verb=""  _label="Find" _tip="Find"
 		pixtype="stock" pixname="Search"/>

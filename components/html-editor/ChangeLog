@@ -1,3 +1,9 @@
+2001-07-20  Radek Doulik  <rodo@ximian.com>
+
+	* GNOME_GtkHTML_Editor.xml.in: use 16 pixels version for Menu and
+	24 pixels version for Toolbar (Cut/Copy/Paste), remove stock
+	references from commands
+
 2001-07-20  Larry Ewing  <lewing@ximian.com>
 
 	* GNOME_GtkHTML_Editor.xml.in: use the cut/copy/paste icons from
