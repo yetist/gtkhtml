@@ -1,6 +1,10 @@
 Todo for gtkhtml:
 
-* Font support must be improved
+* Font support must be improved:
+	in htmlfont.c, there's a function that takes a number of arguments,
+	allocs a font struct and creates an xlfd. The "creating an xlfd" part
+	must be improved so that it'll take care of font family and the fact
+	that bold/italic is named differently on different fonts.
 
 * Full support for all HTML tags
 
