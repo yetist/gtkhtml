@@ -487,7 +487,7 @@ insert_object_do (HTMLEngine *e, HTMLObject *obj, guint len)
 	remove_empty_and_merge (e, TRUE, last, right, orig);
 	remove_empty_and_merge (e, TRUE, left, first, orig);
 
-        html_engine_spell_check_range (e, orig, e->cursor);
+        // html_engine_spell_check_range (e, orig, e->cursor);
 	html_cursor_destroy (orig);
 	html_engine_thaw (e);
 }
@@ -615,6 +615,9 @@ html_engine_insert_text (HTMLEngine *e, const gchar *text, guint len)
 			check_magic_link (e, text, alen);
 			o = html_engine_new_text (e, text, alen);
 			html_text_convert_nbsp (HTML_TEXT (o), TRUE);
+
+			if (alen == 1 && !html_is_in_word (html_text_get_char (HTML_TEXT (o), 0)))
+				html_engine_spell_check_range (e, e->cursor, e->cursor);
 			html_engine_insert_object (e, o, html_object_get_length (o));
 		}
 		if (nl) {

@@ -2836,6 +2836,7 @@ load_keybindings (GtkHTMLClass *klass)
 	/* FIXME add to gtk gtk_binding_set_clear & gtk_binding_set_remove_path */
 	clean_bindings_set (gtk_binding_set_by_class (klass));
 	clean_bindings_set (gtk_binding_set_find ("gtkhtml-bindings-emacs"));
+	clean_bindings_set (gtk_binding_set_find ("gtkhtml-bindings-xemacs"));
 	clean_bindings_set (gtk_binding_set_find ("gtkhtml-bindings-ms"));
 	clean_bindings_set (gtk_binding_set_find ("gtkhtml-bindings-custom"));
 
@@ -2844,6 +2845,7 @@ load_keybindings (GtkHTMLClass *klass)
 	gtk_html_command_get_type ();
 
 	load_bindings_from_file (TRUE,  "keybindingsrc.emacs");
+	load_bindings_from_file (TRUE,  "keybindingsrc.xemacs");
 	load_bindings_from_file (TRUE,  "keybindingsrc.ms");
 	load_bindings_from_file (FALSE, "gtkhtml-bindings-custom");
 

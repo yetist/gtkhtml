@@ -209,9 +209,11 @@ dist-hook:
 
 EXTRA_DIST = \
 	keybindingsrc.emacs \
+	keybindingsrc.xemacs \
 	keybindingsrc.ms
 
 keybindingsdir = $(datadir)/gtkhtml
 keybindings_DATA = \
 	keybindingsrc.emacs \
+	keybindingsrc.xemacs \
 	keybindingsrc.ms
