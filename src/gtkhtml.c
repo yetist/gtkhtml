@@ -756,24 +756,17 @@ key_press_event (GtkWidget *widget,
 	    && html_engine_get_editable (html->engine)
 	    && ! (event->state & (GDK_CONTROL_MASK | GDK_MOD1_MASK))
 	    && event->length > 0) {
-		/* RM2 gchar *str; */
 
 		/*
 		printf ("event length: %d s[0]: %d string: '%s'\n", 
 			event->length, event->string [0], event->string); 
 		*/
 
-		/* RM2 str = e_utf8_from_gtk_event_key (widget, event->keyval, event->string); */
 		/* printf ("len: %d str: %s\n", str ? g_utf8_strlen (str, -1) : -1, str); */
-		if (event->string)
+		if (event->string) {
 			html_engine_paste_text (html->engine, event->string, event->length);
-		/* RM2 else if (event->length == 1 && event->string
-			 && ((guchar)event->string [0]) > 0x20 
-			 && ((guchar)event->string [0]) < 0x80)
-			 html_engine_paste_text (html->engine, event->string, 1); */
-
-		/* RM2 g_free (str); */
-		retval = TRUE;
+			retval = TRUE;
+		}
 		update = FALSE;
 	}
 
@@ -1903,8 +1896,6 @@ client_notify_widget (GConfClient* client,
 	GtkHTMLClassProperties *prop = klass->properties;	
 	gchar *tkey;
 
-	printf ("notify (gtkhtml) widget %s\n", entry->key);
-
 	g_assert (client == gconf_client);
 	g_assert (entry->key);
 	tkey = strrchr (entry->key, '/');
@@ -1956,7 +1947,6 @@ client_notify_spell_widget (GConfClient* client, guint cnxn_id, GConfEntry* entr
 	GtkHTMLClassProperties *prop = klass->properties;	
 	gchar *tkey;
 
-	printf ("notify (spell) widget %s\n", entry->key);
 	g_assert (client == gconf_client);
 	g_assert (entry->key);
 	tkey = strrchr (entry->key, '/');
