@@ -525,7 +525,7 @@ table_widget (GtkHTMLEditTableProperties *d)
 	GtkWidget *table_page;
 	GladeXML *xml;
 
-	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "table_page", NULL);
+	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "table_page", GETTEXT_PACKAGE);
 	if (!xml)
 		g_error (_("Could not load glade file."));
 
@@ -609,7 +609,7 @@ table_insert_widget (GtkHTMLEditTableProperties *d)
 	GladeXML *xml;
 
 	d->insert = TRUE;
-	xml       = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "table_insert_page", NULL);
+	xml       = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "table_insert_page", GETTEXT_PACKAGE);
 	if (!xml)
 		g_error (_("Could not load glade file."));
 

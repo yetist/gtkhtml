@@ -1,3 +1,7 @@
+2004-01-30  Yong Sun <Yong.Sun@sun.com>
+
+	* configure.in: add macro AC_DEFINE_UNQUOTED for GETTEXT_PACKAGE
+
 2004-01-26  Larry Ewing  <lewing@ximian.com>
 
 	* configure.in: bumped version to 3.1.7 for release. 

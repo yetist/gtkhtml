@@ -119,7 +119,7 @@ static gboolean stock_insert_added = FALSE;
 #define GTKHTML_STOCK_INSERT "gtkhtml-stock-insert"
 static GtkStockItem insert_items [] =
 {
-	{ GTKHTML_STOCK_INSERT, N_("Insert"), 0, 0, NULL }
+	{ GTKHTML_STOCK_INSERT, N_("Insert"), 0, 0, GETTEXT_PACKAGE }
 };
 
 GtkHTMLEditPropertiesDialog *

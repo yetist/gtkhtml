@@ -82,7 +82,7 @@ static gboolean stock_test_url_added = FALSE;
 #define GTKHTML_STOCK_TEST_URL "gtkhtml-stock-test-url"
 static GtkStockItem test_url_items [] =
 {
-	{ GTKHTML_STOCK_TEST_URL, N_("Test URL..."), 0, 0, NULL }
+	{ GTKHTML_STOCK_TEST_URL, N_("Test URL..."), 0, 0, GETTEXT_PACKAGE }
 };
 
 static GtkWidget *

@@ -540,7 +540,7 @@ image_widget (GtkHTMLEditImageProperties *d, gboolean insert)
 	GladeXML *xml;
 	GtkWidget *frame_template;
 
-	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "image_page", NULL);
+	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "image_page", GETTEXT_PACKAGE);
 	if (!xml)
 		g_error (_("Could not load glade file."));
 

@@ -1,3 +1,10 @@
+2004-01-30  Yong Sun <Yong.Sun@sun.com>
+
+	* cell.c image.c rule.c table.c template.c: add domain param in
+	glade_xml_new()
+
+	* properties.c link.c: add domain member in GtkStockItem
+
 2004-01-23  Radek Doulik  <rodo@ximian.com>
 
 	* toolbar.c (create_style_toolbar): set initial unindent button
