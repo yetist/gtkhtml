@@ -64,6 +64,27 @@ calc_min_width (HTMLObject *o,
 	return pixel_size;
 }
 
+static HTMLFitType
+fit_line (HTMLObject *o,
+	  HTMLPainter *painter,
+	  gboolean start_of_line,
+	  gboolean first_run,
+	  gint width_left)
+{
+	if (!start_of_line)
+		return HTML_FIT_NONE;
+	o->width = width_left;
+
+	if (o->percent == 0) {
+		gint pixel_size = html_painter_get_pixel_size (painter);
+		if (HTML_RULE (o)->length * pixel_size > width_left) {
+			o->width = HTML_RULE (o)->length * pixel_size;
+		}
+	}
+
+	return HTML_FIT_COMPLETE;
+}
+
 static gboolean
 calc_size (HTMLObject *self,
 	   HTMLPainter *painter)
@@ -88,7 +109,7 @@ calc_size (HTMLObject *self,
 
 	changed = FALSE;
 
-	if (self->width != self->max_width) {
+	if (self->width > self->max_width) {
 		self->width = self->max_width;
 		changed = TRUE;
 	}
@@ -127,16 +148,12 @@ draw (HTMLObject *o,
 	xp = o->x + tx;
 	yp = o->y + ty - (rule->size / 2 + rule->size % 2) * pixel_size;
 
-	if (o->percent == 0) {
-		if (HTML_RULE (o)->length > 0)
-			w = HTML_RULE (o)->length * pixel_size;
-		else
-			w = o->max_width;
-	} else {
+	if (o->percent == 0)
+		w = o->width;
+	else
 		/* The cast to `gdouble' is to avoid overflow (eg. when
                    printing).  */
-		w = ((gdouble) o->max_width * o->percent) / 100;
-	}
+		w = ((gdouble) o->width * o->percent) / 100;
 
 	switch (rule->halign) {
 	case HTML_HALIGN_LEFT:
@@ -197,6 +214,7 @@ html_rule_class_init (HTMLRuleClass *klass,
 	object_class->draw = draw;
 	object_class->set_max_width = set_max_width;
 	object_class->calc_min_width = calc_min_width;
+	object_class->fit_line = fit_line;
 	object_class->calc_size = calc_size;
 	object_class->accepts_cursor = accepts_cursor;
 	object_class->save = save;

@@ -1,3 +1,10 @@
+2000-10-26  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlrule.c (fit_line): new virtual method implementation
+	(draw): updated for new sizing
+	(calc_size): likewise
+	(html_rule_class_init): set fit_line
+
 2000-10-25  Radek Doulik  <rodo@helixcode.com>
 
 	* htmltokenizer.c: changed pre to gint to imitate stacked
