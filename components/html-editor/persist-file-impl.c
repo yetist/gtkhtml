@@ -141,7 +141,7 @@ impl_save (BonoboPersistFile *pf,
 	if (fd == -1)
 		return -1;
 
-	if (! gtk_html_save (html, save_receiver, GINT_TO_POINTER (fd)))
+	if (!gtk_html_save (html, (GtkHTMLSaveReceiverFn)save_receiver, GINT_TO_POINTER (fd)))
 		retval = -1;
 	else
 		retval = 0;
