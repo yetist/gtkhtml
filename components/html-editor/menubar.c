@@ -617,7 +617,7 @@ menubar_update_format (GtkHTMLControlData *cd)
 }
 
 void
-menubar_set_languages (GtkHTMLControlData *cd, const gchar *lstr)
+menubar_set_languages (GtkHTMLControlData *cd)
 {
 	GString *str;
 	gboolean enabled;
@@ -629,7 +629,7 @@ menubar_set_languages (GtkHTMLControlData *cd, const gchar *lstr)
 	str = g_string_new (NULL);
 	cd->block_language_changes = TRUE;
 	for (i = 0; i < cd->languages->_length; i ++) {
-		enabled = strstr (lstr, cd->languages->_buffer [i].abbreviation) != NULL;
+		enabled = strstr (cd->language, cd->languages->_buffer [i].abbreviation) != NULL;
 		g_string_printf (str, "/commands/SpellLanguage%d", i + 1);
 		bonobo_ui_component_set_prop (cd->uic, str->str, "state", enabled ? "1" : "0", NULL);
 	}
@@ -703,11 +703,35 @@ menubar_setup (BonoboUIComponent  *uic,
 	}
 
 	spell_create_language_menu (cd);
+	menubar_set_languages (cd);
 	menubar_update_format (cd);
 
 	textdomain (domain);
 	g_free (domain);
 
 	menubar_paragraph_style_changed_cb (cd->html, gtk_html_get_paragraph_style (cd->html), cd);
-	g_signal_connect (cd->html, "current_paragraph_style_changed", G_CALLBACK (menubar_paragraph_style_changed_cb), cd);
+	cd->menubar_style_changed_id = g_signal_connect (cd->html, "current_paragraph_style_changed",
+							 G_CALLBACK (menubar_paragraph_style_changed_cb), cd);
+	if (!cd->has_spell_control_set) {
+		cd->has_spell_control = spell_has_control ();
+		cd->has_spell_control_set = TRUE;
+	}
+
+	if (!cd->has_spell_control) {
+		cd->has_spell_control = FALSE;
+		bonobo_ui_component_set_prop (uic, "/commands/EditSpellCheck", "sensitive", "0", NULL);
+	} else {
+		cd->has_spell_control = TRUE;
+		bonobo_ui_component_set_prop (uic, "/commands/EditSpellCheck", "sensitive", "1", NULL);
+	}
+}
+
+void
+menubar_detach (BonoboUIComponent  *uic,
+		GtkHTMLControlData *cd)
+{
+	g_signal_handler_disconnect (cd->html, cd->menubar_style_changed_id);
+	cd->menubar_style_changed_id = 0;
+
+	bonobo_ui_component_unset_container (uic, NULL);
 }

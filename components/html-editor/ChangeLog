@@ -1,3 +1,32 @@
+2003-09-03  Radek Doulik  <rodo@ximian.com>
+
+	* menubar.c (menubar_set_languages): use control data languge
+
+	* spell.c (spell_set_language): set control data language
+
+	* control-data.c (gtk_html_control_data_new): added language
+	property
+
+	* menubar.c (menubar_setup): move spell control checking here from
+	activate callback, cache has_spell_control value - it's expensive
+	call
+	(menubar_setup): call menubar_set_languages
+
+2003-07-23  Federico Mena Quintero  <federico@ximian.com>
+
+	* menubar.c (menubar_setup): Save the signal ID that we connect.
+	(menubar_detach): New function, disconnects the appropriate
+	signals and removes our menu items.
+
+	* control-data.c (gtk_html_control_data_destroy): Disconnect the
+	menubar signal handler if it is present.
+
+	* editor-control-factory.c (activate_cb): In the deactivate case,
+	call menubar_detach().  Also, set the sensitivity of the
+	EditSpellCheck verb here.
+	(set_frame_cb): Don't set up the menubar here, nor the sensitivity
+	of the EditSpellCheck verb.
+
 2003-09-05  Antonio Xu  <antonio.xu@sun.com>
 
 	* editor-control-factory.c (load_from_file): use
