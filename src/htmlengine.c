@@ -142,6 +142,7 @@ static void      update_embedded           (GtkWidget *widget,
 
 static void      html_engine_map_table_clear (HTMLEngine *e);
 static void      html_engine_add_map (HTMLEngine *e, HTMLMap *map);
+static void      crop_iframe_to_parent (HTMLEngine *e, gint x, gint y, gint *width, gint *height);
 
 static GtkLayoutClass *parent_class = NULL;
 
@@ -3778,6 +3779,11 @@ update_embedded (GtkWidget *widget, gpointer data)
 		width = obj->width;
 		height = obj->ascent + obj->descent;
 
+		/* printf ("update: try crop\n"); */
+		if (HTML_IS_IFRAME (obj) && GTK_HTML (HTML_IFRAME (obj)->html)->iframe_parent)
+			crop_iframe_to_parent (GTK_HTML (HTML_IFRAME (obj)->html)->engine, x, y, &width, &height);
+
+		/* printf ("update: begin\n"); */
 		html_painter_begin (e->painter, tx + x, ty + y, tx+ x + width, ty + y + height);
 
 		if (html_object_is_transparent (obj)) {
@@ -4026,19 +4032,19 @@ html_engine_stream_end (GtkHTMLStream *stream,
 
 
 static void
-crop_iframe_to_parent (HTMLEngine *e, gint *x, gint *y, gint *width, gint *height)
+crop_iframe_to_parent (HTMLEngine *e, gint x, gint y, gint *width, gint *height)
 {
 	HTMLEngine *top = html_engine_get_top_html_engine (e);
 	gint abs_x, abs_y;
 
-	/* printf ("crop %d,%d %dx%d  -->  ", *x, *y, *width, *height); */
+	/* printf ("crop %d,%d %dx%d  -->  ", x, y, *width, *height); */
 	html_object_calc_abs_position (e->clue->parent, &abs_x, &abs_y);
 	abs_y -= e->clue->parent->ascent;
-	*width = MIN (top->width - MAX (0, abs_x + *x - top->x_offset), *width);
-	*height = MIN (top->height - MAX (0, abs_y + *y - top->y_offset), *height);
+	*width = MIN (top->width - MAX (0, abs_x + x - top->x_offset), *width);
+	*height = MIN (top->height - MAX (0, abs_y + y - top->y_offset), *height);
 
-	/* printf ("%d,%d %dx%d\n", *x, *y, *width, *height);
-	   printf ("y %d abs_y %d\n", *y, abs_y); */
+	/* printf ("%d,%d %dx%d\n", x, y, *width, *height);
+	   printf ("y %d abs_y %d\n", y, abs_y); */
 }
 
 static void
@@ -4104,7 +4110,7 @@ html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height)
 	ty = -e->y_offset + e->topBorder;
 
 	if (e->widget->iframe_parent)
-		crop_iframe_to_parent (e, &x, &y, &width, &height);
+		crop_iframe_to_parent (e, x, y, &width, &height);
 
 	html_painter_begin (e->painter, x, y, x + width, y + height);
 

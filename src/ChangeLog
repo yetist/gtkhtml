@@ -8,6 +8,7 @@
 
 	* htmlengine.c (html_engine_draw_real): crop iframes to avoid
 	whole iframes drawing
+	(update_embedded): crop iframe size here as well
 
 2002-09-19  Larry Ewing  <lewing@ximian.com>
 
