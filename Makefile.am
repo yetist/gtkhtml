@@ -4,7 +4,7 @@ else
 DIR_GLIBWWW=
 endif
 
-SUBDIRS = macros src $(DIR_GLIBWWW)
+SUBDIRS = macros $(DIR_GLIBWWW) src
 
 
 EXTRA_DIST = \

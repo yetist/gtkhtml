@@ -1,7 +1,11 @@
-1999-11-30  Elliot Lee  <sopwith@redhat.com>
+1999-12-29  Darin Adler  <darin@eazel.com>
 
-	* src/gtkhtml*.[ch], src/htmlengine.[ch], src/testgtkhtml.c: Remove the URL canonicalization stuff, let a web widget
-	that wraps GtkHTML handle that if desired.
+	* Makefile.am: Build glibwww first since src depends on it.
+	* glibwww/.cvsignore: Ignore .libs since it's generated.
+	* src/Makefile.am: Put GLIBWWW after the other libraries.
+	This makes gtkhtml build when LIBWWW comes from /usr and
+	the other libraries come from /gnome and shouldn't mess up
+	other people who aren't configured that way.
 
 1999-11-10  Ettore Perazzoli  <ettore@gnu.org>
 
@@ -22,4 +26,3 @@
 1999-10-30  Michael Meeks  <mmeeks@gnu.org>
 
 	* configure.in: Update bonobo check.
-

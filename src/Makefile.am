@@ -101,10 +101,10 @@ endif
 
 testgtkhtml_LDADD =				\
 	libgtkhtml.la				\
-	$(GLIBWWW)				\
 	$(GNOMEUI_LIBS)				\
 	$(GNOME_LIBDIR)				\
-	$(EXTRA_GNOME_LIBS)
+	$(EXTRA_GNOME_LIBS)                     \
+	$(GLIBWWW)
 
 if BONOBO
 
