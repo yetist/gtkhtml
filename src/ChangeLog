@@ -1,5 +1,8 @@
 2001-08-07  Radek Doulik  <rodo@ximian.com>
 
+	* testgtkhtml.c (redirectFilter): do not use g_free on memory
+	allocated by HTAnchor_address
+
 	* gtkhtml.c (button_press_event): disable selection mode
 	(command): added GTK_HTML_COMMAND_COPY_AND_DISABLE_SELECTION
 	command

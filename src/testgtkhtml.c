@@ -1013,7 +1013,7 @@ static int redirectFilter(HTRequest *request, HTResponse *response,
 		HTNet_addAfter(redirectFilter, new_location, NULL, HT_FOUND, HT_FILTER_FIRST);
 		HTNet_addAfter(redirectFilter, new_location, NULL, HT_SEE_OTHER, HT_FILTER_FIRST);
 		
-		g_free(new_location);
+		free(new_location);
 
 	} else {
 		HTRequest_addError(request, ERR_FATAL, NO, HTERR_MAX_REDIRECT,
