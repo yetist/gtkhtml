@@ -154,6 +154,7 @@ destroy (HTMLObject *o)
 
 	if (image->url)    g_free (image->url);
 	if (image->target) g_free (image->target);
+	if (image->alt)    g_free (image->alt);
 
 	if (image->color)
 		html_color_unref (image->color);
@@ -186,7 +187,7 @@ copy (HTMLObject *self,
 	dimg->animation = NULL;          /* don't bother with animation copying now. TODO */
 	dimg->hspace = simg->hspace;
 	dimg->vspace = simg->vspace;
-
+	dimg->alt = g_strdup (simg->alt);
 	/* add dest to image_ptr interests */
 	dimg->image_ptr->interests = g_slist_prepend (dimg->image_ptr->interests, dimg);
 }
@@ -435,6 +436,21 @@ save (HTMLObject *self,
 	return TRUE;
 }
 
+static gboolean
+save_plain (HTMLObject *self,
+	    HTMLEngineSaveState *state,
+	    gint requested_width)
+{
+	HTMLImage *image;
+	gboolean rv;
+
+	image = HTML_IMAGE (self);
+	
+	rv = html_engine_save_output_string (state, "%s", image->alt);
+
+	return rv;
+}
+
 static const gchar *
 get_url (HTMLObject *o)
 {
@@ -520,6 +536,7 @@ html_image_class_init (HTMLImageClass *image_class,
 	object_class->accepts_cursor = accepts_cursor;
 	object_class->get_valign = get_valign;
 	object_class->save = save;
+	object_class->save_plain = save_plain;
 
 	parent_class = &html_object_class;
 }
@@ -561,6 +578,7 @@ html_image_init (HTMLImage *image,
 	}
 
 	image->animation = NULL;
+	image->alt = NULL;
 
 	image->hspace = 0;
 	image->vspace = 0;
@@ -570,7 +588,7 @@ html_image_init (HTMLImage *image,
 	image->valign = valign;
 
 	object->percent = percent;
-
+	
 	image->image_ptr = html_image_factory_register (imf, image, filename);
 }
 
@@ -647,6 +665,15 @@ html_image_set_border (HTMLImage *image, gint border)
 		image->border = border;
 		html_engine_schedule_update (image->image_ptr->factory->engine);
 	}
+}
+
+void
+html_image_set_alt (HTMLImage *image, gchar *alt)
+{
+	if (image->alt)
+		g_free (image->alt);
+
+	image->alt = g_strdup (alt);
 }
 
 void
