@@ -722,12 +722,23 @@ calc_preferred_width (HTMLObject *self,
 		      HTMLPainter *painter)
 {
 	HTMLText *text;
+	gint width;
 
 	text = HTML_TEXT (self);
 
 	html_text_request_word_width (text, painter);
 
-	return MAX (1, text->word_width [text->words - 1]);
+	width = text->word_width [text->words - 1];
+	if (html_clueflow_tabs (HTML_CLUEFLOW (self->parent), painter)) {
+		gint line_offset;
+		gint tabs;
+
+		line_offset = html_text_get_line_offset (text, painter);
+		width += (html_text_text_line_length (text->text, &line_offset, text->text_len, &tabs) - text->text_len)*
+			html_painter_get_space_width (painter, html_text_get_font_style (text), text->face);
+	}
+
+	return MAX (1, width);
 }
 
 static void
