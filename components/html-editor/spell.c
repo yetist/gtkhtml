@@ -40,7 +40,7 @@
 #include "menubar.h"
 #include "spell.h"
 
-#define CONTROL_IID "OAFIID:GNOME_Spell_Control:0.2"
+#define CONTROL_IID "OAFIID:GNOME_Spell_Control:0.3"
 
 void
 spell_suggestion_request (GtkHTML *html, gpointer data)
@@ -53,7 +53,7 @@ spell_suggestion_request (GtkHTML *html, gpointer data)
 GNOME_Spell_Dictionary
 spell_new_dictionary (void)
 {
-#define DICTIONARY_IID "OAFIID:GNOME_Spell_Dictionary:0.2"
+#define DICTIONARY_IID "OAFIID:GNOME_Spell_Dictionary:0.3"
 
 	GNOME_Spell_Dictionary dictionary = bonobo_get_object (DICTIONARY_IID, "GNOME/Spell/Dictionary", NULL);
 
@@ -287,10 +287,9 @@ spell_check_dialog (GtkHTMLControlData *cd, gboolean whole_document)
 	set_word (cd);
 
 	gtk_widget_show (control);
-	gtk_container_add (GTK_CONTAINER (dialog), control);
+	gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), control);
 	gtk_dialog_run (GTK_DIALOG (dialog));
-	gtk_dialog_response (GTK_DIALOG (dialog), GTK_RESPONSE_CLOSE);
-	g_object_unref (dialog);
+	gtk_widget_destroy (dialog);
 	bonobo_object_release_unref (cd->spell_control_pb, NULL);
 	cd->spell_control_pb = CORBA_OBJECT_NIL;
 }
