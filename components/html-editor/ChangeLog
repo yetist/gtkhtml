@@ -30,6 +30,13 @@
 	language is null
 	(add_cb): ditto
 
+	* replace.c: add finished flag to ask dialog
+	(ask_dialog_response): set finished flag by return value from
+	html_engine_replace_do
+	(ask): run ask dialog until replacing process is finished
+
+	Fixes #50646
+
 	* test-html-editor-control.c (save_through_plain_persist_stream):
 	fixed save plain
 
