@@ -37,6 +37,10 @@ Table problems
   and happily using old "incorrect" ones (try freshmeat.net and
   then helixcode.com and you will see what I am talking about)
 
+- `html_object_draw_background()' can be very slow sometimes.  This
+  makes selection very very slow.  Look at http://www.breakupgirl.com/
+  for an example.
+
 * Sites that look wrong
 -----------------------
 
