@@ -1,3 +1,8 @@
+2003-03-05  Larry Ewing  <lewing@ximian.com>
+
+	* Makefile.am (uninstall-hook): add uninstall-hook to remove
+	renamed binary.
+
 2003-03-04  Radek Doulik  <rodo@ximian.com>
 
 	* GNOME_GtkHTML_Editor.xml.in: as below
