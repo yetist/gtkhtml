@@ -21,7 +21,21 @@
 */
 
 #include <config.h>
-#include <gtk/gtkclist.h>
+
+/*
+  FIXME
+  we need to call deprecated GtkList, which is ised in non deprecated GtkCombo
+  remove following preprocessor hackery once gtk+ is fixed
+ */
+
+#ifdef GTK_DISABLE_DEPRECATED
+#undef GTK_DISABLE_DEPRECATED
+#include <gtk/gtklist.h>
+#define GTK_DISABLE_DEPRECATED 1
+#else
+#include <gtk/gtklist.h>
+#endif
+
 #include <gtk/gtkcombo.h>
 #include <gtk/gtkentry.h>
 #include <gtk/gtkscrolledwindow.h>
@@ -98,8 +112,10 @@ draw (HTMLObject *o,
 	HTMLSelect *select = HTML_SELECT (o);
 
 	if (select->needs_update) {
-		if (GTK_IS_COMBO (HTML_EMBEDDED (select)->widget))
+		if (GTK_IS_COMBO (HTML_EMBEDDED (select)->widget)) {
 			gtk_combo_set_popdown_strings (GTK_COMBO (HTML_EMBEDDED (o)->widget), select->strings);
+			gtk_list_select_item (GTK_LIST (GTK_COMBO (HTML_EMBEDDED (o)->widget)->list), select->default_selected);
+		}
 	}
 
 	select->needs_update = FALSE;	
@@ -160,7 +176,7 @@ add_selected (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointe
 	struct EmbeddedSelectionInfo *info = data;
 	gchar *value, *ptr;
 
-	gtk_tree_model_get (model, iter, 1, &value, -1);
+	gtk_tree_model_get (model, iter, 0, &value, -1);
 
 	if (info->str->len)
 		info->str = g_string_append_c (info->str, '&');
