@@ -1,3 +1,7 @@
+1999-12-19  Jonas Borgström  <jonas_b@bitsmart.com>
+
+	* htmlurl.c (html_url_append_path): Strip cgi args
+	
 1999-12-15  Ariel Rios <jarios@usa.net>
 
 	* gtkhtml-private.h: Add ref_count element in GtkHTML struct.

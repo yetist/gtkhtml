@@ -182,7 +182,7 @@ html_url_new (const gchar *s)
 	/* The Path can't be NULL */
 	if(new->path == NULL)
 		new->path = g_strdup("/");
-
+#if 0
 #define STRING_OR_NULL(s) ((s) == NULL ? "(null)" : (s))
 	printf ("*** PARSING `%s'\n", s);
 	printf ("\tprotocol: %s\n", STRING_OR_NULL (new->protocol));
@@ -193,6 +193,7 @@ html_url_new (const gchar *s)
 	printf ("\tpath: %s\n", STRING_OR_NULL (new->path));
 	printf ("\treference: %s\n", STRING_OR_NULL (new->reference));
 #undef STRING_OR_NULL
+#endif
 
 	return new;
 }
@@ -456,7 +457,7 @@ html_url_append_path (const HTMLURL *url,
 		      const gchar *path)
 {
 	HTMLURL *new;
-	gchar *new_path, *tmppath;
+	gchar *new_path, *tmppath, *ptr;
 	int i;
 
 	new = html_url_dup (url, HTML_URL_DUP_NOPATH);
@@ -464,6 +465,10 @@ html_url_append_path (const HTMLURL *url,
 	g_assert(url->path != NULL);
 	
 	tmppath = g_strdup(url->path);
+
+	/* Cut the path at the first '?' */
+	if((ptr = strchr(tmppath, '?')))
+		*ptr = 0;
 
 	i = strlen(tmppath) - 1;
 
