@@ -1,6 +1,7 @@
 2000-10-18  Radek Doulik  <rodo@helixcode.com>
 
 	* configure.in: added check for capplet library
+	(GTKHTML_CURRENT): raised GTKHTML_CURRENT to 5
 
 2000-10-16  Vladimir Vukicevic  <vladimir@helixcode.com>
 
