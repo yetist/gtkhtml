@@ -1,5 +1,17 @@
 2004-01-02  Radek Doulik  <rodo@ximian.com>
 
+	* gtkhtml.c (gtk_html_im_preedit_changed_cb): use extra attributes
+	for preedit string
+
+	* htmltext.c: use extra attributes
+
+	* htmlengine-edit-cut-and-paste.c
+	(html_engine_paste_text_with_extra_attributes): renamed, uses
+	extra attributes instead of the normal ones
+
+	* htmltext.h: added extra pango attributes, which are displayed
+	even in plain text mode
+
 	* gtkhtml.c (gtk_html_im_commit_cb): update im_pre_pos
 	(gtk_html_im_preedit_changed_cb): restore initial position when
 	preedit string deleted

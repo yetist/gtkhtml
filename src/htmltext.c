@@ -150,6 +150,7 @@ copy (HTMLObject *s,
 	dest->select_start  = src->select_start;
 	dest->select_length = src->select_length;
 	dest->attr_list     = pango_attr_list_copy (src->attr_list);
+	dest->extra_attr_list = src->extra_attr_list ? pango_attr_list_copy (src->extra_attr_list) : NULL;
 
 	html_color_ref (dest->color);
 
@@ -232,7 +233,7 @@ cut_attr_list_filter (PangoAttribute *attr, gpointer data)
 }
 
 static void
-cut_attr_list (HTMLText *text, gint begin_index, gint end_index)
+cut_attr_list_list (PangoAttrList *attr_list, gint begin_index, gint end_index)
 {
 	PangoAttrList *removed;
 	PangoAttribute range;
@@ -240,9 +241,17 @@ cut_attr_list (HTMLText *text, gint begin_index, gint end_index)
 	range.start_index = begin_index;
 	range.end_index = end_index;
 
-	removed = pango_attr_list_filter (text->attr_list, cut_attr_list_filter, &range);
+	removed = pango_attr_list_filter (attr_list, cut_attr_list_filter, &range);
 	if (removed)
 		pango_attr_list_unref (removed);
+}
+
+static void
+cut_attr_list (HTMLText *text, gint begin_index, gint end_index)
+{
+	cut_attr_list_list (text->attr_list, begin_index, end_index);
+	if (text->extra_attr_list)
+		cut_attr_list_list (text->extra_attr_list, begin_index, end_index);
 }
 
 static void
@@ -458,6 +467,11 @@ object_merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, G
 	t2->spell_errors = NULL;
 
 	pango_attr_list_splice (t1->attr_list, t2->attr_list, t1->text_bytes, t2->text_bytes);
+	if (t2->extra_attr_list) {
+		if (!t1->extra_attr_list)
+			t1->extra_attr_list = pango_attr_list_new ();
+		pango_attr_list_splice (t1->extra_attr_list, t2->extra_attr_list, t1->text_bytes, t2->text_bytes);
+	}
 	merge_links (t1, t2);
 
 	to_free       = t1->text;
@@ -517,9 +531,19 @@ split_attrs (HTMLText *t1, HTMLText *t2, gint index)
 	delete = pango_attr_list_filter (t1->attr_list, split_attrs_filter_head, GINT_TO_POINTER (index));
 	if (delete)
 		pango_attr_list_unref (delete);
+	if (t1->extra_attr_list) {
+		delete = pango_attr_list_filter (t1->extra_attr_list, split_attrs_filter_head, GINT_TO_POINTER (index));
+		if (delete)
+			pango_attr_list_unref (delete);
+	}
 	delete = pango_attr_list_filter (t2->attr_list, split_attrs_filter_tail, GINT_TO_POINTER (index));
 	if (delete)
 		pango_attr_list_unref (delete);
+	if (t2->extra_attr_list) {
+		delete = pango_attr_list_filter (t2->extra_attr_list, split_attrs_filter_tail, GINT_TO_POINTER (index));
+		if (delete)
+			pango_attr_list_unref (delete);
+	}
 }
 
 static void
@@ -781,11 +805,10 @@ update_asc_dsc (HTMLPainter *painter, PangoItem *item, gint *asc, gint *dsc)
 	pango_font_metrics_unref (pfm);
 }
 
-PangoAttrList *
-html_text_get_attr_list (HTMLText *text, gint start_index, gint end_index)
+void
+html_text_get_attr_list_list (PangoAttrList *get_attrs, PangoAttrList *attr_list, gint start_index, gint end_index)
 {
-	PangoAttrIterator *iter = pango_attr_list_get_iterator (text->attr_list);
-	PangoAttrList *attrs = pango_attr_list_new ();
+	PangoAttrIterator *iter = pango_attr_list_get_iterator (attr_list);
 
 	if (iter) {
 		do {
@@ -810,12 +833,22 @@ html_text_get_attr_list (HTMLText *text, gint start_index, gint end_index)
 						attr->end_index -= start_index;
 
 					c->data = NULL;
-					pango_attr_list_insert (attrs, attr);
+					pango_attr_list_insert (get_attrs, attr);
 				}
 				g_slist_free (l);
 			}
 		} while (pango_attr_iterator_next (iter));
 	}
+}
+
+PangoAttrList *
+html_text_get_attr_list (HTMLText *text, gint start_index, gint end_index)
+{
+	PangoAttrList *attrs = pango_attr_list_new ();
+
+	html_text_get_attr_list_list (attrs, text->attr_list, start_index, end_index);
+	if (text->extra_attr_list)
+		html_text_get_attr_list_list (attrs, text->extra_attr_list, start_index, end_index);
 
 	return attrs;
 }
@@ -1061,6 +1094,8 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 			pango_attr_list_insert (attrs, attr);
 		} else
 			attrs = pango_attr_list_copy (text->attr_list);
+		if (text->extra_attr_list)
+			pango_attr_list_splice (attrs, text->extra_attr_list, 0, text->text_len);
 
 		if (text->select_length) {
 			gchar *end;
@@ -1780,6 +1815,10 @@ destroy (HTMLObject *obj)
 	pango_info_destroy (text);
 	pango_attr_list_unref (text->attr_list);
 	text->attr_list = NULL;
+	if (text->extra_attr_list) {
+		pango_attr_list_unref (text->extra_attr_list);
+		text->extra_attr_list = NULL;
+	}
 	free_links (text->links);
 	text->links = NULL;
 
@@ -2080,6 +2119,7 @@ html_text_init (HTMLText *text,
 	text->select_length = 0;
 	text->pi            = NULL;
 	text->attr_list     = pango_attr_list_new ();
+	text->extra_attr_list = NULL;
 	text->links         = NULL;
 
 	html_color_ref (color);

@@ -2880,7 +2880,7 @@ gtk_html_im_preedit_changed_cb (GtkIMContext *context, GtkHTML *html)
 	if (html->priv->im_pre_len > 0) {
 		cursor_pos = CLAMP (cursor_pos, 0, html->priv->im_pre_len);
 		html->priv->im_pre_pos = html->engine->cursor->position;
-		html_engine_paste_text_with_attributes (html->engine, preedit_string, html->priv->im_pre_len, attrs);
+		html_engine_paste_text_with_extra_attributes (html->engine, preedit_string, html->priv->im_pre_len, attrs);
 		html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine, html->priv->im_pre_pos + cursor_pos);
 	} else
 		html_engine_set_font_style (html->engine, 0, html->priv->im_orig_style);

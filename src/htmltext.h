@@ -67,6 +67,7 @@ struct _HTMLText {
 	guint    text_bytes;
 
 	PangoAttrList    *attr_list;
+	PangoAttrList    *extra_attr_list;
 	GtkHTMLFontStyle  font_style;
 	HTMLFontFace     *face;
 	HTMLColor        *color;

@@ -1271,7 +1271,7 @@ use_pictograms (HTMLEngine *e)
 }
 
 void
-html_engine_insert_text_with_attributes (HTMLEngine *e, const gchar *text, guint len, PangoAttrList *attrs)
+html_engine_insert_text_with_extra_attributes (HTMLEngine *e, const gchar *text, guint len, PangoAttrList *attrs)
 {
 	gchar *nl;
 	gint alen;
@@ -1300,7 +1300,7 @@ html_engine_insert_text_with_attributes (HTMLEngine *e, const gchar *text, guint
 
 			o = html_engine_new_text (e, text, alen);
 			if (attrs)
-				pango_attr_list_splice (HTML_TEXT (o)->attr_list, attrs, 0, HTML_TEXT (o)->text_len);
+				HTML_TEXT (o)->extra_attr_list = pango_attr_list_copy (attrs);
 			html_text_convert_nbsp (HTML_TEXT (o), TRUE);
 
 			if (alen == 1 && html_is_in_word (html_text_get_char (HTML_TEXT (o), 0))
@@ -1327,11 +1327,11 @@ html_engine_insert_text_with_attributes (HTMLEngine *e, const gchar *text, guint
 void
 html_engine_insert_text (HTMLEngine *e, const gchar *text, guint len)
 {
-	html_engine_insert_text_with_attributes (e, text, len, NULL);
+	html_engine_insert_text_with_extra_attributes (e, text, len, NULL);
 }
 
 void
-html_engine_paste_text_with_attributes (HTMLEngine *e, const gchar *text, guint len, PangoAttrList *attrs)
+html_engine_paste_text_with_extra_attributes (HTMLEngine *e, const gchar *text, guint len, PangoAttrList *attrs)
 {
 	gchar *undo_name = g_strdup_printf ("Paste text: '%s'", text);
 	gchar *redo_name = g_strdup_printf ("Unpaste text: '%s'", text);
@@ -1340,14 +1340,14 @@ html_engine_paste_text_with_attributes (HTMLEngine *e, const gchar *text, guint 
 	g_free (undo_name);
 	g_free (redo_name);
 	html_engine_delete (e);
-	html_engine_insert_text_with_attributes (e, text, len, attrs);
+	html_engine_insert_text_with_extra_attributes (e, text, len, attrs);
 	html_undo_level_end (e->undo);
 }
 
 void
 html_engine_paste_text (HTMLEngine *e, const gchar *text, guint len)
 {
-	html_engine_paste_text_with_attributes (e, text, len, NULL);
+	html_engine_paste_text_with_extra_attributes (e, text, len, NULL);
 }
 
 void
