@@ -869,6 +869,8 @@ key_press_event (GtkWidget *widget, GdkEventKey *event)
 	GtkHTML *html = GTK_HTML (widget);
 	GtkHTMLClass *html_class = GTK_HTML_CLASS (GTK_WIDGET_GET_CLASS (html));
 	gboolean retval, update = TRUE;
+	HTMLObject *focus_object;
+	gint focus_object_offset;
 
 	html->binding_handled = FALSE;
 	html->priv->update_styles = FALSE;
@@ -901,9 +903,12 @@ key_press_event (GtkWidget *widget, GdkEventKey *event)
 		switch (event->keyval) {
 		case GDK_Return:
 		case GDK_KP_Enter:
-			if (html->engine->focus_object) {
+			/* the toplevel gtkhtml's focus object may be a frame or ifame */
+			focus_object = html_engine_get_focus_object (html->engine, &focus_object_offset);
+					
+			if (focus_object) {
 				gchar *url;
-				url = html_object_get_complete_url (html->engine->focus_object, html->engine->focus_object_offset);
+				url = html_object_get_complete_url (focus_object, focus_object_offset);
 				if (url) {
 					/* printf ("link clicked: %s\n", url); */
 					g_signal_emit (html, signals [LINK_CLICKED], 0, url);

@@ -1,3 +1,9 @@
+2004-12-15  Mengjie Yu  <meng-jie.yu@sun.com>
+
+	* gtkhtml.c: (key_press_event):
+	fix #70085 the focus object may be a frame or an iframe, if so, 
+		   we must check its focus object recursively.
+
 2004-12-14  Mengjie Yu  <meng-jie.yu@sun.com>
 
 	* gtkhtml.c: (focus), (gtk_html_class_init), (cursor_move):
