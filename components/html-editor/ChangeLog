@@ -1,3 +1,14 @@
+2001-10-29  Radek Doulik  <rodo@ximian.com>
+
+	* spell.c (spell_add_to_session): added g_return_if_fail (word);
+	(spell_add_to_personal): ditto
+	(add_cb): ditto
+	(ignore_cb): ditto
+	(spell_add_to_session): ditto
+
+	* popup.c (spell_add): check if word is non-NULL and don't leak it
+	(spell_ignore): ditto
+
 2001-10-28  Larry Ewing  <lewing@ximian.com>
 
 	* editor-control-factory.c (init_corba): init gnome with the

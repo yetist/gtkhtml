@@ -242,8 +242,13 @@ static void
 spell_add (GtkWidget *mi, GtkHTMLControlData *cd)
 {
 	HTMLEngine *e = cd->html->engine;
+	gchar *word;
 
-	spell_add_to_personal (cd->html, html_engine_get_word (e), cd);
+	word = html_engine_get_word (e);
+	if (word) {
+		spell_add_to_personal (cd->html, word, cd);
+		g_free (word);
+	}
 	html_engine_spell_check (e);
 }
 
@@ -251,8 +256,13 @@ static void
 spell_ignore (GtkWidget *mi, GtkHTMLControlData *cd)
 {
 	HTMLEngine *e = cd->html->engine;
+	gchar *word;
 
-	spell_add_to_session (cd->html, html_engine_get_word (e), cd);
+	word = html_engine_get_word (e);
+	if (word) {
+		spell_add_to_session (cd->html, word, cd);
+		g_free (word);
+	}
 	html_engine_spell_check (e);
 }
 
