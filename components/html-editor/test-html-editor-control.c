@@ -173,6 +173,9 @@ container_create (void)
 	gtk_window_set_policy (GTK_WINDOW (app), TRUE, TRUE, FALSE);
 
 	control = gnome_bonobo_widget_new_control ("control:html-editor");
+	if (control == NULL)
+		g_error ("Cannot get `control:html-editor'.");
+
 	gnome_app_set_contents (GNOME_APP (app), control);
 	gnome_app_create_menus_with_data (GNOME_APP (app), menu_info, app);
 

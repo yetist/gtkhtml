@@ -1,5 +1,10 @@
 2000-01-25  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* test-html-editor-control.c (container_create): Abort if we
+	cannot get the control.
+
+2000-01-25  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* test-html-editor-control.c: New file.
 
 	* main.c: New file.
