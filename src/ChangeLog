@@ -1,3 +1,7 @@
+2000-07-15  Larry Ewing  <lewing@helixcode.com>
+
+	* htmldrawqueue.c (clear): draw the background properly.
+
 2000-07-14  Radek Doulik  <rodo@helixcode.com>
 
 	* htmliframe.c (html_iframe_init): set iframe parent

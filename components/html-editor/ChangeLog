@@ -1,3 +1,10 @@
+2000-07-15  Larry Ewing  <lewing@helixcode.com>
+
+	* editor-control-factory.c (editor_control_factory): connect to
+	url_requested.
+	(url_requested_cb): try to load_from_file.
+	(load_from_file): rough code to load file to stream.
+
 2000-07-11  Radek Doulik  <rodo@helixcode.com>
 
 	* toolbar.c (setup_font_size_option_menu): added font size option

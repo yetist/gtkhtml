@@ -24,6 +24,12 @@
 #include <config.h>
 #include <gnome.h>
 #include <bonobo.h>
+#include <stdio.h>
+#include <glib.h>
+#include <errno.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 #include "gtkhtml.h"
 #include "htmlengine-edit.h"
@@ -163,6 +169,59 @@ release (GtkWidget *widget, GdkEventButton *event, GtkHTMLControlData *cd)
 	return FALSE;
 }
 
+static int
+load_from_file (GtkHTML *html,
+		const char *url,
+		GtkHTMLStream *handle)
+{
+	unsigned char buffer[4096];
+	int len;
+	int fd;
+        const char *path;
+
+        if (strncmp (url, "file:", 5) != 0) {
+		g_warning ("Unsupported image url: %s", url);
+		return FALSE;
+	} 
+	path = url + 5; 
+
+	if ((fd = open (path, O_RDONLY)) == -1) {
+		g_warning ("%s", g_strerror (errno));
+		return FALSE;
+	}
+      
+       	while ((len = read (fd, buffer, 4096)) > 0) {
+		gtk_html_write (html, handle, buffer, len);
+	}
+
+	if (len < 0) {
+		/* check to see if we stopped because of an error */
+		g_warning ("%s", g_strerror (errno));
+		return FALSE;
+	}	
+	/* done with no errors */
+	close (fd);
+	return TRUE;
+}
+
+static void
+url_requested_cb (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpointer data)
+{
+	BonoboControl *control;
+
+	g_return_if_fail (data != NULL);
+	g_return_if_fail (url != NULL);
+	g_return_if_fail (handle != NULL);
+
+	control = BONOBO_CONTROL (data);
+
+	if (load_from_file (html, url, handle))
+		g_warning ("valid local reponse");
+	else
+		g_warning ("unable to resolve url: %s", url);
+
+}
+
 static gint
 html_button_pressed (GtkWidget *html, GdkEventButton *event, GtkHTMLControlData *cd)
 {
@@ -233,6 +292,9 @@ editor_control_factory (BonoboGenericFactory *factory,
 
 	gtk_signal_connect (GTK_OBJECT (control), "destroy",
 			    GTK_SIGNAL_FUNC (destroy_control_data_cb), control_data);
+
+	gtk_signal_connect (GTK_OBJECT (html_widget), "url_requested",
+			    GTK_SIGNAL_FUNC (url_requested_cb), control);
 
 	gtk_signal_connect (GTK_OBJECT (html_widget), "button_press_event",
 			    GTK_SIGNAL_FUNC (html_button_pressed), control_data);
