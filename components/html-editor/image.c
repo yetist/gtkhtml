@@ -253,10 +253,10 @@ get_sample_html (GtkHTMLEditImageProperties *d, gboolean insert)
 		html   = g_strconcat (body, image, NULL);
 	} else {
 		html   = g_strconcat (body,
-				      _("The quick brown fox jumped over the lazy dog."),
+				      _("The quick brown fox jumps over the lazy dog."),
 				      " ",
 				      image,
-				      _("The quick brown fox jumped over the lazy dog."),
+				      _("The quick brown fox jumps over the lazy dog."),
 				      NULL);
 	}
 
