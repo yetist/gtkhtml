@@ -25,7 +25,7 @@ libgtkhtml_HEADERS =				\
 	htmlcursor.h				\
 	htmldrawqueue.h				\
 	htmlengine.h				\
-	htmlenginecolorset.h			\
+	htmlcolorset.h				\
 	htmlengine-edit.h			\
 	htmlentity.h				\
 	htmlfontmanager.h			\
@@ -74,7 +74,7 @@ libgtkhtml_la_SOURCES =				\
 	htmldrawqueue.c				\
 	htmlengine.c				\
 	htmlengine-edit.c			\
-	htmlenginecolorset.c			\
+	htmlcolorset.c				\
 	htmlentity.c				\
 	htmlfontmanager.c			\
 	htmlimage.c				\

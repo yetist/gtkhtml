@@ -19,27 +19,22 @@
     Boston, MA 02111-1307, USA.
 */
 
-#ifndef _HTMLENGINECOLORSET_H
-#define _HTMLENGINECOLORSET_H
+#ifndef _HTMLCOLORSET_H
+#define _HTMLCOLORSET_H
 
 #include <gdk/gdk.h>
 
-struct _HTMLEngineColorSet {
-	gboolean realized : 1;
-
+struct _HTMLColorSet {
 	GdkColor background_color;
 	GdkColor foreground_color;
 	GdkColor link_color;
 	GdkColor highlight_color;
 	GdkColor highlight_foreground_color;
 };
-typedef struct _HTMLEngineColorSet HTMLEngineColorSet;
+typedef struct _HTMLColorSet HTMLColorSet;
 
 
-HTMLEngineColorSet *html_engine_color_set_new        (void);
-void                html_engine_color_set_destroy    (HTMLEngineColorSet *set);
-void                html_engine_color_set_realize    (HTMLEngineColorSet *set,
-						      GdkWindow          *window);
-void                html_engine_color_set_unrealize  (HTMLEngineColorSet *set);
+HTMLColorSet *html_color_set_new        (void);
+void          html_color_set_destroy    (HTMLColorSet *set);
 
-#endif /* _HTMLENGINE_COLORSET_H */
+#endif /* _HTML_COLORSET_H */

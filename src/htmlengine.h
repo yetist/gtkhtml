@@ -33,7 +33,7 @@ typedef struct _HTMLEngineClass HTMLEngineClass;
 #include "gtkhtml.h"
 
 #include "htmltokenizer.h"
-#include "htmlenginecolorset.h"
+#include "htmlcolorset.h"
 #include "htmlcursor.h"
 #include "htmldrawqueue.h"
 #include "htmlstack.h"
@@ -67,7 +67,7 @@ typedef struct _HTMLBlockStackElement HTMLBlockStackElement;
 struct _HTMLEngine {
 	GtkObject parent;
 
-	HTMLEngineColorSet *color_set;
+	HTMLColorSet *color_set;
 	HTMLDrawQueue *draw_queue;
 	HTMLPainter *painter;
 
@@ -257,13 +257,6 @@ void  html_engine_form_submitted  (HTMLEngine  *engine,
 				   const gchar *method,
 				   const gchar *action,
 				   const gchar *encoding);
-
-/* Basic colors.  */
-const GdkColor *html_engine_get_background_color            (HTMLEngine *engine);
-const GdkColor *html_engine_get_foreground_color            (HTMLEngine *engine);
-const GdkColor *html_engine_get_link_color                  (HTMLEngine *engine);
-const GdkColor *html_engine_get_highlight_color             (HTMLEngine *engine);
-const GdkColor *html_engine_get_highlight_foreground_color  (HTMLEngine *engine);
 
 /* Misc.  (FIXME: Should die?) */
 gchar *html_engine_canonicalize_url  (HTMLEngine *e,

@@ -147,8 +147,7 @@ draw (HTMLObject *o,
 					bottom - top);
 	}
 
-	(* HTML_OBJECT_CLASS (&html_cluev_class)->draw) (o, p, cursor, x, y,
-							 width, height, tx, ty);
+	(* HTML_OBJECT_CLASS (&html_cluev_class)->draw) (o, p, x, y, width, height, tx, ty);
 }
 
 static void

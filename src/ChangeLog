@@ -1,3 +1,41 @@
+2000-01-21  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine.c (html_engine_init): Set the color set in the
+	painter.
+
+	* htmlpainter.c (html_painter_get_default_background_color): New
+	function.
+	(html_painter_get_default_foreground_color): Removed.
+	(html_painter_get_default_link_color): Removed.
+	(html_painter_get_default_highlight_color): Removed.
+	(html_painter_get_default_highlight_foreground_color): Removed.
+	(html_painter_draw_cursor): Removed.
+	(html_painter_realize): Cleaned up a bit.
+	(html_painter_new): Set `color_set' to NULL.
+	(allocate_color_set): New helper function to allocate the
+	HTMLColorSet colors.
+	(html_painter_set_color_set): New function.
+	(html_painter_realize): Allocate colors if `color_set' is not
+	NULL.
+
+	* htmlpainter.h: New member `color_set' in `HTMLPainter'.
+
+	* htmlengine.c: Updated to use `htmlcolorset.c' instead of
+	`htmlenginecolorset.c'.
+	(html_engine_get_background_color): Removed.
+	(html_engine_get_foreground_color): Removed.
+	(html_engine_get_link_color): Removed.
+	(html_engine_get_highlight_color): Removed.
+	(html_engine_get_highlight_foreground_color): Removed.
+
+	* htmlengine.h: Likewise.
+
+	* htmlcolorset.c: New file.
+	* htmlcolorset.h: New file.
+
+	* htmlenginecolorset.c: Removed.
+	* htmlenginecolorset.h: Removed.
+
 2000-01-20  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlobject.c (draw): Removed param `cursor'.

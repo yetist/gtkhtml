@@ -19,15 +19,15 @@
     Boston, MA 02111-1307, USA.
 */
 
-#include "htmlenginecolorset.h"
+#include "htmlcolorset.h"
 
 
-HTMLEngineColorSet *
-html_engine_color_set_new (void)
+HTMLColorSet *
+html_color_set_new (void)
 {
-	HTMLEngineColorSet *new;
+	HTMLColorSet *new;
 
-	new = g_new (HTMLEngineColorSet, 1);
+	new = g_new (HTMLColorSet, 1);
 
 	new->background_color.red = 0xff;
 	new->background_color.green = 0xff;
@@ -49,47 +49,13 @@ html_engine_color_set_new (void)
 	new->highlight_foreground_color.green = 0xff;
 	new->highlight_foreground_color.blue = 0xff;
 
-	new->realized = FALSE;
-
 	return new;
 }
 
 void
-html_engine_color_set_destroy (HTMLEngineColorSet *set)
+html_color_set_destroy (HTMLColorSet *set)
 {
 	g_return_if_fail (set != NULL);
 
-	html_engine_color_set_unrealize (set);
-}
-
-void
-html_engine_color_set_realize (HTMLEngineColorSet *set,
-			       GdkWindow *window)
-{
-	GdkColormap *colormap;
-
-	g_return_if_fail (set != NULL);
-	g_return_if_fail (window != NULL);
-	g_return_if_fail (! set->realized);
-
-	colormap = gdk_window_get_colormap (window);
-
-	gdk_colormap_alloc_color (colormap, &set->background_color, TRUE, TRUE);
-	gdk_colormap_alloc_color (colormap, &set->foreground_color, TRUE, TRUE);
-	gdk_colormap_alloc_color (colormap, &set->link_color, TRUE, TRUE);
-	gdk_colormap_alloc_color (colormap, &set->highlight_color, TRUE, TRUE);
-	gdk_colormap_alloc_color (colormap, &set->highlight_foreground_color, TRUE, TRUE);
-
-	set->realized = TRUE;
-}
-
-void
-html_engine_color_set_unrealize (HTMLEngineColorSet *set)
-{
-	g_return_if_fail (set != NULL);
-	g_return_if_fail (set->realized);
-
-	/* FIXME: To really work as expected to, this should actually
-           deallocate colors.  */
-	set->realized = FALSE;
+	g_free (set);
 }

@@ -30,6 +30,26 @@
 #include "htmlpainter.h"
 
 
+/* FIXME: This allocates the pixel values in `color_set' directly.  This is
+   broken.  Instead, we should be copying the RGB values and allocating the
+   pixel values somewhere else.  The reason why don't do this yet in
+   `HTMLColorSet' is that we do not want to have any allocation in HTMLColorSet
+   to make it independent of the painter device in the future.  */
+static void
+allocate_color_set (HTMLPainter *painter)
+{
+	GdkColormap *colormap;
+
+	colormap = gdk_window_get_colormap (painter->window);
+
+	gdk_colormap_alloc_color (colormap, & painter->color_set->background_color, TRUE, TRUE);
+	gdk_colormap_alloc_color (colormap, & painter->color_set->foreground_color, TRUE, TRUE);
+	gdk_colormap_alloc_color (colormap, & painter->color_set->link_color, TRUE, TRUE);
+	gdk_colormap_alloc_color (colormap, & painter->color_set->highlight_color, TRUE, TRUE);
+	gdk_colormap_alloc_color (colormap, & painter->color_set->highlight_foreground_color, TRUE, TRUE);
+}
+
+
 HTMLPainter *
 html_painter_new (void)
 {
@@ -43,6 +63,8 @@ html_painter_new (void)
 		painter->double_buffer = TRUE;
 
 	painter->font_manager = html_font_manager_new ();
+
+	painter->color_set = NULL;
 	
 	return painter;
 }
@@ -59,6 +81,8 @@ html_painter_destroy (HTMLPainter *painter)
 void 
 html_painter_realize (HTMLPainter *painter, GdkWindow *window)
 {
+	GdkColormap *colormap;
+
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (window != NULL);
 	
@@ -68,21 +92,26 @@ html_painter_realize (HTMLPainter *painter, GdkWindow *window)
 	/* Set our painter window */
 	painter->window = window;
 
+	colormap = gdk_window_get_colormap (window);
+
 	/* Allocate dark/light colors */
-	painter->light.red = 49151;
-	painter->light.green = 49151;
-	painter->light.blue = 49151;
-	gdk_colormap_alloc_color (gdk_window_get_colormap (window), &painter->light, TRUE, TRUE);
+	painter->light.red = 0xffff;
+	painter->light.green = 0xffff;
+	painter->light.blue = 0xffff;
+	gdk_colormap_alloc_color (colormap, &painter->light, TRUE, TRUE);
 
-	painter->dark.red = 32767;
-	painter->dark.green = 32767;
-	painter->dark.blue = 32767;
-	gdk_colormap_alloc_color (gdk_window_get_colormap (window), &painter->dark, TRUE, TRUE);
+	painter->dark.red = 0x7fff;
+	painter->dark.green = 0x7fff;
+	painter->dark.blue = 0x7fff;
+	gdk_colormap_alloc_color (colormap, &painter->dark, TRUE, TRUE);
 
-	painter->black.red = 0;
-	painter->black.green = 0;
-	painter->black.blue = 0;
-	gdk_colormap_alloc_color (gdk_window_get_colormap (window), &painter->black, TRUE, TRUE);
+	painter->black.red = 0x0000;
+	painter->black.green = 0x0000;
+	painter->black.blue = 0x0000;
+	gdk_colormap_alloc_color (colormap, &painter->black, TRUE, TRUE);
+
+	if (painter->color_set != NULL)
+		allocate_color_set (painter);
 }
 
 void
@@ -94,6 +123,20 @@ html_painter_unrealize (HTMLPainter *painter)
 	painter->gc = NULL;
 }
 
+
+void
+html_painter_set_color_set (HTMLPainter *painter,
+			    HTMLColorSet *color_set)
+{
+	g_return_if_fail (painter != NULL);
+
+	painter->color_set = color_set;
+
+	if (painter->window != NULL && color_set != NULL)
+		allocate_color_set (painter);
+}
+
+
 void
 html_painter_alloc_color (HTMLPainter *painter,
 			  GdkColor *color)
@@ -460,15 +503,6 @@ html_painter_draw_shade_line (HTMLPainter *p,
 	gdk_draw_line (p->pixmap, p->gc, x, y + 1, x+width, y + 1);
 }
 
-/* This will draw a cursor for the specified position, with the specified
-   ascent/descent.  */
-void
-html_painter_draw_cursor (HTMLPainter *painter, gint x, gint y, gint ascent, gint descent)
-{
-	html_painter_set_pen (painter, &painter->black);
-	html_painter_draw_line (painter, x, y - ascent, x, y + descent - 1);
-}
-
 
 GdkWindow *
 html_painter_get_window (HTMLPainter *painter)
@@ -535,4 +569,55 @@ html_painter_calc_text_width (HTMLPainter *painter,
 	gdk_font_unref (gdk_font);
 
 	return width;
+}
+
+
+const GdkColor *
+html_painter_get_default_background_color (HTMLPainter *painter)
+{
+	g_return_val_if_fail (painter != NULL, NULL);
+	g_return_val_if_fail (painter->window != NULL, NULL);
+	g_return_val_if_fail (painter->color_set != NULL, NULL);
+
+	return &painter->color_set->background_color;
+}
+
+const GdkColor *
+html_painter_get_default_foreground_color (HTMLPainter *painter)
+{
+	g_return_val_if_fail (painter != NULL, NULL);
+	g_return_val_if_fail (painter->window != NULL, NULL);
+	g_return_val_if_fail (painter->color_set != NULL, NULL);
+
+	return &painter->color_set->foreground_color;
+}
+
+const GdkColor *
+html_painter_get_default_link_color (HTMLPainter *painter)
+{
+	g_return_val_if_fail (painter != NULL, NULL);
+	g_return_val_if_fail (painter->window != NULL, NULL);
+	g_return_val_if_fail (painter->color_set != NULL, NULL);
+
+	return &painter->color_set->link_color;
+}
+
+const GdkColor *
+html_painter_get_default_highlight_color (HTMLPainter *painter)
+{
+	g_return_val_if_fail (painter != NULL, NULL);
+	g_return_val_if_fail (painter->window != NULL, NULL);
+	g_return_val_if_fail (painter->color_set != NULL, NULL);
+
+	return &painter->color_set->highlight_color;
+}
+
+const GdkColor *
+html_painter_get_default_highlight_foreground_color (HTMLPainter *painter)
+{
+	g_return_val_if_fail (painter != NULL, NULL);
+	g_return_val_if_fail (painter->window != NULL, NULL);
+	g_return_val_if_fail (painter->color_set != NULL, NULL);
+
+	return &painter->color_set->highlight_foreground_color;
 }
