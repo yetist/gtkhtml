@@ -223,6 +223,7 @@ struct _HTMLEngine {
 	/* Font style for insertion.  If HTML_FONT_STYLE_DEFAULT, use that of
            the text we are in.  */
 	GtkHTMLFontStyle insertion_font_style;
+	GdkColor         insertion_color;
 
 	/* This is set to TRUE when at least one element is selected (in whole
            or in part), to FALSE when no item is selected at all.  */
@@ -231,6 +232,10 @@ struct _HTMLEngine {
 	/* This object is used to update the keyboard selection in the
            idle loop.  */
 	HTMLEngineEditSelectionUpdater *selection_updater;
+
+	/* keeps selection between operation, which are changing selection
+	   and need restore it after done */
+	GList *selection_stack;
 
 	/* search & replace */
 	HTMLSearch  *search_info;

@@ -31,8 +31,10 @@
 #include "htmltextslave.h"
 #include "htmlimage.h"
 
-#include "htmlengine-edit.h"
+#include "htmlengine-cutbuffer.h"
+#include "htmlengine-edit-cut.h"
 #include "htmlengine-edit-paste.h"
+#include "htmlengine-edit.h"
 
 
 void
@@ -98,4 +100,65 @@ html_engine_cut_buffer_pop (HTMLEngine *e)
 
 	e->cut_buffer = (GList *) e->cut_buffer_stack->data;
 	e->cut_buffer_stack = g_list_remove (e->cut_buffer_stack, e->cut_buffer_stack->data);
+}
+
+void
+html_engine_selection_push (HTMLEngine *e)
+{
+	if (e->active_selection) {
+		e->selection_stack
+			= g_list_prepend (e->selection_stack, GINT_TO_POINTER (html_cursor_get_position (e->mark)));
+		e->selection_stack
+			= g_list_prepend (e->selection_stack, GINT_TO_POINTER (html_cursor_get_position (e->cursor)));
+		e->selection_stack = g_list_prepend (e->selection_stack, GINT_TO_POINTER (TRUE));
+	} else {
+		e->selection_stack = g_list_prepend (e->selection_stack, GINT_TO_POINTER (FALSE));
+	}
+}
+
+void
+html_engine_selection_pop (HTMLEngine *e)
+{
+	gboolean selection;
+
+	g_assert (e->selection_stack);
+
+	selection = GPOINTER_TO_INT (e->selection_stack->data);
+	e->selection_stack = g_list_remove (e->selection_stack, e->selection_stack->data);
+
+	if (selection) {
+		gint cursor, mark;
+
+		mark = GPOINTER_TO_INT (e->selection_stack->data);
+		e->selection_stack = g_list_remove (e->selection_stack, e->selection_stack->data);
+		cursor = GPOINTER_TO_INT (e->selection_stack->data);
+		e->selection_stack = g_list_remove (e->selection_stack, e->selection_stack->data);
+
+		html_cursor_jump_to_position (e->cursor, e, mark);
+		html_engine_set_mark (e);
+		html_cursor_jump_to_position (e->cursor, e, cursor);
+
+		html_engine_edit_selection_updater_update_now (e->selection_updater);
+	}
+}
+
+void
+html_engine_cut_and_paste_begin (HTMLEngine *e, gchar *op_name)
+{
+	html_engine_selection_push (e);
+	html_engine_cut_buffer_push (e);
+	html_undo_level_begin (e->undo, op_name);
+	html_engine_cut (e, TRUE);
+}
+
+void
+html_engine_cut_and_paste_end (HTMLEngine *e)
+{
+	if (e->cut_buffer) {
+		html_engine_paste (e, TRUE);
+		html_engine_cut_buffer_destroy (e->cut_buffer);
+	}
+	html_undo_level_end (e->undo);
+	html_engine_cut_buffer_pop (e);
+	html_engine_selection_pop (e);
 }

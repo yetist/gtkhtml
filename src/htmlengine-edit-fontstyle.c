@@ -22,6 +22,7 @@
 #include "gtkhtmldebug.h"
 #include "htmlclue.h"
 #include "htmltextmaster.h"
+#include "htmlengine-edit.h"
 #include "htmlengine-edit-movement.h"
 #include "htmlengine-edit-selection-updater.h"
 
@@ -828,4 +829,23 @@ html_engine_font_style_toggle (HTMLEngine *engine, GtkHTMLFontStyle style)
 		html_engine_set_font_style (engine, GTK_HTML_FONT_STYLE_MAX & ~style, 0);
 	else
 		html_engine_set_font_style (engine, GTK_HTML_FONT_STYLE_MAX, style);
+}
+
+static void
+set_color (HTMLObject *o, GdkColor *color)
+{
+	if (html_object_is_text (o))
+		HTML_TEXT (o)->color = *color;
+}
+
+void
+html_engine_set_color (HTMLEngine *e, GdkColor *color)
+{
+	if (e->active_selection) {
+		html_engine_cut_and_paste_begin (e, "Set color");
+		g_list_foreach (e->cut_buffer, (GFunc) set_color, color);
+		html_engine_cut_and_paste_end (e);
+	}
+
+	e->insertion_color = *color;
 }

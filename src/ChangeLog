@@ -1,5 +1,34 @@
 2000-06-23  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine-edit-insert.c (html_engine_insert): use insertion color
+	(create_action_data): remember color
+	(do_redo): use remebered color
+	(do_insert): use color
+	(insert_chars): test also color equality along with style equality
+	(insert_chars_at_not_text): use color
+	(insert_chars_different_style): use color
+	(insert_para): use insertion color
+
+	* htmlengine.h: added insertion color to engine
+
+	* htmlengine-edit.c (html_engine_cut_and_paste_begin): new
+	function, initialization of cut&paste
+	(html_engine_cut_and_paste_end): new function, finishes cut&paste
+
+	* htmlengine-edit-fontstyle.c (html_engine_set_color): as below
+	(html_engine_set_color): use new cut&paste functions
+
+	* htmlengine-edit-insert.c (html_engine_insert_link): use push/pop
+	selection
+	(html_engine_remove_link): likewise
+
+	* htmlengine-edit.c (html_engine_selection_push): new function to
+	store current selection on stack
+	(html_engine_selection_pop): new function to restore selection
+	from stack
+
+	* htmlengine.h: added insertion color
+
 	* htmlengine-edit-fontstyle.c
 	(html_engine_get_document_font_style): new function, returns
 	fontstyle from document (HTMLText or selection)

@@ -2885,6 +2885,8 @@ html_engine_set_arg (GtkObject        *object,
 		engine->settings        = html_settings_new (GTK_WIDGET (engine->widget));
 		engine->defaultSettings = html_settings_new (GTK_WIDGET (engine->widget));
 		html_colorset_add_slave (engine->settings->color_set, engine->painter->color_set);
+
+		engine->insertion_color = *html_colorset_get_color (engine->settings->color_set, HTMLTextColor);
 	}
 }
 
@@ -3014,6 +3016,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->editable = FALSE;
 	engine->cut_buffer = NULL;
 	engine->cut_buffer_stack = NULL;
+	engine->selection_stack  = NULL;
 
 	engine->ht = html_tokenizer_new ();
 	engine->st = html_string_tokenizer_new ();

@@ -27,12 +27,17 @@
 
 
 /* Undo/redo.  */
-void  html_engine_undo      (HTMLEngine *e);
-void  html_engine_redo      (HTMLEngine *e);
-void  html_engine_set_mark  (HTMLEngine *e);
+void  html_engine_undo                (HTMLEngine *e);
+void  html_engine_redo                (HTMLEngine *e);
+void  html_engine_set_mark            (HTMLEngine *e);
 
-void  html_engine_cut_buffer_push    (HTMLEngine *e);
-void  html_engine_cut_buffer_pop     (HTMLEngine *e);
+void  html_engine_cut_buffer_push     (HTMLEngine *e);
+void  html_engine_cut_buffer_pop      (HTMLEngine *e);
 
+void  html_engine_selection_push      (HTMLEngine *e);
+void  html_engine_selection_pop       (HTMLEngine *e);
+
+void  html_engine_cut_and_paste_begin (HTMLEngine *e, gchar *op_name);
+void  html_engine_cut_and_paste_end   (HTMLEngine *e);
 
 #endif /* _HTMLENGINE_EDIT_H */
