@@ -1518,6 +1518,7 @@ html_engine_parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 			html_clue_append (clue, HTML_OBJECT (table));
 		}
 		else {
+			g_print ("Aligned!!!!!\n");
 				/* FIXME: Support for aligned tables */
 		}
 	}

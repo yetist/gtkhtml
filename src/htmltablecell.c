@@ -48,6 +48,8 @@ html_table_cell_new (gint x, gint y, gint max_width, gint percent,
 	clue->get_left_margin = html_cluev_get_left_margin;
 	clue->get_right_margin = html_cluev_get_right_margin;
 	clue->find_free_area = html_cluev_find_free_area;
+	clue->appended = html_cluev_appended;
+	clue->append_right_aligned = html_cluev_append_right_aligned;
 
 	object->x = x;
 	object->y = y;

@@ -62,6 +62,7 @@ debug_dump_tree (HTMLObject *o, gint level)
 		case ClueH:
 		case ClueFlow:
 		case ClueV:
+		case ClueAligned:
 			debug_dump_tree (HTML_CLUE (obj)->head, level + 1);
 			break;
 		case TableCell:
@@ -113,6 +114,12 @@ debug_dump_object_type (HTMLObject *o)
 		break;
 	case VSpace:
 		g_print ("HTMLVspace\n");
+		break;
+	case Image:
+		g_print ("HTMLImage\n");
+		break;
+	case ClueAligned:
+		g_print ("HTMLClueAligned\n");
 		break;
         default:
 		g_print ("Unknown: %d\n", o->ObjectType);

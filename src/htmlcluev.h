@@ -45,5 +45,7 @@ void        html_cluev_calc_size (HTMLObject *clue, HTMLObject *parent);
 gint        html_cluev_get_left_margin (HTMLClue *clue, gint y);
 gint        html_cluev_get_right_margin (HTMLClue *o, gint y);
 void        html_cluev_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint height, gint tx, gint ty);
+gboolean    html_cluev_appended (HTMLClue *clue, HTMLClue *aclue);
+void        html_cluev_append_right_aligned (HTMLClue *clue, HTMLClue *aclue);
 
 #endif /* _HTMLCLUEV_H_ */

@@ -1,4 +1,4 @@
-/* This file is part of the KDE libraries
+/* 
     Copyright (C) 1997 Martin Jones (mjones@kde.org)
               (C) 1997 Torben Weis (weis@kde.org)
 
@@ -19,7 +19,10 @@
 */
 #include "htmlcluealigned.h"
 
+#define ALIGN_BORDER 0
+
 static void html_cluealigned_calc_size (HTMLObject *o, HTMLObject *parent);
+static void html_cluealigned_set_max_width (HTMLObject *o, gint max_width);
 
 HTMLObject *
 html_cluealigned_new (HTMLClue *parent, gint x, gint y, gint max_width, gint percent)
@@ -31,7 +34,8 @@ html_cluealigned_new (HTMLClue *parent, gint x, gint y, gint max_width, gint per
 
 	/* HTMLObject functions */
 	object->calc_size = html_cluealigned_calc_size;
-
+	object->draw = html_clue_draw;
+	object->set_max_width = html_cluealigned_set_max_width;
 	object->x = x;
 	object->y = y;
 	object->max_width = max_width;
@@ -62,5 +66,33 @@ html_cluealigned_new (HTMLClue *parent, gint x, gint y, gint max_width, gint per
 static void
 html_cluealigned_calc_size (HTMLObject *o, HTMLObject *parent)
 {
+	HTMLObject *obj;
+
 	html_clue_calc_size (o, parent);
+
+	o->width = 0;
+	o->ascent = ALIGN_BORDER;
+	o->descent = 0;
+
+	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->nextObj) {
+		if (obj->width > o->width)
+			o->width = obj->width;
+		o->ascent += obj->ascent + obj->descent;
+		obj->x = ALIGN_BORDER;
+		obj->y = o->ascent - obj->descent;
+	}
+	
+	o->ascent += ALIGN_BORDER;
+	o->width += (ALIGN_BORDER * 2);
+}
+
+static void
+html_cluealigned_set_max_width (HTMLObject *o, gint max_width)
+{
+	HTMLObject *obj;
+
+	o->max_width = max_width;
+
+	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->nextObj)
+		obj->set_max_width (obj, max_width);
 }

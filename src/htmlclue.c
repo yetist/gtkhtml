@@ -26,6 +26,7 @@ static gint html_clue_get_left_margin (HTMLClue *o, gint y);
 static gint html_clue_get_right_margin (HTMLClue *o, gint y);
 static gint html_clue_calc_min_width (HTMLObject *o);
 static void html_clue_calc_absolute_pos (HTMLObject *o, gint x, gint y);
+static gint html_clue_appended (HTMLClue *clue, HTMLClue *aclue);
 
 void
 html_clue_init (HTMLClue *clue, objectType ObjectType)
@@ -46,7 +47,7 @@ html_clue_init (HTMLClue *clue, objectType ObjectType)
 	/* HTMLClue functions */
 	clue->get_left_margin = html_clue_get_left_margin;
 	clue->get_right_margin = html_clue_get_right_margin;
-
+	clue->appended = html_clue_appended;
 }
 
 static void
@@ -67,7 +68,7 @@ html_clue_draw (HTMLObject *o, HTMLPainter *p,
 {
 	HTMLObject *obj;
 	static GdkColor red, green, blue;
-
+	
 	if (y + height < o->y - o->ascent || y > o->y + o->descent)
 		return;
 
@@ -103,8 +104,7 @@ html_clue_draw (HTMLObject *o, HTMLPainter *p,
 			if (obj->draw)
 				obj->draw (obj, p, x - o->x, y - (o->y - o->ascent),
 					   width, height, tx, ty);
-		}     
-	}
+		}     	}
 
 }
 
@@ -287,3 +287,8 @@ html_clue_calc_min_width (HTMLObject *o) {
 	return minWidth;
 }
 
+static gboolean
+html_clue_appended (HTMLClue *clue, HTMLClue *aclue)
+{
+	return FALSE;
+}

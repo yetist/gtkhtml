@@ -108,7 +108,6 @@ html_clueflow_calc_size (HTMLObject *o, HTMLObject *parent)
 	if (HTML_CLUEFLOW (o)->indent > lmargin)
 		lmargin = HTML_CLUEFLOW (o)->indent;
 	rmargin = HTML_CLUE (parent)->get_right_margin (HTML_CLUE (parent), o->y);
-
 	w = lmargin;
 	a = d = 0;
 	newLine = FALSE;
@@ -212,7 +211,8 @@ html_clueflow_calc_size (HTMLObject *o, HTMLObject *parent)
 
 				/* Check if the run fits in the current flow area */
 				HTML_CLUE (parent)->find_free_area (HTML_CLUE (parent), o->y,line->width, a+d, HTML_CLUEFLOW (o)->indent,
-							  &new_y, &new_lmargin, &new_rmargin);
+								    &new_y, &new_lmargin, &new_rmargin);
+				
 				if ((new_y != o->y) ||
 				    (new_lmargin > lmargin) ||
 				    (new_rmargin < rmargin)) {
@@ -302,10 +302,10 @@ html_clueflow_calc_size (HTMLObject *o, HTMLObject *parent)
 
 			o->ascent += o->y - oldy;
 
-			lmargin = clue->get_left_margin (clue, o->y);
+			lmargin = HTML_CLUE (parent)->get_left_margin (parent, o->y);
 			if (HTML_CLUEFLOW (o)->indent > lmargin)
 				lmargin = HTML_CLUEFLOW (o)->indent;
-			rmargin = clue->get_right_margin (clue, o->y);
+			rmargin = HTML_CLUE (parent)->get_right_margin (parent, o->y);
 
 			w = lmargin;
 			d = 0;
