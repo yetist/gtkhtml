@@ -1,3 +1,9 @@
+2004-05-18  Larry Ewing  <lewing@ximian.com>
+
+	* htmlselection.c (html_engine_is_selection_active): revert the
+	last change because it breaks copy/paste selection handling in the
+	mail view. See #58607
+
 2004-05-17  Radek Doulik  <rodo@ximian.com>
 
 	* htmlimage.c (html_image_pointer_update): check that engine->clue
