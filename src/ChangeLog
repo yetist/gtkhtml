@@ -1,5 +1,8 @@
 2003-04-03  Radek Doulik  <rodo@ximian.com>
 
+	* gtkhtml.c (gtk_html_set_paragraph_style): if selection is
+	active, change style everytime
+
 	* htmlengine-edit-cut-and-paste.c (delete_object): update
 	selection after cursor/mark move
 
