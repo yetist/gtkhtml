@@ -3045,6 +3045,10 @@ html_engine_update_event (HTMLEngine *e)
 	e->updateTimer = 0;
 
 	html_engine_calc_size (e);
+
+	if (GTK_LAYOUT (e->widget)->vadjustment == NULL
+	    || ! html_gdk_painter_realized (HTML_GDK_PAINTER (e->painter)))
+		return FALSE;
 	
 	/* Scroll page to the top on first display */
 	if (e->newPage) {

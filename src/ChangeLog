@@ -1,5 +1,11 @@
 2000-02-21  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine.c (html_engine_update_event): Do not draw if the
+	painter is not realized.  This is a quick and dirty fix, I am not
+	sure what is going on in here.
+
+	* htmlgdkpainter.c (html_gdk_painter_realized): New function.
+
 	* htmltext.c (check_merge): New function, implementation of
 	`HTMLText::check_merge'.
 	(html_text_class_init): Install it.

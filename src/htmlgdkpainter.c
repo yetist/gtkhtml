@@ -831,3 +831,15 @@ html_gdk_painter_unrealize (HTMLGdkPainter *painter)
 
 	painter->window = NULL;
 }
+
+gboolean
+html_gdk_painter_realized (HTMLGdkPainter *painter)
+{
+	g_return_val_if_fail (painter != NULL, FALSE);
+	g_return_val_if_fail (HTML_IS_GDK_PAINTER (painter), FALSE);
+
+	if (painter->window == NULL)
+		return FALSE;
+	else
+		return TRUE;
+}
