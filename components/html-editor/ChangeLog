@@ -1,3 +1,9 @@
+2003-03-15  Larry Ewing  <lewing@ximian.com>
+
+	* Makefile.am: fix the server.in.in rules to use sed so that
+	variables will be exapanded before being inserted in the xml.
+	Also clean up the ui xml rules a little.
+
 2003-03-13  Larry Ewing  <lewing@ximian.com>
 
 	* editor-control-factory.c: use bonobo activation instead of oaf

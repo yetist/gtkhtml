@@ -7,7 +7,7 @@ glade_DATA = gtkhtml-editor-properties.glade
 
 INCLUDES = -I$(top_srcdir)/src
 
-CFLAGS += \
+AM_CFLAGS = \
 	$(EDITOR_CFLAGS)				\
 	-DICONDIR=\"$(gtkhtml_data)/icons\"		\
         -DGTKHTML_DATADIR=\""$(gtkhtml_data)"\"		\
@@ -126,21 +126,27 @@ PRGS = gnome-gtkhtml-editor
 gnome_gtkhtml_editor_SOURCES =			\
 	$(GTKHTML_EDITOR_SOURCES_COMMON)
 install-exec-hook:
-	mv $(DESTDIR)$(bindir)/gnome-gtkhtml-editor $(DESTDIR)$(bindir)/gnome-gtkhtml-editor-@EDITOR_API_VERSION@
+	mv $(DESTDIR)$(bindir)/gnome-gtkhtml-editor $(DESTDIR)$(GNOME_GTKHTML_EDITOR_LOCATION)
+
+uninstall-hook:
+	rm -f $(DESTDIR)$(GNOME_GTKHTML_EDITOR_LOCATION)
 #endif
 
 bin_PROGRAMS = $(PRGS)
 
 serverdir = $(libdir)/bonobo/servers
-server_in_files = GNOME_GtkHTML_Editor.server.in
-server_DATA = $(server_in_files:.server.in=.server)
+server_in_files = GNOME_GtkHTML_Editor.server.in.in
+
+server_DATA = $(server_in_files:.server.in.in=.server)
+$(server_in_files:.server.in.in=.server.in): $(server_in_files) Makefile
+	sed -e "s|\@GNOME_GTKHTML_EDITOR_LOCATION\@|$(GNOME_GTKHTML_EDITOR_LOCATION)|g" \
+	-e "s|\@EDITOR_API_VERSION\@|$(EDITOR_API_VERSION)|g" \
+	-e "s|\@GNOME_GTKHTML_EDITOR_TYPE\@|$(GNOME_GTKHTML_EDITOR_TYPE)|g" $< > $@
 
 @INTLTOOL_SERVER_RULE@
 
 GNOME_GtkHTML_Editor.xml: GNOME_GtkHTML_Editor.xml.in Makefile
-	sed -e 's?\@ICONSDIR\@?$(gtkhtml_data)/icons?g' \
-	      < $(srcdir)/GNOME_GtkHTML_Editor.xml.in > GNOME_GtkHTML_Editor.xml.tmp \
-	  && mv GNOME_GtkHTML_Editor.xml.tmp GNOME_GtkHTML_Editor.xml
+	sed -e 's|\@ICONSDIR\@|$(gtkhtml_data)/icons|g' $< > $@
 
 uidir = $(gtkhtml_data)
 ui_DATA = GNOME_GtkHTML_Editor.xml
@@ -176,9 +182,6 @@ idl_DATA = $(IDLS)
 CLEANFILES = $(IDL_GENERATED) $(SPELL_IDL_GENERATED) 
 
 BUILT_SOURCE = $(IDL_GENERATED) $(SPELL_IDL_GENERATED)
-
-uninstall-hook:
-	rm -f $(DESTDIR)$(bindir)/gnome-gtkhtml-editor-@EDITOR_API_VERSION@
 
 dist-hook:
 	cd $(distdir); rm -f $(BUILT_SOURCES)
