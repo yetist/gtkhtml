@@ -870,7 +870,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					noCell = FALSE;
 
 					if (*(str + 2) == 'h') {
-						g_print ("<th>");
+						g_print ("<th>\n");
 						heading = TRUE;
 					}
 
