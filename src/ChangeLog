@@ -1,5 +1,11 @@
 2003-08-01  Radek Doulik  <rodo@ximian.com>
 
+	* introduced html_engine_get_{left|right|top|bottom}_border, use
+	them everywhere
+
+	* htmlengine.c (html_engine_calc_size): force default border
+	widths for plain painter
+
 	* htmlobject.c (get_length): objects not accepting cursor have
 	zero length
 

@@ -4704,7 +4704,7 @@ html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height, g
 		return;
 
 	/* don't draw in case we are longer than available space and scrollbar is going to be shown */
-	if (e->clue && e->clue->ascent + e->clue->descent > e->height - e->topBorder - e->bottomBorder) {
+	if (e->clue && e->clue->ascent + e->clue->descent > e->height - (html_engine_get_top_border (e) + html_engine_get_bottom_border (e))) {
 		if (GTK_WIDGET (e->widget)->parent) {
 			if (GTK_IS_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)) {
 				if (GTK_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)->vscrollbar
@@ -4723,7 +4723,7 @@ html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height, g
 	}
 
 	/* don't draw in case we are shorter than available space and scrollbar is going to be hidden */
-	if (e->clue && e->clue->ascent + e->clue->descent <= e->height - e->topBorder - e->bottomBorder) {
+	if (e->clue && e->clue->ascent + e->clue->descent <= e->height - (html_engine_get_top_border (e) + html_engine_get_bottom_border (e))) {
 		if (GTK_WIDGET (e->widget)->parent) {
 			if (GTK_IS_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)) {
 				if (GTK_SCROLLED_WINDOW (GTK_WIDGET (e->widget)->parent)->vscrollbar
@@ -4761,8 +4761,8 @@ html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height, g
 	html_engine_draw_background (e, x1, y1, x2 - x1, y2 - y1);
 	
 	if (e->clue) {
-		e->clue->x = e->leftBorder;
-		e->clue->y = e->topBorder + e->clue->ascent;
+		e->clue->x = html_engine_get_left_border (e);
+		e->clue->y = html_engine_get_top_border (e) + e->clue->ascent;
 		html_object_draw (e->clue, e->painter, x1, y1, x2 - x1, y2 - y1, 0, 0);
 	}
 	html_painter_end (e->painter);
@@ -4846,10 +4846,7 @@ html_engine_unblock_redraw (HTMLEngine *e)
 gint
 html_engine_get_doc_width (HTMLEngine *e)
 {
-	if (e->clue)
-		return e->clue->width + e->leftBorder + e->rightBorder;
-	else
-		return e->leftBorder + e->rightBorder;
+	return (e->clue ? e->clue->width : 0) + html_engine_get_left_border (e) + html_engine_get_right_border (e);
 }
 
 gint
@@ -4860,8 +4857,8 @@ html_engine_get_doc_height (HTMLEngine *e)
 	if (e->clue) {
 		height = e->clue->ascent;
 		height += e->clue->descent;
-		height += e->topBorder;
-		height += e->bottomBorder;
+		height += html_engine_get_top_border (e);
+		height += html_engine_get_bottom_border (e);
 
 		return height;
 	}
@@ -4873,7 +4870,7 @@ gint
 html_engine_calc_min_width (HTMLEngine *e)
 {
 	return html_object_calc_min_width (e->clue, e->painter)
-		+ html_painter_get_pixel_size (e->painter) * (e->leftBorder + e->rightBorder);
+		+ html_painter_get_pixel_size (e->painter) * (html_engine_get_left_border (e) + html_engine_get_right_border (e));
 }
 
 gint
@@ -4883,10 +4880,10 @@ html_engine_get_max_width (HTMLEngine *e)
 
 	if (e->widget->iframe_parent)
 		max_width = e->widget->frame->max_width
-			- (e->leftBorder + e->rightBorder) * html_painter_get_pixel_size (e->painter);
+			- (html_engine_get_left_border (e) + html_engine_get_right_border (e)) * html_painter_get_pixel_size (e->painter);
 	else
 		max_width = html_painter_get_page_width (e->painter, e)
-			- (e->leftBorder + e->rightBorder) * html_painter_get_pixel_size (e->painter);
+			- (html_engine_get_left_border (e) + html_engine_get_right_border (e)) * html_painter_get_pixel_size (e->painter);
 
 	return MAX (0, max_width);
 }
@@ -4898,10 +4895,10 @@ html_engine_get_max_height (HTMLEngine *e)
 
 	if (e->widget->iframe_parent)
 		max_height = HTML_FRAME (e->widget->frame)->height
-			- (e->topBorder + e->bottomBorder) * html_painter_get_pixel_size (e->painter);
+			- (html_engine_get_top_border (e) + html_engine_get_bottom_border (e)) * html_painter_get_pixel_size (e->painter);
 	else
 		max_height = html_painter_get_page_height (e->painter, e)
-			- (e->topBorder + e->bottomBorder) * html_painter_get_pixel_size (e->painter);
+			- (html_engine_get_top_border (e) + html_engine_get_bottom_border (e)) * html_painter_get_pixel_size (e->painter);
 
 	return MAX (0, max_height);
 }
@@ -4919,7 +4916,7 @@ html_engine_calc_size (HTMLEngine *e, GList **changed_objs)
 
 	max_width = MIN (html_engine_get_max_width (e),
 			 html_painter_get_pixel_size (e->painter)
-			 * (MAX_WIDGET_WIDTH - e->leftBorder - e->rightBorder));
+			 * (MAX_WIDGET_WIDTH - html_engine_get_left_border (e) - html_engine_get_right_border (e)));
 	/* max_height = MIN (html_engine_get_max_height (e),
 			 html_painter_get_pixel_size (e->painter)
 			 * (MAX_WIDGET_WIDTH - e->topBorder - e->bottomBorder)); */
@@ -4932,8 +4929,8 @@ html_engine_calc_size (HTMLEngine *e, GList **changed_objs)
 		*changed_objs = NULL;
 	html_object_calc_size (e->clue, e->painter, redraw_whole ? NULL : changed_objs);
 
-	e->clue->x = e->leftBorder;
-	e->clue->y = e->clue->ascent + e->topBorder;
+	e->clue->x = html_engine_get_left_border (e);
+	e->clue->y = e->clue->ascent + html_engine_get_top_border (e);
 
 	return redraw_whole;
 }
@@ -4986,7 +4983,7 @@ html_engine_parse (HTMLEngine *e)
 	/* reset settings to default ones */
 	html_colorset_set_by (e->settings->color_set, e->defaultSettings->color_set);
 
-	e->clue = html_cluev_new (e->leftBorder, e->topBorder, 100);
+	e->clue = html_cluev_new (html_engine_get_left_border (e), html_engine_get_top_border (e), 100);
 	HTML_CLUE (e->clue)->valign = HTML_VALIGN_TOP;
 	HTML_CLUE (e->clue)->halign = HTML_HALIGN_LEFT;
 
@@ -5027,17 +5024,17 @@ html_engine_get_object_at (HTMLEngine *e,
 		if (width == 0 || height == 0)
 			return NULL;
 
-		if (x < e->leftBorder)
-			x = e->leftBorder;
-		else if (x >= e->leftBorder + width)
-			x = e->leftBorder + width - 1;
+		if (x < html_engine_get_left_border (e))
+			x = html_engine_get_left_border (e);
+		else if (x >= html_engine_get_left_border (e) + width)
+			x = html_engine_get_left_border (e) + width - 1;
 
-		if (y < e->topBorder) {
-			x = e->leftBorder;
-			y = e->topBorder;
-		} else if (y >= e->topBorder + height) {
-			x = e->leftBorder + width - 1;
-			y = e->topBorder + height - 1;
+		if (y < html_engine_get_top_border (e)) {
+			x = html_engine_get_left_border (e);
+			y = html_engine_get_top_border (e);
+		} else if (y >= html_engine_get_top_border (e) + height) {
+			x = html_engine_get_left_border (e) + width - 1;
+			y = html_engine_get_top_border (e) + height - 1;
 		}
 	}
 
@@ -5197,14 +5194,14 @@ html_engine_make_cursor_visible (HTMLEngine *e)
 	yo = e->y_offset;
 
 	if (x1 < e->x_offset)
-		e->x_offset = x1 - e->leftBorder;
-	if (x1 > e->x_offset + e->width - e->rightBorder)
-		e->x_offset = x1 - e->width + e->rightBorder;
+		e->x_offset = x1 - html_engine_get_left_border (e);
+	if (x1 > e->x_offset + e->width - html_engine_get_right_border (e))
+		e->x_offset = x1 - e->width + html_engine_get_right_border (e);
 
 	if (y1 < e->y_offset)
-		e->y_offset = y1 - e->topBorder;
-	if (y2 >= e->y_offset + e->height - e->bottomBorder)
-		e->y_offset = y2 - e->height + e->bottomBorder + 1;
+		e->y_offset = y1 - html_engine_get_top_border (e);
+	if (y2 >= e->y_offset + e->height - html_engine_get_bottom_border (e))
+		e->y_offset = y2 - e->height + html_engine_get_bottom_border (e) + 1;
 
 	return xo != e->x_offset || yo != e->y_offset;
 }
@@ -5509,8 +5506,8 @@ thaw_idle (gpointer data)
 		return FALSE;
 	}
 
-	w = html_engine_get_doc_width (e) - e->rightBorder;
-	h = html_engine_get_doc_height (e) - e->bottomBorder;
+	w = html_engine_get_doc_width (e) - html_engine_get_right_border (e);
+	h = html_engine_get_doc_height (e) - html_engine_get_bottom_border (e);
 
 	redraw_whole = html_engine_calc_size (e, &changed_objs);
 
@@ -5529,8 +5526,8 @@ thaw_idle (gpointer data)
 		get_pending_expose (e, region);
 		get_changed_objects (e, region, changed_objs);
 
-		nw = html_engine_get_doc_width (e) - e->rightBorder;
-		nh = html_engine_get_doc_height (e) - e->bottomBorder;
+		nw = html_engine_get_doc_width (e) - html_engine_get_right_border (e);
+		nh = html_engine_get_doc_height (e) - html_engine_get_bottom_border (e);
 
 		if (nh < h && nh - e->y_offset < e->height) {
 			paint.x = e->x_offset;
@@ -5882,7 +5879,7 @@ html_engine_get_view_width (HTMLEngine *e)
 {
 	return MAX (0, (e->widget->iframe_parent
 		? html_engine_get_view_width (GTK_HTML (e->widget->iframe_parent)->engine)
-		: GTK_WIDGET (e->widget)->allocation.width) - e->leftBorder - e->rightBorder);
+		: GTK_WIDGET (e->widget)->allocation.width) - (html_engine_get_left_border (e) + html_engine_get_right_border (e)));
 }
 
 gint
@@ -5890,7 +5887,7 @@ html_engine_get_view_height (HTMLEngine *e)
 {
 	return MAX (0, (e->widget->iframe_parent
 		? html_engine_get_view_height (GTK_HTML (e->widget->iframe_parent)->engine)
-		: GTK_WIDGET (e->widget)->allocation.height) - e->topBorder - e->bottomBorder);
+		: GTK_WIDGET (e->widget)->allocation.height) - (html_engine_get_top_border (e) + html_engine_get_bottom_border (e)));
 }
 
 /* beginnings of ID support */
@@ -6369,4 +6366,28 @@ html_engine_selection_contains_link (HTMLEngine *e)
 		html_interval_forall (e->selection, e, (HTMLObjectForallFunc) check_link_in_selection, &has_link);
 
 	return has_link;
+}
+
+gint
+html_engine_get_left_border (HTMLEngine *e)
+{
+	return HTML_IS_PLAIN_PAINTER (e->painter) ? LEFT_BORDER : e->leftBorder;
+}
+
+gint
+html_engine_get_right_border (HTMLEngine *e)
+{
+	return HTML_IS_PLAIN_PAINTER (e->painter) ? RIGHT_BORDER : e->rightBorder;
+}
+
+gint
+html_engine_get_top_border (HTMLEngine *e)
+{
+	return HTML_IS_PLAIN_PAINTER (e->painter) ? TOP_BORDER : e->topBorder;
+}
+
+gint
+html_engine_get_bottom_border (HTMLEngine *e)
+{
+	return HTML_IS_PLAIN_PAINTER (e->painter) ? BOTTOM_BORDER : e->bottomBorder;
 }

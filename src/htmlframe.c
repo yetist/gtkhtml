@@ -154,7 +154,7 @@ set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
 	HTMLEngine *e = GTK_HTML (HTML_FRAME (o)->html)->engine;
 
 	o->max_width = max_width;
-	html_object_set_max_width (e->clue, e->painter, max_width - e->leftBorder - e->rightBorder);
+	html_object_set_max_width (e->clue, e->painter, max_width - (html_engine_get_left_border (e) + html_engine_get_right_border (e)));
 }
 
 /* static void
@@ -197,9 +197,9 @@ draw (HTMLObject *o,
 
 		html_object_draw (e->clue, e->painter,
 				  x, y,
-				  width - pixel_size * (e->leftBorder + e->rightBorder),
-				  height - pixel_size * (e->topBorder + e->bottomBorder),
-				  tx + pixel_size * e->leftBorder, ty + pixel_size * e->topBorder);
+				  width - pixel_size * (html_engine_get_left_border (e) + html_engine_get_right_border (e)),
+				  height - pixel_size * (html_engine_get_top_border (e) + html_engine_get_bottom_border (e)),
+				  tx + pixel_size * html_engine_get_left_border (e), ty + pixel_size * html_engine_get_top_border (e));
 	} else
 		(*HTML_OBJECT_CLASS (parent_class)->draw) (o, p, x, y, width, height, tx, ty);
 }
@@ -337,8 +337,8 @@ check_point (HTMLObject *self,
 	    || y >= self->y + self->descent || y < self->y - self->ascent)
 		return NULL;
 
-	x -= self->x + e->leftBorder - e->x_offset;
-	y -= self->y - self->ascent + e->topBorder - e->y_offset;
+	x -= self->x + html_engine_get_left_border (e) - e->x_offset;
+	y -= self->y - self->ascent + html_engine_get_top_border (e) - e->y_offset;
 
 	if (for_cursor && (x < 0 || y < e->clue->y - e->clue->ascent))
 		return html_object_check_point (e->clue, e->painter, 0, e->clue->y - e->clue->ascent,

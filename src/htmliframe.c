@@ -141,7 +141,7 @@ set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
 	HTMLEngine *e = GTK_HTML (HTML_IFRAME (o)->html)->engine;
 
 	o->max_width = max_width;
-	html_object_set_max_width (e->clue, e->painter, max_width - e->leftBorder - e->rightBorder);
+	html_object_set_max_width (e->clue, e->painter, max_width - (html_engine_get_left_border (e) + html_engine_get_right_border (e)));
 }
 
 static void
@@ -175,9 +175,9 @@ draw (HTMLObject *o,
 
 		html_object_draw (e->clue, e->painter,
 				  x, y,
-				  width - pixel_size * (e->leftBorder + e->rightBorder),
-				  height - pixel_size * (e->topBorder + e->bottomBorder),
-				  tx + pixel_size * e->leftBorder, ty + pixel_size * e->topBorder);
+				  width - pixel_size * (html_engine_get_left_border (e) + html_engine_get_right_border (e)),
+				  height - pixel_size * (html_engine_get_top_border (e) + html_engine_get_bottom_border (e)),
+				  tx + pixel_size * html_engine_get_left_border (e), ty + pixel_size * html_engine_get_top_border (e));
 	} else
 		(*HTML_OBJECT_CLASS (parent_class)->draw) (o, p, x, y, width, height, tx, ty);
 }
@@ -215,8 +215,8 @@ check_page_split (HTMLObject *self, gint y)
 	gint y1, y2;
 	HTMLEngine *e = GTK_HTML (HTML_IFRAME (self)->html)->engine;
 
-	y1 = self->y - self->ascent + e->topBorder;
-	y2 = self->y + self->descent + e->topBorder;
+	y1 = self->y - self->ascent + html_engine_get_top_border (e);
+	y2 = self->y + self->descent + html_engine_get_top_border (e);
 	
 	if (y1 > y) 
 		return 0;

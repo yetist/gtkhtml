@@ -469,4 +469,9 @@ gboolean html_engine_selection_contains_object_type (HTMLEngine *e,
 						     HTMLType obj_type);
 gboolean html_engine_selection_contains_link        (HTMLEngine *e);
 
+gint  html_engine_get_left_border    (HTMLEngine *e);
+gint  html_engine_get_right_border   (HTMLEngine *e);
+gint  html_engine_get_top_border     (HTMLEngine *e);
+gint  html_engine_get_bottom_border  (HTMLEngine *e);
+
 #endif /* _HTMLENGINE_H_ */

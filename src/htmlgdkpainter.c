@@ -1125,13 +1125,13 @@ get_pixel_size (HTMLPainter *painter)
 static guint
 get_page_width (HTMLPainter *painter, HTMLEngine *e)
 {
-	return html_engine_get_view_width (e) + e->leftBorder + e->rightBorder;
+	return html_engine_get_view_width (e) + html_engine_get_left_border (e) + html_engine_get_right_border (e);
 }
 
 static guint
 get_page_height (HTMLPainter *painter, HTMLEngine *e)
 {
-	return html_engine_get_view_height (e) + e->topBorder + e->bottomBorder;
+	return html_engine_get_view_height (e) + html_engine_get_top_border (e) + html_engine_get_bottom_border (e);
 }
 
 static void
