@@ -33,11 +33,10 @@
 			<cmd name="InsertSmiley1" _label="_Laughing" _tip="Insert Laughing smiley into document..."/>
 			<cmd name="InsertSmiley2" _label="Oh _no!" _tip="Insert Oh no! smiley into document..."/>
 			<cmd name="InsertSmiley6" _label="_Frown" _tip="Insert Frown smiley into document..."/>
-
-			<cmd name="InsertSmiley8" _label="Smiley _8" _tip="Insert Smiley 8 smiley into document..."/>
-			<cmd name="InsertSmiley9" _label="Smiley _9" _tip="Insert Smiley 9 smiley into document..."/>
-			<cmd name="InsertSmiley10" _label="Smiley _10" _tip="Insert Smiley 10 smiley into document..."/>
-			<cmd name="InsertSmiley11" _label="Smiley _11" _tip="Insert Smiley 11 smiley into document..."/>
+			<cmd name="InsertSmiley8" _label="_Indifferent" _tip="Insert Indifferent smiley into document..."/>
+			<cmd name="InsertSmiley9" _label="_Undecided" _tip="Insert Undecided smiley into document..."/>
+			<cmd name="InsertSmiley10" _label="Li_ck" _tip="Insert Lick smiley into document..."/>
+			<cmd name="InsertSmiley11" _label="Cr_ying" _tip="Insert Crying smiley into document..."/>
 
 			<cmd name="HeadingNormal" _label="Normal"
 		        _tip="Make the current Paragraph style Normal"
