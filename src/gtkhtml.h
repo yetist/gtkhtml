@@ -132,8 +132,6 @@ struct _GtkHTMLEditorAPI
 GtkType                    gtk_html_get_type                      (void);
 void                       gtk_html_construct                     (GtkWidget                 *html);
 GtkWidget                 *gtk_html_new                           (void);
-GtkWidget                 *gtk_html_new_from_string               (const gchar               *str,
-								   gint                       len);
 void                       gtk_html_set_editor_api                (GtkHTML                   *html,
 								   GtkHTMLEditorAPI          *api,
 								   gpointer                   data);
@@ -162,8 +160,11 @@ int                        gtk_html_request_paste                 (GtkHTML      
 								   gboolean                   as_cite);
 /* Loading.  */
 GtkHTMLStream             *gtk_html_begin                         (GtkHTML                   *html);
-GtkHTMLStream             *gtk_html_begin_content                 (GtkHTML                   *html,
-								   gchar                     *content_type);
+GtkHTMLStream             *gtk_html_begin_full                    (GtkHTML                   *html,
+								   char                      *target_frame,
+								   char                      *content_type,
+								   GtkHTMLBeginFlags         flags);
+
 void                       gtk_html_write                         (GtkHTML                   *html,
 								   GtkHTMLStream             *handle,
 								   const gchar               *buffer,
@@ -171,15 +172,11 @@ void                       gtk_html_write                         (GtkHTML      
 void                       gtk_html_end                           (GtkHTML                   *html,
 								   GtkHTMLStream             *handle,
 								   GtkHTMLStreamStatus        status);
-void                       gtk_html_load_empty                    (GtkHTML                   *html);
 void                       gtk_html_load_from_string              (GtkHTML                   *html,
 								   const gchar               *str,
 								   gint                       len);
 
 /* Saving.  */
-gboolean                   gtk_html_save                          (GtkHTML                   *html,
-								   GtkHTMLSaveReceiverFn      receiver,
-								   gpointer                   data);
 gboolean                   gtk_html_export                        (GtkHTML                   *html,
 								   const char                *type,
 								   GtkHTMLSaveReceiverFn      receiver,
@@ -250,16 +247,12 @@ void                       gtk_html_append_html                   (GtkHTML      
 								   const gchar               *html_src);
 
 /* misc utils */
-void                       gtk_html_set_default_background_color  (GtkHTML                   *html,
-								   GdkColor                  *c);
-void                       gtk_html_set_default_content_type      (GtkHTML                   *html,
-								   gchar                     *content_type);
 gpointer                   gtk_html_get_object_by_id              (GtkHTML                   *html,
 								   const gchar               *id);
 gboolean                   gtk_html_command                       (GtkHTML                   *html,
 								   const gchar               *command_name);
 gboolean                   gtk_html_edit_make_cursor_visible      (GtkHTML                   *html);
-gboolean                   gtk_html_build_with_gconf              (void);
+
 void                       gtk_html_set_magnification             (GtkHTML                   *html,
 								   gdouble                    magnification);
 void                       gtk_html_zoom_in                       (GtkHTML                   *html);
@@ -289,4 +282,22 @@ void                       gtk_html_set_blocking                  (GtkHTML      
 								   gboolean                   block);
 gboolean                   gtk_html_has_undo                      (GtkHTML                   *html);
 void                       gtk_html_drop_undo                     (GtkHTML                   *html);
+
+/* DEPRECATED */
+#if 1
+gboolean                   gtk_html_build_with_gconf              (void);
+void                       gtk_html_set_default_background_color  (GtkHTML                   *html,
+								   GdkColor                  *c);
+void                       gtk_html_set_default_content_type      (GtkHTML                   *html,
+								   gchar                     *content_type);
+GtkWidget                 *gtk_html_new_from_string               (const gchar               *Astr,
+								   gint                       len);
+void                       gtk_html_load_empty                    (GtkHTML                   *html);
+gboolean                   gtk_html_save                          (GtkHTML                   *html,
+								   GtkHTMLSaveReceiverFn      receiver,
+								   gpointer                   data);
+GtkHTMLStream             *gtk_html_begin_content                 (GtkHTML                   *html,
+								   gchar                     *content_type);
+#endif
+
 #endif /* _GTKHTML_H_ */

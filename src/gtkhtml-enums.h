@@ -294,4 +294,8 @@ typedef enum {
 	GTK_HTML_STREAM_ERROR
 } GtkHTMLStreamStatus;
 
+typedef enum {
+	GTK_HTML_BEGIN_KEEP_SCROLL,
+	GTK_HTML_BEGIN_KEEP_IMAGES
+} GtkHTMLBeginFlags;
 #endif

@@ -606,7 +606,8 @@ scroll_timeout_cb (gpointer data)
 		HTMLEngine *engine;
 
 		engine = html->engine;
-		html_engine_select_region (engine, html->selection_x1, html->selection_y1, x + engine->x_offset, y + engine->y_offset);
+		html_engine_select_region (engine, html->selection_x1, html->selection_y1,
+					   x + engine->x_offset, y + engine->y_offset);
 	}
 
 	layout = GTK_LAYOUT (widget);
@@ -845,15 +846,9 @@ realize (GtkWidget *widget)
 	gdk_window_set_back_pixmap (html->layout.bin_window, NULL, FALSE);
 
 	/* If someone was silly enough to stick us in something that doesn't 
-	 * have adjustments, go ahead and create them now
+	 * have adjustments, go ahead and create them now since we expect them
+	 * and love them and pat them
 	 */
-#if 0
-	if (layout->hadjustment == NULL)
-		gtk_layout_set_hadjustment (layout, NULL);
-
-	if (layout->vadjustment == NULL)
-		gtk_layout_set_vadjustment (layout, NULL);
-#else 
 	if (layout->hadjustment == NULL) {
 		layout->hadjustment = GTK_ADJUSTMENT (gtk_adjustment_new (0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
 
@@ -867,7 +862,6 @@ realize (GtkWidget *widget)
 		g_object_ref (layout->vadjustment);
 		gtk_object_sink (GTK_OBJECT (layout->vadjustment));	
 	}
-#endif
 		
 #ifdef GTK_HTML_USE_XIM
 	gtk_html_im_realize (html);
@@ -2883,6 +2877,47 @@ gtk_html_allow_selection (GtkHTML *html,
 }
 
 
+/**
+ * gtk_html_begin_full:
+ * @html: the GtkHTML widget to operate on.
+ * @target_frame: the string identifying the frame to load the data into
+ * @content_type: the content_type of the data that we will be loading
+ * @flags: the GtkHTMLBeginFlags that control the reload behavior handling
+ *
+ * Opens a new stream of type @content_type to the frame named @target_frame.
+ * the flags in @flags allow control over what data is reloaded.
+ *
+ * Returns: a new GtkHTMLStream to specified frame
+ */
+GtkHTMLStream *
+gtk_html_begin_full (GtkHTML           *html,
+		     char              *target_frame,
+		     char              *content_type,
+		     GtkHTMLBeginFlags flags)
+{
+	GtkHTMLStream *handle;
+	
+	g_return_val_if_fail (!gtk_html_get_editable (html), NULL);
+	
+	if (flags & GTK_HTML_BEGIN_KEEP_IMAGES)
+		gtk_html_images_ref (html);
+
+	handle = html_engine_begin (html->engine, content_type);
+	if (handle == NULL)
+		return NULL;
+	
+	if (flags & GTK_HTML_BEGIN_KEEP_SCROLL)
+		html->engine->newPage = FALSE;
+
+	if (flags & GTK_HTML_BEGIN_KEEP_IMAGES)
+		gtk_html_images_unref (html);
+
+	html_engine_parse (html->engine);
+
+
+	return handle;
+}
+
 /**
  * gtk_html_begin:
  * @html: the html widget to operate on.
