@@ -1,3 +1,8 @@
+2001-06-05  Radek Doulik  <rodo@ximian.com>
+
+	* htmltablecell.c (calc_min_width): fixed for NOWRAP and
+	non-fixed-width case
+
 2001-06-04  Larry Ewing  <lewing@ximian.com>
 
 	* htmltextinput.c (html_text_input_key_pressed): Make enter focus
