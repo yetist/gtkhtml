@@ -1,3 +1,8 @@
+2003-07-26  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (parse_p): make sure we update the alignment even
+	if we don't start a new flow.
+
 2003-07-25  Larry Ewing  <lewing@ximian.com>
 
 	* Makefile.am (noinst_PROGRAMS): bump version numbers.

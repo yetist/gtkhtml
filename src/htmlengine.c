@@ -179,7 +179,7 @@ typedef enum {
 	ID_UL,      ID_TEXTAREA, ID_TABLE,  ID_TD,       ID_TH, 
 	ID_TR,      ID_TT,       ID_VAR,    ID_S,        ID_SUB, 
 	ID_SUP,     ID_STRIKE,   ID_HTML,   ID_DOCUMENT, ID_OPTION,
-	ID_SELECT
+	ID_SELECT,  ID_TEST
 } HTMLElementID;
 
 typedef enum {
@@ -1058,7 +1058,14 @@ block_end_div (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 static void
 block_end_p (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
-	finish_flow (e, clue);
+	if (e->avoid_para) {
+		finish_flow (e, clue);
+	} else {
+		new_flow (e, clue, NULL, HTML_CLEAR_NONE);
+		new_flow (e, clue, NULL, HTML_CLEAR_NONE);
+		e->avoid_para = TRUE;
+		e->pending_para = FALSE;
+	}
 }
 
 static void
@@ -2847,13 +2854,18 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		}
 		
 		push_block_element (e, ID_P, style, 1, block_end_p, 0, 0);
-		g_free (class);
 		if (! e->avoid_para) {	
 			new_flow (e, clue, NULL, HTML_CLEAR_NONE);
 			new_flow (e, clue, NULL, HTML_CLEAR_NONE);
 			e->avoid_para = TRUE;
 			e->pending_para = FALSE;
+		} else {
+			if (e->flow)
+				HTML_CLUE (e->flow)->halign = current_alignment (e);
+			else 
+				new_flow (e, clue, NULL, HTML_CLEAR_NONE);
 		}
+		g_free (class);
 	} else if (*(str) == '/' && *(str + 1) == 'p'
 		   && (*(str + 2) == ' ' || *(str + 2) == '>')) {
 
@@ -3069,9 +3081,17 @@ close_current_table (HTMLEngine *e)
 	pop_element (e, ID_TABLE);
 }
 
+#ifdef TESTING
+static void
+block_end_test (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
+{
+	pop_clue (e); 
+}
+#endif
+
 /*
   <table           </table>        most
-  <textarea        </textarea>
+  </textarea        </textarea>
   <title>          </title>
   <tt>             </tt>
 */
@@ -3151,6 +3171,24 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		e->avoid_para = FALSE;
 	} else if (strncmp (str, "/table", 6) == 0) {
 		pop_element (e, ID_TABLE);
+#ifdef TESTING		
+	} else if (strncmp (str, "test", 4) == 0) {
+		HTMLTableCell *cell;
+		GdkColor color;
+
+		close_flow (e, clue);
+
+		cell = html_table_cell_new (1, 1, 20);
+		if (parse_color ("red", &color)) {
+			html_object_set_bg_color (HTML_OBJECT (cell), &color);
+		}
+
+		append_element (e, clue, HTML_OBJECT (cell));
+		push_clue (e, HTML_OBJECT (cell));
+		push_block (e, ID_TEST, 3, block_end_test, 0, 0);
+	} else if (strncmp (str, "/test", 4) == 0) {
+		pop_element (e, ID_TEST);
+#endif /* TESTING */		
 	} else if (strncmp (str, "td", 2) == 0) {
 		HTMLStyle *style = NULL;
 		HTMLTable *table = html_stack_top (e->table_stack);
