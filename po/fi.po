@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 1.1.0.99\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-31 22:05+0100\n"
-"PO-Revision-Date: 2004-08-19 01:57+0300\n"
+"POT-Creation-Date: 2005-02-04 06:08+0100\n"
+"PO-Revision-Date: 2005-02-04 11:56+0200\n"
 "Last-Translator: Pauli Virtanen <pauli.virtanen@hut.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -18,20 +18,20 @@ msgstr ""
 #: a11y/image.c:150
 #, c-format
 msgid "URL is %s, Alternative Text is %s"
-msgstr ""
+msgstr "URL on %s, vaihtoehtoinen teksti on %s"
 
 #: a11y/image.c:152
 #, c-format
 msgid "URL is %s"
-msgstr ""
+msgstr "URL on %s"
 
 #: a11y/object.c:50 a11y/object.c:59 a11y/text.c:111
 msgid "grab focus"
-msgstr ""
+msgstr "kaappaa kohdistus"
 
 #: a11y/object.c:256
 msgid "Panel containing HTML"
-msgstr ""
+msgstr "HTML:ää sisältävä paneeli"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
@@ -929,9 +929,8 @@ msgid "Background Image"
 msgstr "Taustakuva"
 
 #: components/html-editor/body.c:298
-#, fuzzy
 msgid "Background Image File Path"
-msgstr "Taustakuva"
+msgstr "Taustakuvan tiedoston polku"
 
 #: components/html-editor/body.c:301
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
@@ -974,9 +973,8 @@ msgid "Page"
 msgstr "Sivu"
 
 #: components/html-editor/gi-color-combo.c:187
-#, fuzzy
 msgid "color preview"
-msgstr "Esikatselu"
+msgstr "värin esikatselu"
 
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:395
@@ -1180,7 +1178,7 @@ msgstr "taivaansininen"
 #. set the a11y name
 #: components/html-editor/gi-combo-box.c:419
 msgid "Popup"
-msgstr ""
+msgstr "Ponnahdusikkuna"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
@@ -1445,14 +1443,12 @@ msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
 #: components/html-editor/link.c:194
-#, fuzzy
 msgid "URL:"
-msgstr "_URL:"
+msgstr "URL:"
 
 #: components/html-editor/link.c:198
-#, fuzzy
 msgid "Description:"
-msgstr "_Kuvaus:"
+msgstr "Kuvaus:"
 
 #: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
 msgid "Insert image"
@@ -1661,14 +1657,12 @@ msgid "Case _sensitive"
 msgstr "S_ama kirjainkoko"
 
 #: components/html-editor/replace.c:182
-#, fuzzy
 msgid "R_eplace:"
-msgstr "Korvattava:"
+msgstr "_Korvaa:"
 
 #: components/html-editor/replace.c:186
-#, fuzzy
 msgid "_With:"
-msgstr "_Leveys:"
+msgstr "Ko_rvaava:"
 
 #: components/html-editor/search.c:112
 msgid "_Backward"
@@ -1680,13 +1674,15 @@ msgstr "Säännöllinen _lauseke"
 
 #: components/html-editor/search.c:118
 msgid "Input the words you want to search here"
-msgstr ""
+msgstr "Kirjoita etsittävät sanat tähän"
 
 #: components/html-editor/spellchecker.c:110
 msgid ""
 "Unable to add word to dictionary,\n"
 "language settings are broken.\n"
 msgstr ""
+"Sanan lisääminen sanakirjaan epäonnistui,\n"
+"kieliasetukset ovat virheelliset.\n"
 
 #: components/html-editor/spellchecker.c:298
 msgid "No misspelled word found"
@@ -1713,9 +1709,8 @@ msgid "Image frame"
 msgstr "Kuvan kehys"
 
 #: components/html-editor/template.c:280
-#, fuzzy
 msgid "Template Labels"
-msgstr "Malli"
+msgstr "Mallien nimiöt"
 
 #: components/html-editor/test-html-editor-control.c:333
 msgid "Open file..."
@@ -2059,214 +2054,3 @@ msgstr "GtkHTML-testisovellus"
 #~ msgstr ""
 #~ "Ei voi käynnistää GNOME-oikoluvun hallintasovelmaa.\n"
 #~ "Yritä GNOME-oikoluvun asentamista, jos sitä ei ole vielä tehty."
-
-#~ msgid "With:"
-#~ msgstr "Korvaava:"
-
-#~ msgid "Labels"
-#~ msgstr "Nimiöt"
-
-#~ msgid "Find A Regular Expression"
-#~ msgstr "Etsi säännöllinen lauseke"
-
-#~ msgid "Find Regular E_xpression..."
-#~ msgstr "Etsi _säännöllinen lauseke.."
-
-#~ msgid "Plain"
-#~ msgstr "Tavallinen"
-
-#~ msgid ""
-#~ "@link_begin@<img@alt@@width@@height@@align@ "
-#~ "border=@border@@padh@@padv@@src@>@link_end@"
-#~ msgstr ""
-#~ "@link_begin@<img@alt@@width@@height@@align@ "
-#~ "border=@border@@padh@@padv@@src@>@link_end@"
-
-#~ msgid "Frame"
-#~ msgstr "Kehys"
-
-#~ msgid ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
-#~ "table></center>"
-#~ msgstr ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
-#~ "table></center>"
-
-#~ msgid "Caption"
-#~ msgstr "Kuvateksti"
-
-#~ msgid ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place "
-#~ "your comment here]</td></tr></table></td></tr></table></center>"
-#~ msgstr ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>"
-#~ "[Kirjoita kommenttisi tähän]</td></tr></table></td></tr></table></center>"
-
-#, fuzzy
-#~ msgid ""
-#~ "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a "
-#~ "href=\"mailto:dog\">dog</a>."
-#~ msgstr "Äidin oma Åke lähtee kengittä yöhön vauhdikkaasti."
-
-#~ msgid "The quick brown fox jumps over the lazy dog."
-#~ msgstr "Äidin oma Åke lähtee kengittä yöhön vauhdikkaasti."
-
-#~ msgid "Other"
-#~ msgstr "Muu"
-
-#~ msgid ""
-#~ "The editted cell was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "Muokattu solu on poistettu asiakirjasta.\n"
-#~ "Muutoksia ei voi ottaa käyttöön."
-
-#~ msgid "************"
-#~ msgstr "************"
-
-#~ msgid "***text***"
-#~ msgstr "***teksti***"
-
-#~ msgid "Apply changes to:"
-#~ msgstr "Muutosten kohde:"
-
-#~ msgid "Border"
-#~ msgstr "Reunus"
-
-#~ msgid "Click will follow this URL"
-#~ msgstr "Napsauttaminen avaa tämän URL:n"
-
-#~ msgid "Click will follow this URL:"
-#~ msgstr "Napsauttaminen avaa tämän URL:n:"
-
-#~ msgid "Don't wrap"
-#~ msgstr "Älä rivitä"
-
-#~ msgid "Font size"
-#~ msgstr "Kirjasinkoko"
-
-#~ msgid "Foreground color"
-#~ msgstr "Edustaväri"
-
-#~ msgid "Header"
-#~ msgstr "Otsikko"
-
-#~ msgid "Link insert"
-#~ msgstr "Linkin lisäys"
-
-#~ msgid "Location"
-#~ msgstr "Sijainti"
-
-#~ msgid "Padding"
-#~ msgstr "Täyttö"
-
-#~ msgid "Percent %"
-#~ msgstr "Prosenttia %"
-
-#~ msgid "Pixmap:"
-#~ msgstr "Kuva:"
-
-#~ msgid "Points"
-#~ msgstr "Pistettä"
-
-#~ msgid "Scope"
-#~ msgstr "Alue"
-
-#~ msgid "Spacing"
-#~ msgstr "Välit"
-
-#~ msgid "Style:"
-#~ msgstr "Tyyli:"
-
-#~ msgid "Table Insert"
-#~ msgstr "Lisää taulukko"
-
-#~ msgid "Test URL..."
-#~ msgstr "Testi-URL..."
-
-#~ msgid "Wrap"
-#~ msgstr "Rivitys"
-
-#~ msgid "Wrapping:"
-#~ msgstr "Rivitys:"
-
-#~ msgid "xxxxxxxxx"
-#~ msgstr "xxxxxxxxx"
-
-#~ msgid ""
-#~ "The editted image was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "Muokattu kuva on poistettu asiakirjasta.\n"
-#~ "Muutoksia ei voi ottaa käyttöön."
-
-#~ msgid "Link text"
-#~ msgstr "Linkin teksti"
-
-#~ msgid ""
-#~ "The editted link was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "Muokattu linkki on poistettu asiakirjasta.\n"
-#~ "Muutoksia ei voi ottaa käyttöön."
-
-#~ msgid "Align"
-#~ msgstr "Tasaus"
-
-#~ msgid ""
-#~ "The editted paragraph was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "Muokattu kappale on poistettu asiakirjasta.\n"
-#~ "Muutoksia ei voi ottaa käyttöön."
-
-#~ msgid "Blue 3D"
-#~ msgstr "Sininen 3D"
-
-#~ msgid "Yellow, flowers"
-#~ msgstr "Keltainen, kukkia"
-
-#~ msgid ""
-#~ "The editted rule was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "Muokattu viiva on poistettu asiakirjasta.\n"
-#~ "Muutoksia ei voi ottaa käyttöön."
-
-#~ msgid "Flat gray"
-#~ msgstr "Tasaisen harmaa"
-
-#~ msgid "Dark header"
-#~ msgstr "Tumma otsikko"
-
-#~ msgid ""
-#~ "The editted table was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "Muokattu taulukko on poistettu asiakirjasta.\n"
-#~ "Muutoksia ei voi ottaa käyttöön."
-
-#~ msgid "Color"
-#~ msgstr "Väri"
-
-#, fuzzy
-#~ msgid "The quick brown fox jumps over the lazy dog.</div>"
-#~ msgstr "Äidin oma Åke lähtee kengittä yöhön vauhdikkaasti."
-
-#~ msgid "Rectangles"
-#~ msgstr "Suorakulmiot"
-
-#~ msgid "Pre"
-#~ msgstr "Esi"
