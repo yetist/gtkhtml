@@ -553,8 +553,12 @@ html_engine_undo (HTMLEngine *e)
 
 	g_warning ("*Undo!*");
 
+	html_engine_freeze (e);
+
 	undo = e->undo;
 	html_undo_do_undo (undo, e);
+
+	html_engine_thaw (e);
 }
 
 void
@@ -568,6 +572,10 @@ html_engine_redo (HTMLEngine *e)
 
 	g_warning ("*Redo!*");
 
+	html_engine_freeze (e);
+
 	undo = e->undo;
 	html_undo_do_redo (undo, e);
+
+	html_engine_thaw (e);
 }

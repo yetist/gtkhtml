@@ -1,5 +1,21 @@
 2000-02-14  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine-edit.c (html_engine_undo): Freeze before undoing,
+	thaw afterwards.
+	(html_engine_redo): Freeze before redoing, thaw afterwards.
+
+	* htmlobject.c (relayout): Do nothing if the engine is frozen.
+
+	* htmlengine.c (html_engine_init): Initialize `freeze_count'.
+	(html_engine_freeze): New function.
+	(html_engine_thaw): New function.
+	(html_engine_frozen): New function.
+	(html_engine_queue_draw): Actually queue only if the engine is not
+	frozen.
+	(html_engine_queue_clear): Likewise.
+
+	* htmlengine.h: New member `freeze_count' in `HTMLEngine'.
+
 	* htmlengine-cutbuffer.c: New file.
 	* htmlengine-cutbuffer.h: New file.
 

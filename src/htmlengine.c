@@ -2815,6 +2815,8 @@ html_engine_init (HTMLEngine *engine)
 {
 	/* STUFF might be missing here!   */
 
+	engine->freeze_count = 0;
+
 	engine->window = NULL;
 	engine->invert_gc = NULL;
 
@@ -3470,7 +3472,8 @@ html_engine_queue_draw (HTMLEngine *e, HTMLObject *o)
 	g_return_if_fail (e != NULL);
 	g_return_if_fail (o != NULL);
 
-	html_draw_queue_add (e->draw_queue, o);
+	if (e->freeze_count == 0)
+		html_draw_queue_add (e->draw_queue, o);
 }
 
 void
@@ -3480,7 +3483,8 @@ html_engine_queue_clear (HTMLEngine *e,
 {
 	g_return_if_fail (e != NULL);
 
-	html_draw_queue_add_clear (e->draw_queue, x, y, width, height, &e->bgColor);
+	if (e->freeze_count == 0)
+		html_draw_queue_add_clear (e->draw_queue, x, y, width, height, &e->bgColor);
 }
 
 
@@ -3666,4 +3670,40 @@ html_engine_unselect_all (HTMLEngine *e,
 
 	e->active_selection = FALSE;
 	g_print ("Active selection: FALSE\n");
+}
+
+
+gboolean
+html_engine_frozen (HTMLEngine *engine)
+{
+	g_return_val_if_fail (engine != NULL, FALSE);
+	g_return_val_if_fail (HTML_IS_ENGINE (engine), FALSE);
+
+	return engine->freeze_count > 0;
+}
+
+void
+html_engine_freeze (HTMLEngine *engine)
+{
+	g_return_if_fail (engine != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (engine));
+
+	engine->freeze_count++;
+}
+
+void
+html_engine_thaw (HTMLEngine *engine)
+{
+	g_return_if_fail (engine != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (engine));
+	g_return_if_fail (engine->freeze_count > 0);
+
+	engine->freeze_count--;
+
+	if (engine->freeze_count == 0) {
+		html_engine_calc_size (engine);
+
+		/* FIXME this should actually update only the visible area.  */
+		html_engine_draw (engine, 0, 0, engine->width, engine->height);
+	}
 }

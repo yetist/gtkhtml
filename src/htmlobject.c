@@ -174,6 +174,9 @@ relayout (HTMLObject *self,
 	guint prev_width;
 	guint prev_ascent, prev_descent;
 
+	if (html_engine_frozen (engine))
+		return;
+
 	prev_width = self->width;
 	prev_ascent = self->ascent;
 	prev_descent = self->descent;

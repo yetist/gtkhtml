@@ -92,6 +92,11 @@ struct _HTMLEngine {
            or in part), to FALSE when no item is selected at all.  */
 	gboolean active_selection;
 
+	/* Freeze counter.  When greater than zero, we never trigger relayouts
+           nor repaints.  When going from nonzero to zero, we relayout and
+           repaint everything.  */
+	guint freeze_count;
+
 	gboolean parsing;
 	HTMLTokenizer *ht;
 	StringTokenizer *st;
@@ -301,5 +306,10 @@ void  html_engine_select_region  (HTMLEngine *e,
 				  gboolean    queue_draw);
 void  html_engine_unselect_all   (HTMLEngine *e,
 				  gboolean    queue_draw);
+
+/* Freezing/thawing.  */
+gboolean  html_engine_frozen  (HTMLEngine *engine);
+void      html_engine_freeze  (HTMLEngine *engine);
+void      html_engine_thaw    (HTMLEngine *engine);
 
 #endif /* _HTMLENGINE_H_ */
