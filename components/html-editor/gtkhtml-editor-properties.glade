@@ -183,7 +183,7 @@
 	    <wrap>False</wrap>
 	    <xalign>0</xalign>
 	    <yalign>0.5</yalign>
-	    <xpad>0</xpad>
+	    <xpad>2</xpad>
 	    <ypad>0</ypad>
 	    <child>
 	      <left_attach>0</left_attach>
@@ -209,7 +209,7 @@
 	    <wrap>False</wrap>
 	    <xalign>0</xalign>
 	    <yalign>0.5</yalign>
-	    <xpad>0</xpad>
+	    <xpad>2</xpad>
 	    <ypad>0</ypad>
 	    <child>
 	      <left_attach>0</left_attach>
@@ -478,7 +478,7 @@ Percent
 	      <wrap>False</wrap>
 	      <xalign>0</xalign>
 	      <yalign>0.5</yalign>
-	      <xpad>0</xpad>
+	      <xpad>2</xpad>
 	      <ypad>0</ypad>
 	      <child>
 		<left_attach>0</left_attach>
@@ -536,7 +536,7 @@ Percent
 	      <wrap>False</wrap>
 	      <xalign>0</xalign>
 	      <yalign>0.5</yalign>
-	      <xpad>0</xpad>
+	      <xpad>2</xpad>
 	      <ypad>0</ypad>
 	      <child>
 		<left_attach>2</left_attach>
@@ -562,7 +562,7 @@ Percent
 	      <wrap>False</wrap>
 	      <xalign>0</xalign>
 	      <yalign>0.5</yalign>
-	      <xpad>0</xpad>
+	      <xpad>2</xpad>
 	      <ypad>0</ypad>
 	      <child>
 		<left_attach>0</left_attach>
@@ -613,7 +613,7 @@ Percent
 	      <wrap>False</wrap>
 	      <xalign>0</xalign>
 	      <yalign>0.5</yalign>
-	      <xpad>0</xpad>
+	      <xpad>2</xpad>
 	      <ypad>0</ypad>
 	      <child>
 		<left_attach>0</left_attach>
@@ -809,7 +809,7 @@ None
 	  <name>table4</name>
 	  <border_width>2</border_width>
 	  <rows>2</rows>
-	  <columns>5</columns>
+	  <columns>6</columns>
 	  <homogeneous>False</homogeneous>
 	  <row_spacing>0</row_spacing>
 	  <column_spacing>2</column_spacing>
@@ -989,59 +989,13 @@ Percent
 	    <page>10</page>
 	    <page_size>10</page_size>
 	    <child>
-	      <left_attach>4</left_attach>
-	      <right_attach>5</right_attach>
+	      <left_attach>5</left_attach>
+	      <right_attach>6</right_attach>
 	      <top_attach>0</top_attach>
 	      <bottom_attach>1</bottom_attach>
 	      <xpad>0</xpad>
 	      <ypad>0</ypad>
 	      <xexpand>True</xexpand>
-	      <yexpand>False</yexpand>
-	      <xshrink>False</xshrink>
-	      <yshrink>False</yshrink>
-	      <xfill>True</xfill>
-	      <yfill>False</yfill>
-	    </child>
-	  </widget>
-
-	  <widget>
-	    <class>GtkCheckButton</class>
-	    <name>checkbutton12</name>
-	    <can_focus>True</can_focus>
-	    <label>column span</label>
-	    <active>False</active>
-	    <draw_indicator>True</draw_indicator>
-	    <child>
-	      <left_attach>3</left_attach>
-	      <right_attach>4</right_attach>
-	      <top_attach>0</top_attach>
-	      <bottom_attach>1</bottom_attach>
-	      <xpad>0</xpad>
-	      <ypad>0</ypad>
-	      <xexpand>False</xexpand>
-	      <yexpand>False</yexpand>
-	      <xshrink>False</xshrink>
-	      <yshrink>False</yshrink>
-	      <xfill>True</xfill>
-	      <yfill>False</yfill>
-	    </child>
-	  </widget>
-
-	  <widget>
-	    <class>GtkCheckButton</class>
-	    <name>checkbutton13</name>
-	    <can_focus>True</can_focus>
-	    <label>row span</label>
-	    <active>False</active>
-	    <draw_indicator>True</draw_indicator>
-	    <child>
-	      <left_attach>3</left_attach>
-	      <right_attach>4</right_attach>
-	      <top_attach>1</top_attach>
-	      <bottom_attach>2</bottom_attach>
-	      <xpad>0</xpad>
-	      <ypad>0</ypad>
-	      <xexpand>False</xexpand>
 	      <yexpand>False</yexpand>
 	      <xshrink>False</xshrink>
 	      <yshrink>False</yshrink>
@@ -1067,13 +1021,65 @@ Percent
 	    <page>10</page>
 	    <page_size>10</page_size>
 	    <child>
+	      <left_attach>5</left_attach>
+	      <right_attach>6</right_attach>
+	      <top_attach>1</top_attach>
+	      <bottom_attach>2</bottom_attach>
+	      <xpad>0</xpad>
+	      <ypad>0</ypad>
+	      <xexpand>True</xexpand>
+	      <yexpand>False</yexpand>
+	      <xshrink>False</xshrink>
+	      <yshrink>False</yshrink>
+	      <xfill>True</xfill>
+	      <yfill>False</yfill>
+	    </child>
+	  </widget>
+
+	  <widget>
+	    <class>GtkLabel</class>
+	    <name>label13</name>
+	    <label>row span</label>
+	    <justify>GTK_JUSTIFY_CENTER</justify>
+	    <wrap>False</wrap>
+	    <xalign>0</xalign>
+	    <yalign>0.5</yalign>
+	    <xpad>2</xpad>
+	    <ypad>0</ypad>
+	    <child>
 	      <left_attach>4</left_attach>
 	      <right_attach>5</right_attach>
 	      <top_attach>1</top_attach>
 	      <bottom_attach>2</bottom_attach>
 	      <xpad>0</xpad>
 	      <ypad>0</ypad>
-	      <xexpand>True</xexpand>
+	      <xexpand>False</xexpand>
+	      <yexpand>False</yexpand>
+	      <xshrink>False</xshrink>
+	      <yshrink>False</yshrink>
+	      <xfill>True</xfill>
+	      <yfill>False</yfill>
+	    </child>
+	  </widget>
+
+	  <widget>
+	    <class>GtkLabel</class>
+	    <name>label12</name>
+	    <label>column span</label>
+	    <justify>GTK_JUSTIFY_CENTER</justify>
+	    <wrap>False</wrap>
+	    <xalign>0</xalign>
+	    <yalign>0.5</yalign>
+	    <xpad>2</xpad>
+	    <ypad>0</ypad>
+	    <child>
+	      <left_attach>4</left_attach>
+	      <right_attach>5</right_attach>
+	      <top_attach>0</top_attach>
+	      <bottom_attach>1</bottom_attach>
+	      <xpad>0</xpad>
+	      <ypad>0</ypad>
+	      <xexpand>False</xexpand>
 	      <yexpand>False</yexpand>
 	      <xshrink>False</xshrink>
 	      <yshrink>False</yshrink>
@@ -1119,35 +1125,13 @@ Percent
 	    <column_spacing>2</column_spacing>
 
 	    <widget>
-	      <class>GtkCheckButton</class>
-	      <name>checkbutton14</name>
-	      <can_focus>True</can_focus>
-	      <label>horizontal</label>
-	      <active>False</active>
-	      <draw_indicator>True</draw_indicator>
-	      <child>
-		<left_attach>0</left_attach>
-		<right_attach>1</right_attach>
-		<top_attach>0</top_attach>
-		<bottom_attach>1</bottom_attach>
-		<xpad>0</xpad>
-		<ypad>0</ypad>
-		<xexpand>False</xexpand>
-		<yexpand>False</yexpand>
-		<xshrink>False</xshrink>
-		<yshrink>False</yshrink>
-		<xfill>True</xfill>
-		<yfill>False</yfill>
-	      </child>
-	    </widget>
-
-	    <widget>
 	      <class>GtkOptionMenu</class>
-	      <name>optionmenu8</name>
+	      <name>option_cell_halign</name>
 	      <can_focus>True</can_focus>
 	      <items>Left
 Center
 Right
+None
 </items>
 	      <initial_choice>0</initial_choice>
 	      <child>
@@ -1167,15 +1151,17 @@ Right
 	    </widget>
 
 	    <widget>
-	      <class>GtkCheckButton</class>
-	      <name>checkbutton15</name>
+	      <class>GtkOptionMenu</class>
+	      <name>option_cell_valign</name>
 	      <can_focus>True</can_focus>
-	      <label>vertical</label>
-	      <active>False</active>
-	      <draw_indicator>True</draw_indicator>
+	      <items>Top
+Middle
+Bottom
+</items>
+	      <initial_choice>0</initial_choice>
 	      <child>
-		<left_attach>0</left_attach>
-		<right_attach>1</right_attach>
+		<left_attach>1</left_attach>
+		<right_attach>2</right_attach>
 		<top_attach>1</top_attach>
 		<bottom_attach>2</bottom_attach>
 		<xpad>0</xpad>
@@ -1190,17 +1176,44 @@ Right
 	    </widget>
 
 	    <widget>
-	      <class>GtkOptionMenu</class>
-	      <name>optionmenu9</name>
-	      <can_focus>True</can_focus>
-	      <items>Top
-Middle
-Bottom
-</items>
-	      <initial_choice>0</initial_choice>
+	      <class>GtkLabel</class>
+	      <name>label8</name>
+	      <label>horizontal</label>
+	      <justify>GTK_JUSTIFY_CENTER</justify>
+	      <wrap>False</wrap>
+	      <xalign>0</xalign>
+	      <yalign>0.5</yalign>
+	      <xpad>2</xpad>
+	      <ypad>0</ypad>
 	      <child>
-		<left_attach>1</left_attach>
-		<right_attach>2</right_attach>
+		<left_attach>0</left_attach>
+		<right_attach>1</right_attach>
+		<top_attach>0</top_attach>
+		<bottom_attach>1</bottom_attach>
+		<xpad>0</xpad>
+		<ypad>0</ypad>
+		<xexpand>False</xexpand>
+		<yexpand>False</yexpand>
+		<xshrink>False</xshrink>
+		<yshrink>False</yshrink>
+		<xfill>True</xfill>
+		<yfill>False</yfill>
+	      </child>
+	    </widget>
+
+	    <widget>
+	      <class>GtkLabel</class>
+	      <name>label9</name>
+	      <label>vertical</label>
+	      <justify>GTK_JUSTIFY_CENTER</justify>
+	      <wrap>False</wrap>
+	      <xalign>0</xalign>
+	      <yalign>0.5</yalign>
+	      <xpad>2</xpad>
+	      <ypad>0</ypad>
+	      <child>
+		<left_attach>0</left_attach>
+		<right_attach>1</right_attach>
 		<top_attach>1</top_attach>
 		<bottom_attach>2</bottom_attach>
 		<xpad>0</xpad>
@@ -1288,12 +1301,15 @@ Don't wrap
 	    </widget>
 
 	    <widget>
-	      <class>GtkCheckButton</class>
-	      <name>checkbutton16</name>
-	      <can_focus>True</can_focus>
+	      <class>GtkLabel</class>
+	      <name>label10</name>
 	      <label>style</label>
-	      <active>False</active>
-	      <draw_indicator>True</draw_indicator>
+	      <justify>GTK_JUSTIFY_CENTER</justify>
+	      <wrap>False</wrap>
+	      <xalign>0</xalign>
+	      <yalign>0.5</yalign>
+	      <xpad>2</xpad>
+	      <ypad>0</ypad>
 	      <child>
 		<left_attach>0</left_attach>
 		<right_attach>1</right_attach>
@@ -1311,12 +1327,15 @@ Don't wrap
 	    </widget>
 
 	    <widget>
-	      <class>GtkCheckButton</class>
-	      <name>checkbutton17</name>
-	      <can_focus>True</can_focus>
-	      <label>wrap</label>
-	      <active>False</active>
-	      <draw_indicator>True</draw_indicator>
+	      <class>GtkLabel</class>
+	      <name>label11</name>
+	      <label>wrapping</label>
+	      <justify>GTK_JUSTIFY_CENTER</justify>
+	      <wrap>False</wrap>
+	      <xalign>0</xalign>
+	      <yalign>0.5</yalign>
+	      <xpad>2</xpad>
+	      <ypad>0</ypad>
 	      <child>
 		<left_attach>0</left_attach>
 		<right_attach>1</right_attach>

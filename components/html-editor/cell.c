@@ -59,6 +59,14 @@ typedef struct
 	GtkWidget *entry_bg_pixmap;
 	GtkWidget *check_bg_pixmap;
 
+	gboolean        changed_halign;
+	HTMLHAlignType  halign;
+	GtkWidget      *option_halign;
+
+	gboolean        changed_valign;
+	HTMLVAlignType  valign;
+	GtkWidget      *option_valign;
+
 	gboolean   disable_change;
 
 } GtkHTMLEditCellProperties;
@@ -69,7 +77,7 @@ typedef struct
 static void
 fill_sample (GtkHTMLEditCellProperties *d)
 {
-	gchar *body, *html, *bg_color, *bg_pixmap;
+	gchar *body, *html, *bg_color, *bg_pixmap, *valign, *halign;
 
 	body      = html_engine_save_get_sample_body (d->cd->html->engine, NULL);
 
@@ -82,17 +90,31 @@ fill_sample (GtkHTMLEditCellProperties *d)
 	bg_pixmap = d->has_bg_pixmap && d->bg_pixmap
 		? g_strdup_printf (" background=\"file://%s\"", d->bg_pixmap)
 		: g_strdup ("");
+	halign    = d->halign != HTML_HALIGN_NONE ? g_strdup_printf (" align=\"%s\"", d->halign == HTML_HALIGN_LEFT
+								     ? "left"
+								     : (d->halign == HTML_HALIGN_CENTER ? "center" : "right"))
+		: g_strdup ("");
 
+	valign    = d->valign != HTML_VALIGN_CENTER ? g_strdup_printf (" valign=\"%s\"", d->valign == HTML_VALIGN_TOP
+								       ? "top" : "bottom")
+		: g_strdup ("");
 	html      = g_strconcat (body,
 				 "<table border=1 cellpadding=4 cellspacing=2>"
-				 "<tr><td>&nbsp;Other&nbsp;</td><td",
-				 bg_color, bg_pixmap,
-				 ">&nbsp;Actual&nbsp;</td><td>&nbsp;Other&nbsp;</td></tr>"
+				 "<tr><td>&nbsp;Other&nbsp;<br>&nbsp;Other&nbsp;<br>"
+				 "&nbsp;Other&nbsp;<br>&nbsp;Other&nbsp;<br>",
+				 "&nbsp;Other&nbsp;<br>&nbsp;Other&nbsp;</td><td",
+				 bg_color, bg_pixmap, halign, valign,
+				 ">The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog."
+				 "</td><td>&nbsp;Other&nbsp;<br>&nbsp;Other&nbsp;<br>"
+				 "&nbsp;Other&nbsp;<br>&nbsp;Other&nbsp;<br>",
+				 "&nbsp;Other&nbsp;<br>&nbsp;Other&nbsp;</td></tr>"
 				 "<tr><td>&nbsp;Other&nbsp;</td><td>&nbsp;Other&nbsp;</td><td>&nbsp;Other&nbsp;</td></tr>"
 				 "</table>", NULL);
 	printf ("html: %s\n", html);
 	gtk_html_load_from_string (d->sample, html, -1);
 
+	g_free (halign);
+	g_free (valign);
 	g_free (bg_color);
 	g_free (bg_pixmap);
 	g_free (body);
@@ -167,6 +189,24 @@ changed_bg_pixmap (GtkWidget *w, GtkHTMLEditCellProperties *d)
 	}
 }
 
+static void
+changed_halign (GtkWidget *w, GtkHTMLEditCellProperties *d)
+{
+	d->halign = g_list_index (GTK_MENU_SHELL (w)->children, gtk_menu_get_active (GTK_MENU (w))) + HTML_HALIGN_LEFT;
+	d->changed_halign = TRUE;
+	FILL;
+	CHANGE;	
+}
+
+static void
+changed_valign (GtkWidget *w, GtkHTMLEditCellProperties *d)
+{
+	d->valign = g_list_index (GTK_MENU_SHELL (w)->children, gtk_menu_get_active (GTK_MENU (w))) + HTML_VALIGN_TOP;
+	d->changed_valign = TRUE;
+	FILL;
+	CHANGE;	
+}
+
 static GtkWidget *
 cell_widget (GtkHTMLEditCellProperties *d)
 {
@@ -201,6 +241,13 @@ cell_widget (GtkHTMLEditCellProperties *d)
 	gnome_pixmap_entry_set_pixmap_subdir (GNOME_PIXMAP_ENTRY (d->entry_bg_pixmap), dir);
 	free (dir);
 
+	d->option_halign = glade_xml_get_widget (xml, "option_cell_halign");
+	gtk_signal_connect (GTK_OBJECT (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_halign))), "selection-done",
+			    changed_halign, d);
+	d->option_valign = glade_xml_get_widget (xml, "option_cell_valign");
+	gtk_signal_connect (GTK_OBJECT (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_valign))), "selection-done",
+			    changed_valign, d);
+
 	gtk_box_pack_start (GTK_BOX (cell_page), sample_frame (&d->sample), FALSE, FALSE, 0);
 
 	gtk_widget_show_all (cell_page);
@@ -222,11 +269,13 @@ set_ui (GtkHTMLEditCellProperties *d)
 	gtk_entry_set_text (GTK_ENTRY (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (d->entry_bg_pixmap))),
 			    d->bg_pixmap);
 
+	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_halign), d->halign - HTML_HALIGN_LEFT);
+	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_valign), d->valign - HTML_VALIGN_TOP);
+
 	/* gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_spacing), d->spacing);
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_padding), d->padding);
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_border),  d->border);
 
-	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_align), d->align - HTML_HALIGN_LEFT);
 
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_width), d->has_width);
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_width),  d->width);
@@ -255,6 +304,9 @@ get_data (GtkHTMLEditCellProperties *d)
 			   : d->cell->bgPixmap->url + 5)
 			: d->cell->bgPixmap->url + 7;
 	}
+
+	d->halign   = HTML_CLUE (d->cell)->halign;
+	d->valign   = HTML_CLUE (d->cell)->valign;
 
 	/* d->spacing = d->table->spacing;
 	d->padding = d->table->padding;
@@ -303,6 +355,14 @@ cell_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 		html_engine_table_cell_set_bg_pixmap (d->cd->html->engine, d->cell, url);
 		g_free (url);
 		d->changed_bg_pixmap = FALSE;
+	}
+	if (d->changed_halign) {
+		html_engine_table_cell_set_halign (d->cd->html->engine, d->cell, d->halign);
+		d->changed_halign = FALSE;
+	}
+	if (d->changed_valign) {
+		html_engine_table_cell_set_valign (d->cd->html->engine, d->cell, d->valign);
+		d->changed_valign = FALSE;
 	}
 	/* if (d->changed_spacing) {
 		html_engine_table_set_spacing (d->cd->html->engine, d->table, d->spacing);
