@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.13.0\n"
-"POT-Creation-Date: 2002-02-10 14:58-0600\n"
-"PO-Revision-Date: 2002-01-30 16:34CET\n"
+"POT-Creation-Date: 2002-02-26 15:58+0100\n"
+"PO-Revision-Date: 2002-02-26 15:58+0100\n"
 "Last-Translator: Stanislav Višňovský <visnovsky@nenya.ms.mff.cuni.cz>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -31,9 +31,7 @@ msgstr "*********************"
 
 #: capplet/gtkhtml-capplet.glade.h:2
 msgid "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz"
-msgstr ""
-"AaÁáBbCcČčDdEeÉéFfGgHhIiÍíJjKkLlĽľMmNnŇňOoÔôPpQqRrSsŠšTtŤťU"
-"uÚúVvWwXxYyÝýZzŽž"
+msgstr "AaÁáBbCcČčDdEeÉéFfGgHhIiÍíJjKkLlĽľMmNnŇňOoÔôPpQqRrSsŠšTtŤťUuÚúVvWwXxYyÝýZzŽž"
 
 #: capplet/gtkhtml-capplet.glade.h:3
 msgid "Add Keyboard Shortcuts"
@@ -337,7 +335,7 @@ msgid "Header _6"
 msgstr "Hlavička _6"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
-#: components/html-editor/editor-control-factory.c:187
+#: components/html-editor/editor-control-factory.c:186
 #: components/html-editor/gtkhtml-editor-properties.glade.h:36
 #: components/html-editor/menubar.c:107 components/html-editor/popup.c:172
 msgid "Image"
@@ -511,7 +509,7 @@ msgid "Roman Numeral List"
 msgstr "Zoznam s rímskymi číslicami"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
-#: components/html-editor/editor-control-factory.c:207
+#: components/html-editor/editor-control-factory.c:206
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
 #: components/html-editor/menubar.c:141 components/html-editor/popup.c:193
 msgid "Rule"
@@ -757,8 +755,14 @@ msgstr "Obrázok na pozadí"
 msgid "Colors"
 msgstr "Farby"
 
+#: components/html-editor/body.c:294 components/html-editor/cell.c:391
+#: components/html-editor/table.c:534 components/html-editor/text.c:283
+#: components/html-editor/toolbar.c:306
+msgid "Automatic"
+msgstr "Automatické"
+
 #: components/html-editor/body.c:306
-#: components/html-editor/editor-control-factory.c:196
+#: components/html-editor/editor-control-factory.c:195
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
 #: components/html-editor/menubar.c:242 components/html-editor/popup.c:158
 msgid "Text"
@@ -769,34 +773,29 @@ msgstr "Text"
 msgid "Background"
 msgstr "Pozadie"
 
-#: components/html-editor/cell.c:391 components/html-editor/table.c:534
-#: components/html-editor/text.c:283 components/html-editor/toolbar.c:306
-msgid "Automatic"
-msgstr "Automatické"
-
-#: components/html-editor/editor-control-factory.c:177
+#: components/html-editor/editor-control-factory.c:176
 #: components/html-editor/menubar.c:221 components/html-editor/menubar.c:239
 #: components/html-editor/menubar.c:257 components/html-editor/popup.c:150
 #: components/html-editor/popup.c:235
 msgid "Properties"
 msgstr "Vlastnosti"
 
-#: components/html-editor/editor-control-factory.c:217
+#: components/html-editor/editor-control-factory.c:216
 #: components/html-editor/menubar.c:260 components/html-editor/popup.c:179
 msgid "Paragraph"
 msgstr "Odstavec"
 
-#: components/html-editor/editor-control-factory.c:222
+#: components/html-editor/editor-control-factory.c:221
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
 #: components/html-editor/menubar.c:224 components/html-editor/popup.c:186
 msgid "Page"
 msgstr "Stránka"
 
-#: components/html-editor/editor-control-factory.c:873
+#: components/html-editor/editor-control-factory.c:813
 msgid "Could not initialize GNORBA"
 msgstr "Nie je možné inicializovať GNORBA"
 
-#: components/html-editor/editor-control-factory.c:886
+#: components/html-editor/editor-control-factory.c:826
 msgid "Could not initialize Bonobo"
 msgstr "Nie je možné inicializovať Bonobo"
 
@@ -994,6 +993,7 @@ msgstr "Rozsah"
 msgid "Shaded"
 msgstr "Tieňované"
 
+#. , GTK_FILL | GTK_EXPAND, 0, 0, 0);
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
 #: components/html-editor/text.c:250
 msgid "Size"
@@ -1079,14 +1079,14 @@ msgid ""
 "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
 "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
 "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@width@@height@align=top "
-"border=0></td></tr></table></td></tr></table></center>"
+"@src@@width@@height@align=top border=0></td></tr></table></td></tr></table></"
+"center>"
 msgstr ""
 "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
 "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
 "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@width@@height@align=top "
-"border=0></td></tr></table></td></tr></table></center>"
+"@src@@width@@height@align=top border=0></td></tr></table></td></tr></table></"
+"center>"
 
 #: components/html-editor/image.c:130
 msgid "Caption"
@@ -1119,9 +1119,8 @@ msgid "Link text"
 msgstr "Text odkazu"
 
 #: components/html-editor/link.c:120
-#, fuzzy
 msgid "Test URL"
-msgstr "Test 1"
+msgstr "Test URL"
 
 #: components/html-editor/menubar.c:105 components/html-editor/menubar.c:120
 #: components/html-editor/menubar.c:138 components/html-editor/menubar.c:155
@@ -1336,15 +1335,21 @@ msgstr "Poznámka"
 
 #: components/html-editor/template.c:83
 msgid ""
-"<table cellspacing=0 cellpadding=1 "
-"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" "
-"cellpadding=3 cellspacing=0 width=\"100%\"><tr><td valign=top><img "
-"src=\"file://"
+"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
+"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
+"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
 msgstr ""
-"<table cellspacing=0 cellpadding=1 "
-"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" "
-"cellpadding=3 cellspacing=0 width=\"100%\"><tr><td valign=top><img "
-"src=\"file://"
+"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
+"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
+"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
+
+#: components/html-editor/template.c:85
+msgid ""
+"/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
+"tr></table></td></tr></table>"
+msgstr ""
+"/bulb.png\" hspace=10></td><td width=\"100%\">Sem zadajte svoj text</td></"
+"tr></table></td></tr></table>"
 
 #: components/html-editor/template.c:91
 msgid "Image frame"
@@ -1353,18 +1358,26 @@ msgstr "Rámec obrázku"
 #: components/html-editor/template.c:93
 msgid ""
 "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" "
-"width=\"100%\"><tr><td align=\"center\"><img src=\"file://"
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
+"\"><tr><td align=\"center\"><img src=\"file://"
 msgstr ""
 "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" "
-"width=\"100%\"><tr><td align=\"center\"><img src=\"file://"
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
+"\"><tr><td align=\"center\"><img src=\"file://"
 
-#: components/html-editor/test-html-editor-control.c:276
+#: components/html-editor/template.c:97
+msgid ""
+"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
+"\"-1\">Image 1: <b>description</b></font></td></tr></table></td></tr></table>"
+msgstr ""
+"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
+"\"-1\">Obrázok 1: <b>popis</b></font></td></tr></table></td></tr></table>"
+
+#: components/html-editor/test-html-editor-control.c:275
 msgid "Open file..."
 msgstr "Otvoriť súbor..."
 
-#: components/html-editor/test-html-editor-control.c:278
+#: components/html-editor/test-html-editor-control.c:277
 msgid "Save file as..."
 msgstr "Uložiť súbor ako..."
 
@@ -1493,18 +1506,3 @@ msgstr "U_kážka pred tlačou"
 msgid "Print preview"
 msgstr "Ukážka pred tlačou"
 
-#~ msgid ""
-#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Place your text "
-#~ "here</td></tr></table></td></tr></table>"
-#~ msgstr ""
-#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Sem zadajte svoj "
-#~ "text</td></tr></table></td></tr></table>"
-
-#~ msgid ""
-#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
-#~ "size=\"-1\">Image 1: "
-#~ "<b>description</b></font></td></tr></table></td></tr></table>"
-#~ msgstr ""
-#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
-#~ "size=\"-1\">Obrázok 1: "
-#~ "<b>popis</b></font></td></tr></table></td></tr></table>"
