@@ -976,8 +976,8 @@ append_object (HTMLEngine *e, HTMLObject *o, guint len, HTMLUndoDirection dir)
 	guint position_before;
 
 	html_engine_freeze (e);
-	position_before = e->cursor->position;
 	prepare_empty_flow (e, dir);
+	position_before = e->cursor->position;
 
 	g_return_if_fail (html_clueflow_is_empty (HTML_CLUEFLOW (e->cursor->object->parent)));
 
