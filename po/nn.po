@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.10\n"
-"POT-Creation-Date: 2002-01-16 03:36+0100\n"
-"PO-Revision-Date: 2001-12-27 15:28+0100\n"
+"POT-Creation-Date: 2002-01-26 01:35+0100\n"
+"PO-Revision-Date: 2002-01-26 01:46+0100\n"
 "Last-Translator: Roy-Magne Mo <rmo@sunnmore.net>\n"
 "Language-Team: Norwegian/Nynorsk <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,10 +19,10 @@ msgstr ""
 msgid "<None>"
 msgstr "<Ingen>"
 
-#: capplet/gnome-bindings-prop.c:216 capplet/main.c:252
-#: components/html-editor/cell.c:385 components/html-editor/rule.c:315
-#: components/html-editor/table.c:528 components/html-editor/table.c:619
-#: components/html-editor/template.c:244
+#: capplet/gnome-bindings-prop.c:216 capplet/main.c:251
+#: components/html-editor/cell.c:385 components/html-editor/image.c:513
+#: components/html-editor/rule.c:315 components/html-editor/table.c:528
+#: components/html-editor/table.c:619 components/html-editor/template.c:244
 msgid "Could not load glade file."
 msgstr "Klarte ikkje laste glade-fila."
 
@@ -46,22 +46,21 @@ msgstr "Automatisk gjenkjenning av lenkjer"
 msgid "Behavior"
 msgstr "Åtferd"
 
-#. color selection
-#: capplet/gtkhtml-capplet.glade.h:6 components/html-editor/text.c:218
-msgid "Color"
-msgstr "Farge"
-
-#: capplet/gtkhtml-capplet.glade.h:7
+#: capplet/gtkhtml-capplet.glade.h:6
 msgid "Command"
 msgstr "Kommando"
 
-#: capplet/gtkhtml-capplet.glade.h:8
+#: capplet/gtkhtml-capplet.glade.h:7
 msgid "Composer Properties"
 msgstr "Komponerar eigenskapar"
 
-#: capplet/gtkhtml-capplet.glade.h:9
+#: capplet/gtkhtml-capplet.glade.h:8
 msgid "Composer Properties planned"
 msgstr "Komponerar eigenskapar planlagt"
+
+#: capplet/gtkhtml-capplet.glade.h:9
+msgid "Configure spell checking"
+msgstr "Set opp stavekontroll"
 
 #: capplet/gtkhtml-capplet.glade.h:10
 msgid "Enable spell checking"
@@ -92,73 +91,69 @@ msgid "Keyboard Shortcuts"
 msgstr "Hurtigtastar"
 
 #: capplet/gtkhtml-capplet.glade.h:17
-msgid "Language"
-msgstr "Språk"
-
-#: capplet/gtkhtml-capplet.glade.h:18
-#: components/html-editor/gtkhtml-editor-properties.glade.h:22
+#: components/html-editor/gtkhtml-editor-properties.glade.h:44
 msgid "Miscellaneous"
 msgstr "Ymse"
 
-#: capplet/gtkhtml-capplet.glade.h:19
+#: capplet/gtkhtml-capplet.glade.h:18
 msgid "New shortcut:"
 msgstr "Ny hurtigtastar:"
 
-#: capplet/gtkhtml-capplet.glade.h:20
+#: capplet/gtkhtml-capplet.glade.h:19
 msgid "On screen"
 msgstr "På skjermen"
 
-#: capplet/gtkhtml-capplet.glade.h:21
-msgid "Pick a color"
-msgstr "Vel ein farge"
-
-#: capplet/gtkhtml-capplet.glade.h:22
+#: capplet/gtkhtml-capplet.glade.h:20
 msgid "Select HTML fixed width font"
 msgstr "Vel HTML fast breidde skrifttype"
 
-#: capplet/gtkhtml-capplet.glade.h:23
+#: capplet/gtkhtml-capplet.glade.h:21
 msgid "Select HTML fixed width font for printing"
 msgstr "Vel HTML fast breidde skrifttype for utskrift"
 
-#: capplet/gtkhtml-capplet.glade.h:24
+#: capplet/gtkhtml-capplet.glade.h:22
 msgid "Select HTML variable width font"
 msgstr "Vel HTML variabel breidde skrifttype"
 
-#: capplet/gtkhtml-capplet.glade.h:25
+#: capplet/gtkhtml-capplet.glade.h:23
 msgid "Select HTML variable width font for printing"
 msgstr "Vel HTML variabel breidde skrifttype for utskrift"
 
-#: capplet/gtkhtml-capplet.glade.h:26
+#: capplet/gtkhtml-capplet.glade.h:24
 msgid "Select command "
 msgstr "Vel kommando"
 
-#: capplet/gtkhtml-capplet.glade.h:27
+#: capplet/gtkhtml-capplet.glade.h:25
 msgid "Shortcut"
 msgstr "Snarveg"
 
-#: capplet/gtkhtml-capplet.glade.h:28
+#: capplet/gtkhtml-capplet.glade.h:26
 msgid "Shortcuts _type:"
 msgstr "Snarveg _type:"
 
-#: capplet/gtkhtml-capplet.glade.h:29
+#: capplet/gtkhtml-capplet.glade.h:27
 msgid "Show animated images"
 msgstr "Vis animerte bileter"
 
-#: capplet/gtkhtml-capplet.glade.h:30
-msgid "Spell Checking"
-msgstr "Stavekontroll"
-
-#: capplet/gtkhtml-capplet.glade.h:31
+#: capplet/gtkhtml-capplet.glade.h:28
 msgid "Variable width"
 msgstr "Variabel breidde"
 
-#: capplet/gtkhtml-capplet.glade.h:32
+#: capplet/gtkhtml-capplet.glade.h:29
 msgid "_Add"
 msgstr "_Legg til"
 
-#: capplet/gtkhtml-capplet.glade.h:33
+#: capplet/gtkhtml-capplet.glade.h:30
 msgid "_Delete"
 msgstr "_Slett"
+
+#: capplet/main.c:236
+msgid ""
+"Cannot execute GNOME Spell control applet\n"
+"Try to install GNOME Spell if you don't have it installed."
+msgstr ""
+"Klarar ikkje å køyrer GNOME stavekontrollappleten\n"
+"Prøv å installare GNOME stavekontroll om du ikkje har den installert."
 
 #: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:1
 msgid "EBrowser control"
@@ -189,26 +184,32 @@ msgid "GNOME HTML Editor Factory"
 msgstr "GNOME HTML redigerarfabrikk"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
+#: components/html-editor/gtkhtml-editor-properties.glade.h:3
 msgid "+0"
 msgstr "+0"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
+#: components/html-editor/gtkhtml-editor-properties.glade.h:4
 msgid "+1"
 msgstr "+1"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:3
+#: components/html-editor/gtkhtml-editor-properties.glade.h:5
 msgid "+2"
 msgstr "+2"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:4
+#: components/html-editor/gtkhtml-editor-properties.glade.h:6
 msgid "+3"
 msgstr "+3"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:5
+#: components/html-editor/gtkhtml-editor-properties.glade.h:8
 msgid "-1"
 msgstr "-1"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:6
+#: components/html-editor/gtkhtml-editor-properties.glade.h:9
 msgid "-2"
 msgstr "-2"
 
@@ -244,7 +245,7 @@ msgid "Check spelling of the document"
 msgstr "Køyr stavekontroll på sokumentet"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
-#: components/html-editor/popup.c:398
+#: components/html-editor/popup.c:418
 msgid "Copy"
 msgstr "Kopier"
 
@@ -261,7 +262,7 @@ msgid "Cu_t"
 msgstr "Klipp u_t"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
-#: components/html-editor/popup.c:399
+#: components/html-editor/popup.c:419
 msgid "Cut"
 msgstr "Klipp ut"
 
@@ -335,8 +336,9 @@ msgid "Header _6"
 msgstr "Topptekst _6"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
-#: components/html-editor/editor-control-factory.c:186
-#: components/html-editor/menubar.c:106 components/html-editor/popup.c:164
+#: components/html-editor/editor-control-factory.c:187
+#: components/html-editor/gtkhtml-editor-properties.glade.h:36
+#: components/html-editor/menubar.c:107 components/html-editor/popup.c:172
 msgid "Image"
 msgstr "Bilete"
 
@@ -366,10 +368,8 @@ msgid "Left justifies the paragraphs"
 msgstr "Venstrejusterar avsnitta"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
-#: components/html-editor/body.c:187
-#: components/html-editor/editor-control-factory.c:221
-#: components/html-editor/menubar.c:111 components/html-editor/menubar.c:132
-#: components/html-editor/popup.c:178
+#: components/html-editor/body.c:306 components/html-editor/menubar.c:123
+#: components/html-editor/popup.c:165 components/html-editor/popup.c:238
 msgid "Link"
 msgstr "Lenkje"
 
@@ -378,388 +378,425 @@ msgid "Make the current Paragraph style Normal"
 msgstr "Gjer avsnittet om til Normal stil"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
+msgid "Make the current Paragraph style Preformat"
+msgstr "Gjer denne paragrafen om til stilen preformatert"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
 msgid "Make the current paragraph a bulleted list"
 msgstr "Gjer avsnittet om til ei punktmerka liste"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
 msgid "Make the current paragraph a list with roman numerals"
 msgstr "Gjer avsnittet om til ei liste med romerske tal"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
 msgid "Make the current paragraph a numbered list"
 msgstr "Gjer avsnittet om til ei nummert liste"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
 msgid "Make the current paragraph an H1 header"
 msgstr "Gjer avsnittet om til ei H1-topptekst"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
 msgid "Make the current paragraph an H2 header"
 msgstr "Gjer avsnittet om til ei H2-topptekst"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
 msgid "Make the current paragraph an H3 header"
 msgstr "Gjer avsnittet om til ei H3-topptekst"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
 msgid "Make the current paragraph an H4 header"
 msgstr "Gjer avsnittet om til ei H4-topptekst"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
 msgid "Make the current paragraph an H5 header"
 msgstr "Gjer avsnittet om til ei H5-topptekst"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
 msgid "Make the current paragraph an H6 header"
 msgstr "Gjer avsnittet om til ein H6-topptekst"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
 msgid "Make the current paragraph an address"
 msgstr "Gjer avsnittet om til ei adresse"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
 msgid "Make the current paragraph an alphabetical list"
 msgstr "Gjer avsnittet om til ei alfabetisk liste"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
 msgid "Modify the file's properties"
 msgstr "Endre eigenskapar for fila"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
-#: components/html-editor/gtkhtml-editor-properties.glade.h:24
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
+#: components/html-editor/gtkhtml-editor-properties.glade.h:46
 #: components/html-editor/paragraph.c:124 components/html-editor/toolbar.c:50
 msgid "Normal"
 msgstr "Vanleg"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
 #: components/html-editor/toolbar.c:60
 msgid "Numbered List"
 msgstr "Nummerert liste"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
 msgid "Numbered _List"
 msgstr "Nummerert _liste"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
 msgid "Orange"
 msgstr "Oransje"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 msgid "Other..."
 msgstr "Andre ..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
-#: components/html-editor/popup.c:405
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
+#: components/html-editor/popup.c:425
 msgid "Paste"
 msgstr "Lim inn"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
 msgid "Paste from clipboard"
 msgstr "Lim inn frå utklippstavle"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
 msgid "Paste the clipboard"
 msgstr "Lim inn frå utklippstavla"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
 msgid "Pr_operties..."
 msgstr "_Eigenskapar ..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
 #: components/html-editor/toolbar.c:51
 msgid "Preformat"
 msgstr "Preformater"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
 msgid "Purple"
 msgstr "Lilla"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
 msgid "Red"
 msgstr "Raud"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
 msgid "Redo"
 msgstr "Gjer om"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
 msgid "Redo previously undone change"
 msgstr "Gjer om att eit angra trekk"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
 msgid "Redo the undone action"
 msgstr "Gjer om handlinga som du har angra på"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
 #: components/html-editor/replace.c:84 components/html-editor/replace.c:146
 #: components/html-editor/replace.c:158 components/html-editor/replace.c:204
 msgid "Replace"
 msgstr "Byt ut"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
 #: components/html-editor/toolbar.c:502
 msgid "Right justifies the paragraphs"
 msgstr "Høgrejusterar avsnittet"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
 msgid "Roman Numeral List"
 msgstr "Liste med romerske tal"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
-#: components/html-editor/editor-control-factory.c:206
-#: components/html-editor/gtkhtml-editor-properties.glade.h:36
-#: components/html-editor/menubar.c:150 components/html-editor/popup.c:192
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
+#: components/html-editor/editor-control-factory.c:207
+#: components/html-editor/gtkhtml-editor-properties.glade.h:60
+#: components/html-editor/menubar.c:141 components/html-editor/popup.c:193
 msgid "Rule"
 msgstr "Regel"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
 msgid "Select _All"
 msgstr "Vel _alt"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
 msgid "Select the entire contents of the document"
 msgstr "Vel heile innhaldet i dokumentet"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
-#: components/html-editor/text.c:183 components/html-editor/toolbar.c:517
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
+#: components/html-editor/gtkhtml-editor-properties.glade.h:66
+#: components/html-editor/text.c:222 components/html-editor/toolbar.c:517
 msgid "Strikeout"
 msgstr "Gjennomstreking"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
 msgid "Su_perscript"
 msgstr "_Heva"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
 msgid "Subs_cript"
 msgstr "Senka"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
 msgid "Subscript"
 msgstr "Senka"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 msgid "Superscript"
 msgstr "Heva"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
-#: components/html-editor/gtkhtml-editor-properties.glade.h:44
-#: components/html-editor/menubar.c:167 components/html-editor/popup.c:199
-#: components/html-editor/popup.c:458 components/html-editor/popup.c:467
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
+#: components/html-editor/gtkhtml-editor-properties.glade.h:69
+#: components/html-editor/menubar.c:158 components/html-editor/popup.c:200
+#: components/html-editor/popup.c:473 components/html-editor/popup.c:482
 msgid "Table"
 msgstr "Tabell"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
 msgid "Te_mplate..."
 msgstr "_Mal ..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
-#: components/html-editor/gtkhtml-editor-properties.glade.h:46
-#: components/html-editor/menubar.c:190
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
+#: components/html-editor/body.c:233
+#: components/html-editor/gtkhtml-editor-properties.glade.h:71
+#: components/html-editor/menubar.c:181
 msgid "Template"
 msgstr "Mal"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
 #: components/html-editor/toolbar.c:509
 msgid "Typewriter"
 msgstr "Skrivemaskin"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
 msgid "Undo"
 msgstr "Angre"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
 msgid "Undo previous changes"
 msgstr "Gjer om tidlegare endringar"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 msgid "Undo the last action"
 msgstr "Gjer om siste handling"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 msgid "Yellow"
 msgstr "Gul"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
 msgid "_Alignment"
 msgstr "_Justering"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
 msgid "_Alphabetical List"
 msgstr "_Alfabetisk liste"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
 msgid "_Bold"
 msgstr "_Feit"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
 msgid "_Bulleted List"
 msgstr "_Punktmerka liste"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
 msgid "_Center"
 msgstr "_Sentrert"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
 msgid "_Copy"
 msgstr "_Kopier"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
 msgid "_Decrease Indent"
 msgstr "_Minsk innrykk"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
 msgid "_Edit"
 msgstr "R_ediger"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 msgid "_Find..."
 msgstr "_Finn ..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
 msgid "_Font Size"
 msgstr "_Skriftstorleik"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 msgid "_Heading"
 msgstr "_Tittel"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
 msgid "_Image..."
 msgstr "_Bilete ..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
 msgid "_Increase Indent"
 msgstr "_Auk innrykk"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
 msgid "_Insert"
 msgstr "Set _inn"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
 msgid "_Italic"
 msgstr "_Kursiv"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
 msgid "_Left"
 msgstr "_Venstre"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
 msgid "_Link..."
 msgstr "_Lenke ..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
 msgid "_Normal"
 msgstr "_Vanleg"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
+msgid "_Page..."
+msgstr "_Side ..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
+msgid "_Paragraph..."
+msgstr "_Avsnitt ..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
 msgid "_Paste"
 msgstr "_Lim inn"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
 msgid "_Plain text"
 msgstr "_Rein tekst"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
 msgid "_Preformat"
 msgstr "_Preformater"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
 msgid "_Redo"
 msgstr "Gje_r om"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
 msgid "_Replace..."
 msgstr "_Erstatt ..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
 msgid "_Right"
 msgstr "Høg_re"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
 msgid "_Roman Numeral List"
 msgstr "_Romersk numerisk liste"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
 msgid "_Rule..."
 msgstr "_Regel ..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
-msgid "_Spell check document..."
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
+msgid "_Spell Check Document..."
 msgstr "_Sjekk staving i dokument ..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
 msgid "_Strikeout"
 msgstr "_Strek gjennom"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
 msgid "_Style"
 msgstr "_Stil"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
 msgid "_Table..."
 msgstr "_Tabell ..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
+msgid "_Text..."
+msgstr "_Tekst ..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
 msgid "_Underline"
 msgstr "_Understreka"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
 msgid "_Undo"
 msgstr "_Angre"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
 msgid "etc..."
 msgstr "etc ..."
 
-#: components/html-editor/body.c:134 components/html-editor/body.c:138
+#: components/html-editor/body.c:63
+#: components/html-editor/gtkhtml-editor-properties.glade.h:45
+msgid "None"
+msgstr "Ingen"
+
+#: components/html-editor/body.c:70
+msgid "Test"
+msgstr "Tekst"
+
+#: components/html-editor/body.c:77
+msgid "Test 1"
+msgstr "Test 1"
+
+#: components/html-editor/body.c:250
+msgid "Document Title"
+msgstr "Dokument-tittel"
+
+#: components/html-editor/body.c:254 components/html-editor/body.c:257
+#: components/html-editor/gtkhtml-editor-properties.glade.h:14
 msgid "Background Image"
 msgstr "Bakgrunnsbilete"
 
-#: components/html-editor/body.c:137
-msgid "Enable"
-msgstr "Skru på"
-
-#: components/html-editor/body.c:166
+#: components/html-editor/body.c:283
+#: components/html-editor/gtkhtml-editor-properties.glade.h:23
 msgid "Colors"
 msgstr "Fargar"
 
-#: components/html-editor/body.c:175 components/html-editor/cell.c:391
-#: components/html-editor/table.c:534 components/html-editor/text.c:221
+#: components/html-editor/body.c:293 components/html-editor/cell.c:391
+#: components/html-editor/table.c:534 components/html-editor/text.c:283
 #: components/html-editor/toolbar.c:290
 msgid "Automatic"
 msgstr "Automatisk"
 
-#: components/html-editor/body.c:186
-#: components/html-editor/editor-control-factory.c:195
-#: components/html-editor/menubar.c:127 components/html-editor/popup.c:157
+#: components/html-editor/body.c:305
+#: components/html-editor/editor-control-factory.c:196
+#: components/html-editor/gtkhtml-editor-properties.glade.h:72
+#: components/html-editor/menubar.c:242 components/html-editor/popup.c:158
 msgid "Text"
 msgstr "Tekst"
 
-#: components/html-editor/body.c:188
-#: components/html-editor/gtkhtml-editor-properties.glade.h:5
+#: components/html-editor/body.c:307
+#: components/html-editor/gtkhtml-editor-properties.glade.h:13
 msgid "Background"
 msgstr "Bakgrunn"
 
-#: components/html-editor/editor-control-factory.c:176
-#: components/html-editor/popup.c:149
+#: components/html-editor/editor-control-factory.c:177
+#: components/html-editor/menubar.c:221 components/html-editor/menubar.c:239
+#: components/html-editor/menubar.c:257 components/html-editor/popup.c:150
+#: components/html-editor/popup.c:235
 msgid "Properties"
 msgstr "Eigenskapar"
 
-#: components/html-editor/editor-control-factory.c:216
-#: components/html-editor/popup.c:171
+#: components/html-editor/editor-control-factory.c:217
+#: components/html-editor/menubar.c:260 components/html-editor/popup.c:179
 msgid "Paragraph"
 msgstr "Avsnitt"
 
-#: components/html-editor/editor-control-factory.c:226
-#: components/html-editor/popup.c:185
+#: components/html-editor/editor-control-factory.c:222
+#: components/html-editor/gtkhtml-editor-properties.glade.h:49
+#: components/html-editor/menubar.c:224 components/html-editor/popup.c:186
 msgid "Page"
 msgstr "Side"
 
-#: components/html-editor/editor-control-factory.c:843
+#: components/html-editor/editor-control-factory.c:838
 msgid "Could not initialize GNORBA"
 msgstr "Klarte ikkje å initialisere GNORBA"
 
-#: components/html-editor/editor-control-factory.c:856
+#: components/html-editor/editor-control-factory.c:851
 msgid "Could not initialize Bonobo"
 msgstr "Klarte ikkje initialisere Bonobo"
 
@@ -767,234 +804,329 @@ msgstr "Klarte ikkje initialisere Bonobo"
 msgid "************"
 msgstr "************"
 
-#. ADD_ITEM("Left",   GDK_F4);
-#. ADD_ITEM("Right",  GDK_F5);
 #: components/html-editor/gtkhtml-editor-properties.glade.h:2
-#: components/html-editor/image.c:207
+msgid "***text***"
+msgstr "***tekst***"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:7
+msgid "+4"
+msgstr "+4"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:10
 msgid "Alignment"
 msgstr "Justering"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:3
+#: components/html-editor/gtkhtml-editor-properties.glade.h:11
 msgid "Alignment:"
 msgstr "Justering:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:4
+#: components/html-editor/gtkhtml-editor-properties.glade.h:12
 msgid "Apply changes to:"
 msgstr "Påfør endringar på:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:6
+#: components/html-editor/gtkhtml-editor-properties.glade.h:15
+#: components/html-editor/text.c:219 components/html-editor/toolbar.c:511
+msgid "Bold"
+msgstr "Feit"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:16
+msgid "Border"
+msgstr "Kant"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:17
 msgid "Border:"
 msgstr "Kantlinje:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:7
-#: components/html-editor/image.c:203
+#: components/html-editor/gtkhtml-editor-properties.glade.h:18
 msgid "Bottom"
 msgstr "Nederst"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:8
-#: components/html-editor/popup.c:206
+#: components/html-editor/gtkhtml-editor-properties.glade.h:19
+#: components/html-editor/popup.c:207
 msgid "Cell"
 msgstr "Celle"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:9
+#: components/html-editor/gtkhtml-editor-properties.glade.h:20
 #: components/html-editor/paragraph.c:159 components/html-editor/toolbar.c:500
 msgid "Center"
 msgstr "Midtstill"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:10
+#: components/html-editor/gtkhtml-editor-properties.glade.h:21
+#: components/html-editor/link.c:105 components/html-editor/text.c:230
+msgid "Click will follow this URL"
+msgstr "Klikk for å følgje denne URLen"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:22
 msgid "Color:"
 msgstr "Farge:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:11
-#: components/html-editor/popup.c:469
+#: components/html-editor/gtkhtml-editor-properties.glade.h:24
+#: components/html-editor/popup.c:484
 msgid "Column"
 msgstr "Kolonne"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:12
+#: components/html-editor/gtkhtml-editor-properties.glade.h:25
 msgid "Column span:"
 msgstr "Kolonnarbreidde:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:13
+#: components/html-editor/gtkhtml-editor-properties.glade.h:26
 msgid "Columns:"
 msgstr "Kolonnar:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:14
+#: components/html-editor/gtkhtml-editor-properties.glade.h:27
 msgid "Don't wrap"
 msgstr "Ikkje bryt"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:15
+#: components/html-editor/gtkhtml-editor-properties.glade.h:28
+msgid "Enable"
+msgstr "Skru på"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:29
+msgid "Follow"
+msgstr "Følg"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:30
+msgid "Font size"
+msgstr "Skriftstorleik"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:31
+msgid "Foreground color"
+msgstr "Framgrunnsfarge"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:32
 msgid "Header"
 msgstr "Tittel"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:16
+#: components/html-editor/gtkhtml-editor-properties.glade.h:33
 msgid "Height:"
 msgstr "Høgd:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:17
+#: components/html-editor/gtkhtml-editor-properties.glade.h:34
 msgid "Horizontal alignment:"
 msgstr "Vassrett justering:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:18
+#: components/html-editor/gtkhtml-editor-properties.glade.h:35
 msgid "Horizontal:"
 msgstr "Vassrett:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:19
+#: components/html-editor/gtkhtml-editor-properties.glade.h:37
+#: components/html-editor/text.c:220 components/html-editor/toolbar.c:513
+msgid "Italic"
+msgstr "Kursiv"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:38
 #: components/html-editor/paragraph.c:158
 msgid "Left"
 msgstr "Venstre"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:20
+#: components/html-editor/gtkhtml-editor-properties.glade.h:39
 msgid "Length:"
 msgstr "Lengd:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:21
-#: components/html-editor/image.c:202
+#: components/html-editor/gtkhtml-editor-properties.glade.h:40
+msgid "Link insert"
+msgstr "Set inn lenkje"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:41
+msgid "Link properties"
+msgstr "Lenkje eigenskapar"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:42
+msgid "Location"
+msgstr "Adresse"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:43
 msgid "Middle"
 msgstr "Mellomnamn"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:23
-msgid "None"
-msgstr "Ingen"
+#: components/html-editor/gtkhtml-editor-properties.glade.h:47
+msgid "Padding"
+msgstr "Fyll"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:25
+#: components/html-editor/gtkhtml-editor-properties.glade.h:48
 msgid "Padding:"
 msgstr "Fyll"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:26
+#: components/html-editor/gtkhtml-editor-properties.glade.h:50
 msgid "Percent"
 msgstr "Prosent"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:28
-#: components/html-editor/image.c:257 components/html-editor/image.c:266
+#: components/html-editor/gtkhtml-editor-properties.glade.h:52
 #, no-c-format
 msgid "Percent %"
 msgstr "Prosent %"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:29
-#: components/html-editor/image.c:256 components/html-editor/image.c:265
+#: components/html-editor/gtkhtml-editor-properties.glade.h:53
 msgid "Pixels"
 msgstr "Pikslar"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:30
+#: components/html-editor/gtkhtml-editor-properties.glade.h:54
 msgid "Pixmap:"
 msgstr "Bilete:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:31
+#: components/html-editor/gtkhtml-editor-properties.glade.h:55
 msgid "Points"
 msgstr "Punkt"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:32
+#: components/html-editor/gtkhtml-editor-properties.glade.h:56
 #: components/html-editor/paragraph.c:160
 msgid "Right"
 msgstr "Høgre"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:33
-#: components/html-editor/popup.c:468
+#: components/html-editor/gtkhtml-editor-properties.glade.h:57
+#: components/html-editor/popup.c:483
 msgid "Row"
 msgstr "Rad"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:34
+#: components/html-editor/gtkhtml-editor-properties.glade.h:58
 msgid "Row span:"
 msgstr "Radbreidde"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:35
+#: components/html-editor/gtkhtml-editor-properties.glade.h:59
 msgid "Rows:"
 msgstr "Rader:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:37
+#: components/html-editor/gtkhtml-editor-properties.glade.h:61
 msgid "Scope"
 msgstr "Område"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:38
+#: components/html-editor/gtkhtml-editor-properties.glade.h:62
 msgid "Shaded"
 msgstr "Skuggelagd"
 
-#. size and spacing
-#: components/html-editor/gtkhtml-editor-properties.glade.h:39
-#: components/html-editor/image.c:249 components/html-editor/text.c:188
+#. , GTK_FILL | GTK_EXPAND, 0, 0, 0);
+#: components/html-editor/gtkhtml-editor-properties.glade.h:63
+#: components/html-editor/text.c:250
 msgid "Size"
 msgstr "Storleik"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:40
+#: components/html-editor/gtkhtml-editor-properties.glade.h:64
 msgid "Spacing"
 msgstr "Avstand"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:41
+#: components/html-editor/gtkhtml-editor-properties.glade.h:65
 msgid "Spacing:"
 msgstr "Mellomrom:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:42
-#: components/html-editor/paragraph.c:110 components/html-editor/text.c:168
+#: components/html-editor/gtkhtml-editor-properties.glade.h:67
+#: components/html-editor/paragraph.c:110 components/html-editor/text.c:206
 msgid "Style"
 msgstr "Stil"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:43
+#: components/html-editor/gtkhtml-editor-properties.glade.h:68
 msgid "Style:"
 msgstr "Stil:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:45
+#: components/html-editor/gtkhtml-editor-properties.glade.h:70
 msgid "Table Insert"
 msgstr "Sett inn tabell"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:47
-#: components/html-editor/image.c:201
+#: components/html-editor/gtkhtml-editor-properties.glade.h:73
+msgid "Thickness:"
+msgstr "Tjukkleik:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:74
 msgid "Top"
 msgstr "Øverst"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:48
+#: components/html-editor/gtkhtml-editor-properties.glade.h:75
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:515
+msgid "Underline"
+msgstr "Understreking"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:76
 msgid "Vertical:"
 msgstr "Loddrett:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:49
+#: components/html-editor/gtkhtml-editor-properties.glade.h:77
 msgid "Width:"
 msgstr "Breidd:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:50
+#: components/html-editor/gtkhtml-editor-properties.glade.h:78
 msgid "Wrap"
 msgstr "Bryt"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:51
+#: components/html-editor/gtkhtml-editor-properties.glade.h:79
 msgid "Wrapping:"
 msgstr "Bryting:"
 
-#: components/html-editor/image.c:179
-msgid "Image selection"
-msgstr "Bileteval"
+#: components/html-editor/gtkhtml-editor-properties.glade.h:80
+msgid "xxxxxxxxx"
+msgstr "xxxxxxxxx"
 
-#: components/html-editor/image.c:215
-msgid "Border"
-msgstr "Kant"
+#: components/html-editor/gtkhtml-editor-properties.glade.h:81
+msgid "xxxxxxxxxxxxxx"
+msgstr "xxxxxxxxxxxxxx"
 
-#: components/html-editor/image.c:225 components/html-editor/image.c:242
-#: components/html-editor/image.c:272
-msgid "width"
-msgstr "breidd"
+#: components/html-editor/image.c:115 components/html-editor/rule.c:92
+#: components/html-editor/table.c:190
+msgid "Plain"
+msgstr "Enkel"
 
-#. spacing
-#: components/html-editor/image.c:231
-msgid "Padding"
-msgstr "Fyll"
+#: components/html-editor/image.c:117
+msgid ""
+"@link_begin@<img@width@@height@@align@ "
+"border=@border@@padh@@padv@@src@>@link_end@"
+msgstr ""
+"@link_begin@<img@width@@height@@align@ "
+"border=@border@@padh@@padv@@src@>@link_end@"
 
-#: components/html-editor/image.c:243 components/html-editor/image.c:273
-msgid "height"
-msgstr "høgd"
+#: components/html-editor/image.c:120
+msgid "Frame"
+msgstr "Ramme"
 
-#: components/html-editor/link.c:85
-msgid "Clear"
-msgstr "Tøm"
+#: components/html-editor/image.c:122
+msgid ""
+"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+"@src@@width@@height@align=top "
+"border=0></td></tr></table></td></tr></table></center>"
+msgstr ""
+"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+"@src@@width@@height@align=top "
+"border=0></td></tr></table></td></tr></table></center>"
 
-#: components/html-editor/link.c:88
-msgid "URL"
-msgstr "URL"
+#: components/html-editor/image.c:130
+msgid "Caption"
+msgstr "Tittel"
 
-#: components/html-editor/menubar.c:104 components/html-editor/menubar.c:124
-#: components/html-editor/menubar.c:147 components/html-editor/menubar.c:164
-#: components/html-editor/menubar.c:187
-#: components/html-editor/properties.c:118
+#: components/html-editor/image.c:132
+msgid ""
+"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+"@src@@width@@height@align=top border=0></td></tr><tr><td><b>[Place your "
+"comment here]</td></tr></table></td></tr></table></center>"
+msgstr ""
+"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+"@src@@width@@height@align=top border=0></td></tr><tr><td><b>[Place your "
+"comment here]</td></tr></table></td></tr></table></center>"
+
+#: components/html-editor/image.c:252
+msgid "The quick brown fox jumped over the lazy dog. "
+msgstr "The quick brown fox jumped over the lazy dog.  æøå"
+
+#: components/html-editor/image.c:254
+msgid "The quick brown fox jumped over the lazy dog."
+msgstr "The quick brown fox jumped over the lazy dog. æøå "
+
+#: components/html-editor/link.c:87
+msgid "Link text"
+msgstr "Lenkjetekst"
+
+#: components/html-editor/menubar.c:105 components/html-editor/menubar.c:120
+#: components/html-editor/menubar.c:138 components/html-editor/menubar.c:155
+#: components/html-editor/menubar.c:178
+#: components/html-editor/properties.c:120
 msgid "Insert"
 msgstr "Set inn"
 
-#: components/html-editor/menubar.c:203
+#: components/html-editor/menubar.c:194
 msgid "Cannot execute gtkhtml properties"
 msgstr "Kan ikkje køyre gtkhtml eigenskapar"
 
@@ -1050,92 +1182,91 @@ msgstr "Alfabetisk oppføring"
 msgid "Align"
 msgstr "Juster"
 
-#: components/html-editor/popup.c:361
+#: components/html-editor/popup.c:381
 #, c-format
 msgid "Check '%s' spelling..."
 msgstr "Sjekk «%s» staving ..."
 
-#: components/html-editor/popup.c:364
+#: components/html-editor/popup.c:384
 #, c-format
 msgid "Add '%s' to dictionary"
 msgstr "Legg til «%s» til ordliste"
 
-#: components/html-editor/popup.c:367
+#: components/html-editor/popup.c:387
 #, c-format
 msgid "Ignore '%s'"
 msgstr "Oversjå «%s»"
 
-#: components/html-editor/popup.c:370 components/html-editor/spell.c:416
+#: components/html-editor/popup.c:390 components/html-editor/spell.c:418
 msgid "Spell checker"
 msgstr "Stavekontroll"
 
-#: components/html-editor/popup.c:374
+#: components/html-editor/popup.c:394
 msgid "Suggest word"
 msgstr "Foreslå ord"
 
-#: components/html-editor/popup.c:393
+#: components/html-editor/popup.c:413
 msgid "Remove link"
 msgstr "Fjern lenke"
 
-#: components/html-editor/popup.c:409 components/html-editor/popup.c:435
+#: components/html-editor/popup.c:432
 msgid "Text..."
 msgstr "Tekst ..."
 
-#: components/html-editor/popup.c:411 components/html-editor/popup.c:426
-#: components/html-editor/popup.c:437
+#: components/html-editor/popup.c:434 components/html-editor/popup.c:441
+#: components/html-editor/popup.c:453
 msgid "Paragraph..."
 msgstr "Avsnitt ..."
 
-#: components/html-editor/popup.c:413 components/html-editor/popup.c:428
 #: components/html-editor/popup.c:439
 msgid "Link..."
 msgstr "Lenke ..."
 
-#: components/html-editor/popup.c:419
+#: components/html-editor/popup.c:446
 msgid "Rule..."
 msgstr "Regel ..."
 
-#: components/html-editor/popup.c:424
+#: components/html-editor/popup.c:451
 msgid "Image..."
 msgstr "Bilete ..."
 
-#: components/html-editor/popup.c:444 components/html-editor/popup.c:454
+#: components/html-editor/popup.c:459 components/html-editor/popup.c:469
 msgid "Table..."
 msgstr "Tabell ..."
 
-#: components/html-editor/popup.c:451
+#: components/html-editor/popup.c:466
 msgid "Cell..."
 msgstr "Celle ..."
 
-#: components/html-editor/popup.c:457
+#: components/html-editor/popup.c:472
 msgid "Table insert"
 msgstr "Set inn tabell"
 
-#: components/html-editor/popup.c:460
+#: components/html-editor/popup.c:475
 msgid "Row above"
 msgstr "Rader over"
 
-#: components/html-editor/popup.c:461
+#: components/html-editor/popup.c:476
 msgid "Row below"
 msgstr "Rader under"
 
-#: components/html-editor/popup.c:463
+#: components/html-editor/popup.c:478
 msgid "Column before"
 msgstr "Kolonner før"
 
-#: components/html-editor/popup.c:464
+#: components/html-editor/popup.c:479
 msgid "Column after"
 msgstr "Kolonner etter"
 
-#: components/html-editor/popup.c:466
+#: components/html-editor/popup.c:481
 msgid "Table delete"
 msgstr "Slett tabell"
 
-#: components/html-editor/popup.c:470
+#: components/html-editor/popup.c:485
 msgid "Cell contents"
 msgstr "Celleinnhald"
 
-#: components/html-editor/popup.c:478
+#: components/html-editor/popup.c:493
 msgid "Page..."
 msgstr "Side ..."
 
@@ -1163,10 +1294,6 @@ msgstr "skil mellom små og store bokstavar"
 msgid "with"
 msgstr "med"
 
-#: components/html-editor/rule.c:92 components/html-editor/table.c:190
-msgid "Plain"
-msgstr "Enkel"
-
 #: components/html-editor/rule.c:97
 msgid "Blue 3D"
 msgstr "Blå 3D"
@@ -1183,9 +1310,13 @@ msgstr "baklengs"
 msgid "Find Regular Expression"
 msgstr "Finn regulært uttrykk"
 
-#: components/html-editor/spell.c:411
+#: components/html-editor/spell.c:413
 msgid "No misspelled word found"
 msgstr "Ingen feilstava ord"
+
+#: components/html-editor/spell.c:493
+msgid "Spell Checking _Languages"
+msgstr "Språk for stavekontrol_l"
 
 #: components/html-editor/table.c:198
 msgid "Flat gray"
@@ -1201,21 +1332,21 @@ msgstr "Merknad"
 
 #: components/html-editor/template.c:83
 msgid ""
-"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
-"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
-"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
+"<table cellspacing=0 cellpadding=1 "
+"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 cellspacing=0 "
+"width=\"100%\"><tr><td valign=top><img src=\"file://"
 msgstr ""
-"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
-"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
-"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
+"<table cellspacing=0 cellpadding=1 "
+"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 cellspacing=0 "
+"width=\"100%\"><tr><td valign=top><img src=\"file://"
 
 #: components/html-editor/template.c:85
 msgid ""
-"/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
-"tr></table></td></tr></table>"
+"/bulb.png\" hspace=10></td><td width=\"100%\">Place your text "
+"here</td></tr></table></td></tr></table>"
 msgstr ""
-"/bulb.png\" hspace=10></td><td width=\"100%\">Plasser teksta di her</td></"
-"tr></table></td></tr></table>"
+"/bulb.png\" hspace=10></td><td width=\"100%\">Plasser teksta di "
+"her</td></tr></table></td></tr></table>"
 
 #: components/html-editor/template.c:91
 msgid "Image frame"
@@ -1224,20 +1355,20 @@ msgstr "Bileterame"
 #: components/html-editor/template.c:93
 msgid ""
 "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
-"\"><tr><td align=\"center\"><img src=\"file://"
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" "
+"width=\"100%\"><tr><td align=\"center\"><img src=\"file://"
 msgstr ""
 "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
-"\"><tr><td align=\"center\"><img src=\"file://"
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" "
+"width=\"100%\"><tr><td align=\"center\"><img src=\"file://"
 
 #: components/html-editor/template.c:97
 msgid ""
-"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
-"\"-1\">Image 1: <b>description</b></font></td></tr></table></td></tr></table>"
+"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
+"size=\"-1\">Image 1: <b>description</b></font></td></tr></table></td></tr></table>"
 msgstr ""
-"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
-"\"-1\">Bilete 1: <b>skildring</b></font></td></tr></table></td></tr></table>"
+"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
+"size=\"-1\">Bilete 1: <b>skildring</b></font></td></tr></table></td></tr></table>"
 
 #: components/html-editor/test-html-editor-control.c:276
 msgid "Open file..."
@@ -1247,17 +1378,10 @@ msgstr "Opne fil ..."
 msgid "Save file as..."
 msgstr "Lagra fil som ..."
 
-#: components/html-editor/text.c:180 components/html-editor/toolbar.c:511
-msgid "Bold"
-msgstr "Feit"
-
-#: components/html-editor/text.c:181 components/html-editor/toolbar.c:513
-msgid "Italic"
-msgstr "Kursiv"
-
-#: components/html-editor/text.c:182 components/html-editor/toolbar.c:515
-msgid "Underline"
-msgstr "Understreking"
+#. color selection
+#: components/html-editor/text.c:280
+msgid "Color"
+msgstr "Farge"
 
 #: components/html-editor/toolbar.c:61
 msgid "Roman List"
@@ -1311,9 +1435,65 @@ msgstr "Rykker inn avsnittet"
 msgid "Sample"
 msgstr "Prøve"
 
+#: src/html-component.c:219
+msgid "Html"
+msgstr "Html"
+
+#: src/html-component.c:220
+msgid "Html test"
+msgstr "Html test"
+
+#: src/html-component.c:226
+msgid "Test1"
+msgstr "Test1"
+
+#: src/html-component.c:233
+msgid "Test2"
+msgstr "Test2"
+
+#: src/html-component.c:239
+msgid "Test3"
+msgstr "Test3"
+
+#: src/html-component.c:245
+msgid "Test4"
+msgstr "Test5"
+
+#: src/html-component.c:251
+msgid "Test5"
+msgstr "Test5"
+
+#: src/html-component.c:257
+msgid "Test6"
+msgstr "Test6"
+
+#: src/html-component.c:263
+msgid "Test7"
+msgstr "Test7"
+
+#: src/html-component.c:617
+msgid "_Refresh"
+msgstr "F_risk opp"
+
+#: src/html-component.c:618
+msgid "Reload the page"
+msgstr "Last om att denne sida"
+
+#: src/html-component.c:669
+msgid "Could not initialize Bonobo!"
+msgstr "Klarte ikkje initialisere Bonobo!"
+
+#: src/htmlengine-print.c:200
+msgid "Cannot allocate default font for printing\n"
+msgstr "Klarar ikkje å allokére standard skrifttype for utskrift\n"
+
 #: src/htmlgdkpainter.c:228
 msgid "Can't load fixed font."
 msgstr "Kan ikkje laste fast skrifttype"
+
+#: src/htmlprinter.c:69
+msgid "US-Letter"
+msgstr "US-Letter"
 
 #: src/testgtkhtml.c:112
 msgid "Print pre_view"
@@ -1322,6 +1502,27 @@ msgstr "Førehands_vising av utskrift"
 #: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "Førehandsvising av utskrift"
+
+#~ msgid "Language"
+#~ msgstr "Språk"
+
+#~ msgid "Pick a color"
+#~ msgstr "Vel ein farge"
+
+#~ msgid "Image selection"
+#~ msgstr "Bileteval"
+
+#~ msgid "width"
+#~ msgstr "breidd"
+
+#~ msgid "height"
+#~ msgstr "høgd"
+
+#~ msgid "Clear"
+#~ msgstr "Tøm"
+
+#~ msgid "URL"
+#~ msgstr "URL"
 
 #, fuzzy
 #~ msgid "_Header _3"
