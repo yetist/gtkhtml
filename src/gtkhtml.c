@@ -87,6 +87,8 @@ static GtkTargetEntry dnd_link_sources [] = {
 
 #define GNOME_SPELL_GCONF_DIR "/GNOME/Spell"
 
+#define d_s(x) 
+
 static GtkLayoutClass *parent_class = NULL;
 
 #ifdef GTKHTML_HAVE_GCONF
@@ -1645,6 +1647,46 @@ replace_nbsp (const guchar *text)
 	return ntext;
 }
 
+static char *
+ucs2_order (gboolean swap)
+{
+	gboolean be;
+
+	be = G_BYTE_ORDER == G_BIG_ENDIAN;
+	be = swap ? be : !be;	
+
+	if (be)
+		return "ucs2-be";
+	else 
+		return "ucs2-le";
+	
+}
+
+static gint
+ucs2_len (guchar *buffer) {
+	guchar *p;
+	
+	for (p = buffer; p != 0; p += 2)
+		if (*p == 0 && *(p + 1) == 0)
+			return p - buffer;
+
+	/* not reached */
+	return 0;
+}
+
+static void
+string_append_unichar (GString *string, gunichar uc)
+{
+	guchar bits[7], *p;
+	gint   len;
+	
+	len = g_unichar_to_utf8 (uc, bits);
+
+	p = bits;
+	while (len--)
+		g_string_append_c (string, *p++);
+}
+
 static void
 selection_get (GtkWidget        *widget, 
 	       GtkSelectionData *selection_data,
@@ -1684,17 +1726,20 @@ selection_get (GtkWidget        *widget,
 			GString *buffer;
 
 			state = html_engine_save_buffer_new (html->engine);
-			html_object_save (selection_object, state);
 			buffer = (GString *)state->user_data;
+
+			/* prepend a byte order marker (ZWNBSP) to the selection */
+			string_append_unichar (buffer, 0xfeff);
+			html_object_save (selection_object, state);
 			
-			g_warning ("BUFFER = %s", buffer->str);
+			d_s (g_warning ("text/html buffer = %s", buffer->str);)
 			selection_string = e_utf8_to_charset_string_sized ("ucs2", buffer->str, buffer->len);
 			
 			if (selection_string)
 				gtk_selection_data_set (selection_data,
-							gdk_atom_intern ("text/html", FALSE), 16,
+							gdk_atom_intern ("text/html", FALSE), 8,
 							selection_string,
-							g_utf8_strlen (buffer->str, buffer->len) * 2); /* FIXME semi bogus length */
+							ucs2_len (selection_string));
 			
 			html_engine_save_buffer_free (state);
 		}				
@@ -1796,7 +1841,8 @@ selection_received (GtkWidget *widget,
 		} else if (selection_data->selection == GDK_SELECTION_PRIMARY
 			   && GTK_HTML (widget)->priv->primary) {
 
-			html_engine_paste_object (e, GTK_HTML (widget)->priv->primary, GTK_HTML (widget)->priv->primary_len);
+			html_engine_paste_object (e, GTK_HTML (widget)->priv->primary, 
+						  GTK_HTML (widget)->priv->primary_len);
 			GTK_HTML (widget)->priv->primary = NULL;
 			return;
 		}
@@ -1822,23 +1868,53 @@ selection_received (GtkWidget *widget,
 		g_warning ("Selection \"STRING\" was not returned as strings!\n");
 	} else if (selection_data->length > 0) {
 		if (selection_data->type == gdk_atom_intern ("text/html", FALSE)) {
-			gchar *utf8 = NULL;
-			
-			/* FIXME This hack decides the charset of the selection.  It seems that
+			guint    len  = (guint)selection_data->length;
+			guchar  *data = selection_data->data;
+			gchar   *utf8 = NULL;
+
+      			/* 
+			 * FIXME This hack decides the charset of the selection.  It seems that
 			 * mozilla/netscape alway use ucs2 for text/html
 			 * and openoffice.org seems to always use utf8 so we try to validate
 			 * the string as utf8 and if that fails we assume it is ucs2 
 			 */
-			if (!g_utf8_validate (selection_data->data, selection_data->length - 1, NULL)) {
-				utf8 = e_utf8_from_charset_string_sized ("ucs2",
-									 selection_data->data,
-									 (guint) selection_data->length);
 
-				g_warning ("UTF8 selection = %s", utf8);
+			if (len > 1 && 
+			    !g_utf8_validate (data, len - 1, NULL)) {
+				char    *tocode = NULL;
+				guint16 c;
+
+				/*
+				 * Unicode Techinical Report 20 ( http://www.unicode.org/unicode/reports/tr20/ )
+				 * says to treat an initial 0xfeff (ZWNBSP) as a byte order indicator so that is
+				 * what we do.  If there is no indicator assume it is in the default order
+				 */
+				memcpy (&c, data, 2);
+				switch (c) {
+				case 0xfeff:
+				case 0xfffe:
+					tocode = ucs2_order (c == 0xfeff);
+					data += 2;
+					len  -= 2;
+					break;
+				default:
+					tocode = "ucs2";
+					break;
+				}
+				
+				utf8 = e_utf8_from_charset_string_sized ("ucs2",
+									 data,
+									 len);
+
+				d_s (g_warning ("UCS2 selection = %s", utf8);)
+			} else if (len > 0) {
+				d_s (g_warning ("UTF-8 selection (%d) = %s", len, data);)
+
+				utf8 = g_malloc0 (len + 1);
+				memcpy (utf8, data, len);
 			} else {
-				g_warning ("SELECTION (%d) = %s", selection_data->length, selection_data->data);
-				utf8 = g_malloc0 (selection_data->length + 1);
-				memcpy (utf8, selection_data->data, selection_data->length);
+				g_warning ("unable to determine selection charset");
+				return;
 			}
 
 			if (as_cite) {
