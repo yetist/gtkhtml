@@ -737,8 +737,7 @@ key_press_event (GtkWidget *widget,
 
 	if (! retval
 	    && html_engine_get_editable (html->engine)
-	    && ! (event->state & (GDK_CONTROL_MASK | GDK_MOD1_MASK))
-	    && event->length > 0) {
+	    && ! (event->state & (GDK_CONTROL_MASK | GDK_MOD1_MASK))) {
 		gchar *str;
 
 		/*
@@ -747,7 +746,10 @@ key_press_event (GtkWidget *widget,
 		*/
 
 		str = e_utf8_from_gtk_event_key (widget, event->keyval, event->string);
-		/* printf ("len: %d str: %s\n", str ? g_utf8_strlen (str, -1) : -1, str); */
+		/*
+		printf ("len: %d str: %s\n", str ? g_utf8_strlen (str, -1) : -1, str);
+		*/
+
 		if (str)
 			html_engine_paste_text (html->engine, str, g_utf8_strlen (str, -1));
 		else if (event->length == 1 && event->string
@@ -767,8 +769,12 @@ key_press_event (GtkWidget *widget,
 		gtk_html_update_styles (html);
 
 	html->priv->event_time = 0;
-
-	/* printf ("editable: %d keyval %d\n", html_engine_get_editable (html->engine), event->keyval); */
+	
+	/*
+	printf ("editable: %d keyval %d len: %d\n string: %s", 
+		html_engine_get_editable (html->engine), 
+		event->keyval, event->length, event->string);
+	*/
 	if (!html_engine_get_editable (html->engine)) {
 		switch (event->keyval) {
 		case GDK_Return:
