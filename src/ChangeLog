@@ -1,3 +1,8 @@
+2000-02-07  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmltable.c (calc_preferred_width): Do not calc_size.
+	(calc_min_width): Likewise.
+
 2000-02-04  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlimage.c (calc_min_width): Fixed brainos.
