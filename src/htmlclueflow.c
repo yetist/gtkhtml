@@ -691,7 +691,8 @@ layout_line (HTMLObject *o, HTMLPainter *painter, HTMLObject *begin,
 	x = start_lmargin = *lmargin;
 	o->ascent += o->y - old_y;
 
-	while (cur && !(cur->flags & HTML_OBJECT_FLAG_ALIGNED) && (x < *rmargin || first)) {
+	while (cur && !(cur->flags & HTML_OBJECT_FLAG_ALIGNED) && (HTML_CLUEFLOW (o)->style == HTML_CLUEFLOW_STYLE_PRE
+								   || (x < *rmargin || first))) {
 		HTMLFitType fit;
 		HTMLVAlignType valign;
 
@@ -710,7 +711,7 @@ layout_line (HTMLObject *o, HTMLPainter *painter, HTMLObject *begin,
 						  indent, &o->y, lmargin, rmargin);
 
 			/* is there enough space for this object? */
-			if (o->y != old_y && *rmargin - x < nb_width)
+			if (HTML_CLUEFLOW (o)->style != HTML_CLUEFLOW_STYLE_PRE && o->y != old_y && *rmargin - x < nb_width)
 				break;
 			need_update_height = TRUE;
 		}
