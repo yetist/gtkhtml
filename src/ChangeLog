@@ -1,3 +1,12 @@
+2002-10-04  Radek Doulik  <rodo@ximian.com>
+
+	* htmlcluev.c (draw): fixed calculation of x,y for aligned objects
+	drawing
+
+2002-10-03  Radek Doulik  <rodo@ximian.com>
+
+	* testgtkhtml.c (goto_url): set base before loading
+
 2002-10-07  Radek Doulik  <rodo@ximian.com>
 
 	* htmltextslave.c (get_offset_for_pointer): fix for utf8, start on
