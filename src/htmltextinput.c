@@ -20,9 +20,12 @@
 */
 
 #include <config.h>
+#include <gdk/gdkkeysyms.h>
 #include <gtk/gtkentry.h>
-#include "htmltextinput.h"
 #include <string.h>
+
+#include "htmltextinput.h"
+#include "htmlform.h"
 
 
 HTMLTextInputClass html_text_input_class;
@@ -64,6 +67,43 @@ reset (HTMLEmbedded *e)
 	gtk_entry_set_text (GTK_ENTRY(e->widget), HTML_TEXTINPUT(e)->default_text);
 }
 
+static gboolean
+html_text_input_key_pressed (GtkWidget *w, GdkEventKey *ev, gpointer p) 
+{
+	HTMLEmbedded *e = HTML_EMBEDDED(p);
+	HTMLEmbedded *next = NULL;
+	HTMLEmbedded *current = NULL;
+	gboolean found = FALSE;
+	GList *node;
+	
+	if (ev->keyval == GDK_Return) {
+		current = HTML_EMBEDDED(node->data);
+		for (node = e->form->elements; node; node = node->next) {
+			
+			/* focus on the next visible element */
+			if (current->widget && found
+			    && HTML_OBJECT_TYPE(current) != HTML_TYPE_BUTTON
+			    && HTML_OBJECT_TYPE(current) != HTML_TYPE_IMAGEINPUT) {
+				next = current;
+				break;
+			}
+			
+			if (node->data == e)
+				found = TRUE;
+		}
+		
+		if (next)
+			gtk_widget_grab_focus (next->widget);
+		else if (found)
+			html_form_submit (e->form);
+		else
+			g_warning ("Not in form's element list.  Couldn't focus successor.");
+		
+		gtk_signal_emit_stop_by_name(GTK_OBJECT(w), "key_press_event");
+		return TRUE;
+	}
+	return FALSE;
+}
 
 /* HTMLEmbedded methods.  */
 
@@ -134,9 +174,9 @@ html_text_input_init (HTMLTextInput *ti,
 		      gint maxlen,
 		      gboolean password)
 {
-
 	HTMLEmbedded *element;
 	HTMLObject *object;
+	GtkWidget *entry;
 	gint min_width;
 
 	element = HTML_EMBEDDED (ti);
@@ -145,7 +185,12 @@ html_text_input_init (HTMLTextInput *ti,
 	html_embedded_init (element, HTML_EMBEDDED_CLASS (klass),
 			   parent, name, value);
 
-	html_embedded_set_widget (element, gtk_entry_new());
+	entry = gtk_entry_new ();
+	html_embedded_set_widget (element, entry);
+	gtk_signal_connect_after (GTK_OBJECT (entry), "key_press_event",
+				  GTK_SIGNAL_FUNC (html_text_input_key_pressed),
+				  element);
+
 	if (strlen (element->value))	
 		gtk_entry_set_text (GTK_ENTRY(element->widget), element->value);
 

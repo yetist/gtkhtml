@@ -1,5 +1,12 @@
 2001-06-04  Larry Ewing  <lewing@ximian.com>
 
+	* htmltextinput.c (html_text_input_key_pressed): Make enter focus
+	on the next widget or submit the form if there are no more
+	widgets.  This is based on a patch by someone who's name I can't
+	find, I'll update this entry when I do.
+	(html_text_input_init): attach html_text_input_key_pressed to the
+	widget.
+
 	* htmlengine.c (html_engine_destroy): destroy the stacks we had
 	missed.
 	(parse_f): destroy the frame if we don't add it.
