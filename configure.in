@@ -32,23 +32,23 @@ AC_CHECK_FUNC(re_compile_pattern, AC_DEFINE(HAVE_GNU_REGEX))
 dnl glibwww checks.
 have_glibwww=false
 AC_MSG_CHECKING(for glibwww >= 0.2)
-#if gnome-config --libs glibwww > /dev/null 2>&1; then
-#	vers=`gnome-config --modversion glibwww | sed -e "s/glibwww-//" | \
-#		awk 'BEGIN { FS = "."; } { printf "%d", $1 * 1000 + $2;}'`
+if gnome-config --libs glibwww > /dev/null 2>&1; then
+	vers=`gnome-config --modversion glibwww | sed -e "s/glibwww-//" | \
+		awk 'BEGIN { FS = "."; } { printf "%d", $1 * 1000 + $2;}'`
 
-#	if test "$vers" -ge 2; then
-#		AC_MSG_RESULT([found])
+	if test "$vers" -ge 2; then
+		AC_MSG_RESULT([found])
 
-#		GLIBWWW_CFLAGS="`gnome-config --cflags glibwww`"
-#		GLIBWWW_LIBS="`gnome-config --libs glibwww`"
+		GLIBWWW_CFLAGS="`gnome-config --cflags glibwww`"
+		GLIBWWW_LIBS="`gnome-config --libs glibwww`"
 
-#		have_glibwww=true
-#	else
-#		AC_MSG_RESULT(not found)
-#	fi
-#else
+		have_glibwww=true
+	else
+		AC_MSG_RESULT(not found)
+	fi
+else
 	AC_MSG_RESULT(not found)
-#fi
+fi
 
 if $have_glibwww ; then
 	AC_DEFINE(HAVE_GLIBWWW)
