@@ -1,3 +1,8 @@
+2003-03-02  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (html_engine_thaw_idle_flush): change idle_reset to
+	idle_flush so that we always thaw the changes.
+
 2003-02-28  Larry Ewing  <lewing@ximian.com>
 
 	* htmlimage.c (html_image_resolve_image_url): fix the GValue usage.

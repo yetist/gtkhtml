@@ -3832,7 +3832,7 @@ html_engine_begin (HTMLEngine *e, char *content_type)
 	e->newPage = TRUE;
 	clear_selection (e);
 
-	html_engine_thaw_idle_reset (e);
+	html_engine_thaw_idle_flush (e);
 
 	g_slist_free (e->cursor_position_stack);
 	e->cursor_position_stack = NULL;
@@ -5006,14 +5006,10 @@ html_engine_thaw (HTMLEngine *engine)
 }
 
 void
-html_engine_thaw_idle_reset (HTMLEngine *e)
+html_engine_thaw_idle_flush (HTMLEngine *e)
 {
-	if (e->thaw_idle_id) {
-		gtk_idle_remove (e->thaw_idle_id);
-		e->thaw_idle_id = 0;
-		html_engine_show_cursor (e);
-	}
-	gtk_html_private_calc_scrollbars (e->widget, NULL, NULL);
+	if (e->thaw_idle_id)
+		thaw_idle (e);
 }
 
 
