@@ -574,16 +574,12 @@ create_style_toolbar (GtkHTMLControlData *cd)
 	gtk_box_pack_start (GTK_BOX (hbox), cd->toolbar_style, TRUE, TRUE, 0);
 
 	cd->paragraph_option = setup_paragraph_style_option_menu (cd->html);
-	gtk_toolbar_prepend_widget (GTK_TOOLBAR (cd->toolbar_style),
-				    gtk_separator_tool_item_new (),
-				    NULL, NULL);
+	gtk_toolbar_prepend_space (GTK_TOOLBAR (cd->toolbar_style));
 	gtk_toolbar_prepend_widget (GTK_TOOLBAR (cd->toolbar_style),
 				    cd->paragraph_option,
 				    NULL, NULL);
 
-	gtk_toolbar_prepend_widget (GTK_TOOLBAR (cd->toolbar_style),
-				    gtk_separator_tool_item_new (),
-				    NULL, NULL);
+	gtk_toolbar_prepend_space (GTK_TOOLBAR (cd->toolbar_style));
 	gtk_toolbar_prepend_widget (GTK_TOOLBAR (cd->toolbar_style),
 				    setup_font_size_option_menu (cd),
 				    NULL, NULL);

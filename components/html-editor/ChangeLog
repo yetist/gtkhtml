@@ -1,3 +1,8 @@
+2004-04-09  Radek Doulik  <rodo@ximian.com>
+
+	* toolbar.c (create_style_toolbar): do not use gtk 2.4 new toolbar
+	API
+
 2004-04-07  Radek Doulik  <rodo@ximian.com>
 
 	* toolbar.c (create_style_toolbar): added two new separators as
