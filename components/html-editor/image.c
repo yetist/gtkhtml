@@ -44,7 +44,7 @@
 #define GTK_HTML_EDIT_IMAGE_SPINS       5
 
 #define ALIGN_TOP    0
-#define ALIGN_CENTER 1
+#define ALIGN_MIDDLE 1
 #define ALIGN_BOTTOM 2
 
 struct _GtkHTMLEditImageProperties {
@@ -199,7 +199,7 @@ image_insertion (GtkHTMLControlData *cd, gpointer *set_data)
 
 	mcounter = 0;
 	ADD_ITEM (_("Top"), align_menu_activate);
-	ADD_ITEM (_("Center"), align_menu_activate);
+	ADD_ITEM (_("Middle"), align_menu_activate);
 	ADD_ITEM (_("Bottom"), align_menu_activate);
 	/* ADD_ITEM("Left",   GDK_F4);
 	   ADD_ITEM("Right",  GDK_F5); */
@@ -355,8 +355,8 @@ image_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	case HTML_VALIGN_TOP:
 		d->align = ALIGN_TOP;
 		break;
-	case HTML_VALIGN_CENTER:
-		d->align = ALIGN_CENTER;
+	case HTML_VALIGN_MIDDLE:
+		d->align = ALIGN_MIDDLE;
 		break;
 	case HTML_VALIGN_BOTTOM:
 		d->align = ALIGN_BOTTOM;
@@ -419,8 +419,8 @@ insert_or_apply (GtkHTMLControlData *cd, gpointer get_data, gboolean insert)
 	case ALIGN_TOP:
 		valign = HTML_VALIGN_TOP;
 		break;
-	case ALIGN_CENTER:
-		valign = HTML_VALIGN_CENTER;
+	case ALIGN_MIDDLE:
+		valign = HTML_VALIGN_MIDDLE;
 		break;
 	case ALIGN_BOTTOM:
 		valign = HTML_VALIGN_BOTTOM;

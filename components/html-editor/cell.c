@@ -95,7 +95,7 @@ fill_sample (GtkHTMLEditCellProperties *d)
 								     : (d->halign == HTML_HALIGN_CENTER ? "center" : "right"))
 		: g_strdup ("");
 
-	valign    = d->valign != HTML_VALIGN_CENTER ? g_strdup_printf (" valign=\"%s\"", d->valign == HTML_VALIGN_TOP
+	valign    = d->valign != HTML_VALIGN_MIDDLE ? g_strdup_printf (" valign=\"%s\"", d->valign == HTML_VALIGN_TOP
 								       ? "top" : "bottom")
 		: g_strdup ("");
 	html      = g_strconcat (body,
