@@ -34,8 +34,9 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
+#include <gtk/gtkscrolledwindow.h>
+
 #include <glade/glade.h>
-#include <gal/widgets/e-scroll-frame.h>
 
 #ifdef GNOME_GTKHTML_EDITOR_SHLIB
 #include <bonobo/bonobo-shlib-factory.h>
@@ -101,7 +102,7 @@ set_frame_cb (BonoboControl *control,
 	BonoboUIComponent *ui_component;
 	GtkHTMLControlData *control_data;
 	GtkWidget *toolbar;
-	GtkWidget *scroll_frame;
+	GtkWidget *scrolled_window;
 	Bonobo_ControlFrame frame;
 
 	control_data = (GtkHTMLControlData *) data;
@@ -120,13 +121,13 @@ set_frame_cb (BonoboControl *control,
 	toolbar = toolbar_style (control_data);
 	gtk_box_pack_start (GTK_BOX (control_data->vbox), toolbar, FALSE, FALSE, 0);
 
-	scroll_frame = e_scroll_frame_new (NULL, NULL);
-	e_scroll_frame_set_shadow_type (E_SCROLL_FRAME (scroll_frame), GTK_SHADOW_IN);
-	e_scroll_frame_set_policy (E_SCROLL_FRAME (scroll_frame), GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
-	gtk_container_add (GTK_CONTAINER (scroll_frame), GTK_WIDGET (control_data->html));
-	gtk_widget_show_all (scroll_frame);
+	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_window), GTK_SHADOW_IN);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
+	gtk_container_add (GTK_CONTAINER (scrolled_window), GTK_WIDGET (control_data->html));
+	gtk_widget_show_all (scrolled_window);
 
-	gtk_box_pack_start (GTK_BOX (control_data->vbox), scroll_frame, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (control_data->vbox), scrolled_window, TRUE, TRUE, 0);
 
 	/* Setup the menu bar.  */
 
