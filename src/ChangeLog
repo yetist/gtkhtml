@@ -1,3 +1,7 @@
+2000-01-28  NotZed  <notzed@zedzone.helixcode.com>
+
+	* tests/test10.html: A simple test driver for embedded widgets.
+
 2000-01-28  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmltextslave.c (calc_size): Inconditionally add the width of a
