@@ -32,10 +32,10 @@ gtk_html_class_properties_new (void)
 	/* default values */
 	p->magic_links = TRUE;
 	p->keybindings_theme = g_strdup ("emacs");
-	p->font_var_family   = g_strdup ("lucida");
+	p->font_var_family   = g_strdup ("helvetica");
 	p->font_fix_family   = g_strdup ("courier");
-	p->font_var_size     = 8;
-	p->font_fix_size     = 8;
+	p->font_var_size     = 14;
+	p->font_fix_size     = 14;
 
 	return p;
 }
@@ -115,12 +115,11 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p)
 	gnome_config_push_prefix (GTK_HTML_GNOME_CONFIG_PREFIX);
 	GET  (bool, magic_links, "magic_links=true");
 	GETS (keybindings_theme, "keybindings_theme=ms");
-	GETS (font_var_family, "font_variable_family=lucida");
+	GETS (font_var_family, "font_variable_family=helvetica");
 	GETS (font_fix_family, "font_fixed_family=courier");
-	GET  (int, font_var_size, "font_variable_size=12");
-	GET  (int, font_fix_size, "font_fixed_size=12");
+	GET  (int, font_var_size, "font_variable_size=14");
+	GET  (int, font_fix_size, "font_fixed_size=14");
 	gnome_config_pop_prefix ();
-	gnome_config_sync ();
 }
 
 void

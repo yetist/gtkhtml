@@ -1,7 +1,14 @@
 2000-08-22  Radek Doulik  <rodo@helixcode.com>
 
+	* gtkhtml-properties.c (gtk_html_class_properties_new): defaults
+	to 14pt and helvetica
+
+	* gtkhtml.c (init_properties): load properties here for non-gconf
+	version
+
 	* gtkhtml-properties.c (gtk_html_class_properties_load): changed
-	gnome-config default font size to 12pt
+	gnome-config default font size to 14pt and var font to helvetica
+	(gtk_html_class_properties_load): removed gnome_config_sync call
 
 	* gtkhtml.c (on_object): renamed from on_url
 	(on_object): reset html->pointer_url to NULL and mouse cursor to

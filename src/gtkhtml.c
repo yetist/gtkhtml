@@ -1281,6 +1281,8 @@ init_properties (GtkHTMLClass *klass)
 		gtk_html_class_properties_load (klass->properties, gconf_client);
 	} else
 		g_error ("gconf is not initialized, please call gconf_init before using GtkHTML library\n");
+#else
+		gtk_html_class_properties_load (klass->properties);
 #endif
 	load_keybindings (klass);
 #ifdef GTKHTML_HAVE_GCONF
@@ -1626,7 +1628,6 @@ gtk_html_construct (GtkWidget *htmlw)
 
 	set_fonts_idle (html);
 #ifdef GTKHTML_HAVE_GCONF
-	/*	html->set_font_id = 0; */
 	gconf_client_notify_add (gconf_client, GTK_HTML_GCONF_DIR, client_notify_widget, html, NULL, NULL);
 #endif
 }
