@@ -23,8 +23,8 @@
 #ifndef _HTML_COLOR_H_
 #define _HTML_COLOR_H_
 
-#include <gdk/gdk.h>
-#include "htmlpainter.h"
+#include <gdk/gdktypes.h>
+#include "htmltypes.h"
 
 struct _HTMLColor {
 	GdkColor color;

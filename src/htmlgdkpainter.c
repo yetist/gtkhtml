@@ -117,58 +117,6 @@ find_font (gchar *font_name, gdouble req_size, gint *font_size)
 	return rv;
 }
 
-static GdkFont *
-get_font_with_enc (const gchar *family, const gchar *weight, const gchar *slant, gdouble size, gchar *enc)
-{
-	GdkFont *font;
-	gchar *font_name;
-	gint font_size;
-
-	font      = NULL;
-	font_name = g_strdup_printf ("-*-%s-%s-%s-normal-*-*-*-*-*-*-*-%s",
-				     family, weight, slant, enc);
-	if (find_font (font_name, size, &font_size)) {
-		g_free (font_name);
-		font_name = g_strdup_printf ("-*-%s-%s-%s-normal-*-%d-*-*-*-*-*-%s",
-					     family, weight, slant, font_size, enc);
-		font = gdk_font_load (font_name);
-	}
-	g_free (font_name);
-
-	/* printf ("family: %s enc: %s ==> %p\n", family, enc, font); */
-
-	return font;
-}
-
-static GdkFont *
-get_font (const gchar *family, const gchar *weight, const gchar *slant, gdouble size)
-{
-	GdkFont *font;
-
-	/* prefer unicode fonts */
-	font = get_font_with_enc (family, weight, slant, size, "iso10646-1");
-	return font ? font : get_font_with_enc (family, weight, slant, size, "*-*");
-}
-
-static GdkFont *
-get_closest_font (const gchar *family, const gchar *weight, const gchar *slant, gdouble size)
-{
-	GdkFont *font;
-
-	font = get_font (family, weight, slant, size);
-	if (!font && *slant == 'i')
-		font = get_font (family, weight, "o", size);
-
-	return font;
-}
-
-static gpointer
-alloc_font (gchar *face, gdouble size, GtkHTMLFontStyle style)
-{
-	return (face) ? get_closest_font (face, (style & GTK_HTML_FONT_STYLE_BOLD) ? "bold" : "medium",
-					  (style & GTK_HTML_FONT_STYLE_ITALIC) ? "i" : "r", size) : gdk_font_load ("fixed");
-}
-
 static void
 gtkhtml_private_split_name (gchar * c[], gchar * name)
 {

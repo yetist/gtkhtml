@@ -108,7 +108,6 @@ libgtkhtml_HEADERS =				\
 	gtkhtml-keybinding.h			\
 	htmliframe.h				\
 	htmlengine-edit-table.h			\
-	htmlfont.h				\
 	htmlhspace.h				\
 	$(NULL)
 
@@ -190,7 +189,6 @@ libgtkhtml_la_SOURCES =				\
 	htmlundo-action.c			\
 	htmlvspace.c				\
 	htmliframe.c				\
-	htmlfont.c				\
 	$(NULL)
 #	htmlhspace.c				\
 #	htmlelement.c				\

@@ -271,25 +271,6 @@ calc_column_width_template (HTMLTable *table, HTMLPainter *painter, GArray *arra
 }
 
 static void
-calc_column_min_widths (HTMLTable *table, HTMLPainter *painter)
-{
-	if (!(HTML_OBJECT (table)->change & HTML_CHANGE_MIN_WIDTH))
-		return;
-
-	calc_column_width_template (table, painter, table->columnPos, html_object_calc_min_width);
-	HTML_OBJECT (table)->change |= HTML_CHANGE_MIN_WIDTH;
-}
-
-static void
-calc_column_pref_widths (HTMLTable *table, HTMLPainter *painter)
-{
-	if (!(HTML_OBJECT (table)->change & HTML_CHANGE_PREF_WIDTH))
-		return;
-	calc_column_width_template (table, painter, table->columnPrefPos, html_object_calc_preferred_width);
-	HTML_OBJECT (table)->change |= HTML_CHANGE_PREF_WIDTH;
-}
-
-static void
 do_cspan (HTMLTable *table, gint row, gint col, HTMLTableCell *cell)
 {
 	gint i;
@@ -575,7 +556,7 @@ calc_min_width (HTMLObject *o,
 {
 	HTMLTable *table = HTML_TABLE (o);
 
-	calc_column_min_widths (table, painter);
+	calc_column_width_template (table, painter, table->columnPos, html_object_calc_min_width);
 
 	return o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH
 		? MAX (table->specified_width,
@@ -589,8 +570,8 @@ calc_preferred_width (HTMLObject *o,
 {
 	HTMLTable *table = HTML_TABLE (o);
 
-	if (!(o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH))
-		calc_column_pref_widths (HTML_TABLE (o), painter);
+	/* FIXME this is not needed for FIXEDWIDTH tables */
+	calc_column_width_template (table, painter, table->columnPrefPos, html_object_calc_preferred_width);
 
 	return o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH
 		? MAX (table->specified_width, html_object_calc_min_width (o, painter))
@@ -710,7 +691,7 @@ divide_into_variable_all (HTMLTable *table, HTMLPainter *painter, gint *col_perc
 	gint total_fill, min_col, min_fill, min_pw;
 
 	/* printf ("left %d\n", left); */
-	calc_column_pref_widths (table, painter);
+	html_object_calc_preferred_width (HTML_OBJECT (table), painter);
 	while (calc_lowest_fill (table, max_size, col_percent, pixel_size, &min_col, &total_fill)) {
 
 		min_pw   = COLUMN_PREF_POS (table, min_col + 1) - COLUMN_PREF_POS (table, min_col)
@@ -885,7 +866,7 @@ html_table_set_max_width (HTMLObject *o,
 	HTMLTable *table = HTML_TABLE (o);
 	gint *max_size, pixel_size, glue;
 
-	calc_column_min_widths (table, painter);
+	html_object_calc_min_width (HTML_OBJECT (table), painter);
 
 	pixel_size   = html_painter_get_pixel_size (painter);
 	o->max_width = max_width;
