@@ -1,3 +1,11 @@
+2000-05-29  Dan Winship  <danw@helixcode.com>
+
+	* htmlclueflow.c (html_clueflow_class_init): Fix typo. (Don't use
+	save_plain to implement HTMLObject:save.)
+
+	* htmlengine-save.c (html_engine_save_plain): Call
+	html_object_save_plain rather than html_object_save.
+
 2000-05-29  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlembedded.c (draw): try to be smarted about when we queue a

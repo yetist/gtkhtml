@@ -271,7 +271,7 @@ html_engine_save_plain (const HTMLEngine *engine,
 	state.user_data = user_data;
 	state.last_level = 0;
 
-	html_object_save (engine->clue, &state);
+	html_object_save_plain (engine->clue, &state);
 	if (state.error)
 		return FALSE;
 
