@@ -1,7 +1,8 @@
 2002-04-26  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml-propmanager.c: fix up refcounting and add recursion trap
-	to the notification callback.
+	to the notification callback. Only ref the GladeXML for the
+	while we get widgets to avoid staying alive too long.
 
 2002-04-24  Larry Ewing  <lewing@ximian.com>
 

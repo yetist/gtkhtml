@@ -370,7 +370,7 @@ gtk_html_propmanager_set_gui (GtkHTMLPropmanager *pman, GladeXML *xml, GHashTabl
 
 	priv = pman->priv;
 	
-	//gtk_object_ref (GTK_OBJECT (xml));
+	gtk_object_ref (GTK_OBJECT (xml));
 	priv->xml = xml;
 
 	gconf_client_add_dir (priv->client, GTK_HTML_GCONF_DIR, GCONF_CLIENT_PRELOAD_NONE, NULL);
@@ -406,7 +406,12 @@ gtk_html_propmanager_set_gui (GtkHTMLPropmanager *pman, GladeXML *xml, GHashTabl
 						   pman, NULL, &gconf_error);
 	if (gconf_error)
 		g_warning ("gconf error: %s\n", gconf_error->message);
-				 
+		
+
+	/* only hold a ref while we retrieve the widgets */
+	gtk_object_unref (GTK_OBJECT (priv->xml));
+	priv->xml = NULL;
+
 	gtk_html_propmanager_sync_gui (pman);
 	return found_widget;
 }
@@ -549,7 +554,6 @@ gtk_html_propmanager_finalize (GtkObject *object)
 		gtk_html_class_properties_destroy (priv->saved_prop);
 	}
 
-	//gtk_object_unref (GTK_OBJECT (priv->xml));
 	gtk_object_unref (GTK_OBJECT (priv->client));
 
 	g_free (priv);
