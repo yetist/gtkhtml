@@ -23,6 +23,7 @@ SUBDIRS =					\
 	capplet					\
 	po					\
 	doc					\
+	art					\
 	$(DIR_COMPONENTS)
 
 EXTRA_DIST =					\

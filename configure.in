@@ -387,6 +387,7 @@ intl/Makefile
 macros/Makefile
 src/Makefile
 doc/Makefile
+art/Makefile
 capplet/Makefile
 components/Makefile
 components/html-editor/Makefile
