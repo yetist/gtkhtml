@@ -1,5 +1,7 @@
 2001-06-11  Radek Doulik  <rodo@ximian.com>
 
+	* htmltablecell.c (save): save &nbsp; to empty cells
+
 	* htmltable.c (check_point): check for valid column
 	(html_table_end_table): remove empty cells
 
