@@ -221,8 +221,8 @@
 
 				<separator/>
 
-				<menuitem name="IndentMore" verb="" _label="_Increase Indent"/>
-				<menuitem name="IndentLess" verb="" _label="_Decrease Indent"/>
+				<menuitem name="IndentMore" verb="" _label="_Increase Indent" accel="*Ctrl*TAB"/>
+				<menuitem name="IndentLess" verb="" _label="_Decrease Indent" accel="*Shift**Ctrl*TAB"/>
 
 				<separator/>
 
