@@ -312,7 +312,7 @@ format_paragraph_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char 
 	gtk_html_edit_properties_dialog_set_page (cd->properties_dialog, GTK_HTML_EDIT_PROPERTY_PARAGRAPH);
 }
 
-BonoboUIVerb verbs [] = {
+static BonoboUIVerb editor_verbs [] = {
 	BONOBO_UI_UNSAFE_VERB ("EditUndo", command_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditRedo", command_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditCut", command_cb),
@@ -484,13 +484,12 @@ menubar_update_format (GtkHTMLControlData *cd)
 	gchar *sensitive;
 
 	uic = bonobo_control_get_ui_component (cd->control);
-	
-	if (uic != CORBA_OBJECT_NIL && bonobo_ui_component_get_container (uic) != CORBA_OBJECT_NIL) {
+
+	if ((uic != CORBA_OBJECT_NIL) && (bonobo_ui_component_get_container (uic) != CORBA_OBJECT_NIL)) {
 
 		sensitive = (cd->format_html ? "1" : "0");
 
 		CORBA_exception_init (&ev);
-
 		bonobo_ui_component_freeze (uic, &ev);
 
 		bonobo_ui_component_set_prop (uic, "/commands/InsertImage",
@@ -625,10 +624,12 @@ menubar_setup (BonoboUIComponent  *uic,
 	g_return_if_fail (GTK_IS_HTML (cd->html));
 	g_return_if_fail (BONOBO_IS_UI_COMPONENT (uic));
 
-	bonobo_ui_component_add_verb_list_with_data (uic, verbs, cd);
 
 	/* printf ("xml: %s/%s\n", GTKHTML_DATADIR, "GNOME_GtkHTML_Editor.xml"); */
-	bonobo_ui_util_set_ui (uic, GTKHTML_DATADIR, GTKHTML_DATADIR "/GNOME_GtkHTML_Editor.xml", "GNOME_GtkHTML_Editor", NULL);
+
+	bonobo_ui_component_add_verb_list_with_data (uic, editor_verbs, cd);
+	bonobo_ui_util_set_ui (uic, GTKHTML_DATADIR, "GNOME_GtkHTML_Editor.xml", "GNOME_GtkHTML_Editor", NULL);
+
 	spell_create_language_menu (cd);
 	menubar_update_format (cd);
 }
