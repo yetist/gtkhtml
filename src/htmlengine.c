@@ -2062,6 +2062,7 @@ parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 {
 	if (strncmp (str, "font", 4) == 0) {
 		GdkColor *color;
+		HTMLColor *html_color;
 		const HTMLFontFace *face = NULL;
 		gint newSize;
 
@@ -2093,7 +2094,10 @@ parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 			}
 		}
 
+		html_color = html_color_new_from_gdk_color (color);
 		push_color (p, html_color_new_from_gdk_color (color));
+		html_color_unref (html_color);
+
 		push_font_face (p, face);
 		push_font_style (p, newSize);
 
@@ -3243,7 +3247,7 @@ html_engine_init (HTMLEngine *engine)
 
 	/* settings, colors and painter init */
 	engine->painter = html_gdk_painter_new (TRUE);
-	
+
 	engine->newPage = FALSE;
 
 	engine->editable = FALSE;
