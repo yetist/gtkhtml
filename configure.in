@@ -47,7 +47,7 @@ AC_SUBST(CFLAGS)
 AC_SUBST(CPPFLAGS)
 AC_SUBST(LDFLAGS)
 
-ALL_LINGUAS="am ar az be bg bn ca cs da de el en_CA en_GB es et eu fi fr ga gl gu he hi hr hu it ja ko lt lv ms nb nl nn no pa pl pt pt_BR ru sk sl sq sr sr@Latn sv ta tr uk vi zh_CN zh_TW"
+ALL_LINGUAS="am ar az be bg bn ca cs da de el en_CA en_GB es et eu fi fr ga gl gu he hi hr hu it ja ko lt lv mk ml ms nb nl nn no pa pl pt pt_BR ru sk sl sq sr sr@Latn sv ta tr uk vi zh_CN zh_TW"
 AM_GLIB_GNU_GETTEXT
 
 GAIL_MODULES="gail >= 0.13"
