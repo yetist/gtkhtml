@@ -84,10 +84,12 @@ static TemplateInsertTemplate template_templates [TEMPLATES] = {
 		TRUE, TRUE, 80, TRUE, HTML_HALIGN_CENTER,
 		"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0\"@width@@align@><tr><td>"
 		"<table bgcolor=\"#fffff0\" cellpadding=3 cellspacing=0 width=\"100%\">"
-		"<tr><td valign=top><img src=\"file://" ICONDIR "/bulb.png\" hspace=10></td>"
-		"<td width=\"100%\">"
+		"<tr><td valign=top><img src=\"file://" ICONDIR "/info_bulb.png\" hspace=3 vspace=2></td><td width=\"100%\">"
+		"<!--+GtkHTML:<DATA class=\"ClueFlow\" key=\"template_text\" value=\"1\">-->"
 		"@message@"
-		"</td></tr></table></td></tr></table>",
+		"<!--+GtkHTML:<DATA class=\"ClueFlow\" clear=\"template_text\">-->"
+		"</td></tr></table>"
+		"</td></tr></table>",
 		N_("Place your text here")
 	},
 	{
@@ -99,9 +101,13 @@ static TemplateInsertTemplate template_templates [TEMPLATES] = {
 		"<tr><td align=\"center\">"
 		"<img src=\"file://" ICONDIR "/empty_image.png\" align=\"top\" border=\"0\">"
 		"</td></tr>"
-		"<tr><td><font size=\"-1\">@message@</font></td>"
+		"<tr><td><font size=\"-1\">"
+		"<!--+GtkHTML:<DATA class=\"ClueFlow\" key=\"template_text\" value=\"1\">-->"
+		"@message@"
+		"<!--+GtkHTML:<DATA class=\"ClueFlow\" clear=\"template_text\">-->"
+		"</font></td>"
 		"</tr></table></td></tr></table>",
-		N_("Image 1: <b>description</b>")
+		N_("Place your text here")
 	},
 };
 
@@ -327,4 +333,3 @@ template_close_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	g_free (get_data);
 }
-

@@ -1,3 +1,11 @@
+2002-11-27  Radek Doulik  <rodo@ximian.com>
+
+	* editor-control-factory.c (html_button_pressed_after): look for
+	auto-replace text after mouse click
+
+	* template.c: added template_text data to specify auto-replace
+	text
+
 2002-11-02  Larry Ewing  <lewing@ximian.com>
 
 	* editor-control-factory.c (html_button_pressed): fix the return

@@ -1,7 +1,7 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
 
-    Copyright (C) 2000 Helix Code, Inc.
+    Copyright (C) 2000 Helix Code, Inc. 2001, 2002 Ximian Inc.
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
@@ -19,6 +19,7 @@
     Boston, MA 02111-1307, USA.
 
     Author: Ettore Perazzoli <ettore@helixcode.com>
+            Radek Doulik <rodo@ximian.com>
 
 */
 
@@ -47,8 +48,10 @@
 #include "htmlcursor.h"
 #include "htmlengine.h"
 #include "htmlengine-edit.h"
+#include "htmlengine-edit-cut-and-paste.h"
 #include "htmlengine-edit-movement.h"
 #include "htmlengine-edit-selection-updater.h"
+#include "htmlinterval.h"
 #include "htmlselection.h"
 #include "htmlfontmanager.h"
 #include "htmlsettings.h"
@@ -325,6 +328,26 @@ html_button_pressed (GtkWidget *html, GdkEventButton *event, GtkHTMLControlData 
 	return FALSE;
 }
 
+static gint
+html_button_pressed_after (GtkWidget *html, GdkEventButton *event, GtkHTMLControlData *cd)
+{
+	HTMLEngine *e = cd->html->engine;
+	HTMLObject *obj = e->cursor->object;
+
+	if (event->button == 1 && event->type == GDK_BUTTON_PRESS && obj && obj->parent && !html_engine_is_selection_active (e)
+	    && html_object_is_text (obj) && html_object_get_data (obj->parent, "template_text")) {
+		html_object_set_data_full (obj->parent, "template_text", NULL, NULL);
+		html_cursor_jump_to_position (e->cursor, e, e->cursor->position - e->cursor->offset);
+		html_engine_set_mark (e);
+		html_cursor_jump_to_position (e->cursor, e, e->cursor->position + html_object_get_length (obj));
+		html_engine_select_interval (e, html_interval_new_from_cursor (e->mark, e->cursor));
+		/* printf ("delete template text\n"); */
+		html_engine_delete (cd->html->engine);
+	}
+
+	return FALSE;
+}
+
 static void
 editor_init_painters (GtkHTMLControlData *cd)
 {	
@@ -516,6 +539,7 @@ editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 	g_signal_connect (control, "set_frame", G_CALLBACK (set_frame_cb), cd);
 	g_signal_connect (html_widget, "url_requested", G_CALLBACK (url_requested_cb), cd);
 	g_signal_connect (html_widget, "button_press_event", G_CALLBACK (html_button_pressed), cd);
+	g_signal_connect_after (html_widget, "button_press_event", G_CALLBACK (html_button_pressed_after), cd);
 
 	cd->control = control;
 }
