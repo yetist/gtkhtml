@@ -1,3 +1,14 @@
+2001-10-09  Radek Doulik  <rodo@ximian.com>
+
+	* htmlclueflow.c: fixed pre/post padding (was wrong between pre
+	and non-pre paragraphs with different indentation levels)
+	fixed list indentation (was wrong for indented lists and for inner
+	lists with longer indentation)
+	fixed pre/post padding on end of list
+	prettyfied save output
+
+	* htmlengine-save.c (get_body): add new line after <BODY>
+
 2001-10-09  Larry Ewing  <lewing@ximian.com>
 
 	* htmltextslave.c (get_offset_for_bounded_width): remove redundant
