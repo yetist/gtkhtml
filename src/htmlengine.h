@@ -41,7 +41,7 @@ typedef struct _HTMLEngineClass HTMLEngineClass;
 #include "htmlpainter.h"
 #include "htmlgdkpainter.h"
 #include "htmlundo.h"
-#include "stringtokenizer.h"
+#include "htmlstringtokenizer.h"
 #include "gtkhtml-embedded.h"
 
 #define HTML_TYPE_ENGINE                 (html_engine_get_type ())
@@ -111,7 +111,7 @@ struct _HTMLEngine {
 
 	gboolean parsing;
 	HTMLTokenizer *ht;
-	StringTokenizer *st;
+	HTMLStringTokenizer *st;
 	HTMLObject *clue;
 	
 	HTMLObject *flow;

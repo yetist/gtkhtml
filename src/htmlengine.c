@@ -59,7 +59,7 @@
 #include "htmltext.h"
 #include "htmlclueflow.h"
 #include "htmlstack.h"
-#include "stringtokenizer.h"
+#include "htmlstringtokenizer.h"
 #include "htmlform.h"
 #include "htmlbutton.h"
 #include "htmltextinput.h"
@@ -692,9 +692,9 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 
 	gtk_html_debug_log (e->widget, "start parse\n");
 
-	string_tokenizer_tokenize (e->st, attr, " >");
-	while (string_tokenizer_has_more_tokens (e->st)) {
-		const gchar *token = string_tokenizer_next_token (e->st);
+	html_string_tokenizer_tokenize (e->st, attr, " >");
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
+		const gchar *token = html_string_tokenizer_next_token (e->st);
 		if (strncasecmp (token, "cellpadding=", 12) == 0) {
 			padding = atoi (token + 12);
 		}
@@ -762,9 +762,9 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 				}
 
 				if ( strncmp( str, "<caption", 8 ) == 0 ) {
-					string_tokenizer_tokenize( e->st, str + 9, " >" );
-					while ( string_tokenizer_has_more_tokens (e->st) ) {
-						const char* token = string_tokenizer_next_token(e->st);
+					html_string_tokenizer_tokenize( e->st, str + 9, " >" );
+					while ( html_string_tokenizer_has_more_tokens (e->st) ) {
+						const char* token = html_string_tokenizer_next_token(e->st);
 						if ( strncasecmp( token, "align=", 6 ) == 0) {
 							if ( strncasecmp( token+6, "top", 3 ) == 0)
 								capAlign = HTML_VALIGN_TOP;
@@ -833,9 +833,9 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						have_rowPixmap = FALSE;
 					}
 
-					string_tokenizer_tokenize (e->st, str + 4, " >");
-					while (string_tokenizer_has_more_tokens (e->st)) {
-						const gchar *token = string_tokenizer_next_token (e->st);
+					html_string_tokenizer_tokenize (e->st, str + 4, " >");
+					while (html_string_tokenizer_has_more_tokens (e->st)) {
+						const gchar *token = html_string_tokenizer_next_token (e->st);
 						if (strncasecmp (token, "valign=", 7) == 0) {
 							if (strncasecmp (token + 7, "top", 3) == 0)
 								rowvalign = HTML_VALIGN_TOP;
@@ -916,9 +916,9 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 							       HTML_HALIGN_LEFT : rowhalign);
 
 					if (tableEntry) {
-						string_tokenizer_tokenize (e->st, str + 4, " >");
-						while (string_tokenizer_has_more_tokens (e->st)) {
-							const gchar *token = string_tokenizer_next_token (e->st);
+						html_string_tokenizer_tokenize (e->st, str + 4, " >");
+						while (html_string_tokenizer_has_more_tokens (e->st)) {
+							const gchar *token = html_string_tokenizer_next_token (e->st);
 							if (strncasecmp (token, "rowspan=", 8) == 0) {
 								rowSpan = atoi (token + 8);
 								if (rowSpan < 1)
@@ -1136,11 +1136,11 @@ parse_input (HTMLEngine *e, const gchar *str, HTMLObject *_clue) {
 	int imgHSpace = 0;
 	int imgVSpace = 0;
 
-	string_tokenizer_tokenize (e->st, str, " >");
+	html_string_tokenizer_tokenize (e->st, str, " >");
 
-	while (string_tokenizer_has_more_tokens (e->st)) {
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
 
-		const gchar *token = string_tokenizer_next_token (e->st);
+		const gchar *token = html_string_tokenizer_next_token (e->st);
 
 		if ( strncasecmp( token, "type=", 5 ) == 0 ) {
 			p = token + 5;
@@ -1258,7 +1258,7 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 		if ( mapList.isEmpty() )
 			return;
 
-		string_tokenizer_tokenize (e->st, str + 5, " >");
+		html_string_tokenizer_tokenize (e->st, str + 5, " >");
 
 		HTMLArea::Shape shape = HTMLArea::Rect;
 
@@ -1370,9 +1370,9 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 
 			close_anchor (e);
 
-			string_tokenizer_tokenize( e->st, str + 2, " >" );
+			html_string_tokenizer_tokenize( e->st, str + 2, " >" );
 
-			while ( ( p = string_tokenizer_next_token (e->st) ) != 0 ) {
+			while ( ( p = html_string_tokenizer_next_token (e->st) ) != 0 ) {
 				if ( strncasecmp( p, "href=", 5 ) == 0 ) {
 
 					tmpurl = g_strdup (p + 5);
@@ -1433,9 +1433,9 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	if (strncmp (str, "basefont", 8) == 0) {
 	}
 	else if ( strncmp(str, "base", 4 ) == 0 ) {
-		string_tokenizer_tokenize( e->st, str + 5, " >" );
-		while ( string_tokenizer_has_more_tokens (e->st) ) {
-			const char* token = string_tokenizer_next_token(e->st);
+		html_string_tokenizer_tokenize( e->st, str + 5, " >" );
+		while ( html_string_tokenizer_has_more_tokens (e->st) ) {
+			const char* token = html_string_tokenizer_next_token(e->st);
 			if ( strncasecmp( token, "target=", 7 ) == 0 ) {
 				gtk_signal_emit (GTK_OBJECT (e), signals[SET_BASE_TARGET], token + 7);
 			} else if ( strncasecmp( token, "href=", 5 ) == 0 ) {
@@ -1468,11 +1468,11 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 		e->bodyParsed = TRUE;
 		
-		string_tokenizer_tokenize (e->st, str + 5, " >");
-		while (string_tokenizer_has_more_tokens (e->st)) {
+		html_string_tokenizer_tokenize (e->st, str + 5, " >");
+		while (html_string_tokenizer_has_more_tokens (e->st)) {
 			gchar *token;
 
-			token = string_tokenizer_next_token (e->st);
+			token = html_string_tokenizer_next_token (e->st);
 			gtk_html_debug_log (e->widget, "token is: %s\n", token);
 
 			if (strncasecmp (token, "bgcolor=", 8) == 0) {
@@ -1570,9 +1570,9 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 		clear = HTML_CLEAR_NONE;
 
-		string_tokenizer_tokenize (e->st, str + 3, " >");
-		while (string_tokenizer_has_more_tokens (e->st)) {
-			gchar *token = string_tokenizer_next_token (e->st);
+		html_string_tokenizer_tokenize (e->st, str + 3, " >");
+		while (html_string_tokenizer_has_more_tokens (e->st)) {
+			gchar *token = html_string_tokenizer_next_token (e->st);
 			
 			if (strncasecmp (token, "clear=", 6) == 0) {
 				gtk_html_debug_log (e->widget, "%s\n", token);
@@ -1658,9 +1658,9 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 			    block_end_div,
 			    e->divAlign, FALSE);
 
-		string_tokenizer_tokenize( e->st, str + 4, " >" );
-		while ( string_tokenizer_has_more_tokens (e->st) ) {
-			const char* token = string_tokenizer_next_token (e->st);
+		html_string_tokenizer_tokenize( e->st, str + 4, " >" );
+		while ( html_string_tokenizer_has_more_tokens (e->st) ) {
+			const char* token = html_string_tokenizer_next_token (e->st);
 			if ( strncasecmp( token, "align=", 6 ) == 0 ) {
 				if ( strcasecmp( token + 6, "right" ) == 0 )
 					e->divAlign = HTML_HALIGN_RIGHT;
@@ -1759,10 +1759,10 @@ parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		/* The GdkColor API is not const safe!  */
 		color = gdk_color_copy ((GdkColor *) current_color (p));
 
-		string_tokenizer_tokenize (p->st, str + 5, " >");
+		html_string_tokenizer_tokenize (p->st, str + 5, " >");
 
-		while (string_tokenizer_has_more_tokens (p->st)) {
-			const gchar *token = string_tokenizer_next_token (p->st);
+		while (html_string_tokenizer_has_more_tokens (p->st)) {
+			const gchar *token = html_string_tokenizer_next_token (p->st);
 			if (strncasecmp (token, "size=", 5) == 0) {
 				gint num = atoi (token + 5);
 
@@ -1792,9 +1792,9 @@ parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
                 gchar *method = "GET";
                 gchar *target = NULL;
 
-		string_tokenizer_tokenize (p->st, str + 5, " >");
-		while (string_tokenizer_has_more_tokens (p->st)) {
-			const gchar *token = string_tokenizer_next_token (p->st);
+		html_string_tokenizer_tokenize (p->st, str + 5, " >");
+		while (html_string_tokenizer_has_more_tokens (p->st)) {
+			const gchar *token = html_string_tokenizer_next_token (p->st);
 
                         if ( strncasecmp( token, "action=", 7 ) == 0 ) {
                                 action = g_strdup (token + 7);
@@ -1845,11 +1845,11 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 
 		align = p->divAlign;
 
-		string_tokenizer_tokenize (p->st, str + 3, " >");
-		while (string_tokenizer_has_more_tokens (p->st)) {
+		html_string_tokenizer_tokenize (p->st, str + 3, " >");
+		while (html_string_tokenizer_has_more_tokens (p->st)) {
 			const gchar *token;
 
-			token = string_tokenizer_next_token (p->st);
+			token = html_string_tokenizer_next_token (p->st);
 			if ( strncasecmp( token, "align=", 6 ) == 0 ) {
 				if ( strcasecmp( token + 6, "center" ) == 0 )
 					align = HTML_HALIGN_CENTER;
@@ -1890,9 +1890,9 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		if (p->flow)
 			oldAlign = align = HTML_CLUE (p->flow)->halign;
 
-		string_tokenizer_tokenize (p->st, str + 3, " >");
-		while (string_tokenizer_has_more_tokens (p->st)) {
-			gchar *token = string_tokenizer_next_token (p->st);
+		html_string_tokenizer_tokenize (p->st, str + 3, " >");
+		while (html_string_tokenizer_has_more_tokens (p->st)) {
+			gchar *token = html_string_tokenizer_next_token (p->st);
 			if (strncasecmp (token, "align=", 6) == 0) {
 				if (strcasecmp (token + 6, "left") == 0)
 					align = HTML_HALIGN_LEFT;
@@ -1945,9 +1945,9 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 		gint border = 0;
 		HTMLVAlignType valign = HTML_VALIGN_NONE;
 
-		string_tokenizer_tokenize (p->st, str + 4, " >");
-		while (string_tokenizer_has_more_tokens (p->st)) {
-			token = string_tokenizer_next_token (p->st);
+		html_string_tokenizer_tokenize (p->st, str + 4, " >");
+		while (html_string_tokenizer_has_more_tokens (p->st)) {
+			token = html_string_tokenizer_next_token (p->st);
 			if (strncasecmp (token, "src=", 4) == 0) {
 
 				tmpurl = g_strdup (token + 4);
@@ -2138,10 +2138,10 @@ parse_m (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 	gchar *refresh_url = NULL;
 
 	if ( strncmp( str, "meta", 4 ) == 0 ) {
-		string_tokenizer_tokenize( e->st, str + 5, " >" );
-		while ( string_tokenizer_has_more_tokens (e->st) ) {
+		html_string_tokenizer_tokenize( e->st, str + 5, " >" );
+		while ( html_string_tokenizer_has_more_tokens (e->st) ) {
 
-			const gchar* token = string_tokenizer_next_token(e->st);
+			const gchar* token = html_string_tokenizer_next_token(e->st);
 			if ( strncasecmp( token, "http-equiv=", 11 ) == 0 ) {
 				if ( strncasecmp( token + 11, "refresh", 7 ) == 0 )
 					refresh = 1;
@@ -2153,9 +2153,9 @@ parse_m (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 					/* The time in seconds until the refresh */
 					refresh_delay = atoi(content);
 
-					string_tokenizer_tokenize(e->st, content, ",;> ");
-					while ( string_tokenizer_has_more_tokens (e->st) ) {
-						const gchar* token = string_tokenizer_next_token(e->st);
+					html_string_tokenizer_tokenize(e->st, content, ",;> ");
+					while ( html_string_tokenizer_has_more_tokens (e->st) ) {
+						const gchar* token = html_string_tokenizer_next_token(e->st);
 						if ( strncasecmp( token, "url=", 4 ) == 0 )
 							refresh_url = g_strdup (token + 4);
 					}
@@ -2211,12 +2211,12 @@ parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 
 		listNumType = HTML_LIST_NUM_TYPE_NUMERIC;
 
-		string_tokenizer_tokenize( e->st, str + 3, " >" );
+		html_string_tokenizer_tokenize( e->st, str + 3, " >" );
 
-		while ( string_tokenizer_has_more_tokens (e->st) ) {
+		while ( html_string_tokenizer_has_more_tokens (e->st) ) {
 			const char* token;
 
-			token = string_tokenizer_next_token (e->st);
+			token = html_string_tokenizer_next_token (e->st);
 
 			if ( strncasecmp( token, "type=", 5 ) == 0 ) {
 				switch ( *(token+5) )
@@ -2255,12 +2255,12 @@ parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 		if ( !e->formSelect )
 			return;
 
-		string_tokenizer_tokenize( e->st, str + 3, " >" );
+		html_string_tokenizer_tokenize( e->st, str + 3, " >" );
 
-		while ( string_tokenizer_has_more_tokens (e->st) ) {
+		while ( html_string_tokenizer_has_more_tokens (e->st) ) {
 			const char* token;
 			
-			token = string_tokenizer_next_token (e->st);
+			token = html_string_tokenizer_next_token (e->st);
 			
 			if ( strncasecmp( token, "value=", 6 ) == 0 ) {
 
@@ -2288,14 +2288,14 @@ parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 		char *classid=NULL, *name=NULL;
 		int width=-1,height=-1;
 
-		string_tokenizer_tokenize( e->st, str + 7, " >" );
+		html_string_tokenizer_tokenize( e->st, str + 7, " >" );
 
 		/* this might have to do something different for form object
 		   elements - check the spec MPZ */
-		while ( string_tokenizer_has_more_tokens (e->st) ) {
+		while ( html_string_tokenizer_has_more_tokens (e->st) ) {
 			const char* token;
 
-			token = string_tokenizer_next_token (e->st);
+			token = html_string_tokenizer_next_token (e->st);
 			if ( strncasecmp( token, "classid=", 8 ) == 0 ) {
 				classid = g_strdup(token+8);
 			} else if ( strncasecmp( token, "name=", 6 ) == 0 ) {
@@ -2364,9 +2364,9 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			char *name = NULL, *value = NULL;
 
 			eb = html_stack_top (e->embeddedStack);
-			string_tokenizer_tokenize (e->st, str + 6, " >");
-			while ( string_tokenizer_has_more_tokens (e->st) ) {
-				const char *token = string_tokenizer_next_token (e->st);
+			html_string_tokenizer_tokenize (e->st, str + 6, " >");
+			while ( html_string_tokenizer_has_more_tokens (e->st) ) {
+				const char *token = html_string_tokenizer_next_token (e->st);
 				if ( strncasecmp( token, "name=", 5 ) == 0 ) {
 					name = g_strdup(token+5);
 				} else if ( strncasecmp( token, "value=", 6 ) == 0 ) {
@@ -2385,9 +2385,9 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 		push_block (e, ID_DIV, 1, block_end_div, e->divAlign, FALSE);
 
-		string_tokenizer_tokenize (e->st, (gchar *)(str + 2), " >");
-		while (string_tokenizer_has_more_tokens (e->st)) {
-			token = string_tokenizer_next_token (e->st);
+		html_string_tokenizer_tokenize (e->st, (gchar *)(str + 2), " >");
+		while (html_string_tokenizer_has_more_tokens (e->st)) {
+			token = html_string_tokenizer_next_token (e->st);
 			if (strncasecmp (token, "align=", 6) == 0) {
 				if (strcasecmp (token + 6, "center") == 0)
 					e->divAlign = HTML_HALIGN_CENTER;
@@ -2437,9 +2437,9 @@ parse_s (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		if (!e->form)
 			return;
                     
-		string_tokenizer_tokenize (e->st, str + 7, " >");
-		while (string_tokenizer_has_more_tokens (e->st)) {
-			const gchar *token = string_tokenizer_next_token (e->st);
+		html_string_tokenizer_tokenize (e->st, str + 7, " >");
+		while (html_string_tokenizer_has_more_tokens (e->st)) {
+			const gchar *token = html_string_tokenizer_next_token (e->st);
 
                         if ( strncasecmp( token, "name=", 5 ) == 0 )
                         {
@@ -2513,9 +2513,9 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		if (!e->form)
 			return;
                     
-		string_tokenizer_tokenize (e->st, str + 9, " >");
-		while (string_tokenizer_has_more_tokens (e->st)) {
-			const gchar *token = string_tokenizer_next_token (e->st);
+		html_string_tokenizer_tokenize (e->st, str + 9, " >");
+		while (html_string_tokenizer_has_more_tokens (e->st)) {
+			const gchar *token = html_string_tokenizer_next_token (e->st);
 
                         if ( strncasecmp( token, "name=", 5 ) == 0 )
                         {
@@ -2578,9 +2578,9 @@ parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 		type = HTML_LIST_TYPE_UNORDERED;
 
-		string_tokenizer_tokenize (e->st, str + 3, " >");
-		while (string_tokenizer_has_more_tokens (e->st)) {
-			gchar *token = string_tokenizer_next_token (e->st);
+		html_string_tokenizer_tokenize (e->st, str + 3, " >");
+		while (html_string_tokenizer_has_more_tokens (e->st)) {
+			gchar *token = html_string_tokenizer_next_token (e->st);
 			if (strncasecmp (token, "plain", 5) == 0)
 				type = HTML_LIST_TYPE_UNORDEREDPLAIN;
 		}
@@ -2727,7 +2727,7 @@ html_engine_destroy (GtkObject *object)
 
 	html_cursor_destroy (engine->cursor);
 	html_tokenizer_destroy (engine->ht);
-	string_tokenizer_destroy (engine->st);
+	html_string_tokenizer_destroy (engine->st);
 	html_settings_destroy (engine->settings);
 	html_settings_destroy (engine->defaultSettings);
 	html_image_factory_free (engine->image_factory);
@@ -2881,7 +2881,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->insertion_font_style = GTK_HTML_FONT_STYLE_DEFAULT;
 
 	engine->ht = html_tokenizer_new ();
-	engine->st = string_tokenizer_new ();
+	engine->st = html_string_tokenizer_new ();
 	engine->settings = html_settings_new ();
 	engine->defaultSettings = html_settings_new ();
 	engine->image_factory = html_image_factory_new(engine);

@@ -67,6 +67,7 @@ libgtkhtml_HEADERS =				\
 	htmlselect.h				\
 	htmlsettings.h				\
 	htmlstack.h				\
+	htmlstringtokenizer.h			\
 	htmltable.h				\
 	htmltablecell.h				\
 	htmltext.h				\
@@ -80,8 +81,7 @@ libgtkhtml_HEADERS =				\
 	htmlundo.h				\
 	htmlundo-action.h			\
 	htmlurl.h				\
-	htmlvspace.h				\
-	stringtokenizer.h
+	htmlvspace.h
 
 libgtkhtml_la_SOURCES =				\
 	gtkhtml-embedded.c			\
@@ -135,6 +135,7 @@ libgtkhtml_la_SOURCES =				\
 	htmlsettings.c				\
 	htmlstack.c				\
 	htmlstream.c				\
+	htmlstringtokenizer.c			\
 	htmltable.c				\
 	htmltablecell.c				\
 	htmltext.c				\
@@ -146,8 +147,7 @@ libgtkhtml_la_SOURCES =				\
 	htmltype.c				\
 	htmlundo.c				\
 	htmlundo-action.c			\
-	htmlvspace.c				\
-	stringtokenizer.c
+	htmlvspace.c
 
 libgtkhtml_la_LDFLAGS = -version-info $(GTKHTML_CURRENT):$(GTKHTML_REVISION):$(GTKHTML_AGE)
 

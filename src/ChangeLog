@@ -1,5 +1,19 @@
 2000-04-01  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine.c: Use `HTMLStringTokenizer' instead of
+	`StringTokenizer'.
+
+	* htmlengine.h: Use `HTMLStringTokenizer' instead of
+	`StringTokenizer'.
+
+	* htmlstringtokenizer.c: New file.
+	* htmlstringtokenizer.h: New file.
+
+	* stringtokenizer.c: Removed.
+	* stringtokenizer.h: Removed.
+
+2000-04-01  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* htmlengine.c
 	(parse_p): Close the current flow on `<pre>'.
 
