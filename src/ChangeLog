@@ -1,4 +1,17 @@
+2000-02-25  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* gtkhtml.c (update_styles): Use
+	`html_engine_update_insertion_font_style()'.
+	(key_press_event): Don't update the style when inserting text.
+
+	* htmlengine-edit-fontstyle.c
+	(html_engine_get_current_insertion_font_style): Removed.
+	(html_engine_update_insertion_font_style): New function.
+
 2000-02-24  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* gtkhtml.c (cleanup_selection_and_style): New helper function.
+	(key_press_event): Use it when moving the cursor around.
 
 	* htmlengine-edit-insert.c (do_insert_different_style): Handle the
 	`offset == 0' case correctly.

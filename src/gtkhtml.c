@@ -124,7 +124,6 @@ update_styles (GtkHTML *html)
 {
 	GtkHTMLParagraphStyle paragraph_style;
 	HTMLClueFlowStyle clueflow_style;
-	GtkHTMLFontStyle insertion_font_style;
 	HTMLEngine *engine;
 
 	engine = html->engine;
@@ -138,12 +137,10 @@ update_styles (GtkHTML *html)
 				 paragraph_style);
 	}
 
-	insertion_font_style = html_engine_get_current_insertion_font_style (engine);
-	if (insertion_font_style != html->insertion_font_style) {
-		html->insertion_font_style = insertion_font_style;
-		gtk_signal_emit (GTK_OBJECT (html), signals[INSERTION_FONT_STYLE_CHANGED],
-				 insertion_font_style);
-	}
+	if (html_engine_update_insertion_font_style (engine))
+		gtk_signal_emit (GTK_OBJECT (html),
+				 signals[INSERTION_FONT_STYLE_CHANGED],
+				 engine->insertion_font_style);
 }
 
 
@@ -444,7 +441,9 @@ key_press_event (GtkWidget *widget,
 			retval = FALSE;
 		} else {
 			html_engine_insert (engine, event->string, event->length);
-			retval = TRUE;
+			queue_draw (html);
+			/* We don't want to update the insertion style here.  */
+			return TRUE;
 		}
 	}
 

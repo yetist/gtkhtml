@@ -25,9 +25,9 @@
 #include "htmlengine.h"
 #include "gtkhtmlfontstyle.h"
 
-GtkHTMLFontStyle  html_engine_get_current_insertion_font_style  (HTMLEngine       *engine);
-void              html_engine_set_font_style                    (HTMLEngine       *engine,
-								 GtkHTMLFontStyle  and_mask,
-								 GtkHTMLFontStyle  or_mask);
+gboolean  html_engine_update_insertion_font_style  (HTMLEngine       *engine);
+void      html_engine_set_font_style               (HTMLEngine       *engine,
+						    GtkHTMLFontStyle  and_mask,
+						    GtkHTMLFontStyle  or_mask);
 
 #endif

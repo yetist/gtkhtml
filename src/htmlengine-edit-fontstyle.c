@@ -267,29 +267,33 @@ get_font_style_from_selection (HTMLEngine *engine)
 	return style;
 }
 
-GtkHTMLFontStyle
-html_engine_get_current_insertion_font_style (HTMLEngine *engine)
+gboolean
+html_engine_update_insertion_font_style (HTMLEngine *engine)
 {
 	HTMLObject *curr;
+	GtkHTMLFontStyle new_style;
 
 	g_return_val_if_fail (engine != NULL, GTK_HTML_FONT_STYLE_DEFAULT);
 	g_return_val_if_fail (HTML_IS_ENGINE (engine), GTK_HTML_FONT_STYLE_DEFAULT);
 	g_return_val_if_fail (engine->editable, GTK_HTML_FONT_STYLE_DEFAULT);
 
 	curr = engine->cursor->object;
+
 	if (curr == NULL)
-		return GTK_HTML_FONT_STYLE_DEFAULT;
+		new_style = GTK_HTML_FONT_STYLE_DEFAULT;
+	else if (! html_object_is_text (curr))
+		new_style = GTK_HTML_FONT_STYLE_DEFAULT;
+	else if (! engine->active_selection)
+		new_style = HTML_TEXT (curr)->font_style;
+	else
+		new_style = get_font_style_from_selection (engine);
 
-	if (engine->insertion_font_style != GTK_HTML_FONT_STYLE_DEFAULT)
-		return engine->insertion_font_style;
+	if (new_style != engine->insertion_font_style) {
+		engine->insertion_font_style = new_style;
+		return TRUE;
+	}
 
-	if (! html_object_is_text (curr))
-		return GTK_HTML_FONT_STYLE_DEFAULT;
-
-	if (! engine->active_selection)
-		return HTML_TEXT (curr)->font_style;
-
-	return get_font_style_from_selection (engine);
+	return FALSE;
 }
 
 /**
