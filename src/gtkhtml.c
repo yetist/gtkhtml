@@ -2521,8 +2521,12 @@ gtk_html_set_paragraph_alignment (GtkHTML *html,
 
 	align = paragraph_alignment_to_html (alignment);
 
-	html_engine_set_clueflow_style (html->engine, 0, 0, align, 0,
-					HTML_ENGINE_SET_CLUEFLOW_ALIGNMENT, TRUE);
+	if (html_engine_set_clueflow_style (html->engine, 0, 0, align, 0,
+					    HTML_ENGINE_SET_CLUEFLOW_ALIGNMENT, TRUE))
+		gtk_signal_emit (GTK_OBJECT (html), 
+				 signals [CURRENT_PARAGRAPH_ALIGNMENT_CHANGED],
+				 alignment);
+
 }
 
 
