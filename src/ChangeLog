@@ -1,3 +1,16 @@
+2000-01-06  Jonas Borgström <jonas_b@bitsmart.com>
+	This adds support for scaling images.
+	OBS! You need a fresh gdk_pixbuf from the CVS.
+
+	* htmlimage.h : New members: gboolean scaled and GdkPixbuf *scaled_pixbuf;
+
+	* htmlimage.c : (destroy) : unref scaled_pixbuf if used;
+	(html_image_update_scaled_pixbuf) : New function updates the local scaled copy of image_ptr->pixbuf
+	(html_image_setup) : Set scaled to TRUE if object->width != image_ptr->pixbuf->art_pixbuf->width.
+	(html_image_factory_area_updated) : Call html_image_update_scaled_pixbuf if scaled.	
+	(html_image_factory_end_pixbuf) : Call html_image_update_scaled_pixbuf if scaled.
+	(html_image_factory_register) : Scale the image if necesary if it already is loaded. 
+	
 2000-01-05  Jonas Borgström <jonas_b@bitsmart.com>
 	This adds support for references in urls.
 	
