@@ -67,7 +67,7 @@ gtk_html_class_properties_destroy (GtkHTMLClassProperties *p)
 #define GET(t,x,prop,f,c) \
         key = g_strconcat (GTK_HTML_GCONF_DIR, x, NULL); \
         val = gconf_client_get_without_default (client, key, NULL); \
-        if (val) { f; p-> ## prop = c (gconf_value_get_ ## t (val)); \
+        if (val) { f; p->prop = c (gconf_value_get_ ## t (val)); \
         gconf_value_free (val); } \
         g_free (key);
 
@@ -106,7 +106,7 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p, GConfClient *client)
 
 #define SET(t,x,prop) \
         { key = g_strconcat (GTK_HTML_GCONF_DIR, x, NULL); \
-        gconf_client_set_ ## t (client, key, p-> ## prop, NULL); \
+        gconf_client_set_ ## t (client, key, p->prop, NULL); \
         g_free (key); }
 
 
@@ -152,9 +152,9 @@ gtk_html_class_properties_update (GtkHTMLClassProperties *p, GConfClient *client
 
 #undef GET
 #define GET(t,v,s) \
-	p-> ## v = gnome_config_get_ ## t (s)
+	p->v = gnome_config_get_ ## t (s)
 #define GETS(v,s) \
-        g_free (p-> ## v); \
+        g_free (p->v); \
         GET(string,v,s)
 
 
@@ -225,10 +225,10 @@ gtk_html_class_properties_save (GtkHTMLClassProperties *p)
 #endif
 
 #define COPYS(v) \
-        g_free (p1-> ## v); \
-        p1->## v = g_strdup (p2-> ## v);
+        g_free (p1->v); \
+        p1->v = g_strdup (p2->v);
 #define COPY(v) \
-        p1-> ## v = p2-> ## v;
+        p1->v = p2->v;
 
 void
 gtk_html_class_properties_copy (GtkHTMLClassProperties *p1,

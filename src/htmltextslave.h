@@ -40,8 +40,6 @@ struct _HTMLTextSlaveClass {
 	HTMLObjectClass object_class;
 };
 
-HTMLTextSlaveClass html_text_slave_class;
-
 void        html_text_slave_type_init               (void);
 void        html_text_slave_class_init              (HTMLTextSlaveClass *klass,
 						     HTMLType            type,

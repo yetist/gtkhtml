@@ -1,3 +1,17 @@
+2001-04-07  Dan Winship  <danw@ximian.com>
+
+	* htmlprinter.c (DARK, LIGHT):
+	* htmlgdkpainter.c (DARK, LIGHT):
+	* htmlengine-edit-rule.c (SET, SETO):
+	* gtkhtml-properties.c (GET, SET, GET, GETS, COPYS): Remove
+	inappropriate uses of ## in macro definitions.
+
+	* htmltextslave.h: 
+	* htmltable.h: Remove (unused) non-extern declarations of
+	html_table_class and html_text_slave_class.
+
+	* htmlclue.c: Make parent_class static
+
 2001-04-03  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c (check_prev): check faces

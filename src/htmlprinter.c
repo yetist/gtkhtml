@@ -349,8 +349,8 @@ draw_panel (HTMLPainter *painter,
 	gdouble height;
 
 	#define INC 0x8000
-	#define DARK(c)  dark.  ## c = MAX (((gint) bg-> ## c) - INC, 0)
-	#define LIGHT(c) light. ## c = MIN (((gint) bg-> ## c) + INC, 0xffff)
+	#define DARK(c)  dark.c = MAX (((gint) bg->c) - INC, 0)
+	#define LIGHT(c) light.c = MIN (((gint) bg->c) + INC, 0xffff)
 
 	DARK(red);
 	DARK(green);

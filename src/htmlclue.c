@@ -31,7 +31,7 @@
 #define HC_CLASS(x) (HTML_CLUE_CLASS (HTML_OBJECT (x)->klass))
 
 HTMLClueClass html_clue_class;
-HTMLObjectClass *parent_class = NULL;
+static HTMLObjectClass *parent_class = NULL;
 
 static void set_parent (HTMLObject *o, HTMLObject *tail, HTMLObject *parent);
 

@@ -56,9 +56,6 @@ struct _HTMLTableClass {
 };
 
 
-HTMLTableClass html_table_class;
-
-
 void        html_table_type_init   (void);
 void        html_table_class_init  (HTMLTableClass *klass,
 				    HTMLType        type,
