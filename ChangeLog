@@ -1,5 +1,7 @@
 2001-10-01  Larry Ewing  <lewing@ximian.com>
 
+	* Make gtkhtml-0.14.0 release.
+
 	* configure.in bump version to 0.14.0
 
 2001-09-21  Larry Ewing  <lewing@ximian.com>
