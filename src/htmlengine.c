@@ -156,9 +156,10 @@ current_color (HTMLEngine *e)
 	const GdkColor *color;
 
 	if (html_stack_is_empty (e->color_stack))
-		return &black;	/* FIXME use settings */
+		color = & e->settings->fontBaseColor;
+	else
+		color = html_stack_top (e->color_stack);
 
-	color = html_stack_top (e->color_stack);
 	return color;
 }
 
@@ -171,7 +172,6 @@ push_color (HTMLEngine *e,
 
 static void
 pop_color (HTMLEngine *e)
-
 {
 	html_stack_pop (e->color_stack);
 }
@@ -265,6 +265,9 @@ add_line_break (HTMLEngine *e,
 static void
 close_anchor (HTMLEngine *e)
 {
+	if (e->url == NULL && e->target == NULL)
+		return;
+
 	if (e->url != NULL) {
 		g_free (e->url);
 		e->url = NULL;
@@ -272,6 +275,8 @@ close_anchor (HTMLEngine *e)
 
 	g_free (e->target);
 	e->target = NULL;
+
+	pop_color (e);
 }
 
 static void
@@ -360,6 +365,12 @@ insert_text (HTMLEngine *e,
 	HTMLObject *prev;
 	HTMLType type;
 	const GdkColor *color;
+	gboolean create_link;
+
+	if (e->url != NULL || e->target != NULL)
+		create_link = TRUE;
+	else
+		create_link = FALSE;
 
 	font_style = current_font_style (e);
 	color = current_color (e);
@@ -367,7 +378,6 @@ insert_text (HTMLEngine *e,
 	if (e->pending_para || e->flow == NULL || HTML_CLUE (e->flow)->head == NULL) {
 		while (*text == ' ')
 			text++;
-
 		if (*text == 0)
 			return;
 	}
@@ -385,9 +395,8 @@ insert_text (HTMLEngine *e,
 	if (! check_prev (prev, type, font_style, color)) {
 		HTMLObject *obj;
 
-		if (e->url != NULL || e->target != NULL)
-			obj = html_link_text_master_new (g_strdup (text), font_style,
-							 &e->settings->linkColor,
+		if (create_link)
+			obj = html_link_text_master_new (g_strdup (text), font_style, color,
 							 e->url, e->target);
 		else
 			obj = html_text_master_new (g_strdup (text), font_style, color);
@@ -1398,6 +1407,9 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 					g_free (e->url);
 				e->url = tmpurl;
 			}
+
+			if (e->url != NULL || e->target != NULL)
+				push_color (e, & e->settings->linkColor);
 		} else if ( strncmp( str, "/a", 2 ) == 0 ) {
 			close_anchor (e);
 		}
@@ -1458,7 +1470,9 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		
 		string_tokenizer_tokenize (e->st, str + 5, " >");
 		while (string_tokenizer_has_more_tokens (e->st)) {
-			gchar *token = string_tokenizer_next_token (e->st);
+			gchar *token;
+
+			token = string_tokenizer_next_token (e->st);
 			gtk_html_debug_log (e->widget, "token is: %s\n", token);
 
 			if (strncasecmp (token, "bgcolor=", 8) == 0) {
@@ -1469,18 +1483,13 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				} else {
 					gtk_html_debug_log (e->widget, "Color `%s' could not be parsed\n", token);
 				}
-			}
-			else if (strncasecmp (token, "background=", 11) == 0
-				 && !e->defaultSettings->forceDefault) {
-
+			} else if (strncasecmp (token, "background=", 11) == 0
+				   && ! e->defaultSettings->forceDefault) {
 				gchar *bgurl;
 
 				bgurl = g_strdup (token + 11);
-				
 				e->bgPixmapPtr = html_image_factory_register(e->image_factory, NULL, bgurl);
-
 				g_free (bgurl);
-
 			} else if ( strncasecmp( token, "text=", 5 ) == 0
 				    && !e->defaultSettings->forceDefault ) {
 				if (parse_color (token + 5, &e->settings->fontBaseColor)) {

@@ -1,3 +1,11 @@
+2000-03-31  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine.c
+	(parse_a): Push link color into the color stack when encountering
+	a `<a>' tag.
+	(close_anchor): If there is a `url' and/or a `target', pop a color
+	from the color stack.
+
 2000-04-01  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine.c (TIMER_INTERVAL): set TIMER_INTERVAL to 300
