@@ -2141,7 +2141,8 @@ parse_f (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			e->pending_para = TRUE;
 		}
 	} else if (strncmp (str, "frameset", 8) == 0) {
-		parse_frameset (e, clue, clue->max_width, str + 8);
+		if (e->allow_frameset)
+			parse_frameset (e, clue, clue->max_width, str + 8);
 	} else if (strncasecmp (str, "/frameset", 9) == 0) {
 		if (!html_stack_is_empty (e->frame_stack))
 			html_stack_pop (e->frame_stack);
@@ -2151,6 +2152,9 @@ parse_f (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		gint margin_height = -1;
 		gint margin_width = -1;
 		GtkPolicyType scroll = GTK_POLICY_AUTOMATIC;
+
+		if (!e->allow_frameset)
+			return;
 
 		src = NULL;
 		html_string_tokenizer_tokenize (e->st, str + 5, " >");
@@ -2579,7 +2583,9 @@ parse_n (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 {
 	if (strncasecmp (str, "noframe", 7) == 0) {
 		static const char *end[] = {"</noframe", NULL};
-		discard_body (e, end);
+
+		if (e->allow_frameset)
+			discard_body (e, end);
 	}
 }
 
@@ -3272,6 +3278,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->painter = html_gdk_painter_new (TRUE);
 
 	engine->newPage = FALSE;
+	engine->allow_frameset = FALSE;
 
 	engine->editable = FALSE;
 	engine->clipboard = NULL;

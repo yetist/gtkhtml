@@ -111,7 +111,7 @@ struct _HTMLEngine {
 	gboolean inOption;
 	gboolean inTextArea;
 	gboolean eat_space;
-
+	gboolean allow_frameset;
 	gboolean newPage;
  
 	HTMLStack *font_style_stack; /* Font style stack, elements are GtkHTMLFontStyles.  */

@@ -1,5 +1,14 @@
 2001-10-16  Larry Ewing  <lewing@ximian.com>
 
+	* htmlengine.h: add allow_frameset boolean.
+
+	* htmlengine.c (html_engine_init): add allow_frameset paramter.
+	(parse_f): only parse the frameset and frames if allow_frameset is
+	true.
+	(parse_n): only discard the noframes body if allow_frameset is
+	true.
+	(html_engine_init): initialize allow_frameset.
+
 	* htmltokenizer.c (add_byte): discard '\0' on input, it just
 	confuses the rest of the tokenizer and serves no purpose.
 
@@ -87,6 +96,7 @@
 
 	* gtkhtml.c (gtk_html_private_calc_scrollbars): don't clip the
 	page width it leads to bad things.
+	(gtk_html_begin): add a precondition to try to see
 
 2001-10-09  Radek Doulik  <rodo@ximian.com>
 
