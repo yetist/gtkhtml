@@ -276,17 +276,16 @@ backward_in_flow (HTMLCursor *cursor)
 	gboolean retval;
 
 	retval = TRUE;
-	if (cursor->offset) {
-		if (html_object_is_container (cursor->object)) {
-			HTMLObject *obj;
+	if (cursor->offset  && html_object_is_container (cursor->object)) {
+		HTMLObject *obj;
 
-			obj = cursor->object;
-			while ((retval = backward (cursor)) && cursor->object != obj)
-				;
-		} else
-			retval = html_object_cursor_backward (cursor->object, cursor);
+		obj = cursor->object;
+		while ((retval = backward (cursor)) && cursor->object != obj)
+			;
 	} else {
-		if (cursor->object->prev)
+		if (cursor->offset > 1 || !cursor->object->prev)
+			retval = html_object_cursor_backward (cursor->object, cursor);
+		else if (cursor->object->prev)
 			retval = backward (cursor);
 		else
 			retval = FALSE;
