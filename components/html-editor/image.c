@@ -57,13 +57,13 @@ struct _GtkHTMLEditImageProperties {
 	GtkWidget *spin_width;
 	GtkWidget *option_width_percent;
 	gint width;
-	gboolean width_percent;
+	gint width_percent;
 
 
 	GtkWidget *spin_height;
 	GtkWidget *option_height_percent;
 	gint height;
-	gboolean height_percent;
+	gint height_percent;
 
 	GtkWidget *spin_padh;
 	gint padh;
@@ -151,6 +151,8 @@ data_new (GtkHTMLControlData *cd)
 
 	/* default values */
 	data->align          = HTML_VALIGN_TOP;
+	data->width_percent  = 2;
+	data->height_percent = 2;
 
 	return data;
 }
@@ -200,12 +202,12 @@ get_sample_html (GtkHTMLEditImageProperties *d, gboolean insert)
 {
 	gchar *html, *image, *body, *width, *height, *align, *src, *border, *padh, *padv, *lbegin, *lend, *location;
 
-	if (d->width || d->width_percent)
+	if ((d->width || d->width_percent == 1) && d->width_percent != 2)
 		width  = g_strdup_printf (" width=\"%d%s\"", d->width, d->width_percent ? "%" : "");
 	else
 		width  = g_strdup ("");
 
-	if (d->height || d->height_percent)
+	if ((d->height || d->height_percent == 1) && d->height_percent != 2)
 		height = g_strdup_printf (" height=\"%d%s\"", d->height, d->height_percent ? "%" : "");
 	else
 		height = g_strdup ("");
@@ -259,7 +261,7 @@ get_sample_html (GtkHTMLEditImageProperties *d, gboolean insert)
 	g_free (align);
 	g_free (body);
 
-	/* printf ("IMAGE: %s\n", html); */
+	printf ("IMAGE: %s\n", html);
 
 	return html;
 }
@@ -313,6 +315,7 @@ static void
 changed_width_percent (GtkWidget *w, GtkHTMLEditImageProperties *d)
 {
 	d->width_percent = g_list_index (GTK_MENU_SHELL (w)->children, gtk_menu_get_active (GTK_MENU (w)));
+	gtk_widget_set_sensitive (d->spin_width, d->width_percent != 2);
 	CHANGE;
 	FILL;
 }
@@ -321,6 +324,7 @@ static void
 changed_height_percent (GtkWidget *w, GtkHTMLEditImageProperties *d)
 {
 	d->height_percent = g_list_index (GTK_MENU_SHELL (w)->children, gtk_menu_get_active (GTK_MENU (w)));
+	gtk_widget_set_sensitive (d->spin_height, d->height_percent != 2);
 	CHANGE;
 	FILL;
 }
@@ -358,6 +362,9 @@ set_ui (GtkHTMLEditImageProperties *d)
 	gtk_entry_set_text (GTK_ENTRY (d->entry_url), d->url ? d->url : "");
 	gtk_entry_set_text (GTK_ENTRY (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (d->pentry))),
 			    d->location ? d->location : "");
+
+	gtk_widget_set_sensitive (d->spin_width, d->width_percent != 2);
+	gtk_widget_set_sensitive (d->spin_height, d->height_percent != 2);
 
 	d->disable_change = FALSE;
 
@@ -447,11 +454,11 @@ set_size_all (HTMLObject *o, HTMLEngine *e, GtkHTMLEditImageProperties *d)
 			HTMLImage *i = HTML_IMAGE (o);
 
 			d->disable_change = TRUE;
-			if (d->width == 0 && !d->width_percent) {
+			if ((d->width == 0 || d->width_percent == 2) && d->width_percent != 1) {
 				d->width = html_image_get_actual_width (i, NULL);
 				gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_width), d->width);
 			}
-			if (d->height == 0 && !d->height_percent) {
+			if ((d->height == 0 || d->height_percent == 2) && d->height_percent != 1) {
 				d->height = html_image_get_actual_height (i, NULL);
 				gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_height), d->height);
 			}
@@ -581,14 +588,22 @@ get_data (GtkHTMLEditImageProperties *d, HTMLImage *image)
         else if (!strncmp (ip->url, "file:", 5))
 		off = 5;
 	d->location = g_strdup (ip->url + off);
-	if (image->percent_width > 0) {
-		d->width_percent = TRUE;
-		d->width = image->percent_width;
-	}
-	if (image->percent_height > 0) {
-		d->height_percent = TRUE;
-		d->height = image->percent_height;
-	}
+	if (image->percent_width) {
+		d->width_percent = 1;
+		d->width = image->specified_width;
+	} else if (image->specified_width > 0) {
+		d->width_percent = 0;
+		d->width = image->specified_width;
+	} else
+		d->width_percent = 2;
+	if (image->percent_height) {
+		d->height_percent = 1;
+		d->height = image->specified_height;
+	} else if (image->specified_height > 0) {
+		d->height_percent = 0;
+		d->height = image->specified_height;
+	} else
+		d->height_percent = 2;
 	d->align  = image->valign;
 	d->padh   = image->hspace;
 	d->padv   = image->vspace;
@@ -632,7 +647,10 @@ insert_or_apply (GtkHTMLControlData *cd, gpointer get_data, gboolean insert)
 		g_assert (HTML_OBJECT_TYPE (d->image) == HTML_TYPE_IMAGE);
 
 		html_image_set_border (image, d->border);
-		html_image_set_size (image, d->width, d->height, d->width_percent, d->height_percent);
+		html_image_set_size (image,
+				     d->width_percent == 2 ? 0 : d->width,
+				     d->height_percent == 2 ? 0 : d->height,
+				     d->width_percent == 1, d->height_percent == 1);
 		html_image_set_spacing  (image, d->padh, d->padv);
 		html_image_set_valign   (image, d->align);
 

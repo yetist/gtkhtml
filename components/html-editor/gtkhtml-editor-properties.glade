@@ -3176,6 +3176,7 @@ Bottom
 	      <can_focus>True</can_focus>
 	      <items>Pixels
 Percent
+Follow
 </items>
 	      <initial_choice>0</initial_choice>
 	      <child>
@@ -3200,6 +3201,7 @@ Percent
 	      <can_focus>True</can_focus>
 	      <items>Pixels
 Percent
+Follow
 </items>
 	      <initial_choice>0</initial_choice>
 	      <child>
@@ -3711,6 +3713,178 @@ Percent
       <child_name>Notebook:tab</child_name>
       <name>label40</name>
       <label>Page</label>
+      <justify>GTK_JUSTIFY_CENTER</justify>
+      <wrap>False</wrap>
+      <xalign>0.5</xalign>
+      <yalign>0.5</yalign>
+      <xpad>0</xpad>
+      <ypad>0</ypad>
+    </widget>
+
+    <widget>
+      <class>GtkVBox</class>
+      <name>vbox16</name>
+      <homogeneous>False</homogeneous>
+      <spacing>0</spacing>
+
+      <widget>
+	<class>GtkFrame</class>
+	<name>frame49</name>
+	<border_width>2</border_width>
+	<width>240</width>
+	<label>Text</label>
+	<label_xalign>0</label_xalign>
+	<shadow_type>GTK_SHADOW_ETCHED_IN</shadow_type>
+	<child>
+	  <padding>0</padding>
+	  <expand>False</expand>
+	  <fill>True</fill>
+	</child>
+
+	<widget>
+	  <class>GtkFrame</class>
+	  <name>frame51</name>
+	  <border_width>2</border_width>
+	  <label_xalign>0</label_xalign>
+	  <shadow_type>GTK_SHADOW_NONE</shadow_type>
+
+	  <widget>
+	    <class>GtkEntry</class>
+	    <name>entry_link_text</name>
+	    <can_focus>True</can_focus>
+	    <editable>True</editable>
+	    <text_visible>True</text_visible>
+	    <text_max_length>0</text_max_length>
+	    <text></text>
+	  </widget>
+	</widget>
+      </widget>
+
+      <widget>
+	<class>GtkFrame</class>
+	<name>frame50</name>
+	<border_width>2</border_width>
+	<label>Click will follow this URL</label>
+	<label_xalign>0</label_xalign>
+	<shadow_type>GTK_SHADOW_ETCHED_IN</shadow_type>
+	<child>
+	  <padding>0</padding>
+	  <expand>False</expand>
+	  <fill>True</fill>
+	</child>
+
+	<widget>
+	  <class>GtkFrame</class>
+	  <name>frame52</name>
+	  <border_width>2</border_width>
+	  <label_xalign>0</label_xalign>
+	  <shadow_type>GTK_SHADOW_NONE</shadow_type>
+
+	  <widget>
+	    <class>GtkEntry</class>
+	    <name>entry_link_url</name>
+	    <can_focus>True</can_focus>
+	    <editable>True</editable>
+	    <text_visible>True</text_visible>
+	    <text_max_length>0</text_max_length>
+	    <text></text>
+	  </widget>
+	</widget>
+      </widget>
+    </widget>
+
+    <widget>
+      <class>GtkLabel</class>
+      <child_name>Notebook:tab</child_name>
+      <name>label44</name>
+      <label>Link insert</label>
+      <justify>GTK_JUSTIFY_CENTER</justify>
+      <wrap>False</wrap>
+      <xalign>0.5</xalign>
+      <yalign>0.5</yalign>
+      <xpad>0</xpad>
+      <ypad>0</ypad>
+    </widget>
+
+    <widget>
+      <class>GtkVBox</class>
+      <name>vbox17</name>
+      <homogeneous>False</homogeneous>
+      <spacing>0</spacing>
+
+      <widget>
+	<class>GtkFrame</class>
+	<name>frame53</name>
+	<border_width>2</border_width>
+	<width>240</width>
+	<label>Text</label>
+	<label_xalign>0</label_xalign>
+	<shadow_type>GTK_SHADOW_ETCHED_IN</shadow_type>
+	<child>
+	  <padding>0</padding>
+	  <expand>False</expand>
+	  <fill>True</fill>
+	</child>
+
+	<widget>
+	  <class>GtkFrame</class>
+	  <name>frame54</name>
+	  <border_width>2</border_width>
+	  <label_xalign>0</label_xalign>
+	  <shadow_type>GTK_SHADOW_NONE</shadow_type>
+
+	  <widget>
+	    <class>GtkLabel</class>
+	    <name>label46</name>
+	    <label>***text***</label>
+	    <justify>GTK_JUSTIFY_CENTER</justify>
+	    <wrap>False</wrap>
+	    <xalign>0</xalign>
+	    <yalign>0.5</yalign>
+	    <xpad>0</xpad>
+	    <ypad>0</ypad>
+	  </widget>
+	</widget>
+      </widget>
+
+      <widget>
+	<class>GtkFrame</class>
+	<name>frame55</name>
+	<border_width>2</border_width>
+	<label>Click will follow this URL</label>
+	<label_xalign>0</label_xalign>
+	<shadow_type>GTK_SHADOW_ETCHED_IN</shadow_type>
+	<child>
+	  <padding>0</padding>
+	  <expand>False</expand>
+	  <fill>True</fill>
+	</child>
+
+	<widget>
+	  <class>GtkFrame</class>
+	  <name>frame56</name>
+	  <border_width>2</border_width>
+	  <label_xalign>0</label_xalign>
+	  <shadow_type>GTK_SHADOW_NONE</shadow_type>
+
+	  <widget>
+	    <class>GtkEntry</class>
+	    <name>entry_link_url</name>
+	    <can_focus>True</can_focus>
+	    <editable>True</editable>
+	    <text_visible>True</text_visible>
+	    <text_max_length>0</text_max_length>
+	    <text></text>
+	  </widget>
+	</widget>
+      </widget>
+    </widget>
+
+    <widget>
+      <class>GtkLabel</class>
+      <child_name>Notebook:tab</child_name>
+      <name>label45</name>
+      <label>Link properties</label>
       <justify>GTK_JUSTIFY_CENTER</justify>
       <wrap>False</wrap>
       <xalign>0.5</xalign>
