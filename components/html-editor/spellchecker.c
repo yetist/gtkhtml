@@ -20,8 +20,6 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifdef GTKHTML_HAVE_PSPELL
-#include <pspell/pspell.h>
 #include "spell.h"
 
 struct _SpellPopup {
@@ -29,7 +27,6 @@ struct _SpellPopup {
 
 	GtkWidget *window;
 	GtkWidget *clist;
-	PspellManager *spell_checker;
 
 	gchar *misspeled_word;
 	gboolean replace;
@@ -45,11 +42,17 @@ destroy (GtkWidget *w, SpellPopup *sp)
 		gchar *replacement;
 
 		if (GTK_CLIST (sp->clist)->selection) {
+			CORBA_Environment ev;
+
+			CORBA_exception_init (&ev);
+			GNOME_Spell_Dictionary_correction (sp->cd->dict, sp->misspeled_word, replacement, &ev);
+			CORBA_exception_free (&ev);
+
 			gtk_clist_get_text (GTK_CLIST (sp->clist),
 					    GPOINTER_TO_INT (GTK_CLIST (sp->clist)->selection->data), 0, &replacement);
 			html_engine_replace_word_with (sp->cd->html->engine, replacement);
+
 			/* printf ("replace: %s with: %s\n", sp->misspeled_word, replacement); */
-			pspell_manager_store_replacement (sp->spell_checker, sp->misspeled_word, replacement);
 		}
 	}
 
@@ -87,24 +90,43 @@ select_row (GtkCList *clist, gint row, gint column, GdkEvent *event, SpellPopup 
 	}
 }
 
-void
-spell_suggestion_request_cb (GtkHTML *html,  PspellManager *spell_checker, gchar *word, GtkHTMLControlData *cd)
+static void
+fill_suggestion_clist (GtkWidget *clist, const gchar *word, GtkHTMLControlData *cd)
 {
+	GNOME_Spell_StringSeq *seq;
+	CORBA_Environment      ev;
+	const char * suggested_word [1];
+	gint i;
+
+	CORBA_exception_init (&ev);
+	seq = GNOME_Spell_Dictionary_suggestions (cd->dict, word, &ev );
+
+	if (ev._major == CORBA_NO_EXCEPTION) {
+		for (i=0; i < seq->_length; i++) {
+			suggested_word [0] = seq->_buffer [i];
+			gtk_clist_append (GTK_CLIST (clist), (gchar **) suggested_word);
+		}
+		CORBA_free (seq);
+	}
+	CORBA_exception_free (&ev);
+}
+
+void
+spell_suggestion_request (GtkHTML *html, const gchar *word, gpointer data)
+{
+	GtkHTMLControlData *cd;
 	SpellPopup *sp;
 	HTMLEngine *e = html->engine;
-	const PspellWordList   *suggestions;
-	PspellStringEmulation  *elements;
-	const char * suggested_word [1];
 	GtkWidget *scrolled_window;
 	GtkWidget *frame;
 	gint x, y, xw, yw;
 
 	/* printf ("spell_suggestion_request_cb %s\n", word); */
 
+	cd = (GtkHTMLControlData *) data;
 	sp = g_new (SpellPopup, 1);
 	sp->cd = cd;
 	sp->replace = FALSE;
-	sp->spell_checker  = spell_checker;
 	sp->misspeled_word = g_strdup (word);
 
 	sp->window = gtk_window_new (GTK_WINDOW_POPUP);
@@ -117,11 +139,7 @@ spell_suggestion_request_cb (GtkHTML *html,  PspellManager *spell_checker, gchar
 	frame = gtk_frame_new (NULL);
 	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_OUT);
 
-	suggestions = pspell_manager_suggest (spell_checker, word);
-	elements    = pspell_word_list_elements (suggestions);
-	while ((suggested_word [0] = pspell_string_emulation_next (elements)))
-		gtk_clist_append (GTK_CLIST (sp->clist), (gchar **) suggested_word);
-	delete_pspell_string_emulation (elements);
+	fill_suggestion_clist (sp->clist, word, cd);
 
 	gtk_widget_set_usize (sp->window, gtk_clist_columns_autosize (GTK_CLIST (sp->clist)) + 40, 200);
 	gtk_container_add (GTK_CONTAINER (scrolled_window), sp->clist);
@@ -145,4 +163,57 @@ spell_suggestion_request_cb (GtkHTML *html,  PspellManager *spell_checker, gchar
 	gtk_window_set_focus (GTK_WINDOW (sp->window), sp->clist);
 }
 
-#endif
+BonoboObjectClient *
+spell_new_dictionary (void)
+{
+	BonoboObjectClient      *dictionary_client;
+	gchar                   *id;
+
+	id = "OAFIID:gnome_spell_dictionary:9ef8e842-525e-454a-bcf5-e269593289ac";
+	dictionary_client = bonobo_object_activate (id, 0);
+
+	if (!dictionary_client) {
+		g_warning ("Cannot activate spell dictionary (id:%s)", id);
+		return NULL;
+	}
+
+	return dictionary_client;
+}
+
+gboolean
+spell_check_word (GtkHTML *html, const gchar *word, gpointer data)
+{
+	GtkHTMLControlData *cd = (GtkHTMLControlData *) data;
+	CORBA_Environment   ev;
+	gboolean rv;
+
+	CORBA_exception_init (&ev);
+	rv = GNOME_Spell_Dictionary_check_word (cd->dict, word, &ev);
+	if (ev._major != CORBA_NO_EXCEPTION)
+		rv = TRUE;
+	CORBA_exception_free (&ev);
+
+	return rv;
+}
+
+void
+spell_add_to_session (GtkHTML *html, const gchar *word, gpointer data)
+{
+	GtkHTMLControlData *cd = (GtkHTMLControlData *) data;
+	CORBA_Environment   ev;
+
+	CORBA_exception_init (&ev);
+	GNOME_Spell_Dictionary_add_word_to_session (cd->dict, word, &ev);
+	CORBA_exception_free (&ev);
+}
+
+void
+spell_add_to_personal (GtkHTML *html, const gchar *word, gpointer data)
+{
+	GtkHTMLControlData *cd = (GtkHTMLControlData *) data;
+	CORBA_Environment   ev;
+
+	CORBA_exception_init (&ev);
+	GNOME_Spell_Dictionary_add_word_to_personal (cd->dict, word, &ev);
+	CORBA_exception_free (&ev);
+}

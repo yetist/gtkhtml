@@ -115,17 +115,10 @@ void               html_clueflow_get_properties   (HTMLClueFlow      *flow,
 
 void               html_clueflow_remove_text_slaves  (HTMLClueFlow *flow);
 
-#ifdef GTKHTML_HAVE_PSPELL
 void               html_clueflow_spell_check      (HTMLClueFlow *flow,
 						   HTMLEngine *e,
 						   HTMLInterval *i);
-#endif
-
-#ifdef GTKHTML_HAVE_PSPELL
 #define SPELL_CHECK(f, e) if (f && HTML_OBJECT_TYPE (f) == HTML_TYPE_CLUEFLOW) \
                                    html_clueflow_spell_check (HTML_CLUEFLOW (f), e, NULL)
-#else
-#define SPELL_CHECK(f, e)
-#endif
 
 #endif /* _HTMLCLUEFLOW_H_ */

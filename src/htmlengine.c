@@ -2920,13 +2920,6 @@ html_engine_destroy (GtkObject *object)
 	if (engine->insertion_url) g_free (engine->insertion_url);
 	if (engine->insertion_target) g_free (engine->insertion_target);
 
-#ifdef GTKHTML_HAVE_PSPELL
-	if (engine->spell_checker)
-		delete_pspell_manager (engine->spell_checker);
-
-	delete_pspell_config (engine->spell_config);
-#endif
-
 	GTK_OBJECT_CLASS (parent_class)->destroy (object);
 }
 
@@ -2939,9 +2932,6 @@ html_engine_set_arg (GtkObject        *object,
 
 	if (arg_id == 1) {
 		GtkHTMLClassProperties *prop;
-#ifdef GTKHTML_HAVE_PSPELL
-		PspellCanHaveError *err;
-#endif
 
 		engine->widget          = GTK_HTML (GTK_VALUE_OBJECT (*arg));
 		engine->settings        = html_settings_new (GTK_WIDGET (engine->widget));
@@ -2952,17 +2942,6 @@ html_engine_set_arg (GtkObject        *object,
 		html_color_ref (engine->insertion_color);
 
 		prop = GTK_HTML_CLASS (GTK_OBJECT (engine->widget)->klass)->properties;
-#ifdef GTKHTML_HAVE_PSPELL
-		engine->spell_config  = new_pspell_config ();
-		pspell_config_replace (engine->spell_config, "language-tag", prop->language);
-		pspell_config_replace (engine->spell_config, "encoding",     "utf-8");
-		err = new_pspell_manager (engine->spell_config);
-		if (pspell_error_number (err) != 0) {
-			g_warning ("pspell error: %s\n", pspell_error_message (err));
-			engine->spell_checker = NULL;
-		} else
-			engine->spell_checker = to_pspell_manager (err);
-#endif
 	}
 }
 
@@ -3730,10 +3709,8 @@ html_engine_set_editable (HTMLEngine *e,
 	if ((e->editable && editable) || (! e->editable && ! editable))
 		return;
 
-#ifdef GTKHTML_HAVE_PSPELL
 	if (editable)
 		html_engine_spell_check (e);
-#endif
 	html_engine_disable_selection (e);
 
 	html_engine_draw (e, 0, 0, e->width, e->height);
@@ -4249,8 +4226,6 @@ html_engine_replace_do (HTMLEngine *e, HTMLReplaceQueryAnswer answer)
 	}
 }
 
-#ifdef GTKHTML_HAVE_PSPELL
-
 /* spell checking */
 
 static void
@@ -4266,13 +4241,8 @@ html_engine_spell_check (HTMLEngine *e)
 	g_assert (HTML_IS_ENGINE (e));
 	g_assert (e->clue);
 
-	if (e->spell_checker)
+	if (e->widget->spell_api)
 		html_object_forall (e->clue, (HTMLObjectForallFunc) check_paragraph, e);
-}
-
-void
-html_engine_spell_check_word (HTMLEngine *e)
-{
 }
 
 gchar *
@@ -4398,8 +4368,6 @@ html_engine_replace_word_with (HTMLEngine *e, const gchar *word)
 	html_engine_paste_object (e, replace, TRUE);
 	html_engine_selection_pop (e);
 }
-
-#endif /* GTKHTML_HAVE_PSPELL */
 
 void
 html_engine_set_active_selection (HTMLEngine *e, gboolean active, guint32 time)

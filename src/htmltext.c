@@ -36,12 +36,10 @@ static HTMLObjectClass *parent_class = NULL;
 
 #define HT_CLASS(x) HTML_TEXT_CLASS (HTML_OBJECT (x)->klass)
 
-#ifdef GTKHTML_HAVE_PSPELL
 static SpellError * spell_error_new     (guint off, guint len);
 static void         spell_error_destroy (SpellError *se);
 static void         move_spell_errors   (GList *spell_errors, guint offset, gint delta);
 static GList *      remove_spell_errors (GList *spell_errors, guint offset, guint len);
-#endif
 
 
 static void
@@ -145,7 +143,6 @@ copy_helper (HTMLText *src,
 	dest->color = src->color;
 	html_color_ref (dest->color);
 
-#ifdef GTKHTML_HAVE_PSPELL
 	dest->spell_errors = g_list_copy (src->spell_errors);
 	cur = dest->spell_errors;
 	while (cur) {
@@ -156,7 +153,6 @@ copy_helper (HTMLText *src,
 	dest->spell_errors = remove_spell_errors (dest->spell_errors, 0, offset);
 	dest->spell_errors = remove_spell_errors (dest->spell_errors, offset + len, src->text_len - offset - len);
 	move_spell_errors (dest->spell_errors, 0, -offset);
-#endif
 }
 
 
@@ -490,7 +486,6 @@ convert_nbsp (gchar *s)
 	return rv;
 }
 
-#ifdef GTKHTML_HAVE_PSPELL
 static void 
 move_spell_errors (GList *spell_errors, guint offset, gint delta) 
 { 
@@ -524,7 +519,6 @@ remove_spell_errors (GList *spell_errors, guint offset, guint len)
   	} 
 	return spell_errors;
 }
-#endif
 
 static guint
 insert_text (HTMLText *text,
@@ -559,10 +553,9 @@ insert_text (HTMLText *text,
 	memcpy (new_buffer + l1 + ls, text->text + l1, l2);
 	new_buffer [l1 + l2 + ls] = '\0';
 
-#ifdef GTKHTML_HAVE_PSPELL
 	/* spell checking update */
 	move_spell_errors (text->spell_errors, offset, len);
-#endif
+
 	/* set new values */
 	g_free (text->text);
 	text->text = convert_nbsp (new_buffer);
@@ -618,11 +611,10 @@ remove_text (HTMLText *text,
 	memcpy (new_buffer,      text->text,      l1);
 	memcpy (new_buffer + l1, text->text + l2, lw - l2 + 1);
 
-#ifdef GTKHTML_HAVE_PSPELL
 	/* spell checking update */
 	text->spell_errors = remove_spell_errors (text->spell_errors, offset, len);
 	move_spell_errors (text->spell_errors, offset + len, -len);
-#endif
+
 	/* set new values */
 	g_free (text->text);
 	text->text = convert_nbsp (new_buffer);
@@ -671,7 +663,6 @@ get_cursor_base (HTMLObject *self,
 
 
 
-#ifdef GTKHTML_HAVE_PSPELL
 static void
 split_spell_errors (HTMLText *self, HTMLText *new, guint offset)
 {
@@ -693,7 +684,6 @@ split_spell_errors (HTMLText *self, HTMLText *new, guint offset)
 		cur = cur->next;
 	}
 }
-#endif
 
 static HTMLText *
 split (HTMLText *self,
@@ -709,10 +699,7 @@ split (HTMLText *self,
 	self->text [unicode_offset_to_index (self->text, offset)] = '\0';
 	self->text_len = offset;
 	html_object_change_set (HTML_OBJECT (self), HTML_CHANGE_MIN_WIDTH);
-
-#ifdef GTKHTML_HAVE_PSPELL
 	split_spell_errors (self, new, offset);
-#endif
 
 	return new;
 }
@@ -811,9 +798,7 @@ destroy (HTMLObject *obj)
 {
 	HTMLText *text = HTML_TEXT (obj);
 	html_color_unref (text->color);
-#ifdef GTKHTML_HAVE_PSPELL
 	html_text_spell_errors_clear (text);
-#endif
 	g_free (text->text);
 	HTML_OBJECT_CLASS (parent_class)->destroy (obj);
 }
@@ -890,13 +875,11 @@ html_text_init (HTMLText *text_object,
 		text_object->text = g_strndup (text, unicode_offset_to_index (text, len));
 	}
 
-	text_object->font_style = font_style;
-	text_object->face = NULL;
-	html_color_ref (color);
-	text_object->color = color;
-#ifdef GTKHTML_HAVE_PSPELL
+	text_object->font_style   = font_style;
+	text_object->face         = NULL;
+	text_object->color        = color;
 	text_object->spell_errors = NULL;
-#endif
+	html_color_ref (color);
 }
 
 HTMLObject *
@@ -1062,8 +1045,6 @@ html_text_set_text (HTMLText *text, const gchar *new_text)
 	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
 }
 
-#ifdef GTKHTML_HAVE_PSPELL
-
 /* spell checking */
 
 #include "htmlinterval.h"
@@ -1148,8 +1129,6 @@ html_text_spell_errors_add (HTMLText *text, guint off, guint len)
 	}
 	printf ("---------------------------------------\n"); */
 }
-
-#endif
 
 guint
 html_text_get_bytes (HTMLText *text)

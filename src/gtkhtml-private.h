@@ -35,7 +35,7 @@ struct _GtkHTMLPrivate {
 	GtkHTMLParagraphAlignment paragraph_alignment;
 	GtkHTMLFontStyle insertion_font_style;
 
-#ifdef GTKHTML_HAVE_PSPELL
+#ifdef GTKHTML_HAVE_GCONF
 	guint set_font_id;
 #endif
 #ifdef GTKHTML_USE_XIM

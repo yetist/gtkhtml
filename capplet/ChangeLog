@@ -1,3 +1,9 @@
+2000-10-11  Radek Doulik  <rodo@helixcode.com>
+
+	* Makefile.am (CFLAGS): don't add pspell cflags, they aren't
+	needed anymore
+	(LDADD): removed pspell libs
+
 2000-09-23  Jesus Bravo Alvarez  <jba@pobox.com>
 
 	* *.desktop: Added Galician translations.

@@ -22,17 +22,20 @@
 */
 
 #include "control-data.h"
+#include "spell.h"
 
 GtkHTMLControlData *
 gtk_html_control_data_new (GtkHTML *html, GtkWidget *vbox)
 {
 	GtkHTMLControlData * ncd = g_new0 (GtkHTMLControlData, 1);
 
-	ncd->html = html;
-	ncd->vbox = vbox;
-	ncd->properties_dialog = NULL;
-	ncd->properties_types  = NULL;
+	ncd->html                    = html;
+	ncd->vbox                    = vbox;
+	ncd->properties_dialog       = NULL;
+	ncd->properties_types        = NULL;
 	ncd->block_font_style_change = FALSE;
+	ncd->dict_client             = spell_new_dictionary ();
+	ncd->dict                    = ncd->dict_client ? bonobo_object_corba_objref (BONOBO_OBJECT (ncd->dict_client)) : NULL;
 
 	return ncd;
 }
@@ -40,14 +43,19 @@ gtk_html_control_data_new (GtkHTML *html, GtkWidget *vbox)
 void
 gtk_html_control_data_destroy (GtkHTMLControlData *cd)
 {
-	if (cd->search_dialog) {
+	g_assert (cd);
+
+	if (cd->search_dialog)
 		gtk_html_search_dialog_destroy (cd->search_dialog);
-	}
-	if (cd->replace_dialog) {
+
+	if (cd->replace_dialog)
 		gtk_html_replace_dialog_destroy (cd->replace_dialog);
-	}
-	if (cd->rule_dialog) {
+
+	if (cd->rule_dialog)
 		gtk_html_rule_dialog_destroy (cd->rule_dialog);
-	}
+
+	if (cd->dict_client)
+		bonobo_object_unref (BONOBO_OBJECT (cd->dict_client));
+
 	g_free (cd);
 }

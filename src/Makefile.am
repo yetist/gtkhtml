@@ -6,7 +6,7 @@ INCLUDES = -I$(top_srcdir) -I$(srcdir) -I$(includedir) $(GNOME_INCLUDEDIR) \
 	-DSRCDIR=\"$(srcdir)\" \
 	-DPREFIX=\"$(prefix)\"
 
-CFLAGS +=  $(GCONF_CFLAGS) $(PSPELL_CFLAGS)
+CFLAGS +=  $(GCONF_CFLAGS)
 
 lib_LTLIBRARIES = libgtkhtml.la
 
@@ -208,8 +208,7 @@ testgtkhtml_LDADD =				\
 	$(GNOME_LIBDIR)				\
 	$(EXTRA_GNOME_LIBS)                     \
 	$(GLIBWWW_LIBS)				\
-	$(GCONF_LIBS)				\
-	$(PSPELL_LIBS)
+	$(GCONF_LIBS)
 #	-lccmalloc -ldl
 #
 

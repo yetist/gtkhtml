@@ -69,6 +69,8 @@ struct _SetFrameData {
 };
 typedef struct _SetFrameData SetFrameData;
 
+GtkHTMLEditSpellAPI *spell_api;
+
 static BonoboGenericFactory *factory = NULL;
 static gint active_controls = 0;
 
@@ -335,10 +337,6 @@ editor_control_factory (BonoboGenericFactory *factory,
 	GtkWidget *vbox;
 	GtkHTMLControlData *control_data;
 
-	html_widget = gtk_html_new ();
-	gtk_html_load_empty (GTK_HTML (html_widget));
-	gtk_html_set_editable (GTK_HTML (html_widget), TRUE);
-
 	vbox = gtk_vbox_new (FALSE, 0);
 	gtk_widget_show (vbox);
 
@@ -349,6 +347,12 @@ editor_control_factory (BonoboGenericFactory *factory,
 
 		active_controls++;
 		printf ("active++\n");
+
+		/* GtkHTML widget */
+
+		html_widget = gtk_html_new ();
+		gtk_html_load_empty (GTK_HTML (html_widget));
+		gtk_html_set_editable (GTK_HTML (html_widget), TRUE);
 
 		/* Bonobo::PersistStream */
 
@@ -365,6 +369,8 @@ editor_control_factory (BonoboGenericFactory *factory,
 		   handle that.  */
 
 		control_data = gtk_html_control_data_new (GTK_HTML (html_widget), vbox);
+		if (control_data->dict_client)
+			gtk_html_set_spell_api (GTK_HTML (html_widget), spell_api, control_data);
 
 		gtk_signal_connect (GTK_OBJECT (control), "set_frame",
 				    GTK_SIGNAL_FUNC (set_frame_cb), control_data);
@@ -377,14 +383,20 @@ editor_control_factory (BonoboGenericFactory *factory,
 
 		gtk_signal_connect (GTK_OBJECT (html_widget), "button_press_event",
 				    GTK_SIGNAL_FUNC (html_button_pressed), control_data);
-
-#ifdef GTKHTML_HAVE_PSPELL
-		gtk_signal_connect (GTK_OBJECT (html_widget), "spell_suggestion_request",
-				    GTK_SIGNAL_FUNC (spell_suggestion_request_cb), control_data);
-#endif
 	}
 
 	return BONOBO_OBJECT (control);
+}
+
+static void
+new_spell_api ()
+{
+	spell_api = g_new (GtkHTMLEditSpellAPI, 1);
+
+	spell_api->check_word = spell_check_word;
+	spell_api->suggestion_request = spell_suggestion_request;
+	spell_api->add_to_personal = spell_add_to_personal;
+	spell_api->add_to_session = spell_add_to_session;
 }
 
 void
@@ -393,6 +405,7 @@ editor_control_factory_init (void)
 	if (factory != NULL)
 		return;
 
+	new_spell_api ();
 	gdk_rgb_init ();
 	factory = bonobo_generic_factory_new (CONTROL_FACTORY_ID,
 					      editor_control_factory,

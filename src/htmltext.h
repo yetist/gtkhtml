@@ -45,9 +45,7 @@ struct _HTMLText {
 	HTMLFontFace     *face;
 	HTMLColor        *color;
 
-#ifdef GTKHTML_HAVE_PSPELL
 	GList *spell_errors;
-#endif
 };
 
 struct _HTMLTextClass {
@@ -140,8 +138,6 @@ unicode_char_t    html_text_get_char        (HTMLText         *text,
 gchar            *html_text_get_text        (HTMLText         *text,
 					     guint             offset);
 
-#ifdef GTKHTML_HAVE_PSPELL
-
 struct _SpellError {
 	guint off;
 	guint len;
@@ -154,6 +150,4 @@ void  html_text_spell_errors_clear_interval  (HTMLText     *text,
 void  html_text_spell_errors_add             (HTMLText     *text,
 					      guint         off,
 					      guint         len);
-#endif
-
 #endif /* _HTMLTEXT_H_ */

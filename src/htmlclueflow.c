@@ -1744,8 +1744,6 @@ html_clueflow_remove_text_slaves (HTMLClueFlow *flow)
 	}
 }
 
-#ifdef GTKHTML_HAVE_PSPELL
-
 /* spell checking */
 
 #include "htmlinterval.h"
@@ -1895,8 +1893,9 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *i)
 	   printf ("html_clueflow_spell_check %p %p %d %d\n", i->from, i->to, i->from_offset, i->to_offset); */
 
 	clue = HTML_CLUE (flow);
-	if (!GTK_HTML_CLASS (GTK_OBJECT (e->widget)->klass)->properties->live_spell_check
-	    || !e->spell_checker || !clue || !clue->tail)
+	if (!e->widget->spell_api
+	    || !GTK_HTML_CLASS (GTK_OBJECT (e->widget)->klass)->properties->live_spell_check
+	    || !clue || !clue->tail)
 		return;
 
 	off  = 0;
@@ -1921,7 +1920,7 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *i)
 				bak = *ct;
 				*ct = 0;
 				/* printf ("off %d going to test word: \"%s\"\n", off, word); */
-				result = pspell_manager_check (e->spell_checker, word);
+				result = (*e->widget->spell_api->check_word) (e->widget, word, e->widget->spell_data);
 
 				if (result == 1) {
 					gboolean is_text = (obj) ? html_object_is_text (obj) : FALSE;
@@ -1929,16 +1928,8 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *i)
 						       || (is_text && off + html_interval_get_length (i, obj)
 							   < unicode_index_to_offset (text, ct - text))))
 						obj = next_obj_and_clear (obj, &off, &is_text, i);
-				} else {
-					if (result == 0) {
-						if (obj)
-							obj = spell_check_word_mark (obj, text, word, &off, i);
-					} else if (result == -1)
-						g_warning ("pspell error: %s\n",
-							   pspell_manager_error_message (e->spell_checker));
-					else
-						g_assert_not_reached ();
-				}
+				} else if (obj)
+						obj = spell_check_word_mark (obj, text, word, &off, i);
 
 				*ct = bak;
 				if (*ct)
@@ -1947,5 +1938,3 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *i)
 		}
 	}
 }
-
-#endif /* GTKHTML_HAVE_PSPELL */

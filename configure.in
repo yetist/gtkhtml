@@ -171,45 +171,6 @@ fi
 AC_SUBST(GCONF_CFLAGS)
 AC_SUBST(GCONF_LIBS)
 
-dnl pspell checks
-
-try_pspell=true
-have_pspell=false
-
-AC_ARG_WITH(pspell,
-	[--{with,without}-pspell    Compile with Pspell support or without it],
-	if test x$withval = xno; then
-		try_pspell=false
-	fi
-	if test x$withval = xyes; then
-		try_pspell=true
-	fi
-)
-
-PSPELL_CFLAGS=""
-PSPELL_LIBS=""
-if $try_pspell; then
-	AC_MSG_CHECKING([for pspell])
-	if pspell-config version > /dev/null 2>&1; then
-		pspell_ver=`pspell-config version`
-		have_pspell=true
-		PSPELL_CFLAGS="-DGTKHTML_HAVE_PSPELL"
-		if test x$CC = xgcc; then
-			PSPELL_LIBS="-lpspell -lstdc++"
-		else
-			PSPELL_LIBS="-lpspell"
-		fi
-		AC_MSG_RESULT([found ($pspell_ver)])
-	else
-		have_pspell=false
-		AC_MSG_RESULT([not found, gtkhtml will be built without pspell support])
-	fi
-fi
-AC_SUBST(PSPELL_CFLAGS)
-AC_SUBST(PSPELL_LIBS)
-
-AM_CONDITIONAL(PSPELL, $have_pspell)
-
 dnl gnome-print checks.
 
 AC_MSG_CHECKING([for gnome-print >= 0.20])
@@ -283,8 +244,8 @@ dnl gtkhtmlConf.sh stuff.
 
 GTKHTML_LIBDIR="-L${libdir}"
 GTKHTML_INCLUDEDIR="-I${includedir}"
-GTKHTML_INCLUDEDIR="$GTKHTML_INCLUDEDIR `$GNOME_CONFIG --cflags gdk_pixbuf print` $GCONF_CFLAGS $PSPELL_CFLAGS"
-GTKHTML_LIBS="-lgtkhtml `$GNOME_CONFIG --libs gdk_pixbuf print` $GCONF_LIBS $PSPELL_LIBS"
+GTKHTML_INCLUDEDIR="$GTKHTML_INCLUDEDIR `$GNOME_CONFIG --cflags gdk_pixbuf print` $GCONF_CFLAGS"
+GTKHTML_LIBS="-lgtkhtml `$GNOME_CONFIG --libs gdk_pixbuf print` $GCONF_LIBS"
 
 AC_SUBST(GTKHTML_LIBDIR)
 AC_SUBST(GTKHTML_INCLUDEDIR)

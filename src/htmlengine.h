@@ -26,9 +26,6 @@
 
 #include <glib.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
-#ifdef GTKHTML_HAVE_PSPELL
-#include <pspell/pspell.h>
-#endif
 
 typedef struct _HTMLEngine HTMLEngine;
 typedef struct _HTMLEngineClass HTMLEngineClass;
@@ -246,12 +243,6 @@ struct _HTMLEngine {
 	/* search & replace */
 	HTMLSearch  *search_info;
 	HTMLReplace *replace_info;
-
-#ifdef GTKHTML_HAVE_PSPELL
-	/* spell checking */
-	PspellConfig  *spell_config;
-	PspellManager *spell_checker;
-#endif
 };
 
 /* must be forward referenced *sigh* */
@@ -395,14 +386,10 @@ gint      html_engine_replaced                  (void);
 /* Magic links */
 void      html_engine_init_magic_links          (void);
 
-#ifdef GTKHTML_HAVE_PSPELL
 /* spell checking */
 void      html_engine_spell_check               (HTMLEngine *e);
-void      html_engine_spell_check_word          (HTMLEngine *e);
 gchar *   html_engine_get_word                  (HTMLEngine *e);
 gboolean  html_engine_word_is_valid             (HTMLEngine *e);
 void      html_engine_replace_word_with         (HTMLEngine *e,
 						 const gchar *word);
-#endif
-
 #endif /* _HTMLENGINE_H_ */

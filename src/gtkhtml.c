@@ -1,4 +1,3 @@
-
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
 
@@ -81,10 +80,6 @@ enum {
 	SCROLL,
 	CURSOR_MOVE,
 	INSERT_PARAGRAPH,
-#ifdef GTKHTML_HAVE_PSPELL
-	/* spell checking */
-	SPELL_SUGGESTION_REQUEST,
-#endif
 	/* now only last signal */
 	LAST_SIGNAL
 };
@@ -1237,7 +1232,7 @@ set_fonts_idle (GtkHTML *html)
 			html_engine_schedule_update (html->engine);
 		}
 	}
-#ifdef GTKHTML_HAVE_PSPELL
+#ifdef GTKHTML_HAVE_GCONF
 	html->priv->set_font_id = 0;
 #endif
 
@@ -1249,7 +1244,7 @@ set_fonts_idle (GtkHTML *html)
 static void
 set_fonts (GtkHTML *html)
 {
-#ifdef GTKHTML_HAVE_PSPELL
+#ifdef GTKHTML_HAVE_GCONF
 	if (!html->priv->set_font_id)
 		html->priv->set_font_id = gtk_idle_add ((GtkFunction) set_fonts_idle, html);
 #else
@@ -1563,16 +1558,6 @@ class_init (GtkHTMLClass *klass)
 				gtk_marshal_NONE__ENUM,
 				GTK_TYPE_NONE, 1, GTK_TYPE_HTML_COMMAND);
 
-	signals [SPELL_SUGGESTION_REQUEST] =
-		gtk_signal_new ("spell_suggestion_request",
-				GTK_RUN_FIRST,
-				object_class->type,
-				GTK_SIGNAL_OFFSET (GtkHTMLClass, spell_suggestion_request),
-				gtk_marshal_NONE__POINTER_POINTER,
-				GTK_TYPE_NONE, 2,
-				GTK_TYPE_POINTER,
-				GTK_TYPE_POINTER);
-
 	gtk_object_class_add_signals (object_class, signals, LAST_SIGNAL);
 
 	object_class->destroy = destroy;
@@ -1636,7 +1621,7 @@ init (GtkHTML* html)
 	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (html), GTK_APP_PAINTABLE);
 
 	html->editor_bindings = NULL;
-
+	html->spell_api = NULL;
 	html->debug = FALSE;
 	html->allow_selection = TRUE;
 
@@ -2513,27 +2498,21 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_DOWNCASE_WORD:
 		html_engine_upcase_downcase_word (e, FALSE);
 		break;
-#ifdef GTKHTML_HAVE_PSPELL
 	case GTK_HTML_COMMAND_SPELL_SUGGEST:
-		if (!html_engine_word_is_valid (e))
-			gtk_signal_emit (GTK_OBJECT (html), signals [SPELL_SUGGESTION_REQUEST],
-					 e->spell_checker, html_engine_get_word (e));
+		if (html->spell_api && !html_engine_word_is_valid (e))
+			(*html->spell_api->suggestion_request) (html, html_engine_get_word (e), html->spell_data);
 		break;
 	case GTK_HTML_COMMAND_SPELL_PERSONAL_DICTIONARY_ADD:
-	case GTK_HTML_COMMAND_SPELL_SESSION_DICTIONARY_ADD: {
-		gchar *word = html_engine_get_word (e);
-		if (word) {
+	case GTK_HTML_COMMAND_SPELL_SESSION_DICTIONARY_ADD:
+		if (html_engine_get_word (e) && html->spell_api) {
 			if (com_type == GTK_HTML_COMMAND_SPELL_PERSONAL_DICTIONARY_ADD)
-				pspell_manager_add_to_personal (e->spell_checker, word);
+				(*html->spell_api->add_to_personal) (html, html_engine_get_word (e), html->spell_data);
 			else
-				pspell_manager_add_to_session (e->spell_checker, word);
-			pspell_manager_save_all_word_lists (e->spell_checker);
+				(*html->spell_api->add_to_session) (html, html_engine_get_word (e), html->spell_data);
 			html_engine_spell_check (e);
 			gtk_widget_queue_draw (GTK_WIDGET (html));
 		}
 		break;
-	}
-#endif
 	default:
 		html->binding_handled = FALSE;
 	}
@@ -2755,4 +2734,11 @@ gtk_html_select_line (GtkHTML *html)
 		html_engine_select_line_editable (e);
 	else
 		html_engine_select_line (e);
+}
+
+void
+gtk_html_set_spell_api (GtkHTML *html, GtkHTMLEditSpellAPI *api, gpointer data)
+{
+	html->spell_api  = api;
+	html->spell_data = data;
 }

@@ -659,9 +659,7 @@ html_engine_delete (HTMLEngine *e,
 
 		setup_undo (e, create_action_data (save_buffer, backwards));
 	}
-#ifdef GTKHTML_HAVE_PSPELL
 	html_engine_spell_check_range (e, e->cursor, e->cursor);
-#endif
 }
 
 

@@ -145,10 +145,9 @@ insert_para (HTMLEngine *engine)
 
 	engine->cursor->position++;
 
-#ifdef GTKHTML_HAVE_PSPELL
 	html_engine_spell_check_range (engine, orig, orig);
 	html_engine_spell_check_range (engine, engine->cursor, engine->cursor);
-#endif
+
 	html_cursor_destroy (orig);
 	html_engine_show_cursor (engine);
 }
@@ -335,9 +334,7 @@ insert_chars (HTMLEngine *e,
 	}
 
 	html_engine_move_cursor (e, HTML_ENGINE_CURSOR_RIGHT, rv);
-#ifdef GTKHTML_HAVE_PSPELL
 	html_engine_spell_check_range (e, orig, e->cursor);
-#endif
 	html_cursor_destroy (orig);
 
 	return rv;

@@ -28,6 +28,7 @@
 #include <htmlengine-edit-paste.h>
 #include <htmlengine-edit-insert.h>
 #include "popup.h"
+#include "spell.h"
 #include "properties.h"
 #include "paragraph.h"
 #include "image.h"
@@ -120,16 +121,15 @@ prop_dialog (GtkWidget *mi, GtkHTMLControlData *cd)
 		gtk_html_edit_properties_dialog_set_page (cd->properties_dialog, t);
 }
 
-#ifdef GTKHTML_HAVE_PSPELL
 static void
 spell_suggest (GtkWidget *mi, GtkHTMLControlData *cd)
 {
 	HTMLEngine *e = cd->html->engine;
 
-	gtk_signal_emit_by_name (GTK_OBJECT (cd->html), "spell_suggestion_request",
-				 e->spell_checker, html_engine_get_word (e));
+	/* gtk_signal_emit_by_name (GTK_OBJECT (cd->html), "spell_suggestion_request",
+	   e->spell_checker, html_engine_get_word (e)); */
+	spell_suggestion_request (cd->html, html_engine_get_word (e), cd);
 }
-#endif
 
 #define ADD_ITEM(l,f,t) \
 		menuitem = gtk_menu_item_new_with_label (_(l)); \
@@ -163,12 +163,11 @@ popup_show (GtkHTMLControlData *cd, GdkEventButton *event)
 	obj  = cd->html->engine->cursor->object;
 	menu = gtk_menu_new ();
 
-#ifdef GTKHTML_HAVE_PSPELL
 	if (!e->active_selection && obj && html_object_is_text (obj) && !html_engine_word_is_valid (e)) {
 		ADD_SEP;
 		ADD_ITEM ("Suggest word", spell_suggest, -1);
 	}
-#endif
+
 	if (e->active_selection
 	    || (obj
 		&& (HTML_OBJECT_TYPE (obj) == HTML_TYPE_LINKTEXTMASTER

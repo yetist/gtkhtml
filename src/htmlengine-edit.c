@@ -177,7 +177,6 @@ html_engine_cut_and_paste (HTMLEngine *e, gchar *op_name, GFunc iterator, gpoint
 	html_engine_cut_and_paste_end (e);
 }
 
-#ifdef GTKHTML_HAVE_PSPELL
 void
 html_engine_spell_check_range (HTMLEngine *e, HTMLCursor *begin, HTMLCursor *end)
 {
@@ -202,7 +201,6 @@ html_engine_spell_check_range (HTMLEngine *e, HTMLCursor *begin, HTMLCursor *end
 	html_cursor_destroy (begin);
 	html_cursor_destroy (end);
 }
-#endif
 
 gboolean
 html_is_in_word (unicode_char_t uc)

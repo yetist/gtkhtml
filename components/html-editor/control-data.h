@@ -29,11 +29,13 @@ typedef enum   _GtkHTMLEditPropertyType       GtkHTMLEditPropertyType;
 typedef struct _GtkHTMLEditPropertiesDialog   GtkHTMLEditPropertiesDialog;
 
 #include <gtkhtml.h>
+#include <bonobo.h>
 #include "search.h"
 #include "replace.h"
 #include "image.h"
 #include "link.h"
 #include "rule.h"
+#include "Spell.h"
 
 struct _GtkHTMLControlData {
 	GtkHTML   *html;
@@ -72,6 +74,9 @@ struct _GtkHTMLControlData {
 
 	guint font_style_changed_connection_id;
 	gboolean block_font_style_change;
+
+	GNOME_Spell_Dictionary  dict;
+	BonoboObjectClient     *dict_client;
 };
 
 GtkHTMLControlData * gtk_html_control_data_new       (GtkHTML *html, GtkWidget *vbox);

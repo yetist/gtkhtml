@@ -47,11 +47,10 @@ void  html_engine_cut_and_paste        (HTMLEngine *e,
 					gchar *op_name,
 					GFunc iterator,
 					gpointer data);
-#ifdef GTKHTML_HAVE_PSPELL
+
 void  html_engine_spell_check_range    (HTMLEngine *e,
 					HTMLCursor *begin,
 					HTMLCursor *end);
-#endif
 gboolean html_is_in_word               (unicode_char_t uc);
 
 #endif /* _HTMLENGINE_EDIT_H */

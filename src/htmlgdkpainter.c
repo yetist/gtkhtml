@@ -882,7 +882,6 @@ e_style (GtkHTMLFontStyle style)
 	return rv;
 }
 
-#ifdef GTKHTML_HAVE_PSPELL
 static void
 draw_spell_error (HTMLPainter *painter,
 		  gint x, gint y,
@@ -922,7 +921,6 @@ draw_spell_error (HTMLPainter *painter,
 	gdk_gc_set_line_attributes (gdk_painter->gc, values.line_width,
 				    values.line_style, values.cap_style, values.join_style);
 }
-#endif
 
 static void
 draw_text (HTMLPainter *painter,
@@ -1096,9 +1094,7 @@ class_init (GtkObjectClass *object_class)
 	painter_class->draw_line = draw_line;
 	painter_class->draw_rect = draw_rect;
 	painter_class->draw_text = draw_text;
-#ifdef GTKHTML_HAVE_PSPELL
 	painter_class->draw_spell_error = draw_spell_error;
-#endif
 	painter_class->fill_rect = fill_rect;
 	painter_class->draw_pixmap = draw_pixmap;
 	painter_class->draw_ellipse = draw_ellipse;

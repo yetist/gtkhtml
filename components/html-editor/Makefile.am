@@ -17,13 +17,22 @@ CFLAGS +=  $(GCONF_CFLAGS) $(PSPELL_CFLAGS)
 IDLS = \
 	HTMLEditor.idl
 
+SPELL_IDLS = \
+	Spell.idl
+
 IDL_GENERATED = \
 	HTMLEditor.h		\
 	HTMLEditor-common.c	\
 	HTMLEditor-skels.c	\
 	HTMLEditor-stubs.c
 
-CLEANFILES = $(IDL_GENERATED)
+SPELL_IDL_GENERATED = \
+	Spell.h			\
+	Spell-common.c		\
+	Spell-skels.c		\
+	Spell-stubs.c
+
+CLEANFILES = $(IDL_GENERATED) $(SPELL_IDL_GENERATED)
 
 HTMLEditor-impl.o: HTMLEditor.h
 
@@ -31,15 +40,18 @@ $(IDL_GENERATED): $(IDLS)
 	$(ORBIT_IDL) -I$(datadir)/idl -I`$(GNOME_CONFIG) --cflags idl`	\
 		-I$(srcdir) $(srcdir)/HTMLEditor.idl
 
+$(SPELL_IDL_GENERATED): $(SPELL_IDLS)
+	$(ORBIT_IDL) -I$(datadir)/idl -I`$(GNOME_CONFIG) --cflags idl`	\
+		-I$(srcdir) $(srcdir)/Spell.idl
+
 LDFLAGS += -dynamic
 
-LDADD =	$(PSPELL_LIBS)				\
+LDADD =	\
 	$(top_builddir)/src/libgtkhtml.la	\
 	$(EXTRA_GNOME_LIBS)			\
 	$(GNOMEUI_LIBS)				\
 	$(GNOME_LIBS)				\
-	$(GCONF_LIBS)				\
-	$(PSPELL_LIBS)
+	$(GCONF_LIBS)
 
 # -lpspell-modules -lpspell_aspell -laspell -lpspell -lstdc++
 #	-lccmalloc -ldl
@@ -51,6 +63,7 @@ bin_PROGRAMS =					\
 
 html_editor_control_SOURCES =			\
 	$(IDL_GENERATED)			\
+	$(SPELL_IDL_GENERATED)			\
 	body.h					\
 	body.c					\
 	control-data.c				\

@@ -252,7 +252,6 @@ get_length (HTMLObject *self)
 
 /* HTMLObject::draw() implementation.  */
 
-#ifdef GTKHTML_HAVE_PSPELL
 static void
 draw_spell_errors (HTMLTextSlave *slave, HTMLPainter *p, gint tx, gint ty)
 {
@@ -280,7 +279,6 @@ draw_spell_errors (HTMLTextSlave *slave, HTMLPainter *p, gint tx, gint ty)
 		cur = cur->next;
 	}
 }
-#endif
 
 static void
 draw_normal (HTMLTextSlave *self,
@@ -401,9 +399,8 @@ draw (HTMLObject *o,
 	} else {
 		draw_highlighted (textslave, p, font_style, x, y, width, height, tx, ty);
 	}
-#ifdef GTKHTML_HAVE_PSPELL
+
 	draw_spell_errors (textslave, p, tx ,ty);
-#endif
 }
 
 static gint
