@@ -44,6 +44,10 @@ void           html_engine_table_cell_set_no_wrap    (HTMLEngine     *e,
 void           html_engine_table_cell_set_heading    (HTMLEngine     *e,
 						      HTMLTableCell  *cell,
 						      gboolean        heading);
+void           html_engine_table_cell_set_width      (HTMLEngine     *e,
+						      HTMLTableCell  *cell,
+						      gint            width,
+						      gboolean        percent);
 HTMLTableCell *html_engine_get_table_cell            (HTMLEngine     *e);
 			       
 #endif

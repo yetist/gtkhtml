@@ -285,8 +285,8 @@ save (HTMLObject *self,
 	if (cell->rspan != 1)
 		SB " ROWSPAN=\"%d\"", cell->rspan SE;
 
-	if (self->percent > 0) {
-		SB " WIDTH=\"%d%%\"", self->percent SE;
+	if (cell->percent_width) {
+		SB " WIDTH=\"%d%%\"", cell->fixed_width SE;
 	} else if (self->flags & HTML_OBJECT_FLAG_FIXEDWIDTH)
 		SB " WIDTH=\"%d\"", cell->fixed_width SE;
 	if (cell->no_wrap)
@@ -357,6 +357,8 @@ html_table_cell_init (HTMLTableCell *cell,
 
 	cell->fixed_width  = 0;
 	cell->fixed_height = 0;
+	cell->percent_width = FALSE;
+	cell->percent_height = FALSE;
 
 	cluev->padding = pad;
 	cell->rspan = rs;

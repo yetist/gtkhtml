@@ -82,6 +82,19 @@ html_engine_table_cell_set_heading (HTMLEngine *e, HTMLTableCell *cell, gboolean
 	}
 }
 
+void
+html_engine_table_cell_set_width (HTMLEngine *e, HTMLTableCell *cell, gint width, gboolean percent)
+{
+	cell->percent_width = percent;
+	cell->fixed_width = width;
+	if (width && !percent)
+		HTML_OBJECT (cell)->flags |= HTML_OBJECT_FLAG_FIXEDWIDTH;
+	else
+		HTML_OBJECT (cell)->flags &= ~ HTML_OBJECT_FLAG_FIXEDWIDTH;
+	html_object_change_set (HTML_OBJECT (cell), HTML_CHANGE_ALL_CALC);
+	html_engine_schedule_update (e);
+}
+
 HTMLTableCell *
 html_engine_get_table_cell (HTMLEngine *e)
 {

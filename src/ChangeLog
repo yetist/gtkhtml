@@ -1,5 +1,11 @@
 2001-05-30  Radek Doulik  <rodo@ximian.com>
 
+	* htmltablecell.c (save): updated to use percent_width
+	(html_table_cell_init): initialize percent_width, percent_height
+
+	* htmlengine-edit-tablecell.c (html_engine_table_cell_set_width):
+	new function
+
 	* htmltablecell.c (save): use heading
 	(save): use no_wrap
 
