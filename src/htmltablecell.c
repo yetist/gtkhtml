@@ -191,6 +191,10 @@ calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 {
 	HTMLTableCell *cell;
 	gboolean rv;
+	gint old_width, old_height;
+
+	old_width  = o->width;
+	old_height = o->ascent + o->descent;
 
 	cell = HTML_TABLE_CELL (o);
 	rv   = (* HTML_OBJECT_CLASS (parent_class)->calc_size) (o, painter, changed_objs);
@@ -215,6 +219,9 @@ calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 		}
 		rv = TRUE;
 	}
+
+	if (o->parent && (o->width != old_width || o->ascent + o->descent != old_height))
+		html_object_add_to_changed (changed_objs, o->parent);
 
 	return rv;
 }

@@ -1,3 +1,7 @@
+2001-10-18  Radek Doulik  <rodo@ximian.com>
+
+	* htmltablecell.c (calc_size): fix rendering
+
 2001-10-18  Larry Ewing  <lewing@ximian.com>
 
 	* htmltokenizer.c: fix to guarantee no invalid utf8 sequences can
