@@ -1,3 +1,8 @@
+2000-12-27  Matthias Warkus  <mawa@iname.com>
+
+	* de.po: *Fixed* German translation. Kai, next time check your
+	messages for typos before the commit.
+
 2000-12-27  Kai Lahmann <klqlinuxfaqs.de>
 
 	* de.po: Updated German translation

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
 "POT-Creation-Date: 2000-12-27 15:05+0100\n"
-"PO-Revision-Date: 2000-12-27 15:06+0100\n"
+"PO-Revision-Date: 2000-12-27 17:50+01:00\n"
 "Last-Translator: Kai Lahmnn <kl@linuxfaqs.de>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -76,16 +76,16 @@ msgstr "Proportionalschrift"
 
 #: capplet/gtkhtml-capplet.glade.h:10 capplet/gtkhtml-capplet.glade.h:17
 msgid "Fixed width"
-msgstr "Diktengleiche Schrift"
+msgstr "Dicktengleiche Schrift"
 
 #: capplet/gtkhtml-capplet.glade.h:11
 msgid "Select HTML fixed width font"
-msgstr "Nichtproportionalschrift für HTML wählen"
+msgstr "Dicktengleiche Schrift für HTML wählen"
 
 #: capplet/gtkhtml-capplet.glade.h:12 capplet/gtkhtml-capplet.glade.h:14
 #: capplet/gtkhtml-capplet.glade.h:19 capplet/gtkhtml-capplet.glade.h:21
 msgid "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz"
-msgstr "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz"
+msgstr "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZzÄÖÜäöüß"
 
 #: capplet/gtkhtml-capplet.glade.h:13
 msgid "Select HTML variable width font"
@@ -97,7 +97,7 @@ msgstr "zum Drucken"
 
 #: capplet/gtkhtml-capplet.glade.h:18
 msgid "Select HTML fixed width font for printing"
-msgstr "Nichtproportionalschrift zum Drucken von HTML wählen"
+msgstr "Dicktengleiche Schrift zum Drucken von HTML wählen"
 
 #: capplet/gtkhtml-capplet.glade.h:20
 msgid "Select HTML variable width font for printing"
@@ -162,7 +162,7 @@ msgstr "Auswahl in die Zwischenablage kopieren"
 
 #: po/tmp/GNOME_GtkHTML_Editor.xml.h:9
 msgid "Copy the selection"
-msgstr "Die auswahl kopieren"
+msgstr "Die Auswahl kopieren"
 
 #: po/tmp/GNOME_GtkHTML_Editor.xml.h:10
 msgid "Cut"
@@ -239,23 +239,23 @@ msgstr "Ersetzen"
 
 #: po/tmp/GNOME_GtkHTML_Editor.xml.h:28
 msgid "Replace a string"
-msgstr "Einen Text ersetzen"
+msgstr "Eine Zeichenkette ersetzen"
 
 #: po/tmp/GNOME_GtkHTML_Editor.xml.h:29
 msgid "Search again for the same string"
-msgstr "Eineut nach dem gleichen Text suchen"
+msgstr "Erneut nach der gleichen Zeichenkette suchen"
 
 #: po/tmp/GNOME_GtkHTML_Editor.xml.h:30
 msgid "Search and replace string"
-msgstr "Test suchen und ersetzen"
+msgstr "Zeichenkette suchen und ersetzen"
 
 #: po/tmp/GNOME_GtkHTML_Editor.xml.h:31
 msgid "Search for a string"
-msgstr "Nach einem Text suchen"
+msgstr "Nach einer Zeichenkette suchen"
 
 #: po/tmp/GNOME_GtkHTML_Editor.xml.h:32
 msgid "Search string"
-msgstr "Text suchen"
+msgstr "Zeichenkette suchen"
 
 #: po/tmp/GNOME_GtkHTML_Editor.xml.h:33
 msgid "Undo"
@@ -267,7 +267,7 @@ msgstr "Vorige Änderung rückgängig machen"
 
 #: po/tmp/GNOME_GtkHTML_Editor.xml.h:35
 msgid "Undo the last action"
-msgstr "Die ketzte Aktion rückgängig machen"
+msgstr "Die letzte Aktion rückgängig machen"
 
 #: po/tmp/GNOME_GtkHTML_Editor.xml.h:36
 msgid "_Copy"
