@@ -506,11 +506,10 @@ html_unichar_to_utf8 (gint c, gchar *outbuf)
 static void
 prepare_enough_space (HTMLTokenizer *t)
 {
-	/* I really do not understand it, but I added 5 for UTF-8 (Lauris) */
-	if ((t->dest - t->buffer + 5) > t->size) {
+	if ((t->dest - t->buffer + 32) > t->size) {
 		guint off = t->dest - t->buffer;
 
-		t->size  += (t->size >> 2) + 5;
+		t->size  += (t->size >> 2) + 32;
 		t->buffer = g_realloc (t->buffer, t->size);
 		t->dest   = t->buffer + off;
 	}
@@ -759,7 +758,7 @@ in_tag (HTMLTokenizer *t, const gchar **src)
 		if (t->pending)
 			html_tokenizer_add_pending (t);
 		*(t->dest) = '<';     t->dest++;
-		*(t->dest)++ = **src; (*src)++;
+		*(t->dest) = **src;   t->dest++; (*src)++;
 		return;
 	}
 			

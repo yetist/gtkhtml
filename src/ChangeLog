@@ -1,3 +1,8 @@
+2000-11-02  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltokenizer.c (prepare_enough_space): raise reserve in buffer
+	from 5 to 32
+
 2000-11-01  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml.c (load_bindings_from_file): use g_file_test instead of
