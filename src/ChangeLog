@@ -1,5 +1,11 @@
 2000-04-11  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine.c (html_engine_update_event): removed if (e->parsing)
+	around scrollbars updating - does anybody know why it was here?
+	(html_object_changed): removed definition of
+	html_engine_update_event and html_engine_schedule_update as it was
+	already defined above
+
 	* htmltokenizer.c: rewritten tokenizer blocking - I have removed
 	Blocking token struct as it is no more needed
 	added tokens_num and blocking_tokens_num counters to tokenizer struct

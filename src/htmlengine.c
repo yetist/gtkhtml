@@ -2203,8 +2203,6 @@ parse_m (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 static void
 html_object_changed(GtkHTMLEmbedded *eb, HTMLEngine *e)
 {
-	void html_engine_schedule_update (HTMLEngine *p);
-	static gboolean html_engine_update_event (HTMLEngine *e);
 	HTMLEmbedded *el;
 
 	el = gtk_object_get_data(GTK_OBJECT(eb), "embeddedelement");
@@ -3204,26 +3202,22 @@ html_engine_update_event (HTMLEngine *e)
 	html_image_factory_deactivate_animations (e->image_factory);
 	html_engine_draw (e, 0, 0, e->width, e->height);
 	
-	if (!e->parsing) {
-		/* Parsing done */
-		
-		/* Is y_offset too big? */
-		if (html_engine_get_doc_height (e) - e->y_offset < e->height) {
-			e->y_offset = html_engine_get_doc_height (e) - e->height;
-			if (e->y_offset < 0)
-				e->y_offset = 0;
-		}
-		
-		/* Is x_offset too big? */
-		if (html_engine_get_doc_width (e) - e->x_offset < e->width) {
-			e->x_offset = html_engine_get_doc_width (e) - e->width;
-			if (e->x_offset < 0)
-				e->x_offset = 0;
-		}
-
-		/* Adjust the scrollbars */
-		gtk_html_private_calc_scrollbars (e->widget);
+	/* Is y_offset too big? */
+	if (html_engine_get_doc_height (e) - e->y_offset < e->height) {
+		e->y_offset = html_engine_get_doc_height (e) - e->height;
+		if (e->y_offset < 0)
+			e->y_offset = 0;
 	}
+		
+	/* Is x_offset too big? */
+	if (html_engine_get_doc_width (e) - e->x_offset < e->width) {
+		e->x_offset = html_engine_get_doc_width (e) - e->width;
+		if (e->x_offset < 0)
+			e->x_offset = 0;
+	}
+
+	/* Adjust the scrollbars */
+	gtk_html_private_calc_scrollbars (e->widget);
 
 	if (e->reference && !e->editable) {
 		html_engine_goto_anchor (e, e->reference);
