@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0\n"
-"POT-Creation-Date: 2004-02-09 14:38-0500\n"
+"POT-Creation-Date: 2004-03-05 12:45-0500\n"
 "PO-Revision-Date: 2004-02-05 23:50+CET\n"
 "Last-Translator: auto\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
@@ -18,7 +18,7 @@ msgid "<None>"
 msgstr "<Ništa>"
 
 #: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
-#: components/html-editor/cell.c:419 components/html-editor/image.c:545
+#: components/html-editor/cell.c:419 components/html-editor/image.c:543
 #: components/html-editor/rule.c:316 components/html-editor/table.c:530
 #: components/html-editor/table.c:614 components/html-editor/template.c:272
 msgid "Could not load glade file."
@@ -671,7 +671,7 @@ msgstr "Eksponent"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
 #: components/html-editor/menubar.c:142 components/html-editor/popup.c:237
-#: components/html-editor/popup.c:518 components/html-editor/popup.c:527
+#: components/html-editor/popup.c:519 components/html-editor/popup.c:528
 msgid "Table"
 msgstr "Tablica"
 
@@ -1018,7 +1018,7 @@ msgstr ""
 "Brza smeđa <a href=\"mailto:lija\">lisica</a> skače preko lijenog <a href="
 "\"mailto:psa\">psa</a>."
 
-#: components/html-editor/body.c:316 src/gtkhtml.c:2683
+#: components/html-editor/body.c:316 src/gtkhtml.c:2697
 msgid "Document Title"
 msgstr "Naslov dokumenta"
 
@@ -1354,7 +1354,7 @@ msgid "Color:"
 msgstr "Boja:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#: components/html-editor/popup.c:529
+#: components/html-editor/popup.c:530
 msgid "Column"
 msgstr "Stupac"
 
@@ -1471,7 +1471,7 @@ msgid "Right"
 msgstr "Desno"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
-#: components/html-editor/popup.c:528
+#: components/html-editor/popup.c:529
 msgid "Row"
 msgstr "Redak"
 
@@ -1505,7 +1505,7 @@ msgid "Spacing:"
 msgstr "Razmak:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:117 components/html-editor/popup.c:473
+#: components/html-editor/paragraph.c:117 components/html-editor/popup.c:474
 #: components/html-editor/text.c:223
 msgid "Style"
 msgstr "Stil"
@@ -1621,7 +1621,7 @@ msgstr ""
 msgid "No image selected"
 msgstr "Slika nije odabrana"
 
-#: components/html-editor/image.c:705
+#: components/html-editor/image.c:704
 msgid ""
 "The editted image was removed from the document.\n"
 "Cannot apply your changes."
@@ -1725,97 +1725,99 @@ msgstr ""
 msgid "Paste Quotation"
 msgstr "Umetni citat"
 
-#: components/html-editor/popup.c:460
-msgid "Insert link"
+#: components/html-editor/popup.c:461
+#, fuzzy
+msgid "Insert Link"
 msgstr "Umetni vezu"
 
 #: components/html-editor/popup.c:468
-msgid "Remove link"
+#, fuzzy
+msgid "Remove Link"
 msgstr "Ukloni vezu"
 
-#: components/html-editor/popup.c:476
+#: components/html-editor/popup.c:477
 msgid "Text Style..."
 msgstr "Stil teksta..."
 
-#: components/html-editor/popup.c:478 components/html-editor/popup.c:484
-#: components/html-editor/popup.c:494
+#: components/html-editor/popup.c:479 components/html-editor/popup.c:485
+#: components/html-editor/popup.c:495
 msgid "Paragraph Style..."
 msgstr "Stil odlomka..."
 
-#: components/html-editor/popup.c:482
+#: components/html-editor/popup.c:483
 msgid "Link Style..."
 msgstr "Stil veze..."
 
-#: components/html-editor/popup.c:488
+#: components/html-editor/popup.c:489
 msgid "Rule Style..."
 msgstr "Stil linije..."
 
-#: components/html-editor/popup.c:492
+#: components/html-editor/popup.c:493
 msgid "Image Style..."
 msgstr "Stil slike..."
 
-#: components/html-editor/popup.c:503
+#: components/html-editor/popup.c:504
 msgid "Cell Style..."
 msgstr "Stil ćelije..."
 
-#: components/html-editor/popup.c:506
+#: components/html-editor/popup.c:507
 msgid "Table Style..."
 msgstr "Stil tablice..."
 
-#: components/html-editor/popup.c:512
+#: components/html-editor/popup.c:513
 msgid "Page Style..."
 msgstr "Stil stranice..."
 
-#: components/html-editor/popup.c:517
+#: components/html-editor/popup.c:518
 msgid "Table insert"
 msgstr "Umetni tablicu"
 
-#: components/html-editor/popup.c:520
+#: components/html-editor/popup.c:521
 msgid "Row above"
 msgstr "Red iznad"
 
-#: components/html-editor/popup.c:521
+#: components/html-editor/popup.c:522
 msgid "Row below"
 msgstr "Red ispod"
 
-#: components/html-editor/popup.c:523
+#: components/html-editor/popup.c:524
 msgid "Column before"
 msgstr "Stupac prije"
 
-#: components/html-editor/popup.c:524
+#: components/html-editor/popup.c:525
 msgid "Column after"
 msgstr "Stupac iza"
 
-#: components/html-editor/popup.c:526
+#: components/html-editor/popup.c:527
 msgid "Table delete"
 msgstr "Obriši tablicu"
 
-#: components/html-editor/popup.c:530
+#: components/html-editor/popup.c:531
 msgid "Cell contents"
 msgstr "Sadržaj ćelije"
 
-#: components/html-editor/popup.c:540
+#: components/html-editor/popup.c:541
 msgid "Check Word Spelling..."
 msgstr "Provjera pravopisa..."
 
-#: components/html-editor/popup.c:545
+#: components/html-editor/popup.c:546
 msgid "Add Word to"
 msgstr "Dodaj riječ u"
 
-#: components/html-editor/popup.c:549
+#: components/html-editor/popup.c:550
 #, c-format
 msgid "%s Dictionary"
 msgstr "%s Riječnik"
 
-#: components/html-editor/popup.c:558
+#: components/html-editor/popup.c:559
 msgid "Add Word to Dictionary"
 msgstr "Dodaj riječ u rječnik"
 
-#: components/html-editor/popup.c:561
+#: components/html-editor/popup.c:562
 msgid "Ignore Misspelled Word"
 msgstr "Zanemari pogrešno napisanu riječ"
 
-#: components/html-editor/popup.c:564
+#: components/html-editor/popup.c:566
 msgid "Input Methods"
 msgstr "Ulazne metode"
 
@@ -1996,71 +1998,71 @@ msgstr "Veće uvlake odlomka"
 msgid "Sample"
 msgstr "Primjer"
 
-#: src/gtkhtml.c:2676
+#: src/gtkhtml.c:2690
 msgid "Editable"
 msgstr "Može se uređivati"
 
-#: src/gtkhtml.c:2677
+#: src/gtkhtml.c:2691
 msgid "Whether the html can be edited"
 msgstr "Može li se mijenjati HTML "
 
-#: src/gtkhtml.c:2684
+#: src/gtkhtml.c:2698
 msgid "The title of the current document"
 msgstr "Naslov trenutnog dokumenta"
 
-#: src/gtkhtml.c:2690
+#: src/gtkhtml.c:2704
 msgid "Document Base"
 msgstr "Osnova dokumenta"
 
-#: src/gtkhtml.c:2691
+#: src/gtkhtml.c:2705
 msgid "The base URL for relative references"
 msgstr "Osnovna URL adresa za relativne reference"
 
-#: src/gtkhtml.c:2697
+#: src/gtkhtml.c:2711
 msgid "Target Base"
 msgstr "Ciljna osnova"
 
-#: src/gtkhtml.c:2698
+#: src/gtkhtml.c:2712
 msgid "The base URL of the targe frame"
 msgstr "Osnovna URL adresa za ciljni okvir"
 
-#: src/gtkhtml.c:2707
+#: src/gtkhtml.c:2721
 msgid "Fixed Width Font"
 msgstr "Pismo utvrđene širine"
 
-#: src/gtkhtml.c:2708
+#: src/gtkhtml.c:2722
 msgid "The Monospace font to use for typewriter text"
 msgstr "Pismo koje treba koristiti za kucani tekst"
 
-#: src/gtkhtml.c:2714
+#: src/gtkhtml.c:2728
 msgid "New Link Color"
 msgstr "Boja nove veze"
 
-#: src/gtkhtml.c:2715
+#: src/gtkhtml.c:2729
 msgid "The color of new link elements"
 msgstr "Boja novih veza"
 
-#: src/gtkhtml.c:2720
+#: src/gtkhtml.c:2734
 msgid "Visited Link Color"
 msgstr "Boja posjećenih veza"
 
-#: src/gtkhtml.c:2721
+#: src/gtkhtml.c:2735
 msgid "The color of visited link elements"
 msgstr "Boja posjećenih veza"
 
-#: src/gtkhtml.c:2726
+#: src/gtkhtml.c:2740
 msgid "Active Link Color"
 msgstr "Boja aktivne veze"
 
-#: src/gtkhtml.c:2727
+#: src/gtkhtml.c:2741
 msgid "The color of active link elements"
 msgstr "Boja aktivnih veza"
 
-#: src/gtkhtml.c:2732
+#: src/gtkhtml.c:2746
 msgid "Spelling Error Color"
 msgstr "Boja pravopisnih grešaka"
 
-#: src/gtkhtml.c:2733
+#: src/gtkhtml.c:2747
 msgid "The color of the spelling error markers"
 msgstr "Boja označavanja pravopisnih grešaka"
 

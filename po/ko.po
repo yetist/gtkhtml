@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 3.1\n"
-"POT-Creation-Date: 2004-02-09 14:38-0500\n"
+"POT-Creation-Date: 2004-03-05 12:45-0500\n"
 "PO-Revision-Date: 2004-01-30 02:55+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: Korean <gnome-kr-translation@lists.sourceforge.net>\n"
@@ -20,7 +20,7 @@ msgid "<None>"
 msgstr "<없음>"
 
 #: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
-#: components/html-editor/cell.c:419 components/html-editor/image.c:545
+#: components/html-editor/cell.c:419 components/html-editor/image.c:543
 #: components/html-editor/rule.c:316 components/html-editor/table.c:530
 #: components/html-editor/table.c:614 components/html-editor/template.c:272
 msgid "Could not load glade file."
@@ -673,7 +673,7 @@ msgstr "위 첨자"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
 #: components/html-editor/menubar.c:142 components/html-editor/popup.c:237
-#: components/html-editor/popup.c:518 components/html-editor/popup.c:527
+#: components/html-editor/popup.c:519 components/html-editor/popup.c:528
 msgid "Table"
 msgstr "표"
 
@@ -1020,7 +1020,7 @@ msgstr ""
 "<a href=\"mailto:flower\">무궁화</a> 꽃이 <a href=\"mailto:big\">활짝</a> 피"
 "었습니다."
 
-#: components/html-editor/body.c:316 src/gtkhtml.c:2683
+#: components/html-editor/body.c:316 src/gtkhtml.c:2697
 msgid "Document Title"
 msgstr "문서 제목"
 
@@ -1356,7 +1356,7 @@ msgid "Color:"
 msgstr "색상:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#: components/html-editor/popup.c:529
+#: components/html-editor/popup.c:530
 msgid "Column"
 msgstr "열"
 
@@ -1473,7 +1473,7 @@ msgid "Right"
 msgstr "오른쪽"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
-#: components/html-editor/popup.c:528
+#: components/html-editor/popup.c:529
 msgid "Row"
 msgstr "행"
 
@@ -1507,7 +1507,7 @@ msgid "Spacing:"
 msgstr "간격:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:117 components/html-editor/popup.c:473
+#: components/html-editor/paragraph.c:117 components/html-editor/popup.c:474
 #: components/html-editor/text.c:223
 msgid "Style"
 msgstr "스타일"
@@ -1623,7 +1623,7 @@ msgstr ""
 msgid "No image selected"
 msgstr "그림을 선택하지 않았습니다"
 
-#: components/html-editor/image.c:705
+#: components/html-editor/image.c:704
 msgid ""
 "The editted image was removed from the document.\n"
 "Cannot apply your changes."
@@ -1727,97 +1727,99 @@ msgstr ""
 msgid "Paste Quotation"
 msgstr "인용문 붙여 넣기"
 
-#: components/html-editor/popup.c:460
-msgid "Insert link"
+#: components/html-editor/popup.c:461
+#, fuzzy
+msgid "Insert Link"
 msgstr "바로가기 넣기"
 
 #: components/html-editor/popup.c:468
-msgid "Remove link"
+#, fuzzy
+msgid "Remove Link"
 msgstr "바로가기 지우기"
 
-#: components/html-editor/popup.c:476
+#: components/html-editor/popup.c:477
 msgid "Text Style..."
 msgstr "텍스트 모양새..."
 
-#: components/html-editor/popup.c:478 components/html-editor/popup.c:484
-#: components/html-editor/popup.c:494
+#: components/html-editor/popup.c:479 components/html-editor/popup.c:485
+#: components/html-editor/popup.c:495
 msgid "Paragraph Style..."
 msgstr "문단 모양새..."
 
-#: components/html-editor/popup.c:482
+#: components/html-editor/popup.c:483
 msgid "Link Style..."
 msgstr "바로가기 모양새..."
 
-#: components/html-editor/popup.c:488
+#: components/html-editor/popup.c:489
 msgid "Rule Style..."
 msgstr "구분선 모양새..."
 
-#: components/html-editor/popup.c:492
+#: components/html-editor/popup.c:493
 msgid "Image Style..."
 msgstr "그림 모양새..."
 
-#: components/html-editor/popup.c:503
+#: components/html-editor/popup.c:504
 msgid "Cell Style..."
 msgstr "셀 모양새..."
 
-#: components/html-editor/popup.c:506
+#: components/html-editor/popup.c:507
 msgid "Table Style..."
 msgstr "표 모양새..."
 
-#: components/html-editor/popup.c:512
+#: components/html-editor/popup.c:513
 msgid "Page Style..."
 msgstr "페이지 모양새..."
 
-#: components/html-editor/popup.c:517
+#: components/html-editor/popup.c:518
 msgid "Table insert"
 msgstr "표 넣기"
 
-#: components/html-editor/popup.c:520
+#: components/html-editor/popup.c:521
 msgid "Row above"
 msgstr "위에 행"
 
-#: components/html-editor/popup.c:521
+#: components/html-editor/popup.c:522
 msgid "Row below"
 msgstr "아래에 행"
 
-#: components/html-editor/popup.c:523
+#: components/html-editor/popup.c:524
 msgid "Column before"
 msgstr "앞에 열"
 
-#: components/html-editor/popup.c:524
+#: components/html-editor/popup.c:525
 msgid "Column after"
 msgstr "뒤에 열"
 
-#: components/html-editor/popup.c:526
+#: components/html-editor/popup.c:527
 msgid "Table delete"
 msgstr "표 지우기"
 
-#: components/html-editor/popup.c:530
+#: components/html-editor/popup.c:531
 msgid "Cell contents"
 msgstr "셀 내용"
 
-#: components/html-editor/popup.c:540
+#: components/html-editor/popup.c:541
 msgid "Check Word Spelling..."
 msgstr "맞춤법 검사..."
 
-#: components/html-editor/popup.c:545
+#: components/html-editor/popup.c:546
 msgid "Add Word to"
 msgstr "단어 더할 위치"
 
-#: components/html-editor/popup.c:549
+#: components/html-editor/popup.c:550
 #, c-format
 msgid "%s Dictionary"
 msgstr "%s 사전"
 
-#: components/html-editor/popup.c:558
+#: components/html-editor/popup.c:559
 msgid "Add Word to Dictionary"
 msgstr "사전에 단어 더하기"
 
-#: components/html-editor/popup.c:561
+#: components/html-editor/popup.c:562
 msgid "Ignore Misspelled Word"
 msgstr "맞춤법이 잘못된 단어 무시"
 
-#: components/html-editor/popup.c:564
+#: components/html-editor/popup.c:566
 msgid "Input Methods"
 msgstr "입력기"
 
@@ -1998,71 +2000,71 @@ msgstr "문단을 더 들여씁니다"
 msgid "Sample"
 msgstr "예제"
 
-#: src/gtkhtml.c:2676
+#: src/gtkhtml.c:2690
 msgid "Editable"
 msgstr "편집 가능"
 
-#: src/gtkhtml.c:2677
+#: src/gtkhtml.c:2691
 msgid "Whether the html can be edited"
 msgstr "HTML을 편집할 수 있는 지 여부"
 
-#: src/gtkhtml.c:2684
+#: src/gtkhtml.c:2698
 msgid "The title of the current document"
 msgstr "현재 문서의 제목"
 
-#: src/gtkhtml.c:2690
+#: src/gtkhtml.c:2704
 msgid "Document Base"
 msgstr "문서 기준"
 
-#: src/gtkhtml.c:2691
+#: src/gtkhtml.c:2705
 msgid "The base URL for relative references"
 msgstr "상대 참조할 때 기준 URL"
 
-#: src/gtkhtml.c:2697
+#: src/gtkhtml.c:2711
 msgid "Target Base"
 msgstr "목표 기준"
 
-#: src/gtkhtml.c:2698
+#: src/gtkhtml.c:2712
 msgid "The base URL of the targe frame"
 msgstr "목표 프레임의 기준 URL"
 
-#: src/gtkhtml.c:2707
+#: src/gtkhtml.c:2721
 msgid "Fixed Width Font"
 msgstr "고정폭 글꼴"
 
-#: src/gtkhtml.c:2708
+#: src/gtkhtml.c:2722
 msgid "The Monospace font to use for typewriter text"
 msgstr "타이프라이터 텍스트에 사용할 고정폭 글꼴"
 
-#: src/gtkhtml.c:2714
+#: src/gtkhtml.c:2728
 msgid "New Link Color"
 msgstr "새로운 바로가기 색"
 
-#: src/gtkhtml.c:2715
+#: src/gtkhtml.c:2729
 msgid "The color of new link elements"
 msgstr "새로운 바로가기에 사용할 색"
 
-#: src/gtkhtml.c:2720
+#: src/gtkhtml.c:2734
 msgid "Visited Link Color"
 msgstr "방문한 바로가기 색"
 
-#: src/gtkhtml.c:2721
+#: src/gtkhtml.c:2735
 msgid "The color of visited link elements"
 msgstr "방문한 바로가기에 사용할 색"
 
-#: src/gtkhtml.c:2726
+#: src/gtkhtml.c:2740
 msgid "Active Link Color"
 msgstr "활성 바로가기 색"
 
-#: src/gtkhtml.c:2727
+#: src/gtkhtml.c:2741
 msgid "The color of active link elements"
 msgstr "활성 바로가기에 사용할 색"
 
-#: src/gtkhtml.c:2732
+#: src/gtkhtml.c:2746
 msgid "Spelling Error Color"
 msgstr "맞춤법 오류 색"
 
-#: src/gtkhtml.c:2733
+#: src/gtkhtml.c:2747
 msgid "The color of the spelling error markers"
 msgstr "맞춤법 오류 표시할 때 사용할 색"
 

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.txt\n"
-"POT-Creation-Date: 2004-02-09 14:38-0500\n"
+"POT-Creation-Date: 2004-03-05 12:45-0500\n"
 "PO-Revision-Date: 2003-03-17 15:05+0200\n"
 "Last-Translator: Gil 'Dolfin' Osher <dolfin@rpg.org.il>\n"
 "Language-Team: Hebrew <he@li.org>\n"
@@ -20,7 +20,7 @@ msgid "<None>"
 msgstr "<ללא>"
 
 #: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
-#: components/html-editor/cell.c:419 components/html-editor/image.c:545
+#: components/html-editor/cell.c:419 components/html-editor/image.c:543
 #: components/html-editor/rule.c:316 components/html-editor/table.c:530
 #: components/html-editor/table.c:614 components/html-editor/template.c:272
 msgid "Could not load glade file."
@@ -674,7 +674,7 @@ msgstr ""
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
 #: components/html-editor/menubar.c:142 components/html-editor/popup.c:237
-#: components/html-editor/popup.c:518 components/html-editor/popup.c:527
+#: components/html-editor/popup.c:519 components/html-editor/popup.c:528
 msgid "Table"
 msgstr "טבלה"
 
@@ -1027,7 +1027,7 @@ msgid ""
 "\"mailto:dog\">dog</a>."
 msgstr "לך אל הנמלה עצל ראה דרכיה וחכם."
 
-#: components/html-editor/body.c:316 src/gtkhtml.c:2683
+#: components/html-editor/body.c:316 src/gtkhtml.c:2697
 msgid "Document Title"
 msgstr "כותרת המסמך"
 
@@ -1385,7 +1385,7 @@ msgid "Color:"
 msgstr "צבע:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#: components/html-editor/popup.c:529
+#: components/html-editor/popup.c:530
 msgid "Column"
 msgstr "עמודה"
 
@@ -1502,7 +1502,7 @@ msgid "Right"
 msgstr "ימין"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
-#: components/html-editor/popup.c:528
+#: components/html-editor/popup.c:529
 msgid "Row"
 msgstr "שורה"
 
@@ -1536,7 +1536,7 @@ msgid "Spacing:"
 msgstr "מרווח:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:117 components/html-editor/popup.c:473
+#: components/html-editor/paragraph.c:117 components/html-editor/popup.c:474
 #: components/html-editor/text.c:223
 msgid "Style"
 msgstr "סגנון"
@@ -1650,7 +1650,7 @@ msgstr ""
 msgid "No image selected"
 msgstr ""
 
-#: components/html-editor/image.c:705
+#: components/html-editor/image.c:704
 msgid ""
 "The editted image was removed from the document.\n"
 "Cannot apply your changes."
@@ -1756,107 +1756,109 @@ msgstr ""
 msgid "Paste Quotation"
 msgstr "הדבק ציטוט"
 
-#: components/html-editor/popup.c:460
-msgid "Insert link"
+#: components/html-editor/popup.c:461
+#, fuzzy
+msgid "Insert Link"
 msgstr "הכנס קישור"
 
 #: components/html-editor/popup.c:468
-msgid "Remove link"
+#, fuzzy
+msgid "Remove Link"
 msgstr "הסר קישור"
 
-#: components/html-editor/popup.c:476
+#: components/html-editor/popup.c:477
 #, fuzzy
 msgid "Text Style..."
 msgstr "קובץ _מלל..."
 
-#: components/html-editor/popup.c:478 components/html-editor/popup.c:484
-#: components/html-editor/popup.c:494
+#: components/html-editor/popup.c:479 components/html-editor/popup.c:485
+#: components/html-editor/popup.c:495
 #, fuzzy
 msgid "Paragraph Style..."
 msgstr "פסקה..."
 
-#: components/html-editor/popup.c:482
+#: components/html-editor/popup.c:483
 #, fuzzy
 msgid "Link Style..."
 msgstr "קישור..."
 
-#: components/html-editor/popup.c:488
+#: components/html-editor/popup.c:489
 #, fuzzy
 msgid "Rule Style..."
 msgstr "חוק..."
 
-#: components/html-editor/popup.c:492
+#: components/html-editor/popup.c:493
 #, fuzzy
 msgid "Image Style..."
 msgstr "תמונה..."
 
-#: components/html-editor/popup.c:503
+#: components/html-editor/popup.c:504
 #, fuzzy
 msgid "Cell Style..."
 msgstr "תא..."
 
-#: components/html-editor/popup.c:506
+#: components/html-editor/popup.c:507
 #, fuzzy
 msgid "Table Style..."
 msgstr "טבלה..."
 
-#: components/html-editor/popup.c:512
+#: components/html-editor/popup.c:513
 #, fuzzy
 msgid "Page Style..."
 msgstr "עמוד..."
 
-#: components/html-editor/popup.c:517
+#: components/html-editor/popup.c:518
 msgid "Table insert"
 msgstr "הכנס טבלה"
 
-#: components/html-editor/popup.c:520
+#: components/html-editor/popup.c:521
 msgid "Row above"
 msgstr "שורה מעלה"
 
-#: components/html-editor/popup.c:521
+#: components/html-editor/popup.c:522
 msgid "Row below"
 msgstr "שורה מטה"
 
-#: components/html-editor/popup.c:523
+#: components/html-editor/popup.c:524
 msgid "Column before"
 msgstr "עמודה לפני"
 
-#: components/html-editor/popup.c:524
+#: components/html-editor/popup.c:525
 msgid "Column after"
 msgstr "עמודה אחרי"
 
-#: components/html-editor/popup.c:526
+#: components/html-editor/popup.c:527
 msgid "Table delete"
 msgstr "מחק טבלה"
 
-#: components/html-editor/popup.c:530
+#: components/html-editor/popup.c:531
 msgid "Cell contents"
 msgstr "תכני התא"
 
-#: components/html-editor/popup.c:540
+#: components/html-editor/popup.c:541
 #, fuzzy
 msgid "Check Word Spelling..."
 msgstr "בודק איות '%s'..."
 
-#: components/html-editor/popup.c:545
+#: components/html-editor/popup.c:546
 msgid "Add Word to"
 msgstr ""
 
-#: components/html-editor/popup.c:549
+#: components/html-editor/popup.c:550
 #, fuzzy, c-format
 msgid "%s Dictionary"
 msgstr "הוסף את '%s' למילון"
 
-#: components/html-editor/popup.c:558
+#: components/html-editor/popup.c:559
 #, fuzzy
 msgid "Add Word to Dictionary"
 msgstr "הוסף את '%s' למילון"
 
-#: components/html-editor/popup.c:561
+#: components/html-editor/popup.c:562
 msgid "Ignore Misspelled Word"
 msgstr ""
 
-#: components/html-editor/popup.c:564
+#: components/html-editor/popup.c:566
 msgid "Input Methods"
 msgstr ""
 
@@ -2046,75 +2048,75 @@ msgstr "מזיח את הפסקה יותר"
 msgid "Sample"
 msgstr "דוגמה"
 
-#: src/gtkhtml.c:2676
+#: src/gtkhtml.c:2690
 #, fuzzy
 msgid "Editable"
 msgstr "אפשר"
 
-#: src/gtkhtml.c:2677
+#: src/gtkhtml.c:2691
 msgid "Whether the html can be edited"
 msgstr ""
 
-#: src/gtkhtml.c:2684
+#: src/gtkhtml.c:2698
 #, fuzzy
 msgid "The title of the current document"
 msgstr "בודק את איות המסמך"
 
-#: src/gtkhtml.c:2690
+#: src/gtkhtml.c:2704
 #, fuzzy
 msgid "Document Base"
 msgstr "כותרת המסמך"
 
-#: src/gtkhtml.c:2691
+#: src/gtkhtml.c:2705
 msgid "The base URL for relative references"
 msgstr ""
 
-#: src/gtkhtml.c:2697
+#: src/gtkhtml.c:2711
 msgid "Target Base"
 msgstr ""
 
-#: src/gtkhtml.c:2698
+#: src/gtkhtml.c:2712
 msgid "The base URL of the targe frame"
 msgstr ""
 
-#: src/gtkhtml.c:2707
+#: src/gtkhtml.c:2721
 #, fuzzy
 msgid "Fixed Width Font"
 msgstr "רוחב קבוע"
 
-#: src/gtkhtml.c:2708
+#: src/gtkhtml.c:2722
 msgid "The Monospace font to use for typewriter text"
 msgstr ""
 
-#: src/gtkhtml.c:2714
+#: src/gtkhtml.c:2728
 msgid "New Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2715
+#: src/gtkhtml.c:2729
 msgid "The color of new link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2720
+#: src/gtkhtml.c:2734
 msgid "Visited Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2721
+#: src/gtkhtml.c:2735
 msgid "The color of visited link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2726
+#: src/gtkhtml.c:2740
 msgid "Active Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2727
+#: src/gtkhtml.c:2741
 msgid "The color of active link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2732
+#: src/gtkhtml.c:2746
 msgid "Spelling Error Color"
 msgstr ""
 
-#: src/gtkhtml.c:2733
+#: src/gtkhtml.c:2747
 msgid "The color of the spelling error markers"
 msgstr ""
 

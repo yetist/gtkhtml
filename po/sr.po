@@ -8,14 +8,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-20 07:23+0100\n"
+"POT-Creation-Date: 2004-03-05 12:45-0500\n"
 "PO-Revision-Date: 2004-02-20 07:50+0100\n"
 "Last-Translator: Данило Шеган <danilo@prevod.org>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -1025,7 +1025,7 @@ msgstr ""
 "Брза смеђа <a href=\"mailto:лија\">лија</a> скаче преко лењог <a href="
 "\"mailto:џукац\">џукца</a>."
 
-#: components/html-editor/body.c:316 src/gtkhtml.c:2683
+#: components/html-editor/body.c:316 src/gtkhtml.c:2697
 msgid "Document Title"
 msgstr "Наслов документа"
 
@@ -2008,71 +2008,71 @@ msgstr "Више увлачи пасус"
 msgid "Sample"
 msgstr "Пример"
 
-#: src/gtkhtml.c:2676
+#: src/gtkhtml.c:2690
 msgid "Editable"
 msgstr "Измењив"
 
-#: src/gtkhtml.c:2677
+#: src/gtkhtml.c:2691
 msgid "Whether the html can be edited"
 msgstr "Да ли се HTML може мењати"
 
-#: src/gtkhtml.c:2684
+#: src/gtkhtml.c:2698
 msgid "The title of the current document"
 msgstr "Наслов текућег документа"
 
-#: src/gtkhtml.c:2690
+#: src/gtkhtml.c:2704
 msgid "Document Base"
 msgstr "Основа документа"
 
-#: src/gtkhtml.c:2691
+#: src/gtkhtml.c:2705
 msgid "The base URL for relative references"
 msgstr "Основна адреса за релативне референце"
 
-#: src/gtkhtml.c:2697
+#: src/gtkhtml.c:2711
 msgid "Target Base"
 msgstr "Циљна основа"
 
-#: src/gtkhtml.c:2698
+#: src/gtkhtml.c:2712
 msgid "The base URL of the targe frame"
 msgstr "Основна адреса за циљни оквир"
 
-#: src/gtkhtml.c:2707
+#: src/gtkhtml.c:2721
 msgid "Fixed Width Font"
 msgstr "Писмо утврђене ширине"
 
-#: src/gtkhtml.c:2708
+#: src/gtkhtml.c:2722
 msgid "The Monospace font to use for typewriter text"
 msgstr "Писмо које треба користити за куцани текст"
 
-#: src/gtkhtml.c:2714
+#: src/gtkhtml.c:2728
 msgid "New Link Color"
 msgstr "Боја нових веза"
 
-#: src/gtkhtml.c:2715
+#: src/gtkhtml.c:2729
 msgid "The color of new link elements"
 msgstr "Боја нових веза"
 
-#: src/gtkhtml.c:2720
+#: src/gtkhtml.c:2734
 msgid "Visited Link Color"
 msgstr "Боја посећених веза"
 
-#: src/gtkhtml.c:2721
+#: src/gtkhtml.c:2735
 msgid "The color of visited link elements"
 msgstr "Боја посећених веза"
 
-#: src/gtkhtml.c:2726
+#: src/gtkhtml.c:2740
 msgid "Active Link Color"
 msgstr "Боја активних веза"
 
-#: src/gtkhtml.c:2727
+#: src/gtkhtml.c:2741
 msgid "The color of active link elements"
 msgstr "Боја активних веза"
 
-#: src/gtkhtml.c:2732
+#: src/gtkhtml.c:2746
 msgid "Spelling Error Color"
 msgstr "Боја правописних грешака"
 
-#: src/gtkhtml.c:2733
+#: src/gtkhtml.c:2747
 msgid "The color of the spelling error markers"
 msgstr "Боја за означавање правописних грешака"
 

@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
-"POT-Creation-Date: 2004-02-09 14:38-0500\n"
+"POT-Creation-Date: 2004-03-05 12:45-0500\n"
 "PO-Revision-Date: 2004-01-30 18:25+0100\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
@@ -29,7 +29,7 @@ msgid "<None>"
 msgstr "<Nada>"
 
 #: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
-#: components/html-editor/cell.c:419 components/html-editor/image.c:545
+#: components/html-editor/cell.c:419 components/html-editor/image.c:543
 #: components/html-editor/rule.c:316 components/html-editor/table.c:530
 #: components/html-editor/table.c:614 components/html-editor/template.c:272
 msgid "Could not load glade file."
@@ -682,7 +682,7 @@ msgstr "Superíndice"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
 #: components/html-editor/menubar.c:142 components/html-editor/popup.c:237
-#: components/html-editor/popup.c:518 components/html-editor/popup.c:527
+#: components/html-editor/popup.c:519 components/html-editor/popup.c:528
 msgid "Table"
 msgstr "Tabla"
 
@@ -1030,7 +1030,7 @@ msgstr ""
 "cardillo y kiwi.  La <a href=\"mailto:cigüeña\">cigüeña</a> tocaba el "
 "saxofón detrás del palenque de paja."
 
-#: components/html-editor/body.c:316 src/gtkhtml.c:2683
+#: components/html-editor/body.c:316 src/gtkhtml.c:2697
 msgid "Document Title"
 msgstr "Título del documento"
 
@@ -1368,7 +1368,7 @@ msgid "Color:"
 msgstr "Color:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#: components/html-editor/popup.c:529
+#: components/html-editor/popup.c:530
 msgid "Column"
 msgstr "Columna"
 
@@ -1485,7 +1485,7 @@ msgid "Right"
 msgstr "Derecha"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
-#: components/html-editor/popup.c:528
+#: components/html-editor/popup.c:529
 msgid "Row"
 msgstr "Fila"
 
@@ -1519,7 +1519,7 @@ msgid "Spacing:"
 msgstr "Espaciado:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:117 components/html-editor/popup.c:473
+#: components/html-editor/paragraph.c:117 components/html-editor/popup.c:474
 #: components/html-editor/text.c:223
 msgid "Style"
 msgstr "Estilo"
@@ -1635,7 +1635,7 @@ msgstr ""
 msgid "No image selected"
 msgstr "No hay imagen seleccionada"
 
-#: components/html-editor/image.c:705
+#: components/html-editor/image.c:704
 msgid ""
 "The editted image was removed from the document.\n"
 "Cannot apply your changes."
@@ -1739,97 +1739,99 @@ msgstr ""
 msgid "Paste Quotation"
 msgstr "Pegar cita"
 
-#: components/html-editor/popup.c:460
-msgid "Insert link"
+#: components/html-editor/popup.c:461
+#, fuzzy
+msgid "Insert Link"
 msgstr "Insertar enlace"
 
 #: components/html-editor/popup.c:468
-msgid "Remove link"
+#, fuzzy
+msgid "Remove Link"
 msgstr "Borrar enlace"
 
-#: components/html-editor/popup.c:476
+#: components/html-editor/popup.c:477
 msgid "Text Style..."
 msgstr "Estilo de texto..."
 
-#: components/html-editor/popup.c:478 components/html-editor/popup.c:484
-#: components/html-editor/popup.c:494
+#: components/html-editor/popup.c:479 components/html-editor/popup.c:485
+#: components/html-editor/popup.c:495
 msgid "Paragraph Style..."
 msgstr "Estilo de parágrafo..."
 
-#: components/html-editor/popup.c:482
+#: components/html-editor/popup.c:483
 msgid "Link Style..."
 msgstr "Estilo de enlace..."
 
-#: components/html-editor/popup.c:488
+#: components/html-editor/popup.c:489
 msgid "Rule Style..."
 msgstr "Estilo de regla..."
 
-#: components/html-editor/popup.c:492
+#: components/html-editor/popup.c:493
 msgid "Image Style..."
 msgstr "Estilo de imagen..."
 
-#: components/html-editor/popup.c:503
+#: components/html-editor/popup.c:504
 msgid "Cell Style..."
 msgstr "Estilo de celda..."
 
-#: components/html-editor/popup.c:506
+#: components/html-editor/popup.c:507
 msgid "Table Style..."
 msgstr "Estilo de tabla..."
 
-#: components/html-editor/popup.c:512
+#: components/html-editor/popup.c:513
 msgid "Page Style..."
 msgstr "Estilo de página..."
 
-#: components/html-editor/popup.c:517
+#: components/html-editor/popup.c:518
 msgid "Table insert"
 msgstr "Insertar tabla"
 
-#: components/html-editor/popup.c:520
+#: components/html-editor/popup.c:521
 msgid "Row above"
 msgstr "Fila superior"
 
-#: components/html-editor/popup.c:521
+#: components/html-editor/popup.c:522
 msgid "Row below"
 msgstr "Fila inferior"
 
-#: components/html-editor/popup.c:523
+#: components/html-editor/popup.c:524
 msgid "Column before"
 msgstr "Columna anterior"
 
-#: components/html-editor/popup.c:524
+#: components/html-editor/popup.c:525
 msgid "Column after"
 msgstr "Columna posterior"
 
-#: components/html-editor/popup.c:526
+#: components/html-editor/popup.c:527
 msgid "Table delete"
 msgstr "Borrar tabla"
 
-#: components/html-editor/popup.c:530
+#: components/html-editor/popup.c:531
 msgid "Cell contents"
 msgstr "Contenidos de la celda"
 
-#: components/html-editor/popup.c:540
+#: components/html-editor/popup.c:541
 msgid "Check Word Spelling..."
 msgstr "Comprobar la ortografía..."
 
-#: components/html-editor/popup.c:545
+#: components/html-editor/popup.c:546
 msgid "Add Word to"
 msgstr "Añadir palabra a"
 
-#: components/html-editor/popup.c:549
+#: components/html-editor/popup.c:550
 #, c-format
 msgid "%s Dictionary"
 msgstr "Diccionario %s"
 
-#: components/html-editor/popup.c:558
+#: components/html-editor/popup.c:559
 msgid "Add Word to Dictionary"
 msgstr "Añadir palabra al diccionario"
 
-#: components/html-editor/popup.c:561
+#: components/html-editor/popup.c:562
 msgid "Ignore Misspelled Word"
 msgstr "Ignorar palabra mal escrita"
 
-#: components/html-editor/popup.c:564
+#: components/html-editor/popup.c:566
 msgid "Input Methods"
 msgstr "Métodos de entrada"
 
@@ -2011,72 +2013,72 @@ msgstr "Sangra un párrafo más"
 msgid "Sample"
 msgstr "Ejemplo"
 
-#: src/gtkhtml.c:2676
+#: src/gtkhtml.c:2690
 msgid "Editable"
 msgstr "Editable"
 
-#: src/gtkhtml.c:2677
+#: src/gtkhtml.c:2691
 msgid "Whether the html can be edited"
 msgstr "Indica si el html puede ser editado"
 
-#: src/gtkhtml.c:2684
+#: src/gtkhtml.c:2698
 msgid "The title of the current document"
 msgstr "El título del documento actual"
 
-#: src/gtkhtml.c:2690
+#: src/gtkhtml.c:2704
 msgid "Document Base"
 msgstr "Base del documento"
 
-#: src/gtkhtml.c:2691
+#: src/gtkhtml.c:2705
 msgid "The base URL for relative references"
 msgstr "La URL de base para referencias relativas"
 
-#: src/gtkhtml.c:2697
+#: src/gtkhtml.c:2711
 msgid "Target Base"
 msgstr "Base del destino"
 
-#: src/gtkhtml.c:2698
+#: src/gtkhtml.c:2712
 msgid "The base URL of the targe frame"
 msgstr "La URL base del marco destino"
 
-#: src/gtkhtml.c:2707
+#: src/gtkhtml.c:2721
 msgid "Fixed Width Font"
 msgstr "Tipografía de anchura fija"
 
-#: src/gtkhtml.c:2708
+#: src/gtkhtml.c:2722
 msgid "The Monospace font to use for typewriter text"
 msgstr ""
 "La tipografía monoespaciada a usar para el texto de máquina de escribir"
 
-#: src/gtkhtml.c:2714
+#: src/gtkhtml.c:2728
 msgid "New Link Color"
 msgstr "Color de enlaces nuevos"
 
-#: src/gtkhtml.c:2715
+#: src/gtkhtml.c:2729
 msgid "The color of new link elements"
 msgstr "El color de los elementos de enlace nuevos"
 
-#: src/gtkhtml.c:2720
+#: src/gtkhtml.c:2734
 msgid "Visited Link Color"
 msgstr "Color de enlaces visitados"
 
-#: src/gtkhtml.c:2721
+#: src/gtkhtml.c:2735
 msgid "The color of visited link elements"
 msgstr "El color de los elementos de enlace visitados"
 
-#: src/gtkhtml.c:2726
+#: src/gtkhtml.c:2740
 msgid "Active Link Color"
 msgstr "Color del enlace activo"
 
-#: src/gtkhtml.c:2727
+#: src/gtkhtml.c:2741
 msgid "The color of active link elements"
 msgstr "El color de los elementos de enlace activos"
 
-#: src/gtkhtml.c:2732
+#: src/gtkhtml.c:2746
 msgid "Spelling Error Color"
 msgstr "Color del error ortográfico"
 
-#: src/gtkhtml.c:2733
+#: src/gtkhtml.c:2747
 msgid "The color of the spelling error markers"
 msgstr "El color de los marcadores de error ortográfico"
 
