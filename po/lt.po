@@ -1,18 +1,21 @@
 # Lithuanian translation of gtkhtml.
 # Copyright (C) 2000-2001 Free Software Foundation, Inc.
 # Gediminas Paulauskas <menesis@delfi.lt>, 2001
+# Tomas Kuliavas <tokul@users.sourceforge.net>, 2004.
+# Å½ygimantas BeruÄka <uid0@akl.lt>, 2004.
+# 
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml 0.13\n"
-"POT-Creation-Date: 2004-03-05 12:45-0500\n"
-"PO-Revision-Date: 2004-01-14 19:56+0200\n"
-"Last-Translator: Tomas Kuliavas <tokul@users.sourceforge.net>\n"
+"Project-Id-Version: gtkhtml HEAD\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-03-07 15:32+0200\n"
+"PO-Revision-Date: 2004-03-07 15:52+0200\n"
+"Last-Translator: Å½ygimantas BeruÄka <uid0@akl.lt>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-13\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -23,7 +26,7 @@ msgstr "<Nieko>"
 #: components/html-editor/rule.c:316 components/html-editor/table.c:530
 #: components/html-editor/table.c:614 components/html-editor/template.c:272
 msgid "Could not load glade file."
-msgstr "Nepavyko ákelti glade bylos."
+msgstr "Nepavyko Ä¯kelti glade bylos."
 
 #: capplet/gtkhtml-capplet.glade.h:1
 msgid "\n"
@@ -40,11 +43,11 @@ msgstr "*********************"
 
 #: capplet/gtkhtml-capplet.glade.h:5
 msgid "Add Keyboard Shortcuts"
-msgstr "Pridëti klaviğø sàryğius"
+msgstr "PridÄ—ti klaviÅ¡Å³ sÄ…ryÅ¡ius"
 
 #: capplet/gtkhtml-capplet.glade.h:6
 msgid "Automatically detect links"
-msgstr "Automatiğkai atpaşinti nuorodas"
+msgstr "AutomatiÅ¡kai atpaÅ¾inti nuorodas"
 
 #: capplet/gtkhtml-capplet.glade.h:7
 msgid "Behavior"
@@ -52,19 +55,19 @@ msgstr "Elgesys"
 
 #: capplet/gtkhtml-capplet.glade.h:8
 msgid "Composer Properties"
-msgstr "Rağyklës savybës"
+msgstr "RaÅ¡yklÄ—s savybÄ—s"
 
 #: capplet/gtkhtml-capplet.glade.h:9
 msgid "Composer Properties planned"
-msgstr "Rağyklës savybës suplanuotos"
+msgstr "RaÅ¡yklÄ—s savybÄ—s suplanuotos"
 
 #: capplet/gtkhtml-capplet.glade.h:10
 msgid "Configure spell checking"
-msgstr "Nustatyti rağybos tikrinimà"
+msgstr "Nustatyti raÅ¡ybos tikrinimÄ…"
 
 #: capplet/gtkhtml-capplet.glade.h:11
 msgid "Enable spell checking"
-msgstr "Ájungti rağybos tikrinimà"
+msgstr "Ä®jungti raÅ¡ybos tikrinimÄ…"
 
 #: capplet/gtkhtml-capplet.glade.h:12
 msgid "Fixed width"
@@ -72,7 +75,7 @@ msgstr "Lygiaplotis"
 
 #: capplet/gtkhtml-capplet.glade.h:13
 msgid "Fonts"
-msgstr "Ğriftai"
+msgstr "Å riftai"
 
 #: capplet/gtkhtml-capplet.glade.h:14
 msgid "For printing"
@@ -80,7 +83,7 @@ msgstr "Spausdinimui"
 
 #: capplet/gtkhtml-capplet.glade.h:15
 msgid "Grab keys"
-msgstr "Griebti klaviğus"
+msgstr "Griebti klaviÅ¡us"
 
 #: capplet/gtkhtml-capplet.glade.h:16
 msgid "Information"
@@ -88,16 +91,16 @@ msgstr "Informacija"
 
 #: capplet/gtkhtml-capplet.glade.h:17
 msgid "Keyboard Shortcuts"
-msgstr "Klaviğø sàryğiai"
+msgstr "KlaviÅ¡Å³ susiejimai"
 
 #: capplet/gtkhtml-capplet.glade.h:18
 #: components/html-editor/gtkhtml-editor-properties.glade.h:47
 msgid "Miscellaneous"
-msgstr "Ávairûs"
+msgstr "Ä®vairÅ«s"
 
 #: capplet/gtkhtml-capplet.glade.h:19
 msgid "New shortcut:"
-msgstr "Naujas sàryğis:"
+msgstr "Naujas susiejimas:"
 
 #: capplet/gtkhtml-capplet.glade.h:20
 msgid "On screen"
@@ -105,47 +108,47 @@ msgstr "Vaizdavimui ekrane"
 
 #: capplet/gtkhtml-capplet.glade.h:21
 msgid "Select HTML fixed width font"
-msgstr "Pasirinkite HTML lygiaplotá ğriftà"
+msgstr "Pasirinkite HTML lygiaplotÄ¯ Å¡riftÄ…"
 
 #: capplet/gtkhtml-capplet.glade.h:22
 msgid "Select HTML fixed width font for printing"
-msgstr "Pasirinkite HTML lygiaplotá ğriftà spausdinimui"
+msgstr "Pasirinkite HTML lygiaplotÄ¯ Å¡riftÄ… spausdinimui"
 
 #: capplet/gtkhtml-capplet.glade.h:23
 msgid "Select HTML variable width font"
-msgstr "Pasirinkite HTML ávairiaplotá ğriftà"
+msgstr "Pasirinkite HTML Ä¯vairiaplotÄ¯ Å¡riftÄ…"
 
 #: capplet/gtkhtml-capplet.glade.h:24
 msgid "Select HTML variable width font for printing"
-msgstr "Pasirinkite HTML ávairiaplotá ğriftà spausdinimui"
+msgstr "Pasirinkite HTML Ä¯vairiaplotÄ¯ Å¡riftÄ… spausdinimui"
 
 #: capplet/gtkhtml-capplet.glade.h:25
 msgid "Shortcuts _type:"
-msgstr "Saryğio _tipas:"
+msgstr "SaryÅ¡io _tipas:"
 
 #: capplet/gtkhtml-capplet.glade.h:26
 msgid "Show animated images"
-msgstr "Rodyti animuotus paveikslëlius"
+msgstr "Rodyti animuotus paveikslÄ—lius"
 
 #: capplet/gtkhtml-capplet.glade.h:27
 msgid "Variable width"
-msgstr "Ávairiaplotis"
+msgstr "Ä®vairiaplotis"
 
 #: capplet/gtkhtml-capplet.glade.h:28
 msgid "_Add"
-msgstr "Pri_dëti"
+msgstr "Pri_dÄ—ti"
 
 #: capplet/gtkhtml-capplet.glade.h:29
 msgid "_Delete"
-msgstr "_Pağalinti"
+msgstr "_PaÅ¡alinti"
 
 #: capplet/main.c:226
 msgid ""
 "Cannot execute GNOME Spell control applet\n"
 "Try to install GNOME Spell if you don't have it installed."
 msgstr ""
-"Nepavyko paleisti GNOME Rağybos valdymo priedo\n"
-"Pabandykite ádiegti GNOME Spell, jei ğis komponentas neádiegtas."
+"Nepavyko paleisti GNOME RaÅ¡ybos valdymo priedo\n"
+"Pabandykite Ä¯diegti GNOME Spell, jei Å¡is komponentas neÄ¯diegtas."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
@@ -192,7 +195,7 @@ msgstr "A_dresas"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
 #: components/html-editor/toolbar.c:53
 msgid "Alphabetical List"
-msgstr "Abëcëlinis sàrağas"
+msgstr "AbÄ—cÄ—linis sÄ…raÅ¡as"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
@@ -202,24 +205,24 @@ msgstr "Fono spalva"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:10
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:10
 msgid "Blue"
-msgstr "Mëlyna"
+msgstr "MÄ—lyna"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:11
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
 #: components/html-editor/toolbar.c:50
 msgid "Bulleted List"
-msgstr "Punktø sàrağas"
+msgstr "PunktÅ³ sÄ…raÅ¡as"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
 #: components/html-editor/toolbar.c:509
 msgid "Center justifies the paragraphs"
-msgstr "Sulygiuoja pastraipas pagal centrà"
+msgstr "Sulygiuoja pastraipas pagal centrÄ…"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:13
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
 msgid "Check spelling of the document"
-msgstr "Patikrinti dokumento rağybà"
+msgstr "Patikrinti dokumento raÅ¡ybÄ…"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:14
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
@@ -229,12 +232,12 @@ msgstr "Kopijuoti"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:15
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
 msgid "Copy selection to clipboard"
-msgstr "Kopijuoti paşymëjimà á krepğá"
+msgstr "Kopijuoti paÅ¾ymÄ—jimÄ… Ä¯ krepÅ¡Ä¯"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:16
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:16
 msgid "Copy the selection"
-msgstr "Kopijuoti paşymëjimà"
+msgstr "Kopijuoti paÅ¾ymÄ—jimÄ…"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
@@ -244,22 +247,22 @@ msgstr "Verksn_ys"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
 msgid "Cu_t"
-msgstr "Iğkirp_ti"
+msgstr "IÅ¡kirp_ti"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:19
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
 msgid "Cut"
-msgstr "Iğkirpti"
+msgstr "IÅ¡kirpti"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:20
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
 msgid "Cut selection to clipboard"
-msgstr "Iğkirpti paşymëjimà á krepğá"
+msgstr "IÅ¡kirpti paÅ¾ymÄ—jimÄ… Ä¯ krepÅ¡Ä¯"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:21
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
 msgid "Cut the selection"
-msgstr "Iğkirpti paşymëjimà"
+msgstr "IÅ¡kirpti paÅ¾ymÄ—jimÄ…"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
@@ -270,7 +273,7 @@ msgstr "Rasti"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
 msgid "Find A Regular Expression"
-msgstr "Rasti reguliarià iğraiğkà"
+msgstr "Rasti reguliariÄ… iÅ¡raiÅ¡kÄ…"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:24
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
@@ -280,17 +283,17 @@ msgstr "Rasti ir pakeisti"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:25
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
 msgid "Find Regular E_xpression..."
-msgstr "Rasti re_guliarià iğraiğkà..."
+msgstr "Rasti re_guliariÄ… iÅ¡raiÅ¡kÄ…..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:26
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:26
 msgid "Find _Again"
-msgstr "Rasti _vël"
+msgstr "Rasti _vÄ—l"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:27
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
 msgid "Find again"
-msgstr "Rasti vël"
+msgstr "Rasti vÄ—l"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
@@ -305,37 +308,37 @@ msgstr "For_matas"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
 msgid "Green"
-msgstr "Şalia"
+msgstr "Å½alia"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
 msgid "Header _1"
-msgstr "Antrağtë _1"
+msgstr "AntraÅ¡tÄ— _1"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
 msgid "Header _2"
-msgstr "Antrağtë _2"
+msgstr "AntraÅ¡tÄ— _2"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
 msgid "Header _3"
-msgstr "Antrağtë _3"
+msgstr "AntraÅ¡tÄ— _3"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
 msgid "Header _4"
-msgstr "Antrağtë _4"
+msgstr "AntraÅ¡tÄ— _4"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
 msgid "Header _5"
-msgstr "Antrağtë _5"
+msgstr "AntraÅ¡tÄ— _5"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
 msgid "Header _6"
-msgstr "Antrağtë _6"
+msgstr "AntraÅ¡tÄ— _6"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
@@ -343,103 +346,103 @@ msgstr "Antrağtë _6"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:39
 #: components/html-editor/menubar.c:91 components/html-editor/popup.c:209
 msgid "Image"
-msgstr "Paveikslëlis"
+msgstr "PaveikslÄ—lis"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
 msgid "Insert Crying smiley into document..."
-msgstr "Áterpti verkiantá ğypsiukà á dokumentà..."
+msgstr "Ä®terpti verkiantÄ¯ Å¡ypsiukÄ… Ä¯ dokumentÄ…..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
 msgid "Insert Frown smiley into document..."
-msgstr "Áterpti rimtà ğypsiukà á dokumentà..."
+msgstr "Ä®terpti rimtÄ… Å¡ypsiukÄ… Ä¯ dokumentÄ…..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:40
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
 msgid "Insert HTML file into document..."
-msgstr "Áterpti HTML bylà á dokumentà..."
+msgstr "Ä®terpti HTML bylÄ… Ä¯ dokumentÄ…..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
 msgid "Insert HTML link into document..."
-msgstr "Áterpti HTML nuorodà á dokumentà..."
+msgstr "Ä®terpti HTML nuorodÄ… Ä¯ dokumentÄ…..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
 msgid "Insert HTML template into document..."
-msgstr "Áterpti HTML ğablonà á dokumentà..."
+msgstr "Ä®terpti HTML Å¡ablonÄ… Ä¯ dokumentÄ…..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
 msgid "Insert Indifferent smiley into document..."
-msgstr "Áterpti nesidomintá ğypsiukà á dokumentà..."
+msgstr "Ä®terpti nesidomintÄ¯ Å¡ypsiukÄ… Ä¯ dokumentÄ…..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
 msgid "Insert Laughing smiley into document..."
-msgstr "Áterpti besijuokiantá ğypsiukà á dokumentà..."
+msgstr "Ä®terpti besijuokiantÄ¯ Å¡ypsiukÄ… Ä¯ dokumentÄ…..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
 msgid "Insert Lick smiley into document..."
-msgstr "Áterpti besilaişantá ğypsiukà á dokumentà..."
+msgstr "Ä®terpti besilaiÅ¾antÄ¯ Å¡ypsiukÄ… Ä¯ dokumentÄ…..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
 msgid "Insert Oh no! smiley into document..."
-msgstr "Áterpti ¥O ne!´ ğypsiukà á dokumentà..."
+msgstr "Ä®terpti â€O ne!â€œ Å¡ypsiukÄ… Ä¯ dokumentÄ…..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
 msgid "Insert Smile smiley into document..."
-msgstr "Áterpti besiğypsantá ğypsiukà á dokumentà..."
+msgstr "Ä®terpti besiÅ¡ypsantÄ¯ Å¡ypsiukÄ… Ä¯ dokumentÄ…..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
 msgid "Insert Surprised smiley into document..."
-msgstr "Áterpti nustebusá ğypsiukà á dokumentà..."
+msgstr "Ä®terpti nustebusÄ¯ Å¡ypsiukÄ… Ä¯ dokumentÄ…..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
 msgid "Insert Undecided smiley into document..."
-msgstr "Áterpti neapsisprendusá ğypsiukà á dokumentà..."
+msgstr "Ä®terpti neapsisprendusÄ¯ Å¡ypsiukÄ… Ä¯ dokumentÄ…..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
 msgid "Insert Wink smiley into document..."
-msgstr "Áterpti mirksintá ğypsiukà á dokumentà..."
+msgstr "Ä®terpti mirksintÄ¯ Å¡ypsiukÄ… Ä¯ dokumentÄ…..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
 msgid "Insert image into document..."
-msgstr "Áterpti paveikslëlá á dokumentà..."
+msgstr "Ä®terpti paveikslÄ—lÄ¯ Ä¯ dokumentÄ…..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:52
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
 msgid "Insert rule into document..."
-msgstr "Áterpti brûkğná á dokumentà..."
+msgstr "Ä®terpti brÅ«kÅ¡nÄ¯ Ä¯ dokumentÄ…..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
 msgid "Insert table into document..."
-msgstr "Áterpti lentelæ á dokumentà..."
+msgstr "Ä®terpti lentelÄ™ Ä¯ dokumentÄ…..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
 msgid "Insert text file into document..."
-msgstr "Áterpti tekstinæ bylà á dokumentà..."
+msgstr "Ä®terpti tekstinÄ™ bylÄ… Ä¯ dokumentÄ…..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
 #: components/html-editor/toolbar.c:507
 msgid "Left justifies the paragraphs"
-msgstr "Sulygiuoja pastraipas pagal kairæ"
+msgstr "Sulygiuoja pastraipas pagal kairÄ™"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
 msgid "Li_ck"
-msgstr "Lai_şûnas"
+msgstr "Lai_Å¾Å«nas"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
@@ -452,66 +455,66 @@ msgstr "Nuoroda"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
 msgid "Make the current Paragraph style Normal"
-msgstr "Padaryti esamos pastraipos stiliø normalø"
+msgstr "Padaryti esamos pastraipos stiliÅ³ normalÅ³"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
 msgid "Make the current Paragraph style Preformat"
-msgstr "Padaryti esamos pastraipos stiliø preformatuotà"
+msgstr "Padaryti esamos pastraipos stiliÅ³ preformatuotÄ…"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
 msgid "Make the current paragraph a bulleted list"
-msgstr "Padaryti esamà pastraipà punktø sàrağu"
+msgstr "Padaryti esamÄ… pastraipÄ… punktÅ³ sÄ…raÅ¡u"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:61
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 msgid "Make the current paragraph a list with roman numerals"
-msgstr "Padaryti esamà pastraipà sàrağu su romëniğkais skaièiais"
+msgstr "Padaryti esamÄ… pastraipÄ… sÄ…raÅ¡u su romÄ—niÅ¡kais skaiÄiais"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
 msgid "Make the current paragraph a numbered list"
-msgstr "Padaryti esamà pastraipà numeruotu sàrağu"
+msgstr "Padaryti esamÄ… pastraipÄ… numeruotu sÄ…raÅ¡u"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:63
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
 msgid "Make the current paragraph an H1 header"
-msgstr "Padaryti esamà pastraipà H1 antrağte"
+msgstr "Padaryti esamÄ… pastraipÄ… H1 antraÅ¡te"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:64
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
 msgid "Make the current paragraph an H2 header"
-msgstr "Padaryti esamà pastraipà H2 antrağte"
+msgstr "Padaryti esamÄ… pastraipÄ… H2 antraÅ¡te"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:65
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
 msgid "Make the current paragraph an H3 header"
-msgstr "Padaryti esamà pastraipà H3 antrağte"
+msgstr "Padaryti esamÄ… pastraipÄ… H3 antraÅ¡te"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:66
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
 msgid "Make the current paragraph an H4 header"
-msgstr "Padaryti esamà pastraipà H4 antrağte"
+msgstr "Padaryti esamÄ… pastraipÄ… H4 antraÅ¡te"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:67
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
 msgid "Make the current paragraph an H5 header"
-msgstr "Padaryti esamà pastraipà H5 antrağte"
+msgstr "Padaryti esamÄ… pastraipÄ… H5 antraÅ¡te"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:68
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
 msgid "Make the current paragraph an H6 header"
-msgstr "Padaryti esamà pastraipà H6 antrağte"
+msgstr "Padaryti esamÄ… pastraipÄ… H6 antraÅ¡te"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:69
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
 msgid "Make the current paragraph an address"
-msgstr "Padaryti esamà pastraipà adresu"
+msgstr "Padaryti esamÄ… pastraipÄ… adresu"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:70
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
 msgid "Make the current paragraph an alphabetical list"
-msgstr "Padaryti esamà pastraipà abëcëliniu sàrağu"
+msgstr "Padaryti esamÄ… pastraipÄ… abÄ—cÄ—liniu sÄ…raÅ¡u"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
@@ -524,12 +527,12 @@ msgstr "Paprastas"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
 #: components/html-editor/toolbar.c:51
 msgid "Numbered List"
-msgstr "Numeruotas sàrağas"
+msgstr "Numeruotas sÄ…raÅ¡as"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
 msgid "Numbered _List"
-msgstr "Numeruotas _Sàrağas"
+msgstr "Numeruotas _SÄ…raÅ¡as"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
@@ -539,7 +542,7 @@ msgstr "O ne!"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:75
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
 msgid "Orange"
-msgstr "Oranşinë"
+msgstr "OranÅ¾inÄ—"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
@@ -549,27 +552,27 @@ msgstr "Kita..."
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
 msgid "Paste"
-msgstr "Ádëti"
+msgstr "Ä®dÄ—ti"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
 msgid "Paste _Quotation"
-msgstr "Áterpti _Citatà"
+msgstr "Ä®terpti _CitatÄ…"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
 msgid "Paste from clipboard"
-msgstr "Ádëti iğ krepğio"
+msgstr "Ä®dÄ—ti iÅ¡ krepÅ¡io"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
 msgid "Paste the clipboard"
-msgstr "Ádëti krepğio turiná"
+msgstr "Ä®dÄ—ti krepÅ¡io turinÄ¯"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
 msgid "Paste the clipboard as a quotation"
-msgstr "Áterpti atmintinës turiná kaip citatà"
+msgstr "Ä®terpti atmintinÄ—s turinÄ¯ kaip citatÄ…"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
 #: components/html-editor/toolbar.c:49
@@ -579,7 +582,7 @@ msgstr "Preformatuotas"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
 msgid "Purple"
-msgstr "Violetinë"
+msgstr "VioletinÄ—"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
@@ -594,12 +597,12 @@ msgstr "Pakartoti"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
 msgid "Redo previously undone change"
-msgstr "Pakartoti prieğ tai atğauktà veiksmà"
+msgstr "Pakartoti prieÅ¡ tai atÅ¡auktÄ… veiksmÄ…"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
 msgid "Redo the undone action"
-msgstr "Pakartoti atğauktà veiksmà"
+msgstr "Pakartoti atÅ¡auktÄ… veiksmÄ…"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
@@ -611,12 +614,12 @@ msgstr "Pakeisti"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 #: components/html-editor/toolbar.c:511
 msgid "Right justifies the paragraphs"
-msgstr "Sulygiuoja pastraipas pagal değinæ"
+msgstr "Sulygiuoja pastraipas pagal deÅ¡inÄ™"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 msgid "Roman Numeral List"
-msgstr "Romeniğkai numeruotas sàrağas"
+msgstr "RomeniÅ¡kai numeruotas sÄ…raÅ¡as"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
@@ -624,17 +627,17 @@ msgstr "Romeniğkai numeruotas sàrağas"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
 #: components/html-editor/menubar.c:125 components/html-editor/popup.c:230
 msgid "Rule"
-msgstr "Brûkğnys"
+msgstr "BrÅ«kÅ¡nys"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
 msgid "Select _All"
-msgstr "Paşy_mëti viskà"
+msgstr "PaÅ¾y_mÄ—ti viskÄ…"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
 msgid "Select the entire contents of the document"
-msgstr "Paşymëti visà dokumento turiná"
+msgstr "PaÅ¾ymÄ—ti visÄ… dokumento turinÄ¯"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:94
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
@@ -651,17 +654,17 @@ msgstr "_Indeksas"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:96
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
 msgid "Su_rprised"
-msgstr "N_ustebæs"
+msgstr "N_ustebÄ™s"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
 msgid "Subs_cript"
-msgstr "_Rodyklë"
+msgstr "_RodyklÄ—"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 msgid "Subscript"
-msgstr "Rodyklë"
+msgstr "RodyklÄ—"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
@@ -674,17 +677,17 @@ msgstr "Indeksas"
 #: components/html-editor/menubar.c:142 components/html-editor/popup.c:237
 #: components/html-editor/popup.c:519 components/html-editor/popup.c:528
 msgid "Table"
-msgstr "Lentelë"
+msgstr "LentelÄ—"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
 msgid "Te_mplate..."
-msgstr "Ğab_lonà..."
+msgstr "Å ab_lonÄ…..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
 msgid "Te_xt file..."
-msgstr "Te_kstinë byla..."
+msgstr "Te_kstinÄ— byla..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
@@ -692,28 +695,28 @@ msgstr "Te_kstinë byla..."
 #: components/html-editor/gtkhtml-editor-properties.glade.h:74
 #: components/html-editor/menubar.c:165
 msgid "Template"
-msgstr "Ğablonas"
+msgstr "Å ablonas"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
 #: components/html-editor/toolbar.c:518
 msgid "Typewriter"
-msgstr "Rağomoji mağinëlë"
+msgstr "RaÅ¡omoji maÅ¡inÄ—lÄ—"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
 msgid "Undo"
-msgstr "Atğaukti"
+msgstr "AtÅ¡aukti"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
 msgid "Undo previous changes"
-msgstr "Atğaukti ankstesnius pakeitimus"
+msgstr "AtÅ¡aukti ankstesnius pakeitimus"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
 msgid "Undo the last action"
-msgstr "Atğaukti paskutiná veiksmà"
+msgstr "AtÅ¡aukti paskutinÄ¯ veiksmÄ…"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
@@ -728,7 +731,7 @@ msgstr "_Lygiavimas"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
 msgid "_Alphabetical List"
-msgstr "_Abëcëlinis Sàrağas"
+msgstr "_AbÄ—cÄ—linis SÄ…raÅ¡as"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
@@ -738,7 +741,7 @@ msgstr "Pus_juodis"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
 msgid "_Bulleted List"
-msgstr "Pun_ktø sàrağas"
+msgstr "Pun_ktÅ³ sÄ…raÅ¡as"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
@@ -753,7 +756,7 @@ msgstr "_Kopijuoti"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
 msgid "_Decrease Indent"
-msgstr "Su_maşinti átraukà"
+msgstr "Su_maÅ¾inti Ä¯traukÄ…"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
@@ -768,7 +771,7 @@ msgstr "R_asti..."
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
 msgid "_Font Size"
-msgstr "Ğri_fto dydis"
+msgstr "Å ri_fto dydis"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
@@ -783,17 +786,17 @@ msgstr "_HTML byla..."
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
 msgid "_Heading"
-msgstr "_Antrağtë"
+msgstr "_AntraÅ¡tÄ—"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
 msgid "_Image..."
-msgstr "_Paveikslëlá..."
+msgstr "_PaveikslÄ—lÄ¯..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
 msgid "_Increase Indent"
-msgstr "Pad_idinti átraukà"
+msgstr "Pad_idinti Ä¯traukÄ…"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
@@ -803,7 +806,7 @@ msgstr "Nes_idomintis"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
 msgid "_Insert"
-msgstr "Á_terpti"
+msgstr "Ä®_terpti"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
@@ -818,12 +821,12 @@ msgstr "_Linksmutis"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
 msgid "_Left"
-msgstr "Pagal _kairæ"
+msgstr "Pagal _kairÄ™"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
 msgid "_Link..."
-msgstr "_Nuorodà..."
+msgstr "_NuorodÄ…..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
@@ -843,12 +846,12 @@ msgstr "_Pastraipa..."
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
 msgid "_Paste"
-msgstr "Á_dëti"
+msgstr "Ä®_dÄ—ti"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
 msgid "_Plain text"
-msgstr "_Plokğèias tekstas"
+msgstr "_PlokÅ¡Äias tekstas"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
@@ -868,32 +871,32 @@ msgstr "_Pakeisti..."
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
 msgid "_Right"
-msgstr "Pagal _değinæ"
+msgstr "Pagal _deÅ¡inÄ™"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:139
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:141
 msgid "_Roman Numeral List"
-msgstr "_Romëniğkai numeruotas sàrağas"
+msgstr "_RomÄ—niÅ¡kai numeruotas sÄ…raÅ¡as"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:142
 msgid "_Rule..."
-msgstr "_Brûkğná..."
+msgstr "_BrÅ«kÅ¡nÄ¯..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:141
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
 msgid "_Smile"
-msgstr "_Ğypsiukas"
+msgstr "_Å ypsiukas"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:142
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:144
 msgid "_Smiley"
-msgstr "_Ğypsiukas"
+msgstr "_Å ypsiukas"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:143
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:145
 msgid "_Spell Check Document..."
-msgstr "Patikrinti Dokumento Rağybà"
+msgstr "Patikrinti Dokumento RaÅ¡ybÄ…"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:144
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:146
@@ -908,7 +911,7 @@ msgstr "_Stilius"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:146
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:148
 msgid "_Table..."
-msgstr "_Lentelæ..."
+msgstr "_LentelÄ™..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:147
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:149
@@ -918,7 +921,7 @@ msgstr "_Tekstas..."
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:148
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:150
 msgid "_Undecided"
-msgstr "_Neapsisprendëlis"
+msgstr "_NeapsisprendÄ—lis"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:149
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:151
@@ -928,7 +931,7 @@ msgstr "Pabra_uktas"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:150
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
 msgid "_Undo"
-msgstr "Atğa_ukti"
+msgstr "AtÅ¡a_ukti"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:151
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
@@ -954,11 +957,11 @@ msgstr "GNOME HTML redaktoriaus gamykla"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
 msgid "Insert Sick smiley into document..."
-msgstr "Áterpti ligotà ğypsiukà á dokumentà..."
+msgstr "Ä®terpti ligotÄ… Å¡ypsiukÄ… Ä¯ dokumentÄ…..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
 msgid "Make the current Paragraph style Preformatted"
-msgstr "Padaryti esamos pastraipos stiliø preformatuotà"
+msgstr "Padaryti esamos pastraipos stiliÅ³ preformatuotÄ…"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 #: components/html-editor/paragraph.c:151
@@ -971,7 +974,7 @@ msgstr "L_igonis"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:154
 msgid "_Wrap Lines"
-msgstr "_Lauşyti eilutes"
+msgstr "_LauÅ¾yti eilutes"
 
 #: components/html-editor/body.c:66
 #: components/html-editor/gtkhtml-editor-properties.glade.h:48
@@ -984,7 +987,7 @@ msgstr "Perforuotas Popierius"
 
 #: components/html-editor/body.c:82
 msgid "Blue Ink"
-msgstr "Mëlynas Rağalas"
+msgstr "MÄ—lynas RaÅ¡alas"
 
 #: components/html-editor/body.c:90
 msgid "Paper"
@@ -992,7 +995,7 @@ msgstr "Popierius"
 
 #: components/html-editor/body.c:98
 msgid "Ribbon"
-msgstr "Juostelë"
+msgstr "JuostelÄ—"
 
 #: components/html-editor/body.c:106
 msgid "Midnight"
@@ -1004,7 +1007,7 @@ msgstr "Konfidencialus"
 
 #: components/html-editor/body.c:122
 msgid "Draft"
-msgstr "Juodrağtis"
+msgstr "JuodraÅ¡tis"
 
 #: components/html-editor/body.c:130
 msgid "Graph paper"
@@ -1016,17 +1019,17 @@ msgid ""
 "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a href="
 "\"mailto:dog\">dog</a>."
 msgstr ""
-"Álinkdama fechtuotojo <a href=\"mailto:spaga\">ğpaga</a> sublykèiojusi "
-"pragræşë apvalø <a href=\"mailto:arbuza\">arbûzà</a>."
+"Ä®linkdama fechtuotojo <a href=\"mailto:spaga\">Å¡paga</a> sublykÄiojusi "
+"pragrÄ™Å¾Ä— apvalÅ³ <a href=\"mailto:arbuza\">arbÅ«zÄ…</a>."
 
 #: components/html-editor/body.c:316 src/gtkhtml.c:2697
 msgid "Document Title"
-msgstr "Dokumento Antrağtë"
+msgstr "Dokumento AntraÅ¡tÄ—"
 
 #: components/html-editor/body.c:320 components/html-editor/body.c:323
 #: components/html-editor/gtkhtml-editor-properties.glade.h:15
 msgid "Background Image"
-msgstr "Fono paveikslëlis"
+msgstr "Fono paveikslÄ—lis"
 
 #: components/html-editor/body.c:345
 #: components/html-editor/gtkhtml-editor-properties.glade.h:25
@@ -1037,7 +1040,7 @@ msgstr "Spalvos"
 #: components/html-editor/table.c:536 components/html-editor/text.c:297
 #: components/html-editor/toolbar.c:300
 msgid "Automatic"
-msgstr "Automatinë"
+msgstr "AutomatinÄ—"
 
 #: components/html-editor/body.c:367
 #: components/html-editor/editor-control-factory.c:198
@@ -1055,7 +1058,7 @@ msgstr "Fonas"
 #: components/html-editor/cell.c:174 components/html-editor/cell.c:176
 #: components/html-editor/paragraph.c:62 components/html-editor/text.c:109
 msgid "The quick brown fox jumps over the lazy dog."
-msgstr "Álinkdama fechtuotojo ğpaga sublykèiojusi pragræşë apvalø arbûzà."
+msgstr "Ä®linkdama fechtuotojo Å¡paga sublykÄiojusi pragrÄ™Å¾Ä— apvalÅ³ arbÅ«zÄ…."
 
 #: components/html-editor/cell.c:179
 msgid "Other"
@@ -1066,15 +1069,15 @@ msgid ""
 "The editted cell was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
-"Taisomas laukas buvo pağalintas iğ dokumento.\n"
-"Negalima pritaikyti Jûsø pakeitimø."
+"Taisomas laukas buvo paÅ¡alintas iÅ¡ dokumento.\n"
+"Negalima pritaikyti JÅ«sÅ³ pakeitimÅ³."
 
 #: components/html-editor/editor-control-factory.c:178
 #: components/html-editor/menubar.c:317 components/html-editor/menubar.c:335
 #: components/html-editor/menubar.c:353 components/html-editor/popup.c:187
 #: components/html-editor/popup.c:272
 msgid "Properties"
-msgstr "Savybës"
+msgstr "SavybÄ—s"
 
 #: components/html-editor/editor-control-factory.c:219
 #: components/html-editor/menubar.c:356 components/html-editor/popup.c:216
@@ -1090,221 +1093,201 @@ msgstr "Puslapis"
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:394
 msgid "custom"
-msgstr ""
+msgstr "kita"
 
 #. "Custom" color - we'll pop up a GnomeColorPicker
 #: components/html-editor/gi-color-palette.c:436
-#, fuzzy
 msgid "Custom Color:"
-msgstr "Spalva:"
+msgstr "Kita spalva:"
 
 #: components/html-editor/gi-color-palette.c:444
 msgid "Choose Custom Color"
-msgstr ""
+msgstr "Pasirinkite kitÄ… spalvÄ…"
 
 #: components/html-editor/gi-color-palette.c:577
 msgid "black"
-msgstr ""
+msgstr "juoda"
 
 #: components/html-editor/gi-color-palette.c:578
 msgid "light brown"
-msgstr ""
+msgstr "Å¡viesiai ruda"
 
 #: components/html-editor/gi-color-palette.c:579
 msgid "brown gold"
-msgstr ""
+msgstr "rudai auksinÄ—"
 
 #: components/html-editor/gi-color-palette.c:580
 msgid "dark green #2"
-msgstr ""
+msgstr "tamsiai Å¾alia #2"
 
 #: components/html-editor/gi-color-palette.c:581
 msgid "navy"
-msgstr ""
+msgstr "jÅ«ros mÄ—lynumo"
 
 #: components/html-editor/gi-color-palette.c:582
 #: components/html-editor/gi-color-palette.c:638
 msgid "dark blue"
-msgstr ""
+msgstr "tamsiai mÄ—lyna"
 
 #: components/html-editor/gi-color-palette.c:583
-#, fuzzy
 msgid "purple #2"
-msgstr "Violetinë"
+msgstr "violetinÄ— #2"
 
 #: components/html-editor/gi-color-palette.c:584
 msgid "very dark gray"
-msgstr ""
+msgstr "labai tamsiai pilka"
 
 #: components/html-editor/gi-color-palette.c:587
 #: components/html-editor/gi-color-palette.c:643
-#, fuzzy
 msgid "dark red"
-msgstr "Tamsi antrağtë"
+msgstr "tamsi raudona"
 
 #: components/html-editor/gi-color-palette.c:588
-#, fuzzy
 msgid "red-orange"
-msgstr "Oranşinë"
+msgstr "raudona-oranÅ¾inÄ—"
 
 #: components/html-editor/gi-color-palette.c:589
-#, fuzzy
 msgid "gold"
-msgstr "Pusjuodis"
+msgstr "auksinÄ—"
 
 #: components/html-editor/gi-color-palette.c:590
 msgid "dark green"
-msgstr ""
+msgstr "tamsiai Å¾alia"
 
 #: components/html-editor/gi-color-palette.c:591
 #: components/html-editor/gi-color-palette.c:644
 msgid "dull blue"
-msgstr ""
+msgstr "neryÅ¡ki mÄ—lyna"
 
 #: components/html-editor/gi-color-palette.c:592
 #: components/html-editor/gi-color-palette.c:645
-#, fuzzy
 msgid "blue"
-msgstr "Mëlyna"
+msgstr "mÄ—lyna"
 
 #: components/html-editor/gi-color-palette.c:593
 msgid "dull purple"
-msgstr ""
+msgstr "neryÅ¡ki violetinÄ—"
 
 #: components/html-editor/gi-color-palette.c:594
 msgid "dark grey"
-msgstr ""
+msgstr "tamsiai pilka"
 
 #: components/html-editor/gi-color-palette.c:597
-#, fuzzy
 msgid "red"
-msgstr "Raudona"
+msgstr "raudona"
 
 #: components/html-editor/gi-color-palette.c:598
-#, fuzzy
 msgid "orange"
-msgstr "Oranşinë"
+msgstr "oranÅ¾inÄ—"
 
 #: components/html-editor/gi-color-palette.c:599
-#, fuzzy
 msgid "lime"
-msgstr "Lygiavimas"
+msgstr "laimo"
 
 #: components/html-editor/gi-color-palette.c:600
 msgid "dull green"
-msgstr ""
+msgstr "neryÅ¡ki Å¾alia"
 
 #: components/html-editor/gi-color-palette.c:601
 msgid "dull blue #2"
-msgstr ""
+msgstr "neryÅ¡ki mÄ—lyna #2"
 
 #: components/html-editor/gi-color-palette.c:602
 msgid "sky blue #2"
-msgstr ""
+msgstr "dangaus mÄ—lynumo #2"
 
 #: components/html-editor/gi-color-palette.c:603
 #: components/html-editor/gi-color-palette.c:642
-#, fuzzy
 msgid "purple"
-msgstr "Violetinë"
+msgstr "violetinÄ—"
 
 #: components/html-editor/gi-color-palette.c:604
-#, fuzzy
 msgid "gray"
-msgstr "Plokğèias pilkas"
+msgstr "pilka"
 
 #: components/html-editor/gi-color-palette.c:607
 #: components/html-editor/gi-color-palette.c:639
-#, fuzzy
 msgid "magenta"
-msgstr "Paveikslëlis"
+msgstr "rausvai raudona"
 
 #: components/html-editor/gi-color-palette.c:608
 msgid "bright orange"
-msgstr ""
+msgstr "Å¡viesiai oranÅ¾inÄ—"
 
 #: components/html-editor/gi-color-palette.c:609
 #: components/html-editor/gi-color-palette.c:640
-#, fuzzy
 msgid "yellow"
-msgstr "Geltona"
+msgstr "geltona"
 
 #: components/html-editor/gi-color-palette.c:610
-#, fuzzy
 msgid "green"
-msgstr "Şalia"
+msgstr "Å¾alia"
 
 #: components/html-editor/gi-color-palette.c:611
 #: components/html-editor/gi-color-palette.c:641
 msgid "cyan"
-msgstr ""
+msgstr "Å¾alsvai mÄ—lyna"
 
 #: components/html-editor/gi-color-palette.c:612
 msgid "bright blue"
-msgstr ""
+msgstr "Å¡viesiai mÄ—lyna"
 
 #: components/html-editor/gi-color-palette.c:613
 #: components/html-editor/gi-color-palette.c:630
-#, fuzzy
 msgid "red purple"
-msgstr "Violetinë"
+msgstr "raudonai violetinÄ—"
 
 #: components/html-editor/gi-color-palette.c:614
-#, fuzzy
 msgid "light grey"
-msgstr "Plokğèias pilkas"
+msgstr "Å¡viesiai pilka"
 
 #: components/html-editor/gi-color-palette.c:617
 #: components/html-editor/gi-color-palette.c:634
-#, fuzzy
 msgid "pink"
-msgstr "Nuoroda"
+msgstr "roÅ¾inÄ—"
 
 #: components/html-editor/gi-color-palette.c:618
-#, fuzzy
 msgid "light orange"
-msgstr "Lygiuoti pagal değinæ"
+msgstr "Å¡viesiai oranÅ¾inÄ—"
 
 #: components/html-editor/gi-color-palette.c:619
 #: components/html-editor/gi-color-palette.c:631
 msgid "light yellow"
-msgstr ""
+msgstr "Å¡viesiai geltona"
 
 #: components/html-editor/gi-color-palette.c:620
-#, fuzzy
 msgid "light green"
-msgstr "Lygiuoti pagal değinæ"
+msgstr "Å¡viesiai Å¾alia"
 
 #: components/html-editor/gi-color-palette.c:621
-#, fuzzy
 msgid "light cyan"
-msgstr "Lygiuoti pagal değinæ"
+msgstr "Å¡viesiai Å¾alsvai mÄ—lyna"
 
 #: components/html-editor/gi-color-palette.c:622
 #: components/html-editor/gi-color-palette.c:632
 msgid "light blue"
-msgstr ""
+msgstr "Å¡viesiai mÄ—lyna"
 
 #: components/html-editor/gi-color-palette.c:623
 #: components/html-editor/gi-color-palette.c:636
 msgid "light purple"
-msgstr ""
+msgstr "Å¡viesiai violetinÄ—"
 
 #: components/html-editor/gi-color-palette.c:624
 msgid "white"
-msgstr ""
+msgstr "balta"
 
 #: components/html-editor/gi-color-palette.c:629
 msgid "purplish blue"
-msgstr ""
+msgstr "violetiniai mÄ—lyna"
 
 #: components/html-editor/gi-color-palette.c:633
 msgid "dark purple"
-msgstr ""
+msgstr "tamsiai violetinÄ—"
 
 #: components/html-editor/gi-color-palette.c:635
 msgid "sky blue"
-msgstr ""
+msgstr "dangaus mÄ—lynumo"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
@@ -1337,24 +1320,24 @@ msgstr "Pritaikyti pakeitimus kam:"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:16
 #: components/html-editor/text.c:236 components/html-editor/toolbar.c:520
 msgid "Bold"
-msgstr "Pusjuodis"
+msgstr "Storas"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:17
 msgid "Border"
-msgstr "Rëmelis"
+msgstr "RÄ—melis"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:18
 msgid "Border:"
-msgstr "Rëmelis:"
+msgstr "RÄ—melis:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:19
 msgid "Bottom"
-msgstr "Pagal apaèià"
+msgstr "Pagal apaÄiÄ…"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:20
 #: components/html-editor/popup.c:244
 msgid "Cell"
-msgstr "Làstelë"
+msgstr "LÄ…stelÄ—"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
 #: components/html-editor/paragraph.c:174 components/html-editor/toolbar.c:509
@@ -1364,11 +1347,11 @@ msgstr "Centruoti"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
 #: components/html-editor/link.c:137 components/html-editor/text.c:247
 msgid "Click will follow this URL"
-msgstr "Paspauskite, kad pereiti á nurodytà adresà"
+msgstr "Paspauskite, kad pereiti Ä¯ nurodytÄ… adresÄ…"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:23
 msgid "Click will follow this URL:"
-msgstr "Paspauskite, kad pereiti á nurodytà adresà:"
+msgstr "Paspauskite, kad pereiti Ä¯ nurodytÄ… adresÄ…:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:24
 msgid "Color:"
@@ -1381,7 +1364,7 @@ msgstr "Stulpelis"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:27
 msgid "Column span:"
-msgstr "Stulpeliø suliejimas:"
+msgstr "StulpeliÅ³ suliejimas:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:28
 msgid "Columns:"
@@ -1389,11 +1372,11 @@ msgstr "Stulpeliai:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:29
 msgid "Description:"
-msgstr "Aprağymas:"
+msgstr "ApraÅ¡ymas:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:30
 msgid "Don't wrap"
-msgstr "Nelauşyti"
+msgstr "NelauÅ¾yti"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:31
 msgid "Enable"
@@ -1405,7 +1388,7 @@ msgstr "Pereiti"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:33
 msgid "Font size"
-msgstr "Ğrifto dydis"
+msgstr "Å rifto dydis"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:34
 msgid "Foreground color"
@@ -1413,11 +1396,11 @@ msgstr "Priekinio plano spalva"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:35
 msgid "Header"
-msgstr "Antrağtë"
+msgstr "AntraÅ¡tÄ—"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:36
 msgid "Height:"
-msgstr "Aukğtis:"
+msgstr "AukÅ¡tis:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:37
 msgid "Horizontal alignment:"
@@ -1435,7 +1418,7 @@ msgstr "Kursyvinis"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:41
 #: components/html-editor/paragraph.c:173
 msgid "Left"
-msgstr "Pagal kairæ"
+msgstr "Pagal kairÄ™"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:42
 msgid "Length:"
@@ -1443,11 +1426,11 @@ msgstr "Ilgis:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:43
 msgid "Link insert"
-msgstr "Áterpti nuorodà"
+msgstr "Ä®terpti nuorodÄ…"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:44
 msgid "Link properties"
-msgstr "Nuorodos savybës"
+msgstr "Nuorodos savybÄ—s"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:45
 msgid "Location"
@@ -1467,7 +1450,7 @@ msgstr "Apvalkalas:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:53
 msgid "Percent"
-msgstr "Procentø"
+msgstr "ProcentÅ³"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:55
 #, no-c-format
@@ -1476,33 +1459,33 @@ msgstr "Procentais %"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:56
 msgid "Pixels"
-msgstr "Tağkeliø"
+msgstr "TaÅ¡keliÅ³"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:57
 msgid "Pixmap:"
-msgstr "Paveikslëlis:"
+msgstr "PaveikslÄ—lis:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:58
 msgid "Points"
-msgstr "Tağkais"
+msgstr "TaÅ¡kais"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:59
 #: components/html-editor/paragraph.c:175
 msgid "Right"
-msgstr "Pagal değinæ"
+msgstr "Pagal deÅ¡inÄ™"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
 #: components/html-editor/popup.c:529
 msgid "Row"
-msgstr "Eilutë"
+msgstr "EilutÄ—"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:61
 msgid "Row span:"
-msgstr "Eiluèiø suliejimas:"
+msgstr "EiluÄiÅ³ suliejimas:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:62
 msgid "Rows:"
-msgstr "Eilutës:"
+msgstr "EilutÄ—s:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:64
 msgid "Scope"
@@ -1510,7 +1493,7 @@ msgstr "Sritis"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:65
 msgid "Shaded"
-msgstr "Su ğeğëliu"
+msgstr "Su Å¡eÅ¡Ä—liu"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:66
 #: components/html-editor/text.c:263
@@ -1537,7 +1520,7 @@ msgstr "Stilius:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:73
 msgid "Table Insert"
-msgstr "Áterpti lentelæ"
+msgstr "Ä®terpti lentelÄ™"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:75
 #: components/html-editor/link.c:85
@@ -1550,7 +1533,7 @@ msgstr "Storis:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:78
 msgid "Top"
-msgstr "Pagal virğø"
+msgstr "Pagal virÅ¡Å³"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:79
 #: components/html-editor/text.c:238 components/html-editor/toolbar.c:524
@@ -1567,11 +1550,11 @@ msgstr "Plotis:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:82
 msgid "Wrap"
-msgstr "Lauşyti"
+msgstr "LauÅ¾yti"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:83
 msgid "Wrapping:"
-msgstr "Lauşymas:"
+msgstr "LauÅ¾ymas:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:84
 msgid "xxxxxxxxx"
@@ -1584,7 +1567,7 @@ msgstr "xxxxxxxxxxxxxx"
 #: components/html-editor/image.c:118 components/html-editor/rule.c:93
 #: components/html-editor/table.c:192
 msgid "Plain"
-msgstr "Plokğèias"
+msgstr "PlokÅ¡Äias"
 
 #: components/html-editor/image.c:120
 msgid ""
@@ -1596,7 +1579,7 @@ msgstr ""
 
 #: components/html-editor/image.c:123
 msgid "Frame"
-msgstr "Rëmelis"
+msgstr "RÄ—melis"
 
 #: components/html-editor/image.c:125
 msgid ""
@@ -1627,28 +1610,28 @@ msgstr ""
 "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
 "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
 "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Rağykite "
-"savo pastabas èia]</td></tr></table></td></tr></table></center>"
+"@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[RaÅ¡ykite "
+"savo pastabas Äia]</td></tr></table></td></tr></table></center>"
 
 #: components/html-editor/image.c:258 components/html-editor/image.c:264
 msgid ""
 "This is sample text, designed to show you how text would flow around this "
 "image if you insert the image into your message."
 msgstr ""
-"Tai yra bandomasis tekstas, skirtas parodyti Jums, kaip tekstas judës apie "
-"ğá pieğiná, jei Jûs áterpsite já á savo dokumentà."
+"Tai yra bandomasis tekstas, skirtas parodyti Jums, kaip tekstas judÄ—s apie "
+"Å¡Ä¯ pieÅ¡inÄ¯, jei JÅ«s Ä¯terpsite jÄ¯ Ä¯ savo dokumentÄ…."
 
 #: components/html-editor/image.c:270
 msgid "No image selected"
-msgstr "Nepasirinktas joks paveikslëlis"
+msgstr "Nepasirinktas joks paveikslÄ—lis"
 
 #: components/html-editor/image.c:704
 msgid ""
 "The editted image was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
-"Taisomas paveikslëlis buvo pağalintas iğ dokumento.\n"
-"Negalima pritaikyti Jûsø pakeitimø."
+"Taisomas paveikslÄ—lis buvo paÅ¡alintas iÅ¡ dokumento.\n"
+"Negalima pritaikyti JÅ«sÅ³ pakeitimÅ³."
 
 #: components/html-editor/link.c:121
 msgid "Link text"
@@ -1659,60 +1642,60 @@ msgid ""
 "The editted link was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
-"Taisoma nuoroda buvo pağalinta iğ dokumento.\n"
-"Negalima pritaikyti Jûsø pakeitimø."
+"Taisoma nuoroda buvo paÅ¡alinta iÅ¡ dokumento.\n"
+"Negalima pritaikyti JÅ«sÅ³ pakeitimÅ³."
 
 #: components/html-editor/link.c:270
 msgid "Please fill 'Link text' and 'URL' entries"
-msgstr ""
+msgstr "PraÅ¡om uÅ¾pildyti â€Nuorodos tekstasâ€œ ir â€URLâ€œ Ä¯raÅ¡us"
 
 #: components/html-editor/menubar.c:88 components/html-editor/menubar.c:104
 #: components/html-editor/menubar.c:122 components/html-editor/menubar.c:139
 #: components/html-editor/menubar.c:162 components/html-editor/popup.c:103
 #: components/html-editor/properties.c:125
 msgid "Insert"
-msgstr "Áterpti"
+msgstr "Ä®terpti"
 
 #: components/html-editor/menubar.c:252
 #, c-format
 msgid "Error loading file '%s': %s"
-msgstr "Klaida ákeliant bylà ¥%s´: %s"
+msgstr "Klaida Ä¯keliant bylÄ… â€%sâ€œ: %s"
 
 #: components/html-editor/menubar.c:279
 msgid "Insert: HTML File"
-msgstr "Áterpti: HTML Byla"
+msgstr "Ä®terpti: HTML Byla"
 
 #: components/html-editor/menubar.c:279
 msgid "Insert: Text File"
-msgstr "Áterpti: Tekstinë Byla"
+msgstr "Ä®terpti: TekstinÄ— Byla"
 
 #: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:54
 msgid "Header 1"
-msgstr "Antrağtë 1"
+msgstr "AntraÅ¡tÄ— 1"
 
 #: components/html-editor/paragraph.c:136 components/html-editor/toolbar.c:55
 msgid "Header 2"
-msgstr "Antrağtë 2"
+msgstr "AntraÅ¡tÄ— 2"
 
 #: components/html-editor/paragraph.c:137 components/html-editor/toolbar.c:56
 msgid "Header 3"
-msgstr "Antrağtë 3"
+msgstr "AntraÅ¡tÄ— 3"
 
 #: components/html-editor/paragraph.c:138 components/html-editor/toolbar.c:57
 msgid "Header 4"
-msgstr "Antrağtë 4"
+msgstr "AntraÅ¡tÄ— 4"
 
 #: components/html-editor/paragraph.c:139 components/html-editor/toolbar.c:58
 msgid "Header 5"
-msgstr "Antrağtë 5"
+msgstr "AntraÅ¡tÄ— 5"
 
 #: components/html-editor/paragraph.c:140 components/html-editor/toolbar.c:59
 msgid "Header 6"
-msgstr "Antrağtë 6"
+msgstr "AntraÅ¡tÄ— 6"
 
 #: components/html-editor/paragraph.c:143
 msgid "Dot item"
-msgstr "Tağkinis punktas"
+msgstr "TaÅ¡kinis punktas"
 
 #: components/html-editor/paragraph.c:144
 msgid "Number item"
@@ -1720,11 +1703,11 @@ msgstr "Numeris"
 
 #: components/html-editor/paragraph.c:145
 msgid "Roman item"
-msgstr "Romëniğkas numeris"
+msgstr "RomÄ—niÅ¡kas numeris"
 
 #: components/html-editor/paragraph.c:146
 msgid "Alphabeta item"
-msgstr "Abëcëlës punktas"
+msgstr "AbÄ—cÄ—lÄ—s punktas"
 
 #: components/html-editor/paragraph.c:149 components/html-editor/toolbar.c:60
 msgid "Address"
@@ -1739,116 +1722,114 @@ msgid ""
 "The editted paragraph was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
-"Taisoma pastraipa buvo pağalinta iğ dokumento.\n"
-"Negalima pritaikyti Jûsø pakeitimø."
+"Taisoma pastraipa buvo paÅ¡alinta iÅ¡ dokumento.\n"
+"Negalima pritaikyti JÅ«sÅ³ pakeitimÅ³."
 
 #: components/html-editor/popup.c:457
 msgid "Paste Quotation"
-msgstr "Áterpti Citatà"
+msgstr "Ä®terpti citatÄ…"
 
 #: components/html-editor/popup.c:461
-#, fuzzy
 msgid "Insert Link"
-msgstr "Áterpti nuorodà"
+msgstr "Ä®terpti nuorodÄ…"
 
 #: components/html-editor/popup.c:468
-#, fuzzy
 msgid "Remove Link"
-msgstr "Pağalinti nuorodà"
+msgstr "PaÅ¡alinti nuorodÄ…"
 
 #: components/html-editor/popup.c:477
 msgid "Text Style..."
-msgstr "Teksto Stilius..."
+msgstr "Teksto stilius..."
 
 #: components/html-editor/popup.c:479 components/html-editor/popup.c:485
 #: components/html-editor/popup.c:495
 msgid "Paragraph Style..."
-msgstr "Pastraipos Stilius..."
+msgstr "Pastraipos stilius..."
 
 #: components/html-editor/popup.c:483
 msgid "Link Style..."
-msgstr "Nuorodos Stilius..."
+msgstr "Nuorodos stilius..."
 
 #: components/html-editor/popup.c:489
 msgid "Rule Style..."
-msgstr "Linijos Stilius..."
+msgstr "Linijos stilius..."
 
 #: components/html-editor/popup.c:493
 msgid "Image Style..."
-msgstr "Paveikslëlio Stilius..."
+msgstr "PaveikslÄ—lio stilius..."
 
 #: components/html-editor/popup.c:504
 msgid "Cell Style..."
-msgstr "Lauko Stilius..."
+msgstr "LÄ…stelÄ—s stilius..."
 
 #: components/html-editor/popup.c:507
 msgid "Table Style..."
-msgstr "Lentelës Stilius"
+msgstr "LentelÄ—s stilius"
 
 #: components/html-editor/popup.c:513
 msgid "Page Style..."
-msgstr "Puslapio Stilius..."
+msgstr "Puslapio stilius..."
 
 #: components/html-editor/popup.c:518
 msgid "Table insert"
-msgstr "Lentelëje áterpti"
+msgstr "LentelÄ—je Ä¯terpti"
 
 #: components/html-editor/popup.c:521
 msgid "Row above"
-msgstr "Eilutæ virğ"
+msgstr "EilutÄ™ virÅ¡"
 
 #: components/html-editor/popup.c:522
 msgid "Row below"
-msgstr "Eilutæ apaèioje"
+msgstr "EilutÄ™ apaÄioje"
 
 #: components/html-editor/popup.c:524
 msgid "Column before"
-msgstr "Stulpelá prieğ"
+msgstr "StulpelÄ¯ prieÅ¡"
 
 #: components/html-editor/popup.c:525
 msgid "Column after"
-msgstr "Stulpelá po"
+msgstr "StulpelÄ¯ po"
 
 #: components/html-editor/popup.c:527
 msgid "Table delete"
-msgstr "Lentelëje iğtrinti"
+msgstr "LentelÄ—je iÅ¡trinti"
 
 #: components/html-editor/popup.c:531
 msgid "Cell contents"
-msgstr "Làstelës turiná"
+msgstr "LÄ…stelÄ—s turinÄ¯"
 
 #: components/html-editor/popup.c:541
 msgid "Check Word Spelling..."
-msgstr "Tikrinti Şodşio Rağybà..."
+msgstr "Tikrinti Å¾odÅ¾iÅ³ raÅ¡ybÄ…..."
 
 #: components/html-editor/popup.c:546
 msgid "Add Word to"
-msgstr "Átraukti Şodá á"
+msgstr "Ä®traukti Å¾odÄ¯ Ä¯"
 
 #: components/html-editor/popup.c:550
 #, c-format
 msgid "%s Dictionary"
-msgstr "%s Şodynas"
+msgstr "%s Å¾odynas"
 
 #: components/html-editor/popup.c:559
 msgid "Add Word to Dictionary"
-msgstr "Átraukti Şodá á Şodynà"
+msgstr "Ä®traukti Å¾odÄ¯ Ä¯ Å¾odynÄ…"
 
 #: components/html-editor/popup.c:562
 msgid "Ignore Misspelled Word"
-msgstr "Ignoruoti Klaidingai Parağytà Şodá"
+msgstr "Ignoruoti klaidingai paraÅ¡ytÄ… Å¾odÄ¯"
 
 #: components/html-editor/popup.c:566
 msgid "Input Methods"
-msgstr "Ávesties metodai"
+msgstr "Ä®vesties metodai"
 
 #: components/html-editor/replace.c:75
 msgid "Replace confirmation"
-msgstr "Patvirtinkite pakeitimà"
+msgstr "Pakeitimo patvirtinimas"
 
 #: components/html-editor/replace.c:76
 msgid "Replace _All"
-msgstr "P_akeisti Visus"
+msgstr "P_akeisti visus"
 
 #: components/html-editor/replace.c:77
 msgid "_Next"
@@ -1860,11 +1841,11 @@ msgstr "_Pakeisti"
 
 #: components/html-editor/replace.c:165
 msgid "Search _backward"
-msgstr "Ieğkoti _atgal"
+msgstr "IeÅ¡koti _atgal"
 
 #: components/html-editor/replace.c:166 components/html-editor/search.c:83
 msgid "Case _sensitive"
-msgstr "Jautrus _raidşiø registrui"
+msgstr "Jautrus _raidÅ¾iÅ³ dydÅ¾iui"
 
 #: components/html-editor/replace.c:176
 msgid "Replace:"
@@ -1876,55 +1857,55 @@ msgstr "Su:"
 
 #: components/html-editor/rule.c:98
 msgid "Blue 3D"
-msgstr "Mëlynas 3D"
+msgstr "MÄ—lyna 3D"
 
 #: components/html-editor/rule.c:110
 msgid "Yellow, flowers"
-msgstr "Geltonas, gëlës"
+msgstr "Geltona, gÄ—lÄ—s"
 
 #: components/html-editor/rule.c:422
 msgid ""
 "The editted rule was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
-"Taisoma linija buvo pağalinta iğ dokumento.\n"
-"Negalima pritaikyti Jûsø pakeitimø."
+"Taisoma linija buvo paÅ¡alinta iÅ¡ dokumento.\n"
+"Negalima pritaikyti JÅ«sÅ³ pakeitimÅ³."
 
 #: components/html-editor/search.c:82
 msgid "_Backward"
-msgstr "Ieğkoti _atgal"
+msgstr "IeÅ¡koti _atgal"
 
 #: components/html-editor/search.c:129
 msgid "Find Regular Expression"
-msgstr "Rasti reguliarià iğraiğkà"
+msgstr "Rasti reguliariÄ… iÅ¡raiÅ¡kÄ…"
 
 #: components/html-editor/spell.c:278
 msgid "No misspelled word found"
-msgstr "Nerasta rağybos klaidø"
+msgstr "Nerasta raÅ¡ybos klaidÅ³"
 
 #: components/html-editor/spell.c:285
 msgid "Spell checker"
-msgstr "Rağybos tikrinimas"
+msgstr "RaÅ¡ybos tikrinimas"
 
 #: components/html-editor/spell.c:378
 msgid "Current _Languages"
-msgstr "Esamos Ka_lbos"
+msgstr "Esamos ka_lbos"
 
 #: components/html-editor/table.c:200
 msgid "Flat gray"
-msgstr "Plokğèias pilkas"
+msgstr "PlokÅ¡Äia pilka"
 
 #: components/html-editor/table.c:209
 msgid "Dark header"
-msgstr "Tamsi antrağtë"
+msgstr "Tamsi antraÅ¡tÄ—"
 
 #: components/html-editor/table.c:813
 msgid ""
 "The editted table was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
-"Taisoma lentelë buvo pağalinta iğ dokumento.\n"
-"Negalima pritaikyti Jûsø pakeitimø."
+"Taisoma lentelÄ— buvo paÅ¡alinta iÅ¡ dokumento.\n"
+"Negalima pritaikyti JÅ«sÅ³ pakeitimÅ³."
 
 #: components/html-editor/template.c:84
 msgid "Note"
@@ -1932,23 +1913,23 @@ msgstr "Pastaba"
 
 #: components/html-editor/template.c:94 components/html-editor/template.c:113
 msgid "Place your text here"
-msgstr "Savo tekstà rağykite èia"
+msgstr "Savo tekstÄ… raÅ¡ykite Äia"
 
 #: components/html-editor/template.c:97
 msgid "Image frame"
-msgstr "Paveikslëlio rëmelis"
+msgstr "PaveikslÄ—lio rÄ—melis"
 
 #: components/html-editor/template.c:281
 msgid "Labels"
-msgstr "Şymës"
+msgstr "Å½ymÄ—s"
 
 #: components/html-editor/test-html-editor-control.c:323
 msgid "Open file..."
-msgstr "Atidaryti bylà..."
+msgstr "Atidaryti bylÄ…..."
 
 #: components/html-editor/test-html-editor-control.c:325
 msgid "Save file as..."
-msgstr "Iğsaugoti bylà kaip..."
+msgstr "IÅ¡saugoti bylÄ… kaip..."
 
 #: components/html-editor/test-html-editor-control.c:557
 msgid "GtkHTML Editor Test Container"
@@ -1964,40 +1945,40 @@ msgid ""
 "The editted text was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
-"Taisomas tekstas buvo pağalintas iğ dokumento.\n"
-"Negalima pritaikyti Jûsø pakeitimø."
+"Taisomas tekstas buvo paÅ¡alintas iÅ¡ dokumento.\n"
+"Negalima pritaikyti JÅ«sÅ³ pakeitimÅ³."
 
 #: components/html-editor/toolbar.c:52
 msgid "Roman List"
-msgstr "Romëniğkas sàrağas"
+msgstr "RomÄ—niÅ¡kas sÄ…raÅ¡as"
 
 #: components/html-editor/toolbar.c:507
 msgid "Left align"
-msgstr "Lygiuoti pagal kairæ"
+msgstr "Lygiuoti pagal kairÄ™"
 
 #: components/html-editor/toolbar.c:511
 msgid "Right align"
-msgstr "Lygiuoti pagal değinæ"
+msgstr "Lygiuoti pagal deÅ¡inÄ™"
 
 #: components/html-editor/toolbar.c:518
 msgid "Toggle typewriter font style"
-msgstr "Perjungti rağomosios mağinëlës ğrifto stiliø"
+msgstr "Perjungti raÅ¡omosios maÅ¡inÄ—lÄ—s Å¡rifto stiliÅ³"
 
 #: components/html-editor/toolbar.c:520
 msgid "Makes the text bold"
-msgstr "Padaro tekstà pusjuodá"
+msgstr "Padaro tekstÄ… pusjuodÄ¯"
 
 #: components/html-editor/toolbar.c:522
 msgid "Makes the text italic"
-msgstr "Padaro tekstà kursyviná"
+msgstr "Padaro tekstÄ… kursyvinÄ¯"
 
 #: components/html-editor/toolbar.c:524
 msgid "Underlines the text"
-msgstr "Pabraukia tekstà"
+msgstr "Pabraukia tekstÄ…"
 
 #: components/html-editor/toolbar.c:526
 msgid "Strikes out the text"
-msgstr "Perbraukia tekstà"
+msgstr "Perbraukia tekstÄ…"
 
 #: components/html-editor/toolbar.c:535
 msgid "Unindent"
@@ -2005,15 +1986,15 @@ msgstr "Atitraukti"
 
 #: components/html-editor/toolbar.c:535
 msgid "Indents the paragraphs less"
-msgstr "Maşiau átraukia pastraipà"
+msgstr "MaÅ¾iau Ä¯traukia pastraipÄ…"
 
 #: components/html-editor/toolbar.c:537
 msgid "Indent"
-msgstr "Átraukti"
+msgstr "Ä®traukti"
 
 #: components/html-editor/toolbar.c:537
 msgid "Indents the paragraphs more"
-msgstr "Labiau átraukia pastraipà"
+msgstr "Labiau Ä¯traukia pastraipÄ…"
 
 #: components/html-editor/utils.c:106
 msgid "Sample"
@@ -2025,11 +2006,11 @@ msgstr "Redaguojamas"
 
 #: src/gtkhtml.c:2691
 msgid "Whether the html can be edited"
-msgstr "Ar html gali bûti keièiamas"
+msgstr "Ar html gali bÅ«ti keiÄiamas"
 
 #: src/gtkhtml.c:2698
 msgid "The title of the current document"
-msgstr "Esamo dokumento antrağtë"
+msgstr "Esamo dokumento antraÅ¡tÄ—"
 
 #: src/gtkhtml.c:2704
 msgid "Document Base"
@@ -2037,55 +2018,55 @@ msgstr "Dokumento Pagrindas"
 
 #: src/gtkhtml.c:2705
 msgid "The base URL for relative references"
-msgstr "Santykiniø nuorodø bazinis adresas"
+msgstr "SantykiniÅ³ nuorodÅ³ bazinis adresas"
 
 #: src/gtkhtml.c:2711
 msgid "Target Base"
-msgstr "Tikslinis Pagrindas"
+msgstr "Tikslinis pagrindas"
 
 #: src/gtkhtml.c:2712
 msgid "The base URL of the targe frame"
-msgstr "Tikslinio rëmelio bazinis adresas"
+msgstr "Tikslinio rÄ—melio bazinis adresas"
 
 #: src/gtkhtml.c:2721
 msgid "Fixed Width Font"
-msgstr "Fiksuoto Ploèio Ğriftas"
+msgstr "Fiksuoto ploÄio Å¡riftas"
 
 #: src/gtkhtml.c:2722
 msgid "The Monospace font to use for typewriter text"
-msgstr "Lygiaplotis ğriftas naudojamas atvaizduoti mağininiam tekstui"
+msgstr "Lygiaplotis Å¡riftas naudojamas atvaizduoti maÅ¡ininiam tekstui"
 
 #: src/gtkhtml.c:2728
 msgid "New Link Color"
-msgstr "Naujos Nuorodos Spalva"
+msgstr "Naujos nuorodos spalva"
 
 #: src/gtkhtml.c:2729
 msgid "The color of new link elements"
-msgstr "Naujø nuorodø elementø spalva"
+msgstr "NaujÅ³ nuorodÅ³ elementÅ³ spalva"
 
 #: src/gtkhtml.c:2734
 msgid "Visited Link Color"
-msgstr "Aplankytos Nuorodos Spalva"
+msgstr "Aplankytos nuorodos spalva"
 
 #: src/gtkhtml.c:2735
 msgid "The color of visited link elements"
-msgstr "Aplankytø nuorodø elementø spalva"
+msgstr "AplankytÅ³ nuorodÅ³ elementÅ³ spalva"
 
 #: src/gtkhtml.c:2740
 msgid "Active Link Color"
-msgstr "Aktyvios Nuorodos Spalva"
+msgstr "Aktyvios nuorodos spalva"
 
 #: src/gtkhtml.c:2741
 msgid "The color of active link elements"
-msgstr "Aktyviø nuorodø elementø spalva"
+msgstr "AktyviÅ³ nuorodÅ³ elementÅ³ spalva"
 
 #: src/gtkhtml.c:2746
 msgid "Spelling Error Color"
-msgstr "Rağybos Klaidø Spalva"
+msgstr "RaÅ¡ybos klaidÅ³ spalva"
 
 #: src/gtkhtml.c:2747
 msgid "The color of the spelling error markers"
-msgstr "Rağybos klaidø şymëjimo spalva"
+msgstr "RaÅ¡ybos klaidÅ³ Å¾ymÄ—jimo spalva"
 
 #: src/html-component.c:219
 msgid "Html"
@@ -2129,7 +2110,7 @@ msgstr "_Atnaujinti"
 
 #: src/html-component.c:613
 msgid "Reload the page"
-msgstr "Perkrauti puslapá"
+msgstr "Perkrauti puslapÄ¯"
 
 #: src/html-component.c:660
 msgid "Could not initialize Bonobo!"
@@ -2137,7 +2118,7 @@ msgstr "Nepavyko paleisti Bonobo!"
 
 #: src/htmlbutton.c:142
 msgid "Submit Query"
-msgstr "Vykdyti Uşklausà"
+msgstr "Vykdyti uÅ¾klausÄ…"
 
 #: src/htmlbutton.c:145
 msgid "Reset"
@@ -2146,7 +2127,7 @@ msgstr "Atstatyti"
 #. TODO2 dialog instead of warning
 #: src/htmlengine-print.c:193
 msgid "Cannot allocate default font for printing\n"
-msgstr "Nepavyko aptikti áprasto spausdinimo ğrifto\n"
+msgstr "Nepavyko aptikti Ä¯prasto spausdinimo Å¡rifto\n"
 
 #: src/test.c:191
 msgid "GtkHTML Test"
@@ -2154,11 +2135,11 @@ msgstr "GtkHTML Testas"
 
 #: src/testgtkhtml.c:118
 msgid "Print pre_view"
-msgstr "Spaudinio p_erşiûra"
+msgstr "Spaudinio p_erÅ¾iÅ«ra"
 
 #: src/testgtkhtml.c:118
 msgid "Print preview"
-msgstr "Spaudinio perşiûra"
+msgstr "Spaudinio perÅ¾iÅ«ra"
 
 #: src/testgtkhtml.c:989
 msgid "GtkHTML Test Application"
@@ -2166,4 +2147,4 @@ msgstr "GtkHTML Bandomoji Programa"
 
 #~ msgid "The quick brown fox jumps over the lazy dog.</div>"
 #~ msgstr ""
-#~ "Álinkdama fechtuotojo ğpaga sublykèiojusi pragræşë apvalø arbûzà.</div>"
+#~ "Ä®linkdama fechtuotojo Å¡paga sublykÄiojusi pragrÄ™Å¾Ä— apvalÅ³ arbÅ«zÄ….</div>"
