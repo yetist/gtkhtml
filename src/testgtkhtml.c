@@ -301,6 +301,10 @@ main (gint argc, gchar *argv[])
 	gtk_widget_set_default_visual (gdk_rgb_get_visual ());
 	
 	app = gnome_app_new ("testgtkhtml", "GtkHTML: testbed application");
+
+	gtk_signal_connect (GTK_OBJECT (app), "delete_event",
+			    GTK_SIGNAL_FUNC (exit_cb), NULL);
+
 	create_toolbars (app);
 	bar = gnome_appbar_new (FALSE, TRUE, GNOME_PREFERENCES_USER);
 	gnome_app_set_statusbar (GNOME_APP (app), bar);
