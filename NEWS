@@ -1,3 +1,25 @@
+gtkhtml-3.6.1 "Parrot" 2004-03-14
+------------------------------------------------
+
+New in this release
+
+   * a11y fixes (Mengjie Yu)
+   * cursor movement fixes
+   * color changes notification fix (Mengjie Yu)
+   * stress test suite
+   * fixed table cells parsing
+   * fixed deleting around tables
+   * updated translations (Abel Cheung)
+
+gtkhtml-3.6.0 "Airedale" 2004-03-07
+------------------------------------------------
+
+New in this release
+
+   * fixed possible infinite loop
+   * fixed crash when pasting html with DIV blocks
+   * updated translations (Laszlo Dvornik, Danilo Šegan)
+
 gtkhtml-3.5.7 "Snow white" 2004-02-28
 ------------------------------------------------
 

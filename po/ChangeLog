@@ -1,12 +1,12 @@
-2005-03-13  Baris Cicek <baris@teamforce.name.tr>
-
-	* tr.po: Updated Turkish Translation by Onur Can Cakmak
-
 2005-03-08  Abel Cheung  <maddog@linuxhall.org>
 
 	* zh_TW.po: Updated traditional Chinese translation from GNOME HK Team
 
-2005-03-04  Laszlo Dvornik  <dvornik@gnome.hu>
+2005-03-06  Danilo Šegan  <dsegan@gmx.net>
+
+	* sr.po, sr@Latn.po: Updated Serbian translation.
+
+2005-03-05  Laszlo Dvornik  <dvornik@gnome.hu>
 
 	* hu.po: Hungarian translation updated by Gabor Kelemen.
 
