@@ -1,3 +1,7 @@
+2003-03-16  Larry Ewing  <lewing@ximian.com>
+
+	* configure.in: remove server.in from AC_OUTPUT.
+
 2003-03-15  Larry Ewing  <lewing@ximian.com>
 
 	* configure.in (GNOME_GTKHTML_EDITOR_LOCATION): add an explicit

@@ -138,7 +138,6 @@ src/libgtkhtml.pc
 a11y/Makefile
 components/Makefile
 components/html-editor/Makefile
-components/html-editor/GNOME_GtkHTML_Editor.server.in
 art/Makefile
 ])
 
