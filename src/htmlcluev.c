@@ -488,10 +488,10 @@ get_right_margin (HTMLClue *o, gint y)
 	     aclue = cluev_next_aligned (aclue)) {
 		if ((aclue->y - aclue->ascent + aclue->parent->y
 		     - aclue->parent->ascent) <= y
-		    && aclue->y + aclue->parent->ascent > y)
+		    && aclue->y + aclue->parent->y - aclue->parent->ascent > y)
 			margin = aclue->x;
 	}
-
+	
 	return margin;
 }
 
@@ -517,7 +517,7 @@ find_free_area (HTMLClue *clue, gint y, gint width, gint height,
 				  - aclue->parent->ascent);
 			top_y = base_y - aclue->ascent;
 
-			if ((top_y <= try_y + height) && (base_y > try_y)) {
+			if ((top_y < try_y + height) && (base_y > try_y)) {
 				lm = aclue->x + aclue->width;
 				if (lm > lmargin)
 					lmargin = lm;
@@ -534,7 +534,7 @@ find_free_area (HTMLClue *clue, gint y, gint width, gint height,
 				  - aclue->parent->ascent);
 			top_y = base_y - aclue->ascent;
 
-			if ((top_y <= try_y + height) && (base_y > try_y)) {
+			if ((top_y < try_y + height) && (base_y > try_y)) {
 				rm = aclue->x;
 				if (rm < rmargin)
 					rmargin = rm;
@@ -656,17 +656,24 @@ append_right_aligned (HTMLClue *clue, HTMLClue *aclue)
 	HTMLClueAligned *aligned;
 
 	aligned = HTML_CLUEALIGNED (HTML_CLUEV (clue)->align_right_list);
+
 	if (aligned) {
+		HTMLObject *parent;
+
 		while (aligned->next_aligned) {
 			aligned = aligned->next_aligned;
 		}
+
+		parent = HTML_OBJECT (aligned)->parent;
 		y_pos = (HTML_OBJECT (aligned)->y
-			 + HTML_OBJECT (aligned)->parent->y);
+			 + parent->y - parent->ascent);
 		if (y_pos > start_y)
 			start_y = y_pos;
 	}
 
-	y_pos = HTML_OBJECT (aclue)->y + HTML_OBJECT (aclue)->parent->y;
+	y_pos = HTML_OBJECT (aclue)->y + HTML_OBJECT (aclue)->parent->y -
+		HTML_OBJECT (aclue)->parent->ascent;
+
 	if (y_pos > start_y)
 		start_y = y_pos;
 	
@@ -681,7 +688,8 @@ append_right_aligned (HTMLClue *clue, HTMLClue *aclue)
 
 	/* Set position */
 	HTML_OBJECT (aclue)->x = rmargin - HTML_OBJECT (aclue)->width;
-	HTML_OBJECT (aclue)->y = y_pos - HTML_OBJECT (aclue)->parent->y + HTML_OBJECT (aclue)->ascent;
+	HTML_OBJECT (aclue)->y = y_pos - HTML_OBJECT (aclue)->parent->y + 
+		HTML_OBJECT (aclue)->ascent + HTML_OBJECT (aclue)->parent->ascent;
 	
 	/* Insert clue in align list */
 	if (!HTML_CLUEV (clue)->align_right_list) {

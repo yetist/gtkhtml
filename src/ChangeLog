@@ -1,3 +1,20 @@
+2000-03-18  Jonas Borgström  <jonas_b@bitsmart.com>
+
+	This is quite a big change to htmlclueflow. Hope I didn't break anything.
+	I have tested it quite some time now and I think it works great.
+	And the text reflows great around the aligned topic images on slashdot.
+
+	But don't hesitate to back out my changes if it breaks something.
+	
+	* htmlclueflow.c (calc_size): Use lmargin and rmargin correct. And some other
+	changes to make right aligned items to reflow correctly.
+
+	* htmlcluev.c (get_right_margin): Corrected the margin calculation.
+	(find_free_area): Corrected the boundary checking.
+	(append_right_aligned): Made it behave more like append_left_aligned ().
+	
+	* tests/bugs.html: Removed www.slashdot.org entry, it looks great now.
+
 2000-03-17  Jonas Borgström  <jonas_b@bitsmart.com>
 
 	Second attempt of fixing <br> sorry about this.

@@ -276,6 +276,7 @@ calc_size (HTMLObject *o,
 	guint padding;
 	gboolean changed;
 	gint old_ascent, old_descent, old_width;
+	gint runWidth = 0;
 
 	changed = FALSE;
 	old_ascent = o->ascent;
@@ -346,27 +347,37 @@ calc_size (HTMLObject *o,
 						obj->x = lmargin;
 						changed = TRUE;
 					}
-
-					if (obj->y != o->ascent + obj->ascent) {
-						obj->y = o->ascent + obj->ascent;
+					if (obj->y != o->ascent + obj->ascent + a + d) {
+						obj->y = o->ascent + obj->ascent + a + d;
 						changed = TRUE;
 					}
-
 					html_clue_append_left_aligned (HTML_CLUE (o->parent),
 								       HTML_CLUE (c));
+
+					lmargin = html_clue_get_left_margin (HTML_CLUE (o->parent), o->y);
+
+					if (indent > lmargin)
+						lmargin = indent;
+
+					if (a + d == 0)
+						w = lmargin;
+					else
+						w = runWidth + lmargin;
+
 				} else {
 					if (obj->x != rmargin - obj->width) {
 						obj->x = rmargin - obj->width;
 						changed = TRUE;
 					}
-
-					if (obj->y != o->ascent + obj->ascent) {
-						obj->y = o->ascent + obj->ascent;
+					if (obj->y != o->ascent + obj->ascent + a + d) {
+						obj->y = o->ascent + obj->ascent + a + d;
 						changed = TRUE;
 					}
 					
 					html_clue_append_right_aligned (HTML_CLUE (o->parent),
 									HTML_CLUE (c));
+
+					rmargin = html_clue_get_right_margin (HTML_CLUE (o->parent), o->y);
 				}
 			}
 
@@ -375,7 +386,6 @@ calc_size (HTMLObject *o,
 		/* This is a normal object.  We must add all objects upto the next
 		   separator/newline/aligned object. */
 		else {
-			gint runWidth;
 			HTMLObject *run;
 
 			/* By setting "newLine = true" we move the complete run
@@ -448,7 +458,7 @@ calc_size (HTMLObject *o,
 
 				html_clue_find_free_area (HTML_CLUE (o->parent),
 							  o->y,
-							  line->width,
+							  rmargin - lmargin,
 							  a+d,
 							  indent,
 							  &new_y, &new_lmargin,
@@ -491,6 +501,12 @@ calc_size (HTMLObject *o,
 						obj = obj->next;
 					}
 				}
+				lmargin = html_clue_get_left_margin (HTML_CLUE (o->parent), o->y);
+				
+				if (indent > lmargin)
+					lmargin = indent;
+
+				rmargin = html_clue_get_right_margin (HTML_CLUE (o->parent), o->y);
 			}
 		}
 		
@@ -503,7 +519,7 @@ calc_size (HTMLObject *o,
 
 			o->ascent += a + d;
 
-			/* o->y += a + d; FIXME */
+			o->y += a + d;
 
 			if (w > o->width)
 				o->width = w;
