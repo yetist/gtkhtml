@@ -1779,7 +1779,7 @@ get_text (HTMLClue *clue, HTMLInterval *i)
 		obj = obj->next;
 	}
 
-	printf ("get_text: \"%s\"\n", text);
+	/* printf ("get_text: \"%s\"\n", text); */
 
 	return text;
 }
@@ -1902,7 +1902,7 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *i)
 
 				bak = *ct;
 				*ct = 0;
-				printf ("off %d going to test word: \"%s\"\n", off, word);
+				/* printf ("off %d going to test word: \"%s\"\n", off, word); */
 				result = pspell_manager_check (e->spell_checker, word);
 
 				if (result == 1) {

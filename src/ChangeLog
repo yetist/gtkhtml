@@ -1,3 +1,7 @@
+2000-09-18  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml.c (key_press_event): use e_utf8_from_gtk_event_key
+
 2000-09-15  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml.h: rename button_pressed flag to button1_pressed and use

@@ -24,6 +24,7 @@
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtk.h>
 #include <string.h>
+#include <widgets/e-unicode.h>
 
 #include <gnome.h>
 
@@ -617,8 +618,12 @@ key_press_event (GtkWidget *widget,
 	    && html_engine_get_editable (html->engine)
 	    && ! (event->state & (GDK_CONTROL_MASK | GDK_MOD1_MASK))
 	    && event->length > 0) {
+		gchar *str;
 		html_engine_delete_selection (html->engine, TRUE);
-		html_engine_insert (html->engine, event->string, event->length);
+		str = e_utf8_from_gtk_event_key (widget, event->keyval, event->string);
+		/* printf ("len: %d str: %s\n", unicode_strlen (str, -1), str); */
+		html_engine_insert (html->engine, str, unicode_strlen (str, -1));
+		g_free (str);
 		retval = TRUE;
 	}
 
