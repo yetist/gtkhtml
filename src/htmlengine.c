@@ -1980,6 +1980,12 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 		HTMLHAlignType align = HTML_HALIGN_NONE;
 		gint border = 0;
 		HTMLVAlignType valign = HTML_VALIGN_NONE;
+		GdkColor *color = NULL;
+		
+		color = current_color (p);
+
+		if (p->url != NULL || p->target != NULL)
+			border = 2;
 
 		html_string_tokenizer_tokenize (p->st, str + 4, " >");
 		while (html_string_tokenizer_has_more_tokens (p->st)) {
@@ -2048,7 +2054,7 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 			image = html_image_new (p->image_factory, tmpurl,
 						p->url, p->target,
 						width, height,
-						percent, border, valign);
+						percent, border, color, valign);
 
 			if (hspace < 0)
 				hspace = 0;

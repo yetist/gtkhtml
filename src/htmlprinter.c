@@ -271,7 +271,6 @@ do_rectangle (GnomePrintContext *context,
 	      gdouble line_width)
 {
 	gnome_print_setlinewidth (context, line_width);
-	gnome_print_setrgbcolor (context, 0, 0, 0);
 
 	gnome_print_newpath (context);
 	gnome_print_moveto (context, x, y);
@@ -336,7 +335,7 @@ static void
 draw_panel (HTMLPainter *painter,
 	    gint x, gint y,
 	    gint width, gint height,
-	    gboolean inset,
+	    GtkHTMLEtchStyle inset,
 	    gint bordersize)
 {
 	HTMLPrinter *printer;

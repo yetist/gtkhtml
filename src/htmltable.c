@@ -390,7 +390,7 @@ scale_columns (HTMLTable *table, HTMLPainter *painter,
 	gboolean *variableCol;
 
 	pixel_size = html_painter_get_pixel_size (painter);
-	tableWidth = HTML_OBJECT (table)->width - table->border * pixel_size;
+	tableWidth = HTML_OBJECT (table)->width  - table->border * pixel_size;
 
 	if (table->border == 0)
 		borderExtra = 0;
@@ -1142,7 +1142,7 @@ draw (HTMLObject *o,
 		html_painter_draw_panel (p,  tx, ty + capOffset, 
 					 HTML_OBJECT (table)->width,
 					 ROW_HEIGHT (table, table->totalRows) +
-					 pixel_size * table->border, FALSE,
+					 pixel_size * table->border, GTK_HTML_ETCH_OUT,
 					 pixel_size * table->border);
 		
 		/* Draw borders around each cell */
@@ -1171,7 +1171,7 @@ draw (HTMLObject *o,
 							 (ROW_HEIGHT (table, r + 1)
 							  - ROW_HEIGHT (table, rindx)
 							  - pixel_size * table->spacing),
-							 TRUE, 1);
+							 GTK_HTML_ETCH_IN, 1);
 						      
 			}
 		}

@@ -1,3 +1,43 @@
+2000-04-10  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlpainter.h: added new GtkHTMLEtchStyle enum and change the
+	draw_panel argument types to match.
+
+	* htmlgdkpainter.c (draw_panel): change inset type to
+	GtkHTMLEtchStyle enum.  For GTK_HTML_ETCH_NONE draw in the current
+	pen color.
+	(create_temporary_pixbuf): remove unused variables and function
+	calls.
+
+	* htmlpainter.c (html_painter_draw_panel): change inset type.
+
+	* htmlprinter.c (draw_panel): change inset type.
+	(do_rectangle): remove color set to black.
+	
+	* htmlrule.c (draw): call html_painter_draw_panel with proper
+	style.
+
+	* htmltable.c (draw): call html_painter_draw_panel with proper
+	style.
+	
+	* htmlimage.h: added color variables to image structure.
+
+	* htmlimage.c (reset): clear color_allocated flag.
+	(copy): copy the new color information.
+	(draw): pass the new panel type flag.  Draw the image border if we
+	have one, and pass the hightlight color to the animation.
+	(html_image_class_init): use the new reset.
+	(html_image_init): added color argument and initialized the color
+	variables.
+	(html_image_new): added color argument.
+	(render_cur_frame): added highlight color argument, and used it.
+
+	* htmlimageinput.c (html_imageinput_init): call html_image_new
+	with proper arguments.
+
+	* htmlengine.c (parse_i): pass the current color to html_image_new
+	for drawing borders.
+
 2000-04-10  Radek Doulik  <rodo@helixcode.com>
 
 	* htmltokenizer.c (html_token_buffer_new): constructor of new
@@ -94,9 +134,10 @@
 2000-04-08  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlengine.c (parse_table): change the default alignment for
-	percent and fixed width cells to HTML_HALIGN_CENTER.
+	percent and fixed width tables to HTML_HALIGN_CENTER.
 
-	* htmlimage.c (html_image_animation_stop): change argument to HTMLImageAnimation.
+	* htmlimage.c (html_image_animation_stop): change argument to
+	HTMLImageAnimation.
 	(html_image_animation_destroy): call html_image_animation_stop
 	before we destroy the animation so we don't get a stray timeout.
 

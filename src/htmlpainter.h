@@ -38,6 +38,13 @@
 #define HTML_IS_PAINTER_CLASS(klass)      (GTK_CHECK_CLASS_TYPE ((klass), HTML_TYPE_PAINTER))
 
 
+typedef enum {
+	GTK_HTML_ETCH_IN,
+	GTK_HTML_ETCH_OUT,
+	GTK_HTML_ETCH_NONE
+} GtkHTMLEtchStyle; 
+
+
 struct _HTMLPainter {
 	GtkObject base;
 
@@ -74,7 +81,7 @@ struct _HTMLPainterClass {
 	void (* set_background_color) (HTMLPainter *painter, const GdkColor *color);
 	void (* draw_shade_line) (HTMLPainter *p, gint x, gint y, gint width);
 	void (* draw_panel) (HTMLPainter *painter, gint x, gint y, gint width, gint height,
-			     gboolean inset, gint bordersize);
+			     GtkHTMLEtchStyle inset, gint bordersize);
 
 	void (* set_clip_rectangle) (HTMLPainter *painter, gint x, gint y, gint width, gint height);
 	void (* draw_background_pixmap) (HTMLPainter *painter, gint x, gint y, GdkPixbuf *pixbuf,
@@ -175,7 +182,7 @@ void  html_painter_draw_panel            (HTMLPainter    *painter,
 					  gint            y,
 					  gint            width,
 					  gint            height,
-					  gboolean        inset,
+					  GtkHTMLEtchStyle inset,
 					  gint            bordersize);
 
 /* Passing 0 for width/height means remove clip rectangle */

@@ -319,37 +319,51 @@ static void
 draw_panel (HTMLPainter *painter,
 	    gint x, gint y,
 	    gint width, gint height,
-	    gint inset,
+	    GtkHTMLEtchStyle inset,
 	    gint bordersize)
 {
 	HTMLGdkPainter *gdk_painter;
-	GdkColor *col1, *col2;
+	GdkColor *col1 = NULL, *col2 = NULL;
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
-	if (inset) {
-		col1 = &gdk_painter->dark;
-		col2 = &gdk_painter->light;
-	}
-	else {
+	switch (inset) {
+	case GTK_HTML_ETCH_NONE:
+		/* use the current pen color */
+		col1 = NULL;
+		col2 = NULL;
+		break;
+	case GTK_HTML_ETCH_OUT:
 		col1 = &gdk_painter->light;
 		col2 = &gdk_painter->dark;
+		break;
+	default:
+	case GTK_HTML_ETCH_IN:
+		col1 = &gdk_painter->dark;
+		col2 = &gdk_painter->light;
+		break;
 	}
-
+	
 	x -= gdk_painter->x1;
 	y -= gdk_painter->y1;
 	
 	while (bordersize > 0) {
-		gdk_gc_set_foreground (gdk_painter->gc, col1);
-		gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc,
-			       x, y, x + width - 2, y);
-		gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc,
-			       x, y, x, y + height - 1);
-		gdk_gc_set_foreground (gdk_painter->gc, col2);
+		if (col2) {
+			gdk_gc_set_foreground (gdk_painter->gc, col2);
+		}
+
 		gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc,
 			       x + width - 1, y, x + width - 1, y + height - 1);
 		gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc,
 			       x + 1, y + height - 1, x + width - 1, y + height - 1);
+		if (col1) {
+			gdk_gc_set_foreground (gdk_painter->gc, col1);
+		}
+
+		gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc,
+			       x, y, x + width - 2, y);
+		gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc,
+			       x, y, x, y + height - 1);
 		bordersize--;
 		x++;
 		y++;
@@ -388,16 +402,10 @@ create_temporary_pixbuf (GdkPixbuf *src,
 			 gint clip_width, gint clip_height)
 {
 	GdkPixbuf *pixbuf;
-	gint src_width, src_height;
 	gboolean has_alpha;
-	guint n_channels;
 	guint bits_per_sample;
 
-	src_width = gdk_pixbuf_get_width (src);
-	src_height = gdk_pixbuf_get_height (src);
-
 	has_alpha = gdk_pixbuf_get_has_alpha (src);
-	n_channels = gdk_pixbuf_get_n_channels (src);
 	bits_per_sample = gdk_pixbuf_get_bits_per_sample (src);
 
 	pixbuf = gdk_pixbuf_new (ART_PIX_RGB, has_alpha, bits_per_sample, clip_width, clip_height);

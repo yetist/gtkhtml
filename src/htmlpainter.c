@@ -402,7 +402,7 @@ void
 html_painter_draw_panel (HTMLPainter *painter,
 			 gint x, gint y,
 			 gint width, gint height,
-			 gboolean inset,
+			 GtkHTMLEtchStyle inset,
 			 gint bordersize)
 {
 	g_return_if_fail (painter != NULL);

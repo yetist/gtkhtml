@@ -68,8 +68,7 @@ static void                html_image_animation_destroy (HTMLImageAnimation *ani
 static HTMLImagePointer   *html_image_pointer_new       (const char *filename, HTMLImageFactory *factory);
 static void                html_image_pointer_destroy   (HTMLImagePointer *ip);
 
-static void render_cur_frame (HTMLImage *image, gint nx, gint ny);
-
+static void render_cur_frame (HTMLImage *image, gint nx, gint ny, const GdkColor *highlight_color);
 
 
 /* FIXME these will be replaced with the proper functions from gdk-pixbuf soon */
@@ -173,6 +172,7 @@ destroy (HTMLObject *o)
 
 	html_image_factory_unregister (image->image_ptr->factory,
 				       image->image_ptr, HTML_IMAGE (image));
+
 	if (image->animation)
 		html_image_animation_destroy (image->animation);
 
@@ -180,6 +180,17 @@ destroy (HTMLObject *o)
 	g_free (image->target);
 
 	HTML_OBJECT_CLASS (parent_class)->destroy (o);
+}
+
+static void
+reset (HTMLObject *self)
+{
+	HTMLImage *image;
+	
+	image = HTML_IMAGE (self);
+	image->color_allocated = FALSE;
+
+	(* HTML_OBJECT_CLASS (parent_class)->reset) (self);
 }
 
 static void
@@ -196,6 +207,9 @@ copy (HTMLObject *self,
 	HTML_IMAGE (dest)->specified_height = HTML_IMAGE (self)->specified_height;
 	HTML_IMAGE (dest)->url = g_strdup (HTML_IMAGE (self)->url);
 	HTML_IMAGE (dest)->target = g_strdup (HTML_IMAGE (self)->target);
+	HTML_IMAGE (dest)->color = HTML_IMAGE (self)->color;
+	HTML_IMAGE (dest)->have_color = HTML_IMAGE (dest)->have_color;
+	HTML_IMAGE (dest)->color_allocated = FALSE;
 }
 
 static gint
@@ -276,7 +290,7 @@ draw (HTMLObject *o,
 	GdkPixbuf *pixbuf;
 	gint base_x, base_y;
 	gint scale_width, scale_height;
-	const GdkColor *color;
+	const GdkColor *highlight_color;
 	guint pixel_size;
 
 	image = HTML_IMAGE (o);
@@ -295,7 +309,7 @@ draw (HTMLObject *o,
 					 o->y + ty - o->ascent + vspace,
 					 o->width - 2 * hspace,
 					 o->ascent + o->descent - 2 * vspace,
-					 TRUE, 1);
+					 GTK_HTML_ETCH_IN, 1);
 		return;
 	}
 
@@ -306,10 +320,27 @@ draw (HTMLObject *o,
 	scale_height = get_actual_height (image, painter);
 
 	if (o->selected)
-		color = html_painter_get_default_highlight_color (painter);
+		highlight_color = html_painter_get_default_highlight_color (painter);
 	else
-		color = NULL;
+		highlight_color = NULL;
 
+	if (image->border) {
+		if (image->have_color) {
+			if (!image->color_allocated) {
+				html_painter_alloc_color (painter, &image->color);
+				image->color_allocated = TRUE;
+			}
+			html_painter_set_pen (painter, &image->color);
+		}
+		
+		html_painter_draw_panel (painter, 
+					 base_x - image->border * pixel_size,
+					 base_y - image->border * pixel_size,
+					 scale_width + (2 * image->border) * pixel_size,
+					 scale_height + (2 * image->border) * pixel_size,
+					 GTK_HTML_ETCH_NONE, image->border);
+		
+	}
 	if (image->animation && HTML_OBJECT_TYPE (HTML_OBJECT (painter)) != HTML_TYPE_PRINTER) {
 		image->animation->active = TRUE;
 		image->animation->x = base_x;
@@ -317,12 +348,12 @@ draw (HTMLObject *o,
 		image->animation->ex = image->image_ptr->factory->engine->x_offset;
 		image->animation->ey = image->image_ptr->factory->engine->y_offset;
 
-		render_cur_frame (image, base_x, base_y);
+		render_cur_frame (image, base_x, base_y, highlight_color);
 	} else {
 		html_painter_draw_pixmap (painter, pixbuf,
 					  base_x, base_y,
 					  scale_width, scale_height,
-					  color);
+					  highlight_color);
 	}
 }
 
@@ -379,7 +410,8 @@ html_image_class_init (HTMLImageClass *image_class,
 	html_object_class_init (object_class, type, size);
 
 	object_class->copy = copy;
-	object_class->draw = draw;
+	object_class->reset = reset;
+	object_class->draw = draw;	
 	object_class->destroy = destroy;
 	object_class->calc_min_width = calc_min_width;
 	object_class->calc_preferred_width = calc_preferred_width;
@@ -401,6 +433,7 @@ html_image_init (HTMLImage *image,
 		 const gchar *target,
 		 gint16 width, gint16 height,
 		 gint8 percent, gint8 border,
+		 GdkColor *color,
 		 HTMLVAlignType valign)
 {
 	HTMLObject *object;
@@ -415,6 +448,13 @@ html_image_init (HTMLImage *image,
 	image->specified_width = width;
 	image->specified_height = height;
 	image->border = border;
+
+	image->color_allocated = FALSE;
+	if (color) {
+		image->color = *color;
+		image->have_color = TRUE;
+	}
+
 	image->animation = NULL;
 
 	image->hspace = 0;
@@ -435,7 +475,8 @@ html_image_new (HTMLImageFactory *imf,
 		const gchar *url,
 		const gchar *target,
 		gint16 width, gint16 height,
-		gint8 percent, gint8 border,
+		gint8 percent, gint8 border,	
+		GdkColor *color,
 		HTMLVAlignType valign)
 {
 	HTMLImage *image;
@@ -448,7 +489,8 @@ html_image_new (HTMLImageFactory *imf,
 			 url,
 			 target,
 			 width, height,
-			 percent, border,
+			 percent, border, 
+			 color,
 			 valign);
 
 	return HTML_OBJECT (image);
@@ -513,7 +555,7 @@ html_image_factory_area_prepared (GdkPixbufLoader *loader, HTMLImagePointer *ip)
 }
 
 static void
-render_cur_frame (HTMLImage *image, gint nx, gint ny)
+render_cur_frame (HTMLImage *image, gint nx, gint ny, const GdkColor *highlight_color)
 {
 	GdkPixbufFrame    *frame;
 	HTMLPainter       *painter;
@@ -536,14 +578,14 @@ render_cur_frame (HTMLImage *image, gint nx, gint ny)
 						  nx + frame->x_offset,
 						  ny + frame->y_offset,
 						  w, h,
-						  NULL);
+						  highlight_color);
 			break;
 		} else if (frame->action == GDK_PIXBUF_FRAME_RETAIN) {
 			html_painter_draw_pixmap (painter, frame->pixbuf,
 						  nx + frame->x_offset,
 						  ny + frame->y_offset,
 						  w, h,
-						  NULL);
+						  highlight_color);
 		} 
 		cur = cur->next;
 	} while (1);
@@ -609,6 +651,8 @@ html_image_animation_timeout (HTMLImage *image)
 			html_engine_draw (engine,
 					  nx, ny,
 					  aw, ah);
+			/* html_engine_queue_draw (engine, HTML_OBJECT (image)); */
+			
 		}
 		
 	}
