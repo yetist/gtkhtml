@@ -1,3 +1,8 @@
+2003-03-08  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (html_engine_timer_event): flush the update timers
+	before removing them.
+
 2003-03-07  Radek Doulik  <rodo@ximian.com>
 
 	* Makefile.am (CFLAGS): add -@GTKHTML_RELEASE@ to ICONDIR

@@ -3250,6 +3250,10 @@ html_engine_finalize (GObject *object)
 		gtk_idle_remove (engine->timerId);
 		engine->timerId = 0;
 	}
+	if (engine->updateTimer != 0) {
+		gtk_idle_remove (engine->updateTimer);
+		engine->updateTimer = 0;
+	}
 	if (engine->thaw_idle_id != 0) {
 		gtk_idle_remove (engine->thaw_idle_id);
 		engine->thaw_idle_id = 0;
@@ -3257,10 +3261,6 @@ html_engine_finalize (GObject *object)
 	if (engine->blinking_timer_id != 0) {
 		gtk_timeout_remove (engine->blinking_timer_id);
 		engine->blinking_timer_id = 0;
-	}
-	if (engine->updateTimer != 0) {
-		gtk_timeout_remove (engine->updateTimer);
-		engine->updateTimer = 0;
 	}
 	/* remove all the timers associated with image pointers also */
 	if (engine->image_factory) {
@@ -3596,8 +3596,13 @@ html_engine_init (HTMLEngine *engine)
 	engine->cursor = html_cursor_new ();
 	engine->mark = NULL;
 	engine->cursor_hide_count = 1;
+
+	engine->timerId = 0;
+	engine->updateTimer = 0;
+
 	engine->blinking_timer_id = 0;
 	engine->blinking_status = FALSE;
+
 	engine->insertion_font_style = GTK_HTML_FONT_STYLE_DEFAULT;
 	engine->insertion_url = NULL;
 	engine->insertion_target = NULL;
@@ -3729,6 +3734,8 @@ html_engine_stop_parser (HTMLEngine *e)
 	if (e->timerId != 0) {
 		gtk_idle_remove (e->timerId);
 		e->timerId = 0;
+		while (html_engine_timer_event (e))
+			;
 	}
 	
 	e->parsing = FALSE;
@@ -3981,14 +3988,14 @@ html_engine_update_event (HTMLEngine *e)
 
 
 void
-html_engine_schedule_update (HTMLEngine *p)
+html_engine_schedule_update (HTMLEngine *e)
 {
 	/* printf ("html_engine_schedule_update (may block)\n"); */
-	if (p->block && p->opened_streams)
+	if (e->block && e->opened_streams)
 		return;
 	/* printf ("html_engine_schedule_update\n"); */
-	if(p->updateTimer == 0)
-		p->updateTimer = gtk_idle_add ((GtkFunction) html_engine_update_event, p);
+	if (e->updateTimer == 0)
+		e->updateTimer = gtk_idle_add ((GtkFunction) html_engine_update_event, e);
 }
 
 
@@ -4056,6 +4063,8 @@ html_engine_timer_event (HTMLEngine *e)
 	gint lastHeight;
 	gboolean retval = TRUE;
 
+
+	/* printf ("timer event"); */
 	/* Has more tokens? */
 	if (!html_tokenizer_has_more_tokens (e->ht) && e->writing) {
 		retval = FALSE;
@@ -4070,6 +4079,7 @@ html_engine_timer_event (HTMLEngine *e)
 	/* Parsing body height */
 	if (parse_body (e, e->clue, end, TRUE, e->begin))
 	  	html_engine_stop_parser (e);
+
 	e->begin = FALSE;
 	html_engine_schedule_update (e);
 
@@ -4082,7 +4092,7 @@ html_engine_timer_event (HTMLEngine *e)
 			gtk_idle_remove (e->updateTimer);
 			html_engine_update_event (e);
 		}
-			
+		
 		e->timerId = 0;
 	}
 
@@ -4123,6 +4133,12 @@ html_engine_stream_end (GtkHTMLStream *stream,
 	e->writing = FALSE;
 
 	html_tokenizer_end (e->ht);
+
+	if (e->timerId != 0) {
+		gtk_idle_remove (e->timerId);
+		e->timerId = 0;
+	}
+
 	while (html_engine_timer_event (e))
 		;
 
@@ -4131,10 +4147,6 @@ html_engine_stream_end (GtkHTMLStream *stream,
 	/* printf ("ENGINE(%p) opened streams: %d\n", e, e->opened_streams); */
 	if (e->block && e->opened_streams == 0)
 		html_engine_schedule_update (e);
-
-	if (e->timerId != 0) {		gtk_idle_remove (e->timerId);
-		e->timerId = 0;
-	}
 
 	fix_last_clueflow (e);
 	html_engine_class_data_clear (e);
