@@ -1,0 +1,1959 @@
+# Persian translation of gtkhtml.
+# Copyright (C) 2005 Sharif FarsiWeb, Inc.
+# This file is distributed under the same license as the gtkhtml package.
+# Alireza Kheirkhahan <alireza@bamdad.org>, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gtkhtml\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-02-28 07:21+0100\n"
+"PO-Revision-Date: 2005-02-28 17:56+0330\n"
+"Last-Translator: Alireza Kheirkhahan <alireza@bamdad.org>\n"
+"Language-Team: Persian <farsi@lists.sharif.edu>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: a11y/image.c:150
+#, c-format
+msgid "URL is %s, Alternative Text is %s"
+msgstr "نشانی اینترنتی %s است، متن جایگزین %s است"
+
+#: a11y/image.c:152
+#, c-format
+msgid "URL is %s"
+msgstr "نشانی اینترنتی %s است"
+
+#: a11y/object.c:50 a11y/object.c:59 a11y/text.c:111
+msgid "grab focus"
+msgstr "گرفتن تمرکز"
+
+#: a11y/object.c:256
+msgid "Panel containing HTML"
+msgstr "تابلو حاوی HTML"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
+msgid "+0"
+msgstr "+۰"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:2
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
+#: components/html-editor/gtkhtml-editor-properties.glade.h:5
+msgid "+1"
+msgstr "+۱"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:3
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:3
+#: components/html-editor/gtkhtml-editor-properties.glade.h:6
+msgid "+2"
+msgstr "+۲"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:4
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:4
+#: components/html-editor/gtkhtml-editor-properties.glade.h:7
+msgid "+3"
+msgstr "+۳"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:5
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:5
+#: components/html-editor/gtkhtml-editor-properties.glade.h:9
+msgid "-1"
+msgstr "-۱"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:6
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:6
+#: components/html-editor/gtkhtml-editor-properties.glade.h:10
+msgid "-2"
+msgstr "-۲"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:7
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:7
+msgid "A_ddress"
+msgstr "ن_شانی"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
+#: components/html-editor/toolbar.c:53
+msgid "Alphabetical List"
+msgstr "فهرست الفبایی"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
+msgid "Background Color"
+msgstr "رنگ پس‌زمینه"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:10
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:10
+msgid "Blue"
+msgstr "آبی"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:11
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
+#: components/html-editor/toolbar.c:50
+msgid "Bulleted List"
+msgstr "فهرست بولت‌دار"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
+#: components/html-editor/toolbar.c:515
+msgid "Center justifies the paragraphs"
+msgstr "ردیف کردن بندها در مرکز"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:13
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
+msgid "Check spelling of the document"
+msgstr "بررسی صحت املایی نوشتار"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:14
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
+msgid "Copy"
+msgstr "نسخه‌برداری"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:15
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
+msgid "Copy selection to clipboard"
+msgstr "نسخه‌برداری از انتخاب برروی تخته‌گیره"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:16
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:16
+msgid "Copy the selection"
+msgstr "نسخه‌برداری از انتخاب"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
+msgid "Cr_ying"
+msgstr "_گریان"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
+msgid "Cu_t"
+msgstr "برش"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:19
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
+msgid "Cut"
+msgstr "برش"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:20
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
+msgid "Cut selection to clipboard"
+msgstr "برش انتخاب برروی تخته‌گیره"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:21
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
+msgid "Cut the selection"
+msgstr "برش انتخاب"
+
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
+#: components/html-editor/search.c:107 components/html-editor/search.c:167
+msgid "Find"
+msgstr "پیدا کردن"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
+msgid "Find And Replace"
+msgstr "پیدا کردن و جای‌گزینی"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:24
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
+msgid "Find _Again"
+msgstr "پیدا کردن _دوباره"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:25
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
+msgid "Find again"
+msgstr "پیدا کردن دوباره"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:26
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:26
+msgid "Find and Replace"
+msgstr "پیدا کردن و جای‌گزینی"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:27
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
+msgid "For_mat"
+msgstr "_قالب"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
+msgid "Green"
+msgstr "سبز"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
+msgid "Header _1"
+msgstr "سرصفحه _۱"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
+msgid "Header _2"
+msgstr "سرصفحه _۲"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
+msgid "Header _3"
+msgstr "سرصفحه _۳"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
+msgid "Header _4"
+msgstr "سرصفحه _۴"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
+msgid "Header _5"
+msgstr "سرصفحه _۵"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
+msgid "Header _6"
+msgstr "سرصفحه _۶"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
+#: components/html-editor/editor-control-factory.c:189
+#: components/html-editor/gtkhtml-editor-properties.glade.h:37
+#: components/html-editor/popup.c:207
+msgid "Image"
+msgstr "تصویر"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
+msgid "Insert Crying smiley into document..."
+msgstr "درج صورتک گریان در نوشتار... "
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
+msgid "Insert Frown smiley into document..."
+msgstr "درج صورتک اخمو در نوشتار..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
+msgid "Insert HTML file into document..."
+msgstr "درج پرونده‌ی HTML در نوشتار..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
+msgid "Insert HTML link into document..."
+msgstr "درج پیوند HTML در نوشتار..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:40
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
+msgid "Insert HTML template into document..."
+msgstr "درج قالب HTML در نوشتار..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
+msgid "Insert Indifferent smiley into document..."
+msgstr "درج صورتک بی‌تفاوت در نوشتار..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
+msgid "Insert Laughing smiley into document..."
+msgstr "درج صورتک خندان در نوشتار..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
+msgid "Insert Lick smiley into document..."
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
+msgid "Insert Oh no! smiley into document..."
+msgstr "درج صورتک وای نه! در نوشتار..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
+msgid "Insert Smile smiley into document..."
+msgstr "درج صورتک لبخند در نوشتار..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
+msgid "Insert Surprised smiley into document..."
+msgstr "درج صورتک حیرت‌زده در نوشتار..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
+msgid "Insert Undecided smiley into document..."
+msgstr "درج صورتک مردد در نوشتار..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
+msgid "Insert Wink smiley into document..."
+msgstr "درج صورتک چشمک در نوشتار..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
+msgid "Insert image into document..."
+msgstr "درچ تصویر در نوشتار..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
+msgid "Insert rule into document..."
+msgstr "درج قاعده در نوشتار..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
+msgid "Insert table into document..."
+msgstr "درج جدول در نوشتار..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:52
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
+msgid "Insert text file into document..."
+msgstr "درج پرونده‌ی متنی در نوشتار..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
+#: components/html-editor/toolbar.c:513
+msgid "Left justifies the paragraphs"
+msgstr "ردیف کردن بندها از چپ"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
+msgid "Li_ck"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
+#: components/html-editor/menubar.c:136 components/html-editor/popup.c:106
+#: components/html-editor/popup.c:201 components/html-editor/popup.c:267
+msgid "Link"
+msgstr "پیوند"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
+msgid "Make the current Paragraph style Normal"
+msgstr "تبدیل سبک بند جاری به عادی"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
+msgid "Make the current Paragraph style Preformat"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
+msgid "Make the current paragraph a bulleted list"
+msgstr "تبدیل بند جاری به یک فهرست بولت‌دار"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
+msgid "Make the current paragraph a list with roman numerals"
+msgstr "تبدیل بند جاری به یک فهرست با اعداد رومی"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
+msgid "Make the current paragraph a numbered list"
+msgstr "تبدیل بند جاری به یک فهرست شماره‌دار"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:61
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
+msgid "Make the current paragraph an H1 header"
+msgstr "تبدیل بند جاری به یک سرصفحه‌ی H۱ "
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
+msgid "Make the current paragraph an H2 header"
+msgstr "تبدیل بند جاری به یک سرصفحه‌ی H۲"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:63
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
+msgid "Make the current paragraph an H3 header"
+msgstr "‌تبدیل بند جاری به یک سرصفحه‌ی H۳"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:64
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
+msgid "Make the current paragraph an H4 header"
+msgstr "تبدیل بند جاری به یک سرصفحه‌ی H۴"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:65
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
+msgid "Make the current paragraph an H5 header"
+msgstr "تبدیل بند جاری به یک سرصفحه‌ی H۵"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:66
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
+msgid "Make the current paragraph an H6 header"
+msgstr "تبدیل بند جاری به یک سرصفحه‌ی H۶"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:67
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
+msgid "Make the current paragraph an address"
+msgstr "تبدیل بند جاری به یک نشانی"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:68
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
+msgid "Make the current paragraph an alphabetical list"
+msgstr "تبدیل بند جاری به یک فهرست الفبایی"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:69
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
+#: components/html-editor/paragraph.c:83 components/html-editor/toolbar.c:48
+msgid "Normal"
+msgstr "عادی"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:70
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
+#: components/html-editor/toolbar.c:51
+msgid "Numbered List"
+msgstr "فهرست شماره‌دار"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
+msgid "Numbered _List"
+msgstr "_فهرست شماره‌دار"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:72
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
+msgid "Oh _no!"
+msgstr "وای _نه"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
+msgid "Orange"
+msgstr "نارنجی"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
+msgid "Other..."
+msgstr "غیره..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:75
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
+msgid "Paste"
+msgstr "چسباندن"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
+msgid "Paste _Quotation"
+msgstr "چسباندن نقل _قول"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
+msgid "Paste from clipboard"
+msgstr "چسباندن از تخته‌گیره"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
+msgid "Paste the clipboard"
+msgstr "چسباندن تخته‌گیره"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
+msgid "Paste the clipboard as a quotation"
+msgstr "چسباندن تخته‌گیره به شکل نقل قول"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
+#: components/html-editor/toolbar.c:49
+msgid "Preformat"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
+msgid "Purple"
+msgstr "ارغوانی"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
+msgid "Red"
+msgstr "قرمز"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
+msgid "Redo"
+msgstr "دوباره"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
+msgid "Redo previously undone change"
+msgstr "انجام دوباره‌ی تغییر قبلاً برگشت داده شده"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
+msgid "Redo the undone action"
+msgstr "انجام دوباره‌ی عمل برگشت داده شده"
+
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
+#: components/html-editor/replace.c:163 components/html-editor/replace.c:227
+msgid "Replace"
+msgstr "جای‌گزینی"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
+#: components/html-editor/toolbar.c:517
+msgid "Right justifies the paragraphs"
+msgstr "ردیف کردن بندها از راست"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
+msgid "Roman Numeral List"
+msgstr "فهرست با اعداد رومی"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
+#: components/html-editor/editor-control-factory.c:207
+#: components/html-editor/gtkhtml-editor-properties.glade.h:48
+#: components/html-editor/menubar.c:155 components/html-editor/popup.c:225
+msgid "Rule"
+msgstr "قاعده"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
+msgid "Select _All"
+msgstr "انتخاب _همه"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
+msgid "Select the entire contents of the document"
+msgstr "انتخاب همه‌ی محتویات نوشتار"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
+#: components/html-editor/toolbar.c:545
+msgid "Strikeout"
+msgstr "خط خورده"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
+msgid "Su_perscript"
+msgstr "_بالانویس"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:94
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
+msgid "Su_rprised"
+msgstr "حیرت‌زده_"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:95
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
+msgid "Subs_cript"
+msgstr "ز_یرنویس"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:96
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
+msgid "Subscript"
+msgstr "زیرنویس"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
+msgid "Superscript"
+msgstr "بالانویس"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
+#: components/html-editor/gtkhtml-editor-properties.glade.h:52
+#: components/html-editor/menubar.c:176 components/html-editor/popup.c:231
+#: components/html-editor/popup.c:501 components/html-editor/popup.c:513
+msgid "Table"
+msgstr "جدول"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
+msgid "Te_mplate..."
+msgstr "_قالب"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
+msgid "Te_xt file..."
+msgstr "_پرونده متنی"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
+#: components/html-editor/toolbar.c:537
+msgid "Typewriter"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
+msgid "Undo"
+msgstr "برگردان"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
+msgid "Undo previous changes"
+msgstr "برگرداندن تغییرات قبلی"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
+msgid "Undo the last action"
+msgstr "برگرداندن آخرین عملیات"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
+msgid "Yellow"
+msgstr "زرد"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
+msgid "_Alignment"
+msgstr "_ردیف بندی"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
+msgid "_Alphabetical List"
+msgstr "فهرست _الفبایی"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
+#: components/html-editor/gtkhtml-editor-properties.glade.h:60
+msgid "_Bold"
+msgstr "_سیاه"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
+msgid "_Bulleted List"
+msgstr "فهرست _بولت‌دار"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
+msgid "_Center"
+msgstr "_مرکز"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
+msgid "_Copy"
+msgstr "_نسخه‌برداری"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
+msgid "_Decrease Indent"
+msgstr "کاهش تورفنگی"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
+msgid "_Edit"
+msgstr "_ویرایش"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
+msgid "_Find..."
+msgstr "_پیدا کردن..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
+msgid "_Font Size"
+msgstr "اندازه‌ی _قلم"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
+msgid "_Frown"
+msgstr "ا_خمو"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
+msgid "_HTML file..."
+msgstr "پرونده‌ی HTML..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
+msgid "_Heading"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
+msgid "_Image..."
+msgstr "_تصویر..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
+msgid "_Increase Indent"
+msgstr "افزایش _تورفتگی"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
+msgid "_Indifferent"
+msgstr "_بی‌تفاوت"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
+msgid "_Insert"
+msgstr "_درج"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
+#: components/html-editor/gtkhtml-editor-properties.glade.h:67
+msgid "_Italic"
+msgstr "_ایتالیک"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
+msgid "_Laughing"
+msgstr "_خندان"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
+msgid "_Left"
+msgstr "_چپ"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
+msgid "_Link..."
+msgstr "_پیوند..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
+msgid "_Normal"
+msgstr "_عادی"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
+msgid "_Page..."
+msgstr "_صفحه..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
+msgid "_Paragraph..."
+msgstr "_بند..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
+msgid "_Paste"
+msgstr "_چسباندن"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
+msgid "_Plain text"
+msgstr "متن _ساده"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
+msgid "_Preformat"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
+msgid "_Redo"
+msgstr "_دوباره"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
+msgid "_Replace..."
+msgstr "_جای‌گزینی"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
+msgid "_Right"
+msgstr "_راست"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
+msgid "_Roman Numeral List"
+msgstr "فهرست با اعداد _رومی"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
+msgid "_Rule..."
+msgstr "_قاعده..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
+msgid "_Smile"
+msgstr "_لبخند"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:139
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:141
+msgid "_Smiley"
+msgstr "_صورتک"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:142
+msgid "_Spell Check Document..."
+msgstr "_غلط‌یابی املایی نوشتار..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:141
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
+#: components/html-editor/gtkhtml-editor-properties.glade.h:73
+msgid "_Strikeout"
+msgstr "_خط‌خوردگی"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:142
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:144
+msgid "_Style"
+msgstr "_سبک"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:143
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:145
+msgid "_Table..."
+msgstr "_جدول..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:144
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:146
+msgid "_Text..."
+msgstr "_متن..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:145
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:147
+msgid "_Undecided"
+msgstr "_مردد"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:146
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:148
+#: components/html-editor/gtkhtml-editor-properties.glade.h:76
+msgid "_Underline"
+msgstr "زیرخط‌دار"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:147
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:149
+msgid "_Undo"
+msgstr "_برگردان"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:148
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:150
+msgid "_Wink"
+msgstr "_چشمک"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:149
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
+msgid "etc..."
+msgstr "غیره..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:1
+msgid "GNOME HTML Editor"
+msgstr "ویرایش‌گر HTML گنوم"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:2
+msgid "GNOME HTML Editor Control"
+msgstr "کنترل ویرایش‌گر HTML گنوم"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
+msgid "GNOME HTML Editor Factory"
+msgstr "کارخانه‌ی ویرایش‌گر HTML گنوم"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
+msgid "Insert Sick smiley into document..."
+msgstr "درج صورتک تهوع در نوشتار..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
+msgid "Make the current Paragraph style Preformatted"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
+#: components/html-editor/paragraph.c:102
+msgid "Preformatted"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
+msgid "S_ick"
+msgstr "_تهوع"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:151
+msgid "_Wrap Lines"
+msgstr ""
+
+#: components/html-editor/body.c:59
+#: components/html-editor/gtkhtml-editor-properties.glade.h:42
+msgid "None"
+msgstr "هیچ کدام"
+
+#: components/html-editor/body.c:67
+msgid "Perforated Paper"
+msgstr "کاغذ آژدار"
+
+#: components/html-editor/body.c:75
+msgid "Blue Ink"
+msgstr "مرکب آبی"
+
+#: components/html-editor/body.c:83
+msgid "Paper"
+msgstr "کاغذ"
+
+#: components/html-editor/body.c:91
+msgid "Ribbon"
+msgstr "نوار"
+
+#: components/html-editor/body.c:99
+msgid "Midnight"
+msgstr "نیمه‌شب"
+
+#: components/html-editor/body.c:107
+msgid "Confidential"
+msgstr "محرمانه"
+
+#: components/html-editor/body.c:115
+msgid "Draft"
+msgstr "پیش‌نویس"
+
+#: components/html-editor/body.c:123
+msgid "Graph paper"
+msgstr "کاغذ نمودار"
+
+#: components/html-editor/body.c:243
+#: components/html-editor/gtkhtml-editor-properties.glade.h:53
+#: components/html-editor/menubar.c:198
+msgid "Template"
+msgstr "قالب"
+
+#: components/html-editor/body.c:247
+msgid "T_emplate:"
+msgstr "_قالب"
+
+#. data->entry_title = gtk_entry_new ();
+#. if (gtk_html_get_title (data->cd->html)) {
+#. gtk_entry_set_text (GTK_ENTRY (data->entry_title),
+#. gtk_html_get_title (data->cd->html));
+#. }
+#. g_signal_connect (data->entry_title, "changed", G_CALLBACK (entry_changed), data);
+#. editor_hig_attach_row (t1, _("T_itle:"), data->entry_title, 1);
+#: components/html-editor/body.c:257 components/html-editor/paragraph.c:112
+msgid "General"
+msgstr "کلیات"
+
+#: components/html-editor/body.c:268 components/html-editor/text.c:162
+#: components/html-editor/toolbar.c:301
+msgid "Automatic"
+msgstr "خودکار"
+
+#: components/html-editor/body.c:280
+msgid "_Text:"
+msgstr "_متن:"
+
+#: components/html-editor/body.c:281
+msgid "_Link:"
+msgstr "_پیوند:"
+
+#: components/html-editor/body.c:282
+msgid "_Background:"
+msgstr "پ_س‌زمینه:"
+
+#: components/html-editor/body.c:284
+#: components/html-editor/gtkhtml-editor-properties.glade.h:30
+msgid "Colors"
+msgstr "رنگ‌ها"
+
+#: components/html-editor/body.c:286 components/html-editor/body.c:303
+#: components/html-editor/gtkhtml-editor-properties.glade.h:23
+msgid "Background Image"
+msgstr "تصویر پس‌زمینه"
+
+#: components/html-editor/body.c:298
+msgid "Background Image File Path"
+msgstr "مسیر پرونده‌ی تصویر پس‌زمینه"
+
+#: components/html-editor/body.c:301
+#: components/html-editor/gtkhtml-editor-properties.glade.h:71
+msgid "_Source:"
+msgstr "_مبدأ"
+
+#: components/html-editor/cell.c:333 components/html-editor/image.c:350
+#: components/html-editor/link.c:182 components/html-editor/rule.c:174
+#: components/html-editor/table.c:220 components/html-editor/template.c:271
+#: components/html-editor/text.c:159
+msgid "Could not load glade file."
+msgstr "بارکردن پرونده‌ی glade ممکن نیست."
+
+#: components/html-editor/cell.c:350 components/html-editor/table.c:231
+msgid "Transparent"
+msgstr "شفاف"
+
+#: components/html-editor/editor-control-factory.c:178
+#: components/html-editor/menubar.c:354 components/html-editor/menubar.c:372
+#: components/html-editor/menubar.c:390 components/html-editor/popup.c:186
+#: components/html-editor/popup.c:264
+msgid "Properties"
+msgstr "ویژگی‌ها"
+
+#: components/html-editor/editor-control-factory.c:197
+#: components/html-editor/gtkhtml-editor-properties.glade.h:54
+#: components/html-editor/menubar.c:376 components/html-editor/popup.c:195
+msgid "Text"
+msgstr "متن"
+
+#: components/html-editor/editor-control-factory.c:216
+#: components/html-editor/menubar.c:394 components/html-editor/popup.c:213
+msgid "Paragraph"
+msgstr "بند"
+
+#: components/html-editor/editor-control-factory.c:220
+#: components/html-editor/gtkhtml-editor-properties.glade.h:43
+#: components/html-editor/menubar.c:358 components/html-editor/popup.c:219
+msgid "Page"
+msgstr "صفحه"
+
+#: components/html-editor/gi-color-combo.c:187
+msgid "color preview"
+msgstr "پیش‌نمایش رنگ"
+
+#. This is the default custom color
+#: components/html-editor/gi-color-palette.c:395
+msgid "custom"
+msgstr "سفارشی"
+
+#. "Custom" color - we'll pop up a GnomeColorPicker
+#: components/html-editor/gi-color-palette.c:437
+msgid "Custom Color:"
+msgstr "رنگ سفارشی"
+
+#: components/html-editor/gi-color-palette.c:445
+msgid "Choose Custom Color"
+msgstr "انتخاب رنگ سفارشی"
+
+#: components/html-editor/gi-color-palette.c:578
+msgid "black"
+msgstr "سیاه"
+
+#: components/html-editor/gi-color-palette.c:579
+msgid "light brown"
+msgstr "قهوها‌ای کم‌رنگ"
+
+#: components/html-editor/gi-color-palette.c:580
+msgid "brown gold"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:581
+msgid "dark green #2"
+msgstr "سبز تیره‌ی شماره ۲"
+
+#: components/html-editor/gi-color-palette.c:582
+msgid "navy"
+msgstr "سرمه‌ای"
+
+#: components/html-editor/gi-color-palette.c:583
+#: components/html-editor/gi-color-palette.c:639
+msgid "dark blue"
+msgstr "آبی تیره"
+
+#: components/html-editor/gi-color-palette.c:584
+msgid "purple #2"
+msgstr "ارغوانی شماره ۲"
+
+#: components/html-editor/gi-color-palette.c:585
+msgid "very dark gray"
+msgstr "خاکستری خیلی تیره"
+
+#: components/html-editor/gi-color-palette.c:588
+#: components/html-editor/gi-color-palette.c:644
+msgid "dark red"
+msgstr "قرمز تیره"
+
+#: components/html-editor/gi-color-palette.c:589
+msgid "red-orange"
+msgstr "قرمز-نارنجی"
+
+#: components/html-editor/gi-color-palette.c:590
+msgid "gold"
+msgstr "طلایی"
+
+#: components/html-editor/gi-color-palette.c:591
+msgid "dark green"
+msgstr "سبز تیره"
+
+#: components/html-editor/gi-color-palette.c:592
+#: components/html-editor/gi-color-palette.c:645
+msgid "dull blue"
+msgstr "آبی مات"
+
+#: components/html-editor/gi-color-palette.c:593
+#: components/html-editor/gi-color-palette.c:646
+msgid "blue"
+msgstr "آبی"
+
+#: components/html-editor/gi-color-palette.c:594
+msgid "dull purple"
+msgstr "ارغوانی مات"
+
+#: components/html-editor/gi-color-palette.c:595
+msgid "dark grey"
+msgstr "خاکستری تیره"
+
+#: components/html-editor/gi-color-palette.c:598
+msgid "red"
+msgstr "قرمز"
+
+#: components/html-editor/gi-color-palette.c:599
+msgid "orange"
+msgstr "نارنجی"
+
+#: components/html-editor/gi-color-palette.c:600
+msgid "lime"
+msgstr "سبز مایل به زرد"
+
+#: components/html-editor/gi-color-palette.c:601
+msgid "dull green"
+msgstr "سبز مات"
+
+#: components/html-editor/gi-color-palette.c:602
+msgid "dull blue #2"
+msgstr "آبی مات شماره‌ی ‌۲"
+
+#: components/html-editor/gi-color-palette.c:603
+msgid "sky blue #2"
+msgstr "آبی آسمانی شماره ۲"
+
+#: components/html-editor/gi-color-palette.c:604
+#: components/html-editor/gi-color-palette.c:643
+msgid "purple"
+msgstr "ارغوانی"
+
+#: components/html-editor/gi-color-palette.c:605
+msgid "gray"
+msgstr "خاکستری"
+
+#: components/html-editor/gi-color-palette.c:608
+#: components/html-editor/gi-color-palette.c:640
+msgid "magenta"
+msgstr "سرخابی"
+
+#: components/html-editor/gi-color-palette.c:609
+msgid "bright orange"
+msgstr "نارنجی روشن"
+
+#: components/html-editor/gi-color-palette.c:610
+#: components/html-editor/gi-color-palette.c:641
+msgid "yellow"
+msgstr "زرد"
+
+#: components/html-editor/gi-color-palette.c:611
+msgid "green"
+msgstr "سبز"
+
+#: components/html-editor/gi-color-palette.c:612
+#: components/html-editor/gi-color-palette.c:642
+msgid "cyan"
+msgstr "فیروزه‌ای"
+
+#: components/html-editor/gi-color-palette.c:613
+msgid "bright blue"
+msgstr "آبی روشن"
+
+#: components/html-editor/gi-color-palette.c:614
+#: components/html-editor/gi-color-palette.c:631
+msgid "red purple"
+msgstr "ارغوانی قرمز"
+
+#: components/html-editor/gi-color-palette.c:615
+msgid "light grey"
+msgstr "خاکستری کم‌رنگ"
+
+#: components/html-editor/gi-color-palette.c:618
+#: components/html-editor/gi-color-palette.c:635
+msgid "pink"
+msgstr "صورتی"
+
+#: components/html-editor/gi-color-palette.c:619
+msgid "light orange"
+msgstr "نارنجی کم‌رنگ"
+
+#: components/html-editor/gi-color-palette.c:620
+#: components/html-editor/gi-color-palette.c:632
+msgid "light yellow"
+msgstr "زرد کم‌رنگ"
+
+#: components/html-editor/gi-color-palette.c:621
+msgid "light green"
+msgstr "سبز کم‌رنگ"
+
+#: components/html-editor/gi-color-palette.c:622
+msgid "light cyan"
+msgstr "فیروزه‌ای کم‌رنگ"
+
+#: components/html-editor/gi-color-palette.c:623
+#: components/html-editor/gi-color-palette.c:633
+msgid "light blue"
+msgstr "آبی کم‌رنگ"
+
+#: components/html-editor/gi-color-palette.c:624
+#: components/html-editor/gi-color-palette.c:637
+msgid "light purple"
+msgstr "ارغوانی کم‌رنگ"
+
+#: components/html-editor/gi-color-palette.c:625
+msgid "white"
+msgstr "سفید"
+
+#: components/html-editor/gi-color-palette.c:630
+msgid "purplish blue"
+msgstr "آبی مایل به ارغوانی"
+
+#: components/html-editor/gi-color-palette.c:634
+msgid "dark purple"
+msgstr "ارغوانی تیره"
+
+#: components/html-editor/gi-color-palette.c:636
+msgid "sky blue"
+msgstr "آبی آسمانی"
+
+#. set the a11y name
+#: components/html-editor/gi-combo-box.c:419
+msgid "Popup"
+msgstr "واشو"
+
+#: components/html-editor/gnome-gtkhtml-editor.c:68
+msgid "GtkHTML Editor Control"
+msgstr "کنترل ویرایش‌گر GtkHTML"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:1
+msgid "    "
+msgstr "    "
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:3
+#, no-c-format
+msgid "%"
+msgstr "٪"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:4
+msgid "*"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:8
+msgid "+4"
+msgstr "+۴"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:11
+msgid "<b>Alignment &amp; Behaviour</b>"
+msgstr "<b>ردیف‌بندی و رفتار</b>"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:12
+msgid "<b>Background</b>"
+msgstr "<b>پس‌زمینه</b>"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:13
+msgid "<b>General</b>"
+msgstr "<b>کلیات</b>"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:14
+msgid "<b>Layout</b>"
+msgstr "<b>صفحه‌بندی</b>"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:15
+msgid "<b>Scope</b>"
+msgstr "<b>حوزه</b>"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:16
+msgid "<span weight=\"bold\">General</span>"
+msgstr "<span weight=\"bold\">کلیات</span>"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:17
+msgid "<span weight=\"bold\">Layout</span>"
+msgstr "<span weight=\"bold\">صفحه‌بندی</span>"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:18
+msgid "<span weight=\"bold\">Link</span>"
+msgstr "<span weight=\"bold\">پیوند</span>"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:19
+msgid "<span weight=\"bold\">Size</span>"
+msgstr "<span weight=\"bold\">اندازه</span>"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:20
+msgid "<span weight=\"bold\">Style</span>"
+msgstr "<span weight=\"bold\">سبک</span>"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:21
+msgid "<span weight=\"bold\">Template</span>"
+msgstr "<span weight=\"bold\">قالب</span>"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:22
+#: components/html-editor/paragraph.c:131
+msgid "Alignment"
+msgstr "ردیفبندی"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:24
+msgid "Bottom"
+msgstr "پایین"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:25
+msgid "C_ell"
+msgstr "_خانه"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:26
+msgid "C_olor:"
+msgstr "_رنگ"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:27
+#: components/html-editor/popup.c:237
+msgid "Cell"
+msgstr "خانه"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:28
+#: components/html-editor/paragraph.c:128 components/html-editor/toolbar.c:515
+msgid "Center"
+msgstr "مرکز"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:29
+msgid "Col_umn"
+msgstr "_ستون"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:31
+msgid "Column span:"
+msgstr "پهنای ستون:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:32
+msgid "Enable"
+msgstr "به کار انداختن"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:33
+msgid "Hea_der style"
+msgstr "سبک س_رصفحه"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:34
+msgid "Horizontal alignment:"
+msgstr "ردیف‌کردن افقی:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:35
+msgid "Horizontal:"
+msgstr "افقی:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:36
+msgid "I_mage:"
+msgstr "ت_صویر:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:38
+#: components/html-editor/paragraph.c:127
+msgid "Left"
+msgstr "چپ"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:39
+msgid "Length:"
+msgstr "طول:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:40
+msgid "Link properties"
+msgstr "ویژگی‌های پیوند"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:41
+msgid "Middle"
+msgstr "وسط"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:44
+msgid "Percent"
+msgstr "درصد"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:45
+msgid "Pixels"
+msgstr "نقطه"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:46
+#: components/html-editor/paragraph.c:129
+msgid "Right"
+msgstr "راست"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:47
+msgid "Row span:"
+msgstr "پهنای سطر:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:49
+msgid "Shaded"
+msgstr "سایه‌دار"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:50
+msgid "Si_ze:"
+msgstr "اندا_زه"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:51
+msgid "Standard"
+msgstr "استاندارد"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:55
+msgid "Thickness:"
+msgstr "ضخامت:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:56
+msgid "Top"
+msgstr "بالا"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:57
+msgid "Vertical:"
+msgstr "عمودی:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:58
+msgid "Width:"
+msgstr "عرض:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:59
+msgid "_Alignment:"
+msgstr "_ردیف‌بندی:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:61
+msgid "_Border:"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:62
+msgid "_Color:"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:63
+msgid "_Columns:"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:64
+msgid "_Description:"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:65
+msgid "_Height:"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:66
+msgid "_Image:"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:68
+msgid "_Padding:"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:69
+msgid "_Row"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:70
+msgid "_Rows:"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:72
+msgid "_Spacing:"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:74
+msgid "_Table"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:75
+msgid "_URL:"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:77
+msgid "_Width:"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:78
+msgid "_Wrap Text"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:79
+msgid "_X-Padding:"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:80
+msgid "_Y-Padding:"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:81
+msgid "follow"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:82
+msgid "px"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:83
+msgid "xxxxxxxxxxxxxx"
+msgstr ""
+
+#: components/html-editor/link.c:194
+msgid "URL:"
+msgstr ""
+
+#: components/html-editor/link.c:198
+msgid "Description:"
+msgstr ""
+
+#: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
+msgid "Insert image"
+msgstr ""
+
+#: components/html-editor/menubar.c:133 components/html-editor/menubar.c:152
+#: components/html-editor/menubar.c:173 components/html-editor/menubar.c:195
+#: components/html-editor/popup.c:103
+msgid "Insert"
+msgstr ""
+
+#: components/html-editor/menubar.c:282
+#, c-format
+msgid "Error loading file '%s': %s"
+msgstr ""
+
+#: components/html-editor/menubar.c:308 components/html-editor/menubar.c:317
+msgid "Insert: HTML File"
+msgstr ""
+
+#: components/html-editor/menubar.c:308 components/html-editor/menubar.c:317
+msgid "Insert: Text File"
+msgstr ""
+
+#: components/html-editor/paragraph.c:86 components/html-editor/toolbar.c:54
+msgid "Header 1"
+msgstr ""
+
+#: components/html-editor/paragraph.c:87 components/html-editor/toolbar.c:55
+msgid "Header 2"
+msgstr ""
+
+#: components/html-editor/paragraph.c:88 components/html-editor/toolbar.c:56
+msgid "Header 3"
+msgstr ""
+
+#: components/html-editor/paragraph.c:89 components/html-editor/toolbar.c:57
+msgid "Header 4"
+msgstr ""
+
+#: components/html-editor/paragraph.c:90 components/html-editor/toolbar.c:58
+msgid "Header 5"
+msgstr ""
+
+#: components/html-editor/paragraph.c:91 components/html-editor/toolbar.c:59
+msgid "Header 6"
+msgstr ""
+
+#: components/html-editor/paragraph.c:94
+msgid "Dot item"
+msgstr ""
+
+#: components/html-editor/paragraph.c:95
+msgid "Number item"
+msgstr ""
+
+#: components/html-editor/paragraph.c:96
+msgid "Roman item"
+msgstr ""
+
+#: components/html-editor/paragraph.c:97
+msgid "Alphabeta item"
+msgstr ""
+
+#: components/html-editor/paragraph.c:100 components/html-editor/toolbar.c:60
+msgid "Address"
+msgstr ""
+
+#: components/html-editor/paragraph.c:109
+msgid "_Style:"
+msgstr ""
+
+#: components/html-editor/popup.c:438
+msgid "Paste Quotation"
+msgstr ""
+
+#: components/html-editor/popup.c:442
+msgid "Insert Link"
+msgstr ""
+
+#: components/html-editor/popup.c:449
+msgid "Remove Link"
+msgstr ""
+
+#: components/html-editor/popup.c:456
+msgid "Style"
+msgstr ""
+
+#: components/html-editor/popup.c:459
+msgid "Text Style..."
+msgstr ""
+
+#: components/html-editor/popup.c:461 components/html-editor/popup.c:467
+#: components/html-editor/popup.c:477
+msgid "Paragraph Style..."
+msgstr ""
+
+#: components/html-editor/popup.c:465
+msgid "Link Style..."
+msgstr ""
+
+#: components/html-editor/popup.c:471
+msgid "Rule Style..."
+msgstr ""
+
+#: components/html-editor/popup.c:475
+msgid "Image Style..."
+msgstr ""
+
+#: components/html-editor/popup.c:486
+msgid "Cell Style..."
+msgstr ""
+
+#: components/html-editor/popup.c:489
+msgid "Table Style..."
+msgstr ""
+
+#: components/html-editor/popup.c:495
+msgid "Page Style..."
+msgstr ""
+
+#: components/html-editor/popup.c:500
+msgid "Table insert"
+msgstr ""
+
+#: components/html-editor/popup.c:503
+msgid "Row above"
+msgstr ""
+
+#: components/html-editor/popup.c:504
+msgid "Row below"
+msgstr ""
+
+#: components/html-editor/popup.c:506
+msgid "Column before"
+msgstr ""
+
+#: components/html-editor/popup.c:507
+msgid "Column after"
+msgstr ""
+
+#: components/html-editor/popup.c:512
+msgid "Table delete"
+msgstr ""
+
+#: components/html-editor/popup.c:514
+msgid "Row"
+msgstr ""
+
+#: components/html-editor/popup.c:515
+msgid "Column"
+msgstr ""
+
+#: components/html-editor/popup.c:516
+msgid "Cell contents"
+msgstr ""
+
+#: components/html-editor/popup.c:524
+msgid "Check Word Spelling..."
+msgstr ""
+
+#: components/html-editor/popup.c:529
+msgid "Add Word to"
+msgstr ""
+
+#: components/html-editor/popup.c:533
+#, c-format
+msgid "%s Dictionary"
+msgstr ""
+
+#: components/html-editor/popup.c:542
+msgid "Add Word to Dictionary"
+msgstr ""
+
+#: components/html-editor/popup.c:545
+msgid "Ignore Misspelled Word"
+msgstr ""
+
+#: components/html-editor/popup.c:549
+msgid "Input Methods"
+msgstr ""
+
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: components/html-editor/replace.c:77
+msgid "Replace confirmation"
+msgstr ""
+
+#: components/html-editor/replace.c:78
+msgid "Replace _All"
+msgstr ""
+
+#: components/html-editor/replace.c:79
+msgid "_Next"
+msgstr ""
+
+#: components/html-editor/replace.c:81
+msgid "_Replace"
+msgstr ""
+
+#: components/html-editor/replace.c:171
+msgid "Search _backward"
+msgstr ""
+
+#: components/html-editor/replace.c:172 components/html-editor/search.c:113
+msgid "Case _sensitive"
+msgstr ""
+
+#: components/html-editor/replace.c:182
+msgid "R_eplace:"
+msgstr ""
+
+#: components/html-editor/replace.c:186
+msgid "_With:"
+msgstr ""
+
+#: components/html-editor/search.c:112
+msgid "_Backward"
+msgstr ""
+
+#: components/html-editor/search.c:114
+msgid "_Regular Expression"
+msgstr ""
+
+#: components/html-editor/search.c:118
+msgid "Input the words you want to search here"
+msgstr ""
+
+#: components/html-editor/spellchecker.c:110
+msgid ""
+"Unable to add word to dictionary,\n"
+"language settings are broken.\n"
+msgstr ""
+
+#: components/html-editor/spellchecker.c:298
+msgid "No misspelled word found"
+msgstr ""
+
+#: components/html-editor/spellchecker.c:305
+msgid "Spell checker"
+msgstr ""
+
+#: components/html-editor/spellchecker.c:398
+msgid "Current _Languages"
+msgstr ""
+
+#: components/html-editor/template.c:84
+msgid "Note"
+msgstr ""
+
+#: components/html-editor/template.c:94 components/html-editor/template.c:113
+msgid "Place your text here"
+msgstr ""
+
+#: components/html-editor/template.c:97
+msgid "Image frame"
+msgstr ""
+
+#: components/html-editor/template.c:280
+msgid "Template Labels"
+msgstr ""
+
+#: components/html-editor/test-html-editor-control.c:333
+msgid "Open file..."
+msgstr ""
+
+#: components/html-editor/test-html-editor-control.c:335
+msgid "Save file as..."
+msgstr ""
+
+#: components/html-editor/test-html-editor-control.c:567
+msgid "GtkHTML Editor Test Container"
+msgstr ""
+
+#: components/html-editor/toolbar.c:52
+msgid "Roman List"
+msgstr ""
+
+#: components/html-editor/toolbar.c:513
+msgid "Left align"
+msgstr ""
+
+#: components/html-editor/toolbar.c:517
+msgid "Right align"
+msgstr ""
+
+#: components/html-editor/toolbar.c:537
+msgid "Toggle typewriter font style"
+msgstr ""
+
+#: components/html-editor/toolbar.c:539
+msgid "Bold"
+msgstr ""
+
+#: components/html-editor/toolbar.c:539
+msgid "Makes the text bold"
+msgstr ""
+
+#: components/html-editor/toolbar.c:541
+msgid "Italic"
+msgstr ""
+
+#: components/html-editor/toolbar.c:541
+msgid "Makes the text italic"
+msgstr ""
+
+#: components/html-editor/toolbar.c:543
+msgid "Underline"
+msgstr ""
+
+#: components/html-editor/toolbar.c:543
+msgid "Underlines the text"
+msgstr ""
+
+#: components/html-editor/toolbar.c:545
+msgid "Strikes out the text"
+msgstr ""
+
+#: components/html-editor/toolbar.c:554
+msgid "Unindent"
+msgstr ""
+
+#: components/html-editor/toolbar.c:554
+msgid "Indents the paragraphs less"
+msgstr ""
+
+#: components/html-editor/toolbar.c:556
+msgid "Indent"
+msgstr ""
+
+#: components/html-editor/toolbar.c:556
+msgid "Indents the paragraphs more"
+msgstr ""
+
+#: components/html-editor/utils.c:119
+msgid "Sample"
+msgstr ""
+
+#: components/html-editor/utils.c:192
+msgid "_Visit..."
+msgstr ""
+
+#: components/html-editor/utils.c:232
+msgid ""
+"The editted object was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+
+#: src/gtkhtml.c:2581
+#, c-format
+msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
+msgstr ""
+
+#: src/gtkhtml.c:2931
+msgid "Editable"
+msgstr ""
+
+#: src/gtkhtml.c:2932
+msgid "Whether the html can be edited"
+msgstr ""
+
+#: src/gtkhtml.c:2938
+msgid "Document Title"
+msgstr ""
+
+#: src/gtkhtml.c:2939
+msgid "The title of the current document"
+msgstr ""
+
+#: src/gtkhtml.c:2945
+msgid "Document Base"
+msgstr ""
+
+#: src/gtkhtml.c:2946
+msgid "The base URL for relative references"
+msgstr ""
+
+#: src/gtkhtml.c:2952
+msgid "Target Base"
+msgstr ""
+
+#: src/gtkhtml.c:2953
+msgid "The base URL of the targe frame"
+msgstr ""
+
+#: src/gtkhtml.c:2962
+msgid "Fixed Width Font"
+msgstr ""
+
+#: src/gtkhtml.c:2963
+msgid "The Monospace font to use for typewriter text"
+msgstr ""
+
+#: src/gtkhtml.c:2969
+msgid "New Link Color"
+msgstr ""
+
+#: src/gtkhtml.c:2970
+msgid "The color of new link elements"
+msgstr ""
+
+#: src/gtkhtml.c:2975
+msgid "Visited Link Color"
+msgstr ""
+
+#: src/gtkhtml.c:2976
+msgid "The color of visited link elements"
+msgstr ""
+
+#: src/gtkhtml.c:2981
+msgid "Active Link Color"
+msgstr ""
+
+#: src/gtkhtml.c:2982
+msgid "The color of active link elements"
+msgstr ""
+
+#: src/gtkhtml.c:2987
+msgid "Spelling Error Color"
+msgstr ""
+
+#: src/gtkhtml.c:2988
+msgid "The color of the spelling error markers"
+msgstr ""
+
+#: src/gtkhtml.c:2993
+msgid "Cite Quotation Color"
+msgstr ""
+
+#: src/gtkhtml.c:2994
+msgid "The color of the cited text"
+msgstr ""
+
+#: src/html-component.c:220
+msgid "Html"
+msgstr ""
+
+#: src/html-component.c:221
+msgid "Html test"
+msgstr ""
+
+#: src/html-component.c:227
+msgid "Test1"
+msgstr ""
+
+#: src/html-component.c:234
+msgid "Test2"
+msgstr ""
+
+#: src/html-component.c:240
+msgid "Test3"
+msgstr ""
+
+#: src/html-component.c:246
+msgid "Test4"
+msgstr ""
+
+#: src/html-component.c:252
+msgid "Test5"
+msgstr ""
+
+#: src/html-component.c:258
+msgid "Test6"
+msgstr ""
+
+#: src/html-component.c:264
+msgid "Test7"
+msgstr ""
+
+#: src/html-component.c:613
+msgid "_Refresh"
+msgstr ""
+
+#: src/html-component.c:614
+msgid "Reload the page"
+msgstr ""
+
+#: src/html-component.c:661
+msgid "Could not initialize Bonobo!"
+msgstr ""
+
+#: src/htmlbutton.c:142
+msgid "Submit Query"
+msgstr ""
+
+#: src/htmlbutton.c:145
+msgid "Reset"
+msgstr ""
+
+#. TODO2 dialog instead of warning
+#: src/htmlengine-print.c:192
+msgid "Cannot allocate default font for printing\n"
+msgstr ""
+
+#: src/test.c:375
+msgid "GtkHTML Test"
+msgstr ""
+
+#: src/testgtkhtml.c:117
+msgid "Print pre_view"
+msgstr ""
+
+#: src/testgtkhtml.c:117
+msgid "Print preview"
+msgstr ""
+
+#: src/testgtkhtml.c:1004
+msgid "GtkHTML Test Application"
+msgstr ""
