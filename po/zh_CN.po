@@ -6,14 +6,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2004-06-04 11:58-0400\n"
-"PO-Revision-Date: 2004-03-19 01:07+0800\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-06-13 04:21+0200\n"
+"PO-Revision-Date: 2004-06-13 13:17+0800\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -1003,9 +1003,8 @@ msgid "Graph paper"
 msgstr "图形纸张"
 
 #: components/html-editor/body.c:246
-#, fuzzy
 msgid "T_emplate:"
-msgstr "模板"
+msgstr "模板(_E)："
 
 #. data->entry_title = gtk_entry_new ();
 #. if (gtk_html_get_title (data->cd->html)) {
@@ -1015,9 +1014,8 @@ msgstr "模板"
 #. g_signal_connect (data->entry_title, "changed", G_CALLBACK (entry_changed), data);
 #. editor_hig_attach_row (t1, _("T_itle:"), data->entry_title, 1);
 #: components/html-editor/body.c:256 components/html-editor/paragraph.c:112
-#, fuzzy
 msgid "General"
-msgstr "居中"
+msgstr "常规"
 
 #: components/html-editor/body.c:267 components/html-editor/text.c:162
 #: components/html-editor/toolbar.c:301
@@ -1025,19 +1023,16 @@ msgid "Automatic"
 msgstr "自动"
 
 #: components/html-editor/body.c:279
-#, fuzzy
 msgid "_Text:"
-msgstr "文本"
+msgstr "文本(_T)："
 
 #: components/html-editor/body.c:280
-#, fuzzy
 msgid "_Link:"
-msgstr "链接"
+msgstr "链接(_L)："
 
 #: components/html-editor/body.c:281
-#, fuzzy
 msgid "_Background:"
-msgstr "背景"
+msgstr "背景(_B)："
 
 #: components/html-editor/body.c:283
 #: components/html-editor/gtkhtml-editor-properties.glade.h:30
@@ -1052,11 +1047,11 @@ msgstr "背景图像"
 #: components/html-editor/body.c:298
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
 msgid "_Source:"
-msgstr ""
+msgstr "源(_S)："
 
 #: components/html-editor/cell.c:350 components/html-editor/table.c:231
 msgid "Transparent"
-msgstr ""
+msgstr "透明"
 
 #: components/html-editor/editor-control-factory.c:178
 #: components/html-editor/menubar.c:328 components/html-editor/menubar.c:346
@@ -1306,12 +1301,12 @@ msgstr "GtkHTML 编辑器控件"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:1
 msgid "    "
-msgstr ""
+msgstr "    "
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:3
 #, no-c-format
 msgid "%"
-msgstr ""
+msgstr "%"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:8
 msgid "+4"
@@ -1319,48 +1314,47 @@ msgstr "+4"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:11
 msgid "<b>Alignment &amp; Behaviour</b>"
-msgstr ""
+msgstr "<b>对齐和行为</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:12
-#, fuzzy
 msgid "<b>Background</b>"
-msgstr "背景"
+msgstr "<b>背景</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:13
 msgid "<b>General</b>"
-msgstr ""
+msgstr "<b>常规</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:14
 msgid "<b>Layout</b>"
-msgstr ""
+msgstr "<b>布局</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:15
 msgid "<b>Scope</b>"
-msgstr ""
+msgstr "<b>范围</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:16
 msgid "<span weight=\"bold\">General</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">常规</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:17
 msgid "<span weight=\"bold\">Layout</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">布局</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:18
 msgid "<span weight=\"bold\">Link</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">链接</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:19
 msgid "<span weight=\"bold\">Size</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">大小</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:20
 msgid "<span weight=\"bold\">Style</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">样式</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
 msgid "<span weight=\"bold\">Template</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">模板</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
 #: components/html-editor/paragraph.c:131
@@ -1372,14 +1366,12 @@ msgid "Bottom"
 msgstr "底部"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:25
-#, fuzzy
 msgid "C_ell"
-msgstr "单元格"
+msgstr "单元格(_E)"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#, fuzzy
 msgid "C_olor:"
-msgstr "颜色："
+msgstr "颜色(_O)："
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:27
 #: components/html-editor/popup.c:237
@@ -1392,9 +1384,8 @@ msgid "Center"
 msgstr "居中"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:29
-#, fuzzy
 msgid "Col_umn"
-msgstr "列"
+msgstr "列(_U)"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:31
 msgid "Column span:"
@@ -1405,9 +1396,8 @@ msgid "Enable"
 msgstr "允许"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:33
-#, fuzzy
 msgid "Hea_der style"
-msgstr "标题 6"
+msgstr "标题样式(_D)"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:34
 msgid "Horizontal alignment:"
@@ -1418,9 +1408,8 @@ msgid "Horizontal:"
 msgstr "水平："
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:36
-#, fuzzy
 msgid "I_mage:"
-msgstr "图像"
+msgstr "图像(_M)："
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:38
 #: components/html-editor/paragraph.c:127
@@ -1461,13 +1450,12 @@ msgid "Shaded"
 msgstr "阴影"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:50
-#, fuzzy
 msgid "Si_ze:"
-msgstr "大小"
+msgstr "大小(_Z)："
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:51
 msgid "Standard"
-msgstr ""
+msgstr "标准"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:55
 msgid "Thickness:"
@@ -1486,106 +1474,88 @@ msgid "Width:"
 msgstr "宽度："
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:59
-#, fuzzy
 msgid "_Alignment:"
-msgstr "对齐方式："
+msgstr "对齐方式(_A)："
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:61
-#, fuzzy
 msgid "_Border:"
-msgstr "边框："
+msgstr "边框(_B)："
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:62
-#, fuzzy
 msgid "_Color:"
-msgstr "颜色："
+msgstr "颜色(_C)："
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
-#, fuzzy
 msgid "_Columns:"
-msgstr "列数："
+msgstr "列数(_C)："
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:64
-#, fuzzy
 msgid "_Description:"
-msgstr "描述："
+msgstr "描述(_D)："
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:65
-#, fuzzy
 msgid "_Height:"
-msgstr "高度："
+msgstr "高度(_H)："
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:66
-#, fuzzy
 msgid "_Image:"
-msgstr "图像"
+msgstr "图像(_I)："
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:68
-#, fuzzy
 msgid "_Padding:"
-msgstr "填料："
+msgstr "留空(_P)："
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#, fuzzy
 msgid "_Row"
-msgstr "行"
+msgstr "行(_R)"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#, fuzzy
 msgid "_Rows:"
-msgstr "行数："
+msgstr "行数(_R)："
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
-#, fuzzy
 msgid "_Spacing:"
-msgstr "间距："
+msgstr "间距(_S)："
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:74
-#, fuzzy
 msgid "_Table"
-msgstr "表格"
+msgstr "表格(_T)"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:75
 msgid "_URL:"
-msgstr ""
+msgstr "_URL："
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:77
-#, fuzzy
 msgid "_Width:"
-msgstr "宽度："
+msgstr "宽度(_W)："
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:78
-#, fuzzy
 msgid "_Wrap Text"
-msgstr "换行(_W)"
+msgstr "文本换行(_W)"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:79
-#, fuzzy
 msgid "_X-Padding:"
-msgstr "填料："
+msgstr "水平留空(_X)："
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:80
-#, fuzzy
 msgid "_Y-Padding:"
-msgstr "填料："
+msgstr "垂直留空(_Y)："
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:81
-#, fuzzy
 msgid "follow"
 msgstr "跟随"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:82
 msgid "px"
-msgstr ""
+msgstr "px"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:83
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
 #: components/html-editor/menubar.c:86
-#, fuzzy
 msgid "Insert image"
-msgstr "插入链接"
+msgstr "插入图像"
 
 #: components/html-editor/menubar.c:112 components/html-editor/menubar.c:131
 #: components/html-editor/menubar.c:152 components/html-editor/menubar.c:174
@@ -1651,9 +1621,8 @@ msgid "Address"
 msgstr "地址"
 
 #: components/html-editor/paragraph.c:109
-#, fuzzy
 msgid "_Style:"
-msgstr "样式(_S)"
+msgstr "样式(_S)："
 
 #: components/html-editor/popup.c:438
 msgid "Paste Quotation"
@@ -1803,9 +1772,8 @@ msgid "_Backward"
 msgstr "反向(_B)"
 
 #: components/html-editor/search.c:115
-#, fuzzy
 msgid "_Regular Expression"
-msgstr "查找正规表达式"
+msgstr "正则表达式(_R)"
 
 #: components/html-editor/spell.c:278
 msgid "No misspelled word found"
@@ -1913,103 +1881,100 @@ msgstr "样例"
 
 #: components/html-editor/utils.c:192
 msgid "_Visit..."
-msgstr ""
+msgstr "参观(_V)..."
 
 #: components/html-editor/utils.c:232
-#, fuzzy
 msgid ""
 "The editted object was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
-"编辑的文本已经从文档中删除了。\n"
+"编辑的对象已经从文档中删除了。\n"
 "无法应用您的更改。"
 
-#: src/gtkhtml.c:2464
+#: src/gtkhtml.c:2466
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
-msgstr ""
+msgstr "Mozilla URL 拖曳到编写器的格式(%d)或长度(%d)不对\n"
 
-#: src/gtkhtml.c:2785
+#: src/gtkhtml.c:2787
 msgid "Editable"
 msgstr "可编辑"
 
-#: src/gtkhtml.c:2786
+#: src/gtkhtml.c:2788
 msgid "Whether the html can be edited"
 msgstr "HTML 是否可编辑"
 
-#: src/gtkhtml.c:2792
+#: src/gtkhtml.c:2794
 msgid "Document Title"
 msgstr "文档标题"
 
-#: src/gtkhtml.c:2793
+#: src/gtkhtml.c:2795
 msgid "The title of the current document"
 msgstr "当前文档的标题"
 
-#: src/gtkhtml.c:2799
+#: src/gtkhtml.c:2801
 msgid "Document Base"
 msgstr "文档基础"
 
-#: src/gtkhtml.c:2800
+#: src/gtkhtml.c:2802
 msgid "The base URL for relative references"
 msgstr "相对引用的基础 URL"
 
-#: src/gtkhtml.c:2806
+#: src/gtkhtml.c:2808
 msgid "Target Base"
 msgstr "目标基础"
 
-#: src/gtkhtml.c:2807
+#: src/gtkhtml.c:2809
 msgid "The base URL of the targe frame"
 msgstr "目标框架的基础 URL"
 
-#: src/gtkhtml.c:2816
+#: src/gtkhtml.c:2818
 msgid "Fixed Width Font"
 msgstr "固定宽度字体"
 
-#: src/gtkhtml.c:2817
+#: src/gtkhtml.c:2819
 msgid "The Monospace font to use for typewriter text"
 msgstr "打字机文字所用的等宽字体"
 
-#: src/gtkhtml.c:2823
+#: src/gtkhtml.c:2825
 msgid "New Link Color"
 msgstr "新链接颜色"
 
-#: src/gtkhtml.c:2824
+#: src/gtkhtml.c:2826
 msgid "The color of new link elements"
 msgstr "新链接元素的颜色"
 
-#: src/gtkhtml.c:2829
+#: src/gtkhtml.c:2831
 msgid "Visited Link Color"
 msgstr "已浏览链接颜色"
 
-#: src/gtkhtml.c:2830
+#: src/gtkhtml.c:2832
 msgid "The color of visited link elements"
 msgstr "已浏览链接元素的颜色"
 
-#: src/gtkhtml.c:2835
+#: src/gtkhtml.c:2837
 msgid "Active Link Color"
 msgstr "激活链接颜色"
 
-#: src/gtkhtml.c:2836
+#: src/gtkhtml.c:2838
 msgid "The color of active link elements"
 msgstr "激活链接元素的颜色"
 
-#: src/gtkhtml.c:2841
+#: src/gtkhtml.c:2843
 msgid "Spelling Error Color"
 msgstr "拼写错误颜色"
 
-#: src/gtkhtml.c:2842
+#: src/gtkhtml.c:2844
 msgid "The color of the spelling error markers"
 msgstr "拼写错误标记的颜色"
 
-#: src/gtkhtml.c:2847
-#, fuzzy
+#: src/gtkhtml.c:2849
 msgid "Cite Quotation Color"
-msgstr "带引用粘贴"
+msgstr "引用颜色"
 
-#: src/gtkhtml.c:2848
-#, fuzzy
+#: src/gtkhtml.c:2850
 msgid "The color of the cited text"
-msgstr "激活链接元素的颜色"
+msgstr "引用的颜色"
 
 #: src/html-component.c:219
 msgid "Html"
@@ -2088,207 +2053,3 @@ msgstr "打印预览"
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML 测试程序"
 
-#~ msgid "Plain"
-#~ msgstr "无格式"
-
-#~ msgid ""
-#~ "@link_begin@<img@alt@@width@@height@@align@ "
-#~ "border=@border@@padh@@padv@@src@>@link_end@"
-#~ msgstr ""
-#~ "@link_begin@<img@alt@@width@@height@@align@ "
-#~ "border=@border@@padh@@padv@@src@>@link_end@"
-
-#~ msgid "Frame"
-#~ msgstr "框架"
-
-#~ msgid ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
-#~ "table></center>"
-#~ msgstr ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
-#~ "table></center>"
-
-#~ msgid "Caption"
-#~ msgstr "标题"
-
-#~ msgid ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place "
-#~ "your comment here]</td></tr></table></td></tr></table></center>"
-#~ msgstr ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[在此输入"
-#~ "您的注释]</td></tr></table></td></tr></table></center>"
-
-#~ msgid "Find A Regular Expression"
-#~ msgstr "查找正规表达式"
-
-#~ msgid "Find Regular E_xpression..."
-#~ msgstr "查找正规表达式(_X)..."
-
-#~ msgid ""
-#~ "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a "
-#~ "href=\"mailto:dog\">dog</a>."
-#~ msgstr "明日<b>复明日</b>·万事<i>成蹉跎</i>"
-
-#~ msgid "The quick brown fox jumps over the lazy dog."
-#~ msgstr "明日复明日·万事成蹉跎"
-
-#~ msgid "Other"
-#~ msgstr "其它"
-
-#~ msgid ""
-#~ "The editted cell was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "编辑的单元格已经从文档中删除了。\n"
-#~ "无法应用您的更改。"
-
-#~ msgid "************"
-#~ msgstr "************"
-
-#~ msgid "***text***"
-#~ msgstr "***文字***"
-
-#~ msgid "Apply changes to:"
-#~ msgstr "将更改应用到："
-
-#~ msgid "Border"
-#~ msgstr "边框"
-
-#~ msgid "Click will follow this URL"
-#~ msgstr "单击将跟随此 URL"
-
-#~ msgid "Click will follow this URL:"
-#~ msgstr "单击将跟随此 URL："
-
-#~ msgid "Don't wrap"
-#~ msgstr "不绕排"
-
-#~ msgid "Font size"
-#~ msgstr "字体大小"
-
-#~ msgid "Foreground color"
-#~ msgstr "前景颜色"
-
-#~ msgid "Header"
-#~ msgstr "标题"
-
-#~ msgid "Link insert"
-#~ msgstr "链接插入"
-
-#~ msgid "Location"
-#~ msgstr "位置"
-
-#~ msgid "Padding"
-#~ msgstr "填料"
-
-#~ msgid "Percent %"
-#~ msgstr "百分比 %"
-
-#~ msgid "Pixmap:"
-#~ msgstr "像素图："
-
-#~ msgid "Points"
-#~ msgstr "磅"
-
-#~ msgid "Scope"
-#~ msgstr "范围"
-
-#~ msgid "Spacing"
-#~ msgstr "间距"
-
-#~ msgid "Style:"
-#~ msgstr "样式："
-
-#~ msgid "Table Insert"
-#~ msgstr "表格插入"
-
-#~ msgid "Test URL..."
-#~ msgstr "测试 URL..."
-
-#~ msgid "Wrap"
-#~ msgstr "环绕"
-
-#~ msgid "Wrapping:"
-#~ msgstr "绕排："
-
-#~ msgid "xxxxxxxxx"
-#~ msgstr "xxxxxxxxx"
-
-#~ msgid ""
-#~ "This is sample text, designed to show you how text would flow around this "
-#~ "image if you insert the image into your message."
-#~ msgstr "这仅仅是示范文字，用来为您展示文字绕排图像的效果。"
-
-#~ msgid "No image selected"
-#~ msgstr "没有选中图像"
-
-#~ msgid ""
-#~ "The editted image was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "编辑的图像已经从文档中删除了。\n"
-#~ "无法应用您的更改。"
-
-#~ msgid "Link text"
-#~ msgstr "链接文本"
-
-#~ msgid ""
-#~ "The editted link was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "编辑的链接已经从文档中删除了。\n"
-#~ "无法应用您的更改。"
-
-#~ msgid "Please fill 'Link text' and 'URL' entries"
-#~ msgstr "请填入“链接文本”和“URL”项"
-
-#~ msgid "Align"
-#~ msgstr "对齐"
-
-#~ msgid ""
-#~ "The editted paragraph was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "编辑的段落已经从文档中删除了。\n"
-#~ "无法应用您的更改。"
-
-#~ msgid "Blue 3D"
-#~ msgstr "立体蓝"
-
-#~ msgid "Yellow, flowers"
-#~ msgstr "黄花"
-
-#~ msgid ""
-#~ "The editted rule was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "编辑的标尺已经从文档中删除了。\n"
-#~ "无法应用您的更改。"
-
-#~ msgid "Flat gray"
-#~ msgstr "浅灰"
-
-#~ msgid "Dark header"
-#~ msgstr "深色标题"
-
-#~ msgid ""
-#~ "The editted table was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "编辑的表格已经从文档中删除了。\n"
-#~ "无法应用您的更改。"
-
-#~ msgid "Color"
-#~ msgstr "颜色"
