@@ -2811,15 +2811,16 @@ scroll_by_amount (GtkHTML *html,
 	GtkLayout *layout;
 	GtkAdjustment *adj;
 	gfloat new_value;
+	gfloat max;
 
 	layout = GTK_LAYOUT (html);
 	adj = layout->vadjustment;
 
 	new_value = adj->value + (gfloat) amount;
-	if (new_value < adj->lower)
-		new_value = adj->lower;
-	else if (new_value > adj->upper)
-		new_value = adj->upper;
+
+	max = MAX (0.0, adj->upper - adj->page_size);
+
+	new_value = CLAMP (new_value, adj->lower, max);
 
 	gtk_adjustment_set_value (adj, new_value);
 }

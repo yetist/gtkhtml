@@ -1,5 +1,12 @@
 2001-10-27  Larry Ewing  <lewing@ximian.com>
 
+	* gtkhtml.c (scroll_by_amount): fix this so that we never scroll
+	farther down the page than we want to (adj->val -
+	adj->page_size). Fixes Ximian #2504.
+
+	* htmltokenizer.c (in_entity): always collapse the entity even in
+	tags and element names.
+
 	* htmlengine.c (html_engine_destroy): make the engine safe for
 	reentrant calls that could result from destroying embedded objects
 	that might iterate the main loop. Fixes ximian #13699.

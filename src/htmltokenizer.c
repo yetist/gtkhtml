@@ -995,7 +995,12 @@ in_entity (HTMLTokenizer *t, const gchar **src)
 		(*src)++;
 	}
 	else {
-		if (entityValue && !p->tag && !p->tquote) {
+		/*
+		 * my reading of http://www.w3.org/TR/html4/intro/sgmltut.html#h-3.2.2 makes
+		 * seem correct to always collapse entity references, even in element names
+		 * and attributes. 
+		 */
+		if (entityValue) {
 			/* Insert plain char */
 			add_unichar (t, entityValue);
 			if (**src == ';')
