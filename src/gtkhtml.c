@@ -750,15 +750,17 @@ key_press_event (GtkWidget *widget,
 		printf ("len: %d str: %s\n", str ? g_utf8_strlen (str, -1) : -1, str);
 		*/
 
-		if (str)
+		if (str) {
 			html_engine_paste_text (html->engine, str, g_utf8_strlen (str, -1));
-		else if (event->length == 1 && event->string
-			 && ((guchar)event->string [0]) > 0x20 
-			 && ((guchar)event->string [0]) < 0x80)
+			retval = TRUE;
+		} else if (event->length == 1 && event->string
+			   && ((guchar)event->string [0]) > 0x20 
+			   && ((guchar)event->string [0]) < 0x80) {
 			html_engine_paste_text (html->engine, event->string, 1);
+			retval = TRUE;
+		}
 
 		g_free (str);
-		retval = TRUE;
 		update = FALSE;
 	}
 
@@ -1943,6 +1945,7 @@ set_fonts_idle (GtkHTML *html)
 					       prop->font_var,      prop->font_fix,
 					       prop->font_var_size, prop->font_var_points,
 					       prop->font_fix_size, prop->font_fix_points);
+
 		if (html->engine->painter->mag_fm)
 			html_font_manager_set_default (html->engine->painter->mag_fm,
 						       prop->font_var,      prop->font_fix,
@@ -1987,8 +1990,6 @@ client_notify_widget (GConfClient* client,
 	GtkHTMLClassProperties *prop = klass->properties;	
 	gchar *tkey;
 	GdkColor tcolor;
-
-	printf ("notify (gtkhtml) widget %s\n", entry->key);
 
 	g_assert (client == gconf_client);
 	g_assert (entry->key);
@@ -2068,7 +2069,6 @@ client_notify_spell_widget (GConfClient* client, guint cnxn_id, GConfEntry* entr
 	GtkHTMLClassProperties *prop = klass->properties;	
 	gchar *tkey;
 
-	printf ("notify (spell) widget %s\n", entry->key);
 	g_assert (client == gconf_client);
 	g_assert (entry->key);
 	tkey = strrchr (entry->key, '/');

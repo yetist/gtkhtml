@@ -475,10 +475,12 @@ HTMLMap *html_engine_get_map  (HTMLEngine  *e,
 			       const gchar *name);
 
 HTMLFontManager *html_engine_gdk_font_manager           (HTMLEngine  *e);
+HTMLFontManager *html_engine_plain_font_manager         (HTMLEngine  *e);
 HTMLFontManager *html_engine_font_manager               (HTMLEngine  *e);
 HTMLFontManager *html_engine_font_manager_with_painter  (HTMLEngine  *e,
 							 HTMLPainter *p);
 HTMLFontManager *html_engine_class_gdk_font_manager     (void);
+HTMLFontManager *html_engine_class_plain_font_manager   (void);
 
 gboolean html_engine_selection_contains_object_type (HTMLEngine *e,
 						     HTMLType obj_type);

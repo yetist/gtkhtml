@@ -5609,6 +5609,12 @@ html_engine_gdk_font_manager (HTMLEngine *e)
 }
 
 HTMLFontManager *
+html_engine_plain_font_manager (HTMLEngine *e)
+{
+	return &HTML_ENGINE_CLASS (GTK_OBJECT (e)->klass)->font_manager [HTML_FONT_MANAGER_ID_PLAIN];
+}
+
+HTMLFontManager *
 html_engine_font_manager (HTMLEngine *e)
 {
 	return &HTML_ENGINE_CLASS (GTK_OBJECT (e)->klass)->font_manager [html_painter_get_font_manager_id (e->painter)];
@@ -5625,6 +5631,13 @@ html_engine_class_gdk_font_manager (void)
 {
 	HTMLEngineClass *ec = HTML_ENGINE_CLASS (gtk_type_class (html_engine_get_type ()));
 	return &ec->font_manager [HTML_FONT_MANAGER_ID_GDK];
+}
+
+HTMLFontManager *
+html_engine_class_plain_font_manager (void)
+{
+	HTMLEngineClass *ec = HTML_ENGINE_CLASS (gtk_type_class (html_engine_get_type ()));
+	return &ec->font_manager [HTML_FONT_MANAGER_ID_PLAIN];
 }
 
 struct HTMLEngineCheckSelectionType

@@ -190,8 +190,16 @@ html_font_manager_set_default (HTMLFontManager *manager, gchar *variable, gchar 
 		manager->fix_points = fix_points;
 		changed = TRUE;
 	}
-	if (changed)
+	if (changed) {
+		HTMLFontManager *plain_fm = html_engine_class_plain_font_manager ();
+
 		html_font_set_release (&manager->fixed, manager->painter_class);
+
+		/* release plain fontmanager fonts as well as they are
+		   referenced gdk fontmanager ones */
+		html_font_set_release (&plain_fm->variable, manager->painter_class);
+		html_font_set_release (&plain_fm->fixed, manager->painter_class);
+	}
 }
 
 static gint

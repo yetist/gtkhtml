@@ -4,6 +4,18 @@
 	update the aligment tracking variable when we update the
 	alignment.  Fixes http://bugzilla.ximian.com/show_bug.cgi?id=9171
 
+2002-10-02  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (key_press_event): return TRUE only when key_press
+	used, didn't happen before for bindigs like Shift-TAB
+
+	* htmlfontmanager.c (html_font_manager_set_default): release plain
+	font manager fonts when changing fixed font
+
+	* htmlengine.c (html_engine_class_plain_font_manager): new method
+	for access to plain fontmanager
+	(html_engine_plain_font_manager): ditto
+
 2002-10-01  Radek Doulik  <rodo@ximian.com>
 
 	* htmltextslave.c (get_offset_for_pointer): fixed offset
