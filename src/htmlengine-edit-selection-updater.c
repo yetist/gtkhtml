@@ -199,6 +199,7 @@ update_selection (HTMLEngine *engine,
 
 	if (html_cursor_equal (new_point, mark)) {
 		html_engine_unselect_all (engine, TRUE);
+		engine->active_selection = TRUE;
 		return;
 	}
 
@@ -287,15 +288,13 @@ updater_idle_callback (gpointer data)
 	updater = (HTMLEngineEditSelectionUpdater *) data;
 	engine = updater->engine;
 
-	if (engine->mark == NULL)
-		goto end;
+	if (engine->mark != NULL) {
+		if (updater->old_point == NULL)
+			update_selection (engine, engine->mark, engine->cursor);
+		else
+			update_selection (engine, updater->old_point, engine->cursor);
+	}
 
-	if (updater->old_point == NULL)
-		update_selection (engine, engine->mark, engine->cursor);
-	else
-		update_selection (engine, updater->old_point, engine->cursor);
-
- end:
 	if (updater->old_point != NULL)
 		html_cursor_destroy (updater->old_point);
 

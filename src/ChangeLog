@@ -1,3 +1,23 @@
+2000-04-21  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* gtkhtml-keybinding.c
+	(paste): Don't disable the selection anymore, as
+	`html_engine_paste()' now does the right thing.
+
+	* htmlengine-edit-selection-updater.c
+	(updater_idle_callback): Get rid of ugly, useless `goto'.
+	(update_selection): When unselecting everything if the mark and
+	the cursor are at the same position, re-set `active_selection' to
+	be true.
+
+	* htmlengine-edit.c
+	(html_engine_set_mark): Set `active_selection' true.
+
+	* htmlengine-edit-paste.c
+	(html_engine_paste): Destroy the cut buffer before re-assigning
+	it.
+	(update_cursor_position): Removed.
+
 2000-04-20  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine.c (close_flow): eat trailing spaces in ClueFlow

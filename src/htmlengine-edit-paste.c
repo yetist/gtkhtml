@@ -25,6 +25,7 @@
 #include "htmltextmaster.h"
 
 #include "htmlengine-cutbuffer.h"
+#include "htmlengine-edit-cut.h"
 #include "htmlengine-edit-movement.h"
 #include "htmlengine-edit-delete.h"
 
@@ -349,29 +350,6 @@ remove_slaves_at_cursor (HTMLEngine *engine)
 	html_clueflow_remove_text_slaves (HTML_CLUEFLOW (parent));
 }
 
-static guint
-update_cursor_position (HTMLCursor *cursor,
-			GList *buffer)
-{
-	HTMLObject *obj;
-	GList *p;
-	guint count;
-
-	count = 0;
-	for (p = buffer; p != NULL; p = p->next) {
-		obj = HTML_OBJECT (p->data);
-
-		if (html_object_is_text (obj))
-			count += HTML_TEXT (obj)->text_len;
-		else
-			count ++;
-	}
-
-	cursor->position += count;
-
-	return count;
-}
-
 
 static guint
 do_paste (HTMLEngine *engine,
@@ -688,18 +666,22 @@ html_engine_paste (HTMLEngine *engine)
 	if (engine->cut_buffer == NULL)
 		return;
 
-	/* cut current selection */
+	html_undo_discard_redo (engine->undo);
+
+	/* Cut current selection.  */
 	if (engine->active_selection) {
-		/* keep cut_buffer */
+		/* Keep cut buffer.  */
 		cut_buffer = engine->cut_buffer;
 		engine->cut_buffer = NULL;
-		/* cut current selection */
+
+		/* Cut current selection.  */
 		html_engine_cut (engine);
-		/* restore cut_buffer */
+
+		/* Restore cut buffer.  */
+		if (engine->cut_buffer != NULL)
+			html_engine_cut_buffer_destroy (engine->cut_buffer);
 		engine->cut_buffer = cut_buffer;
 	}
-
-	html_undo_discard_redo (engine->undo);
 
 	count = do_paste (engine, engine->cut_buffer);
 

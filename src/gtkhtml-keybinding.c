@@ -189,8 +189,6 @@ copy (GtkHTML *html)
 static void
 paste (GtkHTML *html)
 {
-	/* FIXME this should cut the selection first instead.  */
-	html_engine_disable_selection (html->engine);
 	html_engine_paste (html->engine);
 }
 
