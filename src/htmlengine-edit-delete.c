@@ -478,13 +478,15 @@ html_engine_delete (HTMLEngine *e,
 
 	if (destroy_orig)
 		html_cursor_backward (e->cursor, e);
-
-	if (e->cursor->offset >= 1 && html_object_is_text (e->cursor->object)) {
-		append_to_buffer (&save_buffer, &save_buffer_last,
-				  HTML_OBJECT (html_text_extract_text (HTML_TEXT (e->cursor->object),
-								       0, e->cursor->offset)));
-		html_text_remove_text (HTML_TEXT (e->cursor->object), e,
-				       0, e->cursor->offset);
+	else {
+		if (e->cursor->offset >= 1 && html_object_is_text (e->cursor->object)) {
+			append_to_buffer (&save_buffer, &save_buffer_last,
+					  HTML_OBJECT (html_text_extract_text (HTML_TEXT (e->cursor->object),
+									       0, e->cursor->offset)));
+			html_text_remove_text (HTML_TEXT (e->cursor->object), e,
+					       0, e->cursor->offset);
+			e->cursor->offset = 0;
+		}
 	}
 
  merge:
