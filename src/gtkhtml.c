@@ -3360,16 +3360,21 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 			(*html->editor_api->suggestion_request) (html, html_engine_get_word (e), html->editor_data);
 		break;
 	case GTK_HTML_COMMAND_SPELL_PERSONAL_DICTIONARY_ADD:
-	case GTK_HTML_COMMAND_SPELL_SESSION_DICTIONARY_ADD:
-		if (html_engine_get_word (e) && html->editor_api) {
+	case GTK_HTML_COMMAND_SPELL_SESSION_DICTIONARY_ADD: {
+		gchar *word;
+		word = html_engine_get_word (e);
+
+		if (word && html->editor_api) {
 			if (com_type == GTK_HTML_COMMAND_SPELL_PERSONAL_DICTIONARY_ADD)
-				(*html->editor_api->add_to_personal) (html, html_engine_get_word (e), html->editor_data);
+				(*html->editor_api->add_to_personal) (html, word, html->editor_data);
 			else
-				(*html->editor_api->add_to_session) (html, html_engine_get_word (e), html->editor_data);
+				(*html->editor_api->add_to_session) (html, word, html->editor_data);
+			g_free (word);
 			html_engine_spell_check (e);
 			gtk_widget_queue_draw (GTK_WIDGET (html));
 		}
 		break;
+	}
 	case GTK_HTML_COMMAND_CURSOR_FORWARD:
 		html_cursor_forward (html->engine->cursor, html->engine);
 		break;
