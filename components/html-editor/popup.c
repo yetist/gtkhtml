@@ -31,7 +31,7 @@
 #include "htmlclueflow.h"
 #include "htmlcursor.h"
 #include "htmlengine.h"
-#include "htmllinktext.h"
+#include "htmltext.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-cut-and-paste.h"
 #include "htmlengine-edit-table.h"
@@ -52,7 +52,7 @@
 #include "table.h"
 #include "text.h"
 
-/* #define DEBUG */
+#define DEBUG
 #ifdef DEBUG
 #include "gtkhtmldebug.h"
 #endif

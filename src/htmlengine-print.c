@@ -158,7 +158,7 @@ print_with_header_footer (HTMLEngine *engine,
 
 	g_return_val_if_fail (engine->clue != NULL, 0);
 
-	printer = html_printer_new (print_context, GTK_HTML (engine->widget)->priv->print_master);
+	printer = html_printer_new (GTK_WIDGET (engine->widget), print_context, GTK_HTML (engine->widget)->priv->print_master);
 	gtk_html_set_fonts (engine->widget, printer);
 
 	if (do_we_have_default_font (printer)) {

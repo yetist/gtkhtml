@@ -53,7 +53,6 @@
 #include "htmliframe.h"
 #include "htmlimage.h"
 #include "htmlinterval.h"
-#include "htmllinktext.h"
 #include "htmlmarshal.h"
 #include "htmlplainpainter.h"
 #include "htmlsettings.h"
@@ -819,15 +818,6 @@ style_set (GtkWidget *widget, GtkStyle  *previous_style)
 	html_engine_schedule_update (engine);
 }
 
-void
-gtk_html_im_reset (GtkHTML *html)
-{
-	if (html->priv->need_im_reset) {
-		html->priv->need_im_reset = FALSE;
-		gtk_im_context_reset (html->priv->im_context);
-	}
-}
-
 static gint
 key_press_event (GtkWidget *widget, GdkEventKey *event)
 {
@@ -852,7 +842,7 @@ key_press_event (GtkWidget *widget, GdkEventKey *event)
 
 	if (!html->binding_handled)
 		GTK_WIDGET_CLASS (parent_class)->key_press_event (widget, event);
-	
+
 	retval = html->binding_handled;
 	update = html->priv->update_styles;
 
@@ -868,7 +858,7 @@ key_press_event (GtkWidget *widget, GdkEventKey *event)
 		case GDK_KP_Enter:
 			if (html->engine->focus_object) {
 				gchar *url;
-				url = html_object_get_complete_url (html->engine->focus_object);
+				url = html_object_get_complete_url (html->engine->focus_object, html->engine->focus_object_offset);
 				if (url) {
 					/* printf ("link clicked: %s\n", url); */
 					g_signal_emit (html, signals [LINK_CLICKED], 0, url);
@@ -1067,7 +1057,7 @@ set_pointer_url (GtkHTML *html, const char *url)
 }
 
 static void
-dnd_link_set (GtkWidget *widget, HTMLObject *o)
+dnd_link_set (GtkWidget *widget, HTMLObject *o, gint offset)
 {
 	if (!html_engine_get_editable (GTK_HTML (widget)->engine)) {
 		/* printf ("dnd_link_set %p\n", o); */
@@ -1076,6 +1066,7 @@ dnd_link_set (GtkWidget *widget, HTMLObject *o)
 				     dnd_link_sources, DND_LINK_SOURCES,
 				     GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
 		GTK_HTML (widget)->priv->dnd_object = o;
+		GTK_HTML (widget)->priv->dnd_object_offset = offset;
 	}
 }
 
@@ -1091,7 +1082,7 @@ dnd_link_unset (GtkWidget *widget)
 }
 
 static void
-on_object (GtkWidget *widget, GdkWindow *window, HTMLObject *obj, gint x, gint y)
+on_object (GtkWidget *widget, GdkWindow *window, HTMLObject *obj, gint offset, gint x, gint y)
 {
 	GtkHTML *html = GTK_HTML (widget);
 
@@ -1112,10 +1103,10 @@ on_object (GtkWidget *widget, GdkWindow *window, HTMLObject *obj, gint x, gint y
 		}
 
 		url = gtk_html_get_url_object_relative (html, obj, 
-							html_object_get_url (obj));
+							html_object_get_url (obj, offset));
 		if (url != NULL) {
 			set_pointer_url (html, url);
-			dnd_link_set (widget, obj);
+			dnd_link_set (widget, obj, offset);
 			
 			if (html->engine->editable)
 				gdk_window_set_cursor (window, html->ibeam_cursor);
@@ -1150,13 +1141,14 @@ mouse_change_pos (GtkWidget *widget, GdkWindow *window, gint x, gint y, gint sta
 	HTMLEngine *engine;
 	HTMLObject *obj;
 	HTMLType type;
+	gint offset;
 
 	if (!GTK_WIDGET_REALIZED (widget))
 		return FALSE;
 
 	html   = GTK_HTML (widget);
 	engine = html->engine;
-	obj    = html_engine_get_object_at (engine, x, y, NULL, FALSE);
+	obj    = html_engine_get_object_at (engine, x, y, &offset, FALSE);
 
 	if ((html->in_selection || html->in_selection_drag) && html->allow_selection) {
 		gboolean need_scroll;
@@ -1231,7 +1223,7 @@ mouse_change_pos (GtkWidget *widget, GdkWindow *window, gint x, gint y, gint sta
 			html_image_set_size (HTML_IMAGE (o), w, h, FALSE, FALSE);
 		}
 	} else
-		on_object (widget, window, obj, x, y);
+		on_object (widget, window, obj, offset, x, y);
 
 	return TRUE;
 }
@@ -1606,15 +1598,15 @@ button_press_event (GtkWidget *widget,
 			} else {
 				HTMLObject *obj;
 				HTMLEngine *orig_e;
+				gint offset;
 
 				orig_e = GTK_HTML (orig_widget)->engine;
-				obj = html_engine_get_object_at (engine, x, y,
-								 NULL, FALSE);
+				obj = html_engine_get_object_at (engine, x, y, &offset, FALSE);
 				if (obj && ((HTML_IS_IMAGE (obj) && HTML_IMAGE (obj)->url && *HTML_IMAGE (obj)->url)
-					    || HTML_IS_LINK_TEXT (obj)))
-					html_engine_set_focus_object (orig_e, obj);
+					    || (HTML_IS_TEXT (obj) && html_object_get_complete_url (obj, offset))))
+					html_engine_set_focus_object (orig_e, obj, offset);
 				else {
-					html_engine_set_focus_object (orig_e, NULL);
+					html_engine_set_focus_object (orig_e, NULL, 0);
 					if (orig_e->caret_mode)
 						html_engine_jump_at (engine, x, y);
 				}
@@ -2148,7 +2140,7 @@ set_focus_child (GtkContainer *containter, GtkWidget *w)
 		w = w->parent;
 
 	if (o && !html_object_is_frame (o))
-		html_engine_set_focus_object (GTK_HTML (containter)->engine, o);
+		html_engine_set_focus_object (GTK_HTML (containter)->engine, o, 0);
 
 	(*GTK_CONTAINER_CLASS (parent_class)->set_focus_child) (containter, w);
 }
@@ -2174,31 +2166,21 @@ focus (GtkWidget *w, GtkDirectionType direction)
 	}
 
 	if (html_engine_focus (e, direction) && e->focus_object) {
-		HTMLObject *cur, *obj = html_engine_get_focus_object (e);
+		gint offset;
+		HTMLObject *cur, *obj = html_engine_get_focus_object (e, &offset);
 		gint x1, y1, x2, y2, xo, yo;
 
 		xo = e->x_offset;
 		yo = e->y_offset;
 
-		html_object_calc_abs_position (obj, &x1, &y1);
-		y2 = y1 + obj->descent;
-		x2 = x1 + obj->width;
-		y1 -= obj->ascent;
-
-		/* correct coordinates for text slaves */
-		if (html_object_is_text (obj) && obj->next) {
-			cur = obj->next;
-			while (cur && HTML_IS_TEXT_SLAVE (cur)) {
-				gint xa, ya;
-				html_object_calc_abs_position (cur, &xa, &ya);
-				xa += cur->width;
-				if (xa > x2)
-					x2 = xa;
-				ya += cur->descent;
-				if (ya > y2)
-					y2 = ya;
-				cur = cur->next;
-			}
+		if (HTML_IS_TEXT (obj))
+			if (!html_text_get_link_rectangle (HTML_TEXT (obj), e->painter, offset, &x1, &y1, &x2, &y2))
+				return FALSE;
+		else {
+			html_object_calc_abs_position (obj, &x1, &y1);
+			y2 = y1 + obj->descent;
+			x2 = x1 + obj->width;
+			y1 -= obj->ascent;
 		}
 
 		/* printf ("child pos: %d,%d x %d,%d\n", x1, y1, x2, y2); */
@@ -2249,6 +2231,7 @@ drag_begin (GtkWidget *widget, GdkDragContext *context)
 
 	/* printf ("drag_begin\n"); */
 	GTK_HTML (widget)->priv->dnd_real_object = o = GTK_HTML (widget)->priv->dnd_object;
+	GTK_HTML (widget)->priv->dnd_real_object_offset = GTK_HTML (widget)->priv->dnd_object_offset;
 	GTK_HTML (widget)->priv->dnd_in_progress = TRUE;
 
 	i = html_interval_new (o, o, 0, html_object_get_length (o));
@@ -2275,14 +2258,15 @@ drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *sel
 	case DND_TARGET_TYPE_UTF8_STRING:
 	case DND_TARGET_TYPE_STRING: {
 		HTMLObject *obj = GTK_HTML (widget)->priv->dnd_real_object;
+		gint offset = GTK_HTML (widget)->priv->dnd_real_object_offset;
 		const gchar *url, *target;
 		gchar *complete_url;
 
 		/* printf ("\ttext/plain\n"); */
 		if (obj) {
 			/* printf ("obj %p\n", obj); */
-			url = html_object_get_url (obj);
-			target = html_object_get_target (obj);
+			url = html_object_get_url (obj, offset);
+			target = html_object_get_target (obj, offset);
 			if (url && *url) {
 
 				complete_url = g_strconcat (url, target && *target ? "#" : NULL, target, NULL);
@@ -2821,16 +2805,71 @@ init_properties_widget (GtkHTML *html)
 	}
 }
 
+void
+gtk_html_im_reset (GtkHTML *html)
+{
+	if (!html->priv->im_block_reset) {
+		printf ("IM reset requested\n");
+		if (html->priv->need_im_reset) {
+			if (html->engine->freeze_count == 1)
+				html_engine_thaw_idle_flush (html->engine);
+			html->priv->need_im_reset = FALSE;
+			gtk_im_context_reset (html->priv->im_context);
+			printf ("IM reset called\n");
+		}
+	}
+}
+
 static void
 gtk_html_im_commit_cb (GtkIMContext *context, const gchar *str, GtkHTML *html)
 {
+	gboolean state = html->priv->im_block_reset;
+
+	html->priv->im_block_reset = TRUE;
+	printf ("IM commit %s\n", str);
 	html_engine_paste_text (html->engine, str, -1);
+	html->priv->im_block_reset = state;
 }
 
 static void
 gtk_html_im_preedit_changed_cb (GtkIMContext *context, GtkHTML *html)
 {
-	g_warning ("preedit changed callback: implement me");
+	gchar *preedit_string;
+	gint cursor_pos;
+	gboolean state = html->priv->im_block_reset;
+	PangoAttrList *attrs;
+
+	html->priv->im_block_reset = TRUE;
+
+	if (html->priv->im_pre_len > 0) {
+		printf ("IM delete last preedit %d + %d\n", html->priv->im_pre_pos, html->priv->im_pre_len);
+		
+		html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine, html->priv->im_pre_pos);
+		html_engine_set_mark (html->engine);
+		html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine, html->priv->im_pre_pos + html->priv->im_pre_len);
+		html_engine_delete (html->engine);
+	} else
+		html->priv->im_orig_style = html_engine_get_font_style (html->engine);
+
+	gtk_im_context_get_preedit_string (html->priv->im_context, &preedit_string, &attrs, &cursor_pos);
+
+	printf ("IM preedit changed to %s\n", preedit_string);
+	html->priv->im_pre_len = g_utf8_strlen (preedit_string, -1);
+
+	if (html->priv->im_pre_len > 0) {
+		cursor_pos = CLAMP (cursor_pos, 0, html->priv->im_pre_len);
+		html->priv->im_pre_pos = html->engine->cursor->position;
+		html_engine_paste_text_with_attributes (html->engine, preedit_string, html->priv->im_pre_len, attrs);
+
+		html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine, html->priv->im_pre_pos + cursor_pos);
+	} else
+		html_engine_set_font_style (html->engine, 0, html->priv->im_orig_style);
+	g_free (preedit_string);
+
+	if (html->engine->freeze_count == 1)
+		html_engine_thaw_idle_flush (html->engine);
+	/* FIXME gtk_im_context_set_cursor_location (im_context, &area); */
+	html->priv->im_block_reset = state;
 }
 
 static gchar *
@@ -2879,7 +2918,7 @@ gtk_html_im_retrieve_surrounding_cb (GtkIMContext *context, GtkHTML *html)
 {
 	gint offset;
 
-	printf ("gtk_html_im_retrieve_surrounding_cb\n");
+	printf ("IM gtk_html_im_retrieve_surrounding_cb\n");
 	gtk_im_context_set_surrounding (context, get_surrounding_text (html->engine, &offset), -1, offset);
 
 	return TRUE;
@@ -2888,7 +2927,7 @@ gtk_html_im_retrieve_surrounding_cb (GtkIMContext *context, GtkHTML *html)
 static gboolean
 gtk_html_im_delete_surrounding_cb (GtkIMContext *slave, gint offset, gint n_chars, GtkHTML *html)
 {
-	printf ("gtk_html_im_delete_surrounding_cb\n");
+	printf ("IM gtk_html_im_delete_surrounding_cb\n");
 	if (html_engine_get_editable (html->engine) && !html_engine_is_selection_active (html->engine)) {
 		gint orig_position = html->engine->cursor->position;
 
@@ -2957,6 +2996,8 @@ gtk_html_init (GtkHTML* html)
 	/* IM Context */
 	html->priv->im_context = gtk_im_multicontext_new ();
 	html->priv->need_im_reset = FALSE;
+	html->priv->im_block_reset = FALSE;
+	html->priv->im_pre_len = 0;
   
 	g_signal_connect (G_OBJECT (html->priv->im_context), "commit",
 			  G_CALLBACK (gtk_html_im_commit_cb), html);
@@ -5156,7 +5197,8 @@ set_magnification (HTMLObject *o, HTMLEngine *e, gpointer data)
 	} else if (HTML_IS_IFRAME (o)) {
 		html_font_manager_set_magnification (&GTK_HTML (HTML_IFRAME (o)->html)->engine->painter->font_manager,
 						     *(gdouble *) data);
-	}
+	} else if (HTML_IS_TEXT (o))
+		html_text_calc_font_size (HTML_TEXT (o), e);
 }
 
 void

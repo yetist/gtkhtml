@@ -39,7 +39,7 @@
 struct _HTMLGdkPainter {
 	HTMLPainter base;
 	PangoContext *pc;
-	GtkStyle *style;
+	GtkWidget *widget;
 
 	/* GdkWindow to draw on */
 	GdkWindow *window;

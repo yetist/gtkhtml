@@ -28,7 +28,6 @@
 #include "gtkhtml.h"
 #include "htmlengine.h"
 #include "htmlinterval.h"
-#include "htmllinktext.h"
 #include "htmlselection.h"
 #include "htmltext.h"
 #include "htmltextslave.h"
@@ -217,7 +216,7 @@ html_a11y_text_new (HTMLObject *html_obj)
 	GObject *object;
 	AtkObject *accessible;
 
-	g_return_val_if_fail (HTML_IS_TEXT (html_obj) || HTML_IS_LINK_TEXT (html_obj), NULL);
+	g_return_val_if_fail (HTML_IS_TEXT (html_obj), NULL);
 
 	object = g_object_new (G_TYPE_HTML_A11Y_TEXT, NULL);
 

@@ -44,7 +44,6 @@
 #include "htmlengine-edit-selection-updater.h"
 #include "htmlimage.h"
 #include "htmlinterval.h"
-#include "htmllinktext.h"
 #include "htmlobject.h"
 #include "htmlplainpainter.h"
 #include "htmltable.h"
@@ -1144,7 +1143,7 @@ insert_empty_paragraph (HTMLEngine *e, HTMLUndoDirection dir, gboolean add_undo)
 	remove_empty_and_merge (e, FALSE, left, right, orig);
 
 	/* replace empty link in empty flow by text with the same style */
-	if (HTML_IS_LINK_TEXT (e->cursor->object) && html_clueflow_is_empty (HTML_CLUEFLOW (e->cursor->object->parent))) {
+	/* FIXME-link if (HTML_IS_LINK_TEXT (e->cursor->object) && html_clueflow_is_empty (HTML_CLUEFLOW (e->cursor->object->parent))) {
 		HTMLObject *flow = e->cursor->object->parent;
 		HTMLObject *new_text;
 
@@ -1159,7 +1158,7 @@ insert_empty_paragraph (HTMLEngine *e, HTMLUndoDirection dir, gboolean add_undo)
 			orig->object = e->cursor->object;
 		}
 		html_clue_append (HTML_CLUE (flow), e->cursor->object);
-	}
+		} */
 
 	html_cursor_forward (e->cursor, e);
 
@@ -1271,7 +1270,7 @@ use_pictograms (HTMLEngine *e)
 }
 
 void
-html_engine_insert_text (HTMLEngine *e, const gchar *text, guint len)
+html_engine_insert_text_with_attributes (HTMLEngine *e, const gchar *text, guint len, PangoAttrList *attrs)
 {
 	gchar *nl;
 	gint alen;
@@ -1299,6 +1298,10 @@ html_engine_insert_text (HTMLEngine *e, const gchar *text, guint len)
 				html_engine_set_insertion_link (e, NULL, NULL);
 
 			o = html_engine_new_text (e, text, alen);
+			if (attrs) {
+				pango_attr_list_splice (HTML_TEXT (o)->attr_list, attrs, 0, HTML_TEXT (o)->text_len);
+				gtk_html_debug_list_text_attrs (HTML_TEXT (o));
+			}
 			html_text_convert_nbsp (HTML_TEXT (o), TRUE);
 
 			if (alen == 1 && html_is_in_word (html_text_get_char (HTML_TEXT (o), 0))
@@ -1323,7 +1326,13 @@ html_engine_insert_text (HTMLEngine *e, const gchar *text, guint len)
 }
 
 void
-html_engine_paste_text (HTMLEngine *e, const gchar *text, guint len)
+html_engine_insert_text (HTMLEngine *e, const gchar *text, guint len)
+{
+	html_engine_insert_text_with_attributes (e, text, len, NULL);
+}
+
+void
+html_engine_paste_text_with_attributes (HTMLEngine *e, const gchar *text, guint len, PangoAttrList *attrs)
 {
 	gchar *undo_name = g_strdup_printf ("Paste text: '%s'", text);
 	gchar *redo_name = g_strdup_printf ("Unpaste text: '%s'", text);
@@ -1332,8 +1341,14 @@ html_engine_paste_text (HTMLEngine *e, const gchar *text, guint len)
 	g_free (undo_name);
 	g_free (redo_name);
 	html_engine_delete (e);
-	html_engine_insert_text (e, text, len);
+	html_engine_insert_text_with_attributes (e, text, len, attrs);
 	html_undo_level_end (e->undo);
+}
+
+void
+html_engine_paste_text (HTMLEngine *e, const gchar *text, guint len)
+{
+	html_engine_paste_text_with_attributes (e, text, len, NULL);
 }
 
 void

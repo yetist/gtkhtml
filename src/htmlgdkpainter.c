@@ -75,13 +75,17 @@ HTMLTextPangoInfo *
 html_gdk_painter_text_itemize_and_prepare_glyphs (HTMLGdkPainter *painter, PangoFontDescription *desc, const gchar *text, gint bytes, GList **glyphs)
 {
 	PangoAttrList *attrs;
+	PangoAttribute *attr;
 	GList *items = NULL;
 	HTMLTextPangoInfo *pi = NULL;
 
 	/* printf ("itemize + glyphs\n"); */
 
-	pango_context_set_font_description (painter->pc, desc);
 	attrs = pango_attr_list_new ();
+	attr = pango_attr_font_desc_new (desc);
+	attr->start_index = 0;
+	attr->end_index = bytes;
+	pango_attr_list_insert (attrs, attr);
 	items = pango_itemize (painter->pc, text, 0, bytes, attrs, NULL);
 	pango_attr_list_unref (attrs);
 
@@ -217,7 +221,7 @@ alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, Gt
 		if (desc)
 			pango_font_description_free (desc);
 
-		desc = pango_font_description_copy (((HTMLGdkPainter *)painter)->style->font_desc);
+		desc = pango_font_description_copy (painter->widget->style->font_desc);
 	}
 
 	pango_font_description_set_size (desc, size * PANGO_SCALE);
@@ -982,11 +986,88 @@ draw_embedded (HTMLPainter * p, HTMLEmbedded *o, gint x, gint y)
 	}
 }
 
+static GdkGC *
+item_gc (PangoItem *item, GdkDrawable *drawable, GdkGC *orig_gc, gboolean *underline, gboolean *strikethrough, gboolean *bgcolor, GdkGC **bg_gc)
+{
+	GdkGC *new_gc = NULL;
+	GSList *tmp_list = item->analysis.extra_attrs;
+
+	*bgcolor = *underline = *strikethrough = FALSE;
+
+	while (tmp_list) {
+		PangoAttribute *attr = tmp_list->data;
+
+		switch (attr->klass->type) {
+		case PANGO_ATTR_FOREGROUND:
+		case PANGO_ATTR_BACKGROUND: {
+			PangoColor pc;
+			GdkColor color;
+      
+			pc = ((PangoAttrColor *) attr)->color;
+			color.red = pc.red;
+			color.green = pc.green;
+			color.blue = pc.blue;
+
+			gdk_rgb_find_color (gdk_drawable_get_colormap (drawable), &color);
+			if (attr->klass->type == PANGO_ATTR_FOREGROUND) {
+				if (!new_gc) {
+					new_gc = gdk_gc_new (drawable);
+					gdk_gc_copy (new_gc, orig_gc);
+				}
+				gdk_gc_set_foreground (new_gc, &color);
+			} else {
+				if (*bg_gc)
+					gdk_gc_unref (*bg_gc);
+				*bg_gc = gdk_gc_new (drawable);
+				gdk_gc_copy (*bg_gc, orig_gc);
+				gdk_gc_set_foreground (*bg_gc, &color);
+				*bgcolor = TRUE;
+			}
+		}
+		break;
+		case PANGO_ATTR_UNDERLINE:
+			*underline = TRUE;
+			break;
+		case PANGO_ATTR_STRIKETHROUGH:
+			*strikethrough = TRUE;
+			break;
+		}
+		tmp_list = tmp_list->next;
+	}
+
+	if (!new_gc) {
+		new_gc = orig_gc;
+		gdk_gc_ref (orig_gc);
+	}
+
+	return new_gc;
+	}
+
+static gint
+draw_lines (PangoGlyphString *str, gint x, gint y, GdkDrawable *drawable, GdkGC *gc, HTMLTextPangoInfo *pi, gint ii, gboolean underline, gboolean strikethrough)
+{
+	PangoRectangle log_rect;
+	gint width, dsc, asc;
+
+	pango_glyph_string_extents (str, pi->entries [ii].item->analysis.font, NULL, &log_rect);
+
+	width = PANGO_PIXELS (log_rect.width);
+	dsc = PANGO_PIXELS (PANGO_DESCENT (log_rect));
+	asc = PANGO_PIXELS (PANGO_ASCENT (log_rect));
+
+	if (underline)
+		gdk_draw_line (drawable, gc, x, y + dsc - 2, x + width, y + dsc - 2);
+
+	if (strikethrough)
+		gdk_draw_line (drawable, gc, x, y - asc + (asc + dsc)/2, x + width, y - asc + (asc + dsc)/2);
+
+	return width;
+}
+
 static gint
 draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, HTMLTextPangoInfo *pi, GList *glyphs, gint start_byte_offset)
 {
 	HTMLGdkPainter *gdk_painter;
-	PangoFontDescription *desc;
 	PangoGlyphString *str;
 	gboolean temp_pi = FALSE;
 	gint blen, width = 0, ii;
@@ -996,14 +1077,14 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, HT
 		len = g_utf8_strlen (text, -1);
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
-	desc = html_painter_get_font (painter, painter->font_face, painter->font_style);
 
 	x -= gdk_painter->x1;
 	y -= gdk_painter->y1;
 
 	blen = g_utf8_offset_to_pointer (text, len) - text;
 	if (!pi) {
-		pi = html_gdk_painter_text_itemize_and_prepare_glyphs (gdk_painter, desc, text, blen, &glyphs);
+		pi = html_gdk_painter_text_itemize_and_prepare_glyphs (gdk_painter, html_painter_get_font (painter, painter->font_face, painter->font_style),
+								       text, blen, &glyphs);
 		start_byte_offset = 0;
 		temp_pi = TRUE;
 	}
@@ -1013,44 +1094,36 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, HT
 
 		c_text = text;
 		for (gl = glyphs; gl && char_offset < len; gl = gl->next) {
+			GdkGC *gc, *bg_gc;
+			gboolean underline, strikethrough, bgcolor;
+			gint cw = 0;
+
 			str = (PangoGlyphString *) gl->data;
 			gl = gl->next;
 			ii = GPOINTER_TO_INT (gl->data);
-			gdk_draw_glyphs (gdk_painter->pixmap, gdk_painter->gc, pi->entries [ii].item->analysis.font, x + width, y, str);
-			for (i=0; i < str->num_glyphs; i ++)
-				width += PANGO_PIXELS (str->glyphs [i].geometry.width);
+			bg_gc = NULL;
+			gc = item_gc (pi->entries [ii].item, gdk_painter->pixmap, painter->widget->style->text_gc [painter->widget->state],
+				      &underline, &strikethrough, &bgcolor, &bg_gc);
+			if (bgcolor) {
+				PangoRectangle log_rect;
+
+				pango_glyph_string_extents (str, pi->entries [ii].item->analysis.font, NULL, &log_rect);
+				gdk_draw_rectangle (gdk_painter->pixmap, bg_gc, TRUE, x + width, y - PANGO_PIXELS (PANGO_ASCENT (log_rect)),
+						    PANGO_PIXELS (log_rect.width), PANGO_PIXELS (log_rect.height));
+				gdk_gc_unref (bg_gc);
+			}
+			gdk_draw_glyphs (gdk_painter->pixmap, gc,
+					 pi->entries [ii].item->analysis.font, x + width, y, str);
+			if (strikethrough || underline)
+				cw = draw_lines (str, x + width, y, gdk_painter->pixmap, gc, pi, ii, underline, strikethrough);
+			else
+				for (i=0; i < str->num_glyphs; i ++)
+					cw += PANGO_PIXELS (str->glyphs [i].geometry.width);
+			gdk_gc_unref (gc);
+			width += cw;
 			c_text = g_utf8_offset_to_pointer (c_text, str->num_glyphs);
 			char_offset += str->num_glyphs;
 		}
-	}
-
-	if (pi && pi->n && glyphs && painter->font_style & (GTK_HTML_FONT_STYLE_UNDERLINE | GTK_HTML_FONT_STYLE_STRIKEOUT)) {
-		GList *gl;
-		PangoRectangle log_rect;
-		gint dsc, asc;
-
-		c_text = text;
-		for (gl = glyphs; gl; gl = gl->next) {
-			str = (PangoGlyphString *) gl->data;
-			gl = gl->next;
-			ii = GPOINTER_TO_INT (gl->data);
-			pango_glyph_string_extents (str, pi->entries [ii].item->analysis.font, NULL, &log_rect);
-			c_text = g_utf8_offset_to_pointer (c_text, str->num_glyphs);
-		}
-
-		width = PANGO_PIXELS (log_rect.width);
-		dsc = PANGO_PIXELS (PANGO_DESCENT (log_rect));
-		asc = PANGO_PIXELS (PANGO_ASCENT (log_rect));
-
-		if (painter->font_style & GTK_HTML_FONT_STYLE_UNDERLINE)
-			gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, 
-				       x, y + dsc - 2, 
-				       x + width, y + dsc - 2);
-
-		if (painter->font_style & GTK_HTML_FONT_STYLE_STRIKEOUT)
-			gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, 
-				       x, y - asc + (asc + dsc)/2, 
-				       x + width, y - asc + (asc + dsc)/2);
 	}
 
 	if (temp_pi) {
@@ -1151,7 +1224,6 @@ html_gdk_painter_init (GObject *object)
 	gdk_painter = HTML_GDK_PAINTER (object);
 
 	gdk_painter->window = NULL;
-	gdk_painter->style = NULL;
 
 	gdk_painter->alpha = TRUE;
 	gdk_painter->gc = NULL;
@@ -1240,7 +1312,7 @@ html_gdk_painter_new (GtkWidget *widget, gboolean double_buffer)
 	new = g_object_new (HTML_TYPE_GDK_PAINTER, NULL);
 
 	new->double_buffer = double_buffer;
-	new->style = widget->style;
+	html_painter_set_widget (HTML_PAINTER (new), widget);
 	new->pc = gtk_widget_get_pango_context (widget);
 	g_object_ref (new->pc);
 

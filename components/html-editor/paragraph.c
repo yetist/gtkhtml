@@ -58,6 +58,7 @@ fill_sample (GtkHTMLEditParagraphProperties *d)
 	body  = g_strconcat (bg,
 			     style,
 			     align,
+			     /* string marked for translations is sample text. you may want to translate it to common sample text in your language */
 			     _("The quick brown fox jumps over the lazy dog.</div>"),
 			     NULL);
 

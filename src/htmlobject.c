@@ -270,13 +270,13 @@ reset (HTMLObject *o)
 }
 
 static const gchar *
-get_url (HTMLObject *o)
+get_url (HTMLObject *o, gint offset)
 {
 	return NULL;
 }
 
 static const gchar *
-get_target (HTMLObject *o)
+get_target (HTMLObject *o, gint offset)
 {
 	return NULL;
 }
@@ -954,24 +954,24 @@ html_object_get_uris (HTMLObject *o, char **link, char **target, char **src)
 #endif 
 
 const gchar *
-html_object_get_url (HTMLObject *o)
+html_object_get_url (HTMLObject *o, gint offset)
 {
-	return (* HO_CLASS (o)->get_url) (o);
+	return (* HO_CLASS (o)->get_url) (o, offset);
 }
 
 const gchar *
-html_object_get_target (HTMLObject *o)
+html_object_get_target (HTMLObject *o, gint offset)
 {
-	return (* HO_CLASS (o)->get_target) (o);
+	return (* HO_CLASS (o)->get_target) (o, offset);
 }
 
 gchar *
-html_object_get_complete_url (HTMLObject *o)
+html_object_get_complete_url (HTMLObject *o, gint offset)
 {
 	const gchar *url, *target;
 
-	url = html_object_get_url (o);
-	target = html_object_get_target (o);
+	url = html_object_get_url (o, offset);
+	target = html_object_get_target (o, offset);
 	return url || target ? g_strconcat (url ? url : "#", url ? (target && *target ? "#" : NULL) : target,
 					      url ? target : NULL, NULL) : NULL;
 }

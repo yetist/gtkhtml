@@ -252,6 +252,14 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 					style = html_style_add_background_color (style, hc);
 				        html_color_unref (hc);
 				}
+			} else if (!strncasecmp ("background-color: ", text, 18)) {
+				GdkColor color;
+
+				if (parse_color (text + 18, &color)) {
+					HTMLColor *hc = html_color_new_from_gdk_color (&color);
+					style = html_style_add_background_color (style, hc);
+				        html_color_unref (hc);
+				}
 			} else if (!strncasecmp ("background-image: ", text, 18)) {
 				style = html_style_add_background_image (style, text + 18);
 			} else if (!strncasecmp ("text-decoration: none", text, 21)) {

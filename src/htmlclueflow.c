@@ -40,7 +40,6 @@
 #include "htmlentity.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-save.h"
-#include "htmllinktext.h"
 #include "htmlpainter.h"
 #include "htmlplainpainter.h"
 #include "htmlsearch.h"

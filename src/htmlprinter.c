@@ -830,13 +830,14 @@ html_printer_get_type (void)
 }
 
 HTMLPainter *
-html_printer_new (GnomePrintContext *context, GnomePrintJob *master)
+html_printer_new (GtkWidget *widget, GnomePrintContext *context, GnomePrintJob *master)
 {
 	HTMLPrinter *new;
 
 	new = g_object_new (HTML_TYPE_PRINTER, NULL);
 
 	g_object_ref (context);
+	html_painter_set_widget (HTML_PAINTER (new), widget);
 	new->context = context;
 	new->master = master;
 

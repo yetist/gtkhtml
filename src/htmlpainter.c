@@ -58,6 +58,11 @@ finalize (GObject *object)
 	/* FIXME ownership of the color set?  */
 
 	(* G_OBJECT_CLASS (parent_class)->finalize) (object);
+
+	if (painter->widget) {
+		g_object_unref (painter->widget);
+		painter->widget = NULL;
+	}
 }
 
 
@@ -105,7 +110,6 @@ DEFINE_UNIMPLEMENTED (get_pixel_size)
 DEFINE_UNIMPLEMENTED (get_page_width)
 DEFINE_UNIMPLEMENTED (get_page_height)
 
-
 static void
 html_painter_init (GObject *object, HTMLPainterClass *real_klass)
 {
@@ -117,6 +121,7 @@ html_painter_init (GObject *object, HTMLPainterClass *real_klass)
 	html_font_manager_init (&painter->font_manager, painter);
 	painter->font_style = GTK_HTML_FONT_STYLE_DEFAULT;
 	painter->font_face = NULL;
+	painter->widget = NULL;
 }
 
 static void
@@ -189,13 +194,6 @@ html_painter_get_type (void)
 	return html_painter_type;
 }
 
-HTMLPainter *
-html_painter_new (void)
-{
-	return g_object_new (HTML_TYPE_PAINTER, NULL);
-}
-
-
 /* Functions to begin/end a painting process.  */
 
 void
@@ -647,4 +645,13 @@ void
 html_painter_set_focus (HTMLPainter *p, gboolean focus)
 {
 	p->focus = focus;
+}
+
+void
+html_painter_set_widget (HTMLPainter *p, GtkWidget *widget)
+{
+	if (p->widget)
+		g_object_unref (p->widget);
+	p->widget = widget;
+	g_object_ref (widget);
 }

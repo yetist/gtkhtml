@@ -665,7 +665,7 @@ save_plain (HTMLObject *self,
 }
 
 static const gchar *
-get_url (HTMLObject *o)
+get_url (HTMLObject *o, gint offset)
 {
 	HTMLImage *image;
 
@@ -674,7 +674,7 @@ get_url (HTMLObject *o)
 }
 
 static const gchar *
-get_target (HTMLObject *o)
+get_target (HTMLObject *o, gint offset)
 {
 	HTMLImage *image;
 

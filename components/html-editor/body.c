@@ -159,6 +159,7 @@ fill_sample (GtkHTMLEditBodyProperties *d)
 				    bg_image, lm);
 
 	body  = g_strconcat (body_tag,
+			     /* string marked for translations is sample text. you may want to translate it to common sample text in your language */
 			     _("The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a href=\"mailto:dog\">dog</a>."),
 			     NULL);
 

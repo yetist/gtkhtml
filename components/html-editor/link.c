@@ -25,7 +25,7 @@
 #include <string.h>
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
-#include "htmllinktext.h"
+#include "htmltext.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-fontstyle.h"
 #include "htmlengine-edit-cut-and-paste.h"
@@ -41,7 +41,8 @@ struct _GtkHTMLEditLinkProperties {
 	GtkWidget *entry_text;
 	GtkWidget *entry_url;
 
-	HTMLLinkText *link;
+	HTMLText *text;
+	gint offset;
 
 	gboolean url_changed;
 };
@@ -66,15 +67,14 @@ test_clicked (GtkWidget *w, GtkHTMLEditLinkProperties *data)
 static void
 set_ui (GtkHTMLEditLinkProperties *data)
 {
-	gchar *url;
+	gchar *url, *link_text;
 
-	gtk_entry_set_text (GTK_ENTRY (data->entry_text), HTML_TEXT (data->link)->text);
+	link_text = html_text_get_link_text (data->text, data->offset);
+	gtk_entry_set_text (GTK_ENTRY (data->entry_text), link_text);
+	g_free (link_text);
 
-	url = data->link->url && *data->link->url
-		? g_strconcat (data->link->url, data->link->target && *data->link->target ? "#" : NULL,
-			       data->link->target, NULL)
-		: g_strdup ("");
-	gtk_entry_set_text (GTK_ENTRY (data->entry_url), url);
+	url = html_object_get_complete_url (HTML_OBJECT (data->text), data->offset);
+	gtk_entry_set_text (GTK_ENTRY (data->entry_url), url ? url : "");
 	g_free (url);
 }
 
@@ -181,7 +181,8 @@ link_properties (GtkHTMLControlData *cd, gpointer *set_data)
 
 	*set_data = data;
 	data->cd = cd;
-	data->link = HTML_LINK_TEXT (cd->html->engine->cursor->object);
+	data->text = HTML_TEXT (cd->html->engine->cursor->object);
+	data->offset = cd->html->engine->cursor->offset;
 
 	return link_widget (data, FALSE);
 }
@@ -201,8 +202,8 @@ link_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 
 		position = e->cursor->position;
 
-		if (e->cursor->object != HTML_OBJECT (data->link))
-			if (!html_cursor_jump_to (e->cursor, e, HTML_OBJECT (data->link), 1)) {
+		if (e->cursor->object != HTML_OBJECT (data->text))
+			if (!html_cursor_jump_to (e->cursor, e, HTML_OBJECT (data->text), data->offset)) {
 				GtkWidget *dialog;
 				printf ("d: %p\n", data->cd->properties_dialog);
 				dialog = gtk_message_dialog_new (GTK_WINDOW (data->cd->properties_dialog->dialog),
@@ -219,7 +220,7 @@ link_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 		target = strchr (url, '#');
 
 		url_copy = target ? g_strndup (url, target - url) : g_strdup (url);
-		html_link_text_set_url (data->link, url_copy, target);
+		html_link_set_url_and_target (html_text_get_link_at_offset (data->text, data->offset), url_copy, target);
 		html_engine_update_insertion_url_and_target (e);
 		g_free (url_copy);
 		html_cursor_jump_to_position (e->cursor, e, position);
@@ -240,17 +241,17 @@ link_insert_cb (GtkHTMLControlData *cd, gpointer get_data)
 	url  = gtk_entry_get_text (GTK_ENTRY (data->entry_url));
 	text = gtk_entry_get_text (GTK_ENTRY (data->entry_text));
 	if (url && text && *url && *text) {
-		HTMLObject *new_link;
+		HTMLObject *new_text;
 		gchar *url_copy;
 
 		target = strchr (url, '#');
 
 		url_copy = target ? g_strndup (url, target - url) : g_strdup (url);
-		new_link = html_link_text_new (text, GTK_HTML_FONT_STYLE_DEFAULT,
-					       html_colorset_get_color (e->settings->color_set, HTMLLinkColor),
-					       url_copy, target);
+		new_text = html_text_new (text, GTK_HTML_FONT_STYLE_DEFAULT,
+					  html_colorset_get_color (e->settings->color_set, HTMLLinkColor));
+		html_text_add_link (HTML_TEXT (new_text), url_copy, target, 0, HTML_TEXT (new_text)->text_len);
 
-		html_engine_paste_object (e, new_link, g_utf8_strlen (text, -1));
+		html_engine_paste_object (e, new_text, g_utf8_strlen (text, -1));
 
 		g_free (url_copy);
 	}

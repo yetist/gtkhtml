@@ -242,9 +242,13 @@ dump_object_simple (HTMLObject *obj,
 		g_print ("\t");
 
 	if (html_object_is_text (obj)) {
+		HTMLText *text = HTML_TEXT (obj);
 		g_print ("%s `%s'\n",
 			 html_type_name (HTML_OBJECT_TYPE (obj)),
-			 HTML_TEXT (obj)->text);
+			 text->text);
+		g_print ("len %d bytes %d\n", text->text_len, text->text_bytes);
+		gtk_html_debug_list_links (text);
+		gtk_html_debug_list_text_attrs (text);
 	} else if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE) {
 		HTMLTextSlave *slave = HTML_TEXT_SLAVE (obj);
 		gchar *text;
@@ -318,4 +322,46 @@ gtk_html_debug_dump_list_simple (GList *list,
 
 		dump_object_simple (obj, level);
 	}
+}
+
+#define D_ATTR_TYPE(x, s) if ((attr = pango_attr_iterator_get (iter, PANGO_ATTR_ ## x))) g_print ("%3d-%3d: %s\n", attr->start_index, attr->end_index, s);
+
+void
+gtk_html_debug_list_text_attrs (HTMLText *text)
+{
+	PangoAttrIterator *iter = pango_attr_list_get_iterator (text->attr_list);
+	PangoAttribute *attr;
+	
+	do {
+		D_ATTR_TYPE (INVALID, "Invalid");
+		D_ATTR_TYPE (LANGUAGE, "Language");
+		D_ATTR_TYPE (FAMILY, "Family");
+		D_ATTR_TYPE (STYLE, "Style");
+		D_ATTR_TYPE (WEIGHT, "Weight");
+		D_ATTR_TYPE (VARIANT, "Variant");
+		D_ATTR_TYPE (STRETCH, "Stretch");
+		D_ATTR_TYPE (SIZE, "Size");
+		D_ATTR_TYPE (FONT_DESC, "Font Desc");
+		D_ATTR_TYPE (FOREGROUND, "Foreground");
+		D_ATTR_TYPE (BACKGROUND, "Background");
+		D_ATTR_TYPE (UNDERLINE, "Underline");
+		D_ATTR_TYPE (STRIKETHROUGH, "Strikethrough");
+		D_ATTR_TYPE (RISE, "Rise");
+		D_ATTR_TYPE (SHAPE, "Shape");
+		D_ATTR_TYPE (SCALE, "Scale");
+		g_print ("------------\n");
+	} while (pango_attr_iterator_next (iter));
+}
+
+void
+gtk_html_debug_list_links (HTMLText *text)
+{
+	GSList *l;
+
+	for (l = text->links; l; l = l->next)
+		if (l->data) {
+			Link *link = (Link *) l->data;
+
+			g_print ("%d-%d: %s#%s\n", link->start_offset, link->end_offset, link->url, link->target);
+		}
 }

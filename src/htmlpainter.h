@@ -27,6 +27,7 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gdk/gdktypes.h>
 #include <glib-object.h>
+#include <gtk/gtkwidget.h>
 
 #include "gtkhtml-enums.h"
 #include "htmltypes.h"
@@ -43,6 +44,7 @@
 struct _HTMLPainter {
 	GObject base;
 
+	GtkWidget          *widget;
 	HTMLFontManager     font_manager;
 	HTMLColorSet       *color_set;
 	HTMLFontFace       *font_face;
@@ -102,7 +104,6 @@ struct _HTMLPainterClass {
 
 /* Creation.  */
 GType             html_painter_get_type                                (void);
-HTMLPainter      *html_painter_new                                     (void);
 
 /* Functions to drive the painting process.  */
 void              html_painter_begin                                   (HTMLPainter       *painter,

@@ -76,7 +76,6 @@
 #include "htmlcluev.h"
 #include "htmlcluealigned.h"
 #include "htmlimage.h"
-#include "htmllinktext.h"
 #include "htmllist.h"
 #include "htmltable.h"
 #include "htmltablecell.h"
@@ -448,6 +447,24 @@ current_color (HTMLEngine *e) {
 	}
 
 	return html_colorset_get_color (e->settings->color_set, HTMLTextColor);
+}
+
+static GdkColor *
+current_bg_color (HTMLEngine *e) {
+	HTMLElement *span;
+	GList *item;
+
+	for (item = e->span_stack->list; item; item = item->next) {
+		span = item->data;
+		
+		if (ID_EQ (span->id,ID_TH) || ID_EQ (span->id, ID_TD))
+			break;
+
+		if (span->style && span->style->bg_color)
+			return &span->style->bg_color->color;
+	}
+
+	return NULL;
 }
 
 /* 
@@ -831,30 +848,31 @@ append_element (HTMLEngine *e,
 		html_clue_append (HTML_CLUE (e->flow), obj);
 }
 
-
-static gboolean
-check_prev (const HTMLObject *p, HTMLType type, GtkHTMLFontStyle font_style, HTMLColor *color, gchar *face, gchar *url)
+static void
+apply_attributes (HTMLText *text, HTMLEngine *e, GtkHTMLFontStyle style, HTMLColor *color, GdkColor *bg_color, gint last_pos, gboolean link)
 {
-	if (p == NULL)
-		return FALSE;
+	PangoAttribute *attr;
 
-	if (HTML_OBJECT_TYPE (p) != type)
-		return FALSE;
+	if (link) {
+		style |= GTK_HTML_FONT_STYLE_UNDERLINE;
+		if (!color)
+			color = html_colorset_get_color (e->settings->color_set, HTMLTextColor);
+	}
 
-	if (HTML_TEXT (p)->font_style != font_style)
-		return FALSE;
+	html_text_set_style_in_range (text, style, e, last_pos, text->text_bytes);
 
-	if (! html_color_equal (HTML_TEXT (p)->color, color))
-		return FALSE;
+	/* color */
+	if (link || color != html_colorset_get_color (e->settings->color_set, HTMLTextColor))
+		html_text_set_color_in_range (text, color, last_pos, text->text_bytes);
 
-	if ((face && !HTML_TEXT (p)->face) || (!face && HTML_TEXT (p)->face)
-	    || (face && HTML_TEXT (p)->face && strcasecmp (face, HTML_TEXT (p)->face)))
-		return FALSE;
+	if (bg_color) {
+		attr = pango_attr_background_new (bg_color->red, bg_color->green, bg_color->blue);
+		attr->start_index = last_pos;
+		attr->end_index = text->text_bytes;
+		pango_attr_list_change (text->attr_list, attr);
+	}
 
-	if (url && HTML_IS_LINK_TEXT (p))
-		return (strcasecmp (HTML_LINK_TEXT (p)->url, url) == 0);
-
-	return TRUE;
+	/* face */
 }
 
 static void
@@ -864,10 +882,11 @@ insert_text (HTMLEngine *e,
 {
 	GtkHTMLFontStyle font_style;
 	HTMLObject *prev;
-	HTMLType type;
 	HTMLColor *color;
 	gchar *face;
 	gboolean create_link;
+	gint last_pos = 0;
+	gint last_bytes = 0;
 
 	if (text [0] == ' ' && text [1] == 0) {
 		if (e->eat_space)
@@ -899,23 +918,20 @@ insert_text (HTMLEngine *e,
 	else
 		prev = HTML_CLUE (e->flow)->tail;
 
-	if (e->url != NULL || e->target != NULL)
-		type = HTML_TYPE_LINKTEXT;
-	else
-		type = HTML_TYPE_TEXT;
-
-	if (! check_prev (prev, type, font_style, color, face, e->url)) {
-		HTMLObject *obj;
-
-		if (create_link)
-			obj = html_link_text_new (text, font_style, color, e->url, e->target);
-		else
-			obj = text_new (e, text, font_style, color);
-		html_text_set_font_face (HTML_TEXT (obj), current_font_face (e));
-
-		append_element (e, clue, obj);
-	} else
+	if (!prev || !HTML_IS_TEXT (prev)) {
+		prev = text_new (e, text, font_style, color);
+		append_element (e, clue, prev);
+	} else {
+		last_pos = HTML_TEXT (prev)->text_len;
+		last_bytes = HTML_TEXT (prev)->text_bytes;
 		html_text_append (HTML_TEXT (prev), text, -1);
+	}
+
+	if (prev && HTML_IS_TEXT (prev)) {
+		apply_attributes (HTML_TEXT (prev), e, font_style, color, current_bg_color (e), last_bytes, create_link);
+		if (create_link)
+			html_text_add_link (HTML_TEXT (prev), e->url, e->target, last_pos, HTML_TEXT (prev)->text_len);
+	}
 }
 
 
@@ -3324,7 +3340,7 @@ element_parse_cell (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	cell->no_wrap = no_wrap;
 	cell->heading = heading;
 
-	html_object_set_bg_color (HTML_OBJECT (cell), (GdkColor *)(element->style->bg_color ? element->style->bg_color : current_row_bg_color (e)));
+	html_object_set_bg_color (HTML_OBJECT (cell), (GdkColor *)(element->style->bg_color ? &element->style->bg_color->color : current_row_bg_color (e)));
 
 	image_url = element->style->bg_image ? element->style->bg_image : current_row_bg_image (e);	
 	if (image_url) {
@@ -4377,7 +4393,7 @@ html_engine_begin (HTMLEngine *e, char *content_type)
 	html_engine_stop_parser (e);
 	e->writing = TRUE;
 	e->begin = TRUE;
-	html_engine_set_focus_object (e, NULL);
+	html_engine_set_focus_object (e, NULL, 0);
 
 	html_engine_id_table_clear (e);
 	html_engine_class_data_clear (e);
@@ -5057,14 +5073,15 @@ const gchar *
 html_engine_get_link_at (HTMLEngine *e, gint x, gint y)
 {
 	HTMLObject *obj;
+	gint offset;
 
 	if (e->clue == NULL)
 		return NULL;
 
-	obj = html_engine_get_object_at (e, x, y, NULL, FALSE);
+	obj = html_engine_get_object_at (e, x, y, &offset, FALSE);
 
 	if (obj != NULL)
-		return html_object_get_url (obj);
+		return html_object_get_url (obj, offset);
 
 	return NULL;
 }
@@ -5831,11 +5848,11 @@ html_engine_replace_spell_word_with (HTMLEngine *e, const gchar *word)
 	case HTML_TYPE_TEXT:
 		replace = text_new (e, word, orig->font_style, orig->color);
 		break;
-	case HTML_TYPE_LINKTEXT:
+		/* FIXME-link case HTML_TYPE_LINKTEXT:
 		replace = html_link_text_new (word, orig->font_style, orig->color,
 					      HTML_LINK_TEXT (orig)->url,
 					      HTML_LINK_TEXT (orig)->target);
-		break;
+					      break; */
 	default:
 		g_assert_not_reached ();
 	}
@@ -6105,25 +6122,51 @@ html_engine_get_language (HTMLEngine *e)
 }
 
 static void
-draw_link_text (HTMLLinkText *lt, HTMLEngine *e)
+draw_link_text (HTMLText *text, HTMLEngine *e, gint offset)
 {
-	HTMLObject *cur = HTML_OBJECT (lt)->next;
+	HTMLTextSlave *start, *end;
 
-	/* printf ("draw link text\n"); */
-	while (cur && HTML_IS_TEXT_SLAVE (cur)) {
-		/* printf ("slave\n"); */
-		html_engine_queue_draw (e, cur);
-		cur = cur->next;
+	if (html_text_get_link_slaves_at_offset (text, offset, &start, &end)) {
+		while (start) {
+			html_engine_queue_draw (e, HTML_OBJECT (start));
+			if (start == end)
+				break;
+			start = HTML_TEXT_SLAVE (HTML_OBJECT (start)->next);
+		}
 	}
 }
 
 HTMLObject *
-html_engine_get_focus_object (HTMLEngine *e)
+html_engine_get_focus_object (HTMLEngine *e, gint *offset)
 {
 	HTMLObject *o = e->focus_object;
 
 	while (html_object_is_frame (o)) {
 		o = html_object_get_engine (o, e)->focus_object;
+	}
+
+	if (o && offset)
+		*offset = html_object_get_engine (o, e)->focus_object_offset;
+
+	return o;
+}
+
+static HTMLObject *
+move_focus_object (HTMLObject *o, gint *offset, HTMLEngine *e, GtkDirectionType dir)
+{
+	if (HTML_IS_TEXT (o) && ((dir == GTK_DIR_TAB_FORWARD && html_text_next_link_offset (HTML_TEXT (o), offset))
+				 || (dir == GTK_DIR_TAB_BACKWARD && html_text_prev_link_offset (HTML_TEXT (o), offset))))
+		return o;
+
+	o = dir == GTK_DIR_TAB_FORWARD
+		? html_object_next_cursor_object (o, e, offset)
+		: html_object_prev_cursor_object (o, e, offset);
+
+	if (HTML_IS_TEXT (o)) {
+		if (dir == GTK_DIR_TAB_FORWARD)
+			html_text_first_link_offset (HTML_TEXT (o), offset);
+		else
+			html_text_last_link_offset (HTML_TEXT (o), offset);
 	}
 
 	return o;
@@ -6137,26 +6180,24 @@ html_engine_focus (HTMLEngine *e, GtkDirectionType dir)
 		HTMLObject *focus_object;
 		gint offset;
 
-		focus_object = html_engine_get_focus_object (e);
+		focus_object = html_engine_get_focus_object (e, &offset);
 		if (focus_object && html_object_is_embedded (focus_object)
 		    && HTML_EMBEDDED (focus_object)->widget
 		    && gtk_widget_child_focus (HTML_EMBEDDED (focus_object)->widget, dir))
 			return TRUE;
 
-		if (focus_object) {
-			cur = dir == GTK_DIR_TAB_FORWARD
-				? html_object_next_cursor_object (focus_object, e, &offset)
-				: html_object_prev_cursor_object (focus_object, e, &offset);
-		} else
+		if (focus_object)
+			cur = move_focus_object (focus_object, &offset, e, dir);
+		else
 			cur = dir == GTK_DIR_TAB_FORWARD
 				? html_object_get_head_leaf (e->clue)
 				: html_object_get_tail_leaf (e->clue);
 
 		while (cur) {
 			/* printf ("try child %p\n", cur); */
-			if (HTML_IS_LINK_TEXT (cur)
+			if ((HTML_IS_TEXT (cur) && html_object_get_complete_url (cur, offset))
 			    || (HTML_IS_IMAGE (cur) && HTML_IMAGE (cur)->url && *HTML_IMAGE (cur)->url)) {
-				html_engine_set_focus_object (e, cur);
+				html_engine_set_focus_object (e, cur, offset);
 
 				return TRUE;
 			} else if (html_object_is_embedded (cur) && !html_object_is_frame (cur)
@@ -6170,27 +6211,25 @@ html_engine_focus (HTMLEngine *e, GtkDirectionType dir)
 				}
 
 				if (gtk_widget_child_focus (HTML_EMBEDDED (cur)->widget, dir)) {
-					html_engine_set_focus_object (e, cur);
+					html_engine_set_focus_object (e, cur, offset);
 					return TRUE;
 				}
 			}
-			cur = dir == GTK_DIR_TAB_FORWARD
-				? html_object_next_cursor_object (cur, e, &offset)
-				: html_object_prev_cursor_object (cur, e, &offset);
+			cur = move_focus_object (cur, &offset, e, dir);
 		}
 		/* printf ("no focus\n"); */
-		html_engine_set_focus_object (e, NULL);
+		html_engine_set_focus_object (e, NULL, 0);
 	}
 
 	return FALSE;
 }
 
 static void
-draw_focus_object (HTMLEngine *e, HTMLObject *o)
+draw_focus_object (HTMLEngine *e, HTMLObject *o, gint offset)
 {
 	e = html_object_engine (o, e);
-	if (HTML_IS_LINK_TEXT (o))
-		draw_link_text (HTML_LINK_TEXT (o), e);
+	if (HTML_IS_TEXT (o) && html_object_get_url (o, offset))
+		draw_link_text (HTML_TEXT (o), e, offset);
 	else if (HTML_IS_IMAGE (o))
 		html_engine_queue_draw (e, o);
 }
@@ -6198,7 +6237,9 @@ draw_focus_object (HTMLEngine *e, HTMLObject *o)
 void
 html_engine_draw_focus_object (HTMLEngine *e)
 {
-	draw_focus_object (e, html_engine_get_focus_object (e));
+	gint offset;
+
+	draw_focus_object (e, html_engine_get_focus_object (e, &offset), offset);
 }
 
 static void
@@ -6208,7 +6249,7 @@ reset_focus_object_forall (HTMLObject *o, HTMLEngine *e)
 		/* printf ("reset focus object\n"); */
 		if (!html_object_is_frame (e->focus_object)) {
 			e->focus_object->draw_focused = FALSE;
-			draw_focus_object (e, e->focus_object);
+			draw_focus_object (e, e->focus_object, e->focus_object_offset);
 		}
 		e->focus_object = NULL;
 		html_engine_flush_draw_queue (e);
@@ -6245,7 +6286,7 @@ set_frame_parents_focus_object (HTMLEngine *e)
 }
 
 void
-html_engine_set_focus_object (HTMLEngine *e, HTMLObject *o)
+html_engine_set_focus_object (HTMLEngine *e, HTMLObject *o, gint offset)
 {
 	/* printf ("set focus object to: %p\n", o); */
 
@@ -6254,10 +6295,13 @@ html_engine_set_focus_object (HTMLEngine *e, HTMLObject *o)
 	if (o) {
 		e = html_object_engine (o, e);
 		e->focus_object = o;
+		e->focus_object_offset = offset;
 
 		if (!html_object_is_frame (e->focus_object)) {
 			o->draw_focused = TRUE;
-			draw_focus_object (e, o);
+			if (HTML_IS_TEXT (o))
+				HTML_TEXT (o)->focused_link_offset = offset;
+			draw_focus_object (e, o, offset);
 			html_engine_flush_draw_queue (e);
 		}
 		set_frame_parents_focus_object (e);
@@ -6347,7 +6391,7 @@ html_engine_selection_contains_object_type (HTMLEngine *e, HTMLType obj_type)
 static void
 check_link_in_selection (HTMLObject *o, HTMLEngine *e, gboolean *has_link)
 {
-	if (HTML_IS_LINK_TEXT (o) ||
+	if ((HTML_IS_TEXT (o) && HTML_TEXT (o)->links) ||
 	    (HTML_IS_IMAGE (o) && (HTML_IMAGE (o)->url || HTML_IMAGE (o)->target)))
 		*has_link = TRUE;
 }

@@ -87,8 +87,6 @@ typedef struct _HTMLImageInput HTMLImageInput;
 typedef struct _HTMLImageInputClass HTMLImageInputClass;
 typedef struct _HTMLImagePointer HTMLImagePointer;
 typedef struct _HTMLInterval HTMLInterval;
-typedef struct _HTMLLinkText HTMLLinkText;
-typedef struct _HTMLLinkTextClass HTMLLinkTextClass;
 typedef struct _HTMLList HTMLList;
 typedef struct _HTMLMap HTMLMap;
 typedef struct _HTMLMapClass HTMLMapClass;
@@ -97,6 +95,7 @@ typedef struct _HTMLObjectClass HTMLObjectClass;
 typedef struct _HTMLObjectClearRectangle HTMLObjectClearRectangle;
 typedef struct _HTMLPainter HTMLPainter;
 typedef struct _HTMLPainterClass HTMLPainterClass;
+typedef struct _HTMLPangoAttrFontSize HTMLPangoAttrFontSize;
 typedef struct _HTMLPoint HTMLPoint;
 typedef struct _HTMLPrinter HTMLPrinter;
 typedef struct _HTMLPrinterClass HTMLPrinterClass;
@@ -131,6 +130,7 @@ typedef struct _HTMLUndo HTMLUndo;
 typedef struct _HTMLUndoData HTMLUndoData;
 typedef struct _HTMLUndoAction HTMLUndoAction;
 typedef struct _SpellError SpellError;
+typedef struct _Link Link;
 
 typedef void     (* HTMLObjectForallFunc)       (HTMLObject        *self,
 						 HTMLEngine        *e,

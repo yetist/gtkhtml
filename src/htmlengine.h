@@ -255,6 +255,7 @@ struct _HTMLEngine {
 	gint opened_streams;
 
 	HTMLObject *focus_object;
+	gint focus_object_offset;
 
 	gboolean save_data;
 	gint saved_step_count;
@@ -458,9 +459,11 @@ void html_engine_redraw_selection (HTMLEngine *e);
 
 gboolean    html_engine_focus              (HTMLEngine       *e,
 					    GtkDirectionType  dir);
-HTMLObject *html_engine_get_focus_object   (HTMLEngine       *e);
+HTMLObject *html_engine_get_focus_object   (HTMLEngine       *e,
+					    gint             *offset);
 void        html_engine_set_focus_object   (HTMLEngine       *e,
-					    HTMLObject       *o);
+					    HTMLObject       *o,
+					    gint              offset);
 
 HTMLMap *html_engine_get_map  (HTMLEngine  *e,
 			       const gchar *name);

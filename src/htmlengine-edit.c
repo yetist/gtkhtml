@@ -35,7 +35,6 @@
 #include "htmlclueflow.h"
 #include "htmlcolorset.h"
 #include "htmlcursor.h"
-#include "htmllinktext.h"
 #include "htmlobject.h"
 #include "htmltable.h"
 #include "htmltext.h"
@@ -336,11 +335,7 @@ html_engine_clipboard_clear (HTMLEngine *e)
 HTMLObject *
 html_engine_new_text (HTMLEngine *e, const gchar *text, gint len)
 {
-	if (e->insertion_url && *e->insertion_url) {
-		return html_link_text_new_with_len (text, len, e->insertion_font_style, e->insertion_color,
-						    e->insertion_url, e->insertion_target);
-	} else
-		return html_text_new_with_len (text, len, e->insertion_font_style, e->insertion_color);
+	return html_text_new_with_len (text, len, e->insertion_font_style, e->insertion_color);
 }
 
 HTMLObject *
@@ -356,9 +351,9 @@ html_engine_new_link (HTMLEngine *e, const gchar *text, gint len, gchar *url)
 	} else
 		real_url = url;
 		
-	link = html_link_text_new_with_len (text, len, e->insertion_font_style,
-					    html_colorset_get_color (e->settings->color_set, HTMLLinkColor),
-					    real_url, real_target);
+	link = html_text_new_with_len (text, len, e->insertion_font_style,
+				       html_colorset_get_color (e->settings->color_set, HTMLLinkColor));
+	html_text_add_link (HTML_TEXT (link), real_url, real_target, 0, HTML_TEXT (link)->text_len);
 
 	if (real_target)
 		g_free (real_url);
