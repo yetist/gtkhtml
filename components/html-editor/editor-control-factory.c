@@ -514,7 +514,7 @@ editor_api_create_input_line (GtkHTML *html, gpointer data)
 	gtk_box_pack_end (GTK_BOX (cd->vbox), entry, FALSE, FALSE, 0);
 	gtk_widget_show (entry);
 
-	return entry;
+	return GTK_ENTRY (entry);
 }
 
 static void
