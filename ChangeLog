@@ -1,3 +1,8 @@
+2001-02-07  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* Makefile.am: Added xml-i18n-*.in to EXTRA_DIST.
+	* configure.in: Added AM_PROG_XML_I18N_TOOLS.
+	
 2001-02-01  Radek Doulik  <rodo@ximian.com>
 
 	* README: added section about GtkHTML mailing list

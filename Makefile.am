@@ -29,7 +29,10 @@ EXTRA_DIST =					\
 	gtkhtml.spec                            \
 	COPYING.LIB				\
 	BUGS					\
-	gtkhtmlConf.sh.in
+	gtkhtmlConf.sh.in			\
+	xml-i18n-extract.in			\
+	xml-i18n-update.in			\
+	xml-i18n-merge.in
 
 if BONOBO
 gnorbadir = $(sysconfdir)/CORBA/servers
