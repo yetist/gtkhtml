@@ -60,6 +60,8 @@ html_style_new (void)
 	/* BLOCK */
 	style->text_align = HTML_HALIGN_NONE;
 
+	style->text_valign = HTML_VALIGN_NONE;
+
 	return style;
 }
 
@@ -154,6 +156,17 @@ html_style_add_text_align (HTMLStyle *style, HTMLHAlignType type)
 		style = html_style_new ();
 
 	style->text_align = type;
+
+	return style;
+}
+
+HTMLStyle *
+html_style_add_text_valign (HTMLStyle *style, HTMLVAlignType type)
+{
+	if (!style)
+		style = html_style_new ();
+
+	style->text_valign = type;
 
 	return style;
 }

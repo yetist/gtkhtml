@@ -34,6 +34,9 @@ struct _HTMLStyle {
 
 	/* Block Level */
 	HTMLHAlignType      text_align;
+
+	/* Cell Level */
+	HTMLVAlignType      text_valign;
 	
 	/* bg settings */
 	char     *bg_image;
@@ -47,6 +50,7 @@ HTMLStyle *html_style_set_decoration       (HTMLStyle *style, GtkHTMLFontStyle d
 HTMLStyle *html_style_set_font_size        (HTMLStyle *style, GtkHTMLFontStyle decoration);
 HTMLStyle *html_style_set_size             (HTMLStyle *style, GtkHTMLFontStyle size);
 HTMLStyle *html_style_add_text_align       (HTMLStyle *style, HTMLHAlignType type);
+HTMLStyle *html_style_add_text_valign       (HTMLStyle *style, HTMLVAlignType type);
 HTMLStyle *html_style_add_font_face        (HTMLStyle *style, const HTMLFontFace *face);
 HTMLStyle *html_style_add_color            (HTMLStyle *style, HTMLColor *face);
 HTMLStyle *html_style_add_attribute        (HTMLStyle *style, const char *attr);
