@@ -266,6 +266,7 @@ draw_obj (HTMLDrawQueue *queue,
 	html_painter_draw_line (e->painter, x1, y1, x2 - 1, y2 - 1);
 	html_painter_draw_line (e->painter, x2 - 1, y1, x1, y2 - 1);
 #endif
+
 	/* Done.  */
 
 	html_painter_end (e->painter);

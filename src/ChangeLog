@@ -1,5 +1,12 @@
 2000-02-21  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* gtkhtml.c (gtk_html_allow_selection): New function.
+	(init): Initialize `allow_selection' to TRUE.
+	(button_press_event): Do not grab the pointer if `allow_selection'
+	is FALSE.
+
+	* gtkhtml.h: New member `allow_selection'.
+
 	* htmllinktext.c (html_link_text_new): Get rid of some
 	ultra-verbose debugging messages.
 

@@ -91,6 +91,7 @@ struct _GtkHTML {
 	gboolean load_in_progress : 1;
 
 	gboolean debug : 1;
+	gboolean allow_selection : 1;
 
 	guint hadj_connection;
 	guint vadj_connection;
@@ -129,6 +130,10 @@ GtkWidget *gtk_html_new       (void);
 /* Debugging.  */
 void  gtk_html_enable_debug  (GtkHTML  *html,
 			      gboolean  debug);
+
+/* Behavior.  */
+void  gtk_html_allow_selection  (GtkHTML  *html,
+				 gboolean  allow);
 
 /* Loading.  */
 GtkHTMLStreamHandle  gtk_html_begin  (GtkHTML             *html,

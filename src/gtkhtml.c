@@ -614,13 +614,17 @@ button_press_event (GtkWidget *widget,
 		update_styles (html);
 	}
 
-	gtk_grab_add (widget);
-	gdk_pointer_grab (widget->window, TRUE,
-			  GDK_BUTTON_RELEASE_MASK | GDK_BUTTON_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK,
-			  NULL, NULL, 0);
+	if (html->allow_selection) {
+		gtk_grab_add (widget);
+		gdk_pointer_grab (widget->window, TRUE,
+				  (GDK_BUTTON_RELEASE_MASK
+				   | GDK_BUTTON_MOTION_MASK
+				   | GDK_POINTER_MOTION_HINT_MASK),
+				  NULL, NULL, 0);
 
-	html->selection_x1 = event->x + engine->x_offset;
-	html->selection_y1 = event->y + engine->y_offset;
+		html->selection_x1 = event->x + engine->x_offset;
+		html->selection_y1 = event->y + engine->y_offset;
+	}
 
 	html->button_pressed = TRUE;
 
@@ -825,6 +829,7 @@ init (GtkHTML* html)
 	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (html), GTK_APP_PAINTABLE);
 
 	html->debug = FALSE;
+	html->allow_selection = TRUE;
 
 	html->pointer_url = NULL;
 	html->hand_cursor = gdk_cursor_new (GDK_HAND2);
@@ -911,6 +916,17 @@ gtk_html_enable_debug (GtkHTML *html,
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	html->debug = debug;
+}
+
+
+void
+gtk_html_allow_selection (GtkHTML *html,
+			  gboolean allow)
+{
+	g_return_if_fail (html != NULL);
+	g_return_if_fail (GTK_IS_HTML (html));
+
+	html->allow_selection = allow;
 }
 
 
