@@ -33,6 +33,31 @@ copy (HTMLObject *self,
 	HTML_CHECKBOX (dest)->default_checked = HTML_CHECKBOX (self)->default_checked;
 }
 
+static gchar *
+encode (HTMLEmbedded *e)
+{
+	GString *encoding = g_string_new ("");
+	gchar *ptr;
+
+	if(strlen (e->name) && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (e->widget))) {
+
+		ptr = html_embedded_encode_string (e->name);
+		encoding = g_string_append (encoding, ptr);
+		g_free (ptr);
+
+		encoding = g_string_append_c (encoding, '=');
+
+		ptr = html_embedded_encode_string (e->value);
+		encoding = g_string_append (encoding, ptr);
+		g_free (ptr);
+	}
+
+	ptr = encoding->str;
+	g_string_free(encoding, FALSE);
+
+	return ptr;
+}
+
 
 static void
 reset (HTMLEmbedded *e)
@@ -66,6 +91,7 @@ html_checkbox_class_init (HTMLCheckBoxClass *klass,
 
 	/* HTMLEmbedded methods.  */
 	element_class->reset = reset;
+	element_class->encode = encode;
 
 	parent_class = &html_embedded_class;
 }
@@ -85,9 +111,12 @@ html_checkbox_init (HTMLCheckBox *checkbox,
 	element = HTML_EMBEDDED (checkbox);
 	object = HTML_OBJECT (checkbox);
 
+	if (value == NULL)
+		value = g_strdup ("on");
+
 	html_embedded_init (element, HTML_EMBEDDED_CLASS (klass), parent, name, value);
 
-	element->widget = gtk_toggle_button_new();
+	element->widget = gtk_check_button_new();
 
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(element->widget), checked);
 

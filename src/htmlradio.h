@@ -51,10 +51,12 @@ void        html_radio_init        (HTMLRadio      *radio,
 				    GtkWidget      *parent,
 				    gchar          *name,
 				    gchar          *value,
-				    gboolean        checked);
+				    gboolean        checked,
+				    GSList        **radio_group);
 HTMLObject *html_radio_new         (GtkWidget      *parent,
 				    gchar          *name,
 				    gchar          *value,
-				    gboolean        checked);
+				    gboolean        checked,
+				    GSList        **radio_group);
 
 #endif /* _HTMLRADIO_H_ */

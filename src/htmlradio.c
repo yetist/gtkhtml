@@ -43,6 +43,31 @@ reset (HTMLEmbedded *e)
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(e->widget), HTML_RADIO(e)->default_checked);
 }
 
+static gchar *
+encode (HTMLEmbedded *e)
+{
+	GString *encoding = g_string_new ("");
+	gchar *ptr;
+
+	if(strlen (e->name) && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (e->widget))) {
+
+		ptr = html_embedded_encode_string (e->name);
+		encoding = g_string_append (encoding, ptr);
+		g_free (ptr);
+
+		encoding = g_string_append_c (encoding, '=');
+
+		ptr = html_embedded_encode_string (e->value);
+		encoding = g_string_append (encoding, ptr);
+		g_free (ptr);
+	}
+
+	ptr = encoding->str;
+	g_string_free(encoding, FALSE);
+
+	return ptr;
+}
+
 
 void
 html_radio_type_init (void)
@@ -68,6 +93,7 @@ html_radio_class_init (HTMLRadioClass *klass,
 
 	/* HTMLEmbedded methods.   */
 	element_class->reset = reset;
+	element_class->encode = encode;
 
 	parent_class = &html_embedded_class;
 }
@@ -78,7 +104,8 @@ html_radio_init (HTMLRadio *radio,
 		 GtkWidget *parent, 
 		 gchar *name, 
 		 gchar *value, 
-		 gboolean checked)
+		 gboolean checked,
+		 GSList **radio_group)
 {
 	HTMLEmbedded *element;
 	HTMLObject *object;
@@ -87,11 +114,16 @@ html_radio_init (HTMLRadio *radio,
 	element = HTML_EMBEDDED (radio);
 	object = HTML_OBJECT (radio);
 
+	if (value == NULL)
+		value = g_strdup ("on");
+
 	html_embedded_init (element, HTML_EMBEDDED_CLASS (klass), parent, name, value);
 
-	element->widget = gtk_radio_button_new (NULL);
+	element->widget = gtk_radio_button_new (*radio_group);
 
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(element->widget), checked);
+
+	*radio_group = gtk_radio_button_group (GTK_RADIO_BUTTON (element->widget));
 
 	radio->default_checked = checked;
 
@@ -109,12 +141,13 @@ HTMLObject *
 html_radio_new (GtkWidget *parent, 
 		gchar *name, 
 		gchar *value, 
-		gboolean checked)
+		gboolean checked,
+		GSList **radio_group)
 {
 	HTMLRadio *radio;
 
 	radio = g_new0 (HTMLRadio, 1);
-	html_radio_init (radio, &html_radio_class, parent, name, value, checked);
+	html_radio_init (radio, &html_radio_class, parent, name, value, checked, radio_group);
 
 	return HTML_OBJECT (radio);
 }

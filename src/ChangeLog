@@ -1,3 +1,25 @@
+2000-02-20  Jonas Borgström  <jonas_b@bitsmart.com>
+	
+	* htmlcheckbox.c (encode): New function.
+	(html_checkbox_init): Set value to "on" if it's NULL.
+	Use ftk_check_button instead of gtk_toggle_button.
+	
+	* htmlengine.c (parse_input): Pass &e->form->radio_group to html_radio_new ().
+	
+	* htmlform.c (html_form_new): Initialize form->radio_group to ZERO.
+	
+	* htmlform.h: (GSList *radio_group) new member, it is used by the radio 
+	buttons on the form.
+
+	* htmlradio.c (encode): New function.
+	(html_radio_new, html_radio_init): New argument: GSList **radio_group.
+	(html_checkbox_init): Set value to "on" if it's NULL.
+
+	* htmlradio.h: Changed the arguments for html_radio_new and html_radio_init.
+
+	* tests/test9.html: Added <imput type=radio> Testcase.
+
+
 2000-02-19  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmltext.c (html_text_set_font_style): New function.

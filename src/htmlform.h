@@ -38,6 +38,9 @@ struct _HTMLForm {
 	GList *elements;
 	GList *hidden;
 
+	/* Used by radio buttons */
+	GSList *radio_group;
+
 	HTMLEngine *engine;
 };
 

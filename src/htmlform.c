@@ -36,6 +36,8 @@ html_form_new (HTMLEngine *engine, gchar *_action, gchar *_method) {
 	new->hidden = NULL;
 	new->engine = engine;
 
+	new->radio_group = NULL;
+
 	return new;
 }
 
