@@ -101,7 +101,7 @@ AM_CONDITIONAL(BONOBO, $have_bonobo)
 
 dnl gnome-print checks.
 
-AC_MSG_CHECKING([for gnome-print >= 0.13])
+AC_MSG_CHECKING([for gnome-print >= 0.12])
 if gnome-config --libs print > /dev/null 2>&1; then
 	vers=`gnome-config --modversion print | sed 's/^gnome-print-//'`
 	if [[ "x$vers" = "x" ]] ; then
@@ -111,7 +111,7 @@ if gnome-config --libs print > /dev/null 2>&1; then
 			0.[[0123456789]])
 				gnomeprint_ok=false ;;
 
-			0.1[[012]])
+			0.1[[01]])
 				gnomeprint_ok=false ;;
 
 			*)
