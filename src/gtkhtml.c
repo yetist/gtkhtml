@@ -145,7 +145,6 @@ enum {
 
 static void     gtk_html_get_property  (GObject *object, guint prop_id, GValue *value, GParamSpec *pspec);
 static void     gtk_html_set_property  (GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec);
-
 #endif
 
 static guint signals [LAST_SIGNAL] = { 0 };
@@ -163,6 +162,7 @@ static gboolean command                (GtkHTML *html, GtkHTMLCommandType com_ty
 static gint     mouse_change_pos       (GtkWidget *widget, GdkWindow *window, gint x, gint y, gint state);
 static void     add_bindings           (GtkHTMLClass *klass);
 static gchar *  get_value_nick         (GtkHTMLCommandType com_type);					
+static void	gtk_html_adjust_cursor_position (GtkHTML *html);
 
 
 /* Values for selection information.  FIXME: what about COMPOUND_STRING and
@@ -362,22 +362,40 @@ idle_handler (gpointer data)
 	html = GTK_HTML (data);
 	engine = html->engine;
 
-	if (html->priv->scroll_timeout_id == 0  &&
-	    html->engine->thaw_idle_id == 0  &&
-	    !html_engine_frozen (html->engine))
-		html_engine_make_cursor_visible (engine);
-
 	if (html->engine->thaw_idle_id == 0 && !html_engine_frozen (html->engine))
 		html_engine_flush_draw_queue (engine);
 
-	gtk_adjustment_set_value (GTK_LAYOUT (html)->hadjustment, (gfloat) engine->x_offset);
-	gtk_adjustment_set_value (GTK_LAYOUT (html)->vadjustment, (gfloat) engine->y_offset);
+	gtk_html_adjust_cursor_position (html);
 
-	gtk_html_private_calc_scrollbars (html, NULL, NULL);
 	
  	html->priv->idle_handler_id = 0;
+
+	while (html->iframe_parent) {
+		html = GTK_HTML (html->iframe_parent);
+		gtk_html_adjust_cursor_position (html);
+		
+	}
 	return FALSE;
 }
+
+
+static void
+gtk_html_adjust_cursor_position (GtkHTML *html)
+{
+	HTMLEngine *e;
+	e = html->engine;
+
+	if (html->priv->scroll_timeout_id == 0  &&
+	    html->engine->thaw_idle_id == 0  &&
+	    !html_engine_frozen (html->engine))
+		html_engine_make_cursor_visible (e);
+
+	gtk_adjustment_set_value (GTK_LAYOUT (html)->hadjustment, (gfloat) e->x_offset);
+	gtk_adjustment_set_value (GTK_LAYOUT (html)->vadjustment, (gfloat) e->y_offset);
+	gtk_html_private_calc_scrollbars (html, NULL, NULL);
+
+}
+
 
 static void
 queue_draw (GtkHTML *html)

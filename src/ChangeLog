@@ -1,3 +1,10 @@
+2005-04-04  Yu Mengjie  <meng-jie.yu@sun.com>
+
+	* gtkhtml.c: (idle_handler), (gtk_html_adjust_cursor_position):
+	Check whether we have iframe_parent.
+
+	Fixes #74055
+
 2005-03-29  Radek Doulik  <rodo@novell.com>
 
 	* test-suite.c (test_cursor_around_anchors): added test for cursor
