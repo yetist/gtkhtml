@@ -223,12 +223,12 @@ static void
 picker_clicked (GtkWidget *w, gpointer data)
 {
 	gchar *mono_spaced [] = { "c", "m", NULL };
-	gchar *proportional [] = { "p", NULL };
 	
-	gtk_font_selection_dialog_set_filter (SELECTOR (w),
-					      GTK_FONT_FILTER_BASE, GTK_FONT_ALL,
-					      NULL, NULL, NULL, NULL,
-					      GPOINTER_TO_INT (data) ? proportional : mono_spaced, NULL);
+	if (!GPOINTER_TO_INT (data))
+		gtk_font_selection_dialog_set_filter (SELECTOR (w),
+						      GTK_FONT_FILTER_BASE, GTK_FONT_ALL,
+						      NULL, NULL, NULL, NULL,
+						      mono_spaced, NULL);
 }
 
 static void

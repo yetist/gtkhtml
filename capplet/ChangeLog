@@ -1,3 +1,10 @@
+2001-09-12  Radek Doulik  <rodo@ximian.com>
+
+	* main.c (picker_clicked): set filter only for mono spaced fonts,
+	allow selection of monospaced font for proportional (I realized
+	this with Japanese fonts, where you often want use mono spaced
+	font as your base [proportional] font)
+
 2001-08-28  Radek Doulik  <rodo@ximian.com>
 
 	* gnome-bindings-prop.c (get_keymap): be more carefull about
