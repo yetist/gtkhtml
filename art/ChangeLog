@@ -1,3 +1,8 @@
+2001-08-23  Radek Doulik  <rodo@ximian.com>
+
+	* Makefile.am (icons_DATA): sorted and added properties-16.png
+	from tigert
+
 2001-08-16  Radek Doulik  <rodo@ximian.com>
 
 	* Makefile.am (icons_DATA): cosmetic change

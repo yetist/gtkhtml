@@ -6,6 +6,10 @@ icons_DATA = \
 	24_copy.png			\
 	16_paste.png			\
 	24_paste.png			\
+	bulb.png			\
+	empty_image.png			\
+	flowers.png			\
+	html-viewer.png			\
 	insert-table-16.png		\
 	insert-table-24.png		\
 	insert-image-16.png		\
@@ -16,25 +20,22 @@ icons_DATA = \
 	insert-object-24.png		\
 	insert-rule-16.png		\
 	insert-rule-24.png		\
+	properties-16.png		\
+	redo-16.png			\
+	redo-24.png			\
+	rule-blue-left.png		\
+	rule-blue-center.png		\
+	rule-blue-right.png		\
+	rule-yellow-flowers-left.png	\
+	rule-yellow-flowers-center.png	\
+	rule-yellow-flowers-right.png	\
 	search-16.png			\
 	search-24.png			\
 	search-and-replace-16.png	\
 	search-and-replace-24.png	\
-	html-viewer.png			\
-	bulb.png			\
-	rule-blue-left.png		\
-	rule-blue-center.png		\
-	rule-blue-right.png		\
 	transparent.png			\
-	flowers.png			\
-	rule-yellow-flowers-left.png	\
-	rule-yellow-flowers-center.png	\
-	rule-yellow-flowers-right.png	\
-	empty_image.png			\
 	undo-16.png			\
-	undo-24.png			\
-	redo-16.png			\
-	redo-24.png
+	undo-24.png
 
 EXTRA_DIST = \
 	$(icons_DATA)
