@@ -725,7 +725,6 @@ html_printer_new (GnomePrintContext *print_context)
 
 	gtk_object_ref (GTK_OBJECT (print_context));
 	new->print_context = print_context;
-	gnome_print_gsave (new->print_context);
 
 	return HTML_PAINTER (new);
 }

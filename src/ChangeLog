@@ -1,3 +1,7 @@
+2000-11-14  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlprinter.c (html_printer_new): don't save context here
+
 2000-11-13  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml-properties.c: added new commands
