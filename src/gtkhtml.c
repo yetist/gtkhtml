@@ -124,6 +124,9 @@ enum {
 	SCROLL,
 	CURSOR_MOVE,
 	COMMAND,
+	CURSOR_CHANGED,
+	OBJECT_INSERTED,
+	OBJECT_DELETED,
 	/* now only last signal */
 	LAST_SIGNAL
 };
@@ -2337,9 +2340,10 @@ focus (GtkWidget *w, GtkDirectionType direction)
 
 		if (!GTK_WIDGET_HAS_FOCUS (w) && !html_object_is_embedded (obj))
 			gtk_widget_grab_focus (w);
-		if (e->caret_mode)
+		if (e->caret_mode) {
 			html_engine_jump_to_object (e, obj, offset);
-
+			g_signal_emit (GTK_HTML (w), signals [CURSOR_CHANGED], 0);
+		}
 		return TRUE;
 	}
 
@@ -2879,6 +2883,34 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      g_cclosure_marshal_VOID__ENUM,
 			      G_TYPE_NONE, 1, GTK_TYPE_HTML_COMMAND);
 
+	signals [CURSOR_CHANGED] = 
+		g_signal_new ("cursor_changed",
+			      G_TYPE_FROM_CLASS (object_class),
+			      G_SIGNAL_RUN_FIRST,
+			      G_STRUCT_OFFSET (GtkHTMLClass, cursor_changed),
+			      NULL, NULL,
+			      g_cclosure_marshal_VOID__VOID,
+			      G_TYPE_NONE, 0);
+
+	signals [OBJECT_INSERTED] = 
+		g_signal_new ("object_inserted",
+			      G_TYPE_FROM_CLASS (object_class),
+			      G_SIGNAL_RUN_FIRST,
+			      G_STRUCT_OFFSET (GtkHTMLClass, object_inserted),
+			      NULL, NULL,
+			      html_g_cclosure_marshal_VOID__INT_INT,
+			      G_TYPE_NONE, 2,
+			      G_TYPE_INT, G_TYPE_INT);
+
+	signals [OBJECT_DELETED] = 
+		g_signal_new ("object_deleted",
+			      G_TYPE_FROM_CLASS (object_class),
+			      G_SIGNAL_RUN_FIRST,
+			      G_STRUCT_OFFSET (GtkHTMLClass, object_deleted),
+			      NULL, NULL,
+			      html_g_cclosure_marshal_VOID__INT_INT,
+			      G_TYPE_NONE, 2,
+			      G_TYPE_INT, G_TYPE_INT);
 	object_class->destroy = destroy;
 	
 
@@ -4400,6 +4432,7 @@ cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType ski
 	html->priv->update_styles = TRUE;
 	gtk_html_edit_make_cursor_visible (html);
 	html_engine_update_selection_active_state (html->engine, html->priv->event_time);
+	g_signal_emit (GTK_HTML (html), signals [CURSOR_CHANGED], 0);
 }
 
 static gboolean

@@ -1,3 +1,15 @@
+2004-12-14  Mengjie Yu  <meng-jie.yu@sun.com>
+
+	* gtkhtml.c: (focus), (gtk_html_class_init), (cursor_move):
+	fix #70078 Add new signals when for insert/delete
+		   change gtk_html_a11y_cursor_move_cb to cursor_changed_cb
+	* gtkhtml.h:
+	fix #70078 add signal field
+
+	* htmlengine-edit-cut-and-paste.c: (insert_object_for_undo),
+	(html_engine_delete):
+	fix #70078 emit signal when insert/delete objects
+
 2004-09-29  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (drag_data_received): call gdk_window_get_pointer so

@@ -1076,6 +1076,7 @@ insert_object_for_undo (HTMLEngine *e, HTMLObject *obj, guint len, guint positio
 	html_cursor_jump_to_position_no_spell (e->cursor, e, position_after + (delete_paragraph_before ? 1 : 0));
 	insert_setup_undo (e, len, position_before + (delete_paragraph_before ? 1 : 0),
 			   dir, delete_paragraph_before, delete_paragraph_after);
+	g_signal_emit_by_name (e->widget, "object_inserted", position_before, len);
 }
 
 static void
@@ -1710,6 +1711,8 @@ html_engine_delete (HTMLEngine *e)
 		HTMLCursor *start = html_cursor_dup (e->mark->position < e->cursor->position ? e->mark : e->cursor);
 		HTMLCursor *end = html_cursor_dup (e->mark->position < e->cursor->position ? e->cursor : e->mark);
 		gint start_position = start->position;
+		gint end_position = end->position;
+
 
 		while (start->position < end->position) {
 			if (start->object->parent->parent == end->object->parent->parent) {
@@ -1755,6 +1758,11 @@ html_engine_delete (HTMLEngine *e)
 		if (end)
 			html_cursor_destroy (end);
 		html_cursor_jump_to_position (e->cursor, e, start_position);
+
+		if (end_position - start_position > 0) {
+			int len = end_position - start_position;
+			g_signal_emit_by_name (e->widget, "object_deleted", start_position, len);
+		}
 	}
 	html_undo_level_end (e->undo);
 }

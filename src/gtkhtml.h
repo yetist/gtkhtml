@@ -101,6 +101,9 @@ struct _GtkHTMLClass {
 					   gfloat position);
 	void     (* cursor_move)          (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType skip);
 	gboolean (* command)              (GtkHTML *html, GtkHTMLCommandType com_type);
+	void (* cursor_changed)       (GtkHTML *html);
+	void (* object_inserted)       (GtkHTML *html, int pos, int len);
+	void (* object_deleted)        (GtkHTML *html, int pos, int len);
 
 	/* properties */
 	GtkHTMLClassProperties *properties;
