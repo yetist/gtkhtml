@@ -1,3 +1,9 @@
+2001-07-13  Larry Ewing  <lewing@ximian.com>
+
+	* Makefile.am (glade_DATA): copy the .desktop to the new control
+	centers capplet directory as well (from Richard Hestilow
+	<hestgray@hotmail.com>)
+
 2001-06-06  gtkhtml@thewrittenword.com
 
 	* gnome-bindings-prop.c (init):
