@@ -1,3 +1,8 @@
+2001-01-05  Radek Doulik  <rodo@helixcode.com>
+
+	* menubar.c (properties_cb): call right capplet, Frédéric Crozat
+	fixed that, thanks
+
 2001-01-04  Radek Doulik  <rodo@helixcode.com>
 
 	* popup.c: update to type changes

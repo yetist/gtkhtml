@@ -149,7 +149,7 @@ insert_rule_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cnam
 static void
 properties_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
-	gchar *argv[2] = {"gtkhtml-editor-properties-capplet", NULL};
+	gchar *argv[2] = {"gtkhtml-properties-capplet", NULL};
 	if (gnome_execute_async (NULL, 1, argv) < 0)
 		gnome_error_dialog (_("Cannot execute gtkhtml properties"));
 }
