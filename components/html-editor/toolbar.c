@@ -128,6 +128,67 @@ setup_paragraph_style_option_menu (GtkHTML *html)
 }
 
 static void
+set_font_size (GtkWidget *w, GtkHTMLControlData *cd)
+{
+	GtkHTMLFontStyle style = GTK_HTML_FONT_STYLE_SIZE_1 + GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (w),
+												    "size"));
+
+	if (!cd->block_font_style_change)
+		gtk_html_set_font_style (cd->html, GTK_HTML_FONT_STYLE_MAX & ~GTK_HTML_FONT_STYLE_SIZE_MASK, style);
+}
+
+static void
+font_size_changed (GtkWidget *w, GtkHTMLParagraphStyle style, GtkHTMLControlData *cd)
+{
+	if (style == GTK_HTML_FONT_STYLE_DEFAULT)
+		style = GTK_HTML_FONT_STYLE_SIZE_3;
+	cd->block_font_style_change = TRUE;
+	gtk_option_menu_set_history (GTK_OPTION_MENU (cd->font_size_menu),
+				     (style & GTK_HTML_FONT_STYLE_SIZE_MASK) - GTK_HTML_FONT_STYLE_SIZE_1);
+	cd->block_font_style_change = FALSE;
+}
+
+static GtkWidget *
+setup_font_size_option_menu (GtkHTMLControlData *cd)
+{
+	GtkWidget *option_menu;
+	GtkWidget *menu;
+	guint i;
+	gchar size [3];
+
+	cd->font_size_menu = option_menu = gtk_option_menu_new ();
+	menu = gtk_menu_new ();
+	size [2] = 0;
+
+	for (i = 0; i <= GTK_HTML_FONT_STYLE_SIZE_MAX; i++) {
+		GtkWidget *menu_item;
+
+		size [0] = (i>1) ? '+' : '-';
+		size [1] = '0' + ((i>1) ? i - 2 : 2 - i);
+
+		menu_item = gtk_menu_item_new_with_label (size);
+		gtk_widget_show (menu_item);
+
+		gtk_menu_append (GTK_MENU (menu), menu_item);
+
+		gtk_object_set_data (GTK_OBJECT (menu_item), "size",
+				     GINT_TO_POINTER (i));
+		gtk_signal_connect (GTK_OBJECT (menu_item), "activate",
+				    GTK_SIGNAL_FUNC (set_font_size), cd);
+	}
+
+	gtk_option_menu_set_menu (GTK_OPTION_MENU (option_menu), menu);
+	gtk_option_menu_set_history (GTK_OPTION_MENU (option_menu), 2);
+
+	gtk_signal_connect (GTK_OBJECT (cd->html), "insertion_font_style_changed",
+			    GTK_SIGNAL_FUNC (font_size_changed), cd);
+
+	gtk_widget_show (option_menu);
+
+	return option_menu;
+}
+
+static void
 set_color (GtkWidget *w, gushort r, gushort g, gushort b, gushort a, GtkHTMLControlData *cd)
 {
 	HTMLColor *color = html_color_new_from_rgb (r, g, b);
@@ -165,7 +226,7 @@ default_clicked (GtkWidget *w, GtkHTMLControlData *cd)
 }
 
 static GtkWidget *
-setup_color_option_menu (GtkHTMLControlData *cd)
+setup_color_combo (GtkHTMLControlData *cd)
 {
        	GtkWidget *vbox, *table, *button;
 
@@ -215,60 +276,59 @@ editor_toolbar_paste_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 static void
 editor_toolbar_bold_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
-	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
-		gtk_html_set_font_style (GTK_HTML (cd->html),
-					 GTK_HTML_FONT_STYLE_MAX,
-					 GTK_HTML_FONT_STYLE_BOLD);
-	else
-		gtk_html_set_font_style (GTK_HTML (cd->html), ~GTK_HTML_FONT_STYLE_BOLD, 0);
+	if (!cd->block_font_style_change) {
+		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
+			gtk_html_set_font_style (GTK_HTML (cd->html),
+						 GTK_HTML_FONT_STYLE_MAX,
+						 GTK_HTML_FONT_STYLE_BOLD);
+		else
+			gtk_html_set_font_style (GTK_HTML (cd->html), ~GTK_HTML_FONT_STYLE_BOLD, 0);
+	}
 }
 
 static void
 editor_toolbar_italic_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
-	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
-		gtk_html_set_font_style (GTK_HTML (cd->html),
-					 GTK_HTML_FONT_STYLE_MAX,
-					 GTK_HTML_FONT_STYLE_ITALIC);
-	else
-		gtk_html_set_font_style (GTK_HTML (cd->html), ~GTK_HTML_FONT_STYLE_ITALIC, 0);
+	if (!cd->block_font_style_change) {
+		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
+			gtk_html_set_font_style (GTK_HTML (cd->html),
+						 GTK_HTML_FONT_STYLE_MAX,
+						 GTK_HTML_FONT_STYLE_ITALIC);
+		else
+			gtk_html_set_font_style (GTK_HTML (cd->html), ~GTK_HTML_FONT_STYLE_ITALIC, 0);
+	}
 }
 
 static void
 editor_toolbar_underline_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
-	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
-		gtk_html_set_font_style (GTK_HTML (cd->html),
-					 GTK_HTML_FONT_STYLE_MAX,
-					 GTK_HTML_FONT_STYLE_UNDERLINE);
-	else
-		gtk_html_set_font_style (GTK_HTML (cd->html), ~GTK_HTML_FONT_STYLE_UNDERLINE, 0);
+	if (!cd->block_font_style_change) {
+		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
+			gtk_html_set_font_style (GTK_HTML (cd->html),
+						 GTK_HTML_FONT_STYLE_MAX,
+						 GTK_HTML_FONT_STYLE_UNDERLINE);
+		else
+			gtk_html_set_font_style (GTK_HTML (cd->html), ~GTK_HTML_FONT_STYLE_UNDERLINE, 0);
+	}
 }
 
 static void
 editor_toolbar_strikeout_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
-	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
-		gtk_html_set_font_style (GTK_HTML (cd->html),
-					 GTK_HTML_FONT_STYLE_MAX,
-					 GTK_HTML_FONT_STYLE_STRIKEOUT);
-	else
-		gtk_html_set_font_style (GTK_HTML (cd->html), ~GTK_HTML_FONT_STYLE_STRIKEOUT, 0);
+	if (!cd->block_font_style_change) {
+		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
+			gtk_html_set_font_style (GTK_HTML (cd->html),
+						 GTK_HTML_FONT_STYLE_MAX,
+						 GTK_HTML_FONT_STYLE_STRIKEOUT);
+		else
+			gtk_html_set_font_style (GTK_HTML (cd->html), ~GTK_HTML_FONT_STYLE_STRIKEOUT, 0);
+	}
 }
 
 static void
 insertion_font_style_changed_cb (GtkHTML *widget, GtkHTMLFontStyle font_style, GtkHTMLControlData *cd)
 {
-#define BLOCK_SIGNAL(w)									\
-	gtk_signal_handler_block_by_func (GTK_OBJECT (cd->w##_button),	\
-					  editor_toolbar_##w##_cb, cd)
-
-	BLOCK_SIGNAL (bold);
-	BLOCK_SIGNAL (italic);
-	BLOCK_SIGNAL (underline);
-	BLOCK_SIGNAL (strikeout);
-
-#undef BLOCK_SIGNAL
+	cd->block_font_style_change = TRUE;
 
 	if (font_style & GTK_HTML_FONT_STYLE_BOLD)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cd->bold_button), TRUE);
@@ -290,16 +350,7 @@ insertion_font_style_changed_cb (GtkHTML *widget, GtkHTMLFontStyle font_style, G
 	else
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cd->strikeout_button), FALSE);
 
-#define UNBLOCK_SIGNAL(w)								\
-	gtk_signal_handler_unblock_by_func (GTK_OBJECT (cd->w##_button),	\
-					    editor_toolbar_##w##_cb, cd)
-
-	UNBLOCK_SIGNAL (bold);
-	UNBLOCK_SIGNAL (italic);
-	UNBLOCK_SIGNAL (underline);
-	UNBLOCK_SIGNAL (strikeout);
-
-#undef UNBLOCK_SIGNAL
+	cd->block_font_style_change = FALSE;
 }
 
 static void
@@ -457,8 +508,6 @@ static GnomeUIInfo toolbar_info[] = {
 
 static GnomeUIInfo editor_toolbar_style_uiinfo[] = {
 
-	GNOMEUIINFO_SEPARATOR,
-
 	{ GNOME_APP_UI_TOGGLEITEM, N_("Bold"), N_("Sets the bold font"),
 	  editor_toolbar_bold_cb, NULL, NULL, GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_PIXMAP_TEXT_BOLD },
 	{ GNOME_APP_UI_TOGGLEITEM, N_("Italic"), N_("Make the selection italic"),
@@ -517,10 +566,13 @@ create_style_toolbar (GtkHTMLControlData *cd)
 	gtk_toolbar_prepend_widget (GTK_TOOLBAR (cd->toolbar_style),
 				    setup_paragraph_style_option_menu (cd->html),
 				    NULL, NULL);
+	gtk_toolbar_prepend_widget (GTK_TOOLBAR (cd->toolbar_style),
+				    setup_font_size_option_menu (cd),
+				    NULL, NULL);
 
 	gnome_app_fill_toolbar_with_data (GTK_TOOLBAR (cd->toolbar_style), editor_toolbar_style_uiinfo, NULL, cd);
 	gtk_toolbar_append_widget (GTK_TOOLBAR (cd->toolbar_style),
-				   setup_color_option_menu (cd),
+				   setup_color_combo (cd),
 				   NULL, NULL);
 
 	cd->font_style_changed_connection_id
@@ -528,10 +580,10 @@ create_style_toolbar (GtkHTMLControlData *cd)
 				      GTK_SIGNAL_FUNC (insertion_font_style_changed_cb), cd);
 
 	/* The following SUCKS!  */
-	cd->bold_button = editor_toolbar_style_uiinfo[5].widget;
-	cd->italic_button = editor_toolbar_style_uiinfo[6].widget;
-	cd->underline_button = editor_toolbar_style_uiinfo[7].widget;
-	cd->strikeout_button = editor_toolbar_style_uiinfo[8].widget;
+	cd->bold_button = editor_toolbar_style_uiinfo[0].widget;
+	cd->italic_button = editor_toolbar_style_uiinfo[1].widget;
+	cd->underline_button = editor_toolbar_style_uiinfo[2].widget;
+	cd->strikeout_button = editor_toolbar_style_uiinfo[3].widget;
 	/* (FIXME TODO: Button for "fixed" style.)  */
 
 	cd->left_align_button = editor_toolbar_alignment_group[0].widget;
@@ -539,10 +591,10 @@ create_style_toolbar (GtkHTMLControlData *cd)
 	cd->right_align_button = editor_toolbar_alignment_group[2].widget;
 
 	/* gtk_signal_connect (GTK_OBJECT (cd->html), "destroy",
-			    GTK_SIGNAL_FUNC (html_destroy_cb), cd);
+	   GTK_SIGNAL_FUNC (html_destroy_cb), cd);
 
-	gtk_signal_connect (GTK_OBJECT (cd->toolbar_style), "destroy",
-	GTK_SIGNAL_FUNC (toolbar_destroy_cb), cd); */
+	   gtk_signal_connect (GTK_OBJECT (cd->toolbar_style), "destroy",
+	   GTK_SIGNAL_FUNC (toolbar_destroy_cb), cd); */
 
 	gtk_signal_connect (GTK_OBJECT (cd->html), "current_paragraph_alignment_changed",
 			    GTK_SIGNAL_FUNC (paragraph_alignment_changed_cb), cd);

@@ -68,7 +68,10 @@ struct _GtkHTMLControlData {
 	GtkWidget *center_button;
 	GtkWidget *right_align_button;
 
+	GtkWidget *font_size_menu;
+
 	guint font_style_changed_connection_id;
+	gboolean block_font_style_change;
 };
 
 GtkHTMLControlData * gtk_html_control_data_new       (GtkHTML *html, GtkWidget *vbox);

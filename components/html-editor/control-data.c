@@ -32,6 +32,7 @@ gtk_html_control_data_new (GtkHTML *html, GtkWidget *vbox)
 	ncd->vbox = vbox;
 	ncd->properties_dialog = NULL;
 	ncd->properties_types  = NULL;
+	ncd->block_font_style_change = FALSE;
 
 	return ncd;
 }

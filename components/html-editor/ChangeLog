@@ -1,3 +1,8 @@
+2000-07-11  Radek Doulik  <rodo@helixcode.com>
+
+	* toolbar.c (setup_font_size_option_menu): added font size option
+	menu + another one insertion style changed cb
+
 2000-07-10  Radek Doulik  <rodo@helixcode.com>
 
 	* toolbar.c (toolbar_setup): it now adds some commands to uih toolbar
