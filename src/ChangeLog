@@ -1,3 +1,8 @@
+2000-09-14  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlclueflow.c (spell_check_word_mark): index -> offset and not
+	reversed
+
 2000-9-13  Larry Ewing  <lewing@helixcode.com>
 
 	* htmliframe.c (iframe_object_requested): hook up the object

@@ -1805,7 +1805,7 @@ spell_check_word_mark (HTMLObject *obj, const gchar *text, const gchar *word, gu
 	/* printf ("[not in dictionary word off: %d off: %d]\n", word - text, *off); */
 	is_text = html_object_is_text (obj);
 	w_index = word - text;
-	w_off   = unicode_offset_to_index (text, w_index);
+	w_off   = unicode_index_to_offset (text, w_index);
 	while (obj && (!is_text || (is_text && *off + HTML_TEXT (obj)->text_len <= w_off)))
 		obj = next_obj_and_clear (obj, off, &is_text, i);
 
