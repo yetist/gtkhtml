@@ -58,7 +58,7 @@ typedef struct _HTMLEngineClass HTMLEngineClass;
 /* FIXME extreme hideous ugliness in the following lines.  */
 
 #define LEFT_BORDER 10
-#define RIGHT_BORDER 20
+#define RIGHT_BORDER 10
 #define TOP_BORDER 10
 #define BOTTOM_BORDER 10
 

@@ -1,5 +1,18 @@
 2000-05-31  Larry Ewing  <lewing@helixcode.com>
 
+	* htmlengine.c (parse_object): make sure we don't leak the object
+	if the handler returns false.
+	(parse_iframe): display the body of the iframe if there is no url
+	to load discard it otherwise.  This should eventually be extended
+	to allow errors in the stream to cause the body to be displayed.
+	(parse_i): remove the closing ifrmae tag check it is now handled
+	in parse_iframe.
+
+	* htmlengine.h (RIGHT_BORDER): changd to 10, 20 was an odd
+	choice.
+	
+2000-05-31  Larry Ewing  <lewing@helixcode.com>
+
 	* htmliframe.c (set_max_width): a huge hack to trick the clueflow
 	into doing the right thing for the time being.
 
