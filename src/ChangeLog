@@ -1,5 +1,26 @@
 2000-05-30  Larry Ewing  <lewing@helixcode.com>
 
+	* gtkhtml.c (html_engine_object_requested_cb): check and return
+	the return value.
+	(class_init): change the object_requested signal to have a return value.
+
+	* gtkhtml.h: change the object_requested signal prototype.
+
+	* htmlengine.c (discard_body): new helper function to discard
+	tokens before end tag.
+	(parse_object): added function to handle the elements inside an
+	object tag.
+	(parse_o): call parse_object.
+	(html_engine_class_init): change the object_requested signal to have a boolean
+	return value.
+
+	* htmlengine.h: change the object_requested signal prototype.
+
+	* testgtkhtml.c (object_requested_cmd): add a testcase for
+	object_request to return FALSE.
+
+2000-05-30  Larry Ewing  <lewing@helixcode.com>
+
 	* htmliframe.c (calc_size): preliminary code to try to get a
 	proper size when width and height are not set.
 	(html_iframe_init): initialize the new variables and properly set

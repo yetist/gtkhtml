@@ -131,7 +131,7 @@ struct _GtkHTMLClass {
 	void (* on_url)		 (GtkHTML *html, const gchar *url);
 	void (* redirect)        (GtkHTML *html, const gchar *url, int delay);
 	void (* submit)          (GtkHTML *html, const gchar *method, const gchar *url, const gchar *encoding);
-	void (* object_requested)(GtkHTML *html, GtkHTMLEmbedded *);
+	gboolean (* object_requested)(GtkHTML *html, GtkHTMLEmbedded *);
 
 	void (* current_paragraph_style_changed) (GtkHTML *html, GtkHTMLParagraphStyle new_style);
 	void (* current_paragraph_alignment_changed) (GtkHTML *html, GtkHTMLParagraphAlignment new_alignment);

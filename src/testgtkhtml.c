@@ -634,13 +634,17 @@ object_timeout(GtkHTMLEmbedded *eb)
 	return FALSE;
 }
 
-static void
+static gboolean
 object_requested_cmd (GtkHTML *html, GtkHTMLEmbedded *eb, void *data)
 {
 	printf("object requested, wiaint a bit before creating it ...\n");
 
+	if (strcmp (eb->classid, "mine:NULL") == 0)
+		return FALSE;
+
 	gtk_widget_ref (GTK_WIDGET (eb));
 	gtk_timeout_add(rand() % 5000 + 1000, (GtkFunction) object_timeout, eb);
+	return TRUE;
 }
 
 static void

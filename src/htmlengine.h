@@ -256,7 +256,7 @@ struct _HTMLEngineClass {
 	void (* draw_pending) (HTMLEngine *engine);
         void (* redirect) (HTMLEngine *engine, const char *url, int delay);
         void (* submit) (HTMLEngine *engine, const gchar *method, const gchar *action, const gchar *encoding);
-	void (* object_requested) (HTMLEngine *engine, GtkHTMLEmbedded *);
+	gboolean (* object_requested) (HTMLEngine *engine, GtkHTMLEmbedded *);
 };
 
 

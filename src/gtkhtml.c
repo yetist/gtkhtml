@@ -329,16 +329,19 @@ html_engine_submit_cb (HTMLEngine *engine,
 	gtk_signal_emit (GTK_OBJECT (gtk_html), signals[SUBMIT], method, url, encoding);
 }
 
-static void
+static gboolean
 html_engine_object_requested_cb (HTMLEngine *engine,
 		       GtkHTMLEmbedded *eb,
 		       gpointer data)
 {
 	GtkHTML *gtk_html;
+	gboolean ret_val = FALSE;
 
 	gtk_html = GTK_HTML (data);
 
-	gtk_signal_emit (GTK_OBJECT (gtk_html), signals[OBJECT_REQUESTED], eb);
+	ret_val = FALSE;
+	gtk_signal_emit (GTK_OBJECT (gtk_html), signals[OBJECT_REQUESTED], eb, &ret_val);
+	return ret_val;
 }
 
 
@@ -1123,11 +1126,11 @@ class_init (GtkHTMLClass *klass)
 
 	signals [OBJECT_REQUESTED] =
 		gtk_signal_new ("object_requested",
-				GTK_RUN_FIRST,
+				GTK_RUN_LAST,
 				object_class->type,
 				GTK_SIGNAL_OFFSET (GtkHTMLClass, object_requested),
-				gtk_marshal_NONE__POINTER,
-				GTK_TYPE_NONE, 1,
+				gtk_marshal_BOOL__POINTER,
+				GTK_TYPE_BOOL, 1,
 				GTK_TYPE_OBJECT);
 	
 	signals [CURRENT_PARAGRAPH_STYLE_CHANGED] =

@@ -97,6 +97,9 @@ static void      parse_f                   (HTMLEngine *p,
 					    HTMLObject *clue,
 					    const gchar *str);
 
+static void      html_object_changed       (GtkHTMLEmbedded *eb,
+					    HTMLEngine *e);
+
 
 static GtkLayoutClass *parent_class = NULL;
 
@@ -660,6 +663,37 @@ parse_body (HTMLEngine *p, HTMLObject *clue, const gchar *end[], gboolean toplev
 	return 0;
 }
 
+static gchar *
+discard_body (HTMLEngine *p, const gchar *end[])
+{
+	gchar *str = NULL;
+
+	while (html_tokenizer_has_more_tokens (p->ht) && p->parsing) {
+		str = html_tokenizer_next_token (p->ht);
+
+		if (*str == '\0')
+			continue;
+
+		if ((*str == ' ' && *(str+1) == '\0')
+		    || (*str != TAG_ESCAPE)) {
+			/* do nothing */
+		}
+		else {
+			gint i  = 0;
+			str++;
+			
+			while (end [i] != 0) {
+				if (strncasecmp (str, end[i], strlen(end[i])) == 0) {
+					return str;
+				}
+				i++;
+			}
+		}
+	}
+
+	return 0;
+}
+
 /* EP CHECK: finished except for the settings stuff (see `FIXME').  */
 static const gchar *
 parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
@@ -1143,6 +1177,81 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	
 	gtk_html_debug_log (e->widget, "Returning: %s\n", str);
 	return str;
+}
+
+static void
+parse_object (HTMLEngine *e, HTMLObject *clue, gint max_width,
+	     const gchar *attr)
+{
+	char *classid=NULL;
+	char *name=NULL;
+	char *type = NULL;
+	char *str = NULL;
+	int width=-1,height=-1;
+	static const gchar *end[] = { "</object", 0};
+
+	
+	html_string_tokenizer_tokenize( e->st, attr, " >" );
+	
+	/* this might have to do something different for form object
+	   elements - check the spec MPZ */
+	while (html_string_tokenizer_has_more_tokens (e->st) ) {
+		const char* token;
+		
+		token = html_string_tokenizer_next_token (e->st);
+		if (strncasecmp (token, "classid=", 8) == 0) {
+			classid = g_strdup (token + 8);
+		} else if (strncasecmp (token, "name=", 6) == 0 ) {
+			name = g_strdup (token + 6);
+		} else if ( strncasecmp (token, "width=", 6) == 0) {
+			width = atoi (token + 6);
+		} else if (strncasecmp (token, "height=", 7) == 0) {
+			height = atoi (token + 7);
+		} else if (strncasecmp (token, "type=", 5) == 0) {
+			type = g_strdup (token + 5);
+		}
+	}
+
+	if (classid) {
+		GtkHTMLEmbedded *eb;
+		HTMLEmbedded *el;
+		gboolean ret_val;
+		
+		eb = (GtkHTMLEmbedded *)gtk_html_embedded_new(classid, name, width, height);
+		html_stack_push (e->embeddedStack, eb);
+		
+		el = html_embedded_new_widget(GTK_WIDGET (e->widget), eb);
+		
+		gtk_object_set_data(GTK_OBJECT(eb), "embeddedelement", el);
+		gtk_signal_connect(GTK_OBJECT(eb), "changed", html_object_changed, e);
+		
+		ret_val = FALSE;
+		gtk_signal_emit (GTK_OBJECT (e), signals[OBJECT_REQUESTED], eb, &ret_val);
+		
+		g_free(classid);
+		g_free(name);
+		
+		if (ret_val) {
+			append_element(e, clue, HTML_OBJECT(el));
+			/* automatically add this to a form if it is part of one */
+			if (e->form) {
+				html_form_add_element (e->form, HTML_EMBEDDED (el));
+			}
+			str = discard_body (e, end);
+		} else {
+			str = parse_body (e, clue, end, FALSE);
+		}
+	} else {
+		g_warning("Object with no classid, ignored\n");
+	}
+	
+	if (!str || strncmp( str, "/object", 7 ) == 0 ) {		
+		if (! html_stack_is_empty (e->embeddedStack)) {
+			GtkHTMLEmbedded *eb;
+			
+			eb = html_stack_pop (e->embeddedStack);
+		}
+	}
 }
 
 static void
@@ -2320,59 +2429,7 @@ parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 
 		e->inOption = FALSE;
 	} else if ( strncmp( str, "object", 6 ) == 0 ) {
-		char *classid=NULL, *name=NULL;
-		int width=-1,height=-1;
-
-		html_string_tokenizer_tokenize( e->st, str + 7, " >" );
-
-		/* this might have to do something different for form object
-		   elements - check the spec MPZ */
-		while ( html_string_tokenizer_has_more_tokens (e->st) ) {
-			const char* token;
-
-			token = html_string_tokenizer_next_token (e->st);
-			if ( strncasecmp( token, "classid=", 8 ) == 0 ) {
-				classid = g_strdup(token+8);
-			} else if ( strncasecmp( token, "name=", 6 ) == 0 ) {
-				name = g_strdup(token+6);
-			} else if ( strncasecmp( token, "width=", 6 ) == 0 ) {
-				width = atoi(token+6);
-			} else if ( strncasecmp( token, "height=", 7 ) == 0 ) {
-				height = atoi(token+7);
-			}
-		}
-
-		if (classid) {
-			GtkHTMLEmbedded *eb;
-
-			eb = (GtkHTMLEmbedded *)gtk_html_embedded_new(classid, name, width, height);
-			html_stack_push (e->embeddedStack, eb);
-			g_free(classid);
-			g_free(name);
-		} else {
-			g_warning("Object with no classid, ignored\n");
-		}
-
-	} else if ( strncmp( str, "/object", 7 ) == 0 ) {
-
-		if (! html_stack_is_empty (e->embeddedStack)) {
-			HTMLEmbedded *el;
-			GtkHTMLEmbedded *eb;
-
-			eb = html_stack_pop (e->embeddedStack);
-
-			gtk_signal_emit (GTK_OBJECT (e), signals[OBJECT_REQUESTED], eb);
-
-			el = html_embedded_new_widget(GTK_WIDGET (e->widget), eb);
-			gtk_object_set_data(GTK_OBJECT(eb), "embeddedelement", el);
-			gtk_signal_connect(GTK_OBJECT(eb), "changed", html_object_changed, e);
-
-			append_element(e, _clue, HTML_OBJECT(el));
-			/* automatically add this to a form if it is part of one */
-			if (e->form) {
-				html_form_add_element (e->form, HTML_EMBEDDED (el));
-			}
-		}
+		parse_object (e, _clue, _clue->max_width, str + 6);
 	}
 }
 
@@ -2895,11 +2952,11 @@ html_engine_class_init (HTMLEngineClass *klass)
 
 	signals [OBJECT_REQUESTED] =
 		gtk_signal_new ("object_requested",
-				GTK_RUN_FIRST,
+				GTK_RUN_LAST,
 				object_class->type,
 				GTK_SIGNAL_OFFSET (HTMLEngineClass, object_requested),
-				gtk_marshal_NONE__POINTER,
-				GTK_TYPE_NONE, 1,
+				gtk_marshal_BOOL__POINTER,
+				GTK_TYPE_BOOL, 1,
 				GTK_TYPE_POINTER);
 
 	gtk_object_class_add_signals (object_class, signals, LAST_SIGNAL);
