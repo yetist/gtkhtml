@@ -1,3 +1,15 @@
+2000-07-26  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlembedded.c (html_embedded_set_widget): call force_placement.
+	(force_placement): The hack to force the widget to get size
+	allocated lives here now.
+
+	* htmliframe.c (html_iframe_init): remove the hack for allocation
+	from here since it is now in htmlembedded.
+
+	* htmlengine.c (html_engine_destroy): only destroy the spell
+	checker if it was properly made.
+
 2000-07-26  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlclueflow.c (html_clueflow_spell_check): as below

@@ -2872,7 +2872,9 @@ html_engine_destroy (GtkObject *object)
 	if (engine->insertion_target) g_free (engine->insertion_target);
 
 #ifdef GTKHTML_HAVE_PSPELL
-	delete_pspell_manager (engine->spell_checker);
+	if (engine->spell_checker)
+		delete_pspell_manager (engine->spell_checker);
+
 	delete_pspell_config (engine->spell_config);
 #endif
 

@@ -68,13 +68,7 @@ draw (HTMLObject *o,
 		new_x = GTK_LAYOUT (element->parent)->hadjustment->value + o->x + tx;
 		new_y = GTK_LAYOUT (element->parent)->vadjustment->value + o->y + ty - o->ascent;
 		
-		if(element->abs_x == -1 && element->abs_y == -1) {
-			gtk_layout_put(GTK_LAYOUT(element->parent), element->widget,
-					new_x, new_y);
-
-			gtk_widget_show (element->widget);			
-		}
-		else if(new_x != element->abs_x || new_y != element->abs_y) {
+		if(new_x != element->abs_x || new_y != element->abs_y) {
 			
 			gtk_layout_move(GTK_LAYOUT(element->parent), element->widget,
 					new_x, new_y);
@@ -364,7 +358,8 @@ html_embedded_new_widget(GtkWidget *parent, GtkHTMLEmbedded *eb)
 	em = g_new0(HTMLEmbedded, 1);
 	html_embedded_init (em, HTML_EMBEDDED_CLASS (&html_embedded_class), parent, eb->name, "");
 
-	em->widget = (GtkWidget *)eb;
+	html_embedded_set_widget (em, GTK_WIDGET (eb));
+
 	html_embedded_size_recalc(em);
 	gtk_signal_connect(GTK_OBJECT(eb), "button_press_event",
 			   GTK_SIGNAL_FUNC(html_embedded_grab_cursor), NULL);
@@ -395,10 +390,32 @@ request (GtkWidget *w, GtkRequisition *req, HTMLEmbedded *e)
 	e->allocated = FALSE;
 }
 
+/* 
+   FIXME: force_placement is a huge hack to get the widget to allocate 
+   its size before it is actually drawn.  Place it in the gtklayout but
+   offscreen it will be moved to the proper place in the draw routine, but
+   its size allocation needs to happen now.
+*/
+static void
+force_placement (HTMLEmbedded *element)
+{
+	g_return_if_fail (element->widget != NULL);
+
+	gtk_widget_show (element->widget);			
+
+	gtk_layout_put(GTK_LAYOUT(element->parent), element->widget,
+		       10000, 10000);
+
+	element->abs_x = 10000;
+	element->abs_y = 10000;
+}
+
 void
 html_embedded_set_widget (HTMLEmbedded *e, GtkWidget *w)
 {
 	e->widget = w;
+	
+	force_placement (e);
 
 	gtk_signal_connect (GTK_OBJECT (w), "size_allocate",
 			    GTK_SIGNAL_FUNC (allocate), e);
