@@ -81,8 +81,8 @@ struct _HTMLImage {
 
 	gint16 specified_width;
 	gint16 specified_height;
-	gboolean percent_width;
-	gboolean percent_height;
+	gboolean percent_width  : 1;
+	gboolean percent_height : 1;
 
 	gint8 hspace;
 	gint8 vspace;

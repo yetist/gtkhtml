@@ -332,7 +332,6 @@ html_table_cell_class_init (HTMLTableCellClass *klass,
 void
 html_table_cell_init (HTMLTableCell *cell,
 		      HTMLTableCellClass *klass,
-		      gint percent,
 		      gint rs, gint cs,
 		      gint pad)
 {
@@ -344,7 +343,7 @@ html_table_cell_init (HTMLTableCell *cell,
 	cluev = HTML_CLUEV (cell);
 	clue = HTML_CLUE (cell);
 
-	html_cluev_init (cluev, HTML_CLUEV_CLASS (klass), 0, 0, percent);
+	html_cluev_init (cluev, HTML_CLUEV_CLASS (klass), 0, 0, 0);
 
 	object->flags &= ~HTML_OBJECT_FLAG_FIXEDWIDTH;
 
@@ -366,29 +365,32 @@ html_table_cell_init (HTMLTableCell *cell,
 }
 
 HTMLObject *
-html_table_cell_new (gint percent,
-		     gint rs, gint cs,
-		     gint pad)
+html_table_cell_new (gint rs, gint cs, gint pad)
 {
 	HTMLTableCell *cell;
 
 	cell = g_new (HTMLTableCell, 1);
-	html_table_cell_init (cell, &html_table_cell_class, percent, rs, cs, pad);
+	html_table_cell_init (cell, &html_table_cell_class, rs, cs, pad);
 
 	return HTML_OBJECT (cell);
 }
 
 void
-html_table_cell_set_fixed_width (HTMLTableCell *cell, gint width)
+html_table_cell_set_fixed_width (HTMLTableCell *cell, gint width, gboolean percented)
 {
-	HTML_OBJECT (cell)->flags |= HTML_OBJECT_FLAG_FIXEDWIDTH;
+	if (percented)
+		HTML_OBJECT (cell)->flags &= ~HTML_OBJECT_FLAG_FIXEDWIDTH;
+	else
+		HTML_OBJECT (cell)->flags |= HTML_OBJECT_FLAG_FIXEDWIDTH;
 	cell->fixed_width = width;
+	cell->percent_width = percented;
 }
 
 void
-html_table_cell_set_fixed_height (HTMLTableCell *cell, gint height)
+html_table_cell_set_fixed_height (HTMLTableCell *cell, gint height, gboolean percented)
 {
 	cell->fixed_height = height;
+	cell->percent_height = percented;
 }
 
 void

@@ -838,7 +838,8 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	gint colSpan;
 	gint cellwidth;
 	gint cellheight;
-	gint cellpercent;
+	gboolean cellwidth_percent;
+	gboolean cellheight_percent;
 	gboolean fixedWidth;
 	gboolean fixedHeight;
 	HTMLVAlignType valign;
@@ -1052,7 +1053,6 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					rowSpan     = 1;
 					colSpan     = 1;
 					cellwidth   = clue->max_width;
-					cellpercent = -1;
 					cellheight  = -1;
 					fixedWidth  = FALSE;
 					fixedHeight = FALSE;
@@ -1109,23 +1109,34 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 									halign = HTML_HALIGN_LEFT;
 							}
 							else if (strncasecmp (token, "height=", 7) == 0) {
-								if (isdigit (*(token + 7))) {
-									cellheight  = atoi (token + 7);
+								if (strchr (token + 7, '%')) {
+									/* gtk_html_debug_log (e->widget, "percent!\n");
+									cellheight = atoi (token + 7);
+									cellheight_percent = TRUE;
+									fixedHeight = TRUE; */
+								}
+								else if (strchr (token + 7, '*')) {
+									/* ignore */
+								}
+								else if (isdigit (*(token + 7))) {
+									cellheight = atoi (token + 7);
+									cellheight_percent = FALSE;
 									fixedHeight = TRUE;
 								}
-								/* FIXME percentage */
 							}
 							else if (strncasecmp (token, "width=", 6) == 0) {
 								if (strchr (token + 6, '%')) {
 									gtk_html_debug_log (e->widget, "percent!\n");
-									cellpercent = atoi (token + 6);
+									cellwidth = atoi (token + 6);
+									cellwidth_percent = TRUE;
+									fixedWidth = TRUE;
 								}
 								else if (strchr (token + 6, '*')) {
 									/* ignore */
 								}
 								else if (isdigit (*(token + 6))) {
 									cellwidth = atoi (token + 6);
-									cellpercent = 0;
+									cellwidth_percent = FALSE;
 									fixedWidth = TRUE;
 								}
 							}
@@ -1160,9 +1171,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						e->pending_para = FALSE;
 					}
 
-					cell = HTML_TABLE_CELL (html_table_cell_new (cellpercent,
-										     rowSpan, colSpan,
-										     padding));
+					cell = HTML_TABLE_CELL (html_table_cell_new (rowSpan, colSpan, padding));
 					html_object_set_bg_color (HTML_OBJECT (cell),
 								  have_bgColor ? &bgColor : NULL);
 
@@ -1172,9 +1181,9 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					HTML_CLUE (cell)->valign = valign;
 					HTML_CLUE (cell)->halign = halign;
 					if (fixedWidth)
-						html_table_cell_set_fixed_width (cell, cellwidth);
+						html_table_cell_set_fixed_width (cell, cellwidth, cellwidth_percent);
 					if (fixedHeight)
-						html_table_cell_set_fixed_height (cell, cellheight);
+						html_table_cell_set_fixed_height (cell, cellheight, cellheight_percent);
  
 					html_table_add_cell (table, cell);
 					has_cell = 1;
@@ -2302,11 +2311,11 @@ parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 		HTMLVAlignType valign = HTML_VALIGN_NONE;
 		HTMLColor *color = NULL;
 		gchar *token = 0; 
-		gint width = -1;
 		gchar *tmpurl = NULL;
 		gchar *mapname = NULL;
 		gchar *id = NULL;
 		gchar *alt = NULL;
+		gint width = -1;
 		gint height = -1;
 		gint hspace = 0;
 		gint vspace = 0;

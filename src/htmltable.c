@@ -1057,7 +1057,7 @@ calc_percentage_step (HTMLTable *table, gint *col_percent, gint *span_percent, g
 			if (!cell || cell->col != c || cell->row != r)
 				continue;
 
-			if (HTML_OBJECT (cell)->flags & HTML_OBJECT_FLAG_FIXEDWIDTH || HTML_OBJECT (cell)->percent <= 0)
+			if (HTML_OBJECT (cell)->flags & HTML_OBJECT_FLAG_FIXEDWIDTH || !cell->percent_width)
 				continue;
 
 			cspan = MIN (cell->cspan, table->totalCols - cell->col);
@@ -1067,7 +1067,7 @@ calc_percentage_step (HTMLTable *table, gint *col_percent, gint *span_percent, g
 				continue;
 
 			cl = cell_end_col (table, cell);
-			if (col_percent [cl] - col_percent [c] < HTML_OBJECT (cell)->percent) {
+			if (col_percent [cl] - col_percent [c] < cell->fixed_width) {
 				gint cp, part, added, pleft, not_percented, np;
 				part = 0;
 				not_percented = 0;
@@ -1077,7 +1077,7 @@ calc_percentage_step (HTMLTable *table, gint *col_percent, gint *span_percent, g
 
 				np    = 1;
 				added = 0;
-				pleft = HTML_OBJECT (cell)->percent - (col_percent [cl] - col_percent [c]);
+				pleft = cell->fixed_width - (col_percent [cl] - col_percent [c]);
 				for (cp = 0; cp < span; cp++) {
 					if (not_percented) {
 						if (!PERC (c + cp)) {

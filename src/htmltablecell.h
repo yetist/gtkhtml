@@ -36,6 +36,8 @@ struct _HTMLTableCell {
 
 	gint fixed_width;
 	gint fixed_height;
+	gboolean percent_width  : 1;
+	gboolean percent_height : 1;
 
 	gint rspan;
 	gint cspan;
@@ -64,18 +66,18 @@ void        html_table_cell_class_init       (HTMLTableCellClass *klass,
 					      guint               object_size);
 void        html_table_cell_init             (HTMLTableCell      *cell,
 					      HTMLTableCellClass *klass,
-					      gint                percent,
 					      gint                rs,
 					      gint                cs,
 					      gint                pad);
-HTMLObject *html_table_cell_new              (gint                percent,
-					      gint                rs,
+HTMLObject *html_table_cell_new              (gint                rs,
 					      gint                cs,
 					      gint                pad);
 void        html_table_cell_set_fixed_width  (HTMLTableCell      *cell,
-					      gint                width);
+					      gint                width,
+					      gboolean            percented);
 void        html_table_cell_set_fixed_height (HTMLTableCell      *cell,
-					      gint                height);
+					      gint                height,
+					      gboolean            percented);
 void        html_table_cell_set_bg_pixmap    (HTMLTableCell      *cell,
 					      HTMLImagePointer   *imagePtr);
 void        html_table_cell_set_position     (HTMLTableCell      *cell,

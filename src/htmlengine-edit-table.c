@@ -47,7 +47,7 @@ new_cell (HTMLEngine *e, HTMLTable *table)
 	HTMLObject    *text;
 	HTMLObject    *flow;
 	
-	cell  = html_table_cell_new (0, 1, 1, table->padding);
+	cell  = html_table_cell_new (1, 1, table->padding);
 	flow  = html_clueflow_new (HTML_CLUEFLOW_STYLE_NORMAL, 0);
 	text  = html_engine_new_text_empty (e);
 
