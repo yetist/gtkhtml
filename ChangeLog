@@ -1,3 +1,8 @@
+2000-08-09  Robin * Slomkowski  <rslomkow@eazel.com>
+
+	* gtkhtml.spec.in: updated spec
+	* src/Makefile.am: fixed the installation of C files
+
 2000-08-08  Robin * Slomkowski  <rslomkow@eazel.com>
 
 	* po/Makefile.in.in: changed srcdir to top_srcdir
