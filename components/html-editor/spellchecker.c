@@ -190,6 +190,9 @@ spell_check_word (GtkHTML *html, const gchar *word, gpointer data)
 	CORBA_Environment   ev;
 	gboolean rv;
 
+	if (!cd->dict)
+		return TRUE;
+
 	CORBA_exception_init (&ev);
 	rv = GNOME_Spell_Dictionary_checkWord (cd->dict, word, &ev);
 	if (ev._major != CORBA_NO_EXCEPTION)
@@ -205,6 +208,9 @@ spell_add_to_session (GtkHTML *html, const gchar *word, gpointer data)
 	GtkHTMLControlData *cd = (GtkHTMLControlData *) data;
 	CORBA_Environment   ev;
 
+	if (!cd->dict)
+		return;
+
 	CORBA_exception_init (&ev);
 	GNOME_Spell_Dictionary_addWordToSession (cd->dict, word, &ev);
 	CORBA_exception_free (&ev);
@@ -215,6 +221,9 @@ spell_add_to_personal (GtkHTML *html, const gchar *word, gpointer data)
 {
 	GtkHTMLControlData *cd = (GtkHTMLControlData *) data;
 	CORBA_Environment   ev;
+
+	if (!cd->dict)
+		return;
 
 	CORBA_exception_init (&ev);
 	GNOME_Spell_Dictionary_addWordToPersonal (cd->dict, word, &ev);

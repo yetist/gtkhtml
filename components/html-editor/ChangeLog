@@ -1,5 +1,10 @@
 2000-11-22  Radek Doulik  <rodo@helixcode.com>
 
+	* spell.c: check for cd->dict
+
+	* editor-control-factory.c (editor_control_construct): set editor
+	api always
+
 	* image.c (insert_or_apply): use file:// rather than file:
 
 2000-11-15  Radek Doulik  <rodo@helixcode.com>

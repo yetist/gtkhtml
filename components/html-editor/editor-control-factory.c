@@ -353,8 +353,7 @@ editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 	gtk_html_set_editable (GTK_HTML (html_widget), TRUE);
 
 	control_data = gtk_html_control_data_new (GTK_HTML (html_widget), vbox);
-	if (control_data->dict_client)
-		gtk_html_set_editor_api (GTK_HTML (html_widget), editor_api, control_data);
+	gtk_html_set_editor_api (GTK_HTML (html_widget), editor_api, control_data);
 
 	/* HTMLEditor::Engine */
 
