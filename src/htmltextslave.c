@@ -370,7 +370,7 @@ hts_fit_line (HTMLObject *o, HTMLPainter *painter,
 	lbsp = s = html_text_slave_get_text (slave);
 
 	while ((force_fit || widthLeft > lbw) && offset < slave->posStart + slave->posLen) {
-		if (offset > slave->posStart && offset > lbo && html_text_is_line_break (pi->entries [ii].item, pi->entries [ii].attrs, io))
+		if (offset > slave->posStart && offset > lbo && html_text_is_line_break (pi->attrs [offset]))
 			if (update_lb (slave, painter, widthLeft, offset, s, ii, io, line_offset, &w, &ltw, &lwl, &lbw, &lbo, &lbsp, &force_fit))
 				break;
 
@@ -387,10 +387,6 @@ hts_fit_line (HTMLObject *o, HTMLPainter *painter,
 
 		s = g_utf8_next_char (s);
 		offset ++;
-
-		if (offset > slave->posStart && ii != pi->n - 1 && io == pi->entries [ii].item->num_chars - 1)
-			if (update_lb (slave, painter, widthLeft, offset, s, ii, io, line_offset, &w, &ltw, &lwl, &lbw, &lbo, &lbsp, &force_fit))
-				break;
 
 		html_text_pi_forward (pi, &ii, &io);
 	}

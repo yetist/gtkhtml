@@ -45,12 +45,12 @@ struct _Link {
 
 struct _HTMLTextPangoInfoEntry {
 	PangoItem *item;
-	PangoLogAttr *attrs;
 	PangoGlyphUnit *widths;
 };
 
 struct _HTMLTextPangoInfo {
 	HTMLTextPangoInfoEntry *entries;
+	PangoLogAttr *attrs;
 	gint n;
 };
 
@@ -310,9 +310,7 @@ void               html_text_calc_text_size        (HTMLText              *t,
 						    gint                  *width,
 						    gint                  *asc,
 						    gint                  *dsc);
-gboolean           html_text_is_line_break         (PangoItem             *item,
-						    PangoLogAttr          *attrs,
-						    int                    offset);
+gboolean           html_text_is_line_break         (PangoLogAttr           attr);
 
 typedef HTMLObject * (* HTMLTextHelperFunc)       (HTMLText *, gint begin, gint end);
 HTMLObject *html_text_op_copy_helper    (HTMLText           *text,

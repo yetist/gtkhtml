@@ -1,3 +1,38 @@
+2004-05-24  Radek Doulik  <rodo@ximian.com>
+
+	* htmlclueflow.c (save_plain): collect similar items to one long
+	temporary one, call html_engine_save_buffer_clear_line_breaks to
+	avoid breaking in links
+
+	* htmlengine-save.c (html_engine_save_add_nb_interval): new method
+	to add non breaking interval (used when saving plain text as we
+	don't have link info in flow::save_plain)
+	(html_engine_save_buffer_clear_line_breaks): new method to clear
+	line breaks in pango logical attributes in intervals defined while
+	saving plain text
+
+2004-05-21  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c: remove attrs from entries and put it in pango info
+	structure, it simplifies a lot of things
+
+	* htmlclueflow.c (save_plain): updated for new
+	html_text_is_line_break signature
+
+	* htmltext.c (html_text_remove_link_line_breaks): new helper
+	function to remove line breaks in links
+	(html_text_get_pango_info): call html_text_remove_link_line_breaks
+	after the attributes are defined
+	
+	* htmltextslave.c (hts_fit_line): do not break on item boundaries
+
+	* htmltext.c (html_text_is_line_break): do not check for white
+	space before line_break, it breaks other languages as Japanese and
+	others
+	(calc_min_width): do not break on item boundaries
+	(html_text_get_pango_info): call pango break on temporary item
+	which spans across items with the same lang_engine
+
 2004-05-19  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-save.c (html_engine_save_buffer_peek_text_len): new

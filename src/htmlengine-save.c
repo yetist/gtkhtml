@@ -330,6 +330,7 @@ html_engine_save (HTMLEngine *engine,
 	state.inline_frames = FALSE;
 	state.user_data = user_data;
 	state.last_level = 0;
+	state.nb_intervals = NULL;
 
 	if (! write_header (&state))
 		return FALSE;
@@ -365,6 +366,7 @@ html_engine_save_plain (HTMLEngine *engine,
 	state.inline_frames = FALSE;
 	state.user_data = user_data;
 	state.last_level = 0;
+	state.nb_intervals = NULL;
 
 	/* FIXME don't hardcode the length */
 	html_object_save_plain (engine->clue, &state, 72);
@@ -394,6 +396,11 @@ html_engine_save_buffer_free (HTMLEngineSaveState *state)
 	string = (GString *)state->user_data;
 
 	g_string_free (string, TRUE);
+
+	if (state->nb_intervals) {
+		g_slist_free (state->nb_intervals);
+		state->nb_intervals = NULL;
+	}
 	
 	g_free (state);
 }
@@ -420,6 +427,32 @@ html_engine_save_buffer_peek_text_len (HTMLEngineSaveState *state)
 	return string->len;
 }
 
+void
+html_engine_save_add_nb_interval (HTMLEngineSaveState *state, int start_offset, int end_offset)
+{
+	state->nb_intervals = g_slist_prepend (state->nb_intervals, GINT_TO_POINTER (end_offset));
+	state->nb_intervals = g_slist_prepend (state->nb_intervals, GINT_TO_POINTER (start_offset));
+}
+
+void
+html_engine_save_buffer_clear_line_breaks (HTMLEngineSaveState *state, PangoLogAttr *attrs)
+{
+	if (state->nb_intervals) {
+		GSList *cur;
+
+		for (cur = state->nb_intervals; cur; cur = cur->next->next) {
+			int i, start_offset, end_offset;
+			g_return_if_fail (cur->next);
+
+			start_offset = GPOINTER_TO_INT (cur->data);
+			end_offset = GPOINTER_TO_INT (cur->next->data);
+
+			for (i = start_offset; i < end_offset; i ++)
+				attrs [i].is_line_break = 0;
+		}
+	}
+}
+
 HTMLEngineSaveState *
 html_engine_save_buffer_new (HTMLEngine *engine, gboolean inline_frames)
 {
@@ -433,6 +466,7 @@ html_engine_save_buffer_new (HTMLEngine *engine, gboolean inline_frames)
 		state->inline_frames = inline_frames;
 		state->user_data = (gpointer) g_string_new ("");
 		state->last_level = 0;
+		state->nb_intervals = NULL;
 	}
 
 	return state;

@@ -82,6 +82,7 @@ html_text_pango_info_new (gint n)
 	pi = g_new (HTMLTextPangoInfo, 1);
 	pi->n = n;
 	pi->entries = g_new0 (HTMLTextPangoInfoEntry, n);
+	pi->attrs = NULL;
 
 	return pi;
 }
@@ -93,9 +94,9 @@ html_text_pango_info_destroy (HTMLTextPangoInfo *pi)
 
 	for (i = 0; i < pi->n; i ++) {
 		pango_item_free (pi->entries [i].item);
-		g_free (pi->entries [i].attrs);
 		g_free (pi->entries [i].widths);
 	}
+	g_free (pi->attrs);
 	g_free (pi);
 }
 
@@ -1133,6 +1134,23 @@ html_text_add_cite_color (PangoAttrList *attrs, HTMLText *text, HTMLClueFlow *fl
 	}
 }
 
+void
+html_text_remove_link_line_breaks (HTMLText *text)
+{
+	GSList *cur;
+
+	if (!text->pi || !text->pi->attrs)
+		return;
+
+	for (cur = text->links; cur; cur = cur->next) {
+		Link *link = (Link *) cur->data;
+		int offset;
+
+		for (offset = link->start_offset; offset < link->end_offset; offset ++)
+			text->pi->attrs [offset].is_line_break = 0;
+	}
+}
+
 HTMLTextPangoInfo *
 html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 {
@@ -1150,7 +1168,7 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 		HTMLClueFlow *flow = NULL;
 		HTMLEngine *e = NULL;
 		gchar *translated, *heap = NULL;
-		gint i;
+		int i, offset;
 
 		if (text->text_bytes > HTML_ALLOCA_MAX)
 			heap = translated = g_malloc (text->text_bytes);
@@ -1238,15 +1256,42 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 
 		text->pi = html_text_pango_info_new (g_list_length (items));
 
-		for (i = 0, cur = items; i < text->pi->n; i ++, cur = cur->next) {
+		for (i = 0, cur = items; i < text->pi->n; i ++, cur = cur->next)
+			text->pi->entries [i].item = (PangoItem *) cur->data;
+
+		offset = 0;
+		text->pi->attrs = g_new (PangoLogAttr, text->text_len + 1);
+		for (i = 0; i < text->pi->n; i ++) {
+			PangoItem tmp_item;
+			PangoLogAttr *attrs;
+			int start_i, start_offset;
+
+			start_i = i;
+			start_offset = offset;
+			offset += text->pi->entries [i].item->num_chars;
+			tmp_item = *text->pi->entries [i].item;
+			while (i < text->pi->n - 1) {
+				if (tmp_item.analysis.lang_engine == text->pi->entries [i + 1].item->analysis.lang_engine) {
+					tmp_item.length += text->pi->entries [i + 1].item->length;
+					tmp_item.num_chars += text->pi->entries [i + 1].item->num_chars;
+					offset += text->pi->entries [i + 1].item->num_chars;
+					i ++;
+				} else
+					break;
+			}
+
+			pango_break (translated + tmp_item.offset, tmp_item.length, &tmp_item.analysis, text->pi->attrs + start_offset, tmp_item.num_chars + 1);
+		}
+
+		html_text_remove_link_line_breaks (text);
+
+		for (i = 0; i < text->pi->n; i ++) {
 			PangoGlyphString *glyphs;
 			PangoItem *item;
-			item = text->pi->entries [i].item = (PangoItem *) cur->data;
+
+			item = text->pi->entries [i].item;
 
 			/* printf ("item pos %d len %d\n", item->offset, item->length); */
-
-			text->pi->entries [i].attrs = g_new (PangoLogAttr, item->num_chars + 1);
-			pango_break (translated + item->offset, item->length, &item->analysis, text->pi->entries [i].attrs, item->num_chars + 1);
 
 			glyphs = pango_glyph_string_new ();
 			text->pi->entries [i].widths = g_new (PangoGlyphUnit, item->num_chars);
@@ -1292,12 +1337,14 @@ gint
 html_text_tail_white_space (HTMLText *text, HTMLPainter *painter, gint offset, gint ii, gint io, gint *white_len, gint line_offset, gchar *s)
 {
 	HTMLTextPangoInfo *pi = html_text_get_pango_info (text, painter);
-	gint wl = 0;
-	gint ww = 0;
+	int wl = 0;
+	int ww = 0;
+	int current_offset = offset;
 
 	if (html_text_pi_backward (pi, &ii, &io)) {
 		s = g_utf8_prev_char (s);
-		if (pi->entries [ii].attrs [io].is_white) {
+		current_offset --;
+		if (pi->attrs [current_offset].is_white) {
 			if (HTML_IS_GDK_PAINTER (painter) || HTML_IS_PLAIN_PAINTER (painter)) {
 				if (*s == '\t' && offset > 1) {
 					gint skip = 8, co = offset - 1;
@@ -1347,10 +1394,9 @@ update_mw (HTMLText *text, HTMLPainter *painter, gint offset, gint *last_offset,
 }
 
 gboolean
-html_text_is_line_break (PangoItem *item, PangoLogAttr *attrs, int offset)
+html_text_is_line_break (PangoLogAttr attr)
 {
-	return (attrs [offset].is_line_break
-		&& (item->analysis.lang_engine != NULL || (offset > 0 && attrs [offset - 1].is_white)));
+	return attr.is_line_break;
 }
 
 static gint
@@ -1371,7 +1417,7 @@ calc_min_width (HTMLObject *self, HTMLPainter *painter)
 	while (offset < text->text_len) {
 		gint skip;
 
-		if (offset > 0 && html_text_is_line_break (pi->entries [ii].item, pi->entries [ii].attrs, io))
+		if (offset > 0 && html_text_is_line_break (pi->attrs [offset]))
 			update_mw (text, painter, offset, &last_offset, &ww, &mw, ii, io, s, line_offset);
 
 		if (*s == '\t') {
@@ -1384,8 +1430,6 @@ calc_min_width (HTMLObject *self, HTMLPainter *painter)
 				ww += PANGO_PIXELS (pi->entries [ii].widths [io]);
 			line_offset ++;
 		}
-		if (offset > 0 && ii != pi->n - 1 && io == pi->entries [ii].item->num_chars - 1)
-			update_mw (text, painter, offset, &last_offset, &ww, &mw, ii, io, s, line_offset);
 
 		s = g_utf8_next_char (s);
 		offset ++;
@@ -1631,8 +1675,18 @@ save_plain (HTMLObject *self,
 
 	text = HTML_TEXT (self);
 
+	if (text->links) {
+		GSList *cur;
+		int len = html_engine_save_buffer_peek_text_len (state);
+
+		for (cur = text->links; cur; cur = cur->next) {
+			Link *link = (Link *) cur->data;
+
+			html_engine_save_add_nb_interval (state, link->start_offset + len, link->end_offset + len);
+		}
+	}
 	rv  = html_engine_save_output_string (state, "%s", text->text);
-	
+
 	return rv;
 }
 
