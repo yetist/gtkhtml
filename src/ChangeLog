@@ -1,3 +1,10 @@
+2001-05-18  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (parse_d): fix dt rendering so that it always
+	splits the flow, even outside of dl, this is "feature" of
+	netscape/mozilla is used in several prominant places like bonsai
+	(fixes http://bugzilla.helixcode.com/show_bug.cgi?id=2043).
+
 2001-05-17  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (parse_f): fix color parsing so that it pushes the

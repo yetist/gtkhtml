@@ -1994,9 +1994,6 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 
 		add_line_break (e, _clue, HTML_CLEAR_ALL);
 	} else if (strncmp( str, "dt", 2 ) == 0) {
-		if (html_stack_top (e->glossaryStack) == NULL)
-			return;
-
 		if (GPOINTER_TO_INT (html_stack_top (e->glossaryStack)) == HTML_GLOSSARY_DD) {
 			html_stack_pop (e->glossaryStack);
 			if (e->indent_level > 0)
