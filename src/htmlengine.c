@@ -3396,6 +3396,16 @@ html_engine_parse (HTMLEngine *p)
 {
 	html_engine_stop_parser (p);
 
+	/* reset search & replace */
+	if (p->search_info) {
+		html_search_destroy (p->search_info);
+		p->search_info = NULL;
+	}
+	if (p->replace_info) {
+		html_replace_destroy (p->replace_info);
+		p->replace_info = NULL;
+	}
+
 	if (p->clue != NULL)
 		html_object_destroy (p->clue);
 

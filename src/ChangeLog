@@ -1,3 +1,7 @@
+2000-05-03  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine.c (html_engine_parse): reset search & replace engine
+
 2000-05-02  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlimage.c (cleanup_images): if there are no interestes don't try to
