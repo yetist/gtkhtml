@@ -1,3 +1,7 @@
+2003-04-04  Larry Ewing  <lewing@ximian.com>
+
+	* configure.in: drop the configure check for libglade to 2.0.0
+
 2003-04-03  Larry Ewing  <lewing@ximian.com>
 
 	* configure.in: make shlib component default.
