@@ -294,8 +294,8 @@ dnl gtkhtmlConf.sh stuff.
 
 GTKHTML_LIBDIR="-L${libdir}"
 GTKHTML_INCLUDEDIR="-I${includedir}"
-GTKHTML_INCLUDEDIR="$GTKHTML_INCLUDEDIR `$GNOME_CONFIG --cflags gdk_pixbuf printunicode gal $bonogo` $GCONF_CFLAGS"
-GTKHTML_LIBS="-lgtkhtml `$GNOME_CONFIG --libs gdk_pixbuf print unicode gal $bonobo` $GCONF_LIBS"
+GTKHTML_INCLUDEDIR="$GTKHTML_INCLUDEDIR `$GNOME_CONFIG --cflags gdk_pixbuf printunicode gal` $GCONF_CFLAGS"
+GTKHTML_LIBS="-lgtkhtml `$GNOME_CONFIG --libs gdk_pixbuf print unicode gal` $GCONF_LIBS"
 
 AC_SUBST(GTKHTML_LIBDIR)
 AC_SUBST(GTKHTML_INCLUDEDIR)
