@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
-"POT-Creation-Date: 2002-01-26 18:35+0100\n"
+"POT-Creation-Date: 2002-01-30 20:26+0100\n"
 "PO-Revision-Date: 2002-01-26 18:39+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -366,7 +366,7 @@ msgid "Left justifies the paragraphs"
 msgstr "Venstrejusterer avsnittene"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
-#: components/html-editor/body.c:306 components/html-editor/menubar.c:123
+#: components/html-editor/body.c:307 components/html-editor/menubar.c:123
 #: components/html-editor/popup.c:165 components/html-editor/popup.c:238
 msgid "Link"
 msgstr "Lenke"
@@ -740,34 +740,34 @@ msgstr "Test"
 msgid "Test 1"
 msgstr "Test 1"
 
-#: components/html-editor/body.c:250
+#: components/html-editor/body.c:251
 msgid "Document Title"
 msgstr "Dokumenttittel"
 
-#: components/html-editor/body.c:254 components/html-editor/body.c:257
+#: components/html-editor/body.c:255 components/html-editor/body.c:258
 #: components/html-editor/gtkhtml-editor-properties.glade.h:14
 msgid "Background Image"
 msgstr "Bakgrunnsbilde"
 
-#: components/html-editor/body.c:283
+#: components/html-editor/body.c:284
 #: components/html-editor/gtkhtml-editor-properties.glade.h:23
 msgid "Colors"
 msgstr "Farger"
 
-#: components/html-editor/body.c:293 components/html-editor/cell.c:391
+#: components/html-editor/body.c:294 components/html-editor/cell.c:391
 #: components/html-editor/table.c:534 components/html-editor/text.c:283
 #: components/html-editor/toolbar.c:290
 msgid "Automatic"
 msgstr "Automatisk"
 
-#: components/html-editor/body.c:305
+#: components/html-editor/body.c:306
 #: components/html-editor/editor-control-factory.c:196
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
 #: components/html-editor/menubar.c:242 components/html-editor/popup.c:158
 msgid "Text"
 msgstr "Tekst"
 
-#: components/html-editor/body.c:307
+#: components/html-editor/body.c:308
 #: components/html-editor/gtkhtml-editor-properties.glade.h:13
 msgid "Background"
 msgstr "Bakgrunn"
@@ -790,11 +790,11 @@ msgstr "Avsnitt"
 msgid "Page"
 msgstr "Side"
 
-#: components/html-editor/editor-control-factory.c:838
+#: components/html-editor/editor-control-factory.c:854
 msgid "Could not initialize GNORBA"
 msgstr "Kunne ikke initiere GNORBA"
 
-#: components/html-editor/editor-control-factory.c:851
+#: components/html-editor/editor-control-factory.c:867
 msgid "Could not initialize Bonobo"
 msgstr "Kunne ikke initiere Bonobo"
 
@@ -1459,7 +1459,7 @@ msgstr "Les siden på nytt"
 msgid "Could not initialize Bonobo!"
 msgstr "Kunne ikke initiere Bonobo!"
 
-#: src/htmlengine-print.c:200
+#: src/htmlengine-print.c:198
 msgid "Cannot allocate default font for printing\n"
 msgstr "Kan ikke tildele forvalgt skrif for utskrift\n"
 
@@ -1467,15 +1467,15 @@ msgstr "Kan ikke tildele forvalgt skrif for utskrift\n"
 msgid "Can't load fixed font."
 msgstr "Kan ikke laste fast skrifttype."
 
-#: src/htmlprinter.c:69
+#: src/htmlprinter.c:63
 msgid "US-Letter"
 msgstr "US-letter"
 
-#: src/testgtkhtml.c:112
+#: src/testgtkhtml.c:113
 msgid "Print pre_view"
 msgstr "Forhånds_visning"
 
-#: src/testgtkhtml.c:112
+#: src/testgtkhtml.c:113
 msgid "Print preview"
 msgstr "Forhåndsvisning"
 
