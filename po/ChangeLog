@@ -1,3 +1,7 @@
+2001-06-26  Héctor García Álvarez <hector@scouts-es.org>
+
+        * es.po: Updated Spanish translation.
+
 2001-06-26  Dan Winship  <danw@ximian.com>
 
 	* POTFILES.in: removed components/html-editor/main.c
