@@ -1,5 +1,9 @@
 2000-08-22  Radek Doulik  <rodo@helixcode.com>
 
+	* gtkhtml.c (on_object): renamed from on_url
+	(on_object): reset html->pointer_url to NULL and mouse cursor to
+	html->arrow_cursor
+
 	* htmlengine.c (parse_body): don't insert " ", this fixes problem
 	with linked images but maybe broke another cases? any complains?
 	(parse_d): fix <div> case when on beggining of new flow (head ==
