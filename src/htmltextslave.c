@@ -324,15 +324,15 @@ update_lb (HTMLTextSlave *slave, HTMLPainter *painter, gint widthLeft, gint offs
 	if (HTML_IS_GDK_PAINTER (painter) || HTML_IS_PLAIN_PAINTER (painter)) {
 		aw = *w - new_ltw;
 	} else {
-		gint lo = html_text_get_line_offset (slave->owner, painter, *lbo - *lwl);
+		gint lo = html_text_get_line_offset (slave->owner, painter, *lbo);
+		gint width;
 				/* printf ("s: %s l: %d\n", html_text_get_text (slave->owner, lbo - lwl), offset - new_lwl - lbo + lwl); */
-		html_text_calc_text_size (slave->owner, painter, html_text_get_text (slave->owner, *lbo - *lwl),
-					  offset - new_lwl - *lbo + *lwl, NULL, NULL, 0, &lo,
+		html_text_calc_text_size (slave->owner, painter, html_text_get_text (slave->owner, *lbo),
+					  offset - *lbo, NULL, NULL, 0, &lo,
 					  html_text_get_font_style (slave->owner), slave->owner->face,
-					  &aw, NULL, NULL);
-		*w += aw;
-		aw = *w;
-		new_ltw = 0;
+					  &width, NULL, NULL);
+		*w += width;
+		aw = *w - new_ltw;
 	}
 	if (aw <= widthLeft || *force_fit) {
 		*ltw = new_ltw;
@@ -395,11 +395,11 @@ hts_fit_line (HTMLObject *o, HTMLPainter *painter,
 
 	if (!HTML_IS_GDK_PAINTER (painter) && !HTML_IS_PLAIN_PAINTER (painter)) {
 		gint aw;
-		gint lo = html_text_get_line_offset (slave->owner, painter, lbo - lwl);
+		gint lo = html_text_get_line_offset (slave->owner, painter, lbo);
 
 		/* printf ("s: %s l: %d\n", html_text_get_text (slave->owner, lbo - lwl), offset - lbo + lwl); */
-		html_text_calc_text_size (slave->owner, painter, html_text_get_text (slave->owner, lbo - lwl),
-					  offset - lbo + lwl, NULL, NULL, 0, &lo,
+		html_text_calc_text_size (slave->owner, painter, html_text_get_text (slave->owner, lbo),
+					  offset - lbo, NULL, NULL, 0, &lo,
 					  html_text_get_font_style (slave->owner), slave->owner->face,
 					  &aw, NULL, NULL);
 		w += aw;

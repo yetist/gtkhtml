@@ -1,5 +1,13 @@
 2004-05-27  Radek Doulik  <rodo@ximian.com>
 
+	* htmlprinter.c (text_size): use double for width calculation to
+	avoid numeric errors
+	(draw_text): ditto
+
+	* htmltextslave.c (update_lb): calculate the printer width the
+	same way as for gdk painters
+	(hts_fit_line): ditto
+
 	* htmlpainter.h: removed color set from painter, we now use only
 	the global one from engine. having own sets in painters caused a
 	lot of pain by having to update those when global one

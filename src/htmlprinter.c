@@ -610,6 +610,8 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, HT
 	double width, asc, dsc;
 	gboolean temp_pi = FALSE;
 
+	width = 0.0;
+
 	printer = HTML_PRINTER (painter);
 	g_return_val_if_fail (printer->context != NULL, 0);
 
@@ -642,7 +644,8 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, HT
 			GnomeFont *c_font;
 			GdkGC *gc, *bg_gc;
 			gboolean underline, strikethrough, bgcolor;
-			gint cw = 0, c_bytes, begin, end;
+			gint c_bytes, begin, end;
+			double cw = 0.0;
 
 			str = (PangoGlyphString *) gl->data;
 			gl = gl->next;
@@ -778,6 +781,7 @@ text_size (HTMLPainter *painter, const gchar *text, guint blen, HTMLTextPangoInf
 {
 	HTMLPrinter *printer;
 	gboolean temp_pi = FALSE;
+	double real_width = 0.0;
 
 	printer = HTML_PRINTER (painter);
 	g_return_if_fail (printer->context != NULL);
@@ -787,8 +791,6 @@ text_size (HTMLPainter *painter, const gchar *text, guint blen, HTMLTextPangoInf
 		*asc = SCALE_GNOME_PRINT_TO_ENGINE (gnome_font_get_ascender (font));
 	if (dsc)
 		*dsc = SCALE_GNOME_PRINT_TO_ENGINE (-gnome_font_get_descender (font));
-	if (width)
-		*width = 0;
 
 	if (!pi) {
 		pi = html_painter_text_itemize_and_prepare_glyphs (painter, html_painter_get_font (painter, painter->font_face, painter->font_style),
@@ -847,7 +849,7 @@ text_size (HTMLPainter *painter, const gchar *text, guint blen, HTMLTextPangoInf
 				*dsc = MAX (*dsc, SCALE_GNOME_PRINT_TO_ENGINE (-gnome_font_get_descender (c_font)));
 
 			if (width)
-				*width += gnome_font_get_width_utf8_sized (c_font, c_text, c_bytes);
+				real_width += gnome_font_get_width_utf8_sized (c_font, c_text, c_bytes);
 			c_text += c_bytes;
 			char_offset += str->num_glyphs;
 		}
@@ -862,7 +864,8 @@ text_size (HTMLPainter *painter, const gchar *text, guint blen, HTMLTextPangoInf
 			html_text_pango_info_destroy (pi);
 	}
 
-	*width = SCALE_GNOME_PRINT_TO_ENGINE (*width);
+	if (width)
+		*width = SCALE_GNOME_PRINT_TO_ENGINE (real_width);
 }
 
 static void
