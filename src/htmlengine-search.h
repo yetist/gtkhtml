@@ -28,4 +28,5 @@ gboolean  html_engine_search                    (HTMLEngine *e,
 						 gboolean regular);
 gboolean  html_engine_search_next               (HTMLEngine *e);
 gboolean  html_engine_search_incremental        (HTMLEngine *e,
-						 const gchar *text);
+						 const gchar *text,
+						 gboolean forward);

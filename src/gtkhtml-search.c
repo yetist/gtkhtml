@@ -35,15 +35,8 @@ typedef struct _GtkHTMLISearch GtkHTMLISearch;
 static void
 changed (GtkEntry *entry, GtkHTMLISearch *data)
 {
-	HTMLEngine *e;
 	/* printf ("isearch changed\n"); */
-
-	e = data->html->engine;
-
-	if (e->search_info)
-		html_engine_search_incremental (e, gtk_entry_get_text (entry));
-	else
-		html_engine_search (e, gtk_entry_get_text (entry), FALSE, data->forward, FALSE);
+	html_engine_search_incremental (data->html->engine, gtk_entry_get_text (entry), data->forward);
 }
 
 static gint

@@ -1,5 +1,12 @@
 2000-09-28  Radek Doulik  <rodo@helixcode.com>
 
+	* gtkhtml-search.c (changed): update for
+	html_engine_search_incremental changes
+
+	* htmlengine-search.c (html_engine_search_incremental): updated,
+	so it could be used without former call to html_engine_search,
+	also added forward argument
+
 	* htmltable.c (scale_columns): fixed condition, where r could be
 	as high as table->totalRows, which was invalid
 	refactored + fixed col/row span
