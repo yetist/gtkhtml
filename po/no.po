@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.6.1\n"
-"POT-Creation-Date: 2000-09-25 15:20+0200\n"
-"PO-Revision-Date: 2000-09-21 21:12+02:00\n"
+"POT-Creation-Date: 2000-10-15 12:17+0200\n"
+"PO-Revision-Date: 2000-10-15 12:18+02:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -133,53 +133,65 @@ msgstr "Bakgrunnsbilde"
 msgid "Colors"
 msgstr "Farger"
 
-#: components/html-editor/editor-control-factory.c:133
-#: components/html-editor/popup.c:86
+#: components/html-editor/editor-control-factory.c:129
+#: components/html-editor/popup.c:73
+msgid "Properties"
+msgstr "Egenskaper"
+
+#: components/html-editor/editor-control-factory.c:140
+#: components/html-editor/menubar.c:96 components/html-editor/popup.c:88
 msgid "Image"
 msgstr "Bilde"
 
-#: components/html-editor/editor-control-factory.c:142
-#: components/html-editor/popup.c:79
+#: components/html-editor/editor-control-factory.c:149
+#: components/html-editor/menubar.c:117 components/html-editor/popup.c:81
 msgid "Text"
 msgstr "Tekst"
 
-#: components/html-editor/editor-control-factory.c:154
-#: components/html-editor/popup.c:93
+#: components/html-editor/editor-control-factory.c:160
+#: components/html-editor/menubar.c:140 components/html-editor/popup.c:116
+msgid "Rule"
+msgstr "Regel"
+
+#: components/html-editor/editor-control-factory.c:169
+#: components/html-editor/popup.c:95
 msgid "Paragraph"
 msgstr "Avsnitt"
 
-#: components/html-editor/editor-control-factory.c:159
-#: components/html-editor/menubar.c:109 components/html-editor/popup.c:100
+#: components/html-editor/editor-control-factory.c:174
+#: components/html-editor/menubar.c:101 components/html-editor/menubar.c:122
+#: components/html-editor/popup.c:102
 msgid "Link"
 msgstr "Lenke"
 
-#: components/html-editor/editor-control-factory.c:164
-#: components/html-editor/popup.c:107
+#: components/html-editor/editor-control-factory.c:179
+#: components/html-editor/popup.c:109
 msgid "Page"
 msgstr "Side"
 
-#: components/html-editor/image.c:409
+#: components/html-editor/image.c:149
 msgid "Image selection"
 msgstr "Bildevalg"
 
-#: components/html-editor/image.c:417
-msgid "Border"
-msgstr "Kant"
-
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
-#: components/html-editor/image.c:450
+#: components/html-editor/image.c:176
 msgid "Alignment"
 msgstr "Justering"
 
-#: components/html-editor/image.c:462 components/html-editor/rule.c:124
+#: components/html-editor/image.c:184
+msgid "Border"
+msgstr "Kant"
+
+#: components/html-editor/image.c:201
+msgid "Padding"
+msgstr "Fyll"
+
+#. size
+#: components/html-editor/image.c:221 components/html-editor/rule.c:235
 #: components/html-editor/text.c:160
 msgid "Size"
 msgstr "Størrelse"
-
-#: components/html-editor/image.c:489
-msgid "Padding"
-msgstr "Fyll"
 
 #: components/html-editor/link.c:72
 msgid "Clear"
@@ -197,19 +209,24 @@ msgstr "Kunne ikke initialisere GNORBA"
 msgid "Could not initialize Bonobo"
 msgstr "Kunne ikke initialisere Bonobo"
 
-#: components/html-editor/menubar.c:93
-msgid "Insert image"
-msgstr "Sett inn bilde"
+#: components/html-editor/menubar.c:94 components/html-editor/menubar.c:114
+#: components/html-editor/menubar.c:137
+#: components/html-editor/properties.c:110
+msgid "Insert"
+msgstr "Sett inn"
 
-#: components/html-editor/menubar.c:128
+#: components/html-editor/menubar.c:153
 msgid "Cannot execute gtkhtml properties"
 msgstr "Kan ikke kjøre gtkhtml egenskaper"
 
-#: components/html-editor/paragraph.c:74 components/html-editor/text.c:138
+#. style
+#: components/html-editor/paragraph.c:74 components/html-editor/rule.c:223
+#: components/html-editor/text.c:138
 msgid "Style"
 msgstr "Stil"
 
-#: components/html-editor/paragraph.c:108
+#. align
+#: components/html-editor/paragraph.c:108 components/html-editor/rule.c:259
 msgid "Align"
 msgstr "Justér"
 
@@ -225,16 +242,7 @@ msgstr "Senter"
 msgid "Right"
 msgstr "Høyre"
 
-#: components/html-editor/properties.c:92
-#: components/html-editor/properties.c:93
-msgid "Insert"
-msgstr "Sett inn"
-
-#: components/html-editor/properties.c:95
-msgid "Properties"
-msgstr "Egenskaper"
-
-#: components/html-editor/popup.c:178
+#: components/html-editor/popup.c:185
 msgid "Remove link"
 msgstr "Fjern lenke"
 
@@ -255,11 +263,11 @@ msgstr "Erstatt alle"
 msgid "Next"
 msgstr "Neste"
 
-#: components/html-editor/replace.c:152 components/html-editor/search.c:66
+#: components/html-editor/replace.c:152 components/html-editor/search.c:67
 msgid "search backward"
 msgstr "søk bakover"
 
-#: components/html-editor/replace.c:153 components/html-editor/search.c:67
+#: components/html-editor/replace.c:153 components/html-editor/search.c:68
 msgid "case sensitive"
 msgstr "skill mellom store/små bokstaver"
 
@@ -267,43 +275,25 @@ msgstr "skill mellom store/små bokstaver"
 msgid "with"
 msgstr "med"
 
-#: components/html-editor/rule.c:124
-msgid "Length"
-msgstr "Lengde"
+#: components/html-editor/rule.c:227
+msgid "shaded"
+msgstr "skyggelagt"
 
-#: components/html-editor/rule.c:124
-msgid "Percent"
-msgstr "Prosent"
+#. weight
+#: components/html-editor/rule.c:275
+msgid "Weight"
+msgstr "Tyngde"
 
-#: components/html-editor/rule.c:125
-msgid "Left Align"
-msgstr "Venstrejustert"
+#. sample
+#: components/html-editor/rule.c:287
+msgid "Sample"
+msgstr "Eksempel"
 
-#: components/html-editor/rule.c:125
-msgid "Center Align"
-msgstr "Sentrert"
-
-#: components/html-editor/rule.c:125
-msgid "Right Align"
-msgstr "Høyrejustert"
-
-#: components/html-editor/rule.c:125
-msgid "None"
-msgstr "Ingen"
-
-#: components/html-editor/rule.c:129
-msgid "Rule"
-msgstr "Regel"
-
-#: components/html-editor/rule.c:132
-msgid "Set Shade"
-msgstr "Sett skygge"
-
-#: components/html-editor/search.c:63
+#: components/html-editor/search.c:64
 msgid "Regex search"
 msgstr "Regexsøk"
 
-#: components/html-editor/search.c:63
+#: components/html-editor/search.c:64
 msgid "Search"
 msgstr "Søk"
 
