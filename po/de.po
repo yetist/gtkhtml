@@ -2,69 +2,88 @@
 # Copyright (C) 2000 Free Software Foundation, Inc.
 # Christian Meyer <linux@chrisime.de>, 2000.
 # Kai Lahmann <kl@linuxfaqs.de>, 2000.
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml 0.5\n"
-"POT-Creation-Date: 2000-09-11 07:52+0200\n"
-"PO-Revision-Date: 2000-09-11 07:50+0200\n"
-"Last-Translator: Christian Meyer <linux@chrisime.de>\n"
+"Project-Id-Version: gtkhtml 0.6.1\n"
+"POT-Creation-Date: 2000-09-19 22:29+0200\n"
+"PO-Revision-Date: 2000-09-19 22:31+0200\n"
+"Last-Translator: Kai Lahmann <kl@linuxfaqs.de>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: capplet/gnome-bindings-prop.c:153 capplet/gnome-bindings-prop.c:221
-#: capplet/gnome-bindings-prop.c:296 capplet/gnome-bindings-prop.c:431
-#: capplet/gnome-bindings-prop.c:432
+#: capplet/gnome-bindings-prop.c:154 capplet/gnome-bindings-prop.c:222
+#: capplet/gnome-bindings-prop.c:297 capplet/gnome-bindings-prop.c:435
+#: capplet/gnome-bindings-prop.c:436
 msgid "<None>"
 msgstr "<Nichts>"
 
-#: capplet/gnome-bindings-prop.c:521
+#: capplet/gnome-bindings-prop.c:525
 msgid "Key"
 msgstr "Hotkey"
 
-#: capplet/gnome-bindings-prop.c:521
+#: capplet/gnome-bindings-prop.c:525
 msgid "Command"
 msgstr "Befehl"
 
-#: capplet/gnome-bindings-prop.c:522
+#: capplet/gnome-bindings-prop.c:526
 msgid "Commands"
 msgstr "Befehle"
 
-#: capplet/gnome-bindings-prop.c:523
+#: capplet/gnome-bindings-prop.c:527
 msgid "Keymaps"
 msgstr "Tastentabelle"
 
-#: capplet/gnome-bindings-prop.c:541
+#: capplet/gnome-bindings-prop.c:545
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: capplet/gnome-bindings-prop.c:544
-#: components/html-editor/test-html-editor-control.c:325
+#: capplet/gnome-bindings-prop.c:548
+#: components/html-editor/test-html-editor-control.c:323
 #: components/html-editor/toolbar.c:495
 msgid "Copy"
 msgstr "Kopieren"
 
-#: capplet/gnome-bindings-prop.c:547
+#: capplet/gnome-bindings-prop.c:551
 msgid "Delete"
 msgstr "Löschen"
 
-#: capplet/gnome-bindings-prop.c:578
+#: capplet/gnome-bindings-prop.c:582
 msgid "Grab key"
 msgstr "Hotkey einstellen"
 
-#: capplet/main.c:127 capplet/viewer.c:188
-msgid "Behaviour"
-msgstr "Verhalten"
+#: capplet/main.c:220
+msgid "Spell checking"
+msgstr "Rechtschreibprüfung"
 
-#: capplet/main.c:128
+#: capplet/main.c:223
+msgid "live spell checking"
+msgstr "sofortige Rechtschreibprüfung"
+
+#: capplet/main.c:232
+msgid "spell checking color"
+msgstr "Rechtschreibprüfungs-Farbe"
+
+#: capplet/main.c:239
+msgid "language"
+msgstr "Sprache"
+
+#: capplet/main.c:245
+msgid "Miscellaneous"
+msgstr "Weiteres"
+
+#: capplet/main.c:247
 msgid "magic links"
 msgstr "Magische Links"
 
-#: capplet/main.c:135
-msgid "Keybindings"
+#: capplet/main.c:266
+msgid "Bindings"
 msgstr "Tastenkombinationen"
+
+#: capplet/main.c:267 capplet/viewer.c:188
+msgid "Behaviour"
+msgstr "Verhalten"
 
 #: capplet/viewer.c:148
 msgid "Appearance"
@@ -130,7 +149,7 @@ msgid "Paragraph"
 msgstr "Absatz"
 
 #: components/html-editor/editor-control-factory.c:159
-#: components/html-editor/menubar.c:157 components/html-editor/popup.c:100
+#: components/html-editor/menubar.c:109 components/html-editor/popup.c:100
 msgid "Link"
 msgstr "Link"
 
@@ -178,47 +197,11 @@ msgstr "GNORBA konnte nicht initialisiet werden"
 msgid "Could not initialize Bonobo"
 msgstr "Bonobo konnte nicht initialisiert werden"
 
-#: components/html-editor/menubar.c:60
-msgid "Find Rege_x..."
-msgstr "Reguläre suchen..."
-
-#: components/html-editor/menubar.c:60
-msgid "Regular expressions search..."
-msgstr "Reguläre Ausdrücke suchen..."
-
-#: components/html-editor/menubar.c:69
-msgid "_Image..."
-msgstr "Bild..."
-
-#: components/html-editor/menubar.c:69
-msgid "Insert image into document..."
-msgstr "Bild in das Dokument einfügen..."
-
-#: components/html-editor/menubar.c:70
-msgid "_Link..."
-msgstr "_Link..."
-
-#: components/html-editor/menubar.c:70
-msgid "Insert HTML link into document..."
-msgstr "HTML-Link in das Dokument einfügen..."
-
-#: components/html-editor/menubar.c:71
-msgid "_Rule..."
-msgstr "Linie..."
-
-#: components/html-editor/menubar.c:71
-msgid "Insert rule into document..."
-msgstr "Eine Linie in das Dokument einfügen..."
-
-#: components/html-editor/menubar.c:76
-msgid "_Insert"
-msgstr "E_infügen"
-
-#: components/html-editor/menubar.c:143
+#: components/html-editor/menubar.c:93
 msgid "Insert image"
 msgstr "Bild einfügen"
 
-#: components/html-editor/menubar.c:175
+#: components/html-editor/menubar.c:128
 msgid "Cannot execute gtkhtml properties"
 msgstr "Die gtkhtml-Einstellungen können nicht ausgeführt werden"
 
@@ -324,65 +307,65 @@ msgstr "Reguläre Suche"
 msgid "Search"
 msgstr "Suchen"
 
-#: components/html-editor/test-html-editor-control.c:234
+#: components/html-editor/test-html-editor-control.c:232
 msgid "Open file..."
 msgstr "Datei öffnen..."
 
-#: components/html-editor/test-html-editor-control.c:236
+#: components/html-editor/test-html-editor-control.c:234
 msgid "Save file as..."
 msgstr "Datei speichern unter..."
 
-#: components/html-editor/test-html-editor-control.c:302
+#: components/html-editor/test-html-editor-control.c:300
 msgid "Open (PersistFile)"
 msgstr "Öffnen (PersistFile)"
 
-#: components/html-editor/test-html-editor-control.c:302
+#: components/html-editor/test-html-editor-control.c:300
 msgid "Open using the PersistFile interface"
 msgstr "Öffnen mit Nutzung der PersistFile-Schnittstelle"
 
-#: components/html-editor/test-html-editor-control.c:304
+#: components/html-editor/test-html-editor-control.c:302
 msgid "Save as... (PersistFile)"
 msgstr "Speichern unter... (PersistFile)"
 
-#: components/html-editor/test-html-editor-control.c:304
+#: components/html-editor/test-html-editor-control.c:302
 msgid "Save using the PersistFile interface"
 msgstr "Speichern mit Nutzung der PersistFile-Schnittstelle"
 
-#: components/html-editor/test-html-editor-control.c:307
+#: components/html-editor/test-html-editor-control.c:305
 msgid "Open (PersistStream)"
 msgstr "Öffnen (PersistStream)"
 
-#: components/html-editor/test-html-editor-control.c:307
+#: components/html-editor/test-html-editor-control.c:305
 msgid "Open using the PersistStream interface"
 msgstr "Öffnen mit Nutzung der PersistStream-Schnittstelle"
 
-#: components/html-editor/test-html-editor-control.c:309
+#: components/html-editor/test-html-editor-control.c:307
 msgid "Save as... (PersistStream)"
 msgstr "Speichern unter... (PersistStream)"
 
-#: components/html-editor/test-html-editor-control.c:309
+#: components/html-editor/test-html-editor-control.c:307
 msgid "Save using the PersistStream interface"
 msgstr "Speichern mit Nutzung der PersistStream-Schnittstelle"
 
-#: components/html-editor/test-html-editor-control.c:323
+#: components/html-editor/test-html-editor-control.c:321
 #: components/html-editor/toolbar.c:493
 msgid "Cut"
 msgstr "Ausschneiden"
 
-#: components/html-editor/test-html-editor-control.c:323
+#: components/html-editor/test-html-editor-control.c:321
 msgid "Cut selection to the clipboard"
 msgstr "Auswahl in die Zwischenablage ausschneiden"
 
-#: components/html-editor/test-html-editor-control.c:325
+#: components/html-editor/test-html-editor-control.c:323
 msgid "Copy selection to the clipboard"
 msgstr "Auswahl in die Zwischenablage kopieren"
 
-#: components/html-editor/test-html-editor-control.c:327
+#: components/html-editor/test-html-editor-control.c:325
 #: components/html-editor/toolbar.c:497
 msgid "Paste"
 msgstr "Einfügen"
 
-#: components/html-editor/test-html-editor-control.c:327
+#: components/html-editor/test-html-editor-control.c:325
 #: components/html-editor/toolbar.c:497
 msgid "Paste contents of the clipboard"
 msgstr "Auswahl aus der Zwischenablage einfügen"
@@ -547,3 +530,4 @@ msgstr "Druck_vorschau"
 #: src/testgtkhtml.c:111
 msgid "Print preview"
 msgstr "Druckvorschau"
+
