@@ -1,3 +1,8 @@
+2001-10-03  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml-stream.c (gtk_html_stream_vprintf): limit the potential
+	alloca size so that bad things are less likely to happen.
+
 2001-10-01  Larry Ewing  <lewing@ximian.com>
 
 	* htmlsearch.c (html_search_new): silence warnings for unused
