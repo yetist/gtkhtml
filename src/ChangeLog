@@ -1,3 +1,8 @@
+2001-07-30  Radek Doulik  <rodo@ximian.com>
+
+	* htmlclueflow.c (pref_right_margin): reuse old hack to keep plain
+	text editing work, before I fix aligned objects calculation
+
 2001-07-26  Chema Celorio  <chema@celorio.com>
 
 	* htmlimage.c (html_image_factory_area_updated): remove a

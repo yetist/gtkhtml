@@ -381,6 +381,20 @@ set_line_x (HTMLObject **obj, HTMLObject *run, gint x, gboolean *changed)
 	return x;
 }
 
+static gint
+pref_right_margin (HTMLPainter *p, HTMLClueFlow *clueflow, HTMLObject *o, gint y) 
+{
+	gint fixed_margin = html_object_get_right_margin (o, p, y);
+
+	/* FIXME: this hack lets us wrap the display at 72 characters when we are using
+	   a plain painter */
+	  
+	if (clueflow->style == HTML_CLUEFLOW_STYLE_PRE || ! HTML_IS_PLAIN_PAINTER(p))
+		return fixed_margin;
+	
+	return MIN (fixed_margin, 72 * html_painter_get_space_width (p, GTK_HTML_FONT_STYLE_SIZE_3, NULL));
+}
+
 /* EP CHECK: should be mostly OK.  */
 /* FIXME: But it's awful.  Too big and ugly.  */
 static gboolean
@@ -430,7 +444,8 @@ calc_size (HTMLObject *o,
 	lmargin = html_object_get_left_margin (o->parent, painter, o->y);
 	if (indent > lmargin)
 		lmargin = indent;
-	rmargin = html_object_get_right_margin (o->parent, painter, o->y);
+	/* rmargin = html_object_get_right_margin (o->parent, painter, o->y); */
+	rmargin = pref_right_margin (painter, HTML_CLUEFLOW (o), o->parent, o->y);
 
 	w = lmargin;
 	a = 0;
@@ -501,7 +516,8 @@ calc_size (HTMLObject *o,
 					
 					html_clue_append_right_aligned (HTML_CLUE (o->parent), HTML_CLUE (c));
 
-					rmargin = html_object_get_right_margin (o->parent, painter, o->y);
+					/* rmargin = html_object_get_right_margin (o->parent, painter, o->y); */
+					rmargin = pref_right_margin (painter, HTML_CLUEFLOW (o), o->parent, o->y);
 				}
 			}
 
@@ -640,7 +656,8 @@ calc_size (HTMLObject *o,
 				if (indent > lmargin)
 					lmargin = indent;
 
-				rmargin = html_object_get_right_margin (o->parent, painter, o->y);
+				/* rmargin = html_object_get_right_margin (o->parent, painter, o->y); */
+				rmargin = pref_right_margin (painter, HTML_CLUEFLOW (o), o->parent, o->y);
 			}
 		}
 		
@@ -744,7 +761,8 @@ calc_size (HTMLObject *o,
 			lmargin = html_object_get_left_margin (o->parent, painter, o->y);
 			if (indent > lmargin)
 				lmargin = indent;
-			rmargin = html_object_get_right_margin (o->parent, painter, o->y);
+			/* rmargin = html_object_get_right_margin (o->parent, painter, o->y); */
+			rmargin = pref_right_margin (painter, HTML_CLUEFLOW (o), o->parent, o->y);
 
 			w = lmargin;
 			d = 0;
