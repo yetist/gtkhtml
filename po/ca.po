@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2002-09-09 13:00-0500\n"
+"POT-Creation-Date: 2002-09-09 13:14-0500\n"
 "PO-Revision-Date: 2002-06-01 20:10+0200\n"
 "Last-Translator: Softcatalà <tradgnome@softcatala.org>\n"
 "Language-Team: Softcatalà <tradgnome@softcatala.org>\n"
