@@ -19,6 +19,7 @@
     Boston, MA 02111-1307, USA.
 
     Author: Ettore Perazzoli <ettore@helixcode.com>
+
 */
 
 #include <config.h>
@@ -30,6 +31,8 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+
+#include "HTMLEditor.h"
 
 #include "gtkhtml.h"
 #include "htmlengine-edit.h"
@@ -199,13 +202,50 @@ load_from_file (GtkHTML *html,
 		/* check to see if we stopped because of an error */
 		gtk_html_end (html, handle, GTK_HTML_STREAM_ERROR);
 		g_warning ("%s", g_strerror (errno));
-		close (fd);
 		return FALSE;
 	}	
 	/* done with no errors */
 	gtk_html_end (html, handle, GTK_HTML_STREAM_OK);
 	close (fd);
 	return TRUE;
+}
+
+static int
+load_from_corba (BonoboControl *control,
+		 const char *url, 
+		 GtkHTMLStream *handle)
+{
+	Bonobo_ControlFrame control_frame;
+	HTMLEditor_Resolver resolver;
+	Bonobo_UIHandler *remote_uih;
+	BonoboUIHandler *uih;
+	CORBA_Environment ev;	
+
+	CORBA_exception_init (&ev);
+	
+	uih = gtk_type_new (bonobo_ui_handler_get_type());
+	remote_uih = bonobo_control_get_remote_ui_handler (control);
+	uih = bonobo_object_construct (uih, remote_uih);
+	if (control_frame != CORBA_OBJECT_NIL) {
+		resolver = bonobo_object_query_interface (BONOBO_OBJECT (uih), "IDL:HTMLEditor/Resolver:1.0");
+		
+		if (resolver == CORBA_OBJECT_NIL) {
+			g_warning ("Unable to aquire resolver interface");
+		} else {
+			g_warning ("found resolver - rejoice the masses");
+			HTMLEditor_Resolver_loadURL (resolver, CORBA_OBJECT_NIL, url, &ev);
+			if (ev._major != CORBA_NO_EXCEPTION){
+				g_warning ("Got exception!!!");
+			} else {
+				g_warning ("No Exceptions made");
+			}		
+			
+		}
+	}
+	g_warning ("After Test");
+	CORBA_exception_free (&ev);
+
+	return FALSE;
 }
 
 static void
@@ -219,7 +259,9 @@ url_requested_cb (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpointe
 
 	control = BONOBO_CONTROL (data);
 
-	if (load_from_file (html, url, handle))
+	if (load_from_corba (control, url, handle))
+		g_warning ("valid corba reponse");
+	else if (load_from_file (html, url, handle))
 		g_warning ("valid local reponse");
 	else
 		g_warning ("unable to resolve url: %s", url);

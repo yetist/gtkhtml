@@ -1,3 +1,13 @@
+2000-07-24  Larry Ewing  <lewing@helixcode.com>
+
+	Makefile.am: generate the stubs.
+	
+	* HTMLEditor.idl, resolver.c, resolver.h: added for the trial
+	corba interface.
+	
+	* editor-control-factory.c (load_from_corba): use the corba
+	resolver.
+
 2000-07-21  Larry Ewing  <lewing@helixcode.com>
 
 	* editor-control-factory.c (load_from_file): close the stream and

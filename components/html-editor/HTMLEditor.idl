@@ -1,0 +1,19 @@
+/* -*- Mode: IDL; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
+/*
+ * Interface for the HTML Editor.
+ *
+ * Authors:
+ *   Larry Ewing <lewing@helixcode.com>
+ *
+ * Copyright (C) 2000 Helix Code, Inc.
+ */
+
+#include <Bonobo.idl>
+
+module HTMLEditor {
+	interface Resolver : Bonobo::Unknown {
+		exception NotFound {};
+		
+		void loadURL (in Bonobo::Stream stream, in string url) raises (NotFound);
+	};
+};

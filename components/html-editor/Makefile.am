@@ -11,7 +11,29 @@ INCLUDES =						\
 
 CFLAGS +=  $(GCONF_CFLAGS) $(PSPELL_CFLAGS)
 
+EXTRA_DIST = $(IDLS)
+
+CLEANFILES = $(IDL_GENERATED)
+
+# CORBA stuff
+
+IDLS = \
+	HTMLEditor.idl
+
+IDL_GENERATED = \
+	HTMLEditor.h		\
+	HTMLEditor-common.c	\
+	HTMLEditor-skels.c	\
+	HTMLEditor-stubs.c
+
+HTMLEditor-impl.o: HTMLEditor.h
+
+$(IDL_GENERATED): $(IDLS)
+	$(ORBIT_IDL) -I`$(GNOME_CONFIG) --datadir`/idl \
+	-I$(srcdir) $(srcdir)/HTMLEditor.idl
+
 LDFLAGS += -dynamic
+
 LDADD =	$(PSPELL_LIBS)				\
 	$(top_builddir)/src/libgtkhtml.la	\
 	$(EXTRA_GNOME_LIBS)			\
@@ -19,6 +41,7 @@ LDADD =	$(PSPELL_LIBS)				\
 	$(GNOME_LIBS)				\
 	$(GCONF_LIBS)				\
 	$(PSPELL_LIBS)
+
 # -lpspell-modules -lpspell_aspell -laspell -lpspell -lstdc++
 #	-lccmalloc -ldl
 
@@ -28,6 +51,7 @@ bin_PROGRAMS =					\
 	html-editor-control
 
 html_editor_control_SOURCES =			\
+	$(IDL_GENERATED)			\
 	body.h					\
 	body.c					\
 	control-data.c				\
@@ -84,6 +108,9 @@ noinst_PROGRAMS =				\
 	test-html-editor-control
 
 test_html_editor_control_SOURCES =		\
+	$(IDL_GENERATED)			\
+	resolver.c				\
+	resolver.h				\
 	test-html-editor-control.c
 
 # Extra stuff to distribute.
@@ -92,3 +119,9 @@ EXTRA_DIST =					\
 	html-editor-control.gnorba		\
 	html-editor-control.oafinfo		\
 	ChangeLog
+
+
+
+
+
+
