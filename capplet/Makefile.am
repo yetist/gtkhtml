@@ -8,6 +8,7 @@ CFLAGS +=  $(GCONF_CFLAGS)
 
 bin_PROGRAMS = gtkhtml-properties-capplet
 gtkhtml_properties_capplet_SOURCES = \
+	gnome-bindings-prop.h \
 	gnome-bindings-prop.c	\
 	main.c
 

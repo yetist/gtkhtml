@@ -1,3 +1,8 @@
+2000-07-05  Eskil Heyn Olsen  <eskil@eazel.com>
+
+	* capplet/Makefile.am:
+	Added gnome-bindings-prob.h to the Makefile.am
+
 2000-07-03  Robin * Slomkowski <rslomkow@eazel.com>
 
 	* src/Makefile.am: added refrence to gtkhtml-keybinding.h
