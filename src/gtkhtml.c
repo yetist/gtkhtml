@@ -482,6 +482,13 @@ vertical_scroll_cb (GtkAdjustment *adjustment, gpointer data)
 {
 	GtkHTML *html = GTK_HTML (data);
 
+	/* check if adjustment is valid, it's changed in
+	   Layout::size_allocate and we can't do anything about it,
+	   because it uses private fields we cannot access, so we have
+	   to use it*/
+	if (html->engine->height !=
+	    adjustment->page_increment) return;
+		
 	html->engine->y_offset = (gint)adjustment->value;
 	scroll_update_mouse (GTK_WIDGET (data));
 }
@@ -490,6 +497,13 @@ static void
 horizontal_scroll_cb (GtkAdjustment *adjustment, gpointer data)
 {
 	GtkHTML *html = GTK_HTML (data);
+
+	/* check if adjustment is valid, it's changed in
+	   Layout::size_allocate and we can't do anything about it,
+	   because it uses private fields we cannot access, so we have
+	   to use it*/
+	if (html->engine->width != adjustment->page_increment)
+		return;
 		
 	html->engine->x_offset = (gint)adjustment->value;
 	scroll_update_mouse (GTK_WIDGET (data));
@@ -895,6 +909,7 @@ static void
 size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 {
 	GtkHTML *html;
+	gboolean changed_x = FALSE, changed_y = FALSE;
 
 	g_return_if_fail (widget != NULL);
 	g_return_if_fail (GTK_IS_HTML (widget));
@@ -911,7 +926,6 @@ size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 	    || html->engine->height != allocation->height) {
 		HTMLEngine *e = html->engine;
 		gint old_doc_width, old_doc_height, old_width, old_height;
-		gboolean changed_x = FALSE, changed_y = FALSE;
 
 		old_doc_width = html_engine_get_doc_width (html->engine);
 		old_doc_height = html_engine_get_doc_height (html->engine);
@@ -926,13 +940,13 @@ size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 		html_engine_calc_size (html->engine, FALSE);
 		gtk_html_update_scrollbars_on_resize (html, old_doc_width, old_doc_height, old_width, old_height,
 						      &changed_x, &changed_y);
-		gtk_html_private_calc_scrollbars (html, &changed_x, &changed_y);
-
-		if (changed_x)
-			gtk_adjustment_value_changed (GTK_LAYOUT (html)->hadjustment);
-		if (changed_y)
-			gtk_adjustment_value_changed (GTK_LAYOUT (html)->vadjustment);
 	}
+	gtk_html_private_calc_scrollbars (html, &changed_x, &changed_y);
+
+	if (changed_x)
+		gtk_adjustment_value_changed (GTK_LAYOUT (html)->hadjustment);
+	if (changed_y)
+		gtk_adjustment_value_changed (GTK_LAYOUT (html)->vadjustment);
 
 #ifdef GTK_HTML_USE_XIM
 	gtk_html_im_size_allocate (html);
@@ -3523,10 +3537,15 @@ gtk_html_get_object_by_id (GtkHTML *html, const gchar *id)
 static gint
 get_line_height (GtkHTML *html)
 {
-	HTMLFontManager *fm;
+	HTMLPainter *p;
 
-	fm = html_engine_font_manager (html->engine);
-	return fm->var_points ? (fm->var_size / 10) : fm->var_size;
+	if (!html->engine || !html->engine->painter)
+		return 0;
+
+	p = html->engine->painter;
+
+	return html_painter_calc_ascent (p, GTK_HTML_FONT_STYLE_SIZE_3, NULL)
+		+ html_painter_calc_descent (p, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
 }
 
 static void
@@ -3536,7 +3555,7 @@ scroll (GtkHTML *html,
 	gfloat         position)
 {
 	GtkAdjustment *adj;
-	gint line25_height;
+	gint line_height;
 	gfloat delta;
 
 	/* we dont want scroll in editable (move cursor instead) */
@@ -3547,8 +3566,8 @@ scroll (GtkHTML *html,
 		? gtk_layout_get_vadjustment (GTK_LAYOUT (html)) : gtk_layout_get_hadjustment (GTK_LAYOUT (html));
 
 
-	line25_height = (html->engine && adj->page_increment > ((5 * get_line_height (html)) >> 1))
-		? ((5 * get_line_height (html)) >> 1)
+	line_height = (html->engine && adj->page_increment > (3 * get_line_height (html)))
+		? get_line_height (html)
 		: 0;
 
 	switch (scroll_type) {
@@ -3559,10 +3578,10 @@ scroll (GtkHTML *html,
 		delta = -adj->step_increment;
 		break;
 	case GTK_SCROLL_PAGE_FORWARD:
-		delta = adj->page_increment - line25_height;
+		delta = adj->page_increment - line_height;
 		break;
 	case GTK_SCROLL_PAGE_BACKWARD:
-		delta = -adj->page_increment + line25_height;
+		delta = -adj->page_increment + line_height;
 		break;
 	default:
 		g_warning ("invalid scroll parameters: %d %d %f\n", orientation, scroll_type, position);
@@ -3635,25 +3654,23 @@ cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType ski
 		}
 		break;
 	case GTK_HTML_CURSOR_SKIP_PAGE: {
-		gint line25_height;
+		gint line_height;
 
-		line25_height =  GTK_WIDGET (html)->allocation.height
-			> ((5 * get_line_height (html)) >> 1)
-			? ((5 * get_line_height (html)) >> 1)
-			: 0;
+		line_height =  GTK_WIDGET (html)->allocation.height > (3 * get_line_height (html))
+			? get_line_height (html) : 0;
 
 
 		switch (dir_type) {
 		case GTK_DIR_UP:
 		case GTK_DIR_LEFT:
 			if ((amount = html_engine_scroll_up (html->engine,
-							     GTK_WIDGET (html)->allocation.height - line25_height)) > 0)
+							     GTK_WIDGET (html)->allocation.height - line_height)) > 0)
 				scroll_by_amount (html, - amount);
 			break;
 		case GTK_DIR_DOWN:
 		case GTK_DIR_RIGHT:
 			if ((amount = html_engine_scroll_down (html->engine,
-							       GTK_WIDGET (html)->allocation.height - line25_height)) > 0)
+							       GTK_WIDGET (html)->allocation.height - line_height)) > 0)
 				scroll_by_amount (html, amount);
 			break;
 		default:

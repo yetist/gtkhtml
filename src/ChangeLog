@@ -1,3 +1,8 @@
+2002-08-27  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c: fix scroll behavior, work around layout
+	page_increment = height / 2
+
 2002-08-26  Radek Doulik  <rodo@ximian.com>
 
 	* htmlobject.c (move_object_cursor): don't allow objects not
