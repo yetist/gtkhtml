@@ -67,6 +67,7 @@ struct _HTMLImageFactory {
 #define DEFAULT_SIZE 48
 #define ANIMATIONS(i) GTK_HTML_CLASS (GTK_OBJECT (i->image_ptr->factory->engine->widget)->klass)->properties->animations
 #define STRDUP_HELPER(i,j) if (i != j) {char *tmp = g_strdup (j); g_free(i); i = tmp;}
+#define HTML_IMAGE_DEFAULT_TEXT "[image]"
 
 HTMLImageClass html_image_class;
 static HTMLObjectClass *parent_class = NULL;
@@ -327,13 +328,22 @@ calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 	pixel_size = html_painter_get_pixel_size (painter);
 
 	if (o->parent && HTML_IS_CLUEFLOW (o->parent)
-	    && HTML_IS_PLAIN_PAINTER (painter) && image->alt && *image->alt) {
+	    && HTML_IS_PLAIN_PAINTER (painter)) {
+		char *text = HTML_IMAGE_DEFAULT_TEXT;
 		GtkHTMLFontStyle style;
 		gint lo = 0;
 
+		if (image->alt)
+			text = image->alt;
+
 		style = html_clueflow_get_default_font_style (HTML_CLUEFLOW (o->parent));
-		o->width = html_painter_calc_text_width (painter, image->alt, g_utf8_strlen (image->alt, -1), &lo,
-							 style, NULL);
+		
+		if (*text) {
+			o->width = html_painter_calc_text_width (painter, text, g_utf8_strlen (text, -1), &lo,
+								 style, NULL);
+		} else {
+			o->width = 0;
+		}
 		o->ascent = html_painter_calc_ascent (painter, style, NULL);
 		o->descent = html_painter_calc_descent (painter, style, NULL);
 	} else {
@@ -357,10 +367,14 @@ static void
 draw_plain (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint height, gint tx, gint ty)
 {
 	HTMLImage *img = HTML_IMAGE (o);
+	char *text = HTML_IMAGE_DEFAULT_TEXT;
 
-	if (img->alt && *img->alt) {
+	if (img->alt)
+		text = img->alt;
+
+	if (*text) {
 		html_painter_set_pen (p, &html_colorset_get_color_allocated (p, HTMLTextColor)->color);
-		html_painter_draw_text (p, o->x + tx, o->y + ty, img->alt, g_utf8_strlen (img->alt, -1), 0);
+		html_painter_draw_text (p, o->x + tx, o->y + ty, text, g_utf8_strlen (text, -1), 0);
 	}
 }
 
@@ -584,11 +598,16 @@ save_plain (HTMLObject *self,
 {
 	HTMLImage *image;
 	gboolean rv = TRUE;
+	char *text = HTML_IMAGE_DEFAULT_TEXT;
 
 	image = HTML_IMAGE (self);
 	
-	if (image->alt)
-		rv = html_engine_save_output_string (state, "%s", image->alt);
+	if (image->alt) {
+	        text = image->alt;
+	} 
+
+	if (*text)
+		rv = html_engine_save_output_string (state, "%s", text);
 
 	return rv;
 }

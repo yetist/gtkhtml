@@ -1,5 +1,8 @@
 2002-06-12  Larry Ewing  <lewing@ximian.com>
 
+	* htmlimage.c: render images with no alt text as [image] in the
+	plain painter.
+	
 	* gtkhtml.c: make the functions that deal with changing the indent
 	level use an array of HTML_LIST_TYPE values for the changes, add
 	gtk_html_indent_push/pop_level.
