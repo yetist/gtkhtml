@@ -94,9 +94,9 @@
 		pixtype="filename" pixname="@ICONSDIR@/24_paste.png"/>
 		<separator/>
 		<toolitem name="EditFind" verb=""  _label="Find" _tip="Find"
-		pixtype="stock" pixname="Search"/>
+		pixtype="filename" pixname="@ICONSDIR@/search-24.png"/>
 		<toolitem name="EditReplace" verb=""  _label="Replace" _tip="Find And Replace"
-		pixtype="stock" pixname="Search/Replace"/>
+		pixtype="filename" pixname="@ICONSDIR@/search-and-replace-24.png"/>
 		<separator/>
 		<toolitem name="InsertImage" verb="" _label="Image"
                 pixtype="filename" pixname="@ICONSDIR@/insert-image-24.png"/>

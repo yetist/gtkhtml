@@ -1,5 +1,7 @@
 2001-07-23  Radek Doulik  <rodo@ximian.com>
 
+	* GNOME_GtkHTML_Editor.xml.in: use new search icons for toolbar
+
 	* cell.c: added scope option menu
 	(cell_apply_1): extracted helper function
 	(cell_apply_row): new helper function
