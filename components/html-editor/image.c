@@ -25,6 +25,7 @@
 #include <string.h>
 #include <glade/glade.h>
 #include <gal/widgets/e-unicode.h>
+#include <gal/util/e-unicode-i18n.h>
 
 #include "gtkhtml.h"
 #include "htmlcolorset.h"
@@ -254,9 +255,10 @@ get_sample_html (GtkHTMLEditImageProperties *d, gboolean insert)
 		html   = g_strconcat (body, image, NULL);
 	} else {
 		html   = g_strconcat (body,
-				      _("The quick brown fox jumped over the lazy dog. "),
+				      U_("The quick brown fox jumped over the lazy dog."),
+				      " ",
 				      image,
-				      _("The quick brown fox jumped over the lazy dog."),
+				      U_("The quick brown fox jumped over the lazy dog."),
 				      NULL);
 	}
 

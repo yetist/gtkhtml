@@ -23,6 +23,8 @@
 #include <config.h>
 #include <gal/widgets/e-unicode.h>
 #include <gal/widgets/widget-color-combo.h>
+#include <gal/util/e-unicode-i18n.h>
+
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
 #include "htmlengine-edit.h"
@@ -100,7 +102,7 @@ fill_sample (GtkHTMLEditTextProperties *d)
 			     CVAL (2) ? "<u>" : "",
 			     CVAL (3) ? "<s>" : "",
 			     size, color,
-			     _("The quick brown fox jumps over the lazy dog."), sa, NULL);
+			     U_("The quick brown fox jumps over the lazy dog."), sa, NULL);
 	
 	gtk_html_load_from_string (d->sample, body, -1);
 	g_free (color);

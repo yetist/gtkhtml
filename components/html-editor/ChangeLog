@@ -8,6 +8,13 @@
 
 2002-10-10  Larry Ewing  <lewing@ximian.com>
 
+	* image.c: use U_() and make the sample strings match.
+
+ 	* text.c: use U_() where appropriate.
+ 
+ 	* template.c: move the translatable messages out of the html. Use
+ 	U_() instead of _().   
+
 	* GNOME_GtkHTML_Editor.xml.in: remove bogus accelerator for strikeout.
 
 2002-10-04  Radek Doulik  <rodo@ximian.com>
