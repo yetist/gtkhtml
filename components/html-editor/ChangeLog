@@ -1,3 +1,9 @@
+2003-03-04  Radek Doulik  <rodo@ximian.com>
+
+	* GNOME_GtkHTML_Editor.xml.in: as below
+
+	* menubar.c: turn radio/check menu items to normal ones
+
 2003-03-03  Larry Ewing  <lewing@ximian.com>
 
 	* Makefile.am: add defines that gnome_program_init wants.
