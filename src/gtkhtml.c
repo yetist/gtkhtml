@@ -5171,12 +5171,15 @@ add_bindings (GtkHTMLClass *klass)
 	BCOM (GDK_CONTROL_MASK, c, COPY);
 	BCOM (GDK_CONTROL_MASK, Insert, COPY);
 	BCOM (GDK_CONTROL_MASK, KP_Insert, COPY);
+	BCOM (0, F16, COPY);
 	BCOM (GDK_CONTROL_MASK, x, CUT);
 	BCOM (GDK_SHIFT_MASK, Delete, CUT);
 	BCOM (GDK_SHIFT_MASK, KP_Delete, CUT);
+	BCOM (0, F20, CUT);
 	BCOM (GDK_CONTROL_MASK, v, PASTE);
 	BCOM (GDK_SHIFT_MASK, Insert, PASTE);
 	BCOM (GDK_SHIFT_MASK, KP_Insert, PASTE);
+	BCOM (0, F18, PASTE);
 	BCOM (GDK_CONTROL_MASK, Delete, KILL_WORD);
 	BCOM (GDK_CONTROL_MASK, BackSpace, KILL_WORD_BACKWARD);
 
@@ -5197,6 +5200,7 @@ add_bindings (GtkHTMLClass *klass)
 
 	/* undo/redo */
 	BCOM (GDK_CONTROL_MASK, z, UNDO);
+	BCOM (0, F14, UNDO);
 	BCOM (GDK_CONTROL_MASK, r, REDO);
 
 	/* paragraph style */

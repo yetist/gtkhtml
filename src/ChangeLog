@@ -1,3 +1,10 @@
+2005-02-27  Mengjie Yu  <meng-jie.yu@sun.com>
+
+	* gtkhtml.c: (add_bindings): Handle Sun Type 6 Keyboard's
+	Undo, Copy, Paste and Cut key.
+
+	Fixes #71446
+
 2005-02-23  Mengjie Yu  <meng-jie.yu@sun.com>
 
 	* gtkhtml.c: (focus):we need cursor_changed signal even not in
