@@ -65,7 +65,6 @@
 #include "paragraph.h"
 #include "body.h"
 #include "spell.h"
-#include "resolver-progressive-impl.h"
 #include "html-stream-mem.h"
 
 #include "gtkhtmldebug.h"
@@ -267,49 +266,6 @@ load_from_file (GtkHTML *html,
 	close (fd);
 	return TRUE;
 }
-
-#if 0
-static int
-load_from_corba (BonoboControl *control,
-		 GtkHTML *html,
-		 const char *url, 
-		 GtkHTMLStream *handle)
-{
-	GNOME_GtkHTML_Editor_Resolver resolver;
-	Bonobo_ControlFrame Frame;
-	CORBA_Environment ev;	
-	int ret_val = FALSE;
-
-	CORBA_exception_init (&ev);
-
-	Frame = bonobo_control_get_control_frame (control);
-	if (Frame != CORBA_OBJECT_NIL) {
-		resolver = Bonobo_Unknown_queryInterface (Frame,
-							   "IDL:GNOME/HTMLEditor/Resolver:1.0",
-							   &ev);
-		
-		if (resolver != CORBA_OBJECT_NIL) {
-			Bonobo_ProgressiveDataSink sink;
-			BonoboObject *object;
-
-			object = BONOBO_OBJECT (resolver_sink (html, url, handle));
-
-			sink = bonobo_object_corba_objref (object);
-			
-			GNOME_GtkHTML_Editor_Resolver_loadURL (resolver, sink, url, &ev);
-			if (ev._major != CORBA_NO_EXCEPTION){
-				g_warning ("Corba load exception");
-			} else {
-				/* g_print ("Corba Load successfull"); */
-				ret_val = TRUE;
-			}
-		} 
-	}
-	CORBA_exception_free (&ev);
-
-	return ret_val;
-}
-#endif
 
 static void
 url_requested_cb (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpointer data)

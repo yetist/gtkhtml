@@ -93,8 +93,6 @@ GTKHTML_EDITOR_SOURCES_COMMON =			\
 	replace.h				\
 	html-stream-mem.h			\
 	html-stream-mem.c			\
-	resolver-progressive-impl.c		\
-	resolver-progressive-impl.h		\
 	rule.c					\
 	rule.h					\
 	search.c				\
@@ -149,8 +147,6 @@ noinst_PROGRAMS =				\
 
 test_editor_SOURCES =				\
 	$(IDL_GENERATED)			\
-	resolver.c				\
-	resolver.h				\
 	test-html-editor-control.c
 
 # Extra stuff to distribute.

@@ -27,7 +27,6 @@
 #include <bonobo.h>
 
 #include <Editor.h>
-#include <resolver.h>
 
 
 #ifdef USING_OAF
@@ -373,6 +372,7 @@ menu_format_html_cb (BonoboUIComponent           *component,
 		return;
 	formatHTML = *state == '0' ? 0 : 1;
 	bonobo_widget_set_property (BONOBO_WIDGET (user_data), "FormatHTML", formatHTML, NULL);
+	bonobo_widget_set_property (BONOBO_WIDGET (user_data), "HTMLTitle", "testing", NULL);
 }
 
 /* A dirty, non-translatable hack */
@@ -434,8 +434,6 @@ container_create (void)
 	GtkWindow *window;
 	BonoboUIComponent *component;
 	BonoboUIContainer *container;
-	BonoboControlFrame *frame;
-	HTMLEditorResolver *resolver;
 	CORBA_Environment ev;
 	GNOME_GtkHTML_Editor_Engine engine;
 
@@ -475,10 +473,6 @@ container_create (void)
 	bonobo_widget_set_property (BONOBO_WIDGET (control), "FormatHTML", formatHTML, NULL);
 	bonobo_ui_component_set_prop (component, "/commands/FormatHTML", "state", formatHTML ? "1" : "0", NULL);
 	bonobo_ui_component_add_listener (component, "FormatHTML", menu_format_html_cb, control);
-
-	resolver = htmleditor_resolver_new ();
-	frame = bonobo_widget_get_control_frame (BONOBO_WIDGET (control));
-	bonobo_object_add_interface (BONOBO_OBJECT (frame), BONOBO_OBJECT (resolver));
 
 	bonobo_window_set_contents (BONOBO_WINDOW (win), control);
 

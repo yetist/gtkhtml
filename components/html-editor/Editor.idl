@@ -15,12 +15,6 @@
 module GNOME {
 module GtkHTML {
 module Editor {
-	interface Resolver : Bonobo::Unknown {
-		exception NotFound {};
-		
-		void loadURL (in Bonobo::ProgressiveDataSink sink, in string url) raises (NotFound);
-	};
-
 	interface Listener : Bonobo::Unknown {
 		any event (in string name, in any arg);
 	};
@@ -105,3 +99,7 @@ module Editor {
 };
 };
 };
+
+
+
+

@@ -1,3 +1,15 @@
+2002-02-13  Larry Ewing  <lewing@ximian.com>
+
+	* Editor.idl: remove references to resolver interface.
+
+	* Makefile.am: remove resolver references.
+
+	* test-html-editor-control.c (container_create): remove
+	resolver implementation and references.
+
+	* editor-control-factory.c (url_requested_cb): remove references
+	to resolver interface.
+
 2002-02-12  Radek Doulik  <rodo@ximian.com>
 
 	* engine.c (impl_has_undo): renamed from impl_is_dirty
