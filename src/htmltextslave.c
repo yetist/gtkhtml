@@ -143,6 +143,7 @@ fit_line (HTMLObject *o,
 	return_value = HTMLPartialFit;
 
  done:
+#ifdef HTML_TEXT_SLAVE_DEBUG
 	/* FIXME */
 	{
 		gint i;
@@ -165,6 +166,7 @@ fit_line (HTMLObject *o,
 
 		printf ("'\n");
 	}
+#endif
 
 	return return_value;
 }
@@ -189,12 +191,14 @@ draw (HTMLObject *o,
 				&(ownertext->text[textslave->posStart]), 
 				textslave->posLen);
 
+#ifdef HTML_TEXT_SLAVE_DEBUG
 	{
 		gchar *s = g_strndup (ownertext->text + textslave->posStart,
 				      textslave->posLen);
 		g_print ("(%d, %d) `%s'\n", o->x + tx, o->y + ty, s);
 		g_free (s);
 	}
+#endif
 }
 
 static gint
