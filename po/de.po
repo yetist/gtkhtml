@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 1.0.x\n"
-"POT-Creation-Date: 2003-04-09 17:04-0400\n"
-"PO-Revision-Date: 2003-01-16 15:17+0100\n"
+"POT-Creation-Date: 2003-04-16 14:30+0200\n"
+"PO-Revision-Date: 2003-04-16 14:04+0200\n"
 "Last-Translator: Christian Neumair <chris@gnome-de.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -156,7 +156,7 @@ msgstr "GNOME HTML-Editor"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:2
 msgid "GNOME HTML Editor Control"
-msgstr "Bedienelement für GNOME HTML-Editor"
+msgstr "Bedienelement des GNOME HTML-Editors"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
 msgid "GNOME HTML Editor Factory"
@@ -256,8 +256,7 @@ msgid "Cut the selection"
 msgstr "Die Auswahl ausschneiden"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:73 components/html-editor/search.c:75
-#: components/html-editor/search.c:118
+#: components/html-editor/search.c:73 components/html-editor/search.c:121
 msgid "Find"
 msgstr "Suchen"
 
@@ -534,8 +533,7 @@ msgstr "Zurückgenommene Aktion wiederholen"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
 #: components/html-editor/replace.c:78 components/html-editor/replace.c:152
-#: components/html-editor/replace.c:154 components/html-editor/replace.c:171
-#: components/html-editor/replace.c:207
+#: components/html-editor/replace.c:210
 msgid "Replace"
 msgstr "Ersetzen"
 
@@ -891,6 +889,10 @@ msgstr "Absatz"
 #: components/html-editor/menubar.c:270 components/html-editor/popup.c:221
 msgid "Page"
 msgstr "Seite"
+
+#: components/html-editor/gnome-gtkhtml-editor.c:67
+msgid "GtkHTML Editor Control"
+msgstr "Bedienelement des GtkHTML-Editors"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:2
 msgid "************"
@@ -1323,45 +1325,37 @@ msgid "Remove link"
 msgstr "Link entfernen"
 
 #: components/html-editor/popup.c:474
-#, fuzzy
 msgid "Text Style..."
-msgstr "Te_xtdatei..."
+msgstr "Textstil..."
 
 #: components/html-editor/popup.c:476 components/html-editor/popup.c:482
 #: components/html-editor/popup.c:492
-#, fuzzy
 msgid "Paragraph Style..."
-msgstr "Absatz..."
+msgstr "Absatzstil..."
 
 #: components/html-editor/popup.c:480
-#, fuzzy
 msgid "Link Style..."
-msgstr "Link..."
+msgstr "Link-Stil..."
 
 #: components/html-editor/popup.c:486
-#, fuzzy
 msgid "Rule Style..."
-msgstr "Trennlinie..."
+msgstr "Trennlinienstil..."
 
 #: components/html-editor/popup.c:490
-#, fuzzy
 msgid "Image Style..."
-msgstr "Bild..."
+msgstr "Bildstil..."
 
 #: components/html-editor/popup.c:501
-#, fuzzy
 msgid "Cell Style..."
-msgstr "Zelle..."
+msgstr "Zellstil..."
 
 #: components/html-editor/popup.c:504
-#, fuzzy
 msgid "Table Style..."
-msgstr "Tabelle..."
+msgstr "Tabellenstil..."
 
 #: components/html-editor/popup.c:510
-#, fuzzy
 msgid "Page Style..."
-msgstr "Seite..."
+msgstr "Seitenstil..."
 
 #: components/html-editor/popup.c:515
 msgid "Table insert"
@@ -1392,9 +1386,9 @@ msgid "Cell contents"
 msgstr "Zelleninhalt"
 
 #: components/html-editor/popup.c:547
-#, fuzzy, c-format
+#, c-format
 msgid "%s Dictionary"
-msgstr "»%s« zum Wörterbuch hinzufügen"
+msgstr "%s-Wörterbuch"
 
 #: components/html-editor/replace.c:74
 msgid "Replace confirmation"
@@ -1409,16 +1403,20 @@ msgid "Next"
 msgstr "Nächste"
 
 #: components/html-editor/replace.c:160
-msgid "search backward"
-msgstr "Rückwärts suchen"
+msgid "Search _backward"
+msgstr "_Rückwärts suchen"
 
 #: components/html-editor/replace.c:161 components/html-editor/search.c:79
-msgid "case sensitive"
-msgstr "Groß-/Kleinschreibung beachten"
+msgid "Case _sensitive"
+msgstr "Groß-/Kleinschreibung _berücksichtigen"
+
+#: components/html-editor/replace.c:171
+msgid "Replace:"
+msgstr "Ersetzen:"
 
 #: components/html-editor/replace.c:174
-msgid "with"
-msgstr "mit"
+msgid "With:"
+msgstr "Durch:"
 
 #: components/html-editor/rule.c:97
 msgid "Blue 3D"
@@ -1437,10 +1435,10 @@ msgstr ""
 "Daher konnten Ihre Änderungen nicht übernommen werden."
 
 #: components/html-editor/search.c:78
-msgid "backward"
-msgstr "rückwärts"
+msgid "_Backward"
+msgstr "_Rückwärts"
 
-#: components/html-editor/search.c:118
+#: components/html-editor/search.c:121
 msgid "Find Regular Expression"
 msgstr "Regulären Ausdruck suchen"
 
@@ -1449,9 +1447,8 @@ msgid "Spell checker"
 msgstr "Rechtschreibprüfung"
 
 #: components/html-editor/spell.c:358
-#, fuzzy
 msgid "Current _Languages"
-msgstr "Sprachen der Rechtschreibprüfung"
+msgstr "Momentan verwendete _Sprachen"
 
 #: components/html-editor/table.c:199
 msgid "Flat gray"
@@ -1489,10 +1486,9 @@ msgstr "Datei öffnen..."
 msgid "Save file as..."
 msgstr "Datei speichern unter..."
 
-#: components/html-editor/test-html-editor-control.c:554
-#, fuzzy
+#: components/html-editor/test-html-editor-control.c:540
 msgid "GtkHTML Editor Test Container"
-msgstr "Bedienelement für GNOME HTML-Editor"
+msgstr "Test-Container des GtkHTML-Editors"
 
 #. color selection
 #: components/html-editor/text.c:291
@@ -1560,76 +1556,72 @@ msgid "Sample"
 msgstr "Beispiel"
 
 #: src/gtkhtml.c:2584
-#, fuzzy
 msgid "Editable"
-msgstr "Aktivieren"
+msgstr "Editierbar"
 
 #: src/gtkhtml.c:2585
 msgid "Whether the html can be edited"
-msgstr ""
+msgstr "Soll das HTML editiert werden können?"
 
 #: src/gtkhtml.c:2592
-#, fuzzy
 msgid "The title of the current document"
-msgstr "Rechtschreibung des Dokuments überprüfen"
+msgstr "Der Titel des momentan geöffneten Dokuments"
 
 #: src/gtkhtml.c:2598
-#, fuzzy
 msgid "Document Base"
-msgstr "Titel des Dokuments"
+msgstr "Dokumentenbasis"
 
 #: src/gtkhtml.c:2599
 msgid "The base URL for relative references"
-msgstr ""
+msgstr "Die Basisadresse für relative Verweise"
 
 #: src/gtkhtml.c:2605
 msgid "Target Base"
-msgstr ""
+msgstr "Zielbasis"
 
 #: src/gtkhtml.c:2606
 msgid "The base URL of the targe frame"
-msgstr ""
+msgstr "Die Basisadresse für das Ziel-Frame"
 
 #: src/gtkhtml.c:2615
-#, fuzzy
 msgid "Fixed Width Font"
-msgstr "Dicktengleich"
+msgstr "Dicktengleiche Schrift"
 
 #: src/gtkhtml.c:2616
 msgid "The Monospace font to use for typewriter text"
-msgstr ""
+msgstr "Die für typewriter-Text zu verwendende dicktengleiche Schrift"
 
 #: src/gtkhtml.c:2622
 msgid "New Link Color"
-msgstr ""
+msgstr "Farbe für neue Links"
 
 #: src/gtkhtml.c:2623
 msgid "The color of new link elements"
-msgstr ""
+msgstr "Die Farbe für neue Link-Elemente"
 
 #: src/gtkhtml.c:2628
 msgid "Visited Link Color"
-msgstr ""
+msgstr "Farbe für besuchte Links"
 
 #: src/gtkhtml.c:2629
 msgid "The color of visited link elements"
-msgstr ""
+msgstr "Die Farbe für besuchte Link-Elemente"
 
 #: src/gtkhtml.c:2634
 msgid "Active Link Color"
-msgstr ""
+msgstr "Farbe für aktive Links"
 
 #: src/gtkhtml.c:2635
 msgid "The color of active link elements"
-msgstr ""
+msgstr "Die Farbe für aktive Link-Elemente"
 
 #: src/gtkhtml.c:2640
 msgid "Spelling Error Color"
-msgstr ""
+msgstr "Farbe für Rechtschreibfehler"
 
 #: src/gtkhtml.c:2641
 msgid "The color of the spelling error markers"
-msgstr ""
+msgstr "Die für die Hervorhebung von Rechtschreibfehlern verwendete Farbe"
 
 #: src/html-component.c:219
 msgid "Html"
@@ -1715,6 +1707,9 @@ msgstr "Druckvorschau"
 
 #~ msgid "Text..."
 #~ msgstr "Text..."
+
+#~ msgid "with"
+#~ msgstr "mit"
 
 #~ msgid "I could not initialize Bonobo"
 #~ msgstr "Bonobo konnte nicht initialisiert werden"
