@@ -6,14 +6,14 @@ Based on the KHTMLW widget from KDE 1.x by:
 
 Main authors:
 
-	Anders Carlsson <andersca@gnu.org>
-	Ettore Perazzoli <ettore@helixcode.com>
-	Miguel de Icaza <miguel@helixcode.com>
+	Anders Carlsson <andersca@gnu.org> (initial KHTMLW port)
+	Ettore Perazzoli <ettore@helixcode.com> (generic hacking, editing)
+	Jonas Borgström <jonas_b@bitsmart.com> (form support)
+	Miguel de Icaza <miguel@helixcode.com> (HTMLPainter)
 	Richard Hult <rhult@hem2.passagen.se>
 
 Other contributors:
 
-	Jonas Borgström <jonas_b@bitsmart.com>
 	Ariel Rios <jarios@usa.net>
 	Havoc Pennington  <hp@pobox.com>
 	Elliot Lee  <sopwith@redhat.com>
