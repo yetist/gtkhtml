@@ -1,0 +1,47 @@
+<Root>
+	<menu>
+		<submenu name="Edit" _label="_Edit">
+		        <menuitem name="EditUndo" verb="" _label="_Undo" _descr="Undo the last action"
+			pixtype="stock" pixname="Menu_Undo" accel="&lt;Control&gt;z"/>
+
+			<menuitem name="EditRedo" verb="" _label="_Redo" _descr="Redo the undone action"
+			pixtype="stock" pixname="Menu_Redo" accel="&lt;Control&gt;r"/>
+
+			<menuitem/>
+
+			<menuitem name="EditCut" verb="" _label="C_ut" _descr="Cut the selection"
+			pixtype="stock" pixname="Menu_Cut" accel="&lt;Control&gt;x"/>
+	
+			<menuitem name="EditCopy" verb="" _label="_Copy"
+			_descr="Copy the selection" pixtype="stock" pixname="Menu_Copy"
+			accel="&lt;Control&gt;c"/>
+	
+			<menuitem name="EditPaste" verb="" _label="_Paste"
+			_descr="Paste the clipboard" pixtype="stock" pixname="Menu_Paste"
+			accel="&lt;Control&gt;v"/>
+	
+			<menuitem/>
+
+			<menuitem name="EditFind" verb="" _label="_Find..." _descr="Search for a string"
+			pixtype="stock" pixname="Menu_Search" accel="F6"/>
+
+			<menuitem name="EditFindRegex" verb="" _label="Find Rege_x..." _descr="Regular expression search"/>
+	
+			<menuitem name="EditFindAgain" verb="" _label="Find _Again" _descr="Search again for the same string"
+			pixtype="stock" pixname="Menu_Search" accel="&lt;Shift&gt;F6"/>
+	
+			<menuitem name="EditReplace" verb="" _label="_Replace..." _descr="Replace a string"
+			pixtype="stock" pixname="Menu_Search/Replace" accel="F7"/>
+
+			<menuitem/>
+
+			<menuitem name="EditProperties" verb="" _label="_Properties..." _descr="Modify the file's properties"
+			pixtype="stock" pixname="Menu_Properties"/>
+		</submenu>
+		<submenu name="Insert" _label="_Insert">
+			<menuitem name="InsertImage" verb="" _label="_Image..." _descr="Insert image into document..."/>
+			<menuitem name="InsertLink"  verb="" _label="_Link..." _descr="Insert HTML link into document..."/>
+			<menuitem name="InsertRule"  verb="" _label="_Rule..." _descr="Insert rule into document..."/>
+		</submenu>
+	</menu>
+</Root>

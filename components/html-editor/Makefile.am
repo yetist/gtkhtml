@@ -104,6 +104,9 @@ gnorbadir = $(sysconfdir)/CORBA/servers
 gnorba_DATA = html-editor-control.gnorba
 endif
 
+uidir = $(datadir)/html-editor-control
+ui_DATA = ui.xml
+
 # The Test program
 
 noinst_PROGRAMS =				\
@@ -121,10 +124,5 @@ EXTRA_DIST =					\
 	$(IDLS)					\
 	html-editor-control.gnorba		\
 	html-editor-control.oafinfo		\
-	ChangeLog
-
-
-
-
-
-
+	ChangeLog				\
+	ui.xml
