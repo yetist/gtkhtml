@@ -32,6 +32,7 @@
 #include "htmlcursor.h"
 #include "htmlengine.h"
 #include "htmlengine-edit.h"
+#include "htmlinterval.h"
 #include "htmlobject.h"
 #include "htmlpainter.h"
 #include "htmltext.h"
@@ -1472,4 +1473,86 @@ html_object_check_cut_lists (HTMLObject *self, HTMLObject *replacement, GList *l
 		left->data = replacement;
 	if (right && right->data == self)
 		right->data = replacement;
+}
+
+
+typedef struct {
+	HTMLInterval *i;
+	GString *buffer;
+	gboolean in;
+} tmpSelData;
+
+static void
+select_object (HTMLObject *o, HTMLEngine *e, gpointer data)
+{
+	tmpSelData *d = (tmpSelData *) data;
+
+	if (o == d->i->from.object)
+		d->in = TRUE;
+	if (d->in)
+		html_object_select_range (o, NULL,
+					  html_interval_get_start (d->i, o),
+					  html_interval_get_length (d->i, o), FALSE);
+
+	if (o == d->i->to.object)
+		d->in = FALSE;
+}
+
+static void
+unselect_object (HTMLObject *o, HTMLEngine *e, gpointer data)
+{
+	o->selected = FALSE;
+}
+
+gchar *
+html_object_get_selection_string (HTMLObject *o)
+{
+	HTMLObject *tail;
+	tmpSelData data;
+	gchar *string;
+
+	g_assert (o);
+
+	tail        = html_object_get_tail_leaf (o);
+	data.buffer = g_string_new (NULL);
+	data.in     = FALSE;
+	data.i      = html_interval_new (html_object_get_head_leaf (o), tail, 0, html_object_get_length (tail));
+
+	html_interval_forall (data.i, NULL, select_object, &data);
+	html_object_append_selection_string (o, data.buffer);
+	html_interval_forall (data.i, NULL, unselect_object, NULL);
+
+	html_interval_destroy (data.i);
+	string = data.buffer->str;
+	g_string_free (data.buffer, FALSE);
+
+	return string;
+}
+
+HTMLObject *
+html_object_get_tail_leaf (HTMLObject *o)
+{
+	HTMLObject *tail, *rv = o;
+
+	do {
+		tail = html_object_tail_not_slave (rv);
+		if (tail)
+			rv = tail;
+	} while (tail);
+
+	return rv;
+}
+
+HTMLObject *
+html_object_get_head_leaf (HTMLObject *o)
+{
+	HTMLObject *head, *rv = o;
+
+	do {
+		head = html_object_head (rv);
+		if (head)
+			rv = head;
+	} while (head);
+
+	return rv;
 }

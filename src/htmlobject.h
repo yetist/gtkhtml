@@ -243,200 +243,199 @@ extern HTMLObjectClass html_object_class;
 
 
 /* Basics.  */
-void        html_object_type_init         (void);
-void        html_object_init              (HTMLObject            *self,
-					   HTMLObjectClass       *klass);
-void        html_object_class_init        (HTMLObjectClass       *klass,
-					   HTMLType               type,
-					   guint                  object_size);
-HTMLObject *html_object_new               (HTMLObject            *parent);
-void        html_object_destroy           (HTMLObject            *self);
-void        html_object_copy              (HTMLObject            *self,
-					   HTMLObject            *dest);
-HTMLObject *html_object_dup               (HTMLObject            *self);
+void            html_object_type_init             (void);
+void            html_object_init                  (HTMLObject            *self,
+						   HTMLObjectClass       *klass);
+void            html_object_class_init            (HTMLObjectClass       *klass,
+						   HTMLType               type,
+						   guint                  object_size);
+HTMLObject     *html_object_new                   (HTMLObject            *parent);
+void            html_object_destroy               (HTMLObject            *self);
+void            html_object_copy                  (HTMLObject            *self,
+						   HTMLObject            *dest);
+HTMLObject     *html_object_dup                   (HTMLObject            *self);
 
 /* copy/cut/paste operations */
-HTMLObject *html_object_op_copy           (HTMLObject            *self,
-					   HTMLEngine            *e,
-					   GList                 *from,
-					   GList                 *to,
-					   guint                 *len);
-HTMLObject *html_object_op_cut            (HTMLObject            *self,
-					   HTMLEngine            *e,
-					   GList                 *from,
-					   GList                 *to,
-					   GList                 *left,
-					   GList                 *right,
-					   guint                 *len);
-gboolean    html_object_merge             (HTMLObject            *self,
-					   HTMLObject            *with);
-void        html_object_remove_child      (HTMLObject            *self,
-					   HTMLObject            *child);
-void        html_object_split             (HTMLObject            *self,
-					   HTMLEngine            *e,
-					   HTMLObject            *child,
-					   gint                   offset,
-					   gint                   level,
-					   GList                **left,
-					   GList                **right);
-void        html_object_set_parent        (HTMLObject            *self,
-					   HTMLObject            *parent);
-gint        html_object_get_left_margin   (HTMLObject            *self,
-					   gint                   y);
-gint        html_object_get_right_margin  (HTMLObject            *self,
-					   gint                   y);
-void        html_object_set_painter       (HTMLObject            *o,
-					   HTMLPainter           *p,
-					   gint                   max_width);
-void        html_object_reset             (HTMLObject            *o);
-gboolean    html_object_is_text           (HTMLObject            *object);
-HTMLEngine *html_object_get_engine        (HTMLObject            *self,
-					   HTMLEngine            *e);
-void        html_object_forall            (HTMLObject            *self,
-					   HTMLEngine            *e,
-					   HTMLObjectForallFunc   func,
-					   gpointer               data);
-gboolean    html_object_is_container      (HTMLObject            *self);
-HTMLObject *html_object_next_not_type     (HTMLObject            *self,
-					   HTMLType               t);
-HTMLObject *html_object_prev_not_type     (HTMLObject            *self,
-					   HTMLType               t);
-HTMLObject *html_object_next_not_slave    (HTMLObject            *self);
-HTMLObject *html_object_prev_not_slave    (HTMLObject            *self);
-HTMLObject *html_object_next_by_type      (HTMLObject            *self,
-					   HTMLType               t);
-HTMLObject *html_object_prev_by_type      (HTMLObject            *self,
-					   HTMLType               t);
-
+HTMLObject     *html_object_op_copy               (HTMLObject            *self,
+						   HTMLEngine            *e,
+						   GList                 *from,
+						   GList                 *to,
+						   guint                 *len);
+HTMLObject     *html_object_op_cut                (HTMLObject            *self,
+						   HTMLEngine            *e,
+						   GList                 *from,
+						   GList                 *to,
+						   GList                 *left,
+						   GList                 *right,
+						   guint                 *len);
+gboolean        html_object_merge                 (HTMLObject            *self,
+						   HTMLObject            *with);
+void            html_object_remove_child          (HTMLObject            *self,
+						   HTMLObject            *child);
+void            html_object_split                 (HTMLObject            *self,
+						   HTMLEngine            *e,
+						   HTMLObject            *child,
+						   gint                   offset,
+						   gint                   level,
+						   GList                **left,
+						   GList                **right);
+void            html_object_set_parent            (HTMLObject            *self,
+						   HTMLObject            *parent);
+gint            html_object_get_left_margin       (HTMLObject            *self,
+						   gint                   y);
+gint            html_object_get_right_margin      (HTMLObject            *self,
+						   gint                   y);
+void            html_object_set_painter           (HTMLObject            *o,
+						   HTMLPainter           *p,
+						   gint                   max_width);
+void            html_object_reset                 (HTMLObject            *o);
+gboolean        html_object_is_text               (HTMLObject            *object);
+HTMLEngine     *html_object_get_engine            (HTMLObject            *self,
+						   HTMLEngine            *e);
+void            html_object_forall                (HTMLObject            *self,
+						   HTMLEngine            *e,
+						   HTMLObjectForallFunc   func,
+						   gpointer               data);
+gboolean        html_object_is_container          (HTMLObject            *self);
+HTMLObject     *html_object_next_not_type         (HTMLObject            *self,
+						   HTMLType               t);
+HTMLObject     *html_object_prev_not_type         (HTMLObject            *self,
+						   HTMLType               t);
+HTMLObject     *html_object_next_not_slave        (HTMLObject            *self);
+HTMLObject     *html_object_prev_not_slave        (HTMLObject            *self);
+HTMLObject     *html_object_next_by_type          (HTMLObject            *self,
+						   HTMLType               t);
+HTMLObject     *html_object_prev_by_type          (HTMLObject            *self,
+						   HTMLType               t);
 /* do search request on object using info */
-gboolean    html_object_search            (HTMLObject *self,
-					   HTMLSearch *info);
-gboolean    html_object_search_next       (HTMLObject *self,
-					   HTMLSearch *info);
+gboolean        html_object_search                (HTMLObject            *self,
+						   HTMLSearch            *info);
+gboolean        html_object_search_next           (HTMLObject            *self,
+						   HTMLSearch            *info);
 
 /* Drawing-related stuff.  */
-void      html_object_draw             (HTMLObject  *o,
-					HTMLPainter *p,
-					gint         x,
-					gint         y,
-					gint         width,
-					gint         height,
-					gint         tx,
-					gint         ty);
-void      html_object_draw_background  (HTMLObject  *o,
-					HTMLPainter *p,
-					gint         x,
-					gint         y,
-					gint         width,
-					gint         height,
-					gint         tx,
-					gint         ty);
-void      html_object_set_bg_color     (HTMLObject  *o,
-					GdkColor    *color);
-GdkColor *html_object_get_bg_color     (HTMLObject  *o,
-					HTMLPainter *p);
-gboolean  html_object_is_transparent   (HTMLObject  *self);
+void            html_object_draw                  (HTMLObject            *o,
+						   HTMLPainter           *p,
+						   gint                   x,
+						   gint                   y,
+						   gint                   width,
+						   gint                   height,
+						   gint                   tx,
+						   gint                   ty);
+void            html_object_draw_background       (HTMLObject            *o,
+						   HTMLPainter           *p,
+						   gint                   x,
+						   gint                   y,
+						   gint                   width,
+						   gint                   height,
+						   gint                   tx,
+						   gint                   ty);
+void            html_object_set_bg_color          (HTMLObject            *o,
+						   GdkColor              *color);
+GdkColor       *html_object_get_bg_color          (HTMLObject            *o,
+						   HTMLPainter           *p);
+gboolean        html_object_is_transparent        (HTMLObject            *self);
 
 /* Layout.  */
-HTMLFitType     html_object_fit_line              (HTMLObject  *o,
-						   HTMLPainter *painter,
-						   gboolean     start_of_line,
-						   gboolean     first_run,
-						   gint         width_left);
-gboolean        html_object_calc_size             (HTMLObject  *o,
-						   HTMLPainter *painter);
-void            html_object_set_max_ascent        (HTMLObject  *o,
-						   HTMLPainter *painter,
-						   gint         a);
-void            html_object_set_max_descent       (HTMLObject  *o,
-						   HTMLPainter *painter,
-						   gint         d);
-void            html_object_set_max_width         (HTMLObject  *o,
-						   HTMLPainter *painter,
-						   gint         max_width);
-gint            html_object_calc_min_width        (HTMLObject  *o,
-						   HTMLPainter *painter);
-gint            html_object_calc_preferred_width  (HTMLObject  *o,
-						   HTMLPainter *painter);
-void            html_object_calc_abs_position     (HTMLObject  *o,
-						   gint        *x_return,
-						   gint        *y_return);
-void            html_object_calc_intersection     (HTMLObject *o, 
-						   ArtIRect *intersection,
-						   gint x, gint y, 
-						   gint width, gint height);
-gboolean        html_object_relayout              (HTMLObject  *obj,
-						   HTMLEngine  *engine,
-						   HTMLObject  *child);
-HTMLVAlignType  html_object_get_valign            (HTMLObject  *self);
+HTMLFitType     html_object_fit_line              (HTMLObject            *o,
+						   HTMLPainter           *painter,
+						   gboolean               start_of_line,
+						   gboolean               first_run,
+						   gint                   width_left);
+gboolean        html_object_calc_size             (HTMLObject            *o,
+						   HTMLPainter           *painter);
+void            html_object_set_max_ascent        (HTMLObject            *o,
+						   HTMLPainter           *painter,
+						   gint                   a);
+void            html_object_set_max_descent       (HTMLObject            *o,
+						   HTMLPainter           *painter,
+						   gint                   d);
+void            html_object_set_max_width         (HTMLObject            *o,
+						   HTMLPainter           *painter,
+						   gint                   max_width);
+gint            html_object_calc_min_width        (HTMLObject            *o,
+						   HTMLPainter           *painter);
+gint            html_object_calc_preferred_width  (HTMLObject            *o,
+						   HTMLPainter           *painter);
+void            html_object_calc_abs_position     (HTMLObject            *o,
+						   gint                  *x_return,
+						   gint                  *y_return);
+void            html_object_calc_intersection     (HTMLObject            *o,
+						   ArtIRect              *intersection,
+						   gint                   x,
+						   gint                   y,
+						   gint                   width,
+						   gint                   height);
+gboolean        html_object_relayout              (HTMLObject            *obj,
+						   HTMLEngine            *engine,
+						   HTMLObject            *child);
+HTMLVAlignType  html_object_get_valign            (HTMLObject            *self);
 
 /* Links.  */
-const gchar *html_object_get_url      (HTMLObject *o);
-const gchar *html_object_get_target   (HTMLObject *o);
-
-HTMLAnchor  *html_object_find_anchor  (HTMLObject  *o,
-				       const gchar *name,
-				       gint        *x,
-				       gint        *y);
-
-HTMLObject  *html_object_set_link     (HTMLObject  *self,
-				       HTMLColor   *color,
-				       const gchar *url,
-				       const gchar *target);
-HTMLObject  *html_object_remove_link  (HTMLObject  *self,
-				       HTMLColor   *color);
+const gchar    *html_object_get_url               (HTMLObject            *o);
+const gchar    *html_object_get_target            (HTMLObject            *o);
+HTMLAnchor     *html_object_find_anchor           (HTMLObject            *o,
+						   const gchar           *name,
+						   gint                  *x,
+						   gint                  *y);
+HTMLObject     *html_object_set_link              (HTMLObject            *self,
+						   HTMLColor             *color,
+						   const gchar           *url,
+						   const gchar           *target);
+HTMLObject     *html_object_remove_link           (HTMLObject            *self,
+						   HTMLColor             *color);
 
 /* Cursor.  */
-gboolean    html_object_accepts_cursor   (HTMLObject  *obj);
-void        html_object_get_cursor       (HTMLObject  *obj,
-					  HTMLPainter *painter,
-					  guint        offset,
-					  gint        *x1,
-					  gint        *y1,
-					  gint        *x2,
-					  gint        *y2);
-void        html_object_get_cursor_base  (HTMLObject  *obj,
-					  HTMLPainter *painter,
-					  guint        offset,
-					  gint        *x,
-					  gint        *y);
-
-guint       html_object_get_length       (HTMLObject  *self);
-guint       html_object_get_bytes        (HTMLObject  *self);
-guint       html_object_get_index        (HTMLObject  *self,
-					  guint offset);
-
-HTMLObject *html_object_check_point      (HTMLObject  *clue,
-					  HTMLPainter *painter,
-					  gint         x,
-					  gint         y,
-					  guint       *offset_return,
-					  gboolean     for_cursor);
+gboolean        html_object_accepts_cursor        (HTMLObject            *obj);
+void            html_object_get_cursor            (HTMLObject            *obj,
+						   HTMLPainter           *painter,
+						   guint                  offset,
+						   gint                  *x1,
+						   gint                  *y1,
+						   gint                  *x2,
+						   gint                  *y2);
+void            html_object_get_cursor_base       (HTMLObject            *obj,
+						   HTMLPainter           *painter,
+						   guint                  offset,
+						   gint                  *x,
+						   gint                  *y);
+guint           html_object_get_length            (HTMLObject            *self);
+guint           html_object_get_bytes             (HTMLObject            *self);
+guint           html_object_get_index             (HTMLObject            *self,
+						   guint                  offset);
+HTMLObject     *html_object_check_point           (HTMLObject            *clue,
+						   HTMLPainter           *painter,
+						   gint                   x,
+						   gint                   y,
+						   guint                 *offset_return,
+						   gboolean               for_cursor);
 
 /* Movement functions */
 /* move cursor in scope of object */
-gboolean     html_object_cursor_forward  (HTMLObject *self,
-					  HTMLCursor *cursor);
-gboolean     html_object_cursor_backward (HTMLObject *self,
-					  HTMLCursor *cursor);
+gboolean        html_object_cursor_forward        (HTMLObject            *self,
+						   HTMLCursor            *cursor);
+gboolean        html_object_cursor_backward       (HTMLObject            *self,
+						   HTMLCursor            *cursor);
 
 /* get prev/next object in scope of parent */
-HTMLObject * html_object_next            (HTMLObject *self,
-					  HTMLObject *child);
-HTMLObject * html_object_prev            (HTMLObject *self,
-					  HTMLObject *child);
+HTMLObject     *html_object_next                  (HTMLObject            *self,
+						   HTMLObject            *child);
+HTMLObject     *html_object_prev                  (HTMLObject            *self,
+						   HTMLObject            *child);
 /* get head/tail object of this (parent) object */
-HTMLObject * html_object_head            (HTMLObject *self);
-HTMLObject * html_object_tail            (HTMLObject *self);
-HTMLObject * html_object_tail_not_slave  (HTMLObject *self);
+HTMLObject     *html_object_head                  (HTMLObject            *self);
+HTMLObject     *html_object_tail                  (HTMLObject            *self);
+HTMLObject     *html_object_tail_not_slave        (HTMLObject            *self);
 
 /* get prev/next leaf object in scope of whole tree */
-HTMLObject *html_object_next_leaf           (HTMLObject *self);
-HTMLObject *html_object_prev_leaf           (HTMLObject *self);
-HTMLObject *html_object_next_leaf_not_type  (HTMLObject *self,
-					     HTMLType    t);
-HTMLObject *html_object_prev_leaf_not_type  (HTMLObject *self,
-					     HTMLType    t);
+HTMLObject     *html_object_next_leaf             (HTMLObject            *self);
+HTMLObject     *html_object_prev_leaf             (HTMLObject            *self);
+HTMLObject     *html_object_next_leaf_not_type    (HTMLObject            *self,
+						   HTMLType               t);
+HTMLObject     *html_object_prev_leaf_not_type    (HTMLObject            *self,
+						   HTMLType               t);
+HTMLObject     *html_object_get_head_leaf         (HTMLObject            *o);
+HTMLObject     *html_object_get_tail_leaf         (HTMLObject            *o);
 
 /* Page splitting.  */
 gint  html_object_check_page_split  (HTMLObject *self,
@@ -452,6 +451,7 @@ HTMLObject *html_object_get_selection            (HTMLObject *self,
 						  guint      *size_return);
 void        html_object_append_selection_string  (HTMLObject *self,
 						  GString    *buffer);
+gchar      *html_object_get_selection_string     (HTMLObject *o);
 
 /* Saving.  */
 gboolean  html_object_save  (HTMLObject          *self,

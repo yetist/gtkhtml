@@ -1,5 +1,19 @@
 2001-01-10  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlobject.c (html_object_get_tail_leaf): new function, moved
+	from cut&paste
+	(html_object_get_head_leaf): ditto
+	(html_object_get_selection_string): new function, returns
+	selection string for object
+	(select_object): helper function for
+	html_object_get_selection_string
+	(unselect_object): ditto
+
+	* gtkhtml.c (gtk_html_cut): set selection owner
+	(gtk_html_copy): likewise
+	(command): use gtk_html_copy, gtk_html_cut
+	(button_release_event): use gtk_html_copy
+
 	* htmlengine-edit-cut-and-paste.c (html_engine_paste_text): add
 	undo level "Paste text"
 	(html_engine_paste_object): added undo level "Paste"

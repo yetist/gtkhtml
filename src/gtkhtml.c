@@ -1046,10 +1046,9 @@ button_release_event (GtkWidget *widget,
 	}
 
 	if (html->in_selection) {
-		gtk_selection_owner_set (widget, GDK_SELECTION_PRIMARY, event->time);
+		gtk_html_copy (html);
 		html->in_selection = FALSE;
 		update_styles (html);
-		html_engine_copy (html->engine);
 	}
 
 	remove_scroll_timeout (html);
@@ -1127,7 +1126,9 @@ selection_get (GtkWidget        *widget,
 	g_return_if_fail (GTK_IS_HTML (widget));
 	
 	html = GTK_HTML (widget);
-	selection_string = html_engine_get_selection_string (html->engine);
+	selection_string = html->engine->clipboard
+		? html_object_get_selection_string (html->engine->clipboard)
+		: html_engine_get_selection_string (html->engine);
 
 	/*
 	 * FIXME we should make e_utf8_to/from_string_target and 
@@ -2185,6 +2186,7 @@ gtk_html_cut (GtkHTML *html)
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	html_engine_cut (html->engine);
+	gtk_selection_owner_set (GTK_WIDGET (html), GDK_SELECTION_PRIMARY, GDK_CURRENT_TIME);
 }
 
 void
@@ -2194,6 +2196,7 @@ gtk_html_copy (GtkHTML *html)
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	html_engine_copy (html->engine);
+	gtk_selection_owner_set (GTK_WIDGET (html), GDK_SELECTION_PRIMARY, GDK_CURRENT_TIME);
 }
 
 void
@@ -2506,10 +2509,10 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		html_engine_redo (e);
 		break;
 	case GTK_HTML_COMMAND_COPY:
-		html_engine_copy (e);
+		gtk_html_copy (html);
 		break;
 	case GTK_HTML_COMMAND_CUT:
-		html_engine_cut (e);
+		gtk_html_cut (html);
 		break;
 	case GTK_HTML_COMMAND_CUT_LINE:
 		html_engine_cut_line (e);

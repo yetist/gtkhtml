@@ -48,8 +48,6 @@
 
 static void        delete_object (HTMLEngine *e, HTMLObject **ret_object, guint *ret_len, HTMLUndoDirection dir);
 static void        insert_object (HTMLEngine *e, HTMLObject *obj, guint len, HTMLUndoDirection dir);
-static HTMLObject *get_tail_leaf (HTMLObject *o);
-static HTMLObject *get_head_leaf (HTMLObject *o);
 
 /* helper functions -- need refactor */
 
@@ -434,34 +432,6 @@ html_engine_cut (HTMLEngine *e)
  * PASTE/INSERT
  */
 
-static HTMLObject *
-get_tail_leaf (HTMLObject *o)
-{
-	HTMLObject *tail, *rv = o;
-
-	do {
-		tail = html_object_tail_not_slave (rv);
-		if (tail)
-			rv = tail;
-	} while (tail);
-
-	return rv;
-}
-
-static HTMLObject *
-get_head_leaf (HTMLObject *o)
-{
-	HTMLObject *head, *rv = o;
-
-	do {
-		head = html_object_head (rv);
-		if (head)
-			rv = head;
-	} while (head);
-
-	return rv;
-}
-
 static void
 insert_object_do (HTMLEngine *e, HTMLObject *obj, guint len)
 {
@@ -476,7 +446,7 @@ insert_object_do (HTMLEngine *e, HTMLObject *obj, guint len)
 
 	/* FIXME for tables */
 	level = 0;
-	cur   = get_head_leaf (obj);
+	cur   = html_object_get_head_leaf (obj);
 	while (cur) {
 		level++;
 		cur = cur->parent;
@@ -486,7 +456,7 @@ insert_object_do (HTMLEngine *e, HTMLObject *obj, guint len)
         get_tree_bounds_for_merge (obj, &first, &last);
 
 	e->cursor->position += len;
-	e->cursor->object    = get_tail_leaf (obj);
+	e->cursor->object    = html_object_get_tail_leaf (obj);
 	e->cursor->offset    = html_object_get_length (e->cursor->object);
 
 	if ((left && left->data) || (right && (right->data))) {
