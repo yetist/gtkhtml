@@ -119,6 +119,18 @@ insert_text (HTMLText *text,
 	}
 }
 
+static void
+calc_char_position (HTMLText *self,
+		    guint offset,
+		    gint *x_return, gint *y_return)
+{
+	html_object_calc_abs_position (HTML_OBJECT (self), x_return, y_return);
+
+	*x_return += gdk_text_width (self->font->gdk_font,
+				     self->text,
+				     offset);
+}
+
 
 void
 html_text_type_init (void)
@@ -144,6 +156,7 @@ html_text_class_init (HTMLTextClass *klass,
 
 	klass->insert_text = insert_text;
 	klass->queue_draw = queue_draw;
+	klass->calc_char_position = calc_char_position;
 }
 
 void
@@ -205,4 +218,17 @@ html_text_queue_draw (HTMLText *text,
 	g_return_if_fail (engine != NULL);
 
 	(* HT_CLASS (text)->queue_draw) (text, engine, offset, len);
+}
+
+void
+html_text_calc_char_position (HTMLText *text,
+			      guint offset,
+			      gint *x_return, gint *y_return)
+{
+	g_return_if_fail (text != NULL);
+	g_return_if_fail (x_return != NULL);
+	g_return_if_fail (y_return != NULL);
+
+	(* HT_CLASS (text)->calc_char_position) (text, offset,
+						 x_return, y_return);
 }

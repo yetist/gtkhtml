@@ -73,6 +73,14 @@ html_engine_move_cursor (HTMLEngine *e,
 		for (i = 0; i < count; i++)
 			html_cursor_backward (e->cursor, e);
 		break;
+	case HTML_ENGINE_CURSOR_UP:
+		for (i = 0; i < count; i++)
+			html_cursor_up (e->cursor, e);
+		break;
+	case HTML_ENGINE_CURSOR_DOWN:
+		for (i = 0; i < count; i++)
+			html_cursor_down (e->cursor, e);
+		break;
 	default:
 		g_warning ("Unsupported movement %d\n", (gint) movement);
 		return;

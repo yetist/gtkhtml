@@ -173,6 +173,7 @@ void html_object_class_init (HTMLObjectClass *klass, HTMLType type);
 HTMLObject *html_object_new (HTMLObject *parent);
 void html_object_destroy (HTMLObject *o);
 void html_object_set_parent (HTMLObject *o, HTMLObject *parent);
+void html_object_calc_abs_position (HTMLObject *o, gint *x_return, gint *y_return);
 
 void html_object_draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor, gint x, gint y,
 		       gint width, gint height, gint tx, gint ty);

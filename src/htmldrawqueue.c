@@ -87,8 +87,6 @@ draw_obj (HTMLDrawQueue *queue,
 	gint x, y, width, height;
 	gint tx, ty;
 
-	g_print ("%s(%p)\n", __FUNCTION__, obj);
-
 	e = queue->engine;
 
 	tx = e->leftBorder - e->x_offset;

@@ -29,6 +29,8 @@
 HTMLTextMasterClass html_text_master_class;
 
 
+/* HTMLObject methods.  */
+
 static void
 draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor,
       gint x, gint y, gint width, gint height, gint tx, gint ty)
@@ -127,6 +129,32 @@ queue_draw (HTMLText *text,
 	}
 }
 
+static void
+calc_char_position (HTMLText *text,
+		    guint offset,
+		    gint *x_return, gint *y_return)
+{
+	HTMLObject *obj;
+
+	for (obj = HTML_OBJECT (text)->next; obj != NULL; obj = obj->next) {
+		HTMLTextSlave *slave;
+
+		if (HTML_OBJECT_TYPE (obj) != HTML_TYPE_TEXTSLAVE)
+			continue;
+
+		slave = HTML_TEXT_SLAVE (obj);
+
+		if (offset < slave->posStart + slave->posLen) {
+			html_object_calc_abs_position (obj, x_return, y_return);
+			if (offset != slave->posStart)
+				*x_return += gdk_text_width (text->font->gdk_font,
+							     text->text + slave->posStart,
+							     offset - slave->posStart);
+			break;
+		}
+	}
+}
+
 
 void
 html_text_master_type_init (void)
@@ -154,6 +182,7 @@ html_text_master_class_init (HTMLTextMasterClass *klass,
 
 	text_class->insert_text = insert_text;
 	text_class->queue_draw = queue_draw;
+	text_class->calc_char_position = calc_char_position;
 }
 
 void

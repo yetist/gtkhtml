@@ -32,6 +32,9 @@
 struct _HTMLCursor {
 	HTMLObject *object;
 	guint offset;
+
+	gint target_x;
+	gboolean have_target_x : 1;
 };
 
 
@@ -43,5 +46,9 @@ void html_cursor_destroy (HTMLCursor *cursor);
 void html_cursor_home (HTMLCursor *cursor, HTMLEngine *engine);
 void html_cursor_forward (HTMLCursor *cursor, HTMLEngine *engine);
 void html_cursor_backward (HTMLCursor *cursor, HTMLEngine *engine);
+void html_cursor_up (HTMLCursor *cursor, HTMLEngine *engine);
+void html_cursor_down (HTMLCursor *cursor, HTMLEngine *engine);
+
+gboolean html_cursor_equal (HTMLCursor *a, HTMLCursor *b);
 
 #endif

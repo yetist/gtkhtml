@@ -292,7 +292,27 @@ html_object_set_parent (HTMLObject *o,
 	o->parent = parent;
 }
 
+void
+html_object_calc_abs_position (HTMLObject *o,
+			       gint *x_return, gint *y_return)
+{
+	HTMLObject *p;
+
+	g_return_if_fail (o != NULL);
+
+	*x_return = 0;
+	*y_return = 0;
+
+	while (o != NULL) {
+		*x_return += o->x;
+		*y_return += o->y;
+		o = o->parent;
+	}
+}
+
 
+/* Virtual methods.  */
+
 void
 html_object_destroy (HTMLObject *o)
 {

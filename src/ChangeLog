@@ -1,3 +1,45 @@
+1999-12-28  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* testgtkhtml.c (netin_stream_free): Call `gtk_html_end()' again.
+	It does not seem to cause crashes anymore.
+
+	* htmldrawqueue.c (draw_obj): Removed debugging message.
+
+	* gtkhtml.c: Do not #include <stdio.h> anymore.
+	(html_engine_draw_pending_cb): Removed debugging message.
+
+	* htmlcursor.c (html_cursor_forward): Skip TextMaster-derived
+	objects.
+
+	* gtkhtml.c (key_press_event): Handle `GDK_Up' and `GDK_Down'.
+
+	* htmlengine-edit.c (html_engine_move_cursor): Handle
+	`HTML_ENGINE_CURSOR_UP' and `HTML_ENGINE_CURSOR_DOWN'.
+
+	* htmlcursor.c (html_cursor_new): Init `target_x',
+	`have_target_x'.
+	(html_cursor_equal): New function.
+	(html_cursor_up): New function.
+	(html_cursor_down): New function.
+	(html_cursor_forward): Set `have_target_x' to FALSE.
+	(html_cursor_backward): Likewise.
+
+	* htmlcursor.h: New members `target_x', `have_target_x' in
+	`HTMLCursor'.
+
+	* htmlobject.c (html_object_calc_abs_position): New function.
+
+	* htmltextmaster.c (calc_char_position): Implementation of the
+	`HTMLText::calc_char_position' method.
+	(html_text_master_class_init): Install it.
+
+	* htmltext.c (html_text_calc_char_position): New function.
+	(calc_char_position): Default implementation for the
+	`calc_char_position' method.
+	(html_text_class_init): Install it.
+
+	* htmltext.h: New virtual method `calc_char_position'.
+
 1999-12-26  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmltext.c (insert_text): Relayout the parent instead of just

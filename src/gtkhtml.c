@@ -18,7 +18,6 @@
     Boston, MA 02111-1307, USA.
 */
 
-#include <stdio.h>
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtk.h>
 
@@ -120,7 +119,6 @@ html_engine_draw_pending_cb (HTMLEngine *engine,
 {
 	GtkHTML *html;
 
-	puts (__FUNCTION__);
 	html = GTK_HTML (data);
 	queue_draw (html);
 }
@@ -228,10 +226,16 @@ key_press_event (GtkWidget *widget,
 		html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_LEFT, 1);
 		retval = TRUE;
 		break;
+	case GDK_Up:
+		html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_UP, 1);
+		retval = TRUE;
+		break;
+	case GDK_Down:
+		html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_DOWN, 1);
+		retval = TRUE;
+		break;
 	/* The following cases are for keys that we don't want to map yet, but
            have an annoying default behavior if not handled. */
-	case GDK_Down:
-	case GDK_Up:
 	case GDK_Tab:
 		retval = TRUE;
 		break;
@@ -608,13 +612,13 @@ gtk_html_calc_scrollbars (GtkHTML *html)
 	GTK_LAYOUT (html)->vadjustment->lower = 0;
 	GTK_LAYOUT (html)->vadjustment->upper = height;
 	GTK_LAYOUT (html)->vadjustment->page_size = html->engine->height;
-	GTK_LAYOUT (html)->vadjustment->step_increment = 14;
+	GTK_LAYOUT (html)->vadjustment->step_increment = 14; /* FIXME */
 	GTK_LAYOUT (html)->vadjustment->page_increment = html->engine->height;
 
 	GTK_LAYOUT (html)->hadjustment->lower = 0;
 	GTK_LAYOUT (html)->hadjustment->upper = width;
 	GTK_LAYOUT (html)->hadjustment->page_size = html->engine->width;
-	GTK_LAYOUT (html)->hadjustment->step_increment = 14;
+	GTK_LAYOUT (html)->hadjustment->step_increment = 14; /* FIXME */
 	GTK_LAYOUT (html)->hadjustment->page_increment = html->engine->width;
 
 	gtk_layout_set_size (GTK_LAYOUT (html), width, height);

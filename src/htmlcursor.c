@@ -1,5 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library.
+
    Copyright 1999, Helix Code, Inc.
 
    This library is free software; you can redistribute it and/or
@@ -20,8 +21,8 @@
 
 /* This file is a bit of a hack.  To make things work in a really nice way, we
    should have some extra methods in the various subclasses to implement cursor
-   movement.  Also, tables are not handled at all yet (FIXME TODO).  But for
-   now, I think this is a reasonable way to get things to work.  */
+   movement.  But for now, I think this is a reasonable way to get things to
+   work.  */
 
 #include <glib.h>
 
@@ -41,6 +42,9 @@ html_cursor_new (void)
 	new = g_new (HTMLCursor, 1);
 	new->object = NULL;
 	new->offset = 0;
+
+	new->target_x = 0;
+	new->have_target_x = TRUE;
 
 	return new;
 }
@@ -64,8 +68,18 @@ html_cursor_destroy (HTMLCursor *cursor)
 	g_free (cursor);
 }
 
+gboolean
+html_cursor_equal (HTMLCursor *a, HTMLCursor *b)
+{
+	g_return_val_if_fail (a != NULL, FALSE);
+	g_return_val_if_fail (b != NULL, FALSE);
+
+	return a->object == b->object && a->offset == b->offset;
+}
+
 
-/* This is a gross hack as we don't have a `is_a()' function in the object system.  */
+/* This is a gross hack as we don't have a `is_a()' function in the object
+   system.  */
 
 static gboolean
 is_clue (HTMLObject *object)
@@ -85,8 +99,10 @@ is_text (HTMLObject *object)
 
 	type = HTML_OBJECT_TYPE (object);
 
-	return (type == HTML_TYPE_TEXTMASTER || type == HTML_TYPE_TEXT
-		|| type == HTML_TYPE_LINKTEXTMASTER || type == HTML_TYPE_LINKTEXT
+	return (type == HTML_TYPE_TEXTMASTER
+		|| type == HTML_TYPE_TEXT
+		|| type == HTML_TYPE_LINKTEXTMASTER
+		|| type == HTML_TYPE_LINKTEXT
 		|| type == HTML_TYPE_TEXTSLAVE);
 }
 
@@ -132,12 +148,15 @@ html_cursor_home (HTMLCursor *cursor,
 	html_cursor_forward (cursor, engine);
 }
 
+
 void
 html_cursor_forward (HTMLCursor *cursor,
 		     HTMLEngine *engine)
 {
 	HTMLObject *obj;
 	guint offset;
+
+	cursor->have_target_x = FALSE;
 
 	obj = cursor->object;
 	if (obj == NULL) {
@@ -179,8 +198,8 @@ html_cursor_forward (HTMLCursor *cursor,
 		offset = 0;
 
 		while (obj != NULL && is_text (obj)) {
-			if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTMASTER
-			    || HTML_OBJECT_TYPE (obj) == HTML_TYPE_LINKTEXTMASTER) {
+			if (HTML_OBJECT_TYPE (obj) != HTML_TYPE_TEXTMASTER
+			    && HTML_OBJECT_TYPE (obj) != HTML_TYPE_LINKTEXTMASTER) {
 				obj = next (obj);
 			} else {
 				goto end;
@@ -188,8 +207,8 @@ html_cursor_forward (HTMLCursor *cursor,
 		}
 	}
 
-	/* No more text.  Traverse the tree in top-bottom, left-right order until a
-           text element is found.  */
+	/* No more text.  Traverse the tree in top-bottom, left-right order
+           until a text element is found.  */
 
 	while (obj != NULL) {
 		if (is_clue (obj)) {
@@ -217,6 +236,8 @@ html_cursor_backward (HTMLCursor *cursor,
 {
 	HTMLObject *obj;
 	guint offset;
+
+	cursor->have_target_x = FALSE;
 
 	obj = cursor->object;
 	if (obj == NULL)
@@ -275,7 +296,8 @@ html_cursor_backward (HTMLCursor *cursor,
 
 			case HTML_TYPE_TEXTSLAVE:
 				/* Do nothing: go to the previous element, as
-				   this is not a suitable place for the cursor.  */
+				   this is not a suitable place for the
+				   cursor.  */
 				break;
 
 			default:
@@ -288,4 +310,155 @@ html_cursor_backward (HTMLCursor *cursor,
 	if (obj != NULL)
 		cursor->object = obj;
 	cursor->offset = offset;
+}
+
+
+void
+html_cursor_up (HTMLCursor *cursor,
+		HTMLEngine *engine)
+{
+	HTMLCursor orig_cursor;
+	HTMLCursor prev_cursor;
+	gint prev_x, prev_y;
+	gint x, y;
+	gint target_x;
+	gint orig_y;
+	gboolean new_line;
+
+	if (cursor->object == NULL) {
+		g_warning ("The cursor is in a NULL position: going home.");
+		html_cursor_home (cursor, engine);
+		return;
+	}
+
+	orig_cursor = *cursor;
+
+	html_text_calc_char_position (HTML_TEXT (cursor->object),
+				      cursor->offset, &x, &y);
+
+	if (cursor->have_target_x)
+		target_x = cursor->target_x;
+	else
+		target_x = x;
+
+	orig_y = y;
+
+	new_line = FALSE;
+
+	while (1) {
+		prev_cursor = *cursor;
+		prev_x = x;
+		prev_y = y;
+
+		html_cursor_backward (cursor, engine);
+
+		/* This assumes that we are on an HTMLText object.  FIXME?  */
+		html_text_calc_char_position (HTML_TEXT (cursor->object),
+					      cursor->offset, &x, &y);
+
+		if (html_cursor_equal (&prev_cursor, cursor)) {
+			*cursor = orig_cursor;
+			return;
+		}
+
+		if (prev_y != y) {
+			if (new_line) {
+				*cursor = prev_cursor;
+				return;
+			}
+
+			new_line = TRUE;
+		}
+
+		if (new_line && x <= target_x) {
+			if (! cursor->have_target_x) {
+				cursor->have_target_x = TRUE;
+				cursor->target_x = target_x;
+			}
+
+			/* Choose the character which is the nearest to the
+                           target X.  */
+			if (prev_y == y && target_x - x >= prev_x - target_x) {
+				cursor->object = prev_cursor.object;
+				cursor->offset = prev_cursor.offset;
+			}
+
+			return;
+		}
+	}
+}
+
+
+void
+html_cursor_down (HTMLCursor *cursor,
+		  HTMLEngine *engine)
+
+{
+	HTMLCursor orig_cursor;
+	HTMLCursor prev_cursor;
+	gint prev_x, prev_y;
+	gint x, y;
+	gint target_x;
+	gint orig_y;
+	gboolean new_line;
+
+	if (cursor->object == NULL) {
+		g_warning ("The cursor is in a NULL position: going home.");
+		html_cursor_home (cursor, engine);
+		return;
+	}
+
+	html_text_calc_char_position (HTML_TEXT (cursor->object),
+				      cursor->offset, &x, &y);
+
+	if (cursor->have_target_x)
+		target_x = cursor->target_x;
+	else
+		target_x = x;
+
+	orig_y = y;
+
+	new_line = FALSE;
+
+	while (1) {
+		prev_cursor = *cursor;
+		prev_x = x;
+		prev_y = y;
+
+		html_cursor_forward (cursor, engine);
+
+		/* This assumes that we are on an HTMLText object.  FIXME?  */
+		html_text_calc_char_position (HTML_TEXT (cursor->object),
+					      cursor->offset, &x, &y);
+
+		if (html_cursor_equal (&prev_cursor, cursor)) {
+			*cursor = orig_cursor;
+			return;
+		}
+
+		if (prev_y != y) {
+			if (new_line) {
+				*cursor = prev_cursor;
+				return;
+			}
+
+			new_line = TRUE;
+		}
+
+		if (new_line && x >= target_x) {
+			if (! cursor->have_target_x) {
+				cursor->have_target_x = TRUE;
+				cursor->target_x = target_x;
+			}
+
+			/* Choose the character which is the nearest to the
+                           target X.  */
+			if (prev_y == y && x - target_x >= target_x - prev_x) {
+				cursor->object = prev_cursor.object;
+				cursor->offset = prev_cursor.offset;
+			}
+
+			return;
+		}
+	}
 }
