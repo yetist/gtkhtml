@@ -262,7 +262,7 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	group = NULL;
 	i = 0;
 #define ADD_COLOR(x, ct, g) \
-        color = html_colorset_get_color (cd->html->engine->defaultSettings->color_set, ct); \
+        color = html_colorset_get_color (cd->html->engine->settings->color_set, ct); \
         html_color_alloc (color, cd->html->engine->painter); \
 	data->combo [i] = combo = color_combo_new (NULL, _("Automatic"), \
 				 &color->color, \
