@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
-"POT-Creation-Date: 2001-07-24 16:49-0500\n"
-"PO-Revision-Date: 2001-06-15 09:54+0200\n"
+"POT-Creation-Date: 2001-07-25 17:45+0200\n"
+"PO-Revision-Date: 2001-07-25 17:49+0200\n"
 "Last-Translator: András TÍmár <timar@gnome.hu>\n"
 "Language-Team: Hungarian <hu@gnome.hu>\n"
 "MIME-Version: 1.0\n"
@@ -64,7 +64,7 @@ msgstr "Animált képek"
 
 #: capplet/gtkhtml-capplet.glade.h:2
 msgid "Automatic Link Detection"
-msgstr ""
+msgstr "Automatikus hivatkozás-felismerés"
 
 #: capplet/gtkhtml-capplet.glade.h:3
 msgid "Behavior"
@@ -152,19 +152,16 @@ msgid "HTML Browser control"
 msgstr "HTML Browser control"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:1
-#, fuzzy
 msgid "GNOME HTML Editor"
-msgstr "HTML Editor control"
+msgstr "GNOME HTML-szerkesztõ"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:2
-#, fuzzy
 msgid "GNOME HTML Editor Control"
-msgstr "HTML Editor control"
+msgstr "GNOME HTML-szerkesztõ kontroll"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:3
-#, fuzzy
 msgid "GNOME HTML Editor Factory"
-msgstr "HTML Editor control"
+msgstr "GNOME HTML-szerkesztõ factory"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
 msgid "C_ut"
@@ -376,6 +373,12 @@ msgstr "Engedélyezés"
 msgid "Colors"
 msgstr "Színek"
 
+#: components/html-editor/body.c:169 components/html-editor/cell.c:377
+#: components/html-editor/table.c:353 components/html-editor/text.c:221
+#: components/html-editor/toolbar.c:286
+msgid "Automatic"
+msgstr "Automatikus"
+
 #: components/html-editor/body.c:180
 #: components/html-editor/editor-control-factory.c:172
 #: components/html-editor/menubar.c:125 components/html-editor/popup.c:150
@@ -386,11 +389,6 @@ msgstr "Szöveg"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:3
 msgid "Background"
 msgstr "Háttér"
-
-#: components/html-editor/cell.c:377 components/html-editor/table.c:353
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:286
-msgid "Automatic"
-msgstr "Automatikus"
 
 #: components/html-editor/editor-control-factory.c:152
 #: components/html-editor/popup.c:142
@@ -429,7 +427,7 @@ msgstr "Igazítás"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:2
 msgid "Apply changes to"
-msgstr ""
+msgstr "Változások alkalmazása"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:4
 msgid "Be careful! Tables code is still ALPHA quality."
@@ -457,9 +455,8 @@ msgstr "Középen"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:9
 #: components/html-editor/popup.c:394
-#, fuzzy
 msgid "Column"
-msgstr "oszlopok"
+msgstr "Oszlop"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:10
 msgid "Don't wrap"
@@ -510,11 +507,11 @@ msgstr "Jobbra"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:20
 #: components/html-editor/popup.c:393
 msgid "Row"
-msgstr ""
+msgstr "Sor"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
 msgid "Scope"
-msgstr ""
+msgstr "Tartomány"
 
 #. size
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
@@ -737,24 +734,23 @@ msgstr "Cella..."
 
 #: components/html-editor/popup.c:385
 msgid "Row above"
-msgstr ""
+msgstr "Egy sorral feljebb"
 
 #: components/html-editor/popup.c:386
 msgid "Row below"
-msgstr ""
+msgstr "Egy sorral lejjebb"
 
 #: components/html-editor/popup.c:388
 msgid "Column before"
-msgstr ""
+msgstr "Egy oszloppal elõtte"
 
 #: components/html-editor/popup.c:389
-#, fuzzy
 msgid "Column after"
-msgstr "átnyúló oszlop"
+msgstr "Egy oszloppal utána"
 
 #: components/html-editor/popup.c:395
 msgid "Cell contents"
-msgstr ""
+msgstr "Cellatartalom"
 
 #: components/html-editor/popup.c:402
 msgid "Page..."
