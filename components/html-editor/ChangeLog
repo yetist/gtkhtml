@@ -1,6 +1,7 @@
 2000-06-03  Ariel Rios  <ariel@arcavia.com>
 
-	* html.c: New file: Functions for creating and using the table dialog.
+	* table.c: New file: Functions for creating and using the table
+	dialog.
 	(set_get_values): Set and get the table value arguments.
 	(button_table_cb): Call back for the table dialog.
 	(gtk_html_table_dialog_new): Creates a new GtkHTMLDialog.
@@ -8,7 +9,7 @@
 	(table_insert): Insert table.
 	(table_edit): Edit table.
 
-	* html.h: Ditto.
+	* table.h: Ditto.
 
 2000-05-29  Larry Ewing  <lewing@helixcode.com>
 
