@@ -67,21 +67,21 @@
 		</submenu>
 	</menu>
 	<dockitem name="Toolbar">
-		<toolitem name="EditUndo" verb=""  _tip="Undo previous changes"
+		<toolitem name="EditUndo" verb="" _label="Undo" _tip="Undo previous changes"
 		pixtype="stock" pixname="Undo"/>
-		<toolitem name="EditRedo" verb=""  _tip="Redo previously undoed changes"
+		<toolitem name="EditRedo" verb="" _label="Redo"  _tip="Redo previously undoed changes"
 		pixtype="stock" pixname="Redo"/>
 		<separator/>
-		<toolitem name="EditCut" verb=""  _tip="Cut selection to clipboard"
+		<toolitem name="EditCut" verb=""  _label="Cut" _tip="Cut selection to clipboard"
 		pixtype="stock" pixname="Cut"/>
-                <toolitem name="EditCopy" verb=""  _tip="Copy selection to clipboard"
+                <toolitem name="EditCopy" verb=""  _label="Copy" _tip="Copy selection to clipboard"
 		pixtype="stock" pixname="Copy"/>
-		<toolitem name="EditPaste" verb=""  _tip="Paste from clipboard"
+		<toolitem name="EditPaste" verb=""  _label="Paste" _tip="Paste from clipboard"
 		pixtype="stock" pixname="Paste"/>
 		<separator/>
-		<toolitem name="EditFind" verb=""  _tip="Search string"
+		<toolitem name="EditFind" verb=""  _label="Find" _tip="Search string"
 		pixtype="stock" pixname="Search"/>
-		<toolitem name="EditReplace" verb=""  _tip="Search and replace string"
+		<toolitem name="EditReplace" verb=""  _label="Replace" _tip="Search and replace string"
 		pixtype="stock" pixname="Search/Replace"/>
 	</dockitem>
 </Root>

@@ -1,3 +1,8 @@
+2000-12-13  Iain Holmes  <iain@helixcode.com>
+
+	* GNOME_GtkHTML_Editor.xml: Added _label attributes for each of 
+	the toolbar buttons.
+
 2000-12-12  Radek Doulik  <rodo@helixcode.com>
 
 	* text.c (color_changed): take care of automatic color
