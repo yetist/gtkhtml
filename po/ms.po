@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 1.1.x\n"
-"POT-Creation-Date: 2002-01-25 02:13+0800\n"
+"POT-Creation-Date: 2002-02-04 01:54+0800\n"
 "PO-Revision-Date: 2002-01-25 02:09+0800\n"
 "Last-Translator: Hasbullah Bin Pit <sebol@ikhlas.com>\n"
 "Language-Team: Projek Gabai <gabai-penyumbang@lists.sourceforge.org>\n"
@@ -245,7 +245,7 @@ msgid "Check spelling of the document"
 msgstr "Semak ejaan dokumen"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
-#: components/html-editor/popup.c:393
+#: components/html-editor/popup.c:418
 msgid "Copy"
 msgstr "Salin"
 
@@ -262,7 +262,7 @@ msgid "Cu_t"
 msgstr "Po_tong"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
-#: components/html-editor/popup.c:394
+#: components/html-editor/popup.c:419
 msgid "Cut"
 msgstr "Potong"
 
@@ -339,7 +339,7 @@ msgstr "Pengepala_6"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
 #: components/html-editor/editor-control-factory.c:187
 #: components/html-editor/gtkhtml-editor-properties.glade.h:36
-#: components/html-editor/menubar.c:107 components/html-editor/popup.c:165
+#: components/html-editor/menubar.c:107 components/html-editor/popup.c:172
 msgid "Image"
 msgstr "Imej"
 
@@ -369,7 +369,8 @@ msgid "Left justifies the paragraphs"
 msgstr "Justifikasi kiri perenggan"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
-#: components/html-editor/body.c:187 components/html-editor/menubar.c:123
+#: components/html-editor/body.c:307 components/html-editor/menubar.c:123
+#: components/html-editor/popup.c:165 components/html-editor/popup.c:238
 msgid "Link"
 msgstr "Pautan"
 
@@ -453,7 +454,7 @@ msgid "Other..."
 msgstr "Lain-lain..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
-#: components/html-editor/popup.c:400
+#: components/html-editor/popup.c:425
 msgid "Paste"
 msgstr "Tepek"
 
@@ -512,7 +513,7 @@ msgstr "Senarai nombor roman"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
 #: components/html-editor/editor-control-factory.c:207
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
-#: components/html-editor/menubar.c:141 components/html-editor/popup.c:186
+#: components/html-editor/menubar.c:141 components/html-editor/popup.c:193
 msgid "Rule"
 msgstr "Rule"
 
@@ -548,8 +549,8 @@ msgstr "Superscript"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#: components/html-editor/menubar.c:158 components/html-editor/popup.c:193
-#: components/html-editor/popup.c:445 components/html-editor/popup.c:454
+#: components/html-editor/menubar.c:158 components/html-editor/popup.c:200
+#: components/html-editor/popup.c:473 components/html-editor/popup.c:482
 msgid "Table"
 msgstr "Jadual"
 
@@ -558,6 +559,7 @@ msgid "Te_mplate..."
 msgstr "Te_mplet..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
+#: components/html-editor/body.c:233
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
 #: components/html-editor/menubar.c:181
 msgid "Template"
@@ -731,35 +733,47 @@ msgstr "_Nyahcara"
 msgid "etc..."
 msgstr "dll..."
 
-#: components/html-editor/body.c:134 components/html-editor/body.c:138
+#: components/html-editor/body.c:63
+#: components/html-editor/gtkhtml-editor-properties.glade.h:45
+msgid "None"
+msgstr "Tiada"
+
+#: components/html-editor/body.c:70
+msgid "Test"
+msgstr "Ujian"
+
+#: components/html-editor/body.c:77
+msgid "Test 1"
+msgstr "Ujian 1"
+
+#: components/html-editor/body.c:251
+msgid "Document Title"
+msgstr "Tajuk Dokumen"
+
+#: components/html-editor/body.c:255 components/html-editor/body.c:258
 #: components/html-editor/gtkhtml-editor-properties.glade.h:14
 msgid "Background Image"
 msgstr "Imej latarbelakang:"
 
-#: components/html-editor/body.c:137
-#: components/html-editor/gtkhtml-editor-properties.glade.h:28
-msgid "Enable"
-msgstr "Hidupkan"
-
-#: components/html-editor/body.c:166
+#: components/html-editor/body.c:284
 #: components/html-editor/gtkhtml-editor-properties.glade.h:23
 msgid "Colors"
 msgstr "Warna"
 
-#: components/html-editor/body.c:175 components/html-editor/cell.c:391
+#: components/html-editor/body.c:294 components/html-editor/cell.c:391
 #: components/html-editor/table.c:534 components/html-editor/text.c:283
 #: components/html-editor/toolbar.c:290
 msgid "Automatic"
 msgstr "Automatik"
 
-#: components/html-editor/body.c:186
+#: components/html-editor/body.c:306
 #: components/html-editor/editor-control-factory.c:196
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
 #: components/html-editor/menubar.c:242 components/html-editor/popup.c:158
 msgid "Text"
 msgstr "Teks"
 
-#: components/html-editor/body.c:188
+#: components/html-editor/body.c:308
 #: components/html-editor/gtkhtml-editor-properties.glade.h:13
 msgid "Background"
 msgstr "LatarBelakang"
@@ -767,25 +781,26 @@ msgstr "LatarBelakang"
 #: components/html-editor/editor-control-factory.c:177
 #: components/html-editor/menubar.c:221 components/html-editor/menubar.c:239
 #: components/html-editor/menubar.c:257 components/html-editor/popup.c:150
+#: components/html-editor/popup.c:235
 msgid "Properties"
 msgstr "Ciri-ciri"
 
 #: components/html-editor/editor-control-factory.c:217
-#: components/html-editor/menubar.c:260 components/html-editor/popup.c:172
+#: components/html-editor/menubar.c:260 components/html-editor/popup.c:179
 msgid "Paragraph"
 msgstr "Perenggan"
 
 #: components/html-editor/editor-control-factory.c:222
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: components/html-editor/menubar.c:224 components/html-editor/popup.c:179
+#: components/html-editor/menubar.c:224 components/html-editor/popup.c:186
 msgid "Page"
 msgstr "Halaman"
 
-#: components/html-editor/editor-control-factory.c:838
+#: components/html-editor/editor-control-factory.c:854
 msgid "Could not initialize GNORBA"
 msgstr "Gagal menginitialisasikan GNORBA!"
 
-#: components/html-editor/editor-control-factory.c:851
+#: components/html-editor/editor-control-factory.c:867
 msgid "Could not initialize Bonobo"
 msgstr "Gagal menginitialisasikan Bonobo"
 
@@ -831,7 +846,7 @@ msgid "Bottom"
 msgstr "bawah"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:19
-#: components/html-editor/popup.c:200
+#: components/html-editor/popup.c:207
 msgid "Cell"
 msgstr "Sel"
 
@@ -841,7 +856,7 @@ msgid "Center"
 msgstr "Tengah"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
-#: components/html-editor/link.c:83 components/html-editor/text.c:230
+#: components/html-editor/link.c:105 components/html-editor/text.c:230
 msgid "Click will follow this URL"
 msgstr "Klik akan ikut URL ini"
 
@@ -850,7 +865,7 @@ msgid "Color:"
 msgstr "Warna:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:24
-#: components/html-editor/popup.c:456
+#: components/html-editor/popup.c:484
 msgid "Column"
 msgstr "Kolum"
 
@@ -865,6 +880,10 @@ msgstr "Kolum:"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:27
 msgid "Don't wrap"
 msgstr "Jangan Balut"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:28
+msgid "Enable"
+msgstr "Hidupkan"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:29
 msgid "Follow"
@@ -928,10 +947,6 @@ msgstr "Lokasi"
 msgid "Middle"
 msgstr "Tengah"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:45
-msgid "None"
-msgstr "Tiada"
-
 #: components/html-editor/gtkhtml-editor-properties.glade.h:47
 msgid "Padding"
 msgstr "Padding"
@@ -968,7 +983,7 @@ msgid "Right"
 msgstr "Kanan"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:57
-#: components/html-editor/popup.c:455
+#: components/html-editor/popup.c:483
 msgid "Row"
 msgstr "Baris"
 
@@ -1110,7 +1125,7 @@ msgstr "Seekor arnab memakan kangkung bersama tiong."
 msgid "The quick brown fox jumped over the lazy dog."
 msgstr "Seekor arnab memakan kangkung bersama tiong."
 
-#: components/html-editor/link.c:65
+#: components/html-editor/link.c:87
 msgid "Link text"
 msgstr "Teks Pautan"
 
@@ -1177,88 +1192,92 @@ msgstr "Item Alfabeta"
 msgid "Align"
 msgstr "Jajar"
 
-#: components/html-editor/popup.c:356
+#: components/html-editor/popup.c:381
 #, c-format
 msgid "Check '%s' spelling..."
 msgstr "Semak ejaan '%s'"
 
-#: components/html-editor/popup.c:359
+#: components/html-editor/popup.c:384
 #, c-format
 msgid "Add '%s' to dictionary"
 msgstr "Tambah '%s' ke kamus"
 
-#: components/html-editor/popup.c:362
+#: components/html-editor/popup.c:387
 #, c-format
 msgid "Ignore '%s'"
 msgstr "Abaikan '%s'"
 
-#: components/html-editor/popup.c:365 components/html-editor/spell.c:418
+#: components/html-editor/popup.c:390 components/html-editor/spell.c:418
 msgid "Spell checker"
 msgstr "Penyamak Ejaan"
 
-#: components/html-editor/popup.c:369
+#: components/html-editor/popup.c:394
 msgid "Suggest word"
 msgstr "Cadang perkataan"
 
-#: components/html-editor/popup.c:388
+#: components/html-editor/popup.c:413
 msgid "Remove link"
 msgstr "Buang Pautan"
 
-#: components/html-editor/popup.c:404
+#: components/html-editor/popup.c:432
 msgid "Text..."
 msgstr "Teks..."
 
-#: components/html-editor/popup.c:406 components/html-editor/popup.c:419
-#: components/html-editor/popup.c:426
+#: components/html-editor/popup.c:434 components/html-editor/popup.c:441
+#: components/html-editor/popup.c:453
 msgid "Paragraph..."
 msgstr "Perenggan..."
 
-#: components/html-editor/popup.c:412
+#: components/html-editor/popup.c:439
+msgid "Link..."
+msgstr "Pautan..."
+
+#: components/html-editor/popup.c:446
 msgid "Rule..."
 msgstr "Rule..."
 
 # ui/galeon.glade.h:176
-#: components/html-editor/popup.c:417
+#: components/html-editor/popup.c:451
 msgid "Image..."
 msgstr "Imej..."
 
-#: components/html-editor/popup.c:431 components/html-editor/popup.c:441
+#: components/html-editor/popup.c:459 components/html-editor/popup.c:469
 msgid "Table..."
 msgstr "Jadual..."
 
-#: components/html-editor/popup.c:438
+#: components/html-editor/popup.c:466
 msgid "Cell..."
 msgstr "Sel..."
 
-#: components/html-editor/popup.c:444
+#: components/html-editor/popup.c:472
 msgid "Table insert"
 msgstr "Selitan Jadual"
 
-#: components/html-editor/popup.c:447
+#: components/html-editor/popup.c:475
 msgid "Row above"
 msgstr "Baris di atas"
 
-#: components/html-editor/popup.c:448
+#: components/html-editor/popup.c:476
 msgid "Row below"
 msgstr "Baris di bawah"
 
-#: components/html-editor/popup.c:450
+#: components/html-editor/popup.c:478
 msgid "Column before"
 msgstr "Kolum sebelum"
 
-#: components/html-editor/popup.c:451
+#: components/html-editor/popup.c:479
 msgid "Column after"
 msgstr "Kolum selepas"
 
-#: components/html-editor/popup.c:453
+#: components/html-editor/popup.c:481
 msgid "Table delete"
 msgstr "Padaman Jadual"
 
-#: components/html-editor/popup.c:457
+#: components/html-editor/popup.c:485
 msgid "Cell contents"
 msgstr "Kandungan sel"
 
-#: components/html-editor/popup.c:465
+#: components/html-editor/popup.c:493
 msgid "Page..."
 msgstr "Halaman..."
 
@@ -1476,7 +1495,7 @@ msgstr "Ulangmuat laman"
 msgid "Could not initialize Bonobo!"
 msgstr "Gagal menginitialisasikan Bonobo!"
 
-#: src/htmlengine-print.c:200
+#: src/htmlengine-print.c:198
 msgid "Cannot allocate default font for printing\n"
 msgstr "Tak dapat memperuntukkan font default untuk cetakan\n"
 
@@ -1484,15 +1503,15 @@ msgstr "Tak dapat memperuntukkan font default untuk cetakan\n"
 msgid "Can't load fixed font."
 msgstr "Gagal memuatkan font lebartetap."
 
-#: src/htmlprinter.c:69
+#: src/htmlprinter.c:63
 msgid "US-Letter"
 msgstr "US-Letter"
 
-#: src/testgtkhtml.c:112
+#: src/testgtkhtml.c:113
 msgid "Print pre_view"
 msgstr "Pra_lihat Cetakan"
 
-#: src/testgtkhtml.c:112
+#: src/testgtkhtml.c:113
 msgid "Print preview"
 msgstr "Pralihat Cetakan"
 
