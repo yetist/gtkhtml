@@ -168,11 +168,9 @@ draw (HTMLObject *o,
       gint width, gint height,
       gint tx, gint ty)
 {
-	HTMLEmbedded *element = HTML_EMBEDDED(o);
 	HTMLIFrame   *iframe  = HTML_IFRAME (o);
 	HTMLEngine   *e       = GTK_HTML (iframe->html)->engine;
 	ArtIRect paint;
-	gint new_x, new_y;
 
 	if (GTK_OBJECT_TYPE (e->painter) == HTML_TYPE_PRINTER) {
 		html_object_calc_intersection (o, &paint, x, y, width, height);
@@ -438,7 +436,6 @@ html_iframe_init (HTMLIFrame *iframe,
 	iframe->scroll = scrolled_window;
 
 	html_embedded_set_widget (em, scrolled_window);
-	html_embedded_size_recalc (em);
 
 	gtk_signal_connect(GTK_OBJECT (scrolled_window), "button_press_event",
 			   GTK_SIGNAL_FUNC (html_iframe_grab_cursor), NULL);

@@ -363,18 +363,19 @@ html_draw_queue_flush (HTMLDrawQueue *queue)
 
 	/* Draw objects.  */
 
-	for (p = queue->elems; p != NULL; p = p->next) {
-		HTMLObject *obj;
+	if (GTK_WIDGET (queue->engine->widget)->window)
+		for (p = queue->elems; p != NULL; p = p->next) {
+			HTMLObject *obj;
 
-		obj = p->data;
+			obj = p->data;
 
-		if (obj->free_pending) {
-			g_free (obj);
-		} else if (obj->redraw_pending) {
-			draw_obj (queue, obj);
-			obj->redraw_pending = FALSE;
+			if (obj->free_pending) {
+				g_free (obj);
+			} else if (obj->redraw_pending) {
+				draw_obj (queue, obj);
+				obj->redraw_pending = FALSE;
+			}
 		}
-	}
 
 	html_draw_queue_clear (queue);
 }
