@@ -1,3 +1,17 @@
+2000-05-08  Larry Ewing  <lewing@helixcode.com>
+
+	* gtkhtml.c (button_press_event): let button 2 request a paste.
+	(selection_get): add TEXT and COMPOUND_TEXT types.
+	(selection_received): add preliminary handler for receiving
+	seletions.
+	(class_init): add select_recieved handler to the class.
+	(init): add the extra targets.
+
+	* gtkhtml.h: expose gtk_html_request_paste to the world.
+
+	* htmlengine.c (html_engine_begin): add the url_requested signal
+	back it was accidentally removed.
+
 2000-05-07  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlimage.c (html_image_set_size): changed percent changing

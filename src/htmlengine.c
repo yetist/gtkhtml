@@ -3091,6 +3091,7 @@ html_engine_begin (HTMLEngine *e, const char *url)
 	html_image_factory_stop_animations (e->image_factory);
 	e->newPage = TRUE;
 
+	gtk_signal_emit (GTK_OBJECT(e), signals [URL_REQUESTED], url, new_stream);
 	return new_stream;
 }
 

@@ -63,8 +63,10 @@ static guint signals [LAST_SIGNAL] = { 0 };
 
 /* Values for selection information.  FIXME: what about COMPOUND_STRING and
    TEXT?  */
-enum _TargetInfo {
-	TARGET_INFO_STRING
+enum _TargetInfo {  
+	TARGET_STRING,
+	TARGET_TEXT,
+	TARGET_COMPOUND_TEXT
 };
 typedef enum _TargetInfo TargetInfo;
 
@@ -768,35 +770,41 @@ button_press_event (GtkWidget *widget,
 
 	gtk_widget_grab_focus (widget);
 
-	if (event->type == GDK_BUTTON_PRESS
-	    && (event->button == 4 || event->button == 5)) {
+	if (event->type == GDK_BUTTON_PRESS) {
 		GtkAdjustment *vadj;
-
+			
 		vadj = GTK_LAYOUT (widget)->vadjustment;
-
-		/* Mouse wheel scroll up.  */
-		if (event->button == 4) {
+		
+		switch (event->button) {
+		case 4:
+			/* Mouse wheel scroll up.  */
 			value = vadj->value - vadj->step_increment * 3;
-
+			
 			if (value < vadj->lower)
 				value = vadj->lower;
-
+			
 			gtk_adjustment_set_value (vadj, value);
 			return TRUE;
-		}
-
-		/* Mouse wheel scroll down.  */
-		if (event->button == 5) {
+			break;
+		case 5:
+			/* Mouse wheel scroll down.  */
 			value = vadj->value + vadj->step_increment * 3;
-
+			
 			if (value > (vadj->upper - vadj->page_size))
 				value = vadj->upper - vadj->page_size;
-
+			
 			gtk_adjustment_set_value (vadj, value);
 			return TRUE;
+			break;
+		case 2:
+			gtk_html_request_paste (widget, event->time);
+			return TRUE;
+			break;
+		default:
+			break;
 		}
 	}
-		
+
 	if (html_engine_get_editable (engine)) {
 		html_engine_jump_at (engine,
 				     event->x + engine->x_offset,
@@ -883,23 +891,106 @@ selection_get (GtkWidget        *widget,
 {
 	GtkHTML *html;
 	gchar *selection_string;
-
+	
 	g_return_if_fail (widget != NULL);
 	g_return_if_fail (GTK_IS_HTML (widget));
-
-	if (info != TARGET_INFO_STRING)
-		return;
-
+	
 	html = GTK_HTML (widget);
 	selection_string = html_engine_get_selection_string (html->engine);
-
+	
 	if (selection_string != NULL) {
-		gtk_selection_data_set (selection_data_ptr,
-					GDK_SELECTION_TYPE_STRING, 8,
-					selection_string, strlen (selection_string));
+		if (info == TARGET_STRING)
+			{
+				gtk_selection_data_set (selection_data_ptr,
+							GDK_SELECTION_TYPE_STRING, 8,
+							selection_string, 
+							strlen (selection_string));
+			}
+		else if ((info == TARGET_TEXT) || (info == TARGET_COMPOUND_TEXT))
+			{
+				guchar *text;
+				GdkAtom encoding;
+				gint format;
+				gint new_length;
+				
+				gdk_string_to_compound_text (selection_string, 
+							     &encoding, &format,
+							     &text, &new_length);
+
+				gtk_selection_data_set (selection_data_ptr,
+							encoding, format,
+							text, new_length);
+				gdk_free_compound_text (text);
+			}
 		g_free (selection_string);
 	}
 }
+
+/* receive a selection */
+/* Signal handler called when the selections owner returns the data */
+static void
+selection_received (GtkWidget *widget,
+		    GtkSelectionData *selection_data, 
+		    guint time)
+{
+	GdkAtom string_atom;
+	g_return_if_fail (widget != NULL);
+	g_return_if_fail (GTK_IS_HTML (widget));
+	g_return_if_fail (selection_data != NULL);
+	
+	printf("got selection from system\n");
+	
+#if 0
+	/* **** IMPORTANT **** Check to see if retrieval succeeded  */
+	/* If we have more selection types we can ask for, try the next one,
+	   until there are none left */
+	if (selection_data->length < 0) {
+		struct _zvtprivate *zp = _ZVT_PRIVATE(widget);
+		
+		/* now, try again with next selection type */
+		if (gtk_html_request_paste(widget, zp->lastselectiontype+1, time)==0)
+			g_print ("Selection retrieval failed\n");
+		return;
+	}
+#endif
+	
+	/* we will get a selection type of atom(UTF-8) for utf text,
+	   perhaps that needs to do something different if the terminal
+	   isn't actually in utf8 mode? */
+	
+	/* Make sure we got the data in the expected form */
+	if (selection_data->type != GDK_SELECTION_TYPE_STRING) {
+		g_print ("Selection \"STRING\" was not returned as strings!\n");
+		return;
+	}
+	
+	if (selection_data->length) {
+		printf ("selection text \"%.*s\"\n",
+			selection_data->length, selection_data->data); 
+
+		html_engine_disable_selection (GTK_HTML (widget)->engine);
+		html_engine_insert (GTK_HTML (widget)->engine, 
+				    selection_data->data,
+				    selection_data->length);
+	}
+}  
+
+int
+gtk_html_request_paste (GtkWidget *widget, gint32 time)
+{
+  GdkAtom string_atom;
+
+  string_atom = gdk_atom_intern ("STRING", FALSE);
+
+  if (string_atom == GDK_NONE) {
+    g_warning("WARNING: Could not get string atom\n");
+  }
+  /* And request the "STRING" target for the primary selection */
+    gtk_selection_convert (widget, GDK_SELECTION_PRIMARY, string_atom,
+			   time);
+  return 1;
+}
+
 
 static gint
 selection_clear_event (GtkWidget *widget,
@@ -1092,6 +1183,7 @@ class_init (GtkHTMLClass *klass)
 	widget_class->focus_in_event = focus_in_event;
 	widget_class->focus_out_event = focus_out_event;
 	widget_class->selection_get = selection_get;
+	widget_class->selection_received = selection_received;
 	widget_class->selection_clear_event = selection_clear_event;
 
 	layout_class->set_scroll_adjustments = set_adjustments;
@@ -1101,7 +1193,9 @@ static void
 init (GtkHTML* html)
 {
 	static const GtkTargetEntry targets[] = {
-		{ "STRING", 0, TARGET_INFO_STRING },
+		{ "STRING", 0, TARGET_STRING },
+		{ "TEXT",   0, TARGET_TEXT }, 
+		{ "COMPOUND_TEXT", 0, TARGET_COMPOUND_TEXT },
 	};
 	static const gint n_targets = sizeof(targets) / sizeof(targets[0]);
 
