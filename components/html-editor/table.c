@@ -176,6 +176,7 @@ typedef struct {
 
 	gint default_rows;
 	gint default_columns;
+	gboolean set_rows, set_columns;
 
 	gchar *table_begin;
 	gchar *table_end;
@@ -187,7 +188,7 @@ typedef struct {
 static TableInsertTemplate table_templates [TEMPLATES] = {
 	{
 		N_("Plain"), 1,
-		100, TRUE, HTML_HALIGN_CENTER, 1, 2, 1, 3, 3,
+		100, TRUE, HTML_HALIGN_CENTER, 1, 2, 1, 3, 3, FALSE, FALSE,
 		"<table border=@border@ cellspacing=@spacing@ cellpadding=@padding@@align@@width@>",
 		"</table>",
 		"<td>",
@@ -195,7 +196,7 @@ static TableInsertTemplate table_templates [TEMPLATES] = {
 	},
 	{
 		N_("Flat gray"), 2,
-		100, TRUE, HTML_HALIGN_CENTER, 0, 1, 3, 3, 3,
+		100, TRUE, HTML_HALIGN_CENTER, 0, 1, 3, 3, 3, FALSE, FALSE,
 		"<table cellspacing=0 cellpadding=@border@ bgcolor=\"#bfbfbf\"@width@@align@><tr><td>"
 		"<table bgcolor=\"#f2f2f2\" cellspacing=@spacing@ cellpadding=@padding@ width=\"100%\">",
 		"</table></td></tr></table>",
@@ -204,7 +205,7 @@ static TableInsertTemplate table_templates [TEMPLATES] = {
 	},
 	{
 		N_("Dark header"), 11,
-		100, TRUE, HTML_HALIGN_CENTER, 0, 1, 3, 3, 3,
+		100, TRUE, HTML_HALIGN_CENTER, 0, 1, 3, 3, 3, FALSE, FALSE,
 		"<table bgcolor=\"#7f7f7f\" cellpadding=3 cellspacing=0>"
 		"<tr><td><font color=\"#ffffff\"><b>Header</td></tr></table>"
 		"<table cellspacing=0 cellpadding=@border@ bgcolor=\"#bfbfbf\"@width@@align@><tr><td>"
@@ -499,8 +500,10 @@ changed_template (GtkWidget *w, GtkHTMLEditTableProperties *d)
 	d->spacing = table_templates [d->template].default_spacing;
 	d->padding = table_templates [d->template].default_padding;
 
-	d->rows    = table_templates [d->template].default_rows;
-	d->cols    = table_templates [d->template].default_columns;
+	if (table_templates [d->template].set_rows)
+		d->rows    = table_templates [d->template].default_rows;
+	if (table_templates [d->template].set_columns)
+		d->cols    = table_templates [d->template].default_columns;
 
 	set_insert_ui (d);
 
