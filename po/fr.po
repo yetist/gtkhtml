@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.6.1\n"
-"POT-Creation-Date: 2000-09-25 13:01+0200\n"
-"PO-Revision-Date: 2000-09-25 13:12+0200\n"
+"POT-Creation-Date: 2000-10-10 18:51+0200\n"
+"PO-Revision-Date: 2000-10-10 18:52+0200\n"
 "Last-Translator: Christophe Merlet (RedFox) <christophe@merlet.net>\n"
 "Language-Team: GNOME French Team <gnomefr@gnomefr.traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -135,51 +135,57 @@ msgstr "Image d'arrière-plan"
 msgid "Colors"
 msgstr "Couleurs"
 
-#: components/html-editor/editor-control-factory.c:133
-#: components/html-editor/popup.c:86
+#: components/html-editor/editor-control-factory.c:126
+#: components/html-editor/popup.c:71
+msgid "Properties"
+msgstr "Propriétés"
+
+#: components/html-editor/editor-control-factory.c:137
+#: components/html-editor/menubar.c:96 components/html-editor/popup.c:86
 msgid "Image"
 msgstr "Image"
 
-#: components/html-editor/editor-control-factory.c:142
-#: components/html-editor/popup.c:79
+#: components/html-editor/editor-control-factory.c:146
+#: components/html-editor/menubar.c:117 components/html-editor/popup.c:79
 msgid "Text"
 msgstr "Texte"
 
-#: components/html-editor/editor-control-factory.c:154
+#: components/html-editor/editor-control-factory.c:158
 #: components/html-editor/popup.c:93
 msgid "Paragraph"
 msgstr "Paragraphe"
 
-#: components/html-editor/editor-control-factory.c:159
-#: components/html-editor/menubar.c:109 components/html-editor/popup.c:100
+#: components/html-editor/editor-control-factory.c:163
+#: components/html-editor/menubar.c:101 components/html-editor/menubar.c:122
+#: components/html-editor/popup.c:100
 msgid "Link"
 msgstr "Lien"
 
-#: components/html-editor/editor-control-factory.c:164
+#: components/html-editor/editor-control-factory.c:168
 #: components/html-editor/popup.c:107
 msgid "Page"
 msgstr "Page"
 
-#: components/html-editor/image.c:409
+#: components/html-editor/image.c:142
 msgid "Image selection"
 msgstr "Sélection image"
 
-#: components/html-editor/image.c:417
+#: components/html-editor/image.c:150
 msgid "Border"
 msgstr "Bordure"
 
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
-#: components/html-editor/image.c:450
+#: components/html-editor/image.c:183
 msgid "Alignment"
 msgstr "Alignement"
 
-#: components/html-editor/image.c:462 components/html-editor/rule.c:124
+#: components/html-editor/image.c:195 components/html-editor/rule.c:124
 #: components/html-editor/text.c:160
 msgid "Size"
 msgstr "Taille"
 
-#: components/html-editor/image.c:489
+#: components/html-editor/image.c:222
 msgid "Padding"
 msgstr "Rembourrage"
 
@@ -199,11 +205,12 @@ msgstr "Ne peut initialiser GNORBA"
 msgid "Could not initialize Bonobo"
 msgstr "Ne peut initialiser Bonobo"
 
-#: components/html-editor/menubar.c:93
-msgid "Insert image"
-msgstr "Insérer image"
+#: components/html-editor/menubar.c:94 components/html-editor/menubar.c:114
+#: components/html-editor/properties.c:110
+msgid "Insert"
+msgstr "Insérer"
 
-#: components/html-editor/menubar.c:128
+#: components/html-editor/menubar.c:142
 msgid "Cannot execute gtkhtml properties"
 msgstr "Ne peut exécuter les propriétés gtkhtml"
 
@@ -227,15 +234,6 @@ msgstr "Centre"
 msgid "Right"
 msgstr "Droite"
 
-#: components/html-editor/properties.c:92
-#: components/html-editor/properties.c:93
-msgid "Insert"
-msgstr "Insérer"
-
-#: components/html-editor/properties.c:95
-msgid "Properties"
-msgstr "Propriétés"
-
 #: components/html-editor/popup.c:178
 msgid "Remove link"
 msgstr "Enlever lien"
@@ -257,11 +255,11 @@ msgstr "Tout remplacer"
 msgid "Next"
 msgstr "Suivant"
 
-#: components/html-editor/replace.c:152 components/html-editor/search.c:66
+#: components/html-editor/replace.c:152 components/html-editor/search.c:67
 msgid "search backward"
 msgstr "recherche en arrière"
 
-#: components/html-editor/replace.c:153 components/html-editor/search.c:67
+#: components/html-editor/replace.c:153 components/html-editor/search.c:68
 msgid "case sensitive"
 msgstr "respecter la casse"
 
@@ -301,17 +299,13 @@ msgstr "Règle"
 msgid "Set Shade"
 msgstr "Mettre ombre"
 
-#: components/html-editor/search.c:63
+#: components/html-editor/search.c:64
 msgid "Regex search"
-msgstr "Recherche expressions régulières"
+msgstr "Recherche par expressions régulières"
 
-#: components/html-editor/search.c:63
+#: components/html-editor/search.c:64
 msgid "Search"
 msgstr "Rechercher"
-
-#: components/html-editor/table.c:80
-msgid "Table"
-msgstr "Tableau"
 
 #: components/html-editor/test-html-editor-control.c:232
 msgid "Open file..."
@@ -327,7 +321,7 @@ msgstr "Ouvrir (PersistFile)"
 
 #: components/html-editor/test-html-editor-control.c:300
 msgid "Open using the PersistFile interface"
-msgstr "Ouvrir en utilisant l'interface PersistFile"
+msgstr "OuvrE en utilisant l'interface PersistFile"
 
 #: components/html-editor/test-html-editor-control.c:302
 msgid "Save as... (PersistFile)"
@@ -335,7 +329,7 @@ msgstr "Enregistrer sous... (PersistFile)"
 
 #: components/html-editor/test-html-editor-control.c:302
 msgid "Save using the PersistFile interface"
-msgstr "Enregistrer en utilisant l'interface PersistFile"
+msgstr "Enregistre en utilisant l'interface PersistFile"
 
 #: components/html-editor/test-html-editor-control.c:305
 msgid "Open (PersistStream)"
@@ -343,7 +337,7 @@ msgstr "Ouvrir (PersistStream)"
 
 #: components/html-editor/test-html-editor-control.c:305
 msgid "Open using the PersistStream interface"
-msgstr "Ouvrir en utilisant l'interface PersistStream"
+msgstr "OuvrE en utilisant l'interface PersistStream"
 
 #: components/html-editor/test-html-editor-control.c:307
 msgid "Save as... (PersistStream)"
@@ -351,7 +345,7 @@ msgstr "Enregistrer sous... (PersistStream)"
 
 #: components/html-editor/test-html-editor-control.c:307
 msgid "Save using the PersistStream interface"
-msgstr "Enregistrer en utilisant l'interface PersistStream"
+msgstr "Enregistre en utilisant l'interface PersistStream"
 
 #: components/html-editor/test-html-editor-control.c:321
 #: components/html-editor/toolbar.c:493
@@ -360,11 +354,11 @@ msgstr "Couper"
 
 #: components/html-editor/test-html-editor-control.c:321
 msgid "Cut selection to the clipboard"
-msgstr "Couper la sélection vers le presse-papier"
+msgstr "Coupe la sélection vers le presse-papier"
 
 #: components/html-editor/test-html-editor-control.c:323
 msgid "Copy selection to the clipboard"
-msgstr "Coupier la sélection vers le presse-papier"
+msgstr "Coupie la sélection vers le presse-papier"
 
 #: components/html-editor/test-html-editor-control.c:325
 #: components/html-editor/toolbar.c:497
@@ -374,7 +368,7 @@ msgstr "Coller"
 #: components/html-editor/test-html-editor-control.c:325
 #: components/html-editor/toolbar.c:497
 msgid "Paste contents of the clipboard"
-msgstr "Coller le contenu du presse-papier"
+msgstr "Colle le contenu du presse-papier"
 
 #: components/html-editor/text.c:152 components/html-editor/toolbar.c:511
 msgid "Bold"
@@ -439,15 +433,15 @@ msgstr "Pre"
 
 #: components/html-editor/toolbar.c:54
 msgid "List item (digit)"
-msgstr "Elément liste (chiffre)"
+msgstr "Élément liste (chiffre)"
 
 #: components/html-editor/toolbar.c:55
 msgid "List item (unnumbered)"
-msgstr "Elément liste (non numéroté)"
+msgstr "Élément liste (non numéroté)"
 
 #: components/html-editor/toolbar.c:56
 msgid "List item (roman)"
-msgstr "Elément liste (romain)"
+msgstr "Élément liste (romain)"
 
 #: components/html-editor/toolbar.c:236
 msgid "Default"
@@ -499,19 +493,19 @@ msgstr "Refaire l'opération non faite dans l'éditeur"
 
 #: components/html-editor/toolbar.c:511
 msgid "Sets the bold font"
-msgstr "Mettre la police en gras"
+msgstr "Mets le texte en gras"
 
 #: components/html-editor/toolbar.c:513
 msgid "Make the selection italic"
-msgstr "Mettre la sélection en italique"
+msgstr "Mets la sélection en italique"
 
 #: components/html-editor/toolbar.c:515
 msgid "Make the selection underlined"
-msgstr "Mettre la sélection en souligné"
+msgstr "Souligne la sélection"
 
 #: components/html-editor/toolbar.c:517
 msgid "Make the selection striked out"
-msgstr "Mettre la sélection en barré"
+msgstr "Barre la sélection"
 
 #: components/html-editor/toolbar.c:526
 msgid "Unindent"
@@ -519,7 +513,7 @@ msgstr "Non indenté"
 
 #: components/html-editor/toolbar.c:526
 msgid "Indent paragraphs less"
-msgstr "Indenter moins les paragraphes"
+msgstr "Désindente le paragraphe"
 
 #: components/html-editor/toolbar.c:528
 msgid "Indent"
@@ -527,63 +521,57 @@ msgstr "Indenter"
 
 #: components/html-editor/toolbar.c:528
 msgid "Indent paragraphs more"
-msgstr "Indenter plus les paragraphes"
-
-#: src/html-component.c:219
-msgid "Html"
-msgstr "Html"
-
-#: src/html-component.c:220
-msgid "Html test"
-msgstr "Test Html"
-
-#: src/html-component.c:226
-msgid "Test1"
-msgstr "Test1"
-
-#: src/html-component.c:233
-msgid "Test2"
-msgstr "Test2"
-
-#: src/html-component.c:239
-msgid "Test3"
-msgstr "Test3"
-
-#: src/html-component.c:245
-msgid "Test4"
-msgstr "Test4"
-
-#: src/html-component.c:251
-msgid "Test5"
-msgstr "Test5"
-
-#: src/html-component.c:257
-msgid "Test6"
-msgstr "Test6"
-
-#: src/html-component.c:263
-msgid "Test7"
-msgstr "Test7"
-
-#: src/html-component.c:617
-msgid "_Refresh"
-msgstr "Actualise_r"
-
-#: src/html-component.c:618
-msgid "Reload the page"
-msgstr "Recharger la page"
-
-#: src/html-component.c:669
-msgid "Could not initialize Bonobo!"
-msgstr "Ne peut initialiser Bonobo !"
+msgstr "Indente le paragraphe"
 
 #: src/testgtkhtml.c:111
 msgid "Print pre_view"
-msgstr "Imprimer pré_visualisation"
+msgstr "_Aperçu avant impression"
 
 #: src/testgtkhtml.c:111
 msgid "Print preview"
-msgstr "Imprimer prévisualisation"
+msgstr "Aperçu avant impression"
+
+#~ msgid "Insert image"
+#~ msgstr "Insérer image"
+
+#~ msgid "Table"
+#~ msgstr "Tableau"
+
+#~ msgid "Html"
+#~ msgstr "Html"
+
+#~ msgid "Html test"
+#~ msgstr "Test Html"
+
+#~ msgid "Test1"
+#~ msgstr "Test1"
+
+#~ msgid "Test2"
+#~ msgstr "Test2"
+
+#~ msgid "Test3"
+#~ msgstr "Test3"
+
+#~ msgid "Test4"
+#~ msgstr "Test4"
+
+#~ msgid "Test5"
+#~ msgstr "Test5"
+
+#~ msgid "Test6"
+#~ msgstr "Test6"
+
+#~ msgid "Test7"
+#~ msgstr "Test7"
+
+#~ msgid "_Refresh"
+#~ msgstr "Actualise_r"
+
+#~ msgid "Reload the page"
+#~ msgstr "Recharger la page"
+
+#~ msgid "Could not initialize Bonobo!"
+#~ msgstr "Ne peut initialiser Bonobo !"
 
 #~ msgid "Find Rege_x..."
 #~ msgstr "Trouver e_xpressions régulières..."
