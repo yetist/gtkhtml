@@ -18,6 +18,7 @@
 		<item value="IDL:Bonobo/Control:1.0"/>
 		<item value="IDL:Bonobo/Unknown:1.0"/>
 		<item value="IDL:Bonobo/PersistStream:1.0"/>
+		<item value="IDL:Bonobo/PersistFile:1.0"/>
 		<item value="IDL:Bonobo/Persist:1.0"/>
 	</oaf_attribute>
 
@@ -29,6 +30,7 @@
 
 	<oaf_attribute name="bonobo:supported_mime_types" type="stringv">
 		<item value="text/html"/>
+		<item value="x-directory/webdav"/>
 	</oaf_attribute>
 
 </oaf_server>

@@ -1,3 +1,8 @@
+2000-10-27  Maciej Stachowiak  <mjs@eazel.com>
+
+	* html-editor-control.oafinfo: Made list of interfaces and list of
+	mime types more complete.
+
 2000-10-25  Federico Mena Quintero  <federico@helixcode.com>
 
 	* persist-stream-impl.c (save_receiver): Bonobo::Stream::write()
