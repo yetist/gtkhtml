@@ -1,5 +1,16 @@
 2000-02-19  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmltext.c (html_text_set_font_style): New function.
+	(html_text_set_color): New function.
+	(set_font_style): New function, implementation of
+	`HTMLText::set_font_style'.
+	(set_color): New function, implementation of
+	`HTMLText::set_color'.
+	(html_text_class_init): Install implementations.
+
+	* htmltext.h: New virtual methods `HTMLText::set_color' and
+	`HTMLText::set_font_style'.
+
 	* htmltextmaster.c (merge): New function, implementation of
 	`HTMLText::merge'.
 

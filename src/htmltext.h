@@ -55,6 +55,9 @@ struct _HTMLTextClass {
 	
 	HTMLFontStyle (* get_font_style) (const HTMLText *text);
 	const GdkColor * (* get_color) (HTMLText *text, HTMLPainter *painter);
+
+	void (* set_font_style) (HTMLText *text, HTMLEngine *engine, HTMLFontStyle style);
+	void (* set_color) (HTMLText *text, HTMLEngine *engine, const GdkColor *color);
 };
 
 
@@ -95,5 +98,12 @@ void      html_text_merge  (HTMLText  *text,
 HTMLFontStyle   html_text_get_font_style  (const HTMLText *text);
 const GdkColor *html_text_get_color       (HTMLText       *text,
 					   HTMLPainter    *painter);
+
+void  html_text_set_font_style  (HTMLText       *text,
+				 HTMLEngine     *engine,
+				 HTMLFontStyle   style);
+void  html_text_set_color       (HTMLText       *text,
+				 HTMLEngine     *engine,
+				 const GdkColor *color);
 
 #endif /* _HTMLTEXT_H_ */

@@ -474,6 +474,39 @@ get_color (HTMLText *text,
 	return &text->color;
 }
 
+static void
+set_font_style (HTMLText *text,
+		HTMLEngine *engine,
+		HTMLFontStyle style)
+{
+	if (text->font_style == style)
+		return;
+
+	text->font_style = style;
+
+	if (engine != NULL) {
+		html_object_relayout (HTML_OBJECT (text)->parent, engine, HTML_OBJECT (text));
+		html_engine_queue_draw (engine, HTML_OBJECT (text));
+	}
+}
+
+static void
+set_color (HTMLText *text,
+	   HTMLEngine *engine,
+	   const GdkColor *color)
+{
+	if (gdk_color_equal (&text->color, color))
+		return;
+
+	text->color = *color;
+	text->color_allocated = FALSE;
+
+	if (engine != NULL) {
+		html_object_relayout (HTML_OBJECT (text)->parent, engine, HTML_OBJECT (text));
+		html_engine_queue_draw (engine, HTML_OBJECT (text));
+	}
+}
+
 
 void
 html_text_type_init (void)
@@ -510,6 +543,8 @@ html_text_class_init (HTMLTextClass *klass,
 	klass->split = split;
 	klass->get_font_style = get_font_style;
 	klass->get_color = get_color;
+	klass->set_font_style = set_font_style;
+	klass->set_color = set_color;
 	klass->merge = merge;
 
 	parent_class = &html_object_class;
@@ -618,6 +653,7 @@ html_text_merge (HTMLText *text,
 	return (* HT_CLASS (text)->merge) (text, list);
 }
 
+
 HTMLFontStyle
 html_text_get_font_style (const HTMLText *text)
 {
@@ -634,4 +670,24 @@ html_text_get_color (HTMLText *text,
 	g_return_val_if_fail (painter != NULL, NULL);
 
 	return (* HT_CLASS (text)->get_color) (text, painter);
+}
+
+void
+html_text_set_font_style (HTMLText *text,
+			  HTMLEngine *engine,
+			  HTMLFontStyle style)
+{
+	g_return_if_fail (text != NULL);
+
+	return (* HT_CLASS (text)->set_font_style) (text, engine, style);
+}
+
+void  html_text_set_color (HTMLText *text,
+			   HTMLEngine *engine,
+			   const GdkColor *color)
+{
+	g_return_if_fail (text != NULL);
+	g_return_if_fail (color != NULL);
+
+	return (* HT_CLASS (text)->set_color) (text, engine, color);
 }

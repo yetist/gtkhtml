@@ -427,8 +427,6 @@ merge (HTMLText *self,
 
 	total_length = 0;
 	for (p = list; *p != NULL; p++) {
-		HTMLTextMaster *m;
-
 		g_assert (HTML_OBJECT_TYPE (*p) == HTML_TYPE_TEXTMASTER);
 		total_length += HTML_TEXT (*p)->text_len;
 	}
