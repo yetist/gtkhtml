@@ -1,5 +1,8 @@
 2000-10-17  Radek Doulik  <rodo@helixcode.com>
 
+	* properties.c (gtk_html_edit_properties_dialog_show): don't show
+	notebook tabs and border if there is less than two notebook pages
+
 	* text.c (text_properties): use sample_frame, added sample frame
 	(fill_sample): new helper function
 	(text_properties): changed style handling

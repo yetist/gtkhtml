@@ -175,13 +175,17 @@ void
 gtk_html_edit_properties_dialog_show (GtkHTMLEditPropertiesDialog *d)
 {
 	gtk_window_set_modal (GTK_WINDOW (d->dialog), TRUE);
+	if (g_list_length (d->page_data) <= 1) {
+		gtk_notebook_set_show_tabs (GTK_NOTEBOOK (d->notebook), FALSE);
+		gtk_notebook_set_show_border (GTK_NOTEBOOK (d->notebook), FALSE);
+	}
 	gtk_widget_show_all (d->dialog);
 }
 
 void
 gtk_html_edit_properties_dialog_close (GtkHTMLEditPropertiesDialog *d)
 {
-	//gtk_window_set_modal (GTK_WINDOW (d->dialog), FALSE);
+	/* gtk_window_set_modal (GTK_WINDOW (d->dialog), FALSE); */
 	gnome_dialog_close (GNOME_DIALOG (d->dialog));
 }
 

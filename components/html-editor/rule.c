@@ -238,7 +238,7 @@ rule_widget (GtkHTMLEditRuleProperties *data)
 			    GTK_SIGNAL_FUNC (width_toggled), data);
 	gtk_box_pack_start (GTK_BOX (vb1), hbox, FALSE, FALSE, 0);
 	gtk_container_add (GTK_CONTAINER (frame), vb1);
-	gtk_box_pack_start_defaults (GTK_BOX (mhb), frame);
+	gtk_box_pack_start (GTK_BOX (mhb), frame, FALSE, FALSE, 0);
 
 	/* style */
 	frame = gtk_frame_new (_("Style"));
@@ -254,7 +254,7 @@ rule_widget (GtkHTMLEditRuleProperties *data)
 	data->align_option = gtk_option_menu_new ();
 	gtk_option_menu_set_menu (GTK_OPTION_MENU (data->align_option), menu);
 	gtk_option_menu_set_history (GTK_OPTION_MENU (data->align_option), data->align);
-	gtk_box_pack_start_defaults (GTK_BOX (hbox), data->align_option);
+	gtk_box_pack_start (GTK_BOX (hbox), data->align_option, FALSE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (vb1), hbox, FALSE, FALSE, 0);
 
 	/* weight */
@@ -272,7 +272,7 @@ rule_widget (GtkHTMLEditRuleProperties *data)
 	gtk_box_pack_start_defaults (GTK_BOX (vb1), hbox);
 
 	gtk_container_add (GTK_CONTAINER (frame), vb1);
-	gtk_box_pack_start_defaults (GTK_BOX (mhb), frame);
+	gtk_box_pack_start (GTK_BOX (mhb), frame, FALSE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (vbox), mhb, FALSE, FALSE, 0);
 
 	/* sample */
