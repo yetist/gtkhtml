@@ -91,12 +91,12 @@ get_tags (const HTMLText *text,
 	ot = g_string_new (NULL);
 	ct = g_string_new (NULL);
 
-	while ((prev = html_object_prev_cursor_leaf (HTML_OBJECT (text), state->engine)) && !html_object_is_text (prev))
+	/*while ((prev = html_object_prev_cursor_leaf (HTML_OBJECT (text), state->engine)) && !html_object_is_text (prev))
 		;
 
 	while ((next = html_object_next_cursor_leaf (HTML_OBJECT (text), state->engine)) && !html_object_is_text (next))
 		;
-
+	*/
 	if (prev && html_object_is_text (prev))
 		pt = HTML_TEXT (prev);
 	if (next && html_object_is_text (next))
