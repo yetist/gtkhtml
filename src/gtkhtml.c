@@ -1300,11 +1300,11 @@ class_init (GtkHTMLClass *klass)
 				      "scroll_vertical", 2,
 				      GTK_TYPE_ENUM, GTK_SCROLL_PAGE_FORWARD,
 				      GTK_TYPE_FLOAT, 0.0);
-	gtk_binding_entry_add_signal (binding_set, GDK_space, 0,
+	gtk_binding_entry_add_signal (binding_set, GDK_BackSpace, 0,
 				      "scroll_vertical", 2,
 				      GTK_TYPE_ENUM, GTK_SCROLL_PAGE_BACKWARD,
 				      GTK_TYPE_FLOAT, 0.0);
-	gtk_binding_entry_add_signal (binding_set, GDK_BackSpace, 0,
+	gtk_binding_entry_add_signal (binding_set, GDK_space, 0,
 				      "scroll_vertical", 2,
 				      GTK_TYPE_ENUM, GTK_SCROLL_PAGE_FORWARD,
 				      GTK_TYPE_FLOAT, 0.0);
