@@ -23,7 +23,7 @@
 #include <config.h>
 #include <libgnome/gnome-i18n.h>
 #include <string.h>
-#include <gal/widgets/widget-color-combo.h>
+#include "gi-color-combo.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-clueflowstyle.h"
 #include "htmlimage.h"

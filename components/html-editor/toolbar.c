@@ -27,8 +27,8 @@
 #include <libgnome/gnome-i18n.h>
 #include <gnome.h>
 #include <bonobo.h>
-#include <gal/widgets/widget-color-combo.h>
 
+#include "gi-color-combo.h"
 #include "toolbar.h"
 #include "utils.h"
 #include "htmlcolor.h"

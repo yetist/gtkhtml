@@ -23,8 +23,8 @@
 #include <config.h>
 #include <libgnome/gnome-i18n.h>
 #include <string.h>
-#include <gal/widgets/widget-color-combo.h>
 
+#include "gi-color-combo.h"
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
 #include "htmlengine-edit.h"

@@ -1,3 +1,10 @@
+2004-01-07  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml-properties.c (get_locale_language): new function, based
+	on e-iconv.c:e_iconv_locale_language
+	(gtk_html_class_properties_new): use new function to remove gal
+	dependency
+
 2004-01-02  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (gtk_html_im_preedit_changed_cb): use extra attributes

@@ -111,7 +111,18 @@ libgnome_gtkhtml_editor_la_SOURCES =		\
 	toolbar.c				\
 	toolbar.h				\
 	utils.c					\
-	utils.h
+	utils.h					\
+	gi-utils.h				\
+	gi-colors.c				\
+	gi-colors.h				\
+	gi-color-palette.c			\
+	gi-color-palette.h			\
+	gi-color-group.c			\
+	gi-color-group.h			\
+	gi-combo-box.c				\
+	gi-combo-box.h				\
+	gi-color-combo.c			\
+	gi-color-combo.h
 
 if EDITOR_SHLIB
 MY_PRGS =

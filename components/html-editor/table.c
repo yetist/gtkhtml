@@ -24,7 +24,7 @@
 #include <libgnome/gnome-i18n.h>
 #include <string.h>
 #include <glade/glade.h>
-#include <gal/widgets/widget-color-combo.h>
+#include "gi-color-combo.h"
 
 #include "gtkhtml.h"
 
