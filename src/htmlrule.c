@@ -30,6 +30,8 @@ static HTMLObjectClass *parent_class = NULL;
 
 /* HTMLObject methods.  */
 
+#define HTML_RULE_MIN_SIZE 12
+
 static void
 copy (HTMLObject *self,
       HTMLObject *dest)
@@ -67,13 +69,20 @@ calc_size (HTMLObject *self,
 	HTMLRule *rule;
 	gint ascent, descent;
 	gint pixel_size;
+	gint height;
 	gboolean changed;
 
 	rule = HTML_RULE (self);
 	pixel_size = html_painter_get_pixel_size (painter);
 
-	ascent = (6 + rule->size / 2) * pixel_size;
-	descent = (6 + rule->size / 2 + rule->size % 2) * pixel_size;
+	if (rule->size >= HTML_RULE_MIN_SIZE) {
+		height = rule->size;
+	} else {
+		height = HTML_RULE_MIN_SIZE;
+	}
+
+	ascent = (height / 2 + height % 2 + 1) * pixel_size;
+	descent = (height / 2 + 1) * pixel_size;
 
 	changed = FALSE;
 
@@ -103,20 +112,22 @@ draw (HTMLObject *o,
       gint tx, gint ty)
 {
 	HTMLRule *rule;
-	guint w;
+	guint w, h;
 	gint xp, yp;
+	gint pixel_size = html_painter_get_pixel_size (p);
 
 	rule = HTML_RULE (o);
-
+	
 	if (y + height < o->y - o->ascent || y > o->y + o->descent)
 		return;
-	
+
+	h = rule->size * pixel_size;
 	xp = o->x + tx;
-	yp = o->y + ty;
+	yp = o->y + ty - (rule->size / 2 + rule->size % 2) * pixel_size;
 
 	if (o->percent == 0) {
 		if (HTML_RULE (o)->length > 0)
-			w = HTML_RULE (o)->length * html_painter_get_pixel_size (p);
+			w = HTML_RULE (o)->length * pixel_size;
 		else
 			w = o->max_width;
 	} else {
@@ -141,9 +152,11 @@ draw (HTMLObject *o,
 	}
 
 	if (rule->shade)
-		html_painter_draw_shade_line (p, xp, yp, w);
-	else
-		html_painter_fill_rect (p, xp, yp, w, o->ascent - 6);
+		html_painter_draw_panel (p, xp, yp, w, h, TRUE, 1);
+	else {
+		html_painter_set_pen (p, html_painter_get_default_foreground_color (p));
+		html_painter_fill_rect (p, xp, yp, w, h);
+	}
 }
 
 static gboolean
@@ -238,3 +251,14 @@ html_rule_new (gint length,
 
 	return HTML_OBJECT (rule);
 }
+
+
+
+
+
+
+
+
+
+
+

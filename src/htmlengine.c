@@ -1892,7 +1892,7 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		p->pending_para = FALSE;
 	}
 	else if (strncmp (str, "hr", 2) == 0) {
-		gint size = 1;
+		gint size = 2;
 		gint length = clue->max_width;
 		gint percent = 100;
 		HTMLHAlignType align = p->divAlign;
@@ -2235,6 +2235,9 @@ parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 			if ( strncasecmp( token, "type=", 5 ) == 0 ) {
 				switch ( *(token+5) )
 				{
+				case '1':
+					listNumType = HTML_LIST_NUM_TYPE_NUMERIC;
+					break;
 				case 'i':
 					listNumType = HTML_LIST_NUM_TYPE_LOWROMAN;
 					break;

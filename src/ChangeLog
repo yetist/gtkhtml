@@ -1,3 +1,15 @@
+2000-04-07  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlengine.c (parse_h): set the default size of rules to 2 pixels.
+
+	* htmlrule.c (calc_size): mimic the netscape behaviour by having a
+	minimum hr size then padding every larger size with one pixel on
+	top and bottom.
+	(draw): use html_painter_draw_panel/rect to properly support the
+	size arguments and set the pen color for noshade.  Also make sure
+	that we always put the extra padding at the bottom of the rule.
+	
+
 2000-04-07  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlimage.c (draw): use 1st frame when printing
