@@ -1,3 +1,8 @@
+2000-06-22  Larry Ewing  <lewing@helixcode.com>
+
+	* htmliframe.c (html_iframe_init): inherit the colorset from the
+	parent gtkhtml.
+
 2000-06-21  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlimage.c (html_image_init): make sure url/target is always !=

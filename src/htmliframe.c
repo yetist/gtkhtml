@@ -242,7 +242,8 @@ html_iframe_init (HTMLIFrame *iframe,
 	gtk_signal_emit_by_name (GTK_OBJECT (GTK_HTML (html)->engine), 
 				 "url_requested", src, handle);
 
-	gtk_widget_set_usize (scrolled_window, width, height);
+	if ((width > 0) && (height > 0))
+		gtk_widget_set_usize (scrolled_window, width, height);
 
 	/* 
 	   FIXME: huge hack to get the widget to allocate it's size 
@@ -264,6 +265,11 @@ html_iframe_init (HTMLIFrame *iframe,
 	gtk_signal_connect(GTK_OBJECT(scrolled_window), "button_press_event",
 			   GTK_SIGNAL_FUNC(html_iframe_grab_cursor), NULL);
 
+	/* inherit the current colors from our parent */
+	html_colorset_set_unchanged (GTK_HTML (html)->engine->defaultSettings->color_set,
+				     parent_html->engine->settings->color_set);
+	html_colorset_set_unchanged (GTK_HTML (html)->engine->settings->color_set,
+				     parent_html->engine->settings->color_set);
 	/*
 	gtk_signal_connect (GTK_OBJECT (html), "title_changed",
 			    GTK_SIGNAL_FUNC (title_changed_cb), (gpointer)app);
