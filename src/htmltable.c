@@ -1649,13 +1649,9 @@ html_table_start_row (HTMLTable *table)
 void
 html_table_end_row (HTMLTable *table)
 {
-	gint i;
-
-	for (i=0; i < table->totalCols; i++)
-		if (table->cells [table->row][table->col]) {
-			table->row++;
-			break;
-		}
+	if (table->row >= table->totalRows)
+		inc_rows (table, 1);
+	table->row++;
 }
 
 void

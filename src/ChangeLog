@@ -1,3 +1,8 @@
+2000-12-21  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltable.c (html_table_end_row): fixed crash for empty row
+	<tr></tr>
+
 2000-12-20  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlimage.c (get_actual_width): use top_html_engine
