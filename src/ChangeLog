@@ -1,3 +1,10 @@
+2002-10-16  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (parse_c): make center tags use the same logic as
+	div tags (that is what they are after all).
+	(parse_d): use update_flow_align.
+	(update_flow_align): helper function for center and div.
+
 2002-10-17  Larry Ewing  <lewing@ximian.com>
 
 	* htmliframe.c: add get/set margin width functions.

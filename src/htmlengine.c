@@ -164,7 +164,7 @@ static guint signals [LAST_SIGNAL] = { 0 };
 #define TIMER_INTERVAL 300
 
 enum ID {
-	ID_ADDRESS, ID_B, ID_BIG, ID_BLOCKQUOTE, ID_BODY, ID_CAPTION, ID_CITE, ID_CODE,
+	ID_ADDRESS, ID_B, ID_BIG, ID_BLOCKQUOTE, ID_BODY, ID_CAPTION, ID_CENTER, ID_CITE, ID_CODE,
 	ID_DIR, ID_DIV, ID_DL, ID_EM, ID_FONT, ID_HEADER, ID_I, ID_KBD, ID_OL, ID_PRE,
 	ID_SMALL, ID_STRONG, ID_U, ID_UL, ID_TEXTAREA, ID_TD, ID_TH, ID_TT, ID_VAR,
 	ID_SUB, ID_SUP, ID_STRIKEOUT
@@ -530,6 +530,17 @@ close_flow (HTMLEngine *e,
 	}
 
 	e->flow = NULL;
+}
+
+static void
+update_flow_align (HTMLEngine *e, HTMLObject *clue)
+{
+	if (e->flow != NULL) {
+		if (HTML_CLUE (e->flow)->head != NULL)
+			close_flow (e, clue);
+		else
+			HTML_CLUE (e->flow)->halign = e->pAlign;
+	}
 }
 
 static void
@@ -2035,17 +2046,12 @@ static void
 parse_c (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	if (strncmp (str, "center", 6) == 0) {
-		e->pAlign = HTML_HALIGN_CENTER;
-		if (e->flow) {
-			if (HTML_CLUE (e->flow)->head) {
-				close_flow (e, clue);
-			} else {
-				HTML_CLUE (e->flow)->halign = e->pAlign;
-			}
-		}
+		push_block (e, ID_CENTER, 1, block_end_div, e->pAlign, FALSE);
+		
+		e->pAlign = e->divAlign = HTML_HALIGN_CENTER;
+		update_flow_align (e, clue);
 	} else if (strncmp (str, "/center", 7) == 0) {
-		close_flow (e, clue);
-		e->pAlign = e->divAlign;
+		pop_block (e, ID_CENTER, clue);
 	} else if (strncmp( str, "cite", 4 ) == 0) {
 		add_font_style (e, GTK_HTML_FONT_STYLE_ITALIC);
 		add_font_style (e, GTK_HTML_FONT_STYLE_BOLD);
@@ -2091,12 +2097,7 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 			}
 		}
 
-		if (e->flow != NULL) {
-			if (HTML_CLUE (e->flow)->head != NULL)
-				close_flow (e, _clue);
-			else
-				HTML_CLUE (e->flow)->halign = e->pAlign;
-		}
+		update_flow_align (e, _clue);
 	} else if ( strncmp( str, "/div", 4 ) == 0 ) {
 		pop_block (e, ID_DIV, _clue );
 	} else if ( strncmp( str, "dl", 2 ) == 0 ) {
