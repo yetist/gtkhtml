@@ -22,6 +22,8 @@
 #ifndef _GTKHTML_PRIVATE_H
 #define _GTKHTML_PRIVATE_H
 
+#include <config.h>
+
 #include "gtkhtml.h"
 #include "gtkhtmldebug.h"
 

@@ -1,5 +1,9 @@
 2000-10-26  Radek Doulik  <rodo@helixcode.com>
 
+	* gtkhtml-private.h: include config.h
+
+	* gtkhtml-im.c: include config.h
+
 	* htmlrule.c (fit_line): new virtual method implementation
 	(draw): updated for new sizing
 	(calc_size): likewise
