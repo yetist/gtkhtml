@@ -21,7 +21,6 @@
 
 #include <config.h>
 #include <string.h>
-#include <math.h>
 
 #include "gtkhtmlfontstyle.h"
 
