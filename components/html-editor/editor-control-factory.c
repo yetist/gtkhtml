@@ -41,10 +41,6 @@
 
 #include <glade/glade.h>
 
-#ifdef GNOME_GTKHTML_EDITOR_SHLIB
-#include <bonobo/bonobo-shlib-factory.h>
-#endif
-
 #include "Editor.h"
 
 #include "gtkhtml.h"
@@ -774,7 +770,3 @@ editor_control_factory (BonoboGenericFactory *factory, const gchar *component_id
 		return NULL;
 	}
 }
-
-#ifdef GNOME_GTKHTML_EDITOR_SHLIB
-BONOBO_ACTIVATION_SHLIB_FACTORY (CONTROL_FACTORY_ID, "GNOME HTML Editor factory", editor_control_factory, NULL);
-#endif

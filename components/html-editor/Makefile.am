@@ -65,9 +65,9 @@ LDADD =	\
 
 # The Editor Control
 
-libgnome_gtkhtml_editor_3_0_la_SOURCES =	\
+libgnome_gtkhtml_editor_la_SOURCES =		\
 	$(SPELL_IDL_GENERATED)			\
-	$(IDL_GENERATED_H)			\
+	$(IDL_GENERATED)			\
 	body.h					\
 	body.c					\
 	cell.h					\
@@ -119,27 +119,38 @@ libgnome_gtkhtml_editor_3_0_la_SOURCES =	\
 
 if EDITOR_SHLIB
 MY_PRGS =
-MY_NOINSTPRGS =
-MY_NOINSTLIBS =
+MY_LIBS = libgnome-gtkhtml-editor-3.0.la
+location = "${privlibdir}/libgnome-gtkhtml-editor-$(EDITOR_API_VERSION).so"
 else
 MY_PRGS = gnome-gtkhtml-editor-3.0
-MY_NOINSTPRGS =
-MY_NOINSTLIBS = libgnome-gtkhtml-editor-3.0.la
+MY_LIBS =
+location = "${libexecdir}/$(MY_PRGS)"
 endif
+
+libgnome_gtkhtml_editor_3_0_la_SOURCES =	\
+	editor-control-shlib.c
+
+libgnome_gtkhtml_editor_3_0_la_LDFLAGS =	\
+	-avoid-version -no-undefined
+
+libgnome_gtkhtml_editor_3_0_la_LIBADD =	\
+	$(LDADD)			\
+	libgnome-gtkhtml-editor.la
 
 gnome_gtkhtml_editor_3_0_LDADD = \
 	$(LDADD)			\
-	libgnome-gtkhtml-editor-3.0.la
+	libgnome-gtkhtml-editor.la
 
 gnome_gtkhtml_editor_3_0_SOURCES = \
-	$(IDL_GENERATED)		\
 	gnome-gtkhtml-editor.c
 
-noinst_LTLIBRARIES = $(MY_NOINSTLIBS)
+noinst_LTLIBRARIES = libgnome-gtkhtml-editor.la
+
+privlibdir = "$(libdir)/gtkhtml"
+privlib_LTLIBRARIES = $(MY_LIBS)
 
 noinst_PROGRAMS = 		\
-	test_editor		\
-	$(MY_NOINSTPRGS)
+	test_editor
 
 libexec_PROGRAMS = $(MY_PRGS)
 
@@ -148,7 +159,7 @@ server_in_files = GNOME_GtkHTML_Editor.server.in.in
 
 server_DATA = $(server_in_files:.server.in.in=.server)
 $(server_in_files:.server.in.in=.server.in): $(server_in_files) Makefile
-	sed -e "s|\@GNOME_GTKHTML_EDITOR_LOCATION\@|$(GNOME_GTKHTML_EDITOR_LOCATION)|g" \
+	sed -e "s|\@GNOME_GTKHTML_EDITOR_LOCATION\@|$(location)|g" \
 	-e "s|\@EDITOR_API_VERSION\@|$(EDITOR_API_VERSION)|g" \
 	-e "s|\@GNOME_GTKHTML_EDITOR_TYPE\@|$(GNOME_GTKHTML_EDITOR_TYPE)|g" $< > $@
 
@@ -163,12 +174,13 @@ ui_DATA = GNOME_GtkHTML_Editor.xml
 # The Test program
 
 test_editor_SOURCES =				\
-	$(IDL_GENERATED)			\
 	e-html-utils.c				\
 	e-html-utils.h				\
 	htmlsourceview.c			\
 	htmlsourceview.h			\
 	test-html-editor-control.c
+
+test_editor_LDADD = $(LDADD) libgnome-gtkhtml-editor.la
 
 # Extra stuff to distribute.
 

@@ -1,3 +1,12 @@
+2003-04-03  Rodney Dawes  <dobey@ximian.com>
+
+	* Makefile.am: Fix shlib support and idl dependencies
+	* editor-control-factory.c: Don't need conditional shlib stuff here
+	* editor-control-factory.h: Prototype editor_control_factory here
+	* editor-control-shlib.c: Add source file for the shlib factory
+	* gnome-gtkhtml-editor.c: N conditional shlib support and use the
+	new public prototype for editor_control_factory
+	
 2003-04-03  Larry Ewing  <lewing@ximian.com>
 
 	* Makefile.am: Fix idl depends.

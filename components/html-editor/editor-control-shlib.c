@@ -1,7 +1,7 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
 
-    Copyright (C) 2002 Ximian, Inc.
+    Copyright (C) 2000 Helix Code, Inc. 2001, 2002 Ximian Inc.
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
@@ -18,18 +18,17 @@
     the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
     Boston, MA 02111-1307, USA.
 
-    Author: Radek Doulik
+    Author: Ettore Perazzoli <ettore@helixcode.com>
+            Radek Doulik <rodo@ximian.com>
 
 */
 
-#ifndef EDITOR_CONTROL_FACTORY_H_
-#define EDITOR_CONTROL_FACTORY_H_
-
-#include <bonobo.h>
-
-#define CONTROL_FACTORY_ID "OAFIID:GNOME_GtkHTML_Editor_Factory:" EDITOR_API_VERSION
-#define CONTROL_ID         "OAFIID:GNOME_GtkHTML_Editor:" EDITOR_API_VERSION
-
-BonoboObject *editor_control_factory (BonoboGenericFactory *factory, const gchar *component_id, gpointer closure);
-
+#ifdef HAVE_CONFIG_H
+#include <config.h>
 #endif
+
+#include <bonobo/bonobo-shlib-factory.h>
+
+#include "editor-control-factory.h"
+
+BONOBO_ACTIVATION_SHLIB_FACTORY (CONTROL_FACTORY_ID, "GNOME HTML Editor factory", editor_control_factory, NULL);

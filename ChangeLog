@@ -1,3 +1,7 @@
+2003-04-03  Rodney Dawes  <dobey@ximian.com>
+
+	* configure.in: Add Larry's shlib-support patch, Fix AC_DEFINE errors
+	
 2003-03-28  Larry Ewing  <lewing@ximian.com>
 
 	* configure.in: add --enable-shli-factory back option back in.

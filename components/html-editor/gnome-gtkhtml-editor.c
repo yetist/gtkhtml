@@ -16,10 +16,6 @@
 
 #include <glade/glade.h>
 
-#ifdef GNOME_GTKHTML_EDITOR_SHLIB
-#include <bonobo/bonobo-shlib-factory.h>
-#endif
-
 #include "Editor.h"
 
 #include "gtkhtml.h"
@@ -53,9 +49,6 @@
 
 #include "gtkhtmldebug.h"
 #include "editor-control-factory.h"
-
-BonoboObject *editor_control_factory (BonoboGenericFactory *factory, const gchar *component_id, gpointer closure);
-
 
 int
 main (int argc, char **argv)
