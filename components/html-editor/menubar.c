@@ -107,11 +107,6 @@ insert_image_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cna
 						   image_insertion,
 						   image_insert_cb,
 						   image_close_cb);
-	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
-						   GTK_HTML_EDIT_PROPERTY_LINK, _("Link"),
-						   link_properties,
-						   link_apply_cb,
-						   link_close_cb);
 	gtk_html_edit_properties_dialog_show (cd->properties_dialog);
 }
 
