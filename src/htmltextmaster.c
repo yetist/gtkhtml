@@ -798,7 +798,7 @@ html_text_master_magic_link (HTMLTextMaster *master, HTMLEngine *engine,
 
 	while (offset < text->text_len) {
 		for (i=0; i<MIM_N; i++) {
-			if (!regexec (mim [i].preg, html_text_get_text (text, offset), 2, pmatch, 0)) {
+			if (mim [i].preg && !regexec (mim [i].preg, html_text_get_text (text, offset), 2, pmatch, 0)) {
 				gint o = html_text_get_text (text, offset) - text->text;
 				paste_link (engine, text,
 					    unicode_index_to_offset (text->text, pmatch [0].rm_so+o),

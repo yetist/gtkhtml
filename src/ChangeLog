@@ -1,5 +1,8 @@
 2000-09-20  Radek Doulik  <rodo@helixcode.com>
 
+	* htmltextmaster.c (html_text_master_magic_link): test mim
+	[i].preg != NULL
+
 	* htmliframe.c (set_painter): remember gdk_painter
 	(draw): draw only with non-gdk painters, also move widget to right
 	place
