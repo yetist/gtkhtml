@@ -35,6 +35,7 @@
 #include "htmlengine-save.h"
 #include "htmlimage.h"
 #include "htmlpainter.h"
+#include "htmlplainpainter.h"
 #include "htmlsearch.h"
 #include "htmltable.h"
 #include "htmltablepriv.h"
@@ -421,6 +422,17 @@ op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GL
 		return cut_whole (self, len);
 }
 
+static gboolean
+cell_is_empty (HTMLTableCell *cell)
+{
+	g_assert (HTML_IS_TABLE_CELL (cell));
+
+	if (HTML_CLUE (cell)->head && HTML_CLUE (cell)->head == HTML_CLUE (cell)->tail
+	    && HTML_IS_CLUEFLOW (HTML_CLUE (cell)->head) && html_clueflow_is_empty (HTML_CLUEFLOW (HTML_CLUE (cell)->head)))
+		return TRUE;
+	return FALSE;
+}
+
 static void
 split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint level, GList **left, GList **right)
 {
@@ -439,7 +451,7 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 	dup_cell  = HTML_TABLE_CELL ((*right)->data);
 	cell      = HTML_TABLE_CELL ((*left)->data);
 
-	if (dup_cell->row == t->totalRows - 1 && dup_cell->col == t->totalCols - 1 && html_table_cell_is_empty (dup_cell)) {
+	if (dup_cell->row == t->totalRows - 1 && dup_cell->col == t->totalCols - 1 && cell_is_empty (dup_cell)) {
 		dup = html_engine_new_text_empty (e);
 		html_object_destroy ((*right)->data);
 		g_list_free (*right);
@@ -556,10 +568,10 @@ could_merge (HTMLTable *t1, HTMLTable *t2)
 				return FALSE;
 
 			if (first) {
-				if (!html_table_cell_is_empty (c2))
+				if (!cell_is_empty (c2))
 					first = FALSE;
 			} else {
-				if (!html_table_cell_is_empty (c1))
+				if (!cell_is_empty (c1))
 					return FALSE;
 			}
 		}
@@ -649,9 +661,9 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **
 			c2 = t2->cells [r][c];
 
 			if (first) {
-				if (!html_table_cell_is_empty (c2)) {
+				if (!cell_is_empty (c2)) {
 					t1_tail = prev_c1;
-					if (html_table_cell_is_empty (c1)) {
+					if (cell_is_empty (c1)) {
 						move_cell (t1, t2, c1, c2, cursor_cell_1, cursor_cell_2,
 							   r, c, e->cursor, cursor);
 						c1 = c2;
@@ -1171,6 +1183,51 @@ get_bounds (HTMLTable *table, gint x, gint y, gint width, gint height, gint *sc,
 }
 
 static void
+draw_background_helper (HTMLTable *table,
+			HTMLPainter *p,
+			GdkRectangle *paint,
+			gint tx, gint ty)
+{
+	GdkPixbuf  *pixbuf = NULL;
+	GdkColor   *color = table->bgColor;
+	HTMLObject *o = HTML_OBJECT (table);
+
+	if (table->bgPixmap && table->bgPixmap->animation)
+		pixbuf = gdk_pixbuf_animation_get_static_image (table->bgPixmap->animation);
+	
+	if (color)
+		html_painter_alloc_color (p, color);
+
+	if (!HTML_IS_PLAIN_PAINTER (p))
+		html_painter_draw_background (p,
+					      color,
+					      pixbuf,
+					      tx + paint->x,
+					      ty + paint->y,
+					      paint->width,
+					      paint->height,
+					      paint->x - o->x,
+					      paint->y - (o->y - o->ascent));
+}
+
+static void
+draw_background (HTMLObject *self,
+		 HTMLPainter *p,
+		 gint x, gint y, 
+		 gint width, gint height,
+		 gint tx, gint ty)
+{
+	GdkRectangle paint;
+	
+	(* HTML_OBJECT_CLASS (parent_class)->draw_background) (self, p, x, y, width, height, tx, ty);
+
+	if (!html_object_intersect (self, &paint, x, y, width, height))
+	    return;
+
+	draw_background_helper (HTML_TABLE (self), p, &paint, tx, ty);
+}
+
+static void
 draw (HTMLObject *o,
       HTMLPainter *p, 
       gint x, gint y,
@@ -1188,6 +1245,9 @@ draw (HTMLObject *o,
 
 	pixel_size = html_painter_get_pixel_size (p);
 	
+	/* Draw the background */
+	draw_background_helper (table, p, &paint, tx, ty);
+
 	tx += o->x;
 	ty += o->y - o->ascent;
 
@@ -2226,6 +2286,7 @@ html_table_class_init (HTMLTableClass *klass,
 	object_class->accepts_cursor = accepts_cursor;
 	object_class->calc_size = calc_size;
 	object_class->draw = draw;
+       	object_class->draw_background = draw_background;
 	object_class->destroy = destroy;
 	object_class->calc_min_width = calc_min_width;
 	object_class->calc_preferred_width = calc_preferred_width;

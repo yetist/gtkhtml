@@ -62,18 +62,24 @@ draw_background_helper (HTMLTableCell *cell,
 			cell->bg_allocated = TRUE;
 		}
 		color = &cell->bg;
-	} else if (t && t->bgColor) {
+	}
+#if 0
+	else if (t && t->bgColor) {
 		html_painter_alloc_color (p, t->bgColor);
 		color = t->bgColor;
 	}
+#endif
 
 	if (cell->have_bgPixmap) {
 		if (cell->bgPixmap->animation) {
 			pixbuf = gdk_pixbuf_animation_get_static_image (cell->bgPixmap->animation);
 		}
-	} else if (t && t->bgPixmap && t->bgPixmap->animation)
+	}
+#if 0
+	else if (t && t->bgPixmap && t->bgPixmap->animation)
 		pixbuf = gdk_pixbuf_animation_get_static_image (t->bgPixmap->animation);
 	
+#endif
 	/* FIXME this should be moved into the painter interface */
 	if (!HTML_IS_PLAIN_PAINTER (p))
 		html_painter_draw_background (p,
