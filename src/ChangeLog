@@ -1,3 +1,14 @@
+2003-12-12  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (gtk_html_im_preedit_changed_cb): updated, should be
+	OK now
+
+	* htmlengine-edit.c (html_engine_selection_stack_top): new
+	function, it gets cursor and mark's positions from top of
+	selection stack
+	(html_engine_selection_stack_top_modify): new function for
+	modifying cursor and mark's positions on top of selection stack
+
 2003-12-10  Yong Sun <Yong.Sun@sun.com>
 
 	* htmlengine-edit-cursor.c: correct the calculation of

@@ -162,6 +162,35 @@ html_engine_selection_pop (HTMLEngine *e)
 	html_engine_edit_selection_updater_update_now (e->selection_updater);
 }
 
+gboolean
+html_engine_selection_stack_top (HTMLEngine *e, gint *cpos, gint *mpos)
+{
+	if (e->selection_stack && GPOINTER_TO_INT (e->selection_stack->data) && e->selection_stack->next && e->selection_stack->next->next) {
+		if (cpos)
+			*cpos = GPOINTER_TO_INT (e->selection_stack->next->data);
+		if (mpos)
+			*mpos = GPOINTER_TO_INT (e->selection_stack->next->next->data);
+
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+gboolean
+html_engine_selection_stack_top_modify (HTMLEngine *e, gint delta)
+{
+	if (e->selection_stack && GPOINTER_TO_INT (e->selection_stack->data) && e->selection_stack->next && e->selection_stack->next->next) {
+		e->selection_stack->next->data = GINT_TO_POINTER (GPOINTER_TO_INT (e->selection_stack->next->data) + delta);
+		e->selection_stack->next->next->data = GINT_TO_POINTER (GPOINTER_TO_INT (e->selection_stack->next->next->data) + delta);
+
+		return TRUE;
+	}
+
+	return FALSE;
+
+}
+
 static void
 spell_check_object (HTMLObject *o, HTMLEngine *e, gpointer data)
 {

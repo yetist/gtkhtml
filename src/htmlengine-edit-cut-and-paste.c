@@ -1299,10 +1299,8 @@ html_engine_insert_text_with_attributes (HTMLEngine *e, const gchar *text, guint
 				html_engine_set_insertion_link (e, NULL, NULL);
 
 			o = html_engine_new_text (e, text, alen);
-			if (attrs) {
+			if (attrs)
 				pango_attr_list_splice (HTML_TEXT (o)->attr_list, attrs, 0, HTML_TEXT (o)->text_len);
-				gtk_html_debug_list_text_attrs (HTML_TEXT (o));
-			}
 			html_text_convert_nbsp (HTML_TEXT (o), TRUE);
 
 			if (alen == 1 && html_is_in_word (html_text_get_char (HTML_TEXT (o), 0))

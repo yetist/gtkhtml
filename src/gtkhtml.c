@@ -2815,20 +2815,41 @@ gtk_html_im_commit_cb (GtkIMContext *context, const gchar *str, GtkHTML *html)
 	gboolean state = html->priv->im_block_reset;
 
 	html->priv->im_block_reset = TRUE;
-	D_IM(printf ("IM commit %s\n", str);)
+	D_IM (printf ("IM commit %s\n", str);)
 	html_engine_paste_text (html->engine, str, -1);
 	html->priv->im_block_reset = state;
 }
 
 static void
+gtk_html_im_preedit_start_cb (GtkIMContext *context, GtkHTML *html)
+{
+	html->priv->im_pre_len = 0;
+}
+
+static void
 gtk_html_im_preedit_changed_cb (GtkIMContext *context, GtkHTML *html)
 {
-	gchar *preedit_string;
-	gint cursor_pos;
-	gboolean state = html->priv->im_block_reset;
 	PangoAttrList *attrs;
+	gchar *preedit_string;
+	gint cursor_pos, initial_position;
+	gboolean state = html->priv->im_block_reset;
+	gboolean pop_selection = FALSE;
+	gint deleted = 0;
 
+	D_IM (printf ("IM preedit changed cb [begin] cursor %d(%p) mark %d(%p) active: %d\n",
+		      html->engine->cursor ? html->engine->cursor->position : 0, html->engine->cursor,
+		      html->engine->mark ? html->engine->mark->position : 0, html->engine->mark,
+		      html_engine_is_selection_active (html->engine));)
 	html->priv->im_block_reset = TRUE;
+
+	if (html_engine_is_selection_active (html->engine)) {
+		D_IM (printf ("IM push selection\n");)
+		html_engine_selection_push (html->engine);
+		html_engine_disable_selection (html->engine);
+		html_engine_edit_selection_updater_update_now (html->engine->selection_updater);
+		pop_selection = TRUE;
+	} else
+		initial_position = html->engine->cursor->position;
 
 	if (html->priv->im_pre_len > 0) {
 		D_IM (printf ("IM delete last preedit %d + %d\n", html->priv->im_pre_pos, html->priv->im_pre_len);)
@@ -2837,6 +2858,7 @@ gtk_html_im_preedit_changed_cb (GtkIMContext *context, GtkHTML *html)
 		html_engine_set_mark (html->engine);
 		html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine, html->priv->im_pre_pos + html->priv->im_pre_len);
 		html_engine_delete (html->engine);
+		deleted = html->priv->im_pre_len;
 	} else
 		html->priv->im_orig_style = html_engine_get_font_style (html->engine);
 
@@ -2849,16 +2871,30 @@ gtk_html_im_preedit_changed_cb (GtkIMContext *context, GtkHTML *html)
 		cursor_pos = CLAMP (cursor_pos, 0, html->priv->im_pre_len);
 		html->priv->im_pre_pos = html->engine->cursor->position;
 		html_engine_paste_text_with_attributes (html->engine, preedit_string, html->priv->im_pre_len, attrs);
-
 		html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine, html->priv->im_pre_pos + cursor_pos);
 	} else
 		html_engine_set_font_style (html->engine, 0, html->priv->im_orig_style);
 	g_free (preedit_string);
 
+	if (pop_selection) {
+		gint position= html->engine->cursor->position, cpos, mpos;
+		D_IM (printf ("IM pop selection\n");)
+		g_assert (html_engine_selection_stack_top (html->engine, &cpos, &mpos));
+		if (position < MAX (cpos, mpos) + html->priv->im_pre_len - deleted)
+			g_assert (html_engine_selection_stack_top_modify (html->engine, html->priv->im_pre_len - deleted));
+		html_engine_selection_pop (html->engine);
+	} else if (html->priv->im_pre_len == 0)
+		html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine, initial_position + html->priv->im_pre_len - deleted);
+
 	if (html->engine->freeze_count == 1)
 		html_engine_thaw_idle_flush (html->engine);
 	/* FIXME gtk_im_context_set_cursor_location (im_context, &area); */
 	html->priv->im_block_reset = state;
+
+	D_IM (printf ("IM preedit changed cb [end] cursor %d(%p) mark %d(%p) active: %d\n",
+		      html->engine->cursor ? html->engine->cursor->position : 0, html->engine->cursor,
+		      html->engine->mark ? html->engine->mark->position : 0, html->engine->mark,
+		      html_engine_is_selection_active (html->engine));)
 }
 
 static gchar *
@@ -2990,6 +3026,8 @@ gtk_html_init (GtkHTML* html)
   
 	g_signal_connect (G_OBJECT (html->priv->im_context), "commit",
 			  G_CALLBACK (gtk_html_im_commit_cb), html);
+	g_signal_connect (G_OBJECT (html->priv->im_context), "preedit_start",
+			  G_CALLBACK (gtk_html_im_preedit_start_cb), html);
 	g_signal_connect (G_OBJECT (html->priv->im_context), "preedit_changed",
 			  G_CALLBACK (gtk_html_im_preedit_changed_cb), html);
 	g_signal_connect (G_OBJECT (html->priv->im_context), "retrieve_surrounding",
