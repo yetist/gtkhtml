@@ -189,7 +189,8 @@ changed_cols (GtkWidget *w, GtkHTMLEditTableProperties *d)
 	if (d->disable_change || !editor_has_html_object (d->cd, HTML_OBJECT (d->table)))
 		return;
 
-	html_cursor_forward (d->cd->html->engine->cursor, d->cd->html->engine);
+	html_cursor_jump_to (d->cd->html->engine->cursor, d->cd->html->engine, d->table, 1);
+	html_cursor_backward (d->cd->html->engine->cursor, d->cd->html->engine);
 	html_engine_table_set_cols (d->cd->html->engine, gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_cols)));
 }
 
@@ -199,7 +200,8 @@ changed_rows (GtkWidget *w, GtkHTMLEditTableProperties *d)
 	if (d->disable_change || !editor_has_html_object (d->cd, HTML_OBJECT (d->table)))
 		return;
 
-	html_cursor_forward (d->cd->html->engine->cursor, d->cd->html->engine);
+	html_cursor_jump_to (d->cd->html->engine->cursor, d->cd->html->engine, d->table, 1);
+	html_cursor_backward (d->cd->html->engine->cursor, d->cd->html->engine);
 	html_engine_table_set_rows (d->cd->html->engine, gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_rows)));
 }
 

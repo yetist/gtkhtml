@@ -1,3 +1,11 @@
+2005-03-17  Radek Doulik  <rodo@localhost.localdomain>
+
+	* table.c (changed_cols): jump to table,1 and go backward before
+	calling table edit function
+	(changed_rows): ditto
+
+	Fixes #73409
+
 2005-03-10  Mengjie Yu  <meng-jie.yu@sun.com>
 
 	* toolbar.c: (insertion_color_changed_cb), (setup_gi_color_combo):
