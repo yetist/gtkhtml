@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.evolution-1-4-branch.az\n"
-"POT-Creation-Date: 2003-12-29 11:44-0500\n"
+"POT-Creation-Date: 2004-01-12 18:08+0100\n"
 "PO-Revision-Date: 2003-10-19 20:26+0300\n"
 "Last-Translator: Mətin Əmirov <metin@karegen.com>\n"
 "Language-Team: Azərbaycan Dili <gnome@azətt.com>\n"

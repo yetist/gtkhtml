@@ -7,14 +7,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-03 20:28+0100\n"
+"POT-Creation-Date: 2004-01-12 18:08+0100\n"
 "PO-Revision-Date: 2004-01-03 23:49+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -1017,7 +1017,9 @@ msgstr "Grafický papír"
 msgid ""
 "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a href="
 "\"mailto:dog\">dog</a>."
-msgstr "Příliš žluťoučký <a href=\"mailto:kun\">kůň</a> úpěl ďábelské <a href=\"mailto:ody\">ódy</a>."
+msgstr ""
+"Příliš žluťoučký <a href=\"mailto:kun\">kůň</a> úpěl ďábelské <a href="
+"\"mailto:ody\">ódy</a>."
 
 #: components/html-editor/body.c:316 src/gtkhtml.c:2683
 msgid "Document Title"
@@ -1415,7 +1417,9 @@ msgstr ""
 msgid ""
 "This is sample text, designed to show you how text would flow around this "
 "image if you insert the image into your message."
-msgstr "Toto je ukázkový text, který vám má ukázat, jak by text tento obrázek obtékal, kdybyste obrázek vložili do své zprávy."
+msgstr ""
+"Toto je ukázkový text, který vám má ukázat, jak by text tento obrázek "
+"obtékal, kdybyste obrázek vložili do své zprávy."
 
 #: components/html-editor/image.c:270
 msgid "No image selected"

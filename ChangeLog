@@ -1,3 +1,9 @@
+2004-01-12  Radek Doulik  <rodo@ximian.com>
+
+	* configure.in: bumped version to 3.1.6 for the new release
+
+	* NEWS: updated for the 3.1.6 release
+
 2003-12-29  JP Rosevear <jpr@ximian.com>
 
 	* configure.in: bump gal, libsoup requirements and libtool numbers
