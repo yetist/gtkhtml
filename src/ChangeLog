@@ -1,5 +1,11 @@
 2000-12-06  Radek Doulik  <rodo@helixcode.com>
 
+	* htmltable.c (divide_into_variable_all): more tuning
+
+	* htmlengine.c (parse_p): don't reset divAlign
+	(parse_d): likewise
+	(html_engine_parse): set divAlign to HTML_HALIGN_LEFT
+
 	* htmltable.c: I have completely rewritten size calculating,
 	scaling part is done in html_table_set_max_width, calc_size is
 	partialy rewritten and partialy refactored. I hope it finally work
