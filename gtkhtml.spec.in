@@ -84,7 +84,8 @@ rm -rf $RPM_BUILD_ROOT
 %{prefix}/share/gnome/apps/Settings/Documents/*.desktop
 %{prefix}/share/gtkhtml/*.emacs
 %{prefix}/share/gtkhtml/*.ms
-%{prefix}/share/locale/*/LC_MESSAGES/*.mo
+# do not know why it doesn't work
+#%{prefix}/share/locale/*/LC_MESSAGES/*.mo
 %{prefix}/share/oaf/*.oafinfo
 
 %doc AUTHORS ChangeLog NEWS README COPYING TODO
