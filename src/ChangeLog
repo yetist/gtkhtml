@@ -1,3 +1,9 @@
+2003-04-14  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (html_engine_stream_end): set newPage to false to
+	avoid the cursor jumping to home
+	(html_engine_set_editable): ditto
+
 2003-04-09  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (html_engine_finalize): remove any pending

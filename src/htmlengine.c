@@ -4142,6 +4142,7 @@ html_engine_stream_end (GtkHTMLStream *stream,
 	if (e->editable) {
 		html_engine_ensure_editable (e);
 		html_cursor_home (e->cursor, e);
+		e->newPage = FALSE;
 	}
 
 	g_signal_emit (e, signals [LOAD_DONE], 0);
@@ -4577,6 +4578,7 @@ html_engine_set_editable (HTMLEngine *e,
 	if (editable) {
 		html_engine_ensure_editable (e);
 		html_cursor_home (e->cursor, e);
+		e->newPage = FALSE;
 
 		if (e->have_focus)
 			html_engine_setup_blinking_cursor (e);
