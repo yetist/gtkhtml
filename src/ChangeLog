@@ -1,3 +1,9 @@
+2000-06-01  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine-edit-delete.c (html_engine_delete): Save the parent
+	of the start object so that we don't segfault when the object gets
+	unparented.
+
 2000-06-01  Christopher James Lahey  <clahey@helixcode.com>
 
 	* htmlengine.c (html_engine_destroy): Check that engine->clue

@@ -557,6 +557,7 @@ html_engine_delete (HTMLEngine *e,
 	GList *save_buffer;
 	GList *save_buffer_tail;
 	HTMLObject *obj;
+	HTMLClueFlow *start_parent;
 	gboolean different_parent;
 
 	g_return_if_fail (e != NULL);
@@ -577,6 +578,7 @@ html_engine_delete (HTMLEngine *e,
 	html_engine_hide_cursor (e);
 
 	start_object = e->cursor->object;
+	start_parent = start_object->parent;
 	start_offset = e->cursor->offset;
 	start_position = e->cursor->position;
 
@@ -642,7 +644,7 @@ html_engine_delete (HTMLEngine *e,
 
 			html_engine_cut_buffer_destroy (save_buffer);
 
-			clueflow_orig = HTML_CLUEFLOW (start_object->parent);
+			clueflow_orig = HTML_CLUEFLOW (start_parent);
 			clueflow_copy = html_clueflow_new (clueflow_orig->style,
 							   clueflow_orig->level);
 
