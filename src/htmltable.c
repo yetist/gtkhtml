@@ -347,16 +347,26 @@ op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GL
 		return cut_whole (self, len);
 }
 
+static gboolean
+cell_is_empty (HTMLTableCell *cell)
+{
+	g_assert (HTML_IS_TABLE_CELL (cell));
+
+	if (HTML_CLUE (cell)->head && HTML_CLUE (cell)->head == HTML_CLUE (cell)->tail
+	    && HTML_IS_CLUEFLOW (HTML_CLUE (cell)->head) && html_clueflow_is_empty (HTML_CLUEFLOW (HTML_CLUE (cell)->head)))
+		return TRUE;
+	return FALSE;
+}
+
 static void
 split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint level, GList **left, GList **right)
 {
 	HTMLObject *dup;
-	HTMLTable *nt;
 	HTMLTable *t = HTML_TABLE (self);
 	HTMLTable *dup_table;
 	HTMLTableCell *dup_cell;
 	HTMLTableCell *cell;
-	gint r, c, rows, cols, start_col, dup_row, dup_col;
+	gint r, c;
 
 	if (*left == NULL && *right == NULL) {
 		(*parent_class->split)(self, e, child, offset, level, left, right);
@@ -375,60 +385,88 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 	printf ("-- child end --\n");
 #endif
 
-	dup = HTML_OBJECT (g_new0 (HTMLTable, 1));
-	dup_table = HTML_TABLE (dup);
-	copy_sized (self, dup, t->totalRows, t->totalCols);
-	for (r = 0; r < t->totalRows; r ++) {
-		for (c = 0; c < t->totalCols; c ++) {
-			HTMLTableCell *cc;
+	if (cell_is_empty (dup_cell)) {
+		html_object_destroy (HTML_OBJECT (dup_cell));
+		g_list_free (*right);
+		*right = NULL;
+		dup = html_engine_new_text_empty (e);
+		html_clue_append_after (HTML_CLUE (self->parent), dup, self);
+		e->cursor->position --;
+	} else if (cell_is_empty (cell)) {
+		gint r, c;
 
-			cc = t->cells [r][c];
-			if (cc && cc->row == r && cc->col == c) {
-				if ((r == cell->row && c < cell->col) || r < cell->row) {
-					/* empty cell in dup table */
-					html_table_set_cell (dup_table, r, c, html_engine_new_cell (e, dup_table));
-					html_table_cell_set_position (dup_table->cells [r][c], r, c);
-				} else if ((r == dup_cell->row && c > dup_cell->col) || r > dup_cell->row) {
-					/* move cc to dup table */
-					remove_cell (t, cc);
-					html_table_set_cell (dup_table, r, c, cc);
-					html_table_cell_set_position (dup_table->cells [r][c], r, c);
-					/* place empty cell in t table */
-					html_table_set_cell (t, r, c, html_engine_new_cell (e, t));
-					html_table_cell_set_position (t->cells [r][c], r, c);
+		r = cell->row;
+		c = cell->col;
+		remove_cell (t, cell);
+		html_object_destroy (HTML_OBJECT (cell));
+		html_table_set_cell (t, r, c, dup_cell);
+		html_table_cell_set_position (t->cells [r][c], r, c);
 
-				} else {
-					if (r == cell->row && c == cell->col) {
-						if (r != dup_cell->row || c != dup_cell->col) {
-							/* empty cell in dup table */
-							html_table_set_cell (dup_table, r, c,
-									     html_engine_new_cell (e, dup_table));
-							html_table_cell_set_position (dup_table->cells [r][c], r, c);
-						}
+		g_list_free (*left);
+		*left = NULL;
+		dup = self;
+		self = html_engine_new_text_empty (e);
+		html_clue_append_after (HTML_CLUE (self->parent), self, dup);
+		html_clue_remove (HTML_CLUE (self->parent), dup);
+		html_clue_append_after (HTML_CLUE (self->parent), dup, self);
+		e->cursor->object = self;
+		e->cursor->offset = 0;
+	} else {
+		dup = HTML_OBJECT (g_new0 (HTMLTable, 1));
+		dup_table = HTML_TABLE (dup);
+		copy_sized (self, dup, t->totalRows, t->totalCols);
+		for (r = 0; r < t->totalRows; r ++) {
+			for (c = 0; c < t->totalCols; c ++) {
+				HTMLTableCell *cc;
 
-					}
-					if (r == dup_cell->row && c == dup_cell->col) {
-						/* dup_cell to dup table */
-						if ((r != cell->row || c != cell->col)
-						    && HTML_OBJECT (dup_cell)->parent == self)
-							remove_cell (t, cell);
-
-						html_table_set_cell (dup_table, r, c, dup_cell);
+				cc = t->cells [r][c];
+				if (cc && cc->row == r && cc->col == c) {
+					if ((r == cell->row && c < cell->col) || r < cell->row) {
+						/* empty cell in dup table */
+						html_table_set_cell (dup_table, r, c, html_engine_new_cell (e, dup_table));
 						html_table_cell_set_position (dup_table->cells [r][c], r, c);
+					} else if ((r == dup_cell->row && c > dup_cell->col) || r > dup_cell->row) {
+						/* move cc to dup table */
+						remove_cell (t, cc);
+						html_table_set_cell (dup_table, r, c, cc);
+						html_table_cell_set_position (dup_table->cells [r][c], r, c);
+						/* place empty cell in t table */
+						html_table_set_cell (t, r, c, html_engine_new_cell (e, t));
+						html_table_cell_set_position (t->cells [r][c], r, c);
 
-						if (r != cell->row || c != cell->col) {
-							/* empty cell in orig table */
-							html_table_set_cell (t, r, c, html_engine_new_cell (e, t));
-							html_table_cell_set_position (t->cells [r][c], r, c);
+					} else {
+						if (r == cell->row && c == cell->col) {
+							if (r != dup_cell->row || c != dup_cell->col) {
+								/* empty cell in dup table */
+								html_table_set_cell (dup_table, r, c,
+										     html_engine_new_cell (e, dup_table));
+								html_table_cell_set_position (dup_table->cells [r][c], r, c);
+							}
+
+						}
+						if (r == dup_cell->row && c == dup_cell->col) {
+							/* dup_cell to dup table */
+							if ((r != cell->row || c != cell->col)
+							    && HTML_OBJECT (dup_cell)->parent == self)
+								remove_cell (t, cell);
+
+							html_table_set_cell (dup_table, r, c, dup_cell);
+							html_table_cell_set_position (dup_table->cells [r][c], r, c);
+
+							if (r != cell->row || c != cell->col) {
+								/* empty cell in orig table */
+								html_table_set_cell (t, r, c, html_engine_new_cell (e, t));
+								html_table_cell_set_position (t->cells [r][c], r, c);
+							}
 						}
 					}
 				}
 			}
 		}
+
+		html_clue_append_after (HTML_CLUE (self->parent), dup, self);
 	}
 
-	html_clue_append_after (HTML_CLUE (self->parent), dup, self);
-
 	*left  = g_list_prepend (*left, self);
 	*right = g_list_prepend (*right, dup);
 
@@ -447,76 +485,6 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 	level--;
 	if (level)
 		html_object_split (self->parent, e, dup, 0, level, left, right);
-
-	return;
-
-	rows      = t->totalRows - dup_cell->row;
-	cols      = t->totalRows - 1 == dup_cell->row ? t->totalCols - dup_cell->col : t->totalCols;
-	start_col = t->totalRows - 1 == dup_cell->row ? dup_cell->col : 0;
-	dup_row   = dup_cell->row;
-	dup_col   = dup_cell->col;
-
-	dup = HTML_OBJECT (g_new0 (HTMLTable, 1));
-	copy_sized (self, dup, rows, cols);
-        nt = HTML_TABLE (dup);
-
-	for (r = 0; r < nt->totalRows; r ++)
-		for (c = 0; c < t->totalCols; c ++) {
-			HTMLTableCell *act_cell;
-
-			act_cell = t->cells [dup_row + r][start_col + c];
-			if (act_cell) {
-				if (act_cell->row == dup_row && act_cell->col == dup_col)
-					act_cell = dup_cell;
-				if ((act_cell->row == dup_row && act_cell->col >= dup_col)
-				    || act_cell->row > dup_row) {
-					html_table_set_cell (nt, r, c, act_cell);
-					if (dup_row + r == act_cell->row && start_col + c == act_cell->col)
-						html_table_cell_set_position (act_cell, r, c);
-				}
-				if (r || start_col + c > cell->col)
-					t->cells [dup_row + r][start_col + c] = NULL;
-
-			}
-					
-		}
-
-	t->totalRows = cell->row + 1;
-	if (cell->row == 0)
-		t->totalCols = cell->col + 1;
-
-	if (self->parent && HTML_OBJECT_TYPE (self->parent) != HTML_TYPE_TABLE)
-		html_clue_append_after (HTML_CLUE (self->parent), dup, self);
-
-	*left  = g_list_prepend (*left, self);
-	*right = g_list_prepend (*right, dup);
-
-	html_object_change_set (self, HTML_CHANGE_ALL_CALC);
-	html_object_change_set (dup,  HTML_CHANGE_ALL_CALC);
-
-#ifdef GTKHTML_DEBUG_TABLE
-	printf ("after split\n");
-	printf ("-- self --\n");
-	gtk_html_debug_dump_tree_simple (self,  0);
-	printf ("-- dup --\n");
-	gtk_html_debug_dump_tree_simple (dup, 0);
-	printf ("-- end split --\n");
-#endif
-
-	level--;
-	if (level)
-		html_object_split (self->parent, e, dup, 0, level, left, right);
-}
-
-static gboolean
-cell_is_empty (HTMLTableCell *cell)
-{
-	g_assert (HTML_IS_TABLE_CELL (cell));
-
-	if (HTML_CLUE (cell)->head && HTML_CLUE (cell)->head == HTML_CLUE (cell)->tail
-	    && HTML_IS_CLUEFLOW (HTML_CLUE (cell)->head) && html_clueflow_is_empty (HTML_CLUEFLOW (HTML_CLUE (cell)->head)))
-		return TRUE;
-	return FALSE;
 }
 
 static gboolean

@@ -1,5 +1,7 @@
 2001-10-23  Radek Doulik  <rodo@ximian.com>
 
+	* htmltable.c (split): redo splits on table boundaries
+
 	* htmltokenizer.c (g_utf8_get_char_validated): make it static to
 	avoid compiler warning
 
