@@ -207,8 +207,12 @@ view_source_dialog (BonoboWindow *app, char *type, gboolean as_html)
 	BonoboWidget *control;
 	GtkWidget *window;
 	GtkWidget *view;
+	BonoboControlFrame *cf;
 
 	control = BONOBO_WIDGET (bonobo_window_get_contents (app));
+
+	cf = bonobo_widget_get_control_frame (BONOBO_WIDGET (control));
+	bonobo_control_frame_control_activate (cf);
 
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	view = html_source_view_new ();
@@ -218,7 +222,7 @@ view_source_dialog (BonoboWindow *app, char *type, gboolean as_html)
 	html_source_view_set_mode (HTML_SOURCE_VIEW (view), as_html);
 	gtk_widget_show_all (window);
 
-	g_signal_connect_swapped (control, "destroy", G_CALLBACK (g_object_unref), window);
+	g_signal_connect_swapped (control, "destroy", G_CALLBACK (gtk_widget_destroy), window);
 }    
 
 static void
@@ -472,6 +476,7 @@ container_create (void)
 	BonoboUIContainer *container;
 	CORBA_Environment ev;
 	GNOME_GtkHTML_Editor_Engine engine;
+	BonoboControlFrame *cf;
 
 	win = bonobo_window_new ("test-editor",
 				 "HTML Editor Control Test");
@@ -498,9 +503,14 @@ container_create (void)
 	if (control == NULL)
 		g_error ("Cannot get `%s'.", CONTROL_ID);
 
+	cf = bonobo_widget_get_control_frame (BONOBO_WIDGET (control));
+	bonobo_control_frame_control_activate (cf);
+	//bonobo_control_frame_set_autoactivate (cf, TRUE);
+
 	bonobo_widget_set_property (BONOBO_WIDGET (control), "FormatHTML", TC_CORBA_boolean, formatHTML, NULL);
 	bonobo_ui_component_set_prop (component, "/commands/FormatHTML", "state", formatHTML ? "1" : "0", NULL);
 	bonobo_ui_component_add_listener (component, "FormatHTML", menu_format_html_cb, control);
+
 
 	bonobo_window_set_contents (BONOBO_WINDOW (win), control);
 
@@ -538,9 +548,12 @@ main (int argc, char **argv)
 {
 	bindtextdomain(GTKHTML_RELEASE_STRING, GNOMELOCALEDIR);
 	textdomain(GTKHTML_RELEASE_STRING);
-	
-	if (bonobo_ui_init ("test-gnome-gtkhtml-editor", "1.0", &argc, argv) == FALSE)
-		g_error ("Could not initialize Bonobo\n");
+
+	gnome_program_init("test-editor", VERSION, LIBBONOBOUI_MODULE, argc, argv, 
+			   GNOME_PROGRAM_STANDARD_PROPERTIES,
+			   GNOME_PARAM_HUMAN_READABLE_NAME, _("GtkHTML Editor Test Container"),			   
+			   NULL);
+
 	bonobo_activate ();
 
 	/* We can't make any CORBA calls unless we're in the main loop.  So we
