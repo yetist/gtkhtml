@@ -2909,6 +2909,9 @@ gtk_html_begin_full (GtkHTML           *html,
 	if (flags & GTK_HTML_BEGIN_KEEP_IMAGES)
 		gtk_html_images_ref (html);
 
+	if (!content_type)
+		content_type = html->priv->content_type;
+
 	handle = html_engine_begin (html->engine, content_type);
 	if (handle == NULL)
 		return NULL;
