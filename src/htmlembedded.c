@@ -70,7 +70,7 @@ draw (HTMLObject *o,
 	if (!element->widget)
 		return;
 
-	if (element->widget) {
+	if (element->parent) {
 		new_x = GTK_LAYOUT (element->parent)->hadjustment->value + o->x + tx;
 		new_y = GTK_LAYOUT (element->parent)->vadjustment->value + o->y + ty - o->ascent;
 		
@@ -80,8 +80,10 @@ draw (HTMLObject *o,
 			else
 				gtk_widget_queue_draw (element->widget);
 		}
+	
 		element->abs_x = new_x;
 		element->abs_y = new_y;
+		
 		if (!element->widget->parent)
 			gtk_layout_put (GTK_LAYOUT(element->parent), element->widget, new_x, new_y);
 	}
@@ -180,11 +182,14 @@ calc_size (HTMLObject *self, HTMLPainter *painter, GList **changed_objs)
 	return FALSE;
 }
 
-
-void
-html_embedded_reset (HTMLEmbedded *e)
+static void
+reparent (HTMLEmbedded *e, GtkWidget *new_parent)
 {
-	HTML_EMBEDDED_CLASS (HTML_OBJECT (e)->klass)->reset (e);
+	e->parent = new_parent;
+	gtk_widget_ref (e->widget);
+	gtk_widget_unparent (e->widget);
+	gtk_layout_put (GTK_LAYOUT(e->parent), e->widget, 0, 0);
+	gtk_widget_unref (e->widget);
 }
 
 static gchar *
@@ -192,11 +197,23 @@ encode (HTMLEmbedded *e)
 {
 	return g_strdup ("");
 }
+
+void
+html_embedded_reset (HTMLEmbedded *e)
+{
+	HTML_EMBEDDED_CLASS (HTML_OBJECT (e)->klass)->reset (e);
+}
 
 gchar *
 html_embedded_encode (HTMLEmbedded *e)
 {
 	return HTML_EMBEDDED_CLASS (HTML_OBJECT (e)->klass)->encode (e);
+}
+
+void
+html_embedded_reparent (HTMLEmbedded *e, GtkWidget *new_parent)
+{
+	HTML_EMBEDDED_CLASS (HTML_OBJECT (e)->klass)->reparent (e, new_parent);
 }
 
 void

@@ -1,5 +1,9 @@
 2002-07-18  Larry Ewing  <lewing@ximian.com>
 
+	* htmlembedded.h: add new reparent method.
+
+	* htmlembedded.c (html_embedded_reparent): add new reparent function.
+
 	* gtkhtml.c (gtk_html_insert_html_generic): reparent the embedded
 	objects (this is not yet a complete fix).
 	(gtk_html_modify_indent_by_delta): make this static.
