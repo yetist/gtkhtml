@@ -3,6 +3,8 @@
 	* htmlengine-edit-cut-and-paste.c (set_cursor_at_end_of_object):
 	new extracted function, sets cursor to end of object and adds len
 	to the cursor position
+	(insert_object_do): ops, moved set_cursor_at_end_of_object to
+	right place
 
 	* htmltable.c (cut_partial): don't merge if start == end
 
