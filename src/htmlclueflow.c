@@ -80,11 +80,13 @@ get_recursive_length (HTMLObject *self)
 static HTMLObject *
 op_helper (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len, gboolean cut)
 {
-	if (!from && to && HTML_IS_TABLE (to->data) && to->next && GPOINTER_TO_INT (to->next->data) == 0)
+	/* if (!from && to && HTML_IS_TABLE (to->data) && to->next && GPOINTER_TO_INT (to->next->data) == 0)
 		return NULL;
 	if (!to && from && HTML_IS_TABLE (from->data) && from->next && GPOINTER_TO_INT (from->next->data) == 1)
-		return NULL;
+		return NULL; 
 	if (!from && (*len || !(self->prev && HTML_IS_CLUEFLOW (self->prev) && HTML_IS_TABLE (HTML_CLUE (self->prev)->tail))))
+	(*len) ++; */
+	if (!from)
 		(*len) ++;
 	html_clueflow_remove_text_slaves (HTML_CLUEFLOW (self));
 	return cut

@@ -50,6 +50,7 @@
 static void        delete_object (HTMLEngine *e, HTMLObject **ret_object, guint *ret_len, HTMLUndoDirection dir);
 static void        insert_object (HTMLEngine *e, HTMLObject *obj, guint len, HTMLUndoDirection dir, gboolean check);
 static void        append_object (HTMLEngine *e, HTMLObject *o, guint len, HTMLUndoDirection dir);
+static void        insert_empty_paragraph (HTMLEngine *e, HTMLUndoDirection dir);
 
 /* helper functions -- need refactor */
 
@@ -532,8 +533,11 @@ delete_object (HTMLEngine *e, HTMLObject **ret_object, guint *ret_len, HTMLUndoD
 		HTMLObject *object;
 		guint len;
 
-		check_table_0 (e);
-		check_table_1 (e);
+		if (!html_clueflow_is_empty (HTML_CLUEFLOW (e->cursor->object->parent))
+		    && !html_clueflow_is_empty (HTML_CLUEFLOW (e->mark->object->parent))) {
+			check_table_0 (e);
+			check_table_1 (e);
+		}
 		if (e->cursor->position == e->mark->position) {
 			html_engine_disable_selection (e);
 			return;
@@ -589,12 +593,23 @@ insert_object_do (HTMLEngine *e, HTMLObject *obj, guint len, gboolean check, HTM
 	gint level;
 
 	html_engine_freeze (e);
-	if (HTML_IS_TABLE (e->cursor->object)) {
-		gint offset = e->cursor->offset;
 
-		html_engine_insert_empty_paragraph (e);
-		if (offset == 0)
-			html_cursor_backward (e->cursor, e);
+	if (HTML_IS_TABLE (e->cursor->object)) {
+		if (e->cursor->offset) {
+			HTMLObject *head = html_object_get_head_leaf (obj);
+
+			if (!head->parent || (HTML_IS_CLUEFLOW (head->parent)
+					      && !html_clueflow_is_empty (HTML_CLUEFLOW (head->parent))))
+				insert_empty_paragraph (e, dir);
+		} else {
+			HTMLObject *tail = html_object_get_tail_leaf (obj);
+
+			if (!tail->parent || (HTML_IS_CLUEFLOW (tail->parent)
+					      && !html_clueflow_is_empty (HTML_CLUEFLOW (tail->parent)))) {
+				insert_empty_paragraph (e, dir);
+				html_cursor_backward (e->cursor, e);
+			}
+		}
 	}
 
 	level = 0;
@@ -674,7 +689,7 @@ static void
 insert_object (HTMLEngine *e, HTMLObject *obj, guint len, HTMLUndoDirection dir, gboolean check)
 {
 	/* FIXME for tables */
-	if (obj->klass->type == HTML_TYPE_TABLE)
+	if (HTML_IS_TABLE (obj))
 		append_object (e, obj, len, dir);
 	else {
 		insert_object_do (e, obj, len, check, dir);
@@ -718,8 +733,8 @@ check_magic_link (HTMLEngine *e, const gchar *text, guint len)
 		html_text_magic_link (HTML_TEXT (e->cursor->object), e, html_object_get_length (e->cursor->object));
 }
 
-void
-html_engine_insert_empty_paragraph (HTMLEngine *e)
+static void
+insert_empty_paragraph (HTMLEngine *e, HTMLUndoDirection dir)
 {
 	GList *left=NULL, *right=NULL;
 	HTMLCursor *orig;
@@ -730,7 +745,7 @@ html_engine_insert_empty_paragraph (HTMLEngine *e)
 	remove_empty_and_merge (e, FALSE, left, right, orig);
 	html_cursor_forward (e->cursor, e);
 
-	insert_setup_undo (e, 1, HTML_UNDO_UNDO);
+	insert_setup_undo (e, 1, dir);
 	g_list_free (left);
 	g_list_free (right);
 	html_engine_spell_check_range (e, orig, e->cursor);
@@ -746,6 +761,12 @@ html_engine_insert_empty_paragraph (HTMLEngine *e)
 
 	/* break links in new paragraph */
 	html_engine_insert_link (e, NULL, NULL);
+}
+
+void
+html_engine_insert_empty_paragraph (HTMLEngine *e)
+{
+	insert_empty_paragraph (e, HTML_UNDO_UNDO);
 }
 
 void
@@ -923,6 +944,7 @@ append_object (HTMLEngine *e, HTMLObject *o, guint len, HTMLUndoDirection dir)
 		html_clue_append (HTML_CLUE (flow), o);
 
 		html_object_split (e->cursor->object, e, NULL, e->cursor->offset, 2, &left, &right);
+		len += 2;
 
 		where = HTML_OBJECT (left->data);
 		html_clue_append_after (HTML_CLUE (where->parent), flow, where);

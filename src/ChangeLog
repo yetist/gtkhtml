@@ -1,5 +1,15 @@
 2001-06-07  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine-edit-cut-and-paste.c (delete_object): check table
+	only when cursor and mark are in non-empty flows
+	(insert_object_do): be more careful about paragraph inserting
+	around tables
+	(insert_empty_paragraph): new extracted method, use undo direction
+	(html_engine_insert_empty_paragraph): use insert_empty_paragraph
+	(append_object): increment len by 2 when splitting
+
+	* htmlclueflow.c (op_helper): don't handle tables specialy
+
 	* htmlenumutils.c (html_valign_name): return "middle" MIDDLE value
 	instead of "center"
 
