@@ -136,6 +136,11 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	gtk_container_border_width (GTK_CONTAINER (vbox), 3);
 	data->use_bg_image = gtk_check_button_new_with_label (_("Enable"));
 	data->pixmap_entry = gnome_pixmap_entry_new ("background_image", _("Background Image"), TRUE);
+
+	/* fix for broken gnome-libs, could be removed once gnome-libs are fixed */
+	gnome_entry_load_history (GNOME_ENTRY (gnome_pixmap_entry_gnome_entry (GNOME_PIXMAP_ENTRY (data->pixmap_entry))));
+	our_gnome_pixmap_entry_set_last_dir (GNOME_PIXMAP_ENTRY (data->pixmap_entry));
+
 	if (cd->html->engine->bgPixmapPtr) {
 		HTMLImagePointer *ip = (HTMLImagePointer *) cd->html->engine->bgPixmapPtr;
 		guint off = 0;
@@ -147,6 +152,7 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->use_bg_image), TRUE);
 	} else
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->use_bg_image), FALSE);
+
 	gtk_signal_connect (GTK_OBJECT (data->use_bg_image), "toggled", bg_check_cb, data);
 	gtk_signal_connect (GTK_OBJECT (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (data->pixmap_entry))),
 			    "changed", GTK_SIGNAL_FUNC (entry_changed), data);

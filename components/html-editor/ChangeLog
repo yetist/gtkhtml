@@ -1,5 +1,26 @@
 2001-08-09  Radek Doulik  <rodo@ximian.com>
 
+	* utils.c: new helper function
+	(our_gnome_pixmap_entry_set_last_pixmap): new helper function
+	(our_gnome_pixmap_entry_set_last_dir): ditto
+
+	* test-html-editor-control.c (container_create): use grab-focus
+	command
+
+	* table.c (table_widget): fix for GnomePixmapEntry + set last dir
+
+	* image.c (image_widget): new extracted function
+	(image_insertion): use image_widget
+	(image_properties): ditto
+	(image_widget): fix for GnomePixmapEntry + set last dir
+
+	* gtkhtml-editor-properties.glade: set history_id's
+
+	* cell.c (cell_widget): like below
+
+	* body.c (body_properties): fix for GnomePixmapEntry + set last
+	dir
+
 	* toolbar.c (unset_focus): call itself recursively
 
 	* editor-control-factory.c (gtk_toolbar_focus): toolbar focus

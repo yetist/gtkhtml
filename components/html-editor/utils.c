@@ -116,3 +116,52 @@ sample_frame (GtkHTML **html)
 
 	return frame;
 }
+
+static GtkWidget *
+get_last_child (
+GnomePixmapEntry *entry)
+{
+	GList *children;
+	GtkWidget *list;
+
+	list = GTK_COMBO (gnome_pixmap_entry_gnome_entry (entry))->list;
+	children = GTK_LIST (list)->children;
+
+	return (children && children->data) ? GTK_WIDGET (children->data) : NULL;
+
+}
+
+void
+our_gnome_pixmap_entry_set_last_pixmap (GnomePixmapEntry *entry)
+{
+	GtkWidget *child;
+
+	child = get_last_child (entry);
+	if (child)
+		gtk_list_select_child (GTK_LIST (GTK_COMBO (gnome_pixmap_entry_gnome_entry (entry))->list), child);
+}
+
+void
+our_gnome_pixmap_entry_set_last_dir (GnomePixmapEntry *entry)
+{
+	GtkWidget *child;
+
+	child = get_last_child (entry);
+	if (child && GTK_IS_LIST_ITEM (child) && GTK_IS_LABEL (GTK_BIN (child)->child)) {
+		gchar *dir;
+
+		gtk_label_get (GTK_LABEL (GTK_BIN (child)->child), &dir);
+		if (dir && *dir) {
+			gchar *last;
+
+			dir = g_strdup (dir);
+			last = strrchr (dir, '/');
+			if (last) {
+				*(last + 1) = 0;
+				gnome_file_entry_set_default_path (GNOME_FILE_ENTRY
+								   (gnome_pixmap_entry_gnome_file_entry (entry)), dir);
+			}
+			g_free (dir);
+		}
+	}
+}

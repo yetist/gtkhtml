@@ -387,6 +387,8 @@ container_create (void)
 	BonoboUIContainer *container;
 	BonoboControlFrame *frame;
 	HTMLEditorResolver *resolver;
+	CORBA_Environment ev;
+	GNOME_GtkHTML_Editor_Engine engine;
 
 	win = bonobo_window_new ("test-editor",
 				 "HTML Editor Control Test");
@@ -432,6 +434,14 @@ container_create (void)
 	bonobo_window_set_contents (BONOBO_WINDOW (win), control);
 
 	gtk_widget_show_all (GTK_WIDGET (window));
+
+	CORBA_exception_init (&ev);
+	engine = (GNOME_GtkHTML_Editor_Engine) bonobo_object_client_query_interface
+		(bonobo_widget_get_server (BONOBO_WIDGET (control)), "IDL:GNOME/GtkHTML/Editor/Engine:1.0", &ev);
+	GNOME_GtkHTML_Editor_Engine_runCommand (engine, "grab-focus", &ev);
+	Bonobo_Unknown_unref (engine, &ev);
+	CORBA_Object_release (engine, &ev);
+	CORBA_exception_free (&ev);
 
 	return FALSE;
 }

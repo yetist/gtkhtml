@@ -24,10 +24,13 @@
 #define _UTILS_H_
 
 #include <gtk/gtk.h>
+#include <libgnomeui/gnome-pixmap-entry.h>
 #include "gtkhtml.h"
 
-GtkWidget *color_table_new  (GtkSignalFunc   f,
-			     gpointer        data);
-GtkWidget *sample_frame     (GtkHTML       **html);
+GtkWidget *color_table_new                         (GtkSignalFunc      f,
+						    gpointer           data);
+GtkWidget *sample_frame                            (GtkHTML          **html);
+void       our_gnome_pixmap_entry_set_last_pixmap  (GnomePixmapEntry  *entry);
+void       our_gnome_pixmap_entry_set_last_dir     (GnomePixmapEntry  *entry);
 
 #endif

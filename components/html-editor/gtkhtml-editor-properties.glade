@@ -134,8 +134,9 @@
 	      <class>GnomeFileEntry</class>
 	      <child_name>GnomePixmapEntry:file-entry</child_name>
 	      <name>fileentry1</name>
+	      <history_id>Table Background Image</history_id>
 	      <max_saved>10</max_saved>
-	      <directory>False</directory>
+	      <directory>True</directory>
 	      <modal>False</modal>
 
 	      <widget>
@@ -933,6 +934,7 @@ Table
 	      <class>GnomeFileEntry</class>
 	      <child_name>GnomePixmapEntry:file-entry</child_name>
 	      <name>entry2</name>
+	      <history_id>Cell Background Image</history_id>
 	      <max_saved>10</max_saved>
 	      <directory>False</directory>
 	      <modal>False</modal>

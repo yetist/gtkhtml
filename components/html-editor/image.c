@@ -34,6 +34,7 @@
 
 #include "image.h"
 #include "properties.h"
+#include "utils.h"
 
 #define GTK_HTML_EDIT_IMAGE_BWIDTH      0
 #define GTK_HTML_EDIT_IMAGE_WIDTH       1
@@ -154,8 +155,8 @@ checked_val (GtkHTMLEditImageProperties *d, gint idx, const gchar *name)
 	gtk_signal_connect (GTK_OBJECT (d->adj [idx]), "value_changed", GTK_SIGNAL_FUNC (value_changed), d);
 }
 
-GtkWidget *
-image_insertion (GtkHTMLControlData *cd, gpointer *set_data)
+static GtkWidget *
+image_widget (GtkHTMLControlData *cd, gpointer *set_data)
 {
 	GtkHTMLEditImageProperties *data = g_new0 (GtkHTMLEditImageProperties, 1);
 	GtkWidget *mhb, *hbox;
@@ -164,7 +165,6 @@ image_insertion (GtkHTMLControlData *cd, gpointer *set_data)
 	GtkWidget *frame;
 	GtkWidget *menu;
 	GtkWidget *menuitem;
-	gchar     *dir;
 	guint      mcounter;
 
 	*set_data = data;
@@ -177,10 +177,11 @@ image_insertion (GtkHTMLControlData *cd, gpointer *set_data)
 	gtk_container_border_width (GTK_CONTAINER (mhb), 3);
 
 	data->pentry = gnome_pixmap_entry_new ("insert_image", _("Image selection"), TRUE);
-	/* gnome_pixmap_entry_set_preview_size (GNOME_PIXMAP_ENTRY (data->pentry), 200, 200); */
-	dir = getcwd (NULL, 0);
-	gnome_pixmap_entry_set_pixmap_subdir (GNOME_PIXMAP_ENTRY (data->pentry), dir);
-	free (dir);
+
+	/* fix for broken gnome-libs, could be removed once gnome-libs are fixed */
+	gnome_entry_load_history (GNOME_ENTRY (gnome_pixmap_entry_gnome_entry (GNOME_PIXMAP_ENTRY (data->pentry))));
+	our_gnome_pixmap_entry_set_last_pixmap (GNOME_PIXMAP_ENTRY (data->pentry));
+
 	gtk_box_pack_start_defaults (GTK_BOX (mhb), data->pentry);
 
 	menu = gtk_menu_new ();
@@ -296,9 +297,23 @@ image_insertion (GtkHTMLControlData *cd, gpointer *set_data)
 }
 
 GtkWidget *
+image_insertion (GtkHTMLControlData *cd, gpointer *set_data)
+{
+	GtkWidget *w;
+	GtkHTMLEditImageProperties *d;
+
+	w = image_widget (cd, set_data);
+	d = (GtkHTMLEditImageProperties *) *set_data;
+
+	our_gnome_pixmap_entry_set_last_pixmap (GNOME_PIXMAP_ENTRY (d->pentry));
+
+	return w;
+}
+
+GtkWidget *
 image_properties (GtkHTMLControlData *cd, gpointer *set_data)
 {
-	GtkWidget *w = image_insertion (cd, set_data);
+	GtkWidget *w = image_widget (cd, set_data);
 	GtkHTMLEditImageProperties *d = (GtkHTMLEditImageProperties *) *set_data;
 	HTMLImage *image = HTML_IMAGE (cd->html->engine->cursor->object);
 	HTMLImagePointer *ip = image->image_ptr;

@@ -379,7 +379,6 @@ cell_widget (GtkHTMLEditCellProperties *d)
 	HTMLColor *color;
 	GtkWidget *cell_page;
 	GladeXML *xml;
-	gchar     *dir;
 
 	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "cell_page");
 	if (!xml)
@@ -401,11 +400,15 @@ cell_widget (GtkHTMLEditCellProperties *d)
 	d->check_bg_pixmap = glade_xml_get_widget (xml, "check_cell_bg_pixmap");
 	gtk_signal_connect (GTK_OBJECT (d->check_bg_pixmap), "toggled", set_has_bg_pixmap, d);
 	d->entry_bg_pixmap = glade_xml_get_widget (xml, "entry_cell_bg_pixmap");
+
+	d->disable_change = TRUE;
+	/* fix for broken gnome-libs, could be removed once gnome-libs are fixed */
+	gnome_entry_load_history (GNOME_ENTRY (gnome_pixmap_entry_gnome_entry (GNOME_PIXMAP_ENTRY (d->entry_bg_pixmap))));
+	our_gnome_pixmap_entry_set_last_dir (GNOME_PIXMAP_ENTRY (d->entry_bg_pixmap));
+	d->disable_change = FALSE;
+
 	gtk_signal_connect (GTK_OBJECT (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (d->entry_bg_pixmap))),
 			    "changed", GTK_SIGNAL_FUNC (changed_bg_pixmap), d);
-	dir = getcwd (NULL, 0);
-	gnome_pixmap_entry_set_pixmap_subdir (GNOME_PIXMAP_ENTRY (d->entry_bg_pixmap), dir);
-	free (dir);
 
 	d->option_halign = glade_xml_get_widget (xml, "option_cell_halign");
 	gtk_signal_connect (GTK_OBJECT (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_halign))), "selection-done",
