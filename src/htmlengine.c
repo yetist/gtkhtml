@@ -4169,6 +4169,11 @@ html_engine_realize (HTMLEngine *e,
 void
 html_engine_unrealize (HTMLEngine *e)
 {
+	if (e->thaw_idle_id != 0) {
+		g_source_remove (e->thaw_idle_id);
+		e->thaw_idle_id = 0;
+	}
+
 	html_gdk_painter_unrealize (HTML_GDK_PAINTER (e->painter));
 
 	e->window = NULL;

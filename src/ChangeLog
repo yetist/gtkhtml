@@ -2,6 +2,8 @@
 
 	* htmlengine.c (thaw_idle): do partial redraw only if widget is
 	already realized
+	(html_engine_unrealize): remove scheduled thaw idle here and don't
+	wait for finalize
 
 2004-03-12  Radek Doulik  <rodo@ximian.com>
 
