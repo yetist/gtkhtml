@@ -1,3 +1,14 @@
+1999-12-14  Havoc Pennington  <hp@pobox.com>
+
+	* gtkhtml.c (gtk_html_new): Use
+	gtk_widget_set_scroll_adjustments() to set the adjustments
+	(gtk_html_class_init): install a scroll adjustments handler
+	(gtk_html_set_adjustments): implement this - it connects to the
+	adjustments.
+	(gtk_html_class_init): add destroy handler
+
+	* gtkhtml.h: add fields to store adjustment connections
+
 1999-12-13  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* gtkhtml.c (gtk_html_size_allocate): Do not call

@@ -49,6 +49,9 @@ struct _GtkHTML {
 	/* The cursors we use within the widget.  */
 	GdkCursor *hand_cursor;
 	GdkCursor *arrow_cursor;
+
+	guint hadj_connection;
+	guint vadj_connection;
 };
 
 struct _GtkHTMLClass {

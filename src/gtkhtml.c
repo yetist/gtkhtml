@@ -40,6 +40,10 @@ static void     gtk_html_horizontal_scroll (GtkAdjustment *adjustment, gpointer 
 static gint	gtk_html_motion_notify_event (GtkWidget *widget, GdkEventMotion *event);
 static gint     gtk_html_button_press_event (GtkWidget *widget, GdkEventButton *event);
 static gint     gtk_html_button_release_event (GtkWidget *widget, GdkEventButton *event);
+static void     gtk_html_set_adjustments    (GtkLayout     *layout,
+					     GtkAdjustment *hadj,
+					     GtkAdjustment *vadj);
+static void     gtk_html_destroy            (GtkObject     *object);
 
 
 static GtkLayoutClass *parent_class = NULL;
@@ -185,11 +189,13 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	GtkHTMLClass *html_class;
 	GtkWidgetClass *widget_class;
 	GtkObjectClass *object_class;
-
+	GtkLayoutClass *layout_class;
+	
 	html_class = (GtkHTMLClass *)klass;
 	widget_class = (GtkWidgetClass *)klass;
 	object_class = (GtkObjectClass *)klass;
-
+	layout_class = (GtkLayoutClass *)klass;
+	
 	object_class->destroy = destroy;
 
 	parent_class = gtk_type_class (GTK_TYPE_LAYOUT);
@@ -253,6 +259,8 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	
 	gtk_object_class_add_signals (object_class, signals, LAST_SIGNAL);
 
+	object_class->destroy = gtk_html_destroy;
+	
 	widget_class->realize = gtk_html_realize;
 	widget_class->unrealize = gtk_html_unrealize;
 	widget_class->draw = gtk_html_draw;
@@ -262,6 +270,8 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	widget_class->motion_notify_event = gtk_html_motion_notify_event;
 	widget_class->button_press_event = gtk_html_button_press_event;
 	widget_class->button_release_event = gtk_html_button_release_event;
+
+	layout_class->set_scroll_adjustments = gtk_html_set_adjustments;
 }
 
 static void
@@ -273,6 +283,8 @@ gtk_html_init (GtkHTML* html)
 	html->pointer_url = NULL;
 	html->hand_cursor = gdk_cursor_new (GDK_HAND2);
 	html->arrow_cursor = gdk_cursor_new (GDK_LEFT_PTR);
+	html->hadj_connection = 0;
+	html->vadj_connection = 0;
 }
 
 GtkWidget *
@@ -287,13 +299,8 @@ gtk_html_new (GtkAdjustment *hadjustment, GtkAdjustment *vadjustment)
 	if (hadjustment == NULL)
 		hadjustment = GTK_ADJUSTMENT (gtk_adjustment_new (0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
 
-	gtk_signal_connect (GTK_OBJECT (vadjustment), "value_changed",
-			    GTK_SIGNAL_FUNC (gtk_html_vertical_scroll), (gpointer)html);
-	gtk_signal_connect (GTK_OBJECT (hadjustment), "value_changed",
-			    GTK_SIGNAL_FUNC (gtk_html_horizontal_scroll), (gpointer)html);
-
-	gtk_layout_set_hadjustment (GTK_LAYOUT (html), hadjustment);
-	gtk_layout_set_vadjustment (GTK_LAYOUT (html), vadjustment);
+	gtk_widget_set_scroll_adjustments(GTK_WIDGET(html),
+					  hadjustment, vadjustment);
 	
 	html->engine = html_engine_new ();
 	html->engine->widget = html; /* FIXME FIXME */
@@ -310,6 +317,14 @@ gtk_html_new (GtkAdjustment *hadjustment, GtkAdjustment *vadjustment)
 			    GTK_SIGNAL_FUNC (html_engine_url_requested_cb), html);
 
 	return GTK_WIDGET (html);
+}
+
+void
+gtk_html_destroy (GtkObject *object)
+{
+	/* Disconnect our adjustments */
+	gtk_html_set_adjustments(GTK_LAYOUT(object), NULL, NULL);
+
 }
 
 void
@@ -486,6 +501,36 @@ gtk_html_button_release_event (GtkWidget *widget,
 }
 
 
+static void
+gtk_html_set_adjustments    (GtkLayout     *layout,
+			     GtkAdjustment *hadj,
+			     GtkAdjustment *vadj)
+{
+	GtkHTML *html = GTK_HTML(layout);
+
+	if (html->hadj_connection != 0)
+		gtk_signal_disconnect(GTK_OBJECT(layout->hadjustment),
+				      html->hadj_connection);
+
+	if (html->vadj_connection != 0)
+		gtk_signal_disconnect(GTK_OBJECT(layout->vadjustment),
+				      html->vadj_connection);
+
+	if (vadj != NULL)
+		html->vadj_connection =
+			gtk_signal_connect (GTK_OBJECT (vadj), "value_changed",
+					    GTK_SIGNAL_FUNC (gtk_html_vertical_scroll), (gpointer)html);
+	
+	if (hadj != NULL)
+		html->hadj_connection =
+			gtk_signal_connect (GTK_OBJECT (hadj), "value_changed",
+					    GTK_SIGNAL_FUNC (gtk_html_horizontal_scroll), (gpointer)html);
+
+	if (parent_class->set_scroll_adjustments)
+		(* parent_class->set_scroll_adjustments) (layout, hadj, vadj);
+}
+
+
 void
 gtk_html_calc_scrollbars (GtkHTML *html)
 {
