@@ -108,8 +108,8 @@ set_link (HTMLObject *obj, HTMLEngine *e, gpointer data)
 	const char *complete_url = data;
 
 	if (html_object_is_text (obj) || HTML_IS_IMAGE (obj)) {
-		char *url;
-		char *target;
+		char *url = NULL;
+		char *target = NULL;
 
 		if (complete_url) {
 			url = g_strdup (complete_url);
@@ -136,6 +136,8 @@ set_link (HTMLObject *obj, HTMLEngine *e, gpointer data)
 				html_object_remove_link (obj,
 							 html_colorset_get_color (e->settings->color_set, HTMLTextColor));
 		}
+
+		g_free (url);
 	}
 }
 
