@@ -1,7 +1,11 @@
 2000-01-24  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmltextmaster.c (select_range): Fixed range comparisons.  I
+	think I need to sleep.
+
 	* htmldrawqueue.c (draw_obj): Do not paint the cursor if the
 	engine is not editable.
+	(html_draw_queue_flush): Removed debugging message.
 
 	* htmlengine.c (html_engine_flush_draw_queue): Only draw the
 	cursor if the engine is not editable.

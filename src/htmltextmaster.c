@@ -237,8 +237,7 @@ select_range (HTMLObject *self,
 		     p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE;
 		     p = p->next) {
 			HTMLTextSlave *slave;
-			gboolean was_selected;
-			gboolean is_selected;
+			gboolean was_selected, is_selected;
 
 			slave = HTML_TEXT_SLAVE (p);
 
@@ -254,7 +253,25 @@ select_range (HTMLObject *self,
 			else
 				is_selected = FALSE;
 
-			html_engine_queue_draw (engine, p);
+			if (was_selected && is_selected) {
+				gint diff1, diff2;
+
+				diff1 = offset - slave->posStart;
+				diff2 = master->select_start - slave->posStart;
+
+				if (diff1 != diff2)
+					html_engine_queue_draw (engine, p);
+				else {
+					diff1 = offset + length - slave->posStart;
+					diff2 = master->select_start + master->select_length - slave->posStart;
+
+					if (diff1 != diff2)
+						html_engine_queue_draw (engine, p);
+				}
+			} else {
+				if ((! was_selected && is_selected) || (was_selected && ! is_selected))
+					html_engine_queue_draw (engine, p);
+			}
 		}
 	}
 

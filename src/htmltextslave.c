@@ -316,7 +316,7 @@ draw_highlighted (HTMLTextSlave *slave,
 	html_painter_set_pen (p, html_painter_get_default_highlight_foreground_color (p));
 	html_painter_draw_text (p, obj->x + tx + offset_width, obj->y + ty, text + start, len);
 
-	/* Draw the non-highlited part.  */
+	/* Draw the non-highlighted part.  */
 
 	html_painter_set_pen (p, html_text_get_color (HTML_TEXT (owner), p));
 
@@ -326,7 +326,7 @@ draw_highlighted (HTMLTextSlave *slave,
 		html_painter_draw_text (p,
 					obj->x + tx, obj->y + ty,
 					text + slave->posStart,
-					start);
+					start - slave->posStart);
 
 	/* 2. Draw the rightmost non-highlighted part, if any.  */
 

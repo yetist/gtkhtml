@@ -51,11 +51,8 @@ static guint signals [LAST_SIGNAL] = { 0 };
 static gint
 idle_handler (gpointer data)
 {
-	static guint count;
 	GtkHTML *html;
 	HTMLEngine *engine;
-
-	printf ("%s (%d)\n", __FUNCTION__, ++count);
 
 	html = GTK_HTML (data);
 	engine = html->engine;
@@ -85,9 +82,6 @@ selection_idle_handler (gpointer data)
 {
 	GtkHTML *html;
 	HTMLEngine *engine;
-	static guint count;
-
-	printf ("%s (%d)\n", __FUNCTION__, ++count);
 
 	html = GTK_HTML (data);
 	engine = html->engine;
@@ -439,15 +433,12 @@ motion_notify_event (GtkWidget *widget,
 	GtkHTML *html;
 	HTMLEngine *engine;
 	const gchar *url;
-	static guint count;
 	gint x, y;
 	GdkModifierType mask;
 
 	g_return_val_if_fail (widget != NULL, 0);
 	g_return_val_if_fail (GTK_IS_HTML (widget), 0);
 	g_return_val_if_fail (event != NULL, 0);
-
-	printf ("%s %d\n", __FUNCTION__, ++count);
 
 	html = GTK_HTML (widget);
 	engine = html->engine;

@@ -225,6 +225,19 @@ html_painter_end (HTMLPainter *painter)
 	g_return_if_fail (painter != NULL);
 	
 	if (painter->double_buffer){
+#if 0
+		GdkGC *gc;
+		GdkColor c;
+		
+		gc = gdk_gc_new (painter->pixmap);
+		c.pixel = rand ();
+		gdk_gc_set_foreground (gc, &c);
+
+		gdk_draw_line (painter->pixmap, gc, 0, 0, painter->x2 - painter->x1, painter->y2 - painter->y1);
+		gdk_draw_line (painter->pixmap, gc, painter->x2 - painter->x1, 0, 0, painter->y2 - painter->y1);
+		gdk_gc_unref (gc);
+#endif
+
 		gdk_draw_pixmap (
 			painter->window, painter->gc, painter->pixmap,
 			0, 0,

@@ -47,8 +47,10 @@ static void
 destroy (HTMLObject *o)
 {
 	if (o->redraw_pending) {
+#if 0
 		g_warning ("Object %p (type %s) has a redraw pending and is being destroyed.",
 			   o, html_type_name (HTML_OBJECT_TYPE (o)));
+#endif
 		o->free_pending = TRUE;
 	} else {
 		g_free (o);

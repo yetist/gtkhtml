@@ -134,7 +134,10 @@ draw_obj (HTMLDrawQueue *queue,
 			  obj->x, obj->y - obj->ascent,
 			  obj->width, obj->ascent + obj->descent,
 			  tx, ty);
-
+#if 0
+	html_painter_draw_line (e->painter, x1, y1, x2, y2);
+	html_painter_draw_line (e->painter, x2, y1, x1, y2);
+#endif
 	/* Done.  */
 
 	html_painter_end (e->painter);
@@ -146,10 +149,7 @@ draw_obj (HTMLDrawQueue *queue,
 void
 html_draw_queue_flush (HTMLDrawQueue *queue)
 {
-	static guint count;
 	GList *p;
-
-	printf ("%s %d\n", __FUNCTION__, ++count);
 
 	for (p = queue->elems; p != NULL; p = p->next) {
 		HTMLObject *obj;
@@ -157,7 +157,6 @@ html_draw_queue_flush (HTMLDrawQueue *queue)
 		obj = p->data;
 
 		if (obj->free_pending) {
-			g_warning ("%s: g_free()ing %p", __FUNCTION__, obj);
 			g_free (obj);
 		} else if (obj->redraw_pending) {
 			draw_obj (queue, obj);
