@@ -1,3 +1,7 @@
+2002-09-20  Radek Doulik  <rodo@ximian.com>
+
+	* htmltablecell.c (save): check for self->parent
+
 2002-09-19  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c (html_engine_draw_real): crop iframes to avoid
