@@ -25,6 +25,7 @@
 #include "htmlclueflow.h"
 #include "htmltext.h"
 #include "htmltextmaster.h"
+#include "htmllinktext.h"
 #include "htmllinktextmaster.h"
 
 #include "htmlengine-edit.h"
@@ -147,12 +148,40 @@ insert_para (HTMLEngine *engine)
 }
 
 
+static gboolean
+equal_insertion (HTMLText *text, GtkHTMLFontStyle style, HTMLColor *color, const gchar *url, const gchar *target)
+{
+	g_assert (text);
+	g_assert (html_object_is_text (HTML_OBJECT (text)));
+
+	if (text->font_style != style || !html_color_equal (text->color, color))
+		return FALSE;
+
+	if (HTML_OBJECT_TYPE (HTML_OBJECT (text)) != HTML_TYPE_LINKTEXTMASTER && url)
+		return FALSE;
+
+	if (!url)
+		return TRUE;
+
+	if (HTML_OBJECT_TYPE (HTML_OBJECT (text)) == HTML_TYPE_LINKTEXTMASTER
+	    && !HTML_LINK_TEXT_MASTER (text)->url)
+		return FALSE;
+
+	if (HTML_OBJECT_TYPE (HTML_OBJECT (text)) == HTML_TYPE_LINKTEXTMASTER
+	    && (strcmp (HTML_LINK_TEXT_MASTER (text)->url, url) || strcmp (HTML_LINK_TEXT_MASTER (text)->target, target)))
+		return FALSE;
+
+	return TRUE;
+}
+
 static guint
 insert_chars_different_style (HTMLEngine *e,
 			      const gchar *text,
 			      guint len,
 			      GtkHTMLFontStyle style,
-			      HTMLColor *color)
+			      HTMLColor *color,
+			      const gchar *url,
+			      const gchar *target)
 {
 	HTMLText *right_side;
 	HTMLObject *new;
@@ -172,17 +201,15 @@ insert_chars_different_style (HTMLEngine *e,
 
 		p = html_object_prev_not_slave (curr);
 
-		if (p != NULL
-		    && HTML_OBJECT_TYPE (p) == HTML_OBJECT_TYPE (curr)
-		    && HTML_TEXT (p)->font_style == style
-		    && html_color_equal (HTML_TEXT (p)->color, color)) {
+		if (p != NULL && HTML_OBJECT_TYPE (p) == HTML_OBJECT_TYPE (curr)
+		    && equal_insertion (HTML_TEXT (p), style, color, url, target)) {
 			e->cursor->object = p;
 			e->cursor->offset = HTML_TEXT (p)->text_len;
 			return html_text_insert_text (HTML_TEXT (p), e, e->cursor->offset, text, len);
 		}
 	}
 
-	new = html_text_master_new ("", style, color);
+	new = (url) ? html_link_text_master_new ("", style, color, url, target) : html_text_master_new ("", style, color);
 	retval = html_text_insert_text (HTML_TEXT (new), e, 0, text, len);
 	if (retval == 0) {
 		html_object_destroy (new);
@@ -229,14 +256,17 @@ insert_chars_at_not_text (HTMLEngine *e,
 			  const gchar *text,
 			  guint len,
 			  GtkHTMLFontStyle style,
-			  HTMLColor *color)
+			  HTMLColor *color,
+			  const gchar *url,
+			  const gchar *target)
 {
 	HTMLObject *curr;
 	HTMLObject *new_text;
 
 	curr = e->cursor->object;
 
-	new_text = html_text_master_new_with_len (text, len, style, color);
+	new_text = (url) ? html_link_text_master_new_with_len (text, len, style, color, url, target)
+		: html_text_master_new_with_len (text, len, style, color);
 
 	if (e->cursor->offset == 0) {
 		if (curr->prev == NULL)
@@ -261,7 +291,9 @@ insert_chars (HTMLEngine *e,
 	      const gchar *text,
 	      guint len,
 	      GtkHTMLFontStyle style,
-	      HTMLColor *color)
+	      HTMLColor *color,
+	      const gchar *url,
+	      const gchar *target)
 {
 	HTMLObject *curr;
 
@@ -271,12 +303,12 @@ insert_chars (HTMLEngine *e,
 	if (! html_object_is_text (curr)) {
 		if (e->cursor->offset == 0) {
 			if (curr->prev == NULL || ! html_object_is_text (curr->prev))
-				return insert_chars_at_not_text (e, text, len, style, color);
+				return insert_chars_at_not_text (e, text, len, style, color, url, target);
 			e->cursor->object = curr->prev;
 			e->cursor->offset = HTML_TEXT (curr->prev)->text_len;
 		} else {
 			if (curr->next == NULL || ! html_object_is_text (curr->next))
-				return insert_chars_at_not_text (e, text, len, style, color);
+				return insert_chars_at_not_text (e, text, len, style, color, url, target);
 			e->cursor->object = curr->next;
 			e->cursor->offset = 0;
 		}
@@ -285,9 +317,8 @@ insert_chars (HTMLEngine *e,
 	/* Case #2: the cursor is on a text, element, but the style is
            different.  This means that we possibly have to split the
            element.  */
-	if (HTML_TEXT (curr)->font_style != style
-	    || !html_color_equal (HTML_TEXT (curr)->color, color))
-		return insert_chars_different_style (e, text, len, style, color);
+	if (!equal_insertion (HTML_TEXT (curr), style, color, url, target))
+		return insert_chars_different_style (e, text, len, style, color, url, target);
 
 	/* Case #3: we can simply add the text to the current element.  */
 	return insert_chars_same_style (e, text, len);
@@ -298,7 +329,9 @@ do_insert (HTMLEngine *engine,
 	   const gchar *text,
 	   guint len,
 	   GtkHTMLFontStyle style,
-	   HTMLColor *color)
+	   HTMLColor *color,
+	   const gchar *url,
+	   const gchar *target)
 {
 	const gchar *p, *q;
 	guint count;
@@ -311,14 +344,14 @@ do_insert (HTMLEngine *engine,
 		q = memchr (p, '\n', len);
 
 		if (q == NULL) {
-			count = insert_chars (engine, p, len, style, color);
+			count = insert_chars (engine, p, len, style, color, url, target);
 			html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_RIGHT, count);
 			insert_count += count;
 			break;
 		}
 
 		if (q != p) {
-			count = insert_chars (engine, p, q - p, style, color);
+			count = insert_chars (engine, p, q - p, style, color, url, target);
 			html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_RIGHT, count);
 			insert_count += count;
 		}
@@ -351,6 +384,10 @@ struct _ActionData {
 	/* The font style.  */
 	GtkHTMLFontStyle style;
 	HTMLColor *color;
+
+	/* Link */
+	gchar *url;
+	gchar *target;
 };
 typedef struct _ActionData ActionData;
 
@@ -374,6 +411,11 @@ closure_destroy (gpointer closure)
 
 	html_color_unref (data->color);
 
+	if (data->url)
+		g_free (data->url);
+	if (data->target)
+		g_free (data->target);
+
 	g_free (data->chars);
 	g_free (data);
 }
@@ -387,7 +429,7 @@ do_redo (HTMLEngine *engine,
 
 	data = (ActionData *) closure;
 
-	n = do_insert (engine, data->chars, data->num_chars, data->style, data->color);
+	n = do_insert (engine, data->chars, data->num_chars, data->style, data->color, data->url, data->target);
 	setup_undo (engine, data);
 }
 
@@ -446,7 +488,9 @@ create_action_data (HTMLEngine *engine,
 		    const gchar *chars,
 		    gint num_chars,
 		    GtkHTMLFontStyle style,
-		    HTMLColor *color)
+		    HTMLColor *color,
+		    const gchar *url,
+		    const gchar *target)
 {
 	ActionData *data;
 
@@ -457,17 +501,32 @@ create_action_data (HTMLEngine *engine,
 	data->style = style;
 	data->color = color;
 	html_color_ref (color);
+	data->url = g_strdup (url);
+	data->target = g_strdup (target);
 
 	return data;
 }
 
 
+
+static HTMLColor *
+decide_color (HTMLEngine *e)
+{
+	return (e->insertion_url &&
+		e->insertion_color == html_colorset_get_color (e->settings->color_set, HTMLTextColor))
+		? html_colorset_get_color (e->settings->color_set, HTMLLinkColor)
+		: (!e->insertion_url &&
+		   e->insertion_color == html_colorset_get_color (e->settings->color_set, HTMLLinkColor))
+		? html_colorset_get_color (e->settings->color_set, HTMLTextColor) : e->insertion_color;
+}
+
 guint
 html_engine_insert (HTMLEngine *e,
 		    const gchar *text,
 		    guint len)
 {
 	HTMLObject *current_object;
+	HTMLColor *color;
 	guint       current_offset;
 	guint n;
 
@@ -488,10 +547,14 @@ html_engine_insert (HTMLEngine *e,
 	html_undo_discard_redo (e->undo);
 
 	html_engine_hide_cursor (e);
+	color = decide_color (e);
 
-	n = do_insert (e, text, len, e->insertion_font_style, e->insertion_color);
+	n = do_insert (e, text, len, e->insertion_font_style, color,
+		       e->insertion_url, e->insertion_target);
 
-	setup_undo (e, create_action_data (e, text, len, e->insertion_font_style, e->insertion_color));
+	setup_undo (e, create_action_data (e, text, len,
+					   e->insertion_font_style, color,
+					   e->insertion_url, e->insertion_target));
 
 	/* printf ("text '%s' len %d type %d\n", text, len, HTML_OBJECT_TYPE (current_object)); */
 
@@ -528,13 +591,6 @@ html_engine_insert_link (HTMLEngine *e, const gchar *url, const gchar *target)
 		}
 		html_engine_cut_and_paste_end (e);
 	} else {
-		/* linked = html_link_text_master_new_with_len
-			("", 0,
-			 e->insertion_font_style,
-			 color,
-			 url, target);
-		html_engine_paste_object (e, linked, TRUE);
-		html_object_destroy (linked); */
 		html_engine_set_url    (e, url);
 		html_engine_set_target (e, target);
 	}

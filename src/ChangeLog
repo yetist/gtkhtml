@@ -1,5 +1,17 @@
 2000-06-30  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine-edit-insert.c: added url, target to ActionData
+	(do_redo): use url, target
+	(create_action_data): likewise
+	(decide_color): new function, helps to decide which color for
+	text/links
+	(do_insert): use url, target
+	(equal_insertion): new helper function, decides whether the text
+	object has same attributes as insertion
+
+	* htmlengine-edit-fontstyle.c (html_engine_get_document_target):
+	fix, return html_object_get_target and not html_object_get_url
+
 	* gtkhtml.c (button_press_event): shift + mouse press button
 	extends/reduces selection
 

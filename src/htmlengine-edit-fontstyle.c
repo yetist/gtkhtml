@@ -1009,7 +1009,7 @@ html_engine_get_document_target (HTMLEngine *e)
 	if (e->active_selection)
 		return get_url_or_target_from_selection (e, FALSE);
 	else
-		return html_object_get_url (e->cursor->object);
+		return html_object_get_target (e->cursor->object);
 }
 
 gboolean
