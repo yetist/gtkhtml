@@ -205,7 +205,7 @@
 					<menuitem name="HeadingH6" verb="" _label="Header _6"/>
 					<menuitem name="HeadingAddress" verb="" _label="A_ddress"/>
 					<menuitem name="HeadingBulletedList" verb="" _label="_Bulleted List"/>
- 					<menuitem name="HeadingNumberedList" verb="" _label="_Numbered List"/> 
+ 					<menuitem name="HeadingNumberedList" verb="" _label="Numbered _List"/> 
 
 					<menuitem name="HeadingRomanList" verb="" _label="_Roman Numeral List"/> 
 					<menuitem name="HeadingAlphabeticalList" verb="" _label="_Alphabetical List"/> 				</submenu>

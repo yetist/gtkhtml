@@ -1,3 +1,8 @@
+2001-10-06  Larry Ewing  <lewing@ximian.com>
+
+	* GNOME_GtkHTML_Editor.xml.in: change the shortcut for Numbered
+	List from n to l.
+
 2001-10-05  Radek Doulik  <rodo@ximian.com>
 
 	* image.c (insert_or_apply): use html_image_edit_set_url
