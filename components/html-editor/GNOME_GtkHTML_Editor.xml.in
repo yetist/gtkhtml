@@ -20,8 +20,8 @@
 
 			<cmd name="InsertImage" _label="_Image..." _tip="Insert image into document..." pixtype="pixbuf"/>
 			<cmd name="InsertLink"  _label="_Link..." _tip="Insert HTML link into document..." pixtype="pixbuf"/>
-			<cmd name="InsertRule"  _label="_Rule..." _tip="Insert rule into document..." pixtype="pixbuf"/>
-			<cmd name="InsertTable" _label="_Table..." _tip="Insert table into document..." pixtype="pixbuf"/>
+			<cmd name="InsertRule"  _label="_Rule..." _tip="Insert rule into document..."/>
+			<cmd name="InsertTable" _label="_Table..." _tip="Insert table into document..."/>
 			<cmd name="InsertTemplate" _label="Te_mplate..." _tip="Insert HTML template into document..."/>
 			<cmd name="InsertTextFile" _label="Te_xt file..." _tip="Insert text file into document..."/>
 			<cmd name="InsertHTMLFile" _label="_HTML file..." _tip="Insert HTML file into document..."/>
@@ -146,8 +146,10 @@
 			<placeholder name="Component">
 				<menuitem name="InsertImage" verb=""/>
 				<menuitem name="InsertLink"  verb=""/>
-				<menuitem name="InsertRule"  verb=""/>
-				<menuitem name="InsertTable" verb=""/>
+				<menuitem name="InsertRule"  verb=""
+				pixtype="filename" pixname="@ICONSDIR@/insert-rule-16.png"/>
+				<menuitem name="InsertTable" verb=""
+				pixtype="filename" pixname="@ICONSDIR@/insert-table-16.png"/>
 				<menuitem name="InsertTextFile" verb=""/>
 				<menuitem name="InsertHTMLFile" verb=""/>
 				<submenu name="Smiley" _label="_Smiley"
@@ -289,8 +291,10 @@
 
 		<toolitem name="InsertImage" verb="" _label="Image"/>
 		<toolitem name="InsertLink" verb="" _label="Link"/>
-		<toolitem name="InsertRule" verb="" _label="Rule"/>
-		<toolitem name="InsertTable" verb="" _label="Table"/>
+		<toolitem name="InsertRule" verb="" _label="Rule"
+		pixtype="filename" pixname="@ICONSDIR@/insert-rule-24.png"/>
+		<toolitem name="InsertTable" verb="" _label="Table"
+		pixtype="filename" pixname="@ICONSDIR@/insert-table-24.png"/>
 	</dockitem>
 
 </Root> 

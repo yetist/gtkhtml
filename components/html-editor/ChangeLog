@@ -1,3 +1,11 @@
+2005-01-24  Radek Doulik  <rodo@ximian.com>
+
+	* GNOME_GtkHTML_Editor[-emacs].xml.in: use own icons for insert
+	rule/table
+
+	* menubar.c (pixmaps_map): commented out insert rule/table icons
+	entries, use our own so that we can use gnome 2.6 gnome icon theme
+
 2005-01-21  Radek Doulik  <rodo@ximian.com>
 
 	* menubar.c (menubar_setup): simplified and fixed

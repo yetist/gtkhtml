@@ -151,8 +151,10 @@
 			<placeholder name="Component">
 				<menuitem name="InsertImage" verb=""/>
 				<menuitem name="InsertLink"  verb=""/>
-				<menuitem name="InsertRule"  verb=""/>
-				<menuitem name="InsertTable" verb=""/>
+				<menuitem name="InsertRule"  verb=""
+				pixtype="filename" pixname="@ICONSDIR@/insert-rule-16.png"/>
+				<menuitem name="InsertTable" verb=""
+				pixtype="filename" pixname="@ICONSDIR@/insert-table-16.png"/>
 				<menuitem name="InsertTextFile" verb=""/>
 				<menuitem name="InsertHTMLFile" verb=""/>
 				<submenu name="Smiley" _label="_Smiley"
@@ -286,8 +288,10 @@
 
 		<toolitem name="InsertImage" verb="" _label="Image"/>
 		<toolitem name="InsertLink" verb="" _label="Link"/>
-		<toolitem name="InsertRule" verb="" _label="Rule"/>
-		<toolitem name="InsertTable" verb="" _label="Table"/>
+		<toolitem name="InsertRule" verb="" _label="Rule"
+		pixtype="filename" pixname="@ICONSDIR@/insert-rule-24.png"/>
+		<toolitem name="InsertTable" verb="" _label="Table"
+		pixtype="filename" pixname="@ICONSDIR@/insert-table-24.png"/>
 		<toolitem name="InsertTemplate" verb="" _label="Template"/>
 	</dockitem>
 

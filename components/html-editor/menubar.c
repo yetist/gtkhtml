@@ -723,8 +723,8 @@ static EditorUIPixmap pixmaps_map [] =
 	{ "/Toolbar/EditFind", "stock_search", EDITOR_ICON_TOOLBAR },
 	{ "/Toolbar/InsertImage", "stock_insert_image", EDITOR_ICON_TOOLBAR },
 	{ "/Toolbar/InsertLink", "stock_insert-url", EDITOR_ICON_TOOLBAR },
-	{ "/Toolbar/InsertRule", "stock_insert-rule", EDITOR_ICON_TOOLBAR },
-	{ "/Toolbar/InsertTable", "stock_insert-table", EDITOR_ICON_TOOLBAR },
+/* 	{ "/Toolbar/InsertRule", "stock_insert-rule", EDITOR_ICON_TOOLBAR }, */
+/* 	{ "/Toolbar/InsertTable", "stock_insert-table", EDITOR_ICON_TOOLBAR }, */
 
 	{ "/menu/Edit/EditUndoRedo/EditUndo", "stock_undo", EDITOR_ICON_MENU },
 	{ "/menu/Edit/EditUndoRedo/EditRedo", "stock_redo", EDITOR_ICON_MENU },
@@ -740,8 +740,8 @@ static EditorUIPixmap pixmaps_map [] =
 
 	{ "/menu/Insert/Component/InsertImage", "stock_insert_image", EDITOR_ICON_MENU },
 	{ "/menu/Insert/Component/InsertLink", "stock_insert-url", EDITOR_ICON_MENU },
-	{ "/menu/Insert/Component/InsertRule", "stock_insert-rule", EDITOR_ICON_MENU },
-	{ "/menu/Insert/Component/InsertTable", "stock_insert-table", EDITOR_ICON_MENU },
+/* 	{ "/menu/Insert/Component/InsertRule", "stock_insert-rule", EDITOR_ICON_MENU }, */
+/* 	{ "/menu/Insert/Component/InsertTable", "stock_insert-table", EDITOR_ICON_MENU }, */
 };
 
 void
