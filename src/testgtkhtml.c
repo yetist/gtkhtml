@@ -315,6 +315,7 @@ print_preview_cb (GtkWidget *widget,
 	if (font)
 		g_object_unref (font);
 	
+	gnome_print_job_close (print_master);
 	preview = gnome_print_job_preview_new (print_master, "Print Preview");
 	gtk_widget_show (preview);
 
