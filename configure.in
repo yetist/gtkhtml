@@ -23,7 +23,7 @@ AC_SUBST(CFLAGS)
 AC_SUBST(CPPFLAGS)
 AC_SUBST(LDFLAGS)
 
-ALL_LINGUAS="az cs da de el es fi fr gl it ja ko nl no pl pt_BR ru sk sl sv tr uk"
+ALL_LINGUAS="az cs da de el es fi fr gl hu it ja ko nl no pl pt_BR ru sk sl sv tr uk"
 AM_GNOME_GETTEXT
 
 dnl ******************************
