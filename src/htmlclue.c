@@ -48,7 +48,6 @@ draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor,
       gint x, gint y, gint width, gint height, gint tx, gint ty)
 {
 	HTMLObject *obj;
-	static GdkColor red = {0}, green = {0}, blue = {0};
 	
 	if (y + height < o->y - o->ascent || y > o->y + o->descent)
 		return;
@@ -56,31 +55,6 @@ draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor,
 	tx += o->x;
 	ty += o->y - o->ascent;
 	
-	if (!red.pixel) {
-		gdk_color_parse ("red", &red);
-		gdk_colormap_alloc_color (gdk_window_get_colormap (html_painter_get_window (p)),
-					  &red, FALSE, TRUE);
-		gdk_color_parse ("green", &green);
-		gdk_colormap_alloc_color (gdk_window_get_colormap (html_painter_get_window (p)),
-					  &green, FALSE, TRUE);
-		gdk_color_parse ("blue", &blue);
-		gdk_colormap_alloc_color (gdk_window_get_colormap (html_painter_get_window (p)),
-					  &blue, FALSE, TRUE);
-	}
-
-#if 0
-	/* FIXME FIXME!  Temporary hack.  */
-	/* Draw a rect around the clue */
-	if (HTML_OBJECT_TYPE (o) == HTML_TYPE_CLUEV) {
-		html_painter_set_pen (p, &red);
-	} else if (HTML_OBJECT_TYPE (o) == HTML_TYPE_CLUEFLOW) {
-		html_painter_set_pen (p, &green);
-		html_painter_draw_rect (p, tx, ty, o->width, o->ascent + o->descent);
-	} else if (HTML_OBJECT_TYPE (o) == HTML_TYPE_TABLECELL) {
-		html_painter_set_pen (p, &blue);
-	}
-#endif
-
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
 		if (!(obj->flags & HTML_OBJECT_FLAG_ALIGNED)) {
 			html_object_draw (obj, p, cursor,
