@@ -469,7 +469,8 @@ do_redo (HTMLEngine *engine,
 
 	data = (ActionData *) closure;
 
-	set_font_style (engine, data->and_mask, data->or_mask, data->count, data->backwards, FALSE);
+	set_font_style (engine, data->and_mask, data->or_mask, data->count,
+			! data->backwards, FALSE);
 
 	setup_undo (engine, data);
 }
