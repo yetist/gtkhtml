@@ -44,6 +44,7 @@
 
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
+#include "htmldrawqueue.h"
 #include "htmlengine.h"
 #include "htmlengine-save.h"
 #include "htmlenumutils.h"
@@ -863,13 +864,56 @@ html_image_factory_types (GtkHTMLStream *stream,
 }
 
 static void
+update_or_redraw (HTMLImagePointer *ip)
+{
+	GSList *list;
+	gboolean update = FALSE;
+
+	for (list = ip->interests; list; list = list->next) {
+		if (list->data == NULL)
+			update = TRUE;
+		else {
+			HTMLImage *image = HTML_IMAGE (list->data);
+			gint pixel_size = html_painter_get_pixel_size (ip->factory->engine->painter);
+			gint w, h;
+
+			w = get_actual_width (image, ip->factory->engine->painter)
+				+ (image->border * 2 + 2 * image->hspace) * pixel_size;
+			h = get_actual_height (image, ip->factory->engine->painter)
+				+ (image->border * 2 + 2 * image->vspace) * pixel_size;
+
+			/* printf ("%dx%d  <-->  %dx%d\n", w, h, HTML_OBJECT (list->data)->width,
+			   HTML_OBJECT (list->data)->ascent + HTML_OBJECT (list->data)->descent); */
+
+			if (w != HTML_OBJECT (list->data)->width
+			    || h != HTML_OBJECT (list->data)->ascent + HTML_OBJECT (list->data)->descent) {
+				html_object_change_set (HTML_OBJECT (list->data), HTML_CHANGE_ALL_CALC);
+				update = TRUE;
+			}
+		}
+	}
+
+	if (!update) {
+		/* printf ("REDRAW\n"); */
+		for (list = ip->interests; list; list = list->next)
+			if (list->data) // && html_object_is_visible (HTML_OBJECT (list->data)))
+				html_draw_queue_add (ip->factory->engine->draw_queue, HTML_OBJECT (list->data));
+		if (ip->interests)
+			html_draw_queue_flush (ip->factory->engine->draw_queue);
+	} else {
+		/* printf ("UPDATE\n"); */
+		html_engine_schedule_update (ip->factory->engine);
+	}
+}
+
+static void
 html_image_factory_end_pixbuf (GtkHTMLStream *stream,
 			       GtkHTMLStreamStatus status,
 			       gpointer user_data)
 {
 	HTMLImagePointer *ip = user_data;
 
-	html_engine_schedule_update (ip->factory->engine);
+	update_or_redraw (ip);
 	gtk_object_unref (GTK_OBJECT (ip->loader));
 	ip->loader = NULL;
 
@@ -898,21 +942,11 @@ static void
 html_image_factory_area_prepared (GdkPixbufLoader *loader, HTMLImagePointer *ip)
 {
 	if (!ip->animation) {
-		GSList *cur;
-
 		ip->pixbuf = gdk_pixbuf_loader_get_pixbuf (ip->loader);
 		g_assert (ip->pixbuf);
 
-		/* set change flags on images using this image_ptr */
-		cur = ip->interests;
-		while (cur) {
-			if (cur->data)
-				html_object_change_set (HTML_OBJECT (cur->data), HTML_CHANGE_ALL_CALC);
-			cur = cur->next;
-		}
-
 		gdk_pixbuf_ref (ip->pixbuf);
-		html_engine_schedule_update (ip->factory->engine);
+		update_or_redraw (ip);
 	}
 }
 

@@ -1,3 +1,11 @@
+2001-09-06  Radek Doulik  <rodo@ximian.com>
+
+	* htmlimage.c (update_or_redraw): new helper function, takes care
+	about updating when new data arrives thru stream. It schedules
+	update only if image size changed, otherwise it just redraws
+	(html_image_factory_end_pixbuf): use update_or_redraw
+	(html_image_factory_area_prepared): ditto
+
 2001-09-03  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c (parse_table): don't discard broken tables
