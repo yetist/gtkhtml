@@ -99,6 +99,9 @@ set_frame_cb (BonoboControl *control,
 
 	control_data = (GtkHTMLControlData *) data;
 
+	if (bonobo_control_get_control_frame (control) == CORBA_OBJECT_NIL)
+		return;
+
 	remote_ui_container = bonobo_control_get_remote_ui_container (control);
 	ui_component = bonobo_control_get_ui_component (control);
 	bonobo_ui_component_set_container (ui_component, remote_ui_container);

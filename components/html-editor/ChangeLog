@@ -1,5 +1,8 @@
 2001-04-14  Larry Ewing  <lewing@ximian.com>
 
+	* editor-control-factory.c (set_frame_cb): return if the frame is
+	NIL.
+
 	* control-data.c (gtk_html_control_data_destroy): unref the
 	painters when we are destroyed.
 
