@@ -211,7 +211,7 @@ get_real_font_size (HTMLFontManager *manager, GtkHTMLFontStyle style)
 	gint size = (get_font_num (style) & GTK_HTML_FONT_STYLE_SIZE_MASK) -  GTK_HTML_FONT_STYLE_SIZE_3;
 	gint base_size = style & GTK_HTML_FONT_STYLE_FIXED ? manager->fix_size : manager->var_size;
 
-	return PANGO_PIXELS (manager->magnification * (base_size + (size > 0 ? (1 << size) : size) * base_size/8.0));
+	return manager->magnification * (base_size + (size > 0 ? (1 << size) : size) * base_size/8.0);
 }
 
 static void

@@ -898,7 +898,7 @@ get_pixel_size (HTMLPainter *painter)
 static inline gdouble
 get_font_size (HTMLPrinter *printer, gboolean points, gdouble size)
 {
-	return printer->scale * (points ? size / 10 : size);
+	return printer->scale * (points ? PANGO_PIXELS (size) / 10 : PANGO_PIXELS (size));
 }
 
 static HTMLFont *

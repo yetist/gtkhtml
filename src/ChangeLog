@@ -1,5 +1,14 @@
 2003-12-03  Radek Doulik  <rodo@ximian.com>
 
+	* htmlprinter.c (get_font_size): scale font size down from pango
+	metric
+
+	* htmlgdkpainter.c (alloc_font): don't scale font size up, it's
+	already in pango metric now
+
+	* htmlfontmanager.c (get_real_font_size): keep size in pango
+	metric
+
 	* htmltext.c (html_pango_attr_font_size_calc): pango is using
 	1/PANGO_SCALE and not 1/1000 as stated in documentation - pointed
 	out by ross
