@@ -1494,7 +1494,7 @@ save (HTMLObject *self, HTMLEngineSaveState *state)
 
 			attrs = pango_attr_iterator_get_attrs (iter);
 			pango_attr_iterator_range (iter, &start_index, &end_index);
-			if (end_index == G_MAXINT)
+			if (end_index > text->text_bytes)
 				end_index = text->text_bytes;
 
 			if (l && !link_started) {

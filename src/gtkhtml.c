@@ -5077,8 +5077,11 @@ static gchar *
 get_value_nick (GtkHTMLCommandType com_type)
 {
 	GEnumValue *val;
+	GEnumClass *enum_class;
 
-	val = g_enum_get_value (g_type_class_peek (GTK_TYPE_HTML_COMMAND), com_type);
+	enum_class = g_type_class_ref (GTK_TYPE_HTML_COMMAND);
+	val = g_enum_get_value (enum_class, com_type);
+	g_type_class_unref (enum_class);
 	if (val)
 		return val->value_nick;
 

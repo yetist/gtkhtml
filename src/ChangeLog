@@ -1,7 +1,11 @@
 2004-02-03  Radek Doulik  <rodo@ximian.com>
 
+	* gtkhtml.c (get_value_nick): use g_type_class_ref/unref rather
+	than g_type_class_peek
+
 	* htmltext.c (html_text_tail_white_space): fix "\ttext" and offset
 	== 1 problem where we were accessing memory before string begin
+	(save): make sure end_index <= text->text_bytes
 
 2004-02-02  Radek Doulik  <rodo@ximian.com>
 
