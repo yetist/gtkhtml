@@ -1,3 +1,8 @@
+2003-04-08  Larry Ewing  <lewing@ximian.com>
+
+	* htmlcolorset.c (html_colorset_set_style): make the default
+	parsing logic slightly more robust.
+
 2003-04-08  Radek Doulik  <rodo@ximian.com>
 
 	* htmlclueflow.c (set_painter): new method, reset indent_width

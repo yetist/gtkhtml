@@ -141,15 +141,18 @@ static GdkColor *
 get_prop_color  (GtkWidget *w, char *name, char *dv)
 {
 	GdkColor c;
-	GdkColor *color;
+	GdkColor *color = NULL;
 
 	gtk_widget_style_get (w, name, &color, NULL);
 	
 	if (color)
 		return color;
 	
-	gdk_color_parse (dv, &c);
-	return gdk_color_copy (&c);
+	if (gdk_color_parse (dv, &c))
+		return gdk_color_copy (&c);
+
+	g_warning ("falling back to text color");
+	return (gdk_color_copy (&w->style->text [GTK_STATE_NORMAL]));
 }
 
 #define SET_GCOLOR(t,c) \
@@ -170,7 +173,7 @@ html_colorset_set_style (HTMLColorSet *s, GtkWidget *w)
 	SET_GCOLOR (HighlightText,   style->text [GTK_STATE_SELECTED]);
 	SET_GCOLOR (HighlightNF,     style->base [GTK_STATE_ACTIVE]);
 	SET_GCOLOR (HighlightTextNF, style->text [GTK_STATE_ACTIVE]);
-	color = get_prop_color (w, "link_color", "0000ff");
+	color = get_prop_color (w, "link_color", "#0000ff");
 	SET_GCOLOR (Link, *color);
 	gdk_color_free (color);
 	color = get_prop_color (w, "alink_color", "#0000ff");
