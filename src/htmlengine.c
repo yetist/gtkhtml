@@ -1731,7 +1731,7 @@ element_parse_a (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		e->url = url;
 	}
 	
-	if (html_element_get_attr (element, "target", &target))
+	if (html_element_get_attr (element, "target", &value))
 		target = g_strdup (value);
 
 	if (html_element_get_attr (element, "id", &value))
