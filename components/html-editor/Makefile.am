@@ -160,6 +160,7 @@ $(server_in_files:.server.in.in=.server.in): $(server_in_files) Makefile
 	sed -e "s|\@GNOME_GTKHTML_EDITOR_LOCATION\@|$(location)|g" \
 	-e "s|\@EDITOR_API_VERSION\@|$(EDITOR_API_VERSION)|g" \
 	-e "s|\@GNOME_GTKHTML_EDITOR_TYPE\@|$(GNOME_GTKHTML_EDITOR_TYPE)|g" $< > $@
+
 @INTLTOOL_SERVER_RULE@
 
 GNOME_GtkHTML_Editor.xml: GNOME_GtkHTML_Editor.xml.in Makefile
