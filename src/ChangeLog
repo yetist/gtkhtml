@@ -1,3 +1,18 @@
+2000-01-28  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine.c (insert_text): Refuse to insert leading white space
+	if we have no paragraph, if there is a pending paragraph or if the
+	current clueflow is empty.
+
+	* htmlengine.h: Made `avoid_para' and `pending_para' plain
+	booleans (no longer 1 bit wide) because debugging is easier this
+	way.
+
+	* htmlengine.c (parse_d): Close the flow and set a pending
+	paragraph instead of adding a newline.
+	(insert_text): Skip all the leading whitespace if we are about to
+	create a new paragraph. 
+
 2000-01-28  NotZed  <notzed@zedzone.helixcode.com>
 
 	* tests/test10.html: A simple test driver for embedded widgets.

@@ -353,8 +353,15 @@ insert_text (HTMLEngine *e,
 	font_style = current_font_style (e);
 	color = current_color (e);
 
-	if (e->pending_para && is_whitespace (text))
-		return;
+	printf ("Inserting `%s' %s\n", text, is_whitespace (text) ? "[white]" : "");
+
+	if (e->pending_para || e->flow == NULL || HTML_CLUE (e->flow)->head == NULL) {
+		while (*text == ' ')
+			text++;
+
+		if (*text == 0)
+			return;
+	}
 
 	if (e->flow == NULL)
 		prev = NULL;
@@ -1676,19 +1683,18 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 				e->quote_level--;
 		}
 
-		add_line_break (e, _clue, HTML_CLEAR_ALL);
+		close_flow (e, _clue);
 	} else if (strncmp( str, "dd", 2 ) == 0) {
 		if (html_stack_top (e->glossaryStack) == NULL)
 			return;
 
-		if (GPOINTER_TO_INT (html_stack_top (e->glossaryStack))
-		    != HTML_GLOSSARY_DD ) {
+		if (GPOINTER_TO_INT (html_stack_top (e->glossaryStack)) != HTML_GLOSSARY_DD ) {
 			html_stack_push (e->glossaryStack,
 					 GINT_TO_POINTER (HTML_GLOSSARY_DD) );
 			e->quote_level++;
 		}
 
-		add_line_break (e, _clue, HTML_CLEAR_ALL);
+		close_flow (e, _clue);
 	}
 }
 

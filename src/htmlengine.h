@@ -186,11 +186,11 @@ struct _HTMLEngine {
            added to a flow.  The purpose is to avoid having paragraph breaks to
            be inserted in sequence, or after elements that have some vspace of
            their own.  */
-	gboolean avoid_para : 1;
+	gboolean avoid_para;
 
 	/* This is TRUE if we want a paragraph break to be inserted before the
            next element.  */
-	gboolean pending_para : 1;
+	gboolean pending_para;
 
 	/* Alignment for the pending paragraph we are going to insert.  */
 	HTMLHAlignType pending_para_alignment;
