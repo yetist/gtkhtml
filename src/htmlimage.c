@@ -126,6 +126,24 @@ calc_size (HTMLObject *o, HTMLObject *parent)
 {
 }
 
+static const gchar *
+get_url (HTMLObject *o)
+{
+	HTMLImage *image;
+
+	image = HTML_IMAGE (o);
+	return image->url;
+}
+
+static const gchar *
+get_target (HTMLObject *o)
+{
+	HTMLImage *image;
+
+	image = HTML_IMAGE (o);
+	return image->target;
+}
+
 
 void
 html_image_type_init (void)
@@ -149,6 +167,8 @@ html_image_class_init (HTMLImageClass *image_class,
 	object_class->calc_min_width = calc_min_width;
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->calc_size = calc_size;
+	object_class->get_url = get_url;
+	object_class->get_target = get_target;
 }
 
 void
@@ -156,6 +176,7 @@ html_image_init (HTMLImage *image,
 		 HTMLImageClass *klass,
 		 HTMLImageFactory *imf,
 		 gchar *filename,
+		 const gchar *url, const gchar *target,
 		 gint max_width, 
 		 gint width, gint height,
 		 gint percent, gint border)
@@ -168,6 +189,9 @@ html_image_init (HTMLImage *image,
 
 	image->predefinedWidth = (width < 0 && !percent) ? FALSE : TRUE;
 	image->predefinedHeight = height < 0 ? FALSE : TRUE;
+
+	image->url = g_strdup (url);
+	image->target = g_strdup (target);
 
 	image->border = border;
 
@@ -192,14 +216,15 @@ html_image_init (HTMLImage *image,
 }
 
 HTMLObject *
-html_image_new (HTMLImageFactory *imf, gchar *filename, gint max_width, 
-		gint width, gint height, gint percent, gint border)
+html_image_new (HTMLImageFactory *imf, gchar *filename,
+		const gchar *url, const gchar *target,
+		gint max_width, gint width, gint height, gint percent, gint border)
 {
 	HTMLImage *image;
 
 	image = g_new(HTMLImage, 1);
 	html_image_init (image, &html_image_class, imf, filename,
-			 max_width, width, height, percent, border);
+			 url, target, max_width, width, height, percent, border);
 
 	return HTML_OBJECT (image);
 }

@@ -1,3 +1,13 @@
+1999-12-05  Ettore Perazzoli  <ettore@gnu.org>
+
+	* htmlengine.c (parse_i): Use the current URL and target for the
+	new image.
+
+	* htmlimage.c (html_image_init): New parameters `url', `target'.
+	(html_image_new): Likewise.
+
+	* htmlimage.h: New members `url' and `target' in `HTMLImage'.
+
 1999-12-04  Ettore Perazzoli  <ettore@gnu.org>
 
 	* testgtkhtml.c (do_request_delete): Do not delete the request.  I

@@ -50,6 +50,9 @@ struct _HTMLImage {
 	gint border;
 	HTMLEngine *engine;
 
+	gchar *url;
+	gchar *target;
+
         HTMLImagePointer *image_ptr;
 };
 
@@ -65,9 +68,11 @@ void html_image_type_init (void);
 void html_image_class_init (HTMLImageClass *klass, HTMLType type);
 void html_image_init (HTMLImage *image, HTMLImageClass *klass,
 		      HTMLImageFactory *imf, gchar *filename,
+		      const gchar *url, const gchar *target,
 		      gint max_width, gint width, gint height, gint percent,
 		      gint border);
 HTMLObject *html_image_new (HTMLImageFactory *imf, gchar *filename,
+			    const gchar *url, const gchar *target,
 			    gint max_width, gint width, gint height,
 			    gint percent, gint border);
 

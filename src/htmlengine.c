@@ -1625,7 +1625,9 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 			if (!p->flow)
 				html_engine_new_flow (p, _clue);
 
-			image = html_image_new (p->image_factory, filename, _clue->max_width, 
+			image = html_image_new (p->image_factory, filename,
+						p->url, p->target,
+						_clue->max_width, 
 						width, height, percent, border);
 		}
 
