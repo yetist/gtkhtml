@@ -1,3 +1,8 @@
+2000-04-04  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlimage.c: don't use members of GdkPixbufAnimation directly
+	and use gdk_pixbuf functions instead, so code is cleaner now
+
 2000-04-03  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* gtkhtml.c

@@ -67,7 +67,7 @@ get_actual_width (HTMLImage *image,
 	} else if (image->image_ptr == NULL || pixbuf == NULL) {
 		width = DEFAULT_SIZE * html_painter_get_pixel_size (painter);
 	} else {
-		width = ((anim) ? anim->width : gdk_pixbuf_get_width (pixbuf))
+		width = ((anim) ? gdk_pixbuf_animation_get_width (anim) : gdk_pixbuf_get_width (pixbuf))
 			* html_painter_get_pixel_size (painter);
 	}
 
@@ -87,7 +87,7 @@ get_actual_height (HTMLImage *image,
 	} else if (image->image_ptr == NULL || pixbuf == NULL) {
 		height = DEFAULT_SIZE * html_painter_get_pixel_size (painter);
 	} else {
-		height = (((anim) ? anim->height : gdk_pixbuf_get_height (pixbuf))
+		height = (((anim) ? gdk_pixbuf_animation_get_height (anim) : gdk_pixbuf_get_height (pixbuf))
 			  * html_painter_get_pixel_size (painter));
 	}
 
@@ -429,7 +429,7 @@ render_cur_frame (HTMLImage *image, gint nx, gint ny)
 	HTMLPainter       *painter;
 	HTMLImageAnimation *anim = image->animation;
 	GdkPixbufAnimation *ganim = image->image_ptr->animation;
-	GList *cur = ganim->frames;
+	GList *cur = gdk_pixbuf_animation_get_frames (ganim);
 	gint w, h;
 
 	painter = image->image_ptr->factory->engine->painter;
@@ -496,13 +496,17 @@ html_image_animation_timeout (HTMLImage *image)
 	ny = anim->y - (ney - anim->ey);
 
 	if (anim->active) {
-		if (MAX(0, nx) < MIN(engine->width, nx+ganim->width)
-		    && MAX(0, ny) < MIN(engine->height, ny+ganim->height)) {
+		gint aw, ah;
+
+		aw = gdk_pixbuf_animation_get_width (ganim);
+		ah = gdk_pixbuf_animation_get_height (ganim);
+		if (MAX(0, nx) < MIN(engine->width, nx+aw)
+		    && MAX(0, ny) < MIN(engine->height, ny+ah)) {
 			painter = engine->painter;
 			html_painter_begin (painter,
 					    nx, ny,
-					    nx + ganim->width,
-					    ny + ganim->height);
+					    nx + aw,
+					    ny + ah);
 			render_cur_frame (image, nx, ny);
 			html_painter_end (painter);
 		}
@@ -512,7 +516,7 @@ html_image_animation_timeout (HTMLImage *image)
 					 (GtkFunction) html_image_animation_timeout, (gpointer) image);
 	anim->cur_frame = anim->cur_frame->next;
 	if (!anim->cur_frame)
-		anim->cur_frame = image->image_ptr->animation->frames;
+		anim->cur_frame = gdk_pixbuf_animation_get_frames (image->image_ptr->animation);
 
 	return FALSE;
 }
@@ -522,13 +526,14 @@ html_image_animation_start (HTMLImage *image)
 {
 	HTMLImageAnimation *anim = image->animation;
 
-	if (anim && image->image_ptr->animation->n_frames > 1) {
+	if (anim && gdk_pixbuf_animation_get_num_frames (image->image_ptr->animation) > 1) {
 		if (anim->timeout == 0) {
-			printf ("start animation image %p anim %p\n", image, anim);
-			anim->cur_frame = image->image_ptr->animation->frames->next;
+			GList *frames = gdk_pixbuf_animation_get_frames (image->image_ptr->animation);
+
+			anim->cur_frame = frames->next;
 			anim->cur_n = 1;
 			anim->timeout = gtk_timeout_add (10*((GdkPixbufFrame *)
-							     image->image_ptr->animation->frames->data)->delay_time,
+							     frames->data)->delay_time,
 							 (GtkFunction) html_image_animation_timeout, (gpointer) image);
 		}
 	}
@@ -554,7 +559,7 @@ html_image_factory_frame_done (GdkPixbufLoader *loader, HTMLImagePointer *ip)
 	}
 	g_assert (ip->animation);
 
-	if (ip->animation->n_frames > 1) {
+	if (gdk_pixbuf_animation_get_num_frames (ip->animation) > 1) {
 		GSList *cur = ip->interests;
 		HTMLImage *image;
 
@@ -639,12 +644,12 @@ html_image_animation_new (HTMLImage *image)
 	HTMLImageAnimation *animation;
 
 	animation = g_new (HTMLImageAnimation, 1);
-	animation->cur_frame = image->image_ptr->animation->frames;
+	animation->cur_frame = gdk_pixbuf_animation_get_frames (image->image_ptr->animation);
 	animation->cur_n = 0;
 	animation->timeout = 0;
 	animation->pixbuf = gdk_pixbuf_new (ART_PIX_RGB, TRUE, 8,
-					    image->image_ptr->animation->width,
-					    image->image_ptr->animation->height);
+					    gdk_pixbuf_animation_get_width (image->image_ptr->animation),
+					    gdk_pixbuf_animation_get_height (height));
 	animation->active = FALSE;
 
 	return animation;
@@ -704,7 +709,7 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 	if (i) {
 		i->image_ptr      = retval;
 
-		if (retval->animation && retval->animation->n_frames > 1) {
+		if (retval->animation && gdk_pixbuf_animation_get_num_frames (retval->animation) > 1) {
 			i->animation = html_image_animation_new (i);
 			html_image_animation_start (i);
 		}
