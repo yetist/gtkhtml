@@ -1,5 +1,9 @@
 2001-09-21  Larry Ewing  <lewing@ximian.com>
 
+	* bump versions for snapshot.
+
+2001-09-21  Larry Ewing  <lewing@ximian.com>
+
 	* Make gtkhtml-0.13.0 release.
 
 	* configure.in: bump the version number to 0.13.0
