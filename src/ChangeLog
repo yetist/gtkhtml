@@ -1,3 +1,9 @@
+2001-04-30  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml-properties.c: Frederic Crozat <fcrozat@mandrakesoft.com>
+	- This patch (against gtkhtml 0.9.2) adds a missing include and therefore
+	remove a warning when compiling with latest glibc (2.2.2)
+
 2001-04-29  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit.c (html_engine_spell_check_range): if (begin)

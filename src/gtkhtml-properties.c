@@ -21,6 +21,7 @@
 */
 
 #include <config.h>
+#include <string.h>
 #include "gtkhtml.h"
 #include "gtkhtml-properties.h"
 
