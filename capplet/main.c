@@ -28,7 +28,7 @@
 #include "gnome-bindings-prop.h"
 #include "../src/gtkhtml.h"
 
-#define CUSTOM_KEYMAP_NAME "Custom"
+/* #define CUSTOM_KEYMAP_NAME "Custom" */
 #define EMACS_KEYMAP_NAME "Emacs like"
 #define XEMACS_KEYMAP_NAME "XEmacs like"
 #define MS_KEYMAP_NAME "MS like"
@@ -45,8 +45,8 @@ static GtkHTMLClassProperties *saved_prop;
 static GtkHTMLClassProperties *orig_prop;
 static GtkHTMLClassProperties *actual_prop;
 
-static GList *saved_bindings;
-static GList *orig_bindings;
+/* static GList *saved_bindings;
+   static GList *orig_bindings; */
 
 static gchar *home_rcfile;
 
@@ -77,7 +77,8 @@ set_ui ()
 	} else if (!strcmp (actual_prop->keybindings_theme, "ms")) {
 		keymap_name = MS_KEYMAP_NAME;
 	} else
-		keymap_name = CUSTOM_KEYMAP_NAME;
+		keymap_name = MS_KEYMAP_NAME;
+		/* keymap_name = CUSTOM_KEYMAP_NAME; */
 	gnome_bindings_properties_select_keymap (GNOME_BINDINGS_PROPERTIES (bi), keymap_name);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (live_spell_check), actual_prop->live_spell_check);
 	gtk_widget_set_sensitive (live_spell_color, actual_prop->live_spell_check);
@@ -135,11 +136,11 @@ apply_editable (void)
 	gchar *keymap_id, *keymap_name;
 
 	/* bindings */
-	gnome_bindings_properties_save_keymap (GNOME_BINDINGS_PROPERTIES (bi), CUSTOM_KEYMAP_NAME, home_rcfile);
+	/* gnome_bindings_properties_save_keymap (GNOME_BINDINGS_PROPERTIES (bi), CUSTOM_KEYMAP_NAME, home_rcfile);
 	gnome_binding_entry_list_destroy (saved_bindings);
 	saved_bindings = gnome_binding_entry_list_copy (gnome_bindings_properties_get_keymap (GNOME_BINDINGS_PROPERTIES (bi),
 											      CUSTOM_KEYMAP_NAME));
-
+	*/
 	/* properties */
 	actual_prop->magic_links = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (magic_check));
 	keymap_name = gnome_bindings_properties_get_keymap_name (GNOME_BINDINGS_PROPERTIES (bi));
@@ -150,7 +151,8 @@ apply_editable (void)
 	} else if (!strcmp (keymap_name, MS_KEYMAP_NAME)) {
 		keymap_id = "ms";
 	} else
-		keymap_id = "custom";
+		keymap_id = "ms";
+	        /* keymap_id = "custom"; */
 
 	g_free (actual_prop->keybindings_theme);
 	actual_prop->keybindings_theme = g_strdup (keymap_id);
@@ -181,11 +183,11 @@ apply (void)
 static void
 revert (void)
 {
-	gnome_bindings_properties_set_keymap (GNOME_BINDINGS_PROPERTIES (bi), CUSTOM_KEYMAP_NAME, orig_bindings);
+	/* gnome_bindings_properties_set_keymap (GNOME_BINDINGS_PROPERTIES (bi), CUSTOM_KEYMAP_NAME, orig_bindings);
 	gnome_binding_entry_list_destroy (saved_bindings);
 	saved_bindings = gnome_binding_entry_list_copy (orig_bindings);
 	gnome_bindings_properties_save_keymap (GNOME_BINDINGS_PROPERTIES (bi), CUSTOM_KEYMAP_NAME, home_rcfile);
-
+	*/
 #ifdef GTKHTML_HAVE_GCONF
 	gtk_html_class_properties_update (orig_prop, client, saved_prop);
 #else
@@ -272,6 +274,7 @@ setup (void)
 	
 	home_rcfile = g_strconcat (gnome_util_user_home (), "/.gnome/gtkhtml-bindings-custom", NULL);
 	gtk_rc_parse (home_rcfile);
+	g_free (home_rcfile);
 	LOAD ("emacs");
 	LOAD ("xemacs");
 	LOAD ("ms");
@@ -286,7 +289,7 @@ setup (void)
 	gnome_bindings_properties_add_keymap (GNOME_BINDINGS_PROPERTIES (bi),
 					      MS_KEYMAP_NAME, "gtkhtml-bindings-ms", "command",
 					      GTK_TYPE_HTML_COMMAND, FALSE);
-	gnome_bindings_properties_add_keymap (GNOME_BINDINGS_PROPERTIES (bi),
+	/* gnome_bindings_properties_add_keymap (GNOME_BINDINGS_PROPERTIES (bi),
 					      CUSTOM_KEYMAP_NAME, "gtkhtml-bindings-custom", "command",
 					      GTK_TYPE_HTML_COMMAND, TRUE);
 	gnome_bindings_properties_select_keymap (GNOME_BINDINGS_PROPERTIES (bi), CUSTOM_KEYMAP_NAME);
@@ -294,6 +297,7 @@ setup (void)
 						       (GNOME_BINDINGS_PROPERTIES (bi), CUSTOM_KEYMAP_NAME));
 	saved_bindings = gnome_binding_entry_list_copy (gnome_bindings_properties_get_keymap
 							(GNOME_BINDINGS_PROPERTIES (bi), CUSTOM_KEYMAP_NAME));
+							gtk_signal_connect (GTK_OBJECT (bi), "changed", changed, NULL); */
 	gtk_signal_connect (GTK_OBJECT (bi), "changed", changed, NULL);
 
 	ebox = glade_xml_get_widget (xml, "bindings_ebox");

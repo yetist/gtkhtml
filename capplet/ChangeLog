@@ -1,3 +1,10 @@
+2001-08-12  Radek Doulik  <rodo@ximian.com>
+
+	* used next part of UI designed by Anna, removed custom
+	keybindings functionality (before it could be rewritten to use XML
+	to store keybindings and allow create custom keybindings based on
+	predefined ones - probably post-1.0 :(
+
 2001-08-07  Radek Doulik  <rodo@ximian.com>
 
 	* main.c (picker_clicked): new signal handler which sets filter

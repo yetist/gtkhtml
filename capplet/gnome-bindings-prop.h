@@ -28,7 +28,7 @@ typedef struct _GnomeBindingsProperties GnomeBindingsProperties;
 typedef struct _GnomeBindingsPropertiesClass GnomeBindingsPropertiesClass;
 
 #include <gtk/gtkwidget.h>
-#include <gtk/gtkvbox.h>
+#include <gtk/gtkframe.h>
 #include <gtk/gtkbindings.h>
 #include <gtk/gtktypeutils.h>
 
@@ -43,27 +43,20 @@ typedef struct _GnomeBindingsPropertiesClass GnomeBindingsPropertiesClass;
 #define GNOME_IS_BINDINGS_PROPERTIES_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), GNOME_TYPE_BINDINGS_PROPERTIES))
 
 struct _GnomeBindingsProperties {
-	GtkVBox base;
+	GtkFrame base;
 
-	GtkWidget *keymaps_clist;
-	GtkWidget *commands_clist;
-	GtkWidget *bindings_clist;
+	GtkWidget *option_keymap;
+	GtkWidget *clist_keymap;
 
-	GtkWidget *add_button;
-	GtkWidget *copy_button;
-	GtkWidget *delete_button;
-
-	GtkWidget *key_entry;
-	GtkWidget *grab_button;
+	/* GtkWidget *button_add;
+	   GtkWidget *button_delete;
+	*/
 
 	GHashTable *bindingsets;
-
-	gboolean commands_active;
-	guint    key_snooper;
 };
 
 struct _GnomeBindingsPropertiesClass {
-	GtkVBoxClass parent_class;
+	GtkFrameClass parent_class;
 
 	void   (*changed)           (GnomeBindingsProperties *prop);
 	void   (*keymap_selected)   (GnomeBindingsProperties *prop, gchar *keymap);
@@ -84,14 +77,6 @@ void               gnome_bindings_properties_add_keymap       (GnomeBindingsProp
 							       gchar                   *signal_name,
 							       GtkType                  arg_enum_type,
 							       gboolean                 editable);
-void               gnome_bindings_properties_set_keymap       (GnomeBindingsProperties *prop,
-							       gchar                   *name,
-							       GList                   *list);
-GList             *gnome_bindings_properties_get_keymap       (GnomeBindingsProperties *prop,
-							       gchar                   *name);
-void               gnome_bindings_properties_save_keymap      (GnomeBindingsProperties *prop,
-							       gchar                   *name,
-							       gchar                   *filename);
 void               gnome_bindings_properties_select_keymap    (GnomeBindingsProperties *prop,
 							       gchar                   *name);
 gchar             *gnome_bindings_properties_get_keymap_name  (GnomeBindingsProperties *prop);
