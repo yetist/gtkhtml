@@ -1379,7 +1379,7 @@ save (HTMLObject *self, HTMLEngineSaveState *state)
 			if (l && !link_started) {
 				Link *link = (Link *) l->data;
 
-				if (link->start_index == start_index) {
+				if (link && link->start_index == start_index) {
 					save_link_open (link, state, &attrs);
 					link_started = TRUE;
 				}
@@ -2532,6 +2532,8 @@ html_link_dup (Link *l)
 void
 html_link_free (Link *link)
 {
+	g_return_if_fail (link != NULL);
+
 	g_free (link->url);
 	g_free (link->target);
 	g_free (link);
