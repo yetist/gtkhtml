@@ -681,6 +681,9 @@ init (GtkHTML* html)
 	html->in_selection = FALSE;
 	html->button_pressed = FALSE;
 
+	html->editable = FALSE;
+	html->load_in_progress = TRUE;
+
 	html->idle_handler_id = 0;
 }
 
@@ -741,7 +744,7 @@ gtk_html_new (void)
 void
 gtk_html_parse (GtkHTML *html)
 {
-	html_engine_parse (html->engine);
+	g_warning ("Calling %s() is now DEPRECATED and not required anymore.", __FUNCTION__);
 }
 
 GtkHTMLStreamHandle
@@ -750,20 +753,37 @@ gtk_html_begin (GtkHTML *html, const char *url)
 	GtkHTMLStreamHandle *handle;
 
 	handle = html_engine_begin (html->engine, url);
+	if (handle == NULL)
+		return NULL;
+
+	html_engine_set_editable (html->engine, FALSE);
+	html_engine_parse (html->engine);
+
+	html->load_in_progress = TRUE;
 
 	return handle;
 }
 
 void
-gtk_html_write (GtkHTML *html, GtkHTMLStreamHandle handle, const gchar *buffer, size_t size)
+gtk_html_write (GtkHTML *html,
+		GtkHTMLStreamHandle handle,
+		const gchar *buffer,
+		size_t size)
 {
-	gtk_html_stream_write(handle, buffer, size);
+	gtk_html_stream_write (handle, buffer, size);
 }
 
 void
-gtk_html_end (GtkHTML *html, GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status)
+gtk_html_end (GtkHTML *html,
+	      GtkHTMLStreamHandle handle,
+	      GtkHTMLStreamStatus status)
 {
-	gtk_html_stream_end(handle, status);
+	gtk_html_stream_end (handle, status);
+
+	html->load_in_progress = FALSE;
+
+	if (html->editable)
+		html_engine_set_editable (html->engine, TRUE);
 }
 
 
@@ -788,4 +808,27 @@ gtk_html_calc_scrollbars (GtkHTML *html)
 	GTK_LAYOUT (html)->hadjustment->page_increment = html->engine->width;
 
 	gtk_layout_set_size (GTK_LAYOUT (html), width, height);
+}
+
+
+void
+gtk_html_set_editable (GtkHTML *html,
+		       gboolean editable)
+{
+	g_return_if_fail (html != NULL);
+	g_return_if_fail (GTK_IS_HTML (html));
+
+	html->editable = editable;
+
+	if (! html->load_in_progress)
+		html_engine_set_editable (html->engine, editable);
+}
+
+gboolean
+gtk_html_get_editable  (const GtkHTML *html)
+{
+	g_return_val_if_fail (html != NULL, FALSE);
+	g_return_val_if_fail (GTK_IS_HTML (html), FALSE);
+
+	return html->editable;
 }

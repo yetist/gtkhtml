@@ -1,5 +1,31 @@
 2000-01-25  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine.c (html_engine_set_editable): Move the cursor to the
+	home if the widget becomes editable.  Also, if the editable state
+	changes, redraw the whole thing.
+	(html_engine_timer_event): Move the cursor home.
+	(html_engine_update_event): Move the cursor home at the end of
+	parsing.
+
+	* testgtkhtml.c (goto_url): Do not call `gtk_html_parse()'
+	anymore.
+
+	* gtkhtml.c (init): Initialize `editable' to `FALSE'.
+	(gtk_html_parse): Turned into a dummy.
+	(gtk_html_begin): Call `html_engine_parse()' too.  Also set
+	`load_in_progress' to `TRUE' and the engine's editable state to
+	`FALSE'.
+	(gtk_html_end): Set `load_in_progress' to `FALSE'.  Set the
+	engine's editable state according to the value of the `editable'
+	member.
+	(gtk_html_set_editable): New function.
+	(gtk_html_get_editable): New function.
+
+	* gtkhtml.h: New members `editable', `load_in_progress' in
+	`GtkHTML'.
+
+	* Makefile.am (libgtkhtmldir): Never compile the HTML component.
+
 	* htmlengine.c (html_engine_timer_event): No longer do the ugly
 	font saving/restoring trick.  I actually don't understand why it
 	was there.

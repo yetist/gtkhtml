@@ -1,0 +1,11 @@
+2000-01-25  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* test-html-editor-control.c: New file.
+
+	* main.c: New file.
+
+	* persist-stream-impl.c: New file.
+	* persist-stream-impl.h: New file.
+
+	* editor-control-factory.c: New file.
+	* editor-control-factory.h: New file.

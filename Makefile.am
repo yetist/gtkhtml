@@ -1,7 +1,13 @@
 if LIBWWW
-DIR_GLIBWWW=glibwww
+DIR_GLIBWWW = glibwww
 else
-DIR_GLIBWWW=
+DIR_GLIBWWW =
+endif
+
+if BONOBO
+DIR_COMPONENTS = components
+else
+DIR_COMPONENTS =
 endif
 
 confexecdir = $(libdir)
@@ -17,8 +23,11 @@ gtkhtmlConf.sh: gtkhtmlConf.sh.in Makefile
 	      < $(srcdir)/gtkhtmlConf.sh.in > gtkhtmlConf.tmp \
 	  && mv gtkhtmlConf.tmp gtkhtmlConf.sh
 
-SUBDIRS = macros $(DIR_GLIBWWW) src
-
+SUBDIRS =					\
+	macros					\
+	$(DIR_GLIBWWW)				\
+	src					\
+	$(DIR_COMPONENTS)
 
 EXTRA_DIST = \
 	html-component.gnorba

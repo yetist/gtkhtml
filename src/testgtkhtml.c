@@ -762,9 +762,7 @@ goto_url(const char *url, int back_or_forward)
 
 	gnome_animator_start (GNOME_ANIMATOR (animator));
 
-
-	if((html_stream_handle = gtk_html_begin (html, url)))
-		gtk_html_parse (html);
+	html_stream_handle = gtk_html_begin (html, url);
 
 	full_url = parse_href (url);
 	on_set_base (NULL, full_url, NULL);

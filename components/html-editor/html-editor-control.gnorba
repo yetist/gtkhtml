@@ -1,0 +1,11 @@
+[control-factory:html-editor]
+type=exe
+repo_id=IDL:GNOME/GenericFactory:1.0
+description=HTML Editor control
+location_info=html-editor-control
+
+[control:html-editor]
+type=factory
+repo_id=IDL:BonoboControl/html-editor-control:1.0 IDL:GNOME/Control:1.0 
+description=An html-editor component
+location_info=control-factory:html-editor

@@ -25,7 +25,7 @@ AC_SUBST(LDFLAGS)
 dnl ******************************
 dnl Check for Bonobo
 dnl ******************************
-try_bonobo=false
+try_bonobo=true
 bonobo=
 bonobo_msg=no
 have_bonobo=false
@@ -109,4 +109,6 @@ Makefile
 macros/Makefile
 src/Makefile
 glibwww/Makefile
+components/Makefile
+components/html-editor/Makefile
 ])

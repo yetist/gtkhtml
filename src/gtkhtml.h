@@ -54,6 +54,8 @@ struct _GtkHTML {
 
 	gboolean in_selection : 1;
 	gboolean button_pressed : 1;
+	gboolean editable : 1;
+	gboolean load_in_progress : 1;
 
 	guint hadj_connection;
 	guint vadj_connection;
@@ -76,16 +78,29 @@ struct _GtkHTMLClass {
 	void (* submit)        (GtkHTML *html, const gchar *method, const gchar *url, const gchar *encoding);
 };
 
-GtkType		    gtk_html_get_type	     (void);
-GtkWidget*	    gtk_html_new	     (void);
-void                gtk_html_parse           (GtkHTML *html);
-GtkHTMLStreamHandle gtk_html_begin           (GtkHTML *html, const char *url);
-void                gtk_html_write           (GtkHTML *html, GtkHTMLStreamHandle handle, 
-                                              const char *buffer, size_t size);
-void                gtk_html_end             (GtkHTML *html, GtkHTMLStreamHandle handle, 
-                                               GtkHTMLStreamStatus status);
-void                gtk_html_calc_scrollbars (GtkHTML *html);
-GtkHTMLStreamHandle gtk_html_stream_ref      (GtkHTMLStreamHandle handle);
-void                gtk_html_stream_unref    (GtkHTMLStreamHandle handle);
+GtkType              gtk_html_get_type         (void);
+GtkWidget           *gtk_html_new              (void);
+
+GtkHTMLStreamHandle  gtk_html_begin            (GtkHTML             *html,
+						const char          *url);
+void                 gtk_html_write            (GtkHTML             *html,
+						GtkHTMLStreamHandle  handle,
+						const char          *buffer,
+						size_t               size);
+void                 gtk_html_end              (GtkHTML             *html,
+						GtkHTMLStreamHandle  handle,
+						GtkHTMLStreamStatus  status);
+void                 gtk_html_calc_scrollbars  (GtkHTML             *html);
+
+GtkHTMLStreamHandle  gtk_html_stream_ref    (GtkHTMLStreamHandle handle);
+void                 gtk_html_stream_unref  (GtkHTMLStreamHandle handle);
+
+void      gtk_html_set_editable  (GtkHTML       *html,
+				  gboolean       editable);
+gboolean  gtk_html_get_editable  (const GtkHTML *html);
+
+/* DEPRECATED.  We'll keep it around for a while just to prevent code from
+   being broken.  */
+void  gtk_html_parse  (GtkHTML *html);
 
 #endif /* _GTKHTML_H_ */

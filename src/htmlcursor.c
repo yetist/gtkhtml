@@ -160,6 +160,8 @@ html_cursor_home (HTMLCursor *cursor,
 	g_return_if_fail (cursor != NULL);
 	g_return_if_fail (engine != NULL);
 
+	puts (__FUNCTION__);
+
 	if (engine->clue == NULL) {
 		cursor->object = NULL;
 		cursor->offset = 0;

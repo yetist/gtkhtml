@@ -7,10 +7,6 @@ lib_LTLIBRARIES = libgtkhtml.la
 
 noinst_PROGRAMS = testgtkhtml
 
-if BONOBO
-bin_PROGRAMS = html-component
-endif
-
 libgtkhtmldir = $(includedir)/gtkhtml
 
 libgtkhtml_HEADERS =				\
@@ -123,19 +119,6 @@ testgtkhtml_LDADD =				\
 	$(GNOME_LIBDIR)				\
 	$(EXTRA_GNOME_LIBS)                     \
 	$(GLIBWWW)
-
-if BONOBO
-
-html_component_SOURCES =			\
-	html-component.c
-
-html_component_LDADD =				\
-	libgtkhtml.la				\
-	$(GNOMEUI_LIBS)				\
-	$(GNOME_LIBDIR)				\
-	$(EXTRA_GNOME_LIBS)
-
-endif
 
 dist-hook:
 	mkdir $(distdir)/tests

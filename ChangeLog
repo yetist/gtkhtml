@@ -1,3 +1,10 @@
+2000-01-25  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* components/Makefile.am: New directory.
+	* components/html-editor/Makefile.am: New directory.
+	* configure.in: Updated accordingly.  Also, check for Bonobo by
+	default.
+
 2000-01-19  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* configure.in (GTKHTML_LIBS): Define and subst `GTKHTML_LIBDIR',

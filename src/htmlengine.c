@@ -2898,20 +2898,19 @@ html_engine_update_event (HTMLEngine *e)
 	
 	/* Scroll page to the top on first display */
 	if (e->newPage) {
-
 		gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->vadjustment, 0);
 		e->newPage = FALSE;
 	}
 
 	if (e->reference ) {
-
 		if (html_engine_goto_anchor (e)) {
-
 			g_free (e->reference);
 			e->reference = NULL;
 		}
-
 	}
+
+	if (! e->parsing && e->editable)
+		html_cursor_home (e->cursor, e);
 
 	html_engine_draw (e, 0, 0, e->width, e->height);
 	
@@ -2934,7 +2933,6 @@ html_engine_update_event (HTMLEngine *e)
 
 		/* Adjust the scrollbars */
 		gtk_html_calc_scrollbars (e->widget);
-
 	}
 
 	return FALSE;
@@ -2945,7 +2943,9 @@ void
 html_engine_schedule_update (HTMLEngine *p)
 {
 	if(p->updateTimer == 0)
-		p->updateTimer = gtk_timeout_add (TIMER_INTERVAL, (GtkFunction) html_engine_update_event, p);
+		p->updateTimer = gtk_timeout_add (TIMER_INTERVAL,
+						  (GtkFunction) html_engine_update_event,
+						  p);
 }
 
 
@@ -2996,7 +2996,7 @@ html_engine_timer_event (HTMLEngine *e)
 
 	html_engine_schedule_update (e);
 
-	if(!e->parsing)
+	if (!e->parsing)
 		retval = FALSE;
 
  out:
@@ -3014,9 +3014,6 @@ html_engine_end (GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, HTMLEng
 	html_tokenizer_end (e->ht);
 	gtk_signal_emit (GTK_OBJECT (e), signals[LOAD_DONE]);
 	html_image_factory_cleanup (e->image_factory);
-
-	if (e->editable)
-		html_cursor_home (e->cursor, e);
 }
 
 
@@ -3260,6 +3257,12 @@ void
 html_engine_set_editable (HTMLEngine *e,
 			  gboolean editable)
 {
+	if (! e->editable && editable)
+		html_cursor_home (e->cursor, e);
+
+	if ((! e->editable && editable) || (e->editable && ! editable))
+		html_engine_draw (e, 0, 0, e->width, e->height);
+
 	e->editable = editable;
 }
 
