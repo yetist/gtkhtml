@@ -254,26 +254,25 @@ static gboolean
 parse_color (const gchar *text,
 	     GdkColor *color)
 {
-	gchar *tmp;
+	gchar c [8];
+	gint  len = strlen (text);
 
 	if (gdk_color_parse (text, color))
 		return TRUE;
 
-	if (*text == '#') {
-		gchar c [8];
-		gint  len = strlen (text);
-		c [7] = 0;
-		strncpy (c, text, 7);
-		if (len < 7)
-			memset (c + len, '0', 7-len);
-		return gdk_color_parse (c, color);
+	c [7] = 0;
+	if (*text != '#') {
+		c[0] = '#'; 
+		strncpy (c + 1, text, 6);
+		len++;
 	} else {
-		tmp = alloca (strlen (text) + 2);
-		*tmp = '#';
-		strcpy (tmp + 1, text);
-
-		return gdk_color_parse (tmp, color);
+		strncpy (c, text, 7);
 	}
+	
+	if (len < 7)
+		memset (c + len, '0', 7-len);
+
+	return gdk_color_parse (c, color);
 }
 
 
