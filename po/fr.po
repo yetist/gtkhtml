@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml 0.6.1\n"
-"POT-Creation-Date: 2000-10-10 18:51+0200\n"
-"PO-Revision-Date: 2000-10-10 18:52+0200\n"
+"Project-Id-Version: gtkhtml 0.7\n"
+"POT-Creation-Date: 2000-10-20 11:51+0200\n"
+"PO-Revision-Date: 2000-10-20 11:52+0200\n"
 "Last-Translator: Christophe Merlet (RedFox) <christophe@merlet.net>\n"
 "Language-Team: GNOME French Team <gnomefr@gnomefr.traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,7 @@ msgstr "Ajouter"
 
 #: capplet/gnome-bindings-prop.c:548
 #: components/html-editor/test-html-editor-control.c:323
-#: components/html-editor/toolbar.c:495
+#: components/html-editor/toolbar.c:496
 msgid "Copy"
 msgstr "Copier"
 
@@ -135,59 +135,65 @@ msgstr "Image d'arrière-plan"
 msgid "Colors"
 msgstr "Couleurs"
 
-#: components/html-editor/editor-control-factory.c:126
-#: components/html-editor/popup.c:71
+#: components/html-editor/editor-control-factory.c:129
+#: components/html-editor/popup.c:73
 msgid "Properties"
 msgstr "Propriétés"
 
-#: components/html-editor/editor-control-factory.c:137
-#: components/html-editor/menubar.c:96 components/html-editor/popup.c:86
+#: components/html-editor/editor-control-factory.c:140
+#: components/html-editor/menubar.c:96 components/html-editor/popup.c:88
 msgid "Image"
 msgstr "Image"
 
-#: components/html-editor/editor-control-factory.c:146
-#: components/html-editor/menubar.c:117 components/html-editor/popup.c:79
+#: components/html-editor/editor-control-factory.c:149
+#: components/html-editor/menubar.c:117 components/html-editor/popup.c:81
 msgid "Text"
 msgstr "Texte"
 
-#: components/html-editor/editor-control-factory.c:158
-#: components/html-editor/popup.c:93
+#: components/html-editor/editor-control-factory.c:160
+#: components/html-editor/menubar.c:140 components/html-editor/popup.c:116
+msgid "Rule"
+msgstr "Règle"
+
+#: components/html-editor/editor-control-factory.c:169
+#: components/html-editor/popup.c:95
 msgid "Paragraph"
 msgstr "Paragraphe"
 
-#: components/html-editor/editor-control-factory.c:163
+#: components/html-editor/editor-control-factory.c:174
 #: components/html-editor/menubar.c:101 components/html-editor/menubar.c:122
-#: components/html-editor/popup.c:100
+#: components/html-editor/popup.c:102
 msgid "Link"
 msgstr "Lien"
 
-#: components/html-editor/editor-control-factory.c:168
-#: components/html-editor/popup.c:107
+#: components/html-editor/editor-control-factory.c:179
+#: components/html-editor/popup.c:109
 msgid "Page"
 msgstr "Page"
 
-#: components/html-editor/image.c:142
+#: components/html-editor/image.c:149
 msgid "Image selection"
 msgstr "Sélection image"
 
-#: components/html-editor/image.c:150
-msgid "Border"
-msgstr "Bordure"
-
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
-#: components/html-editor/image.c:183
+#: components/html-editor/image.c:176
 msgid "Alignment"
 msgstr "Alignement"
 
-#: components/html-editor/image.c:195 components/html-editor/rule.c:124
-#: components/html-editor/text.c:160
-msgid "Size"
-msgstr "Taille"
+#: components/html-editor/image.c:184
+msgid "Border"
+msgstr "Bordure"
 
-#: components/html-editor/image.c:222
+#: components/html-editor/image.c:201
 msgid "Padding"
 msgstr "Rembourrage"
+
+#. size
+#: components/html-editor/image.c:221 components/html-editor/rule.c:220
+#: components/html-editor/text.c:190
+msgid "Size"
+msgstr "Taille"
 
 #: components/html-editor/link.c:72
 msgid "Clear"
@@ -206,15 +212,18 @@ msgid "Could not initialize Bonobo"
 msgstr "Ne peut initialiser Bonobo"
 
 #: components/html-editor/menubar.c:94 components/html-editor/menubar.c:114
+#: components/html-editor/menubar.c:137
 #: components/html-editor/properties.c:110
 msgid "Insert"
 msgstr "Insérer"
 
-#: components/html-editor/menubar.c:142
+#: components/html-editor/menubar.c:153
 msgid "Cannot execute gtkhtml properties"
 msgstr "Ne peut exécuter les propriétés gtkhtml"
 
-#: components/html-editor/paragraph.c:74 components/html-editor/text.c:138
+#. style
+#: components/html-editor/paragraph.c:74 components/html-editor/rule.c:244
+#: components/html-editor/text.c:171
 msgid "Style"
 msgstr "Style"
 
@@ -226,7 +235,7 @@ msgstr "Aligner"
 msgid "Left"
 msgstr "Gauche"
 
-#: components/html-editor/paragraph.c:122 components/html-editor/toolbar.c:485
+#: components/html-editor/paragraph.c:122 components/html-editor/toolbar.c:486
 msgid "Center"
 msgstr "Centre"
 
@@ -234,7 +243,7 @@ msgstr "Centre"
 msgid "Right"
 msgstr "Droite"
 
-#: components/html-editor/popup.c:178
+#: components/html-editor/popup.c:185
 msgid "Remove link"
 msgstr "Enlever lien"
 
@@ -267,37 +276,9 @@ msgstr "respecter la casse"
 msgid "with"
 msgstr "avec"
 
-#: components/html-editor/rule.c:124
-msgid "Length"
-msgstr "Longueur"
-
-#: components/html-editor/rule.c:124
-msgid "Percent"
-msgstr "Pour cent"
-
-#: components/html-editor/rule.c:125
-msgid "Left Align"
-msgstr "Aligner à gauche"
-
-#: components/html-editor/rule.c:125
-msgid "Center Align"
-msgstr "Aligner au centre"
-
-#: components/html-editor/rule.c:125
-msgid "Right Align"
-msgstr "Aligner à droite"
-
-#: components/html-editor/rule.c:125
-msgid "None"
-msgstr "Aucun"
-
-#: components/html-editor/rule.c:129
-msgid "Rule"
-msgstr "Règle"
-
-#: components/html-editor/rule.c:132
-msgid "Set Shade"
-msgstr "Mettre ombre"
+#: components/html-editor/rule.c:268
+msgid "shaded"
+msgstr "ombré"
 
 #: components/html-editor/search.c:64
 msgid "Regex search"
@@ -348,50 +329,50 @@ msgid "Save using the PersistStream interface"
 msgstr "Enregistre en utilisant l'interface PersistStream"
 
 #: components/html-editor/test-html-editor-control.c:321
-#: components/html-editor/toolbar.c:493
+#: components/html-editor/toolbar.c:494
 msgid "Cut"
 msgstr "Couper"
 
 #: components/html-editor/test-html-editor-control.c:321
 msgid "Cut selection to the clipboard"
-msgstr "Coupe la sélection vers le presse-papier"
+msgstr "Coupe la sélection vers le presse-papiers"
 
 #: components/html-editor/test-html-editor-control.c:323
 msgid "Copy selection to the clipboard"
-msgstr "Coupie la sélection vers le presse-papier"
+msgstr "Coupie la sélection vers le presse-papiers"
 
 #: components/html-editor/test-html-editor-control.c:325
-#: components/html-editor/toolbar.c:497
+#: components/html-editor/toolbar.c:498
 msgid "Paste"
 msgstr "Coller"
 
 #: components/html-editor/test-html-editor-control.c:325
-#: components/html-editor/toolbar.c:497
+#: components/html-editor/toolbar.c:498
 msgid "Paste contents of the clipboard"
-msgstr "Colle le contenu du presse-papier"
+msgstr "Colle le contenu du presse-papiers"
 
-#: components/html-editor/text.c:152 components/html-editor/toolbar.c:511
+#: components/html-editor/text.c:182 components/html-editor/toolbar.c:512
 msgid "Bold"
 msgstr "Gras"
 
-#: components/html-editor/text.c:153 components/html-editor/toolbar.c:513
+#: components/html-editor/text.c:183 components/html-editor/toolbar.c:514
 msgid "Italic"
 msgstr "Italique"
 
-#: components/html-editor/text.c:154 components/html-editor/toolbar.c:515
+#: components/html-editor/text.c:184 components/html-editor/toolbar.c:516
 msgid "Underline"
 msgstr "Souligné"
 
-#: components/html-editor/text.c:155 components/html-editor/toolbar.c:517
+#: components/html-editor/text.c:185 components/html-editor/toolbar.c:518
 msgid "Strikeout"
 msgstr "Barré"
 
 #. color selection
-#: components/html-editor/text.c:187
+#: components/html-editor/text.c:217
 msgid "Color"
 msgstr "Couleur"
 
-#: components/html-editor/text.c:201
+#: components/html-editor/text.c:231
 msgid "text color"
 msgstr "couleur du texte"
 
@@ -443,83 +424,83 @@ msgstr "Élément liste (non numéroté)"
 msgid "List item (roman)"
 msgstr "Élément liste (romain)"
 
-#: components/html-editor/toolbar.c:236
+#: components/html-editor/toolbar.c:237
 msgid "Default"
 msgstr "Défaut"
 
-#: components/html-editor/toolbar.c:483
+#: components/html-editor/toolbar.c:484
 msgid "Left align"
 msgstr "Aligner à gauche"
 
-#: components/html-editor/toolbar.c:483
+#: components/html-editor/toolbar.c:484
 msgid "Left justify paragraphs"
 msgstr "Justifier à gauche les paragraphes"
 
-#: components/html-editor/toolbar.c:485
+#: components/html-editor/toolbar.c:486
 msgid "Centers paragraphs"
 msgstr "Centrer les paragraphes"
 
-#: components/html-editor/toolbar.c:487
+#: components/html-editor/toolbar.c:488
 msgid "Right align"
 msgstr "Aligner à droite"
 
-#: components/html-editor/toolbar.c:487
+#: components/html-editor/toolbar.c:488
 msgid "Right justify paragraphs"
 msgstr "Justifier à droite les paragraphes"
 
-#: components/html-editor/toolbar.c:493
+#: components/html-editor/toolbar.c:494
 msgid "Cut the selected region to the clipboard"
 msgstr "Couper la région sélectionnée dans le presse-papier"
 
-#: components/html-editor/toolbar.c:495
+#: components/html-editor/toolbar.c:496
 msgid "Copy the selected region to the clipboard"
 msgstr "Copier la région sélectionnée dans le presse-papier"
 
-#: components/html-editor/toolbar.c:501
+#: components/html-editor/toolbar.c:502
 msgid "Undo"
 msgstr "Annuler"
 
-#: components/html-editor/toolbar.c:501
+#: components/html-editor/toolbar.c:502
 msgid "Undo last editor operation"
 msgstr "Annuler la dernière opération dans l'éditeur"
 
-#: components/html-editor/toolbar.c:503
+#: components/html-editor/toolbar.c:504
 msgid "Redo"
 msgstr "Refaire"
 
-#: components/html-editor/toolbar.c:503
+#: components/html-editor/toolbar.c:504
 msgid "Redo undone editor operation"
 msgstr "Refaire l'opération non faite dans l'éditeur"
 
-#: components/html-editor/toolbar.c:511
+#: components/html-editor/toolbar.c:512
 msgid "Sets the bold font"
 msgstr "Mets le texte en gras"
 
-#: components/html-editor/toolbar.c:513
+#: components/html-editor/toolbar.c:514
 msgid "Make the selection italic"
 msgstr "Mets la sélection en italique"
 
-#: components/html-editor/toolbar.c:515
+#: components/html-editor/toolbar.c:516
 msgid "Make the selection underlined"
 msgstr "Souligne la sélection"
 
-#: components/html-editor/toolbar.c:517
+#: components/html-editor/toolbar.c:518
 msgid "Make the selection striked out"
 msgstr "Barre la sélection"
 
-#: components/html-editor/toolbar.c:526
+#: components/html-editor/toolbar.c:527
 msgid "Unindent"
 msgstr "Non indenté"
 
-#: components/html-editor/toolbar.c:526
+#: components/html-editor/toolbar.c:527
 msgid "Indent paragraphs less"
 msgstr "Désindente le paragraphe"
 
-#: components/html-editor/toolbar.c:528
+#: components/html-editor/toolbar.c:529
 msgid "Indent"
 msgstr "Indenter"
 
-#: components/html-editor/toolbar.c:528
+#: components/html-editor/toolbar.c:529
 msgid "Indent paragraphs more"
 msgstr "Indente le paragraphe"
 
@@ -530,6 +511,27 @@ msgstr "_Aperçu avant impression"
 #: src/testgtkhtml.c:111
 msgid "Print preview"
 msgstr "Aperçu avant impression"
+
+#~ msgid "Length"
+#~ msgstr "Longueur"
+
+#~ msgid "Percent"
+#~ msgstr "Pour cent"
+
+#~ msgid "Left Align"
+#~ msgstr "Aligner à gauche"
+
+#~ msgid "Center Align"
+#~ msgstr "Aligner au centre"
+
+#~ msgid "Right Align"
+#~ msgstr "Aligner à droite"
+
+#~ msgid "None"
+#~ msgstr "Aucun"
+
+#~ msgid "Set Shade"
+#~ msgstr "Mettre ombre"
 
 #~ msgid "Insert image"
 #~ msgstr "Insérer image"
