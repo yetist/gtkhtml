@@ -29,6 +29,7 @@
 #include "htmlengine-edit.h"
 #include "htmltext.h"
 #include "htmltype.h"
+#include "htmlundo.h"
 
 #include "engine.h"
 
@@ -41,43 +42,36 @@ html_editor_engine_from_servant (PortableServer_Servant servant)
 	return EDITOR_ENGINE (bonobo_object_from_servant (servant));
 }
 
-static CORBA_any *
+static CORBA_char *
 impl_get_paragraph_data (PortableServer_Servant servant, const CORBA_char * key, CORBA_Environment * ev)
 {
 	EditorEngine *e = html_editor_engine_from_servant (servant);
-	CORBA_boolean value;
-	CORBA_any *rv = NULL;
+	CORBA_char * value = CORBA_OBJECT_NIL;
 
-	value = (CORBA_boolean) GPOINTER_TO_INT
-		(e->html->engine->cursor->object && e->html->engine->cursor->object->parent
-		&& HTML_OBJECT_TYPE (e->html->engine->cursor->object->parent) == HTML_TYPE_CLUEFLOW
-		? html_object_get_data (e->html->engine->cursor->object->parent, key) : NULL);
-
-	rv = bonobo_arg_new (TC_boolean);
-	BONOBO_ARG_SET_BOOLEAN (rv, value);
+	if (e->html->engine->cursor->object && e->html->engine->cursor->object->parent
+	    && HTML_IS_CLUEFLOW (e->html->engine->cursor->object->parent))
+		value = html_object_get_data (e->html->engine->cursor->object->parent, key);
 
 	/* printf ("get paragraph data\n"); */
 
-	return rv;
+	return value ? value : "";
 }
 
 static void
 impl_set_paragraph_data (PortableServer_Servant servant,
-			 const CORBA_char * key, const CORBA_any * value,
+			 const CORBA_char * key, const CORBA_char * value,
 			 CORBA_Environment * ev)
 {
 	EditorEngine *e = html_editor_engine_from_servant (servant);
 
 	if (e->html->engine->cursor->object && e->html->engine->cursor->object->parent
-	    && HTML_OBJECT_TYPE (e->html->engine->cursor->object->parent) == HTML_TYPE_CLUEFLOW) {
-		html_object_set_data (HTML_OBJECT (e->html->engine->cursor->object->parent), key,
-				      GINT_TO_POINTER ((gboolean) BONOBO_ARG_GET_BOOLEAN (value)));
-	}
+	    && HTML_OBJECT_TYPE (e->html->engine->cursor->object->parent) == HTML_TYPE_CLUEFLOW)
+		html_object_set_data (HTML_OBJECT (e->html->engine->cursor->object->parent), key, value);
 }
 
 static void
 impl_set_object_data_by_type (PortableServer_Servant servant,
-			 const CORBA_char * type_name, const CORBA_char * key, const CORBA_any * data,
+			 const CORBA_char * type_name, const CORBA_char * key, const CORBA_char * value,
 			 CORBA_Environment * ev)
 {
 	EditorEngine *e = html_editor_engine_from_servant (servant);
@@ -85,8 +79,7 @@ impl_set_object_data_by_type (PortableServer_Servant servant,
 	/* printf ("set data by type\n"); */
 
 	/* FIXME should use bonobo_arg_to_gtk, but this seems to be broken */
-	html_engine_set_data_by_type (e->html->engine, html_type_from_name (type_name), key,
-				      GINT_TO_POINTER ((gint) BONOBO_ARG_GET_BOOLEAN (data)));
+	html_engine_set_data_by_type (e->html->engine, html_type_from_name (type_name), key, value);
 }
 
 static void
@@ -115,14 +108,14 @@ impl_get_listener (PortableServer_Servant servant, CORBA_Environment * ev)
 	return html_editor_engine_from_servant (servant)->listener;
 }
 
-static void
+static CORBA_boolean
 impl_run_command (PortableServer_Servant servant, const CORBA_char * command, CORBA_Environment * ev)
 {
 	EditorEngine *e = html_editor_engine_from_servant (servant);
 
 	/* printf ("command: %s\n", command); */
 
-	gtk_html_editor_command (e->html, command);
+	return gtk_html_editor_command (e->html, command);
 }
 
 static CORBA_boolean
@@ -146,12 +139,65 @@ impl_is_previous_paragraph_empty (PortableServer_Servant servant, CORBA_Environm
 	if (e->html->engine->cursor->object
 	    && e->html->engine->cursor->object->parent
 	    && e->html->engine->cursor->object->parent->prev
-	    && HTML_OBJECT_TYPE (e->html->engine->cursor->object->parent->prev) == HTML_TYPE_CLUEFLOW) {
+	    && HTML_IS_CLUEFLOW (e->html->engine->cursor->object->parent->prev))
 		return html_clueflow_is_empty (HTML_CLUEFLOW (e->html->engine->cursor->object->parent->prev));
-	}
+
 	return CORBA_FALSE;
 }
 
+static void
+impl_insert_html (PortableServer_Servant servant, const CORBA_char * html, CORBA_Environment * ev)
+{
+	/* printf ("impl_insert_html\n"); */
+	gtk_html_insert_html (html_editor_engine_from_servant (servant)->html, html);
+}
+
+static CORBA_boolean
+impl_search_by_data (PortableServer_Servant servant, const CORBA_long level, const CORBA_char * klass,
+		     const CORBA_char * key, const CORBA_char * value, CORBA_Environment * ev)
+{
+	EditorEngine *e = html_editor_engine_from_servant (servant);
+	HTMLObject *o, *lco = NULL;
+	gchar *o_value;
+
+	do {
+		if (e->html->engine->cursor->object != lco) {
+			o = html_object_nth_parent (e->html->engine->cursor->object, level);
+			if (o) {
+				o_value = html_object_get_data (o, key);
+				if (o_value && !strcmp (o_value, value))
+					return TRUE;
+			}
+		}
+		lco = e->html->engine->cursor->object;
+	} while (html_cursor_forward (e->html->engine->cursor, e->html->engine));
+	return FALSE;
+}
+
+static void
+impl_freeze (PortableServer_Servant servant, CORBA_Environment * ev)
+{
+	html_engine_freeze (html_editor_engine_from_servant (servant)->html->engine);
+}
+
+static void
+impl_thaw (PortableServer_Servant servant, CORBA_Environment * ev)
+{
+	html_engine_thaw (html_editor_engine_from_servant (servant)->html->engine);
+}
+
+static void
+impl_undo_begin (PortableServer_Servant servant, const CORBA_char * undo_name, const CORBA_char * redo_name,
+		 CORBA_Environment * ev)
+{
+	html_undo_level_begin (html_editor_engine_from_servant (servant)->html->engine->undo, undo_name, redo_name);
+}
+
+static void
+impl_undo_end (PortableServer_Servant servant, CORBA_Environment * ev)
+{
+	html_undo_level_end (html_editor_engine_from_servant (servant)->html->engine->undo);
+}
 
 POA_GNOME_GtkHTML_Editor_Engine__epv *
 editor_engine_get_epv (void)
@@ -168,6 +214,12 @@ editor_engine_get_epv (void)
 	epv->runCommand               = impl_run_command;
 	epv->isParagraphEmpty         = impl_is_paragraph_empty;
 	epv->isPreviousParagraphEmpty = impl_is_previous_paragraph_empty;
+	epv->searchByData             = impl_search_by_data;
+	epv->insertHTML               = impl_insert_html;
+	epv->freeze                   = impl_freeze;
+	epv->thaw                     = impl_thaw;
+	epv->undo_begin               = impl_undo_begin;
+	epv->undo_end                 = impl_undo_end;
 
 	return epv;
 }

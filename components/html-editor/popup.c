@@ -163,6 +163,12 @@ dump_tree (GtkWidget *mi, GtkHTMLControlData *cd)
 	gtk_html_debug_dump_tree (cd->html->engine->clue, 0);
 }
 
+static void
+insert_html (GtkWidget *mi, GtkHTMLControlData *cd)
+{
+	gtk_html_insert_html (cd->html, "<BR>Hello dude!<BR><PRE>--\nrodo\n</PRE>");
+}
+
 #define ADD_ITEM(l,f,t) \
 		menuitem = gtk_menu_item_new_with_label (_(l)); \
                 gtk_object_set_data (GTK_OBJECT (menuitem), "type", GINT_TO_POINTER (t)); \
@@ -202,6 +208,7 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 #ifdef DEBUG
 	ADD_ITEM ("Dump tree (simple)", dump_tree_simple, -1);
 	ADD_ITEM ("Dump tree", dump_tree, -1);
+	ADD_ITEM ("Insert HTML", insert_html, -1);
 	ADD_SEP;
 #endif
 

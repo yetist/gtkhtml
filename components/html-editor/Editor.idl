@@ -27,40 +27,62 @@ module Editor {
 	interface Engine : Bonobo::Unknown {
 		attribute Listener listener;
 
-				/*
-				 * return data of current paragraph
-				 */
-		any  getParagraphData (in string key);
+		/*
+		 * execute editor command
+		 *
+		 * return value: TRUE if command is done FALSE if command failed
+		 */
+		boolean runCommand (in string command);
 
-				/*
-				 * sets data on current paragraph
-				 */
-		void setParagraphData (in string key, in any value);
+		/*
+		 * return data of current paragraph
+		 */
+		string getParagraphData (in string key);
 
-				/*
-				 * set data which are set to objects of given type while inserting
-				 * we will use that to mark original text paragraph(s) in composer
-				 * and use that data later in editing to implement better reply
-				 * editing
-				 */
-		void setObjectDataByType (in string type_name, in string key, in any data);
+		/*
+		 * sets data on current paragraph
+		 */
+		void setParagraphData (in string key, in string value);
 
-				/*
-				 * execute editor command
-				 */
-		void runCommand (in string command);
+		/*
+		 * set data which are set to objects of given type while inserting
+		 * we will use that to mark original text paragraph(s) in composer
+		 * and use that data later in editing to implement better reply
+		 * editing
+		 */
+		void setObjectDataByType (in string type_name, in string key, in string data);
 
-				/*
-				 * returns TRUE if current paragraph is empty (will be possibly replaced
-				 * by more general iface)
-				 */
+		/*
+		 * goes thru document from current position and searches for data specified
+		 * by key/value. level tells in which parent level to look for data. it goes
+		 * thru by moving cursor forward and stops when data are found.
+		 *
+		 * returns true when data found.
+		 */
+		boolean searchByData (in long level, in string klass, in string key, in string value);
+
+		/*
+		 * returns TRUE if current paragraph is empty (will be possibly replaced
+		 * by more general iface)
+		 */
 		boolean isParagraphEmpty ();
 
-				/*
-				 * return TRUE if previous paragraph is empty (will be possibly replaced
-				 * by more general iface)
-				 */
+		/*
+		 * return TRUE if previous paragraph is empty (will be possibly replaced
+		 * by more general iface)
+		 */
 		boolean isPreviousParagraphEmpty ();
+
+		/*
+		 * insert (parsed) html at current cursor position
+		 */
+		void insertHTML (in string html);
+
+		void freeze ();
+		void thaw ();
+
+		void undo_begin (in string undo_name, in string redo_name);
+		void undo_end ();
 	};
 };
 };

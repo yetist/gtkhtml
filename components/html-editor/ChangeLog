@@ -1,3 +1,22 @@
+2001-04-25  Radek Doulik  <rodo@ximian.com>
+
+	* engine.c (impl_get_paragraph_data): update for data type change
+	(impl_set_paragraph_data): likewise
+	(impl_set_object_data_by_type): likewise
+	(impl_run_command): return boolean value
+	(impl_insert_html): new method implementation
+	(impl_search_by_data): ditto
+	(impl_freeze): ditto
+	(impl_thaw): ditto
+	(impl_undo_begin): ditto
+	(impl_undo_end): ditto
+
+	* Editor.idl: added new methods, changed data type to string
+
+2001-04-20  Radek Doulik  <rodo@ximian.com>
+
+	* engine.c (impl_run_command): use return value from gtk_html_editor_command
+
 2001-04-23  Jon K Hellan  <hellan@acm.org>
 
 	* editor-control-factory.c (editor_control_factory): Make it
