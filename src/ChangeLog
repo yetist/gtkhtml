@@ -1,3 +1,9 @@
+2004-02-02  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (html_text_convert_nbsp): update text_bytes
+
+	Fixes #53364
+
 2004-01-19  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (html_text_get_pango_info): set plain text size if

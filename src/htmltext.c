@@ -1671,6 +1671,7 @@ html_text_convert_nbsp (HTMLText *text, gboolean free_text)
 	if (is_convert_nbsp_needed (text->text, &delta)) {
 		to_free    = text->text;
 		text->text = g_malloc (strlen (to_free) + delta + 1);
+		text->text_bytes += delta;
 		convert_nbsp (text->text, to_free);
 		if (free_text)
 			g_free (to_free);
