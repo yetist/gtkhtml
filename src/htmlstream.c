@@ -15,8 +15,6 @@ gtk_html_stream_new (GtkHTML *html, const char *url,
 	new_stream->end_callback = end_callback;
 	new_stream->user_data = user_data;
 	
-	gtk_signal_emit (GTK_OBJECT(html), html_signals [URL_REQUESTED], url, new_stream);
-	
 	return new_stream;
 }
 

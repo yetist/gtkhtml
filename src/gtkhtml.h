@@ -39,17 +39,27 @@ struct _GtkHTML {
 	GtkLayout layout;
 
 	HTMLEngine *engine;
+
+	/* The URL of the link over which the pointer currently is.  NULL if
+           the pointer is not over a link.  */
+	gchar *pointer_url;
+
+	/* The cursors we use within the widget.  */
+	GdkCursor *hand_cursor;
+	GdkCursor *arrow_cursor;
 };
 
 struct _GtkHTMLClass {
 	GtkLayoutClass parent_class;
 	
-        void (* title_changed)  (GtkHTML *html);
-        void (* url_requested)  (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle);
-        void (* load_done)      (GtkHTML *html);
-        void (* link_followed)  (GtkHTML *html, const char *url);
-	void (* set_base)       (GtkHTML *html, const char *base_url);
-	void (* set_base_target)       (GtkHTML *html, const char *base_url);
+        void (* title_changed)   (GtkHTML *html);
+        void (* url_requested)   (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle);
+        void (* load_done)       (GtkHTML *html);
+        void (* link_followed)   (GtkHTML *html, const char *url);
+	void (* set_base)        (GtkHTML *html, const char *base_url);
+	void (* set_base_target) (GtkHTML *html, const char *base_url);
+
+	void (* on_url)		 (GtkHTML *html, const gchar *url);
 };
 
 GtkType		gtk_html_get_type	 (void);

@@ -290,6 +290,20 @@ load_done (GtkHTML *html)
 }
 
 static void
+on_url (GtkHTML *html, const gchar *url, gpointer data)
+{
+	GnomeApp *app;
+	guint id;
+
+	app = GNOME_APP (data);
+
+	if (url == NULL)
+		gnome_appbar_set_status (GNOME_APPBAR (app->statusbar), "");
+	else
+		gnome_appbar_set_status (GNOME_APPBAR (app->statusbar), url);
+}
+
+static void
 fip_destroy(gpointer data)
 {
 	FileInProgress *fip = data;
@@ -559,6 +573,8 @@ main (gint argc, gchar *argv[])
 			    GTK_SIGNAL_FUNC (url_requested), (gpointer)app);
 	gtk_signal_connect (GTK_OBJECT (html), "load_done",
 			    GTK_SIGNAL_FUNC (load_done), (gpointer)app);
+	gtk_signal_connect (GTK_OBJECT (html), "on_url",
+			    GTK_SIGNAL_FUNC (on_url), (gpointer)app);
 
 	gtk_box_pack_start_defaults (GTK_BOX (hbox), GTK_WIDGET (html));
 	vscrollbar = gtk_vscrollbar_new (GTK_LAYOUT (html)->vadjustment);

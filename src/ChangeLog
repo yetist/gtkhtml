@@ -1,3 +1,73 @@
+1999-12-04  Ettore Perazzoli  <ettore@gnu.org>
+
+	* htmlobject.c (html_object_get_url): Removed debugging message.
+
+	* gtkhtml.c (gtk_html_motion_notify_event): Keep track of the
+	current URL through `pointer_url'.  Also, emit the signal when the
+	current URL changes.
+
+	* testgtkhtml.c: Show usage of the `on_url' signal.
+
+	* htmlimage.c (html_image_factory_register): Set the `stream'
+	member to point to the newly created stream.
+	(html_image_get_stream): New function returning a pointer to the
+	stream object.
+
+	* htmlimage.h: New member `stream' in `HTMLImage'.
+
+	* gtkhtml.c (html_engine_title_changed_cb): New signal handler for
+	the `title_changed' signal in the HTMLEngine.
+	(html_engine_set_base_cb): Likewise for `set_base'.
+	(html_engine_set_base_target_cb): Likewise for `set_base_target'.
+	(html_engine_load_done_cb): Likewise for `load_done'.
+	(gtk_html_new): Connect the signal handlers to the newly created
+	object.
+	(gtk_html_motion_notify_event): Don't free the URL we get from
+	`html_engine_get_link_at()' anymore.
+
+	* htmlengine.c (html_engine_begin): Emit the
+	`url_requested_signal' after creating the stream.
+
+	* htmlstream.c (gtk_html_stream_new): Do not make the GtkHTML
+	widget emit any signal!
+
+	* htmlengine.c: `html_engine_signals' renamed to `signals' and
+	made static.  Also, added "set_base_target", "set_base",
+	"load_done", "title_changed" own signals.
+	(parse_b): Make the engine emit signals, not the owner widget.
+	(parse_t): Likewise.
+	(html_engine_end): Likewise.
+
+	* gtkhtml-private.h: Removed signals from here.
+	* gtkhtml.c: Moved here.  Also, changed the name from `html_signals' to `signals'.
+
+	* gtkhtml.h, gtkhtml.c: New signal `on_url'.
+
+	* gtkhtml.h: New member `pointer_url' in `GtkHTML'.
+	* gtkhtml.c (gtk_html_init): Init it to NULL.
+	(destroy): `g_free()' it.
+
+	* gtkhtml.c (gtk_html_motion_notify_event): Updated to the const
+	return of `html_engine_get_link_at()'.
+
+	* htmlengine.c (html_engine_get_link_at): Return value made const.
+	So, we don't strdup the value from `html_object_get_url()'
+	anymore.
+
+	* gtkhtml.c (destroy): New function, implementation of the
+	`destroy' method.
+	(gtk_html_class_init): Install it.
+	(gtk_html_realize): Set the arrow cursor as the initial cursor for
+	the new widget.
+
+	* gtkhtml.h: New members `hand_cursor' and `arrow_cursor'.
+	* gtkhtml.c (gtk_html_init): Init them.
+
+	* htmlengine.c (html_engine_get_uri_at_pointer): Renamed to
+	`html_engine_get_link_at'.
+	* htmlengine.h: Updated likewise.
+	* gtkhtml.c (gtk_html_motion_notify_event): Updated accordingly.
+
 1999-12-04  Anders Carlsson  <andersca@picard.andersnet>
 
 	* htmlsettings.c: Fix the correct number of font sizes, it's 7 not 6.
@@ -9,7 +79,6 @@
 
 	* htmlimage.c (draw): Use html_painter_draw_panel for pictures that
 	are not yet loaded.
-
 
 1999-12-04  Ettore Perazzoli  <ettore@gnu.org>
 

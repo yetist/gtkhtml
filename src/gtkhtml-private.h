@@ -24,15 +24,4 @@ void                gtk_html_stream_write (GtkHTMLStreamHandle handle,
 void                gtk_html_stream_end   (GtkHTMLStreamHandle handle,
 					   GtkHTMLStreamStatus status);
 
-enum {
-	TITLE_CHANGED,
-	URL_REQUESTED,
-	LOAD_DONE,
-	LINK_FOLLOWED,
-	SET_BASE,
-	SET_BASE_TARGET,
-	LAST_SIGNAL
-};
-extern guint html_signals [LAST_SIGNAL];
-
 #endif

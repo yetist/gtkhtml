@@ -32,12 +32,15 @@ HTMLImageClass html_image_class;
 
 /* HTMLObject methods.  */
 
+/* FIXME: We should close the stream here, too.  But in practice we cannot
+   because the stream pointer might be invalid at this point, and there is no
+   way to set it to NULL when the stream is closed.  This clearly sucks and
+   must be fixed.  */
 static void
 destroy (HTMLObject *image)
 {
-	html_image_factory_unregister (
-		HTML_IMAGE (image)->image_ptr->factory,
-		HTML_IMAGE (image)->image_ptr, HTML_IMAGE (image)); 
+	html_image_factory_unregister (HTML_IMAGE (image)->image_ptr->factory,
+				       HTML_IMAGE (image)->image_ptr, HTML_IMAGE (image));
 }
 
 static void
@@ -371,6 +374,8 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 	retval = g_hash_table_lookup (factory->loaded_images, filename);
 
 	if (!retval){
+		GtkHTMLStreamHandle handle;
+
 		retval = g_new (HTMLImagePointer, 1);
 		retval->url = g_strdup (filename);
 		retval->loader = gdk_pixbuf_loader_new ();
@@ -386,11 +391,18 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 				    GTK_SIGNAL_FUNC (html_image_factory_area_updated),
 				    factory->engine);
 		
-		gtk_html_stream_new (GTK_HTML (factory->engine->widget), retval->url,
-				     html_image_factory_write_pixbuf,
-				     html_image_factory_end_pixbuf,
-				     retval);
+		handle = gtk_html_stream_new (GTK_HTML (factory->engine->widget),
+					      retval->url,
+					      html_image_factory_write_pixbuf,
+					      html_image_factory_end_pixbuf,
+					      retval);
+
+		/* This is a bit evil, I think.  But it's a lot better here
+		   than in the HTMLImage object.  FIXME anyway -- ettore  */
 		
+		gtk_signal_emit_by_name (GTK_OBJECT (factory->engine), "url_requested", filename,
+					 handle);
+
 		g_hash_table_insert (factory->loaded_images, retval->url, retval);
 	}
 

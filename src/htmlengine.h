@@ -149,7 +149,11 @@ struct _HTMLEngine {
 struct _HTMLEngineClass {
 	GtkObjectClass parent_class;
 	
-	void (*title_changed) (HTMLEngine *engine);
+	void (* title_changed) (HTMLEngine *engine);
+	void (* set_base) (HTMLEngine *engine, const gchar *base);
+	void (* set_base_target) (HTMLEngine *engine, const gchar *base_target);
+	void (* load_done) (HTMLEngine *engine);
+        void (* url_requested)   (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle);
 };
 
 
@@ -175,6 +179,6 @@ gint        html_engine_get_doc_height (HTMLEngine *p);
 void        html_engine_stop_parser (HTMLEngine *e);
 void        html_engine_calc_absolute_pos (HTMLEngine *e);
 gchar      *html_engine_canonicalize_url (HTMLEngine *e, const char *in_url);
-gchar	   *html_engine_get_uri_at_pointer (HTMLEngine *e, gint x, gint y);
+const gchar *html_engine_get_link_at (HTMLEngine *e, gint x, gint y);
 
 #endif /* _HTMLENGINE_H_ */

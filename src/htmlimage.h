@@ -79,5 +79,4 @@ void html_image_factory_cleanup(HTMLImageFactory *factory); /* Does gc etc. - re
 HTMLImagePointer *html_image_factory_register(HTMLImageFactory *factory, HTMLImage *i, const char *filename);
 void html_image_factory_unregister(HTMLImageFactory *factory, HTMLImagePointer *pointer, HTMLImage *i);
 
-
 #endif /* _HTMLIMAGE_H_ */

@@ -1,6 +1,7 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
+/*  Copyright 1999, Helix Code, Inc.
 
-/*  This library is free software; you can redistribute it and/or
+    This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
     License as published by the Free Software Foundation; either
     version 2 of the License, or (at your option) any later version.
@@ -35,8 +36,84 @@ static gint	gtk_html_motion_notify_event (GtkWidget *widget, GdkEventMotion *eve
 
 static GtkLayoutClass *parent_class = NULL;
 
-guint html_signals [LAST_SIGNAL] = { 0 };
+enum {
+	TITLE_CHANGED,
+	URL_REQUESTED,
+	LOAD_DONE,
+	LINK_FOLLOWED,
+	SET_BASE,
+	SET_BASE_TARGET,
+	ON_URL,
+	LAST_SIGNAL
+};
+static guint signals [LAST_SIGNAL] = { 0 };
 
+
+/* HTMLEngine callbacks.  */
+
+static void
+html_engine_title_changed_cb (HTMLEngine *engine, gpointer data)
+{
+	GtkHTML *gtk_html;
+
+	gtk_html = GTK_HTML (data);
+	gtk_signal_emit (GTK_OBJECT (gtk_html), signals[TITLE_CHANGED]);
+}
+
+static void
+html_engine_set_base_cb (HTMLEngine *engine, const gchar *base, gpointer data)
+{
+	GtkHTML *gtk_html;
+
+	gtk_html = GTK_HTML (data);
+	gtk_signal_emit (GTK_OBJECT (gtk_html), signals[SET_BASE], base);
+}
+
+static void
+html_engine_set_base_target_cb (HTMLEngine *engine, const gchar *base_target, gpointer data)
+{
+	GtkHTML *gtk_html;
+
+	gtk_html = GTK_HTML (data);
+	gtk_signal_emit (GTK_OBJECT (gtk_html), signals[SET_BASE_TARGET], base_target);
+}
+
+static void
+html_engine_load_done_cb (HTMLEngine *engine, gpointer data)
+{
+	GtkHTML *gtk_html;
+
+	gtk_html = GTK_HTML (data);
+	gtk_signal_emit (GTK_OBJECT (gtk_html), signals[LOAD_DONE]);
+}
+
+static void
+html_engine_url_requested_cb (GtkHTML *html,
+			      const char *url,
+			      GtkHTMLStreamHandle handle,
+			      gpointer data)
+{
+	GtkHTML *gtk_html;
+
+	gtk_html = GTK_HTML (data);
+	gtk_signal_emit (GTK_OBJECT (gtk_html), signals[URL_REQUESTED], url, handle);
+}
+
+
+static void
+destroy (GtkObject *object)
+{
+	GtkHTML *html;
+
+	html = GTK_HTML (object);
+
+	g_free (html->pointer_url);
+
+	gdk_cursor_destroy (html->hand_cursor);
+	gdk_cursor_destroy (html->arrow_cursor);
+}
+
+
 guint
 gtk_html_get_type (void)
 {
@@ -71,16 +148,18 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	widget_class = (GtkWidgetClass *)klass;
 	object_class = (GtkObjectClass *)klass;
 
+	object_class->destroy = destroy;
+
 	parent_class = gtk_type_class (GTK_TYPE_LAYOUT);
 
-	html_signals [TITLE_CHANGED] = 
+	signals [TITLE_CHANGED] = 
 	  gtk_signal_new ("title_changed",
 			  GTK_RUN_FIRST,
 			  object_class->type,
 			  GTK_SIGNAL_OFFSET (GtkHTMLClass, title_changed),
 			  gtk_marshal_NONE__NONE,
 			  GTK_TYPE_NONE, 0);
-	html_signals [URL_REQUESTED] =
+	signals [URL_REQUESTED] =
 	  gtk_signal_new ("url_requested",
 			  GTK_RUN_FIRST,
 			  object_class->type,
@@ -89,14 +168,14 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			  GTK_TYPE_NONE, 2,
 			  GTK_TYPE_STRING,
 			  GTK_TYPE_POINTER);
-	html_signals [LOAD_DONE] = 
+	signals [LOAD_DONE] = 
 	  gtk_signal_new ("load_done",
 			  GTK_RUN_FIRST,
 			  object_class->type,
 			  GTK_SIGNAL_OFFSET (GtkHTMLClass, load_done),
 			  gtk_marshal_NONE__NONE,
 			  GTK_TYPE_NONE, 0);
-	html_signals [LINK_FOLLOWED] =
+	signals [LINK_FOLLOWED] =
 	  gtk_signal_new ("link_followed",
 			  GTK_RUN_FIRST,
 			  object_class->type,
@@ -104,7 +183,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			  gtk_marshal_NONE__STRING,
 			  GTK_TYPE_NONE, 1,
 			  GTK_TYPE_STRING);
-	html_signals [SET_BASE] =
+	signals [SET_BASE] =
 		gtk_signal_new ("set_base",
 				GTK_RUN_FIRST,
 				object_class->type,
@@ -112,7 +191,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 				gtk_marshal_NONE__STRING,
 				GTK_TYPE_NONE, 1,
 				GTK_TYPE_STRING);
-	html_signals [SET_BASE_TARGET] =
+	signals [SET_BASE_TARGET] =
 		gtk_signal_new ("set_base_target",
 				GTK_RUN_FIRST,
 				object_class->type,
@@ -120,9 +199,17 @@ gtk_html_class_init (GtkHTMLClass *klass)
 				gtk_marshal_NONE__STRING,
 				GTK_TYPE_NONE, 1,
 				GTK_TYPE_STRING);
-				
 	
-	gtk_object_class_add_signals (object_class, html_signals, LAST_SIGNAL);
+	signals [ON_URL] =
+		gtk_signal_new ("on_url",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (GtkHTMLClass, on_url),
+				gtk_marshal_NONE__STRING,
+				GTK_TYPE_NONE, 1,
+				GTK_TYPE_STRING);
+	
+	gtk_object_class_add_signals (object_class, signals, LAST_SIGNAL);
 
 	widget_class->realize = gtk_html_realize;
 	widget_class->unrealize = gtk_html_unrealize;
@@ -137,7 +224,10 @@ gtk_html_init (GtkHTML* html)
 {
 	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (html), GTK_CAN_FOCUS);
 	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (html), GTK_APP_PAINTABLE);
-	
+
+	html->pointer_url = NULL;
+	html->hand_cursor = gdk_cursor_new (GDK_HAND1);
+	html->arrow_cursor = gdk_cursor_new (GDK_TOP_LEFT_ARROW);
 }
 
 GtkWidget *
@@ -157,7 +247,18 @@ gtk_html_new (GtkAdjustment *hadjustment, GtkAdjustment *vadjustment)
 	gtk_layout_set_vadjustment (GTK_LAYOUT (html), vadjustment);
 	
 	html->engine = html_engine_new ();
-	html->engine->widget = html;
+	html->engine->widget = html; /* FIXME FIXME */
+
+	gtk_signal_connect (GTK_OBJECT (html->engine), "title_changed",
+			    GTK_SIGNAL_FUNC (html_engine_title_changed_cb), html);
+	gtk_signal_connect (GTK_OBJECT (html->engine), "set_base",
+			    GTK_SIGNAL_FUNC (html_engine_set_base_cb), html);
+	gtk_signal_connect (GTK_OBJECT (html->engine), "set_base_target",
+			    GTK_SIGNAL_FUNC (html_engine_set_base_target_cb), html);
+	gtk_signal_connect (GTK_OBJECT (html->engine), "load_done",
+			    GTK_SIGNAL_FUNC (html_engine_load_done_cb), html);
+	gtk_signal_connect (GTK_OBJECT (html->engine), "url_requested",
+			    GTK_SIGNAL_FUNC (html_engine_url_requested_cb), html);
 
 	return GTK_WIDGET (html);
 }
@@ -210,6 +311,8 @@ gtk_html_realize (GtkWidget *widget)
 				   &widget->style->bg[GTK_STATE_NORMAL]);
 
 	html_painter_realize (html->engine->painter, html->layout.bin_window);
+
+	gdk_window_set_cursor (widget->window, html->arrow_cursor);
 }
 
 static void
@@ -288,24 +391,35 @@ gtk_html_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 }
 
 static gint
-gtk_html_motion_notify_event (GtkWidget	       *widget,
-			      GdkEventMotion     *event)
+gtk_html_motion_notify_event (GtkWidget *widget,
+			      GdkEventMotion *event)
 {
-	gchar *uri;
+	GtkHTML *html;
+	const gchar *url;
 
 	g_return_val_if_fail (widget != NULL, 0);
 	g_return_val_if_fail (GTK_IS_HTML (widget), 0);
 	g_return_val_if_fail (event != NULL, 0);
 
-	printf ("%s (%d, %d)\n", __FUNCTION__, (int) event->x, (int) event->y);
+	html = GTK_HTML (widget);
 
-	uri = html_engine_get_uri_at_pointer (GTK_HTML (widget)->engine, event->x, event->y);
-	if (uri == NULL)
-		printf ("--> no URI\n");
-	else
-		printf ("--> %s\n", uri);
+	url = html_engine_get_link_at (GTK_HTML (widget)->engine, event->x, event->y);
 
-	g_free (uri);
+	if (url == NULL) {
+		if (html->pointer_url != NULL) {
+			g_free (html->pointer_url);
+			html->pointer_url = NULL;
+			gtk_signal_emit (GTK_OBJECT (html), signals[ON_URL], NULL);
+		}
+		gdk_window_set_cursor (widget->window, html->arrow_cursor);
+	} else {
+		if (html->pointer_url == NULL || strcmp (html->pointer_url, url) != 0) {
+			g_free (html->pointer_url);
+			html->pointer_url = g_strdup (url);
+			gtk_signal_emit (GTK_OBJECT (html), signals[ON_URL], url);
+		}
+		gdk_window_set_cursor (widget->window, html->hand_cursor);
+	}
 
 	return TRUE;
 }

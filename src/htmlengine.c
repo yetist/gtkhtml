@@ -64,7 +64,17 @@ static void parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str);
 
 
 static GtkLayoutClass *parent_class = NULL;
-guint html_engine_signals [LAST_SIGNAL] = { 0 };
+
+enum {
+	SET_BASE_TARGET,
+	SET_BASE,
+	LOAD_DONE,
+	TITLE_CHANGED,
+	URL_REQUESTED,
+	LAST_SIGNAL
+};
+	
+static guint signals [LAST_SIGNAL] = { 0 };
 
 #define TIMER_INTERVAL 30
 #define INDENT_SIZE 30
@@ -301,6 +311,7 @@ select_font_full (HTMLEngine *e,
 		  gboolean _italic,
 		  gboolean _underline)
 {
+
 	HTMLFont *f;
 
 	if ( _fontsize < 0 )
@@ -1062,9 +1073,9 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		while ( string_tokenizer_has_more_tokens (e->st) ) {
 			const char* token = string_tokenizer_next_token(e->st);
 			if ( strncasecmp( token, "target=", 7 ) == 0 ) {
-				gtk_signal_emit_by_name(GTK_OBJECT(e->widget), "set_base_target", token+7);
+				gtk_signal_emit (GTK_OBJECT (e), SET_BASE_TARGET, token + 7);
 			} else if ( strncasecmp( token, "href=", 5 ) == 0 ) {
-				gtk_signal_emit_by_name(GTK_OBJECT(e->widget), "set_base", token+5);
+				gtk_signal_emit (GTK_OBJECT (e), SET_BASE, token + 5);
 			}
 		}
 	}
@@ -1986,7 +1997,7 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	else if (strncmp (str, "/title", 6) == 0) {
 		e->inTitle = FALSE;
 
-		gtk_signal_emit (GTK_OBJECT (e->widget), html_signals[TITLE_CHANGED]);
+		gtk_signal_emit (GTK_OBJECT (e), signals[TITLE_CHANGED]);
 	}
 	else if ( strncmp( str, "tt", 2 ) == 0 ) {
 		select_font_full ( e, e->settings->fixedFontFace,
@@ -2183,14 +2194,51 @@ html_engine_class_init (HTMLEngineClass *klass)
 
 	parent_class = gtk_type_class (GTK_TYPE_OBJECT);
 
-	html_engine_signals [TITLE_CHANGED] = 
+	signals [SET_BASE] =
+		gtk_signal_new ("set_base",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (HTMLEngineClass, set_base),
+				gtk_marshal_NONE__STRING,
+				GTK_TYPE_NONE, 1,
+				GTK_TYPE_STRING);
+
+	signals [SET_BASE_TARGET] =
+		gtk_signal_new ("set_base_target",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (HTMLEngineClass, set_base_target),
+				gtk_marshal_NONE__STRING,
+				GTK_TYPE_NONE, 1,
+				GTK_TYPE_STRING);
+
+	signals [LOAD_DONE] = 
+	  gtk_signal_new ("load_done",
+			  GTK_RUN_FIRST,
+			  object_class->type,
+			  GTK_SIGNAL_OFFSET (HTMLEngineClass, load_done),
+			  gtk_marshal_NONE__NONE,
+			  GTK_TYPE_NONE, 0);
+
+	signals [TITLE_CHANGED] = 
 		gtk_signal_new ("title_changed",
 				GTK_RUN_FIRST,
 				object_class->type,
 				GTK_SIGNAL_OFFSET (HTMLEngineClass, title_changed),
 				gtk_marshal_NONE__NONE,
 				GTK_TYPE_NONE, 0);
-	gtk_object_class_add_signals (object_class, html_engine_signals, LAST_SIGNAL);
+
+	signals [URL_REQUESTED] =
+	  gtk_signal_new ("url_requested",
+			  GTK_RUN_FIRST,
+			  object_class->type,
+			  GTK_SIGNAL_OFFSET (HTMLEngineClass, url_requested),
+			  gtk_marshal_NONE__POINTER_POINTER,
+			  GTK_TYPE_NONE, 2,
+			  GTK_TYPE_STRING,
+			  GTK_TYPE_POINTER);
+
+	gtk_object_class_add_signals (object_class, signals, LAST_SIGNAL);
 
 	object_class->destroy = html_engine_destroy;
 
@@ -2306,6 +2354,8 @@ html_engine_stop_parser (HTMLEngine *e)
 GtkHTMLStreamHandle
 html_engine_begin (HTMLEngine *p, const char *url)
 {
+	GtkHTMLStream *new_stream;
+
 	html_tokenizer_begin (p->ht);
 	
 	free_block (p); /* Clear the block stack */
@@ -2313,11 +2363,15 @@ html_engine_begin (HTMLEngine *p, const char *url)
 	html_engine_stop_parser (p);
 	p->writing = TRUE;
 
-	return gtk_html_stream_new(GTK_HTML(p->widget),
-				   url,
-				   (GtkHTMLStreamWriteFunc)html_engine_write,
-				   (GtkHTMLStreamEndFunc)html_engine_end,
-				   (gpointer)p);
+	new_stream = gtk_html_stream_new(GTK_HTML(p->widget),
+					 url,
+					 (GtkHTMLStreamWriteFunc)html_engine_write,
+					 (GtkHTMLStreamEndFunc)html_engine_end,
+					 (gpointer)p);
+
+	gtk_signal_emit (GTK_OBJECT(p), signals [URL_REQUESTED], url, new_stream);
+
+	return new_stream;
 }
 
 void
@@ -2421,8 +2475,8 @@ html_engine_end (GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, HTMLEng
 	e->writing = FALSE;
 
 	html_tokenizer_end (e->ht);
-	gtk_signal_emit(GTK_OBJECT(e->widget), html_signals[LOAD_DONE]);
-	html_image_factory_cleanup(e->image_factory);
+	gtk_signal_emit (GTK_OBJECT (e), signals[LOAD_DONE]);
+	html_image_factory_cleanup (e->image_factory);
 }
 
 void
@@ -2896,8 +2950,8 @@ html_engine_canonicalize_url (HTMLEngine *e, const char *in_url)
 }
 #endif
 
-gchar *
-html_engine_get_uri_at_pointer (HTMLEngine *e, gint x, gint y)
+const gchar *
+html_engine_get_link_at (HTMLEngine *e, gint x, gint y)
 {
 	HTMLObject *obj;
 
@@ -2915,7 +2969,7 @@ html_engine_get_uri_at_pointer (HTMLEngine *e, gint x, gint y)
 				       y + e->y_offset - e->topBorder);
 
 	if ( obj != 0 )
-		return g_strdup (html_object_get_url (obj));
+		return html_object_get_url (obj);
 
 	return NULL;
 }
