@@ -905,6 +905,7 @@ append_object (HTMLEngine *e, HTMLObject *o, guint len, HTMLUndoDirection dir)
 	GList *left = NULL, *right = NULL;
 	HTMLObject *where;
 
+	html_engine_freeze (e);
 	if (html_clueflow_is_empty (HTML_CLUEFLOW (e->cursor->object->parent))) {
 		HTMLObject *c, *cn;
 		HTMLClue *clue = HTML_CLUE (e->cursor->object->parent);
@@ -927,6 +928,8 @@ append_object (HTMLEngine *e, HTMLObject *o, guint len, HTMLUndoDirection dir)
 		where = HTML_OBJECT (left->data);
 		html_clue_append_after (HTML_CLUE (where->parent), flow, where);
 	}
+	html_object_change_set (o, HTML_CHANGE_ALL_CALC);
+	html_engine_thaw (e);
 
 	html_cursor_forward_n (e->cursor, e, len);
 	insert_setup_undo (e, len, dir);
