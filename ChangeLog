@@ -1,5 +1,7 @@
 2000-10-20  Radek Doulik  <rodo@helixcode.com>
 
+	* README: added licensing information, updated
+
 	* configure.in: fixed incorrect msg in check of gnome-print
 
 2000-10-19  Radek Doulik  <rodo@helixcode.com>

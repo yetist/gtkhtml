@@ -1,23 +1,33 @@
-This is GtkHTML, a lightweight HTML rendering/printing/editing engine.
+Licensing
+---------
+
+        The library (src/) is released under the LGPL
+        The component (components/) is released under the GPL
+
+        GAL is only employed by the component, and not the library
+
+What is GtkHTML?
+----------------
+
+GtkHTML is a lightweight HTML rendering/printing/editing engine.
 It was originally based on KHTMLW, part of the KDE project, but is now being 
 developed independently.
 
-In order to compile GtkHTML, you need gdk-pixbuf 0.8.0 (or later),
-Bonobo 0.16 (or later) and gnome-print 0.20 (or later).
+Requirements
+------------
 
-Optionaly you may want to install GConf 0.4 (or later) to enable the
+In order to compile GtkHTML, you need gdk-pixbuf 0.8.0 (or later),
+Bonobo 0.23 (or later), gnome-print 0.24 (or later) and GAL 0.2 (or later).
+
+Optionally you may want to install GConf 0.4 (or later) to enable the
 configuration capplet.
 
 If you want to try the test program `testgtkhtml', you also need
-libwww.  Libwww is available from:
+glibwww 0.2 or later.  GLibWWW is available from:
 
-    http://www.w3.org/Library/
+    ftp://www.gnome.org/pub/GNOME/unstable/sources/glibwww/
 
-The libwww library must be compiled *with* zlib support.  The
-pre-built libwww packages shipped by Linux distributions all have zlib
-support compiled in already AFAIK.
-
-To try it out, run testgtkhtml in the source dir, i.e:
+To try it out, run testgtkhtml in the source directory, i.e:
 
     cd src
     ./testgtkhtml
