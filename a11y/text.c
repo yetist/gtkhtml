@@ -62,6 +62,32 @@ static gboolean html_a11y_text_set_selection (AtkText *text, gint selection_num,
 static gint html_a11y_text_get_caret_offset (AtkText *text);
 static gboolean html_a11y_text_set_caret_offset (AtkText *text, gint offset);
 
+/* Editable text interface. */
+static void 	atk_editable_text_interface_init      (AtkEditableTextIface *iface);
+static void	html_a11y_text_set_text_contents	(AtkEditableText      *text,
+							 const gchar          *string);
+static void	html_a11y_text_insert_text	(AtkEditableText      *text,
+						 const gchar          *string,
+						 gint                 length,
+						 gint                 *position);
+static void	html_a11y_text_copy_text	(AtkEditableText      *text,
+						 gint                 start_pos,
+						 gint                 end_pos);
+static void	html_a11y_text_cut_text		(AtkEditableText      *text,
+						 gint                 start_pos,
+						 gint                 end_pos);
+static void	html_a11y_text_delete_text	(AtkEditableText      *text,
+						 gint                 start_pos,
+						 gint                 end_pos);
+static void	html_a11y_text_paste_text	(AtkEditableText      *text,
+						 gint                 position);
+static void	html_a11y_text_paste_received	(GtkClipboard *clipboard,
+						 const gchar  *text,
+						 gpointer     data);
+
+static AtkStateSet* html_a11y_text_ref_state_set	(AtkObject	*accessible);
+
+
 static AtkObjectClass *parent_class = NULL;
 
 GType
@@ -95,9 +121,17 @@ html_a11y_text_get_type (void)
 			NULL
 		};
 
+		static const GInterfaceInfo atk_editable_text_info =
+		{
+			(GInterfaceInitFunc) atk_editable_text_interface_init,
+			(GInterfaceFinalizeFunc) NULL,
+			NULL
+		};
+
 		type = g_type_register_static (G_TYPE_HTML_A11Y, "HTMLA11YText", &tinfo, 0);
 		g_type_add_interface_static (type, ATK_TYPE_COMPONENT, &atk_component_info);
 		g_type_add_interface_static (type, ATK_TYPE_TEXT, &atk_text_info);
+		g_type_add_interface_static (type, ATK_TYPE_EDITABLE_TEXT, &atk_editable_text_info);
 	}
 
 	return type;
@@ -127,6 +161,7 @@ atk_text_interface_init (AtkTextIface *iface)
 	iface->get_selection = html_a11y_text_get_selection;
 	iface->remove_selection = html_a11y_text_remove_selection;
 	iface->set_selection = html_a11y_text_set_selection;
+	iface->add_selection = html_a11y_text_add_selection;
 	iface->get_caret_offset = html_a11y_text_get_caret_offset;
 	iface->set_caret_offset = html_a11y_text_set_caret_offset;
 }
@@ -167,6 +202,7 @@ html_a11y_text_class_init (HTMLA11YTextClass *klass)
 	parent_class = g_type_class_peek_parent (klass);
 
 	atk_class->initialize = html_a11y_text_initialize;
+	atk_class->ref_state_set = html_a11y_text_ref_state_set;
 	gobject_class->finalize = html_a11y_text_finalize;
 }
 
@@ -193,6 +229,28 @@ html_a11y_text_new (HTMLObject *html_obj)
 	/* printf ("created new html accessible text object\n"); */
 
 	return accessible;
+}
+
+/* atkobject.h */
+
+static AtkStateSet*
+html_a11y_text_ref_state_set (AtkObject *accessible)
+{
+	AtkStateSet *state_set;
+	GtkHTML * html;
+
+	state_set = ATK_OBJECT_CLASS (parent_class)->ref_state_set (accessible);
+	html = GTK_HTML_A11Y_GTKHTML(html_a11y_get_gtkhtml_parent(HTML_A11Y(accessible)));
+	if (!html || !html->engine)
+		return state_set;
+
+	if (html_engine_get_editable(html->engine))
+		atk_state_set_add_state (state_set, ATK_STATE_EDITABLE);
+
+	atk_state_set_add_state (state_set, ATK_STATE_MULTI_LINE);
+	atk_state_set_add_state (state_set, ATK_STATE_MULTI_LINE);
+
+	return state_set;
 }
 
 /*
@@ -276,6 +334,7 @@ html_a11y_text_get_caret_offset(AtkText * text)
 	g_return_val_if_fail(p && HTML_IS_TEXT(p), 0);
 
 	html = GTK_HTML_A11Y_GTKHTML(html_a11y_get_gtkhtml_parent(HTML_A11Y(text)));
+
 	g_return_val_if_fail(html && GTK_IS_HTML(html) && html->engine, 0);
 
 	e = html_engine_get_top_html_engine(html->engine);
@@ -426,3 +485,162 @@ html_a11y_text_set_selection (AtkText *text, gint selection_num, gint start_offs
                                                    gint             offset);
 
 */
+
+ 
+static void
+atk_editable_text_interface_init (AtkEditableTextIface *iface)
+{
+	g_return_if_fail (iface != NULL);
+
+	iface->set_text_contents = html_a11y_text_set_text_contents;
+	iface->insert_text = html_a11y_text_insert_text;
+	iface->copy_text = html_a11y_text_copy_text;
+	iface->cut_text = html_a11y_text_cut_text;
+	iface->delete_text = html_a11y_text_delete_text;
+	iface->paste_text = html_a11y_text_paste_text;
+	iface->set_run_attributes = NULL;
+}
+
+static void
+html_a11y_text_set_text_contents (AtkEditableText *text,
+				  const gchar     *string)
+{
+	GtkHTML * html;
+	HTMLText *t;
+
+	/* fprintf(stderr, "atk set text contents called text %p\n", text);*/
+	g_return_if_fail(string);
+
+        html = GTK_HTML_A11Y_GTKHTML(html_a11y_get_gtkhtml_parent(HTML_A11Y(text)));
+	g_return_if_fail(html && html->engine && html_engine_get_editable(html->engine));
+	t = HTML_TEXT(HTML_A11Y_HTML(text));
+	g_return_if_fail (t);
+
+        html_engine_hide_cursor (html->engine);
+	html_cursor_jump_to(html->engine->cursor, html->engine, HTML_OBJECT(t), 0);
+	html_engine_set_mark(html->engine);
+	html_cursor_jump_to(html->engine->cursor, html->engine, HTML_OBJECT(t), t->text_len);
+	html_engine_update_selection_if_necessary (html->engine);
+	html_engine_paste_text(html->engine, string, -1);
+        html_engine_show_cursor (html->engine);
+
+        g_signal_emit_by_name(html, "grab_focus");
+}
+
+static void
+html_a11y_text_insert_text (AtkEditableText *text,
+			    const gchar     *string,
+			    gint            length,
+			    gint            *position)
+{
+	GtkHTML * html;
+	HTMLText *t;
+	gint index;
+
+	/* fprintf(stderr, "atk insert text called \n"); */
+
+	g_return_if_fail(string && (length > 0));
+	t = HTML_TEXT(HTML_A11Y_HTML(text));
+	g_return_if_fail (t);
+
+        html = GTK_HTML_A11Y_GTKHTML(html_a11y_get_gtkhtml_parent(HTML_A11Y(text)));
+	g_return_if_fail(html && html->engine && html_engine_get_editable(html->engine));
+	html_cursor_jump_to(html->engine->cursor, html->engine, HTML_OBJECT(t), *position);
+	html_engine_paste_text(html->engine, string, -1);
+}
+
+static void
+html_a11y_text_copy_text	(AtkEditableText *text,
+				 gint            start_pos,
+				 gint            end_pos)
+{
+	GtkHTML * html;
+	gchar * str;
+	HTMLText *t;
+	gint start_index, end_index;
+
+	/* fprintf(stderr, "atk copy text called \n"); */
+        html = GTK_HTML_A11Y_GTKHTML(html_a11y_get_gtkhtml_parent(HTML_A11Y(text)));
+	g_return_if_fail(html && html->engine && html_engine_get_editable(html->engine));
+	t = HTML_TEXT(HTML_A11Y_HTML(text));
+	g_return_if_fail (t);
+
+        html_engine_hide_cursor (html->engine);
+	html_cursor_jump_to(html->engine->cursor, html->engine, HTML_OBJECT(t), start_pos);
+	html_engine_set_mark(html->engine);
+	html_cursor_jump_to(html->engine->cursor, html->engine, HTML_OBJECT(t), end_pos);
+	html_engine_update_selection_if_necessary (html->engine);
+
+	html_engine_copy(html->engine);
+        html_engine_show_cursor (html->engine);
+}
+
+static void
+html_a11y_text_cut_text (AtkEditableText *text,
+			 gint            start_pos,
+			 gint            end_pos)
+{
+	GtkHTML * html;
+	HTMLText *t;
+	gint start_index, end_index;
+	gchar * str;
+
+	/* fprintf(stderr, "atk cut text called.\n"); */
+        html = GTK_HTML_A11Y_GTKHTML(html_a11y_get_gtkhtml_parent(HTML_A11Y(text)));
+	g_return_if_fail(html && html->engine && html_engine_get_editable(html->engine));
+	t = HTML_TEXT(HTML_A11Y_HTML(text));
+	g_return_if_fail (t);
+
+        html_engine_hide_cursor (html->engine);
+	html_cursor_jump_to(html->engine->cursor, html->engine, HTML_OBJECT(t), start_pos);
+	html_engine_set_mark(html->engine);
+	html_cursor_jump_to(html->engine->cursor, html->engine, HTML_OBJECT(t), end_pos);
+	html_engine_update_selection_if_necessary (html->engine);
+	html_engine_cut(html->engine);
+	html_engine_show_cursor (html->engine); 
+
+        g_signal_emit_by_name(html, "grab_focus");
+}
+
+static void
+html_a11y_text_delete_text	(AtkEditableText *text,
+		  	 gint            start_pos,
+			 gint            end_pos)
+{
+	GtkHTML * html;
+	HTMLText *t;
+	gint start_index, end_index;
+	gchar * str;
+
+	/* fprintf(stderr, "atk delete text called.\n"); */
+        html = GTK_HTML_A11Y_GTKHTML(html_a11y_get_gtkhtml_parent(HTML_A11Y(text)));
+	g_return_if_fail(html && html->engine && html_engine_get_editable(html->engine));
+	t = HTML_TEXT(HTML_A11Y_HTML(text));
+	g_return_if_fail (t);
+
+	html_cursor_jump_to(html->engine->cursor, html->engine, HTML_OBJECT(t), start_pos);
+	html_engine_delete_n(html->engine, end_pos-start_pos, TRUE);
+        g_signal_emit_by_name(html, "grab_focus");
+}
+
+static void
+html_a11y_text_paste_text	(AtkEditableText *text,
+			 	 gint            position)
+{
+	GtkHTML * html;
+	HTMLText *t;
+
+	/* fprintf(stderr, "atk paste text called.\n"); */
+
+        html = GTK_HTML_A11Y_GTKHTML(html_a11y_get_gtkhtml_parent(HTML_A11Y(text)));
+	g_return_if_fail(html && html->engine && html_engine_get_editable(html->engine));
+	t = HTML_TEXT(HTML_A11Y_HTML(text));
+	g_return_if_fail (t);
+
+        html_engine_show_cursor (html->engine);
+	html_cursor_jump_to(html->engine->cursor, html->engine, HTML_OBJECT(t), position);
+	html_engine_paste(html->engine);
+        html_engine_show_cursor (html->engine);
+
+        g_signal_emit_by_name(html, "grab_focus");
+}

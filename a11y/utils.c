@@ -85,6 +85,13 @@ create_accessible (HTMLObject *o, AtkObject *parent)
 	return accessible;
 }
 
+static void
+acc_unref(gpointer data)
+{
+	g_object_set_data(G_OBJECT(data), HTML_ID, NULL);
+	g_object_unref(G_OBJECT(data));
+}
+
 AtkObject *
 html_utils_get_accessible (HTMLObject *o, AtkObject *parent)
 {
@@ -92,13 +99,13 @@ html_utils_get_accessible (HTMLObject *o, AtkObject *parent)
 
 	g_return_val_if_fail(o != NULL, NULL);
 
-	accessible = html_object_get_data (o, ACCESSIBLE_ID);
+	accessible = html_object_get_data_nocp (o, ACCESSIBLE_ID);
 
 	if (!accessible) {
 		accessible = create_accessible (o, parent);
 		if (accessible) {
 			g_object_ref (accessible);
-			html_object_set_data_full (o, ACCESSIBLE_ID, accessible, g_object_unref);
+			html_object_set_data_full_nocp (o, ACCESSIBLE_ID, accessible, acc_unref);
 		}
 	}
 

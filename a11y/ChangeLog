@@ -1,3 +1,17 @@
+2003-09-01  Yuedong Du  <yuedong.du@sun.com>
+
+	* text.c: (html_a11y_text_get_type), (atk_text_interface_init),
+	(html_a11y_text_class_init), (html_a11y_text_ref_state_set),
+	(html_a11y_text_get_caret_offset),
+	(atk_editable_text_interface_init),
+	(html_a11y_text_set_text_contents), (html_a11y_text_insert_text),
+	(html_a11y_text_copy_text), (html_a11y_text_cut_text),
+	(html_a11y_text_delete_text), (html_a11y_text_paste_text):implemented
+	atk editable text interface
+	* utils.c: (acc_unref), (html_utils_get_accessible): use new data list
+	instead the old ones.
+	* utils.h: ditto
+
 2003-08-06  Yuedong Du  <yuedong.du@sun.com>
 
 	* html.c: (html_a11y_get_parent): use html_utils_get_accessible() to
