@@ -1,5 +1,7 @@
 2003-02-28  Larry Ewing  <lewing@ximian.com>
 
+	* htmlengine.c: turn off debug log that accidenetally got turned on.
+
 	* gtkhtml.c (gtk_html_api_set_language): change assertion to check.
 
 2003-02-27  Larry Ewing  <lewing@ximian.com>
