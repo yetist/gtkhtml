@@ -178,17 +178,19 @@ gtk_html_a11y_grab_focus_cb(GtkWidget * widget)
 
 }
 
+
+static AtkObject * gtk_html_a11y_focus_object = NULL;
+
 static void
-gtk_html_a11y_cursor_move_cb(GtkWidget *widget,  GtkDirectionType dir_type, GtkHTMLCursorSkipType skip)
+gtk_html_a11y_cursor_changed_cb (GtkWidget *widget)
 {
         AtkObject *focus_object, *obj;
-	static AtkObject * prev_object = NULL;
 
 	focus_object = gtk_html_a11y_get_focus_object (widget);
        obj = gtk_widget_get_accessible (widget);
 	
-	if (prev_object != focus_object) {
-		prev_object = focus_object;
+	if (gtk_html_a11y_focus_object != focus_object) {
+		gtk_html_a11y_focus_object = focus_object;
         	g_object_set_data (G_OBJECT(obj), "gail-focus-object", focus_object);
         	atk_focus_tracker_notify (focus_object);
 	} else {
@@ -199,6 +201,47 @@ gtk_html_a11y_cursor_move_cb(GtkWidget *widget,  GtkDirectionType dir_type, GtkH
 			g_signal_emit_by_name(focus_object, "text_caret_moved",offset);
                 }
         }
+}
+
+static void
+gtk_html_a11y_insert_object_cb (GtkWidget * widget, int pos, int len) 
+{
+	AtkObject * a11y, *obj;
+	HTMLText * text;
+
+        obj = gtk_widget_get_accessible (widget);
+	a11y = gtk_html_a11y_get_focus_object (widget);
+
+	if (gtk_html_a11y_focus_object != a11y) {
+		gtk_html_a11y_focus_object = a11y;
+        	g_object_set_data (G_OBJECT(obj), "gail-focus-object", a11y);
+        	atk_focus_tracker_notify (a11y);
+	}
+
+	if (G_IS_HTML_A11Y_TEXT(a11y)) {
+		g_signal_emit_by_name (a11y, "text_changed::insert", pos, len);
+
+	} 
+}
+
+static void
+gtk_html_a11y_delete_object_cb (GtkWidget * widget, int pos, int len) 
+{
+	AtkObject * a11y, *obj;
+	HTMLText * text;
+
+        obj = gtk_widget_get_accessible (widget);
+	a11y = gtk_html_a11y_get_focus_object (widget);
+
+	if (gtk_html_a11y_focus_object != a11y) {
+		gtk_html_a11y_focus_object = a11y;
+        	g_object_set_data (G_OBJECT(obj), "gail-focus-object", a11y);
+        	atk_focus_tracker_notify (a11y);
+	}
+
+	if (G_IS_HTML_A11Y_TEXT(a11y)) {
+		g_signal_emit_by_name (a11y, "text_changed::delete", pos, len);
+	}
 }
 
 AtkObject* 
@@ -215,12 +258,19 @@ gtk_html_a11y_new (GtkWidget *widget)
 	atk_object_initialize (accessible, widget);
 
 	accessible->role = ATK_ROLE_HTML_CONTAINER;
-	g_signal_connect_after(widget, "grab_focus", 
+	g_signal_connect_after (widget, "grab_focus", 
 			G_CALLBACK (gtk_html_a11y_grab_focus_cb),
 			NULL);
-	g_signal_connect_after(widget, "cursor_move",
-			G_CALLBACK(gtk_html_a11y_cursor_move_cb),
+	g_signal_connect (widget, "cursor_changed",
+			G_CALLBACK(gtk_html_a11y_cursor_changed_cb),
 			NULL);
+	g_signal_connect_after (widget, "object_inserted",
+			G_CALLBACK(gtk_html_a11y_insert_object_cb),
+			NULL);
+	g_signal_connect_after (widget, "object_deleted",
+			G_CALLBACK(gtk_html_a11y_delete_object_cb),
+			NULL);
+
 	html_utils_get_accessible(GTK_HTML(widget)->engine->clue, accessible);
 
 	/* printf ("created new gtkhtml accessible object\n"); */

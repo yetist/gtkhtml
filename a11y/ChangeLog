@@ -1,3 +1,11 @@
+2004-12-14  Mengjie Yu  <meng-jie.yu@sun.com>
+
+	* object.c: (gtk_html_a11y_cursor_changed_cb),
+	(gtk_html_a11y_insert_object_cb), (gtk_html_a11y_delete_object_cb),
+	(gtk_html_a11y_new):
+	fix #70078 listen and handle the insert/delete signal. 
+		   For text object, emit text_changed signal.
+
 2004-11-01  Radek Doulik  <rodo@ximian.com>
 
 	* Makefile.am (AM_CFLAGS): use AM_FLAGS instead of CFLAGS
