@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.5\n"
 "POT-Creation-Date: 2001-04-17 10:08-0500\n"
-"PO-Revision-Date: 2001-01-19 11:30+0100\n"
+"PO-Revision-Date: 2001-04-21 11:30+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -135,31 +135,31 @@ msgstr "Variabel bredde"
 
 #: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:1
 msgid "EBrowser control"
-msgstr ""
+msgstr "EBrowser kontrol"
 
 #: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:2
 msgid "EBrowser factory"
-msgstr ""
+msgstr "EBrowser fabrik"
 
 #: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:3
 msgid "Factory for the EBrowser control"
-msgstr ""
+msgstr "Fabrik for EBrowser kontrol"
 
 #: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:4
 msgid "HTML Browser conrtol"
-msgstr ""
+msgstr "HTML netlaser kontrol"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:1
 msgid "An HTML Editor control"
-msgstr ""
+msgstr "En HTML netlæser kontrol"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:2
 msgid "Factory for the HTML Editor control"
-msgstr ""
+msgstr "Fabrik for HTML redigerings kontrol"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:3
 msgid "HTML editor control"
-msgstr ""
+msgstr "HTML redigerings kontrol"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:1
 msgid "C_ut"
@@ -554,7 +554,7 @@ msgstr "Normal"
 
 #: components/html-editor/toolbar.c:51
 msgid "Preformat"
-msgstr ""
+msgstr "Præformatér"
 
 #: components/html-editor/toolbar.c:52
 msgid "Header 1"
