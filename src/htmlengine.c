@@ -1532,14 +1532,13 @@ static void
 parse_iframe (HTMLEngine *e, const gchar *str, HTMLObject *_clue) 
 {
 	char *src = NULL;
-	char *width = NULL;
-	char *height = NULL;
 	char *align = NULL;
 	HTMLObject *iframe;
 	static const gchar *end[] = { "</iframe", 0};
-
-	width = g_strdup ("-1");
-	height = g_strdup ("-1");
+	gint width           = -1;
+	gint height          = -1;
+	gint border          = TRUE;
+	GtkPolicyType scroll = GTK_POLICY_AUTOMATIC;
 
 	html_string_tokenizer_tokenize (e->st, str, " >");
 
@@ -1549,9 +1548,9 @@ parse_iframe (HTMLEngine *e, const gchar *str, HTMLObject *_clue)
 		if ( strncasecmp( token, "src=", 4 ) == 0 ) {
 			src = g_strdup(token + 4);
 		} else if ( strncasecmp( token, "width=", 6 ) == 0 ) {
-			width = g_strdup(token + 6);
+			width = atoi (token +6);
 		} else if ( strncasecmp( token, "height=", 7 ) == 0 ) {
-			height = g_strdup( token + 7 );
+			height = atoi (token + 7);
 		} else if ( strncasecmp( token, "align=", 6 ) == 0 ) {
 			align = g_strdup( token + 6 );
 		} else if ( strncasecmp( token, "longdesc=", 9 ) == 0 ) {
@@ -1559,24 +1558,29 @@ parse_iframe (HTMLEngine *e, const gchar *str, HTMLObject *_clue)
 		} else if ( strncasecmp( token, "name=", 5 ) == 0 ) {
 			/* TODO: Ignored */
 		} else if ( strncasecmp( token, "scrolling=", 7 ) == 0 ) {
-			/* TODO: implement this damn thing */
-		} else if ( strncasecmp( token, "border=", 7 ) == 0 ) {
-			/* TODO: implement this damn thing */
+			/* TODO: Ignored */
+			if (strcasecmp (token + 7, "yes")) {
+				scroll = GTK_POLICY_ALWAYS;
+			} else if (strcasecmp (token + 7, "no")) {
+				scroll = GTK_POLICY_NEVER;
+			} else /* auto */ {
+				scroll = GTK_POLICY_AUTOMATIC;
+			}
+		} else if ( strncasecmp (token, "frameborder=", 12 ) == 0 ) {
+			border = atoi (token + 12);
 		}
 
 	}	
 		
 	if (src) {
 		iframe = html_iframe_new (GTK_WIDGET (e->widget),
-					  src, atoi(width), atoi (height), FALSE);
+					  src, width, height, border);
 		g_free (src);
 		append_element (e, _clue, iframe);
 		discard_body (e, end);
 	} else {
 		parse_body (e, _clue, end, FALSE);
 	}
-	g_free (width);
-	g_free (height);
 	g_free (align);
 }
 

@@ -2149,8 +2149,8 @@ gtk_html_load_from_string  (GtkHTML *html, const gchar *str, gint len)
 	GtkHTMLStream *stream;
 
 	stream = gtk_html_begin (html);
-	gtk_html_write (html, stream, str, (len == -1) ? strlen (str) : len);
-	gtk_html_end (html, stream, GTK_HTML_STREAM_OK);
+	gtk_html_stream_write (stream, str, (len == -1) ? strlen (str) : len);
+	gtk_html_stream_close (stream, GTK_HTML_STREAM_OK);
 }
 
 

@@ -72,9 +72,6 @@ struct _GtkHTML {
 	GtkHTMLPrivate *priv;
 };
 
-/* must be forward referenced *sigh* */
-struct _HTMLEmbedded;
-
 struct _GtkHTMLClass {
 	GtkLayoutClass parent_class;
 	
