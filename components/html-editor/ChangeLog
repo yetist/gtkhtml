@@ -1,3 +1,9 @@
+2002-06-12  Larry Ewing  <lewing@ximian.com>
+
+	* menubar.c (indent_less_cb): use the new
+	gtk_html_indent_level_pop function.
+	(indent_more_cb): use gtk_html_indent_level_push.
+
 2002-06-06  Radek Doulik  <rodo@ximian.com>
 
 	* menubar.c: added insert text/html file items and implemented

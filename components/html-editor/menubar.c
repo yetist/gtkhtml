@@ -290,13 +290,13 @@ properties_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname
 static void 
 indent_more_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
-	gtk_html_modify_indent_by_delta (GTK_HTML (cd->html), +1);
+	gtk_html_indent_push_level (cd->html, HTML_LIST_TYPE_BLOCKQUOTE);
 }
 
 static void 
 indent_less_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
-	gtk_html_modify_indent_by_delta (GTK_HTML (cd->html), -1);
+	gtk_html_indent_pop_level (cd->html);
 }
 
 static void 
