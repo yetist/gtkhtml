@@ -116,6 +116,8 @@ static void      parse_f                   (HTMLEngine *p,
 static void      html_object_changed       (GtkHTMLEmbedded *eb,
 					    HTMLEngine *e);
 
+static void      update_embedded           (GtkWidget *widget,
+					    GtkHTML *html);
 
 static GtkLayoutClass *parent_class = NULL;
 
@@ -3446,10 +3448,10 @@ html_engine_write (GtkHTMLStream *handle,
 	}
 }
 
-void
+static void
 update_embedded (GtkWidget *widget, GtkHTML *html)
 {
-	HTMLObject *obj, *p;
+	HTMLObject *obj;
 
 	/* FIXME: this is a hack to update all the embedded widgets when
 	 * they get moved off screen it isn't gracefull, but it should be a effective

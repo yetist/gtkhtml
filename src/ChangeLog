@@ -1,3 +1,7 @@
+2001-03-15  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (update_embedded): add prototype and fix warnings.
+
 2001-03-14  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (html_engine_update_event): do a container forall
