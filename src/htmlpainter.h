@@ -73,7 +73,7 @@ struct _HTMLPainterClass {
 	const GdkColor * (* get_black) (const HTMLPainter *painter);
 	void (* draw_line)        (HTMLPainter *painter, gint x1, gint y1, gint x2, gint y2);
 	void (* draw_rect)        (HTMLPainter *painter, gint x, gint y, gint width, gint height);
-	void (* draw_text)        (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GList *items, GList *glyphs);
+	gint (* draw_text)        (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GList *items, GList *glyphs);
 	gint (* draw_spell_error) (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GList *items, GList *glyphs);
 	void (* fill_rect)        (HTMLPainter *painter, gint x, gint y, gint width, gint height);
 	void (* draw_pixmap)      (HTMLPainter *painter, GdkPixbuf *pixbuf, 

@@ -937,13 +937,13 @@ draw_embedded (HTMLPainter * p, HTMLEmbedded *o, gint x, gint y)
 	}
 }
 
-static void
+static gint
 draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GList *items, GList *glyphs)
 {
 	HTMLGdkPainter *gdk_painter;
 	PangoFontDescription *desc;
 	gboolean temp_items = FALSE;
-	gint blen;
+	gint blen, width = 0;
 
 	if (len == -1)
 		len = g_utf8_strlen (text, -1);
@@ -962,7 +962,7 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GL
 	if (items && items->data) {
 		PangoGlyphString *str;
 		GList *gl, *il;
-		guint i, width = 0;
+		guint i;
 
 		for (gl = glyphs, il = items; il && gl; gl = gl->next, il = il->next) {
 			str = (PangoGlyphString *) gl->data;
@@ -975,7 +975,7 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GL
 	if (items && items->data && glyphs && painter->font_style & (GTK_HTML_FONT_STYLE_UNDERLINE | GTK_HTML_FONT_STYLE_STRIKEOUT)) {
 		GList *gl, *il;
 		PangoRectangle log_rect;
-		gint width, dsc, asc;
+		gint dsc, asc;
 
 		for (gl = glyphs, il = items; gl && il; gl = gl->next, il = il->next)
 			pango_glyph_string_extents ((PangoGlyphString *) gl->data, ((PangoItem *) il->data)->analysis.font, NULL, &log_rect);
@@ -1001,6 +1001,8 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GL
 		if (items)
 			items_destroy (items);
 	}
+
+	return width;
 }
 
 static void

@@ -426,13 +426,72 @@ html_replace_tabs (const gchar *text, gchar *translated, guint bytes)
 	} while (tab);
 }
 
+static inline GList *
+shift_items (GList *items, gint byte_offset)
+{
+	if (items) {
+		PangoItem *item;
+
+		while (items && (item = (PangoItem *) items->data) && item->offset + item->length < byte_offset)
+			items = items->next;
+	}
+
+	return items;
+}
+
+static inline GList *
+shift_glyphs (GList *glyphs, gint len)
+{
+	if (glyphs) {
+		PangoGlyphString *str;
+
+		while (glyphs && (str = (PangoGlyphString *) glyphs->data) && len > 0) {
+			len -= str->num_glyphs;
+			glyphs = glyphs->next;
+		}
+	}
+
+	return glyphs;
+}
+
 gint
-html_painter_draw_text (HTMLPainter *painter,
-			gint x, gint y,
+html_painter_draw_text (HTMLPainter *painter, gint x, gint y,
 			const gchar *text, gint len, GList *items, GList *glyphs, gint line_offset)
 {
+	gchar *tab;
+	gint bytes, byte_offset = 0, start_byte_offset = 0;
+
 	g_return_val_if_fail (painter != NULL, line_offset);
 	g_return_val_if_fail (HTML_IS_PAINTER (painter), line_offset);
+
+	if (items) {
+		PangoItem *item = (PangoItem *) items->data;
+
+		g_assert (item);
+		start_byte_offset = item->offset;
+	}
+
+	bytes = g_utf8_offset_to_pointer (text, len) - text;
+	while ((tab = memchr (text, (unsigned char) '\t', bytes))) {
+		gint c_bytes = tab - text;
+		gint c_len = g_utf8_pointer_to_offset (text, tab);
+		
+		if (c_bytes)
+			x += (* HP_CLASS (painter)->draw_text) (painter, x, y, text, c_len, items, glyphs);
+		if (line_offset == -1)
+			x += html_painter_get_space_width (painter, painter->font_style, painter->font_face);
+		else {
+			line_offset += c_len;
+			x += html_painter_get_space_width (painter, painter->font_style, painter->font_face)*(8 - (line_offset % 8));
+			line_offset += 8 - (line_offset % 8);
+		}
+		text += c_bytes + 1;
+		bytes -= c_bytes + 1;
+		byte_offset += c_bytes + 1;
+		items = shift_items (items, start_byte_offset + byte_offset);
+		glyphs = shift_glyphs (glyphs, c_len);
+		len -= c_len + 1;
+	}
 
 	(* HP_CLASS (painter)->draw_text) (painter, x, y, text, len, items, glyphs);
 

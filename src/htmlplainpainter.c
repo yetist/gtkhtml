@@ -149,12 +149,12 @@ glyphs_destroy (GList *glyphs)
 	g_list_free (glyphs);
 }
 
-static void
+static gint
 draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GList *items, GList *glyphs)
 {
 	HTMLGdkPainter *gdk_painter;
 	PangoFontDescription *desc;
-	gint blen;
+	gint blen, width = 0;
 	gboolean temp_items = FALSE;
 
 	if (len == -1)
@@ -174,7 +174,7 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GL
 	if (items && items->data) {
 		PangoGlyphString *str;
 		GList *gl, *il;
-		guint i, width = 0;
+		guint i;
 
 		for (gl = glyphs, il = items; il && gl; gl = gl->next, il = il->next) {
 			str = (PangoGlyphString *) gl->data;
@@ -189,6 +189,8 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GL
 		if (items)
 			items_destroy (items);
 	}
+
+	return width;
 }
 
 static void

@@ -620,6 +620,35 @@ get_glyphs_part (HTMLTextSlave *slave, HTMLPainter *painter, guint offset, guint
 	return glyphs;
 }
 
+inline GList *
+get_glyphs_base_text (GList *glyphs, PangoItem *item, const gchar *text, gint bytes)
+{
+	PangoGlyphString *str;
+
+	str = pango_glyph_string_new ();
+	pango_shape (text, bytes, &item->analysis, str);
+	glyphs = g_list_prepend (glyphs, str);
+}
+
+GList *
+get_glyphs_non_tab (GList *glyphs, PangoItem *item, const gchar *text, gint bytes, gint len)
+{
+	gchar *tab;
+
+	while ((tab = memchr (text, (unsigned char) '\t', bytes))) {
+		gint c_bytes = tab - text;
+		if (c_bytes > 0)
+			glyphs = get_glyphs_base_text (glyphs, item, text, c_bytes);
+		text += c_bytes + 1;
+		bytes -= c_bytes + 1;
+	}
+
+	if (bytes > 0)
+		glyphs = get_glyphs_base_text (glyphs, item, text, bytes);
+
+	return glyphs;
+}
+
 static GList *
 get_glyphs (HTMLTextSlave *slave, HTMLPainter *painter, gint line_offset)
 {
@@ -628,31 +657,20 @@ get_glyphs (HTMLTextSlave *slave, HTMLPainter *painter, gint line_offset)
 		const gchar *text;
 
 		if (items) {
-			PangoGlyphString *str;
 			PangoItem *item;
 			GList *il = items;
-			gint bytes, index, len;
-			gchar *translated_text, *heap;
+			gint index, len;
+			gchar *translated_text, *end;
 
 			text = html_text_slave_get_text (slave);
 			index = 0;
 			while (il && index < slave->posLen) {
 				item = (PangoItem *) il->data;
-				str = pango_glyph_string_new ();
 				len = MIN (item->num_chars, slave->posLen - index);
 
-				bytes = g_utf8_offset_to_pointer (text, len) - text;
-				heap = NULL;
-				if (bytes > HTML_ALLOCA_MAX)
-					heap = translated_text = g_malloc (bytes);
-				else 
-					translated_text = alloca (bytes);
-				html_replace_tabs (text, translated_text, bytes);
-				pango_shape (translated_text, bytes, &item->analysis, str);
-				g_free (heap);
-
-				slave->glyphs = g_list_prepend (slave->glyphs, str);
-				text = g_utf8_offset_to_pointer (text, len);
+				end = g_utf8_offset_to_pointer (text, len);
+				slave->glyphs = get_glyphs_non_tab (slave->glyphs, item, text, end - text, len);
+				text = end;
 				index += len;
 				il = il->next;
 			}

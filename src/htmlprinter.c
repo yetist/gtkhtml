@@ -530,12 +530,14 @@ fill_rect (HTMLPainter *painter, gint x, gint y, gint width, gint height)
 	gnome_print_fill (printer->context);
 }
 
-static void
+static gint
 draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GList *items, GList *glyphs)
 {
 	GnomeFont *font;
 	HTMLPrinter *printer;
+	gint bytes;
 	gdouble print_x, print_y;
+	double text_width;
 
 	printer = HTML_PRINTER (painter);
 	g_return_if_fail (printer->context != NULL);
@@ -545,12 +547,13 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GL
 	gnome_print_newpath (printer->context);
 	gnome_print_moveto (printer->context, print_x, print_y);
 
+	bytes = g_utf8_offset_to_pointer (text, len) - text;
 	font = html_painter_get_font (painter, painter->font_face, painter->font_style);
 	gnome_print_setfont (printer->context, font);
-	gnome_print_show_sized (printer->context, text, g_utf8_offset_to_pointer (text, len) - text);
+	gnome_print_show_sized (printer->context, text, bytes);
 
+	text_width = gnome_font_get_width_utf8_sized (font, text, bytes);
 	if (painter->font_style & (GTK_HTML_FONT_STYLE_UNDERLINE | GTK_HTML_FONT_STYLE_STRIKEOUT)) {
-		double text_width;
 		double ascender, descender;
 		double y;
 
@@ -560,7 +563,6 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GL
 		gnome_print_setlinewidth (printer->context, 1.0);
 		gnome_print_setlinecap (printer->context, GDK_CAP_BUTT);
 
-		text_width = gnome_font_get_width_utf8_sized (font, text, len);
 		if (painter->font_style & GTK_HTML_FONT_STYLE_UNDERLINE) {
 			descender = gnome_font_get_descender (font);
 			y = print_y + gnome_font_get_underline_position (font);
@@ -586,6 +588,8 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GL
 
 		gnome_print_grestore (printer->context);
 	}
+
+	return SCALE_GNOME_PRINT_TO_ENGINE (text_width);
 }
 
 static void
@@ -696,11 +700,13 @@ alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, Gt
 	}
 
 	return font ? html_font_new (font,
-				     SCALE_GNOME_PRINT_FONT_TO_ENGINE (gnome_font_get_width_utf8_sized (font, " ", 1)),
-				     SCALE_GNOME_PRINT_FONT_TO_ENGINE (gnome_font_get_width_utf8_sized (font, "\xc2\xa0", 2)),
-				     SCALE_GNOME_PRINT_FONT_TO_ENGINE (gnome_font_get_width_utf8_sized (font, "\t", 1)),
-				     SCALE_GNOME_PRINT_FONT_TO_ENGINE (gnome_font_get_width_utf8_sized (font, HTML_BLOCK_CITE, strlen (HTML_BLOCK_CITE))),
-				     SCALE_GNOME_PRINT_FONT_TO_ENGINE (gnome_font_get_width_utf8_sized (font, HTML_BLOCK_INDENT, strlen (HTML_BLOCK_INDENT))))
+				     SCALE_GNOME_PRINT_FONT_TO_ENGINE (gnome_font_get_width_utf8_sized (font, " ", 1)/HTML_PRINTER (printer)->scale),
+				     SCALE_GNOME_PRINT_FONT_TO_ENGINE (gnome_font_get_width_utf8_sized (font, "\xc2\xa0", 2)/HTML_PRINTER (printer)->scale),
+				     SCALE_GNOME_PRINT_FONT_TO_ENGINE (gnome_font_get_width_utf8_sized (font, "\t", 1)/HTML_PRINTER (printer)->scale),
+				     SCALE_GNOME_PRINT_FONT_TO_ENGINE (gnome_font_get_width_utf8_sized (font, HTML_BLOCK_CITE, strlen (HTML_BLOCK_CITE))
+								       /HTML_PRINTER (printer)->scale),
+				     SCALE_GNOME_PRINT_FONT_TO_ENGINE (gnome_font_get_width_utf8_sized (font, HTML_BLOCK_INDENT, strlen (HTML_BLOCK_INDENT))
+								       /HTML_PRINTER (printer)->scale))
 		: NULL;
 }
 
