@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.6.1\n"
-"POT-Creation-Date: 2000-09-19 22:29+0200\n"
-"PO-Revision-Date: 2000-09-19 22:31+0200\n"
+"POT-Creation-Date: 2000-09-19 23:27+0200\n"
+"PO-Revision-Date: 2000-09-19 23:22+0200\n"
 "Last-Translator: Kai Lahmann <kl@linuxfaqs.de>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -63,7 +63,7 @@ msgstr "sofortige Rechtschreibprüfung"
 
 #: capplet/main.c:232
 msgid "spell checking color"
-msgstr "Rechtschreibprüfungs-Farbe"
+msgstr "Farbe bei Rechtschreibprüfung"
 
 #: capplet/main.c:239
 msgid "language"
@@ -71,7 +71,7 @@ msgstr "Sprache"
 
 #: capplet/main.c:245
 msgid "Miscellaneous"
-msgstr "Weiteres"
+msgstr "Verschiedenes"
 
 #: capplet/main.c:247
 msgid "magic links"
@@ -513,7 +513,7 @@ msgstr "Ausrücken"
 
 #: components/html-editor/toolbar.c:526
 msgid "Indent paragraphs less"
-msgstr "Rückt Absätzte weniger ein"
+msgstr "Absätzte weniger einrücken"
 
 #: components/html-editor/toolbar.c:528
 msgid "Indent"
@@ -521,7 +521,7 @@ msgstr "Einrücken"
 
 #: components/html-editor/toolbar.c:528
 msgid "Indent paragraphs more"
-msgstr "Rückt Absätzte mehr ein"
+msgstr "Absätzte mehr einrücken"
 
 #: src/testgtkhtml.c:111
 msgid "Print pre_view"
@@ -530,4 +530,3 @@ msgstr "Druck_vorschau"
 #: src/testgtkhtml.c:111
 msgid "Print preview"
 msgstr "Druckvorschau"
-
