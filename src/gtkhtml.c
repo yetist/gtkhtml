@@ -1637,7 +1637,7 @@ init (GtkHTML* html)
 	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (html), GTK_APP_PAINTABLE);
 
 	html->editor_bindings = NULL;
-	html->spell_api = NULL;
+	html->editor_api = NULL;
 	html->debug = FALSE;
 	html->allow_selection = TRUE;
 
@@ -2541,16 +2541,16 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		html_engine_upcase_downcase_word (e, FALSE);
 		break;
 	case GTK_HTML_COMMAND_SPELL_SUGGEST:
-		if (html->spell_api && !html_engine_word_is_valid (e))
-			(*html->spell_api->suggestion_request) (html, html_engine_get_word (e), html->spell_data);
+		if (html->editor_api && !html_engine_word_is_valid (e))
+			(*html->editor_api->suggestion_request) (html, html_engine_get_word (e), html->editor_data);
 		break;
 	case GTK_HTML_COMMAND_SPELL_PERSONAL_DICTIONARY_ADD:
 	case GTK_HTML_COMMAND_SPELL_SESSION_DICTIONARY_ADD:
-		if (html_engine_get_word (e) && html->spell_api) {
+		if (html_engine_get_word (e) && html->editor_api) {
 			if (com_type == GTK_HTML_COMMAND_SPELL_PERSONAL_DICTIONARY_ADD)
-				(*html->spell_api->add_to_personal) (html, html_engine_get_word (e), html->spell_data);
+				(*html->editor_api->add_to_personal) (html, html_engine_get_word (e), html->editor_data);
 			else
-				(*html->spell_api->add_to_session) (html, html_engine_get_word (e), html->spell_data);
+				(*html->editor_api->add_to_session) (html, html_engine_get_word (e), html->editor_data);
 			html_engine_spell_check (e);
 			gtk_widget_queue_draw (GTK_WIDGET (html));
 		}
@@ -2558,6 +2558,9 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	default:
 		html->binding_handled = FALSE;
 	}
+
+	if (!html->binding_handled && html->editor_api)
+		html->binding_handled = (* html->editor_api->command) (html, com_type, html->editor_data);
 }
 
 /*
@@ -2777,8 +2780,8 @@ gtk_html_select_line (GtkHTML *html)
 }
 
 void
-gtk_html_set_spell_api (GtkHTML *html, GtkHTMLEditSpellAPI *api, gpointer data)
+gtk_html_set_editor_api (GtkHTML *html, GtkHTMLEditorAPI *api, gpointer data)
 {
-	html->spell_api  = api;
-	html->spell_data = data;
+	html->editor_api  = api;
+	html->editor_data = data;
 }

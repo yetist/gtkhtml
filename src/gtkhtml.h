@@ -27,7 +27,7 @@ typedef struct _GtkHTML	            GtkHTML;
 typedef struct _GtkHTMLPrivate      GtkHTMLPrivate;
 typedef struct _GtkHTMLClass	    GtkHTMLClass;
 typedef struct _GtkHTMLInputLine    GtkHTMLInputLine;
-typedef struct _GtkHTMLEditSpellAPI GtkHTMLEditSpellAPI;
+typedef struct _GtkHTMLEditorAPI    GtkHTMLEditorAPI;
 
 #include <sys/types.h>
 #include <gtk/gtk.h>
@@ -166,7 +166,10 @@ enum _GtkHTMLCommandType {
 	GTK_HTML_COMMAND_SEARCH_REGEX,
 
 	GTK_HTML_COMMAND_FOCUS_FORWARD,
-	GTK_HTML_COMMAND_FOCUS_BACKWARD
+	GTK_HTML_COMMAND_FOCUS_BACKWARD,
+
+	GTK_HTML_COMMAND_POPUP_MENU,
+	GTK_HTML_COMMAND_PROPERTIES_DIALOG
 };
 typedef enum _GtkHTMLCommandType GtkHTMLCommandType;
 
@@ -186,8 +189,8 @@ struct _GtkHTML {
 
 	GtkBindingSet        *editor_bindings;
 	GtkWidget            *iframe_parent;
-	GtkHTMLEditSpellAPI  *spell_api;
-	gpointer              spell_data;
+	GtkHTMLEditorAPI     *editor_api;
+	gpointer              editor_data;
 	GtkHTMLInputLine     *input_line;
 	HTMLEngine           *engine;
 
@@ -251,24 +254,27 @@ struct _GtkHTMLClass {
 	GtkHTMLClassProperties *properties;
 };
 
-struct _GtkHTMLEditSpellAPI
+struct _GtkHTMLEditorAPI
 {
 	/* spell checking methods */
 	gboolean  (* check_word)              (GtkHTML *html, const gchar *word, gpointer data);
 	void      (* suggestion_request)      (GtkHTML *html, const gchar *word, gpointer data);
 	void      (* add_to_session)          (GtkHTML *html, const gchar *word, gpointer data);
 	void      (* add_to_personal)         (GtkHTML *html, const gchar *word, gpointer data);
+
+	/* unhandled commands */
+	gboolean  (* command)                 (GtkHTML *html, GtkHTMLCommandType com_type, gpointer data);
 };
 
 
 
 /* Creation.  */
-GtkType    gtk_html_get_type       (void);
-GtkWidget *gtk_html_new            (void);
-void       gtk_html_construct      (GtkWidget           *htmlw);
-void       gtk_html_set_spell_api  (GtkHTML             *html,
-				    GtkHTMLEditSpellAPI *api,
-				    gpointer             data);
+GtkType    gtk_html_get_type        (void);
+GtkWidget *gtk_html_new             (void);
+void       gtk_html_construct       (GtkWidget        *htmlw);
+void       gtk_html_set_editor_api  (GtkHTML          *html,
+				     GtkHTMLEditorAPI *api,
+				     gpointer          data);
 
 /* parent iframe setting */
 void       gtk_html_set_iframe_parent       (GtkHTML *html,

@@ -4270,7 +4270,7 @@ html_engine_spell_check (HTMLEngine *e)
 	g_assert (HTML_IS_ENGINE (e));
 	g_assert (e->clue);
 
-	if (e->widget->spell_api)
+	if (e->widget->editor_api && e->widget->editor_api->check_word)
 		html_object_forall (e->clue, (HTMLObjectForallFunc) check_paragraph, e);
 }
 

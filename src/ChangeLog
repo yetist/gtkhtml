@@ -1,3 +1,26 @@
+2000-10-25  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlclueflow.c (html_clueflow_spell_check): likewise
+
+	* gtkhtml.c (command): use editor_data instead of spell_data
+
+	* htmlclueflow.c (html_clueflow_spell_check): likewise
+
+	* gtkhtml.c (init): likewise
+	(command): likewise
+
+	* htmlengine.c (html_engine_spell_check): use editor_api
+
+	* gtkhtml.c (gtk_html_set_editor_api): updated to set EditorAPI
+
+	* gtkhtml.h (struct _GtkHTMLEditorAPI): extend EditSpellAPI to
+	general EditorAPI
+
+	* gtkhtml-properties.c: added new commands
+
+	* gtkhtml.h: added new editor commands for popup menu and property
+	dialog
+
 2000-10-24  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine-save.c (get_body): added background attribute

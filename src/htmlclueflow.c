@@ -1944,7 +1944,7 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *i)
 	   printf ("html_clueflow_spell_check %p %p %d %d\n", i->from, i->to, i->from_offset, i->to_offset); */
 
 	clue = HTML_CLUE (flow);
-	if (!e->widget->spell_api
+	if (!e->widget->editor_api
 	    || !GTK_HTML_CLASS (GTK_OBJECT (e->widget)->klass)->properties->live_spell_check
 	    || !clue || !clue->tail)
 		return;
@@ -1971,7 +1971,7 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *i)
 				bak = *ct;
 				*ct = 0;
 				/* printf ("off %d going to test word: \"%s\"\n", off, word); */
-				result = (*e->widget->spell_api->check_word) (e->widget, word, e->widget->spell_data);
+				result = (*e->widget->editor_api->check_word) (e->widget, word, e->widget->editor_data);
 
 				if (result == 1) {
 					gboolean is_text = (obj) ? html_object_is_text (obj) : FALSE;

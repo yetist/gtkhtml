@@ -85,4 +85,8 @@ binding "gtkhtml-bindings-ms"
   bind "<Ctrl><Shift>s"       { "command" (spell-suggest) }
   bind "<Ctrl><Shift>p"       { "command" (spell-personal-add) }
   bind "<Ctrl><Shift>n"       { "command" (spell-session-add) }
+
+  bind "<Alt>space"           { "command" (popup-menu) }
+  bind "<Alt>Return"          { "command" (property-dialog) }
+  bind "<Alt>KP_Enter"        { "command" (property-dialog) }
 }
