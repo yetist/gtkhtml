@@ -214,6 +214,7 @@ get_body (HTMLEngine *e)
 	gchar *bg;
 	gchar *bg_image;
 	gchar *link;
+	gchar *margins, *lm, *rm, *tm, *bm;
 	gchar *url = NULL;
 
 	cset = e->settings->color_set;
@@ -226,8 +227,17 @@ get_body (HTMLEngine *e)
 		: g_strdup ("");
 	g_free (url);
 
-	body = g_strconcat ("<BODY", text, link, bg, bg_image, ">\n", NULL);
+	lm = e->leftBorder != LEFT_BORDER ? g_strdup_printf (" LEFTMARGIN=\"%d\"", e->leftBorder) : g_strdup ("");
+	rm = e->rightBorder != RIGHT_BORDER ? g_strdup_printf (" RIGHTMARGIN=\"%d\"", e->rightBorder) : g_strdup ("");
+	tm = e->topBorder != TOP_BORDER ? g_strdup_printf (" TOPMARGIN=\"%d\"", e->topBorder) : g_strdup ("");
+	bm = e->bottomBorder != BOTTOM_BORDER ? g_strdup_printf (" BOTTOMMARGIN=\"%d\"", e->bottomBorder) : g_strdup ("");
 
+	body = g_strconcat ("<BODY", text, link, bg, bg_image, lm, rm, tm, bm, ">\n", NULL);
+
+	g_free (lm);
+	g_free (rm);
+	g_free (tm);
+	g_free (bm);
 	g_free (text);
 	g_free (link);
 	g_free (bg);
