@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the gtkhtml package.
 # Keld Simonsen, <keld@dkuug.dk>, 2000, 01.
 # Ole Laursen <olau@hardworking.dk>, 2002, 03, 04.
-# Martin Willemoes Hansen <mwh@sysrq.dk>, 2004.
+# Martin Willemoes Hansen <mwh@sysrq.dk>, 2004, 05.
 #
 # Konventioner:
 #
@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-07 17:25+0100\n"
-"PO-Revision-Date: 2004-10-21 13:27+0200\n"
+"POT-Creation-Date: 2005-02-22 10:47+0100\n"
+"PO-Revision-Date: 2005-02-22 10:47+0100\n"
 "Last-Translator: Martin Willemoes Hansen <mwh@sysrq.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -26,20 +26,20 @@ msgstr ""
 #: a11y/image.c:150
 #, c-format
 msgid "URL is %s, Alternative Text is %s"
-msgstr ""
+msgstr "Adresse er %s, alternativ tekst er %s"
 
 #: a11y/image.c:152
 #, c-format
 msgid "URL is %s"
-msgstr ""
+msgstr "Adresse er %s"
 
 #: a11y/object.c:50 a11y/object.c:59 a11y/text.c:111
 msgid "grab focus"
-msgstr ""
+msgstr "tag fokus"
 
 #: a11y/object.c:256
 msgid "Panel containing HTML"
-msgstr ""
+msgstr "Panel indeholder HTML"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
@@ -937,9 +937,8 @@ msgid "Background Image"
 msgstr "Baggrundsbillede"
 
 #: components/html-editor/body.c:298
-#, fuzzy
 msgid "Background Image File Path"
-msgstr "Baggrundsbillede"
+msgstr "Filsti til baggrundsbillede"
 
 #: components/html-editor/body.c:301
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
@@ -982,9 +981,8 @@ msgid "Page"
 msgstr "Side"
 
 #: components/html-editor/gi-color-combo.c:187
-#, fuzzy
 msgid "color preview"
-msgstr "Vis udskrift"
+msgstr "Forhåndsvisning af farve"
 
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:395
@@ -1188,7 +1186,7 @@ msgstr "himmelblå"
 #. set the a11y name
 #: components/html-editor/gi-combo-box.c:419
 msgid "Popup"
-msgstr ""
+msgstr "Pop op"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
@@ -1422,7 +1420,7 @@ msgstr "_Tabel"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:75
 msgid "_URL:"
-msgstr "_URL:"
+msgstr "_Adresse:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:77
 msgid "_Width:"
@@ -1453,14 +1451,12 @@ msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
 #: components/html-editor/link.c:194
-#, fuzzy
 msgid "URL:"
-msgstr "_URL:"
+msgstr "Adresse:"
 
 #: components/html-editor/link.c:198
-#, fuzzy
 msgid "Description:"
-msgstr "_Beskrivelse:"
+msgstr "Beskrivelse:"
 
 #: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
 msgid "Insert image"
@@ -1669,12 +1665,10 @@ msgid "Case _sensitive"
 msgstr "_Skeln mellem store og små bogstaver"
 
 #: components/html-editor/replace.c:182
-#, fuzzy
 msgid "R_eplace:"
-msgstr "Erstat:"
+msgstr "_Erstat:"
 
 #: components/html-editor/replace.c:186
-#, fuzzy
 msgid "_With:"
 msgstr "_Bredde:"
 
@@ -1688,7 +1682,7 @@ msgstr "_Regulært udtryk"
 
 #: components/html-editor/search.c:118
 msgid "Input the words you want to search here"
-msgstr ""
+msgstr "Angiv ordene du vil søge efter her"
 
 #: components/html-editor/spellchecker.c:110
 msgid ""
@@ -1723,9 +1717,8 @@ msgid "Image frame"
 msgstr "Billedramme"
 
 #: components/html-editor/template.c:280
-#, fuzzy
 msgid "Template Labels"
-msgstr "Skabelon"
+msgstr "Skabelon-etiketter"
 
 #: components/html-editor/test-html-editor-control.c:333
 msgid "Open file..."
@@ -2123,12 +2116,6 @@ msgstr "GtkHTML-testprogram"
 #~ msgid "Find Regular E_xpression..."
 #~ msgstr "Søg efter regulært udtr_yk..."
 
-#, fuzzy
-#~ msgid ""
-#~ "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a "
-#~ "href=\"mailto:dog\">dog</a>."
-#~ msgstr "Cølibatisk havfrue på brynjeklædt wc med plexiglas i zoo."
-
 #~ msgid "The quick brown fox jumps over the lazy dog."
 #~ msgstr "Cølibatisk havfrue på brynjeklædt wc med plexiglas i zoo."
 
@@ -2269,10 +2256,6 @@ msgstr "GtkHTML-testprogram"
 
 #~ msgid "Color"
 #~ msgstr "Farve"
-
-#, fuzzy
-#~ msgid "The quick brown fox jumps over the lazy dog.</div>"
-#~ msgstr "Cølibatisk havfrue på brynjeklædt wc med plexiglas i zoo."
 
 #~ msgid "Rectangles"
 #~ msgstr "Rektangler"
