@@ -1,1 +1,16 @@
-this is gtkhtml, a port of khtmlw to gtk+ and C
+This is gtkhtml, a port of khtmlw to gtk+ and C
+
+To try it out, run testgtkhtml in the source dir, i.e:
+
+cd src
+./testgtkhtml
+
+To build the bonobo component, pass --with-bonobo to configure.
+Note that it doesn't really work yet, it's just an illusion ;)
+If you want to try it anyway, start a sample-container or 
+gnumeric-bonobo and add "a html component". Activate it and
+choose a test page in the Html menu.
+
+
+
+
