@@ -1,5 +1,26 @@
 2000-02-10  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* gtkhtml.c (gtk_html_set_paragraph_style): New function.
+
+	* htmlengine-edit-styles.c
+	(html_engine_set_clueflow_style): New function.
+
+	* htmlclueflow.c (html_clueflow_set_style): New function.
+
+	* gtkhtml.c (update_styles): New helper function.
+	(clueflow_style_to_paragraph_style): New helper function.
+	(class_init): Install new signal
+	`current_paragraph_style_changed'.
+	(init): Initialize `paragraph_style' to
+	`GTK_HTML_PARAGRAPH_STYLE_NORMAL'.
+
+	* gtkhtml.h: New enum `GtkHTMLParagraphStyle'.  New signal
+	`current_paragraph_style_changed'.  New member
+	`GtkHTMLParagraphStyle'.
+
+	* htmlengine-edit-styles.c: New file.
+	* htmlengine-edit-styles.h: New file.
+
 	* htmlengine-edit.c (html_engine_insert): Avoid inserting anything
 	if the current object is NULL.
 

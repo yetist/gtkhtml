@@ -26,6 +26,7 @@ libgtkhtml_HEADERS =				\
 	htmldrawqueue.h				\
 	htmlembedded.h				\
 	htmlengine-edit.h			\
+	htmlengine-edit-styles.h		\
 	htmlengine-print.h			\
 	htmlengine-save.h			\
 	htmlengine.h				\
@@ -83,6 +84,7 @@ libgtkhtml_la_SOURCES =				\
 	htmldrawqueue.c				\
 	htmlembedded.c				\
 	htmlengine-edit.c			\
+	htmlengine-edit-styles.c		\
 	htmlengine-print.c			\
 	htmlengine-save.c			\
 	htmlengine.c				\

@@ -90,4 +90,8 @@ HTMLFontStyle  html_clueflow_get_default_font_style  (const HTMLClueFlow *self);
 HTMLClueFlow  *html_clueflow_split                   (HTMLClueFlow       *clue,
 						      HTMLObject         *child);
 
+void  html_clueflow_set_style  (HTMLClueFlow      *flow,
+				HTMLEngine        *engine,
+				HTMLClueFlowStyle  style);
+
 #endif /* _HTMLCLUEFLOW_H_ */

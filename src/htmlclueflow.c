@@ -875,3 +875,17 @@ html_clueflow_split (HTMLClueFlow *clue,
 
 	return new;
 }
+
+
+void
+html_clueflow_set_style (HTMLClueFlow *flow,
+			 HTMLEngine *engine,
+			 HTMLClueFlowStyle style)
+{
+	g_return_if_fail (flow != NULL);
+
+	flow->style = style;
+
+	html_object_relayout (HTML_OBJECT (flow)->parent, engine, HTML_OBJECT (flow));
+	html_engine_queue_draw (engine, HTML_OBJECT (flow));
+}

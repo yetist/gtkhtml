@@ -23,6 +23,7 @@
 #include <gtk/gtk.h>
 
 #include "htmlengine-edit.h"
+#include "htmlengine-edit-styles.h"
 #include "htmlengine-print.h"
 
 #include "gtkhtml-private.h"
@@ -42,9 +43,98 @@ enum {
 	REDIRECT,
 	SUBMIT,
 	OBJECT_REQUESTED,
+	CURRENT_PARAGRAPH_STYLE_CHANGED,
 	LAST_SIGNAL
 };
 static guint signals [LAST_SIGNAL] = { 0 };
+
+
+static GtkHTMLParagraphStyle
+clueflow_style_to_paragraph_style (HTMLClueFlowStyle style)
+{
+	switch (style) {
+	case HTML_CLUEFLOW_STYLE_NORMAL:
+		return GTK_HTML_PARAGRAPH_STYLE_NORMAL;
+	case HTML_CLUEFLOW_STYLE_H1:
+		return GTK_HTML_PARAGRAPH_STYLE_H1;
+	case HTML_CLUEFLOW_STYLE_H2:
+		return GTK_HTML_PARAGRAPH_STYLE_H2;
+	case HTML_CLUEFLOW_STYLE_H3:
+		return GTK_HTML_PARAGRAPH_STYLE_H3;
+	case HTML_CLUEFLOW_STYLE_H4:
+		return GTK_HTML_PARAGRAPH_STYLE_H4;
+	case HTML_CLUEFLOW_STYLE_H5:
+		return GTK_HTML_PARAGRAPH_STYLE_H5;
+	case HTML_CLUEFLOW_STYLE_H6:
+		return GTK_HTML_PARAGRAPH_STYLE_H6;
+	case HTML_CLUEFLOW_STYLE_ADDRESS:
+		return GTK_HTML_PARAGRAPH_STYLE_ADDRESS;
+	case HTML_CLUEFLOW_STYLE_PRE:
+		return GTK_HTML_PARAGRAPH_STYLE_PRE;
+	case HTML_CLUEFLOW_STYLE_ITEMDOTTED:
+		return GTK_HTML_PARAGRAPH_STYLE_ITEMDOTTED;
+	case HTML_CLUEFLOW_STYLE_ITEMROMAN:
+		return GTK_HTML_PARAGRAPH_STYLE_ITEMROMAN;
+	case HTML_CLUEFLOW_STYLE_ITEMDIGIT:
+		return GTK_HTML_PARAGRAPH_STYLE_ITEMDIGIT;
+	default:		/* This should not really happen, though.  */
+		return GTK_HTML_PARAGRAPH_STYLE_NORMAL;
+	}
+}
+
+static HTMLClueFlowStyle
+paragraph_style_to_clueflow_style (GtkHTMLParagraphStyle style)
+{
+	switch (style) {
+	case GTK_HTML_PARAGRAPH_STYLE_NORMAL:
+		return HTML_CLUEFLOW_STYLE_NORMAL;
+	case GTK_HTML_PARAGRAPH_STYLE_H1:
+		return HTML_CLUEFLOW_STYLE_H1;
+	case GTK_HTML_PARAGRAPH_STYLE_H2:
+		return HTML_CLUEFLOW_STYLE_H2;
+	case GTK_HTML_PARAGRAPH_STYLE_H3:
+		return HTML_CLUEFLOW_STYLE_H3;
+	case GTK_HTML_PARAGRAPH_STYLE_H4:
+		return HTML_CLUEFLOW_STYLE_H4;
+	case GTK_HTML_PARAGRAPH_STYLE_H5:
+		return HTML_CLUEFLOW_STYLE_H5;
+	case GTK_HTML_PARAGRAPH_STYLE_H6:
+		return HTML_CLUEFLOW_STYLE_H6;
+	case GTK_HTML_PARAGRAPH_STYLE_ADDRESS:
+		return HTML_CLUEFLOW_STYLE_ADDRESS;
+	case GTK_HTML_PARAGRAPH_STYLE_PRE:
+		return HTML_CLUEFLOW_STYLE_PRE;
+	case GTK_HTML_PARAGRAPH_STYLE_ITEMDOTTED:
+		return HTML_CLUEFLOW_STYLE_ITEMDOTTED;
+	case GTK_HTML_PARAGRAPH_STYLE_ITEMROMAN:
+		return HTML_CLUEFLOW_STYLE_ITEMROMAN;
+	case GTK_HTML_PARAGRAPH_STYLE_ITEMDIGIT:
+		return HTML_CLUEFLOW_STYLE_ITEMDIGIT;
+	default:		/* This should not really happen, though.  */
+		return HTML_CLUEFLOW_STYLE_NORMAL;
+	}
+}
+
+static void
+update_styles (GtkHTML *html)
+{
+	GtkHTMLParagraphStyle paragraph_style;
+	HTMLClueFlowStyle clueflow_style;
+	HTMLEngine *engine;
+
+	engine = html->engine;
+
+	clueflow_style = html_engine_get_current_clueflow_style (engine);
+	paragraph_style = clueflow_style_to_paragraph_style (clueflow_style);
+
+	if (paragraph_style == html->paragraph_style)
+		return;
+
+	html->paragraph_style = paragraph_style;
+
+	gtk_signal_emit (GTK_OBJECT (html), signals[CURRENT_PARAGRAPH_STYLE_CHANGED],
+			 paragraph_style);
+}
 
 
 /* GTK+ idle loop handler.  */
@@ -331,6 +421,8 @@ key_press_event (GtkWidget *widget,
 
 	if (retval == TRUE)
 		queue_draw (html);
+
+	update_styles (html);
 
 	return retval;
 }
@@ -682,6 +774,15 @@ class_init (GtkHTMLClass *klass)
 				GTK_TYPE_NONE, 1,
 				GTK_TYPE_POINTER);
 	
+	signals [CURRENT_PARAGRAPH_STYLE_CHANGED] =
+		gtk_signal_new ("current_paragraph_style_changed",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (GtkHTMLClass, current_paragraph_style_changed),
+				gtk_marshal_NONE__INT,
+				GTK_TYPE_NONE, 1,
+				GTK_TYPE_INT);
+	
 	gtk_object_class_add_signals (object_class, signals, LAST_SIGNAL);
 
 	object_class->destroy = destroy;
@@ -723,6 +824,8 @@ init (GtkHTML* html)
 	html->load_in_progress = TRUE;
 
 	html->idle_handler_id = 0;
+
+	html->paragraph_style = GTK_HTML_PARAGRAPH_STYLE_NORMAL;
 }
 
 
@@ -897,4 +1000,32 @@ gtk_html_print (GtkHTML *html,
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	html_engine_print (html->engine, print_context);
+}
+
+
+/* Editing.  */
+
+void
+gtk_html_set_paragraph_style (GtkHTML *html,
+			      GtkHTMLParagraphStyle style)
+{
+	HTMLClueFlowStyle current_style;
+	HTMLClueFlowStyle clueflow_style;
+
+	g_return_if_fail (html != NULL);
+	g_return_if_fail (GTK_IS_HTML (html));
+
+	/* FIXME precondition: check if it's a valid style.  */
+
+	clueflow_style = paragraph_style_to_clueflow_style (style);
+
+	current_style = html_engine_get_current_clueflow_style (html->engine);
+	if (current_style == clueflow_style)
+		return;
+
+	if (! html_engine_set_clueflow_style (html->engine, clueflow_style))
+		return;
+
+	gtk_signal_emit (GTK_OBJECT (html), signals[CURRENT_PARAGRAPH_STYLE_CHANGED],
+			 style);
 }

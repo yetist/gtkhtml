@@ -34,7 +34,25 @@ typedef struct _GtkHTMLClass	GtkHTMLClass;
 #define GTK_IS_HTML_CLASS(klass)       (GTK_CHECK_CLASS_TYPE ((klass), GTK_TYPE_HTML))
 
 typedef gpointer GtkHTMLStreamHandle;
-typedef enum { GTK_HTML_STREAM_OK, GTK_HTML_STREAM_ERROR } GtkHTMLStreamStatus;
+typedef enum {
+	GTK_HTML_STREAM_OK,
+	GTK_HTML_STREAM_ERROR
+} GtkHTMLStreamStatus;
+
+typedef enum {
+	GTK_HTML_PARAGRAPH_STYLE_NORMAL,
+	GTK_HTML_PARAGRAPH_STYLE_H1,
+	GTK_HTML_PARAGRAPH_STYLE_H2,
+	GTK_HTML_PARAGRAPH_STYLE_H3,
+	GTK_HTML_PARAGRAPH_STYLE_H4,
+	GTK_HTML_PARAGRAPH_STYLE_H5,
+	GTK_HTML_PARAGRAPH_STYLE_H6,
+	GTK_HTML_PARAGRAPH_STYLE_ADDRESS,
+	GTK_HTML_PARAGRAPH_STYLE_PRE,
+	GTK_HTML_PARAGRAPH_STYLE_ITEMDOTTED,
+	GTK_HTML_PARAGRAPH_STYLE_ITEMROMAN,
+	GTK_HTML_PARAGRAPH_STYLE_ITEMDIGIT,
+} GtkHTMLParagraphStyle;
 
 #include "gtkhtml-embedded.h"
 
@@ -68,6 +86,8 @@ struct _GtkHTML {
 	guint vadj_connection;
 
 	guint idle_handler_id;
+
+	GtkHTMLParagraphStyle paragraph_style;
 };
 
 /* must be forward referenced *sigh* */
@@ -87,6 +107,8 @@ struct _GtkHTMLClass {
 	void (* redirect)        (GtkHTML *html, const gchar *url, int delay);
 	void (* submit)          (GtkHTML *html, const gchar *method, const gchar *url, const gchar *encoding);
 	void (* object_requested)(GtkHTML *html, GtkHTMLEmbedded *);
+
+	void (* current_paragraph_style_changed) (GtkHTML *html, GtkHTMLParagraphStyle style);
 };
 
 
@@ -130,5 +152,9 @@ void  gtk_html_parse  (GtkHTML *html);
 
 /* FIXME?  Deprecated? */
 void  gtk_html_calc_scrollbars  (GtkHTML *html);
+
+/* Editing functions.  */
+void  gtk_html_set_paragraph_style  (GtkHTML               *html,
+				     GtkHTMLParagraphStyle  style);
 
 #endif /* _GTKHTML_H_ */
