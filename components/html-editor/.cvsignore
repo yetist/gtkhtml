@@ -8,3 +8,7 @@ HTMLEditor-stubs.c
 HTMLEditor-skels.c
 HTMLEditor-common.c
 HTMLEditor.h
+Spell-common.c
+Spell-skels.c
+Spell-stubs.c
+Spell.h
