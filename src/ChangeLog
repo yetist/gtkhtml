@@ -1,5 +1,8 @@
 2003-02-20  Radek Doulik  <rodo@ximian.com>
 
+	* gtkhtml.c (set_fonts_idle): don't set font's in iframe, parent
+	gtkhtml takes care of it
+
 	* htmltext.c (html_utf8_strnchr): new helper function
 	(html_text_text_line_length): use own html_utf8_strnchr, this
 	increases speed really dramatically ;-)

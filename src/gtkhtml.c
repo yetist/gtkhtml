@@ -1917,7 +1917,7 @@ set_fonts_idle (GtkHTML *html)
 {
 	GtkHTMLClassProperties *prop = GTK_HTML_CLASS (GTK_WIDGET_GET_CLASS (html))->properties;
 
-	if (html->engine) {
+	if (!html->iframe_parent && html->engine) {
 		html_font_manager_set_default (&html->engine->painter->font_manager,
 					       prop->font_var,      prop->font_fix,
 					       prop->font_var_size, prop->font_var_points,
