@@ -1,3 +1,17 @@
+2000-10-03  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine.c (html_engine_update_event): do cursor home only
+	when newPage is TRUE
+
+	* htmltext.c (insert_text): set changes also to parent clue
+
+	* gtkhtml.c (gtk_html_set_paragraph_style): call queue_draw to
+	make cursor visible
+
+	* htmlclueflow.c (html_clueflow_set_style): schedule update
+	(relayout): new method, if min_width > max_width do
+	engine_calc_size and draw
+
 2000-10-02  Radek Doulik  <rodo@helixcode.com>
 
 	* kill some warnings

@@ -1963,6 +1963,7 @@ gtk_html_set_paragraph_style (GtkHTML *html,
 
 	gtk_signal_emit (GTK_OBJECT (html), signals[CURRENT_PARAGRAPH_STYLE_CHANGED],
 			 style);
+	queue_draw (html);
 }
 
 GtkHTMLParagraphStyle

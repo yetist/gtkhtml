@@ -572,6 +572,7 @@ insert_text (HTMLText *text,
 	/* update */
 	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
 	if (HTML_OBJECT (text)->parent != NULL) {
+		html_object_change_set (HTML_OBJECT (text)->parent, HTML_CHANGE_ALL);
 		if (! html_object_relayout (HTML_OBJECT (text)->parent,
 					    engine,
 					    HTML_OBJECT (text))) 

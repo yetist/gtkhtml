@@ -1401,6 +1401,22 @@ search_next (HTMLObject *obj, HTMLSearch *info)
 	return FALSE;
 }
 
+static gboolean
+relayout (HTMLObject *self,
+	  HTMLEngine *engine,
+	  HTMLObject *child)
+{
+	gint mw;
+
+	mw = html_object_calc_min_width (self, engine->painter);
+	if (mw <= self->max_width)
+		return (*HTML_OBJECT_CLASS (parent_class)->relayout) (self, engine, child);
+	html_engine_calc_size (engine);
+	html_engine_draw (engine, 0, 0, engine->width, engine->height);
+
+	return TRUE;
+}
+
 
 void
 html_clueflow_type_init (void)
@@ -1437,6 +1453,7 @@ html_clueflow_class_init (HTMLClueFlowClass *klass,
 	object_class->append_selection_string = append_selection_string;
 	object_class->search = search;
 	object_class->search_next = search_next;
+	object_class->relayout = relayout;
 
 	klass->get_default_font_style = get_default_font_style;
 
@@ -1583,9 +1600,11 @@ html_clueflow_set_style (HTMLClueFlow *flow,
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 
+	html_object_change_set (HTML_OBJECT (flow), HTML_CHANGE_ALL);
 	flow->style = style;
 
-	relayout_with_siblings (flow, engine);
+	html_engine_schedule_update (engine);
+	/* FIXME - make it more effective: relayout_with_siblings (flow, engine); */
 }
 
 HTMLClueFlowStyle

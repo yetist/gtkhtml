@@ -3330,10 +3330,9 @@ html_engine_update_event (HTMLEngine *e)
 	if (e->newPage) {
 		gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->vadjustment, 0);
 		e->newPage = FALSE;
+		if (! e->parsing && e->editable)
+			html_cursor_home (e->cursor, e);
 	}
-
-	if (! e->parsing && e->editable)
-		html_cursor_home (e->cursor, e);
 
 	html_image_factory_deactivate_animations (e->image_factory);
 	html_engine_draw (e, 0, 0, e->width, e->height);
