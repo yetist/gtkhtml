@@ -36,8 +36,6 @@
 #define HP_CLASS(obj)					\
 	HTML_PAINTER_CLASS (G_OBJECT_GET_CLASS (obj))
 
-#define HTML_ALLOCA_MAX 2048
-
 /* Our parent class.  */
 static GObjectClass *parent_class = NULL;
 
@@ -438,11 +436,11 @@ calc_translated_text_bytes (const gchar *text, gint len, gint line_offset, gint 
 	s = text;
 	while (s && (uc = g_utf8_get_char (s)) && current_len < len) {
 		switch (uc) {
-		case ENTITY_NBSP:
+			/*case ENTITY_NBSP:
 			delta --;
 			(*translated_len) ++;
 			line_offset ++;
-			break;
+			break;*/
 		case '\t':
 			if (tabs) {
 				skip = 8 - (line_offset % 8);
@@ -486,12 +484,12 @@ translate_text_special_chars (const gchar *text, gchar *translated, gint len, gi
 	while (s && (uc = g_utf8_get_char (s)) && current_len < len) {
 		put_last (s, &ls, &translated);
 		switch (uc) {
-		case ENTITY_NBSP:
+			/*case ENTITY_NBSP:
 			*translated = ' ';
 			translated ++;
 			line_offset ++;
 			ls = NULL;
-			break;
+			break;*/
 		case '\t':
 			if (tabs) {
 				skip = 8 - (line_offset % 8);
@@ -516,6 +514,28 @@ translate_text_special_chars (const gchar *text, gchar *translated, gint len, gi
 	*translated = 0;
 
 	return line_offset;
+}
+
+void
+html_replace_tabs (const gchar *text, gchar *translated, guint bytes)
+{
+	const gchar *t, *tab;
+	gchar *tt;
+
+	t = text;
+	tt = translated;
+
+	do {
+		tab = memchr (t, (unsigned char) '\t', bytes - (t - text));
+		if (tab) {
+			strncpy (tt, t, tab - t);
+			tt += tab - t;
+			*tt = ' ';
+			tt ++;
+			t = tab + 1;
+		} else
+			strncpy (tt, t, bytes - (t - text));
+	} while (tab);
 }
 
 gchar *

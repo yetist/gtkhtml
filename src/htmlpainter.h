@@ -273,8 +273,12 @@ gchar *           html_painter_translate_text                          (const gc
 									gint               len,
 									gint              *line_offset,
 									gint              *bytes);
+void              html_replace_tabs                                    (const gchar       *text,
+									gchar             *translated,
+									guint              bytes);
 
 #define HTML_BLOCK_INDENT   "        "
 #define HTML_BLOCK_CITE     "> "
+#define HTML_ALLOCA_MAX     2048
 
 #endif /* _HTMLPAINTER_H_ */

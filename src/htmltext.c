@@ -56,6 +56,7 @@ static void         spell_error_destroy     (SpellError *se);
 static void         move_spell_errors       (GList *spell_errors, guint offset, gint delta);
 static GList *      remove_spell_errors     (GList *spell_errors, guint offset, guint len);
 static guint        get_words               (const gchar *s);
+static GList *      get_glyphs              (HTMLText *text, HTMLPainter *painter);
 static void         remove_text_slaves      (HTMLObject *self);
 
 /* static void
@@ -184,6 +185,29 @@ get_tags (const HTMLText *text,
 }
 
 /* HTMLObject methods.  */
+
+inline static void
+glyphs_destroy (GList *glyphs)
+{
+	GList *l;
+
+	for (l = glyphs; l; l = l->next)
+		pango_glyph_string_free ((PangoGlyphString *) l->data);
+	g_list_free (glyphs);
+}
+
+inline static void
+items_destroy (HTMLText *text)
+{
+	if (text->items) {
+		GList *l;
+
+		for (l = text->items; l; l = l->next)
+			pango_item_free ((PangoItem *) l->data);
+		g_list_free (text->items);
+		text->items = NULL;
+	}
+}
 
 static void
 copy (HTMLObject *s,
@@ -392,6 +416,8 @@ object_merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, G
 	g_free (to_free);
 	html_text_convert_nbsp (t1, TRUE);
 	html_object_change_set (self, HTML_CHANGE_ALL_CALC);
+	items_destroy (t1);
+	items_destroy (t2);
 
 	html_text_clear_word_width (t1);
 	/* html_text_request_word_width (t1, e->painter); */
@@ -463,6 +489,7 @@ object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, g
 
 	html_text_clear_word_width (HTML_TEXT (self));
 	html_text_clear_word_width (HTML_TEXT (dup));
+	items_destroy (HTML_TEXT (self));
 
 	level--;
 	if (level)
@@ -556,44 +583,6 @@ get_words (const gchar *s)
 	return words;
 }
 
-static GList *
-get_glyphs (HTMLText *text, HTMLPainter *painter, gint line_offset)
-{
-	GList *glyphs = NULL;
-	PangoGlyphString *str = NULL;
-	GList *items = html_text_get_items (text, painter);
-
-	if (items) {
-		PangoItem *item;
-		GList *il, *gl;
-		gchar *t, *translated_text;
-		gint bytes, lo = -1;
-
-		t = text->text;
-		for (il = items; il; il = il->next) {
-			item = (PangoItem *) il->data;
-			str = pango_glyph_string_new ();
-			translated_text = html_painter_translate_text (t, item->num_chars, &lo, &bytes);
-			pango_shape (translated_text, bytes, &item->analysis, str);
-			g_free (translated_text);
-			glyphs = g_list_prepend (glyphs, str);
-			t = g_utf8_offset_to_pointer (t, item->num_chars);
-		}
-		glyphs = g_list_reverse (glyphs);
-	}
-
-	return glyphs;
-}
-
-
-static inline gint
-translated_len (gchar *begin, gchar *end, gint *line_offset)
-{
-	gint len = end ? g_utf8_pointer_to_offset (begin, end) : g_utf8_strlen (begin, -1);
-
-	return html_text_text_line_length (begin, line_offset, len);
-}
-
 static gint
 word_size (gint cl, gint so, gint eo, GList **items, GList **glyphs, gint *width, gint *asc, gint *dsc)
 {
@@ -624,16 +613,6 @@ word_size (gint cl, gint so, gint eo, GList **items, GList **glyphs, gint *width
 	return cl;
 }
 
-inline static void
-glyphs_destroy (GList *glyphs)
-{
-	GList *l;
-
-	for (l = glyphs; l; l = l->next)
-		pango_glyph_string_free ((PangoGlyphString *) l->data);
-	g_list_free (glyphs);
-}
-
 static void
 calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 {
@@ -659,7 +638,7 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 	if (text->text_len) {
 		items = html_text_get_items (text, painter);
 		if (items)
-			glyphs = get_glyphs (text, painter, line_offset);
+			glyphs = get_glyphs (text, painter);
 	}
 
 	/* printf ("calc ww m1\n"); */
@@ -675,7 +654,7 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 			PangoRectangle log_rect;
 
 			/* end_offset = start_offset + (end ? g_utf8_pointer_to_offset (begin, end) : g_utf8_strlen (begin, -1)); */
-			end_offset = start_offset + translated_len (begin, end, &line_offset);
+			end_offset = start_offset + (end ? g_utf8_pointer_to_offset (begin, end) : g_utf8_strlen (begin, -1));
 			/* printf ("start offset: %d (%d)\n", start_offset, end_offset - start_offset); */
 			cl = word_size (cl, start_offset, end_offset, &il, &gl, &width, &asc, &dsc);
 		} else
@@ -841,14 +820,37 @@ html_text_get_nb_width (HTMLText *text, HTMLPainter *painter, gboolean begin)
 		+ (text->words == 1 ? get_next_nb_width (text, painter, begin) : 0);
 }
 
-inline static void
-items_destroy (GList *items)
+static GList *
+get_glyphs (HTMLText *text, HTMLPainter *painter)
 {
-	GList *l;
+	GList *glyphs = NULL, *items = html_text_get_items (text, painter);
 
-	for (l = items; l; l = l->next)
-		pango_item_free ((PangoItem *) l->data);
-	g_list_free (items);
+	if (items) {
+		PangoGlyphString *str = NULL;
+		PangoItem *item;
+		GList *il, *gl;
+		gchar *heap = NULL, *translated, *t;
+		gint bytes;
+
+		bytes = strlen (text->text);
+		if (bytes > HTML_ALLOCA_MAX)
+			heap = translated = g_malloc (bytes);
+		else 
+			translated = alloca (bytes);
+		html_replace_tabs (text->text, translated, bytes);
+		t = translated;
+		for (il = items; il; il = il->next) {
+			item = (PangoItem *) il->data;
+			str = pango_glyph_string_new ();
+			pango_shape (t, item->length, &item->analysis, str);
+			glyphs = g_list_prepend (glyphs, str);
+			t += item->length;
+		}
+		glyphs = g_list_reverse (glyphs);
+		g_free (heap);
+	}
+
+	return glyphs;
 }
 
 GList *
@@ -859,11 +861,22 @@ html_text_get_items (HTMLText *text, HTMLPainter *painter)
 	if (!text->items) {
 		PangoContext *pc = HTML_GDK_PAINTER (painter)->pc;
 		PangoAttrList *attrs;
+		gchar *translated, *heap = NULL;
+		guint bytes;
 
+		bytes = strlen (text->text);
+		if (bytes > HTML_ALLOCA_MAX)
+			heap = translated = g_malloc (bytes);
+		else 
+			translated = alloca (bytes);
+
+		html_replace_tabs (text->text, translated, bytes);
 		pango_context_set_font_description (pc, html_painter_get_font (painter, text->face, html_text_get_font_style (text)));
 		attrs = pango_attr_list_new ();
-		text->items = pango_itemize (pc, text->text, 0, strlen (text->text), attrs, NULL);
+		text->items = pango_itemize (pc, translated, 0, bytes, attrs, NULL);
 		pango_attr_list_unref (attrs);
+
+		g_free (heap);
 	}
 	return text->items;
 }
@@ -875,10 +888,7 @@ calc_min_width (HTMLObject *self, HTMLPainter *painter)
 	HTMLObject *obj;
 	guint i, w, mw;
 
-	if (text->items) {
-		items_destroy (text->items);
-		text->items = NULL;
-	}
+	items_destroy (text);
 	html_text_get_items (text, painter);
 	html_text_request_word_width (text, painter);
 	mw = 0;
@@ -1265,11 +1275,7 @@ destroy (HTMLObject *obj)
 	g_free (text->text);
 	g_free (text->word_width);
 	g_free (text->face);
-
-	if (text->items) {
-		items_destroy (text->items);
-		text->items = NULL;
-	}
+	items_destroy (text);
 
 	HTML_OBJECT_CLASS (parent_class)->destroy (obj);
 }
