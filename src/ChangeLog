@@ -2,6 +2,7 @@
 
 	* gtkhtml.c (selection_get): check for a selection object before
 	pasting.
+	(selection_get): remove a accidental paste.
 
 	* ChangeLog: Merge multicite branch.
 
