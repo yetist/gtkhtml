@@ -93,10 +93,10 @@ calc_size (HTMLObject *clue,
 			d = obj->descent;
 	}
 
-	clue->ascent = a + d;
 
 	switch (HTML_CLUE (clue)->valign) {
 	case HTML_VALIGN_TOP:
+		clue->descent = a + d;
 		for (obj = HTML_CLUE (clue)->head; obj != 0; obj = obj->next) {
 			if (obj->y != obj->ascent) {
 				obj->y = obj->ascent;
@@ -106,6 +106,7 @@ calc_size (HTMLObject *clue,
 		break;
 
 	case HTML_VALIGN_CENTER:
+		clue->ascent = a + d;
 		for (obj = HTML_CLUE (clue)->head; obj != 0; obj = obj->next) {
 			if (obj->y != clue->ascent / 2) {
 				obj->y = clue->ascent / 2;
@@ -115,6 +116,7 @@ calc_size (HTMLObject *clue,
 		break;
 
 	default:
+		clue->ascent = a + d;
 		for (obj = HTML_CLUE (clue)->head; obj != 0; obj = obj->next) {
 			if (obj->y != clue->ascent - d) {
 				obj->y = clue->ascent - d;
