@@ -137,6 +137,7 @@ struct _GtkHTMLClass {
 	void (* current_paragraph_alignment_changed) (GtkHTML *html, GtkHTMLParagraphAlignment new_alignment);
 	void (* current_paragraph_indentation_changed) (GtkHTML *html, guint new_indentation);
 	void (* insertion_font_style_changed) (GtkHTML *html, GtkHTMLFontStyle style);
+        void (* size_changed)       (GtkHTML *html);
 };
 
 

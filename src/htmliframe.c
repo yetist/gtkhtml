@@ -24,6 +24,7 @@
 
 HTMLIFrameClass html_iframe_class;
 static HTMLEmbeddedClass *parent_class = NULL;
+static gboolean calc_size (HTMLObject *o, HTMLPainter *painter);
 
 static void
 iframe_url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpointer data)
@@ -41,12 +42,6 @@ iframe_url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpo
 	
 	if (new_url)
 		g_free (new_url);
-
-	html_embedded_size_recalc(HTML_EMBEDDED (iframe));
-	/*
-	  html_engine_schedule_update(GTK_HTML (HTML_EMBEDDED(iframe)->widget)->engine); */
-	html_engine_schedule_update(parent->engine);
-	
 }
 
 static void
@@ -67,6 +62,15 @@ iframe_link_clicked (GtkHTML *html, const gchar *url, gpointer data)
 	gtk_signal_emit_by_name (GTK_OBJECT (parent), "link_clicked", url);
 }
 
+static void
+iframe_size_changed (GtkAdjustment *adj, gpointer data)
+{
+	HTMLIFrame *iframe = HTML_IFRAME (data);
+	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(iframe)->parent);
+	
+	html_engine_schedule_update (parent->engine);
+}
+	
 HTMLObject *
 html_iframe_new (GtkWidget *parent, 
 		 char *src, 
@@ -137,12 +141,13 @@ calc_size (HTMLObject *o,
 	   HTMLPainter *painter)
 {
 	HTMLIFrame *iframe;
-	guint pixel_size;
+	guint pixel_size = 1;
 	gint width, height;
 	gint old_width, old_ascent, old_descent;
 	GtkHTML *html;
 	
-	pixel_size = html_painter_get_pixel_size (painter);
+	if (painter)
+		pixel_size = html_painter_get_pixel_size (painter);
        
 	old_width = o->width;
 	old_ascent = o->ascent;
@@ -227,7 +232,9 @@ html_iframe_init (HTMLIFrame *iframe,
 	gtk_signal_connect (GTK_OBJECT (html), "link_clicked",
 			    GTK_SIGNAL_FUNC (iframe_link_clicked),
 			    (gpointer)iframe);	
-
+	gtk_signal_connect (GTK_OBJECT (html), "size_changed",
+			    GTK_SIGNAL_FUNC (iframe_size_changed),
+			    (gpointer)iframe);	
 	/*
 	  gtk_signal_connect (GTK_OBJECT (html), "button_press_event",
 	  GTK_SIGNAL_FUNC (iframe_button_press_event), iframe);
@@ -289,4 +296,5 @@ html_iframe_class_init (HTMLIFrameClass *klass,
 	object_class->calc_min_width = calc_min_width;
 	object_class->reset = reset;
 	object_class->set_max_width = set_max_width;
+	
 }

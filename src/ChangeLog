@@ -1,3 +1,32 @@
+2000-06-07  Larry Ewing  <lewing@helixcode.com>
+
+	* htmliframe.c (iframe_size_changed): schedule and updated
+	whenever we are notified that the size has changed.
+	(html_iframe_init): connect to the size_changed signal of the
+	embedded gtkhtml widget.
+	(iframe_url_requested): remove the spurious calls to
+	html_embedded_size_recalc and html_engine_schedule_update.
+
+	* htmlcolorset.c (html_colorset_set_by): unset the changed flag.
+	(html_colorset_set_unchanged): this function updates all colors in
+	the the colorset if thier changed flag is not set.
+	(html_colorset_set_style): update the colorset based on the style.
+	(html_colorset_new): use html_coloset_set_style rather than using
+	the style directly.
+	(html_colorset_set_color): set the changed flag for each color we
+	set.
+
+	* htmlcolorset.h (struct _HTMLColorSet): add array of changed flags.
+
+	* gtkhtml.c (gtk_html_private_calc_scrollbars): emit SIZE_CHANGED
+	so that htmlembedded can update the embedded widget when needed.
+	(class_init): add size_changed signal and style_set
+	(realize): attach the style from the window.
+	(style_set): update the default colorset and the current colorset
+	based on the new style.
+
+	* gtkhtml.h: add size_changed signal to the class.
+
 2000-06-07  Radek Doulik  <rodo@helixcode.com>
 
 	* htmltextmaster.c (html_text_master_magic_link): use forward
@@ -20,6 +49,12 @@
 
 	* htmlgdkpainter.c (draw_panel): updated to display better limit cases
 
+2000-06-06  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlengine.c (parse_input): correctly use the member element,
+	this cast was scary.  Fixes bugs #11899 #1202 and #11902 at
+	http://bugs.gnome.org/
+	
 2000-06-06  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine.c (html_engine_get_object_at): correct also x
@@ -40,20 +75,27 @@
 	* htmlengine-edit-paste.c (html_engine_replace_by_object):
 	replaces region by new_obj (used from magic links/remove link)
 
-	* htmltextmaster.c (html_text_master_magic_link): rewritten using regex
-	(html_engine_init_magic): magic links initializations - compiles regexps
+	* htmltextmaster.c (html_text_master_magic_link): rewritten using
+	regex
+	(html_engine_init_magic): magic links initializations - compiles
+	regexps
+	
 
 2000-06-04  Ariel Rios  <ariel@arcavia.com>
 
 	* htmlengine-edit-table.h: (html_engine_create_table) Added proto.
 
-	* htmlengine-edit-table.c (html_engine_create_table): Create and return a new table.
-	(html_engine_insert_table) We now create the table and add rows and cols as required.
-	Still need to find a good way to send the cell parameters.
+	* htmlengine-edit-table.c (html_engine_create_table): Create and
+	return a new table.
+	(html_engine_insert_table) We now create the table and add rows
+	and cols as required. Still need to find a good way to send the
+	cell parameters.
+	
 
 2000-06-03  Ariel Rios  <ariel@arcavia.com>
 
-	* htmlengine-edit-table.c: New file needed to add table editing capabilities.
+	* htmlengine-edit-table.c: New file needed to add table editing
+	capabilities.
 	(html_engine_insert_table): Creates a new table and paste it.	
 	(html_engine_insert_table): Creates and returns a new cell.
 	
@@ -168,7 +210,8 @@
 
 	* gtkhtml.c (html_engine_object_requested_cb): check and return
 	the return value.
-	(class_init): change the object_requested signal to have a return value.
+	(class_init): change the object_requested signal to have a return
+	value.
 
 	* gtkhtml.h: change the object_requested signal prototype.
 
@@ -177,8 +220,8 @@
 	(parse_object): added function to handle the elements inside an
 	object tag.
 	(parse_o): call parse_object.
-	(html_engine_class_init): change the object_requested signal to have a boolean
-	return value.
+	(html_engine_class_init): change the object_requested signal to
+	have a boolean return value.
 
 	* htmlengine.h: change the object_requested signal prototype.
 

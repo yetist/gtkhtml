@@ -38,13 +38,14 @@ enum _HTMLColor
 	HTMLHighlightColor,
 	HTMLHighlightTextColor,
 
-	HTMLColors,
+	HTMLColors
 };
 
 struct _HTMLColorSet
 {
 	GdkColor color [HTMLColors];
 	gboolean color_allocated [HTMLColors];
+	gboolean changed [HTMLColors];
 	GSList  *colors_to_free;
 
 	/* slave sets - they must be updated when setting this one
@@ -78,5 +79,10 @@ void              html_colorset_free_colors           (HTMLColorSet *set,
 
 /* copy colors from one se to another, used for resetting to default values */
 void              html_colorset_set_by                (HTMLColorSet *s, HTMLColorSet *o);
+void              html_colorset_set_unchanged         (HTMLColorSet *s, HTMLColorSet *o);
+void              html_colorset_set_style             (HTMLColorSet *s, GtkStyle *style);
 
 #endif
+
+
+

@@ -47,11 +47,7 @@ html_colorset_new (GtkWidget *w)
 
 	if (w) {
 		GtkStyle *style = gtk_widget_get_style (w);
-
-		SET_GCOLOR (Bg,            style->bg [GTK_STATE_NORMAL]);
-		SET_GCOLOR (Text,          style->text [GTK_STATE_NORMAL]);
-		SET_GCOLOR (Highlight,     style->bg [GTK_STATE_SELECTED]);
-		SET_GCOLOR (HighlightText, style->text [GTK_STATE_SELECTED]);
+		html_colorset_set_style (s, style);
 	} else {
 		SET_COLOR  (Bg, 0xffff, 0xffff, 0xffff);
 		SET_COLOR  (Highlight, 0x7fff, 0x7fff, 0xffff);
@@ -60,6 +56,7 @@ html_colorset_new (GtkWidget *w)
 
 	return s;
 }
+
 
 void
 html_colorset_destroy (HTMLColorSet *set)
@@ -88,6 +85,7 @@ html_colorset_set_color (HTMLColorSet *s, GdkColor *color, HTMLColor idx)
 		s->colors_to_free = g_slist_prepend (s->colors_to_free, gdk_color_copy (&s->color [idx]));
 	s->color [idx] = *color;
 	s->color_allocated [idx] = FALSE;
+	s->changed [idx] = TRUE;
 
 	/* forward change to slaves */
 	cur = s->slaves;
@@ -125,9 +123,34 @@ html_colorset_set_by (HTMLColorSet *s, HTMLColorSet *o)
 {
 	HTMLColor i;
 
-	for (i=0; i < HTMLColors; i++)
+	for (i=0; i < HTMLColors; i++) {
 		html_colorset_set_color (s, &o->color [i], i);
+		/* unset the changed flag */
+		s->changed [i] = FALSE;
+	}
 }
+
+void
+html_colorset_set_unchanged (HTMLColorSet *s, HTMLColorSet *o)
+{
+	HTMLColor i;
+
+	for (i=0; i < HTMLColors; i++) {
+		if (!s->changed[i]) {
+			html_colorset_set_color (s, &o->color [i], i);
+			s->changed [i] = FALSE;
+		}
+	}
+}	
+
+void
+html_colorset_set_style (HTMLColorSet *s, GtkStyle *style)
+{
+	SET_GCOLOR (Bg,            style->bg [GTK_STATE_NORMAL]);
+	SET_GCOLOR (Text,          style->text [GTK_STATE_NORMAL]);
+	SET_GCOLOR (Highlight,     style->bg [GTK_STATE_SELECTED]);
+	SET_GCOLOR (HighlightText, style->text [GTK_STATE_SELECTED]);	
+}	
 
 void
 html_colorset_free_colors (HTMLColorSet *s, HTMLPainter *painter, gboolean all)
@@ -159,3 +182,9 @@ html_colorset_free_colors (HTMLColorSet *s, HTMLPainter *painter, gboolean all)
 		}
 	}
 }
+
+
+
+
+
+

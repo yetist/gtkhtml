@@ -32,6 +32,7 @@
 #include "htmlengine-edit-paste.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-print.h"
+#include "htmlcolorset.h"
 
 #include "gtkhtml-embedded.h"
 #include "gtkhtml-keybinding.h"
@@ -56,6 +57,7 @@ enum {
 	CURRENT_PARAGRAPH_INDENTATION_CHANGED,
 	CURRENT_PARAGRAPH_ALIGNMENT_CHANGED,
 	INSERTION_FONT_STYLE_CHANGED,
+	SIZE_CHANGED,
 	LAST_SIGNAL
 };
 static guint signals [LAST_SIGNAL] = { 0 };
@@ -533,6 +535,18 @@ destroy (GtkObject *object)
 
 
 /* GtkWidget methods.  */
+static void
+style_set (GtkWidget *widget,
+	   GtkStyle  *previous_style)
+{
+	HTMLEngine *engine = GTK_HTML (widget)->engine;
+	
+	html_colorset_set_style (engine->defaultSettings->color_set,
+				 widget->style);
+	html_colorset_set_unchanged (engine->settings->color_set,
+				     engine->defaultSettings->color_set);
+	html_engine_schedule_update (engine);
+}
 
 static gint
 key_press_event (GtkWidget *widget,
@@ -575,6 +589,7 @@ realize (GtkWidget *widget)
 	if (GTK_WIDGET_CLASS (parent_class)->realize)
 		(* GTK_WIDGET_CLASS (parent_class)->realize) (widget);
 
+	widget->style = gtk_style_attach (widget->style, widget->window);
 	gdk_window_set_events (html->layout.bin_window,
 			       (gdk_window_get_events (html->layout.bin_window)
 				| GDK_EXPOSURE_MASK | GDK_POINTER_MOTION_MASK
@@ -1168,6 +1183,13 @@ class_init (GtkHTMLClass *klass)
 				gtk_marshal_NONE__INT,
 				GTK_TYPE_NONE, 1,
 				GTK_TYPE_INT);
+	signals [SIZE_CHANGED] = 
+		gtk_signal_new ("size_changed",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (GtkHTMLClass, size_changed),
+				gtk_marshal_NONE__NONE,
+				GTK_TYPE_NONE, 0);
 	
 	gtk_object_class_add_signals (object_class, signals, LAST_SIGNAL);
 
@@ -1175,6 +1197,7 @@ class_init (GtkHTMLClass *klass)
 	
 	widget_class->realize = realize;
 	widget_class->unrealize = unrealize;
+	widget_class->style_set = style_set;
 	widget_class->draw = draw;
 	widget_class->key_press_event = key_press_event;
 	widget_class->expose_event  = expose;
@@ -1444,8 +1467,10 @@ gtk_html_private_calc_scrollbars (GtkHTML *html)
 	hadj->step_increment = 14; /* FIXME */
 	hadj->page_increment = html->engine->width;
 
-	if (width != layout->width || height != layout->height)
+	if ((width != layout->width) || (height != layout->height)) {
+		gtk_signal_emit (GTK_OBJECT (html), signals[SIZE_CHANGED]);
 		gtk_layout_set_size (layout, width, height);
+	}
 }
 
 
