@@ -197,10 +197,13 @@ load_from_file (GtkHTML *html,
 
 	if (len < 0) {
 		/* check to see if we stopped because of an error */
+		gtk_html_end (html, handle, GTK_HTML_STREAM_ERROR);
 		g_warning ("%s", g_strerror (errno));
+		close (fd);
 		return FALSE;
 	}	
 	/* done with no errors */
+	gtk_html_end (html, handle, GTK_HTML_STREAM_OK);
 	close (fd);
 	return TRUE;
 }

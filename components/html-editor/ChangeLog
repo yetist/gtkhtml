@@ -1,5 +1,8 @@
 2000-07-21  Larry Ewing  <lewing@helixcode.com>
 
+	* editor-control-factory.c (load_from_file): close the stream and
+	the file when we are done with it.
+
 	* popup.c (popup_show): remove the incorrect dereferences of the
 	url and target strings in the test to stop the crashes.
 
