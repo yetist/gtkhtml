@@ -616,7 +616,9 @@ html_iframe_init (HTMLIFrame *iframe,
 			handle = gtk_html_begin (new_html);
 			g_signal_emit_by_name (parent_html->engine, "url_requested", src, handle);
 		}
-	}
+	} else
+		gtk_html_load_empty (new_html);
+
 	new_html->engine->clue->parent = HTML_OBJECT (iframe);
 	
 #if 0

@@ -1,5 +1,9 @@
 2004-08-16  Radek Doulik  <rodo@ximian.com>
 
+	* htmliframe.c (html_iframe_init): load empty iframe if depth > 10
+
+	Fixes #63060
+
 	* htmlgdkpainter.c (begin): fix from Robert McQueen, make sure
 	that our backstore pixmap has colormap
 

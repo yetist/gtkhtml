@@ -1186,45 +1186,70 @@ block_end_textarea (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 	e->formTextArea = NULL;
 	e->eat_space = FALSE;
 }
+
 static void
-push_clue (HTMLEngine *e, HTMLObject *clue)
+push_clue_style (HTMLEngine *e)
 {
+	printf ("push clue style\n");
+
 	//html_stack_push (e->body_stack, e->span_stack);
 	html_stack_push (e->body_stack, e->clueflow_style_stack);
 	html_stack_push (e->body_stack, e->listStack);
 	/* CLUECHECK */
-	html_stack_push (e->body_stack, e->parser_clue);
-	html_stack_push (e->body_stack, e->flow);
 
 	//e->span_stack = html_stack_new (free_elementggs);
 	e->clueflow_style_stack = html_stack_new (NULL);
 	e->listStack = html_stack_new ((HTMLStackFreeFunc)html_list_destroy);
-	e->parser_clue = clue;
-	e->flow = NULL;
 
 	html_stack_push (e->body_stack, GINT_TO_POINTER (e->avoid_para));
-	
 	e->avoid_para = TRUE;
+
+	html_stack_push (e->body_stack, GINT_TO_POINTER (e->inPre));
+	e->inPre = 0;
 }
 
 static void
-pop_clue (HTMLEngine *e)
+push_clue (HTMLEngine *e, HTMLObject *clue)
 {
+	printf ("push clue\n");
+
+	push_clue_style (e);
+
+	html_stack_push (e->body_stack, e->parser_clue);
+	html_stack_push (e->body_stack, e->flow);
+	e->parser_clue = clue;
+	e->flow = NULL;
+}
+
+static void
+pop_clue_style (HTMLEngine *e)
+{
+	printf ("pop clue style\n");
+
 	/* CLUECHECK */
 	finish_flow (e, HTML_OBJECT (e->parser_clue));
 
+	e->inPre = GPOINTER_TO_INT (html_stack_pop (e->body_stack));
 	e->avoid_para = GPOINTER_TO_INT (html_stack_pop (e->body_stack));
 	
 	html_stack_destroy (e->clueflow_style_stack);
 	//html_stack_destroy (e->span_stack);
 
-	e->flow = html_stack_pop (e->body_stack);
 	/* CLUECHECK */
-	e->parser_clue = html_stack_pop (e->body_stack);
 	e->listStack = html_stack_pop (e->body_stack);
 	e->clueflow_style_stack = html_stack_pop (e->body_stack);
 	//e->span_stack = html_stack_pop (e->body_stack);
+}
 
+static void
+pop_clue (HTMLEngine *e)
+{
+	printf ("pop clue\n");
+
+	e->flow = html_stack_pop (e->body_stack);
+	e->parser_clue = html_stack_pop (e->body_stack);
+
+	pop_clue_style (e);
 }
 
 static void
@@ -1258,6 +1283,18 @@ element_parse_title (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	push_block (e, "title", DISPLAY_NONE, block_end_title, 0, 0);
 }
 
+static void
+parse_text (HTMLEngine *e, HTMLObject *clue, char *str)
+{
+	if (e->inOption || e->inTextArea) {
+		g_string_append (e->formText, str);
+	} else if (e->inTitle) {
+		g_string_append (e->title, str);
+	} else {
+		insert_text (e, clue, str);
+	}
+}
+
 static gchar *
 new_parse_body (HTMLEngine *e, const gchar *end[])
 {
@@ -1282,13 +1319,7 @@ new_parse_body (HTMLEngine *e, const gchar *end[])
 			continue;
 
 		if (*str != TAG_ESCAPE) {
-			if (e->inOption || e->inTextArea) {
-				g_string_append (e->formText, str);
-			} else if (e->inTitle) {
-				g_string_append (e->title, str);
-			} else {
-				insert_text (e, clue, str);
-			}
+			parse_text (e, clue, str);
 		} else {
 			gint i  = 0;
 			str++;
@@ -1301,9 +1332,17 @@ new_parse_body (HTMLEngine *e, const gchar *end[])
 			}
 			
 			/* The tag used for line break when we are in <pre>...</pre> */
-			if (*str == '\n')
-				add_line_break (e, clue, HTML_CLEAR_NONE);
-			else
+			if (*str == '\n') {
+				if (e->inPre)
+					add_line_break (e, clue, HTML_CLEAR_NONE);
+				else {
+					char *str_copy = g_strdup (str);
+					*str_copy = ' ';
+					parse_text (e, clue, str_copy);
+					g_free (str_copy);
+					
+				}
+			} else
 				parse_one_token (e, clue, str);
 		}
 	}
@@ -2868,6 +2907,7 @@ block_end_table (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 	HTMLHAlignType table_align = elem->miscData1;
 	HTMLHAlignType clue_align = elem->miscData2;
 
+	pop_clue_style (e);
 	table = html_stack_top (e->table_stack);
 	html_stack_pop (e->table_stack);
 
@@ -2909,6 +2949,7 @@ block_end_table (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 static void
 block_end_inline_table (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem) 
 {
+	pop_clue_style (e);
 	html_stack_pop (e->table_stack);	
 }
 
@@ -3005,6 +3046,7 @@ element_parse_table (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			table->bgPixmap = html_image_factory_register (e->image_factory, NULL, element->style->bg_image, FALSE);
 		
 		html_stack_push (e->table_stack, table);
+		push_clue_style (e);
 
 		element->miscData1 = element->style->text_align;
 		element->miscData2 = current_alignment (e);
@@ -3028,6 +3070,7 @@ element_parse_table (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			table->bgPixmap = html_image_factory_register (e->image_factory, NULL, element->style->bg_image, FALSE);
 		
 		html_stack_push (e->table_stack, table);
+		push_clue_style (e);
 
 		element->exitFunc = block_end_inline_table;
 		html_stack_push (e->span_stack, element);
