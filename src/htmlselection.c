@@ -348,7 +348,12 @@ gboolean
 html_engine_is_selection_active (HTMLEngine *e)
 {
 	html_engine_edit_selection_updater_do_idle (e->selection_updater);
-	return e->selection ? TRUE : FALSE;
+	if (e->selection) {
+		g_return_val_if_fail (e->mark, FALSE);
+		return e->mark ? TRUE : FALSE;
+	}
+
+	return FALSE;
 }
 
 static void

@@ -1,5 +1,11 @@
 2004-05-14  Radek Doulik  <rodo@ximian.com>
 
+	* htmlselection.c (html_engine_is_selection_active): check for
+	mark as well, it should be non-null, but it looks like in some
+	situations it isn't. I am unable to reproduce that problem
+	occuring in #44521. This change should avoid the crash at least. I
+	hope it may give us some idea how does it happen.
+
 	* htmlengine-edit.c (html_engine_next_cell): move cursor forward
 	after the new row is created
 
