@@ -70,8 +70,10 @@ binding "gtkhtml-bindings-xemacs"
 
   bind "Tab"                     { "command" (insert-tab-or-indent-more-or-next-cell) }
   bind "ISO_Left_Tab"            { "command" (insert-tab-or-indent-more-or-next-cell) }
-  bind "<Ctrl>Tab"            { "command" (indent-more-or-next-cell) }
-  bind "<Ctrl>ISO_Left_Tab"   { "command" (indent-more-or-next-cell) }
+  bind "<Ctrl>Tab"            { "command" (indent-more) }
+  bind "<Ctrl>ISO_Left_Tab"   { "command" (indent-more) }
+  bind "<Ctrl><Shift>Tab"            { "command" (indent-less) }
+  bind "<Ctrl><Shift>ISO_Left_Tab"   { "command" (indent-less) }
   bind "<Shift>Tab"              { "command" (indent-less-or-prev-cell) }
   bind "<Shift>ISO_Left_Tab"     { "command" (indent-less-or-prev-cell) }
 

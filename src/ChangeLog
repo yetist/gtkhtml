@@ -1,5 +1,8 @@
 2001-08-17  Radek Doulik  <rodo@ximian.com>
 
+	* keybindingsrc.{ms,emacs,xeamcs}: changed C-TAB rather to pure
+	indent-more and S-C-TAB to indent-less
+
 	* gtkhtml.c (insert_tab_or_indent_more_or_next_cell): new helper
 	function for new GTK_HTML_COMMAND_INDENT_INC_OR_NEXT_CELL command
 
