@@ -151,9 +151,9 @@ draw (HTMLObject *o,
 		}
 	}
 
-	if (rule->shade)
+	if (rule->shade) {
 		html_painter_draw_panel (p, xp, yp, w, h, TRUE, 1);
-	else {
+	} else {
 		html_painter_set_pen (p, html_painter_get_default_foreground_color (p));
 		html_painter_fill_rect (p, xp, yp, w, h);
 	}

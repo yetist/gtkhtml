@@ -190,11 +190,6 @@ gboolean  gtk_html_jump_to_anchor  (GtkHTML *html,
 				    const gchar *anchor);
 
 
-/* Internal PRIVATE stuff -- don't use.  */
-
-void  gtk_html_private_calc_scrollbars  (GtkHTML *html);
-
-
 /* Editing functions.  */
 
 void  gtk_html_set_paragraph_style  (GtkHTML                   *html,

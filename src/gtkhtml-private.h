@@ -1,29 +1,31 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
+/*  This file is part of the GtkHTML library.
 
-#ifndef GTKHTML_PRIVATE_H
-#define GTKHTML_PRIVATE_H 1
+    Copyright 1999, 2000 Helix Code, Inc.
+    
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Library General Public
+    License as published by the Free Software Foundation; either
+    version 2 of the License, or (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Library General Public License for more details.
+
+    You should have received a copy of the GNU Library General Public License
+    along with this library; see the file COPYING.LIB.  If not, write to
+    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+    Boston, MA 02111-1307, USA.
+*/
+
+#ifndef _GTKHTML_PRIVATE_H
+#define _GTKHTML_PRIVATE_H
 
 #include "gtkhtml.h"
 #include "gtkhtmldebug.h"
 
-typedef void (*GtkHTMLStreamEndFunc)(GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, gpointer user_data);
-typedef void (*GtkHTMLStreamWriteFunc)(GtkHTMLStreamHandle handle, const guchar *buffer, size_t size, gpointer user_data);
+
+void  gtk_html_private_calc_scrollbars  (GtkHTML *html);
 
-typedef struct {
-	int ref_count;
-	GtkHTMLStreamWriteFunc write_callback;
-	GtkHTMLStreamEndFunc end_callback;
-	gpointer user_data;
-} GtkHTMLStream;
-
-GtkHTMLStreamHandle gtk_html_stream_new   (GtkHTML *html, const char *url,
-					   GtkHTMLStreamWriteFunc write_callback,
-					   GtkHTMLStreamEndFunc end_callback,
-					   gpointer user_data);
-void                gtk_html_stream_write (GtkHTMLStreamHandle handle,
-					   const gchar *buffer,
-					   size_t size);
-void                gtk_html_stream_end   (GtkHTMLStreamHandle handle,
-					   GtkHTMLStreamStatus status);
-
-#endif
+#endif /* _GTKHTML_PRIVATE_H */

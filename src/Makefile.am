@@ -19,6 +19,7 @@ libgtkhtml_HEADERS =				\
 	gtkhtml-embedded.h			\
 	gtkhtml-keybinding.h			\
 	gtkhtml-private.h			\
+	gtkhtml-stream.c			\
 	gtkhtml.h				\
 	gtkhtmldebug.h				\
 	gtkhtmlfontstyle.h			\
@@ -86,6 +87,7 @@ libgtkhtml_HEADERS =				\
 libgtkhtml_la_SOURCES =				\
 	gtkhtml-embedded.c			\
 	gtkhtml-keybinding.c			\
+	gtkhtml-stream.c			\
 	gtkhtml.c				\
 	gtkhtmldebug.c				\
 	gtkhtmlfontstyle.c			\
@@ -134,7 +136,6 @@ libgtkhtml_la_SOURCES =				\
 	htmlselect.c				\
 	htmlsettings.c				\
 	htmlstack.c				\
-	htmlstream.c				\
 	htmlstringtokenizer.c			\
 	htmltable.c				\
 	htmltablecell.c				\

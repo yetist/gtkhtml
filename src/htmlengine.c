@@ -36,6 +36,7 @@
 #include <ctype.h>
 
 #include "gtkhtml-private.h"
+#include "gtkhtml-stream.h"
 
 #include "htmlengine.h"
 #include "htmlengine-edit.h"
@@ -72,16 +73,27 @@
 #include "htmlstack.h"
 
 
-static void html_engine_class_init (HTMLEngineClass *klass);
-static void html_engine_init (HTMLEngine *engine);
-static gboolean html_engine_timer_event (HTMLEngine *e);
-static gboolean html_engine_update_event (HTMLEngine *e);
-static void html_engine_write (GtkHTMLStreamHandle handle, gchar *buffer, size_t size, HTMLEngine *e);
-static void html_engine_end (GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, HTMLEngine *e);
+static void      html_engine_class_init    (HTMLEngineClass     *klass);
+static void      html_engine_init          (HTMLEngine          *engine);
+static gboolean  html_engine_timer_event   (HTMLEngine          *e);
+static gboolean  html_engine_update_event  (HTMLEngine          *e);
+static void      html_engine_write         (GtkHTMLStream       *stream,
+					    const gchar         *buffer,
+					    guint                size,
+					    gpointer             data);
+static void      html_engine_end           (GtkHTMLStream       *stream,
+					    GtkHTMLStreamStatus  status,
+					    gpointer             data);
 
-static void parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str);
-static void parse_input (HTMLEngine *e, const gchar *s, HTMLObject *_clue);
-static void parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str);
+static void      parse_one_token           (HTMLEngine *p,
+					    HTMLObject *clue,
+					    const gchar *str);
+static void      parse_input               (HTMLEngine *e,
+					    const gchar *s,
+					    HTMLObject *_clue);
+static void      parse_f                   (HTMLEngine *p,
+					    HTMLObject *clue,
+					    const gchar *str);
 
 
 static GtkLayoutClass *parent_class = NULL;
@@ -1370,7 +1382,6 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 			pop_block (e, ID_ADDRESS, _clue);
 		} else if ( strncmp( str, "a ", 2 ) == 0 ) {
 			gchar *tmpurl = NULL;
-			gchar *target = NULL;
 			const gchar *p;
 
 			close_anchor (e);
@@ -3120,11 +3131,10 @@ html_engine_begin (HTMLEngine *p, const char *url)
 	html_engine_stop_parser (p);
 	p->writing = TRUE;
 
-	new_stream = gtk_html_stream_new(GTK_HTML(p->widget),
-					 url,
-					 (GtkHTMLStreamWriteFunc)html_engine_write,
-					 (GtkHTMLStreamEndFunc)html_engine_end,
-					 (gpointer)p);
+	new_stream = gtk_html_stream_new (GTK_HTML (p->widget),
+					  html_engine_write,
+					  html_engine_end,
+					  p);
 
 	if (p->reference) {
 		g_free (p->reference);
@@ -3143,8 +3153,15 @@ html_engine_begin (HTMLEngine *p, const char *url)
 }
 
 void
-html_engine_write (GtkHTMLStreamHandle handle, gchar *buffer, size_t size, HTMLEngine *e)
+html_engine_write (GtkHTMLStream *handle,
+		   const gchar *buffer,
+		   guint size,
+		   gpointer data)
 {
+	HTMLEngine *e;
+
+	e = HTML_ENGINE (data);
+
 	if (buffer == NULL)
 		return;
 
@@ -3285,14 +3302,21 @@ html_engine_timer_event (HTMLEngine *e)
 }
 
 static void
-html_engine_end (GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, HTMLEngine *e)
+html_engine_end (GtkHTMLStream *stream,
+		 GtkHTMLStreamStatus status,
+		 gpointer data)
 {
+	HTMLEngine *e;
+
+	e = HTML_ENGINE (data);
+
 	e->writing = FALSE;
 
 	html_tokenizer_end (e->ht);
 
 	while (html_engine_timer_event (e))
 		;
+
 	if (e->timerId != 0) {
 		gtk_timeout_remove (e->timerId);
 		e->timerId = 0;

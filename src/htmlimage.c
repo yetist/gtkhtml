@@ -39,9 +39,11 @@
 #include "htmlengine.h"
 #include "htmlpainter.h"
 #include "htmlprinter.h"
+
 #include "gtkhtml-private.h"
+#include "gtkhtml-stream.h"
 
-
+
 /* HTMLImageFactory stuff.  */
 
 struct _HTMLImageFactory {
@@ -460,16 +462,10 @@ html_image_set_spacing (HTMLImage *image, gint hspace, gint vspace)
 }
 
 
-
-static void html_image_factory_end_pixbuf    (GtkHTMLStreamHandle handle,
-					      GtkHTMLStreamStatus status,
-					      gpointer user_data);
-static void html_image_factory_write_pixbuf  (GtkHTMLStreamHandle handle,
-					      const guchar *buffer, size_t size,
-					      gpointer user_data);
-
 static void
-html_image_factory_end_pixbuf (GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, gpointer user_data)
+html_image_factory_end_pixbuf (GtkHTMLStream *stream,
+			       GtkHTMLStreamStatus status,
+			       gpointer user_data)
 {
 	HTMLImagePointer *ip = user_data;
 
@@ -480,10 +476,13 @@ html_image_factory_end_pixbuf (GtkHTMLStreamHandle handle, GtkHTMLStreamStatus s
 }
 
 static void
-html_image_factory_write_pixbuf (GtkHTMLStreamHandle handle, const guchar *buffer,
-				 size_t size, gpointer user_data)
+html_image_factory_write_pixbuf (GtkHTMLStream *stream,
+				 const gchar *buffer,
+				 guint size,
+				 gpointer user_data)
 {
 	HTMLImagePointer *p = user_data;
+
 	/* FIXME ! Check return value */
 	gdk_pixbuf_loader_write (p->loader, buffer, size);
 }
@@ -803,7 +802,6 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 				    retval);
 		
 		handle = gtk_html_stream_new (GTK_HTML (factory->engine->widget),
-					      retval->url,
 					      html_image_factory_write_pixbuf,
 					      html_image_factory_end_pixbuf,
 					      retval);

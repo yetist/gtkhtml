@@ -33,6 +33,7 @@
 
 #include "gtkhtml-embedded.h"
 #include "gtkhtml-keybinding.h"
+#include "gtkhtml-stream.h"
 #include "gtkhtml-private.h"
 
 
@@ -1257,7 +1258,7 @@ gtk_html_end (GtkHTML *html,
 	      GtkHTMLStreamHandle handle,
 	      GtkHTMLStreamStatus status)
 {
-	gtk_html_stream_end (handle, status);
+	gtk_html_stream_close (handle, status);
 
 	html->load_in_progress = FALSE;
 }

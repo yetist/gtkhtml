@@ -264,6 +264,25 @@ get_font_style (HTMLPainter *painter)
 	return printer->font_style;
 }
 
+static void
+do_rectangle (GnomePrintContext *context,
+	      gdouble x, gdouble y,
+	      gdouble width, gdouble height,
+	      gdouble line_width)
+{
+	gnome_print_setlinewidth (context, line_width);
+	gnome_print_setrgbcolor (context, 0, 0, 0);
+
+	gnome_print_newpath (context);
+	gnome_print_moveto (context, x, y);
+	gnome_print_lineto (context, x + width, y);
+	gnome_print_lineto (context, x + width, y - height);
+	gnome_print_lineto (context, x, y - height);
+	gnome_print_lineto (context, x, y);
+
+	gnome_print_stroke (context);
+}
+
 
 /* HTMLPainter drawing functions.  */
 
@@ -281,6 +300,8 @@ draw_line (HTMLPainter *painter,
 
 	engine_coordinates_to_gnome_print (printer, x1, y1, &printer_x1, &printer_y1);
 	engine_coordinates_to_gnome_print (printer, x2, y2, &printer_x2, &printer_y2);
+
+	gnome_print_setlinewidth (printer->print_context, PIXEL_SIZE);
 
 	gnome_print_newpath (printer->print_context);
 	gnome_print_moveto (printer->print_context, printer_x1, printer_y1);
@@ -306,14 +327,9 @@ draw_rect (HTMLPainter *painter,
 
 	engine_coordinates_to_gnome_print (printer, x, y, &printer_x, &printer_y);
 
-	gnome_print_newpath (printer->print_context);
-	gnome_print_moveto (printer->print_context, printer_x, printer_y);
-	gnome_print_lineto (printer->print_context, printer_x + printer_width, printer_y);
-	gnome_print_lineto (printer->print_context, printer_x + printer_width, printer_y - printer_height);
-	gnome_print_lineto (printer->print_context, printer_x, printer_y - printer_height);
-	gnome_print_lineto (printer->print_context, printer_x, printer_y);
-
-	gnome_print_stroke (printer->print_context);
+	do_rectangle (printer->print_context,
+		      printer_x, printer_y, printer_width, printer_height,
+		      PIXEL_SIZE);
 }
 
 static void
@@ -335,14 +351,9 @@ draw_panel (HTMLPainter *painter,
 
 	engine_coordinates_to_gnome_print (printer, x, y, &printer_x, &printer_y);
 
-	gnome_print_newpath (printer->print_context);
-	gnome_print_moveto (printer->print_context, printer_x, printer_y);
-	gnome_print_lineto (printer->print_context, printer_x + printer_width, printer_y);
-	gnome_print_lineto (printer->print_context, printer_x + printer_width, printer_y - printer_height);
-	gnome_print_lineto (printer->print_context, printer_x, printer_y - printer_height);
-	gnome_print_lineto (printer->print_context, printer_x, printer_y);
-
-	gnome_print_stroke (printer->print_context);
+	do_rectangle (printer->print_context,
+		      printer_x, printer_y, printer_width, printer_height,
+		      bordersize * PIXEL_SIZE);
 }
 
 static void

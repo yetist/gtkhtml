@@ -1,3 +1,39 @@
+2000-04-09  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlimage.c
+	(html_image_factory_end_pixbuf): Changed param types to match new
+	GtkHTMLStream stuff.
+	(html_image_factory_write_pixbuf): Likewise.
+
+	* htmlengine.c
+	(html_engine_write): Get a `GtkHTMLStream *' instead of a
+	`GtkHTMLStreamHandle' as the @handle param.
+	(html_engine_end): Likewise.
+
+	* gtkhtml-private.h
+	(gtk_html_private_calc_scrollbars): Prototype moved here.
+
+	* gtkhtml-private.h: Removed GtkHTMLStream functions and typedefs.
+
+	* gtkhtmlstream.h: New file, header for `gtkhtmlstream.c'.
+
+	* gtkhtml-stream.c: Renamed from `htmlstream.c'.  Cleaned up a
+	little, and added preconditions.  Use `GtkHTMLStream *' instead of
+	`GtkHTMLStreamHandle' all over the place.
+	(gtk_html_stream_ref): Removed.
+	(gtk_html_stream_unref): Removed.
+	(gtk_html_stream_destroy): New function.
+	(gtk_html_stream_close): Renamed from `gtk_html_stream_end'.
+	(gtk_html_stream_new): Removed param @url.
+
+	* htmlprinter.c
+	(set_color): New helper function.
+	(draw_line): Set the line width to `PIXEL_SIZE' before drawing.
+	(draw_rect): Likewise.
+	(do_request_delete): Helper function.
+	(draw_rect): Use it.
+	(draw_panel): Use it.
+
 2000-04-08  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlengine.c (parse_table): change the default alignment for
@@ -7,7 +43,7 @@
 	(html_image_animation_destroy): call html_image_animation_stop
 	before we destroy the animation so we don't get a stray timeout.
 
-2000-04-07  Larry Ewing  <lewing@helixcode.com>
+2000-04-08  Larry Ewing  <lewing@helixcode.com>
 
 	* htmltablecell.c (draw_background_helper): account for pixel_size
 	when drawing background color and pixmaps.
