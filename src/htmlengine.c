@@ -429,7 +429,7 @@ parse_body (HTMLEngine *p, HTMLObject *clue, const gchar *end[], gboolean toplev
 					html_engine_new_flow (p, clue);
 
 				/* Add a hidden space to get the line-height right */
-				html_clue_append (p->flow,
+				html_clue_append (HTML_CLUE (p->flow),
 						  html_hspace_new (html_engine_get_current_font (p), p->painter, TRUE));
 				p->vspace_inserted = TRUE;
 				
@@ -2257,6 +2257,8 @@ html_engine_destroy (GtkObject *object)
 
 	/* FIXME FIXME FIXME */
 
+	html_cursor_destroy (engine->cursor);
+
 	html_url_destroy (engine->actualURL);
 	
 	html_tokenizer_destroy   (engine->ht);
@@ -2346,7 +2348,8 @@ html_engine_init (HTMLEngine *engine)
 
 	engine->actualURL = NULL;
 
-	engine->show_cursor = TRUE;
+	engine->show_cursor = FALSE;
+	engine->cursor = html_cursor_new ();
 
 	engine->ht = html_tokenizer_new ();
 	engine->st = string_tokenizer_new ();
@@ -2434,6 +2437,37 @@ draw_background (HTMLEngine *e, gint xval, gint yval, gint x, gint y, gint w, gi
 							     bgpixmap->pixbuf);
 		}
 	}
+}
+
+static void
+draw_cursor (HTMLEngine *e,
+	     gint x, gint y, gint width, gint height,
+	     gint tx, gint ty)
+{
+	HTMLCursor *cursor;
+	HTMLObject *o;
+
+	if (! e->show_cursor)
+		return;
+
+	cursor = e->cursor;
+	o = cursor->object;
+
+	if (o == NULL)
+		return;
+
+	if (y + height < o->y - o->ascent
+	    || y > o->y + o->descent
+	    || x + width < o->x
+	    || x > o->x)
+		return;
+
+	html_painter_set_pen (e->painter, &e->painter->black);
+	html_painter_draw_line (e->painter,
+				o->x + tx,
+				o->y + ty - o->ascent,
+				o->x + tx,
+				o->y + ty + o->descent);
 }
 
 void
@@ -2607,6 +2641,11 @@ html_engine_draw (HTMLEngine *e, gint x, gint y, gint width, gint height)
 				  height,
 				  tx, ty);
 
+	draw_cursor (e,
+		     x - e->x_offset, y + e->y_offset - e->topBorder,
+		     width, height,
+		     tx, ty);
+
 	html_painter_end (e->painter);
 }
 
@@ -2694,6 +2733,8 @@ html_engine_parse (HTMLEngine *p)
 	p->clue = html_cluev_new (0, 0, p->width - p->leftBorder - p->rightBorder, 100);
 	HTML_CLUE (p->clue)->valign = HTML_VALIGN_TOP;
 	HTML_CLUE (p->clue)->halign = HTML_HALIGN_LEFT;
+
+	p->cursor->object = p->clue;
 	
 	/* Initialize the font stack with the default font */
 	p->italic = FALSE;

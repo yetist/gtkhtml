@@ -40,11 +40,12 @@ struct _HTMLPainter {
 	gboolean   set_background;
 	gboolean  do_clear;
 	
-	GdkGC *gc;      /* The current GC used */
-	HTMLFont *font; /* The current font */
+	GdkGC *gc;		/* The current GC used */
+	HTMLFont *font;		/* The current font */
 
-	GdkColor dark; /* Dark color */
-	GdkColor light; /* Light color */
+	GdkColor dark;		/* Dark color */
+	GdkColor light;		/* Light color */
+	GdkColor black;		/* Black */
 };
 
 
@@ -62,6 +63,7 @@ void         html_painter_unrealize (HTMLPainter *painter);
  * The actual paint operations
  */
 void         html_painter_set_pen      (HTMLPainter *painter, GdkColor *color);
+void	     html_painter_draw_line    (HTMLPainter *painter, gint x1, gint y1, gint x2, gint y2);
 void         html_painter_draw_rect    (HTMLPainter *painter, gint x, gint y, gint width, gint height);
 void         html_painter_draw_text    (HTMLPainter *painter, gint x, gint y, gchar *text, gint len);
 void         html_painter_set_font     (HTMLPainter *p, HTMLFont *f);

@@ -77,7 +77,7 @@ draw (HTMLObject *o, HTMLPainter *p,
 {
 	int base_x, base_y, clip_x, clip_y, clip_width, clip_height;
 
-	/* FIXME: Should be removed */
+	/* FIXME horizontal check? */
 	if (y + height < o->y - o->ascent || y > o->y + o->descent)
 		return;
 

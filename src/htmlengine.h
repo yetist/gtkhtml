@@ -29,6 +29,7 @@ typedef struct _HTMLEngineClass HTMLEngineClass;
 #include "gtkhtml.h"
 #include "htmltokenizer.h"
 #include "htmlclue.h"
+#include "htmlcursor.h"
 #include "htmlfont.h"
 #include "htmlstack.h"
 #include "htmlsettings.h"
@@ -61,6 +62,7 @@ struct _HTMLEngine {
 	HTMLURL *actualURL;
 
 	gboolean show_cursor;
+	HTMLCursor *cursor;
 
 	gboolean parsing;
 	HTMLTokenizer *ht;
@@ -185,5 +187,6 @@ void        html_engine_calc_absolute_pos (HTMLEngine *e);
 gchar      *html_engine_canonicalize_url (HTMLEngine *e, const char *in_url);
 const gchar *html_engine_get_link_at (HTMLEngine *e, gint x, gint y);
 void	    html_engine_show_cursor (HTMLEngine *e, gboolean show);
+gint	    html_engine_get_doc_width (HTMLEngine *e);
 
 #endif /* _HTMLENGINE_H_ */

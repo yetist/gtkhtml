@@ -26,6 +26,18 @@
 #include <gdk-pixbuf/gdk-pixbuf-loader.h>
 
 void
+html_painter_draw_line (HTMLPainter *painter,
+			gint x1, gint y1,
+			gint x2, gint y2)
+{
+	x1 -= painter->x1;
+	y1 -= painter->y1;
+	x2 -= painter->x1;
+	y2 -= painter->y1;
+	gdk_draw_line (painter->pixmap, painter->gc, x1, y1, x2, y2);
+}
+
+void
 html_painter_draw_ellipse (HTMLPainter *painter, gint x, gint y, gint width, gint height)
 {
 	g_return_if_fail (painter != NULL);
@@ -297,6 +309,11 @@ html_painter_realize (HTMLPainter *painter, GdkWindow *window)
 	painter->dark.green = 32767;
 	painter->dark.blue = 32767;
 	gdk_colormap_alloc_color (gdk_window_get_colormap (window), &painter->dark, TRUE, TRUE);
+
+	painter->black.red = 0;
+	painter->black.green = 0;
+	painter->black.blue = 0;
+	gdk_colormap_alloc_color (gdk_window_get_colormap (window), &painter->black, TRUE, TRUE);
 }
 
 void
