@@ -1,5 +1,8 @@
 2000-01-24  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmltextslave.c (fit_line): Do not chop the last word if there
+	is enough space, even if there is another object after this one.
+
 	* htmltextslave.c (html_text_slave_get_offset_for_pointer):
 	Compare with the middle position of the character, not the
 	leftmost border, so that it's easier to make selections.

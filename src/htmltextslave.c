@@ -152,20 +152,8 @@ fit_line (HTMLObject *o,
 	o->width = html_painter_calc_text_width (painter, text, textslave->posLen, font_style);
 	if (o->width <= widthLeft || textslave->posLen <= 1 || widthLeft < 0) {
 		/* Text fits completely */
-		if (o->next == NULL
-		    || text[textslave->posLen - 1] == '\n'
-		    || (o->next->flags & (HTML_OBJECT_FLAG_SEPARATOR
-					  | HTML_OBJECT_FLAG_NEWLINE))) {
-			return_value = HTML_FIT_COMPLETE;
-			goto done;
-		}
-
-		/* Text is followed by more text...break it before the last word */
-		splitPtr = rindex (text + 1, ' ');
-		if (!splitPtr) {
-			return_value = HTML_FIT_COMPLETE;
-			goto done;
-		}
+		return_value = HTML_FIT_COMPLETE;
+		goto done;
 	} else {
 		splitPtr = index (text + 1, ' ');
 	}
