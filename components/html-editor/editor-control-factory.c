@@ -363,9 +363,6 @@ editor_set_format (GtkHTMLControlData *cd, gboolean format_html)
 	
 	editor_init_painters (cd);
 	
-	/* RM2 */
-	format_html = 1;
-
 	html = cd->html;
 	cd->format_html = format_html;
 
