@@ -1274,7 +1274,7 @@ html_text_slave_cursor_right_one (HTMLTextSlave *slave, HTMLPainter *painter, HT
 		}
 	} else {
 		/* RTL */
-		if (index > gi->glyph_item.item->offset && (index <= gi->glyph_item.item->offset + gi->glyph_item.item->length)) {
+		if (index > gi->glyph_item.item->offset && index <= gi->glyph_item.item->offset + gi->glyph_item.item->length) {
 			cursor->offset --;
 			cursor->position --;
 
@@ -1319,6 +1319,7 @@ html_text_slave_cursor_left_one (HTMLTextSlave *slave, HTMLPainter *painter, HTM
 {
 	HTMLTextSlaveGlyphItem *prev, *next;
 	int index;
+	HTMLObject *prev_obj = HTML_OBJECT (slave->owner)->prev;
 	HTMLTextSlaveGlyphItem *gi = html_text_slave_get_glyph_item_at_offset (slave, painter, cursor->offset - slave->posStart, &prev, &next, NULL, &index);
 
 /* 	printf ("gi: %p item num chars: %d\n", gi, gi ? gi->glyph_item.item->num_chars : -1); */
@@ -1328,7 +1329,7 @@ html_text_slave_cursor_left_one (HTMLTextSlave *slave, HTMLPainter *painter, HTM
 
 	if (gi->glyph_item.item->analysis.level % 2 == 0) {
 		/* LTR */
-		if (index - gi->glyph_item.item->offset > 1 || (!prev && index - gi->glyph_item.item->offset > 0)) {
+		if (index - gi->glyph_item.item->offset > 1 || (!prev && !prev_obj && index - gi->glyph_item.item->offset > 0)) {
 			cursor->offset --;
 			cursor->position --;
 

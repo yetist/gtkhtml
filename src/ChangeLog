@@ -1,3 +1,16 @@
+2005-03-14  Radek Doulik  <rodo@novell.com>
+
+	* test-suite.c (test_cursor_around_image): added new test for
+	cursor movement around images
+	put widget into scrolled window for convenience
+
+	* htmltextslave.c (html_text_slave_cursor_left_one): move to
+	boundary only if there's no prev object
+	(html_text_slave_cursor_right_one): remove unneeded braces
+
+	* htmlcursor.c (move_right): move offset one step forward when
+	moving between neighbor objects
+
 2005-03-10  Radek Doulik  <rodo@novell.com>
 
 	* test-suite.c (test_delete_around_table): added new test for

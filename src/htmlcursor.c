@@ -996,10 +996,22 @@ move_right (HTMLCursor *cursor, HTMLEngine *e)
 	retval = TRUE;
 	if (!html_object_cursor_right (cursor->object, e->painter, cursor)) {
 		if (cursor->object->parent) {
+			gboolean rv;
+			HTMLObject *orig = cursor->object;
+
 			if (html_object_get_direction (cursor->object->parent) == HTML_DIRECTION_RTL)
-				return move_to_prev_object (cursor, e);
+				rv = move_to_prev_object (cursor, e);
 			else
-				return move_to_next_object (cursor, e);
+				rv = move_to_next_object (cursor, e);
+
+			if (rv && !html_object_is_container (cursor->object) && cursor->object->parent == orig->parent) {
+				if (html_object_get_direction (cursor->object) == HTML_DIRECTION_RTL)
+					cursor->offset --;
+				else
+					cursor->offset ++;
+			}
+
+			return rv;
 		}
 	}
 	return retval;
