@@ -187,7 +187,7 @@ testgtkhtml_LDADD =				\
 	$(EXTRA_GNOME_LIBS)                     \
 	$(GCONF_LIBS)				\
 	$(GLIBWWW)
-# -lccmalloc -ldl
+#	-lccmalloc -ldl
 #
 
 dist-hook:

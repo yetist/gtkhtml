@@ -1,5 +1,8 @@
 2000-07-05  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine-edit-paste.c (merge_possibly): remove empty text
+	objects here, this fixes well known magic links bug
+
 	* htmlengine-edit-insert.c (equal_insertion): fixed case when
 	target is NULL
 

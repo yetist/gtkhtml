@@ -37,18 +37,19 @@
 
 /* #define PARANOID_DEBUG */
 
+static gboolean remove_element_if_empty_text (HTMLEngine *engine, HTMLObject *object);
+
 
 /* This function adds an empty HTMLTextMaster object to @flow; it is
    used to make sure no empty HTMLClueFlow object is created.  */
 static void
-add_empty_text_master_to_clueflow (HTMLClueFlow *flow)
+add_empty_text_master_to_clueflow (HTMLEngine *e, HTMLClueFlow *flow)
 {
-	static GdkColor black = { 0, 0, 0, 0 };	/* FIXME */
 	HTMLObject *new_textmaster;
 
 	new_textmaster = html_text_master_new ("",
 					       GTK_HTML_FONT_STYLE_DEFAULT,
-					       &black);
+					       html_colorset_get_color (e->settings->color_set, HTMLTextColor));
 	html_clue_prepend (HTML_CLUE (flow), new_textmaster);
 }
 
@@ -137,7 +138,7 @@ split_first_clueflow_at_cursor (HTMLEngine *engine,
            paragraph, add an empty text element, as HTMLClueFlows must
            never be empty.  */
 	if (curr->prev == NULL) {
-		add_empty_text_master_to_clueflow (HTML_CLUEFLOW (curr_clue));
+		add_empty_text_master_to_clueflow (engine, HTML_CLUEFLOW (curr_clue));
 		engine->cursor->object = HTML_CLUE (curr_clue)->head;
 		engine->cursor->offset = 0;
 	} else {
@@ -287,6 +288,9 @@ merge_possibly (HTMLEngine *engine,
 	if (a == NULL || b == NULL)
 		return;
 
+	if (remove_element_if_empty_text (engine, a) || remove_element_if_empty_text (engine, b))
+		return;
+
 	if (! html_object_is_text (a) || ! html_object_is_text (b))
 		return;
 
@@ -351,16 +355,16 @@ move_cursor_to_safe_object (HTMLEngine *engine,
 	g_assert_not_reached ();
 }
 
-static void
+static gboolean
 remove_element_if_empty_text (HTMLEngine *engine,
 			      HTMLObject *object)
 {
 	if (object == NULL)
-		return;
+		return FALSE;
 	if (! html_object_is_text (object))
-		return;
+		return FALSE;
 	if (HTML_TEXT (object)->text_len != 0)
-		return;
+		return FALSE;
 
 	if (engine->cursor->object == object) {
 		/* Of course, if we are destroying this object, it must be empty and
@@ -373,6 +377,8 @@ remove_element_if_empty_text (HTMLEngine *engine,
 	html_clue_remove (HTML_CLUE (object->parent), object);
 	html_text_master_destroy_slaves (HTML_TEXT_MASTER (object));
 	html_object_destroy (object);
+
+	return TRUE;
 }
 
 
@@ -458,7 +464,7 @@ do_paste (HTMLEngine *engine,
 
 			while (p->next != NULL
 			       && HTML_OBJECT_TYPE (p->next->data) == HTML_TYPE_CLUEFLOW) {
-				add_empty_text_master_to_clueflow (HTML_CLUEFLOW (clueflow));
+				add_empty_text_master_to_clueflow (engine, HTML_CLUEFLOW (clueflow));
 
 				engine->cursor->position ++;
 
@@ -473,7 +479,7 @@ do_paste (HTMLEngine *engine,
 
 			if (p->next == NULL) {
 				if (HTML_CLUE (clueflow)->head == NULL)
-					add_empty_text_master_to_clueflow (HTML_CLUEFLOW (clueflow));
+					add_empty_text_master_to_clueflow (engine, HTML_CLUEFLOW (clueflow));
 				engine->cursor->object = HTML_CLUE (clueflow)->head;
 				engine->cursor->offset = 0;
 				break;
