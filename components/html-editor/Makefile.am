@@ -6,6 +6,7 @@ INCLUDES =						\
 	-I$(srcdir)					\
 	-I.						\
         $(GNOME_INCLUDEDIR)				\
+	$(EXTRA_GNOME_CFLAGS)				\
 	$(GTK_CFLAGS)
 
 
