@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GtkHTML 3.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-24 08:50+0100\n"
-"PO-Revision-Date: 2004-01-24 08:50+0100\n"
+"POT-Creation-Date: 2004-02-01 12:00+0100\n"
+"PO-Revision-Date: 2004-02-01 12:00+0100\n"
 "Last-Translator: Christian Neumair <chris@gnome-de.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1091,6 +1091,205 @@ msgstr "Absatz"
 #: components/html-editor/menubar.c:320 components/html-editor/popup.c:223
 msgid "Page"
 msgstr "Seite"
+
+#. This is the default custom color
+#: components/html-editor/gi-color-palette.c:394
+msgid "custom"
+msgstr "benutzerdefiniert"
+
+#. "Custom" color - we'll pop up a GnomeColorPicker
+#: components/html-editor/gi-color-palette.c:436
+msgid "Custom Color:"
+msgstr "Benutzerdefinierte Farbe:"
+
+#: components/html-editor/gi-color-palette.c:444
+msgid "Choose Custom Color"
+msgstr "Benutzerdefinierte Farbe auswählen"
+
+#: components/html-editor/gi-color-palette.c:577
+msgid "black"
+msgstr "schwarz"
+
+#: components/html-editor/gi-color-palette.c:578
+msgid "light brown"
+msgstr "hellbraun"
+
+#: components/html-editor/gi-color-palette.c:579
+msgid "brown gold"
+msgstr "goldbraun"
+
+#: components/html-editor/gi-color-palette.c:580
+msgid "dark green #2"
+msgstr "dunkelgrün Nr. 2"
+
+#: components/html-editor/gi-color-palette.c:581
+msgid "navy"
+msgstr "marineblau"
+
+#: components/html-editor/gi-color-palette.c:582
+#: components/html-editor/gi-color-palette.c:638
+msgid "dark blue"
+msgstr "dunkelblau"
+
+#: components/html-editor/gi-color-palette.c:583
+msgid "purple #2"
+msgstr "purpur Nr. 2"
+
+#: components/html-editor/gi-color-palette.c:584
+msgid "very dark gray"
+msgstr "sehr dunkles Grau"
+
+#: components/html-editor/gi-color-palette.c:587
+#: components/html-editor/gi-color-palette.c:643
+msgid "dark red"
+msgstr "dunkelrot"
+
+#: components/html-editor/gi-color-palette.c:588
+msgid "red-orange"
+msgstr "rot-orange"
+
+#: components/html-editor/gi-color-palette.c:589
+msgid "gold"
+msgstr "golden"
+
+#: components/html-editor/gi-color-palette.c:590
+msgid "dark green"
+msgstr "dunkelgrün"
+
+#: components/html-editor/gi-color-palette.c:591
+#: components/html-editor/gi-color-palette.c:644
+msgid "dull blue"
+msgstr "mattblau"
+
+#: components/html-editor/gi-color-palette.c:592
+#: components/html-editor/gi-color-palette.c:645
+msgid "blue"
+msgstr "blau"
+
+#: components/html-editor/gi-color-palette.c:593
+msgid "dull purple"
+msgstr "mattpurpur"
+
+#: components/html-editor/gi-color-palette.c:594
+msgid "dark grey"
+msgstr "dunkelgrau"
+
+#: components/html-editor/gi-color-palette.c:597
+msgid "red"
+msgstr "rot"
+
+#: components/html-editor/gi-color-palette.c:598
+msgid "orange"
+msgstr "orange"
+
+#: components/html-editor/gi-color-palette.c:599
+msgid "lime"
+msgstr "limone"
+
+#: components/html-editor/gi-color-palette.c:600
+msgid "dull green"
+msgstr "mattgrün"
+
+#: components/html-editor/gi-color-palette.c:601
+msgid "dull blue #2"
+msgstr "mattblau Nr. 2"
+
+#: components/html-editor/gi-color-palette.c:602
+msgid "sky blue #2"
+msgstr "himmelblau Nr. 2"
+
+#: components/html-editor/gi-color-palette.c:603
+#: components/html-editor/gi-color-palette.c:642
+msgid "purple"
+msgstr "purpur"
+
+#: components/html-editor/gi-color-palette.c:604
+msgid "gray"
+msgstr "grau"
+
+#: components/html-editor/gi-color-palette.c:607
+#: components/html-editor/gi-color-palette.c:639
+msgid "magenta"
+msgstr "magenta"
+
+#: components/html-editor/gi-color-palette.c:608
+msgid "bright orange"
+msgstr "hellorange"
+
+#: components/html-editor/gi-color-palette.c:609
+#: components/html-editor/gi-color-palette.c:640
+msgid "yellow"
+msgstr "gelb"
+
+#: components/html-editor/gi-color-palette.c:610
+msgid "green"
+msgstr "grün"
+
+#: components/html-editor/gi-color-palette.c:611
+#: components/html-editor/gi-color-palette.c:641
+msgid "cyan"
+msgstr "zyan"
+
+#: components/html-editor/gi-color-palette.c:612
+msgid "bright blue"
+msgstr "hellblau"
+
+#: components/html-editor/gi-color-palette.c:613
+#: components/html-editor/gi-color-palette.c:630
+msgid "red purple"
+msgstr "rötlichpurpur"
+
+#: components/html-editor/gi-color-palette.c:614
+msgid "light grey"
+msgstr "hellgrau"
+
+#: components/html-editor/gi-color-palette.c:617
+#: components/html-editor/gi-color-palette.c:634
+msgid "pink"
+msgstr "rosa"
+
+#: components/html-editor/gi-color-palette.c:618
+msgid "light orange"
+msgstr "hellorange"
+
+#: components/html-editor/gi-color-palette.c:619
+#: components/html-editor/gi-color-palette.c:631
+msgid "light yellow"
+msgstr "hellgelb"
+
+#: components/html-editor/gi-color-palette.c:620
+msgid "light green"
+msgstr "hellgrün"
+
+#: components/html-editor/gi-color-palette.c:621
+msgid "light cyan"
+msgstr "hellzyan"
+
+#: components/html-editor/gi-color-palette.c:622
+#: components/html-editor/gi-color-palette.c:632
+msgid "light blue"
+msgstr "hellblau"
+
+#: components/html-editor/gi-color-palette.c:623
+#: components/html-editor/gi-color-palette.c:636
+msgid "light purple"
+msgstr "hellpurpur"
+
+#: components/html-editor/gi-color-palette.c:624
+msgid "white"
+msgstr "weiß"
+
+#: components/html-editor/gi-color-palette.c:629
+msgid "purplish blue"
+msgstr "purpurblau"
+
+#: components/html-editor/gi-color-palette.c:633
+msgid "dark purple"
+msgstr "dunkelpurpur"
+
+#: components/html-editor/gi-color-palette.c:635
+msgid "sky blue"
+msgstr "himmelblau"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
