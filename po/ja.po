@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-24 16:02+0900\n"
-"PO-Revision-Date: 2004-01-24 15:59+0900\n"
+"POT-Creation-Date: 2004-01-28 23:10+0900\n"
+"PO-Revision-Date: 2004-01-28 23:07+0900\n"
 "Last-Translator: Takeshi AIHANA <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -269,7 +269,7 @@ msgstr "選択範囲を切り取ります"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
 #: components/html-editor/search.c:77 components/html-editor/search.c:129
 msgid "Find"
-msgstr "検索"
+msgstr "検索します"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
@@ -279,7 +279,7 @@ msgstr "正規表現の検索"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:24
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
 msgid "Find And Replace"
-msgstr "検索と置換"
+msgstr "検索して置換します"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:25
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
@@ -352,87 +352,87 @@ msgstr "画像"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
 msgid "Insert Crying smiley into document..."
-msgstr "文書に泣き顔のスマイリーを挿入..."
+msgstr "文書に泣き顔のスマイリーを挿入します..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
 msgid "Insert Frown smiley into document..."
-msgstr "文書にしかめっ面のスマイリーを挿入..."
+msgstr "文書にしかめっ面のスマイリーを挿入します..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:40
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
 msgid "Insert HTML file into document..."
-msgstr "文書に HTML ファイルを挿入..."
+msgstr "文書に HTML ファイルを挿入します..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
 msgid "Insert HTML link into document..."
-msgstr "文書に HTML リンクを挿入..."
+msgstr "文書に HTML リンクを挿入します..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
 msgid "Insert HTML template into document..."
-msgstr "文書に HTML テンプレートを挿入..."
+msgstr "文書に HTML テンプレートを挿入します..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
 msgid "Insert Indifferent smiley into document..."
-msgstr "文書に無表情なスマイリーを挿入..."
+msgstr "文書に無表情なスマイリーを挿入します..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
 msgid "Insert Laughing smiley into document..."
-msgstr "文書に笑顔のスマイリーを挿入..."
+msgstr "文書に笑顔のスマイリーを挿入します..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
 msgid "Insert Lick smiley into document..."
-msgstr "文書に怒り顔のスマイリーを挿入..."
+msgstr "文書に怒り顔のスマイリーを挿入します..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
 msgid "Insert Oh no! smiley into document..."
-msgstr "文書に \"なんてコトを！\" スマイリーを挿入..."
+msgstr "文書に \"なんてコトを！\" スマイリーを挿入します..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
 msgid "Insert Smile smiley into document..."
-msgstr "文書に笑顔のスマイリーを挿入..."
+msgstr "文書に笑顔のスマイリーを挿入します..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
 msgid "Insert Surprised smiley into document..."
-msgstr "文書にビックリした顔のスマイリーを挿入..."
+msgstr "文書にビックリした顔のスマイリーを挿入します..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
 msgid "Insert Undecided smiley into document..."
-msgstr "文書に迷っているスマイリーを挿入..."
+msgstr "文書に迷っているスマイリーを挿入します..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
 msgid "Insert Wink smiley into document..."
-msgstr "文書にウィンクしたスマイリーを挿入..."
+msgstr "文書にウィンクしたスマイリーを挿入します..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
 msgid "Insert image into document..."
-msgstr "文書に画像を挿入..."
+msgstr "文書に画像を挿入します..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:52
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
 msgid "Insert rule into document..."
-msgstr "文書に罫線を挿入..."
+msgstr "文書に罫線を挿入します..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
 msgid "Insert table into document..."
-msgstr "文書に表を挿入..."
+msgstr "文書に表を挿入します..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
 msgid "Insert text file into document..."
-msgstr "文書にテキスト・ファイルを挿入..."
+msgstr "文書にテキスト・ファイルを挿入します..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
@@ -1090,6 +1090,205 @@ msgstr "段落"
 #: components/html-editor/menubar.c:320 components/html-editor/popup.c:223
 msgid "Page"
 msgstr "ページ"
+
+#. This is the default custom color
+#: components/html-editor/gi-color-palette.c:394
+msgid "custom"
+msgstr "カスタム"
+
+#. "Custom" color - we'll pop up a GnomeColorPicker
+#: components/html-editor/gi-color-palette.c:436
+msgid "Custom Color:"
+msgstr "カスタム色:"
+
+#: components/html-editor/gi-color-palette.c:444
+msgid "Choose Custom Color"
+msgstr "カスタム・カラーの選択"
+
+#: components/html-editor/gi-color-palette.c:577
+msgid "black"
+msgstr "黒"
+
+#: components/html-editor/gi-color-palette.c:578
+msgid "light brown"
+msgstr "淡い茶"
+
+#: components/html-editor/gi-color-palette.c:579
+msgid "brown gold"
+msgstr "茶色い金"
+
+#: components/html-editor/gi-color-palette.c:580
+msgid "dark green #2"
+msgstr "暗い緑 #2"
+
+#: components/html-editor/gi-color-palette.c:581
+msgid "navy"
+msgstr "ネービー"
+
+#: components/html-editor/gi-color-palette.c:582
+#: components/html-editor/gi-color-palette.c:638
+msgid "dark blue"
+msgstr "暗い青"
+
+#: components/html-editor/gi-color-palette.c:583
+msgid "purple #2"
+msgstr "紫 #2"
+
+#: components/html-editor/gi-color-palette.c:584
+msgid "very dark gray"
+msgstr "とても暗い灰"
+
+#: components/html-editor/gi-color-palette.c:587
+#: components/html-editor/gi-color-palette.c:643
+msgid "dark red"
+msgstr "暗い赤"
+
+#: components/html-editor/gi-color-palette.c:588
+msgid "red-orange"
+msgstr "赤みの橙"
+
+#: components/html-editor/gi-color-palette.c:589
+msgid "gold"
+msgstr "金"
+
+#: components/html-editor/gi-color-palette.c:590
+msgid "dark green"
+msgstr "暗い緑"
+
+#: components/html-editor/gi-color-palette.c:591
+#: components/html-editor/gi-color-palette.c:644
+msgid "dull blue"
+msgstr "くすんだ青"
+
+#: components/html-editor/gi-color-palette.c:592
+#: components/html-editor/gi-color-palette.c:645
+msgid "blue"
+msgstr "青"
+
+#: components/html-editor/gi-color-palette.c:593
+msgid "dull purple"
+msgstr "くすんだ紫"
+
+#: components/html-editor/gi-color-palette.c:594
+msgid "dark grey"
+msgstr "暗い灰"
+
+#: components/html-editor/gi-color-palette.c:597
+msgid "red"
+msgstr "赤"
+
+#: components/html-editor/gi-color-palette.c:598
+msgid "orange"
+msgstr "橙"
+
+#: components/html-editor/gi-color-palette.c:599
+msgid "lime"
+msgstr "ライム"
+
+#: components/html-editor/gi-color-palette.c:600
+msgid "dull green"
+msgstr "くすんだ緑"
+
+#: components/html-editor/gi-color-palette.c:601
+msgid "dull blue #2"
+msgstr "くすんだ青 #2"
+
+#: components/html-editor/gi-color-palette.c:602
+msgid "sky blue #2"
+msgstr "スカイブルー #2"
+
+#: components/html-editor/gi-color-palette.c:603
+#: components/html-editor/gi-color-palette.c:642
+msgid "purple"
+msgstr "紫"
+
+#: components/html-editor/gi-color-palette.c:604
+msgid "gray"
+msgstr "灰"
+
+#: components/html-editor/gi-color-palette.c:607
+#: components/html-editor/gi-color-palette.c:639
+msgid "magenta"
+msgstr "マゼンタ"
+
+#: components/html-editor/gi-color-palette.c:608
+msgid "bright orange"
+msgstr "明るい橙"
+
+#: components/html-editor/gi-color-palette.c:609
+#: components/html-editor/gi-color-palette.c:640
+msgid "yellow"
+msgstr "黄"
+
+#: components/html-editor/gi-color-palette.c:610
+msgid "green"
+msgstr "緑"
+
+#: components/html-editor/gi-color-palette.c:611
+#: components/html-editor/gi-color-palette.c:641
+msgid "cyan"
+msgstr "シアン"
+
+#: components/html-editor/gi-color-palette.c:612
+msgid "bright blue"
+msgstr "明るい青"
+
+#: components/html-editor/gi-color-palette.c:613
+#: components/html-editor/gi-color-palette.c:630
+msgid "red purple"
+msgstr "赤紫"
+
+#: components/html-editor/gi-color-palette.c:614
+msgid "light grey"
+msgstr "淡い灰"
+
+#: components/html-editor/gi-color-palette.c:617
+#: components/html-editor/gi-color-palette.c:634
+msgid "pink"
+msgstr "ピンク"
+
+#: components/html-editor/gi-color-palette.c:618
+msgid "light orange"
+msgstr "淡い橙"
+
+#: components/html-editor/gi-color-palette.c:619
+#: components/html-editor/gi-color-palette.c:631
+msgid "light yellow"
+msgstr "淡い黄"
+
+#: components/html-editor/gi-color-palette.c:620
+msgid "light green"
+msgstr "淡い緑"
+
+#: components/html-editor/gi-color-palette.c:621
+msgid "light cyan"
+msgstr "淡いシアン"
+
+#: components/html-editor/gi-color-palette.c:622
+#: components/html-editor/gi-color-palette.c:632
+msgid "light blue"
+msgstr "淡い青"
+
+#: components/html-editor/gi-color-palette.c:623
+#: components/html-editor/gi-color-palette.c:636
+msgid "light purple"
+msgstr "淡い紫"
+
+#: components/html-editor/gi-color-palette.c:624
+msgid "white"
+msgstr "白"
+
+#: components/html-editor/gi-color-palette.c:629
+msgid "purplish blue"
+msgstr "紫みの青"
+
+#: components/html-editor/gi-color-palette.c:633
+msgid "dark purple"
+msgstr "暗い紫"
+
+#: components/html-editor/gi-color-palette.c:635
+msgid "sky blue"
+msgstr "スカイブルー"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
