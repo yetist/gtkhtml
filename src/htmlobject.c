@@ -25,9 +25,9 @@ html_object_destroy (HTMLObject *o)
 }
 
 void
-html_object_init (HTMLObject *o, gint objectType)
+html_object_init (HTMLObject *o, objectType ObjectType)
 {
-	o->ObjectType = objectType;
+	o->ObjectType = ObjectType;
 
 	/* Default HTMLObject functions */
 	o->fit_line = html_object_fit_line;

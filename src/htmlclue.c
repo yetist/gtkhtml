@@ -43,14 +43,33 @@ html_clue_draw (HTMLObject *o, HTMLPainter *p,
 		gint x, gint y, gint width, gint height, gint tx, gint ty)
 {
 	HTMLObject *obj;
+	static GdkColor red, green, blue;
 
 	if (y + height < o->y - o->ascent || y > o->y + o->descent)
 		return;
 
 	tx += o->x;
 	ty += o->y - o->ascent;
+	
+	if (!red.pixel) {
+		gdk_color_parse ("red", &red);
+		gdk_colormap_alloc_color (gdk_window_get_colormap (p->window),
+					  &red, FALSE, TRUE);
+		gdk_color_parse ("green", &green);
+		gdk_colormap_alloc_color (gdk_window_get_colormap (p->window),
+					  &green, FALSE, TRUE);
+		gdk_color_parse ("blue", &blue);
+		gdk_colormap_alloc_color (gdk_window_get_colormap (p->window),
+					  &blue, FALSE, TRUE);
+	}
 
 	/* Draw a rect around the clue */
+	if (o->ObjectType == ClueV)
+		html_painter_set_pen (p, &red);
+	else if (o->ObjectType == ClueFlow)
+		html_painter_set_pen (p, &green);
+	else if (o->ObjectType == TableCell)
+		html_painter_set_pen (p, &blue);
 	html_painter_draw_rect (p, tx, ty, o->width, o->ascent + o->descent);
 
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->nextObj) {

@@ -40,9 +40,9 @@ html_clueflow_set_max_width (HTMLObject *o, gint max_width)
 	HTMLObject *obj;
 
 	o->max_width = max_width;
-
+	
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->nextObj)
-		obj->set_max_width (obj, o->max_width - HTML_CLUEFLOW (o)->indent);
+		obj->set_max_width (obj, o->max_width); /* - HTML_CLUEFLOW (o)->indent);*/
 
 }
 
@@ -77,7 +77,7 @@ html_clueflow_calc_size (HTMLObject *o, HTMLObject *parent)
 	gint oldy;
 	gint w, a, d;
 	gint runWidth;
-	ClearType clear = None;
+	ClearType clear = CNone;
 	HTMLObject *run;
 	HTMLFitType fit;
 

@@ -2,7 +2,7 @@
 #include "htmltable.h"
 
 static void html_table_calc_size (HTMLObject *o, HTMLObject *parent);
-static void html_table_set_cells (HTMLTable *table, guint r, guint c, HTMLTableCell *cell);
+static void html_table_set_cells (HTMLTable *table, gint r, gint c, HTMLTableCell *cell);
 static void html_table_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint height, gint tx, gint ty);
 static void html_table_add_columns (HTMLTable *table, gint num);
 static void html_table_add_rows (HTMLTable *table, gint num);
@@ -12,7 +12,7 @@ static void html_table_calc_column_widths (HTMLTable *table);
 static void html_table_optimize_cell_width (HTMLTable *table);
 static void html_table_calc_row_heights (HTMLTable *table);
 static gint html_table_scale_selected_columns (HTMLTable *table, gint c_start, gint c_end, gint tooAdd, gboolean *selected);
-static void html_table_scale_columns (HTMLTable *table, guint c_start, guint c_end, guint tooAdd);
+static void html_table_scale_columns (HTMLTable *table, gint c_start, gint c_end, gint tooAdd);
 static gint html_table_calc_min_width (HTMLObject *o);
 static gint html_table_calc_preferred_width (HTMLObject *o);
 static void html_table_set_max_width (HTMLObject *o, gint max_width);
@@ -43,6 +43,7 @@ html_table_new (gint x, gint y, gint max_width, gint width, gint percent,
 
 	object->x = x;
 	object->y = y;
+	object->width = width;
 	object->max_width = max_width;
 	object->percent = percent;
 
@@ -70,7 +71,10 @@ html_table_new (gint x, gint y, gint max_width, gint width, gint percent,
 		object->width = max_width * percent / 100;
 	else if (width == 0)
 		object->width = max_width;
-	/* FIXME: Add here? */
+	else {
+		object->max_width = object->width;
+		object->flags |= FixedWidth;
+	}
 
 
 	/* Set up arrays */
@@ -89,7 +93,7 @@ html_table_new (gint x, gint y, gint max_width, gint width, gint percent,
 static void
 html_table_calc_size (HTMLObject *o, HTMLObject *parent)
 {
-	guint r, c;
+	gint r, c;
 	gint indx, w;
 	HTMLTableCell *cell;
 	HTMLTable *table = HTML_TABLE (o);
@@ -193,11 +197,11 @@ html_table_add_cell (HTMLTable *table, HTMLTableCell *cell)
 }
 
 static void
-html_table_set_cells (HTMLTable *table, guint r, guint c, HTMLTableCell *cell)
+html_table_set_cells (HTMLTable *table, gint r, gint c, HTMLTableCell *cell)
 {
-	guint endRow = r + cell->rspan;
-	guint endCol = c + cell->cspan;
-	guint tc;
+	gint endRow = r + cell->rspan;
+	gint endCol = c + cell->cspan;
+	gint tc;
 
 	if (endCol > table->totalCols)
 		html_table_add_columns (table, endCol - table->totalCols);
@@ -221,7 +225,7 @@ html_table_set_cells (HTMLTable *table, guint r, guint c, HTMLTableCell *cell)
 static void
 html_table_add_rows (HTMLTable *table, gint num)
 {
-	guint r;
+	gint r;
 	HTMLTableCell ***newRows = g_new0 (HTMLTableCell **, table->allocRows + num);
 	memcpy (newRows, table->cells, table->allocRows * sizeof (HTMLTableCell **));
 	/* FIXME: do destroy instead of free? */
@@ -239,7 +243,7 @@ static void
 html_table_add_columns (HTMLTable *table, gint num)
 {
 	HTMLTableCell **newCells;
-	guint r;
+	gint r;
 
 	for (r = 0; r < table->allocRows; r++) {
 		newCells = g_new0 (HTMLTableCell *, table->totalCols + num);
@@ -280,10 +284,10 @@ html_table_end_table (HTMLTable *table)
 static void
 html_table_calc_col_info (HTMLTable *table)
 {
-	guint r, c;
+	gint r, c;
 	gint borderExtra = (table->border == 0) ? 0 : 1;
 
-	guint i, j, totalRowInfos;
+	gint i, j, totalRowInfos;
 
 	/* Allocate some memory for column info */
 	g_array_set_size (table->colInfo, table->totalCols * 2);
@@ -341,7 +345,7 @@ html_table_calc_col_info (HTMLTable *table)
 	for (i = 1; i < table->totalRows; i++) {
 		gboolean unique = TRUE;
 		for (j = 0; (j < totalRowInfos) && (unique == TRUE); j++) {
-			guint k;
+			gint k;
 			if (table->rowInfo[i].nrEntries == table->rowInfo[j].nrEntries)
 				unique = FALSE;
 			else {
@@ -409,7 +413,7 @@ gint
 html_table_add_col_info (HTMLTable *table, gint startCol, gint colSpan, gint minSize, 
 			 gint prefSize, gint maxSize, ColType coltype)
 {
-	guint indx;
+	gint indx;
 	
 	/* Is there already some info present? */
 	for (indx = 0; indx < table->totalColInfos; indx++) {
@@ -459,7 +463,7 @@ html_table_add_row_info (HTMLTable *table, gint row, gint colInfoIndex)
 static void
 html_table_calc_column_widths (HTMLTable *table)
 {
-	guint r, c, i;
+	gint r, c, i;
 	gint indx, borderExtra = (table->border == 0) ? 0 : 1;
 
 	g_array_set_size (table->colType, table->totalCols + 1);
@@ -487,9 +491,12 @@ html_table_calc_column_widths (HTMLTable *table)
 
 			if (cell == 0)
 				continue;
-			if (c < table->totalCols - 1 && table->cells[r][c + 1] == cell)
+
+			if (c < table->totalCols - 1 && 
+			    table->cells[r][c + 1] == cell)
 				continue;
-			if (r < table->totalRows - 1 && table->cells[r + 1][c] == cell)
+			if (r < table->totalRows - 1 && 
+			    table->cells[r + 1][c] == cell)
 				continue;
 
 			if ((indx = c - cell->cspan + 1) < 0)
@@ -552,7 +559,6 @@ html_table_optimize_cell_width (HTMLTable *table)
 	for (i = 0; i < table->columnOpt->len; i++) 
 		a_columnopt (i) = a_columnpos (i);
 
-
 	if (tableWidth > a_columnpos (table->totalCols)) {
 		/* We have some space to spare */
 		addSize = tableWidth - a_columnpos (table->totalCols);
@@ -579,7 +585,7 @@ html_table_optimize_cell_width (HTMLTable *table)
 static void
 html_table_calc_row_heights (HTMLTable *table)
 {
-	guint r, c;
+	gint r, c;
 	gint rowPos, indx, borderExtra = table->border ? 1: 0;
 	HTMLTableCell *cell;
 
@@ -620,7 +626,7 @@ html_table_calc_row_heights (HTMLTable *table)
 static void
 html_table_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint height, gint tx, gint ty)
 {
-	guint r, c;
+	gint r, c;
 	gint cindx, rindx;
 	HTMLTableCell *cell;
 	HTMLTable *table = HTML_TABLE (o);
@@ -652,7 +658,7 @@ html_table_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint
 			/* FIXME: ColsDone */
 		}
 	}
-
+#if 0
 	/* Draw the border */
 	{
 		gint capOffset = 0;
@@ -687,12 +693,13 @@ html_table_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint
 			}
 		}
 	}
+#endif
 }
 
 static void
-html_table_scale_columns (HTMLTable *table, guint c_start, guint c_end, guint tooAdd)
+html_table_scale_columns (HTMLTable *table, gint c_start, gint c_end, gint tooAdd)
 {
-	guint r, c;
+	gint r, c;
 	gint colspan;
 	gint addSize;
 	gint minWidth, prefWidth;
@@ -708,7 +715,7 @@ html_table_scale_columns (HTMLTable *table, guint c_start, guint c_end, guint to
 	/* Satisfy fixed width cells */
 	for (colspan = 0; colspan <= 1; colspan++) {
 		for (r = 0; r < table->totalRows; r++) {
-			for (c = c_start; c < c_end; c++) {
+			for (c = c_start; c <= c_end; c++) {
 				HTMLTableCell *cell = table->cells[r][c];
 
 				if (cell == 0)
@@ -729,7 +736,10 @@ html_table_scale_columns (HTMLTable *table, guint c_start, guint c_end, guint to
 				}
 				else {
 					/* colSpan > 1 */
-					if (cell->cspan < 1)
+					if (cell->cspan <= 1)
+						continue;
+					if (c < table->totalCols - 1 &&
+					    table->cells[r][c + 1] == cell)
 						continue;
 				}
 
@@ -745,13 +755,13 @@ html_table_scale_columns (HTMLTable *table, guint c_start, guint c_end, guint to
 				tooAdd -= addSize;
 
 				if (colspan == 0) {
-					guint c1;
+					gint c1;
 					/* Just add this to the column size */
-					for (c1 = c + 1; c1 < table->totalCols; c1++)
+					for (c1 = c + 1; c1 <= table->totalCols; c1++)
 						a_columnopt (c1) += addSize;
 				}
 				else {
-					guint c_b = c + 1 - cell->cspan;
+					gint c_b = c + 1 - cell->cspan;
 
 					/* Some end-conditions are required here to prevent looping */
 					if (c_b < c_start)
@@ -768,7 +778,134 @@ html_table_scale_columns (HTMLTable *table, guint c_start, guint c_end, guint to
 
 	/* Satisfy percentage width cells */
 	for (r = 0; r < table->totalRows; r++) {
-		/* FIXME: Do something */
+		totalRequested = 0;
+		if (tooAdd <= 0) /* No space left! */
+			return;
+		
+		/* first calculate how much we would like to add in this row */
+		for (c = c_start; c <= c_end; c++) {
+			HTMLTableCell *cell = table->cells[r][c];
+			
+			if (cell == 0)
+				continue;
+			if (r < table->totalRows - 1 &&
+			    table->cells[r + 1][c] == cell)
+				continue;
+			if (c < table->totalCols - 1 &&
+			    table->cells[r][c + 1] == cell)
+				continue;
+
+			/* Percentage cells only */
+			if (HTML_OBJECT (cell)->percent <=0)
+				continue;
+
+			/* Only cells with a colspan which fits within
+			   c_begin .. c_start */
+			if (cell->cspan > 1) {
+				gint c_b = c + 1 - cell->cspan;
+
+				if (c_b < c_start)
+					continue;
+				if ((c_b == c_start) && (c == c_end))
+					continue;
+			}
+
+			minWidth = a_columnopt (c + 1) - 
+				a_columnopt (c + 1 - cell->cspan);
+			prefWidth = tableWidth * HTML_OBJECT (cell)->percent /
+				100 + table->padding * 2 + table->spacing +
+				borderExtra;
+
+			if (prefWidth <= minWidth)
+				continue;
+
+			totalRequested += (prefWidth - minWidth);
+		}
+
+		if (totalRequested == 0) /* Nothing to do */
+			continue;
+
+		totalAllowed = tooAdd;
+
+		/* Do the actual adjusting of the percentage cells */
+		for (colspan = 0; colspan <= 1; colspan ++) {
+			for (c = c_start; c <= c_end; c++) {
+				HTMLTableCell *cell = table->cells[r][c];
+
+				if (cell == 0)
+					continue;
+				if (c < table->totalCols - 1 &&
+				    table->cells[r][c + 1] == cell)
+					continue;
+				if (r < table->totalRows - 1 &&
+				    table->cells[r + 1][c] == cell)
+					continue;
+
+				/* Percentage cells only */
+				if (HTML_OBJECT (cell)->percent <= 0)
+					continue;
+
+				/* Only cells with a colspan which fits
+				   within c_begin .. c_start */
+				if (cell->cspan > 1) {
+					gint c_b = c + 1 - cell->cspan;
+
+					if (colspan == 0)
+						continue;
+
+					if (c_b < c_start)
+						continue;
+					if ((c_b == c_start) && (c == c_end))
+						continue;
+				}
+				else {
+					if (colspan != 0)
+						continue;
+				}
+
+				minWidth = a_columnopt (c + 1) - 
+					a_columnopt (c + 1 - cell->cspan);
+				prefWidth = tableWidth * HTML_OBJECT (cell)->percent / 100 + 
+					table->padding * 2 + table->spacing +
+					borderExtra;
+
+				if (prefWidth <= minWidth)
+					continue;
+
+				addSize = (prefWidth - minWidth);
+
+				if (totalRequested > totalAllowed) { 
+					/* We can't honour the request, scale it */
+					addSize = addSize * totalAllowed / totalRequested;
+					totalRequested -= (prefWidth - minWidth);
+					totalAllowed -= addSize;
+				}
+
+				tooAdd -= addSize;
+
+				if (colspan == 0) {
+					gint c1;
+
+					/* Just add this to the column size */
+					for (c1 = c + 1; c1 <= table->totalCols; c1++)
+						a_columnopt (c1) += addSize;
+				}
+				else {
+					gint c_b = c + 1 - cell->cspan;
+
+					/* Some end-conditions are required here
+					   to prevent looping */
+					if (c_b < c_start)
+						continue;
+					if ((c_b == c_start) && (c == c_end))
+						continue;
+
+					/* Scale the columns covered by 'cell' first */
+					html_table_scale_columns (table, c_b,
+								  c, addSize);
+				}
+			}
+		}
 	}
 
 	totalRequested = 0;
@@ -808,7 +945,12 @@ html_table_scale_columns (HTMLTable *table, guint c_start, guint c_end, guint to
 			}
 			else if (HTML_OBJECT (cell)->percent > 0) {
 				/* percentage width */
-				g_print ("FIXME: support percentage width!\n");
+				prefCellWidth = tableWidth * HTML_OBJECT (cell)->percent / 100 +
+					table->padding * 2 + table->spacing +
+					borderExtra;
+				percentCol[c] = TRUE;
+				variableCol[c] = FALSE;
+
 			}
 			else {
 				/* variable width */
@@ -835,7 +977,7 @@ html_table_scale_columns (HTMLTable *table, guint c_start, guint c_end, guint to
 		/* Do the actual adjusting of the variable width cells */
 
 		for (c = c_start; c <= c_end; c++) {
-			guint c1;
+			gint c1;
 
 			minWidth = a_columnopt (c + 1) - a_columnopt (c);
 			prefWidth = prefColumnWidth [c];
@@ -867,13 +1009,17 @@ html_table_scale_columns (HTMLTable *table, guint c_start, guint c_end, guint to
 							    tooAdd, variableCol);
 
 	/* Spread the remaining space equally across all percentage columns */
-	if (tooAdd > 0)
-		tooAdd = html_table_scale_selected_columns (table, c_start, c_end,
-							    tooAdd, percentCol);
+		if (tooAdd > 0)
+			tooAdd = html_table_scale_selected_columns (table, c_start, c_end,
+								    tooAdd, percentCol);
 	/* Still something left ... Change fixed columns */
 	if (tooAdd > 0)
 		tooAdd = html_table_scale_selected_columns (table, c_start, c_end,
 							    tooAdd, fixedCol);
+
+	g_free (fixedCol);
+	g_free (percentCol);
+	g_free (variableCol);
 }
 
 static gint
@@ -882,14 +1028,15 @@ html_table_scale_selected_columns (HTMLTable *table, gint c_start, gint c_end,
 {
 	gint c, c1;
 	gint numSelected = 0;
-	gint addSize;
-	gint left;
+	gint addSize, left;
 
 	if (tooAdd <= 0)
 		return tooAdd;
 	
-	for (c = c_start; c <= c_end; c++) 
-		if (selected[c]) numSelected++;
+	for (c = c_start; c <= c_end; c++) {
+		if (selected[c])
+			numSelected++;
+	}
 	if (numSelected < 1) 
 		return tooAdd;
 
@@ -900,7 +1047,6 @@ html_table_scale_selected_columns (HTMLTable *table, gint c_start, gint c_end,
 		if (!selected[c])
 			continue;
 		tooAdd -= addSize;
-
 		for (c1 = c + 1; c1 <= (gint)table->totalCols; c1++) {
 			a_columnopt (c1) += addSize;
 			if (left)
@@ -930,6 +1076,7 @@ html_table_set_max_width (HTMLObject *o, gint max_width)
 	HTMLTable *table = HTML_TABLE (o);
 	
 	o->max_width = max_width;
+	
 	if (!(o->flags & FixedWidth)) {
 		if (o->percent > 0)
 			o->width = o->max_width * o->percent / 100;

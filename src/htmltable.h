@@ -33,9 +33,9 @@ struct _HTMLTable {
 	gint _minWidth;
 	gint _prefWidth;
 	HTMLTableCell ***cells;
-	guint totalColInfos;
-	guint col, totalCols;
-	guint row, totalRows, allocRows;
+	gint totalColInfos;
+	gint col, totalCols;
+	gint row, totalRows, allocRows;
 	gint spacing;
 	gint padding;
 	gint border;

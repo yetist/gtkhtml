@@ -277,6 +277,8 @@ html_engine_timer_event (HTMLEngine *e)
 	/* Has more tokens? */
 	if (!html_tokenizer_has_more_tokens (e->ht) && e->writing)
 		return FALSE;
+
+	g_print ("has more tokens!\n");
 	
 	/* Storing font info */
 	oldFont = e->painter->font;
@@ -717,6 +719,10 @@ html_engine_parse_body (HTMLEngine *p, HTMLObject *clue, const gchar *end[], gbo
 		}
 	}
 
+	if (!html_tokenizer_has_more_tokens (p->ht) && toplevel && 
+	    !p->writing)
+		html_engine_stop_parser (p);
+
 	return 0;
 }
 
@@ -1069,7 +1075,7 @@ html_engine_parse_t (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		if (!p->vspace_inserted || !p->flow)
 			html_engine_new_flow (p, clue);
 
-		/*		html_engine_parse_table (p, p->flow, clue->max_width, str + 6);*/
+		html_engine_parse_table (p, p->flow, clue->max_width, str + 6);
 
 		p->flow = 0;
 	}
@@ -1130,6 +1136,7 @@ html_engine_parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 			 const gchar *attr)
 {
 	static const gchar *endthtd[] = { "</th", "</td", "</tr", "<th", "<td", "<tr", "</table", "</body", 0 };
+	static const gchar *endall[] = { "</caption>", "</table", "<tr", "<td", "<th", "</th", "</td", "</tr","</body", 0 };
 	HTMLTable *table;
 	const gchar *str = 0;
 	gint width = 0;
@@ -1162,6 +1169,7 @@ html_engine_parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	VAlignType valign;
 	HTMLTableCell *cell;
 
+	g_print ("start parse\n");
 	string_tokenizer_tokenize (e->st, attr, " >");
 	while (string_tokenizer_has_more_tokens (e->st)) {
 		const gchar *token = string_tokenizer_next_token (e->st);
@@ -1203,10 +1211,11 @@ html_engine_parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	e->indent = 0;
 	while (!done && html_tokenizer_has_more_tokens (e->ht)) {
 		str = html_tokenizer_next_token (e->ht);
-
+		
 		/* Every tag starts with an escape character */
 		if (str[0] == TAG_ESCAPE) {
 			str++;
+
 			tableTag = TRUE;
 
 			for (;;) {
@@ -1332,7 +1341,6 @@ html_engine_parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 								/* FIXME: COLOR! */
 							}
 						}
-						/* FIXME: Should tokenize */
 					}
 
 					cell = HTML_TABLE_CELL (html_table_cell_new (0, 0, cellwidth,
@@ -1352,7 +1360,12 @@ html_engine_parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					else if (!tableEntry) {
 						/* Put all the junk between <table>
 						   and the first table tag into one row */
-						/* FIXME: Do this */
+						html_engine_push_block (e, ID_TD, 3, NULL, 0, 0);
+						str = html_engine_parse_body (e, HTML_OBJECT (cell), endall, FALSE);
+						html_engine_pop_block (e, ID_TD, HTML_OBJECT (cell));
+						html_table_end_row (table);
+						html_table_start_row (table);
+						
 					}
 					else {
 						/* Ignore <p> and such at the beginning */
@@ -1433,6 +1446,7 @@ html_engine_parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	e->divAlign = olddivalign;
 	e->flow = HTML_OBJECT (oldflow);
 
+	g_print ("Returning: %s\n", str);
 	return str;
 }
 

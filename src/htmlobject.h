@@ -59,7 +59,7 @@ struct _HTMLObject {
 	gint (*calc_preferred_width) (HTMLObject *o);
 };
 
-void        html_object_init (HTMLObject *o, gint objectType);
+void        html_object_init (HTMLObject *o, objectType ObjectType);
 HTMLObject *html_object_new (void);
 
 #endif /* _HTMLOBJECT_H_ */

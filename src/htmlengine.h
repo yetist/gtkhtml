@@ -148,5 +148,6 @@ void        html_engine_stop_parser (HTMLEngine *e);
 void        html_engine_write (HTMLEngine *e, gchar *buffer);
 void        html_engine_end (HTMLEngine *e);
 void        html_engine_block_end_list (HTMLEngine *e, HTMLObject *clue, HTMLStackElement *elem);
+void        html_engine_free_block (HTMLEngine *e);
 
 #endif /* _HTMLENGINE_H_ */

@@ -51,6 +51,7 @@ debug_dump_tree (HTMLObject *o, gint level)
 			break;
 			
 		default:
+			break;
 		}
 
 		obj = obj->nextObj;

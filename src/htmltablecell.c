@@ -33,9 +33,11 @@ html_table_cell_new (gint x, gint y, gint max_width, gint percent,
 	object->x = x;
 	object->y = y;
 	object->max_width = max_width;
+	object->width = max_width;
 	object->percent = percent;
 	clue->valign = Bottom;
 	clue->halign = Left;
+	cell->padding = pad;
 	cell->refcount = 0;
 	cell->rspan = rs;
 	cell->cspan = cs;
@@ -116,10 +118,22 @@ html_table_cell_set_width (HTMLTableCell *cell, gint width)
 	HTMLObject *obj;
 	HTMLObject *o = HTML_OBJECT (cell);
 
-	o->width = width;
+	o->width = 20;
 	if (!(o->flags & FixedWidth))
 	    o->max_width = width;
 
 	for (obj = HTML_CLUE (cell)->head; obj != 0; obj = obj->nextObj)
 		obj->set_max_width (obj, width);
 }
+
+
+
+
+
+
+
+
+
+
+
+
