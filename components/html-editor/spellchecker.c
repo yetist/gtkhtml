@@ -23,13 +23,18 @@
 #include <config.h>
 #include <gal/widgets/e-scroll-frame.h>
 
+#include "htmlclueflow.h"
 #include "htmlcursor.h"
 #include "htmlengine.h"
+#include "htmlengine-edit-movement.h"
+#include "htmlengine-edit-selection-updater.h"
 #include "htmlobject.h"
+#include "htmlselection.h"
 
 #include "spell.h"
 
 #define DICTIONARY_IID "OAFIID:GNOME_Spell_Dictionary:0.1"
+#define CONTROL_IID "OAFIID:GNOME_Spell_Control:0.1"
 
 struct _SpellPopup {
 	GtkHTMLControlData *cd;
@@ -231,4 +236,124 @@ spell_add_to_personal (GtkHTML *html, const gchar *word, gpointer data)
 	CORBA_exception_init (&ev);
 	GNOME_Spell_Dictionary_addWordToPersonal (cd->dict, word, &ev);
 	CORBA_exception_free (&ev);
+}
+
+static void
+set_word (GtkHTMLControlData *cd)
+{
+	CORBA_Environment ev;
+
+	CORBA_exception_init (&ev);
+	gtk_html_select_word (cd->html);
+	bonobo_property_bag_client_set_value_string (cd->spell_control_pb, "word",
+						     html_engine_get_word (cd->html->engine), &ev);
+	CORBA_exception_free (&ev);
+}
+
+static gboolean
+next_word (GtkHTMLControlData *cd)
+{
+	gboolean rv = TRUE;
+	while (html_engine_forward_word (cd->html->engine) && (rv = html_engine_word_is_valid (cd->html->engine)))
+		;
+
+	return rv;
+}
+
+static void
+check_next_word (GtkHTMLControlData *cd, gboolean update)
+{
+	HTMLEngine *e = cd->html->engine;
+
+	if (update && e->cursor->object->parent && HTML_IS_CLUEFLOW (e->cursor->object->parent))
+		html_clueflow_spell_check (HTML_CLUEFLOW (e->cursor->object->parent), e, NULL);
+
+	if (next_word (cd)) {
+		gnome_dialog_close (GNOME_DIALOG (cd->spell_dialog));
+		html_engine_disable_selection (e);
+	} else {
+		set_word (cd);
+	}
+}
+
+static void 
+replace_cb (BonoboListener    *listener,
+	    char              *event_name, 
+	    CORBA_any         *arg,
+	    CORBA_Environment *ev,
+	    gpointer           user_data)
+{
+	GtkHTMLControlData *cd = (GtkHTMLControlData *) user_data;
+
+	html_engine_replace_word_with (cd->html->engine, BONOBO_ARG_GET_STRING (arg));
+	check_next_word (cd, FALSE);
+}
+
+static void 
+next_cb (BonoboListener    *listener,
+	    char              *event_name, 
+	    CORBA_any         *arg,
+	    CORBA_Environment *ev,
+	    gpointer           user_data)
+{
+	check_next_word ((GtkHTMLControlData *) user_data, FALSE);
+}
+
+static void 
+next_update_cb (BonoboListener    *listener,
+		char              *event_name, 
+		CORBA_any         *arg,
+		CORBA_Environment *ev,
+		gpointer           user_data)
+{
+	check_next_word ((GtkHTMLControlData *) user_data, TRUE);
+}
+
+gboolean
+spell_has_control ()
+{
+	GtkWidget *control;
+	gboolean rv;
+
+	control = bonobo_widget_new_control (CONTROL_IID, CORBA_OBJECT_NIL);
+	rv = control != NULL;
+
+	if (control)
+		gtk_widget_unref (control);
+
+	return rv;
+}
+
+void
+spell_check_document (GtkHTMLControlData *cd)
+{
+	GtkWidget *control;
+	GtkWidget *dialog;
+
+	if (html_engine_word_is_valid (cd->html->engine))
+		if (next_word (cd))
+			return;
+
+	dialog  = gnome_dialog_new (_("Spell checker"), GNOME_STOCK_BUTTON_CLOSE, NULL);
+	control = bonobo_widget_new_control (CONTROL_IID, CORBA_OBJECT_NIL);
+
+	if (!control) {
+		g_warning ("Cannot create spell control");
+		gtk_widget_unref (dialog);
+		return;
+	}
+
+	cd->spell_dialog = dialog;
+        cd->spell_control_pb = bonobo_control_frame_get_control_property_bag
+		(bonobo_widget_get_control_frame (BONOBO_WIDGET (control)), NULL);
+	bonobo_event_source_client_add_listener (cd->spell_control_pb, replace_cb, "Bonobo/Property:change:replace", NULL, cd);
+	bonobo_event_source_client_add_listener (cd->spell_control_pb, next_update_cb, "Bonobo/Property:change:add", NULL, cd);
+	bonobo_event_source_client_add_listener (cd->spell_control_pb, next_update_cb, "Bonobo/Property:change:ignore",
+						 NULL, cd);
+	bonobo_event_source_client_add_listener (cd->spell_control_pb, next_cb, "Bonobo/Property:change:skip", NULL, cd);
+	set_word (cd);
+
+	gtk_widget_show (control);
+	gtk_container_add (GTK_CONTAINER (GNOME_DIALOG (dialog)->vbox), control);
+	gnome_dialog_run_and_close (GNOME_DIALOG (dialog));
 }

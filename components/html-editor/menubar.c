@@ -32,6 +32,7 @@
 #include "image.h"
 #include "text.h"
 #include "link.h"
+#include "spell.h"
 #include "table.h"
 #include "template.h"
 
@@ -226,6 +227,12 @@ indent_less_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cnam
 	gtk_html_modify_indent_by_delta (GTK_HTML (cd->html), -1);
 }
 
+static void 
+spell_check_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
+{
+	spell_check_document (cd);
+}
+
 BonoboUIVerb verbs [] = {
 	BONOBO_UI_UNSAFE_VERB ("EditUndo", undo_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditRedo", redo_cb),
@@ -238,6 +245,7 @@ BonoboUIVerb verbs [] = {
 	BONOBO_UI_UNSAFE_VERB ("EditReplace", replace_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditProperties", properties_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditSelectAll", select_all_cb),
+	BONOBO_UI_UNSAFE_VERB ("EditSpellCheck", spell_check_cb),
 
 	BONOBO_UI_UNSAFE_VERB ("InsertImage", insert_image_cb),
 	BONOBO_UI_UNSAFE_VERB ("InsertLink",  insert_link_cb),

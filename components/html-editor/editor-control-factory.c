@@ -140,6 +140,12 @@ set_frame_cb (BonoboControl *control,
 	/* Setup the menu bar.  */
 
 	menubar_setup (ui_component, control_data);
+
+	if (!spell_has_control ()) {
+		control_data->has_spell_control = FALSE;
+		bonobo_ui_component_set_prop (ui_component, "/commands/EditSpellCheck", "sensitive", "0", NULL);
+	} else
+		control_data->has_spell_control = TRUE;
 }
 
 static gint

@@ -15,6 +15,8 @@
 
 			<cmd name="EditSelectAll" _label="Select _All"
 			_tip="Select the entire contents of the document"/>
+			<cmd name="EditSpellCheck" _label="Check _spelling..."
+			_tip="Check spelling of the document"/>
 
 			<cmd name="EditProperties" _label="Pr_operties..." _tip="Modify the file's properties"
 			pixtype="stock" pixname="Properties"/>
@@ -102,6 +104,7 @@
 
 			<placeholder name="EditMisc">
 				     <menuitem name="EditSelectAll" verb="" accel="*Ctrl*A"/>
+				     <menuitem name="EditSpellCheck" verb=""/>
 				     <menuitem name="EditProperties" verb=""/>
 			</placeholder>
 		</submenu>

@@ -27,18 +27,19 @@
 #include "control-data.h"
 
 BonoboObjectClient *spell_new_dictionary      (void);
-gboolean            spell_check_word          (GtkHTML     *html,
-					       const gchar *word,
-					       gpointer     data);
-void                spell_suggestion_request  (GtkHTML     *html,
-					       const gchar *word,
-					       gpointer     data);
-void                spell_add_to_session      (GtkHTML     *html,
-					       const gchar *word,
-					       gpointer     data);
-void                spell_add_to_personal     (GtkHTML     *html,
-					       const gchar *word,
-					       gpointer     data);
-
+gboolean            spell_check_word          (GtkHTML            *html,
+					       const gchar        *word,
+					       gpointer            data);
+void                spell_suggestion_request  (GtkHTML            *html,
+					       const gchar        *word,
+					       gpointer            data);
+void                spell_add_to_session      (GtkHTML            *html,
+					       const gchar        *word,
+					       gpointer            data);
+void                spell_add_to_personal     (GtkHTML            *html,
+					       const gchar        *word,
+					       gpointer            data);
+void                spell_check_document      (GtkHTMLControlData *cd);
+gboolean            spell_has_control         (void);
 
 #endif

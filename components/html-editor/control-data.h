@@ -91,6 +91,10 @@ struct _GtkHTMLControlData {
 	BonoboPersistStream    *persist_stream;
 	BonoboPersistFile      *persist_file;
 	BonoboControl          *control;
+
+	GtkWidget *spell_dialog;
+	Bonobo_PropertyBag spell_control_pb;
+	gboolean has_spell_control;
 };
 
 GtkHTMLControlData * gtk_html_control_data_new       (GtkHTML *html, GtkWidget *vbox);
