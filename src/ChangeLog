@@ -1,3 +1,16 @@
+2002-10-10  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit-cut-and-paste.c (check_flows): set style just
+	when needed (beginning flow will end empty so it should get style
+	from last one)
+
+	* htmlclueflow.c (op_cut): update item numbers only on cut
+	boundaries
+	(merge): removed style copying as it is no more needed
+
+	* htmlengine-edit-clueflowstyle.c (undo_or_redo): set style before
+	item_type so item_numbers will be updated right
+
 2002-10-22  Larry Ewing  <lewing@localhost.localdomain>
 
 	* gtkhtml.c (mouse_change_pos): Fix double and triple click so 
@@ -170,6 +183,7 @@
 	* Makefile.am (libgtkhtml_HEADERS): remove the .c file that was
 	incorrectly included here.
 
+>>>>>>> 1.1549
 2002-10-08  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c (parse_l): set flow item color

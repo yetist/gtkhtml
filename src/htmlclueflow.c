@@ -94,6 +94,12 @@ is_levels_equal (HTMLClueFlow *me, HTMLClueFlow *you)
 	return !memcmp (me->levels->data, you->levels->data, you->levels->len);
 }
 
+static inline gboolean
+is_item (HTMLClueFlow *flow)
+{
+	return flow && flow->style == HTML_CLUEFLOW_STYLE_LIST_ITEM;
+}
+
 static void
 destroy (HTMLObject *self)
 {
@@ -123,12 +129,6 @@ copy (HTMLObject *self,
 
 	if (HTML_CLUEFLOW (dest)->item_color)
 		html_color_ref (HTML_CLUEFLOW (dest)->item_color);
-}
-
-static inline gboolean
-is_item (HTMLClueFlow *flow)
-{
-	return flow && flow->style == HTML_CLUEFLOW_STYLE_LIST_ITEM;
 }
 
 static inline gboolean
@@ -203,6 +203,8 @@ update_item_number (HTMLObject *self)
 	if (!self || !is_item (HTML_CLUEFLOW (self)))
 		return;
 
+	printf ("update_item_number\n");
+
 	prev = get_prev_relative_item (self);
 	if (items_are_relative (prev, self))
 		HTML_CLUEFLOW (self)->item_number = HTML_CLUEFLOW (prev)->item_number + 1;
@@ -267,12 +269,12 @@ op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GL
 
 	rv = op_helper (self, e, from, to, left, right, len, TRUE);
 
-	if (prev) {
+	if (prev && from) {
 		update_item_number (prev);
 		if (prev->next == self)
 			update_item_number (self);
 	}
-	if (next) {
+	if (next && to) {
 		if (next->prev == self)
 			update_item_number (self);
 		update_item_number (next);
@@ -332,13 +334,7 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **
 	set_tail_size (self);
 	set_head_size (with);
 
-	/* printf ("merge flows\n"); */
-
 	if (html_clueflow_is_empty (cf1)) {
-		cf1->style = cf2->style;
-		copy_levels (cf1->levels, cf2->levels);
-		cf1->item_type = cf2->item_type;
-		cf1->item_number = cf2->item_number - 1;
 		self->x = with->x;
 		self->y = with->y;
 		self->width = with->width;
@@ -351,10 +347,13 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **
 
 	rv = (* HTML_OBJECT_CLASS (parent_class)->merge) (self, with, e, left, right, cursor);
 
-	update_item_number (self);
-	cf1->item_number --;
-	update_item_number (with);
-	cf1->item_number ++;
+	if (is_item (cf1))
+		update_item_number (self);
+	if (is_item (cf2)) {
+		cf1->item_number --;
+		update_item_number (with);
+		cf1->item_number ++;
+	}
 
 	return rv;
 }
