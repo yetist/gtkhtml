@@ -17,6 +17,7 @@
 	* htmlengine.c (html_engine_update_event): set need_update flag
 	when not realized
 	(html_engine_realize): schedule update if need_update is TRUE
+	(html_engine_get_language): make sure return value is non-NULL
 
 2003-05-19  Larry Ewing  <lewing@ximian.com>
 

@@ -5579,7 +5579,15 @@ html_engine_set_language (HTMLEngine *e, const gchar *language)
 const gchar *
 html_engine_get_language (HTMLEngine *e)
 {
-	return e->language ? e->language : GTK_HTML_CLASS (GTK_WIDGET_GET_CLASS (e->widget))->properties->language;
+	gchar *language;
+
+	language = e->language;
+	if (!language)
+		language = GTK_HTML_CLASS (GTK_WIDGET_GET_CLASS (e->widget))->properties->language;
+	if (!language)
+		language = "";
+
+	return language;
 }
 
 static void
