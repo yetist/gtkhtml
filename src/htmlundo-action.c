@@ -47,7 +47,8 @@ html_undo_action_destroy (HTMLUndoAction *action)
 {
 	g_return_if_fail (action != NULL);
 
-	html_undo_data_unref (action->data);
+	if (action->data)
+		html_undo_data_unref (action->data);
 	g_free (action->description);
 	g_free (action);
 }

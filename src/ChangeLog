@@ -1,5 +1,13 @@
 2001-03-07  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine-edit-table.c (delete_column_setup_undo): new undo
+	setup for column delete
+	(delete_column_undo_action_before): 1st undo action (insert after)
+	(delete_column_undo_action_after): 2nd undo action (insert before)
+
+	* htmlundo-action.c (html_undo_action_destroy): check for
+	action->data before unref'ing them
+
 	* htmltable.h (HTML_IS_TABLE): use HTML_CHECK_TYPE
 
 	* htmltypes.h (HTML_CHECK_TYPE): new macro

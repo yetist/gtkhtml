@@ -83,35 +83,18 @@ html_engine_insert_table_1_1 (HTMLEngine *e)
  *  Insert Column
  */
 
-struct _InsertColumnUndo {
-	HTMLUndoData data;
-
-	gint col;
-};
-typedef struct _InsertColumnUndo InsertColumnUndo;
-
 static void
 insert_column_undo_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir)
 {
-	InsertColumnUndo *undo;
-
-	undo = (InsertColumnUndo *) data;
 	delete_table_column (e, html_undo_direction_reverse (dir));
 }
 
 static void
-insert_column_setup_undo (HTMLEngine *e, gint col, HTMLUndoDirection dir)
+insert_column_setup_undo (HTMLEngine *e, HTMLUndoDirection dir)
 {
-	InsertColumnUndo *undo;
-
-	undo = g_new0 (InsertColumnUndo, 1);
-
-	html_undo_data_init (HTML_UNDO_DATA (undo));
-	undo->col = col;
-
 	html_undo_add_action (e->undo,
 			      html_undo_action_new ("Insert table column", insert_column_undo_action,
-						    HTML_UNDO_DATA (undo), html_cursor_get_position (e->cursor)),
+						    NULL, html_cursor_get_position (e->cursor)),
 			      dir);
 }
 
@@ -169,7 +152,7 @@ insert_table_column (HTMLEngine *e, gboolean after, HTMLUndoDirection dir)
 		g_warning ("no new cells added\n");
 
 	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL);
-	insert_column_setup_undo (e, col, dir);
+	insert_column_setup_undo (e, dir);
 	html_engine_thaw (e);
 }
 
@@ -191,6 +174,28 @@ html_engine_insert_table_column (HTMLEngine *e, gboolean after)
 /*
  * Delete column
  */
+
+static void
+delete_column_undo_action_after (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir)
+{
+	insert_table_column (e, TRUE, html_undo_direction_reverse (dir));
+}
+
+static void
+delete_column_undo_action_before (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir)
+{
+	insert_table_column (e, FALSE, html_undo_direction_reverse (dir));
+}
+
+static void
+delete_column_setup_undo (HTMLEngine *e, gboolean after, HTMLUndoDirection dir)
+{
+	html_undo_add_action (e->undo,
+			      html_undo_action_new ("Delete table column", after
+						    ? delete_column_undo_action_after : delete_column_undo_action_before,
+						    NULL, html_cursor_get_position (e->cursor)),
+			      dir);
+}
 
 static void
 delete_table_column (HTMLEngine *e, HTMLUndoDirection dir)
@@ -251,9 +256,7 @@ delete_table_column (HTMLEngine *e, HTMLUndoDirection dir)
 	t->totalCols --;
 
 	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL);
-
-	// delete_column_setup_undo ();
-
+	delete_column_setup_undo (e, col != t->totalCols - 1, dir);
 	html_engine_thaw (e);
 }
 
