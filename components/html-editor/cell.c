@@ -578,7 +578,8 @@ cell_apply_row (GtkHTMLEditCellProperties *d)
 		cell = html_engine_get_table_cell (e);
 
 		while (cell && cell->row == d->cell->row) {
-			cell_apply_1 (cell, d);
+			if (HTML_OBJECT (cell)->parent == HTML_OBJECT (d->cell)->parent)
+				cell_apply_1 (cell, d);
 			html_engine_next_cell (e, FALSE);
 			cell = html_engine_get_table_cell (e);
 		}
@@ -595,7 +596,7 @@ cell_apply_col (GtkHTMLEditCellProperties *d)
 		cell = html_engine_get_table_cell (e);
 
 		while (cell) {
-			if (cell->col == d->cell->col)
+			if (cell->col == d->cell->col && HTML_OBJECT (cell)->parent == HTML_OBJECT (d->cell)->parent)
 				cell_apply_1 (cell, d);
 			html_engine_next_cell (e, FALSE);
 			cell = html_engine_get_table_cell (e);
@@ -613,7 +614,8 @@ cell_apply_table (GtkHTMLEditCellProperties *d)
 		cell = html_engine_get_table_cell (e);
 
 		while (cell) {
-			cell_apply_1 (cell, d);
+			if (HTML_OBJECT (cell)->parent == HTML_OBJECT (d->cell)->parent)
+				cell_apply_1 (cell, d);
 			html_engine_next_cell (e, FALSE);
 			cell = html_engine_get_table_cell (e);
 		}

@@ -6,6 +6,9 @@
 	(cell_apply_col): new helper function
 	(cell_apply_table): new helper function
 	(cell_apply_cb): use scope and new helper functions
+	(cell_apply_row): test if cell belongs to the same table
+	(cell_apply_col): likewise
+	(cell_apply_table): likewise
 
 1904-01-03  Radek Doulik  <rodo@ximian.com>
 
