@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2001-04-17 10:08-0500\n"
+"POT-Creation-Date: 2001-02-08 21:39+0100\n"
 "PO-Revision-Date: 2000-08-06 22:43+0200\n"
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -132,34 +132,6 @@ msgstr "Preverjanje èrkovanja"
 #: capplet/gtkhtml-capplet.glade.h:19
 msgid "Variable width"
 msgstr "Spremenljiva ¹irina"
-
-#: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:1
-msgid "EBrowser control"
-msgstr ""
-
-#: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:2
-msgid "EBrowser factory"
-msgstr ""
-
-#: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:3
-msgid "Factory for the EBrowser control"
-msgstr ""
-
-#: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:4
-msgid "HTML Browser conrtol"
-msgstr ""
-
-#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:1
-msgid "An HTML Editor control"
-msgstr ""
-
-#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:2
-msgid "Factory for the HTML Editor control"
-msgstr ""
-
-#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:3
-msgid "HTML editor control"
-msgstr ""
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:1
 msgid "C_ut"
@@ -327,107 +299,105 @@ msgstr "P_ravilo..."
 msgid "_Undo"
 msgstr "Ra_zveljavi"
 
-#: components/html-editor/body.c:130 components/html-editor/body.c:134
+#: components/html-editor/body.c:127 components/html-editor/body.c:131
 msgid "Background Image"
 msgstr "Slika v ozadju"
 
-#: components/html-editor/body.c:133
+#: components/html-editor/body.c:130
 msgid "Enable"
 msgstr "Vkljuèi"
 
-#: components/html-editor/body.c:156
+#: components/html-editor/body.c:153
 msgid "Colors"
 msgstr "Barve"
 
-#: components/html-editor/editor-control-factory.c:145
-#: components/html-editor/popup.c:81
+#: components/html-editor/editor-control-factory.c:136
+#: components/html-editor/popup.c:78
 msgid "Properties"
 msgstr "Lastnosti"
 
-#: components/html-editor/editor-control-factory.c:156
-#: components/html-editor/menubar.c:97 components/html-editor/popup.c:96
+#: components/html-editor/editor-control-factory.c:147
+#: components/html-editor/menubar.c:97 components/html-editor/popup.c:93
 msgid "Image"
 msgstr "Slika"
 
-#: components/html-editor/editor-control-factory.c:165
-#: components/html-editor/menubar.c:118 components/html-editor/popup.c:89
+#: components/html-editor/editor-control-factory.c:156
+#: components/html-editor/menubar.c:118 components/html-editor/popup.c:86
 msgid "Text"
 msgstr "Besedilo"
 
-#: components/html-editor/editor-control-factory.c:176
-#: components/html-editor/menubar.c:141 components/html-editor/popup.c:124
+#: components/html-editor/editor-control-factory.c:167
+#: components/html-editor/menubar.c:141 components/html-editor/popup.c:121
 msgid "Rule"
 msgstr "Pravilo"
 
-#: components/html-editor/editor-control-factory.c:185
-#: components/html-editor/popup.c:103
+#: components/html-editor/editor-control-factory.c:176
+#: components/html-editor/popup.c:100
 msgid "Paragraph"
 msgstr "Odstavek"
 
-#: components/html-editor/editor-control-factory.c:190
+#: components/html-editor/editor-control-factory.c:181
 #: components/html-editor/menubar.c:102 components/html-editor/menubar.c:123
-#: components/html-editor/popup.c:110
+#: components/html-editor/popup.c:107
 msgid "Link"
 msgstr "Povezava"
 
-#: components/html-editor/editor-control-factory.c:195
-#: components/html-editor/popup.c:117
+#: components/html-editor/editor-control-factory.c:186
+#: components/html-editor/popup.c:114
 msgid "Page"
 msgstr "Stran"
 
-#: components/html-editor/image.c:180
+#: components/html-editor/image.c:163
 msgid "Image selection"
 msgstr "Izbira slike"
 
-#: components/html-editor/image.c:201
+#: components/html-editor/image.c:184
 msgid "Top"
 msgstr "Vrh"
 
-#: components/html-editor/image.c:202 components/html-editor/paragraph.c:158
-#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:490
+#: components/html-editor/image.c:185 components/html-editor/paragraph.c:158
+#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:423
 msgid "Center"
 msgstr "Sredina"
 
-#: components/html-editor/image.c:203
+#: components/html-editor/image.c:186
 msgid "Bottom"
 msgstr "Dno"
 
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
-#: components/html-editor/image.c:207
+#: components/html-editor/image.c:190
 msgid "Alignment"
 msgstr "Poravnava"
 
-#: components/html-editor/image.c:215
+#: components/html-editor/image.c:198
 msgid "Border"
 msgstr "Rob"
 
-#: components/html-editor/image.c:225 components/html-editor/image.c:243
-#: components/html-editor/image.c:275 components/html-editor/rule.c:267
+#: components/html-editor/image.c:208 components/html-editor/image.c:226
+#: components/html-editor/image.c:249 components/html-editor/rule.c:267
 msgid "width"
 msgstr "¹irina"
 
-#: components/html-editor/image.c:232
+#: components/html-editor/image.c:215
 msgid "Padding"
 msgstr "Polnjenje"
 
-#: components/html-editor/image.c:244 components/html-editor/image.c:276
+#: components/html-editor/image.c:227 components/html-editor/image.c:250
 msgid "height"
 msgstr "vi¹ina"
 
 #. size
-#: components/html-editor/image.c:252 components/html-editor/rule.c:225
+#: components/html-editor/image.c:235 components/html-editor/rule.c:225
 #: components/html-editor/text.c:188
 msgid "Size"
 msgstr "Velikost"
 
-#: components/html-editor/image.c:259 components/html-editor/image.c:268
-#: components/html-editor/rule.c:230
+#: components/html-editor/image.c:242 components/html-editor/rule.c:230
 msgid "Pixels"
 msgstr "Pikslov"
 
-#: components/html-editor/image.c:260 components/html-editor/image.c:269
-#: components/html-editor/rule.c:231
+#: components/html-editor/image.c:243 components/html-editor/rule.c:231
 #, c-format
 msgid "Percent %"
 msgstr "Odstotek %"
@@ -476,7 +446,7 @@ msgstr "Levo"
 msgid "Right"
 msgstr "Desno"
 
-#: components/html-editor/popup.c:219
+#: components/html-editor/popup.c:216
 msgid "Remove link"
 msgstr "Odstrani povezavo"
 
@@ -520,31 +490,31 @@ msgstr "Iskanje z reg. izrazom"
 msgid "Search"
 msgstr "Iskanje"
 
-#: components/html-editor/test-html-editor-control.c:239
+#: components/html-editor/test-html-editor-control.c:237
 msgid "Open file..."
 msgstr "Odpri datoteko..."
 
-#: components/html-editor/test-html-editor-control.c:241
+#: components/html-editor/test-html-editor-control.c:239
 msgid "Save file as..."
 msgstr "Shranitev datoteke kot..."
 
-#: components/html-editor/text.c:180 components/html-editor/toolbar.c:501
+#: components/html-editor/text.c:180 components/html-editor/toolbar.c:434
 msgid "Bold"
 msgstr "Polkrepko"
 
-#: components/html-editor/text.c:181 components/html-editor/toolbar.c:503
+#: components/html-editor/text.c:181 components/html-editor/toolbar.c:436
 msgid "Italic"
 msgstr "Le¾eèe"
 
-#: components/html-editor/text.c:182 components/html-editor/toolbar.c:505
+#: components/html-editor/text.c:182 components/html-editor/toolbar.c:438
 msgid "Underline"
 msgstr "Podèrtano"
 
-#: components/html-editor/text.c:183 components/html-editor/toolbar.c:507
+#: components/html-editor/text.c:183 components/html-editor/toolbar.c:440
 msgid "Strikeout"
 msgstr "Preèrtano"
 
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:280
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:212
 msgid "Automatic"
 msgstr "Samodejno"
 
@@ -553,36 +523,36 @@ msgid "Normal"
 msgstr "Obièajna"
 
 #: components/html-editor/toolbar.c:51
-msgid "Preformat"
-msgstr ""
-
-#: components/html-editor/toolbar.c:52
 msgid "Header 1"
 msgstr "Glava 1"
 
-#: components/html-editor/toolbar.c:53
+#: components/html-editor/toolbar.c:52
 msgid "Header 2"
 msgstr "Glava 2"
 
-#: components/html-editor/toolbar.c:54
+#: components/html-editor/toolbar.c:53
 msgid "Header 3"
 msgstr "Glava 3"
 
-#: components/html-editor/toolbar.c:55
+#: components/html-editor/toolbar.c:54
 msgid "Header 4"
 msgstr "Glava 4"
 
-#: components/html-editor/toolbar.c:56
+#: components/html-editor/toolbar.c:55
 msgid "Header 5"
 msgstr "Glava 5"
 
-#: components/html-editor/toolbar.c:57
+#: components/html-editor/toolbar.c:56
 msgid "Header 6"
 msgstr "Glava 6"
 
-#: components/html-editor/toolbar.c:58
+#: components/html-editor/toolbar.c:57
 msgid "Address"
 msgstr "Naslov"
+
+#: components/html-editor/toolbar.c:58
+msgid "Pre"
+msgstr "Pred"
 
 #: components/html-editor/toolbar.c:59
 msgid "List item (digit)"
@@ -596,63 +566,63 @@ msgstr "Predmet seznama (neo¹tevilèenega)"
 msgid "List item (roman)"
 msgstr "Predmet seznama (rimske ¹tevilke)"
 
-#: components/html-editor/toolbar.c:488
+#: components/html-editor/toolbar.c:421
 msgid "Left align"
 msgstr "Poravnaj levo"
 
-#: components/html-editor/toolbar.c:488
+#: components/html-editor/toolbar.c:421
 msgid "Left justifies the paragraphs"
 msgstr "Poravnaj odstavke levo"
 
-#: components/html-editor/toolbar.c:490
+#: components/html-editor/toolbar.c:423
 msgid "Centers justifies the paragraphs"
 msgstr "Poravnaj odstavke levo"
 
-#: components/html-editor/toolbar.c:492
+#: components/html-editor/toolbar.c:425
 msgid "Right align"
 msgstr "Poravnaj desno"
 
-#: components/html-editor/toolbar.c:492
+#: components/html-editor/toolbar.c:425
 msgid "Right justifies the paragraphs"
 msgstr "Poravnaj odstavke desno"
 
-#: components/html-editor/toolbar.c:499
+#: components/html-editor/toolbar.c:432
 msgid "Typewriter"
 msgstr "Typewriter"
 
-#: components/html-editor/toolbar.c:499
+#: components/html-editor/toolbar.c:432
 msgid "Toggle typewriter font style"
 msgstr "Preklopi slog pisave na typewriter (pisalni stroj)"
 
-#: components/html-editor/toolbar.c:501
+#: components/html-editor/toolbar.c:434
 msgid "Makes the text bold"
 msgstr "Nastavi besedilo krepko"
 
-#: components/html-editor/toolbar.c:503
+#: components/html-editor/toolbar.c:436
 msgid "Makes the text italic"
 msgstr "Nastavi besedilo po¹evno"
 
-#: components/html-editor/toolbar.c:505
+#: components/html-editor/toolbar.c:438
 msgid "Underlines the text"
 msgstr "Podrèrta besedilo"
 
-#: components/html-editor/toolbar.c:507
+#: components/html-editor/toolbar.c:440
 msgid "Strikes out the text"
 msgstr "Preèrta besedilo"
 
-#: components/html-editor/toolbar.c:516
+#: components/html-editor/toolbar.c:449
 msgid "Unindent"
 msgstr "Razveljavi zamik"
 
-#: components/html-editor/toolbar.c:516
+#: components/html-editor/toolbar.c:449
 msgid "Indents the paragraphs less"
 msgstr "Manj zamikni odstavke"
 
-#: components/html-editor/toolbar.c:518
+#: components/html-editor/toolbar.c:451
 msgid "Indent"
 msgstr "Zamik"
 
-#: components/html-editor/toolbar.c:518
+#: components/html-editor/toolbar.c:451
 msgid "Indents the paragraphs more"
 msgstr "Bolj zamakni odstavke"
 
@@ -667,9 +637,6 @@ msgstr "_Predogled tiskanja"
 #: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "Predogled tiskanja"
-
-#~ msgid "Pre"
-#~ msgstr "Pred"
 
 #~ msgid "window1"
 #~ msgstr "okno1"
