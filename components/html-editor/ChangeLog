@@ -1,3 +1,7 @@
+2004-07-22  Rodney Dawes  <dobey@novell.com>
+
+	* Makefile.am (gtkhtml_data, LDADD): Use GTKHTML_API_VERSION
+
 2004-06-25  Radek Doulik  <rodo@ximian.com>
 
 	* editor-control-shlib.c (editor_control_shlib_factory): make the

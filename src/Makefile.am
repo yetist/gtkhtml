@@ -11,7 +11,7 @@ INCLUDES = 				\
 	-DPREFIX=\"$(prefix)\"
 
 AM_CFLAGS = 								\
-	-DICONDIR=\"$(datadir)/gtkhtml-@GTKHTML_RELEASE@/icons\"	\
+	-DICONDIR=\"$(datadir)/gtkhtml-@GTKHTML_API_VERSION@/icons\"	\
 	-DGDK_DISABLE_DEPRECATED=1					\
 	-DG_DISABLE_DEPRECATED=1					\
 	-DGNOME_DISABLE_DEPRECATED=1
@@ -19,7 +19,7 @@ AM_CFLAGS = 								\
 
 lib_LTLIBRARIES = libgtkhtml-3.1.la
 
-libgtkhtmldir = $(includedir)/libgtkhtml-@GTKHTML_RELEASE@/gtkhtml
+libgtkhtmldir = $(includedir)/libgtkhtml-@GTKHTML_API_VERSION@/gtkhtml
 
 # FIXME not all the stuff should be installed!
 
@@ -209,20 +209,20 @@ testgtkhtml_SOURCES = 		\
 	htmlurl.c
 #testgtkhtml_LDFLAGS = -static
 testgtkhtml_LDADD =					\
-	libgtkhtml-@GTKHTML_RELEASE@.la			\
+	libgtkhtml-@GTKHTML_API_VERSION@.la			\
 	$(SOUP_LIBS)
 
 gtest_SOURCES = \
 	test.c
 gtest_LDFLAGS =
 gtest_LDADD =	\
-	libgtkhtml-@GTKHTML_RELEASE@.la
+	libgtkhtml-@GTKHTML_API_VERSION@.la
 
 pkgconfig_in_files = libgtkhtml.pc.in
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = $(pkgconfig_in_files:.pc.in=.pc)
 
-keybindingsdir = $(datadir)/gtkhtml-@GTKHTML_RELEASE@
+keybindingsdir = $(datadir)/gtkhtml-@GTKHTML_API_VERSION@
 keybindings_DATA =		\
 	keybindingsrc.emacs
 
@@ -232,10 +232,10 @@ EXTRA_DIST =			\
 	$(NULL)
 
 install-data-hook:
-	mv $(DESTDIR)$(libdir)/pkgconfig/libgtkhtml.pc $(DESTDIR)$(libdir)/pkgconfig/libgtkhtml-@GTKHTML_RELEASE@.pc
+	mv $(DESTDIR)$(libdir)/pkgconfig/libgtkhtml.pc $(DESTDIR)$(libdir)/pkgconfig/libgtkhtml-@GTKHTML_API_VERSION@.pc
 
 uninstall-hook:
-	rm -f $(DESTDIR)$(libdir)/pkgconfig/libgtkhtml-@GTKHTML_RELEASE@.pc	
+	rm -f $(DESTDIR)$(libdir)/pkgconfig/libgtkhtml-@GTKHTML_API_VERSION@.pc	
 
 htmlmarshal.h:	htmlclosures.list
 	glib-genmarshal --header --prefix=html_g_cclosure_marshal $< > $@

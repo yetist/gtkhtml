@@ -1,6 +1,6 @@
 # Basic setup
 
-gtkhtml_data = $(datadir)/gtkhtml-@GTKHTML_RELEASE@
+gtkhtml_data = $(datadir)/gtkhtml-@GTKHTML_API_VERSION@
 
 gladedir = $(gtkhtml_data)
 glade_DATA = gtkhtml-editor-properties.glade
@@ -53,7 +53,7 @@ $(SPELL_IDL_GENERATED_C): $(SPELL_IDL_GENERATED_H)
 
 
 LDADD =	\
-	$(top_builddir)/src/libgtkhtml-@GTKHTML_RELEASE@.la	\
+	$(top_builddir)/src/libgtkhtml-@GTKHTML_API_VERSION@.la	\
 	$(EDITOR_LIBS)
 
 # -lpspell-modules -lpspell_aspell -laspell -lpspell -lstdc++

@@ -1,3 +1,9 @@
+2004-07-22  Rodney Dawes  <dobey@novell.com>
+
+	* Makefile.am (AM_CFLAGS, *dir, *_LDADD): Use GTKHTML_API_VERSION
+	* gtkhtml.c (gtk_html_class_init): Use GTKHTML_RELEASE_STRING
+	* libgtkhtml.pc.in: Use GTKHTML_API_VERSION for directory paths
+
 2004-07-20  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-text.c (set_link): do not leak memory - free

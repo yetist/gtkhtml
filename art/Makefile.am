@@ -1,4 +1,4 @@
-iconsdir = $(datadir)/gtkhtml-@GTKHTML_RELEASE@/icons
+iconsdir = $(datadir)/gtkhtml-@GTKHTML_API_VERSION@/icons
 icons_DATA = \
 	16_cut.png			\
 	24_cut.png			\

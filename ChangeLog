@@ -1,3 +1,14 @@
+2004-07-22  Rodney Dawes  <dobey@novell.com>
+
+	* configure.in:
+	(GTKHTML_RELEASE): Get rid of this variable
+	(GTKHTML_API_VERSION): Define thise variable
+	(EDITOR_API_VERSION): Don't duplicate this, and move it up to
+	where we are defining other similar variables
+	(AM_INIT_AUTOMAKE): Don't use GTKHTML_RELEASE in the version number
+	(AC_PROG_INTLTOOL): Require at least intltool 0.30
+	(GTKHTML_RELEASE_STRING): Use GTKHTML_API_VERSION
+
 2004-07-19  JP Rosevear  <jpr@novell.com>
 
 	* configure.in: bump version, libtool numbers

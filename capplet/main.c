@@ -265,7 +265,7 @@ setup (void)
 	g_signal_connect (button_cfg_spell, "clicked", G_CALLBACK (cfg_spell), NULL);
 
 #define LOAD(x) \
-	base = g_strconcat ("gtkhtml-" GTKHTML_RELEASE  "/keybindingsrc.", x, NULL); \
+	base = g_strconcat (GTKHTML_RELEASE_STRING  "/keybindingsrc.", x, NULL); \
 	rcfile = gnome_unconditional_datadir_file (base); \
         gtk_rc_parse (rcfile); \
         g_free (base); \

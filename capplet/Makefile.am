@@ -1,4 +1,4 @@
-gladedir = $(datadir)/gtkhtml-@GTKHTML_RELEASE@
+gladedir = $(datadir)/gtkhtml-@GTKHTML_API_VERSION@
 glade_DATA = gtkhtml-capplet.glade
 
 INCLUDES =					\
@@ -19,8 +19,8 @@ gtkhtml_properties_capplet_SOURCES = 		\
 
 LDADD = 					\
 	$(CAPPLET_LIBS)				\
-	$(top_builddir)/src/libgtkhtml-@GTKHTML_RELEASE@.la	\
-	$(top_builddir)/a11y/libgtkhtml-a11y-@GTKHTML_RELEASE@.la
+	$(top_builddir)/src/libgtkhtml-@GTKHTML_API_VERSION@.la	\
+	$(top_builddir)/a11y/libgtkhtml-a11y-@GTKHTML_API_VERSION@.la
 
 @INTLTOOL_DESKTOP_RULE@
 
