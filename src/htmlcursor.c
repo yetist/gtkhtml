@@ -205,6 +205,31 @@ forward (HTMLCursor *cursor)
 	return retval;
 }
 
+static gboolean
+forward_in_flow (HTMLCursor *cursor)
+{
+	gboolean retval;
+
+	retval = TRUE;
+	if (cursor->offset != html_object_get_length (cursor->object)) {
+		if (html_object_is_container (cursor->object)) {
+			HTMLObject *obj;
+
+			obj = cursor->object;
+			while ((retval = forward (cursor)) && cursor->object != obj)
+				;
+		} else
+			retval = html_object_cursor_forward (cursor->object, cursor);
+	} else {
+		if (html_object_next_not_slave (cursor->object))
+			retval = forward (cursor);
+		else
+			retval = FALSE;
+	}
+
+	return retval;
+}
+
 gboolean
 html_cursor_forward (HTMLCursor *cursor, HTMLEngine *engine)
 {
@@ -224,8 +249,6 @@ html_cursor_forward (HTMLCursor *cursor, HTMLEngine *engine)
 	return retval;
 }
 
-
-
 static gboolean
 backward (HTMLCursor *cursor)
 {
@@ -244,6 +267,31 @@ backward (HTMLCursor *cursor)
 		} else
 			retval = FALSE;
 	}
+	return retval;
+}
+
+static gboolean
+backward_in_flow (HTMLCursor *cursor)
+{
+	gboolean retval;
+
+	retval = TRUE;
+	if (cursor->offset) {
+		if (html_object_is_container (cursor->object)) {
+			HTMLObject *obj;
+
+			obj = cursor->object;
+			while ((retval = backward (cursor)) && cursor->object != obj)
+				;
+		} else
+			retval = html_object_cursor_backward (cursor->object, cursor);
+	} else {
+		if (cursor->object->prev)
+			retval = backward (cursor);
+		else
+			retval = FALSE;
+	}
+
 	return retval;
 }
 
@@ -538,7 +586,7 @@ html_cursor_end_of_line (HTMLCursor *cursor,
 				     &x, &prev_y);
 
 	while (1) {
-		if (! forward (cursor))
+		if (! forward_in_flow (cursor))
 			return TRUE;
 
 		html_object_get_cursor_base (cursor->object, engine->painter, cursor->offset,
@@ -574,7 +622,7 @@ html_cursor_beginning_of_line (HTMLCursor *cursor,
 				     &x, &prev_y);
 
 	while (1) {
-		if (! backward (cursor))
+		if (! backward_in_flow (cursor))
 			return TRUE;
 
 		html_object_get_cursor_base (cursor->object, engine->painter, cursor->offset,

@@ -1,5 +1,10 @@
 2001-06-21  Radek Doulik  <rodo@ximian.com>
 
+	* htmlcursor.c (forward_in_flow): new helper function
+	(backward_in_flow): ditto
+	(html_cursor_end_of_line): use forward_in_flow
+	(html_cursor_beginning_of_line): use backward_in_flow
+
 	* htmltable.c (calc_column_width_step): removed hopefully last
 	forgoten substract by table->padding
 
