@@ -1,7 +1,8 @@
 2004-02-13  Radek Doulik  <rodo@ximian.com>
 
-	* image.c (image_url_requested): don't set size in idle allback,
-	instead calc size and call set_size
+	* image.c (load_done): new handler, replaces set_size idle
+	callback
+	(image_widget): hoohkup load_done
 
 	Fixes #54204
 
