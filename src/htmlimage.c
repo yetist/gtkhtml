@@ -268,7 +268,7 @@ check_point (HTMLObject *self,
 	    && (y >= (self->y - self->ascent))
 	    && (y < (self->y + self->descent))) {
 		if (offset_return != NULL)
-			*offset_return = 0;
+			*offset_return = x - self->x < self->width / 2 ? 0 : 1;
 		
 		image_update_url (HTML_IMAGE (self), x, y);
 		return self;
