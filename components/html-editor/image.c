@@ -108,6 +108,16 @@ insert (GtkWidget *w, GtkHTMLImageDialog *d)
 }
 
 static void
+entry_changed (GtkWidget *entry, GtkHTMLImageDialog *d)
+{
+	gchar *text;
+
+	text = gtk_entry_get_text (GTK_ENTRY (entry));
+	printf ("entry changed %s\n", text);
+	gnome_dialog_set_sensitive (d->dialog, 0, (text && *text));
+}
+
+static void
 menu_activate (GtkWidget *mi, GtkHTMLImageDialog *d)
 {
 	d->align = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (mi), "idx"));
@@ -278,8 +288,12 @@ gtk_html_image_dialog_new (GtkHTML *html)
 	gtk_widget_show_all (hbox);
 
 	gnome_dialog_button_connect (dialog->dialog, 0, insert, dialog);
+	gnome_dialog_set_sensitive (dialog->dialog, 0, FALSE);
 	gnome_dialog_close_hides (dialog->dialog, TRUE);
 	gnome_dialog_set_close (dialog->dialog, TRUE);
+
+	gtk_signal_connect (GTK_OBJECT (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (dialog->pentry))),
+			    "changed", GTK_SIGNAL_FUNC (entry_changed), dialog);
 
 	gnome_dialog_set_default (dialog->dialog, 0);
 

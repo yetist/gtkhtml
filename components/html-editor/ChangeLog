@@ -1,5 +1,7 @@
 2000-04-25  Radek Doulik  <rodo@helixcode.com>
 
+	* image.c (gtk_html_image_dialog_new): set sensitive for OK button
+
 	* link.c (set_entries): new function, trying to be clever about
 	links :)
 	(gtk_html_link_dialog_new): link dialog
