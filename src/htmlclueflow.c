@@ -631,9 +631,6 @@ calc_size (HTMLObject *o,
 
 			extra = 0;
 
-			o->ascent += a + d;
-			o->y += a + d;
-
 			if (w > o->width)
 				o->width = w;
 
@@ -647,6 +644,9 @@ calc_size (HTMLObject *o,
 				if (extra < 0)
 					extra = 0;
 			}
+
+			o->ascent += a + d;
+			o->y += a + d;
 
 			/* Update the height for `HTML_VALIGN_TOP' objects.  */
 			if (have_valign_top) {
@@ -663,6 +663,7 @@ calc_size (HTMLObject *o,
 
 					if (rest > d) {
 						o->ascent += rest - d;
+						o->y += rest - d;
 						d = rest;
 					}
 				}
