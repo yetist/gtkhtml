@@ -2640,6 +2640,7 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		}
 
 		p->flow = flow_new (p, HTML_CLUEFLOW_STYLE_LIST_ITEM, listType, itemNumber, HTML_CLEAR_NONE);
+		html_clueflow_set_item_color (HTML_CLUEFLOW (p->flow), current_color (p));
 
 		html_clue_append (HTML_CLUE (clue), p->flow);
 		p->avoid_para = TRUE;

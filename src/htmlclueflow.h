@@ -46,6 +46,7 @@ struct _HTMLClueFlow {
 	   based on HTMLClueFlow once we have real types */
 	HTMLListType item_type;
 	gint         item_number;
+	HTMLColor   *item_color;
 };
 
 struct _HTMLClueFlowClass {
@@ -126,6 +127,8 @@ gboolean           html_clueflow_tabs                         (HTMLClueFlow     
 							       HTMLPainter        *p);
 gboolean           html_clueflow_style_equals                 (HTMLClueFlow       *cf1,
 							       HTMLClueFlow       *cf2);
+void               html_clueflow_set_item_color               (HTMLClueFlow       *flow,
+							       HTMLColor          *color);
 
 #define SPELL_CHECK(f, e) if (f && HTML_OBJECT_TYPE (f) == HTML_TYPE_CLUEFLOW) \
                                    html_clueflow_spell_check (HTML_CLUEFLOW (f), e, NULL)

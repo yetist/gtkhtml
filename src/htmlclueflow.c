@@ -97,7 +97,13 @@ is_levels_equal (HTMLClueFlow *me, HTMLClueFlow *you)
 static void
 destroy (HTMLObject *self)
 {
-	g_byte_array_free (HTML_CLUEFLOW (self)->levels, TRUE);
+	HTMLClueFlow *flow = HTML_CLUEFLOW (self);
+
+	g_byte_array_free (flow->levels, TRUE);
+	if (flow->item_color) {
+		html_color_unref (flow->item_color);
+		flow->item_color = NULL;
+	}
 
 	(* HTML_OBJECT_CLASS (parent_class)->destroy) (self);
 }
@@ -1127,7 +1133,12 @@ draw_item (HTMLObject *self, HTMLPainter *painter, gint x, gint y, gint width, g
 		first = first->next;
 
 	flow = HTML_CLUEFLOW (self);
-	html_painter_set_pen (painter, &html_colorset_get_color_allocated (painter, HTMLTextColor)->color);
+
+	if (flow->item_color) {
+		html_color_alloc (flow->item_color, painter);
+		html_painter_set_pen (painter, &flow->item_color->color);
+	} else
+		html_painter_set_pen (painter, &html_colorset_get_color_allocated (painter, HTMLTextColor)->color);
 
 	indent = get_level_indent (flow, flow->levels->len - 1, painter);
 	if (flow->item_type == HTML_LIST_TYPE_UNORDERED) {
@@ -2181,6 +2192,7 @@ html_clueflow_init (HTMLClueFlow *clueflow, HTMLClueFlowClass *klass,
 
 	clueflow->item_type   = item_type;
 	clueflow->item_number = item_number;
+	clueflow->item_color = NULL;
 
 	clueflow->clear = clear;
 }
@@ -2835,6 +2847,16 @@ html_clueflow_tabs (HTMLClueFlow *flow, HTMLPainter *p)
 {
 	return (flow && HTML_IS_CLUEFLOW (flow) && flow->style == HTML_CLUEFLOW_STYLE_PRE) || HTML_IS_PLAIN_PAINTER (p)
 		? TRUE : FALSE;
+}
+
+void
+html_clueflow_set_item_color (HTMLClueFlow *flow, HTMLColor *color)
+{
+	if (flow->item_color)
+		html_color_unref (flow->item_color);
+	if (color)
+		html_color_ref (color);
+	flow->item_color = color;
 }
 
 gboolean
