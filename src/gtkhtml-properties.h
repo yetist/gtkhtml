@@ -40,12 +40,6 @@
 struct _GtkHTMLClassProperties {
 	/* viewer */
 	gboolean  animations;
-	gchar    *font_var;
-	guint     font_var_size;
-	gboolean  font_var_points;
-	gchar    *font_fix;
-	guint     font_fix_size;
-	gboolean  font_fix_points;
 	gchar    *font_var_print;
 	guint     font_var_size_print;
 	gboolean  font_var_print_points;
@@ -55,14 +49,8 @@ struct _GtkHTMLClassProperties {
 
 	/* editor */
 	gboolean  magic_links;
-
 	gboolean  live_spell_check;
-	GdkColor  spell_error_color;
 	gchar    *language;
-
-	gchar    *link_color;
-	gchar    *vlink_color;
-	gchar    *alink_color;
 };
 
 GtkHTMLClassProperties * gtk_html_class_properties_new       (GtkWidget *widget);

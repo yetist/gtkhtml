@@ -1,3 +1,11 @@
+2003-04-09  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (client_notify_widget): remove spell color cruft.
+
+	* gtkhtml-properties.c: remove unused members.
+
+	* gtkhtml-properties.h: remove usless members.
+
 2003-04-09  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c (html_engine_init): set language to NULL

@@ -34,40 +34,20 @@ Boston, MA 02111-1307, USA.
 
 #define STRINGIZE(x) #x
 
-static char *
-color_to_string (GdkColor *color, char *fallback) {
-	if (color)
-		return g_strdup_printf ("#%02x%02x%02x", color->red >> 8, color->green >> 8, color->blue >> 8);
-
-	return g_strdup (fallback);
-}
-
 GtkHTMLClassProperties *
 gtk_html_class_properties_new (GtkWidget *widget)
 {
 	GtkHTMLClassProperties *p = g_new0 (GtkHTMLClassProperties, 1);
 	PangoFontDescription *var_desc, *fixed_desc; 
 	char *fixed_name = NULL;
-	char *var_name;
 	gint var_size, fixed_size = 0;
-	GdkColor *link_color = NULL;
-	GdkColor *alink_color = NULL;
-	GdkColor *vlink_color = NULL;
-	GdkColor *spell_error_color = NULL;
 
-	if (widget) {
-		var_desc = widget->style->font_desc;
-		gtk_widget_style_get (widget,
-				      "fixed_font",        &fixed_name,
-				      "link_color",        &link_color,
-				      "alink_color",       &alink_color,
-				      "vlink_color",       &vlink_color,
-				      "spell_error_color", &spell_error_color,
-				      NULL);
-	}
+	var_desc = widget->style->font_desc;
+	gtk_widget_style_get (widget,
+			      "fixed_font_name",   &fixed_name,
+			      NULL);
        
 	var_size = pango_font_description_get_size (var_desc);
-	var_name = pango_font_description_to_string (var_desc);
 
 	if (fixed_name) {
 		fixed_desc = pango_font_description_from_string (fixed_name);
@@ -88,13 +68,10 @@ gtk_html_class_properties_new (GtkWidget *widget)
 
 	/* default values */
 	p->magic_links             = TRUE;
-	p->font_var                = var_name;
-	/* printf ("Variable Font: \"%s\"\n", p->font_var); */
-	p->font_fix                = fixed_name;
-	p->font_var_size           = PANGO_PIXELS (var_size);
-	p->font_fix_size           = PANGO_PIXELS (fixed_size);
-	p->font_var_points         = FALSE;
-	p->font_fix_points         = FALSE;
+	p->animations              = TRUE;
+	p->language                = g_strdup (e_iconv_locale_language ());
+	p->live_spell_check        = TRUE;
+
 	p->font_var_print          = g_strdup (pango_font_description_get_family (var_desc));
 	/* printf ("Variable Printing Font: \"%s\"\n", p->font_var_print); */
 	p->font_fix_print          = g_strdup (fixed_name);
@@ -102,23 +79,6 @@ gtk_html_class_properties_new (GtkWidget *widget)
 	p->font_fix_size_print     = DEFAULT_FONT_SIZE_PRINT;
 	p->font_var_print_points   = FALSE;
 	p->font_fix_print_points   = FALSE;
-	p->animations              = TRUE;
-	p->link_color              = color_to_string (link_color, "#0000ff");
-	p->alink_color             = color_to_string (alink_color, "#0000ff");
-	p->vlink_color             = color_to_string (vlink_color, "#0000ff");
-
-	p->language                = g_strdup (e_iconv_locale_language ());
-	p->live_spell_check        = TRUE;
-
-	if (spell_error_color) {
-		p->spell_error_color.red   = spell_error_color->red;
-		p->spell_error_color.green = spell_error_color->green;
-		p->spell_error_color.blue  = spell_error_color->blue;
-	} else {
-		p->spell_error_color.red   = 0xffff;
-		p->spell_error_color.green = 0;
-		p->spell_error_color.blue  = 0;
-	}
 
 	return p;
 }
@@ -154,37 +114,10 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p, GConfClient *client)
 
 	GET (bool, "/magic_links", magic_links,,);
 	GET (bool, "/animations", animations,,);
-#if 0 /* fonts are not controlled via gconf any more */
-	GET (string, "/font_variable", font_var,
-	     g_free (p->font_var), g_strdup);
-	GET (string, "/font_fixed", font_fix,
-	     g_free (p->font_fix), g_strdup);
-	GET (int, "/font_variable_size", font_var_size,,);
-	GET (int, "/font_fixed_size", font_fix_size,,);
-	GET (bool, "/font_variable_points", font_var_points,,);
-	GET (bool, "/font_fixed_points", font_fix_points,,);
-	GET (string, "/font_variable_print", font_var_print,
-	     g_free (p->font_var_print), g_strdup);
-#endif
-	GET (string, "/font_fixed_print", font_fix_print,
-	     g_free (p->font_fix_print), g_strdup);
-	GET (int, "/font_variable_size_print", font_var_size_print,,);
-	GET (int, "/font_fixed_size_print", font_fix_size_print,,);
-	GET (bool, "/font_variable_print_points", font_var_print_points,,);
-	GET (bool, "/font_fixed_print_points", font_fix_print_points,,);
-
-	GET (bool, "/live_spell_check", live_spell_check,,);
-
-	GET (string, "/link_color", link_color, g_free (p->link_color), g_strdup);
-	GET (string, "/alink_color", alink_color, g_free (p->alink_color), g_strdup);
-	GET (string, "/vlink_color", vlink_color, g_free (p->vlink_color), g_strdup);
-
-	GETSP (int, "/spell_error_color_red",   spell_error_color.red,,);
-	GETSP (int, "/spell_error_color_green", spell_error_color.green,,);
-	GETSP (int, "/spell_error_color_blue",  spell_error_color.blue,,);
 
 	GETSP (string, "/language", language,
 	       g_free (p->language), g_strdup);
+
 }
 
 #define SET(t,x,prop) \
@@ -202,20 +135,10 @@ gtk_html_class_properties_update (GtkHTMLClassProperties *p, GConfClient *client
 		SET (bool, "/animations", animations);
 	if (p->magic_links != old->magic_links)
 		SET (bool, "/magic_links", magic_links);
-#if 0 /* fonts are not controlled via gconf any more */
-	if (strcmp (p->font_var, old->font_var))
-		SET (string, "/font_variable", font_var);
-	if (strcmp (p->font_fix, old->font_fix))
-		SET (string, "/font_fixed", font_fix);
-	if (p->font_var_points != old->font_var_points)
-		SET (bool, "/font_variable_points", font_var_points);
-	if (p->font_fix_points != old->font_fix_points)
-		SET (bool, "/font_fixed_points", font_fix_points);
-	if (p->font_var_size != old->font_var_size || p->font_var_points != old->font_var_points)
-		SET (int, "/font_variable_size", font_var_size);
-	if (p->font_fix_size != old->font_fix_size || p->font_fix_points != old->font_fix_points)
-		SET (int, "/font_fixed_size", font_fix_size);
-#endif
+	if (p->live_spell_check != old->live_spell_check)
+		SET (bool, "/live_spell_check", live_spell_check);
+
+
 	if (strcmp (p->font_var_print, old->font_var_print))
 		SET (string, "/font_variable_print", font_var_print);
 	if (strcmp (p->font_fix_print, old->font_fix_print))
@@ -228,51 +151,9 @@ gtk_html_class_properties_update (GtkHTMLClassProperties *p, GConfClient *client
 		SET (int, "/font_variable_size_print", font_var_size_print);
 	if (p->font_fix_size_print != old->font_fix_size_print || p->font_fix_print_points != old->font_fix_print_points)
 		SET (int, "/font_fixed_size_print", font_fix_size_print);
-	if (strcmp (p->link_color, old->link_color))
-		SET (string, "/link_color", link_color);
-	if (strcmp (p->alink_color, old->alink_color))
-		SET (string, "/alink_color", alink_color);
-	if (strcmp (p->vlink_color, old->vlink_color))
-		SET (string, "/vlink_color", vlink_color);
 	
 	
-	if (p->live_spell_check != old->live_spell_check)
-		SET (bool, "/live_spell_check", live_spell_check);
-
 	gconf_client_suggest_sync (client, NULL);
-}
-
-#define COPYS(v) \
-        g_free (p1->v); \
-        p1->v = g_strdup (p2->v);
-#define COPY(v) \
-        p1->v = p2->v;
-
-void
-gtk_html_class_properties_copy (GtkHTMLClassProperties *p1,
-				GtkHTMLClassProperties *p2)
-{
-	COPY  (animations)
-	COPY  (magic_links);
-	COPYS (font_var);
-	COPYS (font_fix);
-	COPY  (font_var_size);
-	COPY  (font_fix_size);
-	COPYS (font_var_print);
-	COPYS (font_fix_print);
-	COPY  (font_var_size_print);
-	COPY  (font_fix_size_print);
-	COPY  (font_var_points);
-	COPY  (font_fix_points);
-	COPY  (font_var_print_points);
-	COPY  (font_fix_print_points);
-	COPYS  (link_color);
-	COPYS  (alink_color);
-	COPYS  (vlink_color);
-
-	COPY  (live_spell_check);
-	COPY  (spell_error_color);
-	COPYS (language);
 }
 
 /* enums */

@@ -1977,19 +1977,7 @@ client_notify_spell_widget (GConfClient* client, guint cnxn_id, GConfEntry* entr
 	tkey = strrchr (entry->key, '/');
 	g_assert (tkey);
 
-	if (!strcmp (tkey, "/spell_error_color_red")) {
-		prop->spell_error_color.red = gconf_client_get_int (client, entry->key, NULL);
-	} else if (!strcmp (tkey, "/spell_error_color_green")) {
-		prop->spell_error_color.green = gconf_client_get_int (client, entry->key, NULL);
-	} else if (!strcmp (tkey, "/spell_error_color_blue")) {
-		prop->spell_error_color.blue = gconf_client_get_int (client, entry->key, NULL);
-		html_colorset_set_color (html->engine->defaultSettings->color_set,
-					 &prop->spell_error_color, HTMLSpellErrorColor);
-		html_colorset_set_color (html->engine->settings->color_set,
-					 &prop->spell_error_color, HTMLSpellErrorColor);
-		if (html_engine_get_editable (html->engine) && !strcmp (tkey, "/spell_error_color_blue"))
-			gtk_widget_queue_draw (GTK_WIDGET (html));
-	} else if (!strcmp (tkey, "/language")) {
+	if (!strcmp (tkey, "/language")) {
 		g_free (prop->language);
 		prop->language = g_strdup (gconf_client_get_string (client, entry->key, NULL));
 		if (!html->engine->language)
@@ -2585,6 +2573,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 
 	object_class->destroy = destroy;
 	
+
 #ifdef USE_PROPS
 	gobject_class->get_property = gtk_html_get_property;
 	gobject_class->set_property = gtk_html_set_property;
