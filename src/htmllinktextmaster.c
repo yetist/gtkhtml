@@ -249,7 +249,7 @@ html_link_text_master_to_text (HTMLLinkTextMaster *link, HTMLEngine *e)
 
 	new_text = html_text_master_new (HTML_TEXT (link)->text,
 					 GTK_HTML_FONT_STYLE_DEFAULT,
-					 html_settings_get_color (e->settings, HTMLTextColor));
+					 html_colorset_get_color (e->settings->color_set, HTMLTextColor));
 
 	html_engine_replace_by_object (e, HTML_OBJECT (link), 0,
 				       HTML_OBJECT (link), HTML_TEXT (link)->text_len,

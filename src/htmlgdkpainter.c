@@ -30,28 +30,6 @@
 static HTMLPainterClass *parent_class = NULL;
 
 
-/* FIXME: This allocates the pixel values in `color_set' directly.  This is
-   broken.  Instead, we should be copying the RGB values and allocating the
-   pixel values somewhere else.  The reason why don't do this yet in
-   `HTMLColorSet' is that we do not want to have any allocation in HTMLColorSet
-   to make it independent of the painter device in the future.  */
-static void
-allocate_color_set (HTMLGdkPainter *gdk_painter)
-{
-	GdkColormap *colormap;
-	HTMLPainter *painter;
-
-	painter = HTML_PAINTER (gdk_painter);
-	colormap = gdk_window_get_colormap (gdk_painter->window);
-
-	gdk_colormap_alloc_color (colormap, & painter->color_set->background_color, TRUE, TRUE);
-	gdk_colormap_alloc_color (colormap, & painter->color_set->foreground_color, TRUE, TRUE);
-	gdk_colormap_alloc_color (colormap, & painter->color_set->link_color, TRUE, TRUE);
-	gdk_colormap_alloc_color (colormap, & painter->color_set->highlight_color, TRUE, TRUE);
-	gdk_colormap_alloc_color (colormap, & painter->color_set->highlight_foreground_color, TRUE, TRUE);
-}
-
-
 /* GtkObject methods.  */
 
 static void
@@ -70,21 +48,6 @@ finalize (GtkObject *object)
 		gdk_pixmap_unref (painter->pixmap);
 
 	(* GTK_OBJECT_CLASS (parent_class)->finalize) (object);
-}
-
-
-static void
-set_color_set (HTMLPainter *painter,
-	       HTMLColorSet *color_set)
-{
-	HTMLGdkPainter *gdk_painter;
-
-	gdk_painter = HTML_GDK_PAINTER (painter);
-
-	(* HTML_PAINTER_CLASS (parent_class)->set_color_set) (painter, color_set);
-
-	if (gdk_painter->window != NULL && color_set != NULL)
-		allocate_color_set (gdk_painter);
 }
 
 static void
@@ -324,6 +287,33 @@ draw_panel (HTMLPainter *painter,
 {
 	HTMLGdkPainter *gdk_painter;
 	GdkColor *col1 = NULL, *col2 = NULL;
+	GdkColor *bg, dark, light;
+	gint value, ldelta, ddelta;
+
+#define DARK(c) 	dark. ## c  = MIN (MAX (((gint) bg-> ## c) + (gint) ddelta*(((gdouble) bg-> ## c)/0xffff), 0), 0xffff);
+#define LIGHT(c)	light. ## c = MIN (MAX (((gint) bg-> ## c) + (gint) ldelta*(((gdouble) bg-> ## c)/0xffff), 0), 0xffff);
+#define THOLD 0x2aaa
+
+	bg = html_colorset_get_color (painter->color_set, HTMLBgColor);
+
+	value = MAX (bg->red, MAX (bg->green, bg->blue));
+	if (value > 0x7fff) {
+		ldelta = -THOLD;
+		ddelta = -3*THOLD;
+	} else {
+		ldelta = 3*THOLD;
+		ddelta = THOLD;
+	}
+
+	DARK(red);
+	DARK(green);
+	DARK(blue);
+	LIGHT(red);
+	LIGHT(green);
+	LIGHT(blue);
+
+	alloc_color (painter, &dark);
+	alloc_color (painter, &light);
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
@@ -334,13 +324,13 @@ draw_panel (HTMLPainter *painter,
 		col2 = NULL;
 		break;
 	case GTK_HTML_ETCH_OUT:
-		col1 = &gdk_painter->light;
-		col2 = &gdk_painter->dark;
+		col1 = &light;
+		col2 = &dark;
 		break;
 	default:
 	case GTK_HTML_ETCH_IN:
-		col1 = &gdk_painter->dark;
-		col2 = &gdk_painter->light;
+		col1 = &dark;
+		col2 = &light;
 		break;
 	}
 	
@@ -370,11 +360,14 @@ draw_panel (HTMLPainter *painter,
 		width-=2;
 		height-=2;
 	}
+
+	free_color (painter, &dark);
+	free_color (painter, &light);
 }
 
 static void
 draw_background (HTMLPainter *painter,
-		 const GdkColor *color,
+		 GdkColor *color,
 		 GdkPixbuf *pixbuf,
 		 gint x, gint y, 
 		 gint width, gint height,
@@ -923,7 +916,6 @@ class_init (GtkObjectClass *object_class)
 	painter_class->draw_panel = draw_panel;
 	painter_class->set_clip_rectangle = set_clip_rectangle;
 	painter_class->draw_background = draw_background;
-	painter_class->set_color_set = set_color_set;
 	painter_class->get_pixel_size = get_pixel_size;
 
 	parent_class = gtk_type_class (html_painter_get_type ());
@@ -993,9 +985,6 @@ html_gdk_painter_realize (HTMLGdkPainter *gdk_painter,
 	gdk_painter->black.green = 0x0000;
 	gdk_painter->black.blue = 0x0000;
 	gdk_colormap_alloc_color (colormap, &gdk_painter->black, TRUE, TRUE);
-
-	if (HTML_PAINTER (gdk_painter)->color_set != NULL)
-		allocate_color_set (gdk_painter);
 }
 
 void

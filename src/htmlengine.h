@@ -33,7 +33,6 @@ typedef struct _HTMLEngineClass HTMLEngineClass;
 #include "gtkhtml.h"
 
 #include "htmltokenizer.h"
-#include "htmlcolorset.h"
 #include "htmlcursor.h"
 #include "htmldrawqueue.h"
 #include "htmlstack.h"
@@ -75,8 +74,6 @@ typedef struct _HTMLBlockStackElement HTMLBlockStackElement;
 
 struct _HTMLEngine {
 	GtkObject parent;
-
-	HTMLColorSet *color_set;
 	HTMLDrawQueue *draw_queue;
 
 	HTMLPainter *painter;
@@ -262,7 +259,7 @@ struct _HTMLEngineClass {
 
 /* Object construction.  */
 guint       html_engine_get_type      (void);
-HTMLEngine *html_engine_new           (void);
+HTMLEngine *html_engine_new           (GtkWidget *);
 void        html_engine_realize       (HTMLEngine *engine,
 				       GdkWindow  *window);
 

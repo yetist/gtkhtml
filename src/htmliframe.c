@@ -19,6 +19,7 @@
    Boston, MA 02111-1307, USA.
 */
 #include <gtk/gtk.h>
+#include <string.h>
 #include "htmliframe.h"
 
 HTMLIFrameClass html_iframe_class;

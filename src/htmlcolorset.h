@@ -19,22 +19,64 @@
     Boston, MA 02111-1307, USA.
 */
 
-#ifndef _HTMLCOLORSET_H
-#define _HTMLCOLORSET_H
+#ifndef _HTMLCOLORSET_H_
+#define _HTMLCOLORSET_H_
 
-#include <gdk/gdk.h>
-
-struct _HTMLColorSet {
-	GdkColor background_color;
-	GdkColor foreground_color;
-	GdkColor link_color;
-	GdkColor highlight_color;
-	GdkColor highlight_foreground_color;
-};
+typedef enum   _HTMLColor HTMLColor;
 typedef struct _HTMLColorSet HTMLColorSet;
 
-
-HTMLColorSet *html_color_set_new        (void);
-void          html_color_set_destroy    (HTMLColorSet *set);
+#include <gdk/gdk.h>
+#include "htmlpainter.h"
 
-#endif /* _HTML_COLORSET_H */
+enum _HTMLColor
+{
+	HTMLBgColor = 0,
+	HTMLTextColor,
+	HTMLLinkColor,
+	HTMLVLinkColor,
+	HTMLALinkColor,
+	HTMLHighlightColor,
+	HTMLHighlightTextColor,
+
+	HTMLColors,
+};
+
+struct _HTMLColorSet
+{
+	GdkColor color [HTMLColors];
+	gboolean color_allocated [HTMLColors];
+	GSList  *colors_to_free;
+
+	/* slave sets - they must be updated when setting this one
+	   engine has master set and painters have slave ones
+	 */
+	GSList  *slaves;
+};
+
+
+
+/* ctor + dtor */
+HTMLColorSet     *html_colorset_new                   (GtkWidget *w);
+void              html_colorset_destroy               (HTMLColorSet *set);
+
+/* slaves handling */
+void              html_colorset_add_slave             (HTMLColorSet *set,
+						       HTMLColorSet *slave);
+/* colors set/get */
+void              html_colorset_set_color             (HTMLColorSet *set,
+						       GdkColor *color,
+						       HTMLColor idx);
+GdkColor         *html_colorset_get_color             (HTMLColorSet *set,
+						       HTMLColor idx);
+GdkColor         *html_colorset_get_color_allocated   (HTMLPainter *painter,
+						       HTMLColor idx);
+
+/* frees allocated colors */
+void              html_colorset_free_colors           (HTMLColorSet *set,
+						       HTMLPainter *painter,
+						       gboolean all);
+
+/* copy colors from one se to another, used for resetting to default values */
+void              html_colorset_set_by                (HTMLColorSet *s, HTMLColorSet *o);
+
+#endif

@@ -1280,8 +1280,7 @@ gtk_html_construct (GtkWidget *htmlw)
 
 	html = GTK_HTML (htmlw);
 
-	html->engine = html_engine_new ();
-	html->engine->widget = html; /* FIXME FIXME */
+	html->engine = html_engine_new (htmlw);
 
 	gtk_signal_connect (GTK_OBJECT (html->engine), "title_changed",
 			    GTK_SIGNAL_FUNC (html_engine_title_changed_cb), html);
@@ -1617,5 +1616,5 @@ gtk_html_redo (GtkHTML *html)
 void
 gtk_html_set_default_background_color (GtkHTML *html, GdkColor *c)
 {
-	html_settings_set_color (html->engine->defaultSettings, HTMLBgColor, c);
+	html_colorset_set_color (html->engine->defaultSettings->color_set, c, HTMLBgColor);
 }

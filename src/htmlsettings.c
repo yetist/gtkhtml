@@ -29,29 +29,20 @@ static const int defaultFontSizes[HTML_NUM_FONT_SIZES] = { 8, 10, 12, 14, 18, 24
 
 
 
-#define SET_COLOR(w,r,g,b) \
-        s->color [HTML ## w ## Color].red   = r; \
-        s->color [HTML ## w ## Color].green = g; \
-        s->color [HTML ## w ## Color].blue  = b
-
 HTMLSettings *
-html_settings_new (void)
+html_settings_new (GtkWidget *w)
 {
 	HTMLSettings *s = g_new0 (HTMLSettings, 1);
 	
 	s->fontBaseSize = 3;
 	s->fontBaseFace = g_strdup ("times");
 	s->fixedFontFace = g_strdup ("courier");
-
-	SET_COLOR (Link,  0, 0, 0xffff);
-	SET_COLOR (ALink, 0, 0, 0xffff);
-	SET_COLOR (VLink, 0, 0, 0xffff);
-	SET_COLOR (Bg,    0xffff, 0xffff, 0xffff);
-
 	s->underlineLinks = TRUE;
 	s->forceDefault = FALSE;
 
 	html_settings_reset_font_sizes (s);
+
+	s->color_set = html_colorset_new (w);
 
 	return s;
 }
@@ -63,6 +54,8 @@ html_settings_destroy (HTMLSettings *settings)
 
 	g_free (settings->fontBaseFace);
 	g_free (settings->fixedFontFace);
+
+	html_colorset_destroy (settings->color_set);
 
 	g_free (settings);
 }
@@ -115,81 +108,9 @@ html_settings_set_font_base_face (HTMLSettings *settings,
 }
 
 void
-html_settings_free_colors (HTMLSettings *s, HTMLPainter *painter, gboolean all)
-{
-	GSList *cur = s->colors_to_free;
-	GdkColor *c;
-
-	/* free colors to free */
-	if (cur) {
-		while (cur) {
-			c = (GdkColor *) cur->data;
-			html_painter_free_color (painter, c);
-			gdk_color_free (c);
-			cur = cur->next;
-		}
-		g_slist_free (s->colors_to_free);
-		s->colors_to_free = NULL;
-	}
-
-	/* all means that we free all allocated colors */
-	if (all) {
-		HTMLSettingsColor i = 0;
-
-		for (; i < HTMLColors; i++) {
-			if (s->color_allocated [i]) {
-				html_painter_free_color (painter, &s->color [i]);
-				s->color_allocated [i] = FALSE;
-			}
-		}
-	}
-}
-
-void
 html_settings_set_fixed_font_face (HTMLSettings *settings,
 				   const gchar *face)
 {
 	g_free (settings->fixedFontFace);
 	settings->fixedFontFace = g_strdup (face);
-}
-
-void
-html_settings_set_color (HTMLSettings *s, HTMLSettingsColor idx, GdkColor *color)
-{
-	if (s->color_allocated [idx])
-		s->colors_to_free = g_slist_prepend (s->colors_to_free, gdk_color_copy (&s->color [idx]));
-	s->color [idx] = *color;
-	s->color_allocated [idx] = FALSE;
-}
-
-const GdkColor *
-html_settings_get_color (HTMLSettings *s, HTMLSettingsColor idx)
-{
-	return &s->color [idx];
-}
-
-const GdkColor *
-html_settings_get_color_allocated (HTMLSettings *s, HTMLSettingsColor idx, HTMLPainter *painter)
-{
-	if (s->colors_to_free)
-		html_settings_free_colors (s, painter, FALSE);
-
-	if (!s->color_allocated [idx]) {
-		html_painter_alloc_color (painter, &s->color [idx]);
-		s->color_allocated [idx] = TRUE;
-	}
-
-	return &s->color [idx];
-}
-
-void
-html_settings_reset (HTMLSettings *s, HTMLSettings *o, HTMLPainter *p)
-{
-	/* FIXME we do only colors now */
-
-	HTMLSettingsColor i;
-
-	html_settings_free_colors (s, p, TRUE);
-	for (i=0; i < HTMLColors; i++)
-		s->color [i] = o->color [i];
 }

@@ -27,23 +27,13 @@
 #include <gdk/gdk.h>
 
 typedef struct _HTMLSettings HTMLSettings;
-typedef enum   _HTMLSettingsColor HTMLSettingsColor;
 
 #include "htmlengine.h"
 #include "htmlpainter.h"
+#include "htmlcolorset.h"
 
 
 #define HTML_NUM_FONT_SIZES 7
-
-enum _HTMLSettingsColor {
-	HTMLBgColor = 0,
-	HTMLTextColor,
-	HTMLLinkColor,
-	HTMLVLinkColor,
-	HTMLALinkColor,
-
-	HTMLColors,
-};
 
 struct _HTMLSettings {
 	gint fontSizes [HTML_NUM_FONT_SIZES];
@@ -52,17 +42,14 @@ struct _HTMLSettings {
 	gchar *fontBaseFace;
 	gchar *fixedFontFace;
 
-	/* colors */
-	GdkColor color [HTMLColors];
-	gboolean color_allocated [HTMLColors];
-	GSList  *colors_to_free;
-
 	guint underlineLinks : 1;
 	guint forceDefault : 1;
+
+	HTMLColorSet *color_set;
 };
 
 
-HTMLSettings *   html_settings_new                   (void);
+HTMLSettings *   html_settings_new                   (GtkWidget *w);
 void             html_settings_reset                 (HTMLSettings *settings,
 						      HTMLSettings *orig,
 						      HTMLPainter  *painter);
@@ -75,18 +62,5 @@ void 	      	 html_settings_reset_font_sizes      (HTMLSettings *settings);
 void 	      	 html_settings_copy                  (HTMLSettings *dest, HTMLSettings *src);
 void 	      	 html_settings_set_font_base_face    (HTMLSettings *settings, const gchar *face);
 void 	      	 html_settings_set_fixed_font_face   (HTMLSettings *settings, const gchar *face);
-
-/* colors handling */
-void             html_settings_set_color             (HTMLSettings *settings,
-						      HTMLSettingsColor idx,
-						      GdkColor *color);
-const GdkColor * html_settings_get_color             (HTMLSettings *settings,
-						      HTMLSettingsColor idx);
-const GdkColor * html_settings_get_color_allocated   (HTMLSettings *settings,
-						      HTMLSettingsColor idx,
-						      HTMLPainter *painter);
-void             html_settings_free_colors           (HTMLSettings *s,
-						      HTMLPainter *painter,
-						      gboolean all);
 
 #endif /* _HTMLSETTINGS_H_ */

@@ -154,7 +154,7 @@ draw (HTMLObject *o,
 	if (rule->shade)
 		html_painter_draw_panel (p, xp, yp, w, h, GTK_HTML_ETCH_IN, 1);
 	else {
-		html_painter_set_pen (p, html_painter_get_default_foreground_color (p));
+		html_painter_set_pen (p, html_colorset_get_color_allocated (p, HTMLTextColor));
 		html_painter_fill_rect (p, xp, yp, w, h);
 	}
 }

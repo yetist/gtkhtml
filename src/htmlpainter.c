@@ -86,14 +86,6 @@ DEFINE_UNIMPLEMENTED (draw_background);
 
 DEFINE_UNIMPLEMENTED (get_pixel_size);
 
-static void
-set_color_set (HTMLPainter *painter,
-	       HTMLColorSet *color_set)
-{
-	/* FIXME: Ownership.  */
-	painter->color_set = color_set;
-}
-
 
 static void
 init (GtkObject *object)
@@ -102,7 +94,7 @@ init (GtkObject *object)
 
 	painter = HTML_PAINTER (object);
 
-	painter->color_set = NULL;
+	painter->color_set = html_colorset_new (NULL);
 }
 
 static void
@@ -143,8 +135,6 @@ class_init (GtkObjectClass *object_class)
 	class->draw_background = (gpointer) draw_background_unimplemented;
 
 	class->get_pixel_size = (gpointer) get_pixel_size_unimplemented;
-
-	class->set_color_set = (gpointer) set_color_set;
 
 	parent_class = gtk_type_class (gtk_object_get_type ());
 }
@@ -426,7 +416,7 @@ html_painter_set_clip_rectangle (HTMLPainter *painter,
 /* Passing 0 for pix_width / pix_height makes it use the image width */
 void
 html_painter_draw_background (HTMLPainter *painter,
-			      const GdkColor *color,
+			      GdkColor *color,
 			      GdkPixbuf *pixbuf,
 			      gint x, gint y,
 			      gint width, gint height,
@@ -445,76 +435,4 @@ html_painter_get_pixel_size (HTMLPainter *painter)
 	g_return_val_if_fail (HTML_IS_PAINTER (painter), 0);
 	
 	return (* HP_CLASS (painter)->get_pixel_size) (painter);
-}
-
-
-/* Color set handling.  */
-
-void
-html_painter_set_color_set (HTMLPainter *painter,
-			    HTMLColorSet *color_set)
-{
-	g_return_if_fail (painter != NULL);
-	g_return_if_fail (HTML_IS_PAINTER (painter));
-
-	(* HP_CLASS (painter)->set_color_set) (painter, color_set);
-}
-
-const GdkColor *
-html_painter_get_black (const HTMLPainter *painter)
-{
-	g_return_val_if_fail (painter != NULL, NULL);
-	g_return_val_if_fail (HTML_IS_PAINTER (painter), NULL);
-
-	return (* HP_CLASS (painter)->get_black) (painter);
-}
-
-const GdkColor *
-html_painter_get_default_background_color (HTMLPainter *painter)
-{
-	g_return_val_if_fail (painter != NULL, NULL);
-	g_return_val_if_fail (HTML_IS_PAINTER (painter), NULL);
-	g_return_val_if_fail (painter->color_set != NULL, NULL);
-
-	return &painter->color_set->background_color;
-}
-
-const GdkColor *
-html_painter_get_default_foreground_color (HTMLPainter *painter)
-{
-	g_return_val_if_fail (painter != NULL, NULL);
-	g_return_val_if_fail (HTML_IS_PAINTER (painter), NULL);
-	g_return_val_if_fail (painter->color_set != NULL, NULL);
-
-	return &painter->color_set->foreground_color;
-}
-
-const GdkColor *
-html_painter_get_default_link_color (HTMLPainter *painter)
-{
-	g_return_val_if_fail (painter != NULL, NULL);
-	g_return_val_if_fail (HTML_IS_PAINTER (painter), NULL);
-	g_return_val_if_fail (painter->color_set != NULL, NULL);
-
-	return &painter->color_set->link_color;
-}
-
-const GdkColor *
-html_painter_get_default_highlight_color (HTMLPainter *painter)
-{
-	g_return_val_if_fail (painter != NULL, NULL);
-	g_return_val_if_fail (HTML_IS_PAINTER (painter), NULL);
-	g_return_val_if_fail (painter->color_set != NULL, NULL);
-
-	return &painter->color_set->highlight_color;
-}
-
-const GdkColor *
-html_painter_get_default_highlight_foreground_color (HTMLPainter *painter)
-{
-	g_return_val_if_fail (painter != NULL, NULL);
-	g_return_val_if_fail (HTML_IS_PAINTER (painter), NULL);
-	g_return_val_if_fail (painter->color_set != NULL, NULL);
-
-	return &painter->color_set->highlight_foreground_color;
 }

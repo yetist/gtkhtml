@@ -357,7 +357,7 @@ draw_panel (HTMLPainter *painter,
 
 static void
 draw_background (HTMLPainter *painter,
-		 const GdkColor *color,
+		 GdkColor *color,
 		 GdkPixbuf *pixbuf,
 		 gint x, gint y, 
 		 gint pix_width, gint pix_height,

@@ -802,7 +802,8 @@ draw (HTMLObject *self,
 
 		xp += tx, yp += ty;
 
-		html_painter_set_pen (painter, html_painter_get_black (painter));
+		html_painter_set_pen (painter,
+				      html_colorset_get_color_allocated (painter, HTMLTextColor));
 
 		if (clueflow->level == 0 || (clueflow->level & 1) != 0)
 			html_painter_fill_rect (painter, xp, yp, bullet_size, bullet_size);

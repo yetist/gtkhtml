@@ -244,7 +244,6 @@ save_plain (HTMLObject *self,
       HTMLEngineSaveState *state)
 {
 	HTMLText *text;
-	char *str = NULL;
 	text = HTML_TEXT (self);
 
 	if (! html_engine_save_output_string (state, text->text))

@@ -1,4 +1,25 @@
+2000-06-07  Radek Doulik  <rodo@helixcode.com>
+
+        * everywhere changed to use new colorsets
+	
+	* htmlsettings.c: colors part rewritten to use new colorsets
+
+	* htmlcolorset.c: rewritten, now we have master colorset in engine
+	and slave colorsets in painters
+	colors are set by default to colors from GtkHTML widget style
+
+	* gtkhtml.c (gtk_html_construct): fixed engine widget setting
+
+	* htmlengine.c (html_engine_class_init): added arg html
+	(html_engine_set_arg): new handler
+	(html_engine_new): update to use new arg
+
+	* htmlgdkpainter.c (draw_panel): updated to display better limit cases
+
 2000-06-06  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine.c (html_engine_get_object_at): correct also x
+	coordinate when y < e->topBorder
 
 	* htmlclueflow.c (check_point): corrected bounding condition - now
 	you don't loose selection by moving mouse above gtkhtml area

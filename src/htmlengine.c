@@ -171,7 +171,7 @@ current_color (HTMLEngine *e)
 	const GdkColor *color;
 
 	if (html_stack_is_empty (e->color_stack))
-		color = html_settings_get_color (e->settings, HTMLTextColor);
+		color = html_colorset_get_color (e->settings->color_set, HTMLTextColor);
 	else
 		color = html_stack_top (e->color_stack);
 
@@ -1594,8 +1594,8 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 			}
 
 			if (e->url != NULL || e->target != NULL)
-				push_color (e, gdk_color_copy ((GdkColor *) html_settings_get_color
-							       (e->settings, HTMLLinkColor)));
+				push_color (e, gdk_color_copy ((GdkColor *) html_colorset_get_color
+							       (e->settings->color_set, HTMLLinkColor)));
 		} else if ( strncmp( str, "/a", 2 ) == 0 ) {
 			close_anchor (e);
 		}
@@ -1657,7 +1657,7 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				gtk_html_debug_log (e->widget, "setting color\n");
 				if (parse_color (token + 8, &color)) {
 					gtk_html_debug_log (e->widget, "bgcolor is set\n");
-					html_settings_set_color (e->settings, HTMLBgColor, &color);
+					html_colorset_set_color (e->settings->color_set, &color, HTMLBgColor);
 				} else {
 					gtk_html_debug_log (e->widget, "Color `%s' could not be parsed\n", token);
 				}
@@ -1676,21 +1676,21 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				if (parse_color (token + 5, &color)) {
 					if (! html_stack_is_empty (e->color_stack))
 						pop_color (e);
-					html_settings_set_color (e->settings, HTMLTextColor, &color);
+					html_colorset_set_color (e->settings->color_set, &color, HTMLTextColor);
 					push_color (e, gdk_color_copy (&color));
 				}
 			} else if ( strncasecmp( token, "link=", 5 ) == 0
 				    && !e->defaultSettings->forceDefault ) {
 				parse_color (token + 5, &color);
-				html_settings_set_color (e->settings, HTMLLinkColor, &color);
+				html_colorset_set_color (e->settings->color_set, &color, HTMLLinkColor);
 			} else if ( strncasecmp( token, "vlink=", 6 ) == 0
 				    && !e->defaultSettings->forceDefault ) {
 				parse_color (token + 6, &color);
-				html_settings_set_color (e->settings, HTMLVLinkColor, &color);
+				html_colorset_set_color (e->settings->color_set, &color, HTMLVLinkColor);
 			} else if ( strncasecmp( token, "alink=", 6 ) == 0
 				    && !e->defaultSettings->forceDefault ) {
 				parse_color (token + 6, &color);
-				html_settings_set_color (e->settings, HTMLALinkColor, &color);
+				html_colorset_set_color (e->settings->color_set, &color, HTMLALinkColor);
 			} else if ( strncasecmp( token, "leftmargin=", 11 ) == 0) {
 				e->leftBorder = atoi (token + 11);
 			} else if ( strncasecmp( token, "rightmargin=", 12 ) == 0) {
@@ -2822,8 +2822,6 @@ html_engine_destroy (GtkObject *object)
 	if (engine->cut_buffer != NULL)
 		html_engine_cut_buffer_destroy (engine->cut_buffer);
 
-	html_color_set_destroy (engine->color_set);
-
 	if (engine->invert_gc != NULL)
 		gdk_gc_destroy (engine->invert_gc);
 
@@ -2871,6 +2869,23 @@ html_engine_destroy (GtkObject *object)
 		gtk_timeout_remove (engine->updateTimer);
 
 	GTK_OBJECT_CLASS (parent_class)->destroy (object);
+}
+
+static void
+html_engine_set_arg (GtkObject        *object,
+		     GtkArg           *arg,
+		     guint             arg_id)
+{
+	HTMLEngine *engine = HTML_ENGINE (object);
+
+	printf ("set arg\n");
+	if (arg_id == 1) {
+		printf ("set widget\n");
+		engine->widget          = GTK_HTML (GTK_VALUE_OBJECT (*arg));
+		engine->settings        = html_settings_new (GTK_WIDGET (engine->widget));
+		engine->defaultSettings = html_settings_new (GTK_WIDGET (engine->widget));
+		html_colorset_add_slave (engine->settings->color_set, engine->painter->color_set);
+	}
 }
 
 static void
@@ -2966,6 +2981,12 @@ html_engine_class_init (HTMLEngineClass *klass)
 
 	gtk_object_class_add_signals (object_class, signals, LAST_SIGNAL);
 
+	gtk_object_add_arg_type ("HTMLEngine::html",
+				 GTK_TYPE_HTML,
+				 GTK_ARG_WRITABLE | GTK_ARG_CONSTRUCT_ONLY,
+				 1);
+
+	object_class->set_arg = html_engine_set_arg;
 	object_class->destroy = html_engine_destroy;
 
 	html_engine_init_magic_links ();
@@ -2978,15 +2999,15 @@ static void
 html_engine_init (HTMLEngine *engine)
 {
 	/* STUFF might be missing here!   */
-
 	engine->freeze_count = 0;
 
 	engine->window = NULL;
 	engine->invert_gc = NULL;
 
-	engine->color_set = html_color_set_new ();
-	engine->painter = html_gdk_painter_new (TRUE);
-	html_painter_set_color_set (engine->painter, engine->color_set);
+	printf ("engine->widget %p\n", engine->widget);
+
+	/* settings, colors and painter init */
+	engine->painter         = html_gdk_painter_new (TRUE);
 	
 	engine->newPage = FALSE;
 
@@ -2995,8 +3016,6 @@ html_engine_init (HTMLEngine *engine)
 
 	engine->ht = html_tokenizer_new ();
 	engine->st = html_string_tokenizer_new ();
-	engine->settings = html_settings_new ();
-	engine->defaultSettings = html_settings_new ();
 	engine->image_factory = html_image_factory_new(engine);
 
 	engine->undo = html_undo_new ();
@@ -3048,13 +3067,13 @@ html_engine_init (HTMLEngine *engine)
 }
 
 HTMLEngine *
-html_engine_new (void)
+html_engine_new (GtkWidget *w)
 {
-	HTMLEngine *engine;
+	GtkObject *engine;
 
-	engine = gtk_type_new (html_engine_get_type ());
+	engine = gtk_object_new (html_engine_get_type (), "html", w, NULL);
 
-	return engine;
+	return HTML_ENGINE (engine);
 }
 
 void
@@ -3133,7 +3152,7 @@ html_engine_draw_background (HTMLEngine *e,
 	}
 
 	html_painter_draw_background (e->painter, 
-				      html_settings_get_color_allocated (e->settings, HTMLBgColor, e->painter),
+				      html_colorset_get_color_allocated (e->painter, HTMLBgColor),
 				      pixbuf,
 				      x, y,
 				      w, h,
@@ -3349,7 +3368,7 @@ ensure_last_clueflow (HTMLEngine *engine)
 
 	new_textmaster = html_text_master_new ("",
 					       GTK_HTML_FONT_STYLE_DEFAULT,
-					       html_settings_get_color (engine->settings, HTMLTextColor));
+					       html_colorset_get_color (engine->settings->color_set, HTMLTextColor));
 	html_clue_prepend (last_clueflow, new_textmaster);
 }
 
@@ -3518,8 +3537,8 @@ html_engine_parse (HTMLEngine *e)
 	e->bottomBorder = BOTTOM_BORDER;
 
 	/* reset settings to default ones */
-	html_settings_reset (e->settings, e->defaultSettings, e->painter);
-		
+	html_colorset_set_by (e->settings->color_set, e->defaultSettings->color_set);
+
 	e->clue = html_cluev_new (0, 0, 100);
 	HTML_CLUE (e->clue)->valign = HTML_VALIGN_TOP;
 	HTML_CLUE (e->clue)->halign = HTML_HALIGN_LEFT;
@@ -3738,7 +3757,7 @@ html_engine_queue_clear (HTMLEngine *e,
 
 	if (e->freeze_count == 0)
 		html_draw_queue_add_clear (e->draw_queue, x, y, width, height,
-					   html_settings_get_color (e->settings, HTMLBgColor));
+					   html_colorset_get_color (e->settings->color_set, HTMLBgColor));
 }
 
 

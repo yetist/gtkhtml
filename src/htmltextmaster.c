@@ -194,6 +194,7 @@ check_point (HTMLObject *self,
 	for (p = self->next;
 	     p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE;
 	     p = p->next) {
+
 		if (y > p->y + p->descent)
 			continue;
 
@@ -830,7 +831,7 @@ paste_link (HTMLEngine *engine, HTMLText *text, gint so, gint eo, gchar *prefix)
 		(text->text+so,
 		 eo - so + 1,
 		 text->font_style,
-		 html_settings_get_color (engine->settings, HTMLLinkColor),
+		 html_colorset_get_color (engine->settings->color_set, HTMLLinkColor),
 		 href, NULL);
 	html_engine_replace_by_object (engine,
 				       HTML_OBJECT (text), so, HTML_OBJECT (text), eo + 1,

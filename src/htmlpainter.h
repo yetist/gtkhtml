@@ -24,6 +24,8 @@
 #ifndef _HTMLPAINTER_H_
 #define _HTMLPAINTER_H_
 
+typedef struct _HTMLPainter HTMLPainter;
+
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gtk/gtk.h>
 
@@ -50,7 +52,6 @@ struct _HTMLPainter {
 
 	HTMLColorSet *color_set;
 };
-typedef struct _HTMLPainter HTMLPainter;
 
 struct _HTMLPainterClass {
 	GtkObjectClass base;
@@ -80,15 +81,14 @@ struct _HTMLPainterClass {
 	void (* clear) (HTMLPainter *painter);
 	void (* set_background_color) (HTMLPainter *painter, const GdkColor *color);
 	void (* draw_shade_line) (HTMLPainter *p, gint x, gint y, gint width);
-	void (* draw_panel) (HTMLPainter *painter, gint x, gint y, gint width, gint height,
+	void (* draw_panel) (HTMLPainter *painter,
+			     gint x, gint y, gint width, gint height,
 			     GtkHTMLEtchStyle inset, gint bordersize);
 
 	void (* set_clip_rectangle) (HTMLPainter *painter, gint x, gint y, gint width, gint height);
-	void (* draw_background) (HTMLPainter *painter, const GdkColor *color, GdkPixbuf *pixbuf,
+	void (* draw_background) (HTMLPainter *painter, GdkColor *color, GdkPixbuf *pixbuf,
 				  gint x, gint y, gint width, gint height, gint tile_x, gint tile_y);
 	
-	void (* set_color_set) (HTMLPainter *painter, HTMLColorSet *color_set);
-
 	guint (* get_pixel_size) (HTMLPainter *painter);
 };
 typedef struct _HTMLPainterClass HTMLPainterClass;
@@ -194,7 +194,7 @@ void  html_painter_set_clip_rectangle  (HTMLPainter *painter,
 
 /* Passing 0 for pix_width / pix_height makes it use the image width */
 void  html_painter_draw_background  (HTMLPainter *painter,
-				     const GdkColor *color,
+				     GdkColor *color,
 				     GdkPixbuf   *pixbuf,
 				     gint         x,
 				     gint         y,
@@ -206,5 +206,3 @@ void  html_painter_draw_background  (HTMLPainter *painter,
 guint  html_painter_get_pixel_size  (HTMLPainter *painter);
 
 #endif /* _HTMLPAINTER_H_ */
-
-

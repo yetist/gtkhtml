@@ -333,10 +333,10 @@ draw_highlighted (HTMLTextSlave *slave,
 
 	/* Draw the highlighted part with a highlight background.  */
 
-	html_painter_set_pen (p, html_painter_get_default_highlight_color (p));
+	html_painter_set_pen (p, html_colorset_get_color_allocated (p, HTMLHighlightColor));
 	html_painter_fill_rect (p, obj->x + tx + offset_width, obj->y + ty - obj->ascent,
 				text_width, obj->ascent + obj->descent);
-	html_painter_set_pen (p, html_painter_get_default_highlight_foreground_color (p));
+	html_painter_set_pen (p, html_colorset_get_color_allocated (p, HTMLHighlightTextColor));
 	html_painter_draw_text (p, obj->x + tx + offset_width, obj->y + ty, text + start, len);
 
 	/* Draw the non-highlighted part.  */

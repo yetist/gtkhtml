@@ -337,7 +337,7 @@ draw (HTMLObject *o,
 		hspace = image->hspace * pixel_size;
 		vspace = image->vspace * pixel_size;
 
-		html_painter_draw_panel (painter, 
+		html_painter_draw_panel (painter,
 					 o->x + tx + hspace,
 					 o->y + ty - o->ascent + vspace,
 					 o->width - 2 * hspace,
@@ -353,7 +353,7 @@ draw (HTMLObject *o,
 	scale_height = get_actual_height (image, painter);
 
 	if (o->selected)
-		highlight_color = html_painter_get_default_highlight_color (painter);
+		highlight_color = html_colorset_get_color (painter->color_set, HTMLHighlightColor);
 	else
 		highlight_color = NULL;
 
