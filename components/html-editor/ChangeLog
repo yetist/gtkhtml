@@ -1,44 +1,7 @@
-2000-10-17  Radek Doulik  <rodo@helixcode.com>
-
-	* properties.c (gtk_html_edit_properties_dialog_show): don't show
-	notebook tabs and border if there is less than two notebook pages
-
-	* text.c (text_properties): use sample_frame, added sample frame
-	(fill_sample): new helper function
-	(text_properties): changed style handling
-	use fill_data all over place
-
-	* utils.c (sample_frame): new helper function
-
-	* rule.c (fill_sample): use gtk_html_load_from_string
-
-2000-10-12  Radek Doulik  <rodo@helixcode.com>
-
-	* popup.c (prop_dialog): added rule property type
-	(popup_show): likewise
-
-	* control-data.h: removed remaining object properties dialogs
-
-	* control-data.c (gtk_html_control_data_destroy): forgot about
-	rule dialog
-
-	* image.h: removed some old stuff
-
-	* rule.[ch]: rewritten to use properies dialog
-
-	* menubar.c (insert_rule_cb): use new rule properties
-
-	* editor-control-factory.c (release): added rule propeties
-
-	* properties.h: added rule to GtkHTMLEditPropertyType
-
-	* image.c: updated image dialog design with Anna improvements,
-	fixed properties_changed handling
-
 2000-10-11  Radek Doulik  <rodo@helixcode.com>
 
-	* implemented GtkHTMLEditSpellAPI, use gnome-spell
-	component
+	* spell.c (spell_suggestion_request_cb): updated to meet signal
+	declaration
 
 2000-10-09  Larry Ewing  <lewing@helixcode.com>
 

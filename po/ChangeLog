@@ -1,26 +1,126 @@
-2000-10-16  Héctor García Álvarez <hector@scouts-es.org>
+2000-10-10  Christophe Merlet  <christophe@merlet.net>
 
-        * es.po: Added Spanish translation.
+	* fr.po: Updated French translation.
 
-2000-10-16  Jarkko Ranta <jjranta@cc.joensuu.fi>
+2000-10-10  Yukihiro Nakai  <nakai@gnome.gr.jp>
 
-	* fi.po: Added Finnish translation.
+	* ja.po: Update Japanese translation.
 
-2000-10-15  Christian Meyer <cm@ggtt.de>
+2000-09-26  Christian Meyer  <linux@chrisime.de>
 
-	* de.po: Updated German translation.
+	* nl.po: Updated Dutch translation from sienap.
 	
-2000-10-15  Kjartan Maraas  <kmaraas@gnome.org>
+2000-09-25  Kjartan Maraas  <kmaraas@gnome.org>
 
-	* no.po: Updated Norwegian (bokmål) translation.
+	* no.po: Updated Norwegian translation.
+	* POTFILES.in: Removed previous update. Please do not
+	just blindly add files to this file. All additions _must_
+	be checked by hand or the build will break. All files added
+	here that aren't in the disted tarball will cause the
+	tarball not to build. So check Makefile.am before adding
+	files. Also you have to check the file if there are actual
+	_() or N_() marked strings because update.pl can be wrong!!
 	
-2000-10-13  Christian Rose  <menthos@menthos.com>
+2000-09-25  Christophe Merlet  <christophe@merlet.net>
+
+	* fr.po: Updated French translation.
+	* POTFILES.in: Updated files list.
+
+2000-09-23  Jesus Bravo Alvarez  <jba@pobox.com>
+
+	* gl.po: Added Galician translation.
+
+2000-09-21  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* no.po: Updated Norwegian translation.
+	
+2000-09-19  Christian Meyer  <linux@chrisime.de
+
+	* de.po: Small Update for German translation.
+	
+2000-09-19  Kai Lahmann <kl@linufaqs.de>
+
+	* de.po: Updated German translation
+
+2000-09-18  Christian Rose  <menthos@menthos.com>
 
 	* sv.po: Updated Swedish translation.
 
-2000-10-13  Matthias Warkus  <mawa@iname.com>
+2000-09-15  Christian Rose  <menthos@menthos.com>
 
-	* de.po: Fixes and QA.
+	* sv.po: Updated Swedish translation.
+
+2000-09-11  Christian Meyer  <linux@chrisime.de>
+
+	*de.po: Updated German translation.
+	*README.tools: Added text file.
+	
+2000-09-11  Christian Rose  <menthos@menthos.com>
+
+	* sv.po: Updated Swedish translation.
+
+2000-09-09  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* no.po: Updated Norwegian translation.
+	
+2000-09-07  Christian Rose  <menthos@menthos.com>
+
+	* sv.po: Updated Swedish translation.
+
+2000-09-06  Christian Rose  <menthos@menthos.com>
+
+	* sv.po: Added Swedish translation.
+
+2000-08-24  JP Rosevear  <jpr@helixcode.com>
+
+	* POTFILES.in: Remove erased file.
+
+2000-08-19  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* no.po: Updated Norwegian translation.
+	
+2000-08-14  Yuri Syrota <rasta@renome.rovno.ua>
+
+	* uk.po: Updated Ukrainian translations.
+
+2000-08-14  Kai Lahmann <kl@linuxfaqs.de>
+
+	* de.po: Updated German translation
+
+2000-08-14  Takayuki KUSANO  <AE5T-KSN@asahi-net.or.jp>
+
+	* ja.po: Updated Japanese translations.
+
+2000-08-13  Valek Filippov  <frob@df.ru>
+
+	* ru.po: updated russian translation.
+	* POTFILES.in: added missing files.
+
+2000-07-24  Fatih Demir	<kabalak@gmx.net>
+
+	* .cvsignore: More delirium, the patient is
+		still too active ...
+
+2000-07-20  Fatih Demir	<kabalak@gmx.net>
+
+	* .cvsignore: Added this piece of delirium
+		for CVS.
+
+2000-07-21  Takayuki KUSANO  <AE5T-KSN@asahi-net.or.jp>
+
+	* ja.po: Added Japanese translation.
+
+2000-07-20  Valek Filippov  <frob@df.ru>
+
+	* ru.po: updated russian translation.
+
+2000-07-16  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* no.po: Added Norwegian translation.
+	
+2000-07-14  Fatih Demir	<kabalak@gmx.net>
+
+	* tr.po: Added the Turkish translation.
 
 2000-07-13  Valek Filippov  <frob@df.ru>
 

@@ -20,25 +20,14 @@
    Boston, MA 02111-1307, USA.
 */
 
+#ifdef GTKHTML_HAVE_PSPELL
 #ifndef _GTK_HTML_EDIT_SPELL_H_
 #define _GTK_HTML_EDIT_SPELL_H_
 
 #include <gtkhtml.h>
 #include "control-data.h"
 
-BonoboObjectClient *spell_new_dictionary      (void);
-gboolean            spell_check_word          (GtkHTML     *html,
-					       const gchar *word,
-					       gpointer     data);
-void                spell_suggestion_request  (GtkHTML     *html,
-					       const gchar *word,
-					       gpointer     data);
-void                spell_add_to_session      (GtkHTML     *html,
-					       const gchar *word,
-					       gpointer     data);
-void                spell_add_to_personal     (GtkHTML     *html,
-					       const gchar *word,
-					       gpointer     data);
+void spell_suggestion_request_cb (GtkHTML *html,  gpointer checker, gchar *word, GtkHTMLControlData *cd);
 
-
+#endif
 #endif

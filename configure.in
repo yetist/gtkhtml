@@ -2,7 +2,7 @@ dnl Initialization
 
 AC_INIT(src/gtkhtml.c)
 AM_CONFIG_HEADER(config.h)
-AM_INIT_AUTOMAKE(gtkhtml, 0.6.1)
+AM_INIT_AUTOMAKE(gtkhtml, 0.7)
 
 AM_MAINTAINER_MODE
 AM_ACLOCAL_INCLUDE(macros)
@@ -22,20 +22,20 @@ AC_SUBST(CFLAGS)
 AC_SUBST(CPPFLAGS)
 AC_SUBST(LDFLAGS)
 
-ALL_LINGUAS="cs de es fi fr gl ja ko nl no pt_BR ru sl sv tr uk"
+ALL_LINGUAS="cs de fr gl ja ko nl no pt_BR ru sl sv tr uk"
 AM_GNOME_GETTEXT
 
 dnl ******************************
 dnl Gnome App Lib checking
 dnl ******************************
-AC_MSG_CHECKING(for Gnome App libraries (GAL) >= 0.01)
+AC_MSG_CHECKING(for Gnome App libraries (GAL) >= 0.2)
 if gnome-config --libs gal > /dev/null 2>&1; then 
     vers=`gnome-config --modversion gal | sed -e "s/gal-//" -e 's/cvs$//' -e 's/pre$//' | \
         awk 'BEGIN { FS = "."; } { print $1 * 1000 + $2;}'`
-    if test "$vers" -ge 1; then
+    if test "$vers" -ge 2; then
         AC_MSG_RESULT(found)
     else
-        AC_MSG_ERROR(You need at least GNOME Application libs 0.01 for this version of GtkHTML)
+        AC_MSG_ERROR(You need at least GNOME Application libs 0.2 for this version of GtkHTML)
     fi
 else
     AC_MSG_ERROR(Did not find GnomeAppLib (GAL) installed)
@@ -106,12 +106,12 @@ AC_ARG_WITH(bonobo,
 )
 
 if $try_bonobo; then
-	AC_MSG_CHECKING(for Bonobo >= 0.20)
+	AC_MSG_CHECKING(for Bonobo >= 0.23)
 
 	if gnome-config --libs bonobox > /dev/null 2>&1; then
 		vers=`gnome-config --modversion bonobo | sed -e "s/bonobo-//" | \
 			awk 'BEGIN { FS = "."; } { printf "%d", $1 * 1000 + $2;}'`
-		if test "$vers" -ge 20; then
+		if test "$vers" -ge 23; then
 			bonobo_ok=true
 		else
 			bonobo_ok=false
@@ -131,7 +131,10 @@ if $try_bonobo; then
 		fi
 		bonobo_msg=yes
 	else
-		AC_MSG_RESULT([not found])
+		AC_MSG_RESULT([not found
+***************
+*** WARNING ***  gtkhtml will be build without HTML Editor component
+***************  which is required for Evolution])
 	fi
 fi
 
@@ -183,35 +186,61 @@ fi
 AC_SUBST(GCONF_CFLAGS)
 AC_SUBST(GCONF_LIBS)
 
-dnl gnome-print checks.
+dnl pspell checks
 
-AC_MSG_CHECKING([for gnome-print >= 0.20])
-if gnome-config --libs print > /dev/null 2>&1; then
-	vers=`gnome-config --modversion print | sed 's/^gnome-print-//'`
-	if [[ "x$vers" = "x" ]] ; then
-		gnomeprint_ok=false
-	else
-		case "$vers" in
-			0.[[0123456789]])
-				gnomeprint_ok=false ;;
+try_pspell=true
+have_pspell=false
 
-			0.1[[0123456789]])
-				gnomeprint_ok=false ;;
-
-			*)
-				gnomeprint_ok=true ;;
-		esac
+AC_ARG_WITH(pspell,
+	[--{with,without}-pspell    Compile with Pspell support or without it],
+	if test x$withval = xno; then
+		try_pspell=false
 	fi
+	if test x$withval = xyes; then
+		try_pspell=true
+	fi
+)
 
-	AC_MSG_RESULT([found ("$vers")])
+PSPELL_CFLAGS=""
+PSPELL_LIBS=""
+if $try_pspell; then
+	AC_MSG_CHECKING([for pspell])
+	if pspell-config version > /dev/null 2>&1; then
+		pspell_ver=`pspell-config version`
+		have_pspell=true
+		PSPELL_CFLAGS="-DGTKHTML_HAVE_PSPELL"
+		if test x$CC = xgcc; then
+			PSPELL_LIBS="-lpspell -lstdc++"
+		else
+			PSPELL_LIBS="-lpspell"
+		fi
+		AC_MSG_RESULT([found ($pspell_ver)])
+	else
+		have_pspell=false
+		AC_MSG_RESULT([not found, gtkhtml will be built without pspell support])
+	fi
+fi
+AC_SUBST(PSPELL_CFLAGS)
+AC_SUBST(PSPELL_LIBS)
+
+AM_CONDITIONAL(PSPELL, $have_pspell)
+
+dnl ******************************
+dnl GnomePrint checking
+dnl ******************************
+AC_MSG_CHECKING(for GnomePrint libraries >= 0.24)
+if gnome-config --libs print > /dev/null 2>&1; then 
+    vers=`gnome-config --modversion print | sed -e "s/gnome-print-//" -e 's/cvs$//' -e 's/pre$//' | \
+        awk 'BEGIN { FS = "."; } { print $1 * 1000 + $2;}'`
+    if test "$vers" -ge 24; then
+        AC_MSG_RESULT(found)
+    else
+        AC_MSG_ERROR(You need at least GNOME print 0.21pre for this version of GAL)
+    fi
 else
-	AC_MSG_RESULT([not found])
-	gnomeprint_ok=false
+    AC_MSG_ERROR(Did not find GnomePrint installed)
 fi
 
-if test "x$gnomeprint_ok" = "xfalse"; then
-	AC_MSG_ERROR([gnome-print 0.16 or later is required to compile GtkHTML.])
-fi
 
 dnl gdk-pixbuf checks.
 
@@ -256,8 +285,8 @@ dnl gtkhtmlConf.sh stuff.
 
 GTKHTML_LIBDIR="-L${libdir}"
 GTKHTML_INCLUDEDIR="-I${includedir}"
-GTKHTML_INCLUDEDIR="$GTKHTML_INCLUDEDIR `$GNOME_CONFIG --cflags gdk_pixbuf print` $GCONF_CFLAGS"
-GTKHTML_LIBS="-lgtkhtml `$GNOME_CONFIG --libs gdk_pixbuf print` $GCONF_LIBS"
+GTKHTML_INCLUDEDIR="$GTKHTML_INCLUDEDIR `$GNOME_CONFIG --cflags gdk_pixbuf print` $GCONF_CFLAGS $PSPELL_CFLAGS"
+GTKHTML_LIBS="-lgtkhtml `$GNOME_CONFIG --libs gdk_pixbuf print` $GCONF_LIBS $PSPELL_LIBS"
 
 AC_SUBST(GTKHTML_LIBDIR)
 AC_SUBST(GTKHTML_INCLUDEDIR)

@@ -27,7 +27,6 @@ typedef struct _GtkHTML	            GtkHTML;
 typedef struct _GtkHTMLPrivate      GtkHTMLPrivate;
 typedef struct _GtkHTMLClass	    GtkHTMLClass;
 typedef struct _GtkHTMLInputLine    GtkHTMLInputLine;
-typedef struct _GtkHTMLEditSpellAPI GtkHTMLEditSpellAPI;
 
 #include <sys/types.h>
 #include <gtk/gtk.h>
@@ -184,12 +183,10 @@ typedef HTMLEngineSaveReceiverFn GtkHTMLSaveReceiverFn;
 struct _GtkHTML {
 	GtkLayout layout;
 
-	GtkBindingSet        *editor_bindings;
-	GtkWidget            *iframe_parent;
-	GtkHTMLEditSpellAPI  *spell_api;
-	gpointer              spell_data;
-	GtkHTMLInputLine     *input_line;
-	HTMLEngine           *engine;
+	GtkBindingSet      *editor_bindings;
+	GtkWidget          *iframe_parent;
+	GtkHTMLInputLine   *input_line;
+	HTMLEngine         *engine;
 
 	/* The URL of the link over which the pointer currently is.  NULL if
            the pointer is not over a link.  */
@@ -246,29 +243,18 @@ struct _GtkHTMLClass {
 	void (* scroll)               (GtkHTML *html, GtkOrientation orientation, GtkScrollType scroll_type, gfloat position);
 	void (* cursor_move)          (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType skip);
 	void (* command)              (GtkHTML *html, GtkHTMLCommandType com_type);
+	void (* spell_suggestion_request) (GtkHTML *html, gpointer *spell_checker, gchar *word);
 
 	/* properties */
 	GtkHTMLClassProperties *properties;
 };
 
-struct _GtkHTMLEditSpellAPI
-{
-	/* spell checking methods */
-	gboolean  (* check_word)              (GtkHTML *html, const gchar *word, gpointer data);
-	void      (* suggestion_request)      (GtkHTML *html, const gchar *word, gpointer data);
-	void      (* add_to_session)          (GtkHTML *html, const gchar *word, gpointer data);
-	void      (* add_to_personal)         (GtkHTML *html, const gchar *word, gpointer data);
-};
-
 
 
 /* Creation.  */
-GtkType    gtk_html_get_type       (void);
-GtkWidget *gtk_html_new            (void);
-void       gtk_html_construct      (GtkWidget           *htmlw);
-void       gtk_html_set_spell_api  (GtkHTML             *html,
-				    GtkHTMLEditSpellAPI *api,
-				    gpointer             data);
+GtkType    gtk_html_get_type  (void);
+GtkWidget *gtk_html_new       (void);
+void       gtk_html_construct (GtkWidget *htmlw);
 
 /* parent iframe setting */
 void       gtk_html_set_iframe_parent       (GtkHTML *html,
@@ -286,18 +272,15 @@ void  gtk_html_select_line      (GtkHTML  *html);
 int   gtk_html_request_paste    (GtkWidget *widget,
 				 gint32 time);
 /* Loading.  */
-GtkHTMLStream *gtk_html_begin             (GtkHTML             *html);
-void           gtk_html_write             (GtkHTML             *html,
-					   GtkHTMLStream       *handle,
-					   const gchar         *buffer,
-					   size_t               size);
-void           gtk_html_end               (GtkHTML             *html,
-					   GtkHTMLStream       *handle,
-					   GtkHTMLStreamStatus  status);
-void           gtk_html_load_empty        (GtkHTML             *html);
-void           gtk_html_load_from_string  (GtkHTML             *html,
-					   gchar               *str,
-					   gint                 len);
+GtkHTMLStream *gtk_html_begin       (GtkHTML             *html);
+void           gtk_html_write       (GtkHTML             *html,
+				     GtkHTMLStream       *handle,
+				     const gchar         *buffer,
+				     size_t               size);
+void           gtk_html_end         (GtkHTML             *html,
+				     GtkHTMLStream       *handle,
+				     GtkHTMLStreamStatus  status);
+void           gtk_html_load_empty  (GtkHTML             *html);
 
 /* Saving.  */
 gboolean  gtk_html_save  (GtkHTML               *html,

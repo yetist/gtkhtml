@@ -32,13 +32,6 @@
 
 2000-10-17  Radek Doulik  <rodo@helixcode.com>
 
-	* htmlengine-edit-fontstyle.c (object_set_font_style): changed
-	order or bit operations, first do OR and then AND
-	(html_engine_set_font_style): likewise
-
-	* gtkhtml.c (gtk_html_load_from_string): new helper function, does
-	begin, write, end to simplify short/easy html doc loading
-
 	* htmltokenizer.c (in_plain): declare as inline
 
 	* htmltable.c (get_bounds): extract method
@@ -74,15 +67,6 @@
 	(save_plain): don't use unicode functions here, as text is not in
 	utf8 now
 
-2000-10-13  Lauris Kaplinski  <lauris@helixcode.com>
-
-	* htmltokenizer.c: Renamed g_unichar_to_utf8 to html_unichar_to_utf8
-
-2000-10-13  Radek Doulik  <rodo@helixcode.com>
-
-	* htmlengine-edit-rule.c (html_rule_set): new function for setting
-	rule parameters
-
 2000-10-12  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlclueflow.c (save_plain): wrap the text contained within the
@@ -105,14 +89,12 @@
 	* htmlengine-save.c: added functions to create a save buffer to
 	hold text before wrapping.
 	
-2000-10-12  Radek Doulik  <rodo@helixcode.com>
-
-	* htmlrule.c (copy): copy also length and size
-
 2000-10-11  Radek Doulik  <rodo@helixcode.com>
 
-	* Makefile.am (CFLAGS): removed pspell flags
-	(testgtkhtml_LDADD): removed pspell libs
+	* gtkhtml.c: include always SPELL_SUGGESTION_REQUEST
+
+	* gtkhtml.h: don't use pspell structures in
+	spell_suggestion_request declaration
 
 2000-10-11  Larry Ewing  <lewing@helixcode.com>
 
@@ -127,18 +109,6 @@
 	* htmlobject.c (destroy): add code to poison destroyed memory.
 
 2000-10-10  Radek Doulik  <rodo@helixcode.com>
-
-	* new spell checking API GtkHTMLEditSpellAPI, it's here as I don't
-	want to make libgtkhtml depend on Bonobo, just editor component
-	which will use this API
-
-	* removed pspell checking #ifdef's
-
-	* gtkhtml-private.h: like below
-
-	* gtkhtml.c (set_fonts_idle): test for GTKHTML_HAVE_GCONF instead
-	of PSPELL which was mistaken
-	(set_fonts): likewise
 
 	* htmltable.c (expand_columns): use g_renew
 	(expand_rows): likewise

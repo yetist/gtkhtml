@@ -455,8 +455,8 @@ html_tokenizer_add_pending (HTMLTokenizer *t)
 	t->pending = NonePending;
 }
 
-static gint
-html_unichar_to_utf8 (gint c, gchar *outbuf)
+gint
+g_unichar_to_utf8 (gint c, gchar *outbuf)
 {
   size_t len = 0;
   gint first;
@@ -702,7 +702,7 @@ in_entity (HTMLTokenizer *t, const gchar **src)
 	else {
 		if(entityValue) {
 			/* Insert plain char */
-			t->dest += html_unichar_to_utf8 (entityValue, t->dest);
+			t->dest += g_unichar_to_utf8 (entityValue, t->dest);
 			if (t->pre) t->prePos++;
 			if (**src == ';') (*src)++;
 		}
@@ -1056,7 +1056,7 @@ in_plain (HTMLTokenizer *t, const gchar **src)
 	else if (t->pre) {
 		t->prePos++;
 	}
-	t->dest += html_unichar_to_utf8 ((guchar) **src, t->dest);
+	t->dest += g_unichar_to_utf8 ((guchar) **src, t->dest);
 	(*src)++;
 }
 

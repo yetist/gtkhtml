@@ -1,3 +1,10 @@
+2000-10-19  Radek Doulik  <rodo@helixcode.com>
+
+	* configure.in: increased version number to 0.7
+	require gal version 0.2
+	require bonobo version 0.23
+	require gnome-print version 0.24
+
 2000-10-18  Vladimir Vukicevic  <vladimir@helixcode.com>
 
 	* src/gtkhtml.c, src/gtkhtml.h: Reverted x/y patch, added
@@ -11,26 +18,6 @@
 
 	* configure.in: added check for capplet library
 	(GTKHTML_CURRENT): raised GTKHTML_CURRENT to 5
-
-2000-10-16  Vladimir Vukicevic  <vladimir@helixcode.com>
-
-	* src/gtkhtml.c: Set the x/y coordinates of the last link that was clicked on
-	as object data on the GtkHTML widget (so that apps can get at the HTMLObject
-	at that location, if necessary)
-
-2000-10-16  Jarkko Ranta  <jjranta@cc.joensuu.fi>
-
-	* configure.in : added "fi" to ALL_LINGUAS
-	* Added finnish entries to .desktop -files
-
-2000-10-11  Radek Doulik  <rodo@helixcode.com>
-
-	* README.spell: cleaned, leave only a small note about gnome-spell
-	component
-
-	* configure.in (GCONF_LIBS): removed Pspell checks
-	(GTKHTML_INCLUDEDIR): removed Pspell flags
-	(GTKHTML_LIBS): likewise
 
 2000-10-05  Michael Meeks  <michael@helixcode.com>
 
