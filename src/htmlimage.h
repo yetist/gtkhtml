@@ -127,7 +127,11 @@ HTMLObject *html_image_new         (HTMLImageFactory *imf,
 				    const GdkColor   *border_color,
 				    HTMLVAlignType    valign);
 
-void         html_image_set_spacing (HTMLImage *image, gint hspace, gint vspace);
+void         html_image_set_size           (HTMLImage *image, gint w, gint percent, gint h);
+void         html_image_set_spacing        (HTMLImage *image, gint hspace, gint vspace);
+void         html_image_set_filename       (HTMLImage *image, const gchar *file);
+void         html_image_set_valign         (HTMLImage *image, HTMLVAlignType valign);
+void         html_image_set_border         (HTMLImage *image, gint border);
 
 /* FIXME move to htmlimagefactory.c */
 HTMLImageFactory *html_image_factory_new      (HTMLEngine       *e);

@@ -527,8 +527,73 @@ html_image_new (HTMLImageFactory *imf,
 void
 html_image_set_spacing (HTMLImage *image, gint hspace, gint vspace)
 {
-	image->hspace = hspace;
-	image->vspace = vspace;
+	gboolean changed = FALSE;
+
+	if (image->hspace != hspace) {
+		image->hspace = hspace;
+		changed = TRUE;
+	}
+
+	if (image->vspace != vspace) {
+		image->vspace = vspace;
+		changed = TRUE;
+	}
+
+	if (changed)
+		html_engine_schedule_update (image->image_ptr->factory->engine);
+}
+
+void
+html_image_set_filename (HTMLImage *image, const gchar *filename)
+{
+	if (strcmp (image->image_ptr->url, filename)) {
+		HTMLImageFactory *imf = image->image_ptr->factory;
+
+		html_image_factory_unregister (imf, image->image_ptr, HTML_IMAGE (image));
+		image->image_ptr = html_image_factory_register (imf, image, filename);
+	}
+}
+
+void
+html_image_set_valign (HTMLImage *image, HTMLVAlignType valign)
+{
+	if (image->valign != valign) {
+		image->valign = valign;
+		html_engine_schedule_update (image->image_ptr->factory->engine);
+	}
+}
+
+void
+html_image_set_border (HTMLImage *image, gint border)
+{
+	if (image->border != border) {
+		image->border = border;
+		html_engine_schedule_update (image->image_ptr->factory->engine);
+	}
+}
+
+void
+html_image_set_size (HTMLImage *image, gint w, gint percent, gint h)
+{
+	gboolean changed = FALSE;
+
+	if (percent > 0) {
+		if (percent != HTML_OBJECT (image)->percent) {
+			HTML_OBJECT (image)->percent = percent;
+			changed = TRUE;
+		}
+	} else if (w != image->specified_width) {
+		image->specified_width = w;
+		changed = TRUE;
+	}
+
+	if (h != image->specified_height) {
+		image->specified_height = h;
+		changed = TRUE;
+	}
+
+	if (changed)
+		html_engine_schedule_update (image->image_ptr->factory->engine);
 }
 
 

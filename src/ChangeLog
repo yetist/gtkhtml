@@ -1,3 +1,14 @@
+2000-04-28  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlimage.c (html_image_set_spacing): set hspace, vspace,
+	updated to schedule update
+	(html_image_set_filename): set filename, if changed, uregister
+	current image_ptr and register new one
+	(html_image_set_valign): set valign, if needed shedules update
+	(html_image_set_border): set border, if needed shedules update
+	(html_image_set_size): set specified_width, specified_height,
+	percent, if needed shedules update
+
 2000-04-27  Radek Doulik  <rodo@helixcode.com>
 
 	* testgtkhtml.c (main): test gtk_html_set_default_background_color
