@@ -1873,8 +1873,12 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 			}
 		}
 
-		if (e->flow != NULL && HTML_CLUE (e->flow)->head != NULL)
-			close_flow (e, _clue);
+		if (e->flow != NULL) {
+			if (HTML_CLUE (e->flow)->head != NULL)
+				close_flow (e, _clue);
+			else
+				HTML_CLUE (e->flow)->halign = e->divAlign;
+		}
 	} else if ( strncmp( str, "/div", 4 ) == 0 ) {
 		pop_block (e, ID_DIV, _clue );
 	} else if ( strncmp( str, "dl", 2 ) == 0 ) {
