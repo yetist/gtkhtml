@@ -1,5 +1,7 @@
 2002-09-09  Larry Ewing  <lewing@ximian.com>
 
+	* Make gtkhtml-1.1.2 release.
+
 	* configure.in: update for 1.1.2 release, bump soname to 1.0.0
 
 	* NEWS: add a few entries for 1.1.2
