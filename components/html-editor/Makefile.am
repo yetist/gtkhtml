@@ -48,7 +48,7 @@ $(SPELL_IDL_GENERATED): $(SPELL_IDLS)
 		-I$(srcdir) $(srcdir)/Spell.idl
 
 LDADD =	\
-	$(top_builddir)/src/libgtkhtml.la	\
+	$(top_builddir)/src/libgtkhtml-@GTKHTML_RELEASE@.la	\
 	$(EXTRA_GNOME_LIBS)			\
 	$(GNOMEUI_LIBS)				\
 	$(GNOME_LIBS)				\

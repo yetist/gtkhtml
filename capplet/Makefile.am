@@ -23,7 +23,7 @@ LDADD = \
 	$(EXTRA_GNOME_LIBS)		\
 	$(GNOME_CAPPLET_LIBS) 		\
 	$(GCONF_LIBS) 			\
-	$(top_builddir)/src/libgtkhtml.la
+	$(top_builddir)/src/libgtkhtml-@GTKHTML_RELEASE@.la
 
 
 sysdir = $(datadir)/control-center/Documents/

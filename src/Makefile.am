@@ -9,7 +9,7 @@ INCLUDES = -I$(top_srcdir) -I$(srcdir) -I$(includedir) $(GNOME_INCLUDEDIR) \
 
 CFLAGS +=  $(GCONF_CFLAGS) -DICONDIR=\"$(GTKHTML_DATADIR)/icons\"
 
-lib_LTLIBRARIES = libgtkhtml.la
+lib_LTLIBRARIES = libgtkhtml-1.1.la
 
 if SOUP
 soup_programs = testgtkhtml
@@ -112,7 +112,7 @@ libgtkhtml_HEADERS =				\
 	htmlhspace.h				\
 	$(NULL)
 
-libgtkhtml_la_SOURCES =				\
+libgtkhtml_1_1_la_SOURCES =				\
 	gtkhtml-embedded.c			\
 	gtkhtml-propmanager.c			\
 	gtkhtml-im.c				\
@@ -197,9 +197,9 @@ libgtkhtml_la_SOURCES =				\
 #	html-component.c			\
 #	htmlengine-edit-table.c			\
 
-libgtkhtml_la_LDFLAGS = -release $(GTKHTML_RELEASE) -version-info $(GTKHTML_CURRENT):$(GTKHTML_REVISION):$(GTKHTML_AGE)
+libgtkhtml_1_1_la_LDFLAGS = -version-info $(GTKHTML_CURRENT):$(GTKHTML_REVISION):$(GTKHTML_AGE)
 
-libgtkhtml_la_LIBADD = $(EXTRA_GNOME_LIBS) $(GCONF_LIBS)
+libgtkhtml_1_1_la_LIBADD = $(EXTRA_GNOME_LIBS) $(GCONF_LIBS)
 
 # The test program.
 
@@ -210,7 +210,7 @@ testgtkhtml_SOURCES = 		\
 
 # testgtkhtml_LDFLAGS = -static
 testgtkhtml_LDADD =				\
-	libgtkhtml.la				\
+	libgtkhtml-@GTKHTML_RELEASE@.la		\
 	$(GNOMEUI_LIBS)				\
 	$(GNOME_LIBDIR)				\
 	$(EXTRA_GNOME_LIBS)                     \
@@ -222,7 +222,7 @@ testgtkhtml_LDADD =				\
 gtest_SOURCES = \
 	test.c
 gtest_LDADD =					\
-	libgtkhtml.la				\
+	libgtkhtml-@GTKHTML_RELEASE@.la		\
 	$(GNOMEUI_LIBS)				\
 	$(GNOME_LIBDIR)				\
 	$(GCONF_LIBS)				\
