@@ -8,14 +8,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2004-01-12 18:08+0100\n"
-"PO-Revision-Date: 2003-12-14 11:44+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-01-28 18:02+0100\n"
+"PO-Revision-Date: 2004-01-28 18:12+0100\n"
 "Last-Translator: Danilo Šegan <danilo@prevod.org>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -1093,6 +1093,209 @@ msgstr "Pasus"
 msgid "Page"
 msgstr "Strana"
 
+# bug: I'm not sure this needs to be translated
+#. This is the default custom color
+#: components/html-editor/gi-color-palette.c:394
+msgid "custom"
+msgstr "proizvoljna"
+
+#. "Custom" color - we'll pop up a GnomeColorPicker
+#: components/html-editor/gi-color-palette.c:436
+msgid "Custom Color:"
+msgstr "Proizvoljna boja:"
+
+#: components/html-editor/gi-color-palette.c:444
+msgid "Choose Custom Color"
+msgstr "Izaberite proizvoljnu boju"
+
+#: components/html-editor/gi-color-palette.c:577
+msgid "black"
+msgstr "crna"
+
+#: components/html-editor/gi-color-palette.c:578
+msgid "light brown"
+msgstr "svetlobraon"
+
+#: components/html-editor/gi-color-palette.c:579
+msgid "brown gold"
+msgstr "zlatnobraon"
+
+#: components/html-editor/gi-color-palette.c:580
+msgid "dark green #2"
+msgstr "tamnozelena 2"
+
+#: components/html-editor/gi-color-palette.c:581
+msgid "navy"
+msgstr "mornarička plava"
+
+#: components/html-editor/gi-color-palette.c:582
+#: components/html-editor/gi-color-palette.c:638
+msgid "dark blue"
+msgstr "tamnoplava"
+
+#: components/html-editor/gi-color-palette.c:583
+msgid "purple #2"
+msgstr "ljubičasta 2"
+
+#: components/html-editor/gi-color-palette.c:584
+msgid "very dark gray"
+msgstr "veoma tamnosiva"
+
+#: components/html-editor/gi-color-palette.c:587
+#: components/html-editor/gi-color-palette.c:643
+msgid "dark red"
+msgstr "tamnocrvena"
+
+#: components/html-editor/gi-color-palette.c:588
+msgid "red-orange"
+msgstr "crvenonarandžasta"
+
+#: components/html-editor/gi-color-palette.c:589
+msgid "gold"
+msgstr "zlatna"
+
+#: components/html-editor/gi-color-palette.c:590
+msgid "dark green"
+msgstr "tamnozelena"
+
+# hm, hm...
+#: components/html-editor/gi-color-palette.c:591
+#: components/html-editor/gi-color-palette.c:644
+msgid "dull blue"
+msgstr "mutnoplava"
+
+#: components/html-editor/gi-color-palette.c:592
+#: components/html-editor/gi-color-palette.c:645
+msgid "blue"
+msgstr "plava"
+
+#: components/html-editor/gi-color-palette.c:593
+msgid "dull purple"
+msgstr "mutnoljubičasta"
+
+#: components/html-editor/gi-color-palette.c:594
+msgid "dark grey"
+msgstr "tamnosiva"
+
+#: components/html-editor/gi-color-palette.c:597
+msgid "red"
+msgstr "crvena"
+
+#: components/html-editor/gi-color-palette.c:598
+msgid "orange"
+msgstr "narandžasta"
+
+#: components/html-editor/gi-color-palette.c:599
+msgid "lime"
+msgstr "fluoroscentna zelena"
+
+#: components/html-editor/gi-color-palette.c:600
+msgid "dull green"
+msgstr "mutnozelena"
+
+#: components/html-editor/gi-color-palette.c:601
+msgid "dull blue #2"
+msgstr "mutnoplava 2"
+
+#: components/html-editor/gi-color-palette.c:602
+msgid "sky blue #2"
+msgstr "nebeskoplava 2"
+
+#: components/html-editor/gi-color-palette.c:603
+#: components/html-editor/gi-color-palette.c:642
+msgid "purple"
+msgstr "ljubičasta"
+
+#: components/html-editor/gi-color-palette.c:604
+msgid "gray"
+msgstr "siva"
+
+# može li „ružičasta“?
+#: components/html-editor/gi-color-palette.c:607
+#: components/html-editor/gi-color-palette.c:639
+msgid "magenta"
+msgstr "magenta"
+
+#: components/html-editor/gi-color-palette.c:608
+msgid "bright orange"
+msgstr "svetlonarandžasta"
+
+#: components/html-editor/gi-color-palette.c:609
+#: components/html-editor/gi-color-palette.c:640
+msgid "yellow"
+msgstr "žuta"
+
+#: components/html-editor/gi-color-palette.c:610
+msgid "green"
+msgstr "zelena"
+
+# „plavičasta“?
+#: components/html-editor/gi-color-palette.c:611
+#: components/html-editor/gi-color-palette.c:641
+msgid "cyan"
+msgstr "cijan"
+
+#: components/html-editor/gi-color-palette.c:612
+msgid "bright blue"
+msgstr "svetloplava"
+
+#: components/html-editor/gi-color-palette.c:613
+#: components/html-editor/gi-color-palette.c:630
+msgid "red purple"
+msgstr "crvenoljubičasta"
+
+#: components/html-editor/gi-color-palette.c:614
+msgid "light grey"
+msgstr "svetlosiva"
+
+#: components/html-editor/gi-color-palette.c:617
+#: components/html-editor/gi-color-palette.c:634
+msgid "pink"
+msgstr "roza"
+
+#: components/html-editor/gi-color-palette.c:618
+msgid "light orange"
+msgstr "svetlonarandžasta"
+
+#: components/html-editor/gi-color-palette.c:619
+#: components/html-editor/gi-color-palette.c:631
+msgid "light yellow"
+msgstr "svetložuta"
+
+#: components/html-editor/gi-color-palette.c:620
+msgid "light green"
+msgstr "svetlozelena"
+
+#: components/html-editor/gi-color-palette.c:621
+msgid "light cyan"
+msgstr "svetlocijan"
+
+#: components/html-editor/gi-color-palette.c:622
+#: components/html-editor/gi-color-palette.c:632
+msgid "light blue"
+msgstr "svetloplava"
+
+#: components/html-editor/gi-color-palette.c:623
+#: components/html-editor/gi-color-palette.c:636
+msgid "light purple"
+msgstr "svetloljubičasta"
+
+#: components/html-editor/gi-color-palette.c:624
+msgid "white"
+msgstr "bela"
+
+#: components/html-editor/gi-color-palette.c:629
+msgid "purplish blue"
+msgstr "ljubičastoplava"
+
+#: components/html-editor/gi-color-palette.c:633
+msgid "dark purple"
+msgstr "tamnoljubičasta"
+
+#: components/html-editor/gi-color-palette.c:635
+msgid "sky blue"
+msgstr "nebeskoplava"
+
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
 msgstr "GtkHTML element za uređivanje"
@@ -1423,8 +1626,8 @@ msgid ""
 "This is sample text, designed to show you how text would flow around this "
 "image if you insert the image into your message."
 msgstr ""
-"Ovo je probni tekst, napravljen da vam pokaže kako će tekst ići oko ove "
-"slike ako ubacite sliku u vašu poruku."
+"Ovo je probni tekst, napravljen da vam pokaže kako će tekst ići oko ove slike "
+"ako ubacite sliku u vašu poruku."
 
 #: components/html-editor/image.c:270
 msgid "No image selected"
@@ -1953,6 +2156,3 @@ msgstr "GtkHTML program za isprobavanje"
 
 #~ msgid "Rectangles"
 #~ msgstr "Pravougaonici"
-
-#~ msgid "Pre"
-#~ msgstr "Kôd"
