@@ -58,13 +58,10 @@ html_search_new (const gchar *text, gboolean case_sensitive, gboolean forward, g
 	if (regular) {
 		const gchar *rv;
 
-		ns->reb = g_new (regex_t, 1);
-		ns->reb->buffer = NULL;
-		ns->reb->allocated = 0;
-		ns->reb->fastmap = NULL;
+		ns->reb = g_new0 (regex_t, 1);
 		ns->reb->translate = ns->trans;
 
-		rv = re_compile_pattern (ns->text, ns->text_len, ns->reb);
+		rv = regcomp (ns->reb, ns->text, 0);
 		if (rv) {
 			g_warning (rv);
 		}

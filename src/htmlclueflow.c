@@ -1195,7 +1195,7 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 			cur = cur->next;
 		}
 
-		/* printf ("text (%d): %s\n", text_len, par); */
+		printf ("text (%d): %s\n", text_len, par);
 
 		/* set eq_len and pos counters */
 		eq_len = 0;
@@ -1210,20 +1210,21 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 
 		if (pos < text_len) {
 			if (info->reb) {
-				gint rv;
 				/* regex search */
-				rv = re_search (info->reb, par, text_len, pos, text_len-pos, NULL);
-				if (rv>=0) {
-					gint start = rv;
+				gint rv;
+				regmatch_t match;
 
-					rv = re_match (info->reb, par, text_len, start, NULL);
-					printf ("found! start: %d len: %d\n", start, rv);
-					info->found_len = rv;
-					search_set_info (*beg, info, start);
-					retval=TRUE;
-				}
-				if (rv == -2) {
-					g_warning ("regex internal error");
+				while (pos < text_len) {
+					rv = regexec (info->reb, par+pos, 1, &match, 0);
+					if (rv == 0) {
+						info->found_len = match.rm_eo - match.rm_so;
+						printf ("found! start: %d len: %d\n",
+							pos + match.rm_so, info->found_len);
+						search_set_info (*beg, info, pos + match.rm_so);
+						retval=TRUE;
+						break;
+					}
+					pos++;
 				}
 			} else {
 				/* go thru par and look for info->text */
@@ -1264,7 +1265,7 @@ search (HTMLObject *obj, HTMLSearch *info)
 
 	/* does last search end here? */
 	if (info->found) {
-		cur  = HTML_OBJECT (g_list_last (info->found)->data);
+		cur  = HTML_OBJECT (info->found->data);
 		next = TRUE;
 		printf ("search next clueflow continue\n");
 	} else {

@@ -1,3 +1,12 @@
+2000-04-15  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlsearch.c (html_search_new): use POSIX calls instead of GNU for better portability
+
+	* htmlclueflow.c (search): use cur = HTML_OBJECT
+	(info->found->data) instead of g_list_last (found) as we don't
+	want miss something :)
+	(search_text): use POSIX calls instead of GNU for better portability
+
 2000-04-14  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine-edit-paste.c: Cleaned up and made robust.  I also
