@@ -144,7 +144,7 @@ else
 	gnomeprint_ok=false
 fi
 
-if ! $gnomeprint_ok ; then
+if x$gnomeprint_ok = xfalse; then
 	AC_MSG_ERROR([gnome-print 0.13 or later is required to compile GtkHTML.])
 fi
 
@@ -175,7 +175,7 @@ else
 	AC_MSG_RESULT([not found])
 fi
 
-if ! $gdkpixbuf_ok ; then
+if test x$gdkpixbuf_ok = xfalse ; then
 	AC_MSG_ERROR([gdk-pixbuf 0.7.0 or later is required to compile GtkHTML.])
 fi
 
