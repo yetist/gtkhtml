@@ -25,6 +25,8 @@
 #ifndef _HTML_ENUMS_H
 #define _HTML_ENUMS_H
 
+#define MAX_WIDGET_WIDTH 32000
+
 typedef enum {
 	BUTTON_NORMAL,
 	BUTTON_SUBMIT,

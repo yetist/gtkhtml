@@ -1,3 +1,17 @@
+2001-08-29  Radek Doulik  <rodo@ximian.com>
+
+	* htmltextslave.c (calc_size): split if width > MAX_WIDGET_WIDTH
+	(get_offset_for_bounded_width): new helper function
+	(calc_width): update for MAX_WIDGET_WIDTH changes
+
+	* htmlenums.h (MAX_WIDGET_WIDTH): define it as 32000
+
+	* htmlengine.c (html_engine_calc_size): make max_width <=
+	MAX_WIDGET_WIDTH
+
+	* gtkhtml.c (gtk_html_private_calc_scrollbars): don't let width be
+	greater than MAX_WIDGET_WIDTH
+
 2001-08-28  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml-properties.c (gtk_html_class_properties_new): use rather

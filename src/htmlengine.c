@@ -3999,7 +3999,8 @@ html_engine_calc_size (HTMLEngine *e)
 	html_object_reset (e->clue);
 
 	html_object_set_max_width (e->clue, e->painter,
-				   MAX (html_object_calc_min_width (e->clue, e->painter), html_engine_get_max_width (e)));
+				   MIN (MAX (html_object_calc_min_width (e->clue, e->painter), html_engine_get_max_width (e)),
+					MAX_WIDGET_WIDTH - e->leftBorder - e->rightBorder));
 	/* printf ("calc size %d\n", e->clue->max_width); */
 	html_object_calc_size (e->clue, e->painter);
 

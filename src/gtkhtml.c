@@ -2389,13 +2389,13 @@ gtk_html_private_calc_scrollbars (GtkHTML *html, gboolean *changed_x, gboolean *
 	vadj->page_increment = html->engine->height;
 
 	hadj->lower = 0.0;
-	hadj->upper = width;
+	hadj->upper = MIN (MAX_WIDGET_WIDTH, width);
 	hadj->page_size = html->engine->width;
 	hadj->step_increment = 14; /* FIXME */
 	hadj->page_increment = html->engine->width;
 
-	if (hadj->value > width - html->engine->width) {
-		gtk_adjustment_set_value (hadj, width - html->engine->width);
+	if (hadj->value > width - html->engine->width || hadj->value > MAX_WIDGET_WIDTH - html->engine->width) {
+		gtk_adjustment_set_value (hadj, MIN (width - html->engine->width, MAX_WIDGET_WIDTH - html->engine->width));
 		if (changed_x)
 			*changed_x = TRUE;
 	}
@@ -2408,7 +2408,7 @@ gtk_html_private_calc_scrollbars (GtkHTML *html, gboolean *changed_x, gboolean *
 	if ((width != layout->width) || (height != layout->height)) {
 		/* printf ("set size\n"); */
 		gtk_signal_emit (GTK_OBJECT (html), signals[SIZE_CHANGED]);
-		gtk_layout_set_size (layout, width, height);
+		gtk_layout_set_size (layout, hadj->upper, vadj->upper);
 	}
 }
 
