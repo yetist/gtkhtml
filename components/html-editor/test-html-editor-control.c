@@ -250,7 +250,6 @@ container_create (void)
 	GtkWidget *app;
 	GtkWidget *control;
 	BonoboUIHandler *uih;
-	BonoboControlFrame *cf;
 	BonoboUIHandlerMenuItem *tree;
 
 	app = gnome_app_new ("test-html-editor-control",
@@ -258,16 +257,17 @@ container_create (void)
 	gtk_window_set_default_size (GTK_WINDOW (app), 500, 440);
 	gtk_window_set_policy (GTK_WINDOW (app), TRUE, TRUE, FALSE);
 
-	control = bonobo_widget_new_control ("control:html-editor");
+	uih = bonobo_ui_handler_new ();
+	bonobo_ui_handler_set_app (uih, GNOME_APP (app));
+
+	control = bonobo_widget_new_control
+		("control:html-editor",
+		 bonobo_object_corba_objref (BONOBO_OBJECT (uih)));
+
 	if (control == NULL)
 		g_error ("Cannot get `control:html-editor'.");
 
-	/* Set up the GnomeUIHandler stuff.  */
-	cf = bonobo_widget_get_control_frame (BONOBO_WIDGET (control));
-	uih = bonobo_ui_handler_new ();
-	bonobo_ui_handler_set_app (uih, GNOME_APP (app));
-	bonobo_control_frame_set_ui_handler (cf, uih);
-
+	/* Create the menus/toolbars */
 	bonobo_ui_handler_create_menubar (uih);
 
 	tree = bonobo_ui_handler_menu_parse_uiinfo_tree_with_data (menu_info, app);

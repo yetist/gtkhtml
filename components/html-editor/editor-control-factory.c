@@ -100,7 +100,6 @@ editor_control_factory (BonoboGenericFactory *factory,
 	GtkWidget *html_widget;
 	GtkWidget *scrolled_window;
 	BonoboPersistStream *stream_impl;
-	BonoboUIHandler *uih;
 
 	html_widget = gtk_html_new ();
 	gtk_widget_show (html_widget);
@@ -116,11 +115,6 @@ editor_control_factory (BonoboGenericFactory *factory,
 
 	stream_impl = persist_stream_impl_new (GTK_HTML (html_widget));
 	bonobo_object_add_interface (BONOBO_OBJECT (control), BONOBO_OBJECT (stream_impl));
-
-	/* UIHandler.  */
-
-	uih = bonobo_ui_handler_new ();
-	bonobo_control_set_ui_handler (control, uih);
 
 	/* Part of the initialization must be done after the control is
            embedded in its control frame.  We use the "set_frame" signal to
