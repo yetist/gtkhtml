@@ -1,5 +1,7 @@
 2000-08-05  Radek Doulik  <rodo@helixcode.com>
 
+	* htmltext.c (html_text_get_nb_width): handle "" case
+
 	* htmltextslave.c (get_next_nb_width): fixed "" case
 
 	* htmltext.c (calc_min_width): fixed "" case

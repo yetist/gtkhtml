@@ -219,6 +219,18 @@ html_text_get_nb_width (HTMLText *text, HTMLPainter *painter, gboolean begin)
 {
 	gchar *t = text->text;
 
+	/* handle "" case */
+	if (text->text_len == 0) {
+		HTMLObject *obj = (begin)
+			? html_object_prev_not_slave (HTML_OBJECT (text))
+			: html_object_next_not_slave (HTML_OBJECT (text));
+
+		if (!obj || !html_object_is_text (obj))
+			return 0;
+		else
+			return html_text_get_nb_width (HTML_TEXT (obj), painter, begin);
+	}
+
 	/* if begins/ends with ' ' the width is 0 */
 	if ((begin && t [0] == ' ') || (!begin && t [text->text_len - 1] == ' '))
 		return 0;
