@@ -4,14 +4,122 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml 0.5\n"
-"POT-Creation-Date: 2000-07-15 00:26+0200\n"
-"PO-Revision-Date: 2000-07-15 15:34+0200\n"
+"Project-Id-Version: gtkhtml 0.6.1\n"
+"POT-Creation-Date: 2000-10-11 20:35+0200\n"
+"PO-Revision-Date: 2000-10-11 20:40+0200\n"
 "Last-Translator: Fatih Demir <kabalak@gmx.net>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-9\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: capplet/gnome-bindings-prop.c:154 capplet/gnome-bindings-prop.c:222
+#: capplet/gnome-bindings-prop.c:297 capplet/gnome-bindings-prop.c:435
+#: capplet/gnome-bindings-prop.c:436
+msgid "<None>"
+msgstr "<Yok>"
+
+#: capplet/gnome-bindings-prop.c:525
+msgid "Key"
+msgstr "Anahtar"
+
+#: capplet/gnome-bindings-prop.c:525
+msgid "Command"
+msgstr "Komuta"
+
+#: capplet/gnome-bindings-prop.c:526
+msgid "Commands"
+msgstr "Komutalar"
+
+#: capplet/gnome-bindings-prop.c:527
+msgid "Keymaps"
+msgstr "Tuþ haritalarý"
+
+#: capplet/gnome-bindings-prop.c:545
+msgid "Add"
+msgstr "Ekle"
+
+#: capplet/gnome-bindings-prop.c:548
+#: components/html-editor/test-html-editor-control.c:323
+#: components/html-editor/toolbar.c:495
+msgid "Copy"
+msgstr "Kopyala"
+
+#: capplet/gnome-bindings-prop.c:551
+msgid "Delete"
+msgstr "Sil"
+
+#: capplet/gnome-bindings-prop.c:582
+msgid "Grab key"
+msgstr "Tuþu yakala"
+
+#: capplet/main.c:220
+msgid "Spell checking"
+msgstr "Imla kontrolü"
+
+#: capplet/main.c:223
+msgid "live spell checking"
+msgstr "\"Canlý\"·imla kontrolü"
+
+#: capplet/main.c:232
+msgid "spell checking color"
+msgstr "Imla kontrol rengi"
+
+#: capplet/main.c:239
+msgid "language"
+msgstr "Dil"
+
+#: capplet/main.c:245
+msgid "Miscellaneous"
+msgstr "Karýþýk"
+
+#: capplet/main.c:247
+msgid "magic links"
+msgstr "Sihirli baðlar"
+
+#: capplet/main.c:266
+msgid "Bindings"
+msgstr "Baðlar"
+
+#: capplet/main.c:267 capplet/viewer.c:188
+msgid "Behaviour"
+msgstr "Heybet"
+
+#: capplet/viewer.c:148
+msgid "Appearance"
+msgstr "Görünüþ"
+
+#: capplet/viewer.c:154
+msgid "Variable width font"
+msgstr "Deðiþken en yazý tipi"
+
+#: capplet/viewer.c:158
+msgid "Select HTML variable width font"
+msgstr "HTML deðiþken en yazý tipini seç"
+
+#: capplet/viewer.c:162 capplet/viewer.c:177
+msgid "for printing"
+msgstr "Yazdýrma için"
+
+#: capplet/viewer.c:164
+msgid "Select HTML variable width font for printing"
+msgstr "Yazdýrma için deðiþken en yazý tipini seç"
+
+#: capplet/viewer.c:169
+msgid "Fixed width font"
+msgstr "Belirli en yazý tipi"
+
+#: capplet/viewer.c:173
+msgid "Select HTML fixed width font"
+msgstr "HTML için belirli en yazý tipini seç"
+
+#: capplet/viewer.c:179
+msgid "Select HTML fixed width font for printing"
+msgstr "Yazdýrma için belirli en yazý tipini seç"
+
+#: capplet/viewer.c:189
+msgid "Animations"
+msgstr "Animasyonlar"
 
 #: components/html-editor/body.c:107
 msgid "use background image"
@@ -25,51 +133,57 @@ msgstr "Ardalan resmi"
 msgid "Colors"
 msgstr "Renkler"
 
-#: components/html-editor/editor-control-factory.c:122
-#: components/html-editor/popup.c:86
+#: components/html-editor/editor-control-factory.c:126
+#: components/html-editor/popup.c:71
+msgid "Properties"
+msgstr "Özellikler"
+
+#: components/html-editor/editor-control-factory.c:137
+#: components/html-editor/menubar.c:96 components/html-editor/popup.c:86
 msgid "Image"
 msgstr "Resim"
 
-#: components/html-editor/editor-control-factory.c:131
-#: components/html-editor/popup.c:79
+#: components/html-editor/editor-control-factory.c:146
+#: components/html-editor/menubar.c:117 components/html-editor/popup.c:79
 msgid "Text"
 msgstr "Metin"
 
-#: components/html-editor/editor-control-factory.c:143
+#: components/html-editor/editor-control-factory.c:158
 #: components/html-editor/popup.c:93
 msgid "Paragraph"
 msgstr "Fýkra"
 
-#: components/html-editor/editor-control-factory.c:148
-#: components/html-editor/menubar.c:157 components/html-editor/popup.c:100
+#: components/html-editor/editor-control-factory.c:163
+#: components/html-editor/menubar.c:101 components/html-editor/menubar.c:122
+#: components/html-editor/popup.c:100
 msgid "Link"
 msgstr "Bað"
 
-#: components/html-editor/editor-control-factory.c:153
+#: components/html-editor/editor-control-factory.c:168
 #: components/html-editor/popup.c:107
 msgid "Page"
 msgstr "Sayfa"
 
-#: components/html-editor/image.c:409
+#: components/html-editor/image.c:142
 msgid "Image selection"
 msgstr "Resim seçimi"
 
-#: components/html-editor/image.c:417
+#: components/html-editor/image.c:150
 msgid "Border"
 msgstr "Kenar"
 
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
-#: components/html-editor/image.c:450
+#: components/html-editor/image.c:183
 msgid "Alignment"
 msgstr "Taraflama"
 
-#: components/html-editor/image.c:462 components/html-editor/rule.c:124
+#: components/html-editor/image.c:195 components/html-editor/rule.c:124
 #: components/html-editor/text.c:160
 msgid "Size"
 msgstr "Boyut"
 
-#: components/html-editor/image.c:489
+#: components/html-editor/image.c:222
 msgid "Padding"
 msgstr "Kenarlama"
 
@@ -89,47 +203,12 @@ msgstr "GNORBA'yý baþlatamadým"
 msgid "Could not initialize Bonobo"
 msgstr "Bonobo'yu baþlatamadým"
 
-#: components/html-editor/menubar.c:60
-msgid "Find Rege_x..."
-msgstr "Erkan-ý tabiri bul .."
+#: components/html-editor/menubar.c:94 components/html-editor/menubar.c:114
+#: components/html-editor/properties.c:110
+msgid "Insert"
+msgstr "Içer"
 
-#: components/html-editor/menubar.c:60
-msgid "Regular expressions search..."
-msgstr "Erkan-ý tabir aramasý ..."
-
-#: components/html-editor/menubar.c:69
-msgid "_Image..."
-msgstr "_Resim ..."
-
-#: components/html-editor/menubar.c:69
-msgid "Insert image into document..."
-msgstr "Dokümana resim içer ..."
-
-#: components/html-editor/menubar.c:70
-msgid "_Link..."
-msgstr "_Bað ...."
-
-#: components/html-editor/menubar.c:70
-msgid "Insert HTML link into document..."
-msgstr "Dokümana bir HTML badýný içer"
-
-#: components/html-editor/menubar.c:71
-msgid "_Rule..."
-msgstr "_Çubuk ..."
-
-#: components/html-editor/menubar.c:71
-msgid "Insert rule into document..."
-msgstr "Dokümana bir çubuk ekle ..."
-
-#: components/html-editor/menubar.c:76
-msgid "_Insert"
-msgstr "_Içer"
-
-#: components/html-editor/menubar.c:143
-msgid "Insert image"
-msgstr "Resim içer"
-
-#: components/html-editor/menubar.c:175
+#: components/html-editor/menubar.c:142
 msgid "Cannot execute gtkhtml properties"
 msgstr "gtkhtml ayarlarýný çalýþtýramadým"
 
@@ -153,16 +232,7 @@ msgstr "Orta"
 msgid "Right"
 msgstr "Sað"
 
-#: components/html-editor/properties.c:92
-#: components/html-editor/properties.c:93
-msgid "Insert"
-msgstr "Içer"
-
-#: components/html-editor/properties.c:95
-msgid "Properties"
-msgstr "Özellikler"
-
-#: components/html-editor/popup.c:161
+#: components/html-editor/popup.c:178
 msgid "Remove link"
 msgstr "Baðý sil"
 
@@ -183,11 +253,11 @@ msgstr "Hepsinin yerine koy"
 msgid "Next"
 msgstr "Ileri"
 
-#: components/html-editor/replace.c:152 components/html-editor/search.c:66
+#: components/html-editor/replace.c:152 components/html-editor/search.c:67
 msgid "search backward"
 msgstr "arkaya doðru ara"
 
-#: components/html-editor/replace.c:153 components/html-editor/search.c:67
+#: components/html-editor/replace.c:153 components/html-editor/search.c:68
 msgid "case sensitive"
 msgstr "imlaya dikkat et"
 
@@ -227,82 +297,73 @@ msgstr "Çubuk"
 msgid "Set Shade"
 msgstr "Gölgeyi belirt"
 
-#: components/html-editor/search.c:63
+#: components/html-editor/search.c:64
 msgid "Regex search"
 msgstr "Erkan-ý tabir aramasý"
 
-#: components/html-editor/search.c:63
+#: components/html-editor/search.c:64
 msgid "Search"
 msgstr "Ara"
 
-#: components/html-editor/table.c:80
-msgid "Table"
-msgstr "Çizgiye"
-
-#: components/html-editor/test-html-editor-control.c:231
+#: components/html-editor/test-html-editor-control.c:232
 msgid "Open file..."
 msgstr "Aç ..."
 
-#: components/html-editor/test-html-editor-control.c:233
+#: components/html-editor/test-html-editor-control.c:234
 msgid "Save file as..."
 msgstr "Farklý kaydet ..."
 
-#: components/html-editor/test-html-editor-control.c:299
+#: components/html-editor/test-html-editor-control.c:300
 msgid "Open (PersistFile)"
 msgstr "Aç ( `kalýcý dosya' )"
 
-#: components/html-editor/test-html-editor-control.c:299
+#: components/html-editor/test-html-editor-control.c:300
 msgid "Open using the PersistFile interface"
 msgstr "`Kalýcý dosya' yoluyla aç"
 
-#: components/html-editor/test-html-editor-control.c:301
+#: components/html-editor/test-html-editor-control.c:302
 msgid "Save as... (PersistFile)"
 msgstr "Farklý kaydet ( `kalýcý dosya' olarak )"
 
-#: components/html-editor/test-html-editor-control.c:301
+#: components/html-editor/test-html-editor-control.c:302
 msgid "Save using the PersistFile interface"
 msgstr "`Kalýcý dosya' yoluyla kaydet"
 
-#: components/html-editor/test-html-editor-control.c:304
+#: components/html-editor/test-html-editor-control.c:305
 msgid "Open (PersistStream)"
 msgstr "Aç ( `kalýcý dosya' )"
 
-#: components/html-editor/test-html-editor-control.c:304
+#: components/html-editor/test-html-editor-control.c:305
 msgid "Open using the PersistStream interface"
 msgstr "`Kalýcý dosya' yoluyla aç"
 
-#: components/html-editor/test-html-editor-control.c:306
+#: components/html-editor/test-html-editor-control.c:307
 msgid "Save as... (PersistStream)"
 msgstr "Faklý kaydet ... ( `kalýcý dosya' )"
 
-#: components/html-editor/test-html-editor-control.c:306
+#: components/html-editor/test-html-editor-control.c:307
 msgid "Save using the PersistStream interface"
 msgstr "`kalýcý dosya' yoluyla kaydet"
 
-#: components/html-editor/test-html-editor-control.c:320
+#: components/html-editor/test-html-editor-control.c:321
 #: components/html-editor/toolbar.c:493
 msgid "Cut"
 msgstr "Kes"
 
-#: components/html-editor/test-html-editor-control.c:320
+#: components/html-editor/test-html-editor-control.c:321
 msgid "Cut selection to the clipboard"
 msgstr "Seçimi arabelleðe kes"
 
-#: components/html-editor/test-html-editor-control.c:322
-#: components/html-editor/toolbar.c:495
-msgid "Copy"
-msgstr "Kopyala"
-
-#: components/html-editor/test-html-editor-control.c:322
+#: components/html-editor/test-html-editor-control.c:323
 msgid "Copy selection to the clipboard"
 msgstr "Seçimi arabelleðe kopyala"
 
-#: components/html-editor/test-html-editor-control.c:324
+#: components/html-editor/test-html-editor-control.c:325
 #: components/html-editor/toolbar.c:497
 msgid "Paste"
 msgstr "Yapýþtýr"
 
-#: components/html-editor/test-html-editor-control.c:324
+#: components/html-editor/test-html-editor-control.c:325
 #: components/html-editor/toolbar.c:497
 msgid "Paste contents of the clipboard"
 msgstr "Seçimi arabelleðe yapýþtýr"
@@ -460,139 +521,11 @@ msgstr "Yenle"
 msgid "Indent paragraphs more"
 msgstr "Satýrlarý daha fazla yenlendir"
 
-#: glibwww/gnome-dialogs.c:85
-msgid "Transfer Progress"
-msgstr "Transfer ilerlemesi"
-
-#: glibwww/gnome-dialogs.c:139
-#, c-format
-msgid "Looking up %s"
-msgstr "%s'yi arýyorum"
-
-#: glibwww/gnome-dialogs.c:145
-#, c-format
-msgid "Contacting %s"
-msgstr "%s'ye baðlanýyorum ..."
-
-#: glibwww/gnome-dialogs.c:152
-msgid "Waiting for a connection..."
-msgstr "Baðlantý için bakliyorum ..."
-
-#: glibwww/gnome-dialogs.c:156
-msgid "Logging in..."
-msgstr "Giriþ yapýyorum ..."
-
-#: glibwww/gnome-dialogs.c:165
-msgid "Read %d%%%% of %l"
-msgstr "%%%% %d - %l okundu"
-
-#: glibwww/gnome-dialogs.c:175 glibwww/gnome-dialogs.c:177
-#, c-format
-msgid "Read %d bytes"
-msgstr "%d bayt okundu"
-
-#: glibwww/gnome-dialogs.c:179
-msgid "Reading..."
-msgstr "Okunuyor .."
-
-#: glibwww/gnome-dialogs.c:194
-msgid "Writing %d%%%% of %l"
-msgstr "%%%% %d - %l yazýlýyor"
-
-#: glibwww/gnome-dialogs.c:204 glibwww/gnome-dialogs.c:206
-#, c-format
-msgid "Writing %d bytes"
-msgstr "%d bayt yazýlýyor"
-
-#: glibwww/gnome-dialogs.c:208
-msgid "Writing..."
-msgstr "Yazýlýyor ..."
-
-#: glibwww/gnome-dialogs.c:216
-msgid "Done!"
-msgstr "Oldu !"
-
-#: glibwww/gnome-dialogs.c:220
-msgid "Interrupted!"
-msgstr "Kesildi !"
-
-#: glibwww/gnome-dialogs.c:224
-msgid "Please wait..."
-msgstr "Lütfen bekle ..."
-
-#: glibwww/gnome-dialogs.c:228
-msgid "Request timeout!"
-msgstr "Isteðin zaman aþým sýnýrý aþýldý !"
-
-#: glibwww/gnome-dialogs.c:232
-msgid "Unknown"
-msgstr "Bilinmiyor"
-
-#: glibwww/gnome-dialogs.c:275
-msgid "Enter Text"
-msgstr "Metni ver"
-
-#: glibwww/gnome-dialogs.c:316 glibwww/gnome-dialogs.c:357
-msgid "Enter Password"
-msgstr "Parolayý ver"
-
-#: src/gtkhtml.c:2289
-#, c-format
-msgid "Couldn't find keybinding file -- %s"
-msgstr "Tuþ baðlarý dosyasýný bulamadým -- %s"
-
-#: src/html-component.c:219
-msgid "Html"
-msgstr "Html"
-
-#: src/html-component.c:220
-msgid "Html test"
-msgstr "Html deneyi"
-
-#: src/html-component.c:226
-msgid "Test1"
-msgstr "Deney1"
-
-#: src/html-component.c:233
-msgid "Test2"
-msgstr "Deney2"
-
-#: src/html-component.c:239
-msgid "Test3"
-msgstr "Deney3"
-
-#: src/html-component.c:245
-msgid "Test4"
-msgstr "Deney4"
-
-#: src/html-component.c:251
-msgid "Test5"
-msgstr "Deney5"
-
-#: src/html-component.c:257
-msgid "Test6"
-msgstr "Deney6"
-
-#: src/html-component.c:263
-msgid "Test7"
-msgstr "Deney7"
-
-#: src/html-component.c:617
-msgid "_Refresh"
-msgstr "_Yenile"
-
-#: src/html-component.c:618
-msgid "Reload the page"
-msgstr "Sayfayý yeniden yükle"
-
-#: src/html-component.c:669
-msgid "Could not initialize Bonobo!"
-msgstr "Bonobo'yu baþlatamadým !"
-
-#: src/testgtkhtml.c:110
+#: src/testgtkhtml.c:111
 msgid "Print pre_view"
 msgstr "Önizelemeyi _yaz#_dirt"
 
-#: src/testgtkhtml.c:110
+#: src/testgtkhtml.c:111
 msgid "Print preview"
 msgstr "Yazdýrma önizelemesi"
+
