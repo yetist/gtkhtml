@@ -278,7 +278,7 @@ static void
 select_font_relative (HTMLEngine *e,
 		      gint relative_font_size)
 {
-	g_warning ("`select_font_relative()' not implemented.");
+	html_engine_select_font (e);
 }
 
 /* FIXME this implementation is a bit lame.  :-) */

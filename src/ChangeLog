@@ -1,5 +1,10 @@
 1999-11-28  Ettore Perazzoli  <ettore@gnu.org>
 
+	* htmlengine.c (select_font_relative): Call `html_engine_set_font'
+	so that it does not crash.
+
+1999-11-28  Ettore Perazzoli  <ettore@gnu.org>
+
 	* htmlimage.c (draw): Quick hack to always draw the border
 	rectangle.
 
