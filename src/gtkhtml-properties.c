@@ -61,9 +61,11 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p, GConfClient *client)
 
 	g_assert (client);
 
+	printf ("theme: %s\n", p->keybindings_theme);
 	GET (bool, "/magic_links", magic_links,,);
 	GET (string, "/keybindings_theme", keybindings_theme,
 	     g_free (p->keybindings_theme), p->keybindings_theme = g_strdup (p->keybindings_theme));
+	printf ("theme: %s\n", p->keybindings_theme);
 }
 
 #endif
@@ -145,8 +147,8 @@ static GtkEnumValue _gtk_html_command_values[] = {
   { GTK_HTML_COMMAND_SIZE_PLUS_2, "GTK_HTML_COMMAND_SIZE_PLUS_2", "size-plus-2" },
   { GTK_HTML_COMMAND_SIZE_PLUS_3, "GTK_HTML_COMMAND_SIZE_PLUS_3", "size-plus-3" },
   { GTK_HTML_COMMAND_SIZE_PLUS_4, "GTK_HTML_COMMAND_SIZE_PLUS_4", "size-plus-4" },
-  { GTK_HTML_COMMAND_SIZE_INCREASE, "GTK_HTML_COMMAND_SIZE_INCREASE", "size-increase" },
-  { GTK_HTML_COMMAND_SIZE_DECREASE, "GTK_HTML_COMMAND_SIZE_DECREASE", "size-decrease" },
+  { GTK_HTML_COMMAND_SIZE_INCREASE, "GTK_HTML_COMMAND_SIZE_INCREASE", "size-inc" },
+  { GTK_HTML_COMMAND_SIZE_DECREASE, "GTK_HTML_COMMAND_SIZE_DECREASE", "size-dec" },
   { GTK_HTML_COMMAND_ALIGN_LEFT, "GTK_HTML_COMMAND_ALIGN_LEFT", "align-left" },
   { GTK_HTML_COMMAND_ALIGN_CENTER, "GTK_HTML_COMMAND_ALIGN_CENTER", "align-center" },
   { GTK_HTML_COMMAND_ALIGN_RIGHT, "GTK_HTML_COMMAND_ALIGN_RIGHT", "align-right" },

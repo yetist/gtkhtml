@@ -34,6 +34,8 @@ void               html_engine_set_font_style                    (HTMLEngine    
 								  GtkHTMLFontStyle  or_mask);
 void               html_engine_font_style_toggle                 (HTMLEngine       *engine,
 								  GtkHTMLFontStyle  style);
+void               html_engine_font_size_inc_dec                 (HTMLEngine       *e,
+								  gboolean          inc);
 
 /* colors */
 gboolean           html_engine_update_insertion_color            (HTMLEngine       *engine);

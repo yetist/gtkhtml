@@ -2080,6 +2080,12 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_SIZE_PLUS_4:
 		html_engine_set_font_style (html->engine, ~GTK_HTML_FONT_STYLE_SIZE_MASK, GTK_HTML_FONT_STYLE_SIZE_7);
 		break;
+	case GTK_HTML_COMMAND_SIZE_INCREASE:
+		html_engine_font_size_inc_dec (html->engine, TRUE);
+		break;
+	case GTK_HTML_COMMAND_SIZE_DECREASE:
+		html_engine_font_size_inc_dec (html->engine, FALSE);
+		break;
 	case GTK_HTML_COMMAND_ALIGN_LEFT:
 		gtk_html_set_paragraph_alignment (html, GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT);
 		break;

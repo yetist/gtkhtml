@@ -72,4 +72,7 @@ binding "gtkhtml-bindings-ms"
   bind "<Alt>5"               { "command" (size-plus-2) }
   bind "<Alt>6"               { "command" (size-plus-3) }
   bind "<Alt>7"               { "command" (size-plus-4) }
+
+  bind "<Alt>8"	              { "command" (size-inc) }
+  bind "<Alt>9"               { "command" (size-dec) }
 }

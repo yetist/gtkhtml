@@ -1,3 +1,18 @@
+2000-07-01  Radek Doulik  <rodo@helixcode.com>
+
+	* keybindingsrc.ms: added new bindings for inc/dec font size
+
+	* gtkhtml.c (command): added calls for inc/dec font size
+
+	* htmlengine-edit-fontstyle.c (html_engine_font_size_inc_dec): new
+	function implementing command for increase/decrease font size
+	(inc_dec_size_cb): iterator function for inc/dec in cut&paste
+	(inc_dec_size): helper function - computes increased/decreased
+	font size
+
+	* htmlengine-edit.c (html_engine_cut_and_paste): new function to
+	simplify implementation of simple editor commands
+
 2000-06-30  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine-edit-insert.c: added url, target to ActionData

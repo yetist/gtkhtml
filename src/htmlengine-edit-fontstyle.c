@@ -913,6 +913,42 @@ html_engine_font_style_toggle (HTMLEngine *engine, GtkHTMLFontStyle style)
 		html_engine_set_font_style (engine, GTK_HTML_FONT_STYLE_MAX, style);
 }
 
+static GtkHTMLFontStyle
+inc_dec_size (GtkHTMLFontStyle style, gboolean inc)
+{
+	GtkHTMLFontStyle size;
+
+	if (style == GTK_HTML_FONT_STYLE_DEFAULT)
+		style = GTK_HTML_FONT_STYLE_SIZE_3;
+
+	size = style & GTK_HTML_FONT_STYLE_SIZE_MASK;
+	if (inc && size < GTK_HTML_FONT_STYLE_SIZE_7)
+		size++;
+	else if (!inc && size > GTK_HTML_FONT_STYLE_SIZE_1)
+		size--;
+
+	style &= ~GTK_HTML_FONT_STYLE_SIZE_MASK;
+	style |= size;
+
+	return style;
+}
+
+static void
+inc_dec_size_cb (HTMLObject *obj, gpointer data)
+{
+	if (html_object_is_text (obj))
+		HTML_TEXT (obj)->font_style = inc_dec_size (HTML_TEXT (obj)->font_style, GPOINTER_TO_INT (data));
+}
+
+void
+html_engine_font_size_inc_dec (HTMLEngine *e, gboolean inc)
+{
+	if (e->active_selection)
+		html_engine_cut_and_paste (e, "Increase font size", (GFunc) inc_dec_size_cb, GINT_TO_POINTER (inc));
+	else
+		e->insertion_font_style = inc_dec_size (e->insertion_font_style, inc);
+}
+
 static void
 set_color (HTMLObject *o, HTMLColor *color)
 {

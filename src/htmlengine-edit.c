@@ -162,3 +162,11 @@ html_engine_cut_and_paste_end (HTMLEngine *e)
 	html_engine_cut_buffer_pop (e);
 	html_engine_selection_pop (e);
 }
+
+void
+html_engine_cut_and_paste (HTMLEngine *e, gchar *op_name, GFunc iterator, gpointer data)
+{
+	html_engine_cut_and_paste_begin (e, op_name);
+	g_list_foreach (e->cut_buffer, iterator, data);
+	html_engine_cut_and_paste_end (e);
+}

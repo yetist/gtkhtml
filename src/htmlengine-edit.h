@@ -37,7 +37,12 @@ void  html_engine_cut_buffer_pop      (HTMLEngine *e);
 void  html_engine_selection_push      (HTMLEngine *e);
 void  html_engine_selection_pop       (HTMLEngine *e);
 
-void  html_engine_cut_and_paste_begin (HTMLEngine *e, gchar *op_name);
+void  html_engine_cut_and_paste_begin (HTMLEngine *e,
+				       gchar *op_name);
 void  html_engine_cut_and_paste_end   (HTMLEngine *e);
+void  html_engine_cut_and_paste       (HTMLEngine *e,
+				       gchar *op_name,
+				       GFunc iterator,
+				       gpointer data);
 
 #endif /* _HTMLENGINE_EDIT_H */
