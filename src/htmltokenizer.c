@@ -874,7 +874,10 @@ add_byte (HTMLTokenizer *t, const gchar **src)
 	} else {
 		wc = (guchar)**src;
 	}
-	p->dest += g_unichar_to_utf8 (wc, p->dest);
+
+	if (wc != 0) {
+		p->dest += g_unichar_to_utf8 (wc, p->dest);
+	}
 	(*src)++;
 }
 #else

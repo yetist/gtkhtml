@@ -1,3 +1,8 @@
+2001-10-16  Larry Ewing  <lewing@ximian.com>
+
+	* htmltokenizer.c (add_byte): discard '\0' on input, it just
+	confuses the rest of the tokenizer and serves no purpose.
+
 2001-10-15  Radek Doulik  <rodo@ximian.com>
 
 	* handle "font size points" attribute everywhere
