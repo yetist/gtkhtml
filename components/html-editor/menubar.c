@@ -26,23 +26,68 @@
 
 #include "menubar.h"
 
+static void search_cb           (GtkWidget *widget, gpointer data);
+static void search_regex_cb     (GtkWidget *widget, gpointer data);
+static void search_next_cb      (GtkWidget *widget, gpointer data);
+static void replace_cb          (GtkWidget *widget, gpointer data);
+
 
 static GnomeUIInfo format_subtree_info[] = {
 	{ GNOME_APP_UI_TOGGLEITEM, N_("_Bold"), N_("Set selection to bold face"), NULL, NULL, NULL,
 	  GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_PIXMAP_TEXT_BOLD, 0, (GdkModifierType) 0, NULL },
 	{ GNOME_APP_UI_TOGGLEITEM, N_("_Italic"), N_("Set selection to italic face"), NULL, NULL, NULL,
-	  GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_PIXMAP_TEXT_BOLD, 0, (GdkModifierType) 0, NULL },
+	  GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_PIXMAP_TEXT_ITALIC, 0, (GdkModifierType) 0, NULL },
 	{ GNOME_APP_UI_TOGGLEITEM, N_("_Underline"), N_("Set selection to underlined face"), NULL, NULL, NULL,
-	  GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_PIXMAP_TEXT_BOLD, 0, (GdkModifierType) 0, NULL },
+	  GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_PIXMAP_TEXT_UNDERLINE, 0, (GdkModifierType) 0, NULL },
+	GNOMEUIINFO_END
+};
+
+static GnomeUIInfo edit_subtree_info[] = {
+	GNOMEUIINFO_MENU_CUT_ITEM (NULL, NULL),
+	GNOMEUIINFO_MENU_COPY_ITEM (NULL, NULL),
+	GNOMEUIINFO_MENU_PASTE_ITEM (NULL, NULL),
+	GNOMEUIINFO_SEPARATOR,
+	GNOMEUIINFO_MENU_FIND_ITEM (search_cb, NULL),
+	GNOMEUIINFO_ITEM_NONE (N_("Search rege_x..."), N_("Regular expressions search..."), search_regex_cb),
+	GNOMEUIINFO_MENU_FIND_AGAIN_ITEM (search_next_cb, NULL),
+	GNOMEUIINFO_MENU_REPLACE_ITEM (replace_cb, NULL),
+	GNOMEUIINFO_END	
+};
+
+static GnomeUIInfo edit_tree_info[] = {
+	GNOMEUIINFO_MENU_EDIT_TREE (edit_subtree_info),
+	GNOMEUIINFO_SUBTREE (N_("F_ormat"), format_subtree_info),
 	GNOMEUIINFO_END
 };
 
 static GnomeUIInfo menu_info[] = {
+	GNOMEUIINFO_MENU_EDIT_TREE (edit_subtree_info),
 	GNOMEUIINFO_SUBTREE (N_("F_ormat"), format_subtree_info),
 	GNOMEUIINFO_END
 };
 
 
+
+static void
+search_cb (GtkWidget *widget, gpointer data)
+{
+}
+
+static void
+search_regex_cb (GtkWidget *widget, gpointer data)
+{
+}
+
+static void
+search_next_cb (GtkWidget *widget, gpointer data)
+{
+}
+
+static void
+replace_cb (GtkWidget *widget, gpointer data)
+{
+}
+
 void
 menubar_setup (BonoboUIHandler *uih,
 	       GtkHTML *html)
@@ -54,7 +99,7 @@ menubar_setup (BonoboUIHandler *uih,
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
 
-	tree = bonobo_ui_handler_menu_parse_uiinfo_tree (menu_info);
-	bonobo_ui_handler_menu_add_tree (uih, "/", tree);
-	bonobo_ui_handler_menu_free_tree (tree);
+	tree = bonobo_ui_handler_menu_parse_uiinfo_list (menu_info);
+	bonobo_ui_handler_menu_add_list (uih, "/", tree);
+	bonobo_ui_handler_menu_free_list (tree);
 }

@@ -1,5 +1,9 @@
 2000-04-20  Radek Doulik  <rodo@helixcode.com>
 
+	* testgtkhtml.c (main): commented out gtk_html_set_editable as it
+	could break things, so uncomment it yourself if you want to test
+	replacing
+
 	* gtkhtml-replace.c (gtk_html_replace_dialog_new): replace dialog ctor
 	(ask_dialog_new): ask dialog ctor
 	(replace_do): calls html_engine_replace_do, it is used from button

@@ -1,3 +1,14 @@
+2000-04-20  Radek Doulik  <rodo@helixcode.com>
+
+	* menubar.c: use ITALIC and UNDERLINE menu items instead of 3xBOLD
+	added edit_subtree_info with Cut/Copy/Paste|Search/Search
+	regex/Search again/Replace
+	(menubar_setup): use _list functions instead of _tree ones as we
+	have more menu subtrees now :)
+
+	* test-html-editor-control.c (container_create): create control
+	after menu is prepared
+
 2000-03-12  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* editor-control-factory.c: Removed `MAKE_VBOX_CONTROL' #define as
