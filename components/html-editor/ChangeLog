@@ -1,3 +1,8 @@
+2004-04-07  Radek Doulik  <rodo@ximian.com>
+
+	* toolbar.c (create_style_toolbar): added two new separators as
+	suggested in #42865
+
 2004-03-19  Radek Doulik  <rodo@ximian.com>
 
 	* image.c (image_widget): default gnome pixmap entry set to home
