@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 1.1.x\n"
-"POT-Creation-Date: 2002-05-10 00:44+0800\n"
-"PO-Revision-Date: 2002-01-25 02:09+0800\n"
+"POT-Creation-Date: 2002-05-28 04:27+0800\n"
+"PO-Revision-Date: 2002-05-25 02:09+0800\n"
 "Last-Translator: Hasbullah Bin Pit <sebol@ikhlas.com>\n"
 "Language-Team: Projek Gabai <gabai-penyumbang@lists.sourceforge.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 msgid "<None>"
 msgstr "<Tiada>"
 
-#: capplet/gnome-bindings-prop.c:216 capplet/main.c:251
+#: capplet/gnome-bindings-prop.c:216 capplet/main.c:253
 #: components/html-editor/cell.c:385 components/html-editor/image.c:513
 #: components/html-editor/rule.c:315 components/html-editor/table.c:528
 #: components/html-editor/table.c:619 components/html-editor/template.c:244
@@ -41,113 +41,117 @@ msgid "Automatically detect links"
 msgstr "Automatik detect pautan"
 
 #: capplet/gtkhtml-capplet.glade.h:5
+msgid "Automatically insert smiley images"
+msgstr "Automatik selit imej senyuman"
+
+#: capplet/gtkhtml-capplet.glade.h:6
 msgid "Behavior"
 msgstr "Kelakuan"
 
-#: capplet/gtkhtml-capplet.glade.h:6
+#: capplet/gtkhtml-capplet.glade.h:7
 msgid "Command"
 msgstr "Arahan"
 
-#: capplet/gtkhtml-capplet.glade.h:7
+#: capplet/gtkhtml-capplet.glade.h:8
 msgid "Composer Properties"
 msgstr "Ciri-ciri Penggubah"
 
-#: capplet/gtkhtml-capplet.glade.h:8
+#: capplet/gtkhtml-capplet.glade.h:9
 msgid "Composer Properties planned"
 msgstr "Ciri-ciri Penggubah dirancang"
 
-#: capplet/gtkhtml-capplet.glade.h:9
+#: capplet/gtkhtml-capplet.glade.h:10
 msgid "Configure spell checking"
 msgstr "Konfigurasikan penyemak ejaan"
 
-#: capplet/gtkhtml-capplet.glade.h:10
+#: capplet/gtkhtml-capplet.glade.h:11
 msgid "Enable spell checking"
 msgstr "Hidupkan penyemak ejaan"
 
-#: capplet/gtkhtml-capplet.glade.h:11
+#: capplet/gtkhtml-capplet.glade.h:12
 msgid "Fixed width"
 msgstr "Lebar tetap"
 
 # src/prefs.c:618
 # ui/galeon.glade.h:140
-#: capplet/gtkhtml-capplet.glade.h:12
+#: capplet/gtkhtml-capplet.glade.h:13
 msgid "Fonts"
 msgstr "Font"
 
-#: capplet/gtkhtml-capplet.glade.h:13
+#: capplet/gtkhtml-capplet.glade.h:14
 msgid "For printing"
 msgstr "Untuk cetakan"
 
-#: capplet/gtkhtml-capplet.glade.h:14
+#: capplet/gtkhtml-capplet.glade.h:15
 msgid "Grab keys"
 msgstr "Genggam kekunci..."
 
-#: capplet/gtkhtml-capplet.glade.h:15
+#: capplet/gtkhtml-capplet.glade.h:16
 msgid "Information"
 msgstr "Maklumat"
 
-#: capplet/gtkhtml-capplet.glade.h:16
+#: capplet/gtkhtml-capplet.glade.h:17
 msgid "Keyboard Shortcuts"
 msgstr "Pintasan Papan Kekunci"
 
-#: capplet/gtkhtml-capplet.glade.h:17
+#: capplet/gtkhtml-capplet.glade.h:18
 #: components/html-editor/gtkhtml-editor-properties.glade.h:44
 msgid "Miscellaneous"
 msgstr "Lain-lain"
 
-#: capplet/gtkhtml-capplet.glade.h:18
+#: capplet/gtkhtml-capplet.glade.h:19
 msgid "New shortcut:"
 msgstr "Pintasan baru:"
 
-#: capplet/gtkhtml-capplet.glade.h:19
+#: capplet/gtkhtml-capplet.glade.h:20
 msgid "On screen"
 msgstr "Pada skrin"
 
-#: capplet/gtkhtml-capplet.glade.h:20
+#: capplet/gtkhtml-capplet.glade.h:21
 msgid "Select HTML fixed width font"
 msgstr "Pilih for lebar tetap HTML"
 
-#: capplet/gtkhtml-capplet.glade.h:21
+#: capplet/gtkhtml-capplet.glade.h:22
 msgid "Select HTML fixed width font for printing"
 msgstr "Pilih for lebar tetap HTML untuk cetakan"
 
-#: capplet/gtkhtml-capplet.glade.h:22
+#: capplet/gtkhtml-capplet.glade.h:23
 msgid "Select HTML variable width font"
 msgstr "Pilih font lebar bolehubah HTML"
 
-#: capplet/gtkhtml-capplet.glade.h:23
+#: capplet/gtkhtml-capplet.glade.h:24
 msgid "Select HTML variable width font for printing"
 msgstr "Pilih font lebar bolehubah HTML untuk cetakan"
 
-#: capplet/gtkhtml-capplet.glade.h:24
+#: capplet/gtkhtml-capplet.glade.h:25
 msgid "Select command "
 msgstr "Pilih arahan"
 
-#: capplet/gtkhtml-capplet.glade.h:25
+#: capplet/gtkhtml-capplet.glade.h:26
 msgid "Shortcut"
 msgstr "Pintasan"
 
-#: capplet/gtkhtml-capplet.glade.h:26
+#: capplet/gtkhtml-capplet.glade.h:27
 msgid "Shortcuts _type:"
 msgstr "Jenis Pintasan:"
 
-#: capplet/gtkhtml-capplet.glade.h:27
+#: capplet/gtkhtml-capplet.glade.h:28
 msgid "Show animated images"
 msgstr "Papar imej animasi"
 
-#: capplet/gtkhtml-capplet.glade.h:28
+#: capplet/gtkhtml-capplet.glade.h:29
 msgid "Variable width"
 msgstr "Lebar bolehubah"
 
-#: capplet/gtkhtml-capplet.glade.h:29
+#: capplet/gtkhtml-capplet.glade.h:30
 msgid "_Add"
 msgstr "_Tambah"
 
-#: capplet/gtkhtml-capplet.glade.h:30
+#: capplet/gtkhtml-capplet.glade.h:31
 msgid "_Delete"
 msgstr "Pa_dam"
 
-#: capplet/main.c:236
+#: capplet/main.c:238
 msgid ""
 "Cannot execute GNOME Spell control applet\n"
 "Try to install GNOME Spell if you don't have it installed."
@@ -339,397 +343,457 @@ msgstr "Pengepala_6"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
 #: components/html-editor/editor-control-factory.c:186
 #: components/html-editor/gtkhtml-editor-properties.glade.h:36
-#: components/html-editor/menubar.c:107 components/html-editor/popup.c:172
+#: components/html-editor/menubar.c:109 components/html-editor/popup.c:172
 msgid "Image"
 msgstr "Imej"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
+msgid "Insert Frown smiley into document..."
+msgstr "Selit iikon kerutan  ke dokumen..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
 msgid "Insert HTML link into document..."
 msgstr "Selit pautan HTML ke dokumen..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
 msgid "Insert HTML template into document..."
 msgstr "Selit templet HTML ke dokumen..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
+msgid "Insert Laughing smiley into document..."
+msgstr "Selit ikon ketawa ke dokumen..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
+msgid "Insert Oh no! smiley into document..."
+msgstr "Selit ikon Alamak! ke dokumen..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
+msgid "Insert Smile smiley into document..."
+msgstr "Selit ikon senyuman ke dokumen..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
+msgid "Insert Smiley 7 smiley into document..."
+msgstr "Selit ikon 7 senyuman ke dokumen..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
+msgid "Insert Surpriced smiley into document..."
+msgstr "Selit ikon terkejut ke dokumen..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
+msgid "Insert Wink smiley into document..."
+msgstr "Selit ikon kenyit mata ke dokumen..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
 msgid "Insert image into document..."
 msgstr "Selit imej ke dokumen..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
 msgid "Insert rule into document..."
 msgstr "Selit rule ke dokumen..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
 msgid "Insert table into document..."
 msgstr "Selit jadual ke dokumen..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
 #: components/html-editor/toolbar.c:514
 msgid "Left justifies the paragraphs"
 msgstr "Justifikasi kiri perenggan"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
-#: components/html-editor/body.c:307 components/html-editor/menubar.c:123
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
+#: components/html-editor/body.c:307 components/html-editor/menubar.c:125
 #: components/html-editor/popup.c:165 components/html-editor/popup.c:238
 msgid "Link"
 msgstr "Pautan"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
 msgid "Make the current Paragraph style Normal"
 msgstr "Jadikan perenggan semasa bergaya normal"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
 msgid "Make the current Paragraph style Preformat"
 msgstr "Jadikan perenggan semasa sebagai preformat"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
 msgid "Make the current paragraph a bulleted list"
 msgstr "Jadikan prerenggan semasa senarai bulet"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
 msgid "Make the current paragraph a list with roman numerals"
 msgstr "Jadikan perenggan semasa sebagai senarai nombor roman"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
 msgid "Make the current paragraph a numbered list"
 msgstr "Jadikan perenggan semasa senarai bernombor"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
 msgid "Make the current paragraph an H1 header"
 msgstr "Jadikan prerenggan semasa pengepala H1"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
 msgid "Make the current paragraph an H2 header"
 msgstr "Jadikan prerenggan semasa pengepala H2"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
 msgid "Make the current paragraph an H3 header"
 msgstr "Jadikan prerenggan semasa pengepala H3"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
 msgid "Make the current paragraph an H4 header"
 msgstr "Jadikan prerenggan semasa pengepala H3"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
 msgid "Make the current paragraph an H5 header"
 msgstr "Jadikan prerenggan semasa pengepala H4"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
 msgid "Make the current paragraph an H6 header"
 msgstr "Jadikan prerenggan semasa pengepala H5"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 msgid "Make the current paragraph an address"
 msgstr "Jadikan perenggan semasa sebagai alamat"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
 msgid "Make the current paragraph an alphabetical list"
 msgstr "Jadikan perenggan sebagai senarai alfabetik"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
 msgid "Modify the file's properties"
 msgstr "Ubahsuai ciri-ciri fail"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
 #: components/html-editor/gtkhtml-editor-properties.glade.h:46
 #: components/html-editor/paragraph.c:124 components/html-editor/toolbar.c:50
 msgid "Normal"
 msgstr "Normal"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
 #: components/html-editor/toolbar.c:53
 msgid "Numbered List"
 msgstr "Senarai Bernombor"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
 msgid "Numbered _List"
 msgstr "_Senarai Bernombor"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
+msgid "Oh _no!"
+msgstr "Alamak!"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
 msgid "Orange"
 msgstr "Jingga"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
 msgid "Other..."
 msgstr "Lain-lain..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
 #: components/html-editor/popup.c:425
 msgid "Paste"
 msgstr "Tepek"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
 msgid "Paste from clipboard"
 msgstr "Tepek dari papanklip"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
 msgid "Paste the clipboard"
 msgstr "Tepek clipboard"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
 msgid "Pr_operties..."
 msgstr "_Ciri-ciri..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
 #: components/html-editor/toolbar.c:51
 msgid "Preformat"
 msgstr "Preformat"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
 msgid "Purple"
 msgstr "Ungu"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
 msgid "Red"
 msgstr "merah"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
 msgid "Redo"
 msgstr "Ulangcara"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
 msgid "Redo previously undone change"
 msgstr "Ulangcara perubahan nyahcara terdahulu"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
 msgid "Redo the undone action"
 msgstr "Ulangcara aksi nyahcara"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
 #: components/html-editor/replace.c:84 components/html-editor/replace.c:146
 #: components/html-editor/replace.c:158 components/html-editor/replace.c:204
 msgid "Replace"
 msgstr "Ganti"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
 #: components/html-editor/toolbar.c:518
 msgid "Right justifies the paragraphs"
 msgstr "Justifikasi kanan perenggan"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 msgid "Roman Numeral List"
 msgstr "Senarai nombor roman"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
 #: components/html-editor/editor-control-factory.c:206
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
-#: components/html-editor/menubar.c:141 components/html-editor/popup.c:193
+#: components/html-editor/menubar.c:143 components/html-editor/popup.c:193
 msgid "Rule"
 msgstr "Rule"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
 msgid "Select _All"
 msgstr "Pilih Semu_a"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
 msgid "Select the entire contents of the document"
 msgstr "Pilih semua kandungan dokumen"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
+msgid "Smiley _7"
+msgstr "_7 Senyuman"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
 #: components/html-editor/gtkhtml-editor-properties.glade.h:66
 #: components/html-editor/text.c:222 components/html-editor/toolbar.c:533
 msgid "Strikeout"
 msgstr "Strikeout"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
 msgid "Su_perscript"
 msgstr "Su_perscript"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
+msgid "Su_rpriced"
+msgstr "Te_rkejut"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 msgid "Subs_cript"
 msgstr "Subs_cript"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
 msgid "Subscript"
 msgstr "Subscript"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
 msgid "Superscript"
 msgstr "Superscript"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#: components/html-editor/menubar.c:158 components/html-editor/popup.c:200
+#: components/html-editor/menubar.c:160 components/html-editor/popup.c:200
 #: components/html-editor/popup.c:473 components/html-editor/popup.c:482
 msgid "Table"
 msgstr "Jadual"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
 msgid "Te_mplate..."
 msgstr "Te_mplet..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
 #: components/html-editor/body.c:233
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
-#: components/html-editor/menubar.c:181
+#: components/html-editor/menubar.c:183
 msgid "Template"
 msgstr "Templet"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
 #: components/html-editor/toolbar.c:525
 msgid "Typewriter"
 msgstr "Mesin taip"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
 msgid "Undo"
 msgstr "Nyahcara"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
 msgid "Undo previous changes"
 msgstr "Nyahcara  perubahan terdahulu"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 msgid "Undo the last action"
 msgstr "Nyahcara aksi terkhir"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
 msgid "Yellow"
 msgstr "Kuning"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 msgid "_Alignment"
 msgstr "J_ajaran"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
 msgid "_Alphabetical List"
 msgstr "Senarai _Alfabetik"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
 msgid "_Bold"
 msgstr "_Bold"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
 msgid "_Bulleted List"
 msgstr "Senarai _Bulet"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
 msgid "_Center"
 msgstr "_Tengah"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
 msgid "_Copy"
 msgstr "_Salin"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
 msgid "_Decrease Indent"
 msgstr "_Kurangkan Inden"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
 msgid "_Edit"
 msgstr "_Edit"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
 msgid "_Find..."
 msgstr "_Cari..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
 msgid "_Font Size"
 msgstr "Saiz _Font"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
+msgid "_Frown"
+msgstr "Kerut _Dahi"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
 msgid "_Heading"
 msgstr "_Pengepala"
 
 # ui/galeon.glade.h:176
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
 msgid "_Image..."
 msgstr "_Imej..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
 msgid "_Increase Indent"
 msgstr "_Naikkan Inden"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
 msgid "_Insert"
 msgstr "Sel_it"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
 msgid "_Italic"
 msgstr "_Italik"
 
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
+msgid "_Laughing"
+msgstr "Keta_wa"
+
 # ui/galeon.glade.h:200
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
 msgid "_Left"
 msgstr "Ki_ri"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
 msgid "_Link..."
 msgstr "Pau_tan..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
 msgid "_Normal"
 msgstr "_Normal"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
 msgid "_Page..."
 msgstr "_Laman..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
 msgid "_Paragraph..."
 msgstr "_Perenggan..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
 msgid "_Paste"
 msgstr "Te_pek"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
 msgid "_Plain text"
 msgstr "Teks _Plain"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
 msgid "_Preformat"
 msgstr "_Preformat"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
 msgid "_Redo"
 msgstr "_Ulangcara"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
 msgid "_Replace..."
 msgstr "_Ganti..."
 
 # ui/galeon.glade.h:268
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
 msgid "_Right"
 msgstr "Ka_nan"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
 msgid "_Roman Numeral List"
 msgstr "Senarai Bernombor _Roman"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
 msgid "_Rule..."
 msgstr "_Rule..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
+msgid "_Smile"
+msgstr "_Senyum"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
+msgid "_Smiley"
+msgstr "_Senyuman"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
 msgid "_Spell Check Document..."
 msgstr "_Semak Ejaan Dokumen..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
 msgid "_Strikeout"
 msgstr "_Strikeout"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
 msgid "_Style"
 msgstr "_Gaya"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
 msgid "_Table..."
 msgstr "_Jadual..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
 msgid "_Text..."
 msgstr "_Teks..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
 msgid "_Underline"
 msgstr "_Garisbawah"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
 msgid "_Undo"
 msgstr "_Nyahcara"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:141
+msgid "_Wink"
+msgstr "_Kenyitan"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:142
 msgid "etc..."
 msgstr "dll..."
 
@@ -769,7 +833,7 @@ msgstr "Automatik"
 #: components/html-editor/body.c:306
 #: components/html-editor/editor-control-factory.c:195
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
-#: components/html-editor/menubar.c:242 components/html-editor/popup.c:158
+#: components/html-editor/menubar.c:244 components/html-editor/popup.c:158
 msgid "Text"
 msgstr "Teks"
 
@@ -779,20 +843,20 @@ msgid "Background"
 msgstr "LatarBelakang"
 
 #: components/html-editor/editor-control-factory.c:176
-#: components/html-editor/menubar.c:221 components/html-editor/menubar.c:239
-#: components/html-editor/menubar.c:257 components/html-editor/popup.c:150
+#: components/html-editor/menubar.c:223 components/html-editor/menubar.c:241
+#: components/html-editor/menubar.c:259 components/html-editor/popup.c:150
 #: components/html-editor/popup.c:235
 msgid "Properties"
 msgstr "Ciri-ciri"
 
 #: components/html-editor/editor-control-factory.c:216
-#: components/html-editor/menubar.c:260 components/html-editor/popup.c:179
+#: components/html-editor/menubar.c:262 components/html-editor/popup.c:179
 msgid "Paragraph"
 msgstr "Perenggan"
 
 #: components/html-editor/editor-control-factory.c:221
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: components/html-editor/menubar.c:224 components/html-editor/popup.c:186
+#: components/html-editor/menubar.c:226 components/html-editor/popup.c:186
 msgid "Page"
 msgstr "Halaman"
 
@@ -1133,14 +1197,14 @@ msgstr "Teks Pautan"
 msgid "Test URL"
 msgstr "URL Ujian"
 
-#: components/html-editor/menubar.c:105 components/html-editor/menubar.c:120
-#: components/html-editor/menubar.c:138 components/html-editor/menubar.c:155
-#: components/html-editor/menubar.c:178
+#: components/html-editor/menubar.c:107 components/html-editor/menubar.c:122
+#: components/html-editor/menubar.c:140 components/html-editor/menubar.c:157
+#: components/html-editor/menubar.c:180
 #: components/html-editor/properties.c:120
 msgid "Insert"
 msgstr "Selit"
 
-#: components/html-editor/menubar.c:194
+#: components/html-editor/menubar.c:196
 msgid "Cannot execute gtkhtml properties"
 msgstr "Gagal melaksanakan ciri-ciri gtkhtml"
 
@@ -1463,11 +1527,11 @@ msgstr "Gagal memuatkan font lebartetap."
 msgid "US-Letter"
 msgstr "US-Letter"
 
-#: src/testgtkhtml.c:113
+#: src/testgtkhtml.c:99
 msgid "Print pre_view"
 msgstr "Pre_biu Cetakan"
 
-#: src/testgtkhtml.c:113
+#: src/testgtkhtml.c:99
 msgid "Print preview"
 msgstr "Prebiu Cetakan"
 
