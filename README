@@ -10,6 +10,11 @@ is available from:
 
     http://www.w3.org/Library/
 
+The libwww library must be compiled *with* zlib support.  Make sure
+zlib is installed properly before compiling libwww if you do this by
+hand.  The pre-built libwww packages shipped by Linux distributions
+all have zlib support compiled in already AFAIK.
+
 To try it out, run testgtkhtml in the source dir, i.e:
 
     cd src
