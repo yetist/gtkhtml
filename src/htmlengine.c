@@ -447,6 +447,15 @@ insert_text (HTMLEngine *e,
 	HTMLColor *color;
 	gboolean create_link;
 
+	if (text [0] == ' ' && text [1] == 0) {
+		if (e->eat_space)
+			return;
+		else
+			e->eat_space = TRUE;
+	} else
+		e->eat_space = FALSE;
+	
+
 	if (e->url != NULL || e->target != NULL)
 		create_link = TRUE;
 	else
@@ -674,6 +683,7 @@ parse_body (HTMLEngine *p, HTMLObject *clue, const gchar *end[], gboolean toplev
 {
 	gchar *str;
 
+	p->eat_space = FALSE;
 	while (html_tokenizer_has_more_tokens (p->ht) && p->parsing) {
 		str = html_tokenizer_next_token (p->ht);
 
@@ -682,7 +692,7 @@ parse_body (HTMLEngine *p, HTMLObject *clue, const gchar *end[], gboolean toplev
 
 		if ( *str == ' ' && *(str+1) == '\0' ) {
 			/* if in* is set this text belongs in a form element */
-			if (p->inOption || p->inTextArea)
+			if (p->inTextArea || p->inOption)
 				p->formText = g_string_append (p->formText, " ");
 			else if (p->inTitle)
 				g_string_append (p->title, " ");
@@ -2710,6 +2720,7 @@ parse_s (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 		e->inOption = FALSE;
 		e->formSelect = NULL;
+		e->eat_space = FALSE;
 	} else if (strncmp (str, "sub", 3) == 0) {
 		if (str[3] == '>' || str[3] == ' ') {
 			push_font_style (e, GTK_HTML_FONT_STYLE_SUBSCRIPT);
@@ -2816,6 +2827,7 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 		e->inTextArea = FALSE;
 		e->formTextArea = NULL;
+		e->eat_space = FALSE;
 	}
 
 }

@@ -104,6 +104,7 @@ struct _HTMLEngine {
 	gboolean inPre;
 	gboolean inOption;
 	gboolean inTextArea;
+	gboolean eat_space;
 
 	gboolean newPage;
  

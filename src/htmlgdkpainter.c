@@ -189,7 +189,7 @@ gtkhtml_private_split_name (gchar * c[], gchar * name)
 }
 
 static gpointer
-alloc_e_font (gchar *face, gdouble size, GtkHTMLFontStyle style)
+alloc_e_font_it (gchar *face, gdouble size, GtkHTMLFontStyle style, gchar *it)
 {
 	EFont *font;
 	gchar *name;
@@ -200,13 +200,13 @@ alloc_e_font (gchar *face, gdouble size, GtkHTMLFontStyle style)
 
 		name = g_strdup_printf ("-*-%s-%s-%s-normal-*-*-*-*-*-*-*-*",
 					face, style & GTK_HTML_FONT_STYLE_BOLD ? "bold" : "medium",
-					style & GTK_HTML_FONT_STYLE_ITALIC ? "i" : "r");
+					style & GTK_HTML_FONT_STYLE_ITALIC ? it : "r");
 		if (!find_font (name, size, &tsize))
 			tsize = size;
 		g_free (name);
 		name = g_strdup_printf ("-*-%s-%s-%s-normal-*-%d-*-*-*-*-*-*",
 					face, style & GTK_HTML_FONT_STYLE_BOLD ? "bold" : "medium",
-					style & GTK_HTML_FONT_STYLE_ITALIC ? "i" : "r", tsize);
+					style & GTK_HTML_FONT_STYLE_ITALIC ? it : "r", tsize);
 	} else
 		name = g_strdup ("fixed");
 
@@ -226,6 +226,20 @@ alloc_e_font (gchar *face, gdouble size, GtkHTMLFontStyle style)
 			g_free (name);
 		}
 	}
+
+	return font;
+}
+
+static gpointer
+alloc_e_font (gchar *face, gdouble size, GtkHTMLFontStyle style)
+{
+	
+
+	EFont *font;
+
+	font = alloc_e_font_it (face, size, style, "i");
+	if (!font && style & GTK_HTML_FONT_STYLE_ITALIC)
+		font = alloc_e_font_it (face, size, style, "o");
 
 	return font;
 }

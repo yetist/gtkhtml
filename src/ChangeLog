@@ -1,9 +1,18 @@
 2000-12-06  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine.c (parse_body): set eat_space to FALSE
+	(insert_text): drop consequent spaces
+	(parse_s): set eat_space to FALSE after </select>
+	(parse_t): likewise after </textarea>
+
+	* htmlengine.h: added Engine::eat_space flag
+
 	* htmlgdkpainter.c (alloc_e_font): drop our heuristic and let
 	EFont do the job
 	(alloc_e_font): drop fixed font if face != NULL
 	(alloc_e_font): use our heuristic for size
+	(alloc_e_font_it): new helper function
+	(alloc_e_font): try to alloc "obligue" when no italics found
 
 	* htmltable.c (divide_into_variable_all): more tuning
 
