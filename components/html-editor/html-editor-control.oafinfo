@@ -27,7 +27,7 @@
 
 	<oaf_attribute name="bonobo:editable" type="boolean" value="true"/>
 
-	<oaf_attribute name="bonobo:supported_mime_types" type="string">
+	<oaf_attribute name="bonobo:supported_mime_types" type="stringv">
 		<item value="text/html"/>
 	</oaf_attribute>
 

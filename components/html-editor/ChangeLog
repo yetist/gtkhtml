@@ -1,3 +1,7 @@
+2000-05-02  Michael Meeks  <michael@helixcode.com>
+
+	* html-editor-control.oafinfo: correct supported_mime_types to stringv
+
 2000-04-29  Maciej Stachowiak  <mjs@eazel.com>
 
 	* html-editor-control.oafinfo: Added most standard OAF attributes
