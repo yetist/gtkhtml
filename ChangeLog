@@ -1,5 +1,9 @@
 2003-01-13  Rodney Dawes  <dobey@ximian.com>
 
+	* src/Makefile.am: Handle $(DESTDIR) when moving the libgtkhtml.pc file
+	
+2003-01-13  Rodney Dawes  <dobey@ximian.com>
+
 	* configure.in: Remove the capplet stuff
 	
 2003-01-10  Naba Kumar  <naba@gnome.org>
