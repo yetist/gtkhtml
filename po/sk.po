@@ -5,14 +5,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.9.3\n"
-"POT-Creation-Date: 2001-05-15 16:09+0200\n"
-"PO-Revision-Date: 2001-05-15 16:14CET\n"
+"POT-Creation-Date: 2001-06-01 14:23+0200\n"
+"PO-Revision-Date: 2001-06-01 14:25CET\n"
 "Last-Translator: Stanislav Visnovsky <visnovsky@nenya.ms.mff.cuni.cz>\n"
 "Language-Team: Slovak <sk-i18n@rak.isternet.sk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.9\n"
+"X-Generator: KBabel 0.9.1beta\n"
 
 #: capplet/gnome-bindings-prop.c:154 capplet/gnome-bindings-prop.c:222
 #: capplet/gnome-bindings-prop.c:297 capplet/gnome-bindings-prop.c:435
@@ -42,7 +42,7 @@ msgstr "Prida»"
 
 #: capplet/gnome-bindings-prop.c:548
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:2
-#: components/html-editor/popup.c:231
+#: components/html-editor/popup.c:249
 msgid "Copy"
 msgstr "Kopírova»"
 
@@ -54,7 +54,8 @@ msgstr "Odstráni»"
 msgid "Grab key"
 msgstr "Zachyti» kláves"
 
-#: capplet/main.c:227
+#: capplet/main.c:227 components/html-editor/cell.c:333
+#: components/html-editor/table.c:286
 msgid "Could not load glade file."
 msgstr "Nie je mo¾né naèíta» glade súbor."
 
@@ -176,7 +177,7 @@ msgid "Copy the selection"
 msgstr "Kopíruje výber"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:5
-#: components/html-editor/popup.c:232
+#: components/html-editor/popup.c:250
 msgid "Cut"
 msgstr "Vystrihnú»"
 
@@ -234,7 +235,7 @@ msgid "Modify the file's properties"
 msgstr "Zmení vlastnosti súboru"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:19
-#: components/html-editor/popup.c:238
+#: components/html-editor/popup.c:256
 msgid "Paste"
 msgstr "Vlo¾i»"
 
@@ -345,97 +346,225 @@ msgid "Colors"
 msgstr "Farby"
 
 #: components/html-editor/body.c:180
-#: components/html-editor/editor-control-factory.c:165
-#: components/html-editor/menubar.c:124 components/html-editor/popup.c:89
+#: components/html-editor/editor-control-factory.c:166
+#: components/html-editor/menubar.c:124 components/html-editor/popup.c:93
 msgid "Text"
 msgstr "Text"
 
 #: components/html-editor/body.c:181
-#: components/html-editor/editor-control-factory.c:190
+#: components/html-editor/editor-control-factory.c:191
 #: components/html-editor/menubar.c:108 components/html-editor/menubar.c:129
-#: components/html-editor/popup.c:110
+#: components/html-editor/popup.c:114
 msgid "Link"
 msgstr "Odkaz"
 
 #: components/html-editor/body.c:182
+#: components/html-editor/gtkhtml-editor-properties.glade.h:2
 msgid "Background"
 msgstr "Pozadie"
 
-#: components/html-editor/editor-control-factory.c:145
-#: components/html-editor/popup.c:81
+#: components/html-editor/cell.c:339 components/html-editor/table.c:292
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:286
+msgid "Automatic"
+msgstr "Automatické"
+
+#: components/html-editor/editor-control-factory.c:146
+#: components/html-editor/popup.c:85
 msgid "Properties"
 msgstr "Vlastnosti"
 
-#: components/html-editor/editor-control-factory.c:156
-#: components/html-editor/menubar.c:103 components/html-editor/popup.c:96
+#: components/html-editor/editor-control-factory.c:157
+#: components/html-editor/menubar.c:103 components/html-editor/popup.c:100
 msgid "Image"
 msgstr "Obrázok"
 
-#: components/html-editor/editor-control-factory.c:176
-#: components/html-editor/menubar.c:147 components/html-editor/popup.c:124
+#: components/html-editor/editor-control-factory.c:177
+#: components/html-editor/menubar.c:147 components/html-editor/popup.c:128
 msgid "Rule"
 msgstr "Pravidlo"
 
-#: components/html-editor/editor-control-factory.c:185
-#: components/html-editor/popup.c:103
+#: components/html-editor/editor-control-factory.c:186
+#: components/html-editor/popup.c:107
 msgid "Paragraph"
 msgstr "Odstavec"
 
-#: components/html-editor/editor-control-factory.c:195
-#: components/html-editor/popup.c:117
+#: components/html-editor/editor-control-factory.c:196
+#: components/html-editor/popup.c:121
 msgid "Page"
 msgstr "Stránka"
 
-#: components/html-editor/image.c:180
-msgid "Image selection"
-msgstr "Výber obrázku"
-
-#: components/html-editor/image.c:201
-msgid "Top"
-msgstr "Hore"
-
-#: components/html-editor/image.c:202 components/html-editor/paragraph.c:158
-#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:496
-msgid "Center"
-msgstr "V strede"
-
-#: components/html-editor/image.c:203
-msgid "Bottom"
-msgstr "Dole"
-
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
+#: components/html-editor/gtkhtml-editor-properties.glade.h:1
 #: components/html-editor/image.c:207
 msgid "Alignment"
 msgstr "Zarovnanie"
 
-#: components/html-editor/image.c:215
-msgid "Border"
-msgstr "Okraje"
+#: components/html-editor/gtkhtml-editor-properties.glade.h:3
+#: components/html-editor/image.c:203
+msgid "Bottom"
+msgstr "Dole"
 
-#: components/html-editor/image.c:225 components/html-editor/image.c:243
-#: components/html-editor/image.c:275 components/html-editor/rule.c:267
-msgid "width"
-msgstr "¹írka"
+#: components/html-editor/gtkhtml-editor-properties.glade.h:4
+#: components/html-editor/popup.c:142
+msgid "Cell"
+msgstr "Bunka"
 
-#: components/html-editor/image.c:232
-msgid "Padding"
-msgstr "Medzery"
+#: components/html-editor/gtkhtml-editor-properties.glade.h:5
+#: components/html-editor/paragraph.c:158 components/html-editor/rule.c:257
+#: components/html-editor/toolbar.c:496
+msgid "Center"
+msgstr "V strede"
 
-#: components/html-editor/image.c:244 components/html-editor/image.c:276
-msgid "height"
-msgstr "vý¹ka"
+#: components/html-editor/gtkhtml-editor-properties.glade.h:6
+msgid "Don't wrap"
+msgstr "Nezalamova»"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:7
+msgid "Header"
+msgstr "Hlavièka"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:8
+#: components/html-editor/paragraph.c:157 components/html-editor/rule.c:256
+msgid "Left"
+msgstr "Vµavo"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:9
+#: components/html-editor/image.c:202
+msgid "Middle"
+msgstr "V strede"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:10
+msgid "Miscelaneous"
+msgstr "Rôzne"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:11
+msgid "None"
+msgstr "®iadne"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:12
+#: components/html-editor/paragraph.c:124 components/html-editor/toolbar.c:50
+msgid "Normal"
+msgstr "Normálne"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:13
+msgid "Percent"
+msgstr "Percentá"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:14
+#: components/html-editor/image.c:259 components/html-editor/image.c:268
+#: components/html-editor/rule.c:230
+msgid "Pixels"
+msgstr "Body"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:15
+#: components/html-editor/paragraph.c:159 components/html-editor/rule.c:258
+msgid "Right"
+msgstr "Vpravo"
 
 #. size
+#: components/html-editor/gtkhtml-editor-properties.glade.h:16
 #: components/html-editor/image.c:252 components/html-editor/rule.c:225
 #: components/html-editor/text.c:188
 msgid "Size"
 msgstr "Veµkos»"
 
-#: components/html-editor/image.c:259 components/html-editor/image.c:268
-#: components/html-editor/rule.c:230
-msgid "Pixels"
-msgstr "Body"
+#: components/html-editor/gtkhtml-editor-properties.glade.h:17
+msgid "Spacing"
+msgstr "Medzery"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:18
+#: components/html-editor/popup.c:135
+msgid "Table"
+msgstr "Tabuµka"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:19
+#: components/html-editor/image.c:201
+msgid "Top"
+msgstr "Hore"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:20
+msgid "Wrap"
+msgstr "Zalamova»"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:21
+msgid "alignment"
+msgstr "zarovnanie"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:22
+msgid "border"
+msgstr "okraje"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:23
+msgid "color"
+msgstr "farba"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:24
+msgid "column span"
+msgstr "rozsah ståpca"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:25
+msgid "columns"
+msgstr "ståpce"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:26
+#: components/html-editor/image.c:244 components/html-editor/image.c:276
+msgid "height"
+msgstr "vý¹ka"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:27
+msgid "horizontal"
+msgstr "horizontálne"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:28
+msgid "padding"
+msgstr "medzery"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:29
+msgid "pixmap"
+msgstr "obrázok"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:30
+msgid "row span"
+msgstr "rozsah riadku"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:31
+msgid "rows"
+msgstr "riadky"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:32
+msgid "spacing"
+msgstr "medzery"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:33
+msgid "style"
+msgstr "¹týl"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:34
+msgid "vertical"
+msgstr "vertikálne"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:35
+#: components/html-editor/image.c:225 components/html-editor/image.c:243
+#: components/html-editor/image.c:275 components/html-editor/rule.c:267
+msgid "width"
+msgstr "¹írka"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:36
+msgid "wrapping"
+msgstr "zalamovanie"
+
+#: components/html-editor/image.c:180
+msgid "Image selection"
+msgstr "Výber obrázku"
+
+#: components/html-editor/image.c:215
+msgid "Border"
+msgstr "Okraje"
+
+#: components/html-editor/image.c:232
+msgid "Padding"
+msgstr "Medzery"
 
 #: components/html-editor/image.c:260 components/html-editor/image.c:269
 #: components/html-editor/rule.c:231
@@ -474,10 +603,6 @@ msgstr "Nie je mo¾né spusti» vlastnosti gtkhtml"
 #: components/html-editor/text.c:168
 msgid "Style"
 msgstr "©týl"
-
-#: components/html-editor/paragraph.c:124 components/html-editor/toolbar.c:50
-msgid "Normal"
-msgstr "Normálne"
 
 #: components/html-editor/paragraph.c:125
 msgid "Pre"
@@ -527,45 +652,45 @@ msgstr "Polo¾ka zoznamu (èíslo)"
 msgid "Align"
 msgstr "Zarovnanie"
 
-#: components/html-editor/paragraph.c:157 components/html-editor/rule.c:256
-msgid "Left"
-msgstr "Vµavo"
-
-#: components/html-editor/paragraph.c:159 components/html-editor/rule.c:258
-msgid "Right"
-msgstr "Vpravo"
-
-#: components/html-editor/popup.c:217
+#: components/html-editor/popup.c:235
 msgid "Suggest word"
 msgstr "Navrhnú» slovo"
 
-#: components/html-editor/popup.c:226
+#: components/html-editor/popup.c:244
 msgid "Remove link"
 msgstr "Odstráni» odkaz"
 
-#: components/html-editor/popup.c:242 components/html-editor/popup.c:268
+#: components/html-editor/popup.c:260 components/html-editor/popup.c:286
 msgid "Text..."
 msgstr "Text..."
 
-#: components/html-editor/popup.c:244 components/html-editor/popup.c:259
-#: components/html-editor/popup.c:270
+#: components/html-editor/popup.c:262 components/html-editor/popup.c:277
+#: components/html-editor/popup.c:288
 msgid "Paragraph..."
 msgstr "Odstavec..."
 
-#: components/html-editor/popup.c:246 components/html-editor/popup.c:261
-#: components/html-editor/popup.c:272
+#: components/html-editor/popup.c:264 components/html-editor/popup.c:279
+#: components/html-editor/popup.c:290
 msgid "Link..."
 msgstr "Odkaz..."
 
-#: components/html-editor/popup.c:252
+#: components/html-editor/popup.c:270
 msgid "Rule..."
 msgstr "Pravidlo..."
 
-#: components/html-editor/popup.c:257
+#: components/html-editor/popup.c:275
 msgid "Image..."
 msgstr "Obrázok..."
 
-#: components/html-editor/popup.c:280
+#: components/html-editor/popup.c:295 components/html-editor/popup.c:304
+msgid "Table..."
+msgstr "Tabuµka..."
+
+#: components/html-editor/popup.c:301
+msgid "Cell..."
+msgstr "Bunka..."
+
+#: components/html-editor/popup.c:311
 msgid "Page..."
 msgstr "Obrázok..."
 
@@ -632,10 +757,6 @@ msgstr "Podèiarknuté"
 #: components/html-editor/text.c:183 components/html-editor/toolbar.c:513
 msgid "Strikeout"
 msgstr "Preèiarknuté"
-
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:286
-msgid "Automatic"
-msgstr "Automatické"
 
 #: components/html-editor/toolbar.c:51
 msgid "Preformat"
