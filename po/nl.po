@@ -5,13 +5,121 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Gtkhtml cvs\n"
-"POT-Creation-Date: 2000-07-15 01:46+0200\n"
-"PO-Revision-Date: 2000-07-15 01:46+0200\n"
-"Last-Translator: Dennis Smit <synap@area101.penguin.nl>\n"
+"POT-Creation-Date: 2000-09-26 23:34+0200\n"
+"PO-Revision-Date: 2000-09-26 23:07+0200\n"
+"Last-Translator: Dennis Smit <mek@antenna.nl>\n"
 "Language-Team: DUTCH <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
+
+#: capplet/gnome-bindings-prop.c:154 capplet/gnome-bindings-prop.c:222
+#: capplet/gnome-bindings-prop.c:297 capplet/gnome-bindings-prop.c:435
+#: capplet/gnome-bindings-prop.c:436
+msgid "<None>"
+msgstr "<Geen>"
+
+#: capplet/gnome-bindings-prop.c:525
+msgid "Key"
+msgstr "Toets"
+
+#: capplet/gnome-bindings-prop.c:525
+msgid "Command"
+msgstr "Commando"
+
+#: capplet/gnome-bindings-prop.c:526
+msgid "Commands"
+msgstr "Commando's"
+
+#: capplet/gnome-bindings-prop.c:527
+msgid "Keymaps"
+msgstr "Toetsen-mappen"
+
+#: capplet/gnome-bindings-prop.c:545
+msgid "Add"
+msgstr "Voeg toe"
+
+#: capplet/gnome-bindings-prop.c:548
+#: components/html-editor/test-html-editor-control.c:323
+#: components/html-editor/toolbar.c:495
+msgid "Copy"
+msgstr "Copieer"
+
+#: capplet/gnome-bindings-prop.c:551
+msgid "Delete"
+msgstr "Verwijder"
+
+#: capplet/gnome-bindings-prop.c:582
+msgid "Grab key"
+msgstr "Pluk een toets"
+
+#: capplet/main.c:220
+msgid "Spell checking"
+msgstr "Spellingscontrole"
+
+#: capplet/main.c:223
+msgid "live spell checking"
+msgstr "live spellingscontrole"
+
+#: capplet/main.c:232
+msgid "spell checking color"
+msgstr "spellingscontrole kleur"
+
+#: capplet/main.c:239
+msgid "language"
+msgstr "taal"
+
+#: capplet/main.c:245
+msgid "Miscellaneous"
+msgstr "Divers"
+
+#: capplet/main.c:247
+msgid "magic links"
+msgstr "magische links"
+
+#: capplet/main.c:266
+msgid "Bindings"
+msgstr "Verband"
+
+#: capplet/main.c:267 capplet/viewer.c:188
+msgid "Behaviour"
+msgstr "Gedrag"
+
+#: capplet/viewer.c:148
+msgid "Appearance"
+msgstr "Uiterlijk"
+
+#: capplet/viewer.c:154
+msgid "Variable width font"
+msgstr "Variable breedte lettertype"
+
+#: capplet/viewer.c:158
+msgid "Select HTML variable width font"
+msgstr "Selecteer HTML variable breedte lettertype"
+
+#: capplet/viewer.c:162 capplet/viewer.c:177
+msgid "for printing"
+msgstr "voor printen"
+
+#: capplet/viewer.c:164
+msgid "Select HTML variable width font for printing"
+msgstr "Selecteer HTML variable breedte lettertype voor printen"
+
+#: capplet/viewer.c:169
+msgid "Fixed width font"
+msgstr "Fixed width lettertype"
+
+#: capplet/viewer.c:173
+msgid "Select HTML fixed width font"
+msgstr "Selecteer HTML vaste breedte lettertype"
+
+#: capplet/viewer.c:179
+msgid "Select HTML fixed width font for printing"
+msgstr "Selecteer HTML vaste breedte lettertype voor printen"
+
+#: capplet/viewer.c:189
+msgid "Animations"
+msgstr "Animaties"
 
 #: components/html-editor/body.c:107
 msgid "use background image"
@@ -25,27 +133,27 @@ msgstr "Achtergronds plaatje"
 msgid "Colors"
 msgstr "Kleuren"
 
-#: components/html-editor/editor-control-factory.c:122
+#: components/html-editor/editor-control-factory.c:136
 #: components/html-editor/popup.c:86
 msgid "Image"
 msgstr "Plaatje"
 
-#: components/html-editor/editor-control-factory.c:131
+#: components/html-editor/editor-control-factory.c:145
 #: components/html-editor/popup.c:79
 msgid "Text"
 msgstr "Tekst"
 
-#: components/html-editor/editor-control-factory.c:143
+#: components/html-editor/editor-control-factory.c:157
 #: components/html-editor/popup.c:93
 msgid "Paragraph"
 msgstr "Paragraaf"
 
-#: components/html-editor/editor-control-factory.c:148
-#: components/html-editor/menubar.c:157 components/html-editor/popup.c:100
+#: components/html-editor/editor-control-factory.c:162
+#: components/html-editor/menubar.c:109 components/html-editor/popup.c:100
 msgid "Link"
 msgstr "Verwijzing"
 
-#: components/html-editor/editor-control-factory.c:153
+#: components/html-editor/editor-control-factory.c:167
 #: components/html-editor/popup.c:107
 msgid "Page"
 msgstr "Pagina"
@@ -56,13 +164,13 @@ msgstr "Plaatjes selectie"
 
 #: components/html-editor/image.c:417
 msgid "Border"
-msgstr "Border"
+msgstr "Rand"
 
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
 #: components/html-editor/image.c:450
 msgid "Alignment"
-msgstr ""
+msgstr "Uitlijning"
 
 #: components/html-editor/image.c:462 components/html-editor/rule.c:124
 #: components/html-editor/text.c:160
@@ -71,7 +179,7 @@ msgstr "Groote"
 
 #: components/html-editor/image.c:489
 msgid "Padding"
-msgstr ""
+msgstr "Uitvullen"
 
 #: components/html-editor/link.c:72
 msgid "Clear"
@@ -85,52 +193,15 @@ msgstr "URL"
 msgid "Could not initialize GNORBA"
 msgstr "Kon GNORBA niet initializeren"
 
-
 #: components/html-editor/main.c:77
 msgid "Could not initialize Bonobo"
 msgstr "Kon BONOBO niet initializeren"
 
-#: components/html-editor/menubar.c:60
-msgid "Find Rege_x..."
-msgstr ""
-
-#: components/html-editor/menubar.c:60
-msgid "Regular expressions search..."
-msgstr ""
-
-#: components/html-editor/menubar.c:69
-msgid "_Image..."
-msgstr "Plaatje..."
-
-#: components/html-editor/menubar.c:69
-msgid "Insert image into document..."
-msgstr "Voeg een plaatje toe aan het document..."
-
-#: components/html-editor/menubar.c:70
-msgid "_Link..."
-msgstr "Verwijzing..."
-
-#: components/html-editor/menubar.c:70
-msgid "Insert HTML link into document..."
-msgstr "Voeg een HTML verwijzing toe aan het document..."
-
-#: components/html-editor/menubar.c:71
-msgid "_Rule..."
-msgstr "_Regel.."
-
-#: components/html-editor/menubar.c:71
-msgid "Insert rule into document..."
-msgstr "Voeg een regel toe aan het document..."
-
-#: components/html-editor/menubar.c:76
-msgid "_Insert"
-msgstr "Voeg toe"
-
-#: components/html-editor/menubar.c:143
+#: components/html-editor/menubar.c:93
 msgid "Insert image"
 msgstr "Voeg een plaatje toe"
 
-#: components/html-editor/menubar.c:175
+#: components/html-editor/menubar.c:128
 msgid "Cannot execute gtkhtml properties"
 msgstr "Kan gtkhtml instellingen niet uitvoeren"
 
@@ -140,7 +211,7 @@ msgstr "Stijl"
 
 #: components/html-editor/paragraph.c:108
 msgid "Align"
-msgstr ""
+msgstr "Lijn uit"
 
 #: components/html-editor/paragraph.c:121
 msgid "Left"
@@ -163,13 +234,13 @@ msgstr "Voeg toe"
 msgid "Properties"
 msgstr "Instellingen"
 
-#: components/html-editor/popup.c:161
+#: components/html-editor/popup.c:178
 msgid "Remove link"
 msgstr "Verwijder link"
 
 #: components/html-editor/replace.c:83
 msgid "Replace confirmation"
-msgstr ""
+msgstr "Vervang bevestiging"
 
 #: components/html-editor/replace.c:84 components/html-editor/replace.c:146
 #: components/html-editor/replace.c:158
@@ -184,11 +255,11 @@ msgstr "Vervang alles"
 msgid "Next"
 msgstr "Volgende"
 
-#: components/html-editor/replace.c:152 components/html-editor/search.c:66
+#: components/html-editor/replace.c:152 components/html-editor/search.c:67
 msgid "search backward"
 msgstr "Zoek achteruit"
 
-#: components/html-editor/replace.c:153 components/html-editor/search.c:67
+#: components/html-editor/replace.c:153 components/html-editor/search.c:68
 msgid "case sensitive"
 msgstr "hoofdletter gevoelig"
 
@@ -206,15 +277,15 @@ msgstr "Percentage"
 
 #: components/html-editor/rule.c:125
 msgid "Left Align"
-msgstr ""
+msgstr "Links uitlijnen"
 
 #: components/html-editor/rule.c:125
 msgid "Center Align"
-msgstr ""
+msgstr "Centreren"
 
 #: components/html-editor/rule.c:125
 msgid "Right Align"
-msgstr ""
+msgstr "Rechts uitlijnen"
 
 #: components/html-editor/rule.c:125
 msgid "None"
@@ -226,374 +297,347 @@ msgstr "Regel"
 
 #: components/html-editor/rule.c:132
 msgid "Set Shade"
-msgstr ""
+msgstr "Zet kleurtoon"
 
-#: components/html-editor/search.c:63
+#: components/html-editor/search.c:64
 msgid "Regex search"
-msgstr ""
+msgstr "Regex zoeken"
 
-#: components/html-editor/search.c:63
+#: components/html-editor/search.c:64
 msgid "Search"
 msgstr "Zoeken"
 
-#: components/html-editor/table.c:80
-msgid "Table"
-msgstr "Tabel"
-
-#: components/html-editor/test-html-editor-control.c:231
+#: components/html-editor/test-html-editor-control.c:232
 msgid "Open file..."
 msgstr "Open bestand..."
 
-#: components/html-editor/test-html-editor-control.c:233
+#: components/html-editor/test-html-editor-control.c:234
 msgid "Save file as..."
 msgstr "Bestand opslaan als..."
 
-#: components/html-editor/test-html-editor-control.c:299
+#: components/html-editor/test-html-editor-control.c:300
 msgid "Open (PersistFile)"
 msgstr "Open (PersistBestand)"
 
-#: components/html-editor/test-html-editor-control.c:299
+#: components/html-editor/test-html-editor-control.c:300
 msgid "Open using the PersistFile interface"
-msgstr ""
+msgstr "Open, gebruimakend van de voortbestaande-bestand interface"
 
-#: components/html-editor/test-html-editor-control.c:301
+#: components/html-editor/test-html-editor-control.c:302
 msgid "Save as... (PersistFile)"
-msgstr ""
+msgstr "Bestand opslaan als... (voortbestaand-bestand)"
 
-#: components/html-editor/test-html-editor-control.c:301
+#: components/html-editor/test-html-editor-control.c:302
 msgid "Save using the PersistFile interface"
-msgstr ""
+msgstr "Bewaar, gebruikmakend van de voortbestaande-bastand interface"
 
-#: components/html-editor/test-html-editor-control.c:304
+#: components/html-editor/test-html-editor-control.c:305
 msgid "Open (PersistStream)"
-msgstr ""
+msgstr "Open (PersistStream)"
 
-#: components/html-editor/test-html-editor-control.c:304
+#: components/html-editor/test-html-editor-control.c:305
 msgid "Open using the PersistStream interface"
-msgstr ""
+msgstr "Openen gebruikt de PersistStream interface"
 
-#: components/html-editor/test-html-editor-control.c:306
+#: components/html-editor/test-html-editor-control.c:307
 msgid "Save as... (PersistStream)"
-msgstr ""
+msgstr "Opslaan als... (PersistStream)"
 
-#: components/html-editor/test-html-editor-control.c:306
+#: components/html-editor/test-html-editor-control.c:307
 msgid "Save using the PersistStream interface"
-msgstr ""
+msgstr "Opslaan gebruikt de PersistStream interface"
 
-#: components/html-editor/test-html-editor-control.c:320
+#: components/html-editor/test-html-editor-control.c:321
 #: components/html-editor/toolbar.c:493
 msgid "Cut"
-msgstr ""
+msgstr "Knip"
 
-#: components/html-editor/test-html-editor-control.c:320
+#: components/html-editor/test-html-editor-control.c:321
 msgid "Cut selection to the clipboard"
-msgstr ""
+msgstr "Knip selectie naar het prikbord"
 
-#: components/html-editor/test-html-editor-control.c:322
-#: components/html-editor/toolbar.c:495
-msgid "Copy"
-msgstr ""
-
-#: components/html-editor/test-html-editor-control.c:322
+#: components/html-editor/test-html-editor-control.c:323
 msgid "Copy selection to the clipboard"
-msgstr ""
+msgstr "Copieer selectie naar het prikbord"
 
-#: components/html-editor/test-html-editor-control.c:324
+#: components/html-editor/test-html-editor-control.c:325
 #: components/html-editor/toolbar.c:497
 msgid "Paste"
-msgstr ""
+msgstr "Plak selectie naar het prikbord"
 
-#: components/html-editor/test-html-editor-control.c:324
+#: components/html-editor/test-html-editor-control.c:325
 #: components/html-editor/toolbar.c:497
 msgid "Paste contents of the clipboard"
-msgstr ""
+msgstr "Plak de inhoud naar het prikbord"
 
 #: components/html-editor/text.c:152 components/html-editor/toolbar.c:511
 msgid "Bold"
-msgstr ""
+msgstr "Vet"
 
 #: components/html-editor/text.c:153 components/html-editor/toolbar.c:513
 msgid "Italic"
-msgstr ""
+msgstr "Cursief"
 
 #: components/html-editor/text.c:154 components/html-editor/toolbar.c:515
 msgid "Underline"
-msgstr ""
+msgstr "Onderlijnd"
 
 #: components/html-editor/text.c:155 components/html-editor/toolbar.c:517
 msgid "Strikeout"
-msgstr ""
+msgstr "Uitgestreken"
 
 #. color selection
 #: components/html-editor/text.c:187
 msgid "Color"
-msgstr ""
+msgstr "Kleur"
 
 #: components/html-editor/text.c:201
 msgid "text color"
-msgstr ""
+msgstr "tekst kleur"
 
 #: components/html-editor/toolbar.c:45
 msgid "Normal"
-msgstr ""
+msgstr "Normaal"
 
 #: components/html-editor/toolbar.c:46
 msgid "Header 1"
-msgstr ""
+msgstr "Kop 1"
 
 #: components/html-editor/toolbar.c:47
 msgid "Header 2"
-msgstr ""
+msgstr "Kop 2"
 
 #: components/html-editor/toolbar.c:48
 msgid "Header 3"
-msgstr ""
+msgstr "Kop 3"
 
 #: components/html-editor/toolbar.c:49
 msgid "Header 4"
-msgstr ""
+msgstr "Kop 4"
 
 #: components/html-editor/toolbar.c:50
 msgid "Header 5"
-msgstr ""
+msgstr "Kop 5"
 
 #: components/html-editor/toolbar.c:51
 msgid "Header 6"
-msgstr ""
+msgstr "Kop 6"
 
 #: components/html-editor/toolbar.c:52
 msgid "Address"
-msgstr ""
+msgstr "Adress"
 
 #: components/html-editor/toolbar.c:53
 msgid "Pre"
-msgstr ""
+msgstr "Pre"
 
 #: components/html-editor/toolbar.c:54
 msgid "List item (digit)"
-msgstr ""
+msgstr "Laat item zien (digit)"
 
 #: components/html-editor/toolbar.c:55
 msgid "List item (unnumbered)"
-msgstr ""
+msgstr "Laat item zien (ongenummerd)"
 
 #: components/html-editor/toolbar.c:56
 msgid "List item (roman)"
-msgstr ""
+msgstr "Laat item zien (roman)"
 
 #: components/html-editor/toolbar.c:236
 msgid "Default"
-msgstr ""
+msgstr "Default"
 
 #: components/html-editor/toolbar.c:483
 msgid "Left align"
-msgstr ""
+msgstr "Links uitlijnen"
 
 #: components/html-editor/toolbar.c:483
 msgid "Left justify paragraphs"
-msgstr ""
+msgstr "Links uitgelijnde paragraphen"
 
 #: components/html-editor/toolbar.c:485
 msgid "Centers paragraphs"
-msgstr ""
+msgstr "Centreer paragraphen"
 
 #: components/html-editor/toolbar.c:487
 msgid "Right align"
-msgstr ""
+msgstr "Rechts uitlijnen"
 
 #: components/html-editor/toolbar.c:487
 msgid "Right justify paragraphs"
-msgstr ""
+msgstr "Rechts uitgelijnde paragraphen"
 
 #: components/html-editor/toolbar.c:493
 msgid "Cut the selected region to the clipboard"
-msgstr ""
+msgstr "Knip de geselecteerde regio naar het prikbord"
 
 #: components/html-editor/toolbar.c:495
 msgid "Copy the selected region to the clipboard"
-msgstr ""
+msgstr "Kopieer de geselecteerde regio naar het prikbord"
 
 #: components/html-editor/toolbar.c:501
 msgid "Undo"
-msgstr ""
+msgstr "Ongedaan maken"
 
 #: components/html-editor/toolbar.c:501
 msgid "Undo last editor operation"
-msgstr ""
+msgstr "Maak laatste editor-operatie ongedaan"
 
 #: components/html-editor/toolbar.c:503
 msgid "Redo"
-msgstr ""
+msgstr "Doe opnieuw"
 
 #: components/html-editor/toolbar.c:503
 msgid "Redo undone editor operation"
-msgstr ""
+msgstr "Doe ongedaan gemaakte editor-operatie opnieuw"
 
 #: components/html-editor/toolbar.c:511
 msgid "Sets the bold font"
-msgstr ""
+msgstr "Zet de vette lettertype"
 
 #: components/html-editor/toolbar.c:513
 msgid "Make the selection italic"
-msgstr ""
+msgstr "Maak de selectie cursief"
 
 #: components/html-editor/toolbar.c:515
 msgid "Make the selection underlined"
-msgstr ""
+msgstr "Maak the selectie onderlijnd"
 
 #: components/html-editor/toolbar.c:517
 msgid "Make the selection striked out"
-msgstr ""
+msgstr "Maak de selectie uitgestreken"
 
 #: components/html-editor/toolbar.c:526
 msgid "Unindent"
-msgstr ""
+msgstr "Geen intrek"
 
 #: components/html-editor/toolbar.c:526
 msgid "Indent paragraphs less"
-msgstr ""
+msgstr "Trek paragraphen minder in"
 
 #: components/html-editor/toolbar.c:528
 msgid "Indent"
-msgstr ""
+msgstr "Intrek"
 
 #: components/html-editor/toolbar.c:528
 msgid "Indent paragraphs more"
-msgstr ""
+msgstr "Trek paragraphen meer in"
 
-#: glibwww/gnome-dialogs.c:85
-msgid "Transfer Progress"
-msgstr ""
-
-#: glibwww/gnome-dialogs.c:139
-#, c-format
-msgid "Looking up %s"
-msgstr "Kijken naar %s"
-
-#: glibwww/gnome-dialogs.c:145
-#, c-format
-msgid "Contacting %s"
-msgstr "Contact aan het maken met %s"
-
-#: glibwww/gnome-dialogs.c:152
-msgid "Waiting for a connection..."
-msgstr "Aan het wachten voor een connectie..."
-
-#: glibwww/gnome-dialogs.c:156
-msgid "Logging in..."
-msgstr "Bezig met inloggen..."
-
-#: glibwww/gnome-dialogs.c:165
-msgid "Read %d%%%% of %l"
-msgstr "%d%%%% ingelezen van de %l"
-
-#: glibwww/gnome-dialogs.c:175 glibwww/gnome-dialogs.c:177
-#, c-format
-msgid "Read %d bytes"
-msgstr "%d bytes gelezen"
-
-#: glibwww/gnome-dialogs.c:179
-msgid "Reading..."
-msgstr "Inlezen..."
-
-#: glibwww/gnome-dialogs.c:194
-msgid "Writing %d%%%% of %l"
-msgstr "%d%%%% weg geschreven van de %l"
-
-#: glibwww/gnome-dialogs.c:204 glibwww/gnome-dialogs.c:206
-#, c-format
-msgid "Writing %d bytes"
-msgstr "Heeft %d bytes weg geschreven"
-
-#: glibwww/gnome-dialogs.c:208
-msgid "Writing..."
-msgstr "Weg schrijven..."
-
-#: glibwww/gnome-dialogs.c:216
-msgid "Done!"
-msgstr "Klaar!"
-
-#: glibwww/gnome-dialogs.c:220
-msgid "Interrupted!"
-msgstr ""
-
-#: glibwww/gnome-dialogs.c:224
-msgid "Please wait..."
-msgstr "Wacht alstublieft..."
-
-#: glibwww/gnome-dialogs.c:228
-msgid "Request timeout!"
-msgstr "Request timeout!"
-
-#: glibwww/gnome-dialogs.c:232
-msgid "Unknown"
-msgstr "Niet bekend"
-
-#: glibwww/gnome-dialogs.c:275
-msgid "Enter Text"
-msgstr "Geef Text"
-
-#: glibwww/gnome-dialogs.c:316 glibwww/gnome-dialogs.c:357
-msgid "Enter Password"
-msgstr "Geef Wachtwoord"
-
-#: src/gtkhtml.c:2283
-#, c-format
-msgid "Couldn't find keybinding file -- %s"
-msgstr "Kan keybinding voor bestand %s niet vinden"
-
-#: src/html-component.c:219
-msgid "Html"
-msgstr "Html"
-
-#: src/html-component.c:220
-msgid "Html test"
-msgstr "Html test"
-
-#: src/html-component.c:226
-msgid "Test1"
-msgstr "Test1"
-
-#: src/html-component.c:233
-msgid "Test2"
-msgstr "Test2"
-
-#: src/html-component.c:239
-msgid "Test3"
-msgstr "Test3"
-
-#: src/html-component.c:245
-msgid "Test4"
-msgstr "Test4"
-
-#: src/html-component.c:251
-msgid "Test5"
-msgstr "Test5"
-
-#: src/html-component.c:257
-msgid "Test6"
-msgstr "Test6"
-
-#: src/html-component.c:263
-msgid "Test7"
-msgstr "Test7"
-
-#: src/html-component.c:617
-msgid "_Refresh"
-msgstr "Herladen"
-
-#: src/html-component.c:618
-msgid "Reload the page"
-msgstr "Pagina herladen"
-
-#: src/html-component.c:669
-msgid "Could not initialize Bonobo!"
-msgstr "Kan Bonobo niet initializeren"
-
-#: src/testgtkhtml.c:110
+#: src/testgtkhtml.c:111
 msgid "Print pre_view"
 msgstr "Print _voorproef"
 
-#: src/testgtkhtml.c:110
+#: src/testgtkhtml.c:111
 msgid "Print preview"
 msgstr "Print voorproef"
+
+#~ msgid "_Image..."
+#~ msgstr "Plaatje..."
+
+#~ msgid "Insert image into document..."
+#~ msgstr "Voeg een plaatje toe aan het document..."
+
+#~ msgid "_Link..."
+#~ msgstr "Verwijzing..."
+
+#~ msgid "Insert HTML link into document..."
+#~ msgstr "Voeg een HTML verwijzing toe aan het document..."
+
+#~ msgid "_Rule..."
+#~ msgstr "_Regel.."
+
+#~ msgid "Insert rule into document..."
+#~ msgstr "Voeg een regel toe aan het document..."
+
+#~ msgid "_Insert"
+#~ msgstr "Voeg toe"
+
+#~ msgid "Table"
+#~ msgstr "Tabel"
+
+#~ msgid "Looking up %s"
+#~ msgstr "Kijken naar %s"
+
+#~ msgid "Contacting %s"
+#~ msgstr "Contact aan het maken met %s"
+
+#~ msgid "Waiting for a connection..."
+#~ msgstr "Aan het wachten voor een connectie..."
+
+#~ msgid "Logging in..."
+#~ msgstr "Bezig met inloggen..."
+
+#~ msgid "Read %d%%%% of %l"
+#~ msgstr "%d%%%% ingelezen van de %l"
+
+#~ msgid "Read %d bytes"
+#~ msgstr "%d bytes gelezen"
+
+#~ msgid "Reading..."
+#~ msgstr "Inlezen..."
+
+#~ msgid "Writing %d%%%% of %l"
+#~ msgstr "%d%%%% weg geschreven van de %l"
+
+#~ msgid "Writing %d bytes"
+#~ msgstr "Heeft %d bytes weg geschreven"
+
+#~ msgid "Writing..."
+#~ msgstr "Weg schrijven..."
+
+#~ msgid "Done!"
+#~ msgstr "Klaar!"
+
+#~ msgid "Please wait..."
+#~ msgstr "Wacht alstublieft..."
+
+#~ msgid "Request timeout!"
+#~ msgstr "Request timeout!"
+
+#~ msgid "Unknown"
+#~ msgstr "Niet bekend"
+
+#~ msgid "Enter Text"
+#~ msgstr "Geef Text"
+
+#~ msgid "Enter Password"
+#~ msgstr "Geef Wachtwoord"
+
+#~ msgid "Couldn't find keybinding file -- %s"
+#~ msgstr "Kan toetsenverband voor bestand %s niet vinden"
+
+#~ msgid "Html"
+#~ msgstr "Html"
+
+#~ msgid "Html test"
+#~ msgstr "Html test"
+
+#~ msgid "Test1"
+#~ msgstr "Test1"
+
+#~ msgid "Test2"
+#~ msgstr "Test2"
+
+#~ msgid "Test3"
+#~ msgstr "Test3"
+
+#~ msgid "Test4"
+#~ msgstr "Test4"
+
+#~ msgid "Test5"
+#~ msgstr "Test5"
+
+#~ msgid "Test6"
+#~ msgstr "Test6"
+
+#~ msgid "Test7"
+#~ msgstr "Test7"
+
+#~ msgid "_Refresh"
+#~ msgstr "Herladen"
+
+#~ msgid "Reload the page"
+#~ msgstr "Pagina herladen"
+
+#~ msgid "Could not initialize Bonobo!"
+#~ msgstr "Kan Bonobo niet initializeren"
