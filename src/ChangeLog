@@ -1,3 +1,8 @@
+2003-07-23  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (html_engine_set_painter): fix printing, don't
+	reset pango info on painter switching
+
 2003-07-20  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (pop_element): move everything to using the pop
