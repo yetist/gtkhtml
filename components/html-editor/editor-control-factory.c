@@ -216,7 +216,6 @@ load_from_corba (BonoboControl *control,
 		 const char *url, 
 		 GtkHTMLStream *handle)
 {
-	Bonobo_ControlFrame control_frame;
 	HTMLEditor_Resolver resolver;
 	Bonobo_UIHandler remote_uih;
 	BonoboUIHandler *uih;
