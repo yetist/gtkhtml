@@ -1,3 +1,8 @@
+2003-09-25  Radek Doulik  <rodo@ximian.com>
+
+	* htmlclueflow.c (save_plain): use pango_itemize and pango_break
+	to decide where break lines
+
 2003-09-23  Radek Doulik  <rodo@ximian.com>
 
 	* htmlpainter.c (html_painter_calc_text_size): remove obsolete

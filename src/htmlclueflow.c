@@ -1783,7 +1783,6 @@ save_plain (HTMLObject *self,
 	HTMLClueFlow *flow;
 	HTMLEngineSaveState *buffer_state;
 	GString *out = g_string_new ("");
-	gint len;
 	gint pad;
 	gint align_pad;
 	gboolean firstline = TRUE;
@@ -1794,7 +1793,6 @@ save_plain (HTMLObject *self,
 	pad = plain_padding (flow, NULL, FALSE);
 	buffer_state = html_engine_save_buffer_new (state->engine, 
 						    state->inline_frames);
-
 	max_len = MAX (requested_width - pad, 0);
 	/* buffer the paragraph's content into the save buffer */
 	if (HTML_OBJECT_CLASS (&html_clue_class)->save_plain (self, 
@@ -1812,60 +1810,112 @@ save_plain (HTMLObject *self,
 		if (*s == 0) {
 		        plain_padding (flow, out, TRUE);
 			g_string_append (out, "\n");
-		} else while (*s) {
-			len = strcspn (s, "\n");
+		} else {
+			PangoAttrList *attrs = pango_attr_list_new ();
+			gint bytes = strlen (s), i, slen = g_utf8_strlen (s, -1), clen, n;
+			GList *items, *cur;
+			PangoContext *pc = gtk_widget_get_pango_context (GTK_WIDGET (state->engine->widget));
+			PangoLogAttr *lattrs;
+			gint len, skip;
+
+			items = pango_itemize (pc, s, 0, bytes, attrs, NULL);
+			lattrs = g_new (PangoLogAttr, slen + 1);
+			n = g_list_length (items);
+			clen = 0;
+			for (i = 0, cur = items; i < n; i ++, cur = cur->next) {
+				PangoItem *item;
+
+				item = (PangoItem *) cur->data;
+				pango_break (s + item->offset, item->length, &item->analysis, lattrs + clen, item->num_chars + 1);
+				clen += item->num_chars;
+				pango_item_free (item);
+			}
+			g_list_free (items);
+			pango_attr_list_unref (attrs);
+
+			clen = 0;
+			while (*s) {
+				len = strcspn (s, "\n");
+				len = g_utf8_strlen (s, len);
+				skip = 0;
 			
-			if ((flow->style != HTML_CLUEFLOW_STYLE_PRE) 
-			    && !HTML_IS_TABLE (HTML_CLUE (flow)->head)) {
-				
-				if (g_utf8_strlen (s, len) > max_len) {
-					space = g_utf8_offset_to_pointer (s, max_len);
-					while (space 
-					       && (*space != ' '))
-						/* || (IS_UTF8_NBSP ((guchar *)g_utf8_find_next_char (space, NULL)))
-						   || (IS_UTF8_NBSP ((guchar *)g_utf8_find_prev_char (s, space))))) */
-						space = g_utf8_find_prev_char (s, space);
-					
-					if (space != NULL)
-						len = space - s;
+				if ((flow->style != HTML_CLUEFLOW_STYLE_PRE) 
+				    && !HTML_IS_TABLE (HTML_CLUE (flow)->head)) {
+					if (len > max_len) {
+						gint l = max_len;
+						gboolean look_backward = TRUE;
+						gint wi, wl;
+
+						wi = wl = clen + max_len;
+
+						if (lattrs [wl].is_white) {
+
+							while (lattrs [wl].is_white && wl < slen)
+								wl ++;
+							if (wl < slen && lattrs [wl].is_line_break)
+								look_backward = FALSE;
+							else
+								wl = clen + max_len;
+
+						}
+
+						if (look_backward) {
+							while (wl > 0) {
+								if (lattrs [wl].is_line_break)
+									break;
+								wl --;
+							}
+						}
+
+						if (wl > clen && wl < slen && lattrs [wl].is_line_break) {
+							wi = MIN (wl, clen + max_len);
+							while (wi > 0 && lattrs [wi - 1].is_white)
+								wi --;
+							len = wi - clen;
+							skip = wl - wi;
+						}
+					}
 				}
-			}
-			
-			/* FIXME plain padding doesn't work properly with tables aligment
-			 * at the moment.
-			 */
-		        plain_padding (flow, out, firstline);
 
-			switch (html_clueflow_get_halignment (flow)) {
-			case HTML_HALIGN_RIGHT:
-				align_pad = max_len - len;
-				break;
-			case HTML_HALIGN_CENTER:
-				align_pad = (max_len - len) / 2;
-				break;
-			default:
-				align_pad = 0;
-				break;
-			}
-			
-			while (align_pad > 0) {
-				g_string_append_c (out, ' ');
-				align_pad--;
-			}
+				/* FIXME plain padding doesn't work properly with tables aligment
+				 * at the moment.
+				 */
+				plain_padding (flow, out, firstline);
 
-			s += html_engine_save_string_append_nonbsp (out, s, len);
+				switch (html_clueflow_get_halignment (flow)) {
+				case HTML_HALIGN_RIGHT:
+					align_pad = max_len - len;
+					break;
+				case HTML_HALIGN_CENTER:
+					align_pad = (max_len - len) / 2;
+					break;
+				default:
+					align_pad = 0;
+					break;
+				}
 			
-			/* Trim the space at the end */
-			while (*s == ' ' || IS_UTF8_NBSP (s)) 
-				s = g_utf8_next_char (s);
+				while (align_pad > 0) {
+					g_string_append_c (out, ' ');
+					align_pad--;
+				}
+
+				bytes = ((guchar *) g_utf8_offset_to_pointer (s, len)) - s;
+				html_engine_save_string_append_nonbsp (out, s, bytes);
+				s += bytes;
+				s = g_utf8_offset_to_pointer (s, skip);
+				clen += len + skip;
+
+				if (*s == '\n') {
+					s++;
+					clen ++;
+				}
 			
-			if (*s == '\n') 
-				s++;
-			
-			g_string_append_c (out, '\n');
-			firstline = FALSE;
+				g_string_append_c (out, '\n');
+				firstline = FALSE;
+			}
+			g_free (lattrs);
 		}
-		
+
 		if (get_post_padding (flow, calc_padding (state->engine->painter)) > 0) {
 			plain_padding (flow, out, FALSE);
 			g_string_append (out, "\n");
