@@ -60,6 +60,8 @@ struct _HTMLEngine {
 
 	HTMLURL *actualURL;
 
+	gboolean show_cursor;
+
 	gboolean parsing;
 	HTMLTokenizer *ht;
 	StringTokenizer *st;
@@ -163,7 +165,6 @@ struct _HTMLEngineClass {
 HTMLEngine *html_engine_new (void);
 GtkHTMLStreamHandle html_engine_begin (HTMLEngine *p, const char *url);
 void        html_engine_schedule_update (HTMLEngine *p);
-void        html_engine_draw_background (HTMLEngine *e, gint xval, gint yval, gint x, gint y, gint w, gint h);
 gchar      *html_engine_parse_body (HTMLEngine *p, HTMLObject *clue, const gchar *end[], gboolean toplevel);
 void        html_engine_parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str);
 void        html_engine_parse (HTMLEngine *p);
@@ -183,5 +184,6 @@ void        html_engine_stop_parser (HTMLEngine *e);
 void        html_engine_calc_absolute_pos (HTMLEngine *e);
 gchar      *html_engine_canonicalize_url (HTMLEngine *e, const char *in_url);
 const gchar *html_engine_get_link_at (HTMLEngine *e, gint x, gint y);
+void	    html_engine_show_cursor (HTMLEngine *e, gboolean show);
 
 #endif /* _HTMLENGINE_H_ */

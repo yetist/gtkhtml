@@ -1,6 +1,21 @@
+1999-12-10  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine.h (html_engine_draw_background): Removed prototype.
+
+	* htmlengine.c (html_engine_show_cursor): New function.
+	(html_engine_init): Initialize `show_cursor' to TRUE.
+	(html_engine_draw_background): Made static and renamed to
+	`draw_background'.
+	(html_engine_draw): Updated accordingly.
+
+	* htmlengine.h: New flag `show_cursor' in `struct HTMLEngine'.
+
+	* htmlcursor.c, htmlcursor.h: New files.
+
 1999-12-10  Jonas Borgström  <jonas_b@bitsmart.com>
 
-	* htmlengine.c (parse_i): Do not pass NULL pointer to html_url_to_string.
+	* htmlengine.c (parse_i): Do not pass NULL pointer to
+	html_url_to_string.
 	
 1999-12-10  Ettore Perazzoli  <ettore@helixcode.com>
 

@@ -2333,6 +2333,8 @@ html_engine_init (HTMLEngine *engine)
 
 	engine->actualURL = NULL;
 
+	engine->show_cursor = TRUE;
+
 	engine->ht = html_tokenizer_new ();
 	engine->st = string_tokenizer_new ();
 	engine->settings = html_settings_new ();
@@ -2377,8 +2379,8 @@ html_engine_calc_absolute_pos (HTMLEngine *e)
 		html_object_calc_absolute_pos (e->clue, 0, 0);
 }
 
-void
-html_engine_draw_background (HTMLEngine *e, gint xval, gint yval, gint x, gint y, gint w, gint h)
+static void
+draw_background (HTMLEngine *e, gint xval, gint yval, gint x, gint y, gint w, gint h)
 {
 	gint xoff = 0;
 	gint yoff = 0;
@@ -2575,9 +2577,7 @@ html_engine_draw (HTMLEngine *e, gint x, gint y, gint width, gint height)
 
 	html_painter_begin (e->painter, x, y, x + width, y + height);
 
-	html_engine_draw_background (e, e->x_offset, e->y_offset, 
-				     x, y,
-				     width, height);
+	draw_background (e, e->x_offset, e->y_offset, x, y, width, height);
 
 	if (e->clue)
 		html_object_draw (e->clue, e->painter,
@@ -3079,3 +3079,8 @@ html_engine_get_link_at (HTMLEngine *e, gint x, gint y)
 	return NULL;
 }
 
+void
+html_engine_show_cursor (HTMLEngine *e, gboolean show)
+{
+	e->show_cursor = show;
+}
