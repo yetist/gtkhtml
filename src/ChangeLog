@@ -1,5 +1,15 @@
 2000-10-20  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine-save.c (html_engine_save_get_sample_body): new
+	function, used by component for sample views
+	(get_body): helper function extracted from write_header
+	(write_header): use get_body
+
+	* htmlengine-edit-insert.c (html_engine_insert): try to make magic
+	links also after '>', ')' - this could simplify of mail adresses,
+	for example Ape <primate@helixcode.com> should do the right thing
+	now ;-)
+
 	* htmlengine-edit.c (html_is_in_word): changed back from isalnum
 	to isalpha
 

@@ -572,7 +572,7 @@ html_engine_insert (HTMLEngine *e,
 
 	/* magic links */
 	if (GTK_HTML_PROPERTY (e->widget, magic_links) && len == 1
-	    && (text [0] == ' ' || text [0] == '\n')
+	    && (text [0] == ' ' || text [0] == '\n' || text [0] == '>' || text [0] == ')')
 	    && HTML_OBJECT_TYPE (current_object) == HTML_TYPE_TEXTMASTER)
 		html_text_master_magic_link (HTML_TEXT_MASTER (current_object),
 					     e, current_offset);

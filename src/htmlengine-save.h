@@ -29,6 +29,10 @@ typedef gboolean (* HTMLEngineSaveReceiverFn)  (const HTMLEngine *engine,
 					        guint             len,
 						gpointer          user_data);
 
+typedef struct _HTMLEngineSaveState HTMLEngineSaveState;
+
+#include "htmlobject.h"
+
 
 struct _HTMLEngineSaveState {
 	HTMLEngine *engine;
@@ -41,34 +45,33 @@ struct _HTMLEngineSaveState {
 
 	gpointer user_data;
 };
-typedef struct _HTMLEngineSaveState HTMLEngineSaveState;
 
 
 /* Entity encoding.  This is used by the HTML objects to output stuff through
    entity-based encoding.  */
-gboolean  html_engine_save_encode         (HTMLEngineSaveState *state,
-					   const gchar         *buffer,
-					   guint                length);
-gboolean  html_engine_save_encode_string  (HTMLEngineSaveState *state,
-					   const gchar         *s);
+gboolean             html_engine_save_encode            (HTMLEngineSaveState      *state,
+							 const gchar              *buffer,
+							 guint                     length);
+gboolean             html_engine_save_encode_string     (HTMLEngineSaveState      *state,
+							 const gchar              *s);
 
 /* Output function (no encoding).  This is used for tags and other things that
    must not be entity-encoded.  */
-gboolean  html_engine_save_output_string  (HTMLEngineSaveState *state,
-					   const gchar         *format,
-					   ...);
+gboolean             html_engine_save_output_string     (HTMLEngineSaveState      *state,
+							 const gchar              *format,
+							 ...);
 
 /* Saving a whole tree.  */
-gboolean  html_engine_save  (const HTMLEngine         *engine,
-			     HTMLEngineSaveReceiverFn  receiver,
-			     gpointer                  user_data);
+gboolean             html_engine_save                   (const HTMLEngine         *engine,
+							 HTMLEngineSaveReceiverFn  receiver,
+							 gpointer                  user_data);
+gboolean             html_engine_save_plain             (const HTMLEngine         *engine,
+							 HTMLEngineSaveReceiverFn  receiver,
+							 gpointer                  user_data);
+void                 html_engine_save_buffer_free       (HTMLEngineSaveState      *state);
+guchar              *html_engine_save_buffer_peek_text  (HTMLEngineSaveState      *state);
+HTMLEngineSaveState *html_engine_save_buffer_new        (HTMLEngine               *engine);
+gchar               *html_engine_save_get_sample_body   (HTMLEngine               *e,
+							 HTMLObject               *o);
 
-gboolean  html_engine_save_plain  (const HTMLEngine         *engine,
-				   HTMLEngineSaveReceiverFn  receiver,
-				   gpointer                  user_data);
-
-
-void                  html_engine_save_buffer_free      (HTMLEngineSaveState *state);
-guchar               *html_engine_save_buffer_peek_text (HTMLEngineSaveState *state);
-HTMLEngineSaveState  *html_engine_save_buffer_new       (HTMLEngine *engine);
 #endif

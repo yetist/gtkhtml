@@ -184,19 +184,38 @@ color_to_string (gchar *s, HTMLColor *c)
 {
 	gchar color [20];
 
-	g_snprintf (color, 20, "%s=\"#%2x%2x%2x\" ", s, c->color.red >> 8, c->color.green >> 8, c->color.blue >> 8);
+	g_snprintf (color, 20, " %s=\"#%2x%2x%2x\"", s, c->color.red >> 8, c->color.green >> 8, c->color.blue >> 8);
 	return g_strdup (color);
+}
+
+static gchar *
+get_body (HTMLEngine *e)
+{
+	HTMLColorSet *cset;
+	gchar *body;
+	gchar *text;
+	gchar *bg;
+	gchar *link;
+
+	cset = e->settings->color_set;
+	text = (cset->changed [HTMLTextColor]) ? color_to_string ("TEXT", cset->color [HTMLTextColor]) : g_strdup ("");
+	link = (cset->changed [HTMLLinkColor]) ? color_to_string ("LINK", cset->color [HTMLLinkColor]) : g_strdup ("");
+	bg   = (cset->changed [HTMLBgColor]) ? color_to_string ("BGCOLOR", cset->color [HTMLBgColor]) : g_strdup ("");
+
+	body = g_strconcat ("<BODY", text, link, bg, ">", NULL);
+
+	g_free (text);
+	g_free (link);
+	g_free (bg);
+
+	return body;
 }
 
 static gboolean
 write_header (HTMLEngineSaveState *state)
 {
-	HTMLColorSet *cset;
 	gboolean retval = TRUE;
 	gchar *body;
-	gchar *text;
-	gchar *bg;
-	gchar *link;
 
 	/* Preface.  */
 	if (! html_engine_save_output_string
@@ -228,19 +247,10 @@ write_header (HTMLEngineSaveState *state)
 		return FALSE;
 
 	/* Start of body.  */
-
-	cset = state->engine->settings->color_set;
-	text = (cset->changed [HTMLTextColor]) ? color_to_string ("TEXT", cset->color [HTMLTextColor]) : g_strdup ("");
-	link = (cset->changed [HTMLLinkColor]) ? color_to_string ("LINK", cset->color [HTMLLinkColor]) : g_strdup ("");
-	bg   = (cset->changed [HTMLBgColor]) ? color_to_string ("BGCOLOR", cset->color [HTMLBgColor]) : g_strdup ("");
-
-	body = g_strconcat ("<BODY ", text, link, bg, ">", NULL);
-	if (! html_engine_save_output_string (state, body))
+	body = get_body (state->engine);
+	if (!html_engine_save_output_string (state, body))
 		retval = FALSE;
 	g_free (body);
-	g_free (text);
-	g_free (link);
-	g_free (bg);
 
 	return retval;
 }
@@ -369,5 +379,9 @@ html_engine_save_buffer_new (HTMLEngine *engine)
 	return state;
 }
 
-
-
+gchar *
+html_engine_save_get_sample_body (HTMLEngine *e,
+				  HTMLObject *o)
+{
+	return get_body (e);
+}
