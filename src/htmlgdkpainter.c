@@ -936,7 +936,7 @@ draw_text (HTMLPainter *painter,
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
 	if (len == -1)
-		len = strlen (text);
+		len = unicode_strlen (text, -1);
 
 	x -= gdk_painter->x1;
 	y -= gdk_painter->y1;

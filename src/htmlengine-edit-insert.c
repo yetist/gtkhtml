@@ -367,7 +367,8 @@ do_insert (HTMLEngine *engine,
 		}
 
 		if (q != p)
-			insert_count += insert_chars (engine, p, q - p, style, color, url, target);
+			insert_count += insert_chars (engine, p, unicode_index_to_offset (p, q - p),
+						      style, color, url, target);
 
 		while (*q == '\n') {
 			insert_para (engine);
@@ -375,7 +376,7 @@ do_insert (HTMLEngine *engine,
 			q++;
 		}
 
-		len -= q - p;
+		len -= unicode_index_to_offset (p, q - p);
 		p = q;
 	}
 
@@ -548,7 +549,7 @@ html_engine_insert (HTMLEngine *e,
 	g_return_val_if_fail (text != NULL, 0);
 
 	if (len == -1)
-		len = strlen (text);
+		len = unicode_strlen (text, -1);
 	if (len == 0)
 		return 0;
 
