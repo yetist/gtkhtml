@@ -25,6 +25,43 @@
 			<cmd name="InsertTable" _label="_Table..." _tip="Insert table into document..."/>
 			<cmd name="InsertTemplate" _label="Te_mplate..." _tip="Insert HTML template into document..."/>
 
+			<cmd name="HeadingNormal" _label="Normal"
+		        _tip="Make the current Paragraph style Normal"
+		        type="radio" group="paragraph_heading"/>
+			<cmd name="HeadingPreformat" _label="Preformat"
+		        _tip="Make the current Paragraph style Normal"
+		        type="radio" group="paragraph_heading"/>
+			<cmd name="HeadingBulletedList" 
+			_label="Bulleted List"
+		        _tip="Make the current paragraph a bulleted list"
+		        type="radio" group="paragraph_heading"/>
+			<cmd name="HeadingNumberedList" 
+			_label="Numbered List"
+		        _tip="Make the current paragraph a numbered list"
+		        type="radio" group="paragraph_heading"/>
+			<cmd name="HeadingHeader1" _label="Header 1"
+		        _tip="Make the current paragraph an H1 header"
+		        type="radio" group="paragraph_heading"/>
+			<cmd name="HeadingHeader2" _label="Header 2"
+		        _tip="Make the current paragraph an H2 header"
+		        type="radio" group="paragraph_heading"/>
+			<cmd name="HeadingHeader3" _label="Header 3"
+		        _tip="Make the current paragraph an H3 header"
+		        type="radio" group="paragraph_heading"/>
+			<cmd name="HeadingHeader4" _label="Header 4"
+		        _tip="Make the current paragraph an H4 header"
+		        type="radio" group="paragraph_heading"/>
+
+			<cmd name="AlignLeft" _label="_Left"
+			_tip="Left justifies the paragraphs"
+			type="radio" group="paragraph_alignment"/>
+			<cmd name="AlignCenter" _label="_Center"
+			_tip="Center justifies the paragraphs"
+			type="radio" group="paragraph_alignment"/>
+			<cmd name="AlignRight" _label="_Right"
+			_tip="Right justifies the paragraphs"
+			type="radio" group="paragraph_alignment"/>
+
 		</commands>
 
 	<menu>
@@ -75,7 +112,71 @@
                                 pixtype="filename" pixname="@ICONSDIR@/insert-object-16.png"/>
 			</placeholder>
 		</submenu>
+
+		<submenu name="Format" _label="For_mat">
+			<separator/>
+
+			<placeholder name="FormatParagaph">
+				<submenu name="FontStyle" _label="_Style">
+					<menuitem name="Plain" verb="" _label="_Plain text"/>
+
+					<separator/>
+				
+					<menuitem name="FormatBold" verb="" _label="_Bold"/>
+					<menuitem name="FormatItalic" verb="" _label="_Italic"/>
+					<menuitem name="FormatUnderline" verb="" _label="_Underline"/>
+				</submenu>  
+              
+				<submenu name="FontSize" _label="_Font Size">
+					<menuitem name="-2" verb="FontSizeNegTwo" _label="-2"/> 
+					<menuitem name="-1" verb="FontSizeNegOne" _label="-1"/>
+					<menuitem name="+0" verb="FontSizeZero" _label="+0"/>
+					<menuitem name="+1" verb="FontSizeOne" _label="+1"/> 
+					<menuitem name="+2" verb="FontSizeTwo" _label="+2"/>
+					<menuitem name="+3" verb="FontSizeThree" _label="+3"/>
+				</submenu>
+
+				<submenu name="BackgroundColor" _label="Background Color">
+					<menuitem name="ColorRed" verb="" _label="Red"/>
+					<menuitem name="ColorOrange" verb="" _label="Orange"/>
+					<menuitem name="ColorYellow" verb="" _label="Yellow"/>
+					<menuitem name="ColorGreen" verb="" _label="Green"/> 
+					<menuitem name="ColorBlue" verb="" _label="Blue"/>
+					<menuitem name="ColorPurple" verb="" _label="Purple"/>
+					<menuitem name="+etc" verb="" _label="etc..."/>
+			
+					<separator/>
+
+					<menuitem name="Other" verb="" _label="Other..."/>
+				</submenu>
+                
+				<separator/>
+                
+				<submenu name="Heading" _label="_Heading">
+					<menuitem name="HeadingNormal" verb="" _label="Normal"/> 
+					<menuitem name="HeadingPreformat" verb="" _label="_Preformat"/>
+					<menuitem name="HeadingHeader1" verb="" _label="_Header 1"/>
+					<menuitem name="HeadingHeader1" verb="" _label="_Header 2"/>
+					<menuitem name="HeadingHeader1" verb="" _label="_Header 3"/>
+					<menuitem name="HeadingHeader1" verb="" _label="_Header 4"/>
+					<menuitem name="HeadingNumberList" verb="" _label="Numbered List"/> 
+					<menuitem name="HeadingBulletList" verb="" _label="Bulleted List"/> 
+				</submenu>
+                
+				<submenu name="Alignment" _label="_Alignment">
+					<menuitem name="AlignLeft" verb="" _label="_Left"/> 
+					<menuitem name="AlignCenter" verb="" _label="_Center"/>
+					<menuitem name="AlignRight" verb="" _label="_Right"/>
+				</submenu>
+
+				<separator/>
+
+				<menuitem name="IndentMore" verb="" _label="Increase Indent"/> 
+				<menuitem name="IndentLess" verb="" _label="Decrease Indent"/>     
+			</placeholder>
+		</submenu>
 	</menu>
+
 	<dockitem name="Toolbar">
 		<toolitem name="EditUndo" verb="" _label="Undo" _tip="Undo previous changes"
 		pixtype="filename" pixname="@ICONSDIR@/undo-24.png"/>
@@ -105,4 +206,6 @@
 		<toolitem name="InsertTemplate" verb="" _label="Template"
                 pixtype="filename" pixname="@ICONSDIR@/insert-object-24.png"/>
 	</dockitem>
-</Root>
+
+</Root> 
+

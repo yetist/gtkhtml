@@ -202,6 +202,36 @@ properties_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname
 		gnome_error_dialog (_("Cannot execute gtkhtml properties"));
 }
 
+static void 
+font_size_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
+{
+	GtkHTMLFontStyle style;
+	g_warning  ("cname = %s", cname);
+	
+	style = GTK_HTML_FONT_STYLE_SIZE_1;
+	
+	if (!cd->block_font_style_change)
+		gtk_html_set_font_style (cd->html, GTK_HTML_FONT_STYLE_MAX & ~GTK_HTML_FONT_STYLE_SIZE_MASK, style);
+}
+
+static void 
+indent_more_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
+{
+	gtk_html_modify_indent_by_delta (GTK_HTML (cd->html), +1);
+}
+
+static void 
+indent_less_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
+{
+	gtk_html_modify_indent_by_delta (GTK_HTML (cd->html), -1);
+}
+
+static void
+uic_paragraph_style_changed_cb (BonoboUIComponent *uic, GtkHTMLParagraphStyle style, GtkHTMLControlData *cd)
+{
+
+}
+
 BonoboUIVerb verbs [] = {
 	BONOBO_UI_UNSAFE_VERB ("EditUndo", undo_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditRedo", redo_cb),
@@ -221,6 +251,15 @@ BonoboUIVerb verbs [] = {
 	BONOBO_UI_UNSAFE_VERB ("InsertTable", insert_table_cb),
 	BONOBO_UI_UNSAFE_VERB ("InsertTemplate", insert_template_cb),
 
+	BONOBO_UI_UNSAFE_VERB ("IndentMore", indent_more_cb),
+	BONOBO_UI_UNSAFE_VERB ("IndentLess", indent_less_cb),
+
+	/*
+	BONOBO_UI_UNSAFE_VERB ("FontSizeNegTwo", font_size_cb),
+	BONOBO_UI_UNSAFE_VERB ("FontSizeNegOne", font_size_cb),
+	BONOBO_UI_UNSAFE_VERB ("FontSizeZero", font_size_zero_cb),
+	*/
+
 	BONOBO_UI_VERB_END
 };
 
@@ -239,6 +278,8 @@ menubar_update_format (GtkHTMLControlData *cd)
 
 	CORBA_exception_init (&ev);
 
+	bonobo_ui_component_freeze (uic, &ev);
+
 	bonobo_ui_component_set_prop (uic, "/commands/InsertImage",
 				      "sensitive", sensitive, &ev);
 	bonobo_ui_component_set_prop (uic, "/commands/InsertLink",
@@ -249,6 +290,38 @@ menubar_update_format (GtkHTMLControlData *cd)
 				      "sensitive", sensitive, &ev);
 	bonobo_ui_component_set_prop (uic, "/commands/InsertTemplate",
 				      "sensitive", sensitive, &ev);
+	bonobo_ui_component_set_prop (uic, "/commands/InsertTemplate",
+				      "sensitive", sensitive, &ev);
+
+	bonobo_ui_component_set_prop (uic, "/commands/FormatBold",
+				      "sensitive", sensitive, &ev);
+	bonobo_ui_component_set_prop (uic, "/commands/FormatItalic",
+				      "sensitive", sensitive, &ev);
+	bonobo_ui_component_set_prop (uic, "/commands/FormatUnderline",
+				      "sensitive", sensitive, &ev);
+	
+	bonobo_ui_component_set_prop (uic, "/commands/AlignLeft",
+				      "sensitive", sensitive, &ev);		
+	bonobo_ui_component_set_prop (uic, "/commands/AlignRight",
+				      "sensitive", sensitive, &ev);	
+	bonobo_ui_component_set_prop (uic, "/commands/AlignCenter",
+				      "sensitive", sensitive, &ev);	
+
+	bonobo_ui_component_set_prop (uic, "/commands/HeadingHeader1",
+				      "sensitive", sensitive, &ev);	
+	bonobo_ui_component_set_prop (uic, "/commands/HeadingHeader2",
+				      "sensitive", sensitive, &ev);	
+	bonobo_ui_component_set_prop (uic, "/commands/HeadingHeader3",
+				      "sensitive", sensitive, &ev);
+	bonobo_ui_component_set_prop (uic, "/commands/HeadingHeader4",
+				      "sensitive", sensitive, &ev);
+	bonobo_ui_component_set_prop (uic, "/commands/HeadingHeader5",
+				      "sensitive", sensitive, &ev);
+	bonobo_ui_component_set_prop (uic, "/commands/HeadingHeader6",
+				      "sensitive", sensitive, &ev);
+
+	bonobo_ui_component_thaw (uic, &ev);	
+
 	CORBA_exception_free (&ev);	
 }
 

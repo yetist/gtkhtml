@@ -1,3 +1,18 @@
+2001-08-20  Larry Ewing  <lewing@ximian.com>
+
+	* GNOME_GtkHTML_Editor.xml.in: add new format menu item that
+	mirror the editor toolbar functions.
+
+	* menubar.c: add indent more/less verbs.
+	(menubar_update_format): update more of the menu items for html
+	more.
+
+	* test-html-editor-control.c: add a placeholder and separator to
+	the format menu.
+
+	* toolbar.c: Change List item names, and make fix the align center
+	tip.
+
 2001-08-17  Radek Doulik  <rodo@ximian.com>
 
 	* template.c: simplified text
@@ -6,7 +21,6 @@
 
 	* gtkhtml-editor-properties.glade : fixed spelling and capitalization
 	inconsistencies. 
-
 
 2001-08-16  Radek Doulik  <rodo@ximian.com>
 
@@ -51,7 +65,6 @@
 	to "Find Regular Expression (as per bug #2658 ). Also fixed duplicate
 	accelerators (Properties and Paste were both using _P, while
 	Undo and Cut were both using _U)
-
 
 2001-08-10  Zbigniew Chyla  <cyba@gnome.pl>
 
@@ -113,7 +126,6 @@
 
 	* gtkhtml-editor-properties.glade: added Rule page
 
->>>>>>> 1.237
 2001-07-31  Radek Doulik  <rodo@ximian.com>
 
 	* table.c: tuned template colors

@@ -56,10 +56,10 @@ static struct {
 	{ GTK_HTML_PARAGRAPH_STYLE_H5, N_("Header 5") },
 	{ GTK_HTML_PARAGRAPH_STYLE_H6, N_("Header 6") },
 	{ GTK_HTML_PARAGRAPH_STYLE_ADDRESS, N_("Address") },
-	{ GTK_HTML_PARAGRAPH_STYLE_ITEMDOTTED, N_("Dot item") },
-	{ GTK_HTML_PARAGRAPH_STYLE_ITEMDIGIT, N_("Number item") },
-	{ GTK_HTML_PARAGRAPH_STYLE_ITEMROMAN, N_("Roman item") },
-	{ GTK_HTML_PARAGRAPH_STYLE_ITEMALPHA, N_("Alphabeta item") },
+	{ GTK_HTML_PARAGRAPH_STYLE_ITEMDOTTED, N_("Bulleted List") },
+	{ GTK_HTML_PARAGRAPH_STYLE_ITEMDIGIT, N_("Numbered List") },
+	{ GTK_HTML_PARAGRAPH_STYLE_ITEMROMAN, N_("Roman List") },
+	{ GTK_HTML_PARAGRAPH_STYLE_ITEMALPHA, N_("Alphabetical List") },
 	{ GTK_HTML_PARAGRAPH_STYLE_NORMAL, NULL },
 };
 
@@ -497,7 +497,7 @@ editor_toolbar_unindent_cb (GtkWidget *widget,
 static GnomeUIInfo editor_toolbar_alignment_group[] = {
 	GNOMEUIINFO_ITEM_STOCK (N_("Left align"), N_("Left justifies the paragraphs"),
 				editor_toolbar_left_align_cb, GNOME_STOCK_PIXMAP_ALIGN_LEFT),
-	GNOMEUIINFO_ITEM_STOCK (N_("Center"), N_("Centers justifies the paragraphs"),
+	GNOMEUIINFO_ITEM_STOCK (N_("Center"), N_("Center justifies the paragraphs"),
 				editor_toolbar_center_cb, GNOME_STOCK_PIXMAP_ALIGN_CENTER),
 	GNOMEUIINFO_ITEM_STOCK (N_("Right align"), N_("Right justifies the paragraphs"),
 				editor_toolbar_right_align_cb, GNOME_STOCK_PIXMAP_ALIGN_RIGHT),

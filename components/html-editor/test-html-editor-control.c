@@ -402,6 +402,8 @@ static char ui [] =
 "		<placeholder name=\"Component\"/>"
 "		<submenu name=\"Format\" _label=\"For_mat\">"
 "			<menuitem name=\"FormatHTML\" verb=\"\"/>"
+"                       <separator/>"
+"                       <placeholder name=\"FormatParagraph\"/>"
 "               </submenu>"
 "	</menu>"
 "	<dockitem name=\"Toolbar\" behavior=\"exclusive\">"
