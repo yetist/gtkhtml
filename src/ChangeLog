@@ -1,3 +1,8 @@
+2000-03-26  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine.c (insert_text): Reverted previous change, as it
+	breaks spaces between normal text and links, among other things.
+
 2000-03-26  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlcluev.c (find_free_area): choose rmargin as MAX(max_width,
