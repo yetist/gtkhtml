@@ -141,15 +141,13 @@ void
 html_painter_alloc_color (HTMLPainter *painter,
 			  GdkColor *color)
 {
-	GdkWindow *window;
 	GdkColormap *colormap;
 
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (color != NULL);
 	g_return_if_fail (painter->window != NULL);
 
-	window = html_painter_get_window (painter);
-	colormap = gdk_window_get_colormap (window);
+	colormap = gdk_window_get_colormap (painter->window);
 
 	gdk_colormap_alloc_color (colormap, color, FALSE, TRUE);
 }
@@ -158,7 +156,6 @@ void
 html_painter_free_color (HTMLPainter *painter,
 			 GdkColor *color)
 {
-	GdkWindow *window;
 	GdkColormap *colormap;
 
 	g_return_if_fail (painter != NULL);
@@ -166,8 +163,7 @@ html_painter_free_color (HTMLPainter *painter,
 	g_return_if_fail (painter->window != NULL);
 	g_return_if_fail (painter->gc != NULL);
 
-	window = html_painter_get_window (painter);
-	colormap = gdk_window_get_colormap (window);
+	colormap = gdk_window_get_colormap (painter->window);
 
 	gdk_colormap_free_colors (colormap, color, 1);
 }
@@ -516,16 +512,6 @@ html_painter_draw_shade_line (HTMLPainter *p,
 	gdk_draw_line (p->pixmap, p->gc, x, y + 1, x+width, y + 1);
 }
 
-
-GdkWindow *
-html_painter_get_window (HTMLPainter *painter)
-{
-	g_return_val_if_fail (painter != NULL, NULL);
-
-	return painter->window;
-}
-
-
 guint
 html_painter_calc_ascent (HTMLPainter *painter,
 			  HTMLFontStyle style)

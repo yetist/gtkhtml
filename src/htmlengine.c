@@ -3333,12 +3333,6 @@ html_engine_parse (HTMLEngine *p)
 		p->bgPixmapPtr = NULL;
 	}
 
-	/* FIXME */
-	html_settings_alloc_colors (p->defaultSettings,
-				    gdk_window_get_colormap (html_painter_get_window (p->painter)));
-	html_settings_copy (p->settings, p->defaultSettings);
-
-	/* Free the background color (if any) and alloc a new one */
 	p->bgColor = p->settings->bgColor;
 
 	p->bodyParsed = FALSE;

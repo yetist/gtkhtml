@@ -1,3 +1,12 @@
+2000-02-01  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine.c (html_engine_parse): No need to allocate the
+	settings' colors anymore.
+
+	* htmlpainter.c (html_painter_get_window): Removed.
+	(html_painter_alloc_color): Updated to work without it.
+	(html_painter_free_color): Likewise.
+
 2000-01-30  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine.c (check_prev): Take account for the color too.

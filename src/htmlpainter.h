@@ -167,7 +167,4 @@ void  html_painter_draw_background_pixmap  (HTMLPainter *painter,
 					    gint         pix_width,
 					    gint         pix_height);
 
-/* For debugging.  */
-GdkWindow *html_painter_get_window  (HTMLPainter *painter);
-
 #endif /* _HTMLPAINTER_H_ */
