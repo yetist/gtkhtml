@@ -17,8 +17,6 @@
 #include "bonobo-storage-http.h"
 #include "bonobo-stream-http.h"
 
-#define BONOBO_VERSION "0.29"
-
 static BonoboStorageClass *bonobo_storage_http_parent_class;
 
 static void
@@ -58,7 +56,7 @@ http_open_stream(BonoboStorage *storage, const CORBA_char *url,
 {
 	BonoboStream *stream;
 
-	stream = bonobo_stream_http_open(url, mode, 0644);
+	stream = bonobo_stream_http_open(url, mode, 0644, ev);
 
 	return stream;
 } /* http_open_stream */
@@ -69,7 +67,7 @@ http_open_storage(BonoboStorage *storage, const CORBA_char *url,
 {
 	BonoboStorage *new_storage;
 
-	new_storage = bonobo_storage_http_open(url, mode, 0644);
+	new_storage = bonobo_storage_http_open (url, mode, 0644, ev);
 
 	return new_storage;
 } /* http_open_storage */
@@ -169,11 +167,12 @@ bonobo_storage_http_get_type(void)
  * @url: URL that represents the storage
  * @flags: open flags.
  * @mode: mode used if @flags containst Bonobo_Storage_CREATE for the storage.
+ * @ev: A corba environment for exception handling.
  *
  * Returns a BonoboStorage object that represents the storage at @path
  */
 BonoboStorage *
-bonobo_storage_http_open(const char *url, gint flags, gint mode)
+bonobo_storage_http_open(const char *url, gint flags, gint mode, CORBA_Environment *ev)
 {
 	BonoboStorageHTTP *storage;
 	Bonobo_Storage corba_storage;
@@ -211,7 +210,7 @@ init_storage_plugin(StoragePlugin *plugin)
 
 	plugin->name = "http";
 	plugin->description = "HTTP driver";
-	plugin->version = BONOBO_VERSION;
+	plugin->version = BONOBO_STORAGE_VERSION;
 	
 	plugin->storage_open = bonobo_storage_http_open; 
 	plugin->stream_open = bonobo_stream_http_open; 

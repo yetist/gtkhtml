@@ -38,7 +38,8 @@ BonoboStorage *bonobo_storage_http_construct (BonoboStorageHTTP *storage,
 					      Bonobo_Storage corba_storage,
 					      const char *path, const char *open_mode);
 BonoboStorage *bonobo_storage_http_open      (const char *path,
-					      gint flags, gint mode);
+					      gint flags, gint mode,
+					      CORBA_Environment *ev);
 BonoboStorage *bonobo_storage_http_create    (BonoboStorageHTTP *storage,
 					      const CORBA_char *path);
 

@@ -290,12 +290,13 @@ request_failed:
  * bonobo_stream_http_open:
  * @url: The URL to be opened.
  * @flags: The flags with which the file should be opened.
+ * @ev: A corba environment for exception handling.
  *
  * Creates a new BonoboStream object for the URL specified by
  * @url.  
  */
 BonoboStream *
-bonobo_stream_http_open(const char *url, gint flags, gint mode)
+bonobo_stream_http_open(const char *url, gint flags, gint mode, CORBA_Environment *ev)
 {
 	return bonobo_stream_http_create(url);
 } /* bonobo_stream_http_open */

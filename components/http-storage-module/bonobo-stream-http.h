@@ -39,7 +39,7 @@ typedef struct {
 
 GtkType          bonobo_stream_http_get_type     (void);
 BonoboStream    *bonobo_stream_http_open         (const char *path, gint flags,
-						  gint mode);
+						  gint mode, CORBA_Environment *ev);
 BonoboStream    *bonobo_stream_http_create       (const CORBA_char *path);
 BonoboStream    *bonobo_stream_http_construct    (BonoboStreamHTTP *stream,
 						  Bonobo_Stream corba_stream);

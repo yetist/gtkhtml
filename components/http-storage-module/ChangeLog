@@ -1,3 +1,10 @@
+2001-02-06  Radek Doulik  <rodo@ximian.com>
+
+	* bonobo-stream-http.c (bonobo_stream_http_open): added ev parameter
+
+	* bonobo-storage-http.c (init_storage_plugin): use BONOBO_STORAGE_VERSION
+	(bonobo_storage_http_open): added ev parameter
+
 2000-11-25  Joe Shaw  <joe@helixcode.com>
 
 	* bonobo-storage-http.c: Bonobo version 0.29. 
