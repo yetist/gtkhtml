@@ -525,6 +525,8 @@ static GtkEnumValue _gtk_html_command_values[] = {
   { GTK_HTML_COMMAND_KILL_WORD, "GTK_HTML_COMMAND_KILL_WORD", "kill-word" },
   { GTK_HTML_COMMAND_KILL_WORD_BACKWARD, "GTK_HTML_COMMAND_KILL_WORD_BACKWARD", "backward-kill-word" },
   { GTK_HTML_COMMAND_TEXT_COLOR_APPLY, "GTK_HTML_COMMAND_TEXT_COLOR_APPLY", "text-color-apply" },
+  { GTK_HTML_COMMAND_SAVE_DATA_ON, "GTK_HTML_COMMAND_SAVE_DATA_ON", "save-data-on" },
+  { GTK_HTML_COMMAND_SAVE_DATA_OFF, "GTK_HTML_COMMAND_SAVE_DATA_OFF", "save-data-off" },
   { 0, NULL, NULL }
 };
 

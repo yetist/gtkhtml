@@ -229,47 +229,20 @@ draw (HTMLObject *o,
 }
 
 static void
-set_max_ascent (HTMLObject *o,
-		HTMLPainter *painter,				
-		gint a)
+set_max_height (HTMLObject *o, HTMLPainter *painter, gint height)
 {
 	HTMLClue *clue = HTML_CLUE (o);
 	HTMLObject *obj;
 
-	if (clue->valign == HTML_VALIGN_MIDDLE) {
-		for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
-			obj->y = obj->y + ((a - o->ascent) / 2);
-		}
+	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
+		html_object_set_max_height (obj, painter, height);
+		if (clue->valign == HTML_VALIGN_MIDDLE)
+			obj->y = obj->y + ((height - o->ascent) / 2);
+		else if (clue->valign == HTML_VALIGN_BOTTOM)
+			obj->y = obj->y + height - o->ascent;
 	}
 
-	else if (clue->valign == HTML_VALIGN_BOTTOM) {
-		for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
-			obj->y = obj->y + a - o->ascent;
-		}
-	}
-
-	o->ascent = a;
-}
-
-static void
-set_max_descent (HTMLObject *o, HTMLPainter *painter, gint d)
-{
-	HTMLClue *clue = HTML_CLUE (o);
-	HTMLObject *obj;
-	
-	if (clue->valign == HTML_VALIGN_MIDDLE) {
-		for (obj = clue->head; obj != 0; obj = obj->next) {
-			obj->y = obj->y + ((d - o->descent) / 2);
-		}
-	}
-	else if (clue->valign == HTML_VALIGN_BOTTOM) {
-		for (obj = clue->head; obj != 0; obj = obj->next) {
-			obj->y = obj->y + d - o->descent;
-		}
-	}
-	
-	o->descent = d;
-
+	o->ascent = height;
 }
 
 static void
@@ -608,8 +581,7 @@ html_clue_class_init (HTMLClueClass *klass,
 	object_class->remove_child = remove_child;
 	object_class->split = split;
 	object_class->draw = draw;
-	object_class->set_max_ascent = set_max_ascent;
-	object_class->set_max_descent = set_max_descent;
+	object_class->set_max_height = set_max_height;
 	object_class->reset = reset;
 	object_class->calc_size = calc_size;
 	object_class->calc_preferred_width = calc_preferred_width;

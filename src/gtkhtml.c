@@ -4166,7 +4166,12 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 			gtk_html_cut (html);
 		html_engine_disable_selection (e);
 		break;
-
+	case GTK_HTML_COMMAND_SAVE_DATA_ON:
+		html->engine->save_data = TRUE;
+		break;
+	case GTK_HTML_COMMAND_SAVE_DATA_OFF:
+		html->engine->save_data = FALSE;
+		break;
 	default:
 		html->binding_handled = FALSE;
 	}

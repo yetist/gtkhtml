@@ -38,6 +38,7 @@ struct _HTMLTable {
 	gint spacing;
 	gint padding;
 	gint border;
+	gint max_height;
 	HTMLClueV *caption;
 	HTMLVAlignType capAlign;
 	

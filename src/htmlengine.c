@@ -121,13 +121,6 @@ static void      html_engine_stream_write     (GtkHTMLStream       *stream,
 static void      html_engine_stream_end       (GtkHTMLStream       *stream,
 					       GtkHTMLStreamStatus  status,
 					       gpointer             data);
-static void      html_engine_set_class_data   (HTMLEngine          *e,
-					       const gchar         *class_name,
-					       const gchar         *key,
-					       const gchar         *value);
-static void      html_engine_clear_class_data (HTMLEngine          *e,
-					       const gchar         *class_name,
-					       const gchar         *key);
 static void      html_engine_set_object_data  (HTMLEngine          *e,
 					       HTMLObject          *o);
 
@@ -1263,15 +1256,16 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 		html_table_end_table (table);
 
 		if (align != HTML_HALIGN_LEFT && align != HTML_HALIGN_RIGHT) {
-			close_flow (e, clue);
+			if (e->flow && !html_clueflow_is_empty (HTML_CLUEFLOW (e->flow)))
+				close_flow (e, clue);
 
 			if (align != HTML_HALIGN_NONE) {
 				olddivalign = e->pAlign;
 				e->pAlign = align;
 			}
 			append_element (e, clue, HTML_OBJECT (table));
-
 			close_flow (e, clue);
+
 			if (align != HTML_HALIGN_NONE)
 				e->pAlign = olddivalign;
 		} else {
@@ -2873,9 +2867,7 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	if (strncmp (str, "table", 5) == 0) {
 		close_anchor (e);
 
-		close_flow (e, clue);
 		parse_table (e, clue, clue->max_width, str + 6);
-		close_flow (e, clue);
 
 		e->avoid_para = FALSE;
 	}
@@ -3401,6 +3393,7 @@ html_engine_init (HTMLEngine *engine)
 	html_engine_print_set_min_split_index (engine, .75);
 
 	engine->block = FALSE;
+	engine->save_data = FALSE;
 }
 
 HTMLEngine *
@@ -3589,6 +3582,7 @@ html_engine_begin (HTMLEngine *e, char *content_type)
 {
 	GtkHTMLStream *new_stream;
 
+	html_engine_clear_all_class_data (e);
 	html_tokenizer_begin (e->ht, content_type);
 	
 	free_block (e); /* Clear the block stack */
@@ -4120,10 +4114,25 @@ html_engine_get_max_width (HTMLEngine *e)
 	return MAX (0, max_width);
 }
 
+gint
+html_engine_get_max_height (HTMLEngine *e)
+{
+	gint max_height;
+
+	if (e->widget->iframe_parent)
+		max_height = HTML_FRAME (e->widget->frame)->height
+			- (e->topBorder + e->bottomBorder) * html_painter_get_pixel_size (e->painter);
+	else
+		max_height = html_painter_get_page_height (e->painter, e)
+			- (e->topBorder + e->bottomBorder) * html_painter_get_pixel_size (e->painter);
+
+	return MAX (0, max_height);
+}
+
 gboolean
 html_engine_calc_size (HTMLEngine *e, GList **changed_objs)
 {
-	gint max_width;
+	gint max_width, max_height;
 	gboolean redraw_whole;
 
 	if (e->clue == 0)
@@ -4134,9 +4143,13 @@ html_engine_calc_size (HTMLEngine *e, GList **changed_objs)
 	max_width = MIN (html_engine_get_max_width (e),
 			 html_painter_get_pixel_size (e->painter)
 			 * (MAX_WIDGET_WIDTH - e->leftBorder - e->rightBorder));
+	max_height = MIN (html_engine_get_max_height (e),
+			 html_painter_get_pixel_size (e->painter)
+			 * (MAX_WIDGET_WIDTH - e->topBorder - e->bottomBorder));
 
 	redraw_whole = max_width != e->clue->max_width;
 	html_object_set_max_width (e->clue, e->painter, max_width);
+	html_object_set_max_height (e->clue, e->painter, max_height);
 	/* printf ("calc size %d\n", e->clue->max_width); */
 	if (changed_objs)
 		*changed_objs = NULL;
@@ -5082,8 +5095,8 @@ html_engine_get_object_by_id (HTMLEngine *e, const gchar *id)
 	return (HTMLObject *) g_hash_table_lookup (e->id_table, id);
 }
 
-static GHashTable *
-get_class_table (HTMLEngine *e, const gchar *class_name)
+GHashTable *
+html_engine_get_class_table (HTMLEngine *e, const gchar *class_name)
 {
 	return class_name && e->class_data ? g_hash_table_lookup (e->class_data, class_name) : NULL;
 }
@@ -5096,7 +5109,7 @@ get_class_table_sure (HTMLEngine *e, const gchar *class_name)
 	if (e->class_data == NULL)
 		e->class_data = g_hash_table_new (g_str_hash, g_str_equal);
 
-	t = get_class_table (e, class_name);
+	t = html_engine_get_class_table (e, class_name);
 	if (!t) {
 		t = g_hash_table_new (g_str_hash, g_str_equal);
 		g_hash_table_insert (e->class_data, g_strdup (class_name), t);
@@ -5128,14 +5141,14 @@ html_engine_set_class_data (HTMLEngine *e, const gchar *class_name, const gchar 
 	g_hash_table_insert (t, old_key ? old_key : g_strdup (key), g_strdup (value));
 }
 
-static void
+void
 html_engine_clear_class_data (HTMLEngine *e, const gchar *class_name, const gchar *key)
 {
 	GHashTable *t;
 	gpointer old_key;
 	gpointer old_val;
 
-	t = get_class_table (e, class_name);
+	t = html_engine_get_class_table (e, class_name);
 
 	/* printf ("clear (%s) %s\n", class_name, key); */
 	if (t && g_hash_table_lookup_extended (t, key, &old_key, &old_val)) {
@@ -5145,10 +5158,40 @@ html_engine_clear_class_data (HTMLEngine *e, const gchar *class_name, const gcha
 	}
 }
 
+static gboolean
+remove_class_data (gpointer key, gpointer val, gpointer data)
+{
+	g_free (key);
+	g_free (val);
+
+	return TRUE;
+}
+
+static gboolean
+remove_all_class_data (gpointer key, gpointer val, gpointer data)
+{
+	g_hash_table_foreach_remove ((GHashTable *) val, remove_class_data, NULL);
+	g_hash_table_destroy ((GHashTable *) val);
+	g_free (key);
+
+	return TRUE;
+}
+
+void
+html_engine_clear_all_class_data (HTMLEngine *e)
+{
+	if (e->class_data) {
+		g_hash_table_foreach_remove (e->class_data, remove_all_class_data, NULL);
+		g_hash_table_destroy (e->class_data);
+		e->class_data = NULL;
+	}
+}
+
 const gchar *
 html_engine_get_class_data (HTMLEngine *e, const gchar *class_name, const gchar *key)
 {
-	return e->class_data ? g_hash_table_lookup (e->class_data, key) : NULL;
+	GHashTable *t = html_engine_get_class_table (e, class_name);
+	return t ? g_hash_table_lookup (t, key) : NULL;
 }
 
 static void
@@ -5163,7 +5206,7 @@ html_engine_set_object_data (HTMLEngine *e, HTMLObject *o)
 {
 	GHashTable *t;
 
-	t = get_class_table (e, html_type_name (HTML_OBJECT_TYPE (o)));
+	t = html_engine_get_class_table (e, html_type_name (HTML_OBJECT_TYPE (o)));
 	if (t)
 		g_hash_table_foreach (t, set_object_data, o);
 }

@@ -261,6 +261,8 @@ struct _HTMLEngine {
 	gint opened_streams;
 
 	HTMLObject *focus_object;
+
+	gboolean save_data;
 };
 
 /* must be forward referenced *sigh* */
@@ -315,6 +317,7 @@ gboolean  html_engine_calc_size        (HTMLEngine *e,
 gint  html_engine_get_doc_height       (HTMLEngine *p);
 gint  html_engine_get_doc_width        (HTMLEngine *e);
 gint  html_engine_get_max_width        (HTMLEngine *e);
+gint  html_engine_get_max_height       (HTMLEngine *e);
 void  html_engine_draw                 (HTMLEngine *e,
 					gint        x,
 					gint        y,
@@ -422,9 +425,20 @@ HTMLObject *html_engine_get_object_by_id    (HTMLEngine  *e,
 HTMLEngine *html_engine_get_top_html_engine (HTMLEngine *e);
 void        html_engine_thaw_idle_reset     (HTMLEngine *e);
 
-const gchar *html_engine_get_class_data  (HTMLEngine  *e,
-					  const gchar *class_name,
-					  const gchar *key);
+/* class data */
+const gchar *html_engine_get_class_data        (HTMLEngine  *e,
+						const gchar *class_name,
+						const gchar *key);
+GHashTable  *html_engine_get_class_table       (HTMLEngine  *e,
+						const gchar *class_name);
+void         html_engine_set_class_data        (HTMLEngine  *e,
+						const gchar *class_name,
+						const gchar *key,
+						const gchar *value);
+void         html_engine_clear_class_data      (HTMLEngine  *e,
+						const gchar *class_name,
+						const gchar *key);
+void         html_engine_clear_all_class_data  (HTMLEngine  *e);
 gboolean  html_engine_intersection  (HTMLEngine *e,
 				     gint       *x1,
 				     gint       *y1,

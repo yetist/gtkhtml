@@ -127,9 +127,8 @@ struct _HTMLObjectClass {
 	gboolean (* calc_size) (HTMLObject *o, HTMLPainter *painter, GList **changed_objs);
 	gint (* calc_min_width) (HTMLObject *o, HTMLPainter *painter);
 	gint (* calc_preferred_width) (HTMLObject *o, HTMLPainter *painter);
-	void (* set_max_ascent) (HTMLObject *o, HTMLPainter *painter, gint a);
-	void (* set_max_descent) (HTMLObject *o, HTMLPainter *painter, gint d);
 	void (* set_max_width) (HTMLObject *o, HTMLPainter *painter, gint max_width);
+	void (* set_max_height) (HTMLObject *o, HTMLPainter *painter, gint max_height);
 
 	/* Relayout object `o' starting from child `child'.  This
            method can be called by the child when it changes any of
@@ -374,15 +373,12 @@ HTMLFitType     html_object_fit_line              (HTMLObject            *o,
 gboolean        html_object_calc_size             (HTMLObject            *o,
 						   HTMLPainter           *painter,
 						   GList                **changed_objs);
-void            html_object_set_max_ascent        (HTMLObject            *o,
-						   HTMLPainter           *painter,
-						   gint                   a);
-void            html_object_set_max_descent       (HTMLObject            *o,
-						   HTMLPainter           *painter,
-						   gint                   d);
 void            html_object_set_max_width         (HTMLObject            *o,
 						   HTMLPainter           *painter,
 						   gint                   max_width);
+void            html_object_set_max_height        (HTMLObject            *o,
+						   HTMLPainter           *painter,
+						   gint                   max_height);
 gint            html_object_calc_min_width        (HTMLObject            *o,
 						   HTMLPainter           *painter);
 gint            html_object_calc_preferred_width  (HTMLObject            *o,
@@ -510,13 +506,15 @@ void  html_object_change_set_down  (HTMLObject      *self,
 
 /* object data */
 
-void      html_object_set_data               (HTMLObject  *object,
-					      const gchar *key,
-					      const gchar *value);
-gpointer  html_object_get_data               (HTMLObject  *object,
-					      const gchar *key);
-void      html_object_copy_data_from_object  (HTMLObject  *dst,
-					      HTMLObject  *src);
+void      html_object_set_data               (HTMLObject          *object,
+					      const gchar         *key,
+					      const gchar         *value);
+gpointer  html_object_get_data               (HTMLObject          *object,
+					      const gchar         *key);
+void      html_object_copy_data_from_object  (HTMLObject          *dst,
+					      HTMLObject          *src);
+gboolean  html_object_save_data              (HTMLObject          *self,
+					      HTMLEngineSaveState *state);
 /*
  * editing
 */

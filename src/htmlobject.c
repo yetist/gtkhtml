@@ -33,6 +33,7 @@
 #include "htmlcursor.h"
 #include "htmlengine.h"
 #include "htmlengine-edit.h"
+#include "htmlengine-save.h"
 #include "htmlframe.h"
 #include "htmlinterval.h"
 #include "htmlobject.h"
@@ -255,21 +256,16 @@ calc_preferred_width (HTMLObject *o, HTMLPainter *painter)
 	html_object_calc_size (o, painter, FALSE);
 	return o->width;
 }
-
-static void
-set_max_ascent (HTMLObject *o, HTMLPainter *painter, gint a)
-{
-}
-	
-static void
-set_max_descent (HTMLObject *o, HTMLPainter *painter, gint d)
-{
-}
 	
 static void
 set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
 {
 	o->max_width = max_width;
+}
+
+static void
+set_max_height (HTMLObject *o, HTMLPainter *painter, gint max_height)
+{
 }
 
 static gint
@@ -636,9 +632,8 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->is_transparent = is_transparent;
 	klass->fit_line = fit_line;
 	klass->calc_size = calc_size;
-	klass->set_max_ascent = set_max_ascent;
-	klass->set_max_descent = set_max_descent;
 	klass->set_max_width = set_max_width;
+	klass->set_max_height = set_max_height;
 	klass->get_left_margin = get_left_margin;
 	klass->get_right_margin = get_right_margin;
 	klass->set_painter = set_painter;
@@ -898,21 +893,15 @@ html_object_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs
 }
 
 void
-html_object_set_max_ascent (HTMLObject *o, HTMLPainter *painter, gint a)
-{
-	(* HO_CLASS (o)->set_max_ascent) (o, painter, a);
-}
-
-void
-html_object_set_max_descent (HTMLObject *o, HTMLPainter *painter, gint d)
-{
-	(* HO_CLASS (o)->set_max_descent) (o, painter, d);
-}
-
-void
 html_object_set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
 {
 	(* HO_CLASS (o)->set_max_width) (o, painter, max_width);
+}
+
+void
+html_object_set_max_height (HTMLObject *o, HTMLPainter *painter, gint max_height)
+{
+	(* HO_CLASS (o)->set_max_height) (o, painter, max_height);
 }
 
 gint
@@ -1605,6 +1594,59 @@ void
 html_object_copy_data_from_object (HTMLObject *dst, HTMLObject *src)
 {
 	g_datalist_foreach (&src->object_data, copy_data, dst);
+}
+
+static void
+object_save_data (GQuark key_id, gpointer data, gpointer user_data)
+{
+	HTMLEngineSaveState *state = (HTMLEngineSaveState *) user_data;
+	const gchar *str;
+
+	str = html_engine_get_class_data (state->engine, state->save_data_class_name, g_quark_to_string (key_id));
+	/* printf ("object %s %s\n", g_quark_to_string (key_id), str); */
+	if (!str) {
+		/* printf ("save %s %s -> %s\n", state->save_data_class_name, g_quark_to_string (key_id), (gchar *) data); */
+		html_engine_save_output_string (state, "<!--+GtkHTML:<DATA class=\"%s\" key=\"%s\" value=\"%s\">",
+						state->save_data_class_name, g_quark_to_string (key_id), data);
+		html_engine_set_class_data (state->engine, state->save_data_class_name, g_quark_to_string (key_id), data);
+	}
+}
+
+static void
+handle_object_data (gpointer key, gpointer value, gpointer data)
+{
+	HTMLEngineSaveState *state = (HTMLEngineSaveState *) data;
+	gchar *str;
+
+	str = html_object_get_data (HTML_OBJECT (state->save_data_object), key);
+	/* printf ("handle: %s %s %s %s\n", state->save_data_class_name, key, value, str); */
+	if (!str) {
+		/* printf ("clear\n"); */
+		html_engine_save_output_string (state, "<!--+GtkHTML:<DATA class=\"%s\" clear=\"%s\">",
+						state->save_data_class_name, key);
+		html_engine_clear_class_data (state->engine, state->save_data_class_name, key);
+	} else if (strcmp (value, str)) {
+		/* printf ("change\n"); */
+		html_engine_save_output_string (state, "<!--+GtkHTML:<DATA class=\"%s\" key=\"%s\" value=\"%s\">",
+						state->save_data_class_name, key, str);
+		html_engine_set_class_data (state->engine, state->save_data_class_name, key, value);
+	}
+}
+
+gboolean
+html_object_save_data (HTMLObject *self, HTMLEngineSaveState *state)
+{
+	if (state->engine->save_data) {
+		GHashTable *t;
+		state->save_data_class_name = html_type_name (self->klass->type);
+		state->save_data_object = self;
+		t = html_engine_get_class_table (state->engine, state->save_data_class_name);
+		if (t)
+			g_hash_table_foreach (t, handle_object_data, state);
+		g_datalist_foreach (&self->object_data, object_save_data, state);
+	}
+
+	return TRUE;
 }
 
 GList *

@@ -978,7 +978,7 @@ html_table_set_cells_position (HTMLTable *table, HTMLPainter *painter)
 				HTML_OBJECT (cell)->x = COLUMN_OPT (table, c) + pixel_size * border_extra;
 				HTML_OBJECT (cell)->y = ROW_HEIGHT (table, rl) + pixel_size * (- table->spacing)
 					- HTML_OBJECT (cell)->descent;
-				html_object_set_max_ascent (HTML_OBJECT (cell), painter,
+				html_object_set_max_height (HTML_OBJECT (cell), painter,
 							    ROW_HEIGHT (table, rl) - ROW_HEIGHT (table, cell->row)
 							    - pixel_size * (table->spacing + border_extra));
 			}
@@ -1004,6 +1004,13 @@ add_clear_area (GList **changed_objs, HTMLObject *o, gint x, gint w)
 	*changed_objs = g_list_prepend (*changed_objs, cr);
 	/* NULL meens: clear rectangle follows */
 	*changed_objs = g_list_prepend (*changed_objs, NULL);
+}
+
+static void
+html_table_set_max_height (HTMLObject *o, HTMLPainter *painter, gint height)
+{
+	/* for now just remember it, it will be passed down once size is calculated */
+	HTML_TABLE (o)->max_height = height;
 }
 
 static gboolean
@@ -2160,6 +2167,7 @@ html_table_class_init (HTMLTableClass *klass,
 	object_class->calc_min_width = calc_min_width;
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->set_max_width = html_table_set_max_width;
+	object_class->set_max_height = html_table_set_max_height;
 	object_class->reset = reset;
 	object_class->check_point = check_point;
 	object_class->find_anchor = find_anchor;

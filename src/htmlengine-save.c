@@ -242,6 +242,7 @@ write_header (HTMLEngineSaveState *state)
 	gboolean retval = TRUE;
 	gchar *body;
 
+	html_engine_clear_all_class_data (state->engine);
 	/* Preface.  */
 	if (! html_engine_save_output_string
 	            (state,

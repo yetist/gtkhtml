@@ -32,6 +32,8 @@ struct _HTMLEngineSaveState {
 	HTMLEngine *engine;
 	HTMLEngineSaveReceiverFn receiver;
 	guint br_count;
+	const gchar *save_data_class_name;
+	HTMLObject *save_data_object;
 
 	guint error : 1;
 
