@@ -42,7 +42,7 @@ struct _GtkHTMLReplaceDialog {
 	GtkWidget   *backward;
 	GtkWidget   *case_sensitive;
 
-	GtkHTMLReplaceAskDialog *ask_dialog;
+	GtkHTMLControlData *cd;
 };
 
 static void
@@ -96,6 +96,22 @@ ask (HTMLEngine *e, gpointer data)
 }
 
 static void
+entry_search_changed (GtkWidget *entry, GtkHTMLReplaceDialog *d)
+{
+	if (d->cd->replace_text_search)
+		g_free (d->cd->replace_text_search);
+	d->cd->replace_text_search = g_strdup (gtk_entry_get_text (GTK_ENTRY (d->entry_search)));
+}
+
+static void
+entry_replace_changed (GtkWidget *entry, GtkHTMLReplaceDialog *d)
+{
+	if (d->cd->replace_text_replace)
+		g_free (d->cd->replace_text_replace);
+	d->cd->replace_text_replace = g_strdup (gtk_entry_get_text (GTK_ENTRY (d->entry_replace)));
+}
+
+static void
 entry_activate (GtkWidget *entry, GtkHTMLReplaceDialog *d)
 {
 	gtk_dialog_response (GTK_DIALOG (d->dialog), 0);
@@ -142,7 +158,12 @@ gtk_html_replace_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 	dialog->backward       = gtk_check_button_new_with_label (_("search backward"));
 	dialog->case_sensitive = gtk_check_button_new_with_label (_("case sensitive"));
 	dialog->html           = html;
-	dialog->ask_dialog     = NULL;
+	dialog->cd             = cd;
+
+	if (cd->replace_text_search)
+		gtk_entry_set_text (GTK_ENTRY (dialog->entry_search), cd->replace_text_search);
+	if (cd->replace_text_replace)
+		gtk_entry_set_text (GTK_ENTRY (dialog->entry_replace), cd->replace_text_replace);
 
 	gtk_table_set_col_spacings (GTK_TABLE (table), 3);
 	label = gtk_label_new (_("Replace"));
@@ -170,7 +191,9 @@ gtk_html_replace_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 	gtk_widget_grab_focus (dialog->entry_search);
 
 	g_signal_connect (dialog->dialog, "response", G_CALLBACK (replace_dialog_response), dialog);
+	g_signal_connect (dialog->entry_search, "changed", G_CALLBACK (entry_search_changed), dialog);
 	g_signal_connect (dialog->entry_search, "activate", G_CALLBACK (entry_activate), dialog);
+	g_signal_connect (dialog->entry_replace, "changed", G_CALLBACK (entry_replace_changed), dialog);
 	g_signal_connect (dialog->entry_replace, "activate", G_CALLBACK (entry_activate), dialog);
 
 	return dialog;

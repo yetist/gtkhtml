@@ -38,11 +38,6 @@ struct _GtkHTMLSearchDialog {
 };
 
 static void
-search_cb (GtkWidget *but, GtkHTMLSearchDialog *d)
-{
-}
-
-static void
 entry_changed (GtkWidget *entry, GtkHTMLSearchDialog *d)
 {
 	if (d->cd->search_text)
@@ -100,11 +95,6 @@ gtk_html_search_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 	
 	gnome_window_icon_set_from_file (GTK_WINDOW (dialog->dialog), ICONDIR "/search-24.png");
 
-	/* FIX2 gnome_dialog_button_connect (dialog->dialog, 0, GTK_SIGNAL_FUNC (search_cb), dialog);
-	   gnome_dialog_close_hides (dialog->dialog, TRUE);
-	   gnome_dialog_set_close (dialog->dialog, TRUE);
-
-	   gnome_dialog_set_default (dialog->dialog, 0); */
 	gtk_widget_grab_focus (dialog->entry);
 
 	g_signal_connect (dialog->dialog, "response", G_CALLBACK (search_dialog_response), dialog);
