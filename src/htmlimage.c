@@ -1048,12 +1048,15 @@ html_image_pointer_run_animation (HTMLImagePointer *ip)
 	
 	/* printf ("animation_timeout\n"); */
 	if (gdk_pixbuf_animation_iter_advance (iter, NULL)) {
-		GSList *cur = ip->interests;
+		GSList *cur;
 
-		while (cur) {
+		for (cur = ip->interests; cur; cur = cur->next) {
 			if (cur->data) {
 				HTMLImage           *image = cur->data;
 				HTMLImageAnimation  *anim = image->animation;
+
+				if (!anim)
+					continue;
 
 				/* draw only if animation is active - onscreen */
 				nx = anim->x - (engine->x_offset - anim->ex);
@@ -1077,7 +1080,6 @@ html_image_pointer_run_animation (HTMLImagePointer *ip)
 					*/
 				}
 			}
-			cur = cur->next;
 		}
 	}
 		
