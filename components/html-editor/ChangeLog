@@ -1,3 +1,7 @@
+Sat Jun  5 12:20:42 2004  Owen Taylor  <otaylor@redhat.com>
+
+	* html-stream-mem.c (html_stream_mem_construct): Add a missing static.
+
 2004-06-04  Radek Doulik  <rodo@ximian.com>
 
 	* clean all unused variables and other compiler warnings
