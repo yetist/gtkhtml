@@ -61,7 +61,7 @@ prop (GtkWidget *mi, GtkHTMLControlData *cd)
 
 	switch (HTML_OBJECT_TYPE (cd->obj)) {
 	case HTML_TYPE_RULE:
-		rule_edit (cd);
+		rule_edit (cd, HTML_RULE (cd->obj));
 		break;
 	case HTML_TYPE_IMAGE:
 		image_edit (cd, HTML_IMAGE (cd->obj));

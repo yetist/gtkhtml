@@ -25,6 +25,7 @@
 #include "config.h"
 #include "dialog.h"
 #include "rule.h"
+#include "htmlrule.h"
 #include "htmlengine-edit-insert.h"
 
 struct _GtkHTMLRuleDialog {
@@ -35,35 +36,55 @@ struct _GtkHTMLRuleDialog {
 	GtkWidget   *check;
 	GtkWidget   *combo;
 	
-	gboolean       shadow;
+	HTMLRule      *rule;
+	gboolean       shade;
 	HTMLHAlignType halign;
 };
 
 
 static void 
-get_values (GtkWidget **spin, gint *val)
+set_get_values (GtkWidget **spin, gint *val, gboolean flag)
 {
 	gint i;
 	
-	for (i = 0; i < 3; i++)
-		val [i] = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spin [i]));
-
+	if (flag)
+		for (i = 0; i < 3; i++)
+			val [i] = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spin [i]));
+	else
+		for (i = 0; i < 3; i++)
+			gtk_spin_button_set_value (GTK_SPIN_BUTTON (spin [i]), (gfloat) val [i]);
 }
+
 static void
 button_rule_cb (GtkWidget *but, GtkHTMLRuleDialog *d)
 {
 	gint val [3];
 	
-	get_values (d->spin, val);
+	set_get_values (d->spin, val, TRUE);
+
+	if (!d->rule) {
+		html_engine_insert_rule (d->html->engine, val [0], val [1], val [2], TRUE, HTML_HALIGN_NONE);
+		return;
+	}
 	
-	html_engine_insert_rule (d->html->engine, val [0], val [1], val [2], TRUE, HTML_HALIGN_NONE);
+	d->rule->length  = val [0]; 
+	d->rule->size    = val [2];
+	d->rule->shade  = d->shade;
+	d->rule->halign  = d->halign;
 	
+	html_engine_schedule_update (d->html->engine);
 }
 
 static void
-set_spin (HTMLEngine *e, GtkWidget *et)
+button_shade_cb (GtkWidget *but, GtkHTMLRuleDialog *d)
 {
-}   
+	d->shade = !d->shade;
+}
+
+static void
+combo_align_cb (GtkWidget *but, GtkHTMLRuleDialog *d)
+{
+}
 
 GtkHTMLRuleDialog *
 gtk_html_rule_dialog_new (GtkHTML *html)
@@ -80,6 +101,8 @@ gtk_html_rule_dialog_new (GtkHTML *html)
 	d->html       = html;
 	d->check      = gtk_check_button_new_with_label (_("Set Shade"));
 	d->combo      = gtk_combo_new ();
+	d->shade     = TRUE;
+	d->halign     = HTML_HALIGN_NONE;
 	hbox          = gtk_hbox_new (FALSE, 3);
 
 	for (i = 0; i < 3; i++) {
@@ -118,13 +141,26 @@ void
 rule_insert (GtkHTMLControlData *cd)
 {
 	RUN_DIALOG (rule);
+	cd->rule_dialog->rule = NULL;
 }
 
 void
-rule_edit (GtkHTMLControlData *cd)
+rule_edit (GtkHTMLControlData *cd, HTMLRule *r)
 {
+	GtkHTMLRuleDialog *d = cd->rule_dialog;
+	gint val [3];
 	RUN_DIALOG (rule);
 	
+	d->rule = r;
+	d->shade = r->shade;
+	d->halign = r->halign;
+
+	val [0] = r->length;
+	val [1] = 0;
+	val [2] = r->size;
+		
+	set_get_values (d->spin, val, FALSE);
+       
 }
 
 

@@ -1,6 +1,21 @@
+2000-06-10  Ariel Rios  <ariel@arcavia.com>
+
+	* popup.c (prop): In the HTML_TYPE_RULE case we now pass the object as a parameter to rule_edit. 
+
+	* rule.c (rule_insert): Added reference to the new dialog variable rule and set it to NULL.
+	(rule_edit): Added new HTMLRule parameter and then we pass it to GtkHMTLDialog.
+	We now also correctly set the values taken from the the HTMLRule object.
+	(set_get_values): Replaces the old get_values function.
+	(button_rule_cb): We now make distinction between inserting and object and editing it.
+	(button_shade_cb): New call back for toggling the shade state.
+	(combo_align_cb): New call back for selecting the type of rule alignment.
+
+	* rule.h (rule_edit): Add HTMLRule as a parameter.
+
+	
 2000-06-09  Ariel Rios  <ariel@arcavia.com>
 
-	* rule.c (gtk_html_rule_dialog_new): Some modifications to the dialog to make ot
+	* rule.c (gtk_html_rule_dialog_new): Some modifications to the dialog to make to
 	look cooler and nicer.
 
 	* popup.c (prop): Added reference so we can edit rule type. 

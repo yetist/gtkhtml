@@ -28,11 +28,12 @@ typedef struct _GtkHTMLRuleDialog GtkHTMLRuleDialog;
 #include <gnome.h>
 #include "control-data.h"
 #include "htmlengine-edit-rule.h"
+#include "htmlrule.h"
 
 GtkHTMLRuleDialog * gtk_html_rule_dialog_new       (GtkHTML *html);
 void                gtk_html_rule_dialog_destroy   (GtkHTMLRuleDialog *d);
 
 void                rule_insert                     (GtkHTMLControlData *cd);
-void                rule_edit                       (GtkHTMLControlData *cd);
+void                rule_edit                       (GtkHTMLControlData *cd, HTMLRule *r);
 
 #endif
