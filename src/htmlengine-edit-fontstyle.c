@@ -255,7 +255,7 @@ html_engine_set_font_style (HTMLEngine *e,
 	g_return_val_if_fail (e->editable, FALSE);
 
 
-	printf ("and %d or %d\n", and_mask, or_mask);
+	/* printf ("and %d or %d\n", and_mask, or_mask); */
 	if (html_engine_is_selection_active (e)) {
 		struct tmp_font *tf = g_new (struct tmp_font, 1);
 		tf->and_mask = and_mask;

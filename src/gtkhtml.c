@@ -223,7 +223,7 @@ update_styles (GtkHTML *html)
 	HTMLEngine *engine;
 	guint indentation;
 
-	printf ("update_styles called\n");
+	/* printf ("update_styles called\n"); */
 
 	if (! html_engine_get_editable (html->engine))
 		return;
@@ -2919,7 +2919,6 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		html_engine_table_set_border_width (e, 0, FALSE);
 		break;
 	case GTK_HTML_COMMAND_TEXT_SET_DEFAULT_COLOR:
-		printf ("set color\n");
 		html_engine_set_color (e, NULL);
 		break;
 	default:
