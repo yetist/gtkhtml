@@ -559,6 +559,8 @@ static GtkEnumValue _gtk_html_command_values[] = {
   { GTK_HTML_COMMAND_SAVE_DATA_OFF, "GTK_HTML_COMMAND_SAVE_DATA_OFF", "save-data-off" },
   { GTK_HTML_COMMAND_SAVED, "GTK_HTML_COMMAND_SAVED", "saved" },
   { GTK_HTML_COMMAND_IS_SAVED, "GTK_HTML_COMMAND_IS_SAVED", "is-saved" },
+  { GTK_HTML_COMMAND_SCROLL_BOD, "GTK_HTML_COMMAND_SCROLL_BOD", "scroll-bod" },
+  { GTK_HTML_COMMAND_SCROLL_EOD, "GTK_HTML_COMMAND_SCROLL_EOD", "scroll-eod" },
   { 0, NULL, NULL }
 };
 

@@ -3851,6 +3851,14 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_FOCUS_BACKWARD:
 		html->binding_handled = gtk_container_focus (GTK_CONTAINER (html), GTK_DIR_TAB_BACKWARD);
 		break;
+	case GTK_HTML_COMMAND_SCROLL_BOD:
+		gtk_adjustment_set_value (gtk_layout_get_vadjustment (GTK_LAYOUT (html)), 0);
+		break;
+	case GTK_HTML_COMMAND_SCROLL_EOD: {
+		GtkAdjustment *vadj = gtk_layout_get_vadjustment (GTK_LAYOUT (html));
+		gtk_adjustment_set_value (vadj, vadj->upper - vadj->page_size);
+		break;
+	}
 	default:
 		html->binding_handled = FALSE;
 	}
@@ -4441,6 +4449,10 @@ load_keybindings (GtkHTMLClass *klass)
 	gtk_binding_entry_add_signal (binding_set, GDK_ ## key, m, \
 				      "command", 1, \
 				      GTK_TYPE_HTML_COMMAND, GTK_HTML_COMMAND_ ## com);
+	BCOM (0, Home, SCROLL_BOD);
+	BCOM (0, KP_Home, SCROLL_BOD);
+	BCOM (0, End, SCROLL_EOD);
+	BCOM (0, KP_End, SCROLL_EOD);
 
 	BCOM (0, Return, INSERT_PARAGRAPH);
 	BCOM (0, KP_Enter, INSERT_PARAGRAPH);
