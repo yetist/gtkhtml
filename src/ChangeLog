@@ -1,3 +1,15 @@
+2001-01-03  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine-edit-cut-and-paste.c (remove_empty_and_merge): remove
+	child before destroy
+
+	* htmllinktextmaster.c (html_link_text_master_class_init): set
+	merge method
+
+	* htmlobject.c (html_object_destroy): ops, take back remove_child
+	to merge
+	(html_object_merge): remove child
+
 2000-12-29  Radek Doulik  <rodo@helixcode.com>
 
 	* htmltable.c (divide_into_percented): fixed, there was error in

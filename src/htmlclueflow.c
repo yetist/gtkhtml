@@ -94,13 +94,10 @@ merge (HTMLObject *self, HTMLObject *with)
 	cf1 = HTML_CLUEFLOW (self);
 	cf2 = HTML_CLUEFLOW (with);
 
-	/* if (cf1->style != cf2->style || cf1->level != cf2->level)
-	   return FALSE; */
-
 	html_clueflow_remove_text_slaves (cf1);
 	html_clueflow_remove_text_slaves (cf2);
 
-	return ((* HTML_OBJECT_CLASS (parent_class)->merge) (self, with)) ? TRUE : FALSE;
+	return (* HTML_OBJECT_CLASS (parent_class)->merge) (self, with);
 }
 
 static guint

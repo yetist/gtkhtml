@@ -708,6 +708,8 @@ html_object_merge (HTMLObject *self, HTMLObject *with)
 {
 	if (HTML_OBJECT_TYPE (self) == HTML_OBJECT_TYPE (with)
 	    && (* HO_CLASS (self)->merge) (self, with)) {
+		if (with->parent)
+			html_object_remove_child (with->parent, with);
 		html_object_destroy (with);
 		return TRUE;
 	}
@@ -779,8 +781,6 @@ html_object_calc_intersection (HTMLObject *o, ArtIRect *intersection, gint x, gi
 void
 html_object_destroy (HTMLObject *self)
 {
-	if (self->parent)
-		html_object_remove_child (self->parent, self);
 	(* HO_CLASS (self)->destroy) (self);
 }
 

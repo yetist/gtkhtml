@@ -228,6 +228,7 @@ html_link_text_master_class_init (HTMLLinkTextMasterClass *klass,
 	object_class->copy = copy;
 	object_class->op_copy = op_copy;
 	object_class->op_cut = op_cut;
+	object_class->merge = object_merge;
 	object_class->get_url = get_url;
 	object_class->get_target = get_target;
 	object_class->remove_link = remove_link;	

@@ -129,9 +129,6 @@ merge (HTMLObject *self, HTMLObject *with)
 {
 	HTMLClue   *clue1, *clue2;
 
-	if (HTML_OBJECT_TYPE (self) != HTML_OBJECT_TYPE (with))
-		return FALSE;
-
 	clue1 = HTML_CLUE (self);
 	clue2 = HTML_CLUE (with);
 

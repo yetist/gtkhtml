@@ -264,9 +264,11 @@ remove_empty_and_merge (HTMLEngine *e, gboolean merge, GList *left, GList *right
 				e->cursor->object = right->data;
 			if (c && c->object == left->data)
 				c->object = right->data;
+			html_object_remove_child (HTML_OBJECT (left->data)->parent, HTML_OBJECT (left->data));
 			html_object_destroy (HTML_OBJECT (left->data));
 		} else if ((HTML_OBJECT (right->data)->next || merge) &&
 			   html_object_is_text (HTML_OBJECT (right->data)) && !*HTML_TEXT (right->data)->text) {
+			html_object_remove_child (HTML_OBJECT (right->data)->parent, HTML_OBJECT (right->data));
 			html_object_destroy (HTML_OBJECT (right->data));
 		} else if (merge) {
 			if (!html_object_merge (HTML_OBJECT (left->data), HTML_OBJECT (right->data)))
