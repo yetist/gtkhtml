@@ -1,3 +1,8 @@
+2000-08-14  Radek Doulik  <rodo@helixcode.com>
+
+	* editor-control-factory.c (html_button_pressed): use
+	Ctrl-Button1-2xclick for object properties
+
 2000-08-13  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* spell.c (select_row): Don't segfault on a NULL event, as stupid

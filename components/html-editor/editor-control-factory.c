@@ -278,15 +278,24 @@ html_button_pressed (GtkWidget *html, GdkEventButton *event, GtkHTMLControlData 
 					     event->x + engine->x_offset,
 					     event->y + engine->y_offset,
 					     NULL, FALSE);
-	if (cd->obj && event->type == GDK_2BUTTON_PRESS && event->button == 1) {
-		cd->releaseId = gtk_signal_connect (GTK_OBJECT (html), "button_release_event", GTK_SIGNAL_FUNC (release), cd);
-	} else if (event->button == 2) {
+	switch (event->button) {
+	case 1:
+		if (event->type == GDK_2BUTTON_PRESS && cd->obj && event->state & GDK_CONTROL_MASK)
+			cd->releaseId = gtk_signal_connect (GTK_OBJECT (html), "button_release_event",
+							    GTK_SIGNAL_FUNC (release), cd);
+		else
+			return TRUE;
+		break;
+	case 2:
 		/* pass this for pasting */
 		return TRUE;
-	} else if (event->button == 3) {
+	case 3:
 		if (popup_show (cd, event))
 			gtk_signal_emit_stop_by_name (GTK_OBJECT (html), "button_press_event");
+		break;
+	default:
 	}
+
 	return FALSE;
 }
 
