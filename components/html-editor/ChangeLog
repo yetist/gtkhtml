@@ -1,3 +1,16 @@
+2000-02-01  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* editor-control-factory.c: Set up the UI Handler.
+
+	* test-html-editor-control.c: Updated to support the Bonobo UI
+	Handler.
+
+	* menubar.c: New file.
+	* menubar.h: New file.
+
+	* toolbar.c: New file.
+	* toolbar.h: New file.
+
 2000-01-26  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* All files: Updated according to the new Bonobo naming changes.

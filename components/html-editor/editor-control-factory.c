@@ -28,8 +28,68 @@
 
 #include "gtkhtml.h"
 #include "persist-stream-impl.h"
+#include "menubar.h"
+#include "toolbar.h"
 
 #include "editor-control-factory.h"
+
+
+struct _UIHHackStruct {
+	BonoboControl *control;
+	GtkHTML *html;
+};
+typedef struct _UIHHackStruct UIHHackStruct;
+
+static gboolean
+uih_hack_cb (gpointer data)
+{
+	UIHHackStruct *hack_struct;
+	Bonobo_UIHandler remote_uih;
+	BonoboUIHandler *uih;
+
+	hack_struct = (UIHHackStruct *) data;
+
+	puts (__FUNCTION__);
+
+	/* FIXME CORBA_Object_release()? */
+
+	remote_uih = bonobo_control_get_remote_ui_handler (hack_struct->control);
+	if (remote_uih == CORBA_OBJECT_NIL) {
+		/* We must not generate errors here, because we must allow
+                   containers not to have a UIHandler.  */
+		return TRUE;
+	}
+
+	uih = bonobo_control_get_ui_handler (hack_struct->control);
+	bonobo_ui_handler_set_container (uih, remote_uih);
+
+	toolbar_setup (uih, hack_struct->html);
+	menubar_setup (uih, hack_struct->html);
+
+	g_free (hack_struct);
+
+	return FALSE;
+}
+
+
+static void
+set_frame_cb (BonoboControl *control,
+	      gpointer data)
+{
+	GtkHTML *html;
+	UIHHackStruct *hack_struct;
+
+	puts (__FUNCTION__);
+
+	html = GTK_HTML (data);
+
+	/* FIXME: We have to do this because the Bonobo behavior is currently
+           broken.  */
+	hack_struct = g_new (UIHHackStruct, 1);
+	hack_struct->control = control;
+	hack_struct->html = html;
+	gtk_timeout_add (1000, uih_hack_cb, hack_struct);
+}
 
 
 static BonoboObject *
@@ -40,6 +100,7 @@ editor_control_factory (BonoboGenericFactory *factory,
 	GtkWidget *html_widget;
 	GtkWidget *scrolled_window;
 	BonoboPersistStream *stream_impl;
+	BonoboUIHandler *uih;
 
 	html_widget = gtk_html_new ();
 	gtk_widget_show (html_widget);
@@ -51,8 +112,21 @@ editor_control_factory (BonoboGenericFactory *factory,
 
 	control = bonobo_control_new (scrolled_window);
 
+	/* Bonobo::PersistStream */
+
 	stream_impl = persist_stream_impl_new (GTK_HTML (html_widget));
 	bonobo_object_add_interface (BONOBO_OBJECT (control), BONOBO_OBJECT (stream_impl));
+
+	/* UIHandler.  */
+
+	uih = bonobo_ui_handler_new ();
+	bonobo_control_set_ui_handler (control, uih);
+
+	/* Part of the initialization must be done after the control is
+           embedded in its control frame.  We use the "set_frame" signal to
+           handle that.  */
+	gtk_signal_connect (GTK_OBJECT (control), "set_frame",
+			    GTK_SIGNAL_FUNC (set_frame_cb), html_widget);
 
 	g_warning ("Creating a new GtkHTML editor control.");
 

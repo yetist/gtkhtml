@@ -233,12 +233,25 @@ static GnomeUIInfo menu_info[] = {
 	GNOMEUIINFO_END
 };
 
+static GnomeUIInfo toolbar_info[] = {
+	GNOMEUIINFO_ITEM_STOCK (N_("Cut"), N_("Cut selection to the clipboard"),
+				NULL, GNOME_STOCK_PIXMAP_CUT),
+	GNOMEUIINFO_ITEM_STOCK (N_("Copy"), N_("Copy selection to the clipboard"),
+				NULL, GNOME_STOCK_PIXMAP_COPY),
+	GNOMEUIINFO_ITEM_STOCK (N_("Paste"), N_("Paste contents of the clipboard"),
+				NULL, GNOME_STOCK_PIXMAP_PASTE),
+	GNOMEUIINFO_END
+};
+
 
 static guint
 container_create (void)
 {
 	GtkWidget *app;
 	GtkWidget *control;
+	BonoboUIHandler *uih;
+	BonoboControlFrame *cf;
+	BonoboUIHandlerMenuItem *tree;
 
 	app = gnome_app_new ("test-html-editor-control",
 			     "HTML Editor Control Test");
@@ -249,8 +262,19 @@ container_create (void)
 	if (control == NULL)
 		g_error ("Cannot get `control:html-editor'.");
 
+	/* Set up the GnomeUIHandler stuff.  */
+	cf = bonobo_widget_get_control_frame (BONOBO_WIDGET (control));
+	uih = bonobo_ui_handler_new ();
+	bonobo_ui_handler_set_app (uih, GNOME_APP (app));
+	bonobo_control_frame_set_ui_handler (cf, uih);
+
+	bonobo_ui_handler_create_menubar (uih);
+
+	tree = bonobo_ui_handler_menu_parse_uiinfo_tree_with_data (menu_info, app);
+	bonobo_ui_handler_menu_add_tree (uih, "/", tree);
+	bonobo_ui_handler_menu_free_tree (tree);
+
 	gnome_app_set_contents (GNOME_APP (app), control);
-	gnome_app_create_menus_with_data (GNOME_APP (app), menu_info, app);
 
 	gtk_widget_show_all (app);
 
@@ -274,10 +298,8 @@ main (int argc, char **argv)
 	if (bonobo_init (orb, NULL, NULL) == FALSE)
 		g_error ("Could not initialize Bonobo\n");
 
-	/*
-	 * We can't make any CORBA calls unless we're in the main
-	 * loop.  So we delay creating the container here.
-	 */
+	/* We can't make any CORBA calls unless we're in the main loop.  So we
+	   delay creating the container here. */
 	gtk_idle_add ((GtkFunction) container_create, NULL);
 
 	bonobo_main ();

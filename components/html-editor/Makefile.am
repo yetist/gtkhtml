@@ -24,8 +24,12 @@ html_editor_control_SOURCES =			\
 	editor-control-factory.c		\
 	editor-control-factory.h		\
 	main.c					\
+	menubar.c				\
+	menubar.h				\
 	persist-stream-impl.c			\
-	persist-stream-impl.h
+	persist-stream-impl.h			\
+	toolbar.c				\
+	toolbar.h
 
 gnorbadir = $(sysconfdir)/CORBA/servers
 gnorba_DATA = html-editor-control.gnorba
@@ -43,4 +47,3 @@ test_html_editor_control_SOURCES =		\
 EXTRA_DIST =					\
 	$(gnorba_DATA)				\
 	ChangeLog
- 
