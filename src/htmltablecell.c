@@ -288,7 +288,8 @@ save (HTMLObject *self,
 
 	SB cell->heading ? "<TH" : "<TD" SE;
 	if (cell->have_bg
-	    && (!HTML_TABLE (self->parent)->bgColor || !gdk_color_equal (&cell->bg, HTML_TABLE (self->parent)->bgColor)))
+	    && (!self->parent || !HTML_TABLE (self->parent)->bgColor
+		|| !gdk_color_equal (&cell->bg, HTML_TABLE (self->parent)->bgColor)))
 		SB " BGCOLOR=\"#%02x%02x%02x\"",
 			cell->bg.red >> 8,
 			cell->bg.green >> 8,
