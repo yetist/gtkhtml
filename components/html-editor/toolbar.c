@@ -265,7 +265,8 @@ static void
 set_color_combo (GtkHTML *html, GtkHTMLControlData *cd)
 {
 	color_combo_set_color (COLOR_COMBO (cd->combo),
-			       &html_colorset_get_color_allocated (html->engine->painter, HTMLTextColor)->color);
+			       &html_colorset_get_color_allocated (html->engine->settings->color_set,
+								   html->engine->painter, HTMLTextColor)->color);
 }
 
 static void

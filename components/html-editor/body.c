@@ -185,13 +185,16 @@ changed_template (GtkWidget *w, GtkHTMLEditBodyProperties *d)
 		left_margin = body_templates [template].left_margin;
 	} else {
 		color_combo_set_color (COLOR_COMBO (d->combo [2]),
-				       &html_colorset_get_color_allocated (d->cd->html->engine->painter,
+				       &html_colorset_get_color_allocated (d->cd->html->engine->settings->color_set,
+									   d->cd->html->engine->painter,
 									   HTMLBgColor)->color);
 		color_combo_set_color (COLOR_COMBO (d->combo [0]),
-				       &html_colorset_get_color_allocated (d->cd->html->engine->painter,
+				       &html_colorset_get_color_allocated (d->cd->html->engine->settings->color_set,
+									   d->cd->html->engine->painter,
 									   HTMLTextColor)->color);
 		color_combo_set_color (COLOR_COMBO (d->combo [1]),
-				       &html_colorset_get_color_allocated (d->cd->html->engine->painter,
+				       &html_colorset_get_color_allocated (d->cd->html->engine->settings->color_set,
+									   d->cd->html->engine->painter,
 									   HTMLLinkColor)->color);
 	}
 
@@ -300,7 +303,7 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 
 	/* set ui */
 #define SET_COLOR(ct) \
-        color_combo_set_color (COLOR_COMBO (combo), &html_colorset_get_color_allocated (cd->html->engine->painter, ct)->color);
+        color_combo_set_color (COLOR_COMBO (combo), &html_colorset_get_color_allocated (cd->html->engine->settings->color_set, cd->html->engine->painter, ct)->color);
 
 	SET_COLOR (HTMLTextColor);
 	SET_COLOR (HTMLLinkColor);

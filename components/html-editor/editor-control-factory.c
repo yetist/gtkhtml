@@ -381,9 +381,6 @@ editor_init_painters (GtkHTMLControlData *cd)
 		cd->gdk_painter = HTML_GDK_PAINTER (html->engine->painter);
 		cd->plain_painter = HTML_GDK_PAINTER (html_plain_painter_new (GTK_WIDGET (html), TRUE));
 
-		html_colorset_add_slave (html->engine->settings->color_set, 
-					 HTML_PAINTER (cd->plain_painter)->color_set);
-
 		/* the plain painter starts with a ref */
 		g_object_ref (G_OBJECT (cd->gdk_painter));
 	}	
