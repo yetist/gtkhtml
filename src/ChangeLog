@@ -9,6 +9,7 @@
 	it's probably unneeded now, but to be sure
 	(size_allocate): use gtk_html_update_scrollbars_on_resize, take
 	care of adjustment changes
+	(button_press_event): reversed font-zooming direction
 
 	* htmlimage.c (html_image_set_url): re-register image pointer even
 	if url is the same as before as image could actually change

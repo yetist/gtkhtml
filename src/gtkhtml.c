@@ -1079,7 +1079,7 @@ button_press_event (GtkWidget *widget,
 		case 4:
 			/* Mouse wheel scroll up.  */
 			if (event->state & GDK_CONTROL_MASK)
-				gtk_html_command (html, "zoom-in");
+				gtk_html_command (html, "zoom-out");
 			else {
 				value = vadj->value - vadj->step_increment * 3;
 			
@@ -1093,7 +1093,7 @@ button_press_event (GtkWidget *widget,
 		case 5:
 			/* Mouse wheel scroll down.  */
 			if (event->state & GDK_CONTROL_MASK) 
-				gtk_html_command (html, "zoom-out");
+				gtk_html_command (html, "zoom-in");
 			else {
 				value = vadj->value + vadj->step_increment * 3;
 			
