@@ -133,7 +133,7 @@ check_point (HTMLObject *self,
 	     p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE;
 	     p = p->next) {
 
-		if (y > p->y + p->descent)
+		if (y >= p->y + p->descent)
 			continue;
 
 		/* If the cursor is on this line, there is a newline

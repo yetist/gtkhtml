@@ -1134,17 +1134,14 @@ calc_size (HTMLObject *o,
 	return FALSE;
 }
 
-#define NEW_INDEX(l,h) ((l+h) >> 1);
-#define ARR(i) g_array_index (a, gint, i-1)
+#define NEW_INDEX(l,h) ((l+h) >> 1)
+#define ARR(i) g_array_index (a, gint, i)
 
 static gint
-bin_search_eq_or_lower_index (GArray *a, gint range, gint val, gint offset)
+bin_search_index (GArray *a, gint l, gint h, gint val)
 {
-	gint l,h;
 	gint i;
 
-	l = offset ? offset + 1 : 1;
-	h = range;
 	i = NEW_INDEX (l, h);
 
 	while (l < h && val != ARR (i)) {
@@ -1155,24 +1152,31 @@ bin_search_eq_or_lower_index (GArray *a, gint range, gint val, gint offset)
 		i = NEW_INDEX (l, h);
 	}
 
-	if (i && val == ARR (i))
-		return i - 1;
+	return i;
+}
 
-	if (val < ARR (l) && l > 1)
-		return l - 2;
-	else
-		return l - 1;
+static inline gint
+to_index (gint val, gint l, gint h)
+{
+	return MIN (MAX (val, l), h);
 }
 
 static void
 get_bounds (HTMLTable *table, gint x, gint y, gint width, gint height, gint *sc, gint *ec, gint *sr, gint *er)
 {
-	*sr = bin_search_eq_or_lower_index (table->rowHeights, table->totalRows + 1, y, 0);
-	*er = MIN (bin_search_eq_or_lower_index (table->rowHeights, table->totalRows + 1, y + height, *sr) + 1,
-		   table->totalRows);
-	*sc = bin_search_eq_or_lower_index (table->columnOpt, table->totalCols + 1, x, 0);
-	*ec = MIN (bin_search_eq_or_lower_index (table->columnOpt, table->totalCols + 1, x + width, *sc) + 1,
-		   table->totalCols);
+	*sr = to_index (bin_search_index (table->rowHeights, 0, table->totalRows, y), 0, table->totalRows - 1);
+	if (y < ROW_HEIGHT (table, *sr) && (*sr) > 0)
+		(*sr)--;
+	*er = to_index (bin_search_index (table->rowHeights, *sr, table->totalRows, y + height), 0, table->totalRows - 1);
+	if (y > ROW_HEIGHT (table, *er) && (*er) < table->totalRows - 1)
+		(*er)++;
+
+	*sc = to_index (bin_search_index (table->columnOpt, 0, table->totalCols, x), 0, table->totalCols-1);
+	if (x < COLUMN_OPT (table, *sc) && (*sc) > 0)
+		(*sc)--;
+	*ec = to_index (bin_search_index (table->columnOpt, *sc, table->totalCols, x + width), 0, table->totalCols - 1);
+	if (x > COLUMN_OPT (table, *ec) && (*ec) < table->totalCols - 1)
+		(*ec)++;
 }
 
 static void
@@ -1199,15 +1203,15 @@ draw (HTMLObject *o,
 
 	/* Draw the cells */
 	get_bounds (table, x, y, width, height, &start_col, &end_col, &start_row, &end_row);
-	for (r = start_row; r < end_row; r++) {
-		for (c = start_col; c < end_col; c++) {
+	for (r = start_row; r <= end_row; r++) {
+		for (c = start_col; c <= end_col; c++) {
 			cell = table->cells[r][c];
 
 			if (cell == NULL)
 				continue;
-			if (c < end_col - 1 && cell == table->cells [r][c + 1])
+			if (c < end_col && cell == table->cells [r][c + 1])
 				continue;
-			if (r < end_row - 1 && table->cells [r + 1][c] == cell)
+			if (r < end_row && table->cells [r + 1][c] == cell)
 				continue;
 
 			html_object_draw (HTML_OBJECT (cell), p, 
@@ -1234,14 +1238,14 @@ draw (HTMLObject *o,
 					 pixel_size * table->border);
 		
 		/* Draw borders around each cell */
-		for (r = start_row; r < end_row; r++) {
-			for (c = start_col; c < end_col; c++) {
+		for (r = start_row; r <= end_row; r++) {
+			for (c = start_col; c <= end_col; c++) {
 				if ((cell = table->cells[r][c]) == 0)
 					continue;
-				if (c < end_col - 1 &&
+				if (c < end_col &&
 				    cell == table->cells[r][c + 1])
 					continue;
-				if (r < end_row - 1 &&
+				if (r < end_row &&
 				    table->cells[r + 1][c] == cell)
 					continue;
 
@@ -1364,8 +1368,8 @@ check_point (HTMLObject *self,
 	HTMLTable *table;
 	gint r, c, start_row, end_row, start_col, end_col;
 
-	if (x < self->x || x > self->x + self->width
-	    || y > self->y + self->descent || y < self->y - self->ascent)
+	if (x < self->x || x >= self->x + self->width
+	    || y >= self->y + self->descent || y < self->y - self->ascent)
 		return NULL;
 
 	table = HTML_TABLE (self);
@@ -1373,8 +1377,8 @@ check_point (HTMLObject *self,
 	x -= self->x;
 	y -= self->y - self->ascent;
 
-	get_bounds (table, x, y, 1, 1, &start_col, &end_col, &start_row, &end_row);
-	for (r = start_row; r < end_row; r++) {
+	get_bounds (table, x, y, 0, 0, &start_col, &end_col, &start_row, &end_row);
+	for (r = start_row; r <= end_row; r++) {
 		for (c = 0; c < table->totalCols; c++) {
 			cell = table->cells[r][c];
 			if (cell == NULL)
@@ -1388,6 +1392,41 @@ check_point (HTMLObject *self,
 			obj = html_object_check_point (HTML_OBJECT (cell), painter, x, y, offset_return, for_cursor);
 			if (obj != NULL)
 				return obj;
+		}
+	}
+
+	if (for_cursor) {
+
+		/* check before */
+		for (c=0; c<table->totalCols; c++)
+			if (table->cells [start_row][c])
+				break;
+		if (table->cells [start_row][c]) {
+			cell = table->cells [start_row][c];
+			if (x < HTML_OBJECT (cell)->x || y < HTML_OBJECT (cell)->y - HTML_OBJECT (cell)->ascent) {
+				obj = html_object_check_point (HTML_OBJECT (cell), painter,
+							       HTML_OBJECT (cell)->x,
+							       HTML_OBJECT (cell)->y - HTML_OBJECT (cell)->ascent,
+							       offset_return, for_cursor);
+				if (obj)
+					return obj;
+			}
+		}
+		/* check after */
+		for (c=table->totalCols - 1; c >= 0; c--)
+			if (table->cells [start_row][c])
+				break;
+		if (table->cells [start_row][c]) {
+			cell = table->cells [start_row][c];
+			if (x > HTML_OBJECT (cell)->x + HTML_OBJECT (cell)->width - 1
+			    || y > HTML_OBJECT (cell)->y + HTML_OBJECT (cell)->descent - 1) {
+				obj = html_object_check_point (HTML_OBJECT (cell), painter,
+							       HTML_OBJECT (cell)->x + HTML_OBJECT (cell)->width - 1,
+							       HTML_OBJECT (cell)->y + HTML_OBJECT (cell)->descent - 1,
+							       offset_return, for_cursor);
+				if (obj)
+					return obj;
+			}
 		}
 	}
 
@@ -1710,14 +1749,16 @@ check_page_split (HTMLObject *self, gint y)
 	gint r, min_y;
 
 	table = HTML_TABLE (self);
-	r     = bin_search_eq_or_lower_index (table->rowHeights, table->totalRows + 1, y, 0);
+	r     = to_index (bin_search_index (table->rowHeights, 0, table->totalRows, y), 0, table->totalRows - 1);
+	if (y < ROW_HEIGHT (table, r) && r > 0)
+		r--;
 
 	/* printf ("y: %d rh: %d rh+1: %d\n", y, ROW_HEIGHT (table, r), ROW_HEIGHT (table, r+1)); */
 
 	/* if (r >= table->totalRows)
 	   return MIN (y, ROW_HEIGHT (table, table->totalRows)); */
 
-	min_y = MIN (y, ROW_HEIGHT (table, r + ((r >= table->totalRows) ? 0 : 1)));
+	min_y = MIN (y, ROW_HEIGHT (table, r+1));
 	while (check_row_split (table, r, &min_y));
 
 	/* printf ("min_y=%d\n", min_y); */

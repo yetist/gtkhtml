@@ -247,8 +247,8 @@ check_point (HTMLObject *o,
 	HTMLObject *obj;
 	HTMLObject *obj2;
 
-	if (x < o->x || x > o->x + o->width
-	    || y > o->y + o->descent || y < o->y - o->ascent)
+	if (x < o->x || x >= o->x + o->width
+	    || y >= o->y + o->descent || y < o->y - o->ascent)
 		return NULL;
 
 	x = x - o->x;

@@ -1,5 +1,10 @@
 2000-11-24  Radek Doulik  <rodo@helixcode.com>
 
+	* htmltable.c (bin_search_index): new function
+	(to_index): new helper function
+	(get_bounds): rewritten, uses to_index and bin_search_index
+	(check_page_split): updated
+
 	* htmlclueflow.c (check_point): check for p coordinates instead of
 	self ones
 	(check_point): refactoring: remove tmp var obj1

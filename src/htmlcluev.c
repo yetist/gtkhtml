@@ -327,9 +327,9 @@ check_point (HTMLObject *self,
 				x1 = x;
 			}
 
-			if (p->next == NULL && y > p->y + p->descent) {
+			if (p->next == NULL && y > p->y + p->descent - 1) {
 				x1 = p->width - 1;
-				y1 = p->y + p->descent;
+				y1 = p->y + p->descent - 1;
 			} else if (p->prev == NULL && y < p->y - p->ascent) {
 				y1 = p->y - p->ascent;
 			} else {

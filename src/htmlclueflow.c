@@ -812,16 +812,17 @@ check_point (HTMLObject *self,
 		if (! for_cursor)
 			continue;
 
-		if (p->prev == NULL && (x < p->x || y < p->y - p->ascent + 1)) {
-			obj = html_object_check_point (p, painter, p->x, p->y, offset_return, for_cursor);
+		if (p->prev == NULL && (x < p->x || y < p->y - p->ascent)) {
+			obj = html_object_check_point (p, painter, p->x, p->y - p->ascent, offset_return, for_cursor);
 			if (obj != NULL)
 				return obj;
 		} else if (pnext == NULL || (pnext->y != p->y
-					     && y >= p->y - p->ascent + 1
-					     && y <= p->y + p->descent)) {
+					     && y >= p->y - p->ascent
+					     && y <= p->y + p->descent - 1)) {
 			obj = html_object_check_point (HTML_OBJECT_TYPE (p) != HTML_TYPE_TEXTSLAVE
 						       ? p : html_object_prev_not_slave (p),
-						       painter, p->x + p->width - 1, p->y, offset_return, for_cursor);
+						       painter, p->x + p->width - 1, p->y + p->descent -1,
+						       offset_return, for_cursor);
 			if (obj != NULL)
 				return obj;
 		}
