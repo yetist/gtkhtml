@@ -1,5 +1,7 @@
 2003-04-03  Larry Ewing  <lewing@ximian.com>
 
+	* gtkhtml.c (selection_received): add UTF8_STRING dnd support.
+
 	* htmlengine.c: don't try to create image inputs with no src url.
 
 2003-04-03  Radek Doulik  <rodo@ximian.com>

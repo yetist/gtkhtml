@@ -72,15 +72,17 @@
 #include "math.h"
 #include <libgnome/gnome-util.h>
 
-enum DndTargetType {
+static enum DndTargetType {
 	DND_TARGET_TYPE_TEXT_URI_LIST,
 	DND_TARGET_TYPE__NETSCAPE_URL,
+	DND_TARGET_TYPE_UTF8_STRING,
 	DND_TARGET_TYPE_TEXT_PLAIN,
 	DND_TARGET_TYPE_STRING,
 };
 static GtkTargetEntry dnd_link_sources [] = {
 	{ "text/uri-list", 0, DND_TARGET_TYPE_TEXT_URI_LIST },
 	{ "_NETSCAPE_URL", 0, DND_TARGET_TYPE__NETSCAPE_URL },
+	{ "UTF8_STRING", 0, DND_TARGET_TYPE_UTF8_STRING },
 	{ "text/plain", 0, DND_TARGET_TYPE_TEXT_PLAIN },
 	{ "STRING", 0, DND_TARGET_TYPE_STRING },
 };
@@ -2227,6 +2229,7 @@ drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *sel
 	case DND_TARGET_TYPE__NETSCAPE_URL:
 		/* printf ("\ttext/uri-list\n"); */
 	case DND_TARGET_TYPE_TEXT_PLAIN:
+	case DND_TARGET_TYPE_UTF8_STRING:
 	case DND_TARGET_TYPE_STRING: {
 		HTMLObject *obj = GTK_HTML (widget)->priv->dnd_real_object;
 		const gchar *url, *target;
@@ -2365,10 +2368,10 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
 
 	switch (info) {
 	case DND_TARGET_TYPE_TEXT_PLAIN:
+	case DND_TARGET_TYPE_UTF8_STRING:
 	case DND_TARGET_TYPE_STRING:
 		/* printf ("\ttext/plain\n"); */
-		html_engine_paste_object (engine, html_engine_new_text (engine, selection_data->data, selection_data->length),
-					  selection_data->length);
+		html_engine_paste_text (engine, selection_data->data, -1);
 		break;
 	case DND_TARGET_TYPE_TEXT_URI_LIST:
 	case DND_TARGET_TYPE__NETSCAPE_URL: {
