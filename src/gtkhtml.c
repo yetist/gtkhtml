@@ -3182,3 +3182,13 @@ gtk_html_edit_make_cursor_visible (GtkHTML *html)
 
 	return rv;
 }
+
+gboolean
+gtk_html_build_with_gconf ()
+{
+#ifdef GTKHTML_HAVE_GCONF
+	return TRUE;
+#else
+	return FALSE;
+#endif
+}

@@ -1,5 +1,9 @@
 2001-03-29  Radek Doulik  <rodo@ximian.com>
 
+	* gtkhtml.c (gtk_html_build_with_gconf): helper function, returns
+	TRUE if gtkhtml was built with gconf support. it's provided for
+	scripting languages
+
 	* htmlengine-edit-table.c (delete_table_row): updated
 	(delete_row_undo_action): use DeleteCellsUndo data
 
