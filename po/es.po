@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-29 20:33+0100\n"
-"PO-Revision-Date: 2004-12-29 20:35+0100\n"
+"POT-Creation-Date: 2005-01-07 22:40+0100\n"
+"PO-Revision-Date: 2005-01-07 22:40+0100\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -27,21 +27,23 @@ msgstr ""
 "X-Generator: KBabel 1.9.1\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: a11y/object.c:50 a11y/object.c:59
+#: a11y/image.c:150
+#, c-format
+msgid "URL is %s, Alternative Text is %s"
+msgstr "El URL es %s, el texto alternativo es %s"
+
+#: a11y/image.c:152
+#, c-format
+msgid "URL is %s"
+msgstr "El URL es %s"
+
+#: a11y/object.c:50 a11y/object.c:59 a11y/text.c:105
 msgid "grab focus"
 msgstr "obtener el foco"
 
 #: a11y/object.c:211
 msgid "Panel containing HTML"
 msgstr "Panel con contenido HTML"
-
-#: a11y/image.c:149
-msgid "URL is "
-msgstr "El URL es"
-
-#: a11y/image.c:152
-msgid ", Alternative Text is "
-msgstr ", el texto alternativo es "
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -1953,7 +1955,8 @@ msgstr "Tipografía de anchura fija"
 
 #: src/gtkhtml.c:2961
 msgid "The Monospace font to use for typewriter text"
-msgstr "La tipografía monoespaciada a usar para el texto de máquina de escribir"
+msgstr ""
+"La tipografía monoespaciada a usar para el texto de máquina de escribir"
 
 #: src/gtkhtml.c:2967
 msgid "New Link Color"
@@ -2071,4 +2074,3 @@ msgstr "Vista preliminar de impresión"
 #: src/testgtkhtml.c:1004
 msgid "GtkHTML Test Application"
 msgstr "Aplicación de prueba GtkHTML"
-
