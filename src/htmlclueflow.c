@@ -1069,7 +1069,8 @@ save (HTMLObject *self,
 	}
 
 	if (start && is_item (clueflow)) {
-		if (! html_engine_save_output_string (state, "<%s>\n", get_tag_for_item_group (self)))
+		if (! html_engine_save_output_string (state, "<%s>\n",
+						      get_tag_for_item_group (HTML_CLUEFLOW (self))))
 			return FALSE;
 	}		
 
@@ -1089,7 +1090,8 @@ save (HTMLObject *self,
 	}
 
 	if (end && is_item (clueflow)) {
-		if (! html_engine_save_output_string (state, "\n</%s>", get_tag_for_item_group (self)))
+		if (! html_engine_save_output_string (state, "\n</%s>",
+						      get_tag_for_item_group (HTML_CLUEFLOW (self))))
 			return FALSE;
 	}		
 

@@ -136,7 +136,7 @@ html_menu_test_cb (GnomeUIHandler *uih, view_data_t *view_data, gchar *path)
 	gchar buffer[32768];
 	gchar *filename;
 	gint test_nr = 0;
-	GtkHTMLStreamHandle handle;
+	GtkHTMLStream *handle;
 
 	if (strstr (path, "Test 1") != 0)
 		test_nr = 1;
@@ -475,7 +475,7 @@ embeddable_load (embeddable_data_t *bed)
  * Loads a HTML from a GNOME_Stream
  */
 static void
-load_url(GtkHTML *html, const char *url, GtkHTMLStreamHandle handle)
+load_url(GtkHTML *html, const char *url, GtkHTMLStream *handle)
 {
   FILE *fil;
 

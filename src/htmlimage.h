@@ -75,8 +75,9 @@ struct _HTMLImage {
 	HTMLImageAnimation *animation;
 
 	GdkColor color;
-	gboolean color_allocated: 1;
-	gboolean have_color: 1;
+
+	guint color_allocated: 1;
+	guint have_color: 1;
 
 	gint8 border;
 

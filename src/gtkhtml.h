@@ -38,11 +38,13 @@ typedef struct _GtkHTMLClass	GtkHTMLClass;
 #define GTK_IS_HTML_CLASS(klass)       (GTK_CHECK_CLASS_TYPE ((klass), GTK_TYPE_HTML))
 
 
-typedef gpointer GtkHTMLStreamHandle;
-typedef enum {
+typedef struct _GtkHTMLStream GtkHTMLStream;
+
+enum _GtkHTMLStreamStatus {
 	GTK_HTML_STREAM_OK,
 	GTK_HTML_STREAM_ERROR
-} GtkHTMLStreamStatus;
+};
+typedef enum _GtkHTMLStreamStatus GtkHTMLStreamStatus;
 
 enum _GtkHTMLParagraphStyle {
 	GTK_HTML_PARAGRAPH_STYLE_NORMAL,
@@ -93,12 +95,12 @@ struct _GtkHTML {
 
 	gint selection_x1, selection_y1;
 
-	gboolean in_selection : 1;
-	gboolean button_pressed : 1;
-	gboolean load_in_progress : 1;
+	guint in_selection : 1;
+	guint button_pressed : 1;
+	guint load_in_progress : 1;
 
-	gboolean debug : 1;
-	gboolean allow_selection : 1;
+	guint debug : 1;
+	guint allow_selection : 1;
 
 	guint hadj_connection;
 	guint vadj_connection;
@@ -120,7 +122,7 @@ struct _GtkHTMLClass {
 	GtkLayoutClass parent_class;
 	
         void (* title_changed)   (GtkHTML *html, const gchar *new_title);
-        void (* url_requested)   (GtkHTML *html, const gchar *url, GtkHTMLStreamHandle handle);
+        void (* url_requested)   (GtkHTML *html, const gchar *url, GtkHTMLStream *handle);
         void (* load_done)       (GtkHTML *html);
         void (* link_clicked)    (GtkHTML *html, const gchar *url);
 	void (* set_base)        (GtkHTML *html, const gchar *base_url);
@@ -153,16 +155,15 @@ void  gtk_html_allow_selection  (GtkHTML  *html,
 int   gtk_html_request_paste    (GtkWidget *widget,
 				 gint32 time);
 /* Loading.  */
-GtkHTMLStreamHandle  gtk_html_begin       (GtkHTML             *html,
-					   const gchar         *url);
-void                 gtk_html_write       (GtkHTML             *html,
-					   GtkHTMLStreamHandle  handle,
-					   const gchar         *buffer,
-					   size_t               size);
-void                 gtk_html_end         (GtkHTML             *html,
-					   GtkHTMLStreamHandle  handle,
-					   GtkHTMLStreamStatus  status);
-void                 gtk_html_load_empty  (GtkHTML             *html);
+GtkHTMLStream *gtk_html_begin       (GtkHTML             *html);
+void           gtk_html_write       (GtkHTML             *html,
+				     GtkHTMLStream       *handle,
+				     const gchar         *buffer,
+				     size_t               size);
+void           gtk_html_end         (GtkHTML             *html,
+				     GtkHTMLStream       *handle,
+				     GtkHTMLStreamStatus  status);
+void           gtk_html_load_empty  (GtkHTML             *html);
 
 /* Saving.  */
 gboolean  gtk_html_save  (GtkHTML               *html,
@@ -171,8 +172,8 @@ gboolean  gtk_html_save  (GtkHTML               *html,
 
 /* Streams for feeding the widget with extra data (e.g. images) at loading
    time.  */
-GtkHTMLStreamHandle  gtk_html_stream_ref    (GtkHTMLStreamHandle handle);
-void                 gtk_html_stream_unref  (GtkHTMLStreamHandle handle);
+GtkHTMLStream *gtk_html_stream_ref    (GtkHTMLStream *handle);
+void           gtk_html_stream_unref  (GtkHTMLStream *handle);
 
 /* Editable support.  */
 void      gtk_html_set_editable  (GtkHTML       *html,

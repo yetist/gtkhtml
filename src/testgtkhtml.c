@@ -49,7 +49,7 @@
 
 typedef struct {
   FILE *fil;
-  GtkHTMLStreamHandle handle;
+  GtkHTMLStream *handle;
 } FileInProgress;
 
 typedef struct {
@@ -74,7 +74,7 @@ static void reload_cb (GtkWidget *widget, gpointer data);
 static void redraw_cb (GtkWidget *widget, gpointer data);
 static void resize_cb (GtkWidget *widget, gpointer data);
 static void title_changed_cb (GtkHTML *html, const gchar *title, gpointer data);
-static void url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpointer data);
+static void url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpointer data);
 static void entry_goto_url(GtkWidget *widget, gpointer data);
 static void goto_url(const char *url, int back_or_forward);
 static void on_set_base (GtkHTML *html, const gchar *url, gpointer data);
@@ -85,12 +85,12 @@ static int netin_stream_write (HTStream * me, const char * s, int l);
 static int netin_stream_flush (HTStream * me);
 static int netin_stream_free (HTStream * me);
 static int netin_stream_abort (HTStream * me, HTList * e);
-static HTStream *netin_stream_new (GtkHTMLStreamHandle handle, HTRequest *request);
+static HTStream *netin_stream_new (GtkHTMLStream *handle, HTRequest *request);
 static int redirectFilter(HTRequest *request, HTResponse *response, void *param, int status);
 static gchar *parse_href (const gchar *s);
 
 static GtkHTML *html;
-static GtkHTMLStreamHandle html_stream_handle = NULL;
+static GtkHTMLStream *html_stream_handle = NULL;
 static GtkWidget *animator, *entry;
 static GtkWidget *popup_menu, *popup_menu_back, *popup_menu_forward, *popup_menu_home;
 static GtkWidget *toolbar_back, *toolbar_forward;
@@ -547,7 +547,7 @@ on_link_clicked (GtkHTML *html, const gchar *url, gpointer data)
 /* Lame hack */
 struct _HTStream {
 	const HTStreamClass *	isa;
-	GtkHTMLStreamHandle handle;
+	GtkHTMLStream *handle;
 };
 
 static int
@@ -604,7 +604,7 @@ static const HTStreamClass netin_stream_class =
 }; 
 
 static HTStream *
-netin_stream_new (GtkHTMLStreamHandle handle, HTRequest *request)
+netin_stream_new (GtkHTMLStream *handle, HTRequest *request)
 {
 	HTStream *retval;
 	
@@ -644,7 +644,7 @@ object_requested_cmd (GtkHTML *html, GtkHTMLEmbedded *eb, void *data)
 }
 
 static void
-url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpointer data)
+url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpointer data)
 {
 	gchar *full_url = NULL;
 	HTRequest *newreq;
@@ -808,7 +808,10 @@ goto_url(const char *url, int back_or_forward)
 
 	use_redirect_filter = TRUE;
 
-	html_stream_handle = gtk_html_begin (html, url);
+	html_stream_handle = gtk_html_begin (html);
+
+	/* Yuck yuck yuck.  Well this code is butt-ugly already anyway.  */
+	url_requested (html, url, html_stream_handle, NULL);
 
 	full_url = parse_href (url);
 	on_set_base (NULL, full_url, NULL);

@@ -35,7 +35,7 @@ struct _HTMLEngineSaveState {
 	HTMLEngineSaveReceiverFn receiver;
 	guint br_count;
 
-	gboolean error : 1;
+	guint error : 1;
 
 	guint last_level;
 

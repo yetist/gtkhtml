@@ -22,12 +22,6 @@
     Boston, MA 02111-1307, USA.
 */
 
-/* FIXME check all the `push_block()'s and `set_font()'s.  */
-/* FIXME there are many functions that should be static instead of being
-   exported.  I will slowly do this as time permits.  -- Ettore  */
-/* Some stuff is not re-initialized properly when clearing and reloading stuff
-   from scratch -- Ettore */
-
 /* RULE: You should never create a new flow without inserting anything in it.
    If `e->flow' is not NULL, it must contain something.  */
 
@@ -1436,7 +1430,8 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 			}
 
 			if (e->url != NULL || e->target != NULL)
-				push_color (e, gdk_color_copy (html_settings_get_color (e->settings, HTMLLinkColor)));
+				push_color (e, gdk_color_copy ((GdkColor *) html_settings_get_color
+							       (e->settings, HTMLLinkColor)));
 		} else if ( strncmp( str, "/a", 2 ) == 0 ) {
 			close_anchor (e);
 		}
@@ -2912,7 +2907,6 @@ html_engine_init (HTMLEngine *engine)
 	engine->draw_queue = html_draw_queue_new (engine);
 
 	engine->formList = NULL;
-	engine->reference = NULL;
 
 	engine->avoid_para = TRUE;
 	engine->pending_para = FALSE;
@@ -3045,28 +3039,10 @@ html_engine_stop_parser (HTMLEngine *e)
 	html_stack_clear (e->clueflow_style_stack);
 }
 
-GtkHTMLStreamHandle
-html_engine_begin (HTMLEngine *e, const char *url)
+GtkHTMLStream *
+html_engine_begin (HTMLEngine *e)
 {
 	GtkHTMLStream *new_stream;
-
-	/* Is it a reference? */
-	if (*url == '#') {
-		if (e->reference) {
-			g_free (e->reference);
-			e->reference = NULL;
-		}
-		e->reference = g_strdup (url + 1);
-		
-		if (! html_engine_goto_anchor (e, url + 1)) {
-			/* If anchor not found, scroll to the top of the page */
-			gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->vadjustment, 0);
-		}		
-
-		gtk_signal_emit (GTK_OBJECT (e), signals[LOAD_DONE]);
-		
-		return NULL;
-	}
 
 	html_tokenizer_begin (e->ht);
 	
@@ -3080,18 +3056,9 @@ html_engine_begin (HTMLEngine *e, const char *url)
 					  html_engine_end,
 					  e);
 
-	if (e->reference) {
-		g_free (e->reference);
-		e->reference = NULL;
-	}
-
-	if (strchr (url, '#'))
-		e->reference = g_strdup (strchr (url, '#') + 1);
-
 	html_image_factory_stop_animations (e->image_factory);
 	e->newPage = TRUE;
 
-	gtk_signal_emit (GTK_OBJECT(e), signals [URL_REQUESTED], url, new_stream);
 	return new_stream;
 }
 
@@ -3158,10 +3125,6 @@ html_engine_update_event (HTMLEngine *e)
 
 	/* Adjust the scrollbars */
 	gtk_html_private_calc_scrollbars (e->widget);
-
-	if (e->reference && !e->editable) {
-		html_engine_goto_anchor (e, e->reference);
-	}
 
 	return FALSE;
 }
@@ -3679,9 +3642,9 @@ struct _SelectRegionData {
 	HTMLObject *obj1, *obj2;
 	guint offset1, offset2;
 	gint x1, y1, x2, y2;
-	gboolean select : 1;
-	gboolean queue_draw : 1;
-	gboolean active_selection : 1;
+	guint select : 1;
+	guint queue_draw : 1;
+	guint active_selection : 1;
 };
 typedef struct _SelectRegionData SelectRegionData;
 

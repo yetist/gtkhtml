@@ -1004,7 +1004,7 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 	retval = g_hash_table_lookup (factory->loaded_images, filename);
 
 	if (!retval){
-		GtkHTMLStreamHandle handle;
+		GtkHTMLStream *handle;
 
 		retval = html_image_pointer_new (filename, factory);
 		if (*filename) {

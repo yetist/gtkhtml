@@ -1,3 +1,8 @@
+2000-05-21  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* configure.in: Bump `GTKHTML_CURRENT' and reset `GTKHTML_AGE' to
+	reflect the API changes.
+
 2000-05-09  JP Rosevear  <jpr@arcavia.com>
 
 	* configure.in : Properly run the oaf var comparision so 

@@ -1,3 +1,9 @@
+2000-05-21  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* persist-stream-impl.c (load): Updated to use `GtkHTMLStream *'
+	instead of `GtkHTMLStreamHandle'.
+	(load): Updated to use the new `gtk_html_begin()' with no @url.
+
 2000-05-17  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* toolbar.c

@@ -47,14 +47,13 @@ load (BonoboPersistStream *ps,
 	CORBA_Environment ev;
 	CORBA_long bytes_read;
 	Bonobo_Stream_iobuf *buffer;
-	GtkHTMLStreamHandle handle;
+	GtkHTMLStream *handle;
 
 	CORBA_exception_init (&ev);
 
 	html = GTK_HTML (data);
 
-	/* FIXME the GtkHTML API is broken.  */
-	handle = gtk_html_begin (html, "");
+	handle = gtk_html_begin (html);
 
 	do {
 		bytes_read = Bonobo_Stream_read (stream, READ_CHUNK_SIZE, &buffer, &ev);

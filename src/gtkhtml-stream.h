@@ -27,8 +27,6 @@
 #include "gtkhtml.h"
 
 
-typedef struct _GtkHTMLStream GtkHTMLStream;
-
 typedef void (* GtkHTMLStreamCloseFunc) (GtkHTMLStream *stream,
 					 GtkHTMLStreamStatus status,
 					 gpointer user_data);

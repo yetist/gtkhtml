@@ -35,7 +35,7 @@ struct _HTMLCursor {
 	guint offset;
 
 	gint target_x;
-	gboolean have_target_x : 1;
+	guint have_target_x : 1;
 
 	gint position;
 };

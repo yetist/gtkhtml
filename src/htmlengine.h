@@ -89,8 +89,6 @@ struct _HTMLEngine {
 	GdkWindow *window;
 	GdkGC *invert_gc;
 
-	gchar *reference;
-
 	gboolean editable;
 	GList *cut_buffer;
 
@@ -203,7 +201,7 @@ struct _HTMLEngine {
 	HTMLHAlignType pending_para_alignment;
 
 	/* Whether we have the keyboard focus.  */
-	gboolean have_focus : 1;
+	guint have_focus : 1;
 
 	/* --- */
 
@@ -254,7 +252,7 @@ struct _HTMLEngineClass {
 	void (* set_base) (HTMLEngine *engine, const gchar *base);
 	void (* set_base_target) (HTMLEngine *engine, const gchar *base_target);
 	void (* load_done) (HTMLEngine *engine);
-        void (* url_requested) (HTMLEngine *engine, const char *url, GtkHTMLStreamHandle handle);
+        void (* url_requested) (HTMLEngine *engine, const char *url, GtkHTMLStream *handle);
 	void (* draw_pending) (HTMLEngine *engine);
         void (* redirect) (HTMLEngine *engine, const char *url, int delay);
         void (* submit) (HTMLEngine *engine, const gchar *method, const gchar *action, const gchar *encoding);
@@ -278,17 +276,9 @@ void  html_engine_set_focus  (HTMLEngine *engine,
 			      gboolean    have_focus);
 
 /* Parsing control.  */
-GtkHTMLStreamHandle  html_engine_begin            (HTMLEngine  *p,
-						   const char  *url);
-void                 html_engine_parse            (HTMLEngine  *p);
-gchar               *html_engine_parse_body       (HTMLEngine  *p,
-						   HTMLObject  *clue,
-						   const gchar *end[],
-						   gboolean     toplevel);
-void                 html_engine_parse_one_token  (HTMLEngine  *p,
-						   HTMLObject  *clue,
-						   const gchar *str);
-void                 html_engine_stop_parser      (HTMLEngine  *e);
+GtkHTMLStream *html_engine_begin            (HTMLEngine  *p);
+void           html_engine_parse            (HTMLEngine  *p);
+void           html_engine_stop_parser      (HTMLEngine  *e);
 
 /* Rendering control.  */
 void  html_engine_calc_size            (HTMLEngine *p);

@@ -57,8 +57,8 @@ struct _HTMLSettings {
 	gboolean color_allocated [HTMLColors];
 	GSList  *colors_to_free;
 
-	gboolean underlineLinks : 1;
-	gboolean forceDefault : 1;
+	guint underlineLinks : 1;
+	guint forceDefault : 1;
 };
 
 

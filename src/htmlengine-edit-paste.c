@@ -25,6 +25,7 @@
 #include "htmltextmaster.h"
 
 #include "htmlengine-cutbuffer.h"
+#include "htmlengine-edit-clueflowstyle.h"
 #include "htmlengine-edit-cut.h"
 #include "htmlengine-edit-movement.h"
 #include "htmlengine-edit-delete.h"
@@ -550,6 +551,15 @@ struct _ActionData {
 
 	/* Number of character elements in the buffer.  */
 	guint buffer_count;
+
+	/* The original style of the clueflow in which we are pasting.  */
+	HTMLClueFlowStyle orig_clueflow_style;
+
+	/* The original alignment of the clueflow in which we are pasting.  */
+	HTMLHAlignType orig_halignment;
+
+	/* The original indentation level of the clueflow in which we are pasting.  */
+	gint orig_indentation;
 };
 typedef struct _ActionData ActionData;
 
@@ -613,10 +623,26 @@ static void
 do_undo (HTMLEngine *engine,
 	 gpointer closure)
 {
+	HTMLClueFlow *current_clueflow;
 	ActionData *data;
+	gint delta_indentation;
 
 	data = (ActionData *) closure;
+
 	html_engine_delete (engine, data->buffer_count, FALSE, TRUE);
+
+	current_clueflow = HTML_CLUEFLOW (engine->cursor->object->parent);
+	delta_indentation = data->orig_indentation - html_clueflow_get_indentation (current_clueflow);
+
+	html_engine_set_clueflow_style (engine,
+					data->orig_clueflow_style,
+					data->orig_halignment,
+					delta_indentation,
+					(HTML_ENGINE_SET_CLUEFLOW_STYLE
+					 | HTML_ENGINE_SET_CLUEFLOW_ALIGNMENT
+					 | HTML_ENGINE_SET_CLUEFLOW_INDENTATION),
+					FALSE);
+
 	setup_redo (engine, data);
 }
 
@@ -642,14 +668,20 @@ setup_undo (HTMLEngine *engine,
 static ActionData *
 action_data_from_cut_buffer (HTMLEngine *engine,
 			     GList *buffer,
-			     guint count)
+			     guint count,
+			     HTMLClueFlowStyle orig_clueflow_style,
+			     HTMLHAlignType orig_halignment,
+			     gint orig_indentation)
 {
 	ActionData *data;
 
 	data = g_new (ActionData, 1);
-	data->ref_count = 0;
-	data->buffer = html_engine_cut_buffer_dup (buffer);
-	data->buffer_count = count;
+	data->ref_count           = 0;
+	data->buffer              = html_engine_cut_buffer_dup (buffer);
+	data->buffer_count        = count;
+	data->orig_clueflow_style = orig_clueflow_style;
+	data->orig_halignment     = orig_halignment;
+	data->orig_indentation    = orig_indentation;
 
 	return data;
 }
@@ -687,6 +719,10 @@ void
 html_engine_paste (HTMLEngine *engine,
 		   gboolean do_undo)
 {
+	HTMLClueFlow *current_clueflow;
+	HTMLClueFlowStyle orig_clueflow_style;
+	HTMLHAlignType orig_halignment;
+	guint orig_indentation;
 	guint count;
 
 	g_return_if_fail (engine != NULL);
@@ -700,6 +736,13 @@ html_engine_paste (HTMLEngine *engine,
 		html_undo_discard_redo (engine->undo);
 		html_undo_level_begin (engine->undo, "paste");
 	}
+
+	current_clueflow = HTML_CLUEFLOW (engine->cursor->object->parent);
+	g_assert (current_clueflow != NULL);
+
+	orig_clueflow_style = html_clueflow_get_style (current_clueflow);
+	orig_halignment = html_clueflow_get_halignment (current_clueflow);
+	orig_indentation = html_clueflow_get_indentation (current_clueflow);
 
 	/* Cut current selection.  */
 	if (engine->active_selection) {
@@ -723,7 +766,10 @@ html_engine_paste (HTMLEngine *engine,
 	if (do_undo) {
 		ActionData *action_data;
 
-		action_data = action_data_from_cut_buffer (engine, engine->cut_buffer, count);
+		action_data = action_data_from_cut_buffer (engine, engine->cut_buffer, count,
+							   orig_clueflow_style,
+							   orig_halignment,
+							   orig_indentation);
 		setup_undo (engine, action_data);
 		html_undo_level_end (engine->undo);
 	}

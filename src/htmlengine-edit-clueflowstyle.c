@@ -62,6 +62,21 @@ get_props (HTMLClueFlow *clueflow)
 	return props;
 }
 
+static void
+free_prop_list (GList *list)
+{
+	GList *p;
+
+	for (p = list; p != NULL; p = p->next) {
+		ClueFlowProps *props;
+
+		props = (ClueFlowProps *) p->data;
+		g_free (props);
+	}
+
+	g_list_free (list);
+}
+
 static ClueFlowProps *
 get_props_and_set (HTMLEngine *engine,
 		   HTMLClueFlow *clueflow,
@@ -95,19 +110,10 @@ static void
 undo_or_redo_destroy_closure (gpointer closure)
 {
 	ClueFlowStyleOperation *op;
-	GList *p;
 
 	op = (ClueFlowStyleOperation *) closure;
 
-	for (p = op->prop_list; p != NULL; p = p->next) {
-		ClueFlowProps *props;
-
-		props = (ClueFlowProps *) p->data;
-		g_free (props);
-	}
-
-	g_list_free (op->prop_list);
-
+	free_prop_list (op->prop_list);
 	g_free (op);
 }
 
@@ -226,7 +232,8 @@ set_clueflow_style_in_region (HTMLEngine *engine,
 			      HTMLClueFlowStyle style,
 			      HTMLHAlignType alignment,
 			      gint indentation_delta,
-			      HTMLEngineSetClueFlowStyleMask mask)
+			      HTMLEngineSetClueFlowStyleMask mask,
+			      gboolean do_undo)
 {
 	ClueFlowStyleOperation *op;
 	HTMLClueFlow *clueflow;
@@ -261,7 +268,12 @@ set_clueflow_style_in_region (HTMLEngine *engine,
 						style, alignment, indentation_delta,
 						mask);
 
-		prop_list = g_list_prepend (prop_list, orig_props);
+		if (do_undo) {
+			prop_list = g_list_prepend (prop_list, orig_props);
+		} else {
+			/* FIXME allocating and deallocating is a bit yucky.  */
+			g_free (orig_props);
+		}
 
 		if (p == end)
 			break;
@@ -270,6 +282,9 @@ set_clueflow_style_in_region (HTMLEngine *engine,
 			p = html_object_next_for_cursor (p);
 		while (p != NULL && HTML_CLUEFLOW (p->parent) == clueflow);
 	}
+
+	if (! do_undo)
+		return;
 
 	op = g_new (ClueFlowStyleOperation, 1);
 	op->undo = TRUE;
@@ -288,7 +303,8 @@ set_clueflow_style_at_cursor (HTMLEngine *engine,
 			      HTMLClueFlowStyle style,
 			      HTMLHAlignType alignment,
 			      gint indentation_delta,
-			      HTMLEngineSetClueFlowStyleMask mask)
+			      HTMLEngineSetClueFlowStyleMask mask,
+			      gboolean do_undo)
 {
 	ClueFlowStyleOperation *op;
 	ClueFlowProps *props;
@@ -306,6 +322,11 @@ set_clueflow_style_at_cursor (HTMLEngine *engine,
 				   style, alignment, indentation_delta,
 				   mask);
 
+	if (! do_undo) {
+		g_free (props);
+		return;
+	}
+
 	op = g_new (ClueFlowStyleOperation, 1);
 	op->undo = TRUE;
 	op->forward = TRUE;	/* (It does not really matter as it's just one para.)  */
@@ -320,7 +341,8 @@ html_engine_set_clueflow_style (HTMLEngine *engine,
 				HTMLClueFlowStyle style,
 				HTMLHAlignType alignment,
 				gint indentation_delta,
-				HTMLEngineSetClueFlowStyleMask mask)
+				HTMLEngineSetClueFlowStyleMask mask,
+				gboolean do_undo)
 {
 	g_return_val_if_fail (engine != NULL, FALSE);
 	g_return_val_if_fail (HTML_IS_ENGINE (engine), FALSE);
@@ -330,11 +352,13 @@ html_engine_set_clueflow_style (HTMLEngine *engine,
 	if (engine->active_selection)
 		set_clueflow_style_in_region (engine,
 					      style, alignment, indentation_delta,
-					      mask);
+					      mask,
+					      do_undo);
 	else
 		set_clueflow_style_at_cursor (engine,
 					      style, alignment, indentation_delta,
-					      mask);
+					      mask,
+					      do_undo);
 
 	/* This operation can never fail.  */
 	return TRUE;

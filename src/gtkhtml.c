@@ -283,7 +283,7 @@ html_engine_load_done_cb (HTMLEngine *engine, gpointer data)
 static void
 html_engine_url_requested_cb (HTMLEngine *engine,
 			      const gchar *url,
-			      GtkHTMLStreamHandle handle,
+			      GtkHTMLStream *handle,
 			      gpointer data)
 {
 	GtkHTML *gtk_html;
@@ -1323,12 +1323,12 @@ gtk_html_allow_selection (GtkHTML *html,
 }
 
 
-GtkHTMLStreamHandle
-gtk_html_begin (GtkHTML *html, const gchar *url)
+GtkHTMLStream *
+gtk_html_begin (GtkHTML *html)
 {
-	GtkHTMLStreamHandle *handle;
+	GtkHTMLStream *handle;
 
-	handle = html_engine_begin (html->engine, url);
+	handle = html_engine_begin (html->engine);
 	if (handle == NULL)
 		return NULL;
 
@@ -1341,7 +1341,7 @@ gtk_html_begin (GtkHTML *html, const gchar *url)
 
 void
 gtk_html_write (GtkHTML *html,
-		GtkHTMLStreamHandle handle,
+		GtkHTMLStream *handle,
 		const gchar *buffer,
 		size_t size)
 {
@@ -1350,7 +1350,7 @@ gtk_html_write (GtkHTML *html,
 
 void
 gtk_html_end (GtkHTML *html,
-	      GtkHTMLStreamHandle handle,
+	      GtkHTMLStream *handle,
 	      GtkHTMLStreamStatus status)
 {
 	gtk_html_stream_close (handle, status);
@@ -1490,7 +1490,7 @@ gtk_html_set_paragraph_style (GtkHTML *html,
 		return;
 
 	if (! html_engine_set_clueflow_style (html->engine, clueflow_style, 0, 0,
-					      HTML_ENGINE_SET_CLUEFLOW_STYLE))
+					      HTML_ENGINE_SET_CLUEFLOW_STYLE, TRUE))
 		return;
 
 	html->paragraph_style = style;
@@ -1507,7 +1507,7 @@ gtk_html_indent (GtkHTML *html,
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	html_engine_set_clueflow_style (html->engine, 0, 0, delta,
-					HTML_ENGINE_SET_CLUEFLOW_INDENTATION);
+					HTML_ENGINE_SET_CLUEFLOW_INDENTATION, TRUE);
 
 	update_styles (html);
 }
@@ -1535,7 +1535,7 @@ gtk_html_align_paragraph (GtkHTML *html,
 	align = paragraph_alignment_to_html (alignment);
 
 	html_engine_set_clueflow_style (html->engine, 0, align, 0,
-					HTML_ENGINE_SET_CLUEFLOW_ALIGNMENT);
+					HTML_ENGINE_SET_CLUEFLOW_ALIGNMENT, TRUE);
 }
 
 

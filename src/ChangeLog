@@ -1,5 +1,83 @@
 2000-05-21  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine-edit-paste.c: New members `orig_clueflow_style',
+	`orig_halignment' and `orig_indentation' in `ActionData'.
+	(action_data_from_cut_buffer): New args @orig_clueflow_style,
+	@orig_halignment, @orig_indentation.  Assign their values to the
+	corresponding member in `ActionData'.
+	(html_engine_paste): Retrieve the style parameters of the current
+	clueflow and pass them to `action_data_from_cut_buffer()'.
+	(do_undo): Reset the original clueflow style according to the values
+	in the ActionData.  [Fixes #13]
+
+	* htmlengine-edit-clueflowstyle.c
+	(free_prop_list): New helper function.
+	(undo_or_redo_destroy_closure): Use it.
+	(set_clueflow_style_at_cursor): New arg @do_undo.  If false,
+	don't save undo information.
+	(html_engine_set_clueflow_style): New arg @do_undo.  If false,
+	don't save undo information.
+	(set_clueflow_style_in_region): New arg @do_undo.  If false,
+	don't save undo information.
+
+	* testgtkhtml.c (goto_url): Updated to the new `gtk_html_begin()'
+	API.  Call the `url_requested' callback directly, in a yucky way,
+	to reflect the fact that GtkHTML does no longer emit the
+	"url_requested" signal for the initial URL.
+
+	* htmlengine-edit-delete.c (delete_different_parent): Get rid of
+	unused variables.
+
+	* htmlclueflow.c (save): Added a couple casts to placate the
+	whiny compiler.
+
+	* htmlengine.c (html_engine_begin): Removed arg @url and
+	corresponding [broken] reference handling.  Also, don't emit
+	"url_requested".
+	(html_engine_update_event): Removed reference handling.
+
+	* htmlengine.h: Removed member `reference' in `struct
+	_HTMLEngine'.
+
+	* gtkhtml.c (gtk_html_begin): Removed arg @url.
+
+	* gtkhtml.h: Removed of GtkHTMLStreamHandle.  Instead, use
+	`GtkHTMLStream *'s throughout.
+
+	* gtkhtml-stream.h: Don't define `GtkHTMLStream' anymore.
+
+	* htmlengine.c: `select', `queue_draw' and `active_selection'
+	bitfields changed from gbooleans to guints in `SelectRegionData'.
+
+	* htmltext.h: `color_allocated' bitfield changed from gboolean to
+	guint.
+
+	* htmltablecell.h: `have_bg' and `bg_allocated' bitfields
+	changed from gbooleans to guints.
+
+	* htmlsettings.h: `underlineLinks' and `forceDefaults' bitfields
+	changed from gbooleans to guints.
+
+	* htmlobject.h: `redraw_pending' and `selected' bitfields
+	changed from gbooleans to guints.
+
+	* htmlimage.h: `color_allocated' and `have_color' bitfields
+	changed from gbooleans to guints.
+
+	* htmlengine.h: `have_focus' bitfield changed from gboolean to
+	guint.
+
+	* htmlengine-save.h: `error' bitfield changed from gboolean to
+	guint.
+
+	* htmlcursor.h: `have_target_x' bitfield changed from gboolean to
+	guint.
+
+	* gtkhtml.h: Replaced gboolean bitfields into guints.  [Gboolean
+	is signed so compilers might complain.]
+
+2000-05-21  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* htmlengine-edit-paste.c (html_engine_paste_object): Eeek!  Free
 	the temporary cut buffer, not the real cut buffer.
 

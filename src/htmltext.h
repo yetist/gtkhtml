@@ -40,7 +40,7 @@ struct _HTMLText {
 	GtkHTMLFontStyle font_style;
 	GdkColor color;
 
-	gboolean color_allocated : 1;
+	guint color_allocated : 1;
 };
 
 struct _HTMLTextClass {

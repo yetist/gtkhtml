@@ -45,8 +45,8 @@ struct _HTMLTableCell {
 	gint refcount;
 
 	GdkColor bg;
-	gboolean have_bg : 1;
-	gboolean bg_allocated : 1;
+	guint have_bg : 1;
+	guint bg_allocated : 1;
 
 	HTMLImagePointer *bgPixmap;
 	gboolean have_bgPixmap;

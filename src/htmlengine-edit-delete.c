@@ -322,9 +322,8 @@ delete_different_parent (HTMLEngine *e,
 			 GList **buffer,
 			 GList **buffer_last)
 {
-	HTMLObject *p, *pnext, *pprev;
+	HTMLObject *p, *pnext;
 	HTMLObject *end_paragraph;
-	GList *merge, *m;
 
 	if (destroy_start)
 		p = start_object;
