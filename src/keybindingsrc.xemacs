@@ -77,20 +77,6 @@ binding "gtkhtml-bindings-xemacs"
   bind "<Shift>Tab"              { "command" (indent-less-or-prev-cell) }
   bind "<Shift>ISO_Left_Tab"     { "command" (indent-less-or-prev-cell) }
 
-  bind "<Ctrl>0"            { "command" (style-normal) }
-  bind "<Ctrl>1"            { "command" (style-header1) }
-  bind "<Ctrl>2"            { "command" (style-header2) }
-  bind "<Ctrl>3"            { "command" (style-header3) }
-  bind "<Ctrl>4"            { "command" (style-header4) }
-  bind "<Ctrl>5"            { "command" (style-header5) }
-  bind "<Ctrl>6"            { "command" (style-header6) }
-  bind "<Ctrl>7"            { "command" (style-pre) }
-  bind "<Ctrl>8"            { "command" (style-address) }
-  bind "<Ctrl><Alt>1"       { "command" (style-itemdot) }
-  bind "<Ctrl><Alt>2"       { "command" (style-itemroman) }
-  bind "<Ctrl><Alt>3"       { "command" (style-itemdigit) }
-  bind "<Ctrl><Alt>4"       { "command" (style-itemalpha) }
-
   bind "<Alt>1"             { "command" (size-minus-2) }
   bind "<Alt>2"             { "command" (size-minus-1) }
   bind "<Alt>3"             { "command" (size-plus-0) }
