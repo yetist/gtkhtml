@@ -1804,7 +1804,7 @@ msgstr ""
 #: src/gtkhtml.c:2599
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
-msgstr "लेखकसंग गलत ढाँचा (%d) र लम्बाइ (%d) भएकोले मोजिल्ला युआरएल तल झर्यो ।"
+msgstr "लेखकसंग गलत ढाँचा (%d) र लम्बाइ (%d) भएकोले मोजिल्ला युआरएल तल झर्यो ।\n"
 
 #: src/gtkhtml.c:2976
 msgid "Editable"
@@ -1945,7 +1945,7 @@ msgstr "फेरि मिलाउनुहोला ।"
 #. TODO2 dialog instead of warning
 #: src/htmlengine-print.c:192
 msgid "Cannot allocate default font for printing\n"
-msgstr "छाप्नकोलागी पूर्वनिर्धारित वर्ण निर्धारण भएन ।"
+msgstr "छाप्नकोलागी पूर्वनिर्धारित वर्ण निर्धारण भएन ।\n"
 
 #: src/test.c:375
 msgid "GtkHTML Test"
