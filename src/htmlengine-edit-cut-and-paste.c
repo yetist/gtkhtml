@@ -546,7 +546,7 @@ isolate_tables (HTMLEngine *e, HTMLUndoDirection dir, guint position_before, gui
 	*delete_paragraph_after  = FALSE;
 	*delete_paragraph_before = FALSE;
 
-	html_cursor_jump_to_position (e->cursor, e, position_after);
+	html_cursor_jump_to_position_no_spell (e->cursor, e, position_after);
 	next = html_object_next_not_slave (e->cursor->object);
 	if (next && e->cursor->offset == html_object_get_length (e->cursor->object)
 	    && (HTML_IS_TABLE (e->cursor->object) || HTML_IS_TABLE (next))) {
@@ -554,7 +554,7 @@ isolate_tables (HTMLEngine *e, HTMLUndoDirection dir, guint position_before, gui
 		*delete_paragraph_after = TRUE;
 	}
 
-	html_cursor_jump_to_position (e->cursor, e, position_before);
+	html_cursor_jump_to_position_no_spell (e->cursor, e, position_before);
 	next = html_object_next_not_slave (e->cursor->object);
 	if (next && e->cursor->offset == html_object_get_length (e->cursor->object)
 	    && (HTML_IS_TABLE (e->cursor->object) || HTML_IS_TABLE (next))) {
@@ -606,7 +606,7 @@ insert_object_do (HTMLEngine *e, HTMLObject *obj, guint *len, gint level, guint 
 
 	html_cursor_destroy (e->cursor);
 	e->cursor = html_cursor_dup (orig);
-	html_cursor_jump_to_position (e->cursor, e, position_after);
+	html_cursor_jump_to_position_no_spell (e->cursor, e, position_after);
 
 	if (check)
 		html_engine_spell_check_range (e, orig, e->cursor);
@@ -684,7 +684,7 @@ insert_object (HTMLEngine *e, HTMLObject *obj, guint len, guint position_after, 
 	position_before = e->cursor->position;
 	insert_object_do (e, obj, &len, level, position_after, check, dir);
 	isolate_tables (e, dir, position_before, position_after, &delete_paragraph_before, &delete_paragraph_after);
-	html_cursor_jump_to_position (e->cursor, e, position_after + (delete_paragraph_before ? 1 : 0));
+	html_cursor_jump_to_position_no_spell (e->cursor, e, position_after + (delete_paragraph_before ? 1 : 0));
 	insert_setup_undo (e, len, position_before + (delete_paragraph_before ? 1 : 0),
 			   dir, delete_paragraph_before, delete_paragraph_after);
 }

@@ -1,5 +1,13 @@
 2001-10-25  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine-edit-cut-and-paste.c (insert_object): use
+	html_cursor_jump_to_position_no_spell
+	(insert_object_do): ditto
+	(insert_object): ditto
+
+	* htmlcursor.c (html_cursor_jump_to_position_no_spell): new
+	function, preserves engine's need_spell_check flag while jumps
+
 	* htmlengine-edit-cut-and-paste.c (append_object): remember
 	position when empty flow is already prepared
 
