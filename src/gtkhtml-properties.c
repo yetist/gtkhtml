@@ -332,6 +332,7 @@ void
 gtk_html_class_properties_copy (GtkHTMLClassProperties *p1,
 				GtkHTMLClassProperties *p2)
 {
+	COPY  (animations)
 	COPY  (magic_links);
 	COPYS (keybindings_theme);
 	COPYS (font_var);

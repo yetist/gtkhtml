@@ -1,3 +1,8 @@
+2002-04-22  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml-properties.c (gtk_html_class_properties_copy): make sure
+	we copy the animations setting too.
+
 2002-04-21  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml-propmanager.h: new object for config handling.
