@@ -1,5 +1,13 @@
 2001-10-30  Larry Ewing  <lewing@ximian.com>
 
+	* gtkhtml.c (gtk_html_set_base): add call to set the document
+	base.
+	(gtk_html_get_base): get the document base.
+
+	* gtkhtml.h: add *_base prototypes.
+
+	* gtkhtml-private.h: add base_url member.
+
 	* htmliframe.c (html_iframe_init): use set_scrolling.
 	(html_iframe_set_scrolling): add.
 	(calc_size): use set_scrolling.

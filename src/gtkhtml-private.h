@@ -46,6 +46,7 @@ struct _GtkHTMLPrivate {
 	guint       primary_len;
 
 	gchar *content_type;
+	char  *base_url;
 
 	GtkWidget *search_input_line;
 

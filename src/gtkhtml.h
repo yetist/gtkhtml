@@ -265,4 +265,7 @@ void      gtk_html_update_styles                 (GtkHTML *html);
 void      gtk_html_set_allow_frameset            (GtkHTML *html, gboolean allow);
 gboolean  gtk_html_get_allow_frameset            (GtkHTML *html);
 
+void         gtk_html_set_base                      (GtkHTML *html, const char *url);
+const char*  gtk_html_get_base                      (GtkHTML *html);
+
 #endif /* _GTKHTML_H_ */
