@@ -28,6 +28,8 @@
 #include "htmlcolorset.h"
 #include "htmlcursor.h"
 #include "htmlengine.h"
+#include "htmlengine-edit.h"
+#include "htmlengine-edit-table.h"
 #include "htmlengine-edit-tablecell.h"
 #include "htmlengine-save.h"
 #include "htmlimage.h"
@@ -38,6 +40,14 @@
 #include "properties.h"
 #include "cell.h"
 #include "utils.h"
+
+typedef enum
+{
+	CELL,
+	ROW,
+	COLUMN,
+	TABLE
+} CellScope;
 
 typedef struct
 {	
@@ -89,6 +99,9 @@ typedef struct
 	gboolean   heading;
 	gboolean   changed_heading;
 	GtkWidget *option_heading;
+
+	CellScope  scope;
+	GtkWidget *option_scope;
 
 	gboolean   disable_change;
 
@@ -331,6 +344,14 @@ changed_heading (GtkWidget *w, GtkHTMLEditCellProperties *d)
 	CHANGE;	
 }
 
+static void
+changed_scope (GtkWidget *w, GtkHTMLEditCellProperties *d)
+{
+	d->scope = g_list_index (GTK_MENU_SHELL (w)->children, gtk_menu_get_active (GTK_MENU (w)));
+	FILL;
+	CHANGE;	
+}
+
 /*
  * FIX: set spin adjustment upper to 100000
  *      as glade cannot set it now
@@ -402,6 +423,10 @@ cell_widget (GtkHTMLEditCellProperties *d)
 	d->option_heading = glade_xml_get_widget (xml, "option_cell_style");
 	gtk_signal_connect (GTK_OBJECT (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_heading))), "selection-done",
 			    changed_heading, d);
+
+	d->option_scope   = glade_xml_get_widget (xml, "option_cell_scope");
+	gtk_signal_connect (GTK_OBJECT (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_scope))), "selection-done",
+			    changed_scope, d);
 
 	gtk_box_pack_start (GTK_BOX (cell_page), sample_frame (&d->sample), FALSE, FALSE, 0);
 
@@ -513,64 +538,119 @@ cell_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	return rv;
 }
 
+static void
+cell_apply_1 (HTMLTableCell *cell, GtkHTMLEditCellProperties *d)
+{
+	if (d->changed_bg_color)
+		html_engine_table_cell_set_bg_color (d->cd->html->engine, cell, d->has_bg_color ? &d->bg_color : NULL);
+
+	if (d->changed_bg_pixmap) {
+		gchar *url = d->has_bg_pixmap ? g_strconcat ("file://", d->bg_pixmap, NULL) : NULL;
+
+		html_engine_table_cell_set_bg_pixmap (d->cd->html->engine, cell, url);
+		g_free (url);
+	}
+
+	if (d->changed_halign)
+		html_engine_table_cell_set_halign (d->cd->html->engine, cell, d->halign);
+
+	if (d->changed_valign)
+		html_engine_table_cell_set_valign (d->cd->html->engine, cell, d->valign);
+
+	if (d->changed_wrap)
+		html_engine_table_cell_set_no_wrap (d->cd->html->engine, cell, d->wrap);
+
+	if (d->changed_heading)
+		html_engine_table_cell_set_heading (d->cd->html->engine, cell, d->heading);
+
+	if (d->changed_width)
+		html_engine_table_cell_set_width (d->cd->html->engine, cell,
+						  d->has_width ? d->width : 0, d->has_width ? d->width_percent : FALSE);
+}
+
+static void
+cell_apply_row (GtkHTMLEditCellProperties *d)
+{
+	HTMLTableCell *cell;
+	HTMLEngine *e = d->cd->html->engine;
+
+	if (html_engine_table_goto_row (e, d->cell->row)) {
+		cell = html_engine_get_table_cell (e);
+
+		while (cell && cell->row == d->cell->row) {
+			cell_apply_1 (cell, d);
+			html_engine_next_cell (e, FALSE);
+			cell = html_engine_get_table_cell (e);
+		}
+	}
+}
+
+static void
+cell_apply_col (GtkHTMLEditCellProperties *d)
+{
+	HTMLTableCell *cell;
+	HTMLEngine *e = d->cd->html->engine;
+
+	if (html_engine_table_goto_col (e, d->cell->col)) {
+		cell = html_engine_get_table_cell (e);
+
+		while (cell) {
+			if (cell->col == d->cell->col)
+				cell_apply_1 (cell, d);
+			html_engine_next_cell (e, FALSE);
+			cell = html_engine_get_table_cell (e);
+		}
+	}
+}
+
+static void
+cell_apply_table (GtkHTMLEditCellProperties *d)
+{
+	HTMLTableCell *cell;
+	HTMLEngine *e = d->cd->html->engine;
+
+	if (html_engine_table_goto_0_0 (e)) {
+		cell = html_engine_get_table_cell (e);
+
+		while (cell) {
+			cell_apply_1 (cell, d);
+			html_engine_next_cell (e, FALSE);
+			cell = html_engine_get_table_cell (e);
+		}
+	}
+}
+
 void
 cell_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditCellProperties *d = (GtkHTMLEditCellProperties *) get_data;
+	HTMLEngine *e = d->cd->html->engine;
+	gint position;
 
-	if (d->changed_bg_color) {
-		html_engine_table_cell_set_bg_color (d->cd->html->engine, d->cell, d->has_bg_color ? &d->bg_color : NULL);
-		d->changed_bg_color = FALSE;
-	}
-	if (d->changed_bg_pixmap) {
-		gchar *url = d->has_bg_pixmap ? g_strconcat ("file://", d->bg_pixmap, NULL) : NULL;
+	position = e->cursor->position;
 
-		html_engine_table_cell_set_bg_pixmap (d->cd->html->engine, d->cell, url);
-		g_free (url);
-		d->changed_bg_pixmap = FALSE;
+	switch (d->scope) {
+	case CELL:
+		cell_apply_1 (d->cell, d);
+		break;
+	case ROW:
+		cell_apply_row (d);
+		break;
+	case COLUMN:
+		cell_apply_col (d);
+		break;
+	case TABLE:
+		cell_apply_table (d);
 	}
-	if (d->changed_halign) {
-		html_engine_table_cell_set_halign (d->cd->html->engine, d->cell, d->halign);
-		d->changed_halign = FALSE;
-	}
-	if (d->changed_valign) {
-		html_engine_table_cell_set_valign (d->cd->html->engine, d->cell, d->valign);
-		d->changed_valign = FALSE;
-	}
-	if (d->changed_wrap) {
-		html_engine_table_cell_set_no_wrap (d->cd->html->engine, d->cell, d->wrap);
-		d->changed_wrap = FALSE;
-	}
-	if (d->changed_heading) {
-		html_engine_table_cell_set_heading (d->cd->html->engine, d->cell, d->heading);
-		d->changed_heading = FALSE;
-	}
-	if (d->changed_width) {
-		html_engine_table_cell_set_width (d->cd->html->engine, d->cell,
-						  d->has_width ? d->width : 0, d->has_width ? d->width_percent : FALSE);
-		d->changed_width = FALSE;
-	}
-	/* if (d->changed_spacing) {
-		html_engine_table_set_spacing (d->cd->html->engine, d->table, d->spacing);
-		d->changed_spacing = FALSE;
-	}
-	if (d->changed_padding) {
-		html_engine_table_set_padding (d->cd->html->engine, d->table, d->padding);
-		d->changed_padding = FALSE;
-	}
-	if (d->changed_border) {
-		html_engine_table_set_border_width (d->cd->html->engine, d->table, d->border, FALSE);
-		d->changed_border = FALSE;
-	}
-	if (d->changed_align) {
-		html_engine_table_set_align (d->cd->html->engine, d->table, d->align);
-		d->changed_align = FALSE;
-	}
-	if (d->changed_width) {
-		html_engine_table_set_width (d->cd->html->engine, d->table,
-					     d->has_width ? d->width : 0, d->has_width ? d->width_percent : FALSE);
-		d->changed_width = FALSE;
-		} */
+	html_cursor_jump_to_position (e->cursor, e, position);
+
+	d->changed_bg_color = FALSE;
+	d->changed_bg_pixmap = FALSE;
+	d->changed_halign = FALSE;
+	d->changed_valign = FALSE;
+	d->changed_wrap = FALSE;
+	d->changed_heading = FALSE;
+	d->changed_width = FALSE;
 }
 
 void
