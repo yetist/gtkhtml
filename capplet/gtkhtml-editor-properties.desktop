@@ -1,7 +1,9 @@
 [Desktop entry]
 Name=HTML Editor
+Name[no]=HTML-editor
 Name[tr]=HTML editörü
 Comment=HTML Editor properties
+Comment[no]=Egenskaper for HTML-editor
 Comment[tr]=HTML editör özellikleri
 Exec=gtkhtml-editor-properties-capplet
 Icon=gnome-unknown.png

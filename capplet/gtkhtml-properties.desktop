@@ -1,6 +1,8 @@
 [Desktop entry]
 Name=HTML Viewer
+Name[no]=HTML-visning
 Comment=HTML Viewer properties
+Comment[no]=Egenskaper for visning av HTML
 Exec=gtkhtml-properties-capplet
 Icon=gnome-unknown.png
 Terminal=0
