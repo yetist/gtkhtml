@@ -2,6 +2,8 @@
 
 	* htmlclueflow.c (get_item_marker_str): use ascii only ("* ") for
 	plain painter, always draw glyphs no speacial path for other chars.
+	(get_item_marker_str): don't pass in the len since it is part of
+	the flow.
 
 2003-09-25  Radek Doulik  <rodo@ximian.com>
 

@@ -55,7 +55,7 @@ static HTMLClueClass *parent_class = NULL;
 #define HCF_CLASS(x) HTML_CLUEFLOW_CLASS (HTML_OBJECT (x)->klass)
 
 inline HTMLHAlignType html_clueflow_get_halignment          (HTMLClueFlow *flow);
-static gchar *        get_item_marker_str                   (HTMLClueFlow *flow, gint level, gboolean ascii_only);
+static gchar *        get_item_marker_str                   (HTMLClueFlow *flow, gboolean ascii_only);
 static guint          get_post_padding                      (HTMLClueFlow *flow, 
 							     guint pad);
 static int            get_similar_depth                     (HTMLClueFlow *self, 
@@ -382,12 +382,6 @@ calc_padding (HTMLPainter *painter)
 		return 2 * html_painter_get_space_width (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
 	}
 	return 0;
-}
-
-static guint
-calc_bullet_size (HTMLPainter *painter)
-{
-	return html_painter_get_space_width (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL) / 2;
 }
 
 static gboolean
@@ -1089,7 +1083,7 @@ get_roman_value (gint value, gboolean lower)
 }
 
 static gchar *
-get_item_marker_str (HTMLClueFlow *flow, gint level, gboolean ascii_only)
+get_item_marker_str (HTMLClueFlow *flow, gboolean ascii_only)
 {
 	switch (flow->item_type) {
 	case HTML_LIST_TYPE_ORDERED_ARABIC:
@@ -1103,7 +1097,7 @@ get_item_marker_str (HTMLClueFlow *flow, gint level, gboolean ascii_only)
 	case HTML_LIST_TYPE_UNORDERED:
 		if (ascii_only)
 			return g_strdup ("* ");
-		else if (!level || level & 1)
+		else if (flow->levels->len == 0 || flow->levels->len & 1)
 			return g_strdup ("\342\227\217 "); /* U+25CF BLACK CIRCLE */
 		else
 			return g_strdup ("\342\227\213 "); /* U+25CB WHITE CIRCLE */
@@ -1220,7 +1214,7 @@ draw_item (HTMLObject *self, HTMLPainter *painter, gint x, gint y, gint width, g
 	} else
 		html_painter_set_pen (painter, &html_colorset_get_color_allocated (painter, HTMLTextColor)->color);
 
-	marker = get_item_marker_str (flow, flow->levels->len, HTML_IS_PLAIN_PAINTER (painter));
+	marker = get_item_marker_str (flow, HTML_IS_PLAIN_PAINTER (painter));
 	if (marker) {
 		gint width, len, line_offset = 0, asc, dsc;
 		
@@ -1667,7 +1661,7 @@ write_item_marker (GString *pad_string, HTMLClueFlow *flow)
 {
 	char *marker;
 
-	marker = get_item_marker_str (flow, flow->levels->len, TRUE);
+	marker = get_item_marker_str (flow, TRUE);
 
 	if (marker) {
 		gint marker_len = strlen (marker);
