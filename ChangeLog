@@ -1,6 +1,8 @@
 2001-07-19  Radek Doulik  <rodo@ximian.com>
 
 	* Makefile.am (SUBDIRS): added art directory
+	(SUBDIRS): moved po directory behind $(DIR_COMPONENTS) as I
+	need GNOME_GtkHTML_Editor.xml to be already created
 
 	* configure.in: create art/Makefile
 

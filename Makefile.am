@@ -21,10 +21,10 @@ SUBDIRS =					\
 	macros					\
 	src					\
 	capplet					\
-	po					\
 	doc					\
 	art					\
-	$(DIR_COMPONENTS)
+	$(DIR_COMPONENTS)			\
+	po
 
 EXTRA_DIST =					\
 	html-component.gnorba			\
