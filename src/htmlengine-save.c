@@ -85,6 +85,13 @@ encode_entities (const guchar *input,
 	    *out++ = 'o';
 	    *out++ = 't';
 	    *out++ = ';';
+	} else if (*cur == 160) {
+		*out++ = '&';
+		*out++ = 'n';
+		*out++ = 'b';
+		*out++ = 's';
+		*out++ = 'p';
+		*out++ = ';';
 	} else if (((*cur >= 0x20) && (*cur < 0x80))
 		   || (*cur == '\n') || (*cur == '\r') || (*cur == '\t')) {
 	    /* Default case, just copy. */

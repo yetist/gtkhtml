@@ -202,6 +202,8 @@ html_iframe_init (HTMLIFrame *iframe,
 	GtkHTMLStream *handle;
 	GtkWidget *scrolled_window;
 
+	g_assert (GTK_IS_HTML (parent));
+
 	html_embedded_init (em, HTML_EMBEDDED_CLASS (klass),
 			    parent, NULL, NULL);
 	
@@ -211,7 +213,7 @@ html_iframe_init (HTMLIFrame *iframe,
 					GTK_POLICY_AUTOMATIC);
 	html = gtk_html_new ();
 	iframe->html = html;
-
+	gtk_html_set_iframe_parent (GTK_HTML (html), parent);
 	gtk_container_add (GTK_CONTAINER (scrolled_window), html);
 	gtk_widget_show (html);
 
@@ -255,11 +257,10 @@ html_iframe_init (HTMLIFrame *iframe,
 		       10000, 10000);
 	HTML_EMBEDDED (iframe)->abs_x = 10000;
 	HTML_EMBEDDED (iframe)->abs_y = 10000;
-	gtk_widget_show (scrolled_window);			
+	gtk_widget_show (scrolled_window);
 	
 	iframe->scroll = scrolled_window;
-
-	html_embedded_set_widget (em, scrolled_window);	
+	html_embedded_set_widget (em, scrolled_window);
 	html_embedded_size_recalc(em);
 
 	gtk_signal_connect(GTK_OBJECT(scrolled_window), "button_press_event",

@@ -925,9 +925,12 @@ static gint
 focus_in_event (GtkWidget *widget,
 		GdkEventFocus *event)
 {
-	GTK_WIDGET_SET_FLAGS (widget, GTK_HAS_FOCUS);
-
-	html_engine_set_focus (GTK_HTML (widget)->engine, TRUE);
+	GtkHTML *html = GTK_HTML (widget);
+	if (!html->iframe_parent) {
+		GTK_WIDGET_SET_FLAGS (widget, GTK_HAS_FOCUS);
+		html_engine_set_focus (html->engine, TRUE);
+	} else
+		gtk_window_set_focus (GTK_WINDOW (html->iframe_parent->window), html->iframe_parent);
 
 	return FALSE;
 }
@@ -936,9 +939,11 @@ static gint
 focus_out_event (GtkWidget *widget,
 		 GdkEventFocus *event)
 {
-	GTK_WIDGET_UNSET_FLAGS (widget, GTK_HAS_FOCUS);
-
-	html_engine_set_focus (GTK_HTML (widget)->engine, FALSE);
+	GtkHTML *html = GTK_HTML (widget);
+	if (!html->iframe_parent) {
+		GTK_WIDGET_UNSET_FLAGS (widget, GTK_HAS_FOCUS);
+		html_engine_set_focus (html->engine, FALSE);
+	}
 
 	return FALSE;
 }
@@ -1448,6 +1453,7 @@ gtk_html_construct (GtkWidget *htmlw)
 	html = GTK_HTML (htmlw);
 
 	html->engine = html_engine_new (htmlw);
+	html->iframe_parent = NULL;
 
 	gtk_signal_connect (GTK_OBJECT (html->engine), "title_changed",
 			    GTK_SIGNAL_FUNC (html_engine_title_changed_cb), html);
@@ -2355,4 +2361,12 @@ load_keybindings (GtkHTMLClass *klass)
 	BCOM (GDK_SHIFT_MASK, BackSpace, DELETE_BACK);
 	BCOM (0, Delete, DELETE);
 	BCOM (0, KP_Delete, DELETE);
+}
+
+void
+gtk_html_set_iframe_parent (GtkHTML *html, GtkWidget *parent)
+{
+	g_assert (GTK_IS_HTML (parent));
+
+	html->iframe_parent = parent;
 }

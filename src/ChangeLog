@@ -1,4 +1,25 @@
+2000-07-14  Radek Doulik  <rodo@helixcode.com>
+
+	* htmliframe.c (html_iframe_init): set iframe parent
+
+	* gtkhtml.c (gtk_html_set_iframe_parent): wrapper to set iframe
+	parent
+	(focus_in_event): if embedded in iframe, give focus to iframe
+	parent
+	(focus_out_event): updated, handle focus only when not iframe
+	embedded
+
+	* gtkhtml.h: added iframe parent to GtkHTML
+
+	* htmltextmaster.c (calc_min_width): fix <PRE> minimal width
+	calculation
+
 2000-07-12  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml-properties.c (gtk_html_class_properties_load): removed
+	compiler warning
+
+	* htmlengine-save.c (encode_entities): added &nbsp; encoding
 
 	* htmlengine.c (html_engine_select_region): changed selection
 	behaviour, don't unselect when selection active and pointer moves

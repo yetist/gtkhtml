@@ -169,6 +169,7 @@ typedef HTMLEngineSaveReceiverFn GtkHTMLSaveReceiverFn;
 struct _GtkHTML {
 	GtkLayout layout;
 
+	GtkWidget  *iframe_parent;
 	HTMLEngine *engine;
 
 	/* The URL of the link over which the pointer currently is.  NULL if
@@ -245,6 +246,10 @@ struct _GtkHTMLClass {
 GtkType    gtk_html_get_type  (void);
 GtkWidget *gtk_html_new       (void);
 void       gtk_html_construct (GtkWidget *htmlw);
+
+/* parent iframe setting */
+void       gtk_html_set_iframe_parent       (GtkHTML *html,
+					     GtkWidget *parent);
 
 /* Debugging.  */
 void  gtk_html_enable_debug  (GtkHTML  *html,

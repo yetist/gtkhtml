@@ -79,6 +79,7 @@ calc_min_width (HTMLObject *self,
 	GtkHTMLFontStyle font_style;
 	HTMLText *text;
 	gchar *p, *bp;
+	gchar sep;
 	gint min_width, tmp_width;
 
 	master = HTML_TEXT_MASTER (self);
@@ -97,8 +98,10 @@ calc_min_width (HTMLObject *self,
 	tmp_width = 0;
 	bp = p = text->text;
 
+	sep = (HTML_CLUEFLOW(self->parent)->style == HTML_CLUEFLOW_STYLE_PRE) ? '\n' : ' ';
+
 	while (bp && *p) {
-		bp = strchr (p, ' ');
+		bp = strchr (p, sep);
 		if (bp) {
 			*bp = 0;
 		}
@@ -107,10 +110,10 @@ calc_min_width (HTMLObject *self,
 			min_width = tmp_width;
 		}
 		if (bp) {
-			*bp = ' ';
+			*bp = sep;
 			p = bp+1;
 			/* find the beggining of the next word */
-			while (*p == ' ')
+			while (*p == sep)
 				p++;
 		}
 	}
