@@ -1,8 +1,0 @@
-Note to translators:
-
-This module needs gettext 0.10.35. Don't use gettext >= 0.10.36 to check
-translations, since some files may pass the usual "msgfmt -c" check for
-gettext >= 0.10.36, but not for 0.10.35 . I have caused glitch because of
-my failure to notice this.
-
-Abel Cheung
