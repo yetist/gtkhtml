@@ -582,12 +582,12 @@ html_image_set_size (HTMLImage *image, gint w, gint percent, gint h)
 {
 	gboolean changed = FALSE;
 
-	if (percent > 0) {
-		if (percent != HTML_OBJECT (image)->percent) {
-			HTML_OBJECT (image)->percent = percent;
-			changed = TRUE;
-		}
-	} else if (w != image->specified_width) {
+	if (percent != HTML_OBJECT (image)->percent) {
+		HTML_OBJECT (image)->percent = percent;
+		changed = TRUE;
+	}
+
+	if (w != image->specified_width) {
 		image->specified_width = w;
 		changed = TRUE;
 	}
@@ -754,9 +754,9 @@ html_image_animation_timeout (HTMLImage *image)
 		
 	}
 
-	anim->timeout = gtk_timeout_add (10 * (gdk_pixbuf_frame_get_delay_time (frame)
-					       ? gdk_pixbuf_frame_get_delay_time (frame) : 1),
-					 (GtkFunction) html_image_animation_timeout, (gpointer) image);
+	anim->timeout = g_timeout_add (10 * (gdk_pixbuf_frame_get_delay_time (frame)
+					     ? gdk_pixbuf_frame_get_delay_time (frame) : 1),
+				       (GtkFunction) html_image_animation_timeout, (gpointer) image);
 
 	return FALSE;
 }
@@ -772,9 +772,9 @@ html_image_animation_start (HTMLImage *image)
 
 			anim->cur_frame = frames->next;
 			anim->cur_n = 1;
-			anim->timeout = gtk_timeout_add (10 * gdk_pixbuf_frame_get_delay_time
-							 ((GdkPixbufFrame *) frames->data),
-							 (GtkFunction) html_image_animation_timeout, (gpointer) image);
+			anim->timeout = g_timeout_add (10 * gdk_pixbuf_frame_get_delay_time
+						       ((GdkPixbufFrame *) frames->data),
+						       (GtkFunction) html_image_animation_timeout, (gpointer) image);
 		}
 	}
 }
@@ -783,7 +783,7 @@ static void
 html_image_animation_stop (HTMLImageAnimation *anim)
 {
 	if (anim->timeout) {
-		gtk_timeout_remove (anim->timeout);
+		g_source_remove (anim->timeout);
 		anim->timeout = 0;
 	}
 	anim->active  = 0;
