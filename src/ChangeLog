@@ -1,3 +1,17 @@
+2000-06-29  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine-edit-images.c (html_engine_insert_image): use
+	HTMLColor here
+
+	* htmlcolor.c (html_color_new_from_gdk_color): make const safe
+
+	* htmlengine.c (html_engine_destroy): destroy insertion_url/target
+
+	* htmlengine.h: add insertion_urt/target
+
+	* htmlengine-edit-fontstyle.c (html_engine_set_font_style): set
+	insertion style only when no selection active
+
 2000-06-28  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlimage.c (html_image_init): initialize some important

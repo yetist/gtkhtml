@@ -2868,6 +2868,9 @@ html_engine_destroy (GtkObject *object)
 	if (engine->updateTimer != 0)
 		gtk_timeout_remove (engine->updateTimer);
 
+	if (engine->insertion_url) g_free (engine->insertion_url);
+	if (engine->insertion_target) g_free (engine->insertion_target);
+
 	GTK_OBJECT_CLASS (parent_class)->destroy (object);
 }
 
@@ -3064,6 +3067,8 @@ html_engine_init (HTMLEngine *engine)
 	engine->blinking_timer_id = 0;
 	engine->blinking_status = FALSE;
 	engine->insertion_font_style = GTK_HTML_FONT_STYLE_DEFAULT;
+	engine->insertion_url = NULL;
+	engine->insertion_target = NULL;
 	engine->active_selection = FALSE;
 	engine->shift_selection = FALSE;
 

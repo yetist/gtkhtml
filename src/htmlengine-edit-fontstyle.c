@@ -894,14 +894,10 @@ html_engine_set_font_style (HTMLEngine *engine,
 		set_font_style_in_selection (engine, and_mask, or_mask, TRUE);
 		html_engine_thaw (engine);
 		return;
+	} else {
+		engine->insertion_font_style &= and_mask;
+		engine->insertion_font_style |= or_mask;
 	}
-
-	printf ("old %d\n", engine->insertion_font_style);
-
-	engine->insertion_font_style &= and_mask;
-	engine->insertion_font_style |= or_mask;
-
-	printf ("new %d and_mask %d or_mask %d\n", engine->insertion_font_style, and_mask, or_mask);
 }
 
 void
@@ -936,4 +932,104 @@ html_engine_set_color (HTMLEngine *e, HTMLColor *color)
 		e->insertion_color = color;
 		html_color_ref (e->insertion_color);
 	}
+}
+
+/* URL/Target
+
+   get actual url/target
+*/
+
+const gchar *
+html_engine_get_url (HTMLEngine *e)
+{
+	return e->insertion_url;
+}
+
+const gchar *
+html_engine_get_target (HTMLEngine *e)
+{
+	return e->insertion_target;
+}
+
+void
+html_engine_set_url (HTMLEngine *e, const gchar *url)
+{
+	if (e->insertion_url)
+		g_free (e->insertion_url);
+	e->insertion_url = g_strdup (url);
+}
+
+void
+html_engine_set_target (HTMLEngine *e, const gchar *target)
+{
+	if (e->insertion_target)
+		g_free (e->insertion_target);
+	e->insertion_target = g_strdup (target);
+}
+
+/* get url/target from document */
+
+static const gchar *
+get_url_or_target_from_selection (HTMLEngine *e, gboolean get_url)
+{
+	const gchar *str = NULL;
+	gboolean backwards;
+	HTMLObject *p;
+
+	g_return_val_if_fail (e->clue != NULL, NULL);
+	g_assert (e->active_selection);
+	g_assert (e->mark != NULL);
+
+	backwards = (e->mark->position < e->cursor->position) ? TRUE : FALSE;
+
+	p = e->cursor->object;
+	while (1) {
+		str = (get_url) ? html_object_get_url (p) : html_object_get_target (p);
+		if (str) break;
+		if (p == e->mark->object) break;
+		p = (backwards) ? html_object_prev_for_cursor (p) : html_object_next_for_cursor (p);
+		g_assert (p != NULL);
+	}
+
+	return str;
+}
+
+const gchar *
+html_engine_get_document_url (HTMLEngine *e)
+{
+	if (e->active_selection)
+		return get_url_or_target_from_selection (e, TRUE);
+	else
+		return html_object_get_url (e->cursor->object);
+}
+
+const gchar *
+html_engine_get_document_target (HTMLEngine *e)
+{
+	if (e->active_selection)
+		return get_url_or_target_from_selection (e, FALSE);
+	else
+		return html_object_get_url (e->cursor->object);
+}
+
+gboolean
+html_engine_update_insertion_url_and_target (HTMLEngine *engine)
+{
+	const gchar *url, *target;
+	gboolean retval = FALSE;
+
+	url    = html_engine_get_document_url    (engine);
+	target = html_engine_get_document_target (engine);
+
+	if (url != engine->insertion_url) {
+		html_engine_set_url (engine, url);
+		retval = TRUE;
+	}
+
+	if (target != engine->insertion_target) {
+		html_engine_set_target (engine, target);
+		retval = TRUE;
+	}
+
+	return retval;
 }

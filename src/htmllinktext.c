@@ -39,8 +39,8 @@ destroy (HTMLObject *object)
 	HTMLLinkText *link_text;
 
 	link_text = HTML_LINK_TEXT (object);
-	g_free (link_text->url);
-	g_free (link_text->target);
+	if (link_text->url)    g_free (link_text->url);
+	if (link_text->target) g_free (link_text->target);
 
 	(* HTML_OBJECT_CLASS (parent_class)->destroy) (object);
 }

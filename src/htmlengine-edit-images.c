@@ -54,7 +54,7 @@ html_engine_insert_image (HTMLEngine *e,
 				width, height,
 				percent,
 				border,
-				border_color,
+				html_color_new_from_gdk_color (border_color),
 				valign);
 
 	html_image_set_spacing (HTML_IMAGE (image), hspace, vspace);

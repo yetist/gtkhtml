@@ -224,6 +224,8 @@ struct _HTMLEngine {
            the text we are in.  */
 	GtkHTMLFontStyle  insertion_font_style;
 	HTMLColor        *insertion_color;
+	gchar            *insertion_url;
+	gchar            *insertion_target;
 
 	/* This is set to TRUE when at least one element is selected (in whole
            or in part), to FALSE when no item is selected at all.  */

@@ -35,7 +35,7 @@ html_color_new (void)
 }
 
 HTMLColor *
-html_color_new_from_gdk_color (GdkColor *color)
+html_color_new_from_gdk_color (const GdkColor *color)
 {
 	HTMLColor *nc = html_color_new ();
 

@@ -26,20 +26,30 @@
 #include "gtkhtmlfontstyle.h"
 
 /* font style */
-gboolean           html_engine_update_insertion_font_style  (HTMLEngine       *engine);
-GtkHTMLFontStyle   html_engine_get_font_style               (HTMLEngine       *engine);
-GtkHTMLFontStyle   html_engine_get_document_font_style      (HTMLEngine       *engine);
-void               html_engine_set_font_style               (HTMLEngine       *engine,
-							     GtkHTMLFontStyle  and_mask,
-							     GtkHTMLFontStyle  or_mask);
-void               html_engine_font_style_toggle            (HTMLEngine       *engine,
-							     GtkHTMLFontStyle  style);
+gboolean           html_engine_update_insertion_font_style       (HTMLEngine       *engine);
+GtkHTMLFontStyle   html_engine_get_font_style                    (HTMLEngine       *engine);
+GtkHTMLFontStyle   html_engine_get_document_font_style           (HTMLEngine       *engine);
+void               html_engine_set_font_style                    (HTMLEngine       *engine,
+								  GtkHTMLFontStyle  and_mask,
+								  GtkHTMLFontStyle  or_mask);
+void               html_engine_font_style_toggle                 (HTMLEngine       *engine,
+								  GtkHTMLFontStyle  style);
 
 /* colors */
-gboolean           html_engine_update_insertion_color       (HTMLEngine       *engine);
-void               html_engine_set_color                    (HTMLEngine       *engine,
-							     HTMLColor        *color);
-HTMLColor *        html_engine_get_color                    (HTMLEngine       *engine);
-HTMLColor *        html_engine_get_document_color           (HTMLEngine       *engine);
+gboolean           html_engine_update_insertion_color            (HTMLEngine       *engine);
+void               html_engine_set_color                         (HTMLEngine       *engine,
+								  HTMLColor        *color);
+HTMLColor *        html_engine_get_color                         (HTMLEngine       *engine);
+HTMLColor *        html_engine_get_document_color                (HTMLEngine       *engine);
+
+gboolean           html_engine_update_insertion_url_and_target   (HTMLEngine       *engine);
+const gchar *      html_engine_get_url                           (HTMLEngine       *e);
+void               html_engine_set_url                           (HTMLEngine       *e,
+								  const gchar      *url);
+const gchar *      html_engine_get_target                        (HTMLEngine       *e);
+void               html_engine_set_target                        (HTMLEngine       *e,
+								  const gchar      *url);
+const gchar *      html_engine_get_document_url                  (HTMLEngine       *e);
+const gchar *      html_engine_get_document_target               (HTMLEngine       *e);
 
 #endif

@@ -36,6 +36,7 @@
 #include "htmlengine-edit-movement.h"
 
 #include "htmlengine-edit-insert.h"
+#include "htmlengine-edit-fontstyle.h"
 #include "htmlengine-edit-paste.h"
 
 
@@ -512,13 +513,11 @@ html_engine_insert_link (HTMLEngine *e, const gchar *url, const gchar *target)
 	HTMLObject *linked;
 	HTMLColor *color = html_colorset_get_color (e->settings->color_set, HTMLLinkColor);
 
-	html_engine_selection_push (e);
-	html_engine_cut_buffer_push (e);
-	html_undo_level_begin (e->undo, "Insert link");
-	html_engine_copy (e);
-	if (e->cut_buffer) {
-		GList *cur = e->cut_buffer;
+	if (e->active_selection) {
+		GList *cur;
 
+		html_engine_cut_and_paste_begin (e, "Insert link");
+		cur = e->cut_buffer;
 		while (cur) {
 			linked = html_object_set_link (HTML_OBJECT (cur->data), color, url, target);
 			if (linked) {
@@ -527,20 +526,18 @@ html_engine_insert_link (HTMLEngine *e, const gchar *url, const gchar *target)
 			}
 			cur = cur->next;
 		}
-		html_engine_paste (e, TRUE);
-		html_engine_cut_buffer_destroy (e->cut_buffer);
+		html_engine_cut_and_paste_end (e);
 	} else {
-		linked = html_link_text_master_new_with_len
+		/* linked = html_link_text_master_new_with_len
 			("", 0,
 			 e->insertion_font_style,
 			 color,
 			 url, target);
 		html_engine_paste_object (e, linked, TRUE);
-		html_object_destroy (linked);
+		html_object_destroy (linked); */
+		html_engine_set_url    (e, url);
+		html_engine_set_target (e, target);
 	}
-	html_undo_level_end (e->undo);
-	html_engine_cut_buffer_pop (e);
-	html_engine_selection_pop (e);
 }
 
 void
@@ -550,18 +547,22 @@ html_engine_remove_link (HTMLEngine *e)
 	HTMLColor *color = html_colorset_get_color (e->settings->color_set, HTMLTextColor);
 	GList *cur;
 
-	html_engine_cut_and_paste_begin (e, "Remove link");
-
-	cur = e->cut_buffer;
-	while (cur) {
-		unlinked = html_object_remove_link (HTML_OBJECT (cur->data), color);
-		if (unlinked) {
-			html_object_destroy (HTML_OBJECT (cur->data));
-			cur->data = unlinked;
+	if (e->active_selection) {
+		html_engine_cut_and_paste_begin (e, "Remove link");
+		cur = e->cut_buffer;
+		while (cur) {
+			unlinked = html_object_remove_link (HTML_OBJECT (cur->data), color);
+			if (unlinked) {
+				html_object_destroy (HTML_OBJECT (cur->data));
+				cur->data = unlinked;
+			}
+			cur = cur->next;
 		}
-		cur = cur->next;
+		html_engine_cut_and_paste_end (e);
+	} else {
+		html_engine_set_url    (e, NULL);
+		html_engine_set_target (e, NULL);
 	}
-	html_engine_cut_and_paste_end (e);
 }
 
 void

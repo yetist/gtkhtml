@@ -236,6 +236,8 @@ update_styles (GtkHTML *html)
 
 	if (html_engine_update_insertion_color (engine))
 		gtk_signal_emit (GTK_OBJECT (html), signals[INSERTION_COLOR_CHANGED], engine->insertion_color);
+	/* TODO add insertion_url_or_targed_changed signal */
+	html_engine_update_insertion_url_and_target (engine);
 }
 
 
