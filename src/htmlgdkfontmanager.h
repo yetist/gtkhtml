@@ -24,10 +24,10 @@
 
 #include <gdk/gdk.h>
 
-#include "htmlfontstyle.h"
+#include "gtkhtmlfontstyle.h"
 
 struct _HTMLGdkFontManager {
-	GdkFont *fonts[HTML_FONT_STYLE_MAX];
+	GdkFont *fonts[GTK_HTML_FONT_STYLE_MAX];
 };
 typedef struct _HTMLGdkFontManager HTMLGdkFontManager;
 
@@ -35,6 +35,6 @@ typedef struct _HTMLGdkFontManager HTMLGdkFontManager;
 HTMLGdkFontManager *html_gdk_font_manager_new  (void);
 void html_gdk_font_manager_destroy (HTMLGdkFontManager *manager);
 
-GdkFont *html_gdk_font_manager_get_font (HTMLGdkFontManager *manager, HTMLFontStyle style);
+GdkFont *html_gdk_font_manager_get_font (HTMLGdkFontManager *manager, GtkHTMLFontStyle style);
 
 #endif /* _HTMLGDKFONTMANAGER_H_ */

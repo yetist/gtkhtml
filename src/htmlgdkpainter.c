@@ -244,7 +244,7 @@ get_black (const HTMLPainter *painter)
 
 static void
 set_font_style (HTMLPainter *painter,
-		HTMLFontStyle style)
+		GtkHTMLFontStyle style)
 {
 	HTMLGdkPainter *gdk_painter;
 
@@ -252,7 +252,7 @@ set_font_style (HTMLPainter *painter,
 	gdk_painter->font_style = style;
 }
 
-static HTMLFontStyle
+static GtkHTMLFontStyle
 get_font_style (HTMLPainter *painter)
 {
 	HTMLGdkPainter *gdk_painter;
@@ -574,18 +574,18 @@ draw_text (HTMLPainter *painter,
 		       x, y,
 		       text, len);
 
-	if (gdk_painter->font_style & (HTML_FONT_STYLE_UNDERLINE
-				   | HTML_FONT_STYLE_STRIKEOUT)) {
+	if (gdk_painter->font_style & (GTK_HTML_FONT_STYLE_UNDERLINE
+				       | GTK_HTML_FONT_STYLE_STRIKEOUT)) {
 		guint width;
 
 		width = gdk_text_width (gdk_font, text, len);
 
-		if (gdk_painter->font_style & HTML_FONT_STYLE_UNDERLINE)
+		if (gdk_painter->font_style & GTK_HTML_FONT_STYLE_UNDERLINE)
 			gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, 
 				       x, y + 1, 
 				       x + width, y + 1);
 
-		if (gdk_painter->font_style & HTML_FONT_STYLE_STRIKEOUT)
+		if (gdk_painter->font_style & GTK_HTML_FONT_STYLE_STRIKEOUT)
 			gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, 
 				       x, y - gdk_font->ascent / 2, 
 				       x + width, y - gdk_font->ascent / 2);
@@ -614,7 +614,7 @@ draw_shade_line (HTMLPainter *painter,
 
 static guint
 calc_ascent (HTMLPainter *painter,
-	     HTMLFontStyle style)
+	     GtkHTMLFontStyle style)
 {
 	HTMLGdkPainter *gdk_painter;
 	GdkFont *gdk_font;
@@ -634,7 +634,7 @@ calc_ascent (HTMLPainter *painter,
 
 static guint
 calc_descent (HTMLPainter *painter,
-	      HTMLFontStyle style)
+	      GtkHTMLFontStyle style)
 {
 	HTMLGdkPainter *gdk_painter;
 	GdkFont *gdk_font;
@@ -656,7 +656,7 @@ static guint
 calc_text_width (HTMLPainter *painter,
 		 const gchar *text,
 		 guint len,
-		 HTMLFontStyle style)
+		 GtkHTMLFontStyle style)
 {
 	HTMLGdkPainter *gdk_painter;
 	GdkFont *gdk_font;
@@ -706,7 +706,7 @@ init (GtkObject *object)
 	gdk_painter->do_clear = FALSE;
 
 	gdk_painter->font_manager = html_gdk_font_manager_new ();
-	gdk_painter->font_style = HTML_FONT_STYLE_DEFAULT;
+	gdk_painter->font_style = GTK_HTML_FONT_STYLE_DEFAULT;
 
 	init_color (& gdk_painter->background, 0xffff, 0xffff, 0xffff);
 	init_color (& gdk_painter->dark, 0, 0, 0);

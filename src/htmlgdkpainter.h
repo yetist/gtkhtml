@@ -52,7 +52,7 @@ struct _HTMLGdkPainter {
 
 	/* Font handling.  */
 	HTMLGdkFontManager *font_manager;
-	HTMLFontStyle font_style;
+	GtkHTMLFontStyle font_style;
 
 	/* Colors used for shading.  */
 	GdkColor dark;

@@ -122,7 +122,7 @@ get_tags (const HTMLText *text,
 	  gchar *opening_tags,
 	  gchar *ending_tags)
 {
-	HTMLFontStyle font_style;
+	GtkHTMLFontStyle font_style;
 	gchar *opening_p, *ending_p;
 	guint size;
 
@@ -131,33 +131,33 @@ get_tags (const HTMLText *text,
 	opening_p = opening_tags;
 	ending_p = ending_tags;
 
-	size = font_style & HTML_FONT_STYLE_SIZE_MASK;
+	size = font_style & GTK_HTML_FONT_STYLE_SIZE_MASK;
 	if (size != 0) {
 		opening_p += sprintf (opening_p, "<FONT SIZE=%d>", size);
 		ending_p += sprintf (ending_p, "</FONT SIZE=%d>", size);
 	}
 
-	if (font_style & HTML_FONT_STYLE_BOLD) {
+	if (font_style & GTK_HTML_FONT_STYLE_BOLD) {
 		opening_p += sprintf (opening_p, "<B>");
 		ending_p += sprintf (ending_p, "</B>");
 	}
 
-	if (font_style & HTML_FONT_STYLE_ITALIC) {
+	if (font_style & GTK_HTML_FONT_STYLE_ITALIC) {
 		opening_p += sprintf (opening_p, "<I>");
 		ending_p += sprintf (ending_p, "</I>");
 	}
 
-	if (font_style & HTML_FONT_STYLE_UNDERLINE) {
+	if (font_style & GTK_HTML_FONT_STYLE_UNDERLINE) {
 		opening_p += sprintf (opening_p, "<U>");
 		ending_p += sprintf (ending_p, "</U>");
 	}
 
-	if (font_style & HTML_FONT_STYLE_STRIKEOUT) {
+	if (font_style & GTK_HTML_FONT_STYLE_STRIKEOUT) {
 		opening_p += sprintf (opening_p, "<S>");
 		ending_p += sprintf (ending_p, "</S>");
 	}
 
-	if (font_style & HTML_FONT_STYLE_FIXED) {
+	if (font_style & GTK_HTML_FONT_STYLE_FIXED) {
 		opening_p += sprintf (opening_p, "<TT>");
 		ending_p += sprintf (ending_p, "</TT>");
 	}
@@ -188,7 +188,7 @@ calc_size (HTMLObject *self,
 	   HTMLPainter *painter)
 {
 	HTMLText *text;
-	HTMLFontStyle font_style;
+	GtkHTMLFontStyle font_style;
 
 	text = HTML_TEXT (self);
 	font_style = html_text_get_font_style (text);
@@ -205,7 +205,7 @@ draw (HTMLObject *o,
       gint width, gint height,
       gint tx, gint ty)
 {
-	HTMLFontStyle font_style;
+	GtkHTMLFontStyle font_style;
 	HTMLText *htmltext;
 
 	htmltext = HTML_TEXT (o);
@@ -401,7 +401,7 @@ get_cursor_base (HTMLObject *self,
 		 guint offset,
 		 gint *x, gint *y)
 {
-	HTMLFontStyle font_style;
+	GtkHTMLFontStyle font_style;
 
 	html_object_calc_abs_position (HTML_OBJECT (self), x, y);
 
@@ -444,21 +444,21 @@ merge (HTMLText *text,
 
 /* This is necessary to merge the text-specified font style with that of the
    HTMLClueFlow parent.  */
-static HTMLFontStyle
+static GtkHTMLFontStyle
 get_font_style (const HTMLText *text)
 {
 	HTMLObject *parent;
-	HTMLFontStyle font_style;
+	GtkHTMLFontStyle font_style;
 
 	parent = HTML_OBJECT (text)->parent;
 
 	if (HTML_OBJECT_TYPE (parent) == HTML_TYPE_CLUEFLOW) {
-		HTMLFontStyle parent_style;
+		GtkHTMLFontStyle parent_style;
 
 		parent_style = html_clueflow_get_default_font_style (HTML_CLUEFLOW (parent));
-		font_style = html_font_style_merge (parent_style, text->font_style);
+		font_style = gtk_html_font_style_merge (parent_style, text->font_style);
 	} else {
-		font_style = html_font_style_merge (HTML_FONT_STYLE_SIZE_3, text->font_style);
+		font_style = gtk_html_font_style_merge (GTK_HTML_FONT_STYLE_SIZE_3, text->font_style);
 	}
 
 	return font_style;
@@ -477,7 +477,7 @@ get_color (HTMLText *text,
 static void
 set_font_style (HTMLText *text,
 		HTMLEngine *engine,
-		HTMLFontStyle style)
+		GtkHTMLFontStyle style)
 {
 	if (text->font_style == style)
 		return;
@@ -554,7 +554,7 @@ void
 html_text_init (HTMLText *text_object,
 		HTMLTextClass *klass,
 		gchar *text,
-		HTMLFontStyle font_style,
+		GtkHTMLFontStyle font_style,
 		const GdkColor *color)
 {
 	HTMLObject *object;
@@ -580,7 +580,7 @@ html_text_init (HTMLText *text_object,
 
 HTMLObject *
 html_text_new (gchar *text,
-	       HTMLFontStyle font,
+	       GtkHTMLFontStyle font,
 	       const GdkColor *color)
 {
 	HTMLText *text_object;
@@ -654,10 +654,10 @@ html_text_merge (HTMLText *text,
 }
 
 
-HTMLFontStyle
+GtkHTMLFontStyle
 html_text_get_font_style (const HTMLText *text)
 {
-	g_return_val_if_fail (text != NULL, HTML_FONT_STYLE_DEFAULT);
+	g_return_val_if_fail (text != NULL, GTK_HTML_FONT_STYLE_DEFAULT);
 
 	return (* HT_CLASS (text)->get_font_style) (text);
 }
@@ -675,7 +675,7 @@ html_text_get_color (HTMLText *text,
 void
 html_text_set_font_style (HTMLText *text,
 			  HTMLEngine *engine,
-			  HTMLFontStyle style)
+			  GtkHTMLFontStyle style)
 {
 	g_return_if_fail (text != NULL);
 

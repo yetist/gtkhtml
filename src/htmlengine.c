@@ -113,27 +113,27 @@ enum ID {
 
 /* Font handling.  */
 
-static HTMLFontStyle
+static GtkHTMLFontStyle
 current_font_style (HTMLEngine *e)
 {
-	HTMLFontStyle style;
+	GtkHTMLFontStyle style;
 
 	if (html_stack_is_empty (e->font_style_stack))
-		return HTML_FONT_STYLE_DEFAULT;
+		return GTK_HTML_FONT_STYLE_DEFAULT;
 
 	style = GPOINTER_TO_INT (html_stack_top (e->font_style_stack));
 	return style;
 }
 
-static HTMLFontStyle
+static GtkHTMLFontStyle
 push_font_style (HTMLEngine *e,
-		 HTMLFontStyle new_attrs)
+		 GtkHTMLFontStyle new_attrs)
 {
-	HTMLFontStyle current;
-	HTMLFontStyle new;
+	GtkHTMLFontStyle current;
+	GtkHTMLFontStyle new;
 
 	current = current_font_style (e);
-	new = html_font_style_merge (current, new_attrs);
+	new = gtk_html_font_style_merge (current, new_attrs);
 
 	html_stack_push (e->font_style_stack, GINT_TO_POINTER (new));
 
@@ -330,7 +330,7 @@ append_element (HTMLEngine *e,
 static gboolean
 check_prev (const HTMLObject *p,
 	    HTMLType type,
-	    HTMLFontStyle font_style,
+	    GtkHTMLFontStyle font_style,
 	    const GdkColor *color)
 {
 	if (p == NULL)
@@ -353,7 +353,7 @@ insert_text (HTMLEngine *e,
 	     HTMLObject *clue,
 	     const gchar *text)
 {
-	HTMLFontStyle font_style;
+	GtkHTMLFontStyle font_style;
 	HTMLObject *prev;
 	HTMLType type;
 	const GdkColor *color;
@@ -1004,7 +1004,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 
 					if (heading) {
 						/* FIXME this is wrong.  */
-						push_font_style (e, HTML_FONT_STYLE_BOLD);
+						push_font_style (e, GTK_HTML_FONT_STYLE_BOLD);
 						push_block (e, ID_TH, 3,
 							    block_end_font,
 							    FALSE, 0);
@@ -1430,7 +1430,7 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		}
 	}
 	else if ( strncmp(str, "big", 3 ) == 0 ) {
-		push_font_style (e, HTML_FONT_STYLE_SIZE_3);
+		push_font_style (e, GTK_HTML_FONT_STYLE_SIZE_3);
 		push_block (e, ID_BIG, 1, block_end_font, 0, 0);
 	} else if ( strncmp(str, "/big", 4 ) == 0 ) {
 		pop_block (e, ID_BIG, clue);
@@ -1571,7 +1571,7 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	}
 	else if (strncmp (str, "b", 1) == 0) {
 		if (str[1] == '>' || str[1] == ' ') {
-			push_font_style (e, HTML_FONT_STYLE_BOLD);
+			push_font_style (e, GTK_HTML_FONT_STYLE_BOLD);
 			push_block (e, ID_B, 1, block_end_font, FALSE, FALSE);
 		}
 	}
@@ -1601,13 +1601,13 @@ parse_c (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		e->divAlign = HTML_HALIGN_LEFT;
 	}
 	else if (strncmp( str, "cite", 4 ) == 0) {
-		push_font_style (e, HTML_FONT_STYLE_ITALIC | HTML_FONT_STYLE_BOLD);
+		push_font_style (e, GTK_HTML_FONT_STYLE_ITALIC | GTK_HTML_FONT_STYLE_BOLD);
 		push_block(e, ID_CITE, 1, block_end_font, 0, 0);
 	}
 	else if (strncmp( str, "/cite", 5) == 0) {
 		pop_block (e, ID_CITE, clue);
 	} else if (strncmp(str, "code", 4 ) == 0 ) {
-		push_font_style (e, HTML_FONT_STYLE_FIXED);
+		push_font_style (e, GTK_HTML_FONT_STYLE_FIXED);
 		push_block (e, ID_CODE, 1, block_end_font, 0, 0);
 	} else if (strncmp(str, "/code", 5 ) == 0 ) {
 		pop_block (e, ID_CODE, clue);
@@ -1715,7 +1715,7 @@ static void
 parse_e (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 {
 	if ( strncmp( str, "em", 2 ) == 0 ) {
-		push_font_style (e, HTML_FONT_STYLE_ITALIC);
+		push_font_style (e, GTK_HTML_FONT_STYLE_ITALIC);
 		push_block (e, ID_EM, 1, block_end_font, FALSE, FALSE);
 	} else if ( strncmp( str, "/em", 3 ) == 0 ) {
 		pop_block (e, ID_EM, _clue);
@@ -1737,7 +1737,7 @@ parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		GdkColor *color;
 		gint newSize;
 
-		newSize = current_font_style (p) & HTML_FONT_STYLE_SIZE_MASK;
+		newSize = current_font_style (p) & GTK_HTML_FONT_STYLE_SIZE_MASK;
 
 		/* The GdkColor API is not const safe!  */
 		color = gdk_color_copy ((GdkColor *) current_color (p));
@@ -1751,13 +1751,13 @@ parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 
 				/* FIXME implement basefont */
 				if (*(token + 5) == '+' || *(token + 5) == '-')
-					newSize = HTML_FONT_STYLE_SIZE_3 + num;
+					newSize = GTK_HTML_FONT_STYLE_SIZE_3 + num;
 				else
 					newSize = num;
-				if (newSize > HTML_FONT_STYLE_SIZE_MAX)
-					newSize = HTML_FONT_STYLE_SIZE_MAX;
-				else if (newSize < HTML_FONT_STYLE_SIZE_1)
-					newSize = HTML_FONT_STYLE_SIZE_1;
+				if (newSize > GTK_HTML_FONT_STYLE_SIZE_MAX)
+					newSize = GTK_HTML_FONT_STYLE_SIZE_MAX;
+				else if (newSize < GTK_HTML_FONT_STYLE_SIZE_1)
+					newSize = GTK_HTML_FONT_STYLE_SIZE_1;
 			} else if (strncasecmp (token, "face=", 5) == 0) {
 			} else if (strncasecmp (token, "color=", 6) == 0) {
 				parse_color (token + 6, color);
@@ -2006,7 +2006,7 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 	}
 	else if ( strncmp (str, "i", 1 ) == 0 ) {
 		if ( str[1] == '>' || str[1] == ' ' ) {
-			push_font_style (p, HTML_FONT_STYLE_ITALIC);
+			push_font_style (p, GTK_HTML_FONT_STYLE_ITALIC);
 			push_block (p, ID_I, 1, block_end_font, FALSE, FALSE);
 		}
 	}
@@ -2024,7 +2024,7 @@ static void
 parse_k (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 {
 	if ( strncmp(str, "kbd", 3 ) == 0 ) {
-		push_font_style (e, HTML_FONT_STYLE_FIXED);
+		push_font_style (e, GTK_HTML_FONT_STYLE_FIXED);
 		push_block (e, ID_KBD, 1, block_end_font, 0, 0);
 	} else if ( strncmp(str, "/kbd", 4 ) == 0 ) {
 		pop_block (e, ID_KBD, _clue);
@@ -2465,7 +2465,7 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		gtk_signal_emit (GTK_OBJECT (e), signals[TITLE_CHANGED]);
 	}
 	else if ( strncmp( str, "tt", 2 ) == 0 ) {
-		push_font_style (e, HTML_FONT_STYLE_FIXED);
+		push_font_style (e, GTK_HTML_FONT_STYLE_FIXED);
 		push_block (e, ID_TT, 1, block_end_font, 0, 0);
 	} else if ( strncmp( str, "/tt", 3 ) == 0 ) {
 		pop_block (e, ID_TT, clue);
@@ -2564,7 +2564,7 @@ parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	}
 	else if (strncmp (str, "u", 1) == 0) {
 		if (str[1] == '>' || str[1] == ' ') {
-			push_font_style (e, HTML_FONT_STYLE_UNDERLINE);
+			push_font_style (e, GTK_HTML_FONT_STYLE_UNDERLINE);
 			push_block (e, ID_U, 1, block_end_font, FALSE, FALSE);
 		}
 	}
@@ -2582,7 +2582,7 @@ static void
 parse_v (HTMLEngine *e, HTMLObject * _clue, const char *str )
 {
 	if ( strncmp(str, "var", 3 ) == 0 ) {
-		push_font_style (e, HTML_FONT_STYLE_FIXED);
+		push_font_style (e, GTK_HTML_FONT_STYLE_FIXED);
 	   	push_block(e, ID_VAR, 1, block_end_font, 0, 0);
 	} else if ( strncmp( str, "/var", 4 ) == 0) {
 		pop_block(e, ID_VAR, _clue);
@@ -2836,7 +2836,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->active_selection = FALSE;
 	engine->cut_buffer = NULL;
 
-	engine->insertion_font_style = HTML_FONT_STYLE_DEFAULT;
+	engine->insertion_font_style = GTK_HTML_FONT_STYLE_DEFAULT;
 
 	engine->ht = html_tokenizer_new ();
 	engine->st = string_tokenizer_new ();

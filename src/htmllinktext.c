@@ -1,23 +1,24 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the KDE libraries
-    Copyright (C) 1997 Martin Jones (mjones@kde.org)
-              (C) 1997 Torben Weis (weis@kde.org)
-	      (C) 1999 Ettore Perazzoli (ettore@gnu.org)
 
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-    Boston, MA 02111-1307, USA.
+   Copyright (C) 1997 Martin Jones (mjones@kde.org)
+   Copyright (C) 1997 Torben Weis (weis@kde.org)
+   Copyright (C) 1999, 2000 Helix Code, Inc.
+   
+   This library is free software; you can redistribute it and/or
+   modify it under the terms of the GNU Library General Public
+   License as published by the Free Software Foundation; either
+   version 2 of the License, or (at your option) any later version.
+   
+   This library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   Library General Public License for more details.
+   
+   You should have received a copy of the GNU Library General Public License
+   along with this library; see the file COPYING.LIB.  If not, write to
+   the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+   kBoston, MA 02111-1307, USA.
 */
 
 #include "htmltext.h"
@@ -93,13 +94,13 @@ split (HTMLText *self,
 	return new;
 }
 
-static HTMLFontStyle
+static GtkHTMLFontStyle
 get_font_style (const HTMLText *text)
 {
-	HTMLFontStyle font_style;
+	GtkHTMLFontStyle font_style;
 
 	font_style = parent_class->get_font_style (text);
-	font_style = html_font_style_merge (font_style, HTML_FONT_STYLE_UNDERLINE);
+	font_style = gtk_html_font_style_merge (font_style, GTK_HTML_FONT_STYLE_UNDERLINE);
 
 	return font_style;
 }
@@ -158,7 +159,7 @@ void
 html_link_text_init (HTMLLinkText *link_text_object,
 		     HTMLLinkTextClass *klass,
 		     gchar *text,
-		     HTMLFontStyle font_style,
+		     GtkHTMLFontStyle font_style,
 		     const GdkColor *color,
 		     const gchar *url,
 		     const gchar *target)
@@ -174,7 +175,7 @@ html_link_text_init (HTMLLinkText *link_text_object,
 
 HTMLObject *
 html_link_text_new (gchar *text,
-		    HTMLFontStyle font_style,
+		    GtkHTMLFontStyle font_style,
 		    const GdkColor *color,
 		    const gchar *url,
 		    const gchar *target)

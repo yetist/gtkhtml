@@ -93,7 +93,7 @@ struct _HTMLEngine {
 
 	/* Font style for insertion.  If HTML_FONT_STYLE_DEFAULT, use that of
            the text we are in.  */
-	HTMLFontStyle insertion_font_style;
+	GtkHTMLFontStyle insertion_font_style;
 
 	/* This is set to TRUE when at least one element is selected (in whole
            or in part), to FALSE when no item is selected at all.  */
@@ -142,7 +142,7 @@ struct _HTMLEngine {
 
 	gboolean newPage;
  
-	HTMLStack *font_style_stack; /* Font style stack, elements are HTMLFontStyles.  */
+	HTMLStack *font_style_stack; /* Font style stack, elements are GtkHTMLFontStyles.  */
 	HTMLStack *color_stack;	/* Color stack, elements are GdkColors.  */
 	HTMLStack *clueflow_style_stack; /* Clueflow style stack, elements are HTMLClueFlowStyles.  */
 

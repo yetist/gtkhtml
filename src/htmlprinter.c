@@ -240,7 +240,7 @@ get_black (const HTMLPainter *painter)
 
 static void
 set_font_style (HTMLPainter *painter,
-		HTMLFontStyle font_style)
+		GtkHTMLFontStyle font_style)
 {
 	HTMLPrinter *printer;
 	GnomeFont *font;
@@ -254,7 +254,7 @@ set_font_style (HTMLPainter *painter,
 	printer->font_style = font_style;
 }
 
-static HTMLFontStyle
+static GtkHTMLFontStyle
 get_font_style (HTMLPainter *painter)
 {
 	HTMLPrinter *printer;
@@ -463,7 +463,7 @@ draw_text (HTMLPainter *painter,
 	   gint len)
 {
 	HTMLPrinter *printer;
-	HTMLFontStyle font_style;
+	GtkHTMLFontStyle font_style;
 	gdouble print_x, print_y;
 	gchar *text_tmp;
 
@@ -484,7 +484,7 @@ draw_text (HTMLPainter *painter,
 	gnome_print_show (printer->print_context, text_tmp);
 
 	font_style = printer->font_style;
-	if (font_style & (HTML_FONT_STYLE_UNDERLINE | HTML_FONT_STYLE_STRIKEOUT)) {
+	if (font_style & (GTK_HTML_FONT_STYLE_UNDERLINE | GTK_HTML_FONT_STYLE_STRIKEOUT)) {
 		GnomeFont *font;
 		double text_width;
 		double ascender, descender;
@@ -499,7 +499,7 @@ draw_text (HTMLPainter *painter,
 		font = html_print_font_manager_get_font (printer->font_manager, font_style);
 
 		text_width = gnome_font_get_width_string_n (font, text, len);
-		if (font_style & HTML_FONT_STYLE_UNDERLINE) {
+		if (font_style & GTK_HTML_FONT_STYLE_UNDERLINE) {
 			descender = gnome_font_get_descender (font);
 			y = print_y + gnome_font_get_underline_position (font);
 
@@ -511,7 +511,7 @@ draw_text (HTMLPainter *painter,
 			gnome_print_stroke (printer->print_context);
 		}
 
-		if (font_style & HTML_FONT_STYLE_STRIKEOUT) {
+		if (font_style & GTK_HTML_FONT_STYLE_STRIKEOUT) {
 			ascender = gnome_font_get_ascender (font);
 			y = print_y + ascender / 2.0;
 			gnome_print_newpath (printer->print_context);
@@ -541,7 +541,7 @@ draw_shade_line (HTMLPainter *painter,
 
 static guint
 calc_ascent (HTMLPainter *painter,
-	     HTMLFontStyle style)
+	     GtkHTMLFontStyle style)
 {
 	HTMLPrinter *printer;
 	GnomeFont *font;
@@ -559,7 +559,7 @@ calc_ascent (HTMLPainter *painter,
 
 static guint
 calc_descent (HTMLPainter *painter,
-	      HTMLFontStyle style)
+	      GtkHTMLFontStyle style)
 {
 	HTMLPrinter *printer;
 	GnomeFont *font;
@@ -579,7 +579,7 @@ static guint
 calc_text_width (HTMLPainter *painter,
 		 const gchar *text,
 		 guint len,
-		 HTMLFontStyle style)
+		 GtkHTMLFontStyle style)
 {
 	HTMLPrinter *printer;
 	GnomeFont *font;
@@ -611,7 +611,7 @@ init (GtkObject *object)
 
 	printer->print_context = NULL;
 
-	printer->font_style = HTML_FONT_STYLE_DEFAULT;
+	printer->font_style = GTK_HTML_FONT_STYLE_DEFAULT;
 
 	printer->font_manager = html_print_font_manager_new ();
 }

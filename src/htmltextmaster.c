@@ -59,7 +59,7 @@ calc_min_width (HTMLObject *self,
 		HTMLPainter *painter)
 {
 	HTMLTextMaster *master;
-	HTMLFontStyle font_style;
+	GtkHTMLFontStyle font_style;
 	HTMLText *text;
 	const gchar *p;
 	gint min_width, run_width;
@@ -105,7 +105,7 @@ calc_preferred_width (HTMLObject *self,
 		      HTMLPainter *painter)
 {
 	HTMLText *text;
-	HTMLFontStyle font_style;
+	GtkHTMLFontStyle font_style;
 	gint width;
 
 	text = HTML_TEXT (self);
@@ -350,7 +350,7 @@ get_cursor_base (HTMLObject *self,
 			html_object_calc_abs_position (obj, x, y);
 			if (offset != slave->posStart) {
 				HTMLText *text;
-				HTMLFontStyle font_style;
+				GtkHTMLFontStyle font_style;
 
 				text = HTML_TEXT (self);
 
@@ -430,12 +430,24 @@ merge (HTMLText *self,
 {
 	HTMLText **p;
 	guint total_length;
+	guint select_length;
 	gchar *new_text;
 	gchar *sp;
 
-	total_length = 0;
+	total_length = self->text_len;
+	select_length = HTML_TEXT_MASTER (self)->select_length;
+
 	for (p = list; *p != NULL; p++) {
-		g_assert (HTML_OBJECT_TYPE (*p) == HTML_OBJECT_TYPE (self));
+		g_return_if_fail (HTML_OBJECT_TYPE (*p) == HTML_OBJECT_TYPE (self));
+
+		/* XXX For this to make sense, selection must always be
+                   contiguous.  */
+		select_length += HTML_TEXT_MASTER (*p)->select_length;
+
+		if (! HTML_OBJECT (self)->selected && HTML_OBJECT (*p)->selected)
+			HTML_TEXT_MASTER (self)->select_start = (total_length
+								 + HTML_TEXT_MASTER (*p)->select_start);
+
 		total_length += HTML_TEXT (*p)->text_len;
 	}
 
@@ -459,10 +471,7 @@ merge (HTMLText *self,
 	g_free (self->text);
 	self->text = new_text;
 	self->text_len = total_length;
-
-	/* FIXME selection.  */
 }
-
 
 static guint
 insert_text (HTMLText *text,
@@ -558,7 +567,7 @@ void
 html_text_master_init (HTMLTextMaster *master,
 		       HTMLTextMasterClass *klass,
 		       gchar *text,
-		       HTMLFontStyle font_style,
+		       GtkHTMLFontStyle font_style,
 		       const GdkColor *color)
 {
 	HTMLText* html_text;
@@ -575,7 +584,7 @@ html_text_master_init (HTMLTextMaster *master,
 
 HTMLObject *
 html_text_master_new (gchar *text,
-		      HTMLFontStyle font_style,
+		      GtkHTMLFontStyle font_style,
 		      const GdkColor *color)
 {
 	HTMLTextMaster *master;

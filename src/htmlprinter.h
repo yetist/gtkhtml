@@ -37,7 +37,7 @@ struct _HTMLPrinter {
 	HTMLPainter base;
 
 	HTMLPrintFontManager *font_manager;
-	HTMLFontStyle font_style;
+	GtkHTMLFontStyle font_style;
 	GnomePrintContext *print_context;
 };
 typedef struct _HTMLPrinter HTMLPrinter;

@@ -37,7 +37,7 @@ struct _HTMLText {
 	gchar *text;
 	guint text_len;
 
-	HTMLFontStyle font_style;
+	GtkHTMLFontStyle font_style;
 	GdkColor color;
 
 	gboolean color_allocated : 1;
@@ -53,10 +53,10 @@ struct _HTMLTextClass {
 	HTMLText *(* split) (HTMLText *text, guint offset);
 	void (* merge) (HTMLText *text, HTMLText **list);
 	
-	HTMLFontStyle (* get_font_style) (const HTMLText *text);
+	GtkHTMLFontStyle (* get_font_style) (const HTMLText *text);
 	const GdkColor * (* get_color) (HTMLText *text, HTMLPainter *painter);
 
-	void (* set_font_style) (HTMLText *text, HTMLEngine *engine, HTMLFontStyle style);
+	void (* set_font_style) (HTMLText *text, HTMLEngine *engine, GtkHTMLFontStyle style);
 	void (* set_color) (HTMLText *text, HTMLEngine *engine, const GdkColor *color);
 };
 
@@ -64,46 +64,46 @@ struct _HTMLTextClass {
 extern HTMLTextClass html_text_class;
 
 
-void        html_text_type_init           (void);
-void        html_text_class_init          (HTMLTextClass  *klass,
-					   HTMLType        type,
-					   guint           object_size);
-void        html_text_init                (HTMLText       *text_object,
-					   HTMLTextClass  *klass,
-					   gchar          *text,
-					   HTMLFontStyle   font_style,
-					   const GdkColor *color);
-HTMLObject *html_text_new                 (gchar          *text,
-					   HTMLFontStyle   font_style,
-					   const GdkColor *color);
-guint       html_text_insert_text         (HTMLText       *text,
-					   HTMLEngine     *engine,
-					   guint           offset,
-					   const gchar    *p,
-					   guint           len);
-guint       html_text_remove_text         (HTMLText       *text,
-					   HTMLEngine     *engine,
-					   guint           offset,
-					   guint           len);
-void        html_text_queue_draw          (HTMLText       *text,
-					   HTMLEngine     *engine,
-					   guint           offset,
-					   guint           len);
+void        html_text_type_init    (void);
+void        html_text_class_init   (HTMLTextClass    *klass,
+				    HTMLType          type,
+				    guint             object_size);
+void        html_text_init         (HTMLText         *text_object,
+				    HTMLTextClass    *klass,
+				    gchar            *text,
+				    GtkHTMLFontStyle  font_style,
+				    const GdkColor   *color);
+HTMLObject *html_text_new          (gchar            *text,
+				    GtkHTMLFontStyle  font_style,
+				    const GdkColor   *color);
+guint       html_text_insert_text  (HTMLText         *text,
+				    HTMLEngine       *engine,
+				    guint             offset,
+				    const gchar      *p,
+				    guint             len);
+guint       html_text_remove_text  (HTMLText         *text,
+				    HTMLEngine       *engine,
+				    guint             offset,
+				    guint             len);
+void        html_text_queue_draw   (HTMLText         *text,
+				    HTMLEngine       *engine,
+				    guint             offset,
+				    guint             len);
 
 HTMLText *html_text_split  (HTMLText  *text,
 			    guint      offset);
 void      html_text_merge  (HTMLText  *text,
 			    HTMLText **list);
 
-HTMLFontStyle   html_text_get_font_style  (const HTMLText *text);
-const GdkColor *html_text_get_color       (HTMLText       *text,
-					   HTMLPainter    *painter);
+GtkHTMLFontStyle  html_text_get_font_style  (const HTMLText *text);
+const GdkColor   *html_text_get_color       (HTMLText       *text,
+					     HTMLPainter    *painter);
 
-void  html_text_set_font_style  (HTMLText       *text,
-				 HTMLEngine     *engine,
-				 HTMLFontStyle   style);
-void  html_text_set_color       (HTMLText       *text,
-				 HTMLEngine     *engine,
-				 const GdkColor *color);
+void  html_text_set_font_style  (HTMLText         *text,
+				 HTMLEngine       *engine,
+				 GtkHTMLFontStyle  style);
+void  html_text_set_color       (HTMLText         *text,
+				 HTMLEngine       *engine,
+				 const GdkColor   *color);
 
 #endif /* _HTMLTEXT_H_ */

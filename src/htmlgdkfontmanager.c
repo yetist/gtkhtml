@@ -25,14 +25,14 @@
 
 /* FIXME this should be dynamically done, and based on the base font name.  */
 
-static guint real_font_sizes[HTML_FONT_STYLE_SIZE_MAX] = {
+static guint real_font_sizes[GTK_HTML_FONT_STYLE_SIZE_MAX] = {
 	8, 8, 10, 12, 14, 18, 19
 };
 
 
 static void
 load_font (HTMLGdkFontManager *manager,
-	   HTMLFontStyle style)
+	   GtkHTMLFontStyle style)
 {
 	const gchar *weight_string;
 	const gchar *slant_string;
@@ -45,23 +45,23 @@ load_font (HTMLGdkFontManager *manager,
 	if (manager->fonts[style] != NULL)
 		return;
 
-	size = style & HTML_FONT_STYLE_SIZE_MASK;
+	size = style & GTK_HTML_FONT_STYLE_SIZE_MASK;
 	if (size == 0)
 		size = 3;
 
 	real_size = real_font_sizes[size];
 
-	if (style & HTML_FONT_STYLE_BOLD)
+	if (style & GTK_HTML_FONT_STYLE_BOLD)
 		weight_string = "bold";
 	else
 		weight_string = "medium";
 
-	if (style & HTML_FONT_STYLE_ITALIC)
+	if (style & GTK_HTML_FONT_STYLE_ITALIC)
 		slant_string = "i";
 	else
 		slant_string = "r";
 
-	if (style & HTML_FONT_STYLE_FIXED)
+	if (style & GTK_HTML_FONT_STYLE_FIXED)
 		family_string = "courier";
 	else
 		family_string = "lucida";
@@ -102,7 +102,7 @@ html_gdk_font_manager_destroy (HTMLGdkFontManager *manager)
 
 	g_return_if_fail (manager != NULL);
 
-	for (i = 0; i < HTML_FONT_STYLE_MAX; i++) {
+	for (i = 0; i < GTK_HTML_FONT_STYLE_MAX; i++) {
 		if (manager->fonts[i] != NULL)
 			gdk_font_unref (manager->fonts[i]);
 	}
@@ -112,10 +112,10 @@ html_gdk_font_manager_destroy (HTMLGdkFontManager *manager)
 
 GdkFont *
 html_gdk_font_manager_get_font (HTMLGdkFontManager *manager,
-				HTMLFontStyle style)
+				GtkHTMLFontStyle style)
 {
 	g_return_val_if_fail (manager != NULL, NULL);
-	g_return_val_if_fail (style < HTML_FONT_STYLE_MAX, NULL);
+	g_return_val_if_fail (style < GTK_HTML_FONT_STYLE_MAX, NULL);
 
 	load_font (manager, style);
 

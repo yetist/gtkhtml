@@ -19,22 +19,22 @@
    Boston, MA 02111-1307, USA.
 */
 
-#include "htmlfontstyle.h"
+#include "gtkhtmlfontstyle.h"
 
 
-HTMLFontStyle
-html_font_style_merge (HTMLFontStyle a,
-		       HTMLFontStyle b)
+GtkHTMLFontStyle
+gtk_html_font_style_merge (GtkHTMLFontStyle a,
+			   GtkHTMLFontStyle b)
 {
-	HTMLFontStyle retval;
+	GtkHTMLFontStyle retval;
 
-	if ((b & HTML_FONT_STYLE_SIZE_MASK) != 0)
-		retval = ((b & HTML_FONT_STYLE_SIZE_MASK)
-			  | (a & ~HTML_FONT_STYLE_SIZE_MASK));
+	if ((b & GTK_HTML_FONT_STYLE_SIZE_MASK) != 0)
+		retval = ((b & GTK_HTML_FONT_STYLE_SIZE_MASK)
+			  | (a & ~GTK_HTML_FONT_STYLE_SIZE_MASK));
 	else
 		retval = a;
 
-	retval |= b & ~HTML_FONT_STYLE_SIZE_MASK;
+	retval |= b & ~GTK_HTML_FONT_STYLE_SIZE_MASK;
 
 	return retval;
 }

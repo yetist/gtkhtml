@@ -96,13 +96,13 @@ split (HTMLText *self,
 	return HTML_TEXT (new);
 }
 
-static HTMLFontStyle
+static GtkHTMLFontStyle
 get_font_style (const HTMLText *text)
 {
-	HTMLFontStyle font_style;
+	GtkHTMLFontStyle font_style;
 
 	font_style = HTML_TEXT_CLASS (parent_class)->get_font_style (text);
-	font_style = html_font_style_merge (font_style, HTML_FONT_STYLE_UNDERLINE);
+	font_style = gtk_html_font_style_merge (font_style, GTK_HTML_FONT_STYLE_UNDERLINE);
 
 	return font_style;
 }
@@ -165,7 +165,7 @@ void
 html_link_text_master_init (HTMLLinkTextMaster *link_text_master_object,
 			    HTMLLinkTextMasterClass *klass,
 			    gchar *text,
-			    HTMLFontStyle font_style,
+			    GtkHTMLFontStyle font_style,
 			    const GdkColor *color,
 			    const gchar *url,
 			    const gchar *target)
@@ -185,7 +185,7 @@ html_link_text_master_init (HTMLLinkTextMaster *link_text_master_object,
 
 HTMLObject *
 html_link_text_master_new (gchar *text,
-			   HTMLFontStyle font_style,
+			   GtkHTMLFontStyle font_style,
 			   const GdkColor *color,
 			   const gchar *url,
 			   const gchar *target)

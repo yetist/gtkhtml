@@ -90,7 +90,7 @@ calc_size (HTMLObject *self,
 {
 	HTMLText *owner;
 	HTMLTextSlave *slave;
-	HTMLFontStyle font_style;
+	GtkHTMLFontStyle font_style;
 
 	slave = HTML_TEXT_SLAVE (self);
 	owner = HTML_TEXT (slave->owner);
@@ -117,7 +117,7 @@ fit_line (HTMLObject *o,
 	HTMLText *ownertext;
 	HTMLObject *next_obj;
 	HTMLFitType return_value;
-	HTMLFontStyle font_style;
+	GtkHTMLFontStyle font_style;
 	gint newLen;
 	gint newWidth;
 	gchar *splitPtr;
@@ -261,7 +261,7 @@ select_range (HTMLObject *self,
 static void
 draw_normal (HTMLTextSlave *self,
 	     HTMLPainter *p,
-	     HTMLFontStyle font_style,
+	     GtkHTMLFontStyle font_style,
 	     gint x, gint y,
 	     gint width, gint height,
 	     gint tx, gint ty)
@@ -281,7 +281,7 @@ draw_normal (HTMLTextSlave *self,
 static void
 draw_highlighted (HTMLTextSlave *slave,
 		  HTMLPainter *p,
-		  HTMLFontStyle font_style,
+		  GtkHTMLFontStyle font_style,
 		  gint x, gint y,
 		  gint width, gint height,
 		  gint tx, gint ty)
@@ -350,7 +350,7 @@ draw (HTMLObject *o,
 	HTMLTextSlave *textslave;
 	HTMLTextMaster *owner;
 	HTMLText *ownertext;
-	HTMLFontStyle font_style;
+	GtkHTMLFontStyle font_style;
 	guint end;
 
 	if (y + height < o->y - o->ascent || y > o->y + o->descent)
@@ -476,7 +476,7 @@ html_text_slave_get_offset_for_pointer (HTMLTextSlave *slave,
 					gint x, gint y)
 {
 	HTMLText *owner;
-	HTMLFontStyle font_style;
+	GtkHTMLFontStyle font_style;
 	guint width, prev_width;
 	guint i;
 

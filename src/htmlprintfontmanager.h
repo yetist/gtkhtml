@@ -24,10 +24,10 @@
 
 #include <libgnomeprint/gnome-print.h>
 
-#include "htmlfontstyle.h"
+#include "gtkhtmlfontstyle.h"
 
 struct _HTMLPrintFontManager {
-	GnomeFont *fonts[HTML_FONT_STYLE_MAX];
+	GnomeFont *fonts[GTK_HTML_FONT_STYLE_MAX];
 };
 typedef struct _HTMLPrintFontManager HTMLPrintFontManager;
 
@@ -36,6 +36,6 @@ HTMLPrintFontManager *html_print_font_manager_new      (void);
 void                  html_print_font_manager_destroy  (HTMLPrintFontManager *manager);
 
 GnomeFont *html_print_font_manager_get_font  (HTMLPrintFontManager *manager,
-					      HTMLFontStyle         style);
+					      GtkHTMLFontStyle      style);
 
 #endif /* _HTMLPRINTFONTMANAGER_H_ */

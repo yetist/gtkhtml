@@ -1,3 +1,20 @@
+2000-02-19  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlfontstyle.h, htmlfontstyle.c: Removed.
+	* gtkhtmlfontstyle.h, gtkhtmlfontstyle.c: New replacements.  We
+	now use `GtkHTMLFontStyle' instead of `HTMLFontStyle' throughout,
+	so that the values can be exposed to the API.
+
+	* gtkhtml.c (font_style_to_internal): New helper function.
+	(gtk_html_set_font_style): New function.
+
+	* gtkhtml.h: New enum `GtkHTMLFontStyle'.
+
+	* htmlengine-edit-fontstyle.c: New file.
+	* htmlengine-edit-fontstyle.h: New file.
+
+	* htmlengine-edit-paste.c: #include "debug.h".
+
 2000-02-20  Jonas Borgström  <jonas_b@bitsmart.com>
 
 	* htmlclueflow.c (calc_min_width): Don't do any wrapping with the 
@@ -14,7 +31,6 @@
 	* testgtkhtml.c: Added tests/test11.html.
 
 	* tests/test1.html: New testcase for tables with the "nowrap" keyword.	
-
 	
 2000-02-20  Jonas Borgström  <jonas_b@bitsmart.com>
 	

@@ -54,8 +54,8 @@ calc_padding (HTMLPainter *painter)
 	guint ascent, descent;
 
 	/* FIXME maybe this should depend on the style.  */
-	ascent = html_painter_calc_ascent (painter, HTML_FONT_STYLE_SIZE_3);
-	descent = html_painter_calc_descent (painter, HTML_FONT_STYLE_SIZE_3);
+	ascent = html_painter_calc_ascent (painter, GTK_HTML_FONT_STYLE_SIZE_3);
+	descent = html_painter_calc_descent (painter, GTK_HTML_FONT_STYLE_SIZE_3);
 
 	return ascent + descent;
 }
@@ -65,8 +65,8 @@ calc_indent_unit (HTMLPainter *painter)
 {
 	guint ascent, descent;
 
-	ascent = html_painter_calc_ascent (painter, HTML_FONT_STYLE_SIZE_3);
-	descent = html_painter_calc_descent (painter, HTML_FONT_STYLE_SIZE_3);
+	ascent = html_painter_calc_ascent (painter, GTK_HTML_FONT_STYLE_SIZE_3);
+	descent = html_painter_calc_descent (painter, GTK_HTML_FONT_STYLE_SIZE_3);
 
 	return (ascent + descent) * 3;
 }
@@ -76,8 +76,8 @@ calc_bullet_size (HTMLPainter *painter)
 {
 	guint ascent, descent;
 
-	ascent = html_painter_calc_ascent (painter, HTML_FONT_STYLE_SIZE_3);
-	descent = html_painter_calc_descent (painter, HTML_FONT_STYLE_SIZE_3);
+	ascent = html_painter_calc_ascent (painter, GTK_HTML_FONT_STYLE_SIZE_3);
+	descent = html_painter_calc_descent (painter, GTK_HTML_FONT_STYLE_SIZE_3);
 
 	return (ascent + descent) / 3;
 }
@@ -726,7 +726,7 @@ check_page_split (HTMLObject *self,
 }
 
 
-static HTMLFontStyle
+static GtkHTMLFontStyle
 get_default_font_style (const HTMLClueFlow *self)
 {
 	switch (self->style) {
@@ -735,26 +735,26 @@ get_default_font_style (const HTMLClueFlow *self)
 	case HTML_CLUEFLOW_STYLE_ITEMROMAN:
 	case HTML_CLUEFLOW_STYLE_ITEMDIGIT:
 	case HTML_CLUEFLOW_STYLE_NOWRAP:
-		return HTML_FONT_STYLE_SIZE_3;
+		return GTK_HTML_FONT_STYLE_SIZE_3;
 	case HTML_CLUEFLOW_STYLE_ADDRESS:
-		return HTML_FONT_STYLE_SIZE_3 | HTML_FONT_STYLE_ITALIC;
+		return GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_ITALIC;
 	case HTML_CLUEFLOW_STYLE_PRE:
-		return HTML_FONT_STYLE_SIZE_3 | HTML_FONT_STYLE_FIXED;
+		return GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_FIXED;
 	case HTML_CLUEFLOW_STYLE_H1:
-		return HTML_FONT_STYLE_SIZE_6 | HTML_FONT_STYLE_BOLD;
+		return GTK_HTML_FONT_STYLE_SIZE_6 | GTK_HTML_FONT_STYLE_BOLD;
 	case HTML_CLUEFLOW_STYLE_H2:
-		return HTML_FONT_STYLE_SIZE_5 | HTML_FONT_STYLE_BOLD;
+		return GTK_HTML_FONT_STYLE_SIZE_5 | GTK_HTML_FONT_STYLE_BOLD;
 	case HTML_CLUEFLOW_STYLE_H3:
-		return HTML_FONT_STYLE_SIZE_4 | HTML_FONT_STYLE_BOLD;
+		return GTK_HTML_FONT_STYLE_SIZE_4 | GTK_HTML_FONT_STYLE_BOLD;
 	case HTML_CLUEFLOW_STYLE_H4:
-		return HTML_FONT_STYLE_SIZE_3 | HTML_FONT_STYLE_BOLD;
+		return GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_BOLD;
 	case HTML_CLUEFLOW_STYLE_H5:
-		return HTML_FONT_STYLE_SIZE_2 | HTML_FONT_STYLE_BOLD;
+		return GTK_HTML_FONT_STYLE_SIZE_2 | GTK_HTML_FONT_STYLE_BOLD;
 	case HTML_CLUEFLOW_STYLE_H6:
-		return HTML_FONT_STYLE_SIZE_1 | HTML_FONT_STYLE_BOLD;
+		return GTK_HTML_FONT_STYLE_SIZE_1 | GTK_HTML_FONT_STYLE_BOLD;
 	default:
 		g_warning ("Unexpected HTMLClueFlow style %d", self->style);
-		return HTML_FONT_STYLE_DEFAULT;
+		return GTK_HTML_FONT_STYLE_DEFAULT;
 	}
 }
 
@@ -837,10 +837,10 @@ html_clueflow_new (HTMLClueFlowStyle style,
 
 /* Virtual methods.  */
 
-HTMLFontStyle
+GtkHTMLFontStyle
 html_clueflow_get_default_font_style (const HTMLClueFlow *self)
 {
-	g_return_val_if_fail (self != NULL, HTML_FONT_STYLE_DEFAULT);
+	g_return_val_if_fail (self != NULL, GTK_HTML_FONT_STYLE_DEFAULT);
 
 	return (* HCF_CLASS (self)->get_default_font_style) (self);
 }

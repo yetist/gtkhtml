@@ -68,7 +68,7 @@ struct _HTMLClueFlow {
 struct _HTMLClueFlowClass {
 	HTMLClueClass clue_class;
 
-	HTMLFontStyle (* get_default_font_style) (const HTMLClueFlow *self);
+	GtkHTMLFontStyle (* get_default_font_style) (const HTMLClueFlow *self);
 };
 
 
@@ -88,9 +88,9 @@ HTMLObject    *html_clueflow_new                     (HTMLClueFlowStyle   style,
 						      guint8              list_level,
 						      guint8              quote_level);
 
-HTMLFontStyle  html_clueflow_get_default_font_style  (const HTMLClueFlow *self);
-HTMLClueFlow  *html_clueflow_split                   (HTMLClueFlow       *clue,
-						      HTMLObject         *child);
+GtkHTMLFontStyle  html_clueflow_get_default_font_style  (const HTMLClueFlow *self);
+HTMLClueFlow     *html_clueflow_split                   (HTMLClueFlow       *clue,
+							 HTMLObject         *child);
 
 void  html_clueflow_set_style  (HTMLClueFlow      *flow,
 				HTMLEngine        *engine,

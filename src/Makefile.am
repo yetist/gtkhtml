@@ -13,6 +13,7 @@ libgtkhtml_HEADERS =				\
 	debug.h					\
 	gtkhtml-embedded.h			\
 	gtkhtml.h				\
+	gtkhtmlfontstyle.h			\
 	htmlanchor.h				\
 	htmlbutton.h				\
 	htmlcheckbox.h				\
@@ -30,13 +31,13 @@ libgtkhtml_HEADERS =				\
 	htmlengine-edit-clueflowstyle.h		\
 	htmlengine-edit-copy.h			\
 	htmlengine-edit-cut.h			\
+	htmlengine-edit-fontstyle.h		\
 	htmlengine-edit-paste.h			\
 	htmlengine-print.h			\
 	htmlengine-save.h			\
 	htmlengine.h				\
 	htmlentity.h				\
 	htmlgdkfontmanager.h			\
-	htmlfontstyle.h				\
 	htmlform.h				\
 	htmlgdkpainter.h			\
 	htmlhidden.h				\
@@ -73,8 +74,8 @@ libgtkhtml_HEADERS =				\
 libgtkhtml_la_SOURCES =				\
 	debug.c					\
 	gtkhtml-embedded.c			\
-	gtkhtml-private.h			\
 	gtkhtml.c				\
+	gtkhtmlfontstyle.c			\
 	htmlanchor.c				\
 	htmlbutton.c				\
 	htmlcheckbox.c				\
@@ -92,13 +93,13 @@ libgtkhtml_la_SOURCES =				\
 	htmlengine-edit-clueflowstyle.c		\
 	htmlengine-edit-copy.c			\
 	htmlengine-edit-cut.c			\
+	htmlengine-edit-fontstyle.c		\
 	htmlengine-edit-paste.c			\
 	htmlengine-print.c			\
 	htmlengine-save.c			\
 	htmlengine.c				\
 	htmlentity.c				\
 	htmlgdkfontmanager.c			\
-	htmlfontstyle.c				\
 	htmlform.c				\
 	htmlgdkpainter.c			\
 	htmlhidden.c				\

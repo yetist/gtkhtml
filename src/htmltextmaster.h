@@ -56,10 +56,10 @@ void        html_text_master_class_init  (HTMLTextMasterClass *class,
 void        html_text_master_init        (HTMLTextMaster      *master,
 					  HTMLTextMasterClass *klass,
 					  gchar               *text,
-					  HTMLFontStyle        font_style,
+					  GtkHTMLFontStyle     font_style,
 					  const GdkColor      *color);
 HTMLObject *html_text_master_new         (gchar               *text,
-					  HTMLFontStyle        font_style,
+					  GtkHTMLFontStyle     font_style,
 					  const GdkColor      *color);
 HTMLObject *html_text_master_get_slave   (HTMLTextMaster      *master,
 					  guint                offset);

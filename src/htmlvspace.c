@@ -42,14 +42,14 @@ static void
 calc_size (HTMLObject *self,
 	   HTMLPainter *painter)
 {
-	HTMLFontStyle font_style;
+	GtkHTMLFontStyle font_style;
 
 	if (self->parent != NULL
 	    && HTML_OBJECT_TYPE (self->parent) == HTML_TYPE_CLUEFLOW)
 		font_style = html_clueflow_get_default_font_style
 			(HTML_CLUEFLOW (self->parent));
 	else
-		font_style = HTML_FONT_STYLE_SIZE_3;
+		font_style = GTK_HTML_FONT_STYLE_SIZE_3;
 
 	self->ascent = html_painter_calc_ascent (painter, font_style);
 	self->descent = html_painter_calc_descent (painter, font_style);

@@ -23,6 +23,7 @@
 #include "htmlclueflow.h"
 #include "htmltext.h"
 #include "htmltextmaster.h"
+#include "debug.h"
 
 #include "htmlengine-edit-paste.h"
 
@@ -113,7 +114,8 @@ split_first_clueflow_at_cursor (HTMLEngine *engine,
 		GdkColor black = { 0, 0, 0, 0 };
 		HTMLObject *new_textmaster;
 
-		new_textmaster = html_text_master_new (g_strdup (""), HTML_FONT_STYLE_DEFAULT, &black);
+		new_textmaster = html_text_master_new (g_strdup (""), GTK_HTML_FONT_STYLE_DEFAULT,
+						       &black);
 		html_clue_prepend (HTML_CLUE (curr_clue), new_textmaster);
 
 		engine->cursor->object = new_textmaster;

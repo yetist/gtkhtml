@@ -25,6 +25,7 @@
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-paste.h"
 #include "htmlengine-edit-clueflowstyle.h"
+#include "htmlengine-edit-fontstyle.h"
 #include "htmlengine-print.h"
 
 #include "gtkhtml-private.h"
@@ -1045,4 +1046,16 @@ gtk_html_set_paragraph_style (GtkHTML *html,
 
 	gtk_signal_emit (GTK_OBJECT (html), signals[CURRENT_PARAGRAPH_STYLE_CHANGED],
 			 style);
+}
+
+void
+gtk_html_set_font_style (GtkHTML *html,
+			 GtkHTMLFontStyle style)
+{
+	g_return_if_fail (html != NULL);
+	g_return_if_fail (GTK_IS_HTML (html));
+
+	/* FIXME precondition: check if it's a valid style.  */
+
+	html_engine_set_font_style (html->engine, style);
 }

@@ -26,7 +26,7 @@
 
 static void
 load_font (HTMLPrintFontManager *manager,
-	   HTMLFontStyle style)
+	   GtkHTMLFontStyle style)
 {
 	const gchar *family_string;
 	GnomeFontWeight weight;
@@ -38,23 +38,23 @@ load_font (HTMLPrintFontManager *manager,
 	if (manager->fonts[style] != NULL)
 		return;
 
-	size = style & HTML_FONT_STYLE_SIZE_MASK;
+	size = style & GTK_HTML_FONT_STYLE_SIZE_MASK;
 	if (size == 0)
 		size = 3;
 
 	real_size = 10 + 2 * (size - 3);
 
-	if (style & HTML_FONT_STYLE_BOLD)
+	if (style & GTK_HTML_FONT_STYLE_BOLD)
 		weight = GNOME_FONT_BOLD;
 	else
 		weight = GNOME_FONT_BOOK;
 
-	if (style & HTML_FONT_STYLE_ITALIC)
+	if (style & GTK_HTML_FONT_STYLE_ITALIC)
 		italic = TRUE;
 	else
 		italic = FALSE;
 
-	if (style & HTML_FONT_STYLE_FIXED)
+	if (style & GTK_HTML_FONT_STYLE_FIXED)
 		family_string = "Courier";
 	else
 		family_string = "Helvetica";
@@ -88,7 +88,7 @@ html_print_font_manager_destroy  (HTMLPrintFontManager *manager)
 
 	g_return_if_fail (manager != NULL);
 
-	for (i = 0; i < HTML_FONT_STYLE_MAX; i++) {
+	for (i = 0; i < GTK_HTML_FONT_STYLE_MAX; i++) {
 		if (manager->fonts[i] != NULL)
 			gtk_object_unref (GTK_OBJECT (manager->fonts[i]));
 	}
@@ -99,10 +99,10 @@ html_print_font_manager_destroy  (HTMLPrintFontManager *manager)
 
 GnomeFont *
 html_print_font_manager_get_font  (HTMLPrintFontManager *manager,
-				   HTMLFontStyle style)
+				   GtkHTMLFontStyle style)
 {
 	g_return_val_if_fail (manager != NULL, NULL);
-	g_return_val_if_fail (style < HTML_FONT_STYLE_MAX, NULL);
+	g_return_val_if_fail (style < GTK_HTML_FONT_STYLE_MAX, NULL);
 
 	load_font (manager, style);
 
