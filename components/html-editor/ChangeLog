@@ -1,3 +1,11 @@
+2002-02-12  Radek Doulik  <rodo@ximian.com>
+
+	* engine.c (impl_has_undo): renamed from impl_is_dirty
+	(editor_engine_get_epv): updated to changed API
+
+	* Editor.idl: renamed isDirty flag to hasUndo and commented
+	dropUndo and hasUndo methods
+
 2002-02-08  Larry Ewing  <lewing@ximian.com>
 
 	* link.c (test_clicked): handler for new "Test URL" button.

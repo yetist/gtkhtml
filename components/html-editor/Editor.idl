@@ -87,8 +87,15 @@ module Editor {
 
 		void ignoreWord (in string word);
 
-		boolean isDirty ();
+		/*
+		 * drop undo drops all undo/redo queues
+		 */
 		void dropUndo ();
+
+		/*
+		 * is there any undo event in undo queue?
+		 */
+		boolean hasUndo ();
 	};
 	
 	struct URLRequestEvent {

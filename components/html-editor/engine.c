@@ -211,13 +211,13 @@ impl_ignore_word (PortableServer_Servant servant, const CORBA_char * word, CORBA
 }
 
 static CORBA_boolean
-impl_is_dirty (PortableServer_Servant servant, CORBA_Environment * ev)
+impl_has_undo (PortableServer_Servant servant, CORBA_Environment * ev)
 {
 	EditorEngine *e = html_editor_engine_from_servant (servant);
 
-	/* printf ("isDirty\n"); */
+	/* printf ("hasUndo\n"); */
 
-	return gtk_html_is_dirty (e->cd->html);
+	return gtk_html_has_undo (e->cd->html);
 }
 
 static void
@@ -252,7 +252,7 @@ editor_engine_get_epv (void)
 	epv->undoBegin                = impl_undo_begin;
 	epv->undoEnd                  = impl_undo_end;
 	epv->ignoreWord               = impl_ignore_word;
-	epv->isDirty                  = impl_is_dirty;
+	epv->hasUndo                  = impl_has_undo;
 	epv->dropUndo                 = impl_drop_undo;
 
 	return epv;
