@@ -246,6 +246,8 @@ static void
 unset_focus (GtkWidget *w, gpointer data)
 {
 	GTK_WIDGET_UNSET_FLAGS (w, GTK_CAN_FOCUS);
+	if (GTK_IS_CONTAINER (w))
+		gtk_container_forall (GTK_CONTAINER (w), unset_focus, NULL);
 }
 
 inline static void

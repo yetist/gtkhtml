@@ -93,6 +93,13 @@ typedef struct _SetFrameData SetFrameData;
 
 GtkHTMLEditorAPI *editor_api;
 
+static gint
+gtk_toolbar_focus (GtkContainer     *container,
+			  GtkDirectionType  direction)
+{
+	return FALSE;
+}
+
 static void
 set_frame_cb (BonoboControl *control,
 	      gpointer data)
@@ -115,6 +122,10 @@ set_frame_cb (BonoboControl *control,
 	/* Setup the tool bar.  */
 
 	toolbar = toolbar_style (control_data);
+
+	/* hack to fix gtk toolbar focus bug, should be removed once gtk+ is fixed */
+	if (GTK_CONTAINER_CLASS (gtk_type_class (gtk_toolbar_get_type ()))->focus == NULL)
+		GTK_CONTAINER_CLASS (gtk_type_class (gtk_toolbar_get_type ()))->focus = gtk_toolbar_focus;
 	gtk_box_pack_start (GTK_BOX (control_data->vbox), toolbar, FALSE, FALSE, 0);
 
 	scroll_frame = e_scroll_frame_new (NULL, NULL);
