@@ -571,6 +571,8 @@ key_press_event (GtkWidget *widget,
 	GtkHTML *html = GTK_HTML (widget);
 	gboolean retval;
 
+	/* printf ("keypress %x len %d state %d\n", event->keyval, event->length, event->state); */
+
 	html->binding_handled = FALSE;
 	gtk_bindings_activate (GTK_OBJECT (widget), event->keyval, event->state);
 	retval = html->binding_handled;
@@ -1940,11 +1942,14 @@ static void
 load_keybindings (GtkHTMLClass *klass)
 {
 	GtkBindingSet  *binding_set;
+	gchar *rcfile;
 
 	/* keybindings */
 	binding_set = gtk_binding_set_by_class (klass);
 
-	/* gtk_rc_parse ("/home/rodo/gtkhtml/src/keybindingsrc.ms"); */
+	rcfile = gnome_unconditional_datadir_file ("keybindingsrc.emacs");
+	gtk_rc_parse (rcfile);
+	g_free (rcfile);
 
 	/* layout scrolling */
 

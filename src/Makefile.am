@@ -185,3 +185,12 @@ dist-hook:
 	mkdir $(distdir)/tests
 	cp -f $(srcdir)/tests/*.html $(distdir)/tests
 	cp -f $(srcdir)/tests/*.jpg $(distdir)/tests
+
+EXTRA_DIST = \
+	keybindingsrc.emacs \
+	keybindingsrc.ms
+
+keybindingsdir = $(datadir)/gtkhtml
+keybindings_DATA = \
+	keybindingsrc.emacs \
+	keybindingsrc.ms
