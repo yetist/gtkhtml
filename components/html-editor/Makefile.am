@@ -1,6 +1,6 @@
 # Basic setup
 
-gladedir = $(datadir)/gtkhtml
+gladedir = $(datadir)/$(GTKHTML_RELEASE_STRING)
 glade_DATA = 	gtkhtml-editor-properties.glade
 
 INCLUDES =						\

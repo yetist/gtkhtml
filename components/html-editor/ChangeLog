@@ -1,3 +1,7 @@
+2002-03-27  Larry Ewing  <lewing@ximian.com>
+
+	* Makefile.am (gladedir): add versioning to the glade files
+
 2002-03-26  Larry Ewing  <lewing@ximian.com>
 
 	* test-html-editor-control.c (main): see below.
