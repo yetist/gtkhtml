@@ -1728,7 +1728,7 @@ button_press_event (GtkWidget *widget,
 					html_engine_set_focus_object (orig_e, obj, offset);
 				else {
 					html_engine_set_focus_object (orig_e, NULL, 0);
-					if (orig_e->caret_mode)
+					if (orig_e->caret_mode || engine->caret_mode)
 						html_engine_jump_at (engine, x, y);
 				}
 			}

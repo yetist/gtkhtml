@@ -1,3 +1,8 @@
+2005-01-05  Mengjie Yu  <meng-jie.yu@sun.com>
+
+	fixes #70931
+	* gtkhtml.c: (button_press_event):check for caret_mode
+
 2005-01-04  Radek Doulik  <rodo@ximian.com>
 
 	* htmltextslave.c: size calculation rewritten, updated line
