@@ -502,8 +502,8 @@ object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, g
 	html_object_change_set (dup,  HTML_CHANGE_ALL);
 
 	split_word_width (HTML_TEXT (self), HTML_TEXT (dup), e->painter, offset);
-	//html_text_clear_word_width (HTML_TEXT (self));
-	//html_text_clear_word_width (HTML_TEXT (dup));
+	/* html_text_clear_word_width (HTML_TEXT (self));
+	   html_text_clear_word_width (HTML_TEXT (dup)); */
 
 	level--;
 	if (level)

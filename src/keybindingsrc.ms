@@ -13,6 +13,10 @@ binding "gtkhtml-bindings-ms"
   bind "<Shift>Down"          { "command" (selection-move-down) }
   bind "<Shift>Left"          { "command" (selection-move-left) }
   bind "<Shift>Right"         { "command" (selection-move-right) }
+  bind "<Ctrl><Shift>Left"    { "command" (selection-move-prev-word) }
+  bind "<Ctrl><Shift>Right"   { "command" (selection-move-next-word) }
+  bind "<Alt><Shift>Left"     { "command" (selection-move-prev-word) }
+  bind "<Alt><Shift>Right"    { "command" (selection-move-next-word) }
 
   bind "<Shift>Home"          { "command" (selection-move-bol) }
   bind "<Shift>End"           { "command" (selection-move-eol) }

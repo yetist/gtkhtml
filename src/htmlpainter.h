@@ -71,7 +71,7 @@ struct _HTMLPainterClass {
 	void (* draw_line)        (HTMLPainter *painter, gint x1, gint y1, gint x2, gint y2);
 	void (* draw_rect)        (HTMLPainter *painter, gint x, gint y, gint width, gint height);
 	void (* draw_text)        (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len);
-	void (* draw_spell_error) (HTMLPainter *painter, gint x, gint y, const gchar *text, guint off, gint len);
+	void (* draw_spell_error) (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len);
 	void (* fill_rect)        (HTMLPainter *painter, gint x, gint y, gint width, gint height);
 	void (* draw_pixmap)      (HTMLPainter *painter, GdkPixbuf *pixbuf, 
 				   gint x, gint y,
@@ -221,7 +221,6 @@ void              html_painter_draw_spell_error                        (HTMLPain
 									gint               x,
 									gint               y,
 									const gchar       *text,
-									guint              off,
 									gint               len);
 HTMLFont         *html_painter_alloc_font                              (HTMLPainter       *painter,
 									gchar             *face_name,

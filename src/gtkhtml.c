@@ -2598,6 +2598,12 @@ move_selection (GtkHTML *html, GtkHTMLCommandType com_type)
 		html_engine_end_of_document (html->engine);
 		rv = TRUE;
 		break;
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_PREV_WORD:
+		rv = html_engine_backward_word (html->engine);
+		break;
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_NEXT_WORD:
+		rv = html_engine_forward_word (html->engine);
+		break;
 	case GTK_HTML_COMMAND_MODIFY_SELECTION_PAGEUP:
 		if ((amount = html_engine_scroll_up (html->engine, GTK_WIDGET (html)->allocation.height)) > 0) {
 			scroll_by_amount (html, - amount);
@@ -2846,6 +2852,8 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_MODIFY_SELECTION_EOD:
 	case GTK_HTML_COMMAND_MODIFY_SELECTION_PAGEUP:
 	case GTK_HTML_COMMAND_MODIFY_SELECTION_PAGEDOWN:
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_PREV_WORD:
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_NEXT_WORD:
 		rv = move_selection (html, com_type);
 		break;
 	case GTK_HTML_COMMAND_SELECT_WORD:

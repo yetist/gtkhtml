@@ -21,6 +21,9 @@
     Boston, MA 02111-1307, USA.
 
 */
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #include <stdio.h>
 #include <gnome.h>
 #include "gtkhtml.h"

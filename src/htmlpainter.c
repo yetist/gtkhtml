@@ -388,25 +388,25 @@ html_painter_draw_text (HTMLPainter *painter,
 	else {
 		guint space_width = html_painter_get_space_width (painter, painter->font_style, painter->font_face);
 		const gchar *tab, *found_tab;
-		gint l, cl, lo, skip;
+		gint drawed_len, current_len, skip;
 
-		l = 0;
-		lo = line_offset;
-		found_tab = tab = text;
-		while (tab && (found_tab = strchr (tab, '\t')) && l < len) {
-			cl = g_utf8_pointer_to_offset (tab, found_tab);
-			if (l + cl > len)
-				cl = len - l;
-			(* HP_CLASS (painter)->draw_text) (painter, x, y, tab, cl);
-			l   += cl;
-			lo  += cl;
-			skip = 8 - (lo % 8);
-			x   += (skip + cl) * space_width;
-			lo  += skip;
-			tab  = found_tab + 1;
-			l ++;
+		drawed_len = 0;
+		found_tab  = tab = text;
+		while (tab && (found_tab = strchr (tab, '\t')) && drawed_len < len) {
+			current_len  = g_utf8_pointer_to_offset (tab, found_tab);
+			if (drawed_len + current_len > len)
+				current_len = len - drawed_len;
+			(* HP_CLASS (painter)->draw_text) (painter, x, y, tab, current_len);
+			drawed_len  += current_len;
+			line_offset += current_len;
+			skip         = 8 - (line_offset % 8);
+			x           += (skip + current_len) * space_width;
+			line_offset += skip;
+			tab          = found_tab + 1;
+			drawed_len ++;
 		}
-		(* HP_CLASS (painter)->draw_text) (painter, x, y, tab, len - l);
+		if (len > drawed_len)
+			(* HP_CLASS (painter)->draw_text) (painter, x, y, tab, len - drawed_len);
 	}
 }
 
@@ -541,9 +541,9 @@ void
 html_painter_draw_spell_error (HTMLPainter *painter,
 			       gint x, gint y,
 			       const gchar *text,
-			       guint off, gint len)
+			       gint len)
 {
-	(* HP_CLASS (painter)->draw_spell_error) (painter, x, y, text, off, len);
+	(* HP_CLASS (painter)->draw_spell_error) (painter, x, y, text, len);
 }
 
 HTMLFont *

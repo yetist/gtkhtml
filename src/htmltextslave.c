@@ -319,7 +319,7 @@ get_ys (HTMLText *text, HTMLPainter *p)
 }
 
 static void
-draw_spell_errors (HTMLTextSlave *slave, HTMLPainter *p, gint tx, gint ty)
+draw_spell_errors (HTMLTextSlave *slave, HTMLPainter *p, gint tx, gint ty, gint line_offset)
 {
 	GList *cur = HTML_TEXT (slave->owner)->spell_errors;
 	HTMLObject *obj = HTML_OBJECT (slave);
@@ -333,12 +333,18 @@ draw_spell_errors (HTMLTextSlave *slave, HTMLPainter *p, gint tx, gint ty)
 		if (ma < mi) {
 			guint off = ma - slave->posStart;
 			guint len = mi - ma;
+			gint x_off;
 
 			html_painter_set_pen (p, &html_colorset_get_color_allocated (p, HTMLSpellErrorColor)->color);
 			/* printf ("spell error: %s\n", html_text_get_text (slave->owner, off)); */
-			html_painter_draw_spell_error (p, obj->x + tx, obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
-						       html_text_get_text (HTML_TEXT (slave->owner), slave->posStart),
-						       off, len);
+			x_off = html_painter_calc_text_width (p, html_text_get_text (HTML_TEXT (slave->owner),
+										     slave->posStart), off, line_offset,
+							      p->font_style,
+							      p->font_face);
+			html_painter_draw_spell_error (p, obj->x + tx + x_off,
+						       obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
+						       html_text_get_text (HTML_TEXT (slave->owner), slave->posStart + off),
+						       len);
 		}
 		if (se->off > slave->posStart + slave->posLen)
 			break;
@@ -352,7 +358,7 @@ draw_normal (HTMLTextSlave *self,
 	     GtkHTMLFontStyle font_style,
 	     gint x, gint y,
 	     gint width, gint height,
-	     gint tx, gint ty)
+	     gint tx, gint ty, gint line_offset)
 {
 	HTMLObject *obj;
 
@@ -365,9 +371,8 @@ draw_normal (HTMLTextSlave *self,
 	html_painter_draw_text (p,
 				obj->x + tx, obj->y + ty + get_ys (HTML_TEXT (self->owner), p),
 				html_text_get_text (HTML_TEXT (self->owner), self->posStart),
-				self->posLen, html_text_get_line_offset_at_offset (self->owner,
-										   html_text_get_line_offset (self->owner),
-										   self->posStart));
+				self->posLen,
+				html_text_get_line_offset_at_offset (self->owner, line_offset, self->posStart));
 }
 
 static void
@@ -376,12 +381,12 @@ draw_highlighted (HTMLTextSlave *slave,
 		  GtkHTMLFontStyle font_style,
 		  gint x, gint y,
 		  gint width, gint height,
-		  gint tx, gint ty)
+		  gint tx, gint ty, gint line_offset)
 {
 	HTMLText *owner;
 	HTMLObject *obj;
 	guint start, end, len;
-	gint offset_width, text_width, line_offset;
+	gint offset_width, text_width;
 	const gchar *text;
 
 	obj = HTML_OBJECT (slave);
@@ -459,6 +464,7 @@ draw (HTMLObject *o,
 	GtkHTMLFontStyle font_style;
 	guint end;
 	ArtIRect paint;
+	gint line_offset;
 
 	html_object_calc_intersection (o, &paint, x, y, width, height);
 	if (art_irect_empty (&paint))
@@ -468,16 +474,17 @@ draw (HTMLObject *o,
 	owner = textslave->owner;
 	ownertext = HTML_TEXT (owner);
 	font_style = html_text_get_font_style (ownertext);
+	line_offset = html_text_get_line_offset (owner);
 
 	end = textslave->posStart + textslave->posLen;
 	if (owner->select_start + owner->select_length <= textslave->posStart
 	    || owner->select_start >= end) {
-		draw_normal (textslave, p, font_style, x, y, width, height, tx, ty);
+		draw_normal (textslave, p, font_style, x, y, width, height, tx, ty, line_offset);
 	} else {
-		draw_highlighted (textslave, p, font_style, x, y, width, height, tx, ty);
+		draw_highlighted (textslave, p, font_style, x, y, width, height, tx, ty, line_offset);
 	}
 
-	draw_spell_errors (textslave, p, tx ,ty);
+	draw_spell_errors (textslave, p, tx ,ty, line_offset);
 }
 
 static gint

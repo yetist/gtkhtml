@@ -1,3 +1,23 @@
+2001-05-08  Radek Doulik  <rodo@ximian.com>
+
+	* htmltextslave.c (draw_spell_errors): updated
+
+	* htmlgdkpainter.c (draw_spell_error): updated
+
+	* htmlpainter.c (html_painter_draw_text): don't draw when
+	drawed_len > len
+	(html_painter_draw_spell_error): removed off parameter, now we
+	call draw_spell_error with exact x position and text which should
+	be error-highlighted
+
+	* htmlgdkpainter.c (draw_spell_error): use line_offset
+
+	* gtkhtml-properties.c: added select prev/next word commands
+
+	* gtkhtml.c (move_selection): select prev/next word
+
+	* htmlpainter.c (html_painter_draw_text): slightly refactored
+
 2001-05-07  Radek Doulik  <rodo@ximian.com>
 
 	* htmltextslave.c (draw_normal): use line_offset

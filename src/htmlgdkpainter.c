@@ -878,17 +878,13 @@ e_style (GtkHTMLFontStyle style)
 }
 
 static void
-draw_spell_error (HTMLPainter *painter,
-		  gint x, gint y,
-		  const gchar *text,
-		  guint off, gint len)
+draw_spell_error (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len)
 {
 	HTMLGdkPainter *gdk_painter;
 	EFont *e_font;
 	GdkGCValues values;
-	guint x_off, width;
+	guint width;
 	gchar dash [2];
-	const gchar *offtext;
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
@@ -896,10 +892,8 @@ draw_spell_error (HTMLPainter *painter,
 	y -= gdk_painter->y1;
 
 	e_font  = html_painter_get_font  (painter, painter->font_face, painter->font_style);
-	offtext = g_utf8_offset_to_pointer (text, off);
-	x_off   = e_font_utf8_text_width (e_font, e_style (painter->font_style), text, offtext - text) + x;
-	width   = e_font_utf8_text_width (e_font, e_style (painter->font_style), offtext,
-					  g_utf8_offset_to_pointer (offtext, len) - offtext) + x_off;
+	width   = e_font_utf8_text_width (e_font, e_style (painter->font_style), text,
+					  g_utf8_offset_to_pointer (text, len) - text);
 
 	gdk_gc_get_values (gdk_painter->gc, &values);
 	gdk_gc_set_fill (gdk_painter->gc, GDK_OPAQUE_STIPPLED);
@@ -907,13 +901,9 @@ draw_spell_error (HTMLPainter *painter,
 	dash [1] = 2;
 	gdk_gc_set_line_attributes (gdk_painter->gc, 1, GDK_LINE_ON_OFF_DASH, values.cap_style, values.join_style);
 	gdk_gc_set_dashes (gdk_painter->gc, 2, dash, 2);
-	gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc,
-		       x_off, y, 
-		       width, y);
+	gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, x, y, x + width, y);
 	gdk_gc_set_dashes (gdk_painter->gc, 0, dash, 2);
-	gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc,
-		       x_off, y + 1, 
-		       width, y + 1);
+	gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, x, y + 1, x + width, y + 1);
 	gdk_gc_set_line_attributes (gdk_painter->gc, values.line_width,
 				    values.line_style, values.cap_style, values.join_style);
 }
