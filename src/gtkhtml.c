@@ -739,14 +739,36 @@ style_set (GtkWidget *widget, GtkStyle  *previous_style)
 	HTMLEngine *engine = GTK_HTML (widget)->engine;
        	GtkHTMLClass *klass = GTK_HTML_CLASS (GTK_WIDGET_GET_CLASS (widget));
 	GtkHTMLClassProperties *prop = klass->properties;	
-
+	PangoFontDescription *fixed_desc = NULL;
+	char *fixed_name = NULL;
+	gint  fixed_size = 0;
 
 	g_free (prop->font_var);
 	prop->font_var = pango_font_description_to_string (widget->style->font_desc);
 	prop->font_var_size = PANGO_PIXELS (pango_font_description_get_size (widget->style->font_desc));
-	prop->font_fix_size = PANGO_PIXELS (pango_font_description_get_size (widget->style->font_desc));
 
 
+	g_free (prop->font_fix);
+	gtk_widget_style_get (widget, "fixed_font", &fixed_name, NULL);
+	if (fixed_name) {
+		fixed_desc = pango_font_description_from_string (fixed_name);
+		if (pango_font_description_get_family (fixed_desc)) {
+			fixed_size = PANGO_PIXELS (pango_font_description_get_size (fixed_desc));
+			pango_font_description_free (fixed_desc);
+		} else {
+			g_free (fixed_name);
+			fixed_name = NULL;
+		}
+	}
+
+	if (!fixed_name) {
+		fixed_name = g_strdup ("Monospace");
+		fixed_desc = pango_font_description_from_string (fixed_name);
+		fixed_size = prop->font_var_size;
+	}
+	prop->font_fix = fixed_name;
+	prop->font_fix_size = fixed_size;
+	
 	/* we don't need to set font's in idle time so call idle callback directly to avoid
 	   recalculating whole document
 	*/
