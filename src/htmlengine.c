@@ -2456,12 +2456,12 @@ parse_m (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 static void
 html_object_changed(GtkHTMLEmbedded *eb, HTMLEngine *e)
 {
-	HTMLEmbedded *el;
+	HTMLObject *object;
 
-	el = gtk_object_get_data(GTK_OBJECT(eb), "embeddedelement");
-	if (el)
-		html_embedded_size_recalc(el);
-
+	object = gtk_object_get_data(GTK_OBJECT(eb), "embeddedelement");
+	if (object)
+		html_object_calc_size (object, e->painter);
+	
 	html_engine_schedule_update(e);
 }
 
@@ -2575,6 +2575,7 @@ parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 /*
   <p
   <pre             </pre>
+  <param
 */
 /* EP CHECK: OK except for the `<pre>' font.  */
 static void

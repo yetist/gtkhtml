@@ -142,27 +142,30 @@ calc_size (HTMLObject *self,
 	GtkWidget *widget;
 	HTMLEmbedded *emb = HTML_EMBEDDED (self);
 	gint pixel_size;
-	gint old_width, old_ascent;
+	gint old_width, old_ascent, old_descent;
 	GtkRequisition requisition;
 
 	widget = emb->widget;
-	if (widget == NULL || !GTK_WIDGET_REALIZED (widget))
+	if (widget == NULL)
 		return FALSE;
 
 	pixel_size = html_painter_get_pixel_size (painter);
 
 	old_width = self->width;
 	old_ascent = self->ascent;
+	old_descent = self->descent;
 
 	gtk_widget_size_request (widget, &requisition);
+	
+	if (GTK_IS_HTML_EMBEDDED(widget))
+		self->descent = GTK_HTML_EMBEDDED (widget)->descent * pixel_size;
+	else
+		self->descent = 0;
 
 	self->width  = requisition.width  * pixel_size;
-	self->ascent = requisition.height * pixel_size;
+	self->ascent = requisition.height * pixel_size - self->descent;
 
-	/* This never changes.  */
-	self->descent = 0;
-
-	if (old_width != self->width || old_ascent != self->ascent)
+	if (old_width != self->width || old_ascent != self->ascent || old_ascent != self->descent)
 		return TRUE;
 
 	return FALSE;
@@ -296,31 +299,6 @@ html_embedded_init (HTMLEmbedded *element,
 	element->width  = 0;
 	element->height = 0;
 	element->abs_x  = element->abs_y = -1;
-}
-
-void
-html_embedded_size_recalc (HTMLEmbedded *em)
-{
-	HTMLObject *o;
-	GtkHTMLEmbedded *eb;
-	GtkRequisition req;
-
-	o = HTML_OBJECT (em);
-
-	if (em->widget == NULL)
-		return;
-	eb = (GtkHTMLEmbedded *)em->widget;
-
-	gtk_widget_size_request (em->widget, &req);
-
-	o->width = req.width;
-	if (GTK_IS_HTML_EMBEDDED(eb)) {
-		o->descent = eb->descent;
-	} else {
-		o->descent = 0;
-	}
-
-	o->ascent = req.height - o->descent;
 }
 
 static gboolean

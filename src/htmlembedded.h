@@ -68,6 +68,5 @@ gchar        *html_embedded_encode         (HTMLEmbedded      *element);
 gchar        *html_embedded_encode_string  (gchar             *str);
 HTMLEmbedded *html_embedded_new_widget     (GtkWidget         *parent,
 					    GtkHTMLEmbedded   *eb);
-void          html_embedded_size_recalc    (HTMLEmbedded      *em);
 
 #endif /* HTMLEMBEDDED_H */

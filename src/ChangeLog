@@ -1,3 +1,16 @@
+2001-03-13  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (html_object_changed): call html_object_calc_size
+	on the embedded element rather than html_embedded_size_recalc.
+
+	* htmlembedded.c (calc_size): take the descent from the embedded
+	element into account.  Remove the requirement that the widget be
+	realized.
+	(html_embedded_size_recalc): removed, use html_object_calc_size
+	instead.
+	
+	* htmlembedded.h (html_embedded_size_recalc): remove prototype.
+
 2001-03-13  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (command): return for already handled commands
