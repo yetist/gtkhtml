@@ -1,3 +1,8 @@
+2001-05-31  Christopher James Lahey  <clahey@ximian.com>
+
+	* Makefile.am (gtkhtmlConf.sh), configure.in, gtkhtmlConf.sh.in:
+	Added GTKHTML_DATADIR here.
+
 2001-05-12  Almer S. Tigelaar  <almer@gnome.org>
 
 	* configure.in: Depend on gal 0.7.99.5 or later
