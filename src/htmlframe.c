@@ -453,6 +453,7 @@ destroy (HTMLObject *o)
 		gtk_signal_disconnect_by_data (GTK_OBJECT (frame->html), o);
 		frame->html = NULL;
 	}
+	g_free ((frame)->url);
 
 	HTML_OBJECT_CLASS (parent_class)->destroy (o);
 }
@@ -575,6 +576,9 @@ html_frame_init (HTMLFrame *frame,
 	gtk_signal_connect (GTK_OBJECT (new_html), "object_requested",
 			    GTK_SIGNAL_FUNC (frame_object_requested),
 			    (gpointer)frame);	
+
+	html_frame_set_margin_height (frame, 0);
+	html_frame_set_margin_width (frame, 0);
 	/*
 	  gtk_signal_connect (GTK_OBJECT (new_html), "set_base",
 	  GTK_SIGNAL_FUNC (frame_set_base), (gpointer)frame);

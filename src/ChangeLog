@@ -1,3 +1,11 @@
+2001-06-02  Larry Ewing  <lewing@ximian.com>
+
+	* htmlframe.c (destroy): free the url.
+	(html_frame_init): set the initial margins on the frame to 0 this
+	seems to be what mozilla does.
+
+	* htmlframeset.c (calc_size): free the temp arrays.
+
 2001-06-01  Larry Ewing  <lewing@ximian.com>
 
 	* htmltablecell.c (calc_min_width): fix the logic so that

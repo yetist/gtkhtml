@@ -196,7 +196,10 @@ calc_size (HTMLObject *o,
 		}
 		
 		remain_y -= heights[r];
-	}		 				
+	}		
+
+	g_free (widths);
+	g_free (heights);
 	return TRUE;
 }
 
