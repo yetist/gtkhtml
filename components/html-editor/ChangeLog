@@ -1,3 +1,7 @@
+2002-03-29  Larry Ewing  <lewing@ximian.com>
+
+	* html-editor-control.gnorba: remove from archive.
+
 2002-03-27  Larry Ewing  <lewing@ximian.com>
 
 	* Makefile.am (gladedir): add versioning to the glade files
