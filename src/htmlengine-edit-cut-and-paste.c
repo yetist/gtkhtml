@@ -618,12 +618,12 @@ html_engine_insert_text (HTMLEngine *e, const gchar *text, guint len)
 			o = html_engine_new_text (e, text, alen);
 			html_text_convert_nbsp (HTML_TEXT (o), TRUE);
 
-			if (alen == 1) {
-				if (html_is_in_word (html_text_get_char (HTML_TEXT (o), 0)))
+			if (alen == 1 && html_is_in_word (html_text_get_char (HTML_TEXT (o), 0))
+			    && !html_is_in_word (html_cursor_get_current_char (e->cursor)))
 					e->need_spell_check = TRUE;
-				else if (e->need_spell_check)
-					html_engine_spell_check_range (e, e->cursor, e->cursor);
-			} else
+				/* else if (e->need_spell_check)
+				   html_engine_spell_check_range (e, e->cursor, e->cursor); */
+			else
 				check = TRUE;
 			insert_object (e, o, html_object_get_length (o), HTML_UNDO_UNDO, check);
 		}
