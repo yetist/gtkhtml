@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8.2\n"
-"POT-Creation-Date: 2001-04-17 10:08-0500\n"
-"PO-Revision-Date: 2001-02-22 09:39+0100\n"
+"POT-Creation-Date: 2001-04-09 17:02+0100\n"
+"PO-Revision-Date: 2001-04-09 17:10+0100\n"
 "Last-Translator: Pier Luigi Fiorini <plfiorini@libero.it>\n"
 "Language-Team: Italiano <it@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -135,31 +135,31 @@ msgstr "Larghezza proporzionale"
 
 #: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:1
 msgid "EBrowser control"
-msgstr ""
+msgstr "Controllo EBrowser"
 
 #: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:2
 msgid "EBrowser factory"
-msgstr ""
+msgstr "Fabbrica di EBrowser"
 
 #: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:3
 msgid "Factory for the EBrowser control"
-msgstr ""
+msgstr "Fabbrica del controllo EBrowser"
 
 #: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:4
 msgid "HTML Browser conrtol"
-msgstr ""
+msgstr "Controllo Browser HTML"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:1
 msgid "An HTML Editor control"
-msgstr ""
+msgstr "Un controllo Editor HTML"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:2
 msgid "Factory for the HTML Editor control"
-msgstr ""
+msgstr "Fabbrica del controllo Editor HTML"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:3
 msgid "HTML editor control"
-msgstr ""
+msgstr "Controllo Editor HTML"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:1
 msgid "C_ut"
@@ -339,38 +339,38 @@ msgstr "Abilita"
 msgid "Colors"
 msgstr "Colori"
 
-#: components/html-editor/editor-control-factory.c:145
+#: components/html-editor/editor-control-factory.c:142
 #: components/html-editor/popup.c:81
 msgid "Properties"
 msgstr "Proprietà"
 
-#: components/html-editor/editor-control-factory.c:156
+#: components/html-editor/editor-control-factory.c:153
 #: components/html-editor/menubar.c:97 components/html-editor/popup.c:96
 msgid "Image"
 msgstr "Immagine"
 
-#: components/html-editor/editor-control-factory.c:165
+#: components/html-editor/editor-control-factory.c:162
 #: components/html-editor/menubar.c:118 components/html-editor/popup.c:89
 msgid "Text"
 msgstr "Testo"
 
-#: components/html-editor/editor-control-factory.c:176
+#: components/html-editor/editor-control-factory.c:173
 #: components/html-editor/menubar.c:141 components/html-editor/popup.c:124
 msgid "Rule"
 msgstr "Linea orizzontale"
 
-#: components/html-editor/editor-control-factory.c:185
+#: components/html-editor/editor-control-factory.c:182
 #: components/html-editor/popup.c:103
 msgid "Paragraph"
 msgstr "Paragrafo"
 
-#: components/html-editor/editor-control-factory.c:190
+#: components/html-editor/editor-control-factory.c:187
 #: components/html-editor/menubar.c:102 components/html-editor/menubar.c:123
 #: components/html-editor/popup.c:110
 msgid "Link"
 msgstr "Link"
 
-#: components/html-editor/editor-control-factory.c:195
+#: components/html-editor/editor-control-factory.c:192
 #: components/html-editor/popup.c:117
 msgid "Page"
 msgstr "Pagina"
@@ -384,7 +384,7 @@ msgid "Top"
 msgstr "Alto"
 
 #: components/html-editor/image.c:202 components/html-editor/paragraph.c:158
-#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:490
+#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:457
 msgid "Center"
 msgstr "Centro"
 
@@ -528,23 +528,23 @@ msgstr "Apri file..."
 msgid "Save file as..."
 msgstr "Salva file come..."
 
-#: components/html-editor/text.c:180 components/html-editor/toolbar.c:501
+#: components/html-editor/text.c:180 components/html-editor/toolbar.c:468
 msgid "Bold"
 msgstr "Grassetto"
 
-#: components/html-editor/text.c:181 components/html-editor/toolbar.c:503
+#: components/html-editor/text.c:181 components/html-editor/toolbar.c:470
 msgid "Italic"
 msgstr "Corsivo"
 
-#: components/html-editor/text.c:182 components/html-editor/toolbar.c:505
+#: components/html-editor/text.c:182 components/html-editor/toolbar.c:472
 msgid "Underline"
 msgstr "Sottolineato"
 
-#: components/html-editor/text.c:183 components/html-editor/toolbar.c:507
+#: components/html-editor/text.c:183 components/html-editor/toolbar.c:474
 msgid "Strikeout"
 msgstr "Barrato"
 
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:280
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:247
 msgid "Automatic"
 msgstr "Automatico"
 
@@ -553,36 +553,36 @@ msgid "Normal"
 msgstr "Normale"
 
 #: components/html-editor/toolbar.c:51
-msgid "Preformat"
-msgstr ""
-
-#: components/html-editor/toolbar.c:52
 msgid "Header 1"
 msgstr "Titolo 1"
 
-#: components/html-editor/toolbar.c:53
+#: components/html-editor/toolbar.c:52
 msgid "Header 2"
 msgstr "Titolo 2"
 
-#: components/html-editor/toolbar.c:54
+#: components/html-editor/toolbar.c:53
 msgid "Header 3"
 msgstr "Titolo 3"
 
-#: components/html-editor/toolbar.c:55
+#: components/html-editor/toolbar.c:54
 msgid "Header 4"
 msgstr "Titolo 4"
 
-#: components/html-editor/toolbar.c:56
+#: components/html-editor/toolbar.c:55
 msgid "Header 5"
 msgstr "Titolo 5"
 
-#: components/html-editor/toolbar.c:57
+#: components/html-editor/toolbar.c:56
 msgid "Header 6"
 msgstr "Titolo 6"
 
-#: components/html-editor/toolbar.c:58
+#: components/html-editor/toolbar.c:57
 msgid "Address"
 msgstr "Indirizzo"
+
+#: components/html-editor/toolbar.c:58
+msgid "Pre"
+msgstr "Testo preformattato"
 
 #: components/html-editor/toolbar.c:59
 msgid "List item (digit)"
@@ -596,64 +596,64 @@ msgstr "Voce elenco (non numerato)"
 msgid "List item (roman)"
 msgstr "Voce elenco (romano)"
 
-#: components/html-editor/toolbar.c:488
+#: components/html-editor/toolbar.c:455
 msgid "Left align"
 msgstr "Allinea a sinistra"
 
-#: components/html-editor/toolbar.c:488
+#: components/html-editor/toolbar.c:455
 msgid "Left justifies the paragraphs"
 msgstr "Giustifica a sinistra i paragrafi"
 
-#: components/html-editor/toolbar.c:490
+#: components/html-editor/toolbar.c:457
 msgid "Centers justifies the paragraphs"
 msgstr "Giustifica al centro i paragrafi"
 
-#: components/html-editor/toolbar.c:492
+#: components/html-editor/toolbar.c:459
 msgid "Right align"
 msgstr "Allinea a destra"
 
-#: components/html-editor/toolbar.c:492
+#: components/html-editor/toolbar.c:459
 msgid "Right justifies the paragraphs"
 msgstr "Giustifica a destra i paragrafi"
 
-#: components/html-editor/toolbar.c:499
+#: components/html-editor/toolbar.c:466
 msgid "Typewriter"
 msgstr "Carattere non proporzionale a spaziatura fissa monospaziato"
 
-#: components/html-editor/toolbar.c:499
+#: components/html-editor/toolbar.c:466
 msgid "Toggle typewriter font style"
 msgstr ""
 "Attiva/disattiva carattere non proporzionale a spaziatura fissa monospaziato"
 
-#: components/html-editor/toolbar.c:501
+#: components/html-editor/toolbar.c:468
 msgid "Makes the text bold"
 msgstr "Rendi il testo grassetto"
 
-#: components/html-editor/toolbar.c:503
+#: components/html-editor/toolbar.c:470
 msgid "Makes the text italic"
 msgstr "Rendi il testo corsivo"
 
-#: components/html-editor/toolbar.c:505
+#: components/html-editor/toolbar.c:472
 msgid "Underlines the text"
 msgstr "Rendi il testo sottolineato"
 
-#: components/html-editor/toolbar.c:507
+#: components/html-editor/toolbar.c:474
 msgid "Strikes out the text"
 msgstr "Rendi il testo barrato"
 
-#: components/html-editor/toolbar.c:516
+#: components/html-editor/toolbar.c:483
 msgid "Unindent"
 msgstr "Togli rientro"
 
-#: components/html-editor/toolbar.c:516
+#: components/html-editor/toolbar.c:483
 msgid "Indents the paragraphs less"
 msgstr "Diminuisci rientro dei paragrafi"
 
-#: components/html-editor/toolbar.c:518
+#: components/html-editor/toolbar.c:485
 msgid "Indent"
 msgstr "Rientra"
 
-#: components/html-editor/toolbar.c:518
+#: components/html-editor/toolbar.c:485
 msgid "Indents the paragraphs more"
 msgstr "Aumenta rientro dei paragrafi"
 
@@ -668,6 +668,3 @@ msgstr "Antepri_ma di stampa"
 #: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "Anteprima di stampa"
-
-#~ msgid "Pre"
-#~ msgstr "Testo preformattato"
