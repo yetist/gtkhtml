@@ -14,9 +14,12 @@ binding "gtkhtml-bindings-ms"
   bind "<Ctrl>u"           { "command" (toggle-underline) }
   bind "<Ctrl>s"           { "command" (toggle-strikeout) }
 
-  bind "<Ctrl>l"           { "command" (align-left) }
-  bind "<Ctrl>c"           { "command" (align-center) }
-  bind "<Ctrl>r"           { "command" (align-right) }
+  bind "<Ctrl>z"           { "command" (undo) }
+  bind "<Ctrl>r"           { "command" (redo) }
+
+  bind "<Ctrl><Alt>l"      { "command" (align-left) }
+  bind "<Ctrl><Alt>c"      { "command" (align-center) }
+  bind "<Ctrl><Alt>r"      { "command" (align-right) }
 
   bind "Tab"               { "command" (indent-more) }
   bind "<Ctrl><Alt>Tab"    { "command" (indent-less) }
