@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "POT-Creation-Date: 2002-10-31 05:42+0100\n"
-"PO-Revision-Date: 2002-11-22 23:19+EDT\n"
+"PO-Revision-Date: 2002-12-10 19:37+EDT\n"
 "Last-Translator: Ge'ez Frontier Foundation <locales@geez.org>\n"
 "Language-Team: Amharic <locales@geez.org>\n"
 "MIME-Version: 1.0\n"
@@ -130,7 +130,7 @@ msgstr ""
 
 #: capplet/gtkhtml-capplet.glade.h:26
 msgid "_Add"
-msgstr "ተጨማሪ (_A)"
+msgstr "ጨምር (_A)"
 
 #: capplet/gtkhtml-capplet.glade.h:27
 msgid "_Delete"
@@ -594,7 +594,7 @@ msgstr "የጽሑፍ ፋይል... (_x)"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:74
 #: components/html-editor/menubar.c:190
 msgid "Template"
-msgstr ""
+msgstr "ንድፍ"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 #: components/html-editor/toolbar.c:521
@@ -635,7 +635,7 @@ msgstr "በነጠብጣብ የተሰየመ ዝርዝር (_B)"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
 msgid "_Center"
-msgstr "መሐከል (_C)"
+msgstr "መሀከል (_C)"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
 msgid "_Copy"
@@ -763,7 +763,7 @@ msgstr "አጥፋ (_S)"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
 msgid "_Style"
-msgstr "ዘዴ (_S)"
+msgstr "ዘይቤ (_S)"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:144
 msgid "_Table..."
@@ -843,7 +843,7 @@ msgstr "መደብ"
 #: components/html-editor/menubar.c:347 components/html-editor/popup.c:166
 #: components/html-editor/popup.c:251
 msgid "Properties"
-msgstr "ሁኔታዎች"
+msgstr "ምርጫዎች"
 
 #: components/html-editor/editor-control-factory.c:211
 #: components/html-editor/menubar.c:350 components/html-editor/popup.c:195
@@ -909,7 +909,7 @@ msgstr ""
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
 #: components/html-editor/paragraph.c:159 components/html-editor/toolbar.c:512
 msgid "Center"
-msgstr "መሐከል"
+msgstr "መሀከል"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
 #: components/html-editor/link.c:107 components/html-editor/text.c:230
@@ -997,7 +997,7 @@ msgstr ""
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:44
 msgid "Link properties"
-msgstr ""
+msgstr "የአያይዝ ምርጫዎች"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:45
 msgid "Location"
@@ -1044,7 +1044,7 @@ msgstr "ቀኝ"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
 #: components/html-editor/popup.c:493
 msgid "Row"
-msgstr ""
+msgstr "መደዳ"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:61
 msgid "Row span:"
@@ -1052,7 +1052,7 @@ msgstr ""
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:62
 msgid "Rows:"
-msgstr ""
+msgstr "መደዳዎቹ፦"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:64
 msgid "Scope"
@@ -1078,11 +1078,11 @@ msgstr "ክፍተት፦"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
 #: components/html-editor/paragraph.c:110 components/html-editor/text.c:206
 msgid "Style"
-msgstr "ዘዴ"
+msgstr "ዘይቤ"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
 msgid "Style:"
-msgstr "ዘዴ፦"
+msgstr "ዘይቤ፦"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:73
 msgid "Table Insert"
@@ -1200,7 +1200,7 @@ msgstr "አስገባ"
 
 #: components/html-editor/menubar.c:262
 msgid "Insert HTML file"
-msgstr ""
+msgstr "የHTML ፋይል አስገባ"
 
 #: components/html-editor/menubar.c:262
 msgid "Insert text file"
@@ -1408,7 +1408,7 @@ msgstr ""
 
 #: components/html-editor/template.c:82
 msgid "Note"
-msgstr ""
+msgstr "ማስታወሻ"
 
 #: components/html-editor/template.c:84
 msgid ""
@@ -1574,7 +1574,7 @@ msgstr ""
 
 #: src/htmlbutton.c:145
 msgid "Reset"
-msgstr "እንደገና አስተካክል"
+msgstr "እንደነበረ አድረግ"
 
 #: src/htmlengine-print.c:197
 msgid "Cannot allocate default font for printing\n"
@@ -1586,8 +1586,8 @@ msgstr "የGtkHTML ፈተና"
 
 #: src/testgtkhtml.c:113
 msgid "Print pre_view"
-msgstr "የቅድመ ህትመት ዕይታ (_v)"
+msgstr "ቅድመ ህትመት ዕይታ (_v)"
 
 #: src/testgtkhtml.c:113
 msgid "Print preview"
-msgstr "የቅድመ ህትመት ዕይታ"
+msgstr "ቅድመ ህትመት ዕይታ"
