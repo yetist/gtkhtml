@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "POT-Creation-Date: 2002-05-08 10:18+0300\n"
-"PO-Revision-Date: 2002-05-08 09:34+0200\n"
+"PO-Revision-Date: 2002-05-08 09:37+0200\n"
 "Last-Translator: Yuriy Syrota <yuri@renome.rovno.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1402,18 +1402,16 @@ msgid "Dark header"
 msgstr ""
 
 #: components/html-editor/template.c:81
-#, fuzzy
 msgid "Note"
-msgstr "<Немає>"
+msgstr "Нотатка"
 
 #: components/html-editor/template.c:83
 msgid "<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
 msgstr ""
 
 #: components/html-editor/template.c:91
-#, fuzzy
 msgid "Image frame"
-msgstr "Зображення"
+msgstr "Кадр зображення"
 
 #: components/html-editor/template.c:93
 msgid "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img src=\"file://"
@@ -1453,26 +1451,22 @@ msgid "Makes the text bold"
 msgstr ""
 
 #: components/html-editor/toolbar.c:529
-#, fuzzy
 msgid "Makes the text italic"
-msgstr "Зробити курсивним вибране"
+msgstr "Зробити текст курсивним"
 
 #: components/html-editor/toolbar.c:531
-#, fuzzy
 msgid "Underlines the text"
-msgstr "Підкреслений"
+msgstr "Підкреслити текст"
 
 #: components/html-editor/toolbar.c:533
-#, fuzzy
 msgid "Strikes out the text"
-msgstr "Перекреслений"
+msgstr "Перекреслити текст"
 
 #: components/html-editor/toolbar.c:542
 msgid "Unindent"
 msgstr "Забрати відступ"
 
 #: components/html-editor/toolbar.c:542
-#, fuzzy
 msgid "Indents the paragraphs less"
 msgstr "Зменшити відступ абзацу"
 
@@ -1481,7 +1475,6 @@ msgid "Indent"
 msgstr "Відступ"
 
 #: components/html-editor/toolbar.c:544
-#, fuzzy
 msgid "Indents the paragraphs more"
 msgstr "Збільшити відступ абзацу"
 
