@@ -1835,13 +1835,13 @@ spell_check_word_mark (HTMLObject *obj, const gchar *text, const gchar *word, gu
 	guint len = strlen (word);
 	gboolean is_text;
 
-	printf ("[not in dictionary word off: %d off: %d]\n", word - text, *off);
+	/* printf ("[not in dictionary word off: %d off: %d]\n", word - text, *off); */
 	is_text = html_object_is_text (obj);
 	w_off   = word - text;
 	while (obj && (!is_text || (is_text && *off + HTML_TEXT (obj)->text_len <= w_off)))
 		obj = next_obj_and_clear (obj, off, &is_text, i);
 
-	printf ("is_text: %d len: %d obj: %p off: %d\n", is_text, len, obj, *off);
+	/* printf ("is_text: %d len: %d obj: %p off: %d\n", is_text, len, obj, *off); */
 	if (obj && is_text) {
 		guint tlen;
 		guint toff;
@@ -1851,15 +1851,15 @@ spell_check_word_mark (HTMLObject *obj, const gchar *text, const gchar *word, gu
 			ioff  = html_interval_get_start (i, obj);
 			tlen  = MIN (HTML_TEXT (obj)->text_len - toff - ioff, len);
 			g_assert (!strncmp (text + w_off, HTML_TEXT (obj)->text + toff + ioff, tlen));
-			printf ("add spell error - word: %s off: %d beg: %s len: %d\n",
-				word, *off, HTML_TEXT (obj)->text + toff, tlen);
+			/* printf ("add spell error - word: %s off: %d beg: %s len: %d\n",
+			   word, *off, HTML_TEXT (obj)->text + toff, tlen); */
 			html_text_spell_errors_add (HTML_TEXT (obj),
 						    ioff + toff, tlen);
 			len   -= tlen;
 			w_off += tlen;
 			if (len)
 				do obj = next_obj_and_clear (obj, off, &is_text, i); while (obj && !is_text);
-			printf ("off: %d\n", *off);
+			/* printf ("off: %d\n", *off); */
 			g_assert (!len || obj);
 		}
 	}
@@ -1907,7 +1907,7 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *i)
 
 				bak = *ct;
 				*ct = 0;
-				printf ("off %d going to test word: \"%s\"\n", off, word);
+				/* printf ("off %d going to test word: \"%s\"\n", off, word); */
 				result = pspell_manager_check (e->spell_checker, word);
 
 				if (result == 1) {

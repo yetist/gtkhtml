@@ -34,14 +34,20 @@
 #include "htmlobject.h"
 #include "htmlentity.h"
 
+static void
+set_text (HTMLSearch *s, const gchar *text)
+{
+	s->text           = g_strdup (text);
+	s->text_len       = strlen (text);
+}
+
 HTMLSearch *
 html_search_new (const gchar *text, gboolean case_sensitive, gboolean forward, gboolean regular)
 {
 	HTMLSearch *ns = g_new (HTMLSearch, 1);
 	gint i;
 
-	ns->text           = g_strdup (text);
-	ns->text_len       = strlen (text);
+	set_text (ns, text);
 	ns->case_sensitive = case_sensitive;
 	ns->forward        = forward;
 	ns->stack          = NULL;
@@ -130,4 +136,17 @@ html_search_next_parent (HTMLSearch *search)
 		return html_object_search (HTML_OBJECT (search->stack->next->data), search);
 	}
 	return FALSE;
+}
+
+void
+html_search_set_text (HTMLSearch *search, const gchar *text)
+{
+	g_free (search->text);
+	set_text (search, text);
+}
+
+void
+html_search_set_forward (HTMLSearch *search, gboolean forward)
+{
+	search->forward = forward;
 }

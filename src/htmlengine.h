@@ -383,7 +383,8 @@ gboolean  html_engine_search                    (HTMLEngine *e,
 						 gboolean forward,
 						 gboolean regular);
 gboolean  html_engine_search_next               (HTMLEngine *e);
-gboolean  html_engine_search_incremental        (HTMLEngine *e);
+gboolean  html_engine_search_incremental        (HTMLEngine *e,
+						 const gchar *text);
 
 void      html_engine_replace                   (HTMLEngine *e,
 						 const gchar *text,

@@ -704,11 +704,10 @@ parse_body (HTMLEngine *p, HTMLObject *clue, const gchar *end[], gboolean toplev
 			else {
 				insert_text (p, clue, str);
 			}
-		}
-		else {
+		} else {
 			gint i  = 0;
 			str++;
-			
+
 			while (end [i] != 0) {
 				if (strncasecmp (str, end[i], strlen(end[i])) == 0) {
 					return str;
@@ -4355,9 +4354,14 @@ html_engine_search_next (HTMLEngine *e)
 }
 
 gboolean
-html_engine_search_incremental (HTMLEngine *e)
+html_engine_search_incremental (HTMLEngine *e, const gchar *text)
 {
-	return FALSE;
+	HTMLSearch *info = e->search_info;	
+
+	html_search_set_text (info, text);
+	if (info->found)
+		info->start_pos += ((info->forward) ? -1 : strlen (text));
+	return html_engine_search_next (e);
 }
 
 void
@@ -4538,7 +4542,7 @@ html_engine_word_is_valid (HTMLEngine *e)
 void
 html_engine_replace_word_with (HTMLEngine *e, const gchar *word)
 {
-	HTMLObject *replace;
+	HTMLObject *replace = NULL;
 	HTMLText   *orig;
 	gint pos;
 

@@ -23,8 +23,9 @@
 #define _GTKHTML_H_
 
 
-typedef struct _GtkHTML	GtkHTML;
-typedef struct _GtkHTMLClass	GtkHTMLClass;
+typedef struct _GtkHTML	            GtkHTML;
+typedef struct _GtkHTMLClass	    GtkHTMLClass;
+typedef struct _GtkHTMLInputLine    GtkHTMLInputLine;
 
 #include <sys/types.h>
 #include <gtk/gtk.h>
@@ -157,6 +158,10 @@ enum _GtkHTMLCommandType {
 	GTK_HTML_COMMAND_SPELL_PERSONAL_DICTIONARY_ADD,
 	GTK_HTML_COMMAND_SPELL_SESSION_DICTIONARY_ADD,
 #endif
+	GTK_HTML_COMMAND_SEARCH,
+	GTK_HTML_COMMAND_SEARCH_INCREMENTAL_FORWARD,
+	GTK_HTML_COMMAND_SEARCH_INCREMENTAL_BACKWARD,
+	GTK_HTML_COMMAND_SEARCH_REGEX,
 };
 typedef enum _GtkHTMLCommandType GtkHTMLCommandType;
 
@@ -174,8 +179,9 @@ typedef HTMLEngineSaveReceiverFn GtkHTMLSaveReceiverFn;
 struct _GtkHTML {
 	GtkLayout layout;
 
-	GtkWidget  *iframe_parent;
-	HTMLEngine *engine;
+	GtkWidget          *iframe_parent;
+	GtkHTMLInputLine   *input_line;
+	HTMLEngine         *engine;
 
 	/* The URL of the link over which the pointer currently is.  NULL if
            the pointer is not over a link.  */

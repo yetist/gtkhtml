@@ -55,4 +55,8 @@ void             html_search_push           (HTMLSearch *search, HTMLObject *obj
 HTMLObject      *html_search_pop            (HTMLSearch *search);
 gboolean         html_search_child_on_stack (HTMLSearch *search, HTMLObject *obj);
 gboolean         html_search_next_parent    (HTMLSearch *search);
+void             html_search_set_text       (HTMLSearch *search,
+					     const gchar *text);
+void             html_search_set_forward    (HTMLSearch *search,
+					     gboolean    forward);
 #endif

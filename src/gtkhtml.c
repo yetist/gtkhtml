@@ -42,7 +42,9 @@
 #include "htmlcolorset.h"
 
 #include "gtkhtml-embedded.h"
+#include "gtkhtml-input.h"
 #include "gtkhtml-keybinding.h"
+#include "gtkhtml-search.h"
 #include "gtkhtml-stream.h"
 #include "gtkhtml-private.h"
 #include <libgnome/gnome-util.h>
@@ -577,6 +579,7 @@ destroy (GtkObject *object)
 		gtk_timeout_remove (html->scroll_timeout_id);
 
 	gtk_object_destroy (GTK_OBJECT (html->engine));
+	gtk_html_input_line_destroy (html->input_line);
 
 	if (GTK_OBJECT_CLASS (parent_class)->destroy != NULL)
 		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
@@ -1628,7 +1631,8 @@ gtk_html_construct (GtkWidget *htmlw)
 
 	html = GTK_HTML (htmlw);
 
-	html->engine = html_engine_new (htmlw);
+	html->engine        = html_engine_new (htmlw);
+	html->input_line    = gtk_html_input_line_new (html);
 	html->iframe_parent = NULL;
 
 	gtk_signal_connect (GTK_OBJECT (html->engine), "title_changed",
@@ -2212,11 +2216,24 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 {
 	HTMLEngine *e = html->engine;
 
+	/* printf ("command %d\n", com_type); */
+	html->binding_handled = TRUE;
+
+	/* non-editable + editable commands */
+	switch (com_type) {
+	case GTK_HTML_COMMAND_SEARCH_INCREMENTAL_FORWARD:
+		gtk_html_isearch (html, TRUE);
+		break;
+	case GTK_HTML_COMMAND_SEARCH_INCREMENTAL_BACKWARD:
+		gtk_html_isearch (html, FALSE);
+		break;
+	default:
+	}
+
 	if (!html_engine_get_editable (e))
 		return;
 
-	/* printf ("command %d\n", com_type); */
-
+	/* editable commands only */
 	switch (com_type) {
 	case GTK_HTML_COMMAND_UNDO:
 		html_engine_undo (e);
@@ -2395,10 +2412,7 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	}
 #endif
 	default:
-		return;
 	}
-
-	html->binding_handled = TRUE;
 }
 
 /*

@@ -22,8 +22,10 @@ libgtkhtmldir = $(includedir)/gtkhtml
 
 libgtkhtml_HEADERS =				\
 	gtkhtml-embedded.h			\
+	gtkhtml-input.h				\
 	gtkhtml-private.h			\
 	gtkhtml-properties.h			\
+	gtkhtml-search.h			\
 	gtkhtml-stream.h			\
 	gtkhtml.h				\
 	gtkhtmldebug.h				\
@@ -107,7 +109,9 @@ libgtkhtml_HEADERS =				\
 
 libgtkhtml_la_SOURCES =				\
 	gtkhtml-embedded.c			\
+	gtkhtml-input.c				\
 	gtkhtml-properties.c			\
+	gtkhtml-search.c			\
 	gtkhtml-stream.c			\
 	gtkhtml.c				\
 	gtkhtmldebug.c				\
@@ -179,7 +183,6 @@ libgtkhtml_la_SOURCES =				\
 	htmlundo-action.c			\
 	htmlvspace.c				\
 	htmliframe.c				\
-	gtkhtml-keybinding.c			\
 	htmlfont.c				\
 	$(NULL)
 #	htmlhspace.c				\

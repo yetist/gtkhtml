@@ -134,9 +134,9 @@ html_engine_selection_pop (HTMLEngine *e)
 	if (selection) {
 		gint cursor, mark;
 
-		mark = GPOINTER_TO_INT (e->selection_stack->data);
-		e->selection_stack = g_list_remove (e->selection_stack, e->selection_stack->data);
 		cursor = GPOINTER_TO_INT (e->selection_stack->data);
+		e->selection_stack = g_list_remove (e->selection_stack, e->selection_stack->data);
+		mark = GPOINTER_TO_INT (e->selection_stack->data);
 		e->selection_stack = g_list_remove (e->selection_stack, e->selection_stack->data);
 
 		html_cursor_jump_to_position (e->cursor, e, mark);

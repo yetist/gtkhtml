@@ -106,21 +106,21 @@ html_gdk_font_manager_find_face (HTMLGdkFontManager *manager, const gchar *famil
 
 	names = g_strsplit (families, ",", 32);
 
+	face = NULL;
 	for (name = *names; name != NULL; name++) {
 		face = (HTMLGdkFontFace *) g_hash_table_lookup (manager->faces, name);
-		if (face) {
-			g_strfreev (names);
-			return face;
-		}
+		if (face)
+			break;
 		if (font_face_exists (name)) {
 			face = html_gdk_font_face_new (name, manager->variable->face.size);
 			g_hash_table_insert (manager->faces, (gpointer) name, face);
-			g_strfreev (names);
-			return face;
+			break;
 		}
 	}
 
-	return manager->variable;
+	g_strfreev (names);
+
+	return (face) ? face : manager->variable;
 }
 
 HTMLGdkFontFace *
@@ -186,17 +186,19 @@ html_gdk_font_face_set_family (HTMLGdkFontFace *face, const gchar *family)
 	}
 }
 
-void html_gdk_font_manager_set_variable (HTMLGdkFontManager *manager,
-					 const gchar *family,
-					 gint size)
+void
+html_gdk_font_manager_set_variable (HTMLGdkFontManager *manager,
+				    const gchar *family,
+				    gint size)
 {
 	if (family) html_gdk_font_face_set_family (manager->variable, family);
 	if (size > 0) html_gdk_font_face_set_size (manager->variable, size);
 }
 
-void html_gdk_font_manager_set_fixed (HTMLGdkFontManager *manager,
-				      const gchar *family,
-				      gint size)
+void
+html_gdk_font_manager_set_fixed (HTMLGdkFontManager *manager,
+				 const gchar *family,
+				 gint size)
 {
 	if (family) html_gdk_font_face_set_family (manager->fixed, family);
 	if (size > 0) html_gdk_font_face_set_size (manager->fixed, size);
@@ -337,6 +339,3 @@ release_fonts (HTMLGdkFontFace *face)
 		}
 	}
 }
-
-
-
