@@ -1,4 +1,4 @@
-1999-12-11  Anders Carlsson  <andersca@picard.andersnet>
+1999-12-11  Anders Carlsson  <andersca@gnu.org>
 
 	* testgtkhtml.c (main): Use a scrolled window instead of
 	a scroll bar.
