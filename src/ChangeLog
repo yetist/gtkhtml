@@ -1,3 +1,10 @@
+2002-09-19  Radek Doulik  <rodo@ximian.com>
+
+	* htmlclueflow.c (get_pre_padding): don't add pre padding for
+	non-items flows following items with the same level
+	(write_flow_tag): add <BR> for non-item flows following items with
+	the same level
+
 2002-11-03  Larry Ewing  <lewing@ximian.com>
 
 	* htmlgdkpainter.c (draw_pixmap): fix coloring logic.

@@ -1595,7 +1595,10 @@ write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
 	}
 
 	if (is_item (self)) {
-		if (!html_engine_save_output_string (state, "\n"))
+		if (next && is_levels_equal (self, next) && !is_item (next)) {
+			if (!html_engine_save_output_string (state, "<BR>\n"))
+				return FALSE;
+		} else if (!html_engine_save_output_string (state, "\n"))
 			return FALSE;
 	} else if (is_levels_equal (self, next) && self->style == next->style) {
 		if (self->style != HTML_CLUEFLOW_STYLE_PRE) {
