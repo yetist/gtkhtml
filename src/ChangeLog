@@ -1,3 +1,8 @@
+2002-11-26  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (gtk_html_insert_html_generic): readd the form
+	pasting fix tht seems to have been lost somewhere..
+
 2002-11-26  Not Zed  <NotZed@Ximian.com>
 
 	* htmlembedded.c (draw): Dont do a queue_redraw if we're ever

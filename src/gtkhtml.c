@@ -4691,18 +4691,18 @@ gtk_html_insert_html_generic (GtkHTML *html, GtkHTML *tmp, const gchar *html_src
 	
 	/* copy the forms */
 	g_list_foreach (tmp->engine->formList, (GFunc)html_form_set_engine, html->engine);
-
-	if (tmp->engine->formList) {
+	
+	if (tmp->engine->formList && html->engine->formList) {
 		GList *form_last;
-
+		
 		form_last = g_list_last (html->engine->formList);
 		tmp->engine->formList->prev = form_last;
 		form_last->next = tmp->engine->formList;
-	} else {
+	} else if (tmp->engine->formList) {
 		html->engine->formList = tmp->engine->formList;
 	}
 	tmp->engine->formList = NULL;
-
+	
 	if (obj_only) {
 		HTMLObject *next;
 		g_return_if_fail (tmp->engine->clue && HTML_CLUE (tmp->engine->clue)->head
