@@ -366,6 +366,18 @@ insertion_font_style_changed_cb (GtkHTML *widget,
 #undef UNBLOCK_SIGNAL
 }
 
+static void
+color_changed_cb (GtkHTML *widget,
+		  HTMLColor *color,
+		  GtkHTMLControlData *cd)
+{
+	gnome_color_picker_set_d (GNOME_COLOR_PICKER (cd->cpicker),
+				  ((gdouble) color->color.red)   / 0xffff,
+				  ((gdouble) color->color.green) / 0xffff,
+				  ((gdouble) color->color.blue)  / 0xffff,
+				  1.0);
+}
+
 
 /* Alignment group.  */
 
@@ -590,6 +602,10 @@ create_editor_toolbar (GtkHTMLControlData *cd)
 
 	gtk_signal_connect (GTK_OBJECT (cd->html), "current_paragraph_alignment_changed",
 			    GTK_SIGNAL_FUNC (paragraph_alignment_changed_cb), data);
+
+	gtk_signal_connect (GTK_OBJECT (cd->html), "insertion_color_changed",
+			    GTK_SIGNAL_FUNC (color_changed_cb),
+			    cd);
 
 	return toolbar_frame;
 }

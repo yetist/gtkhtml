@@ -1,5 +1,8 @@
 2000-07-06  Radek Doulik  <rodo@helixcode.com>
 
+	* toolbar.c (color_changed_cb): added signal hadler for
+	insertion_color_changed signal
+
 	* main.c (main): call gconf_init here instead of gtkhtmllib_init
 
 	* toolbar.c (setup_color_option_menu): new function
