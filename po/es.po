@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD.es\n"
-"POT-Creation-Date: 2003-05-24 04:36+0200\n"
+"POT-Creation-Date: 2003-06-02 20:47+0200\n"
 "PO-Revision-Date: 2003-05-24 12:11+0000\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@arrakis.es>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
@@ -1595,7 +1595,8 @@ msgstr "Tipografía de anchura fija"
 
 #: src/gtkhtml.c:2568
 msgid "The Monospace font to use for typewriter text"
-msgstr "La tipografía monoespaciada a usar para el texto de máquina de escribir"
+msgstr ""
+"La tipografía monoespaciada a usar para el texto de máquina de escribir"
 
 #: src/gtkhtml.c:2574
 msgid "New Link Color"
@@ -1734,4 +1735,3 @@ msgstr "Aplicación de prueba GtkHTML"
 
 #~ msgid "Monospace"
 #~ msgstr "Monospace"
-

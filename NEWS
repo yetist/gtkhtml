@@ -1,7 +1,12 @@
-gtkhtml-3.0.4 "I am not your broom" 2003-05-21
+gtkhtml-3.0.5 "I love trees" 2003-06-02
 ------------------------------------------------
 
 New in this release
+
+  * fixed SELECT implementation (Rodney)
+  * updated translations
+
+New in 3.0.4
 
   * viewport and frame clipping fixed.
   * fixed a bug in image url replacement.

@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml cvs\n"
-"POT-Creation-Date: 2003-05-21 08:59-0500\n"
+"POT-Creation-Date: 2003-06-02 20:47+0200\n"
 "PO-Revision-Date: 2003-05-17 00:52+0200\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"

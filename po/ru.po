@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2003-05-27 10:14+0400\n"
+"POT-Creation-Date: 2003-06-02 20:47+0200\n"
 "PO-Revision-Date: 2003-05-15 12:55+0400\n"
 "Last-Translator: Dmitry. G. Mastrukov <dmitry@taurussoft.org>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
@@ -1488,7 +1488,9 @@ msgstr "Сохранить файл как..."
 
 #: components/html-editor/test-html-editor-control.c:541
 msgid "GtkHTML Editor Test Container"
-msgstr "Тестовый контейнер с элементом управления редактором формата HTML для среды Гном"
+msgstr ""
+"Тестовый контейнер с элементом управления редактором формата HTML для среды "
+"Гном"
 
 #. color selection
 #: components/html-editor/text.c:292
@@ -1561,8 +1563,7 @@ msgstr "Редактируемый"
 
 #: src/gtkhtml.c:2537
 msgid "Whether the html can be edited"
-msgstr ""
-"Может ли текст быть редактируемым"
+msgstr "Может ли текст быть редактируемым"
 
 #: src/gtkhtml.c:2544
 msgid "The title of the current document"
