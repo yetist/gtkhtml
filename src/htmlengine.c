@@ -88,17 +88,26 @@
 #include "htmliframe.h"
 
 
-static void      html_engine_class_init    (HTMLEngineClass     *klass);
-static void      html_engine_init          (HTMLEngine          *engine);
-static gboolean  html_engine_timer_event   (HTMLEngine          *e);
-static gboolean  html_engine_update_event  (HTMLEngine          *e);
-static void      html_engine_write         (GtkHTMLStream       *stream,
-					    const gchar         *buffer,
-					    guint                size,
-					    gpointer             data);
-static void      html_engine_end           (GtkHTMLStream       *stream,
-					    GtkHTMLStreamStatus  status,
-					    gpointer             data);
+static void      html_engine_class_init       (HTMLEngineClass     *klass);
+static void      html_engine_init             (HTMLEngine          *engine);
+static gboolean  html_engine_timer_event      (HTMLEngine          *e);
+static gboolean  html_engine_update_event     (HTMLEngine          *e);
+static void      html_engine_write            (GtkHTMLStream       *stream,
+					       const gchar         *buffer,
+					       guint                size,
+					       gpointer             data);
+static void      html_engine_end              (GtkHTMLStream       *stream,
+					       GtkHTMLStreamStatus  status,
+					       gpointer             data);
+static void      html_engine_set_class_data   (HTMLEngine          *e,
+					       const gchar         *class_name,
+					       const gchar         *key,
+					       const gchar         *value);
+static void      html_engine_clear_class_data (HTMLEngine          *e,
+					       const gchar         *class_name,
+					       const gchar         *key);
+static void      html_engine_set_object_data  (HTMLEngine          *e,
+					       HTMLObject          *o);
 
 static void      parse_one_token           (HTMLEngine *p,
 					    HTMLObject *clue,
@@ -300,11 +309,22 @@ static void new_flow (HTMLEngine *e, HTMLObject *clue, HTMLObject *first_object)
 static void close_flow (HTMLEngine *e, HTMLObject *clue);
 
 static HTMLObject *
+text_new (HTMLEngine *e, const gchar *text, GtkHTMLFontStyle style, HTMLColor *color)
+{
+	HTMLObject *o;
+
+	o = html_text_new (text, style, color);
+	html_engine_set_object_data (e, o);
+
+	return o;
+}
+
+static HTMLObject *
 create_empty_text (HTMLEngine *e)
 {
 	HTMLObject *o;
 
-	o = html_text_new ("", current_font_style (e), current_color (e));
+	o = text_new (e, "", current_font_style (e), current_color (e));
 	html_text_set_font_face (HTML_TEXT (o), current_font_face (e));
 
 	return o;
@@ -480,7 +500,7 @@ insert_text (HTMLEngine *e,
 		if (create_link)
 			obj = html_link_text_new (text, font_style, color, e->url, e->target);
 		else
-			obj = html_text_new (text, font_style, color);
+			obj = text_new (e, text, font_style, color);
 		html_text_set_font_face (HTML_TEXT (obj), current_font_face (e));
 
 		append_element (e, clue, obj);
@@ -1894,6 +1914,7 @@ parse_c (HTMLEngine *e, HTMLObject *clue, const gchar *str)
   <div             </div>
   <dl>             </dl>
   <dt>             </dt>
+  <data>           </data>
 */
 /* EP CHECK: dl/dt might be wrong.  */
 /* EP CHECK: dir might be wrong.  */
@@ -1979,6 +2000,25 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 		}
 
 		close_flow (e, _clue);
+	} else if (strncmp (str, "data", 4) == 0) {
+		gchar *key = NULL;
+		gchar *class_name = NULL;
+		html_string_tokenizer_tokenize( e->st, str + 4, " >" );
+		while (html_string_tokenizer_has_more_tokens (e->st)) {
+			const gchar *token = html_string_tokenizer_next_token (e->st);
+			if (strncasecmp (token, "class=", 6 ) == 0) {
+				g_free (class_name);
+				class_name = g_strdup (token + 6);
+			} else if (strncasecmp (token, "key=", 4 ) == 0) {
+				g_free (key);
+				key = g_strdup (token + 4);
+			} else if (class_name && key && strncasecmp (token, "value=", 6) == 0)
+				html_engine_set_class_data (e, class_name, key, token + 6);
+			else if (strncasecmp (token, "clear=", 6) == 0)
+				html_engine_clear_class_data (e, class_name, token + 6);
+		}
+		g_free (class_name);
+		g_free (key);
 	}
 }
 
@@ -3332,7 +3372,7 @@ html_engine_ensure_editable (HTMLEngine *engine)
 	if (child == NULL) {
 		HTMLObject *text;
 
-		text = html_text_new ("", engine->insertion_font_style, engine->insertion_color);
+		text = text_new (engine, "", engine->insertion_font_style, engine->insertion_color);
 		html_text_set_font_face (HTML_TEXT (text), current_font_face (engine));
 		html_clue_prepend (HTML_CLUE (head), text);
 	}
@@ -3399,6 +3439,45 @@ html_engine_id_table_clear (HTMLEngine *e)
 	}
 }
 
+static gboolean
+class_data_free_func (gpointer key, gpointer val, gpointer data)
+{
+	g_free (key);
+	g_free (val);
+
+	return TRUE;
+}
+
+static gboolean
+class_data_table_free_func (gpointer key, gpointer val, gpointer data)
+{
+	GHashTable *t;
+
+	t = (GHashTable *) val;
+	g_hash_table_freeze (t);
+	g_hash_table_foreach_remove (t, class_data_free_func, NULL);
+	g_hash_table_thaw (t);
+	g_hash_table_destroy (t);
+
+	g_free (key);
+
+	return TRUE;
+}
+
+static void 
+html_engine_class_data_clear (HTMLEngine *e)
+{
+	if (e->class_data) {
+		g_hash_table_freeze (e->class_data);
+		g_hash_table_foreach_remove (e->class_data, class_data_table_free_func, NULL);
+		g_hash_table_thaw (e->class_data);
+		g_hash_table_destroy (e->class_data);
+		e->class_data = NULL;
+	}
+}
+
+#define LOG_INPUT
+
 GtkHTMLStream *
 html_engine_begin (HTMLEngine *e, char *content_type)
 {
@@ -3412,6 +3491,7 @@ html_engine_begin (HTMLEngine *e, char *content_type)
 	e->writing = TRUE;
 
 	html_engine_id_table_clear (e);
+	html_engine_class_data_clear (e);
 	html_image_factory_stop_animations (e->image_factory);
 	html_image_factory_cleanup (e->image_factory);
 
@@ -3648,8 +3728,8 @@ ensure_last_clueflow (HTMLEngine *engine)
 	if (last_clueflow->tail != NULL)
 		return;
 
-	new_text = html_text_new ("", GTK_HTML_FONT_STYLE_DEFAULT,
-					html_colorset_get_color (engine->settings->color_set, HTMLTextColor));
+	new_text = text_new (engine, "", GTK_HTML_FONT_STYLE_DEFAULT,
+			     html_colorset_get_color (engine->settings->color_set, HTMLTextColor));
 	html_text_set_font_face (HTML_TEXT (new_text), current_font_face (engine));
 	html_clue_prepend (last_clueflow, new_text);
 }
@@ -3666,7 +3746,6 @@ html_engine_end (GtkHTMLStream *stream,
 	e->writing = FALSE;
 
 	html_tokenizer_end (e->ht);
-
 	while (html_engine_timer_event (e))
 		;
 
@@ -3676,6 +3755,7 @@ html_engine_end (GtkHTMLStream *stream,
 	}
 
 	ensure_last_clueflow (e);
+	html_engine_class_data_clear (e);
 	
 	if (e->editable) {
 		html_engine_ensure_editable (e);
@@ -4223,9 +4303,9 @@ replace (HTMLEngine *e)
 
 	html_engine_edit_selection_updater_update_now (e->selection_updater);
 
-	new_text = html_text_new (e->replace_info->text,
-				  HTML_TEXT (first)->font_style,
-				  HTML_TEXT (first)->color);
+	new_text = text_new (e, e->replace_info->text,
+			     HTML_TEXT (first)->font_style,
+			     HTML_TEXT (first)->color);
 	html_text_set_font_face (HTML_TEXT (new_text), HTML_TEXT (first)->face);
 	html_engine_paste_object (e, new_text, html_object_get_length (HTML_OBJECT (new_text)));
 
@@ -4398,7 +4478,7 @@ html_engine_replace_word_with (HTMLEngine *e, const gchar *word)
 	orig = HTML_TEXT (e->mark->object);
 	switch (HTML_OBJECT_TYPE (e->mark->object)) {
 	case HTML_TYPE_TEXT:
-		replace = html_text_new (word, orig->font_style, orig->color);
+		replace = text_new (e, word, orig->font_style, orig->color);
 		break;
 	case HTML_TYPE_LINKTEXT:
 		replace = html_link_text_new (word, orig->font_style, orig->color,
@@ -4492,6 +4572,92 @@ html_engine_get_object_by_id (HTMLEngine *e, const gchar *id)
 
 	return (HTMLObject *) g_hash_table_lookup (e->id_table, id);
 }
+
+static inline GHashTable *
+get_class_table (HTMLEngine *e, const gchar *class_name)
+{
+	return e->class_data ? g_hash_table_lookup (e->class_data, class_name) : NULL;
+}
+
+static inline GHashTable *
+get_class_table_sure (HTMLEngine *e, const gchar *class_name)
+{
+	GHashTable *t;
+
+	if (e->class_data == NULL)
+		e->class_data = g_hash_table_new (g_str_hash, g_str_equal);
+
+	t = get_class_table (e, class_name);
+	if (!t) {
+		t = g_hash_table_new (g_str_hash, g_str_equal);
+		g_hash_table_insert (e->class_data, g_strdup (class_name), t);
+	}
+
+	return t;
+}
+
+static void
+html_engine_set_class_data (HTMLEngine *e, const gchar *class_name, const gchar *key, const gchar *value)
+{
+	GHashTable *t;
+	gpointer old_key;
+	gpointer old_val;
+
+	printf ("set (%s) %s to %s (%p)\n", class_name, key, value, e->class_data);
+
+	t = get_class_table_sure (e, class_name);
+
+	if (!g_hash_table_lookup_extended (t, key, &old_key, &old_val))
+		old_key = NULL;
+	else {
+		if (strcmp (old_val, value))
+			g_free (old_val);
+		else
+			return;
+	}
+	g_hash_table_insert (t, old_key ? old_key : g_strdup (key), g_strdup (value));
+}
+
+static void
+html_engine_clear_class_data (HTMLEngine *e, const gchar *class_name, const gchar *key)
+{
+	GHashTable *t;
+	gpointer old_key;
+	gpointer old_val;
+
+	t = get_class_table (e, class_name);
+
+	printf ("clear (%s) %s\n", class_name, key);
+	if (t && g_hash_table_lookup_extended (t, key, &old_key, &old_val)) {
+		g_hash_table_remove (t, key);
+		g_free (old_key);
+		g_free (old_val);
+	}
+}
+
+const gchar *
+html_engine_get_class_data (HTMLEngine *e, const gchar *class_name, const gchar *key)
+{
+	return e->class_data ? g_hash_table_lookup (e->class_data, key) : NULL;
+}
+
+static void
+set_object_data (gpointer key, gpointer value, gpointer data)
+{
+	printf ("set %s\n", (const gchar *) key);
+	html_object_set_data (HTML_OBJECT (data), g_strdup ((const gchar *) key), g_strdup ((const gchar *) value));
+}
+
+static void
+html_engine_set_object_data (HTMLEngine *e, HTMLObject *o)
+{
+	GHashTable *t;
+
+	t = get_class_table (e, html_type_name (HTML_OBJECT_TYPE (o)));
+	if (t)
+		g_hash_table_foreach (t, set_object_data, o);
+}
+
 
 HTMLEngine *
 html_engine_get_top_html_engine (HTMLEngine *e)

@@ -230,6 +230,9 @@ struct _HTMLEngine {
 	/* id-to-object mapping */
 	GHashTable *id_table;
 
+	/* table contains data, which are set to objects by type during parse time */
+	GHashTable *class_data;
+
 	gdouble min_split_index;
 
 	gboolean need_spell_check;
@@ -383,4 +386,7 @@ HTMLObject *html_engine_get_object_by_id    (HTMLEngine  *e,
 
 HTMLEngine *html_engine_get_top_html_engine (HTMLEngine *e);
 void        html_engine_thaw_idle_reset     (HTMLEngine *e);
+
+const gchar * html_engine_get_class_data (HTMLEngine *e, const gchar *class_name, const gchar *key);
+
 #endif /* _HTMLENGINE_H_ */

@@ -1,3 +1,36 @@
+2001-03-22  Radek Doulik  <rodo@ximian.com>
+
+	* htmlinterval.c: removed some warnings
+
+	* htmlengine.c (text_new): new helper function, takes care of
+	setting class_data to HTMLText objects
+
+	* htmltokenizer.c: added searchGtkHTMLCount and extension in
+	HTMLTokenizer
+	(in_comment): look for extension in comment (like <!--+GtkHTML:
+	-->
+	(in_extension): new function, handles gtkhtml extension
+	(html_tokenizer_tokenize_one_char): extracted from
+	html_tokenizer_write
+
+	* htmlengine.c: added class_data hash table to Engine to store
+	object data to be set by class
+	(html_engine_set_class_data): new function, sets data to
+	class_data table
+	(html_engine_clear_class_data): clears previously set class_data
+	(html_engine_set_object_data): set data to object according to
+	class_data
+	(get_class_table_sure): helper function
+	(get_class_table): helper function
+	(parse_d): parse <DATA ...> tag, this tag is stored in comments
+	(maybe we should parse it only when in comment?)
+	(html_engine_class_data_clear): clear whole class_data table
+	(class_data_table_free_func): helper function
+	(class_data_free_func): helper function
+
+	* gtkhtml.c: new signal IFRAME_CREATED
+	(gtk_html_set_iframe_parent): emit new signal
+
 2001-03-21  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* htmlanchor.c: #include <string.h>

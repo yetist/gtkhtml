@@ -97,6 +97,7 @@ struct _GtkHTMLClass {
 	void (* insertion_color_changed) (GtkHTML *html, GdkColor *color);
 
         void (* size_changed)       (GtkHTML *html);
+	void (* iframe_created)     (GtkHTML *html, GtkHTML *iframe);
 
 	/* keybindings signals */
 	void (* scroll)               (GtkHTML *html, GtkOrientation orientation, GtkScrollType scroll_type, gfloat position);

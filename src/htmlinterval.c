@@ -237,7 +237,7 @@ interval_forall (HTMLObject *parent, GSList *from_down, GSList *to_down, HTMLEng
 	(*f) (parent, e, data);
 }
 
-void
+static void
 html_point_to_leaf (HTMLPoint *p)
 {
 	if (html_object_is_container (p->object)) {
@@ -251,13 +251,13 @@ html_point_to_leaf (HTMLPoint *p)
 	}
 }
 
-inline HTMLInterval *
+static inline HTMLInterval *
 html_interval_dup (HTMLInterval *i)
 {
 	return html_interval_new_from_points (&i->from, &i->to);
 }
 
-HTMLInterval *
+static HTMLInterval *
 html_interval_flat (HTMLInterval *i)
 {
 	HTMLInterval *ni = html_interval_dup (i);

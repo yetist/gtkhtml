@@ -80,6 +80,7 @@ enum {
 	INSERTION_FONT_STYLE_CHANGED,
 	INSERTION_COLOR_CHANGED,
 	SIZE_CHANGED,
+	IFRAME_CREATED,
 	/* keybindings signals */
 	SCROLL,
 	CURSOR_MOVE,
@@ -1645,6 +1646,14 @@ class_init (GtkHTMLClass *klass)
 				GTK_SIGNAL_OFFSET (GtkHTMLClass, size_changed),
 				gtk_marshal_NONE__NONE,
 				GTK_TYPE_NONE, 0);
+	signals [IFRAME_CREATED] = 
+		gtk_signal_new ("iframe_created",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (GtkHTMLClass, iframe_created),
+				gtk_marshal_NONE__POINTER,
+				GTK_TYPE_NONE, 1,
+				GTK_TYPE_HTML);
 
 	/* signals for keybindings */
 	signals [SCROLL] =
@@ -3081,6 +3090,8 @@ gtk_html_set_iframe_parent (GtkHTML *html, GtkWidget *parent)
 	g_assert (GTK_IS_HTML (parent));
 
 	html->iframe_parent = parent;
+	gtk_signal_emit (GTK_OBJECT (html_engine_get_top_html_engine (html->engine)->widget),
+			 signals [IFRAME_CREATED], html);
 }
 
 void

@@ -76,6 +76,7 @@ struct _HTMLTokenizer {
 	gint     pre; /* Are we in a <pre> block? */
 	gboolean select; /* Are we in a <select> block? */
 	gboolean charEntity; /* Are we in an &... sequence? */
+	gboolean extension; /* Are we in an <!-- +GtkHTML: sequence? */
 
 	gint prePos;
 	
@@ -95,6 +96,7 @@ struct _HTMLTokenizer {
 
 	gchar searchBuffer[20];
 	gint searchCount;
+	gint searchGtkHTMLCount;
 
 	gchar *scriptCode;
 	gint scriptCodeSize;
@@ -109,6 +111,7 @@ struct _HTMLTokenizer {
 static const gchar *commentStart = "<!--";
 static const gchar *scriptEnd = "</script>";
 static const gchar *styleEnd = "</style>";
+static const gchar *gtkhtmlStart = "+gtkhtml:";
 
 enum quoteEnum {
 	NO_QUOTE = 0,
@@ -126,10 +129,12 @@ static void           html_tokenizer_append_token_buffer (HTMLTokenizer *t,
 							  gint min_size);
 
 /* blocking tokens */
-static gchar             *html_tokenizer_blocking_get_name   (HTMLTokenizer *t);
-static void               html_tokenizer_blocking_pop        (HTMLTokenizer *t);
-static void               html_tokenizer_blocking_push       (HTMLTokenizer *t,
-							      HTMLTokenType tt);
+static gchar             *html_tokenizer_blocking_get_name   (HTMLTokenizer  *t);
+static void               html_tokenizer_blocking_pop        (HTMLTokenizer  *t);
+static void               html_tokenizer_blocking_push       (HTMLTokenizer  *t,
+							      HTMLTokenType   tt);
+static void               html_tokenizer_tokenize_one_char   (HTMLTokenizer  *t,
+							      const gchar  **src);
 
 static HTMLTokenBuffer *
 html_token_buffer_new (gint size)
@@ -196,6 +201,7 @@ html_tokenizer_new (void)
 	t->pre = 0;
 	t->select = FALSE;
 	t->charEntity = FALSE;
+	t->extension = FALSE;
 
 	t->prePos = FALSE;
 
@@ -204,6 +210,7 @@ html_tokenizer_new (void)
 
 	memset (t->searchBuffer, 0, sizeof (t->searchBuffer));
 	t->searchCount = 0;
+	t->searchGtkHTMLCount = 0;
 
 	t->scriptCode = NULL;
 	t->scriptCodeSize = 0;
@@ -359,8 +366,10 @@ html_tokenizer_begin (HTMLTokenizer *t, gchar *content_type)
 	t->comment = FALSE;
 	t->textarea = FALSE;
 	t->startTag = FALSE;
+	t->extension = FALSE;
 	t->tquote = NO_QUOTE;
 	t->searchCount = 0;
+	t->searchGtkHTMLCount = 0;
 	t->title = FALSE;
 	t->charEntity = FALSE;
 	
@@ -576,10 +585,42 @@ in_comment (HTMLTokenizer *t, const gchar **src)
 			t->searchCount++;
 	} else if (t->searchCount == 2 && (**src == '>')) {
 		t->comment = FALSE;          /* We've got a "-->" sequence */
-	} else
+	} else if (tolower (**src) == gtkhtmlStart [t->searchGtkHTMLCount]) {
+		if (t->searchGtkHTMLCount == 8) {
+			t->extension    = TRUE;
+			t->comment = FALSE;
+			t->searchCount = 0;
+			t->searchGtkHTMLCount = 0;
+		} else
+			t->searchGtkHTMLCount ++;
+	} else {
 		t->searchCount = 0;
+		t->searchGtkHTMLCount = 0;
+	}
 
 	(*src)++;
+}
+
+static void
+in_extension (HTMLTokenizer *t, const gchar **src)
+{
+	/* check for "-->" */
+	if (**src == '-') {
+		if (t->searchCount < 2)
+			t->searchCount ++;
+		(*src) ++;
+	} else if (t->searchCount == 2 && **src == '>') {
+		t->extension = FALSE;
+		(*src) ++;
+	} else {
+		t->searchCount = 0;
+
+		if (t->extension) {
+			t->extension = FALSE;
+			html_tokenizer_tokenize_one_char (t, src);
+			t->extension = TRUE;
+		}
+	}
 }
 
 static void
@@ -1063,44 +1104,51 @@ in_plain (HTMLTokenizer *t, const gchar **src)
 	(*src)++;
 }
 
+static void
+html_tokenizer_tokenize_one_char (HTMLTokenizer *t, const gchar **src)
+{
+	prepare_enough_space (t);
+
+	if (t->skipLF && **src != '\n')
+		t->skipLF = FALSE;
+
+	if (t->skipLF)
+		(*src) ++;
+	else if (t->comment)
+		in_comment (t, src);
+	else if (t->extension)
+		in_extension (t, src);
+	else if (t->script || t->style)
+		in_script_or_style (t, src);
+	else if (t->charEntity)
+		in_entity (t, src);
+	else if (t->startTag)
+		in_tag (t, src);
+	else if (**src == '&')
+		start_entity (t, src);
+	else if (**src == '<' && !t->tag)
+		start_tag (t, src);
+	else if (**src == '>' && t->tag && !t->tquote)
+		end_tag (t, src);
+	else if ((**src == '\n') || (**src == '\r'))
+		in_crlf (t, src);
+	else if ((**src == ' ') || (**src == '\t'))
+		in_space_or_tab (t, src);
+	else if (**src == '\"' || **src == '\'')
+		in_quoted (t, src);
+	else if (**src == '=')
+		in_assignment (t, src);
+	else
+		in_plain (t, src);
+}
+
 void
 html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 {
 	const gchar *src = string;
 
-	while ((src - string) < size) {
-		prepare_enough_space (t);
-		
-		if (t->skipLF && *src != '\n')
-			t->skipLF = FALSE;
-
-		if (t->skipLF)
-			src++;
-		else if (t->comment)
-			in_comment (t, &src);
-		else if (t->script || t->style)
-			in_script_or_style (t, &src);
-		else if (t->charEntity)
-			in_entity (t, &src);
-		else if (t->startTag)
-			in_tag (t, &src);
-		else if (*src == '&')
-			start_entity (t, &src);
-		else if (*src == '<' && !t->tag)
-			start_tag (t, &src);
-		else if (*src == '>' && t->tag && !t->tquote)
-			end_tag (t, &src);
-		else if ((*src == '\n') || (*src == '\r'))
-			in_crlf (t, &src);
-		else if ((*src == ' ') || (*src == '\t'))
-			in_space_or_tab (t, &src);
-		else if (*src == '\"' || *src == '\'')
-			in_quoted (t, &src);
-		else if (*src == '=')
-			in_assignment (t, &src);
-		else
-			in_plain (t, &src);
-	}
+	while ((src - string) < size)
+		html_tokenizer_tokenize_one_char (t, &src);
 }
 
 gchar *
