@@ -1,5 +1,11 @@
 2001-10-24  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine-edit-cut-and-paste.c (insert_empty_paragraph): added
+	add_undo parameter which specifies, if undo action should be added
+	(delete_object): ditto
+	(isolate_tables): rewritten
+	(insert_object): updated to new isolate_tables
+
 	* htmltable.c (op_copy): fill empty cells with cells with empty
 	texts, fix copying start condition
 
