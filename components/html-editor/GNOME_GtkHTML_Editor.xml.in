@@ -1,23 +1,25 @@
 <Root>
 		<commands>
 
-			<cmd name="EditUndo" _label="_Undo" _tip="Undo the last action"/>
-			<cmd name="EditRedo" _label="_Redo" _tip="Redo the undone action"/>
+			<cmd name="EditUndo" _label="_Undo" pixtype="stock" pixname="gtk-undo" _tip="Undo the last action"/>
+			<cmd name="EditRedo" _label="_Redo" pixtype="stock" pixname="gtk-redo" _tip="Redo the undone action"/>
 
-			<cmd name="EditCut" _label="Cu_t" _tip="Cut the selection"/>
-			<cmd name="EditCopy" _label="_Copy" _tip="Copy the selection"/>
-			<cmd name="EditPaste" _label="_Paste" _tip="Paste the clipboard"/>
+			<cmd name="EditCut" _label="Cu_t" pixtype="stock" pixname="gtk-cut" _tip="Cut the selection"/>
+			<cmd name="EditCopy" _label="_Copy" pixtype="stock" pixname="gtk-copy" _tip="Copy the selection"/>
+			<cmd name="EditPaste" _label="_Paste" pixtype="stock" pixname="gtk-paste" _tip="Paste the clipboard"/>
 			<cmd name="EditPasteQuotation" _label="Paste _Quotation" _tip="Paste the clipboard as a quotation"/>
 
-			<cmd name="EditFind" _label="_Find..." _tip="Find"/>
+			<cmd name="EditFind" _label="_Find..." pixtype="stock" pixname="Find" _tip="Find"/>
 			<cmd name="EditFindRegex" _label="Find Regular E_xpression..." _tip="Find A Regular Expression"/>
 			<cmd name="EditFindAgain" _label="Find _Again" _tip="Find again"/>
-			<cmd name="EditReplace" _label="_Replace..." _tip="Find and Replace"/>
+			<cmd name="EditReplace" _label="_Replace..." _tip="Find and Replace"
+			pixtype="stock" pixname="gtk-find-and-replace"/>
 
 			<cmd name="EditSelectAll" _label="Select _All"
 			_tip="Select the entire contents of the document"/>
 			<cmd name="EditSpellCheck" _label="_Spell Check Document..."
-			_tip="Check spelling of the document" accel="*Ctrl**Shift*l"/>
+			_tip="Check spelling of the document" accel="*Ctrl**Shift*l"
+			pixtype="stock" pixname="gtk-spell-check"/>
 
 			<cmd name="InsertImage" _label="_Image..." _tip="Insert image into document..."/>
 			<cmd name="InsertLink"  _label="_Link..." _tip="Insert HTML link into document..."/>
@@ -83,20 +85,24 @@
 
 			<cmd name="AlignLeft" _label="_Left"
 			_tip="Left justifies the paragraphs"
-			/>
+			pixtype="stock" pixname="gtk-justify-left"/>
 			<cmd name="AlignCenter" _label="_Center"
 			_tip="Center justifies the paragraphs"
-			/>
+			pixtype="stock" pixname="gtk-justify-center"/>
 			<cmd name="AlignRight" _label="_Right"
 			_tip="Right justifies the paragraphs"
-			/>
+			pixtype="stock" pixname="gtk-justify-right"/>
 
-			<cmd name="FormatBold" _label="_Bold" accel="*Ctrl*b"/>
-			<cmd name="FormatItalic" _label="_Italic" accel="*Ctrl*i"/>
-			<cmd name="FormatUnderline" _label="_Underline" accel="*Ctrl*u"/>
-			<cmd name="FormatStrikeout" _label="Strikeout"/>
+			<cmd name="FormatBold" _label="_Bold" accel="*Ctrl*b"
+			pixtype="stock" pixname="gtk-bold"/>
+			<cmd name="FormatItalic" _label="_Italic" accel="*Ctrl*i"
+			pixtype="stock" pixname="gtk-italic"/>
+			<cmd name="FormatUnderline" _label="_Underline" accel="*Ctrl*u"
+			pixtype="stock" pixname="gtk-underline"/>
+			<cmd name="FormatStrikeout" _label="Strikeout"
+			pixtype="stock" pixname="gtk-strikethrough"/>
 			<cmd name="FormatFixed" _label="Typewriter" accel="*Ctrl*t"
-				pixtype="filename" pixname="@ICONSDIR@/font-tt-16.png"/>
+			pixtype="filename" pixname="@ICONSDIR@/font-tt-16.png"/>
 			<cmd name="FormatSubscript" _label="Subscript"/>
 			<cmd name="FormatSuperscript" _label="Superscript"/>
 
@@ -106,19 +112,21 @@
 			<cmd name="FontSizeOne"/>
 			<cmd name="FontSizeTwo"/>
 			<cmd name="FontSizeThree"/>
+
+			<cmd name="IndentMore"
+			pixtype="stock" pixname="gnome-stock-text-indent"/>
+			<cmd name="IndentLess"
+			pixtype="stock" pixname="gnome-stock-text-unindent"/>
 		</commands>
 	<menu>
 		<submenu name="Edit" _label="_Edit">
 			<placeholder name="EditUndoRedo">
-				     <menuitem name="EditUndo" verb="" accel="*Ctrl*Z"
-			             pixtype="filename" pixname="@ICONSDIR@/undo-16.png"/>
-				     <menuitem name="EditRedo" verb="" accel="*Ctrl*R"
-			             pixtype="filename" pixname="@ICONSDIR@/redo-16.png"/>
+				     <menuitem name="EditUndo" verb="" accel="*Ctrl*Z"/>
+				     <menuitem name="EditRedo" verb="" accel="*Ctrl*R"/>
 			</placeholder>
 
 			<placeholder name="EditCutCopyPaste">
-				     <menuitem name="EditCut" verb="" accel="*Ctrl*X"
-                                     pixtype="filename" pixname="@ICONSDIR@/16_cut.png"/>
+				     <menuitem name="EditCut" verb="" accel="*Ctrl*X"/>
 				     <menuitem name="EditCopy" verb="" accel="*Ctrl*C"
                                      pixtype="filename" pixname="@ICONSDIR@/16_copy.png"/>
 				     <menuitem name="EditPaste" verb="" accel="*Ctrl*V"
@@ -272,26 +280,19 @@
 	</menu>
 
 	<dockitem name="Toolbar">
-		<toolitem name="EditUndo" verb="" _label="Undo" _tip="Undo previous changes"
-		pixtype="filename" pixname="@ICONSDIR@/undo-24.png"/>
-		<toolitem name="EditRedo" verb="" _label="Redo"
-		_tip="Redo previously undone change" pixtype="filename" pixname="@ICONSDIR@/redo-24.png"/>
+		<toolitem name="EditUndo" verb="" _label="Undo" _tip="Undo previous changes"/>
+		<toolitem name="EditRedo" verb="" _label="Redo" _tip="Redo previously undone change"/>
 
 		<separator/>
 
-		<toolitem name="EditCut" verb=""  _label="Cut" _tip="Cut selection to clipboard"
-		pixtype="filename" pixname="@ICONSDIR@/24_cut.png"/>
-                <toolitem name="EditCopy" verb=""  _label="Copy" _tip="Copy selection to clipboard"
-		pixtype="filename" pixname="@ICONSDIR@/24_copy.png"/>
-		<toolitem name="EditPaste" verb=""  _label="Paste" _tip="Paste from clipboard"
-		pixtype="filename" pixname="@ICONSDIR@/24_paste.png"/>
+		<toolitem name="EditCut" verb=""  _label="Cut" _tip="Cut selection to clipboard"/>
+                <toolitem name="EditCopy" verb=""  _label="Copy" _tip="Copy selection to clipboard"/>
+		<toolitem name="EditPaste" verb=""  _label="Paste" _tip="Paste from clipboard"/>
 
 		<separator/>
 
-		<toolitem name="EditFind" verb=""  _label="Find" _tip="Find"
-		pixtype="filename" pixname="@ICONSDIR@/search-24.png"/>
-		<toolitem name="EditReplace" verb=""  _label="Replace" _tip="Find And Replace"
-		pixtype="filename" pixname="@ICONSDIR@/search-and-replace-24.png"/>
+		<toolitem name="EditFind" verb=""  _label="Find" _tip="Find"/>
+		<toolitem name="EditReplace" verb=""  _label="Replace" _tip="Find And Replace"/>
 
 		<separator/>
 
