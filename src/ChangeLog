@@ -1,3 +1,8 @@
+2002-10-08  Larry Ewing  <lewing@ximian.com>
+
+	* Makefile.am (libgtkhtml_HEADERS): remove the .c file that was
+	incorrectly included here.
+
 2002-10-08  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c (parse_l): set flow item color

@@ -52,7 +52,6 @@ libgtkhtml_HEADERS =				\
 	htmlengine-edit-cursor.h		\
 	htmlengine-edit-cut-and-paste.h         \
 	htmlengine-edit-fontstyle.h		\
-	htmlengine-edit-images.c		\
 	htmlengine-edit-images.h		\
 	htmlengine-edit-movement.h		\
 	htmlengine-edit-rule.h			\
