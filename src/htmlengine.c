@@ -3643,15 +3643,14 @@ html_engine_set_editable (HTMLEngine *e,
 
 	html_engine_disable_selection (e);
 
-	if (! e->editable && editable) {
-		html_cursor_home (e->cursor, e);
-	}
-
 	html_engine_draw (e, 0, 0, e->width, e->height);
+
 	e->editable = editable;
 
 	if (editable) {
 		ensure_editable (e);
+		html_cursor_home (e->cursor, e);
+
 		if (e->have_focus)
 			html_engine_setup_blinking_cursor (e);
 	} else {

@@ -1,3 +1,9 @@
+2000-06-18  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine.c (html_engine_set_editable): Bring the cursor home
+	only after ensuring the thing is actually editing-compatible
+	[i.e., after calling `ensure_editable()'].
+
 2000-06-17  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* gtkhtml.c (gtk_html_set_editable): If the widget has become
