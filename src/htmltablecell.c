@@ -114,19 +114,6 @@ calc_min_width (HTMLObject *o,
 			minWidth = w;
 	}
 
-	if (o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH) {
-		gint fixed_width;
-		gint pixel_size;
-
-		/* Our minimum width is at least our fixed width */
-
-		pixel_size = html_painter_get_pixel_size (painter);
-		fixed_width = HTML_TABLE_CELL (o)->fixed_width * pixel_size;
-		
-		if (fixed_width > minWidth)
-			minWidth = fixed_width;
-	}
-
 	return minWidth;
 }
 
@@ -135,7 +122,8 @@ calc_preferred_width (HTMLObject *o,
 		      HTMLPainter *painter)
 {
 	return o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH
-		? html_object_calc_min_width (o, painter)
+		? MAX (html_object_calc_min_width (o, painter), HTML_TABLE_CELL (o)->fixed_width
+		       * html_painter_get_pixel_size (painter))
 		: (* HTML_OBJECT_CLASS (parent_class)->calc_preferred_width) (o, painter);
 }
 
@@ -360,4 +348,10 @@ html_table_cell_set_position (HTMLTableCell *cell, gint row, gint col)
 {
 	cell->col = col;
 	cell->row = row;
+}
+
+gint
+html_table_cell_get_fixed_width (HTMLTableCell *cell, HTMLPainter *painter)
+{
+	return html_painter_get_pixel_size (painter) * cell->fixed_width;
 }

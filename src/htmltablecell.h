@@ -81,5 +81,7 @@ void        html_table_cell_set_bg_pixmap    (HTMLTableCell      *cell,
 void        html_table_cell_set_position     (HTMLTableCell      *cell,
 					      gint                row,
 					      gint                col);
+gint        html_table_cell_get_fixed_width  (HTMLTableCell      *cell,
+					      HTMLPainter        *painter);
 
 #endif /* _HTMLTABLECELL_H_ */

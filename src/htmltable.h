@@ -32,7 +32,6 @@ struct _HTMLTable {
 	gint specified_width;
 
 	HTMLTableCell ***cells;
-	gint totalColumnInfos;
 	gint col, totalCols;
 	gint row, totalRows, allocRows;
 	gint spacing;
@@ -41,10 +40,11 @@ struct _HTMLTable {
 	HTMLClueV *caption;
 	HTMLVAlignType capAlign;
 	
-	GArray *columnPos; /* integer array */
-	GArray *columnPrefPos; /* integer array */
-	GArray *columnOpt; /* integer array */
-	GArray *rowHeights; /* integer array */
+	GArray *columnMin;
+	GArray *columnPref;
+	GArray *columnFixed;
+	GArray *columnOpt;
+	GArray *rowHeights;
 
 	GdkColor *bgColor;
 	HTMLImagePointer *bgPixmap;

@@ -1,3 +1,28 @@
+2000-12-15  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltablecell.c (calc_min_width): don't use fixed_width as
+	min_width
+	(calc_preferred_width): for fixed width cells use it as preferred
+
+	* htmltable.c (calc_preferred_width): calc also fixed width cells
+	preferred width to columnPref array
+	(divide_upto_preferred_width): extracted from
+	divide_into_variable_all
+	(divide_into_variable_all): first divide in fixed width cells,
+	then to auto-width ones
+	(divide_left_by_preferred_width): extracted from
+	divide_into_variable_all
+
+	* htmltablecell.c (html_table_cell_get_fixed_width): new helper
+	function
+
+	* htmltable.h: added array columnFixed with fixed widths of
+	columns
+
+	* htmltable.c (calc_column_width_template): added parameter pref,
+	it should be array with preferred width used by portioning width
+	of spaned columns
+
 2000-12-14  Larry Ewing  <lewing@helixcode.com>
 
 	* gtkhtml.c (gtk_html_begin_content): arggggh... use the content

@@ -34,14 +34,11 @@
 #include "htmltablecell.h"
 
 
-#define COLUMN_INFO(table, i)				\
-	(g_array_index (table->colInfo, ColumnInfo, i))
+#define COLUMN_MIN(table, i)				\
+	(g_array_index (table->columnMin, gint, i))
 
-#define COLUMN_POS(table, i)				\
-	(g_array_index (table->columnPos, gint, i))
-
-#define COLUMN_PREF_POS(table, i)				\
-	(g_array_index (table->columnPrefPos, gint, i))
+#define COLUMN_PREF(table, i)				\
+	(g_array_index (table->columnPref, gint, i))
 
 #define COLUMN_OPT(table, i)				\
 	(g_array_index (table->columnOpt, gint, i))
@@ -90,8 +87,8 @@ destroy (HTMLObject *o)
 	}
 	g_free (table->cells);
 
-	g_array_free (table->columnPos, TRUE);
-	g_array_free (table->columnPrefPos, TRUE);
+	g_array_free (table->columnMin, TRUE);
+	g_array_free (table->columnPref, TRUE);
 	g_array_free (table->columnOpt, TRUE);
 	g_array_free (table->rowHeights, TRUE);
 
@@ -270,7 +267,7 @@ calc_column_width_step (HTMLTable *table, HTMLPainter *painter, GArray *array, g
 
 static void
 calc_column_width_template (HTMLTable *table, HTMLPainter *painter, GArray *array,
-			    gint (*calc_fn)(HTMLObject *, HTMLPainter *))
+			    gint (*calc_fn)(HTMLObject *, HTMLPainter *), GArray *pref)
 {
 	gint c, add, span;
 	gint pixel_size = html_painter_get_pixel_size (painter);
@@ -286,7 +283,7 @@ calc_column_width_template (HTMLTable *table, HTMLPainter *painter, GArray *arra
 	span = 1;
 	while (span <= table->totalCols && next) {
 		arr  = g_new0 (gint, table->totalCols);
-		next = calc_column_width_step (table, painter, array, arr, calc_fn, span);
+		next = calc_column_width_step (table, painter, pref, arr, calc_fn, span);
 		add  = 0;
 		for (c = 0; c < table->totalCols; c++) {
 			ARR (c + 1) += add;
@@ -594,12 +591,12 @@ calc_min_width (HTMLObject *o,
 {
 	HTMLTable *table = HTML_TABLE (o);
 
-	calc_column_width_template (table, painter, table->columnPos, html_object_calc_min_width);
+	calc_column_width_template (table, painter, table->columnMin, html_object_calc_min_width, table->columnMin);
 
 	return o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH
 		? MAX (html_painter_get_pixel_size (painter) * table->specified_width,
-		       COLUMN_POS (table, table->totalCols) + table->border * html_painter_get_pixel_size (painter))
-		: COLUMN_POS (table, table->totalCols) + table->border * html_painter_get_pixel_size (painter);
+		       COLUMN_MIN (table, table->totalCols) + table->border * html_painter_get_pixel_size (painter))
+		: COLUMN_MIN (table, table->totalCols) + table->border * html_painter_get_pixel_size (painter);
 }
 
 static gint
@@ -608,12 +605,15 @@ calc_preferred_width (HTMLObject *o,
 {
 	HTMLTable *table = HTML_TABLE (o);
 
-	/* FIXME this is not needed for FIXEDWIDTH tables */
-	calc_column_width_template (table, painter, table->columnPrefPos, html_object_calc_preferred_width);
+	calc_column_width_template (table, painter, table->columnPref,
+				    html_object_calc_preferred_width, table->columnPref);
+	calc_column_width_template (table, painter, table->columnFixed,
+				    (gint (*)(HTMLObject *, HTMLPainter *)) html_table_cell_get_fixed_width,
+				    table->columnPref);
 
 	return o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH
 		? MAX (html_painter_get_pixel_size (painter) * table->specified_width, html_object_calc_min_width (o, painter))
-		: COLUMN_PREF_POS (table, table->totalCols) + table->border * html_painter_get_pixel_size (painter);
+		: COLUMN_PREF (table, table->totalCols) + table->border * html_painter_get_pixel_size (painter);
 }
 
 static void
@@ -690,16 +690,18 @@ divide_into_percented (HTMLTable *table, gint *col_percent, gint *max_size, gint
 	return added;
 }
 
+#define PREF(i) (g_array_index (pref, gint, i))
+
 static gboolean
-calc_lowest_fill (HTMLTable *table, gint *max_size, gint *col_percent, gint pixel_size,
+calc_lowest_fill (HTMLTable *table, GArray *pref, gint *max_size, gint *col_percent, gint pixel_size,
 		  gint *ret_col, gint *ret_total_pref)
 {
-	gint c, pw, border_extra = table->border ? 2 : 0, min_fill = COLUMN_PREF_POS (table, table->totalCols);
+	gint c, pw, border_extra = table->border ? 2 : 0, min_fill = COLUMN_PREF (table, table->totalCols);
 
 	*ret_total_pref = 0;
 	for (c = 0; c < table->totalCols; c++)
 		if (col_percent [c + 1] == col_percent [c]) {
-			pw = COLUMN_PREF_POS (table, c + 1) - COLUMN_PREF_POS (table, c)
+			pw = PREF (c + 1) - PREF (c)
 				- pixel_size * (table->spacing + border_extra);
 			/* printf ("col %d pw %d size %d\n", c, pw, max_size [c]); */
 			if (max_size [c] < pw) {
@@ -712,19 +714,18 @@ calc_lowest_fill (HTMLTable *table, gint *max_size, gint *col_percent, gint pixe
 			}
 		}
 
-	return min_fill == COLUMN_PREF_POS (table, table->totalCols) ? FALSE : TRUE;
+	return min_fill == COLUMN_PREF (table, table->totalCols) ? FALSE : TRUE;
 }
 
-static void
-divide_into_variable_all (HTMLTable *table, HTMLPainter *painter, gint *col_percent, gint *max_size, gint left)
+inline static gint
+divide_upto_preferred_width (HTMLTable *table, HTMLPainter *painter, GArray *pref,
+			     gint *col_percent, gint *max_size, gint left)
 {
-	gint added, part, c, pref, pw, pixel_size = html_painter_get_pixel_size (painter);
+	gint added, part, c, pw, pixel_size = html_painter_get_pixel_size (painter);
 	gint total_fill, min_col, min_fill, min_pw, processed_pw, border_extra = table->border ? 2 : 0;
 
-	/* printf ("left %d cols: %d\n", left, table->totalCols); */
-	html_object_calc_preferred_width (HTML_OBJECT (table), painter);
-	while (calc_lowest_fill (table, max_size, col_percent, pixel_size, &min_col, &total_fill)) {
-		min_pw   = COLUMN_PREF_POS (table, min_col + 1) - COLUMN_PREF_POS (table, min_col)
+	while (left && calc_lowest_fill (table, pref, max_size, col_percent, pixel_size, &min_col, &total_fill)) {
+		min_pw   = PREF (min_col + 1) - PREF (min_col)
 			- pixel_size * (table->spacing + border_extra);
 		min_fill = MIN (min_pw - max_size [min_col], ((gdouble) min_pw * left) / total_fill);
 		if (min_fill <= 0)
@@ -744,66 +745,89 @@ divide_into_variable_all (HTMLTable *table, HTMLPainter *painter, gint *col_perc
 
 		processed_pw = 0;
 		added = 0;
-		for (c = 0; c < table->totalCols; c++) {
-			pw = COLUMN_PREF_POS (table, c + 1) - COLUMN_PREF_POS (table, c)
-				- pixel_size * (table->spacing + border_extra);
-			if (col_percent [c + 1] == col_percent [c] && max_size [c] < pw) {
-				processed_pw += pw;
-				part = (LL min_fill * processed_pw) / min_pw;
-				if (LL min_fill * processed_pw - LL part * min_pw
-				    > LL (part + 1) * min_pw - LL min_fill * processed_pw)
-					part ++;
-				part         -= added;
-				added        += part;
-				max_size [c] += part;
-				left         -= part;
-				/* printf ("cell %d add: %d --> %d\n", c, part, max_size [c]); */
-			}
-		}
-	}
 
-	if (left) {
-		/* printf ("round 2 left: %d\n", left); */
-		pref = 0;
 		for (c = 0; c < table->totalCols; c++) {
 			if (col_percent [c + 1] == col_percent [c]) {
-				pref += COLUMN_PREF_POS (table, c + 1) - COLUMN_PREF_POS (table, c)
+				pw = PREF (c + 1) - PREF (c)
 					- pixel_size * (table->spacing + border_extra);
-				/* printf ("col pref: %d size: %d\n", COLUMN_PREF_POS (table, c + 1)
-				   - COLUMN_PREF_POS (table, c)
-				   - pixel_size * (table->spacing + border_extra), max_size [c]); */
-			}
-		}
-
-		added = 0;
-		total_fill = left;
-		processed_pw = 0;
-		if (pref) {
-			for (c = 0; c < table->totalCols; c++) {
-				if (col_percent [c + 1] == col_percent [c]) {
-					pw  = COLUMN_PREF_POS (table, c + 1) - COLUMN_PREF_POS (table, c)
-						- pixel_size * (table->spacing + border_extra);
+				if (max_size [c] < pw) {
 					processed_pw += pw;
-					part = (LL total_fill * processed_pw) / pref;
-					/* printf ("pw %d part %d total %d processed %d\n",
-					   pw, part, total_fill, processed_pw); */
-					if (LL total_fill * processed_pw - LL part * pref
-					    > LL (part + 1) * pref - LL total_fill * processed_pw)
+					part = (LL min_fill * processed_pw) / min_pw;
+					if (LL min_fill * processed_pw - LL part * min_pw
+					    > LL (part + 1) * min_pw - LL min_fill * processed_pw)
 						part ++;
 					part         -= added;
-					max_size [c] += part;
 					added        += part;
+					max_size [c] += part;
 					left         -= part;
-					/* printf ("col %d (add %d) --> %d (pw=%d)\n", c, part, max_size [c], pw); */
+				        /* printf ("cell %d add: %d --> %d\n", c, part, max_size [c]); */
 				}
 			}
 		}
-		
 	}
+
+	return left;
+}
+
+inline static void
+divide_left_by_preferred_width (HTMLTable *table, HTMLPainter *painter,
+				gint *col_percent, gint *max_size, gint left)
+{
+	gint added, part, c, pref, pw, pixel_size = html_painter_get_pixel_size (painter);
+	gint total_fill, processed_pw, border_extra = table->border ? 2 : 0;
+
+	/* printf ("round 2 left: %d\n", left); */
+	pref = 0;
+	for (c = 0; c < table->totalCols; c++)
+		if (col_percent [c + 1] == col_percent [c])
+			pref += COLUMN_PREF (table, c + 1) - COLUMN_PREF (table, c)
+				- pixel_size * (table->spacing + border_extra);
+			/* printf ("col pref: %d size: %d\n", COLUMN_PREF (table, c + 1)
+			   - COLUMN_PREF (table, c)
+			   - pixel_size * (table->spacing + border_extra), max_size [c]); */
+
+	added        = 0;
+	processed_pw = 0;
+	total_fill   = left;
+
+	if (pref)
+		for (c = 0; c < table->totalCols; c++) {
+			if (col_percent [c + 1] == col_percent [c]) {
+				pw  = COLUMN_PREF (table, c + 1) - COLUMN_PREF (table, c)
+					- pixel_size * (table->spacing + border_extra);
+				processed_pw += pw;
+				part = (LL total_fill * processed_pw) / pref;
+				/* printf ("pw %d part %d total %d processed %d\n",
+				   pw, part, total_fill, processed_pw); */
+				if (LL total_fill * processed_pw - LL part * pref
+				    > LL (part + 1) * pref - LL total_fill * processed_pw)
+					part ++;
+				part         -= added;
+				max_size [c] += part;
+				added        += part;
+				left         -= part;
+				/* printf ("col %d (add %d) --> %d (pw=%d)\n", c, part, max_size [c], pw); */
+			}
+		}
+		
 	/* printf ("------------------------------------\n*left*: %d\n-------------------------------\n", left); */
 }
 
-static void
+inline static void
+divide_into_variable_all (HTMLTable *table, HTMLPainter *painter,
+			  gint *col_percent, gint *max_size, gint left)
+{
+	/* printf ("left %d cols: %d\n", left, table->totalCols); */
+	html_object_calc_preferred_width (HTML_OBJECT (table), painter);
+
+	left = divide_upto_preferred_width (table, painter, table->columnFixed, col_percent, max_size, left);
+	left = divide_upto_preferred_width (table, painter, table->columnPref,  col_percent, max_size, left);
+
+	if (left)
+		divide_left_by_preferred_width (table, painter, col_percent, max_size, left);
+}
+
+inline static void
 divide_into_percented_all (HTMLTable *table, gint *col_percent, gint *max_size, gint max_width, gint left)
 {
 	gdouble sub_percent, percent;
@@ -869,7 +893,7 @@ set_columns_optimal_width (HTMLTable *table, gint *max_size, gint pixel_size)
 	gint c;
 
 	g_array_set_size (table->columnOpt, table->totalCols + 1);
-	COLUMN_OPT (table, 0) = COLUMN_POS (table, 0);
+	COLUMN_OPT (table, 0) = COLUMN_MIN (table, 0);
 
 	for (c = 0; c < table->totalCols; c++)
 		COLUMN_OPT (table, c + 1) = COLUMN_OPT (table, c) + max_size [c]
@@ -913,7 +937,7 @@ alloc_max_size (HTMLTable *table, gint pixel_size)
 
 	max_size = g_new (gint, table->totalCols);
 	for (c = 0; c < table->totalCols; c++)
-		max_size [c] = COLUMN_POS (table, c+1) - COLUMN_POS (table, c) - pixel_size * (table->spacing + border_extra);
+		max_size [c] = COLUMN_MIN (table, c+1) - COLUMN_MIN (table, c) - pixel_size * (table->spacing + border_extra);
 
 	return max_size;
 }
@@ -945,7 +969,7 @@ html_table_set_max_width (HTMLObject *o,
 	max_size     = alloc_max_size (table, pixel_size);
 
 	divide_left_width (table, painter, max_size, max_width,
-			   max_width + glue - COLUMN_POS (table, table->totalCols)
+			   max_width + glue - COLUMN_MIN (table, table->totalCols)
 			   - pixel_size * table->border);
 
 	set_cells_max_width (table, painter, max_size);
@@ -1516,12 +1540,11 @@ html_table_init (HTMLTable *table,
 	for (r = 0; r < table->allocRows; r++)
 		table->cells[r] = g_new0 (HTMLTableCell *, table->totalCols);;
 	
-	table->totalColumnInfos = 0;
-
-	table->columnPos = g_array_new (FALSE, FALSE, sizeof (gint));
-	table->columnPrefPos = g_array_new (FALSE, FALSE, sizeof (gint));
-	table->columnOpt = g_array_new (FALSE, FALSE, sizeof (gint));
-	table->rowHeights = g_array_new (FALSE, FALSE, sizeof (gint));
+	table->columnMin   = g_array_new (FALSE, FALSE, sizeof (gint));
+	table->columnFixed = g_array_new (FALSE, FALSE, sizeof (gint));
+	table->columnPref  = g_array_new (FALSE, FALSE, sizeof (gint));
+	table->columnOpt   = g_array_new (FALSE, FALSE, sizeof (gint));
+	table->rowHeights  = g_array_new (FALSE, FALSE, sizeof (gint));
 }
 
 HTMLObject *
