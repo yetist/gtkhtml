@@ -23,6 +23,7 @@
 #include "htmlinterval.h"
 #include "htmlselection.h"
 #include "htmlengine-edit.h"
+#include "htmlengine-edit-selection-updater.h"
 
 void
 html_engine_select_interval (HTMLEngine *e, HTMLInterval *i)

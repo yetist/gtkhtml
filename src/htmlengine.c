@@ -4082,6 +4082,7 @@ html_engine_thaw (HTMLEngine *engine)
 		/* FIXME This should happen in the idle loop, and should be
                    more conservative about the area to redraw.  This is gross.  */
 
+		printf ("calc + draw\n");
 		html_engine_calc_size (engine);
 		html_engine_draw (engine, 0, 0, engine->width, engine->height);
 	}

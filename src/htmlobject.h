@@ -84,13 +84,15 @@ struct _HTMLObjectClass {
 
 	/* copy/cut/paste operations */
 	HTMLObject * (* op_copy)         (HTMLObject *self,
-					  GList *from,
-					  GList *to,
-					  guint *len);
+					  GList      *from,
+					  GList      *to,
+					  guint      *len,
+					  HTMLObject *empty);
 	HTMLObject * (* op_cut)          (HTMLObject *self,
-					  GList *from,
-					  GList *to,
-					  guint *len);
+					  GList      *from,
+					  GList      *to,
+					  guint      *len,
+					  HTMLObject *empty);
 	gboolean     (* merge)           (HTMLObject *self,
 					  HTMLObject *o);
 	void         (* remove_child)    (HTMLObject *self,
@@ -100,7 +102,8 @@ struct _HTMLObjectClass {
 					  gint offset,
 					  gint level,
 					  GList **left,
-					  GList **right);
+					  GList **right,
+					  HTMLObject *empty);
 
 	/* Layout management and geometry handling.  */
 
@@ -254,11 +257,13 @@ HTMLObject *html_object_dup               (HTMLObject            *self);
 HTMLObject *html_object_op_copy           (HTMLObject            *self,
 					   GList                 *from,
 					   GList                 *to,
-					   guint                 *len);
+					   guint                 *len,
+					   HTMLObject            *empty);
 HTMLObject *html_object_op_cut            (HTMLObject            *self,
 					   GList                 *from,
 					   GList                 *to,
-					   guint                 *len);
+					   guint                 *len,
+					   HTMLObject            *empty);
 gboolean    html_object_merge             (HTMLObject            *self,
 					   HTMLObject            *with);
 void        html_object_remove_child      (HTMLObject            *self,
@@ -268,7 +273,8 @@ void        html_object_split             (HTMLObject            *self,
 					   gint                   offset,
 					   gint                   level,
 					   GList                **left,
-					   GList                **right);
+					   GList                **right,
+					   HTMLObject            *empty);
 
 void        html_object_set_parent        (HTMLObject            *self,
 					   HTMLObject            *parent);

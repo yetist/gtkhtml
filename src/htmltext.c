@@ -247,26 +247,18 @@ object_merge (HTMLObject *self, HTMLObject *with)
 }
 
 static void
-object_split (HTMLObject *self, HTMLObject *child, gint offset, gint level, GList **left, GList **right)
+object_split (HTMLObject *self, HTMLObject *child, gint offset, gint level, GList **left, GList **right, HTMLObject *empty)
 {
 	HTMLObject *dup, *prev;
 	HTMLText *text;
 	gchar *tt;
-
-	/* if (offset == 0 || offset == html_object_get_length (self)) {
-		printf ("OBJECT split left on parent\n");
-		if (self->parent)
-			html_clueflow_remove_text_slaves (HTML_CLUEFLOW (self->parent));
-		(*HTML_OBJECT_CLASS (parent_class)->split) (self, child, offset, level, left, right);
-		return;
-		} */
 
 	g_assert (self->parent);
 
 	html_clueflow_remove_text_slaves (HTML_CLUEFLOW (self->parent));
 
 	text            = HTML_TEXT (self);
-	dup            = html_object_dup (self);
+	dup             = html_object_dup (self);
 	tt              = text->text;
 	text->text      = g_strndup (tt, html_text_get_index (text, offset));
 	text->text_len  = offset;
@@ -295,7 +287,7 @@ object_split (HTMLObject *self, HTMLObject *child, gint offset, gint level, GLis
 
 	level--;
 	if (level)
-		html_object_split (self->parent, dup, 0, level, left, right);
+		html_object_split (self->parent, dup, 0, level, left, right, empty);
 }
 
 static gboolean

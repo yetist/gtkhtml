@@ -94,19 +94,36 @@ copy (HTMLObject *self,
 }
 
 static HTMLObject *
-op_copy (HTMLObject *self, GList *from, GList *to, guint *len)
+op_copy (HTMLObject *self, GList *from, GList *to, guint *len, HTMLObject *empty)
 {
-	g_warning ("COPY operation unimplemented for ");
-	gtk_html_debug_dump_object_type (self);
-	return NULL;
+	gint l = html_object_get_length (self);
+
+	if ((!from || GPOINTER_TO_INT (from->data) == 0) && (!to || GPOINTER_TO_INT (to->data) == l)) {
+		*len += html_object_get_length (self);
+
+		return html_object_dup (self);
+	} else
+		return html_object_dup (empty);
 }
 
 static HTMLObject *
-op_cut (HTMLObject *self, GList *from, GList *to, guint *len)
+op_cut (HTMLObject *self, GList *from, GList *to, guint *len, HTMLObject *empty)
 {
-	g_warning ("CUT operation unimplemented for ");
-	gtk_html_debug_dump_object_type (self);
-	return NULL;
+	gint l = html_object_get_length (self);
+
+	if ((!from || GPOINTER_TO_INT (from->data) == 0) && (!to || GPOINTER_TO_INT (to->data) == l)) {
+		if ((from || to) && !self->next && !self->prev)
+			html_clue_append_after (HTML_CLUE (self->parent), html_object_dup (empty), self);
+
+		html_object_change_set   (self->parent, HTML_CHANGE_ALL);
+		html_object_change_set   (self, HTML_CHANGE_ALL);
+		html_object_remove_child (self->parent, self);
+		*len += l;
+
+
+		return self;
+	} else
+		return html_object_dup (empty);
 }
 
 static gboolean
@@ -124,7 +141,7 @@ remove_child (HTMLObject *self, HTMLObject *child)
 }
 
 static void
-split (HTMLObject *self, HTMLObject *child, gint offset, gint level, GList **left, GList **right)
+split (HTMLObject *self, HTMLObject *child, gint offset, gint level, GList **left, GList **right, HTMLObject *empty)
 {
 	if (child || (offset && html_object_get_length (self) != offset)) {
 		g_warning ("don't know how to SPLIT ");
@@ -133,15 +150,20 @@ split (HTMLObject *self, HTMLObject *child, gint offset, gint level, GList **lef
 	}
 
 	if (offset) {
+		if (!self->next)
+			html_clue_append (HTML_CLUE (self->parent), html_object_dup (empty));
 		*left  = g_list_prepend (*left,  self);
 		*right = g_list_prepend (*right, self->next);
 	} else {
+		if (!self->prev)
+			html_clue_prepend (HTML_CLUE (self->parent), html_object_dup (empty));
 		*left  = g_list_prepend (*left,  self->prev);
 		*right = g_list_prepend (*right, self);
 	}
 	level--;
+
 	if (level && self->parent)
-		split (self->parent, self, offset, level, left, right);
+		html_object_split (self->parent, offset ? self->next : self, 0, level, left, right, empty);
 }
 
 static void
@@ -692,15 +714,15 @@ html_object_dup (HTMLObject *object)
 }
 
 HTMLObject *
-html_object_op_copy (HTMLObject *self, GList *from, GList *to, guint *len)
+html_object_op_copy (HTMLObject *self, GList *from, GList *to, guint *len, HTMLObject *empty)
 {
-	return (* HO_CLASS (self)->op_copy) (self, from, to, len);
+	return (* HO_CLASS (self)->op_copy) (self, from, to, len, empty);
 }
 
 HTMLObject *
-html_object_op_cut (HTMLObject *self, GList *from, GList *to, guint *len)
+html_object_op_cut (HTMLObject *self, GList *from, GList *to, guint *len, HTMLObject *empty)
 {
-	return (* HO_CLASS (self)->op_cut) (self, from, to, len);
+	return (* HO_CLASS (self)->op_cut) (self, from, to, len, empty);
 }
 
 gboolean
@@ -726,11 +748,12 @@ html_object_remove_child (HTMLObject *self, HTMLObject *child)
 }
 
 void
-html_object_split (HTMLObject *self, HTMLObject *child, gint offset, gint level, GList **left, GList **right)
+html_object_split (HTMLObject *self, HTMLObject *child, gint offset, gint level,
+		   GList **left, GList **right, HTMLObject *empty)
 {
 	g_assert (self);
 
-	(* HO_CLASS (self)->split) (self, child, offset, level, left, right);
+	(* HO_CLASS (self)->split) (self, child, offset, level, left, right, empty);
 }
 
 
@@ -1395,4 +1418,12 @@ void
 html_object_copy_data_from_object (HTMLObject *dst, HTMLObject *src)
 {
 	g_datalist_foreach (&src->object_data, copy_data, dst);
+}
+
+GList *
+html_object_get_bound_list (HTMLObject *self, GList *list)
+{
+	return list
+		? (HTML_OBJECT (list->data) == self ? list->next : NULL)
+		: NULL;
 }

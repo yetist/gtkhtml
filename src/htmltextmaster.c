@@ -73,13 +73,13 @@ new_text (HTMLText *t, gint begin, gint end)
 }
 
 static HTMLObject *
-op_copy (HTMLObject *self, GList *from, GList *to, guint *len)
+op_copy (HTMLObject *self, GList *from, GList *to, guint *len, HTMLObject *empty)
 {
 	return html_text_op_copy_helper (HTML_TEXT (self), from, to, len, new_text);
 }
 
 static HTMLObject *
-op_cut (HTMLObject *self, GList *from, GList *to, guint *len)
+op_cut (HTMLObject *self, GList *from, GList *to, guint *len, HTMLObject *empty)
 {
 	return html_text_op_cut_helper (HTML_TEXT (self), from, to, len, new_text);
 }

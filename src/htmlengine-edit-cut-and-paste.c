@@ -45,8 +45,11 @@
 #include "htmlundo.h"
 #include "htmlundo-action.h"
 
-static void delete_object (HTMLEngine *e, HTMLObject **ret_object, guint *ret_len, HTMLUndoDirection dir);
-static void insert_object (HTMLEngine *e, HTMLObject *obj, guint len, HTMLUndoDirection dir);
+static void        delete_object (HTMLEngine *e, HTMLObject **ret_object, guint *ret_len, HTMLUndoDirection dir);
+static void        insert_object (HTMLEngine *e, HTMLObject *obj, guint len, HTMLUndoDirection dir);
+static HTMLObject *new_text      (HTMLEngine *e, const gchar *text, gint len);
+static HTMLObject *get_tail_leaf (HTMLObject *o);
+static HTMLObject *get_head_leaf (HTMLObject *o);
 
 /* helper functions -- need refactor */
 
@@ -68,14 +71,6 @@ get_tree_bounds_for_merge (HTMLObject *obj, GList **first, GList **last)
 		*last = g_list_append (*last, cur);
 		cur = html_object_tail_not_slave (cur);
 	}
-}
-
-GList *
-html_object_get_bound_list (HTMLObject *self, GList *list)
-{
-	return list
-		? (HTML_OBJECT (list->data) == self ? list->next : NULL)
-		: NULL;
 }
 
 static void
@@ -253,34 +248,47 @@ html_engine_prepare_cut_lists (HTMLEngine *engine, GList **from_list, GList **to
 static void
 remove_empty_and_merge (HTMLEngine *e, gboolean merge, GList *left, GList *right, HTMLCursor *c)
 {
+	HTMLObject *lo, *ro;
+	gint len;
+
 	while (left && left->data && right && right->data) {
-		gint len;
 
-		len = html_object_get_length (HTML_OBJECT (left->data));
+		lo  = HTML_OBJECT (left->data);
+		ro  = HTML_OBJECT (right->data);
+		len = html_object_get_length (lo);
 
-		if ((HTML_OBJECT (left->data)->prev || merge) &&
-		    html_object_is_text (HTML_OBJECT (left->data)) && !*HTML_TEXT (left->data)->text) {
-			if (e->cursor->object == left->data)
-				e->cursor->object = right->data;
-			if (c && c->object == left->data)
-				c->object = right->data;
-			html_object_remove_child (HTML_OBJECT (left->data)->parent, HTML_OBJECT (left->data));
-			html_object_destroy (HTML_OBJECT (left->data));
-		} else if ((HTML_OBJECT (right->data)->next || merge) &&
-			   html_object_is_text (HTML_OBJECT (right->data)) && !*HTML_TEXT (right->data)->text) {
-			html_object_remove_child (HTML_OBJECT (right->data)->parent, HTML_OBJECT (right->data));
-			html_object_destroy (HTML_OBJECT (right->data));
+		if ((lo->prev || merge) &&
+		    html_object_is_text (lo) && !*HTML_TEXT (lo)->text) {
+			if (e->cursor->object == lo)
+				e->cursor->object = ro;
+			if (c && c->object == lo)
+				c->object = ro;
+			html_object_remove_child (lo->parent, lo);
+			html_object_destroy (lo);
+		} else if ((ro->next || merge) &&
+			   html_object_is_text (ro) && !*HTML_TEXT (ro)->text) {
+			html_object_remove_child (ro->parent, ro);
+			html_object_destroy (ro);
 		} else if (merge) {
-			if (!html_object_merge (HTML_OBJECT (left->data), HTML_OBJECT (right->data)))
+			if (!html_object_merge (lo, ro))
 				break;
-			if (HTML_OBJECT (right->data) == e->cursor->object) {
-				e->cursor->object = HTML_OBJECT (left->data);
+			if (ro == e->cursor->object) {
+				e->cursor->object  = lo;
 				e->cursor->offset += len;
 			}
 		}
-		left = left->next;
+		left  = left->next;
 		right = right->next;
 	}
+}
+
+static void
+split_and_add_empty_texts (HTMLEngine *e, gint level, GList **left, GList **right)
+{
+	HTMLObject *empty = new_text (e, "", 0);
+
+	html_object_split (e->cursor->object, NULL, e->cursor->offset, level, left, right, empty);
+	html_object_destroy (empty);
 }
 
 /* end of helper */
@@ -291,10 +299,14 @@ html_engine_copy (HTMLEngine *e)
 	GList *from, *to;
 
 	if (html_engine_is_selection_active (e)) {
+		HTMLObject *empty = new_text (e, "", 0);
+
 		html_engine_freeze (e);
 		prepare_delete_bounds (e, &from, &to, NULL, NULL);
 		e->clipboard_len = 0;
-		e->clipboard     = html_object_op_copy (HTML_OBJECT (from->data), from->next, to->next, &e->clipboard_len);
+		e->clipboard     = html_object_op_copy (HTML_OBJECT (from->data), from->next, to->next,
+							&e->clipboard_len, empty);
+		html_object_destroy (empty);
 		html_engine_thaw (e);
 	}
 }
@@ -345,17 +357,31 @@ delete_setup_undo (HTMLEngine *e, HTMLObject *buffer, guint len, HTMLUndoDirecti
 }
 
 static void
+check_cursor (HTMLEngine *e)
+{
+	if (!e->cursor->object) {
+		e->cursor->object   = get_head_leaf (e->clue);
+		e->cursor->offset   = 0;
+		e->cursor->position = 0;
+	}
+}
+
+static void
 delete_object_do (HTMLEngine *e, HTMLObject **object, guint *len)
 {
 	GList *from, *to, *left, *right;
 
 	if (html_engine_is_selection_active (e)) {
+		HTMLObject *empty = new_text (e, "", 0);
+
 		html_engine_freeze (e);
 		prepare_delete_bounds (e, &from, &to, &left, &right);
 		html_engine_disable_selection (e);
 		*len     = 0;
-		*object  = html_object_op_cut  (HTML_OBJECT (from->data), from->next, to->next, len);
+		*object  = html_object_op_cut  (HTML_OBJECT (from->data), from->next, to->next, len, empty);
+		html_object_destroy (empty);
 		remove_empty_and_merge (e, TRUE, left, right, NULL);
+		check_cursor (e);
 		html_engine_spell_check_range (e, e->cursor, e->cursor);
 		html_engine_thaw (e);
 	}
@@ -388,13 +414,17 @@ delete_object (HTMLEngine *e, HTMLObject **ret_object, guint *ret_len, HTMLUndoD
 			}
 		}
 		if (!e->cursor->object || (e->cursor->object->prev == NULL && e->cursor->offset == 0)) {
-			e->cursor->object = e->mark->object;
-			e->cursor->offset = 0;
+			if (e->cursor->object != e->mark->object) {
+				e->cursor->object = e->mark->object;
+				e->cursor->offset = 0;
+			} else {
+				e->cursor->object = NULL;
+			}
 		}
 
 		delete_object_do (e, &object, &len);
 		if (ret_object && ret_len) {
-			*ret_object = html_object_op_copy (object, NULL, NULL, ret_len);
+			*ret_object = html_object_op_copy (object, NULL, NULL, ret_len, NULL);
 			*ret_len    = len;
 		}
 		delete_setup_undo (e, object, len, dir);
@@ -466,7 +496,7 @@ insert_object_do (HTMLEngine *e, HTMLObject *obj, guint len)
 		cur = cur->parent;
 	}
 
-	html_object_split (e->cursor->object, NULL, e->cursor->offset, level, &left, &right);
+	split_and_add_empty_texts (e, level, &left, &right);
         get_tree_bounds_for_merge (obj, &first, &last);
 
 	e->cursor->position += len;
@@ -556,7 +586,7 @@ html_engine_paste (HTMLEngine *e)
 		HTMLObject *copy;
 		guint len = 0;
 
-		copy = html_object_op_copy (e->clipboard, NULL, NULL, &len);
+		copy = html_object_op_copy (e->clipboard, NULL, NULL, &len, NULL);
 		html_engine_paste_object (e, copy, e->clipboard_len);
 	}
 }
@@ -579,7 +609,7 @@ html_engine_insert_empty_paragraph (HTMLEngine *e)
 
 	html_engine_freeze (e);
 	orig = html_cursor_dup (e->cursor);
-	html_object_split (e->cursor->object, NULL, e->cursor->offset, 2, &left, &right);
+	split_and_add_empty_texts (e, 2, &left, &right);
 	remove_empty_and_merge (e, FALSE, left, right, orig);
 	html_cursor_forward (e->cursor, e);
 	insert_setup_undo (e, 1, HTML_UNDO_UNDO);

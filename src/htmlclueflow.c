@@ -62,28 +62,28 @@ copy (HTMLObject *self,
 }
 
 static HTMLObject *
-op_copy (HTMLObject *self, GList *from, GList *to, guint *len)
+op_copy (HTMLObject *self, GList *from, GList *to, guint *len, HTMLObject *empty)
 {
 	if (!from)
 		(*len) ++;
 	html_clueflow_remove_text_slaves (HTML_CLUEFLOW (self));
-	return (*HTML_OBJECT_CLASS (parent_class)->op_copy) (self, from, to, len);
+	return (*HTML_OBJECT_CLASS (parent_class)->op_copy) (self, from, to, len, empty);
 }
 
 static HTMLObject *
-op_cut (HTMLObject *self, GList *from, GList *to, guint *len)
+op_cut (HTMLObject *self, GList *from, GList *to, guint *len, HTMLObject *empty)
 {
 	if (!from)
 		(*len) ++;
 	html_clueflow_remove_text_slaves (HTML_CLUEFLOW (self));
-	return (*HTML_OBJECT_CLASS (parent_class)->op_cut) (self, from, to, len);
+	return (*HTML_OBJECT_CLASS (parent_class)->op_cut) (self, from, to, len, empty);
 }
 
 static void
-split (HTMLObject *self, HTMLObject *child, gint offset, gint level, GList **left, GList **right)
+split (HTMLObject *self, HTMLObject *child, gint offset, gint level, GList **left, GList **right, HTMLObject *empty)
 {
 	html_clueflow_remove_text_slaves (HTML_CLUEFLOW (self));
-	(*HTML_OBJECT_CLASS (parent_class)->split) (self, child, offset, level, left, right);
+	(*HTML_OBJECT_CLASS (parent_class)->split) (self, child, offset, level, left, right, empty);
 }
 
 static gboolean
