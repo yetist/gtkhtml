@@ -1,3 +1,9 @@
+2003-01-21  Larry Ewing  <lewing@ximian.com>
+
+	* htmltextslave.c (hts_fit_line): make sure we never call strchr
+	on a NULL string.  This tends to happen if two consecutive spaces
+	enter the token stream.
+
 2003-01-18  Larry Ewing  <lewing@ximian.com>
 
 	* htmlselect.c (html_select_set_text): make sure we have a longest

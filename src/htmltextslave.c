@@ -474,15 +474,15 @@ hts_fit_line (HTMLObject *o, HTMLPainter *painter,
 	gchar *begin;
 	guint words = 0;
 
-	/* printf ("fit_line %d left: %d\n", firstRun, widthLeft); */
-
 	slave = HTML_TEXT_SLAVE (o);
 	text  = HTML_TEXT (slave->owner);
 
 	begin = html_text_slave_remove_leading_space (slave, painter, lineBegin);
 
+	//printf ("fit_line %d left: %d lspacetext: \"%s\"\n", firstRun, widthLeft, begin);
+
 	sep = begin;
-	while (sep
+	while (sep && *sep
 	       && widthLeft >= html_text_slave_nb_width (slave, painter, words + 1)) {
 		words ++;
 		lsep   = sep;
@@ -510,8 +510,11 @@ hts_fit_line (HTMLObject *o, HTMLPainter *painter,
 			rv = next_to_floating ? HTML_FIT_NONE : HTML_FIT_COMPLETE;
 		else {
 			words ++;
-			sep    = strchr (sep + (words > 1 ? 0 : 1), ' ');
-			pos    = sep ? g_utf8_pointer_to_offset (begin, sep) : g_utf8_strlen (begin, -1);
+
+			if (sep)
+				sep = strchr (sep + (words > 1 ? 0 : 1), ' ');
+
+			pos = sep ? g_utf8_pointer_to_offset (begin, sep) : g_utf8_strlen (begin, -1);
 		}
 	}
 
