@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
-"POT-Creation-Date: 2001-04-17 10:08-0500\n"
+"POT-Creation-Date: 2001-06-12 08:35+0200\n"
 "PO-Revision-Date: 2000-12-14 12:56-0600\n"
 "Last-Translator: Radka Soukupova <Radka.Soukupova@centrum.cz>\n"
 "Language-Team: czech <cs@li.org>\n"
@@ -17,86 +17,83 @@ msgstr ""
 #: capplet/gnome-bindings-prop.c:297 capplet/gnome-bindings-prop.c:435
 #: capplet/gnome-bindings-prop.c:436
 msgid "<None>"
-msgstr ""
+msgstr "<®ádný>"
 
-#: capplet/gnome-bindings-prop.c:525
+#: capplet/gnome-bindings-prop.c:529
 msgid "Key"
-msgstr ""
+msgstr "Klávesa"
 
-#: capplet/gnome-bindings-prop.c:525
+#: capplet/gnome-bindings-prop.c:530
 msgid "Command"
 msgstr "Pøíkaz"
 
-#: capplet/gnome-bindings-prop.c:526
+#: capplet/gnome-bindings-prop.c:531
 msgid "Commands"
 msgstr "Pøíkazy"
 
-#: capplet/gnome-bindings-prop.c:527
+#: capplet/gnome-bindings-prop.c:532
 msgid "Keymaps"
-msgstr ""
+msgstr "Mapy kláves"
 
-#: capplet/gnome-bindings-prop.c:545
+#: capplet/gnome-bindings-prop.c:550
 msgid "Add"
 msgstr "Pøidat"
 
-#: capplet/gnome-bindings-prop.c:548
+#: capplet/gnome-bindings-prop.c:553
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:2
+#: components/html-editor/popup.c:249
 msgid "Copy"
 msgstr "Kopírovat"
 
-#: capplet/gnome-bindings-prop.c:551
+#: capplet/gnome-bindings-prop.c:556
 msgid "Delete"
 msgstr "Zru¹it"
 
-#: capplet/gnome-bindings-prop.c:582
+#: capplet/gnome-bindings-prop.c:587
 msgid "Grab key"
-msgstr ""
+msgstr "Poznej klávesu"
 
-#: capplet/main.c:227
+#: capplet/main.c:227 components/html-editor/cell.c:333
+#: components/html-editor/table.c:315 components/html-editor/table.c:375
 msgid "Could not load glade file."
-msgstr ""
+msgstr "Nemohu naèíst glade soubor"
 
 #: capplet/gtkhtml-capplet.glade.h:1
-#, fuzzy
 msgid "Animated images"
-msgstr "Animace"
+msgstr "Animované obrázky"
 
 #: capplet/gtkhtml-capplet.glade.h:2
-#, fuzzy
 msgid "Behavior"
 msgstr "Chování"
 
 #. color selection
 #: capplet/gtkhtml-capplet.glade.h:3 components/html-editor/text.c:218
 msgid "Color"
-msgstr ""
+msgstr "Barva"
 
 #: capplet/gtkhtml-capplet.glade.h:4
-#, fuzzy
 msgid "Fixed width"
 msgstr "Písmo s pevnou ¹íøkou"
 
 #: capplet/gtkhtml-capplet.glade.h:5
 msgid "Fonts"
-msgstr ""
+msgstr "Písma"
 
 #: capplet/gtkhtml-capplet.glade.h:6
-#, fuzzy
 msgid "For printing"
-msgstr "pro tisk"
+msgstr "Pro tisk"
 
 #: capplet/gtkhtml-capplet.glade.h:7
-msgid "Keybord Shortcuts"
-msgstr ""
+msgid "Keyboard Shortcuts"
+msgstr "Klávesové zkratky"
 
 #: capplet/gtkhtml-capplet.glade.h:8
-#, fuzzy
 msgid "Language"
-msgstr "jazyk"
+msgstr "Jazyk"
 
 #: capplet/gtkhtml-capplet.glade.h:9
 msgid "Magic links (FIXME: better label)"
-msgstr ""
+msgstr "Auto-magické odkazy"
 
 #: capplet/gtkhtml-capplet.glade.h:10
 msgid "Miscellaneous"
@@ -104,33 +101,29 @@ msgstr "Rùzné"
 
 #: capplet/gtkhtml-capplet.glade.h:11
 msgid "On screen"
-msgstr ""
+msgstr "Na obrazovce"
 
 #: capplet/gtkhtml-capplet.glade.h:12
 msgid "Pick a color"
-msgstr ""
+msgstr "Vyber barvu"
 
 #: capplet/gtkhtml-capplet.glade.h:13
-#, fuzzy
 msgid "Select HTML fixed width font"
-msgstr "Vybrat HTML písmo s pevnou ¹íøkou pro tisk"
+msgstr "Vybrat HTML písmo s pevnou ¹íøkou"
 
 #: capplet/gtkhtml-capplet.glade.h:14
 msgid "Select HTML fixed width font for printing"
 msgstr "Vybrat HTML písmo s pevnou ¹íøkou pro tisk"
 
 #: capplet/gtkhtml-capplet.glade.h:15
-#, fuzzy
 msgid "Select HTML variable width font"
-msgstr "Vybrat HTML písmo s pevnou ¹íøkou pro tisk"
+msgstr "Vybrat proporcionální písmo"
 
 #: capplet/gtkhtml-capplet.glade.h:16
-#, fuzzy
 msgid "Select HTML variable width font for printing"
-msgstr "Vybrat HTML písmo s pevnou ¹íøkou pro tisk"
+msgstr "Vybrat proporcionální písmo pro tisk"
 
 #: capplet/gtkhtml-capplet.glade.h:17
-#, fuzzy
 msgid "Spell Checking"
 msgstr "Kontrola pravopisu"
 
@@ -139,9 +132,8 @@ msgid "Spell checking"
 msgstr "Kontrola pravopisu"
 
 #: capplet/gtkhtml-capplet.glade.h:19
-#, fuzzy
 msgid "Variable width"
-msgstr "Písmo s promìnlivou ¹íøkou"
+msgstr "Proporcionální"
 
 #: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:1
 msgid "EBrowser control"
@@ -156,7 +148,7 @@ msgid "Factory for the EBrowser control"
 msgstr ""
 
 #: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:4
-msgid "HTML Browser conrtol"
+msgid "HTML Browser control"
 msgstr ""
 
 #: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:1
@@ -173,7 +165,7 @@ msgstr ""
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:1
 msgid "C_ut"
-msgstr ""
+msgstr "V_yøíznout"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:3
 msgid "Copy selection to clipboard"
@@ -184,8 +176,9 @@ msgid "Copy the selection"
 msgstr ""
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:5
+#: components/html-editor/popup.c:250
 msgid "Cut"
-msgstr ""
+msgstr "Vyøíznout"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:6
 msgid "Cut selection to clipboard"
@@ -196,491 +189,681 @@ msgid "Cut the selection"
 msgstr ""
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:8
+#: components/html-editor/search.c:64
 msgid "Find"
-msgstr ""
+msgstr "Najít"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:9
-msgid "Find Rege_x..."
-msgstr ""
+msgid "Find A Regular Expression"
+msgstr "Najít regulární výraz"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:10
-msgid "Find _Again"
-msgstr ""
+msgid "Find And Replace"
+msgstr "Najít a nahradit"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:11
-msgid "Insert HTML link into document..."
-msgstr ""
+msgid "Find Rege_x..."
+msgstr "Najít reg.výra_z"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:12
-msgid "Insert image into document..."
-msgstr ""
+msgid "Find _Again"
+msgstr "Najít _dal¹í"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:13
-msgid "Insert rule into document..."
-msgstr ""
+msgid "Find again"
+msgstr "Najít dal¹í"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:14
-msgid "Modify the file's properties"
-msgstr ""
+msgid "Find and Replace"
+msgstr "Najít a nahradit"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:15
-msgid "Paste"
-msgstr ""
+msgid "Insert HTML link into document..."
+msgstr "Vlo¾it HTML odkaz..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:16
+msgid "Insert image into document..."
+msgstr "Vlo¾it obrázek..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:17
+msgid "Insert rule into document..."
+msgstr "Vlo¾it èáru..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:18
+msgid "Insert table into document..."
+msgstr "Vlo¾it tabulku..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:19
+msgid "Modify the file's properties"
+msgstr "Zmìnit vlastnosti souboru"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:20
+#: components/html-editor/popup.c:256
+msgid "Paste"
+msgstr "Vlo¾it"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:21
 msgid "Paste from clipboard"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:17
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:22
 msgid "Paste the clipboard"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:18
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:23
 msgid "Redo"
-msgstr ""
+msgstr "Zru¹it vrácení"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:19
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:24
 msgid "Redo previously undone change"
-msgstr ""
+msgstr "Zru¹it pøedchozí vrácení"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:20
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:25
 msgid "Redo the undone action"
-msgstr ""
+msgstr "Zru¹it pøedchozí vrácení"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:21
-msgid "Regular expression search"
-msgstr ""
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:22
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:26
 #: components/html-editor/replace.c:84 components/html-editor/replace.c:146
 #: components/html-editor/replace.c:158
 msgid "Replace"
-msgstr ""
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:23
-msgid "Replace a string"
-msgstr ""
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:24
-msgid "Search again for the same string"
-msgstr ""
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:25
-msgid "Search and replace string"
-msgstr ""
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:26
-msgid "Search for a string"
-msgstr ""
+msgstr "Nahradit"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:27
-msgid "Search string"
-msgstr ""
+msgid "Select _All"
+msgstr "Vybrat v¹e"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:28
-msgid "Undo"
-msgstr ""
+msgid "Select the entire contents of the document"
+msgstr "Vybrat celý dokument"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:29
-msgid "Undo previous changes"
-msgstr ""
+msgid "Undo"
+msgstr "Vrátit"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:30
-msgid "Undo the last action"
-msgstr ""
+msgid "Undo previous changes"
+msgstr "Vrátit o krok"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:31
-#, fuzzy
-msgid "_Copy"
-msgstr "Kopírovat"
+msgid "Undo the last action"
+msgstr "Vrátit o krok"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:32
-msgid "_Edit"
-msgstr ""
+msgid "_Copy"
+msgstr "_Kopírovat"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:33
-msgid "_Find..."
-msgstr ""
+msgid "_Edit"
+msgstr "Úpravy"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:34
-#, fuzzy
-msgid "_Image..."
-msgstr "Obrázek"
+msgid "_Find..."
+msgstr "Najít..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:35
-msgid "_Insert"
-msgstr ""
+msgid "_Image..."
+msgstr "_Obrázek..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:36
-msgid "_Link..."
-msgstr ""
+msgid "_Insert"
+msgstr "_Vlo¾it"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:37
-msgid "_Paste"
-msgstr ""
+msgid "_Link..."
+msgstr "O_dkaz..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:38
-msgid "_Properties..."
-msgstr ""
+msgid "_Paste"
+msgstr "V_lo¾it"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:39
-msgid "_Redo"
-msgstr ""
+msgid "_Properties..."
+msgstr "_Vlastnosti..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:40
-#, fuzzy
-msgid "_Replace..."
-msgstr "Obrázek"
+msgid "_Redo"
+msgstr "_Vrátit zru¹ení"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:41
-msgid "_Rule..."
-msgstr ""
+msgid "_Replace..."
+msgstr "_Nahradit..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:42
+msgid "_Rule..."
+msgstr "Èá_ru..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:43
+msgid "_Table..."
+msgstr "Tabulku..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:44
 msgid "_Undo"
-msgstr ""
+msgstr "Vrátit"
 
-#: components/html-editor/body.c:130 components/html-editor/body.c:134
+#: components/html-editor/body.c:134 components/html-editor/body.c:138
 msgid "Background Image"
-msgstr ""
+msgstr "Obrázek na pozadí"
 
-#: components/html-editor/body.c:133
+#: components/html-editor/body.c:137
 msgid "Enable"
-msgstr ""
+msgstr "Povolit"
 
-#: components/html-editor/body.c:156
+#: components/html-editor/body.c:160
 msgid "Colors"
 msgstr "Barvy"
 
-#: components/html-editor/editor-control-factory.c:145
-#: components/html-editor/popup.c:81
-msgid "Properties"
-msgstr ""
-
-#: components/html-editor/editor-control-factory.c:156
-#: components/html-editor/menubar.c:97 components/html-editor/popup.c:96
-msgid "Image"
-msgstr "Obrázek"
-
-#: components/html-editor/editor-control-factory.c:165
-#: components/html-editor/menubar.c:118 components/html-editor/popup.c:89
+#: components/html-editor/body.c:180
+#: components/html-editor/editor-control-factory.c:167
+#: components/html-editor/menubar.c:125 components/html-editor/popup.c:93
 msgid "Text"
 msgstr "Text"
 
-#: components/html-editor/editor-control-factory.c:176
-#: components/html-editor/menubar.c:141 components/html-editor/popup.c:124
-msgid "Rule"
-msgstr ""
+#: components/html-editor/body.c:181
+#: components/html-editor/editor-control-factory.c:193
+#: components/html-editor/menubar.c:109 components/html-editor/menubar.c:130
+#: components/html-editor/popup.c:114
+msgid "Link"
+msgstr "Odkaz"
 
-#: components/html-editor/editor-control-factory.c:185
-#: components/html-editor/popup.c:103
+#: components/html-editor/body.c:182
+#: components/html-editor/gtkhtml-editor-properties.glade.h:2
+msgid "Background"
+msgstr "Pozadí"
+
+#: components/html-editor/cell.c:339 components/html-editor/table.c:321
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:286
+msgid "Automatic"
+msgstr "Automatický"
+
+#: components/html-editor/editor-control-factory.c:147
+#: components/html-editor/popup.c:85
+msgid "Properties"
+msgstr "Vlastnosti"
+
+#: components/html-editor/editor-control-factory.c:158
+#: components/html-editor/menubar.c:104 components/html-editor/popup.c:100
+msgid "Image"
+msgstr "Obrázek"
+
+#: components/html-editor/editor-control-factory.c:178
+#: components/html-editor/menubar.c:148 components/html-editor/popup.c:128
+msgid "Rule"
+msgstr "Èára"
+
+#: components/html-editor/editor-control-factory.c:188
+#: components/html-editor/popup.c:107
 msgid "Paragraph"
 msgstr "Odstavec"
 
-#: components/html-editor/editor-control-factory.c:190
-#: components/html-editor/menubar.c:102 components/html-editor/menubar.c:123
-#: components/html-editor/popup.c:110
-msgid "Link"
-msgstr ""
-
-#: components/html-editor/editor-control-factory.c:195
-#: components/html-editor/popup.c:117
+#: components/html-editor/editor-control-factory.c:198
+#: components/html-editor/popup.c:121
 msgid "Page"
-msgstr ""
-
-#: components/html-editor/image.c:180
-msgid "Image selection"
-msgstr ""
-
-#: components/html-editor/image.c:201
-msgid "Top"
-msgstr ""
-
-#: components/html-editor/image.c:202 components/html-editor/paragraph.c:158
-#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:490
-msgid "Center"
-msgstr ""
-
-#: components/html-editor/image.c:203
-msgid "Bottom"
-msgstr ""
+msgstr "Stránka"
 
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
+#: components/html-editor/gtkhtml-editor-properties.glade.h:1
 #: components/html-editor/image.c:207
 msgid "Alignment"
+msgstr "Zarovnání"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:3
+msgid "Be careful! Tables code is still ALPHA quality."
 msgstr ""
 
-#: components/html-editor/image.c:215
-msgid "Border"
-msgstr ""
+#: components/html-editor/gtkhtml-editor-properties.glade.h:4
+#: components/html-editor/image.c:203
+msgid "Bottom"
+msgstr "Spodek"
 
-#: components/html-editor/image.c:225 components/html-editor/image.c:243
-#: components/html-editor/image.c:275 components/html-editor/rule.c:267
-#, fuzzy
-msgid "width"
-msgstr "Písmo s pevnou ¹íøkou"
+#: components/html-editor/gtkhtml-editor-properties.glade.h:5
+#: components/html-editor/popup.c:142
+msgid "Cell"
+msgstr "Buòka"
 
-#: components/html-editor/image.c:232
-msgid "Padding"
-msgstr ""
+#: components/html-editor/gtkhtml-editor-properties.glade.h:6
+msgid "Cells"
+msgstr "Políèka"
 
-#: components/html-editor/image.c:244 components/html-editor/image.c:276
-msgid "height"
-msgstr ""
+#: components/html-editor/gtkhtml-editor-properties.glade.h:7
+#: components/html-editor/paragraph.c:158 components/html-editor/rule.c:257
+#: components/html-editor/toolbar.c:496
+msgid "Center"
+msgstr "Støed"
 
-#. size
-#: components/html-editor/image.c:252 components/html-editor/rule.c:225
-#: components/html-editor/text.c:188
-msgid "Size"
-msgstr ""
+#: components/html-editor/gtkhtml-editor-properties.glade.h:8
+msgid "Don't wrap"
+msgstr "Nezalamovat"
 
+#: components/html-editor/gtkhtml-editor-properties.glade.h:9
+msgid "Header"
+msgstr "Hlavièka"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:10
+#: components/html-editor/paragraph.c:157 components/html-editor/rule.c:256
+msgid "Left"
+msgstr "Vlevo"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:11
+#: components/html-editor/image.c:202
+msgid "Middle"
+msgstr "Uprostøed"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:12
+msgid "Miscelaneous"
+msgstr "Rùzné"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:13
+msgid "None"
+msgstr "®ádný"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:14
+#: components/html-editor/paragraph.c:124 components/html-editor/toolbar.c:50
+msgid "Normal"
+msgstr "Normální"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:15
+msgid "Percent"
+msgstr "Procent"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:16
 #: components/html-editor/image.c:259 components/html-editor/image.c:268
 #: components/html-editor/rule.c:230
 msgid "Pixels"
-msgstr ""
+msgstr "Bodù"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:17
+#: components/html-editor/paragraph.c:159 components/html-editor/rule.c:258
+msgid "Right"
+msgstr "Vpravo"
+
+#. size
+#: components/html-editor/gtkhtml-editor-properties.glade.h:18
+#: components/html-editor/image.c:252 components/html-editor/rule.c:225
+#: components/html-editor/text.c:188
+msgid "Size"
+msgstr "Velikost"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:19
+msgid "Spacing"
+msgstr "Rozestup"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:20
+#: components/html-editor/menubar.c:165 components/html-editor/popup.c:135
+msgid "Table"
+msgstr "Tabulka"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:21
+msgid "Table Insert"
+msgstr "Vkládání tabulky"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:22
+#: components/html-editor/image.c:201
+msgid "Top"
+msgstr "Nahoøe"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:23
+msgid "Wrap"
+msgstr "Zalamovat"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:24
+msgid "alignment"
+msgstr "zarovnání"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:25
+msgid "border"
+msgstr "rámeèek"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:26
+msgid "color"
+msgstr "barva"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:27
+msgid "column span"
+msgstr "zabrat sloupcù"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:28
+msgid "columns"
+msgstr "sloupce"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:29
+#: components/html-editor/image.c:244 components/html-editor/image.c:276
+msgid "height"
+msgstr "vý¹ka"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:30
+msgid "horizontal"
+msgstr "horizontální"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:31
+msgid "padding"
+msgstr "okolo buòek"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:32
+msgid "pixmap"
+msgstr "obrázek"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:33
+msgid "row span"
+msgstr "zabrat øádkù"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:34
+msgid "rows"
+msgstr "øádkù"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:35
+msgid "spacing"
+msgstr "mezi buòkami"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:36
+msgid "style"
+msgstr "styl"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:37
+msgid "vertical"
+msgstr "vertikální"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:38
+#: components/html-editor/image.c:225 components/html-editor/image.c:243
+#: components/html-editor/image.c:275 components/html-editor/rule.c:267
+msgid "width"
+msgstr "¹íøka"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:39
+msgid "wrapping"
+msgstr "zalamování"
+
+#: components/html-editor/image.c:180
+msgid "Image selection"
+msgstr "Výbìr obrázku"
+
+#: components/html-editor/image.c:215
+msgid "Border"
+msgstr "Rámeèek"
+
+#: components/html-editor/image.c:232
+msgid "Padding"
+msgstr "Okolo bunìk"
 
 #: components/html-editor/image.c:260 components/html-editor/image.c:269
 #: components/html-editor/rule.c:231
 #, c-format
 msgid "Percent %"
-msgstr ""
+msgstr "Procent %"
 
 #: components/html-editor/link.c:74
 msgid "Clear"
-msgstr ""
+msgstr "Vymazat"
 
 #: components/html-editor/link.c:77
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: components/html-editor/main.c:65
 msgid "Could not initialize GNORBA"
-msgstr ""
+msgstr "Nelze inicializovat GNORBA"
 
 #: components/html-editor/main.c:80
 msgid "Could not initialize Bonobo"
-msgstr ""
+msgstr "Nelze inicializovat Bonobo"
 
-#: components/html-editor/menubar.c:95 components/html-editor/menubar.c:115
-#: components/html-editor/menubar.c:138
+#: components/html-editor/menubar.c:102 components/html-editor/menubar.c:122
+#: components/html-editor/menubar.c:145 components/html-editor/menubar.c:162
 #: components/html-editor/properties.c:110
 msgid "Insert"
-msgstr ""
+msgstr "Vlo¾it"
 
-#: components/html-editor/menubar.c:154
+#: components/html-editor/menubar.c:178
 msgid "Cannot execute gtkhtml properties"
-msgstr ""
+msgstr "Nelze spustit gtkhtml nastavení"
 
 #. style
 #: components/html-editor/paragraph.c:110 components/html-editor/rule.c:249
 #: components/html-editor/text.c:168
 msgid "Style"
-msgstr ""
+msgstr "Vzhled"
+
+#: components/html-editor/paragraph.c:125
+msgid "Pre"
+msgstr "Pre"
+
+#: components/html-editor/paragraph.c:126 components/html-editor/toolbar.c:52
+msgid "Header 1"
+msgstr "Hlavièka 1"
+
+#: components/html-editor/paragraph.c:127 components/html-editor/toolbar.c:53
+msgid "Header 2"
+msgstr "Hlavièka 2"
+
+#: components/html-editor/paragraph.c:128 components/html-editor/toolbar.c:54
+msgid "Header 3"
+msgstr "Hlavièka 3"
+
+#: components/html-editor/paragraph.c:129 components/html-editor/toolbar.c:55
+msgid "Header 4"
+msgstr "Hlavièka 4"
+
+#: components/html-editor/paragraph.c:130 components/html-editor/toolbar.c:56
+msgid "Header 5"
+msgstr "Hlavièka 5"
+
+#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:57
+msgid "Header 6"
+msgstr "Hlavièka 6"
+
+#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:58
+msgid "Address"
+msgstr "Adresa"
+
+#: components/html-editor/paragraph.c:133
+msgid "Item dot"
+msgstr "Obodovaná polo¾ka"
+
+#: components/html-editor/paragraph.c:134
+msgid "Item roman"
+msgstr "Øímsky èíslovaná polo¾ka"
+
+#: components/html-editor/paragraph.c:135
+msgid "Item digit"
+msgstr "Èíslovaná polo¾ka"
 
 #: components/html-editor/paragraph.c:144
 msgid "Align"
-msgstr ""
+msgstr "Zarovnání"
 
-#: components/html-editor/paragraph.c:157 components/html-editor/rule.c:256
-msgid "Left"
-msgstr ""
+#: components/html-editor/popup.c:235
+msgid "Suggest word"
+msgstr "Navrhnout slovo"
 
-#: components/html-editor/paragraph.c:159 components/html-editor/rule.c:258
-msgid "Right"
-msgstr ""
-
-#: components/html-editor/popup.c:219
+#: components/html-editor/popup.c:244
 msgid "Remove link"
-msgstr ""
+msgstr "Zru¹it odkaz"
+
+#: components/html-editor/popup.c:260 components/html-editor/popup.c:286
+msgid "Text..."
+msgstr "Text..."
+
+#: components/html-editor/popup.c:262 components/html-editor/popup.c:277
+#: components/html-editor/popup.c:288
+msgid "Paragraph..."
+msgstr "Odstavec..."
+
+#: components/html-editor/popup.c:264 components/html-editor/popup.c:279
+#: components/html-editor/popup.c:290
+msgid "Link..."
+msgstr "Odkaz..."
+
+#: components/html-editor/popup.c:270
+msgid "Rule..."
+msgstr "Èára..."
+
+#: components/html-editor/popup.c:275
+msgid "Image..."
+msgstr "Obrázek..."
+
+#: components/html-editor/popup.c:295 components/html-editor/popup.c:304
+msgid "Table..."
+msgstr "Tabulka..."
+
+#: components/html-editor/popup.c:301
+msgid "Cell..."
+msgstr "Políèko tabulky"
+
+#: components/html-editor/popup.c:311
+msgid "Page..."
+msgstr "Stránka..."
 
 #: components/html-editor/replace.c:83
 msgid "Replace confirmation"
-msgstr ""
+msgstr "Potvrzení nahrazení"
 
 #: components/html-editor/replace.c:84
 msgid "Replace all"
-msgstr ""
+msgstr "Nahraï v¹e"
 
 #: components/html-editor/replace.c:84
 msgid "Next"
-msgstr ""
+msgstr "Dal¹í"
 
-#: components/html-editor/replace.c:152 components/html-editor/search.c:67
+#: components/html-editor/replace.c:152
 msgid "search backward"
-msgstr ""
+msgstr "hledej pozpátku"
 
 #: components/html-editor/replace.c:153 components/html-editor/search.c:68
 msgid "case sensitive"
-msgstr ""
+msgstr "rozli¹ovat velká/malá"
 
 #: components/html-editor/replace.c:161
 msgid "with"
-msgstr ""
+msgstr "¹íøka"
 
 #: components/html-editor/rule.c:239
 msgid "length"
-msgstr ""
+msgstr "délka"
 
 #: components/html-editor/rule.c:273
 msgid "shaded"
-msgstr ""
+msgstr "stínovaná"
 
 #: components/html-editor/search.c:64
-msgid "Regex search"
-msgstr ""
+msgid "Regex find"
+msgstr "Regex hledání"
 
-#: components/html-editor/search.c:64
-msgid "Search"
-msgstr ""
+#: components/html-editor/search.c:67
+msgid "backward"
+msgstr "zpìt"
 
-#: components/html-editor/test-html-editor-control.c:239
+#: components/html-editor/test-html-editor-control.c:240
 msgid "Open file..."
-msgstr ""
+msgstr "Otevøít soubor..."
 
-#: components/html-editor/test-html-editor-control.c:241
+#: components/html-editor/test-html-editor-control.c:242
 msgid "Save file as..."
-msgstr ""
+msgstr "Ulo¾it soubor jako..."
 
-#: components/html-editor/text.c:180 components/html-editor/toolbar.c:501
+#: components/html-editor/text.c:180 components/html-editor/toolbar.c:507
 msgid "Bold"
-msgstr ""
+msgstr "Tuèné"
 
-#: components/html-editor/text.c:181 components/html-editor/toolbar.c:503
+#: components/html-editor/text.c:181 components/html-editor/toolbar.c:509
 msgid "Italic"
-msgstr ""
+msgstr "Kurzíva"
 
-#: components/html-editor/text.c:182 components/html-editor/toolbar.c:505
+#: components/html-editor/text.c:182 components/html-editor/toolbar.c:511
 msgid "Underline"
-msgstr ""
+msgstr "Podr¾ené"
 
-#: components/html-editor/text.c:183 components/html-editor/toolbar.c:507
+#: components/html-editor/text.c:183 components/html-editor/toolbar.c:513
 msgid "Strikeout"
-msgstr ""
-
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:280
-msgid "Automatic"
-msgstr ""
-
-#: components/html-editor/toolbar.c:50
-msgid "Normal"
-msgstr ""
+msgstr "Pøe¹krtnuté"
 
 #: components/html-editor/toolbar.c:51
 msgid "Preformat"
-msgstr ""
-
-#: components/html-editor/toolbar.c:52
-msgid "Header 1"
-msgstr ""
-
-#: components/html-editor/toolbar.c:53
-msgid "Header 2"
-msgstr ""
-
-#: components/html-editor/toolbar.c:54
-msgid "Header 3"
-msgstr ""
-
-#: components/html-editor/toolbar.c:55
-msgid "Header 4"
-msgstr ""
-
-#: components/html-editor/toolbar.c:56
-msgid "Header 5"
-msgstr ""
-
-#: components/html-editor/toolbar.c:57
-msgid "Header 6"
-msgstr ""
-
-#: components/html-editor/toolbar.c:58
-msgid "Address"
-msgstr ""
+msgstr "Pøedformátované"
 
 #: components/html-editor/toolbar.c:59
 msgid "List item (digit)"
-msgstr ""
+msgstr "Seznam polo¾ek (èíslovaný)"
 
 #: components/html-editor/toolbar.c:60
 msgid "List item (unnumbered)"
-msgstr ""
+msgstr "Seznam polo¾ek (neèíslovaný)"
 
 #: components/html-editor/toolbar.c:61
 msgid "List item (roman)"
-msgstr ""
+msgstr "Seznam polo¾ek (øímsky èíslovaný)"
 
-#: components/html-editor/toolbar.c:488
+#: components/html-editor/toolbar.c:494
 msgid "Left align"
-msgstr ""
+msgstr "Zarovnání vlevo"
 
-#: components/html-editor/toolbar.c:488
+#: components/html-editor/toolbar.c:494
 msgid "Left justifies the paragraphs"
 msgstr ""
 
-#: components/html-editor/toolbar.c:490
+#: components/html-editor/toolbar.c:496
 msgid "Centers justifies the paragraphs"
 msgstr ""
 
-#: components/html-editor/toolbar.c:492
+#: components/html-editor/toolbar.c:498
 msgid "Right align"
-msgstr ""
+msgstr "Zarovnání vpravo"
 
-#: components/html-editor/toolbar.c:492
+#: components/html-editor/toolbar.c:498
 msgid "Right justifies the paragraphs"
 msgstr ""
 
-#: components/html-editor/toolbar.c:499
+#: components/html-editor/toolbar.c:505
 msgid "Typewriter"
-msgstr ""
+msgstr "Psací stroj"
 
-#: components/html-editor/toolbar.c:499
+#: components/html-editor/toolbar.c:505
 msgid "Toggle typewriter font style"
 msgstr ""
 
-#: components/html-editor/toolbar.c:501
+#: components/html-editor/toolbar.c:507
 msgid "Makes the text bold"
 msgstr ""
 
-#: components/html-editor/toolbar.c:503
+#: components/html-editor/toolbar.c:509
 msgid "Makes the text italic"
 msgstr ""
 
-#: components/html-editor/toolbar.c:505
+#: components/html-editor/toolbar.c:511
 msgid "Underlines the text"
 msgstr ""
 
-#: components/html-editor/toolbar.c:507
+#: components/html-editor/toolbar.c:513
 msgid "Strikes out the text"
 msgstr ""
 
-#: components/html-editor/toolbar.c:516
+#: components/html-editor/toolbar.c:522
 msgid "Unindent"
 msgstr ""
 
-#: components/html-editor/toolbar.c:516
+#: components/html-editor/toolbar.c:522
 msgid "Indents the paragraphs less"
 msgstr ""
 
-#: components/html-editor/toolbar.c:518
+#: components/html-editor/toolbar.c:524
 msgid "Indent"
 msgstr ""
 
-#: components/html-editor/toolbar.c:518
+#: components/html-editor/toolbar.c:524
 msgid "Indents the paragraphs more"
 msgstr ""
 
-#: components/html-editor/utils.c:104
+#: components/html-editor/utils.c:106
 msgid "Sample"
-msgstr ""
+msgstr "Pøíklad"
 
 #: src/testgtkhtml.c:112
 msgid "Print pre_view"
-msgstr ""
+msgstr "_Náhled tisku"
 
 #: src/testgtkhtml.c:112
 msgid "Print preview"
-msgstr ""
+msgstr "Náhled tisku"
 
 #~ msgid "Bindings"
 #~ msgstr "Vazby"
