@@ -22,8 +22,8 @@
 <oaf_attribute name="description" type="string" value="HTML Browser conrtol"/>
 
 <oaf_attribute name="bonobo:supported_mime_types" type="stringv">
-	<item value="text/html">
-	<item value="x-directory/webdav">
+	<item value="text/html"/>
+	<item value="x-directory/webdav"/>
 </oaf_attribute>
 
 </oaf_server>
