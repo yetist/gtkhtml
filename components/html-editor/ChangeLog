@@ -1,3 +1,7 @@
+2000-02-14  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* toolbar.c: Implemented the paragraph style menu.
+
 2000-02-01  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* editor-control-factory.c: Set up the UI Handler.

@@ -30,6 +30,98 @@
 #define EDITOR_TOOLBAR_PATH "/HTMLEditor"
 
 
+/* Paragraph style option menu.  */
+
+static struct {
+	GtkHTMLParagraphStyle style;
+	const gchar *description;
+} paragraph_style_items[] = {
+	{ GTK_HTML_PARAGRAPH_STYLE_NORMAL, _("Normal") },
+	{ GTK_HTML_PARAGRAPH_STYLE_H1, _("Header 1") },
+	{ GTK_HTML_PARAGRAPH_STYLE_H2, _("Header 2") },
+	{ GTK_HTML_PARAGRAPH_STYLE_H3, _("Header 3") },
+	{ GTK_HTML_PARAGRAPH_STYLE_H4, _("Header 4") },
+	{ GTK_HTML_PARAGRAPH_STYLE_H5, _("Header 5") },
+	{ GTK_HTML_PARAGRAPH_STYLE_H6, _("Header 6") },
+	{ GTK_HTML_PARAGRAPH_STYLE_ADDRESS, _("Address") },
+	{ GTK_HTML_PARAGRAPH_STYLE_PRE, _("Pre") },
+	{ GTK_HTML_PARAGRAPH_STYLE_ITEMDIGIT, _("List item (digit)") },
+	{ GTK_HTML_PARAGRAPH_STYLE_ITEMDOTTED, _("List item (unnumbered)") },
+	{ GTK_HTML_PARAGRAPH_STYLE_ITEMROMAN, _("List item (roman)") },
+	{ GTK_HTML_PARAGRAPH_STYLE_NORMAL, NULL },
+};
+
+static void
+paragraph_style_changed_cb (GtkHTML *html,
+			    GtkHTMLParagraphStyle style,
+			    gpointer data)
+{
+	GtkOptionMenu *option_menu;
+	guint i;
+
+	option_menu = GTK_OPTION_MENU (data);
+
+	for (i = 0; paragraph_style_items[i].description != NULL; i++) {
+		if (paragraph_style_items[i].style == style) {
+			gtk_option_menu_set_history (option_menu, i);
+			return;
+		}
+	}
+
+	g_warning ("Editor component toolbar: unknown paragraph style %d", style);
+}
+
+static void
+paragraph_style_menu_item_activated_cb (GtkWidget *widget,
+					gpointer data)
+{
+	GtkHTMLParagraphStyle style;
+	GtkHTML *html;
+
+	html = GTK_HTML (data);
+	style = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (widget), "paragraph_style_value"));
+
+	g_warning ("Setting paragraph style to %d.", style);
+
+	gtk_html_set_paragraph_style (html, style);
+}
+
+static GtkWidget *
+setup_paragraph_style_option_menu (GtkHTML *html)
+{
+	GtkWidget *option_menu;
+	GtkWidget *menu;
+	guint i;
+
+	option_menu = gtk_option_menu_new ();
+	menu = gtk_menu_new ();
+
+	for (i = 0; paragraph_style_items[i].description != NULL; i++) {
+		GtkWidget *menu_item;
+
+		menu_item = gtk_menu_item_new_with_label (paragraph_style_items[i].description);
+		gtk_widget_show (menu_item);
+
+		gtk_menu_append (GTK_MENU (menu), menu_item);
+
+		gtk_object_set_data (GTK_OBJECT (menu_item), "paragraph_style_value",
+				     GINT_TO_POINTER (paragraph_style_items[i].style));
+		gtk_signal_connect (GTK_OBJECT (menu_item), "activate",
+				    GTK_SIGNAL_FUNC (paragraph_style_menu_item_activated_cb),
+				    html);
+	}
+
+	gtk_option_menu_set_menu (GTK_OPTION_MENU (option_menu), menu);
+
+	gtk_signal_connect (GTK_OBJECT (html), "current_paragraph_style_changed",
+			    GTK_SIGNAL_FUNC (paragraph_style_changed_cb), option_menu);
+
+	gtk_widget_show (option_menu);
+
+	return option_menu;
+}
+
+
 /* Toolbar button callbacks.  */
 
 static void
@@ -112,10 +204,9 @@ create_editor_toolbar (GtkHTML *html)
 
 	gnome_app_fill_toolbar_with_data (GTK_TOOLBAR (toolbar), editor_toolbar_data, NULL, html);
 
-#if 0
-	gtk_toolbar_prepend_widget (GTK_TOOLBAR (toolbar), create_font_style_option_menu,
+	gtk_toolbar_prepend_widget (GTK_TOOLBAR (toolbar),
+				    setup_paragraph_style_option_menu (html),
 				    NULL, NULL);
-#endif
 
 	toolbar_control = bonobo_control_new (toolbar);
 	return (Bonobo_Control) bonobo_object_corba_objref (BONOBO_OBJECT (toolbar_control));
