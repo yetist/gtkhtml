@@ -873,7 +873,7 @@ key_press_event (GtkWidget *widget, GdkEventKey *event)
 		}
 	}
 
-	if (retval)
+	if (retval && (html_engine_get_editable (html->engine) || html->engine->caret_mode))
 		html_engine_reset_blinking_cursor (html->engine);
 
 	/* printf ("retval: %d\n", retval); */
