@@ -369,7 +369,7 @@ calc_row_heights (HTMLTable *table,
 {
 	HTMLTableCell *cell;
 	gint r, c, rl, height, pixel_size = html_painter_get_pixel_size (painter);
-	gint border_extra = table->border ? 1 : 0;
+	gint border_extra = table->border ? 2 : 0;
 
 	g_array_set_size (table->rowHeights, table->totalRows + 1);
 	for (r = 0; r <= table->totalRows; r++)
@@ -384,7 +384,7 @@ calc_row_heights (HTMLTable *table,
 				rl = cell_end_row (table, cell);
 				height = (ROW_HEIGHT (table, cell->row)
 					  + HTML_OBJECT (cell)->ascent + HTML_OBJECT (cell)->descent
-					  + (pixel_size * (table->spacing + 2 * border_extra)));
+					  + (pixel_size * (table->spacing + border_extra)));
 				if (height > ROW_HEIGHT (table, rl))
 					ROW_HEIGHT (table, rl) = height;
 			}

@@ -84,7 +84,8 @@ get_actual_width (HTMLImage *image,
 	if (image->percent_width) {
 		/* The cast to `gdouble' is to avoid overflow (eg. when
                    printing).  */
-		width = ((gdouble) html_engine_get_view_width (image->image_ptr->factory->engine)
+		width = ((gdouble) html_engine_get_view_width
+			 (html_engine_get_top_html_engine (image->image_ptr->factory->engine))
 			 * image->specified_width) / 100;
 	} else if (image->specified_width > 0) {
 		width = image->specified_width * html_painter_get_pixel_size (painter);
@@ -120,7 +121,8 @@ get_actual_height (HTMLImage *image,
 	if (image->percent_height) {
 		/* The cast to `gdouble' is to avoid overflow (eg. when
                    printing).  */
-		height = ((gdouble) html_engine_get_view_height (image->image_ptr->factory->engine)
+		height = ((gdouble) html_engine_get_view_height
+			  (html_engine_get_top_html_engine (image->image_ptr->factory->engine))
 			  * image->specified_height) / 100;
 	} else if (image->specified_height > 0) {
 		height = image->specified_height * html_painter_get_pixel_size (painter);
@@ -140,7 +142,7 @@ get_actual_height (HTMLImage *image,
 			height *= scale;
 		} 
 	}
-	
+
 	return height;
 }
 
@@ -236,12 +238,10 @@ calc_preferred_width (HTMLObject *o,
 		      HTMLPainter *painter)
 {
 	HTMLImage *image = HTML_IMAGE (o);
-	guint pixel_size;
 	guint width;
 
-	pixel_size = html_painter_get_pixel_size (painter);
 	width = get_actual_width (HTML_IMAGE (o), painter)
-		+ (image->border * 2 + 2*image->hspace) * pixel_size;
+		+ (image->border * 2 + 2 * image->hspace) * html_painter_get_pixel_size (painter);
 
 	return width;
 }
