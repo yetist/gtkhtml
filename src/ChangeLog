@@ -1,5 +1,8 @@
 2000-11-07  Larry Ewing  <lewing@helixcode.com>
 
+	* htmlrule.c (html_rule_class_init): use save_plain.
+	(save_plain): add a simple rule to the text/plain output.
+
 	* htmlclueflow.c (save_plain): use format string.
 
 	* htmlengine-save.c (write_header): use a format string rather

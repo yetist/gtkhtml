@@ -192,6 +192,21 @@ save (HTMLObject *self,
 	return html_engine_save_output_string (state, "\n<HR%s>\n", HTML_RULE (self)->shade ? "" : " noshade");
 }
 
+static gboolean
+save_plain (HTMLObject *self,
+	    HTMLEngineSaveState *state,
+	    gint requested_width)
+{
+	int i;
+	
+	html_engine_save_output_string (state, "\n"); 	
+
+	/* Fixme no alignment or percent */
+	for (i = 0; i < requested_width; i++)
+		html_engine_save_output_string (state, "_"); 
+	
+	html_engine_save_output_string (state, "\n"); 	
+}
 
 void
 html_rule_type_init (void)
@@ -218,6 +233,7 @@ html_rule_class_init (HTMLRuleClass *klass,
 	object_class->calc_size = calc_size;
 	object_class->accepts_cursor = accepts_cursor;
 	object_class->save = save;
+	object_class->save_plain = save_plain;
 
 	parent_class = &html_object_class;
 }
