@@ -1,3 +1,18 @@
+2000-06-08  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml.c (key_press_event): call parent keypress handler if not
+	handled by itself
+
+	* testgtkhtml.c (main): set initial focus to html widget
+
+	* gtkhtml.c (class_init): added scroll_vertical, scroll_horizontal
+	signals
+	added keybindings for new signals (Up/Down, PgUp, PgDown,
+	Left/Right, Shift-Left/Right, space/backspace)
+	(scroll): new function - scrolls by scroll_type passed adjustment
+	(scroll_vertical): new signal handler, scrolls vertical adjustment
+	(scroll_horizontal): new signal handler, scrolls horizontal adjustment
+
 2000-06-07  Larry Ewing  <lewing@helixcode.com>
 
 	* htmliframe.c (iframe_size_changed): schedule and updated

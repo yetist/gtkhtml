@@ -69,7 +69,6 @@ draw_background_helper (HTMLTableCell *cell,
 				      paint->y1 - paint->y0,
 				      paint->x0 - o->x,
 				      paint->y0 - (o->y - o->ascent));
-	
 }
 
 
