@@ -3,13 +3,13 @@
 # Christian Rose <menthos@menthos.com>, 2000, 2001, 2002, 2003.
 # Martin Norbäck <d95mback@dtek.chalmers.se>, 2000.
 #
-# $Id: sv.po,v 1.59 2003/01/10 14:27:01 menthos Exp $
+# $Id: sv.po,v 1.60 2003/01/15 00:51:37 menthos Exp $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2003-01-10 15:23+0100\n"
-"PO-Revision-Date: 2003-01-10 15:25+0100\n"
+"POT-Creation-Date: 2003-01-15 01:49+0100\n"
+"PO-Revision-Date: 2003-01-15 01:50+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -465,7 +465,7 @@ msgstr "Gör det aktuella stycket till en alfabetisk lista"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: components/html-editor/paragraph.c:124 components/html-editor/toolbar.c:47
+#: components/html-editor/paragraph.c:127 components/html-editor/toolbar.c:47
 msgid "Normal"
 msgstr "Normal"
 
@@ -570,7 +570,7 @@ msgstr "Markera hela innehållet i dokumentet"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#: components/html-editor/text.c:233 components/html-editor/toolbar.c:527
+#: components/html-editor/text.c:237 components/html-editor/toolbar.c:527
 msgid "Strikeout"
 msgstr "Genomstruken"
 
@@ -846,7 +846,7 @@ msgid "Colors"
 msgstr "Färger"
 
 #: components/html-editor/body.c:313 components/html-editor/cell.c:423
-#: components/html-editor/table.c:535 components/html-editor/text.c:291
+#: components/html-editor/table.c:535 components/html-editor/text.c:295
 #: components/html-editor/toolbar.c:299
 msgid "Automatic"
 msgstr "Automatisk"
@@ -864,13 +864,21 @@ msgid "Background"
 msgstr "Bakgrund"
 
 #: components/html-editor/cell.c:172 components/html-editor/cell.c:174
-#: components/html-editor/text.c:104
+#: components/html-editor/text.c:107
 msgid "The quick brown fox jumps over the lazy dog."
 msgstr "Flygande bäckasiner söka strax hwila på mjuka tuvor."
 
 #: components/html-editor/cell.c:177
 msgid "Other"
 msgstr "Annat"
+
+#: components/html-editor/cell.c:678
+msgid ""
+"The editted cell was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Den redigerade cellen har tagits bort från dokumentet.\n"
+"Kan inte verkställa dina ändringar."
 
 #: components/html-editor/editor-control-factory.c:165
 #: components/html-editor/menubar.c:313 components/html-editor/menubar.c:331
@@ -919,7 +927,7 @@ msgid "Apply changes to:"
 msgstr "Tillämpa ändringar på:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:16
-#: components/html-editor/text.c:230 components/html-editor/toolbar.c:521
+#: components/html-editor/text.c:234 components/html-editor/toolbar.c:521
 msgid "Bold"
 msgstr "Fet"
 
@@ -941,12 +949,12 @@ msgid "Cell"
 msgstr "Cell"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
-#: components/html-editor/paragraph.c:159 components/html-editor/toolbar.c:510
+#: components/html-editor/paragraph.c:162 components/html-editor/toolbar.c:510
 msgid "Center"
 msgstr "Centrera"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
-#: components/html-editor/link.c:107 components/html-editor/text.c:241
+#: components/html-editor/link.c:107 components/html-editor/text.c:245
 msgid "Click will follow this URL"
 msgstr "Klick kommer att följa denna URL"
 
@@ -1012,12 +1020,12 @@ msgid "Horizontal:"
 msgstr "Vågrät:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:40
-#: components/html-editor/text.c:231 components/html-editor/toolbar.c:523
+#: components/html-editor/text.c:235 components/html-editor/toolbar.c:523
 msgid "Italic"
 msgstr "Kursiv"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:41
-#: components/html-editor/paragraph.c:158
+#: components/html-editor/paragraph.c:161
 msgid "Left"
 msgstr "Vänster"
 
@@ -1071,7 +1079,7 @@ msgid "Points"
 msgstr "Punkter"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:59
-#: components/html-editor/paragraph.c:160
+#: components/html-editor/paragraph.c:163
 msgid "Right"
 msgstr "Höger"
 
@@ -1097,7 +1105,7 @@ msgid "Shaded"
 msgstr "Skuggad"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:66
-#: components/html-editor/text.c:257
+#: components/html-editor/text.c:261
 msgid "Size"
 msgstr "Storlek"
 
@@ -1110,7 +1118,7 @@ msgid "Spacing:"
 msgstr "Mellanrum:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:110 components/html-editor/text.c:217
+#: components/html-editor/paragraph.c:113 components/html-editor/text.c:221
 msgid "Style"
 msgstr "Stil"
 
@@ -1136,7 +1144,7 @@ msgid "Top"
 msgstr "Överkant"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:79
-#: components/html-editor/text.c:232 components/html-editor/toolbar.c:525
+#: components/html-editor/text.c:236 components/html-editor/toolbar.c:525
 msgid "Underline"
 msgstr "Understruken"
 
@@ -1217,7 +1225,7 @@ msgstr ""
 msgid "The quick brown fox jumped over the lazy dog."
 msgstr "Flygande bäckasiner söka strax hwila på mjuka tuvor."
 
-#: components/html-editor/image.c:689
+#: components/html-editor/image.c:692
 msgid ""
 "The editted image was removed from the document.\n"
 "Cannot apply your changes."
@@ -1229,10 +1237,18 @@ msgstr ""
 msgid "Link text"
 msgstr "Länktext"
 
+#: components/html-editor/link.c:180
+msgid ""
+"The editted link was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Den redigerade länken har tagits bort från dokumentet.\n"
+"Kan inte verkställa dina ändringar."
+
 #: components/html-editor/menubar.c:122 components/html-editor/menubar.c:138
 #: components/html-editor/menubar.c:156 components/html-editor/menubar.c:173
 #: components/html-editor/menubar.c:196 components/html-editor/popup.c:100
-#: components/html-editor/properties.c:139
+#: components/html-editor/properties.c:128
 msgid "Insert"
 msgstr "Infoga"
 
@@ -1244,57 +1260,65 @@ msgstr "Infoga HTML-fil"
 msgid "Insert text file"
 msgstr "Infoga textfil"
 
-#: components/html-editor/paragraph.c:125
+#: components/html-editor/paragraph.c:128
 msgid "Pre"
 msgstr "Förformaterad"
 
-#: components/html-editor/paragraph.c:126 components/html-editor/toolbar.c:53
+#: components/html-editor/paragraph.c:129 components/html-editor/toolbar.c:53
 msgid "Header 1"
 msgstr "Rubrik 1"
 
-#: components/html-editor/paragraph.c:127 components/html-editor/toolbar.c:54
+#: components/html-editor/paragraph.c:130 components/html-editor/toolbar.c:54
 msgid "Header 2"
 msgstr "Rubrik 2"
 
-#: components/html-editor/paragraph.c:128 components/html-editor/toolbar.c:55
+#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:55
 msgid "Header 3"
 msgstr "Rubrik 3"
 
-#: components/html-editor/paragraph.c:129 components/html-editor/toolbar.c:56
+#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:56
 msgid "Header 4"
 msgstr "Rubrik 4"
 
-#: components/html-editor/paragraph.c:130 components/html-editor/toolbar.c:57
+#: components/html-editor/paragraph.c:133 components/html-editor/toolbar.c:57
 msgid "Header 5"
 msgstr "Rubrik 5"
 
-#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:58
+#: components/html-editor/paragraph.c:134 components/html-editor/toolbar.c:58
 msgid "Header 6"
 msgstr "Rubrik 6"
 
-#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:59
+#: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:59
 msgid "Address"
 msgstr "Adress"
 
-#: components/html-editor/paragraph.c:133
+#: components/html-editor/paragraph.c:136
 msgid "Dot item"
 msgstr "Punktobjekt"
 
-#: components/html-editor/paragraph.c:134
+#: components/html-editor/paragraph.c:137
 msgid "Number item"
 msgstr "Sifferobjekt"
 
-#: components/html-editor/paragraph.c:135
+#: components/html-editor/paragraph.c:138
 msgid "Roman item"
 msgstr "Romerskt sifferobjekt"
 
-#: components/html-editor/paragraph.c:136
+#: components/html-editor/paragraph.c:139
 msgid "Alphabeta item"
 msgstr "Alfabetsobjekt"
 
-#: components/html-editor/paragraph.c:145
+#: components/html-editor/paragraph.c:148
 msgid "Align"
 msgstr "Justera"
+
+#: components/html-editor/paragraph.c:192
+msgid ""
+"The editted paragraph was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Det redigerade stycket har tagits bort från dokumentet.\n"
+"Kan inte verkställa dina ändringar."
 
 #: components/html-editor/popup.c:420
 msgid "Paste Quotation"
@@ -1424,6 +1448,14 @@ msgstr "Blå 3D"
 msgid "Yellow, flowers"
 msgstr "Gul, blommor"
 
+#: components/html-editor/rule.c:421
+msgid ""
+"The editted rule was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Den redigerade linjalen har tagits bort från dokumentet.\n"
+"Kan inte verkställa dina ändringar."
+
 #: components/html-editor/search.c:78
 msgid "backward"
 msgstr "bakåt"
@@ -1443,6 +1475,14 @@ msgstr "Platt grå"
 #: components/html-editor/table.c:208
 msgid "Dark header"
 msgstr "Mörk rubrik"
+
+#: components/html-editor/table.c:812
+msgid ""
+"The editted table was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Den redigerade tabellen har tagits bort från dokumentet.\n"
+"Kan inte verkställa dina ändringar."
 
 #: components/html-editor/template.c:83
 msgid "Note"
@@ -1465,9 +1505,17 @@ msgid "Save file as..."
 msgstr "Spara fil som..."
 
 #. color selection
-#: components/html-editor/text.c:287
+#: components/html-editor/text.c:291
 msgid "Color"
 msgstr "Färg"
+
+#: components/html-editor/text.c:333
+msgid ""
+"The editted text was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Den redigerade texten har tagits bort från dokumentet.\n"
+"Kan inte verkställa dina ändringar."
 
 #: components/html-editor/toolbar.c:51
 msgid "Roman List"
