@@ -137,6 +137,8 @@ guint             html_text_get_index       (HTMLText         *text,
 					     guint             offset);
 unicode_char_t    html_text_get_char        (HTMLText         *text,
 					     guint             offset);
+gchar            *html_text_get_text        (HTMLText         *text,
+					     guint             offset);
 
 #ifdef GTKHTML_HAVE_PSPELL
 

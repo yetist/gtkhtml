@@ -1169,3 +1169,9 @@ html_text_get_char (HTMLText *text, guint offset)
 	unicode_get_utf8 (text->text + html_text_get_index (text, offset), &uc);
 	return uc;
 }
+
+gchar *
+html_text_get_text (HTMLText *text, guint offset)
+{
+	return text->text + html_text_get_index (text, offset);
+}

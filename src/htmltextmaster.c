@@ -263,7 +263,7 @@ get_selection (HTMLObject *self,
 
 	text_self = HTML_TEXT (self);
 
-	new = html_text_master_new_with_len (text_self->text + select_start,
+	new = html_text_master_new_with_len (html_text_get_text (text_self, select_start),
 					     select_length, text_self->font_style, text_self->color);
 
 	if (size_return != NULL)
@@ -285,8 +285,7 @@ append_selection_string (HTMLObject *self,
 			 GString *buffer)
 {
 	HTMLTextMaster *text_master;
-	const gchar *p;
-	guint i;
+	const gchar *p, *last;
 
 	text_master = HTML_TEXT_MASTER (self);
 	if (text_master->select_length == 0)
@@ -295,8 +294,9 @@ append_selection_string (HTMLObject *self,
 	/* FIXME: we need a `g_string_append()' that takes the number of
            characters to append as an extra parameter.  */
 
-	p = HTML_TEXT (text_master)->text + text_master->select_start;
-	for (i = 0; i < text_master->select_length; i++) {
+	p    = html_text_get_text (HTML_TEXT (text_master), text_master->select_start);
+	last = html_text_get_text (HTML_TEXT (text_master), text_master->select_start + text_master->select_length);
+	for (; p < last;) {
 		g_string_append_c (buffer, *p);
 		p++;
 	}
@@ -356,7 +356,7 @@ get_cursor_base (HTMLObject *self,
 
 				font_style = html_text_get_font_style (text);
 				*x += html_painter_calc_text_width (painter,
-								    text->text + slave->posStart,
+								    html_text_get_text (text, slave->posStart),
 								    offset - slave->posStart,
 								    font_style, text->face);
 			}
@@ -509,24 +509,24 @@ merge (HTMLText *self,
 	else
 		calculate_new_selection (self, other, &select_start, &select_length);
 
-	total_length = self->text_len + other->text_len;
+	total_length = html_text_get_bytes (self) + html_text_get_bytes (other);
 	new_text = g_malloc (total_length + 1);
 
 	if (prepend) {
-		memcpy (new_text, other->text, other->text_len);
+		memcpy (new_text, other->text, html_text_get_bytes (other));
 		if (self->text_len > 0)
-			memcpy (new_text + other->text_len, self->text, self->text_len);
+			memcpy (new_text + html_text_get_bytes (other), self->text, html_text_get_bytes (self));
 	} else {
 		if (self->text_len > 0)
-			memcpy (new_text, self->text, self->text_len);
-		memcpy (new_text + self->text_len, other->text, other->text_len);
+			memcpy (new_text, self->text, html_text_get_bytes (self));
+		memcpy (new_text + html_text_get_bytes (self), other->text, html_text_get_bytes (other));
 	}
 
-	new_text[total_length] = 0;
+	new_text [total_length] = 0;
 
 	g_free (self->text);
 	self->text = new_text;
-	self->text_len = total_length;
+	self->text_len += other->text_len;
 
 	HTML_TEXT_MASTER (self)->select_start = select_start;
 	HTML_TEXT_MASTER (self)->select_length = select_length;
@@ -696,7 +696,7 @@ html_text_master_trail_space_width (HTMLTextMaster *master, HTMLPainter *painter
 {
 	HTMLText *text = HTML_TEXT (master);
 
-	if (text->text_len > 0 && text->text [text->text_len-1] == ' ') {
+	if (text->text_len > 0 && html_text_get_char (text, text->text_len - 1) == ' ') {
 		GtkHTMLFontStyle font_style;
 
 		font_style = html_text_get_font_style (text);
@@ -766,13 +766,13 @@ paste_link (HTMLEngine *engine, HTMLText *text, gint so, gint eo, gchar *prefix)
 	gchar *href;
 	gchar *base;
 
-	base = g_strndup (text->text + so, eo - so + 1);
+	base = g_strndup (html_text_get_text (text, so), html_text_get_index (text, eo) - html_text_get_index (text, so) + 1);
 	href = (prefix) ? g_strconcat (prefix, base, NULL) : g_strdup (base);
 	g_free (base);
 
 	new_obj = html_link_text_master_new_with_len
-		(text->text+so,
-		 eo - so + 1,
+		(html_text_get_text (text, so),
+		 html_text_get_index (text, eo) - html_text_get_index (text, so) + 1,
 		 text->font_style,
 		 html_colorset_get_color (engine->settings->color_set, HTMLLinkColor),
 		 href, NULL);
@@ -790,22 +790,23 @@ html_text_master_magic_link (HTMLTextMaster *master, HTMLEngine *engine,
 	HTMLText *text = HTML_TEXT (master);
 	regmatch_t pmatch [2];
 	gint i;
-	gchar *prev;
 
-	prev = text->text + offset - 1;
-	while (*prev != ' ' && (guchar)*prev != ENTITY_NBSP && prev > text->text) prev--;
-	if (*prev == ' ' || (guchar) *prev == ENTITY_NBSP)
-		prev++;
+	while (html_text_get_char (text, offset) != ' ' && html_text_get_char (text, offset) != ENTITY_NBSP && offset)
+		offset--;
+	if (html_text_get_char (text, offset) == ' ' || html_text_get_char (text, offset) == ENTITY_NBSP)
+		offset++;
 
-	while (prev < text->text+offset) {
+	while (offset < text->text_len) {
 		for (i=0; i<MIM_N; i++) {
-			if (!regexec (mim [i].preg, prev, 2, pmatch, 0)) {
-				gint o = prev - text->text;
-				paste_link (engine, text, pmatch [0].rm_so+o, pmatch [0].rm_eo+o-1, mim [i].prefix);
+			if (!regexec (mim [i].preg, html_text_get_text (text, offset), 2, pmatch, 0)) {
+				gint o = html_text_get_text (text, offset) - text->text;
+				paste_link (engine, text,
+					    unicode_index_to_offset (text->text, pmatch [0].rm_so+o),
+					    unicode_index_to_offset (text->text, pmatch [0].rm_eo+o-1), mim [i].prefix);
 				return TRUE;
 			}
 		}
-		prev++;
+		offset++;
 	}
 
 	return FALSE;

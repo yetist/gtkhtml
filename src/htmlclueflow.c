@@ -1829,7 +1829,7 @@ spell_check_word_mark (HTMLObject *obj, const gchar *text, const gchar *word, gu
 						    ioff + toff, tlen);
 			len     -= tlen;
 			w_off   += tlen;
-			w_index  = unicode_offset_to_index (text + w_index, tlen);
+			w_index += unicode_offset_to_index (text + w_index, tlen);
 			if (len)
 				do obj = next_obj_and_clear (obj, off, &is_text, i); while (obj && !is_text);
 			/* printf ("off: %d\n", *off); */
