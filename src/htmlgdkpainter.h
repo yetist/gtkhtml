@@ -65,13 +65,17 @@ struct _HTMLGdkPainterClass {
 	HTMLPainterClass base;
 };
 
-
-GType        html_gdk_painter_get_type   (void);
-HTMLPainter *html_gdk_painter_new        (GtkWidget      *widget,
-					  gboolean        double_buffer);
-void         html_gdk_painter_realize    (HTMLGdkPainter *painter,
-					  GdkWindow      *window);
-void         html_gdk_painter_unrealize  (HTMLGdkPainter *painter);
-gboolean     html_gdk_painter_realized   (HTMLGdkPainter *painter);
+GType        html_gdk_painter_get_type                         (void);
+HTMLPainter *html_gdk_painter_new                              (GtkWidget             *widget,
+								gboolean               double_buffer);
+void         html_gdk_painter_realize                          (HTMLGdkPainter        *painter,
+								GdkWindow             *window);
+void         html_gdk_painter_unrealize                        (HTMLGdkPainter        *painter);
+gboolean     html_gdk_painter_realized                         (HTMLGdkPainter        *painter);
+GList       *html_gdk_painter_text_itemize_and_prepare_glyphs  (PangoContext          *context,
+								PangoFontDescription  *desc,
+								const gchar           *text,
+								gint                   bytes,
+								PangoGlyphString     **glyphs);
 
 #endif /* _HTMLGDKPAINTER_H */

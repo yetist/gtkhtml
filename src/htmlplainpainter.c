@@ -137,24 +137,23 @@ draw_text (HTMLPainter *painter,
 {
 	HTMLGdkPainter *gdk_painter;
 	PangoFontDescription *desc;
-	PangoLayout *layout;
+	PangoGlyphString *glyphs;
+	GList *items;
 	gint blen;
 
 	if (len == -1)
 		len = g_utf8_strlen (text, -1);
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
-	desc = html_painter_get_font (painter, painter->font_face, painter->font_style);
-	layout = pango_layout_new (gdk_painter->pc);
-	pango_layout_set_font_description (layout, desc);
-	blen = g_utf8_offset_to_pointer (text, len) - text;
-	pango_layout_set_text (layout, text, blen);
 
 	x -= gdk_painter->x1;
 	y -= gdk_painter->y1;
 
-	gdk_draw_layout (gdk_painter->pixmap, gdk_painter->gc, x, y, layout);
-	g_object_unref (layout);
+	blen = g_utf8_offset_to_pointer (text, len) - text;
+	desc = html_painter_get_font (painter, painter->font_face, painter->font_style);
+	items = html_gdk_painter_text_itemize_and_prepare_glyphs (gdk_painter->pc, desc, text, blen, &glyphs);
+	if (items && items->data)
+		gdk_draw_glyphs (gdk_painter->pixmap, gdk_painter->gc, ((PangoItem *) items->data)->analysis.font, x, y, glyphs);
 }
 
 static void

@@ -70,8 +70,8 @@ finalize (GObject *object)
 	}
 }
 
-inline static GList *
-text_itemize_and_prepare_glyphs (PangoContext *context, PangoFontDescription *desc, const gchar *text, gint bytes, PangoGlyphString **glyphs)
+GList *
+html_gdk_painter_text_itemize_and_prepare_glyphs (PangoContext *context, PangoFontDescription *desc, const gchar *text, gint bytes, PangoGlyphString **glyphs)
 {
 	PangoAttrList *attrs;
 	GList *items;
@@ -109,7 +109,7 @@ text_width (PangoContext *context, PangoFontDescription *desc, const gchar *text
 	PangoGlyphString *glyphs;
 	gint width = 0;
 
-	items = text_itemize_and_prepare_glyphs (context, desc, text, bytes, &glyphs);
+	items = html_gdk_painter_text_itemize_and_prepare_glyphs (context, desc, text, bytes, &glyphs);
 
 	if (items && glyphs) {
 		int i;
@@ -130,7 +130,7 @@ text_size (PangoContext *context, PangoFontDescription *desc, const gchar *text,
 	GList *items;
 	PangoGlyphString *glyphs;
 
-	items = text_itemize_and_prepare_glyphs (context, desc, text, bytes, &glyphs);
+	items = html_gdk_painter_text_itemize_and_prepare_glyphs (context, desc, text, bytes, &glyphs);
 	if (items && items->data && glyphs)
 		pango_glyph_string_extents (glyphs, ((PangoItem *) items->data)->analysis.font, NULL, log_rect);
 	else
@@ -918,7 +918,7 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len)
 	y -= gdk_painter->y1;
 
 	blen = g_utf8_offset_to_pointer (text, len) - text;
-	items = text_itemize_and_prepare_glyphs (gdk_painter->pc, desc, text, blen, &glyphs);
+	items = html_gdk_painter_text_itemize_and_prepare_glyphs (gdk_painter->pc, desc, text, blen, &glyphs);
 	if (items && items->data)
 		gdk_draw_glyphs (gdk_painter->pixmap, gdk_painter->gc, ((PangoItem *) items->data)->analysis.font, x, y, glyphs);
 

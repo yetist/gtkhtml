@@ -1,5 +1,10 @@
 2002-11-21  Radek Doulik  <rodo@ximian.com>
 
+	* htmlplainpainter.c (draw_text): use lower level pango iface
+
+	* htmlgdkpainter.c
+	(html_gdk_painter_text_itemize_and_prepare_glyphs): exported
+
 	* htmltextslave.c (get_words_width): make sure we don't read
 	word_width [-1]
 
