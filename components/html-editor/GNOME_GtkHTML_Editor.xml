@@ -39,6 +39,7 @@
 			<cmd name="InsertImage" _label="_Image..." _tip="Insert image into document..."/>
 			<cmd name="InsertLink"  _label="_Link..." _tip="Insert HTML link into document..."/>
 			<cmd name="InsertRule"  _label="_Rule..." _tip="Insert rule into document..."/>
+			<cmd name="InsertTable" _label="_Table..." _tip="Insert table into document..."/>
 
 		</commands>
 
@@ -74,6 +75,7 @@
 				<menuitem name="InsertImage" verb="" accel="*Ctrl**Alt*I"/>
 				<menuitem name="InsertLink"  verb="" accel="*Ctrl**Alt*L"/>
 				<menuitem name="InsertRule"  verb="" accel="*Ctrl**Alt*R"/>
+				<menuitem name="InsertTable" verb="" accel="*Ctrl**Alt*T"/>
 			</placeholder>
 		</submenu>
 	</menu>

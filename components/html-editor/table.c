@@ -85,11 +85,19 @@ typedef struct
 	GtkWidget *check_width;
 	GtkWidget *option_width;
 
+	gboolean   changed_cols;
+	gint       cols;
+	GtkWidget *spin_cols;
+
+	gboolean   changed_rows;
+	gint       rows;
+	GtkWidget *spin_rows;
+
 	gboolean   disable_change;
 } GtkHTMLEditTableProperties;
 
 #define CHANGE if (!d->disable_change) gtk_html_edit_properties_dialog_change (d->cd->properties_dialog)
-#define FILL   if (!d->disable_change) fill_sample (d)
+#define FILL   if (!d->disable_change && d->sample) fill_sample (d)
 
 static void
 fill_sample (GtkHTMLEditTableProperties *d)
@@ -144,11 +152,14 @@ data_new (GtkHTMLControlData *cd)
 							   HTMLBgColor)->color;
 	data->bg_pixmap         = "";
 	data->border            = 1;
-	data->spacing           = 1;
+	data->spacing           = 2;
 	data->padding           = 1;
 	data->align             = HTML_HALIGN_NONE;
+	data->has_width         = TRUE;
 	data->width_percent     = TRUE;
 	data->width             = 100;
+	data->cols              = 3;
+	data->rows              = 3;
 
 	return data;
 }
@@ -273,6 +284,24 @@ changed_width_percent (GtkWidget *w, GtkHTMLEditTableProperties *d)
 	CHANGE;	
 }
 
+static void
+changed_cols (GtkWidget *w, GtkHTMLEditTableProperties *d)
+{
+	d->cols = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_cols));
+	d->changed_cols = TRUE;
+	FILL;
+	CHANGE;
+}
+
+static void
+changed_rows (GtkWidget *w, GtkHTMLEditTableProperties *d)
+{
+	d->rows = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_rows));
+	d->changed_rows = TRUE;
+	FILL;
+	CHANGE;
+}
+
 static GtkWidget *
 table_widget (GtkHTMLEditTableProperties *d)
 {
@@ -335,6 +364,36 @@ table_widget (GtkHTMLEditTableProperties *d)
 	return table_page;
 }
 
+static GtkWidget *
+table_insert_widget (GtkHTMLEditTableProperties *d)
+{
+	GtkWidget *table_page;
+	GladeXML *xml;
+
+	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "table_insert_page");
+	if (!xml)
+		g_error (_("Could not load glade file."));
+
+	table_page = glade_xml_get_widget (xml, "table_insert_page");
+
+	d->spin_cols = glade_xml_get_widget (xml, "spin_table_columns");
+	gtk_signal_connect (GTK_OBJECT (d->spin_cols), "changed", changed_cols, d);
+	d->spin_rows = glade_xml_get_widget (xml, "spin_table_rows");
+	gtk_signal_connect (GTK_OBJECT (d->spin_rows), "changed", changed_rows, d);
+
+	d->spin_width   = glade_xml_get_widget (xml, "spin_table_width");
+	gtk_signal_connect (GTK_OBJECT (d->spin_width), "changed", changed_width, d);
+	d->check_width  = glade_xml_get_widget (xml, "check_table_width");
+	gtk_signal_connect (GTK_OBJECT (d->check_width), "toggled", set_has_width, d);
+	d->option_width = glade_xml_get_widget (xml, "option_table_width");
+	gtk_signal_connect (GTK_OBJECT (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_width))), "selection-done",
+			    changed_width_percent, d);
+
+	gtk_widget_show_all (table_page);
+
+	return table_page;
+}
+
 static void
 set_ui (GtkHTMLEditTableProperties *d)
 {
@@ -358,9 +417,27 @@ set_ui (GtkHTMLEditTableProperties *d)
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_width),  d->width);
 	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_width), d->width_percent ? 1 : 0);
 
+	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_width), d->width_percent ? 1 : 0);
+	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_width), d->width_percent ? 1 : 0);
+
 	d->disable_change = FALSE;
 
 	FILL;
+}
+
+static void
+set_insert_ui (GtkHTMLEditTableProperties *d)
+{
+	d->disable_change = TRUE;
+
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_width), d->has_width);
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_width),  d->width);
+	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_width), d->width_percent ? 1 : 0);
+
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_cols),  d->cols);
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_rows),  d->rows);
+
+	d->disable_change = FALSE;
 }
 
 static void
@@ -422,7 +499,8 @@ table_insert (GtkHTMLControlData *cd, gpointer *set_data)
 	GtkWidget *rv;
 
 	*set_data = data;
-	/* rv = table_widget (data); */
+	rv = table_insert_widget (data);
+	set_insert_ui (data);
 	gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
 
 	return rv;
@@ -433,9 +511,10 @@ table_insert_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditTableProperties *d = (GtkHTMLEditTableProperties *) get_data;
 
-	/* html_engine_insert_rule (cd->html->engine,
-				 VAL (WIDTH), d->percent ? VAL (WIDTH) : 0, VAL (SIZE),
-				 d->shaded, d->align); */
+	html_engine_insert_table (cd->html->engine, d->cols, d->rows,
+				  d->has_width ? (d->width_percent ? 0 : d->width) : 0,
+				  d->has_width ? (d->width_percent ? d->width : 0) : 0,
+				  d->padding, d->spacing, d->border);
 }
 
 void
