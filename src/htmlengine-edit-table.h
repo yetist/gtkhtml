@@ -25,29 +25,32 @@
 #include "htmltypes.h"
 #include "htmlenums.h"
 
-void       html_engine_insert_table_1_1        (HTMLEngine *e);
-void       html_engine_insert_table_column     (HTMLEngine *e,
-						gboolean    after);
-void       html_engine_delete_table_column     (HTMLEngine *e);
-void       html_engine_insert_table_row        (HTMLEngine *e,
-						gboolean    after);
-void       html_engine_delete_table_row        (HTMLEngine *e);
-void       html_engine_table_set_border_width  (HTMLEngine *e,
-						HTMLTable  *t,
-						gint        border_width,
-						gboolean    relative);
-void       html_engine_table_set_bg_color      (HTMLEngine *e,
-						HTMLTable  *t,
-						GdkColor   *c);
-void       html_engine_table_set_bg_pixmap     (HTMLEngine *e,
-						HTMLTable  *t,
-						gchar      *url);
-void       html_engine_table_set_spacing       (HTMLEngine *e,
-						HTMLTable  *t,
-						gint        spacing);
-void       html_engine_table_set_padding       (HTMLEngine *e,
-						HTMLTable  *t,
-						gint        padding);
-HTMLTable *html_engine_get_table               (HTMLEngine *e);
+void       html_engine_insert_table_1_1        (HTMLEngine     *e);
+void       html_engine_insert_table_column     (HTMLEngine     *e,
+						gboolean        after);
+void       html_engine_delete_table_column     (HTMLEngine     *e);
+void       html_engine_insert_table_row        (HTMLEngine     *e,
+						gboolean        after);
+void       html_engine_delete_table_row        (HTMLEngine     *e);
+void       html_engine_table_set_border_width  (HTMLEngine     *e,
+						HTMLTable      *t,
+						gint            border_width,
+						gboolean        relative);
+void       html_engine_table_set_bg_color      (HTMLEngine     *e,
+						HTMLTable      *t,
+						GdkColor       *c);
+void       html_engine_table_set_bg_pixmap     (HTMLEngine     *e,
+						HTMLTable      *t,
+						gchar          *url);
+void       html_engine_table_set_spacing       (HTMLEngine     *e,
+						HTMLTable      *t,
+						gint            spacing);
+void       html_engine_table_set_padding       (HTMLEngine     *e,
+						HTMLTable      *t,
+						gint            padding);
+void       html_engine_table_set_align         (HTMLEngine     *e,
+						HTMLTable      *t,
+						HTMLHAlignType  align);
+HTMLTable *html_engine_get_table               (HTMLEngine     *e);
 			       
 #endif

@@ -606,3 +606,13 @@ html_engine_get_table (HTMLEngine *e)
 		return HTML_TABLE (e->cursor->object->parent->parent->parent);
 	}
 }
+
+void
+html_engine_table_set_align (HTMLEngine *e, HTMLTable *t, HTMLHAlignType align)
+{
+	g_return_if_fail (HTML_OBJECT (t)->parent);
+
+	HTML_CLUE (HTML_OBJECT (t)->parent)->halign = align;
+	html_object_change_set (HTML_OBJECT (t)->parent, HTML_CHANGE_ALL_CALC);
+	html_engine_schedule_update (e);
+}

@@ -1251,13 +1251,16 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 				olddivalign = e->divAlign;
 				e->divAlign = align;
 			}
-
 			append_element (e, clue, HTML_OBJECT (table));
 
 			close_flow (e, clue);
-
 			if (align != HTML_HALIGN_NONE)
 				e->divAlign = olddivalign;
+		} else {
+			HTMLClueAligned *aligned = HTML_CLUEALIGNED (html_cluealigned_new (NULL, 0, 0, clue->max_width, 100));
+			HTML_CLUE (aligned)->halign = align;
+			html_clue_append (HTML_CLUE (aligned), HTML_OBJECT (table));
+			append_element (e, clue, HTML_OBJECT (aligned));
 		}
 	} else {
 		/* Last resort: remove tables that do not contain any cells */
