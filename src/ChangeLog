@@ -1,3 +1,8 @@
+2003-07-15  Radek Doulik  <rodo@ximian.com>
+
+	* htmlprinter.c (alloc_font): fallback to 1st available font only
+	when default fonts aren't available
+
 2003-07-15  Yuedong Du  <yuedong.du>
 
 	* gtkhtml.c: (set_caret_mode): stop blinking cursor if turn the caret
