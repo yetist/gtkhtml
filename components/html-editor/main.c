@@ -27,6 +27,7 @@
 #include <gnome.h>
 #include <bonobo.h>
 #include <gtkhtml.h>
+#include <gtkhtml-properties.h>
 
 #include "editor-control-factory.h"
 

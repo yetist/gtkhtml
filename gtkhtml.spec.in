@@ -10,6 +10,9 @@ Group: X11/Libraries
 Source: ftp://ftp.gnome.org/pub/GNOME/sources/gtkhtml/gtkhtml-%{ver}.tar.gz
 BuildRoot: /var/tmp/gtkhtml-%{PACKAGE_VERSION}-root
 Provides: gtkhtml.so.0
+Requires: gnome-print >= 0.24
+Requires: gdk-pixbuf >= 0.8.0
+Requires: pspell
 
 Docdir: %{prefix}/doc
 
@@ -30,7 +33,7 @@ Libraries, include files, etc you can use to develop gtkhtml applications.
 
 
 %prep
-%setup
+%setup -q
 
 %build
 # Needed for snapshot releases.

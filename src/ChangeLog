@@ -1,3 +1,12 @@
+2000-11-28  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml-properties.c: as below
+	(GET): use gconf_client_get_without_default and gconf_value_free
+	instead of gconf_client_get_full and gconf_value_destroy
+
+	* gtkhtml.c: aplied patch form Chipzz@ULYSSIS.Org
+	fixes gconf typos
+
 2000-11-27  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtmldebug.c (gtk_html_debug_dump_object): dump ascent and

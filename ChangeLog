@@ -1,3 +1,8 @@
+2000-11-28  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml.spec.in: aplied patch from Chipzz@ULYSSIS.Org
+	adds requirements, + %setup --> %setup -q
+
 2000-11-26  Christopher R. Gabriel  <cgabriel@softwarelibero.org>
 
 	* configure.in (ALL_LINGUAS): added italian translation

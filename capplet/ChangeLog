@@ -1,3 +1,8 @@
+2000-11-28  Radek Doulik  <rodo@helixcode.com>
+
+	* aplied patch from Chipzz@ULYSSIS.Org
+	capitalize Entry in .desktop files
+
 2000-11-26  Christopher R. Gabriel  <cgabriel@softwarelibero.org>
 	
 	* gtkhtml-properties.desktop: added italian translation

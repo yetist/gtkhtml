@@ -66,9 +66,9 @@ gtk_html_class_properties_destroy (GtkHTMLClassProperties *p)
 #ifdef GTKHTML_HAVE_GCONF
 #define GET(t,x,prop,f,c) \
         key = g_strconcat (GTK_HTML_GCONF_DIR, x, NULL); \
-        val = gconf_client_get_full (client, key, NULL, FALSE, &dflt, NULL); \
+        val = gconf_client_get_without_default (client, key, NULL); \
         if (val) { f; p-> ## prop = c gconf_value_ ## t (val); \
-        gconf_value_destroy (val); } \
+        gconf_value_free (val); } \
         g_free (key);
 
 void
@@ -76,7 +76,6 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p, GConfClient *client)
 {
 	GConfValue *val;
 	gchar *key;
-	gboolean dflt;
 
 	g_assert (client);
 
@@ -141,9 +140,9 @@ gtk_html_class_properties_update (GtkHTMLClassProperties *p, GConfClient *client
 	if (p->live_spell_check != old->live_spell_check)
 		SET (bool, "/live_spell_check", live_spell_check);
 	if (!gdk_color_equal (&p->spell_error_color, &old->spell_error_color)) {
-		SET (int, "/spell_error_color_red",   spell_error_color_red);
-		SET (int, "/spell_error_color_green", spell_error_color_green);
-		SET (int, "/spell_error_color_blue",  spell_error_color_blue);
+		SET (int, "/spell_error_color_red",   spell_error_color.red);
+		SET (int, "/spell_error_color_green", spell_error_color.green);
+		SET (int, "/spell_error_color_blue",  spell_error_color.blue);
 	}
 	if (strcmp (p->language, old->language))
 		SET (string, "/language", language);

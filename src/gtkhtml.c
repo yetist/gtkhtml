@@ -1082,7 +1082,6 @@ focus_out_event (GtkWidget *widget,
 		 GdkEventFocus *event)
 {
 	GtkHTML *html = GTK_HTML (widget);
-
 	if (!html->iframe_parent) {
 		GTK_WIDGET_UNSET_FLAGS (widget, GTK_HAS_FOCUS);
 		html_engine_set_focus (html->engine, FALSE);
@@ -1318,11 +1317,11 @@ client_notify_widget (GConfClient* client,
 	} else if (!strcmp (tkey, "/font_fixed_size")) {
 		prop->font_fix_size = gconf_client_get_int (client, key, NULL);
 		set_fonts (html);
-	} else if (!strcmp (tkey, "/spell_error_color_red") {
+	} else if (!strcmp (tkey, "/spell_error_color_red")) {
 		prop->spell_error_color.red = gconf_client_get_int (client, key, NULL);
-	} else if (!strcmp (tkey, "/spell_error_color_green") {
+	} else if (!strcmp (tkey, "/spell_error_color_green")) {
 		prop->spell_error_color.green = gconf_client_get_int (client, key, NULL);
-	} else if (!strcmp (tkey, "/spell_error_color_blue") {
+	} else if (!strcmp (tkey, "/spell_error_color_blue")) {
 		prop->spell_error_color.blue = gconf_client_get_int (client, key, NULL);
 		html_colorset_set_color (html->engine->defaultSettings->color_set,
 					 &prop->spell_error_color, HTMLSpellErrorColor);
@@ -1334,7 +1333,7 @@ client_notify_widget (GConfClient* client,
 		prop->live_spell_check = gconf_client_get_bool (client, key, NULL);
 	} else if (!strcmp (tkey, "/language")) {
 		g_free (prop->language);
-		prop->language = g_strdup (gconf_client_get_string (client, key, NULL);
+		prop->language = g_strdup (gconf_client_get_string (client, key, NULL));
 	}
 }
 
