@@ -557,13 +557,7 @@ calc_size (HTMLObject *o,
 		/* if we need a new line, or all objects have been processed
 		   and need to be aligned. */
 		if ( newLine || !obj) {
-			HTMLObject *eol;
 			int extra;
-
-			/* remove trailing spaces */
-			eol = (obj) ? obj : clue->tail;
-			if (HTML_OBJECT_TYPE (eol) == HTML_TYPE_TEXTSLAVE)
-				w -= html_text_slave_trail_space_width (HTML_TEXT_SLAVE (eol), painter);
 
 			extra = 0;
 
