@@ -1,3 +1,13 @@
+2003-09-02  Larry Ewing  <lewing@ximian.com>
+
+	* GNOME_GtkHTML_Editor-emacs.xml.in: add file with emacs friendly
+	keybindings converted by Alain Mellan (see Ximian #41187).
+
+	* menubar.c (menubar_setup): load emacs keybindings if the
+	use_emacs_keybindings is set in the class.
+
+	* Makefile.am: add rules for GNOME_GtkHTML_Editor-emacs.xml.in.
+
 2003-09-02  Radek Doulik  <rodo@ximian.com>
 
 	* body.c: renamed draft paper to graph paper as suggested by Aaron

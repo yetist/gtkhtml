@@ -680,12 +680,9 @@ menubar_setup (BonoboUIComponent  *uic,
 	       GtkHTMLControlData *cd)
 {
 	gchar *domain;
-
 	g_return_if_fail (cd->html != NULL);
 	g_return_if_fail (GTK_IS_HTML (cd->html));
 	g_return_if_fail (BONOBO_IS_UI_COMPONENT (uic));
-
-	/* printf ("xml: %s/%s\n", GTKHTML_DATADIR, "GNOME_GtkHTML_Editor.xml"); */
 
 	/*
 	  FIXME
@@ -698,7 +695,12 @@ menubar_setup (BonoboUIComponent  *uic,
 	domain = g_strdup (textdomain (NULL));
 	textdomain (GNOME_EXPLICIT_TRANSLATION_DOMAIN);
 	bonobo_ui_component_add_verb_list_with_data (uic, editor_verbs, cd);
-	bonobo_ui_util_set_ui (uic, GTKHTML_DATADIR, "GNOME_GtkHTML_Editor.xml", "GNOME_GtkHTML_Editor", NULL);
+
+	if (GTK_HTML_CLASS(G_OBJECT_GET_CLASS (cd->html))->use_emacs_bindings) {
+		bonobo_ui_util_set_ui (uic, GTKHTML_DATADIR, "GNOME_GtkHTML_Editor-emacs.xml", "GNOME_GtkHTML_Editor", NULL);
+	} else {
+		bonobo_ui_util_set_ui (uic, GTKHTML_DATADIR, "GNOME_GtkHTML_Editor.xml", "GNOME_GtkHTML_Editor", NULL);
+	}
 
 	spell_create_language_menu (cd);
 	menubar_update_format (cd);
