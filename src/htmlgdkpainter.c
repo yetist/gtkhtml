@@ -797,14 +797,15 @@ fill_rect (HTMLPainter *painter,
 }
 
 static gint
-utf8_gdk_text_width (GdkFont *font, const gchar *text, gint bytes)
+utf8_gdk_text_width (GdkFont *font, const gchar *text, gint len)
 {
 	const gchar *p;
-	gint width;
+	gint width, bytes;
 
 	if (!text || !font) return 0;
 
 	width = 0;
+	bytes = unicode_offset_to_index (text, len);
 	for (p = text; p && *p && p - text < bytes; p = unicode_next_utf8 (p)) {
 		unicode_char_t unival;
 		guchar c;
@@ -824,16 +825,17 @@ utf8_gdk_draw_text (GdkFont *font,
 		    GdkDrawable *drawable,
 		    GdkGC *gc,
 		    gint x, gint y,
-		    const gchar *text, gint bytes)
+		    const gchar *text, gint len)
 {
 	const gchar *p;
 	guchar *b;
-	gint len;
+	gint off, bytes;
 
 	if (!text || !font) return;
 
+	bytes = unicode_offset_to_index (text, len);
 	b = alloca (bytes);
-	len = 0;
+	off = 0;
 
 	for (p = text; p && *p && p - text < bytes; p = unicode_next_utf8 (p)) {
 		unicode_char_t unival;
@@ -841,7 +843,7 @@ utf8_gdk_draw_text (GdkFont *font,
 		if (unival < 0) unival = '_';
 		if (unival > 255) unival = '_';
 		if (unival == 0xa0) unival = ' ';
-		b[len++] = unival;
+		b [off++] = unival;
 	}
 
 	gdk_draw_text (drawable, font, gc, x, y, b, len);

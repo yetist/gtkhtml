@@ -23,6 +23,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <unicode.h>
 
 #include "htmltext.h"
 #include "htmlclueflow.h"
@@ -132,9 +133,11 @@ copy_helper (HTMLText *src,
 	GList *cur;
 
 	if (len < 0)
-		len = strlen (src->text);
+		len = unicode_strlen (src->text, -1);
 
-	dest->text = g_strndup (src->text + offset, len);
+	dest->text = g_strndup (src->text + unicode_offset_to_index (src->text, offset),
+				unicode_offset_to_index (src->text, offset + len)
+				- unicode_offset_to_index (src->text, offset));
 	dest->text_len = len;
 
 	dest->font_style = src->font_style;
@@ -151,7 +154,7 @@ copy_helper (HTMLText *src,
 		cur = cur->next;
 	}
 	dest->spell_errors = remove_spell_errors (dest->spell_errors, 0, offset);
-	dest->spell_errors = remove_spell_errors (dest->spell_errors, offset+len, src->text_len - offset - len);
+	dest->spell_errors = remove_spell_errors (dest->spell_errors, offset + len, src->text_len - offset - len);
 	move_spell_errors (dest->spell_errors, 0, -offset);
 #endif
 }
@@ -251,15 +254,17 @@ html_text_get_nb_width (HTMLText *text, HTMLPainter *painter, gboolean begin)
 		return forward_get_nb_width (text, painter, begin);
 
 	/* if begins/ends with ' ' the width is 0 */
-	if ((begin && t [0] == ' ') || (!begin && t [text->text_len - 1] == ' '))
+	if ((begin && t [0] == ' ') || (!begin && t [unicode_offset_to_index (text->text, text->text_len) - 1] == ' '))
 		return 0;
 
 	/* find end/begin of nb text */
-	t = (begin) ? strchr (t, ' ') : strrchr (t, ' ');
+	t = (begin) ? unicode_strchr (t, ' ') : strrchr (t, ' '); /* unicode_strrchr (t, ' '); */
 	if (!t)
 		return html_object_calc_preferred_width (HTML_OBJECT (text), painter);
 	return html_painter_calc_text_width (painter, (begin) ? text->text : t + 1,
-					     (begin) ? t - text->text : text->text_len - (t - text->text + 1),
+					     (begin)
+					     ? unicode_index_to_offset (text->text, t - text->text)
+					     : text->text_len - unicode_index_to_offset (text->text, t - text->text) + 1,
 					     html_text_get_font_style (text), text->face);
 }
 
@@ -286,8 +291,9 @@ calc_min_width (HTMLObject *self,
 		do {
 			space = strchr (t, ' ');
 			if (!space)
-				space = text->text + text->text_len;
-			w += html_painter_calc_text_width (painter, t, space - t, font_style, text->face);
+				space = text->text + unicode_offset_to_index (text->text, text->text_len);
+			w += html_painter_calc_text_width (painter, t, unicode_index_to_offset (t, space - t),
+							   font_style, text->face);
 			t = (*space) ? space + 1 : space;
 			if (!(*t))
 				break;
@@ -404,9 +410,7 @@ extract_text (HTMLText *text,
 		len = text->text_len - offset;
 
 	new = g_malloc (HTML_OBJECT (text)->klass->object_size);
-
 	(* HTML_OBJECT_CLASS (parent_class)->copy) (HTML_OBJECT (text), HTML_OBJECT (new));
-
 	copy_helper (HTML_TEXT (text), HTML_TEXT (new), offset, len);
 
 	return new;
@@ -498,6 +502,7 @@ insert_text (HTMLText *text,
 	gchar *new_buffer;
 	guint old_len;
 	guint new_len;
+	guint l1, l2, ls;
 
 	old_len = text->text_len;
 	if (offset > old_len) {
@@ -508,14 +513,17 @@ insert_text (HTMLText *text,
 		offset = old_len;
 	}
 
-	new_len    = old_len + len;
-	new_buffer = g_malloc (new_len + 1);
+	new_len  = old_len + len;
+	l1         = unicode_offset_to_index (text->text, offset);
+	l2         = unicode_offset_to_index (text->text, text->text_len) - l1;
+	ls         = unicode_offset_to_index (s, len);
+	new_buffer = g_malloc (l1 + l2 + ls + 1);
 
 	/* concatenate strings */
-	memcpy (new_buffer,                text->text,        offset);
-	memcpy (new_buffer + offset,       s,                 len);
-	memcpy (new_buffer + offset + len, text->text+offset, old_len - offset);
-	new_buffer[new_len] = '\0';
+	memcpy (new_buffer,           text->text,      l1);
+	memcpy (new_buffer + l1,      s,               ls);
+	memcpy (new_buffer + l1 + ls, text->text + l1, l2);
+	new_buffer [l1 + l2 + ls] = '\0';
 
 #ifdef GTKHTML_HAVE_PSPELL
 	/* spell checking update */
@@ -550,12 +558,13 @@ remove_text (HTMLText *text,
 	gchar *new_buffer;
 	guint old_len;
 	guint new_len;
+	guint l1, l2, lw;
 
 	/* The following code is very stupid and quite inefficient, but it is
            just for interactive editing so most likely people won't even
            notice.  */
 
-	old_len = strlen (text->text);
+	old_len = text->text_len;
 
 	if (offset > old_len) {
 		g_warning ("Cursor offset out of range for HTMLText::remove_text().");
@@ -567,10 +576,14 @@ remove_text (HTMLText *text,
 
 	new_len = old_len - len;
 
+	l1 = unicode_offset_to_index (text->text, offset);
+	l2 = unicode_offset_to_index (text->text, offset + len);
+	lw = unicode_offset_to_index (text->text, text->text_len);
+
 	/* concat strings */
-	new_buffer = g_malloc (new_len + 1);
-	memcpy (new_buffer,          text->text,                offset);
-	memcpy (new_buffer + offset, text->text + offset + len, old_len - offset - len + 1);
+	new_buffer = g_malloc (lw - (l2 - l1) + 1);
+	memcpy (new_buffer,      text->text,      l1);
+	memcpy (new_buffer + l1, text->text + l2, lw - l2 + 1);
 
 #ifdef GTKHTML_HAVE_PSPELL
 	/* spell checking update */
@@ -839,11 +852,11 @@ html_text_init (HTMLText *text_object,
 	html_object_init (object, HTML_OBJECT_CLASS (klass));
 
 	if (len == -1) {
-		text_object->text_len = strlen (text);
+		text_object->text_len = unicode_strlen (text, -1);
 		text_object->text = g_strdup (text);
 	} else {
 		text_object->text_len = len;
-		text_object->text = g_strndup (text, len);
+		text_object->text = g_strndup (text, unicode_offset_to_index (text, len));
 	}
 
 	text_object->font_style = font_style;

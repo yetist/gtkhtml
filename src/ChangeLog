@@ -1,3 +1,12 @@
+2000-09-13  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltext.c: use unicode_offset_to_index and
+	unicode_index_to_offset everywhere
+
+	* htmlgdkpainter.c (utf8_gdk_text_width): last argument changed to
+	len and bytes are calculated using unicode_offset_to_index
+	(utf8_gdk_draw_text): likewise
+
 2000-09-12  Radek Doulik  <rodo@helixcode.com>
 
 	* htmltextslave.c (draw_spell_errors): use HTMLSpellErrorColor
