@@ -173,7 +173,7 @@ image_insertion (GtkHTMLControlData *cd, gpointer *set_data)
 
 #undef ADD_ITEM
 #define ADD_ITEM(n,f) \
-	menuitem = gtk_menu_item_new_with_label (N_(n)); \
+	menuitem = gtk_menu_item_new_with_label (n); \
         gtk_menu_append (GTK_MENU (menu), menuitem); \
         gtk_widget_show (menuitem); \
         gtk_signal_connect (GTK_OBJECT (menuitem), "activate", GTK_SIGNAL_FUNC (f), data); \
@@ -181,9 +181,9 @@ image_insertion (GtkHTMLControlData *cd, gpointer *set_data)
         mcounter++;
 
 	mcounter = 0;
-	ADD_ITEM ("Top", align_menu_activate);
-	ADD_ITEM ("Center", align_menu_activate);
-	ADD_ITEM ("Bottom", align_menu_activate);
+	ADD_ITEM (_("Top"), align_menu_activate);
+	ADD_ITEM (_("Center"), align_menu_activate);
+	ADD_ITEM (_("Bottom"), align_menu_activate);
 	/* ADD_ITEM("Left",   GDK_F4);
 	   ADD_ITEM("Right",  GDK_F5); */
 
@@ -201,11 +201,11 @@ image_insertion (GtkHTMLControlData *cd, gpointer *set_data)
 
 #undef ADD_VAL
 #define ADD_VAL(x,y) \
-	checked_val (data, x, _(y)); \
+	checked_val (data, x, (y)); \
 	gtk_box_pack_start (GTK_BOX (hbox), data->check [x], FALSE, FALSE, 0); \
 	gtk_box_pack_start (GTK_BOX (hbox), data->spin  [x], FALSE, FALSE, 0);
 
-	ADD_VAL (GTK_HTML_EDIT_IMAGE_BWIDTH, "width");
+	ADD_VAL (GTK_HTML_EDIT_IMAGE_BWIDTH, _("width"));
 
 	gtk_container_add (GTK_CONTAINER (frame), hbox);
 	gtk_box_pack_start_defaults (GTK_BOX (vb1), frame);
@@ -219,12 +219,12 @@ image_insertion (GtkHTMLControlData *cd, gpointer *set_data)
 
 #undef ADD_VAL
 #define ADD_VAL(x, y, i, n) \
-	checked_val (data, i, _(n)); \
+	checked_val (data, i, (n)); \
 	gtk_table_attach (GTK_TABLE (table), data->check [i], x,   x+1, y, y+1, GTK_FILL, 0, 0, 0); \
 	gtk_table_attach (GTK_TABLE (table), data->spin [i],  x+1, x+2, y, y+1, GTK_FILL, 0, 0, 0);
 
-	ADD_VAL (2, 0, GTK_HTML_EDIT_IMAGE_HSPACE, "width");
-	ADD_VAL (2, 1, GTK_HTML_EDIT_IMAGE_VSPACE, "height");
+	ADD_VAL (2, 0, GTK_HTML_EDIT_IMAGE_HSPACE, _("width"));
+	ADD_VAL (2, 1, GTK_HTML_EDIT_IMAGE_VSPACE, _("height"));
 
 	gtk_container_add (GTK_CONTAINER (frame), table);
 	gtk_box_pack_start (GTK_BOX (vb1), frame, FALSE, FALSE, 0);
@@ -239,15 +239,15 @@ image_insertion (GtkHTMLControlData *cd, gpointer *set_data)
 
 	menu = gtk_menu_new ();
 	mcounter = 0;
-	ADD_ITEM ("Pixels", percent_menu_activate);
-	ADD_ITEM ("Percent %", percent_menu_activate);
+	ADD_ITEM (_("Pixels"), percent_menu_activate);
+	ADD_ITEM (_("Percent %"), percent_menu_activate);
 	data->width_measure = gtk_option_menu_new ();
 	gtk_option_menu_set_menu (GTK_OPTION_MENU (data->width_measure), menu);
 	gtk_option_menu_set_history (GTK_OPTION_MENU (data->width_measure), data->percent);
 	gtk_table_attach (GTK_TABLE (table), data->width_measure,  0, 2, 0, 1, GTK_FILL, 0, 0, 0);
 
-	ADD_VAL (0, 1, GTK_HTML_EDIT_IMAGE_WIDTH,  "width");
-	ADD_VAL (0, 2, GTK_HTML_EDIT_IMAGE_HEIGHT, "height");
+	ADD_VAL (0, 1, GTK_HTML_EDIT_IMAGE_WIDTH,  _("width"));
+	ADD_VAL (0, 2, GTK_HTML_EDIT_IMAGE_HEIGHT, _("height"));
 
 	gtk_widget_set_sensitive (data->width_measure, data->set [GTK_HTML_EDIT_IMAGE_WIDTH]);
 	gtk_signal_connect (GTK_OBJECT (data->check [GTK_HTML_EDIT_IMAGE_WIDTH]), "toggled",

@@ -176,13 +176,13 @@ shade_toggled (GtkWidget *check, GtkHTMLEditRuleProperties *d)
 
 #undef ADD_VAL
 #define ADD_VAL(x,y) \
-	checked_val (data, x, _(y)); \
+	checked_val (data, x, (y)); \
 	gtk_box_pack_start (GTK_BOX (hbox), data->check [x], FALSE, FALSE, 0); \
 	gtk_box_pack_start (GTK_BOX (hbox), data->spin  [x], FALSE, FALSE, 0);
 
 #undef ADD_ITEM
 #define ADD_ITEM(n,f) \
-	menuitem = gtk_menu_item_new_with_label (_(n)); \
+	menuitem = gtk_menu_item_new_with_label (n); \
         gtk_menu_append (GTK_MENU (menu), menuitem); \
         gtk_widget_show (menuitem); \
         gtk_signal_connect (GTK_OBJECT (menuitem), "activate", GTK_SIGNAL_FUNC (f), data); \
@@ -227,8 +227,8 @@ rule_widget (GtkHTMLEditRuleProperties *data)
 	menu  = gtk_menu_new ();
 	mcounter = 0;
 	HBOX;
-	ADD_ITEM ("Pixels", percent_menu_activate);
-	ADD_ITEM ("Percent %", percent_menu_activate);
+	ADD_ITEM (_("Pixels"), percent_menu_activate);
+	ADD_ITEM (_("Percent %"), percent_menu_activate);
 	data->width_measure = gtk_option_menu_new ();
 	gtk_option_menu_set_menu (GTK_OPTION_MENU (data->width_measure), menu);
 	gtk_option_menu_set_history (GTK_OPTION_MENU (data->width_measure), data->percent);
@@ -236,7 +236,7 @@ rule_widget (GtkHTMLEditRuleProperties *data)
 	gtk_box_pack_start (GTK_BOX (vb1), hbox, FALSE, FALSE, 0);
 
 	HBOX;
-	ADD_VAL (GTK_HTML_EDIT_RULE_WIDTH, "length");
+	ADD_VAL (GTK_HTML_EDIT_RULE_WIDTH, _("length"));
 	gtk_adjustment_set_value (GTK_ADJUSTMENT (data->adj [GTK_HTML_EDIT_RULE_WIDTH]), data->width);
 	gtk_widget_set_sensitive (data->width_measure, data->set [GTK_HTML_EDIT_RULE_WIDTH]);
 	gtk_signal_connect (GTK_OBJECT (data->check [GTK_HTML_EDIT_RULE_WIDTH]), "toggled",
@@ -253,9 +253,9 @@ rule_widget (GtkHTMLEditRuleProperties *data)
 	HBOX;
 	menu  = gtk_menu_new ();
 	mcounter = HTML_HALIGN_LEFT;
-	ADD_ITEM ("Left", align_menu_activate);
-	ADD_ITEM ("Center", align_menu_activate);
-	ADD_ITEM ("Right", align_menu_activate);
+	ADD_ITEM (_("Left"), align_menu_activate);
+	ADD_ITEM (_("Center"), align_menu_activate);
+	ADD_ITEM (_("Right"), align_menu_activate);
 	data->align_option = gtk_option_menu_new ();
 	gtk_option_menu_set_menu (GTK_OPTION_MENU (data->align_option), menu);
 	gtk_option_menu_set_history (GTK_OPTION_MENU (data->align_option), data->align);
@@ -264,7 +264,7 @@ rule_widget (GtkHTMLEditRuleProperties *data)
 
 	/* weight */
 	HBOX;
-	ADD_VAL (GTK_HTML_EDIT_RULE_SIZE, "width");
+	ADD_VAL (GTK_HTML_EDIT_RULE_SIZE, _("width"));
 	gtk_adjustment_set_value (GTK_ADJUSTMENT (data->adj [GTK_HTML_EDIT_RULE_SIZE]), data->size);
 	gtk_box_pack_start_defaults (GTK_BOX (vb1), hbox);
 

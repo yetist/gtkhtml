@@ -1,3 +1,9 @@
+2000-12-15  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* image.c (ADD_ITEM),(ADD_VAL): Put the gettext stuff out of the macros
+	to make it all work even.
+	* rule.c (ADD_ITEM),(ADD_VAL): Same here.
+	
 2000-12-15  Larry Ewing  <lewing@helixcode.com>
 
 	* image.c (ADD_ITEM): use the right gettext function because we
