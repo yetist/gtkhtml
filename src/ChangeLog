@@ -1,3 +1,15 @@
+2001-01-09  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine.c (parse_p): don't push DIV block
+	(parse_p): don't pop it
+
+	* htmltext.c (html_text_append): new helper method
+
+	* htmlengine.c (parse_h): don't place hrule in own flow
+	(add_line_break): when flow == NULL, add para with empty text
+	(insert_text): replaced crappy code with html_text_append method
+	call
+
 2001-01-08  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine-edit-cut-and-paste.c (html_point_get_left): remove

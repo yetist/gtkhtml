@@ -1020,6 +1020,12 @@ html_text_class_init (HTMLTextClass *klass,
 	parent_class = &html_object_class;
 }
 
+inline static gint
+text_len (gchar *str, gint len)
+{
+	return len == -1 ? unicode_strlen (str, -1) : len;
+}
+
 void
 html_text_init (HTMLText *text,
 		HTMLTextClass *klass,
@@ -1032,14 +1038,8 @@ html_text_init (HTMLText *text,
 
 	html_object_init (HTML_OBJECT (text), HTML_OBJECT_CLASS (klass));
 
-	if (len == -1) {
-		text->text_len = unicode_strlen (str, -1);
-		text->text     = g_strdup (str);
-	} else {
-		text->text_len = len;
-		text->text     = g_strndup (str, unicode_offset_to_index (str, len));
-	}
-
+	text->text          = len == -1 ? g_strdup (str) : g_strndup (str, unicode_offset_to_index (str, len));
+	text->text_len      = text_len (str, len);
 	text->font_style    = font_style;
 	text->face          = NULL;
 	text->color         = color;
@@ -1361,4 +1361,18 @@ html_text_trail_space_width (HTMLText *text, HTMLPainter *painter)
 	} else {
 		return 0;
 	}
+}
+
+void
+html_text_append (HTMLText *text, const gchar *str, gint len)
+{
+	gchar *to_delete;
+
+	to_delete       = text->text;
+	text->text      = g_strconcat (to_delete, str, NULL);
+	text->text_len += text_len (text, len);
+
+	g_free (to_delete);
+
+	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
 }

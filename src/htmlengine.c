@@ -320,19 +320,9 @@ add_line_break (HTMLEngine *e,
 		HTMLObject *clue,
 		HTMLClearType clear)
 {
-#if 0
-	if (e->flow != NULL) {
-		if (HTML_OBJECT_TYPE (HTML_CLUE (e->flow)->tail) == HTML_TYPE_VSPACE)
-			html_clue_append (HTML_CLUE (e->flow), create_empty_text (e));
-		html_clue_append (HTML_CLUE (e->flow), html_vspace_new (clear));
-		return;
-	}
-#endif
-
-	if (HTML_CLUE (clue)->head)
-		new_flow (e, clue, NULL);
-	else
+	if (!e->flow)
 		new_flow (e, clue, create_empty_text (e));
+	new_flow (e, clue, NULL);
 }
 
 static void
@@ -490,19 +480,8 @@ insert_text (HTMLEngine *e,
 		html_text_set_font_face (HTML_TEXT (obj), current_font_face (e));
 
 		append_element (e, clue, obj);
-	} else {
-		HTMLText *text_prev;
-		gchar *new_text;
-
-		/* Reuse existing element.  */
-		/* FIXME this sucks.  */
-
-		text_prev = HTML_TEXT (prev);
-
-		new_text = g_strconcat (text_prev->text, text, NULL);
-		g_free (text_prev->text);
-		text_prev->text = new_text;
-	}
+	} else
+		html_text_append (HTML_TEXT (prev), text, -1);
 }
 
 
@@ -2148,8 +2127,6 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		HTMLHAlignType align = HTML_HALIGN_CENTER;
 		gboolean shade = TRUE;
 
-		close_flow (p, clue);
-
 		html_string_tokenizer_tokenize (p->st, str + 3, " >");
 		while (html_string_tokenizer_has_more_tokens (p->st)) {
 			gchar *token = html_string_tokenizer_next_token (p->st);
@@ -2178,7 +2155,6 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		}
 
 		append_element (p, clue, html_rule_new (length, percent, size, shade, align));
-		close_flow (p, clue);
 	}
 }
 
@@ -2618,8 +2594,6 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	} else if (*(str) == 'p' && ( *(str + 1) == ' ' || *(str + 1) == '>')) {
 		gchar *token;
 
-		push_block (e, ID_DIV, 1, block_end_div, e->divAlign, FALSE);
-
 		html_string_tokenizer_tokenize (e->st, (gchar *)(str + 2), " >");
 		while (html_string_tokenizer_has_more_tokens (e->st)) {
 			token = html_string_tokenizer_next_token (e->st);
@@ -2640,8 +2614,6 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		}
 	} else if (*(str) == '/' && *(str + 1) == 'p'
 		   && (*(str + 2) == ' ' || *(str + 2) == '>')) {
-
-		pop_block (e, ID_DIV, clue );
 
 		if (! e->avoid_para) {
 

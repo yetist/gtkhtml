@@ -95,6 +95,9 @@ void              html_text_set_font_style               (HTMLText           *te
 void              html_text_set_color                    (HTMLText           *text,
 							  HTMLEngine         *engine,
 							  HTMLColor          *color);
+void              html_text_append                       (HTMLText           *text,
+							  const gchar        *str,
+							  gint                len);
 void              html_text_set_text                     (HTMLText           *text,
 							  const gchar        *new_text);
 void              html_text_set_font_face                (HTMLText           *text,
