@@ -5,6 +5,9 @@
 
 2003-04-08  Radek Doulik  <rodo@ximian.com>
 
+	* gtkhtml.c (add_bindings): removed C-space, put it into emacs
+	bindings so that Chinese SCIM could catch C-space
+
 	* htmltext.c (get_glyphs): shape only when item->length > 0
 	(html_text_op_cut_helper): destroy items when cutting part of text
 

@@ -98,6 +98,7 @@ binding "gtkhtml-bindings-emacs"
   bind "<Ctrl>s"             { "command" (isearch-forward) }
   bind "<Ctrl>r"             { "command" (isearch-backward) }
 
+  bind "<Ctrl>space"         { "command" (selection-mode) }
   bind "<Alt>space"          { "command" (popup-menu) }
   bind "<Alt>Return"         { "command" (property-dialog) }
   bind "<Alt>KP_Enter"       { "command" (property-dialog) }

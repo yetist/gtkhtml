@@ -2791,7 +2791,7 @@ gtk_html_im_commit_cb (GtkIMContext *context, const gchar *str, GtkHTML *html)
 static void
 gtk_html_im_preedit_changed_cb (GtkIMContext *context, GtkHTML *html)
 {
-	g_warning ("implement me");
+	g_warning ("preedit changed callback: implement me");
 }
 
 static gchar *
@@ -4625,7 +4625,6 @@ add_bindings (GtkHTMLClass *klass)
 	BCOM (GDK_CONTROL_MASK, 9, ZOOM_RESET);
 	BCOM (GDK_CONTROL_MASK, 0, ZOOM_OUT);
 	BCOM (GDK_CONTROL_MASK, KP_Multiply, ZOOM_RESET);
-	BCOM (GDK_CONTROL_MASK, space, SELECTION_MODE);
 
 	/* selection */
 	BCOM (GDK_SHIFT_MASK, Up, MODIFY_SELECTION_UP);
