@@ -36,6 +36,8 @@
 #define HTML_EDITOR_CONTROL_ID "control:html-editor"
 #endif
 
+GtkWidget *control;
+
 
 /* Saving/loading through PersistStream.  */
 
@@ -345,7 +347,6 @@ container_create (void)
 {
 	GtkWidget *win;
 	GtkWindow *window;
-	GtkWidget *control;
 	BonoboUIComponent *component;
 	BonoboUIContainer *container;
 	BonoboControlFrame *frame;
@@ -420,6 +421,19 @@ init_corba (int *argc, char **argv)
 
 #endif /* USING_OAF */
 
+static gint
+load_file (const gchar *fname)
+{
+	CORBA_Object interface;
+
+	printf ("loading: %s\n", fname);
+	interface = bonobo_object_client_query_interface (bonobo_widget_get_server (BONOBO_WIDGET (control)),
+							  "IDL:Bonobo/PersistFile:1.0", NULL);
+	load_through_persist_file (fname, interface);
+
+	return FALSE;
+}
+
 int
 main (int argc, char **argv)
 {
@@ -429,6 +443,8 @@ main (int argc, char **argv)
 	/* We can't make any CORBA calls unless we're in the main loop.  So we
 	   delay creating the container here. */
 	gtk_idle_add ((GtkFunction) container_create, NULL);
+	if (argc > 1 && *argv [argc - 1] != '-')
+		gtk_idle_add ((GtkFunction) load_file, argv [argc - 1]);
 
 	bonobo_main ();
 

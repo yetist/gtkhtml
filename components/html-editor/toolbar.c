@@ -206,6 +206,12 @@ color_changed (GtkWidget *w, GdkColor *gdk_color, GtkHTMLControlData *cd)
 		html_color_unref (color);
 }
 
+static void
+unset_focus (GtkWidget *w, gpointer data)
+{
+	GTK_WIDGET_UNSET_FLAGS (w, GTK_CAN_FOCUS);
+}
+
 static GtkWidget *
 setup_color_combo (GtkHTMLControlData *cd)
 {
@@ -213,6 +219,7 @@ setup_color_combo (GtkHTMLControlData *cd)
 				     &html_colorset_get_color (cd->html->engine->settings->color_set,
 							       HTMLTextColor)->color, "toolbar_text");
 	GTK_WIDGET_UNSET_FLAGS (cd->combo, GTK_CAN_FOCUS);
+	gtk_container_forall (GTK_CONTAINER (cd->combo), unset_focus, NULL);
         gtk_signal_connect (GTK_OBJECT (cd->combo), "changed", GTK_SIGNAL_FUNC (color_changed), cd);
 
 	gtk_widget_show_all (cd->combo);

@@ -126,15 +126,6 @@ impl_run_command (PortableServer_Servant servant, const CORBA_char * command, CO
 }
 
 static CORBA_boolean
-par_is_empty (HTMLClue *clue)
-{
-	if (clue->head && html_object_is_text (clue->head)
-	    && HTML_TEXT (clue->head)->text_len == 0 && !html_object_next_not_slave (clue->head))
-		return CORBA_TRUE;
-	return CORBA_FALSE;
-}
-
-static CORBA_boolean
 impl_is_paragraph_empty (PortableServer_Servant servant, CORBA_Environment * ev)
 {
 	EditorEngine *e = html_editor_engine_from_servant (servant);
@@ -142,7 +133,7 @@ impl_is_paragraph_empty (PortableServer_Servant servant, CORBA_Environment * ev)
 	if (e->html->engine->cursor->object
 	    && e->html->engine->cursor->object->parent
 	    && HTML_OBJECT_TYPE (e->html->engine->cursor->object->parent) == HTML_TYPE_CLUEFLOW) {
-		return par_is_empty (HTML_CLUE (e->html->engine->cursor->object->parent));
+		return html_clueflow_is_empty (HTML_CLUEFLOW (e->html->engine->cursor->object->parent));
 	}
 	return CORBA_FALSE;
 }
@@ -156,7 +147,7 @@ impl_is_previous_paragraph_empty (PortableServer_Servant servant, CORBA_Environm
 	    && e->html->engine->cursor->object->parent
 	    && e->html->engine->cursor->object->parent->prev
 	    && HTML_OBJECT_TYPE (e->html->engine->cursor->object->parent->prev) == HTML_TYPE_CLUEFLOW) {
-		return par_is_empty (HTML_CLUE (e->html->engine->cursor->object->parent->prev));
+		return html_clueflow_is_empty (HTML_CLUE (e->html->engine->cursor->object->parent->prev));
 	}
 	return CORBA_FALSE;
 }

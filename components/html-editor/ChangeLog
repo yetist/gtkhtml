@@ -1,3 +1,17 @@
+2001-03-29  Radek Doulik  <rodo@ximian.com>
+
+	* test-html-editor-control.c (main): load file given as last
+	parameter
+	(load_file): new helper function
+
+	* engine.c (impl_is_paragraph_empty): use html_clueflow_is_empty
+	(impl_is_previous_paragraph_empty): ditto
+
+	* body.c (ADD_COLOR): use default color for automatic
+
+	* toolbar.c (unset_focus): new helper function
+	(setup_color_combo): unset focus for whole color combo
+
 2001-03-28  Larry Ewing  <lewing@ximian.com>
 
 	* body.c (color_changed): return if the color is null.
