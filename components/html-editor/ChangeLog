@@ -1,3 +1,8 @@
+2001-09-11  Larry Ewing  <lewing@ximian.com>
+
+	* persist-stream-impl.c (save_receiver): if the stream is NIL set
+	and exception.
+
 2001-09-10  Zbigniew Chyla  <cyba@gnome.pl>
 
 	Fixes #9522

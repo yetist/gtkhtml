@@ -108,6 +108,10 @@ save_receiver (const HTMLEngine *engine,
 	SaveState *state;
 
 	state = (SaveState *) user_data;
+	if (state->stream == CORBA_OBJECT_NIL)
+		CORBA_exception_set (state->ev, CORBA_USER_EXCEPTION,
+				     ex_Bonobo_IOError, NULL);
+
 	if (state->ev->_major != CORBA_NO_EXCEPTION)
 		return FALSE;
 
@@ -190,6 +194,9 @@ persist_stream_impl_new (GtkHTML *html)
 
 	return stream;
 }
+
+
+
 
 
 
