@@ -91,5 +91,13 @@ void           html_table_insert_column            (HTMLTable          *table,
 						    gint                col,
 						    HTMLTableCell     **column,
 						    HTMLUndoDirection   dir);
+void           html_table_delete_column            (HTMLTable          *t,
+						    HTMLEngine         *e,
+						    gint                col,
+						    HTMLUndoDirection   dir);
+void           html_table_delete_row               (HTMLTable          *t,
+						    HTMLEngine         *e,
+						    gint                row,
+						    HTMLUndoDirection   dir);
 
 #endif

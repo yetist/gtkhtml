@@ -37,9 +37,6 @@
 #include "htmltablepriv.h"
 #include "htmlundo.h"
 
-static void delete_table_column (HTMLEngine *e, HTMLUndoDirection dir);
-static void delete_table_row    (HTMLEngine *e, HTMLUndoDirection dir);
-
 HTMLTable *
 html_engine_get_table (HTMLEngine *e)
 {
@@ -131,18 +128,36 @@ html_engine_insert_table (HTMLEngine *e, gint cols, gint rows, gint width, gint 
  *  Insert Column
  */
 
-static void
-insert_column_undo_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir, guint position_after)
+struct _InsertCellsUndo {
+	HTMLUndoData data;
+
+	gint pos;
+};
+typedef struct _InsertCellsUndo InsertCellsUndo;
+#define INSERT_UNDO(x) ((InsertCellsUndo *) x)
+
+static HTMLUndoData *
+insert_undo_data_new (gint pos)
 {
-	delete_table_column (e, html_undo_direction_reverse (dir));
+	InsertCellsUndo *ud = g_new0 (InsertCellsUndo, 1);
+
+	ud->pos = pos;
+
+	return (HTMLUndoData *) ud;
 }
 
 static void
-insert_column_setup_undo (HTMLEngine *e, guint position_before, HTMLUndoDirection dir)
+insert_column_undo_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir, guint position_after)
+{
+	html_table_delete_column (html_engine_get_table (e), e, INSERT_UNDO (data)->pos, html_undo_direction_reverse (dir));
+}
+
+static void
+insert_column_setup_undo (HTMLEngine *e, gint col, guint position_before, HTMLUndoDirection dir)
 {
 	html_undo_add_action (e->undo,
 			      html_undo_action_new ("Insert table column", insert_column_undo_action,
-						    NULL, html_cursor_get_position (e->cursor),
+						    insert_undo_data_new (col), html_cursor_get_position (e->cursor),
 						    position_before),
 			      dir);
 }
@@ -151,7 +166,7 @@ void
 html_engine_goto_table_0 (HTMLEngine *e, HTMLTable *table)
 {
 	while ((e->cursor->offset || e->cursor->object != HTML_OBJECT (table)) && e->cursor->position)
-			html_cursor_backward (e->cursor, e);
+		html_cursor_backward (e->cursor, e);
 }
 
 void
@@ -214,7 +229,7 @@ html_table_insert_column (HTMLTable *t, HTMLEngine *e, gint col, HTMLTableCell *
 	}
 
 	html_cursor_jump_to (e->cursor, e, pos.object, pos.offset);
-	insert_column_setup_undo (e, position_before, dir);
+	insert_column_setup_undo (e, col, position_before, dir);
 	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL_CALC);
 	html_engine_queue_draw (e, HTML_OBJECT (t));
 	html_engine_thaw (e);
@@ -308,36 +323,31 @@ backward_before_col (HTMLEngine *e, gint col)
 	HTMLTableCell *cell;
 
 	do {
-		html_cursor_backward (e->cursor, e);
+		if (!html_cursor_backward (e->cursor, e))
+			break;
 		cell = html_engine_get_table_cell (e);
 	} while (cell && cell->col >= col);
 }
 
-static void
-delete_table_column (HTMLEngine *e, HTMLUndoDirection dir)
+void
+html_table_delete_column (HTMLTable *t, HTMLEngine *e, gint col, HTMLUndoDirection dir)
 {
-	HTMLTable *t;
-	HTMLTableCell *cell;
 	HTMLTableCell **column;
+	HTMLTableCell *cell;
 	HTMLPoint pos;
-	gint r, c, col;
+	gint r, c;
 	guint position_before;
 
 	/* this command is valid only in table and when this table has > 1 column */
-	t = html_engine_get_table (e);
 	if (!t || t->totalCols < 2)
-		return;
-	cell = html_engine_get_table_cell (e);
-	if (!cell)
 		return;
 
 	html_engine_freeze (e);
 
 	position_before = e->cursor->position;
-	col    = cell->col;
 	column = g_new0 (HTMLTableCell *, t->totalRows);
 
-	backward_before_col (e, cell->col);
+	backward_before_col (e, col);
 	pos.object = e->cursor->object;
 	pos.offset = e->cursor->offset;
 
@@ -382,7 +392,10 @@ delete_table_column (HTMLEngine *e, HTMLUndoDirection dir)
 void
 html_engine_delete_table_column (HTMLEngine *e)
 {
-	delete_table_column (e, HTML_UNDO_UNDO);
+	HTMLTableCell *cell = html_engine_get_table_cell (e);
+
+	if (cell)
+		html_table_delete_column (html_engine_get_table (e), e, cell->col, HTML_UNDO_UNDO);
 }
 
 /*
@@ -392,15 +405,15 @@ html_engine_delete_table_column (HTMLEngine *e)
 static void
 insert_row_undo_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir, guint position_after)
 {
-	delete_table_row (e, html_undo_direction_reverse (dir));
+	html_table_delete_row (html_engine_get_table (e), e, INSERT_UNDO (data)->pos, html_undo_direction_reverse (dir));
 }
 
 static void
-insert_row_setup_undo (HTMLEngine *e, guint position_before, HTMLUndoDirection dir)
+insert_row_setup_undo (HTMLEngine *e, gint row, guint position_before, HTMLUndoDirection dir)
 {
 	html_undo_add_action (e->undo,
 			      html_undo_action_new ("Insert table row", insert_row_undo_action,
-						    NULL,
+						    insert_undo_data_new (row),
 						    html_cursor_get_position (e->cursor),
 						    html_cursor_get_position (e->cursor)),
 			      dir);
@@ -451,7 +464,7 @@ html_table_insert_row (HTMLTable *t, HTMLEngine *e, gint row, HTMLTableCell **ro
 	}
 
 	html_cursor_jump_to (e->cursor, e, pos.object, pos.offset);
-	insert_row_setup_undo (e, position_before, dir);
+	insert_row_setup_undo (e, row, position_before, dir);
 	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL_CALC);
 	html_engine_queue_draw (e, HTML_OBJECT (t));
 	html_engine_thaw (e);
@@ -510,36 +523,31 @@ backward_before_row (HTMLEngine *e, gint row)
 	HTMLTableCell *cell;
 
 	do {
-		html_cursor_backward (e->cursor, e);
+		if (!html_cursor_backward (e->cursor, e))
+			return;
 		cell = html_engine_get_table_cell (e);
 	} while (cell && cell->row >= row);
 }
 
-static void
-delete_table_row (HTMLEngine *e, HTMLUndoDirection dir)
+void
+html_table_delete_row (HTMLTable *t, HTMLEngine *e, gint row, HTMLUndoDirection dir)
 {
-	HTMLTable *t;
-	HTMLTableCell *cell;
 	HTMLTableCell **row_cells;
+	HTMLTableCell *cell;
 	HTMLPoint pos;
-	gint r, c, row;
+	gint r, c;
 	guint position_before;
 
 	/* this command is valid only in table and when this table has > 1 row */
-	t = html_engine_get_table (e);
 	if (!t || t->totalRows < 2)
-		return;
-	cell = html_engine_get_table_cell (e);
-	if (!cell)
 		return;
 
 	html_engine_freeze (e);
 
 	position_before = e->cursor->position;
-	row       = cell->row;
 	row_cells = g_new0 (HTMLTableCell *, t->totalCols);
 
-	backward_before_row (e, cell->row);
+	backward_before_row (e, row);
 	pos.object = e->cursor->object;
 	pos.offset = e->cursor->offset;
 
@@ -583,7 +591,10 @@ delete_table_row (HTMLEngine *e, HTMLUndoDirection dir)
 void
 html_engine_delete_table_row (HTMLEngine *e)
 {
-	delete_table_row (e, HTML_UNDO_UNDO);
+	HTMLTableCell *cell = html_engine_get_table_cell (e);
+
+	if (cell)
+		html_table_delete_row (html_engine_get_table (e), e, cell->row, HTML_UNDO_UNDO);
 }
 
 typedef enum {
@@ -1047,7 +1058,7 @@ html_engine_table_set_cols (HTMLEngine *e, gint cols)
 		gint n = table->totalCols - cols;
 
 		for (; n > 0; n --)
-			html_engine_delete_table_column (e);
+			html_table_delete_column (table, e, table->totalCols - 1, HTML_UNDO_UNDO);
 	}
 }
 
@@ -1075,7 +1086,7 @@ html_engine_table_set_rows (HTMLEngine *e, gint rows)
 		gint n = table->totalRows - rows;
 
 		for (; n > 0; n --)
-			html_engine_delete_table_row (e);
+			html_table_delete_row (table, e, table->totalRows - 1, HTML_UNDO_UNDO);
 	}
 }
 
