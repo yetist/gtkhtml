@@ -1116,6 +1116,15 @@ save_plain (HTMLObject *self,
 		if (! html_engine_save_output_string (state, "\n"))
 			return FALSE;
 
+	if (clueflow->level > 0) {
+		gint i;
+
+		for (i = 0; i < (gint) clueflow->level; i++) {
+			if (! html_engine_save_output_string (state, "\t"))
+				return FALSE;
+		}
+	}
+
 	/* Paragraph's content.  */
 	if (! HTML_OBJECT_CLASS (&html_clue_class)->save_plain (self, state))
 		return FALSE;

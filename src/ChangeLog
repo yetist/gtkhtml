@@ -1,3 +1,8 @@
+2000-06-12  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlclueflow.c (save_plain): For indented paragraphs, emit as
+	many tabs as the level of indentation before the actual contents.
+
 2000-06-12  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml.c (key_press_event): insert text also with LOCK_MASK bit
