@@ -33,11 +33,11 @@
 #include "htmlpainter.h"
 #include "htmlengine.h"
 
-
 HTMLEmbeddedClass html_embedded_class;
 static HTMLObjectClass *parent_class = NULL;
 
-
+#define d(x) x
+
 static void
 copy (HTMLObject *self,
       HTMLObject *dest)
@@ -67,6 +67,7 @@ draw (HTMLObject *o,
 	HTMLEmbedded *element = HTML_EMBEDDED(o);
 	gint new_x, new_y;
 
+	d (printf ("draw embedded\n"));
 	if (!element->widget)
 		return;
 
@@ -75,19 +76,23 @@ draw (HTMLObject *o,
 		new_y = o->y + ty - o->ascent;
 		
 		if (element->widget->parent) {
-			if (new_x != element->abs_x || new_y != element->abs_y)
+			if (new_x != element->abs_x || new_y != element->abs_y) {
+				d (printf ("element: %p moveto: %d,%d shown: %d\n", element, new_x, new_y, GTK_WIDGET_VISIBLE (element->widget)));
 				gtk_layout_move (GTK_LAYOUT(element->parent), element->widget, new_x, new_y);
-			else if (!GTK_HTML (element->parent)->engine->expose)
+			} else if (!GTK_HTML (element->parent)->engine->expose)
 				gtk_widget_queue_draw (element->widget);
 		}
 	
 		element->abs_x = new_x;
 		element->abs_y = new_y;
 		
-		if (!element->widget->parent)
+		if (!element->widget->parent) {
+			d (printf ("element: %p put: %d,%d shown: %d\n", element, new_x, new_y, GTK_WIDGET_VISIBLE (element->widget)));
 			gtk_layout_put (GTK_LAYOUT(element->parent), element->widget, new_x, new_y);
+		}
 	}
 
+	d (printf ("draw embedded - call painter\n"));
 	html_painter_draw_embedded (p, element, tx, ty);
 }
 
@@ -96,6 +101,7 @@ destroy (HTMLObject *o)
 {
 	HTMLEmbedded *element;
 
+	d (printf ("destroy embedded\n"));
 	element = HTML_EMBEDDED (o);
 
 	if(element->name)
@@ -384,6 +390,7 @@ html_embedded_set_widget (HTMLEmbedded *emb, GtkWidget *w)
 {
 	emb->widget = w;
 	
+	d (printf ("set embedded widget: %p widget: %p\n", emb, w));
 	gtk_widget_show (w);
 
 	g_object_set_data (G_OBJECT (w), "embeddedelement", emb);
