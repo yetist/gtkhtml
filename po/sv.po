@@ -3,13 +3,13 @@
 # Christian Rose <menthos@menthos.com>, 2000, 2001.
 # Martin Norbäck <d95mback@dtek.chalmers.se>, 2000.
 #
-# $Id: sv.po,v 1.39 2001/10/09 14:53:01 lewing Exp $
+# $Id: sv.po,v 1.40 2001/10/21 13:13:19 menthos Exp $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2001-10-09 09:44-0500\n"
-"PO-Revision-Date: 2001-09-18 02:16+0200\n"
+"POT-Creation-Date: 2001-10-21 15:09+0200\n"
+"PO-Revision-Date: 2001-10-21 15:11+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 msgid "<None>"
 msgstr "<Ingen>"
 
-#: capplet/gnome-bindings-prop.c:216 capplet/main.c:245
+#: capplet/gnome-bindings-prop.c:216 capplet/main.c:252
 #: components/html-editor/cell.c:385 components/html-editor/rule.c:315
 #: components/html-editor/table.c:528 components/html-editor/table.c:619
 #: components/html-editor/template.c:243
@@ -434,9 +434,8 @@ msgid "Numbered List"
 msgstr "Numrerad lista"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
-#, fuzzy
 msgid "Numbered _List"
-msgstr "Numrerad lista"
+msgstr "Numrerad _lista"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
 msgid "Orange"
@@ -721,6 +720,12 @@ msgstr "Slå på"
 msgid "Colors"
 msgstr "Färger"
 
+#: components/html-editor/body.c:175 components/html-editor/cell.c:391
+#: components/html-editor/table.c:534 components/html-editor/text.c:221
+#: components/html-editor/toolbar.c:290
+msgid "Automatic"
+msgstr "Automatisk"
+
 #: components/html-editor/body.c:186
 #: components/html-editor/editor-control-factory.c:195
 #: components/html-editor/menubar.c:127 components/html-editor/popup.c:154
@@ -731,11 +736,6 @@ msgstr "Text"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:5
 msgid "Background"
 msgstr "Bakgrund"
-
-#: components/html-editor/cell.c:391 components/html-editor/table.c:534
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:290
-msgid "Automatic"
-msgstr "Automatisk"
 
 #: components/html-editor/editor-control-factory.c:176
 #: components/html-editor/popup.c:146
@@ -1198,15 +1198,21 @@ msgstr "Anteckning"
 
 #: components/html-editor/template.c:83
 msgid ""
-"<table cellspacing=0 cellpadding=1 "
-"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" "
-"cellpadding=3 cellspacing=0 width=\"100%\"><tr><td valign=top><img "
-"src=\"file://"
+"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
+"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
+"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
 msgstr ""
-"<table cellspacing=0 cellpadding=1 "
-"bgcolor=\"#ccccc0\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" "
-"cellpadding=3 cellspacing=0 width=\"100%\"><tr><td valign=top><img "
-"src=\"file://"
+"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
+"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
+"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
+
+#: components/html-editor/template.c:85
+msgid ""
+"/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
+"tr></table></td></tr></table>"
+msgstr ""
+"/bulb.png\" hspace=10></td><td width=\"100%\">Placera din text här</td></"
+"tr></table></td></tr></table>"
 
 #: components/html-editor/template.c:91
 msgid "Image frame"
@@ -1215,12 +1221,20 @@ msgstr "Bildram"
 #: components/html-editor/template.c:93
 msgid ""
 "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" "
-"width=\"100%\"><tr><td align=\"center\"><img src=\"file://"
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
+"\"><tr><td align=\"center\"><img src=\"file://"
 msgstr ""
 "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" "
-"width=\"100%\"><tr><td align=\"center\"><img src=\"file://"
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
+"\"><tr><td align=\"center\"><img src=\"file://"
+
+#: components/html-editor/template.c:97
+msgid ""
+"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
+"\"-1\">Image 1: <b>description</b></font></td></tr></table></td></tr></table>"
+msgstr ""
+"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
+"\"-1\">Bild 1: <b>beskrivning</b></font></td></tr></table></td></tr></table>"
 
 #: components/html-editor/test-html-editor-control.c:276
 msgid "Open file..."
@@ -1308,22 +1322,6 @@ msgstr "Förhandsgranska"
 
 #~ msgid "_Numbered List"
 #~ msgstr "_Numrerad lista"
-
-#~ msgid ""
-#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Place your text "
-#~ "here</td></tr></table></td></tr></table>"
-#~ msgstr ""
-#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Placera din text "
-#~ "här</td></tr></table></td></tr></table>"
-
-#~ msgid ""
-#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td>Image "
-#~ "1:&nbsp;<font size=\"3\"><b>description</b></font "
-#~ "size=\"3\"></td></tr></table></td></tr></table>"
-#~ msgstr ""
-#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td>Bild "
-#~ "1:&nbsp;<font size=\"3\"><b>beskrivning</b></font "
-#~ "size=\"3\"></td></tr></table></td></tr></table>"
 
 #~ msgid "Place your text here"
 #~ msgstr "Placera din text här"
