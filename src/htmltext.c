@@ -135,7 +135,7 @@ copy_helper (HTMLText *src,
 	if (len < 0)
 		len = unicode_strlen (src->text, -1);
 
-	dest->text = g_strndup (src->text + unicode_offset_to_index (src->text, offset),
+	dest->text = g_strndup (html_text_get_text (src, offset),
 				unicode_offset_to_index (src->text, offset + len)
 				- unicode_offset_to_index (src->text, offset));
 	dest->text_len = len;
@@ -254,7 +254,8 @@ html_text_get_nb_width (HTMLText *text, HTMLPainter *painter, gboolean begin)
 		return forward_get_nb_width (text, painter, begin);
 
 	/* if begins/ends with ' ' the width is 0 */
-	if ((begin && t [0] == ' ') || (!begin && t [unicode_offset_to_index (text->text, text->text_len) - 1] == ' '))
+	if ((begin && html_text_get_char (text, 0) == ' ')
+	    || (!begin && html_text_get_char (text, text->text_len - 1) == ' '))
 		return 0;
 
 	/* find end/begin of nb text */
@@ -282,7 +283,7 @@ calc_min_width (HTMLObject *self,
 	font_style = html_text_get_font_style (text);
 	t          = text->text;
 
-	if (text->text_len == 0 || t [0] != ' ') {
+	if (text->text_len == 0 || html_text_get_char (text, 0) != ' ') {
 		obj = html_object_prev_not_slave (self);
 		w = (obj && html_object_is_text (obj)) ? html_text_get_nb_width (HTML_TEXT (obj), painter, FALSE) : 0;
 	}
@@ -302,7 +303,7 @@ calc_min_width (HTMLObject *self,
 			w = 0;
 		} while (1);
 
-	if (text->text_len == 0 || text->text [text->text_len - 1] != ' ') {
+	if (text->text_len == 0 || html_text_get_char (text, text->text_len - 1) != ' ') {
 		obj = html_object_next_not_slave (self);
 		w += (obj && html_object_is_text (obj)) ? html_text_get_nb_width (HTML_TEXT (obj), painter, TRUE) : 0;
 	}
@@ -701,10 +702,10 @@ split (HTMLText *self,
 
 	new = g_malloc (HTML_OBJECT (self)->klass->object_size);
 	html_text_init (new, HTML_TEXT_CLASS (HTML_OBJECT (self)->klass),
-			self->text + offset, -1, self->font_style, self->color);
+			html_text_get_text (self, offset), -1, self->font_style, self->color);
 
-	self->text = g_realloc (self->text, offset + 1);
-	self->text[offset] = '\0';
+	self->text = g_realloc (self->text, unicode_offset_to_index (self->text, offset) + 1);
+	self->text [unicode_offset_to_index (self->text, offset)] = '\0';
 	self->text_len = offset;
 	html_object_change_set (HTML_OBJECT (self), HTML_CHANGE_MIN_WIDTH);
 

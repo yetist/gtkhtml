@@ -1847,7 +1847,7 @@ begin_of_word (gchar *text, gchar *ct)
 
 	do
 		unicode_get_utf8 (ct, &uc);
-	while (!html_is_in_word (uc) && (ct = unicode_previous_utf8 (text, ct)) && *ct);
+	while (!html_is_in_word (uc) && (ct = unicode_next_utf8 (ct)) && *ct);
 
 	return ct;
 }
@@ -1931,4 +1931,3 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *i)
 }
 
 #endif /* GTKHTML_HAVE_PSPELL */
-
