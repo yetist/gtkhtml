@@ -231,8 +231,17 @@ html_engine_select_spell_word_editable (HTMLEngine *e)
 	gboolean cited, cited2;
 
 	cited = cited2 = FALSE;
-	while (html_selection_spell_word (html_cursor_get_prev_char (e->cursor), &cited))
+	while (html_selection_spell_word (html_cursor_get_prev_char (e->cursor), &cited) || cited) {
 		html_cursor_backward (e->cursor, e);
+		cited2 = cited;
+		cited = FALSE;
+	}
+
+	if (cited2) {
+		html_cursor_forward (e->cursor, e);
+		cited = TRUE;
+	}
+
 	html_engine_set_mark (e);
 	while (html_selection_spell_word (html_cursor_get_current_char (e->cursor), &cited2) || (!cited && cited2)) {
 		html_cursor_forward (e->cursor, e);
