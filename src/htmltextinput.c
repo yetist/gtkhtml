@@ -74,11 +74,11 @@ html_text_input_key_pressed (GtkWidget *w, GdkEventKey *ev, gpointer p)
 	HTMLEmbedded *next = NULL;
 	HTMLEmbedded *current = NULL;
 	gboolean found = FALSE;
-	GList *node;
+	GList *node = NULL;
 	
 	if (ev->keyval == GDK_Return) {
-		current = HTML_EMBEDDED(node->data);
 		for (node = e->form->elements; node; node = node->next) {
+			current = HTML_EMBEDDED(node->data);
 			
 			/* focus on the next visible element */
 			if (current->widget && found

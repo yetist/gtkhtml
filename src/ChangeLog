@@ -1,5 +1,11 @@
 2001-06-05  Larry Ewing  <lewing@ximian.com>
 
+	* htmlframe.c (html_frame_init): attach submit to frame_submit.
+	(frame_submit): proxy signal, needs a little more love.
+
+	* htmltextinput.c (html_text_input_key_pressed): fix a stupid cut
+	& paste bug so that the enter handler actually works.
+
 	* htmlradio.c (html_radio_init): call html_form_add_radio and
 	change protype.
 	(html_radio_new): change prototype.

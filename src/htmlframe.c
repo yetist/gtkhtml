@@ -129,6 +129,19 @@ frame_link_clicked (GtkHTML *html, const gchar *url, gpointer data)
 }
 
 static void
+frame_submit (GtkHTML *html, 
+	      const gchar *method, 
+	      const gchar *action, 
+	      const gchar *encoding, 
+	      gpointer data) 
+{
+	HTMLFrame *frame = HTML_FRAME (data);
+	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(frame)->parent);
+
+	gtk_signal_emit_by_name (GTK_OBJECT (parent), "submit", method, action, encoding);
+}
+
+static void
 frame_size_changed (GtkHTML *html, gpointer data)
 {
 	HTMLFrame *frame = HTML_FRAME (data);
@@ -576,6 +589,9 @@ html_frame_init (HTMLFrame *frame,
 	gtk_signal_connect (GTK_OBJECT (new_html), "object_requested",
 			    GTK_SIGNAL_FUNC (frame_object_requested),
 			    (gpointer)frame);	
+	gtk_signal_connect (GTK_OBJECT (new_html), "submit",
+			    GTK_SIGNAL_FUNC (frame_submit),
+			    (gpointer)frame);
 
 	html_frame_set_margin_height (frame, 0);
 	html_frame_set_margin_width (frame, 0);
@@ -615,8 +631,6 @@ html_frame_init (HTMLFrame *frame,
 			    GTK_SIGNAL_FUNC (on_button_press_event), popup_menu);
 	gtk_signal_connect (GTK_OBJECT (html), "redirect",
 			    GTK_SIGNAL_FUNC (on_redirect), NULL);
-	gtk_signal_connect (GTK_OBJECT (html), "submit",
-			    GTK_SIGNAL_FUNC (on_submit), NULL);
 	gtk_signal_connect (GTK_OBJECT (html), "object_requested",
 			    GTK_SIGNAL_FUNC (object_requested_cmd), NULL);
 	*/
