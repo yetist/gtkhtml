@@ -7,7 +7,7 @@ INCLUDES = -I$(top_srcdir) -I$(srcdir) -I$(includedir) $(GNOME_INCLUDEDIR) \
 	-DSRCDIR=\"$(srcdir)\" \
 	-DPREFIX=\"$(prefix)\"
 
-CFLAGS +=  $(GCONF_CFLAGS)
+CFLAGS +=  $(GCONF_CFLAGS) -DICONDIR=\"$(datadir)/gtkhtml/icons\"
 
 lib_LTLIBRARIES = libgtkhtml.la
 

@@ -42,6 +42,7 @@
 #include "gtkhtml-properties.h"
 #include "gtkhtml-stream.h"
 
+#include "htmlclueflow.h"
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
 #include "htmldrawqueue.h"
@@ -53,6 +54,7 @@
 #include "htmlmap.h"
 #include "htmlprinter.h"
 #include "htmlgdkpainter.h"
+#include "htmlplainpainter.h"
 
 /* HTMLImageFactory stuff.  */
 
@@ -324,12 +326,24 @@ calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 
 	pixel_size = html_painter_get_pixel_size (painter);
 
-	width = html_image_get_actual_width (image, painter);
-	height = html_image_get_actual_height (image, painter);
+	if (o->parent && HTML_IS_CLUEFLOW (o->parent)
+	    && HTML_IS_PLAIN_PAINTER (painter) && image->alt && *image->alt) {
+		GtkHTMLFontStyle style;
+		gint lo = 0;
 
-	o->width  = width + (image->border + image->hspace) * 2 * pixel_size;
-	o->ascent = height + (image->border + image->vspace) * 2 * pixel_size;
-	o->descent = 0;
+		style = html_clueflow_get_default_font_style (HTML_CLUEFLOW (o->parent));
+		o->width = html_painter_calc_text_width (painter, image->alt, g_utf8_strlen (image->alt, -1), &lo,
+							 style, NULL);
+		o->ascent = html_painter_calc_ascent (painter, style, NULL);
+		o->descent = html_painter_calc_descent (painter, style, NULL);
+	} else {
+		width = html_image_get_actual_width (image, painter);
+		height = html_image_get_actual_height (image, painter);
+
+		o->width  = width + (image->border + image->hspace) * 2 * pixel_size;
+		o->ascent = height + (image->border + image->vspace) * 2 * pixel_size;
+		o->descent = 0;
+	}
 
 	if (o->descent != old_descent
 	    || o->ascent != old_ascent
@@ -337,6 +351,17 @@ calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 		return TRUE;
 
 	return FALSE;
+}
+
+static void
+draw_plain (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint height, gint tx, gint ty)
+{
+	HTMLImage *img = HTML_IMAGE (o);
+
+	if (img->alt && *img->alt) {
+		html_painter_set_pen (p, &html_colorset_get_color_allocated (p, HTMLTextColor)->color);
+		html_painter_draw_text (p, o->x + tx, o->y + ty, img->alt, g_utf8_strlen (img->alt, -1), 0);
+	}
 }
 
 static void
@@ -359,6 +384,11 @@ draw (HTMLObject *o,
 	html_object_calc_intersection (o, &paint, x, y, width, height);
 	if (art_irect_empty (&paint))
 		return;
+
+	if (HTML_IS_PLAIN_PAINTER (painter)) {
+		draw_plain (o, painter, x, y, width, height, tx, ty);
+		return;
+	}
 
 	image = HTML_IMAGE (o);
 
