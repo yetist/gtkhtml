@@ -553,20 +553,91 @@ html_engine_delete_table_row (HTMLEngine *e)
 	delete_table_row (e, HTML_UNDO_UNDO);
 }
 
+typedef enum {
+	HTML_TABLE_BORDER,
+	HTML_TABLE_PADDING,
+	HTML_TABLE_SPACING,
+	HTML_TABLE_WIDTH,
+	HTML_TABLE_BGCOLOR,
+	HTML_TABLE_BGPIXMAP,
+} HTMLTableAttrType;
+
+union _HTMLTableUndoAttr {
+	gint border;
+	gint spacing;
+	gint padding;
+
+	struct {
+		gint width;
+		gboolean percent;
+	} width;
+
+	struct {
+		GdkColor color;
+		gboolean has_bg_color;
+	} color;
+
+	struct {
+		HTMLImagePointer *pixmap;
+		gboolean has_bg_pixmap;
+	} pixmap;
+};
+typedef union _HTMLTableUndoAttr HTMLTableUndoAttr;
+
+struct _HTMLTableSetAttrUndo {
+	HTMLUndoData data;
+
+	HTMLTableUndoAttr attr;
+	HTMLTableAttrType type;
+};
+typedef struct _HTMLTableSetAttrUndo HTMLTableSetAttrUndo;
+
+static void
+attr_destroy (HTMLUndoData *undo_data)
+{
+	HTMLTableSetAttrUndo *data = (HTMLTableSetAttrUndo *) undo_data;
+
+	switch (data->type) {
+	default:
+		;
+	}
+}
+
+static HTMLTableSetAttrUndo *
+attr_undo_new (HTMLTableAttrType type)
+{
+	HTMLTableSetAttrUndo *undo = g_new (HTMLTableSetAttrUndo, 1);
+
+	html_undo_data_init (HTML_UNDO_DATA (undo));
+	undo->data.destroy = attr_destroy;
+	undo->type         = type;
+
+	return undo;
+}
+
 /*
  * Border width
  */
 
-void
-html_engine_table_set_border_width (HTMLEngine *e, HTMLTable *t, gint border_width, gboolean relative)
+static void table_set_border_width (HTMLEngine *e, HTMLTable *t, gint border_width, gboolean relative, HTMLUndoDirection dir);
+
+static void
+table_set_border_width_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir)
 {
-	/* HTMLTable *t;
+	table_set_border_width (e, html_engine_get_table (e), ((HTMLTableSetAttrUndo *) undo_data)->attr.border, FALSE,
+				html_undo_direction_reverse (dir));
+}
 
-	   t = HTML_TABLE (html_object_nth_parent (e->cursor->object, 3)); */
+static void
+table_set_border_width (HTMLEngine *e, HTMLTable *t, gint border_width, gboolean relative, HTMLUndoDirection dir)
+{
+	HTMLTableSetAttrUndo *undo;
 
-	/* this command is valid only in table and when this table has > 1 column */
 	if (!t || !HTML_IS_TABLE (HTML_OBJECT (t)))
 		return;
+
+	undo = attr_undo_new (HTML_TABLE_BORDER);
+	undo->attr.border = t->border;
 
 	html_engine_freeze (e);
 	if (relative)
@@ -575,11 +646,48 @@ html_engine_table_set_border_width (HTMLEngine *e, HTMLTable *t, gint border_wid
 		t->border = border_width;
 	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL_CALC);
 	html_engine_thaw (e);
+
+	html_undo_add_action (e->undo,
+			      html_undo_action_new ("Set border width", table_set_border_width_undo_action,
+						    HTML_UNDO_DATA (undo), html_cursor_get_position (e->cursor)), dir);
 }
 
 void
-html_engine_table_set_bg_color (HTMLEngine *e, HTMLTable *t, GdkColor *c)
+html_engine_table_set_border_width (HTMLEngine *e, HTMLTable *t, gint border_width, gboolean relative)
 {
+	table_set_border_width (e, t, border_width, relative, HTML_UNDO_UNDO);
+}
+
+/*
+ * bg color
+ *
+ */
+
+static void table_set_bg_color (HTMLEngine *e, HTMLTable *t, GdkColor *c, HTMLUndoDirection dir);
+
+static void
+table_set_border_bg_color_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir)
+{
+	HTMLTableSetAttrUndo *data = (HTMLTableSetAttrUndo *) undo_data;
+
+	table_set_bg_color (e, html_engine_get_table (e), data->attr.color.has_bg_color
+			    ? &data->attr.color.color : NULL, html_undo_direction_reverse (dir));
+}
+
+static void
+table_set_bg_color (HTMLEngine *e, HTMLTable *t, GdkColor *c, HTMLUndoDirection dir)
+{
+	HTMLTableSetAttrUndo *undo;
+
+	undo = attr_undo_new (HTML_TABLE_BORDER);
+	if (t->bgColor) {
+		undo->attr.color.color        = *t->bgColor;
+		undo->attr.color.has_bg_color = TRUE;
+	} else
+		undo->attr.color.has_bg_color = FALSE;
+	html_undo_add_action (e->undo,
+			      html_undo_action_new ("Set border width", table_set_border_bg_color_undo_action,
+						    HTML_UNDO_DATA (undo), html_cursor_get_position (e->cursor)), dir);
 	if (c) {
 		if (!t->bgColor)
 			t->bgColor = g_new (GdkColor, 1);
@@ -587,6 +695,12 @@ html_engine_table_set_bg_color (HTMLEngine *e, HTMLTable *t, GdkColor *c)
 	} else
 		t->bgColor = c;
 	html_engine_queue_draw (e, HTML_OBJECT (t));
+}
+
+void
+html_engine_table_set_bg_color (HTMLEngine *e, HTMLTable *t, GdkColor *c)
+{
+	table_set_bg_color (e, t, c, HTML_UNDO_UNDO);
 }
 
 void
