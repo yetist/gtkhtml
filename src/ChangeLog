@@ -1,3 +1,8 @@
+2003-02-07  Larry Ewing  <lewing@ximian.com>
+
+	* htmlclueflow.c (draw_quotes): move the plain painter check out
+	of the loop.
+
 2003-02-05  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (parse_f): no pending para for forms.
