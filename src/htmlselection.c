@@ -21,6 +21,7 @@
 
 #include <gtk/gtkselection.h>
 #include "htmlcursor.h"
+#include "htmlentity.h"
 #include "htmlinterval.h"
 #include "htmlselection.h"
 #include "htmlengine-edit.h"
@@ -127,14 +128,21 @@ line_interval (HTMLEngine *e, HTMLCursor *begin, HTMLCursor *end)
 	return html_cursor_beginning_of_line (begin, e) && html_cursor_end_of_line (end, e);
 }
 
+gboolean
+html_selection_word (gunichar uc)
+{
+	return uc && uc != ' ' && uc != '\t' && uc != ENTITY_NBSP         /* white space */
+		&& uc != '(' && uc != ')' && uc != '[' && uc != ']';
+}
+
 static gboolean
 word_interval (HTMLEngine *e, HTMLCursor *begin, HTMLCursor *end)
 {
 	/* move to the begin of word */
-	while (html_is_in_word (html_cursor_get_prev_char (begin)))
+	while (html_selection_word (html_cursor_get_prev_char (begin)))
 		html_cursor_backward (begin, e);
 	/* move to the end of word */
-	while (html_is_in_word (html_cursor_get_current_char (end)))
+	while (html_selection_word (html_cursor_get_current_char (end)))
 		html_cursor_forward (end, e);
 
 	return (begin->object && end->object);

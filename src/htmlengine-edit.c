@@ -240,10 +240,10 @@ html_is_in_word (gunichar uc)
 void
 html_engine_select_word_editable (HTMLEngine *e)
 {
-	while (html_is_in_word (html_cursor_get_prev_char (e->cursor)))
+	while (html_selection_word (html_cursor_get_prev_char (e->cursor)))
 		html_cursor_backward (e->cursor, e);
 	html_engine_set_mark (e);
-	while (html_is_in_word (html_cursor_get_current_char (e->cursor)))
+	while (html_selection_word (html_cursor_get_current_char (e->cursor)))
 		html_cursor_forward (e->cursor, e);
 }
 
