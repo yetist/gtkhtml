@@ -1,3 +1,7 @@
+2001-08-15  Radek Doulik  <rodo@ximian.com>
+
+	* Makefile.am (icons_DATA): added new undo/redo icons from tigert
+
 2001-08-02  Radek Doulik  <rodo@ximian.com>
 
 	* Makefile.am (icons_DATA): added images for rule templates

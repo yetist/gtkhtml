@@ -26,7 +26,11 @@ icons_DATA = \
 	rule-yellow-flowers-left.png	\
 	rule-yellow-flowers-center.png	\
 	rule-yellow-flowers-right.png	\
-	empty_image.png
+	empty_image.png			\
+	undo-16.png			\
+	undo-24.png			\
+	redo-16.png			\
+	redo-24.png
 
 EXTRA_DIST = \
 	$(icons_DATA)
