@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: gtkhtml HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-11-01 16:31+0100\n"
-"PO-Revision-Date: 2004-08-28 19:32+0200\n"
+"PO-Revision-Date: 2004-11-05 11:33+0100\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -1760,6 +1760,8 @@ msgid ""
 "Unable to add word to dictionary,\n"
 "language settings are broken.\n"
 msgstr ""
+"I pamundur shtimi i fjalës në fjalor,\n"
+"rregullimet e gjuhës janë të pavlefshme.\n"
 
 #: components/html-editor/spell.c:298
 msgid "No misspelled word found"
@@ -2040,3 +2042,4 @@ msgstr "Pamja e parë e printimit"
 #: src/testgtkhtml.c:1004
 msgid "GtkHTML Test Application"
 msgstr "Programi i provave të GtkHTML"
+
