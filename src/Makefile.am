@@ -83,6 +83,7 @@ libgtkhtml_HEADERS =				\
 	htmlshape.h				\
 	htmlstack.h				\
 	htmlstringtokenizer.h			\
+	htmlstyle.h				\
 	htmltable.h				\
 	htmltablepriv.h				\
 	htmltablecell.h				\
@@ -167,6 +168,7 @@ libgtkhtml_3_0_la_SOURCES =			\
 	htmlshape.c				\
 	htmlstack.c				\
 	htmlstringtokenizer.c			\
+	htmlstyle.c				\
 	htmltable.c				\
 	htmltablecell.c				\
 	htmltext.c				\
