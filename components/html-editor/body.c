@@ -118,6 +118,7 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	GtkHTMLEditBodyProperties *data = g_new0 (GtkHTMLEditBodyProperties, 1);
 	GtkWidget *hbox, *vbox, *frame, *combo, *table;
 	GSList *group;
+	HTMLColor *color;
 
 	*set_data = data;
 	data->cd = cd;
@@ -159,6 +160,8 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	group = NULL;
 #define ADD_COLOR(x, ct, g) \
         data->color [ct] = html_colorset_get_color_allocated (cd->html->engine->painter, ct)->color; \
+        color = html_colorset_get_color (cd->html->engine->defaultSettings->color_set, ct); \
+        html_color_alloc (color, cd->html->engine->painter); \
 	combo = color_combo_new (NULL, _("Automatic"), \
 				 &color->color, \
 				 "body_" g); \
