@@ -1,3 +1,22 @@
+2000-04-10  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltokenizer.c (html_token_buffer_new): constructor of new
+	structure HTMLTokenBuffer
+	(html_token_buffer_destroy): new destructor
+	(html_token_buffer_append_token): append token to token buffer
+	(html_tokenizer_new): use HTMLTokenBuffer's
+	(html_tokenizer_next_token): rewritten to use HTMLTokenBuffer's
+	(html_tokenizer_has_more_tokens): likewise
+	(html_tokenizer_reset): updated to HTMLTokenBuffer's
+	(html_tokenizer_begin): updated to HTMLTokenBuffer's
+	(html_tokenizer_append_token): rewritten
+	(html_tokenizer_append_token_buffer): rewritten
+
+	* htmltokenizer.h: cleaned interface - most of tokenizer functions
+	are now static, whole tokenizer structure is private
+
+	* htmltokenizer.c: rewritte of token buffers
+
 2000-04-09  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine.c (parse_table): save e->noWrap in noWrap_save and

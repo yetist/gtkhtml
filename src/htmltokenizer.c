@@ -3,6 +3,7 @@
     Copyright (C) 1997 Martin Jones (mjones@kde.org)
               (C) 1997 Torben Weis (weis@kde.org)
 	      (C) 1999 Anders Carlsson (andersca@gnu.org)
+	      (C) 2000 HelixCode, Radek Doulik (rodo@helixcode.com)
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
@@ -26,7 +27,84 @@
 #include "htmltokenizer.h"
 #include "htmlentity.h"
 
-#define TOKEN_BUFFER_SIZE (32*1024) - 1
+#define TOKEN_BUFFER_SIZE (1 << 15)
+
+typedef struct _HTMLBlockingToken HTMLBlockingToken;
+typedef struct _HTMLTokenBuffer   HTMLTokenBuffer;
+typedef gchar *                   HTMLTokenPtr;
+typedef	enum { Table }            HTMLTokenType;
+
+struct _HTMLBlockingToken {
+	HTMLTokenType ttype;
+	HTMLTokenPtr tok;
+};
+
+struct _HTMLTokenBuffer {
+	gint size;
+	gint used;
+	gchar * data;
+};
+
+struct _HTMLTokenizer {
+
+	/* token buffers list */
+	GList *token_buffers;
+
+	/* current read_buf position in list */
+	GList *read_cur;
+
+	/* current read buffer */
+	HTMLTokenBuffer * read_buf;
+	HTMLTokenBuffer * write_buf;
+
+	/* position in the read_buf */
+	gint read_pos;
+
+	gchar *dest;
+	gchar *buffer;
+	gint size;
+
+	gboolean skipLF; /* Skip the LF par of a CRLF sequence */
+
+	gboolean tag; /* Are we in an html tag? */
+	gboolean tquote; /* Are we in quotes in an html tag? */
+	gboolean startTag;
+	gboolean comment; /* Are we in a comment block? */
+	gboolean title; /* Are we in a <title> block? */
+	gboolean style; /* Are we in a <style> block? */
+	gboolean script; /* Are we in a <script> block? */
+	gboolean textarea; /* Are we in a <textarea> block? */
+	gboolean pre; /* Are we in a <pre> block? */
+	gboolean select; /* Are we in a <select> block? */
+	gboolean charEntity; /* Are we in an &... sequence? */
+
+	gint prePos;
+	
+	enum {
+		NoneDiscard = 0,
+		SpaceDiscard,
+		LFDiscard
+	} discard;
+
+	enum {
+		NonePending = 0,
+		SpacePending,
+		LFPending,
+		TabPending
+	} pending;
+
+
+	gchar searchBuffer[20];
+	gint searchCount;
+
+	gchar *scriptCode;
+	gint scriptCodeSize;
+	gint scriptCodeMaxSize;
+
+	GList *blocking; /* Blocking tokens */
+
+	const gchar *searchFor;
+};
 
 static const gchar *commentStart = "<!--";
 static const gchar *scriptEnd = "</script>";
@@ -38,6 +116,61 @@ enum quoteEnum {
 	DOUBLE_QUOTE
 };
 
+/* private tokenizer functions */
+static void           html_tokenizer_reset        (HTMLTokenizer *t);
+static void           html_tokenizer_add_pending  (HTMLTokenizer *t);
+static void           html_tokenizer_append_token (HTMLTokenizer *t,
+						   const gchar *string,
+						   gint len);
+static void           html_tokenizer_append_token_buffer (HTMLTokenizer *t,
+							  gint min_size);
+
+/* blocking tokens */
+static HTMLBlockingToken *html_blocking_token_new            (HTMLTokenType ttype,
+							      HTMLTokenPtr tok);
+static gchar             *html_blocking_token_get_token_name (HTMLBlockingToken *token);
+static HTMLBlockingToken *html_blocking_token_get_last       (HTMLTokenizer *t);
+static gboolean           html_blocking_token_is_empty       (HTMLTokenizer *t);
+static void               html_blocking_token_remove_last    (HTMLTokenizer *t);
+static void               html_blocking_token_append         (HTMLTokenizer *t,
+							      HTMLBlockingToken *bt);
+
+static HTMLTokenBuffer *
+html_token_buffer_new (gint size)
+{
+	HTMLTokenBuffer *nb = g_new (HTMLTokenBuffer, 1);
+
+	nb->data = g_new (gchar, size);
+	nb->size = size;
+	nb->used = 0;
+
+	return nb;
+}
+
+static void
+html_token_buffer_destroy (HTMLTokenBuffer *tb)
+{
+	g_free (tb->data);
+	g_free (tb);
+}
+
+static gboolean
+html_token_buffer_append_token (HTMLTokenBuffer * buf, const gchar *token, gint len)
+{
+	/* check if we have enough free space */
+	if (len + 1 > buf->size - buf->used) {
+		return FALSE;
+	}
+
+	/* copy token and terminate with zero */
+	strncpy (buf->data + buf->used, token, len);
+	buf->used += len;
+	buf->data [buf->used] = 0;
+	buf->used ++;
+
+	return TRUE;
+}
+
 HTMLTokenizer *
 html_tokenizer_new (void)
 {
@@ -45,15 +178,15 @@ html_tokenizer_new (void)
 	
 	t = g_new (HTMLTokenizer, 1);
 
+	t->token_buffers = NULL;
+	t->read_cur  = NULL;
+	t->read_buf  = NULL;
+	t->write_buf = NULL;
+	t->read_pos  = 0;
+
 	t->dest = NULL;
 	t->buffer = NULL;
 	t->size = 0;
-
-	t->tokenBufferList = NULL;
-	t->last = t->next = t->curr = NULL;
-
-	t->tokenBufferCurrIndex = 0;
-	t->tokenBufferSizeRemaining = 0;
 
 	t->skipLF = FALSE;
 	t->tag = FALSE;
@@ -99,69 +232,80 @@ html_tokenizer_destroy (HTMLTokenizer *tokenizer)
 gchar *
 html_tokenizer_next_token (HTMLTokenizer *t)
 {
-	gchar *buf;
+	gchar *token;
 
-	if (!t->curr)
-		return NULL;
-	
-	buf = t->curr;
-	t->curr += strlen (t->curr) + 1;
-	
-	if ((t->curr != t->next) && (*(t->curr) == '\0')) {
-		html_tokenizer_next_token_buffer (t);
-	}
-	
-	return buf;
-	
-}
+	g_assert (t->read_buf);
 
-void
-html_tokenizer_next_token_buffer (HTMLTokenizer *t)
-{
-	t->tokenBufferCurrIndex++;
-	
-	if (t->tokenBufferCurrIndex < g_list_length (t->tokenBufferList)) {
-		t->curr = ((GList *)g_list_nth (t->tokenBufferList,
-						g_list_length (t->tokenBufferList) - t->tokenBufferCurrIndex - 1))->data;
-		
+	/* token is in current read_buf */
+	if (t->read_buf->used > t->read_pos) {
+		token = t->read_buf->data + t->read_pos;
+		t->read_pos += strlen (token) + 1;
 	} else {
-		g_error ("Error in html_tokenizer_next_token_buffer");
+		GList *new;
+
+		g_assert (t->read_cur);
+		g_assert (t->read_buf);
+
+		/* lookup for next buffer */
+		new = t->read_cur->next;
+		g_assert (new);
+
+		/* destroy current buffer */
+		t->token_buffers = g_list_remove (t->token_buffers, t->read_buf);
+		html_token_buffer_destroy (t->read_buf);
+
+		t->read_cur = new;
+		t->read_buf = (HTMLTokenBuffer *) new->data;
+
+		g_return_val_if_fail (t->read_buf->used != 0, NULL);
+
+		/* finally get first token */
+		token = t->read_buf->data;
+		t->read_pos = strlen (token) + 1;
 	}
+
+	return token;
 }
 
 gboolean
 html_tokenizer_has_more_tokens (HTMLTokenizer *t)
 {
-	if (!html_blocking_token_is_empty (t)
-	    && (html_blocking_token_get_first (t))->tok == t->curr)
+	if (!html_blocking_token_is_empty (t))
 		return FALSE;
 
-	return ((t->curr != 0 ) && (t->curr != t->next));
+	/*    && (html_blocking_token_get_first (t))->tok == t->curr)
+		return FALSE;
+		return ((t->curr != 0 ) && (t->curr != t->next)); */
+
+	/* there is token in read buffer or there is next read buffer */
+	return (t->read_buf
+		&& (t->read_buf->used > t->read_pos
+		    || (t->read_buf->used <= t->read_pos && t->read_cur->next)));
 }
 
 void
 html_tokenizer_reset (HTMLTokenizer *t)
 {
-	GList *buffers;
-	
-	/*
-	 * Free buffers here
-	 */
-	for (buffers = t->tokenBufferList; buffers; buffers = buffers->next)
-		g_free (buffers->data);
-	g_list_free (t->tokenBufferList);
-	t->tokenBufferList = NULL;	
+	GList *cur = t->token_buffers;
 
-	t->last = t->next = t->curr = 0;
-	t->tokenBufferSizeRemaining = 0;
+	/* free remaining token buffers */
+	while (cur) {
+		g_assert (cur->data);
+		html_token_buffer_destroy ((HTMLTokenBuffer *) cur->data);
+		cur = cur->next;
+	}
+
+	t->token_buffers = t->read_cur = NULL;
+	t->read_buf = t->write_buf = NULL;
+	t->read_pos = 0;
 
 	if (t->buffer)
 		g_free (t->buffer);
-	t->buffer = 0;
+	t->buffer = NULL;
 
 	if (t->scriptCode)
 		g_free (t->scriptCode);
-	t->scriptCode = 0;
+	t->scriptCode = NULL;
 }
 
 void
@@ -225,43 +369,39 @@ html_tokenizer_append_token (HTMLTokenizer *t, const gchar *string, gint len)
 	if (len < 1)
 		return;
 
-	if (len >= t->tokenBufferSizeRemaining)
+	/* allocate first buffer */
+	if (t->write_buf == NULL)
 		html_tokenizer_append_token_buffer (t, len);
 
-	t->last = t->next;
-	t->tokenBufferSizeRemaining -= len + 1; /* One for null-termination */
-
-	while (len--) {
-		*(t->next)++ = *string++;
+	/* try append token to current buffer, if not successfull, create append new token buffer */
+	if (!html_token_buffer_append_token (t->write_buf, string, len)) {
+		html_tokenizer_append_token_buffer (t, len+1);
+		/* now it must pass as we have enough space */
+		g_assert (html_token_buffer_append_token (t->write_buf, string, len));
 	}
-	*(t->next)++ = '\0';
-		
 }
 
 void
 html_tokenizer_append_token_buffer (HTMLTokenizer *t, gint min_size)
 {
-	gint newBufSize = TOKEN_BUFFER_SIZE;
-	gchar *newBuffer;
+	HTMLTokenBuffer *nb;
+	gint size = TOKEN_BUFFER_SIZE;
 
-	if (t->next) {
-		*(t->next) = '\0';
-	}
-	
-	if (min_size > newBufSize) {
-		newBufSize += min_size;
-	}
-	newBuffer = g_malloc (newBufSize + 1);
-	
-	t->tokenBufferList = g_list_prepend (t->tokenBufferList, newBuffer);
-	t->next = newBuffer;
-	t->tokenBufferSizeRemaining = newBufSize;
+	if (min_size > size)
+		size += min_size;
 
-	if (!t->curr) {
-		t->curr = ((GList *)g_list_last (t->tokenBufferList))->data;
-		t->tokenBufferCurrIndex = 0;
-	}
+	/* create new buffer and add it to list */
+	nb = html_token_buffer_new (size);
+	t->token_buffers = g_list_append (t->token_buffers, nb);
 
+	/* this one is now write_buf */
+	t->write_buf = nb;
+
+	/* if we don't have read_buf already set it to this one */
+	if (t->read_buf == NULL) {
+		t->read_buf = nb;
+		t->read_cur = t->token_buffers;
+	}
 }
 
 /* EP CHECK: OK.  */
@@ -698,7 +838,7 @@ html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 				g_warning ("<cell> tag not supported");
 			}
 			else if (strncmp (t->buffer + 2, "table", 5) == 0) {
-				html_blocking_token_append (t, html_blocking_token_new (Table, t->last));
+				html_blocking_token_append (t, html_blocking_token_new (Table, "table>"));
 			}
 			else {
 				if (!html_blocking_token_is_empty (t)) {
@@ -864,7 +1004,7 @@ html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 }
 
 HTMLBlockingToken *
-html_blocking_token_new (TokenType ttype, TokenPtr tok)
+html_blocking_token_new (HTMLTokenType ttype, HTMLTokenPtr tok)
 {
 	HTMLBlockingToken *t = g_new0 (HTMLBlockingToken, 1);
 	t->ttype = ttype;
@@ -908,8 +1048,8 @@ html_blocking_token_get_last (HTMLTokenizer *t)
 	return ((HTMLBlockingToken *)(g_list_first (t->blocking))->data);
 }
 
-HTMLBlockingToken *
+/* HTMLBlockingToken *
 html_blocking_token_get_first (HTMLTokenizer *t)
 {
 	return ((HTMLBlockingToken *)(g_list_last (t->blocking))->data);
-}
+} */
