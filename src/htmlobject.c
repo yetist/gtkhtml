@@ -153,6 +153,12 @@ find_anchor (HTMLObject *o,
 	return NULL;
 }
 
+static void
+set_bg_color (HTMLObject *o,
+	      GdkColor *color)
+{
+}
+
 
 /* Class initialization.  */
 
@@ -186,6 +192,7 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->get_url = get_url;
 	klass->get_target = get_target;
 	klass->find_anchor = find_anchor;
+	klass->set_bg_color = set_bg_color;
 }
 
 void
@@ -316,3 +323,8 @@ html_object_find_anchor (HTMLObject *o,
 	return (* HO_CLASS (o)->find_anchor) (o, name, x, y);
 }
 
+void
+html_object_set_bg_color (HTMLObject *o, GdkColor *color)
+{
+	(* HO_CLASS (o)->set_bg_color) (o, color);
+}

@@ -79,7 +79,7 @@ html_link_text_master_class_init (HTMLLinkTextMasterClass *klass,
 	object_class->get_url = get_url;
 	object_class->get_target = get_target;
 
-	parent_class = &text_master_class;
+	parent_class = &html_link_text_master_class;
 }
 
 void

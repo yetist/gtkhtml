@@ -85,22 +85,39 @@ draw (HTMLObject *o, HTMLPainter *p, gint x, gint y,
 	if (y + height < o->y - o->ascent || y > o->y + o->descent)
 		return;
 
-	top = y - (o->y - o->ascent);
-	bottom = top + height;
-	if (top < -cell->padding)
-		top = -cell->padding;
-	if (bottom > o->ascent + cell->padding)
-		bottom = o->ascent + cell->padding;
-	html_painter_set_pen (p, &cell->bg);
-	html_painter_fill_rect (p, tx + o->x - cell->padding,
-				ty + o->y - o->ascent + top,
-				o->width + cell->padding * 2,
-				bottom - top);
+	if (cell->have_bg) {
+		top = y - (o->y - o->ascent);
+		bottom = top + height;
+		if (top < -cell->padding)
+			top = -cell->padding;
+		if (bottom > o->ascent + cell->padding)
+			bottom = o->ascent + cell->padding;
+		html_painter_set_pen (p, &cell->bg);
+		html_painter_fill_rect (p, tx + o->x - cell->padding,
+					ty + o->y - o->ascent + top,
+					o->width + cell->padding * 2,
+					bottom - top);
+	}
 
 	(* HTML_OBJECT_CLASS (&html_cluev_class)->draw) (o, p, x, y,
 							 width, height, tx, ty);
 }
 
+static void
+set_bg_color (HTMLObject *object, GdkColor *color)
+{
+	HTMLTableCell *cell;
+
+	cell = HTML_TABLE_CELL (object);
+
+	if (color == NULL) {
+		cell->have_bg = FALSE;
+		return;
+	}
+
+	cell->bg = *color;
+	cell->have_bg = TRUE;
+}
 
 void
 html_table_cell_type_init (void)
@@ -126,6 +143,7 @@ html_table_cell_class_init (HTMLTableCellClass *klass,
 	object_class->calc_min_width = calc_min_width;
 	object_class->set_max_width = set_max_width;
 	object_class->draw = draw;
+	object_class->set_bg_color = set_bg_color;
 }
 
 void
@@ -162,6 +180,8 @@ html_table_cell_init (HTMLTableCell *cell,
 	cell->refcount = 0;
 	cell->rspan = rs;
 	cell->cspan = cs;
+
+	cell->have_bg = FALSE;
 }
 
 HTMLObject *
@@ -206,3 +226,4 @@ html_table_cell_set_width (HTMLTableCell *cell, gint width)
 	for (obj = HTML_CLUE (cell)->head; obj != 0; obj = obj->next)
 		html_object_set_max_width (obj, width);
 }
+

@@ -517,9 +517,28 @@ static void
 parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 {
 	if (*(str) == 'h' &&
-	    (*(str + 1) == '1')) {
-		HAlignType align = p->divAlign;
-		p->vspace_inserted = html_engine_insert_vspace (p, clue, p->vspace_inserted);
+	    ( *(str+1)=='1' || *(str+1)=='2' || *(str+1)=='3' ||
+		  *(str+1)=='4' || *(str+1)=='5' || *(str+1)=='6' ) ) {
+		HAlignType align;
+
+		p->vspace_inserted = html_engine_insert_vspace (p, clue,
+														p->vspace_inserted);
+		align = p->divAlign;
+
+		string_tokenizer_tokenize (p->st, str + 3, " >");
+		while (string_tokenizer_has_more_tokens (p->st)) {
+			const gchar *token;
+
+			token = string_tokenizer_next_token (p->st);
+			if ( strncasecmp( token, "align=", 6 ) == 0 ) {
+				if ( strcasecmp( token + 6, "center" ) == 0 )
+					align = HCenter;
+				else if ( strcasecmp( token + 6, "right" ) == 0 )
+					align = Right;
+				else if ( strcasecmp( token + 6, "left" ) == 0 )
+					align = Left;
+			}
+		}
 		
 		/* Start a new flow box */
 		if (!p->flow)
@@ -530,14 +549,48 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		case '1':
 			p->bold = TRUE;
 			p->fontsize += 3;
+			break;
+
+		case '2':
+			p->bold = TRUE;
+			p->italic = FALSE;
+			p->fontsize += 2;
 			html_engine_select_font (p);
 			break;
-		default:
-			g_print ("FIXME: Support header type\n");
+
+		case '3':
+			p->bold = TRUE;
+			p->italic = FALSE;
+			p->fontsize += 2;
+			break;
+
+		case '4':
+			p->bold = TRUE;
+			p->italic = FALSE;
+			p->fontsize += 1;
+			break;
+
+		case '5':
+			p->bold = FALSE;
+			p->italic = TRUE;
+			break;
+
+		case '6':
+			p->bold = TRUE;
+			p->italic = FALSE;
+			p->fontsize -= 1;
+			break;
 		}
+
+		html_engine_select_font (p);
+
+		/* Insert a vertical space and restore the old font at the closing
+           tag.  */
 		html_engine_push_block (p, ID_HEADER, 2, html_engine_block_end_font, TRUE, 0);
 	} else if (*(str) == '/' && *(str + 1) == 'h' &&
-		   (*(str + 2) == '1')) {
+	    ( *(str+2)=='1' || *(str+2)=='2' || *(str+2)=='3' ||
+ 	      *(str+2)=='4' || *(str+2)=='5' || *(str+2)=='6' )) {
+		/* Close tag.  */
 		html_engine_pop_block (p, ID_HEADER, clue);
 	}
 	else if (strncmp (str, "hr", 2) == 0) {
@@ -584,7 +637,6 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		HTML_CLUE (p->flow)->halign = align;
 		p->flow = 0;
 		p->vspace_inserted = FALSE;
-		
 	}
 }
 
@@ -793,10 +845,8 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	HAlignType olddivalign = e->divAlign;
 	HTMLClue *oldflow = HTML_CLUE (e->flow);
 	gint oldindent = e->indent;
-	GdkColor tableColor;
-	GdkColor rowColor;
-	GdkColor bgcolor;
-
+	GdkColor tableColor, rowColor, bgcolor;
+	gboolean have_tableColor, have_rowColor, have_bgcolor;
 	gint rowSpan;
 	gint colSpan;
 	gint cellwidth;
@@ -804,6 +854,10 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	gboolean fixedWidth;
 	VAlignType valign;
 	HTMLTableCell *cell;
+
+	have_tableColor = FALSE;
+	have_rowColor = FALSE;
+	have_bgcolor = FALSE;
 
 	g_print ("start parse\n");
 	string_tokenizer_tokenize (e->st, attr, " >");
@@ -839,12 +893,13 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 		else if (strncasecmp (token, "bgcolor=", 8) == 0) {
 			html_engine_set_named_color (e, &tableColor, token + 8);
 			rowColor = tableColor;
+			have_rowColor = have_tableColor = TRUE;
 		}
 	}
 
 	table = HTML_TABLE (html_table_new (0, 0, max_width, width, 
-					    percent, padding,
-					    spacing, border));
+										percent, padding,
+										spacing, border));
 	e->indent = 0;
 	while (!done && html_tokenizer_has_more_tokens (e->ht)) {
 		str = html_tokenizer_next_token (e->ht);
@@ -869,7 +924,13 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					firstRow = FALSE;
 					rowvalign = VNone;
 					rowhalign = None;
-					rowColor = tableColor;
+
+					if (have_tableColor) {
+						rowColor = tableColor;
+						have_rowColor = TRUE;
+					} else {
+						have_rowColor = FALSE;
+					}
 
 					string_tokenizer_tokenize (e->st, str + 4, " >");
 					while (string_tokenizer_has_more_tokens (e->st)) {
@@ -891,7 +952,9 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 								rowhalign = HCenter;
 						}
 						else if (strncasecmp (token, "bgcolor=", 8) == 0) {
-							html_engine_set_named_color (e, &rowColor, token + 8);
+							html_engine_set_named_color (e, &rowColor,
+														 token + 8);
+							have_rowColor = TRUE;
 						}
 					}
 					break;
@@ -920,7 +983,14 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					cellwidth = clue->max_width;
 					cellpercent = -1;
 					fixedWidth = FALSE;
-					bgcolor = rowColor;
+
+					if (have_rowColor) {
+						bgcolor = rowColor;
+						have_bgcolor = TRUE;
+					} else {
+						have_bgcolor = FALSE;
+					}
+
 					valign = (rowvalign == VNone ?
 						  VCenter : rowvalign);
 
@@ -977,6 +1047,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 							}
 							else if (strncasecmp (token, "bgcolor=", 8) == 0) {
 								html_engine_set_named_color (e, &bgcolor, token + 8);
+								have_bgcolor = TRUE;
 							}
 						}
 					}
@@ -985,7 +1056,8 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 								    cellpercent,
 								    rowSpan, colSpan,
 								    padding));
-					cell->bg = bgcolor;
+					html_object_set_bg_color (HTML_OBJECT (cell),
+											  have_bgcolor ? &bgcolor : NULL);
 					HTML_CLUE (cell)->valign = valign;
 					if (fixedWidth)
 						HTML_OBJECT (cell)->flags |= HTML_OBJECT_FLAG_FIXEDWIDTH;

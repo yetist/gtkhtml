@@ -36,8 +36,10 @@ struct _HTMLTableCell {
 	gint rspan;
 	gint cspan;
 	gint padding;
-	GdkColor bg;
 	gint refcount;
+
+	GdkColor bg;
+	gboolean have_bg : 1;
 };
 
 struct _HTMLTableCellClass {

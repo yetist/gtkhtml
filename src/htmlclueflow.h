@@ -36,7 +36,7 @@ struct _HTMLClueFlow {
 };
 
 struct _HTMLClueFlowClass {
-	HTMLClue parent;
+	HTMLClueClass parent;
 };
 
 

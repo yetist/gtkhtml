@@ -114,6 +114,8 @@ struct _HTMLObjectClass {
 
 	HTMLAnchor * (*find_anchor) (HTMLObject *o, const gchar *name,
 				     gint *x, gint *y);
+
+	void (* set_bg_color) (HTMLObject *o, GdkColor *color);
 };
 
 
@@ -143,6 +145,7 @@ const gchar *html_object_get_url (HTMLObject *o);
 const gchar *html_object_get_target (HTMLObject *o);
 HTMLAnchor *html_object_find_anchor (HTMLObject *o, const gchar *name,
 				     gint *x, gint *y);
+void html_object_set_bg_color (HTMLObject *o, GdkColor *color);
 
 #endif /* _HTMLOBJECT_H_ */
 

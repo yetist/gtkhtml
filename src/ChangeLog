@@ -1,9 +1,35 @@
 1999-11-24  Ettore Perazzoli  <ettore@gnu.org>
 
+	* htmllinktextmaster.c (html_link_text_master_class_init): Assign
+	`parent_class' correctly.
+
+	* htmlengine.c (parse_table): Use `html_object_set_bg_color()'
+	instead of setting `cell->bg' directly.  Also, avoid using the
+	colors if they have not set explicitly.  This fixes the random
+	color bugs we were having with tables.
+
+	* htmltablecell.c (set_bg_color): Implementation of the
+	`set_bg_color' virtual method for HTMLTableCell.
+	(html_table_cell_class_init): Install it.
+
+	* htmlobject.c (html_object_set_bg_color): New function.
+	(set_bg_color): Default implementation for the `set_bg_color'
+	method.
+	(html_object_class_init): Install it.
+
+	* htmlobject.h: New virtual method `set_bg_color'.
+
+	* htmltablecell.h: New member `have_bg' in `HTMLTableCell'.
+	* htmltablecell.c (html_table_cell_init): Init it to `FALSE'.
+	(draw): Don't draw the background if you don't have a background
+	color.
+
 	* htmlengine.c (parse_l): Removed allocation of `fontbasecolor'.
 	(html_engine_draw_background): `bgColor' is now always allocated.
 	(html_engine_parse): `settings->bgcolor' is no longer a pointer,
 	so deal with it.
+	(parse_h): Added code from KHTMLW to deal with different alignments
+	and sizes.
 
 	* htmlsettings.h: Type of members `bgcolor' and `fontbasecolor' in
 	`HTMLSettings' changed from `GdkColor *' to `GdkColor'.
