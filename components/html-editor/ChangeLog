@@ -1,5 +1,8 @@
 2003-11-07  Radek Doulik  <rodo@ximian.com>
 
+	* link.c (link_insert_cb): use add_link => pass engine as
+	parameter
+
 	* test-html-editor-control.c (container_create): enable magic
 	smileys, links and inline spell checking
 
