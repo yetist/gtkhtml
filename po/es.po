@@ -1,5 +1,6 @@
 # Translations of gtkhtml into spanish.
-# Copyright (C) 2000-2001 Free Software Foundation, Inc.
+# Copyright © 2000-2003 Free Software Foundation, Inc.
+# This file is distributed under the same license as the gtkhtml package.
 # Héctor García Álvarez <hector@scouts-es.org>, 2000-2001.
 # QA by Carlos Perelló Marín <carlos@gnome-db.org>
 # Juan Manuel García Molina <juanma_gm@wanadoo.es>, 2002.
@@ -9,14 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.9.99.1\n"
 "POT-Creation-Date: 2003-03-06 16:02+0100\n"
-"PO-Revision-Date: 2003-01-09 14:39CLST\n"
+"PO-Revision-Date: 2003-03-13 23:51+0100\n"
 "Last-Translator: Germán Poo Caamaño <gpoo@ubiobio.cl>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"First-Translator: Héctor García Álvarez <hector@scouts-es.org>\n"
-"X-Generator: KBabel 0.9.5\n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -329,11 +328,11 @@ msgstr "Imagen"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
 msgid "Insert Crying smiley into document..."
-msgstr "Insertar emoticon de llanto en el documento..."
+msgstr "Insertar un emoticón de llanto en el documento..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
 msgid "Insert Frown smiley into document..."
-msgstr "Insertar emoticon de ceño fruncido en el documento..."
+msgstr "Insertar un emoticón de ceño fruncido en el documento..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
 msgid "Insert HTML file into document..."
@@ -349,35 +348,35 @@ msgstr "Insertar plantilla HTML en el documento..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
 msgid "Insert Indifferent smiley into document..."
-msgstr "Insertar emoticon indiferente en el documento..."
+msgstr "Insertar un emoticón indiferente en el documento..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
 msgid "Insert Laughing smiley into document..."
-msgstr "Insertar emoticon de risa en el documento..."
+msgstr "Insertar un emoticón de risa en el documento..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
 msgid "Insert Lick smiley into document..."
-msgstr "Insertar emoticon de burla en el documento..."
+msgstr "Insertar un emoticón de burla en el documento..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
 msgid "Insert Oh no! smiley into document..."
-msgstr "Insertar emoticon ¡oh, no! en el documento..."
+msgstr "Insertar un emoticón ¡oh, no! en el documento..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
 msgid "Insert Smile smiley into document..."
-msgstr "Insertar un emoticon de sonrisa en el documento..."
+msgstr "Insertar un emoticón de sonrisa en el documento..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
 msgid "Insert Surprised smiley into document..."
-msgstr "Insertar emoticon sorprendido en el documento..."
+msgstr "Insertar un emoticón sorprendido en el documento..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
 msgid "Insert Undecided smiley into document..."
-msgstr "Insertar un emoticon indeciso en el documento..."
+msgstr "Insertar un emoticón indeciso en el documento..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
 msgid "Insert Wink smiley into document..."
-msgstr "Insertar emoticon de guiño en el documento..."
+msgstr "Insertar un emoticón de guiño en el documento..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
 msgid "Insert image into document..."
@@ -772,7 +771,7 @@ msgstr "_Sonrisa"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:142
 msgid "_Smiley"
-msgstr "E_moticon"
+msgstr "E_moticón"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
 msgid "_Spell Check Document..."
@@ -899,9 +898,8 @@ msgid "Page"
 msgstr "Página"
 
 #: components/html-editor/editor-control-factory.c:775
-#, fuzzy
 msgid "GtkHTML Editor Control"
-msgstr "Control del editor HTML de GNOME"
+msgstr "Control del editor GtkHTML"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:2
 msgid "************"
@@ -1195,14 +1193,14 @@ msgid ""
 "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
 "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
 "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
-"table></center>"
+"@src@@alt@@width@@height@align=top "
+"border=0></td></tr></table></td></tr></table></center>"
 msgstr ""
 "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
 "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
 "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
-"table></center>"
+"@src@@alt@@width@@height@align=top "
+"border=0></td></tr></table></td></tr></table></center>"
 
 #: components/html-editor/image.c:132
 msgid "Caption"
@@ -1225,8 +1223,8 @@ msgstr ""
 #: components/html-editor/image.c:256 components/html-editor/image.c:259
 msgid "The quick brown fox jumped over the lazy dog."
 msgstr ""
-"El veloz murciélago hindú comía feliz cardillo y kiwi. La cigüeña tocaba el "
-"saxofón detrás del palenque de paja. 123456789 ¿?¡!"
+"El veloz murciélago hindú comía feliz cardillo y kiwi. La cigüeña tocaba "
+"el saxofón detrás del palenque de paja. 123456789 ¿?¡!"
 
 #: components/html-editor/image.c:690
 msgid ""
@@ -1569,76 +1567,72 @@ msgid "Sample"
 msgstr "Ejemplo"
 
 #: src/gtkhtml.c:2640
-#, fuzzy
 msgid "Editable"
-msgstr "Habilitar"
+msgstr "Editable"
 
 #: src/gtkhtml.c:2641
 msgid "Whether the html can be edited"
-msgstr ""
+msgstr "Indica si el html puede ser editado"
 
 #: src/gtkhtml.c:2648
-#, fuzzy
 msgid "The title of the current document"
-msgstr "Comprobar la ortografía del documento"
+msgstr "El título del documento actual"
 
 #: src/gtkhtml.c:2654
-#, fuzzy
 msgid "Document Base"
-msgstr "Título del documento"
+msgstr "Base del documento"
 
 #: src/gtkhtml.c:2655
 msgid "The base URL for relative references"
-msgstr ""
+msgstr "La URL de base para referencias relativas"
 
 #: src/gtkhtml.c:2661
 msgid "Target Base"
-msgstr ""
+msgstr "Base del destino"
 
 #: src/gtkhtml.c:2662
 msgid "The base URL of the targe frame"
-msgstr ""
+msgstr "La URL base del marco destino"
 
 #: src/gtkhtml.c:2671
-#, fuzzy
 msgid "Fixed Width Font"
-msgstr "Anchura fija"
+msgstr "Tipografía de anchura fija"
 
 #: src/gtkhtml.c:2672
 msgid "The Monospace font to use for typewriter text"
-msgstr ""
+msgstr "La tipografía monoespaciada a usar para el texto de máquina de escribir"
 
 #: src/gtkhtml.c:2678
 msgid "New Link Color"
-msgstr ""
+msgstr "Color de enlaces nuevos"
 
 #: src/gtkhtml.c:2679
 msgid "The color of new link elements"
-msgstr ""
+msgstr "El color de los elementos de enlace nuevos"
 
 #: src/gtkhtml.c:2684
 msgid "Visited Link Color"
-msgstr ""
+msgstr "Color de enlaces visitados"
 
 #: src/gtkhtml.c:2685
 msgid "The color of visited link elements"
-msgstr ""
+msgstr "El color de los elementos de enlace visitados"
 
 #: src/gtkhtml.c:2690
 msgid "Active Link Color"
-msgstr ""
+msgstr "Color del enlace activo"
 
 #: src/gtkhtml.c:2691
 msgid "The color of active link elements"
-msgstr ""
+msgstr "El color de los elementos de enlace activos"
 
 #: src/gtkhtml.c:2696
 msgid "Spelling Error Color"
-msgstr ""
+msgstr "Color del error ortográfico"
 
 #: src/gtkhtml.c:2697
 msgid "The color of the spelling error markers"
-msgstr ""
+msgstr "El color de los marcadores de error ortográfico"
 
 #: src/html-component.c:219
 msgid "Html"
@@ -1724,3 +1718,4 @@ msgstr "Vista preliminar de impresión"
 
 #~ msgid "Monospace"
 #~ msgstr "Monospace"
+
