@@ -27,6 +27,57 @@
 HTMLClueVClass html_cluev_class;
 
 
+/* FIXME this must be rewritten as the multiple type casts make my head spin.
+   The types in `HTMLClueAligned' are chosen wrong.  */
+static void
+remove_aligned_by_parent ( HTMLClueV *cluev,
+						   HTMLObject *p )
+{
+    HTMLClueAligned *tmp;
+	HTMLObject *obj;
+
+    tmp = 0;
+    obj = cluev->align_left_list;
+
+    while ( obj ) {
+		if ( HTML_CLUEALIGNED (obj)->prnt == HTML_CLUE (p) ) {
+			if ( tmp ) {
+				tmp->next_aligned = HTML_CLUEALIGNED (obj)->next_aligned;
+				tmp = HTML_CLUEALIGNED (obj);
+			} else {
+				cluev->align_left_list
+					= HTML_OBJECT (HTML_CLUEALIGNED (obj)->next_aligned);
+				tmp = 0;
+			}
+		} else {
+			tmp = HTML_CLUEALIGNED (obj);
+		}
+
+		obj = HTML_OBJECT (HTML_CLUEALIGNED (obj)->next_aligned);
+    }
+
+    tmp = 0;
+    obj = cluev->align_right_list;
+
+    while ( obj ) {
+		if ( HTML_CLUEALIGNED (obj)->prnt == HTML_CLUE (p) ) {
+			if ( tmp ) {
+				tmp->next_aligned = HTML_CLUEALIGNED (obj)->next_aligned;
+				tmp = HTML_CLUEALIGNED (obj);
+			} else {
+				cluev->align_right_list
+					= HTML_OBJECT (HTML_CLUEALIGNED (obj)->next_aligned);
+				tmp = 0;
+			}
+		} else {
+			tmp = HTML_CLUEALIGNED (obj);
+		}
+
+		obj = HTML_OBJECT (HTML_CLUEALIGNED (obj)->next_aligned);
+    }
+}
+
+
 /* HTMLObject methods.  */
 
 static HTMLObject *
@@ -68,8 +119,9 @@ calc_size (HTMLObject *o,
 			obj = obj->next;
 		}
 
-		/* FIXME: Remove any aligned objects previously added by the current
-		   object */
+	    /* Remove any aligned objects previously added by the current
+	       object.  */
+		remove_aligned_by_parent (cluev, clue->curr);
 	}
 	else {
 		o->ascent = cluev->padding;
@@ -252,7 +304,9 @@ find_free_area (HTMLClue *clue, gint y, gint width, gint height,
 		next_y = 0;
 		
 		for (aclue = cluev->align_left_list; aclue != 0; aclue = cluev_next_aligned (aclue)) {
-			base_y = aclue->y + HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->y - HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->ascent;
+			base_y = (aclue->y
+					  + HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->y
+					  - HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->ascent);
 			top_y = base_y - aclue->ascent;
 
 			if ((top_y <= try_y + height) && (base_y > try_y)) {
@@ -268,8 +322,9 @@ find_free_area (HTMLClue *clue, gint y, gint width, gint height,
 		}
 
 		for (aclue = cluev->align_right_list; aclue != 0; aclue = cluev_next_aligned (aclue)) {
-			base_y = aclue->y + HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->y - 
-				HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->ascent;
+			base_y = (aclue->y
+					  + HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->y
+					  - HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->ascent);
 			top_y = base_y - aclue->ascent;
 
 			if ((top_y <= try_y + height) && (base_y > try_y)) {

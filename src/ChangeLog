@@ -1,3 +1,44 @@
+1999-11-26  Ettore Perazzoli  <ettore@gnu.org>
+
+	* htmlengine.c (parse_table): Call `close_anchor()' when `</table'
+	is encountered.  Added support for `<caption>'.  Handle headings.
+	Destroy objects correctly.  Handle Left/Right alignment.  With all
+	of this, this function should finally be completely ported.
+	(set_base_url): New function; for now it's just a dummy.
+	(select_font_relative): New function; incomplete.
+	(html_engine_block_end_indent): New function.
+	(parse_b): Ported `<base>', `<big>' and `<blockquote>' from
+	KHTMLW.
+	(parse_c): Added `<cite>' and `<code>'.  Font for `<code>' is
+	wrong for now.
+	(html_engine_begin): Removed unused variable.
+	(html_engine_block_end_div): New function.
+	(parse_d): New function, implementing only `<dir>' and `<div>' for
+	now.
+	(html_engine_init): Install it in the parse array.
+
+	* htmlcluev.c (remove_aligned_by_parent): Implemented (from
+	`HTMLClueV::removeAlignedByParent()').
+	(calc_size): Call it (as the corresponding KHTMLW function did).
+
+	* htmlclueflow.c (calc_size): Handle clear types correctly, using
+	`html_clue_get_{left,right}_clear()'.
+
+	* htmlclue.c (html_clue_get_right_clear): New function.
+	(html_clue_get_left_clear): New function.
+	(get_left_clear): Default implementation of the `get_left_clear()'
+	virtual method.
+	(get_right_clear): Default implementation of the `get_right_clear()'
+	virtual method.
+	(html_clue_class_init): Install them.
+	(find_free_area): Default implementation changed to match the
+	KHTMLW one.
+
+	* htmlclue.h: New virtual methods `get_right_clear()' and
+	`get_left_clear()'.
+	(html_clue_get_right_clear): New prototype.
+	(html_clue_get_left_clear): New prototype.
+
 1999-11-26  Anders Carlsson  <andersca@gnu.org>
 
 	* htmlengine.c (html_engine_draw_background): Use the new function

@@ -37,11 +37,13 @@ fit_line (HTMLObject *o,
 	HTMLTextSlave *textslave = HTML_TEXT_SLAVE (o);
 	HTMLTextMaster *textmaster = HTML_TEXT_MASTER (textslave->owner);
 	HTMLText *ownertext = HTML_TEXT (textmaster);
-	
+
 	gchar *text = ownertext->text;
 
 	/* Remove existing slaves */
 	HTMLObject *next_obj = o->next;
+
+	HTMLFitType return_value;
 
 	if (next_obj && (HTML_OBJECT_TYPE (next_obj) == HTML_TYPE_TEXTSLAVE)) {
 		do {
@@ -64,13 +66,17 @@ fit_line (HTMLObject *o,
 	if ((o->width <= widthLeft) || (textslave->posLen <= 1) || (widthLeft < 0)) {
 		/* Text fits completely */
 		if (!o->next || (o->next->flags & (HTML_OBJECT_FLAG_SEPARATOR
-						   | HTML_OBJECT_FLAG_NEWLINE)))
-			return HTMLCompleteFit;
+						   | HTML_OBJECT_FLAG_NEWLINE))) {
+			return_value = HTMLCompleteFit;
+			goto done;
+		}
 
 		/* Text is followed by more text...break it before the last word */
 		splitPtr = rindex (text + 1, ' ');
-		if (!splitPtr)
-			return HTMLCompleteFit;
+		if (!splitPtr) {
+			return_value = HTMLCompleteFit;
+			goto done;
+		}
 	}
 	else {
 		splitPtr = index (text + 1, ' ');
@@ -115,7 +121,8 @@ fit_line (HTMLObject *o,
 		/* No separator available */
 		if (firstRun == FALSE) {
 			/* Text does not fit, wait for next line */
-			return HTMLNoFit;
+			return_value = HTMLNoFit;
+			goto done;
 		}
 
 		/* Text doesn't fit, too bad. 
@@ -133,7 +140,33 @@ fit_line (HTMLObject *o,
 	textslave->posLen = newLen;
 	o->width = newWidth;
 
-	return HTMLPartialFit;
+	return_value = HTMLPartialFit;
+
+ done:
+	/* FIXME */
+	{
+		gint i;
+
+		printf ("Split text");
+		switch (return_value) {
+		case HTMLPartialFit:
+			printf (" (Partial): `");
+			break;
+		case HTMLNoFit:
+			printf (" (NoFit): `");
+			break;
+		case HTMLCompleteFit:
+			printf (" (Complete): `");
+			break;
+		}
+
+		for (i = 0; i < textslave->posLen; i++)
+			putchar (ownertext->text[textslave->posStart + i]);
+
+		printf ("'\n");
+	}
+
+	return return_value;
 }
 
 static void
@@ -155,6 +188,13 @@ draw (HTMLObject *o,
 	html_painter_draw_text (p, o->x + tx, o->y + ty, 
 				&(ownertext->text[textslave->posStart]), 
 				textslave->posLen);
+
+	{
+		gchar *s = g_strndup (ownertext->text + textslave->posStart,
+				      textslave->posLen);
+		g_print ("(%d, %d) `%s'\n", o->x + tx, o->y + ty, s);
+		g_free (s);
+	}
 }
 
 static gint

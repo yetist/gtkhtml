@@ -45,6 +45,8 @@ struct _HTMLClueClass {
 
 	gint (*get_left_margin) (HTMLClue *clue, gint y);
 	gint (*get_right_margin) (HTMLClue *clue, gint y);
+	gint (*get_right_clear) (HTMLClue *clue, gint y);
+	gint (*get_left_clear) (HTMLClue *clue, gint y);
 	void (*find_free_area) (HTMLClue *clue, gint y, gint width, gint height, gint indent, gint *y_pos, gint *lmargin, gint *rmargin);
 	void (*append_right_aligned) (HTMLClue *clue, HTMLClue *aclue);
 	gboolean (*appended) (HTMLClue *clue, HTMLClue *aclue);
@@ -59,6 +61,8 @@ void html_clue_class_init (HTMLClueClass *klass, HTMLType type);
 void html_clue_init (HTMLClue *clue, HTMLClueClass *klass);
 gint html_clue_get_left_margin (HTMLClue *clue, gint y);
 gint html_clue_get_right_margin (HTMLClue *clue, gint y);
+gint html_clue_get_left_clear (HTMLClue *clue, gint y);
+gint html_clue_get_right_clear (HTMLClue *clue, gint y);
 void html_clue_find_free_area (HTMLClue *clue, gint y,
 			       gint width, gint height, gint indent,
 			       gint *y_pos, gint *lmargin, gint *rmargin);

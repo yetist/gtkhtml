@@ -57,24 +57,27 @@ calc_min_width (HTMLObject *o)
 	return tempMinWidth;
 }
 
+/* EP CHECK: should be mostly OK, except for the `FIXME' line.  */
 static void
 calc_size (HTMLObject *o,
 	   HTMLObject *parent)
 {
 
 	HTMLVSpace *vspace;
-	HTMLClue *clue = HTML_CLUE (o);
-	
-	HTMLObject *obj = clue->head;
-	HTMLObject *line = clue->head;
+	HTMLClue *clue;
+	HTMLObject *obj;
+	HTMLObject *line;
 	gboolean newLine;
 	gint lmargin, rmargin;
 	gint oldy;
 	gint w, a, d;
-	gint runWidth;
-	ClearType clear = CNone;
-	HTMLObject *run;
-	HTMLFitType fit;
+	ClearType clear;
+
+	clue = HTML_CLUE (o);
+
+	obj = clue->head;
+	line = clue->head;
+	clear = CNone;
 
 	o->ascent = 0;
 	o->descent = 0;
@@ -83,8 +86,10 @@ calc_size (HTMLObject *o,
 	if (HTML_CLUEFLOW (o)->indent > lmargin)
 		lmargin = HTML_CLUEFLOW (o)->indent;
 	rmargin = html_clue_get_right_margin (HTML_CLUE (parent), o->y);
+
 	w = lmargin;
-	a = d = 0;
+	a = 0;
+	d = 0;
 	newLine = FALSE;
 
 	while (obj != 0) {
@@ -115,11 +120,11 @@ calc_size (HTMLObject *o,
 		else if (obj->flags & HTML_OBJECT_FLAG_ALIGNED) {
 			HTMLClueAligned *c = (HTMLClueAligned *)obj;
 
-			if (! html_clue_appended (HTML_CLUE (parent),
-						  HTML_CLUE (c))) {
+			if (! html_clue_appended (HTML_CLUE (parent), HTML_CLUE (c))) {
 				html_object_calc_size (obj, NULL);
 
-				if (HTML_CLUE (HTML_CLUE (c)->halign == Left)) {
+				if (HTML_CLUE (c)->halign == Left) {
+					/* FIXME TODO */
 					g_print ("Left\n");
 				} else {
 					g_print ("Right aligned\n");
@@ -133,19 +138,29 @@ calc_size (HTMLObject *o,
 			}
 			obj = obj->next;
 		}
+		/* This is a normal object.  We must add all objects upto the next
+		   separator/newline/aligned object. */
 		else {
+			gint runWidth;
+			HTMLObject *run;
+
+			/* By setting "newLine = true" we move the complete run to
+			   a new line.
+			   We shouldn't set newLine if we are at the start of a line.  */
+
 			runWidth = 0;
 			run = obj;
 			while ( run
-				&& ! (run->flags & HTML_OBJECT_FLAG_SEPARATOR)
-				&& ! (run->flags & HTML_OBJECT_FLAG_NEWLINE)
-				&& ! (run->flags & HTML_OBJECT_FLAG_ALIGNED)) {
+					&& ! (run->flags & HTML_OBJECT_FLAG_SEPARATOR)
+					&& ! (run->flags & HTML_OBJECT_FLAG_NEWLINE)
+					&& ! (run->flags & HTML_OBJECT_FLAG_ALIGNED)) {
+				HTMLFitType fit;
 			  
 				run->max_width = rmargin - lmargin;
-				fit = html_object_fit_line
-					(run, (w + runWidth == lmargin),
-					 (obj == line),
-					 rmargin - runWidth - w);
+				fit = html_object_fit_line (run, (w + runWidth == lmargin),
+											(obj == line),
+											rmargin - runWidth - w);
+
 				if (fit == HTMLNoFit) {
 					newLine = TRUE;
 					break;
@@ -188,21 +203,28 @@ calc_size (HTMLObject *o,
 			if (!newLine) {
 				gint new_y, new_lmargin, new_rmargin;
 
-				/* Check if the run fits in the current flow area */
+				/* Check if the run fits in the current flow area 
+				   especially with respect to its height.
+				   If not, find a rectangle with height a+b. The size of
+				   the rectangle will be rmargin-lmargin. */
+
 				html_clue_find_free_area (HTML_CLUE (parent),
-							  o->y,
-							  line->width,
-							  a+d,
-							  HTML_CLUEFLOW (o)->indent,
-							  &new_y, &new_lmargin,
-							  &new_rmargin);
+										  o->y,
+										  line->width,
+										  a+d,
+										  HTML_CLUEFLOW (o)->indent,
+										  &new_y, &new_lmargin,
+										  &new_rmargin);
 				
-				if ((new_y != o->y) ||
-				    (new_lmargin > lmargin) ||
-				    (new_rmargin < rmargin)) {
+				if (new_y != o->y
+				    || new_lmargin > lmargin
+				    || new_rmargin < rmargin) {
 					
 					/* We did not get the location we expected 
 					   we start building our current line again */
+					/* We got shifted downwards by "new_y - y"
+					   add this to both "y" and "ascent" */
+
 					new_y -= o->y;
 					o->y += new_y;
 					o->ascent += new_y;
@@ -232,6 +254,8 @@ calc_size (HTMLObject *o,
 			
 		}
 		
+		/* if we need a new line, or all objects have been processed
+		   and need to be aligned. */
 		if ( newLine || !obj) {
 			int extra = 0;
 			o->ascent += a + d;
@@ -257,8 +281,7 @@ calc_size (HTMLObject *o,
 					line->y = o->ascent - d;
 					html_object_set_max_ascent (line, a);
 					html_object_set_max_descent (line, d);
-					if (clue->halign == HCenter || 
-					    clue->halign == Right) {
+					if (clue->halign == HCenter || clue->halign == Right) {
 						line->x += extra;
 					}
 				}
@@ -270,23 +293,17 @@ calc_size (HTMLObject *o,
 			if (clear == CAll) {
 				int new_lmargin, new_rmargin;
 				
-				html_clue_find_free_area
-					(HTML_CLUE (parent), oldy,
-					 o->max_width,
-					 1, 0, &o->y, &new_lmargin,
-					 &new_rmargin);
+				html_clue_find_free_area (HTML_CLUE (parent), oldy,
+										  o->max_width,
+										  1, 0,
+										  &o->y,
+										  &new_lmargin,
+										  &new_rmargin);
+			} else if (clear == CLeft) {
+				o->y = html_clue_get_left_clear (HTML_CLUE (parent), oldy);
+			} else if (clear == CRight) {
+				o->y = html_clue_get_right_clear (HTML_CLUE (parent), oldy);
 			}
-
-#if 0
-			/* FIXME the left_clear/right_clear functions were
-                           no-ops.  */
-			else if (clear == CLeft) {
-				o->y = html_clue_get_left_clear (parent, oldy);
-			}
-			else if (clear == CRight) {
-				o->y = html_clue_get_right_clear (parent, oldy);
-			}
-#endif
 
 			o->ascent += o->y - oldy;
 

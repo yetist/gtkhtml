@@ -159,6 +159,8 @@ HTMLFont *  html_engine_get_current_font (HTMLEngine *p);
 void        html_engine_select_font (HTMLEngine *e);
 void        html_engine_pop_font (HTMLEngine *e);
 void        html_engine_block_end_font (HTMLEngine *e, HTMLObject *clue, HTMLStackElement *elem);
+void        html_engine_block_end_indent (HTMLEngine *e, HTMLObject *clue, HTMLStackElement *elem);
+void        html_engine_block_end_div (HTMLEngine *e, HTMLObject *clue, HTMLStackElement *elem);
 void        html_engine_push_block (HTMLEngine *e, gint id, gint level, HTMLBlockFunc exitFunc, gint miscData1, gint miscData2);
 void        html_engine_pop_block (HTMLEngine *e, gint id, HTMLObject *clue);
 void        html_engine_insert_text (HTMLEngine *e, gchar *str, HTMLFont *f);

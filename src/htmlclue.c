@@ -69,7 +69,7 @@ draw (HTMLObject *o, HTMLPainter *p,
 					  &blue, FALSE, TRUE);
 	}
 
-#if 0
+#if 1
 	/* FIXME FIXME!  Temporary hack.  :-)  */
 	/* Draw a rect around the clue */
 	if (HTML_OBJECT_TYPE (o) == HTML_TYPE_CLUEV) {
@@ -236,17 +236,27 @@ get_right_margin (HTMLClue *o, gint y)
 	return HTML_OBJECT (o)->max_width;
 }
 
+static gint
+get_left_clear (HTMLClue *o, gint y)
+{
+	return y;
+}
+
+static gint
+get_right_clear (HTMLClue *o, gint y)
+{
+	return y;
+}
+
 static void
 find_free_area (HTMLClue *clue, gint y,
 		gint width, gint height,
 		gint indent, gint *y_pos,
 		gint *lmargin, gint *rmargin)
 {
-#if 0
-	/* This needs to be implemented in the subclasses.  */
-	g_warning ("`%s' does not implement `find_free_area()'.",
-		   html_type_name (HTML_OBJECT_TYPE (clue)));
-#endif
+	*y_pos = y;
+	*lmargin = 0;
+	*rmargin = HTML_OBJECT (clue)->max_width;
 }
 
 static void
@@ -298,6 +308,8 @@ html_clue_class_init (HTMLClueClass *klass,
 	/* HTMLClue methods.  */
 	klass->get_left_margin = get_left_margin;
 	klass->get_right_margin = get_right_margin;
+	klass->get_left_clear = get_left_clear;
+	klass->get_right_clear = get_right_clear;
 	klass->find_free_area = find_free_area;
 	klass->append_right_aligned = append_right_aligned;
 	klass->appended = appended;
@@ -331,6 +343,18 @@ gint
 html_clue_get_right_margin (HTMLClue *clue, gint y)
 {
 	return (* HC_CLASS (clue)->get_right_margin) (clue, y);
+}
+
+gint
+html_clue_get_left_clear (HTMLClue *clue, gint y)
+{
+	return (* HC_CLASS (clue)->get_left_clear) (clue, y);
+}
+
+gint
+html_clue_get_right_clear (HTMLClue *clue, gint y)
+{
+	return (* HC_CLASS (clue)->get_right_clear) (clue, y);
 }
 
 void

@@ -66,7 +66,10 @@ guint html_engine_signals [LAST_SIGNAL] = { 0 };
 
 extern gint defaultFontSizes [7];
 
-enum ID { ID_FONT, ID_B, ID_EM, ID_I, ID_HEADER, ID_U, ID_UL, ID_TD };
+enum ID {
+	ID_FONT, ID_B, ID_BIG, ID_BLOCKQUOTE, ID_CAPTION, ID_CITE, ID_CODE,
+	ID_DIR, ID_DIV, ID_EM, ID_I, ID_HEADER, ID_U, ID_UL, ID_TD, ID_TH
+};
 
 
 static void
@@ -78,15 +81,31 @@ close_anchor (HTMLEngine *e)
 		g_free (e->url);
 	}
 
+	/* FIXME */
 	e->url = NULL;
 
 	g_free (e->target);
 	e->target = NULL;
 }
 
-
-/* Parsing functions.  */
+static void
+set_base_url (HTMLEngine *e, const gchar *url)
+{
+	/* FIXME TODO */
 
+	g_free (e->baseURL);
+	e->baseURL = g_strdup (url);
+}
+
+/* FIXME FIXME FIXME this is just a dummy.  */
+static void
+select_font_relative (HTMLEngine *e,
+					  gint relative_font_size)
+{
+	g_warning ("`select_font_relative()' not implemented.");
+}
+
+
 static void
 parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 {
@@ -174,6 +193,422 @@ parse_body (HTMLEngine *p, HTMLObject *clue, const gchar *end[], gboolean toplev
 	return 0;
 }
 
+/* EP CHECK: Should be finished except for the settings stuff (see `FIXME').  */
+static const gchar *
+parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
+			 const gchar *attr)
+{
+	static const gchar *endthtd[] = { "</th", "</td", "</tr", "<th", "<td", "<tr", "</table", "</body", 0 };
+    static const char *endcap[] = { "</caption>", "</table>", "<tr", "<td", "<th", "</body", 0 };    
+	static const gchar *endall[] = { "</caption>", "</table", "<tr", "<td", "<th", "</th", "</td", "</tr","</body", 0 };
+	HTMLTable *table;
+	const gchar *str = 0;
+	gint width = 0;
+	gint percent = 0;
+	gint padding = 1;
+	gint spacing = 2;
+	gint border = 1;
+	gchar has_cell = 0;
+	gboolean done = FALSE;
+	gboolean tableTag = TRUE;
+	gboolean firstRow = TRUE;
+	gboolean noCell = TRUE;
+	gboolean tableEntry;
+	VAlignType rowvalign = VNone;
+	HAlignType rowhalign = None;
+	HAlignType align = None;
+	HTMLClueV *caption = 0;
+	HTMLTableCell *tmpCell = 0;
+	VAlignType capAlign = Bottom;
+	HAlignType olddivalign = e->divAlign;
+	HTMLClue *oldflow = HTML_CLUE (e->flow);
+	gint oldindent = e->indent;
+	GdkColor tableColor, rowColor, bgcolor;
+	gboolean have_tableColor, have_rowColor, have_bgcolor;
+	gint rowSpan;
+	gint colSpan;
+	gint cellwidth;
+	gint cellpercent;
+	gboolean fixedWidth;
+	VAlignType valign;
+	HTMLTableCell *cell;
+
+	have_tableColor = FALSE;
+	have_rowColor = FALSE;
+	have_bgcolor = FALSE;
+
+	g_print ("start parse\n");
+	string_tokenizer_tokenize (e->st, attr, " >");
+	while (string_tokenizer_has_more_tokens (e->st)) {
+		const gchar *token = string_tokenizer_next_token (e->st);
+		if (strncasecmp (token, "cellpadding=", 12) == 0) {
+			padding = atoi (token + 12);
+		}
+		else if (strncasecmp (token, "cellspacing=", 12) == 0) {
+			spacing = atoi (token + 12);
+		}
+		else if (strncasecmp (token, "border", 6) == 0) {
+			if (*(token + 6) == '=')
+				border = atoi (token + 7);
+			else
+				border = 1;
+		}
+		else if (strncasecmp (token, "width=", 6) == 0) {
+			if (strchr (token + 6, '%'))
+				percent = atoi (token + 6);
+			else if (strchr (token + 6, '*')) {
+				/* Ignore */
+			}
+			else if (isdigit (*(token + 6)))
+				width = atoi (token + 6);
+		}
+		else if (strncasecmp (token, "align=", 6) == 0) {
+			if (strcasecmp (token + 6, "left") == 0)
+				align = Left;
+			else if (strcasecmp (token + 6, "right") == 0)
+				align = Right;
+		}
+		else if (strncasecmp (token, "bgcolor=", 8) == 0
+				 /* && !defaultSettings->forceDefault */) {
+			if (html_engine_set_named_color (e, &tableColor, token + 8)) {
+				rowColor = tableColor;
+				have_rowColor = have_tableColor = TRUE;
+			}
+		}
+	}
+
+	table = HTML_TABLE (html_table_new (0, 0, max_width, width, 
+										percent, padding,
+										spacing, border));
+	e->indent = 0;
+	while (!done && html_tokenizer_has_more_tokens (e->ht)) {
+		str = html_tokenizer_next_token (e->ht);
+		
+		/* Every tag starts with an escape character */
+		if (str[0] == TAG_ESCAPE) {
+			str++;
+
+			tableTag = TRUE;
+
+			for (;;) {
+				if (strncmp (str, "</table", 7) == 0) {
+					close_anchor (e);
+					done = TRUE;
+					break;
+				}
+
+				if ( strncmp( str, "<caption", 8 ) == 0 ) {
+					string_tokenizer_tokenize( e->st, str + 9, " >" );
+					while ( string_tokenizer_has_more_tokens (e->st) ) {
+						const char* token = string_tokenizer_next_token(e->st);
+						if ( strncasecmp( token, "align=", 6 ) == 0) {
+							if ( strncasecmp( token+6, "top", 3 ) == 0)
+								capAlign = Top;
+						}
+					}
+
+					caption = HTML_CLUEV (html_cluev_new
+										  ( 0, 0,
+											HTML_OBJECT (clue)->max_width,
+											100 ));
+
+					e->divAlign = HCenter;
+					e->flow = 0;
+
+					html_engine_push_block (e, ID_CAPTION, 3, NULL, 0, 0);
+					str = parse_body ( e, HTML_OBJECT (caption), endcap, FALSE );
+					html_engine_pop_block (e, ID_CAPTION, HTML_OBJECT (caption) );
+
+					table->caption = caption;
+					table->capAlign = capAlign;
+
+					e->flow = 0;
+
+					if ( str == 0 ) { 
+						/* CC: Close table description in case of a malformed
+						   table before returning! */
+						if ( !firstRow )
+							html_table_end_row (table);
+						html_table_end_table (table); 
+						html_object_destroy (HTML_OBJECT (table));
+						e->divAlign = olddivalign;
+						e->flow = HTML_OBJECT (oldflow);
+						html_object_destroy (HTML_OBJECT (tmpCell));
+						return 0;
+					}
+
+					if (strncmp( str, "</caption", 9) == 0 ) {
+								// HTML Ok!
+						break; // Get next token from 'ht'
+					}
+					else {
+								// Bad HTML
+								// caption ended with </table> <td> <tr> or <th>
+						continue; // parse the returned tag
+					}
+				}
+
+				if (strncmp (str, "<tr", 3) == 0) {
+					if (!firstRow)
+						html_table_end_row (table);
+					html_table_start_row (table);
+					firstRow = FALSE;
+					rowvalign = VNone;
+					rowhalign = None;
+
+					if (have_tableColor) {
+						rowColor = tableColor;
+						have_rowColor = TRUE;
+					} else {
+						have_rowColor = FALSE;
+					}
+
+					string_tokenizer_tokenize (e->st, str + 4, " >");
+					while (string_tokenizer_has_more_tokens (e->st)) {
+						const gchar *token = string_tokenizer_next_token (e->st);
+						if (strncasecmp (token, "valign=", 7) == 0) {
+							if (strncasecmp (token + 7, "top", 3) == 0)
+								rowvalign = Top;
+							else if (strncasecmp (token + 7, "bottom", 6) == 0)
+								rowvalign = Bottom;
+							else
+								rowvalign = VCenter;
+						}
+						else if (strncasecmp (token, "align", 6) == 0) {
+							if (strcasecmp (token + 6, "left") == 0)
+								rowhalign = Left;
+							else if (strcasecmp (token + 6, "right") == 0)
+								rowhalign = Right;
+							else if (strcasecmp (token + 6, "center") == 0)
+								rowhalign = HCenter;
+						}
+						else if (strncasecmp (token, "bgcolor=", 8) == 0) {
+							have_rowColor
+								= html_engine_set_named_color (e, &rowColor,
+															   token + 8);
+						}
+					}
+					break;
+				}
+
+				/* Check for <td> and <th> */
+				tableEntry = *str == '<' && *(str + 1) == 't' &&
+					(*(str + 2) == 'd' || *(str + 2) == 'h');
+				if (tableEntry || noCell) {
+					gboolean heading = FALSE;
+					noCell = FALSE;
+
+					if (*(str + 2) == 'h') {
+						g_print ("<th>");
+						heading = TRUE;
+					}
+					/* <tr> may not be specified for the first row */
+					if (firstRow) {
+						/* Bad HTML: No <tr> tag present */
+						html_table_start_row (table);
+						firstRow = FALSE;
+					}
+
+					rowSpan = 1;
+					colSpan = 1;
+					cellwidth = clue->max_width;
+					cellpercent = -1;
+					fixedWidth = FALSE;
+
+					if (have_rowColor) {
+						bgcolor = rowColor;
+						have_bgcolor = TRUE;
+					} else {
+						have_bgcolor = FALSE;
+					}
+
+					valign = (rowvalign == VNone ?
+							  VCenter : rowvalign);
+
+					if (heading)
+						e->divAlign = (rowhalign == None ? 
+									   HCenter: rowhalign);
+					else
+						e->divAlign = (rowhalign == None ?
+									   Left: rowhalign);
+
+					if (tableEntry) {
+						string_tokenizer_tokenize (e->st, str + 4, " >");
+						while (string_tokenizer_has_more_tokens (e->st)) {
+							const gchar *token = string_tokenizer_next_token (e->st);
+							if (strncasecmp (token, "rowspan=", 8) == 0) {
+								rowSpan = atoi (token + 8);
+								if (rowSpan < 1)
+									rowSpan = 1;
+							}
+							else if (strncasecmp (token, "colspan=", 8) == 0) {
+								colSpan = atoi (token + 8);
+								if (colSpan < 1)
+									colSpan = 1;
+							}
+							else if (strncasecmp (token, "valign=", 7) == 0) {
+								if (strncasecmp (token + 7, "top", 3) == 0)
+									valign = Top;
+								else if (strncasecmp (token + 7, "bottom", 6) == 0)
+									valign = Bottom;
+								else 
+									valign = VCenter;
+							}
+							else if (strncasecmp (token, "align=", 6) == 0) {
+								if (strcasecmp (token + 6, "center") == 0)
+									e->divAlign = HCenter;
+								else if (strcasecmp (token + 6, "right") == 0)
+									e->divAlign = Right;
+								else if (strcasecmp (token + 6, "left") == 0)
+									e->divAlign = Left;
+							}
+							else if (strncasecmp (token, "width=", 6) == 0) {
+								if (strchr (token + 6, '%')) {
+									g_print ("percent!\n");
+									cellpercent = atoi (token + 6);
+								}
+								else if (strchr (token + 6, '*')) {
+									/* ignore */
+								}
+								else if (isdigit (*(token + 6))) {
+									cellwidth = atoi (token + 6);
+									cellpercent = 0;
+									fixedWidth = TRUE;
+								}
+							}
+							else if (strncasecmp (token, "bgcolor=", 8) == 0
+								/*&& !defaultSettings->forceDefault FIXME*/) {
+								have_bgcolor
+									= html_engine_set_named_color (e, &bgcolor,
+																   token + 8);
+							}
+						}
+					}
+
+					cell = HTML_TABLE_CELL (html_table_cell_new (0, 0, cellwidth,
+																 cellpercent,
+																 rowSpan, colSpan,
+																 padding));
+					html_object_set_bg_color (HTML_OBJECT (cell),
+											  have_bgcolor ? &bgcolor : NULL);
+					HTML_CLUE (cell)->valign = valign;
+					if (fixedWidth)
+						HTML_OBJECT (cell)->flags |= HTML_OBJECT_FLAG_FIXEDWIDTH;
+					html_table_add_cell (table, cell);
+					has_cell = 1;
+					e->flow = 0;
+					if (heading) {
+						e->bold = TRUE;
+						html_engine_select_font (e);
+						html_engine_push_block (e, ID_TH, 3,
+												html_engine_block_end_font,
+												FALSE, 0);
+						str = parse_body (e, HTML_OBJECT (cell), endthtd, FALSE);
+						html_engine_pop_block (e, ID_TH, HTML_OBJECT (cell));
+					}
+					if (!tableEntry) {
+						/* Put all the junk between <table>
+						   and the first table tag into one row */
+						html_engine_push_block (e, ID_TD, 3, NULL, 0, 0);
+						str = parse_body (e, HTML_OBJECT (cell), endall, FALSE);
+						html_engine_pop_block (e, ID_TD, HTML_OBJECT (cell));
+						html_table_end_row (table);
+						html_table_start_row (table);
+						
+					}
+					else {
+						/* Ignore <p> and such at the beginning */
+						e->vspace_inserted = TRUE;
+						html_engine_push_block (e, ID_TD, 3, NULL, 0, 0);
+						str = parse_body (e, HTML_OBJECT (cell), endthtd, FALSE);
+						html_engine_pop_block (e, ID_TD, HTML_OBJECT (cell));
+					}
+
+					if (str == 0) {
+						/* Close table description in case of
+						   a malformed table before returning! */
+						if (!firstRow)
+							html_table_end_row (table);
+						html_table_end_table (table);
+						html_object_destroy (HTML_OBJECT (table));
+						e->divAlign = olddivalign;
+						e->flow = HTML_OBJECT (oldflow);
+						html_object_destroy (HTML_OBJECT (tmpCell));
+						return 0;
+					}
+
+					if ((strncmp (str, "</td", 4) == 0) ||
+					    (strncmp (str, "</th", 4) == 0)) {
+						/* HTML ok! */
+						break; /* Get next token from 'ht' */
+					}
+					else {
+						/* Bad HTML */
+						continue;
+					}
+				}
+
+				/* Unknown or unhandled table-tag: ignore */
+				break;
+				
+			}
+		}
+	}
+		
+	/* Did we catch any illegal HTML */
+	if (tmpCell) {
+		if (!has_cell) {
+			if (firstRow) {
+				html_table_start_row (table);
+				firstRow = FALSE;
+			}
+			html_table_add_cell (table, tmpCell);
+			has_cell = 1;
+		}
+		else {
+			html_object_destroy (HTML_OBJECT (tmpCell));
+		}
+	}
+	
+	if (has_cell) {
+		/* The ending "</table>" might be missing, so we close the table
+           here...  */
+		if (!firstRow)
+			html_table_end_row (table);
+		html_table_end_table (table);
+		if (align != Left && align != Right) {
+			html_clue_append (HTML_CLUE (clue), HTML_OBJECT (table));
+		} else {
+			HTMLClueAligned *aligned;
+
+			aligned = HTML_CLUEALIGNED (html_cluealigned_new (HTML_CLUE (clue),
+															  0, 0,
+															  clue->max_width,
+															  100));
+			HTML_CLUE (aligned)->halign = align;
+			html_clue_append (HTML_CLUE (aligned), HTML_OBJECT (table));
+			html_clue_append (HTML_CLUE (clue), HTML_OBJECT (aligned));
+		}
+	}
+	else {
+		/* Last resort: remove tables that do not contain any cells */
+		html_object_destroy (HTML_OBJECT (table));
+	}
+	
+	e->indent = oldindent;
+	e->divAlign = olddivalign;
+	e->flow = HTML_OBJECT (oldflow);
+
+	g_print ("Returning: %s\n", str);
+	return str;
+}
+
+
+/*
+<a               </a>
+<address>        </address>
+<area            </area>
+*/
 static void
 parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 {
@@ -383,17 +818,52 @@ parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 }
 
 
+/*
+<b>              </b>
+<base
+<basefont                        unimplemented
+<big>            </big>
+<blockquote>     </blockquote>
+<body
+<br
+*/
+/* EP CHECK All done except for the color specifications in the `<body>'
+   tag.  */
 static void
 parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	/* FIXME TODO missing stuff! */
-
-	if (strncmp (str, "body", 4) == 0) {
+	if (strncmp (str, "basefont", 8) == 0) {
+	}
+    else if ( strncmp(str, "base", 4 ) == 0 ) {
+		string_tokenizer_tokenize( e->st, str + 5, " >" );
+		while ( string_tokenizer_has_more_tokens (e->st) ) {
+			const char* token = string_tokenizer_next_token(e->st);
+			if ( strncasecmp( token, "target=", 7 ) == 0 ) {
+				g_free (e->baseTarget);
+				e->baseTarget = g_strdup (token + 7);
+			} else if ( strncasecmp( token, "href=", 5 ) == 0 ) {
+				set_base_url (e, token + 5);
+			}
+		}
+    }
+    else if ( strncmp(str, "big", 3 ) == 0 ) {
+		select_font_relative (e, +2);
+		html_engine_push_block (e, ID_BIG, 1, html_engine_block_end_font, 0, 0);
+    } else if ( strncmp(str, "/big", 4 ) == 0 ) {
+		html_engine_pop_block (e, ID_BIG, clue);
+    } else if ( strncmp(str, "blockquote", 10 ) == 0 ) {
+		html_engine_push_block (e, ID_BLOCKQUOTE, 2,
+								html_engine_block_end_indent, e->indent, 0);
+		e->indent += INDENT_SIZE;
+		e->flow = NULL;
+    } else if ( strncmp(str, "/blockquote", 11 ) == 0 ) {
+		html_engine_pop_block (e, ID_BLOCKQUOTE, clue);
+    } else if (strncmp (str, "body", 4) == 0) {
 		GdkColor bgcolor;
 		gboolean bgColorSet = FALSE;
 
 		if (e->bodyParsed) {
-			g_print ("body is parsed\n");
+			g_print ("body is parsed\n"); /* FIXME */
 			return;
 		}
 
@@ -413,7 +883,8 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 					g_print ("`%s' could not be allocated\n", token);
 				}
 			}
-			else if (strncasecmp (token, "background=", 11) == 0) {
+			else if (strncasecmp (token, "background=", 11) == 0
+					 /* !defaultSettings->forceDefault */) {
 				char *realurl;
 
 				realurl = html_engine_canonicalize_url(e, token + 11);
@@ -421,7 +892,67 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				g_free(realurl);
 			}
 		}
-		
+
+#if 0
+	    else if ( strncasecmp( token, "text=", 5 ) == 0 &&
+				  !defaultSettings->forceDefault )
+	    {
+			setNamedColor(settings->fontBaseColor, token+5 );
+			*(colorStack.top()) = settings->fontBaseColor;
+			selectFont();
+	    }
+	    else if ( strncasecmp( token, "link=", 5 ) == 0 &&
+				  !defaultSettings->forceDefault )
+	    {
+			setNamedColor(settings->linkColor, token+5 );
+	    }
+	    else if ( strncasecmp( token, "vlink=", 6 ) == 0 &&
+				  !defaultSettings->forceDefault )
+	    {
+			setNamedColor(settings->vLinkColor, token+6 );
+	    }
+	}
+
+	if ( !bgColorSet || defaultSettings->forceDefault )
+	{
+	    QPalette pal = palette().copy();
+	    QColorGroup cg = pal.normal();
+	    QColorGroup newGroup( cg.foreground(), defaultSettings->bgColor,
+							  cg.light(), cg.dark(), cg.mid(), cg.text(),
+							  defaultSettings->bgColor );
+	    pal.setNormal( newGroup );
+	    setPalette( pal );
+
+	    // simply testing if QColor == QColor fails!?, so we must compare
+	    // each RGB
+	    if ( defaultSettings->bgColor.red() != settings->bgColor.red() ||
+			 defaultSettings->bgColor.green() != settings->bgColor.green() ||
+			 defaultSettings->bgColor.blue() != settings->bgColor.blue() ||
+			 bDrawBackground )
+	    {
+			settings->bgColor = defaultSettings->bgColor;
+			setBackgroundColor( settings->bgColor );
+	    }
+	}
+	else
+	{
+	    QPalette pal = palette().copy();
+	    QColorGroup cg = pal.normal();
+	    QColorGroup newGroup( cg.foreground(), settings->bgColor,
+							  cg.light(), cg.dark(), cg.mid(), cg.text(), settings->bgColor );
+	    pal.setNormal( newGroup );
+	    setPalette( pal );
+
+	    if ( settings->bgColor.red() != bgColor.red() ||
+			 settings->bgColor.green() != bgColor.green() ||
+			 settings->bgColor.blue() != bgColor.blue() ||
+			 bDrawBackground )
+	    {
+    		settings->bgColor = bgColor;
+			setBackgroundColor( settings->bgColor );
+	    }
+#endif
+
 		if (bgColorSet)
 			e->bgColor = bgcolor;
 
@@ -452,6 +983,14 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 }
 
 
+/*
+<center>         </center>
+<cite>           </cite>
+<code>           </code>
+<cell>           </cell>
+<comment>        </comment>      unimplemented
+*/
+/* EP CHECK OK except for the font in `<code>'.  */
 static void
 parse_c (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
@@ -463,6 +1002,131 @@ parse_c (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		e->divAlign = Left;
 		e->flow = 0;
 	}
+	else if (strncmp( str, "cite", 4 ) == 0) {
+		e->italic = TRUE;
+		e->bold = FALSE;
+		html_engine_select_font (e);
+		html_engine_push_block(e, ID_CITE, 1, html_engine_block_end_font, 0, 0);
+	}
+	else if (strncmp( str, "/cite", 5) == 0) {
+		html_engine_pop_block (e, ID_CITE, clue);
+	} else if (strncmp(str, "code", 4 ) == 0 ) {
+		/* FIXME wrong/TODO */
+		/* selectFont( settings->fixedFontFace, settings->fontBaseSize,
+		   QFont::Normal, FALSE ); */
+		e->italic = FALSE;
+		e->bold = FALSE;
+		html_engine_select_font (e);
+		html_engine_push_block (e, ID_CODE, 1, html_engine_block_end_font, 0, 0);
+	} else if (strncmp(str, "/code", 5 ) == 0 ) {
+		html_engine_pop_block (e, ID_CODE, clue);
+	}
+}
+
+
+/*
+<dir             </dir>          partial
+<div             </div>
+<dl>             </dl>
+<dt>             </dt>
+*/
+static void
+parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
+{
+    if ( strncmp( str, "dir", 3 ) == 0 ) {
+		close_anchor(e);
+		html_engine_push_block (e, ID_DIR, 2, html_engine_block_end_list,
+								e->indent, FALSE);
+		html_list_stack_push (e->listStack, html_list_new ( Dir, Numeric ) );
+		e->indent += INDENT_SIZE;
+    } else if ( strncmp( str, "/dir", 4 ) == 0 ) {
+		html_engine_pop_block (e, ID_DIR, _clue);
+    } else if ( strncmp( str, "div", 3 ) == 0 ) {
+		html_engine_push_block (e, ID_DIV, 1,
+								html_engine_block_end_div,
+								e->divAlign, FALSE);
+
+		string_tokenizer_tokenize( e->st, str + 4, " >" );
+		while ( string_tokenizer_has_more_tokens (e->st) ) {
+			const char* token = string_tokenizer_next_token (e->st);
+			if ( strncasecmp( token, "align=", 6 ) == 0 )
+			{
+				if ( strcasecmp( token + 6, "right" ) == 0 )
+					e->divAlign = Right;
+				else if ( strcasecmp( token + 6, "center" ) == 0 )
+					e->divAlign = HCenter;
+				else if ( strcasecmp( token + 6, "left" ) == 0 )
+					e->divAlign = Left;
+			}
+		}
+
+		e->flow = 0;
+    }
+
+#if 0							/* FIXME */
+    else if ( strncmp( str, "/div", 4 ) == 0 ) {
+		html_engine_pop_block (e, ID_DIV, _clue );
+    } else if ( strncmp( str, "dl", 2 ) == 0 ) {
+		e->vspace_inserted = html_engine_insert_vspace( e, _clue,
+														e->vspace_inserted );
+		close_anchor ();
+
+		if ( glossaryStack.top() )
+		{
+			indent += INDENT_SIZE;
+		}
+		glossaryStack.push( new GlossaryEntry( GlossaryDL ) );
+		flow = 0;
+    }
+    else if ( strncmp( str, "/dl", 3 ) == 0 )
+    {
+		if ( !glossaryStack.top() )
+			return;
+
+		if ( *glossaryStack.top() == GlossaryDD )
+		{
+			glossaryStack.remove();
+			indent -= INDENT_SIZE;
+			if (indent < 0)
+				indent = 0;
+		}
+		glossaryStack.remove();
+		if ( glossaryStack.top() )
+		{
+			indent -= INDENT_SIZE;
+			if (indent < 0)
+				indent = 0;
+		}
+		vspace_inserted = insertVSpace( _clue, vspace_inserted );
+    }
+    else if (strncmp( str, "dt", 2 ) == 0)
+    {
+		if ( !glossaryStack.top() )
+			return;
+
+		if ( *glossaryStack.top() == GlossaryDD )
+		{
+			glossaryStack.pop();
+			indent -= INDENT_SIZE;
+			if (indent < 0)
+				indent = 0;
+		}
+		vspace_inserted = false;
+		flow = 0;
+    }
+    else if (strncmp( str, "dd", 2 ) == 0)
+    {
+		if ( !glossaryStack.top() )
+			return;
+
+		if ( *glossaryStack.top() != GlossaryDD )
+		{
+			glossaryStack.push( new GlossaryEntry( GlossaryDD ) );
+			indent += INDENT_SIZE;
+		}
+		flow = 0;
+    }
+#endif
 }
 
 
@@ -835,353 +1499,6 @@ parse_p (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 }
 
 
-static const gchar *
-parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
-			 const gchar *attr)
-{
-	static const gchar *endthtd[] = { "</th", "</td", "</tr", "<th", "<td", "<tr", "</table", "</body", 0 };
-	static const gchar *endall[] = { "</caption>", "</table", "<tr", "<td", "<th", "</th", "</td", "</tr","</body", 0 };
-	HTMLTable *table;
-	const gchar *str = 0;
-	gint width = 0;
-	gint percent = 0;
-	gint padding = 1;
-	gint spacing = 2;
-	gint border = 1;
-	gchar has_cell = 0;
-	gboolean done = FALSE;
-	gboolean tableTag = TRUE;
-	gboolean firstRow = TRUE;
-	gboolean noCell = TRUE;
-	gboolean tableEntry;
-	VAlignType rowvalign = VNone;
-	HAlignType rowhalign = None;
-	HAlignType align = None;
-	HTMLClueV *caption = 0;
-	HTMLTableCell *tmpCell = 0;
-	VAlignType capAlign = Bottom;
-	HAlignType olddivalign = e->divAlign;
-	HTMLClue *oldflow = HTML_CLUE (e->flow);
-	gint oldindent = e->indent;
-	GdkColor tableColor, rowColor, bgcolor;
-	gboolean have_tableColor, have_rowColor, have_bgcolor;
-	gint rowSpan;
-	gint colSpan;
-	gint cellwidth;
-	gint cellpercent;
-	gboolean fixedWidth;
-	VAlignType valign;
-	HTMLTableCell *cell;
-
-	have_tableColor = FALSE;
-	have_rowColor = FALSE;
-	have_bgcolor = FALSE;
-
-	g_print ("start parse\n");
-	string_tokenizer_tokenize (e->st, attr, " >");
-	while (string_tokenizer_has_more_tokens (e->st)) {
-		const gchar *token = string_tokenizer_next_token (e->st);
-		if (strncasecmp (token, "cellpadding=", 12) == 0) {
-			padding = atoi (token + 12);
-		}
-		else if (strncasecmp (token, "cellspacing=", 12) == 0) {
-			spacing = atoi (token + 12);
-		}
-		else if (strncasecmp (token, "border", 6) == 0) {
-			if (*(token + 6) == '=')
-				border = atoi (token + 7);
-			else
-				border = 1;
-		}
-		else if (strncasecmp (token, "width=", 6) == 0) {
-			if (strchr (token + 6, '%'))
-				percent = atoi (token + 6);
-			else if (strchr (token + 6, '*')) {
-				/* Ignore */
-			}
-			else if (isdigit (*(token + 6)))
-				width = atoi (token + 6);
-		}
-		else if (strncasecmp (token, "align=", 6) == 0) {
-			if (strcasecmp (token + 6, "left") == 0)
-				align = Left;
-			else if (strcasecmp (token + 6, "right") == 0)
-				align = Right;
-		}
-		else if (strncasecmp (token, "bgcolor=", 8) == 0) {
-			if (html_engine_set_named_color (e, &tableColor, token + 8)) {
-				rowColor = tableColor;
-				have_rowColor = have_tableColor = TRUE;
-			}
-		}
-	}
-
-	table = HTML_TABLE (html_table_new (0, 0, max_width, width, 
-										percent, padding,
-										spacing, border));
-	e->indent = 0;
-	while (!done && html_tokenizer_has_more_tokens (e->ht)) {
-		str = html_tokenizer_next_token (e->ht);
-		
-		/* Every tag starts with an escape character */
-		if (str[0] == TAG_ESCAPE) {
-			str++;
-
-			tableTag = TRUE;
-
-			for (;;) {
-				if (strncmp (str, "</table", 7) == 0) {
-					/* FIXME: close anchor */
-					done = TRUE;
-					break;
-				}
-				/* FIXME: <caption> support */
-				if (strncmp (str, "<tr", 3) == 0) {
-					if (!firstRow)
-						html_table_end_row (table);
-					html_table_start_row (table);
-					firstRow = FALSE;
-					rowvalign = VNone;
-					rowhalign = None;
-
-					if (have_tableColor) {
-						rowColor = tableColor;
-						have_rowColor = TRUE;
-					} else {
-						have_rowColor = FALSE;
-					}
-
-					string_tokenizer_tokenize (e->st, str + 4, " >");
-					while (string_tokenizer_has_more_tokens (e->st)) {
-						const gchar *token = string_tokenizer_next_token (e->st);
-						if (strncasecmp (token, "valign=", 7) == 0) {
-							if (strncasecmp (token + 7, "top", 3) == 0)
-								rowvalign = Top;
-							else if (strncasecmp (token + 7, "bottom", 6) == 0)
-								rowvalign = Bottom;
-							else
-								rowvalign = VCenter;
-						}
-						else if (strncasecmp (token, "align", 6) == 0) {
-							if (strcasecmp (token + 6, "left") == 0)
-								rowhalign = Left;
-							else if (strcasecmp (token + 6, "right") == 0)
-								rowhalign = Right;
-							else if (strcasecmp (token + 6, "center") == 0)
-								rowhalign = HCenter;
-						}
-						else if (strncasecmp (token, "bgcolor=", 8) == 0) {
-							have_rowColor
-								= html_engine_set_named_color (e, &rowColor,
-															   token + 8);
-						}
-					}
-					break;
-				}
-
-				/* Check for <td> and <th> */
-				tableEntry = *str == '<' && *(str + 1) == 't' &&
-					(*(str + 2) == 'd' || *(str + 2) == 'h');
-				if (tableEntry || noCell) {
-					gboolean heading = FALSE;
-					noCell = FALSE;
-
-					if (*(str + 2) == 'h') {
-						g_print ("<th>");
-						heading = TRUE;
-					}
-					/* <tr> may not be specified for the first row */
-					if (firstRow) {
-						/* Bad HTML: No <tr> tag present */
-						html_table_start_row (table);
-						firstRow = FALSE;
-					}
-
-					rowSpan = 1;
-					colSpan = 1;
-					cellwidth = clue->max_width;
-					cellpercent = -1;
-					fixedWidth = FALSE;
-
-					if (have_rowColor) {
-						bgcolor = rowColor;
-						have_bgcolor = TRUE;
-					} else {
-						have_bgcolor = FALSE;
-					}
-
-					valign = (rowvalign == VNone ?
-							  VCenter : rowvalign);
-
-					if (heading)
-						e->divAlign = (rowhalign == None ? 
-									   HCenter: rowhalign);
-					else
-						e->divAlign = (rowhalign == None ?
-									   Left: rowhalign);
-
-					if (tableEntry) {
-						string_tokenizer_tokenize (e->st, str + 4, " >");
-						while (string_tokenizer_has_more_tokens (e->st)) {
-							const gchar *token = string_tokenizer_next_token (e->st);
-							if (strncasecmp (token, "rowspan=", 8) == 0) {
-								rowSpan = atoi (token + 8);
-								if (rowSpan < 1)
-									rowSpan = 1;
-							}
-							else if (strncasecmp (token, "colspan=", 8) == 0) {
-								colSpan = atoi (token + 8);
-								if (colSpan < 1)
-									colSpan = 1;
-							}
-							else if (strncasecmp (token, "valign=", 7) == 0) {
-								if (strncasecmp (token + 7, "top", 3) == 0)
-									valign = Top;
-								else if (strncasecmp (token + 7, "bottom", 6) == 0)
-									valign = Bottom;
-								else 
-									valign = VCenter;
-							}
-							else if (strncasecmp (token, "align=", 6) == 0) {
-								if (strcasecmp (token + 6, "center") == 0)
-									e->divAlign = HCenter;
-								else if (strcasecmp (token + 6, "right") == 0)
-									e->divAlign = Right;
-								else if (strcasecmp (token + 6, "left") == 0)
-									e->divAlign = Left;
-							}
-							else if (strncasecmp (token, "width=", 6) == 0) {
-								if (strchr (token + 6, '%')) {
-									g_print ("percent!\n");
-									cellpercent = atoi (token + 6);
-								}
-								else if (strchr (token + 6, '*')) {
-									/* ignore */
-								}
-								else if (isdigit (*(token + 6))) {
-									cellwidth = atoi (token + 6);
-									cellpercent = 0;
-									fixedWidth = TRUE;
-								}
-							}
-							else if (strncasecmp (token, "bgcolor=", 8) == 0) {
-								have_bgcolor
-									= html_engine_set_named_color (e, &bgcolor,
-																   token + 8);
-							}
-						}
-					}
-
-					cell = HTML_TABLE_CELL (html_table_cell_new (0, 0, cellwidth,
-																 cellpercent,
-																 rowSpan, colSpan,
-																 padding));
-					html_object_set_bg_color (HTML_OBJECT (cell),
-											  have_bgcolor ? &bgcolor : NULL);
-					HTML_CLUE (cell)->valign = valign;
-					if (fixedWidth)
-						HTML_OBJECT (cell)->flags |= HTML_OBJECT_FLAG_FIXEDWIDTH;
-					html_table_add_cell (table, cell);
-					has_cell = 1;
-					e->flow = 0;
-					if (heading) {
-						/* FIXME: do heading stuff */
-					}
-					if (!tableEntry) {
-						/* Put all the junk between <table>
-						   and the first table tag into one row */
-						html_engine_push_block (e, ID_TD, 3, NULL, 0, 0);
-						str = parse_body (e, HTML_OBJECT (cell), endall, FALSE);
-						html_engine_pop_block (e, ID_TD, HTML_OBJECT (cell));
-						html_table_end_row (table);
-						html_table_start_row (table);
-						
-					}
-					else {
-						/* Ignore <p> and such at the beginning */
-						e->vspace_inserted = TRUE;
-						html_engine_push_block (e, ID_TD, 3, NULL, 0, 0);
-						str = parse_body (e, HTML_OBJECT (cell), endthtd, FALSE);
-						html_engine_pop_block (e, ID_TD, HTML_OBJECT (cell));
-					}
-
-					if (str == 0) {
-						/* Close table description in case of
-						   a malformed table before returning! */
-						if (!firstRow)
-							html_table_end_row (table);
-						html_table_end_table (table);
-						/* FIXME: Destroy? */
-						g_free (table);
-						e->divAlign = olddivalign;
-						e->flow = HTML_OBJECT (oldflow);
-						/* FIXME: Destroy? */
-						g_free (tmpCell);
-						return 0;
-					}
-
-					if ((strncmp (str, "</td", 4) == 0) ||
-					    (strncmp (str, "</th", 4) == 0)) {
-						/* HTML ok! */
-						break; /* Get next token from 'ht' */
-					}
-					else {
-						/* Bad HTML */
-						continue;
-					}
-				}
-
-				/* Unknown or unhandled table-tag: ignore */
-				break;
-				
-			}
-		}
-	}
-		
-	/* Did we catch any illegal HTML */
-	if (tmpCell) {
-		if (!has_cell) {
-			if (firstRow) {
-				html_table_start_row (table);
-				firstRow = FALSE;
-			}
-			html_table_add_cell (table, tmpCell);
-			has_cell = 1;
-		}
-		else
-			/* FIXME: destroy? */
-			g_free (tmpCell);
-	}
-	
-	if (has_cell) {
-		/* The ending "</table>" might be missing, so
-		   we close the table here ... */
-		if (!firstRow)
-			html_table_end_row (table);
-		html_table_end_table (table);
-		if (align != Left && align != Right) {
-			html_clue_append (HTML_CLUE (clue), HTML_OBJECT (table));
-		}
-		else {
-			g_print ("Aligned!!!!!\n");
-			/* FIXME: Support for aligned tables */
-		}
-	}
-	else {
-		/* Remove tables that do not contain any cells */
-		/* FIXME: destroy? */
-		g_free (table);
-	}
-	
-	e->indent = oldindent;
-	e->divAlign = olddivalign;
-	e->flow = HTML_OBJECT (oldflow);
-
-	g_print ("Returning: %s\n", str);
-	return str;
-}
-
-
 static void
 parse_t (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 {
@@ -1341,7 +1658,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->parseFuncArray[0] = parse_a;
 	engine->parseFuncArray[1] = parse_b;
 	engine->parseFuncArray[2] = parse_c;
-	engine->parseFuncArray[3] = NULL;
+	engine->parseFuncArray[3] = parse_d;
 	engine->parseFuncArray[4] = parse_e;
 	engine->parseFuncArray[5] = parse_f;
 	engine->parseFuncArray[6] = NULL;
@@ -1448,7 +1765,7 @@ html_engine_begin (HTMLEngine *p, const char *url)
 	html_engine_free_block (p); /* Clear the block stack */
 
 	if (url != 0) {
-		char *ctmp, *ctmp2;
+		char *ctmp;
 
 		p->actualURL = html_engine_canonicalize_url(p, url);
 
@@ -1833,6 +2150,7 @@ html_engine_pop_font (HTMLEngine *e)
 	e->underline = html_font_stack_top (e->fs)->underline;
 }
 
+
 void
 html_engine_insert_text (HTMLEngine *e, gchar *str, HTMLFont *f)
 {
@@ -2009,6 +2327,19 @@ html_engine_block_end_list (HTMLEngine *e, HTMLObject *clue, HTMLStackElement *e
 	e->flow = 0;
 }
 
+void
+html_engine_block_end_indent (HTMLEngine *e, HTMLObject *clue, HTMLStackElement *elem)
+{
+    e->indent = elem->miscData1;
+    e->flow = 0;
+}
+
+void
+html_engine_block_end_div (HTMLEngine *e, HTMLObject *clue, HTMLStackElement *elem)
+{
+    e->divAlign =  (HAlignType) elem->miscData1;
+    e->flow = 0;
+}
 
 char *
 html_engine_canonicalize_url (HTMLEngine *e, const char *in_url)
