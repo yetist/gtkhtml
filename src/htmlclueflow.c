@@ -1099,7 +1099,8 @@ save (HTMLObject *self,
 	if (halign != HTML_HALIGN_NONE && halign != HTML_HALIGN_LEFT) {
 		if (! html_engine_save_output_string (state, "</DIV>\n"))
 			return FALSE;
-	} else if (tag != NULL) {
+	} else if (tag != NULL
+		   && HTML_CLUEFLOW (self)->style != HTML_CLUEFLOW_STYLE_PRE) {
 		if (! html_engine_save_output_string (state, "\n"))
 			return FALSE;
 	}

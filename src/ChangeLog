@@ -1,3 +1,9 @@
+2000-06-02  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlclueflow.c (save): Don't print a newline at the end when
+	style is HTML_CLUEFLOW_STYLE_PRE because that causes <pre> to
+	duplicate newlines.
+
 2000-06-02  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlengine.c (html_engine_update_event): remove debugging printf
