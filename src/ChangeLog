@@ -1,5 +1,9 @@
 2000-06-07  Radek Doulik  <rodo@helixcode.com>
 
+	* htmltextmaster.c (html_text_master_magic_link): use forward
+	match direction instead of backward so http://www.helixcode.com is
+	linked correctly (lewing, thanks for point that)
+
         * everywhere changed to use new colorsets
 	
 	* htmlsettings.c: colors part rewritten to use new colorsets

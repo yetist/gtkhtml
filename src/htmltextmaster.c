@@ -846,31 +846,24 @@ html_text_master_magic_link (HTMLTextMaster *master, HTMLEngine *engine,
 {
 	HTMLText *text = HTML_TEXT (master);
 	regmatch_t pmatch [2];
-	gint o = offset, i, rv = FALSE;
+	gint i;
+	gchar *prev;
 
-	do {
+	prev = text->text + offset - 1;
+	while (*prev != ' ' && (guchar)*prev != ENTITY_NBSP && prev > text->text) prev--;
+	if (*prev == ' ' || (guchar) *prev == ENTITY_NBSP)
+		prev++;
+
+	while (prev < text->text+offset) {
 		for (i=0; i<MIM_N; i++) {
-			if (mim [i].preg && !regexec (mim [i].preg, text->text + o, 2, pmatch, 0)) {
-
-				/* match */
-				do {
-					if (o
-					    && (guchar) text->text [o-1] != ENTITY_NBSP
-					    && text->text [o-1] != ' ')
-						o--;
-					else
-						break;
-				} while (!regexec (mim [i].preg, text->text + o, 2, pmatch, 0));
-
-				paste_link (engine, text, pmatch [0].rm_so + o, pmatch [0].rm_eo+o-1, mim [i].prefix);
-				rv = TRUE;
-				break;
+			if (!regexec (mim [i].preg, prev, 2, pmatch, 0)) {
+				gint o = prev - text->text;
+				paste_link (engine, text, pmatch [0].rm_so+o, pmatch [0].rm_eo+o-1, mim [i].prefix);
+				return TRUE;
 			}
 		}
-		if (!o)
-			break;
-		o--;
-	} while (1);
+		prev++;
+	}
 
-	return rv;
+	return FALSE;
 }
