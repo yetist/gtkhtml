@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.4.1\n"
-"POT-Creation-Date: 2001-12-16 03:37+0000\n"
-"PO-Revision-Date: 2001-12-16 03:30+0000\n"
+"Project-Id-Version: 2.0\n"
+"POT-Creation-Date: 2001-12-29 04:01+0000\n"
+"PO-Revision-Date: 2001-12-29 04:00+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <none@none.org>\n"
 "MIME-Version: 1.0\n"
@@ -339,7 +339,7 @@ msgid "Header _6"
 msgstr "Cabeçalho _6"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
-#: components/html-editor/editor-control-factory.c:186
+#: components/html-editor/editor-control-factory.c:188
 #: components/html-editor/gtkhtml-editor-properties.glade.h:36
 #: components/html-editor/menubar.c:106 components/html-editor/popup.c:166
 msgid "Image"
@@ -372,7 +372,7 @@ msgstr "Alinha parágrafos à esquerda"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
 #: components/html-editor/body.c:187
-#: components/html-editor/editor-control-factory.c:221
+#: components/html-editor/editor-control-factory.c:223
 #: components/html-editor/menubar.c:127 components/html-editor/popup.c:180
 msgid "Link"
 msgstr "Link"
@@ -510,7 +510,7 @@ msgid "Roman Numeral List"
 msgstr "Lista Numerada em Romanos"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
-#: components/html-editor/editor-control-factory.c:206
+#: components/html-editor/editor-control-factory.c:208
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
 #: components/html-editor/menubar.c:145 components/html-editor/popup.c:194
 msgid "Rule"
@@ -738,7 +738,7 @@ msgid "Automatic"
 msgstr "Automático"
 
 #: components/html-editor/body.c:186
-#: components/html-editor/editor-control-factory.c:195
+#: components/html-editor/editor-control-factory.c:197
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
 #: components/html-editor/menubar.c:122 components/html-editor/popup.c:159
 msgid "Text"
@@ -749,27 +749,27 @@ msgstr "Texto"
 msgid "Background"
 msgstr "Fundo"
 
-#: components/html-editor/editor-control-factory.c:176
+#: components/html-editor/editor-control-factory.c:178
 #: components/html-editor/popup.c:151
 msgid "Properties"
 msgstr "Propriedades"
 
-#: components/html-editor/editor-control-factory.c:216
+#: components/html-editor/editor-control-factory.c:218
 #: components/html-editor/popup.c:173
 msgid "Paragraph"
 msgstr "Parágrafo"
 
-#: components/html-editor/editor-control-factory.c:226
+#: components/html-editor/editor-control-factory.c:228
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
 #: components/html-editor/popup.c:187
 msgid "Page"
 msgstr "Página"
 
-#: components/html-editor/editor-control-factory.c:843
+#: components/html-editor/editor-control-factory.c:844
 msgid "Could not initialize GNORBA"
 msgstr "Incapaz de inicializar GNORBA"
 
-#: components/html-editor/editor-control-factory.c:856
+#: components/html-editor/editor-control-factory.c:857
 msgid "Could not initialize Bonobo"
 msgstr "Incapaz de inicializar Bonobo"
 
@@ -1172,7 +1172,7 @@ msgstr "Adicionar '%s' ao dicionário"
 msgid "Ignore '%s'"
 msgstr "Ignorar '%s'"
 
-#: components/html-editor/popup.c:373 components/html-editor/spell.c:419
+#: components/html-editor/popup.c:373 components/html-editor/spell.c:418
 msgid "Spell checker"
 msgstr "Verificador ortográfico"
 
@@ -1286,9 +1286,13 @@ msgstr "para trás"
 msgid "Find Regular Expression"
 msgstr "Procurar Expressão Regular"
 
-#: components/html-editor/spell.c:414
+#: components/html-editor/spell.c:413
 msgid "No misspelled word found"
 msgstr "Nenhuma palavra mal escrita encontrada"
+
+#: components/html-editor/spell.c:490
+msgid "_Languages"
+msgstr "_Idiomas"
 
 #: components/html-editor/table.c:198
 msgid "Flat gray"
