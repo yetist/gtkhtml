@@ -176,6 +176,7 @@ void  gtk_html_calc_scrollbars  (GtkHTML *html);
 void  gtk_html_set_paragraph_style  (GtkHTML               *html,
 				     GtkHTMLParagraphStyle  style);
 void  gtk_html_set_font_style       (GtkHTML               *html,
-				     GtkHTMLFontStyle       style);
+				     GtkHTMLFontStyle       and_mask,
+				     GtkHTMLFontStyle       or_mask);
 
 #endif /* _GTKHTML_H_ */

@@ -1079,12 +1079,11 @@ gtk_html_set_paragraph_style (GtkHTML *html,
 
 void
 gtk_html_set_font_style (GtkHTML *html,
-			 GtkHTMLFontStyle style)
+			 GtkHTMLFontStyle and_mask,
+			 GtkHTMLFontStyle or_mask)
 {
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
 
-	/* FIXME precondition: check if it's a valid style.  */
-
-	html_engine_set_font_style (html->engine, style);
+	html_engine_set_font_style (html->engine, and_mask, or_mask);
 }

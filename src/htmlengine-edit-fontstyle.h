@@ -27,6 +27,7 @@
 
 GtkHTMLFontStyle  html_engine_get_current_insertion_font_style  (HTMLEngine       *engine);
 void              html_engine_set_font_style                    (HTMLEngine       *engine,
-								 GtkHTMLFontStyle  style);
+								 GtkHTMLFontStyle  and_mask,
+								 GtkHTMLFontStyle  or_mask);
 
 #endif

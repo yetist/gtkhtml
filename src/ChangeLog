@@ -1,5 +1,13 @@
 2000-02-21  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine-edit-fontstyle.c (html_engine_set_font_style):
+	Changed parameters: get an AND mask and an OR mask for modifying
+	the style.
+	(set_font_style_in_selection_forall): Use a SetFontStyleForallData
+	closure, so that we can store both masks.
+	(set_font_style_in_selection): Likewise.
+	* gtkhtml.c (gtk_html_set_font_style): Likewise.
+
 	* htmltextmaster.c (merge): Completed code to preserve selection
 	when merging.
 	(split): Preserve selection here too.

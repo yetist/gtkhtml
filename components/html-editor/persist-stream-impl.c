@@ -21,8 +21,8 @@
     Author: Ettore Perazzoli <ettore@helixcode.com>
 */
 
-/* This file implements the Bonobo::PersistStream interface for the GtkHTML
-   component.  */
+/* This file implements the Bonobo::PersistStream interface for the HTML editor
+   control.  */
 
 #include <config.h>
 

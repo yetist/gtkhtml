@@ -38,7 +38,7 @@ static GnomeUIInfo format_subtree_info[] = {
 };
 
 static GnomeUIInfo menu_info[] = {
-	GNOMEUIINFO_SUBTREE (N_("_Format"), format_subtree_info),
+	GNOMEUIINFO_SUBTREE (N_("F_ormat"), format_subtree_info),
 	GNOMEUIINFO_END
 };
 

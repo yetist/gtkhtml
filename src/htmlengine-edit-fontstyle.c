@@ -25,10 +25,17 @@
 #include "htmlengine-edit-fontstyle.h"
 
 
+struct _SetFontStyleForallData {
+	GtkHTMLFontStyle and_mask;
+	GtkHTMLFontStyle or_mask;
+};
+typedef struct _SetFontStyleForallData SetFontStyleForallData;
+
 static void
 set_font_style_in_selection_forall (HTMLObject *self,
 				    gpointer closure)
 {
+	SetFontStyleForallData *data;
 	GtkHTMLFontStyle font_style;
 	GtkHTMLFontStyle last_font_style;
 	HTMLTextMaster *master;
@@ -41,7 +48,9 @@ set_font_style_in_selection_forall (HTMLObject *self,
 	if (! html_object_is_text (self))
 		return;
 
-	font_style = GPOINTER_TO_INT (closure);
+	data = (SetFontStyleForallData *) closure;
+
+	font_style = (HTML_TEXT (self)->font_style & data->and_mask) | data->or_mask;
 	if (font_style == HTML_TEXT (self)->font_style)
 		return;
 
@@ -104,13 +113,20 @@ set_font_style_in_selection_forall (HTMLObject *self,
 
 static void
 set_font_style_in_selection (HTMLEngine *engine,
-			     GtkHTMLFontStyle style)
+			     GtkHTMLFontStyle and_mask,
+			     GtkHTMLFontStyle or_mask)
 {
+	SetFontStyleForallData *data;
+
 	g_return_if_fail (engine->clue != NULL);
 
-	html_object_forall (engine->clue,
-			    set_font_style_in_selection_forall,
-			    GINT_TO_POINTER (style));
+	data = g_new (SetFontStyleForallData, 1);
+	data->and_mask = and_mask;
+	data->or_mask = or_mask;
+
+	html_object_forall (engine->clue, set_font_style_in_selection_forall, data);
+
+	g_free (data);
 }
 
 
@@ -135,7 +151,7 @@ html_engine_get_current_insertion_font_style (HTMLEngine *engine)
 }
 
 /**
- * html_engine_set_fontstyle:
+ * html_engine_set_font_style:
  * @engine: An HTMLEngine
  * @style: An HTMLFontStyle
  * 
@@ -147,10 +163,14 @@ html_engine_get_current_insertion_font_style (HTMLEngine *engine)
  * - If there is no selection, the style gets "attached" to the cursor.  So
  *   inserting text after this will cause text to have this style.
  *
+ * Instead of specifying an "absolute" style, we specify it as a "difference"
+ * from the current one, through an AND mask and an OR mask.
+ *
  **/
 void
 html_engine_set_font_style (HTMLEngine *engine,
-			    GtkHTMLFontStyle style)
+			    GtkHTMLFontStyle and_mask,
+			    GtkHTMLFontStyle or_mask)
 {
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
@@ -158,10 +178,11 @@ html_engine_set_font_style (HTMLEngine *engine,
 
 	if (engine->active_selection) {
 		html_engine_freeze (engine);
-		set_font_style_in_selection (engine, style);
+		set_font_style_in_selection (engine, and_mask, or_mask);
 		html_engine_thaw (engine);
 		return;
 	}
 
-	engine->insertion_font_style = style;
+	engine->insertion_font_style &= and_mask;
+	engine->insertion_font_style |= or_mask;
 }

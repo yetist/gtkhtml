@@ -1,3 +1,11 @@
+2000-02-21  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* toolbar.c (editor_toolbar_bold_cb): Use the new style mask
+	system.
+	(editor_toolbar_italic_cb): Likewise.
+	(editor_toolbar_underline_cb): Likewise.
+	(editor_toolbar_strikeout_cb): Likewise.
+
 2000-02-16  Dan Winship  <danw@helixcode.com>
 
 	* editor-control-factory.c (editor_control_factory): Update for

@@ -123,25 +123,66 @@ setup_paragraph_style_option_menu (GtkHTML *html)
 
 
 /* Toolbar button callbacks.  */
+/* GnomeUIInfo sucks.  */
 
 static void
-editor_toolbar_bold_cb (gpointer data)
+editor_toolbar_bold_cb (GtkWidget *widget,
+			gpointer data)
 {
+	gboolean active;
+
+	active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
+	if (active)
+		gtk_html_set_font_style (GTK_HTML (data),
+					 GTK_HTML_FONT_STYLE_MAX,
+					 GTK_HTML_FONT_STYLE_BOLD);
+	else
+		gtk_html_set_font_style (GTK_HTML (data), ~GTK_HTML_FONT_STYLE_BOLD, 0);
 }
 
 static void
-editor_toolbar_italic_cb (gpointer data)
+editor_toolbar_italic_cb (GtkWidget *widget,
+			  gpointer data)
 {
+	gboolean active;
+
+	active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
+	if (active)
+		gtk_html_set_font_style (GTK_HTML (data),
+					 GTK_HTML_FONT_STYLE_MAX,
+					 GTK_HTML_FONT_STYLE_ITALIC);
+	else
+		gtk_html_set_font_style (GTK_HTML (data), ~GTK_HTML_FONT_STYLE_ITALIC, 0);
 }
 
 static void
-editor_toolbar_underline_cb (gpointer data)
+editor_toolbar_underline_cb (GtkWidget *widget,
+			     gpointer data)
 {
+	gboolean active;
+
+	active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
+	if (active)
+		gtk_html_set_font_style (GTK_HTML (data),
+					 GTK_HTML_FONT_STYLE_MAX,
+					 GTK_HTML_FONT_STYLE_UNDERLINE);
+	else
+		gtk_html_set_font_style (GTK_HTML (data), ~GTK_HTML_FONT_STYLE_UNDERLINE, 0);
 }
 
 static void
-editor_toolbar_strikeout_cb (gpointer data)
+editor_toolbar_strikeout_cb (GtkWidget *widget,
+			     gpointer data)
 {
+	gboolean active;
+
+	active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
+	if (active)
+		gtk_html_set_font_style (GTK_HTML (data),
+					 GTK_HTML_FONT_STYLE_MAX,
+					 GTK_HTML_FONT_STYLE_STRIKEOUT);
+	else
+		gtk_html_set_font_style (GTK_HTML (data), ~GTK_HTML_FONT_STYLE_STRIKEOUT, 0);
 }
 
 
