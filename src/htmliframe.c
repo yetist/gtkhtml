@@ -244,6 +244,18 @@ html_iframe_init (HTMLIFrame *iframe,
 
 	gtk_widget_set_usize (scrolled_window, width, height);
 
+	/* 
+	   FIXME: huge hack to get the widget to allocate it's size 
+	   before it is actually drawn.  Place it in the gtklayout but offscreen
+	   it will be moved to the proper place in the draw routine, but it's size
+	   allocation needs to happen now.
+	*/
+	gtk_layout_put(GTK_LAYOUT(parent_html), scrolled_window,
+		       10000, 10000);
+	HTML_EMBEDDED (iframe)->abs_x = 10000;
+	HTML_EMBEDDED (iframe)->abs_y = 10000;
+	gtk_widget_show (scrolled_window);			
+	
 	iframe->scroll = scrolled_window;
 
 	html_embedded_set_widget (em, scrolled_window);	

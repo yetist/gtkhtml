@@ -1,3 +1,8 @@
+2000-06-14  Larry Ewing  <lewing@helixcode.com>
+
+	* htmliframe.c (html_iframe_init): place the widget offscreen
+	initialy so that it can size allocate.
+
 2000-06-15  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml-properties.c (gtk_html_class_properties_load): use val
