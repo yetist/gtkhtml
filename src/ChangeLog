@@ -1,5 +1,8 @@
 2000-04-08  Larry Ewing  <lewing@helixcode.com>
 
+	* htmlengine.c (parse_table): change the default alignment for
+	percent and fixed width cells to HTML_HALIGN_CENTER.
+
 	* htmlimage.c (html_image_animation_stop): change argument to HTMLImageAnimation.
 	(html_image_animation_destroy): call html_image_animation_stop
 	before we destroy the animation so we don't get a stray timeout.
