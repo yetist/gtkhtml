@@ -175,6 +175,22 @@ pop_color (HTMLEngine *e)
 	html_stack_pop (e->color_stack);
 }
 
+static gboolean
+parse_color (const gchar *text,
+	     GdkColor *color)
+{
+	gchar *tmp;
+
+	if (gdk_color_parse (text, color))
+		return TRUE;
+
+	tmp = alloca (strlen (text) + 2);
+	*tmp = '#';
+	strcpy (tmp + 1, text);
+
+	return gdk_color_parse (tmp, color);
+}
+
 
 /* ClueFlow style handling.  */
 
@@ -700,7 +716,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 		}
 		else if (strncasecmp (token, "bgcolor=", 8) == 0
 			 && !e->defaultSettings->forceDefault) {
-			if (gdk_color_parse (token + 8, &tableColor)) {
+			if (parse_color (token + 8, &tableColor)) {
 				rowColor = tableColor;
 				have_rowColor = have_tableColor = TRUE;
 			}
@@ -828,7 +844,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 							else if (strcasecmp (token + 6, "center") == 0)
 								rowhalign = HTML_HALIGN_CENTER;
 						} else if (strncasecmp (token, "bgcolor=", 8) == 0) {
-							have_rowColor = gdk_color_parse (token + 8, &rowColor);
+							have_rowColor = parse_color (token + 8, &rowColor);
 						} else if (strncasecmp (token, "background=", 11) == 0
 							   && !e->defaultSettings->forceDefault) {
 							rowPixmapPtr = html_image_factory_register(e->image_factory, NULL, token + 11);
@@ -939,7 +955,8 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 							}
 							else if (strncasecmp (token, "bgcolor=", 8) == 0
 								 && !e->defaultSettings->forceDefault) {
-								have_bgColor = gdk_color_parse (token + 8, &bgColor);
+								have_bgColor = parse_color (token + 8,
+											    &bgColor);
 							}
 							else if (strncasecmp (token, "nowrap", 6) == 0) {
 
@@ -1440,7 +1457,7 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 			if (strncasecmp (token, "bgcolor=", 8) == 0) {
 				g_print ("setting color\n");
-				if (gdk_color_parse (token + 8, &bgColor)) {
+				if (parse_color (token + 8, &bgColor)) {
 					g_print ("bgcolor is set\n");
 					bgColorSet = TRUE;
 				} else {
@@ -1460,17 +1477,17 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 			} else if ( strncasecmp( token, "text=", 5 ) == 0
 				    && !e->defaultSettings->forceDefault ) {
-				if (gdk_color_parse (token + 5, &e->settings->fontBaseColor)) {
+				if (parse_color (token + 5, &e->settings->fontBaseColor)) {
 					if (! html_stack_is_empty (e->color_stack))
 						pop_color (e);
 					push_color (e, gdk_color_copy (&e->settings->fontBaseColor));
 				}
 			} else if ( strncasecmp( token, "link=", 5 ) == 0
 				    && !e->defaultSettings->forceDefault ) {
-				gdk_color_parse (token + 5, &e->settings->linkColor);
+				parse_color (token + 5, &e->settings->linkColor);
 			} else if ( strncasecmp( token, "vlink=", 6 ) == 0
 				    && !e->defaultSettings->forceDefault ) {
-				gdk_color_parse (token + 6, &e->settings->linkColor);
+				parse_color (token + 6, &e->settings->linkColor);
 			}
 		}
 #if 0
@@ -1738,7 +1755,7 @@ parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 					newSize = HTML_FONT_STYLE_SIZE_1;
 			} else if (strncasecmp (token, "face=", 5) == 0) {
 			} else if (strncasecmp (token, "color=", 6) == 0) {
-				gdk_color_parse (token + 6, color);
+				parse_color (token + 6, color);
 			}
 		}
 

@@ -134,8 +134,8 @@ html_tokenizer_next_token_buffer (HTMLTokenizer *t)
 gboolean
 html_tokenizer_has_more_tokens (HTMLTokenizer *t)
 {
-	if (!html_blocking_token_is_empty (t) &&
-	    (html_blocking_token_get_first (t))->tok == t->curr)
+	if (!html_blocking_token_is_empty (t)
+	    && (html_blocking_token_get_first (t))->tok == t->curr)
 		return FALSE;
 
 	return ((t->curr != 0 ) && (t->curr != t->next));

@@ -1,5 +1,11 @@
 2000-01-28  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine.c (parse_color): New function to parse colors.  If
+	`gdk_color_parse()' fails, it prepends a `#' and tries again.
+	(parse_table): Use `parse_color()' instead of `gdk_color_parse()'.
+	(parse_b): Likewise.
+	(parse_f): Likewise.
+
 	* htmltokenizer.c (html_tokenizer_new): Initialize all the members
 	of the struct individually.
 
