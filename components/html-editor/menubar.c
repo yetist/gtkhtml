@@ -218,7 +218,7 @@ indent_less_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cnam
 static void 
 spell_check_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
-	spell_check_document (cd);
+	spell_check_dialog (cd, TRUE);
 }
 
 BonoboUIVerb verbs [] = {

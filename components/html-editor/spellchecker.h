@@ -39,7 +39,8 @@ void                spell_add_to_session      (GtkHTML            *html,
 void                spell_add_to_personal     (GtkHTML            *html,
 					       const gchar        *word,
 					       gpointer            data);
-void                spell_check_document      (GtkHTMLControlData *cd);
+void                spell_check_dialog        (GtkHTMLControlData *cd,
+					       gboolean            whole_document);
 gboolean            spell_has_control         (void);
 
 #endif

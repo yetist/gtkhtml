@@ -1,3 +1,24 @@
+2001-09-14  Radek Doulik  <rodo@ximian.com>
+
+	* spell.c (spell_check_dialog): show ok dialog when there aren't
+	misspelled words
+
+	* popup.c (prepare_properties_and_menu): renamed spell checking
+	item to _("Check '%s' spelling..."), word
+
+	* GNOME_GtkHTML_Editor.xml.in: renamed spell checking item to
+	"_Spell check document..."
+
+	* spell.c (check_next_word): check next word only when
+	cd->spell_check_next is TRUE and there is next word to check
+
+	* control-data.h: added spell_check_next flag
+
+	* menubar.c (spell_check_cb): spell check whole document
+
+	* spell.c (spell_check_document): on start, go to begin of
+	document
+
 2001-09-13  Radek Doulik  <rodo@ximian.com>
 
 	* popup.c (spell_add): use html_engine_spell_check

@@ -15,7 +15,7 @@
 
 			<cmd name="EditSelectAll" _label="Select _All"
 			_tip="Select the entire contents of the document"/>
-			<cmd name="EditSpellCheck" _label="Check _spelling..."
+			<cmd name="EditSpellCheck" _label="_Spell check document..."
 			_tip="Check spelling of the document"/>
 			<cmd name="EditProperties" _label="Pr_operties..." _tip="Modify the file's properties"/>
 

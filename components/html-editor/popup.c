@@ -232,7 +232,7 @@ spell_suggest (GtkWidget *mi, GtkHTMLControlData *cd)
 static void
 spell_check_cb (GtkWidget *mi, GtkHTMLControlData *cd)
 {
-	spell_check_document (cd);
+	spell_check_dialog (cd, FALSE);
 }
 
 static void
@@ -332,14 +332,15 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 #endif
 
 	if (!html_engine_is_selection_active (e) && obj && html_object_is_text (obj) && !html_engine_word_is_valid (e)) {
-		gchar *word, *ignore, *add;
+		gchar *spell, *word, *ignore, *add;
 
 		word   = html_engine_get_word (e);
+		spell  = g_strdup_printf (_("Check '%s' spelling..."), word);
 		add    = g_strdup_printf (_("Add '%s' to dictionary"), word);
 		ignore = g_strdup_printf (_("Ignore '%s'"), word);
 		SUBMENU (N_("Spell checker"));
 		if (cd->has_spell_control) {
-			ADD_ITEM (_("Check spelling..."), spell_check_cb, NONE);
+			ADD_ITEM (spell, spell_check_cb, NONE);
 		} else {
 			ADD_ITEM (_("Suggest word"), spell_suggest, NONE);
 		}
@@ -347,6 +348,7 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 		ADD_ITEM (ignore, spell_ignore, NONE);
 		END_SUBMENU;
 
+		g_free (spell);
 		g_free (add);
 		g_free (ignore);
 		g_free (word);

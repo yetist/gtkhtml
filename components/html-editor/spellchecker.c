@@ -26,6 +26,7 @@
 #include "htmlclueflow.h"
 #include "htmlcursor.h"
 #include "htmlengine.h"
+#include "htmlengine-edit-cursor.h"
 #include "htmlengine-edit-movement.h"
 #include "htmlengine-edit-selection-updater.h"
 #include "htmlobject.h"
@@ -269,7 +270,7 @@ check_next_word (GtkHTMLControlData *cd, gboolean update)
 	if (update)
 		html_engine_spell_check (e);
 
-	if (next_word (cd)) {
+	if (!cd->spell_check_next || next_word (cd)) {
 		gnome_dialog_close (GNOME_DIALOG (cd->spell_dialog));
 	} else {
 		set_word (cd);
@@ -341,14 +342,29 @@ spell_has_control ()
 }
 
 void
-spell_check_document (GtkHTMLControlData *cd)
+spell_check_dialog (GtkHTMLControlData *cd, gboolean whole_document)
 {
 	GtkWidget *control;
 	GtkWidget *dialog;
+	guint position;
+
+	position = cd->html->engine->cursor->position;
+	cd->spell_check_next = whole_document;
+	if (whole_document) {
+		html_engine_disable_selection (cd->html->engine);
+		html_engine_beginning_of_document (cd->html->engine);
+	}
 
 	if (html_engine_word_is_valid (cd->html->engine))
-		if (next_word (cd))
+		if (next_word (cd)) {
+			html_engine_hide_cursor (cd->html->engine);
+			html_cursor_jump_to_position (cd->html->engine->cursor, cd->html->engine, position);
+			html_engine_show_cursor (cd->html->engine);
+
+			gnome_ok_dialog (_("No misspelled word found"));
+
 			return;
+		}
 
 	dialog  = gnome_dialog_new (_("Spell checker"), GNOME_STOCK_BUTTON_CLOSE, NULL);
 	control = bonobo_widget_new_control (CONTROL_IID, CORBA_OBJECT_NIL);
