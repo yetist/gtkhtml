@@ -59,7 +59,8 @@ fill_sample (GtkHTMLEditParagraphProperties *d)
 			     style,
 			     align,
 			     /* string marked for translations is sample text. you may want to translate it to common sample text in your language */
-			     _("The quick brown fox jumps over the lazy dog.</div>"),
+			     _("The quick brown fox jumps over the lazy dog."),
+			     "</div>",
 			     NULL);
 
 	gtk_html_load_from_string (d->sample, body, -1);
