@@ -7,6 +7,8 @@
 
 2002-11-06  Radek Doulik  <rodo@ximian.com>
 
+	* htmlgdkpainter.c: use lower level pango iface
+
 	* libgtkhtml.pc.in (gtkhtml_datadir): added gtkhtml_datadir
 	(NotZed)
 
