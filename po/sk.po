@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD.sk\n"
-"POT-Creation-Date: 2003-03-05 16:02-0600\n"
+"POT-Creation-Date: 2003-03-06 16:02+0100\n"
 "PO-Revision-Date: 2003-01-23 23:01+0100\n"
 "Last-Translator: Stanislav Visnovsky <visnovsky@kde.org>\n"
 "Language-Team: Slovak <sk-i18n@linux.sk>\n"
