@@ -26,6 +26,7 @@
 
 #define HTML_FRAME(x) ((HTMLFrame *)(x))
 #define HTML_FRAME_CLASS(x) ((HTMLFrameClass *)(x))
+#define HTML_IS_FRAME(x) (HTML_CHECK_TYPE ((x), HTML_TYPE_FRAME))
 
 struct _HTMLFrame {
 	HTMLEmbedded embedded;

@@ -41,6 +41,8 @@
 #include "htmlengine-edit-selection-updater.h"
 #include "htmlengine-print.h"
 #include "htmlengine-save.h"
+#include "htmlframe.h"
+#include "htmliframe.h"
 #include "htmlimage.h"
 #include "htmlplainpainter.h"
 #include "htmlsettings.h"
@@ -3445,10 +3447,23 @@ gtk_html_insert_html (GtkHTML *html, const gchar *html_src)
 	gtk_widget_destroy (window);
 }
 
+static void
+set_magnification (HTMLObject *o, HTMLEngine *e, gpointer data)
+{
+	if (HTML_IS_FRAME (o)) {
+		html_font_manager_set_magnification (&GTK_HTML (HTML_FRAME (o)->html)->engine->painter->font_manager,
+						     *(gdouble *) data);
+	} else if (HTML_IS_IFRAME (o)) {
+		html_font_manager_set_magnification (&GTK_HTML (HTML_IFRAME (o)->html)->engine->painter->font_manager,
+						     *(gdouble *) data);
+	}
+}
+
 void
 gtk_html_set_magnification (GtkHTML *html, gdouble magnification)
 {
 	if (magnification > 0.05 && magnification < 20.0) {
+		html_object_forall (html->engine->clue, html->engine, set_magnification, &magnification);
 		html_font_manager_set_magnification (&html->engine->painter->font_manager, magnification);
 		html_object_change_set_down (html->engine->clue, HTML_CHANGE_ALL);
 		html_engine_schedule_update (html->engine);
