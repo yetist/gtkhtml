@@ -32,25 +32,16 @@ static void
 queue_draw_for_cursor (HTMLEngine *e)
 {
 	HTMLObject *current;
-	HTMLType type;
 
 	current = e->cursor->object;
 	if (current == NULL)
 		return;
 
-	type = HTML_OBJECT_TYPE (current);
-
-	/* FIXME this sucks -- we need an `is_a()' function.  */
-
-	if (type == HTML_TYPE_TEXT
-	    || type == HTML_TYPE_TEXTMASTER
-	    || type == HTML_TYPE_LINKTEXT
-	    || type == HTML_TYPE_LINKTEXTMASTER) {
+	if (html_object_is_text (current))
 		html_text_queue_draw (HTML_TEXT (current),
 				      e,
 				      e->cursor->offset,
 				      1);
-	}
 }
 
 void
@@ -93,29 +84,26 @@ html_engine_move_cursor (HTMLEngine *e,
 }
 
 
+/* FIXME This should actually do a lot more.  */
 void
 html_engine_insert (HTMLEngine *e,
 		    const gchar *text,
 		    guint len)
 {
 	HTMLObject *current_object;
-	HTMLType type;
 
 	g_return_if_fail (e != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (e));
 	g_return_if_fail (text != NULL);
 
 	if (len == 0)
 		return;
 
 	current_object = e->cursor->object;
-	type = HTML_OBJECT_TYPE (current_object);
 
-	if (type != HTML_TYPE_TEXT
-	    && type != HTML_TYPE_TEXTMASTER
-	    && type != HTML_TYPE_LINKTEXT
-	    && type != HTML_TYPE_LINKTEXTMASTER) {
+	if (! html_object_is_text (current_object)) {
 		g_warning ("Cannot insert text in object of type `%s'",
-			   html_type_name (type));
+			   html_type_name (HTML_OBJECT_TYPE (current_object)));
 		return;
 	}
 
@@ -129,22 +117,18 @@ html_engine_delete (HTMLEngine *e,
 		    guint count)
 {
 	HTMLObject *current_object;
-	HTMLType type;
 
 	g_return_if_fail (e != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	if (count == 0)
 		return;
 
 	current_object = e->cursor->object;
-	type = HTML_OBJECT_TYPE (current_object);
 
-	if (type != HTML_TYPE_TEXT
-	    && type != HTML_TYPE_TEXTMASTER
-	    && type != HTML_TYPE_LINKTEXT
-	    && type != HTML_TYPE_LINKTEXTMASTER) {
+	if (! html_object_is_text (current_object)) {
 		g_warning ("Cannot remove text in object of type `%s'",
-			   html_type_name (type));
+			   html_type_name (HTML_OBJECT_TYPE (current_object)));
 		return;
 	}
 

@@ -92,20 +92,6 @@ is_clue (HTMLObject *object)
 		|| type == HTML_TYPE_CLUEH || type == HTML_TYPE_CLUEFLOW);
 }
 
-static gboolean
-is_text (HTMLObject *object)
-{
-	HTMLType type;
-
-	type = HTML_OBJECT_TYPE (object);
-
-	return (type == HTML_TYPE_TEXTMASTER
-		|| type == HTML_TYPE_TEXT
-		|| type == HTML_TYPE_LINKTEXTMASTER
-		|| type == HTML_TYPE_LINKTEXT
-		|| type == HTML_TYPE_TEXTSLAVE);
-}
-
 static HTMLObject *
 next (HTMLObject *object)
 {
@@ -167,7 +153,7 @@ forward (HTMLCursor *cursor,
 	offset = cursor->offset;
 	obj = cursor->object;
 
-	if (is_text (obj)) {
+	if (html_object_is_text (obj)) {
 		switch (HTML_OBJECT_TYPE (obj)) {
 		case HTML_TYPE_TEXT:
 		case HTML_TYPE_LINKTEXT:
@@ -195,7 +181,7 @@ forward (HTMLCursor *cursor,
 		obj = next (obj);
 		offset = 0;
 
-		while (obj != NULL && is_text (obj)) {
+		while (obj != NULL && html_object_is_text (obj)) {
 			if (HTML_OBJECT_TYPE (obj) != HTML_TYPE_TEXTMASTER
 			    && HTML_OBJECT_TYPE (obj) != HTML_TYPE_LINKTEXTMASTER) {
 				obj = next (obj);
@@ -203,6 +189,10 @@ forward (HTMLCursor *cursor,
 				goto end;
 			}
 		}
+	} else if (! is_clue (obj)) {
+		/* Objects that are not a clue or text are always skipped, as
+                   they are a unique non-splittable element.  */
+		obj = next (obj);
 	}
 
 	/* No more text.  Traverse the tree in top-bottom, left-right order
@@ -214,8 +204,7 @@ forward (HTMLCursor *cursor,
 			continue;
 		}
 
-		if (is_text (obj)
-		    && HTML_OBJECT_TYPE (obj) != HTML_TYPE_TEXTSLAVE)
+		if (html_object_accepts_cursor (obj))
 			break;
 
 		obj = next (obj);
@@ -253,7 +242,7 @@ backward (HTMLCursor *cursor,
 	offset = cursor->offset;
 	obj = cursor->object;
 
-	if (is_text (obj)) {
+	if (html_object_is_text (obj)) {
 		switch (HTML_OBJECT_TYPE (obj)) {
 		case HTML_TYPE_TEXT:
 		case HTML_TYPE_LINKTEXT:
@@ -276,7 +265,6 @@ backward (HTMLCursor *cursor,
 	}
 
 	while (obj != NULL) {
-
 		while (obj != NULL && obj->prev == NULL)
 			obj = obj->parent;
 
@@ -292,13 +280,13 @@ backward (HTMLCursor *cursor,
 			}
 		}
 
-		if (is_text (obj)) {
+		if (html_object_is_text (obj)) {
 			switch (HTML_OBJECT_TYPE (obj)) {
 			case HTML_TYPE_TEXT:
 			case HTML_TYPE_LINKTEXT:
 			case HTML_TYPE_TEXTMASTER:
 			case HTML_TYPE_LINKTEXTMASTER:
-			offset = strlen (HTML_TEXT (obj)->text);
+				offset = strlen (HTML_TEXT (obj)->text);
 				goto end;
 
 			case HTML_TYPE_TEXTSLAVE:
@@ -310,6 +298,8 @@ backward (HTMLCursor *cursor,
 			default:
 				g_assert_not_reached ();
 			}
+		} else if (html_object_accepts_cursor (obj)) {
+			break;
 		}
 	}
 
@@ -351,8 +341,11 @@ html_cursor_up (HTMLCursor *cursor,
 
 	orig_cursor = *cursor;
 
-	html_text_calc_char_position (HTML_TEXT (cursor->object),
-				      cursor->offset, &x, &y);
+	if (html_object_is_text (cursor->object))
+		html_text_calc_char_position (HTML_TEXT (cursor->object),
+					      cursor->offset, &x, &y);
+	else
+		html_object_calc_abs_position (cursor->object, &x, &y);
 
 	if (! cursor->have_target_x) {
 		cursor->target_x = x;
@@ -372,9 +365,11 @@ html_cursor_up (HTMLCursor *cursor,
 
 		backward (cursor, engine);
 
-		/* This assumes that we are on an HTMLText object.  FIXME?  */
-		html_text_calc_char_position (HTML_TEXT (cursor->object),
-					      cursor->offset, &x, &y);
+		if (html_object_is_text (cursor->object))
+			html_text_calc_char_position (HTML_TEXT (cursor->object),
+						      cursor->offset, &x, &y);
+		else
+			html_object_calc_abs_position (cursor->object, &x, &y);
 
 		if (html_cursor_equal (&prev_cursor, cursor)) {
 			*cursor = orig_cursor;
@@ -428,8 +423,12 @@ html_cursor_down (HTMLCursor *cursor,
 		return;
 	}
 
-	html_text_calc_char_position (HTML_TEXT (cursor->object),
-				      cursor->offset, &x, &y);
+	if (html_object_is_text (cursor->object))
+		html_text_calc_char_position (HTML_TEXT (cursor->object),
+					      cursor->offset, &x, &y);
+	else
+		html_object_calc_abs_position (cursor->object, &x, &y);
+
 
 	if (! cursor->have_target_x) {
 		cursor->target_x = x;
@@ -449,9 +448,12 @@ html_cursor_down (HTMLCursor *cursor,
 
 		forward (cursor, engine);
 
-		/* This assumes that we are on an HTMLText object.  FIXME?  */
-		html_text_calc_char_position (HTML_TEXT (cursor->object),
-					      cursor->offset, &x, &y);
+		if (html_object_is_text (cursor->object))
+			html_text_calc_char_position (HTML_TEXT (cursor->object),
+						      cursor->offset, &x, &y);
+		else
+			html_object_calc_abs_position (cursor->object, &x, &y);
+
 
 		if (html_cursor_equal (&prev_cursor, cursor)) {
 			*cursor = orig_cursor;

@@ -1,3 +1,48 @@
+1999-12-29  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlrule.c (accepts_cursor): New function, implementation of
+	`HTMLObject::accepts_cursor'.  This returns TRUE so that you can
+	now put the cursor on a rule.
+	(html_rule_class_init): Install it.
+
+	* htmlcursor.c (forward): Use `html_object_accepts_cursor()'.
+	(backward): Likewise.
+	(html_cursor_up): Deal with non-HTMLText objects.
+	(html_cursor_down): Likewise.
+
+	* htmltext.c (accepts_cursor): New function, implementation of
+	`HTMLObject::accepts_cursor'.
+	(html_text_class_init): Install it.
+
+	* htmlobject.c (html_object_accepts_cursor): New function.
+	(accepts_cursor): New function, default implementation for the
+	`accepts_cursor' virtual method.
+	(html_object_class_init): Install it.
+
+	* htmlobject.h: New virtual method `accepts_cursor'.
+
+	* htmlengine.c (html_engine_get_type): Removed prototype here.
+	* htmlengine.h (html_engine_get_type): Moved here.
+
+	* htmlengine-edit.c (queue_draw_for_cursor): Use
+	`html_object_is_text()'.
+	(html_engine_insert): Likewise.
+
+	* htmlcursor.c (is_text): Removed.
+	(forward): Use `html_object_is_text()' instead.
+	(backward): Likewise.
+
+	* htmlobject.c (html_object_is_text): New function.  Ugliest thing
+	on Earth, but cheap and working for now.
+
+	* htmlengine-edit.c (html_engine_delete): Added precondition:
+	check that `e' is an HTMLEngine.
+	(html_engine_insert): Likewise.
+
+	* htmlengine.h (IS_HTML_ENGINE): Renamed to `HTML_IS_ENGINE'.
+	(IS_HTML_ENGINE_CLASS): Renamed to `HTML_IS_ENGINE_CLASS'.
+	(TYPE_HTML_ENGINE): Renamed to `HTML_TYPE_ENGINE'.
+
 1999-12-28  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlpainter.c (html_painter_draw_cursor): Fix the cursor height:

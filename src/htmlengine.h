@@ -42,12 +42,11 @@ typedef struct _HTMLEngineClass HTMLEngineClass;
 #include "htmlurl.h"
 #include "stringtokenizer.h"
 
-/* FIXME wrong names.  */
-#define TYPE_HTML_ENGINE                 (html_engine_get_type ())
-#define HTML_ENGINE(obj)                  (GTK_CHECK_CAST ((obj), TYPE_HTML_ENGINE, HTMLEngine))
-#define HTML_ENGINE_CLASS(klass)          (GTK_CHECK_CLASS_CAST ((klass), TYPE_HTML_ENGINE, HTMLEngineClass))
-#define IS_HTML_ENGINE(obj)              (GTK_CHECK_TYPE ((obj), TYPE_HTML_ENGINE))
-#define IS_HTML_ENGINE_CLASS(klass)      (GTK_CHECK_CLASS_TYPE ((klass), TYPE_HTML_ENGINE))
+#define HTML_TYPE_ENGINE                 (html_engine_get_type ())
+#define HTML_ENGINE(obj)                 (GTK_CHECK_CAST ((obj), HTML_TYPE_ENGINE, HTMLEngine))
+#define HTML_ENGINE_CLASS(klass)         (GTK_CHECK_CLASS_CAST ((klass), HTML_TYPE_ENGINE, HTMLEngineClass))
+#define HTML_IS_ENGINE(obj)              (GTK_CHECK_TYPE ((obj), HTML_TYPE_ENGINE))
+#define HTML_IS_ENGINE_CLASS(klass)      (GTK_CHECK_CLASS_TYPE ((klass), HTML_TYPE_ENGINE))
 
 
 /* FIXME extreme hideous ugliness in the following lines.  */
@@ -180,7 +179,9 @@ struct _HTMLEngineClass {
 };
 
 
+guint 	    html_engine_get_type (void);
 HTMLEngine *html_engine_new (void);
+
 GtkHTMLStreamHandle html_engine_begin (HTMLEngine *p, const char *url);
 void        html_engine_schedule_update (HTMLEngine *p);
 gchar      *html_engine_parse_body (HTMLEngine *p, HTMLObject *clue, const gchar *end[], gboolean toplevel);

@@ -60,6 +60,12 @@ draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor,
 	}
 }
 
+static gboolean
+accepts_cursor (HTMLObject *object)
+{
+	return TRUE;
+}
+
 
 /* HTMLText methods.  */
 
@@ -190,6 +196,7 @@ html_text_class_init (HTMLTextClass *klass,
 	/* FIXME destroy */
 
 	object_class->draw = draw;
+	object_class->accepts_cursor = accepts_cursor;
 
 	/* HTMLText methods.  */
 

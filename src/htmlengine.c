@@ -56,7 +56,6 @@
 #include "stringtokenizer.h"
 
 
-guint           html_engine_get_type (void);
 static void     html_engine_class_init (HTMLEngineClass *klass);
 static void     html_engine_init (HTMLEngine *engine);
 static gboolean html_engine_timer_event (HTMLEngine *e);
@@ -198,9 +197,9 @@ static void
 block_end_font (HTMLEngine *e, HTMLObject *clue, HTMLBlockStackElement *elem)
 {
 	html_engine_pop_font (e);
-	if (elem->miscData1) {
+
+	if (elem->miscData1)
 		e->vspace_inserted = html_engine_insert_vspace (e, clue, e->vspace_inserted);
-	}
 }
 
 static void

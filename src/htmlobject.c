@@ -206,6 +206,12 @@ relayout (HTMLObject *self,
 	}
 }
 
+static gboolean
+accepts_cursor (HTMLObject *self)
+{
+	return FALSE;
+}
+
 
 /* Class initialization.  */
 
@@ -242,6 +248,7 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->mouse_event = mouse_event;
 	klass->check_point = check_point;
 	klass->relayout = relayout;
+	klass->accepts_cursor = accepts_cursor;
 }
 
 void
@@ -420,4 +427,26 @@ html_object_relayout (HTMLObject *self,
 		      HTMLObject *child)
 {
 	return (* HO_CLASS (self)->relayout) (self, engine, child);
+}
+
+gboolean
+html_object_accepts_cursor (HTMLObject *self)
+{
+	return (* HO_CLASS (self)->accepts_cursor) (self);
+}
+
+
+/* Ugly.  We should have an `is_a' implementation.  */
+
+gboolean
+html_object_is_text (HTMLObject *object)
+{
+	HTMLType type;
+
+	type = HTML_OBJECT_TYPE (object);
+
+	return (type == HTML_TYPE_TEXT
+		|| type == HTML_TYPE_TEXTMASTER
+		|| type == HTML_TYPE_LINKTEXT
+		|| type == HTML_TYPE_LINKTEXTMASTER);
 }
