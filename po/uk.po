@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "POT-Creation-Date: 2002-05-08 10:18+0300\n"
-"PO-Revision-Date: 2002-05-08 09:37+0200\n"
+"PO-Revision-Date: 2002-05-08 10:49+0200\n"
 "Last-Translator: Yuriy Syrota <yuri@renome.rovno.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -64,9 +64,8 @@ msgid "Configure spell checking"
 msgstr "Перевірка орфографії"
 
 #: capplet/gtkhtml-capplet.glade.h:9
-#, fuzzy
 msgid "Enable spell checking"
-msgstr "Перевірка орфографії"
+msgstr "Увімкнути перевірку орфографії"
 
 #: capplet/gtkhtml-capplet.glade.h:10
 msgid "Fixed width"
@@ -90,7 +89,6 @@ msgid "Information"
 msgstr "Інформація"
 
 #: capplet/gtkhtml-capplet.glade.h:15
-#, fuzzy
 msgid "Keyboard Shortcuts"
 msgstr "Комбінації клавіш"
 
@@ -137,9 +135,8 @@ msgid "Shortcuts _type:"
 msgstr ""
 
 #: capplet/gtkhtml-capplet.glade.h:26
-#, fuzzy
 msgid "Show animated images"
-msgstr "Анімовані зображення"
+msgstr "Показувати анімовані зображення"
 
 #: capplet/gtkhtml-capplet.glade.h:27
 msgid "Variable width"
@@ -291,9 +288,8 @@ msgid "Find A Regular Expression"
 msgstr "Знайти реґулярний вираз"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
-#, fuzzy
 msgid "Find And Replace"
-msgstr "Замінити"
+msgstr "Знайти і замінити"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
 #, fuzzy
@@ -305,14 +301,12 @@ msgid "Find _Again"
 msgstr "Знайти знову"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:26
-#, fuzzy
 msgid "Find again"
 msgstr "Знайти знову"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
-#, fuzzy
 msgid "Find and Replace"
-msgstr "Замінити"
+msgstr "Знайти і замінити"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
 #, fuzzy
@@ -360,9 +354,8 @@ msgid "Insert HTML link into document..."
 msgstr "Вставити HTML-посилання у документ..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
-#, fuzzy
 msgid "Insert HTML template into document..."
-msgstr "Вставити HTML-посилання у документ..."
+msgstr "Вставити HTML-шаблон у документ..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
 msgid "Insert image into document..."
@@ -373,9 +366,8 @@ msgid "Insert rule into document..."
 msgstr "Вставити лінійку в документ..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
-#, fuzzy
 msgid "Insert table into document..."
-msgstr "Вставити лінійку в документ..."
+msgstr "Вставити таблицю в документ..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
 #: components/html-editor/toolbar.c:514
@@ -464,9 +456,8 @@ msgid "Numbered _List"
 msgstr ""
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
-#, fuzzy
 msgid "Orange"
-msgstr "Сторінка"
+msgstr "Жовтогарячий"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 msgid "Other..."
@@ -500,9 +491,8 @@ msgid "Purple"
 msgstr "Перед"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
-#, fuzzy
 msgid "Red"
-msgstr "Повторити"
+msgstr "Червоний"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
 msgid "Redo"
@@ -584,17 +574,15 @@ msgid "Table"
 msgstr "Таблиця"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
-#, fuzzy
 msgid "Te_mplate..."
-msgstr "Замінити"
+msgstr "_Шаблон..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
 #: components/html-editor/body.c:233
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
 #: components/html-editor/menubar.c:181
-#, fuzzy
 msgid "Template"
-msgstr "Замінити"
+msgstr "Шаблон"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
 #: components/html-editor/toolbar.c:525
@@ -618,9 +606,8 @@ msgid "Yellow"
 msgstr ""
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
-#, fuzzy
 msgid "_Alignment"
-msgstr "Вирівнювання"
+msgstr "_Вирівнювання"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
 msgid "_Alphabetical List"
@@ -871,9 +858,8 @@ msgid "Alignment"
 msgstr "Вирівнювання"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:11
-#, fuzzy
 msgid "Alignment:"
-msgstr "Вирівнювання"
+msgstr "Вирівнювання:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:12
 msgid "Apply changes to:"
@@ -890,9 +876,8 @@ msgid "Border"
 msgstr "Рамка"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:17
-#, fuzzy
 msgid "Border:"
-msgstr "Рамка"
+msgstr "Рамка:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:18
 msgid "Bottom"
@@ -1263,7 +1248,6 @@ msgstr ""
 
 #: components/html-editor/popup.c:390
 #: components/html-editor/spell.c:418
-#, fuzzy
 msgid "Spell checker"
 msgstr "Перевірка орфографії"
 
@@ -1286,12 +1270,10 @@ msgid "Paragraph..."
 msgstr "Абзац..."
 
 #: components/html-editor/popup.c:439
-#, fuzzy
 msgid "Link..."
 msgstr "Посилання..."
 
 #: components/html-editor/popup.c:446
-#, fuzzy
 msgid "Rule..."
 msgstr "Лінійка..."
 
