@@ -185,18 +185,16 @@ draw (HTMLObject *o,
 	ArtIRect paint;
 
 	if (GTK_OBJECT_TYPE (e->painter) == HTML_TYPE_PRINTER) {
+		gint pixel_size = html_painter_get_pixel_size (e->painter);
 		html_object_calc_intersection (o, &paint, x, y, width, height);
 		if (art_irect_empty (&paint))
 			return;
 
-		if (GTK_OBJECT_TYPE (e->painter) != HTML_TYPE_GDK_PAINTER) {
-			gint pixel_size = html_painter_get_pixel_size (e->painter);
-			html_object_draw (e->clue, e->painter,
-					  x, y,
-					  width - pixel_size * (e->leftBorder + e->rightBorder),
-					  height - pixel_size * (e->topBorder + e->bottomBorder),
-					  tx + pixel_size * e->leftBorder, ty + pixel_size * e->topBorder);
-		}
+		html_object_draw (e->clue, e->painter,
+				  x, y,
+				  width - pixel_size * (e->leftBorder + e->rightBorder),
+				  height - pixel_size * (e->topBorder + e->bottomBorder),
+				  tx + pixel_size * e->leftBorder, ty + pixel_size * e->topBorder);
 	} else
 		(*HTML_OBJECT_CLASS (parent_class)->draw) (o, p, x, y, width, height, tx, ty);
 }
@@ -459,8 +457,7 @@ html_iframe_init (HTMLIFrame *iframe,
 	gtk_signal_emit_by_name (GTK_OBJECT (new_html->engine), 
 				 "url_requested", src, handle);
 
-	if ((width > 0) && (height > 0))
-		gtk_widget_set_usize (scrolled_window, width, height);
+	gtk_widget_set_usize (scrolled_window, width, height);
 
 	gtk_widget_show (scrolled_window);	
 	iframe->scroll = scrolled_window;

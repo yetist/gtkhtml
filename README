@@ -35,7 +35,7 @@ Requirements
 ------------
 
 In order to compile GtkHTML, you need gdk-pixbuf 0.8.0 (or later),
-Bonobo 0.32 (or later), gnome-print 0.25 (or later) and GAL 0.4 (or
+Bonobo 0.32 (or later), gnome-print 0.25 (or later) and GAL 0.7 (or
 later).
 
 Optionally you may want to install GConf 0.4 (or later) to enable the

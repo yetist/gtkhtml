@@ -1,3 +1,8 @@
+2001-04-17  Larry Ewing  <lewing@ximian.com>
+
+	* htmliframe.c (draw): clean up the draw routine a little.
+	(html_iframe_init): remove redundant condition.
+
 2001-04-17  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-fontstyle.c (html_engine_set_font_style): like
