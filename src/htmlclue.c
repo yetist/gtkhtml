@@ -1,0 +1,211 @@
+#include "htmlclue.h"
+#include "htmlcluev.h"
+
+static void html_clue_destroy (HTMLObject *o);
+static void html_clue_set_max_descent (HTMLObject *o, gint d);
+static gint html_clue_get_left_margin (HTMLClue *o, gint y);
+static gint html_clue_get_right_margin (HTMLClue *o, gint y);
+
+void
+html_clue_init (HTMLClue *clue, objectType ObjectType)
+{
+	HTMLObject *object = HTML_OBJECT (clue);
+	html_object_init (object, ObjectType);
+	
+	/* HTMLObject functions */
+	object->draw = html_clue_draw;
+	object->set_max_ascent = html_clue_set_max_ascent;
+	object->set_max_descent = html_clue_set_max_descent;
+	object->destroy = html_clue_destroy;
+	object->reset = html_clue_reset;
+	object->calc_preferred_width = html_clue_calc_preferred_width;
+
+	/* HTMLClue functions */
+	clue->get_left_margin = html_clue_get_left_margin;
+	clue->get_right_margin = html_clue_get_right_margin;
+
+}
+
+static void
+html_clue_destroy (HTMLObject *o)
+{
+	while (HTML_CLUE (o)->head) {
+		HTML_CLUE (o)->curr = HTML_CLUE (o)->head->nextObj;
+		HTML_OBJECT (HTML_CLUE (o)->head)->destroy (HTML_CLUE (o)->head);
+		HTML_CLUE (o)->head = HTML_CLUE (o)->curr;
+	}
+
+	g_free (o);
+}
+
+void
+html_clue_draw (HTMLObject *o, HTMLPainter *p,
+		gint x, gint y, gint width, gint height, gint tx, gint ty)
+{
+	HTMLObject *obj;
+
+	if (y + height < o->y - o->ascent || y > o->y + o->descent)
+		return;
+
+	tx += o->x;
+	ty += o->y - o->ascent;
+
+	/* Draw a rect around the clue */
+	html_painter_draw_rect (p, tx, ty, o->width, o->ascent + o->descent);
+
+	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->nextObj) {
+		if (!(obj->flags & Aligned)) {
+			if (obj->draw)
+				obj->draw (obj, p, x - o->x, y - (o->y - o->ascent),
+					   width, height, tx, ty);
+		}     
+	}
+
+}
+
+
+
+static gint
+html_clue_get_left_margin (HTMLClue *o, gint y)
+{
+	return 0;
+}
+
+static gint
+html_clue_get_right_margin (HTMLClue *o, gint y)
+{
+	return HTML_OBJECT (o)->max_width;
+}
+
+void
+html_clue_set_max_ascent (HTMLObject *o, gint a)
+{
+	HTMLClue *clue = HTML_CLUE (o);
+	HTMLObject *obj;
+
+	g_return_if_fail ((o->ObjectType == ClueFlow) ||
+			  (o->ObjectType == ClueV) ||
+			  (o->ObjectType == ClueH) ||
+			  (o->ObjectType == TableCell));
+
+	if (clue->valign == VCenter) {
+		for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->nextObj) {
+			obj->y = obj->y + ((a - o->ascent) / 2);
+		}
+	}
+	else if (clue->valign == Bottom) {
+		for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->nextObj) {
+			obj->y = obj->y + a - o->descent;
+		}
+	}
+
+	o->ascent = a;
+}
+
+static void
+html_clue_set_max_descent (HTMLObject *o, gint d)
+{
+	HTMLClue *clue = HTML_CLUE (o);
+	HTMLObject *obj;
+	
+	g_return_if_fail ((o->ObjectType == ClueFlow) ||
+			  (o->ObjectType == ClueV) ||
+			  (o->ObjectType == ClueH));
+
+	if (clue->valign == VCenter) {
+		for (obj = clue->head; obj != 0; obj = obj->nextObj) {
+			obj->y = obj->y + ((d - o->descent) / 2);
+		}
+	}
+	else if (clue->valign == Bottom) {
+		for (obj = clue->head; obj != 0; obj = obj->nextObj) {
+			obj->y = obj->y + d - o->descent;
+		}
+	}
+	
+	o->descent = d;
+}
+
+gint
+html_clue_get_left_clear (HTMLObject *clue, gint y)
+{
+	switch (clue->ObjectType) {
+	default:
+		g_print ("find_free_area: Unknown object type: %d\n", clue->ObjectType);
+		return y;
+	}
+}
+
+gint
+html_clue_get_right_clear (HTMLObject *clue, gint y)
+{
+	switch (clue->ObjectType) {
+	default:
+		g_print ("get_right_clear: Unknown object type: %d\n", clue->ObjectType);
+		return y;
+	}
+}
+
+void
+html_clue_reset (HTMLObject *clue)
+{
+	HTMLObject *obj;
+
+	for (obj = HTML_CLUE (clue)->head; obj != 0; obj = obj->nextObj)
+		obj->reset (obj);
+}
+
+void
+html_clue_set_next (HTMLObject *clue, HTMLObject *o)
+{
+	clue->nextObj = o;
+}
+
+void
+html_clue_append (HTMLObject *clue, HTMLObject *o)
+{
+
+	if (!HTML_CLUE (clue)->head) {
+		HTML_CLUE (clue)->head = HTML_CLUE (clue)->tail = o;
+	}
+	else {
+		html_clue_set_next (HTML_CLUE (clue)->tail, o);
+		HTML_CLUE (clue)->tail = o;
+	}
+}
+
+void
+html_clue_calc_size (HTMLObject *o, HTMLObject *parent)
+{
+	if (!HTML_CLUE (o)->curr) {
+		o->ascent = 0;
+		HTML_CLUE (o)->curr = HTML_CLUE (o)->head;
+	}
+
+	while (HTML_CLUE (o)->curr != 0) {
+		HTML_CLUE (o)->curr->calc_size (HTML_CLUE (o)->curr, o);
+		HTML_CLUE (o)->curr = HTML_CLUE (o)->curr->nextObj;
+	}
+
+	/* Remember the last object so that we can start from here next time
+	   we are called */
+	HTML_CLUE (o)->curr = HTML_CLUE (o)->tail;
+}
+
+gint
+html_clue_calc_preferred_width (HTMLObject *o)
+{
+	gint prefWidth = 0;
+	HTMLObject *obj;
+	
+	if (o->flags & FixedWidth)
+		return o->width;
+
+	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->nextObj) {
+		gint w = obj->calc_preferred_width (obj);
+		if (w > prefWidth)
+			prefWidth = w;
+	}
+
+	return prefWidth;
+}

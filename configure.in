@@ -1,0 +1,57 @@
+AC_INIT(src/gtkhtml.c)
+
+AM_CONFIG_HEADER(config.h)
+
+AM_INIT_AUTOMAKE(gtkhtml, 0.0.9)
+
+AM_MAINTAINER_MODE
+
+AM_ACLOCAL_INCLUDE(macros)
+
+GNOME_INIT
+
+AC_PROG_CC
+AC_ISC_POSIX
+AC_HEADER_STDC
+AC_ARG_PROGRAM
+AM_PROG_LIBTOOL
+
+GNOME_COMPILE_WARNINGS
+
+AC_SUBST(CFLAGS)
+AC_SUBST(CPPFLAGS)
+AC_SUBST(LDFLAGS)
+
+dnl ******************************
+dnl Check for Bonobo
+dnl ******************************
+html_component=
+bonobo=
+bonobo_msg=no
+have_bonobo=false
+AC_ARG_WITH(bonobo,
+	[--{with,without}-bonobo    Compile with Bonobo support or without it],
+	if test x$withval = xyes; then
+		AC_MSG_RESULT(found)
+		AC_DEFINE(ENABLE_BONOBO)
+		have_bonobo=true
+		bonobo=bonobo
+		bonobo_msg=yes
+		html_component=html-component
+	fi
+)
+
+#AC_SUBST(html_component)
+AM_CONDITIONAL(BONOBO, $have_bonobo)
+EXTRA_GNOME_LIBS=`gnome-config --libs gnomeui gdk_pixbuf $bonobo`
+EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnomeui gdk_pixbuf $bonobo`
+AC_SUBST(EXTRA_GNOME_LIBS)
+AC_SUBST(EXTRA_GNOME_CFLAGS)
+
+AC_OUTPUT([
+Makefile
+macros/Makefile
+src/Makefile
+])
+
+

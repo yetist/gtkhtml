@@ -1,0 +1,13 @@
+Todo for gtkhtml:
+
+* Font support must be improved
+
+* Full support for all HTML tags
+
+* Fix memory leaks
+
+* Scrolling speed
+
+* Fix all those annoying bugs :)
+
+* Implement cool new features
