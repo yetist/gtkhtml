@@ -67,16 +67,18 @@ struct _GtkHTMLPrivate {
 	gboolean    inline_spelling;
 };
 
-void  gtk_html_private_calc_scrollbars  (GtkHTML                 *html,
-					 gboolean                *changed_x,
-					 gboolean                *changed_y);
-void  gtk_html_editor_event_command     (GtkHTML                 *html,
-					 GtkHTMLCommandType       com_type,
-					 gboolean                 before);
-void  gtk_html_editor_event             (GtkHTML                 *html,
-					 GtkHTMLEditorEventType   event,
-					 GValue                  *args);
-void  gtk_html_api_set_language         (GtkHTML                 *html);
-void  gtk_html_im_reset                 (GtkHTML                 *html);
+void  gtk_html_private_calc_scrollbars  (GtkHTML                *html,
+					 gboolean               *changed_x,
+					 gboolean               *changed_y);
+void  gtk_html_editor_event_command     (GtkHTML                *html,
+					 GtkHTMLCommandType      com_type,
+					 gboolean                before);
+void  gtk_html_editor_event             (GtkHTML                *html,
+					 GtkHTMLEditorEventType  event,
+					 GValue                 *args);
+void  gtk_html_api_set_language         (GtkHTML                *html);
+void  gtk_html_im_reset                 (GtkHTML                *html);
+void  gtk_html_set_fonts                (GtkHTML                *html,
+					 HTMLPainter            *painter);
 
 #endif /* _GTKHTML_PRIVATE_H */

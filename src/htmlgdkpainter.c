@@ -211,7 +211,11 @@ alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, Gt
 	PangoFontDescription *desc = NULL;
 
 	if (face) {
-		desc = pango_font_description_from_string (face);
+		gchar *str;
+
+		str = g_strdup_printf ("%s %d", face, (gint) size * PANGO_SCALE);
+		desc = pango_font_description_from_string (str);
+		g_free (str);
 	}
 
 	if (!desc || !pango_font_description_get_family (desc)) {

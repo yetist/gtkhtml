@@ -1,3 +1,16 @@
+2003-06-25  Radek Doulik  <rodo@ximian.com>
+
+	* htmlgdkpainter.c (alloc_font): the face now contain family, not
+	whole font name
+
+	* htmlengine-print.c (print_with_header_footer): use
+	gtk_html_set_fonts
+
+	* gtkhtml.c (gtk_html_set_fonts): new helper function, sets fonts
+	from style to painter's font manager, use families rather than
+	complete description name for face
+	(style_set): use gtk_html_set_fonts
+
 2003-06-13  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (html_engine_finalize): clear some of the various

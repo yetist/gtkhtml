@@ -68,22 +68,12 @@ gtk_html_class_properties_new (GtkWidget *widget)
 	/* editing */
 	p->language                = g_strdup (e_iconv_locale_language ());
 
-	/* printf ("Variable Printing Font: \"%s\"\n", p->font_var_print); */
-	p->font_var_print          = g_strdup (pango_font_description_get_family (var_desc));
-	p->font_fix_print          = fixed_name;
-	p->font_var_size_print     = DEFAULT_FONT_SIZE_PRINT;
-	p->font_fix_size_print     = DEFAULT_FONT_SIZE_PRINT;
-	p->font_var_print_points   = FALSE;
-	p->font_fix_print_points   = FALSE;
-
 	return p;
 }
 
 void
 gtk_html_class_properties_destroy (GtkHTMLClassProperties *p)
 {
-	g_free (p->font_fix_print);
-	g_free (p->font_var_print);
 	g_free (p->language);
 	g_free (p);
 }
@@ -118,22 +108,6 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p, GConfClient *client)
 void
 gtk_html_class_properties_update (GtkHTMLClassProperties *p, GConfClient *client, GtkHTMLClassProperties *old)
 {
-	gchar *key;
-
-	if (strcmp (p->font_var_print, old->font_var_print))
-		SET (string, "/font_variable_print", font_var_print);
-	if (strcmp (p->font_fix_print, old->font_fix_print))
-		SET (string, "/font_fixed_print", font_fix_print);
-	if (p->font_var_print_points != old->font_var_print_points)
-		SET (bool, "/font_variable_print_points", font_var_print_points);
-	if (p->font_fix_print_points != old->font_fix_print_points)
-		SET (bool, "/font_fixed_print_points", font_fix_print_points);
-	if (p->font_var_size_print != old->font_var_size_print || p->font_var_print_points != old->font_var_print_points)
-		SET (int, "/font_variable_size_print", font_var_size_print);
-	if (p->font_fix_size_print != old->font_fix_size_print || p->font_fix_print_points != old->font_fix_print_points)
-		SET (int, "/font_fixed_size_print", font_fix_size_print);
-	
-	gconf_client_suggest_sync (client, NULL);
 }
 
 /* enums */

@@ -159,10 +159,7 @@ print_with_header_footer (HTMLEngine *engine,
 	g_return_val_if_fail (engine->clue != NULL, 0);
 
 	printer = html_printer_new (print_context, GTK_HTML (engine->widget)->priv->print_master);
-	html_font_manager_set_default (&printer->font_manager,
-				       prop->font_var_print,      prop->font_fix_print,
-				       prop->font_var_size_print, prop->font_var_print_points,
-				       prop->font_fix_size_print, prop->font_fix_print_points);
+	gtk_html_set_fonts (engine->widget, printer);
 
 	if (do_we_have_default_font (printer)) {
 		gint min_width, page_width;
