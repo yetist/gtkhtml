@@ -1,3 +1,11 @@
+2000-06-04  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine-edit-insert.c (html_engine_insert): use magic links
+	when inserting ' ' or '\n'
+
+	* htmltextmaster.c (html_text_master_magic_link): new function for
+	magical text to link morphing (uses paste)
+
 2000-06-02  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlclueflow.c (save): Don't print a newline at the end when

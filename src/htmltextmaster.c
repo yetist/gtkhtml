@@ -600,6 +600,7 @@ insert_text (HTMLText *text,
 	master = HTML_TEXT_MASTER (text);
 	chars_inserted = HTML_TEXT_CLASS (parent_class)->insert_text (text, engine, offset, p, len);
 
+	/* update selection */
 	if (chars_inserted > 0
 	    && offset >= master->select_start
 	    && offset < master->select_start + master->select_length)
@@ -770,4 +771,63 @@ html_text_master_destroy_slaves (HTMLTextMaster *master)
 		html_clue_remove (HTML_CLUE (p->parent), p);
 		html_object_destroy (p);
 	}
+}
+
+gboolean
+html_text_master_magic_link (HTMLTextMaster *master, HTMLEngine *engine,
+			     guint offset)
+{
+	HTMLText *text = HTML_TEXT (master);
+	gchar *p1;
+	gchar *name = NULL, *href = NULL;
+
+	/* printf ("magic link '%s' off: %d\n", text->text, offset); */
+
+	text->text [offset] = 0;
+
+	if ((p1 = strrchr (text->text, '@'))) {
+		/* mailto hrefs - in format " [^ @]+@[^ ]+ " */
+		name = strrchr (text->text, ' ');
+		if (!name) name = text->text; else name++;
+		if (name < p1)
+			href = g_strconcat ("mailto:", name, NULL);
+		else
+			name = NULL;
+	} else {
+		/* {ftp:|http:|www\.}[^ ]+ */
+		if ((name = strstr (text->text, "http://"))
+		    || (name = strstr (text->text, "ftp://"))
+		    || (name = strstr (text->text, "www."))
+		    ) {
+			p1 = strrchr (text->text, ' ');
+			if (p1 && p1 > name)
+				name = NULL;
+			else
+				href = (name [0] == 'w') ? g_strconcat ((name [0] == 'h')
+									? "http://" : "ftp://", name, NULL)
+					: g_strdup (name);
+		}
+	}
+
+	text->text [offset] = ' ';
+
+	if (name) {
+		html_engine_disable_selection (engine);
+		html_cursor_jump_to (engine->cursor, engine, HTML_OBJECT (text), name - text->text);
+		html_engine_set_mark (engine);
+		html_cursor_jump_to (engine->cursor, engine, HTML_OBJECT (text), offset);
+		html_engine_edit_selection_update_now (engine->selection_updater);
+		html_engine_paste_object (engine,
+					  html_link_text_master_new_with_len
+					  (name,
+					   offset - (name - text->text),
+					   text->font_style,
+					   html_settings_get_color (engine->settings, HTMLLinkColor),
+					   href, NULL), TRUE);
+		g_free (href);
+
+		return TRUE;
+	}
+
+	return FALSE;
 }

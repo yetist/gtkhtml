@@ -462,6 +462,7 @@ html_engine_insert (HTMLEngine *e,
 		    guint len)
 {
 	HTMLObject *current_object;
+	guint       current_offset;
 	guint n;
 
 	g_return_val_if_fail (e != NULL, 0);
@@ -474,6 +475,7 @@ html_engine_insert (HTMLEngine *e,
 		return 0;
 
 	current_object = e->cursor->object;
+	current_offset = e->cursor->offset;
 	if (current_object == NULL)
 		return 0;
 
@@ -484,6 +486,18 @@ html_engine_insert (HTMLEngine *e,
 	n = do_insert (e, text, len, e->insertion_font_style);
 
 	setup_undo (e, create_action_data (e, text, len, e->insertion_font_style));
+
+	/* printf ("text '%s' len %d type %d\n", text, len, HTML_OBJECT_TYPE (current_object)); */
+
+	/* magic link */
+	if (len == 1
+	    && (text [0] == ' ' || text [0] == '\n')
+	    && HTML_OBJECT_TYPE (current_object) == HTML_TYPE_TEXTMASTER) {
+		if (html_text_master_magic_link (HTML_TEXT_MASTER (current_object),
+						 e, current_offset))
+			html_engine_move_cursor (e, HTML_ENGINE_CURSOR_RIGHT, 1);
+	}
+
 
 	html_engine_show_cursor (e);
 
