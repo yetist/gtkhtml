@@ -104,7 +104,6 @@ save_receiver (const HTMLEngine *engine,
 	       gpointer user_data)
 {
 	Bonobo_Stream_iobuf buffer;
-	CORBA_long bytes_written;
 	SaveState *state;
 
 	state = (SaveState *) user_data;
@@ -115,9 +114,9 @@ save_receiver (const HTMLEngine *engine,
 	buffer._length = length;
 	buffer._buffer = (CORBA_char *) data; /* Should be safe.  */
 
-	bytes_written = Bonobo_Stream_write (state->stream, &buffer, state->ev);
+	Bonobo_Stream_write (state->stream, &buffer, state->ev);
 
-	if (bytes_written != length || state->ev->_major != CORBA_NO_EXCEPTION)
+	if (state->ev->_major != CORBA_NO_EXCEPTION)
 		return FALSE;
 
 	return TRUE;

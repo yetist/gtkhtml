@@ -1,3 +1,8 @@
+2000-10-25  Federico Mena Quintero  <federico@helixcode.com>
+
+	* persist-stream-impl.c (save_receiver): Bonobo::Stream::write()
+	no longer returns the number of bytes written.
+
 2000-10-25  Radek Doulik  <rodo@helixcode.com>
 
 	* popup.c (popup_show): updated, event could be NULL
