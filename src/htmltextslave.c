@@ -679,17 +679,26 @@ draw_normal (HTMLTextSlave *self,
 
 	str = html_text_slave_get_text (self);
 	if (*str) {
+		GList *glyphs, *items;
+
 		html_painter_set_font_style (p, font_style);
 		html_painter_set_font_face  (p, HTML_TEXT (self->owner)->face);
 		html_color_alloc (HTML_TEXT (self->owner)->color, p);
 		html_painter_set_pen (p, &HTML_TEXT (self->owner)->color->color);
 		lo = html_text_slave_get_line_offset (self, line_offset, self->posStart, p);
-		html_painter_draw_text (p,
-					obj->x + tx, obj->y + ty + get_ys (text, p),
-					str,
-					self->posLen,
-					get_items (self, p), get_glyphs (self, p, lo),
-					lo);
+
+		if (self->posStart > 0)
+			glyphs = get_glyphs_part (self, p, 0, self->posLen, lo, &items);
+		else {
+			items = get_items (self, p);
+			glyphs = get_glyphs (self, p, lo);
+		}
+
+		html_painter_draw_text (p, obj->x + tx, obj->y + ty + get_ys (text, p),
+					str, self->posLen, items, glyphs, lo);
+
+		if (self->posStart > 0)
+			glyphs_destroy (glyphs);
 	}
 }
 
