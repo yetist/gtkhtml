@@ -1,5 +1,8 @@
 2002-10-17  Larry Ewing  <lewing@ximian.com>
 
+	* htmlclueflow.c (append_selection_string): indent and quote
+	selected strings. (fixes #24529)
+
 	* htmlengine.c (parse_table): save and restore pAlign and
 	divAlign, and initialize them to NONE.
 

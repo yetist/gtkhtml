@@ -1331,8 +1331,11 @@ append_selection_string (HTMLObject *self,
 			 GString *buffer)
 {
         (*HTML_OBJECT_CLASS (parent_class)->append_selection_string) (self, buffer);
-	if (self->selected)
+
+	if (self->selected) {
 		g_string_append_c (buffer, '\n');
+		plain_padding (HTML_CLUEFLOW (self), buffer, TRUE);
+	}
 }
 
 
