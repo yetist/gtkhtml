@@ -1062,6 +1062,15 @@ gtk_html_get_editable  (const GtkHTML *html)
 	return html->editable;
 }
 
+void
+gtk_html_load_empty (GtkHTML *html)
+{
+	g_return_if_fail (html != NULL);
+	g_return_if_fail (GTK_IS_HTML (html));
+
+	html_engine_load_empty (html->engine);
+}
+
 
 /* Printing.  */
 

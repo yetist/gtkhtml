@@ -627,8 +627,7 @@ parse_body (HTMLEngine *p, HTMLObject *clue, const gchar *end[], gboolean toplev
 		}
 	}
 
-	if (!html_tokenizer_has_more_tokens (p->ht) && toplevel && 
-	    !p->writing)
+	if (!html_tokenizer_has_more_tokens (p->ht) && toplevel && !p->writing)
 		html_engine_stop_parser (p);
 
 	return 0;
@@ -2837,7 +2836,7 @@ html_engine_init (HTMLEngine *engine)
 	
 	engine->newPage = FALSE;
 
-	engine->editable = TRUE;
+	engine->editable = FALSE;
 	engine->cursor = html_cursor_new ();
 	engine->active_selection = FALSE;
 	engine->cut_buffer = NULL;
@@ -3014,7 +3013,6 @@ html_engine_begin (HTMLEngine *p, const char *url)
 					 (gpointer)p);
 
 	if (p->reference) {
-
 		g_free (p->reference);
 		p->reference = NULL;
 	}
@@ -3725,4 +3723,27 @@ html_engine_thaw (HTMLEngine *engine)
 		html_engine_calc_size (engine);
 		html_engine_draw (engine, 0, 0, engine->width, engine->height);
 	}
+}
+
+
+void
+html_engine_load_empty (HTMLEngine *engine)
+{
+	static GdkColor color = { 0, 0, 0, 0 };
+	HTMLObject *clueflow, *text;
+
+	g_return_if_fail (engine != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (engine));
+
+	/* FIXME: "slightly" hackish.  */
+	html_engine_stop_parser (engine);
+	html_engine_parse (engine);
+	html_engine_stop_parser (engine);
+
+	text = html_text_master_new (g_strdup (""), GTK_HTML_FONT_STYLE_DEFAULT, &color);
+
+	clueflow = html_clueflow_new (HTML_CLUEFLOW_STYLE_NORMAL, 0, 0);
+	html_clue_append (HTML_CLUE (clueflow), text);
+
+	html_clue_append (HTML_CLUE (engine->clue), clueflow);
 }

@@ -186,6 +186,8 @@ void  gtk_html_parse  (GtkHTML *html);
 /* FIXME?  Deprecated? */
 void  gtk_html_calc_scrollbars  (GtkHTML *html);
 
+void  gtk_html_load_empty  (GtkHTML *html);
+
 
 /* Editing functions.  */
 

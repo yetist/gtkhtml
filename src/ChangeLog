@@ -1,3 +1,15 @@
+2000-03-03  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine.c (html_engine_init): Initialize `editable' to be
+	FALSE.
+
+	* testgtkhtml.c (main): After creating the HTMLwidget, invoke
+	`gtk_html_load_empty' on it.
+
+	* gtkhtml.c (gtk_html_load_empty): New function.
+
+	* htmlengine.c (html_engine_load_empty): New function.
+
 2000-03-01  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* gtkhtml-keybinding.c

@@ -1049,8 +1049,8 @@ main (gint argc, gchar *argv[])
 	gnome_app_set_contents (GNOME_APP (app), scrolled_window);
 
 	html_widget = gtk_html_new ();
-
 	html = GTK_HTML (html_widget);
+	gtk_html_load_empty (html);
 	
 	gtk_container_add (GTK_CONTAINER (scrolled_window), html_widget);
 

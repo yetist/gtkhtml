@@ -319,4 +319,7 @@ gboolean  html_engine_frozen  (HTMLEngine *engine);
 void      html_engine_freeze  (HTMLEngine *engine);
 void      html_engine_thaw    (HTMLEngine *engine);
 
+/* Creating an empty document.  */
+void  html_engine_load_empty  (HTMLEngine *engine);
+
 #endif /* _HTMLENGINE_H_ */
