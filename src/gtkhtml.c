@@ -541,6 +541,7 @@ motion_notify_event (GtkWidget *widget,
 	GdkModifierType mask;
 	const gchar *url;
 	gint x, y;
+	HTMLType type;
 
 	g_return_val_if_fail (widget != NULL, 0);
 	g_return_val_if_fail (GTK_IS_HTML (widget), 0);
@@ -557,25 +558,41 @@ motion_notify_event (GtkWidget *widget,
 	}
 		
 
+	obj = html_engine_get_object_at (engine,
+					 x + engine->x_offset, y + engine->y_offset,
+					 NULL, FALSE);
 	if (html->button_pressed) {
-		html->in_selection = TRUE;
+		if (obj) {
 
+			type = HTML_OBJECT_TYPE (obj);
+
+			if (type == HTML_TYPE_BUTTON ||
+			    type ==  HTML_TYPE_CHECKBOX ||
+			    type ==  HTML_TYPE_EMBEDDED ||
+			    type ==  HTML_TYPE_HIDDEN ||
+			    type ==  HTML_TYPE_IMAGEINPUT ||
+			    type ==  HTML_TYPE_RADIO ||
+			    type ==  HTML_TYPE_SELECT ||
+			    type ==  HTML_TYPE_TEXTAREA ||
+			    type ==  HTML_TYPE_TEXTINPUT ) {
+
+				return FALSE;
+			}
+		}
+		html->in_selection = TRUE;
+		
 		html_engine_select_region (engine,
 					   html->selection_x1, html->selection_y1,
 					   x + engine->x_offset, y + engine->y_offset,
 					   TRUE);
-
+		
 		if (html_engine_get_editable (engine))
 			html_engine_jump_at (engine,
 					     event->x + engine->x_offset,
 					     event->y + engine->y_offset);
-
+		
 		return TRUE;
 	}
-
-	obj = html_engine_get_object_at (engine,
-					 x + engine->x_offset, y + engine->y_offset,
-					 NULL, FALSE);
 	if (obj != NULL)
 		url = html_object_get_url (obj);
 	else

@@ -1,3 +1,13 @@
+2000-03-36  Jonas Borgström  <jonas_b@bitsmart.com>
+
+	* htmltextarea.c (on_button_press_event): New function.
+	It returns TRUE, so the events don't get passed to the parent widget.
+	This makes it possible to enter text in textareas.
+
+	* gtkhtml.c (motion_notify_event): Check if the cursor is over a form element.
+	If so, don't try to select it.
+	This makes the engine not selecting text when you scroll a listbox.
+
 2000-03-26  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlclueflow.c (calc_preferred_width): remove trailing space

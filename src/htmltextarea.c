@@ -88,6 +88,12 @@ encode (HTMLEmbedded *e)
 	return ptr;
 }
 
+static int
+on_button_press_event (GtkWidget *widget, GdkEventButton *event)
+{
+	return TRUE;
+}
+
 void
 html_textarea_type_init (void)
 {
@@ -129,6 +135,7 @@ html_textarea_init (HTMLTextArea *ta,
 	HTMLEmbedded *element;
 	HTMLObject *object;
 	GtkRequisition req;
+	GtkWidgetClass *widget_class;
 
 	element = HTML_EMBEDDED (ta);
 	object = HTML_OBJECT (ta);
@@ -139,6 +146,11 @@ html_textarea_init (HTMLTextArea *ta,
 	ta->text = gtk_text_new (NULL, NULL);
 	gtk_widget_show(ta->text);
 	gtk_text_set_editable (GTK_TEXT (ta->text), TRUE);
+
+	gtk_widget_set_events (ta->text, GDK_BUTTON_PRESS_MASK);
+
+	gtk_signal_connect_after (GTK_OBJECT (ta->text), "button_press_event",
+			    GTK_SIGNAL_FUNC (on_button_press_event), NULL);
 
 	element->widget = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (element->widget),
@@ -158,9 +170,6 @@ html_textarea_init (HTMLTextArea *ta,
 	object->descent = 0;
 	object->width = req.width;
 	object->ascent = req.height;
-
-	/*	gtk_widget_show(element->widget);
-		gtk_layout_put(GTK_LAYOUT(parent), element->widget, 0, 0);*/
 
 	ta->default_text = NULL;
 }
