@@ -104,6 +104,38 @@ save_through_persist_stream (const gchar *filename,
 	CORBA_exception_free (&ev);
 }
 
+static void
+save_through_plain_persist_stream (const gchar *filename,
+			     Bonobo_PersistStream pstream)
+{
+	BonoboStream *stream;
+	CORBA_Environment ev;
+
+	CORBA_exception_init (&ev);
+
+	stream = bonobo_stream_open (BONOBO_IO_DRIVER_FS, filename,
+				     Bonobo_Storage_WRITE |
+				     Bonobo_Storage_CREATE |
+				     Bonobo_Storage_FAILIFEXIST, 0);
+
+	if (stream == NULL) {
+		g_warning ("Couldn't create `%s'\n", filename);
+	} else {
+		BonoboObject *stream_object;
+		Bonobo_Stream corba_stream;
+
+		stream_object = BONOBO_OBJECT (stream);
+		corba_stream = bonobo_object_corba_objref (stream_object);
+		Bonobo_PersistStream_save (pstream, corba_stream,
+					   "text/plain", &ev);
+	}
+
+	Bonobo_Unknown_unref (pstream, &ev);
+	CORBA_Object_release (pstream, &ev);
+
+	CORBA_exception_free (&ev);
+}
+
 
 /* Loading/saving through PersistFile.  */
 
@@ -146,6 +178,7 @@ save_through_persist_file (const gchar *filename,
 enum _FileSelectionOperation {
 	OP_NONE,
 	OP_SAVE_THROUGH_PERSIST_STREAM,
+	OP_SAVE_THROUGH_PLAIN_PERSIST_STREAM,
 	OP_LOAD_THROUGH_PERSIST_STREAM,
 	OP_SAVE_THROUGH_PERSIST_FILE,
 	OP_LOAD_THROUGH_PERSIST_FILE
@@ -206,6 +239,9 @@ file_selection_ok_cb (GtkWidget *widget,
 			break;
 		case OP_SAVE_THROUGH_PERSIST_STREAM:
 			save_through_persist_stream (fname, interface);
+			break;
+		case OP_SAVE_THROUGH_PLAIN_PERSIST_STREAM:
+			save_through_plain_persist_stream (fname, interface);
 			break;
 		case OP_LOAD_THROUGH_PERSIST_FILE:
 			load_through_persist_file (fname, interface);
@@ -279,6 +315,14 @@ save_through_persist_stream_cb (GtkWidget *widget,
 	open_or_save_as_dialog (BONOBO_WINDOW (data), OP_SAVE_THROUGH_PERSIST_STREAM);
 }
 
+/* "Save through persist stream" dialog.  */
+static void
+save_through_plain_persist_stream_cb (GtkWidget *widget,
+				gpointer data)
+{
+	open_or_save_as_dialog (BONOBO_WINDOW (data), OP_SAVE_THROUGH_PLAIN_PERSIST_STREAM);
+}
+
 /* "Open through persist file" dialog.  */
 static void
 open_through_persist_file_cb (GtkWidget *widget,
@@ -310,6 +354,7 @@ static BonoboUIVerb verbs [] = {
 	BONOBO_UI_UNSAFE_VERB ("SaveFile",   save_through_persist_file_cb),
 	BONOBO_UI_UNSAFE_VERB ("OpenStream", open_through_persist_stream_cb),
 	BONOBO_UI_UNSAFE_VERB ("SaveStream", save_through_persist_stream_cb),
+	BONOBO_UI_UNSAFE_VERB ("SavePlainStream", save_through_plain_persist_stream_cb),
 
 	BONOBO_UI_UNSAFE_VERB ("FileExit", exit_cb),
 
@@ -348,6 +393,8 @@ static char ui [] =
 "			<menuitem name=\"OpenStream\" verb=\"\" _label=\"_Open (PersistStream)\" _tip=\"Open using the PersistStream interface\""
 "			pixtype=\"stock\" pixname=\"Open\"/>"
 "			<menuitem name=\"SaveStream\" verb=\"\" _label=\"_Save (PersistStream)\" _tip=\"Save using the PersistStream interface\""
+"			pixtype=\"stock\" pixname=\"Save\"/>"
+"			<menuitem name=\"SavePlainStream\" verb=\"\" _label=\"Save _plain(PersistStream)\" _tip=\"Save using the PersistStream interface\""
 "			pixtype=\"stock\" pixname=\"Save\"/>"
 "			<separator/>"
 "			<menuitem name=\"FileExit\" verb=\"\" _label=\"E_xit\"/>"

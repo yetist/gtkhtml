@@ -1,5 +1,8 @@
 2001-08-15  Radek Doulik  <rodo@ximian.com>
 
+	* toolbar.c (paragraph_style_menu_item_update): added
+	GTK_HTML_PARAGRAPH_STYLE_ITEMALPHA
+
 	* GNOME_GtkHTML_Editor.xml.in: plug in new tigert's undo/redo
 	icons
 

@@ -112,6 +112,7 @@ paragraph_style_menu_item_update (GtkWidget *widget, gpointer format_html)
 		     || style == GTK_HTML_PARAGRAPH_STYLE_ITEMDOTTED
 		     || style == GTK_HTML_PARAGRAPH_STYLE_ITEMROMAN
 		     || style == GTK_HTML_PARAGRAPH_STYLE_ITEMDIGIT
+		     || style == GTK_HTML_PARAGRAPH_STYLE_ITEMALPHA
 		     );
 
 	gtk_widget_set_sensitive (widget, sensitive);	
