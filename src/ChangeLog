@@ -1,5 +1,13 @@
 2000-05-06  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine.c (parse_table): don't create bg ptr if background=""
+	(parse_b): likewise
+
+	* htmlimage.c (html_image_factory_register): added test for ""
+	filename - now it is forbidden
+	(html_image_init): likewise
+	(html_image_set_filename): likewise
+
 	* htmlundo.c (html_undo_do_undo): do undo only if stack is
 	non-empty and don't complain when called with empty stack
 	(html_undo_do_redo): likewise

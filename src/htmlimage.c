@@ -466,6 +466,9 @@ html_image_init (HTMLImage *image,
 {
 	HTMLObject *object;
 
+	g_assert (filename);
+	g_assert (*filename);
+
 	object = HTML_OBJECT (image);
 
 	html_object_init (object, HTML_OBJECT_CLASS (klass));
@@ -546,6 +549,9 @@ html_image_set_spacing (HTMLImage *image, gint hspace, gint vspace)
 void
 html_image_set_filename (HTMLImage *image, const gchar *filename)
 {
+	g_assert (filename);
+	g_assert (*filename);
+
 	if (strcmp (image->image_ptr->url, filename)) {
 		HTMLImageFactory *imf = image->image_ptr->factory;
 
@@ -936,6 +942,7 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 
 	g_return_val_if_fail (factory, NULL);
 	g_return_val_if_fail (filename, NULL);
+	g_return_val_if_fail (*filename, NULL);
 
 	retval = g_hash_table_lookup (factory->loaded_images, filename);
 

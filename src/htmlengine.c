@@ -758,6 +758,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 			}
 		}
 		else if (strncasecmp (token, "background=", 11) == 0
+			 && token [12]
 			 && !e->defaultSettings->forceDefault) {
 			tablePixmapPtr = html_image_factory_register(e->image_factory, NULL, token + 11);
 
@@ -880,6 +881,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						} else if (strncasecmp (token, "bgcolor=", 8) == 0) {
 							have_rowColor = parse_color (token + 8, &rowColor);
 						} else if (strncasecmp (token, "background=", 11) == 0
+							   && token [12]
 							   && !e->defaultSettings->forceDefault) {
 							rowPixmapPtr = html_image_factory_register(e->image_factory, NULL, token + 11);
 							if(rowPixmapPtr)
@@ -1002,6 +1004,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 								push_clueflow_style (e, HTML_CLUEFLOW_STYLE_NOWRAP);
 							}
 							else if (strncasecmp (token, "background=", 11) == 0
+								 && token [12]
 								 && !e->defaultSettings->forceDefault) {
 								
 								bgPixmapPtr = html_image_factory_register(e->image_factory, 
@@ -1500,6 +1503,7 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 					gtk_html_debug_log (e->widget, "Color `%s' could not be parsed\n", token);
 				}
 			} else if (strncasecmp (token, "background=", 11) == 0
+				   && token [12]
 				   && ! e->defaultSettings->forceDefault) {
 				gchar *bgurl;
 
