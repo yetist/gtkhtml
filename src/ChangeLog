@@ -1,3 +1,8 @@
+2004-03-26  Radek Doulik  <rodo@ximian.com>
+
+	* htmlstyle.c (parse_color): do not copy more than 7 bytes which
+	we have allocated on stack
+
 2004-03-25  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c (add_line_break): do not check clue->head, it's not

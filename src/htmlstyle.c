@@ -39,7 +39,7 @@ parse_color (const gchar *text,
 		strncpy (c + 1, text, 6);
 		len++;
 	} else {
-		strncpy (c, text, len);
+		strncpy (c, text, MIN (7, len));
 	}
 	
 	if (len < 7)
