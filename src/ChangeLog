@@ -1,3 +1,24 @@
+2002-07-30  Larry Ewing  <lewing@ximian.com>
+
+	* htmlframe.c (html_frame_class_init): overide reparent.
+	(reparent): set the html on reparent.
+
+	* htmlform.c (html_form_set_engine): new function to allow
+	changing the engine of an existing form.
+
+	* htmlform.h (html_form_set_engine): new prototype
+	html_form_set_engine.
+
+	* gtkhtml.c (gtk_html_insert_html_generic): make sure forms are
+	moved over upon insertion.
+
+2002-07-28  Larry Ewing  <lewing@ximian.com>
+
+	* htmlembedded.c (reparent): set iframe parent in reparent.
+	(html_embedded_class_init): override reparent.
+
+	* htmlembedded.h: make prototype match the code.
+
 2002-07-30  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-cut-and-paste.c (use_pictograms): don't put

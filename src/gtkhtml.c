@@ -46,6 +46,7 @@
 #include "htmlengine-edit-selection-updater.h"
 #include "htmlengine-print.h"
 #include "htmlengine-save.h"
+#include "htmlform.h"
 #include "htmlframe.h"
 #include "htmliframe.h"
 #include "htmlimage.h"
@@ -4599,6 +4600,7 @@ update_embedded_object_parent (HTMLObject *o, HTMLEngine *e, gpointer data)
 	}
 }
 
+
 static void
 gtk_html_insert_html_generic (GtkHTML *html, GtkHTML *tmp, const gchar *html_src, gboolean obj_only)
 {
@@ -4616,6 +4618,22 @@ gtk_html_insert_html_generic (GtkHTML *html, GtkHTML *tmp, const gchar *html_src
 	gtk_widget_realize (GTK_WIDGET (tmp));
 	html_image_factory_move_images (html->engine->image_factory, tmp->engine->image_factory);	
 	html_object_forall (tmp->engine->clue, tmp->engine, update_embedded_object_parent, html->engine);
+	
+	/* copy the forms */
+	g_list_foreach (tmp->engine->formList, (GFunc)html_form_set_engine, html->engine);
+
+	if (html->engine->formList) {
+		GList *form_last;
+
+		form_last = g_list_last (html->engine->formList);
+		tmp->engine->formList->prev = form_last;
+		form_last->next = tmp->engine->formList;
+	} else {
+		html->engine->formList = tmp->engine->formList;
+	}
+	tmp->engine->formList = NULL;
+
+	/* copy the objects */
 	if (obj_only) {
 		HTMLObject *next;
 		g_return_if_fail (tmp->engine->clue && HTML_CLUE (tmp->engine->clue)->head
