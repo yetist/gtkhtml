@@ -517,6 +517,8 @@ html_tokenizer_real_end (HTMLTokenizer *t)
 
 	if (p->blocking) {
 		g_list_foreach (p->blocking, destroy_blocking, NULL);
+		p->tokens_num += p->blocking_tokens_num;
+		p->blocking_tokens_num = 0;
 	}
 	p->blocking = NULL;
 }

@@ -1,5 +1,8 @@
 2001-07-17  Radek Doulik  <rodo@ximian.com>
 
+	* htmltokenizer.c (html_tokenizer_real_end): return blocked tokens
+	to tokenizer
+
 	* gtkhtml.c (delete_one): take care of cursor offset when
 	deleteing container
 
