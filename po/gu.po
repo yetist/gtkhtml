@@ -1,3 +1,4 @@
+# translation of gtkhtml.HEAD.po to Gujarati
 # translation of gu.po to Gujarati
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
@@ -5,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gu\n"
+"Project-Id-Version: gtkhtml.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-07-26 04:37+0200\n"
-"PO-Revision-Date: 2004-07-26 16:06+0530\n"
+"PO-Revision-Date: 2004-07-26 16:08+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati\n"
 "MIME-Version: 1.0\n"
