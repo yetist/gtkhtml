@@ -1,11 +1,27 @@
-/* -*- Mode: IDL; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/*
- *
- * Author:
- *   Larry Ewing (lewing@helixcode.com)
- *
- * This file is here to show what are the basic steps into create a Bonobo Component.
- */
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
+/*  This file is part of the GtkHTML library.
+
+    Copyright (C) 2000 Helix Code, Inc.
+
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Library General Public
+    License as published by the Free Software Foundation; either
+    version 2 of the License, or (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Library General Public License for more details.
+
+    You should have received a copy of the GNU Library General Public License
+    along with this library; see the file COPYING.LIB.  If not, write to
+    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+    Boston, MA 02111-1307, USA.
+
+    Author: Larry Ewing (lewing@helixcode.com)
+
+*/
+
 #include <config.h>
 #include <bonobo.h>
 
@@ -21,6 +37,7 @@
 
 static BonoboObjectClass *resolver_parent_class;
 static POA_HTMLEditor_Resolver__vepv htmleditor_resolver_vepv;
+HTMLEditor_Resolver *htmleditor_resolver_corba_object_create (BonoboObject *object);
 
 static void
 impl_HTMLEditor_Resolver_loadURL (PortableServer_Servant servant,
@@ -28,8 +45,6 @@ impl_HTMLEditor_Resolver_loadURL (PortableServer_Servant servant,
 				  const CORBA_char *url,
 				  CORBA_Environment *ev)
 {
-	HTMLEditorResolver * resolver= HTMLEDITOR_RESOLVER (bonobo_object_from_servant (servant));
-	
 	if (!strncmp (url, "/dev/null", 6)) {
 		g_warning ("how about a url: %s", url);
 	} else {
@@ -43,7 +58,8 @@ impl_HTMLEditor_Resolver_loadURL (PortableServer_Servant servant,
 		
 }
 
-POA_HTMLEditor_Resolver__epv *htmleditor_resolver_get_epv (void)
+POA_HTMLEditor_Resolver__epv *
+htmleditor_resolver_get_epv (void)
 {
 	POA_HTMLEditor_Resolver__epv *epv;
 
@@ -69,7 +85,7 @@ htmleditor_resolver_class_init (HTMLEditorResolverClass *resolver_class)
 	init_htmleditor_resolver_corba_class ();
 }
 
-HTMLEditor_Resolver
+HTMLEditor_Resolver *
 htmleditor_resolver_corba_object_create (BonoboObject *object)
 {
 	POA_HTMLEditor_Resolver *servant;
@@ -90,7 +106,7 @@ htmleditor_resolver_corba_object_create (BonoboObject *object)
 
 	CORBA_exception_free (&ev);
 
-	return (HTMLEditor_Resolver) bonobo_object_activate_servant (object, servant);
+	return (HTMLEditor_Resolver*) bonobo_object_activate_servant (object, servant);
 }
 
 GtkType
