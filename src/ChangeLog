@@ -1,3 +1,21 @@
+2004-03-02    <rodo@ximian.com>
+
+	* htmltext.c (html_text_op_cut_helper): convert nbsp's in rvt as
+	well
+	(is_convert_nbsp_needed): remember changes in changes SList
+	(add_change): new helper method
+	(check_last_white): return value now means if change occured
+	(check_prev_white): ditto
+	(html_text_convert_nbsp): update attributes and links indexes to
+	changes
+	(free_changes): helper method to free changes list
+	(update_links): helper method to change indexes in links
+	(update_attributes): new helper method to change indexes in
+	attributes
+	(update_attributes_filter): attribute filter used to change
+	indexes of one attribute
+	(update_index_interval): update index interval for changes
+
 2004-02-26    <rodo@ximian.com>
 
 	* htmlimage.c (html_image_init): initialize animation_active to

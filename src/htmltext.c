@@ -388,6 +388,7 @@ html_text_op_cut_helper (HTMLText *text, HTMLEngine *e, GList *from, GList *to, 
 		move_spell_errors (text->spell_errors, end, - (end - begin));
 
 		html_text_convert_nbsp (text, TRUE);
+		html_text_convert_nbsp (rvt, TRUE);
 		pango_info_destroy (text);
 	} else {
 		text->spell_errors = remove_spell_errors (text->spell_errors, 0, text->text_len);
@@ -1576,52 +1577,79 @@ get_length (HTMLObject *self)
 
 /* #define DEBUG_NBSP */
 
+struct TmpDeltaRecord
+{
+	int index;
+	int delta;
+};
+
 static gboolean
-check_last_white (gboolean rv, gint white_space, gunichar last_white, gint *delta_out)
+check_last_white (gint white_space, gunichar last_white, gint *delta_out, gboolean *rv_out)
 {
 	if (white_space > 0 && last_white == ENTITY_NBSP) {
 		(*delta_out) --;
-		rv = TRUE;
+		*rv_out = TRUE;
+
+		return TRUE;
 	}
 
-	return rv;
+	return FALSE;
 }
 
 static gboolean
-check_prev_white (gboolean rv, gint white_space, gunichar last_white, gint *delta_out)
+check_prev_white (gint white_space, gunichar last_white, gint *delta_out, gboolean *rv_out)
 {
 	if (white_space > 0 && last_white == ' ') {
 		(*delta_out) ++;
-		rv = TRUE;
+		*rv_out = TRUE;
+
+		return TRUE;
 	}
 
-	return rv;
+	return FALSE;
+}
+
+static GSList *
+add_change (GSList *list, int index, int delta)
+{
+	struct TmpDeltaRecord *rec = g_new (struct TmpDeltaRecord, 1);
+
+	rec->index = index;
+	rec->delta = delta;
+
+	return g_slist_prepend (list, rec);
 }
 
 static gboolean
-is_convert_nbsp_needed (const gchar *s, gint *delta_out)
+is_convert_nbsp_needed (const gchar *s, gint *delta_out, GSList **changes_out)
 {
 	gunichar uc, last_white = 0;
-	gboolean rv = FALSE;
+	gboolean rv = FALSE, change;
 	gint white_space;
-	const gchar *p, *op;
+	const gchar *p, *op, *bop;
 
 	*delta_out = 0;
 
-	op = p = s;
+	bop = p = s;
 	white_space = 0;
-	while (*p && (uc = g_utf8_get_char (p)) && (p = g_utf8_next_char (p))) {
+	while (*p && (uc = g_utf8_get_char (p)) && (op = p) && (p = g_utf8_next_char (p))) {
 		if (uc == ENTITY_NBSP || uc == ' ') {
-			rv = check_prev_white (rv, white_space, last_white, delta_out);
+			change = check_prev_white (white_space, last_white, delta_out, &rv);
 			white_space ++;
 			last_white = uc;
 		} else {
-			rv = check_last_white (rv, white_space, last_white, delta_out);
+			change = check_last_white (white_space, last_white, delta_out, &rv);
 			white_space = 0;
 		}
-		op = p;
+		if (change)
+			*changes_out = add_change (*changes_out, bop - s, *delta_out);
+		bop = op;
 	}
-	rv = check_last_white (rv, white_space, last_white, delta_out);
+
+	if (check_last_white (white_space, last_white, delta_out, &rv))
+		*changes_out = add_change (*changes_out, op - s, *delta_out);
+
+	*changes_out = g_slist_reverse (*changes_out);
 
 	return rv;
 }
@@ -1629,13 +1657,13 @@ is_convert_nbsp_needed (const gchar *s, gint *delta_out)
 static void
 write_prev_white_space (gint white_space, gchar **fill)
 {
-			if (white_space > 0) {
+	if (white_space > 0) {
 #ifdef DEBUG_NBSP
-				printf ("&nbsp;");
+		printf ("&nbsp;");
 #endif
-				**fill = 0xc2; (*fill) ++;
-				**fill = 0xa0; (*fill) ++;
-			}
+		**fill = 0xc2; (*fill) ++;
+		**fill = 0xa0; (*fill) ++;
+	}
 }
 
 static void
@@ -1649,17 +1677,18 @@ write_last_white_space (gint white_space, gchar **fill)
 	}
 }
 
-static void
-convert_nbsp (gchar *fill, const gchar *p)
+static GSList *
+convert_nbsp (gchar *fill, const gchar *text)
 {
+	GSList *changes = NULL; 
 	gint white_space;
 	gunichar uc;
-	const gchar *op;
+	const gchar *op, *p;
 
 #ifdef DEBUG_NBSP
 	printf ("convert_nbsp: %s --> \"", p);
 #endif
-	op = p;
+	op = p = text;
 	white_space = 0;
 
 	while (*p && (uc = g_utf8_get_char (p)) && (p = g_utf8_next_char (p))) {
@@ -1686,19 +1715,106 @@ convert_nbsp (gchar *fill, const gchar *p)
 #endif
 }
 
+static void
+update_index_interval (int *start_index, int *end_index, GSList *changes)
+{
+	GSList *c;
+	int index, delta;
+
+	index = delta = 0;
+
+	for (c = changes; c && *start_index > index; c = c->next) {
+		struct TmpDeltaRecord *rec = c->data;
+
+		if (*start_index > index && *start_index <= rec->index) {
+			(*start_index) += delta;
+			break;
+		}
+		index = rec->index;
+		delta = rec->delta;
+	}
+
+	if (c == NULL && *start_index > index) {
+		(*start_index) += delta;
+		(*end_index) += delta;
+		return;
+	}
+
+	for (; c && *end_index > index; c = c->next) {
+		struct TmpDeltaRecord *rec = c->data;
+
+		if (*end_index > index && *end_index <= rec->index) {
+			(*start_index) += delta;
+			break;
+		}
+		index = rec->index;
+		delta = rec->delta;
+	}
+
+	if (c == NULL && *end_index > index)
+		(*end_index) += delta;
+}
+
+static gboolean
+update_attributes_filter (PangoAttribute *attr, gpointer data)
+{
+	update_index_interval (&attr->start_index, &attr->end_index, (GSList *) data);
+
+	return FALSE;
+}
+
+static void
+update_attributes (PangoAttrList *attrs, GSList *changes)
+{
+	pango_attr_list_filter (attrs, update_attributes_filter, changes);
+}
+
+static void
+update_links (GSList *links, GSList *changes)
+{
+	GSList *cl;
+
+	for (cl = links; cl; cl = cl->next) {
+		Link *link = (Link *) cl->data;
+		update_index_interval (&link->start_index, &link->end_index, changes);
+	}
+}
+
+static void
+free_changes (GSList *changes)
+{
+	GSList *c;
+
+	for (c = changes; c; c = c->next)
+		g_free (c->data);
+	g_slist_free (changes);
+}
+
 gboolean
 html_text_convert_nbsp (HTMLText *text, gboolean free_text)
 {
+	GSList *changes = NULL;
 	gint delta;
-	gchar *to_free;
 
-	if (is_convert_nbsp_needed (text->text, &delta)) {
-		to_free    = text->text;
+	if (is_convert_nbsp_needed (text->text, &delta, &changes)) {
+		GSList *attrs, *extra_attrs;
+		gchar *to_free;
+
+		to_free = text->text;
 		text->text = g_malloc (strlen (to_free) + delta + 1);
 		text->text_bytes += delta;
 		convert_nbsp (text->text, to_free);
 		if (free_text)
 			g_free (to_free);
+		if (changes) {
+			if (text->attr_list)
+				update_attributes (text->attr_list, changes);
+			if (text->extra_attr_list)
+				update_attributes (text->extra_attr_list, changes);
+			if (text->links)
+				update_links (text->links, changes);
+			free_changes (changes);
+		}
 		html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
 		return TRUE;
 	}
