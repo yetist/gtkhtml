@@ -434,5 +434,5 @@ html_engine_get_current_clueflow_alignment (HTMLEngine *engine)
 	if (para == NULL)
 		return 0;
 
-	return HTML_CLUE (para)->halign;
+	return html_clueflow_get_halignment (para);
 }

@@ -1,5 +1,9 @@
 2001-05-29  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine-edit-clueflowstyle.c
+	(html_engine_get_current_clueflow_alignment): use
+	html_clueflow_get_halignment
+
 	* htmlengine.c (parse_table): use halign of table cells
 	(parse_c): </center> resets divAlign to NONE
 	(html_engine_parse): initialize divAlign to NONE
