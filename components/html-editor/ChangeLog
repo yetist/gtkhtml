@@ -1,5 +1,11 @@
 2004-10-15  Radek Doulik  <rodo@ximian.com>
 
+	* spell.c (spell_add_to_personal_no_language): new helper method
+	to report broken language settings
+	(spell_add_to_personal): call spell_add_to_personal_no_language if
+	language is null
+	(add_cb): ditto
+
 	* test-html-editor-control.c (save_through_plain_persist_stream):
 	fixed save plain
 
