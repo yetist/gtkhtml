@@ -460,61 +460,30 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items, guint *props)
 		ADD_ITEM (_("Remove link"), remove_link, NONE);
 	}
 
-	if (!active && obj && html_object_is_text (obj)
-	    && !html_engine_spell_word_is_valid (e)) {
-		gchar *spell, *word, *ignore, *add;
-
-		ADD_SEP;
-		ADD_ITEM ("Check word spelling...", spell_check_cb, NONE);
-		if (get_n_languages (cd) > 1) {
-			gchar *lang;
-			gint i;
-
-			SUBMENU ("Add word to");
-
-			for (i = 0; i < cd->languages->_length; i ++) {
-				if (strstr (cd->html->engine->language, cd->languages->_buffer [i].abbreviation)) {
-					lang = g_strdup_printf (_("%s dictionary"), cd->languages->_buffer [i].name);
-					ADD_ITEM (lang, spell_add, NONE);
-					g_object_set_data (G_OBJECT (menuitem), "abbrev", cd->languages->_buffer [i].abbreviation);
-					g_free (lang);
-				}
-			}
-			
-			END_SUBMENU;
-		} else {
-			ADD_ITEM ("Add word to dictionary", spell_add, NONE);
-			g_object_set_data (G_OBJECT (menuitem), "abbrev", get_language (cd));
-		}
-		ADD_ITEM ("Ignore misspelled word", spell_ignore, NONE);
-	}
-
 	if (cd->format_html && obj) {
+		ADD_SEP;
+		SUBMENU ("Style");
 		switch (HTML_OBJECT_TYPE (obj)) {
 		case HTML_TYPE_TEXT:
-			ADD_SEP;
-			ADD_ITEM (_("Text..."), prop_dialog, TEXT);
+			ADD_ITEM (_("Text Style..."), prop_dialog, TEXT);
 			ADD_PROP (TEXT);
-			ADD_ITEM (_("Paragraph..."), prop_dialog, PARAGRAPH);
+			ADD_ITEM (_("Paragraph Style..."), prop_dialog, PARAGRAPH);
 			ADD_PROP (PARAGRAPH);
 			break;
 		case HTML_TYPE_LINKTEXT:
-			ADD_SEP;
-			ADD_ITEM (_("Link..."), link_prop_dialog, LINK);
+			ADD_ITEM (_("Link Style..."), link_prop_dialog, LINK);
 			ADD_PROP (LINK);
-			ADD_ITEM (_("Paragraph..."), prop_dialog, PARAGRAPH);
+			ADD_ITEM (_("Paragraph Style..."), prop_dialog, PARAGRAPH);
 			ADD_PROP (PARAGRAPH);
 			break;
 		case HTML_TYPE_RULE:
-			ADD_SEP;
-			ADD_ITEM (_("Rule..."), prop_dialog, RULE);
+			ADD_ITEM (_("Rule Style..."), prop_dialog, RULE);
 			ADD_PROP (RULE);
 			break;
 		case HTML_TYPE_IMAGE:
-			ADD_SEP;
-			ADD_ITEM (_("Image..."), prop_dialog, IMAGE);
+			ADD_ITEM (_("Image Style..."), prop_dialog, IMAGE);
 			ADD_PROP (IMAGE);
-			ADD_ITEM (_("Paragraph..."), prop_dialog, PARAGRAPH);
+			ADD_ITEM (_("Paragraph Style..."), prop_dialog, PARAGRAPH);
 			ADD_PROP (PARAGRAPH);
 			break;
 		default:
@@ -522,14 +491,21 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items, guint *props)
 		}
 		if (obj->parent && obj->parent->parent && HTML_IS_TABLE_CELL (obj->parent->parent)) {
 			if (cd->format_html) {
-				ADD_SEP;
 				ADD_PROP (CELL);
-				ADD_ITEM (_("Cell..."), prop_dialog, CELL);
+				ADD_ITEM (_("Cell Style..."), prop_dialog, CELL);
 				if (obj->parent->parent->parent && HTML_IS_TABLE (obj->parent->parent->parent)) {
 					ADD_PROP (TABLE);
-					ADD_ITEM (_("Table..."), prop_dialog, TABLE);
+					ADD_ITEM (_("Table Style..."), prop_dialog, TABLE);
 				}
 			}
+		}
+		if (cd->format_html) {
+			ADD_PROP (BODY);
+			ADD_ITEM (_("Page Style..."), prop_dialog, BODY);
+		}
+		END_SUBMENU;
+		ADD_SEP;
+		if (obj->parent && obj->parent->parent && HTML_IS_TABLE_CELL (obj->parent->parent)) {
 			SUBMENU (N_("Table insert"));
 			ADD_ITEM (_("Table"), insert_table_cb, NONE);
 			ADD_SEP;
@@ -548,10 +524,33 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items, guint *props)
 		}
 	}
 
-	if (cd->format_html) {
+	if (!active && obj && html_object_is_text (obj)
+	    && !html_engine_spell_word_is_valid (e)) {
+		gchar *spell, *word, *ignore, *add;
+
 		ADD_SEP;
-		ADD_PROP (BODY);
-		ADD_ITEM (_("Page..."), prop_dialog, BODY);
+		ADD_ITEM ("Check Word Spelling...", spell_check_cb, NONE);
+		if (get_n_languages (cd) > 1) {
+			gchar *lang;
+			gint i;
+
+			SUBMENU ("Add Word to");
+
+			for (i = 0; i < cd->languages->_length; i ++) {
+				if (strstr (cd->html->engine->language, cd->languages->_buffer [i].abbreviation)) {
+					lang = g_strdup_printf (_("%s Dictionary"), cd->languages->_buffer [i].name);
+					ADD_ITEM (lang, spell_add, NONE);
+					g_object_set_data (G_OBJECT (menuitem), "abbrev", cd->languages->_buffer [i].abbreviation);
+					g_free (lang);
+				}
+			}
+			
+			END_SUBMENU;
+		} else {
+			ADD_ITEM ("Add Word to Dictionary", spell_add, NONE);
+			g_object_set_data (G_OBJECT (menuitem), "abbrev", (gpointer) get_language (cd));
+		}
+		ADD_ITEM ("Ignore Misspelled Word", spell_ignore, NONE);
 	}
 
 	if (*items == 0) {
