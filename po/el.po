@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8.1\n"
-"POT-Creation-Date: 2001-07-30 16:52-0500\n"
+"POT-Creation-Date: 2001-07-31 10:05-0500\n"
 "PO-Revision-Date: 2001-01-30 15:55:46+0900\n"
 "Last-Translator: Simos Xenitellis <simos@hellug.gr>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
@@ -161,15 +161,15 @@ msgstr ""
 msgid "HTML Browser control"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:1
+#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.in.h:1
 msgid "GNOME HTML Editor"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:2
+#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.in.h:2
 msgid "GNOME HTML Editor Control"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:3
+#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.in.h:3
 msgid "GNOME HTML Editor Factory"
 msgstr ""
 

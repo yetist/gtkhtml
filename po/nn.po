@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.10\n"
-"POT-Creation-Date: 2001-07-30 16:52-0500\n"
+"POT-Creation-Date: 2001-07-31 10:05-0500\n"
 "PO-Revision-Date: 2001-06-25 18:55+02:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian (Nynorsk)\n"
@@ -165,16 +165,16 @@ msgstr "Set opp lesarval"
 msgid "HTML Browser control"
 msgstr "Musestyring:"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:1
+#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.in.h:1
 #, fuzzy
 msgid "GNOME HTML Editor"
 msgstr "Comment=KDE-program for HTML-redigering"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:2
+#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.in.h:2
 msgid "GNOME HTML Editor Control"
 msgstr ""
 
-#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:3
+#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.in.h:3
 msgid "GNOME HTML Editor Factory"
 msgstr ""
 

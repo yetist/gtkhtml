@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.9.3\n"
-"POT-Creation-Date: 2001-07-30 16:52-0500\n"
+"POT-Creation-Date: 2001-07-31 10:05-0500\n"
 "PO-Revision-Date: 2001-05-11 01:41+0200\n"
 "Last-Translator: Gediminas Paulauskas <menesis@delfi.lt>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
@@ -151,17 +151,17 @@ msgstr "EBrowser valdiklio gamykla"
 msgid "HTML Browser control"
 msgstr "HTML narðyklës valdiklis"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:1
+#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.in.h:1
 #, fuzzy
 msgid "GNOME HTML Editor"
 msgstr "HTML redaktoriaus valdiklis"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:2
+#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.in.h:2
 #, fuzzy
 msgid "GNOME HTML Editor Control"
 msgstr "HTML redaktoriaus valdiklis"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:3
+#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.in.h:3
 #, fuzzy
 msgid "GNOME HTML Editor Factory"
 msgstr "HTML redaktoriaus valdiklis"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.10.99\n"
-"POT-Creation-Date: 2001-07-30 16:52-0500\n"
+"POT-Creation-Date: 2001-07-31 10:05-0500\n"
 "PO-Revision-Date: 2001-07-24 18:00CET\n"
 "Last-Translator: Stanislav Visnovsky <visnovsky@nenya.ms.mff.cuni.cz>\n"
 "Language-Team: Slovak <sk-i18n@linux.sk>\n"
@@ -152,15 +152,15 @@ msgstr "Vytváracie rozhranie pre ovládací prvok EBrowser"
 msgid "HTML Browser control"
 msgstr "Ovládací prvok HTML prehliadaè"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:1
+#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.in.h:1
 msgid "GNOME HTML Editor"
 msgstr "GNOME HTML editor"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:2
+#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.in.h:2
 msgid "GNOME HTML Editor Control"
 msgstr "Ovládací prvok GNOME HTML editor"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:3
+#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.in.h:3
 msgid "GNOME HTML Editor Factory"
 msgstr "Vytváracie rozhranie pre GNOME HTML editor"
 
