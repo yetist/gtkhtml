@@ -1,12 +1,12 @@
-# SOME DESCRIPTIVE TITLE.
+# Translations of gtkhtml into spanish.
 # Copyright (C) 2000 Free Software Foundation, Inc.
 # Héctor García Álvarez <hector@scouts-es.org>, 2000.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml 0.6\n"
-"POT-Creation-Date: 2001-05-21 20:35+0200\n"
-"PO-Revision-Date: 2001-01-22 13:23+0200\n"
+"Project-Id-Version: gtkhtml 0.9.99\n"
+"POT-Creation-Date: 2001-06-10 22:28+0200\n"
+"PO-Revision-Date: 2001-06-07 13:23+0200\n"
 "Last-Translator: Héctor García Álvarez <hector@scouts-es.org>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,42 +19,42 @@ msgstr ""
 msgid "<None>"
 msgstr "<Nada>"
 
-#: capplet/gnome-bindings-prop.c:525
+#: capplet/gnome-bindings-prop.c:529
 msgid "Key"
 msgstr "Clave"
 
-#: capplet/gnome-bindings-prop.c:525
+#: capplet/gnome-bindings-prop.c:530
 msgid "Command"
 msgstr "Comando"
 
-#: capplet/gnome-bindings-prop.c:526
+#: capplet/gnome-bindings-prop.c:531
 msgid "Commands"
 msgstr "Comandos"
 
-#: capplet/gnome-bindings-prop.c:527
+#: capplet/gnome-bindings-prop.c:532
 msgid "Keymaps"
 msgstr "Mapa de claves"
 
-#: capplet/gnome-bindings-prop.c:545
+#: capplet/gnome-bindings-prop.c:550
 msgid "Add"
 msgstr "Añadir"
 
-#: capplet/gnome-bindings-prop.c:548
+#: capplet/gnome-bindings-prop.c:553
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:2
 #: components/html-editor/popup.c:249
 msgid "Copy"
 msgstr "Copiar"
 
-#: capplet/gnome-bindings-prop.c:551
+#: capplet/gnome-bindings-prop.c:556
 msgid "Delete"
 msgstr "Borrar"
 
-#: capplet/gnome-bindings-prop.c:582
+#: capplet/gnome-bindings-prop.c:587
 msgid "Grab key"
 msgstr "Obtener clave"
 
-#: capplet/main.c:227 components/html-editor/cell.c:96
-#: components/html-editor/table.c:280
+#: capplet/main.c:227 components/html-editor/cell.c:333
+#: components/html-editor/table.c:286
 msgid "Could not load glade file."
 msgstr "No pude cargar el archivo glade."
 
@@ -344,103 +344,227 @@ msgstr "Permitir"
 msgid "Colors"
 msgstr "Colores"
 
-#: components/html-editor/body.c:169 components/html-editor/table.c:286
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:286
+#: components/html-editor/body.c:169 components/html-editor/cell.c:339
+#: components/html-editor/table.c:292 components/html-editor/text.c:221
+#: components/html-editor/toolbar.c:286
 msgid "Automatic"
 msgstr "Automático"
 
 #: components/html-editor/body.c:180
-#: components/html-editor/editor-control-factory.c:166
+#: components/html-editor/editor-control-factory.c:167
 #: components/html-editor/menubar.c:124 components/html-editor/popup.c:93
 msgid "Text"
 msgstr "Texto"
 
 #: components/html-editor/body.c:181
-#: components/html-editor/editor-control-factory.c:191
+#: components/html-editor/editor-control-factory.c:193
 #: components/html-editor/menubar.c:108 components/html-editor/menubar.c:129
 #: components/html-editor/popup.c:114
 msgid "Link"
 msgstr "Enlace"
 
 #: components/html-editor/body.c:182
+#: components/html-editor/gtkhtml-editor-properties.glade.h:2
 msgid "Background"
 msgstr "Fondo"
 
-#: components/html-editor/editor-control-factory.c:146
+#: components/html-editor/editor-control-factory.c:147
 #: components/html-editor/popup.c:85
 msgid "Properties"
 msgstr "Propiedades"
 
-#: components/html-editor/editor-control-factory.c:157
+#: components/html-editor/editor-control-factory.c:158
 #: components/html-editor/menubar.c:103 components/html-editor/popup.c:100
 msgid "Image"
 msgstr "Imagen"
 
-#: components/html-editor/editor-control-factory.c:177
+#: components/html-editor/editor-control-factory.c:178
 #: components/html-editor/menubar.c:147 components/html-editor/popup.c:128
 msgid "Rule"
 msgstr "Regla"
 
-#: components/html-editor/editor-control-factory.c:186
+#: components/html-editor/editor-control-factory.c:188
 #: components/html-editor/popup.c:107
 msgid "Paragraph"
 msgstr "Párrafo"
 
-#: components/html-editor/editor-control-factory.c:196
+#: components/html-editor/editor-control-factory.c:198
 #: components/html-editor/popup.c:121
 msgid "Page"
 msgstr "Página"
 
-#: components/html-editor/image.c:180
-msgid "Image selection"
-msgstr "Selección de imagen"
-
-#: components/html-editor/image.c:201
-msgid "Top"
-msgstr "Cabecera"
-
-#: components/html-editor/image.c:202 components/html-editor/paragraph.c:158
-#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:496
-msgid "Center"
-msgstr "Centro"
-
-#: components/html-editor/image.c:203
-msgid "Bottom"
-msgstr "Pie"
-
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
+#: components/html-editor/gtkhtml-editor-properties.glade.h:1
 #: components/html-editor/image.c:207
 msgid "Alignment"
 msgstr "Alineación"
 
-#: components/html-editor/image.c:215
-msgid "Border"
-msgstr "Borde"
+#: components/html-editor/gtkhtml-editor-properties.glade.h:3
+#: components/html-editor/image.c:203
+msgid "Bottom"
+msgstr "Pie"
 
-#: components/html-editor/image.c:225 components/html-editor/image.c:243
-#: components/html-editor/image.c:275 components/html-editor/rule.c:267
-msgid "width"
-msgstr "ancho"
+#: components/html-editor/gtkhtml-editor-properties.glade.h:4
+#: components/html-editor/popup.c:142
+msgid "Cell"
+msgstr "Celda"
 
-#: components/html-editor/image.c:232
-msgid "Padding"
-msgstr "Relleno"
+#: components/html-editor/gtkhtml-editor-properties.glade.h:5
+#: components/html-editor/paragraph.c:158 components/html-editor/rule.c:257
+#: components/html-editor/toolbar.c:496
+msgid "Center"
+msgstr "Centro"
 
-#: components/html-editor/image.c:244 components/html-editor/image.c:276
-msgid "height"
-msgstr "alto"
+#: components/html-editor/gtkhtml-editor-properties.glade.h:6
+msgid "Don't wrap"
+msgstr "No recubrir"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:7
+msgid "Header"
+msgstr "Cabecera"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:8
+#: components/html-editor/paragraph.c:157 components/html-editor/rule.c:256
+msgid "Left"
+msgstr "Izquierda"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:9
+#: components/html-editor/image.c:202
+msgid "Middle"
+msgstr "Medio"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:10
+msgid "Miscelaneous"
+msgstr "Miscelánea"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:11
+msgid "None"
+msgstr "Nada"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:12
+#: components/html-editor/paragraph.c:124 components/html-editor/toolbar.c:50
+msgid "Normal"
+msgstr "Normal"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:13
+msgid "Percent"
+msgstr "Porcentaje"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:14
+#: components/html-editor/image.c:259 components/html-editor/image.c:268
+#: components/html-editor/rule.c:230
+msgid "Pixels"
+msgstr "Pixels"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:15
+#: components/html-editor/paragraph.c:159 components/html-editor/rule.c:258
+msgid "Right"
+msgstr "Derecha"
 
 #. size
+#: components/html-editor/gtkhtml-editor-properties.glade.h:16
 #: components/html-editor/image.c:252 components/html-editor/rule.c:225
 #: components/html-editor/text.c:188
 msgid "Size"
 msgstr "Tamaño"
 
-#: components/html-editor/image.c:259 components/html-editor/image.c:268
-#: components/html-editor/rule.c:230
-msgid "Pixels"
-msgstr "Pixels"
+#: components/html-editor/gtkhtml-editor-properties.glade.h:17
+msgid "Spacing"
+msgstr "Espaciado"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:18
+#: components/html-editor/popup.c:135
+msgid "Table"
+msgstr "Tabla"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:19
+#: components/html-editor/image.c:201
+msgid "Top"
+msgstr "Cabecera"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:20
+msgid "Wrap"
+msgstr "Recubrir"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:21
+msgid "alignment"
+msgstr "alineación"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:22
+msgid "border"
+msgstr "borde"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:23
+msgid "color"
+msgstr "color"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:24
+msgid "column span"
+msgstr "ancho de columna"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:25
+msgid "columns"
+msgstr "columnas"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:26
+#: components/html-editor/image.c:244 components/html-editor/image.c:276
+msgid "height"
+msgstr "alto"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:27
+msgid "horizontal"
+msgstr "horizontal"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:28
+msgid "padding"
+msgstr "relleno"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:29
+msgid "pixmap"
+msgstr "pixmap"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:30
+msgid "row span"
+msgstr "tamaño de fila"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:31
+msgid "rows"
+msgstr "filas"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:32
+msgid "spacing"
+msgstr "espaciado"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:33
+msgid "style"
+msgstr "estilo"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:34
+msgid "vertical"
+msgstr "vertical"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:35
+#: components/html-editor/image.c:225 components/html-editor/image.c:243
+#: components/html-editor/image.c:275 components/html-editor/rule.c:267
+msgid "width"
+msgstr "ancho"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:36
+msgid "wrapping"
+msgstr "recubriendo"
+
+#: components/html-editor/image.c:180
+msgid "Image selection"
+msgstr "Selección de imagen"
+
+#: components/html-editor/image.c:215
+msgid "Border"
+msgstr "Borde"
+
+#: components/html-editor/image.c:232
+msgid "Padding"
+msgstr "Relleno"
 
 #: components/html-editor/image.c:260 components/html-editor/image.c:269
 #: components/html-editor/rule.c:231
@@ -479,10 +603,6 @@ msgstr "No pude ejecutar las propiedades de gtkhtml"
 #: components/html-editor/text.c:168
 msgid "Style"
 msgstr "Estilo"
-
-#: components/html-editor/paragraph.c:124 components/html-editor/toolbar.c:50
-msgid "Normal"
-msgstr "Normal"
 
 #: components/html-editor/paragraph.c:125
 msgid "Pre"
@@ -531,22 +651,6 @@ msgstr "Elemento dígito"
 #: components/html-editor/paragraph.c:144
 msgid "Align"
 msgstr "Alineación"
-
-#: components/html-editor/paragraph.c:157 components/html-editor/rule.c:256
-msgid "Left"
-msgstr "Izquierda"
-
-#: components/html-editor/paragraph.c:159 components/html-editor/rule.c:258
-msgid "Right"
-msgstr "Derecha"
-
-#: components/html-editor/popup.c:135
-msgid "Table"
-msgstr "Tabla"
-
-#: components/html-editor/popup.c:142
-msgid "Cell"
-msgstr "Celda"
 
 #: components/html-editor/popup.c:235
 msgid "Suggest word"
@@ -730,7 +834,7 @@ msgstr "Indentar"
 msgid "Indents the paragraphs more"
 msgstr "Indenta más los párrafos"
 
-#: components/html-editor/utils.c:104
+#: components/html-editor/utils.c:106
 msgid "Sample"
 msgstr "Ejemplo"
 
@@ -753,9 +857,6 @@ msgstr "Vista previa"
 
 #~ msgid "Search for a string"
 #~ msgstr "Buscar una cadena"
-
-#~ msgid "Search string"
-#~ msgstr "Buscar cadena"
 
 #~ msgid "Regex search"
 #~ msgstr "Busqueda por expresiones regulares"
