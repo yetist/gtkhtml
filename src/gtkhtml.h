@@ -118,7 +118,7 @@ struct _HTMLEmbedded;
 struct _GtkHTMLClass {
 	GtkLayoutClass parent_class;
 	
-        void (* title_changed)   (GtkHTML *html);
+        void (* title_changed)   (GtkHTML *html, const gchar *new_title);
         void (* url_requested)   (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle);
         void (* load_done)       (GtkHTML *html);
         void (* link_clicked)    (GtkHTML *html, const char *url);

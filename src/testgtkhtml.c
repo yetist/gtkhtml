@@ -71,7 +71,7 @@ static void home_cb (GtkWidget *widget, gpointer data);
 static void reload_cb (GtkWidget *widget, gpointer data);
 static void redraw_cb (GtkWidget *widget, gpointer data);
 static void resize_cb (GtkWidget *widget, gpointer data);
-static void title_changed_cb (GtkHTML *html, gpointer data);
+static void title_changed_cb (GtkHTML *html, const gchar *title, gpointer data);
 static void url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpointer data);
 static void entry_goto_url(GtkWidget *widget, gpointer data);
 static void goto_url(const char *url, int back_or_forward);
@@ -336,13 +336,12 @@ slow_cb (GtkWidget *widget, gpointer data)
 	slow_loading = !slow_loading;
 }
 
-
 static void
-title_changed_cb (GtkHTML *html, gpointer data)
+title_changed_cb (GtkHTML *html, const gchar *title, gpointer data)
 {
 	gchar *s;
 
-	s = g_strdup_printf ("GtkHTML: %s\n", html->engine->title->str);
+	s = g_strconcat ("GtkHTML: ", title, NULL);
 	gtk_window_set_title (GTK_WINDOW (data), s);
 	g_free (s);
 }

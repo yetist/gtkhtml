@@ -1,3 +1,17 @@
+2000-03-17  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* testgtkhtml.c
+	(title_changed_cb): New param `title'.  Use `g_strconcat()'
+	instead of `g_strdup_printf()'.
+
+	* gtkhtml.c
+	(html_engine_title_changed_cb): Updated to set the new `new_title'
+	parameter in "title_changed".
+	(class_init): Set up "title_changed" with a new `GTK_TYPE_STRING'
+	param.
+
+	* gtkhtml.h: Parameter `new_title' added to signal "title_changed".
+
 2000-03-17  Jonas Borgström  <jonas_b@bitsmart.com>
 
 	* htmltextslave.c (calc_size): Set ascent and descent

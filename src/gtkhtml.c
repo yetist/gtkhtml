@@ -234,7 +234,7 @@ html_engine_title_changed_cb (HTMLEngine *engine, gpointer data)
 	GtkHTML *gtk_html;
 
 	gtk_html = GTK_HTML (data);
-	gtk_signal_emit (GTK_OBJECT (gtk_html), signals[TITLE_CHANGED]);
+	gtk_signal_emit (GTK_OBJECT (gtk_html), signals[TITLE_CHANGED], engine->title->str);
 }
 
 static void
@@ -735,8 +735,9 @@ class_init (GtkHTMLClass *klass)
 			  GTK_RUN_FIRST,
 			  object_class->type,
 			  GTK_SIGNAL_OFFSET (GtkHTMLClass, title_changed),
-			  gtk_marshal_NONE__NONE,
-			  GTK_TYPE_NONE, 0);
+			  gtk_marshal_NONE__STRING,
+			  GTK_TYPE_NONE, 1,
+			  GTK_TYPE_STRING);
 	signals [URL_REQUESTED] =
 	  gtk_signal_new ("url_requested",
 			  GTK_RUN_FIRST,

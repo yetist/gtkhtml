@@ -581,6 +581,7 @@ set_clueflow_style_in_region (HTMLEngine *engine,
 
 	g_free (data);
 
+	/* FIXME i18n */
 	undo_action = html_undo_action_new ("paragraph style change",
 					    set_clueflow_style_in_region_undo,
 					    set_clueflow_style_in_region_undo_closure_destroy,
