@@ -10,7 +10,6 @@ components/html-editor/body.c
 components/html-editor/cell.c
 components/html-editor/editor-control-factory.c
 components/html-editor/gtkhtml-editor-properties.glade
-components/html-editor/html-editor-control.xml
 components/html-editor/image.c
 components/html-editor/link.c
 components/html-editor/menubar.c
