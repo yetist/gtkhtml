@@ -4358,9 +4358,10 @@ html_engine_get_cursor (HTMLEngine *e)
 void
 html_engine_set_painter (HTMLEngine *e, HTMLPainter *painter, gint max_width)
 {
-	gint min_width;
+	gint min_width, pixel_size = html_painter_get_pixel_size (painter);
 
 	e->painter = painter;
+	max_width -= pixel_size * (e->leftBorder + e->rightBorder);
 
 	html_object_set_painter (e->clue, painter, max_width);
 	html_object_change_set_down (e->clue, HTML_CHANGE_ALL);
@@ -4369,12 +4370,12 @@ html_engine_set_painter (HTMLEngine *e, HTMLPainter *painter, gint max_width)
 
 	html_object_set_max_width (e->clue, painter, max_width);
 
-	min_width = html_object_calc_min_width (e->clue, painter);
+	min_width = html_engine_calc_min_width (e);
 	if (min_width > max_width) {
 		max_width = min_width;
 
 		html_object_change_set_down (e->clue, HTML_CHANGE_ALL);
-		html_object_set_max_width (e->clue, painter, max_width);
+		html_object_set_max_width (e->clue, painter, max_width - pixel_size * (e->leftBorder + e->rightBorder));
 	}
 
 	html_engine_calc_size (e);

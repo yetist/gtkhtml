@@ -1,5 +1,7 @@
 2001-01-30  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine.c (html_engine_set_painter): take care of borber
+
 	* htmliframe.c (draw): take care of html border, fixes iframes
 	printing
 
