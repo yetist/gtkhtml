@@ -3368,6 +3368,18 @@ id_table_free_func (gpointer key, gpointer val, gpointer data)
 	return TRUE;
 }
 
+static void 
+html_engine_id_table_clear (HTMLEngine *e)
+{
+	if (e->id_table) {
+		g_hash_table_freeze (e->id_table);
+		g_hash_table_foreach_remove (e->id_table, id_table_free_func, NULL);
+		g_hash_table_thaw (e->id_table);
+		g_hash_table_destroy (e->id_table);
+		e->id_table = NULL;
+	}
+}
+
 GtkHTMLStream *
 html_engine_begin (HTMLEngine *e, char *content_type)
 {
@@ -3380,14 +3392,7 @@ html_engine_begin (HTMLEngine *e, char *content_type)
 	html_engine_stop_parser (e);
 	e->writing = TRUE;
 
-	if (e->id_table) {
-		g_hash_table_freeze (e->id_table);
-		g_hash_table_foreach_remove (e->id_table, id_table_free_func, NULL);
-		g_hash_table_thaw (e->id_table);
-		g_hash_table_destroy (e->id_table);
-		e->id_table = NULL;
-	}
-
+	html_engine_id_table_clear (e);
 	html_image_factory_stop_animations (e->image_factory);
 	html_image_factory_cleanup (e->image_factory);
 
