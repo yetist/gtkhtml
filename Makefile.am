@@ -29,8 +29,9 @@ SUBDIRS =					\
 	src					\
 	$(DIR_COMPONENTS)
 
-EXTRA_DIST = \
-	html-component.gnorba
+EXTRA_DIST =					\
+	html-component.gnorba			\
+	gtkhtmlConf.sh.in
 
 if BONOBO
 gnorbadir = $(sysconfdir)/CORBA/servers
