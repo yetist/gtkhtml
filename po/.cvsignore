@@ -1,3 +1,9 @@
 Makefile
 Makefile.in
 POTFILES
+*.gmo
+messages
+gtkhtml.pot
+cat-id-tbl.c
+*.mo
+*.pox
