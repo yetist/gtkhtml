@@ -468,6 +468,8 @@ html_image_resolve_image_url (GtkHTML *html, gchar *image_url)
 		GValue  args [1];
 		GValue *arg;
 
+		memset (&args [0], 0, sizeof (GValue));
+		g_value_init (&args [0], G_TYPE_STRING);
 		g_value_set_string (&args [0], image_url);
 
 		arg = (* html->editor_api->event) (html, GTK_HTML_EDITOR_EVENT_IMAGE_URL, args, html->editor_data);

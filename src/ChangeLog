@@ -1,5 +1,11 @@
 2002-12-05  Radek Doulik  <rodo@ximian.com>
 
+	* gtkhtml.c (gtk_html_editor_event_command): init GValue before
+	use
+
+	* htmlimage.c (html_image_resolve_image_url): init GValue before
+	use
+
 	* htmlengine-edit-tablecell.c (html_engine_set_cspan): new method
 	(html_engine_set_rspan): ditto, TODO
 	(expand_cspan): ditto, not finished yet

@@ -4610,8 +4610,9 @@ get_value_nick (GtkHTMLCommandType com_type)
 void
 gtk_html_editor_event_command (GtkHTML *html, GtkHTMLCommandType com_type, gboolean before)
 {
-	GValue arg = { 0, };
+	GValue arg;
 
+	memset (&arg, 0, sizeof (GValue));
 	g_value_init (&arg, G_TYPE_STRING);
 	g_value_set_static_string (&arg, get_value_nick (com_type));
 
