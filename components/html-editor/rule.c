@@ -27,6 +27,7 @@
 #include "properties.h"
 #include "dialog.h"
 #include "rule.h"
+#include "utils.h"
 #include "htmlengine-edit-fontstyle.h"
 #include "htmlengine-edit-insert.h"
 #include "htmlengine-edit-rule.h"
@@ -56,7 +57,7 @@ struct _GtkHTMLEditRuleProperties {
 	HTMLHAlignType align;
 	GtkWidget *align_option;
 
-	GtkWidget *sample;
+	GtkHTML *sample;
 
 	gboolean disable_change;
 };
@@ -69,7 +70,6 @@ typedef struct _GtkHTMLEditRuleProperties GtkHTMLEditRuleProperties;
 static void
 fill_sample (GtkHTMLEditRuleProperties *d)
 {
-	GtkHTMLStream *stream;
 	gchar *body, *width, *size, *align, *noshade;
 
 	width   = d->set [GTK_HTML_EDIT_RULE_WIDTH]
@@ -86,9 +86,7 @@ fill_sample (GtkHTMLEditRuleProperties *d)
 
 	printf ("body: %s\n", body);
 
-	stream = gtk_html_begin (GTK_HTML (d->sample));
-	gtk_html_write (GTK_HTML (d->sample), stream, body, strlen (body));
-	gtk_html_end (GTK_HTML (d->sample), stream, GTK_HTML_STREAM_OK);
+	gtk_html_load_from_string (d->sample, body, -1);
 
 	g_free (width);
 	g_free (size);
@@ -209,7 +207,7 @@ data_new (GtkHTMLControlData *cd)
 static GtkWidget *
 rule_widget (GtkHTMLEditRuleProperties *data)
 {
-	GtkWidget *vbox, *mhb, *hbox, *frame, *sw, *menu, *menuitem, *vb1;
+	GtkWidget *vbox, *mhb, *hbox, *frame, *menu, *menuitem, *vb1;
 	gint mcounter;
 
 	/* prepare content */
@@ -276,14 +274,7 @@ rule_widget (GtkHTMLEditRuleProperties *data)
 	gtk_box_pack_start (GTK_BOX (vbox), mhb, FALSE, FALSE, 0);
 
 	/* sample */
-	frame = gtk_frame_new (_("Sample"));
-	data->sample = gtk_html_new ();
-	sw = gtk_scrolled_window_new (NULL, NULL);
-	gtk_container_border_width (GTK_CONTAINER (sw), 3);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-	gtk_container_add (GTK_CONTAINER (sw), data->sample);
-	gtk_container_add (GTK_CONTAINER (frame), sw);
-	gtk_box_pack_start_defaults (GTK_BOX (vbox), frame);
+	gtk_box_pack_start_defaults (GTK_BOX (vbox), sample_frame (&data->sample));
 	fill_sample (data);
 
 	data->disable_change = FALSE;

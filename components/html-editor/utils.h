@@ -24,7 +24,10 @@
 #define _UTILS_H_
 
 #include <gtk/gtk.h>
+#include "gtkhtml.h"
 
-GtkWidget * color_table_new (GtkSignalFunc f, gpointer data);
+GtkWidget *color_table_new  (GtkSignalFunc   f,
+			     gpointer        data);
+GtkWidget *sample_frame     (GtkHTML       **html);
 
 #endif

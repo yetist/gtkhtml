@@ -41,8 +41,45 @@ struct _GtkHTMLEditTextProperties {
 	GtkHTMLFontStyle style_and;
 	GtkHTMLFontStyle style_or;
 	GdkColor color;
+
+	GtkHTML *sample;
 };
 typedef struct _GtkHTMLEditTextProperties GtkHTMLEditTextProperties;
+
+#define STYLES 4
+static GtkHTMLFontStyle styles [STYLES] = {
+	GTK_HTML_FONT_STYLE_BOLD,
+	GTK_HTML_FONT_STYLE_ITALIC,
+	GTK_HTML_FONT_STYLE_UNDERLINE,
+	GTK_HTML_FONT_STYLE_STRIKEOUT,
+};
+
+#define CVAL(i) (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (d->check [i])))
+
+static gint get_size (GtkHTMLFontStyle s);
+
+static void
+fill_sample (GtkHTMLEditTextProperties *d)
+{
+	gchar *body, *size, *color;
+
+	size  = g_strdup_printf ("<font size=%d>", get_size (d->style_or) + 1);
+	color = g_strdup_printf ("<font color=#%2x%2x%2x>",
+				 d->color.red >> 8,
+				 d->color.green >> 8,
+				 d->color.blue >> 8);
+	body  = g_strconcat (CVAL (0) ? "<b>" : "",
+			     CVAL (1) ? "<i>" : "",
+			     CVAL (2) ? "<u>" : "",
+			     CVAL (3) ? "<s>" : "",
+			     size,
+			     color,
+			     "The quick brown fox jumps over the lazy dog.", NULL);
+	printf ("body: %s\n", body);
+	gtk_html_load_from_string (d->sample, body, -1);
+	g_free (size);
+	g_free (body);
+}
 
 static void
 set_color (GtkWidget *w, gushort r, gushort g, gushort b, gushort a, GtkHTMLEditTextProperties *data)
@@ -52,6 +89,7 @@ set_color (GtkWidget *w, gushort r, gushort g, gushort b, gushort a, GtkHTMLEdit
 	data->color.blue  = b;
 	data->color_changed = TRUE;
 	gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
+	fill_sample (data);
 }
 
 static void
@@ -77,23 +115,27 @@ set_size (GtkWidget *w, GtkHTMLEditTextProperties *data)
 	gint size = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (w), "size"));
 
 	data->style_and &= ~GTK_HTML_FONT_STYLE_SIZE_MASK;
+	data->style_or  &= ~GTK_HTML_FONT_STYLE_SIZE_MASK;
 	data->style_or  |= size;
 	data->style_changed = TRUE;
 	gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
+	fill_sample (data);
 }
 
 static void
-set_style (GtkWidget *w, GtkHTMLEditTextProperties *data)
+set_style (GtkWidget *w, GtkHTMLEditTextProperties *d)
 {
 	GtkHTMLFontStyle style = GPOINTER_TO_UINT (gtk_object_get_data (GTK_OBJECT (w), "style"));
 
-	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (w)))
-		data->style_or |= style;
-	else
-		data->style_and &= ~style;
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (w))) {
+		d->style_or  |= style;
+		d->style_and |= style;
+	} else
+		d->style_and &= ~style;
 
-	data->style_changed = TRUE;
-	gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
+	d->style_changed = TRUE;
+	gtk_html_edit_properties_dialog_change (d->cd->properties_dialog);
+	fill_sample (d);
 }
 
 static gint
@@ -104,21 +146,11 @@ get_size (GtkHTMLFontStyle s)
 		: 2;
 }
 
-#define STYLES 4
-static GtkHTMLFontStyle styles [STYLES] = {
-	GTK_HTML_FONT_STYLE_BOLD,
-	GTK_HTML_FONT_STYLE_ITALIC,
-	GTK_HTML_FONT_STYLE_UNDERLINE,
-	GTK_HTML_FONT_STYLE_STRIKEOUT,
-};
-
 GtkWidget *
 text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 {
 	GtkHTMLEditTextProperties *data = g_new (GtkHTMLEditTextProperties, 1);
 	GtkWidget *mvbox, *vbox, *hbox, *frame, *table, *table1, *menu, *menuitem;
-	GdkColor *color;
-	GtkHTMLFontStyle font_style;
 	gint i;
 	gdouble rn, gn, bn;
 
@@ -128,7 +160,8 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	data->color_changed   = FALSE;
 	data->style_changed   = FALSE;
 	data->style_and       = GTK_HTML_FONT_STYLE_MAX;
-	data->style_or        = 0;
+	data->style_or        = html_engine_get_font_style (cd->html->engine);
+	data->color           = html_engine_get_color (cd->html->engine)->color;
 
 	table = gtk_table_new (2, 2, FALSE);
 	gtk_container_border_width (GTK_CONTAINER (table), 3);
@@ -138,12 +171,9 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	frame = gtk_frame_new (_("Style"));
 	vbox = gtk_vbox_new (FALSE, 2);
 
-	font_style =  html_engine_get_font_style (cd->html->engine);
-	color      = &html_engine_get_color      (cd->html->engine)->color;
-
 #define ADD_CHECK(x) \
 	data->check [i] = gtk_check_button_new_with_label (x); \
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->check [i]), font_style & styles [i]); \
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->check [i]), data->style_or & styles [i]); \
         gtk_object_set_data (GTK_OBJECT (data->check [i]), "style", GUINT_TO_POINTER (styles [i])); \
         gtk_signal_connect (GTK_OBJECT (data->check [i]), "toggled", set_style, data); \
 	gtk_box_pack_start (GTK_BOX (vbox), data->check [i], FALSE, FALSE, 0); i++
@@ -179,7 +209,7 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 
 	data->sel_size = gtk_option_menu_new ();
 	gtk_option_menu_set_menu (GTK_OPTION_MENU (data->sel_size), menu);
-	gtk_option_menu_set_history (GTK_OPTION_MENU (data->sel_size), get_size (font_style));
+	gtk_option_menu_set_history (GTK_OPTION_MENU (data->sel_size), get_size (data->style_or));
 	gtk_container_add (GTK_CONTAINER (frame), data->sel_size);
 	gtk_table_attach_defaults (GTK_TABLE (table), frame, 0, 1, 1, 2);
 
@@ -187,9 +217,9 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	frame = gtk_frame_new (_("Color"));
 	data->color_picker = gnome_color_picker_new ();
 
-	rn = ((gdouble) color->red)  /0xffff;
-	gn = ((gdouble) color->green)/0xffff;
-	bn = ((gdouble) color->blue) /0xffff;
+	rn = ((gdouble) data->color.red)  /0xffff;
+	gn = ((gdouble) data->color.green)/0xffff;
+	bn = ((gdouble) data->color.blue) /0xffff;
 
 	gnome_color_picker_set_d (GNOME_COLOR_PICKER (data->color_picker), rn, gn, bn, 1.0);
         gtk_signal_connect (GTK_OBJECT (data->color_picker), "color_set", GTK_SIGNAL_FUNC (set_color), data);
@@ -209,6 +239,10 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	mvbox = gtk_vbox_new (FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (mvbox), table, FALSE, FALSE, 0);
 
+	/* sample */
+	gtk_box_pack_start_defaults (GTK_BOX (mvbox), sample_frame (&data->sample));
+	fill_sample (data);
+
 	return mvbox;
 }
 
@@ -216,15 +250,9 @@ void
 text_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditTextProperties *data = (GtkHTMLEditTextProperties *) get_data;
-	gint i;
 
 	if (data->style_changed) {
-		for (i=0; i<STYLES; i++) {
-			if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (data->check [i])))
-				data->style_or |= styles [i];
-			else
-				data->style_and &= ~styles [i];
-		}
+		printf ("and: %x or: %x\n", data->style_and, data->style_or);
 		html_engine_set_font_style (cd->html->engine, data->style_and, data->style_or);
 	}
 

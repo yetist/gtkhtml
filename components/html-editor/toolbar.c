@@ -157,6 +157,7 @@ setup_font_size_option_menu (GtkHTMLControlData *cd)
 	gchar size [3];
 
 	cd->font_size_menu = option_menu = gtk_option_menu_new ();
+
 	menu = gtk_menu_new ();
 	size [2] = 0;
 

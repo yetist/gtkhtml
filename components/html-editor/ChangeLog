@@ -1,3 +1,14 @@
+2000-10-17  Radek Doulik  <rodo@helixcode.com>
+
+	* text.c (text_properties): use sample_frame, added sample frame
+	(fill_sample): new helper function
+	(text_properties): changed style handling
+	use fill_data all over place
+
+	* utils.c (sample_frame): new helper function
+
+	* rule.c (fill_sample): use gtk_html_load_from_string
+
 2000-10-12  Radek Doulik  <rodo@helixcode.com>
 
 	* popup.c (prop_dialog): added rule property type

@@ -20,6 +20,7 @@
     Boston, MA 02111-1307, USA.
 */
 
+#include <gnome.h>
 #include "utils.h"
 
 GtkWidget *
@@ -61,4 +62,20 @@ color_table_new (GtkSignalFunc f, gpointer data)
 		}
 
 	return table;
+}
+
+GtkWidget *
+sample_frame (GtkHTML **html)
+{
+	GtkWidget *frame, *sw;
+
+	frame = gtk_frame_new (_("Sample"));
+	*html = GTK_HTML (gtk_html_new ());
+	sw = gtk_scrolled_window_new (NULL, NULL);
+	gtk_container_border_width (GTK_CONTAINER (sw), 3);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	gtk_container_add (GTK_CONTAINER (sw), GTK_WIDGET (*html));
+	gtk_container_add (GTK_CONTAINER (frame), sw);
+
+	return frame;
 }
