@@ -2012,7 +2012,7 @@ next_prev_cursor_object (HTMLObject *o, HTMLEngine *e, gint *offset, gboolean fo
 	HTMLCursor cursor;
 	gboolean result;
 
-	html_cursor_init (&cursor, o, HTML_IS_TABLE (o) ? *offset : (forward ? html_object_get_length (o) : 0));
+	html_cursor_init (&cursor, o, html_object_is_container (o) ? *offset : (forward ? html_object_get_length (o) : 0));
 
 	result = forward ? html_cursor_forward (&cursor, e) : html_cursor_backward (&cursor, e);
 	*offset = cursor.offset;

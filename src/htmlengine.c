@@ -6041,13 +6041,15 @@ HTMLObject *
 html_engine_get_focus_object (HTMLEngine *e, gint *offset)
 {
 	HTMLObject *o = e->focus_object;
+	HTMLEngine *object_engine = e;
 
 	while (html_object_is_frame (o)) {
-		o = html_object_get_engine (o, e)->focus_object;
+		object_engine = html_object_get_engine (o, e);
+		o = object_engine->focus_object;
 	}
 
 	if (o && offset)
-		*offset = html_object_get_engine (o, e)->focus_object_offset;
+		*offset = object_engine->focus_object_offset;
 
 	return o;
 }

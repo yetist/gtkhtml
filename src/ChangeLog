@@ -1,5 +1,14 @@
 2004-06-17  Radek Doulik  <rodo@ximian.com>
 
+	* htmlobject.c (next_prev_cursor_object): use offset for all
+	containers, not just tables
+
+	* htmlengine.c (html_engine_get_focus_object): remember object's
+	engine as we go down the hierarchy, get focus object offset from
+	that remembered engine
+
+	Fixes #60130
+
 	* htmlframe.c (html_frame_init): as below
 
 	* htmliframe.c (html_iframe_init): set base url and various other
