@@ -398,6 +398,7 @@ static BonoboUIVerb editor_verbs [] = {
 
 	BONOBO_UI_UNSAFE_VERB ("IndentMore", command_cb),
 	BONOBO_UI_UNSAFE_VERB ("IndentLess", command_cb),
+	BONOBO_UI_UNSAFE_VERB ("WrapLines", command_cb),
 
 	BONOBO_UI_UNSAFE_VERB ("FormatText", format_text_cb),
 	BONOBO_UI_UNSAFE_VERB ("FormatParagraph", format_paragraph_cb),
@@ -458,6 +459,7 @@ static struct {
 	{"strikeout-toggle", "FormatStrikeout"},
 	{"indent-more", "IndentMore"},
 	{"indent-less", "IndentLess"},
+	{"indent-paragraph", "WrapLines"},
 	{"align-left", "AlignLeft"},
 	{"align-right", "AlignRight"},
 	{"align-center", "AlignCenter"},
@@ -666,6 +668,13 @@ smiley_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 	}
 }
 
+static void
+menubar_paragraph_style_changed_cb (GtkHTML *html, GtkHTMLParagraphStyle style, GtkHTMLControlData *cd)
+{
+	bonobo_ui_component_set_prop (bonobo_control_get_ui_component (cd->control), "/commands/WrapLines",
+				      "sensitive", style == GTK_HTML_PARAGRAPH_STYLE_PRE ? "1" : "0", NULL);
+}
+
 void
 menubar_setup (BonoboUIComponent  *uic,
 	       GtkHTMLControlData *cd)
@@ -696,4 +705,7 @@ menubar_setup (BonoboUIComponent  *uic,
 
 	textdomain (domain);
 	g_free (domain);
+
+	menubar_paragraph_style_changed_cb (cd->html, gtk_html_get_paragraph_style (cd->html), cd);
+	g_signal_connect (cd->html, "current_paragraph_style_changed", G_CALLBACK (menubar_paragraph_style_changed_cb), cd);
 }

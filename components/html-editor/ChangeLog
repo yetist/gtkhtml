@@ -1,3 +1,13 @@
+2003-06-05  Radek Doulik  <rodo@ximian.com>
+
+	* GNOME_GtkHTML_Editor.xml.in: changed increase/decrease indent
+	accelerators and added wrap lines menu item
+
+	* menubar.c (menubar_setup): connect to
+	current_paragraph_style_changed signal to enable/disable "Wrap
+	Lines"
+	(menubar_paragraph_style_changed_cb): new signal handler
+
 2003-05-20  Larry Ewing  <lewing@ximian.com>
 	
 	* menubar.c (menubar_setup): move declaration to the top of the

@@ -268,8 +268,9 @@
 
 				<separator/>
 
-				<menuitem name="IndentMore" verb="" _label="_Increase Indent" accel="*Ctrl*TAB"/>
-				<menuitem name="IndentLess" verb="" _label="_Decrease Indent" accel="*Shift**Ctrl*TAB"/>
+				<menuitem name="IndentMore" verb="" _label="_Increase Indent" accel="*Ctrl*bracketright"/>
+				<menuitem name="IndentLess" verb="" _label="_Decrease Indent" accel="*Ctrl*bracketleft"/>
+				<menuitem name="WrapLines" verb="" _label="_Wrap Lines" accel="*Ctrl*l"/>
 
 				<separator/>
 
