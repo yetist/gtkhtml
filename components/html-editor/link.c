@@ -146,3 +146,24 @@ link_edit (GtkHTMLControlData *cd, HTMLLinkTextMaster *link)
 	cd->link_dialog->html_link = link;
 	gtk_entry_set_text (GTK_ENTRY (cd->link_dialog->link), link->url);
 }
+
+GtkWidget *
+link_properties (GtkHTMLControlData *cd)
+{
+	GtkWidget *vbox, *hbox;
+
+	vbox = gtk_vbox_new (FALSE, 0);
+	gtk_container_border_width (GTK_CONTAINER (vbox), 3);
+	hbox = gtk_hbox_new (FALSE, 3);
+
+	gtk_box_pack_start (GTK_BOX (hbox), gtk_label_new (_("URL")), FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), gtk_entry_new (), FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
+
+	return vbox;
+}
+
+void
+link_apply_cb (GtkHTMLControlData *cd)
+{
+}

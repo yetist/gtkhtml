@@ -24,7 +24,9 @@
 #ifndef _CONTROL_DATA_H
 #define _CONTROL_DATA_H
 
-typedef struct _GtkHTMLControlData GtkHTMLControlData;
+typedef struct _GtkHTMLControlData            GtkHTMLControlData;
+typedef enum   _GtkHTMLEditPropertyType       GtkHTMLEditPropertyType;
+typedef struct _GtkHTMLEditPropertiesDialog   GtkHTMLEditPropertiesDialog;
 
 #include <gtkhtml.h>
 #include "search.h"
@@ -37,6 +39,9 @@ struct _GtkHTMLControlData {
 	GtkHTML   *html;
 	GtkWidget *vbox;
 
+	GtkHTMLEditPropertiesDialog   *properties_dialog;
+	GList                         *properties_types;
+
 	/* search & replace dialogs */
 	GtkHTMLSearchDialog     *search_dialog;
 	GtkHTMLReplaceDialog    *replace_dialog;
@@ -45,6 +50,7 @@ struct _GtkHTMLControlData {
 	GtkHTMLImageDialog      *image_dialog;
 	GtkHTMLLinkDialog       *link_dialog;
 	GtkHTMLRuleDialog       *rule_dialog;
+
 	/* object from last button press event */
 	HTMLObject *obj;
 };

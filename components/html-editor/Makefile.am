@@ -38,18 +38,24 @@ html_editor_control_SOURCES =			\
 	main.c					\
 	menubar.c				\
 	menubar.h				\
+	paragraph.c				\
+	paragraph.h				\
 	persist-file-impl.c			\
 	persist-file-impl.h			\
 	persist-stream-impl.c			\
 	persist-stream-impl.h			\
 	popup.c					\
 	popup.h					\
+	properties.c				\
+	properties.h				\
 	replace.c				\
 	replace.h				\
 	rule.c					\
 	rule.h					\
 	search.c				\
 	search.h				\
+	text.c					\
+	text.h					\
 	toolbar.c				\
 	toolbar.h
 

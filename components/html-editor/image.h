@@ -35,4 +35,7 @@ void                 gtk_html_image_dialog_destroy (GtkHTMLImageDialog *);
 void                 image_insert                  (GtkHTMLControlData *cd);
 void                 image_edit                    (GtkHTMLControlData *cd, HTMLImage *image);
 
+GtkWidget          * image_properties              (GtkHTMLControlData *cd);
+void                 image_apply_cb                (GtkHTMLControlData *cd);
+
 #endif

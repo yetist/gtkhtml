@@ -189,8 +189,8 @@ GtkHTMLImageDialog *
 gtk_html_image_dialog_new (GtkHTML *html)
 {
 	GtkHTMLImageDialog *dialog = g_new0 (GtkHTMLImageDialog, 1);
-	GtkWidget *hbox, *hb1;
-	GtkWidget *vbox;
+	GtkWidget *hbox, *hb1, *mhb;
+	GtkWidget *vbox, *vb1;
 	GtkWidget *table;
 	GtkWidget *frame;
 	GtkWidget *menu;
@@ -210,16 +210,16 @@ gtk_html_image_dialog_new (GtkHTML *html)
 	accel_group = gtk_accel_group_new ();
 	gtk_accel_group_attach (accel_group, GTK_OBJECT (dialog->dialog));
 
-	frame = gtk_frame_new (_("Image"));
+	mhb = gtk_hbox_new (FALSE, 3);
+	vb1 = gtk_vbox_new (FALSE, 2);
+
 	dialog->pentry = gnome_pixmap_entry_new ("insert_image", _("Image selection"), TRUE);
 	gnome_pixmap_entry_set_preview_size (GNOME_PIXMAP_ENTRY (dialog->pentry), 200, 200);
 	gtk_container_border_width (GTK_CONTAINER (dialog->pentry), 3);
 	dir = getcwd (NULL, 0);
 	gnome_pixmap_entry_set_pixmap_subdir (GNOME_PIXMAP_ENTRY (dialog->pentry), dir);
 	free (dir);
-	gtk_container_add (GTK_CONTAINER (frame), dialog->pentry);
-	gtk_box_pack_start_defaults (GTK_BOX (dialog->dialog->vbox), frame);
-	gtk_widget_show_all (frame);
+	gtk_box_pack_start_defaults (GTK_BOX (mhb), dialog->pentry);
 
 	hb1   = gtk_hbox_new (FALSE, 2);
 	frame = gtk_frame_new (_("Border"));
@@ -262,8 +262,7 @@ gtk_html_image_dialog_new (GtkHTML *html)
 	gtk_box_pack_start_defaults (GTK_BOX (hbox), dialog->sel_align);
 	gtk_container_add (GTK_CONTAINER (frame), hbox);
 	gtk_box_pack_start_defaults (GTK_BOX (hb1), frame);
-	gtk_box_pack_start_defaults (GTK_BOX (dialog->dialog->vbox), hb1);
-	gtk_widget_show_all (hb1);
+	gtk_box_pack_start (GTK_BOX (vb1), hb1, FALSE, FALSE, 0);
 
 	/* size and spacing */
 	hbox = gtk_hbox_new (FALSE, 2);
@@ -306,8 +305,7 @@ gtk_html_image_dialog_new (GtkHTML *html)
 	gtk_container_add (GTK_CONTAINER (frame), table);
 	gtk_box_pack_start_defaults (GTK_BOX (hbox), frame);
 
-	gtk_box_pack_start_defaults (GTK_BOX (dialog->dialog->vbox), hbox);
-	gtk_widget_show_all (hbox);
+	gtk_box_pack_start (GTK_BOX (vb1), hbox, FALSE, FALSE, 0);
 
 	gnome_dialog_button_connect (dialog->dialog, 0, insert, dialog);
 	gnome_dialog_set_sensitive (dialog->dialog, 0, FALSE);
@@ -318,6 +316,9 @@ gtk_html_image_dialog_new (GtkHTML *html)
 			    "changed", GTK_SIGNAL_FUNC (entry_changed), dialog);
 
 	gnome_dialog_set_default (dialog->dialog, 0);
+	gtk_box_pack_start_defaults (GTK_BOX (mhb), vb1);
+	gtk_box_pack_start_defaults (GTK_BOX (dialog->dialog->vbox), mhb);
+	gtk_widget_show_all (dialog->dialog->vbox);
 
 	return dialog;
 }
@@ -396,4 +397,163 @@ image_edit (GtkHTMLControlData *cd, HTMLImage *image)
 	}
 
 	gtk_option_menu_set_history (GTK_OPTION_MENU (d->sel_align), d->align);
+}
+
+struct _GtkHTMLEditImageProperties {
+
+	GtkHTML     *html;
+	GtkWidget   *pentry;
+	GtkWidget   *entry_alt;
+
+	GtkWidget   *check [GTK_HTML_EDIT_IMAGE_SPINS];
+	GtkWidget   *spin  [GTK_HTML_EDIT_IMAGE_SPINS];
+	GtkObject   *adj   [GTK_HTML_EDIT_IMAGE_SPINS];
+	gint         val   [GTK_HTML_EDIT_IMAGE_SPINS];
+	gboolean     set   [GTK_HTML_EDIT_IMAGE_SPINS];
+
+	GtkWidget   *check_percent;
+	gboolean     percent;
+
+	GtkWidget   *sel_align;
+	guint        align;
+
+	HTMLImage    *image;
+};
+typedef struct _GtkHTMLEditImageProperties GtkHTMLEditImageProperties;
+
+static void
+checked_val (GtkHTMLEditImageProperties *d, gint idx, const gchar *name)
+{
+	d->check [idx] = gtk_check_button_new_with_label (name);
+	d->adj   [idx] = gtk_adjustment_new (d->val [idx], 0, 32767, 1, 1, 1);
+	d->spin  [idx] = gtk_spin_button_new (GTK_ADJUSTMENT (d->adj [idx]), 1, 0);
+
+	gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (d->check [idx]), d->set [idx]);
+	gtk_widget_set_sensitive (d->spin [idx], d->set [idx]);
+
+	gtk_signal_connect (GTK_OBJECT (d->check [idx]), "toggled", GTK_SIGNAL_FUNC (check_toggled), d);
+}
+
+GtkWidget *
+image_properties (GtkHTMLControlData *cd)
+{
+	GtkHTMLEditImageProperties *data = g_new0 (GtkHTMLEditImageProperties, 1);
+	GtkWidget *hbox, *hb1, *mhb;
+	GtkWidget *vbox, *vb1;
+	GtkWidget *table;
+	GtkWidget *frame;
+	GtkWidget *menu;
+	GtkWidget *menuitem;
+	gchar     *dir;
+	guint      malign = 0;
+
+	mhb = gtk_hbox_new (FALSE, 3);
+	vb1 = gtk_vbox_new (FALSE, 2);
+	gtk_container_border_width (GTK_CONTAINER (mhb), 3);
+
+	data->pentry = gnome_pixmap_entry_new ("insert_image", _("Image selection"), TRUE);
+	gnome_pixmap_entry_set_preview_size (GNOME_PIXMAP_ENTRY (data->pentry), 200, 200);
+	dir = getcwd (NULL, 0);
+	gnome_pixmap_entry_set_pixmap_subdir (GNOME_PIXMAP_ENTRY (data->pentry), dir);
+	free (dir);
+	gtk_box_pack_start_defaults (GTK_BOX (mhb), data->pentry);
+
+	hb1   = gtk_hbox_new (FALSE, 3);
+	frame = gtk_frame_new (_("Border"));
+	hbox = gtk_hbox_new (FALSE, 3);
+
+#undef ADD_VAL
+#define ADD_VAL(x,y) \
+	checked_val (data, x, _(y)); \
+	gtk_box_pack_start (GTK_BOX (hbox), data->check [x], FALSE, FALSE, 0); \
+	gtk_box_pack_start (GTK_BOX (hbox), data->spin  [x], FALSE, FALSE, 0);
+
+	ADD_VAL (GTK_HTML_EDIT_IMAGE_BWIDTH, "width");
+
+	gtk_container_add (GTK_CONTAINER (frame), hbox);
+	gtk_box_pack_start_defaults (GTK_BOX (hb1), frame);
+
+	menu = gtk_menu_new ();
+	hbox = gtk_hbox_new (FALSE, 3);
+	gtk_container_border_width (GTK_CONTAINER (hbox), 3);
+
+#undef ADD_ITEM
+#define ADD_ITEM(n) \
+	menuitem = gtk_menu_item_new_with_label (_(n)); \
+        gtk_menu_append (GTK_MENU (menu), menuitem); \
+        gtk_widget_show (menuitem); \
+        gtk_signal_connect (GTK_OBJECT (menuitem), "activate", GTK_SIGNAL_FUNC (menu_activate), data); \
+        gtk_object_set_data (GTK_OBJECT (menuitem), "idx", GINT_TO_POINTER (malign)); \
+        malign++;
+
+	ADD_ITEM("Top");
+	ADD_ITEM("Center");
+	ADD_ITEM("Bottom");
+	/* ADD_ITEM("Left",   GDK_F4);
+	   ADD_ITEM("Right",  GDK_F5); */
+
+	frame = gtk_frame_new (_("Alignment"));
+	data->sel_align = gtk_option_menu_new ();
+	gtk_option_menu_set_menu (GTK_OPTION_MENU (data->sel_align), menu);
+	gtk_option_menu_set_history (GTK_OPTION_MENU (data->sel_align), data->align);
+	gtk_box_pack_start_defaults (GTK_BOX (hbox), data->sel_align);
+	gtk_container_add (GTK_CONTAINER (frame), hbox);
+	gtk_box_pack_start_defaults (GTK_BOX (hb1), frame);
+	gtk_box_pack_start (GTK_BOX (vb1), hb1, FALSE, FALSE, 0);
+
+	/* size and spacing */
+	hbox = gtk_hbox_new (FALSE, 3);
+	vbox = gtk_vbox_new (FALSE, 0);
+	frame = gtk_frame_new (_("Size"));
+
+#undef ADD_VAL
+#define ADD_VAL(x, y, i, n) \
+	checked_val (data, i, _(n)); \
+	gtk_table_attach (GTK_TABLE (table), data->check [i], x,   x+1, y, y+1, GTK_FILL, 0, 0, 0); \
+	gtk_table_attach (GTK_TABLE (table), data->spin [i],  x+1, x+2, y, y+1, GTK_FILL, 0, 0, 0);
+
+	table = gtk_table_new (2, 3, FALSE);
+	gtk_container_border_width (GTK_CONTAINER (table), 3);
+
+	ADD_VAL (0, 0, GTK_HTML_EDIT_IMAGE_WIDTH,  "width");
+	ADD_VAL (0, 1, GTK_HTML_EDIT_IMAGE_HEIGHT, "height");
+
+	data->check_percent = gtk_check_button_new_with_label ("%");
+	gtk_widget_set_sensitive (data->check_percent, data->set [GTK_HTML_EDIT_IMAGE_WIDTH]);
+	gtk_signal_connect (GTK_OBJECT (data->check [GTK_HTML_EDIT_IMAGE_WIDTH]), "toggled",
+					GTK_SIGNAL_FUNC (width_toggled), data);
+	gtk_signal_connect (GTK_OBJECT (data->check_percent), "toggled",
+					GTK_SIGNAL_FUNC (percent_toggled), data);
+	gtk_table_attach (GTK_TABLE (table), data->check_percent, 2, 3, 0, 1, GTK_FILL, 0, 0, 0);
+
+	gtk_container_add (GTK_CONTAINER (frame), table);
+	gtk_box_pack_start_defaults (GTK_BOX (hbox), frame);
+
+	/* spacing */
+	vbox = gtk_vbox_new (FALSE, 0);
+	frame = gtk_frame_new (_("Padding"));
+
+	table = gtk_table_new (2, 2, FALSE);
+	gtk_container_border_width (GTK_CONTAINER (table), 3);
+
+	ADD_VAL (2, 0, GTK_HTML_EDIT_IMAGE_HSPACE, "horizontal");
+	ADD_VAL (2, 1, GTK_HTML_EDIT_IMAGE_VSPACE, "vertical");
+
+	gtk_container_add (GTK_CONTAINER (frame), table);
+	gtk_box_pack_start_defaults (GTK_BOX (hbox), frame);
+
+	gtk_box_pack_start (GTK_BOX (vb1), hbox, FALSE, FALSE, 0);
+
+	gtk_signal_connect (GTK_OBJECT (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (data->pentry))),
+			    "changed", GTK_SIGNAL_FUNC (entry_changed), data);
+
+	gtk_box_pack_start_defaults (GTK_BOX (mhb), vb1);
+
+	return mhb;
+}
+
+void
+image_apply_cb (GtkHTMLControlData *cd)
+{
+	printf ("image apply\n");
 }
