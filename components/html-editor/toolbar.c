@@ -251,27 +251,6 @@ setup_color_combo (GtkHTMLControlData *cd)
 }
 
 
-/* Clipboard group.  */
-
-static void
-editor_toolbar_cut_cb (GtkWidget *widget, GtkHTMLControlData *cd)
-{
-	gtk_html_cut (GTK_HTML (cd->html));
-}
-
-static void
-editor_toolbar_copy_cb (GtkWidget *widget, GtkHTMLControlData *cd)
-{
-	gtk_html_copy (GTK_HTML (cd->html));
-}
-
-static void
-editor_toolbar_paste_cb (GtkWidget *widget, GtkHTMLControlData *cd)
-{
-	gtk_html_paste (GTK_HTML (cd->html));
-}
-
-
 /* Font style group.  */
 
 static void
@@ -460,23 +439,6 @@ editor_toolbar_unindent_cb (GtkWidget *widget,
 	gtk_html_indent (GTK_HTML (cd->html), -1);
 }
 
-/* undo/redo */
-
-static void
-editor_toolbar_undo_cb (GtkWidget *widget,
-			GtkHTMLControlData *cd)
-{
-	gtk_html_undo (GTK_HTML (cd->html));
-}
-
-static void
-editor_toolbar_redo_cb (GtkWidget *widget,
-			GtkHTMLControlData *cd)
-{
-	gtk_html_redo (GTK_HTML (cd->html));
-}
-
-
 
 /* Editor toolbar.  */
 
@@ -487,23 +449,6 @@ static GnomeUIInfo editor_toolbar_alignment_group[] = {
 				editor_toolbar_center_cb, GNOME_STOCK_PIXMAP_ALIGN_CENTER),
 	GNOMEUIINFO_ITEM_STOCK (N_("Right align"), N_("Right justify paragraphs"),
 				editor_toolbar_right_align_cb, GNOME_STOCK_PIXMAP_ALIGN_RIGHT),
-	GNOMEUIINFO_END
-};
-
-static GnomeUIInfo toolbar_info[] = {
-	GNOMEUIINFO_ITEM_STOCK (N_("Cut"), N_("Cut the selected region to the clipboard"),
-				editor_toolbar_cut_cb, GNOME_STOCK_PIXMAP_CUT),
-	GNOMEUIINFO_ITEM_STOCK (N_("Copy"), N_("Copy the selected region to the clipboard"),
-				editor_toolbar_copy_cb, GNOME_STOCK_PIXMAP_COPY),
-	GNOMEUIINFO_ITEM_STOCK (N_("Paste"), N_("Paste contents of the clipboard"),
-				editor_toolbar_paste_cb, GNOME_STOCK_PIXMAP_PASTE),
-	GNOMEUIINFO_SEPARATOR,
-
-	GNOMEUIINFO_ITEM_STOCK (N_("Undo"), N_("Undo last editor operation"),
-				editor_toolbar_undo_cb, GNOME_STOCK_PIXMAP_UNDO),
-	GNOMEUIINFO_ITEM_STOCK (N_("Redo"), N_("Redo undone editor operation"),
-				editor_toolbar_redo_cb, GNOME_STOCK_PIXMAP_REDO),
-
 	GNOMEUIINFO_END
 };
 
@@ -614,21 +559,4 @@ toolbar_style (GtkHTMLControlData *cd)
 	g_return_val_if_fail (GTK_IS_HTML (cd->html), NULL);
 
 	return create_style_toolbar (cd);
-}
-
-void
-toolbar_setup (BonoboUIComponent  *uic,
-	       GtkHTMLControlData *cd)
-{
-	BonoboUIHandlerToolbarItem *tree;
-	BonoboUIHandler *uih = bonobo_ui_handler_new_from_component (uic);
-
-	g_return_if_fail (uih != NULL);
-	g_return_if_fail (BONOBO_IS_UI_HANDLER (uih));
-	g_return_if_fail (cd->html != NULL);
-	g_return_if_fail (GTK_IS_HTML (cd->html));
-
-	tree = bonobo_ui_handler_toolbar_parse_uiinfo_list_with_data (toolbar_info, cd);
-	bonobo_ui_handler_toolbar_add_list (uih, "/Toolbar", tree);
-	bonobo_ui_handler_toolbar_free_list (tree);
 }

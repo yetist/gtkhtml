@@ -1,20 +1,20 @@
 <Root>
 		<commands>
 
-			<cmd name="EditUndo" _label="_Undo" _tip="Undo the last action"
+			<cmd name="EditUndo" _label="Undo" _tip="Undo the last action"
 			pixtype="stock" pixname="Undo" accel="&lt;Control&gt;z"/>
 
-			<cmd name="EditRedo" _label="_Redo" _tip="Redo the undone action"
+			<cmd name="EditRedo" _label="Redo" _tip="Redo the undone action"
 			pixtype="stock" pixname="Redo" accel="&lt;Control&gt;r"/>
 
-			<cmd name="EditCut" _label="C_ut" _tip="Cut the selection"
+			<cmd name="EditCut" _label="Cut" _tip="Cut the selection"
 			pixtype="stock" pixname="Cut" accel="&lt;Control&gt;x"/>
 	
-			<cmd name="EditCopy" _label="_Copy"
+			<cmd name="EditCopy" _label="Copy"
 			_tip="Copy the selection" pixtype="stock" pixname="Copy"
 			accel="&lt;Control&gt;c"/>
 	
-			<cmd name="EditPaste" _label="_Paste"
+			<cmd name="EditPaste" _label="Paste"
 			_tip="Paste the clipboard" pixtype="stock" pixname="Paste"
 			accel="&lt;Control&gt;v"/>
 	
@@ -41,14 +41,14 @@
 	<menu>
 		<submenu name="Edit" _label="_Edit">
 
-		        <menuitem name="EditUndo" verb=""/>
-			<menuitem name="EditRedo" verb=""/>
+		        <menuitem name="EditUndo" verb="" _label="_Redo"/>
+			<menuitem name="EditRedo" verb="" _label="_Undo"/>
 
 			<separator/>
 
-			<menuitem name="EditCut" verb=""/>
-			<menuitem name="EditCopy" verb=""/>
-			<menuitem name="EditPaste" verb=""/>
+			<menuitem name="EditCut" verb="" _label="C_ut"/>
+			<menuitem name="EditCopy" verb="" _label="_Copy"/>
+			<menuitem name="EditPaste" verb="" _label="_Paste"/>
 	
 			<separator/>
 
@@ -68,4 +68,21 @@
 			<menuitem name="InsertRule"  verb=""/>
 		</submenu>
 	</menu>
+
+	<dockitem name="Toolbar">
+
+		<toolitem name="EditCut" verb=""/>
+
+		<toolitem name="EditCopy" verb=""/>
+
+		<toolitem name="EditPaste" verb=""/>
+
+		<separator/>
+
+		<toolitem name="EditUndo" verb=""/>
+
+		<toolitem name="EditRedo" verb=""/>
+
+	</dockitem>
+
 </Root>

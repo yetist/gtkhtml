@@ -105,7 +105,6 @@ set_frame_cb (BonoboControl *control,
 	/* Setup the menu bar.  */
 
 	menubar_setup (ui_component, control_data);
-	toolbar_setup (ui_component, control_data);
 }
 
 static gint

@@ -48,7 +48,9 @@ load_through_persist_stream (const gchar *filename,
 
 	CORBA_exception_init (&ev);
 
-	stream = bonobo_stream_fs_open (filename, Bonobo_Storage_READ);
+	stream = bonobo_stream_open (BONOBO_IO_DRIVER_FS, filename,
+				     Bonobo_Storage_READ, 0);
+
 	if (stream == NULL) {
 		g_warning ("Couldn't load `%s'\n", filename);
 	} else {
@@ -76,7 +78,10 @@ save_through_persist_stream (const gchar *filename,
 
 	CORBA_exception_init (&ev);
 
-	stream = bonobo_stream_fs_create (filename);
+	stream = bonobo_stream_open (BONOBO_IO_DRIVER_FS, filename,
+				     Bonobo_Storage_WRITE |
+				     Bonobo_Storage_CREATE |
+				     Bonobo_Storage_FAILIFEXIST, 0);
 
 	if (stream == NULL) {
 		g_warning ("Couldn't create `%s'\n", filename);
@@ -296,37 +301,41 @@ exit_cb (GtkWidget *widget,
 }
 
 
-static GnomeUIInfo file_menu_info[] = {
-	GNOMEUIINFO_ITEM_STOCK (N_("Open (PersistFile)"), N_("Open using the PersistFile interface"),
-				open_through_persist_file_cb, GNOME_STOCK_MENU_OPEN),
-	GNOMEUIINFO_ITEM_STOCK (N_("Save as... (PersistFile)"), N_("Save using the PersistFile interface"),
-				save_through_persist_file_cb, GNOME_STOCK_MENU_SAVE_AS),
-	GNOMEUIINFO_SEPARATOR,
-	GNOMEUIINFO_ITEM_STOCK (N_("Open (PersistStream)"), N_("Open using the PersistStream interface"),
-				open_through_persist_stream_cb, GNOME_STOCK_MENU_OPEN),
-	GNOMEUIINFO_ITEM_STOCK (N_("Save as... (PersistStream)"), N_("Save using the PersistStream interface"),
-				save_through_persist_stream_cb, GNOME_STOCK_MENU_SAVE_AS),
-	GNOMEUIINFO_SEPARATOR,
-	GNOMEUIINFO_MENU_EXIT_ITEM (exit_cb, NULL),
-	GNOMEUIINFO_END
+
+static BonoboUIVerb verbs [] = {
+	BONOBO_UI_UNSAFE_VERB ("OpenFile",   open_through_persist_file_cb),
+	BONOBO_UI_UNSAFE_VERB ("SaveFile",   save_through_persist_file_cb),
+	BONOBO_UI_UNSAFE_VERB ("OpenStream", open_through_persist_stream_cb),
+	BONOBO_UI_UNSAFE_VERB ("SaveStream", save_through_persist_stream_cb),
+
+	BONOBO_UI_UNSAFE_VERB ("FileExit", exit_cb),
+
+	BONOBO_UI_VERB_END
 };
 
-static GnomeUIInfo menu_info[] = {
-	GNOMEUIINFO_MENU_FILE_TREE (file_menu_info),
-	GNOMEUIINFO_END
-};
-
-#if 0
-static GnomeUIInfo toolbar_info[] = {
-	GNOMEUIINFO_ITEM_STOCK (N_("Cut"), N_("Cut selection to the clipboard"),
-				NULL, GNOME_STOCK_PIXMAP_CUT),
-	GNOMEUIINFO_ITEM_STOCK (N_("Copy"), N_("Copy selection to the clipboard"),
-				NULL, GNOME_STOCK_PIXMAP_COPY),
-	GNOMEUIINFO_ITEM_STOCK (N_("Paste"), N_("Paste contents of the clipboard"),
-				NULL, GNOME_STOCK_PIXMAP_PASTE),
-	GNOMEUIINFO_END
-};
-#endif
+/* A dirty, non-translatable hack */
+static char ui [] = 
+"<Root>"
+"	<commands>"
+"	        <cmd name=\"FileExit\" _label=\"Exit\" _tip=\"Exit the program\""
+"	         pixtype=\"stock\" pixname=\"Exit\" accel=\"*Control*q\"/>"
+"	</commands>"
+"	<menu>"
+"		<submenu name=\"File\" _label=\"_File\">"
+"			<menuitem name=\"OpenFile\" verb=\"\" _label=\"Open (PersistFile)\" _tip=\"Open using the PersistFile interface\""
+"			pixtype=\"stock\" pixname=\"Open\"/>"
+"			<menuitem name=\"SaveFile\" verb=\"\" _label=\"Save (PersistFile)\" _tip=\"Save using the PersistFile interface\""
+"			pixtype=\"stock\" pixname=\"Save\"/>"
+"			<separator/>"
+"			<menuitem name=\"OpenStream\" verb=\"\" _label=\"Open (PersistFile)\" _tip=\"Open using the PersistStream interface\""
+"			pixtype=\"stock\" pixname=\"Open\"/>"
+"			<menuitem name=\"SaveStream\" verb=\"\" _label=\"Save (PersistStream)\" _tip=\"Save using the PersistStream interface\""
+"			pixtype=\"stock\" pixname=\"Save\"/>"
+"			<separator/>"
+"			<menuitem name=\"FileExit\" verb=\"\"/>"
+"		</submenu>"
+"	</menu>"
+"</Root>";
 
 
 static guint
@@ -335,8 +344,8 @@ container_create (void)
 	GtkWidget *win;
 	GtkWindow *window;
 	GtkWidget *control;
-	BonoboUIHandler *uih;
-	BonoboUIHandlerMenuItem *tree;
+	BonoboUIComponent *component;
+	BonoboUIContainer *container;
 	BonoboControlFrame *frame;
 	HTMLEditorResolver *resolver;
 
@@ -346,21 +355,22 @@ container_create (void)
 	gtk_window_set_default_size (window, 500, 440);
 	gtk_window_set_policy (window, TRUE, TRUE, FALSE);
 
-	uih = bonobo_ui_handler_new ();
+	component = bonobo_ui_component_new ("test-html-editor-control");
 
-	bonobo_ui_handler_set_app (uih, BONOBO_WIN (win));
+	container = bonobo_ui_container_new ();
+	bonobo_ui_container_set_win (container, BONOBO_WIN (win));
 
-	/* Create the menus/toolbars */
-	bonobo_ui_handler_create_menubar (uih);
+	bonobo_ui_component_set_container (
+		component,
+		bonobo_object_corba_objref (BONOBO_OBJECT (container)));
 
-	tree = bonobo_ui_handler_menu_parse_uiinfo_tree_with_data (menu_info, win);
-	bonobo_ui_handler_menu_add_tree (uih, "/", tree);
-	bonobo_ui_handler_menu_free_tree (tree);
+	bonobo_ui_component_add_verb_list_with_data (component, verbs, win);
 
-	bonobo_ui_handler_create_toolbar (uih, "Toolbar");
+	bonobo_ui_component_set_translate (component, "/", ui, NULL);
 
-	control = bonobo_widget_new_control (HTML_EDITOR_CONTROL_ID,
-					     bonobo_ui_compat_get_container (uih));
+	control = bonobo_widget_new_control (
+		HTML_EDITOR_CONTROL_ID,
+		bonobo_object_corba_objref (BONOBO_OBJECT (container)));
 
 	resolver = htmleditor_resolver_new ();
 	frame = bonobo_widget_get_control_frame (BONOBO_WIDGET (control));

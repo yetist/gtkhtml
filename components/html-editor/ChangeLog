@@ -1,3 +1,20 @@
+2000-10-20  Michael Meeks  <michael@helixcode.com>
+
+	* test-html-editor-control.c (container_create): re-write for new
+	UI handler.
+
+	* editor-control-factory.c (set_frame_cb): remove toolbar_setup.
+
+	* toolbar.c (editor_toolbar_cut_cb, editor_toolbar_copy_cb),
+	(editor_toolbar_paste_cb, editor_toolbar_undo_cb, editor_toolbar_redo_cb),
+	(toolbar_setup): kill, were duplicated in the menu code; now each is a verb.
+	toolbar_info: remove
+
+	* html-editor-control.xml: add the toolbar.
+
+	* test-html-editor-control.c (load_through_persist_stream): update to
+	Dietmar's new API.
+
 2000-10-20  Radek Doulik  <rodo@helixcode.com>
 
 	* rule.c (fill_sample): set bg for sample view
