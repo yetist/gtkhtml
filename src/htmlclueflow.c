@@ -140,7 +140,7 @@ html_clueflow_calc_size (HTMLObject *o, HTMLObject *parent)
 		else if (obj->flags & Aligned) {
 			HTMLClueAligned *c = (HTMLClueAligned *)obj;
 
-			if (!HTML_CLUE (parent)->appended (HTML_CLUE (parent), c)) {
+			if (!HTML_CLUE (parent)->appended (HTML_CLUE (parent), HTML_CLUE (c))) {
 				obj->calc_size (obj, NULL);
 				
 				if (HTML_CLUE (HTML_CLUE (c)->halign == Left)) {
@@ -150,7 +150,7 @@ html_clueflow_calc_size (HTMLObject *o, HTMLObject *parent)
 					obj->x = rmargin - obj->width;
 					obj->y = o->ascent + obj->ascent;
 
-					HTML_CLUE(parent)->append_right_aligned (parent, c);
+					HTML_CLUE(parent)->append_right_aligned (HTML_CLUE (parent), HTML_CLUE (c));
 				}
 			}
 			obj = obj->nextObj;
@@ -302,10 +302,10 @@ html_clueflow_calc_size (HTMLObject *o, HTMLObject *parent)
 
 			o->ascent += o->y - oldy;
 
-			lmargin = HTML_CLUE (parent)->get_left_margin (parent, o->y);
+			lmargin = HTML_CLUE (parent)->get_left_margin (HTML_CLUE (parent), o->y);
 			if (HTML_CLUEFLOW (o)->indent > lmargin)
 				lmargin = HTML_CLUEFLOW (o)->indent;
-			rmargin = HTML_CLUE (parent)->get_right_margin (parent, o->y);
+			rmargin = HTML_CLUE (parent)->get_right_margin (HTML_CLUE (parent), o->y);
 
 			w = lmargin;
 			d = 0;

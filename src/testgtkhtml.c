@@ -78,11 +78,11 @@ static GnomeUIInfo main_menu[] = {
 };
 
 static void
-create_toolbars (GtkWidget *app) {
+create_toolbars (GtkWidget *app)
+{
 	GtkWidget *dock;
 	GtkWidget *entry;
 	GtkWidget *hbox, *hbox2;
-	GtkWidget *label;
 	GtkWidget *frame;
 	GtkWidget *button;
 	GtkWidget *toolbar;

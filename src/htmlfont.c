@@ -29,7 +29,7 @@ html_font_new (gchar *family, gint size, gint *fontSizes, HTMLFontWeight weight,
 	gchar *xlfd;
 	HTMLFont *f;
 
-	g_return_if_fail (family != NULL);
+	g_return_val_if_fail (family != NULL, NULL);
 
 	f = g_new0 (HTMLFont, 1);
 	f->family = g_strdup (family);
@@ -134,7 +134,7 @@ html_font_stack_top (HTMLFontStack *fs)
 {
 	HTMLFont *f;
 
-	g_return_if_fail (fs != NULL, NULL);
+	g_return_val_if_fail (fs != NULL, NULL);
 	
 	f = (HTMLFont *)(g_list_first (fs->list))->data;
 
@@ -146,7 +146,7 @@ html_font_stack_pop (HTMLFontStack *fs)
 {
 	HTMLFont *f;
 
-	g_return_if_fail (fs != NULL, NULL);
+	g_return_val_if_fail (fs != NULL, NULL);
 	
 	f = html_font_stack_top (fs);
 

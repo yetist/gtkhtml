@@ -23,6 +23,12 @@
 
 void html_cluev_append_right_aligned (HTMLClue *clue, HTMLClue *aclue);
 
+HTMLObject *
+cluev_next_aligned (HTMLObject *aclue)
+{
+	return HTML_OBJECT (HTML_CLUEALIGNED (aclue)->nextAligned);
+}
+
 void
 html_cluev_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint height, gint tx, gint ty)
 {
@@ -36,7 +42,7 @@ html_cluev_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint
 	
 	/* FIXME: left aligned objects too */
 
-	for (aclue = HTML_CLUEV (o)->alignRightList; aclue != 0; aclue = HTML_CLUEALIGNED (aclue)->nextAligned) {
+	for (aclue = HTML_CLUEV (o)->alignRightList; aclue != 0; aclue = cluev_next_aligned (aclue)) {
 		aclue->draw (aclue, p, 
 			     tx + HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->x, 
 			     ty + HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->y - HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->ascent,
@@ -70,7 +76,7 @@ html_cluev_get_left_margin (HTMLClue *clue, gint y)
 	gint margin = 0;
 	HTMLObject *aclue;
 	
-	for (aclue = cluev->alignLeftList; aclue != 0; aclue = HTML_CLUEALIGNED (aclue)->nextAligned) {
+	for (aclue = cluev->alignLeftList; aclue != 0; aclue = cluev_next_aligned (aclue)) {
 		if (aclue->y - aclue->ascent + 
 		    HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->y -
 		    HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->ascent <= y &&
@@ -90,7 +96,7 @@ html_cluev_get_right_margin (HTMLClue *o, gint y)
 	/* FIXME: Should be HTMLAligned */
 	HTMLObject *aclue;
 	
-	for (aclue = cluev->alignRightList; aclue != 0; aclue = HTML_CLUEALIGNED (aclue)->nextAligned) {
+	for (aclue = cluev->alignRightList; aclue != 0; aclue = cluev_next_aligned (aclue)) {
 		if (aclue->y - aclue->ascent + 
 		    HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->y -
 		    HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->ascent <= y &&
@@ -166,13 +172,13 @@ html_cluev_calc_size (HTMLObject *o, HTMLObject *parent)
 			obj->x = lmargin + (o->width - obj->width);
 	}
 	
-	for (aclue = cluev->alignLeftList; aclue != 0; aclue = HTML_CLUEALIGNED (aclue)->nextAligned) {
+	for (aclue = cluev->alignLeftList; aclue != 0; aclue = cluev_next_aligned (aclue)) {
 		if (aclue->y + HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->y - 
 		    HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->ascent > o->ascent)
 			o->ascent = aclue->y + HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->y -
 				HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->ascent;
 	}
-	for (aclue = cluev->alignRightList; aclue != 0; aclue = HTML_CLUEALIGNED (aclue)->nextAligned) {
+	for (aclue = cluev->alignRightList; aclue != 0; aclue = cluev_next_aligned (aclue)) {
 		if (aclue->y + HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->y -
 		    HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->ascent > o->ascent)
 			o->ascent = aclue->y + HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->y -
@@ -199,7 +205,7 @@ html_cluev_find_free_area (HTMLClue *clue, gint y, gint width, gint height,
 		rmargin = HTML_OBJECT (clue)->max_width;
 		next_y = 0;
 		
-		for (aclue = cluev->alignLeftList; aclue != 0; aclue = HTML_CLUEALIGNED (aclue)->nextAligned) {
+		for (aclue = cluev->alignLeftList; aclue != 0; aclue = cluev_next_aligned (aclue)) {
 			base_y = aclue->y + HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->y - HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->ascent;
 			top_y = base_y - aclue->ascent;
 
@@ -215,7 +221,7 @@ html_cluev_find_free_area (HTMLClue *clue, gint y, gint width, gint height,
 			}
 		}
 
-		for (aclue = cluev->alignRightList; aclue != 0; aclue = HTML_CLUEALIGNED (aclue)->nextAligned) {
+		for (aclue = cluev->alignRightList; aclue != 0; aclue = cluev_next_aligned (aclue)) {
 			base_y = aclue->y + HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->y - 
 				HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->ascent;
 			top_y = base_y - aclue->ascent;
@@ -313,6 +319,7 @@ html_cluev_appended (HTMLClue *clue, HTMLClue *aclue)
 	
 	if (aclue->halign == Left) {
 		g_print ("FIIIIXMEEEE\n");
+		aligned = NULL;
 	}
 	else {
 		aligned = HTML_CLUEALIGNED (HTML_CLUEV (clue)->alignRightList);

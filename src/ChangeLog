@@ -1,5 +1,8 @@
 1999-10-23  Miguel de Icaza  <miguel@gnu.org>
 
+	* htmlcluev.c (html_cluev_appended): Initialize this one.
+	(cluev_next_aligned): Utility routine to kill warnings.
+
 	* htmlfont.c (html_font_destroy): Add a destructor for fonts.
 	(html_font_stack_clear): Added font stack destruction code.
 

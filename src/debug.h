@@ -1,3 +1,6 @@
+#ifndef _GTK_HTML_H_
+#define _GTK_HTML_H_
+
 /* 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
@@ -16,5 +19,8 @@
 */
 #include "htmlobject.h"
 
-void debug_dump_tree (HTMLObject *o, gint level);
+void debug_dump_tree        (HTMLObject *o, gint level);
 void debug_dump_object_type (HTMLObject *o);
+void debug_dump_table       (HTMLObject *o, gint level);
+
+#endif /* _GTK_HTML_H_ */

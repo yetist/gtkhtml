@@ -47,7 +47,7 @@ debug_dump_tree (HTMLObject *o, gint level)
 	while (obj) {
 		for (i=0;i<level;i++) g_print (" ");
 
-		g_print ("Obj: %d, Object Type: ", obj);
+		g_print ("Obj: %p, Object Type: ", obj);
 		debug_dump_object_type (obj);
 
 		switch (obj->ObjectType) {

@@ -52,7 +52,7 @@ struct _HTMLFontStack {
 HTMLFont      *html_font_new          (gchar *family, gint size,
 				       gint *fontSizes, HTMLFontWeight weight,
 				       gboolean italic, gboolean underline);
-void           html_font_destroy      (HTMLFont *html_font)
+void           html_font_destroy      (HTMLFont *html_font);
 gint  	       html_font_calc_width   (HTMLFont *f, gchar *text, gint len);
 gint  	       html_font_calc_descent (HTMLFont *f);
 gint  	       html_font_calc_ascent  (HTMLFont *f);

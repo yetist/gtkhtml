@@ -45,7 +45,7 @@ guint           html_engine_get_type (void);
 static void     html_engine_class_init (HTMLEngineClass *klass);
 static void     html_engine_init (HTMLEngine *engine);
 static gboolean html_engine_timer_event (HTMLEngine *e);
-static gboolean html_engine_update_event (HTMLEngine *e);
+static gint     html_engine_update_event (gpointer data);
 static void html_engine_schedule_update (HTMLEngine *e, gboolean clear);
 static GtkLayoutClass *parent_class = NULL;
 guint html_engine_signals [LAST_SIGNAL] = { 0 };
@@ -304,9 +304,11 @@ html_engine_schedule_update (HTMLEngine *e, gboolean clear)
 
 }
 
-static gboolean
-html_engine_update_event (HTMLEngine *e)
+static gint
+html_engine_update_event (gpointer data)
 {
+	HTMLEngine *e = data;
+	
 	html_engine_draw (e, 0, 0, e->width, e->height);
 
 	return FALSE;
