@@ -55,6 +55,10 @@ struct _GtkHTMLControlData {
 	/* search & replace dialogs */
 	GtkHTMLSearchDialog     *search_dialog;
 	GtkHTMLReplaceDialog    *replace_dialog;
+	gboolean regular;
+	gchar *search_text;
+	gchar *replace_text_search;
+	gchar *replace_text_replace;
 
 	/* html/plain mode settings */
 	gboolean format_html;

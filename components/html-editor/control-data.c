@@ -43,6 +43,10 @@ gtk_html_control_data_new (GtkHTML *html, GtkWidget *vbox)
 	ncd->format_html             = FALSE;
 	ncd->control                 = NULL;
 
+	ncd->search_text             = NULL;
+	ncd->replace_text_search     = NULL;
+	ncd->replace_text_replace    = NULL;
+
 	spell_init (html, ncd);
 
 	return ncd;

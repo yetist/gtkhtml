@@ -34,31 +34,43 @@ struct _GtkHTMLSearchDialog {
 	GtkWidget   *backward;
 	GtkWidget   *case_sensitive;
 
-	gboolean     regular;
+	GtkHTMLControlData *cd;
 };
 
 static void
 search_cb (GtkWidget *but, GtkHTMLSearchDialog *d)
 {
-	html_engine_search (d->html->engine, gtk_entry_get_text (GTK_ENTRY (d->entry)),
-			    GTK_TOGGLE_BUTTON (d->case_sensitive)->active,
-			    GTK_TOGGLE_BUTTON (d->backward)->active == 0, d->regular);
 }
 
 static void
 entry_changed (GtkWidget *entry, GtkHTMLSearchDialog *d)
 {
+	if (d->cd->search_text)
+		g_free (d->cd->search_text);
+	d->cd->search_text = g_strdup (gtk_entry_get_text (GTK_ENTRY (d->entry)));
 }
 
 static void
 entry_activate (GtkWidget *entry, GtkHTMLSearchDialog *d)
 {
-	gtk_dialog_response (d->dialog, GTK_RESPONSE_CLOSE);
-	search_cb (NULL, d);
+	gtk_dialog_response (d->dialog, 0);
+}
+
+static void
+search_dialog_response (GtkDialog *dialog, gint response_id, GtkHTMLSearchDialog *d)
+{
+	switch (response_id) {
+	case 0: /* Search */
+		gtk_widget_hide (GTK_WIDGET (d->dialog));
+		html_engine_search (d->html->engine, gtk_entry_get_text (GTK_ENTRY (d->entry)),
+				    GTK_TOGGLE_BUTTON (d->case_sensitive)->active,
+				    GTK_TOGGLE_BUTTON (d->backward)->active == 0, d->cd->regular);
+		break;
+	}
 }
 
 GtkHTMLSearchDialog *
-gtk_html_search_dialog_new (GtkHTML *html)
+gtk_html_search_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 {
 	GtkHTMLSearchDialog *dialog = g_new (GtkHTMLSearchDialog, 1);
 	GtkWidget *hbox;
@@ -71,9 +83,12 @@ gtk_html_search_dialog_new (GtkHTML *html)
 	dialog->backward       = gtk_check_button_new_with_label (_("backward"));
 	dialog->case_sensitive = gtk_check_button_new_with_label (_("case sensitive"));
 	dialog->html           = html;
-	dialog->regular        = FALSE;
+	dialog->cd             = cd;
 
 	hbox = gtk_hbox_new (FALSE, 0);
+
+	if (cd->search_text)
+		gtk_entry_set_text (GTK_ENTRY (dialog->entry), cd->search_text);
 
 	gtk_box_pack_start_defaults (GTK_BOX (hbox), dialog->backward);
 	gtk_box_pack_start_defaults (GTK_BOX (hbox), dialog->case_sensitive);
@@ -92,6 +107,7 @@ gtk_html_search_dialog_new (GtkHTML *html)
 	   gnome_dialog_set_default (dialog->dialog, 0); */
 	gtk_widget_grab_focus (dialog->entry);
 
+	g_signal_connect (dialog->dialog, "response", G_CALLBACK (search_dialog_response), dialog);
 	g_signal_connect (dialog->entry, "changed", G_CALLBACK (entry_changed), dialog);
 	g_signal_connect (dialog->entry, "activate", G_CALLBACK (entry_activate), dialog);
 
@@ -101,19 +117,17 @@ gtk_html_search_dialog_new (GtkHTML *html)
 void
 gtk_html_search_dialog_destroy (GtkHTMLSearchDialog *d)
 {
+	gtk_widget_destroy (GTK_WIDGET (d->dialog));
 	g_free (d);
 }
 
 void
 search (GtkHTMLControlData *cd, gboolean regular)
 {
+	cd->regular = regular;
 	RUN_DIALOG (search, regular ? _("Find Regular Expression") :  _("Find"));
-
-	if (cd->search_dialog)
-		cd->search_dialog->regular = regular;
-
-	if (cd->search_dialog)
-		gtk_widget_grab_focus (cd->search_dialog->entry);
+	gtk_html_search_dialog_destroy (cd->search_dialog);
+	cd->search_dialog = NULL;
 }
 
 void
