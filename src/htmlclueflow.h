@@ -108,4 +108,6 @@ void  html_clueflow_get_properties  (HTMLClueFlow      *flow,
 				     guint8            *level_return,
 				     HTMLHAlignType    *alignment_return);
 
+void  html_clueflow_remove_text_slaves  (HTMLClueFlow *flow);
+
 #endif /* _HTMLCLUEFLOW_H_ */

@@ -247,16 +247,16 @@ add_line_break (HTMLEngine *e,
 		HTMLObject *clue,
 		HTMLClearType clear)
 {
+#if 0
 	if (e->flow != NULL) {
 		if (HTML_OBJECT_TYPE (HTML_CLUE (e->flow)->tail) == HTML_TYPE_VSPACE)
 			html_clue_append (HTML_CLUE (e->flow), create_empty_text (e));
 		html_clue_append (HTML_CLUE (e->flow), html_vspace_new (clear));
 		return;
 	}
+#endif
 
 	new_flow (e, clue, create_empty_text (e));
-
-	e->flow = NULL;
 }
 
 static void

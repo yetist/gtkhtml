@@ -251,13 +251,57 @@ prepend_object (HTMLEngine *engine,
 	curr = cursor->object;
 	parent = curr->parent;
 
-	if (curr->prev != NULL)
-		html_clue_append_after (HTML_CLUE (parent), object, curr->prev);
-	else
+	if (curr->prev == NULL)
 		html_clue_prepend (HTML_CLUE (parent), object);
+	else
+		html_clue_append_after (HTML_CLUE (parent), object, curr->prev);
 
 	cursor->object = object;
 	skip (engine);
+}
+
+static void
+merge_possibly (HTMLEngine *engine,
+		HTMLObject *a,
+		HTMLObject *b)
+{
+	HTMLCursor *cursor;
+
+	if (a == NULL || b == NULL)
+		return;
+
+	if (! html_object_is_text (a) || ! html_object_is_text (b))
+		return;
+
+	if (! html_text_check_merge (HTML_TEXT (a), HTML_TEXT (b)))
+		return;
+
+	cursor = engine->cursor;
+
+	if (cursor->object == HTML_OBJECT (a))
+		cursor->object = HTML_OBJECT (b);
+	else if (cursor->object == HTML_OBJECT (b))
+		cursor->offset += HTML_TEXT (a)->text_len;
+
+	html_text_merge (HTML_TEXT (b), HTML_TEXT (a), TRUE);
+
+	html_clue_remove (HTML_CLUE (a->parent), HTML_OBJECT (a));
+	html_object_destroy (HTML_OBJECT (a));
+}
+
+static void
+remove_slaves_at_cursor (HTMLEngine *engine)
+{
+	HTMLCursor *cursor;
+	HTMLObject *parent;
+
+	cursor = engine->cursor;
+	parent = cursor->object->parent;
+
+	if (HTML_OBJECT_TYPE (parent) != HTML_TYPE_CLUEFLOW)
+		return;
+
+	html_clueflow_remove_text_slaves (HTML_CLUEFLOW (parent));
 }
 
 
@@ -285,7 +329,11 @@ html_engine_paste (HTMLEngine *engine)
 	gtk_html_debug_dump_tree (engine->clue, 2);
 #endif
 
-	/* 2. Split the first paragraph at the cursor position, to allow insertion
+	/* 2. Remove all the HTMLTextSlaves in the current HTMLClueFlow.  */
+
+	remove_slaves_at_cursor (engine);
+
+	/* 3. Split the first paragraph at the cursor position, to allow insertion
               of the elements.  */
 
 	append = split_at_cursor (engine);
@@ -295,7 +343,7 @@ html_engine_paste (HTMLEngine *engine)
 	gtk_html_debug_dump_tree (engine->clue, 2);
 #endif
 
-	/* 3. Prepare the HTMLClueFlows to hold the elements we want to paste.  */
+	/* 4. Prepare the HTMLClueFlows to hold the elements we want to paste.  */
 
 	if (prepare_clueflows (engine))
 		append = TRUE;
@@ -305,7 +353,7 @@ html_engine_paste (HTMLEngine *engine)
 	gtk_html_debug_dump_tree (engine->clue, 2);
 #endif
 
-	/* 4. Duplicate the objects in the cut buffer, one by one, and insert
+	/* 5. Duplicate the objects in the cut buffer, one by one, and insert
               them into the document.  */
 
 	for (p = engine->cut_buffer; p != NULL; p = p->next) {
@@ -314,15 +362,27 @@ html_engine_paste (HTMLEngine *engine)
 		obj = (HTMLObject *) p->data;
 
 		if (HTML_OBJECT_TYPE (obj) != HTML_TYPE_CLUEFLOW) {
+			HTMLObject *duplicate;
+
 #ifdef PARANOID_DEBUG
 			if (html_object_is_text (obj))
 				g_print ("*** Pasting `%s'\n", HTML_TEXT (obj)->text);
 #endif
 
+			duplicate = html_object_dup (obj);
+
 			if (append)
-				append_object (engine, html_object_dup (obj));
+				append_object (engine, duplicate);
 			else
-				prepend_object (engine, html_object_dup (obj));
+				prepend_object (engine, duplicate);
+
+			/* Merge the first element with the previous one if possible.  */
+			if (p->prev == NULL)
+				merge_possibly (engine, duplicate->prev, duplicate);
+
+			/* Merge the last element with the following one if possible. */
+			if (p->next == NULL)
+				merge_possibly (engine, duplicate, duplicate->next);
 		} else {
 			HTMLObject *next_clueflow;
 			HTMLObject *obj_copy;
@@ -384,8 +444,8 @@ html_engine_paste (HTMLEngine *engine)
 	gtk_html_debug_dump_tree (engine->clue, 2);
 #endif
 
-	/* Thaw the engine so that things are re-laid out again.  FIXME: this
-           might be a bit inefficient for cut & paste.  */
+	/* 6. Thaw the engine so that things are re-laid out again.
+           FIXME: this might be a bit inefficient for cut & paste.  */
 
 	html_engine_thaw (engine);
 }

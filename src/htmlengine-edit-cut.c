@@ -19,6 +19,8 @@
    Boston, MA 02111-1307, USA.
 */
 
+#include "htmltextmaster.h"
+
 #include "htmlengine-edit-copy.h"
 #include "htmlengine-edit-delete.h"
 #include "htmlengine-edit-movement.h"
@@ -26,6 +28,42 @@
 #include "htmlengine-edit-cut.h"
 
 
+/* FIXME this is a dirty hack.  */
+static gboolean
+cursor_at_end_of_region (HTMLEngine *engine)
+{
+	HTMLCursor *cursor;
+	HTMLObject *obj;
+
+	cursor = engine->cursor;
+	obj = cursor->object;
+
+	if (html_object_is_text (obj)) {
+		HTMLTextMaster *text_master;
+
+		text_master = HTML_TEXT_MASTER (obj);
+		if (text_master->select_start < cursor->offset)
+			return TRUE;
+		else
+			return FALSE;
+	}
+
+	if (obj->selected) {
+		if (cursor->offset == 0)
+			return FALSE;
+		else
+			return TRUE;
+	} else {
+		if (cursor->offset == 0)
+			return TRUE;
+		else
+			return FALSE;
+	}
+}
+
+
+/* WARNING: this assumes that the cursor is always at either the
+   beginning or the end of the selected region.  */
 void
 html_engine_cut (HTMLEngine *engine)
 {
@@ -42,7 +80,11 @@ html_engine_cut (HTMLEngine *engine)
 	elems_copied = html_engine_copy (engine);
 
 	if (elems_copied > 0) {
-		html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_LEFT, elems_copied);
+		if (cursor_at_end_of_region (engine))
+			html_engine_move_cursor (engine,
+						 HTML_ENGINE_CURSOR_LEFT,
+						 elems_copied);
+
 		html_engine_delete (engine, elems_copied);
 	}
 

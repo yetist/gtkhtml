@@ -1,6 +1,40 @@
 2000-03-13  Ettore Perazzoli  <ettore@helixcode.com>
 
-	* htmlengine-save.c (write_header): Do not write a `<title>' tag
+	* htmlengine-edit-paste.c
+	(remove_slaves_at_cursor): New helper function.
+	(html_engine_paste): Call it before manipulating the text.
+
+	* htmlclueflow.c
+	(html_clueflow_remove_text_slaves): New function.
+
+	* htmlengine-edit-paste.c
+	(merge_possibly): New helper function.
+	(html_engine_paste): Use it to merge the first and last pasted
+	objects with their neighbours.
+
+	* gtkhtml-keybinding.c
+	(handle_none): Cause `GDK_F12' to dump the tree.
+
+	* htmlengine-edit-cut.c
+	(cursor_at_end_of_region): New function to detect if the cursor is
+	at the end or the beginning of the selected region.
+	(html_engine_cut): Use `cursor_at_end_of_region' to find out if we
+	actually need to move the cursor back; if not, don't move the
+	cursor.
+
+	* htmlengine.c
+	(add_line_break): Just create a new flow.  I hope this won't break
+	anything.
+
+	* htmlclueflow.c
+	(halign_to_string): New helper function.
+	(save): Use it to write a `DIV' tag to align the paragraph
+	properly.
+
+2000-03-13  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine-save.c
+	(write_header): Do not write a `<title>' tag
 	if there is no title.  This also prevents a segfault.
 
 2000-03-12  Ettore Perazzoli  <ettore@helixcode.com>

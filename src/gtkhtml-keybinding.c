@@ -334,6 +334,13 @@ handle_none (GtkHTML *html,
 	case GDK_F5:
 		gtk_html_paste (html);
 		break;
+	case GDK_F12:
+		if (html->engine->clue != NULL) {
+			g_print ("\n*** TREE DUMP:\n");
+			gtk_html_debug_dump_tree (html->engine->clue, 4);
+			g_print ("\n");
+		}
+		break;
 
 		/* The following cases are for keys that we don't want to map yet, but
 		   have an annoying default behavior if not handled. */

@@ -802,20 +802,45 @@ get_tag_for_style (const HTMLClueFlow *flow)
 		return NULL;
 	}
 }
+
+static const gchar *
+halign_to_string (HTMLHAlignType halign)
+{
+	switch (halign) {
+	case HTML_HALIGN_RIGHT:
+		return "RIGHT";
+	case HTML_HALIGN_CENTER:
+		return "CENTER";
+	case HTML_HALIGN_LEFT:
+	case HTML_HALIGN_NONE:
+	default:
+		return "LEFT";
+	}
+}
 	
 static gboolean
 save (HTMLObject *self,
       HTMLEngineSaveState *state)
 {
 	HTMLClueFlow *clueflow;
+	HTMLHAlignType halign;
 	const gchar *tag;
 
 	clueflow = HTML_CLUEFLOW (self);
+	halign = HTML_CLUE (self)->halign;
 
 	if (! write_indentation_tags (clueflow, state))
 		return FALSE;
 
 	tag = get_tag_for_style (clueflow);
+
+	/* Alignment tag.  */
+	if (halign != HTML_HALIGN_NONE && halign != HTML_HALIGN_LEFT) {
+		if (! html_engine_save_output_string (state, "<DIV ALIGN=")
+		    || ! html_engine_save_output_string (state, halign_to_string (halign))
+		    || ! html_engine_save_output_string (state, ">"))
+			return FALSE;
+	}
 
 	/* Start tag.  */
 	if (tag != NULL
@@ -832,7 +857,16 @@ save (HTMLObject *self,
 	if (tag != NULL) {
 		if (! html_engine_save_output_string (state, "</")
 		    || ! html_engine_save_output_string (state, tag)
-		    || ! html_engine_save_output_string (state, ">\n"))
+		    || ! html_engine_save_output_string (state, ">"))
+			return FALSE;
+	}
+
+	/* Close alignment tag.  */
+	if (halign != HTML_HALIGN_NONE && halign != HTML_HALIGN_LEFT) {
+		if (! html_engine_save_output_string (state, "</DIV>\n"))
+			return FALSE;
+	} else if (tag != NULL) {
+		if (! html_engine_save_output_string (state, "\n"))
 			return FALSE;
 	}
 
@@ -1157,4 +1191,25 @@ html_clueflow_get_properties (HTMLClueFlow *flow,
 		*level_return = flow->level;
 	if (alignment_return != NULL)
 		*alignment_return = HTML_CLUE (flow)->halign;
+}
+
+
+void
+html_clueflow_remove_text_slaves (HTMLClueFlow *flow)
+{
+	HTMLClue *clue;
+	HTMLObject *p;
+	HTMLObject *pnext;
+
+	g_return_if_fail (flow != NULL);
+
+	clue = HTML_CLUE (flow);
+	for (p = clue->head; p != NULL; p = pnext) {
+		pnext = p->next;
+
+		if (HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE) {
+			html_clue_remove (clue, p);
+			html_object_destroy (p);
+		}
+	}
 }
