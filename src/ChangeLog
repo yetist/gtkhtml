@@ -1,3 +1,10 @@
+2000-05-07  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlengine.c (html_engine_end): if editable call
+	html_cursor_home to make sure that even if the the whole buffer is
+	loaded in one pass we don't end up with a cursor at an incorrect
+	location.
+
 2000-05-06  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine.c (parse_table): don't create bg ptr if background=""
