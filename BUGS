@@ -44,6 +44,12 @@ Table problems
 
 - We might want to speed up redraw on expose.
 
+- `align=top' on images is broken.  For some stupid reason the
+  original KDE code put aligned images into an HTMLClueH, which makes it
+  impossible to align them on top properly.  Instead, we should have an
+  `alignment' attribute in `HTMLObject', and handle it properly in the
+  HTMLClueFlow reflowing code.
+
 * Missing features:
 -------------------
 
