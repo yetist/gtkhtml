@@ -3080,14 +3080,9 @@ draw_background (HTMLEngine *e,
 	yOrigin -= e->painter->y1;
 #endif
 
-	/* Do the bgimage tiling */
-	for (yp = yOrigin; yp < y + h; yp += ph) {
-	        for (xp = xOrigin; xp < x + w; xp += pw) {
-			html_painter_draw_background_pixmap (e->painter, 
-							     xp, yp,
-							     bgpixmap->pixbuf, 0, 0);
-		}
-	}
+	html_painter_draw_background_pixmap (e->painter, 
+					     xOrigin, yOrigin,
+					     bgpixmap->pixbuf, w+x-xOrigin, h+y-yOrigin);
 }
 
 void

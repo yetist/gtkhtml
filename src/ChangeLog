@@ -1,3 +1,20 @@
+2000-04-12  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltablecell.c (draw_background_helper): as bellow
+
+	* htmlengine.c (draw_background): update to use modified
+	draw_background_pixmap
+
+	* htmlgdkpainter.c (draw_background_pixmap): changed
+	functionality, instead of width and height it has tile_width and
+	tile_height args and do bgPixmap tiling
+
+2000-04-11  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltable.c (calc_size): do calc_col_info only when min_width
+	change flag is set
+	(calc_preferred_width): likewise
+
 2000-04-11  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine.c

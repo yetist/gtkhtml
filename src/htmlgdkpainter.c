@@ -376,25 +376,59 @@ static void
 draw_background_pixmap (HTMLPainter *painter,
 			gint x, gint y, 
 			GdkPixbuf *pixbuf,
-			gint pix_width, gint pix_height)
+			gint tile_width, gint tile_height)
 {
 	HTMLGdkPainter *gdk_painter;
+	gint pw;
+	gint ph;
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
-	if (pix_width == 0)
-		pix_width = gdk_pixbuf_get_width (pixbuf);
-	if (pix_height == 0)
-		pix_height = gdk_pixbuf_get_height (pixbuf);
+	pw = gdk_pixbuf_get_width (pixbuf);
+	ph = gdk_pixbuf_get_height (pixbuf);
 
-	gdk_pixbuf_render_to_drawable_alpha (pixbuf, gdk_painter->pixmap,
-					     0, 0,
-					     x - gdk_painter->x1, y - gdk_painter->y1, 
-					     pix_width, pix_height,
-					     GDK_PIXBUF_ALPHA_BILEVEL,
-					     128,
-					     GDK_RGB_DITHER_NORMAL,
-					     x, y);
+	/* do tiling */
+	if (tile_width > pw || tile_height > ph) {
+		GdkPixmap * pixmap;
+		gint cw, ch, cx, cy;
+
+		pixmap = gdk_pixmap_new (gdk_painter->window, pw, ph, -1);
+		gdk_pixbuf_render_to_drawable_alpha (pixbuf, pixmap,
+						     0, 0,
+						     0, 0, 
+						     pw, ph,
+						     GDK_PIXBUF_ALPHA_BILEVEL,
+						     128,
+						     GDK_RGB_DITHER_NORMAL,
+						     x, y);
+
+		cy = y;
+		ch = tile_height;
+		while (ch > 0) {
+			cx = x;
+			cw = tile_width;
+			while (cw > 0) {
+				gdk_draw_pixmap (gdk_painter->pixmap, gdk_painter->gc, pixmap,
+						 0, 0, cx - gdk_painter->x1, cy - gdk_painter->y1,
+						 (cw >= pw) ? pw : cw,
+						 (ch >= ph) ? ph : ch);
+				cw -= pw;
+				cx += pw;
+			}
+			ch -= ph;
+			cy += ph;
+		}
+		gdk_pixmap_unref (pixmap);
+	} else {
+		gdk_pixbuf_render_to_drawable_alpha (pixbuf, gdk_painter->pixmap,
+						     0, 0,
+						     x - gdk_painter->x1, y - gdk_painter->y1, 
+						     tile_width, tile_height,
+						     GDK_PIXBUF_ALPHA_BILEVEL,
+						     128,
+						     GDK_RGB_DITHER_NORMAL,
+						     x, y);
+	}
 }
 
 static GdkPixbuf *

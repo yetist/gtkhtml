@@ -80,30 +80,15 @@ draw_background_helper (HTMLTableCell *cell,
 			pw = gdk_pixbuf_get_width (cell->bgPixmap->pixbuf);
 			ph = gdk_pixbuf_get_height (cell->bgPixmap->pixbuf);
 
-			oheight = o->ascent + 2 * padding;
-			base_y = o->y - o->ascent - padding + ty;
+			html_painter_draw_background_pixmap (p,
+							     o->x + tx - padding,
+							     o->y + ty - padding - o->ascent,
+							     cell->bgPixmap->pixbuf,
+							     o->width + 2 * padding,
+							     o->ascent + 2 * padding);
 
-			while (oheight > 0) {
-				owidth = o->width + 2 * padding;
-				base_x = o->x + tx - padding;
-				while(owidth > 0) {
-					
-					clip_width = owidth > pw ? pw :owidth;
-					clip_height = oheight > ph ? ph : oheight;
-					
-					html_painter_draw_background_pixmap (p, base_x, base_y,
-									     cell->bgPixmap->pixbuf,
-									     clip_width, clip_height);
 
-					base_x += pw;
-					owidth -= pw;
-					
-				}
-				base_y += ph;
-				oheight -= ph;
-			}
 		}
-		
 	}
 }
 
