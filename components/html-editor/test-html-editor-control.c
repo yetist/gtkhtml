@@ -374,12 +374,12 @@ container_create (void)
 		HTML_EDITOR_CONTROL_ID,
 		bonobo_object_corba_objref (BONOBO_OBJECT (container)));
 
+	if (control == NULL)
+		g_error ("Cannot get `%s'.", HTML_EDITOR_CONTROL_ID);
+
 	resolver = htmleditor_resolver_new ();
 	frame = bonobo_widget_get_control_frame (BONOBO_WIDGET (control));
 	bonobo_object_add_interface (BONOBO_OBJECT (frame), BONOBO_OBJECT (resolver));
-	
-	if (control == NULL)
-		g_error ("Cannot get `%s'.", HTML_EDITOR_CONTROL_ID);
 
 	bonobo_window_set_contents (BONOBO_WINDOW (win), control);
 
