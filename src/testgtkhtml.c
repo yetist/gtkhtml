@@ -687,7 +687,7 @@ parse_href (const gchar *s)
 	HTMLURL *tmpurl;
 
 	if(s == NULL || *s == 0)
-		return NULL;
+		return g_strdup ("");
 
 	if (s[0] == '#') {
 		tmpurl = html_url_dup (baseURL, HTML_URL_DUP_NOREFERENCE);

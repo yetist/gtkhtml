@@ -937,6 +937,11 @@ use_pictograms (HTMLEngine *e)
 		gchar *alt;
 		gint len;
 
+		if (pos > 0) {
+			uc = html_text_get_char (HTML_TEXT (e->cursor->object), pos - 1);
+			if (uc != ' ' && uc != '\t')
+				return;
+		}
 		/* printf ("found %d\n", -state); */
 		len = e->cursor->offset  - pos;
 		alt = g_strndup (html_text_get_text (HTML_TEXT (e->cursor->object), pos), len);
