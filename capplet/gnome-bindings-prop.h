@@ -59,6 +59,7 @@ struct _GnomeBindingsProperties {
 	GHashTable *bindingsets;
 
 	gboolean commands_active;
+	guint    key_snooper;
 };
 
 struct _GnomeBindingsPropertiesClass {
