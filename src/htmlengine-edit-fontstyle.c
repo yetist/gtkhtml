@@ -683,10 +683,10 @@ get_font_style_from_selection (HTMLEngine *engine)
 	g_return_val_if_fail (engine->clue != NULL, GTK_HTML_FONT_STYLE_DEFAULT);
 	g_assert (engine->mark != NULL);
 
-	printf ("%s mark %p,%d cursor %p,%d\n",
+	/* printf ("%s mark %p,%d cursor %p,%d\n",
 		__FUNCTION__,
 		engine->mark, engine->mark->position,
-		engine->cursor, engine->cursor->position);
+		engine->cursor, engine->cursor->position); */
 
 	if (engine->mark->position < engine->cursor->position)
 		backwards = TRUE;

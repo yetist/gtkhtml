@@ -1,6 +1,8 @@
 2000-07-07  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml.c (init_properties): be more verbose about gconf errors
+	(command): call copy only when selection is active
+	(command): call paste only when cut_buffer != NULL
 
 	* testgtkhtml.c (main): added gconf_init
 

@@ -426,9 +426,8 @@ do_paste (HTMLEngine *engine,
 #ifdef PARANOID_DEBUG
 	g_print ("\n**** Tree after clueflow preparation:\n\n");
 	gtk_html_debug_dump_tree_simple (engine->clue, 1);
-#endif
-
 	g_print ("\n");
+#endif
 
 	/* 5. Duplicate the objects in the cut buffer, one by one, and
 	   insert them into the document.  */
@@ -529,7 +528,9 @@ do_paste (HTMLEngine *engine,
 	/* 9. Normalize the cursor pointer.  */
 	html_cursor_normalize (engine->cursor);
 
+#ifdef PARANOID_DEBUG
 	g_print ("%s -- %d element(s).\n", __FUNCTION__, engine->cursor->position - oldpos);
+#endif
 
 	/* Return the number of character elements pasted, to make undo/redo possible.  */
 	return engine->cursor->position - oldpos;

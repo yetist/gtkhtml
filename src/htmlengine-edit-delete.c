@@ -229,10 +229,10 @@ append_to_buffer (GList **buffer,
 		return;
 
 	/* debug msg */
-	g_print ("Adding object %p [%s] to cut_buffer.\n",
+	/* g_print ("Adding object %p [%s] to cut_buffer.\n",
 		 object, html_type_name (HTML_OBJECT_TYPE (object)));
 	if (html_object_is_text (object))
-		g_print ("\ttext `%s'\n", HTML_TEXT (object)->text);
+	g_print ("\ttext `%s'\n", HTML_TEXT (object)->text); */
 
 	if (*buffer == NULL) {
 		*buffer = *buffer_tail = g_list_append (NULL, object);

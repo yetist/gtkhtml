@@ -2022,7 +2022,8 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		html_engine_redo (html->engine);
 		break;
 	case GTK_HTML_COMMAND_COPY:
-		html_engine_copy (html->engine);
+		if (html->engine->active_selection)
+			html_engine_copy (html->engine);
 		break;
 	case GTK_HTML_COMMAND_CUT:
 		html_engine_cut (html->engine, TRUE);
@@ -2031,7 +2032,8 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		html_engine_cut_line (html->engine, TRUE);
 		break;
 	case GTK_HTML_COMMAND_PASTE:
-		html_engine_paste (html->engine, TRUE);
+		if (html->engine->cut_buffer)
+			html_engine_paste (html->engine, TRUE);
 		break;
 	case GTK_HTML_COMMAND_INSERT_PARAGRAPH:
 		html_engine_delete_selection (html->engine, TRUE);
