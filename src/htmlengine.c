@@ -3186,6 +3186,7 @@ html_engine_init (HTMLEngine *engine)
 
 	/* STUFF might be missing here!   */
 	engine->freeze_count = 0;
+	engine->thaw_idle_id = 0;
 
 	engine->window = NULL;
 	engine->invert_gc = NULL;
@@ -3416,6 +3417,8 @@ html_engine_begin (HTMLEngine *e, char *content_type)
 
 	e->newPage = TRUE;
 	clear_selection (e);
+
+	html_engine_thaw_idle_reset (e);
 
 	return new_stream;
 }
@@ -4065,6 +4068,21 @@ html_engine_freeze (HTMLEngine *engine)
 	engine->freeze_count++;
 }
 
+static gint
+thaw_idle (gpointer data)
+{
+	HTMLEngine *e = HTML_ENGINE (data);
+
+	html_engine_calc_size (e);
+	html_draw_queue_clear (e->draw_queue);
+	html_engine_reset_blinking_cursor (e);
+	html_engine_draw (e, 0, 0, e->width, e->height);	
+
+	e->thaw_idle_id = 0;
+
+	return FALSE;
+}
+
 void
 html_engine_thaw (HTMLEngine *engine)
 {
@@ -4074,13 +4092,16 @@ html_engine_thaw (HTMLEngine *engine)
 
 	engine->freeze_count--;
 
-	if (engine->freeze_count == 0) {
-		/* FIXME This should happen in the idle loop, and should be
-                   more conservative about the area to redraw.  This is gross.  */
+	if (engine->freeze_count == 0 && engine->thaw_idle_id == 0)
+		engine->thaw_idle_id = gtk_idle_add (thaw_idle, engine);
+}
 
-		html_engine_calc_size (engine);
-		html_draw_queue_clear (engine->draw_queue);
-		html_engine_draw (engine, 0, 0, engine->width, engine->height);
+void
+html_engine_thaw_idle_reset (HTMLEngine *e)
+{
+	if (e->thaw_idle_id) {
+		gtk_idle_remove (e->thaw_idle_id);
+		e->thaw_idle_id = 0;
 	}
 }
 

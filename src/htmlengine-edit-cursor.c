@@ -66,7 +66,7 @@ html_engine_draw_cursor_in_area (HTMLEngine *engine,
 
 	g_assert (engine->editable);
 
-	if (engine->cursor_hide_count > 0 || ! engine->editable)
+	if (engine->cursor_hide_count > 0 || ! engine->editable || engine->thaw_idle_id)
 		return;
 
 	obj = engine->cursor->object;

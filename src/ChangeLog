@@ -1,5 +1,10 @@
 2001-01-05  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine-edit-cursor.c (html_engine_draw_cursor_in_area):
+	don't draw cursor if engine is freezed
+
+	* htmlengine.c (html_engine_thaw): do thaw in idle time
+
 	* htmltext.c (html_text_op_cut_helper): use new object helper
 	functions
 

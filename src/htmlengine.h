@@ -73,6 +73,7 @@ struct _HTMLEngine {
            nor repaints.  When going from nonzero to zero, we relayout and
            repaint everything.  */
 	guint freeze_count;
+	guint thaw_idle_id;
 
 	gboolean parsing;
 	HTMLTokenizer *ht;
@@ -378,4 +379,5 @@ HTMLObject *html_engine_get_object_by_id    (HTMLEngine  *e,
 					     const gchar *id);
 
 HTMLEngine *html_engine_get_top_html_engine (HTMLEngine *e);
+void        html_engine_thaw_idle_reset     (HTMLEngine *e);
 #endif /* _HTMLENGINE_H_ */
