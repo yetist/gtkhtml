@@ -58,7 +58,9 @@ static GnomeUIInfo main_menu[] = {
 static void
 create_toolbars (GtkWidget *app) {
 	GtkWidget *dock;
-	GtkWidget *hbox;
+	GtkWidget *entry;
+	GtkWidget *hbox, *hbox2;
+	GtkWidget *label;
 	GtkWidget *frame;
 	GtkWidget *button;
 	GtkWidget *toolbar;
@@ -99,6 +101,28 @@ create_toolbars (GtkWidget *app) {
 	gtk_widget_show_all (dock);
 	gnome_dock_add_item (GNOME_DOCK (GNOME_APP (app)->dock),
 			     GNOME_DOCK_ITEM (dock), GNOME_DOCK_TOP, 1, 0, 0, FALSE);
+
+	/* Create the location bar */
+	dock = gnome_dock_item_new ("testgtkhtml-toolbar2",
+				    (GNOME_DOCK_ITEM_BEH_EXCLUSIVE));
+	hbox = gtk_hbox_new (FALSE, 2);
+	gtk_container_add (GTK_CONTAINER (dock), hbox);
+	gtk_container_border_width (GTK_CONTAINER (dock), 2);
+	hbox2 = gtk_hbox_new (FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox2), gtk_label_new ("Goto"), FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox2), gnome_stock_new_with_icon (GNOME_STOCK_PIXMAP_REDO), FALSE, FALSE, 0);
+	button = gtk_button_new ();
+	gtk_button_set_relief (GTK_BUTTON (button), GTK_RELIEF_NONE);
+	gtk_container_add (GTK_CONTAINER (button), hbox2);
+	gtk_box_pack_end (GTK_BOX (hbox), button, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox),
+			    gtk_label_new ("Location:"), FALSE, FALSE, 0);
+	entry = gtk_entry_new ();
+	gtk_box_pack_start (GTK_BOX (hbox),
+			    entry, TRUE, TRUE, 0);
+	gnome_dock_add_item (GNOME_DOCK (GNOME_APP (app)->dock),
+			     GNOME_DOCK_ITEM (dock), GNOME_DOCK_TOP, 2, 0, 0, FALSE);
+
 }
 
 static void

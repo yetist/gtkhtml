@@ -1,3 +1,11 @@
+1999-10-17  Anders Carlsson  <andersca@picard.andersnet>
+
+	* htmlengine.c: Fix a bug with <font> tags without size
+
+1999-10-17  Anders Carlsson  <andersca@gnu.org>
+
+	* testgtkhtml.c: More work on the ui
+
 1999-10-17  Richard Hult  <rhult@hem2.passagen.se>
 
 	* Makefile.am: Fixed component build.

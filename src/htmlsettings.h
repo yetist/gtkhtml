@@ -6,6 +6,7 @@
 typedef struct _HTMLSettings HTMLSettings;
 
 struct _HTMLSettings {
+	gint fontBaseSize;
 	GdkColor *bgcolor;
 };
 

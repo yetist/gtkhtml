@@ -5,9 +5,6 @@
 
 #define MAXFONTSIZES 7
 
-/* FIXME: Allow value to be set */
-#define FIXME_FONT_BASE_SIZE 3
-
 typedef enum {
 	Normal,
 	Bold

@@ -330,9 +330,9 @@ html_engine_parse (HTMLEngine *p)
 	p->italic = FALSE;
 	p->underline = FALSE;
 	p->weight = Normal;
-	p->fontsize = FIXME_FONT_BASE_SIZE;
+	p->fontsize = p->settings->fontBaseSize;
 
-	f = html_font_new ("times", FIXME_FONT_BASE_SIZE, defaultFontSizes, p->weight, p->italic, p->underline);
+	f = html_font_new ("times", p->settings->fontBaseSize, defaultFontSizes, p->weight, p->italic, p->underline);
 
 	html_font_stack_push (p->fs, f);
 
@@ -361,7 +361,7 @@ html_engine_insert_vspace (HTMLEngine *e, HTMLObject *clue, gboolean vspace_inse
 		html_clue_append (clue, f);
 
 		/* FIXME: correct font size */
-		t = html_vspace_new (defaultFontSizes[FIXME_FONT_BASE_SIZE], CNone);
+		t = html_vspace_new (defaultFontSizes[e->settings->fontBaseSize], CNone);
 		html_clue_append (f, t);
 		
 		e->flow = NULL;
@@ -671,7 +671,7 @@ html_engine_parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		}
 		
 		if (!bgColorSet) {
-			/* FIXME: No bgcolor set */
+			/* FIXME: Do this in a better way */
 		}
 		else {
 			e->settings->bgcolor = bgcolor;
@@ -705,20 +705,20 @@ html_engine_parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 void
 html_engine_parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 {
-	gint newSize;
-
 	if (strncmp (str, "font", 4) == 0) {
 		GdkColor *color = g_new0 (GdkColor, 1);
+		gint newSize = (html_engine_get_current_font (p))->size;
+
 		color = gdk_color_copy (html_color_stack_top (p->cs));
 
 		string_tokenizer_tokenize (p->st, str + 5, " >");
-		newSize = FIXME_FONT_BASE_SIZE;
+
 		while (string_tokenizer_has_more_tokens (p->st)) {
 			gchar *token = string_tokenizer_next_token (p->st);
 			if (strncasecmp (token, "size=", 5) == 0) {
 				gint num = atoi (token + 5);
 				if (*(token + 5) == '+' || *(token + 5) == '-')
-					newSize += num;
+					newSize = p->settings->fontBaseSize + num;
 				else
 					newSize = num;
 			}
@@ -727,14 +727,12 @@ html_engine_parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 				html_engine_set_named_color (p, color, token + 6);
 			}
 		}
-		g_print ("pushing block\n");
 		p->fontsize = newSize;
 		html_color_stack_push (p->cs, color);
 		html_engine_select_font (p);
 		html_engine_push_block  (p, ID_FONT, 1, html_engine_block_end_color_font, 0, 0);
 	}
 	else if (strncmp (str, "/font", 5) == 0) {
-		g_print ("popping block\n");
 		html_engine_pop_block (p, ID_FONT, clue);
 	}
 	
