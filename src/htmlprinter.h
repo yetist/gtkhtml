@@ -22,8 +22,8 @@
 #ifndef _HTMLPRINTER_H
 #define _HTMLPRINTER_H
 
+#include <libgnomeprint/gnome-print.h>
 #include "htmlpainter.h"
-#include "htmlprintfontmanager.h"
 
 
 #define HTML_TYPE_PRINTER                 (html_printer_get_type ())
@@ -36,8 +36,6 @@
 struct _HTMLPrinter {
 	HTMLPainter base;
 
-	HTMLPrintFontManager *font_manager;
-	GtkHTMLFontStyle font_style;
 	GnomePrintContext *print_context;
 };
 typedef struct _HTMLPrinter HTMLPrinter;

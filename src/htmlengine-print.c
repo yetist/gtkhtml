@@ -78,13 +78,17 @@ html_engine_print (HTMLEngine *engine,
 {
 	HTMLPainter *printer;
 	HTMLPainter *old_painter;
-	guint old_width, max_width, min_width;
+	guint old_width, max_width;
+	GtkHTMLClassProperties *prop = GTK_HTML_CLASS (GTK_OBJECT (engine->widget)->klass)->properties;
 
 	g_return_if_fail (engine->clue != NULL);
 
 	old_width   = engine->width;
 	old_painter = engine->painter;
 	printer     = html_printer_new (print_context);
+	html_font_manager_set_default (&printer->font_manager,
+				       prop->font_var_family, prop->font_fix_family,
+				       prop->font_var_size,   prop->font_fix_size);
 
 	max_width = engine->width = html_printer_get_page_width (HTML_PRINTER (printer));
 	html_engine_set_painter (engine, printer, max_width);

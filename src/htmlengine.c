@@ -135,30 +135,6 @@ enum ID {
 /* Font faces */
 
 static HTMLFontFace *
-parse_font_face (HTMLEngine *e, const gchar *families)
-{
-	HTMLFontFace *face = NULL;
-
-#if 0
-	gchar *s, *family;
-
-	/* go thru list of families separated by ',' */
-	do {
-		s = strchr (families, ',');
-		family = g_strndup (families, ((s) ? s - families : strlen (families)));
-		if (html_font_face_family_exists (family))
-			face = html_gdk_font_manager_get_face (HTML_GDK_PAINTER (e->painter)->font_manager, family);
-		g_free (family);
-		families = s + 1;
-	} while (s && !face);
-#else
-	face = html_painter_find_font_face (e->painter, families);
-#endif
-
-	return face;
-}
-
-static HTMLFontFace *
 current_font_face (HTMLEngine *e)
 {
 	return (HTMLFontFace *) (html_stack_is_empty (e->font_face_stack))
@@ -167,15 +143,15 @@ current_font_face (HTMLEngine *e)
 }
 
 static void
-push_font_face (HTMLEngine *e, HTMLFontFace *face)
+push_font_face (HTMLEngine *e, const HTMLFontFace *face)
 {
-	html_stack_push (e->font_face_stack, face);
+	html_stack_push (e->font_face_stack, g_strdup (face));
 }
 
 static void
 pop_font_face (HTMLEngine *e)
 {
-	html_stack_pop (e->font_face_stack);
+	g_free (html_stack_pop (e->font_face_stack));
 }
 
 /* Font styles */
@@ -1963,7 +1939,7 @@ parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 {
 	if (strncmp (str, "font", 4) == 0) {
 		GdkColor *color;
-		HTMLFontFace *face = NULL;
+		const HTMLFontFace *face = NULL;
 		gint newSize;
 
 		newSize = current_font_style (p) & GTK_HTML_FONT_STYLE_SIZE_MASK;
@@ -1988,7 +1964,7 @@ parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 				else if (newSize < GTK_HTML_FONT_STYLE_SIZE_1)
 					newSize = GTK_HTML_FONT_STYLE_SIZE_1;
 			} else if (strncasecmp (token, "face=", 5) == 0) {
-				face = parse_font_face (p, token + 5);
+				face = token + 5;
 			} else if (strncasecmp (token, "color=", 6) == 0) {
 				parse_color (token + 6, color);
 			}
@@ -3109,7 +3085,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->undo = html_undo_new ();
 
 	engine->font_style_stack = html_stack_new (NULL);
-	engine->font_face_stack = html_stack_new (NULL);
+	engine->font_face_stack = html_stack_new (g_free);
 	engine->color_stack = html_stack_new ((HTMLStackFreeFunc) html_color_unref);
 	engine->clueflow_style_stack = html_stack_new (NULL);
 

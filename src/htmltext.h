@@ -24,7 +24,7 @@
 #define _HTMLTEXT_H_
 
 #include "htmlobject.h"
-#include "htmlfontface.h"
+#include "htmlfontmanager.h"
 #include "htmlcolor.h"
 #include "htmlinterval.h"
 

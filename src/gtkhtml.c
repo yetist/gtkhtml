@@ -1179,34 +1179,18 @@ set_adjustments (GtkLayout     *layout,
 static gint
 set_fonts_idle (GtkHTML *html)
 {
-	HTMLGdkFontManager *manager;
-	GtkHTMLClassProperties *prop = GTK_HTML_CLASS (GTK_OBJECT (html)->klass)->properties;	
+	GtkHTMLClassProperties *prop = GTK_HTML_CLASS (GTK_OBJECT (html)->klass)->properties;
 
-	/* little hackish - will be replaced soon */
 	if (html->engine) {
-#if 0
-		HTMLFontFace *var, *fix;
-#endif
-
-		manager = HTML_GDK_PAINTER (html->engine->painter)->font_manager;
-#if 0
-		var = html_gdk_font_manager_get_variable (manager);
-		fix = html_gdk_font_manager_get_fixed (manager);
-		html_font_face_set_family (var, prop->font_var_family);
-		html_font_face_set_family (fix, prop->font_fix_family);
-		html_font_face_set_size   (var, prop->font_var_size);
-		html_font_face_set_size   (fix, prop->font_fix_size);
-#endif
-		html_gdk_font_manager_set_fixed (manager, prop->font_fix_family, prop->font_fix_size);
-		html_gdk_font_manager_set_variable (manager, prop->font_var_family, prop->font_var_size);
-		html_gdk_font_manager_set_size (manager, prop->font_var_size);
+		html_font_manager_set_default (&html->engine->painter->font_manager,
+					       prop->font_var_family, prop->font_fix_family,
+					       prop->font_var_size,   prop->font_fix_size);
 
 		/* tables don't resize correctly :( who knows the solution? */
 		if (html->engine->clue) {
 			html_object_reset (html->engine->clue);
 			html_object_change_set_down (html->engine->clue, HTML_CHANGE_ALL);
-			html_object_calc_min_width (html->engine->clue, html->engine->painter);
-			html_object_calc_size (html->engine->clue, html->engine->painter);
+			html_engine_calc_size (html->engine);
 			html_engine_schedule_update (html->engine);
 		}
 	}

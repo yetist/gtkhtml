@@ -30,7 +30,7 @@ typedef struct _HTMLPainter HTMLPainter;
 #include <gtk/gtk.h>
 
 #include "gtkhtmlfontstyle.h"
-#include "htmlfontface.h"
+#include "htmlfontmanager.h"
 #include "htmlcolorset.h"
 
 
@@ -51,22 +51,24 @@ typedef enum {
 struct _HTMLPainter {
 	GtkObject base;
 
-	HTMLColorSet *color_set;
+	HTMLFontManager     font_manager;
+	HTMLColorSet       *color_set;
+	HTMLFontFace       *font_face;
+	GtkHTMLFontStyle    font_style;
 };
 
 struct _HTMLPainterClass {
-	GtkObjectClass base;
+	GtkObjectClass   base;
 
 	void (* begin) (HTMLPainter *painter, int x1, int y1, int x2, int y2);
 	void (* end) (HTMLPainter *painter);
 
+	HTMLFontManagerAllocFont  alloc_font;
+	HTMLFontManagerFreeFont    free_font;
+
 	void (* alloc_color) (HTMLPainter *painter, GdkColor *color);
 	void (* free_color) (HTMLPainter *painter, GdkColor *color);
 
-	HTMLFontFace *(* find_font_face) (HTMLPainter *p, const gchar *families);
-	void (* set_font_style) (HTMLPainter *p, GtkHTMLFontStyle  f);
-	void (* set_font_face)  (HTMLPainter *p, HTMLFontFace *face);
-	GtkHTMLFontStyle (* get_font_style) (HTMLPainter *p);
 	guint (* calc_ascent) (HTMLPainter *p, GtkHTMLFontStyle f, HTMLFontFace *face);
 	guint (* calc_descent) (HTMLPainter *p, GtkHTMLFontStyle f, HTMLFontFace *face);
 	guint (* calc_text_width) (HTMLPainter *p, const gchar *text, guint len,
@@ -136,6 +138,9 @@ void              html_painter_set_font_style   (HTMLPainter      *p,
 GtkHTMLFontStyle  html_painter_get_font_style   (HTMLPainter      *p);
 void              html_painter_set_font_face    (HTMLPainter      *p,
 						 HTMLFontFace     *f);
+gpointer          html_painter_get_font         (HTMLPainter *painter,
+						 HTMLFontFace *face,
+						 GtkHTMLFontStyle style);
 guint             html_painter_calc_ascent      (HTMLPainter      *p,
 						 GtkHTMLFontStyle  f,
 						 HTMLFontFace     *face);

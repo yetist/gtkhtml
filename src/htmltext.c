@@ -1005,7 +1005,9 @@ html_text_set_color (HTMLText *text,
 void
 html_text_set_font_face (HTMLText *text, HTMLFontFace *face)
 {
-	text->face = face;
+	if (text->face)
+		g_free (text->face);
+	text->face = g_strdup (face);
 }
 
 void

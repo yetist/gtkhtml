@@ -26,35 +26,16 @@
 #include "gtkhtmlfontstyle.h"
 
 struct _HTMLFontFace {
-#if 0
-	GdkFont *font [GTK_HTML_FONT_STYLE_MAX];
-#endif
 	gchar *family;
 	guint  size;
 };
 typedef struct _HTMLFontFace HTMLFontFace;
 
-#if 0
 HTMLFontFace *      html_font_face_new                        (const gchar *family,
 							       gint size);
 void                html_font_face_destroy                    (HTMLFontFace *face);
-GdkFont *           html_font_face_get_font                   (HTMLFontFace *face,
-							       GtkHTMLFontStyle style);
-#endif
-#if 0
 void                html_font_face_set_family                 (HTMLFontFace *face,
 							       const gchar *family);
 void                html_font_face_set_size                   (HTMLFontFace *face,
 							       gint size);
 #endif
-#if 0
-gboolean            html_font_face_family_exists              (const gchar *family);
-#endif
-
-#endif
-
-
-
-
-
-

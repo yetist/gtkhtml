@@ -1,3 +1,18 @@
+2000-09-01  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlfontmanager.[ch]: new fontmanager
+
+	* htmlgdkpainter.c (utf8_gdk_text_width): move html_gdk_text_width
+	here, as htmlgdkfontmanager.c is obsolete now
+	(utf8_gdk_draw_text): likewise
+
+	* htmlpainter.c (html_painter_set_font_style): make this method
+	static
+	(html_painter_get_font_style): likewise
+	(html_painter_set_font_face): likewise
+
+	* gtkhtml.c (set_fonts_idle): use new font manager
+
 2000-08-31  Lauris Kaplinski  <lauris@helixcode.com>
 
 	* htmlgdkfontmanager.h:

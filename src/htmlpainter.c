@@ -40,6 +40,7 @@ finalize (GtkObject *object)
 	HTMLPainter *painter;
 
 	painter = HTML_PAINTER (object);
+	html_font_manager_finalize (&painter->font_manager);
 
 	/* FIXME ownership of the color set?  */
 
@@ -59,12 +60,12 @@ finalize (GtkObject *object)
 DEFINE_UNIMPLEMENTED (begin);
 DEFINE_UNIMPLEMENTED (end);
 
+DEFINE_UNIMPLEMENTED (alloc_font);
+DEFINE_UNIMPLEMENTED (free_font);
+
 DEFINE_UNIMPLEMENTED (alloc_color);
 DEFINE_UNIMPLEMENTED (free_color);
 
-DEFINE_UNIMPLEMENTED (set_font_style);
-DEFINE_UNIMPLEMENTED (set_font_face);
-DEFINE_UNIMPLEMENTED (get_font_style);
 DEFINE_UNIMPLEMENTED (calc_ascent);
 DEFINE_UNIMPLEMENTED (calc_descent);
 DEFINE_UNIMPLEMENTED (calc_text_width);
@@ -91,13 +92,16 @@ DEFINE_UNIMPLEMENTED (draw_background);
 DEFINE_UNIMPLEMENTED (get_pixel_size);
 
 static void
-init (GtkObject *object)
+init (GtkObject *object, HTMLPainterClass *real_klass)
 {
 	HTMLPainter *painter;
 
 	painter = HTML_PAINTER (object);
-
 	painter->color_set = html_colorset_new (NULL);
+
+	html_font_manager_init (&painter->font_manager, real_klass->free_font);
+	painter->font_style = GTK_HTML_FONT_STYLE_DEFAULT;
+	painter->font_face = NULL;
 }
 
 static void
@@ -112,12 +116,12 @@ class_init (GtkObjectClass *object_class)
 	class->begin = (gpointer) begin_unimplemented;
 	class->end = (gpointer) end_unimplemented;
 
+	class->alloc_font = (gpointer) alloc_font_unimplemented;
+	class->free_font = (gpointer) free_font_unimplemented;
+
 	class->alloc_color = (gpointer) alloc_color_unimplemented;
 	class->free_color = (gpointer) free_color_unimplemented;
 
-	class->set_font_style = (gpointer) set_font_style_unimplemented;
-	class->get_font_style = (gpointer) get_font_style_unimplemented;
-	class->set_font_face = (gpointer) set_font_face_unimplemented;
 	class->calc_ascent = (gpointer) calc_ascent_unimplemented;
 	class->calc_descent = (gpointer) calc_descent_unimplemented;
 	class->calc_text_width = (gpointer) calc_text_width_unimplemented;
@@ -225,19 +229,6 @@ html_painter_free_color (HTMLPainter *painter,
 
 /* Font handling.  */
 
-HTMLFontFace *html_painter_find_font_face (HTMLPainter *painter,
-					   const gchar *families)
-{
-	g_return_val_if_fail (painter != NULL, NULL);
-	g_return_val_if_fail (HTML_IS_PAINTER (painter), NULL);
-
-	if (!families) families = "helvetica";
-
-	g_assert (HP_CLASS (painter)->find_font_face);
-
-	return (* HP_CLASS (painter)->find_font_face) (painter, families);
-}
-
 void
 html_painter_set_font_style (HTMLPainter *painter,
 			     GtkHTMLFontStyle font_style)
@@ -246,7 +237,7 @@ html_painter_set_font_style (HTMLPainter *painter,
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 	g_return_if_fail (font_style != GTK_HTML_FONT_STYLE_DEFAULT);
 
-	(* HP_CLASS (painter)->set_font_style) (painter, font_style);
+	painter->font_style = font_style;
 }
 
 GtkHTMLFontStyle
@@ -255,7 +246,7 @@ html_painter_get_font_style (HTMLPainter *painter)
 	g_return_val_if_fail (painter != NULL, GTK_HTML_FONT_STYLE_DEFAULT);
 	g_return_val_if_fail (HTML_IS_PAINTER (painter), GTK_HTML_FONT_STYLE_DEFAULT);
 
-	return (* HP_CLASS (painter)->get_font_style) (painter);
+	return painter->font_style;
 }
 
 void
@@ -265,7 +256,18 @@ html_painter_set_font_face (HTMLPainter *painter,
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 
-	(* HP_CLASS (painter)->set_font_face) (painter, face);
+	if (!painter->font_face || !face || strcmp (painter->font_face, face)) {
+		if (painter->font_face)
+			g_free (painter->font_face);
+		painter->font_face = g_strdup (face);
+	}
+}
+
+gpointer
+html_painter_get_font (HTMLPainter *painter, HTMLFontFace *face, GtkHTMLFontStyle style)
+{
+	return html_font_manager_get_font (&painter->font_manager, face, style,
+					   HTML_PAINTER_CLASS (GTK_OBJECT (painter)->klass)->alloc_font);
 }
 
 guint

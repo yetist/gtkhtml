@@ -63,8 +63,7 @@ libgtkhtml_HEADERS =				\
 	htmlengine-save.h			\
 	htmlengine.h				\
 	htmlentity.h				\
-	htmlgdkfontmanager.h			\
-	htmlfontface.h				\
+	htmlfontmanager.h			\
 	htmlform.h				\
 	htmlgdkpainter.h			\
 	htmlhidden.h				\
@@ -76,7 +75,6 @@ libgtkhtml_HEADERS =				\
 	htmlobject.h				\
 	htmlpainter.h				\
 	htmlprinter.h				\
-	htmlprintfontmanager.h			\
 	htmlradio.h				\
 	htmlrule.h				\
 	htmlsearch.h				\
@@ -148,8 +146,7 @@ libgtkhtml_la_SOURCES =				\
 	htmlengine-save.c			\
 	htmlengine.c				\
 	htmlentity.c				\
-	htmlgdkfontmanager.c			\
-	htmlfontface.c				\
+	htmlfontmanager.c			\
 	htmlform.c				\
 	htmlgdkpainter.c			\
 	htmlhidden.c				\
@@ -161,7 +158,6 @@ libgtkhtml_la_SOURCES =				\
 	htmlobject.c				\
 	htmlpainter.c				\
 	htmlprinter.c				\
-	htmlprintfontmanager.c			\
 	htmlradio.c				\
 	htmlrule.c				\
 	htmlsearch.c				\

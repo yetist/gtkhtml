@@ -20,6 +20,7 @@
 */
 
 #include <gnome.h>
+#include <ctype.h>
 #include <libgnomeprint/gnome-print.h>
 
 #include "htmlprinter.h"
@@ -149,8 +150,6 @@ finalize (GtkObject *object)
 		gtk_object_unref (GTK_OBJECT (printer->print_context));
 	}
 
-	html_print_font_manager_destroy (printer->font_manager);
-
 	(* GTK_OBJECT_CLASS (parent_class)->finalize) (object);
 }
 
@@ -247,32 +246,6 @@ get_black (const HTMLPainter *painter)
 	static GdkColor black = { 0, 0, 0, 0 };
 
 	return &black;
-}
-
-static void
-set_font_style (HTMLPainter *painter,
-		GtkHTMLFontStyle font_style)
-{
-	HTMLPrinter *printer;
-	GnomeFont *font;
-
-	printer = HTML_PRINTER (painter);
-	g_return_if_fail (printer->print_context != NULL);
-
-	font = html_print_font_manager_get_font (printer->font_manager, font_style);
-	gnome_print_setfont (printer->print_context, font);
-
-	printer->font_style = font_style;
-}
-
-static GtkHTMLFontStyle
-get_font_style (HTMLPainter *painter)
-{
-	HTMLPrinter *printer;
-
-	printer = HTML_PRINTER (painter);
-
-	return printer->font_style;
 }
 
 static void
@@ -504,8 +477,8 @@ draw_text (HTMLPainter *painter,
 	   const gchar *text,
 	   gint len)
 {
+	GnomeFont *font;
 	HTMLPrinter *printer;
-	GtkHTMLFontStyle font_style;
 	gdouble print_x, print_y;
 	gchar *text_tmp;
 
@@ -523,11 +496,11 @@ draw_text (HTMLPainter *painter,
 	memcpy (text_tmp, text, len);
 	text_tmp[len] = '\0';
 
+	font = html_painter_get_font (painter, painter->font_face, painter->font_style);
+	gnome_print_setfont (printer->print_context, font);
 	gnome_print_show (printer->print_context, text_tmp);
 
-	font_style = printer->font_style;
-	if (font_style & (GTK_HTML_FONT_STYLE_UNDERLINE | GTK_HTML_FONT_STYLE_STRIKEOUT)) {
-		GnomeFont *font;
+	if (painter->font_style & (GTK_HTML_FONT_STYLE_UNDERLINE | GTK_HTML_FONT_STYLE_STRIKEOUT)) {
 		double text_width;
 		double ascender, descender;
 		double y;
@@ -538,10 +511,8 @@ draw_text (HTMLPainter *painter,
 		gnome_print_setlinewidth (printer->print_context, 1.0);
 		gnome_print_setlinecap (printer->print_context, GDK_CAP_BUTT);
 
-		font = html_print_font_manager_get_font (printer->font_manager, font_style);
-
 		text_width = gnome_font_get_width_string_n (font, text, len);
-		if (font_style & GTK_HTML_FONT_STYLE_UNDERLINE) {
+		if (painter->font_style & GTK_HTML_FONT_STYLE_UNDERLINE) {
 			descender = gnome_font_get_descender (font);
 			y = print_y + gnome_font_get_underline_position (font);
 
@@ -553,7 +524,7 @@ draw_text (HTMLPainter *painter,
 			gnome_print_stroke (printer->print_context);
 		}
 
-		if (font_style & GTK_HTML_FONT_STYLE_STRIKEOUT) {
+		if (painter->font_style & GTK_HTML_FONT_STYLE_STRIKEOUT) {
 			ascender = gnome_font_get_ascender (font);
 			y = print_y + ascender / 2.0;
 			gnome_print_newpath (printer->print_context);
@@ -593,7 +564,7 @@ calc_ascent (HTMLPainter *painter,
 	printer = HTML_PRINTER (painter);
 	g_return_val_if_fail (printer->print_context != NULL, 0);
 
-	font = html_print_font_manager_get_font (printer->font_manager, style);
+	font = html_painter_get_font (painter, face, style);
 	g_return_val_if_fail (font != NULL, 0);
 
 	ascender = gnome_font_get_ascender (font) * SPACING_FACTOR;
@@ -612,7 +583,7 @@ calc_descent (HTMLPainter *painter,
 	printer = HTML_PRINTER (painter);
 	g_return_val_if_fail (printer->print_context != NULL, 0);
 
-	font = html_print_font_manager_get_font (printer->font_manager, style);
+	font = html_painter_get_font (painter, face, style);
 	g_return_val_if_fail (font != NULL, 0);
 
 	descender = gnome_font_get_descender (font) * SPACING_FACTOR;
@@ -633,10 +604,11 @@ calc_text_width (HTMLPainter *painter,
 	printer = HTML_PRINTER (painter);
 	g_return_val_if_fail (printer->print_context != NULL, 0);
 
-	font = html_print_font_manager_get_font (printer->font_manager, style);
+	font = html_painter_get_font (painter, face, style);
 	g_return_val_if_fail (font != NULL, 0);
 
 	width = gnome_font_get_width_string_n (font, text, len);
+
 	return SCALE_GNOME_PRINT_TO_ENGINE (width);
 }
 
@@ -646,19 +618,38 @@ get_pixel_size (HTMLPainter *painter)
 	return SCALE_GNOME_PRINT_TO_ENGINE (PIXEL_SIZE);
 }
 
+static gpointer
+alloc_font (gchar *face, gdouble size, GtkHTMLFontStyle style, gpointer data)
+{
+	GnomeFontWeight weight;
+	gboolean italic;
+	gchar *s = face;
+
+	weight = (style & GTK_HTML_FONT_STYLE_BOLD) ? GNOME_FONT_BOLD : GNOME_FONT_BOOK;
+	italic = (style & GTK_HTML_FONT_STYLE_ITALIC);
+
+	/* gnome-print is case sensitive - need to be fixed */
+	if (s && *s) {
+		/* capitalize */
+		*s = toupper (*s);
+		s++;
+		while (*s) {
+			*s = tolower (*s);
+			s++;
+		}
+	}
+
+	return gnome_font_new_closest ((face) ? face : "Courier", weight, italic, size);
+}
+
 
 static void
 init (GtkObject *object)
 {
 	HTMLPrinter *printer;
 
-	printer = HTML_PRINTER (object);
-
+	printer                = HTML_PRINTER (object);
 	printer->print_context = NULL;
-
-	printer->font_style = GTK_HTML_FONT_STYLE_DEFAULT;
-
-	printer->font_manager = html_print_font_manager_new ();
 }
 
 static void
@@ -672,10 +663,10 @@ class_init (GtkObjectClass *object_class)
 
 	painter_class->begin = begin;
 	painter_class->end = end;
+	painter_class->alloc_font = alloc_font;
+	painter_class->free_font = (HTMLFontManagerFreeFont) gtk_object_unref;	
 	painter_class->alloc_color = alloc_color;
 	painter_class->free_color = free_color;
-	painter_class->set_font_style = set_font_style;
-	painter_class->get_font_style = get_font_style;
 	painter_class->calc_ascent = calc_ascent;
 	painter_class->calc_descent = calc_descent;
 	painter_class->calc_text_width = calc_text_width;
