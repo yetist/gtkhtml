@@ -26,7 +26,7 @@ msgstr "Nemohu naèíst glade soubor"
 
 #: capplet/gtkhtml-capplet.glade.h:1
 msgid "*********************"
-msgstr ""
+msgstr "********************"
 
 #: capplet/gtkhtml-capplet.glade.h:2
 msgid "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz"
@@ -361,7 +361,7 @@ msgstr "Vlo¾it tabulku..."
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
 #: components/html-editor/toolbar.c:514
 msgid "Left justifies the paragraphs"
-msgstr ""
+msgstr "Zarovná odstavec doleva"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
 #: components/html-editor/body.c:307 components/html-editor/menubar.c:123
@@ -371,23 +371,23 @@ msgstr "Odkaz"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
 msgid "Make the current Paragraph style Normal"
-msgstr ""
+msgstr "Zmìnit vzhled odstavce na Normální"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
 msgid "Make the current Paragraph style Preformat"
-msgstr ""
+msgstr "Zmìnit vzhled odstavce na Pøedformátovaný"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
 msgid "Make the current paragraph a bulleted list"
-msgstr ""
+msgstr "Zmìnit vzhled odstavce na Bodový seznam"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
 msgid "Make the current paragraph a list with roman numerals"
-msgstr ""
+msgstr "Zmìnit vzhled odstavce na Øímsky èíslovanou polo¾ku"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
 msgid "Make the current paragraph a numbered list"
-msgstr ""
+msgstr "Zmìnit vzhled odstavce na Èíslovanou polo¾ku"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
 msgid "Make the current paragraph an H1 header"
@@ -1462,7 +1462,7 @@ msgstr ""
 
 #: src/htmlprinter.c:63
 msgid "US-Letter"
-msgstr ""
+msgstr "A4"
 
 #: src/testgtkhtml.c:113
 msgid "Print pre_view"
