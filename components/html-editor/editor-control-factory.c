@@ -68,6 +68,9 @@ struct _SetFrameData {
 };
 typedef struct _SetFrameData SetFrameData;
 
+static BonoboGenericFactory *factory = NULL;
+static gint active_controls = 0;
+
 static void
 set_frame_cb (BonoboControl *control,
 	      gpointer data)
@@ -303,6 +306,16 @@ static void
 destroy_control_data_cb (GtkObject *control, GtkHTMLControlData *cd)
 {
 	gtk_html_control_data_destroy (cd);
+
+	printf ("active--\n");
+	active_controls --;
+
+	printf ("control_destroy %d\n", active_controls);
+
+	if (active_controls)
+		return;
+	bonobo_object_unref (BONOBO_OBJECT (factory));
+	gtk_main_quit ();
 }
 
 static BonoboObject *
@@ -315,9 +328,8 @@ editor_control_factory (BonoboGenericFactory *factory,
 	GtkWidget *html_widget;
 	GtkWidget *vbox;
 	GtkHTMLControlData *control_data;
-		
-	html_widget = gtk_html_new ();
 
+	html_widget = gtk_html_new ();
 	gtk_html_load_empty (GTK_HTML (html_widget));
 	gtk_html_set_editable (GTK_HTML (html_widget), TRUE);
 
@@ -327,46 +339,51 @@ editor_control_factory (BonoboGenericFactory *factory,
 	/* g_warning ("Creating a new GtkHTML editor control."); */
 	control = bonobo_control_new (vbox);
 
-	/* Bonobo::PersistStream */
+	if (control) {
 
-	stream_impl = persist_stream_impl_new (GTK_HTML (html_widget));
-	bonobo_object_add_interface (BONOBO_OBJECT (control), BONOBO_OBJECT (stream_impl));
+		active_controls++;
+		printf ("active++\n");
 
-	/* Bonobo::PersistFile */
+		/* Bonobo::PersistStream */
 
-	file_impl = persist_file_impl_new (GTK_HTML (html_widget));
-	bonobo_object_add_interface (BONOBO_OBJECT (control), BONOBO_OBJECT (file_impl));
+		stream_impl = persist_stream_impl_new (GTK_HTML (html_widget));
+		bonobo_object_add_interface (BONOBO_OBJECT (control), BONOBO_OBJECT (stream_impl));
 
-	/* Part of the initialization must be done after the control is
-	   embedded in its control frame.  We use the "set_frame" signal to
-	   handle that.  */
+		/* Bonobo::PersistFile */
 
-	control_data = gtk_html_control_data_new (GTK_HTML (html_widget), vbox);
+		file_impl = persist_file_impl_new (GTK_HTML (html_widget));
+		bonobo_object_add_interface (BONOBO_OBJECT (control), BONOBO_OBJECT (file_impl));
 
-	gtk_signal_connect (GTK_OBJECT (control), "set_frame",
-			    GTK_SIGNAL_FUNC (set_frame_cb), control_data);
+		/* Part of the initialization must be done after the control is
+		   embedded in its control frame.  We use the "set_frame" signal to
+		   handle that.  */
 
-	gtk_signal_connect (GTK_OBJECT (control), "destroy",
-			    GTK_SIGNAL_FUNC (destroy_control_data_cb), control_data);
+		control_data = gtk_html_control_data_new (GTK_HTML (html_widget), vbox);
 
-	gtk_signal_connect (GTK_OBJECT (html_widget), "url_requested",
-			    GTK_SIGNAL_FUNC (url_requested_cb), control);
+		gtk_signal_connect (GTK_OBJECT (control), "set_frame",
+				    GTK_SIGNAL_FUNC (set_frame_cb), control_data);
 
-	gtk_signal_connect (GTK_OBJECT (html_widget), "button_press_event",
-			    GTK_SIGNAL_FUNC (html_button_pressed), control_data);
+		gtk_signal_connect (GTK_OBJECT (control), "destroy",
+				    GTK_SIGNAL_FUNC (destroy_control_data_cb), control_data);
+
+		gtk_signal_connect (GTK_OBJECT (html_widget), "url_requested",
+				    GTK_SIGNAL_FUNC (url_requested_cb), control);
+
+		gtk_signal_connect (GTK_OBJECT (html_widget), "button_press_event",
+				    GTK_SIGNAL_FUNC (html_button_pressed), control_data);
 
 #ifdef GTKHTML_HAVE_PSPELL
-	gtk_signal_connect (GTK_OBJECT (html_widget), "spell_suggestion_request",
-			    GTK_SIGNAL_FUNC (spell_suggestion_request_cb), control_data);
+		gtk_signal_connect (GTK_OBJECT (html_widget), "spell_suggestion_request",
+				    GTK_SIGNAL_FUNC (spell_suggestion_request_cb), control_data);
 #endif
+	}
+
 	return BONOBO_OBJECT (control);
 }
 
 void
 editor_control_factory_init (void)
 {
-	static BonoboGenericFactory *factory = NULL;
-
 	if (factory != NULL)
 		return;
 

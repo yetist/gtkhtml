@@ -23,6 +23,7 @@
 #include "config.h"
 #include "search.h"
 #include "dialog.h"
+#include "htmlengine-search.h"
 
 struct _GtkHTMLSearchDialog {
 	GnomeDialog *dialog;

@@ -153,8 +153,8 @@ menubar_setup (BonoboUIHandler    *uih,
 {
 	BonoboUIComponent *uic;
 	Bonobo_UIContainer container;
+	BonoboUINode *ui_node;
 	char *fname;
-	xmlNode *ui;
 
 	g_return_if_fail (cd->html != NULL);
 	g_return_if_fail (GTK_IS_HTML (cd->html));
@@ -172,9 +172,9 @@ menubar_setup (BonoboUIHandler    *uih,
 		GNOMEDATADIR, "html-editor-control.xml");
 	g_warning ("Loading ui from '%s'", fname);
 
-	ui = bonobo_ui_util_new_ui (uic, fname, "html-editor-control");
+	ui_node = bonobo_ui_util_new_ui (uic, fname, "html-editor-control");
 
-	bonobo_ui_component_set_tree (uic, container, "/", ui, NULL);
+	bonobo_ui_component_set_tree (uic, container, "/", ui_node, NULL);
 	g_free (fname);
-	xmlFreeNode (ui);
+	/* xmlFreeNode (ui); */
 }

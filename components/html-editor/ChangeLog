@@ -1,3 +1,12 @@
+2000-09-26  Radek Doulik  <rodo@helixcode.com>
+
+	* menubar.c (menubar_setup): use BonoboUINode instead of xmlNode,
+	because of Bonobo changes
+
+	* editor-control-factory.c: add ref counting, unfortunately
+	control isn't destroyed right way and we don't get destroy signal
+	from it
+
 2000-09-24  Larry Ewing  <lewing@helixcode.com>
 
 	* editor-control-factory.c (load_from_corba): 
