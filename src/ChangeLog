@@ -1,3 +1,34 @@
+1999-10-26  Miguel de Icaza  <miguel@gnu.org>
+
+	* gtkhtml.c (gtk_html_vertical_scroll): Do not force a redraw anymore.
+	(gtk_html_new): Now we take two adjustment arguments.
+	(gtk_html_init): Do not create an artificial scrollbar nor its
+	adjustments. 
+	(gtk_html_calc_scrollbars): This should be no longer required;  An
+	alternate mechanism should be pursued.
+	(gtk_html_calc_scrollbars): Update the adjustment here.
+	(gtk_html_init): Set the APP_PAINTABLE bit here.
+
+1999-10-25  Miguel de Icaza  <miguel@gnu.org>
+
+	* htmlengine.c (html_engine_timer_event): Use exported routines to
+	access the painter.
+
+	* htmlpainter.c (html_painter_clear, html_painter_realize,
+	html_painter_being, html_painter_end): New methods to implement
+	double buffering.
+	
+	Moved HTMLPainter structure here to make it completely opaque.
+
+	Added preconditions everywhere.
+
+	Made all methods aware of the painter offset, to support double
+	buffering. 
+	
+1999-10-24  Miguel de Icaza  <miguel@gnu.org>
+
+	* gtkhtml.c (gtk_html_unrealize): Added unrealize handler.
+
 1999-10-24  Richard Hult  <rhult@frenzy.hemmet.chalmers.se>
 
 	* testgtkhtml.c (main): Exit when the window is deleted.

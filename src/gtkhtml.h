@@ -34,11 +34,6 @@ struct _GtkHTML
 {
 	GtkLayout layout;
 
-	GtkWidget *vscrollbar;
-	GtkObject *vsbadjust;
-
-	gboolean displayVScroll;
-
 	HTMLEngine *engine;
   
 };
@@ -58,7 +53,7 @@ enum {
 
 
 GtkType		gtk_html_get_type	 (void);
-GtkWidget*	gtk_html_new		 (void);
+GtkWidget*	gtk_html_new		 (GtkAdjustment *hadjustment, GtkAdjustment *vadjustment);
 void            gtk_html_parse           (GtkHTML *html);
 void            gtk_html_begin           (GtkHTML *html, gchar *url);
 void            gtk_html_write           (GtkHTML *html, gchar *buffer);

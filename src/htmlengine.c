@@ -274,7 +274,7 @@ static gint
 html_engine_update_event (gpointer data)
 {
 	HTMLEngine *e = data;
-	
+
 	html_engine_draw (e, 0, 0, e->width, e->height);
 
 	return FALSE;
@@ -298,7 +298,7 @@ html_engine_timer_event (HTMLEngine *e)
 	g_print ("has more tokens!\n");
 	
 	/* Storing font info */
-	oldFont = e->painter->font;
+	oldFont = html_painter_get_font (e->painter);
 
 	/* Setting font */
 	html_painter_set_font (e->painter, html_font_stack_top (e->fs));
@@ -320,7 +320,8 @@ html_engine_timer_event (HTMLEngine *e)
 	html_painter_set_font (e->painter, oldFont);
 
 	html_painter_set_background_color (e->painter, e->settings->bgcolor);
-	gdk_window_clear (e->painter->window);
+	gdk_window_clear (html_painter_get_window (e->painter));
+	
 	html_engine_draw (e, 0, 0, e->width, e->height);
 	
 	/* If the visible rectangle was not filled before the parsing and
@@ -368,6 +369,7 @@ html_engine_draw (HTMLEngine *e, gint x, gint y, gint width, gint height)
 	tx = -e->x_offset + e->leftBorder;
 	ty = -e->y_offset + e->topBorder;
 
+	html_painter_begin (e->painter, x, y, x + width, y + height);
 	/*
 	if (e->bgPixmap)
 		html_engine_draw_background (e, e->x_offset, e->y_offset, 
@@ -380,6 +382,7 @@ html_engine_draw (HTMLEngine *e, gint x, gint y, gint width, gint height)
 			       width,
 			       height,
 			       tx, ty);
+	html_painter_end (e->painter);
 }
 
 gint
@@ -472,7 +475,7 @@ html_engine_parse (HTMLEngine *p)
 
 	/* FIXME: is this nice to do? */
 	c = g_new0 (GdkColor, 1);
-	gdk_color_black (gdk_window_get_colormap (p->painter->window), c);
+	gdk_color_black (gdk_window_get_colormap (html_painter_get_window (p->painter)), c);
 	html_color_stack_push (p->cs, c);
 	f->textColor = html_color_stack_top (p->cs);
 
@@ -702,12 +705,13 @@ html_engine_get_current_font (HTMLEngine *p)
 }
 
 void
-html_engine_set_named_color (HTMLEngine *p, GdkColor *c, gchar *name)
+html_engine_set_named_color (HTMLEngine *p, GdkColor *c, const gchar *name)
 {
 	gdk_color_parse (name, c);
-	gdk_colormap_alloc_color (gdk_window_get_colormap (p->painter->window),
-			    c, FALSE, TRUE);
-
+	gdk_colormap_alloc_color (
+		gdk_window_get_colormap (
+			html_painter_get_window (p->painter)),
+		c, FALSE, TRUE);
 }
 
 gchar *

@@ -383,7 +383,7 @@ view_factory (GnomeEmbeddable *embeddable,
 	view_data = g_new0 (view_data_t, 1);
 	view_data->embeddable_data = embeddable_data;
 
-	view_data->html = GTK_HTML (gtk_html_new ());
+	view_data->html = GTK_HTML (gtk_html_new (NULL, NULL));
 
 	vbox = gtk_vbox_new (FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (vbox),

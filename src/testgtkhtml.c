@@ -291,7 +291,8 @@ gint
 main (gint argc, gchar *argv[])
 {
 	GtkWidget *app, *bar;
-
+	GtkWidget *hbox, *vscrollbar;
+	
 	gnome_init (PACKAGE, VERSION,
 		    argc, argv);
 
@@ -314,11 +315,16 @@ main (gint argc, gchar *argv[])
 	box = gtk_vbox_new (FALSE, 0);
 	gnome_app_set_contents (GNOME_APP (app), box);
 
-	html = GTK_HTML (gtk_html_new ());
+	hbox = gtk_hbox_new (FALSE, 0);
+	gtk_box_pack_start_defaults (GTK_BOX (box), GTK_WIDGET (hbox));
+
+	html = GTK_HTML (gtk_html_new (NULL, NULL));
 	gtk_signal_connect (GTK_OBJECT (html->engine), "title_changed",
 			    GTK_SIGNAL_FUNC (title_changed_cb), (gpointer)app);
 
-	gtk_box_pack_start_defaults (GTK_BOX (box), GTK_WIDGET (html));
+	gtk_box_pack_start_defaults (GTK_BOX (hbox), GTK_WIDGET (html));
+	vscrollbar = gtk_vscrollbar_new (GTK_LAYOUT (html)->vadjustment);
+	gtk_box_pack_start (GTK_BOX (hbox), vscrollbar, FALSE, TRUE, 0);
 	
 	gtk_widget_realize (GTK_WIDGET (html));
 

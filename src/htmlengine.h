@@ -169,7 +169,7 @@ void        html_engine_draw (HTMLEngine *e, gint x, gint y, gint width, gint he
 gboolean    html_engine_insert_vspace (HTMLEngine *e, HTMLObject *clue, gboolean vspace_inserted);
 void        html_engine_block_end_color_font (HTMLEngine *e, HTMLObject *clue, HTMLStackElement *elem);
 void        html_engine_pop_color (HTMLEngine *e);
-void        html_engine_set_named_color (HTMLEngine *p, GdkColor *c, gchar *name);
+void        html_engine_set_named_color (HTMLEngine *p, GdkColor *c, const gchar *name);
 void        html_painter_set_background_color (HTMLPainter *painter, GdkColor *color);
 gint        html_engine_get_doc_height (HTMLEngine *p);
 void        html_engine_stop_parser (HTMLEngine *e);

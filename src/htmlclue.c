@@ -77,13 +77,13 @@ html_clue_draw (HTMLObject *o, HTMLPainter *p,
 	
 	if (!red.pixel) {
 		gdk_color_parse ("red", &red);
-		gdk_colormap_alloc_color (gdk_window_get_colormap (p->window),
+		gdk_colormap_alloc_color (gdk_window_get_colormap (html_painter_get_window (p)),
 					  &red, FALSE, TRUE);
 		gdk_color_parse ("green", &green);
-		gdk_colormap_alloc_color (gdk_window_get_colormap (p->window),
+		gdk_colormap_alloc_color (gdk_window_get_colormap (html_painter_get_window (p)),
 					  &green, FALSE, TRUE);
 		gdk_color_parse ("blue", &blue);
-		gdk_colormap_alloc_color (gdk_window_get_colormap (p->window),
+		gdk_colormap_alloc_color (gdk_window_get_colormap (html_painter_get_window (p)),
 					  &blue, FALSE, TRUE);
 	}
 
