@@ -10,21 +10,23 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml cvs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-01 12:34+0100\n"
-"PO-Revision-Date: 2005-01-01 16:07+0100\n"
+"POT-Creation-Date: 2005-01-09 12:23+0100\n"
+"PO-Revision-Date: 2005-01-09 12:39+0100\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: a11y/image.c:149
-msgid "URL is "
-msgstr "URL is "
+#: a11y/image.c:150
+#, c-format
+msgid "URL is %s, Alternative Text is %s"
+msgstr "URL is %s, alternatieve tekst is %s "
 
 #: a11y/image.c:152
-msgid ", Alternative Text is "
-msgstr ", alternatieve tekst is "
+#, c-format
+msgid "URL is %s"
+msgstr "URL is %s"
 
 # focus grijpen
 #: a11y/object.c:50 a11y/object.c:59 a11y/text.c:105
