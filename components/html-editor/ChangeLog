@@ -1,3 +1,7 @@
+2003-11-18  JP Rosevear  <jpr@ximian.com>
+
+	* Makefile.am: remove gnome and gtk deprecated flags
+
 2003-11-07  Radek Doulik  <rodo@ximian.com>
 
 	* link.c (link_insert_cb): use add_link => pass engine as
