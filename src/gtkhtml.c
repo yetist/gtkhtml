@@ -2112,11 +2112,21 @@ static gchar *pic_extensions [] = {
 	NULL
 };
 
+static gchar *known_protocols [] = {
+	"http://",
+	"ftp://",
+	"nntp://",
+	"news://",
+	"mailto:",
+	NULL
+};
+
 static HTMLObject *
 new_obj_from_uri (HTMLEngine *e, gchar *uri, gint len)
 {
+	gint i;
+
 	if (!strncmp (uri, "file:", 5)) {
-		gint i;
 
 		for (i = 0; pic_extensions [i]; i++) {
 			if (!strcmp (uri + len - strlen (pic_extensions [i]), pic_extensions [i])) {
@@ -2128,7 +2138,13 @@ new_obj_from_uri (HTMLEngine *e, gchar *uri, gint len)
 		}
 	}
 
-	return html_engine_new_link (e, uri, len, uri);
+	for (i = 0; known_protocols [i]; i++) {
+		if (!strcmp (uri + len - strlen (known_protocols [i]), known_protocols [i])) {
+			return html_engine_new_link (e, uri, len, uri);
+		}
+	}	
+
+	return NULL;
 }
 
 static void
@@ -2178,6 +2194,7 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
 		break;
 	case DND_TARGET_TYPE_TEXT_URI_LIST:
 	case DND_TARGET_TYPE__NETSCAPE_URL: {
+		HTMLObject *obj;
 		gint list_len, len;
 		gchar *uri;
 
@@ -2186,7 +2203,13 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
 		do {
 			uri = next_uri (&selection_data->data, &len, &list_len);
 			move_before_paste (widget, x, y);
-			html_engine_paste_object (engine, new_obj_from_uri (engine, uri, len), len);
+			obj = new_obj_from_uri (engine, uri, len);
+			if (obj)
+				html_engine_paste_object (engine, obj, len);
+			else {
+				gtk_drag_finish (context, FALSE, FALSE, time);
+				break;
+			}
 		} while (list_len);
 		html_undo_level_end (engine->undo);
 	}

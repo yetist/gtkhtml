@@ -1,3 +1,8 @@
+2002-04-16  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (drag_data_received): allow drop just links of known
+	protocols
+
 2002-03-29  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (html_engine_timer_event): don't stop parsing on
