@@ -113,6 +113,9 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *ri
 	    || (HTML_IS_TABLE (HTML_CLUE (with)->head) && !html_clueflow_is_empty (cf1)))
 		return FALSE;
 
+	if (html_clueflow_is_empty (cf1))
+		cf1->style = cf2->style;
+
 	return (* HTML_OBJECT_CLASS (parent_class)->merge) (self, with, e, left, right);
 }
 
@@ -352,7 +355,6 @@ static gint
 pref_right_margin (HTMLPainter *p, HTMLClueFlow *clueflow, HTMLObject *o, gint y) 
 {
 	gint fixed_margin = html_object_get_right_margin (o, y);
-	gint variable_margin;
 
 	/* FIXME: this hack lets us wrap the display at 72 characters when we are using
 	   a plain painter */
