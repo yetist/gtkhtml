@@ -1,3 +1,7 @@
+2001-04-10  JP Rosevear  <jpr@ximian.com>
+
+	* configure.in: No longer check for a c++ compiler
+
 2001-03-29  Radek Doulik  <rodo@ximian.com>
 
 	* configure.in: require GAL >= 0.5.99.13
