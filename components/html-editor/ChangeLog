@@ -1,3 +1,9 @@
+2002-02-08  Larry Ewing  <lewing@ximian.com>
+
+	* link.c (test_clicked): handler for new "Test URL" button.
+	(link_widget): add a button to the url frame to open the current
+	url.
+
 2002-01-31  Radek Doulik  <rodo@ximian.com>
 
 	* Editor.idl: undo_begin, undo_end --> undoBegin, undoEnd, added

@@ -54,6 +54,15 @@ changed (GtkWidget *w, GtkHTMLEditLinkProperties *data)
 }
 
 static void
+test_clicked (GtkWidget *w, GtkHTMLEditLinkProperties *data)
+{
+	const char *url = gtk_entry_get_text (GTK_ENTRY (data->entry_url));
+
+	if (url)
+		gnome_url_show (url);
+}
+
+static void
 set_ui (GtkHTMLEditLinkProperties *data)
 {
 	gchar *text;
@@ -77,7 +86,7 @@ static GtkWidget *
 link_widget (GtkHTMLEditLinkProperties *data, gboolean insert)
 {
 	GtkHTMLControlData *cd = data->cd;
-	GtkWidget *vbox, *frame, *f1;
+	GtkWidget *vbox, *hbox, *button, *frame, *f1;
 
 	vbox = gtk_vbox_new (FALSE, 3);
 
@@ -106,7 +115,11 @@ link_widget (GtkHTMLEditLinkProperties *data, gboolean insert)
 	f1    = gtk_frame_new (NULL);
 	gtk_frame_set_shadow_type (GTK_FRAME (f1), GTK_SHADOW_NONE);
 	gtk_container_set_border_width (GTK_CONTAINER (f1), 3);
-	gtk_container_add (GTK_CONTAINER (f1), data->entry_url);
+	hbox = gtk_hbox_new (FALSE, 5);
+	button = gtk_button_new_with_label (_("Test URL"));
+	gtk_box_pack_start (GTK_BOX (hbox), data->entry_url, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
+	gtk_container_add (GTK_CONTAINER (f1), hbox);
 	gtk_container_add (GTK_CONTAINER (frame), f1);
 	gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, FALSE, 0);
 
@@ -117,6 +130,7 @@ link_widget (GtkHTMLEditLinkProperties *data, gboolean insert)
 
 	gtk_signal_connect (GTK_OBJECT (data->entry_text), "changed", changed, data);
 	gtk_signal_connect (GTK_OBJECT (data->entry_url), "changed", changed, data);
+	gtk_signal_connect (GTK_OBJECT (button), "clicked", test_clicked, data);
 
 	gtk_widget_show_all (vbox);
 
