@@ -44,6 +44,7 @@ gtk_html_class_properties_new (void)
 
 	/* default values */
 	p->magic_links             = TRUE;
+	p->magic_smileys           = TRUE;
 	p->keybindings_theme       = g_strdup ("ms");
 	p->font_var                = var_name;
 	p->font_fix                = fix_name;
@@ -100,6 +101,7 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p, GConfClient *client)
 	g_assert (client);
 
 	GET (bool, "/magic_links", magic_links,,);
+	GET (bool, "/magic_smileys", magic_smileys,,);
 	GET (bool, "/animations", animations,,);
 	GET (string, "/keybindings_theme", keybindings_theme,
 	     g_free (p->keybindings_theme), g_strdup);
@@ -144,6 +146,8 @@ gtk_html_class_properties_update (GtkHTMLClassProperties *p, GConfClient *client
 		SET (bool, "/animations", animations);
 	if (p->magic_links != old->magic_links)
 		SET (bool, "/magic_links", magic_links);
+	if (p->magic_smileys != old->magic_smileys)
+		SET (bool, "/magic_smileys", magic_smileys);
 	SET (string, "/keybindings_theme", keybindings_theme);
 	if (strcmp (p->font_var, old->font_var))
 		SET (string, "/font_variable", font_var);
@@ -198,6 +202,7 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p)
 
 	gnome_config_push_prefix (GTK_HTML_GNOME_CONFIG_PREFIX);
 	GET  (bool, magic_links, "magic_links=true");
+	GET  (bool, magic_smileys, "magic_smileys=true");
 	GET  (bool, animations, "animations=true");
 	GETS (keybindings_theme, "keybindings_theme=ms");
 	GETS (font_var, var_default);
@@ -245,6 +250,7 @@ gtk_html_class_properties_save (GtkHTMLClassProperties *p)
 {
 	gnome_config_push_prefix (GTK_HTML_GNOME_CONFIG_PREFIX);
 	gnome_config_set_bool ("magic_links", p->magic_links);
+	gnome_config_set_bool ("magic_smileys", p->magic_smileys);
 	gnome_config_set_bool ("animations", p->animations);
 	gnome_config_set_string ("keybindings_theme", p->keybindings_theme);
 	gnome_config_set_string ("font_variable", p->font_var);
@@ -336,6 +342,7 @@ gtk_html_class_properties_copy (GtkHTMLClassProperties *p1,
 {
 	COPY  (animations)
 	COPY  (magic_links);
+	COPY  (magic_smileys);
 	COPYS (keybindings_theme);
 	COPYS (font_var);
 	COPYS (font_fix);

@@ -60,6 +60,7 @@ struct _GtkHTMLClassProperties {
 
 	/* editor */
 	gboolean  magic_links;
+	gboolean  magic_smileys;
 	gchar    *keybindings_theme;
 
 	gboolean  live_spell_check;

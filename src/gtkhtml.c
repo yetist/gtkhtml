@@ -2531,7 +2531,7 @@ init (GtkHTML* html)
 	};
 	static const gint n_targets = sizeof(targets) / sizeof(targets[0]);
 
-	init_properties (GTK_OBJECT (html)->klass);
+	init_properties (GTK_HTML_CLASS (GTK_OBJECT (html)->klass));
 
 	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (html), GTK_CAN_FOCUS);
 	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (html), GTK_APP_PAINTABLE);

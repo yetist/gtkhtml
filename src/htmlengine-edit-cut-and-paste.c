@@ -972,7 +972,7 @@ html_engine_insert_text (HTMLEngine *e, const gchar *text, guint len)
 			}
 			insert_object (e, o, html_object_get_length (o), e->cursor->position + html_object_get_length (o),
 				       1, HTML_UNDO_UNDO, check);
-			if (alen == 1 && !HTML_IS_PLAIN_PAINTER (e->painter))
+			if (alen == 1 && !HTML_IS_PLAIN_PAINTER (e->painter) && GTK_HTML_PROPERTY (e->widget, magic_smileys))
 				use_pictograms (e);
 		}
 		if (nl) {

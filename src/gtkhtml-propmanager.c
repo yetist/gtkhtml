@@ -58,7 +58,8 @@ struct _GtkHTMLPropmanagerPrivate {
 	GtkWidget *anim_check;
 	GtkWidget *live_spell_check;
 	GtkWidget *live_spell_options;
-	GtkWidget *magic_check;
+	GtkWidget *magic_links_check;
+	GtkWidget *magic_smileys_check;
 	GtkWidget *keymap;
 	
 	GtkHTMLClassProperties *saved_prop;
@@ -111,9 +112,13 @@ gtk_html_propmanager_sync_gui (GtkHTMLPropmanager *pman)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->anim_check),
 					      priv->actual_prop->animations);
 
-	if (priv->magic_check)
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->magic_check),
+	if (priv->magic_links_check)
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->magic_links_check),
 					      priv->actual_prop->magic_links);
+
+	if (priv->magic_smileys_check)
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->magic_smileys_check),
+					      priv->actual_prop->magic_smileys);
 
 	if (priv->live_spell_check)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->live_spell_check),
@@ -204,7 +209,8 @@ propmanager_child_destroyed (GtkWidget *w, GtkHTMLPropmanager *pman)
 	MAYBE_CLEAR (fixed);
 	MAYBE_CLEAR (anim_check);
 	MAYBE_CLEAR (live_spell_check);
-	MAYBE_CLEAR (magic_check);
+	MAYBE_CLEAR (magic_links_check);
+	MAYBE_CLEAR (magic_smileys_check);
 	MAYBE_CLEAR (live_spell_options);
 	MAYBE_CLEAR (keymap);
 
@@ -373,7 +379,8 @@ gtk_html_propmanager_set_gui (GtkHTMLPropmanager *pman, GladeXML *xml, GHashTabl
 
 	/* Toggle Buttons */
 	priv->anim_check = propmanager_add_toggle (pman, "anim_check", &found_widget);
-	priv->magic_check = propmanager_add_toggle (pman, "magic_check", &found_widget);
+	priv->magic_links_check = propmanager_add_toggle (pman, "magic_links_check", &found_widget);
+	priv->magic_smileys_check = propmanager_add_toggle (pman, "magic_smileys_check", &found_widget);
 	priv->live_spell_check = propmanager_add_toggle (pman, "live_spell_check", &found_widget);
 
 	if ((priv->live_spell_options = propmanager_get_widget (pman, "button_configure_spell_checking"))) {
@@ -436,8 +443,11 @@ gtk_html_propmanager_apply (GtkHTMLPropmanager *pman)
 	if (priv->anim_check)
 		priv->actual_prop->animations = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->anim_check));
 
-	if (priv->magic_check)
-		priv->actual_prop->magic_links = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->magic_check));
+	if (priv->magic_links_check)
+		priv->actual_prop->magic_links = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->magic_links_check));
+
+	if (priv->magic_smileys_check)
+		priv->actual_prop->magic_smileys = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->magic_smileys_check));
 
 	if (priv->live_spell_check)
 		priv->actual_prop->live_spell_check = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->live_spell_check));
