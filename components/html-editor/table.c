@@ -60,6 +60,18 @@ typedef struct
 	GtkWidget *entry_bg_pixmap;
 	GtkWidget *check_bg_pixmap;
 
+	gboolean   changed_spacing;
+	gint       spacing;
+	GtkWidget *spin_spacing;
+
+	gboolean   changed_padding;
+	gint       padding;
+	GtkWidget *spin_padding;
+
+	gboolean   changed_border;
+	gint       border;
+	GtkWidget *spin_border;
+
 } GtkHTMLEditTableProperties;
 
 #define CHANGE gtk_html_edit_properties_dialog_change (d->cd->properties_dialog)
@@ -68,7 +80,7 @@ typedef struct
 static void
 fill_sample (GtkHTMLEditTableProperties *d)
 {
-	gchar *body, *html, *bg_color, *bg_pixmap;
+	gchar *body, *html, *bg_color, *bg_pixmap, *spacing;
 
 	body    = html_engine_save_get_sample_body (d->cd->html->engine, NULL);
 	/* width   = d->set [GTK_HTML_EDIT_RULE_WIDTH]
@@ -90,8 +102,9 @@ fill_sample (GtkHTMLEditTableProperties *d)
 	bg_pixmap = d->has_bg_pixmap && d->bg_pixmap
 		? g_strdup_printf (" background=\"file://%s\"", d->bg_pixmap)
 		: g_strdup ("");
+	spacing = g_strdup_printf (" cellspacing=\"%d\" cellpadding=\"%d\" border=\"%d\"", d->spacing, d->padding, d->border);
 
-	html      = g_strconcat (body, "<table", bg_color, bg_pixmap, ">"
+	html      = g_strconcat (body, "<table", bg_color, bg_pixmap, spacing, ">"
 				 "<tr><th>Header</th><th>1</th></tr>"
 				 "<tr><td>Normal</td><td>2</td></tr></table>", NULL);
 	printf ("html: %s\n", html);
@@ -100,6 +113,7 @@ fill_sample (GtkHTMLEditTableProperties *d)
 	g_free (body);
 	g_free (bg_color);
 	g_free (bg_pixmap);
+	g_free (spacing);
 	g_free (html);
 }
 
@@ -112,12 +126,11 @@ data_new (GtkHTMLControlData *cd)
 	data->cd                = cd;
 	data->table             = NULL;
 
-	data->has_bg_color      = FALSE;
-	data->changed_bg_color  = FALSE;
 	data->bg_color          = html_colorset_get_color (data->cd->html->engine->defaultSettings->color_set,
 							   HTMLBgColor)->color;
-	data->has_bg_pixmap     = FALSE;
-	data->changed_bg_pixmap = FALSE;
+	data->border            = 1;
+	data->spacing           = 1;
+	data->padding           = 1;
 
 	/* default values
 	data->width          = 100;
@@ -181,6 +194,32 @@ changed_bg_pixmap (GtkWidget *w, GtkHTMLEditTableProperties *d)
 	}
 }
 
+static void
+changed_spacing (GtkWidget *w, GtkHTMLEditTableProperties *d)
+{
+	d->spacing = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_spacing));
+	d->changed_spacing = TRUE;
+	FILL;
+	CHANGE;
+}
+
+static void
+changed_padding (GtkWidget *w, GtkHTMLEditTableProperties *d)
+{
+	d->padding = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_padding));
+	d->changed_padding = TRUE;
+	FILL;
+	CHANGE;
+}
+static void
+changed_border (GtkWidget *w, GtkHTMLEditTableProperties *d)
+{
+	d->border = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_border));
+	d->changed_border = TRUE;
+	FILL;
+	CHANGE;
+}
+
 static GtkWidget *
 table_widget (GtkHTMLEditTableProperties *d)
 {
@@ -215,6 +254,13 @@ table_widget (GtkHTMLEditTableProperties *d)
 	gnome_pixmap_entry_set_pixmap_subdir (GNOME_PIXMAP_ENTRY (d->entry_bg_pixmap), dir);
 	free (dir);
 
+	d->spin_spacing = glade_xml_get_widget (xml, "spin_spacing");
+	gtk_signal_connect (GTK_OBJECT (d->spin_spacing), "changed", changed_spacing, d);
+	d->spin_padding = glade_xml_get_widget (xml, "spin_padding");
+	gtk_signal_connect (GTK_OBJECT (d->spin_padding), "changed", changed_padding, d);
+	d->spin_border  = glade_xml_get_widget (xml, "spin_border");
+	gtk_signal_connect (GTK_OBJECT (d->spin_border), "changed", changed_border, d);
+
 	gtk_box_pack_start (GTK_BOX (table_page), sample_frame (&d->sample), FALSE, FALSE, 0);
 	fill_sample (d);
 
@@ -239,21 +285,16 @@ set_ui (GtkHTMLEditTableProperties *d)
 		gtk_entry_set_text (GTK_ENTRY (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (d->entry_bg_pixmap))),
 				    d->bg_pixmap);
 	}
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_spacing), d->spacing);
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_padding), d->padding);
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_border),  d->border);
 }
 
 static void
 get_data (GtkHTMLEditTableProperties *d)
 {
-	if (HTML_IS_TABLE (d->cd->html->engine->cursor->object))
-		d->table = HTML_TABLE (d->cd->html->engine->cursor->object);
-	else {
-		g_return_if_fail (d->cd->html->engine->cursor->object->parent
-				  && d->cd->html->engine->cursor->object->parent->parent
-				  && d->cd->html->engine->cursor->object->parent->parent->parent);
-		g_return_if_fail (HTML_IS_TABLE (d->cd->html->engine->cursor->object->parent->parent->parent));
-
-		d->table = HTML_TABLE (d->cd->html->engine->cursor->object->parent->parent->parent);
-	}
+	d->table = html_engine_get_table (d->cd->html->engine);
+	g_return_if_fail (d->table);
 
 	if (d->table->bgColor) {
 		d->has_bg_color = TRUE;
@@ -267,6 +308,10 @@ get_data (GtkHTMLEditTableProperties *d)
 			   : d->table->bgPixmap->url + 5)
 			: d->table->bgPixmap->url + 7;
 	}
+
+	d->spacing = d->table->spacing;
+	d->padding = d->table->padding;
+	d->border  = d->table->border;
 }
 
 
@@ -312,13 +357,28 @@ table_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	GtkHTMLEditTableProperties *d = (GtkHTMLEditTableProperties *) get_data;
 
-	if (d->changed_bg_color)
+	if (d->changed_bg_color) {
 		html_engine_table_set_bg_color (d->cd->html->engine, d->table, d->has_bg_color ? &d->bg_color : NULL);
+		d->changed_bg_color = FALSE;
+	}
 	if (d->changed_bg_pixmap) {
 		gchar *url = d->has_bg_pixmap ? g_strconcat ("file://", d->bg_pixmap, NULL) : NULL;
 
 		html_engine_table_set_bg_pixmap (d->cd->html->engine, d->table, url);
 		g_free (url);
+		d->changed_bg_pixmap = FALSE;
+	}
+	if (d->changed_spacing) {
+		html_engine_table_set_spacing (d->cd->html->engine, d->table, d->spacing);
+		d->changed_spacing = FALSE;
+	}
+	if (d->changed_padding) {
+		html_engine_table_set_padding (d->cd->html->engine, d->table, d->padding);
+		d->changed_padding = FALSE;
+	}
+	if (d->changed_border) {
+		html_engine_table_set_border_width (d->cd->html->engine, d->table, d->border, FALSE);
+		d->changed_border = FALSE;
 	}
 }
 

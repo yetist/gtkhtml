@@ -408,7 +408,7 @@ Percent
 
 	    <widget>
 	      <class>GtkSpinButton</class>
-	      <name>spinbutton4</name>
+	      <name>spin_spacing</name>
 	      <can_focus>True</can_focus>
 	      <climb_rate>1</climb_rate>
 	      <digits>0</digits>
@@ -440,7 +440,7 @@ Percent
 
 	    <widget>
 	      <class>GtkSpinButton</class>
-	      <name>spinbutton5</name>
+	      <name>spin_border</name>
 	      <can_focus>True</can_focus>
 	      <climb_rate>1</climb_rate>
 	      <digits>0</digits>
@@ -498,7 +498,7 @@ Percent
 
 	    <widget>
 	      <class>GtkSpinButton</class>
-	      <name>spinbutton6</name>
+	      <name>spin_padding</name>
 	      <can_focus>True</can_focus>
 	      <climb_rate>1</climb_rate>
 	      <digits>0</digits>
