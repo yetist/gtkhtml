@@ -125,8 +125,6 @@ set_frame_cb (BonoboControl *control,
 	GtkWidget *scrolled_window;
 	Bonobo_ControlFrame frame;
 
-	/* printf ("set_frame_cb\n"); */
-
 	control_data = (GtkHTMLControlData *) data;
 
 	frame = bonobo_control_get_control_frame (control, NULL);
@@ -628,7 +626,7 @@ editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 	   embedded in its control frame.  We use the "set_frame" signal to
 	   handle that.  */
 
-	//g_signal_connect (control, "activate", G_CALLBACK (activate_ui_cb), cd);
+	/* g_signal_connect (control, "activate", G_CALLBACK (activate_ui_cb), cd); */
 	g_signal_connect (control, "set_frame", G_CALLBACK (set_frame_cb), cd);
 	g_signal_connect (html_widget, "url_requested", G_CALLBACK (url_requested_cb), cd);
 	g_signal_connect (html_widget, "button_press_event", G_CALLBACK (html_button_pressed), cd);
@@ -666,15 +664,10 @@ send_event_str (GNOME_GtkHTML_Editor_Engine engine, GNOME_GtkHTML_Editor_Listene
 {
 	CORBA_Environment ev;
 	GValue *gvalue_retval = NULL;
-	BonoboArg *bonobo_arg;
+	BonoboArg *bonobo_arg = bonobo_arg_new (bonobo_arg_type_from_gtype (G_VALUE_TYPE (arg)));
 	BonoboArg *bonobo_retval;
 
-	bonobo_arg = bonobo_arg_new (bonobo_arg_type_from_gtype (G_VALUE_TYPE (arg)));
-
-	/* bonobo_arg_from_gvalue() doesn't handle the case of a NULL string
-	   properly, at least in libbonobo 2.4.0.  */
-	if (! G_VALUE_HOLDS_STRING (arg) || g_value_get_string (arg) != NULL)
-		bonobo_arg_from_gvalue (bonobo_arg, arg);
+	bonobo_arg_from_gvalue (bonobo_arg, arg);
 
 	/* printf ("sending to listener\n"); */
 	CORBA_exception_init (&ev);

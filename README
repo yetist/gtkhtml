@@ -35,7 +35,7 @@ Requirements
 ------------
 
 In order to compile GtkHTML, you need libgnome[ui] 1.112.1 (or later),
-Bonobo 1.112.1 (or later), gnome-print 2.2.0 (or later) and GAL 2.1.0 (or
+Bonobo 1.112.1 (or later), gnome-print 2.2.0 (or later) and GAL 1.99.1 (or
 later).
 
 Optionally you may want to install GConf 1.0.7 (or later).

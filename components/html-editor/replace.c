@@ -94,7 +94,6 @@ ask (HTMLEngine *e, gpointer data)
 	ask_dialog = ask_dialog_new (e);
 	gtk_dialog_run (ask_dialog->dialog);
 	gtk_widget_destroy (GTK_WIDGET (ask_dialog->dialog));
-	gtk_widget_grab_focus (GTK_WIDGET (ask_dialog->engine->widget));
 	g_free (ask_dialog);
 }
 
@@ -132,9 +131,6 @@ replace_dialog_response (GtkDialog *dialog, gint response_id, GtkHTMLReplaceDial
 				     GTK_TOGGLE_BUTTON (d->case_sensitive)->active,
 				     GTK_TOGGLE_BUTTON (d->backward)->active == 0, FALSE,
 				     ask, d);
-		break;
-	case GTK_RESPONSE_CLOSE:
-		gtk_widget_grab_focus (GTK_WIDGET (d->html));
 		break;
 	}
 }

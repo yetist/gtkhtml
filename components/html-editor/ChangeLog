@@ -1,74 +1,39 @@
-2004-02-17  Radek Doulik  <rodo@ximian.com>
+2004-02-18  Radek Doulik  <rodo@ximian.com>
 
-	* popup.c (prepare_properties_and_menu): do not add "Insert Link"
-	popup menu item in plain text mode
-	(prepare_properties_and_menu): capitalize link in "Insert Link"
-	(prepare_properties_and_menu): add separator before "Input
-	Methods"
-	(prepare_properties_and_menu): do not add separator after "Style"
-	submenu and place it before table items
+	* Makefile.am (glade_DATA): don't link with a11y, it's already in
+	libgtkhtml
+
+2004-02-18  JP Rosevear <jpr@ximian.com>
+
+	* Makefile.am: remove disable deprecated flags
 
 2004-02-13  Radek Doulik  <rodo@ximian.com>
-
-	* image.c (load_done): new handler, replaces set_size idle
-	callback
-	(image_widget): hoohkup load_done
-
-	Fixes #54204
-
+  
+  	* toolbar.c (create_style_toolbar): unset focus for all toolbar
+  	widgets
+  
+2004-02-13  Radek Doulik  <rodo@ximian.com>
+  
+  	* toolbar.c (create_style_toolbar): set initial unindent button
+  	sensitivity
+  	(toolbar_item_represents): new helper function
+  	(toolbar_item_update_sensitivity): use toolbar_item_represents,
+  	newer gtk toolbar contains gtktoolitems so we have to be more
+  	careful
+  	(toolbar_update_format): use gtk_container_foreach instead of
+  	forall
+ 
 2004-02-11  Yong Sun <Yong.Sun@sun.com>
 
 	* toolbar.c: (create_style_toolbar) steal domain for libgnomeui to 
 	create toolbar.
 
-2004-02-03  Radek Doulik  <rodo@ximian.com>
-
-	* paragraph.c (fill_sample): don't include </div> in translateable
-	string
-
-	* toolbar.c (create_style_toolbar): unset focus for all toolbar
-	widgets
-
-2004-02-02  Radek Doulik  <rodo@ximian.com>
-
-	* properties.c (gtk_html_edit_properties_dialog_new): make the
-	code more readable
-	(dialog_response): close the dialog only if dialog succeeded
-
-	* link.c (link_insert_cb): complain if text and/or url is not
-	filled
-
-2004-01-30  Radek Doulik  <rodo@ximian.com>
-
-	* menubar.c (menubar_setup): as below
-
-	* gnome-gtkhtml-editor.c (main): as below
-
-	* editor-control-shlib.c (editor_shlib_init): use GETTEXT_PACKAGE
-	instead of GNOME_EXPLICIT_TRANSLATION_DOMAIN
-
-2004-01-30  Yong Sun <Yong.Sun@sun.com>
+2004-01-19  Yong Sun <Yong.Sun@sun.com>
 
 	* cell.c image.c rule.c table.c template.c: add domain param in
 	glade_xml_new()
-
+	
 	* properties.c link.c: add domain member in GtkStockItem
-
-2004-01-23  Radek Doulik  <rodo@ximian.com>
-
-	* toolbar.c (create_style_toolbar): set initial unindent button
-	sensitivity
-	(toolbar_item_represents): new helper function
-	(toolbar_item_update_sensitivity): use toolbar_item_represents,
-	newer gtk toolbar contains gtktoolitems so we have to be more
-	careful
-	(toolbar_update_format): use gtk_container_foreach instead of
-	forall
-
-2003-12-15  Radek Doulik  <rodo@ximian.com>
-
-	* menubar.c (menubar_update_format): disable sick smiley for plain
-	text mode
 
 2003-12-02  Charles Zhang  <charles.zhang@sun.com>
 
@@ -81,89 +46,32 @@
 	temporary inline spelling in case it's disabled and whole document
 	has to be checked
 
-2003-12-05  Radek Doulik  <rodo@ximian.com>
-
-	* GNOME_GtkHTML_Editor.xml.in: as below, make it the same order
-	and grouping as in paragraph dialog
-
-	* paragraph.c (paragraph_properties): s/Pre/Preformatted,
-	reordered and added few separators
-
-	* menubar.c (menubar_update_format): allow alignment change in
-	plain text mode, we support this
-
-	* paragraph.c (paragraph_properties): disable headings and address
-	styles for plain text mode
-
-2003-12-03  Radek Doulik  <rodo@ximian.com>
-
-	* editor-control-factory.h: include config.h for
-	EDITOR_API_VERSION
-
-2003-12-02  Rodney Dawes  <dobey@ximian.com>
-
-	* GNOME_GtkHTML_Editor.oaf.in.in:
-	* GNOME_GtkHTML_Editor.oafinfo: Removed unneeded files
-
-2003-12-02  Radek Doulik  <rodo@ximian.com>
-
-	* persist-file.c (impl_getCurrentFile): use CORBA_string_dup
-	(gtk_html_persist_file_new): add step counter
-	(impl_isDirty): check step counter, use CORBA types
-
-2003-09-10  Archit Baweja  <bighead@users.sourceforge.net>
-
-	* persist-file.c (impl_save): call to open, mode should be 0666 instead
-	of 0600.
-	(gtk_html_persist_file_new): initialize new member, uri.
-	(finalize): free the file->uri field.
-	(gtk_html_persist_file_class_init): setup the 2 new methods. isDirty()
-	and getCurrentFile().
-	(impl_isDirty, impl_getCurrentFile): new.
-	(impl_save): call gtk_html_command (html, "saved"). Also save the
-	uri/path to which data is saved.
-	(impl_load): likewise for the uri.
-
-	* test-html-editor-control.c (file_selection_cancel_cb): new callback.
-	Destroy the whole filesel widget. Previously only the cancel_button
-	was destroyed.
-	(open_or_save_as_dialog): setup cancel callback correctly.
-
-2003-11-18  JP Rosevear  <jpr@ximian.com>
-
-	* Makefile.am: remove gnome and gtk deprecated flags
-
-2003-11-07  Radek Doulik  <rodo@ximian.com>
-
-	* link.c (link_insert_cb): use add_link => pass engine as
-	parameter
-
-	* test-html-editor-control.c (container_create): enable magic
-	smileys, links and inline spell checking
-
-2003-10-14  Frederic Crozat  <fcrozat@mandrakesoft.com>
+2003-10-13  Frederic Crozat  <fcrozat@mandrakesoft.com>
 
 	* popup.c: Add missing header include.
 
-2003-10-02  Rodney Dawes  <dobey@ximian.com>
+2003-09-15  Larry Ewing  <lewing@ximian.com>
 
-	* Makefile.am: Version the server file, Clean up some of the
-	unneeded rules, and condense them, Don't dist generated files
+	* editor-control-factory.c (set_frame_cb): activate the menu items
+	by hand in set_frame rather than using the activate signal.  The
+	has the effect of reverting most of the changes federico
+	introduced with the bonoboui fixes.
 
-2003-09-23  Ettore Perazzoli  <ettore@ximian.com>
+	* control-data.c (gtk_html_control_data_new): remove now unused
+	detach handler id.
 
-	* editor-control-factory.c (send_event_str): Work around the fact
-	that bonobo_arg_from_gvalue() in libbonobo 2.4.0 doesn't handle
-	NULL strings.
+	* menubar.c (menubar_set_languages): protect again a NULL language
+	setting.  Remove teh detach function.
 
-2003-09-22  Radek Doulik  <rodo@ximian.com>
+2003-09-02  Larry Ewing  <lewing@ximian.com>
 
-	* Makefile.am (glade_DATA): don't link with a11y, it's already in
-	libgtkhtml
+	* GNOME_GtkHTML_Editor-emacs.xml.in: add file with emacs friendly
+	keybindings converted by Alain Mellan (see Ximian #41187).
 
-2003-09-03  Larry Ewing  <lewing@ximian.com>
+	* menubar.c (menubar_setup): load emacs keybindings if the
+	use_emacs_keybindings is set in the class.
 
-	* menubar.c: revert the destach changes
+	* Makefile.am: add rules for GNOME_GtkHTML_Editor-emacs.xml.in.
 
 2003-09-03  Radek Doulik  <rodo@ximian.com>
 
@@ -202,37 +110,15 @@
 
 2003-09-03  Dan Winship  <danw@ximian.com>
 
-	* Makefile.am (libgnome_gtkhtml_editor_3_1_la_LDFLAGS): Remove
-	-no-undefined (which is wrong), and add -module.
-
-2003-09-02  Larry Ewing  <lewing@ximian.com>
-
-	* GNOME_GtkHTML_Editor-emacs.xml.in: add file with emacs friendly
-	keybindings converted by Alain Mellan (see Ximian #41187).
-
-	* menubar.c (menubar_setup): load emacs keybindings if the
-	use_emacs_keybindings is set in the class.
-
-	* Makefile.am: add rules for GNOME_GtkHTML_Editor-emacs.xml.in.
-
-2003-09-02  Radek Doulik  <rodo@ximian.com>
-
-	* body.c: renamed draft paper to graph paper as suggested by Aaron
+	* Makefile.am (libgnome_gtkhtml_editor_3_0_la_LDFLAGS): Remove
+	-no-undefined (which is wrong), and add -module
 
 2003-08-08  Yuedong Du  <yuedong.du@sun.com>
 
-	* menubar.c: fix a typo cause bullet list not work. See bug 
-	#47387
+        * menubar.c: fix a typo cause bullet list not work. See bug
+        #47387
 
-2003-07-31  Radek Doulik  <rodo@ximian.com>
-
-	* replace.c (ask_dialog_response): as below
-
-	* search.c (search_dialog_response): as below
-
-	* properties.c (prop_close): grab focus after closing prop dialog
-
-2003-06-28  Alex Jiang <alex.jiang@sun.com>
+2003-07-28  Alex Jiang <alex.jiang@sun.com>
 
 	* image.c (changed_template): before clear option data, check 
 	if we are using the same template. Fixes #44705

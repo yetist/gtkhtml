@@ -1,3 +1,7 @@
+2004-02-16  JP Rosevear <jpr@ximian.com>
+
+	* Makefile.am: remove disable deprecated flags
+
 2003-05-01  Abel Cheung  <maddog@linux.org.hk>
 
 	* gtkhtml-capplet.glade.h gtkhtml-properties.desktop.in.h:

@@ -11,13 +11,9 @@ INCLUDES = 				\
 	-DPREFIX=\"$(prefix)\"
 
 AM_CFLAGS = 								\
-	-DICONDIR=\"$(datadir)/gtkhtml-@GTKHTML_RELEASE@/icons\"	\
-	-DGDK_DISABLE_DEPRECATED=1					\
-	-DG_DISABLE_DEPRECATED=1					\
-	-DGNOME_DISABLE_DEPRECATED=1
-#	-DGTK_DISABLE_DEPRECATED=1
+	-DICONDIR=\"$(datadir)/gtkhtml-@GTKHTML_RELEASE@/icons\"
 
-lib_LTLIBRARIES = libgtkhtml-3.1.la
+lib_LTLIBRARIES = libgtkhtml-3.0.la
 
 libgtkhtmldir = $(includedir)/libgtkhtml-@GTKHTML_RELEASE@/gtkhtml
 
@@ -75,6 +71,7 @@ libgtkhtml_HEADERS =				\
 	htmlimage.h				\
 	htmlimageinput.h			\
 	htmlinterval.h				\
+	htmllinktext.h				\
 	htmllist.h				\
 	htmlmap.h				\
 	htmlmarshal.h				\
@@ -111,7 +108,7 @@ libgtkhtml_HEADERS =				\
 	htmlengine-edit-table.h			\
 	$(NULL)
 
-libgtkhtml_3_1_la_SOURCES =			\
+libgtkhtml_3_0_la_SOURCES =			\
 	gtkhtml-embedded.c			\
 	gtkhtml-properties.c			\
 	gtkhtml-search.c			\
@@ -158,6 +155,7 @@ libgtkhtml_3_1_la_SOURCES =			\
 	htmlimage.c				\
 	htmlimageinput.c			\
 	htmlinterval.c				\
+	htmllinktext.c				\
 	htmllist.c				\
 	htmlmap.c				\
 	htmlmarshal.c				\
@@ -190,8 +188,8 @@ libgtkhtml_3_1_la_SOURCES =			\
 	htmlframeset.c				\
 	$(NULL)
 
-libgtkhtml_3_1_la_LDFLAGS = -version-info $(GTKHTML_CURRENT):$(GTKHTML_REVISION):$(GTKHTML_AGE)
-libgtkhtml_3_1_la_LIBADD = $(GTKHTML_LIBS) ../a11y/libgtkhtml-a11y.la $(GAIL_LIBS)
+libgtkhtml_3_0_la_LDFLAGS = -version-info $(GTKHTML_CURRENT):$(GTKHTML_REVISION):$(GTKHTML_AGE)
+libgtkhtml_3_0_la_LIBADD = $(GTKHTML_LIBS) ../a11y/libgtkhtml-a11y.la $(GAIL_LIBS)
 
 dist-hook:
 	mkdir $(distdir)/tests

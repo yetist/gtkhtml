@@ -54,7 +54,6 @@ upper_lower (HTMLObject *obj, HTMLEngine *e, gpointer data)
 		old_text = HTML_TEXT (obj)->text;
 		HTML_TEXT (obj)->text = up ? g_utf8_strup (old_text, -1) : g_utf8_strdown (old_text, -1);
 		g_free (old_text);
-		HTML_TEXT (obj)->text_bytes = g_utf8_strlen (HTML_TEXT (obj)->text, -1);
 	}
 }
 
@@ -80,7 +79,7 @@ html_engine_capitalize_word (HTMLEngine *e)
 			html_engine_disable_selection (e);
 		}
 		html_undo_level_end (e->undo);
-	}
+		}
 }
 
 void

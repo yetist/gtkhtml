@@ -1,32 +1,49 @@
-gtkhtml-3.1.6 "Tree" 2004-01-26
+gtkhtml-3.0.10 "Vinyl" 2004-09-18
 ------------------------------------------------
-
 New in this release
-   
-   * fixed font attribute handling.
 
-New in 3.1.5
+  * #38589 Missing mnemonics in replace window (Frederic Crozat)
+  * #51472 Missing mnemonics in replace window (Charles Zhang)
+  * Fix crash with upper/lower in emacs keybindings (Radek Doulik)
+  * Fix pasting of newlines (Radek Doulik)
+  * Support multi-byte searching (Suresh Chandrasekharan)
+  * 64 bit fixes (Jeremy Katz)
+  * Get translations for glade dialogs properly (Yong Sun)
+  * Spell check whole document if inline spell checking is disabled
+    (Radek Doulik)
+  * Fix toolbar sensitivity (Radek Doulik)
+  * Remove disable deprecated flags (JP Rosevear)
+  * Updated translations: ja (Takeshi AIHANA), cs (Miloslav Trmac), 
+    (pt_BR) Gustavo Maciel Dias Vieira. es (Francisco Javier F. Serrador
+    and Pablo Gonzalo del Campo), sv (Christian Rose),
+    nl (Vincent van Adrighem), pt (Duarte Loreto), sr (Danilo Segan), 
+    de (Christian Neumair), az (Metin Amiroff), hu (Andras Timar), 
+    no (Kjartan Maraas), pl (Artur Flinta), sk (Stanislav Visnovsky), 
+    el (Nikos Charonitakis), pt (Duarte Loreto)
 
-   * improved IM preedit string display
-   * removed gal dependency
-   * better smiley substitution in the composer (bounty by Jan Arne Petersen)
+New in 3.0.9
 
-New in 3.1.5
+  * Emacs Keybindings improved.
+  * Bonobo UI Improvements
+  * Accessibilty enhanced
+  * Caret selection/navigation mode added.
+  * Other bugs fixed:43015 47988 47990 47676 47349 47349 
+    45911 47543 44705 
 
-   * better font sizing
-   * updated translations.
+New in 3.0.8
 
-New in 3.1.4
+  * fixed blue text saving.
+  * example text changed to be more self-explaining.
+  * fixed printing font issues.
+  * fixed cursor navigation.
+  * removed old indent keybindings.
+  * Shift-F10 keybinding for popup menu in the editor.
 
-   * new and improved html parser handles broken html much better.
-   * better pango integration.
-   * updated translations.
-   * better ascii mode rendering of lists.
-   * improved exposure handling.
-   * improved animation rendering.
-   * versioned .server files for parallel installs with version 3.0.x.
+New in 3.0.7
 
-New in 3.0.5
+  * emergency bugfix in gtk_html_editor_event.
+
+New in 3.0.6
 
   * lots of leaks fixed.
   * printing now uses the same fonts as display.

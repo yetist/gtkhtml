@@ -511,8 +511,8 @@ set_size_all (HTMLObject *o, HTMLEngine *e, GtkHTMLEditImageProperties *d)
 	}
 }
 
-static
-load_done (GtkHTML *html, GtkHTMLEditImageProperties *d)
+static gboolean
+set_size (GtkHTMLEditImageProperties *d)
 {
 	if (d->sample->engine->clue) {
 		html_object_forall (d->sample->engine->clue, d->sample->engine, (HTMLObjectForallFunc) set_size_all, d);
@@ -527,6 +527,8 @@ image_url_requested (GtkHTML *html, const gchar *url, GtkHTMLStream *handle, Gtk
 
 	location = get_location (d);
 	url_requested (html, url, handle);
+	if (location && !strcmp (location, url))
+		gtk_idle_add ((GtkFunction) set_size, d);
 	g_free (location);
 }
 
@@ -580,7 +582,6 @@ image_widget (GtkHTMLEditImageProperties *d, gboolean insert)
 
 	gtk_container_add (GTK_CONTAINER (d->frame_sample), sample_frame (&d->sample));
 	g_signal_handlers_disconnect_matched (d->sample, G_SIGNAL_MATCH_FUNC, 0, 0, NULL, G_CALLBACK (url_requested), NULL);
-	g_signal_connect (GTK_OBJECT (d->sample), "load_done", G_CALLBACK (load_done), d);
 	g_signal_connect (GTK_OBJECT (d->sample), "url_requested", G_CALLBACK (image_url_requested), d);
 
 	d->entry_url = glade_xml_get_widget (xml, "entry_image_url");

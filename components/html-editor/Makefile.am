@@ -16,13 +16,10 @@ AM_CFLAGS = \
         -DGTKHTML_DATADIR=\""$(gtkhtml_data)"\"		\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"	\
 	-DGLADE_DATADIR=\"$(gladedir)\"			\
-	-DGDK_DISABLE_DEPRECATED=1			\
-	-DG_DISABLE_DEPRECATED=1			\
 	-DPREFIX=\""$(prefix)"\"			\
 	-DSYSCONFDIR=\""$(sysconfdir)"\"		\
 	-DDATADIR=\""$(datadir)"\"			\
-	-DLIBDIR=\""$(datadir)"\"			\
-	-DBONOBO_DISABLE_DEPRECATED=1
+	-DLIBDIR=\""$(datadir)"\"
 
 # CORBA stuff
 IDLS = Editor.idl
@@ -111,44 +108,33 @@ libgnome_gtkhtml_editor_la_SOURCES =		\
 	toolbar.c				\
 	toolbar.h				\
 	utils.c					\
-	utils.h					\
-	gi-utils.h				\
-	gi-colors.c				\
-	gi-colors.h				\
-	gi-color-palette.c			\
-	gi-color-palette.h			\
-	gi-color-group.c			\
-	gi-color-group.h			\
-	gi-combo-box.c				\
-	gi-combo-box.h				\
-	gi-color-combo.c			\
-	gi-color-combo.h
+	utils.h
 
 if EDITOR_SHLIB
 MY_PRGS =
-MY_LIBS = libgnome-gtkhtml-editor-3.1.la
+MY_LIBS = libgnome-gtkhtml-editor-3.0.la
 location = "${privlibdir}/libgnome-gtkhtml-editor-$(EDITOR_API_VERSION).so"
 else
-MY_PRGS = gnome-gtkhtml-editor-3.1
+MY_PRGS = gnome-gtkhtml-editor-3.0
 MY_LIBS =
 location = "${libexecdir}/$(MY_PRGS)"
 endif
 
-libgnome_gtkhtml_editor_3_1_la_SOURCES =	\
+libgnome_gtkhtml_editor_3_0_la_SOURCES =	\
 	editor-control-shlib.c
 
-libgnome_gtkhtml_editor_3_1_la_LDFLAGS =	\
+libgnome_gtkhtml_editor_3_0_la_LDFLAGS =	\
 	-avoid-version -module
 
-libgnome_gtkhtml_editor_3_1_la_LIBADD =	\
+libgnome_gtkhtml_editor_3_0_la_LIBADD =	\
 	$(LDADD)			\
 	libgnome-gtkhtml-editor.la
 
-gnome_gtkhtml_editor_3_1_LDADD = \
+gnome_gtkhtml_editor_3_0_LDADD = \
 	$(LDADD)			\
 	libgnome-gtkhtml-editor.la
 
-gnome_gtkhtml_editor_3_1_SOURCES = \
+gnome_gtkhtml_editor_3_0_SOURCES = \
 	gnome-gtkhtml-editor.c
 
 noinst_LTLIBRARIES = libgnome-gtkhtml-editor.la
@@ -163,10 +149,7 @@ libexec_PROGRAMS = $(MY_PRGS)
 serverdir = $(libdir)/bonobo/servers
 server_in_files = GNOME_GtkHTML_Editor.server.in.in
 
-server_DATA = $(server_in_files:.server.in.in=-$(EDITOR_API_VERSION).server)
-%-$(EDITOR_API_VERSION).server: %.server
-	mv $< $@
-
+server_DATA = $(server_in_files:.server.in.in=.server)
 %.server.in: %.server.in.in Makefile
 	sed -e "s|\@GNOME_GTKHTML_EDITOR_LOCATION\@|$(location)|g" \
 	-e "s|\@EDITOR_API_VERSION\@|$(EDITOR_API_VERSION)|g" \
@@ -174,12 +157,14 @@ server_DATA = $(server_in_files:.server.in.in=-$(EDITOR_API_VERSION).server)
 
 @INTLTOOL_SERVER_RULE@
 
-uidir = $(gtkhtml_data)
-ui_in_files = GNOME_GtkHTML_Editor.xml.in GNOME_GtkHTML_Editor-emacs.xml.in
-ui_DATA = $(ui_in_files:.xml.in=.xml)
-
-%.xml: %.xml.in
+GNOME_GtkHTML_Editor.xml: GNOME_GtkHTML_Editor.xml.in Makefile
 	sed -e 's|\@ICONSDIR\@|$(gtkhtml_data)/icons|g' $< > $@
+
+GNOME_GtkHTML_Editor-emacs.xml: GNOME_GtkHTML_Editor-emacs.xml.in Makefile
+	sed -e 's|\@ICONSDIR\@|$(gtkhtml_data)/icons|g' $< > $@
+
+uidir = $(gtkhtml_data)
+ui_DATA = GNOME_GtkHTML_Editor.xml GNOME_GtkHTML_Editor-emacs.xml
 
 # The Test program
 
@@ -198,18 +183,20 @@ EXTRA_DIST =					\
 	$(IDLS)					\
 	$(SPELL_IDLS)				\
 	ChangeLog				\
+	$(ui_DATA)				\
+	GNOME_GtkHTML_Editor.xml.in		\
+	GNOME_GtkHTML_Editor-emacs.xml.in	\
 	gtkhtml-editor-properties.glade		\
-	$(ui_in_files)				\
-	$(server_in_files)
-
+	$(server_in_files) $(server_DATA)
 idldir = $(gtkhtml_data)
 idl_DATA = $(IDLS)
 
 dist-hook:
 	cd $(distdir); rm -f $(BUILT_SOURCES)
 
-BUILT_SOURCES = $(IDL_GENERATED) $(SPELL_IDL_GENERATED) $(server_DATA) $(ui_DATA)
+BUILT_SOURCES = $(IDL_GENERATED) $(SPELL_IDL_GENERATED) $(server_DATA)
 
 CLEANFILES = \
+	GNOME_GtkHTML_Editor.xml		\
+	GNOME_GtkHTML_Editor-emacs.xml		\
 	$(BUILT_SOURCES)
-

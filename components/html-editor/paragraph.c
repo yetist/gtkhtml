@@ -59,8 +59,7 @@ fill_sample (GtkHTMLEditParagraphProperties *d)
 			     style,
 			     align,
 			     /* string marked for translations is sample text. you may want to translate it to common sample text in your language */
-			     _("The quick brown fox jumps over the lazy dog."),
-			     "</div>",
+			     _("The quick brown fox jumps over the lazy dog.</div>"),
 			     NULL);
 
 	gtk_html_load_from_string (d->sample, body, -1);
@@ -119,7 +118,6 @@ paragraph_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	gtk_container_set_border_width (GTK_CONTAINER (hbox), 6);
 	menu = gtk_menu_new ();
 
-#define ADD_SEP menuitem = gtk_separator_menu_item_new (); gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem); gtk_widget_show (menuitem)
 #undef ADD_ITEM
 #define ADD_ITEM(n,s) \
 	menuitem = gtk_menu_item_new_with_label (n); \
@@ -130,25 +128,18 @@ paragraph_properties (GtkHTMLControlData *cd, gpointer *set_data)
         g_object_set_data (G_OBJECT (menuitem), "style", GINT_TO_POINTER (s));
 
 	ADD_ITEM (_("Normal"),       GTK_HTML_PARAGRAPH_STYLE_NORMAL);
-	ADD_SEP;
-	if (cd->format_html) {
-		ADD_ITEM (_("Header 1"),     GTK_HTML_PARAGRAPH_STYLE_H1);
-		ADD_ITEM (_("Header 2"),     GTK_HTML_PARAGRAPH_STYLE_H2);
-		ADD_ITEM (_("Header 3"),     GTK_HTML_PARAGRAPH_STYLE_H3);
-		ADD_ITEM (_("Header 4"),     GTK_HTML_PARAGRAPH_STYLE_H4);
-		ADD_ITEM (_("Header 5"),     GTK_HTML_PARAGRAPH_STYLE_H5);
-		ADD_ITEM (_("Header 6"),     GTK_HTML_PARAGRAPH_STYLE_H6);
-		ADD_SEP;
-	}
+	ADD_ITEM (_("Pre"),          GTK_HTML_PARAGRAPH_STYLE_PRE);
+	ADD_ITEM (_("Header 1"),     GTK_HTML_PARAGRAPH_STYLE_H1);
+	ADD_ITEM (_("Header 2"),     GTK_HTML_PARAGRAPH_STYLE_H2);
+	ADD_ITEM (_("Header 3"),     GTK_HTML_PARAGRAPH_STYLE_H3);
+	ADD_ITEM (_("Header 4"),     GTK_HTML_PARAGRAPH_STYLE_H4);
+	ADD_ITEM (_("Header 5"),     GTK_HTML_PARAGRAPH_STYLE_H5);
+	ADD_ITEM (_("Header 6"),     GTK_HTML_PARAGRAPH_STYLE_H6);
+	ADD_ITEM (_("Address"),      GTK_HTML_PARAGRAPH_STYLE_ADDRESS);
 	ADD_ITEM (_("Dot item"),     GTK_HTML_PARAGRAPH_STYLE_ITEMDOTTED);
 	ADD_ITEM (_("Number item"),   GTK_HTML_PARAGRAPH_STYLE_ITEMDIGIT);
 	ADD_ITEM (_("Roman item"),   GTK_HTML_PARAGRAPH_STYLE_ITEMROMAN);
 	ADD_ITEM (_("Alphabeta item"),   GTK_HTML_PARAGRAPH_STYLE_ITEMALPHA);
-	ADD_SEP;
-	if (cd->format_html) {
-		ADD_ITEM (_("Address"),      GTK_HTML_PARAGRAPH_STYLE_ADDRESS);
-	}
-	ADD_ITEM (_("Preformatted"),          GTK_HTML_PARAGRAPH_STYLE_PRE);
 
 	data->style_option = gtk_option_menu_new ();
 	gtk_option_menu_set_menu (GTK_OPTION_MENU (data->style_option), menu);

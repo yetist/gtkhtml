@@ -395,7 +395,6 @@ static BonoboUIVerb editor_verbs [] = {
 	BONOBO_UI_UNSAFE_VERB ("InsertSmiley9", smiley_cb),
 	BONOBO_UI_UNSAFE_VERB ("InsertSmiley10", smiley_cb),
 	BONOBO_UI_UNSAFE_VERB ("InsertSmiley11", smiley_cb),
-	BONOBO_UI_UNSAFE_VERB ("InsertSmiley12", smiley_cb),
 
 	BONOBO_UI_UNSAFE_VERB ("IndentMore", command_cb),
 	BONOBO_UI_UNSAFE_VERB ("IndentLess", command_cb),
@@ -577,8 +576,6 @@ menubar_update_format (GtkHTMLControlData *cd)
 					      "sensitive", sensitive, &ev);
 		bonobo_ui_component_set_prop (uic, "/commands/InsertSmiley11",
 					      "sensitive", sensitive, &ev);
-		bonobo_ui_component_set_prop (uic, "/commands/InsertSmiley12",
-					      "sensitive", sensitive, &ev);
 
 		bonobo_ui_component_set_prop (uic, "/commands/FormatBold",
 					      "sensitive", sensitive, &ev);
@@ -590,6 +587,13 @@ menubar_update_format (GtkHTMLControlData *cd)
 					      "sensitive", sensitive, &ev);
 		bonobo_ui_component_set_prop (uic, "/commands/FormatPlain",
 					      "sensitive", sensitive, &ev);
+	
+		bonobo_ui_component_set_prop (uic, "/commands/AlignLeft",
+					      "sensitive", sensitive, &ev);		
+		bonobo_ui_component_set_prop (uic, "/commands/AlignRight",
+					      "sensitive", sensitive, &ev);	
+		bonobo_ui_component_set_prop (uic, "/commands/AlignCenter",
+					      "sensitive", sensitive, &ev);	
 
 		bonobo_ui_component_set_prop (uic, "/commands/HeadingH1",
 					      "sensitive", sensitive, &ev);	
@@ -632,7 +636,7 @@ menubar_set_languages (GtkHTMLControlData *cd)
 	cd->block_language_changes = FALSE;
 }
 
-#define SMILEYS 12
+#define SMILEYS 11
 static gchar *smiley [SMILEYS] = {
 	":D",
 	":O",
@@ -644,8 +648,7 @@ static gchar *smiley [SMILEYS] = {
 	":-|",
 	":-/",
 	":-P",
-	":~(",
-	":-Q"
+	":~("
 };
 
 static void
@@ -690,7 +693,7 @@ menubar_setup (BonoboUIComponent  *uic,
 	*/
 
 	domain = g_strdup (textdomain (NULL));
-	textdomain (GETTEXT_PACKAGE);
+	textdomain (GNOME_EXPLICIT_TRANSLATION_DOMAIN);
 	bonobo_ui_component_add_verb_list_with_data (uic, editor_verbs, cd);
 
 	if (GTK_HTML_CLASS(G_OBJECT_GET_CLASS (cd->html))->use_emacs_bindings) {

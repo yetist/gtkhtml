@@ -65,7 +65,6 @@ struct _HTMLEngine {
 	GdkGC *invert_gc;
 
 	gboolean editable;
-	gboolean caret_mode;
 
 	HTMLObject *clipboard;
 	guint       clipboard_len;
@@ -86,7 +85,7 @@ struct _HTMLEngine {
 	gboolean parsing;
 	HTMLTokenizer *ht;
 	HTMLStringTokenizer *st;
-	HTMLObject *clue;         /* the document root */
+	HTMLObject *clue;
 	
 	HTMLObject *flow;
 
@@ -101,6 +100,9 @@ struct _HTMLEngine {
 	/* For the widget */
 	gint width;
 	gint height;
+
+	HTMLHAlignType divAlign;
+	HTMLHAlignType pAlign;
 
 	/* Number of tokens parsed in the current time-slice */
 	gint parseCount;
@@ -122,10 +124,11 @@ struct _HTMLEngine {
 	HTMLStack *clueflow_style_stack; /* Clueflow style stack, elements are HTMLClueFlowStyles.  */
 	HTMLStack *frame_stack;
 	HTMLStack *body_stack;
-	HTMLStack *table_stack;
 
 	gchar *url;
 	gchar *target;
+
+	HTMLBlockStackElement *blockStack;
 
 	/* timer id to schedule paint events */
 	guint updateTimer;
@@ -175,6 +178,13 @@ struct _HTMLEngine {
            be inserted in sequence, or after elements that have some vspace of
            their own.  */
 	gboolean avoid_para;
+
+	/* This is TRUE if we want a paragraph break to be inserted before the
+           next element.  */
+	gboolean pending_para;
+
+	/* Alignment for the pending paragraph we are going to insert.  */
+	HTMLHAlignType pending_para_alignment;
 
 	/* Whether we have the keyboard focus.  */
 	guint have_focus : 1;
@@ -252,20 +262,15 @@ struct _HTMLEngine {
 	GList *cut_and_paste_stack;
 
 	gboolean block;
-	gboolean block_images;
 	gint opened_streams;
-	gboolean stopped;
 
 	HTMLObject *focus_object;
-	gint focus_object_offset;
 
 	gboolean save_data;
 	gint saved_step_count;
 
 	gboolean expose;
 	gboolean need_update;
-
-	HTMLObject *parser_clue;  /* the root of the currently parsed block */
 };
 
 /* must be forward referenced *sigh* */
@@ -314,8 +319,6 @@ GtkHTMLStream *html_engine_begin            (HTMLEngine  *p,
 					     char        *content_type);
 void           html_engine_parse            (HTMLEngine  *p);
 void           html_engine_stop_parser      (HTMLEngine  *e);
-void           html_engine_stop             (HTMLEngine  *e);
-void           html_engine_flush            (HTMLEngine  *e);
 
 /* Rendering control.  */
 gint  html_engine_calc_min_width       (HTMLEngine *e);
@@ -465,11 +468,10 @@ void html_engine_redraw_selection (HTMLEngine *e);
 
 gboolean    html_engine_focus              (HTMLEngine       *e,
 					    GtkDirectionType  dir);
-HTMLObject *html_engine_get_focus_object   (HTMLEngine       *e,
-					    gint             *offset);
+HTMLObject *html_engine_get_focus_object   (HTMLEngine       *e);
 void        html_engine_set_focus_object   (HTMLEngine       *e,
-					    HTMLObject       *o,
-					    gint              offset);
+					    HTMLObject       *o);
+void        html_engine_draw_focus_object  (HTMLEngine       *e);
 
 HTMLMap *html_engine_get_map  (HTMLEngine  *e,
 			       const gchar *name);
@@ -477,10 +479,5 @@ HTMLMap *html_engine_get_map  (HTMLEngine  *e,
 gboolean html_engine_selection_contains_object_type (HTMLEngine *e,
 						     HTMLType obj_type);
 gboolean html_engine_selection_contains_link        (HTMLEngine *e);
-
-gint  html_engine_get_left_border    (HTMLEngine *e);
-gint  html_engine_get_right_border   (HTMLEngine *e);
-gint  html_engine_get_top_border     (HTMLEngine *e);
-gint  html_engine_get_bottom_border  (HTMLEngine *e);
 
 #endif /* _HTMLENGINE_H_ */

@@ -32,7 +32,7 @@
 #include "htmlclueflow.h"
 #include "htmlcursor.h"
 #include "htmlengine.h"
-#include "htmltext.h"
+#include "htmllinktext.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-cut-and-paste.h"
 #include "htmlengine-edit-table.h"
@@ -456,17 +456,16 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items, guint *props)
 	ADD_STOCK (GTK_STOCK_PASTE, paste);
 	ADD_ITEM (_("Paste Quotation"),  paste_cite, NONE);
 
-	if (cd->format_html) {
-		ADD_SEP;
-		ADD_ITEM (_("Insert Link"), insert_link, NONE);
-		if (((active && html_engine_selection_contains_link (e))
-		     || (obj
-			 && (HTML_OBJECT_TYPE (obj) == HTML_TYPE_LINKTEXT
-			     || (HTML_OBJECT_TYPE (obj) == HTML_TYPE_IMAGE
-				 && (HTML_IMAGE (obj)->url
-				     || HTML_IMAGE (obj)->target)))))) {
-			ADD_ITEM (_("Remove Link"), remove_link, NONE);
-		}
+	ADD_SEP;
+	ADD_ITEM (_("Insert link"), insert_link, NONE);
+	if (cd->format_html
+	    && ((active && html_engine_selection_contains_link (e))
+		|| (obj
+		    && (HTML_OBJECT_TYPE (obj) == HTML_TYPE_LINKTEXT
+			|| (HTML_OBJECT_TYPE (obj) == HTML_TYPE_IMAGE
+			    && (HTML_IMAGE (obj)->url
+				|| HTML_IMAGE (obj)->target)))))) {
+		ADD_ITEM (_("Remove link"), remove_link, NONE);
 	}
 
 	if (cd->format_html && obj) {
@@ -513,8 +512,8 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items, guint *props)
 			ADD_ITEM (_("Page Style..."), prop_dialog, BODY);
 		}
 		END_SUBMENU;
+		ADD_SEP;
 		if (obj->parent && obj->parent->parent && HTML_IS_TABLE_CELL (obj->parent->parent)) {
-			ADD_SEP;
 			SUBMENU (_("Table insert"));
 			ADD_ITEM (_("Table"), insert_table_cb, NONE);
 			ADD_SEP;
@@ -562,7 +561,6 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items, guint *props)
 		ADD_ITEM (_("Ignore Misspelled Word"), spell_ignore, NONE);
 	}
 
-	ADD_SEP;
 	SUBMENU (_("Input Methods"));
 	gtk_im_multicontext_append_menuitems (GTK_IM_MULTICONTEXT (cd->html->priv->im_context), 
 					      GTK_MENU_SHELL (menu));

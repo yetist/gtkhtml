@@ -44,6 +44,7 @@
 #include "htmlengine-edit-selection-updater.h"
 #include "htmlimage.h"
 #include "htmlinterval.h"
+#include "htmllinktext.h"
 #include "htmlobject.h"
 #include "htmlplainpainter.h"
 #include "htmltable.h"
@@ -1143,7 +1144,7 @@ insert_empty_paragraph (HTMLEngine *e, HTMLUndoDirection dir, gboolean add_undo)
 	remove_empty_and_merge (e, FALSE, left, right, orig);
 
 	/* replace empty link in empty flow by text with the same style */
-	/* FIXME-link if (HTML_IS_LINK_TEXT (e->cursor->object) && html_clueflow_is_empty (HTML_CLUEFLOW (e->cursor->object->parent))) {
+	if (HTML_IS_LINK_TEXT (e->cursor->object) && html_clueflow_is_empty (HTML_CLUEFLOW (e->cursor->object->parent))) {
 		HTMLObject *flow = e->cursor->object->parent;
 		HTMLObject *new_text;
 
@@ -1158,7 +1159,7 @@ insert_empty_paragraph (HTMLEngine *e, HTMLUndoDirection dir, gboolean add_undo)
 			orig->object = e->cursor->object;
 		}
 		html_clue_append (HTML_CLUE (flow), e->cursor->object);
-		} */
+	}
 
 	html_cursor_forward (e->cursor, e);
 
@@ -1198,8 +1199,8 @@ html_engine_insert_empty_paragraph (HTMLEngine *e)
 	insert_empty_paragraph (e, HTML_UNDO_UNDO, TRUE);
 }
 
-static char *picto_chars = "DO)(|/PQ\0:-\0:\0:-\0:\0:;=-\0:;\0:-~\0:\0:\0:-\0:\0:-\0:\0:-\0:\0:-\0:\0";
-static gint picto_states [] = { 9, 14, 19, 27, 35, 40, 45, 50, 0, -1, 12, 0, -1, 0, -2, 17, 0, -2, 0, -3, -4, -5, 24, 0, -3, -4, 0, -6, 31, 33, 0, -6, 0, -11, 0, -8, 38, 0, -8, 0, -9, 43, 0, -9, 0, -10, 48, 0, -10, 0, -12, 53, 0, -12, 0};
+static char *picto_chars = "DO)(|/P\0:-\0:\0:-\0:\0:;=-\0:;\0:-~\0:\0:\0:-\0:\0:-\0:\0:-\0:\0";
+static gint picto_states [] = { 8, 13, 18, 26, 34, 39, 44, 0, -1, 11, 0, -1, 0, -2, 16, 0, -2, 0, -3, -4, -5, 23, 0, -3, -4, 0, -6, 30, 32, 0, -6, 0, -11, 0, -8, 37, 0, -8, 0, -9, 42, 0, -9, 0, -10, 47, 0, -10, 0};
 static gchar *picto_images [] = {
 	"smiley-1.png",
 	"smiley-2.png",
@@ -1212,7 +1213,6 @@ static gchar *picto_images [] = {
 	"smiley-9.png",
 	"smiley-10.png",
 	"smiley-11.png",
-	"smiley-12.png",
 };
 
 static void
@@ -1265,14 +1265,13 @@ use_pictograms (HTMLEngine *e)
 		picto = html_image_new (e->image_factory, filename, NULL, NULL, -1, -1, FALSE, FALSE, 0, NULL,
 					HTML_VALIGN_MIDDLE, FALSE);
 		html_image_set_alt (HTML_IMAGE (picto), alt);
-		html_object_set_data (HTML_OBJECT (picto), "picto", alt);
 		g_free (alt);
 		html_engine_paste_object (e, picto, html_object_get_length (picto));
 	}
 }
 
 void
-html_engine_insert_text_with_extra_attributes (HTMLEngine *e, const gchar *text, guint len, PangoAttrList *attrs)
+html_engine_insert_text (HTMLEngine *e, const gchar *text, guint len)
 {
 	gchar *nl;
 	gint alen;
@@ -1300,8 +1299,6 @@ html_engine_insert_text_with_extra_attributes (HTMLEngine *e, const gchar *text,
 				html_engine_set_insertion_link (e, NULL, NULL);
 
 			o = html_engine_new_text (e, text, alen);
-			if (attrs)
-				HTML_TEXT (o)->extra_attr_list = pango_attr_list_copy (attrs);
 			html_text_convert_nbsp (HTML_TEXT (o), TRUE);
 
 			if (alen == 1 && html_is_in_word (html_text_get_char (HTML_TEXT (o), 0))
@@ -1326,13 +1323,7 @@ html_engine_insert_text_with_extra_attributes (HTMLEngine *e, const gchar *text,
 }
 
 void
-html_engine_insert_text (HTMLEngine *e, const gchar *text, guint len)
-{
-	html_engine_insert_text_with_extra_attributes (e, text, len, NULL);
-}
-
-void
-html_engine_paste_text_with_extra_attributes (HTMLEngine *e, const gchar *text, guint len, PangoAttrList *attrs)
+html_engine_paste_text (HTMLEngine *e, const gchar *text, guint len)
 {
 	gchar *undo_name = g_strdup_printf ("Paste text: '%s'", text);
 	gchar *redo_name = g_strdup_printf ("Unpaste text: '%s'", text);
@@ -1341,14 +1332,8 @@ html_engine_paste_text_with_extra_attributes (HTMLEngine *e, const gchar *text, 
 	g_free (undo_name);
 	g_free (redo_name);
 	html_engine_delete (e);
-	html_engine_insert_text_with_extra_attributes (e, text, len, attrs);
+	html_engine_insert_text (e, text, len);
 	html_undo_level_end (e->undo);
-}
-
-void
-html_engine_paste_text (HTMLEngine *e, const gchar *text, guint len)
-{
-	html_engine_paste_text_with_extra_attributes (e, text, len, NULL);
 }
 
 void
@@ -1379,24 +1364,6 @@ html_engine_delete_n (HTMLEngine *e, guint len, gboolean forward)
 		html_engine_set_mark (e);
 		html_engine_update_selection_if_necessary (e);
 		html_engine_freeze (e);
-		/* Remove magic smiley */
-		if (!forward && len == 1 && gtk_html_get_magic_smileys (e->widget)) {
-			HTMLObject *object = html_object_get_tail_leaf (e->cursor->object);
-
-			if (HTML_IS_IMAGE (object) && html_object_get_data (object, "picto") != NULL) {
-				gchar *picto = g_strdup (html_object_get_data (object, "picto"));
-				html_undo_level_begin (e->undo, "Remove Magic Smiley", "Undo Remove Magic Smiley");
-				html_cursor_backward (e->cursor, e);
-				html_engine_delete (e);
-				html_engine_insert_text (e, picto, -1);
-				html_undo_level_end (e->undo);
-				g_free (picto);
-
-				html_engine_unblock_selection (e);
-				html_engine_thaw (e);
-				return;
-			}
-		}
 		while (len != 0) {
 			if (forward)
 				html_cursor_forward (e->cursor, e);

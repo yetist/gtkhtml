@@ -1,13 +1,14 @@
 *.gmo
 *.mo
-*.pot
+*.pox
 .headerlock
 Makefile
 Makefile.in
 Makefile.in.in
 POTFILES
 cat-id-tbl.c
+gtkhtml-3.0.pot
+gtkhtml.pot
 messages
 missing
-notexist
 stamp-cat-id

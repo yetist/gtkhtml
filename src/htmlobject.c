@@ -64,9 +64,7 @@ destroy (HTMLObject *self)
 	self->next = NULL;
 	self->prev = NULL;
 #endif
-
 	g_datalist_clear (&self->object_data);
-	g_datalist_clear (&self->object_data_nocp);
 	
 	if (self->redraw_pending) {
 		self->free_pending = TRUE;
@@ -100,8 +98,6 @@ copy (HTMLObject *self,
 
 	g_datalist_init (&dest->object_data);
 	html_object_copy_data_from_object (dest, self);
-
-	g_datalist_init (&dest->object_data_nocp);
 }
 
 static HTMLObject *
@@ -195,6 +191,27 @@ draw (HTMLObject *o,
 	/* Do nothing by default.  We don't know how to paint ourselves.  */
 }
 
+static void
+draw_background (HTMLObject *self,
+		 HTMLPainter *p,
+		 gint x, gint y,
+		 gint width, gint height,
+		 gint tx, gint ty)
+{
+	/* By default, objects are transparent so they simply forward
+           this to the parent.  */
+	if (self->parent != NULL) {
+		html_object_draw_background (self->parent, p,
+					     x + self->parent->x,
+					     y + self->parent->y - self->parent->ascent,
+					     width, height,
+					     tx - self->parent->x,
+					     ty - self->parent->y + self->parent->ascent);
+	} else {
+		/* FIXME this should draw the default background somehow.  */
+	}
+}
+
 static gboolean
 is_transparent (HTMLObject *self)
 {
@@ -209,6 +226,7 @@ fit_line (HTMLObject *o,
 	  gboolean next_to_floating,
 	  gint width_left)
 {
+	html_object_calc_size (o, painter, FALSE);
 	return (o->width <= width_left || (first_run && !next_to_floating)) ? HTML_FIT_COMPLETE : HTML_FIT_NONE;
 }
 
@@ -269,13 +287,13 @@ reset (HTMLObject *o)
 }
 
 static const gchar *
-get_url (HTMLObject *o, gint offset)
+get_url (HTMLObject *o)
 {
 	return NULL;
 }
 
 static const gchar *
-get_target (HTMLObject *o, gint offset)
+get_target (HTMLObject *o)
 {
 	return NULL;
 }
@@ -603,6 +621,7 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->remove_child = remove_child;
 	klass->split = split;
 	klass->draw = draw;
+	klass->draw_background = draw_background;
 	klass->is_transparent = is_transparent;
 	klass->fit_line = fit_line;
 	klass->calc_size = calc_size;
@@ -677,10 +696,8 @@ html_object_init (HTMLObject *o,
 	o->redraw_pending = FALSE;
 	o->free_pending = FALSE;
 	o->selected = FALSE;
-	o->draw_focused = FALSE;
 
 	g_datalist_init (&o->object_data);
-	g_datalist_init (&o->object_data_nocp);
 }
 
 HTMLObject *
@@ -850,6 +867,16 @@ html_object_draw (HTMLObject *o,
 	(* HO_CLASS (o)->draw) (o, p, x, y, width, height, tx, ty);
 }
 
+void
+html_object_draw_background (HTMLObject *o,
+			     HTMLPainter *p,
+			     gint x, gint y,
+			     gint width, gint height,
+			     gint tx, gint ty)
+{
+	(* HO_CLASS (o)->draw_background) (o, p, x, y, width, height, tx, ty);
+}
+
 gboolean
 html_object_is_transparent (HTMLObject *self)
 {
@@ -953,24 +980,24 @@ html_object_get_uris (HTMLObject *o, char **link, char **target, char **src)
 #endif 
 
 const gchar *
-html_object_get_url (HTMLObject *o, gint offset)
+html_object_get_url (HTMLObject *o)
 {
-	return (* HO_CLASS (o)->get_url) (o, offset);
+	return (* HO_CLASS (o)->get_url) (o);
 }
 
 const gchar *
-html_object_get_target (HTMLObject *o, gint offset)
+html_object_get_target (HTMLObject *o)
 {
-	return (* HO_CLASS (o)->get_target) (o, offset);
+	return (* HO_CLASS (o)->get_target) (o);
 }
 
 gchar *
-html_object_get_complete_url (HTMLObject *o, gint offset)
+html_object_get_complete_url (HTMLObject *o)
 {
 	const gchar *url, *target;
 
-	url = html_object_get_url (o, offset);
-	target = html_object_get_target (o, offset);
+	url = html_object_get_url (o);
+	target = html_object_get_target (o);
 	return url || target ? g_strconcat (url ? url : "#", url ? (target && *target ? "#" : NULL) : target,
 					      url ? target : NULL, NULL) : NULL;
 }
@@ -1578,24 +1605,6 @@ html_object_get_index (HTMLObject *self, guint offset)
 }
 
 void
-html_object_set_data_nocp (HTMLObject *object, const gchar *key, const gchar *value)
-{
-	g_datalist_set_data_full (&object->object_data_nocp, key, g_strdup (value), g_free);
-}
-
-void
-html_object_set_data_full_nocp (HTMLObject *object, const gchar *key, const gpointer value, GDestroyNotify func)
-{
-	g_datalist_set_data_full (&object->object_data_nocp, key, value, func);
-}
-
-gpointer
-html_object_get_data_nocp (HTMLObject *object, const gchar *key)
-{
-	return g_datalist_get_data (&object->object_data_nocp, key);
-}
-
-void
 html_object_set_data (HTMLObject *object, const gchar *key, const gchar *value)
 {
 	g_datalist_set_data_full (&object->object_data, key, g_strdup (value), g_free);
@@ -1811,6 +1820,19 @@ html_object_get_head_leaf (HTMLObject *o)
 	} while (head);
 
 	return rv;
+}
+
+static void
+clear_word_width (HTMLObject *o, HTMLEngine *e, gpointer data)
+{
+	if (html_object_is_text (o))
+		html_text_clear_word_width (HTML_TEXT (o));
+}
+
+void
+html_object_clear_word_width (HTMLObject *o)
+{
+	html_object_forall (o, NULL, clear_word_width, NULL);
 }
 
 HTMLObject *
