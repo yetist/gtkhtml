@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.13.0\n"
-"POT-Creation-Date: 2001-12-13 14:32+0100\n"
-"PO-Revision-Date: 2001-12-13 14:35CET\n"
+"POT-Creation-Date: 2002-01-04 16:11+0100\n"
+"PO-Revision-Date: 2002-01-04 16:12CET\n"
 "Last-Translator: Stanislav Visnovsky <visnovsky@nenya.ms.mff.cuni.cz>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -340,7 +340,7 @@ msgid "Header _6"
 msgstr "Hlavička _6"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
-#: components/html-editor/editor-control-factory.c:186
+#: components/html-editor/editor-control-factory.c:188
 #: components/html-editor/gtkhtml-editor-properties.glade.h:36
 #: components/html-editor/menubar.c:106 components/html-editor/popup.c:166
 msgid "Image"
@@ -373,7 +373,7 @@ msgstr "Zarovná odstavce vľavo"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
 #: components/html-editor/body.c:187
-#: components/html-editor/editor-control-factory.c:221
+#: components/html-editor/editor-control-factory.c:223
 #: components/html-editor/menubar.c:127 components/html-editor/popup.c:180
 msgid "Link"
 msgstr "Odkaz"
@@ -511,7 +511,7 @@ msgid "Roman Numeral List"
 msgstr "Zoznam s rímskymi číslicami"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
-#: components/html-editor/editor-control-factory.c:206
+#: components/html-editor/editor-control-factory.c:208
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
 #: components/html-editor/menubar.c:145 components/html-editor/popup.c:194
 msgid "Rule"
@@ -739,7 +739,7 @@ msgid "Automatic"
 msgstr "Automatické"
 
 #: components/html-editor/body.c:186
-#: components/html-editor/editor-control-factory.c:195
+#: components/html-editor/editor-control-factory.c:197
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
 #: components/html-editor/menubar.c:122 components/html-editor/popup.c:159
 msgid "Text"
@@ -750,27 +750,27 @@ msgstr "Text"
 msgid "Background"
 msgstr "Pozadie"
 
-#: components/html-editor/editor-control-factory.c:176
+#: components/html-editor/editor-control-factory.c:178
 #: components/html-editor/popup.c:151
 msgid "Properties"
 msgstr "Vlastnosti"
 
-#: components/html-editor/editor-control-factory.c:216
+#: components/html-editor/editor-control-factory.c:218
 #: components/html-editor/popup.c:173
 msgid "Paragraph"
 msgstr "Odstavec"
 
-#: components/html-editor/editor-control-factory.c:226
+#: components/html-editor/editor-control-factory.c:228
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
 #: components/html-editor/popup.c:187
 msgid "Page"
 msgstr "Stránka"
 
-#: components/html-editor/editor-control-factory.c:843
+#: components/html-editor/editor-control-factory.c:844
 msgid "Could not initialize GNORBA"
 msgstr "Nie je možné inicializovať GNORBA"
 
-#: components/html-editor/editor-control-factory.c:856
+#: components/html-editor/editor-control-factory.c:857
 msgid "Could not initialize Bonobo"
 msgstr "Nie je možné inicializovať Bonobo"
 
@@ -1076,8 +1076,8 @@ msgstr ""
 "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
 "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
 "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-"@src@@width@@height@align=top border=0></td></tr><tr><td><b>[Sem "
-"zadajte komentár]</td></tr></table></td></tr></table></center>"
+"@src@@width@@height@align=top border=0></td></tr><tr><td><b>[Sem zadajte "
+"komentár]</td></tr></table></td></tr></table></center>"
 
 #: components/html-editor/image.c:247
 msgid "The quick brown fox jumped over the lazy dog. "
@@ -1173,7 +1173,7 @@ msgstr "Pridať '%s' do slovníka..."
 msgid "Ignore '%s'"
 msgstr "Ignorovať '%s'"
 
-#: components/html-editor/popup.c:373 components/html-editor/spell.c:419
+#: components/html-editor/popup.c:373 components/html-editor/spell.c:418
 msgid "Spell checker"
 msgstr "Kontrola pravopisu"
 
@@ -1287,9 +1287,13 @@ msgstr "hľadať dozadu"
 msgid "Find Regular Expression"
 msgstr "Hľadať regulárny výraz"
 
-#: components/html-editor/spell.c:414
+#: components/html-editor/spell.c:413
 msgid "No misspelled word found"
 msgstr "Nenájdené žiadne nesprávne slovo"
+
+#: components/html-editor/spell.c:490
+msgid "_Languages"
+msgstr "_Jazyky"
 
 #: components/html-editor/table.c:198
 msgid "Flat gray"
@@ -1406,6 +1410,14 @@ msgstr "Príklad"
 #: src/htmlgdkpainter.c:228
 msgid "Can't load fixed font."
 msgstr "Nepodarilo sa načítať písmo s pevnou šírkou."
+
+#: src/htmlengine-print.c:200
+msgid "Cannot allocate default font for printing\n"
+msgstr "Nepodarilo sa alokovať štandardné písmo pre tlač\n"
+
+#: src/htmlprinter.c:69
+msgid "US-Letter"
+msgstr "US-Letter"
 
 #: src/testgtkhtml.c:112
 msgid "Print pre_view"
