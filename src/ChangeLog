@@ -1,3 +1,8 @@
+2001-09-26  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine-edit-clueflowstyle.h: make the prototype match the
+	function.
+
 2001-09-25  Lauris Kaplinski  <lauris@ximian.com>
 
 	* htmlprinter.c (draw_panel): Close path before fill

@@ -26,15 +26,17 @@
 #include "htmlclueflow.h"
 
 gboolean           html_engine_set_clueflow_style                (HTMLEngine                     *engine,
-								  HTMLClueFlowStyle               style,
-								  HTMLHAlignType                  alignment,
+								  HTMLClueFlowStyle               style,	
 								  HTMLListType                    item_type,
+								  HTMLHAlignType                  alignment,
 								  gint                            indentation_delta,
 								  HTMLEngineSetClueFlowStyleMask  mask,
 								  gboolean                        do_undo);
+
 void               html_engine_get_current_clueflow_style        (HTMLEngine                     *engine,
 								  HTMLClueFlowStyle              *style,
 								  HTMLListType                   *item_type);
+
 guint              html_engine_get_current_clueflow_indentation  (HTMLEngine                     *engine);
 HTMLHAlignType     html_engine_get_current_clueflow_alignment    (HTMLEngine                     *engine);
 
