@@ -66,7 +66,7 @@ gtk_html_control_data_destroy (GtkHTMLControlData *cd)
 	if (cd->replace_dialog)
 		gtk_html_replace_dialog_destroy (cd->replace_dialog);
 
-	printf ("release dict\n");
+	/* printf ("release dict\n"); */
 	bonobo_object_release_unref (cd->dict, NULL);
 
 	if (cd->plain_painter) 

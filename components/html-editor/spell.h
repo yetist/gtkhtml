@@ -38,6 +38,7 @@ void                    spell_add_to_session        (GtkHTML            *html,
 						     gpointer            data);
 void                    spell_add_to_personal       (GtkHTML            *html,
 						     const gchar        *word,
+						     const gchar        *language,
 						     gpointer            data);
 void                    spell_set_language          (GtkHTML            *html,
 						     const gchar        *language,

@@ -404,7 +404,7 @@ editor_set_format (GtkHTMLControlData *cd, gboolean format_html)
 		old_p = cd->gdk_painter;
 	}		
 
-	printf ("set format %d\n", format_html);
+	/* printf ("set format %d\n", format_html); */
 
 	toolbar_update_format (cd);
 	menubar_update_format (cd);
@@ -733,7 +733,7 @@ editor_control_factory (BonoboGenericFactory *factory, const gchar *component_id
 	BonoboControl *control;
 	GtkWidget *vbox;
 
-	printf ("factory: %s\n", component_id);
+	/* printf ("factory: %s\n", component_id); */
 
 	editor_control_init ();
 

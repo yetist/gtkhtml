@@ -301,7 +301,7 @@ spell_add (GtkWidget *mi, GtkHTMLControlData *cd)
 
 	word = html_engine_get_spell_word (e);
 	if (word) {
-		spell_add_to_personal (cd->html, word, cd);
+		spell_add_to_personal (cd->html, word, g_object_get_data (G_OBJECT (mi), "abbrev"), cd);
 		g_free (word);
 	}
 	html_engine_spell_check (e);
@@ -383,6 +383,34 @@ insert_html (GtkWidget *mi, GtkHTMLControlData *cd)
 			gtk_widget_show (menu); \
 			menu = menuparent
 
+static gint
+get_n_languages (GtkHTMLControlData *cd)
+{
+	gint i, n = 0;
+
+	if (cd->languages)
+		for (i = 0; i < cd->languages->_length; i ++)
+			if (strstr (cd->html->engine->language, cd->languages->_buffer [i].abbreviation))
+				n ++;
+
+	return n;
+}
+
+static const gchar *
+get_language (GtkHTMLControlData *cd)
+{
+	gint i;
+	const gchar *abbrev = NULL;
+
+	if (cd->languages)
+		for (i = 0; i < cd->languages->_length; i ++)
+			if (strstr (cd->html->engine->language, cd->languages->_buffer [i].abbreviation)) {
+				abbrev = cd->languages->_buffer [i].abbreviation;
+			}
+
+	return abbrev;
+}
+
 static GtkWidget *
 prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items, guint *props)
 {
@@ -436,25 +464,29 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items, guint *props)
 	    && !html_engine_spell_word_is_valid (e)) {
 		gchar *spell, *word, *ignore, *add;
 
-		word   = html_engine_get_spell_word (e);
-		spell  = g_strdup_printf (_("Check '%s' spelling..."), word);
-		add    = g_strdup_printf (_("Add '%s' to dictionary"), word);
-		ignore = g_strdup_printf (_("Ignore '%s'"), word);
 		ADD_SEP;
-		SUBMENU (N_("Spell checker"));
-		if (cd->has_spell_control) {
-			ADD_ITEM (spell, spell_check_cb, NONE);
-		} else {
-			ADD_ITEM (_("Suggest word"), spell_suggest, NONE);
-		}
-		ADD_ITEM (add, spell_add, NONE);
-		ADD_ITEM (ignore, spell_ignore, NONE);
-		END_SUBMENU;
+		ADD_ITEM ("Check word spelling...", spell_check_cb, NONE);
+		if (get_n_languages (cd) > 1) {
+			gchar *lang;
+			gint i;
 
-		g_free (spell);
-		g_free (add);
-		g_free (ignore);
-		g_free (word);
+			SUBMENU ("Add word to");
+
+			for (i = 0; i < cd->languages->_length; i ++) {
+				if (strstr (cd->html->engine->language, cd->languages->_buffer [i].abbreviation)) {
+					lang = g_strdup_printf (_("%s dictionary"), cd->languages->_buffer [i].name);
+					ADD_ITEM (lang, spell_add, NONE);
+					g_object_set_data (G_OBJECT (menuitem), "abbrev", cd->languages->_buffer [i].abbreviation);
+					g_free (lang);
+				}
+			}
+			
+			END_SUBMENU;
+		} else {
+			ADD_ITEM ("Add word to dictionary", spell_add, NONE);
+			g_object_set_data (G_OBJECT (menuitem), "abbrev", get_language (cd));
+		}
+		ADD_ITEM ("Ignore misspelled word", spell_ignore, NONE);
 	}
 
 	if (cd->format_html && obj) {

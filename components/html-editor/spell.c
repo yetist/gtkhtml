@@ -102,7 +102,7 @@ spell_add_to_session (GtkHTML *html, const gchar *word, gpointer data)
 }
 
 void
-spell_add_to_personal (GtkHTML *html, const gchar *word, gpointer data)
+spell_add_to_personal (GtkHTML *html, const gchar *word, const gchar *language, gpointer data)
 {
 	GtkHTMLControlData *cd = (GtkHTMLControlData *) data;
 	CORBA_Environment   ev;
@@ -113,7 +113,7 @@ spell_add_to_personal (GtkHTML *html, const gchar *word, gpointer data)
 		return;
 
 	CORBA_exception_init (&ev);
-	/* FIXME spell GNOME_Spell_Dictionary_addWordToPersonal (cd->dict, word, &ev); */
+	GNOME_Spell_Dictionary_addWordToPersonal (cd->dict, word, language, &ev);
 	CORBA_exception_free (&ev);
 }
 
