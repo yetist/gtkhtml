@@ -747,7 +747,7 @@ draw_text (HTMLTextSlave *self,
 	selection = isect_start < isect_end;
 
 	if (p->widget && GTK_IS_HTML (p->widget))
-		e = GTK_HTML (p->widget)->engine;
+		e = html_object_engine (HTML_OBJECT (self->owner), GTK_HTML (p->widget)->engine);
 
 	if (selection) {
 		gchar *end;
@@ -777,6 +777,9 @@ draw_text (HTMLTextSlave *self,
 		GList *cur_se;
 		int cur_width;
 
+		if (e)
+			html_painter_set_pen (p, &html_colorset_get_color_allocated (e->settings->color_set,
+										     e->painter, HTMLTextColor)->color);
 		cur_width = html_painter_draw_glyphs (p, obj->x + tx + html_painter_pango_to_engine (p, run_width),
 						      obj->y + ty + get_ys (text, p), gi->glyph_item.item, gi->glyph_item.glyphs, NULL, NULL);
 
@@ -841,7 +844,7 @@ draw_text (HTMLTextSlave *self,
 }
 
 static void
-draw_focus_rectangle  (HTMLPainter *painter, GdkRectangle *box)
+draw_focus_rectangle  (HTMLTextSlave *slave, HTMLPainter *painter, GdkRectangle *box)
 {
 	HTMLGdkPainter *p;
 	GdkGCValues values;
@@ -849,7 +852,7 @@ draw_focus_rectangle  (HTMLPainter *painter, GdkRectangle *box)
 	HTMLEngine *e;
 
 	if (painter->widget && GTK_IS_HTML (painter->widget))
-		e = GTK_HTML (painter->widget)->engine;
+		e = html_object_engine (HTML_OBJECT (slave->owner), GTK_HTML (painter->widget)->engine);
 	else
 		return;
 
@@ -889,7 +892,7 @@ draw_focus (HTMLTextSlave *slave, HTMLPainter *p, gint tx, gint ty)
 			rect.width -= html_text_calc_part_width (slave->owner, p, slave->owner->text + link->end_index, link->end_offset,
 								 slave->posStart + slave->posLen - link->end_offset, NULL, NULL);
 		rect.y += ty;
-		draw_focus_rectangle (p, &rect);
+		draw_focus_rectangle (slave, p, &rect);
 	}
 }
 

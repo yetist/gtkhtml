@@ -149,7 +149,7 @@ html_rule_draw (HTMLObject *o,
 	HTMLEngine *e;
 
 	if (p->widget && GTK_IS_HTML (p->widget))
-		e = GTK_HTML (p->widget)->engine;
+		e = html_object_engine (o, GTK_HTML (p->widget)->engine);
 	else
 		return;
 

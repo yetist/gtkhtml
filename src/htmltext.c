@@ -1187,7 +1187,7 @@ prepare_attrs (HTMLText *text, HTMLPainter *painter)
 		flow = HTML_CLUEFLOW (HTML_OBJECT (text)->parent);
 		
 	if (painter->widget && GTK_IS_HTML (painter->widget))
-		e = GTK_HTML (painter->widget)->engine;
+		e = html_object_engine (HTML_OBJECT (text), GTK_HTML (painter->widget)->engine);
 
 	if (flow && e)
 		html_text_add_cite_color (attrs, text, flow, e);
@@ -1217,7 +1217,7 @@ prepare_attrs (HTMLText *text, HTMLPainter *painter)
 		pango_attr_list_splice (attrs, text->extra_attr_list, 0, 0);
 	if (!HTML_IS_PLAIN_PAINTER (painter)) {
 		if (flow && e)
-			html_text_change_attrs (attrs, html_clueflow_get_default_font_style (flow), GTK_HTML (painter->widget)->engine, 0, text->text_bytes, TRUE);
+			html_text_change_attrs (attrs, html_clueflow_get_default_font_style (flow), e, 0, text->text_bytes, TRUE);
 	}
 
 	if (text->links && e) {

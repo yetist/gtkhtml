@@ -322,9 +322,11 @@ get_bg_color (HTMLObject *o,
 	if (o->parent)
 		return html_object_get_bg_color (o->parent, p);	
 
-	if (p->widget && GTK_IS_HTML (p->widget))
-		return &((html_colorset_get_color (GTK_HTML (p->widget)->engine->settings->color_set,
-						   HTMLBgColor))->color);
+	if (p->widget && GTK_IS_HTML (p->widget)) {
+		HTMLEngine *e = html_object_engine (o, GTK_HTML (p->widget)->engine);
+		return &((html_colorset_get_color (e->settings->color_set, HTMLBgColor))->color);
+	}
+
 	return NULL;
 }
 

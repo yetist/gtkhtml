@@ -1,3 +1,14 @@
+2005-03-16  Radek Doulik  <rodo@novell.com>
+
+	* whenever getting engine from painter, use html_object_engine to
+	retrieve the right engine for that object as painters are shared
+	between different frame level engines
+
+	* htmlgdkpainter.c (draw_glyphs): use pen color, only set fg color
+	if overriden by pango attributes or passed color
+
+	* htmltextslave.c (draw_text): set pen color before drawing glyphs
+
 2005-03-15  Radek Doulik  <rodo@novell.com>
 
 	* htmltext.c (prepare_attrs): add size attributes in case

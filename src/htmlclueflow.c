@@ -1209,7 +1209,7 @@ draw_quotes (HTMLObject *self, HTMLPainter *painter,
 	HTMLEngine *e;
 
 	if (painter->widget && GTK_IS_HTML (painter->widget))
-		e = GTK_HTML (painter->widget)->engine;
+		e = html_object_engine (self, GTK_HTML (painter->widget)->engine);
 	else
 		return;
 	
@@ -1280,7 +1280,7 @@ draw_item (HTMLObject *self, HTMLPainter *painter, gint x, gint y, gint width, g
 	HTMLEngine *e;
 
 	if (painter->widget && GTK_IS_HTML (painter->widget))
-		e = GTK_HTML (painter->widget)->engine;
+		e = html_object_engine (self, GTK_HTML (painter->widget)->engine);
 	else
 		return;
 

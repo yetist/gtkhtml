@@ -350,7 +350,7 @@ draw_plain (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint heig
 	HTMLEngine *e;
 
 	if (p->widget && GTK_IS_HTML (p->widget))
-		e = GTK_HTML (p->widget)->engine;
+		e = html_object_engine (o, GTK_HTML (p->widget)->engine);
 	else
 		return;
 
@@ -380,7 +380,7 @@ draw_plain (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint heig
 }
 
 static void
-draw_focus  (HTMLPainter *painter, GdkRectangle *box)
+draw_focus  (HTMLImage *image, HTMLPainter *painter, GdkRectangle *box)
 {
 	HTMLGdkPainter *p;
 	GdkGCValues values;
@@ -388,7 +388,7 @@ draw_focus  (HTMLPainter *painter, GdkRectangle *box)
 	HTMLEngine *e;
 
 	if (painter->widget && GTK_IS_HTML (painter->widget))
-		e = GTK_HTML (painter->widget)->engine;
+		e = html_object_engine (HTML_OBJECT (image), GTK_HTML (painter->widget)->engine);
 	else
 		return;
 
@@ -428,7 +428,7 @@ draw (HTMLObject *o,
 	HTMLEngine *e;
 
 	if (painter->widget && GTK_IS_HTML (painter->widget))
-		e = GTK_HTML (painter->widget)->engine;
+		e = html_object_engine (o, GTK_HTML (painter->widget)->engine);
 	else
 		return;
 
@@ -517,7 +517,7 @@ draw (HTMLObject *o,
 			rect.width = scale_width + (2 * image->border) * pixel_size;
 			rect.height = scale_height + (2 * image->border) * pixel_size;
 
-			draw_focus (painter, &rect);
+			draw_focus (image, painter, &rect);
 		}				     
 
 		return;
@@ -554,7 +554,7 @@ draw (HTMLObject *o,
 		rect.width = scale_width + (2 * image->border) * pixel_size;
 		rect.height = scale_height + (2 * image->border) * pixel_size;
 
-		draw_focus (painter, &rect);
+		draw_focus (image, painter, &rect);
 	}
 }
 

@@ -431,9 +431,12 @@ draw (HTMLObject *o,
 		if (cluev->border_color) {
 			html_painter_alloc_color (p, &cluev->border_color->color);
 			color = &cluev->border_color->color;
-		} else
-			color = &html_colorset_get_color_allocated (GTK_HTML (p->widget)->engine->settings->color_set,
+		} else {
+			HTMLEngine *e = html_object_engine (o, GTK_HTML (p->widget)->engine);
+			color = &html_colorset_get_color_allocated (e->settings->color_set,
 								    p, HTMLTextColor)->color;
+		}
+
 		html_painter_draw_border (p, color,
 					  tx, ty, 
 					  o->width,
