@@ -685,6 +685,8 @@ calc_lowest_fill (HTMLTable *table, gint *max_size, gint *col_percent, gint pixe
 	return min_fill == COLUMN_PREF_POS (table, table->totalCols) ? FALSE : TRUE;
 }
 
+#define LL (unsigned long long)
+
 static void
 divide_into_variable_all (HTMLTable *table, HTMLPainter *painter, gint *col_percent, gint *max_size, gint left)
 {
@@ -719,8 +721,9 @@ divide_into_variable_all (HTMLTable *table, HTMLPainter *painter, gint *col_perc
 				- pixel_size * (table->spacing + border_extra);
 			if (col_percent [c + 1] == col_percent [c] && max_size [c] < pw) {
 				processed_pw += pw;
-				part = (min_fill * processed_pw) / min_pw;
-				if (min_fill * processed_pw -  part * min_pw > (part + 1) * min_pw - min_fill * processed_pw)
+				part = (LL min_fill * processed_pw) / min_pw;
+				if (LL min_fill * processed_pw - LL part * min_pw
+				    > LL (part + 1) * min_pw - LL min_fill * processed_pw)
 					part ++;
 				part         -= added;
 				added        += part;
@@ -751,11 +754,11 @@ divide_into_variable_all (HTMLTable *table, HTMLPainter *painter, gint *col_perc
 					pw  = COLUMN_PREF_POS (table, c + 1) - COLUMN_PREF_POS (table, c)
 						- pixel_size * (table->spacing + border_extra);
 					processed_pw += pw;
-					part = (total_fill * processed_pw) / pref;
+					part = (LL total_fill * processed_pw) / pref;
 					/* printf ("pw %d part %d total %d processed %d\n",
 					   pw, part, total_fill, processed_pw); */
-					if (total_fill * processed_pw - part * pref
-					    > (part + 1) * pref - total_fill * processed_pw)
+					if (LL total_fill * processed_pw - LL part * pref
+					    > LL (part + 1) * pref - LL total_fill * processed_pw)
 						part ++;
 					part         -= added;
 					max_size [c] += part;

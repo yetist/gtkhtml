@@ -4,6 +4,8 @@
 	(draw): use parent color for border panel
 	(draw): use cell color for its border panel
 	fix border_extra everywhere
+	(LL): use unsigned long long while scaling to avoid overflows
+	while printing
 
 	* htmlobject.c (html_object_set_bg_color): new function
 
