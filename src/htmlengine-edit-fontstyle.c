@@ -147,15 +147,17 @@ split_safely (HTMLText *text,
 
 /* This handles merging of consecutive text elements with the same
    properties.  */
-static void
+static guint
 merge_backward (HTMLObject *object,
 		HTMLCursor *cursor,
 		HTMLCursor *mark)
 {
 	GtkHTMLFontStyle font_style;
 	HTMLObject *p, *pprev;
+	guint total_merge;
 
 	font_style = HTML_TEXT (object)->font_style;
+	total_merge = 0;
 
 	for (p = object->prev; p != NULL; p = pprev) {
 		pprev = p->prev;
@@ -164,22 +166,27 @@ merge_backward (HTMLObject *object,
 			html_object_destroy (p);
 		} else if (HTML_OBJECT_TYPE (object) == HTML_OBJECT_TYPE (p)
 			   && html_text_check_merge (HTML_TEXT (object), HTML_TEXT (p))) {
+			total_merge += HTML_TEXT (object)->text_len;
 			merge_safely (HTML_TEXT (object), HTML_TEXT (p), TRUE, cursor, mark);
 		} else {
 			break;
 		}
 	}
+
+	return total_merge;
 }
 
-static void
+static guint
 merge_forward (HTMLObject *object,
 	       HTMLCursor *cursor,
 	       HTMLCursor *mark)
 {
 	GtkHTMLFontStyle font_style;
 	HTMLObject *p, *pnext;
+	guint total_merge;
 
 	font_style = HTML_TEXT (object)->font_style;
+	total_merge = 0;
 
 	for (p = object->next; p != NULL; p = pnext) {
 		pnext = p->next;
@@ -188,11 +195,14 @@ merge_forward (HTMLObject *object,
 			html_object_destroy (p);
 		} else if (HTML_OBJECT_TYPE (object) == HTML_OBJECT_TYPE (p)
 			   && html_text_check_merge (HTML_TEXT (object), HTML_TEXT (p))) {
+			total_merge += HTML_TEXT (object)->text_len;
 			merge_safely (HTML_TEXT (object), HTML_TEXT (p), FALSE, cursor, mark);
 		} else {
 			break;
 		}
 	}
+
+	return total_merge;
 }
 
 
@@ -229,6 +239,8 @@ figure_interval (HTMLObject *p,
 
 	*start_return = start;
 	*end_return = end;
+
+	printf ("%s %d %d %d (%d)\n", __FUNCTION__, count, start, end, backwards);
 }
 
 static GList *
@@ -243,6 +255,7 @@ set_font_style (HTMLEngine *engine,
 	GtkHTMLFontStyle last_font_style;
 	HTMLObject *p, *pparent;
 	GList *orig_styles;
+	guint total_merged;
 
 	p = engine->cursor->object;
 	last_font_style = GTK_HTML_FONT_STYLE_DEFAULT;
@@ -250,74 +263,49 @@ set_font_style (HTMLEngine *engine,
 
 	while (count > 0) {
 		HTMLTextMaster *curr;
-		HTMLObject *next;
 		guint start, end;
 
 		if (! html_object_is_text (p)) {
 			count --;
 			goto next;
 		}
+		curr = HTML_TEXT_MASTER (p);
+
+		g_print ("Doing text -- %s\n", HTML_TEXT (curr)->text);
 
 		figure_interval (p, engine->cursor, backwards, count, &start, &end);
-
-		if (start == end)
+		if (start == end) {
+			g_print ("\tSkipped\n");
 			goto next;
+		}
+
+		count -= end - start;
+		printf ("\tSetting %d -- count now %d\n", end - start, count);
 
 		font_style = (HTML_TEXT (p)->font_style & and_mask) | or_mask;
 		if (font_style == HTML_TEXT (p)->font_style) {
-			merge_backward (HTML_OBJECT (p), engine->cursor, engine->mark);
+			g_print ("\tSkipping\n");
 			goto next;
 		}
 
-		if (start == 0) {
-			curr = HTML_TEXT_MASTER (p);
-		} else {
+		/* Split at start.  */
+
+		if (start > 0) {
 			curr = HTML_TEXT_MASTER (split_safely (HTML_TEXT (p), start,
 							       engine->cursor, engine->mark));
+			g_print ("Splitting at start %p -> %p\n", p, curr);
 			html_clue_append_after (HTML_CLUE (p->parent), HTML_OBJECT (curr), p);
-
 			end -= start;
+			start = 0;
 		}
 
-		last_font_style = HTML_TEXT (curr)->font_style;
+		/* Split at end.  */
 
-		/* Merge as many selected following elements as possible.  FIXME: we
-		   could be faster and merge all of them at once, but for now we really
-		   don't care.  */
-
-		next = HTML_OBJECT (curr)->next;
-		while (next != NULL) {
-			if (HTML_OBJECT_TYPE (next) == HTML_TYPE_TEXTSLAVE) {
-				html_clue_remove (HTML_CLUE (next->parent), next);
-				html_object_destroy (next);
-				next = HTML_OBJECT (curr)->next;
-			} else if (HTML_OBJECT_TYPE (next) == HTML_OBJECT_TYPE (p)
-				   && (((HTML_TEXT (next)->font_style & and_mask) | or_mask)
-				       == font_style)) {
-				last_font_style = HTML_TEXT (next)->font_style;
-
-				if (do_undo)
-					prepend_style_segment (&orig_styles,
-							       HTML_TEXT (curr)->font_style,
-							       HTML_TEXT (curr)->text_len);
-
-				merge_safely (HTML_TEXT (curr), HTML_TEXT (next),
-					      FALSE, engine->cursor, engine->mark);
-				next = HTML_OBJECT (curr)->next;
-			} else {
-				break;
-			}
-		}
-
-		/* Split the current element so that we leave the non-selected part in
-		   the correct style.  */
-
-		if (last_font_style != font_style
-		    && end < HTML_TEXT (curr)->text_len) {
+		if (end < HTML_TEXT (curr)->text_len) {
 			HTMLText *new;
 
 			new = split_safely (HTML_TEXT (curr), end, engine->cursor, engine->mark);
-			html_text_set_font_style (new, NULL, last_font_style);
+			g_print ("Splitting at end %p -> %p\n", curr, new);
 			html_clue_append_after (HTML_CLUE (HTML_OBJECT (curr)->parent),
 						HTML_OBJECT (new), HTML_OBJECT (curr));
 		}
@@ -326,27 +314,36 @@ set_font_style (HTMLEngine *engine,
 		if (do_undo)
 			prepend_style_segment (&orig_styles,
 					       HTML_TEXT (curr)->font_style,
-					       HTML_TEXT (curr)->text_len);
+					       end - start);
 
 		/* Finally set the style.  */
 		html_text_set_font_style (HTML_TEXT (curr), NULL, font_style);
-		count -= HTML_TEXT (curr)->text_len;
 
+	next:
 		/* At this point, we might have elements before or after us with the
 		   same font style.  We don't want to have contiguous equal text
 		   elements, so we merge more stuff here.  */
 
-		if (backwards)
-			merge_backward (HTML_OBJECT (curr), engine->cursor, engine->mark);
-		else
-			merge_forward (HTML_OBJECT (curr), engine->cursor, engine->mark);
+		total_merged = merge_backward (p, engine->cursor, engine->mark);
+		if (backwards) {
+			if (total_merged > count)
+				count = 0;
+			else
+				count -= total_merged;
+		}
 
-	next:
+		total_merged = merge_forward (p, engine->cursor, engine->mark);
+		if (! backwards) {
+			if (total_merged > count)
+				count = 0;
+			else
+				count -= total_merged;
+		}
+
 		if (count == 0)
 			break;
 
 		pparent = p->parent;
-
 		if (backwards)
 			p = html_object_prev_for_cursor (p);
 		else

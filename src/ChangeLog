@@ -1,5 +1,17 @@
 2000-05-09  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine-edit-fontstyle.c (set_font_style): Don't do stupid
+	merging.  Decrease count when splitting and setting the font.
+	Don't make your life harder when merging.  Overall fixup.
+	(merge_backward): Return value changed from `void' to `gboolean'.
+	Return true if a merge happened.
+	(merge_forward): Likewise.
+
+	* htmltextmaster.c (calculate_new_selection): New helper function.
+	(merge): Use it.
+
+2000-05-09  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* htmlengine-edit-fontstyle.c (do_redo): Reverse the direction for redo.
 
 2000-05-08  Ettore Perazzoli  <ettore@helixcode.com>

@@ -506,6 +506,32 @@ split (HTMLText *self,
 }
 
 static void
+calculate_new_selection (HTMLText *obj1,
+			 HTMLText *obj2,
+			 guint *select_start_return,
+			 guint *select_length_return)
+{
+	if (HTML_TEXT_MASTER (obj1)->select_length == 0) {
+		*select_start_return = (HTML_TEXT_MASTER (obj2)->select_start
+					+ HTML_TEXT (obj1)->text_len);
+		*select_length_return = HTML_TEXT_MASTER (obj2)->select_length;
+		return;
+	}
+
+	if (HTML_TEXT_MASTER (obj2)->select_length == 0) {
+		*select_start_return = HTML_TEXT_MASTER (obj1)->select_start;
+		*select_length_return = HTML_TEXT_MASTER (obj1)->select_length;
+		return;
+	}
+
+	*select_start_return = HTML_TEXT_MASTER (obj1)->select_start;
+	*select_length_return = (HTML_TEXT (obj1)->text_len
+				 - HTML_TEXT_MASTER (obj1)->select_start
+				 + HTML_TEXT_MASTER (obj2)->select_start
+				 + HTML_TEXT_MASTER (obj2)->select_length);
+}
+
+static void
 merge (HTMLText *self,
        HTMLText *other,
        gboolean prepend)
@@ -517,38 +543,10 @@ merge (HTMLText *self,
 	if (other->text_len == 0)
 		return;
 
-	/* Calculate the new selection.  */
-
-	if (prepend) {
-		if (HTML_TEXT_MASTER (self)->select_length == 0) {
-			select_start = HTML_TEXT_MASTER (other)->select_start;
-			select_length = HTML_TEXT_MASTER (other)->select_length;
-		} else if (HTML_TEXT_MASTER (other)->select_length == 0) {
-			select_start = HTML_TEXT (other)->text_len;
-			select_length = HTML_TEXT_MASTER (self)->select_length;
-		} else {
-			select_start = HTML_TEXT_MASTER (other)->select_start;
-			select_length = (HTML_TEXT (other)->text_len
-					 + HTML_TEXT_MASTER (self)->select_start
-					 + HTML_TEXT_MASTER (self)->select_length
-					 - HTML_TEXT_MASTER (other)->select_start);
-		}
-	} else {
-		if (HTML_TEXT_MASTER (self)->select_length == 0) {
-			select_start = (HTML_TEXT_MASTER (other)->select_length
-					+ HTML_TEXT (self)->text_len);
-			select_length = HTML_TEXT_MASTER (other)->select_length;
-		} else if (HTML_TEXT_MASTER (other)->select_length == 0) {
-			select_start = HTML_TEXT_MASTER (self)->select_start;
-			select_length = HTML_TEXT_MASTER (self)->select_length;
-		} else {
-			select_start = HTML_TEXT_MASTER (self)->select_start;
-			select_length = (HTML_TEXT (self)->text_len
-					 + HTML_TEXT_MASTER (other)->select_start
-					 + HTML_TEXT_MASTER (other)->select_length
-					 - HTML_TEXT_MASTER (self)->select_start);
-		}
-	}
+	if (prepend)
+		calculate_new_selection (other, self, &select_start, &select_length);
+	else
+		calculate_new_selection (self, other, &select_start, &select_length);
 
 	total_length = self->text_len + other->text_len;
 	new_text = g_malloc (total_length + 1);
