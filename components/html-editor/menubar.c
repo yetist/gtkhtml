@@ -395,6 +395,9 @@ paragraph_style_cb (BonoboUIComponent           *component,
 	GtkHTMLControlData *cd = (GtkHTMLControlData *)user_data;
 	int i;
 	
+	if (cd->block_font_style_change)
+		return;
+
 	/* g_warning ("wowee %s :: %s", path, state); */
 	if (!atoi(state))
 		return; 

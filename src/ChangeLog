@@ -1,3 +1,8 @@
+2002-05-22  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (gtk_html_set_paragraph_style): fix the styles equal
+	condition
+
 2002-05-20  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-clueflowstyle.c

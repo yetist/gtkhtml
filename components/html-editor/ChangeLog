@@ -1,3 +1,8 @@
+2002-05-22  Radek Doulik  <rodo@ximian.com>
+
+	* menubar.c (paragraph_style_cb): don't set style if
+	block_font_style_change
+
 2002-05-08  Radek Doulik  <rodo@ximian.com>
 
 	* GNOME_GtkHTML_Editor.xml.in: moved lists before hedings

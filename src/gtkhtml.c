@@ -3070,7 +3070,8 @@ gtk_html_set_paragraph_style (GtkHTML *html,
 	paragraph_style_to_clueflow_style (style, &clueflow_style, &item_type);
 
 	html_engine_get_current_clueflow_style (html->engine, &current_style, &cur_item_type);
-	if (current_style == clueflow_style && item_type == cur_item_type)
+	if (current_style == clueflow_style
+	    && (current_style != HTML_CLUEFLOW_STYLE_LIST_ITEM || item_type == cur_item_type))
 		return;
 
 	if (! html_engine_set_clueflow_style (html->engine, clueflow_style, item_type, 0, 0,
