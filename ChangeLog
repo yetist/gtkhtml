@@ -1,6 +1,7 @@
 2002-03-27  Larry Ewing  <lewing@ximian.com>
 
 	* configure.in: add horrible cruft to version translation files.
+	fix cruft a little.
 
 2002-03-26  Larry Ewing  <lewing@ximian.com>
 

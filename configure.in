@@ -35,7 +35,7 @@ if test -f $srcdir/po/Makefile.in.in ; then
 else
     AC_MSG_ERROR([
 ""
-"Can't find Makefile: $srcdir/po/Makefile.in.in"
+"Can not find Makefile: $srcdir/po/Makefile.in.in"
 ])
 fi
 
