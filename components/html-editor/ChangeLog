@@ -1,3 +1,17 @@
+2000-05-17  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* toolbar.c
+	(editor_toolbar_left_align_cb): If the button is now inactive,
+	don't do anything, because it means that the user has clicked on
+	another button in the same radiogroup.
+	(editor_toolbar_center_cb): Likewise.
+	(editor_toolbar_right_align_cb): Likewise.
+	(safe_set_active): New helper function to set a toggle button
+	active without triggering the corresponding callback.
+	(paragraph_alignment_changed_cb): Use it to update the buttons.
+	This way we don't get a callback every time the current alignment
+	changes.
+
 2000-05-16  Larry Ewing  <lewing@helixcode.com>
 
 	* image.c (insert): renamed html_image_set_filename to html_image_set_url.

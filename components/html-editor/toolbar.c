@@ -314,6 +314,11 @@ editor_toolbar_left_align_cb (GtkWidget *widget,
 {
 	ToolbarData *toolbar_data;
 
+	/* If the button is not active at this point, it means that the user clicked on
+           some other button in the radio group.  */
+	if (! gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
+		return;
+
 	toolbar_data = (ToolbarData *) data;
 	gtk_html_align_paragraph (GTK_HTML (toolbar_data->html),
 				  GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT);
@@ -324,6 +329,11 @@ editor_toolbar_center_cb (GtkWidget *widget,
 			  gpointer data)
 {
 	ToolbarData *toolbar_data;
+
+	/* If the button is not active at this point, it means that the user clicked on
+           some other button in the radio group.  */
+	if (! gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
+		return;
 
 	toolbar_data = (ToolbarData *) data;
 	gtk_html_align_paragraph (GTK_HTML (toolbar_data->html),
@@ -336,9 +346,29 @@ editor_toolbar_right_align_cb (GtkWidget *widget,
 {
 	ToolbarData *toolbar_data;
 
+	/* If the button is not active at this point, it means that the user clicked on
+           some other button in the radio group.  */
+	if (! gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
+		return;
+
 	toolbar_data = (ToolbarData *) data;
 	gtk_html_align_paragraph (GTK_HTML (toolbar_data->html),
 				  GTK_HTML_PARAGRAPH_ALIGNMENT_RIGHT);
+}
+
+static void
+safe_set_active (GtkWidget *widget,
+		 gpointer data)
+{
+	GtkObject *object;
+	GtkToggleButton *toggle_button;
+
+	object = GTK_OBJECT (widget);
+	toggle_button = GTK_TOGGLE_BUTTON (widget);
+
+	gtk_signal_handler_block_by_data (object, data);
+	gtk_toggle_button_set_active (toggle_button, TRUE);
+	gtk_signal_handler_unblock_by_data (object, data);
 }
 
 static void
@@ -352,13 +382,13 @@ paragraph_alignment_changed_cb (GtkHTML *widget,
 
 	switch (alignment) {
 	case GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT:
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toolbar_data->left_align_button), TRUE);
+		safe_set_active (toolbar_data->left_align_button, data);
 		break;
 	case GTK_HTML_PARAGRAPH_ALIGNMENT_CENTER:
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toolbar_data->center_button), TRUE);
+		safe_set_active (toolbar_data->center_button, data);
 		break;
 	case GTK_HTML_PARAGRAPH_ALIGNMENT_RIGHT:
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toolbar_data->right_align_button), TRUE);
+		safe_set_active (toolbar_data->right_align_button, data);
 		break;
 	default:
 		g_warning ("Unknown GtkHTMLParagraphAlignment %d.", alignment);
