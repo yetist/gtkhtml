@@ -288,7 +288,7 @@ forward (HTMLCursor *cursor,
                    so that you have the cursor positioned at the end of the
                    clue.  */
 
-		if (obj->next == NULL && offset == 0) {
+		if (offset == 0) {
 			cursor->offset = 1;
 			cursor->position++;
 			return TRUE;
