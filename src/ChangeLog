@@ -1,3 +1,9 @@
+2002-09-19  Radek Doulik  <rodo@ximian.com>
+
+	* htmlpainter.c (html_painter_draw_text): free only mallocated
+	memory
+	(html_painter_calc_text_width): ditto
+
 2002-09-18  Radek Doulik  <rodo@ximian.com>
 
 	* htmltextslave.c (calc_size): split just long words
