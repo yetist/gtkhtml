@@ -3,13 +3,14 @@
 # Christian Rose <menthos@menthos.com>, 2000, 2001, 2002, 2003, 2004.
 # Martin Norbäck <d95mback@dtek.chalmers.se>, 2000.
 #
-# $Id: sv.po,v 1.83 2004/06/02 17:11:49 jpr Exp $
+# $Id: sv.po,v 1.84 2004/06/02 17:39:38 menthos Exp $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2004-06-01 09:37-0400\n"
-"PO-Revision-Date: 2003-06-06 11:11+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-06-02 19:38+0200\n"
+"PO-Revision-Date: 2004-06-02 19:38+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1005,9 +1006,8 @@ msgid "Graph paper"
 msgstr "Grafpapper"
 
 #: components/html-editor/body.c:246
-#, fuzzy
 msgid "T_emplate:"
-msgstr "Mall"
+msgstr "_Mall:"
 
 #. data->entry_title = gtk_entry_new ();
 #. if (gtk_html_get_title (data->cd->html)) {
@@ -1017,9 +1017,8 @@ msgstr "Mall"
 #. g_signal_connect (data->entry_title, "changed", G_CALLBACK (entry_changed), data);
 #. editor_hig_attach_row (t1, _("T_itle:"), data->entry_title, 1);
 #: components/html-editor/body.c:256 components/html-editor/paragraph.c:112
-#, fuzzy
 msgid "General"
-msgstr "Centrera"
+msgstr "Allmänt"
 
 #: components/html-editor/body.c:267 components/html-editor/text.c:162
 #: components/html-editor/toolbar.c:301
@@ -1027,19 +1026,16 @@ msgid "Automatic"
 msgstr "Automatisk"
 
 #: components/html-editor/body.c:279
-#, fuzzy
 msgid "_Text:"
-msgstr "Text"
+msgstr "_Text:"
 
 #: components/html-editor/body.c:280
-#, fuzzy
 msgid "_Link:"
-msgstr "Länk"
+msgstr "_Länk:"
 
 #: components/html-editor/body.c:281
-#, fuzzy
 msgid "_Background:"
-msgstr "Bakgrund"
+msgstr "_Bakgrund:"
 
 #: components/html-editor/body.c:283
 #: components/html-editor/gtkhtml-editor-properties.glade.h:30
@@ -1054,11 +1050,11 @@ msgstr "Bakgrundsbild"
 #: components/html-editor/body.c:298
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
 msgid "_Source:"
-msgstr ""
+msgstr "_Källa:"
 
 #: components/html-editor/cell.c:350 components/html-editor/table.c:231
 msgid "Transparent"
-msgstr ""
+msgstr "Genomskinlig"
 
 #: components/html-editor/editor-control-factory.c:178
 #: components/html-editor/menubar.c:328 components/html-editor/menubar.c:346
@@ -1289,12 +1285,12 @@ msgstr "GtkHTML-redigerarkontroll"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:1
 msgid "    "
-msgstr ""
+msgstr "    "
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:3
 #, no-c-format
 msgid "%"
-msgstr ""
+msgstr "%"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:8
 msgid "+4"
@@ -1302,48 +1298,47 @@ msgstr "+4"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:11
 msgid "<b>Alignment &amp; Behaviour</b>"
-msgstr ""
+msgstr "<b>Justering och beteende</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:12
-#, fuzzy
 msgid "<b>Background</b>"
-msgstr "Bakgrund"
+msgstr "<b>Bakgrund</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:13
 msgid "<b>General</b>"
-msgstr ""
+msgstr "<b>Allmänt</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:14
 msgid "<b>Layout</b>"
-msgstr ""
+msgstr "<b>Layout</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:15
 msgid "<b>Scope</b>"
-msgstr ""
+msgstr "<b>Räckvidd</b>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:16
 msgid "<span weight=\"bold\">General</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Allmänt</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:17
 msgid "<span weight=\"bold\">Layout</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Layout</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:18
 msgid "<span weight=\"bold\">Link</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Länk</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:19
 msgid "<span weight=\"bold\">Size</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Storlek</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:20
 msgid "<span weight=\"bold\">Style</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Stil</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
 msgid "<span weight=\"bold\">Template</span>"
-msgstr ""
+msgstr "<span weight=\"bold\">Mall</span>"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
 #: components/html-editor/paragraph.c:131
@@ -1355,14 +1350,12 @@ msgid "Bottom"
 msgstr "Underkant"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:25
-#, fuzzy
 msgid "C_ell"
-msgstr "Cell"
+msgstr "C_ell"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#, fuzzy
 msgid "C_olor:"
-msgstr "Färg:"
+msgstr "F_ärg:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:27
 #: components/html-editor/popup.c:237
@@ -1375,9 +1368,8 @@ msgid "Center"
 msgstr "Centrera"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:29
-#, fuzzy
 msgid "Col_umn"
-msgstr "Kolumn"
+msgstr "Kol_umn"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:31
 msgid "Column span:"
@@ -1388,9 +1380,8 @@ msgid "Enable"
 msgstr "Aktivera"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:33
-#, fuzzy
 msgid "Hea_der style"
-msgstr "Rubrik 6"
+msgstr "Ru_brikstil"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:34
 msgid "Horizontal alignment:"
@@ -1401,9 +1392,8 @@ msgid "Horizontal:"
 msgstr "Vågrät:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:36
-#, fuzzy
 msgid "I_mage:"
-msgstr "Bild"
+msgstr "_Bild:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:38
 #: components/html-editor/paragraph.c:127
@@ -1444,13 +1434,12 @@ msgid "Shaded"
 msgstr "Skuggad"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:50
-#, fuzzy
 msgid "Si_ze:"
-msgstr "Storlek"
+msgstr "_Storlek:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:51
 msgid "Standard"
-msgstr ""
+msgstr "Standard"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:55
 msgid "Thickness:"
@@ -1469,98 +1458,81 @@ msgid "Width:"
 msgstr "Bredd:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:59
-#, fuzzy
 msgid "_Alignment:"
-msgstr "Justering:"
+msgstr "_Justering:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:61
-#, fuzzy
 msgid "_Border:"
-msgstr "Kant:"
+msgstr "_Kant:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:62
-#, fuzzy
 msgid "_Color:"
-msgstr "Färg:"
+msgstr "_Färg:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:63
-#, fuzzy
 msgid "_Columns:"
-msgstr "Kolumner:"
+msgstr "_Kolumner:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:64
-#, fuzzy
 msgid "_Description:"
-msgstr "Beskrivning:"
+msgstr "_Beskrivning:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:65
-#, fuzzy
 msgid "_Height:"
-msgstr "Höjd:"
+msgstr "_Höjd:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:66
-#, fuzzy
 msgid "_Image:"
-msgstr "Bild"
+msgstr "_Bild:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:68
-#, fuzzy
 msgid "_Padding:"
-msgstr "Utfyllnad:"
+msgstr "_Utfyllnad:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#, fuzzy
 msgid "_Row"
-msgstr "Rad"
+msgstr "_Rad"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#, fuzzy
 msgid "_Rows:"
-msgstr "Rader:"
+msgstr "_Rader:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
-#, fuzzy
 msgid "_Spacing:"
-msgstr "Mellanrum:"
+msgstr "_Mellanrum:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:74
-#, fuzzy
 msgid "_Table"
-msgstr "Tabell"
+msgstr "_Tabell"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:75
-#, fuzzy
 msgid "_URL:"
-msgstr "URL"
+msgstr "_URL:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:77
-#, fuzzy
 msgid "_Width:"
-msgstr "Bredd:"
+msgstr "_Bredd:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:78
-#, fuzzy
 msgid "_Wrap Text"
-msgstr "_Radbryt rader"
+msgstr "_Radbryt text"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:79
-#, fuzzy
 msgid "_X-Padding:"
-msgstr "Utfyllnad:"
+msgstr "_X-utfyllnad:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:80
-#, fuzzy
 msgid "_Y-Padding:"
-msgstr "Utfyllnad:"
+msgstr "_Y-utfyllnad:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:81
-#, fuzzy
 msgid "follow"
-msgstr "Följ"
+msgstr "följ"
 
+# Osäker
 #: components/html-editor/gtkhtml-editor-properties.glade.h:82
 msgid "px"
-msgstr ""
+msgstr "px"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:83
 msgid "xxxxxxxxxxxxxx"
@@ -1615,9 +1587,8 @@ msgstr ""
 "kommentar här]</td></tr></table></td></tr></table></center>"
 
 #: components/html-editor/menubar.c:84
-#, fuzzy
 msgid "Insert image"
-msgstr "Infoga länk"
+msgstr "Infoga bild"
 
 #: components/html-editor/menubar.c:110 components/html-editor/menubar.c:129
 #: components/html-editor/menubar.c:152 components/html-editor/menubar.c:174
@@ -1683,21 +1654,18 @@ msgid "Address"
 msgstr "Adress"
 
 #: components/html-editor/paragraph.c:109
-#, fuzzy
 msgid "_Style:"
-msgstr "_Stil"
+msgstr "_Stil:"
 
 #: components/html-editor/popup.c:448
 msgid "Paste Quotation"
 msgstr "Klistra in citat"
 
 #: components/html-editor/popup.c:452
-#, fuzzy
 msgid "Insert Link"
 msgstr "Infoga länk"
 
 #: components/html-editor/popup.c:459
-#, fuzzy
 msgid "Remove Link"
 msgstr "Ta bort länk"
 
@@ -1837,9 +1805,8 @@ msgid "_Backward"
 msgstr "_Bakåt"
 
 #: components/html-editor/search.c:115
-#, fuzzy
 msgid "_Regular Expression"
-msgstr "Sök reguljärt uttryck"
+msgstr "_Reguljärt uttryck"
 
 #: components/html-editor/spell.c:278
 msgid "No misspelled word found"
@@ -1947,21 +1914,22 @@ msgstr "Prov"
 
 #: components/html-editor/utils.c:192
 msgid "_Visit..."
-msgstr ""
+msgstr "_Besök..."
 
 #: components/html-editor/utils.c:232
-#, fuzzy
 msgid ""
 "The editted object was removed from the document.\n"
 "Cannot apply your changes."
 msgstr ""
-"Den redigerade texten har tagits bort från dokumentet.\n"
+"Det redigerade objektet har tagits bort från dokumentet.\n"
 "Kan inte verkställa dina ändringar."
 
 #: src/gtkhtml.c:2457
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
+"Mozilla-URL:en som släpptes på redigeraren hade felaktigt format (%d) eller "
+"längd (%d)\n"
 
 #: src/gtkhtml.c:2779
 msgid "Editable"
@@ -2036,14 +2004,12 @@ msgid "The color of the spelling error markers"
 msgstr "Färgen på markörerna för stavfel"
 
 #: src/gtkhtml.c:2841
-#, fuzzy
 msgid "Cite Quotation Color"
-msgstr "Klistra in citat"
+msgstr "Citatfärg"
 
 #: src/gtkhtml.c:2842
-#, fuzzy
 msgid "The color of the cited text"
-msgstr "Färgen på aktiva länkelement"
+msgstr "Färgen på den citerade texten"
 
 #: src/html-component.c:219
 msgid "Html"
@@ -2121,6 +2087,102 @@ msgstr "Förhandsgranska"
 #: src/testgtkhtml.c:989
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML-testprogram"
+
+#~ msgid "Template:"
+#~ msgstr "Mall:"
+
+#~ msgid "Templates"
+#~ msgstr "Mallar"
+
+#~ msgid "Text:"
+#~ msgstr "Text:"
+
+#~ msgid "Link:"
+#~ msgstr "Länk:"
+
+#~ msgid "Links"
+#~ msgstr "Länkar"
+
+#~ msgid "Background:"
+#~ msgstr "Bakgrund:"
+
+#~ msgid "background"
+#~ msgstr "bakgrund"
+
+#~ msgid "<b>Alignment & Behaviour</b>"
+#~ msgstr "<b>Justering och beteende</b>"
+
+#~ msgid "Alignment &amp; Behaviour"
+#~ msgstr "Justering och beteende"
+
+#~ msgid "Alignment & Behaviour"
+#~ msgstr "Justering och beteende"
+
+#~ msgid "Background"
+#~ msgstr "Bakgrund"
+
+#~ msgid "Layout"
+#~ msgstr "Layout"
+
+#~ msgid "Color:"
+#~ msgstr "Färg:"
+
+#~ msgid "I_mage"
+#~ msgstr "_Bild"
+
+#~ msgid "Images"
+#~ msgstr "Bilder"
+
+#~ msgid "Image:"
+#~ msgstr "Bild:"
+
+#~ msgid "Size:"
+#~ msgstr "Storlek:"
+
+#~ msgid "Size"
+#~ msgstr "Storlek"
+
+#~ msgid "Alignment:"
+#~ msgstr "Justering:"
+
+#~ msgid "Border:"
+#~ msgstr "Kant:"
+
+#~ msgid "_Color"
+#~ msgstr "_Färg"
+
+#~ msgid "Columns:"
+#~ msgstr "Kolumner:"
+
+#~ msgid "Description:"
+#~ msgstr "Beskrivning:"
+
+#~ msgid "Height:"
+#~ msgstr "Höjd:"
+
+#~ msgid "_Image"
+#~ msgstr "_Bild"
+
+#~ msgid "Padding:"
+#~ msgstr "Utfyllnad:"
+
+#~ msgid "Rows"
+#~ msgstr "Rader"
+
+#~ msgid "Rows:"
+#~ msgstr "Rader:"
+
+#~ msgid "Spacing:"
+#~ msgstr "Mellanrum:"
+
+#~ msgid "Table:"
+#~ msgstr "Tabell:"
+
+#~ msgid "URL:"
+#~ msgstr "URL:"
+
+#~ msgid "_Width"
+#~ msgstr "_Bredd"
 
 #~ msgid "Find A Regular Expression"
 #~ msgstr "Sök ett reguljärt uttryck"
