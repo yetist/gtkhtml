@@ -219,11 +219,9 @@ draw (HTMLObject *o,
 								0, 0,
 								-1, -1);
 		} else if (HTML_IMAGE (o)->scaled) {
-			gdk_pixbuf_ref (HTML_IMAGE (o)->scaled_pixbuf);
-			pixbuf = HTML_IMAGE (o)->scaled_pixbuf;
+			pixbuf = gdk_pixbuf_ref (HTML_IMAGE (o)->scaled_pixbuf);
 		} else {
-			gdk_pixbuf_ref (HTML_IMAGE (o)->image_ptr->pixbuf);
-			pixbuf = HTML_IMAGE (o)->image_ptr->pixbuf;
+			pixbuf = gdk_pixbuf_ref (HTML_IMAGE (o)->image_ptr->pixbuf);
 		}
 
 		if (pixbuf != NULL) {
