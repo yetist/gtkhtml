@@ -1,5 +1,8 @@
 2002-09-19  Larry Ewing  <lewing@ximian.com>
 
+	* htmlengine.c (update_embedded): use
+	html_object_engine_translation here since it exists.
+
 	* htmlframe.c (html_frame_init): add message for frame depth error.
 
 	* htmliframe.c (html_iframe_init): same.

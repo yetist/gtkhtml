@@ -3756,24 +3756,14 @@ update_embedded (GtkWidget *widget, gpointer data)
 	if (obj) {
 		HTMLEngine *e;
 		HTMLObject *p;
-		gint tx, ty;
+		gint tx = 0, ty = 0;
 		gint x, y, width, height;
 
 		e = html->engine;
 		
-		tx = 0;
-		ty = 0;
-
-		for (p = obj->parent; p != NULL && HTML_OBJECT_TYPE (p) != HTML_TYPE_IFRAME; p = p->parent) {
-			tx += p->x;
-			ty += p->y - p->ascent;
-		}
-		
-		tx = tx + e->leftBorder - e->x_offset;
-		ty = ty + e->topBorder - e->y_offset;
-		
 		/* Then prepare for drawing.  We will only update this object, so we
 		   only allocate enough size for it.  */
+		html_object_engine_translation (obj, e, &tx, &ty);
 		x = obj->x;
 		y = obj->y - obj->ascent;
 		width = obj->width;
@@ -3784,7 +3774,7 @@ update_embedded (GtkWidget *widget, gpointer data)
 			crop_iframe_to_parent (GTK_HTML (HTML_IFRAME (obj)->html)->engine, x, y, &width, &height);
 
 		/* printf ("update: begin\n"); */
-		html_painter_begin (e->painter, tx + x, ty + y, tx+ x + width, ty + y + height);
+		html_painter_begin (e->painter, tx + x, ty + y, tx + x + width, ty + y + height);
 
 		if (html_object_is_transparent (obj)) {
 			html_engine_draw_background (e, x, y, x + width, y + height);
