@@ -200,7 +200,7 @@ html_a11y_ref_state_set (AtkObject *accessible)
 
 	atk_state_set_add_state (state_set, ATK_STATE_VISIBLE);
 	atk_state_set_add_state (state_set, ATK_STATE_ENABLED);
-
+	atk_state_set_add_state (state_set, ATK_STATE_SHOWING);
 	/* printf ("html_a11y_ref_state_set resolves to %p\n", state_set); */
 
 	return state_set;

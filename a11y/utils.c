@@ -67,8 +67,15 @@ create_accessible (HTMLObject *o, AtkObject *parent)
 	case HTML_TYPE_TEXTINPUT:
 	case HTML_TYPE_BUTTON:
 	case HTML_TYPE_CHECKBOX:
-		if (HTML_EMBEDDED (o)-> widget)
+	case HTML_TYPE_IFRAME:
+		if (HTML_EMBEDDED (o)-> widget) {
 			accessible = gtk_widget_get_accessible (HTML_EMBEDDED (o)->widget);
+
+			if (HTML_EMBEDDED (o)->name) {
+				if ((accessible != NULL) && (atk_object_get_name (accessible) == NULL))
+					atk_object_set_name (accessible, HTML_EMBEDDED (o)->name);
+			}
+		}
 		break;
 	case HTML_TYPE_TEXTSLAVE: /* ignore */
 		break;

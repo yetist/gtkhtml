@@ -1,3 +1,30 @@
+2004-12-17  Mengjie Yu  <meng-jie.yu@sun.com>
+
+	* html.c: (html_a11y_ref_state_set): Add SHOWING state to stateset.
+	
+	* text.c: (get_n_actions), (action_get_name), (do_action),
+	(atk_action_interface_init), (html_a11y_text_get_type): add action
+	interface to text so that it can be found by GOK.
+	(atk_component_interface_init): implement grab_focus.
+	(html_a11y_text_ref_state_set): add SENSITIVE and FOCUSABLE state.
+	(html_a11y_text_grab_focus): new function to implement grab_focus.
+
+	Above fix #70629
+
+	* table.c: (is_valid):new function to check whether the table is valid.
+	(html_a11y_table_ref_at),
+	(html_a11y_table_get_index_at),
+	(html_a11y_table_get_column_at_index),
+	(html_a11y_table_get_row_at_index),
+	(html_a11y_table_get_n_columns), (html_a11y_table_get_n_rows),
+	(html_a11y_table_get_column_extent_at),
+	(html_a11y_table_get_row_extent_at),
+	(html_a11y_table_get_column_header),
+	(html_a11y_table_get_row_header): call is_valid().
+
+	* utils.c: (create_accessible):
+	set the a11y name for the widget's atk object.
+
 2004-12-15  Mengjie Yu  <meng-jie.yu@sun.com>
 
 	* object.c: (get_n_actions), (get_description), (action_get_name),

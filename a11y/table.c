@@ -26,8 +26,11 @@
 
 #include "htmltable.h"
 #include "htmltablecell.h"
+#include "gtkhtml.h"
+#include "htmlengine.h"
 
 #include "html.h"
+#include "object.h"
 #include "table.h"
 #include "utils.h"
 
@@ -149,6 +152,30 @@ html_a11y_table_new (HTMLObject *html_obj)
 	return accessible;
 }
 
+static gboolean
+is_valid (AtkObject *table)
+{
+	GtkHTMLA11Y * htmla11y = html_a11y_get_gtkhtml_parent (HTML_A11Y (table));
+	GtkHTML *html = GTK_HTML_A11Y_GTKHTML (htmla11y);
+	AtkStateSet *ss;
+
+	HTMLTable *to = HTML_TABLE (HTML_A11Y_HTML (table));
+	if (!to)
+		return FALSE;
+
+	if (html->engine->parsing)
+		return FALSE;
+
+	ss = atk_object_ref_state_set (ATK_OBJECT (htmla11y));
+	if (atk_state_set_contains_state (ss, ATK_STATE_DEFUNCT)) {
+		g_object_unref (ss);
+		return FALSE;
+	}
+        g_object_unref (ss);
+
+	return TRUE;
+}
+
 /*
  * AtkTable interface
  */
@@ -159,6 +186,10 @@ html_a11y_table_ref_at (AtkTable *table, gint row, gint column)
 	AtkObject *accessible = NULL;
 	HTMLTable *to = HTML_TABLE (HTML_A11Y_HTML (table));
 	HTMLTableCell *cell;
+
+
+	if (!is_valid (ATK_OBJECT (table)))
+		return NULL;
 
 	g_return_val_if_fail (row < to->totalRows, NULL);
 	g_return_val_if_fail (column < to->totalCols, NULL);
@@ -179,6 +210,9 @@ html_a11y_table_get_index_at (AtkTable *table, gint row, gint column)
 {
 	HTMLTable *to = HTML_TABLE (HTML_A11Y_HTML (table));
 
+	if (!is_valid (ATK_OBJECT (table)))
+		return -1;
+
 	g_return_val_if_fail (row < to->totalRows, -1);
 	g_return_val_if_fail (column < to->totalCols, -1);
 	g_return_val_if_fail (to->cells [row][column], -1);
@@ -192,6 +226,9 @@ html_a11y_table_get_column_at_index (AtkTable *table, gint index)
 	HTMLTable *to = HTML_TABLE (HTML_A11Y_HTML (table));
 	HTMLTableCell *cell;
 
+	if (!is_valid (ATK_OBJECT (table)))
+		return -1;
+
 	cell = HTML_TABLE_CELL (html_object_get_child (HTML_OBJECT (to), index));
 
 	return cell ? cell->col : -1;
@@ -203,6 +240,9 @@ html_a11y_table_get_row_at_index (AtkTable *table, gint index)
 	HTMLTable *to = HTML_TABLE (HTML_A11Y_HTML (table));
 	HTMLTableCell *cell;
 
+	if (!is_valid (ATK_OBJECT (table)))
+		return -1;
+
 	cell = HTML_TABLE_CELL (html_object_get_child (HTML_OBJECT (to), index));
 
 	return cell ? cell->row : -1;
@@ -213,6 +253,9 @@ html_a11y_table_get_n_columns (AtkTable *table)
 {
 	HTMLTable *to = HTML_TABLE (HTML_A11Y_HTML (table));
 
+	if (!is_valid (ATK_OBJECT (table)))
+		return -1;
+
 	return to->totalCols;
 }
 
@@ -221,6 +264,9 @@ html_a11y_table_get_n_rows (AtkTable *table)
 {
 	HTMLTable *to = HTML_TABLE (HTML_A11Y_HTML (table));
 
+	if (!is_valid (ATK_OBJECT (table)))
+		return -1;
+
 	return to->totalRows;
 }
 
@@ -228,6 +274,9 @@ static gint
 html_a11y_table_get_column_extent_at (AtkTable *table, gint row, gint column)
 {
 	HTMLTable *to = HTML_TABLE (HTML_A11Y_HTML (table));
+
+	if (!is_valid (ATK_OBJECT (table)))
+		return -1;
 
 	g_return_val_if_fail (row < to->totalRows, -1);
 	g_return_val_if_fail (column < to->totalCols, -1);
@@ -240,6 +289,9 @@ static gint
 html_a11y_table_get_row_extent_at (AtkTable *table, gint row, gint column)
 {
 	HTMLTable *to = HTML_TABLE (HTML_A11Y_HTML (table));
+
+	if (!is_valid (ATK_OBJECT (table)))
+		return -1;
 
 	g_return_val_if_fail (row < to->totalRows, -1);
 	g_return_val_if_fail (column < to->totalCols, -1);
@@ -254,6 +306,9 @@ html_a11y_table_get_column_header (AtkTable *table, gint column)
 {
 	HTMLTable *to = HTML_TABLE (HTML_A11Y_HTML (table));
 
+	if (!is_valid (ATK_OBJECT (table)))
+		return NULL;
+
 	g_return_val_if_fail (column < to->totalCols, NULL);
 	g_return_val_if_fail (to->cells [0][column], NULL);
 
@@ -265,6 +320,9 @@ static AtkObject *
 html_a11y_table_get_row_header (AtkTable *table, gint row)
 {
 	HTMLTable *to = HTML_TABLE (HTML_A11Y_HTML (table));
+
+	if (!is_valid (ATK_OBJECT (table)))
+		return NULL;
 
 	g_return_val_if_fail (row < to->totalRows, NULL);
 	g_return_val_if_fail (to->cells [row][0], NULL);

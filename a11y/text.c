@@ -24,6 +24,7 @@
 #include <config.h>
 #include <atk/atkcomponent.h>
 #include <atk/atktext.h>
+#include <glib/gi18n.h>
 
 #include "gtkhtml.h"
 #include "htmlengine.h"
@@ -48,6 +49,8 @@ static void atk_text_interface_init      (AtkTextIface *iface);
 static void html_a11y_text_get_extents   (AtkComponent *component,
 					  gint *x, gint *y, gint *width, gint *height, AtkCoordType coord_type);
 static void html_a11y_text_get_size      (AtkComponent *component, gint *width, gint *height);
+static gboolean html_a11y_text_grab_focus (AtkComponent *comp);
+
 static gchar * html_a11y_text_get_text (AtkText *text, gint start_offset, gint end_offset);
 static gchar * html_a11y_text_get_text_after_offset (AtkText *text, gint offset, AtkTextBoundary boundary_type,
 						     gint *start_offset, gint *end_offset);
@@ -87,8 +90,44 @@ static void	html_a11y_text_paste_text	(AtkEditableText      *text,
 
 static AtkStateSet* html_a11y_text_ref_state_set	(AtkObject	*accessible);
 
-
 static AtkObjectClass *parent_class = NULL;
+
+static gint
+get_n_actions (AtkAction *action)
+{
+        return 1;
+}
+
+static G_CONST_RETURN gchar*
+action_get_name (AtkAction *action, gint      i)
+{
+        if (i == 0)
+                return _("grab focus");
+
+        return NULL;
+}
+
+static gboolean
+do_action (AtkAction * action, gint i)
+{
+        switch (i) {
+        case 0:
+		return html_a11y_text_grab_focus (ATK_COMPONENT (action));
+        default:
+                return FALSE;
+        }
+}
+
+static void
+atk_action_interface_init (AtkActionIface *iface)
+{
+        g_return_if_fail (iface != NULL);
+
+        iface->do_action = do_action;
+        iface->get_n_actions = get_n_actions;
+        iface->get_name = action_get_name;
+}
+
 
 GType
 html_a11y_text_get_type (void)
@@ -128,10 +167,18 @@ html_a11y_text_get_type (void)
 			NULL
 		};
 
+		static const GInterfaceInfo atk_action_info = {
+			(GInterfaceInitFunc) atk_action_interface_init,
+			(GInterfaceFinalizeFunc) NULL,
+			NULL
+		};
+
+
 		type = g_type_register_static (G_TYPE_HTML_A11Y, "HTMLA11YText", &tinfo, 0);
 		g_type_add_interface_static (type, ATK_TYPE_COMPONENT, &atk_component_info);
 		g_type_add_interface_static (type, ATK_TYPE_TEXT, &atk_text_info);
 		g_type_add_interface_static (type, ATK_TYPE_EDITABLE_TEXT, &atk_editable_text_info);
+		g_type_add_interface_static (type, ATK_TYPE_ACTION, &atk_action_info);
 	}
 
 	return type;
@@ -144,6 +191,7 @@ atk_component_interface_init (AtkComponentIface *iface)
 
 	iface->get_extents = html_a11y_text_get_extents;
 	iface->get_size = html_a11y_text_get_size;
+	iface->grab_focus = html_a11y_text_grab_focus;
 }
 
 static void
@@ -248,7 +296,8 @@ html_a11y_text_ref_state_set (AtkObject *accessible)
 		atk_state_set_add_state (state_set, ATK_STATE_EDITABLE);
 
 	atk_state_set_add_state (state_set, ATK_STATE_MULTI_LINE);
-	atk_state_set_add_state (state_set, ATK_STATE_MULTI_LINE);
+	atk_state_set_add_state (state_set, ATK_STATE_SENSITIVE);
+	atk_state_set_add_state (state_set, ATK_STATE_FOCUSABLE);
 
 	return state_set;
 }
@@ -295,6 +344,21 @@ html_a11y_text_get_size (AtkComponent *component, gint *width, gint *height)
 
 	html_a11y_get_size (component, width, height);
 	get_size (obj, width, height);
+}
+
+
+static gboolean
+html_a11y_text_grab_focus (AtkComponent *comp)
+{
+	GtkHTML *html;
+
+	html = GTK_HTML_A11Y_GTKHTML (html_a11y_get_gtkhtml_parent (HTML_A11Y (comp)));
+	g_return_val_if_fail (html && html->engine && html_engine_get_editable (html->engine), FALSE);
+
+	html_engine_jump_to_object (html->engine, HTML_A11Y_HTML (comp), HTML_TEXT (HTML_A11Y_HTML (comp))->text_len);
+	g_signal_emit_by_name (html, "grab_focus");
+
+        return TRUE;
 }
 
 /*
