@@ -137,6 +137,9 @@ struct _HTMLObjectClass {
 				     gint *x, gint *y);
 
 	void (* set_bg_color) (HTMLObject *o, GdkColor *color);
+
+	HTMLObject * (* mouse_event) (HTMLObject *self, gint x, gint y,
+				      gint button, gint state);
 };
 
 
@@ -167,6 +170,8 @@ const gchar *html_object_get_target (HTMLObject *o);
 HTMLAnchor *html_object_find_anchor (HTMLObject *o, const gchar *name,
 				     gint *x, gint *y);
 void html_object_set_bg_color (HTMLObject *o, GdkColor *color);
+HTMLObject *html_object_mouse_event (HTMLObject *clue, gint x, gint y,
+				     gint button, gint state);
 
 #endif /* _HTMLOBJECT_H_ */
 

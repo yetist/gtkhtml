@@ -1,5 +1,24 @@
 1999-12-03  Ettore Perazzoli  <ettore@gnu.org>
 
+	* htmltable.c (mouse_event): New function, implementing the
+	`mouse_event()' virtual method.
+	(html_table_class_init): Install it.
+
+	* htmlcluev.c (mouse_event): New function, implementing the
+	`mouse_event()' virtual method.
+	(html_cluev_class_init): Install it.
+
+	* htmlclue.c (mouse_event): New function, implementing the
+	`mouse_event()' virtual method.
+	(html_clue_class_init): Install it.
+
+	* htmlobject.c (mouse_event): Default implementation for
+	`mouse_event()'.
+	(html_object_class_init): Install it.
+	(html_object_mouse_event): New function.
+
+	* htmlobject.h: New virtual method `mouse_event()'.
+
 	* htmllinktextmaster.c: The parent class is
 	`HTMLLinkTextMasterClass', not `HTMLTextMasterClass'.
 

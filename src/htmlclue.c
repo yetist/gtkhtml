@@ -275,6 +275,32 @@ appended (HTMLClue *clue, HTMLClue *aclue)
 	return FALSE;
 }
 
+static HTMLObject *
+mouse_event (HTMLObject *self, gint _x, gint _y,
+	     gint button, gint state)
+{
+	HTMLClue *clue;
+	HTMLObject *obj;
+	HTMLObject *obj2;
+
+	clue = HTML_CLUE (self);
+
+	if ( _x < self->x
+	     || _x > self->x + self->width
+	     || _y > self->y + self->descent
+	     || _y < self->y - self->ascent)
+		return 0;
+
+	for ( obj = clue->head; obj != NULL; obj = obj->next ) {
+		if ((obj2 = html_object_mouse_event
+			( obj, _x - self->x, _y - (self->y - self->ascent),
+			  button, state )) != 0 )
+			return obj2;
+	}
+
+	return 0;
+}
+
 
 void
 html_clue_type_init (void)
@@ -304,6 +330,7 @@ html_clue_class_init (HTMLClueClass *klass,
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->calc_min_width = calc_min_width;
 	object_class->calc_absolute_pos = calc_absolute_pos;
+	object_class->mouse_event = mouse_event;
 
 	/* HTMLClue methods.  */
 	klass->get_left_margin = get_left_margin;

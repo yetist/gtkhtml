@@ -26,6 +26,8 @@
 
 HTMLClueVClass html_cluev_class;
 
+static HTMLClueClass *parent_class;
+
 
 /* FIXME this must be rewritten as the multiple type casts make my head spin.
    The types in `HTMLClueAligned' are chosen wrong.  */
@@ -246,6 +248,51 @@ draw (HTMLObject *o,
 
 }
 
+static HTMLObject *
+mouse_event ( HTMLObject *object, gint _x, gint _y, gint button, gint state )
+{
+	HTMLObject *obj2;
+	HTMLClueAligned *clue;
+
+	obj2 = (* HTML_OBJECT_CLASS (parent_class)->mouse_event)
+		(object, _x, _y, button, state);
+	if (obj2 != NULL)
+		return obj2;
+
+	if ( _x < object->x || _x > object->x + object->width
+	     || _y > object->y + object->descent
+	     || _y < object->y - object->ascent)
+		return NULL;
+
+	for ( clue = HTML_CLUEALIGNED (HTML_CLUEV (object)->align_left_list);
+	      clue != NULL;
+	      clue = clue->next_aligned ) {
+		obj2 = html_object_mouse_event (HTML_OBJECT (clue),
+						_x - object->x - HTML_OBJECT (clue->prnt)->x,
+						_y - (object->y - object->ascent)
+						- ( HTML_OBJECT (clue->prnt)->y
+						    - HTML_OBJECT (clue->prnt)->ascent ),
+						button, state );
+		if (obj2 != NULL )
+			return obj2;
+	}
+
+	for ( clue = HTML_CLUEALIGNED (HTML_CLUEV (object)->align_right_list);
+	      clue != NULL;
+	      clue = clue->next_aligned ) {
+		obj2 = html_object_mouse_event (HTML_OBJECT (clue),
+						_x - object->x - HTML_OBJECT (clue->prnt)->x,
+						_y - (object->y - object->ascent)
+						- ( HTML_OBJECT (clue->prnt)->y
+						    - HTML_OBJECT (clue->prnt)->ascent ),
+						button, state );
+		if (obj2 != NULL )
+			return obj2;
+	}
+
+	return NULL;
+}
+
 
 /* HTMLClue methods.  */
 
@@ -461,12 +508,15 @@ html_cluev_class_init (HTMLClueVClass *klass,
 	object_class = HTML_OBJECT_CLASS (klass);
 	clue_class = HTML_CLUE_CLASS (klass);
 
+	parent_class = &html_clue_class;
+
 	html_clue_class_init (clue_class, type);
 
 	object_class->calc_size = calc_size;
 	object_class->set_max_width = set_max_width;
 	object_class->reset = reset;
 	object_class->draw = draw;
+	object_class->mouse_event = mouse_event;
 
 	clue_class->get_left_margin = get_left_margin;
 	clue_class->get_right_margin = get_right_margin;
