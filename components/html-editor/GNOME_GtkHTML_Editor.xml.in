@@ -8,19 +8,10 @@
 			<cmd name="EditCopy" _label="_Copy" _tip="Copy the selection"/>
 			<cmd name="EditPaste" _label="_Paste" _tip="Paste the clipboard"/>
 	
-			<cmd name="EditFind" _label="_Find..." _tip="Find"
-			pixtype="stock" pixname="Search"/>
-
-			<cmd name="EditFindRegex"
-			     _label="Find Regular E_xpression..."
-			     _tip="Find A Regular Expression"/>
-	
-			<cmd name="EditFindAgain" _label="Find _Again"
-			_tip="Find again"
-			pixtype="stock" pixname="Search"/>
-	
-			<cmd name="EditReplace" _label="_Replace..." _tip="Find and Replace"
-			pixtype="stock" pixname="Search/Replace"/>
+			<cmd name="EditFind" _label="_Find..." _tip="Find"/>
+			<cmd name="EditFindRegex" _label="Find Regular E_xpression..." _tip="Find A Regular Expression"/>
+			<cmd name="EditFindAgain" _label="Find _Again" _tip="Find again"/>
+			<cmd name="EditReplace" _label="_Replace..." _tip="Find and Replace"/>
 
 			<cmd name="EditSelectAll" _label="Select _All"
 			_tip="Select the entire contents of the document"/>
@@ -55,10 +46,12 @@
 			</placeholder>
 
 			<placeholder name="EditFindReplace">
-				     <menuitem name="EditFind" verb="" accel="*Ctrl*F"/>
+				     <menuitem name="EditFind" verb="" accel="*Ctrl*F"
+                                     pixtype="filename" pixname="@ICONSDIR@/search-16.png"/>
 				     <menuitem name="EditFindRegex" verb="" accel="*Ctrl*E"/>
 				     <menuitem name="EditFindAgain" verb="" accel="*Ctrl*G"/>
-				     <menuitem name="EditReplace" verb="" accel="*Ctrl**Shift*F"/>
+				     <menuitem name="EditReplace" verb="" accel="*Ctrl**Shift*F"
+                                     pixtype="filename" pixname="@ICONSDIR@/search-and-replace-16.png"/>
 			</placeholder>
 
 			<placeholder name="EditMisc">

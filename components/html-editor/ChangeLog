@@ -1,6 +1,7 @@
 2001-08-16  Radek Doulik  <rodo@ximian.com>
 
 	* GNOME_GtkHTML_Editor.xml.in: use insert object icons meanwhile
+	use new 16 pixel versions of search/search-and-replace menu icons
 
 2001-08-15  Radek Doulik  <rodo@ximian.com>
 
