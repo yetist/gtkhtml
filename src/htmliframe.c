@@ -37,10 +37,6 @@
 #include "htmltokenizer.h"
 #include "htmlembedded.h"
 
-#define USE_SCROLLED_WINDOW 1
-#ifndef USE_SCROLLED_WINDOW
-#include <gal/widgets/e-scroll-frame.h>
-#endif
 
 HTMLIFrameClass html_iframe_class;
 static HTMLEmbeddedClass *parent_class = NULL;
@@ -310,13 +306,8 @@ html_iframe_set_margin_height (HTMLIFrame *iframe, gint margin_height)
 void
 html_iframe_set_scrolling (HTMLIFrame *iframe, GtkPolicyType scroll)
 {
-#if USE_SCROLLED_WINDOW
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (iframe->scroll),
 					scroll, scroll);
-#else
-	e_scroll_frame_set_policy (E_SCROLL_FRAME (iframe->scroll),
-				   scroll, scroll);
-#endif					
 }
 
 static gboolean
@@ -587,14 +578,9 @@ html_iframe_init (HTMLIFrame *iframe,
 	html_embedded_init (em, HTML_EMBEDDED_CLASS (klass),
 			    parent, NULL, NULL);
 	
-#if USE_SCROLLED_WINDOW
 	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-#else
-	scrolled_window = e_scroll_frame_new (NULL, NULL);
-	e_scroll_frame_set_shadow_type (E_SCROLL_FRAME (scrolled_window), 
-					border ? GTK_SHADOW_IN : GTK_SHADOW_NONE);
-
-#endif
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_window),
+					     border ? GTK_SHADOW_IN : GTK_SHADOW_NONE);
 	/*
 	 * FIXME
 	 * are we missing:

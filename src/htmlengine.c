@@ -1740,9 +1740,9 @@ parse_iframe (HTMLEngine *e, const gchar *str, HTMLObject *_clue)
 	if (src) {
 		iframe = html_iframe_new (GTK_WIDGET (e->widget),
 					  src, width, height, border);
-		if (margin_height > 0)
+		if (margin_height >= 0)
 			html_iframe_set_margin_height (HTML_IFRAME (iframe), margin_height);
-		if (margin_width > 0)
+		if (margin_width >= 0)
 			html_iframe_set_margin_width (HTML_IFRAME (iframe), margin_width);
 		if (scroll != GTK_POLICY_AUTOMATIC)
 			html_iframe_set_scrolling (HTML_IFRAME (iframe), scroll);

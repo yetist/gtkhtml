@@ -1,3 +1,13 @@
+2003-05-18  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (parse_iframe): fix the margin calculations.
+
+	* htmlframe.c: remove e_scroll_frame ifdef, set scrolled window
+	frame type.
+
+	* htmliframe.c: remove e_scroll_frame ifdef, set scrolled window
+	frame type.
+
 2003-05-19  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c (html_engine_update_event): set need_update flag

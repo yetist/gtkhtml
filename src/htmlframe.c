@@ -36,11 +36,6 @@
 #include "htmlselection.h"
 #include "htmlsettings.h"
 
-#define USE_SCROLLED_WINDOW 1
-#ifndef USE_SCROLLED_WINDOW
-#include <gal/widgets/e-scroll-frame.h>
-#endif
-
 HTMLFrameClass html_frame_class;
 static HTMLEmbeddedClass *parent_class = NULL;
 static gboolean calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs);
@@ -433,13 +428,9 @@ html_frame_set_margin_height (HTMLFrame *frame, gint margin_height)
 void
 html_frame_set_scrolling (HTMLFrame *frame, GtkPolicyType scroll)
 {
-#if USE_SCROLLED_WINDOW
+
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (frame->scroll),
 					scroll, scroll);
-#else
-	e_scroll_frame_set_policy (E_SCROLL_FRAME (frame->scroll),
-				   scroll, scroll);
-#endif					
 }
 
 void
@@ -480,14 +471,9 @@ html_frame_init (HTMLFrame *frame,
 	html_embedded_init (em, HTML_EMBEDDED_CLASS (klass),
 			    parent, NULL, NULL);
 	
-#if USE_SCROLLED_WINDOW
 	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-#else
-	scrolled_window = e_scroll_frame_new (NULL, NULL);
-	e_scroll_frame_set_shadow_type (E_SCROLL_FRAME (scrolled_window), 
-					border ? GTK_SHADOW_IN : GTK_SHADOW_NONE);
-
-#endif
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_window),
+					     border ? GTK_SHADOW_IN : GTK_SHADOW_NONE);
 
 	new_widget = gtk_html_new ();
 	new_html = GTK_HTML (new_widget);
