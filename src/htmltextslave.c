@@ -401,14 +401,26 @@ hts_fit_line (HTMLObject *o, HTMLPainter *painter,
 			if (update_lb (slave, painter, widthLeft, offset, s, ii, io, line_offset, w, &lwl, &lbw, &lbo, &lbsp, &force_fit))
 				break;
 
-		if (*s == '\t') {
+		if (io == 0 && slave->owner->text [pi->entries [ii].glyph_item.item->offset]  == '\t') {
+			GtkHTMLFontStyle font_style;
+			char *face;
 			gint skip = 8 - (line_offset % 8);
-			w += skip*pi->entries [ii].widths [io];
+
+			if (HTML_IS_PLAIN_PAINTER (painter)) {
+				font_style = GTK_HTML_FONT_STYLE_FIXED;
+				face = NULL;
+			} else {
+				font_style = html_text_get_font_style (slave->owner);
+				face = slave->owner->face;
+			}
+
+			pi->entries [ii].glyph_item.glyphs->glyphs[0].geometry.width = pi->entries [ii].widths [io]
+				= skip*html_painter_get_space_width (painter, font_style, face) * PANGO_SCALE;
 			line_offset += skip;
 		} else {
-			w += pi->entries [ii].widths [io];
 			line_offset ++;
 		}
+		w += pi->entries [ii].widths [io];
 
 		html_text_pi_forward (pi, &ii, &io);
 		s = g_utf8_next_char (s);

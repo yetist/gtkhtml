@@ -1336,6 +1336,22 @@ html_tmp_fix_pango_glyph_string_get_logical_widths (PangoGlyphString *glyphs,
   /* printf ("\n"); */
 }
 
+static void
+html_text_shape_tab (HTMLText *text, PangoGlyphString *glyphs)
+{
+	/* copied from pango sources */
+	pango_glyph_string_set_size (glyphs, 1);
+
+	glyphs->glyphs[0].glyph = 0;
+	glyphs->glyphs[0].geometry.x_offset = 0;
+	glyphs->glyphs[0].geometry.y_offset = 0;
+	glyphs->glyphs[0].attr.is_cluster_start = 1;
+
+	glyphs->log_clusters[0] = 0;
+
+	glyphs->glyphs[0].geometry.width = 48 * PANGO_SCALE;
+}
+
 HTMLTextPangoInfo *
 html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 {
@@ -1401,7 +1417,10 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 			/* printf ("item pos %d len %d\n", item->offset, item->length); */
 
 			text->pi->entries [i].widths = g_new (PangoGlyphUnit, item->num_chars);
-			pango_shape (text->text + item->offset, item->length, &item->analysis, glyphs);
+			if (text->text [item->offset] == '\t')
+				html_text_shape_tab (text, glyphs);
+			else
+				pango_shape (text->text + item->offset, item->length, &item->analysis, glyphs);
 			html_tmp_fix_pango_glyph_string_get_logical_widths (glyphs, text->text + item->offset, item->length,
 									    item->analysis.level, text->pi->entries [i].widths);
 		}
