@@ -64,6 +64,7 @@ frame_url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpoi
 					*(++cur) = '\0';
 					break;
 				}
+				cur++;
 			}
 			new_url = g_strconcat (base, "/", url, NULL);
 		} else if (*url == '/' && (*base == '/' || *base == '\0')) {
@@ -193,7 +194,10 @@ static gint
 calc_min_width (HTMLObject *o,
 		HTMLPainter *painter)
 {
-	return html_engine_calc_min_width (GTK_HTML (HTML_FRAME (o)->html)->engine);
+  /* Since width == -1 if not set this will always work */
+
+  return MAX (HTML_FRAME (o)->width * html_painter_get_pixel_size (painter), 
+	      html_engine_calc_min_width (GTK_HTML (HTML_FRAME (o)->html)->engine));
 }
 
 static void
@@ -422,7 +426,7 @@ append_selection_string (HTMLObject *self,
 	html_object_append_selection_string (GTK_HTML (HTML_FRAME (self)->html)->engine->clue, buffer);
 }
 
-/* static gboolean
+static gboolean
 select_range (HTMLObject *self,
 	      HTMLEngine *engine,
 	      guint start,
@@ -432,7 +436,7 @@ select_range (HTMLObject *self,
 	return html_object_select_range (GTK_HTML (HTML_FRAME (self)->html)->engine->clue,
 					 GTK_HTML (HTML_FRAME (self)->html)->engine,
 					 start, length, queue_draw);
-} */
+}
 
 static void
 destroy (HTMLObject *o)
@@ -636,7 +640,7 @@ html_frame_class_init (HTMLFrameClass *klass,
 	object_class->calc_size               = calc_size;
 	object_class->calc_min_width          = calc_min_width;
 	object_class->set_painter             = set_painter;
-	object_class->reset                   = reset;
+	//object_class->reset                   = reset;
 	object_class->draw                    = draw;
 	object_class->set_max_width           = set_max_width;
 	object_class->forall                  = forall;
@@ -649,6 +653,7 @@ html_frame_class_init (HTMLFrameClass *klass,
 	object_class->is_container            = is_container;
 	object_class->draw_background         = draw_background;
 	object_class->append_selection_string = append_selection_string;
+	object_class->select_range            = select_range;
 }
 
 

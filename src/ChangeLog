@@ -1,5 +1,7 @@
 2001-06-01  Larry Ewing  <lewing@ximian.com>
 
+	* htmlframe.c (frame_url_requested): increment cur in the loop.
+
 	* htmltablecell.c (calc_min_width): break the resize loop that was
 	occuring when no_wrap and HTML_OBJECT_FLAGS_FIXED_WIDTH were both
 	set (fixes http://bugzilla.helixcode.com/show_bug.cgi?id=3164).
