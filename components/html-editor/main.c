@@ -36,20 +36,20 @@
 
 #include <liboaf/liboaf.h>
 
-static void
+static CORBA_ORB
 init_corba (int *argc, char **argv)
 {
 	gnome_init_with_popt_table ("html-editor-factory", "0.0",
 				    *argc, argv, oaf_popt_options, 0, NULL);
 
-	oaf_init (*argc, argv);
+	return oaf_init (*argc, argv);
 }
 
 #else
 
 #include <libgnorba/gnorba.h>
 
-static void
+static CORBA_ORB
 init_corba (int *argc, char **argv)
 {
 	CORBA_Environment ev;
@@ -65,6 +65,8 @@ init_corba (int *argc, char **argv)
 		g_error (_("Could not initialize GNORBA"));
 
 	CORBA_exception_free (&ev);
+
+	return CORBA_OBJECT_NIL;
 }
 
 #endif
@@ -72,9 +74,9 @@ init_corba (int *argc, char **argv)
 static void
 init_bonobo (int *argc, char **argv)
 {
-	init_corba (argc, argv);
+	
 
-	if (bonobo_init (CORBA_OBJECT_NIL, CORBA_OBJECT_NIL, CORBA_OBJECT_NIL) == FALSE)
+	if (bonobo_init (init_corba (argc, argv), CORBA_OBJECT_NIL, CORBA_OBJECT_NIL) == FALSE)
 		g_error (_("Could not initialize Bonobo"));
 }
 

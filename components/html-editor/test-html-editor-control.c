@@ -351,13 +351,13 @@ container_create (void)
 	BonoboControlFrame *frame;
 	HTMLEditorResolver *resolver;
 
-	win = bonobo_window_new ("test-gnome-gtkhtml-editor",
+	win = bonobo_window_new ("test-editor",
 				 "HTML Editor Control Test");
 	window = GTK_WINDOW (win);
 	gtk_window_set_default_size (window, 500, 440);
 	gtk_window_set_policy (window, TRUE, TRUE, FALSE);
 
-	component = bonobo_ui_component_new ("test-gnome-gtkhtml-editor");
+	component = bonobo_ui_component_new ("test-editor");
 
 	container = bonobo_ui_container_new ();
 	bonobo_ui_container_set_win (container, BONOBO_WINDOW (win));
@@ -392,19 +392,19 @@ container_create (void)
 
 #include <liboaf/liboaf.h>
 
-static void
+static CORBA_ORB
 init_corba (int *argc, char **argv)
 {
 	gnome_init_with_popt_table ("test-gnome-gtkhtml-editor", "1.0", *argc, argv,
 				    NULL, 0, NULL);
-	oaf_init (*argc, argv);
+	return oaf_init (*argc, argv);
 }
 
 #else  /* USING_OAF */
 
 #include <libgnorba/gnorba.h>
 
-static void
+static CORBA_ORB
 init_corba (int *argc, char **argv)
 {
 	CORBA_Environment ev;
@@ -414,6 +414,8 @@ init_corba (int *argc, char **argv)
 	gnome_CORBA_init ("test-gnome-gtkhtml-editor", "1.0", argc, argv, 0, &ev);
 
 	CORBA_exception_free (&ev);
+
+	return CORBA_OBJECT_NIL;
 }
 
 #endif /* USING_OAF */
@@ -421,9 +423,7 @@ init_corba (int *argc, char **argv)
 int
 main (int argc, char **argv)
 {
-	init_corba (&argc, argv);
-
-	if (bonobo_init (CORBA_OBJECT_NIL, CORBA_OBJECT_NIL, CORBA_OBJECT_NIL) == FALSE)
+	if (bonobo_init (init_corba (&argc, argv), CORBA_OBJECT_NIL, CORBA_OBJECT_NIL) == FALSE)
 		g_error ("Could not initialize Bonobo\n");
 
 	/* We can't make any CORBA calls unless we're in the main loop.  So we
