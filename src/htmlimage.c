@@ -244,7 +244,7 @@ image_update_url (HTMLImage *image, gint x, gint y)
 		}
 	} else if (image->ismap) {
 		if (image->url)
-			url = g_strdup_printf ("%s?%d,%d", image->url, x - o->x, y - o->y);
+			url = g_strdup_printf ("%s?%d,%d", image->url, x - o->x, y - (o->y - o->ascent));
 	} else {
 		if (image->url)
 			url = g_strdup (image->url);

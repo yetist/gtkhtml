@@ -1,5 +1,7 @@
 2001-05-31  Larry Ewing  <lewing@ximian.com>
 
+	* htmlimage.c (image_update_url): fix this properly this time.
+
 	* htmlshape.c (html_shape_point): add tests for poly and default.
 	(html_shape_new): move from separate shape structures to a single
 	structure with a pointer array holding HTMLLengths.  I still need
