@@ -157,6 +157,16 @@ append_to_buffer (GList **buffer,
 {
 	HTMLObject *last_object;
 
+	/* don't add "" */
+	if (html_object_is_text (object) && !HTML_TEXT (object)->text [0])
+		return;
+
+	/* debug msg */
+	g_print ("Adding object %p [%s] to cut_buffer.\n",
+		 object, html_type_name (HTML_OBJECT_TYPE (object)));
+	if (html_object_is_text (object))
+		g_print ("\ttext `%s'\n", HTML_TEXT (object)->text);
+
 	if (*buffer == NULL) {
 		*buffer = *buffer_tail = g_list_append (NULL, object);
 		return;
@@ -203,12 +213,35 @@ delete_same_parent (HTMLEngine *e,
 
 		html_clue_remove (HTML_CLUE (p->parent), p);
 		append_to_buffer (buffer, buffer_last, p);
-		html_object_destroy (p);
 
 		p = pnext;
 	}
 
 	html_object_relayout (parent, e, e->cursor->object);
+}
+
+static void
+add_par_objects (HTMLClue *par, HTMLObject *end,
+		 GList **buffer,
+		 GList **buffer_last,
+		 gboolean dest)
+{
+	HTMLObject *obj;
+
+	/* now append all object from this paragraph */
+	g_assert (HTML_OBJECT_TYPE (par) == HTML_TYPE_CLUEFLOW);
+	obj = HTML_CLUE (par)->head;
+	while (obj && obj != end) {
+		/* we need dup as obj will be destroyed by flow destroy */
+		if (HTML_OBJECT_TYPE (obj) != HTML_TYPE_TEXTSLAVE)
+			append_to_buffer (buffer, buffer_last, html_object_dup (obj));
+		if (dest) {
+			html_clue_remove (par, obj);
+			html_object_destroy (obj);
+		}
+		obj = obj->next;
+	}
+
 }
 
 /* This destroys object from the cursor backwards to the specified
@@ -223,6 +256,7 @@ delete_different_parent (HTMLEngine *e,
 	HTMLObject *p, *pnext, *pprev;
 	HTMLObject *start_parent;
 	HTMLObject *end_parent;
+	GList *merge, *m;
 
 	start_parent = start_object->parent;
 	end_parent = e->cursor->object->parent;
@@ -239,23 +273,22 @@ delete_different_parent (HTMLEngine *e,
 
 		html_clue_remove (HTML_CLUE (start_parent), p);
 		append_to_buffer (buffer, buffer_last, p);
-		html_object_destroy (p);
 
 		p = pnext;
 	}
 
-	/* Then move all the (remaining) objects from the `start_parent's to the cursor's
-           paragraph.  This will merge the two paragraphs.  */
-
-	for (p = HTML_CLUE (start_parent)->tail; p != NULL; p = pprev) {
+	/* now collect remaining objects from start_parent */
+	p = HTML_CLUE (start_parent)->tail;
+	merge = NULL;
+	while (p) {
 		pprev = p->prev;
-
 		html_clue_remove (HTML_CLUE (start_parent), p);
 
 		if (HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
 			html_object_destroy (p);
 		else
-			html_clue_prepend (HTML_CLUE (end_parent), p);
+			merge = g_list_append (merge, p);
+		p = pprev;
 	}
 
 	/* Finally destroy all the paragraphs from the one after `start_object's, until
@@ -265,19 +298,29 @@ delete_different_parent (HTMLEngine *e,
 	while (1) {
 		pnext = p->next;
 
-		if (p == end_parent)
+		if (p == end_parent) {
+			add_par_objects (HTML_CLUE (p), e->cursor->object, buffer, buffer_last, TRUE);
 			break;
+		}
 
 		if (p->parent != NULL)
 			html_clue_remove (HTML_CLUE (p->parent), p);
 
 		append_to_buffer (buffer, buffer_last, html_object_dup (p));
+		add_par_objects (HTML_CLUE (p), NULL, buffer, buffer_last, FALSE);
 
-		g_assert (HTML_OBJECT_TYPE (p) == HTML_TYPE_CLUEFLOW);
 		html_object_destroy (p);
 
 		p = pnext;
 	}
+
+	/* prepend all remaining objects from start_parent to end_parent */
+	m = merge;
+	while (m) {
+		html_clue_prepend (HTML_CLUE (end_parent), HTML_OBJECT (m->data));
+		m = m->next;
+	}
+	g_list_free (merge);
 
 	html_object_relayout (end_parent->parent, e, end_parent);
 }

@@ -2,6 +2,11 @@
 
 	* htmlengine-edit-delete.c (merge_text_at_cursor): updated it to
 	merge both directions (need ie. after delete of non-text object)
+	(delete_different_parent): don't destroy objects going to save_buffer
+	(delete_same_parent): likewise
+	(delete_different_parent): also append objects from deleted
+	paragraphs to save_buffer
+	(append_to_buffer): added debug msg + don't insert "" to save buffer
 
 	* htmlimage.c (html_image_init): removed assertion on *filename
 	(html_image_factory_register): likewise
