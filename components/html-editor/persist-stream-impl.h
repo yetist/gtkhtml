@@ -24,9 +24,9 @@
 #ifndef _PERSIST_STREAM_IMPL_H
 
 #include <gnome.h>
-#include <bonobo/gnome-bonobo.h>
+#include <bonobo.h>
 
 
-GnomePersistStream *persist_stream_impl_new (GtkHTML *html);
+BonoboPersistStream *persist_stream_impl_new (GtkHTML *html);
 
 #endif

@@ -21,13 +21,13 @@
     Author: Ettore Perazzoli <ettore@helixcode.com>
 */
 
-/* This file implements the GNOME::PersistStream interface for the GtkHTML
+/* This file implements the Bonobo::PersistStream interface for the GtkHTML
    component.  */
 
 #include <config.h>
 
 #include <gnome.h>
-#include <bonobo/gnome-bonobo.h>
+#include <bonobo.h>
 
 #include "gtkhtml.h"
 
@@ -39,14 +39,14 @@
 #define READ_CHUNK_SIZE 4096
 
 static gint
-load (GnomePersistStream *ps,
-      GNOME_Stream stream,
+load (BonoboPersistStream *ps,
+      Bonobo_Stream stream,
       gpointer data)
 {
 	GtkHTML *html;
 	CORBA_Environment ev;
 	CORBA_long bytes_read;
-	GNOME_Stream_iobuf *buffer;
+	Bonobo_Stream_iobuf *buffer;
 	GtkHTMLStreamHandle handle;
 
 	CORBA_exception_init (&ev);
@@ -57,7 +57,7 @@ load (GnomePersistStream *ps,
 	handle = gtk_html_begin (html, "");
 
 	do {
-		bytes_read = GNOME_Stream_read (stream, READ_CHUNK_SIZE, &buffer, &ev);
+		bytes_read = Bonobo_Stream_read (stream, READ_CHUNK_SIZE, &buffer, &ev);
 		if (ev._major != CORBA_NO_EXCEPTION) {
 			bytes_read = -1;
 			break;
@@ -85,7 +85,7 @@ load (GnomePersistStream *ps,
 /* Saving.  */
 
 struct _SaveState {
-	GNOME_Stream stream;
+	Bonobo_Stream stream;
 	CORBA_Environment ev;
 };
 typedef struct _SaveState SaveState;
@@ -96,7 +96,7 @@ save_receiver (const HTMLEngine *engine,
 	       guint length,
 	       gpointer user_data)
 {
-	GNOME_Stream_iobuf buffer;
+	Bonobo_Stream_iobuf buffer;
 	CORBA_long bytes_written;
 	SaveState *state;
 
@@ -108,7 +108,7 @@ save_receiver (const HTMLEngine *engine,
 	buffer._length = length;
 	buffer._buffer = (CORBA_char *) data; /* Should be safe.  */
 
-	bytes_written = GNOME_Stream_write (state->stream, &buffer, &state->ev);
+	bytes_written = Bonobo_Stream_write (state->stream, &buffer, &state->ev);
 
 	if (bytes_written != length || state->ev._major != CORBA_NO_EXCEPTION)
 		return FALSE;
@@ -117,8 +117,8 @@ save_receiver (const HTMLEngine *engine,
 }
 
 static gint
-save (GnomePersistStream *ps,
-      GNOME_Stream stream,
+save (BonoboPersistStream *ps,
+      Bonobo_Stream stream,
       gpointer data)
 {
 	GtkHTML *html;
@@ -148,8 +148,8 @@ save (GnomePersistStream *ps,
 }
 
 
-GnomePersistStream *
+BonoboPersistStream *
 persist_stream_impl_new (GtkHTML *html)
 {
-	return gnome_persist_stream_new (load, save, html);
+	return bonobo_persist_stream_new (load, save, html);
 }

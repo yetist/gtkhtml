@@ -24,33 +24,33 @@
 #include <config.h>
 #include <gnome.h>
 #include <libgnorba/gnorba.h>
-#include <bonobo/gnome-bonobo.h>
+#include <bonobo.h>
 
 
 /* Saving/loading through PersistStream.  */
 
 static void
 load_through_stream (const gchar *filename,
-		     GNOME_PersistStream pstream)
+		     Bonobo_PersistStream pstream)
 {
-	GnomeStream *stream;
+	BonoboStream *stream;
 	CORBA_Environment ev;
 
 	CORBA_exception_init (&ev);
 
-	stream = gnome_stream_fs_open (filename, GNOME_Storage_READ);
+	stream = bonobo_stream_fs_open (filename, Bonobo_Storage_READ);
 	if (stream == NULL) {
 		g_warning ("Couldn't load `%s'\n", filename);
 	} else {
-		GnomeObject *stream_object;
-		GNOME_Stream corba_stream;
+		BonoboObject *stream_object;
+		Bonobo_Stream corba_stream;
 
-		stream_object = GNOME_OBJECT (stream);
-		corba_stream = gnome_object_corba_objref (stream_object);
-		GNOME_PersistStream_load (pstream, corba_stream, &ev);
+		stream_object = BONOBO_OBJECT (stream);
+		corba_stream = bonobo_object_corba_objref (stream_object);
+		Bonobo_PersistStream_load (pstream, corba_stream, &ev);
 	}
 
-	GNOME_Unknown_unref (pstream, &ev);
+	Bonobo_Unknown_unref (pstream, &ev);
 	CORBA_Object_release (pstream, &ev);
 
 	CORBA_exception_free (&ev);
@@ -58,27 +58,27 @@ load_through_stream (const gchar *filename,
 
 static void
 save_through_stream (const gchar *filename,
-		     GNOME_PersistStream pstream)
+		     Bonobo_PersistStream pstream)
 {
-	GnomeStream *stream;
+	BonoboStream *stream;
 	CORBA_Environment ev;
 
 	CORBA_exception_init (&ev);
 
-	stream = gnome_stream_fs_create (filename);
+	stream = bonobo_stream_fs_create (filename);
 
 	if (stream == NULL) {
 		g_warning ("Couldn't create `%s'\n", filename);
 	} else {
-		GnomeObject *stream_object;
-		GNOME_Stream corba_stream;
+		BonoboObject *stream_object;
+		Bonobo_Stream corba_stream;
 
-		stream_object = GNOME_OBJECT (stream);
-		corba_stream = gnome_object_corba_objref (stream_object);
-		GNOME_PersistStream_save (pstream, corba_stream, &ev);
+		stream_object = BONOBO_OBJECT (stream);
+		corba_stream = bonobo_object_corba_objref (stream_object);
+		Bonobo_PersistStream_save (pstream, corba_stream, &ev);
 	}
 
-	GNOME_Unknown_unref (pstream, &ev);
+	Bonobo_Unknown_unref (pstream, &ev);
 	CORBA_Object_release (pstream, &ev);
 
 	CORBA_exception_free (&ev);
@@ -96,7 +96,7 @@ enum _FileSelectionOperation {
 typedef enum _FileSelectionOperation FileSelectionOperation;
 
 struct _FileSelectionInfo {
-	GnomeBonoboWidget *control;
+	BonoboWidget *control;
 	GtkWidget *app;
 	GtkWidget *widget;
 
@@ -123,11 +123,11 @@ file_selection_ok_cb (GtkWidget *widget,
 		      gpointer data)
 {
 	CORBA_Object interface;
-	GnomeObjectClient *object_client;
+	BonoboObjectClient *object_client;
 
-	object_client = gnome_bonobo_widget_get_server (file_selection_info.control);
-	interface = gnome_object_client_query_interface (object_client,
-							 "IDL:GNOME/PersistStream:1.0",
+	object_client = bonobo_widget_get_server (file_selection_info.control);
+	interface = bonobo_object_client_query_interface (object_client,
+							 "IDL:Bonobo/PersistStream:1.0",
 							 NULL);
 
 	if (interface != CORBA_OBJECT_NIL) {
@@ -158,10 +158,10 @@ static void
 open_or_save_as_dialog (GnomeApp *app,
 			FileSelectionOperation op)
 {
-	GnomeBonoboWidget *control;
+	BonoboWidget *control;
 	GtkWidget *widget;
 
-	control = GNOME_BONOBO_WIDGET (app->contents);
+	control = BONOBO_WIDGET (app->contents);
 
 	if (file_selection_info.widget != NULL) {
 		gdk_window_show (GTK_WIDGET (file_selection_info.widget)->window);
@@ -245,7 +245,7 @@ container_create (void)
 	gtk_window_set_default_size (GTK_WINDOW (app), 500, 440);
 	gtk_window_set_policy (GTK_WINDOW (app), TRUE, TRUE, FALSE);
 
-	control = gnome_bonobo_widget_new_control ("control:html-editor");
+	control = bonobo_widget_new_control ("control:html-editor");
 	if (control == NULL)
 		g_error ("Cannot get `control:html-editor'.");
 

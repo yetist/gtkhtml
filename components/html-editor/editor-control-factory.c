@@ -24,7 +24,7 @@
 #include <config.h>
 #include <gnome.h>
 #include <libgnorba/gnorba.h>
-#include <bonobo/gnome-bonobo.h>
+#include <bonobo.h>
 
 #include "gtkhtml.h"
 #include "persist-stream-impl.h"
@@ -32,14 +32,14 @@
 #include "editor-control-factory.h"
 
 
-static GnomeObject *
-editor_control_factory (GnomeGenericFactory *factory,
+static BonoboObject *
+editor_control_factory (BonoboGenericFactory *factory,
 			gpointer closure)
 {
-	GnomeControl *control;
+	BonoboControl *control;
 	GtkWidget *html_widget;
 	GtkWidget *scrolled_window;
-	GnomePersistStream *stream_impl;
+	BonoboPersistStream *stream_impl;
 
 	html_widget = gtk_html_new ();
 	gtk_widget_show (html_widget);
@@ -49,27 +49,27 @@ editor_control_factory (GnomeGenericFactory *factory,
 	gtk_container_add (GTK_CONTAINER (scrolled_window), html_widget);
 	gtk_widget_show (scrolled_window);
 
-	control = gnome_control_new (scrolled_window);
+	control = bonobo_control_new (scrolled_window);
 
 	stream_impl = persist_stream_impl_new (GTK_HTML (html_widget));
-	gnome_object_add_interface (GNOME_OBJECT (control), GNOME_OBJECT (stream_impl));
+	bonobo_object_add_interface (BONOBO_OBJECT (control), BONOBO_OBJECT (stream_impl));
 
 	g_warning ("Creating a new GtkHTML editor control.");
 
-	return GNOME_OBJECT (control);
+	return BONOBO_OBJECT (control);
 }
 
 void
 editor_control_factory_init (void)
 {
-	static GnomeGenericFactory *factory = NULL;
+	static BonoboGenericFactory *factory = NULL;
 
 	if (factory != NULL)
 		return;
 
-	factory = gnome_generic_factory_new ("control-factory:html-editor",
-					     editor_control_factory,
-					     NULL);
+	factory = bonobo_generic_factory_new ("control-factory:html-editor",
+					      editor_control_factory,
+					      NULL);
 
 	if (factory == NULL)
 		g_error ("I could not register the html-editor-control factory.");
