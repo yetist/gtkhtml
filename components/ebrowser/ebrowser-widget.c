@@ -339,7 +339,16 @@ ebrowser_url_requested (GtkHTML * html, const gchar * url, GtkHTMLStream * handl
 		}
 		g_free (full);
 		break;
+	case EBROWSER_PROTOCOL_INTERNAL:
+		/* We are unsing hacked main page, so find saved eloader */
+		el = gtk_object_get_data (GTK_OBJECT (ebr), "InternalLoader");
+		if (el) {
+			/* fixme: This is hackish - can we be sure that streams are processed immediately? */
+			eloader_set_stream (el, handle);
+			return;
+		}
 	case EBROWSER_PROTOCOL_UNKNOWN:
+		gtk_html_stream_close (handle, GTK_HTML_STREAM_ERROR);
 		break;
 	default:
 		g_assert_not_reached ();
@@ -392,6 +401,7 @@ ebrowser_link_clicked (GtkHTML * html, const gchar * url)
 		g_free (full);
 		return;
 		break;
+	case EBROWSER_PROTOCOL_INTERNAL:
 	case EBROWSER_PROTOCOL_UNKNOWN:
 		gtk_signal_emit (GTK_OBJECT (ebr), ebr_signals[REQUEST], url);
 		return;
@@ -472,8 +482,7 @@ ebrowser_submit (GtkHTML * html, const gchar * method, const gchar * url, const 
 		return;
 		break;
 	case EBROWSER_PROTOCOL_FILE:
-		return;
-		break;
+	case EBROWSER_PROTOCOL_INTERNAL:
 	case EBROWSER_PROTOCOL_UNKNOWN:
 		return;
 		break;
@@ -502,6 +511,13 @@ ebrowser_submit (GtkHTML * html, const gchar * method, const gchar * url, const 
  * Helpers
  */
 
+/*
+ * ebrowser_load
+ *
+ * Requests loading main page
+ * We do not invalidate old page now, but instead in "connect" handler
+ */
+
 static void
 ebrowser_load (EBrowser * ebr, const gchar * uri)
 {
@@ -511,28 +527,30 @@ ebrowser_load (EBrowser * ebr, const gchar * uri)
 	gchar * new = NULL;
 	ELoader * el;
 
-	if (uri) new = g_strdup (uri);
+	if (uri) {
+		new = g_strdup (uri);
+	} else {
+		/* Clean page */
 
-	ebrowser_stop_loading (ebr);
+		ebrowser_stop_loading (ebr);
 
-	if (ebr->url) {
-		g_free (ebr->url);
-		ebr->url = NULL;
-	}
+		if (ebr->url) {
+			g_free (ebr->url);
+			ebr->url = NULL;
+		}
 
-	if (ebr->baseroot) {
-		g_free (ebr->baseroot);
-		ebr->baseroot = NULL;
-	}
+		if (ebr->baseroot) {
+			g_free (ebr->baseroot);
+			ebr->baseroot = NULL;
+		}
 
-	if (ebr->basedir) {
-		g_free (ebr->basedir);
-		ebr->basedir = NULL;
-	}
+		if (ebr->basedir) {
+			g_free (ebr->basedir);
+			ebr->basedir = NULL;
+		}
 
-	ebr->baseprotocol = EBROWSER_PROTOCOL_UNKNOWN;
+		ebr->baseprotocol = EBROWSER_PROTOCOL_UNKNOWN;
 
-	if (!uri) {
 		gtk_html_load_empty (GTK_HTML (ebr));
 		return;
 	}
@@ -546,23 +564,30 @@ ebrowser_load (EBrowser * ebr, const gchar * uri)
 	case EBROWSER_PROTOCOL_HTTP:
 		if (!ebrowser_http_base (location, &ebr->baseroot, &ebr->basedir)) return;
 		ebr->baseprotocol = proto;
+#if 0
 		stream = gtk_html_begin (GTK_HTML (ebr));
-		el = eloader_http_new_get (ebr, new, stream);
+#endif
+		el = eloader_http_new_get (ebr, new, NULL);
 		break;
 	case EBROWSER_PROTOCOL_FILE:
 		if (!ebrowser_file_base (location, &ebr->baseroot, &ebr->basedir)) return;
 		ebr->baseprotocol = proto;
+#if 0
 		stream = gtk_html_begin (GTK_HTML (ebr));
-		el = eloader_file_new (ebr, location, stream);
+#endif
+		el = eloader_file_new (ebr, location, NULL);
 		break;
 	case EBROWSER_PROTOCOL_RELATIVE:
 		if (!ebrowser_file_base (location, &ebr->baseroot, &ebr->basedir)) return;
 		ebr->url = g_strdup_printf ("file:%s", new);
 		ebr->baseprotocol = EBROWSER_PROTOCOL_FILE;
+#if 0
 		stream = gtk_html_begin (GTK_HTML (ebr));
-		el = eloader_file_new (ebr, location, stream);
+#endif
+		el = eloader_file_new (ebr, location, NULL);
 		g_free (new);
 		break;
+	case EBROWSER_PROTOCOL_INTERNAL:
 	case EBROWSER_PROTOCOL_UNKNOWN:
 		break;
 	default:
@@ -612,6 +637,10 @@ ebrowser_status_set (EBrowser * ebr, const gchar * status)
 	gtk_signal_emit (GTK_OBJECT (ebr), ebr_signals[STATUS_SET], status);
 }
 
+/*
+ * fixme: handle all cases more nicely
+ */
+
 static void
 ebrowser_body_connect (ELoader * el, const gchar * url, const gchar * content_type, gpointer data)
 {
@@ -636,11 +665,47 @@ ebrowser_body_connect (ELoader * el, const gchar * url, const gchar * content_ty
 		ebr->basedir = NULL;
 	}
 
+	proto = ebrowser_find_protocol (url, &location);
+
+	if (strcmp (content_type, "text/html") == 0) {
+		GtkHTMLStream * stream;
+		/* We are std HTML, so give main stream to loader */
+		stream = gtk_html_begin (GTK_HTML (ebr));
+		eloader_set_stream (el, stream);
+	} else {
+		/* We are not the simplest case */
+		if ((strcmp (content_type, "image/jpeg") == 0) ||
+		    (strcmp (content_type, "image/x-bmp") == 0) ||
+		    (strcmp (content_type, "image/x-png") == 0) ||
+		    (strcmp (content_type, "image/x-pixmap") == 0) ||
+		    (strcmp (content_type, "image/gif") == 0)) {
+			GtkHTMLStream * stream;
+			gchar * str = g_strdup_printf ("<html><head><title>%s</title></head>"
+						       "<body><img src=\"internal:%s\"></body></html>",
+						       url,
+						       location);
+			gtk_object_set_data (GTK_OBJECT (ebr), "InternalLoader", el);
+			stream = gtk_html_begin (GTK_HTML (ebr));
+			gtk_html_stream_write (stream, str, strlen (str));
+			gtk_html_stream_close (stream, GTK_HTML_STREAM_OK);
+		} else if (strcmp (content_type, "text/plain") == 0) {
+			GtkHTMLStream * stream;
+			gchar * str = g_strdup_printf ("<html><head><title>%s</title></head>"
+						       "<body><pre>\n",
+						       url);
+			stream = gtk_html_begin (GTK_HTML (ebr));
+			gtk_html_stream_write (stream, str, strlen (str));
+			eloader_set_sufix (el, "\n</pre></html>");
+			eloader_set_stream (el, stream);
+		} else {
+			/* Unhandled type */
+			return;
+		}
+	}
+
 	if (url) {
 		ebr->url = g_strdup (url);
 	}
-
-	proto = ebrowser_find_protocol (ebr->url, &location);
 
 	switch (proto) {
 	case EBROWSER_PROTOCOL_HTTP:
@@ -670,6 +735,11 @@ ebrowser_find_protocol (const gchar * uri, const gchar ** location)
 	while (*uri && *uri <= ' ') uri++;
 
 	if (!*uri) return EBROWSER_PROTOCOL_UNKNOWN;
+
+	if (!strncmp (uri, "internal:", 9)) {
+		if (location) *location = uri + 9;
+		return EBROWSER_PROTOCOL_INTERNAL;
+	}
 
 	if (!strncmp (uri, "http://", 7)) {
 		if (location) *location = uri + 7;

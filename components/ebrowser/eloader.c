@@ -24,6 +24,8 @@
 
 #include "eloader.h"
 
+#define noDEBUG_EL_ALLOC
+
 #define EL_DEBUG(str,section) if (FALSE) g_print ("%s:%d (%s) %s\n", __FILE__, __LINE__, __FUNCTION__, str);
 
 static void eloader_class_init (GtkObjectClass * klass);
@@ -34,6 +36,10 @@ enum {CONNECT, DONE, SET_STATUS, LAST_SIGNAL};
 
 static GtkObjectClass * parent_class;
 static guint el_signals[LAST_SIGNAL] = {0};
+
+#ifdef DEBUG_EL_ALLOC
+static gint el_num = 0;
+#endif
 
 GtkType
 eloader_get_type (void)
@@ -95,6 +101,12 @@ eloader_init (GtkObject * object)
 
 	el->ebrowser = NULL;
 	el->stream = NULL;
+	el->sufix = NULL;
+
+#ifdef DEBUG_EL_ALLOC
+	el_num++;
+	g_print ("ELoaders: %d\n", el_num);
+#endif
 }
 
 static void
@@ -103,6 +115,11 @@ eloader_destroy (GtkObject * object)
 	ELoader * el;
 
 	el = ELOADER (object);
+
+	if (el->sufix) {
+		g_free (el->sufix);
+		el->sufix = NULL;
+	}
 
 	if (el->stream) {
 		gtk_html_stream_destroy (el->stream);
@@ -116,6 +133,11 @@ eloader_destroy (GtkObject * object)
 
 	if (GTK_OBJECT_CLASS (parent_class)->destroy)
 		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+
+#ifdef DEBUG_EL_ALLOC
+	el_num--;
+	g_print ("ELoaders: %d\n", el_num);
+#endif
 }
 
 void
@@ -143,6 +165,20 @@ eloader_set_stream (ELoader * eloader, GtkHTMLStream * stream)
 }
 
 void
+eloader_set_sufix (ELoader * eloader, const gchar * sufix)
+{
+	g_return_if_fail (eloader != NULL);
+	g_return_if_fail (IS_ELOADER (eloader));
+
+	if (eloader->sufix) {
+		g_free (eloader->sufix);
+		eloader->sufix = NULL;
+	}
+
+	if (sufix) eloader->sufix = g_strdup (sufix);
+}
+
+void
 eloader_connect (ELoader * eloader, const gchar * url, const gchar * content_type)
 {
 	g_return_if_fail (eloader != NULL);
@@ -159,8 +195,13 @@ eloader_done (ELoader * el, ELoaderStatus status)
 	g_return_if_fail (el != NULL);
 	g_return_if_fail (IS_ELOADER (el));
 
-	if (el->stream) gtk_html_stream_close (el->stream, (status == ELOADER_OK) ? GTK_HTML_STREAM_OK : GTK_HTML_STREAM_ERROR);
-	el->stream = NULL;
+	if (el->stream) {
+		if (el->sufix) {
+			gtk_html_stream_write (el->stream, el->sufix, strlen (el->sufix));
+		}
+		gtk_html_stream_close (el->stream, (status == ELOADER_OK) ? GTK_HTML_STREAM_OK : GTK_HTML_STREAM_ERROR);
+		el->stream = NULL;
+	}
 
 	gtk_object_ref (GTK_OBJECT (el));
 	gtk_signal_emit (GTK_OBJECT (el), el_signals[DONE], status);

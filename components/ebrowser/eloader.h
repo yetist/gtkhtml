@@ -56,6 +56,7 @@ struct _ELoader {
 	GtkObject object;
 	EBrowser * ebrowser;
 	GtkHTMLStream * stream;
+	gchar * sufix;
 };
 
 struct _ELoaderClass {
@@ -71,6 +72,7 @@ GtkType eloader_get_type (void);
 void eloader_construct (ELoader * eloader, EBrowser * ebrowser, GtkHTMLStream * stream);
 
 void eloader_set_stream (ELoader * eloader, GtkHTMLStream * stream);
+void eloader_set_sufix (ELoader * eloader, const gchar * sufix);
 
 /* Private methods */
 

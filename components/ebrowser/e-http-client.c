@@ -29,6 +29,8 @@
 #include "e-http-client.h"
 
 #define noEHC_VERBOSE
+#define noDEBUG_EHC_ALLOC
+
 #define EHC_DEBUG(str,section) if (FALSE) g_print ("%s:%d (%s) %s\n", __FILE__, __LINE__, __FUNCTION__, str);
 
 static void e_http_client_class_init (GtkObjectClass * klass);
@@ -47,6 +49,10 @@ enum {CONNECT, GET_DATA, DONE, SET_STATUS, LAST_SIGNAL};
 
 static GtkObjectClass * parent_class;
 static guint ehc_signals[LAST_SIGNAL] = {0};
+
+#ifdef DEBUG_EHC_ALLOC
+static gint ehc_num = 0;
+#endif
 
 GtkType
 e_http_client_get_type (void)
@@ -121,6 +127,11 @@ e_http_client_init (GtkObject * object)
 	ehc->pos = 0;
 	ehc->iid = 0;
 	ehc->sid = 0;
+
+#ifdef DEBUG_EHC_ALLOC
+	ehc_num++;
+	g_print ("EHTTPClients: %d\n", ehc_num);
+#endif
 }
 
 static void
@@ -156,8 +167,15 @@ e_http_client_finalize (GtkObject * object)
 		ehc->pos = 0;
 	}
 
+#if 0
 	if (GTK_OBJECT_CLASS (parent_class)->destroy)
 		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+#endif
+
+#ifdef DEBUG_EHC_ALLOC
+	ehc_num--;
+	g_print ("EHTTPClients: %d\n", ehc_num);
+#endif
 }
 
 EHTTPClient *

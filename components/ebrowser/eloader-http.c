@@ -25,7 +25,7 @@
 #include "e-cache.h"
 #include "eloader-http.h"
 
-#define ELH_CACHE_SIZE (1024 * 1024)
+#define ELH_CACHE_SIZE (1 * 1)
 
 #define EL_DEBUG(str,section) if (FALSE) g_print ("%s:%d (%s) %s\n", __FILE__, __LINE__, __FUNCTION__, str);
 
@@ -124,7 +124,6 @@ eloader_http_new_get (EBrowser * ebr, const gchar * url, GtkHTMLStream * stream)
 	g_return_val_if_fail (ebr != NULL, NULL);
 	g_return_val_if_fail (IS_EBROWSER (ebr), NULL);
 	g_return_val_if_fail (url != NULL, NULL);
-	g_return_val_if_fail (stream != NULL, NULL);
 
 	/* Create object */
 
@@ -259,9 +258,11 @@ connect_cached_client (gpointer data)
 
 	if (elh->client->pos > 0) {
 		/* We have data to write */
-		gtk_html_stream_write (elh->loader.stream,
-				       e_http_client_get_buffer (elh->client),
-				       e_http_client_get_position (elh->client));
+		if (elh->loader.stream) {
+			gtk_html_stream_write (elh->loader.stream,
+					       e_http_client_get_buffer (elh->client),
+					       e_http_client_get_position (elh->client));
+		}
 	}
 
 	if (elh->client->state < E_HTTP_CLIENT_DONE) {
@@ -376,6 +377,11 @@ client_done (EHTTPClient * client, EHTTPClientStatus status, gpointer data)
 	ELoaderHTTP * elh;
 
 	elh = ELOADER_HTTP (data);
+
+#if 0
+	e_http_client_unref (client);
+	elh->client = NULL;
+#endif
 
 	eloader_done (ELOADER (elh), (status == E_HTTP_CLIENT_OK) ? ELOADER_OK : ELOADER_ERROR);
 }

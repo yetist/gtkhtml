@@ -1,3 +1,18 @@
+2000-10-28  Lauris Kaplinski  <lauris@helixcode.com>
+
+	* e-http-client.c: Added dumb create/destroy watch
+
+	* ebrowser-widget.c (ebrowser_body_connect): Wrap text/plain and
+	image/* content types - so it now displays plain JPG/PNG/GIF...
+	Added "internal" protocol type, that simply picks up saved
+	loader and connects it to stream
+
+	* ebrowser-widget.h: EBROWSER_PROTOCOL_INTERNAL
+
+	* eloader.*: Added sufix attribute
+	(eloader_set_sufix): New function
+	(eloader-done): Write sufix before closing stream
+
 2000-10-27  Miguel de Icaza  <miguel@helixcode.com>
 
 	* eloader-http.c (client_done): Close stream with
