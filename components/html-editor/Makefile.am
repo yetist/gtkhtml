@@ -156,7 +156,7 @@ serverdir = $(libdir)/bonobo/servers
 server_in_files = GNOME_GtkHTML_Editor.server.in.in
 
 server_DATA = $(server_in_files:.server.in.in=.server)
-$(server_in_files:.server.in.in=.server.in): $(server_in_files) Makefile
+%.server.in: %.server.in.in Makefile
 	sed -e "s|\@GNOME_GTKHTML_EDITOR_LOCATION\@|$(location)|g" \
 	-e "s|\@EDITOR_API_VERSION\@|$(EDITOR_API_VERSION)|g" \
 	-e "s|\@GNOME_GTKHTML_EDITOR_TYPE\@|$(GNOME_GTKHTML_EDITOR_TYPE)|g" $< > $@
@@ -194,8 +194,6 @@ idldir = $(gtkhtml_data)
 idl_DATA = $(IDLS)
 
 CLEANFILES = \
-	GNOME_GtkHTML_Editor.server		\
-	GNOME_GtkHTML_Editor.server.in		\
 	GNOME_GtkHTML_Editor.xml		\
 	$(IDL_GENERATED)			\
 	$(SPELL_IDL_GENERATED) 

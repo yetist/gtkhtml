@@ -1,3 +1,7 @@
+2003-06-13  Larry Ewing  <lewing@ximian.com>
+
+	* Makefile.am: Use imlcit rules to generate the .server files. 
+
 2003-06-05  Radek Doulik  <rodo@ximian.com>
 
 	* GNOME_GtkHTML_Editor.xml.in: changed increase/decrease indent
