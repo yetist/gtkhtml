@@ -1,3 +1,12 @@
+2004-03-31  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (html_text_set_style_in_range): always apply size
+	attr so that we can scale
+	(html_pango_attr_font_size_calc): when no size attr is set handle
+	it as default size 3
+	(save_open_attrs): save font size only when necessary
+	(save_close_attrs): ditto
+
 2004-03-26  Radek Doulik  <rodo@ximian.com>
 
 	* htmlstyle.c (parse_color): do not copy more than 7 bytes which

@@ -1358,7 +1358,7 @@ save_open_attrs (HTMLEngineSaveState *state, GSList *attrs)
 		case PANGO_ATTR_SIZE:
 			if (attr->klass == &html_pango_attr_font_size_klass) {
 				HTMLPangoAttrFontSize *size = (HTMLPangoAttrFontSize *) attr;
-				if ((size->style & GTK_HTML_FONT_STYLE_SIZE_MASK) != GTK_HTML_FONT_STYLE_SIZE_3) {
+				if ((size->style & GTK_HTML_FONT_STYLE_SIZE_MASK) != GTK_HTML_FONT_STYLE_SIZE_3 && (size->style & GTK_HTML_FONT_STYLE_SIZE_MASK) != 0) {
 					tag = g_strdup_printf ("<FONT SIZE=\"%d\">", size->style & GTK_HTML_FONT_STYLE_SIZE_MASK);
 					free_tag = TRUE;
 				}
@@ -1412,7 +1412,7 @@ save_close_attrs (HTMLEngineSaveState *state, GSList *attrs)
 		case PANGO_ATTR_SIZE:
 			if (attr->klass == &html_pango_attr_font_size_klass) {
 				HTMLPangoAttrFontSize *size = (HTMLPangoAttrFontSize *) attr;
-				if ((size->style & GTK_HTML_FONT_STYLE_SIZE_MASK) != GTK_HTML_FONT_STYLE_SIZE_3)
+				if ((size->style & GTK_HTML_FONT_STYLE_SIZE_MASK) != GTK_HTML_FONT_STYLE_SIZE_3 && (size->style & GTK_HTML_FONT_STYLE_SIZE_MASK) != 0)
 					tag = "</FONT>";
 			}
 			break;
@@ -2915,7 +2915,10 @@ html_pango_attr_font_size_calc (HTMLPangoAttrFontSize *attr, HTMLEngine *e)
 	gint size, base_size, real_size;
 
 	base_size = (attr->style & GTK_HTML_FONT_STYLE_FIXED) ? e->painter->font_manager.fix_size : e->painter->font_manager.var_size;
-	size = (attr->style & GTK_HTML_FONT_STYLE_SIZE_MASK) - GTK_HTML_FONT_STYLE_SIZE_3;
+	if ((attr->style & GTK_HTML_FONT_STYLE_SIZE_MASK) != 0)
+		size = (attr->style & GTK_HTML_FONT_STYLE_SIZE_MASK) - GTK_HTML_FONT_STYLE_SIZE_3;
+	else
+		size = 0;
 	real_size = e->painter->font_manager.magnification * ((gdouble) base_size + (size > 0 ? (1 << size) : size) * base_size/8.0);
 
 	attr->attr_int.value = real_size;
@@ -3076,14 +3079,12 @@ html_text_set_style_in_range (HTMLText *text, GtkHTMLFontStyle style, HTMLEngine
 		pango_attr_list_change (text->attr_list, attr);
 	}
 
-	/* size */
-	if ((style & GTK_HTML_FONT_STYLE_SIZE_MASK) && ((style & GTK_HTML_FONT_STYLE_SIZE_MASK) != GTK_HTML_FONT_STYLE_SIZE_3)) {
-		attr = html_pango_attr_font_size_new (style);
-		html_pango_attr_font_size_calc ((HTMLPangoAttrFontSize *) attr, e);
-		attr->start_index = start_index;
-		attr->end_index = end_index;
-		pango_attr_list_change (text->attr_list, attr);
-	}
+	/* always apply size so that we can zoom */
+	attr = html_pango_attr_font_size_new (style);
+	html_pango_attr_font_size_calc ((HTMLPangoAttrFontSize *) attr, e);
+	attr->start_index = start_index;
+	attr->end_index = end_index;
+	pango_attr_list_change (text->attr_list, attr);
 }
 
 void
