@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.16.1\n"
 "POT-Creation-Date: 2001-11-19 17:55+0100\n"
-"PO-Revision-Date: 2001-11-11 12:24GMT+0200\n"
+"PO-Revision-Date: 2001-12-19 19:38GMT+0200\n"
 "Last-Translator: Vasif İsmayıloğlu MD <azerb_linux@hotmail.com>\n"
 "Language-Team: Azerbaijani Turkic <linuxaz@azerimail.net>\n"
 "MIME-Version: 1.0\n"
@@ -432,9 +432,8 @@ msgid "Numbered List"
 msgstr "Nömrələnmiş Siyahı"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
-#, fuzzy
 msgid "Numbered _List"
-msgstr "Nömrələnmiş Siyahı"
+msgstr "Nömrələnmiş _Siyahı"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
 msgid "Orange"
@@ -1228,14 +1227,12 @@ msgstr ""
 "\"><tr><td align=\"center\"><img src=\"file://"
 
 #: components/html-editor/template.c:97
-#, fuzzy
 msgid ""
 "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
 "\"-1\">Image 1: <b>description</b></font></td></tr></table></td></tr></table>"
 msgstr ""
-"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td>Image 1:"
-"&nbsp;<font size=\"3\"><b>description</b></font size=\"3\"></td></tr></"
-"table></td></tr></table>"
+"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
+"\"-1\">Image 1: <b>description</b></font></td></tr></table></td></tr></table>"
 
 #: components/html-editor/test-html-editor-control.c:276
 msgid "Open file..."
@@ -1321,5 +1318,3 @@ msgstr "Önizləməyi _çap et"
 msgid "Print preview"
 msgstr "Çap etmə önizləməsi"
 
-#~ msgid "_Numbered List"
-#~ msgstr "_Rəqəmli Siyahı"
