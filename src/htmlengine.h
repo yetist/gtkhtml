@@ -422,6 +422,7 @@ void      html_engine_replace_spell_word_with  (HTMLEngine  *e,
 						const gchar *word);
 void      html_engine_set_language             (HTMLEngine  *e,
 						const gchar *language);
+const gchar *html_engine_get_language          (HTMLEngine *e);
 
 /* view size - for image size specified in percent */
 gint  html_engine_get_view_width   (HTMLEngine *e);

@@ -42,6 +42,7 @@
 
 #include "gtkhtml-embedded.h"
 #include "gtkhtml-private.h"
+#include "gtkhtml-properties.h"
 #include "gtkhtml-stream.h"
 
 #include "gtkhtmldebug.h"
@@ -3631,6 +3632,8 @@ html_engine_init (HTMLEngine *engine)
 	engine->map_table = NULL;
 
 	engine->expose = FALSE;
+
+	engine->language = NULL;
 }
 
 HTMLEngine *
@@ -5529,6 +5532,12 @@ html_engine_set_language (HTMLEngine *e, const gchar *language)
 	e->language = g_strdup (language);
 
 	gtk_html_api_set_language (GTK_HTML (e->widget));
+}
+
+const gchar *
+html_engine_get_language (HTMLEngine *e)
+{
+	return e->language ? e->language : GTK_HTML_CLASS (GTK_WIDGET_GET_CLASS (e->widget))->properties->language;
 }
 
 static void

@@ -1,3 +1,14 @@
+2003-04-09  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (html_engine_init): set language to NULL
+	(html_engine_get_language): new method
+
+	* gtkhtml.c (command): use html_engine_get_language
+	(gtk_html_api_set_language): ditto
+
+	* gtkhtml-properties.c (gtk_html_class_properties_new): use
+	e_iconv_locale_language as default language
+
 2003-04-09  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml.c (style_set): move font setting logic to here, don't

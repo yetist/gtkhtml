@@ -4316,7 +4316,7 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		if (word && html->editor_api) {
 			if (com_type == GTK_HTML_COMMAND_SPELL_PERSONAL_DICTIONARY_ADD)
 				/* FIXME fire popup menu with more than 1 language enabled */
-				(*html->editor_api->add_to_personal) (html, word, html->engine->language, html->editor_data);
+				(*html->editor_api->add_to_personal) (html, word, html_engine_get_language (html->engine), html->editor_data);
 			else
 				(*html->editor_api->add_to_session) (html, word, html->editor_data);
 			g_free (word);
@@ -4757,15 +4757,7 @@ gtk_html_api_set_language (GtkHTML *html)
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	if (html->editor_api) {
-		gchar *language;
-
-		/* printf ("set language through API to '%s'\n",
-		   GTK_HTML_CLASS (GTK_OBJECT (html)->klass)->properties->language); */
-
-		language = html->engine->language
-			? html->engine->language
-			: GTK_HTML_CLASS (GTK_WIDGET_GET_CLASS (html))->properties->language;
-		html->editor_api->set_language (html, language, html->editor_data);
+		html->editor_api->set_language (html, html_engine_get_language (html->engine), html->editor_data);
 		html_engine_spell_check (html->engine);
 	}
 }

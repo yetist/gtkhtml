@@ -24,6 +24,7 @@ Boston, MA 02111-1307, USA.
 #include <string.h>
 #include <gdk/gdkx.h>
 #include <libgnome/gnome-i18n.h>
+#include <gal/util/e-iconv.h>
 #include "gtkhtml.h"
 #include "gtkhtml-properties.h"
 #include "htmlfontmanager.h"
@@ -106,7 +107,7 @@ gtk_html_class_properties_new (GtkWidget *widget)
 	p->alink_color             = color_to_string (alink_color, "#0000ff");
 	p->vlink_color             = color_to_string (vlink_color, "#0000ff");
 
-	p->language                = g_strdup ("en");
+	p->language                = g_strdup (e_iconv_locale_language ());
 	p->live_spell_check        = TRUE;
 
 	if (spell_error_color) {
