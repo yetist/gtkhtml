@@ -3579,7 +3579,6 @@ html_engine_draw (HTMLEngine *e,
 	if (width == 0 || height == 0)
 		return;
 	
-	printf ("html_engine_draw %d,%d %d,%d (%p)\n", x, y, width, height, e->widget->iframe_parent);
 	tx = -e->x_offset + e->leftBorder;
 	ty = -e->y_offset + e->topBorder;
 
@@ -4255,14 +4254,6 @@ html_engine_replace_word_with (HTMLEngine *e, const gchar *word)
 	html_engine_edit_selection_updater_update_now (e->selection_updater);
 	html_engine_paste_object (e, replace, TRUE);
 	html_engine_selection_pop (e);
-}
-
-void
-html_engine_set_active_selection (HTMLEngine *e, gboolean active, guint32 time)
-{
-	/* !!!FIXME html_engine_is_selection_active (e) = active; */
-	if (active)
-		gtk_selection_owner_set (GTK_WIDGET (e->widget), GDK_SELECTION_PRIMARY, GDK_CURRENT_TIME);	
 }
 
 HTMLCursor *

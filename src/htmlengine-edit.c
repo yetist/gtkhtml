@@ -87,7 +87,6 @@ html_engine_set_mark (HTMLEngine *e)
 		html_engine_unselect_all (e);
 
 	e->mark = html_cursor_dup (e->cursor);
-	/* !!!FIXME html_engine_is_selection_active (e) = TRUE; */
 
 	html_engine_edit_selection_updater_reset (e->selection_updater);
 	html_engine_edit_selection_updater_schedule (e->selection_updater);

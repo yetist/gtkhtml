@@ -116,25 +116,30 @@ html_interval_get_start_index (HTMLInterval *i, HTMLObject *obj)
 	return (obj != i->from.object) ? 0 : html_interval_get_from_index (i);
 }
 
+static void
+select_object (HTMLObject *o, HTMLEngine *e, gpointer data)
+{
+	HTMLInterval *i = (HTMLInterval *) data;
+
+	html_object_select_range (o, e, html_interval_get_start (i, o), html_interval_get_length (i, o), TRUE);
+}
+
 void
 html_interval_select (HTMLInterval *i, HTMLEngine *e)
 {
-	HTMLObject *obj;
-	guint offset, len;
+	html_interval_forall (i, e, select_object, i);
+}
 
-	obj = i->from.object;
-	while (obj) {
-		offset = html_interval_get_start  (i, obj);
-		len    = html_interval_get_length (i, obj);
-		if (len) {
-			/* !!!FIXME html_engine_is_selection_active (e) = TRUE; */
-			html_object_select_range (obj, e, offset, len, TRUE);
-		}
-		if (obj == i->to.object)
-			break;
-		obj = html_object_next_leaf_not_type (obj, HTML_TYPE_TEXTSLAVE);
-	}
-	html_engine_set_active_selection (e, html_engine_is_selection_active (e), GDK_CURRENT_TIME);
+static void
+unselect_object (HTMLObject *o, HTMLEngine *e, gpointer data)
+{
+	html_object_select_range (o, e, 0, 0, TRUE);
+}
+
+void
+html_interval_unselect (HTMLInterval *i, HTMLEngine *e)
+{
+	html_interval_forall (i, e, unselect_object, i);
 }
 
 gint
@@ -207,10 +212,6 @@ html_interval_forall (HTMLInterval *i, HTMLEngine *e, HTMLObjectForallFunc f, gp
 
 	g_return_if_fail (i->from.object);
 	g_return_if_fail (i->to.object);
-
-	printf ("from: %p to: %p\n", i->from.object, i->to.object);
-	//gtk_html_debug_dump_object (i->from.object);
-	//gtk_html_debug_dump_object (i->to.object);
 
 	from_downline = get_downtree_line (i->from.object);
 	to_downline   = get_downtree_line (i->to.object);
@@ -319,11 +320,9 @@ html_interval_substract (HTMLInterval *a, HTMLInterval *b, HTMLInterval **s1, HT
 void
 html_interval_validate (HTMLInterval *i)
 {
-	printf ("html_interval_validate\n");
 	if (&i->from == html_point_max (&i->from, &i->to)) {
 		HTMLPoint tmp;
 
-		printf ("swap\n");
 		tmp     = i->from;
 		i->from = i->to;
 		i->to   = tmp;

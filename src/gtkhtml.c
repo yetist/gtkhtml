@@ -709,7 +709,6 @@ unrealize (GtkWidget *widget)
 static gint
 expose (GtkWidget *widget, GdkEventExpose *event)
 {
-	printf ("expose (allocation: %d,%d)\n", widget->allocation.x, widget->allocation.y);
 	html_engine_draw (GTK_HTML (widget)->engine,
 			  event->area.x, event->area.y,
 			  event->area.width, event->area.height);
@@ -725,10 +724,6 @@ draw (GtkWidget *widget, GdkRectangle *area)
 {
 	GtkHTML *html = GTK_HTML (widget);
 	HTMLPainter *painter = html->engine->painter;
-
-	/* if (!html->iframe_parent)
-	   return; */
-	printf ("widget draw: %d,%d %d,%d (%p)\n", area->x, area->y, area->width, area->height, html->iframe_parent);
 
 	html_painter_clear (painter);
 

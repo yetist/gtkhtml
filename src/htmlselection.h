@@ -24,19 +24,20 @@
 
 #include "htmltypes.h"
 
+void      html_engine_select_interval       (HTMLEngine *e,
+					     HTMLInterval *i);
 void      html_engine_select_region         (HTMLEngine *e,
 					     gint        x1,
 					     gint        y1,
 					     gint        x2,
 					     gint        y2);
-void      html_engine_set_active_selection  (HTMLEngine *e,
-					     gboolean    active,
-					     guint32     time);
 void      html_engine_select_word           (HTMLEngine *e);
 void      html_engine_select_line           (HTMLEngine *e);
 void      html_engine_unselect_all          (HTMLEngine *e);
 void      html_engine_disable_selection     (HTMLEngine *e);
 gchar    *html_engine_get_selection_string  (HTMLEngine *e);
 gboolean  html_engine_is_selection_active   (HTMLEngine *e);
+void      html_engine_activate_selection    (HTMLEngine *e,
+					     guint32     time);
 
 #endif

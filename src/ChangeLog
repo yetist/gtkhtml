@@ -1,3 +1,23 @@
+2000-11-22  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlselection.c (html_engine_set_active_selection): moved from
+	htmlengine.c
+	(html_engine_activate_selection): renomed from html_engine_set_active_selection
+	(html_engine_select_interval): use html_engine_activate_selection
+
+	* htmlinterval.c (unselect_object): moved from htmlselection.c
+	(html_interval_unselect): new function
+
+	* htmlselection.c (html_engine_select_interval): new function
+	(selection_helper): use html_engine_select_interval
+	(html_engine_select_region): use html_engine_select_interval
+
+	* htmlinterval.c (select_object): moved from htmlselection.c
+
+	* htmlselection.c (html_engine_select_region): use html_interval_select
+
+	* htmlinterval.c (html_interval_select): rewritten
+
 2000-11-21  Joe Shaw  <joe@helixcode.com>
 
 	* htmlengine.c (parse_i): Advance the token by only 3 spaces instead of

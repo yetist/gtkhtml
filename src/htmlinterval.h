@@ -68,6 +68,8 @@ guint         html_interval_get_start_index  (HTMLInterval          *i,
 					      HTMLObject            *obj);
 void          html_interval_select           (HTMLInterval          *i,
 					      HTMLEngine            *e);
+void          html_interval_unselect         (HTMLInterval          *i,
+					      HTMLEngine            *e);
 gint          html_interval_get_from_index   (HTMLInterval          *i);
 gint          html_interval_get_to_index     (HTMLInterval          *i);
 void          html_interval_forall           (HTMLInterval          *i,

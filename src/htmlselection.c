@@ -24,12 +24,18 @@
 #include "htmlselection.h"
 #include "htmlengine-edit.h"
 
-static void
-select_object (HTMLObject *o, HTMLEngine *e, gpointer data)
+void
+html_engine_select_interval (HTMLEngine *e, HTMLInterval *i)
 {
-	HTMLInterval *i = (HTMLInterval *) data;
-
-	html_object_select_range (o, e, html_interval_get_start (i, o), html_interval_get_length (i, o), TRUE);
+	e = html_engine_get_top_html_engine (e);
+	if (e->selection && html_interval_eq (e->selection, i))
+		html_interval_destroy (i);
+	else {
+		html_engine_unselect_all (e);
+		e->selection = i;
+		html_interval_select (e->selection, e);
+	}
+	html_engine_activate_selection (e, GDK_CURRENT_TIME);
 }
 
 void
@@ -42,6 +48,7 @@ html_engine_select_region (HTMLEngine *e,
 	g_return_if_fail (e != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
+	e = html_engine_get_top_html_engine (e);
 	if (e->clue == NULL)
 		return;
 
@@ -53,31 +60,21 @@ html_engine_select_region (HTMLEngine *e,
 
 		new_selection = html_interval_new_from_points (a ,b);
 		html_interval_validate (new_selection);
-		if (e->selection && html_interval_eq (e->selection, new_selection))
-			html_interval_destroy (new_selection);
-		else {
-			html_engine_unselect_all (e);
-			e->selection = new_selection;
-			html_interval_forall (e->selection, e, select_object, e->selection);
-		}
+		html_engine_select_interval (e, new_selection);
 	}
 
-	if (a) html_point_destroy (a);
-	if (b) html_point_destroy (b);
-}
-
-static void
-unselect_object (HTMLObject *o, HTMLEngine *e, gpointer data)
-{
-	html_object_select_range (o, e, 0, 0, TRUE);
+	if (a)
+		html_point_destroy (a);
+	if (b)
+		html_point_destroy (b);
 }
 
 void
 html_engine_unselect_all (HTMLEngine *e)
 {
 	e = html_engine_get_top_html_engine (e);
-	if (html_engine_is_selection_active (e)) {
-		html_interval_forall (e->selection, e, unselect_object, e->selection);
+	if (e->selection) {
+		html_interval_unselect (e->selection, e);
 		html_interval_destroy (e->selection);
 		e->selection = NULL;
 	}
@@ -134,7 +131,7 @@ selection_helper (HTMLEngine *e, gboolean (*get_interval)(HTMLEngine *e, HTMLCur
 
 		if ((*get_interval) (e, begin, end)) {
 			i = html_interval_new_from_cursor (begin, end);
-			html_interval_select (i, e);
+			html_engine_select_interval (e, i);
 		}
 
 		html_cursor_destroy (begin);
@@ -159,4 +156,11 @@ gboolean
 html_engine_is_selection_active (HTMLEngine *e)
 {
 	return e->selection ? TRUE : FALSE;
+}
+
+void
+html_engine_activate_selection (HTMLEngine *e, guint32 time)
+{
+	if (e->selection)
+		gtk_selection_owner_set (GTK_WIDGET (e->widget), GDK_SELECTION_PRIMARY, time);	
 }
