@@ -51,5 +51,12 @@ void                     gtk_html_class_properties_copy      (GtkHTMLClassProper
 void                     gtk_html_class_properties_update    (GtkHTMLClassProperties *p,
 							      GConfClient *client,
 							      GtkHTMLClassProperties *old);
+/* enum types */
+
+#define GTK_TYPE_HTML_CURSOR_SKIP     (gtk_html_cursor_skip_get_type ())
+#define GTK_TYPE_HTML_COMMAND         (gtk_html_command_get_type ())
+
+GtkType gtk_html_cursor_skip_get_type (void);
+GtkType gtk_html_command_get_type     (void);
 
 #endif

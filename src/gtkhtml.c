@@ -45,9 +45,6 @@
 
 static GtkLayoutClass *parent_class = NULL;
 
-static GtkType GTK_TYPE_HTML_CURSOR_SKIP;
-static GtkType GTK_TYPE_HTML_COMMAND;
-
 GConfClient *gconf_client = NULL;
 GConfError  *gconf_error  = NULL;
 
@@ -82,7 +79,6 @@ static void cursor_move         (GtkHTML *html, GtkDirectionType dir_type, GtkHT
 static void command             (GtkHTML *html, GtkHTMLCommandType com_type);
 
 static void load_keybindings    (GtkHTMLClass *klass);
-static void register_enums      (void);
 
 /* Values for selection information.  FIXME: what about COMPOUND_STRING and
    TEXT?  */
@@ -1122,8 +1118,6 @@ class_init (GtkHTMLClass *klass)
 	object_class = (GtkObjectClass *)klass;
 	layout_class = (GtkLayoutClass *)klass;
 
-	register_enums ();
-
 	object_class->destroy = destroy;
 
 	parent_class = gtk_type_class (GTK_TYPE_LAYOUT);
@@ -2010,48 +2004,6 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	html->binding_handled = TRUE;
 }
 
-static GtkEnumValue _gtk_html_cursor_skip_values[] = {
-  { GTK_HTML_CURSOR_SKIP_ONE,  "GTK_HTML_CURSOR_SKIP_ONE",  "one" },
-  { GTK_HTML_CURSOR_SKIP_WORD, "GTK_HTML_CURSOR_SKIP_WORD", "word" },
-  { GTK_HTML_CURSOR_SKIP_PAGE, "GTK_HTML_CURSOR_SKIP_WORD", "page" },
-  { GTK_HTML_CURSOR_SKIP_ALL,  "GTK_HTML_CURSOR_SKIP_ALL",  "all" },
-  { 0, NULL, NULL }
-};
-
-static GtkEnumValue _gtk_html_command_values[] = {
-  { GTK_HTML_COMMAND_UNDO,  "GTK_HTML_COMMAND_UNDO",  "undo" },
-  { GTK_HTML_COMMAND_REDO,  "GTK_HTML_COMMAND_REDO",  "redo" },
-  { GTK_HTML_COMMAND_COPY,  "GTK_HTML_COMMAND_COPY",  "copy" },
-  { GTK_HTML_COMMAND_CUT,   "GTK_HTML_COMMAND_CUT",   "cut" },
-  { GTK_HTML_COMMAND_PASTE, "GTK_HTML_COMMAND_PASTE", "paste" },
-  { GTK_HTML_COMMAND_INSERT_PARAGRAPH, "GTK_HTML_COMMAND_INSERT_PARAGRAPH", "insert-paragraph" },
-  { GTK_HTML_COMMAND_DELETE, "GTK_HTML_COMMAND_DELETE", "delete" },
-  { GTK_HTML_COMMAND_SET_MARK, "GTK_HTML_COMMAND_SET_MARK", "set-mark" },
-  { GTK_HTML_COMMAND_DISABLE_SELECTION, "GTK_HTML_COMMAND_DISABLE_SELECTION", "disable-selection" },
-  { GTK_HTML_COMMAND_TOGGLE_BOLD, "GTK_HTML_COMMAND_TOGGLE_BOLD", "toggle-bold" },
-  { GTK_HTML_COMMAND_TOGGLE_ITALIC, "GTK_HTML_COMMAND_TOGGLE_ITALIC", "toggle-italic" },
-  { GTK_HTML_COMMAND_TOGGLE_UNDERLINE, "GTK_HTML_COMMAND_TOGGLE_BOLD", "toggle-underline" },
-  { GTK_HTML_COMMAND_TOGGLE_STRIKEOUT, "GTK_HTML_COMMAND_TOGGLE_BOLD", "toggle-strikeout" },
-  { GTK_HTML_COMMAND_ALIGN_LEFT, "GTK_HTML_COMMAND_ALIGN_LEFT", "align-left" },
-  { GTK_HTML_COMMAND_ALIGN_CENTER, "GTK_HTML_COMMAND_ALIGN_CENTER", "align-center" },
-  { GTK_HTML_COMMAND_ALIGN_RIGHT, "GTK_HTML_COMMAND_ALIGN_RIGHT", "align-right" },
-  { GTK_HTML_COMMAND_INDENT_INC, "GTK_HTML_COMMAND_INDENT_INC", "indent-more" },
-  { GTK_HTML_COMMAND_INDENT_DEC, "GTK_HTML_COMMAND_INDENT_DEC", "indent-less" },
-  { GTK_HTML_COMMAND_PARAGRAPH_STYLE_NORMAL, "GTK_HTML_COMMAND_PARAGRAPH_STYLE_NORMAL", "style-normal" },
-  { GTK_HTML_COMMAND_PARAGRAPH_STYLE_H1, "GTK_HTML_COMMAND_PARAGRAPH_STYLE_H1", "style-header1" },
-  { GTK_HTML_COMMAND_PARAGRAPH_STYLE_H2, "GTK_HTML_COMMAND_PARAGRAPH_STYLE_H2", "style-header2" },
-  { GTK_HTML_COMMAND_PARAGRAPH_STYLE_H3, "GTK_HTML_COMMAND_PARAGRAPH_STYLE_H3", "style-header3" },
-  { GTK_HTML_COMMAND_PARAGRAPH_STYLE_H4, "GTK_HTML_COMMAND_PARAGRAPH_STYLE_H4", "style-header4" },
-  { GTK_HTML_COMMAND_PARAGRAPH_STYLE_H5, "GTK_HTML_COMMAND_PARAGRAPH_STYLE_H5", "style-header5" },
-  { GTK_HTML_COMMAND_PARAGRAPH_STYLE_H6, "GTK_HTML_COMMAND_PARAGRAPH_STYLE_H6", "style-header6" },
-  { GTK_HTML_COMMAND_PARAGRAPH_STYLE_ADDRESS, "GTK_HTML_COMMAND_PARAGRAPH_STYLE_ADDRESS", "style-address" },
-  { GTK_HTML_COMMAND_PARAGRAPH_STYLE_PRE, "GTK_HTML_COMMAND_PARAGRAPH_STYLE_PRE", "style-pre" },
-  { GTK_HTML_COMMAND_PARAGRAPH_STYLE_ITEMDOTTED, "GTK_HTML_COMMAND_PARAGRAPH_STYLE_ITEMDOTTED", "style-itemdot" },
-  { GTK_HTML_COMMAND_PARAGRAPH_STYLE_ITEMROMAN, "GTK_HTML_COMMAND_PARAGRAPH_STYLE_ITEMROMAN", "style-itemroman" },
-  { GTK_HTML_COMMAND_PARAGRAPH_STYLE_ITEMDIGIT, "GTK_HTML_COMMAND_PARAGRAPH_STYLE_ITEMDIGIT", "style-itemdigit" },
-  { 0, NULL, NULL }
-};
-
 /*
   default keybindings:
 
@@ -2105,9 +2057,12 @@ load_keybindings (GtkHTMLClass *klass)
 	g_list_free (vals);
 	/* end of FIXME */
 
+	/* ensure enums are defined */
+	gtk_html_cursor_skip_get_type ();
+	gtk_html_command_get_type ();
+
 	base = g_strconcat ("gtkhtml/keybindingsrc.", klass->properties->keybindings_theme, NULL);
 	rcfile = gnome_unconditional_datadir_file (base);
-
 	printf ("loading %s\n", rcfile);
 	gtk_rc_parse (rcfile);
 	/* gtk_rc_parse ("/home/rodo/gtkhtml/src/keybindingsrc.ms"); */
@@ -2184,13 +2139,6 @@ load_keybindings (GtkHTMLClass *klass)
 	BCOM (0, BackSpace, DELETE_BACK);
 	BCOM (0, Delete, DELETE);
 	BCOM (0, KP_Delete, DELETE);
-}
-
-static void
-register_enums (void)
-{
-	GTK_TYPE_HTML_CURSOR_SKIP = gtk_type_register_enum ("GTK_HTML_CURSOR_SKIP", _gtk_html_cursor_skip_values);
-	GTK_TYPE_HTML_COMMAND     = gtk_type_register_enum ("GTK_HTML_COMMAND",     _gtk_html_command_values);
 }
 
 gboolean

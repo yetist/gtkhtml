@@ -2,7 +2,7 @@
 # emacs like keybindings for HTML Editor
 #
 
-binding "html-keys"
+binding "gtkhtml-bindings-emacs"
 {
   bind "Home"               { "cursor_move" (up,   all) }
   bind "End"                { "cursor_move" (down, all) }
@@ -55,4 +55,4 @@ binding "html-keys"
   bind "<Ctrl><Alt>3"       { "command" (style-itemdigit) }
 }
 
-class "GtkHTML" binding "html-keys"
+class "GtkHTML" binding "gtkhtml-bindings-emacs"
