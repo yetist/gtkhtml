@@ -674,7 +674,7 @@ send_event_str (GNOME_GtkHTML_Editor_Engine engine, GNOME_GtkHTML_Editor_Listene
 	/* printf ("sending to listener\n"); */
 	CORBA_exception_init (&ev);
 	bonobo_retval = GNOME_GtkHTML_Editor_Listener_event (listener, name, bonobo_arg, &ev);
-	CORBA_free (bonobo_arg);
+	bonobo_arg_release (bonobo_arg);
 
 	if (ev._major == CORBA_NO_EXCEPTION) {
 		if (!bonobo_arg_type_is_equal (bonobo_retval->_type, TC_null, &ev)
@@ -695,11 +695,15 @@ send_event_void (GNOME_GtkHTML_Editor_Engine engine, GNOME_GtkHTML_Editor_Listen
 {
 	CORBA_Environment ev;
 	CORBA_any *any;
+	CORBA_any *retval;
 
 	any = CORBA_any_alloc ();
 	any->_type = TC_null;
 	CORBA_exception_init (&ev);
-	GNOME_GtkHTML_Editor_Listener_event (listener, name, any, &ev);
+	retval = GNOME_GtkHTML_Editor_Listener_event (listener, name, any, &ev);
+	if (!BONOBO_EX (&ev))
+	    CORBA_free (retval);
+
 	CORBA_exception_free (&ev);
 	CORBA_free (any);
 }
@@ -712,6 +716,7 @@ send_event_stream (GNOME_GtkHTML_Editor_Engine engine,
 		   GtkHTMLStream *stream) 
 {
 	CORBA_any *any;
+	CORBA_any *retval;
 	GNOME_GtkHTML_Editor_URLRequestEvent e;
 	CORBA_Environment ev;
 	BonoboObject *bstream;
@@ -725,7 +730,9 @@ send_event_stream (GNOME_GtkHTML_Editor_Engine engine,
 	e.stream = BONOBO_OBJREF (bstream);
 	
 	CORBA_exception_init (&ev);
-	GNOME_GtkHTML_Editor_Listener_event (listener, name, any, &ev);
+	retval = GNOME_GtkHTML_Editor_Listener_event (listener, name, any, &ev);
+	if (!BONOBO_EX (&ev))
+	    CORBA_free (retval);
 
 	bonobo_object_unref (BONOBO_OBJECT (bstream));
 	CORBA_exception_free (&ev);

@@ -341,6 +341,9 @@ spell_create_language_menu (GtkHTMLControlData *cd)
 	if (cd->dict == CORBA_OBJECT_NIL)
 		return;
 
+	if (cd->languages)
+		CORBA_free (cd->languages);
+
 	CORBA_exception_init (&ev);
 	cd->languages = seq = GNOME_Spell_Dictionary_getLanguages (cd->dict, &ev);
 

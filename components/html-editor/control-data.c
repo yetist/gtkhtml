@@ -76,5 +76,8 @@ gtk_html_control_data_destroy (GtkHTMLControlData *cd)
 	if (cd->gdk_painter) 
 		g_object_unref (cd->gdk_painter);
 
+	if (cd->languages)
+		CORBA_free (cd->languages);
+
 	g_free (cd);
 }

@@ -1,6 +1,20 @@
 2003-06-13  Larry Ewing  <lewing@ximian.com>
 
+	* editor-control-factory.c (send_event_void): unref all return
+	values.
+
+	* spell.c (spell_create_language_menu): make sure we don't
+	overwrite languages without freeing it.
+
+	* control-data.c (gtk_html_control_data_destroy): free the
+	languages.
+
 	* Makefile.am: Use imlcit rules to generate the .server files. 
+
+2003-06-10  Larry Ewing  <lewing@ximian.com>
+
+	* editor-control-factory.c (send_event_str): free the bonobo arg
+	the right way.
 
 2003-06-05  Radek Doulik  <rodo@ximian.com>
 
