@@ -766,6 +766,7 @@ draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphSt
 	HTMLPangoProperties properties;
 	GdkColor *fg_text_color;
 	GdkColor *bg_text_color;
+	GdkGCValues orig_fg;
 	gint cw = 0;
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
@@ -777,11 +778,10 @@ draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphSt
 
 	set_item_gc (painter, &properties, &fg_text_color, &bg_text_color);
 
-
 	if (bg_text_color || bg) {
 		PangoRectangle log_rect;
 
-		
+		gdk_gc_get_values (gdk_painter->gc, &orig_fg);
 		if (bg)
 			gdk_gc_set_rgb_fg_color (gdk_painter->gc, bg);
 		else
@@ -789,9 +789,11 @@ draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphSt
 		pango_glyph_string_extents (glyphs, item->analysis.font, NULL, &log_rect);
 		gdk_draw_rectangle (gdk_painter->pixmap, gdk_painter->gc, TRUE, x, y - PANGO_PIXELS (PANGO_ASCENT (log_rect)),
 				    PANGO_PIXELS (log_rect.width), PANGO_PIXELS (log_rect.height));
+		gdk_gc_set_foreground (gdk_painter->gc, &orig_fg.foreground);
 	}
 
 	if (fg_text_color || fg) {
+		gdk_gc_get_values (gdk_painter->gc, &orig_fg);
 		if (fg)
 			gdk_gc_set_rgb_fg_color (gdk_painter->gc, fg);
 		else
@@ -805,6 +807,9 @@ draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphSt
 	else
 		for (i=0; i < glyphs->num_glyphs; i ++)
 			cw += glyphs->glyphs [i].geometry.width;
+
+	if (fg_text_color || fg)
+		gdk_gc_set_foreground (gdk_painter->gc, &orig_fg.foreground);
 
 	if (fg_text_color)
 		g_free (fg_text_color);

@@ -1,3 +1,8 @@
+2005-03-23  Radek Doulik  <rodo@novell.com>
+
+	* htmlgdkpainter.c (draw_glyphs): maintain fg color unchanged
+	after and during drawing
+
 2005-03-21  Radek Doulik  <rodo@novell.com>
 
 	* htmlengine.c (element_parse_cell): set padding to the style
