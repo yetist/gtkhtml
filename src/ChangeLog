@@ -1,3 +1,23 @@
+2003-04-15  Larry Ewing  <lewing@ximian.com>
+
+	* htmliframe.c (calc_size): let the engine know what size we
+	decided it was (for later clipping).
+
+	* htmlengine.c (html_engine_intersection): clip to the top iframe
+	always.
+	(html_engine_get_viewport): simple helper function.
+
+2003-04-14  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (thaw_idle): fix the area passed to the cleanup
+	function.
+	(clear_changed_area): pass the correct extents to
+	::draw_background.
+	
+	* htmldrawqueue.c (clear): pass the correct extents to
+	draw_background.
+	(draw_obj): the same.
+
 2003-04-14  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c (html_engine_stream_end): set newPage to false to

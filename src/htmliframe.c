@@ -349,6 +349,8 @@ calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 		
 		html_iframe_set_scrolling (iframe, GTK_POLICY_NEVER);
 
+		e->width = width;
+		e->height = height;
 		o->width = width;
 		o->ascent = height;
 		o->descent = 0;

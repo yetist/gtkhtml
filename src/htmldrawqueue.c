@@ -289,7 +289,7 @@ draw_obj (HTMLDrawQueue *queue,
 	/* Draw the actual object.  */
 
 	if (html_object_is_transparent (obj)) {
-		html_engine_draw_background (e, x1, y1, x2, y2);
+		html_engine_draw_background (e, x1, y1, x2 - x1, y2 - y1);
 		html_object_draw_background (obj, e->painter,
 					     obj->x, obj->y - obj->ascent,
 					     obj->width, obj->ascent + obj->descent,
@@ -349,7 +349,7 @@ clear (HTMLDrawQueue *queue,
 	html_painter_begin (e->painter, x1, y1, x2, y2);
 
 	if (elem->background_color != NULL) {
-		html_engine_draw_background (e, x1, y1, x2, y2);
+		html_engine_draw_background (e, x1, y1, x2 - x1, y2 - y1);
 	}
 
 #if 0

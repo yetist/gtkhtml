@@ -4788,20 +4788,52 @@ html_engine_freeze (HTMLEngine *engine)
 	engine->freeze_count++;
 }
 
+static void
+html_engine_get_viewport (HTMLEngine *e, GdkRectangle *viewport)
+{
+	viewport->x = e->x_offset;
+	viewport->y = e->y_offset;
+	viewport->width = e->width;
+	viewport->height = e->height;
+}
+
 gboolean
 html_engine_intersection (HTMLEngine *e, gint *x1, gint *y1, gint *x2, gint *y2)
 {
-	if (*x2 < e->x_offset || *y2 < e->y_offset || *x1 > e->x_offset + e->width || *y1 > e->y_offset + e->height)
+	HTMLEngine *top = html_engine_get_top_html_engine (e);
+	GdkRectangle draw;
+	GdkRectangle clip;
+	GdkRectangle paint;
+
+	html_engine_get_viewport (e, &clip);
+
+	if (e != top) {
+		GdkRectangle top_clip;
+		gint abs_x = 0, abs_y = 0;
+				
+		html_object_calc_abs_position (e->clue->parent, &abs_x, &abs_y);
+		abs_y -= e->clue->parent->ascent;
+
+		html_engine_get_viewport (top, &top_clip);
+		top_clip.x -= abs_x;
+		top_clip.y -= abs_y;
+
+		if (!gdk_rectangle_intersect (&clip, &top_clip, &clip))
+			return FALSE;
+	}
+
+	draw.x = *x1;
+	draw.y = *y1;
+	draw.width = *x2 - *x1;
+	draw.height = *y2 - *y1;
+
+	if (!gdk_rectangle_intersect (&clip, &draw, &paint))
 		return FALSE;
 
-	if (*x1 < e->x_offset)
-		*x1 = e->x_offset;
-	if (*y1 < e->y_offset)
-		*y1 = e->y_offset;
-	if (*x2 > e->x_offset + e->width)
-		*x2 = e->x_offset + e->width;
-	if (*y2 > e->y_offset + e->height)
-		*y2 = e->y_offset + e->height;
+	*x1 = paint.x;
+	*x2 = paint.x + paint.width;
+	*y1 = paint.y;
+	*y2 = paint.y + paint.height;
 
 	return TRUE;
 }
@@ -4825,7 +4857,7 @@ clear_changed_area (HTMLEngine *e, HTMLObjectClearRectangle *cr)
 	if (html_engine_intersection (e, &x1, &y1, &x2, &y2)) {
 		if (html_object_is_transparent (cr->object)) {
 			html_painter_begin (e->painter, x1, y1, x2, y2);
-			html_engine_draw_background (e, x1, y1, x2, y2);
+			html_engine_draw_background (e, x1, y1, x2 - x1, y2 - y1);
 			html_object_draw_background (o, e->painter,
 						     o->x + cr->x, o->y - o->ascent + cr->y,
 						     cr->width, cr->height,
@@ -4977,25 +5009,22 @@ thaw_idle (gpointer data)
 	if (redraw_whole) {
 		html_engine_queue_redraw_all (e);
 	} else {
-		GtkAdjustment *vadj, *hadj;
 		gint nw, nh;
 
 		do_pending_expose (e);
 		draw_changed_objects (e, changed_objs);
 
-		hadj = GTK_LAYOUT (e->widget)->hadjustment;
-		vadj = GTK_LAYOUT (e->widget)->vadjustment;
 		nw = html_engine_get_doc_width (e) - e->rightBorder;
 		nh = html_engine_get_doc_height (e) - e->bottomBorder;
 
-		if (nh < h && nh - vadj->value < e->height) {
-			html_painter_begin (e->painter, 0, nh - vadj->value, e->width, e->height);
-			html_engine_draw_background (e, 0, nh - vadj->value, e->width, e->height - (nh - vadj->value));
+		if (nh < h && nh - e->y_offset < e->height) {
+			html_painter_begin (e->painter, e->x_offset, nh, e->width + e->x_offset, e->height + e->y_offset);
+			html_engine_draw_background (e, e->x_offset, nh, e->width + e->x_offset, e->height - (nh - e->y_offset));
 			html_painter_end (e->painter);
 		}
-		if (nw < w && nw - hadj->value < e->width) {
-			html_painter_begin (e->painter, nw - hadj->value, 0, e->width, e->height);
-			html_engine_draw_background (e, nw - hadj->value, 0, e->width - (nw - hadj->value), e->height);
+		if (nw < w && nw - e->x_offset < e->width) {
+			html_painter_begin (e->painter, nw, e->y_offset, e->width + e->x_offset, e->height + e->y_offset);
+			html_engine_draw_background (e, nw, e->y_offset, e->width - (nw - e->x_offset), e->height + e->y_offset);
 			html_painter_end (e->painter);
 		}
 		g_list_free (changed_objs);
