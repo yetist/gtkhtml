@@ -1,5 +1,21 @@
 2002-08-06  Larry Ewing  <lewing@ximian.com>
 
+	* gtkhtml-properties.h: make the colors strings.
+
+	* gtkhtml-properties.c (gtk_html_class_properties_load): load the
+	link_color keys.
+	(gtk_html_class_properties_save): save the link_color keys.
+	(gtk_html_class_properties_copy): copy the strings.
+	(gtk_html_class_properties_new): string color properties.
+	(gtk_html_class_properties_load): load the link_color props.
+	(gtk_html_class_properties_update): test the color props for
+	changes.
+
+	* gtkhtml.c (init_properties_widget): use the new string color
+	settings.
+	(client_notify_widget): listen to the new keys.
+	(client_notify_spell_widget): remove the old code.
+
 	* gtkhtml-properties.h: add link color members.
 
 	* gtkhtml.c (client_notify_spell_widget): listen to link_color

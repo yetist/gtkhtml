@@ -59,15 +59,14 @@ gtk_html_class_properties_new (void)
 	p->font_var_print_points   = FALSE;
 	p->font_fix_print_points   = FALSE;
 	p->animations              = TRUE;
+	p->link_color              = g_strdup ("#0000ff");
+	p->alink_color             = g_strdup ("#0000ff");
+	p->vlink_color             = g_strdup ("#0000ff");
 
 	p->live_spell_check        = TRUE;
 	p->spell_error_color.red   = 0xffff;
 	p->spell_error_color.green = 0;
 	p->spell_error_color.blue  = 0;
-	
-	gdk_color_parse ("#0000ff", &p->link_color);
-	gdk_color_parse ("#0000ff", &p->alink_color);
-	gdk_color_parse ("#0000ff", &p->vlink_color);
 
 	p->language                = g_strdup ("en");
 
@@ -129,21 +128,13 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p, GConfClient *client)
 
 	GET (bool, "/live_spell_check", live_spell_check,,);
 
+	GET (string, "/link_color", link_color, g_free (p->link_color), g_strdup);
+	GET (string, "/alink_color", alink_color, g_free (p->alink_color), g_strdup);
+	GET (string, "/vlink_color", vlink_color, g_free (p->vlink_color), g_strdup);
+
 	GETSP (int, "/spell_error_color_red",   spell_error_color.red,,);
 	GETSP (int, "/spell_error_color_green", spell_error_color.green,,);
 	GETSP (int, "/spell_error_color_blue",  spell_error_color.blue,,);
-
-	GETSP (int, "/link_color_red",         link_color.red,,);
-	GETSP (int, "/link_error_color_green", link_color.green,,);
-	GETSP (int, "/link_error_color_blue",  link_color.blue,,);
-
-	GETSP (int, "/alink_color_red",         alink_color.red,,);
-	GETSP (int, "/alink_error_color_green", alink_color.green,,);
-	GETSP (int, "/alink_error_color_blue",  alink_color.blue,,);
-
-	GETSP (int, "/vlink_color_red",         vlink_color.red,,);
-	GETSP (int, "/vlink_error_color_green", vlink_color.green,,);
-	GETSP (int, "/vlink_error_color_blue",  vlink_color.blue,,);
 
 	GETSP (string, "/language", language,
 	       g_free (p->language), g_strdup);
@@ -191,7 +182,14 @@ gtk_html_class_properties_update (GtkHTMLClassProperties *p, GConfClient *client
 		SET (int, "/font_variable_size_print", font_var_size_print);
 	if (p->font_fix_size_print != old->font_fix_size_print || p->font_fix_print_points != old->font_fix_print_points)
 		SET (int, "/font_fixed_size_print", font_fix_size_print);
-
+	if (strcmp (p->link_color, old->link_color))
+		SET (string, "/link_color", link_color);
+	if (strcmp (p->alink_color, old->alink_color))
+		SET (string, "/alink_color", alink_color);
+	if (strcmp (p->vlink_color, old->vlink_color))
+		SET (string, "/vlink_color", vlink_color);
+	
+	
 	if (p->live_spell_check != old->live_spell_check)
 		SET (bool, "/live_spell_check", live_spell_check);
 
@@ -251,24 +249,16 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p)
 	GET  (bool, font_fix_points, "font_fixed_points=false");
 	GET  (bool, font_var_print_points, "font_variable_print_points=false");
 	GET  (bool, font_fix_print_points, "font_fixed_print_points=false");
+	
+	GETS (link_color, "link_color=#0000ff");
+	GETS (alink_color, "alink_color=#0000ff");
+	GETS (vlink_color, "vlink_color=#0000ff");
 
 	GET  (bool, live_spell_check, "live_spell_check=true");
 
 	GET  (int, spell_error_color.red,   "spell_error_color_red=65535");
 	GET  (int, spell_error_color.green, "spell_error_color_green=0");
 	GET  (int, spell_error_color.blue,  "spell_error_color_blue=0");
-
-	GET  (int, link_color.red,   "link_color_red=0");
-	GET  (int, link_color.green, "link_color_green=0");
-	GET  (int, link_color.blue,  "link_color_blue=65535");
-
-	GET  (int, alink_color.red,   "alink_color_red=0");
-	GET  (int, alink_color.green, "alink_color_green=0");
-	GET  (int, alink_color.blue,  "alink_color_blue=65535");
-
-	GET  (int, vlink_color.red,   "vlink_color_red=0");
-	GET  (int, vlink_color.green, "vlink_color_green=0");
-	GET  (int, vlink_color.blue,  "vlink_color_blue=65535");
 
 	GETS (language, "language=en");
 
@@ -297,24 +287,15 @@ gtk_html_class_properties_save (GtkHTMLClassProperties *p)
 	gnome_config_set_bool ("font_fixed_points", p->font_fix_points);
 	gnome_config_set_bool ("font_variable_print_points", p->font_var_print_points);
 	gnome_config_set_bool ("font_fixed_print_points", p->font_fix_print_points);
+	gnome_config_set_string ("link_color", p->link_color);
+	gnome_config_set_string ("alink_color", p->alink_color);
+	gnome_config_set_string ("vlink_color", p->vlink_color);
 
 	gnome_config_set_bool ("live_spell_check", p->live_spell_check);
 
 	gnome_config_set_int ("spell_error_color_red",   p->spell_error_color.red);
 	gnome_config_set_int ("spell_error_color_green", p->spell_error_color.green);
 	gnome_config_set_int ("spell_error_color_blue",  p->spell_error_color.blue);
-
-	gnome_config_set_int ("link_color_red", p->link_color.red);
-	gnome_config_set_int ("link_color_green", p->link_color.green);
-	gnome_config_set_int ("link_color_blue", p->link_color.blue);
-
-	gnome_config_set_int ("alink_color_red", p->alink_color.red);
-	gnome_config_set_int ("alink_color_green", p->alink_color.green);
-	gnome_config_set_int ("alink_color_blue", p->alink_color.blue);
-
-	gnome_config_set_int ("vlink_color_red", p->vlink_color.red);
-	gnome_config_set_int ("vlink_color_green", p->vlink_color.green);
-	gnome_config_set_int ("vlink_color_blue", p->vlink_color.blue);
 
 	gnome_config_set_string ("language", p->language);
 
@@ -405,12 +386,12 @@ gtk_html_class_properties_copy (GtkHTMLClassProperties *p1,
 	COPY  (font_fix_points);
 	COPY  (font_var_print_points);
 	COPY  (font_fix_print_points);
+	COPYS  (link_color);
+	COPYS  (alink_color);
+	COPYS  (vlink_color);
 
 	COPY  (live_spell_check);
 	COPY  (spell_error_color);
-	COPY  (link_color);
-	COPY  (alink_color);
-	COPY  (vlink_color);
 	COPYS (language);
 }
 
