@@ -335,6 +335,8 @@ calc_col_info (HTMLTable *table,
 			pref += COLUMN_INFO (table, index).prefSize;
 		}
 
+		min += 2*pixel_size*table->border;
+
 		rowInfo[i].minSize = min;
 		rowInfo[i].prefSize = pref;
 
