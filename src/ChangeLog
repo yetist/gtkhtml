@@ -1,3 +1,7 @@
+2000-11-12  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlengine.c (parse_s): make sure we close the s tag.
+
 2000-11-11  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlimage.c (copy): make sure we copy the percent parameters as

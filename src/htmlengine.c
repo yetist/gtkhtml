@@ -2660,7 +2660,7 @@ parse_s (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	} else 	if (strncmp (str, "strike", 6) == 0 || strncmp (str, "s", 1) == 0) {
 		push_font_style (e, GTK_HTML_FONT_STYLE_STRIKEOUT);
 		push_block (e, ID_STRIKEOUT, 1, block_end_font, 0, 0);
-	} else if (strncmp (str, "/strike", 7) == 0 || strncmp (str, "s", 2) == 0) {
+	} else if (strncmp (str, "/strike", 7) == 0 || strncmp (str, "/s", 2) == 0) {
 		pop_block (e, ID_STRIKEOUT, clue);
 	}
 }
