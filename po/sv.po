@@ -3,12 +3,12 @@
 # Christian Rose <menthos@menthos.com>, 2000, 2001.
 # Martin Norbäck <d95mback@dtek.chalmers.se>, 2000.
 #
-# $Id: sv.po,v 1.21 2001/06/14 10:44:45 menthos Exp $
+# $Id: sv.po,v 1.22 2001/07/06 06:33:17 lewing Exp $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2001-06-14 12:39+0200\n"
+"POT-Creation-Date: 2001-07-06 01:20-0500\n"
 "PO-Revision-Date: 2001-06-14 12:43+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -155,16 +155,19 @@ msgid "HTML Browser control"
 msgstr "HTML-webbläsarkontroll"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:1
-msgid "An HTML Editor control"
+#, fuzzy
+msgid "GNOME HTML Editor"
 msgstr "En HTML-redigerarkontroll"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:2
-msgid "Factory for the HTML Editor control"
-msgstr "Fabrik för HTML-redigerarkontrollen"
+#, fuzzy
+msgid "GNOME HTML Editor Control"
+msgstr "En HTML-redigerarkontroll"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:3
-msgid "HTML editor control"
-msgstr "HTML-redigerarkontroll"
+#, fuzzy
+msgid "GNOME HTML Editor Factory"
+msgstr "En HTML-redigerarkontroll"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:1
 msgid "C_ut"
@@ -356,13 +359,13 @@ msgid "Colors"
 msgstr "Färger"
 
 #: components/html-editor/body.c:180
-#: components/html-editor/editor-control-factory.c:167
+#: components/html-editor/editor-control-factory.c:172
 #: components/html-editor/menubar.c:125 components/html-editor/popup.c:93
 msgid "Text"
 msgstr "Text"
 
 #: components/html-editor/body.c:181
-#: components/html-editor/editor-control-factory.c:193
+#: components/html-editor/editor-control-factory.c:198
 #: components/html-editor/menubar.c:109 components/html-editor/menubar.c:130
 #: components/html-editor/popup.c:114
 msgid "Link"
@@ -378,30 +381,38 @@ msgstr "Bakgrund"
 msgid "Automatic"
 msgstr "Automatisk"
 
-#: components/html-editor/editor-control-factory.c:147
+#: components/html-editor/editor-control-factory.c:152
 #: components/html-editor/popup.c:85
 msgid "Properties"
 msgstr "Egenskaper"
 
-#: components/html-editor/editor-control-factory.c:158
+#: components/html-editor/editor-control-factory.c:163
 #: components/html-editor/menubar.c:104 components/html-editor/popup.c:100
 msgid "Image"
 msgstr "Bild"
 
-#: components/html-editor/editor-control-factory.c:178
+#: components/html-editor/editor-control-factory.c:183
 #: components/html-editor/menubar.c:148 components/html-editor/popup.c:128
 msgid "Rule"
 msgstr "Linje"
 
-#: components/html-editor/editor-control-factory.c:188
+#: components/html-editor/editor-control-factory.c:193
 #: components/html-editor/popup.c:107
 msgid "Paragraph"
 msgstr "Stycke"
 
-#: components/html-editor/editor-control-factory.c:198
+#: components/html-editor/editor-control-factory.c:203
 #: components/html-editor/popup.c:121
 msgid "Page"
 msgstr "Sida"
+
+#: components/html-editor/editor-control-factory.c:734
+msgid "Could not initialize GNORBA"
+msgstr "Kunde inte initiera GNORBA"
+
+#: components/html-editor/editor-control-factory.c:747
+msgid "Could not initialize Bonobo"
+msgstr "Kunde inte initiera Bonobo"
 
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
@@ -601,14 +612,6 @@ msgstr "Töm"
 #: components/html-editor/link.c:77
 msgid "URL"
 msgstr "URL"
-
-#: components/html-editor/main.c:65
-msgid "Could not initialize GNORBA"
-msgstr "Kunde inte initiera GNORBA"
-
-#: components/html-editor/main.c:80
-msgid "Could not initialize Bonobo"
-msgstr "Kunde inte initiera Bonobo"
 
 #: components/html-editor/menubar.c:102 components/html-editor/menubar.c:122
 #: components/html-editor/menubar.c:145 components/html-editor/menubar.c:162
@@ -867,6 +870,12 @@ msgstr "Förhands_granska"
 #: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "Förhandsgranska"
+
+#~ msgid "Factory for the HTML Editor control"
+#~ msgstr "Fabrik för HTML-redigerarkontrollen"
+
+#~ msgid "HTML editor control"
+#~ msgstr "HTML-redigerarkontroll"
 
 #~ msgid "Replace a string"
 #~ msgstr "Ersätt en sträng"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
-"POT-Creation-Date: 2001-06-15 09:47+0200\n"
+"POT-Creation-Date: 2001-07-06 01:20-0500\n"
 "PO-Revision-Date: 2001-06-15 09:54+0200\n"
 "Last-Translator: András TÍmár <timar@gnome.hu>\n"
 "Language-Team: Hungarian <hu@gnome.hu>\n"
@@ -152,16 +152,19 @@ msgid "HTML Browser control"
 msgstr "HTML Browser control"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:1
-msgid "An HTML Editor control"
+#, fuzzy
+msgid "GNOME HTML Editor"
 msgstr "HTML Editor control"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:2
-msgid "Factory for the HTML Editor control"
-msgstr "Factory a HTML Editor controlhoz"
+#, fuzzy
+msgid "GNOME HTML Editor Control"
+msgstr "HTML Editor control"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:3
-msgid "HTML editor control"
-msgstr "HTML editor control"
+#, fuzzy
+msgid "GNOME HTML Editor Factory"
+msgstr "HTML Editor control"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:1
 msgid "C_ut"
@@ -352,20 +355,14 @@ msgstr "Engedélyezés"
 msgid "Colors"
 msgstr "Színek"
 
-#: components/html-editor/body.c:169 components/html-editor/cell.c:351
-#: components/html-editor/table.c:348 components/html-editor/text.c:221
-#: components/html-editor/toolbar.c:286
-msgid "Automatic"
-msgstr "Automatikus"
-
 #: components/html-editor/body.c:180
-#: components/html-editor/editor-control-factory.c:167
+#: components/html-editor/editor-control-factory.c:172
 #: components/html-editor/menubar.c:125 components/html-editor/popup.c:93
 msgid "Text"
 msgstr "Szöveg"
 
 #: components/html-editor/body.c:181
-#: components/html-editor/editor-control-factory.c:193
+#: components/html-editor/editor-control-factory.c:198
 #: components/html-editor/menubar.c:109 components/html-editor/menubar.c:130
 #: components/html-editor/popup.c:114
 msgid "Link"
@@ -376,30 +373,43 @@ msgstr "Hivatkozás"
 msgid "Background"
 msgstr "Háttér"
 
-#: components/html-editor/editor-control-factory.c:147
+#: components/html-editor/cell.c:351 components/html-editor/table.c:348
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:286
+msgid "Automatic"
+msgstr "Automatikus"
+
+#: components/html-editor/editor-control-factory.c:152
 #: components/html-editor/popup.c:85
 msgid "Properties"
 msgstr "Tulajdonságok"
 
-#: components/html-editor/editor-control-factory.c:158
+#: components/html-editor/editor-control-factory.c:163
 #: components/html-editor/menubar.c:104 components/html-editor/popup.c:100
 msgid "Image"
 msgstr "Kép"
 
-#: components/html-editor/editor-control-factory.c:178
+#: components/html-editor/editor-control-factory.c:183
 #: components/html-editor/menubar.c:148 components/html-editor/popup.c:128
 msgid "Rule"
 msgstr "Szabály"
 
-#: components/html-editor/editor-control-factory.c:188
+#: components/html-editor/editor-control-factory.c:193
 #: components/html-editor/popup.c:107
 msgid "Paragraph"
 msgstr "Bekezdés"
 
-#: components/html-editor/editor-control-factory.c:198
+#: components/html-editor/editor-control-factory.c:203
 #: components/html-editor/popup.c:121
 msgid "Page"
 msgstr "Oldal"
+
+#: components/html-editor/editor-control-factory.c:734
+msgid "Could not initialize GNORBA"
+msgstr "A GNORBA inicializása nem sikerült"
+
+#: components/html-editor/editor-control-factory.c:747
+msgid "Could not initialize Bonobo"
+msgstr "A Bonobo inicializálása nem sikerült"
 
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
@@ -599,14 +609,6 @@ msgstr "Törlés"
 #: components/html-editor/link.c:77
 msgid "URL"
 msgstr "URL"
-
-#: components/html-editor/main.c:65
-msgid "Could not initialize GNORBA"
-msgstr "A GNORBA inicializása nem sikerült"
-
-#: components/html-editor/main.c:80
-msgid "Could not initialize Bonobo"
-msgstr "A Bonobo inicializálása nem sikerült"
 
 #: components/html-editor/menubar.c:102 components/html-editor/menubar.c:122
 #: components/html-editor/menubar.c:145 components/html-editor/menubar.c:162
@@ -865,6 +867,12 @@ msgstr "Nyomtatási _kép"
 #: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "Nyomtatási kép"
+
+#~ msgid "Factory for the HTML Editor control"
+#~ msgstr "Factory a HTML Editor controlhoz"
+
+#~ msgid "HTML editor control"
+#~ msgstr "HTML editor control"
 
 #~ msgid "Replace a string"
 #~ msgstr "Karakterlánc cseréje"
