@@ -32,7 +32,7 @@
 static GtkWidget *capplet, *variable, *variable_print, *fixed, *fixed_print, *anim_check;
 static gboolean active = FALSE;
 #ifdef GTKHTML_HAVE_GCONF
-static GConfError  *error  = NULL;
+static GError      *error  = NULL;
 static GConfClient *client = NULL;
 #endif
 static GtkHTMLClassProperties *saved_prop;
@@ -213,7 +213,7 @@ main (int argc, char **argv)
 #ifdef GTKHTML_HAVE_GCONF
 	if (!gconf_init(argc, argv, &error)) {
 		g_assert(error != NULL);
-		g_warning("GConf init failed:\n  %s", error->str);
+		g_warning("GConf init failed:\n  %s", error->message);
 		return 1;
 	}
 

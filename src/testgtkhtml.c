@@ -1037,7 +1037,7 @@ main (gint argc, gchar *argv[])
 	GdkColor   bgColor = {0, 0xdfff, 0xdfff, 0xffff};
 	poptContext ctx;
 #ifdef GTKHTML_HAVE_GCONF
-	GConfError  *gconf_error  = NULL;
+	GError  *gconf_error  = NULL;
 #endif
 
 #ifdef MEMDEBUG
@@ -1049,7 +1049,7 @@ main (gint argc, gchar *argv[])
 #ifdef GTKHTML_HAVE_GCONF
 	if (!gconf_init (argc, argv, &gconf_error)) {
 		g_assert (gconf_error != NULL);
-		g_error ("GConf init failed:\n  %s", gconf_error->str);
+		g_error ("GConf init failed:\n  %s", gconf_error->message);
 		return FALSE;
 	}
 #endif

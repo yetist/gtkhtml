@@ -1,5 +1,7 @@
 2000-11-28  Radek Doulik  <rodo@helixcode.com>
 
+	* viewer.c (main): updated for latest gconf
+
 	* aplied patch from Chipzz@ULYSSIS.Org
 	capitalize Entry in .desktop files
 

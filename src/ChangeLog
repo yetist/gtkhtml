@@ -1,5 +1,7 @@
 2000-11-28  Radek Doulik  <rodo@helixcode.com>
 
+	* gtkhtml.c (init_properties): updated to latest gconf
+
 	* gtkhtml-properties.c: as below
 	(GET): use gconf_client_get_without_default and gconf_value_free
 	instead of gconf_client_get_full and gconf_value_destroy

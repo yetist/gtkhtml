@@ -62,7 +62,7 @@ static GtkLayoutClass *parent_class = NULL;
 
 #ifdef GTKHTML_HAVE_GCONF
 GConfClient *gconf_client = NULL;
-GConfError  *gconf_error  = NULL;
+GError      *gconf_error  = NULL;
 #endif
 
 enum {
@@ -1287,9 +1287,7 @@ set_fonts (GtkHTML *html)
 static void
 client_notify_widget (GConfClient* client,
 		      guint cnxn_id,
-		      const gchar* key,
-		      GConfValue* value,
-		      gboolean is_default,
+		      GConfEntry* entry,
 		      gpointer user_data)
 {
 	GtkHTML *html = (GtkHTML *) user_data;
@@ -1299,30 +1297,30 @@ client_notify_widget (GConfClient* client,
 
 	/* printf ("notify widget\n"); */
 	g_assert (client == gconf_client);
-	g_assert (key);
-	tkey = strrchr (key, '/');
+	g_assert (entry->key);
+	tkey = strrchr (entry->key, '/');
 	g_assert (tkey);
 
 	if (!strcmp (tkey, "/font_variable_family")) {
 		g_free (prop->font_var_family);
-		prop->font_var_family = gconf_client_get_string (client, key, NULL);
+		prop->font_var_family = gconf_client_get_string (client, entry->key, NULL);
 		set_fonts (html);
 	} else if (!strcmp (tkey, "/font_fixed_family")) {
 		g_free (prop->font_fix_family);
-		prop->font_fix_family = gconf_client_get_string (client, key, NULL);
+		prop->font_fix_family = gconf_client_get_string (client, entry->key, NULL);
 		set_fonts (html);
 	} else if (!strcmp (tkey, "/font_variable_size")) {
-		prop->font_var_size = gconf_client_get_int (client, key, NULL);
+		prop->font_var_size = gconf_client_get_int (client, entry->key, NULL);
 		set_fonts (html);
 	} else if (!strcmp (tkey, "/font_fixed_size")) {
-		prop->font_fix_size = gconf_client_get_int (client, key, NULL);
+		prop->font_fix_size = gconf_client_get_int (client, entry->key, NULL);
 		set_fonts (html);
 	} else if (!strcmp (tkey, "/spell_error_color_red")) {
-		prop->spell_error_color.red = gconf_client_get_int (client, key, NULL);
+		prop->spell_error_color.red = gconf_client_get_int (client, entry->key, NULL);
 	} else if (!strcmp (tkey, "/spell_error_color_green")) {
-		prop->spell_error_color.green = gconf_client_get_int (client, key, NULL);
+		prop->spell_error_color.green = gconf_client_get_int (client, entry->key, NULL);
 	} else if (!strcmp (tkey, "/spell_error_color_blue")) {
-		prop->spell_error_color.blue = gconf_client_get_int (client, key, NULL);
+		prop->spell_error_color.blue = gconf_client_get_int (client, entry->key, NULL);
 		html_colorset_set_color (html->engine->defaultSettings->color_set,
 					 &prop->spell_error_color, HTMLSpellErrorColor);
 		html_colorset_set_color (html->engine->settings->color_set,
@@ -1330,19 +1328,17 @@ client_notify_widget (GConfClient* client,
 		if (html_engine_get_editable (html->engine) && !strcmp (tkey, "/spell_error_color_blue"))
 			gtk_widget_queue_draw (GTK_WIDGET (html));
 	} else if (!strcmp (tkey, "/live_spell_check")) {
-		prop->live_spell_check = gconf_client_get_bool (client, key, NULL);
+		prop->live_spell_check = gconf_client_get_bool (client, entry->key, NULL);
 	} else if (!strcmp (tkey, "/language")) {
 		g_free (prop->language);
-		prop->language = g_strdup (gconf_client_get_string (client, key, NULL));
+		prop->language = g_strdup (gconf_client_get_string (client, entry->key, NULL));
 	}
 }
 
 static void
 client_notify_class (GConfClient* client,
 		     guint cnxn_id,
-		     const gchar* key,
-		     GConfValue* value,
-		     gboolean is_default,
+		     GConfEntry* entry,
 		     gpointer user_data)
 {
 	GtkHTMLClass *klass = (GtkHTMLClass *) user_data;
@@ -1350,15 +1346,15 @@ client_notify_class (GConfClient* client,
 	gchar *tkey;
 
 	g_assert (client == gconf_client);
-	g_assert (key);
-	tkey = strrchr (key, '/');
+	g_assert (entry->key);
+	tkey = strrchr (entry->key, '/');
 	g_assert (tkey);
 
 	if (!strcmp (tkey, "/magic_links")) {
-		prop->magic_links = gconf_client_get_bool (client, key, NULL);
+		prop->magic_links = gconf_client_get_bool (client, entry->key, NULL);
 	} else if (!strcmp (tkey, "/keybindings_theme")) {
 		g_free (prop->keybindings_theme);
-		prop->keybindings_theme = gconf_client_get_string (client, key, NULL);
+		prop->keybindings_theme = gconf_client_get_string (client, entry->key, NULL);
 		load_keybindings (klass);
 	}
 }
@@ -1376,7 +1372,7 @@ init_properties (GtkHTMLClass *klass)
 			g_error ("cannot create gconf_client\n");
 		gconf_client_add_dir (gconf_client, GTK_HTML_GCONF_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, &gconf_error);
 		if (gconf_error)
-			g_error ("gconf error: %s\n", gconf_error->str);
+			g_error ("gconf error: %s\n", gconf_error->message);
 		gtk_html_class_properties_load (klass->properties, gconf_client);
 	} else
 		g_error ("gconf is not initialized, please call gconf_init before using GtkHTML library\n");
@@ -1387,7 +1383,7 @@ init_properties (GtkHTMLClass *klass)
 #ifdef GTKHTML_HAVE_GCONF
 	gconf_client_notify_add (gconf_client, GTK_HTML_GCONF_DIR, client_notify_class, klass, NULL, &gconf_error);
 	if (gconf_error)
-		g_warning ("gconf error: %s\n", gconf_error->str);
+		g_warning ("gconf error: %s\n", gconf_error->message);
 #endif
 }
 
@@ -1649,7 +1645,7 @@ init_properties_widget (GtkHTML *html)
 #ifdef GTKHTML_HAVE_GCONF
 	gconf_client_notify_add (gconf_client, GTK_HTML_GCONF_DIR, client_notify_widget, html, NULL, &gconf_error);
 	if (gconf_error)
-		g_warning ("gconf error: %s\n", gconf_error->str);
+		g_warning ("gconf error: %s\n", gconf_error->message);
 #endif
 }
 

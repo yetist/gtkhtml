@@ -34,7 +34,7 @@
 static GtkWidget *capplet, *check, *bi, *live_spell_check, *language, *live_spell_color;
 static gboolean active = FALSE;
 #ifdef GTKHTML_HAVE_GCONF
-static GConfError  *error  = NULL;
+static GError      *error  = NULL;
 static GConfClient *client = NULL;
 #endif
 static GtkHTMLClassProperties *saved_prop;
@@ -282,8 +282,8 @@ main (int argc, char **argv)
 
 #ifdef GTKHTML_HAVE_GCONF
 	if (!gconf_init(argc, argv, &error)) {
-		g_assert(error != NULL);
-		g_warning("GConf init failed:\n  %s", error->str);
+		g_assert (error != NULL);
+		g_warning ("GConf init failed:\n  %s", error->message);
 		return 1;
 	}
 
