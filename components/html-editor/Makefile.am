@@ -177,7 +177,7 @@ CLEANFILES = $(IDL_GENERATED) $(SPELL_IDL_GENERATED)
 
 BUILT_SOURCE = $(IDL_GENERATED) $(SPELL_IDL_GENERATED)
 
-uninstall-hook: 
+uninstall-hook:
 	rm -f $(DESTDIR)$(bindir)/gnome-gtkhtml-editor-@EDITOR_API_VERSION@
 
 dist-hook:
