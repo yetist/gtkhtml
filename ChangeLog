@@ -2,6 +2,8 @@
 
 	* configure.in: call AM_PATH_GCONF
 	use AM_PATH_GCONF with gconf-gtk parameter
+	(GTKHTML_INCLUDEDIR): added gconf libs and cflags to gtkhtml libs
+	and cflags
 
 	* added new dir capplet
 
