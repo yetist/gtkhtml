@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2000-10-17 02:54+0200\n"
-"PO-Revision-Date: 2000-10-18 18:03+0200\n"
+"POT-Creation-Date: 2000-10-31 15:21+0100\n"
+"PO-Revision-Date: 2000-11-01 00:52+0100\n"
 "Last-Translator: GNOME PL Team <translators@gnome.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -37,8 +37,6 @@ msgid "Add"
 msgstr "Dodaj"
 
 #: capplet/gnome-bindings-prop.c:1
-#: components/html-editor/test-html-editor-control.c:1
-#: components/html-editor/toolbar.c:1
 msgid "Copy"
 msgstr "Kopiuj"
 
@@ -60,11 +58,11 @@ msgstr "Sprawdzanie w tle"
 
 #: capplet/main.c:1
 msgid "spell checking color"
-msgstr "Kolor wykorzystywany pry sprawdzaniu pisowni"
+msgstr "Kolor wykorzystywany przy sprawdzaniu pisowni"
 
 #: capplet/main.c:1
 msgid "language"
-msgstr "jêzyk"
+msgstr "Jêzyk"
 
 #: capplet/main.c:1
 msgid "Miscellaneous"
@@ -118,13 +116,13 @@ msgstr "Wybór czcionki o sta³ej szeroko¶ci do drukowania"
 msgid "Animations"
 msgstr "Animacje"
 
-#: components/html-editor/body.c:1
-msgid "use background image"
-msgstr "Wykorzystanie obrazu w tle"
+#: components/html-editor/body.c:1 components/html-editor/body.c:1
+msgid "Background Image"
+msgstr "Obraz w tle"
 
 #: components/html-editor/body.c:1
-msgid "Background image"
-msgstr "Obraz w tle"
+msgid "Enable"
+msgstr "Aktywny"
 
 #: components/html-editor/body.c:1
 msgid "Colors"
@@ -218,7 +216,7 @@ msgstr "Nie mo¿na zastosowaæ w³a¶ciwo¶ci gtkhtml"
 msgid "Style"
 msgstr "Styl"
 
-#: components/html-editor/paragraph.c:1 components/html-editor/rule.c:1
+#: components/html-editor/paragraph.c:1
 msgid "Align"
 msgstr "Wyrównanie"
 
@@ -271,14 +269,6 @@ msgstr "na"
 msgid "shaded"
 msgstr "Cieniowana"
 
-#: components/html-editor/rule.c:1
-msgid "Weight"
-msgstr "Grubo¶æ"
-
-#: components/html-editor/rule.c:1
-msgid "Sample"
-msgstr "Próbka"
-
 #: components/html-editor/search.c:1
 msgid "Regex search"
 msgstr "Wyszukiwanie wg wyra¿enia równoleg³ego"
@@ -294,61 +284,6 @@ msgstr "Otwórz plik..."
 #: components/html-editor/test-html-editor-control.c:1
 msgid "Save file as..."
 msgstr "Zapisz plik jako..."
-
-#: components/html-editor/test-html-editor-control.c:1
-msgid "Open (PersistFile)"
-msgstr "Otwórz (PersistFile)"
-
-#: components/html-editor/test-html-editor-control.c:1
-msgid "Open using the PersistFile interface"
-msgstr "Otwiera wykorzystuj±c interfejs PersistFile"
-
-#: components/html-editor/test-html-editor-control.c:1
-msgid "Save as... (PersistFile)"
-msgstr "Zapisz jako... (PersistFile)"
-
-#: components/html-editor/test-html-editor-control.c:1
-msgid "Save using the PersistFile interface"
-msgstr "Zapisuje wykorzystuj±c interfejs PersistFile"
-
-#: components/html-editor/test-html-editor-control.c:1
-msgid "Open (PersistStream)"
-msgstr "Otwórz (PersistStream)"
-
-#: components/html-editor/test-html-editor-control.c:1
-msgid "Open using the PersistStream interface"
-msgstr "Otwiera wykorzystuj±c interfejs PersistStream"
-
-#: components/html-editor/test-html-editor-control.c:1
-msgid "Save as... (PersistStream)"
-msgstr "Zapisz jako... (PersistStream)"
-
-#: components/html-editor/test-html-editor-control.c:1
-msgid "Save using the PersistStream interface"
-msgstr "Zapisuje wykorzystuj±c interfejs PersistStream"
-
-#: components/html-editor/test-html-editor-control.c:1
-#: components/html-editor/toolbar.c:1
-msgid "Cut"
-msgstr "Wytnij"
-
-#: components/html-editor/test-html-editor-control.c:1
-msgid "Cut selection to the clipboard"
-msgstr "Wycina zaznaczenie do schowka"
-
-#: components/html-editor/test-html-editor-control.c:1
-msgid "Copy selection to the clipboard"
-msgstr "Kopiuje zaznaczenie do schowka"
-
-#: components/html-editor/test-html-editor-control.c:1
-#: components/html-editor/toolbar.c:1
-msgid "Paste"
-msgstr "Wklej"
-
-#: components/html-editor/test-html-editor-control.c:1
-#: components/html-editor/toolbar.c:1
-msgid "Paste contents of the clipboard"
-msgstr "Wkleja zawarto¶æ schowka"
 
 #: components/html-editor/text.c:1 components/html-editor/toolbar.c:1
 msgid "Bold"
@@ -370,9 +305,9 @@ msgstr "Przekre¶lenie"
 msgid "Color"
 msgstr "Kolor"
 
-#: components/html-editor/text.c:1
-msgid "text color"
-msgstr "Kolor tekstu"
+#: components/html-editor/text.c:1 components/html-editor/toolbar.c:1
+msgid "Automatic"
+msgstr "Automatycznie"
 
 #: components/html-editor/toolbar.c:1
 msgid "Normal"
@@ -423,10 +358,6 @@ msgid "List item (roman)"
 msgstr "Element listy (rzymskie)"
 
 #: components/html-editor/toolbar.c:1
-msgid "Default"
-msgstr "Domy¶lny"
-
-#: components/html-editor/toolbar.c:1
 msgid "Left align"
 msgstr "Wyrównanie do lewej"
 
@@ -445,30 +376,6 @@ msgstr "Wyrównanie do prawej"
 #: components/html-editor/toolbar.c:1
 msgid "Right justify paragraphs"
 msgstr "Wyrównuje akapit do prawej"
-
-#: components/html-editor/toolbar.c:1
-msgid "Cut the selected region to the clipboard"
-msgstr "Wycina zaznaczony obszar do schowka"
-
-#: components/html-editor/toolbar.c:1
-msgid "Copy the selected region to the clipboard"
-msgstr "Kopiuje zaznaczony obszar do schowka"
-
-#: components/html-editor/toolbar.c:1
-msgid "Undo"
-msgstr "Cofnij"
-
-#: components/html-editor/toolbar.c:1
-msgid "Undo last editor operation"
-msgstr "Cofa ostatni± operacjê"
-
-#: components/html-editor/toolbar.c:1
-msgid "Redo"
-msgstr "Ponów"
-
-#: components/html-editor/toolbar.c:1
-msgid "Redo undone editor operation"
-msgstr "Ponawia cofniêt± operacjê edytora"
 
 #: components/html-editor/toolbar.c:1
 msgid "Sets the bold font"
@@ -501,6 +408,10 @@ msgstr "Wsuñ"
 #: components/html-editor/toolbar.c:1
 msgid "Indent paragraphs more"
 msgstr "Wsuwa akapity g³êbiej"
+
+#: components/html-editor/utils.c:1
+msgid "Sample"
+msgstr "Próbka"
 
 #: src/testgtkhtml.c:1
 msgid "Print pre_view"
