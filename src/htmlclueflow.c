@@ -1175,7 +1175,7 @@ check_point (HTMLObject *self,
 
 	/* after */
 	p = clue->tail;
-	if (p && (x >= p->x + p->width) || (y >= p->y + p->descent)) {
+	if (p && ((x >= p->x + p->width) || (y >= p->y + p->descent))) {
 		obj = html_object_check_point (p, painter, MAX (0, p->x + p->width - 1), p->y + p->descent - 1,
 					       offset_return, for_cursor);
 		if (obj != NULL)
