@@ -887,8 +887,8 @@ html_engine_insert_empty_paragraph (HTMLEngine *e)
 	insert_empty_paragraph (e, HTML_UNDO_UNDO, TRUE);
 }
 
-static char *picto_chars = "DO)(\0:-\0:\0:-\0:\0:;=-\0:;\0:-\0:";
-static gint picto_states [] = { 5, 10, 15, 23, 0, -1, 8, 0, -1, 0, -2, 13, 0, -2, 0, -3, -4, -5, 20, 0, -3, -4, 0, -6, 26, 0, -6, 0};
+static char *picto_chars = "DO)(|/P\0:-\0:\0:-\0:\0:;=-\0:;\0:-~\0:\0:\0:-\0:\0:-\0:\0:-\0:\0";
+static gint picto_states [] = { 8, 13, 18, 26, 34, 39, 44, 0, -1, 11, 0, -1, 0, -2, 16, 0, -2, 0, -3, -4, -5, 23, 0, -3, -4, 0, -6, 30, 32, 0, -6, 0, -11, 0, -8, 37, 0, -8, 0, -9, 42, 0, -9, 0, -10, 47, 0, -10, 0};
 static gchar *picto_images [] = {
 	"smiley-1.png",
 	"smiley-2.png",
@@ -896,6 +896,11 @@ static gchar *picto_images [] = {
 	"smiley-4.png",
 	"smiley-5.png",
 	"smiley-6.png",
+	"smiley-7.png",
+	"smiley-8.png",
+	"smiley-9.png",
+	"smiley-10.png",
+	"smiley-11.png",
 };
 
 static void

@@ -395,7 +395,10 @@ BonoboUIVerb verbs [] = {
 	BONOBO_UI_UNSAFE_VERB ("InsertSmiley4", smiley_cb),
 	BONOBO_UI_UNSAFE_VERB ("InsertSmiley5", smiley_cb),
 	BONOBO_UI_UNSAFE_VERB ("InsertSmiley6", smiley_cb),
-	BONOBO_UI_UNSAFE_VERB ("InsertSmiley7", smiley_cb),
+	BONOBO_UI_UNSAFE_VERB ("InsertSmiley8", smiley_cb),
+	BONOBO_UI_UNSAFE_VERB ("InsertSmiley9", smiley_cb),
+	BONOBO_UI_UNSAFE_VERB ("InsertSmiley10", smiley_cb),
+	BONOBO_UI_UNSAFE_VERB ("InsertSmiley11", smiley_cb),
 
 	BONOBO_UI_UNSAFE_VERB ("IndentMore", indent_more_cb),
 	BONOBO_UI_UNSAFE_VERB ("IndentLess", indent_less_cb),
@@ -760,7 +763,7 @@ menubar_set_languages (GtkHTMLControlData *cd, const gchar *lstr)
 	cd->block_language_changes = FALSE;
 }
 
-#define SMILEYS 7
+#define SMILEYS 11
 static gchar *smiley [SMILEYS] = {
 	":D",
 	":O",
@@ -769,6 +772,10 @@ static gchar *smiley [SMILEYS] = {
 	"=)",
 	":(",
 	":-)",
+	":-|",
+	":-/",
+	":-P",
+	":~("
 };
 
 static void
@@ -778,7 +785,7 @@ smiley_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 
 	g_return_if_fail (cname);
 
-	i = atoi (cname + strlen (cname) - 1) - 1;
+	i = atoi (cname + 12) - 1;
 
 	if (i >=0 && i < SMILEYS) {
 		gchar *s;
