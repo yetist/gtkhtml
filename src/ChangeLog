@@ -1,3 +1,14 @@
+2001-12-20  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (gtk_html_images_ref): new method
+	(gtk_html_images_unref): ditto
+	(gtk_html_image_ref): ditto
+	(gtk_html_image_unref): ditto
+	(gtk_html_image_preload): ditto
+
+	* htmlengine.c (html_engine_begin): don't use factory cleanup, we
+	don't need it anymore and we want preloaded images to be kept
+
 2001-12-18  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (class_init): added call to gdk_rgb_init

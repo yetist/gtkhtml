@@ -272,4 +272,13 @@ gboolean  gtk_html_get_allow_frameset            (GtkHTML *html);
 void         gtk_html_set_base                      (GtkHTML *html, const char *url);
 const char*  gtk_html_get_base                      (GtkHTML *html);
 
+void  gtk_html_images_ref    (GtkHTML     *html);
+void  gtk_html_images_unref  (GtkHTML     *html);
+void  gtk_html_image_ref     (GtkHTML     *html,
+			      const gchar *url);
+void  gtk_html_image_unref   (GtkHTML     *html,
+			      const gchar *url);
+void  gtk_html_image_preload (GtkHTML     *html,
+			      const gchar *url);
+
 #endif /* _GTKHTML_H_ */

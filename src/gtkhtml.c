@@ -4020,3 +4020,33 @@ gtk_html_print_set_master (GtkHTML *html, GnomePrintMaster *print_master)
 {
 	html->priv->print_master = print_master;
 }
+
+void
+gtk_html_images_ref (GtkHTML *html)
+{
+	html_image_factory_ref_all_images (HTML_IMAGE_FACTORY (html->engine->image_factory));
+}
+
+void
+gtk_html_images_unref (GtkHTML *html)
+{
+	html_image_factory_unref_all_images (HTML_IMAGE_FACTORY (html->engine->image_factory));
+}
+
+void
+gtk_html_image_ref (GtkHTML *html, const gchar *url)
+{
+	html_image_factory_ref_image_ptr (HTML_IMAGE_FACTORY (html->engine->image_factory), url);
+}
+
+void
+gtk_html_image_unref (GtkHTML *html, const gchar *url)
+{
+	html_image_factory_unref_image_ptr (HTML_IMAGE_FACTORY (html->engine->image_factory), url);
+}
+
+void
+gtk_html_image_preload (GtkHTML *html, const gchar *url)
+{
+	html_image_factory_register (HTML_IMAGE_FACTORY (html->engine->image_factory), NULL, url, FALSE);
+}

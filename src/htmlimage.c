@@ -1324,7 +1324,9 @@ html_image_pointer_unref (HTMLImagePointer *ip)
 	g_return_if_fail (ip != NULL);
 
 	ip->refcount--;
+	/* printf ("unref(%p) %s --> %d\n", ip, ip->url, ip->refcount); */
 	if (ip->refcount <= 0) {
+		/* printf ("freeing %s\n", ip->url); */
 		html_image_pointer_remove_stall (ip);
 		g_free (ip->url);
 		free_image_ptr_data (ip);
@@ -1347,6 +1349,7 @@ html_image_pointer_load (HTMLImagePointer *ip)
 
 	/* This is a bit evil, I think.  But it's a lot better here
 	   than in the HTMLImage object.  FIXME anyway -- ettore  */
+	/* printf ("url_requested(%p) %s\n", ip->factory->engine->widget, ip->url); */
 	gtk_signal_emit_by_name (GTK_OBJECT (ip->factory->engine), "url_requested", ip->url, handle);
 }
 
@@ -1382,10 +1385,12 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 			g_hash_table_insert (factory->loaded_images, retval->url, retval);
 			html_image_pointer_load (retval);
 		}
-	} else if (reload) {
-		free_image_ptr_data (retval);
-		retval->loader = gdk_pixbuf_loader_new ();
-		html_image_pointer_load (retval);
+	} else {
+		if (reload) {
+			free_image_ptr_data (retval);
+			retval->loader = gdk_pixbuf_loader_new ();
+			html_image_pointer_load (retval);
+		}
 	}
 
 	html_image_pointer_ref (retval);
@@ -1421,6 +1426,7 @@ html_image_factory_unregister (HTMLImageFactory *factory, HTMLImagePointer *poin
 	html_image_pointer_unref (pointer);
 	if (pointer->refcount == 1) {
 		g_assert (pointer->interests == NULL);
+		/* printf ("remove %s\n", pointer->url); */
 		g_hash_table_remove (factory->loaded_images, pointer->url);
 		html_image_pointer_unref (pointer);
 	}
@@ -1493,4 +1499,61 @@ void
 html_image_factory_deactivate_animations (HTMLImageFactory *factory)
 {
 	g_hash_table_foreach (factory->loaded_images, deactivate_anim, NULL);
+}
+
+static void
+ref_image_ptr (gpointer key, gpointer val, gpointer data)
+{
+	html_image_pointer_ref (HTML_IMAGE_POINTER (val));
+	/* printf ("ref(%p) %s --> %d\n", val, HTML_IMAGE_POINTER (val)->url, HTML_IMAGE_POINTER (val)->refcount); */
+}
+
+static void
+unref_image_ptr (gpointer key, gpointer val, gpointer data)
+{
+	html_image_pointer_unref (HTML_IMAGE_POINTER (val));
+}
+
+void
+html_image_factory_ref_all_images (HTMLImageFactory *factory)
+{
+	if (!factory->loaded_images)
+		return;
+
+	g_hash_table_foreach (factory->loaded_images, ref_image_ptr, NULL);
+}
+
+void
+html_image_factory_unref_all_images (HTMLImageFactory *factory)
+{
+	if (!factory->loaded_images)
+		return;
+
+	g_hash_table_foreach (factory->loaded_images, unref_image_ptr, NULL);
+}
+
+void
+html_image_factory_ref_image_ptr (HTMLImageFactory *factory, const gchar *url)
+{
+	HTMLImagePointer *ptr;
+
+	if (!factory->loaded_images)
+		return;
+
+	ptr = HTML_IMAGE_POINTER (g_hash_table_lookup (factory->loaded_images, url));
+	if (ptr)
+		html_image_pointer_ref (ptr);
+}
+
+void
+html_image_factory_unref_image_ptr (HTMLImageFactory *factory, const gchar *url)
+{
+	HTMLImagePointer *ptr;
+
+	if (!factory->loaded_images)
+		return;
+
+	ptr = HTML_IMAGE_POINTER (g_hash_table_lookup (factory->loaded_images, url));
+	if (ptr)
+		html_image_pointer_unref (ptr);
 }

@@ -3557,8 +3557,6 @@ html_engine_begin (HTMLEngine *e, char *content_type)
 	html_engine_id_table_clear (e);
 	html_engine_class_data_clear (e);
 	html_image_factory_stop_animations (e->image_factory);
-	html_image_factory_cleanup (e->image_factory);
-
 
 	new_stream = gtk_html_stream_new (GTK_HTML (e->widget),
 					  html_engine_stream_types,
