@@ -190,7 +190,7 @@ color_to_string (gchar *s, HTMLColor *c)
 {
 	gchar color [20];
 
-	g_snprintf (color, 20, " %s=\"#%2x%2x%2x\"", s, c->color.red >> 8, c->color.green >> 8, c->color.blue >> 8);
+	g_snprintf (color, 20, " %s=\"#%02x%02x%02x\"", s, c->color.red >> 8, c->color.green >> 8, c->color.blue >> 8);
 	return g_strdup (color);
 }
 
