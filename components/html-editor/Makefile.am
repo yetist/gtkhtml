@@ -136,6 +136,7 @@ test_html_editor_control_SOURCES =		\
 
 EXTRA_DIST =					\
 	$(IDLS)					\
+	$(SPELL_IDLS)				\
 	html-editor-control.gnorba		\
 	html-editor-control.oafinfo		\
 	ChangeLog				\
