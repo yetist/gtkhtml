@@ -1,3 +1,10 @@
+2000-11-27  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtmldebug.c (gtk_html_debug_dump_object): dump ascent and
+	descent
+
+	* htmliframe.c (check_point): take care for border area
+
 2000-11-24  Radek Doulik  <rodo@helixcode.com>
 
 	* htmltable.c (bin_search_index): new function

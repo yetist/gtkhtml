@@ -21,7 +21,7 @@
 
 #ifndef _HTMLIFRAME_H_
 #define _HTMLIFRAME_H_
-#include "htmlobject.h"
+
 #include "htmlembedded.h"
 
 #define HTML_IFRAME(x) ((HTMLIFrame *)(x))

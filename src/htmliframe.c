@@ -331,8 +331,20 @@ check_point (HTMLObject *self,
 {
 	HTMLEngine *e = GTK_HTML (HTML_IFRAME (self)->html)->engine;
 
+	if (x < self->x || x >= self->x + self->width
+	    || y >= self->y + self->descent || y < self->y - self->ascent)
+		return NULL;
+
 	x -= self->x + e->leftBorder;
 	y -= self->y - self->ascent + e->topBorder;
+
+	if (for_cursor && (x < 0 || y < e->clue->y - e->clue->ascent))
+		return html_object_check_point (e->clue, e->painter, 0, e->clue->y - e->clue->ascent,
+						offset_return, for_cursor);
+
+	if (for_cursor && (x > e->clue->width - 1 || y > e->clue->y + e->clue->descent - 1))
+		return html_object_check_point (e->clue, e->painter, e->clue->width - 1, e->clue->y + e->clue->descent - 1,
+						offset_return, for_cursor);
 
 	return html_object_check_point (e->clue, e->painter, x, y, offset_return, for_cursor);
 }
