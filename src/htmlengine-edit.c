@@ -277,6 +277,8 @@ html_engine_insert (HTMLEngine *e,
 		return 0;
 
 	current_object = e->cursor->object;
+	if (current_object == NULL)
+		return 0;
 
 	if (! html_object_is_text (current_object)) {
 		g_warning ("Cannot insert text in object of type `%s'",
