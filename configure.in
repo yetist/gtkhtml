@@ -88,6 +88,37 @@ AC_SUBST(GLIBWWW_CFLAGS)
 AC_SUBST(GLIBWWW_LIBS)
 AM_CONDITIONAL(GLIBWWW, test x$have_glibwww = xtrue)
 
+dnl libghttp checks.
+have_ghttp=false
+AC_MSG_CHECKING(for libghttp >= 1.0)
+if gnome-config --libs ghttp > /dev/null 2>&1; then
+	vers=`gnome-config --modversion ghttp | sed -e "s/ghttp-//" | \
+		awk 'BEGIN { FS = "."; } { printf "%d", $1 * 1000 + $2;}'`
+
+	if test "$vers" -ge 1000; then
+		AC_MSG_RESULT([found])
+
+		GHTTP_CFLAGS="`gnome-config --cflags ghttp`"
+		GHTTP_LIBS="`gnome-config --libs ghttp`"
+
+		have_ghttp=true
+	else
+		AC_MSG_RESULT(not found)
+	fi
+else
+	AC_MSG_RESULT(not found)
+fi
+
+if $have_ghttp ; then
+	AC_DEFINE(HAVE_GHTTP)
+else
+	AC_MSG_WARN([\`ebrowser' will not be built.])
+fi
+
+AC_SUBST(GHTTP_CFLAGS)
+AC_SUBST(GHTTP_LIBS)
+AM_CONDITIONAL(GHTTP, test x$have_ghttp = xtrue)
+
 dnl Bonobo checks.
 
 try_bonobo=true
@@ -283,4 +314,5 @@ src/Makefile
 capplet/Makefile
 components/Makefile
 components/html-editor/Makefile
+components/ebrowser/Makefile
 ])

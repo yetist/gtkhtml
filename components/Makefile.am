@@ -1,2 +1,7 @@
+if GHTTP
+EBROWSERDIRS = ebrowser
+endif
+
 SUBDIRS =					\
-	html-editor
+	html-editor				\
+	$(EBROWSERDIRS)

@@ -13,6 +13,7 @@
 #undef HAVE_IEEEFP_H
 #undef ENABLE_GNOME
 #undef HAVE_GLIBWWW
+#undef HAVE_GHTTP
 #undef HAVE_GNU_REGEX
 #undef USING_OAF
 

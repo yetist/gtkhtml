@@ -1,0 +1,20 @@
+<oaf_info>
+
+<oaf_server iid="OAFIID:control-factory:ebrowser:d56b4d02-7f0e-4e93-96a7-aac184c14aad" type="exe" location="ebrowser">
+<oaf_attribute name="repo_ids" type="stringv">
+<item value="IDL:GNOME/GenericFactory:1.0"/>
+</oaf_attribute>
+<oaf_attribute name="name" type="string" value="EBrowser factory"/>
+<oaf_attribute name="description" type="string" value="Factory for the EBrowser control"/>
+</oaf_server>
+
+<oaf_server iid="OAFIID:control:ebrowser:2b45f4d6-dc8d-49ad-9435-5af899b9ee4c" type="factory" location="OAFIID:control-factory:ebrowser:d56b4d02-7f0e-4e93-96a7-aac184c14aad">
+<oaf_attribute name="repo_ids" type="stringv">
+<item value="IDL:Bonobo/Unknown:1.0"/>
+<item value="IDL:Bonobo/Control:1.0"/>
+</oaf_attribute>
+<oaf_attribute name="name" type="string" value="EBrowser control"/>
+<oaf_attribute name="description" type="string" value="HTML Browser conrtol"/>
+</oaf_server>
+
+</oaf_info>
