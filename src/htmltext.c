@@ -27,11 +27,15 @@
 #include <sys/types.h>
 #include <regex.h>
 
+#include <pango/pango.h>
+
 #include "htmltext.h"
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
 #include "htmlclueflow.h"
 #include "htmlcursor.h"
+#include "htmlgdkpainter.h"
+#include "htmlplainpainter.h"
 #include "htmlengine.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-cut-and-paste.h"
@@ -567,8 +571,9 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 
 	for (i = 0; i < text->words; i++) {
 		end   = strchr (begin + (i ? 1 : 0), ' ');
+		/* FIXME: cache items and glyphs? */
 		html_painter_calc_text_size_bytes (painter,
-						   begin, end ? end - begin : strlen (begin),
+						   begin, end ? end - begin : strlen (begin), NULL, NULL,
 						   &line_offset, font, style, &width, &asc, &dsc);
 		text->word_width [i] = (i ? text->word_width [i - 1] : 0) + width;
 
@@ -580,7 +585,8 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 	}
 	if (text->text_len == 0) {
 		gint lo = 0;
-		html_painter_calc_text_size_bytes (painter, " ", 1, &lo, font, style, &width, &obj->ascent, &obj->descent);
+		/* FIXME: cache items and glyphs? */
+		html_painter_calc_text_size_bytes (painter, " ", 1, NULL, NULL, &lo, font, style, &width, &obj->ascent, &obj->descent);
 	}
 
 	HTML_OBJECT (text)->change &= ~HTML_CHANGE_WORD_WIDTH;
@@ -719,6 +725,32 @@ html_text_get_nb_width (HTMLText *text, HTMLPainter *painter, gboolean begin)
 		+ (text->words == 1 ? get_next_nb_width (text, painter, begin) : 0);
 }
 
+inline static void
+items_destroy (GList *items)
+{
+	GList *l;
+
+	for (l = items; l; l = l->next)
+		pango_item_free ((PangoItem *) l->data);
+	g_list_free (items);
+}
+
+GList *
+html_text_get_items (HTMLText *text, HTMLPainter *painter)
+{
+	if (!text->items && 
+	    (HTML_IS_GDK_PAINTER (painter) || HTML_IS_PLAIN_PAINTER (painter))) {
+		PangoContext *pc = HTML_GDK_PAINTER (painter)->pc;
+		PangoAttrList *attrs;
+
+		pango_context_set_font_description (pc, html_painter_get_font (painter, text->face, html_text_get_font_style (text)));
+		attrs = pango_attr_list_new ();
+		text->items = pango_itemize (pc, text->text, 0, strlen (text->text), attrs, NULL);
+		pango_attr_list_unref (attrs);
+	}
+	return text->items;
+}
+
 static gint
 calc_min_width (HTMLObject *self, HTMLPainter *painter)
 {
@@ -726,6 +758,11 @@ calc_min_width (HTMLObject *self, HTMLPainter *painter)
 	HTMLObject *obj;
 	guint i, w, mw;
 
+	if (text->items) {
+		items_destroy (text->items);
+		text->items = NULL;
+	}
+	html_text_get_items (text, painter);
 	html_text_request_word_width (text, painter);
 	mw = 0;
 
@@ -1297,9 +1334,10 @@ get_cursor_base (HTMLObject *self,
 									       html_text_get_line_offset (HTML_TEXT (self),
 													  painter),
 									       slave->posStart, painter);
+				/* FIXME: cache items and glyphs? */
 				html_painter_calc_text_size (painter,
 							     html_text_get_text (text, slave->posStart),
-							     offset - slave->posStart, &line_offset,
+							     offset - slave->posStart, NULL, NULL, &line_offset,
 							     font_style, text->face, &width, &asc, &dsc);
 
 				*x += width;
@@ -1397,6 +1435,7 @@ html_text_init (HTMLText *text,
 	text->select_length = 0;
 	text->word_width    = NULL;
 	text->words         = 0;
+	text->items         = NULL;
 
 	html_color_ref (color);
 }

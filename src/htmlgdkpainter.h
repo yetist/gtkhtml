@@ -73,7 +73,7 @@ void         html_gdk_painter_realize                          (HTMLGdkPainter  
 								GdkWindow             *window);
 void         html_gdk_painter_unrealize                        (HTMLGdkPainter        *painter);
 gboolean     html_gdk_painter_realized                         (HTMLGdkPainter        *painter);
-GList       *html_gdk_painter_text_itemize_and_prepare_glyphs  (PangoContext          *context,
+GList       *html_gdk_painter_text_itemize_and_prepare_glyphs  (HTMLGdkPainter        *painter,
 								PangoFontDescription  *desc,
 								const gchar           *text,
 								gint                   bytes,

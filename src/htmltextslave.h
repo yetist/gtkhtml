@@ -36,6 +36,9 @@ struct _HTMLTextSlave {
 	guint posLen;
 	guint start_word;
 	gchar *charStart;
+
+	GList *items;
+	PangoGlyphString *glyphs;
 };
 
 struct _HTMLTextSlaveClass {

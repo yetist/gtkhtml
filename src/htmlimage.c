@@ -319,8 +319,9 @@ calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 		gint lo = 0;
 
 		style = html_clueflow_get_default_font_style (HTML_CLUEFLOW (o->parent));
-		html_painter_calc_text_size (painter, image->alt, g_utf8_strlen (image->alt, -1), &lo,
-							style, NULL, &o->width, &o->ascent, &o->descent);
+		/* FIXME: cache items and glyphs? */
+		html_painter_calc_text_size (painter, image->alt, g_utf8_strlen (image->alt, -1), NULL, NULL, &lo,
+					     style, NULL, &o->width, &o->ascent, &o->descent);
 	} else {
 		width = html_image_get_actual_width (image, painter);
 		height = html_image_get_actual_height (image, painter);
@@ -345,7 +346,8 @@ draw_plain (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint heig
 
 	if (img->alt && *img->alt) {
 		html_painter_set_pen (p, &html_colorset_get_color_allocated (p, HTMLTextColor)->color);
-		html_painter_draw_text (p, o->x + tx, o->y + ty - o->ascent, img->alt, g_utf8_strlen (img->alt, -1), 0);
+		/* FIXME: cache items and glyphs? */
+		html_painter_draw_text (p, o->x + tx, o->y + ty - o->ascent, img->alt, g_utf8_strlen (img->alt, -1), NULL, NULL, 0);
 	}
 }
 

@@ -50,6 +50,7 @@ struct _HTMLText {
 	guint select_length;
 
 	GList *spell_errors;
+	GList *items;
 };
 
 struct _HTMLTextClass {
@@ -114,6 +115,8 @@ gunichar          html_text_get_char                     (HTMLText         *text
 							  guint             offset);
 gchar            *html_text_get_text                     (HTMLText         *text,
 							  guint             offset);
+GList *           html_text_get_items                    (HTMLText         *text,
+							  HTMLPainter      *painter);
 void              html_text_spell_errors_clear           (HTMLText         *text);
 void              html_text_spell_errors_clear_interval  (HTMLText         *text,
 							  HTMLInterval     *i);

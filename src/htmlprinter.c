@@ -479,11 +479,7 @@ draw_background (HTMLPainter *painter,
 }
 
 static void
-draw_pixmap (HTMLPainter *painter,
-	     GdkPixbuf *pixbuf,
-	     gint x, gint y,
-	     gint scale_width, gint scale_height,
-	     const GdkColor *color)
+draw_pixmap (HTMLPainter *painter, GdkPixbuf *pixbuf, gint x, gint y, gint scale_width, gint scale_height, const GdkColor *color)
 {
 	HTMLPrinter *printer;
 	gint width, height;
@@ -509,9 +505,7 @@ draw_pixmap (HTMLPainter *painter,
 }
 
 static void
-fill_rect (HTMLPainter *painter,
-	   gint x, gint y,
-	   gint width, gint height)
+fill_rect (HTMLPainter *painter, gint x, gint y, gint width, gint height)
 {
 	HTMLPrinter *printer;
 	double printer_x, printer_y;
@@ -537,10 +531,7 @@ fill_rect (HTMLPainter *painter,
 }
 
 static void
-draw_text (HTMLPainter *painter,
-	   gint x, gint y,
-	   const gchar *text,
-	   gint len)
+draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GList *items, PangoGlyphString *glyphs)
 {
 	GnomeFont *font;
 	HTMLPrinter *printer;
@@ -634,12 +625,8 @@ draw_shade_line (HTMLPainter *painter,
 }
 
 static void
-calc_text_size (HTMLPainter *painter,
-	const gchar *text,
-	guint len,
-		GtkHTMLFontStyle style,
-	HTMLFontFace *face,
-	gint *width, gint *asc, gint *dsc)
+calc_text_size (HTMLPainter *painter, const gchar *text, guint len, GList *items, PangoGlyphString *glyphs,
+		GtkHTMLFontStyle style, HTMLFontFace *face, gint *width, gint *asc, gint *dsc)
 {
 	HTMLPrinter *printer;
 	GnomeFont *font;
@@ -657,12 +644,8 @@ calc_text_size (HTMLPainter *painter,
 }
 
 static void
-calc_text_size_bytes (HTMLPainter *painter,
-		      const gchar *text,
-		      guint len,
-		      HTMLFont *font,
-		      GtkHTMLFontStyle style,
-		      gint *width, gint *asc, gint *dsc)
+calc_text_size_bytes (HTMLPainter *painter, const gchar *text, guint len, GList *items, PangoGlyphString *glyphs,
+		      HTMLFont *font, GtkHTMLFontStyle style, gint *width, gint *asc, gint *dsc)
 {
 	HTMLPrinter *printer;
 

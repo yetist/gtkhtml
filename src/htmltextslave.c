@@ -125,7 +125,6 @@ h_utf8_offset_to_pointer  (const gchar *str,
 #define g_utf8_pointer_to_offset h_utf8_pointer_to_offset
 #endif
 
-
 char *
 html_text_slave_get_text (HTMLTextSlave *slave)
 {
@@ -206,7 +205,8 @@ calc_width (HTMLTextSlave *slave, HTMLPainter *painter, gint *asc, gint *dsc)
 		gint line_offset = -1;
 		gint width;
 
-		html_painter_calc_text_size (painter, html_text_slave_get_text (slave), slave->posLen,
+		/* FIXME: cache items and glyphs? */
+		html_painter_calc_text_size (painter, html_text_slave_get_text (slave), slave->posLen, NULL, NULL,
 					     &line_offset, html_text_get_font_style (text),
 					     text->face, &width, asc, dsc);	
 		return width;
@@ -235,7 +235,8 @@ get_offset_for_bounded_width (HTMLTextSlave *slave, HTMLPainter *painter, gint *
 	char *buffer = html_text_slave_get_text (slave);
 
 	len = (lower + upper) / 2;
-	html_painter_calc_text_size (painter, buffer, len, &line_offset,
+	/* FIXME: cache items and glyphs? */
+	html_painter_calc_text_size (painter, buffer, len, NULL, NULL, &line_offset,
 				     html_text_get_font_style (text), text->face, &width, &asc, &dsc);
 	while (lower < upper) {
 		if (width > max_width)
@@ -244,7 +245,8 @@ get_offset_for_bounded_width (HTMLTextSlave *slave, HTMLPainter *painter, gint *
 			lower = len + 1;
 		len = (lower + upper) / 2;
 		line_offset = -1;
-		html_painter_calc_text_size (painter, buffer, len, &line_offset, 
+		/* FIXME: cache items and glyphs? */
+		html_painter_calc_text_size (painter, buffer, len, NULL, NULL, &line_offset, 
 					     html_text_get_font_style (text), text->face, &width, &asc, &dsc);
 	}
 
@@ -589,15 +591,17 @@ draw_spell_errors (HTMLTextSlave *slave, HTMLPainter *p, gint tx, gint ty, gint 
 			/* printf ("spell error: %s\n", html_text_get_text (slave->owner, off)); */
 			lo = line_offset;
 			
+			/* FIXME: cache items and glyphs? */
 			html_painter_calc_text_size (p, text,
-						     off - last_off, &line_offset,
+						     off - last_off, NULL, NULL, &line_offset,
 						     p->font_style,
 						     p->font_face, &width, &asc, &dsc);
 			x_off += width;
 			text = g_utf8_offset_to_pointer (text, off - last_off);
+			/* FIXME: cache items and glyphs? */
 			x_off += html_painter_draw_spell_error (p, obj->x + tx + x_off,
 								obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
-								text, len);
+								text, len, NULL, NULL);
 			last_off = off + len;
 			line_offset += len;
 			text = g_utf8_offset_to_pointer (text, len);
@@ -606,6 +610,57 @@ draw_spell_errors (HTMLTextSlave *slave, HTMLPainter *p, gint tx, gint ty, gint 
 			break;
 		cur = cur->next;
 	}
+}
+
+static GList *
+get_items (HTMLTextSlave *slave, HTMLPainter *painter)
+{
+	if (!slave->items && slave->owner->items) {
+		PangoItem *item;
+
+		slave->items = html_text_get_items (slave->owner, painter);
+		item = (PangoItem *) slave->items->data;
+
+		while (slave->items && slave->posStart < item->offset) {
+			slave->items = slave->items->next;
+			item = (PangoItem *) slave->items->data;
+		}
+	}
+
+	return slave->items;
+}
+
+static PangoGlyphString *
+get_glyphs_part (HTMLTextSlave *slave, HTMLPainter *painter, guint offset, guint len)
+{
+	GList *items = get_items (slave, painter);
+	PangoGlyphString *glyphs = NULL;
+	const gchar *text;
+
+	if (items) {
+		glyphs = pango_glyph_string_new ();
+		text = html_text_slave_get_text (slave);
+		text = g_utf8_offset_to_pointer (text, offset);
+		pango_shape (text, g_utf8_offset_to_pointer (text, len) - text, &((PangoItem *) items->data)->analysis, glyphs);
+	}
+
+	return glyphs;
+}
+
+static PangoGlyphString *
+get_glyphs (HTMLTextSlave *slave, HTMLPainter *painter)
+{
+	if (!slave->glyphs) {
+		GList *items = get_items (slave, painter);
+		const gchar *text;
+
+		if (items) {
+			slave->glyphs = pango_glyph_string_new ();
+			text = html_text_slave_get_text (slave);
+			pango_shape (text, g_utf8_offset_to_pointer (text, slave->posLen) - text, &((PangoItem *) items->data)->analysis, slave->glyphs);
+		}
+	}
+	return slave->glyphs;
 }
 
 static void
@@ -617,18 +672,24 @@ draw_normal (HTMLTextSlave *self,
 	     gint tx, gint ty, gint line_offset)
 {
 	HTMLObject *obj;
+	HTMLText *text = self->owner;
+	gchar *str;
 
 	obj = HTML_OBJECT (self);
 
-	html_painter_set_font_style (p, font_style);
-	html_painter_set_font_face  (p, HTML_TEXT (self->owner)->face);
-	html_color_alloc (HTML_TEXT (self->owner)->color, p);
-	html_painter_set_pen (p, &HTML_TEXT (self->owner)->color->color);
-	html_painter_draw_text (p,
-				obj->x + tx, obj->y + ty + get_ys (HTML_TEXT (self->owner), p),
-				html_text_slave_get_text (self),
-				self->posLen,
-				html_text_slave_get_line_offset (self, line_offset, self->posStart, p));
+	str = html_text_slave_get_text (self);
+	if (*str) {
+		html_painter_set_font_style (p, font_style);
+		html_painter_set_font_face  (p, HTML_TEXT (self->owner)->face);
+		html_color_alloc (HTML_TEXT (self->owner)->color, p);
+		html_painter_set_pen (p, &HTML_TEXT (self->owner)->color->color);
+		html_painter_draw_text (p,
+					obj->x + tx, obj->y + ty + get_ys (text, p),
+					str,
+					self->posLen,
+					get_items (self, p), get_glyphs (self, p),
+					html_text_slave_get_line_offset (self, line_offset, self->posStart, p));
+	}
 }
 
 static void
@@ -641,6 +702,7 @@ draw_highlighted (HTMLTextSlave *slave,
 {
 	HTMLText *owner;
 	HTMLObject *obj;
+	PangoGlyphString *glyphs;
 	guint start, end, len;
 	gint offset_width, text_width, lo, lo_start, lo_sel, asc, dsc;
 	const gchar *text;
@@ -665,12 +727,14 @@ draw_highlighted (HTMLTextSlave *slave,
 	highlight_begin = g_utf8_offset_to_pointer (slave_begin, start - slave->posStart);
 
 	lo_start = lo = html_text_slave_get_line_offset (slave, line_offset, slave->posStart, p);
+	/* FIXME: cache items and glyphs? */
 	html_painter_calc_text_size (p, slave_begin,
-				     start - slave->posStart,
+				     start - slave->posStart, NULL, NULL,
 				     &lo,
 				     font_style, HTML_TEXT (owner)->face, &offset_width, &asc, &dsc);
 	lo_sel = lo;
-	html_painter_calc_text_size (p, highlight_begin, len, &lo,
+	/* FIXME: cache items and glyphs? */
+	html_painter_calc_text_size (p, highlight_begin, len, NULL, NULL, &lo,
 				     font_style, HTML_TEXT (owner)->face, &text_width, &asc, &dsc);
 	/* printf ("s: %d l: %d - %d %d\n", start, len, offset_width, text_width); */
 
@@ -686,33 +750,42 @@ draw_highlighted (HTMLTextSlave *slave,
 				text_width, obj->ascent + obj->descent);
 	html_painter_set_pen (p, &html_colorset_get_color_allocated
 			      (p, p->focus ? HTMLHighlightTextColor : HTMLHighlightTextNFColor)->color);
-	html_painter_draw_text (p, obj->x + tx + offset_width, 
-				obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
-				highlight_begin, len,
-				lo_sel);
 
+	if (len) {
+		glyphs = get_glyphs_part (slave, p, start - slave->posStart, len);
+		html_painter_draw_text (p, obj->x + tx + offset_width, 
+					obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
+					highlight_begin, len, get_items (slave, p), glyphs,
+					lo_sel);
+		if (glyphs)
+			pango_glyph_string_free (glyphs);
+	}
 	/* Draw the non-highlighted part.  */
-
 	html_painter_set_pen (p, &HTML_TEXT (owner)->color->color);
 
 	/* 1. Draw the leftmost non-highlighted part, if any.  */
-
-	if (start > slave->posStart)
+	if (start > slave->posStart) {
+		glyphs = get_glyphs_part (slave, p, 0, start - slave->posStart);
 		html_painter_draw_text (p,
 					obj->x + tx, obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
 					slave_begin,
-					start - slave->posStart,
+					start - slave->posStart, get_items (slave, p), glyphs,
 					lo_start);
+		if (glyphs)
+			pango_glyph_string_free (glyphs);
+	}
 
 	/* 2. Draw the rightmost non-highlighted part, if any.  */
-
-	if (end < slave->posStart + slave->posLen)
+	if (end < slave->posStart + slave->posLen) {
+		glyphs = get_glyphs_part (slave, p, start + len - slave->posStart, slave->posLen - start - len + slave->posStart);
 		html_painter_draw_text (p,
 					obj->x + tx + offset_width + text_width,
 					obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
 					g_utf8_offset_to_pointer (highlight_begin, end - start),
-					slave->posStart + slave->posLen - end,
-					lo);
+					slave->posStart + slave->posLen - end, get_items (slave, p), glyphs, lo);
+		if (glyphs)
+			pango_glyph_string_free (glyphs);
+	}
 }
 
 static void
@@ -732,10 +805,10 @@ draw (HTMLObject *o,
 
 	/* printf ("slave draw %p\n", o); */
 
-	if (!html_object_intersect (o, &paint, x, y, width, height))
+	textslave = HTML_TEXT_SLAVE (o);
+	if (!html_object_intersect (o, &paint, x, y, width, height) || textslave->posLen == 0)
 		return;
 	
-	textslave = HTML_TEXT_SLAVE (o);
 	owner = textslave->owner;
 	ownertext = HTML_TEXT (owner);
 	font_style = html_text_get_font_style (ownertext);
@@ -820,8 +893,9 @@ get_offset_for_pointer (HTMLTextSlave *slave, HTMLPainter *painter, gint x, gint
 		gint asc, dsc;
 
 		lo = line_offset;
+		/* FIXME: cache items and glyphs? */
 		html_painter_calc_text_size (painter, text, 
-					     i, &lo, font_style, owner->face, &width, &asc, &dsc);
+					     i, NULL, NULL, &lo, font_style, owner->face, &width, &asc, &dsc);
 
 		if ((width + prev_width) / 2 >= x)
 			return i - 1;
@@ -855,6 +929,19 @@ check_point (HTMLObject *self,
 	return NULL;
 }
 
+static void
+destroy (HTMLObject *obj)
+{
+	HTMLTextSlave *slave = HTML_TEXT_SLAVE (obj);
+
+	if (slave->glyphs) {
+		pango_glyph_string_free (slave->glyphs);
+		slave->glyphs = NULL;
+	}
+
+	HTML_OBJECT_CLASS (parent_class)->destroy (obj);
+}
+
 void
 html_text_slave_type_init (void)
 {
@@ -874,6 +961,7 @@ html_text_slave_class_init (HTMLTextSlaveClass *klass,
 
 	object_class->select_range = select_range;
 	object_class->copy = copy;
+	object_class->destroy = destroy;
 	object_class->draw = draw;
 	object_class->calc_size = calc_size;
 	object_class->fit_line = hts_fit_line;
@@ -910,7 +998,10 @@ html_text_slave_init (HTMLTextSlave *slave,
 	slave->start_word = start_word;
 	slave->owner      = owner;
 	slave->charStart  = NULL;
-	/* text slaves has always min_width 0 */
+	slave->items      = NULL;
+	slave->glyphs     = NULL;
+
+	/* text slaves have always min_width 0 */
 	object->min_width = 0;
 	object->change   &= ~HTML_CHANGE_MIN_WIDTH;
 }

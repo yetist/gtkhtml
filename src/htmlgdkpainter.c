@@ -71,14 +71,14 @@ finalize (GObject *object)
 }
 
 GList *
-html_gdk_painter_text_itemize_and_prepare_glyphs (PangoContext *context, PangoFontDescription *desc, const gchar *text, gint bytes, PangoGlyphString **glyphs)
+html_gdk_painter_text_itemize_and_prepare_glyphs (HTMLGdkPainter *painter, PangoFontDescription *desc, const gchar *text, gint bytes, PangoGlyphString **glyphs)
 {
 	PangoAttrList *attrs;
 	GList *items;
 
-	pango_context_set_font_description (context, desc);
+	pango_context_set_font_description (painter->pc, desc);
 	attrs = pango_attr_list_new ();
-	items = pango_itemize (context, text, 0, bytes, attrs, NULL);
+	items = pango_itemize (painter->pc, text, 0, bytes, attrs, NULL);
 	pango_attr_list_unref (attrs);
 
 	if (items && items->data) {
@@ -103,13 +103,13 @@ items_destroy (GList *items)
 }
 
 static gint
-text_width (PangoContext *context, PangoFontDescription *desc, const gchar *text, gint bytes)
+text_width (HTMLGdkPainter *painter, PangoFontDescription *desc, const gchar *text, gint bytes)
 {
 	GList *items;
 	PangoGlyphString *glyphs;
 	gint width = 0;
 
-	items = html_gdk_painter_text_itemize_and_prepare_glyphs (context, desc, text, bytes, &glyphs);
+	items = html_gdk_painter_text_itemize_and_prepare_glyphs (painter, desc, text, bytes, &glyphs);
 
 	if (items && glyphs) {
 		int i;
@@ -125,21 +125,25 @@ text_width (PangoContext *context, PangoFontDescription *desc, const gchar *text
 }
 
 static void
-text_size (PangoContext *context, PangoFontDescription *desc, const gchar *text, gint bytes, PangoRectangle *log_rect)
+text_size (HTMLGdkPainter *painter, PangoFontDescription *desc, const gchar *text, gint bytes, PangoRectangle *log_rect, GList *items, PangoGlyphString *glyphs)
 {
-	GList *items;
-	PangoGlyphString *glyphs;
+	gboolean temp_items = FALSE;
+	if (!items) {
+		items = html_gdk_painter_text_itemize_and_prepare_glyphs (painter, desc, text, bytes, &glyphs);
+		temp_items = TRUE;
+	}
 
-	items = html_gdk_painter_text_itemize_and_prepare_glyphs (context, desc, text, bytes, &glyphs);
 	if (items && items->data && glyphs)
 		pango_glyph_string_extents (glyphs, ((PangoItem *) items->data)->analysis.font, NULL, log_rect);
 	else
 		log_rect->x = log_rect->y = log_rect->width = log_rect->height = 0;
 
-	if (glyphs)
-		pango_glyph_string_free (glyphs);
-	if (items)
-		items_destroy (items);
+	if (temp_items) {
+		if (glyphs)
+			pango_glyph_string_free (glyphs);
+		if (items)
+			items_destroy (items);
+	}
 }
 
 static HTMLFont *
@@ -161,11 +165,11 @@ alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, Gt
 	pango_font_description_set_weight (desc, style & GTK_HTML_FONT_STYLE_BOLD ? PANGO_WEIGHT_BOLD : PANGO_WEIGHT_NORMAL);
 
 	return html_font_new (desc,
-			      text_width (HTML_GDK_PAINTER (painter)->pc, desc, " ", 1),
-			      text_width (HTML_GDK_PAINTER (painter)->pc, desc, "\xc2\xa0", 2),
-			      text_width (HTML_GDK_PAINTER (painter)->pc, desc, "\t", 1),
-			      text_width (HTML_GDK_PAINTER (painter)->pc, desc, HTML_BLOCK_INDENT, strlen (HTML_BLOCK_INDENT)),
-			      text_width (HTML_GDK_PAINTER (painter)->pc, desc, HTML_BLOCK_CITE, strlen (HTML_BLOCK_CITE)));
+			      text_width (HTML_GDK_PAINTER (painter), desc, " ", 1),
+			      text_width (HTML_GDK_PAINTER (painter), desc, "\xc2\xa0", 2),
+			      text_width (HTML_GDK_PAINTER (painter), desc, "\t", 1),
+			      text_width (HTML_GDK_PAINTER (painter), desc, HTML_BLOCK_INDENT, strlen (HTML_BLOCK_INDENT)),
+			      text_width (HTML_GDK_PAINTER (painter), desc, HTML_BLOCK_CITE, strlen (HTML_BLOCK_CITE)));
 }
 
 static void
@@ -860,7 +864,7 @@ fill_rect (HTMLPainter *painter,
 }
 
 static gint
-draw_spell_error (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len)
+draw_spell_error (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GList *items, PangoGlyphString *glyphs)
 {
 	PangoFontDescription *desc;
 	HTMLGdkPainter *gdk_painter;
@@ -874,6 +878,7 @@ draw_spell_error (HTMLPainter *painter, gint x, gint y, const gchar *text, gint 
 	y -= gdk_painter->y1;
 
 
+	/* FIXME
 	desc  = html_painter_get_font  (painter, painter->font_face, painter->font_style);
 	width = text_width (gdk_painter->pc, desc, text, g_utf8_offset_to_pointer (text, len) - text);
 
@@ -888,7 +893,7 @@ draw_spell_error (HTMLPainter *painter, gint x, gint y, const gchar *text, gint 
 	gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, x, y + 1, x + width, y + 1);
 	gdk_gc_set_line_attributes (gdk_painter->gc, values.line_width,
 				    values.line_style, values.cap_style, values.join_style);
-
+	*/
 	return width;
 }
 
@@ -909,12 +914,11 @@ draw_embedded (HTMLPainter * p, HTMLEmbedded *o, gint x, gint y)
 }
 
 static void
-draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len)
+draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GList *items, PangoGlyphString *glyphs)
 {
 	HTMLGdkPainter *gdk_painter;
 	PangoFontDescription *desc;
-	PangoGlyphString *glyphs;
-	GList *items;
+	gboolean temp_items = FALSE;
 	gint blen;
 
 	if (len == -1)
@@ -927,7 +931,10 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len)
 	y -= gdk_painter->y1;
 
 	blen = g_utf8_offset_to_pointer (text, len) - text;
-	items = html_gdk_painter_text_itemize_and_prepare_glyphs (gdk_painter->pc, desc, text, blen, &glyphs);
+	if (!items) {
+		items = html_gdk_painter_text_itemize_and_prepare_glyphs (gdk_painter, desc, text, blen, &glyphs);
+		temp_items = TRUE;
+	}
 	if (items && items->data)
 		gdk_draw_glyphs (gdk_painter->pixmap, gdk_painter->gc, ((PangoItem *) items->data)->analysis.font, x, y, glyphs);
 
@@ -952,10 +959,12 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len)
 				       x + width, y - asc + (asc + dsc)/2);
 	}
 
-	if (glyphs)
-		pango_glyph_string_free (glyphs);
-	if (items)
-		items_destroy (items);
+	if (temp_items) {
+		if (glyphs)
+			pango_glyph_string_free (glyphs);
+		if (items)
+			items_destroy (items);
+	}
 }
 
 static void
@@ -980,6 +989,7 @@ static void
 calc_text_size (HTMLPainter *painter,
 		const gchar *text,
 		guint len,
+		GList *items, PangoGlyphString *glyphs,
 		GtkHTMLFontStyle style,
 		HTMLFontFace *face,
 		gint *width, gint *asc, gint *dsc)
@@ -991,7 +1001,7 @@ calc_text_size (HTMLPainter *painter,
 	gdk_painter = HTML_GDK_PAINTER (painter);
 	font = html_font_manager_get_font (&painter->font_manager, face, style);
 
-	text_size (gdk_painter->pc, (PangoFontDescription *) font->data, text, g_utf8_offset_to_pointer (text, len) - text, &logical_rect);
+	text_size (gdk_painter, (PangoFontDescription *) font->data, text, g_utf8_offset_to_pointer (text, len) - text, &logical_rect, items, glyphs);
 
 	*width = PANGO_PIXELS (logical_rect.width);
 	*asc   = PANGO_PIXELS (PANGO_ASCENT (logical_rect));
@@ -1002,7 +1012,9 @@ calc_text_size (HTMLPainter *painter,
 
 static void
 calc_text_size_bytes (HTMLPainter *painter, const gchar *text,
-		      guint bytes_len, HTMLFont *font, GtkHTMLFontStyle style,
+		      guint bytes_len,
+		      GList *items, PangoGlyphString *glyphs,
+		      HTMLFont *font, GtkHTMLFontStyle style,
 		      gint *width, gint *asc, gint *dsc)
 {
 	HTMLGdkPainter *gdk_painter;
@@ -1010,7 +1022,7 @@ calc_text_size_bytes (HTMLPainter *painter, const gchar *text,
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
-	text_size (gdk_painter->pc, (PangoFontDescription *) font->data, text, bytes_len, &logical_rect);
+	text_size (gdk_painter, (PangoFontDescription *) font->data, text, bytes_len, &logical_rect, items, glyphs);
 
 	*width = PANGO_PIXELS (logical_rect.width);
 	*asc   = PANGO_PIXELS (PANGO_ASCENT (logical_rect));

@@ -1105,22 +1105,25 @@ draw_gt_line (HTMLObject *cur, HTMLPainter *p, gint offset, gint x, gint y)
 {
 	gint cy, w, a, d, line_offset = 0;
 
+	/* FIXME: cache items and glyphs? */
 	html_painter_calc_text_size (p, HTML_BLOCK_CITE, 
-				     strlen (HTML_BLOCK_CITE), &line_offset,
+				     strlen (HTML_BLOCK_CITE), NULL, NULL, &line_offset,
 				     GTK_HTML_FONT_STYLE_SIZE_3, NULL,
 				     &w, &a, &d);
 
 	cy = offset;
 	while (cy + a <= cur->ascent) {
+		/* FIXME: cache items and glyphs? */
 		html_painter_draw_text (p, x, y + cur->y - cy,
-					HTML_BLOCK_CITE, 1, 0);
+					HTML_BLOCK_CITE, 1, NULL, NULL, 0);
 		cy += a + d;
 	}
 
 	cy = - offset + a + d;
 	while (cy + d <= cur->descent) {
+		/* FIXME: cache items and glyphs? */
 		html_painter_draw_text (p, x, y + cur->y + cy,
-					HTML_BLOCK_CITE, 1, 0);
+					HTML_BLOCK_CITE, 1, NULL, NULL, 0);
 		cy += a + d;
 	}
 }
@@ -1236,14 +1239,16 @@ draw_item (HTMLObject *self, HTMLPainter *painter, gint x, gint y, gint width, g
 			gint width, len, line_offset = 0, asc, dsc;
 
 			len   = strlen (number);
-			html_painter_calc_text_size (painter, number, len, &line_offset,
+			/* FIXME: cache items and glyphs? */
+			html_painter_calc_text_size (painter, number, len, NULL, NULL, &line_offset,
 						     html_clueflow_get_default_font_style (flow), NULL, &width, &asc, &dsc);
 			width += html_painter_get_space_width (painter, html_clueflow_get_default_font_style (flow), NULL);
 			html_painter_set_font_style (painter, html_clueflow_get_default_font_style (flow));
 			html_painter_set_font_face  (painter, NULL);
+			/* FIXME: cache items and glyphs? */
 			html_painter_draw_text (painter, self->x + first->x - width + tx,
 						self->y - self->ascent + first->y + ty,
-						number, strlen (number), 0);
+						number, strlen (number), NULL, NULL, 0);
 		}
 		g_free (number);
 	}
