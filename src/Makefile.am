@@ -220,9 +220,16 @@ pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libgtkhtml.pc
 
 EXTRA_DIST =			\
+	htmlclosures.list	\
 	$(keybindings_DATA)	\
 	$(pkgconfig_DATA)	\
 	$(NULL)
 
 install-data-hook:
 	mv $(libdir)/pkgconfig/libgtkhtml.pc $(libdir)/pkgconfig/libgtkhtml-@GTKHTML_RELEASE@.pc
+
+htmlmarshal.h:	htmlclosures.list
+	glib-genmarshal --header --prefix=html_g_cclosure_marshal $< > $@
+
+htmlmarshal.c:	htmlclosures.list
+	glib-genmarshal --body --prefix=html_g_cclosure_marshal $< > $@

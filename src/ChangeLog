@@ -1,3 +1,10 @@
+2002-11-15  Radek Doulik  <rodo@ximian.com>
+
+	* Makefile.am: generate htmlmarshal.[ch] from htmlclosures.list by
+	glib-genmarshal
+
+	* htmlclosures.list: new file
+
 2002-11-14  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (gtk_html_command): fix GEnumClass retrieval
