@@ -606,11 +606,18 @@ current_alignment (HTMLEngine *e)
 {
 	HTMLElement *span;
 	GList *item;
-	
+	gint maxLevel = 0;
+
 	for (item = e->span_stack->list; item; item = item->next) {
 		span = item->data;
 
-		if (span->style && (span->style->text_align != HTML_HALIGN_NONE))
+		/* we track the max display level here because an alignment on
+		 * an inline block should not change change the block alignment 
+		 * unless the block is nested in the inline element
+		 */
+		maxLevel = MAX (maxLevel, span->style->display);
+		
+		if (span->style->text_align != HTML_HALIGN_NONE && maxLevel >= DISPLAY_BLOCK)
 			return span->style->text_align;
 		
 		if (span->style->display > DISPLAY_BLOCK)
@@ -773,7 +780,7 @@ close_flow (HTMLEngine *e, HTMLObject *clue)
 	last = HTML_CLUE (e->flow)->tail;
 	if (last == NULL) {
 		html_clue_append (HTML_CLUE (e->flow), create_empty_text (e));
-	} else if (HTML_CLUE (e->flow)->tail != HTML_CLUE (e->flow)->head
+	} else if (last != HTML_CLUE (e->flow)->head
 		   && html_object_is_text (last)
 		   && HTML_TEXT (last)->text_len == 1
 		   && HTML_TEXT (last)->text [0] == ' ') {
@@ -916,17 +923,18 @@ static void block_end_div (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem);
 static void
 html_element_push (HTMLElement *node, HTMLEngine *e, HTMLObject *clue)
 {
-	html_stack_push (e->span_stack, node);
-
 	switch (node->style->display) {
 	case DISPLAY_BLOCK:
 		/* close anon p elements */
 		pop_element (e, ID_P);
+
+		html_stack_push (e->span_stack, node);
 		update_flow_align (e, clue);
 		node->exitFunc = block_end_div;
 		break;
 	case DISPLAY_INLINE:
 	default:
+		html_stack_push (e->span_stack, node);
 		break;
 	}
 }
@@ -1849,9 +1857,7 @@ element_parse_pre (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 static void
 element_parse_center (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	HTMLStyle *style = NULL;
 	HTMLElement *element;
-	char *value;
 
 	element = html_element_new (e, str);
 	
@@ -3232,6 +3238,7 @@ element_parse_td (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		else if (strncasecmp (token, "bgcolor=", 8) == 0
 			 && !e->defaultSettings->forceDefault) {
 			
+					
 			if (parse_color (token + 8, &bgColor))
 				have_bgColor = TRUE;
 		}

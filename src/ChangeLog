@@ -1,5 +1,9 @@
 2003-09-10  Larry Ewing  <lewing@ximian.com>
 
+	* htmlengine.c (current_alignment): make alignment only work if we
+	cross a block element.
+	(html_element_push): don't pop the anon pre until we've pushed it.
+
 	* htmlstyle.c (html_style_add_attribute): add some new atttributes
 	to the attribute parsing code.
 	(html_style_add_attribute): fix accidental breakage.
