@@ -39,7 +39,7 @@ encode_entities (const gchar *input,
 		 guint len,
 		 guint *encoded_len_return)
 {
-	unicode_char_t uc;
+	/* unicode_char_t uc; */
 	const gchar *p;
 	guchar *buffer = NULL;
 	guchar *out = NULL;
@@ -62,45 +62,45 @@ encode_entities (const gchar *input,
 			buffer = g_realloc (buffer, buffer_size);
 			out = &buffer[index];
 		}
-		unicode_get_utf8 (p, &uc);
+		// unicode_get_utf8 (p, &uc);
 
 		/* By default one have to encode at least '<', '>', '"' and '&'.  */
 
-		if (uc == '<') {
+		if (*p == '<') {
 			*out++ = '&';
 			*out++ = 'l';
 			*out++ = 't';
 			*out++ = ';';
-		} else if (uc == '>') {
+		} else if (*p == '>') {
 			*out++ = '&';
 			*out++ = 'g';
 			*out++ = 't';
 			*out++ = ';';
-		} else if (uc == '&') {
+		} else if (*p == '&') {
 			*out++ = '&';
 			*out++ = 'a';
 			*out++ = 'm';
 			*out++ = 'p';
 			*out++ = ';';
-		} else if (uc == '"') {
+		} else if (*p == '"') {
 			*out++ = '&';
 			*out++ = 'q';
 			*out++ = 'u';
 			*out++ = 'o';
 			*out++ = 't';
 			*out++ = ';';
-		} else if (uc == ENTITY_NBSP) {
+		} else if (*p == ENTITY_NBSP) {
 			*out++ = '&';
 			*out++ = 'n';
 			*out++ = 'b';
 			*out++ = 's';
 			*out++ = 'p';
 			*out++ = ';';
-		} else if (((uc >= 0x20) && (uc < 0x80))
-			   || (uc == '\n') || (uc == '\r') || (uc == '\t')) {
+		} /* else if (((uc >= 0x20) && (uc < 0x80)) 
+		     || (uc == '\n') || (uc == '\r') || (uc == '\t')) { */
 			/* Default case, just copy. */
-			*out++ = uc;
-		} else {
+			*out++ = *p;
+			/* } else {
 			char buf[10], *ptr;
 
 			g_snprintf(buf, 9, "&#%d;", uc);
@@ -108,10 +108,11 @@ encode_entities (const gchar *input,
 			ptr = buf;
 			while (*ptr != 0)
 				*out++ = *ptr++;
-		}
+				} */
 
 		count++;
-		p = unicode_next_utf8 (p);
+		/* p = unicode_next_utf8 (p); */
+		p++;
 	}
 
 	*out = 0;

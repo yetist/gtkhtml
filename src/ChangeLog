@@ -1,3 +1,10 @@
+2000-10-16  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine-save.c (encode_entities): update to non-utf8 texts,
+	save all 8bit range instead of encoding it as #-1; it's wrong
+	here, but it may work at least with iso-latin-1 I hope,
+	new painter should replace it soon
+
 2000-10-15  Radek Doulik  <rodo@helixcode.com>
 
 	* htmltext.c (save_plain): cut down text from utf8 to 8bit before
