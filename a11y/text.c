@@ -365,6 +365,9 @@ static gchar *
 html_a11y_text_get_text_after_offset (AtkText *text, gint offset, AtkTextBoundary boundary_type,
 				      gint *start_offset, gint *end_offset)
 {
+	HTMLText *to = HTML_TEXT (HTML_A11Y_HTML (text));
+
+	gail_text_util_text_setup (HTML_A11Y_TEXT (text)->util, to->text);
 	return gail_text_util_get_text (HTML_A11Y_TEXT (text)->util, NULL, GAIL_AFTER_OFFSET, boundary_type, offset, 
 					start_offset, end_offset);
 }
@@ -373,8 +376,13 @@ static gchar *
 html_a11y_text_get_text_at_offset (AtkText *text, gint offset, AtkTextBoundary boundary_type,
 				   gint *start_offset, gint *end_offset)
 {
+	gchar * ret;
+	HTMLText *to = HTML_TEXT (HTML_A11Y_HTML (text));
+
+	gail_text_util_text_setup (HTML_A11Y_TEXT (text)->util, to->text);
 	return gail_text_util_get_text (HTML_A11Y_TEXT (text)->util, NULL, GAIL_AT_OFFSET, boundary_type, offset, 
 					start_offset, end_offset);
+	
 }
 
 static gunichar
@@ -391,6 +399,12 @@ static gchar *
 html_a11y_text_get_text_before_offset (AtkText *text, gint offset, AtkTextBoundary boundary_type,
 				       gint *start_offset, gint *end_offset)
 {
+	HTMLText *to = HTML_TEXT (HTML_A11Y_HTML (text));
+
+	g_return_val_if_fail (to, NULL);
+
+	gail_text_util_text_setup (HTML_A11Y_TEXT (text)->util, to->text);
+	
 	return gail_text_util_get_text (HTML_A11Y_TEXT (text)->util, NULL, GAIL_BEFORE_OFFSET, boundary_type, offset, 
 					start_offset, end_offset);
 }
@@ -476,13 +490,10 @@ html_a11y_text_set_selection (AtkText *text, gint selection_num, gint start_offs
                                                    gint             *width,
                                                    gint             *height,
                                                    AtkCoordType	    coords);
-  gint           (* get_character_count)          (AtkText          *text);
   gint           (* get_offset_at_point)          (AtkText          *text,
                                                    gint             x,
                                                    gint             y,
                                                    AtkCoordType	    coords);
-  gboolean       (* set_caret_offset)             (AtkText          *text,
-                                                   gint             offset);
 
 */
 
