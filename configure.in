@@ -305,7 +305,7 @@ dnl Library version information.
  
 dnl Increment the following if the interface has additions, changes,
 dnl removals.
-GTKHTML_CURRENT=5
+GTKHTML_CURRENT=6
 
 dnl Increment any time the source changes; set to 0 if you
 dnl increment CURRENT.

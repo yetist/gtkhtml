@@ -1,4 +1,8 @@
 2000-12-14  Larry Ewing  <lewing@helixcode.com>
+	
+	* Make gtkhtml-0.8 release.
+
+	* configure.in (GTKHTML_CURRENT): update to 6
 
 	* NEWS: add some initial news for this release.
 

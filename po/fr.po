@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.7\n"
-"POT-Creation-Date: 2000-12-12 11:55+0100\n"
+"POT-Creation-Date: 2000-12-14 12:56-0600\n"
 "PO-Revision-Date: 2000-12-12 10:56+0200\n"
 "Last-Translator: Christophe Merlet (RedFox) <redfox@eikonex.org>\n"
 "Language-Team: GNOME French Team <gnomefr@gnomefr.traduc.org>\n"
@@ -41,7 +41,7 @@ msgstr "Tables de caractères"
 msgid "Add"
 msgstr "Ajouter"
 
-#: capplet/gnome-bindings-prop.c:548
+#: capplet/gnome-bindings-prop.c:548 po/tmp/GNOME_GtkHTML_Editor.xml.h:8
 msgid "Copy"
 msgstr "Copier"
 
@@ -132,7 +132,7 @@ msgid "Spell Checking"
 msgstr "Vérification orthographique"
 
 #. color selection
-#: capplet/gtkhtml-capplet.glade.h:29 components/html-editor/text.c:209
+#: capplet/gtkhtml-capplet.glade.h:29 components/html-editor/text.c:218
 msgid "Color"
 msgstr "Couleur"
 
@@ -148,15 +148,15 @@ msgstr "Piochez une couleur"
 msgid "Miscellaneous"
 msgstr "Divers"
 
-#: components/html-editor/body.c:126 components/html-editor/body.c:130
+#: components/html-editor/body.c:127 components/html-editor/body.c:131
 msgid "Background Image"
 msgstr "Image de fond"
 
-#: components/html-editor/body.c:129
+#: components/html-editor/body.c:130
 msgid "Enable"
 msgstr "Activer"
 
-#: components/html-editor/body.c:152
+#: components/html-editor/body.c:153
 msgid "Colors"
 msgstr "Couleurs"
 
@@ -166,17 +166,17 @@ msgid "Properties"
 msgstr "Propriétés"
 
 #: components/html-editor/editor-control-factory.c:147
-#: components/html-editor/menubar.c:96 components/html-editor/popup.c:92
+#: components/html-editor/menubar.c:97 components/html-editor/popup.c:92
 msgid "Image"
 msgstr "Image"
 
 #: components/html-editor/editor-control-factory.c:156
-#: components/html-editor/menubar.c:117 components/html-editor/popup.c:85
+#: components/html-editor/menubar.c:118 components/html-editor/popup.c:85
 msgid "Text"
 msgstr "Texte"
 
 #: components/html-editor/editor-control-factory.c:167
-#: components/html-editor/menubar.c:140 components/html-editor/popup.c:120
+#: components/html-editor/menubar.c:141 components/html-editor/popup.c:120
 msgid "Rule"
 msgstr "Règle"
 
@@ -186,7 +186,7 @@ msgid "Paragraph"
 msgstr "Paragraphe"
 
 #: components/html-editor/editor-control-factory.c:181
-#: components/html-editor/menubar.c:101 components/html-editor/menubar.c:122
+#: components/html-editor/menubar.c:102 components/html-editor/menubar.c:123
 #: components/html-editor/popup.c:106
 msgid "Link"
 msgstr "Lien"
@@ -216,7 +216,7 @@ msgstr "Rembourrage"
 
 #. size
 #: components/html-editor/image.c:235 components/html-editor/rule.c:225
-#: components/html-editor/text.c:179
+#: components/html-editor/text.c:188
 msgid "Size"
 msgstr "Taille"
 
@@ -236,35 +236,35 @@ msgstr "Ne peut initialiser GNORBA"
 msgid "Could not initialize Bonobo"
 msgstr "Ne peut initialiser Bonobo"
 
-#: components/html-editor/menubar.c:94 components/html-editor/menubar.c:114
-#: components/html-editor/menubar.c:137
+#: components/html-editor/menubar.c:95 components/html-editor/menubar.c:115
+#: components/html-editor/menubar.c:138
 #: components/html-editor/properties.c:110
 msgid "Insert"
 msgstr "Insérer"
 
-#: components/html-editor/menubar.c:153
+#: components/html-editor/menubar.c:154
 msgid "Cannot execute gtkhtml properties"
 msgstr "Ne peut exécuter les propriétés gtkhtml"
 
 #. style
-#: components/html-editor/paragraph.c:109 components/html-editor/rule.c:249
-#: components/html-editor/text.c:159
+#: components/html-editor/paragraph.c:110 components/html-editor/rule.c:249
+#: components/html-editor/text.c:168
 msgid "Style"
 msgstr "Style"
 
-#: components/html-editor/paragraph.c:143
+#: components/html-editor/paragraph.c:144
 msgid "Align"
 msgstr "Aligner"
 
-#: components/html-editor/paragraph.c:156
+#: components/html-editor/paragraph.c:157
 msgid "Left"
 msgstr "Gauche"
 
-#: components/html-editor/paragraph.c:157 components/html-editor/toolbar.c:395
+#: components/html-editor/paragraph.c:158 components/html-editor/toolbar.c:403
 msgid "Center"
 msgstr "Centre"
 
-#: components/html-editor/paragraph.c:158
+#: components/html-editor/paragraph.c:159
 msgid "Right"
 msgstr "Droite"
 
@@ -277,7 +277,7 @@ msgid "Replace confirmation"
 msgstr "Remplacer confirmation"
 
 #: components/html-editor/replace.c:84 components/html-editor/replace.c:146
-#: components/html-editor/replace.c:158
+#: components/html-editor/replace.c:158 po/tmp/GNOME_GtkHTML_Editor.xml.h:28
 msgid "Replace"
 msgstr "Remplacer"
 
@@ -321,127 +321,127 @@ msgstr "Ouvrir un fichier..."
 msgid "Save file as..."
 msgstr "Enregistrer sous..."
 
-#: components/html-editor/text.c:171 components/html-editor/toolbar.c:404
+#: components/html-editor/text.c:180 components/html-editor/toolbar.c:412
 msgid "Bold"
 msgstr "Gras"
 
-#: components/html-editor/text.c:172 components/html-editor/toolbar.c:406
+#: components/html-editor/text.c:181 components/html-editor/toolbar.c:414
 msgid "Italic"
 msgstr "Italique"
 
-#: components/html-editor/text.c:173 components/html-editor/toolbar.c:408
+#: components/html-editor/text.c:182 components/html-editor/toolbar.c:416
 msgid "Underline"
 msgstr "Souligné"
 
-#: components/html-editor/text.c:174 components/html-editor/toolbar.c:410
+#: components/html-editor/text.c:183 components/html-editor/toolbar.c:418
 msgid "Strikeout"
 msgstr "Barré"
 
-#: components/html-editor/text.c:212 components/html-editor/toolbar.c:204
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:210
 msgid "Automatic"
 msgstr "Automatique"
 
-#: components/html-editor/toolbar.c:45
+#: components/html-editor/toolbar.c:48
 msgid "Normal"
 msgstr "Normal"
 
-#: components/html-editor/toolbar.c:46
+#: components/html-editor/toolbar.c:49
 msgid "Header 1"
 msgstr "En-tête 1"
 
-#: components/html-editor/toolbar.c:47
+#: components/html-editor/toolbar.c:50
 msgid "Header 2"
 msgstr "En-tête 2"
 
-#: components/html-editor/toolbar.c:48
+#: components/html-editor/toolbar.c:51
 msgid "Header 3"
 msgstr "En-tête 3"
 
-#: components/html-editor/toolbar.c:49
+#: components/html-editor/toolbar.c:52
 msgid "Header 4"
 msgstr "En-tête 4"
 
-#: components/html-editor/toolbar.c:50
+#: components/html-editor/toolbar.c:53
 msgid "Header 5"
 msgstr "En-tête 5"
 
-#: components/html-editor/toolbar.c:51
+#: components/html-editor/toolbar.c:54
 msgid "Header 6"
 msgstr "En-tête 6"
 
-#: components/html-editor/toolbar.c:52
+#: components/html-editor/toolbar.c:55
 msgid "Address"
 msgstr "Adresse"
 
-#: components/html-editor/toolbar.c:53
+#: components/html-editor/toolbar.c:56
 msgid "Pre"
 msgstr "Pre"
 
-#: components/html-editor/toolbar.c:54
+#: components/html-editor/toolbar.c:57
 msgid "List item (digit)"
 msgstr "Élément liste (chiffre)"
 
-#: components/html-editor/toolbar.c:55
+#: components/html-editor/toolbar.c:58
 msgid "List item (unnumbered)"
 msgstr "Élément liste (non numéroté)"
 
-#: components/html-editor/toolbar.c:56
+#: components/html-editor/toolbar.c:59
 msgid "List item (roman)"
 msgstr "Élément liste (romain)"
 
-#: components/html-editor/toolbar.c:393
+#: components/html-editor/toolbar.c:401
 msgid "Left align"
 msgstr "Aligner à gauche"
 
-#: components/html-editor/toolbar.c:393
+#: components/html-editor/toolbar.c:401
 msgid "Left justify paragraphs"
 msgstr "Justifier à gauche les paragraphes"
 
-#: components/html-editor/toolbar.c:395
+#: components/html-editor/toolbar.c:403
 msgid "Centers paragraphs"
 msgstr "Centrer les paragraphes"
 
-#: components/html-editor/toolbar.c:397
+#: components/html-editor/toolbar.c:405
 msgid "Right align"
 msgstr "Aligner à droite"
 
-#: components/html-editor/toolbar.c:397
+#: components/html-editor/toolbar.c:405
 msgid "Right justify paragraphs"
 msgstr "Justifier à droite les paragraphes"
 
-#: components/html-editor/toolbar.c:404
+#: components/html-editor/toolbar.c:412
 msgid "Sets the bold font"
 msgstr "Mets le texte en gras"
 
-#: components/html-editor/toolbar.c:406
+#: components/html-editor/toolbar.c:414
 msgid "Make the selection italic"
 msgstr "Mets la sélection en italique"
 
-#: components/html-editor/toolbar.c:408
+#: components/html-editor/toolbar.c:416
 msgid "Make the selection underlined"
 msgstr "Souligne la sélection"
 
-#: components/html-editor/toolbar.c:410
+#: components/html-editor/toolbar.c:418
 msgid "Make the selection striked out"
 msgstr "Barre la sélection"
 
-#: components/html-editor/toolbar.c:419
+#: components/html-editor/toolbar.c:427
 msgid "Unindent"
 msgstr "Non indenté"
 
-#: components/html-editor/toolbar.c:419
+#: components/html-editor/toolbar.c:427
 msgid "Indent paragraphs less"
 msgstr "Désindente le paragraphe"
 
-#: components/html-editor/toolbar.c:421
+#: components/html-editor/toolbar.c:429
 msgid "Indent"
 msgstr "Indenter"
 
-#: components/html-editor/toolbar.c:421
+#: components/html-editor/toolbar.c:429
 msgid "Indent paragraphs more"
 msgstr "Indente le paragraphe"
 
-#: components/html-editor/utils.c:103
+#: components/html-editor/utils.c:104
 msgid "Sample"
 msgstr "Exemple"
 
@@ -462,111 +462,169 @@ msgstr "Aperçu avant impression"
 msgid "C_ut"
 msgstr "Co_uper"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:8
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:9
+#, fuzzy
+msgid "Copy selection to clipboard"
+msgstr "Coupie la sélection vers le presse-papiers"
+
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:10
 msgid "Copy the selection"
 msgstr "Copier la sélection"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:9
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:11
+#, fuzzy
+msgid "Cut"
+msgstr "Co_uper"
+
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:12
+#, fuzzy
+msgid "Cut selection to clipboard"
+msgstr "Coupe la sélection vers le presse-papiers"
+
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:13
 msgid "Cut the selection"
 msgstr "Coupe la sélection"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:10
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:14
+#, fuzzy
+msgid "Find"
+msgstr "_Rechercher..."
+
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:15
 msgid "Find Rege_x..."
 msgstr "Rechercher par e_xpressions régulières..."
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:11
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:16
 msgid "Find _Again"
 msgstr "Rechercher de _nouveau"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:12
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:17
 msgid "Insert HTML link into document..."
 msgstr "Insérer lien HTML dans document..."
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:13
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:18
 msgid "Insert image into document..."
 msgstr "Insérer image dans document..."
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:14
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:19
 msgid "Insert rule into document..."
 msgstr "Insérer règles dans document..."
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:15
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:20
 msgid "Modify the file's properties"
 msgstr "Modifie les propriétés du fichier"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:16
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:21
+#, fuzzy
+msgid "Paste"
+msgstr "C_oller"
+
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:22
+#, fuzzy
+msgid "Paste from clipboard"
+msgstr "Colle le contenu du presse-papiers"
+
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:23
 msgid "Paste the clipboard"
 msgstr "Colle le contenu du presse-papiers"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:17
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:24
+#, fuzzy
+msgid "Redo"
+msgstr "_Refaire"
+
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:25
+msgid "Redo previously undoed changes"
+msgstr ""
+
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:26
 msgid "Redo the undone action"
 msgstr "Refaire l'opération non effectuée"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:18
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:27
 msgid "Regular expression search"
 msgstr "Recherche par expressions régulières"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:19
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:29
 msgid "Replace a string"
 msgstr "Remplacer une chaîne"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:20
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:30
 msgid "Search again for the same string"
 msgstr "Recherche de nouveau la même chaîne"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:21
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:31
+#, fuzzy
+msgid "Search and replace string"
+msgstr "Recherche de nouveau la même chaîne"
+
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:32
 msgid "Search for a string"
 msgstr "Recherche une chaîne"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:22
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:33
+#, fuzzy
+msgid "Search string"
+msgstr "Recherche une chaîne"
+
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:34
+#, fuzzy
+msgid "Undo"
+msgstr "_Annuler"
+
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:35
+msgid "Undo previous changes"
+msgstr ""
+
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:36
 msgid "Undo the last action"
 msgstr "Annule la dernière action"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:23
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:37
 msgid "_Copy"
 msgstr "_Copier"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:24
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:38
 msgid "_Edit"
 msgstr "_Éditer"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:25
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:39
 msgid "_Find..."
 msgstr "_Rechercher..."
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:26
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:40
 msgid "_Image..."
 msgstr "_Image..."
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:27
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:41
 msgid "_Insert"
 msgstr "_Insérer"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:28
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:42
 msgid "_Link..."
 msgstr "_Lien..."
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:29
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:43
 msgid "_Paste"
 msgstr "C_oller"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:30
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:44
 msgid "_Properties..."
 msgstr "_Propriétés..."
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:31
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:45
 msgid "_Redo"
 msgstr "_Refaire"
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:32
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:46
 msgid "_Replace..."
 msgstr "_Remplacer..."
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:33
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:47
 msgid "_Rule..."
 msgstr "_Règles..."
 
-#: po/tmp/GNOME_GtkHTML_Editor.xml.h:34
+#: po/tmp/GNOME_GtkHTML_Editor.xml.h:48
 msgid "_Undo"
 msgstr "_Annuler"
 
@@ -611,12 +669,6 @@ msgstr "_Annuler"
 
 #~ msgid "Save using the PersistStream interface"
 #~ msgstr "Enregistre en utilisant l'interface PersistStream"
-
-#~ msgid "Cut selection to the clipboard"
-#~ msgstr "Coupe la sélection vers le presse-papiers"
-
-#~ msgid "Copy selection to the clipboard"
-#~ msgstr "Coupie la sélection vers le presse-papiers"
 
 #~ msgid "text color"
 #~ msgstr "couleur du texte"
