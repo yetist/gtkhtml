@@ -119,15 +119,18 @@ gtk_html_edit_properties_dialog_new (GtkHTMLControlData *cd, gboolean insert, gc
 	d->control_data   = cd;
 	parent = get_parent_window (GTK_WIDGET (cd->html));
 	d->dialog         = (insert) ? gtk_dialog_new_with_buttons (title, parent, 0,
-								    _("Insert"), GTK_STOCK_CLOSE, NULL)
+								    _("Insert"), 0,
+								    GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
+								    NULL)
 		:  gtk_dialog_new_with_buttons (title, parent, 0,
-						GTK_STOCK_OK,
-						GTK_STOCK_APPLY,
-						GTK_STOCK_CLOSE, NULL);
+						GTK_STOCK_OK, 0,
+						GTK_STOCK_APPLY, 1,
+						GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
+						NULL);
 	d->notebook = gtk_notebook_new ();
 	g_signal_connect (d->dialog, "destroy", G_CALLBACK (destroy_dialog), d);
 	g_signal_connect (d->notebook, "switch_page", G_CALLBACK (switch_page), d);
-	gtk_container_add (GTK_CONTAINER (d->dialog), d->notebook);
+	gtk_box_pack_start_defaults (GTK_BOX (GTK_DIALOG (d->dialog)->vbox), d->notebook);
 	gtk_widget_show (d->notebook);
 
 	/* gnome_dialog_button_connect (GNOME_DIALOG (d->dialog), 0, GTK_SIGNAL_FUNC (ok), d);
@@ -136,7 +139,6 @@ gtk_html_edit_properties_dialog_new (GtkHTMLControlData *cd, gboolean insert, gc
 	gnome_dialog_button_connect (GNOME_DIALOG (d->dialog), insert ? 1 : 2, GTK_SIGNAL_FUNC (prop_close), d);
 	gnome_dialog_set_default (GNOME_DIALOG (d->dialog), 0); */
 
-	
 	gnome_window_icon_set_from_file (GTK_WINDOW (d->dialog), icon_path);
 	gtk_dialog_set_response_sensitive (GTK_DIALOG (d->dialog), 0, FALSE);
 	if (!insert)
