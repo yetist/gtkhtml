@@ -25,8 +25,6 @@
 #include "htmlengine.h"
 
 /* Insertion operations.  */
-void   html_engine_insert_para  (HTMLEngine  *e,
-				 gboolean     vspace);
 guint  html_engine_insert       (HTMLEngine  *e,
 				 const gchar *text,
 				 guint        len);

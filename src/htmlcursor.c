@@ -782,7 +782,7 @@ html_cursor_jump_to_position (HTMLCursor *cursor,
 			      gint position)
 {
 	g_return_if_fail (cursor != NULL);
-	g_return_if_fail (position > 0);
+	g_return_if_fail (position >= 0);
 
 	if (cursor->position < position) {
 		while (cursor->position < position) {

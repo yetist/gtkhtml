@@ -1,3 +1,17 @@
+2000-04-22  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlcursor.c
+	(html_cursor_jump_to_position): Fix precondition: a zero position
+	is valid!
+
+	* gtkhtml-keybinding.c
+	(insert_para): Updated to use `html_engine_insert()' instead of
+	`html_engine_insert_para()'.
+
+	* htmlengine-edit-insert.c: Extensively reorganized.  Implemented
+	complete undo/redo support.
+	(html_engine_insert_para): Removed.
+
 2000-04-21  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlclueflow.c

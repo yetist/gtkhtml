@@ -19,6 +19,8 @@
     Boston, MA 02111-1307, USA.
 */
 
+#include <string.h>
+
 #include "htmlclue.h"
 #include "htmlclueflow.h"
 #include "htmltext.h"
@@ -48,19 +50,13 @@ get_flow (HTMLObject *object)
 	return p;
 }
 
-void
-html_engine_insert_para (HTMLEngine *engine,
-			 gboolean vspace)
+static void
+insert_para (HTMLEngine *engine)
 {
 	HTMLObject *flow;
 	HTMLObject *next_flow;
 	HTMLObject *current;
 	guint offset;
-
-	g_return_if_fail (engine != NULL);
-	g_return_if_fail (HTML_IS_ENGINE (engine));
-	g_return_if_fail (engine->cursor != NULL);
-	g_return_if_fail (engine->cursor->object != NULL);
 
 	current = engine->cursor->object;
 	offset = engine->cursor->offset;
@@ -143,33 +139,11 @@ html_engine_insert_para (HTMLEngine *engine,
 }
 
 
-
-static void
-undo_insert_closure_destroy (gpointer closure)
-{
-	/* Nothing to do here, as the closure is actually an int.  */
-}
-
-static void
-undo_insert (HTMLEngine *engine,
-	     gpointer closure)
-{
-	guint count;
-
-	count = GPOINTER_TO_INT (closure);
-
-	/* FIXME we must make sure this delete operation does not save Undo
-           information.  */
-	html_engine_delete (engine, count);
-
-	/* FIXME TODO redo */
-}
-
-
 static guint
-do_insert_different_style (HTMLEngine *e,
-			   const gchar *text,
-			   guint len)
+insert_chars_different_style (HTMLEngine *e,
+			      const gchar *text,
+			      guint len,
+			      GtkHTMLFontStyle style)
 {
 	HTMLText *right_side;
 	HTMLObject *new;
@@ -192,7 +166,7 @@ do_insert_different_style (HTMLEngine *e,
 
 		if (p != NULL
 		    && HTML_OBJECT_TYPE (p) == HTML_OBJECT_TYPE (curr)
-		    && HTML_TEXT (p)->font_style == e->insertion_font_style) {
+		    && HTML_TEXT (p)->font_style == style) {
 			e->cursor->object = p;
 			e->cursor->offset = HTML_TEXT (p)->text_len;
 			return html_text_insert_text (HTML_TEXT (p), e, e->cursor->offset, text, len);
@@ -200,7 +174,7 @@ do_insert_different_style (HTMLEngine *e,
 	}
 
 	/* FIXME color.  */
-	new = html_text_master_new ("", e->insertion_font_style, &(HTML_TEXT (curr)->color));
+	new = html_text_master_new ("", style, &(HTML_TEXT (curr)->color));
 	retval = html_text_insert_text (HTML_TEXT (new), e, 0, text, len);
 	if (retval == 0) {
 		html_object_destroy (new);
@@ -229,9 +203,9 @@ do_insert_different_style (HTMLEngine *e,
 }
 
 static guint
-do_insert_same_style (HTMLEngine *e,
-		      const gchar *text,
-		      guint len)
+insert_chars_same_style (HTMLEngine *e,
+			 const gchar *text,
+			 guint len)
 {
 	HTMLObject *curr;
 	guint offset;
@@ -243,9 +217,10 @@ do_insert_same_style (HTMLEngine *e,
 }
 
 static guint
-do_insert_not_text (HTMLEngine *e,
-		    const gchar *text,
-		    guint len)
+insert_chars_at_not_text (HTMLEngine *e,
+			  const gchar *text,
+			  guint len,
+			  GtkHTMLFontStyle style)
 {
 	GdkColor color = { 0, 0, 0, 0 };
 	HTMLObject *curr;
@@ -254,7 +229,7 @@ do_insert_not_text (HTMLEngine *e,
 	curr = e->cursor->object;
 
 	/* FIXME Color */
-	new_text = html_text_master_new_with_len (text, len, e->insertion_font_style, &color);
+	new_text = html_text_master_new_with_len (text, len, style, &color);
 
 	if (e->cursor->offset == 0) {
 		if (curr->prev == NULL)
@@ -272,9 +247,10 @@ do_insert_not_text (HTMLEngine *e,
 }
 
 static guint
-do_insert (HTMLEngine *e,
-	   const gchar *text,
-	   guint len)
+insert_chars (HTMLEngine *e,
+	      const gchar *text,
+	      guint len,
+	      GtkHTMLFontStyle style)
 {
 	HTMLObject *curr;
 
@@ -284,12 +260,12 @@ do_insert (HTMLEngine *e,
 	if (! html_object_is_text (curr)) {
 		if (e->cursor->offset == 0) {
 			if (curr->prev == NULL || ! html_object_is_text (curr->prev))
-				return do_insert_not_text (e, text, len);
+				return insert_chars_at_not_text (e, text, len, style);
 			e->cursor->object = curr->prev;
 			e->cursor->offset = HTML_TEXT (curr->prev)->text_len;
 		} else {
 			if (curr->next == NULL || ! html_object_is_text (curr->next))
-				return do_insert_not_text (e, text, len);
+				return insert_chars_at_not_text (e, text, len, style);
 			e->cursor->object = curr->next;
 			e->cursor->offset = 0;
 		}
@@ -299,28 +275,183 @@ do_insert (HTMLEngine *e,
            different.  This means that we possibly have to split the
            element.  FIXME: Notice that we need something for color
            too.  */
-	if (HTML_TEXT (curr)->font_style != e->insertion_font_style)
-		return do_insert_different_style (e, text, len);
+	if (HTML_TEXT (curr)->font_style != style)
+		return insert_chars_different_style (e, text, len, style);
 
 	/* Case #3: we can simply add the text to the current element.  */
-	return do_insert_same_style (e, text, len);
+	return insert_chars_same_style (e, text, len);
+}
+
+static guint
+do_insert (HTMLEngine *engine,
+	   const gchar *text,
+	   guint len,
+	   GtkHTMLFontStyle style)
+{
+	const gchar *p, *q;
+	guint insert_count;
+
+	insert_count = 0;
+
+	p = text;
+	while (len > 0) {
+		q = memchr (p, '\n', len);
+		if (q == NULL) {
+			insert_count += insert_chars (engine, p, len, style);
+			break;
+		}
+
+		if (q != p)
+			insert_chars (engine, p, q - p, style);
+
+		while (*q == '\n') {
+			insert_para (engine);
+			q++;
+		}
+
+		len -= q - p;
+		p = q;
+	}
+
+	return insert_count;
 }
 
 
-/* FIXME This should actually do a lot more.  */
+/* Undo/redo.  */
+
+struct _ActionData {
+	/* Reference count.  This is necessary because we want to share the data between
+           undo and redo.  */
+	guint ref_count;
+
+	/* The string to insert.  */
+	gchar *chars;
+	gint num_chars;
+
+	/* The font style.  */
+	GtkHTMLFontStyle style;
+};
+typedef struct _ActionData ActionData;
+
+static void  closure_destroy  (gpointer closure);
+static void  do_redo          (HTMLEngine *engine, gpointer closure);
+static void  do_undo          (HTMLEngine *engine, gpointer closure);
+static void  setup_undo       (HTMLEngine *engine, ActionData *data);
+static void  setup_redo       (HTMLEngine *engine, ActionData *data);
+
+static void
+closure_destroy (gpointer closure)
+{
+	ActionData *data;
+
+	data = (ActionData *) closure;
+	g_assert (data->ref_count > 0);
+
+	data->ref_count--;
+	if (data->ref_count > 0)
+		return;
+
+	g_free (data->chars);
+	g_free (data);
+}
+
+static void
+do_redo (HTMLEngine *engine,
+	 gpointer closure)
+{
+	ActionData *data;
+	guint n;
+
+	data = (ActionData *) closure;
+
+	n = do_insert (engine, data->chars, data->num_chars, data->style);
+	setup_undo (engine, data);
+
+	html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_RIGHT, n);
+}
+
+static void
+setup_undo (HTMLEngine *engine,
+	    ActionData *data)
+{
+	HTMLUndoAction *action;
+
+	data->ref_count ++;
+
+	/* FIXME i18n */
+	action = html_undo_action_new ("insert",
+				       do_undo,
+				       closure_destroy,
+				       data,
+				       html_cursor_get_position (engine->cursor));
+
+	html_undo_add_undo_action (engine->undo, action);
+}
+
+static void
+do_undo (HTMLEngine *engine,
+	 gpointer closure)
+{
+	ActionData *data;
+
+	data = (ActionData *) closure;
+
+	html_engine_delete (engine, 1);
+
+	setup_redo (engine, data);
+}
+
+static void
+setup_redo (HTMLEngine *engine,
+	    ActionData *data)
+{
+	HTMLUndoAction *action;
+
+	data->ref_count ++;
+
+	/* FIXME i18n */
+	action = html_undo_action_new ("insert",
+				       do_redo,
+				       closure_destroy,
+				       data,
+				       html_cursor_get_position (engine->cursor));
+
+	html_undo_add_redo_action (engine->undo, action);
+}
+
+
+static ActionData *
+create_action_data (HTMLEngine *engine,
+		    const gchar *chars,
+		    gint num_chars,
+		    GtkHTMLFontStyle style)
+{
+	ActionData *data;
+
+	data = g_new (ActionData, 1);
+	data->ref_count = 0;
+	data->chars = g_strndup (chars, num_chars);
+	data->num_chars = num_chars;
+	data->style = style;
+
+	return data;
+}
+
+
 guint
 html_engine_insert (HTMLEngine *e,
 		    const gchar *text,
 		    guint len)
 {
 	HTMLObject *current_object;
-	HTMLUndoAction *undo_action;
 	guint n;
 
 	g_return_val_if_fail (e != NULL, 0);
 	g_return_val_if_fail (HTML_IS_ENGINE (e), 0);
 	g_return_val_if_fail (text != NULL, 0);
 
+	if (len == -1)
+		len = strlen (text);
 	if (len == 0)
 		return 0;
 
@@ -328,17 +459,13 @@ html_engine_insert (HTMLEngine *e,
 	if (current_object == NULL)
 		return 0;
 
+	html_undo_discard_redo (e->undo);
+
 	html_engine_hide_cursor (e);
 
-	n = do_insert (e, text, len);
+	n = do_insert (e, text, len, e->insertion_font_style);
 
-	/* FIXME i18n */
-	undo_action = html_undo_action_new ("text insertion",
-					    undo_insert,
-					    undo_insert_closure_destroy,
-					    GINT_TO_POINTER (len),
-					    html_cursor_get_position (e->cursor));
-	html_undo_add_undo_action (e->undo, undo_action);
+	setup_undo (e, create_action_data (e, text, len, e->insertion_font_style));
 
 	html_engine_move_cursor (e, HTML_ENGINE_CURSOR_RIGHT, n);
 
@@ -346,4 +473,3 @@ html_engine_insert (HTMLEngine *e,
 
 	return n;
 }
-

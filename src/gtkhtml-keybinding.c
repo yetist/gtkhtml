@@ -100,7 +100,7 @@ insert_para (GtkHTML *html)
 {
 	/* FIXME this should cut the selection instead.  */
 	html_engine_disable_selection (html->engine);
-	html_engine_insert_para (html->engine, TRUE);
+	html_engine_insert (html->engine, "\n", 1);
 }
 
 static void
