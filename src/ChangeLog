@@ -1,5 +1,8 @@
 2000-06-30  Radek Doulik  <rodo@helixcode.com>
 
+	* gtkhtml.c (button_press_event): shift + mouse press button
+	extends/reduces selection
+
 	* keybindingsrc.emacs: added shift movement selection also to
 	emacs keybindings + C-Insert copy S-Insert paste and S-Delete cut
 

@@ -868,7 +868,7 @@ button_press_event (GtkWidget *widget,
 		update_styles (html);
 	}
 
-	if (html->allow_selection) {
+	if (html->allow_selection && !(event->state & GDK_SHIFT_MASK)) {
 		gtk_grab_add (widget);
 		gdk_pointer_grab (widget->window, TRUE,
 				  (GDK_BUTTON_RELEASE_MASK
@@ -882,7 +882,13 @@ button_press_event (GtkWidget *widget,
 
 	html->button_pressed = TRUE;
 
-	html_engine_disable_selection (engine);
+	if (!(event->state & GDK_SHIFT_MASK))
+		html_engine_disable_selection (engine);
+	else
+		html_engine_select_region (engine,
+					   html->selection_x1, html->selection_y1,
+					   event->x + engine->x_offset, event->y + engine->y_offset,
+					   TRUE);
 
 	return TRUE;
 }
