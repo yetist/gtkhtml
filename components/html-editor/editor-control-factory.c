@@ -405,9 +405,7 @@ editor_set_format (GtkHTMLControlData *cd, gboolean format_html)
 		if (html->engine->window)
 			html_gdk_painter_realize (p, html->engine->window);
 
-		html_engine_set_painter (html->engine, HTML_PAINTER (p), 
-					 html->engine->width);
-		
+		html_engine_set_painter (html->engine, HTML_PAINTER (p));
 		html_engine_schedule_redraw (html->engine);
 	}
 		
