@@ -1273,7 +1273,10 @@ new_parse_body (HTMLEngine *e, const gchar *end[])
 		/* The token parser has pushed a body we want to use it. */
 		/* CLUECHECK */
 		clue = e->parser_clue;
-		//printf ("%p <-- clue\n", clue);
+		/* printf ("%p <-- clue\n", clue); */
+
+		if (str == NULL)
+			break;
 
 		if (*str == '\0')
 			continue;

@@ -1,3 +1,10 @@
+2004-06-18  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (new_parse_body): if tokenizer returns NULL even if
+	it claims it has more tokens, break the loop
+
+	Should help with #58264
+
 2004-06-17  Radek Doulik  <rodo@ximian.com>
 
 	* htmlobject.c (next_prev_cursor_object): use offset for all
