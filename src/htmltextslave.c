@@ -41,6 +41,9 @@
 HTMLTextSlaveClass html_text_slave_class;
 static HTMLObjectClass *parent_class = NULL;
 
+static GList * get_items (HTMLTextSlave *slave, HTMLPainter *painter);
+static PangoGlyphString * get_glyphs (HTMLTextSlave *slave, HTMLPainter *painter);
+
 #ifndef GAL_UTF8_NOT_SLOW
 /*
  * NOTE:
@@ -205,8 +208,7 @@ calc_width (HTMLTextSlave *slave, HTMLPainter *painter, gint *asc, gint *dsc)
 		gint line_offset = -1;
 		gint width;
 
-		/* FIXME: cache items and glyphs? */
-		html_painter_calc_text_size (painter, html_text_slave_get_text (slave), slave->posLen, NULL, NULL,
+		html_painter_calc_text_size (painter, html_text_slave_get_text (slave), slave->posLen, get_items (slave, painter), get_glyphs (slave, painter),
 					     &line_offset, html_text_get_font_style (text),
 					     text->face, &width, asc, dsc);	
 		return width;
@@ -481,7 +483,7 @@ hts_fit_line (HTMLObject *o, HTMLPainter *painter,
 
 	begin = html_text_slave_remove_leading_space (slave, painter, lineBegin);
 
-	//printf ("fit_line %d left: %d lspacetext: \"%s\"\n", firstRun, widthLeft, begin);
+	/* printf ("fit_line %d left: %d lspacetext: \"%s\"\n", firstRun, widthLeft, begin); */
 
 	sep = begin;
 	while (sep && *sep
