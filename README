@@ -2,8 +2,8 @@ This is GtkHTML, a lightweight HTML rendering/printing/editing engine.
 It was originally based on KHTMLW, but is now being developed
 independently.
 
-In order to compile GtkHTML, you need the latest gdk-pixbuf and
-gnome-print from CVS.
+In order to compile GtkHTML, you need gdk-pixbuf 0.6.0 (or later) and
+gnome-print 0.13 (or later).
 
 If you want to try the test program `testgtkhtml', you also need
 libwww.  Libwww is available from:
@@ -18,3 +18,5 @@ To try it out, run testgtkhtml in the source dir, i.e:
 
     cd src
     ./testgtkhtml
+
+WARNING: testgtkhtml's URL fetching code is very buggy.
