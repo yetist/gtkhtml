@@ -265,8 +265,8 @@ cut_partial (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *lef
 
 	printf ("partial cut\n");
 
-	start = HTML_TABLE_CELL (from ? from->data : html_object_head (self));
-	end   = HTML_TABLE_CELL (to   ? to->data   : html_object_tail (self));
+	start = HTML_TABLE_CELL (from && from->next ? from->data : html_object_head (self));
+	end   = HTML_TABLE_CELL (to   && to->next   ? to->data   : html_object_tail (self));
 
 	start_row = start->row;
 	start_col = start->col;
@@ -305,8 +305,11 @@ cut_partial (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *lef
 
 	shrink = start_row == 0 && end_row == t->totalRows - 1;
 	/* move remaining cells in old table */
-	if (start_col >= end_col)
+	if (start_col > end_col)
 		start_row ++;
+	else if (start_col == end_col) {
+		html_object_merge_down (HTML_OBJECT (start), HTML_OBJECT (end), e);
+	}
 	if (start_row != end_row)
 		for (r = end_row; r < t->totalRows; r ++)
 			for (c = 0; c < t->totalCols; c ++) {
@@ -326,6 +329,7 @@ cut_partial (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *lef
 		t->totalCols -= end_col - start_col - 1;
 	t->totalRows -= end_row - start_row;
 	printf ("removed partial table len: %d\n", *len);
+	gtk_html_debug_dump_tree_simple (rv, 0);
 
 	return rv;
 }

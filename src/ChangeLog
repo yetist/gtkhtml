@@ -1,3 +1,25 @@
+2001-04-27  Radek Doulik  <rodo@ximian.com>
+
+	* htmlobject.c (html_object_get_bound_list): test for list->next
+	also to avoid leafs
+
+	* htmlengine-edit-cut-and-paste.c (remove_empty_and_merge): don't
+	test left == NULL resp. right == NULL as it's already tested above
+	(insert_object_do): use html_object_heads_list and
+	html_object_tails_list
+	(get_tree_bounds_for_merge): remove - obsolete
+	(html_object_heads_list and html_object_tails_list extracted from
+	this one
+
+	* htmlobject.c (html_object_tails_list): new (extracted) method
+	(html_object_heads_list): ditto
+	(html_object_merge_down): new method
+	(merge_down): new helper function
+
+	* htmltable.c (cut_partial): take care of case when cursor is on
+	table boundary
+	(cut_partial): when start_col == end_col, merge approriate cells
+
 2001-04-25  Dan Winship  <danw@ximian.com>
 
 	* gtkhtml.c, htmlclueflow.c, htmlcursor.c, htmlcursor.h,

@@ -506,5 +506,10 @@ void      html_object_check_cut_lists            (HTMLObject *self,
 						  HTMLObject *replacement,
 						  GList      *left,
 						  GList      *right);
+GList    *html_object_heads_list                 (HTMLObject *o);
+GList    *html_object_tails_list                 (HTMLObject *o);
+void      html_object_merge_down                 (HTMLObject *o,
+						  HTMLObject *w,
+						  HTMLEngine *e);
 
 #endif /* _HTMLOBJECT_H_ */

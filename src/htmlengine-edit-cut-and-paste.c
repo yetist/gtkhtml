@@ -53,26 +53,6 @@ static void        insert_object (HTMLEngine *e, HTMLObject *obj, guint len, HTM
 /* helper functions -- need refactor */
 
 static void
-get_tree_bounds_for_merge (HTMLObject *obj, GList **first, GList **last)
-{
-	HTMLObject *cur;
-
-	* first = *last = NULL;
-
-	cur = obj;
-	while (cur) {
-		*first = g_list_append (*first, cur);
-		cur = html_object_head (cur);
-	}
-
-	cur = obj;
-	while (cur) {
-		*last = g_list_append (*last, cur);
-		cur = html_object_tail_not_slave (cur);
-	}
-}
-
-static void
 html_cursor_get_left (HTMLCursor *cursor, HTMLObject **obj, gint *off)
 {
 	if (cursor->offset == 0) {
@@ -260,8 +240,8 @@ remove_empty_and_merge (HTMLEngine *e, gboolean merge, GList *left, GList *right
 		ro  = HTML_OBJECT (right->data);
 		len = html_object_get_length (lo);
 
-		left  = left ? left->next : NULL;
-		right = right ? right->next : NULL;
+		left  = left->next;
+		right = right->next;
 
 		if (html_object_is_text (lo) && !*HTML_TEXT (lo)->text && (html_object_prev_not_slave (lo) || merge)) {
 			HTMLObject *nlo = html_object_prev_not_slave (lo);
@@ -589,7 +569,8 @@ insert_object_do (HTMLEngine *e, HTMLObject *obj, guint len, gboolean check)
 
 	html_object_change_set_down (obj, HTML_CHANGE_ALL);
 	split_and_add_empty_texts (e, level, &left, &right);
-        get_tree_bounds_for_merge (obj, &first, &last);
+	first = html_object_heads_list (obj);
+	last  = html_object_tails_list (obj);
 
 	e->cursor->position += len;
 	e->cursor->object    = html_object_get_tail_leaf (obj);

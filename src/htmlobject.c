@@ -1525,7 +1525,7 @@ html_object_copy_data_from_object (HTMLObject *dst, HTMLObject *src)
 GList *
 html_object_get_bound_list (HTMLObject *self, GList *list)
 {
-	return list
+	return list && list->next
 		? (HTML_OBJECT (list->data) == self ? list->next : NULL)
 		: NULL;
 }
@@ -1677,4 +1677,56 @@ html_object_get_parent_level (HTMLObject *self)
 	}
 
 	return level;
+}
+
+GList *
+html_object_heads_list (HTMLObject *o)
+{
+	GList *list = NULL;
+
+	g_return_val_if_fail (o, NULL);
+
+	while (o) {
+		list = g_list_append (list, o);
+		o = html_object_head (o);
+	}
+
+	return list;
+}
+
+GList *
+html_object_tails_list (HTMLObject *o)
+{
+	GList *list = NULL;
+
+	g_return_val_if_fail (o, NULL);
+
+	while (o) {
+		list = g_list_append (list, o);
+		o = html_object_tail_not_slave (o);
+	}
+
+	return list;
+}
+
+static void
+merge_down (HTMLEngine *e, GList *left, GList *right)
+{
+	HTMLObject *lo;
+	HTMLObject *ro;
+
+	while (left && right) {
+		lo    = HTML_OBJECT (left->data);
+		ro    = HTML_OBJECT (right->data);
+		left  = left->next;
+		right = right->next;
+		if (!html_object_merge (lo, ro, e, left, right))
+			break;
+	}
+}
+
+void
+html_object_merge_down (HTMLObject *o, HTMLObject *w, HTMLEngine *e)
+{
+	merge_down (e, html_object_tails_list (o), html_object_heads_list (w));
 }
