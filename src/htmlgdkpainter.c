@@ -22,6 +22,8 @@
 #include <string.h>
 #include <libart_lgpl/art_rect.h>
 
+#include "htmlentity.h"
+
 #include "htmlgdkpainter.h"
 
 
@@ -547,6 +549,9 @@ draw_text (HTMLPainter *painter,
 	gchar *pt;
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
+
+	/* FIXME:  Ick!  This is pretty gross.  :-)  */
+
 	pt = html_entity_prepare (text);
 
 	if (len == -1)

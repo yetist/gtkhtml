@@ -87,7 +87,6 @@ static HTStream *netin_stream_new (GtkHTMLStreamHandle handle, HTRequest *reques
 static int redirectFilter(HTRequest *request, HTResponse *response, void *param, int status);
 static gchar *parse_href (const gchar *s);
 
-static GtkWidget *area, *box, *button;
 static GtkHTML *html;
 static GtkHTMLStreamHandle html_stream_handle = NULL;
 static GtkWidget *animator, *entry;

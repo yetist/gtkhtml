@@ -172,7 +172,7 @@ html_entity_parse (const gchar *s, guint len)
 
 /* prepares text to draw/get_width, returned text is allocated using g_strdup so it could be g_free'ed */
 gchar *
-html_entity_prepare (gchar * text)
+html_entity_prepare (const gchar * text)
 {
 	gchar *nt = g_strdup (text);
 	gchar *s  = nt;

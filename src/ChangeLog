@@ -1,5 +1,20 @@
 2000-03-27  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* testgtkhtml.c: Removed unused (global) variables.
+
+	* htmltextarea.c
+	(html_textarea_init): Removed unused variable.
+
+	* htmlentity.c
+	(html_entity_prepare): Made const-safe.
+
+	* htmlentity.h
+	(html_entity_prepare): Make prototype const-safe.
+
+	* htmlgdkpainter.c: #include "htmlentity.h".
+
+2000-03-27  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* htmlclueh.c
 	(calc_size): Set the ascent even for `HTML_VALIGN_TOP'.  This is
 	*not* the correct fix, but it looks better, at least on Slashdot.

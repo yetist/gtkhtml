@@ -135,7 +135,6 @@ html_textarea_init (HTMLTextArea *ta,
 	HTMLEmbedded *element;
 	HTMLObject *object;
 	GtkRequisition req;
-	GtkWidgetClass *widget_class;
 
 	element = HTML_EMBEDDED (ta);
 	object = HTML_OBJECT (ta);
