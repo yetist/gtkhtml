@@ -37,7 +37,6 @@
 
 #include "gtkhtml-private.h"
 #include "htmlanchor.h"
-#include "htmlbullet.h"
 #include "htmlengine.h"
 #include "htmlrule.h"
 #include "htmlobject.h"

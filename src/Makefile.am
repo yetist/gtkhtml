@@ -17,7 +17,6 @@ libgtkhtml_HEADERS =				\
 	debug.h					\
 	gtkhtml.h				\
 	htmlanchor.h				\
-	htmlbullet.h				\
 	htmlcluealigned.h			\
 	htmlclueflow.h				\
 	htmlclue.h				\
@@ -65,7 +64,6 @@ libgtkhtml_la_SOURCES =				\
 	debug.c					\
 	gtkhtml.c				\
 	htmlanchor.c				\
-	htmlbullet.c				\
 	htmlclue.c				\
 	htmlcluealigned.c			\
 	htmlclueflow.c				\

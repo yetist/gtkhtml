@@ -24,7 +24,6 @@
 #include "htmltype.h"
 
 #include "htmlanchor.h"
-#include "htmlbullet.h"
 #include "htmlbutton.h"
 #include "htmlcheckbox.h"
 #include "htmlclue.h"
@@ -63,7 +62,6 @@ html_types_init (void)
 		return;
 
 	html_anchor_type_init ();
-	html_bullet_type_init ();
 	html_button_type_init();
 	html_checkbox_type_init ();
 	html_clue_type_init ();

@@ -1,5 +1,10 @@
 2000-01-17  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmltype.c: Do not call `html_bullet_type_init()' anymore.
+
+	* htmlbullet.c: Removed.
+	* htmlbullet.h: Removed.
+
 	* htmlengine.c (html_engine_init): Initialize `avoid_para' to
 	`TRUE', `pending_para' to FALSE.
 	(html_engine_parse): Likewise.
