@@ -151,14 +151,14 @@ gtk_html_replace_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 
 	dialog->dialog         = GTK_DIALOG (gtk_dialog_new_with_buttons (_("Replace"), NULL, 0,
 									  GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
-									  _("Replace"), 0,
+									  GTK_STOCK_FIND_AND_REPLACE, 0,
 									  NULL));
 
 	table = gtk_table_new (2, 2, FALSE);
 	dialog->entry_search   = gtk_entry_new ();
 	dialog->entry_replace  = gtk_entry_new ();
-	dialog->backward       = gtk_check_button_new_with_label (_("search backward"));
-	dialog->case_sensitive = gtk_check_button_new_with_label (_("case sensitive"));
+	dialog->backward       = gtk_check_button_new_with_mnemonic (_("Search _backward"));
+	dialog->case_sensitive = gtk_check_button_new_with_mnemonic (_("Case _sensitive"));
 	dialog->html           = html;
 	dialog->cd             = cd;
 
@@ -168,23 +168,26 @@ gtk_html_replace_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 		gtk_entry_set_text (GTK_ENTRY (dialog->entry_replace), cd->replace_text_replace);
 
 	gtk_table_set_col_spacings (GTK_TABLE (table), 3);
-	label = gtk_label_new (_("Replace"));
-	gtk_misc_set_alignment (GTK_MISC (label), 1.0, .5);
-	gtk_table_attach_defaults (GTK_TABLE (table), label, 0, 1, 0, 1);
-	label = gtk_label_new (_("with"));
-	gtk_misc_set_alignment (GTK_MISC (label), 1.0, .5);
-	gtk_table_attach_defaults (GTK_TABLE (table), label, 0, 1, 1, 2);
+	label = gtk_label_new (_("Replace:"));
+	gtk_misc_set_alignment (GTK_MISC (label), .0, .5);
+	gtk_table_attach (GTK_TABLE (table), label, 0, 1, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
+	label = gtk_label_new (_("With:"));
+	gtk_misc_set_alignment (GTK_MISC (label), .0, .5);
+	gtk_table_attach (GTK_TABLE (table), label, 0, 1, 1, 2, GTK_FILL, GTK_FILL, 0, 0);
 
 	gtk_table_attach_defaults (GTK_TABLE (table), dialog->entry_search,  1, 2, 0, 1);
 	gtk_table_attach_defaults (GTK_TABLE (table), dialog->entry_replace, 1, 2, 1, 2);
 
-	hbox = gtk_hbox_new (FALSE, 0);
+	hbox = gtk_hbox_new (FALSE, 6);
 
-	gtk_box_pack_start_defaults (GTK_BOX (hbox), dialog->backward);
-	gtk_box_pack_start_defaults (GTK_BOX (hbox), dialog->case_sensitive);
+	gtk_box_pack_start (GTK_BOX (hbox), dialog->backward, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), dialog->case_sensitive, FALSE, FALSE, 0);
 
-	gtk_box_pack_start_defaults (GTK_BOX (dialog->dialog->vbox), table);
-	gtk_box_pack_start_defaults (GTK_BOX (dialog->dialog->vbox), hbox);
+	gtk_box_pack_start (GTK_BOX (dialog->dialog->vbox), table, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (dialog->dialog->vbox), hbox, FALSE, FALSE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (dialog->dialog->vbox), 6);
+	gtk_container_set_border_width (GTK_CONTAINER (dialog->dialog), 6);
+	gtk_container_set_border_width (GTK_CONTAINER (hbox), 6);
 	gtk_widget_show_all (table);
 	gtk_widget_show_all (hbox);
 

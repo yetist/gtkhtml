@@ -72,27 +72,30 @@ gtk_html_search_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 
 	dialog->dialog         = GTK_DIALOG (gtk_dialog_new_with_buttons (_("Find"), NULL, 0,
 									  GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
-									  _("Find"), 0,
+									  GTK_STOCK_FIND, 0,
 									  NULL));
 	dialog->entry          = gtk_entry_new ();
-	dialog->backward       = gtk_check_button_new_with_label (_("backward"));
-	dialog->case_sensitive = gtk_check_button_new_with_label (_("case sensitive"));
+	dialog->backward       = gtk_check_button_new_with_mnemonic (_("_Backward"));
+	dialog->case_sensitive = gtk_check_button_new_with_mnemonic (_("Case _sensitive"));
 	dialog->html           = html;
 	dialog->cd             = cd;
 
-	hbox = gtk_hbox_new (FALSE, 0);
+	hbox = gtk_hbox_new (FALSE, 6);
 
 	if (cd->search_text)
 		gtk_entry_set_text (GTK_ENTRY (dialog->entry), cd->search_text);
 
-	gtk_box_pack_start_defaults (GTK_BOX (hbox), dialog->backward);
-	gtk_box_pack_start_defaults (GTK_BOX (hbox), dialog->case_sensitive);
+	gtk_box_pack_start (GTK_BOX (hbox), dialog->backward, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), dialog->case_sensitive, FALSE, FALSE, 0);
 
-	gtk_box_pack_start_defaults (GTK_BOX (dialog->dialog->vbox), dialog->entry);
-	gtk_box_pack_start_defaults (GTK_BOX (dialog->dialog->vbox), hbox);
+	gtk_box_pack_start (GTK_BOX (dialog->dialog->vbox), dialog->entry, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (dialog->dialog->vbox), hbox, FALSE, FALSE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (dialog->dialog->vbox), 6);
+	gtk_container_set_border_width (GTK_CONTAINER (dialog->dialog), 6);
+	gtk_container_set_border_width (GTK_CONTAINER (hbox), 6);
 	gtk_widget_show (dialog->entry);
 	gtk_widget_show_all (hbox);
-	
+
 	gnome_window_icon_set_from_file (GTK_WINDOW (dialog->dialog), ICONDIR "/search-24.png");
 
 	gtk_widget_grab_focus (dialog->entry);
