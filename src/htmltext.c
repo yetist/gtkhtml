@@ -1525,6 +1525,8 @@ paste_link (HTMLEngine *engine, HTMLText *text, gint so, gint eo, gchar *prefix)
 	HTMLObject *new_obj;
 	gchar *href;
 	gchar *base;
+	gint offset;
+	guint position;
 
 	base = g_strndup (html_text_get_text (text, so), html_text_get_index (text, eo) - html_text_get_index (text, so));
 	href = (prefix) ? g_strconcat (prefix, base, NULL) : g_strdup (base);
@@ -1537,9 +1539,12 @@ paste_link (HTMLEngine *engine, HTMLText *text, gint so, gint eo, gchar *prefix)
 		 html_colorset_get_color (engine->settings->color_set, HTMLLinkColor),
 		 href, NULL);
 
-	html_cursor_jump_to_position (engine->cursor, engine, engine->cursor->position + so - engine->cursor->offset);
+	offset   = HTML_OBJECT (text) == engine->cursor->object ? engine->cursor->offset : 0;
+	position = engine->cursor->position;
+
+	html_cursor_jump_to_position (engine->cursor, engine, position + so - offset);
 	html_engine_set_mark (engine);
-	html_cursor_jump_to_position (engine->cursor, engine, engine->cursor->position + eo - engine->cursor->offset);
+	html_cursor_jump_to_position (engine->cursor, engine, position + eo - offset);
 
 	html_engine_paste_object (engine, new_obj, eo - so);
 

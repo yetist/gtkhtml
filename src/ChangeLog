@@ -1,9 +1,14 @@
 2001-02-12  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine-edit-cut-and-paste.c (check_magic_link): try magic
+	links only for HTMLText and not link
+
 	* htmltext.c (html_text_magic_link): save and restore cursor
 	position
 	(html_text_magic_link): wrapped in one undo step
 	(paste_link): ops, removed level step here
+	(paste_link): take care for case when cursor in on end of previous
+	object
 
 2001-02-09  Radek Doulik  <rodo@ximian.com>
 

@@ -542,7 +542,8 @@ html_engine_paste (HTMLEngine *e)
 static void
 check_magic_link (HTMLEngine *e, const gchar *text, guint len)
 {
-	if (GTK_HTML_PROPERTY (e->widget, magic_links) && len == 1
+	if (HTML_OBJECT_TYPE (e->cursor->object) == HTML_TYPE_TEXT
+	    && GTK_HTML_PROPERTY (e->widget, magic_links) && len == 1
 	    && (*text == ' ' || text [0] == '\n' || text [0] == '>' || text [0] == ')'))
 		html_text_magic_link (HTML_TEXT (e->cursor->object), e, html_object_get_length (e->cursor->object));
 }
