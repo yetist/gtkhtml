@@ -267,6 +267,12 @@ get_target (HTMLObject *o)
 	return image->target;
 }
 
+static gboolean
+accepts_cursor (HTMLObject *o)
+{
+	return TRUE;
+}
+
 
 void
 html_image_type_init (void)
@@ -292,6 +298,7 @@ html_image_class_init (HTMLImageClass *image_class,
 	object_class->calc_size = calc_size;
 	object_class->get_url = get_url;
 	object_class->get_target = get_target;
+	object_class->accepts_cursor = accepts_cursor;
 }
 
 void

@@ -1,5 +1,10 @@
 2000-01-24  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlimage.c (accepts_cursor): New function, implementation of
+	`HTMLObject::accepts_cursor'.  It always returns `TRUE', so that
+	we can actually move the cursor to an image and edit it.
+	(html_image_class_init): Install it.
+
 	* htmlengine-edit.c (merge_text_at_cursor): Fix merging.
 
 	* htmlcursor.c (html_cursor_dup): New function to duplicate a
