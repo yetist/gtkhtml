@@ -1,3 +1,7 @@
+2001-07-01  Larry Ewing  <lewing@ximian.com>
+
+	* htmlframe.c (calc_size): use html_frame_set_scrolling.
+
 2001-06-29  Ettore Perazzoli  <ettore@ximian.com>
 
 	I am reverting Radek's changes of 2001-06-21 as they make cursor

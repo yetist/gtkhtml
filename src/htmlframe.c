@@ -320,7 +320,7 @@ calc_size (HTMLObject *o,
 	old_descent = o->descent;
 
 	frame = HTML_FRAME (o);
-	e      = GTK_HTML (frame->html)->engine;
+	e     = GTK_HTML (frame->html)->engine;
 
 	if ((frame->width < 0) && (frame->height < 0)) {
 		e->width = o->max_width;
@@ -332,15 +332,7 @@ calc_size (HTMLObject *o,
 		gtk_widget_set_usize (frame->scroll, width, height);
 		gtk_widget_queue_resize (frame->scroll);
 		
-#ifdef USE_SCROLLED_WINDOW
-		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (frame->scroll),
-						GTK_POLICY_NEVER,
-						GTK_POLICY_NEVER);
-#else
-		e_scroll_frame_set_policy (E_SCROLL_FRAME (frame->scroll),
-					   GTK_POLICY_NEVER,
-					   GTK_POLICY_NEVER);
-#endif
+		html_frame_set_scrolling (frame, GTK_POLICY_NEVER);
 
 		o->width = width;
 		o->ascent = height;
