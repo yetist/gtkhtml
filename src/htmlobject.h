@@ -76,7 +76,6 @@ typedef enum {
 #include "htmlengine.h"
 #include "htmltype.h"
 #include "htmlpainter.h"
-#include "htmlfont.h"
 
 
 #define HTML_OBJECT(x)		((HTMLObject *) (x))

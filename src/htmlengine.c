@@ -85,7 +85,6 @@ enum {
 static guint signals [LAST_SIGNAL] = { 0 };
 
 #define TIMER_INTERVAL 30
-#define INDENT_SIZE 30
 
 enum ID {
 	ID_ADDRESS, ID_B, ID_BIG, ID_BLOCKQUOTE, ID_CAPTION, ID_CITE, ID_CODE,
@@ -165,49 +164,6 @@ select_font_full (HTMLEngine *e,
 
 	html_stack_push (e->fs, f);
 	html_painter_set_font (e->painter, f);
-}
-
-/* FIXME this implementation is a bit lame.  :-) */
-static gchar *
-to_roman ( gint number, gboolean upper )
-{
-	GString *roman;
-	char ldigits[] = { 'i', 'v', 'x', 'l', 'c', 'd', 'm' };
-	char udigits[] = { 'I', 'V', 'X', 'L', 'C', 'D', 'M' };
-	char *digits = upper ? udigits : ldigits;
-	int i, d = 0;
-	gchar *s;
-
-	roman = g_string_new (NULL);
-
-	do {   
-		int num = number % 10;
-
-		if ( num % 5 < 4 )
-			for ( i = num % 5; i > 0; i-- )
-				g_string_insert_c( roman, 0, digits[ d ] );
-
-		if ( num >= 4 && num <= 8)
-			g_string_insert_c( roman, 0, digits[ d+1 ] );
-
-		if ( num == 9 )
-			g_string_insert_c( roman, 0, digits[ d+2 ] );
-
-		if ( num % 5 == 4 )
-			g_string_insert_c( roman, 0, digits[ d ] );
-
-		number /= 10;
-		d += 2;
-	} while ( number );
-
-	/* WARNING: Unlike the KDE implementation, this one appends the dot and the
-	   space as well, to save extra copying and allocation. */
-	g_string_append (roman, ". ");
-
-	s = roman->str;
-	g_string_free (roman, FALSE);
-
-	return s;
 }
 
 static void
@@ -1354,7 +1310,7 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		push_block (e, ID_BLOCKQUOTE, 2,
 			    block_end_indent, e->indent, 0);
 		close_flow (e);
-		e->indent += INDENT_SIZE;
+		e->indent++;
 	} else if ( strncmp(str, "/blockquote", 11 ) == 0 ) {
 		pop_block (e, ID_BLOCKQUOTE, clue);
 	} else if (strncmp (str, "body", 4) == 0) {
@@ -1546,7 +1502,7 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 			    e->indent, FALSE);
 		html_stack_push (e->listStack, html_list_new ( HTML_LIST_TYPE_DIR,
 							       HTML_LIST_NUM_TYPE_NUMERIC ) );
-		e->indent += INDENT_SIZE;
+		e->indent++;
 	} else if ( strncmp( str, "/dir", 4 ) == 0 ) {
 		pop_block (e, ID_DIR, _clue);
 	} else if ( strncmp( str, "div", 3 ) == 0 ) {
@@ -1577,7 +1533,7 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 		close_anchor (e);
 
 		if ( html_stack_top(e->glossaryStack) != NULL )
-			e->indent += INDENT_SIZE;
+			e->indent++;
 
 		html_stack_push (e->glossaryStack, GINT_TO_POINTER (HTML_GLOSSARY_DL));
 		e->flow = 0;
@@ -1588,15 +1544,14 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 		if ( GPOINTER_TO_INT (html_stack_top (e->glossaryStack))
 		     == HTML_GLOSSARY_DD ) {
 			html_stack_pop (e->glossaryStack);
-			e->indent -= INDENT_SIZE;
-			if (e->indent < 0)
-				e->indent = 0;
+			if (e->indent > 0)
+				e->indent--;
 		}
+
 		html_stack_pop (e->glossaryStack);
 		if ( html_stack_top (e->glossaryStack) != NULL ) {
-			e->indent -= INDENT_SIZE;
-			if (e->indent < 0)
-				e->indent = 0;
+			if (e->indent > 0)
+				e->indent--;
 		}
 		e->vspace_inserted = html_engine_insert_vspace (e, _clue, e->vspace_inserted );
 	} else if (strncmp( str, "dt", 2 ) == 0) {
@@ -1606,9 +1561,8 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 		if (GPOINTER_TO_INT (html_stack_top (e->glossaryStack))
 		    == HTML_GLOSSARY_DD) {
 			html_stack_pop (e->glossaryStack);
-			e->indent -= INDENT_SIZE;
-			if (e->indent < 0)
-				e->indent = 0;
+			if (e->indent > 0)
+				e->indent--;
 		}
 		e->vspace_inserted = FALSE;
 		e->flow = 0;
@@ -1620,7 +1574,7 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 		    != HTML_GLOSSARY_DD ) {
 			html_stack_push (e->glossaryStack,
 					 GINT_TO_POINTER (HTML_GLOSSARY_DD) );
-			e->indent += INDENT_SIZE;
+			e->indent++;
 		}
 		e->flow = 0;
 	}
@@ -2037,13 +1991,18 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 	if (strncmp (str, "link", 4) == 0) {
 	}
 	else if (strncmp (str, "li", 2) == 0) {
-		HTMLObject *f, *c, *vc;
-		HTMLFont *font;
-		HTMLListType listType = HTML_LIST_TYPE_UNORDERED;
-		HTMLListNumType listNumType = HTML_LIST_NUM_TYPE_NUMERIC;
-		gint listLevel = 1;
-		gint itemNumber = 1;
-		gint indentSize = INDENT_SIZE;
+		HTMLListType listType;
+		HTMLListNumType listNumType;
+		gint listLevel;
+		gint itemNumber;
+		gint indentSize;
+
+		listType = HTML_LIST_TYPE_UNORDERED;
+		listNumType = HTML_LIST_NUM_TYPE_NUMERIC;
+
+		listLevel = 1;
+		itemNumber = 1;
+		indentSize = 30;
 
 		close_anchor (p);
 
@@ -2061,78 +2020,9 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 			indentSize = p->indent;
 		}
 		
-		f = html_clueflow_new ();
-
-		html_clue_append (HTML_CLUE (clue), f);
-		c = html_clueh_new (0, 0, clue->max_width);
-		HTML_CLUE (c)->valign = HTML_VALIGN_TOP;
-		html_clue_append (HTML_CLUE (f), c);
-
-		/* Fixed width spacer */
-		vc = html_cluev_new (0, 0, indentSize, 0);
-		HTML_CLUE (vc)->valign = HTML_VALIGN_TOP;
-		html_clue_append (HTML_CLUE (c), vc);
-
-		switch (listType) {
-		case HTML_LIST_TYPE_UNORDERED:
-			p->flow = html_clueflow_new ();
-			HTML_CLUE (p->flow)->halign = HTML_HALIGN_RIGHT;
-			html_clue_append (HTML_CLUE (vc), p->flow);
-			font = html_stack_top (p->fs);
-			html_clue_append (HTML_CLUE (p->flow),
-					  html_bullet_new (font->pointSize,
-							   listLevel,
-							   &p->settings->fontBaseColor));
-			break;
-
-		case HTML_LIST_TYPE_ORDERED:
-		{
-			HTMLObject *text;
-			gchar *item;
-
-			p->flow = html_clueflow_new ();
-			HTML_CLUE (p->flow)->halign = HTML_HALIGN_RIGHT;
-			html_clue_append (HTML_CLUE (vc), p->flow);
-
-			switch ( listNumType )
-			{
-			case HTML_LIST_NUM_TYPE_LOWROMAN:
-				item = to_roman ( itemNumber, FALSE );
-				break;
-
-			case HTML_LIST_NUM_TYPE_UPROMAN:
-				item = to_roman ( itemNumber, TRUE );
-				break;
-
-			case HTML_LIST_NUM_TYPE_LOWALPHA:
-				item = g_strdup_printf ("%c. ", 'a' + itemNumber - 1);
-				break;
-
-			case HTML_LIST_NUM_TYPE_UPALPHA:
-				item = g_strdup_printf ("%c. ", 'A' + itemNumber - 1);
-				break;
-
-			default:
-				item = g_strdup_printf( "%2d. ", itemNumber );
-			}
-
-			p->tempStrings = g_list_prepend (p->tempStrings, item);
-
-			text = html_text_new (item, html_engine_get_current_font (p));
-
-			html_clue_append (HTML_CLUE (p->flow), text);
-			break;
-		}
-
-		default:
-			break;
-
-		}
-		
-		vc = html_cluev_new (0, 0, clue->max_width - indentSize, 100);
-		html_clue_append (HTML_CLUE (c), vc);
-		p->flow = html_clueflow_new ();
-		html_clue_append (HTML_CLUE (vc), p->flow);
+		p->flow = html_clueflow_new (html_engine_get_current_font (p),
+					     HTML_CLUEFLOW_STYLE_ITEMDOTTED, indentSize);
+		html_clue_append (HTML_CLUE (clue), p->flow);
 
 		if (! html_stack_is_empty (p->listStack)) {
 			HTMLList *list;
@@ -2270,7 +2160,7 @@ parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 		list = html_list_new (HTML_LIST_TYPE_ORDERED, listNumType);
 		html_stack_push (e->listStack, list);
 
-		e->indent += INDENT_SIZE;
+		e->indent++;
 	}
 	else if ( strncmp( str, "/ol", 3 ) == 0 ) {
 		pop_block (e, ID_OL, _clue);
@@ -2458,7 +2348,7 @@ parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		
 		html_stack_push (e->listStack,
 				 html_list_new (type, HTML_LIST_NUM_TYPE_NUMERIC));
-		e->indent += INDENT_SIZE;
+		e->indent++;
 		e->flow = 0;
 	}
 	else if (strncmp (str, "/ul", 3) == 0) {
@@ -3018,9 +2908,9 @@ html_engine_new_flow (HTMLEngine *e, HTMLObject *clue)
 	if (e->inPre) 
 		e->flow = html_clueh_new ( 0, 0, clue->max_width );
 	else
-		e->flow = html_clueflow_new ();
+		e->flow = html_clueflow_new (html_engine_get_current_font (e),
+					     HTML_CLUEFLOW_STYLE_NORMAL, e->indent);
 
-	HTML_CLUEFLOW (e->flow)->indent = e->indent;
 	HTML_CLUE (e->flow)->halign = e->divAlign;
 
 	html_clue_append (HTML_CLUE (clue), e->flow);
@@ -3091,7 +2981,8 @@ html_engine_insert_vspace (HTMLEngine *e, HTMLObject *clue, gboolean vspace_inse
 	HTMLObject *f, *t;
 
 	if (!vspace_inserted) {
-		f = html_clueflow_new ();
+		f = html_clueflow_new (html_engine_get_current_font (e),
+				       HTML_CLUEFLOW_STYLE_NORMAL, 0);
 
 		html_clue_append (HTML_CLUE (clue), f);
 
@@ -3332,119 +3223,6 @@ html_engine_set_named_color (HTMLEngine *p, GdkColor *c, const gchar *name)
 				  c, FALSE, TRUE);
 	return TRUE;
 }
-
-#if 0
-char *
-html_engine_canonicalize_url (HTMLEngine *e, const char *in_url)
-{
-	char *ctmp, *ctmp2, *retval, *removebegin, *removeend, *curpos;
-
-	g_return_val_if_fail(e, NULL);
-	g_return_val_if_fail(in_url, NULL);
-
-	ctmp = strstr(in_url, "://");
-	if(ctmp)
-	{
-		retval = g_strdup(in_url);
-		goto out;
-	}
-	else if(*in_url == '/')
-	{
-		ctmp = e->baseURL?strstr(e->baseURL, "://"):NULL;
-		if(!ctmp)
-		{
-			retval = g_strconcat("file://", in_url, NULL);
-			goto out;
-		}
-
-		ctmp2 = strchr(ctmp + 3, '/');
-
-		retval = g_strconcat(e->baseURL, in_url, NULL);
-		goto out;
-	}
-
-	/* XXX TODO - We should really do processing of .. and . in URLs */
-
-	ctmp = e->baseURL?strstr(e->baseURL, "://"):NULL;
-	if(!ctmp)
-	{
-		char *cwd;
-
-		cwd = g_get_current_dir();
-		ctmp = g_strconcat("file://", cwd, "/", in_url, NULL);
-		g_free(cwd);
-
-		retval = ctmp;
-		goto out;
-	}
-
-	retval = g_strconcat(e->baseURL, "/", in_url, NULL);
-
- out:
-	/* Now fix up the /. and /.. pieces */
-
-	ctmp = strstr(retval, "://");
-	g_assert(ctmp);
-	ctmp += 3;
-	ctmp = strchr(ctmp, '/');
-	if(!ctmp) {
-		ctmp = retval;
-		retval = g_strconcat(retval, "/", NULL);
-		g_free(ctmp);
-		return retval;
-	}
-
-	removebegin = removeend = NULL;
-	do {
-		if(removebegin && removeend)
-		{
-			memmove(removebegin, removeend, strlen(removeend) + 1);
-			removebegin = removeend = NULL;
-		}
-		curpos = ctmp;
-
-	redo:
-		ctmp2 = strstr(curpos, "/.");
-		if(!ctmp2)
-			break;
-
-		if(*(ctmp2 + 2) == '.') /* We have to skip over stuff like /...blahblah or /.foo */
-		{
-			if(*(ctmp2 + 3) != '/'
-			   && *(ctmp2 + 3) != '\0')
-			{
-				curpos = ctmp2 + 3;
-				goto redo;
-			}
-		}
-		else if(*(ctmp2 + 2) != '/' && *(ctmp2 + 2) != '\0')
-		{
-			curpos = ctmp2 + 2;
-			goto redo;
-		}
-
-		switch(*(ctmp2+2))
-		{
-		case '/':
-		case '\0':
-			removebegin = ctmp2;
-			removeend = ctmp2 + 2;
-			break;
-		case '.':
-			removeend = ctmp2 + 3;
-			ctmp2--;
-			while((ctmp2 >= ctmp) && *ctmp2 != '/')
-				ctmp2--;
-			if(*ctmp2 == '/')
-				removebegin = ctmp2;
-			break;
-		}
-
-	} while(removebegin);
-
-	return retval;
-}
-#endif
 
 const gchar *
 html_engine_get_link_at (HTMLEngine *e, gint x, gint y)

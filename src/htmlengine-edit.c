@@ -154,11 +154,15 @@ html_engine_insert_para (HTMLEngine *e,
 	}
 
 	if (offset > 0) {
-		if (current->next != NULL)
+		if (current->next != NULL) {
 			next_flow = HTML_OBJECT (html_clueflow_split (HTML_CLUEFLOW (flow),
 								      current->next));
-		else
-			next_flow = html_clueflow_new ();
+		} else {
+			/* FIXME we need a `html_clueflow_like_another_one()'.  */
+			next_flow = html_clueflow_new (HTML_CLUEFLOW (flow)->font,
+						       HTML_CLUEFLOW (flow)->style,
+						       HTML_CLUEFLOW (flow)->level);
+		}
 	} else {
 		next_flow = HTML_OBJECT (html_clueflow_split (HTML_CLUEFLOW (flow), current));
 		if (current->prev == NULL) {

@@ -1,3 +1,50 @@
+2000-01-01  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlanchor.c (set_max_ascent): Do not change the y.  I have no
+	idea why this is done, and breaks the layout of anchors.
+
+	* htmlengine.c (html_engine_new_flow): Argh!  It was setting the
+	indentation level in an hideous way.  Anyway, it currently simply
+	uses the parameter in `html_clueflow_new()'.
+	(INDENT_SIZE): Constant removed.  Instead, we increment/decrement
+	indentation level by 1, as HTMLClueFlow takes care of using the
+	correct raw offset for us now.
+	(parse_b): Modified accordingly.
+	(parse_d): Likewise.
+	(parse_o): Likewise.
+	(parse_u): Likewise.
+	(parse_l): Instead of doing all the cluev/clueh/clueflow mess,
+	just create a clueflow with an itemized style.  Wee!  This
+	dramatically reduces the complexity of the code and the overhead
+	of itemized lists in the tree.
+	(to_roman): Removed.
+
+	* htmltext.c (remove_text): Actually return a value, as expected.
+	(html_text_remove_text): Likewise.
+
+	* htmlclueflow.c (html_clueflow_init): New parameters `font',
+	`style', `level' to initialize the corresponding new members.  Do
+	not initialize `curr', `tail', `head' as they are initialized by
+	`html_clue_init()' already.
+	(html_clueflow_new): New parameters `font', `style' and `level',
+	passed to `html_clueflow_init()'.
+	(INDENT_UNIT): New constant.
+	(set_max_width): Use `level' instead of `indent', by multiplying
+	by `INDENT_UNIT'.
+	(calc_min_width): Likewise.
+	(calc_size): Likewise.
+	(calc_preferred_width): Likewise.
+	(draw): New function, implementation for `HTMLObject::draw'.  This
+	is now necessary to draw the bullets/numbers with style
+	`HTML_CLUEFLOW_STYLE_ITEM*'.
+	(html_clueflow_class_init): Install it.
+
+	* htmlclueflow.h: New enum `HTMLClueFlowStyle'.  New members
+	`font', `level', `style' in `HTMLClueFlow'.  Removed member
+	`indent'.
+
+	* htmlobject.h: Do not #include "htmlfont.h" anymore.
+
 2000-01-01  Jonas Borgström <jonas_b@bitsmart.com>
 
 	* htmlengine.c (parse_i): Added support for <input> tag
@@ -9,7 +56,7 @@
 	* htmlform.c: New file, initial form support
 	* htmlform.h: New file.
 	
-	* testgtkhtml.c (): Added test9.html.
+	* testgtkhtml.c: Added test9.html.
 	
 	* test9.html: New form test.
 

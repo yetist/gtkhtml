@@ -44,7 +44,7 @@ static void
 set_max_ascent (HTMLObject *object,
 		gint a)
 {
-	object->y -= a;
+	/*  object->y -= a; */
 }
 
 

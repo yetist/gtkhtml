@@ -34,8 +34,12 @@ HTMLTextClass html_text_class;
 /* HTMLObject methods.  */
 
 static void
-draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor,
-      gint x, gint y, gint width, gint height, gint tx, gint ty)
+draw (HTMLObject *o,
+      HTMLPainter *p,
+      HTMLCursor *cursor,
+      gint x, gint y,
+      gint width, gint height,
+      gint tx, gint ty)
 {
 	HTMLText *htmltext;
 	gint x_offset;
@@ -142,7 +146,7 @@ remove_text (HTMLText *text,
 
 	if (offset > old_len) {
 		g_warning ("Cursor offset out of range for HTMLText::remove_text().");
-		return;
+		return 0;
 	}
 
 	if (offset + len > old_len || len == 0)
@@ -287,8 +291,8 @@ html_text_remove_text (HTMLText *text,
 		       guint offset,
 		       guint len)
 {
-	g_return_if_fail (text != NULL);
-	g_return_if_fail (engine != NULL);
+	g_return_val_if_fail (text != NULL, 0);
+	g_return_val_if_fail (engine != NULL, 0);
 
 	return (* HT_CLASS (text)->remove_text) (text, engine, offset, len);
 }
