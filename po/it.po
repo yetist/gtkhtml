@@ -10,7 +10,7 @@ msgstr ""
 "Last-Translator: Pier Luigi Fiorini <plfiorini@libero.it>\n"
 "Language-Team: Italiano <it@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: capplet/gnome-bindings-prop.c:157
@@ -54,7 +54,7 @@ msgstr "Comportamento"
 #: capplet/gtkhtml-capplet.glade.h:8
 #, fuzzy
 msgid "Composer Properties"
-msgstr "Propriet‡"
+msgstr "Propriet√†"
 
 #: capplet/gtkhtml-capplet.glade.h:9
 msgid "Composer Properties planned"
@@ -1137,7 +1137,7 @@ msgstr ""
 #: components/html-editor/menubar.c:364 components/html-editor/popup.c:186
 #: components/html-editor/popup.c:264
 msgid "Properties"
-msgstr "Propriet‡"
+msgstr "Propriet√†"
 
 #: components/html-editor/editor-control-factory.c:197
 #: components/html-editor/gtkhtml-editor-properties.glade.h:54
@@ -1509,7 +1509,7 @@ msgstr "grandezza"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:40
 #, fuzzy
 msgid "Link properties"
-msgstr "Propriet‡"
+msgstr "Propriet√†"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:41
 msgid "Middle"
@@ -2299,11 +2299,11 @@ msgstr "Un controllo Editor HTML"
 #~ msgstr "Controllo Browser HTML"
 
 #~ msgid "Modify the file's properties"
-#~ msgstr "Modifica le propriet‡ del file"
+#~ msgstr "Modifica le propriet√† del file"
 
 #, fuzzy
 #~ msgid "Pr_operties..."
-#~ msgstr "_Propriet‡..."
+#~ msgstr "_Propriet√†..."
 
 #, fuzzy
 #~ msgid "Test 1"
@@ -2314,7 +2314,7 @@ msgstr "Un controllo Editor HTML"
 #~ msgstr "Impossibile inizializzare Bonobo"
 
 #~ msgid "Cannot execute gtkhtml properties"
-#~ msgstr "Impossibile eseguire le propriet‡ di GtkHTML"
+#~ msgstr "Impossibile eseguire le propriet√† di GtkHTML"
 
 #~ msgid "Could not initialize GNORBA"
 #~ msgstr "Impossibile inizializzare GNORBA"

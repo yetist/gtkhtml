@@ -1,9 +1,9 @@
 # Galician translation of gtkhtml.
-# Copyright (C) 2000 Jes˙s Bravo ¡lvarez.
-# Jes˙s Bravo ¡lvarez <jba@pobox.com>, 2000.
+# Copyright (C) 2000 Jes√∫s Bravo √Ålvarez.
+# Jes√∫s Bravo √Ålvarez <jba@pobox.com>, 2000.
 #
-# Proxecto Trasno - AdaptaciÛn do software libre · lingua galega:  Se desexas
-# colaborar connosco, podes atopar m·is informaciÛn en http://trasno.gpul.org
+# Proxecto Trasno - Adaptaci√≥n do software libre √° lingua galega:  Se desexas
+# colaborar connosco, podes atopar m√°is informaci√≥n en http://trasno.gpul.org
 #
 # First Version: 2000-09-22 23:38+0200
 #
@@ -12,15 +12,15 @@ msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "POT-Creation-Date: 2004-06-25 15:15-0400\n"
 "PO-Revision-Date: 2000-09-22 23:58+0200\n"
-"Last-Translator: Jes˙s Bravo ¡lvarez <jba@pobox.com>\n"
+"Last-Translator: Jes√∫s Bravo √Ålvarez <jba@pobox.com>\n"
 "Language-Team: Galician <trasno@ceu.fi.udc.es>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
-msgstr "<Ning˙n>"
+msgstr "<Ning√∫n>"
 
 #: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
 #: components/html-editor/cell.c:333 components/html-editor/image.c:350
@@ -68,12 +68,12 @@ msgstr ""
 #: capplet/gtkhtml-capplet.glade.h:10
 #, fuzzy
 msgid "Configure spell checking"
-msgstr "comprobaciÛn ortogr·fica instant·nea"
+msgstr "comprobaci√≥n ortogr√°fica instant√°nea"
 
 #: capplet/gtkhtml-capplet.glade.h:11
 #, fuzzy
 msgid "Enable spell checking"
-msgstr "comprobaciÛn ortogr·fica instant·nea"
+msgstr "comprobaci√≥n ortogr√°fica instant√°nea"
 
 #: capplet/gtkhtml-capplet.glade.h:12
 #, fuzzy
@@ -116,19 +116,19 @@ msgstr ""
 
 #: capplet/gtkhtml-capplet.glade.h:21
 msgid "Select HTML fixed width font"
-msgstr "SelecciÛn da fonte de anchura fixa de HTML"
+msgstr "Selecci√≥n da fonte de anchura fixa de HTML"
 
 #: capplet/gtkhtml-capplet.glade.h:22
 msgid "Select HTML fixed width font for printing"
-msgstr "SelecciÛn da fonte de anchura fixa de HTML para imprimir"
+msgstr "Selecci√≥n da fonte de anchura fixa de HTML para imprimir"
 
 #: capplet/gtkhtml-capplet.glade.h:23
 msgid "Select HTML variable width font"
-msgstr "SelecciÛn da fonte de anchura variable de HTML"
+msgstr "Selecci√≥n da fonte de anchura variable de HTML"
 
 #: capplet/gtkhtml-capplet.glade.h:24
 msgid "Select HTML variable width font for printing"
-msgstr "SelecciÛn da fonte de anchura variable de HTML para imprimir"
+msgstr "Selecci√≥n da fonte de anchura variable de HTML para imprimir"
 
 #: capplet/gtkhtml-capplet.glade.h:25
 msgid "Shortcuts _type:"
@@ -137,7 +137,7 @@ msgstr ""
 #: capplet/gtkhtml-capplet.glade.h:26
 #, fuzzy
 msgid "Show animated images"
-msgstr "AnimaciÛns"
+msgstr "Animaci√≥ns"
 
 #: capplet/gtkhtml-capplet.glade.h:27
 #, fuzzy
@@ -229,7 +229,7 @@ msgstr ""
 #: components/html-editor/toolbar.c:515
 #, fuzzy
 msgid "Center justifies the paragraphs"
-msgstr "Xustifica-los par·grafos · esquerda"
+msgstr "Xustifica-los par√°grafos √° esquerda"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:13
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
@@ -245,13 +245,13 @@ msgstr "Copiar"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
 #, fuzzy
 msgid "Copy selection to clipboard"
-msgstr "Copia-la selecciÛn Û cartafol"
+msgstr "Copia-la selecci√≥n √≥ cartafol"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:16
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:16
 #, fuzzy
 msgid "Copy the selection"
-msgstr "SelecciÛn da imaxe"
+msgstr "Selecci√≥n da imaxe"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
@@ -273,13 +273,13 @@ msgstr "Cortar"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
 #, fuzzy
 msgid "Cut selection to clipboard"
-msgstr "Corta-la selecciÛn Û cartafol"
+msgstr "Corta-la selecci√≥n √≥ cartafol"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:21
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
 #, fuzzy
 msgid "Cut the selection"
-msgstr "SelecciÛn da imaxe"
+msgstr "Selecci√≥n da imaxe"
 
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
@@ -292,7 +292,7 @@ msgstr ""
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
 #, fuzzy
 msgid "Find And Replace"
-msgstr "SubstituÌr"
+msgstr "Substitu√≠r"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:24
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
@@ -308,7 +308,7 @@ msgstr ""
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:26
 #, fuzzy
 msgid "Find and Replace"
-msgstr "SubstituÌr"
+msgstr "Substitu√≠r"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:27
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
@@ -455,20 +455,20 @@ msgstr ""
 #: components/html-editor/toolbar.c:513
 #, fuzzy
 msgid "Left justifies the paragraphs"
-msgstr "Xustifica-los par·grafos · esquerda"
+msgstr "Xustifica-los par√°grafos √° esquerda"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
 #, fuzzy
 msgid "Li_ck"
-msgstr "LigazÛn"
+msgstr "Ligaz√≥n"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
 #: components/html-editor/menubar.c:115 components/html-editor/popup.c:106
 #: components/html-editor/popup.c:201 components/html-editor/popup.c:267
 msgid "Link"
-msgstr "LigazÛn"
+msgstr "Ligaz√≥n"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
@@ -560,7 +560,7 @@ msgstr ""
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
 #, fuzzy
 msgid "Orange"
-msgstr "P·xina"
+msgstr "P√°xina"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
@@ -621,27 +621,27 @@ msgstr "Refacer"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
 #, fuzzy
 msgid "Redo previously undone change"
-msgstr "Reface-la operaciÛn desfeita do editor"
+msgstr "Reface-la operaci√≥n desfeita do editor"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
 #, fuzzy
 msgid "Redo the undone action"
-msgstr "Reface-la operaciÛn desfeita do editor"
+msgstr "Reface-la operaci√≥n desfeita do editor"
 
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
 #: components/html-editor/replace.c:161 components/html-editor/replace.c:223
 msgid "Replace"
-msgstr "SubstituÌr"
+msgstr "Substitu√≠r"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
 #: components/html-editor/toolbar.c:517
 #, fuzzy
 msgid "Right justifies the paragraphs"
-msgstr "Xustifica-los par·grafos · dereita"
+msgstr "Xustifica-los par√°grafos √° dereita"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
@@ -709,7 +709,7 @@ msgstr ""
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
 #, fuzzy
 msgid "Te_mplate..."
-msgstr "SubstituÌr"
+msgstr "Substitu√≠r"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
@@ -722,7 +722,7 @@ msgstr "Abrir ficheiro..."
 #: components/html-editor/menubar.c:177
 #, fuzzy
 msgid "Template"
-msgstr "SubstituÌr"
+msgstr "Substitu√≠r"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
@@ -744,7 +744,7 @@ msgstr ""
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
 #, fuzzy
 msgid "Undo the last action"
-msgstr "Desface-la ˙ltima operaciÛn do editor"
+msgstr "Desface-la √∫ltima operaci√≥n do editor"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
@@ -755,7 +755,7 @@ msgstr ""
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
 #, fuzzy
 msgid "_Alignment"
-msgstr "AliÒamento"
+msgstr "Ali√±amento"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
@@ -800,7 +800,7 @@ msgstr ""
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
 #, fuzzy
 msgid "_Find..."
-msgstr "LigazÛn"
+msgstr "Ligaz√≥n"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
@@ -869,7 +869,7 @@ msgstr "Esquerda"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
 #, fuzzy
 msgid "_Link..."
-msgstr "LigazÛn"
+msgstr "Ligaz√≥n"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
@@ -887,7 +887,7 @@ msgstr "Imaxe"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
 #, fuzzy
 msgid "_Paragraph..."
-msgstr "Par·grafo"
+msgstr "Par√°grafo"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
@@ -916,7 +916,7 @@ msgstr "Refacer"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
 #, fuzzy
 msgid "_Replace..."
-msgstr "SubstituÌr"
+msgstr "Substitu√≠r"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
@@ -951,7 +951,7 @@ msgstr "Estilo"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:142
 #, fuzzy
 msgid "_Spell Check Document..."
-msgstr "ComprobaciÛn ortogr·fica"
+msgstr "Comprobaci√≥n ortogr√°fica"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:142
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
@@ -982,14 +982,14 @@ msgstr "Texto"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:147
 #, fuzzy
 msgid "_Undecided"
-msgstr "SubliÒada"
+msgstr "Subli√±ada"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:147
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:148
 #: components/html-editor/gtkhtml-editor-properties.glade.h:76
 #, fuzzy
 msgid "_Underline"
-msgstr "SubliÒada"
+msgstr "Subli√±ada"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:148
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:149
@@ -1001,7 +1001,7 @@ msgstr "Desfacer"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:150
 #, fuzzy
 msgid "_Wink"
-msgstr "LigazÛn"
+msgstr "Ligaz√≥n"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:150
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
@@ -1037,7 +1037,7 @@ msgstr ""
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 #, fuzzy
 msgid "S_ick"
-msgstr "LigazÛn"
+msgstr "Ligaz√≥n"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:151
 msgid "_Wrap Lines"
@@ -1046,7 +1046,7 @@ msgstr ""
 #: components/html-editor/body.c:59
 #: components/html-editor/gtkhtml-editor-properties.glade.h:42
 msgid "None"
-msgstr "Non AliÒar"
+msgstr "Non Ali√±ar"
 
 #: components/html-editor/body.c:67
 msgid "Perforated Paper"
@@ -1059,7 +1059,7 @@ msgstr ""
 #: components/html-editor/body.c:83
 #, fuzzy
 msgid "Paper"
-msgstr "P·xina"
+msgstr "P√°xina"
 
 #: components/html-editor/body.c:91
 msgid "Ribbon"
@@ -1086,7 +1086,7 @@ msgstr ""
 #: components/html-editor/body.c:246
 #, fuzzy
 msgid "T_emplate:"
-msgstr "SubstituÌr"
+msgstr "Substitu√≠r"
 
 #. data->entry_title = gtk_entry_new ();
 #. if (gtk_html_get_title (data->cd->html)) {
@@ -1113,7 +1113,7 @@ msgstr "Texto"
 #: components/html-editor/body.c:280
 #, fuzzy
 msgid "_Link:"
-msgstr "LigazÛn"
+msgstr "Ligaz√≥n"
 
 #: components/html-editor/body.c:281
 #, fuzzy
@@ -1156,13 +1156,13 @@ msgstr "Texto"
 #: components/html-editor/editor-control-factory.c:216
 #: components/html-editor/menubar.c:368 components/html-editor/popup.c:213
 msgid "Paragraph"
-msgstr "Par·grafo"
+msgstr "Par√°grafo"
 
 #: components/html-editor/editor-control-factory.c:220
 #: components/html-editor/gtkhtml-editor-properties.glade.h:43
 #: components/html-editor/menubar.c:332 components/html-editor/popup.c:219
 msgid "Page"
-msgstr "P·xina"
+msgstr "P√°xina"
 
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:395
@@ -1221,7 +1221,7 @@ msgstr ""
 #: components/html-editor/gi-color-palette.c:589
 #, fuzzy
 msgid "red-orange"
-msgstr "P·xina"
+msgstr "P√°xina"
 
 #: components/html-editor/gi-color-palette.c:590
 #, fuzzy
@@ -1258,12 +1258,12 @@ msgstr "Refacer"
 #: components/html-editor/gi-color-palette.c:599
 #, fuzzy
 msgid "orange"
-msgstr "P·xina"
+msgstr "P√°xina"
 
 #: components/html-editor/gi-color-palette.c:600
 #, fuzzy
 msgid "lime"
-msgstr "AliÒamento"
+msgstr "Ali√±amento"
 
 #: components/html-editor/gi-color-palette.c:601
 msgid "dull green"
@@ -1329,12 +1329,12 @@ msgstr ""
 #: components/html-editor/gi-color-palette.c:635
 #, fuzzy
 msgid "pink"
-msgstr "LigazÛn"
+msgstr "Ligaz√≥n"
 
 #: components/html-editor/gi-color-palette.c:619
 #, fuzzy
 msgid "light orange"
-msgstr "AliÒar · dereita"
+msgstr "Ali√±ar √° dereita"
 
 #: components/html-editor/gi-color-palette.c:620
 #: components/html-editor/gi-color-palette.c:632
@@ -1344,12 +1344,12 @@ msgstr ""
 #: components/html-editor/gi-color-palette.c:621
 #, fuzzy
 msgid "light green"
-msgstr "AliÒar · dereita"
+msgstr "Ali√±ar √° dereita"
 
 #: components/html-editor/gi-color-palette.c:622
 #, fuzzy
 msgid "light cyan"
-msgstr "AliÒar · dereita"
+msgstr "Ali√±ar √° dereita"
 
 #: components/html-editor/gi-color-palette.c:623
 #: components/html-editor/gi-color-palette.c:633
@@ -1444,7 +1444,7 @@ msgstr ""
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
 #: components/html-editor/paragraph.c:131
 msgid "Alignment"
-msgstr "AliÒamento"
+msgstr "Ali√±amento"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:24
 msgid "Bottom"
@@ -1491,7 +1491,7 @@ msgstr "Cabeceira 6"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:34
 #, fuzzy
 msgid "Horizontal alignment:"
-msgstr "AliÒamento"
+msgstr "Ali√±amento"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:35
 msgid "Horizontal:"
@@ -1547,7 +1547,7 @@ msgstr "Con Sombra"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:50
 #, fuzzy
 msgid "Si_ze:"
-msgstr "TamaÒo"
+msgstr "Tama√±o"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:51
 msgid "Standard"
@@ -1573,7 +1573,7 @@ msgstr "con"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:59
 #, fuzzy
 msgid "_Alignment:"
-msgstr "AliÒamento"
+msgstr "Ali√±amento"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:61
 #, fuzzy
@@ -1751,7 +1751,7 @@ msgstr "Inserir"
 #: components/html-editor/popup.c:449
 #, fuzzy
 msgid "Remove Link"
-msgstr "Quitar ligazÛn"
+msgstr "Quitar ligaz√≥n"
 
 #: components/html-editor/popup.c:456
 msgid "Style"
@@ -1766,12 +1766,12 @@ msgstr "Abrir ficheiro..."
 #: components/html-editor/popup.c:477
 #, fuzzy
 msgid "Paragraph Style..."
-msgstr "Par·grafo"
+msgstr "Par√°grafo"
 
 #: components/html-editor/popup.c:465
 #, fuzzy
 msgid "Link Style..."
-msgstr "LigazÛn"
+msgstr "Ligaz√≥n"
 
 #: components/html-editor/popup.c:471
 #, fuzzy
@@ -1864,12 +1864,12 @@ msgstr ""
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/replace.c:77
 msgid "Replace confirmation"
-msgstr "ConfirmaciÛn da substituciÛn"
+msgstr "Confirmaci√≥n da substituci√≥n"
 
 #: components/html-editor/replace.c:78
 #, fuzzy
 msgid "Replace _All"
-msgstr "SubstituÌr todos"
+msgstr "Substitu√≠r todos"
 
 #: components/html-editor/replace.c:79
 #, fuzzy
@@ -1879,22 +1879,22 @@ msgstr "Seguinte"
 #: components/html-editor/replace.c:81
 #, fuzzy
 msgid "_Replace"
-msgstr "SubstituÌr"
+msgstr "Substitu√≠r"
 
 #: components/html-editor/replace.c:169
 #, fuzzy
 msgid "Search _backward"
-msgstr "buscar para atr·s"
+msgstr "buscar para atr√°s"
 
 #: components/html-editor/replace.c:170 components/html-editor/search.c:114
 #, fuzzy
 msgid "Case _sensitive"
-msgstr "distinguir mai˙sc/min˙sc"
+msgstr "distinguir mai√∫sc/min√∫sc"
 
 #: components/html-editor/replace.c:180
 #, fuzzy
 msgid "Replace:"
-msgstr "SubstituÌr"
+msgstr "Substitu√≠r"
 
 #: components/html-editor/replace.c:183
 #, fuzzy
@@ -1904,12 +1904,12 @@ msgstr "con"
 #: components/html-editor/search.c:113
 #, fuzzy
 msgid "_Backward"
-msgstr "buscar para atr·s"
+msgstr "buscar para atr√°s"
 
 #: components/html-editor/search.c:115
 #, fuzzy
 msgid "_Regular Expression"
-msgstr "Busca de expresiÛn regular"
+msgstr "Busca de expresi√≥n regular"
 
 #: components/html-editor/spell.c:278
 msgid "No misspelled word found"
@@ -1918,17 +1918,17 @@ msgstr ""
 #: components/html-editor/spell.c:285
 #, fuzzy
 msgid "Spell checker"
-msgstr "ComprobaciÛn ortogr·fica"
+msgstr "Comprobaci√≥n ortogr√°fica"
 
 #: components/html-editor/spell.c:378
 #, fuzzy
 msgid "Current _Languages"
-msgstr "ComprobaciÛn ortogr·fica"
+msgstr "Comprobaci√≥n ortogr√°fica"
 
 #: components/html-editor/template.c:84
 #, fuzzy
 msgid "Note"
-msgstr "Non AliÒar"
+msgstr "Non Ali√±ar"
 
 #: components/html-editor/template.c:94 components/html-editor/template.c:113
 msgid "Place your text here"
@@ -1961,11 +1961,11 @@ msgstr ""
 
 #: components/html-editor/toolbar.c:513
 msgid "Left align"
-msgstr "AliÒar · esquerda"
+msgstr "Ali√±ar √° esquerda"
 
 #: components/html-editor/toolbar.c:517
 msgid "Right align"
-msgstr "AliÒar · dereita"
+msgstr "Ali√±ar √° dereita"
 
 #: components/html-editor/toolbar.c:537
 msgid "Toggle typewriter font style"
@@ -1986,16 +1986,16 @@ msgstr "Cursiva"
 #: components/html-editor/toolbar.c:541
 #, fuzzy
 msgid "Makes the text italic"
-msgstr "Face-la selecciÛn cursiva"
+msgstr "Face-la selecci√≥n cursiva"
 
 #: components/html-editor/toolbar.c:543
 msgid "Underline"
-msgstr "SubliÒada"
+msgstr "Subli√±ada"
 
 #: components/html-editor/toolbar.c:543
 #, fuzzy
 msgid "Underlines the text"
-msgstr "SubliÒada"
+msgstr "Subli√±ada"
 
 #: components/html-editor/toolbar.c:545
 #, fuzzy
@@ -2009,7 +2009,7 @@ msgstr "Desangrar"
 #: components/html-editor/toolbar.c:554
 #, fuzzy
 msgid "Indents the paragraphs less"
-msgstr "Reduci-la sangrÌa dos par·grafos"
+msgstr "Reduci-la sangr√≠a dos par√°grafos"
 
 #: components/html-editor/toolbar.c:556
 msgid "Indent"
@@ -2018,7 +2018,7 @@ msgstr "Sangrar"
 #: components/html-editor/toolbar.c:556
 #, fuzzy
 msgid "Indents the paragraphs more"
-msgstr "Aumenta-la sangrÌa dos par·grafos"
+msgstr "Aumenta-la sangr√≠a dos par√°grafos"
 
 #: components/html-editor/utils.c:119
 msgid "Sample"
@@ -2107,7 +2107,7 @@ msgstr ""
 #: src/gtkhtml.c:2871
 #, fuzzy
 msgid "Spelling Error Color"
-msgstr "cor da comprobaciÛn ortogr·fica"
+msgstr "cor da comprobaci√≥n ortogr√°fica"
 
 #: src/gtkhtml.c:2872
 msgid "The color of the spelling error markers"
@@ -2191,7 +2191,7 @@ msgstr "Texto"
 #: src/htmlengine-print.c:192
 #, fuzzy
 msgid "Cannot allocate default font for printing\n"
-msgstr "SelecciÛn da fonte de anchura variable de HTML para imprimir"
+msgstr "Selecci√≥n da fonte de anchura variable de HTML para imprimir"
 
 #: src/test.c:191
 msgid "GtkHTML Test"
@@ -2199,11 +2199,11 @@ msgstr ""
 
 #: src/testgtkhtml.c:117
 msgid "Print pre_view"
-msgstr "Pre_visualizar impresiÛn"
+msgstr "Pre_visualizar impresi√≥n"
 
 #: src/testgtkhtml.c:117
 msgid "Print preview"
-msgstr "Previsualizar impresiÛn"
+msgstr "Previsualizar impresi√≥n"
 
 #: src/testgtkhtml.c:987
 msgid "GtkHTML Test Application"
@@ -2215,11 +2215,11 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "Find A Regular Expression"
-#~ msgstr "Busca de expresiÛn regular"
+#~ msgstr "Busca de expresi√≥n regular"
 
 #, fuzzy
 #~ msgid "Find Regular E_xpression..."
-#~ msgstr "Busca de expresiÛn regular"
+#~ msgstr "Busca de expresi√≥n regular"
 
 #~ msgid "Border"
 #~ msgstr "Bordo"
@@ -2261,14 +2261,14 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "No image selected"
-#~ msgstr "SelecciÛn da imaxe"
+#~ msgstr "Selecci√≥n da imaxe"
 
 #, fuzzy
 #~ msgid "Link text"
 #~ msgstr "Espacio arredor"
 
 #~ msgid "Align"
-#~ msgstr "AliÒar"
+#~ msgstr "Ali√±ar"
 
 #~ msgid "Color"
 #~ msgstr "Cor"
@@ -2296,7 +2296,7 @@ msgstr ""
 #~ msgstr "Non foi posible inicializar Bonobo"
 
 #~ msgid "Cannot execute gtkhtml properties"
-#~ msgstr "Non È posible executa-las propiedades de gtkhtml"
+#~ msgstr "Non √© posible executa-las propiedades de gtkhtml"
 
 #~ msgid "Could not initialize GNORBA"
 #~ msgstr "Non foi posible inicializar GNORBA"
@@ -2359,24 +2359,24 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "Item roman"
-#~ msgstr "Elemento de lista (n˙mero romano)"
+#~ msgstr "Elemento de lista (n√∫mero romano)"
 
 #, fuzzy
 #~ msgid "Item digit"
-#~ msgstr "Elemento de lista (dÌxito)"
+#~ msgstr "Elemento de lista (d√≠xito)"
 
 #~ msgid "List item (digit)"
-#~ msgstr "Elemento de lista (dÌxito)"
+#~ msgstr "Elemento de lista (d√≠xito)"
 
 #~ msgid "List item (unnumbered)"
-#~ msgstr "Elemento de lista (sen n˙mero)"
+#~ msgstr "Elemento de lista (sen n√∫mero)"
 
 #~ msgid "List item (roman)"
-#~ msgstr "Elemento de lista (n˙mero romano)"
+#~ msgstr "Elemento de lista (n√∫mero romano)"
 
 #, fuzzy
 #~ msgid "Replace a string"
-#~ msgstr "ConfirmaciÛn da substituciÛn"
+#~ msgstr "Confirmaci√≥n da substituci√≥n"
 
 #, fuzzy
 #~ msgid "Search and replace string"
@@ -2387,25 +2387,25 @@ msgstr ""
 #~ msgstr "Busca"
 
 #~ msgid "Regex search"
-#~ msgstr "Busca de expresiÛn regular"
+#~ msgstr "Busca de expresi√≥n regular"
 
 #~ msgid "Search"
 #~ msgstr "Busca"
 
 #~ msgid "Centers paragraphs"
-#~ msgstr "Centrar par·grafos"
+#~ msgstr "Centrar par√°grafos"
 
 #~ msgid "Sets the bold font"
 #~ msgstr "Fai a fonte grosa"
 
 #~ msgid "Make the selection underlined"
-#~ msgstr "Face-la selecciÛn subliÒada"
+#~ msgstr "Face-la selecci√≥n subli√±ada"
 
 #~ msgid "Make the selection striked out"
-#~ msgstr "Face-la selecciÛn riscada"
+#~ msgstr "Face-la selecci√≥n riscada"
 
 #~ msgid "magic links"
-#~ msgstr "ligazÛns m·xicas"
+#~ msgstr "ligaz√≥ns m√°xicas"
 
 #~ msgid "Bindings"
 #~ msgstr "Atallos"
@@ -2417,13 +2417,13 @@ msgstr ""
 #~ msgstr "usar imaxe de fondo"
 
 #~ msgid "Left Align"
-#~ msgstr "AliÒar · Esquerda"
+#~ msgstr "Ali√±ar √° Esquerda"
 
 #~ msgid "Center Align"
 #~ msgstr "Centrar"
 
 #~ msgid "Right Align"
-#~ msgstr "AliÒar · Dereita"
+#~ msgstr "Ali√±ar √° Dereita"
 
 #~ msgid "Open (PersistFile)"
 #~ msgstr "Abrir (PersistFile)"
@@ -2456,7 +2456,7 @@ msgstr ""
 #~ msgstr "Por defecto"
 
 #~ msgid "Cut the selected region to the clipboard"
-#~ msgstr "Corta-la rexiÛn seleccionada Û cartafol"
+#~ msgstr "Corta-la rexi√≥n seleccionada √≥ cartafol"
 
 #~ msgid "Copy the selected region to the clipboard"
-#~ msgstr "Copia-la rexiÛn seleccionada Û cartafol"
+#~ msgstr "Copia-la rexi√≥n seleccionada √≥ cartafol"
