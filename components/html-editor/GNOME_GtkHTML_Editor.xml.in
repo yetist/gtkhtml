@@ -73,8 +73,22 @@
 			_tip="Right justifies the paragraphs"
 			type="radio" group="paragraph_alignment"/>
 
-		</commands>
+			<cmd name="FormatBold" _label="_Bold" type="toggle"/>
+			<cmd name="FormatItalic" _label="_Italic" type="toggle"/>
+			<cmd name="FormatUnderline" _label="_Underline" type="toggle"/>
+			<cmd name="FormatBold" _label="_Bold" type="toggle"/>
+			<cmd name="FormatStrikeout" _label="Strikeout" type="toggle"/>
+			<cmd name="FormatFixed" _label="Typewriter" type="toggle"/>
+			<cmd name="FormatSubscript" _label="Subscript" type="toggle"/>
+			<cmd name="FormatSuperscript" _label="Superscript" type="toggle"/>
 
+			<cmd name="FontSizeNegTwo" type="radio" group="font_size"/>
+			<cmd name="FontSizeNegOne" type="radio" group="font_size"/>
+			<cmd name="FontSizeZero" type="radio" group="font_size"/>
+			<cmd name="FontSizeOne" type="radio" group="font_size"/>
+			<cmd name="FontSizeTwo" type="radio" group="font_size"/>
+			<cmd name="FontSizeThree" type="radio" group="font_size"/>
+		</commands>
 	<menu>
 		<submenu name="Edit" _label="_Edit">
 			<placeholder name="EditUndoRedo">
@@ -130,13 +144,19 @@
 
 			<placeholder name="FormatParagaph">
 				<submenu name="FontStyle" _label="_Style">
-					<menuitem name="Plain" verb="" _label="_Plain text"/>
+					<menuitem name="FormatFixed" verb="" _label="_Plain text"/>
 
 					<separator/>
 				
 					<menuitem name="FormatBold" verb="" _label="_Bold"/>
 					<menuitem name="FormatItalic" verb="" _label="_Italic"/>
 					<menuitem name="FormatUnderline" verb="" _label="_Underline"/>
+					<menuitem name="FormatStrikeout" verb="" _label="Strikeout"/>
+					
+					<separator/>
+					
+					<menuitem name="FormatSubscript" verb="" _label="Subscript"/>
+					<menuitem name="FormatSuperscript" verb="" _label="Superscript"/>
 				</submenu>  
               
 				<submenu name="FontSize" _label="_Font Size">
@@ -195,20 +215,27 @@
 	<dockitem name="Toolbar">
 		<toolitem name="EditUndo" verb="" _label="Undo" _tip="Undo previous changes"
 		pixtype="filename" pixname="@ICONSDIR@/undo-24.png"/>
-		<toolitem name="EditRedo" verb="" _label="Redo"  _tip="Redo previously undone change"		pixtype="filename" pixname="@ICONSDIR@/redo-24.png"/>
+		<toolitem name="EditRedo" verb="" _label="Redo"
+		_tip="Redo previously undone change" pixtype="filename" pixname="@ICONSDIR@/redo-24.png"/>
+
 		<separator/>
+
 		<toolitem name="EditCut" verb=""  _label="Cut" _tip="Cut selection to clipboard"
 		pixtype="filename" pixname="@ICONSDIR@/24_cut.png"/>
                 <toolitem name="EditCopy" verb=""  _label="Copy" _tip="Copy selection to clipboard"
 		pixtype="filename" pixname="@ICONSDIR@/24_copy.png"/>
 		<toolitem name="EditPaste" verb=""  _label="Paste" _tip="Paste from clipboard"
 		pixtype="filename" pixname="@ICONSDIR@/24_paste.png"/>
+
 		<separator/>
+
 		<toolitem name="EditFind" verb=""  _label="Find" _tip="Find"
 		pixtype="filename" pixname="@ICONSDIR@/search-24.png"/>
 		<toolitem name="EditReplace" verb=""  _label="Replace" _tip="Find And Replace"
 		pixtype="filename" pixname="@ICONSDIR@/search-and-replace-24.png"/>
+
 		<separator/>
+
 		<toolitem name="InsertImage" verb="" _label="Image"
                 pixtype="filename" pixname="@ICONSDIR@/insert-image-24.png"/>
 		<toolitem name="InsertLink" verb="" _label="Link"

@@ -1,3 +1,12 @@
+2001-08-21  Larry Ewing  <lewing@ximian.com>
+
+	* GNOME_GtkHTML_Editor.xml.in: clean up the new menus and add commands.
+
+	* menubar.c: make the format and size menus actually do something.
+
+	* toolbar.c (font_size_changed): make block_font_style_change recursive.
+	(insertion_font_style_changed_cb): the same.
+
 2001-08-20  Larry Ewing  <lewing@ximian.com>
 
 	* GNOME_GtkHTML_Editor.xml.in: update more of the format options

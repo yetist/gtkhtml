@@ -179,10 +179,10 @@ font_size_changed (GtkWidget *w, GtkHTMLParagraphStyle style, GtkHTMLControlData
 {
 	if (style == GTK_HTML_FONT_STYLE_DEFAULT)
 		style = GTK_HTML_FONT_STYLE_SIZE_3;
-	cd->block_font_style_change = TRUE;
+	cd->block_font_style_change++;
 	gtk_option_menu_set_history (GTK_OPTION_MENU (cd->font_size_menu),
 				     (style & GTK_HTML_FONT_STYLE_SIZE_MASK) - GTK_HTML_FONT_STYLE_SIZE_1);
-	cd->block_font_style_change = FALSE;
+	cd->block_font_style_change--;
 }
 
 static GtkWidget *
@@ -367,7 +367,7 @@ editor_toolbar_strikeout_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 static void
 insertion_font_style_changed_cb (GtkHTML *widget, GtkHTMLFontStyle font_style, GtkHTMLControlData *cd)
 {
-	cd->block_font_style_change = TRUE;
+	cd->block_font_style_change++;
 
 	if (font_style & GTK_HTML_FONT_STYLE_FIXED)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cd->tt_button), TRUE);
@@ -394,7 +394,7 @@ insertion_font_style_changed_cb (GtkHTML *widget, GtkHTMLFontStyle font_style, G
 	else
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (cd->strikeout_button), FALSE);
 
-	cd->block_font_style_change = FALSE;
+	cd->block_font_style_change--;
 }
 
 
