@@ -1978,17 +1978,6 @@ search (HTMLObject *obj, HTMLSearch *info)
 	return FALSE;
 }
 
-static HTMLFitType
-fit_line (HTMLObject *o,
-	  HTMLPainter *painter,
-	  gboolean start_of_line,
-	  gboolean first_run,
-	  gboolean next_to_floating,
-	  gint width_left)
-{
-	return HTML_FIT_COMPLETE;
-}
-
 static void
 append_selection_string (HTMLObject *self,
 			 GString *buffer)
@@ -2283,7 +2272,6 @@ html_table_class_init (HTMLTableClass *klass,
 	object_class->is_container = is_container;
 	object_class->forall = forall;
 	object_class->search = search;
-	object_class->fit_line = fit_line;
 	object_class->append_selection_string = append_selection_string;
 	object_class->head = head;
 	object_class->tail = tail;

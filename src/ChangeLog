@@ -1,5 +1,8 @@
 2003-10-06  Larry Ewing  <lewing@ximian.com>
 
+	* htmltable.c (html_table_class_init): remove fit_line
+	implementation, it isn't needed ans breaks inline tables.
+
 	* htmlgdkpainter.c: fixup close bracket placement.
 
 2003-10-02  Larry Ewing  <lewing@ximian.com>
