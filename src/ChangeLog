@@ -1,5 +1,10 @@
 1999-12-11  Anders Carlsson  <andersca@gnu.org>
 
+	* htmlengine.c (parse_body): Add a handler for the '\n' tag
+	that's used for newlines in <pre>...</pre>
+
+1999-12-11  Anders Carlsson  <andersca@gnu.org>
+
 	* testgtkhtml.c (main): Set policy to only show scrollbars when needed.
 
 	* gtkhtml.c (gtk_html_calc_scrollbars): use gtk_layout_set_size ();

@@ -422,7 +422,19 @@ parse_body (HTMLEngine *p, HTMLObject *clue, const gchar *end[], gboolean toplev
 				}
 				i++;
 			}
+			
+			/* The tag used for line break when we are in <pre>...</pre> */
+			if (*str == '\n') {
+				if (!p->flow)
+					html_engine_new_flow (p, clue);
 
+				/* Add a hidden space to get the line-height right */
+				html_clue_append (p->flow,
+						  html_hspace_new (html_engine_get_current_font (p), p->painter, TRUE));
+				p->vspace_inserted = TRUE;
+				
+				html_engine_new_flow (p, clue);
+			}
 			parse_one_token (p, clue, str);
 		}
 	}
@@ -1257,6 +1269,7 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		if (!e->flow)
 			html_engine_new_flow (e, clue);
 
+		/* FIXME: poinSize here */
 		html_clue_append (HTML_CLUE (e->flow),
 				  html_vspace_new (14, clear));
 
