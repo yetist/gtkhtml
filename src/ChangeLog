@@ -1,5 +1,7 @@
 2000-11-22  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlimage.c (select_range): new method
+
 	* htmltablecell.c (save): add \" around color
 	(save): save width attribute
 

@@ -536,6 +536,20 @@ get_valign (HTMLObject *self)
 	return image->valign;
 }
 
+static gboolean
+select_range (HTMLObject *self,
+	      HTMLEngine *engine,
+	      guint offset,
+	      gint length,
+	      gboolean queue_draw)
+{
+	if ((*parent_class->select_range) (self, engine, offset, length, queue_draw)) {
+		html_engine_queue_draw (engine, self);
+		return TRUE;
+	} else
+		return FALSE;
+}
+
 
 void
 html_image_type_init (void)
@@ -568,6 +582,7 @@ html_image_class_init (HTMLImageClass *image_class,
 	object_class->get_valign = get_valign;
 	object_class->save = save;
 	object_class->save_plain = save_plain;
+	object_class->select_range = select_range;
 
 	parent_class = &html_object_class;
 }
