@@ -316,6 +316,7 @@ html_tokenizer_reset (HTMLTokenizer *t)
 	}
 
 	/* reset buffer list */
+	g_list_free (t->token_buffers);
 	t->token_buffers = t->read_cur = NULL;
 	t->read_buf = t->write_buf = NULL;
 	t->read_pos = 0;
@@ -326,6 +327,8 @@ html_tokenizer_reset (HTMLTokenizer *t)
 	if (t->buffer)
 		g_free (t->buffer);
 	t->buffer = NULL;
+	t->dest = NULL;
+	t->size = 0;
 
 	if (t->scriptCode)
 		g_free (t->scriptCode);
@@ -391,7 +394,8 @@ html_tokenizer_end (HTMLTokenizer *t)
 
 	g_free (t->buffer);	
 
-	t->buffer = 0;
+	t->buffer = NULL;
+	t->dest = NULL;
 	t->size = 0;
 
 	if (t->blocking) {

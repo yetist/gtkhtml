@@ -1,3 +1,12 @@
+2001-02-07  Larry Ewing  <lewing@ximian.com>
+
+	* htmlimage.c (draw): use HTML_IS_PRINTER to detect printer object
+	cleanly. (from Dave Benson <daveb@ffem.org>)
+
+	* htmltokenizer.c (html_tokenizer_end): clear dest.
+	(html_tokenizer_reset): free the token buffer list, and clear dest
+	and size. (from Dave Benson <daveb@ffem.org>)
+
 2001-02-01  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml.c (mouse_change_pos): allow a little bit of motion
