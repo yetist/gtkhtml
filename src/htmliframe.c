@@ -168,7 +168,8 @@ draw (HTMLObject *o,
       gint tx, gint ty)
 {
 	HTMLEmbedded *element = HTML_EMBEDDED(o);
-	HTMLIFrame *iframe;
+	HTMLIFrame   *iframe  = HTML_IFRAME (o);
+	HTMLEngine   *e       = GTK_HTML (iframe->html)->engine;
 	ArtIRect paint;
 	gint new_x, new_y;
 
@@ -176,10 +177,14 @@ draw (HTMLObject *o,
 	if (art_irect_empty (&paint))
 		return;
 
-	iframe = HTML_IFRAME (o);
-	if (GTK_OBJECT_TYPE (GTK_HTML (iframe->html)->engine->painter) != HTML_TYPE_GDK_PAINTER)
-		html_object_draw (GTK_HTML (iframe->html)->engine->clue, GTK_HTML (iframe->html)->engine->painter,
-				  x, y, width, height, tx, ty);
+	if (GTK_OBJECT_TYPE (e->painter) != HTML_TYPE_GDK_PAINTER) {
+		gint pixel_size = html_painter_get_pixel_size (e->painter);
+		html_object_draw (e->clue, e->painter,
+				  x, y,
+				  width - pixel_size * (e->leftBorder + e->rightBorder),
+				  height - pixel_size * (e->topBorder + e->bottomBorder),
+				  tx + pixel_size * e->leftBorder, ty + pixel_size * e->topBorder);
+	}
 
 	if (element->widget) {
 		new_x = GTK_LAYOUT (element->parent)->hadjustment->value + o->x + tx;

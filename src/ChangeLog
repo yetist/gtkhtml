@@ -1,5 +1,8 @@
 2001-01-30  Radek Doulik  <rodo@ximian.com>
 
+	* htmliframe.c (draw): take care of html border, fixes iframes
+	printing
+
 	* htmlcluev.c (check_point): take care of Objects with zero width
 
 	* htmlclueflow.c (check_point): take care of Objects with zero
