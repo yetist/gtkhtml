@@ -29,11 +29,79 @@
 #include "paragraph.h"
 #include "utils.h"
 #include "text.h"
+#include <glib/gi18n.h>
 
 static void gtk_html_a11y_class_init (GtkHTMLA11YClass *klass);
 static void gtk_html_a11y_init       (GtkHTMLA11Y *a11y);
 
 static GtkAccessibleClass *parent_class = NULL;
+
+
+static gint
+get_n_actions (AtkAction *action)
+{
+	return 1;
+}
+
+static G_CONST_RETURN gchar*
+get_description (AtkAction *action, gint i)
+{
+	if (i == 0)
+		return _("grab focus");
+
+	return NULL;
+}
+
+static G_CONST_RETURN gchar*
+action_get_name (AtkAction *action, gint i)
+{
+	if (i == 0)
+		return _("grab focus");
+
+	return NULL;
+}
+
+
+
+static gboolean
+do_action (AtkAction * action, gint i)
+{
+	GtkWidget *widget;
+	gboolean return_value = TRUE;
+
+	widget = GTK_ACCESSIBLE (action)->widget;
+
+	if (widget == NULL) {
+	/*
+	* State is defunct
+	*/
+	return FALSE;
+	}
+
+	if (!GTK_WIDGET_SENSITIVE (widget) || !GTK_WIDGET_VISIBLE (widget))
+		return FALSE;
+
+
+	switch (i) {
+	case 0:
+		gtk_widget_grab_focus (widget);
+	default:
+		return_value = FALSE;
+		break;
+	}
+	return return_value;
+}
+
+static void
+atk_action_interface_init (AtkActionIface *iface)
+{
+	g_return_if_fail (iface != NULL);
+
+	iface->do_action = do_action;
+	iface->get_n_actions = get_n_actions;
+	iface->get_description = get_description;
+	iface->get_name = action_get_name;
+}
 
 GType
 gtk_html_a11y_get_type (void)
@@ -54,6 +122,12 @@ gtk_html_a11y_get_type (void)
 			NULL                                             /* value table */
 		};
 
+		static const GInterfaceInfo atk_action_info = {
+			(GInterfaceInitFunc) atk_action_interface_init,
+			(GInterfaceFinalizeFunc) NULL,
+			NULL
+		};
+
 		/*
 		 * Figure out the size of the class and instance 
 		 * we are deriving from
@@ -69,6 +143,8 @@ gtk_html_a11y_get_type (void)
 		tinfo.instance_size = query.instance_size;
 
 		type = g_type_register_static (derived_atk_type, "GtkHTMLA11Y", &tinfo, 0);
+
+		g_type_add_interface_static (type, ATK_TYPE_ACTION, &atk_action_info);
 	}
 
 	return type;
@@ -125,6 +201,16 @@ gtk_html_a11y_ref_child (AtkObject *accessible, gint index)
 	return accessible_child;
 }
 
+static G_CONST_RETURN gchar*
+gtk_html_a11y_get_name (AtkObject *obj)
+{
+	G_CONST_RETURN gchar *name;
+	if (obj->name != NULL) {
+		return obj->name;
+	}
+	return _("Panel containing HTML");
+}
+
 static void
 gtk_html_a11y_class_init (GtkHTMLA11YClass *klass)
 {
@@ -136,6 +222,7 @@ gtk_html_a11y_class_init (GtkHTMLA11YClass *klass)
 	atk_class->initialize = gtk_html_a11y_initialize;
 	atk_class->get_n_children = gtk_html_a11y_get_n_children;
 	atk_class->ref_child = gtk_html_a11y_ref_child;
+	atk_class->get_name = gtk_html_a11y_get_name;
 
 	gobject_class->finalize = gtk_html_a11y_finalize;
 }
@@ -257,7 +344,7 @@ gtk_html_a11y_new (GtkWidget *widget)
 	accessible = ATK_OBJECT (object);
 	atk_object_initialize (accessible, widget);
 
-	accessible->role = ATK_ROLE_HTML_CONTAINER;
+	accessible->role = ATK_ROLE_PANEL;
 	g_signal_connect_after (widget, "grab_focus", 
 			G_CALLBACK (gtk_html_a11y_grab_focus_cb),
 			NULL);

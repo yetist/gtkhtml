@@ -1,3 +1,10 @@
+2004-12-15  Mengjie Yu  <meng-jie.yu@sun.com>
+
+	* object.c: (get_n_actions), (get_description), (action_get_name),
+	(do_action), (atk_action_interface_init), (gtk_html_a11y_get_type),
+	(gtk_html_a11y_get_name), (gtk_html_a11y_class_init):
+	fix #70088 make ui grab work by add a grab focus action interface.
+
 2004-12-14  Mengjie Yu  <meng-jie.yu@sun.com>
 
 	* object.c: (gtk_html_a11y_cursor_changed_cb),
