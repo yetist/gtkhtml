@@ -366,26 +366,6 @@ save (HTMLObject *self,
 	return TRUE;
 }
 
-static guchar *
-encode_text_to_8bit (gchar *utf8)
-{
-	guchar *raw;
-	guint i, len;
-	unicode_char_t uc;
-
-	len = unicode_strlen (utf8, -1);
-	raw = g_new (gchar, len + 1);
-	raw [len] = 0;
-
-	for (i = 0; i < len; i++) {
-		utf8 = unicode_get_utf8 (utf8, &uc);
-		/* raw [i] = uc == ENTITY_NBSP ? ' ' : uc & 0xff; */
-		raw [i] = uc & 0xff;
-	}
-
-	return raw;
-}
-
 static gboolean
 save_plain (HTMLObject *self,
 	    HTMLEngineSaveState *state,

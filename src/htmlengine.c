@@ -2125,19 +2125,20 @@ parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 {
 	if (strncmp (str, "img", 3) == 0) {
 		HTMLObject *image = 0;
+		HTMLHAlignType align = HTML_HALIGN_NONE;
+		HTMLVAlignType valign = HTML_VALIGN_NONE;
+		HTMLColor *color = NULL;
 		gchar *token = 0; 
 		gint width = -1;
 		gchar *tmpurl = NULL;
 		gchar *id = NULL;
 		gchar *alt = NULL;
 		gint height = -1;
-		gint percent = 0;
 		gint hspace = 0;
 		gint vspace = 0;
-		HTMLHAlignType align = HTML_HALIGN_NONE;
 		gint border = 0;
-		HTMLVAlignType valign = HTML_VALIGN_NONE;
-		HTMLColor *color = NULL;
+		gboolean percent_width  = FALSE;
+		gboolean percent_height = FALSE;
 		
 		color = current_color (e);
 
@@ -2150,13 +2151,14 @@ parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 			if (strncasecmp (token, "src=", 4) == 0) {
 				tmpurl = g_strdup (token + 4);
 			} else if (strncasecmp (token, "width=", 6) == 0) {
-				if (strchr (token + 6, '%'))
-					percent = atoi (token + 6);
-				else if (isdigit (*(token + 6)))
+				if (isdigit (*(token + 6)))
 					width = atoi (token + 6);
+				percent_width = strchr (token + 6, '%') ? TRUE : FALSE;
 			}
 			else if (strncasecmp (token, "height=", 7) == 0) {
-				height = atoi (token + 7);
+				if (isdigit (*(token + 7)))
+					height = atoi (token + 7);
+				percent_height = strchr (token + 7, '%') ? TRUE : FALSE;
 			}
 			else if (strncasecmp (token, "border=", 7) == 0) {
 				border = atoi (token + 7);
@@ -2215,7 +2217,7 @@ parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 			image = html_image_new (e->image_factory, tmpurl,
 						e->url, e->target,
 						width, height,
-						percent, border, color, valign);
+						percent_width, percent_height, border, color, valign);
 
 			if (id) {
 				html_engine_add_object_with_id (e, id, (HTMLObject *) image);
@@ -4525,12 +4527,24 @@ html_engine_set_painter (HTMLEngine *e, HTMLPainter *painter, gint max_width)
 	html_engine_calc_size (e);
 }
 
+gint
+html_engine_get_view_width (HTMLEngine *e)
+{
+	return GTK_WIDGET (e->widget)->allocation.width  - e->leftBorder - e->rightBorder;
+}
+
+gint
+html_engine_get_view_height (HTMLEngine *e)
+{
+	return GTK_WIDGET (e->widget)->allocation.height - e->topBorder - e->bottomBorder;
+}
+
 /* beginnings of ID support */
 
 void
 html_engine_add_object_with_id (HTMLEngine *e, const gchar *id, HTMLObject *obj)
 {
-	gchar *old_key;
+	gpointer old_key;
 	gpointer old_val;
 
 	if (e->id_table == NULL)

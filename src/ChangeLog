@@ -1,3 +1,40 @@
+2000-11-10  Radek Doulik  <rodo@helixcode.com>
+
+	* Makefile.am (libgtkhtml_la_SOURCES): added htmlenum.[ch]
+
+	* htmlimageinput.c (html_imageinput_init): updated to use
+	percentage
+
+	* htmlengine-edit-images.c (html_engine_insert_image): updated to
+	use percentage
+
+	* htmlengine.c (parse_i): updated to use percentage
+
+	* htmlimage.c (save): added ALIGN attribute
+	(save): added ALT attribute
+	(html_image_init): use percentage
+	(html_image_set_size): changed to use new percentage
+
+	* htmlenum.c (html_valign_name): get vertical align value name
+	(html_halign_name): likewise
+
+	* htmlenum.[ch]: new files, for html enum utils
+
+	* htmlimage.c (get_actual_width): use html_engine_get_view_width
+	and percent_width
+	(get_actual_height): likewise
+	(save): updated to percenatage, also save width instead of height
+
+	* htmlengine.c (html_engine_get_view_width): new helper function
+	(html_engine_get_view_height): likewise
+
+	* htmlimage.h: added percent_width/height to HTMLImage
+
+	* htmlengine.c (html_engine_add_object_with_id): change type of
+	old_key to gpointer to avoid compiler warning
+
+	* htmltext.c: removed unused code
+
 2000-11-10  Vladimir Vukicevic  <vladimir@helixcode.com>
 
 	* gtkhtml.c, gtkhtml.h (gtk_html_get_object_by_id): Added

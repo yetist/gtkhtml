@@ -83,11 +83,13 @@ struct _HTMLImage {
 
 	gint16 specified_width;
 	gint16 specified_height;
+	gboolean percent_width;
+	gboolean percent_height;
 
 	gint8 hspace;
 	gint8 vspace;
 
-	gint8 valign;		/* HTMLVAlignType */
+	HTMLVAlignType valign;
 
 	gchar *url;
 	gchar *target;
@@ -102,41 +104,52 @@ struct _HTMLImageClass {
 extern HTMLImageClass image_class;
 
 
-void        html_image_type_init   (void);
-void        html_image_class_init  (HTMLImageClass   *klass,
-				    HTMLType          type,
-				    guint             object_size);
-void        html_image_init        (HTMLImage        *image,
-				    HTMLImageClass   *klass,
-				    HTMLImageFactory *imf,
-				    const gchar      *filename,
-				    const gchar      *url,
-				    const gchar      *target,
-				    gint16            width,
-				    gint16            height,
-				    gint8             percent,
-				    gint8             border,
-				    HTMLColor        *border_color,
-				    HTMLVAlignType    valign);
-HTMLObject *html_image_new         (HTMLImageFactory *imf,
-				    const gchar      *filename,
-				    const gchar      *url,
-				    const gchar      *target,
-				    gint16            width,
-				    gint16            height,
-				    gint8             percent,
-				    gint8             border,
-				    HTMLColor        *border_color,
-				    HTMLVAlignType    valign);
-
-void         html_image_set_size           (HTMLImage *image, gint w, gint percent, gint h);
-void         html_image_set_spacing        (HTMLImage *image, gint hspace, gint vspace);
-void         html_image_set_url            (HTMLImage *image, const gchar *url);
-void         html_image_set_valign         (HTMLImage *image, HTMLVAlignType valign);
-void         html_image_set_border         (HTMLImage *image, gint border);
-void         html_image_set_alt            (HTMLImage *image, gchar *alt);
-
-gchar *      html_image_resolve_image_url  (GtkHTML *html, gchar *image_url);
+void        html_image_type_init          (void);
+void        html_image_class_init         (HTMLImageClass   *klass,
+					   HTMLType          type,
+					   guint             object_size);
+void        html_image_init               (HTMLImage        *image,
+					   HTMLImageClass   *klass,
+					   HTMLImageFactory *imf,
+					   const gchar      *filename,
+					   const gchar      *url,
+					   const gchar      *target,
+					   gint16            width,
+					   gint16            height,
+					   gboolean          percent_width,
+					   gboolean          percent_height,
+					   gint8             border,
+					   HTMLColor        *border_color,
+					   HTMLVAlignType    valign);
+HTMLObject *html_image_new                (HTMLImageFactory *imf,
+					   const gchar      *filename,
+					   const gchar      *url,
+					   const gchar      *target,
+					   gint16            width,
+					   gint16            height,
+					   gboolean          percent_width,
+					   gboolean          percent_height,
+					   gint8             border,
+					   HTMLColor        *border_color,
+					   HTMLVAlignType    valign);
+void        html_image_set_size           (HTMLImage        *image,
+					   gint              w,
+					   gint              h,
+					   gboolean          pw,
+					   gboolean          ph);
+void        html_image_set_spacing        (HTMLImage        *image,
+					   gint              hspace,
+					   gint              vspace);
+void        html_image_set_url            (HTMLImage        *image,
+					   const gchar      *url);
+void        html_image_set_valign         (HTMLImage        *image,
+					   HTMLVAlignType    valign);
+void        html_image_set_border         (HTMLImage        *image,
+					   gint              border);
+void        html_image_set_alt            (HTMLImage        *image,
+					   gchar            *alt);
+gchar      *html_image_resolve_image_url  (GtkHTML          *html,
+					   gchar            *image_url);
 
 /* FIXME move to htmlimagefactory.c */
 HTMLImageFactory *html_image_factory_new      (HTMLEngine       *e);

@@ -65,6 +65,7 @@ libgtkhtml_HEADERS =				\
 	htmlengine-search.h			\
 	htmlengine.h				\
 	htmlentity.h				\
+	htmlenum.h				\
 	htmlfontmanager.h			\
 	htmlform.h				\
 	htmlgdkpainter.h			\
@@ -150,6 +151,7 @@ libgtkhtml_la_SOURCES =				\
 	htmlengine-search.c			\
 	htmlengine.c				\
 	htmlentity.c				\
+	htmlenum.c				\
 	htmlfontmanager.c			\
 	htmlform.c				\
 	htmlgdkpainter.c			\

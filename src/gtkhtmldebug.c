@@ -32,6 +32,7 @@
 #include "htmlclue.h"
 #include "htmlclueflow.h"
 #include "htmltype.h"
+#include "htmlenum.h"
 
 #include "gtkhtmldebug.h"
 
@@ -89,40 +90,6 @@ clueflow_style_to_string (HTMLClueFlowStyle style)
 		return "ItemDigit";
 	default:
 		return "UNKNOWN";
-	}
-}
-
-static const gchar *
-gtk_html_debug_print_valignment (HTMLVAlignType a)
-{
-	switch (a) {
-	case HTML_VALIGN_TOP:
-		return "Top";
-	case HTML_VALIGN_CENTER:
-		return "Center";
-	case HTML_VALIGN_BOTTOM:
-		return "Bottom";
-	case HTML_VALIGN_NONE:
-		return "None";
-	default:
-		return "Unknown";
-	}
-}
-
-static const gchar *
-gtk_html_debug_print_halignment (HTMLHAlignType a)
-{
-	switch (a) {
-	case HTML_HALIGN_LEFT:
-		return "Left";
-	case HTML_HALIGN_CENTER:
-		return "Center";
-	case HTML_HALIGN_RIGHT:
-		return "Right";
-	case HTML_HALIGN_NONE:
-		return "None";
-	default:
-		return "Unknown";
 	}
 }
 
@@ -196,8 +163,8 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 	case HTML_TYPE_TABLECELL:
 		for (i = 0; i < level; i++) g_print (" ");
 		g_print ("HAlign: %s VAlign: %s\n",
-			 gtk_html_debug_print_halignment (HTML_CLUE (obj)->halign),
-			 gtk_html_debug_print_valignment (HTML_CLUE (obj)->valign));
+			 html_halign_name (HTML_CLUE (obj)->halign),
+			 html_valign_name (HTML_CLUE (obj)->valign));
 		gtk_html_debug_dump_tree (HTML_CLUE (obj)->head, level + 1);
 		break;
 

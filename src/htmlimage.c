@@ -39,6 +39,7 @@
 #include "htmlengine.h"
 #include "htmlpainter.h"
 #include "htmlprinter.h"
+#include "htmlenum.h"
 
 #include "gtkhtml-private.h"
 #include "gtkhtml-stream.h"
@@ -65,7 +66,8 @@ static HTMLImagePointer   *html_image_pointer_new       (const char *filename, H
 static void                html_image_pointer_ref       (HTMLImagePointer *ip);
 static void                html_image_pointer_unref     (HTMLImagePointer *ip);
 
-static void render_cur_frame (HTMLImage *image, gint nx, gint ny, const GdkColor *highlight_color);
+static void                render_cur_frame             (HTMLImage *image, gint nx, gint ny, const GdkColor *highlight_color);
+static guint               get_actual_height            (HTMLImage *image, HTMLPainter *painter);
 
 
 static guint
@@ -76,23 +78,23 @@ get_actual_width (HTMLImage *image,
 	GdkPixbufAnimation *anim = image->image_ptr->animation;
 	gint width;
 
-	if (image->specified_width > 0) {
-		width = image->specified_width * html_painter_get_pixel_size (painter);
-	} else if (HTML_OBJECT (image)->percent > 0) {
+	if (image->percent_width) {
 		/* The cast to `gdouble' is to avoid overflow (eg. when
                    printing).  */
-		width = ((gdouble) HTML_OBJECT (image)->max_width
-			 * HTML_OBJECT (image)->percent) / 100;
+		width = ((gdouble) html_engine_get_view_width (image->image_ptr->factory->engine)
+			 * image->specified_width) / 100;
+	} else if (image->specified_width > 0) {
+		width = image->specified_width * html_painter_get_pixel_size (painter);
 	} else if (image->image_ptr == NULL || pixbuf == NULL) {
 		width = DEFAULT_SIZE * html_painter_get_pixel_size (painter);
 	} else {
 		width = (((anim) ? gdk_pixbuf_animation_get_width (anim) : gdk_pixbuf_get_width (pixbuf))
 			  * html_painter_get_pixel_size (painter));
 
-		if (image->specified_height > 0) {
+		if (image->specified_height > 0 || image->percent_height) {
 			double scale;
 
-			scale =  ((double)image->specified_height) 
+			scale =  ((double) get_actual_height (image, painter)) 
 				/ ((anim) ? gdk_pixbuf_animation_get_height (anim) : gdk_pixbuf_get_height (pixbuf));
 			
 			width *= scale;
@@ -112,7 +114,12 @@ get_actual_height (HTMLImage *image,
 	GdkPixbufAnimation *anim = image->image_ptr->animation;
 	gint height;
 		
-	if (image->specified_height > 0) {
+	if (image->percent_height) {
+		/* The cast to `gdouble' is to avoid overflow (eg. when
+                   printing).  */
+		height = ((gdouble) html_engine_get_view_height (image->image_ptr->factory->engine)
+			  * image->specified_height) / 100;
+	} else if (image->specified_height > 0) {
 		height = image->specified_height * html_painter_get_pixel_size (painter);
 	} else if (image->image_ptr == NULL || pixbuf == NULL) {
 		height = DEFAULT_SIZE * html_painter_get_pixel_size (painter);
@@ -120,10 +127,10 @@ get_actual_height (HTMLImage *image,
 		height = (((anim) ? gdk_pixbuf_animation_get_height (anim) : gdk_pixbuf_get_height (pixbuf))
 			  * html_painter_get_pixel_size (painter));
 
-		if ((image->specified_width > 0) || (HTML_OBJECT(image)->percent > 0)) {
+		if (image->specified_width > 0 || image->percent_width) {
 			double scale;
 			
-			scale = ((double)get_actual_width (image, painter))
+			scale = ((double) get_actual_width (image, painter))
 				/ (((anim) ? gdk_pixbuf_animation_get_width (anim) : gdk_pixbuf_get_width (pixbuf))
 				   * html_painter_get_pixel_size (painter));
 			
@@ -202,7 +209,7 @@ calc_min_width (HTMLObject *o,
 
 	pixel_size = html_painter_get_pixel_size (painter);
 
-	if (o->percent > 0)
+	if (image->percent_width)
 		min_width = pixel_size;
 	else
 		min_width = get_actual_width (HTML_IMAGE (o), painter);
@@ -392,16 +399,18 @@ save (HTMLObject *self,
 	if (!result)
 		return FALSE;	
 
-	if (image->specified_width > 0) {
-		if (!html_engine_save_output_string (state, " WIDTH=\"%d\"", image->specified_height))
+	if (image->percent_width) {
+		if (!html_engine_save_output_string (state, " WIDTH=\"%d\%\"", image->specified_width))
 			return FALSE;
-	} else if (self->percent) {
-		if (!html_engine_save_output_string (state, " WIDTH=\"%d\%\"", self->percent))
+	} else if (image->specified_width > 0) {
+		if (!html_engine_save_output_string (state, " WIDTH=\"%d\"", image->specified_width))
 			return FALSE;
 	}
 
-	/* FIXME percent heights are supported in netscape/mozilla */
-	if (image->specified_height > 0) {
+	if (image->percent_height) {
+		if (!html_engine_save_output_string (state, " HEIGHT=\"%d\%\"", image->specified_height))
+			return FALSE;
+	} else if (image->specified_height > 0) {
 		if (!html_engine_save_output_string (state, " HEIGHT=\"%d\"", image->specified_height))
 			return FALSE;
 	}
@@ -421,6 +430,16 @@ save (HTMLObject *self,
 			return FALSE;
 	}
 
+	if (image->valign != HTML_VALIGN_NONE) {
+		if (!html_engine_save_output_string (state, " ALIGN=\"%s\"", html_valign_name (image->valign)))
+			return FALSE;
+	}
+
+	if (image->alt) {
+		if (!html_engine_save_output_string (state, " ALT=\"%s\"", image->alt))
+			return FALSE;
+	}
+
 	/* FIXME this is the default set in htmlengine.c but there is no real way to tell
 	 * if the usr specified it directly
 	 */
@@ -429,7 +448,6 @@ save (HTMLObject *self,
 			return FALSE;
 	}
 
-	/* FIXME we are not preserving alt tags */
 	if (!html_engine_save_output_string (state, ">"))
 		return FALSE;
 	
@@ -550,7 +568,8 @@ html_image_init (HTMLImage *image,
 		 const gchar *url,
 		 const gchar *target,
 		 gint16 width, gint16 height,
-		 gint8 percent, gint8 border,
+		 gboolean percent_width, gboolean percent_height,
+		 gint8 border,
 		 HTMLColor *color,
 		 HTMLVAlignType valign)
 {
@@ -565,9 +584,11 @@ html_image_init (HTMLImage *image,
 	image->url = g_strdup (url);
 	image->target = g_strdup (url);
 
-	image->specified_width = width;
+	image->specified_width  = width;
 	image->specified_height = height;
-	image->border = border;
+	image->percent_width    = percent_width;
+	image->percent_height   = percent_height;
+	image->border           = border;
 
 	if (color) {
 		image->color = color;
@@ -588,8 +609,6 @@ html_image_init (HTMLImage *image,
 		valign = HTML_VALIGN_BOTTOM;
 	image->valign = valign;
 
-	object->percent = percent;
-	
 	image->image_ptr = html_image_factory_register (imf, image, filename);
 }
 
@@ -599,7 +618,8 @@ html_image_new (HTMLImageFactory *imf,
 		const gchar *url,
 		const gchar *target,
 		gint16 width, gint16 height,
-		gint8 percent, gint8 border,	
+		gboolean percent_width, gboolean percent_height,
+		gint8 border,	
 		HTMLColor *color,
 		HTMLVAlignType valign)
 {
@@ -613,7 +633,8 @@ html_image_new (HTMLImageFactory *imf,
 			 url,
 			 target,
 			 width, height,
-			 percent, border, 
+			 percent_width, percent_height,
+			 border,
 			 color,
 			 valign);
 
@@ -678,12 +699,17 @@ html_image_set_alt (HTMLImage *image, gchar *alt)
 }
 
 void
-html_image_set_size (HTMLImage *image, gint w, gint percent, gint h)
+html_image_set_size (HTMLImage *image, gint w, gint h, gboolean pw, gboolean ph)
 {
 	gboolean changed = FALSE;
 
-	if (percent != HTML_OBJECT (image)->percent) {
-		HTML_OBJECT (image)->percent = percent;
+	if (pw != image->percent_width) {
+		image->percent_width = pw;
+		changed = TRUE;
+	}
+
+	if (ph != image->percent_height) {
+		image->percent_height = ph;
 		changed = TRUE;
 	}
 
