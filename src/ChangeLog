@@ -2,6 +2,9 @@
 
 	* htmlgdkpainter.c (draw_background): fix mask comparison.
 
+	* htmlgdkpainter.c (draw_background): move color calculation and
+	allocation into the case where it is actually used.
+
 2002-03-28  Larry Ewing  <lewing@ximian.com>
 
 	* htmlgdkpainter.c (draw_background): optimize away the single

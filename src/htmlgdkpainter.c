@@ -670,13 +670,14 @@ draw_background (HTMLPainter *painter,
 
 		p = gdk_pixbuf_get_pixels (pixbuf);
 		
-		pixcol.red = p[0] * 0xff;
-		pixcol.green = p[1] * 0xff; 
-		pixcol.blue = p[2] * 0xff;
-		
-		html_painter_alloc_color (painter, &pixcol);
-		if (!(gdk_pixbuf_get_has_alpha (pixbuf) && (p[3] < 0x80))) 
+		if (!(gdk_pixbuf_get_has_alpha (pixbuf) && (p[3] < 0x80))) {
+			pixcol.red = p[0] * 0xff;
+			pixcol.green = p[1] * 0xff; 
+			pixcol.blue = p[2] * 0xff;
+			
+			html_painter_alloc_color (painter, &pixcol);
 			color = &pixcol;
+		}
 
 		if (color) {
 			gdk_gc_set_foreground (gdk_painter->gc, color);
