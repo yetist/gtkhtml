@@ -391,16 +391,34 @@ draw_background_pixmap (HTMLPainter *painter,
 	if (tile_width > pw || tile_height > ph) {
 		GdkPixmap * pixmap;
 		gint cw, ch, cx, cy;
+		GdkGC *gc;
+		GdkBitmap *bitmap = NULL;
 
+		gc = gdk_gc_new (gdk_painter->window);
+		
+		if (gdk_pixbuf_get_has_alpha (pixbuf)) {
+			
+			/* Right now we only support GDK_PIXBUF_ALPHA_BILEVEL, so we
+			 * unconditionally create the clipping mask.
+			 */
+			
+			bitmap = gdk_pixmap_new (NULL, pw, ph, 1);
+			gdk_pixbuf_render_threshold_alpha (pixbuf, bitmap,
+							   0, 0,
+							   0, 0,
+							   pw, ph,
+							   128);
+			
+			gdk_gc_set_clip_mask (gc, bitmap);
+		}
+			
 		pixmap = gdk_pixmap_new (gdk_painter->window, pw, ph, -1);
-		gdk_pixbuf_render_to_drawable_alpha (pixbuf, pixmap,
-						     0, 0,
-						     0, 0, 
-						     pw, ph,
-						     GDK_PIXBUF_ALPHA_BILEVEL,
-						     128,
-						     GDK_RGB_DITHER_NORMAL,
-						     x, y);
+		gdk_pixbuf_render_to_drawable (pixbuf, pixmap, gc,
+					       0, 0,
+					       0, 0, 
+					       pw, ph,
+					       GDK_RGB_DITHER_NORMAL,
+					       x, y);
 
 		cy = y;
 		ch = tile_height;
@@ -408,7 +426,10 @@ draw_background_pixmap (HTMLPainter *painter,
 			cx = x;
 			cw = tile_width;
 			while (cw > 0) {
-				gdk_draw_pixmap (gdk_painter->pixmap, gdk_painter->gc, pixmap,
+				if (bitmap)
+					gdk_gc_set_clip_origin (gc, cx - gdk_painter->x1, cy - gdk_painter->y1);
+				
+				gdk_draw_pixmap (gdk_painter->pixmap, gc, pixmap,
 						 0, 0, cx - gdk_painter->x1, cy - gdk_painter->y1,
 						 (cw >= pw) ? pw : cw,
 						 (ch >= ph) ? ph : ch);
@@ -419,6 +440,11 @@ draw_background_pixmap (HTMLPainter *painter,
 			cy += ph;
 		}
 		gdk_pixmap_unref (pixmap);
+
+		if (bitmap)
+			gdk_bitmap_unref (bitmap);
+
+		gdk_gc_unref (gc);
 	} else {
 		gdk_pixbuf_render_to_drawable_alpha (pixbuf, gdk_painter->pixmap,
 						     0, 0,
