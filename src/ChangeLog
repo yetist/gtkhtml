@@ -1,3 +1,13 @@
+2000-11-09  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlentity.c: added all entities from XHTML 1.0
+
+	* htmltokenizer.c (in_entity): removed old code which doesn't make
+	sense to me, let me know if you are aware of idea of this code
+	(in_entity): check for searchCount > 9 (&thetasym;)
+
+	* htmlentity.c: removed old code
+
 2000-11-08  Larry Ewing  <lewing@helixcode.com>
 
 	* htmltable.c (save_plain): add simple test/plain save method.

@@ -35,19 +35,8 @@ struct _EntityEntry {
 typedef struct _EntityEntry EntityEntry;
 
 static EntityEntry entity_table[] = {
-	/*
-	 * the 4 absolute ones,
-	 */
-	{ 34,	"quot" },
-	{ 38,	"amp" },
-	{ 39,	"apos" },
-	{ 60,	"lt" },
-	{ 62,	"gt" },
 
-	/*
-	 * A bunch still in the 128-255 range
-	 * Replacing them depend really on the charset used.
-	 */
+	/* Latin1 */
 	{ 160,	"nbsp" },
 	{ 161,	"iexcl" },
 	{ 162,	"cent" },
@@ -143,11 +132,178 @@ static EntityEntry entity_table[] = {
 	{ 252,	"uuml" },
 	{ 253,	"yacute" },
 	{ 254,	"thorn" },
-	{ 255,	"yuml" }
+	{ 255,	"yuml" },
+
+	/* special charactes */
+	{ 34,    "quot" },
+	{ 38,    "amp" },
+	{ 39,    "apos" },
+	{ 60,    "lt" },
+	{ 62,    "gt" },
+	{ 338,   "OElig" },
+	{ 339,   "oelig" },
+	{ 352,   "Scaron" },
+	{ 353,   "scaron" },
+	{ 376,   "Yuml" },
+	{ 710,   "circ" },
+	{ 732,   "tilde" },
+	{ 8194,  "ensp" },
+	{ 8195,  "emsp" },
+	{ 8201,  "thinsp" },
+	{ 8204,  "zwnj" },
+	{ 8205,  "zwj" },
+	{ 8206,  "lrm" },
+	{ 8207,  "rlm" },
+	{ 8211,  "ndash" },
+	{ 8212,  "mdash" },
+	{ 8216,  "lsquo" },
+	{ 8217,  "rsquo" },
+	{ 8218,  "sbquo" },
+	{ 8220,  "ldquo" },
+	{ 8221,  "rdquo" },
+	{ 8222,  "bdquo" },
+	{ 8224,  "dagger" },
+	{ 8225,  "Dagger" },
+	{ 8240,  "permil" },
+	{ 8249,  "lsaquo" },
+	{ 8250,  "rsaquo" },
+	{ 8364,  "euro" },
+
+	/* symbols */
+	{ 402,   "fnof" },
+	{ 913,   "Alpha" },
+	{ 914,   "Beta" },
+	{ 915,   "Gamma" },
+	{ 916,   "Delta" },
+	{ 917,   "Epsilon" },
+	{ 918,   "Zeta" },
+	{ 919,   "Eta" },
+	{ 920,   "Theta" },
+	{ 921,   "Iota" },
+	{ 922,   "Kappa" },
+	{ 923,   "Lambda" },
+	{ 924,   "Mu" },
+	{ 925,   "Nu" },
+	{ 926,   "Xi" },
+	{ 927,   "Omicron" },
+	{ 928,   "Pi" },
+	{ 929,   "Rho" },
+	{ 931,   "Sigma" },
+	{ 932,   "Tau" },
+	{ 933,   "Upsilon" },
+	{ 934,   "Phi" },
+	{ 935,   "Chi" },
+	{ 936,   "Psi" },
+	{ 937,   "Omega" },
+	{ 945,   "alpha" },
+	{ 946,   "beta" },
+	{ 947,   "gamma" },
+	{ 948,   "delta" },
+	{ 949,   "epsilon" },
+	{ 950,   "zeta" },
+	{ 951,   "eta" },
+	{ 952,   "theta" },
+	{ 953,   "iota" },
+	{ 954,   "kappa" },
+	{ 955,   "lambda" },
+	{ 956,   "mu" },
+	{ 957,   "nu" },
+	{ 958,   "xi" },
+	{ 959,   "omicron" },
+	{ 960,   "pi" },
+	{ 961,   "rho" },
+	{ 962,   "sigmaf" },
+	{ 963,   "sigma" },
+	{ 964,   "tau" },
+	{ 965,   "upsilon" },
+	{ 966,   "phi" },
+	{ 967,   "chi" },
+	{ 968,   "psi" },
+	{ 969,   "omega" },
+	{ 977,   "thetasym" },
+	{ 978,   "upsih" },
+	{ 982,   "piv" },
+	{ 8226,  "bull" },
+	{ 8230,  "hellip" },
+	{ 8242,  "prime" },
+	{ 8243,  "Prime" },
+	{ 8254,  "oline" },
+	{ 8260,  "frasl" },
+	{ 8472,  "weierp" },
+	{ 8465,  "image" },
+	{ 8476,  "real" },
+	{ 8482,  "trade" },
+	{ 8501,  "alefsym" },
+	{ 8592,  "larr" },
+	{ 8593,  "uarr" },
+	{ 8594,  "rarr" },
+	{ 8595,  "darr" },
+	{ 8596,  "harr" },
+	{ 8629,  "crarr" },
+	{ 8656,  "lArr" },
+	{ 8657,  "uArr" },
+	{ 8658,  "rArr" },
+	{ 8659,  "dArr" },
+	{ 8660,  "hArr" },
+	{ 8704,  "forall" },
+	{ 8706,  "part" },
+	{ 8707,  "exist" },
+	{ 8709,  "empty" },
+	{ 8711,  "nabla" },
+	{ 8712,  "isin" },
+	{ 8713,  "notin" },
+	{ 8715,  "ni" },
+	{ 8719,  "prod" },
+	{ 8721,  "sum" },
+	{ 8722,  "minus" },
+	{ 8727,  "lowast" },
+	{ 8730,  "radic" },
+	{ 8733,  "prop" },
+	{ 8734,  "infin" },
+	{ 8736,  "ang" },
+	{ 8743,  "and" },
+	{ 8744,  "or" },
+	{ 8745,  "cap" },
+	{ 8746,  "cup" },
+	{ 8747,  "int" },
+	{ 8756,  "there4" },
+	{ 8764,  "sim" },
+	{ 8773,  "cong" },
+	{ 8776,  "asymp" },
+	{ 8800,  "ne" },
+	{ 8801,  "equiv" },
+	{ 8804,  "le" },
+	{ 8805,  "ge" },
+	{ 8834,  "sub" },
+	{ 8835,  "sup" },
+	{ 8836,  "nsub" },
+	{ 8838,  "sube" },
+	{ 8839,  "supe" },
+	{ 8853,  "oplus" },
+	{ 8855,  "otimes" },
+	{ 8869,  "perp" },
+	{ 8901,  "sdot" },
+	{ 8968,  "lceil" },
+	{ 8969,  "rceil" },
+	{ 8970,  "lfloor" },
+	{ 8971,  "rfloor" },
+	{ 9001,  "lang" },
+	{ 9002,  "rang" },
+	{ 9674,  "loz" },
+	{ 9824,  "spades" },
+	{ 9827,  "clubs" },
+	{ 9829,  "hearts" },
+	{ 9830,  "diams" },
 };
 
 
 /* FIXME FIXME this function just sucks.  We should use gperf or something instead.  */
+
+gint
+html_g_str_case_equal (gconstpointer v, gconstpointer v2)
+{
+	return strcasecmp ((const gchar*) v, (const gchar*)v2) == 0;
+}
 
 gulong
 html_entity_parse (const gchar *s, guint len)
@@ -158,7 +314,7 @@ html_entity_parse (const gchar *s, guint len)
 	if (!ehash) {
 		gint i;
 
-		ehash = g_hash_table_new (g_str_hash, g_str_equal);
+		ehash = g_hash_table_new (g_str_hash, html_g_str_case_equal);
 		g_hash_table_freeze (ehash);
 
 		for (i = 0; i < sizeof (entity_table) / sizeof (entity_table[0]); i++)
@@ -177,22 +333,3 @@ html_entity_parse (const gchar *s, guint len)
 
 	return GPOINTER_TO_INT (g_hash_table_lookup (ehash, t));
 }
-
-#if 0
-/* We do not need that, as 0x160 is completely valid unicode character */
-/* prepares text to draw/get_width, returned text is allocated using g_strdup so it could be g_free'ed */
-gchar *
-html_entity_prepare (const gchar * text)
-{
-	gchar *nt = g_strdup (text);
-	gchar *s  = nt;
-
-	while (s) {
-		s = strchr (s, ENTITY_NBSP);
-		if (s)
-			*s = ' ';
-			}
-
-	return nt;
-}
-#endif

@@ -595,7 +595,7 @@ in_entity (HTMLTokenizer *t, const gchar **src)
 	t->searchBuffer [t->searchCount + 1] = **src;
 	t->searchBuffer [t->searchCount + 2] = '\0';
 			
-			/* Check for &#0000 sequence */
+	/* Check for &#0000 sequence */
 	if (t->searchBuffer[2] == '#') {
 		if ((t->searchCount > 1) &&
 		    (!isdigit (**src)) &&
@@ -617,7 +617,7 @@ in_entity (HTMLTokenizer *t, const gchar **src)
 		}
 	}
 	else {
-				/* Check for &abc12 sequence */
+		/* Check for &abc12 sequence */
 		if (!isalnum (**src)) {
 			t->charEntity = FALSE;
 			if ((t->searchBuffer [t->searchCount + 1] == ';') ||
@@ -630,59 +630,9 @@ in_entity (HTMLTokenizer *t, const gchar **src)
 		}
 				
 	}
-			
-	switch (entityValue) {
-	case 139:
-		entityValue = 60;
-		break;
-	case 145:
-		entityValue = 96;
-		break;
-	case 146:
-		entityValue = 39;
-		break;
 
-	case 147:
-				//strcpy (t->searchBuffer+2, "ldquo");
-				//t->searchCount = 6;
-				//break;
-	case 148:
-				//strcpy(t->searchBuffer+2, "rdquo");
-				//searchCount = 6;
-		entityValue = 34;
-		break;
-	case 150:
-				//strcpy(t->searchBuffer+2, "ndash");
-				//t->searchCount = 6;
-				//break;
-	case 151:
-				//strcpy (t->searchBuffer+2, "mdash");
-				//t->searchCount = 6;
-		entityValue = 45;
-		break;
-	case 152:
-		entityValue = 126;
-		break;
-	case 155:
-		entityValue = 62;
-		break;
-	case 133:
-		strcpy (t->searchBuffer+2, "hellip");
-		t->searchCount = 7;
-		break;
-	case 149:
-		strcpy (t->searchBuffer+2, "bull");
-		t->searchCount = 5;
-		break;
-	case 153:
-		strcpy (t->searchBuffer+2, "trade");
-		t->searchCount = 6;
-		break;
-	default:;
-	}
-			
-	if (t->searchCount > 8) {
-				/* Ignore this sequence since it's too long */
+	if (t->searchCount > 9) {
+		/* Ignore this sequence since it's too long */
 		t->charEntity = FALSE;
 		memcpy (t->dest, t->searchBuffer + 1, t->searchCount);
 		t->dest += t->searchCount;
