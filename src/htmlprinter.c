@@ -479,6 +479,27 @@ draw_background (HTMLPainter *painter,
 }
 
 static void
+print_pixbuf (GnomePrintContext *pc, GdkPixbuf *pixbuf)
+{
+	if (!pixbuf || (gdk_pixbuf_get_colorspace (pixbuf) != GDK_COLORSPACE_RGB))
+		return;
+	
+	if (gdk_pixbuf_get_has_alpha (pixbuf)) {
+		gnome_print_rgbaimage (pc, 
+				       gdk_pixbuf_get_pixels (pixbuf),
+				       gdk_pixbuf_get_width (pixbuf),
+				       gdk_pixbuf_get_height (pixbuf),
+				       gdk_pixbuf_get_rowstride (pixbuf));
+	} else {
+		gnome_print_rgbimage (pc, 
+				      gdk_pixbuf_get_pixels (pixbuf),
+				      gdk_pixbuf_get_width (pixbuf),
+				      gdk_pixbuf_get_height (pixbuf),
+				      gdk_pixbuf_get_rowstride (pixbuf));
+	}
+}
+
+static void
 draw_pixmap (HTMLPainter *painter, GdkPixbuf *pixbuf, gint x, gint y, gint scale_width, gint scale_height, const GdkColor *color)
 {
 	HTMLPrinter *printer;
@@ -500,7 +521,7 @@ draw_pixmap (HTMLPainter *painter, GdkPixbuf *pixbuf, gint x, gint y, gint scale
 	gnome_print_gsave (printer->context);
 	gnome_print_translate (printer->context, print_x, print_y - print_scale_height);
 	gnome_print_scale (printer->context, print_scale_width, print_scale_height);
-	/* FIX2 gnome_print_pixbuf (printer->context, pixbuf); */
+	print_pixbuf (printer->context, pixbuf);
 	gnome_print_grestore (printer->context);
 }
 
