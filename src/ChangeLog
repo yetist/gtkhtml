@@ -1,3 +1,8 @@
+2001-09-10  Larry Ewing  <lewing@ximian.com>
+
+	* htmlframe.c (html_frame_init): handle NULL and empty urls by
+	loading a blank page in the frame.
+
 2001-09-10  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c (html_engine_calc_size): use pixel size

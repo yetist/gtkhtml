@@ -562,9 +562,19 @@ html_frame_init (HTMLFrame *frame,
 	frame->width = width;
 	frame->height = height;
 	frame->gdk_painter = NULL;
+	frame->url = NULL;
 
-	handle = gtk_html_begin (new_html);
+	if (src && strcmp (src, "")) {
+		handle = gtk_html_begin (new_html);
+		gtk_signal_emit_by_name (GTK_OBJECT (new_html->engine), 
+					 "url_requested", src, handle);
+
+		frame_set_base (new_html, src, frame);
+	} else {		
+		gtk_html_load_empty (new_html);
+	}
 	new_html->engine->clue->parent = HTML_OBJECT (frame);
+
 
 	gtk_signal_connect (GTK_OBJECT (new_html), "url_requested",
 			    GTK_SIGNAL_FUNC (frame_url_requested),
@@ -594,11 +604,6 @@ html_frame_init (HTMLFrame *frame,
 	  gtk_signal_connect (GTK_OBJECT (html), "button_press_event",
 	  GTK_SIGNAL_FUNC (frame_button_press_event), frame);
 	*/
-	frame->url = NULL;
-	gtk_signal_emit_by_name (GTK_OBJECT (new_html->engine), 
-				 "url_requested", src, handle);
-
-	frame_set_base (new_html, src, frame);
 
 	gtk_widget_set_usize (scrolled_window, width, height);
 
