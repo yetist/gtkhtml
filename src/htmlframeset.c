@@ -34,6 +34,7 @@
 #include "htmltablecell.h"
 
 #include "htmlshape.h"
+#include "htmlstyle.h"
 #include "htmlframe.h"
 #include "htmlframeset.h"
 

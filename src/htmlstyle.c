@@ -48,6 +48,49 @@ parse_color (const gchar *text,
 	return gdk_color_parse (c, color);
 }
 
+static HTMLLength *
+parse_length (char *str) {
+	char *cur = str;
+	HTMLLength *len;
+
+	if (!str)
+		return;
+	
+	len = g_new (HTMLLength, 1);
+	
+	/* g_warning ("begin \"%s\"", *str); */
+
+	while (isspace (*cur)) cur++;
+
+	len->val = atoi (cur);
+	len->type = HTML_LENGTH_TYPE_PIXELS;
+
+	while (isdigit (*cur) || *cur == '-') cur++;
+
+	switch (*cur) {
+	case '*':
+		if (len->val == 0)
+			len->val = 1;
+		len->type = HTML_LENGTH_TYPE_FRACTION;
+		cur++;
+		break;
+	case '%':
+		len->type = HTML_LENGTH_TYPE_PERCENT;
+                cur++;
+		break;
+	}
+	
+	if (cur <= str) {
+		g_free (len);
+		return NULL;
+	} 
+
+	/* g_warning ("length len->val=%d, len->type=%d", len->val, len->type); */
+
+	return len;
+}
+
+
 HTMLStyle *
 html_style_new (void) 
 {
@@ -61,6 +104,7 @@ html_style_new (void)
 
 	/* BLOCK */
 	style->text_align = HTML_HALIGN_NONE;
+	style->clear = HTML_CLEAR_NONE;
 
 	style->text_valign = HTML_VALIGN_NONE;
 
@@ -75,6 +119,8 @@ html_style_free (HTMLStyle *style)
 
 	g_free (style->face);
 	g_free (style->bg_image);
+	g_free (style->width);
+	g_free (style->height);
 
 	if (style->color)
 		html_color_unref (style->color);
@@ -212,6 +258,43 @@ html_style_set_display (HTMLStyle *style, HTMLDisplayType display)
 }
 
 HTMLStyle *
+html_style_set_clear (HTMLStyle *style, HTMLClearType clear)
+{
+	if (!style)
+		style = html_style_new ();
+
+	style->clear = clear;
+
+	return style;
+}
+
+HTMLStyle *
+html_style_add_width (HTMLStyle *style, char *len)
+{
+	if (!style)
+		style = html_style_new ();
+
+	g_free (style->width);
+
+	style->width = parse_length (len);
+
+	return style;
+}
+
+HTMLStyle *
+html_style_add_height (HTMLStyle *style, char *len)
+{
+	if (!style)
+		style = html_style_new ();
+
+	g_free (style->height);
+
+	style->height = parse_length (len);
+
+	return style;
+}
+
+HTMLStyle *
 html_style_add_background_image (HTMLStyle *style, const char *url)
 {
 	if (!style)
@@ -262,6 +345,10 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 				}
 			} else if (!strncasecmp ("background-image: ", text, 18)) {
 				style = html_style_add_background_image (style, text + 18);
+				/*
+			} else if (!strncasecmp ("white-space: ", text, 13)) {
+			        normal, pre, nowrap, pre-wrap, pre-line, inherit 
+				*/
 			} else if (!strncasecmp ("text-decoration: none", text, 21)) {
 				style = html_style_unset_decoration (style, ~GTK_HTML_FONT_STYLE_SIZE_MASK);
 			} else if (!strncasecmp ("display: ", text, 9)) {
@@ -277,10 +364,27 @@ html_style_add_attribute (HTMLStyle *style, const char *attr)
 				}
 			} else if (!strncasecmp ("text-align: center", text, 18)) {
 				style = html_style_add_text_align (style, HTML_HALIGN_CENTER);
+			} else if (!strncasecmp ("width: ", text, 7)) {
+				style = html_style_add_width (style, text + 7);
+			} else if (!strncasecmp ("height: ", text, 8)) {
+				style = html_style_add_height (style, text + 8);
+			} else if (!strncasecmp ("clear: ", text, 7)) {
+				char *value = text + 7;
+
+				if (!strcasecmp ("left", value)) { 
+					style = html_style_set_clear (style, HTML_CLEAR_LEFT); 
+				} else if (!strcasecmp ("right", value)) {
+					style = html_style_set_clear (style, HTML_CLEAR_RIGHT); 
+				} else if (!strcasecmp ("both", value)) {
+					style = html_style_set_clear (style, HTML_CLEAR_ALL); 
+				} else if (!strcasecmp ("inherit", value)) {
+					style = html_style_set_clear (style, HTML_CLEAR_INHERIT);
+				} else if (!strcasecmp ("none", value)) {
+					style = html_style_set_clear (style, HTML_CLEAR_NONE);
+				}
 			}
 		}
 		g_strfreev (prop);
 	}
 	return style;
 }
-

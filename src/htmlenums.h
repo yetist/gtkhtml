@@ -47,7 +47,8 @@ typedef enum {
 	HTML_CLEAR_NONE,
 	HTML_CLEAR_LEFT,
 	HTML_CLEAR_RIGHT,
-	HTML_CLEAR_ALL
+	HTML_CLEAR_ALL,
+	HTML_CLEAR_INHERIT
 } HTMLClearType;
 
 /* Paragraph style.  Notice that the `H*' elements must be consecutive.  */

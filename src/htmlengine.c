@@ -471,7 +471,7 @@ current_bg_color (HTMLEngine *e) {
  * FIXME these are 100% wrong (bg color doesn't inheirit, but it is how the current table code works
  * and I don't want to regress yet
  */
-static GdkColor *
+static HTMLColor *
 current_row_bg_color (HTMLEngine *e)
 {
 	HTMLElement *span;
@@ -480,7 +480,7 @@ current_row_bg_color (HTMLEngine *e)
 	for (item = e->span_stack->list; item; item = item->next) {
 		span = item->data;
 		if (span->style->display == DISPLAY_TABLE_ROW)
-			return (GdkColor *)span->style->bg_color;
+			return span->style->bg_color;
 
 		if (span->style->display == DISPLAY_TABLE)
 			break;
@@ -937,6 +937,7 @@ insert_text (HTMLEngine *e,
 
 static void block_end_div (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem);
 static void block_end_row (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem);
+static void block_end_cell (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem);
 static void pop_element_by_type (HTMLEngine *e, HTMLDisplayType display);
 
 /* Block stack.  */
@@ -947,10 +948,24 @@ html_element_push (HTMLElement *node, HTMLEngine *e, HTMLObject *clue)
 	case DISPLAY_BLOCK:
 		/* close anon p elements */
 		pop_element (e, ID_P);
-
 		html_stack_push (e->span_stack, node);
+#if TESTING
+		if (node->style->bg_color) {
+			HTMLTableCell *cell;
+			cell = html_table_cell_new (1, 1, 0);
+			html_table_cell_set_fixed_width (cell, 50, 0);
+
+			html_object_set_bg_color (HTML_OBJECT (cell), node->style->bg_color);
+			append_element (e, clue, HTML_OBJECT (cell));
+			push_clue (e, HTML_OBJECT (cell));
+			node->exitFunc = block_end_cell;
+		} else {
+			node->exitFunc = block_end_div;	
+		}
+#else
+		node->exitFunc = block_end_div;	
+#endif
 		update_flow_align (e, clue);
-		node->exitFunc = block_end_div;
 		break;
 	case DISPLAY_TABLE_ROW:
 		{
@@ -2983,11 +2998,11 @@ element_parse_table (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	HTMLElement *element;
 	HTMLTable *table;
 	char *value;
+	HTMLLength *len;
 
 	GdkColor tableColor;
 	gboolean have_tableColor = FALSE;
 	
-	gint width = 0;
 	gint percent = 0;
 	gint padding = 1;
 	gint spacing = 2;
@@ -3010,16 +3025,9 @@ element_parse_table (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		else 
 			border = 1;
 
-	if (html_element_get_attr (element, "width", &value) && value) {
-		if (strchr (value, '%')) {
-			percent = atoi (value);
-		} else if (strchr (value, '*')) {
-			/* Ignore */
-		} else if (isdigit (*value)) {
-			width = atoi (value);
-		}
-	}
-		
+	if (html_element_get_attr (element, "width", &value))
+		element->style = html_style_add_width (element->style, value);
+
 	if (html_element_get_attr (element, "align", &value))
 		element->style = html_style_add_text_align (element->style, parse_halign (value, HTML_HALIGN_NONE));
 	
@@ -3046,7 +3054,10 @@ element_parse_table (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	case DISPLAY_TABLE:
 		close_current_table (e);
 		
-		table = HTML_TABLE (html_table_new (width, percent, padding, spacing, border));
+		len = element->style->width;
+		table = HTML_TABLE (html_table_new (len && len->type != HTML_LENGTH_TYPE_PERCENT ? len->val : 0,
+						    len && len->type == HTML_LENGTH_TYPE_PERCENT ? len->val : 0,
+						    padding, spacing, border));
 		
 		if (element->style->bg_color)
 			table->bgColor = gdk_color_copy ((GdkColor *)element->style->bg_color);
@@ -3066,7 +3077,10 @@ element_parse_table (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	case DISPLAY_INLINE_TABLE:
 		close_current_table (e);
 		
-		table = HTML_TABLE (html_table_new (width, percent, padding, spacing, border));
+		len = element->style->width;
+		table = HTML_TABLE (html_table_new (len && len->type != HTML_LENGTH_TYPE_PERCENT ? len->val : 0,
+						    len && len->type == HTML_LENGTH_TYPE_PERCENT ? len->val : 0,
+						    padding, spacing, border));
 		
 		if (element->style->bg_color)
 			table->bgColor = gdk_color_copy ((GdkColor *)element->style->bg_color);
@@ -3218,29 +3232,14 @@ element_parse_cell (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	HTMLTable *table = html_stack_top (e->table_stack);
 	gint rowSpan = 1;
 	gint colSpan = 1;
-	gint cellwidth = clue->max_width;
-	gint cellheight = -1;
-	gboolean cellwidth_percent = FALSE;
-	gboolean cellheight_percent = FALSE;
-	gboolean no_wrap = FALSE;
-	gboolean fixedWidth = FALSE;
-	gboolean fixedHeight = FALSE;
 	HTMLTableCell *cell = NULL;
 	char *image_url = NULL;
-	HTMLVAlignType valign;
-	HTMLHAlignType halign;
-	gboolean have_bgColor = FALSE;
-	GdkColor bgColor;
 	gboolean heading;
+	gboolean no_wrap = FALSE;
 	HTMLElement *element;
 	char *value;
+	HTMLLength *len;
 	
-	/*
-	pop_element (e, ID_TH);
-	pop_element (e, ID_TD);
-	pop_element (e, ID_CAPTION);
-	*/
-
 	element = html_element_new (e, str);
 
 	heading = !strcasecmp (g_quark_to_string (element->id), "th");
@@ -3293,37 +3292,11 @@ element_parse_cell (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				colSpan = 1;
 	}
 
-	if (html_element_get_attr (element, "height", &value)) {
-		if (strchr (value, '%')) {
-			/* gtk_html_debug_log (e->widget, "percent!\n");
-			   cellheight = atoi (value);
-				   cellheight_percent = TRUE;
-				   fixedHeight = TRUE; */
-		} else if (strchr (value, '*')) {
-				/* ignore */
-		} else if (isdigit (*value)) {
-			cellheight = atoi (value);
-			cellheight_percent = FALSE;
-			fixedHeight = TRUE;
-		}
-	}
+	if (html_element_get_attr (element, "height", &value))
+		element->style = html_style_add_height (element->style, value);
 
-	if (html_element_get_attr (element, "width", &value) == 0) {
-			if (strchr (value, '%')) {
-				gtk_html_debug_log (e->widget, "percent!\n");
-				cellwidth = atoi (value);
-				cellwidth_percent = TRUE;
-				fixedWidth = TRUE;
-			}
-			else if (strchr (value, '*')) {
-				/* ignore */
-			}
-			else if (isdigit (*value)) {
-				cellwidth = atoi (value);
-				cellwidth_percent = FALSE;
-				fixedWidth = TRUE;
-			}
-	}
+	if (html_element_get_attr (element, "width", &value))
+		element->style = html_style_add_width (element->style, value); 
 		
 	if (html_element_get_attr (element, "nowrap", &value))
 			no_wrap = TRUE;
@@ -3353,10 +3326,13 @@ element_parse_cell (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	HTML_CLUE (cell)->valign = element->style->text_valign != HTML_VALIGN_NONE ? element->style->text_valign : current_row_valign (e);
 	HTML_CLUE (cell)->halign = element->style->text_align != HTML_HALIGN_NONE ? element->style->text_align : current_row_align (e);
 	
-	if (fixedWidth)
-		html_table_cell_set_fixed_width (cell, cellwidth, cellwidth_percent);
-	if (fixedHeight)
-		html_table_cell_set_fixed_height (cell, cellheight, cellheight_percent);
+	len = element->style->width;
+	if (len && len->type != HTML_LENGTH_TYPE_FRACTION)
+		html_table_cell_set_fixed_width (cell, len->val, len->type == HTML_LENGTH_TYPE_PERCENT);
+
+	len = element->style->height;
+	if (len && len->type != HTML_LENGTH_TYPE_FRACTION)
+		html_table_cell_set_fixed_height (cell, len->val, len->type == HTML_LENGTH_TYPE_PERCENT);
 	
 	block_ensure_row (e);
 	html_table_add_cell (table, cell);
@@ -3566,40 +3542,6 @@ element_parse_font (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	html_element_push (element, e, clue);
 }
 
-#ifdef TESTING		
-static void
-block_end_test (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
-{
-	pop_clue (e); 
-}
-
-static void
-element_parse_test (HTMLEngine *e, HTMLObject *clue, const gchar *str)
-{
-	HTMLElement *element = html_element_new (e, str);
-	HTMLTableCell *cell;
-	char *value;
-	GdkColor color;
-	
-
-	html_style_set_display (element, DISPLAY_BLOCK);
-	html_element_parse_coreattrs (element);
-
-
-	close_flow (e, clue);
-
-	cell = html_table_cell_new (1, 1, 20);
-	if (parse_color ("red", &color)) {
-		html_object_set_bg_color (HTML_OBJECT (cell), &color);
-	}
-	
-	append_element (e, clue, HTML_OBJECT (cell));
-	push_clue (e, HTML_OBJECT (cell));
-
-	html_element_push (element, e, clue);
-}
-#endif /* TESTING */		
-
 
 
 /* Parsing dispatch table.  */
@@ -3665,9 +3607,6 @@ HTMLDispatchEntry basic_table[] = {
 	{ID_TT,               element_parse_inline_fixed},
 	{"title",             element_parse_title},
 	{ID_VAR,              element_parse_inline_fixed},
-#ifdef TESTING
-	{ID_TEST,             element_parse_test},
-#endif
 	/* 
 	 * the following elements have special behaviors for the close tags
 	 * so we dispatch on the close element as well
