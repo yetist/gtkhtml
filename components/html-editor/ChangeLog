@@ -1,3 +1,19 @@
+2001-10-04  Larry Ewing  <lewing@ximian.com>
+
+	* Editor.idl: add the new event type and update copyright.
+
+	* Makefile.am (GTKHTML_EDITOR_SOURCES_COMMON): add
+	html-stream-mem.[ch]
+
+	* editor-control-factory.c (url_requested_cb): rework to pass the
+	url request to the listener using send_event_stream.
+	(send_event_stream): ask for the url through the listener.
+	(init_corba): change the name to reflect the renaming from long
+	ago.
+
+	html-stream-mem.[ch]: add a stream mem implementation that also
+	writes directly to the GtkHTMLStream.
+
 2001-10-04  Tuomas Kuosmanen  <tigert@ximian.com>
 
 	* template.c: Small beautification; Image frame should have the 

@@ -93,6 +93,8 @@ GTKHTML_EDITOR_SOURCES_COMMON =			\
 	properties.h				\
 	replace.c				\
 	replace.h				\
+	html-stream-mem.h			\
+	html-stream-mem.c			\
 	resolver-progressive-impl.c		\
 	resolver-progressive-impl.h		\
 	rule.c					\

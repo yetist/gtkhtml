@@ -3,10 +3,11 @@
  * Interface for the HTML Editor.
  *
  * Authors:
- *   Larry Ewing <lewing@helixcode.com>
- *   Radek Doulik <rodo@helixcode.com>
+ *   Larry Ewing <lewing@ximian.com>
+ *   Radek Doulik <rodo@ximian.com>
  *
  * Copyright (C) 2000 Helix Code, Inc.
+ * Copyright (C) 2000, 2001 Ximian, Inc.
  */
 
 #include <Bonobo.idl>
@@ -83,6 +84,11 @@ module Editor {
 
 		void undo_begin (in string undo_name, in string redo_name);
 		void undo_end ();
+	};
+	
+	struct URLRequestEvent {
+		string url;
+		Bonobo::Stream stream;
 	};
 };
 };
