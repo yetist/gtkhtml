@@ -82,6 +82,12 @@ search_next_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cnam
 }
 
 static void
+select_all_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
+{
+	gtk_html_editor_command (cd->html, "select-all");
+}
+
+static void
 replace_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
 	replace (cd);
@@ -165,6 +171,7 @@ BonoboUIVerb verbs [] = {
 	BONOBO_UI_UNSAFE_VERB ("EditFindAgain", search_next_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditReplace", replace_cb),
 	BONOBO_UI_UNSAFE_VERB ("EditProperties", properties_cb),
+	BONOBO_UI_UNSAFE_VERB ("EditSelectAll", select_all_cb),
 
 	BONOBO_UI_UNSAFE_VERB ("InsertImage", insert_image_cb),
 	BONOBO_UI_UNSAFE_VERB ("InsertLink", insert_link_cb),
