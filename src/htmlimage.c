@@ -1115,6 +1115,21 @@ html_image_pointer_unref (HTMLImagePointer *ip)
 	}
 }
 
+static void
+html_image_pointer_load (HTMLImagePointer *ip)
+{
+	GtkHTMLStream *handle;
+
+	handle = gtk_html_stream_new (GTK_HTML (ip->factory->engine->widget),
+				      html_image_factory_write_pixbuf,
+				      html_image_factory_end_pixbuf,
+				      ip);
+
+	/* This is a bit evil, I think.  But it's a lot better here
+	   than in the HTMLImage object.  FIXME anyway -- ettore  */
+	gtk_signal_emit_by_name (GTK_OBJECT (ip->factory->engine), "url_requested", ip->url, handle);
+}
+
 HTMLImagePointer *
 html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char *filename)
 {
@@ -1126,8 +1141,6 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 	retval = g_hash_table_lookup (factory->loaded_images, filename);
 
 	if (!retval){
-		GtkHTMLStream *handle;
-
 		retval = html_image_pointer_new (filename, factory);
 		if (*filename) {
 			gtk_signal_connect (GTK_OBJECT (retval->loader), "area_prepared",
@@ -1143,18 +1156,8 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 					    retval);
 
 			html_image_pointer_ref (retval);
-			handle = gtk_html_stream_new (GTK_HTML (factory->engine->widget),
-						      html_image_factory_write_pixbuf,
-						      html_image_factory_end_pixbuf,
-						      retval);
-
 			g_hash_table_insert (factory->loaded_images, retval->url, retval);
-
-		/* This is a bit evil, I think.  But it's a lot better here
-		   than in the HTMLImage object.  FIXME anyway -- ettore  */
-		
-			gtk_signal_emit_by_name (GTK_OBJECT (factory->engine), "url_requested", filename,
-						 handle);
+			html_image_pointer_load (retval);
 		}
 	}
 
@@ -1201,6 +1204,25 @@ void
 html_image_factory_stop_animations (HTMLImageFactory *factory)
 {
 	g_hash_table_foreach (factory->loaded_images, stop_anim, NULL);
+}
+
+static gboolean
+move_image_pointers (gpointer key, gpointer value, gpointer data)
+{
+	HTMLImageFactory *dst = HTML_IMAGE_FACTORY (data);
+	HTMLImagePointer *ip  = HTML_IMAGE_POINTER (value);
+
+	ip->factory = dst;
+	g_hash_table_insert (dst->loaded_images, ip->url, ip);
+	html_image_pointer_load (ip);
+
+	return TRUE;
+}
+
+void
+html_image_factory_move_images (HTMLImageFactory *dst, HTMLImageFactory *src)
+{
+	g_hash_table_foreach_remove (src->loaded_images, move_image_pointers, dst);
 }
 
 static void

@@ -41,6 +41,7 @@
 #include "htmlengine-edit-selection-updater.h"
 #include "htmlengine-print.h"
 #include "htmlengine-save.h"
+#include "htmlimage.h"
 #include "htmlsettings.h"
 #include "htmlcolorset.h"
 #include "htmlselection.h"
@@ -93,13 +94,13 @@ enum {
 static guint signals [LAST_SIGNAL] = { 0 };
 
 /* keybindings signal hadlers */
-static void    scroll                 (GtkHTML *html, GtkOrientation orientation, GtkScrollType scroll_type, gfloat position);
-static void    cursor_move            (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType skip);
-static void    command                (GtkHTML *html, GtkHTMLCommandType com_type);
-static gint    mouse_change_pos       (GtkWidget *widget, GdkWindow *window, gint x, gint y);
-static void    load_keybindings       (GtkHTMLClass *klass);
-static void    set_editor_keybindings (GtkHTML *html, gboolean editable);
-static gchar * get_value_nick         (GtkHTMLCommandType com_type);
+static void     scroll                 (GtkHTML *html, GtkOrientation orientation, GtkScrollType scroll_type, gfloat position);
+static void     cursor_move            (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType skip);
+static gboolean command                (GtkHTML *html, GtkHTMLCommandType com_type);
+static gint     mouse_change_pos       (GtkWidget *widget, GdkWindow *window, gint x, gint y);
+static void     load_keybindings       (GtkHTMLClass *klass);
+static void     set_editor_keybindings (GtkHTML *html, gboolean editable);
+static gchar *  get_value_nick         (GtkHTMLCommandType com_type);
 
 
 /* Values for selection information.  FIXME: what about COMPOUND_STRING and
@@ -2556,63 +2557,75 @@ cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType ski
 	gtk_html_edit_make_cursor_visible (html);
 }
 
-static void
+static gboolean
 move_selection (GtkHTML *html, GtkHTMLCommandType com_type)
 {
+	gboolean rv;
 	gint amount;
 
 	if (!html_engine_get_editable (html->engine))
-		return;
+		return FALSE;
 
 	html->engine->shift_selection = TRUE;
 	if (!html->engine->mark)
 		html_engine_set_mark (html->engine);
 	switch (com_type) {
 	case GTK_HTML_COMMAND_MODIFY_SELECTION_UP:
-		html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_UP, 1);
+		rv = html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_UP, 1) > 0 ? TRUE : FALSE;
 		break;
 	case GTK_HTML_COMMAND_MODIFY_SELECTION_DOWN:
-		html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_DOWN, 1);
+		rv = html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_DOWN, 1) > 0 ? TRUE : FALSE;
 		break;
 	case GTK_HTML_COMMAND_MODIFY_SELECTION_LEFT:
-		html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_LEFT, 1);
+		rv = html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_LEFT, 1) > 0 ? TRUE : FALSE;
 		break;
 	case GTK_HTML_COMMAND_MODIFY_SELECTION_RIGHT:
-		html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_RIGHT, 1);
+		rv = html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_RIGHT, 1) > 0 ? TRUE : FALSE;
 		break;
 	case GTK_HTML_COMMAND_MODIFY_SELECTION_BOL:
-		html_engine_beginning_of_line (html->engine);
+		rv = html_engine_beginning_of_line (html->engine);
 		break;
 	case GTK_HTML_COMMAND_MODIFY_SELECTION_EOL:
-		html_engine_end_of_line (html->engine);
+		rv = html_engine_end_of_line (html->engine);
 		break;
 	case GTK_HTML_COMMAND_MODIFY_SELECTION_BOD:
 		html_engine_beginning_of_document (html->engine);
+		rv = TRUE;
 		break;
 	case GTK_HTML_COMMAND_MODIFY_SELECTION_EOD:
 		html_engine_end_of_document (html->engine);
+		rv = TRUE;
 		break;
 	case GTK_HTML_COMMAND_MODIFY_SELECTION_PAGEUP:
-		if ((amount = html_engine_scroll_up (html->engine, GTK_WIDGET (html)->allocation.height)) > 0)
+		if ((amount = html_engine_scroll_up (html->engine, GTK_WIDGET (html)->allocation.height)) > 0) {
 			scroll_by_amount (html, - amount);
+			rv = TRUE;
+		} else
+			rv = FALSE;
 		break;
 	case GTK_HTML_COMMAND_MODIFY_SELECTION_PAGEDOWN:
-		if ((amount = html_engine_scroll_down (html->engine, GTK_WIDGET (html)->allocation.height)) > 0)
+		if ((amount = html_engine_scroll_down (html->engine, GTK_WIDGET (html)->allocation.height)) > 0) {
 			scroll_by_amount (html, amount);
+			rv = TRUE;
+		} else
+			rv = FALSE;
 		break;
 	default:
 		g_warning ("invalid move_selection parameters\n");
+		rv = FALSE;
 	}
 
 	html->binding_handled = TRUE;
 	html->priv->update_styles = TRUE;
-	gtk_html_edit_make_cursor_visible (html);
+
+	return rv;
 }
 
-static void
+static gboolean
 command (GtkHTML *html, GtkHTMLCommandType com_type)
 {
 	HTMLEngine *e = html->engine;
+	gboolean rv = TRUE;
 
 	/* printf ("command %d %s\n", com_type, get_value_nick (com_type)); */
 	html->binding_handled = TRUE;
@@ -2636,7 +2649,7 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	}
 
 	if (!html_engine_get_editable (e) || html->binding_handled)
-		return;
+		return rv;
 
 	html->binding_handled = TRUE;
 	html->priv->update_styles = FALSE;
@@ -2831,7 +2844,7 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_MODIFY_SELECTION_EOD:
 	case GTK_HTML_COMMAND_MODIFY_SELECTION_PAGEUP:
 	case GTK_HTML_COMMAND_MODIFY_SELECTION_PAGEDOWN:
-		move_selection (html, com_type);
+		rv = move_selection (html, com_type);
 		break;
 	case GTK_HTML_COMMAND_SELECT_WORD:
 		gtk_html_select_word (html);
@@ -2917,12 +2930,21 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_TEXT_SET_DEFAULT_COLOR:
 		html_engine_set_color (e, NULL);
 		break;
+	case GTK_HTML_COMMAND_CURSOR_BOD:
+		html_engine_beginning_of_document (e);		
+		break;
+	case GTK_HTML_COMMAND_CURSOR_EOD:
+		html_engine_end_of_document (e);		
+		break;
+
 	default:
 		html->binding_handled = FALSE;
 	}
 
 	if (!html->binding_handled && html->editor_api)
 		html->binding_handled = (* html->editor_api->command) (html, com_type, html->editor_data);
+
+	return rv;
 }
 
 /*
@@ -3230,14 +3252,13 @@ gtk_html_editor_event_command (GtkHTML *html, GtkHTMLCommandType com_type)
 	}
 }
 
-void
+gboolean
 gtk_html_editor_command (GtkHTML *html, const gchar *command_name)
 {
 	GtkEnumValue *val;
 
 	val = gtk_type_enum_find_value (GTK_TYPE_HTML_COMMAND, command_name);
-	if (val)
-		command (html, val->value);
+	return val ? command (html, val->value) : FALSE;
 }
 
 gboolean
@@ -3264,4 +3285,24 @@ gtk_html_build_with_gconf ()
 #else
 	return FALSE;
 #endif
+}
+
+void
+gtk_html_insert_html (GtkHTML *html, const gchar *html_src)
+{
+	GtkHTML *tmp;
+	GtkWidget *window, *sw;
+	HTMLObject *o;
+
+	tmp    = GTK_HTML (gtk_html_new_from_string (html_src, -1));
+	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+	sw     = gtk_scrolled_window_new (NULL, NULL);
+	gtk_container_add (GTK_CONTAINER (window), GTK_WIDGET (sw));
+	gtk_container_add (GTK_CONTAINER (sw), GTK_WIDGET (tmp));
+	gtk_widget_realize (GTK_WIDGET (tmp));
+	o                 = tmp->engine->clue;
+	tmp->engine->clue = NULL;
+	html_image_factory_move_images (html->engine->image_factory, tmp->engine->image_factory);
+	html_engine_insert_object (html->engine, o, html_object_get_recursive_length (o));
+	gtk_widget_destroy (window);
 }

@@ -50,6 +50,12 @@ HTMLObjectClass html_object_class;
 /* HTMLObject virtual methods.  */
 
 static void
+free_data (GQuark id, gpointer data, gpointer user_data)
+{
+	g_free (data);
+}
+
+static void
 destroy (HTMLObject *self)
 {
 	if (self->redraw_pending) {
@@ -63,6 +69,7 @@ destroy (HTMLObject *self)
 		self->next = NULL;
 		self->prev = NULL;
 #endif
+		g_datalist_foreach (&self->object_data, free_data, NULL);
 		g_datalist_clear (&self->object_data);
 		g_free (self);
 	}
@@ -1490,9 +1497,9 @@ html_object_get_index (HTMLObject *self, guint offset)
 }
 
 void
-html_object_set_data (HTMLObject *object, const gchar *key, gpointer data)
+html_object_set_data (HTMLObject *object, const gchar *key, const gchar *value)
 {
-	g_datalist_set_data (&object->object_data, key, data);
+	g_datalist_set_data (&object->object_data, key, g_strdup (value));
 }
 
 gpointer
@@ -1506,7 +1513,7 @@ copy_data (GQuark key_id, gpointer data, gpointer user_data)
 {
 	HTMLObject *o = HTML_OBJECT (user_data);
 
-	g_datalist_id_set_data (&o->object_data, key_id, data);
+	g_datalist_id_set_data (&o->object_data, key_id, g_strdup ((gchar *)data));
 }
 
 void
@@ -1657,4 +1664,17 @@ html_object_nth_parent (HTMLObject *self, gint n)
 	}
 
 	return self;
+}
+
+gint
+html_object_get_parent_level (HTMLObject *self)
+{
+	gint level = 0;
+
+	while (self) {
+		level ++;
+		self = self->parent;
+	}
+
+	return level;
 }

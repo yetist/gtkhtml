@@ -100,9 +100,10 @@ struct _GtkHTMLClass {
 	void (* iframe_created)     (GtkHTML *html, GtkHTML *iframe);
 
 	/* keybindings signals */
-	void (* scroll)               (GtkHTML *html, GtkOrientation orientation, GtkScrollType scroll_type, gfloat position);
-	void (* cursor_move)          (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType skip);
-	void (* command)              (GtkHTML *html, GtkHTMLCommandType com_type);
+	void     (* scroll)               (GtkHTML *html, GtkOrientation orientation, GtkScrollType scroll_type,
+					   gfloat position);
+	void     (* cursor_move)          (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType skip);
+	gboolean (* command)              (GtkHTML *html, GtkHTMLCommandType com_type);
 
 	/* properties */
 	GtkHTMLClassProperties *properties;
@@ -235,6 +236,8 @@ void  gtk_html_paste  (GtkHTML *html);
 void  gtk_html_undo  (GtkHTML *html);
 void  gtk_html_redo  (GtkHTML *html);
 
+void  gtk_html_insert_html (GtkHTML *html, const gchar *html_src);
+
 /* misc utils */
 
 void      gtk_html_set_default_background_color  (GtkHTML     *html,
@@ -243,7 +246,7 @@ void      gtk_html_set_default_content_type      (GtkHTML     *html,
 						  gchar       *content_type);
 gpointer  gtk_html_get_object_by_id              (GtkHTML     *html,
 						  const gchar *id);
-void      gtk_html_editor_command                (GtkHTML     *html,
+gboolean  gtk_html_editor_command                (GtkHTML     *html,
 						  const gchar *command_name);
 gboolean  gtk_html_edit_make_cursor_visible      (GtkHTML     *html);
 

@@ -286,7 +286,7 @@ html_engine_select_all_editable (HTMLEngine *e)
 struct SetData {
 	HTMLType      object_type;
 	const gchar  *key;
-	gpointer      value;
+	const gchar  *value;
 };
 
 static void
@@ -301,7 +301,7 @@ set_data (HTMLObject *o, HTMLEngine *e, gpointer p)
 }
 
 void
-html_engine_set_data_by_type (HTMLEngine *e, HTMLType object_type, const gchar *key, gpointer value)
+html_engine_set_data_by_type (HTMLEngine *e, HTMLType object_type, const gchar *key, const gchar * value)
 {
 	struct SetData *data = g_new (struct SetData, 1);
 

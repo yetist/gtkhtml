@@ -27,6 +27,9 @@
 #include <gdk-pixbuf/gdk-pixbuf-loader.h>
 #include "htmlobject.h"
 
+#define HTML_IMAGE_FACTORY(x) ((HTMLImageFactory *)(x))
+#define HTML_IMAGE_POINTER(x) ((HTMLImagePointer *)(x))
+
 struct _HTMLImagePointer {
 	gint refcount;
 	gchar *url;
@@ -159,4 +162,6 @@ HTMLImagePointer *html_image_factory_register    (HTMLImageFactory *factory,
 void              html_image_factory_unregister  (HTMLImageFactory *factory,
 						  HTMLImagePointer *pointer,
 						  HTMLImage        *i);
+void              html_image_factory_move_images (HTMLImageFactory *dst,
+						  HTMLImageFactory *src);
 #endif /* _HTMLIMAGE_H_ */

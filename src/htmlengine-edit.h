@@ -56,7 +56,7 @@ void                       html_engine_spell_check_range          (HTMLEngine   
 void                       html_engine_set_data_by_type           (HTMLEngine                *e,
 								   HTMLType                   object_type,
 								   const gchar               *key,
-								   const gpointer             value);
+								   const gchar               *value);
 void                       html_engine_ensure_editable            (HTMLEngine                *e);
 HTMLObject                *html_engine_new_text                   (HTMLEngine                *e,
 								   const gchar               *text,

@@ -114,8 +114,10 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *ri
 	    || (HTML_IS_TABLE (HTML_CLUE (with)->head) && !html_clueflow_is_empty (cf1)))
 		return FALSE;
 
-	if (html_clueflow_is_empty (cf1))
+	if (html_clueflow_is_empty (cf1)) {
 		cf1->style = cf2->style;
+		html_object_copy_data_from_object (self, with);
+	}
 
 	return (* HTML_OBJECT_CLASS (parent_class)->merge) (self, with, e, left, right);
 }
@@ -1643,8 +1645,7 @@ html_clueflow_init (HTMLClueFlow *clueflow,
 }
 
 HTMLObject *
-html_clueflow_new (HTMLClueFlowStyle style,
-		   guint8 level)
+html_clueflow_new (HTMLClueFlowStyle style, guint8 level)
 {
 	HTMLClueFlow *clueflow;
 

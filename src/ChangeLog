@@ -1,3 +1,54 @@
+2001-04-25  Radek Doulik  <rodo@ximian.com>
+
+	* htmlselection.c (html_engine_activate_selection): activate only
+	if widget is already realized
+
+	* htmlobject.c (destroy): free object data
+	(html_object_set_data): change type of value to gchar *
+	(html_object_get_parent_level): new method, returns depth in tree
+	(number of parents)
+
+	* htmlimage.c (html_image_pointer_load): new extracted method
+
+	* htmlengine.c (parse_d): set flow data to current flow
+
+	* htmlengine-edit.c (html_engine_set_data_by_type): change type of
+	value to gchar * (it's simpler and we could destroy data simplier)
+
+	* htmlcursor.c (html_cursor_beginning_of_paragraph): updated to
+	work with tables
+	(html_cursor_end_of_paragraph): likewise
+
+	* htmlclueflow.c (merge): copy data from cf2 if cf1 is empty
+
+	* gtkhtmldebug.c (dump_data): new helper function, dumps object
+	data
+	(dump_object_simple): dump object data
+
+	* gtkhtml.c (gtk_html_insert_html): use
+	html_image_factory_move_images
+
+	* htmlimage.c (html_image_factory_move_images): new method, moves
+	all image poiters from one factory to another
+
+	* gtkhtml.c (gtk_html_insert_html): new method, inserts html
+	generated from html source, hacked - creates new widget and steals
+	it's content and destroy it, insert content to original one
+
+2001-04-20  Radek Doulik  <rodo@ximian.com>
+
+	* htmlobject.c (destroy): free object data
+	(free_data): helper function
+
+	* gtkhtml.c (gtk_html_editor_command): added boolean return value
+
+	* htmlengine.c (flow_new): new wrapper around flow constructor
+	which sets object data
+
+	* gtkhtml.c (command): new command implementations
+
+	* gtkhtml-enums.h: added cursor-bod/eod commands
+
 2001-04-22  Ariel Rios  <ariel@linuxppc.org>
 
 	* test.c (button_cb): Remove stupid warning on callback.

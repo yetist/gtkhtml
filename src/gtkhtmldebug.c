@@ -219,6 +219,17 @@ debug_word_width (HTMLText *t, gint level)
 }
 
 static void
+dump_data (GQuark key_id, gpointer data, gpointer user_data)
+{
+	gint i, level = GPOINTER_TO_INT (user_data);
+
+	for (i = 0; i < level; i++)
+		g_print ("\t");
+
+	printf ("%s: '%s'\n", g_quark_to_string (key_id), (gchar *) data);
+}
+
+static void
 dump_object_simple (HTMLObject *obj,
 		    gint level)
 {
@@ -250,6 +261,9 @@ dump_object_simple (HTMLObject *obj,
 			 HTML_TABLE (obj)->totalRows, HTML_TABLE (obj)->totalCols);
 	} else
 		g_print ("%s\n", html_type_name (HTML_OBJECT_TYPE (obj)));
+
+	if (obj->object_data)
+		g_datalist_foreach (&obj->object_data, dump_data, GINT_TO_POINTER (level));
 }
 
 void

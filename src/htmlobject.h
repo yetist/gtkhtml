@@ -315,6 +315,7 @@ HTMLObject     *html_object_prev_by_type          (HTMLObject            *self,
 						   HTMLType               t);
 HTMLObject     *html_object_nth_parent            (HTMLObject            *self,
 						   gint                   n);
+gint            html_object_get_parent_level      (HTMLObject            *self);
 /* do search request on object using info */
 gboolean        html_object_search                (HTMLObject            *self,
 						   HTMLSearch            *info);
@@ -484,7 +485,7 @@ void  html_object_change_set_down  (HTMLObject      *self,
 
 void      html_object_set_data               (HTMLObject  *object,
 					      const gchar *key,
-					      gpointer     data);
+					      const gchar *value);
 gpointer  html_object_get_data               (HTMLObject  *object,
 					      const gchar *key);
 void      html_object_copy_data_from_object  (HTMLObject  *dst,

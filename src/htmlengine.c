@@ -323,6 +323,17 @@ text_new (HTMLEngine *e, const gchar *text, GtkHTMLFontStyle style, HTMLColor *c
 }
 
 static HTMLObject *
+flow_new (HTMLEngine *e, HTMLClueFlowStyle style, guint8 level)
+{
+	HTMLObject *o;
+
+	o = html_clueflow_new (style, level);
+	html_engine_set_object_data (e, o);
+
+	return o;
+}
+
+static HTMLObject *
 create_empty_text (HTMLEngine *e)
 {
 	HTMLObject *o;
@@ -402,7 +413,7 @@ new_flow (HTMLEngine *e,
 {
 	close_flow (e, clue);
 
-	e->flow = html_clueflow_new (current_clueflow_style (e), e->indent_level);
+	e->flow = flow_new (e, current_clueflow_style (e), e->indent_level);
 
 	HTML_CLUE (e->flow)->halign = e->divAlign;
 
@@ -2024,10 +2035,13 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 			} else if (strncasecmp (token, "key=", 4 ) == 0) {
 				g_free (key);
 				key = g_strdup (token + 4);
-			} else if (class_name && key && strncasecmp (token, "value=", 6) == 0)
+			} else if (class_name && key && strncasecmp (token, "value=", 6) == 0) {
 				html_engine_set_class_data (e, class_name, key, token + 6);
-			else if (strncasecmp (token, "clear=", 6) == 0)
+				if (!strcmp (class_name, "ClueFlow") && e->flow)
+					html_engine_set_object_data (e, e->flow);
+			} else if (strncasecmp (token, "clear=", 6) == 0)
 				html_engine_clear_class_data (e, class_name, token + 6);
+			/* TODO clear flow data */
 		}
 		g_free (class_name);
 		g_free (key);
@@ -2449,7 +2463,7 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 
 		close_flow (p, clue);
 
-		p->flow = html_clueflow_new (HTML_CLUEFLOW_STYLE_ITEMDOTTED, p->indent_level);
+		p->flow = flow_new (p, HTML_CLUEFLOW_STYLE_ITEMDOTTED, p->indent_level);
 		html_clue_append (HTML_CLUE (clue), p->flow);
 
 		p->avoid_para = TRUE;
@@ -3379,7 +3393,7 @@ html_engine_ensure_editable (HTMLEngine *engine)
 	if (head == NULL || HTML_OBJECT_TYPE (head) != HTML_TYPE_CLUEFLOW) {
 		HTMLObject *clueflow;
 
-		clueflow = html_clueflow_new (HTML_CLUEFLOW_STYLE_NORMAL, 0);
+		clueflow = flow_new (engine, HTML_CLUEFLOW_STYLE_NORMAL, 0);
 		html_clue_prepend (HTML_CLUE (cluev), clueflow);
 
 		head = clueflow;
