@@ -198,6 +198,7 @@ begin (HTMLPainter *painter,
 	gnome_print_lineto (pc, printer_x2, printer_y2);
 	gnome_print_lineto (pc, printer_x2, printer_y1);
 	gnome_print_lineto (pc, printer_x1, printer_y1);
+	gnome_print_closepath (pc);
 
 #ifdef PRINTER_DEBUG
 	gnome_print_gsave (pc);
@@ -282,6 +283,7 @@ prepare_rectangle (HTMLPainter *painter, gint _x, gint _y, gint w, gint h)
 	gnome_print_lineto  (context, x + width, y - height);
 	gnome_print_lineto  (context, x, y - height);
 	gnome_print_lineto  (context, x, y);
+	gnome_print_closepath (context);
 }
 
 static void
@@ -397,6 +399,7 @@ draw_panel (HTMLPainter *painter,
 	gnome_print_lineto  (pc, x + bs, y - bs );
 	gnome_print_lineto  (pc, x + bs, y - height + bs);
 	gnome_print_lineto  (pc, x, y - height);
+	gnome_print_closepath (pc);
 	gnome_print_fill    (pc);
 
 	if (col1)
@@ -409,6 +412,7 @@ draw_panel (HTMLPainter *painter,
 	gnome_print_lineto  (pc, x + width - bs, y - bs);
 	gnome_print_lineto  (pc, x + width - bs, y - height + bs);
 	gnome_print_lineto  (pc, x + bs, y - height + bs);
+	gnome_print_closepath (pc);
 	gnome_print_fill    (pc);
 }
 
@@ -442,6 +446,7 @@ draw_background (HTMLPainter *painter,
 		gnome_print_lineto (pc, x + width, y - height);
 		gnome_print_lineto (pc, x, y - height);
 		gnome_print_lineto (pc, x, y);
+		gnome_print_closepath (pc);
 
 		gnome_print_fill (pc);
 	}
@@ -500,6 +505,7 @@ fill_rect (HTMLPainter *painter,
 	gnome_print_lineto (printer->print_context, printer_x + printer_width, printer_y - printer_height);
 	gnome_print_lineto (printer->print_context, printer_x, printer_y - printer_height);
 	gnome_print_lineto (printer->print_context, printer_x, printer_y);
+	gnome_print_closepath (printer->print_context);
 
 	gnome_print_fill (printer->print_context);
 }

@@ -1,3 +1,10 @@
+2001-09-25  Lauris Kaplinski  <lauris@ximian.com>
+
+	* htmlprinter.c (draw_panel): Close path before fill
+	(draw_background): Ditto
+	(begin): Close path before clip
+	(prepare_rectangle): Close path
+
 2001-09-21  Larry Ewing  <lewing@ximian.com>
 
 	* htmltext.c (is_convert_nbsp_needed): silence a warning.
