@@ -1,5 +1,12 @@
 2000-04-06  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlobject.c
+	(relayout): Use `prev_ascent' and `prev_descent' instead of the
+	values in yourself as they are set to zero after the call to
+	`html_object_reset()'.
+
+2000-04-06  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* htmlimageinput.c
 	(draw): Do not set `width', `ascent'.
 	(calc_min_width): New function, implementation of

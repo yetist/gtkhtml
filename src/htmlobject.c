@@ -243,6 +243,8 @@ relayout (HTMLObject *self,
 	prev_ascent = self->ascent;
 	prev_descent = self->descent;
 
+	/* Notice that this will reset ascent and descent which we
+           need afterwards.  Yeah, yuck, bleargh.  */
 	html_object_reset (self);
 
 	/* Crappy hack to make crappy htmlclueflow.c happy.  */
@@ -251,7 +253,7 @@ relayout (HTMLObject *self,
 			   "Y value < height of object!\n");
 		self->y = 0;
 	} else {
-		self->y -= self->ascent + self->descent;
+		self->y -= prev_ascent + prev_descent;
 	}
 
 	changed = html_object_calc_size (self, engine->painter);
