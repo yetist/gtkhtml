@@ -1,3 +1,5 @@
+FIXME: This list is incomplete.
+
 Table problems
 --------------
 
@@ -15,10 +17,6 @@ Table problems
 
 - The API needs some loving.  (FIXME: come up with a list of things
   that are ugly/broken/etc.)
-
-- The parser can crash sometimes, and this is embarassing.  Let's load
-  it with lots of random/inappropriate data and let's make it sure
-  this does not happen *ever*.
 
 - We might want to speed up redraw on expose.
 
@@ -40,14 +38,6 @@ Table problems
 - `html_object_draw_background()' can be very slow sometimes.  This
   makes selection very very slow.  Look at http://www.breakupgirl.com/
   for an example.
-
-* Sites that look wrong
------------------------
-
-- http://www.altavista.com is not 100% correct.
-
-- In http://www.helixcode.com, the "GNOME Desktop" logo on the right
-  is misaligned.
 
 * Editor bugs
 -------------
