@@ -4,6 +4,8 @@
 	objects here, this fixes well known magic links bug
 	(do_paste): try to merge for all pasted objects, this simplifies
 	cut&paste commands (they do not need try to merge by itself)
+	(prepare_clueflows): do split_first_clueflow_at_cursor also when
+	append is TRUE
 
 	* htmlengine-edit-insert.c (equal_insertion): fixed case when
 	target is NULL

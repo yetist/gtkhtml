@@ -88,12 +88,15 @@ split_at_cursor (HTMLEngine *engine)
 	HTMLCursor *cursor;
 	HTMLObject *current;
 
+	printf ("split_at_cursor: %d\n", engine->cursor->position);
+
 	cursor = engine->cursor;
 
 	/* If we are at the beginning of the element, we can always simply prepend stuff
            to the element itself.  */
 	if (cursor->offset == 0)
 		return FALSE;
+	printf ("split_at_cursor: %d\n", engine->cursor->position);
 
 	current = cursor->object;
 
@@ -124,14 +127,15 @@ split_at_cursor (HTMLEngine *engine)
    with properties given by those of @clue.  */
 static void
 split_first_clueflow_at_cursor (HTMLEngine *engine,
-				HTMLClueFlow *clue)
+				HTMLClueFlow *clue,
+				HTMLObject *curr)
 {
 	HTMLObject *new_clueflow;
-	HTMLObject *curr;
 	HTMLObject *curr_clue;
 	HTMLObject *p, *pnext;
 
-	curr = engine->cursor->object;
+	printf ("split_first_clueflow_at_cursor position: %d\n", engine->cursor->position);
+
 	curr_clue = curr->parent;
 
 	/* If there is nothing else before this element in the
@@ -198,6 +202,8 @@ prepare_clueflows (HTMLEngine *engine,
 	gboolean first;
 	gboolean retval;
 
+	printf ("append: %d\n", append);
+
 	curr = engine->cursor->object;
 	g_return_val_if_fail (curr->parent != NULL, FALSE);
 	g_return_val_if_fail (HTML_OBJECT_TYPE (curr->parent) == HTML_TYPE_CLUEFLOW, FALSE);
@@ -214,7 +220,7 @@ prepare_clueflows (HTMLEngine *engine,
 			continue;
 
 		if (first && ! append) {
-			split_first_clueflow_at_cursor (engine, HTML_CLUEFLOW (obj));
+			split_first_clueflow_at_cursor (engine, HTML_CLUEFLOW (obj), engine->cursor->object);
 
 			clue = engine->cursor->object->parent;
 			g_assert (clue != NULL);
@@ -223,12 +229,13 @@ prepare_clueflows (HTMLEngine *engine,
 			retval = TRUE;
 		} else {	/* ! first || append */
 			if (first) { /* first && append */
+				split_first_clueflow_at_cursor (engine, HTML_CLUEFLOW (obj), engine->cursor->object->next);
 				clue = engine->cursor->object->parent;
 				first = FALSE;
+			} else {
+				g_assert (clue != NULL);
+				clue = add_new_clueflow (engine, HTML_CLUEFLOW (obj), clue);
 			}
-
-			g_assert (clue != NULL);
-			clue = add_new_clueflow (engine, HTML_CLUEFLOW (obj), clue);
 		}
 	}
 
@@ -384,7 +391,7 @@ remove_element_if_empty_text (HTMLEngine *engine,
 
 static guint
 do_paste (HTMLEngine *engine,
-	  GList *buffer)
+	      GList *buffer)
 {
 	/* Whether we need to append the elements at the cursor
 	   position or not.  */
