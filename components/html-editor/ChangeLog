@@ -1,3 +1,10 @@
+2004-02-13  Radek Doulik  <rodo@ximian.com>
+
+	* image.c (image_url_requested): don't set size in idle allback,
+	instead calc size and call set_size
+
+	Fixes #54204
+
 2004-02-11  Yong Sun <Yong.Sun@sun.com>
 
 	* toolbar.c: (create_style_toolbar) steal domain for libgnomeui to 
