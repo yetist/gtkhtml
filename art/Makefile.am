@@ -48,7 +48,9 @@ icons_DATA = \
 	transparent.png			\
 	undo-16.png			\
 	undo-24.png			\
-	bg1.png
+	paper.png			\
+	rect.png			\
+	texture.png
 
 EXTRA_DIST = \
 	$(icons_DATA)
