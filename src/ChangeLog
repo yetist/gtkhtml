@@ -1,5 +1,8 @@
 2001-05-17  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine-edit-table.c (new_cell): don't set cell background
+	from table (it's resolved dynamically now)
+
 	* htmlimage.c (html_image_pointer_load): ref image pointer
 	(html_image_factory_register): don't ref image pointer before
 	loading (it's done in load now) but ref all image pointers (for

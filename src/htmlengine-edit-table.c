@@ -51,11 +51,6 @@ new_cell (HTMLEngine *e, HTMLTable *table)
 	html_clue_append (HTML_CLUE (flow), text);
 	html_clue_append (HTML_CLUE (cell), flow);
 
-	if (table->bgColor)
-		html_object_set_bg_color (cell, table->bgColor);
-	if (table->bgPixmap)
-		html_table_cell_set_bg_pixmap (HTML_TABLE_CELL (cell), table->bgPixmap);
-
 	return HTML_TABLE_CELL (cell);
 }
 
