@@ -139,9 +139,24 @@ AC_ARG_WITH(gconf,
 )
 
 if $try_gconf; then
-	AM_PATH_GCONF(,have_gconf=true,have_gconf=false,gconf-gtk)
-	
+	AC_MSG_CHECKING([for gconf])
+	if gconf-config --version > /dev/null 2>&1; then
+		gconf_ver=`gconf-config --version`
+		have_gconf=true
+		AC_DEFINE(HAVE_GCONF)
+		GCONF_CFLAGS="`gconf-config --cflags gconf-gtk`"
+		GCONF_LIBS="`gconf-config --libs gconf-gtk`"
+		AC_MSG_RESULT([found ($gconf_ver)])
+	else
+		have_gconf=false
+		GCONF_CFLAGS=""
+		GCONF_LIBS=""
+		AC_MSG_RESULT([not found, gtkhtml will be built without gconf support])
+	fi
 fi
+AC_SUBST(GCONF_CFLAGS)
+AC_SUBST(GCONF_LIBS)
+
 AM_CONDITIONAL(GCONF, $have_gconf)
 
 dnl gnome-print checks.

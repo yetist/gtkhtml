@@ -20,6 +20,7 @@
    Boston, MA 02111-1307, USA.
 */
 
+#include <config.h>
 #include "gtkhtml.h"
 #include "gtkhtml-properties.h"
 
@@ -49,6 +50,8 @@ gtk_html_class_properties_destroy (GtkHTMLClassProperties *p)
         gconf_value_destroy (val); } \
         g_free (key);
 
+#ifdef HAVE_GCONF
+
 void
 gtk_html_class_properties_load (GtkHTMLClassProperties *p, GConfClient *client)
 {
@@ -62,6 +65,8 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p, GConfClient *client)
 	GET (string, "/keybindings_theme", keybindings_theme,
 	     g_free (p->keybindings_theme), p->keybindings_theme = g_strdup (p->keybindings_theme));
 }
+
+#endif
 
 void
 gtk_html_class_properties_copy (GtkHTMLClassProperties *p1,
@@ -77,6 +82,8 @@ gtk_html_class_properties_copy (GtkHTMLClassProperties *p1,
         gconf_client_set_ ## t (client, key, p-> ## prop, NULL); \
         g_free (key);
 
+#ifdef HAVE_GCONF
+
 void
 gtk_html_class_properties_update (GtkHTMLClassProperties *p, GConfClient *client, GtkHTMLClassProperties *old)
 {
@@ -90,6 +97,8 @@ gtk_html_class_properties_update (GtkHTMLClassProperties *p, GConfClient *client
 
 	SET (string, "/keybindings_theme", keybindings_theme);
 }
+
+#endif
 
 /* enums */
 

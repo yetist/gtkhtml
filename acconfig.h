@@ -16,6 +16,7 @@
 #undef HAVE_GNU_REGEX
 #undef USING_OAF
 #undef PREFIX
+#undef HAVE_GCONF
 
 @BOTTOM@
 /* This is from libglade */

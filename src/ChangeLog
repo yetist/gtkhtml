@@ -1,3 +1,13 @@
+2000-06-28  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml-properties.c: likewise
+
+	* gtkhtml-properties.h: likewise
+
+	* gtkhtml.c: likewise
+
+	* gtkhtml.h: make gconf usage optional
+
 2000-06-28  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlengine-edit-delete.c (safe_remove): once again do not access

@@ -49,8 +49,10 @@
 
 static GtkLayoutClass *parent_class = NULL;
 
+#ifdef HAVE_GCONF
 GConfClient *gconf_client = NULL;
 GConfError  *gconf_error  = NULL;
+#endif
 
 enum {
 	TITLE_CHANGED,
@@ -1077,6 +1079,8 @@ set_adjustments (GtkLayout     *layout,
 
 /* Initialization.  */
 
+#ifdef HAVE_GCONF
+
 static void
 client_notify (GConfClient* client,
 	       guint cnxn_id,
@@ -1107,13 +1111,19 @@ client_notify (GConfClient* client,
 		g_assert_not_reached ();
 }
 
+#endif
+
 static void
 init_properties (GtkHTMLClass *klass)
 {
 	klass->properties = gtk_html_class_properties_new ();
+#ifdef HAVE_GCONF
 	gtk_html_class_properties_load (klass->properties, gconf_client);
+#endif
 	load_keybindings (klass);
+#ifdef HAVE_GCONF
 	gconf_client_notify_add (gconf_client, GTK_HTML_GCONF_DIR, client_notify, klass, NULL, NULL);
+#endif
 }
 
 static void
@@ -2238,6 +2248,7 @@ load_keybindings (GtkHTMLClass *klass)
 gboolean
 gtkhtmllib_init (gint argc, gchar **argv)
 {
+#ifdef HAVE_GCONF
 	if (!gconf_init (argc, argv, &gconf_error)) {
 		g_assert (gconf_error != NULL);
 		g_warning ("GConf init failed:\n  %s", gconf_error->str);
@@ -2246,6 +2257,7 @@ gtkhtmllib_init (gint argc, gchar **argv)
 
 	gconf_client = gconf_client_new ();
 	gconf_client_add_dir (gconf_client, GTK_HTML_GCONF_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
+#endif
 
 	return TRUE;
 }

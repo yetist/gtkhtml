@@ -1,3 +1,8 @@
+2000-06-28  Radek Doulik  <rodo@helixcode.com>
+
+	* configure.in: gconf testing independent of gconf.m4
+	define HAVE_GCONF when gconf found
+
 2000-06-19  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* acconfig.h: `PREFIX'.
