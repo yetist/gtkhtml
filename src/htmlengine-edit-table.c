@@ -794,6 +794,9 @@ table_set_spacing (HTMLEngine *e, HTMLTable *t, gint spacing, gboolean relative,
 	HTMLTableSetAttrUndo *undo;
 	gint new_spacing;
 
+	if (!t)
+		return;
+
 	if (relative)
 		new_spacing = t->spacing + spacing;
 	else
@@ -839,8 +842,10 @@ table_set_padding (HTMLEngine *e, HTMLTable *t, gint padding, gboolean relative,
 {
 	HTMLTableSetAttrUndo *undo;
 	gint r, c;
-
 	gint new_padding;
+
+	if (!t)
+		return;
 
 	if (relative)
 		new_padding = t->padding + padding;

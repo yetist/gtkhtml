@@ -3,6 +3,8 @@
 	* htmlengine-edit-table.c (html_engine_table_set_spacing): added
 	relative parameter
 	(html_engine_table_set_padding): ditto
+	(table_set_padding): check for t != NULL
+	(table_set_spacing): ditto
 
 	* keybindingsrc.ms: added bindings for table spacing/padding, I
 	must change spell checking bindings to avoid conflicts :-(
