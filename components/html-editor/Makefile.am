@@ -8,15 +8,15 @@ glade_DATA = gtkhtml-editor-properties.glade
 INCLUDES = -I$(top_srcdir)/src
 
 CFLAGS += \
-	$(EDITOR_CFLAGS)							\
-	-DICONDIR=\"$(gtkhtml_data)/icons\"					\
-        -DGTKHTML_DATADIR=\""$(gtkhtml_data)"\"					\
-        -DGNOMELOCALEDIR=\""$(datadir)/locale"\"				\
-	-DGLADE_DATADIR=\"$(gladedir)\"						\
-	-DGTK_DISABLE_DEPRECATED=1 						\
-	-DGDK_DISABLE_DEPRECATED=1						\
-	-DG_DISABLE_DEPRECATED=1						\
-	-DGNOME_DISABLE_DEPRECATED=1						\
+	$(EDITOR_CFLAGS)				\
+	-DICONDIR=\"$(gtkhtml_data)/icons\"		\
+        -DGTKHTML_DATADIR=\""$(gtkhtml_data)"\"		\
+        -DGNOMELOCALEDIR=\""$(datadir)/locale"\"	\
+	-DGLADE_DATADIR=\"$(gladedir)\"			\
+	-DGTK_DISABLE_DEPRECATED=1 			\
+	-DGDK_DISABLE_DEPRECATED=1			\
+	-DG_DISABLE_DEPRECATED=1			\
+	-DGNOME_DISABLE_DEPRECATED=1			\
 	-DBONOBO_DISABLE_DEPRECATED=1
 
 # CORBA stuff
@@ -110,21 +110,20 @@ GTKHTML_EDITOR_SOURCES_COMMON =			\
 	utils.c					\
 	utils.h
 
-if EDITOR_SHLIB
-lib_LTLIBRARIES = libgnome-gtkhtml-editor.la
-
-libgnome_gtkhtml_editor_la_SOURCES =		\
-	$(GTKHTML_EDITOR_SOURCES_COMMON)
-PRGS =
-else
+#if EDITOR_SHLIB
+#lib_LTLIBRARIES = libgnome-gtkhtml-editor.la
+#
+#libgnome_gtkhtml_editor_la_SOURCES =		\
+#	$(GTKHTML_EDITOR_SOURCES_COMMON)
+#libgnome_gtkhtml_editor_la_LDFLAGS = -release $(EDITOR_API_VERSION)
+#PRGS =
+#else
 PRGS = gnome-gtkhtml-editor
 gnome_gtkhtml_editor_SOURCES =			\
 	$(GTKHTML_EDITOR_SOURCES_COMMON)
 install-exec-hook:
 	mv $(DESTDIR)$(bindir)/gnome-gtkhtml-editor $(DESTDIR)$(bindir)/gnome-gtkhtml-editor-@EDITOR_API_VERSION@
-endif
-
-libgnome_gtkhtml_editor_la_LDFLAGS = -release $(EDITOR_API_VERSION)
+#endif
 
 bin_PROGRAMS = $(PRGS)
 
@@ -170,7 +169,7 @@ EXTRA_DIST =					\
 idldir = $(gtkhtml_data)
 idl_DATA = $(IDLS)
 
-CLEANFILES += $(IDL_GENERATED) $(SPELL_IDL_GENERATED)
+CLEANFILES = $(IDL_GENERATED) $(SPELL_IDL_GENERATED)
 BUILT_SOURCE = $(IDL_GENERATED) $(SPELL_IDL_GENERATED)
 
 dist-hook:
