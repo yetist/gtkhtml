@@ -10,8 +10,6 @@ binding "gtkhtml-bindings-emacs"
   bind "<Alt>greater"       { "cursor_move" (down, all) }
   bind "<Ctrl>b"            { "cursor_move" (left,  one) }
   bind "<Ctrl>f"            { "cursor_move" (right, one) }
-  bind "<Ctrl>Left"         { "cursor_move" (left,  word) }
-  bind "<Ctrl>Right"        { "cursor_move" (right, word) }
   bind "<Alt>b"             { "cursor_move" (left,  word) }
   bind "<Alt>f"             { "cursor_move" (right, word) }
   bind "<Ctrl>p"            { "cursor_move" (up,    one) }

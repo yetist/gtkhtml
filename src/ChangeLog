@@ -1,3 +1,11 @@
+2000-10-18  Radek Doulik  <rodo@helixcode.com>
+
+	* keybindingsrc.emacs: removed C-left, C-right as they are already
+	in standard bindings
+
+	* gtkhtml.c (load_keybindings): removed M-f, M-b from default
+	binding
+
 2000-10-17  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine-edit-fontstyle.c (object_set_font_style): changed
