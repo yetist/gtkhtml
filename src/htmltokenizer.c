@@ -41,6 +41,8 @@ static guint html_tokenizer_signals[HTML_TOKENIZER_LAST_SIGNAL] = { 0 };
 #define TOKEN_BUFFER_SIZE (1 << 10)
 #define INVALID_CHARACTER_MARKER '?'
 
+#define dt(x)
+
 typedef struct _HTMLBlockingToken HTMLBlockingToken;
 typedef struct _HTMLTokenBuffer   HTMLTokenBuffer;
 typedef	enum { Table }            HTMLTokenType;
@@ -315,6 +317,8 @@ html_token_buffer_append_token (HTMLTokenBuffer * buf, const gchar *token, gint 
 	buf->used += len;
 	buf->data [buf->used] = 0;
 	buf->used ++;
+
+	dt(printf ("html_token_buffer_append_token: '%s'\n", buf->data + buf->used - 1 - len));
 
 	return TRUE;
 }

@@ -2525,6 +2525,7 @@ element_parse_img (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	
 	if (align == HTML_HALIGN_NONE) {
 		append_element (e, clue, image);
+		e->eat_space = FALSE;
 	} else {
 		/* We need to put the image in a HTMLClueAligned.  */
 		/* Man, this is *so* gross.  */
