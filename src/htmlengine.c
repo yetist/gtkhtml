@@ -284,7 +284,7 @@ current_color (HTMLEngine *e) {
 			return span->style->color;
 	}
 
-	html_colorset_get_color (e->settings->color_set, HTMLTextColor);
+	return html_colorset_get_color (e->settings->color_set, HTMLTextColor);
 }
 	
 static HTMLFontFace *
