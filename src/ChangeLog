@@ -1,5 +1,12 @@
 2001-03-08  Larry Ewing  <lewing@ximian.com>
 
+	* htmlbutton.c (html_button_class_init): add encode method.
+	(encode): new method to encode the button value. (patch from "Bill
+	Gribble" <grib@gnumatic.com>)
+
+	* htmlbutton.h: add success indicator. (patch from "Bill Gribble"
+	<grib@gnumatic.com>)
+
 	* htmlengine.c (parse_object_params): handle the multiple leading
 	spaces you can get from tabs and &nbsp; correctly.
 	(is_leading_space): helper funtion to find leading whitespace.

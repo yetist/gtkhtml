@@ -37,7 +37,9 @@ clicked_event (GtkWidget *widget, gpointer data)
 
 	switch (b->type) {
 	case BUTTON_SUBMIT:
+		b->successful = TRUE;
 		html_form_submit (HTML_FORM (e->form));
+		b->successful = FALSE;
 		break;
 
 	case BUTTON_RESET:
@@ -59,6 +61,31 @@ copy (HTMLObject *self,
 }
 
 
+static gchar * 
+encode (HTMLEmbedded *e)
+{
+	GString *encoding = g_string_new ("");
+	gchar *ptr;
+
+	if(strlen (e->name) && (HTML_BUTTON(e)->successful)) {
+		ptr = html_embedded_encode_string (e->name);
+		encoding = g_string_append (encoding, ptr);
+		g_free (ptr);
+
+		encoding = g_string_append_c (encoding, '=');
+
+		ptr = html_embedded_encode_string (e->value);
+		encoding = g_string_append (encoding, ptr);
+		g_free (ptr);		
+	}
+
+	ptr = encoding->str;
+	g_string_free(encoding, FALSE);
+	
+	return ptr;
+}
+
+
 void
 html_button_type_init (void)
 {
@@ -79,6 +106,7 @@ html_button_class_init (HTMLButtonClass *klass,
 	html_embedded_class_init (element_class, type, object_size);
 
 	object_class->copy = copy;
+	element_class->encode = encode;
 
 	parent_class = &html_embedded_class;
 }
@@ -124,7 +152,7 @@ html_button_init (HTMLButton *button,
                             GTK_SIGNAL_FUNC (clicked_event), button);
 
 	button->type = type;
-
+	button->successful = FALSE;
 	/*	gtk_widget_show(element->widget);
 		gtk_layout_put(GTK_LAYOUT(parent), element->widget, 0, 0);*/
 }

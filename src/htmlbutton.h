@@ -31,6 +31,7 @@
 struct _HTMLButton {
 	HTMLEmbedded element;
 	HTMLButtonType type;
+	gint successful;
 };
 
 struct _HTMLButtonClass {
