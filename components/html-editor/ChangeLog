@@ -1,3 +1,7 @@
+2003-07-18  Antonio Xu <antonio.xu@sun.com>
+
+	* image.c : (get_sample_html) : change some no sense text.
+
 2003-07-01  Yuedong Du <yuedong.du@sun.com>
 
 	* editor-control-factory.c : add a new signal handler (html_show_popup)
