@@ -1,14 +1,14 @@
 # Swedish messages for gtkhtml.
-# Copyright (C) 2000, 2001, 2002, 2003 Free Software Foundation, Inc.
-# Christian Rose <menthos@menthos.com>, 2000, 2001, 2002, 2003.
+# Copyright (C) 2000, 2001, 2002, 2003, 2004 Free Software Foundation, Inc.
+# Christian Rose <menthos@menthos.com>, 2000, 2001, 2002, 2003, 2004.
 # Martin Norbäck <d95mback@dtek.chalmers.se>, 2000.
 #
-# $Id: sv.po,v 1.76 2004/01/12 17:27:06 rodo Exp $
+# $Id: sv.po,v 1.77 2004/01/26 20:38:12 menthos Exp $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2004-01-12 18:08+0100\n"
+"POT-Creation-Date: 2004-01-26 18:50+0100\n"
 "PO-Revision-Date: 2003-06-06 11:11+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -459,7 +459,6 @@ msgid "Make the current Paragraph style Normal"
 msgstr "Gör stilen på det aktuella stycket normal"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
-#, fuzzy
 msgid "Make the current Paragraph style Preformat"
 msgstr "Gör stilen på det aktuella stycket förformaterad"
 
@@ -476,7 +475,7 @@ msgstr "Gör det aktuella stycket till en lista med romerska siffror"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
 msgid "Make the current paragraph a numbered list"
-msgstr "GÖr det aktuella stycket till en numrerad lista"
+msgstr "Gör det aktuella stycket till en numrerad lista"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:63
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
@@ -958,25 +957,27 @@ msgid "GNOME HTML Editor Factory"
 msgstr "HTML-redigerarfabrik för GNOME"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
-#, fuzzy
 msgid "Insert Sick smiley into document..."
-msgstr "Infoga skickande smilis i dokumentet..."
+msgstr "Infoga sjuk smilis i dokumentet..."
+
+msgid "Insert sick smiley into document..."
+msgstr "Infoga sjuk smilis i dokumentet..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
-#, fuzzy
 msgid "Make the current Paragraph style Preformatted"
 msgstr "Gör stilen på det aktuella stycket förformaterad"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 #: components/html-editor/paragraph.c:150
-#, fuzzy
 msgid "Preformatted"
-msgstr "Förformatera"
+msgstr "Förformaterad"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
-#, fuzzy
 msgid "S_ick"
-msgstr "_Blinka"
+msgstr "S_juk"
+
+msgid "Sick"
+msgstr "Sjuk"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:154
 msgid "_Wrap Lines"
@@ -996,39 +997,37 @@ msgid "Blue Ink"
 msgstr "Blått bläck"
 
 #: components/html-editor/body.c:90
-#, fuzzy
 msgid "Paper"
-msgstr "Sida"
+msgstr "Papper"
 
 #: components/html-editor/body.c:98
 msgid "Ribbon"
-msgstr ""
+msgstr "Band"
 
 #: components/html-editor/body.c:106
-#, fuzzy
 msgid "Midnight"
-msgstr "Höger"
+msgstr "Midnatt"
 
 #: components/html-editor/body.c:114
-#, fuzzy
 msgid "Confidential"
-msgstr "Ta bort indragning"
+msgstr "Hemligt"
 
 #: components/html-editor/body.c:122
 msgid "Draft"
-msgstr ""
+msgstr "Utkast"
 
 #: components/html-editor/body.c:130
 msgid "Graph paper"
-msgstr ""
+msgstr "Grafpapper"
 
 #. string marked for translations is sample text. you may want to translate it to common sample text in your language
 #: components/html-editor/body.c:163
-#, fuzzy
 msgid ""
 "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a href="
 "\"mailto:dog\">dog</a>."
-msgstr "Flygande bäckasiner söka strax hwila på mjuka tuvor."
+msgstr ""
+"Flygande <a href=\"mailto:backasiner\">bäckasiner</a> söka strax hwila på "
+"mjuka <a href=\"mailto:tuvor\">tuvor</a>."
 
 #: components/html-editor/body.c:316 src/gtkhtml.c:2683
 msgid "Document Title"
@@ -1097,6 +1096,205 @@ msgstr "Stycke"
 #: components/html-editor/menubar.c:320 components/html-editor/popup.c:223
 msgid "Page"
 msgstr "Sida"
+
+#. This is the default custom color
+#: components/html-editor/gi-color-palette.c:394
+msgid "custom"
+msgstr "anpassad"
+
+#. "Custom" color - we'll pop up a GnomeColorPicker
+#: components/html-editor/gi-color-palette.c:436
+msgid "Custom Color:"
+msgstr "Anpassad färg:"
+
+#: components/html-editor/gi-color-palette.c:444
+msgid "Choose Custom Color"
+msgstr "Välj anpassad färg"
+
+#: components/html-editor/gi-color-palette.c:577
+msgid "black"
+msgstr "svart"
+
+#: components/html-editor/gi-color-palette.c:578
+msgid "light brown"
+msgstr "ljusbrun"
+
+#: components/html-editor/gi-color-palette.c:579
+msgid "brown gold"
+msgstr "guldbrun"
+
+#: components/html-editor/gi-color-palette.c:580
+msgid "dark green #2"
+msgstr "mörkgrön 2"
+
+#: components/html-editor/gi-color-palette.c:581
+msgid "navy"
+msgstr "marinblå"
+
+#: components/html-editor/gi-color-palette.c:582
+#: components/html-editor/gi-color-palette.c:638
+msgid "dark blue"
+msgstr "mörkblå"
+
+#: components/html-editor/gi-color-palette.c:583
+msgid "purple #2"
+msgstr "lila 2"
+
+#: components/html-editor/gi-color-palette.c:584
+msgid "very dark gray"
+msgstr "mycket mörkt grå"
+
+#: components/html-editor/gi-color-palette.c:587
+#: components/html-editor/gi-color-palette.c:643
+msgid "dark red"
+msgstr "mörkröd"
+
+#: components/html-editor/gi-color-palette.c:588
+msgid "red-orange"
+msgstr "rödorange"
+
+#: components/html-editor/gi-color-palette.c:589
+msgid "gold"
+msgstr "guld"
+
+#: components/html-editor/gi-color-palette.c:590
+msgid "dark green"
+msgstr "mörkgrön"
+
+#: components/html-editor/gi-color-palette.c:591
+#: components/html-editor/gi-color-palette.c:644
+msgid "dull blue"
+msgstr "mattblå"
+
+#: components/html-editor/gi-color-palette.c:592
+#: components/html-editor/gi-color-palette.c:645
+msgid "blue"
+msgstr "blå"
+
+#: components/html-editor/gi-color-palette.c:593
+msgid "dull purple"
+msgstr "mattlila"
+
+#: components/html-editor/gi-color-palette.c:594
+msgid "dark grey"
+msgstr "mörkgrå"
+
+#: components/html-editor/gi-color-palette.c:597
+msgid "red"
+msgstr "röd"
+
+#: components/html-editor/gi-color-palette.c:598
+msgid "orange"
+msgstr "orange"
+
+#: components/html-editor/gi-color-palette.c:599
+msgid "lime"
+msgstr "lime"
+
+#: components/html-editor/gi-color-palette.c:600
+msgid "dull green"
+msgstr "mattgrön"
+
+#: components/html-editor/gi-color-palette.c:601
+msgid "dull blue #2"
+msgstr "mattblå 2"
+
+#: components/html-editor/gi-color-palette.c:602
+msgid "sky blue #2"
+msgstr "himmelsblå 2"
+
+#: components/html-editor/gi-color-palette.c:603
+#: components/html-editor/gi-color-palette.c:642
+msgid "purple"
+msgstr "lila"
+
+#: components/html-editor/gi-color-palette.c:604
+msgid "gray"
+msgstr "grå"
+
+#: components/html-editor/gi-color-palette.c:607
+#: components/html-editor/gi-color-palette.c:639
+msgid "magenta"
+msgstr "magenta"
+
+#: components/html-editor/gi-color-palette.c:608
+msgid "bright orange"
+msgstr "klarorange"
+
+#: components/html-editor/gi-color-palette.c:609
+#: components/html-editor/gi-color-palette.c:640
+msgid "yellow"
+msgstr "gul"
+
+#: components/html-editor/gi-color-palette.c:610
+msgid "green"
+msgstr "grön"
+
+#: components/html-editor/gi-color-palette.c:611
+#: components/html-editor/gi-color-palette.c:641
+msgid "cyan"
+msgstr "cyan"
+
+#: components/html-editor/gi-color-palette.c:612
+msgid "bright blue"
+msgstr "klarblå"
+
+#: components/html-editor/gi-color-palette.c:613
+#: components/html-editor/gi-color-palette.c:630
+msgid "red purple"
+msgstr "rödlila"
+
+#: components/html-editor/gi-color-palette.c:614
+msgid "light grey"
+msgstr "ljusgrå"
+
+#: components/html-editor/gi-color-palette.c:617
+#: components/html-editor/gi-color-palette.c:634
+msgid "pink"
+msgstr "rosa"
+
+#: components/html-editor/gi-color-palette.c:618
+msgid "light orange"
+msgstr "ljusorange"
+
+#: components/html-editor/gi-color-palette.c:619
+#: components/html-editor/gi-color-palette.c:631
+msgid "light yellow"
+msgstr "ljusgul"
+
+#: components/html-editor/gi-color-palette.c:620
+msgid "light green"
+msgstr "ljusgrön"
+
+#: components/html-editor/gi-color-palette.c:621
+msgid "light cyan"
+msgstr "ljuscyan"
+
+#: components/html-editor/gi-color-palette.c:622
+#: components/html-editor/gi-color-palette.c:632
+msgid "light blue"
+msgstr "ljusblå"
+
+#: components/html-editor/gi-color-palette.c:623
+#: components/html-editor/gi-color-palette.c:636
+msgid "light purple"
+msgstr "ljuslila"
+
+#: components/html-editor/gi-color-palette.c:624
+msgid "white"
+msgstr "vit"
+
+#: components/html-editor/gi-color-palette.c:629
+msgid "purplish blue"
+msgstr "blålila"
+
+#: components/html-editor/gi-color-palette.c:633
+msgid "dark purple"
+msgstr "mörklila"
+
+#: components/html-editor/gi-color-palette.c:635
+msgid "sky blue"
+msgstr "himmelsblå"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
@@ -1427,11 +1625,12 @@ msgid ""
 "This is sample text, designed to show you how text would flow around this "
 "image if you insert the image into your message."
 msgstr ""
+"Det här är en exempeltext, utformad för att visa hur text flyter runt denna "
+"bild om du infogar bilden i ditt meddelande."
 
 #: components/html-editor/image.c:270
-#, fuzzy
 msgid "No image selected"
-msgstr "Val av bild"
+msgstr "Ingen bild vald"
 
 #: components/html-editor/image.c:705
 msgid ""
@@ -1475,9 +1674,8 @@ msgstr "Infoga: Textfil"
 
 #. string marked for translations is sample text. you may want to translate it to common sample text in your language
 #: components/html-editor/paragraph.c:62
-#, fuzzy
 msgid "The quick brown fox jumps over the lazy dog.</div>"
-msgstr "Flygande bäckasiner söka strax hwila på mjuka tuvor."
+msgstr "Flygande bäckasiner söka strax hwila på mjuka tuvor.</div>"
 
 #: components/html-editor/paragraph.c:134 components/html-editor/toolbar.c:54
 msgid "Header 1"
@@ -1609,13 +1807,12 @@ msgid "Cell contents"
 msgstr "Cellinnehåll"
 
 #: components/html-editor/popup.c:540
-#, fuzzy
 msgid "Check Word Spelling..."
-msgstr "Kontrollera sta_vning..."
+msgstr "Kontrollera stavning..."
 
 #: components/html-editor/popup.c:545
 msgid "Add Word to"
-msgstr ""
+msgstr "Lägg till ord i"
 
 #: components/html-editor/popup.c:549
 #, c-format
@@ -1623,37 +1820,38 @@ msgid "%s Dictionary"
 msgstr "Ordbok för %s"
 
 #: components/html-editor/popup.c:558
-#, fuzzy
 msgid "Add Word to Dictionary"
-msgstr "Ordbok för %s"
+msgstr "Lägg till ord i ordbok"
 
 #: components/html-editor/popup.c:561
-#, fuzzy
 msgid "Ignore Misspelled Word"
-msgstr "Inget felstavat ord hittades"
+msgstr "Ignorera felstavat ord"
 
 #: components/html-editor/popup.c:564
 msgid "Input Methods"
-msgstr ""
+msgstr "Inmatningsmetoder"
 
 #: components/html-editor/replace.c:75
 msgid "Replace confirmation"
 msgstr "Ersättningsbekräftelse"
 
 #: components/html-editor/replace.c:76
-#, fuzzy
 msgid "Replace _All"
+msgstr "Ersätt _alla"
+
+msgid "Replace All"
 msgstr "Ersätt alla"
 
 #: components/html-editor/replace.c:77
-#, fuzzy
 msgid "_Next"
+msgstr "_Nästa"
+
+msgid "Next"
 msgstr "Nästa"
 
 #: components/html-editor/replace.c:79
-#, fuzzy
 msgid "_Replace"
-msgstr "Ersätt"
+msgstr "_Ersätt"
 
 #: components/html-editor/replace.c:165
 msgid "Search _backward"
@@ -1696,7 +1894,6 @@ msgid "Find Regular Expression"
 msgstr "Sök reguljärt uttryck"
 
 #: components/html-editor/spell.c:278
-#, fuzzy
 msgid "No misspelled word found"
 msgstr "Inget felstavat ord hittades"
 
@@ -1738,7 +1935,10 @@ msgstr "Bildram"
 
 #: components/html-editor/template.c:281
 msgid "Labels"
-msgstr ""
+msgstr "Etiketter"
+
+msgid "Label"
+msgstr "Etikett"
 
 #: components/html-editor/test-html-editor-control.c:323
 msgid "Open file..."
@@ -1986,9 +2186,6 @@ msgstr "GtkHTML-testprogram"
 #~ msgid "Backward"
 #~ msgstr "Bakåt"
 
-#~ msgid "with"
-#~ msgstr "med"
-
 #~ msgid "Check '%s' spelling..."
 #~ msgstr "Kontrollera stavning av \"%s\"..."
 
@@ -2207,9 +2404,6 @@ msgstr "GtkHTML-testprogram"
 
 #~ msgid "spacing"
 #~ msgstr "mellanrum"
-
-#~ msgid "style"
-#~ msgstr "stil"
 
 #~ msgid "Cells"
 #~ msgstr "Celler"

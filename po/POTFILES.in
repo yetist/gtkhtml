@@ -10,6 +10,7 @@ components/html-editor/GNOME_GtkHTML_Editor.xml.in
 components/html-editor/body.c
 components/html-editor/cell.c
 components/html-editor/editor-control-factory.c
+components/html-editor/gi-color-palette.c
 components/html-editor/gnome-gtkhtml-editor.c
 components/html-editor/gtkhtml-editor-properties.glade
 components/html-editor/image.c
