@@ -39,6 +39,7 @@ enum {
 static guint html_tokenizer_signals[HTML_TOKENIZER_LAST_SIGNAL] = { 0 };
 
 #define TOKEN_BUFFER_SIZE (1 << 10)
+#define INVALID_CHARACTER_MARKER '?'
 
 typedef struct _HTMLBlockingToken HTMLBlockingToken;
 typedef struct _HTMLTokenBuffer   HTMLTokenBuffer;
@@ -763,7 +764,6 @@ add_unichar (HTMLTokenizer *t, gunichar wc)
 		p->dest += g_unichar_to_utf8 (wc, p->dest);
 		*(p->dest) = 0;
 	}
-	/* g_assert (g_utf8_validate (p->buffer, p->dest - p->buffer, NULL)); */
 }
 
 static void
@@ -778,7 +778,7 @@ add_byte (HTMLTokenizer *t, const gchar **src)
 
 		wc = g_utf8_get_char_validated ((const gchar *)p->utf8_buffer, p->utf8_length);
 		if (wc == -1 || p->utf8_length >= (sizeof(p->utf8_buffer)/sizeof(p->utf8_buffer[0]))) {
-			add_unichar (t, '?');
+			add_unichar (t, INVALID_CHARACTER_MARKER);
 			(*src)++;
 			return;
 		} else if (wc == -2) {
@@ -804,6 +804,22 @@ flush_entity (HTMLTokenizer *t)
 	 while (p->searchCount--) {
 		add_byte (t, &str);
 	}
+}
+
+static gboolean
+add_unichar_validated (HTMLTokenizer *t, gunichar uc)
+{
+	char tmp[8];
+
+	tmp [g_unichar_to_utf8 (uc, tmp)] = '\0';
+
+	if (g_utf8_validate (tmp, -1, NULL)) {
+		add_unichar (t, uc);
+		return TRUE;
+	} 
+		
+	g_warning ("invalid character value: x%xd", uc);
+	return FALSE;
 }
 
 static void
@@ -835,6 +851,7 @@ in_entity (HTMLTokenizer *t, const gchar **src)
 		    (p->searchBuffer[3] == 'x')) {
 			/* &x12AB */
 			p->searchBuffer [p->searchCount + 1] = '\0';
+			
 			entityValue = strtoul (&(p->searchBuffer [4]),
 					       NULL, 16);
 			p->charEntity = FALSE;
@@ -872,13 +889,14 @@ in_entity (HTMLTokenizer *t, const gchar **src)
 		 * and attributes. 
 		 */
 		if (entityValue) {
-			/* Insert plain char */
-			if (entityValue != TAG_ESCAPE)
-				add_unichar (t, entityValue);
+			if (entityValue != TAG_ESCAPE) 
+				/* make sure the entity value is a valid character value */
+				if (!add_unichar_validated (t, entityValue))
+					add_unichar (t, INVALID_CHARACTER_MARKER);
+
 			if (**src == ';')
 				(*src)++;
-		}
-		else {
+		} else {
 			/* Ignore the sequence, just add it as plaintext */
 			flush_entity (t);
 		}
