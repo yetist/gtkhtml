@@ -1870,7 +1870,7 @@ html_text_magic_link (HTMLText *text, HTMLEngine *engine, guint offset)
 	/* check forward to ensure chars are < 0x80, could be removed once we have utf8 regex */
 	do {
 		cur = g_utf8_next_char (cur);
-		if (cur && *cur && g_utf8_get_char (cur) >= 0x80)
+		if (cur && *cur && (uc = g_utf8_get_char (cur)) >= 0x80)
 			exec = FALSE;
 	} while (exec && cur && *cur && uc != ' ' && uc != ENTITY_NBSP);
 
