@@ -1,5 +1,11 @@
 2001-10-01  Larry Ewing  <lewing@ximian.com>
 
+	* htmlentity.c: add gtkhtml-compat.h include for alloca
+	definition.  From David Kaelbling <drk@sgi.com>
+
+	* htmlpainter.c: add gtkhtml-compat.h include for alloca
+	definition.  From David Kaelbling <drk@sgi.com>
+
 	* gtkhtml-stream.c (gtk_html_stream_vprintf): 
 	(gtk_html_stream_printf): add helper functions
 	for writing to streams to cut down the duplication of code that is

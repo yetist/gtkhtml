@@ -24,6 +24,7 @@
 #include <config.h>
 #include <string.h> /* strcmp */
 #include <stdlib.h>
+#include "gtkhtml-compat.h"
 
 #include <gal/unicode/gunicode.h>
 #include "htmlcolorset.h"
