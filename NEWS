@@ -1,7 +1,28 @@
-gtkhtml-3.0.3 "chili in my soup" 2003-04-11
+gtkhtml-3.0.4 "I am not your broom" 2003-04-11
 ------------------------------------------------
 
 New in this release
+
+  * viewport and frame clipping fixed.
+  * fixed a bug in image url replacement.
+  * added new options for animations magic links/smileys and inline
+    spelling.
+  * editor prefernces now bonobo properties.
+  * fixed the drawng of alt text in the plain painter.
+  * fixed flag definition for gtk_html_begin_full.
+  * fixed crashes if spelling languages no set.
+  * printing margins corrected for new gnome-print.
+  * made keybindings listen to gnome-wide gconf setting.
+  * unbreak font manager defautl setting.
+  * made shift-tab traverse backwards in the tab order.
+  * fixed idle crash.
+  * make tab drawing work in all cases.
+  * make file insertion in the editor handle charsets gracefully.
+  * translate ui elements in bonobo.
+  * fix translation domain in editor.
+  * hig improvements.
+
+New in 3.0.3
 
   * Cursor no longer jumps to origin on insertion.
   * Drawing queue optimizations and cliping improvements.
@@ -15,7 +36,7 @@ New in this release
   * Optimized editing of very long words and layout in general.
   * Fixed problems with selection of lines containing tabs.
 
-New 3.0.2
+New in 3.0.2
 
   * Much improved pango support.
   * Initial gtk input method support.
