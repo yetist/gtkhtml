@@ -1144,9 +1144,6 @@ client_notify (GConfClient* client,
 	gchar *tkey;
 
 	g_assert (client == gconf_client);
-
-	printf ("client notify key %s\n", key);
-
 	g_assert (key);
 	tkey = strrchr (key, '/');
 	g_assert (tkey);

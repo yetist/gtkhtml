@@ -143,8 +143,6 @@ finalize (GtkObject *object)
 	printer = HTML_PRINTER (object);
 
 	if (printer->print_context != NULL) {
-		gnome_print_showpage (printer->print_context);
-		gnome_print_grestore (printer->print_context);
 		gnome_print_context_close (printer->print_context);
 		gtk_object_unref (GTK_OBJECT (printer->print_context));
 	}
@@ -161,31 +159,39 @@ begin (HTMLPainter *painter,
        int x2, int y2)
 {
 	HTMLPrinter *printer;
-	double printer_x1, printer_y1;
-	double printer_x2, printer_y2;
+	GnomePrintContext *pc;
+	gdouble printer_x1, printer_y1;
+	gdouble printer_x2, printer_y2;
+	gdouble dash [2];
 
 	printer = HTML_PRINTER (painter);
-	g_return_if_fail (printer->print_context != NULL);
+	g_return_if_fail (printer);
+	pc      = printer->print_context;
+	g_return_if_fail (pc);
 
-	gnome_print_gsave (printer->print_context);
+	gnome_print_gsave (pc);
 
 	engine_coordinates_to_gnome_print (printer, x1, y1, &printer_x1, &printer_y1);
 	printer_x2 = printer_x1 + SCALE_ENGINE_TO_GNOME_PRINT (x2);
 	printer_y2 = printer_y1 - SCALE_ENGINE_TO_GNOME_PRINT (y2);
 
-	gnome_print_newpath (printer->print_context);
+	gnome_print_newpath (pc);
 
-	gnome_print_moveto (printer->print_context, printer_x1, printer_y1);
-	gnome_print_lineto (printer->print_context, printer_x1, printer_y2);
-	gnome_print_lineto (printer->print_context, printer_x2, printer_y2);
-	gnome_print_lineto (printer->print_context, printer_x2, printer_y1);
-	gnome_print_lineto (printer->print_context, printer_x1, printer_y1);
+	gnome_print_moveto (pc, printer_x1, printer_y1);
+	gnome_print_lineto (pc, printer_x1, printer_y2);
+	gnome_print_lineto (pc, printer_x2, printer_y2);
+	gnome_print_lineto (pc, printer_x2, printer_y1);
+	gnome_print_lineto (pc, printer_x1, printer_y1);
 
-	gnome_print_gsave (printer->print_context);
-	gnome_print_stroke (printer->print_context);
-	gnome_print_grestore (printer->print_context);
-
-	gnome_print_clip (printer->print_context);
+	gnome_print_gsave (pc);
+	dash [0] = 10.0;
+	dash [1] = 10.0;
+	gnome_print_setrgbcolor (pc, .5, .5, .5);
+	gnome_print_setlinewidth (pc, .3);
+	gnome_print_setdash (pc, 2, dash, .0);
+	gnome_print_stroke (pc);
+	gnome_print_grestore (pc);
+	gnome_print_clip (pc);
 }
 
 static void
@@ -359,16 +365,35 @@ static void
 draw_background (HTMLPainter *painter,
 		 GdkColor *color,
 		 GdkPixbuf *pixbuf,
-		 gint x, gint y, 
+		 gint ix, gint iy, 
 		 gint pix_width, gint pix_height,
 		 gint tile_x, gint tile_y)
 {
+	GnomePrintContext *pc;
 	HTMLPrinter *printer;
+	gdouble x, y, width, height;
 
 	printer = HTML_PRINTER (painter);
-	g_return_if_fail (printer->print_context != NULL);
+	g_return_if_fail (printer);
+	pc = printer->print_context;
+	g_return_if_fail (printer->print_context);
 
-	/* FIXME */
+	width = SCALE_ENGINE_TO_GNOME_PRINT  (pix_width);
+	height = SCALE_ENGINE_TO_GNOME_PRINT (pix_height);
+	engine_coordinates_to_gnome_print (printer, ix, iy, &x, &y);
+
+	if (color) {
+		gnome_print_setrgbcolor (pc, color->red / 65535.0, color->green / 65535.0, color->blue / 65535.0);
+
+		gnome_print_newpath (pc);
+		gnome_print_moveto (pc, x, y);
+		gnome_print_lineto (pc, x + width, y);
+		gnome_print_lineto (pc, x + width, y - height);
+		gnome_print_lineto (pc, x, y - height);
+		gnome_print_lineto (pc, x, y);
+
+		gnome_print_fill (pc);
+	}
 }
 
 static void

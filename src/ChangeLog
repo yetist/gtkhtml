@@ -1,3 +1,17 @@
+2000-08-03  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlprinter.c (draw_background): added quick color printing
+	bacground, pixmaps + tiling to be implemented later
+
+	* htmlengine-print.c (print_all_pages): fixed page printing loop
+
+	* htmlprinter.c (finalize): don't showpage here as it was already
+	done
+	(begin): set debug rounding line to dashed .5pt gray line
+
+	* htmlengine-print.c (print_all_pages): force new_split_offset
+	also when new_split_offset == split_offset
+
 2000-08-02  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml.c (on_url): added assert here

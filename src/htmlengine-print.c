@@ -58,21 +58,17 @@ print_all_pages (HTMLPainter *printer,
 
 	document_height = html_engine_get_doc_height (engine);
 
-	while (split_offset + page_height < document_height) {
+	do {
 		new_split_offset = html_object_check_page_split (engine->clue,
 								 split_offset + page_height);
 
-		if (new_split_offset < split_offset)
+		if (new_split_offset <= split_offset)
 			new_split_offset = split_offset + page_height;
 
 		print_page (printer, engine, split_offset, page_width, new_split_offset- split_offset);
 
 		split_offset = new_split_offset;
-
-		break;
-	} 
-
-	print_page (printer, engine, split_offset, page_width, page_height);
+	}  while (split_offset < document_height);
 }
 
 
