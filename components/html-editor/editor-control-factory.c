@@ -123,7 +123,7 @@ set_frame_cb (BonoboControl *control,
 		return;
 
 	remote_ui_container = bonobo_control_get_remote_ui_container (control);
-	ui_component = bonobo_control_get_ui_component (control);
+	control_data->uic = ui_component = bonobo_control_get_ui_component (control);
 	bonobo_ui_component_set_container (ui_component, remote_ui_container);
 
 	/* Setup the tool bar.  */
@@ -152,6 +152,8 @@ set_frame_cb (BonoboControl *control,
 		bonobo_ui_component_set_prop (ui_component, "/commands/EditSpellCheck", "sensitive", "0", NULL);
 	} else
 		control_data->has_spell_control = TRUE;
+
+	gtk_html_set_editor_api (GTK_HTML (control_data->html), editor_api, control_data);
 }
 
 static gint
@@ -524,7 +526,6 @@ editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 	gtk_html_set_editable (GTK_HTML (html_widget), TRUE);
 
 	cd = gtk_html_control_data_new (GTK_HTML (html_widget), vbox);
-	gtk_html_set_editor_api (GTK_HTML (html_widget), editor_api, cd);
 
 	/* HTMLEditor::Engine */
 	cd->editor_bonobo_engine = editor_engine_new (GTK_HTML (html_widget));

@@ -126,6 +126,8 @@
 
 			<placeholder name="EditMisc">
 				     <menuitem name="EditSpellCheck" verb=""/>
+				     <placeholder name="EditSpellLanguages">
+				     </placeholder>
 				     <separator/>
 				     <menuitem name="EditProperties" verb=""
 				     pixtype="filename" pixname="@ICONSDIR@/properties-16.png"/>

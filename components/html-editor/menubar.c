@@ -562,6 +562,23 @@ menubar_update_format (GtkHTMLControlData *cd)
 }
 
 void
+menubar_set_languages (GtkHTMLControlData *cd, const gchar *lstr)
+{
+	GString *str;
+	gboolean enabled;
+	gint i;
+
+	str = g_string_new (NULL);
+	cd->block_language_changes = TRUE;
+	for (i = 0; i < cd->languages->_length; i ++) {
+		enabled = strstr (lstr, cd->languages->_buffer [i].abrev) != NULL;
+		g_string_sprintf (str, "/commands/SpellLanguage%d", i + 1);
+		bonobo_ui_component_set_prop (cd->uic, str->str, "state", enabled ? "1" : "0", NULL);
+	}
+	cd->block_language_changes = FALSE;
+}
+
+void
 menubar_setup (BonoboUIComponent  *uic,
 	       GtkHTMLControlData *cd)
 {
@@ -597,9 +614,5 @@ menubar_setup (BonoboUIComponent  *uic,
 	bonobo_ui_util_set_ui (uic, GNOMEDATADIR,
 			       "GNOME_GtkHTML_Editor.xml",
 			       "GNOME_GtkHTML_Editor");
+	spell_create_language_menu (cd);
 }
-
-
-
-
-
