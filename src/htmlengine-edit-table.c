@@ -431,10 +431,11 @@ html_table_delete_column (HTMLTable *t, HTMLEngine *e, gint col, HTMLUndoDirecti
 void
 html_engine_delete_table_column (HTMLEngine *e)
 {
-	HTMLTableCell *cell = html_engine_get_table_cell (e);
+	HTMLTableCell *cell;
 
 	html_engine_disable_selection (e);
 
+	cell = html_engine_get_table_cell (e);
 	if (cell)
 		html_table_delete_column (html_engine_get_table (e), e, cell->col, HTML_UNDO_UNDO);
 }
@@ -632,10 +633,11 @@ html_table_delete_row (HTMLTable *t, HTMLEngine *e, gint row, HTMLUndoDirection 
 void
 html_engine_delete_table_row (HTMLEngine *e)
 {
-	HTMLTableCell *cell = html_engine_get_table_cell (e);
+	HTMLTableCell *cell;
 
 	html_engine_disable_selection (e);
 
+	cell = html_engine_get_table_cell (e);
 	if (cell)
 		html_table_delete_row (html_engine_get_table (e), e, cell->row, HTML_UNDO_UNDO);
 }
