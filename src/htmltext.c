@@ -497,6 +497,8 @@ set_font_style (HTMLText *text,
 
 	text->font_style = style;
 
+	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
+
 	if (engine != NULL) {
 		html_object_relayout (HTML_OBJECT (text)->parent, engine, HTML_OBJECT (text));
 		html_engine_queue_draw (engine, HTML_OBJECT (text));

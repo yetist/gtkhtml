@@ -294,6 +294,7 @@ do_insert (HTMLEngine *engine,
 	   GtkHTMLFontStyle style)
 {
 	const gchar *p, *q;
+	guint count;
 	guint insert_count;
 
 	insert_count = 0;
@@ -301,16 +302,23 @@ do_insert (HTMLEngine *engine,
 	p = text;
 	while (len > 0) {
 		q = memchr (p, '\n', len);
+
 		if (q == NULL) {
-			insert_count += insert_chars (engine, p, len, style);
+			count = insert_chars (engine, p, len, style);
+			html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_RIGHT, count);
+			insert_count += count;
 			break;
 		}
 
-		if (q != p)
-			insert_chars (engine, p, q - p, style);
+		if (q != p) {
+			count = insert_chars (engine, p, q - p, style);
+			html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_RIGHT, count);
+			insert_count += count;
+		}
 
 		while (*q == '\n') {
 			insert_para (engine);
+			insert_count++;
 			q++;
 		}
 
@@ -371,8 +379,6 @@ do_redo (HTMLEngine *engine,
 
 	n = do_insert (engine, data->chars, data->num_chars, data->style);
 	setup_undo (engine, data);
-
-	html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_RIGHT, n);
 }
 
 static void
@@ -401,7 +407,7 @@ do_undo (HTMLEngine *engine,
 
 	data = (ActionData *) closure;
 
-	html_engine_delete (engine, data->num_chars, FALSE, FALSE);
+	html_engine_delete (engine, data->num_chars, FALSE, TRUE);
 
 	setup_redo (engine, data);
 }
@@ -471,8 +477,6 @@ html_engine_insert (HTMLEngine *e,
 	n = do_insert (e, text, len, e->insertion_font_style);
 
 	setup_undo (e, create_action_data (e, text, len, e->insertion_font_style));
-
-	html_engine_move_cursor (e, HTML_ENGINE_CURSOR_RIGHT, n);
 
 	html_engine_show_cursor (e);
 

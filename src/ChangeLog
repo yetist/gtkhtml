@@ -1,5 +1,38 @@
 2000-05-18  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine-edit-fontstyle.c (set_font_style): Added
+	slow-but-working relayout-and-redraw machinery.
+	(move_to_next_text_segment_forwards): Use
+	`html_object_next_not_slave()' instead of just `->next' for
+	correct behavior.
+	(move_to_next_text_segment_backwards): Likewise, with
+	`html_object_prev_not_slave()' instead of `->prev'.
+
+	* htmltextmaster.c (get_cursor_base): Spit a warning message if we
+	have no slaves.
+
+	* htmltext.c (set_font_style): Set `HTML_CHANGE_ALL' as the change
+	flag.
+
+	* htmlengine-edit-fontstyle.c (merge_safely): Destroy the slaves
+	of @text and @other by calling `html_text_master_destroy_slaves()'.
+
+	* htmltextmaster.c (html_text_master_destroy_slaves): New function.
+
+	* htmlengine-edit-paste.c (html_engine_paste_object): Eeek!  Don't
+	set the cut buffer.
+
+	* htmlengine-edit.c (html_engine_undo): Don't freeze/thaw anymore.
+	(html_engine_redo): Likewise.
+
+	* htmlengine-edit-insert.c (do_insert): Skip the inserted text
+	too.
+	(do_redo): Don't move the cursor after inserting anymore.
+	(html_engine_insert): Likewise.
+	(do_undo): Delete backwards instead of forwards.
+
+2000-05-18  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* htmltextmaster.c (merge): Call `html_object_change_set()' with
 	`HTML_CHANGE_ALL' to trigger a complete layout recalculation for
 	the object.

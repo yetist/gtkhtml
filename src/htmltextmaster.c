@@ -413,6 +413,9 @@ get_cursor_base (HTMLObject *self,
 			return;
 		}
 	}
+
+	g_warning ("Getting cursor base for an HTMLTextMaster with no slaves -- %p\n",
+		   self);
 }
 
 
@@ -742,5 +745,23 @@ html_text_master_trail_space_width (HTMLTextMaster *master, HTMLPainter *painter
 		return html_painter_calc_text_width (painter, " ", 1, font_style);
 	} else {
 		return 0;
+	}
+}
+
+
+void
+html_text_master_destroy_slaves (HTMLTextMaster *master)
+{
+	HTMLObject *p;
+	HTMLObject *pnext;
+
+	g_return_if_fail (master != NULL);
+
+	for (p = HTML_OBJECT (master)->next;
+	     p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE;
+	     p = pnext) {
+		pnext = p->next;
+		html_clue_remove (HTML_CLUE (p->parent), p);
+		html_object_destroy (p);
 	}
 }

@@ -72,4 +72,6 @@ HTMLObject *html_text_master_get_slave    (HTMLTextMaster      *master,
 gint        html_text_master_trail_space_width (HTMLTextMaster *master,
 						HTMLPainter *painter);
 
+void  html_text_master_destroy_slaves  (HTMLTextMaster *master);
+
 #endif /* _HTMLTEXTMASTER_H_ */

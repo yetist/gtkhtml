@@ -47,12 +47,8 @@ html_engine_undo (HTMLEngine *e)
 
 	html_engine_unselect_all (e, TRUE);
 
-	html_engine_freeze (e);
-
 	undo = e->undo;
 	html_undo_do_undo (undo, e);
-
-	html_engine_thaw (e);
 }
 
 void
@@ -66,12 +62,8 @@ html_engine_redo (HTMLEngine *e)
 
 	html_engine_unselect_all (e, TRUE);
 
-	html_engine_freeze (e);
-
 	undo = e->undo;
 	html_undo_do_redo (undo, e);
-
-	html_engine_thaw (e);
 }
 
 

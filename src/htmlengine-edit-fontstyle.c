@@ -26,7 +26,7 @@
 
 #include "htmlengine-edit-fontstyle.h"
 
-#define PARANOID_DEBUG
+/* #define PARANOID_DEBUG */
 
 
 struct _FontStyleSegment {
@@ -105,6 +105,9 @@ merge_safely (HTMLText *text,
 	      HTMLCursor *cursor,
 	      HTMLCursor *mark)
 {
+	html_text_master_destroy_slaves (HTML_TEXT_MASTER (text));
+	html_text_master_destroy_slaves (HTML_TEXT_MASTER (other));
+
 	update_cursor_for_merge (text, other, prepend, cursor);
 	if (mark != NULL)
 		update_cursor_for_merge (text, other, prepend, mark);
@@ -164,7 +167,8 @@ merge_backward (HTMLObject *object,
 		if (HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE) {
 			html_clue_remove (HTML_CLUE (p->parent), p);
 			html_object_destroy (p);
-		} else if (HTML_OBJECT_TYPE (object) == HTML_OBJECT_TYPE (p)
+		} else if (html_object_is_text (p)
+			   && HTML_OBJECT_TYPE (object) == HTML_OBJECT_TYPE (p)
 			   && html_text_check_merge (HTML_TEXT (object), HTML_TEXT (p))) {
 			total_merge += HTML_TEXT (object)->text_len;
 			merge_safely (HTML_TEXT (object), HTML_TEXT (p), TRUE, cursor, mark);
@@ -193,7 +197,8 @@ merge_forward (HTMLObject *object,
 		if (HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE) {
 			html_clue_remove (HTML_CLUE (p->parent), p);
 			html_object_destroy (p);
-		} else if (HTML_OBJECT_TYPE (object) == HTML_OBJECT_TYPE (p)
+		} else if (html_object_is_text (p)
+			   && HTML_OBJECT_TYPE (object) == HTML_OBJECT_TYPE (p)
 			   && html_text_check_merge (HTML_TEXT (object), HTML_TEXT (p))) {
 			total_merge += HTML_TEXT (object)->text_len;
 			merge_safely (HTML_TEXT (object), HTML_TEXT (p), FALSE, cursor, mark);
@@ -254,8 +259,8 @@ set_font_style (HTMLEngine *engine,
 	GtkHTMLFontStyle font_style;
 	GtkHTMLFontStyle last_font_style;
 	HTMLObject *p, *pparent;
+	HTMLObject *previous_parent;
 	GList *orig_styles;
-	GList *lp;
 	guint total_merged;
 
 	g_print ("%s -- setting %d elements.\n", __FUNCTION__, count);
@@ -264,6 +269,7 @@ set_font_style (HTMLEngine *engine,
 	last_font_style = GTK_HTML_FONT_STYLE_DEFAULT;
 	orig_styles = NULL;
 
+	previous_parent = NULL;
 	while (count > 0) {
 		HTMLTextMaster *curr;
 		guint start, end;
@@ -344,6 +350,10 @@ set_font_style (HTMLEngine *engine,
 				count -= total_merged;
 		}
 
+		/* FIXME slow slow slow!  */
+		html_object_relayout (p->parent->parent, engine, p->parent);
+		html_engine_queue_draw (engine, p->parent);
+
 		if (count == 0)
 			break;
 
@@ -376,6 +386,9 @@ set_font_style (HTMLEngine *engine,
 		if (p != NULL)
 			merge_forward (p, engine->cursor, engine->mark);
 	}
+
+	html_object_relayout (p->parent->parent, engine, p->parent);
+	html_engine_queue_draw (engine, p->parent);
 
 	html_cursor_normalize (engine->cursor);
 
@@ -519,7 +532,7 @@ move_to_next_text_segment_forwards (HTMLEngine *engine)
 		if (cursor->offset == object_length) {
 			HTMLObject *next;
 
-			next = cursor->object->next;
+			next = html_object_next_not_slave (cursor->object);
 			if (next != NULL && html_object_is_text (next)) {
 				retval = TRUE;
 				break;
@@ -552,7 +565,7 @@ move_to_next_text_segment_backwards (HTMLEngine *engine)
 		if (cursor->offset == 0) {
 			HTMLObject *prev;
 
-			prev = cursor->object->prev;
+			prev = html_object_prev_not_slave (cursor->object);
 			if (prev != NULL && html_object_is_text (prev)) {
 				retval = TRUE;
 				break;
