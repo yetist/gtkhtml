@@ -1,5 +1,5 @@
 # Serbian translation of gtkhtml
-# Courtesy of Prevod.org team (http://www.prevod.org/) -- 2003.
+# Courtesy of Prevod.org team (http://prevod.org/) -- 2003, 2004.
 #
 # This file is distributed under the same license as the gtkhtml package.
 #
@@ -8,21 +8,21 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2004-02-09 14:38-0500\n"
-"PO-Revision-Date: 2004-01-28 18:12+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-02-20 07:23+0100\n"
+"PO-Revision-Date: 2004-02-20 07:50+0100\n"
 "Last-Translator: Данило Шеган <danilo@prevod.org>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
 msgstr "<Ништа>"
 
 #: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
-#: components/html-editor/cell.c:419 components/html-editor/image.c:545
+#: components/html-editor/cell.c:419 components/html-editor/image.c:543
 #: components/html-editor/rule.c:316 components/html-editor/table.c:530
 #: components/html-editor/table.c:614 components/html-editor/template.c:272
 msgid "Could not load glade file."
@@ -677,7 +677,7 @@ msgstr "Експонент"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
 #: components/html-editor/menubar.c:142 components/html-editor/popup.c:237
-#: components/html-editor/popup.c:518 components/html-editor/popup.c:527
+#: components/html-editor/popup.c:519 components/html-editor/popup.c:528
 msgid "Table"
 msgstr "Табела"
 
@@ -1365,7 +1365,7 @@ msgid "Color:"
 msgstr "Боја:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#: components/html-editor/popup.c:529
+#: components/html-editor/popup.c:530
 msgid "Column"
 msgstr "Колона"
 
@@ -1483,7 +1483,7 @@ msgid "Right"
 msgstr "Десно"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
-#: components/html-editor/popup.c:528
+#: components/html-editor/popup.c:529
 msgid "Row"
 msgstr "Ред"
 
@@ -1517,7 +1517,7 @@ msgid "Spacing:"
 msgstr "Размак:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:117 components/html-editor/popup.c:473
+#: components/html-editor/paragraph.c:117 components/html-editor/popup.c:474
 #: components/html-editor/text.c:223
 msgid "Style"
 msgstr "Стил"
@@ -1633,7 +1633,7 @@ msgstr ""
 msgid "No image selected"
 msgstr "Слика није изабрана"
 
-#: components/html-editor/image.c:705
+#: components/html-editor/image.c:704
 msgid ""
 "The editted image was removed from the document.\n"
 "Cannot apply your changes."
@@ -1655,7 +1655,7 @@ msgstr ""
 
 #: components/html-editor/link.c:270
 msgid "Please fill 'Link text' and 'URL' entries"
-msgstr ""
+msgstr "Попуните поља за „Текст везе“ и „Адресу“"
 
 #: components/html-editor/menubar.c:88 components/html-editor/menubar.c:104
 #: components/html-editor/menubar.c:122 components/html-editor/menubar.c:139
@@ -1737,97 +1737,97 @@ msgstr ""
 msgid "Paste Quotation"
 msgstr "Убаци цитат"
 
-#: components/html-editor/popup.c:460
-msgid "Insert link"
+#: components/html-editor/popup.c:461
+msgid "Insert Link"
 msgstr "Убаци везу"
 
 #: components/html-editor/popup.c:468
-msgid "Remove link"
+msgid "Remove Link"
 msgstr "Уклони везу"
 
-#: components/html-editor/popup.c:476
+#: components/html-editor/popup.c:477
 msgid "Text Style..."
 msgstr "Стил текста..."
 
-#: components/html-editor/popup.c:478 components/html-editor/popup.c:484
-#: components/html-editor/popup.c:494
+#: components/html-editor/popup.c:479 components/html-editor/popup.c:485
+#: components/html-editor/popup.c:495
 msgid "Paragraph Style..."
 msgstr "Стил пасуса..."
 
-#: components/html-editor/popup.c:482
+#: components/html-editor/popup.c:483
 msgid "Link Style..."
 msgstr "Стил везе..."
 
-#: components/html-editor/popup.c:488
+#: components/html-editor/popup.c:489
 msgid "Rule Style..."
 msgstr "Стил линије..."
 
-#: components/html-editor/popup.c:492
+#: components/html-editor/popup.c:493
 msgid "Image Style..."
 msgstr "Стил слике..."
 
-#: components/html-editor/popup.c:503
+#: components/html-editor/popup.c:504
 msgid "Cell Style..."
 msgstr "Стил ћелије..."
 
-#: components/html-editor/popup.c:506
+#: components/html-editor/popup.c:507
 msgid "Table Style..."
 msgstr "Стил табеле..."
 
-#: components/html-editor/popup.c:512
+#: components/html-editor/popup.c:513
 msgid "Page Style..."
 msgstr "Стил стране..."
 
-#: components/html-editor/popup.c:517
+#: components/html-editor/popup.c:518
 msgid "Table insert"
 msgstr "Убаци табелу"
 
-#: components/html-editor/popup.c:520
+#: components/html-editor/popup.c:521
 msgid "Row above"
 msgstr "Ред изнад"
 
-#: components/html-editor/popup.c:521
+#: components/html-editor/popup.c:522
 msgid "Row below"
 msgstr "Ред испод"
 
-#: components/html-editor/popup.c:523
+#: components/html-editor/popup.c:524
 msgid "Column before"
 msgstr "Колона пре"
 
-#: components/html-editor/popup.c:524
+#: components/html-editor/popup.c:525
 msgid "Column after"
 msgstr "Колона после"
 
-#: components/html-editor/popup.c:526
+#: components/html-editor/popup.c:527
 msgid "Table delete"
 msgstr "Обриши табелу"
 
-#: components/html-editor/popup.c:530
+#: components/html-editor/popup.c:531
 msgid "Cell contents"
 msgstr "Садржај ћелије"
 
-#: components/html-editor/popup.c:540
+#: components/html-editor/popup.c:541
 msgid "Check Word Spelling..."
 msgstr "Проверите правопис речи..."
 
-#: components/html-editor/popup.c:545
+#: components/html-editor/popup.c:546
 msgid "Add Word to"
 msgstr "Додај реч у"
 
-#: components/html-editor/popup.c:549
+#: components/html-editor/popup.c:550
 #, c-format
 msgid "%s Dictionary"
 msgstr "%s речник"
 
-#: components/html-editor/popup.c:558
+#: components/html-editor/popup.c:559
 msgid "Add Word to Dictionary"
 msgstr "Додај реч у речник"
 
-#: components/html-editor/popup.c:561
+#: components/html-editor/popup.c:562
 msgid "Ignore Misspelled Word"
 msgstr "Занемари погрешно написану реч"
 
-#: components/html-editor/popup.c:564
+#: components/html-editor/popup.c:566
 msgid "Input Methods"
 msgstr "Начини уноса"
 
