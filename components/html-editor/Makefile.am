@@ -61,10 +61,7 @@ LDADD =	\
 
 # The Editor Control
 
-bin_PROGRAMS =					\
-	gnome-gtkhtml-editor
-
-gnome_gtkhtml_editor_SOURCES =			\
+GTKHTML_EDITOR_SOURCES_COMMON =			\
 	$(IDL_GENERATED)			\
 	$(SPELL_IDL_GENERATED)			\
 	body.h					\
@@ -83,7 +80,6 @@ gnome_gtkhtml_editor_SOURCES =			\
 	image.h					\
 	link.c					\
 	link.h					\
-	main.c					\
 	menubar.c				\
 	menubar.h				\
 	paragraph.c				\
@@ -115,7 +111,21 @@ gnome_gtkhtml_editor_SOURCES =			\
 	utils.c					\
 	utils.h
 
-oaf_in_files = GNOME_GtkHTML_Editor.oaf.in
+if EDITOR_SHLIB
+lib_LTLIBRARIES = libgnome-gtkhtml-editor.la
+
+libgnome_gtkhtml_editor_la_SOURCES =		\
+	$(GTKHTML_EDITOR_SOURCES_COMMON)
+PRGS =
+else
+PRGS = gnome-gtkhtml-editor
+gnome_gtkhtml_editor_SOURCES =			\
+	$(GTKHTML_EDITOR_SOURCES_COMMON)
+endif
+
+bin_PROGRAMS = $(PRGS)
+
+oaf_in_files = GNOME_GtkHTML_Editor.oaf.in GNOME_GtkHTML_Editor.oaf.in.in
 oaf_DATA = $(oaf_in_files:.oaf.in=.oaf)
 
 oafdir = $(datadir)/oaf

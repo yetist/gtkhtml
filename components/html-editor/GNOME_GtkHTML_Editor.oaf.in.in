@@ -1,7 +1,7 @@
 <oaf_info>
 
-<oaf_server iid="OAFIID:GNOME_GtkHTML_Editor_Factory" type="exe"
-            location="gnome-gtkhtml-editor">
+<oaf_server iid="OAFIID:GNOME_GtkHTML_Editor_Factory" type="@GNOME_GTKHTML_EDITOR_TYPE@"
+            location="@GNOME_GTKHTML_EDITOR_LOCATION@">
 
 	<oaf_attribute name="repo_ids" type="stringv">
 		<item value="IDL:GNOME/GenericFactory:1.0"/>

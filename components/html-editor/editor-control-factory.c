@@ -35,6 +35,10 @@
 #include <glade/glade.h>
 #include <gal/widgets/e-scroll-frame.h>
 
+#ifdef GNOME_GTKHTML_EDITOR_SHLIB
+#include <bonobo/bonobo-shlib-factory.h>
+#endif
+
 #include "Editor.h"
 
 #include "gtkhtml.h"
@@ -48,7 +52,6 @@
 #include "htmlsettings.h"
 #include "htmlpainter.h"
 #include "htmlplainpainter.h"
-
 
 #include "engine.h"
 #include "menubar.h"
@@ -64,13 +67,18 @@
 #include "spell.h"
 #include "resolver-progressive-impl.h"
 
-#include "editor-control-factory.h"
 #include "gtkhtmldebug.h"
 
 #ifdef USING_OAF
-#define CONTROL_FACTORY_ID "OAFIID:GNOME_GtkHTML_EditorFactory"
+#define CONTROL_FACTORY_ID "OAFIID:GNOME_GtkHTML_Editor_Factory"
 #else
 #define CONTROL_FACTORY_ID "control-factory:html-editor"
+#endif
+
+#ifndef GNOME_GTKHTML_EDITOR_SHLIB
+static BonoboGenericFactory *factory;
+static gint active_controls = 0;
+
 #endif
 
 
@@ -84,9 +92,6 @@ struct _SetFrameData {
 typedef struct _SetFrameData SetFrameData;
 
 GtkHTMLEditorAPI *editor_api;
-
-static BonoboGenericFactory *factory = NULL;
-static gint active_controls = 0;
 
 static void
 set_frame_cb (BonoboControl *control,
@@ -343,6 +348,8 @@ static void
 destroy_control_data_cb (GtkObject *control, GtkHTMLControlData *cd)
 {
 	gtk_html_control_data_destroy (cd);
+
+#ifndef GNOME_GTKHTML_EDITOR_SHLIB
 	active_controls --;
 
 	if (active_controls)
@@ -350,6 +357,7 @@ destroy_control_data_cb (GtkObject *control, GtkHTMLControlData *cd)
 
 	bonobo_object_unref (BONOBO_OBJECT (factory));
 	gtk_main_quit ();
+#endif
 }
 
 static void
@@ -465,8 +473,9 @@ editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 	BonoboPropertyBag  *pb;
 	BonoboArg          *def;
 
+#ifndef GNOME_GTKHTML_EDITOR_SHLIB
 	active_controls++;
-
+#endif
 	/* GtkHTML widget */
 	html_widget = gtk_html_new ();
 	gtk_html_load_empty (GTK_HTML (html_widget));
@@ -530,28 +539,6 @@ editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 			    GTK_SIGNAL_FUNC (html_button_pressed), cd);
 
 	cd->control = control;
-}
-
-static BonoboObject *
-editor_control_factory (BonoboGenericFactory *factory,
-			gpointer closure)
-{
-	BonoboControl *control;
-	GtkWidget *vbox;
-
-	vbox = gtk_vbox_new (FALSE, 0);
-	gtk_widget_show (vbox);
-
-	/* g_warning ("Creating a new GtkHTML editor control."); */
-	control = bonobo_control_new (vbox);
-
-	if (control){
-		editor_control_construct (control, vbox);
-		return BONOBO_OBJECT (control);
-	} else {
-		gtk_widget_unref (vbox);
-		return NULL;
-	}
 }
 
 static gboolean
@@ -674,19 +661,120 @@ new_editor_api ()
 	editor_api->create_input_line  = editor_api_create_input_line;
 }
 
-void
-editor_control_factory_init (void)
+static void
+editor_control_init (void)
 {
-	if (factory != NULL)
-		return;
-
 	new_editor_api ();
 	gdk_rgb_init ();
 	glade_gnome_init ();
+}
+
+static gboolean editor_control_initialized = FALSE;
+
+static BonoboObject *
+editor_control_factory (BonoboGenericFactory *factory, gpointer closure)
+{
+	BonoboControl *control;
+	GtkWidget *vbox;
+
+	if (!editor_control_initialized)
+		editor_control_init ();
+
+	vbox = gtk_vbox_new (FALSE, 0);
+	gtk_widget_show (vbox);
+
+	/* g_warning ("Creating a new GtkHTML editor control."); */
+	control = bonobo_control_new (vbox);
+
+	if (control){
+		editor_control_construct (control, vbox);
+		return BONOBO_OBJECT (control);
+	} else {
+		gtk_widget_unref (vbox);
+		return NULL;
+	}
+}
+
+#ifdef GNOME_GTKHTML_EDITOR_SHLIB
+
+BONOBO_OAF_SHLIB_FACTORY ("OAFIID:GNOME_GtkHTML_Editor_Factory", "GNOME HTML Editor factory", editor_control_factory, NULL);
+
+#else
+
+#ifdef USING_OAF
+
+#include <liboaf/liboaf.h>
+
+static CORBA_ORB
+init_corba (int *argc, char **argv)
+{
+	gnome_init_with_popt_table ("html-editor-factory", "0.0",
+				    *argc, argv, oaf_popt_options, 0, NULL);
+
+	return oaf_init (*argc, argv);
+}
+
+#else
+
+#include <libgnorba/gnorba.h>
+
+static CORBA_ORB
+init_corba (int *argc, char **argv)
+{
+	CORBA_Environment ev;
+
+	CORBA_exception_init (&ev);
+
+	gnome_CORBA_init_with_popt_table ("html-editor-factory", "0.0",
+					  argc, argv,
+					  NULL, 0, NULL,
+					  GNORBA_INIT_SERVER_FUNC,
+					  &ev);
+	if (ev._major != CORBA_NO_EXCEPTION)
+		g_error (_("Could not initialize GNORBA"));
+
+	CORBA_exception_free (&ev);
+
+	return CORBA_OBJECT_NIL;
+}
+
+#endif
+
+static void
+init_bonobo (int *argc, char **argv)
+{
+	if (bonobo_init (init_corba (argc, argv), CORBA_OBJECT_NIL, CORBA_OBJECT_NIL) == FALSE)
+		g_error (_("Could not initialize Bonobo"));
+}
+
+int
+main (int argc, char **argv)
+{
+#ifdef GTKHTML_HAVE_GCONF
+	GError  *gconf_error  = NULL;
+#endif
+
+	/* Initialize the i18n support */
+	bindtextdomain(PACKAGE, GNOMELOCALEDIR);
+	textdomain(PACKAGE);
+
+	init_bonobo (&argc, argv);
+#ifdef GTKHTML_HAVE_GCONF
+	if (!gconf_init (argc, argv, &gconf_error)) {
+		g_assert (gconf_error != NULL);
+		g_error ("GConf init failed:\n  %s", gconf_error->message);
+		return 1;
+	}
+#endif
+
 	factory = bonobo_generic_factory_new (CONTROL_FACTORY_ID,
 					      editor_control_factory,
 					      NULL);
-
 	if (factory == NULL)
 		g_error ("I could not register the GNOME_GtkHTML_Editor factory.");
+
+	bonobo_main ();
+
+	return 0;
 }
+#endif /* GNOME_GTKHTML_EDITOR_SHLIB */

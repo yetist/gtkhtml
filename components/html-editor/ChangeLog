@@ -1,3 +1,14 @@
+2001-06-26  Radek Doulik  <rodo@ximian.com>
+
+	* editor-control-factory.h (editor_control_factory): obsolete
+
+	* editor-control-factory.c: on #ifdef basis build in both cases -
+	shlib or exe component
+
+	* main.c: obsolete
+
+	* GNOME_GtkHTML_Editor.oaf.in.in: new file, uses SHLIB variables
+
 2001-06-13  Radek Doulik  <rodo@ximian.com>
 
 	* properties.c (gtk_html_edit_properties_dialog_new): set default
