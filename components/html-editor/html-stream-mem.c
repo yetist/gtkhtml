@@ -12,24 +12,21 @@
 #include <sys/stat.h>
 #include <gtk/gtk.h>
 #include <libgnome/gnome-util.h>
-#include <bonobo/bonobo-stream-memory.h>
 #include <bonobo/bonobo-exception.h>
 
 #include "gtkhtml.h"
 #include "gtkhtml-stream.h"
 #include "html-stream-mem.h"
 
-BonoboStreamMemClass *parent_class;
+BonoboObjectClass *parent_class;
 
 static void
-mem_write (PortableServer_Servant servant,
-	   const Bonobo_Stream_iobuf *buffer,
-	   CORBA_Environment *ev)
+html_stream_mem_write (PortableServer_Servant servant,
+		       const Bonobo_Stream_iobuf *buffer,
+		       CORBA_Environment *ev)
 {
 	HTMLStreamMem *bhtml = HTML_STREAM_MEM (bonobo_object_from_servant (servant));
 
-	parent_class->epv.write (servant, buffer, ev);
-	
 	if (bhtml->html_stream) {
 		if (ev->_major == CORBA_NO_EXCEPTION) {
 			gtk_html_stream_write (bhtml->html_stream, buffer->_buffer, buffer->_length);
@@ -57,13 +54,11 @@ HTMLStreamMem *
 html_stream_mem_construct (HTMLStreamMem *bhtml,
 			   GtkHTMLStream *html_stream)
 {
-	g_return_val_if_fail (BONOBO_IS_STREAM_MEM (bhtml), NULL);
+	g_return_val_if_fail (HTML_IS_STREAM_MEM (bhtml), NULL);
 	
 	bhtml->html_stream = html_stream;
 
-	return HTML_STREAM_MEM (bonobo_stream_mem_construct (BONOBO_STREAM_MEM (bhtml),
-							     NULL, 0,
-							     FALSE, TRUE));
+	return bhtml;
 }
 
 BonoboObject *
@@ -89,8 +84,8 @@ html_stream_mem_class_init (HTMLStreamMemClass *klass)
 	GObjectClass *o_class = G_OBJECT_CLASS (klass);
 	POA_Bonobo_Stream__epv *epv = &klass->epv;
 
-	parent_class = g_type_class_ref (BONOBO_TYPE_STREAM_MEM);
-	epv->write = mem_write;
+	parent_class = g_type_class_peek_parent (klass);
+	epv->write = html_stream_mem_write;
 	
 	o_class->finalize = html_stream_mem_finalize;
 
@@ -99,5 +94,5 @@ html_stream_mem_class_init (HTMLStreamMemClass *klass)
 BONOBO_TYPE_FUNC_FULL (
 	HTMLStreamMem,                 /* Glib class name */
 	Bonobo_Stream,                 /* CORBA interface name */
-	BONOBO_TYPE_STREAM_MEM,        /* parent type */
+	BONOBO_TYPE_OBJECT,            /* parent type */
 	html_stream_mem);              /* local prefix ie. 'echo'_class_init */

@@ -9,7 +9,7 @@
 #ifndef _HTML_STREAM_MEM_H_
 #define _HTML_STREAM_MEM_H_
 
-#include <bonobo/bonobo-stream-memory.h>
+#include <bonobo/bonobo-object.h>
 
 typedef struct _HTMLStreamMem      HTMLStreamMem;
 typedef struct _HTMLStreamMemClass HTMLStreamMemClass;
@@ -21,13 +21,13 @@ typedef struct _HTMLStreamMemClass HTMLStreamMemClass;
 #define HTML_IS_STREAM_MEM_CLASS(k)   (GTK_CHECK_CLASS_TYPE ((k), HTML_STREAM_MEM_TYPE))
 
 struct _HTMLStreamMem {
-	BonoboStreamMem  stream_mem;
+	BonoboObject  bonobo_object;
 
 	GtkHTMLStream   *html_stream;
 };
   
 struct _HTMLStreamMemClass {
-	BonoboStreamMemClass parent_class;
+	BonoboObjectClass parent_class;
 	POA_Bonobo_Stream__epv epv;
 };
 
