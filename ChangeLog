@@ -1,3 +1,7 @@
+2000-06-01  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* configure.in: Fixed gnome-print check as reported by Michael.
+
 2000-05-21  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* configure.in: Bump `GTKHTML_CURRENT' and reset `GTKHTML_AGE' to
