@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2001-05-02 11:03+0200\n"
+"POT-Creation-Date: 2001-05-10 18:56+0200\n"
 "PO-Revision-Date: 2000-08-06 22:43+0200\n"
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -82,8 +82,8 @@ msgid "For printing"
 msgstr "Za tiskanje"
 
 #: capplet/gtkhtml-capplet.glade.h:7
-msgid "Keybord Shortcuts"
-msgstr "Bli¾njice s tipkami"
+msgid "Keyboard Shortcuts"
+msgstr "Bli¾njice tipkovnice"
 
 #: capplet/gtkhtml-capplet.glade.h:8
 msgid "Language"
@@ -186,144 +186,137 @@ msgid "Cut the selection"
 msgstr "Izre¾i izbrano"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:8
+#: components/html-editor/search.c:64
 msgid "Find"
 msgstr "Poi¹èi"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:9
+msgid "Find A Regular Expression"
+msgstr "Poi¹èi z regularnim izrazom"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:10
+msgid "Find And Replace"
+msgstr "Poi¹èi in zamenjaj"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:11
 msgid "Find Rege_x..."
 msgstr "Poi¹èi _regularni izraz..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:10
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:12
 msgid "Find _Again"
 msgstr "Poi¹èi znova"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:11
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:13
+msgid "Find again"
+msgstr "Poi¹èi znova"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:14
+msgid "Find and Replace"
+msgstr "Poi¹èi in zamenjaj"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:15
 msgid "Insert HTML link into document..."
 msgstr "V dokument vstavi HTML povezavo..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:12
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:16
 msgid "Insert image into document..."
 msgstr "V dokument vstavi sliko..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:13
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:17
 msgid "Insert rule into document..."
 msgstr "V dokument vstavi pravilo..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:14
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:18
 msgid "Modify the file's properties"
 msgstr "Spremeni lastnosti datoteke"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:15
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:19
 msgid "Paste"
 msgstr "Prilepi"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:16
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:20
 msgid "Paste from clipboard"
 msgstr "Prilepi iz odlo¾i¹èa"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:17
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:21
 msgid "Paste the clipboard"
 msgstr "Prilepi odlo¾i¹èe"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:18
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:22
 msgid "Redo"
 msgstr "Obnovi"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:19
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:23
 msgid "Redo previously undone change"
 msgstr "Obnovi prej¹njo razveljavljeno dejanje"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:20
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:24
 msgid "Redo the undone action"
 msgstr "Obnovi razveljavljeno dejanje"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:21
-msgid "Regular expression search"
-msgstr "Iskanje s pomoèjo regularnega izraza"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:22
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:25
 #: components/html-editor/replace.c:84 components/html-editor/replace.c:146
 #: components/html-editor/replace.c:158
 msgid "Replace"
 msgstr "Zamenjaj"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:23
-msgid "Replace a string"
-msgstr "Zamenjaj niz"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:24
-msgid "Search again for the same string"
-msgstr "I¹èi znova enak niz"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:25
-msgid "Search and replace string"
-msgstr "I¹èi in zamenjaj niz"
-
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:26
-msgid "Search for a string"
-msgstr "I¹èi niz"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:27
-msgid "Search string"
-msgstr "I¹èi niz"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:28
 msgid "Undo"
 msgstr "Razveljavi"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:29
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:27
 msgid "Undo previous changes"
 msgstr "Razveljavi prej¹nje dejanje"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:30
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:28
 msgid "Undo the last action"
 msgstr "Razveljavi zadnje dejanje"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:31
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:29
 msgid "_Copy"
 msgstr "_Kopiraj"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:32
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:30
 msgid "_Edit"
 msgstr "_Uredi"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:33
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:31
 msgid "_Find..."
 msgstr "_Poi¹èi..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:34
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:32
 msgid "_Image..."
 msgstr "_Slika..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:35
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:33
 msgid "_Insert"
 msgstr "Vstav_i"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:36
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:34
 msgid "_Link..."
 msgstr "Po_vezava..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:37
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:35
 msgid "_Paste"
 msgstr "_Prilepi"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:38
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:36
 msgid "_Properties..."
 msgstr "_Lastnosti..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:39
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:37
 msgid "_Redo"
 msgstr "_Obnovi"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:40
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:38
 msgid "_Replace..."
 msgstr "_Zamenjaj..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:41
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:39
 msgid "_Rule..."
 msgstr "P_ravilo..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:42
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:40
 msgid "_Undo"
 msgstr "Ra_zveljavi"
 
@@ -350,17 +343,17 @@ msgid "Properties"
 msgstr "Lastnosti"
 
 #: components/html-editor/editor-control-factory.c:156
-#: components/html-editor/menubar.c:97 components/html-editor/popup.c:96
+#: components/html-editor/menubar.c:103 components/html-editor/popup.c:96
 msgid "Image"
 msgstr "Slika"
 
 #: components/html-editor/editor-control-factory.c:165
-#: components/html-editor/menubar.c:118 components/html-editor/popup.c:89
+#: components/html-editor/menubar.c:124 components/html-editor/popup.c:89
 msgid "Text"
 msgstr "Besedilo"
 
 #: components/html-editor/editor-control-factory.c:176
-#: components/html-editor/menubar.c:141 components/html-editor/popup.c:124
+#: components/html-editor/menubar.c:147 components/html-editor/popup.c:124
 msgid "Rule"
 msgstr "Pravilo"
 
@@ -370,7 +363,7 @@ msgid "Paragraph"
 msgstr "Odstavek"
 
 #: components/html-editor/editor-control-factory.c:190
-#: components/html-editor/menubar.c:102 components/html-editor/menubar.c:123
+#: components/html-editor/menubar.c:108 components/html-editor/menubar.c:129
 #: components/html-editor/popup.c:110
 msgid "Link"
 msgstr "Povezava"
@@ -453,13 +446,13 @@ msgstr "Nisem mogel inicializirati GNORBA-e"
 msgid "Could not initialize Bonobo"
 msgstr "Nisem mogel inicializirati Bonoba"
 
-#: components/html-editor/menubar.c:95 components/html-editor/menubar.c:115
-#: components/html-editor/menubar.c:138
+#: components/html-editor/menubar.c:101 components/html-editor/menubar.c:121
+#: components/html-editor/menubar.c:144
 #: components/html-editor/properties.c:110
 msgid "Insert"
 msgstr "Vstavi"
 
-#: components/html-editor/menubar.c:154
+#: components/html-editor/menubar.c:160
 msgid "Cannot execute gtkhtml properties"
 msgstr "Ne morem izvesti gtkhtml lastnosti"
 
@@ -497,7 +490,7 @@ msgstr "Zamenjaj vse"
 msgid "Next"
 msgstr "Naslednji"
 
-#: components/html-editor/replace.c:152 components/html-editor/search.c:67
+#: components/html-editor/replace.c:152
 msgid "search backward"
 msgstr "i¹èi nazaj"
 
@@ -518,12 +511,12 @@ msgid "shaded"
 msgstr "senèeno"
 
 #: components/html-editor/search.c:64
-msgid "Regex search"
-msgstr "Iskanje z reg. izrazom"
+msgid "Regex find"
+msgstr "Poi¹èi z regularnim izrazom"
 
-#: components/html-editor/search.c:64
-msgid "Search"
-msgstr "Iskanje"
+#: components/html-editor/search.c:67
+msgid "backward"
+msgstr "nazaj"
 
 #: components/html-editor/test-html-editor-control.c:239
 msgid "Open file..."
@@ -668,6 +661,27 @@ msgstr "_Predogled tiskanja"
 #: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "Predogled tiskanja"
+
+#~ msgid "Replace a string"
+#~ msgstr "Zamenjaj niz"
+
+#~ msgid "Search again for the same string"
+#~ msgstr "I¹èi znova enak niz"
+
+#~ msgid "Search and replace string"
+#~ msgstr "I¹èi in zamenjaj niz"
+
+#~ msgid "Search for a string"
+#~ msgstr "I¹èi niz"
+
+#~ msgid "Search string"
+#~ msgstr "I¹èi niz"
+
+#~ msgid "Regex search"
+#~ msgstr "Iskanje z reg. izrazom"
+
+#~ msgid "Search"
+#~ msgstr "Iskanje"
 
 #~ msgid "Pre"
 #~ msgstr "Pred"
