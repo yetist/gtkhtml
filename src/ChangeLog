@@ -1,3 +1,10 @@
+2001-10-14  Jon Trowbridge  <trow@ximian.com>
+
+	* htmlframe.c (html_frame_init): On second thought, maybe sharing
+	the tokenizers isn't such a good idea after all...
+
+	* htmliframe.c (html_iframe_init): Ditto.
+
 2001-10-13  Jon Trowbridge  <trow@ximian.com>
 
 	* htmliframe.c (html_iframe_init): The iframe's HTMLEngine needs
