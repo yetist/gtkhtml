@@ -174,8 +174,6 @@ typedef enum _GtkHTMLCommandType GtkHTMLCommandType;
 #include "htmlengine-save.h"
 #include "gtkhtmlfontstyle.h"
 
-#define GTKHTML_USE_XIM 1 /* FIXME: This should be done by configure */
-
 typedef HTMLEngineSaveReceiverFn GtkHTMLSaveReceiverFn;
 
 struct _GtkHTML {

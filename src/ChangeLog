@@ -1,5 +1,9 @@
 2000-09-29  Larry Ewing  <lewing@helixcode.com>
 
+	* gtkhtml.h: turn GTK_HTML_USE_XIM off for the time being.
+
+2000-09-29  Larry Ewing  <lewing@helixcode.com>
+
 	* gtkhtml.c (style_set): 
 	(realize): 
 	(unrealize): 
