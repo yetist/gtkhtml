@@ -27,12 +27,6 @@ static void
 copy_forall (HTMLObject *obj,
 	     gpointer closure)
 {
-	GList **bufferp;
-
-	bufferp = (GList **) closure;
-
-	if (! obj->selected)
-		return;
 }
 #endif
 

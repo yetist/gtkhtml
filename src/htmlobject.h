@@ -192,6 +192,7 @@ struct _HTMLObjectClass {
 
 	gboolean (* select_range) (HTMLObject *self, HTMLEngine *engine, guint start, gint length,
 				   gboolean queue_draw);
+	HTMLObject * (* get_selection) (HTMLObject *self);
 };
 
 
@@ -293,12 +294,12 @@ gint  html_object_check_page_split  (HTMLObject *self,
 				     gint        y);
 
 /* Selection.  */
-gboolean    html_object_select_range   (HTMLObject *obj,
+gboolean    html_object_select_range   (HTMLObject *self,
 					HTMLEngine *engine,
 					guint       start,
 					gint        length,
 					gboolean    queue_draw);
-HTMLObject *html_object_get_selection  (HTMLObject *obj);
+HTMLObject *html_object_get_selection  (HTMLObject *self);
 
 /* Saving.  */
 gboolean  html_object_save  (HTMLObject          *self,
