@@ -36,6 +36,7 @@ static int test_quotes_in_div_block (GtkHTML *html);
 static int test_quotes_in_table (GtkHTML *html);
 static int test_capitalize_upcase_lowcase_word (GtkHTML *html);
 static int test_delete_nested_cluevs_and_undo (GtkHTML *html);
+static int test_insert_nested_cluevs (GtkHTML *html);
 static int test_indentation_plain_text (GtkHTML *html);
 static int test_indentation_plain_text_rtl (GtkHTML *html);
 
@@ -53,6 +54,7 @@ static Test tests[] = {
 	{ "outer quotes inside table", test_quotes_in_table },
 	{ "capitalize, upcase/lowcase word", test_capitalize_upcase_lowcase_word },
 	{ "delete across nested cluev's and undo", test_delete_nested_cluevs_and_undo },
+	{ "insert nested cluev's", test_insert_nested_cluevs },
 	{ "indentation in plain text", test_indentation_plain_text },
 	{ "indentation in plain text (RTL)", test_indentation_plain_text_rtl },
 	{ NULL, NULL }
@@ -118,6 +120,15 @@ static int test_delete_nested_cluevs_and_undo (GtkHTML *html)
 	if (html->engine->cursor->offset != 3
 	    || html->engine->cursor->position != 7)
 		return FALSE;
+
+	return TRUE;
+}
+
+static int test_insert_nested_cluevs (GtkHTML *html)
+{
+	load_editable (html, "text");
+
+	gtk_html_insert_html (html, "<div>text in div block</div>");
 
 	return TRUE;
 }

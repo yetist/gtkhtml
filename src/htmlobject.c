@@ -41,6 +41,7 @@
 #include "htmlobject.h"
 #include "htmlpainter.h"
 #include "htmltable.h"
+#include "htmltablecell.h"
 #include "htmltext.h"
 #include "htmlrule.h"
 #include "htmltype.h"
@@ -2069,7 +2070,8 @@ html_object_get_insert_level (HTMLObject *o)
 	case HTML_TYPE_CLUEV: {
 		int level = 3;
 
-		while (o && HTML_IS_CLUEV (o) && HTML_CLUE (o)->head && HTML_IS_CLUEV (HTML_CLUE (o)->head)) {
+		while (o && (HTML_IS_CLUEV (o) || HTML_IS_TABLE_CELL (o))
+		       && HTML_CLUE (o)->head && (HTML_IS_CLUEV (HTML_CLUE (o)->head) || HTML_IS_TABLE_CELL (HTML_CLUE (o)->head))) {
 			level ++;
 			o = HTML_CLUE (o)->head;
 		}

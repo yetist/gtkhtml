@@ -1,3 +1,13 @@
+2005-03-03  Radek Doulik  <rodo@novell.com>
+
+	* test-suite.c (test_insert_nested_cluevs): added test for
+	inserting nested cluevs
+
+	* htmlengine-edit.c (html_engine_get_insert_level_for_object): new
+	helper function, calculates insert level at cursor position for
+	object. it makes sure that insert level isn't greater than cursor
+	level
+
 2005-02-28  Radek Doulik  <rodo@novell.com>
 
 	* htmltext.c (html_text_direction_pango_to_html): new helper

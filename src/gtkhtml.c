@@ -5593,7 +5593,7 @@ gtk_html_insert_html_generic (GtkHTML *html, GtkHTML *tmp, const gchar *html_src
 		tmp->engine->clue = NULL;
 		html_engine_insert_object (html->engine, o,
 					   html_object_get_recursive_length (o),
-					   html_object_get_insert_level (o));
+					   html_engine_get_insert_level_for_object (html->engine, o));
 	}
 	gtk_widget_destroy (window);
 	html_engine_thaw (html->engine);
