@@ -1,3 +1,7 @@
+2000-08-07  Pablo Saratxaga <pablo@mandrakesoft.com>
+
+	* configure.in,po/fr.po: added French file
+
 2000-08-03  Peter Williams  <peterw@helixcode.com>
 
 	* configure.in (have_bonobo): Check for whether bonobo is
