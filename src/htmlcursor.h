@@ -54,38 +54,40 @@ HTMLCursor *html_cursor_dup      (const HTMLCursor *cursor);
 void        html_cursor_copy     (HTMLCursor       *dest,
 				  const HTMLCursor *src);
 /* Basic movement.   */
-void      html_cursor_home                   (HTMLCursor *cursor,
-					      HTMLEngine *engine);
-gboolean  html_cursor_forward                (HTMLCursor *cursor,
-					      HTMLEngine *engine);
-gboolean  html_cursor_backward               (HTMLCursor *cursor,
-					      HTMLEngine *engine);
-gboolean  html_cursor_forward_n              (HTMLCursor *cursor,
-					      HTMLEngine *e,
-					      guint      n);
-gboolean  html_cursor_backward_n             (HTMLCursor *cursor,
-					      HTMLEngine *e,
-					      guint      n);
-gboolean  html_cursor_up                     (HTMLCursor *cursor,
-					      HTMLEngine *engine);
-gboolean  html_cursor_down                   (HTMLCursor *cursor,
-					      HTMLEngine *engine);
-void      html_cursor_beginning_of_document  (HTMLCursor *cursor,
-					      HTMLEngine *engine);
-void      html_cursor_end_of_document        (HTMLCursor *cursor,
-					      HTMLEngine *engine);
-gboolean  html_cursor_beginning_of_line      (HTMLCursor *cursor,
-					      HTMLEngine *engine);
-gboolean  html_cursor_end_of_line            (HTMLCursor *cursor,
-					      HTMLEngine *engine);
-gboolean  html_cursor_beginning_of_paragraph (HTMLCursor *cursor,
-					      HTMLEngine *engine);
-gboolean  html_cursor_end_of_paragraph       (HTMLCursor *cursor,
-					      HTMLEngine *engine);
-gboolean  html_cursor_jump_to                (HTMLCursor *cursor,
-					      HTMLEngine *engine,
-					      HTMLObject *obj,
-					      guint       offset);
+void        html_cursor_home                    (HTMLCursor *cursor,
+						 HTMLEngine *engine);
+gboolean    html_cursor_forward                 (HTMLCursor *cursor,
+						 HTMLEngine *engine);
+gboolean    html_cursor_backward                (HTMLCursor *cursor,
+						 HTMLEngine *engine);
+gboolean    html_cursor_forward_n               (HTMLCursor *cursor,
+						 HTMLEngine *e,
+						 guint       n);
+gboolean    html_cursor_backward_n              (HTMLCursor *cursor,
+						 HTMLEngine *e,
+						 guint       n);
+gboolean    html_cursor_up                      (HTMLCursor *cursor,
+						 HTMLEngine *engine);
+gboolean    html_cursor_down                    (HTMLCursor *cursor,
+						 HTMLEngine *engine);
+void        html_cursor_beginning_of_document   (HTMLCursor *cursor,
+						 HTMLEngine *engine);
+void        html_cursor_end_of_document         (HTMLCursor *cursor,
+						 HTMLEngine *engine);
+gboolean    html_cursor_beginning_of_line       (HTMLCursor *cursor,
+						 HTMLEngine *engine);
+gboolean    html_cursor_end_of_line             (HTMLCursor *cursor,
+						 HTMLEngine *engine);
+gboolean    html_cursor_beginning_of_paragraph  (HTMLCursor *cursor,
+						 HTMLEngine *engine);
+gboolean    html_cursor_end_of_paragraph        (HTMLCursor *cursor,
+						 HTMLEngine *engine);
+gboolean    html_cursor_jump_to                 (HTMLCursor *cursor,
+						 HTMLEngine *engine,
+						 HTMLObject *obj,
+						 guint       offset);
+HTMLObject *html_cursor_child_of                (HTMLCursor *cursor,
+						 HTMLObject *parent);
 
 /* Internals.  */
 void  html_cursor_normalize     (HTMLCursor *cursor);

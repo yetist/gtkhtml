@@ -2,7 +2,7 @@
 /*  This file is part of the GtkHTML library.
 
     Copyright (C) 2000 Helix Code, Inc.
-    Copyright (C) 2001 Ximian, Inc.
+    Copyright (C) 2001, 2002 Ximian, Inc.
     Authors: Radek Doulik
 
     This library is free software; you can redistribute it and/or
@@ -141,9 +141,10 @@ insert_undo_data_new (gint pos)
 {
 	InsertCellsUndo *ud = g_new0 (InsertCellsUndo, 1);
 
+	html_undo_data_init (HTML_UNDO_DATA (ud));
 	ud->pos = pos;
 
-	return (HTMLUndoData *) ud;
+	return HTML_UNDO_DATA (ud);
 }
 
 static void
@@ -318,15 +319,15 @@ delete_column_setup_undo (HTMLEngine *e, HTMLTableCell **column, gint size, guin
 }
 
 static void
-backward_before_col (HTMLEngine *e, gint col)
+backward_before_col (HTMLEngine *e, HTMLTable *table, gint col)
 {
-	HTMLTableCell *cell;
+	HTMLObject *cell;
 
 	do {
 		if (!html_cursor_backward (e->cursor, e))
-			break;
-		cell = html_engine_get_table_cell (e);
-	} while (cell && cell->col >= col);
+			return;
+		cell = html_cursor_child_of (e->cursor, HTML_OBJECT (table));
+	} while (cell && HTML_IS_TABLE_CELL (cell) && HTML_TABLE_CELL (cell)->col >= col);
 }
 
 void
@@ -347,7 +348,7 @@ html_table_delete_column (HTMLTable *t, HTMLEngine *e, gint col, HTMLUndoDirecti
 	position_before = e->cursor->position;
 	column = g_new0 (HTMLTableCell *, t->totalRows);
 
-	backward_before_col (e, col);
+	backward_before_col (e, t, col);
 	pos.object = e->cursor->object;
 	pos.offset = e->cursor->offset;
 
@@ -518,15 +519,15 @@ delete_row_setup_undo (HTMLEngine *e, HTMLTableCell **row_cells, gint size, guin
 }
 
 static void
-backward_before_row (HTMLEngine *e, gint row)
+backward_before_row (HTMLEngine *e, HTMLTable *table, gint row)
 {
-	HTMLTableCell *cell;
+	HTMLObject *cell;
 
 	do {
 		if (!html_cursor_backward (e->cursor, e))
 			return;
-		cell = html_engine_get_table_cell (e);
-	} while (cell && cell->row >= row);
+		cell = html_cursor_child_of (e->cursor, HTML_OBJECT (table));
+	} while (cell && HTML_IS_TABLE_CELL (cell) && HTML_TABLE_CELL (cell)->row >= row);
 }
 
 void
@@ -547,7 +548,7 @@ html_table_delete_row (HTMLTable *t, HTMLEngine *e, gint row, HTMLUndoDirection 
 	position_before = e->cursor->position;
 	row_cells = g_new0 (HTMLTableCell *, t->totalCols);
 
-	backward_before_row (e, row);
+	backward_before_row (e, t, row);
 	pos.object = e->cursor->object;
 	pos.offset = e->cursor->offset;
 

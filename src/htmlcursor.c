@@ -857,3 +857,17 @@ html_cursor_backward_n (HTMLCursor *cursor, HTMLEngine *e, guint n)
 
 	return rv;
 }
+
+HTMLObject *
+html_cursor_child_of (HTMLCursor *cursor, HTMLObject *parent)
+{
+	HTMLObject *child = cursor->object;
+
+	while (child) {
+		if (child->parent == parent)
+			return child;
+		child = child->parent;
+	}
+
+	return NULL;
+}
