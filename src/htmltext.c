@@ -1147,7 +1147,8 @@ html_text_remove_link_line_breaks (HTMLText *text)
 		int offset;
 
 		for (offset = link->start_offset; offset < link->end_offset; offset ++)
-			text->pi->attrs [offset].is_line_break = 0;
+			if (offset > 0 && !text->pi->attrs [offset - 1].is_white)
+				text->pi->attrs [offset].is_line_break = 0;
 	}
 }
 

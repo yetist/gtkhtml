@@ -448,7 +448,8 @@ html_engine_save_buffer_clear_line_breaks (HTMLEngineSaveState *state, PangoLogA
 			end_offset = GPOINTER_TO_INT (cur->next->data);
 
 			for (i = start_offset; i < end_offset; i ++)
-				attrs [i].is_line_break = 0;
+				if (i > 0 && !text->pi->attrs [i - 1].is_white)
+					attrs [i].is_line_break = 0;
 		}
 	}
 }
