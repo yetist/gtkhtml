@@ -26,28 +26,28 @@
 #include "htmltypes.h"
 #include "htmlenums.h"
 
-void           html_engine_table_cell_set_bg_color   (HTMLEngine     *e,
-						      HTMLTableCell  *t,
-						      GdkColor       *c);
-void           html_engine_table_cell_set_bg_pixmap  (HTMLEngine     *e,
-						      HTMLTableCell  *t,
-						      gchar          *url);
-void           html_engine_table_cell_set_halign     (HTMLEngine     *e,
-						      HTMLTableCell  *cell,
-						      HTMLHAlignType  halign);
-void           html_engine_table_cell_set_valign     (HTMLEngine     *e,
-						      HTMLTableCell  *cell,
-						      HTMLVAlignType  valign);
-void           html_engine_table_cell_set_no_wrap    (HTMLEngine     *e,
-						      HTMLTableCell  *cell,
-						      gboolean        no_wrap);
-void           html_engine_table_cell_set_heading    (HTMLEngine     *e,
-						      HTMLTableCell  *cell,
-						      gboolean        heading);
-void           html_engine_table_cell_set_width      (HTMLEngine     *e,
-						      HTMLTableCell  *cell,
-						      gint            width,
-						      gboolean        percent);
-HTMLTableCell *html_engine_get_table_cell            (HTMLEngine     *e);
-			       
+void           html_engine_table_cell_set_bg_color     (HTMLEngine     *e,
+							HTMLTableCell  *t,
+							GdkColor       *c);
+void           html_engine_table_cell_set_bg_pixmap    (HTMLEngine     *e,
+							HTMLTableCell  *t,
+							gchar          *url);
+void           html_engine_table_cell_set_halign       (HTMLEngine     *e,
+							HTMLTableCell  *cell,
+							HTMLHAlignType  halign);
+void           html_engine_table_cell_set_valign       (HTMLEngine     *e,
+							HTMLTableCell  *cell,
+							HTMLVAlignType  valign);
+void           html_engine_table_cell_set_no_wrap      (HTMLEngine     *e,
+							HTMLTableCell  *cell,
+							gboolean        no_wrap);
+void           html_engine_table_cell_set_heading      (HTMLEngine     *e,
+							HTMLTableCell  *cell,
+							gboolean        heading);
+void           html_engine_table_cell_set_width        (HTMLEngine     *e,
+							HTMLTableCell  *cell,
+							gint            width,
+							gboolean        percent);
+HTMLTableCell *html_engine_get_table_cell              (HTMLEngine     *e);
+void           html_engine_delete_table_cell_contents  (HTMLEngine     *e);			       
 #endif

@@ -23,6 +23,8 @@
 #include <config.h>
 #include "htmlcursor.h"
 #include "htmlengine.h"
+#include "htmlengine-edit.h"
+#include "htmlengine-edit-cut-and-paste.h"
 #include "htmlengine-edit-tablecell.h"
 #include "htmlobject.h"
 #include "htmltablecell.h"
@@ -376,4 +378,21 @@ void
 html_engine_table_cell_set_width (HTMLEngine *e, HTMLTableCell *cell, gint width, gboolean percent)
 {
 	table_cell_set_width (e, cell, width, percent, HTML_UNDO_UNDO);
+}
+
+void
+html_engine_delete_table_cell_contents (HTMLEngine *e)
+{
+	HTMLTableCell *cell;
+
+	cell = html_engine_get_table_cell (e);
+	if (!cell)
+		return;
+
+	html_engine_prev_cell (e);
+	html_cursor_forward (e->cursor, e);
+	html_engine_set_mark (e);
+	html_engine_next_cell (e, FALSE);
+	html_cursor_backward (e->cursor, e);
+	html_engine_delete (e);
 }

@@ -1096,3 +1096,19 @@ html_engine_table_set_rows (HTMLEngine *e, gint rows)
 	  FIXME: like set_cols
 	*/
 }
+
+void
+html_engine_delete_table (HTMLEngine *e)
+{
+	HTMLTable *table;
+
+	table = html_engine_get_table (e);
+
+	if (!table)
+		return;
+	while (e->cursor->object != HTML_OBJECT (table) || e->cursor->offset)
+		html_cursor_backward (e->cursor, e);
+	html_engine_set_mark (e);
+	html_cursor_end_of_line (e->cursor, e);
+	html_engine_delete (e);
+}

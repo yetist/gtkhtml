@@ -2,6 +2,7 @@
 /*  This file is part of the GtkHTML library.
 
     Copyright (C) 1999, 2000 Helix Code, Inc.
+    Copyright (C) 2001 Ximian, Inc.
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
@@ -18,7 +19,8 @@
     the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
     Boston, MA 02111-1307, USA.
 
-    Author: Ettore Perazzoli <ettore@helixcode.com>
+    Authors: Ettore Perazzoli <ettore@helixcode.com>
+             Radek Doulik     <rodo@ximian.com>
 */
 
 
@@ -626,10 +628,17 @@ html_engine_break_and_fill_line (HTMLEngine *e)
 gboolean
 html_engine_next_cell (HTMLEngine *e, gboolean create)
 {
-	if (html_engine_get_table_cell (e)) {
+	HTMLTableCell *cell, *current_cell;
+
+	cell = html_engine_get_table_cell (e);
+	if (cell) {
 		html_engine_hide_cursor (e);
-		html_cursor_end_of_line (e->cursor, e);
-		html_cursor_forward (e->cursor, e);
+		do {
+			html_cursor_end_of_line (e->cursor, e);
+			html_cursor_forward (e->cursor, e);
+			current_cell = html_engine_get_table_cell (e);
+		} while (current_cell == cell);
+			
 		if (create && HTML_IS_TABLE (e->cursor->object)) {
 			html_cursor_backward (e->cursor, e);
 			html_engine_insert_table_row (e, TRUE);
@@ -646,10 +655,17 @@ html_engine_next_cell (HTMLEngine *e, gboolean create)
 gboolean
 html_engine_prev_cell (HTMLEngine *e)
 {
-	if (html_engine_get_table_cell (e)) {
+	HTMLTableCell *cell, *current_cell;
+
+	cell = html_engine_get_table_cell (e);
+	if (cell) {
 		html_engine_hide_cursor (e);
-		html_cursor_beginning_of_line (e->cursor, e);
-		html_cursor_backward (e->cursor, e);
+		do {
+			html_cursor_beginning_of_line (e->cursor, e);
+			html_cursor_backward (e->cursor, e);
+			current_cell = html_engine_get_table_cell (e);
+		} while (current_cell == cell);
+
 		html_engine_show_cursor (e);
 		gtk_html_edit_make_cursor_visible (e->widget);
 

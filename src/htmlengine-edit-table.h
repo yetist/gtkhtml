@@ -78,4 +78,5 @@ gboolean   html_engine_table_goto_row          (HTMLEngine     *e,
 gboolean   html_engine_table_goto_pos          (HTMLEngine     *e,
 						gint            row,
 						gint            col);
+void       html_engine_delete_table            (HTMLEngine     *e);
 #endif
