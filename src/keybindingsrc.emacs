@@ -54,7 +54,7 @@ binding "gtkhtml-bindings-emacs"
   bind "<Ctrl>m"            { "command" (insert-paragraph) }
   bind "<Ctrl>j"            { "command" (insert-paragraph) }
   bind "<Ctrl>w"            { "command" (cut) }
-  bind "<Alt>w"             { "command" (copy) }
+  bind "<Alt>w"             { "command" (copy-and-disable-selection) }
   bind "<Ctrl>y"            { "command" (paste) }
 
   bind "<Ctrl>k"            { "command" (cut-line) }

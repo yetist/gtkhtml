@@ -37,13 +37,13 @@ gtk_html_class_properties_new (void)
 
 	/* default values */
 	p->magic_links             = TRUE;
-	p->keybindings_theme       = g_strdup ("emacs");
-	p->font_var         = g_strdup ("-*-helvetica-*-*-*-*-12-*-*-*-*-*-*-*");
-	p->font_fix         = g_strdup ("-*-courier-*-*-*-*-12-*-*-*-*-*-*-*");
+	p->keybindings_theme       = g_strdup ("ms");
+	p->font_var                = g_strdup ("-*-helvetica-*-*-*-*-12-*-*-*-*-*-*-*");
+	p->font_fix                = g_strdup ("-*-courier-*-*-*-*-12-*-*-*-*-*-*-*");
 	p->font_var_size           = DEFAULT_FONT_SIZE;
 	p->font_fix_size           = DEFAULT_FONT_SIZE;
-	p->font_var_print   = g_strdup ("-*-helvetica-*-*-*-*-12-*-*-*-*-*-*-*");
-	p->font_fix_print   = g_strdup ("-*-courier-*-*-*-*-12-*-*-*-*-*-*-*");
+	p->font_var_print          = g_strdup ("-*-helvetica-*-*-*-*-12-*-*-*-*-*-*-*");
+	p->font_fix_print          = g_strdup ("-*-courier-*-*-*-*-12-*-*-*-*-*-*-*");
 	p->font_var_size_print     = DEFAULT_FONT_SIZE;
 	p->font_fix_size_print     = DEFAULT_FONT_SIZE;
 	p->animations              = TRUE;
@@ -276,6 +276,7 @@ static GtkEnumValue _gtk_html_command_values[] = {
   { GTK_HTML_COMMAND_UNDO,  "GTK_HTML_COMMAND_UNDO",  "undo" },
   { GTK_HTML_COMMAND_REDO,  "GTK_HTML_COMMAND_REDO",  "redo" },
   { GTK_HTML_COMMAND_COPY,  "GTK_HTML_COMMAND_COPY",  "copy" },
+  { GTK_HTML_COMMAND_COPY_AND_DISABLE_SELECTION,  "GTK_HTML_COMMAND_COPY_AND_DISABLE_SELECTION",  "copy-and-disable-selection" },
   { GTK_HTML_COMMAND_CUT,   "GTK_HTML_COMMAND_CUT",   "cut" },
   { GTK_HTML_COMMAND_PASTE, "GTK_HTML_COMMAND_PASTE", "paste" },
   { GTK_HTML_COMMAND_CUT_LINE, "GTK_HTML_COMMAND_CUT_LINE", "cut-line" },

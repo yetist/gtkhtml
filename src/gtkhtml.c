@@ -1022,16 +1022,12 @@ button_press_event (GtkWidget *widget,
 		case 1:
 			html->button1_pressed = TRUE;
 			if (html_engine_get_editable (engine)) {
-				if (html->allow_selection) {
-					if (event->state & GDK_SHIFT_MASK)
+				if (html->allow_selection)
+					if (!(event->state & GDK_SHIFT_MASK)
+					    || (!engine->mark && event->state & GDK_SHIFT_MASK))
 						html_engine_set_mark (engine);
-				}
-
-				html_engine_jump_at (engine,
-						     x + engine->x_offset,
-						     y + engine->y_offset);
+				html_engine_jump_at (engine, x + engine->x_offset, y + engine->y_offset);
 			}
-
 			if (html->allow_selection) {
 				if (event->state & GDK_SHIFT_MASK)
 					html_engine_select_region (engine,
@@ -1050,6 +1046,7 @@ button_press_event (GtkWidget *widget,
 				}
 			}
 
+			engine->selection_mode = FALSE;
 			if (html_engine_get_editable (engine))
 				update_styles (html);
 			break;
@@ -2862,6 +2859,12 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		break;
 	case GTK_HTML_COMMAND_COPY:
 		gtk_html_copy (html);
+		break;
+	case GTK_HTML_COMMAND_COPY_AND_DISABLE_SELECTION:
+		gtk_html_copy (html);
+		html_engine_disable_selection (e);
+		html_engine_edit_selection_updater_schedule (e->selection_updater);
+		e->selection_mode = FALSE;
 		break;
 	case GTK_HTML_COMMAND_CUT:
 		gtk_html_cut (html);

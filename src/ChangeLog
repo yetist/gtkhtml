@@ -1,5 +1,12 @@
 2001-08-07  Radek Doulik  <rodo@ximian.com>
 
+	* gtkhtml.c (button_press_event): disable selection mode
+	(command): added GTK_HTML_COMMAND_COPY_AND_DISABLE_SELECTION
+	command
+
+	* gtkhtml-properties.c (gtk_html_class_properties_new): make ms
+	bindings default
+
 	* htmlcluev.c (check_point): fix for padding != 0
 
 2001-08-06  Larry Ewing  <lewing@ximian.com>
