@@ -3303,8 +3303,12 @@ html_engine_timer_event (HTMLEngine *e)
 		retval = FALSE;
 
  out:
-	if (!retval)
+	if (!retval) {
+		if(e->updateTimer != 0)
+			html_engine_update_event (e);
+			
 		e->timerId = 0;
+	}
 
 	return retval;
 }
@@ -3810,6 +3814,7 @@ html_engine_select_region (HTMLEngine *e,
 	if (data->obj1 == NULL || data->obj2 == NULL
 	    || (data->obj1 == data->obj2 && data->offset1 == data->offset2)) {
 		html_engine_unselect_all (e, queue_draw);
+		g_free (data);
 		return;
 	}
 

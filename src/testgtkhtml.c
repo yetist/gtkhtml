@@ -454,12 +454,9 @@ reload_cb (GtkWidget *widget, gpointer data)
 static void
 stop_cb (GtkWidget *widget, gpointer data)
 {
-	if (html_stream_handle != NULL) {
-		gtk_html_end (html, html_stream_handle, GTK_HTML_STREAM_OK);
-		html_stream_handle = NULL;
-	}
 	/* Kill all requests */
 	HTNet_killAll();
+	html_stream_handle = NULL;
 }
 
 static void
