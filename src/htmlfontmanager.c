@@ -47,6 +47,33 @@ font_set_init (FontSet *set)
 	bzero (set, GTK_HTML_FONT_STYLE_MAX_FONT*sizeof (gpointer));
 }
 
+static FontSet *
+font_set_new ()
+{
+	FontSet *set;
+
+	set = g_new (FontSet, 1);
+	font_set_init (set);
+
+	return set;
+}
+
+static void
+font_set_destroy (gpointer font_set)
+{
+	g_free (font_set);
+}
+
+static void
+font_set_release (FontSet *set, GFreeFunc destroy)
+{
+	gint i;
+
+	for (i=0; i<GTK_HTML_FONT_STYLE_MAX_FONT; i++)
+		(*destroy)(set->font [i]);
+	font_set_init (set);
+}
+
 void
 html_font_manager_init (HTMLFontManager *manager, GFreeFunc destroy_font)
 {
@@ -61,27 +88,11 @@ html_font_manager_init (HTMLFontManager *manager, GFreeFunc destroy_font)
 	font_set_init (&manager->fixed);
 }
 
-static void
-destroy_font_set (gpointer font_set)
-{
-	g_free (font_set);
-}
-
-static void
-release_font_set (FontSet *set, GFreeFunc destroy)
-{
-	gint i;
-
-	for (i=0; i<GTK_HTML_FONT_STYLE_MAX_FONT; i++)
-		(*destroy)(set->font [i]);
-	font_set_init (set);
-}
-
 static gboolean
 destroy_font_set_foreach (gpointer key, gpointer font_set, gpointer destroy)
 {
-	release_font_set (font_set, (GFreeFunc) destroy);
-	destroy_font_set (font_set);
+	font_set_release (font_set, (GFreeFunc) destroy);
+	font_set_destroy (font_set);
 
 	return TRUE;
 }
@@ -101,8 +112,8 @@ html_font_manager_finish (HTMLFontManager *manager)
 	if (manager->fixed_face)
 		g_free (manager->fixed_face);
 
-	release_font_set (&manager->variable, manager->destroy_font);
-	release_font_set (&manager->fixed, manager->destroy_font);
+	font_set_release (&manager->variable, manager->destroy_font);
+	font_set_release (&manager->fixed, manager->destroy_font);
 
 	release_fonts (manager);
 	g_hash_table_destroy (manager->font_sets);
@@ -126,7 +137,7 @@ html_font_manager_set_default (HTMLFontManager *manager, gchar *variable, gchar 
 		changed = TRUE;
 	}
 	if (changed) {
-		release_font_set (&manager->variable, manager->destroy_font);
+		font_set_release (&manager->variable, manager->destroy_font);
 	}
 	changed = FALSE;
 
@@ -142,7 +153,7 @@ html_font_manager_set_default (HTMLFontManager *manager, gchar *variable, gchar 
 		changed = TRUE;
 	}
 	if (changed)
-		release_font_set (&manager->fixed, manager->destroy_font);
+		font_set_release (&manager->fixed, manager->destroy_font);
 }
 
 static gint
@@ -159,35 +170,30 @@ get_font_set (HTMLFontManager *manager, gchar *face, GtkHTMLFontStyle style)
 		: ((style & GTK_HTML_FONT_STYLE_FIXED) ? &manager->fixed : &manager->variable);
 }
 
-gpointer
-html_font_manager_get_font (HTMLFontManager *manager, gchar *face, GtkHTMLFontStyle style)
+static gchar *
+get_font_face_name (HTMLFontManager *manager,
+		    gchar *face,
+		    GtkHTMLFontStyle style)
 {
-	FontSet *set;
-	gpointer font = NULL;
-
-	set = get_font_set (manager, face, style);
-	if (set)
-		font = set->font [font_set_get_idx (style)];
-
-	return font;
+	return (face)
+		? face
+		: ((style & GTK_HTML_FONT_STYLE_FIXED) ? manager->variable_face : manager->fixed_face);
 }
 
-static FontSet *
-font_set_new ()
+static gdouble
+get_font_size (HTMLFontManager *manager, GtkHTMLFontStyle style)
 {
-	FontSet *set;
-
-	set = g_new (FontSet, 1);
-	font_set_init (set);
-
-	return set;
+	return ((style & GTK_HTML_FONT_STYLE_FIXED) ? manager->fix_size : manager->var_size) *
+		1.0 + .2 * (((gint) style & GTK_HTML_FONT_STYLE_SIZE_MASK) - 3);
 }
 
-void
-html_font_manager_set_font (HTMLFontManager *manager, gchar *face, GtkHTMLFontStyle style, gpointer font)
+static void
+insert_font (HTMLFontManager *manager, gchar *face, GtkHTMLFontStyle style, gpointer font)
 {
 	FontSet *set;
 	gint idx;
+
+	g_assert (font);
 
 	/* find font set or add new one */
 	set = get_font_set (manager, face, style);
@@ -206,12 +212,35 @@ html_font_manager_set_font (HTMLFontManager *manager, gchar *face, GtkHTMLFontSt
 	}
 }
 
-gchar *
-html_font_manager_get_font_face_name (HTMLFontManager *manager,
-				      gchar *face,
-				      GtkHTMLFontStyle style)
+gpointer
+html_font_manager_get_font (HTMLFontManager *manager, gchar *face, GtkHTMLFontStyle style,
+			    HTMLFontManagerAllocFont alloc_font, gpointer data)
 {
-	return (face)
-		? face
-		: ((style & GTK_HTML_FONT_STYLE_FIXED) ? manager->variable_face : manager->fixed_face);
+	FontSet *set;
+	gpointer font = NULL;
+
+	set = get_font_set (manager, face, style);
+	if (set)
+		font = set->font [font_set_get_idx (style)];
+
+	if (!font) {
+		/* first try to alloc right one */
+		font = alloc_font (get_font_face_name (manager, face, style), get_font_size (manager, style), style, data);
+		if (font)
+			insert_font (manager, face, style, font);
+		else {
+			if (!face) {
+				/* default font, so we last chance is to get fixed font */
+				font = alloc_font (NULL, get_font_size (manager, style), style, data);
+				if (!font)
+					g_error ("Cannot allocate fixed font\n");
+				insert_font (manager, NULL, style, font);
+			} else
+				/* some unavailable non-default font => use default one */
+				font = html_font_manager_get_font (manager, NULL, style, alloc_font, data);
+		}
+	}
+
+	return font;
 }
+

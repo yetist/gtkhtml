@@ -25,7 +25,10 @@
 #include <glib.h>
 #include "gtkhtmlfontstyle.h"
 
+#define HTML_FONT_MANAGER(x) ((HTMLFontManager *)x)
+
 typedef struct _HTMLFontManager HTMLFontManager;
+typedef gpointer (* HTMLFontManagerAllocFont) (gchar *face_name, gdouble size, GtkHTMLFontStyle style, gpointer data);
 
 void                html_font_manager_init                    (HTMLFontManager *manager,
 							       GFreeFunc destroy_font);
@@ -39,13 +42,8 @@ void                html_font_manager_set_default             (HTMLFontManager *
 							       gint fix_size);
 gpointer            html_font_manager_get_font                (HTMLFontManager *manager,
 							       gchar *face,
-							       GtkHTMLFontStyle style);
-void                html_font_manager_set_font                (HTMLFontManager *manager,
-							       gchar *face,
 							       GtkHTMLFontStyle style,
-							       gpointer font);
-gchar *            html_font_manager_get_font_face_name       (HTMLFontManager *manager,
-							       gchar *face,
-							       GtkHTMLFontStyle style);
+							       HTMLFontManagerAllocFont alloc_font,
+							       gpointer data);
 
 #endif
