@@ -1,3 +1,8 @@
+2001-03-20  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml-enums.h: new command
+	GTK_HTML_COMMAND_TEXT_SET_DEFAULT_COLOR
+
 2001-03-20  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (html_engine_begin): add LOG_INPUT ifdef here.
