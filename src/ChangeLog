@@ -1,5 +1,20 @@
 2000-04-06  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmltablecell.c
+	(reset): New function, implementation of `HTMLObject::reset()'.
+	Set `bg_allocated' to `FALSE'.
+
+	* htmltext.c
+	(reset): New function, implementation of `HTMLObject::reset()'.
+	Set `color_allocated' to `FALSE' so that we don't get fooled if
+	the painter changes.
+	(html_text_class_init): Install the method.
+
+	* htmltable.c
+	(calc_size): Use the pixel size, dammit!
+
+2000-04-06  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* htmlcluev.c
 	(set_max_width): Set the maximum width from `max_width', not
 	`o->width'!

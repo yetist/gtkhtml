@@ -108,6 +108,18 @@ draw_background_helper (HTMLTableCell *cell,
 /* HTMLObject methods.  */
 
 static void
+reset (HTMLObject *self)
+{
+	HTMLTableCell *cell;
+
+	cell = HTML_TABLE_CELL (self);
+
+	cell->bg_allocated = FALSE;
+
+	(* HTML_OBJECT_CLASS (parent_class)->reset) (self);
+}
+
+static void
 copy (HTMLObject *self,
       HTMLObject *dest)
 {
@@ -231,6 +243,7 @@ html_table_cell_class_init (HTMLTableCellClass *klass,
 
 	/* FIXME destroy */
 
+	object_class->reset = reset;
 	object_class->copy = copy;
 	object_class->calc_min_width = calc_min_width;
 	object_class->set_max_width = set_max_width;

@@ -171,6 +171,17 @@ get_tags (const HTMLText *text,
 /* HTMLObject methods.  */
 
 static void
+reset (HTMLObject *self)
+{
+	HTMLText *text;
+
+	text = HTML_TEXT (self);
+	text->color_allocated = FALSE;
+
+	(* HTML_OBJECT_CLASS (parent_class)->reset) (self);
+}
+
+static void
 copy (HTMLObject *self,
       HTMLObject *dest)
 {
@@ -570,6 +581,7 @@ html_text_class_init (HTMLTextClass *klass,
 	html_object_class_init (object_class, type, object_size);
 
 	object_class->destroy = destroy;
+	object_class->reset = reset;
 	object_class->copy = copy;
 	object_class->draw = draw;
 	object_class->accepts_cursor = accepts_cursor;

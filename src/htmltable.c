@@ -990,7 +990,7 @@ calc_size (HTMLObject *o,
 			   printing).  */
 			o->width = ((gdouble) o->max_width * o->percent) / 100;
 		} else /* if (o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH) */ {
-			o->width = table->specified_width;
+			o->width = table->specified_width * pixel_size;
 		}
 		available_width = o->width;
 	}
