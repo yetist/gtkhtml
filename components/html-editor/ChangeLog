@@ -1,5 +1,19 @@
 2000-07-06  Radek Doulik  <rodo@helixcode.com>
 
+	* main.c (main): call gconf_init here instead of gtkhtmllib_init
+
+	* toolbar.c (setup_color_option_menu): new function
+	add color selection to toolbar
+	
+	* body.c (body_properties): use color_table_new
+
+	* text.c (text_properties): use color_table_new
+
+	* utils.c: new file
+	(color_table_new): new helper function for color table creation
+
+	* utils.h: new file
+
 	* image.c (insert_or_apply): new helper function
 	(image_apply_cb): use insert_or_apply
 	(image_insert_cb): likewise

@@ -33,6 +33,8 @@ html_editor_control_SOURCES =			\
 	dialog.h				\
 	editor-control-factory.c		\
 	editor-control-factory.h		\
+	gtk-combo-box.c				\
+	gtk-combo-box.h				\
 	image.c					\
 	image.h					\
 	link.c					\
@@ -59,7 +61,9 @@ html_editor_control_SOURCES =			\
 	text.c					\
 	text.h					\
 	toolbar.c				\
-	toolbar.h
+	toolbar.h				\
+	utils.c					\
+	utils.h
 
 if USING_OAF
 oafdir = $(datadir)/oaf

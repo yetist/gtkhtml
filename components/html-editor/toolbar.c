@@ -27,6 +27,10 @@
 #include <bonobo.h>
 
 #include "toolbar.h"
+#include "utils.h"
+#include "gtk-combo-box.h"
+#include "htmlcolor.h"
+#include "htmlengine-edit-fontstyle.h"
 
 
 #define EDITOR_TOOLBAR_PATH "/HTMLEditor"
@@ -121,6 +125,63 @@ setup_paragraph_style_option_menu (GtkHTML *html)
 	gtk_widget_show (option_menu);
 
 	return option_menu;
+}
+
+static void
+set_color (GtkWidget *w, gushort r, gushort g, gushort b, gushort a, GtkHTMLControlData *cd)
+{
+	HTMLColor *color = html_color_new_from_rgb (r, g, b);
+
+	html_engine_set_color (cd->html->engine, color);
+	html_color_unref (color);
+}
+
+static void
+color_button_clicked (GtkWidget *w, GtkHTMLControlData *cd)
+{
+	gdouble r, g, b, rn, gn, bn;
+	gtk_combo_box_popup_hide (GTK_COMBO_BOX (cd->combo));
+
+	gnome_color_picker_get_d (GNOME_COLOR_PICKER (cd->cpicker), &r, &g, &b, NULL);
+
+	rn = ((gdouble) w->style->bg [GTK_STATE_NORMAL].red)  /0xffff;
+	gn = ((gdouble) w->style->bg [GTK_STATE_NORMAL].green)/0xffff;
+	bn = ((gdouble) w->style->bg [GTK_STATE_NORMAL].blue) /0xffff;
+
+	if (r != rn || g != gn || b != bn) {
+		gnome_color_picker_set_d (GNOME_COLOR_PICKER (cd->cpicker), rn, gn, bn, 1.0);
+		set_color (cd->cpicker, rn*0xffff, gn*0xffff, bn*0xffff, 0xffff, cd);
+	}
+}
+
+static void
+default_clicked (GtkWidget *w, GtkHTMLControlData *cd)
+{
+	gtk_combo_box_popup_hide (GTK_COMBO_BOX (cd->combo));
+	gnome_color_picker_set_d (GNOME_COLOR_PICKER (cd->cpicker), 0.0, 0.0, 0.0, 1.0);
+	html_engine_set_color (cd->html->engine,
+			       html_colorset_get_color (cd->html->engine->settings->color_set, HTMLTextColor));
+	
+}
+
+static GtkWidget *
+setup_color_option_menu (GtkHTMLControlData *cd)
+{
+       	GtkWidget *vbox, *table, *button;
+
+	cd->cpicker = gnome_color_picker_new ();
+	GTK_WIDGET_UNSET_FLAGS (cd->cpicker, GTK_CAN_FOCUS);
+	vbox = gtk_vbox_new (FALSE, 2);
+	button = gtk_button_new_with_label (_("Default"));
+	gtk_signal_connect (GTK_OBJECT (button), "clicked", default_clicked, cd);
+	gtk_signal_connect (GTK_OBJECT (cd->cpicker), "color_set", GTK_SIGNAL_FUNC (set_color), cd);
+	table = color_table_new (color_button_clicked, cd);
+	gtk_box_pack_start_defaults (GTK_BOX (vbox), button);
+	gtk_box_pack_start_defaults (GTK_BOX (vbox), table);
+	cd->combo = gtk_combo_box_new (cd->cpicker, vbox);
+
+	gtk_widget_show_all (cd->combo);
+	return cd->combo;
 }
 
 
@@ -481,7 +542,7 @@ toolbar_destroy_cb (GtkObject *object,
 }
 
 static GtkWidget *
-create_editor_toolbar (GtkHTML *html)
+create_editor_toolbar (GtkHTMLControlData *cd)
 {
 	ToolbarData *data;
 	GtkWidget *toolbar;
@@ -496,21 +557,24 @@ create_editor_toolbar (GtkHTML *html)
 	gtk_widget_show (toolbar_frame);
 
 	gtk_toolbar_prepend_widget (GTK_TOOLBAR (toolbar),
-				    setup_paragraph_style_option_menu (html),
+				    setup_paragraph_style_option_menu (cd->html),
 				    NULL, NULL);
 
 	data = g_new (ToolbarData, 1);
 
 	gnome_app_fill_toolbar_with_data (GTK_TOOLBAR (toolbar), editor_toolbar_uiinfo, NULL, data);
+	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar),
+				   setup_color_option_menu (cd),
+				   NULL, NULL);
 
 	data->font_style_changed_connection_id
-		= gtk_signal_connect (GTK_OBJECT (html), "insertion_font_style_changed",
+		= gtk_signal_connect (GTK_OBJECT (cd->html), "insertion_font_style_changed",
 				      GTK_SIGNAL_FUNC (insertion_font_style_changed_cb),
 				      data);
 
 	/* The following SUCKS!  */
 
-	data->html = GTK_WIDGET (html);
+	data->html = GTK_WIDGET (cd->html);
 	data->bold_button = editor_toolbar_uiinfo[5].widget;
 	data->italic_button = editor_toolbar_uiinfo[6].widget;
 	data->underline_button = editor_toolbar_uiinfo[7].widget;
@@ -524,7 +588,7 @@ create_editor_toolbar (GtkHTML *html)
 	gtk_signal_connect (GTK_OBJECT (toolbar), "destroy",
 			    GTK_SIGNAL_FUNC (toolbar_destroy_cb), data);
 
-	gtk_signal_connect (GTK_OBJECT (html), "current_paragraph_alignment_changed",
+	gtk_signal_connect (GTK_OBJECT (cd->html), "current_paragraph_alignment_changed",
 			    GTK_SIGNAL_FUNC (paragraph_alignment_changed_cb), data);
 
 	return toolbar_frame;
@@ -542,7 +606,7 @@ toolbar_setup (BonoboUIHandler *uih,
 	g_return_val_if_fail (cd->html != NULL, NULL);
 	g_return_val_if_fail (GTK_IS_HTML (cd->html), NULL);
 
-	toolbar = create_editor_toolbar (cd->html);
+	toolbar = create_editor_toolbar (cd);
 
 	return toolbar;
 }

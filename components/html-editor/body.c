@@ -23,6 +23,7 @@
 #include "htmlengine-edit-clueflowstyle.h"
 #include "body.h"
 #include "properties.h"
+#include "utils.h"
 
 struct _GtkHTMLEditBodyProperties {
 	GtkHTMLControlData *cd;
@@ -77,11 +78,9 @@ GtkWidget *
 body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 {
 	GtkHTMLEditBodyProperties *data = g_new0 (GtkHTMLEditBodyProperties, 1);
-	GtkWidget *hbox, *vbox, *table, *button, *check, *frame, *radio, *cpicker, *hbox1;
-	GtkStyle *style;
+	GtkWidget *hbox, *vbox, *table, *check, *frame, *radio, *cpicker, *hbox1;
 	GSList *group;
 	GdkColor *color;
-	guint val, i, j, add_val;
 
 	*set_data = data;
 	data->cd = cd;
@@ -117,30 +116,14 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	gtk_container_add (GTK_CONTAINER (radio), hbox1); \
 	gtk_box_pack_start (GTK_BOX (vbox), radio, FALSE, FALSE, 0);
 
-	ADD_RADIO ("Text color", HTMLTextColor); data->selected_color_picker = cpicker;
-	ADD_RADIO ("Link color", HTMLLinkColor);
-	ADD_RADIO ("Background color", HTMLBgColor);
+	ADD_RADIO ("Text", HTMLTextColor); data->selected_color_picker = cpicker;
+	ADD_RADIO ("Link", HTMLLinkColor);
+	ADD_RADIO ("Background", HTMLBgColor);
 
-	table = gtk_table_new (8, 8, TRUE);
-	for (val=0, i=0; i<8; i++)
-		for (j=0; j<8; j++, val++) {
-
-			button = gtk_button_new ();
-			gtk_widget_set_usize (button, 24, 16);
-			style = gtk_style_copy (button->style);
-			add_val = (val * 0x3fff / 0x3f);
-
-			style->bg [GTK_STATE_NORMAL].red   = ((val & 12) << 12) | add_val;
-			style->bg [GTK_STATE_NORMAL].green = ((((val & 16) >> 2) | (val & 2))<< 13) | add_val;
-			style->bg [GTK_STATE_NORMAL].blue  = ((((val & 32) >> 4) | (val & 1))<< 14) | add_val;
-			style->bg [GTK_STATE_ACTIVE] = style->bg [GTK_STATE_NORMAL];
-			style->bg [GTK_STATE_PRELIGHT] = style->bg [GTK_STATE_NORMAL];
-
-			gtk_signal_connect (GTK_OBJECT (button), "clicked", set_color_button, data);
-			gtk_widget_set_style (button, style);
-			gtk_table_attach_defaults (GTK_TABLE (table), button, i, i+1, j, j+1);
-		}
-	gtk_box_pack_start (GTK_BOX (vbox), table, FALSE, TRUE, 0);
+	table = color_table_new (GTK_SIGNAL_FUNC (set_color_button), data);
+	hbox1 = gtk_hbox_new (FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox1), table, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), hbox1, FALSE, FALSE, 0);
 	gtk_container_add (GTK_CONTAINER (frame), vbox);
 	gtk_box_pack_start (GTK_BOX (hbox), frame, FALSE, TRUE, 0);
 

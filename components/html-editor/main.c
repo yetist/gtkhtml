@@ -80,8 +80,17 @@ init_bonobo (int *argc, char **argv)
 int
 main (int argc, char **argv)
 {
+#ifdef GTKHTML_HAVE_GCONF
+	GConfError  *gconf_error  = NULL;
+#endif
 	init_bonobo (&argc, argv);
-	gtkhtmllib_init (argc, argv);
+#ifdef GTKHTML_HAVE_GCONF
+	if (!gconf_init (argc, argv, &gconf_error)) {
+		g_assert (gconf_error != NULL);
+		g_error ("GConf init failed:\n  %s", gconf_error->str);
+		return FALSE;
+	}
+#endif
 
 	editor_control_factory_init ();
 

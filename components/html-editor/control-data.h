@@ -37,7 +37,7 @@ typedef struct _GtkHTMLEditPropertiesDialog   GtkHTMLEditPropertiesDialog;
 
 struct _GtkHTMLControlData {
 	GtkHTML   *html;
-	GtkWidget *vbox;
+	GtkWidget *vbox, *cpicker, *combo;
 
 	GtkHTMLEditPropertiesDialog   *properties_dialog;
 	GList                         *properties_types;

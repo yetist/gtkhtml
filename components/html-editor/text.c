@@ -24,6 +24,7 @@
 #include "htmlengine-edit-fontstyle.h"
 #include "text.h"
 #include "properties.h"
+#include "utils.h"
 
 struct _GtkHTMLEditTextProperties {
 
@@ -115,12 +116,10 @@ GtkWidget *
 text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 {
 	GtkHTMLEditTextProperties *data = g_new (GtkHTMLEditTextProperties, 1);
-	GtkWidget *mvbox, *vbox, *hbox, *frame, *table, *table1, *button, *menu, *menuitem;
-	GtkStyle *style;
+	GtkWidget *mvbox, *vbox, *hbox, *frame, *table, *table1, *menu, *menuitem;
 	GdkColor *color;
 	GtkHTMLFontStyle font_style;
-	gint i, j;
-	guint val, add_val;
+	gint i;
 	gdouble rn, gn, bn;
 
 	*set_data = data;
@@ -202,26 +201,7 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	gtk_box_pack_start (GTK_BOX (hbox), gtk_label_new (_("text color")), FALSE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
 
-	table1 = gtk_table_new (8, 8, TRUE);
-	for (val=0, i=0; i<8; i++)
-		for (j=0; j<8; j++, val++) {
-
-			button = gtk_button_new ();
-			gtk_widget_set_usize (button, 24, 16);
-			style = gtk_style_copy (button->style);
-			add_val = (val * 0x3fff / 0x3f);
-
-			style->bg [GTK_STATE_NORMAL].red   = ((val & 12) << 12) | add_val;
-			style->bg [GTK_STATE_NORMAL].green = ((((val & 16) >> 2) | (val & 2))<< 13) | add_val;
-			style->bg [GTK_STATE_NORMAL].blue  = ((((val & 32) >> 4) | (val & 1))<< 14) | add_val;
-			style->bg [GTK_STATE_ACTIVE] = style->bg [GTK_STATE_NORMAL];
-			style->bg [GTK_STATE_PRELIGHT] = style->bg [GTK_STATE_NORMAL];
-
-			gtk_signal_connect (GTK_OBJECT (button), "clicked", set_color_button, data);
-			gtk_widget_set_style (button, style);
-			gtk_table_attach_defaults (GTK_TABLE (table1), button, i, i+1, j, j+1);
-		}
-
+	table1 = color_table_new (set_color_button, data);
 	gtk_box_pack_start (GTK_BOX (vbox), table1, FALSE, FALSE, 0);
 	gtk_container_add (GTK_CONTAINER (frame), vbox);
 	gtk_table_attach (GTK_TABLE (table), frame, 1, 2, 0, 2, GTK_FILL, GTK_FILL, 0, 0);
