@@ -980,46 +980,40 @@ button_press_event (GtkWidget *widget,
 			break;
 		case 1:
 			html->button1_pressed = TRUE;
+			if (html_engine_get_editable (engine)) {
+				html_engine_jump_at (engine,
+						     x + engine->x_offset,
+						     y + engine->y_offset);
+				update_styles (html);
+			}
+
+			if (html->allow_selection) {
+				if (event->state & GDK_SHIFT_MASK)
+					html_engine_select_region (engine,
+								   html->selection_x1, html->selection_y1,
+								   x + engine->x_offset, y + engine->y_offset);
+				else {
+					html_engine_disable_selection (engine);
+					if (gdk_pointer_grab (GTK_LAYOUT (widget)->bin_window, FALSE,
+							      (GDK_BUTTON_RELEASE_MASK
+							       | GDK_BUTTON_MOTION_MASK
+							       | GDK_POINTER_MOTION_HINT_MASK),
+							      NULL, NULL, 0) == 0) {
+						html->selection_x1 = x + engine->x_offset;
+						html->selection_y1 = y + engine->y_offset;
+					}
+				}
+
+			}
 			break;
 		default:
 			break;
 		}
-	}
-
-	if (html_engine_get_editable (engine)) {
-		html_engine_jump_at (engine,
-				     x + engine->x_offset,
-				     y + engine->y_offset);
-		update_styles (html);
-	}
-
-	if (html->allow_selection && !(event->state & GDK_SHIFT_MASK)) {
-		if (gdk_pointer_grab (GTK_LAYOUT (widget)->bin_window, FALSE,
-				      (GDK_BUTTON_RELEASE_MASK
-				       | GDK_BUTTON_MOTION_MASK
-				       | GDK_POINTER_MOTION_HINT_MASK),
-				      NULL, NULL, 0) == 0) {
-			html->selection_x1 = x + engine->x_offset;
-			html->selection_y1 = y + engine->y_offset;
-
-			if (event->button == 1) {
-				if (event->type == GDK_2BUTTON_PRESS && !event->state)
-					gtk_html_select_word (html);
-				else if (event->type == GDK_3BUTTON_PRESS && !event->state)
-					gtk_html_select_line (html);
-			}
-		}
-	}
-
-	if (!(event->button == 1
-	      && (event->type == GDK_2BUTTON_PRESS || event->type == GDK_3BUTTON_PRESS)
-	      && !event->state)) {
-		if (!(event->state & GDK_SHIFT_MASK))
-			html_engine_disable_selection (engine);
-		else if (html->allow_selection)
-			html_engine_select_region (engine,
-						   html->selection_x1, html->selection_y1,
-						   x + engine->x_offset, y + engine->y_offset);
+	} else if (event->button == 1 && html->allow_selection) {
+		if (event->type == GDK_2BUTTON_PRESS)
+			gtk_html_select_word (html);
+		else if (event->type == GDK_3BUTTON_PRESS)
+			gtk_html_select_line (html);
 	}
 
 	return TRUE;

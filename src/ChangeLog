@@ -1,3 +1,8 @@
+2000-12-01  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml.c (button_press_event): changed some logic, scroll wheel
+	no more unselects, ...
+
 2000-11-30  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlentity.c: killed warning
