@@ -240,6 +240,7 @@ static GnomeUIInfo menu_info[] = {
 	GNOMEUIINFO_END
 };
 
+#if 0
 static GnomeUIInfo toolbar_info[] = {
 	GNOMEUIINFO_ITEM_STOCK (N_("Cut"), N_("Cut selection to the clipboard"),
 				NULL, GNOME_STOCK_PIXMAP_CUT),
@@ -249,6 +250,7 @@ static GnomeUIInfo toolbar_info[] = {
 				NULL, GNOME_STOCK_PIXMAP_PASTE),
 	GNOMEUIINFO_END
 };
+#endif
 
 
 static guint
