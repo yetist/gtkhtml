@@ -104,6 +104,7 @@ struct _GtkHTML {
 	guint vadj_connection;
 
 	guint idle_handler_id;
+	guint scroll_timeout_id;
 
 	GtkHTMLParagraphStyle paragraph_style;
 	guint paragraph_indentation;

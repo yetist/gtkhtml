@@ -1,3 +1,22 @@
+2000-04-03  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* gtkhtml.c
+	(init): Initialize `scroll_timeout_id' to zero.
+	(destroy): If `scroll_timeout_id' is nonzero, remove timeout of
+	which it is the ID.
+	(scroll_timeout_cb): New function, handling the scroll timeout.
+	(setup_scroll_timeout): New function to set up the scroll timeout.
+	(remove_scroll_timeout): New function to remove the scroll
+	timeout.
+	(motion_notify_event): If we are selecting and the mouse gets
+	outside the window, set up the scroll timeout so that we allow
+	scrolling during selection.
+	(button_release_event): Remove the scroll timeout.
+	(gtk_html_private_calc_scrollbars): Set upper limits for the
+	adjustments as well.
+
+	* gtkhtml.h: New member `scroll_timeout_id'.
+
 2000-04-03  Radek Doulik  <rodo@helixcode.com>
 
 	* htmltextmaster.c (calc_min_width): rewritten calculating of
@@ -90,7 +109,6 @@
 	(html_image_factory_animation_done): animation_done - does nothing
 	for now
 
->>>>>>> 1.339
 2000-04-03  Jacob Berkman  <jacob@helixcode.com>
 
 	* gtkhtml.c (gtk_html_get_title): return NULL if title is NULL (should

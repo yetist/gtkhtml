@@ -57,13 +57,16 @@ enum {
 };
 static guint signals [LAST_SIGNAL] = { 0 };
 
+
 /* Values for selection information.  FIXME: what about COMPOUND_STRING and
    TEXT?  */
-
 enum _TargetInfo {
 	TARGET_INFO_STRING
 };
 typedef enum _TargetInfo TargetInfo;
+
+/* Interval for scrolling during selection.  */
+#define SCROLL_TIMEOUT_INTERVAL 10
 
 
 static GtkHTMLParagraphStyle
@@ -385,6 +388,112 @@ connect_adjustments (GtkHTML *html,
 }
 
 
+/* Scroll timeout handling.  */
+
+static void
+inc_adjustment (GtkAdjustment *adj, gint doc_width, gint alloc_width, gint inc)
+{
+	gfloat value;
+	gint max;
+
+	value = adj->value + (gfloat) inc;
+	
+	if (doc_width > alloc_width)
+		max = doc_width - alloc_width;
+	else
+		max = 0;
+
+	if (value > (gfloat) max)
+		value = (gfloat) max;
+	else if (value < 0)
+		value = 0.0;
+
+	gtk_adjustment_set_value (adj, value);
+}
+
+static gint
+scroll_timeout_cb (gpointer data)
+{
+	GtkWidget *widget;
+	GtkHTML *html;
+	GtkLayout *layout;
+	gint x_scroll, y_scroll;
+	gint x, y;
+
+	GDK_THREADS_ENTER ();
+
+	widget = GTK_WIDGET (data);
+	html = GTK_HTML (data);
+
+	gdk_window_get_pointer (widget->window, &x, &y, NULL);
+
+	if (x < 0) {
+		x_scroll = x;
+		x = 0;
+	} else if (x >= widget->allocation.width) {
+		x_scroll = x - widget->allocation.width + 1;
+		x = widget->allocation.width;
+	} else {
+		x_scroll = 0;
+	}
+	x_scroll /= 2;
+
+	if (y < 0) {
+		y_scroll = y;
+		y = 0;
+	} else if (y >= widget->allocation.height) {
+		y_scroll = y - widget->allocation.height + 1;
+		y = widget->allocation.height;
+	} else {
+		y_scroll = 0;
+	}
+	y_scroll /= 2;
+
+	if (html->in_selection && (x_scroll != 0 || y_scroll != 0)) {
+		HTMLEngine *engine;
+
+		engine = html->engine;
+		html_engine_select_region (engine,
+					   html->selection_x1, html->selection_y1,
+					   x + engine->x_offset, y + engine->y_offset,
+					   TRUE);
+	}
+
+	layout = GTK_LAYOUT (widget);
+
+	inc_adjustment (layout->hadjustment, html_engine_get_doc_width (html->engine),
+			widget->allocation.width, x_scroll);
+	inc_adjustment (layout->vadjustment, html_engine_get_doc_height (html->engine),
+			widget->allocation.height, y_scroll);
+
+	GDK_THREADS_LEAVE ();
+
+	return TRUE;
+}
+
+static void
+setup_scroll_timeout (GtkHTML *html)
+{
+	if (html->scroll_timeout_id != 0)
+		return;
+
+	html->scroll_timeout_id = gtk_timeout_add (SCROLL_TIMEOUT_INTERVAL,
+						   scroll_timeout_cb, html);
+
+	scroll_timeout_cb (html);
+}
+
+static void
+remove_scroll_timeout (GtkHTML *html)
+{
+	if (html->scroll_timeout_id == 0)
+		return;
+
+	gtk_timeout_remove (html->scroll_timeout_id);
+	html->scroll_timeout_id = 0;
+}
+
+
 /* GtkObject methods.  */
 
 static void
@@ -404,6 +513,9 @@ destroy (GtkObject *object)
 
 	if (html->idle_handler_id != 0)
 		gtk_idle_remove (html->idle_handler_id);
+
+	if (html->scroll_timeout_id != 0)
+		gtk_timeout_remove (html->scroll_timeout_id);
 
 	gtk_object_destroy (GTK_OBJECT (html->engine));
 
@@ -564,15 +676,15 @@ motion_notify_event (GtkWidget *widget,
 		x = event->x;
 		y = event->y;
 	}
-		
 
 	obj = html_engine_get_object_at (engine,
 					 x + engine->x_offset, y + engine->y_offset,
 					 NULL, FALSE);
 	if (html->button_pressed) {
 		if (obj) {
-
 			type = HTML_OBJECT_TYPE (obj);
+
+			/* FIXME this is broken */
 
 			if (type == HTML_TYPE_BUTTON ||
 			    type ==  HTML_TYPE_CHECKBOX ||
@@ -583,12 +695,19 @@ motion_notify_event (GtkWidget *widget,
 			    type ==  HTML_TYPE_SELECT ||
 			    type ==  HTML_TYPE_TEXTAREA ||
 			    type ==  HTML_TYPE_TEXTINPUT ) {
-
 				return FALSE;
 			}
 		}
+
 		html->in_selection = TRUE;
-		
+
+		if (html->in_selection
+		    && (x < 0 || x >= widget->allocation.width
+			|| y < 0 || y >= widget->allocation.height))
+			setup_scroll_timeout (html);
+		else
+			remove_scroll_timeout (html);
+
 		html_engine_select_region (engine,
 					   html->selection_x1, html->selection_y1,
 					   x + engine->x_offset, y + engine->y_offset,
@@ -598,9 +717,9 @@ motion_notify_event (GtkWidget *widget,
 			html_engine_jump_at (engine,
 					     event->x + engine->x_offset,
 					     event->y + engine->y_offset);
-		
 		return TRUE;
 	}
+		
 	if (obj != NULL)
 		url = html_object_get_url (obj);
 	else
@@ -722,6 +841,8 @@ button_release_event (GtkWidget *widget,
 		html->in_selection = FALSE;
 		update_styles (html);
 	}
+
+	remove_scroll_timeout (html);
 
 	return TRUE;
 }
@@ -1003,6 +1124,7 @@ init (GtkHTML* html)
 	html->load_in_progress = TRUE;
 
 	html->idle_handler_id = 0;
+	html->scroll_timeout_id = 0;
 
 	html->paragraph_style = GTK_HTML_PARAGRAPH_STYLE_NORMAL;
 	html->paragraph_alignment = GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT;
@@ -1181,23 +1303,31 @@ gtk_html_save (GtkHTML *html,
 void
 gtk_html_private_calc_scrollbars (GtkHTML *html)
 {
+	GtkLayout *layout;
+	GtkAdjustment *vadj, *hadj;
 	gint width, height;
 
 	height = html_engine_get_doc_height (html->engine);
 	width = html_engine_get_doc_width (html->engine);
 
-	GTK_LAYOUT (html)->vadjustment->lower = 0;
-	GTK_LAYOUT (html)->vadjustment->page_size = html->engine->height;
-	GTK_LAYOUT (html)->vadjustment->step_increment = 14; /* FIXME */
-	GTK_LAYOUT (html)->vadjustment->page_increment = html->engine->height;
+	layout = GTK_LAYOUT (html);
+	hadj = layout->hadjustment;
+	vadj = layout->vadjustment;
 
-	GTK_LAYOUT (html)->hadjustment->lower = 0;
-	GTK_LAYOUT (html)->hadjustment->page_size = html->engine->width;
-	GTK_LAYOUT (html)->hadjustment->step_increment = 14; /* FIXME */
-	GTK_LAYOUT (html)->hadjustment->page_increment = html->engine->width;
+	vadj->lower = 0;
+	vadj->upper = height;
+	vadj->page_size = html->engine->height;
+	vadj->step_increment = 14; /* FIXME */
+	vadj->page_increment = html->engine->height;
 
-	if (width != GTK_LAYOUT (html)->width || height != GTK_LAYOUT (html)->height)
-		gtk_layout_set_size (GTK_LAYOUT (html), width, height);
+	hadj->lower = 0.0;
+	hadj->upper = width;
+	hadj->page_size = html->engine->width;
+	hadj->step_increment = 14; /* FIXME */
+	hadj->page_increment = html->engine->width;
+
+	if (width != layout->width || height != layout->height)
+		gtk_layout_set_size (layout, width, height);
 }
 
 
