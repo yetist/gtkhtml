@@ -1,3 +1,8 @@
+2001-10-12  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (gtk_html_private_calc_scrollbars): don't clip the
+	page width it leads to bad things.
+
 2001-10-09  Radek Doulik  <rodo@ximian.com>
 
 	* htmlclueflow.c (get_pre_padding): fixed pre/post padding between

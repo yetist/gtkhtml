@@ -2196,6 +2196,8 @@ gtk_html_allow_selection (GtkHTML *html,
 GtkHTMLStream *
 gtk_html_begin (GtkHTML *html)
 {
+	g_return_if_fail (GTK_IS_HTML (html));
+
 	return gtk_html_begin_content (html, html->priv->content_type);
 }
 
@@ -2416,7 +2418,7 @@ gtk_html_private_calc_scrollbars (GtkHTML *html, gboolean *changed_x, gboolean *
 	vadj->page_increment = html->engine->height;
 
 	hadj->lower = 0.0;
-	hadj->upper = MIN (MAX_WIDGET_WIDTH, width);
+	hadj->upper = width;
 	hadj->page_size = html->engine->width;
 	hadj->step_increment = 14; /* FIXME */
 	hadj->page_increment = html->engine->width;
