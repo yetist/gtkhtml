@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-26 04:37+0200\n"
+"POT-Creation-Date: 2004-08-13 12:58-0400\n"
 "PO-Revision-Date: 2004-07-26 16:08+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati\n"
@@ -436,7 +436,7 @@ msgstr "Li_ck"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
-#: components/html-editor/menubar.c:115 components/html-editor/popup.c:106
+#: components/html-editor/menubar.c:136 components/html-editor/popup.c:106
 #: components/html-editor/popup.c:201 components/html-editor/popup.c:267
 msgid "Link"
 msgstr "કડી"
@@ -614,7 +614,7 @@ msgstr "રોમન આંકડાવાળી યાદી"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 #: components/html-editor/editor-control-factory.c:207
 #: components/html-editor/gtkhtml-editor-properties.glade.h:48
-#: components/html-editor/menubar.c:134 components/html-editor/popup.c:225
+#: components/html-editor/menubar.c:155 components/html-editor/popup.c:225
 msgid "Rule"
 msgstr "નિયમ"
 
@@ -662,7 +662,7 @@ msgstr "સુપરસ્ક્રિપ્ટ"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: components/html-editor/menubar.c:155 components/html-editor/popup.c:231
+#: components/html-editor/menubar.c:176 components/html-editor/popup.c:231
 #: components/html-editor/popup.c:501 components/html-editor/popup.c:513
 msgid "Table"
 msgstr "કોષ્ટક"
@@ -679,7 +679,7 @@ msgstr "લખાણ ફાઈલ (_x)..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
 #: components/html-editor/gtkhtml-editor-properties.glade.h:53
-#: components/html-editor/menubar.c:177
+#: components/html-editor/menubar.c:198
 msgid "Template"
 msgstr "ટેમ્પ્લેટ"
 
@@ -1055,26 +1055,26 @@ msgid "Transparent"
 msgstr "પારદર્શક"
 
 #: components/html-editor/editor-control-factory.c:178
-#: components/html-editor/menubar.c:328 components/html-editor/menubar.c:346
-#: components/html-editor/menubar.c:364 components/html-editor/popup.c:186
+#: components/html-editor/menubar.c:354 components/html-editor/menubar.c:372
+#: components/html-editor/menubar.c:390 components/html-editor/popup.c:186
 #: components/html-editor/popup.c:264
 msgid "Properties"
 msgstr "ગુણધર્મો"
 
 #: components/html-editor/editor-control-factory.c:197
 #: components/html-editor/gtkhtml-editor-properties.glade.h:54
-#: components/html-editor/menubar.c:350 components/html-editor/popup.c:195
+#: components/html-editor/menubar.c:376 components/html-editor/popup.c:195
 msgid "Text"
 msgstr "લખાણ"
 
 #: components/html-editor/editor-control-factory.c:216
-#: components/html-editor/menubar.c:368 components/html-editor/popup.c:213
+#: components/html-editor/menubar.c:394 components/html-editor/popup.c:213
 msgid "Paragraph"
 msgstr "ફકરો"
 
 #: components/html-editor/editor-control-factory.c:220
 #: components/html-editor/gtkhtml-editor-properties.glade.h:43
-#: components/html-editor/menubar.c:332 components/html-editor/popup.c:219
+#: components/html-editor/menubar.c:358 components/html-editor/popup.c:219
 msgid "Page"
 msgstr "પાનું"
 
@@ -1535,26 +1535,26 @@ msgstr "px"
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: components/html-editor/menubar.c:86
+#: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
 msgid "Insert image"
 msgstr "ચિત્ર દાખલ કરો"
 
-#: components/html-editor/menubar.c:112 components/html-editor/menubar.c:131
-#: components/html-editor/menubar.c:152 components/html-editor/menubar.c:174
+#: components/html-editor/menubar.c:133 components/html-editor/menubar.c:152
+#: components/html-editor/menubar.c:173 components/html-editor/menubar.c:195
 #: components/html-editor/popup.c:103
 msgid "Insert"
 msgstr "દાખલ કરો"
 
-#: components/html-editor/menubar.c:263
+#: components/html-editor/menubar.c:282
 #, c-format
 msgid "Error loading file '%s': %s"
 msgstr "ફાઈલ '%s' લાવવામાં ભૂલ: %s"
 
-#: components/html-editor/menubar.c:290
+#: components/html-editor/menubar.c:308 components/html-editor/menubar.c:317
 msgid "Insert: HTML File"
 msgstr "દાખલ કરો: HTML ફાઈલ"
 
-#: components/html-editor/menubar.c:290
+#: components/html-editor/menubar.c:308 components/html-editor/menubar.c:317
 msgid "Insert: Text File"
 msgstr "દાખલ કરો: લખાણ ફાઈલ"
 
@@ -1878,83 +1878,83 @@ msgstr ""
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr "કમ્પોઝર મૂકાયેલ મોઝિલ્લા url ને ખોટું બંધારણ (%d) અથવા લંબાઈ છે (%d)\n"
 
-#: src/gtkhtml.c:2852
+#: src/gtkhtml.c:2853
 msgid "Editable"
 msgstr "ફેરફાર કરી શકાય તેવું"
 
-#: src/gtkhtml.c:2853
+#: src/gtkhtml.c:2854
 msgid "Whether the html can be edited"
 msgstr "શું html માં ફેરફાર કરી શકાશે"
 
-#: src/gtkhtml.c:2859
+#: src/gtkhtml.c:2860
 msgid "Document Title"
 msgstr "દસ્તાવેજનું શીર્ષક"
 
-#: src/gtkhtml.c:2860
+#: src/gtkhtml.c:2861
 msgid "The title of the current document"
 msgstr "વર્તમાન દસ્તાવેજનું શીર્ષક"
 
-#: src/gtkhtml.c:2866
+#: src/gtkhtml.c:2867
 msgid "Document Base"
 msgstr "દસ્તાવેજનો આધાર"
 
-#: src/gtkhtml.c:2867
+#: src/gtkhtml.c:2868
 msgid "The base URL for relative references"
 msgstr "સંબંધિત સંદર્ભો માટે આધારભૂત URL"
 
-#: src/gtkhtml.c:2873
+#: src/gtkhtml.c:2874
 msgid "Target Base"
 msgstr "લક્ષ્ય આધાર"
 
-#: src/gtkhtml.c:2874
+#: src/gtkhtml.c:2875
 msgid "The base URL of the targe frame"
 msgstr "લક્ષ્ય ચોકઢા માટે આધારભૂત URL"
 
-#: src/gtkhtml.c:2883
+#: src/gtkhtml.c:2884
 msgid "Fixed Width Font"
 msgstr "ચોક્કસ પહોળાઈના ફોન્ટ"
 
-#: src/gtkhtml.c:2884
+#: src/gtkhtml.c:2885
 msgid "The Monospace font to use for typewriter text"
 msgstr "ટાઈપરાઈટર લખાણ માટે વપરાતા મોનોસ્પેસ ફોન્ટ"
 
-#: src/gtkhtml.c:2890
+#: src/gtkhtml.c:2891
 msgid "New Link Color"
 msgstr "નવી કડીનો રંગ"
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2892
 msgid "The color of new link elements"
 msgstr "નવી કડીના ભાગોનો રંગ"
 
-#: src/gtkhtml.c:2896
+#: src/gtkhtml.c:2897
 msgid "Visited Link Color"
 msgstr "મુલાકાત લીધેલ કડીનો રંગ"
 
-#: src/gtkhtml.c:2897
+#: src/gtkhtml.c:2898
 msgid "The color of visited link elements"
 msgstr "મુલાકાત લીધેલ કડીના ભાગોનો રંગ"
 
-#: src/gtkhtml.c:2902
+#: src/gtkhtml.c:2903
 msgid "Active Link Color"
 msgstr "સક્રિય કડીનો રંગ"
 
-#: src/gtkhtml.c:2903
+#: src/gtkhtml.c:2904
 msgid "The color of active link elements"
 msgstr "સક્રિય કડીના ભાગોનો રંગ"
 
-#: src/gtkhtml.c:2908
+#: src/gtkhtml.c:2909
 msgid "Spelling Error Color"
 msgstr "જોડણી ભૂલનો રંગ"
 
-#: src/gtkhtml.c:2909
+#: src/gtkhtml.c:2910
 msgid "The color of the spelling error markers"
 msgstr "જોડણી ભૂલ દર્શાવનારનો રંગ"
 
-#: src/gtkhtml.c:2914
+#: src/gtkhtml.c:2915
 msgid "Cite Quotation Color"
 msgstr "સાઈટ અવતરણ રંગ"
 
-#: src/gtkhtml.c:2915
+#: src/gtkhtml.c:2916
 msgid "The color of the cited text"
 msgstr "સાઈટ થયેલ લખાણનો રંગ"
 
@@ -2034,4 +2034,3 @@ msgstr "છાપનનું પૂર્વદર્શન"
 #: src/testgtkhtml.c:987
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML ચકાસણી કાર્યક્રમ"
-

@@ -1,3 +1,7 @@
+2004-08-13  JP Rosevear  <jpr@novell.com>
+
+	* configure.in (GTKHTML_API_VERSION): bump version, libtool number
+
 2004-08-13  JP Rosevear  <jpr@ximian.com>
 
 	* configure.in: add file chooser check

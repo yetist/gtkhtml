@@ -2,13 +2,12 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) 2004 THE PACKAGE'S COPYRIGHT HOLDER.
 # Runa Bhattacharjee <runa@bengalinux.org>, 2004.
-
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-15 04:56+0200\n"
+"POT-Creation-Date: 2004-08-13 12:58-0400\n"
 "PO-Revision-Date: 2004-08-05 13:26+0530\n"
 "Last-Translator: Runa Bhattacharjee <runa@bengalinux.org>\n"
 "Language-Team: bangla <gnome-translation@bengalinux.org>\n"
@@ -438,7 +437,7 @@ msgstr "ঠোট-চাটা (_চ)"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
-#: components/html-editor/menubar.c:115 components/html-editor/popup.c:106
+#: components/html-editor/menubar.c:136 components/html-editor/popup.c:106
 #: components/html-editor/popup.c:201 components/html-editor/popup.c:267
 msgid "Link"
 msgstr "লিঙ্ক"
@@ -617,7 +616,7 @@ msgstr "রোমান সংখ্যার তালিকা"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 #: components/html-editor/editor-control-factory.c:207
 #: components/html-editor/gtkhtml-editor-properties.glade.h:48
-#: components/html-editor/menubar.c:134 components/html-editor/popup.c:225
+#: components/html-editor/menubar.c:155 components/html-editor/popup.c:225
 msgid "Rule"
 msgstr "নিয়ম"
 
@@ -665,7 +664,7 @@ msgstr "সুপারস্ক্রিপ্ট"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: components/html-editor/menubar.c:155 components/html-editor/popup.c:231
+#: components/html-editor/menubar.c:176 components/html-editor/popup.c:231
 #: components/html-editor/popup.c:501 components/html-editor/popup.c:513
 msgid "Table"
 msgstr "টেবল"
@@ -682,7 +681,7 @@ msgstr "টেকস্ট ফাইল (_ক)..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
 #: components/html-editor/gtkhtml-editor-properties.glade.h:53
-#: components/html-editor/menubar.c:177
+#: components/html-editor/menubar.c:198
 msgid "Template"
 msgstr "টেমপ্লেট"
 
@@ -1058,26 +1057,26 @@ msgid "Transparent"
 msgstr "স্বচ্ছ"
 
 #: components/html-editor/editor-control-factory.c:178
-#: components/html-editor/menubar.c:328 components/html-editor/menubar.c:346
-#: components/html-editor/menubar.c:364 components/html-editor/popup.c:186
+#: components/html-editor/menubar.c:354 components/html-editor/menubar.c:372
+#: components/html-editor/menubar.c:390 components/html-editor/popup.c:186
 #: components/html-editor/popup.c:264
 msgid "Properties"
 msgstr "বৈশিষ্ট্যাবলী"
 
 #: components/html-editor/editor-control-factory.c:197
 #: components/html-editor/gtkhtml-editor-properties.glade.h:54
-#: components/html-editor/menubar.c:350 components/html-editor/popup.c:195
+#: components/html-editor/menubar.c:376 components/html-editor/popup.c:195
 msgid "Text"
 msgstr "টেক্সট"
 
 #: components/html-editor/editor-control-factory.c:216
-#: components/html-editor/menubar.c:368 components/html-editor/popup.c:213
+#: components/html-editor/menubar.c:394 components/html-editor/popup.c:213
 msgid "Paragraph"
 msgstr "অনুচ্ছেদ"
 
 #: components/html-editor/editor-control-factory.c:220
 #: components/html-editor/gtkhtml-editor-properties.glade.h:43
-#: components/html-editor/menubar.c:332 components/html-editor/popup.c:219
+#: components/html-editor/menubar.c:358 components/html-editor/popup.c:219
 msgid "Page"
 msgstr "পৃষ্ঠা"
 
@@ -1538,26 +1537,26 @@ msgstr "px"
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: components/html-editor/menubar.c:86
+#: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
 msgid "Insert image"
 msgstr "ছবি সন্নিবেশ করো"
 
-#: components/html-editor/menubar.c:112 components/html-editor/menubar.c:131
-#: components/html-editor/menubar.c:152 components/html-editor/menubar.c:174
+#: components/html-editor/menubar.c:133 components/html-editor/menubar.c:152
+#: components/html-editor/menubar.c:173 components/html-editor/menubar.c:195
 #: components/html-editor/popup.c:103
 msgid "Insert"
 msgstr "সন্নিবেশ করো"
 
-#: components/html-editor/menubar.c:263
+#: components/html-editor/menubar.c:282
 #, c-format
 msgid "Error loading file '%s': %s"
 msgstr "'%s' ফাইলটি লোড করতে সমস্যা হয়েছে: %s"
 
-#: components/html-editor/menubar.c:290
+#: components/html-editor/menubar.c:308 components/html-editor/menubar.c:317
 msgid "Insert: HTML File"
 msgstr "সন্নিবেশ করো: HTML ফাইল"
 
-#: components/html-editor/menubar.c:290
+#: components/html-editor/menubar.c:308 components/html-editor/menubar.c:317
 msgid "Insert: Text File"
 msgstr "সন্নিবেশ করো: টেকস্ট ফাইল"
 
@@ -1876,89 +1875,91 @@ msgstr ""
 "সম্পাদিত বস্তুটি ডকুমেন্ট থেকে মুছে ফেলা হয়েছে।\n"
 "আপনার করা পরিবর্তনগুলো প্রয়োগ করা সম্ভব নয়।"
 
-#: src/gtkhtml.c:2494
+#: src/gtkhtml.c:2531
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
-msgstr "কম্পোসার-এ Mozilla-র যে url-টি প্রেরণ করা হয়েছে সম্ভবত তার ফরমা (%d) অথবা দৈর্ঘ  (%d)সঠিক নয়।\n"
+msgstr ""
+"কম্পোসার-এ Mozilla-র যে url-টি প্রেরণ করা হয়েছে সম্ভবত তার ফরমা (%d) অথবা দৈর্ঘ  "
+"(%d)সঠিক নয়।\n"
 
-#: src/gtkhtml.c:2815
+#: src/gtkhtml.c:2853
 msgid "Editable"
 msgstr "সম্পাদনযোগ্য"
 
-#: src/gtkhtml.c:2816
+#: src/gtkhtml.c:2854
 msgid "Whether the html can be edited"
 msgstr "html এডিট করা সম্ভব কি না"
 
-#: src/gtkhtml.c:2822
+#: src/gtkhtml.c:2860
 msgid "Document Title"
 msgstr "ডকুমেন্টের শিরোনাম"
 
-#: src/gtkhtml.c:2823
+#: src/gtkhtml.c:2861
 msgid "The title of the current document"
 msgstr "বর্তমান ডকুমেন্টের শিরোনাম"
 
-#: src/gtkhtml.c:2829
+#: src/gtkhtml.c:2867
 msgid "Document Base"
 msgstr "Document Base"
 
-#: src/gtkhtml.c:2830
+#: src/gtkhtml.c:2868
 #, fuzzy
 msgid "The base URL for relative references"
 msgstr "আপেক্ষিক সম্পর্কস্থাপনের জন্য মূল URL"
 
-#: src/gtkhtml.c:2836
+#: src/gtkhtml.c:2874
 msgid "Target Base"
 msgstr "Target Base"
 
-#: src/gtkhtml.c:2837
+#: src/gtkhtml.c:2875
 msgid "The base URL of the targe frame"
 msgstr "নির্ধারিত ফ্রেম-এর মূল URL"
 
-#: src/gtkhtml.c:2846
+#: src/gtkhtml.c:2884
 msgid "Fixed Width Font"
 msgstr "অপরিবর্তনশীল প্রস্থের ফন্ট"
 
-#: src/gtkhtml.c:2847
+#: src/gtkhtml.c:2885
 msgid "The Monospace font to use for typewriter text"
 msgstr "টাইপরাইটার টেকস্টের জন্য ব্যবহৃত Monospace ফন্ট"
 
-#: src/gtkhtml.c:2853
+#: src/gtkhtml.c:2891
 msgid "New Link Color"
 msgstr "লিঙ্কের নতুন রঙ"
 
-#: src/gtkhtml.c:2854
+#: src/gtkhtml.c:2892
 msgid "The color of new link elements"
 msgstr "লিঙ্কের নতুন বস্তুর রঙ"
 
-#: src/gtkhtml.c:2859
+#: src/gtkhtml.c:2897
 msgid "Visited Link Color"
 msgstr "পরিদর্শিত লিঙ্কের রঙ"
 
-#: src/gtkhtml.c:2860
+#: src/gtkhtml.c:2898
 msgid "The color of visited link elements"
 msgstr "পরিদর্শিত লিঙ্কের বস্তুর রঙ"
 
-#: src/gtkhtml.c:2865
+#: src/gtkhtml.c:2903
 msgid "Active Link Color"
 msgstr "সক্রিয় লিঙ্কের রঙ"
 
-#: src/gtkhtml.c:2866
+#: src/gtkhtml.c:2904
 msgid "The color of active link elements"
 msgstr "সক্রিয় লিঙ্কের  বস্তুর রঙ"
 
-#: src/gtkhtml.c:2871
+#: src/gtkhtml.c:2909
 msgid "Spelling Error Color"
 msgstr "ভুল বানানের রঙ"
 
-#: src/gtkhtml.c:2872
+#: src/gtkhtml.c:2910
 msgid "The color of the spelling error markers"
 msgstr "ভুল বানান চিহ্নের রঙ"
 
-#: src/gtkhtml.c:2877
+#: src/gtkhtml.c:2915
 msgid "Cite Quotation Color"
 msgstr "উদ্ধৃতির রঙ"
 
-#: src/gtkhtml.c:2878
+#: src/gtkhtml.c:2916
 msgid "The color of the cited text"
 msgstr "উদ্ধৃতির টেকস্টের রঙ"
 
@@ -2038,4 +2039,3 @@ msgstr "প্রিন্ট-এর পূর্বপ্রদর্শন"
 #: src/testgtkhtml.c:987
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML পরীক্ষণের অ্যাপ্লিকেশন"
-
