@@ -1,3 +1,12 @@
+2000-03-30  Matt Wilson  <msw@redhat.com>
+
+	* htmlclueflow.c (should_break): protect from accessing
+	master->text[-1] by checking to make sure text->text_len > 0
+
+	* htmltextmaster.c (html_text_master_trail_space_width): protect
+	from accessing text->text[-1] by checking to make sure
+	text->text_len > 0
+
 2000-03-30  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine.c (parse_b): added leftmargin, rightmargin, topmargin

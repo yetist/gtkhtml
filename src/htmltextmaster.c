@@ -683,7 +683,7 @@ html_text_master_trail_space_width (HTMLTextMaster *master, HTMLPainter *painter
 {
 	HTMLText *text = HTML_TEXT (master);
 
-	if (text->text [text->text_len-1] == ' ') {
+	if (text->text_len > 0 && text->text [text->text_len-1] == ' ') {
 		GtkHTMLFontStyle font_style;
 
 		font_style = html_text_get_font_style (text);

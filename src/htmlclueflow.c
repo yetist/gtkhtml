@@ -258,7 +258,11 @@ should_break (HTMLObject *obj)
 		    HTML_OBJECT_TYPE (prev) == HTML_TYPE_LINKTEXTMASTER) {
 
 			HTMLText *master = HTML_TEXT (prev);
-			end = master->text [master->text_len - 1];
+			if (master->text_len > 0)
+				end = master->text [master->text_len - 1];
+			else
+				/* XXX is this the correct return value? */
+				end = ' ';
 		}
 
 	/* get beg */
