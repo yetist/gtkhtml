@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
-"POT-Creation-Date: 2003-01-10 03:14+0100\n"
-"PO-Revision-Date: 2003-01-10 12:26+0100\n"
+"POT-Creation-Date: 2003-01-23 04:17+0100\n"
+"PO-Revision-Date: 2003-01-23 10:51+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -255,7 +255,7 @@ msgid "Cut the selection"
 msgstr "Vyjmout výběr"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:73 components/html-editor/search.c:74
+#: components/html-editor/search.c:73 components/html-editor/search.c:75
 #: components/html-editor/search.c:118
 msgid "Find"
 msgstr "Najít"
@@ -461,7 +461,7 @@ msgstr "Udělat z aktuálního odstavce seznam s písmeny"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: components/html-editor/paragraph.c:124 components/html-editor/toolbar.c:47
+#: components/html-editor/paragraph.c:127 components/html-editor/toolbar.c:47
 msgid "Normal"
 msgstr "Normální"
 
@@ -534,9 +534,9 @@ msgid "Redo the undone action"
 msgstr "Zrušit předchozí vrácení"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
-#: components/html-editor/replace.c:75 components/html-editor/replace.c:151
-#: components/html-editor/replace.c:152 components/html-editor/replace.c:169
-#: components/html-editor/replace.c:205
+#: components/html-editor/replace.c:78 components/html-editor/replace.c:152
+#: components/html-editor/replace.c:154 components/html-editor/replace.c:171
+#: components/html-editor/replace.c:207
 msgid "Replace"
 msgstr "Nahradit"
 
@@ -566,7 +566,7 @@ msgstr "Vybrat všechen obsah dokumentu"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#: components/html-editor/text.c:233 components/html-editor/toolbar.c:527
+#: components/html-editor/text.c:237 components/html-editor/toolbar.c:527
 msgid "Strikeout"
 msgstr "Přeškrtnuté"
 
@@ -842,7 +842,7 @@ msgid "Colors"
 msgstr "Barvy"
 
 #: components/html-editor/body.c:313 components/html-editor/cell.c:423
-#: components/html-editor/table.c:535 components/html-editor/text.c:291
+#: components/html-editor/table.c:535 components/html-editor/text.c:295
 #: components/html-editor/toolbar.c:299
 msgid "Automatic"
 msgstr "Automatický"
@@ -860,13 +860,21 @@ msgid "Background"
 msgstr "Pozadí"
 
 #: components/html-editor/cell.c:172 components/html-editor/cell.c:174
-#: components/html-editor/text.c:104
+#: components/html-editor/text.c:107
 msgid "The quick brown fox jumps over the lazy dog."
 msgstr "Příliš žluťoučký kůň úpěl ďábelské ódy."
 
 #: components/html-editor/cell.c:177
 msgid "Other"
 msgstr "Jiné"
+
+#: components/html-editor/cell.c:678
+msgid ""
+"The editted cell was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Upravovaná buňka byla z dokumentu odstraněna.\n"
+"Nemohu použít vaše změny."
 
 #: components/html-editor/editor-control-factory.c:165
 #: components/html-editor/menubar.c:313 components/html-editor/menubar.c:331
@@ -915,7 +923,7 @@ msgid "Apply changes to:"
 msgstr "Provést změny na:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:16
-#: components/html-editor/text.c:230 components/html-editor/toolbar.c:521
+#: components/html-editor/text.c:234 components/html-editor/toolbar.c:521
 msgid "Bold"
 msgstr "Tučné"
 
@@ -937,12 +945,12 @@ msgid "Cell"
 msgstr "Buňka"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
-#: components/html-editor/paragraph.c:159 components/html-editor/toolbar.c:510
+#: components/html-editor/paragraph.c:162 components/html-editor/toolbar.c:510
 msgid "Center"
 msgstr "Střed"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
-#: components/html-editor/link.c:107 components/html-editor/text.c:241
+#: components/html-editor/link.c:107 components/html-editor/text.c:245
 msgid "Click will follow this URL"
 msgstr "Kliknutím použijete toto URL"
 
@@ -1008,12 +1016,12 @@ msgid "Horizontal:"
 msgstr "Vodorovné:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:40
-#: components/html-editor/text.c:231 components/html-editor/toolbar.c:523
+#: components/html-editor/text.c:235 components/html-editor/toolbar.c:523
 msgid "Italic"
 msgstr "Kurzíva"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:41
-#: components/html-editor/paragraph.c:158
+#: components/html-editor/paragraph.c:161
 msgid "Left"
 msgstr "Vlevo"
 
@@ -1067,7 +1075,7 @@ msgid "Points"
 msgstr "Bodů"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:59
-#: components/html-editor/paragraph.c:160
+#: components/html-editor/paragraph.c:163
 msgid "Right"
 msgstr "Vpravo"
 
@@ -1093,7 +1101,7 @@ msgid "Shaded"
 msgstr "Stínovaná"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:66
-#: components/html-editor/text.c:257
+#: components/html-editor/text.c:261
 msgid "Size"
 msgstr "Velikost"
 
@@ -1106,7 +1114,7 @@ msgid "Spacing:"
 msgstr "Rozestup:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:110 components/html-editor/text.c:217
+#: components/html-editor/paragraph.c:113 components/html-editor/text.c:221
 msgid "Style"
 msgstr "Vzhled"
 
@@ -1132,7 +1140,7 @@ msgid "Top"
 msgstr "Nahoře"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:79
-#: components/html-editor/text.c:232 components/html-editor/toolbar.c:525
+#: components/html-editor/text.c:236 components/html-editor/toolbar.c:525
 msgid "Underline"
 msgstr "Podržené"
 
@@ -1213,7 +1221,7 @@ msgstr ""
 msgid "The quick brown fox jumped over the lazy dog."
 msgstr "Příliš žluťoučký kůň úpěl ďábelské ódy."
 
-#: components/html-editor/image.c:689
+#: components/html-editor/image.c:692
 msgid ""
 "The editted image was removed from the document.\n"
 "Cannot apply your changes."
@@ -1225,10 +1233,18 @@ msgstr ""
 msgid "Link text"
 msgstr "Text odkazu"
 
+#: components/html-editor/link.c:180
+msgid ""
+"The editted link was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Upravovaný odkaz byl z dokumentu odstraněn.\n"
+"Nemohu použít vaše změny."
+
 #: components/html-editor/menubar.c:122 components/html-editor/menubar.c:138
 #: components/html-editor/menubar.c:156 components/html-editor/menubar.c:173
 #: components/html-editor/menubar.c:196 components/html-editor/popup.c:100
-#: components/html-editor/properties.c:139
+#: components/html-editor/properties.c:129
 msgid "Insert"
 msgstr "Vložit"
 
@@ -1240,57 +1256,65 @@ msgstr "Vložit HTML soubor"
 msgid "Insert text file"
 msgstr "Vložit textový soubor"
 
-#: components/html-editor/paragraph.c:125
+#: components/html-editor/paragraph.c:128
 msgid "Pre"
 msgstr "Pre"
 
-#: components/html-editor/paragraph.c:126 components/html-editor/toolbar.c:53
+#: components/html-editor/paragraph.c:129 components/html-editor/toolbar.c:53
 msgid "Header 1"
 msgstr "Hlavička 1"
 
-#: components/html-editor/paragraph.c:127 components/html-editor/toolbar.c:54
+#: components/html-editor/paragraph.c:130 components/html-editor/toolbar.c:54
 msgid "Header 2"
 msgstr "Hlavička 2"
 
-#: components/html-editor/paragraph.c:128 components/html-editor/toolbar.c:55
+#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:55
 msgid "Header 3"
 msgstr "Hlavička 3"
 
-#: components/html-editor/paragraph.c:129 components/html-editor/toolbar.c:56
+#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:56
 msgid "Header 4"
 msgstr "Hlavička 4"
 
-#: components/html-editor/paragraph.c:130 components/html-editor/toolbar.c:57
+#: components/html-editor/paragraph.c:133 components/html-editor/toolbar.c:57
 msgid "Header 5"
 msgstr "Hlavička 5"
 
-#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:58
+#: components/html-editor/paragraph.c:134 components/html-editor/toolbar.c:58
 msgid "Header 6"
 msgstr "Hlavička 6"
 
-#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:59
+#: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:59
 msgid "Address"
 msgstr "Adresa"
 
-#: components/html-editor/paragraph.c:133
+#: components/html-editor/paragraph.c:136
 msgid "Dot item"
 msgstr "Bodová položka"
 
-#: components/html-editor/paragraph.c:134
+#: components/html-editor/paragraph.c:137
 msgid "Number item"
 msgstr "Číslovaná položka"
 
-#: components/html-editor/paragraph.c:135
+#: components/html-editor/paragraph.c:138
 msgid "Roman item"
 msgstr "Římská položka"
 
-#: components/html-editor/paragraph.c:136
+#: components/html-editor/paragraph.c:139
 msgid "Alphabeta item"
 msgstr "Abecední položka"
 
-#: components/html-editor/paragraph.c:145
+#: components/html-editor/paragraph.c:148
 msgid "Align"
 msgstr "Zarovnání"
+
+#: components/html-editor/paragraph.c:192
+msgid ""
+"The editted paragraph was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Upravovaný odstavec byl z dokumentu odstraněn.\n"
+"Nemohu použít vaše změny."
 
 #: components/html-editor/popup.c:420
 msgid "Paste Quotation"
@@ -1392,23 +1416,23 @@ msgstr "Stránka..."
 msgid "Replace confirmation"
 msgstr "Potvrzení nahrazení"
 
-#: components/html-editor/replace.c:76
+#: components/html-editor/replace.c:75
 msgid "Replace all"
 msgstr "Nahradit vše"
 
-#: components/html-editor/replace.c:77
+#: components/html-editor/replace.c:76
 msgid "Next"
 msgstr "Další"
 
-#: components/html-editor/replace.c:158
+#: components/html-editor/replace.c:160
 msgid "search backward"
 msgstr "hledat pozpátku"
 
-#: components/html-editor/replace.c:159 components/html-editor/search.c:79
+#: components/html-editor/replace.c:161 components/html-editor/search.c:79
 msgid "case sensitive"
 msgstr "rozlišovat velká/malá"
 
-#: components/html-editor/replace.c:172
+#: components/html-editor/replace.c:174
 msgid "with"
 msgstr "s"
 
@@ -1419,6 +1443,14 @@ msgstr "3D modrá"
 #: components/html-editor/rule.c:109
 msgid "Yellow, flowers"
 msgstr "Žlutá, kytičky"
+
+#: components/html-editor/rule.c:421
+msgid ""
+"The editted rule was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Upravovaná čára byla z dokumentu odstraněna.\n"
+"Nemohu použít vaše změny."
 
 #: components/html-editor/search.c:78
 msgid "backward"
@@ -1439,6 +1471,14 @@ msgstr "Plochá šedá"
 #: components/html-editor/table.c:208
 msgid "Dark header"
 msgstr "Tmavá hlavička"
+
+#: components/html-editor/table.c:812
+msgid ""
+"The editted table was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Upravovaná tabulka byla z dokumentu odstraněna.\n"
+"Nemohu použít vaše změny."
 
 #: components/html-editor/template.c:83
 msgid "Note"
@@ -1461,9 +1501,17 @@ msgid "Save file as..."
 msgstr "Uložit soubor jako..."
 
 #. color selection
-#: components/html-editor/text.c:287
+#: components/html-editor/text.c:291
 msgid "Color"
 msgstr "Barva"
+
+#: components/html-editor/text.c:333
+msgid ""
+"The editted text was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Upravovaný text byl z dokumentu odstraněn.\n"
+"Nemohu použít vaše změny."
 
 #: components/html-editor/toolbar.c:51
 msgid "Roman List"
@@ -1516,14 +1564,6 @@ msgstr "Odsadí odstavec Více"
 #: components/html-editor/utils.c:105
 msgid "Sample"
 msgstr "Příklad"
-
-#: src/gtkhtml-properties.c:44
-msgid "Sans"
-msgstr "Sans"
-
-#: src/gtkhtml-properties.c:45
-msgid "Monospace"
-msgstr "Monospace"
 
 #: src/html-component.c:219
 msgid "Html"
@@ -1613,9 +1653,6 @@ msgstr "Náhled tisku"
 #~ msgid "Cannot execute gtkhtml properties"
 #~ msgstr "Nelze spustit gtkhtml nastavení"
 
-#~ msgid "Could not initialize GNORBA"
-#~ msgstr "Nelze inicializovat GNORBA"
-
 #~ msgid "_Languages"
 #~ msgstr "_Jazyky"
 
@@ -1639,9 +1676,6 @@ msgstr "Náhled tisku"
 
 #~ msgid "Keymaps"
 #~ msgstr "Mapy kláves"
-
-#~ msgid "Find Rege_x..."
-#~ msgstr "Najít reg.výra_z"
 
 #~ msgid "Miscelaneous"
 #~ msgstr "Různé"
@@ -1684,9 +1718,6 @@ msgstr "Náhled tisku"
 
 #~ msgid "Cells"
 #~ msgstr "Políčka"
-
-#~ msgid "Magic links (FIXME: better label)"
-#~ msgstr "Auto-magické odkazy"
 
 #~ msgid "Bindings"
 #~ msgstr "Vazby"
