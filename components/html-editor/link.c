@@ -81,10 +81,16 @@ set_link (GtkWidget *w, GtkHTMLEditLinkProperties *data)
 	gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
 }
 
+static void
+clear (GtkWidget *w, GtkHTMLEditLinkProperties *data)
+{
+	gtk_entry_set_text (GTK_ENTRY (data->entry), "");
+}
+
 GtkWidget *
 link_properties (GtkHTMLControlData *cd, gpointer *set_data)
 {
-	GtkWidget *vbox, *hbox;
+	GtkWidget *vbox, *hbox, *button;
 	GtkHTMLEditLinkProperties *data = g_new (GtkHTMLEditLinkProperties, 1);
 	const gchar *url;
 
@@ -102,9 +108,12 @@ link_properties (GtkHTMLControlData *cd, gpointer *set_data)
 		: html_engine_get_url (cd->html->engine);
 	if (url)
 		gtk_entry_set_text (GTK_ENTRY (data->entry), url);
+	button = gtk_button_new_with_label (_("Clear"));
+	gtk_signal_connect (GTK_OBJECT (button), "clicked", clear, data);
 	gtk_signal_connect (GTK_OBJECT (data->entry), "changed", set_link, data);
 	gtk_box_pack_start (GTK_BOX (hbox), gtk_label_new (_("URL")), FALSE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (hbox), data->entry, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
 
 	return vbox;

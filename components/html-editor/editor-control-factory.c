@@ -107,7 +107,7 @@ release (GtkWidget *widget, GdkEventButton *event, GtkHTMLControlData *cd)
 		default:
 		}
 		if (run_dialog) {
-			cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd);
+			cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, FALSE);
 
 			html_cursor_jump_to (e->cursor, e, cd->obj, 0);
 			html_engine_disable_selection (e);

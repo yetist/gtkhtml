@@ -27,6 +27,7 @@
 #include "image.h"
 #include "htmlengine-edit-images.h"
 #include "htmlimage.h"
+#include "properties.h"
 
 #define GTK_HTML_EDIT_IMAGE_BWIDTH      0
 #define GTK_HTML_EDIT_IMAGE_WIDTH       1
@@ -39,9 +40,10 @@
 #define ALIGN_CENTER 1
 #define ALIGN_BOTTOM 2
 
-struct _GtkHTMLImageDialog {
-	GnomeDialog *dialog;
-	GtkHTML     *html;
+struct _GtkHTMLEditImageProperties {
+
+	GtkHTMLControlData *cd;
+
 	GtkWidget   *pentry;
 	GtkWidget   *entry_alt;
 
@@ -59,8 +61,9 @@ struct _GtkHTMLImageDialog {
 
 	HTMLImage    *image;
 };
+typedef struct _GtkHTMLEditImageProperties GtkHTMLEditImageProperties;
 
-static void
+/* static void
 insert (GtkWidget *w, GtkHTMLImageDialog *d)
 {
 	gchar *file;
@@ -98,12 +101,6 @@ insert (GtkWidget *w, GtkHTMLImageDialog *d)
 	case ALIGN_BOTTOM:
 		valign = HTML_VALIGN_BOTTOM;
 		break;
-		/* case 2:
-		halign = HTML_HALIGN_LEFT;
-		break;
-	case 5:
-		halign = HTML_HALIGN_LEFT;
-		break; */
 	default:
 		g_assert_not_reached ();
 	}
@@ -126,37 +123,37 @@ insert (GtkWidget *w, GtkHTMLImageDialog *d)
 
 	g_free (file);
 }
-
+*/
 static void
-entry_changed (GtkWidget *entry, GtkHTMLImageDialog *d)
+entry_changed (GtkWidget *entry, GtkHTMLEditImageProperties *d)
 {
 	gchar *text;
 
 	text = gtk_entry_get_text (GTK_ENTRY (entry));
-	gnome_dialog_set_sensitive (d->dialog, 0, (text && *text));
+	gtk_html_edit_properties_dialog_change (d->cd->properties_dialog);
 }
 
 static void
-menu_activate (GtkWidget *mi, GtkHTMLImageDialog *d)
+menu_activate (GtkWidget *mi, GtkHTMLEditImageProperties *d)
 {
 	d->align = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (mi), "idx"));
 }
 
 static void
-width_toggled (GtkWidget *check, GtkHTMLImageDialog *d)
+width_toggled (GtkWidget *check, GtkHTMLEditImageProperties *d)
 {
 	gtk_widget_set_sensitive (d->check_percent,
 				  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check)));
 }
 
 static void
-percent_toggled (GtkWidget *check, GtkHTMLImageDialog *d)
+percent_toggled (GtkWidget *check, GtkHTMLEditImageProperties *d)
 {
 	d->percent = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check));
 }
 
 static void
-check_toggled (GtkWidget *check, GtkHTMLImageDialog *d)
+check_toggled (GtkWidget *check, GtkHTMLEditImageProperties *d)
 {
 	guint idx;
 
@@ -170,8 +167,8 @@ check_toggled (GtkWidget *check, GtkHTMLImageDialog *d)
 	gtk_widget_set_sensitive (d->spin [idx], d->set [idx]);	
 }
 
-static void
-checked_value (GtkHTMLImageDialog *d, gint idx, const gchar *name)
+/* static void
+checked_value (GtkHTMLEditImageProperties *d, gint idx, const gchar *name)
 {
 	d->check [idx] = gtk_check_button_new_with_label (name);
 	d->adj   [idx] = gtk_adjustment_new (d->val [idx], 0, 32767, 1, 1, 1);
@@ -182,8 +179,8 @@ checked_value (GtkHTMLImageDialog *d, gint idx, const gchar *name)
 
 	gtk_signal_connect (GTK_OBJECT (d->check [idx]), "toggled", GTK_SIGNAL_FUNC (check_toggled), d);
 }
-
-GtkHTMLImageDialog *
+*/
+/* GtkHTMLImageDialog *
 gtk_html_image_dialog_new (GtkHTML *html)
 {
 	GtkHTMLImageDialog *dialog = g_new0 (GtkHTMLImageDialog, 1);
@@ -250,8 +247,6 @@ gtk_html_image_dialog_new (GtkHTML *html)
 	ADD_ITEM("Top",    GDK_F1);
 	ADD_ITEM("Center", GDK_F3);
 	ADD_ITEM("Bottom", GDK_F2);
-	/* ADD_ITEM("Left",   GDK_F4);
-	   ADD_ITEM("Right",  GDK_F5); */
 
 	frame = gtk_frame_new (_("Alignment"));
 	dialog->sel_align = gtk_option_menu_new ();
@@ -262,7 +257,6 @@ gtk_html_image_dialog_new (GtkHTML *html)
 	gtk_box_pack_start_defaults (GTK_BOX (hb1), frame);
 	gtk_box_pack_start (GTK_BOX (vb1), hb1, FALSE, FALSE, 0);
 
-	/* size and spacing */
 	hbox = gtk_hbox_new (FALSE, 2);
 	vbox = gtk_vbox_new (FALSE, 0);
 	frame = gtk_frame_new (_("Size"));
@@ -290,7 +284,6 @@ gtk_html_image_dialog_new (GtkHTML *html)
 	gtk_container_add (GTK_CONTAINER (frame), table);
 	gtk_box_pack_start_defaults (GTK_BOX (hbox), frame);
 
-	/* spacing */
 	vbox = gtk_vbox_new (FALSE, 0);
 	frame = gtk_frame_new (_("Padding"));
 
@@ -321,20 +314,6 @@ gtk_html_image_dialog_new (GtkHTML *html)
 	return dialog;
 }
 
-void
-gtk_html_image_dialog_destroy (GtkHTMLImageDialog *d)
-{
-	g_free (d);
-}
-
-void
-image_insert (GtkHTMLControlData *cd)
-{
-	RUN_DIALOG (image);
-
-	/* to be sure we are inserting */
-	cd->image_dialog->image = NULL;
-}
 
 void
 image_edit (GtkHTMLControlData *cd, HTMLImage *image)
@@ -348,11 +327,9 @@ image_edit (GtkHTMLControlData *cd, HTMLImage *image)
 	d = cd->image_dialog;
 	d->image = image;
 
-	/* we only support local files now */
         if (!strncmp (ip->url, "file:", 5))
 		off = 5;
 
-	/* now set image values */
 	gtk_entry_set_text (GTK_ENTRY (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (d->pentry))),
 			    ip->url + off);
 
@@ -396,28 +373,7 @@ image_edit (GtkHTMLControlData *cd, HTMLImage *image)
 
 	gtk_option_menu_set_history (GTK_OPTION_MENU (d->sel_align), d->align);
 }
-
-struct _GtkHTMLEditImageProperties {
-
-	GtkHTML     *html;
-	GtkWidget   *pentry;
-	GtkWidget   *entry_alt;
-
-	GtkWidget   *check [GTK_HTML_EDIT_IMAGE_SPINS];
-	GtkWidget   *spin  [GTK_HTML_EDIT_IMAGE_SPINS];
-	GtkObject   *adj   [GTK_HTML_EDIT_IMAGE_SPINS];
-	gint         val   [GTK_HTML_EDIT_IMAGE_SPINS];
-	gboolean     set   [GTK_HTML_EDIT_IMAGE_SPINS];
-
-	GtkWidget   *check_percent;
-	gboolean     percent;
-
-	GtkWidget   *sel_align;
-	guint        align;
-
-	HTMLImage    *image;
-};
-typedef struct _GtkHTMLEditImageProperties GtkHTMLEditImageProperties;
+*/
 
 static void
 checked_val (GtkHTMLEditImageProperties *d, gint idx, const gchar *name)
@@ -433,7 +389,7 @@ checked_val (GtkHTMLEditImageProperties *d, gint idx, const gchar *name)
 }
 
 GtkWidget *
-image_properties (GtkHTMLControlData *cd, gpointer *set_data)
+image_insertion (GtkHTMLControlData *cd, gpointer *set_data)
 {
 	GtkHTMLEditImageProperties *data = g_new0 (GtkHTMLEditImageProperties, 1);
 	GtkWidget *hbox, *hb1, *mhb;
@@ -446,6 +402,7 @@ image_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	guint      malign = 0;
 
 	*set_data = data;
+	data->cd = cd;
 
 	mhb = gtk_hbox_new (FALSE, 3);
 	vb1 = gtk_vbox_new (FALSE, 2);
@@ -552,12 +509,79 @@ image_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	return mhb;
 }
 
+GtkWidget *
+image_properties (GtkHTMLControlData *cd, gpointer *set_data)
+{
+	GtkWidget *w = image_insertion (cd, set_data);
+
+	return w;
+}
+
 void
 image_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 }
 
 void
+image_insert_cb (GtkHTMLControlData *cd, gpointer get_data)
+{
+	GtkHTMLEditImageProperties *data = (GtkHTMLEditImageProperties *) get_data;
+	gchar *file;
+	gint16 width;
+	gint16 height;
+	gint8 percent;
+	gint8 border;
+	gint8 hspace;
+	gint8 vspace;
+	HTMLHAlignType halign = HTML_HALIGN_NONE;
+	HTMLVAlignType valign = HTML_VALIGN_BOTTOM;
+
+	file    = g_strconcat ("file:", gnome_pixmap_entry_get_filename (GNOME_PIXMAP_ENTRY (data->pentry)), NULL);
+	width   = -1;
+	percent =  0;
+	if (data->set [GTK_HTML_EDIT_IMAGE_WIDTH]) {
+		if (data->percent) {
+			percent = GTK_ADJUSTMENT (data->adj [GTK_HTML_EDIT_IMAGE_WIDTH])->value;
+		} else {
+			width   = GTK_ADJUSTMENT (data->adj [GTK_HTML_EDIT_IMAGE_WIDTH])->value;
+		}
+	}
+	height = (data->set [GTK_HTML_EDIT_IMAGE_HEIGHT])
+		? GTK_ADJUSTMENT (data->adj [GTK_HTML_EDIT_IMAGE_HEIGHT])->value : -1;
+	hspace = (data->set [GTK_HTML_EDIT_IMAGE_HSPACE])
+		? GTK_ADJUSTMENT (data->adj [GTK_HTML_EDIT_IMAGE_HSPACE])->value : 0;
+	vspace = (data->set [GTK_HTML_EDIT_IMAGE_VSPACE])
+		? GTK_ADJUSTMENT (data->adj [GTK_HTML_EDIT_IMAGE_VSPACE])->value : 0;
+	border = (data->set [GTK_HTML_EDIT_IMAGE_BWIDTH])
+		? GTK_ADJUSTMENT (data->adj [GTK_HTML_EDIT_IMAGE_BWIDTH])->value : 0;
+
+	switch (data->align) {
+	case ALIGN_TOP:
+		valign = HTML_VALIGN_TOP;
+		break;
+	case ALIGN_CENTER:
+		valign = HTML_VALIGN_CENTER;
+		break;
+	case ALIGN_BOTTOM:
+		valign = HTML_VALIGN_BOTTOM;
+		break;
+	default:
+		g_assert_not_reached ();
+	}
+
+	html_engine_insert_image (data->cd->html->engine,
+				  file,
+				  NULL, NULL,
+				  width, height, percent, border,
+				  html_colorset_get_color (data->cd->html->engine->settings->color_set, HTMLLinkColor),
+				  halign, valign,
+				  hspace, vspace);
+
+	g_free (file);
+}
+
+void
 image_close_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
+	g_free (get_data);
 }

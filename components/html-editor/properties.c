@@ -41,6 +41,7 @@ struct _GtkHTMLEditPropertiesDialog {
 
 	GList               *page_data;
 	GtkWidget           *notebook;
+	gboolean             insert;
 };
 
 struct _PageData {
@@ -62,7 +63,8 @@ apply (GtkWidget *w, GtkHTMLEditPropertiesDialog *d)
 {
 	g_list_foreach (d->page_data, (GFunc) apply_cb, d);
 	gnome_dialog_set_sensitive (GNOME_DIALOG (d->dialog), 0, FALSE);
-	gnome_dialog_set_sensitive (GNOME_DIALOG (d->dialog), 1, FALSE);
+	if (!d->insert)
+		gnome_dialog_set_sensitive (GNOME_DIALOG (d->dialog), 1, FALSE);
 }
 
 static void
@@ -80,25 +82,31 @@ ok (GtkWidget *w, GtkHTMLEditPropertiesDialog *d)
 }
 
 GtkHTMLEditPropertiesDialog *
-gtk_html_edit_properties_dialog_new (GtkHTMLControlData *cd)
+gtk_html_edit_properties_dialog_new (GtkHTMLControlData *cd, gboolean insert)
 {
 	GtkHTMLEditPropertiesDialog *d = g_new (GtkHTMLEditPropertiesDialog, 1);
 
 	d->page_data      = NULL;
+	d->insert         = insert;
 	d->control_data   = cd;
-	d->dialog         = gnome_dialog_new (_("Properties"),
-					      GNOME_STOCK_BUTTON_OK,
-					      GNOME_STOCK_BUTTON_APPLY,
-					      GNOME_STOCK_BUTTON_CLOSE, NULL);
+	d->dialog         = (insert) ? gnome_dialog_new (_("Insert"),
+							 _("Insert"),
+							 GNOME_STOCK_BUTTON_CLOSE, NULL)
+		:  gnome_dialog_new (_("Properties"),
+				     GNOME_STOCK_BUTTON_OK,
+				     GNOME_STOCK_BUTTON_APPLY,
+				     GNOME_STOCK_BUTTON_CLOSE, NULL);
 	d->notebook = gtk_notebook_new ();
 	gtk_box_pack_start_defaults (GTK_BOX (GNOME_DIALOG (d->dialog)->vbox), d->notebook);
 
 	gnome_dialog_button_connect (GNOME_DIALOG (d->dialog), 0, ok, d);
-	gnome_dialog_button_connect (GNOME_DIALOG (d->dialog), 1, apply, d);
-	gnome_dialog_button_connect (GNOME_DIALOG (d->dialog), 2, prop_close, d);
+	if (!insert)
+		gnome_dialog_button_connect (GNOME_DIALOG (d->dialog), 1, apply, d);
+	gnome_dialog_button_connect (GNOME_DIALOG (d->dialog), (insert) ? 1 : 2, prop_close, d);
 
 	gnome_dialog_set_sensitive (GNOME_DIALOG (d->dialog), 0, FALSE);
-	gnome_dialog_set_sensitive (GNOME_DIALOG (d->dialog), 1, FALSE);
+	if (!insert)
+		gnome_dialog_set_sensitive (GNOME_DIALOG (d->dialog), 1, FALSE);
 
 	return d;
 }
@@ -160,7 +168,8 @@ void
 gtk_html_edit_properties_dialog_change (GtkHTMLEditPropertiesDialog *d)
 {
 	gnome_dialog_set_sensitive (GNOME_DIALOG (d->dialog), 0, TRUE);
-	gnome_dialog_set_sensitive (GNOME_DIALOG (d->dialog), 1, TRUE);
+	if (!d->insert)
+		gnome_dialog_set_sensitive (GNOME_DIALOG (d->dialog), 1, TRUE);
 }
 
 static gint

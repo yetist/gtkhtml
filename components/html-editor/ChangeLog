@@ -1,3 +1,14 @@
+2000-07-05  Radek Doulik  <rodo@helixcode.com>
+
+	* properties.c (gtk_html_edit_properties_dialog_new): added insert
+	parameter, which tells if we want insertion or properties dialog
+
+	* image.c (image_insert_cb): filled with old dialog code
+	(image_insertion): new function, creates insertion dialog
+	(image_properties): use image_insertion as base
+
+	* link.c (link_properties): added clear button to clear URL
+
 2000-07-03  Michael Meeks  <michael@helixcode.com>
 
 	* persist-stream-impl.c (load): update for new read.

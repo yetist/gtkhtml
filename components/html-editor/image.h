@@ -29,14 +29,10 @@ typedef struct _GtkHTMLImageDialog GtkHTMLImageDialog;
 #include <htmlimage.h>
 #include "control-data.h"
 
-GtkHTMLImageDialog * gtk_html_image_dialog_new     (GtkHTML *html);
-void                 gtk_html_image_dialog_destroy (GtkHTMLImageDialog *);
-
-void                 image_insert                  (GtkHTMLControlData *cd);
-void                 image_edit                    (GtkHTMLControlData *cd, HTMLImage *image);
-
 GtkWidget          * image_properties              (GtkHTMLControlData *cd, gpointer *set_data);
+GtkWidget          * image_insertion               (GtkHTMLControlData *cd, gpointer *set_data);
 void                 image_apply_cb                (GtkHTMLControlData *cd, gpointer  get_data);
+void                 image_insert_cb               (GtkHTMLControlData *cd, gpointer  get_data);
 void                 image_close_cb                (GtkHTMLControlData *cd, gpointer  get_data);
 
 #endif

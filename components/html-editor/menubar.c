@@ -137,7 +137,15 @@ replace_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 static void
 insert_image_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
-	image_insert (cd);
+	if (cd->properties_dialog)
+		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, TRUE);
+	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
+						   GTK_HTML_EDIT_PROPERTY_LINK, _("Insert image"),
+						   image_insertion,
+						   image_insert_cb,
+						   image_close_cb);
+	gtk_html_edit_properties_dialog_show (cd->properties_dialog);
 }
 
 static void
@@ -145,7 +153,7 @@ insert_link_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
-	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd);
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, FALSE);
 	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 						   GTK_HTML_EDIT_PROPERTY_LINK, _("Link"),
 						   link_properties,
