@@ -22,8 +22,24 @@ AC_SUBST(CFLAGS)
 AC_SUBST(CPPFLAGS)
 AC_SUBST(LDFLAGS)
 
-ALL_LINGUAS="de fr ja ko nl no ru sl sv tr uk"
+ALL_LINGUAS="cs de fr ja ko nl no ru sl sv tr uk"
 AM_GNOME_GETTEXT
+
+dnl ******************************
+dnl Gnome App Lib checking
+dnl ******************************
+AC_MSG_CHECKING(for Gnome App libraries (GAL) >= 0.01)
+if gnome-config --libs gal > /dev/null 2>&1; then 
+    vers=`gnome-config --modversion gal | sed -e "s/gal-//" -e 's/cvs$//' -e 's/pre$//' | \
+        awk 'BEGIN { FS = "."; } { print $1 * 1000 + $2;}'`
+    if test "$vers" -ge 1; then
+        AC_MSG_RESULT(found)
+    else
+        AC_MSG_ERROR(You need at least GNOME Application libs 0.01 for this version of GtkHTML)
+    fi
+else
+    AC_MSG_ERROR(Did not find GnomeAppLib (GAL) installed)
+fi
 
 dnl GNU regex checking
 
@@ -257,8 +273,8 @@ fi
 
 dnl Setup extra GNOME library flags.
 
-EXTRA_GNOME_LIBS=`gnome-config --libs gnomeui gdk_pixbuf print unicode $bonobo`
-EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnomeui gdk_pixbuf print unicode $bonobo`
+EXTRA_GNOME_LIBS=`gnome-config --libs gnomeui gdk_pixbuf print unicode gal $bonobo`
+EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnomeui gdk_pixbuf print unicode gal $bonobo`
 
 AC_SUBST(EXTRA_GNOME_LIBS)
 AC_SUBST(EXTRA_GNOME_CFLAGS)

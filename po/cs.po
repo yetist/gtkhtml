@@ -1,0 +1,533 @@
+# Czech message catalog for Evolution.
+# Copyright (C) 2000 Free Software Foundation, Inc.
+# Radka Soukupova <Radka.Soukupova@centrum.cz>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2000-09-17 11:10+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Radka Soukupova <Radka.Soukupova@centrum.cz>\n"
+"Language-Team: czech <cs@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#: capplet/gnome-bindings-prop.c:154 capplet/gnome-bindings-prop.c:222
+#: capplet/gnome-bindings-prop.c:297 capplet/gnome-bindings-prop.c:435
+#: capplet/gnome-bindings-prop.c:436
+msgid "<None>"
+msgstr ""
+
+#: capplet/gnome-bindings-prop.c:525
+msgid "Key"
+msgstr ""
+
+#: capplet/gnome-bindings-prop.c:525
+msgid "Command"
+msgstr "Pøíkaz"
+
+#: capplet/gnome-bindings-prop.c:526
+msgid "Commands"
+msgstr "Pøíkazy"
+
+#: capplet/gnome-bindings-prop.c:527
+msgid "Keymaps"
+msgstr ""
+
+#: capplet/gnome-bindings-prop.c:545
+msgid "Add"
+msgstr "Pøidat"
+
+#: capplet/gnome-bindings-prop.c:548
+#: components/html-editor/test-html-editor-control.c:323
+#: components/html-editor/toolbar.c:495
+msgid "Copy"
+msgstr "Kopírovat"
+
+#: capplet/gnome-bindings-prop.c:551
+msgid "Delete"
+msgstr "Zru¹it"
+
+#: capplet/gnome-bindings-prop.c:582
+msgid "Grab key"
+msgstr ""
+
+#: capplet/main.c:220
+msgid "Spell checking"
+msgstr "Kontrola pravopisu"
+
+#: capplet/main.c:223
+msgid "live spell checking"
+msgstr ""
+
+#: capplet/main.c:232
+msgid "spell checking color"
+msgstr ""
+
+#: capplet/main.c:239
+msgid "language"
+msgstr "jazyk"
+
+#: capplet/main.c:245
+msgid "Miscellaneous"
+msgstr "Rùzné"
+
+#: capplet/main.c:247
+msgid "magic links"
+msgstr ""
+
+#: capplet/main.c:266
+msgid "Bindings"
+msgstr "Vazby"
+
+#: capplet/main.c:267 capplet/viewer.c:188
+msgid "Behaviour"
+msgstr "Chování"
+
+#: capplet/viewer.c:148
+msgid "Appearance"
+msgstr "Vzhled"
+
+#: capplet/viewer.c:154
+msgid "Variable width font"
+msgstr "Písmo s promìnlivou ¹íøkou"
+
+#: capplet/viewer.c:158
+msgid "Select HTML variable width font"
+msgstr ""
+
+#: capplet/viewer.c:162 capplet/viewer.c:177
+msgid "for printing"
+msgstr "pro tisk"
+
+#: capplet/viewer.c:164
+msgid "Select HTML variable width font for printing"
+msgstr ""
+
+#: capplet/viewer.c:169
+msgid "Fixed width font"
+msgstr "Písmo s pevnou ¹íøkou"
+
+#: capplet/viewer.c:173
+msgid "Select HTML fixed width font"
+msgstr ""
+
+#: capplet/viewer.c:179
+msgid "Select HTML fixed width font for printing"
+msgstr "Vybrat HTML písmo s pevnou ¹íøkou pro tisk"
+
+#: capplet/viewer.c:189
+msgid "Animations"
+msgstr "Animace"
+
+#: components/html-editor/body.c:107
+msgid "use background image"
+msgstr ""
+
+#: components/html-editor/body.c:109
+msgid "Background image"
+msgstr ""
+
+#: components/html-editor/body.c:126
+msgid "Colors"
+msgstr "Barvy"
+
+#: components/html-editor/editor-control-factory.c:133
+#: components/html-editor/popup.c:86
+msgid "Image"
+msgstr "Obrázek"
+
+#: components/html-editor/editor-control-factory.c:142
+#: components/html-editor/popup.c:79
+msgid "Text"
+msgstr "Text"
+
+#: components/html-editor/editor-control-factory.c:154
+#: components/html-editor/popup.c:93
+msgid "Paragraph"
+msgstr "Odstavec"
+
+#: components/html-editor/editor-control-factory.c:159
+#: components/html-editor/menubar.c:109 components/html-editor/popup.c:100
+msgid "Link"
+msgstr ""
+
+#: components/html-editor/editor-control-factory.c:164
+#: components/html-editor/popup.c:107
+msgid "Page"
+msgstr ""
+
+#: components/html-editor/image.c:409
+msgid "Image selection"
+msgstr ""
+
+#: components/html-editor/image.c:417
+msgid "Border"
+msgstr ""
+
+#. ADD_ITEM("Left",   GDK_F4);
+#. ADD_ITEM("Right",  GDK_F5);
+#: components/html-editor/image.c:450
+msgid "Alignment"
+msgstr ""
+
+#: components/html-editor/image.c:462 components/html-editor/rule.c:124
+#: components/html-editor/text.c:160
+msgid "Size"
+msgstr ""
+
+#: components/html-editor/image.c:489
+msgid "Padding"
+msgstr ""
+
+#: components/html-editor/link.c:72
+msgid "Clear"
+msgstr ""
+
+#: components/html-editor/link.c:75
+msgid "URL"
+msgstr ""
+
+#: components/html-editor/main.c:64
+msgid "Could not initialize GNORBA"
+msgstr ""
+
+#: components/html-editor/main.c:77
+msgid "Could not initialize Bonobo"
+msgstr ""
+
+#: components/html-editor/menubar.c:93
+msgid "Insert image"
+msgstr ""
+
+#: components/html-editor/menubar.c:128
+msgid "Cannot execute gtkhtml properties"
+msgstr ""
+
+#: components/html-editor/paragraph.c:74 components/html-editor/text.c:138
+msgid "Style"
+msgstr ""
+
+#: components/html-editor/paragraph.c:108
+msgid "Align"
+msgstr ""
+
+#: components/html-editor/paragraph.c:121
+msgid "Left"
+msgstr ""
+
+#: components/html-editor/paragraph.c:122 components/html-editor/toolbar.c:485
+msgid "Center"
+msgstr ""
+
+#: components/html-editor/paragraph.c:123
+msgid "Right"
+msgstr ""
+
+#: components/html-editor/properties.c:92
+#: components/html-editor/properties.c:93
+msgid "Insert"
+msgstr ""
+
+#: components/html-editor/properties.c:95
+msgid "Properties"
+msgstr ""
+
+#: components/html-editor/popup.c:178
+msgid "Remove link"
+msgstr ""
+
+#: components/html-editor/replace.c:83
+msgid "Replace confirmation"
+msgstr ""
+
+#: components/html-editor/replace.c:84 components/html-editor/replace.c:146
+#: components/html-editor/replace.c:158
+msgid "Replace"
+msgstr ""
+
+#: components/html-editor/replace.c:84
+msgid "Replace all"
+msgstr ""
+
+#: components/html-editor/replace.c:84
+msgid "Next"
+msgstr ""
+
+#: components/html-editor/replace.c:152 components/html-editor/search.c:66
+msgid "search backward"
+msgstr ""
+
+#: components/html-editor/replace.c:153 components/html-editor/search.c:67
+msgid "case sensitive"
+msgstr ""
+
+#: components/html-editor/replace.c:161
+msgid "with"
+msgstr ""
+
+#: components/html-editor/rule.c:124
+msgid "Length"
+msgstr ""
+
+#: components/html-editor/rule.c:124
+msgid "Percent"
+msgstr ""
+
+#: components/html-editor/rule.c:125
+msgid "Left Align"
+msgstr ""
+
+#: components/html-editor/rule.c:125
+msgid "Center Align"
+msgstr ""
+
+#: components/html-editor/rule.c:125
+msgid "Right Align"
+msgstr ""
+
+#: components/html-editor/rule.c:125
+msgid "None"
+msgstr ""
+
+#: components/html-editor/rule.c:129
+msgid "Rule"
+msgstr ""
+
+#: components/html-editor/rule.c:132
+msgid "Set Shade"
+msgstr ""
+
+#: components/html-editor/search.c:63
+msgid "Regex search"
+msgstr ""
+
+#: components/html-editor/search.c:63
+msgid "Search"
+msgstr ""
+
+#: components/html-editor/test-html-editor-control.c:232
+msgid "Open file..."
+msgstr ""
+
+#: components/html-editor/test-html-editor-control.c:234
+msgid "Save file as..."
+msgstr ""
+
+#: components/html-editor/test-html-editor-control.c:300
+msgid "Open (PersistFile)"
+msgstr ""
+
+#: components/html-editor/test-html-editor-control.c:300
+msgid "Open using the PersistFile interface"
+msgstr ""
+
+#: components/html-editor/test-html-editor-control.c:302
+msgid "Save as... (PersistFile)"
+msgstr ""
+
+#: components/html-editor/test-html-editor-control.c:302
+msgid "Save using the PersistFile interface"
+msgstr ""
+
+#: components/html-editor/test-html-editor-control.c:305
+msgid "Open (PersistStream)"
+msgstr ""
+
+#: components/html-editor/test-html-editor-control.c:305
+msgid "Open using the PersistStream interface"
+msgstr ""
+
+#: components/html-editor/test-html-editor-control.c:307
+msgid "Save as... (PersistStream)"
+msgstr ""
+
+#: components/html-editor/test-html-editor-control.c:307
+msgid "Save using the PersistStream interface"
+msgstr ""
+
+#: components/html-editor/test-html-editor-control.c:321
+#: components/html-editor/toolbar.c:493
+msgid "Cut"
+msgstr ""
+
+#: components/html-editor/test-html-editor-control.c:321
+msgid "Cut selection to the clipboard"
+msgstr ""
+
+#: components/html-editor/test-html-editor-control.c:323
+msgid "Copy selection to the clipboard"
+msgstr ""
+
+#: components/html-editor/test-html-editor-control.c:325
+#: components/html-editor/toolbar.c:497
+msgid "Paste"
+msgstr ""
+
+#: components/html-editor/test-html-editor-control.c:325
+#: components/html-editor/toolbar.c:497
+msgid "Paste contents of the clipboard"
+msgstr ""
+
+#: components/html-editor/text.c:152 components/html-editor/toolbar.c:511
+msgid "Bold"
+msgstr ""
+
+#: components/html-editor/text.c:153 components/html-editor/toolbar.c:513
+msgid "Italic"
+msgstr ""
+
+#: components/html-editor/text.c:154 components/html-editor/toolbar.c:515
+msgid "Underline"
+msgstr ""
+
+#: components/html-editor/text.c:155 components/html-editor/toolbar.c:517
+msgid "Strikeout"
+msgstr ""
+
+#. color selection
+#: components/html-editor/text.c:187
+msgid "Color"
+msgstr ""
+
+#: components/html-editor/text.c:201
+msgid "text color"
+msgstr ""
+
+#: components/html-editor/toolbar.c:45
+msgid "Normal"
+msgstr ""
+
+#: components/html-editor/toolbar.c:46
+msgid "Header 1"
+msgstr ""
+
+#: components/html-editor/toolbar.c:47
+msgid "Header 2"
+msgstr ""
+
+#: components/html-editor/toolbar.c:48
+msgid "Header 3"
+msgstr ""
+
+#: components/html-editor/toolbar.c:49
+msgid "Header 4"
+msgstr ""
+
+#: components/html-editor/toolbar.c:50
+msgid "Header 5"
+msgstr ""
+
+#: components/html-editor/toolbar.c:51
+msgid "Header 6"
+msgstr ""
+
+#: components/html-editor/toolbar.c:52
+msgid "Address"
+msgstr ""
+
+#: components/html-editor/toolbar.c:53
+msgid "Pre"
+msgstr ""
+
+#: components/html-editor/toolbar.c:54
+msgid "List item (digit)"
+msgstr ""
+
+#: components/html-editor/toolbar.c:55
+msgid "List item (unnumbered)"
+msgstr ""
+
+#: components/html-editor/toolbar.c:56
+msgid "List item (roman)"
+msgstr ""
+
+#: components/html-editor/toolbar.c:236
+msgid "Default"
+msgstr ""
+
+#: components/html-editor/toolbar.c:483
+msgid "Left align"
+msgstr ""
+
+#: components/html-editor/toolbar.c:483
+msgid "Left justify paragraphs"
+msgstr ""
+
+#: components/html-editor/toolbar.c:485
+msgid "Centers paragraphs"
+msgstr ""
+
+#: components/html-editor/toolbar.c:487
+msgid "Right align"
+msgstr ""
+
+#: components/html-editor/toolbar.c:487
+msgid "Right justify paragraphs"
+msgstr ""
+
+#: components/html-editor/toolbar.c:493
+msgid "Cut the selected region to the clipboard"
+msgstr ""
+
+#: components/html-editor/toolbar.c:495
+msgid "Copy the selected region to the clipboard"
+msgstr ""
+
+#: components/html-editor/toolbar.c:501
+msgid "Undo"
+msgstr ""
+
+#: components/html-editor/toolbar.c:501
+msgid "Undo last editor operation"
+msgstr ""
+
+#: components/html-editor/toolbar.c:503
+msgid "Redo"
+msgstr ""
+
+#: components/html-editor/toolbar.c:503
+msgid "Redo undone editor operation"
+msgstr ""
+
+#: components/html-editor/toolbar.c:511
+msgid "Sets the bold font"
+msgstr ""
+
+#: components/html-editor/toolbar.c:513
+msgid "Make the selection italic"
+msgstr ""
+
+#: components/html-editor/toolbar.c:515
+msgid "Make the selection underlined"
+msgstr ""
+
+#: components/html-editor/toolbar.c:517
+msgid "Make the selection striked out"
+msgstr ""
+
+#: components/html-editor/toolbar.c:526
+msgid "Unindent"
+msgstr ""
+
+#: components/html-editor/toolbar.c:526
+msgid "Indent paragraphs less"
+msgstr ""
+
+#: components/html-editor/toolbar.c:528
+msgid "Indent"
+msgstr ""
+
+#: components/html-editor/toolbar.c:528
+msgid "Indent paragraphs more"
+msgstr ""
+
+#: src/testgtkhtml.c:111
+msgid "Print pre_view"
+msgstr ""
+
+#: src/testgtkhtml.c:111
+msgid "Print preview"
+msgstr ""
