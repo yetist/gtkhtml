@@ -743,7 +743,8 @@ gnome_bindings_properties_save_keymap (GnomeBindingsProperties *prop,
 	while (cur) {
 		be = (GnomeBindingEntry *) cur->data;
 		str = bind_from_key (be->keyval, be->modifiers);
-		fprintf (file, "  bind \"%s\"    { \"%s\" (%s) }\n", str, ke->signal_name, be->command);
+		if (str && *str)
+			fprintf (file, "  bind \"%s\"    { \"%s\" (%s) }\n", str, ke->signal_name, be->command);
 		g_free (str);
 		cur = cur->next;
 	}

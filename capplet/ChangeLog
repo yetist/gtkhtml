@@ -1,3 +1,8 @@
+2000-11-01  Radek Doulik  <rodo@helixcode.com>
+
+	* gnome-bindings-prop.c (gnome_bindings_properties_save_keymap):
+	save only non-empty bindings
+
 2000-10-11  Radek Doulik  <rodo@helixcode.com>
 
 	* Makefile.am (CFLAGS): don't add pspell cflags, they aren't
