@@ -1,0 +1,2591 @@
+# translation of gtkhtml to Kinyarwanda.
+# Copyright (C) 2005 Free Software Foundation, Inc.
+# This file is distributed under the same license as the gtkhtml package.
+# Steve Murphy <murf@e-tools.com>, 2005
+# Steve performed initial rough translation from compendium built from translations provided by the following translators:
+# Philibert Ndandali  <ndandali@yahoo.fr>, 2005.
+# Viateur MUGENZI <muvia1@yahoo.fr>, 2005.
+# Noëlla Mupole <s24211045@tuks.co.za>, 2005.
+# Carole Karema <karemacarole@hotmail.com>, 2005.
+# JEAN BAPTISTE NGENDAHAYO <ngenda_denis@yahoo.co.uk>, 2005.
+# Augustin KIBERWA  <akiberwa@yahoo.co.uk>, 2005.
+# Donatien NSENGIYUMVA <ndonatienuk@yahoo.co.uk>, 2005..
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gtkhtml 2.11\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-03-31 18:08-0700\n"
+"PO-Revision-Date: 2005-03-28 18:54-0700\n"
+"Last-Translator: Steve Murphy <murf@e-tools.com>\n"
+"Language-Team: Kinyarwanda <translation-team-rw@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: a11y/image.c:150
+#, fuzzy, c-format
+msgid "URL is %s, Alternative Text is %s"
+msgstr "ni ni"
+
+#: a11y/image.c:152
+#, fuzzy, c-format
+msgid "URL is %s"
+msgstr "ni"
+
+#: a11y/object.c:50 a11y/object.c:59 a11y/text.c:111
+msgid "grab focus"
+msgstr ""
+
+#: a11y/object.c:256
+msgid "Panel containing HTML"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
+#, fuzzy
+msgid "+0"
+msgstr "+0"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:2
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
+#: components/html-editor/gtkhtml-editor-properties.glade.h:5
+#, fuzzy
+msgid "+1"
+msgstr "+1."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:3
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:3
+#: components/html-editor/gtkhtml-editor-properties.glade.h:6
+#, fuzzy
+msgid "+2"
+msgstr "+2."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:4
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:4
+#: components/html-editor/gtkhtml-editor-properties.glade.h:7
+#, fuzzy
+msgid "+3"
+msgstr "+3."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:5
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:5
+#: components/html-editor/gtkhtml-editor-properties.glade.h:9
+#, fuzzy
+msgid "-1"
+msgstr "-1."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:6
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:6
+#: components/html-editor/gtkhtml-editor-properties.glade.h:10
+#, fuzzy
+msgid "-2"
+msgstr "-2."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:7
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:7
+#, fuzzy
+msgid "A_ddress"
+msgstr "Aderesi"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
+#: components/html-editor/toolbar.c:53
+msgid "Alphabetical List"
+msgstr ""
+
+# svx/sdi\svxslots.src:SID_BACKGROUND_COLOR.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
+msgid "Background Color"
+msgstr "Ibara rya mbuganyuma"
+
+# officecfg/registry\schema\org\openoffice\Office\Common.xcs:....Image.Color.RGB.Blue.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:10
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:10
+msgid "Blue"
+msgstr "Ubururu"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:11
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
+#: components/html-editor/toolbar.c:50
+msgid "Bulleted List"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
+#: components/html-editor/toolbar.c:523
+#, fuzzy
+msgid "Center justifies the paragraphs"
+msgstr "Ibika"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:13
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
+#, fuzzy
+msgid "Check spelling of the document"
+msgstr "Ivuganyuguti Bya Inyandiko"
+
+# dbaccess/source/ui/inc/toolbox.hrc:MID_SBA_QRY_COPY.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:14
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
+msgid "Copy"
+msgstr "Gukoporora"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:15
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
+#, fuzzy
+msgid "Copy selection to clipboard"
+msgstr "Ihitamo Kuri Ububikokoporora"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:16
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:16
+#, fuzzy
+msgid "Copy the selection"
+msgstr "Ihitamo"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
+msgid "Cr_ying"
+msgstr ""
+
+# dbaccess/source/ui/inc/toolbox.hrc:MID_SBA_QRY_CUT.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
+#, fuzzy
+msgid "Cu_t"
+msgstr "Gukata"
+
+# dbaccess/source/ui/inc/toolbox.hrc:MID_SBA_QRY_CUT.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:19
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
+msgid "Cut"
+msgstr "Gukata"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:20
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
+#, fuzzy
+msgid "Cut selection to clipboard"
+msgstr "Ihitamo Kuri Ububikokoporora"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:21
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
+#, fuzzy
+msgid "Cut the selection"
+msgstr "Ihitamo"
+
+# offmgr/source\offapp\dialog\hyprlink.src:RID_SVXDLG_HYPERLINK.BTN_INET_SEARCH.text
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
+#: components/html-editor/search.c:107 components/html-editor/search.c:167
+msgid "Find"
+msgstr "Gushaka"
+
+# ***** BEGIN LICENSE BLOCK *****
+# - Version: MPL 1.1/GPL 2.0/LGPL 2.1
+# -
+# - The contents of this file are subject to the Mozilla Public License Version
+# - 1.1 (the "License"); you may not use this file except in compliance with
+# - the License. You may obtain a copy of the License at
+# - http://www.mozilla.org/MPL/
+# -
+# - Software distributed under the License is distributed on an "AS IS" basis,
+# - WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+# - for the specific language governing rights and limitations under the
+# - License.
+# -
+# - The Original Code is Mozilla Communicator client code, released
+# - March 31, 1998.
+# -
+# - The Initial Developer of the Original Code is
+# - Netscape Communications Corporation.
+# - Portions created by the Initial Developer are Copyright (C) 1998-1999
+# - the Initial Developer. All Rights Reserved.
+# -
+# - Contributor(s):
+# -   Akkana Peck
+# -
+# - Alternatively, the contents of this file may be used under the terms of
+# - either of the GNU General Public License Version 2 or later (the "GPL"),
+# - or the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+# - in which case the provisions of the GPL or the LGPL are applicable instead
+# - of those above. If you wish to allow use of your version of this file only
+# - under the terms of either the GPL or the LGPL, and not to allow others to
+# - use your version of this file under the terms of the MPL, indicate your
+# - decision by deleting the provisions above and replace them with the notice
+# - and other provisions required by the GPL or the LGPL. If you do not delete
+# - the provisions above, a recipient may use your version of this file under
+# - the terms of any one of the MPL, the GPL or the LGPL.
+# -
+# - ***** END LICENSE BLOCK *****
+# extracted from EdReplace.xul
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
+#, fuzzy
+msgid "Find And Replace"
+msgstr "Gushaka no Gusimbura"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:24
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
+#, fuzzy
+msgid "Find _Again"
+msgstr "Shaka nanone"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:25
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
+#, fuzzy
+msgid "Find again"
+msgstr "Shaka nanone"
+
+# ***** BEGIN LICENSE BLOCK *****
+# - Version: MPL 1.1/GPL 2.0/LGPL 2.1
+# -
+# - The contents of this file are subject to the Mozilla Public License Version
+# - 1.1 (the "License"); you may not use this file except in compliance with
+# - the License. You may obtain a copy of the License at
+# - http://www.mozilla.org/MPL/
+# -
+# - Software distributed under the License is distributed on an "AS IS" basis,
+# - WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+# - for the specific language governing rights and limitations under the
+# - License.
+# -
+# - The Original Code is Mozilla Communicator client code, released
+# - March 31, 1998.
+# -
+# - The Initial Developer of the Original Code is
+# - Netscape Communications Corporation.
+# - Portions created by the Initial Developer are Copyright (C) 1998-1999
+# - the Initial Developer. All Rights Reserved.
+# -
+# - Contributor(s):
+# -   Akkana Peck
+# -
+# - Alternatively, the contents of this file may be used under the terms of
+# - either of the GNU General Public License Version 2 or later (the "GPL"),
+# - or the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+# - in which case the provisions of the GPL or the LGPL are applicable instead
+# - of those above. If you wish to allow use of your version of this file only
+# - under the terms of either the GPL or the LGPL, and not to allow others to
+# - use your version of this file under the terms of the MPL, indicate your
+# - decision by deleting the provisions above and replace them with the notice
+# - and other provisions required by the GPL or the LGPL. If you do not delete
+# - the provisions above, a recipient may use your version of this file under
+# - the terms of any one of the MPL, the GPL or the LGPL.
+# -
+# - ***** END LICENSE BLOCK *****
+# extracted from EdReplace.xul
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:26
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:26
+msgid "Find and Replace"
+msgstr "Gushaka no Gusimbura"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:27
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
+#, fuzzy
+msgid "For_mat"
+msgstr "Imiterere"
+
+# officecfg/registry\schema\org\openoffice\Office\Common.xcs:....Image.Color.RGB.Green.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
+msgid "Green"
+msgstr "Icyatsi"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
+msgid "Header _1"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
+msgid "Header _2"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
+msgid "Header _3"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
+msgid "Header _4"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
+msgid "Header _5"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
+msgid "Header _6"
+msgstr ""
+
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Common.xcs:....Image.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Insert.Caption.OfficeObject.Image.Enable.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
+#: components/html-editor/editor-control-factory.c:189
+#: components/html-editor/gtkhtml-editor-properties.glade.h:37
+#: components/html-editor/popup.c:207
+msgid "Image"
+msgstr "Ishusho"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
+#, fuzzy
+msgid "Insert Crying smiley into document..."
+msgstr "Inyandiko"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
+#, fuzzy
+msgid "Insert Frown smiley into document..."
+msgstr "Inyandiko"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
+#, fuzzy
+msgid "Insert HTML file into document..."
+msgstr "IDOSIYE Inyandiko"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
+#, fuzzy
+msgid "Insert HTML link into document..."
+msgstr "Ihuza Inyandiko"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:40
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
+#, fuzzy
+msgid "Insert HTML template into document..."
+msgstr "Inyandikorugero Inyandiko"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
+#, fuzzy
+msgid "Insert Indifferent smiley into document..."
+msgstr "Inyandiko"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
+#, fuzzy
+msgid "Insert Laughing smiley into document..."
+msgstr "Inyandiko"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
+#, fuzzy
+msgid "Insert Lick smiley into document..."
+msgstr "Inyandiko"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
+#, fuzzy
+msgid "Insert Oh no! smiley into document..."
+msgstr "Oya Inyandiko"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
+#, fuzzy
+msgid "Insert Smile smiley into document..."
+msgstr "Inyandiko"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
+#, fuzzy
+msgid "Insert Surprised smiley into document..."
+msgstr "Inyandiko"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
+#, fuzzy
+msgid "Insert Undecided smiley into document..."
+msgstr "Inyandiko"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
+#, fuzzy
+msgid "Insert Wink smiley into document..."
+msgstr "Inyandiko"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
+#, fuzzy
+msgid "Insert image into document..."
+msgstr "Ishusho Inyandiko"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
+#, fuzzy
+msgid "Insert rule into document..."
+msgstr "Inyandiko"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
+#, fuzzy
+msgid "Insert table into document..."
+msgstr "imbonerahamwe# Inyandiko"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:52
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
+#, fuzzy
+msgid "Insert text file into document..."
+msgstr "Umwandiko IDOSIYE Inyandiko"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
+#: components/html-editor/toolbar.c:521
+#, fuzzy
+msgid "Left justifies the paragraphs"
+msgstr "Ibika"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
+msgid "Li_ck"
+msgstr ""
+
+# offmgr/source\offapp\dialog\hyprlink.src:RID_SVXDLG_HYPERLINK.BTN_INSERT_BOOKMARK.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
+#: components/html-editor/menubar.c:136 components/html-editor/popup.c:106
+#: components/html-editor/popup.c:201 components/html-editor/popup.c:267
+msgid "Link"
+msgstr "Ihuza"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
+#, fuzzy
+msgid "Make the current Paragraph style Normal"
+msgstr "KIGEZWEHO IMISUSIRE"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
+#, fuzzy
+msgid "Make the current Paragraph style Preformat"
+msgstr "KIGEZWEHO IMISUSIRE"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
+#, fuzzy
+msgid "Make the current paragraph a bulleted list"
+msgstr "KIGEZWEHO Igika a Iriho utudomo Urutonde"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
+#, fuzzy
+msgid "Make the current paragraph a list with roman numerals"
+msgstr "KIGEZWEHO Igika a Urutonde Na: NYAROMA Imibare"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
+#, fuzzy
+msgid "Make the current paragraph a numbered list"
+msgstr "KIGEZWEHO Igika a Iriho Imibare Urutonde"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:61
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
+#, fuzzy
+msgid "Make the current paragraph an H1 header"
+msgstr "KIGEZWEHO Igika Umutwempangano"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
+#, fuzzy
+msgid "Make the current paragraph an H2 header"
+msgstr "KIGEZWEHO Igika Umutwempangano"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:63
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
+#, fuzzy
+msgid "Make the current paragraph an H3 header"
+msgstr "KIGEZWEHO Igika Umutwempangano"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:64
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
+#, fuzzy
+msgid "Make the current paragraph an H4 header"
+msgstr "KIGEZWEHO Igika Umutwempangano"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:65
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
+#, fuzzy
+msgid "Make the current paragraph an H5 header"
+msgstr "KIGEZWEHO Igika Umutwempangano"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:66
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
+#, fuzzy
+msgid "Make the current paragraph an H6 header"
+msgstr "KIGEZWEHO Igika Umutwempangano"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:67
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
+#, fuzzy
+msgid "Make the current paragraph an address"
+msgstr "KIGEZWEHO Igika Aderesi"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:68
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
+#, fuzzy
+msgid "Make the current paragraph an alphabetical list"
+msgstr "KIGEZWEHO Igika Urutonde"
+
+# officecfg/registry\schema\org\openoffice\Office\Common.xcs:....Save.Graphic.Format..0.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:69
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
+#: components/html-editor/paragraph.c:83 components/html-editor/toolbar.c:48
+msgid "Normal"
+msgstr "Bisanzwe"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:70
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
+#: components/html-editor/toolbar.c:51
+msgid "Numbered List"
+msgstr "Ilisiti ibarwa"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
+#, fuzzy
+msgid "Numbered _List"
+msgstr "Ilisiti ibarwa"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:72
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
+#, fuzzy
+msgid "Oh _no!"
+msgstr "Oya"
+
+# #-#-#-#-#  svx.pot (PACKAGE VERSION)  #-#-#-#-#
+# svx/source\dialog\sdstring.src:RID_SVXSTR_ORANGE.text
+# #-#-#-#-#  svx.pot (PACKAGE VERSION)  #-#-#-#-#
+# svx/source\dialog\sdstring.src:RID_SVXSTR_BMP18.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
+msgid "Orange"
+msgstr "Oranje"
+
+# sw/source\ui\ribbar\workctrl.src:RID_INSERT_FIELD_CTRL.FN_INSERT_FIELD.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
+msgid "Other..."
+msgstr "Ikindi..."
+
+# dbaccess/source/ui/inc/toolbox.hrc:MID_SBA_QRY_PASTE.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:75
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
+msgid "Paste"
+msgstr "Komeka"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
+msgid "Paste _Quotation"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
+#, fuzzy
+msgid "Paste from clipboard"
+msgstr "Bivuye Ububikokoporora"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
+#, fuzzy
+msgid "Paste the clipboard"
+msgstr "Ububikokoporora"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
+#, fuzzy
+msgid "Paste the clipboard as a quotation"
+msgstr "Ububikokoporora Nka a Gusubiramo ibyavuzwe"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
+#: components/html-editor/toolbar.c:49
+msgid "Preformat"
+msgstr "Byahawe imiterere mbere"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
+msgid "Purple"
+msgstr ""
+
+# officecfg/registry\schema\org\openoffice\Office\Common.xcs:....Image.Color.RGB.Red.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
+msgid "Red"
+msgstr "Umutuku"
+
+# #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
+# dbaccess/source/ui/inc/toolbox.hrc:MID_REDO.text
+# #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
+# #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
+# #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
+msgid "Redo"
+msgstr "Isubiramo"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
+#, fuzzy
+msgid "Redo previously undone change"
+msgstr "Guhindura>>"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
+#, fuzzy
+msgid "Redo the undone action"
+msgstr "Igikorwa"
+
+# offmgr/source\offapp\dialog\autocdlg.src:RID_OFA_AUTOCORR_DLG.1.RID_OFAPAGE_AUTOCORR_REPLACE.text
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
+#: components/html-editor/replace.c:163 components/html-editor/replace.c:227
+msgid "Replace"
+msgstr "Gusimbura"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
+#: components/html-editor/toolbar.c:525
+#, fuzzy
+msgid "Right justifies the paragraphs"
+msgstr "Ibika"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
+msgid "Roman Numeral List"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
+#: components/html-editor/editor-control-factory.c:207
+#: components/html-editor/gtkhtml-editor-properties.glade.h:48
+#: components/html-editor/menubar.c:155 components/html-editor/popup.c:225
+msgid "Rule"
+msgstr ""
+
+# #-#-#-#-#  padmin.pot (PACKAGE VERSION)  #-#-#-#-#
+# padmin/source\padialog.src:RID_FONTIMPORT_DIALOG.RID_FIMP_BTN_SELECTALL.text
+# #-#-#-#-#  padmin.pot (PACKAGE VERSION)  #-#-#-#-#
+# padmin/source\padialog.src:RID_ADDP_PAGE_OLDPRINTERS.RID_ADDP_OLD_BTN_SELECTALL.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
+#, fuzzy
+msgid "Select _All"
+msgstr "Hitamo byose"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
+#, fuzzy
+msgid "Select the entire contents of the document"
+msgstr "Ibigize Bya Inyandiko"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
+#: components/html-editor/toolbar.c:553
+#, fuzzy
+msgid "Strikeout"
+msgstr "gucishamo akarongo"
+
+# sc/source\ui\drawfunc\objdraw.src:MN_TEXT_ATTR.RID_MN_FORMAT_STYLE.SID_SET_SUPER_SCRIPT.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
+#, fuzzy
+msgid "Su_perscript"
+msgstr "Inyandiko nyejuru"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:94
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
+msgid "Su_rprised"
+msgstr ""
+
+# sc/source\ui\drawfunc\objdraw.src:MN_TEXT_ATTR.RID_MN_FORMAT_STYLE.SID_SET_SUB_SCRIPT.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:95
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
+#, fuzzy
+msgid "Subs_cript"
+msgstr "Inyandiko nyesi"
+
+# #-#-#-#-#  svx.pot (PACKAGE VERSION)  #-#-#-#-#
+# svx/sdi\svxslots.src:SID_SET_SUB_SCRIPT.text
+# #-#-#-#-#  svx.pot (PACKAGE VERSION)  #-#-#-#-#
+# svx/source\dialog\chardlg.src:RID_SVXPAGE_CHAR_POSITION.RB_LOWPOS.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:96
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
+msgid "Subscript"
+msgstr "Inyandiko nyesi"
+
+# #-#-#-#-#  svx.pot (PACKAGE VERSION)  #-#-#-#-#
+# svx/sdi\svxslots.src:SID_SET_SUPER_SCRIPT.text
+# #-#-#-#-#  svx.pot (PACKAGE VERSION)  #-#-#-#-#
+# svx/source\dialog\chardlg.src:RID_SVXPAGE_CHAR_POSITION.RB_HIGHPOS.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
+msgid "Superscript"
+msgstr "Inyandiko nyejuru"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
+#: components/html-editor/gtkhtml-editor-properties.glade.h:52
+#: components/html-editor/menubar.c:176 components/html-editor/popup.c:231
+#: components/html-editor/popup.c:501 components/html-editor/popup.c:513
+msgid "Table"
+msgstr "Imbonerahamwe"
+
+# sfx2/source\dialog\dinfdlg.src:TP_DOCINFODOC.FT_TEMPL.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
+#, fuzzy
+msgid "Te_mplate..."
+msgstr "Inyandikorugero"
+
+# sfx2/source\explorer\explorer.src:STR_SFX_TEXTFILE.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
+#, fuzzy
+msgid "Te_xt file..."
+msgstr "Idosiye y'umwandiko"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
+#: components/html-editor/toolbar.c:545
+msgid "Typewriter"
+msgstr ""
+
+# #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
+# dbaccess/source/ui/inc/toolbox.hrc:MID_UNDO.text
+# #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
+# #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
+# #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
+msgid "Undo"
+msgstr "Isubiranyuma"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
+#, fuzzy
+msgid "Undo previous changes"
+msgstr "Ibanjirije Amahinduka"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
+#, fuzzy
+msgid "Undo the last action"
+msgstr "Iheruka Igikorwa"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
+msgid "Yellow"
+msgstr "Umuhondo"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
+#, fuzzy
+msgid "_Alignment"
+msgstr "Itunganya"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
+msgid "_Alphabetical List"
+msgstr ""
+
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Common.xcs:....Font.UnderLine..12.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Common.xcs:....Font.Strikeout..4.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
+#: components/html-editor/gtkhtml-editor-properties.glade.h:60
+#, fuzzy
+msgid "_Bold"
+msgstr "UTSINDAGIYE"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
+msgid "_Bulleted List"
+msgstr ""
+
+# officecfg/registry\schema\org\openoffice\Office\DataAccess.xcs:....Column.Align..1.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
+#, fuzzy
+msgid "_Center"
+msgstr "hagati"
+
+# dbaccess/source/ui/inc/toolbox.hrc:MID_SBA_QRY_COPY.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
+#, fuzzy
+msgid "_Copy"
+msgstr "Gukoporora"
+
+# offmgr/sdi\ofaslots.src:SID_DEC_INDENT.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
+#, fuzzy
+msgid "_Decrease Indent"
+msgstr "Kugabanya Akagerampera"
+
+# #-#-#-#-#  basctl.pot (PACKAGE VERSION)  #-#-#-#-#
+# basctl/source\basicide\basidesh.src:RID_BASICMENU.MN_EDIT.text
+# #-#-#-#-#  basctl.pot (PACKAGE VERSION)  #-#-#-#-#
+# basctl/source\basicide\basidesh.src:RID_BASICPLUGINMENU.MN_PLEDIT.text
+# #-#-#-#-#  basctl.pot (PACKAGE VERSION)  #-#-#-#-#
+# basctl/source\basicide\macrodlg.src:RID_MACROCHOOSER.RID_PB_EDIT.text
+# #-#-#-#-#  basctl.pot (PACKAGE VERSION)  #-#-#-#-#
+# basctl/source\basicide\moduldlg.src:RID_TP_MODULS.RID_PB_EDIT.text
+# #-#-#-#-#  basctl.pot (PACKAGE VERSION)  #-#-#-#-#
+# basctl/source\basicide\moduldlg.src:RID_TP_LIBS.RID_PB_EDIT.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
+#, fuzzy
+msgid "_Edit"
+msgstr "Guhindura"
+
+# sfx2/source\appl\newhelp.src:STR_HELP_BUTTON_SEARCHDIALOG.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
+#, fuzzy
+msgid "_Find..."
+msgstr "Gushaka..."
+
+# starmath/sdi\smslots.src:SID_FONTSIZE.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
+#, fuzzy
+msgid "_Font Size"
+msgstr "Ingano"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
+#, fuzzy
+msgid "_Frown"
+msgstr "Gufunga isura"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
+#, fuzzy
+msgid "_HTML file..."
+msgstr "IDOSIYE"
+
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....DefaultFont.Heading.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....DefaultFontCJK.Heading.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....DefaultFontCTL.Heading.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
+#, fuzzy
+msgid "_Heading"
+msgstr "Umutwempangano"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
+#, fuzzy
+msgid "_Image..."
+msgstr "Ishusho..."
+
+# offmgr/sdi\ofaslots.src:SID_INC_INDENT.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
+#, fuzzy
+msgid "_Increase Indent"
+msgstr "Kongera Akagerampera"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
+msgid "_Indifferent"
+msgstr ""
+
+# basctl/source\basicide\basidesh.src:RID_POPUP_TABBAR.RID_INSERT.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
+#, fuzzy
+msgid "_Insert"
+msgstr "Kongeramo"
+
+# officecfg/registry\schema\org\openoffice\Office\Common.xcs:....Font.Slant..2.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
+#: components/html-editor/gtkhtml-editor-properties.glade.h:67
+#, fuzzy
+msgid "_Italic"
+msgstr "IBERAMYE"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
+#, fuzzy
+msgid "_Laughing"
+msgstr "Guseka kyane"
+
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\DataAccess.xcs:....Column.Align..0.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Math.xcs:....StandardFormat.HorizontalAlignment..0.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
+#, fuzzy
+msgid "_Left"
+msgstr "ibumoso"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
+#, fuzzy
+msgid "_Link..."
+msgstr "Ihuza..."
+
+# officecfg/registry\schema\org\openoffice\Office\Common.xcs:....Save.Graphic.Format..0.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
+#, fuzzy
+msgid "_Normal"
+msgstr "Bisanzwe"
+
+# #-#-#-#-#  sc.pot (PACKAGE VERSION)  #-#-#-#-#
+# sc/source\ui\src\menue.src:RID_OBJECTMENU_CELLS.SID_FORMATPAGE.text
+# #-#-#-#-#  sc.pot (PACKAGE VERSION)  #-#-#-#-#
+# sc/source\ui\src\menue.src:RID_OBJECTMENU_EDIT.SID_FORMATPAGE.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
+#, fuzzy
+msgid "_Page..."
+msgstr "Ipaji..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
+#, fuzzy
+msgid "_Paragraph..."
+msgstr "Igika..."
+
+# dbaccess/source/ui/inc/toolbox.hrc:MID_SBA_QRY_PASTE.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
+#, fuzzy
+msgid "_Paste"
+msgstr "Komeka"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
+#, fuzzy
+msgid "_Plain text"
+msgstr "Inyandiko nyayo"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
+#, fuzzy
+msgid "_Preformat"
+msgstr "Byahawe imiterere mbere"
+
+# #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
+# dbaccess/source/ui/inc/toolbox.hrc:MID_REDO.text
+# #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
+# #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
+# #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
+#, fuzzy
+msgid "_Redo"
+msgstr "Isubiramo"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
+#, fuzzy
+msgid "_Replace..."
+msgstr "Gusimbura:"
+
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\DataAccess.xcs:....Column.Align..2.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Math.xcs:....StandardFormat.HorizontalAlignment..2.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
+#, fuzzy
+msgid "_Right"
+msgstr "iburyo"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
+msgid "_Roman Numeral List"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
+msgid "_Rule..."
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
+#, fuzzy
+msgid "_Smile"
+msgstr "Guseka"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:139
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:141
+msgid "_Smiley"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:142
+msgid "_Spell Check Document..."
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:141
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
+#: components/html-editor/gtkhtml-editor-properties.glade.h:73
+#, fuzzy
+msgid "_Strikeout"
+msgstr "gucishamo akarongo"
+
+# sc/source\core\src\compiler.src:RID_SC_FUNCTION_NAMES.SC_OPCODE_STYLE.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:142
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:144
+#, fuzzy
+msgid "_Style"
+msgstr "IMISUSIRE"
+
+# #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
+# #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:143
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:145
+#, fuzzy
+msgid "_Table..."
+msgstr "imbonerahamwe#"
+
+# sc/source\ui\drawfunc\objdraw.src:MN_DRWTXTATTR.SID_DRAWTEXT_ATTR_DLG.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:144
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:146
+#, fuzzy
+msgid "_Text..."
+msgstr "Umwandiko..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:145
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:147
+#, fuzzy
+msgid "_Undecided"
+msgstr "Kutamenya kyo gukora"
+
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Revision.TextDisplay.Insert.Attribute..3.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Revision.TextDisplay.ChangedAttribute.Attribute..3.text
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:146
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:148
+#: components/html-editor/gtkhtml-editor-properties.glade.h:76
+#, fuzzy
+msgid "_Underline"
+msgstr "Gucaho umurongo"
+
+# #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
+# dbaccess/source/ui/inc/toolbox.hrc:MID_UNDO.text
+# #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
+# #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
+# #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:147
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:149
+#, fuzzy
+msgid "_Undo"
+msgstr "Isubiranyuma"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:148
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:150
+#, fuzzy
+msgid "_Wink"
+msgstr "Gufunga akajisho"
+
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:149
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
+msgid "etc..."
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:1
+msgid "GNOME HTML Editor"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:2
+msgid "GNOME HTML Editor Control"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
+msgid "GNOME HTML Editor Factory"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
+#, fuzzy
+msgid "Insert Sick smiley into document..."
+msgstr "Inyandiko"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
+#, fuzzy
+msgid "Make the current Paragraph style Preformatted"
+msgstr "KIGEZWEHO IMISUSIRE"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
+#: components/html-editor/paragraph.c:102
+msgid "Preformatted"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
+msgid "S_ick"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:151
+msgid "_Wrap Lines"
+msgstr ""
+
+# goodies/source\filter.vcl\eps\dlgeps.src:DLG_EXPORT_EPS.RB_COMPRESSION_NONE.text
+#: components/html-editor/body.c:59
+#: components/html-editor/gtkhtml-editor-properties.glade.h:42
+msgid "None"
+msgstr "Nta na kimwe"
+
+#: components/html-editor/body.c:67
+msgid "Perforated Paper"
+msgstr ""
+
+#: components/html-editor/body.c:75
+msgid "Blue Ink"
+msgstr ""
+
+# padmin/source\rtsetup.src:RID_RTS_RTSDIALOG.RID_RTS_RTSDIALOG_TABCONTROL.RID_RTS_PAPERPAGE.text
+#: components/html-editor/body.c:83
+msgid "Paper"
+msgstr "urupapuro"
+
+#: components/html-editor/body.c:91
+msgid "Ribbon"
+msgstr ""
+
+#: components/html-editor/body.c:99
+msgid "Midnight"
+msgstr "Saa sita zijoro"
+
+# sw/source\ui\wizard\wizmmdlg.src:DLG_WIZARD_MM.DLG_MM3_Edit_FVertr.text
+#: components/html-editor/body.c:107
+msgid "Confidential"
+msgstr "Ibanga"
+
+#: components/html-editor/body.c:115
+#, fuzzy
+msgid "Draft"
+msgstr "Inyandiko y'agateganyo"
+
+#: components/html-editor/body.c:123
+#, fuzzy
+msgid "Graph paper"
+msgstr "urupapuro"
+
+#: components/html-editor/body.c:243
+#: components/html-editor/gtkhtml-editor-properties.glade.h:53
+#: components/html-editor/menubar.c:198
+#, fuzzy
+msgid "Template"
+msgstr "Nyandiko- rugero"
+
+# sfx2/source\dialog\dinfdlg.src:TP_DOCINFODOC.FT_TEMPL.text
+#: components/html-editor/body.c:247
+#, fuzzy
+msgid "T_emplate:"
+msgstr "Inyandikorugero"
+
+# #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
+# #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
+# #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
+# #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
+# #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
+# #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
+# #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
+# #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
+# #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
+#. data->entry_title = gtk_entry_new ();
+#. if (gtk_html_get_title (data->cd->html)) {
+#. gtk_entry_set_text (GTK_ENTRY (data->entry_title),
+#. gtk_html_get_title (data->cd->html));
+#. }
+#. g_signal_connect (data->entry_title, "changed", G_CALLBACK (entry_changed), data);
+#. editor_hig_attach_row (t1, _("T_itle:"), data->entry_title, 1);
+#: components/html-editor/body.c:257 components/html-editor/paragraph.c:112
+msgid "General"
+msgstr "Rusange"
+
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Insert.Caption.Automatic.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Wizard.Agenda.Save.AutoDocName.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Wizard.Letter.Save.AutoDocName.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Wizard.Fax.Save.AutoDocName.text
+#: components/html-editor/body.c:268 components/html-editor/text.c:162
+#: components/html-editor/toolbar.c:308
+msgid "Automatic"
+msgstr "Kikoresha"
+
+# sc/source\ui\drawfunc\objdraw.src:MN_DRWTXTATTR.SID_DRAWTEXT_ATTR_DLG.text
+#: components/html-editor/body.c:280
+#, fuzzy
+msgid "_Text:"
+msgstr "Umwandiko..."
+
+#: components/html-editor/body.c:281
+#, fuzzy
+msgid "_Link:"
+msgstr "Ihuza..."
+
+#: components/html-editor/body.c:282
+#, fuzzy
+msgid "_Background:"
+msgstr "Mbuganyuma:"
+
+# offmgr/source\offapp\dialog\treeopt.src:RID_OFADLG_OPTIONS_TREE_PAGES.SID_GENERAL_OPTIONS.9.text
+#: components/html-editor/body.c:284
+#: components/html-editor/gtkhtml-editor-properties.glade.h:30
+msgid "Colors"
+msgstr "Amabara"
+
+# wizards/source\webwizard\webwizar.src:WEBDIALOG_+_6.text
+#: components/html-editor/body.c:286 components/html-editor/body.c:303
+#: components/html-editor/gtkhtml-editor-properties.glade.h:23
+msgid "Background Image"
+msgstr "Ishusho rya mbuganyuma"
+
+#: components/html-editor/body.c:298
+#, fuzzy
+msgid "Background Image File Path"
+msgstr "Idosiye"
+
+# sc/source\ui\src\dbnamdlg.src:RID_SCDLG_DBNAMES.FT_SOURCE.text
+#: components/html-editor/body.c:301
+#: components/html-editor/gtkhtml-editor-properties.glade.h:71
+#, fuzzy
+msgid "_Source:"
+msgstr "Inkomoko:"
+
+#: components/html-editor/cell.c:333 components/html-editor/image.c:350
+#: components/html-editor/link.c:182 components/html-editor/rule.c:174
+#: components/html-editor/table.c:222 components/html-editor/template.c:271
+#: components/html-editor/text.c:159
+#, fuzzy
+msgid "Could not load glade file."
+msgstr "OYA Ibirimo IDOSIYE"
+
+# starmath/source\smres.src:RID_TOOLBOXWINDOW.6.RID_PHANTOMX.text
+#: components/html-editor/cell.c:350 components/html-editor/table.c:233
+msgid "Transparent"
+msgstr "Bibonerana"
+
+# #-#-#-#-#  basctl.pot (PACKAGE VERSION)  #-#-#-#-#
+# basctl/source\basicide\basidesh.src:RID_POPUP_BRKPROPS.text
+# #-#-#-#-#  basctl.pot (PACKAGE VERSION)  #-#-#-#-#
+# basctl/source\basicide\tbxctl.src:RID_TOOLBOX.SID_SHOW_PROPERTYBROWSER.text
+#: components/html-editor/editor-control-factory.c:178
+#: components/html-editor/menubar.c:354 components/html-editor/menubar.c:372
+#: components/html-editor/menubar.c:390 components/html-editor/popup.c:186
+#: components/html-editor/popup.c:264
+msgid "Properties"
+msgstr "indangakintu"
+
+#: components/html-editor/editor-control-factory.c:197
+#: components/html-editor/gtkhtml-editor-properties.glade.h:54
+#: components/html-editor/menubar.c:376 components/html-editor/popup.c:195
+msgid "Text"
+msgstr "Umwandiko"
+
+# sc/source\ui\src\textdlgs.src:RID_SCDLG_PARAGRAPH.text
+#: components/html-editor/editor-control-factory.c:216
+#: components/html-editor/menubar.c:394 components/html-editor/popup.c:213
+msgid "Paragraph"
+msgstr "Igika"
+
+# basctl/source\basicide\basidesh.src:RID_STR_PAGE.text
+#: components/html-editor/editor-control-factory.c:220
+#: components/html-editor/gtkhtml-editor-properties.glade.h:43
+#: components/html-editor/menubar.c:358 components/html-editor/popup.c:219
+msgid "Page"
+msgstr "Ipaji"
+
+#: components/html-editor/gi-color-combo.c:187
+#, fuzzy
+msgid "color preview"
+msgstr "Igaragazambere ry'Ibara"
+
+#. This is the default custom color
+#: components/html-editor/gi-color-palette.c:395
+#, fuzzy
+msgid "custom"
+msgstr "Guhanga"
+
+#. "Custom" color - we'll pop up a GnomeColorPicker
+#: components/html-editor/gi-color-palette.c:437
+#, fuzzy
+msgid "Custom Color:"
+msgstr "Kugena"
+
+#: components/html-editor/gi-color-palette.c:445
+#, fuzzy
+msgid "Choose Custom Color"
+msgstr "Kugena"
+
+# officecfg/registry\schema\org\openoffice\Office\Math.xcs:....FontFormat.Weight..10.text
+#: components/html-editor/gi-color-palette.c:578
+msgid "black"
+msgstr "umukara"
+
+#: components/html-editor/gi-color-palette.c:579
+#, fuzzy
+msgid "light brown"
+msgstr "kimurika Igihogo"
+
+#: components/html-editor/gi-color-palette.c:580
+#, fuzzy
+msgid "brown gold"
+msgstr "Igihogo Zahabu"
+
+#: components/html-editor/gi-color-palette.c:581
+#, fuzzy
+msgid "dark green #2"
+msgstr "Icyatsi 2."
+
+#: components/html-editor/gi-color-palette.c:582
+msgid "navy"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:583
+#: components/html-editor/gi-color-palette.c:639
+#, fuzzy
+msgid "dark blue"
+msgstr "Ubururu"
+
+#: components/html-editor/gi-color-palette.c:584
+#, fuzzy
+msgid "purple #2"
+msgstr "2."
+
+#: components/html-editor/gi-color-palette.c:585
+#, fuzzy
+msgid "very dark gray"
+msgstr "Ikigina"
+
+#: components/html-editor/gi-color-palette.c:588
+#: components/html-editor/gi-color-palette.c:644
+#, fuzzy
+msgid "dark red"
+msgstr "Umutuku wijimye"
+
+#: components/html-editor/gi-color-palette.c:589
+#, fuzzy
+msgid "red-orange"
+msgstr "Umutuku Oranje"
+
+# svx/source\engine3d\float3d.src:RID_SVXFLOAT_3D.LB_MAT_FAVORITES.3.text
+#: components/html-editor/gi-color-palette.c:590
+#, fuzzy
+msgid "gold"
+msgstr "Zahabu"
+
+#: components/html-editor/gi-color-palette.c:591
+#, fuzzy
+msgid "dark green"
+msgstr "Icyatsi"
+
+#: components/html-editor/gi-color-palette.c:592
+#: components/html-editor/gi-color-palette.c:645
+#, fuzzy
+msgid "dull blue"
+msgstr "Ubururu"
+
+# officecfg/registry\schema\org\openoffice\Office\Common.xcs:....Image.Color.RGB.Blue.text
+#: components/html-editor/gi-color-palette.c:593
+#: components/html-editor/gi-color-palette.c:646
+#, fuzzy
+msgid "blue"
+msgstr "Ubururu"
+
+#: components/html-editor/gi-color-palette.c:594
+msgid "dull purple"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:595
+msgid "dark grey"
+msgstr ""
+
+# officecfg/registry\schema\org\openoffice\Office\Common.xcs:....Image.Color.RGB.Red.text
+#: components/html-editor/gi-color-palette.c:598
+#, fuzzy
+msgid "red"
+msgstr "Umutuku"
+
+# #-#-#-#-#  svx.pot (PACKAGE VERSION)  #-#-#-#-#
+# svx/source\dialog\sdstring.src:RID_SVXSTR_ORANGE.text
+# #-#-#-#-#  svx.pot (PACKAGE VERSION)  #-#-#-#-#
+# svx/source\dialog\sdstring.src:RID_SVXSTR_BMP18.text
+#: components/html-editor/gi-color-palette.c:599
+#, fuzzy
+msgid "orange"
+msgstr "Oranje"
+
+#: components/html-editor/gi-color-palette.c:600
+msgid "lime"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:601
+#, fuzzy
+msgid "dull green"
+msgstr "Icyatsi"
+
+#: components/html-editor/gi-color-palette.c:602
+#, fuzzy
+msgid "dull blue #2"
+msgstr "Ubururu 2."
+
+#: components/html-editor/gi-color-palette.c:603
+#, fuzzy
+msgid "sky blue #2"
+msgstr "Ikirere Ubururu 2."
+
+#: components/html-editor/gi-color-palette.c:604
+#: components/html-editor/gi-color-palette.c:643
+msgid "purple"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:605
+#, fuzzy
+msgid "gray"
+msgstr "Ikigina"
+
+#: components/html-editor/gi-color-palette.c:608
+#: components/html-editor/gi-color-palette.c:640
+#, fuzzy
+msgid "magenta"
+msgstr "Umutuku werurutse"
+
+#: components/html-editor/gi-color-palette.c:609
+#, fuzzy
+msgid "bright orange"
+msgstr "Bibonerana Oranje"
+
+#: components/html-editor/gi-color-palette.c:610
+#: components/html-editor/gi-color-palette.c:641
+#, fuzzy
+msgid "yellow"
+msgstr "Umuhondo"
+
+# officecfg/registry\schema\org\openoffice\Office\Common.xcs:....Image.Color.RGB.Green.text
+#: components/html-editor/gi-color-palette.c:611
+#, fuzzy
+msgid "green"
+msgstr "Icyatsi"
+
+#: components/html-editor/gi-color-palette.c:612
+#: components/html-editor/gi-color-palette.c:642
+#, fuzzy
+msgid "cyan"
+msgstr "Ubururu bukeye"
+
+#: components/html-editor/gi-color-palette.c:613
+#, fuzzy
+msgid "bright blue"
+msgstr "Ubururu bukeye"
+
+#: components/html-editor/gi-color-palette.c:614
+#: components/html-editor/gi-color-palette.c:631
+#, fuzzy
+msgid "red purple"
+msgstr "Umutuku"
+
+#: components/html-editor/gi-color-palette.c:615
+#, fuzzy
+msgid "light grey"
+msgstr "kimurika"
+
+#: components/html-editor/gi-color-palette.c:618
+#: components/html-editor/gi-color-palette.c:635
+msgid "pink"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:619
+#, fuzzy
+msgid "light orange"
+msgstr "kimurika Oranje"
+
+#: components/html-editor/gi-color-palette.c:620
+#: components/html-editor/gi-color-palette.c:632
+#, fuzzy
+msgid "light yellow"
+msgstr "kimurika Umuhondo"
+
+#: components/html-editor/gi-color-palette.c:621
+#, fuzzy
+msgid "light green"
+msgstr "Icyatsi Cyerurutse"
+
+#: components/html-editor/gi-color-palette.c:622
+#, fuzzy
+msgid "light cyan"
+msgstr "Ubururu Bwerurutse"
+
+#: components/html-editor/gi-color-palette.c:623
+#: components/html-editor/gi-color-palette.c:633
+#, fuzzy
+msgid "light blue"
+msgstr "Ubururu Bwerurutse"
+
+#: components/html-editor/gi-color-palette.c:624
+#: components/html-editor/gi-color-palette.c:637
+#, fuzzy
+msgid "light purple"
+msgstr "kimurika"
+
+#: components/html-editor/gi-color-palette.c:625
+#, fuzzy
+msgid "white"
+msgstr "Umweru"
+
+#: components/html-editor/gi-color-palette.c:630
+#, fuzzy
+msgid "purplish blue"
+msgstr "Ubururu"
+
+#: components/html-editor/gi-color-palette.c:634
+msgid "dark purple"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:636
+#, fuzzy
+msgid "sky blue"
+msgstr "Ikirere Ubururu"
+
+#. set the a11y name
+#: components/html-editor/gi-combo-box.c:419
+msgid "Popup"
+msgstr ""
+
+#: components/html-editor/gnome-gtkhtml-editor.c:68
+msgid "GtkHTML Editor Control"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:1
+msgid "    "
+msgstr ""
+
+# #-#-#-#-#  starmath.pot (PACKAGE VERSION)  #-#-#-#-#
+# starmath/source\smres.src:RID_DISTANCEDIALOG.1.text
+# #-#-#-#-#  starmath.pot (PACKAGE VERSION)  #-#-#-#-#
+# starmath/source\smres.src:RID_DISTANCEDIALOG.2.text
+# #-#-#-#-#  starmath.pot (PACKAGE VERSION)  #-#-#-#-#
+# starmath/source\smres.src:RID_DISTANCEDIALOG.3.text
+#: components/html-editor/gtkhtml-editor-properties.glade.h:3
+#, no-c-format
+msgid "%"
+msgstr "%"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:4
+msgid "*"
+msgstr "*"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:8
+#, fuzzy
+msgid "+4"
+msgstr "+4."
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:11
+#, fuzzy
+msgid "<b>Alignment &amp; Behaviour</b>"
+msgstr "<B B"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:12
+#, fuzzy
+msgid "<b>Background</b>"
+msgstr "<B B"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:13
+#, fuzzy
+msgid "<b>General</b>"
+msgstr "<B B"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:14
+#, fuzzy
+msgid "<b>Layout</b>"
+msgstr "<B B"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:15
+#, fuzzy
+msgid "<b>Scope</b>"
+msgstr "<B B"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:16
+#, fuzzy
+msgid "<span weight=\"bold\">General</span>"
+msgstr "<Uburemere UTSINDAGIYE"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:17
+#, fuzzy
+msgid "<span weight=\"bold\">Layout</span>"
+msgstr "<Uburemere UTSINDAGIYE"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:18
+#, fuzzy
+msgid "<span weight=\"bold\">Link</span>"
+msgstr "<Uburemere UTSINDAGIYE"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:19
+#, fuzzy
+msgid "<span weight=\"bold\">Size</span>"
+msgstr "<Uburemere UTSINDAGIYE"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:20
+#, fuzzy
+msgid "<span weight=\"bold\">Style</span>"
+msgstr "<Uburemere UTSINDAGIYE"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:21
+#, fuzzy
+msgid "<span weight=\"bold\">Template</span>"
+msgstr "<Uburemere UTSINDAGIYE"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:22
+#: components/html-editor/paragraph.c:131
+msgid "Alignment"
+msgstr "Itunganya"
+
+# scaddins/source\analysis\analysis.src:RID_ANALYSIS_FUNCTION_DESCRIPTIONS.ANALYSIS_Randbetween.2.text
+#: components/html-editor/gtkhtml-editor-properties.glade.h:24
+msgid "Bottom"
+msgstr "Indiba"
+
+# offmgr/sdi\ofaslots.src:SID_TABLE_CELL.text
+#: components/html-editor/gtkhtml-editor-properties.glade.h:25
+#, fuzzy
+msgid "C_ell"
+msgstr "Akazu"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:26
+#, fuzzy
+msgid "C_olor:"
+msgstr "Ibara:"
+
+# offmgr/sdi\ofaslots.src:SID_TABLE_CELL.text
+#: components/html-editor/gtkhtml-editor-properties.glade.h:27
+#: components/html-editor/popup.c:237
+msgid "Cell"
+msgstr "Akazu"
+
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....AlignmentType.Position..6.text
+#: components/html-editor/gtkhtml-editor-properties.glade.h:28
+#: components/html-editor/paragraph.c:128 components/html-editor/toolbar.c:523
+msgid "Center"
+msgstr "Hagati"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:29
+#, fuzzy
+msgid "Col_umn"
+msgstr "Inkingi"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:31
+#, fuzzy
+msgid "Column span:"
+msgstr "Igihe ky'inkingi:"
+
+# svx/source\dialog\paragrph.src:RID_SVXPAGE_EXT_PARAGRAPH.BTN_PAGEBREAK.text
+#: components/html-editor/gtkhtml-editor-properties.glade.h:32
+msgid "Enable"
+msgstr "Gushoboza"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:33
+#, fuzzy
+msgid "Hea_der style"
+msgstr "IMISUSIRE"
+
+# officecfg/registry\schema\org\openoffice\Office\Math.xcs:....StandardFormat.HorizontalAlignment.text
+#: components/html-editor/gtkhtml-editor-properties.glade.h:34
+#, fuzzy
+msgid "Horizontal alignment:"
+msgstr "Itondeka ritambitse"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:35
+msgid "Horizontal:"
+msgstr "Utambitse:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:36
+#, fuzzy
+msgid "I_mage:"
+msgstr "Ishusho..."
+
+# sc/source\ui\src\optdlg.src:RID_SCPAGE_LAYOUT.LB_ALIGN.4.text
+#: components/html-editor/gtkhtml-editor-properties.glade.h:38
+#: components/html-editor/paragraph.c:127
+msgid "Left"
+msgstr "Ibumoso"
+
+# svx/source\gallery2\gallery.src:RID_SVXSTR_GALLERY_LENGTH.text
+#: components/html-editor/gtkhtml-editor-properties.glade.h:39
+msgid "Length:"
+msgstr "Uburebure:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:40
+#, fuzzy
+msgid "Link properties"
+msgstr "Indangakintu z'ihuriro"
+
+# #-#-#-#-#  svx.pot (PACKAGE VERSION)  #-#-#-#-#
+# svx/source\dialog\align.src:RID_SVXPAGE_ALIGNMENT.LB_VERALIGN.3.text
+# #-#-#-#-#  svx.pot (PACKAGE VERSION)  #-#-#-#-#
+# svx/source\dialog\paragrph.src:RID_SVXPAGE_ALIGN_PARAGRAPH.LB_VERTALIGN.4.text
+#: components/html-editor/gtkhtml-editor-properties.glade.h:41
+msgid "Middle"
+msgstr "Hagati"
+
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\WriterWeb.xcs:....Layout.Zoom.Type..0.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Layout.Zoom.Type..0.text
+#: components/html-editor/gtkhtml-editor-properties.glade.h:44
+msgid "Percent"
+msgstr "Ku ijana"
+
+# offmgr/source\offapp\dialog\optgdlg.src:OFA_TP_VIEW.FT_POINTLIMIT_UNIT.text
+#: components/html-editor/gtkhtml-editor-properties.glade.h:45
+msgid "Pixels"
+msgstr "Pigiseli"
+
+# sc/source\ui\src\optdlg.src:RID_SCPAGE_LAYOUT.LB_ALIGN.2.text
+#: components/html-editor/gtkhtml-editor-properties.glade.h:46
+#: components/html-editor/paragraph.c:129
+msgid "Right"
+msgstr "Iburyo"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:47
+#, fuzzy
+msgid "Row span:"
+msgstr "Igihe ky'Urubariro:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:49
+msgid "Shaded"
+msgstr ""
+
+# sfx2/source\dialog\dinfdlg.src:TP_DOCINFODOC.FT_FILE_SIZE.text
+#: components/html-editor/gtkhtml-editor-properties.glade.h:50
+#, fuzzy
+msgid "Si_ze:"
+msgstr "Ingano"
+
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Common.xcs:....View.LookAndFeel..0.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....DefaultFont.Standard.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....DefaultFontCJK.Standard.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....DefaultFontCTL.Standard.text
+#: components/html-editor/gtkhtml-editor-properties.glade.h:51
+msgid "Standard"
+msgstr "Bisanzwe"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:55
+msgid "Thickness:"
+msgstr ""
+
+# scaddins/source\analysis\analysis.src:RID_ANALYSIS_FUNCTION_DESCRIPTIONS.ANALYSIS_Randbetween.4.text
+#: components/html-editor/gtkhtml-editor-properties.glade.h:56
+msgid "Top"
+msgstr "Hejuru"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:57
+msgid "Vertical:"
+msgstr "Uhagaritse:"
+
+# sc/source\ui\src\globstr.src:RID_GLOBSTR.STR_TIP_WIDTH.text
+#: components/html-editor/gtkhtml-editor-properties.glade.h:58
+msgid "Width:"
+msgstr "Ubugari:"
+
+# #-#-#-#-#  starmath.pot (PACKAGE VERSION)  #-#-#-#-#
+# starmath/source\menu.src:RID_SMMENU.~Format.SID_ALIGN.text
+# #-#-#-#-#  starmath.pot (PACKAGE VERSION)  #-#-#-#-#
+# starmath/source\menu.src:RID_SMPLUGINMENU.~Format.SID_ALIGN.text
+#: components/html-editor/gtkhtml-editor-properties.glade.h:59
+#, fuzzy
+msgid "_Alignment:"
+msgstr "Itondekanya"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:61
+#, fuzzy
+msgid "_Border:"
+msgstr "Impera:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:62
+#, fuzzy
+msgid "_Color:"
+msgstr "Ibara:"
+
+# sw/source\ui\inc\swmn.hrc:MN_OBJECTMENU_TEXT.FN_FORMAT_COLUMN.text
+#: components/html-editor/gtkhtml-editor-properties.glade.h:63
+#, fuzzy
+msgid "_Columns:"
+msgstr "Inkingi...."
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:64
+#, fuzzy
+msgid "_Description:"
+msgstr "Umwirondoro:"
+
+# sc/source\ui\src\globstr.src:RID_GLOBSTR.STR_TIP_HEIGHT.text
+#: components/html-editor/gtkhtml-editor-properties.glade.h:65
+#, fuzzy
+msgid "_Height:"
+msgstr "Ubuhagarike:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:66
+#, fuzzy
+msgid "_Image:"
+msgstr "Ishusho..."
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:68
+#, fuzzy
+msgid "_Padding:"
+msgstr "Wuzuza:"
+
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\WriterWeb.xcs:....Table.Shift.Row.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\WriterWeb.xcs:....Table.Insert.Row.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Table.Shift.Row.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Table.Insert.Row.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Label.Option.Row.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....BusinessCard.Option.Row.text
+#: components/html-editor/gtkhtml-editor-properties.glade.h:69
+#, fuzzy
+msgid "_Row"
+msgstr "Urubariro"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:70
+#, fuzzy
+msgid "_Rows:"
+msgstr "Irubariro:"
+
+# #-#-#-#-#  starmath.pot (PACKAGE VERSION)  #-#-#-#-#
+# starmath/source\menu.src:RID_SMMENU.~Format.SID_DISTANCE.text
+# #-#-#-#-#  starmath.pot (PACKAGE VERSION)  #-#-#-#-#
+# starmath/source\menu.src:RID_SMPLUGINMENU.~Format.SID_DISTANCE.text
+#: components/html-editor/gtkhtml-editor-properties.glade.h:72
+#, fuzzy
+msgid "_Spacing:"
+msgstr "Gutandukanya"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:74
+#, fuzzy
+msgid "_Table"
+msgstr "Imbonerahamwe"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:75
+#, fuzzy
+msgid "_URL:"
+msgstr "URL"
+
+# sc/source\ui\src\globstr.src:RID_GLOBSTR.STR_TIP_WIDTH.text
+#: components/html-editor/gtkhtml-editor-properties.glade.h:77
+#, fuzzy
+msgid "_Width:"
+msgstr "Ubugari:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:78
+msgid "_Wrap Text"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:79
+msgid "_X-Padding:"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:80
+msgid "_Y-Padding:"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:81
+msgid "follow"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:82
+msgid "px"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:83
+msgid "xxxxxxxxxxxxxx"
+msgstr ""
+
+# offmgr/source\offapp\dialog\hyprlink.src:RID_SVXDLG_HYPERLINK.FT_URL.text
+#: components/html-editor/link.c:194
+msgid "URL:"
+msgstr "URL:"
+
+#: components/html-editor/link.c:198
+msgid "Description:"
+msgstr "Umwirondoro"
+
+# 3110
+#: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
+#, fuzzy
+msgid "Insert image"
+msgstr "injiza ishusho"
+
+# basctl/source\basicide\basidesh.src:RID_POPUP_TABBAR.RID_INSERT.text
+#: components/html-editor/menubar.c:133 components/html-editor/menubar.c:152
+#: components/html-editor/menubar.c:173 components/html-editor/menubar.c:195
+#: components/html-editor/popup.c:103
+msgid "Insert"
+msgstr "Kongeramo"
+
+#: components/html-editor/menubar.c:282
+#, fuzzy, c-format
+msgid "Error loading file '%s': %s"
+msgstr "Itangira... IDOSIYE"
+
+#: components/html-editor/menubar.c:308 components/html-editor/menubar.c:317
+#, fuzzy
+msgid "Insert: HTML File"
+msgstr "Idosiye"
+
+#: components/html-editor/menubar.c:308 components/html-editor/menubar.c:317
+#, fuzzy
+msgid "Insert: Text File"
+msgstr "Idosiye"
+
+#: components/html-editor/paragraph.c:86 components/html-editor/toolbar.c:54
+#, fuzzy
+msgid "Header 1"
+msgstr "1."
+
+#: components/html-editor/paragraph.c:87 components/html-editor/toolbar.c:55
+#, fuzzy
+msgid "Header 2"
+msgstr "2."
+
+#: components/html-editor/paragraph.c:88 components/html-editor/toolbar.c:56
+#, fuzzy
+msgid "Header 3"
+msgstr "3."
+
+#: components/html-editor/paragraph.c:89 components/html-editor/toolbar.c:57
+#, fuzzy
+msgid "Header 4"
+msgstr "4."
+
+#: components/html-editor/paragraph.c:90 components/html-editor/toolbar.c:58
+#, fuzzy
+msgid "Header 5"
+msgstr "5"
+
+#: components/html-editor/paragraph.c:91 components/html-editor/toolbar.c:59
+#, fuzzy
+msgid "Header 6"
+msgstr "6"
+
+#: components/html-editor/paragraph.c:94
+#, fuzzy
+msgid "Dot item"
+msgstr "Ikintu"
+
+#: components/html-editor/paragraph.c:95
+#, fuzzy
+msgid "Number item"
+msgstr "Ikintu"
+
+#: components/html-editor/paragraph.c:96
+#, fuzzy
+msgid "Roman item"
+msgstr "Ikintu"
+
+#: components/html-editor/paragraph.c:97
+#, fuzzy
+msgid "Alphabeta item"
+msgstr "Ikintu"
+
+# framework/source\services\logindialog.src:RID_DLG_LOGIN.RID_FT_SECURITYPROXYHOST.text
+#: components/html-editor/paragraph.c:100 components/html-editor/toolbar.c:60
+msgid "Address"
+msgstr "Aderesi"
+
+# sfx2/source\dialog\filedlghelper.src:STR_LB_IMAGE_TEMPLATE.text
+#: components/html-editor/paragraph.c:109
+#, fuzzy
+msgid "_Style:"
+msgstr "Imisusire"
+
+#: components/html-editor/popup.c:438
+msgid "Paste Quotation"
+msgstr ""
+
+# sc/source\ui\src\globstr.src:RID_GLOBSTR.STR_UNDO_INSERTAREALINK.text
+#: components/html-editor/popup.c:442
+msgid "Insert Link"
+msgstr "Kongeramo Ihuza"
+
+#: components/html-editor/popup.c:449
+msgid "Remove Link"
+msgstr ""
+
+# sc/source\ui\src\scfuncs.src:RID_SC_FUNCTION_DESCRIPTIONS2.SC_OPCODE_STYLE.2.text
+#: components/html-editor/popup.c:456
+msgid "Style"
+msgstr "Umususire"
+
+# Font Style SubMenu
+#: components/html-editor/popup.c:459
+#, fuzzy
+msgid "Text Style..."
+msgstr "Imisusire y'inyandiko"
+
+# sw/source\ui\dbui\dbinsdlg.src:DLG_AP_INSERT_DB_SEL.FT_DB_PARA_COLL.text
+#: components/html-editor/popup.c:461 components/html-editor/popup.c:467
+#: components/html-editor/popup.c:477
+#, fuzzy
+msgid "Paragraph Style..."
+msgstr "Imisusire y'igika"
+
+#: components/html-editor/popup.c:465
+msgid "Link Style..."
+msgstr ""
+
+#: components/html-editor/popup.c:471
+msgid "Rule Style..."
+msgstr ""
+
+#: components/html-editor/popup.c:475
+msgid "Image Style..."
+msgstr ""
+
+#: components/html-editor/popup.c:486
+#, fuzzy
+msgid "Cell Style..."
+msgstr "Imisusire y'akadirishya:"
+
+#: components/html-editor/popup.c:489
+msgid "Table Style..."
+msgstr ""
+
+# svx/source\items\svxitems.src:RID_SVXITEMS_PAGEMODEL_COMPLETE.text
+#: components/html-editor/popup.c:495
+#, fuzzy
+msgid "Page Style..."
+msgstr "Imisusire y'Ipaji"
+
+#: components/html-editor/popup.c:500
+#, fuzzy
+msgid "Table insert"
+msgstr "Kongeramo imbonerahamwe"
+
+#: components/html-editor/popup.c:503
+#, fuzzy
+msgid "Row above"
+msgstr "Urubariro rwo hejuru"
+
+# uses tablerow.accesskey
+#: components/html-editor/popup.c:504
+#, fuzzy
+msgid "Row below"
+msgstr "Urubariro rwo hepfo"
+
+#: components/html-editor/popup.c:506
+#, fuzzy
+msgid "Column before"
+msgstr "Inkingi ibanziriza"
+
+# uses tablecolumn.accesskey
+#: components/html-editor/popup.c:507
+#, fuzzy
+msgid "Column after"
+msgstr "Inkingi ikurikira"
+
+#: components/html-editor/popup.c:512
+#, fuzzy
+msgid "Table delete"
+msgstr "Gusiba Imbonerahamwe"
+
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\WriterWeb.xcs:....Table.Shift.Row.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\WriterWeb.xcs:....Table.Insert.Row.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Table.Shift.Row.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Table.Insert.Row.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Label.Option.Row.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....BusinessCard.Option.Row.text
+#: components/html-editor/popup.c:514
+msgid "Row"
+msgstr "Urubariro"
+
+#: components/html-editor/popup.c:515
+msgid "Column"
+msgstr "Inkingi"
+
+# #-#-#-#-#  sc.pot (PACKAGE VERSION)  #-#-#-#-#
+# sc/source\ui\src\menue.src:SCCFG_PLUGINMENU.ITEM_TOOLS_ID.SUBMENU_CELLCONT.text
+# #-#-#-#-#  sc.pot (PACKAGE VERSION)  #-#-#-#-#
+# sc/source\ui\src\menue.src:SCCFG_MENUBAR.ITEM_TOOLS_ID.SUBMENU_CELLCONT.text
+#: components/html-editor/popup.c:516
+#, fuzzy
+msgid "Cell contents"
+msgstr "Ibiri mu kadirishya"
+
+#: components/html-editor/popup.c:524
+msgid "Check Word Spelling..."
+msgstr ""
+
+#: components/html-editor/popup.c:529
+#, fuzzy
+msgid "Add Word to"
+msgstr "Kuri"
+
+#: components/html-editor/popup.c:533
+#, c-format
+msgid "%s Dictionary"
+msgstr ""
+
+#: components/html-editor/popup.c:542
+#, fuzzy
+msgid "Add Word to Dictionary"
+msgstr "Kuri"
+
+#: components/html-editor/popup.c:545
+msgid "Ignore Misspelled Word"
+msgstr ""
+
+#: components/html-editor/popup.c:549
+msgid "Input Methods"
+msgstr ""
+
+#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
+#: components/html-editor/replace.c:77
+#, fuzzy
+msgid "Replace confirmation"
+msgstr "Iyemeza"
+
+# setup2/source\ui\dialog\dialog.src:RESID_DLG_OVERWRITE.12.text
+#: components/html-editor/replace.c:78
+#, fuzzy
+msgid "Replace _All"
+msgstr "Hindura byose"
+
+#: components/html-editor/replace.c:79
+#, fuzzy
+msgid "_Next"
+msgstr "Bikurikira"
+
+# offmgr/source\offapp\dialog\autocdlg.src:RID_OFA_AUTOCORR_DLG.1.RID_OFAPAGE_AUTOCORR_REPLACE.text
+#: components/html-editor/replace.c:81
+#, fuzzy
+msgid "_Replace"
+msgstr "Gusimbura"
+
+# #-#-#-#-#  sfx2.pot (PACKAGE VERSION)  #-#-#-#-#
+# sfx2/source\accel\accel.src:STR_FINDBACKWARD.text
+# #-#-#-#-#  sfx2.pot (PACKAGE VERSION)  #-#-#-#-#
+# sfx2/source\dialog\cfg.src:STR_FINDBACKWARD.text
+#: components/html-editor/replace.c:171
+#, fuzzy
+msgid "Search _backward"
+msgstr "Gushaka usubira inyuma"
+
+# officecfg/registry\schema\org\openoffice\Office\Calc.xcs:....Calculate.Other.CaseSensitive.text
+#: components/html-editor/replace.c:172 components/html-editor/search.c:113
+#, fuzzy
+msgid "Case _sensitive"
+msgstr "Imyandikire y'inyuguti nkuru/ nto"
+
+#: components/html-editor/replace.c:182
+#, fuzzy
+msgid "R_eplace:"
+msgstr "Gusimbura:"
+
+# offmgr/source\offapp\dialog\autocdlg.src:RID_OFAPAGE_AUTOCORR_REPLACE.FT_REPLACE.text
+#: components/html-editor/replace.c:186
+#, fuzzy
+msgid "_With:"
+msgstr "Na:"
+
+# 505
+#: components/html-editor/search.c:112
+#, fuzzy
+msgid "_Backward"
+msgstr "subira inyuma"
+
+# sc/source\ui\src\filter.src:RID_SCDLG_FILTER.BTN_REGEXP.text
+#: components/html-editor/search.c:114
+#, fuzzy
+msgid "_Regular Expression"
+msgstr "Imvugo ndahinduka"
+
+#: components/html-editor/search.c:118
+#, fuzzy
+msgid "Input the words you want to search here"
+msgstr "Amagambo Kuri Gushaka"
+
+#: components/html-editor/spellchecker.c:110
+#, fuzzy
+msgid ""
+"Unable to add word to dictionary,\n"
+"language settings are broken.\n"
+msgstr "Kuri Kongeramo ijambo Kuri Inkoranyamagambo Ururimi Amagenamiterere"
+
+#: components/html-editor/spellchecker.c:298
+#, fuzzy
+msgid "No misspelled word found"
+msgstr "ijambo Byabonetse"
+
+#: components/html-editor/spellchecker.c:305
+msgid "Spell checker"
+msgstr ""
+
+#: components/html-editor/spellchecker.c:398
+msgid "Current _Languages"
+msgstr ""
+
+# sc/source\ui\pagedlg\hfedtdlg.src:RID_HFBASE.FL_INFO.text
+#: components/html-editor/template.c:84
+msgid "Note"
+msgstr "Igisobanuro"
+
+#: components/html-editor/template.c:94 components/html-editor/template.c:113
+#, fuzzy
+msgid "Place your text here"
+msgstr "Umwandiko"
+
+#: components/html-editor/template.c:97
+#, fuzzy
+msgid "Image frame"
+msgstr "Ikadiri"
+
+#: components/html-editor/template.c:280
+msgid "Template Labels"
+msgstr ""
+
+#: components/html-editor/test-html-editor-control.c:333
+#, fuzzy
+msgid "Open file..."
+msgstr "Fungura Idosiye..."
+
+#: components/html-editor/test-html-editor-control.c:335
+#, fuzzy
+msgid "Save file as..."
+msgstr "Kubika IDOSIYE Nka"
+
+#: components/html-editor/test-html-editor-control.c:567
+msgid "GtkHTML Editor Test Container"
+msgstr ""
+
+#: components/html-editor/toolbar.c:52
+msgid "Roman List"
+msgstr ""
+
+#: components/html-editor/toolbar.c:521
+#, fuzzy
+msgid "Left align"
+msgstr "Itondeka Ibumoso"
+
+#: components/html-editor/toolbar.c:525
+#, fuzzy
+msgid "Right align"
+msgstr "Itondeka Iburyo"
+
+#: components/html-editor/toolbar.c:545
+#, fuzzy
+msgid "Toggle typewriter font style"
+msgstr "Intego- nyuguti IMISUSIRE"
+
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Revision.TextDisplay.Insert.Attribute..1.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Revision.TextDisplay.Delete.Attribute..1.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Revision.TextDisplay.ChangedAttribute.Attribute..1.text
+#: components/html-editor/toolbar.c:547
+msgid "Bold"
+msgstr "Bitsindagiye"
+
+#: components/html-editor/toolbar.c:547
+#, fuzzy
+msgid "Makes the text bold"
+msgstr "Umwandiko UTSINDAGIYE"
+
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Revision.TextDisplay.Insert.Attribute..2.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Revision.TextDisplay.Delete.Attribute..2.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Revision.TextDisplay.ChangedAttribute.Attribute..2.text
+#: components/html-editor/toolbar.c:549
+msgid "Italic"
+msgstr "Biberamye"
+
+#: components/html-editor/toolbar.c:549
+#, fuzzy
+msgid "Makes the text italic"
+msgstr "Umwandiko IBERAMYE"
+
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Revision.TextDisplay.Insert.Attribute..3.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Revision.TextDisplay.ChangedAttribute.Attribute..3.text
+#: components/html-editor/toolbar.c:551
+msgid "Underline"
+msgstr "Gucaho umurongo"
+
+#: components/html-editor/toolbar.c:551
+#, fuzzy
+msgid "Underlines the text"
+msgstr "Umwandiko"
+
+#: components/html-editor/toolbar.c:553
+#, fuzzy
+msgid "Strikes out the text"
+msgstr "Inyuma Umwandiko"
+
+#: components/html-editor/toolbar.c:562
+msgid "Unindent"
+msgstr ""
+
+#: components/html-editor/toolbar.c:562
+#, fuzzy
+msgid "Indents the paragraphs less"
+msgstr "Ibika Birutwa"
+
+# #-#-#-#-#  svx.pot (PACKAGE VERSION)  #-#-#-#-#
+# svx/source\dialog\fontwork.src:RID_SVXDLG_FONTWORK.MTR_FLD_TEXTSTART.quickhelptext
+# #-#-#-#-#  svx.pot (PACKAGE VERSION)  #-#-#-#-#
+# svx/source\dialog\numpages.src:RID_SVXPAGE_NUM_POSITION.FT_BORDERDIST.text
+# #-#-#-#-#  svx.pot (PACKAGE VERSION)  #-#-#-#-#
+# svx/source\dialog\paragrph.src:RID_SVXPAGE_STD_PARAGRAPH.FL_INDENT.text
+# #-#-#-#-#  svx.pot (PACKAGE VERSION)  #-#-#-#-#
+# svx/source\editeng\editeng.src:RID_EDITUNDO_INDENT.text
+# #-#-#-#-#  svx.pot (PACKAGE VERSION)  #-#-#-#-#
+# svx/source\items\svxitems.src:RID_ATTR_PARA_LRSPACE.text
+# #-#-#-#-#  svx.pot (PACKAGE VERSION)  #-#-#-#-#
+# svx/source\items\svxitems.src:RID_ATTR_LRSPACE.text
+# #-#-#-#-#  svx.pot (PACKAGE VERSION)  #-#-#-#-#
+# svx/source\outliner\outliner.src:RID_OUTLUNDO_DEPTH.text
+#: components/html-editor/toolbar.c:564
+msgid "Indent"
+msgstr "Akagerampera"
+
+#: components/html-editor/toolbar.c:564
+#, fuzzy
+msgid "Indents the paragraphs more"
+msgstr "Ibika Birenzeho"
+
+#: components/html-editor/utils.c:119
+msgid "Sample"
+msgstr "Urugero"
+
+#: components/html-editor/utils.c:192
+msgid "_Visit..."
+msgstr ""
+
+#: components/html-editor/utils.c:232
+#, fuzzy
+msgid ""
+"The editted object was removed from the document.\n"
+"Cannot apply your changes."
+msgstr "Igikoresho Cyavanyweho Bivuye Inyandiko Gukurikiza Amahinduka"
+
+#: src/gtkhtml.c:2599
+#, fuzzy, c-format
+msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
+msgstr "Mozilla URL ku Imiterere Cyangwa Uburebure"
+
+#: src/gtkhtml.c:2976
+msgid "Editable"
+msgstr ""
+
+#: src/gtkhtml.c:2977
+#, fuzzy
+msgid "Whether the html can be edited"
+msgstr "HTML"
+
+# 1747
+#: src/gtkhtml.c:2983
+#, fuzzy
+msgid "Document Title"
+msgstr "Umutwe- Nyandiko"
+
+#: src/gtkhtml.c:2984
+#, fuzzy
+msgid "The title of the current document"
+msgstr "Umutwe Bya KIGEZWEHO Inyandiko"
+
+#: src/gtkhtml.c:2990
+#, fuzzy
+msgid "Document Base"
+msgstr "Base"
+
+#: src/gtkhtml.c:2991
+#, fuzzy
+msgid "The base URL for relative references"
+msgstr "SHINGIRO kugirango Bifitanye isano Indango"
+
+#: src/gtkhtml.c:2997
+#, fuzzy
+msgid "Target Base"
+msgstr "Base"
+
+#: src/gtkhtml.c:2998
+#, fuzzy
+msgid "The base URL of the targe frame"
+msgstr "SHINGIRO Bya Ikadiri"
+
+#: src/gtkhtml.c:3007
+msgid "Fixed Width Font"
+msgstr ""
+
+#: src/gtkhtml.c:3008
+#, fuzzy
+msgid "The Monospace font to use for typewriter text"
+msgstr "Intego- nyuguti Kuri Gukoresha kugirango Umwandiko"
+
+#: src/gtkhtml.c:3014
+msgid "New Link Color"
+msgstr ""
+
+#: src/gtkhtml.c:3015
+#, fuzzy
+msgid "The color of new link elements"
+msgstr "Ibara Bya Gishya Ihuza Ibintu"
+
+#: src/gtkhtml.c:3020
+msgid "Visited Link Color"
+msgstr "Ibara y'Ihuza yasuwe"
+
+#: src/gtkhtml.c:3021
+#, fuzzy
+msgid "The color of visited link elements"
+msgstr "Ibara Bya Ihuza Ibintu"
+
+#: src/gtkhtml.c:3026
+msgid "Active Link Color"
+msgstr "Ibara y'Ihuza ikora"
+
+#: src/gtkhtml.c:3027
+#, fuzzy
+msgid "The color of active link elements"
+msgstr "Ibara Bya Gikora Ihuza Ibintu"
+
+#: src/gtkhtml.c:3032
+msgid "Spelling Error Color"
+msgstr ""
+
+#: src/gtkhtml.c:3033
+#, fuzzy
+msgid "The color of the spelling error markers"
+msgstr "Ibara Bya Ivuganyuguti Ikosa"
+
+#: src/gtkhtml.c:3038
+msgid "Cite Quotation Color"
+msgstr ""
+
+#: src/gtkhtml.c:3039
+#, fuzzy
+msgid "The color of the cited text"
+msgstr "Ibara Bya Umwandiko"
+
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Impress.xcs:....Filter.Export.LastUsed..HTML.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....FormLetter.MailingOutput.Format..2.text
+#: src/html-component.c:220
+#, fuzzy
+msgid "Html"
+msgstr "HTML"
+
+#: src/html-component.c:221
+#, fuzzy
+msgid "Html test"
+msgstr "Igerageza"
+
+#: src/html-component.c:227
+msgid "Test1"
+msgstr ""
+
+#: src/html-component.c:234
+msgid "Test2"
+msgstr ""
+
+#: src/html-component.c:240
+msgid "Test3"
+msgstr ""
+
+#: src/html-component.c:246
+msgid "Test4"
+msgstr ""
+
+#: src/html-component.c:252
+msgid "Test5"
+msgstr ""
+
+#: src/html-component.c:258
+msgid "Test6"
+msgstr ""
+
+#: src/html-component.c:264
+msgid "Test7"
+msgstr ""
+
+# dbaccess/source/ui/inc/toolbox.hrc:MID_SBA_QRY_REFRESH.text
+#: src/html-component.c:613
+#, fuzzy
+msgid "_Refresh"
+msgstr "Kugira gishya"
+
+#: src/html-component.c:614
+#, fuzzy
+msgid "Reload the page"
+msgstr "Kongerakuyitangiza Ipaji"
+
+#: src/html-component.c:661
+#, fuzzy
+msgid "Could not initialize Bonobo!"
+msgstr "OYA gutangiza"
+
+#: src/htmlbutton.c:142
+msgid "Submit Query"
+msgstr "Tanga Ibazwa"
+
+# sfx2/source\toolbox\tbxpopup.src:RID_SFX_TOOLBOX_POPUP.ITEM_ID_RESET_ITEMS.text
+#: src/htmlbutton.c:145
+msgid "Reset"
+msgstr "Kugarura"
+
+#. TODO2 dialog instead of warning
+#: src/htmlengine-print.c:192
+#, fuzzy
+msgid "Cannot allocate default font for printing\n"
+msgstr "Mburabuzi Intego- nyuguti kugirango"
+
+#: src/test.c:375
+msgid "GtkHTML Test"
+msgstr ""
+
+# sc/source\ui\src\scstring.src:SCSTR_PREVIEWSHELL.text
+#: src/testgtkhtml.c:117
+#, fuzzy
+msgid "Print pre_view"
+msgstr "Igaragazambere ryo Gucapa"
+
+# sc/source\ui\src\scstring.src:SCSTR_PREVIEWSHELL.text
+#: src/testgtkhtml.c:117
+#, fuzzy
+msgid "Print preview"
+msgstr "Igaragazambere ryo Gucapa"
+
+#: src/testgtkhtml.c:1004
+msgid "GtkHTML Test Application"
+msgstr ""
