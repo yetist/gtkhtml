@@ -297,6 +297,9 @@ key_press_event (GtkWidget *widget,
 		}
 	}
 
+	if (retval == TRUE)
+		queue_draw (html);
+
 	return retval;
 }
 

@@ -2689,7 +2689,7 @@ html_engine_init (HTMLEngine *engine)
 
 	engine->newPage = FALSE;
 
-	engine->editable = FALSE;
+	engine->editable = TRUE;
 	engine->cursor = html_cursor_new ();
 
 	engine->ht = html_tokenizer_new ();
@@ -2929,6 +2929,7 @@ html_engine_update_event (HTMLEngine *e)
 	return FALSE;
 }
 
+
 void
 html_engine_schedule_update (HTMLEngine *p)
 {
@@ -2936,6 +2937,7 @@ html_engine_schedule_update (HTMLEngine *p)
 		p->updateTimer = gtk_timeout_add (TIMER_INTERVAL, (GtkFunction) html_engine_update_event, p);
 }
 
+
 static gboolean
 html_engine_goto_anchor (HTMLEngine *e)
 {
@@ -3026,7 +3028,6 @@ draw_cursor (HTMLEngine *e,
 {
 	HTMLObject *obj;
 	guint offset;
-	gint abs_x1, abs_y1, abs_x2, abs_y2;
 	gint x1, y1, x2, y2;
 
 	obj = e->cursor->object;
@@ -3044,35 +3045,30 @@ draw_cursor (HTMLEngine *e,
 
 	html_object_get_cursor (obj, e->painter, offset, &x1, &y1, &x2, &y2);
 
-	x1 += e->leftBorder;
-	y1 += e->topBorder;
-	x2 += e->leftBorder;
-	y2 += e->topBorder;
+	x1 = x1 + e->leftBorder - e->x_offset;
+	y1 = y1 + e->topBorder - e->y_offset;
+	x2 = x2 + e->leftBorder - e->x_offset;
+	y2 = y2 + e->topBorder - e->y_offset;
 
-	abs_x1 = x + e->x_offset;
-	abs_y1 = y + e->y_offset;
-	abs_x2 = abs_x1 + width;
-	abs_y2 = abs_y1 + height;
-
-	if (x1 >= abs_x2)
+	if (x1 >= x + width)
 		return;
-	if (y1 >= abs_y2)
+	if (y1 >= y + height)
 		return;
 
-	if (x2 < abs_x1)
+	if (x2 < x)
 		return;
-	if (y2 < abs_y1)
+	if (y2 < y)
 		return;
 
-	if (x2 >= abs_x2)
-		x2 = abs_x2;
-	if (y2 >= abs_y2)
-		y2 = abs_y2;
+	if (x2 >= x + width)
+		x2 = x + width - 1;
+	if (y2 >= y + height)
+		y2 = y + height - 1;
 
-	if (x1 < abs_x1)
-		x1 = abs_x1;
-	if (y1 < abs_y1)
-		y1 = abs_y1;
+	if (x1 < x)
+		x1 = x;
+	if (y1 < y)
+		y1 = y;
 
 	gdk_draw_line (e->window, e->invert_gc, x1, y1, x2, y2);
 }
@@ -3300,13 +3296,13 @@ html_engine_make_cursor_visible (HTMLEngine *e)
 
 	if (x1 + e->leftBorder >= e->x_offset + e->width)
 		e->x_offset = x1 + e->leftBorder - e->width + 1;
-	else if (x1 - e->leftBorder < e->x_offset)
+	else if (x1 < e->x_offset + e->leftBorder)
 		e->x_offset = x1 - e->leftBorder;
 
-	if (y2 + e->rightBorder >= e->y_offset + e->height)
-		e->y_offset = y2 + e->rightBorder - e->height + 1;
-	else if (y1 < e->y_offset - e->topBorder)
-		e->y_offset = y1 + e->topBorder;
+	if (y2 + e->topBorder >= e->y_offset + e->height)
+		e->y_offset = y2 + e->topBorder - e->height + 1;
+	else if (y1 < e->y_offset + e->topBorder)
+		e->y_offset = y1 - e->topBorder;
 }
 
 
@@ -3332,8 +3328,12 @@ html_engine_queue_draw (HTMLEngine *e, HTMLObject *o)
 }
 
 void
-html_engine_form_submitted (HTMLEngine *e, const gchar *method, const gchar *action, const gchar *encoding)
+html_engine_form_submitted (HTMLEngine *e,
+			    const gchar *method,
+			    const gchar *action,
+			    const gchar *encoding)
 {
 	gtk_signal_emit (GTK_OBJECT (e), signals[SUBMIT], method, action, encoding);
 
 }
+

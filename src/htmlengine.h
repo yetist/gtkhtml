@@ -205,7 +205,6 @@ HTMLEngine *html_engine_new (void);
 void html_engine_realize (HTMLEngine *engine, GdkWindow *window);
 
 GtkHTMLStreamHandle html_engine_begin (HTMLEngine *p, const char *url);
-void        html_engine_schedule_update (HTMLEngine *p);
 gchar      *html_engine_parse_body (HTMLEngine *p, HTMLObject *clue, const gchar *end[], gboolean toplevel);
 void        html_engine_parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str);
 void        html_engine_parse (HTMLEngine *p);
@@ -219,11 +218,12 @@ gint	    html_engine_get_doc_width (HTMLEngine *e);
 
 void	    html_engine_make_cursor_visible (HTMLEngine *e);
 
-void html_engine_draw        (HTMLEngine *e, gint x, gint y, gint width, gint height);
+void html_engine_draw     (HTMLEngine *e, gint x, gint y, gint width, gint height);
 void html_engine_draw_cursor (HTMLEngine *e);
 
-void  html_engine_flush_draw_queue  (HTMLEngine *e);
-void  html_engine_queue_draw        (HTMLEngine *e, HTMLObject *o);
+void  html_engine_flush_draw_queue            (HTMLEngine *e);
+void  html_engine_queue_draw                  (HTMLEngine *e, HTMLObject *o);
+void  html_engine_schedule_update             (HTMLEngine *p);
 
 void        html_engine_form_submitted (HTMLEngine *engine, const gchar *method, const gchar *action, const gchar *encoding);
 HTMLObject *html_engine_mouse_event (HTMLEngine *e, gint x, gint y, gint button, gint state);
