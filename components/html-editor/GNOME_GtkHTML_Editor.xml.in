@@ -1,27 +1,27 @@
 <Root>
 		<commands>
 
-			<cmd name="EditUndo" _label="_Undo" _tip="Undo the last action"/>
-			<cmd name="EditRedo" _label="_Redo" _tip="Redo the undone action"/>
+			<cmd name="EditUndo" _label="_Undo" _tip="Undo the last action" pixtype="pixbuf"/>
+			<cmd name="EditRedo" _label="_Redo" _tip="Redo the undone action" pixtype="pixbuf"/>
 
-			<cmd name="EditCut" _label="Cu_t" _tip="Cut the selection"/>
-			<cmd name="EditCopy" _label="_Copy" _tip="Copy the selection"/>
-			<cmd name="EditPaste" _label="_Paste" _tip="Paste the clipboard"/>
+			<cmd name="EditCut" _label="Cu_t" _tip="Cut the selection" pixtype="pixbuf"/>
+			<cmd name="EditCopy" _label="_Copy" _tip="Copy the selection" pixtype="pixbuf"/>
+			<cmd name="EditPaste" _label="_Paste" _tip="Paste the clipboard" pixtype="pixbuf"/>
 			<cmd name="EditPasteQuotation" _label="Paste _Quotation" _tip="Paste the clipboard as a quotation"/>
 
-			<cmd name="EditFind" _label="_Find..." _tip="Find"/>
+			<cmd name="EditFind" _label="_Find..." _tip="Find" pixtype="pixbuf"/>
 			<cmd name="EditFindAgain" _label="Find _Again" _tip="Find again"/>
 			<cmd name="EditReplace" _label="_Replace..." _tip="Find and Replace"/>
 
 			<cmd name="EditSelectAll" _label="Select _All"
 			_tip="Select the entire contents of the document"/>
 			<cmd name="EditSpellCheck" _label="_Spell Check Document..."
-			_tip="Check spelling of the document" accel="*Ctrl**Shift*l"/>
+			_tip="Check spelling of the document" accel="*Ctrl**Shift*l" pixtype="pixbuf"/>
 
-			<cmd name="InsertImage" _label="_Image..." _tip="Insert image into document..."/>
-			<cmd name="InsertLink"  _label="_Link..." _tip="Insert HTML link into document..."/>
-			<cmd name="InsertRule"  _label="_Rule..." _tip="Insert rule into document..."/>
-			<cmd name="InsertTable" _label="_Table..." _tip="Insert table into document..."/>
+			<cmd name="InsertImage" _label="_Image..." _tip="Insert image into document..." pixtype="pixbuf"/>
+			<cmd name="InsertLink"  _label="_Link..." _tip="Insert HTML link into document..." pixtype="pixbuf"/>
+			<cmd name="InsertRule"  _label="_Rule..." _tip="Insert rule into document..." pixtype="pixbuf"/>
+			<cmd name="InsertTable" _label="_Table..." _tip="Insert table into document..." pixtype="pixbuf"/>
 			<cmd name="InsertTemplate" _label="Te_mplate..." _tip="Insert HTML template into document..."/>
 			<cmd name="InsertTextFile" _label="Te_xt file..." _tip="Insert text file into document..."/>
 			<cmd name="InsertHTMLFile" _label="_HTML file..." _tip="Insert HTML file into document..."/>
