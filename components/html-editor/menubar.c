@@ -29,112 +29,62 @@
 #include "control-data.h"
 #include "properties.h"
 
-static void undo_cb             (GtkWidget *widget, GtkHTMLControlData *cd);
-static void redo_cb             (GtkWidget *widget, GtkHTMLControlData *cd);
-
-static void cut_cb              (GtkWidget *widget, GtkHTMLControlData *cd);
-static void copy_cb             (GtkWidget *widget, GtkHTMLControlData *cd);
-static void paste_cb            (GtkWidget *widget, GtkHTMLControlData *cd);
-
-static void search_cb           (GtkWidget *widget, GtkHTMLControlData *cd);
-static void search_regex_cb     (GtkWidget *widget, GtkHTMLControlData *cd);
-static void search_next_cb      (GtkWidget *widget, GtkHTMLControlData *cd);
-static void replace_cb          (GtkWidget *widget, GtkHTMLControlData *cd);
-
-static void insert_image_cb     (GtkWidget *widget, GtkHTMLControlData *cd);
-static void insert_link_cb      (GtkWidget *widget, GtkHTMLControlData *cd);
-static void insert_rule_cb      (GtkWidget *widget, GtkHTMLControlData *cd);
-
-static void properties          (void);
-
-
-static GnomeUIInfo edit_subtree_info[] = {
-	GNOMEUIINFO_MENU_UNDO_ITEM (undo_cb, NULL),
-	GNOMEUIINFO_MENU_REDO_ITEM (redo_cb, NULL),
-	GNOMEUIINFO_SEPARATOR,
-	GNOMEUIINFO_MENU_CUT_ITEM (cut_cb, NULL),
-	GNOMEUIINFO_MENU_COPY_ITEM (copy_cb, NULL),
-	GNOMEUIINFO_MENU_PASTE_ITEM (paste_cb, NULL),
-	GNOMEUIINFO_SEPARATOR,
-	GNOMEUIINFO_MENU_FIND_ITEM (search_cb, NULL),
-	GNOMEUIINFO_ITEM_NONE (N_("Find Rege_x..."), N_("Regular expressions search..."), search_regex_cb),
-	GNOMEUIINFO_MENU_FIND_AGAIN_ITEM (search_next_cb, NULL),
-	GNOMEUIINFO_MENU_REPLACE_ITEM (replace_cb, NULL),
-	GNOMEUIINFO_SEPARATOR,
-	GNOMEUIINFO_MENU_PROPERTIES_ITEM (properties, NULL),
-	GNOMEUIINFO_END	
-};
-
-static GnomeUIInfo insert_subtree_info[] = {
-	GNOMEUIINFO_ITEM_NONE (N_("_Image..."), N_("Insert image into document..."), insert_image_cb),
-	GNOMEUIINFO_ITEM_NONE (N_("_Link..."), N_("Insert HTML link into document..."), insert_link_cb),
-	GNOMEUIINFO_ITEM_NONE (N_("_Rule..."),N_("Insert rule into document..."), insert_rule_cb),
-	GNOMEUIINFO_END
-};
-
-static GnomeUIInfo menu_info[] = {
-	GNOMEUIINFO_SUBTREE (N_("_Insert"), insert_subtree_info),
-	GNOMEUIINFO_END
-};
-
-
-
 static void
-undo_cb (GtkWidget *widget, GtkHTMLControlData *cd)
+undo_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
 	gtk_html_undo (cd->html);
 }
 
 static void
-redo_cb (GtkWidget *widget, GtkHTMLControlData *cd)
+redo_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
 	gtk_html_redo (cd->html);
 }
 
 static void
-cut_cb (GtkWidget *widget, GtkHTMLControlData *cd)
+cut_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
 	gtk_html_cut (cd->html);
 }
 
 static void
-copy_cb (GtkWidget *widget, GtkHTMLControlData *cd)
+copy_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
 	gtk_html_copy (cd->html);
 }
 
 static void
-paste_cb (GtkWidget *widget, GtkHTMLControlData *cd)
+paste_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
 	gtk_html_paste (cd->html);
 }
 
 static void
-search_cb (GtkWidget *widget, GtkHTMLControlData *cd)
+search_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
 	search (cd, TRUE);
 }
 
 static void
-search_regex_cb (GtkWidget *widget, GtkHTMLControlData *cd)
+search_regex_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
 	search (cd, FALSE);
 }
 
 static void
-search_next_cb (GtkWidget *widget, GtkHTMLControlData *cd)
+search_next_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
 	search_next (cd);
 }
 
 static void
-replace_cb (GtkWidget *widget, GtkHTMLControlData *cd)
+replace_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
 	replace (cd);
 }
 
 static void
-insert_image_cb (GtkWidget *widget, GtkHTMLControlData *cd)
+insert_image_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
@@ -148,49 +98,82 @@ insert_image_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 }
 
 static void
-insert_link_cb (GtkWidget *widget, GtkHTMLControlData *cd)
+insert_link_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
 	if (cd->properties_dialog)
 		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
+
 	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, FALSE);
+
 	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 						   GTK_HTML_EDIT_PROPERTY_LINK, _("Link"),
 						   link_properties,
 						   link_apply_cb,
 						   link_close_cb);
+
 	gtk_html_edit_properties_dialog_show (cd->properties_dialog);
 }
 
 static void
-insert_rule_cb (GtkWidget *widget, GtkHTMLControlData *cd)
+insert_rule_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
 	rule_insert (cd);
 }
 
 static void
-properties (void)
+properties_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cname)
 {
 	gchar *argv[2] = {"gtkhtml-properties-capplet", NULL};
 	if (gnome_execute_async (NULL, 1, argv) < 0)
 		gnome_error_dialog (_("Cannot execute gtkhtml properties"));
 }
 
+BonoboUIVerb verbs [] = {
+	BONOBO_UI_VERB ("EditUndo", undo_cb),
+	BONOBO_UI_VERB ("EditRedo", redo_cb),
+	BONOBO_UI_VERB ("EditCut", cut_cb),
+	BONOBO_UI_VERB ("EditCopy", copy_cb),
+	BONOBO_UI_VERB ("EditPaste", paste_cb),
+	BONOBO_UI_VERB ("EditFind", search_cb),
+	BONOBO_UI_VERB ("EditFindRegexp", search_regex_cb),
+	BONOBO_UI_VERB ("EditFindAgain", search_next_cb),
+	BONOBO_UI_VERB ("EditReplace", replace_cb),
+	BONOBO_UI_VERB ("EditProperties", properties_cb),
+
+	BONOBO_UI_VERB ("InsertImage", insert_image_cb),
+	BONOBO_UI_VERB ("InsertLink", insert_link_cb),
+	BONOBO_UI_VERB ("InsertRule", insert_rule_cb),
+	
+	BONOBO_UI_VERB_END
+};
+
 void
-menubar_setup (BonoboUIHandler *uih,
+menubar_setup (BonoboUIHandler    *uih,
 	       GtkHTMLControlData *cd)
 {
-	BonoboUIHandlerMenuItem *tree;
+	BonoboUIComponent *uic;
+	Bonobo_UIContainer container;
+	char *fname;
+	xmlNode *ui;
 
-	g_return_if_fail (uih != NULL);
-	g_return_if_fail (BONOBO_IS_UI_HANDLER (uih));
 	g_return_if_fail (cd->html != NULL);
 	g_return_if_fail (GTK_IS_HTML (cd->html));
+	g_return_if_fail (BONOBO_IS_UI_HANDLER (uih));
 
-	tree = bonobo_ui_handler_menu_parse_uiinfo_list_with_data (edit_subtree_info, cd);
-	bonobo_ui_handler_menu_add_list (uih, "/Edit", tree);
-	bonobo_ui_handler_menu_free_list (tree);
+	uic = bonobo_ui_compat_get_component (uih);
+	g_return_if_fail (uic != NULL);
 
-	tree = bonobo_ui_handler_menu_parse_uiinfo_list_with_data (menu_info, cd);
-	bonobo_ui_handler_menu_add_list (uih, "/", tree);
-	bonobo_ui_handler_menu_free_list (tree);
+	container = bonobo_ui_compat_get_container (uih);
+	g_return_if_fail (container != CORBA_OBJECT_NIL);
+
+	bonobo_ui_component_add_verb_list_with_data (uic, verbs, cd);
+
+	fname = bonobo_ui_util_get_ui_fname ("html-editor-control.xml");
+	g_warning ("Loading ui from '%s'", fname);
+
+	ui = bonobo_ui_util_new_ui (container, fname, "html-editor-control");
+
+	bonobo_ui_component_set_tree (uic, container, "/", ui, NULL);
+	g_free (fname);
+	xmlFreeNode (ui);
 }

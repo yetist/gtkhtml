@@ -1,3 +1,11 @@
+2000-09-07  Michael Meeks  <michael@helixcode.com>
+
+	* Makefile.am: add .xml install
+
+	* menubar.c: Update for new UI code.
+
+	* test-html-editor-control.c: Update for new UI code
+
 2000-09-08  Radek Doulik  <rodo@helixcode.com>
 
 	* toolbar.c (setup_font_size_option_menu): hide +5 size

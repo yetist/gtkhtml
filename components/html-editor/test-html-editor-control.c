@@ -146,7 +146,6 @@ typedef enum _FileSelectionOperation FileSelectionOperation;
 
 struct _FileSelectionInfo {
 	BonoboWidget *control;
-	GtkWidget *app;
 	GtkWidget *widget;
 
 	FileSelectionOperation operation;
@@ -154,7 +153,6 @@ struct _FileSelectionInfo {
 typedef struct _FileSelectionInfo FileSelectionInfo;
 
 static FileSelectionInfo file_selection_info = {
-	NULL,
 	NULL,
 	NULL,
 	OP_NONE
@@ -217,13 +215,13 @@ file_selection_ok_cb (GtkWidget *widget,
 
 
 static void
-open_or_save_as_dialog (GnomeApp *app,
+open_or_save_as_dialog (BonoboWin *app,
 			FileSelectionOperation op)
 {
+	GtkWidget    *widget;
 	BonoboWidget *control;
-	GtkWidget *widget;
 
-	control = BONOBO_WIDGET (app->contents);
+	control = BONOBO_WIDGET (bonobo_win_get_contents (app));
 
 	if (file_selection_info.widget != NULL) {
 		gdk_window_show (GTK_WIDGET (file_selection_info.widget)->window);
@@ -235,10 +233,10 @@ open_or_save_as_dialog (GnomeApp *app,
 	else
 		widget = gtk_file_selection_new (_("Save file as..."));
 
-	gtk_window_set_transient_for (GTK_WINDOW (widget), GTK_WINDOW (app));
+	gtk_window_set_transient_for (GTK_WINDOW (widget),
+				      GTK_WINDOW (app));
 
 	file_selection_info.widget = widget;
-	file_selection_info.app = GTK_WIDGET (app);
 	file_selection_info.control = control;
 	file_selection_info.operation = op;
 
@@ -262,7 +260,7 @@ static void
 open_through_persist_stream_cb (GtkWidget *widget,
 				gpointer data)
 {
-	open_or_save_as_dialog (GNOME_APP (data), OP_LOAD_THROUGH_PERSIST_STREAM);
+	open_or_save_as_dialog (BONOBO_WIN (data), OP_LOAD_THROUGH_PERSIST_STREAM);
 }
 
 /* "Save through persist stream" dialog.  */
@@ -270,23 +268,23 @@ static void
 save_through_persist_stream_cb (GtkWidget *widget,
 				gpointer data)
 {
-	open_or_save_as_dialog (GNOME_APP (data), OP_SAVE_THROUGH_PERSIST_STREAM);
+	open_or_save_as_dialog (BONOBO_WIN (data), OP_SAVE_THROUGH_PERSIST_STREAM);
 }
 
 /* "Open through persist file" dialog.  */
 static void
 open_through_persist_file_cb (GtkWidget *widget,
-				gpointer data)
+			      gpointer data)
 {
-	open_or_save_as_dialog (GNOME_APP (data), OP_LOAD_THROUGH_PERSIST_FILE);
+	open_or_save_as_dialog (BONOBO_WIN (data), OP_LOAD_THROUGH_PERSIST_FILE);
 }
 
 /* "Save through persist file" dialog.  */
 static void
 save_through_persist_file_cb (GtkWidget *widget,
-				gpointer data)
+			      gpointer data)
 {
-	open_or_save_as_dialog (GNOME_APP (data), OP_SAVE_THROUGH_PERSIST_FILE);
+	open_or_save_as_dialog (BONOBO_WIN (data), OP_SAVE_THROUGH_PERSIST_FILE);
 }
 
 
@@ -334,24 +332,27 @@ static GnomeUIInfo toolbar_info[] = {
 static guint
 container_create (void)
 {
-	GtkWidget *app;
+	GtkWidget *win;
+	GtkWindow *window;
 	GtkWidget *control;
 	BonoboUIHandler *uih;
 	BonoboUIHandlerMenuItem *tree;
 	HTMLEditorResolver *resolver;
 
-	app = gnome_app_new ("test-html-editor-control",
-			     "HTML Editor Control Test");
-	gtk_window_set_default_size (GTK_WINDOW (app), 500, 440);
-	gtk_window_set_policy (GTK_WINDOW (app), TRUE, TRUE, FALSE);
+	win = bonobo_win_new ("test-html-editor-control",
+			      "HTML Editor Control Test");
+	window = GTK_WINDOW (win);
+	gtk_window_set_default_size (window, 500, 440);
+	gtk_window_set_policy (window, TRUE, TRUE, FALSE);
 
 	uih = bonobo_ui_handler_new ();
-	bonobo_ui_handler_set_app (uih, GNOME_APP (app));
+
+	bonobo_ui_handler_set_app (uih, BONOBO_WIN (win));
 
 	/* Create the menus/toolbars */
 	bonobo_ui_handler_create_menubar (uih);
 
-	tree = bonobo_ui_handler_menu_parse_uiinfo_tree_with_data (menu_info, app);
+	tree = bonobo_ui_handler_menu_parse_uiinfo_tree_with_data (menu_info, win);
 	bonobo_ui_handler_menu_add_tree (uih, "/", tree);
 	bonobo_ui_handler_menu_free_tree (tree);
 
@@ -361,14 +362,14 @@ container_create (void)
 	bonobo_object_add_interface (BONOBO_OBJECT (uih), BONOBO_OBJECT (resolver));
 
 	control = bonobo_widget_new_control (HTML_EDITOR_CONTROL_ID,
-					     bonobo_object_corba_objref (BONOBO_OBJECT (uih)));
+					     bonobo_ui_compat_get_container (uih));
 
 	if (control == NULL)
 		g_error ("Cannot get `%s'.", HTML_EDITOR_CONTROL_ID);
 
-	gnome_app_set_contents (GNOME_APP (app), control);
+	bonobo_win_set_contents (BONOBO_WIN (win), control);
 
-	gtk_widget_show_all (app);
+	gtk_widget_show_all (GTK_WIDGET (window));
 
 	return FALSE;
 }

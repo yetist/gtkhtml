@@ -1,3 +1,7 @@
+2000-09-13  Michael Meeks  <michael@helixcode.com>
+
+	* configure.in (have_bonobo): update check; only allow 0.19
+
 2000-08-28  Mathieu lacage <mathieu@eazel.com>
 
 	* add libunicode to gnome-config request.

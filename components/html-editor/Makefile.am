@@ -104,8 +104,8 @@ gnorbadir = $(sysconfdir)/CORBA/servers
 gnorba_DATA = html-editor-control.gnorba
 endif
 
-uidir = $(datadir)/html-editor-control
-ui_DATA = ui.xml
+uidir = $(datadir)/gnome/ui
+ui_DATA = html-editor-control.xml
 
 # The Test program
 

@@ -66,6 +66,7 @@ try_bonobo=true
 bonobo=
 bonobo_msg=no
 have_bonobo=false
+
 AC_ARG_WITH(bonobo,
 	[--{with,without}-bonobo    Compile with Bonobo support or without it],
 	if test x$withval = xno; then
@@ -77,20 +78,16 @@ AC_ARG_WITH(bonobo,
 )
 
 if $try_bonobo; then
-	AC_MSG_CHECKING(for Bonobo >= 0.15)
-	if gnome-config --libs bonobo > /dev/null 2>&1; then
-		vers=`gnome-config --modversion bonobo | sed 's/^bonobo-//'`
-		case $vers
-		in
-			0.[[0123456789]])
-				bonobo_ok=false ;;
+	AC_MSG_CHECKING(for Bonobo >= 0.19)
 
-			0.1[[01234]])
-				bonobo_ok=false ;;
-
-			*)
-				bonobo_ok=true ;;
-		esac
+	if gnome-config --libs bonobox > /dev/null 2>&1; then
+		vers=`gnome-config --modversion bonobo | sed -e "s/bonobo-//" | \
+			awk 'BEGIN { FS = "."; } { printf "%d", $1 * 1000 + $2;}'`
+		if test "$vers" -ge 19; then
+			bonobo_ok=true
+		else
+			bonobo_ok=false
+		fi
 	else
 		bonobo_ok=false
 	fi
