@@ -287,7 +287,7 @@ split_word_width (HTMLText *s, HTMLText *d, HTMLPainter *p, gint offset)
 	/* fill s */
 	if (s->words != words) {
 		s->words = words;
-		g_renew (guint, s->word_width, s->words);
+		s->word_width = g_renew (guint, s->word_width, s->words);
 	}
 
 	if (in_middle) {
