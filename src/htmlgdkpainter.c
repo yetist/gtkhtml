@@ -114,14 +114,19 @@ font_name_substitute_attr (const gchar *name, gint nth, gchar *val)
 	const gchar *s;
 	gchar *s1, *s2, *rv;
 
+	if (!name)
+		return NULL;
+
 	for (s = name; nth; nth--) {
 		s = strchr (s, '-');
-		g_assert (s);
+		if (!s)
+			return NULL;
 		s ++;
 	}
-	s1 = g_strndup (name, s - name);
 	s2 = strchr (s, '-');
-	g_assert (s);
+	if (!s2)
+		return NULL;
+	s1 = g_strndup (name, s - name);
 
 	rv = g_strconcat (s1, val, s2, NULL);
 	g_free (s1);
@@ -306,6 +311,11 @@ e_font_from_face (gchar *face, gint size, gboolean points, gchar *weight, gchar 
 	f4 = font_name_substitute_attr (f3, 4, "*");
 	g_free (f3);
 
+	if (!f4) {
+		g_warning ("Don't know how to use face: %s", face ? face : "NULL");
+		return NULL;
+	}
+
 	list = lookup_fonts (f4, &n);
 	g_free (f4);
 
@@ -325,8 +335,16 @@ e_font_from_face (gchar *face, gint size, gboolean points, gchar *weight, gchar 
 
 			f1 = font_name_substitute_attr (face, 3, weight);
 			f2 = font_name_substitute_attr (f1,   4, slant);
+			if (!f2) {
+				g_warning ("Don't know how to use face: %s", face ? face : "NULL");
+				return NULL;
+			}
 			s    = g_strdup_printf ("%d", size);
 			name = font_name_substitute_attr (f2, points ? 8 : 7, s);
+			if (!name) {
+				g_warning ("Don't know how to use face: %s", face ? face : "NULL");
+				return NULL;
+			}
 			g_free (f1);
 			g_free (f2);
 			g_free (s);
