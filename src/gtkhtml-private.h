@@ -40,7 +40,7 @@ struct _GtkHTMLPrivate {
 #ifdef GTKHTML_HAVE_GCONF
 	guint set_font_id;
 #endif
-#ifdef GTKHTML_USE_XIM
+#ifdef GTK_HTML_USE_XIM
 	GdkICAttr *ic_attr;
 	GdkIC *ic;
 #endif

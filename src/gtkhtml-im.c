@@ -26,17 +26,20 @@
 #include "gtkhtml-im.h"
 #include "gtkhtml-private.h"
 
-#ifdef GTKHTML_USE_XIM
+#ifdef GTK_HTML_USE_XIM
 void 
 gtk_html_im_focus_in (GtkHTML *html)
 {
-	if (html->priv->ic)
+	if (html->priv->ic) {
+		printf ("gtk_html_im_focus_in\n");
 		gdk_im_begin (html->priv->ic, GTK_WIDGET (html)->window);
+	}
 }
 
 void
 gtk_html_im_focus_out (GtkHTML *html)
 {
+	printf ("gtk_html_im_focus_out\n");
 	gdk_im_end ();
 }
 
@@ -52,20 +55,20 @@ gtk_html_im_realize (GtkHTML *html)
 
 	GdkICAttributesType attrmask = GDK_IC_ALL_REQ;
 	GdkIMStyle style;
-	GdkIMStyle supported_style = GDK_IM_PREEDIT_NONE |
+	GdkIMStyle supported_style =
+		GDK_IM_PREEDIT_NONE |
 		GDK_IM_PREEDIT_NOTHING |
 		GDK_IM_PREEDIT_POSITION |
 		GDK_IM_STATUS_NONE |
 		GDK_IM_STATUS_NOTHING;
 
-	if (!gdk_im_ready ())
-		return;
+	printf ("gtk_html_im_realize\n");
 
-	attr = gdk_ic_attr_new ();
-
-	if (attr == NULL)
+	if (!gdk_im_ready () || (attr = gdk_ic_attr_new ()) == NULL)
 		return;
 		
+	printf ("gtk_html_im_realize\n");
+
 	if (widget->style &&
 	    widget->style->font->type != GDK_FONT_FONTSET)
 		supported_style &= ~GDK_IM_PREEDIT_POSITION;
@@ -79,12 +82,11 @@ gtk_html_im_realize (GtkHTML *html)
 		attrmask |= GDK_IC_PREEDIT_COLORMAP;
 		attr->preedit_colormap = colormap;
 	}
+
 	attrmask |= GDK_IC_PREEDIT_FOREGROUND;
 	attrmask |= GDK_IC_PREEDIT_BACKGROUND;
-	attr->preedit_foreground =
-		widget->style->fg[GTK_STATE_NORMAL];
-	attr->preedit_background =
-		widget->style->base[GTK_STATE_NORMAL];
+	attr->preedit_foreground = widget->style->fg[GTK_STATE_NORMAL];
+	attr->preedit_background = widget->style->base[GTK_STATE_NORMAL];
 	
 	switch (style & GDK_IM_PREEDIT_MASK) {
 	case GDK_IM_PREEDIT_POSITION:
@@ -115,12 +117,13 @@ gtk_html_im_realize (GtkHTML *html)
 		g_warning ("Can't create input context.");
 	else {
 		mask = gdk_window_get_events (widget->window);
-		mask |= gdk_ic_get_events (html->-priv->ic);
+		mask |= gdk_ic_get_events (html->priv->ic);
 		gdk_window_set_events (widget->window, mask);
 		
 		if (GTK_WIDGET_HAS_FOCUS(widget))
 			gdk_im_begin (html->priv->ic, widget->window);
 	}
+	printf ("gtk_html_im_realize\n");
 }
 
 void

@@ -1,5 +1,9 @@
 2000-10-31  Radek Doulik  <rodo@helixcode.com>
 
+	* gtkhtml.c: likewise
+
+	* gtkhtml-im.c: replaced GTKHTML_USE_XIM with GTK_HTML_USE_XIM
+
 	* gtkhtml.c (gtk_html_editor_command): do editor command
 	(gtk_html_editor_event_command): new function, "emits"
 	EditorAPI event

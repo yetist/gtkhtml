@@ -602,7 +602,7 @@ style_set (GtkWidget *widget,
 				     engine->defaultSettings->color_set);
 	html_engine_schedule_update (engine);
 
-#ifdef GTKHTML_USE_XIM
+#ifdef GTK_HTML_USE_XIM
 	if (previous_style)
 		gtk_html_im_style_set (widget);
 #endif
@@ -634,7 +634,8 @@ key_press_event (GtkWidget *widget,
 		/* printf ("len: %d str: %s\n", str ? unicode_strlen (str, -1) : -1, str); */
 		if (str)
 			html_engine_insert (html->engine, str, unicode_strlen (str, -1));
-		else if (event->length == 1 && event->string && ((guchar)event->string [0]) < 0x80)
+		else if (event->length == 1 && event->string
+			 && ((guchar)event->string [0]) > 0x20 && ((guchar)event->string [0]) < 0x80)
 			html_engine_insert (html->engine, event->string, 1);
 		g_free (str);
 		retval = TRUE;
@@ -681,9 +682,9 @@ realize (GtkWidget *widget)
            erase the newly exposed area, thus making the thing smoother.  */
 	gdk_window_set_back_pixmap (html->layout.bin_window, NULL, FALSE);
 
-#ifdef GTKHTML_USE_XIM
+#ifdef GTK_HTML_USE_XIM
 	gtk_html_im_realize (html);
-#endif /* GTKHTML_USE_XIM */
+#endif /* GTK_HTML_USE_XIM */
 }
 
 static void
@@ -693,7 +694,7 @@ unrealize (GtkWidget *widget)
 	
 	html_engine_unrealize (html->engine);
 
-#ifdef GTKHTML_USE_XIM	
+#ifdef GTK_HTML_USE_XIM	
 	gtk_html_im_unrealize (html);
 #endif
 	if (GTK_WIDGET_CLASS (parent_class)->unrealize)
@@ -757,7 +758,7 @@ size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 		gtk_html_private_calc_scrollbars (html);
 	}
 
-#ifdef GTKHTML_USE_XIM
+#ifdef GTK_HTML_USE_XIM
 	gtk_html_im_size_allocate (html);
 #endif
 }
@@ -1045,7 +1046,7 @@ focus_in_event (GtkWidget *widget,
 			gtk_window_set_focus (GTK_WINDOW (window), html->iframe_parent);
 	}
 
-#ifdef GTKHTML_USE_XIM
+#ifdef GTK_HTML_USE_XIM
 	gtk_html_im_focus_in (html);
 #endif
 
@@ -1062,7 +1063,7 @@ focus_out_event (GtkWidget *widget,
 		html_engine_set_focus (html->engine, FALSE);
 	}
 
-#ifdef GTKHTML_USE_XIM
+#ifdef GTK_HTML_USE_XIM
 	gtk_html_im_focus_out (html);
 #endif
 
