@@ -364,6 +364,19 @@ select_range (HTMLObject *self,
 					 start, length, queue_draw);
 } */
 
+static void
+destroy (HTMLObject *o)
+{
+	HTMLIFrame *iframe = HTML_IFRAME (o);
+
+	if (iframe->html) {
+		gtk_signal_disconnect_by_data (GTK_OBJECT (iframe->html), o);
+		iframe->html = NULL;
+	}
+
+	HTML_OBJECT_CLASS (parent_class)->destroy (o);
+}
+
 void 
 html_iframe_init (HTMLIFrame *iframe,
 		  HTMLIFrameClass *klass,
@@ -461,7 +474,6 @@ html_iframe_init (HTMLIFrame *iframe,
 	*/
 }
 
-
 void
 html_iframe_type_init (void)
 {
@@ -484,6 +496,7 @@ html_iframe_class_init (HTMLIFrameClass *klass,
 	html_embedded_class_init (embedded_class, type, size);
 	parent_class = &html_embedded_class;
 
+	object_class->destroy                 = destroy;
 	object_class->calc_size               = calc_size;
 	object_class->calc_min_width          = calc_min_width;
 	object_class->set_painter             = set_painter;
