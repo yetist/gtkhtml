@@ -37,10 +37,6 @@ struct _HTMLClueAlignedClass {
 	HTMLClueClass clue_class;
 };
 
-
-extern HTMLClueAlignedClass html_cluealigned_class;
-
-
 void        html_cluealigned_type_init   (void);
 void        html_cluealigned_class_init  (HTMLClueAlignedClass *klass,
 					  HTMLType              type,

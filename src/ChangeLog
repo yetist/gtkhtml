@@ -1,5 +1,8 @@
 2005-02-03  Radek Doulik  <rodo@novell.com>
 
+	* htmlcluealigned.h: removed declaration of html_cluealigned_class
+	to fix compilation with gcc 4.0.0 (fix by amd)
+
 	* htmltext.c: added ' to regexp for mail address recognition
 
 	Fixes #71250
