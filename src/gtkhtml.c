@@ -572,18 +572,18 @@ key_press_event (GtkWidget *widget,
 	GtkHTML *html = GTK_HTML (widget);
 	gboolean retval;
 
-	/* printf ("keypress %x len %d state %d\n", event->keyval, event->length, event->state); */
-
 	html->binding_handled = FALSE;
 	gtk_bindings_activate (GTK_OBJECT (widget), event->keyval, event->state);
 	retval = html->binding_handled;
 
-	if (!retval && html_engine_get_editable (html->engine))
-		/* if (!(event->state & ~(GDK_SHIFT_MASK | GDK_LOCK_MASK)) && event->length > 0) { */
-		if (!(event->state & (GDK_CONTROL_MASK | GDK_MOD1_MASK)) && event->length > 0) {
-			html_engine_insert (html->engine, event->string, event->length);
-			retval = TRUE;
-		}
+	if (! retval
+	    && html_engine_get_editable (html->engine)
+	    && ! (event->state & (GDK_CONTROL_MASK | GDK_MOD1_MASK))
+	    && event->length > 0) {
+		html_engine_delete_selection (html->engine, TRUE);
+		html_engine_insert (html->engine, event->string, event->length);
+		retval = TRUE;
+	}
 
 	if (!retval && GTK_WIDGET_CLASS (parent_class)->key_press_event)
 		retval = GTK_WIDGET_CLASS (parent_class)->key_press_event (widget, event);
@@ -1008,7 +1008,7 @@ selection_received (GtkWidget *widget,
 		printf ("selection text \"%.*s\"\n",
 			selection_data->length, selection_data->data); 
 
-		html_engine_disable_selection (GTK_HTML (widget)->engine);
+		html_engine_delete_selection (GTK_HTML (widget)->engine, TRUE);
 		html_engine_insert (GTK_HTML (widget)->engine, 
 				    selection_data->data,
 				    selection_data->length);
@@ -1449,6 +1449,8 @@ gtk_html_begin (GtkHTML *html)
 {
 	GtkHTMLStream *handle;
 
+	g_return_val_if_fail (! gtk_html_get_editable (html), NULL);
+
 	handle = html_engine_begin (html->engine);
 	if (handle == NULL)
 		return NULL;
@@ -1578,6 +1580,9 @@ gtk_html_set_editable (GtkHTML *html,
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	html_engine_set_editable (html->engine, editable);
+
+	if (editable)
+		update_styles (html);
 }
 
 gboolean
@@ -1914,19 +1919,22 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		html_engine_paste (html->engine, TRUE);
 		break;
 	case GTK_HTML_COMMAND_INSERT_PARAGRAPH:
-		/* FIXME this should cut the selection instead.  */
-		html_engine_disable_selection (html->engine);
+		html_engine_delete_selection (html->engine, TRUE);
 		html_engine_insert (html->engine, "\n", 1);
 		break;
 	case GTK_HTML_COMMAND_DELETE:
-		/* FIXME this should cut the selection instead.  */
-		html_engine_disable_selection (html->engine);
-		html_engine_delete (html->engine, 1, TRUE, FALSE);
+		if (html->engine->mark != NULL
+		    && html->engine->mark->position != html->engine->cursor->position)
+			html_engine_delete_selection (html->engine, TRUE);
+		else
+			html_engine_delete (html->engine, 1, TRUE, FALSE);
 		break;
 	case GTK_HTML_COMMAND_DELETE_BACK:
-		/* FIXME this should cut the selection instead.  */
-		html_engine_disable_selection (html->engine);
-		html_engine_delete (html->engine, 1, TRUE, TRUE);
+		if (html->engine->mark != NULL
+		    && html->engine->mark->position != html->engine->cursor->position)
+			html_engine_delete_selection (html->engine, TRUE);
+		else
+			html_engine_delete (html->engine, 1, TRUE, TRUE);
 		break;
 	case GTK_HTML_COMMAND_SET_MARK:
 		html_engine_set_mark (html->engine);

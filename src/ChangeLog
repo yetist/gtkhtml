@@ -1,3 +1,17 @@
+2000-06-17  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* gtkhtml.c (gtk_html_set_editable): If the widget has become
+	editable, update the styles with `update_styles()'.
+	(gtk_html_begin): Added precondition: @html is not editable.
+
+	* gtkhtml.c (command): Delete the selection appropriately for
+	`COMMAND_INSERT_PARAGRAPH', `COMMAND_DELETE',
+	`COMMAND_DELETE_BACK'.
+	(selection_received): Delete the selection before inserting.
+	(key_press_event): Likewise.
+
+	* htmlengine-edit-delete.c (html_engine_delete_selection): New.
+
 2000-06-16  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml.c: moved enum some defs to gtkhtml-properties.c + some

@@ -24,9 +24,11 @@
 
 #include "htmlengine.h"
 
-void  html_engine_delete  (HTMLEngine *e,
-			   guint       count,
-			   gboolean    do_undo,
-			   gboolean    backwards);
+void  html_engine_delete            (HTMLEngine *e,
+				     guint       count,
+				     gboolean    do_undo,
+				     gboolean    backwards);
+void  html_engine_delete_selection  (HTMLEngine *e,
+				     gboolean    do_undo);
 
 #endif /* _HTMLENGINE_EDIT_DELETE_H */

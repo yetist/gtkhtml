@@ -563,6 +563,8 @@ html_engine_delete (HTMLEngine *e,
 	g_return_if_fail (e != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
+	g_print ("Deleting %d %s\n", count, backwards ? "backwards" : "forwards");
+
 	if (e->cursor->object->parent == NULL || e->cursor->object->parent == NULL)
 		return;
 
@@ -656,3 +658,39 @@ html_engine_delete (HTMLEngine *e,
 }
 
 
+/**
+ * html_engine_delete_selection:
+ * @e: An HTMLEngine
+ * @do_undo: Whether to save undo information for this operation
+ * 
+ * Delete the current selection (if any) in @e.  If there is no selection, this
+ * is a no-op.
+ **/
+void
+html_engine_delete_selection (HTMLEngine *e,
+			      gboolean do_undo)
+{
+	gboolean backwards;
+	guint count;
+
+	g_return_if_fail (e != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
+	if (e->mark == NULL || e->mark->position == e->cursor->position)
+		return;
+
+	if (e->mark->position > e->cursor->position) {
+		count = e->mark->position - e->cursor->position;
+		backwards = FALSE;
+	} else {
+		count = e->cursor->position - e->mark->position;
+		backwards = TRUE;
+	}
+
+	if (count == 0)
+		return;
+
+	html_engine_disable_selection (e);
+
+	html_engine_delete (e, count, do_undo, backwards);
+}

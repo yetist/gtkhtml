@@ -3643,8 +3643,9 @@ html_engine_set_editable (HTMLEngine *e,
 
 	html_engine_disable_selection (e);
 
-	if (! e->editable && editable)
+	if (! e->editable && editable) {
 		html_cursor_home (e->cursor, e);
+	}
 
 	html_engine_draw (e, 0, 0, e->width, e->height);
 	e->editable = editable;
