@@ -37,7 +37,7 @@
 #include "htmlengine-edit-cut-and-paste.h"
 #include "htmlengine-save.h"
 #include "htmlentity.h"
-#include "htmllinktextmaster.h"
+#include "htmllinktext.h"
 #include "htmlsettings.h"
 #include "htmltextslave.h"
 #include "htmlundo.h"
@@ -148,11 +148,14 @@ copy_helper (HTMLText *src,
 	dest->text = g_strndup (html_text_get_text (src, offset),
 				unicode_offset_to_index (src->text, offset + len)
 				- unicode_offset_to_index (src->text, offset));
-	dest->text_len = len;
 
-	dest->font_style = src->font_style;
-	dest->face  = src->face;
-	dest->color = src->color;
+	dest->text_len      = len;
+	dest->font_style    = src->font_style;
+	dest->face          = src->face;
+	dest->color         = src->color;
+	dest->select_start  = src->select_start;
+	dest->select_length = src->select_length;
+
 	html_color_ref (dest->color);
 
 	dest->spell_errors = g_list_copy (src->spell_errors);
@@ -231,6 +234,25 @@ html_text_op_cut_helper (HTMLText *text, GList *from, GList *to, guint *len, HTM
 	return rv;
 }
 
+static HTMLObject *
+new_text (HTMLText *t, gint begin, gint end)
+{
+	return HTML_OBJECT (html_text_new_with_len (html_text_get_text (t, begin),
+						    end - begin, t->font_style, t->color));
+}
+
+static HTMLObject *
+op_copy (HTMLObject *self, GList *from, GList *to, guint *len, HTMLObject *empty)
+{
+	return html_text_op_copy_helper (HTML_TEXT (self), from, to, len, new_text);
+}
+
+static HTMLObject *
+op_cut (HTMLObject *self, GList *from, GList *to, guint *len, HTMLObject *empty)
+{
+	return html_text_op_cut_helper (HTML_TEXT (self), from, to, len, new_text);
+}
+
 static gboolean
 object_merge (HTMLObject *self, HTMLObject *with)
 {
@@ -301,36 +323,14 @@ static gboolean
 calc_size (HTMLObject *self,
 	   HTMLPainter *painter)
 {
-	HTMLText *text;
-	GtkHTMLFontStyle font_style;
-	gint new_ascent, new_descent, new_width;
-	gboolean changed;
+	HTMLText *text = HTML_TEXT (self);
+	GtkHTMLFontStyle style = html_text_get_font_style (text);
 
-	text = HTML_TEXT (self);
-	font_style = html_text_get_font_style (text);
+	self->width = 0;
+	self->ascent = html_painter_calc_ascent (painter, style, text->face);
+	self->descent = html_painter_calc_descent (painter, style, text->face);
 
-	new_ascent = html_painter_calc_ascent (painter, font_style, text->face);
-	new_descent = html_painter_calc_descent (painter, font_style, text->face);
-	new_width = html_painter_calc_text_width (painter, text->text, text->text_len, font_style, text->face);
-
-	changed = FALSE;
-
-	if (new_ascent != self->ascent) {
-		self->ascent = new_ascent;
-		changed = TRUE;
-	}
-
-	if (new_descent != self->descent) {
-		self->descent = new_descent;
-		changed = TRUE;
-	}
-
-	if (new_width != self->width) {
-		self->width = new_width;
-		changed = TRUE;
-	}
-
-	return changed;
+	return FALSE;
 }
 
 static gint
@@ -346,6 +346,39 @@ calc_preferred_width (HTMLObject *self,
 	return html_painter_calc_text_width (painter,
 					     text->text, text->text_len,
 					     font_style, text->face);
+}
+
+static HTMLFitType
+fit_line (HTMLObject *o,
+	  HTMLPainter *painter,
+	  gboolean startOfLine,
+	  gboolean firstRun,
+	  gint widthLeft) 
+{
+	HTMLText *text; 
+	HTMLObject *next_obj;
+	HTMLObject *text_slave;
+
+	text = HTML_TEXT (o);
+
+	if (o->flags & HTML_OBJECT_FLAG_NEWLINE)
+		return HTML_FIT_COMPLETE;
+	
+	/* Remove existing slaves */
+	next_obj = o->next;
+	while (next_obj != NULL
+	       && (HTML_OBJECT_TYPE (next_obj) == HTML_TYPE_TEXTSLAVE)) {
+		o->next = next_obj->next;
+		html_clue_remove (HTML_CLUE (next_obj->parent), next_obj);
+		html_object_destroy (next_obj);
+		next_obj = o->next;
+	}
+	
+	/* Turn all text over to our slaves */
+	text_slave = html_text_slave_new (text, 0, HTML_TEXT (text)->text_len);
+	html_clue_append_after (HTML_CLUE (o->parent), text_slave, o);
+
+	return HTML_FIT_COMPLETE;
 }
 
 static gint
@@ -447,18 +480,6 @@ draw (HTMLObject *o,
       gint width, gint height,
       gint tx, gint ty)
 {
-	GtkHTMLFontStyle font_style;
-	HTMLText *text = HTML_TEXT (o);
-
-	if (y + height < o->y - o->ascent || y > o->y + o->descent)
-		return;
-
-	font_style = html_text_get_font_style (text);
-	html_painter_set_font_style (p, font_style);
-
-	html_color_alloc (text->color, p);
-	html_painter_set_pen (p, &text->color->color);
-	html_painter_draw_text (p, o->x + tx, o->y + ty, text->text, -1);
 }
 
 static gboolean
@@ -509,40 +530,6 @@ save_plain (HTMLObject *self,
 	rv  = html_engine_save_output_string (state, "%s", text->text);
 	
 	return rv;
-}
-
-
-
-
-/* HTMLText methods.  */
-
-static void
-queue_draw (HTMLText *text,
-	    HTMLEngine *engine,
-	    guint offset,
-	    guint len)
-{
-	html_engine_queue_draw (engine, HTML_OBJECT (text));
-}
-
-static HTMLText *
-extract_text (HTMLText *text,
-	      guint offset,
-	      gint len)
-{
-	HTMLText *new;
-
-	if (len < 0)
-		len = text->text_len;
-
-	if (offset + len > text->text_len)
-		len = text->text_len - offset;
-
-	new = g_malloc (HTML_OBJECT (text)->klass->object_size);
-	(* HTML_OBJECT_CLASS (parent_class)->copy) (HTML_OBJECT (text), HTML_OBJECT (new));
-	copy_helper (HTML_TEXT (text), HTML_TEXT (new), offset, len);
-
-	return new;
 }
 
 static guint
@@ -652,148 +639,60 @@ remove_spell_errors (GList *spell_errors, guint offset, guint len)
 	return spell_errors;
 }
 
-static guint
-insert_text (HTMLText *text,
-	     HTMLEngine *engine,
-	     guint offset,
-	     const gchar *s,
-	     guint len)
+static HTMLObject *
+check_point (HTMLObject *self,
+	     HTMLPainter *painter,
+	     gint x, gint y,
+	     guint *offset_return,
+	     gboolean for_cursor)
 {
-	gchar *new_buffer;
-	guint old_len;
-	guint new_len;
-	guint l1, l2, ls;
+	HTMLObject *p;
 
-	old_len = text->text_len;
-	if (offset > old_len) {
-		g_warning ("Cursor offset out of range for HTMLText::insert_text().");
+	/* This scans all the HTMLTextSlaves that represent the various lines
+           in which the text is split.  */
+	for (p = self->next;
+	     p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE;
+	     p = p->next) {
 
-		/* This should never happen, but the following will make sure
-                   things are always fixed up in a non-segfaulting way.  */
-		offset = old_len;
+		if (y >= p->y + p->descent)
+			continue;
+
+		/* If the cursor is on this line, there is a newline
+		   after this, and we want cursor-like behavior, then
+		   the position we want is the last on this line.  */
+		if (for_cursor
+		    && (p->next == NULL
+			|| (p->next->flags & HTML_OBJECT_FLAG_NEWLINE)
+			|| HTML_OBJECT_TYPE (p->next) == HTML_TYPE_TEXTSLAVE
+			|| p->next->y != p->y)
+		    && x >= p->x + p->width) {
+			if (offset_return != NULL) {
+				HTMLTextSlave *slave;
+
+				slave = HTML_TEXT_SLAVE (p);
+				*offset_return = slave->posStart + slave->posLen;
+				if ((p->next == NULL
+				     || (p->next->flags & HTML_OBJECT_FLAG_NEWLINE))
+				    && *offset_return < HTML_TEXT (slave->owner)->text_len)
+					(*offset_return)++;
+			}
+			return self;
+		}
+
+		/* Otherwise, we have to do the check the normal way.  */
+		if (x >= p->x && x < p->x + p->width) {
+			if (offset_return != NULL) {
+				*offset_return = html_text_slave_get_offset_for_pointer
+					(HTML_TEXT_SLAVE (p), painter, x, y);
+				*offset_return += HTML_TEXT_SLAVE (p)->posStart;
+			}
+			return self;
+		}
 	}
 
-	new_len  = old_len + len;
-	l1         = unicode_offset_to_index (text->text, offset);
-	l2         = unicode_offset_to_index (text->text, text->text_len) - l1;
-	ls         = unicode_offset_to_index (s, len);
-	new_buffer = g_malloc (l1 + l2 + ls + 1);
-
-	/* concatenate strings */
-	memcpy (new_buffer,           text->text,      l1);
-	memcpy (new_buffer + l1,      s,               ls);
-	memcpy (new_buffer + l1 + ls, text->text + l1, l2);
-	new_buffer [l1 + l2 + ls] = '\0';
-
-	/* spell checking update */
-	move_spell_errors (text->spell_errors, offset, len);
-
-	/* set new values */
-	g_free (text->text);
-	text->text = convert_nbsp (new_buffer);
-	text->text_len = new_len;
-	g_free (new_buffer);
-
-	/* update */
-	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
-	if (HTML_OBJECT (text)->parent != NULL) {
-		html_object_change_set (HTML_OBJECT (text)->parent, HTML_CHANGE_ALL);
-		if (! html_object_relayout (HTML_OBJECT (text)->parent,
-					    engine,
-					    HTML_OBJECT (text))) 
-			html_engine_queue_draw (engine, HTML_OBJECT (text)->parent);
-	}
-
-	return len;
+	return NULL;
 }
 
-static guint
-remove_text (HTMLText *text,
-	     HTMLEngine *engine,
-	     guint offset,
-	     guint len)
-{
-	gchar *new_buffer;
-	guint old_len;
-	guint new_len;
-	guint l1, l2, lw;
-
-	/* The following code is very stupid and quite inefficient, but it is
-           just for interactive editing so most likely people won't even
-           notice.  */
-
-	old_len = text->text_len;
-
-	if (offset > old_len) {
-		g_warning ("Cursor offset out of range for HTMLText::remove_text().");
-		return 0;
-	}
-
-	if (offset + len > old_len || len == 0)
-		len = old_len - offset;
-
-	new_len = old_len - len;
-
-	l1 = unicode_offset_to_index (text->text, offset);
-	l2 = unicode_offset_to_index (text->text, offset + len);
-	lw = unicode_offset_to_index (text->text, text->text_len);
-
-	/* concat strings */
-	new_buffer = g_malloc (lw - (l2 - l1) + 1);
-	memcpy (new_buffer,      text->text,      l1);
-	memcpy (new_buffer + l1, text->text + l2, lw - l2 + 1);
-
-	/* spell checking update */
-	text->spell_errors = remove_spell_errors (text->spell_errors, offset, len);
-	move_spell_errors (text->spell_errors, offset + len, -len);
-
-	/* set new values */
-	g_free (text->text);
-	text->text = convert_nbsp (new_buffer);
-	text->text_len = new_len;
-	g_free (new_buffer);
-
-	/* update */
-	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
-	html_object_relayout (HTML_OBJECT (text)->parent, engine, HTML_OBJECT (text));
-	html_engine_queue_draw (engine, HTML_OBJECT (text)->parent);
-
-	return len;
-}
-
-static void
-get_cursor (HTMLObject *self,
-	    HTMLPainter *painter,
-	    guint offset,
-	    gint *x1, gint *y1,
-	    gint *x2, gint *y2)
-{
-	html_object_get_cursor_base (self, painter, offset, x2, y2);
-
-	*x1 = *x2;
-	*y1 = *y2 - self->ascent;
-	*y2 += self->descent - 1;
-}
-
-static void
-get_cursor_base (HTMLObject *self,
-		 HTMLPainter *painter,
-		 guint offset,
-		 gint *x, gint *y)
-{
-	GtkHTMLFontStyle font_style;
-
-	html_object_calc_abs_position (HTML_OBJECT (self), x, y);
-
-	if (offset > 0) {
-		font_style = html_text_get_font_style (HTML_TEXT (self));
-		*x += html_painter_calc_text_width (painter,
-						    HTML_TEXT (self)->text,
-						    offset, font_style, HTML_TEXT (self)->face);
-	}
-}
-
-
 
 static void
 split_spell_errors (HTMLText *self, HTMLText *new, guint offset)
@@ -817,47 +716,29 @@ split_spell_errors (HTMLText *self, HTMLText *new, guint offset)
 	}
 }
 
-static HTMLText *
-split (HTMLText *self,
-       guint offset)
-{
-	HTMLText *new;
-
-	new = g_malloc (HTML_OBJECT (self)->klass->object_size);
-	html_text_init (new, HTML_TEXT_CLASS (HTML_OBJECT (self)->klass),
-			html_text_get_text (self, offset), -1, self->font_style, self->color);
-
-	self->text = g_realloc (self->text, unicode_offset_to_index (self->text, offset) + 1);
-	self->text [unicode_offset_to_index (self->text, offset)] = '\0';
-	self->text_len = offset;
-	html_object_change_set (HTML_OBJECT (self), HTML_CHANGE_ALL);
-	split_spell_errors (self, new, offset);
-
-	return new;
-}
-
 static void
-text_merge (HTMLText *text,
-	    HTMLText *other,
-	    gboolean prepend)
+queue_draw (HTMLText *text,
+	    HTMLEngine *engine,
+	    guint offset,
+	    guint len)
 {
-	g_warning ("HTMLText::merge not implemented.");
-}
+	HTMLObject *obj;
 
-static gboolean
-check_merge (HTMLText *self,
-	     HTMLText *text)
-{
-	if (HTML_OBJECT_TYPE (self) != HTML_OBJECT_TYPE (text))
-		return FALSE;
-	if (self->text_len == 0 || text->text_len == 0)
-		return TRUE;
-	if (self->font_style != text->font_style)
-		return FALSE;
-	if (! html_color_equal (self->color, text->color))
-		return FALSE;
+	for (obj = HTML_OBJECT (text)->next; obj != NULL; obj = obj->next) {
+		HTMLTextSlave *slave;
 
-	return TRUE;
+		if (HTML_OBJECT_TYPE (obj) != HTML_TYPE_TEXTSLAVE)
+			continue;
+
+		slave = HTML_TEXT_SLAVE (obj);
+
+		if (offset < slave->posStart + slave->posLen
+		    && (len == 0 || offset + len >= slave->posStart)) {
+			html_engine_queue_draw (engine, obj);
+			if (len != 0 && slave->posStart + slave->posLen > offset + len)
+				break;
+		}
+	}
 }
 
 /* This is necessary to merge the text-specified font style with that of the
@@ -935,32 +816,202 @@ destroy (HTMLObject *obj)
 	HTML_OBJECT_CLASS (parent_class)->destroy (obj);
 }
 
+
 static gboolean
 select_range (HTMLObject *self,
 	      HTMLEngine *engine,
-	      guint start,
+	      guint offset,
 	      gint length,
 	      gboolean queue_draw)
 {
-	if (queue_draw && length) {
-		HTMLObject *o = self->next;
+	HTMLText *text;
+	HTMLObject *p;
+	gboolean changed;
 
-		while (o && HTML_OBJECT_TYPE (o) == HTML_TYPE_TEXTSLAVE) {
-			HTMLTextSlave *slave = HTML_TEXT_SLAVE (o);
-			g_assert (HTML_OBJECT (slave->owner) == self);
-			if (MAX (slave->posStart, start) < MIN (slave->posStart + slave->posLen, start + length)
-			    && queue_draw) {
-				
-				html_engine_queue_draw (engine, o);
+	text = HTML_TEXT (self);
+
+	if (length < 0 || length + offset > HTML_TEXT (self)->text_len)
+		length = HTML_TEXT (self)->text_len - offset;
+
+	if (offset != text->select_start || length != text->select_length)
+		changed = TRUE;
+	else
+		changed = FALSE;
+
+	if (queue_draw) {
+		for (p = self->next;
+		     p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE;
+		     p = p->next) {
+			HTMLTextSlave *slave;
+			gboolean was_selected, is_selected;
+			guint max;
+
+			slave = HTML_TEXT_SLAVE (p);
+
+			max = slave->posStart + slave->posLen;
+
+			if (text->select_start + text->select_length > slave->posStart
+			    && text->select_start < max)
+				was_selected = TRUE;
+			else
+				was_selected = FALSE;
+
+			if (offset + length > slave->posStart && offset < max)
+				is_selected = TRUE;
+			else
+				is_selected = FALSE;
+
+			if (was_selected && is_selected) {
+				gint diff1, diff2;
+
+				diff1 = offset - slave->posStart;
+				diff2 = text->select_start - slave->posStart;
+
+				if (diff1 != diff2) {
+					html_engine_queue_draw (engine, p);
+				} else {
+					diff1 = offset + length - slave->posStart;
+					diff2 = (text->select_start + text->select_length
+						 - slave->posStart);
+
+					if (diff1 != diff2)
+						html_engine_queue_draw (engine, p);
+				}
+			} else {
+				if ((! was_selected && is_selected) || (was_selected && ! is_selected))
+					html_engine_queue_draw (engine, p);
 			}
-			o = o->next;
 		}
 	}
 
-	return HTML_OBJECT_CLASS (parent_class)->select_range (self, engine, start, length, queue_draw);
+	text->select_start = offset;
+	text->select_length = length;
+
+	if (length == 0)
+		self->selected = FALSE;
+	else
+		self->selected = TRUE;
+
+	return changed;
 }
 
-
+static HTMLObject *
+get_selection (HTMLObject *self,
+	       guint *size_return)
+{
+	HTMLObject *new;
+	HTMLText *text;
+
+	if (! self->selected)
+		return NULL;
+
+	text = HTML_TEXT (self);
+	new  = html_text_new_with_len (html_text_get_text (text, text->select_start),
+				       text->select_length, text->font_style, text->color);
+
+	if (size_return != NULL)
+		*size_return = text->select_length;
+
+	return new;
+}
+
+static HTMLObject *
+set_link (HTMLObject *self, HTMLColor *color, const gchar *url, const gchar *target)
+{
+	HTMLText *text = HTML_TEXT (self);
+
+	return html_link_text_new_with_len (text->text, text->text_len, text->font_style, color, url, target);
+}
+
+static void
+append_selection_string (HTMLObject *self,
+			 GString *buffer)
+{
+	HTMLText *text;
+	const gchar *p, *last;
+
+	text = HTML_TEXT (self);
+	if (text->select_length == 0)
+		return;
+
+	/* FIXME: we need a `g_string_append()' that takes the number of
+           characters to append as an extra parameter.  */
+
+	p    = html_text_get_text (text, text->select_start);
+	last = html_text_get_text (text, text->select_start + text->select_length);
+	for (; p < last;) {
+		g_string_append_c (buffer, *p);
+		p++;
+	}
+}
+
+static void
+get_cursor (HTMLObject *self,
+	    HTMLPainter *painter,
+	    guint offset,
+	    gint *x1, gint *y1,
+	    gint *x2, gint *y2)
+{
+	HTMLObject *slave;
+	guint ascent, descent;
+
+	html_object_get_cursor_base (self, painter, offset, x2, y2);
+
+	slave = self->next;
+	if (slave == NULL || HTML_OBJECT_TYPE (slave) != HTML_TYPE_TEXTSLAVE) {
+		ascent = 0;
+		descent = 0;
+	} else {
+		ascent = slave->ascent;
+		descent = slave->descent;
+	}
+
+	*x1 = *x2;
+	*y1 = *y2 - ascent;
+	*y2 += descent - 1;
+}
+
+static void
+get_cursor_base (HTMLObject *self,
+		 HTMLPainter *painter,
+		 guint offset,
+		 gint *x, gint *y)
+{
+	HTMLObject *obj;
+
+	for (obj = self->next; obj != NULL; obj = obj->next) {
+		HTMLTextSlave *slave;
+
+		if (HTML_OBJECT_TYPE (obj) != HTML_TYPE_TEXTSLAVE)
+			break;
+
+		slave = HTML_TEXT_SLAVE (obj);
+
+		if (offset <= slave->posStart + slave->posLen
+		    || obj->next == NULL
+		    || HTML_OBJECT_TYPE (obj->next) != HTML_TYPE_TEXTSLAVE) {
+			html_object_calc_abs_position (obj, x, y);
+			if (offset != slave->posStart) {
+				HTMLText *text;
+				GtkHTMLFontStyle font_style;
+
+				text = HTML_TEXT (self);
+
+				font_style = html_text_get_font_style (text);
+				*x += html_painter_calc_text_width (painter,
+								    html_text_get_text (text, slave->posStart),
+								    offset - slave->posStart,
+								    font_style, text->face);
+			}
+
+			return;
+		}
+	}
+
+	g_warning ("Getting cursor base for an HTMLText with no slaves -- %p\n",
+		   self);
+}
+
 void
 html_text_type_init (void)
 {
@@ -980,6 +1031,8 @@ html_text_class_init (HTMLTextClass *klass,
 
 	object_class->destroy = destroy;
 	object_class->copy = copy;
+	object_class->op_copy = op_copy;
+	object_class->op_cut = op_cut;
 	object_class->merge = object_merge;
 	object_class->split = object_split;
 	object_class->draw = draw;
@@ -987,74 +1040,69 @@ html_text_class_init (HTMLTextClass *klass,
 	object_class->calc_size = calc_size;
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->calc_min_width = calc_min_width;
+	object_class->fit_line = fit_line;
 	object_class->get_cursor = get_cursor;
 	object_class->get_cursor_base = get_cursor_base;
 	object_class->save = save;
 	object_class->save_plain = save_plain;
+	object_class->check_point = check_point;
 	object_class->select_range = select_range;
 	object_class->get_length = get_length;
+	object_class->get_selection = get_selection;
+	object_class->set_link = set_link;
+	object_class->append_selection_string = append_selection_string;
 
 	/* HTMLText methods.  */
 
 	klass->queue_draw = queue_draw;
-	klass->extract_text = extract_text;
-	klass->insert_text = insert_text;
-	klass->remove_text = remove_text;
-	klass->split = split;
 	klass->get_font_style = get_font_style;
 	klass->get_color = get_color;
 	klass->set_font_style = set_font_style;
 	klass->set_color = set_color;
-	klass->merge = text_merge;
-	klass->check_merge = check_merge;
 
 	parent_class = &html_object_class;
 }
 
 void
-html_text_init (HTMLText *text_object,
+html_text_init (HTMLText *text,
 		HTMLTextClass *klass,
-		const gchar *text,
+		const gchar *str,
 		gint len,
 		GtkHTMLFontStyle font_style,
 		HTMLColor *color)
 {
-	HTMLObject *object;
-
 	g_assert (color);
 
-	object = HTML_OBJECT (text_object);
-
-	html_object_init (object, HTML_OBJECT_CLASS (klass));
+	html_object_init (HTML_OBJECT (text), HTML_OBJECT_CLASS (klass));
 
 	if (len == -1) {
-		text_object->text_len = unicode_strlen (text, -1);
-		text_object->text = g_strdup (text);
+		text->text_len = unicode_strlen (str, -1);
+		text->text     = g_strdup (str);
 	} else {
-		text_object->text_len = len;
-		text_object->text = g_strndup (text, unicode_offset_to_index (text, len));
+		text->text_len = len;
+		text->text     = g_strndup (str, unicode_offset_to_index (str, len));
 	}
 
-	text_object->font_style   = font_style;
-	text_object->face         = NULL;
-	text_object->color        = color;
-	text_object->spell_errors = NULL;
+	text->font_style    = font_style;
+	text->face          = NULL;
+	text->color         = color;
+	text->spell_errors  = NULL;
+	text->select_start  = 0;
+	text->select_length = 0;
+
 	html_color_ref (color);
 }
 
 HTMLObject *
-html_text_new_with_len (const gchar *text,
-			gint len,
-			GtkHTMLFontStyle font,
-			HTMLColor *color)
+html_text_new_with_len (const gchar *str, gint len, GtkHTMLFontStyle font, HTMLColor *color)
 {
-	HTMLText *text_object;
+	HTMLText *text;
 
-	text_object = g_new (HTMLText, 1);
+	text = g_new (HTMLText, 1);
 
-	html_text_init (text_object, &html_text_class, text, len, font, color);
+	html_text_init (text, &html_text_class, str, len, font, color);
 
-	return HTML_OBJECT (text_object);
+	return HTML_OBJECT (text);
 }
 
 HTMLObject *
@@ -1063,35 +1111,6 @@ html_text_new (const gchar *text,
 	       HTMLColor *color)
 {
 	return html_text_new_with_len (text, -1, font, color);
-}
-
-guint
-html_text_insert_text (HTMLText *text,
-		       HTMLEngine *engine,
-		       guint offset,
-		       const gchar *p,
-		       guint len)
-{
-	g_return_val_if_fail (text != NULL, 0);
-	g_return_val_if_fail (engine != NULL, 0);
-	g_return_val_if_fail (p != NULL, 0);
-
-	if (len == 0)
-		return 0;
-
-	return (* HT_CLASS (text)->insert_text) (text, engine, offset, p, len);
-}
-
-guint
-html_text_remove_text (HTMLText *text,
-		       HTMLEngine *engine,
-		       guint offset,
-		       guint len)
-{
-	g_return_val_if_fail (text != NULL, 0);
-	g_return_val_if_fail (engine != NULL, 0);
-
-	return (* HT_CLASS (text)->remove_text) (text, engine, offset, len);
 }
 
 void
@@ -1104,49 +1123,6 @@ html_text_queue_draw (HTMLText *text,
 	g_return_if_fail (engine != NULL);
 
 	(* HT_CLASS (text)->queue_draw) (text, engine, offset, len);
-}
-
-HTMLText *
-html_text_extract_text (HTMLText *text,
-			guint offset,
-			gint len)
-{
-	g_return_val_if_fail (text != NULL, NULL);
-	g_return_val_if_fail (offset <= text->text_len, NULL);
-
-	return (* HT_CLASS (text)->extract_text) (text, offset, len);
-}
-
-HTMLText *
-html_text_split (HTMLText *text,
-		 guint offset)
-{
-	g_return_val_if_fail (text != NULL, NULL);
-	g_return_val_if_fail (offset > 0, NULL);
-
-	return (* HT_CLASS (text)->split) (text, offset);
-}
-
-void
-html_text_merge (HTMLText *text,
-		 HTMLText *other,
-		 gboolean prepend)
-{
-	g_return_if_fail (text != NULL);
-	g_return_if_fail (other != NULL);
-	g_return_if_fail (HTML_OBJECT_TYPE (text) == HTML_OBJECT_TYPE (other));
-
-	return (* HT_CLASS (text)->merge) (text, other, prepend);
-}
-
-gboolean
-html_text_check_merge (HTMLText *self,
-		       HTMLText *text)
-{
-	g_return_val_if_fail (self != NULL, FALSE);
-	g_return_val_if_fail (text != NULL, FALSE);
-
-	return (* HT_CLASS (text)->check_merge) (self, text);
 }
 
 
@@ -1364,7 +1340,7 @@ paste_link (HTMLEngine *engine, HTMLText *text, gint so, gint eo, gchar *prefix)
 	href = (prefix) ? g_strconcat (prefix, base, NULL) : g_strdup (base);
 	g_free (base);
 
-	new_obj = html_link_text_master_new_with_len
+	new_obj = html_link_text_new_with_len
 		(html_text_get_text (text, so),
 		 eo - so,
 		 text->font_style,
@@ -1411,4 +1387,21 @@ html_text_magic_link (HTMLText *text, HTMLEngine *engine, guint offset)
 	}
 
 	return FALSE;
+}
+
+/*
+ * magic links end
+ */
+
+gint
+html_text_trail_space_width (HTMLText *text, HTMLPainter *painter)
+{
+	if (text->text_len > 0 && html_text_get_char (text, text->text_len - 1) == ' ') {
+		GtkHTMLFontStyle font_style;
+
+		font_style = html_text_get_font_style (text);
+		return html_painter_calc_text_width (painter, " ", 1, font_style, text->face);
+	} else {
+		return 0;
+	}
 }

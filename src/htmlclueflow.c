@@ -28,21 +28,23 @@
 #include <config.h>
 #include <ctype.h>
 #include <string.h>
+
 #include "gtkhtml-properties.h"
+
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
 #include "htmlclue.h"
 #include "htmlclueflow.h"
 #include "htmlcluealigned.h"
-#include "htmlpainter.h"
-#include "htmltext.h"
-#include "htmlvspace.h"
-#include "htmllinktextmaster.h"
-#include "htmltextslave.h"	/* FIXME */
-#include "htmlsearch.h"
 #include "htmlentity.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-save.h"
+#include "htmllinktext.h"
+#include "htmlpainter.h"
+#include "htmltext.h"
+#include "htmltextslave.h"	/* FIXME */
+#include "htmlsearch.h"
+#include "htmlvspace.h"
 
 
 HTMLClueFlowClass html_clueflow_class;
@@ -739,10 +741,8 @@ calc_preferred_width (HTMLObject *o,
 			HTMLObject *eol = (obj->flags & HTML_OBJECT_FLAG_NEWLINE) ? html_object_prev_not_slave (obj) : obj;
 
 			/* remove trailing space width on the end of line */
-			if (HTML_OBJECT_TYPE (eol) == HTML_TYPE_TEXTMASTER
-			    || HTML_OBJECT_TYPE (eol) == HTML_TYPE_LINKTEXTMASTER) {
-				w -= html_text_master_trail_space_width (HTML_TEXT_MASTER (eol), painter);
-			}
+			if (html_object_is_text (eol))
+				w -= html_text_trail_space_width (HTML_TEXT (eol), painter);
 
 			if (w > maxw)
 				maxw = w;
@@ -1258,8 +1258,7 @@ search_set_info (HTMLObject *cur, HTMLSearch *info, guint pos, guint len)
 	}
 
 	while (cur) {
-		if (HTML_OBJECT_TYPE (cur) == HTML_TYPE_TEXTMASTER
-		    || HTML_OBJECT_TYPE (cur) == HTML_TYPE_LINKTEXTMASTER) {
+		if (html_object_is_text (cur)) {
 			cur_len = HTML_TEXT (cur)->text_len;
 			if (text_len + cur_len > pos) {
 				if (!info->found) {
@@ -1300,8 +1299,7 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 	/* first get flow text_len */
 	text_len = 0;
 	while (cur) {
-		if (HTML_OBJECT_TYPE (cur) == HTML_TYPE_TEXTMASTER
-		    || HTML_OBJECT_TYPE (cur) == HTML_TYPE_LINKTEXTMASTER) {
+		if (html_object_is_text (cur)) {
 			text_len += HTML_TEXT (cur)->text_len;
 			end = cur;
 		} else if (HTML_OBJECT_TYPE (cur) != HTML_TYPE_TEXTSLAVE) {
@@ -1320,8 +1318,7 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 		head = cur = (info->forward) ? *beg : end;
 		cur = *beg;
 		while (cur) {
-			if (HTML_OBJECT_TYPE (cur) == HTML_TYPE_TEXTMASTER
-			    || HTML_OBJECT_TYPE (cur) == HTML_TYPE_LINKTEXTMASTER) {
+			if (html_object_is_text (cur)) {
 				if (!info->forward) {
 					pp -= HTML_TEXT (cur)->text_len;
 				}
@@ -1446,12 +1443,9 @@ search (HTMLObject *obj, HTMLSearch *info)
 		}
 	}
 	while (cur) {
-		if (HTML_OBJECT_TYPE (cur) == HTML_TYPE_TEXTMASTER
-		    || HTML_OBJECT_TYPE (cur) == HTML_TYPE_LINKTEXTMASTER) {
-			if (search_text (&cur, info)) {
+		if (html_object_is_text (cur) && search_text (&cur, info))
 				return TRUE;
-			}
-		} else {
+		else {
 			html_search_push (info, cur);
 			if (html_object_search (cur, info))
 				return TRUE;

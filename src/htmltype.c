@@ -37,7 +37,7 @@
 #include "htmliframe.h"
 #include "htmlimage.h"
 #include "htmlimageinput.h"
-#include "htmllinktextmaster.h"
+#include "htmllinktext.h"
 #include "htmlobject.h"
 #include "htmlradio.h"
 #include "htmlrule.h"
@@ -47,7 +47,6 @@
 #include "htmltext.h"
 #include "htmltextarea.h"
 #include "htmltextinput.h"
-#include "htmltextmaster.h"
 #include "htmltextslave.h"
 #include "htmlvspace.h"
 
@@ -88,7 +87,7 @@ html_types_init (void)
 	html_hidden_type_init ();
 	html_image_type_init ();
 	html_imageinput_type_init ();
-	html_link_text_master_type_init ();
+	html_link_text_type_init ();
 	html_object_type_init ();
 	html_radio_type_init ();
 	html_rule_type_init ();
@@ -97,7 +96,6 @@ html_types_init (void)
 	html_table_type_init ();
 	html_textarea_type_init ();
 	html_text_input_type_init ();
-	html_text_master_type_init ();
 	html_text_slave_type_init ();
 	html_text_type_init ();
 	html_vspace_type_init ();
@@ -146,8 +144,6 @@ html_type_name (HTMLType type)
  		return "ImageInput";
 	case HTML_TYPE_LINKTEXT:
  		return "LinkText";
-	case HTML_TYPE_LINKTEXTMASTER:
- 		return "LinkTextMaster";
 	case HTML_TYPE_OBJECT:
  		return "Object";
 	case HTML_TYPE_RADIO:
@@ -166,8 +162,6 @@ html_type_name (HTMLType type)
  		return "TextArea";
 	case HTML_TYPE_TEXTINPUT:
  		return "TextInput";
-	case HTML_TYPE_TEXTMASTER:
- 		return "TextMaster";
 	case HTML_TYPE_TEXTSLAVE:
  		return "TextSlave";
 	case HTML_TYPE_VSPACE:

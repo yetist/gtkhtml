@@ -152,7 +152,7 @@ typedef enum {
    object system.
 
    If you add new HTML classes, you should (a) update this list and (b) update
-   the `html_types_init()' function in `htmltype.c'.  */
+   the `html_types_init ()' function in `htmltype.c'.  */
 
 typedef enum {
 	HTML_TYPE_NONE,
@@ -171,7 +171,6 @@ typedef enum {
 	HTML_TYPE_IMAGE,
 	HTML_TYPE_IMAGEINPUT,
 	HTML_TYPE_LINKTEXT,
-	HTML_TYPE_LINKTEXTMASTER,
 	HTML_TYPE_OBJECT,
 	HTML_TYPE_RADIO,
 	HTML_TYPE_RULE,
@@ -181,7 +180,6 @@ typedef enum {
 	HTML_TYPE_TEXT,
 	HTML_TYPE_TEXTAREA,
 	HTML_TYPE_TEXTINPUT,
-	HTML_TYPE_TEXTMASTER,
 	HTML_TYPE_TEXTSLAVE,
 	HTML_TYPE_VSPACE,
 	HTML_TYPE_IFRAME,

@@ -27,7 +27,6 @@
 #include "gtkhtml.h"
 #include "htmlobject.h"
 #include "htmltext.h"
-#include "htmltextmaster.h"
 #include "htmltextslave.h"
 #include "htmltable.h"
 #include "htmlclue.h"
@@ -149,9 +148,7 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 		gtk_html_debug_dump_table (obj, level + 1);
 		break;
 	case HTML_TYPE_TEXT:
-	case HTML_TYPE_TEXTMASTER:
 	case HTML_TYPE_LINKTEXT:
-	case HTML_TYPE_LINKTEXTMASTER:
 		for (i = 0; i < level; i++)
 			g_print (" ");
 		g_print ("Text (%d): \"%s\"\n",
@@ -209,7 +206,7 @@ dump_object_simple (HTMLObject *obj,
 
 		text = alloca (slave->posLen+1);
 		text [slave->posLen] = 0;
-		strncpy (text, slave->owner->text.text + slave->posStart, slave->posLen);
+		strncpy (text, slave->owner->text + slave->posStart, slave->posLen);
 		g_print ("%s `%s'\n",
 			 html_type_name (HTML_OBJECT_TYPE (obj)),
 			 text);

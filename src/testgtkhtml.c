@@ -1034,7 +1034,7 @@ main (gint argc, gchar *argv[])
 	GtkWidget *app, *bar;
 	GtkWidget *html_widget;
 	GtkWidget *scrolled_window;
-	GdkColor   bgColor = {0, 0xc7ff, 0xc7ff, 0xc7ff};
+	/* GdkColor   bgColor = {0, 0xc7ff, 0xc7ff, 0xc7ff}; */
 	poptContext ctx;
 #ifdef GTKHTML_HAVE_GCONF
 	GError  *gconf_error  = NULL;

@@ -22,7 +22,7 @@
 #define _HTMLTEXTSLAVE_H_
 
 #include "htmlobject.h"
-#include "htmltextmaster.h"
+#include "htmltext.h"
 
 #define HTML_TEXT_SLAVE(x) ((HTMLTextSlave *) (x))
 #define HTML_TEXT_SLAVE_CLASS(x) ((HTMLTextSlaveClass *) (x))
@@ -30,7 +30,7 @@
 struct _HTMLTextSlave {
 	HTMLObject object;
 
-	HTMLTextMaster *owner;
+	HTMLText *owner;
 	gshort posStart;
 	gshort posLen;
 };
@@ -39,26 +39,23 @@ struct _HTMLTextSlaveClass {
 	HTMLObjectClass object_class;
 };
 
-
 HTMLTextSlaveClass html_text_slave_class;
 
-
-void        html_text_slave_type_init   (void);
-void        html_text_slave_class_init  (HTMLTextSlaveClass *klass,
-					 HTMLType            type,
-					 guint               object_size);
-void        html_text_slave_init        (HTMLTextSlave      *slave,
-					 HTMLTextSlaveClass *klass,
-					 HTMLTextMaster     *owner,
-					 gint                posStart,
-					 gint                posLen);
-HTMLObject *html_text_slave_new         (HTMLTextMaster     *owner,
-					 gint                posStart,
-					 gint                posLen);
-
-guint  html_text_slave_get_offset_for_pointer  (HTMLTextSlave *slave,
-						HTMLPainter   *painter,
-						gint           x,
-						gint           y);
+void        html_text_slave_type_init               (void);
+void        html_text_slave_class_init              (HTMLTextSlaveClass *klass,
+						     HTMLType            type,
+						     guint               object_size);
+void        html_text_slave_init                    (HTMLTextSlave      *slave,
+						     HTMLTextSlaveClass *klass,
+						     HTMLText           *owner,
+						     gint                posStart,
+						     gint                posLen);
+HTMLObject *html_text_slave_new                     (HTMLText           *owner,
+						     gint                posStart,
+						     gint                posLen);
+guint       html_text_slave_get_offset_for_pointer  (HTMLTextSlave      *slave,
+						     HTMLPainter        *painter,
+						     gint                x,
+						     gint                y);
 
 #endif /* _HTMLTEXTSLAVE_H_ */

@@ -69,7 +69,7 @@ libgtkhtml_HEADERS =				\
 	htmlimage.h				\
 	htmlimageinput.h			\
 	htmlinterval.h				\
-	htmllinktextmaster.h			\
+	htmllinktext.h				\
 	htmllist.h				\
 	htmlobject.h				\
 	htmlpainter.h				\
@@ -88,8 +88,6 @@ libgtkhtml_HEADERS =				\
 	htmltext.h				\
 	htmltextarea.h				\
 	htmltextinput.h				\
-	htmltextmaster.c			\
-	htmltextmaster.h			\
 	htmltextslave.h				\
 	htmltokenizer.h				\
 	htmltype.h				\
@@ -148,7 +146,7 @@ libgtkhtml_la_SOURCES =				\
 	htmlimage.c				\
 	htmlimageinput.c			\
 	htmlinterval.c				\
-	htmllinktextmaster.c			\
+	htmllinktext.c				\
 	htmllist.c				\
 	htmlobject.c				\
 	htmlpainter.c				\
@@ -167,7 +165,6 @@ libgtkhtml_la_SOURCES =				\
 	htmltext.c				\
 	htmltextarea.c				\
 	htmltextinput.c				\
-	htmltextmaster.c			\
 	htmltextslave.c				\
 	htmltokenizer.c				\
 	htmltype.c				\

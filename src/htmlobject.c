@@ -34,7 +34,6 @@
 #include "htmlobject.h"
 #include "htmlpainter.h"
 #include "htmltext.h"
-#include "htmltextmaster.h"
 #include "htmlrule.h"
 #include "htmltype.h"
 
@@ -1096,10 +1095,7 @@ html_object_is_text (HTMLObject *object)
 
 	type = HTML_OBJECT_TYPE (object);
 
-	return (type == HTML_TYPE_TEXT
-		|| type == HTML_TYPE_TEXTMASTER
-		|| type == HTML_TYPE_LINKTEXT
-		|| type == HTML_TYPE_LINKTEXTMASTER);
+	return (type == HTML_TYPE_TEXT || type == HTML_TYPE_LINKTEXT);
 }
 
 HTMLObject *

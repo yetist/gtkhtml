@@ -356,14 +356,14 @@ draw_highlighted (HTMLTextSlave *slave,
 		  gint width, gint height,
 		  gint tx, gint ty)
 {
-	HTMLTextMaster *owner;
+	HTMLText *owner;
 	HTMLObject *obj;
 	guint start, end, len;
 	guint offset_width, text_width;
 	const gchar *text;
 
 	obj = HTML_OBJECT (slave);
-	owner = HTML_TEXT_MASTER (slave->owner);
+	owner = HTML_TEXT (slave->owner);
 	start = owner->select_start;
 	end = start + owner->select_length;
 
@@ -424,7 +424,7 @@ draw (HTMLObject *o,
       gint tx, gint ty)
 {
 	HTMLTextSlave *textslave;
-	HTMLTextMaster *owner;
+	HTMLText *owner;
 	HTMLText *ownertext;
 	GtkHTMLFontStyle font_style;
 	guint end;
@@ -518,7 +518,7 @@ html_text_slave_class_init (HTMLTextSlaveClass *klass,
 void
 html_text_slave_init (HTMLTextSlave *slave,
 		      HTMLTextSlaveClass *klass,
-		      HTMLTextMaster *owner,
+		      HTMLText *owner,
 		      gint posStart,
 		      gint posLen)
 {
@@ -543,7 +543,7 @@ html_text_slave_init (HTMLTextSlave *slave,
 }
 
 HTMLObject *
-html_text_slave_new (HTMLTextMaster *owner, gint posStart, gint posLen)
+html_text_slave_new (HTMLText *owner, gint posStart, gint posLen)
 {
 	HTMLTextSlave *slave;
 

@@ -63,13 +63,12 @@
 #include "htmlcluealigned.h"
 #include "htmlvspace.h"
 #include "htmlimage.h"
-#include "htmllinktextmaster.h"
+#include "htmllinktext.h"
 #include "htmllist.h"
 #include "htmltable.h"
 #include "htmltablecell.h"
-#include "htmltextmaster.h"
-#include "htmltextslave.h"
 #include "htmltext.h"
+#include "htmltextslave.h"
 #include "htmlclueflow.h"
 #include "htmlstack.h"
 #include "htmlstringtokenizer.h"
@@ -299,12 +298,12 @@ static void close_flow (HTMLEngine *e, HTMLObject *clue);
 static HTMLObject *
 create_empty_text (HTMLEngine *e)
 {
-	HTMLText *text;
+	HTMLObject *o;
 
-	text = HTML_TEXT (html_text_master_new ("", current_font_style (e), current_color (e)));
-	html_text_set_font_face (text, current_font_face (e));
+	o = html_text_new ("", current_font_style (e), current_color (e));
+	html_text_set_font_face (HTML_TEXT (o), current_font_face (e));
 
-	return HTML_OBJECT (text);
+	return o;
 }
 
 static void
@@ -369,7 +368,7 @@ close_flow (HTMLEngine *e,
 		html_clue_remove (HTML_CLUE (e->flow), last);
 		html_object_destroy (last);
 	} else if (HTML_CLUE (e->flow)->tail != HTML_CLUE (e->flow)->head
-		   && HTML_OBJECT_TYPE (last) == HTML_TYPE_TEXTMASTER
+		   && html_object_is_text (last)
 		   && HTML_TEXT (last)->text_len == 1
 		   && HTML_TEXT (last)->text [0] == ' ') {
 		html_clue_remove (HTML_CLUE (e->flow), last);
@@ -485,10 +484,9 @@ insert_text (HTMLEngine *e,
 		HTMLObject *obj;
 
 		if (create_link)
-			obj = html_link_text_master_new (text, font_style, color,
-							 e->url, e->target);
+			obj = html_link_text_new (text, font_style, color, e->url, e->target);
 		else
-			obj = html_text_master_new (text, font_style, color);
+			obj = html_text_new (text, font_style, color);
 		html_text_set_font_face (HTML_TEXT (obj), current_font_face (e));
 
 		append_element (e, clue, obj);
@@ -3331,12 +3329,11 @@ html_engine_ensure_editable (HTMLEngine *engine)
 
 	child = HTML_CLUE (head)->head;
 	if (child == NULL) {
-		HTMLObject *text_master;
+		HTMLObject *text;
 
-		text_master = html_text_master_new ("", engine->insertion_font_style,
-						    engine->insertion_color);
-		html_text_set_font_face (HTML_TEXT (text_master), current_font_face (engine));
-		html_clue_prepend (HTML_CLUE (head), text_master);
+		text = html_text_new ("", engine->insertion_font_style, engine->insertion_color);
+		html_text_set_font_face (HTML_TEXT (text), current_font_face (engine));
+		html_clue_prepend (HTML_CLUE (head), text);
 	}
 }
 
@@ -3577,7 +3574,7 @@ html_engine_timer_event (HTMLEngine *e)
 static void
 ensure_last_clueflow (HTMLEngine *engine)
 {
-	HTMLObject *new_textmaster;
+	HTMLObject *new_text;
 	HTMLClue *clue;
 	HTMLClue *last_clueflow;
 
@@ -3592,11 +3589,10 @@ ensure_last_clueflow (HTMLEngine *engine)
 	if (last_clueflow->tail != NULL)
 		return;
 
-	new_textmaster = html_text_master_new ("",
-					       GTK_HTML_FONT_STYLE_DEFAULT,
-					       html_colorset_get_color (engine->settings->color_set, HTMLTextColor));
-	html_text_set_font_face (HTML_TEXT (new_textmaster), current_font_face (engine));
-	html_clue_prepend (last_clueflow, new_textmaster);
+	new_text = html_text_new ("", GTK_HTML_FONT_STYLE_DEFAULT,
+					html_colorset_get_color (engine->settings->color_set, HTMLTextColor));
+	html_text_set_font_face (HTML_TEXT (new_text), current_font_face (engine));
+	html_clue_prepend (last_clueflow, new_text);
 }
 
 static void
@@ -4082,7 +4078,6 @@ html_engine_thaw (HTMLEngine *engine)
 		/* FIXME This should happen in the idle loop, and should be
                    more conservative about the area to redraw.  This is gross.  */
 
-		printf ("calc + draw\n");
 		html_engine_calc_size (engine);
 		html_engine_draw (engine, 0, 0, engine->width, engine->height);
 	}
@@ -4130,9 +4125,9 @@ replace (HTMLEngine *e)
 
 	html_engine_edit_selection_updater_update_now (e->selection_updater);
 
-	new_text = html_text_master_new (e->replace_info->text,
-					 HTML_TEXT (first)->font_style,
-					 HTML_TEXT (first)->color);
+	new_text = html_text_new (e->replace_info->text,
+				  HTML_TEXT (first)->font_style,
+				  HTML_TEXT (first)->color);
 	html_text_set_font_face (HTML_TEXT (new_text), HTML_TEXT (first)->face);
 	html_engine_paste_object (e, new_text, html_object_get_length (HTML_OBJECT (new_text)));
 
@@ -4302,13 +4297,13 @@ html_engine_replace_word_with (HTMLEngine *e, const gchar *word)
 
 	orig = HTML_TEXT (e->mark->object);
 	switch (HTML_OBJECT_TYPE (e->mark->object)) {
-	case HTML_TYPE_TEXTMASTER:
-		replace = html_text_master_new (word, orig->font_style, orig->color);
+	case HTML_TYPE_TEXT:
+		replace = html_text_new (word, orig->font_style, orig->color);
 		break;
-	case HTML_TYPE_LINKTEXTMASTER:
-		replace = html_link_text_master_new (word, orig->font_style, orig->color,
-						     HTML_LINK_TEXT_MASTER (orig)->url,
-						     HTML_LINK_TEXT_MASTER (orig)->target);
+	case HTML_TYPE_LINKTEXT:
+		replace = html_link_text_new (word, orig->font_style, orig->color,
+					      HTML_LINK_TEXT (orig)->url,
+					      HTML_LINK_TEXT (orig)->target);
 		break;
 	default:
 		g_assert_not_reached ();

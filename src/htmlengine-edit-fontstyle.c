@@ -29,7 +29,7 @@
 #include "htmlengine-edit-movement.h"
 #include "htmlengine-edit-selection-updater.h"
 #include "htmlinterval.h"
-#include "htmltextmaster.h"
+#include "htmltext.h"
 #include "htmlselection.h"
 #include "htmlsettings.h"
 

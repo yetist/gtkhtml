@@ -38,11 +38,11 @@
 #include "htmlengine-edit-movement.h"
 #include "htmlengine-edit-selection-updater.h"
 #include "htmlinterval.h"
-#include "htmllinktextmaster.h"
+#include "htmllinktext.h"
 #include "htmlobject.h"
 #include "htmlselection.h"
 #include "htmlsettings.h"
-#include "htmltextmaster.h"
+#include "htmltext.h"
 #include "htmlundo.h"
 #include "htmlundo-action.h"
 
@@ -597,9 +597,9 @@ static HTMLObject *
 new_text (HTMLEngine *e, const gchar *text, gint len)
 {
 	return (e->insertion_url)
-		? html_link_text_master_new_with_len (text, len, e->insertion_font_style, e->insertion_color,
-						      e->insertion_url, e->insertion_target)
-		: html_text_master_new_with_len	(text, len, e->insertion_font_style, e->insertion_color);
+		? html_link_text_new_with_len (text, len, e->insertion_font_style, e->insertion_color,
+					       e->insertion_url, e->insertion_target)
+		: html_text_new_with_len      (text, len, e->insertion_font_style, e->insertion_color);
 }
 
 static void
