@@ -651,6 +651,7 @@ realize (GtkWidget *widget)
 	gdk_window_set_events (html->layout.bin_window,
 			       (gdk_window_get_events (html->layout.bin_window)
 				| GDK_EXPOSURE_MASK | GDK_POINTER_MOTION_MASK
+				| GDK_ENTER_NOTIFY_MASK
 				| GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK
 				| GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK));
 
@@ -774,6 +775,9 @@ mouse_change_pos (GtkWidget *widget, gint x, gint y)
 	HTMLEngine *engine;
 	HTMLObject *obj;
 	HTMLType type;
+
+	if (!GTK_WIDGET_REALIZED (widget))
+		return FALSE;
 
 	html = GTK_HTML (widget);
 	engine = html->engine;
@@ -997,6 +1001,13 @@ focus_out_event (GtkWidget *widget,
 	}
 
 	return FALSE;
+}
+
+static gint
+enter_notify_event (GtkWidget *widget, GdkEventCrossing *event)
+{
+	mouse_change_pos (widget, event->x, event->y);
+	return TRUE;
 }
 
 
@@ -1488,6 +1499,7 @@ class_init (GtkHTMLClass *klass)
 	widget_class->button_release_event = button_release_event;
 	widget_class->focus_in_event = focus_in_event;
 	widget_class->focus_out_event = focus_out_event;
+	widget_class->enter_notify_event = enter_notify_event;
 	widget_class->selection_get = selection_get;
 	widget_class->selection_received = selection_received;
 	widget_class->selection_clear_event = selection_clear_event;

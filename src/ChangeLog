@@ -3,6 +3,8 @@
 	* gtkhtml.c (on_object): renamed from on_url
 	(on_object): reset html->pointer_url to NULL and mouse cursor to
 	html->arrow_cursor
+	(enter_notify_event): new event handler, call mouse_change_pos
+	here
 
 	* htmlengine.c (parse_body): don't insert " ", this fixes problem
 	with linked images but maybe broke another cases? any complains?
