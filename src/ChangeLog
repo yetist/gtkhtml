@@ -1,5 +1,8 @@
 2002-07-05  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine-edit-fontstyle.c (get_url_or_target_from_selection):
+	removed obsolete assert
+
 	* htmlclueflow.c (update_top_height): fixed align=top
 	(end_of_word): fix citations and spell checking 'spell check' is
 	no more marked as mispelled

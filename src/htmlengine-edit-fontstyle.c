@@ -523,7 +523,6 @@ get_url_or_target_from_selection (HTMLEngine *e, gboolean get_url)
 
 	g_return_val_if_fail (e->clue != NULL, NULL);
 	g_assert (html_engine_is_selection_active (e));
-	g_assert (e->mark != NULL);
 
 	p = e->selection->from;
 	while (1) {
