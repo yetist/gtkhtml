@@ -12,8 +12,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2003-06-02 20:47+0200\n"
-"PO-Revision-Date: 2003-05-19 22:03+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-06-18 17:24+0200\n"
+"PO-Revision-Date: 2003-06-18 17:24+0200\n"
 "Last-Translator: Ole Laursen <olau@hardworking.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -807,6 +808,10 @@ msgid "_Wink"
 msgstr "_Blinkende"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
+msgid "_Wrap Lines"
+msgstr "_Ombryd linjer"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
 msgid "etc..."
 msgstr "etc..."
 
@@ -827,7 +832,7 @@ msgstr "Blåt blæk"
 msgid "Rectangles"
 msgstr "Rektangler"
 
-#: components/html-editor/body.c:275 src/gtkhtml.c:2543
+#: components/html-editor/body.c:275 src/gtkhtml.c:2547
 msgid "Document Title"
 msgstr "Dokumenttitel"
 
@@ -1452,7 +1457,7 @@ msgstr "Søg efter regulært udtryk"
 msgid "Spell checker"
 msgstr "Stavekontrol"
 
-#: components/html-editor/spell.c:358
+#: components/html-editor/spell.c:361
 msgid "Current _Languages"
 msgstr "Nuværende _sprog"
 
@@ -1561,71 +1566,71 @@ msgstr "Forøger indrykningen af afsnittene"
 msgid "Sample"
 msgstr "Prøve"
 
-#: src/gtkhtml.c:2536
+#: src/gtkhtml.c:2540
 msgid "Editable"
 msgstr "Redigérbar"
 
-#: src/gtkhtml.c:2537
+#: src/gtkhtml.c:2541
 msgid "Whether the html can be edited"
 msgstr "Om HTML'en kan redigeres"
 
-#: src/gtkhtml.c:2544
+#: src/gtkhtml.c:2548
 msgid "The title of the current document"
 msgstr "Titlen for det aktuelle dokument"
 
-#: src/gtkhtml.c:2550
+#: src/gtkhtml.c:2554
 msgid "Document Base"
 msgstr "Grundadresse"
 
-#: src/gtkhtml.c:2551
+#: src/gtkhtml.c:2555
 msgid "The base URL for relative references"
 msgstr "Grundadressen for relative referencer"
 
-#: src/gtkhtml.c:2557
+#: src/gtkhtml.c:2561
 msgid "Target Base"
 msgstr "Måladresse"
 
-#: src/gtkhtml.c:2558
+#: src/gtkhtml.c:2562
 msgid "The base URL of the targe frame"
 msgstr "Grundadressen for målrammen"
 
-#: src/gtkhtml.c:2567
+#: src/gtkhtml.c:2571
 msgid "Fixed Width Font"
 msgstr "Fast bredde-skrifttype"
 
-#: src/gtkhtml.c:2568
+#: src/gtkhtml.c:2572
 msgid "The Monospace font to use for typewriter text"
 msgstr "Fast bredde-skrifttype til skrivemaskineskrift"
 
-#: src/gtkhtml.c:2574
+#: src/gtkhtml.c:2578
 msgid "New Link Color"
 msgstr "Farve for ny henvisning"
 
-#: src/gtkhtml.c:2575
+#: src/gtkhtml.c:2579
 msgid "The color of new link elements"
 msgstr "Farven for nye henvisningselementer"
 
-#: src/gtkhtml.c:2580
+#: src/gtkhtml.c:2584
 msgid "Visited Link Color"
 msgstr "Farve for besøgt henvisning"
 
-#: src/gtkhtml.c:2581
+#: src/gtkhtml.c:2585
 msgid "The color of visited link elements"
 msgstr "Farven for besøgte henvisningselementer"
 
-#: src/gtkhtml.c:2586
+#: src/gtkhtml.c:2590
 msgid "Active Link Color"
 msgstr "Farve for aktiv henvisning"
 
-#: src/gtkhtml.c:2587
+#: src/gtkhtml.c:2591
 msgid "The color of active link elements"
 msgstr "Farven for aktive henvisningselementer"
 
-#: src/gtkhtml.c:2592
+#: src/gtkhtml.c:2596
 msgid "Spelling Error Color"
 msgstr "Farve for stavefejl"
 
-#: src/gtkhtml.c:2593
+#: src/gtkhtml.c:2597
 msgid "The color of the spelling error markers"
 msgstr "Farven for markeringer af stavefejl"
 
