@@ -2,6 +2,10 @@
 
 	* htmlengine.c (pop_element): move everything to using the pop
 	element, makr pop_block a special case of the pop_element code.
+	(block_end_heading): make a helper function so that the this
+	closing code can be remove from the parser section.
+	(parse_t): make the <th> and <td> parser get the alignment from
+	after we've fixed up the block stack.
 
 2003-07-19  Larry Ewing  <lewing@ximian.com>
 

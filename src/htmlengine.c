@@ -173,7 +173,7 @@ typedef enum {
 	ID_A,       ID_ADDRESS,  ID_B,      ID_BIG,    ID_BLOCKQUOTE, 
 	ID_BODY,    ID_CAPTION,  ID_CENTER, ID_CITE,   ID_CODE,
 	ID_DIR,     ID_DIV,      ID_DL,     ID_EM,     ID_FONT,
-	ID_HEADER,  ID_I,        ID_KBD,    ID_OL,     ID_P,
+	ID_HEADING, ID_I,        ID_KBD,    ID_OL,     ID_P,
 	ID_PRE,     ID_SMALL,    ID_SPAN,   ID_STRONG, ID_U,
 	ID_UL,      ID_TEXTAREA, ID_TABLE,  ID_TD,     ID_TH, 
 	ID_TR,      ID_TT,       ID_VAR,    ID_S,      ID_SUB, 
@@ -999,6 +999,17 @@ block_end_clueflow_style (HTMLEngine *e,
 {
 	close_flow (e, clue);
 	pop_clueflow_style (e);
+}
+
+static void
+block_end_heading (HTMLEngine *e,
+		   HTMLObject *clue,
+		   HTMLBlockStackElement *elem)
+{
+	block_end_clueflow_style (e, clue, elem);
+
+	e->avoid_para = TRUE;
+	e->pending_para = FALSE;
 }
 
 static void
@@ -2286,7 +2297,7 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		HTMLClueFlowStyle fstyle;
 		HTMLStyle *style = NULL;
 
-		pop_element (p, ID_HEADER);
+		pop_element (p, ID_HEADING);
 
 		fstyle = HTML_CLUEFLOW_STYLE_H1 + (str[1] - '1');
 		style = html_style_set_decoration (style, GTK_HTML_FONT_STYLE_BOLD);
@@ -2329,17 +2340,13 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		push_clueflow_style (p, fstyle);
 		close_flow (p, clue);
 
-		push_block_element (p, ID_HEADER, style, 2, block_end_clueflow_style, 0, 0);
+		push_block_element (p, ID_HEADING, style, 2, block_end_heading, 0, 0);
 
 		p->pending_para = FALSE;
 		p->avoid_para = TRUE;
 	} else if (*(str) == '/' && *(str + 1) == 'h'
 		   && (*(str + 2) >= '1' && *(str + 2) <= '6')) {
-		/* Close tag.  */
-		pop_element (p, ID_HEADER);
-
-		p->avoid_para = TRUE;
-		p->pending_para = FALSE;
+		pop_element (p, ID_HEADING);
 	}
 	else if (strncmp (str, "hr", 2) == 0) {
 		gint size = 2;
@@ -3150,11 +3157,10 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		gboolean no_wrap = FALSE;
 		gboolean fixedWidth = FALSE;
 		gboolean fixedHeight = FALSE;
-		HTMLVAlignType valign = current_row_valign (e); 
-		HTMLHAlignType halign = current_row_align (e);
 		HTMLTableCell *cell = NULL;
 		char *image_url = NULL;
-
+		HTMLVAlignType valign;
+		HTMLHAlignType halign;
 		gboolean have_bgColor = FALSE;
 		GdkColor bgColor;
 			
@@ -3166,6 +3172,9 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		pop_element (e, ID_TH);
 		pop_element (e, ID_TD);
 		pop_element (e, ID_CAPTION);
+
+		valign = current_row_valign (e); 
+		halign = current_row_align (e);
 
 		style = html_style_unset_decoration (style, 0xffff);
 		style = html_style_set_font_size (style, GTK_HTML_FONT_STYLE_SIZE_3);
@@ -3292,8 +3301,8 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		gboolean no_wrap = FALSE;
 		gboolean fixedWidth = FALSE;
 		gboolean fixedHeight = FALSE;
-		HTMLVAlignType valign = current_row_valign (e);
-		HTMLHAlignType halign = current_row_align (e);
+		HTMLVAlignType valign;
+		HTMLHAlignType halign;
 		HTMLTableCell *cell = NULL;
 		char *image_url = NULL;
 		
@@ -3308,6 +3317,9 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		pop_element (e, ID_TH);
 		pop_element (e, ID_TD);
 		pop_element (e, ID_CAPTION);
+
+		valign = current_row_valign (e);
+		halign = current_row_align (e);
 
 		style = html_style_unset_decoration (style, 0xffff);
 		style = html_style_set_decoration (style, GTK_HTML_FONT_STYLE_BOLD);
