@@ -25,7 +25,7 @@
 
 #define HTML_TABLE(x) ((HTMLTable *)(x))
 #define HTML_TABLE_CLASS(x) ((HTMLTableClass *)(x))
-#define IS_HTML_TABLE(x) (HTML_OBJECT_TYPE (x) == HTML_TYPE_TABLE)
+#define HTML_IS_TABLE(x) (HTML_CHECK_TYPE ((x), HTML_TYPE_TABLE))
 
 struct _HTMLTable {
 	HTMLObject object;

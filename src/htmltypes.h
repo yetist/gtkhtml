@@ -30,6 +30,8 @@
 
 #include "htmlenums.h"
 
+#define HTML_CHECK_TYPE(object, otype) ((object) && (object)->klass && (object)->klass->type == otype)
+
 typedef struct _HTMLObject HTMLObject;
 typedef struct _HTMLObjectClass HTMLObjectClass;
 typedef struct _HTMLAnchor HTMLAnchor;

@@ -1,3 +1,22 @@
+2001-03-07  Radek Doulik  <rodo@ximian.com>
+
+	* htmltable.h (HTML_IS_TABLE): use HTML_CHECK_TYPE
+
+	* htmltypes.h (HTML_CHECK_TYPE): new macro
+
+	* htmlengine-edit-table.c (html_engine_insert_table_1_1): move 1
+	step back to inserted table
+	(insert_table_column): move to the 1st cell of inserted column
+	(delete_table_column): fix cursor position after column removed
+	(insert_table_column): extracted from
+	html_engine_insert_table_column
+	(delete_table_column): extracted from
+	html_engine_delete_table_column
+	(insert_column_setup_undo): new function
+	(insert_column_undo_action): new undo action
+
+	* htmltable.h (IS_HTML_TABLE): renamed to HTML_IS_TABLE
+
 2001-03-06  JP Rosevear  <jpr@ximian.com>
 
 	* Makefile.am: make htmltablepriv.h a source

@@ -147,7 +147,7 @@ op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 	HTMLTable *nt, *t;
 	gint r, c, rows, cols, start_col;
 
-	g_assert (IS_HTML_TABLE (self));
+	g_assert (HTML_IS_TABLE (self));
 
 	t  = HTML_TABLE (self);
 	nt = g_new0 (HTMLTable, 1);

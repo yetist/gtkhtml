@@ -24,11 +24,15 @@
 #include "htmlcursor.h"
 #include "htmlengine.h"
 #include "htmlengine-edit.h"
-#include "htmltable.h"
-#include "htmltablepriv.h"
-#include "htmltablecell.h"
 #include "htmlengine-edit-cut-and-paste.h"
 #include "htmlengine-edit-table.h"
+#include "htmltable.h"
+#include "htmltablecell.h"
+#include "htmltablepriv.h"
+#include "htmlundo.h"
+
+static void delete_table_column (HTMLEngine *e, HTMLUndoDirection dir);
+static void insert_table_column (HTMLEngine *e, gboolean after, HTMLUndoDirection dir);
 
 static HTMLTableCell *
 new_cell (HTMLEngine *e)
@@ -47,6 +51,17 @@ new_cell (HTMLEngine *e)
 	return HTML_TABLE_CELL (cell);
 }
 
+/*
+ * Table insertion
+ */
+
+/**
+ * html_engine_insert_table_1_1:
+ * @e: An html engine
+ *
+ * Inserts new table with one cell containing an empty flow with an empty text. Inserted table has 1 row and 1 column.
+ **/
+
 void
 html_engine_insert_table_1_1 (HTMLEngine *e)
 {
@@ -61,13 +76,50 @@ html_engine_insert_table_1_1 (HTMLEngine *e)
 	html_clue_append (HTML_CLUE (flow), table);
 
 	html_engine_append_object (e, flow, 2, 2);
+	html_cursor_backward (e->cursor, e);
 }
 
-void
-html_engine_insert_table_column (HTMLEngine *e, gboolean after)
+/*
+ *  Insert Column
+ */
+
+struct _InsertColumnUndo {
+	HTMLUndoData data;
+
+	gint col;
+};
+typedef struct _InsertColumnUndo InsertColumnUndo;
+
+static void
+insert_column_undo_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir)
+{
+	InsertColumnUndo *undo;
+
+	undo = (InsertColumnUndo *) data;
+	delete_table_column (e, html_undo_direction_reverse (dir));
+}
+
+static void
+insert_column_setup_undo (HTMLEngine *e, gint col, HTMLUndoDirection dir)
+{
+	InsertColumnUndo *undo;
+
+	undo = g_new0 (InsertColumnUndo, 1);
+
+	html_undo_data_init (HTML_UNDO_DATA (undo));
+	undo->col = col;
+
+	html_undo_add_action (e->undo,
+			      html_undo_action_new ("Insert table column", insert_column_undo_action,
+						    HTML_UNDO_DATA (undo), html_cursor_get_position (e->cursor)),
+			      dir);
+}
+
+static void
+insert_table_column (HTMLEngine *e, gboolean after, HTMLUndoDirection dir)
 {
 	HTMLTable *t;
-	gint r, c, nc, col, delta = 0;
+	gint r, c, nc, col, delta = 0, first_row;
 
 	t = HTML_TABLE (html_object_nth_parent (e->cursor->object, 3));
 	if (!t)
@@ -94,19 +146,54 @@ html_engine_insert_table_column (HTMLEngine *e, gboolean after)
 			html_table_set_cell (t, r, col, new_cell (e));
 			html_table_cell_set_position (t->cells [r][col], r, col);
 			delta ++;
+			if (delta == 1)
+				first_row = r;
 		}
 	}
 	if (!after)
 		e->cursor->position += delta;
+	/* now we have right position, let move to the first cell of this new column */
+	if (delta) {
+		HTMLTableCell *cell;
+		gboolean end;
+		do {
+			cell = HTML_TABLE_CELL (html_object_nth_parent (e->cursor->object, 2));
+			if (cell->col == col && cell->row == first_row)
+				break;
+			if (after)
+				end = html_cursor_forward (e->cursor, e);
+			else
+				end = html_cursor_backward (e->cursor, e);
+		} while (end);
+	} else
+		g_warning ("no new cells added\n");
+
 	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL);
-
-	// insert_column_setup_undo ();
-
+	insert_column_setup_undo (e, col, dir);
 	html_engine_thaw (e);
 }
 
+/**
+ * html_engine_insert_table_column:
+ * @e: An HTML engine.
+ * @after: If TRUE then inserts new column after current one, defined by current cursor position.
+ *         If FALSE then inserts before current one.
+ *
+ * Inserts new column into table after/before current column.
+ **/
+
 void
-html_engine_delete_table_column (HTMLEngine *e)
+html_engine_insert_table_column (HTMLEngine *e, gboolean after)
+{
+	insert_table_column (e, after, HTML_UNDO_UNDO);
+}
+
+/*
+ * Delete column
+ */
+
+static void
+delete_table_column (HTMLEngine *e, HTMLUndoDirection dir)
 {
 	HTMLTable *t;
 	HTMLTableCell *cell;
@@ -115,7 +202,9 @@ html_engine_delete_table_column (HTMLEngine *e)
 	gint r, c, col, delta = 0;
 
 	t = HTML_TABLE (html_object_nth_parent (e->cursor->object, 3));
-	if (!t ||  t->totalCols < 2)
+
+	/* this command is valid only in table and when this table has > 1 column */
+	if (!t || !HTML_IS_TABLE (HTML_OBJECT (t)) || t->totalCols < 2)
 		return;
 
 	html_engine_freeze (e);
@@ -142,6 +231,8 @@ html_engine_delete_table_column (HTMLEngine *e)
 			HTML_OBJECT (cell)->parent = NULL;
 			column [r] = cell;
 			t->cells [r][col] = NULL;
+			delta += html_object_get_recursive_length (HTML_OBJECT (cell));
+			delta ++;
 		}
 
 		for (c = col + 1; c < t->totalCols; c ++) {
@@ -155,6 +246,8 @@ html_engine_delete_table_column (HTMLEngine *e)
 		}
 	}
 
+	if (col != t->totalCols - 1)
+		e->cursor->position -= delta;
 	t->totalCols --;
 
 	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL);
@@ -162,4 +255,17 @@ html_engine_delete_table_column (HTMLEngine *e)
 	// delete_column_setup_undo ();
 
 	html_engine_thaw (e);
+}
+
+/**
+ * html_engine_delete_table_column:
+ * @e: An HTML engine.
+ *
+ * Deletes current table column.
+ **/
+
+void
+html_engine_delete_table_column (HTMLEngine *e)
+{
+	delete_table_column (e, HTML_UNDO_UNDO);
 }
