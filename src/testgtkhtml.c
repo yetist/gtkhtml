@@ -112,6 +112,7 @@ create_toolbars (GtkWidget *app) {
 	gtk_box_pack_start (GTK_BOX (hbox2), gtk_label_new ("Goto"), FALSE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (hbox2), gnome_stock_new_with_icon (GNOME_STOCK_PIXMAP_REDO), FALSE, FALSE, 0);
 	button = gtk_button_new ();
+	GTK_WIDGET_UNSET_FLAGS (button, GTK_CAN_FOCUS);
 	gtk_button_set_relief (GTK_BUTTON (button), GTK_RELIEF_NONE);
 	gtk_container_add (GTK_CONTAINER (button), hbox2);
 	gtk_box_pack_end (GTK_BOX (hbox), button, FALSE, FALSE, 0);

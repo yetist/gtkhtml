@@ -1,10 +1,10 @@
+1999-10-17  Anders Carlsson  <andersca@gnu.org>
+
+	* testgtkhtml.c: The goto button shouldn't be able to focus
+
 1999-10-17  Richard Hult  <rhult@hem2.passagen.se>
 
 	* html-component.c: Use a GtkHTML widget directly instead of duplicating the code here.
-
-1999-10-17  Anders Carlsson  <andersca@picard.andersnet>
-
-	* htmlengine.c: Fix a bug with <font> tags without size
 
 1999-10-17  Anders Carlsson  <andersca@gnu.org>
 
