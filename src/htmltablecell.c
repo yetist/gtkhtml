@@ -126,9 +126,7 @@ calc_min_width (HTMLObject *o,
 	HTMLObject *obj;
 	gint minWidth = 0;
 
-	if (o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH)
-		minWidth = HTML_TABLE_CELL (o)->fixed_width * html_painter_get_pixel_size (painter);
-	else if (HTML_TABLE_CELL (o)->no_wrap)
+	if (HTML_TABLE_CELL (o)->no_wrap && o->flags & ~HTML_OBJECT_FLAG_FIXEDWIDTH)
 		return html_object_calc_preferred_width (o, painter);
 
 	for (obj = HTML_CLUE (o)->head; obj != NULL; obj = obj->next) {
@@ -147,8 +145,8 @@ calc_preferred_width (HTMLObject *o,
 		      HTMLPainter *painter)
 {
 	return o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH
-		? MAX (html_object_calc_min_width (o, painter), HTML_TABLE_CELL (o)->fixed_width
-		       * html_painter_get_pixel_size (painter))
+		? MAX (html_object_calc_min_width (o, painter), 
+		       HTML_TABLE_CELL (o)->fixed_width * html_painter_get_pixel_size (painter))
 		: (* HTML_OBJECT_CLASS (parent_class)->calc_preferred_width) (o, painter);
 }
 
