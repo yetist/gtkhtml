@@ -1,3 +1,10 @@
+2000-03-17  Jonas Borgström  <jonas_b@bitsmart.com>
+
+	* htmlengine.c (parse_p): Handle <p align=xxx>.
+	
+	* tests/bugs.html: Removed gtk.themes.org entry, it looks great now.
+	  Removed www.gnome.org entry, it looks ok now.
+
 2000-03-13  Dan Winship  <danw@helixcode.com>
 
 	* htmlengine.c (html_engine_end): don't call gtk_timeout_remove if

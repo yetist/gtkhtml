@@ -2339,35 +2339,40 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			g_free(value);
 		}					
 	} else if (*(str) == 'p' && ( *(str + 1) == ' ' || *(str + 1) == '>')) {
+
+		gchar *token;
+
+		push_block (e, ID_DIV, 1,
+			    block_end_div,
+			    e->divAlign, FALSE);
+
+		string_tokenizer_tokenize (e->st, (gchar *)(str + 2), " >");
+		while (string_tokenizer_has_more_tokens (e->st)) {
+			token = string_tokenizer_next_token (e->st);
+			if (strncasecmp (token, "align=", 6) == 0) {
+				if (strcasecmp (token + 6, "center") == 0)
+					e->divAlign = HTML_HALIGN_CENTER;
+				else if (strcasecmp (token + 6, "right") == 0)
+					e->divAlign = HTML_HALIGN_RIGHT;
+				else if (strcasecmp (token + 6, "left") == 0)
+					e->divAlign = HTML_HALIGN_LEFT;
+			}
+		}
+
 		if (! e->avoid_para) {
-			HTMLHAlignType align;
-			gchar *token;
 
 			close_anchor (e);
-
-			align = e->divAlign;
-		
-			string_tokenizer_tokenize (e->st, (gchar *)(str + 2), " >");
-			while (string_tokenizer_has_more_tokens (e->st)) {
-				token = string_tokenizer_next_token (e->st);
-				if (strncasecmp (token, "align=", 6) == 0) {
-					if (strcasecmp (token + 6, "center") == 0)
-						align = HTML_HALIGN_CENTER;
-					else if (strcasecmp (token + 6, "right") == 0)
-						align = HTML_HALIGN_RIGHT;
-					else if (strcasecmp (token + 6, "left") == 0)
-						align = HTML_HALIGN_LEFT;
-				}
-			}
-
-			/* FIXME align para */
 
 			e->avoid_para = TRUE;
 			e->pending_para = TRUE;
 		}
 	} else if (*(str) == '/' && *(str + 1) == 'p'
 		   && (*(str + 2) == ' ' || *(str + 2) == '>')) {
+
+		pop_block (e, ID_DIV, clue );
+
 		if (! e->avoid_para) {
+
 			e->avoid_para = TRUE;
 			e->pending_para = TRUE;
 		}
