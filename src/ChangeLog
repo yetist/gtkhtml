@@ -1,3 +1,32 @@
+2004-05-06  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (drag_data_received): break instead of return to allow
+	gtk_drag_finish to be called properly.  Do bytewise comparison
+	after we've converted to utf8, I know it will work in ucs2 as well
+	but it makes me cringe.
+
+ 2004-04-27  Suresh Chandrasekharan <suresh.chandrasekharan@sun.com>
+
+ 	#56867 Dnd a UTF-8 url to mail compose and Evolution bombs
+
+	* gtkhtml.c (drag_data_received): Changed the len argument of
+	new_obj_from_uri to -1. This len argument will be passed down to
+	htmltext.c (text_len), which is expecting -1 for determining the 
+	utf8 length.
+
+	#57691 Dnd a non-UTF8 multibyte URL caused [?] in Composer
+
+	* gtkhtml.c (drag_data_received): Changed to accommodate 
+	DND_TARGET_TYPE_MOZILLA_URL, which's cp'ied from gnome_terminal
+	implementation.
+
+	(ucs2_to_utf8_with_bom_check) New function for converting
+	from ucs2 to utf8 with support for BOM to dtermine Big/Little
+	endian ordering of the data.
+
+	(selection_received) Created ucs2_to_utf8_with_bom_check with
+	th existing code from here, so call ucs2_to_utf8_with_bom_check.
+ 
 2004-05-06  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (style_set): use html_engine_refresh_fonts

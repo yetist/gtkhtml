@@ -74,7 +74,7 @@
 
 enum DndTargetType {
 	DND_TARGET_TYPE_TEXT_URI_LIST,
-	DND_TARGET_TYPE__NETSCAPE_URL,
+	DND_TARGET_TYPE_MOZILLA_URL,
 	DND_TARGET_TYPE_TEXT_HTML,
 	DND_TARGET_TYPE_UTF8_STRING,
 	DND_TARGET_TYPE_TEXT_PLAIN,
@@ -83,7 +83,7 @@ enum DndTargetType {
 
 static GtkTargetEntry dnd_link_sources [] = {
 	{ "text/uri-list", 0, DND_TARGET_TYPE_TEXT_URI_LIST },
-	{ "_NETSCAPE_URL", 0, DND_TARGET_TYPE__NETSCAPE_URL },
+	{ "text/x-moz-url", 0, DND_TARGET_TYPE_MOZILLA_URL },
 	{ "text/html", 0, DND_TARGET_TYPE_TEXT_HTML },
 	{ "UTF8_STRING", 0, DND_TARGET_TYPE_UTF8_STRING },
 	{ "text/plain", 0, DND_TARGET_TYPE_TEXT_PLAIN },
@@ -1872,6 +1872,44 @@ selection_get (GtkWidget        *widget,
 
 }
 
+static gchar *
+ucs2_to_utf8_with_bom_check (guchar  *data, guint len) {
+	char    *fromcode = NULL;
+	GError  *error = NULL;
+	guint16 c;
+	gsize read_len, written_len;
+	gchar *utf8_ret;
+
+	/*
+	 * Unicode Techinical Report 20 
+	 * ( http://www.unicode.org/unicode/reports/tr20/ ) says to treat an 
+	 * initial 0xfeff (ZWNBSP) as a byte order indicator so that is
+	 * what we do.  If there is no indicator assume it is in the default 
+	 * order
+	 */
+
+	memcpy (&c, data, 2);
+	switch (c) {
+	case 0xfeff:
+	case 0xfffe:
+		fromcode = ucs2_order (c == 0xfeff);
+		data += 2;
+		len  -= 2;
+		break;
+	default:
+		fromcode = "UCS-2";
+		break;
+	}
+
+	utf8_ret = g_convert (data, len, "UTF-8", fromcode, &read_len, &written_len, &error);
+
+	if (error) {
+		g_warning ("g_convert error: %s\n", error->message);
+		g_error_free (error);
+	}
+	return (utf8_ret);	
+}
+
 /* receive a selection */
 /* Signal handler called when the selections owner returns the data */
 static void
@@ -1944,7 +1982,6 @@ selection_received (GtkWidget *widget,
 		if (selection_data->type == gdk_atom_intern ("text/html", FALSE)) {
 			guint    len  = (guint)selection_data->length;
 			guchar  *data = selection_data->data;
-			GError  *error = NULL;
 
       			/* 
 			 * FIXME This hack decides the charset of the selection.  It seems that
@@ -1955,35 +1992,7 @@ selection_received (GtkWidget *widget,
 
 			if (len > 1 && 
 			    !g_utf8_validate (data, len - 1, NULL)) {
-				char    *fromcode = NULL;
-				guint16 c;
-				gsize read_len, written_len;
-
-				/*
-				 * Unicode Techinical Report 20 ( http://www.unicode.org/unicode/reports/tr20/ )
-				 * says to treat an initial 0xfeff (ZWNBSP) as a byte order indicator so that is
-				 * what we do.  If there is no indicator assume it is in the default order
-				 */
-				memcpy (&c, data, 2);
-				switch (c) {
-				case 0xfeff:
-				case 0xfffe:
-					fromcode = ucs2_order (c == 0xfeff);
-					data += 2;
-					len  -= 2;
-					break;
-				default:
-					fromcode = "UCS-2";
-					break;
-				}
-
-				utf8 = g_convert (data, len, "UTF-8", fromcode, &read_len, &written_len, &error);
-
-				if (error) {
-					g_warning ("g_convert error: %s\n", error->message);
-					g_error_free (error);
-				}
-
+				utf8 = ucs2_to_utf8_with_bom_check (data, len);
 				d_s (g_warning ("UCS-2 selection = %s", utf8);)
 			} else if (len > 0) {
 				d_s (g_warning ("UTF-8 selection (%d) = %s", len, data);)
@@ -2279,7 +2288,7 @@ drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *sel
 	/* printf ("drag_data_get\n"); */
 	switch (info) {
 	case DND_TARGET_TYPE_TEXT_URI_LIST:
-	case DND_TARGET_TYPE__NETSCAPE_URL:
+	case DND_TARGET_TYPE_MOZILLA_URL:
 		/* printf ("\ttext/uri-list\n"); */
 	case DND_TARGET_TYPE_TEXT_HTML:
 	case DND_TARGET_TYPE_TEXT_PLAIN:
@@ -2426,8 +2435,47 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
 		selection_received (widget, selection_data, time);
 		pasted = TRUE;
 		break;
-	case DND_TARGET_TYPE_TEXT_URI_LIST:
-	case DND_TARGET_TYPE__NETSCAPE_URL: {
+	case DND_TARGET_TYPE_MOZILLA_URL  : {
+		HTMLObject *obj;
+		gchar *utf8;
+		int i;
+				
+		/* MOZ_URL is in UCS-2 but in format 8. BROKEN!
+		 *
+		 * The data contains the URL, a \n, then the
+		 * title of the web page.
+		 */
+
+		if (selection_data->format != 8 ||
+		    selection_data->length == 0 ||
+		    (selection_data->length % 2) != 0) {
+		    	g_printerr (_("Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"),
+				selection_data->format,
+				selection_data->length);
+			/* get out of the switch */
+			break;
+		}
+
+		utf8 = ucs2_to_utf8_with_bom_check (selection_data->data, i);
+
+		while (i < selection_data->length) {
+			if (selection_data->data[i] == '\n')
+				break;
+			++i;
+		}
+
+		html_undo_level_begin (engine->undo, "Dropped URI(s)", "Remove Dropped URI(s)");
+		obj = new_obj_from_uri (engine, utf8, -1);
+		if (obj) {
+			html_engine_paste_object (engine, obj, html_object_get_length (obj));
+			pasted = TRUE;
+		}
+		html_undo_level_end (engine->undo);
+		g_free (utf8);
+	}
+	break;
+
+	case DND_TARGET_TYPE_TEXT_URI_LIST: {
 		HTMLObject *obj;
 		gint list_len, len;
 		gchar *uri;
@@ -2436,7 +2484,7 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
 		list_len = selection_data->length;
 		do {
 			uri = next_uri (&selection_data->data, &len, &list_len);
-			obj = new_obj_from_uri (engine, uri, len);
+			obj = new_obj_from_uri (engine, uri, -1);
 			if (obj) {
 				html_engine_paste_object (engine, obj, html_object_get_length (obj));
 				pasted = TRUE;
