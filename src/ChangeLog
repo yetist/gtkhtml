@@ -1,3 +1,15 @@
+2004-06-17  Radek Doulik  <rodo@ximian.com>
+
+	* htmlframe.c (html_frame_init): as below
+
+	* htmliframe.c (html_iframe_init): set base url and various other
+	fields before calling gtk_html_set_iframe_parent which emits
+	iframe_created signal
+
+	* gtkhtml.c (gtk_html_set_base): remove unused 'priv' variable
+
+	Fixes #60132
+
 2004-06-16  Eric Zhao  <eric.zhao@sun.com>
 
 	* htmlengine.c: (html_engine_update_focus_if_necessary):

@@ -465,17 +465,15 @@ html_frame_init (HTMLFrame *frame,
 	gtk_html_set_default_content_type (new_html,
 					   parent_html->priv->content_type);
 	frame->html = new_widget;
-	depth = gtk_html_set_iframe_parent (new_html, parent, HTML_OBJECT (frame));
-	gtk_container_add (GTK_CONTAINER (scrolled_window), new_widget);
-	gtk_widget_show (new_widget);
-
 	frame->url = g_strdup (src);
 	frame->width = width;
 	frame->height = height;
 	frame->gdk_painter = NULL;
 	gtk_html_set_base (new_html, src);
+	depth = gtk_html_set_iframe_parent (new_html, parent, HTML_OBJECT (frame));
+	gtk_container_add (GTK_CONTAINER (scrolled_window), new_widget);
+	gtk_widget_show (new_widget);
 
-	gtk_html_set_base (new_html, src);
 	g_signal_connect (new_html, "url_requested", G_CALLBACK (frame_url_requested), frame);
 
 	if (parent_html->engine->stopped) {

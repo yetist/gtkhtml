@@ -3865,12 +3865,8 @@ gtk_html_load_from_string  (GtkHTML *html, const gchar *str, gint len)
 void
 gtk_html_set_base (GtkHTML *html, const char *url)
 {
-	GtkHTMLPrivate *priv;
-
 	g_return_if_fail (GTK_IS_HTML (html));
 	
-	priv = html->priv;
-
 	g_free (html->priv->base_url);
 	html->priv->base_url = g_strdup (url);
 }
