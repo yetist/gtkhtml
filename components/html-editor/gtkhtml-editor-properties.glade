@@ -2092,23 +2092,6 @@ Percent
 	  </widget>
 	</widget>
       </widget>
-
-      <widget>
-	<class>GtkLabel</class>
-	<name>label17</name>
-	<label>Be careful! Tables code is still ALPHA quality.</label>
-	<justify>GTK_JUSTIFY_CENTER</justify>
-	<wrap>False</wrap>
-	<xalign>0.5</xalign>
-	<yalign>0.5</yalign>
-	<xpad>5</xpad>
-	<ypad>4</ypad>
-	<child>
-	  <padding>0</padding>
-	  <expand>False</expand>
-	  <fill>False</fill>
-	</child>
-      </widget>
     </widget>
 
     <widget>
