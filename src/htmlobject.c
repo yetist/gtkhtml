@@ -487,6 +487,7 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->get_url = get_url;
 	klass->get_target = get_target;
 	klass->find_anchor = find_anchor;
+	klass->set_link = NULL;
 	klass->set_bg_color = set_bg_color;
 	klass->check_point = check_point;
 	klass->relayout = relayout;
@@ -944,4 +945,13 @@ gboolean
 html_object_search_next (HTMLObject *self, HTMLSearch *info)
 {
 	return (* HO_CLASS (self)->search_next) (self, info);
+}
+
+HTMLObject *
+html_object_set_link (HTMLObject *self,
+		      GdkColor *color,
+		      const gchar *url,
+		      const gchar *target)
+{
+	return (HO_CLASS (self)->set_link) ? (* HO_CLASS (self)->set_link) (self, color, url, target) : NULL;
 }

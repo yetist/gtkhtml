@@ -1,3 +1,11 @@
+2000-06-21  Radek Doulik  <rodo@helixcode.com>
+
+	* link.c (button_link_cb): use rewritten html_engine_insert_link
+
+	* popup.c (popup_show): always add insert link to popup menu
+
+	* link.c: remove text entry, we want only set link
+
 2000-06-20  Radek Doulik  <rodo@helixcode.com>
 
 	* popup.c (popup_show): added insert link to popup menu when

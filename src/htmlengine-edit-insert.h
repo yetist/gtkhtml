@@ -32,7 +32,7 @@ guint  html_engine_insert       (HTMLEngine  *e,
 /* Links */
 
 void  html_engine_insert_link (HTMLEngine  *e,
-			       const gchar *text,
-			       const gchar *href);
+			       const gchar *url,
+			       const gchar *target);
 
 #endif /* _HTMLENGINE_EDIT_INSERT_H */

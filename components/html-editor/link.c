@@ -31,53 +31,48 @@ struct _GtkHTMLLinkDialog {
 	GtkHTML            *html;
 	HTMLLinkTextMaster *html_link;
 
-	GtkWidget   *text;
-	GtkWidget   *text_label;
 	GtkWidget   *link;
 };
 
 static void
 button_link_cb (GtkWidget *but, GtkHTMLLinkDialog *d)
 {
-	gchar *text = gtk_entry_get_text (GTK_ENTRY (d->text));
 	gchar *link = gtk_entry_get_text (GTK_ENTRY (d->link));
 
 	if (d->html_link) {
 		gboolean changed = FALSE;
 
-		if (strcmp (text, HTML_TEXT (d->html_link)->text)) {
-			changed = TRUE;
-			html_text_set_text (HTML_TEXT (d->html_link), text);
-		}
 		html_link_text_master_set_url (d->html_link, link);
 		if (changed)
 			html_engine_schedule_update (d->html->engine);
 	} else
-		html_engine_insert_link (d->html->engine, text, link);
+		html_engine_insert_link (d->html->engine, link, "");
 }
 
 static void
-set_entries (HTMLEngine *e, GtkWidget *et, GtkWidget *el)
+set_entries (HTMLEngine *e, GtkWidget *el)
 {
 	gchar *text;
 	gchar *found;
 
 	text = html_engine_get_selection_string (e);
 
+	/* use only text part to \n */
+	found = strchr (text, '\n');
+	if (found) *found=0;
+
 	printf ("set_entries %s\n", text);
 
 	/* if it contains mailto: and '@'  we assume it is href */
 	if (text == (found = strstr (text, "mailto:")) && strchr (text, '@') > found) {
 		gtk_entry_set_text (GTK_ENTRY (el), text);
-		gtk_entry_set_text (GTK_ENTRY (et), found+7);
-		return;
+		goto end;
 	}
 
 	/* if it contains http: or ftp: we assume it's href */
 	if (text == strstr (text, "http:") || text == strstr (text, "ftp:")) {
 		gtk_entry_set_text (GTK_ENTRY (el), text);
-		gtk_entry_set_text (GTK_ENTRY (et), text);
-		return;
+		goto end;
 	}
 
 	/* mailto addition */
@@ -86,14 +81,13 @@ set_entries (HTMLEngine *e, GtkWidget *et, GtkWidget *el)
 
 		link = g_strconcat ("mailto:", text, NULL);
 		gtk_entry_set_text (GTK_ENTRY (el), link);
-		gtk_entry_set_text (GTK_ENTRY (et), text);
 		g_free (link);
-		return;
+		goto end;
 	}
 
-	/* for other cases fill text and leave link blank */
-	gtk_entry_set_text (GTK_ENTRY (et), text);	
-	gtk_entry_set_text (GTK_ENTRY (el), "");
+ end:
+	g_free (text);
+	return;
 }
 
 GtkHTMLLinkDialog *
@@ -107,16 +101,11 @@ gtk_html_link_dialog_new (GtkHTML *html)
 						    GNOME_STOCK_BUTTON_CANCEL, NULL));
 	d->html = html;
 	d->link = gtk_entry_new ();
-	d->text = gtk_entry_new ();
 
-	set_entries (html->engine, d->text, d->link);
+	set_entries (html->engine, d->link);
 
 	table = gtk_table_new (2, 2, FALSE);
 	gtk_table_set_col_spacings (GTK_TABLE (table), 3);
-	d->text_label = label = gtk_label_new (_("Text"));
-	gtk_misc_set_alignment (GTK_MISC (label), 1.0, .5);
-	gtk_table_attach_defaults (GTK_TABLE (table), label,   0, 1, 0, 1);
-	gtk_table_attach_defaults (GTK_TABLE (table), d->text, 1, 2, 0, 1);
 
 	label = gtk_label_new (_("Link"));
 	gtk_misc_set_alignment (GTK_MISC (label), 1.0, .5);
@@ -145,10 +134,8 @@ void
 link_insert (GtkHTMLControlData *cd)
 {
 	if (cd->link_dialog)
-		set_entries (cd->html->engine, cd->link_dialog->text, cd->link_dialog->link);
+		set_entries (cd->html->engine, cd->link_dialog->link);
 	RUN_DIALOG (link);
-	gtk_widget_show (cd->link_dialog->text);
-	gtk_widget_show (cd->link_dialog->text_label);
 	cd->link_dialog->html_link = NULL;
 }
 
@@ -157,8 +144,5 @@ link_edit (GtkHTMLControlData *cd, HTMLLinkTextMaster *link)
 {
 	RUN_DIALOG (link);
 	cd->link_dialog->html_link = link;
-	gtk_widget_hide (cd->link_dialog->text);
-	gtk_widget_hide (cd->link_dialog->text_label);
-	gtk_entry_set_text (GTK_ENTRY (cd->link_dialog->text), HTML_TEXT (link)->text);
 	gtk_entry_set_text (GTK_ENTRY (cd->link_dialog->link), link->url);
 }

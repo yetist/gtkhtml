@@ -1,3 +1,24 @@
+2000-06-21  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlimage.c (set_link): new function, sets urt and target for
+	image
+
+	* htmlengine-edit-insert.c (html_engine_insert_link): rewritten,
+	now it does copy, modify cut buffer to contain linked objects and
+	then paste it back. In case of empty selection, it paste empty
+	link text master object
+
+	* htmllinktext.c (set_link): new function, sets url and target,
+	returns NULL
+	(html_link_text_class_init): set set_link
+
+	* htmltextmaster.c (set_link): new virt. function - returns
+	created linktextmaster
+	(html_text_master_class_init): set set_link
+
+	* htmlobject.c (html_object_set_link): new function for link setting
+	(html_object_class_init): set set_link virtual function to NULL
+
 2000-06-19  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml.c (clean_bindings_set): I must clean all 3 possible

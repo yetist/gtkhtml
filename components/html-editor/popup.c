@@ -103,8 +103,8 @@ popup_show (GtkHTMLControlData *cd, GdkEventButton *event)
 
 	menu = gtk_menu_new ();
 
+	ADD_ITEM ("Insert link...", insert_link);
 	if (e->active_selection) {
-		ADD_ITEM ("Insert link...", insert_link);
 		ADD_SEP;
 		ADD_ITEM ("Copy", copy);
 		ADD_ITEM ("Cut",  cut);

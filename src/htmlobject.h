@@ -258,6 +258,9 @@ struct _HTMLObjectClass {
 	/* Search & Replace */
 	gboolean (* search) (HTMLObject *self, HTMLSearch *info);
 	gboolean (* search_next) (HTMLObject *self, HTMLSearch *info);
+
+	/* links */
+	HTMLObject * (* set_link)(HTMLObject *self, GdkColor *color, const gchar *url, const gchar *target);
 };
 
 
@@ -352,13 +355,18 @@ gboolean        html_object_relayout              (HTMLObject  *obj,
 HTMLVAlignType  html_object_get_valign            (HTMLObject  *self);
 
 /* Links.  */
-const gchar *html_object_get_url     (HTMLObject *o);
-const gchar *html_object_get_target  (HTMLObject *o);
+const gchar *html_object_get_url      (HTMLObject *o);
+const gchar *html_object_get_target   (HTMLObject *o);
 
-HTMLAnchor *html_object_find_anchor  (HTMLObject  *o,
-				      const gchar *name,
-				      gint        *x,
-				      gint        *y);
+HTMLAnchor  *html_object_find_anchor  (HTMLObject  *o,
+				       const gchar *name,
+				       gint        *x,
+				       gint        *y);
+
+HTMLObject  *html_object_set_link     (HTMLObject  *self,
+				       GdkColor    *color,
+				       const gchar *url,
+				       const gchar *target);
 
 /* Cursor.  */
 gboolean    html_object_accepts_cursor   (HTMLObject  *obj);

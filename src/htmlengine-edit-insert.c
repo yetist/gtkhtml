@@ -30,6 +30,9 @@
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-cursor.h"
 #include "htmlengine-edit-delete.h"
+#include "htmlengine-edit-copy.h"
+#include "htmlengine-edit-paste.h"
+#include "htmlengine-cutbuffer.h"
 #include "htmlengine-edit-movement.h"
 
 #include "htmlengine-edit-insert.h"
@@ -502,14 +505,39 @@ html_engine_insert (HTMLEngine *e,
 }
 
 void
-html_engine_insert_link (HTMLEngine  *e, const gchar *text, const gchar *href)
+html_engine_insert_link (HTMLEngine *e, const gchar *url, const gchar *target)
 {
-	HTMLObject *link;
+	HTMLObject *linked;
+	GList *tmp_buffer;
+	GdkColor *color = html_colorset_get_color (e->settings->color_set, HTMLLinkColor);
 
-	link  = html_link_text_master_new (text, e->insertion_font_style,
-					   html_colorset_get_color (e->settings->color_set, HTMLLinkColor),
-					   href, NULL);
+	tmp_buffer = e->cut_buffer;
+	e->cut_buffer = NULL;
 
-	html_engine_paste_object (e, link,  TRUE);
-	html_object_destroy (link);
+	html_undo_level_begin (e->undo, "Insert link");
+	html_engine_copy (e);
+	if (e->cut_buffer) {
+		GList *cur = e->cut_buffer;
+
+		while (cur) {
+			linked = html_object_set_link (HTML_OBJECT (cur->data), color, url, target);
+			if (linked) {
+				html_object_destroy (HTML_OBJECT (cur->data));
+				cur->data = linked;
+			}
+			cur = cur->next;
+		}
+		html_engine_paste (e, TRUE);
+		html_engine_cut_buffer_destroy (e->cut_buffer);
+	} else {
+		linked = html_link_text_master_new_with_len
+			("", 0,
+			 e->insertion_font_style,
+			 color,
+			 url, target);
+		html_engine_paste_object (e, linked, TRUE);
+		html_object_destroy (linked);
+	}
+	html_undo_level_end (e->undo);
+	e->cut_buffer = tmp_buffer;
 }

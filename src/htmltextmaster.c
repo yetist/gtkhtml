@@ -337,6 +337,14 @@ get_selection (HTMLObject *self,
 	return new;
 }
 
+static HTMLObject *
+set_link (HTMLObject *self, GdkColor *color, const gchar *url, const gchar *target)
+{
+	HTMLText *text = HTML_TEXT (self);
+
+	return html_link_text_master_new_with_len (text->text, text->text_len, text->font_style, color, url, target);
+}
+
 static void
 append_selection_string (HTMLObject *self,
 			 GString *buffer)
@@ -675,6 +683,7 @@ html_text_master_class_init (HTMLTextMasterClass *klass,
 	object_class->select_range = select_range;
 	object_class->get_selection = get_selection;
 	object_class->append_selection_string = append_selection_string;
+	object_class->set_link = set_link;
 
 	/* HTMLText methods.  */
 

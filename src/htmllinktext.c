@@ -67,6 +67,22 @@ get_target (HTMLObject *object)
 	return HTML_LINK_TEXT (object)->target;
 }
 
+static HTMLObject *
+set_link (HTMLObject *self, GdkColor *color, const gchar *url, const gchar *target)
+{
+	HTMLLinkText *link = HTML_LINK_TEXT (self);
+
+	g_free (link->url);
+	g_free (link->target);
+
+	link->url = g_strdup (url);
+	link->target = g_strdup (target);
+
+	HTML_TEXT (self)->color = *color;
+
+	return NULL;
+}
+
 static HTMLText *
 split (HTMLText *self,
        guint offset)
@@ -145,6 +161,7 @@ html_link_text_class_init (HTMLLinkTextClass *klass,
 	object_class->copy = copy;
 	object_class->get_url = get_url;
 	object_class->get_target = get_target;
+	object_class->set_link = set_link;
 	object_class->save = save;
 
 	text_class->split = split;
