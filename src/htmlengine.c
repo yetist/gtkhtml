@@ -1108,29 +1108,20 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 			html_table_end_row (table);
 		html_table_end_table (table);
 
-		if (1 || (align != HTML_HALIGN_LEFT && align != HTML_HALIGN_RIGHT)) {
+		if (align != HTML_HALIGN_LEFT && align != HTML_HALIGN_RIGHT) {
 			close_flow (e, clue);
 
-			olddivalign = e->divAlign;
-			e->divAlign = align;
+			if (align != HTML_HALIGN_NONE) {
+				olddivalign = e->divAlign;
+				e->divAlign = align;
+			}
+
 			append_element (e, clue, HTML_OBJECT (table));
 
 			close_flow (e, clue);
 
-			e->divAlign = olddivalign;
-		} else {
-			HTMLClueAligned *aligned;
-
-			aligned = HTML_CLUEALIGNED (html_cluealigned_new (NULL,
-									  0, 0,
-									  clue->max_width,
-									  100));
-			HTML_CLUE (aligned)->halign = align;
-			html_clue_append (HTML_CLUE (aligned), HTML_OBJECT (table));
-			if (e->flow == NULL)
-				new_flow (e, clue, HTML_OBJECT (aligned));
-			else
-				html_clue_append (HTML_CLUE (e->flow), HTML_OBJECT (aligned));
+			if (align != HTML_HALIGN_NONE)
+				e->divAlign = olddivalign;
 		}
 	} else {
 		/* Last resort: remove tables that do not contain any cells */
@@ -1916,11 +1907,7 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		gint length = clue->max_width;
 		gint percent = 100;
 		HTMLHAlignType align = p->divAlign;
-		HTMLHAlignType oldAlign = p->divAlign;
 		gboolean shade = TRUE;
-
-		if (p->flow)
-			oldAlign = align = HTML_CLUE (p->flow)->halign;
 
 		close_flow (p, clue);
 

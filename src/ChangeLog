@@ -1,5 +1,16 @@
 2000-04-11  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlrule.c
+	(draw): Fixed bogus brace placement that caused aligned rules not
+	to be laid out correctly.
+
+	* htmlengine.c
+	(parse_table): Do not override horizontal alignment if no
+	alignment is specified.  Also removed some bogus code.
+	(parse_h): Removed bogus horizontal alignment assignment.
+
+2000-04-11  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* htmlengine.c
 	(parse_table): No longer make tables centered when they have a
 	percent or absolute width.  This is not correct as far as I know.

@@ -134,21 +134,21 @@ draw (HTMLObject *o,
 		/* The cast to `gdouble' is to avoid overflow (eg. when
                    printing).  */
 		w = ((gdouble) o->max_width * o->percent) / 100;
+	}
 
-		switch (rule->halign) {
-		case HTML_HALIGN_LEFT:
-			break;
-		case HTML_HALIGN_CENTER:
-		case HTML_HALIGN_NONE:
-			/* Default is `align=center' according to the specs.  */
-			xp += (o->width - w) / 2;
-			break;
-		case HTML_HALIGN_RIGHT:
-			xp += o->width - w;
-			break;
-		default:
-			g_warning ("Unknown HTMLRule alignment %d.", rule->halign);
-		}
+	switch (rule->halign) {
+	case HTML_HALIGN_LEFT:
+		break;
+	case HTML_HALIGN_CENTER:
+	case HTML_HALIGN_NONE:
+		/* Default is `align=center' according to the specs.  */
+		xp += (o->width - w) / 2;
+		break;
+	case HTML_HALIGN_RIGHT:
+		xp += o->width - w;
+		break;
+	default:
+		g_warning ("Unknown HTMLRule alignment %d.", rule->halign);
 	}
 
 	if (rule->shade)
