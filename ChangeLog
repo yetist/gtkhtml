@@ -1,3 +1,8 @@
+2001-12-21  Larry Ewing  <lewing@ximian.com>
+
+	* configure.in: make GTKHTML_RELEASE variable and insert inst
+	stategic places to make the gtkhtml-1.1 parallel installable.
+
 2001-11-14  Larry Ewing  <lewing@ximian.com>
 
 	* Make 0.16.1 release.

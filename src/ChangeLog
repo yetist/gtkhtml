@@ -1,3 +1,8 @@
+2001-12-21  Larry Ewing  <lewing@ximian.com>
+
+	* Makefile.am (libgtkhtml_la_LDFLAGS): add GTKHTML_RELEASE to the
+	flags and install headers into proper place.
+
 2001-12-20  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (gtk_html_images_ref): new method

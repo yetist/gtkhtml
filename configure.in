@@ -4,7 +4,9 @@ AC_INIT(src/gtkhtml.c)
 AM_CONFIG_HEADER(config.h)
 
 PACKAGE=gtkhtml
-AM_INIT_AUTOMAKE($PACKAGE, 0.16.1)
+GTKHTML_RELEASE=1.1
+AC_SUBST(GTKHTML_RELEASE)
+AM_INIT_AUTOMAKE($PACKAGE, $GTKHTML_RELEASE.0.99)
 
 AM_MAINTAINER_MODE
 AM_ACLOCAL_INCLUDE(macros)
@@ -283,9 +285,9 @@ dnl gtkhtmlConf.sh stuff.
 dnl **********************************
 
 GTKHTML_LIBDIR="-L${libdir}"
-GTKHTML_INCLUDEDIR="-I${includedir}"
+GTKHTML_INCLUDEDIR="-I${includedir}$GTKHTML_RELEASE"
 GTKHTML_INCLUDEDIR="$GTKHTML_INCLUDEDIR `$GNOME_CONFIG --cflags gdk_pixbuf print gal` $GCONF_CFLAGS"
-GTKHTML_LIBS="-lgtkhtml `$GNOME_CONFIG --libs gdk_pixbuf print gal` $GCONF_LIBS"
+GTKHTML_LIBS="-lgtkhtml-$GTKHTML_RELEASE `$GNOME_CONFIG --libs gdk_pixbuf print gal` $GCONF_LIBS"
 GTKHTML_DATADIR="${datadir}"
 
 AC_SUBST(GTKHTML_LIBDIR)
@@ -322,11 +324,11 @@ dnl **********************************
  
 dnl Increment the following if the interface has additions, changes,
 dnl removals.
-GTKHTML_CURRENT=19
+GTKHTML_CURRENT=0
 
 dnl Increment any time the source changes; set to 0 if you
 dnl increment CURRENT.
-GTKHTML_REVISION=1
+GTKHTML_REVISION=0
 
 dnl Increment if any interfaces have been added; set to 0
 dnl if any interfaces have been removed. removal has 
@@ -387,3 +389,4 @@ if test x${have_gconf} = xtrue; then echo "yes"; else echo "no"; fi
 echo "	XIM support:			$enable_xim
 	Editor component type:		${GNOME_GTKHTML_EDITOR_TYPE}
 "
+

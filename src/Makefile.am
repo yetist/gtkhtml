@@ -17,7 +17,7 @@ else
 noinst_PROGRAMS = 
 endif
 
-libgtkhtmldir = $(includedir)/gtkhtml
+libgtkhtmldir = $(includedir)/$(GTKHTML_VERSION_TAG)/gtkhtml
 
 # FIXME not all the stuff should be installed!
 
@@ -196,7 +196,7 @@ libgtkhtml_la_SOURCES =				\
 #	html-component.c			\
 #	htmlengine-edit-table.c			\
 
-libgtkhtml_la_LDFLAGS = -version-info $(GTKHTML_CURRENT):$(GTKHTML_REVISION):$(GTKHTML_AGE)
+libgtkhtml_la_LDFLAGS = -release $(GTKHTML_RELEASE) -version-info $(GTKHTML_CURRENT):$(GTKHTML_REVISION):$(GTKHTML_AGE)
 
 libgtkhtml_la_LIBADD = $(EXTRA_GNOME_LIBS) $(GCONF_LIBS)
 
@@ -238,7 +238,7 @@ EXTRA_DIST = \
 	keybindingsrc.xemacs \
 	keybindingsrc.ms
 
-keybindingsdir = $(datadir)/gtkhtml
+keybindingsdir = $(datadir)/$(GTKHTML_RELEASE)/gtkhtml
 keybindings_DATA = \
 	keybindingsrc.emacs \
 	keybindingsrc.xemacs \
