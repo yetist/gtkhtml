@@ -1,3 +1,20 @@
+2001-05-10  Jon Trowbridge  <trow@ximian.com>
+
+	* htmliframe.c (html_iframe_init): When rendering a frame, make
+	sure that you use the same kind of tokenizer as is being used
+	by the parent widget.
+
+	* htmltokenizer.c (html_tokenizer_class_init): Change "begin" and
+	"end" from virtual functions to signals with the HTMLTokenizer's
+	traditional begin and end behavior as the default handlers.  Add
+	the "fully_tokenized" signal.
+	(html_tokenizer_begin): Replace the virtual function machinery
+	with a signal emission.
+	(html_tokenizer_end): Replace the virtual function machinery with
+	a signal emission.
+	 (html_tokenizer_clone): Added.  Allocates a tokenizer of the same
+	type.
+
 2001-05-10  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml.c (mouse_change_pos): make the magic distance threshold

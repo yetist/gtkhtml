@@ -46,13 +46,17 @@ struct _HTMLTokenizer {
 struct _HTMLTokenizerClass {
 	GtkObjectClass parent_class;
 
+	/* signals */
+	void     (*begin)           (HTMLTokenizer *, gchar *content_type);
+	void     (*end)             (HTMLTokenizer *);
+
 	/* virtual functions */
-	void     (*begin)      (HTMLTokenizer *, gchar *content_type);
-	void     (*write)      (HTMLTokenizer *, const gchar *string, size_t size);
-	void     (*end)        (HTMLTokenizer *);
-	gchar   *(*peek_token) (HTMLTokenizer *);
-	gchar   *(*next_token) (HTMLTokenizer *);
-	gboolean (*has_more)   (HTMLTokenizer *);
+	void           (*write)      (HTMLTokenizer *, const gchar *string, size_t size);
+	gchar         *(*peek_token) (HTMLTokenizer *);
+	gchar         *(*next_token) (HTMLTokenizer *);
+	gboolean       (*has_more)   (HTMLTokenizer *);
+
+	HTMLTokenizer *(*clone)      (HTMLTokenizer *);
 };
 
 GtkType        html_tokenizer_get_type        (void);
@@ -69,5 +73,7 @@ void           html_tokenizer_end             (HTMLTokenizer *t);
 gchar *        html_tokenizer_peek_token      (HTMLTokenizer *t);
 gchar *        html_tokenizer_next_token      (HTMLTokenizer *t);
 gboolean       html_tokenizer_has_more_tokens (HTMLTokenizer *t);
+
+HTMLTokenizer *html_tokenizer_clone           (HTMLTokenizer *t);
 
 #endif /* _HTMLTOKENIZER_H_ */

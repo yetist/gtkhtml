@@ -411,6 +411,7 @@ html_iframe_init (HTMLIFrame *iframe,
 		  gboolean border)
 {
 	HTMLEmbedded *em = HTML_EMBEDDED (iframe);
+	HTMLTokenizer *new_tokenizer;
 	GtkWidget *new_widget;
 	GtkHTML   *new_html;
 	GtkHTML   *parent_html;
@@ -440,8 +441,14 @@ html_iframe_init (HTMLIFrame *iframe,
 
 #endif
 	  
+	new_tokenizer = html_tokenizer_clone (parent_html->engine->ht);
+
 	new_widget = gtk_html_new ();
 	new_html = GTK_HTML (new_widget);
+
+	html_engine_set_tokenizer (new_html->engine, new_tokenizer);
+	gtk_object_unref (GTK_OBJECT (new_tokenizer));
+	new_tokenizer = NULL;
 
 	gtk_html_set_default_content_type (new_html,
 					   parent_html->priv->content_type);

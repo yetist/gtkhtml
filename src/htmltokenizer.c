@@ -30,6 +30,14 @@
 #include "htmltokenizer.h"
 #include "htmlentity.h"
 
+enum {
+	HTML_TOKENIZER_BEGIN_SIGNAL,
+	HTML_TOKENIZER_END_SIGNAL,
+	HTML_TOKENIZER_LAST_SIGNAL
+};
+
+static guint html_tokenizer_signals[HTML_TOKENIZER_LAST_SIGNAL] = { 0 };
+
 #define TOKEN_BUFFER_SIZE (1 << 10)
 
 typedef struct _HTMLBlockingToken HTMLBlockingToken;
@@ -138,6 +146,8 @@ static gchar   *html_tokenizer_real_peek_token      (HTMLTokenizer *);
 static gchar   *html_tokenizer_real_next_token      (HTMLTokenizer *);
 static gboolean html_tokenizer_real_has_more_tokens (HTMLTokenizer *);
 
+static HTMLTokenizer *html_tokenizer_real_clone     (HTMLTokenizer *);
+
 /* blocking tokens */
 static gchar             *html_tokenizer_blocking_get_name   (HTMLTokenizer  *t);
 static void               html_tokenizer_blocking_pop        (HTMLTokenizer  *t);
@@ -151,18 +161,40 @@ static GtkObjectClass *parent_class = NULL;
 static void
 html_tokenizer_class_init (HTMLTokenizerClass *klass)
 {
-	GtkObjectClass *obj_klass = (GtkObjectClass *) klass;
+	GtkObjectClass *object_class = (GtkObjectClass *) klass;
 
 	parent_class = gtk_type_class (GTK_TYPE_OBJECT);
 
-	obj_klass->destroy = html_tokenizer_destructor;
+	html_tokenizer_signals[HTML_TOKENIZER_BEGIN_SIGNAL] =
+		gtk_signal_new ("begin",
+				GTK_RUN_LAST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (HTMLTokenizerClass, begin),
+				gtk_marshal_NONE__POINTER,
+				GTK_TYPE_NONE,
+				1, GTK_TYPE_POINTER);
+
+	html_tokenizer_signals[HTML_TOKENIZER_END_SIGNAL] =
+		gtk_signal_new ("end",
+				GTK_RUN_LAST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (HTMLTokenizerClass, end),
+				gtk_marshal_NONE__NONE,
+				GTK_TYPE_NONE,
+				0);
+
+	gtk_object_class_add_signals (object_class, html_tokenizer_signals, HTML_TOKENIZER_LAST_SIGNAL);
+
+	object_class->destroy = html_tokenizer_destructor;
 
 	klass->begin      = html_tokenizer_real_begin;
-	klass->write      = html_tokenizer_real_write;
 	klass->end        = html_tokenizer_real_end;
+
+	klass->write      = html_tokenizer_real_write;
 	klass->peek_token = html_tokenizer_real_peek_token;
 	klass->next_token = html_tokenizer_real_next_token;
 	klass->has_more   = html_tokenizer_real_has_more_tokens;
+	klass->clone      = html_tokenizer_real_clone;
 }
 
 static void
@@ -374,6 +406,12 @@ html_tokenizer_real_has_more_tokens (HTMLTokenizer *t)
 	return t->priv->tokens_num > 0;
 }
 
+static HTMLTokenizer *
+html_tokenizer_real_clone (HTMLTokenizer *t)
+{
+	return html_tokenizer_new ();
+}
+
 static void
 html_tokenizer_reset (HTMLTokenizer *t)
 {
@@ -493,7 +531,7 @@ html_tokenizer_append_token (HTMLTokenizer *t, const gchar *string, gint len)
 	if (p->write_buf == NULL)
 		html_tokenizer_append_token_buffer (t, len);
 
-	/* try append token to current buffer, if not successfull, create append new token buffer */
+	/* try append token to current buffer, if not successful, create append new token buffer */
 	if (!html_token_buffer_append_token (p->write_buf, string, len)) {
 		html_tokenizer_append_token_buffer (t, len+1);
 		/* now it must pass as we have enough space */
@@ -1225,16 +1263,20 @@ html_tokenizer_blocking_pop (HTMLTokenizer *t)
 void
 html_tokenizer_begin (HTMLTokenizer *t, gchar *content_type)
 {
-	HTMLTokenizerClass *klass;
+	g_return_if_fail (t && HTML_IS_TOKENIZER (t));
 
-	g_return_if_fail (HTML_IS_TOKENIZER (t));
+	gtk_signal_emit (GTK_OBJECT (t),
+			 html_tokenizer_signals[HTML_TOKENIZER_BEGIN_SIGNAL],
+			 content_type);
+}
 
-	klass = HTML_TOKENIZER_CLASS (GTK_OBJECT (t)->klass);
-	
-	if (klass->begin)
-		klass->begin (t, content_type);
-	else
-		g_warning ("No begin method defined.");
+void
+html_tokenizer_end (HTMLTokenizer *t)
+{
+	g_return_if_fail (t && HTML_IS_TOKENIZER (t));
+
+	gtk_signal_emit (GTK_OBJECT (t),
+			 html_tokenizer_signals[HTML_TOKENIZER_END_SIGNAL]);
 }
 
 void
@@ -1249,22 +1291,6 @@ html_tokenizer_write (HTMLTokenizer *t, const gchar *str, size_t size)
 		klass->write (t, str, size);
 	else
 		g_warning ("No write method defined.");
-}
-
-void
-html_tokenizer_end (HTMLTokenizer *t)
-{
-	HTMLTokenizerClass *klass;
-
-	g_return_if_fail (t && HTML_IS_TOKENIZER (t));
-
-	klass = HTML_TOKENIZER_CLASS (GTK_OBJECT (t)->klass);
-	
-	if (klass->end)
-		klass->end (t);
-	else
-		g_warning ("No end method defined.");
-
 }
 
 gchar *
@@ -1309,10 +1335,29 @@ html_tokenizer_has_more_tokens (HTMLTokenizer *t)
 
 	klass = HTML_TOKENIZER_CLASS (GTK_OBJECT (t)->klass);
 	
-	if (klass->has_more)
+	if (klass->has_more) {
 		return klass->has_more (t);
+	}
 
 	g_warning ("No has_more method defined.");
 	return FALSE;
 	
+}
+
+HTMLTokenizer *
+html_tokenizer_clone (HTMLTokenizer *t)
+{
+	HTMLTokenizerClass *klass;
+	
+	if (t == NULL)
+		return NULL;
+	g_return_val_if_fail (HTML_IS_TOKENIZER (t), NULL);
+
+	klass = HTML_TOKENIZER_CLASS (GTK_OBJECT (t)->klass);
+	
+	if (klass->clone)
+		return klass->clone (t);
+	
+	g_warning ("No clone method defined.");
+	return NULL;
 }
