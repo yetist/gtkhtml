@@ -117,7 +117,7 @@ remove_link (GtkWidget *mi, GtkHTMLControlData *cd)
 	html_engine_selection_push (cd->html->engine);
 	if (!html_engine_is_selection_active (cd->html->engine))
 		html_engine_select_word_editable (cd->html->engine);
-	html_engine_edit_set_link (cd->html->engine, NULL, NULL);
+	html_engine_set_link (cd->html->engine, NULL);
 	html_engine_selection_pop (cd->html->engine);
 }
 
