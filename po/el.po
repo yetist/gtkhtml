@@ -9,25 +9,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD.el\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-07 17:25+0100\n"
-"PO-Revision-Date: 2004-12-28 14:43+0200\n"
+"POT-Creation-Date: 2005-02-11 12:34+0200\n"
+"PO-Revision-Date: 2005-02-11 12:33+0200\n"
 "Last-Translator: Kostas Papadimas <pkst@gnome.org>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.3.1\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: a11y/image.c:150
 #, c-format
 msgid "URL is %s, Alternative Text is %s"
-msgstr ""
+msgstr "URL is %s, Εναλλακτικό κείμενο είναι %s"
 
 #: a11y/image.c:152
 #, c-format
 msgid "URL is %s"
-msgstr ""
+msgstr "URL είναι %s"
 
 #: a11y/object.c:50 a11y/object.c:59 a11y/text.c:111
 msgid "grab focus"
@@ -956,9 +955,8 @@ msgid "Background Image"
 msgstr "Εικόνα Παρασκηνίου"
 
 #: components/html-editor/body.c:298
-#, fuzzy
 msgid "Background Image File Path"
-msgstr "Εικόνα Παρασκηνίου"
+msgstr "Διαδρομή αρχείου εικόνας παρασκηνίου"
 
 #: components/html-editor/body.c:301
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
@@ -1003,9 +1001,8 @@ msgid "Page"
 msgstr "Σελίδα"
 
 #: components/html-editor/gi-color-combo.c:187
-#, fuzzy
 msgid "color preview"
-msgstr "Προεπισκόπιση εκτύπωσης"
+msgstr "Προεπισκόπιση χρώματος"
 
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:395
@@ -1213,7 +1210,7 @@ msgstr "μπλέ ουρανού"
 #. set the a11y name
 #: components/html-editor/gi-combo-box.c:419
 msgid "Popup"
-msgstr ""
+msgstr "Αναδυόμενο"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
@@ -1489,14 +1486,12 @@ msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
 #: components/html-editor/link.c:194
-#, fuzzy
 msgid "URL:"
-msgstr "_URL:"
+msgstr "URL:"
 
 #: components/html-editor/link.c:198
-#, fuzzy
 msgid "Description:"
-msgstr "Περι_γραφή:"
+msgstr "Περιγραφή:"
 
 #: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
 msgid "Insert image"
@@ -1709,14 +1704,12 @@ msgid "Case _sensitive"
 msgstr "Case _sensitive"
 
 #: components/html-editor/replace.c:182
-#, fuzzy
 msgid "R_eplace:"
-msgstr "Αντικατάσταση:"
+msgstr "Αν_τικατάσταση:"
 
 #: components/html-editor/replace.c:186
-#, fuzzy
 msgid "_With:"
-msgstr "Π_λάτος:"
+msgstr "_Με:"
 
 #: components/html-editor/search.c:112
 msgid "_Backward"
@@ -1728,7 +1721,7 @@ msgstr "_Κανονική Έκφραση"
 
 #: components/html-editor/search.c:118
 msgid "Input the words you want to search here"
-msgstr ""
+msgstr "Εισάγετε τις λέξεις που θέλετε να αναζητήσετε εδώ"
 
 #: components/html-editor/spellchecker.c:110
 msgid ""
@@ -1764,9 +1757,8 @@ msgid "Image frame"
 msgstr "Πλάισιο εικόνας"
 
 #: components/html-editor/template.c:280
-#, fuzzy
 msgid "Template Labels"
-msgstr "Πρότυπο"
+msgstr "Πρότυπες ετικέτες"
 
 #: components/html-editor/test-html-editor-control.c:333
 msgid "Open file..."
