@@ -1,3 +1,19 @@
+2002-11-19  Not Zed  <NotZed@Ximian.com>
+
+	* htmlclosures.list: BOOL:POINTER -> BOOL:OBJECT
+	removed VOID:POINTER,POINTER
+	VOID:POINTER,POINTER,POINTER -> VOID:STRING,STRING,STRING
+
+	* htmlengine.c (html_engine_class_init): change
+	marshal_BOOL_POINTER -> BOOL__OBJECT for object_requested signal.
+	(html_engine_class_init): submit -> STRING_STRING_STRING.
+
+	* gtkhtml.c (gtk_html_class_init): change marshal_BOOL__POINTER ->
+	BOOL__OBJECT for object_requested.   Also changed marshaller for
+	iframe_created signal to be VOID__OBJECT.
+	(gtk_html_class_init): url_requested -> STRING__POINTER.
+	(gtk_html_class_init): submit -> STRING_STRING_STRING
+
 2002-11-18  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (parse_body): pop things off the body stack in the

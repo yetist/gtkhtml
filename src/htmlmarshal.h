@@ -6,14 +6,14 @@
 
 G_BEGIN_DECLS
 
-/* BOOL:POINTER (htmlclosures.list:1) */
-extern void html_g_cclosure_marshal_BOOLEAN__POINTER (GClosure     *closure,
-                                                      GValue       *return_value,
-                                                      guint         n_param_values,
-                                                      const GValue *param_values,
-                                                      gpointer      invocation_hint,
-                                                      gpointer      marshal_data);
-#define html_g_cclosure_marshal_BOOL__POINTER	html_g_cclosure_marshal_BOOLEAN__POINTER
+/* BOOL:OBJECT (htmlclosures.list:1) */
+extern void html_g_cclosure_marshal_BOOLEAN__OBJECT (GClosure     *closure,
+                                                     GValue       *return_value,
+                                                     guint         n_param_values,
+                                                     const GValue *param_values,
+                                                     gpointer      invocation_hint,
+                                                     gpointer      marshal_data);
+#define html_g_cclosure_marshal_BOOL__OBJECT	html_g_cclosure_marshal_BOOLEAN__OBJECT
 
 /* VOID:STRING,POINTER (htmlclosures.list:2) */
 extern void html_g_cclosure_marshal_VOID__STRING_POINTER (GClosure     *closure,
@@ -31,23 +31,15 @@ extern void html_g_cclosure_marshal_VOID__POINTER_INT (GClosure     *closure,
                                                        gpointer      invocation_hint,
                                                        gpointer      marshal_data);
 
-/* VOID:POINTER,POINTER,POINTER (htmlclosures.list:4) */
-extern void html_g_cclosure_marshal_VOID__POINTER_POINTER_POINTER (GClosure     *closure,
-                                                                   GValue       *return_value,
-                                                                   guint         n_param_values,
-                                                                   const GValue *param_values,
-                                                                   gpointer      invocation_hint,
-                                                                   gpointer      marshal_data);
+/* VOID:STRING,STRING,STRING (htmlclosures.list:4) */
+extern void html_g_cclosure_marshal_VOID__STRING_STRING_STRING (GClosure     *closure,
+                                                                GValue       *return_value,
+                                                                guint         n_param_values,
+                                                                const GValue *param_values,
+                                                                gpointer      invocation_hint,
+                                                                gpointer      marshal_data);
 
-/* VOID:POINTER,POINTER (htmlclosures.list:5) */
-extern void html_g_cclosure_marshal_VOID__POINTER_POINTER (GClosure     *closure,
-                                                           GValue       *return_value,
-                                                           guint         n_param_values,
-                                                           const GValue *param_values,
-                                                           gpointer      invocation_hint,
-                                                           gpointer      marshal_data);
-
-/* VOID:INT,INT,FLOAT (htmlclosures.list:6) */
+/* VOID:INT,INT,FLOAT (htmlclosures.list:5) */
 extern void html_g_cclosure_marshal_VOID__INT_INT_FLOAT (GClosure     *closure,
                                                          GValue       *return_value,
                                                          guint         n_param_values,
@@ -55,7 +47,7 @@ extern void html_g_cclosure_marshal_VOID__INT_INT_FLOAT (GClosure     *closure,
                                                          gpointer      invocation_hint,
                                                          gpointer      marshal_data);
 
-/* VOID:ENUM,ENUM,FLOAT (htmlclosures.list:7) */
+/* VOID:ENUM,ENUM,FLOAT (htmlclosures.list:6) */
 extern void html_g_cclosure_marshal_VOID__ENUM_ENUM_FLOAT (GClosure     *closure,
                                                            GValue       *return_value,
                                                            guint         n_param_values,
@@ -63,7 +55,7 @@ extern void html_g_cclosure_marshal_VOID__ENUM_ENUM_FLOAT (GClosure     *closure
                                                            gpointer      invocation_hint,
                                                            gpointer      marshal_data);
 
-/* VOID:INT,INT (htmlclosures.list:8) */
+/* VOID:INT,INT (htmlclosures.list:7) */
 extern void html_g_cclosure_marshal_VOID__INT_INT (GClosure     *closure,
                                                    GValue       *return_value,
                                                    guint         n_param_values,
@@ -71,7 +63,7 @@ extern void html_g_cclosure_marshal_VOID__INT_INT (GClosure     *closure,
                                                    gpointer      invocation_hint,
                                                    gpointer      marshal_data);
 
-/* VOID:ENUM,ENUM (htmlclosures.list:9) */
+/* VOID:ENUM,ENUM (htmlclosures.list:8) */
 extern void html_g_cclosure_marshal_VOID__ENUM_ENUM (GClosure     *closure,
                                                      GValue       *return_value,
                                                      guint         n_param_values,

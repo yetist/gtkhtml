@@ -3463,7 +3463,7 @@ html_engine_class_init (HTMLEngineClass *klass)
 			      G_SIGNAL_RUN_FIRST,
 			      G_STRUCT_OFFSET (HTMLEngineClass, submit),
 			      NULL, NULL,
-			      html_g_cclosure_marshal_VOID__POINTER_POINTER_POINTER,
+			      html_g_cclosure_marshal_VOID__STRING_STRING_STRING,
 			      G_TYPE_NONE, 3,
 			      G_TYPE_STRING,
 			      G_TYPE_STRING,
@@ -3475,9 +3475,9 @@ html_engine_class_init (HTMLEngineClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (HTMLEngineClass, object_requested),
 			      NULL, NULL,
-			      html_g_cclosure_marshal_BOOL__POINTER,
+			      html_g_cclosure_marshal_BOOL__OBJECT,
 			      G_TYPE_BOOLEAN, 1,
-			      G_TYPE_POINTER);
+			      G_TYPE_OBJECT);
 
 	object_class->finalize = html_engine_finalize;
 	object_class->set_property = html_engine_set_property;

@@ -2439,9 +2439,9 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      G_SIGNAL_RUN_FIRST,
 			      G_STRUCT_OFFSET (GtkHTMLClass, url_requested),
 			      NULL, NULL,
-			      html_g_cclosure_marshal_VOID__POINTER_POINTER,
+			      html_g_cclosure_marshal_VOID__STRING_POINTER,
 			      G_TYPE_NONE, 2,
-			      G_TYPE_POINTER,
+			      G_TYPE_STRING,
 			      G_TYPE_POINTER);
 	signals [LOAD_DONE] = 
 		g_signal_new ("load_done",
@@ -2506,7 +2506,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      G_SIGNAL_RUN_FIRST,
 			      G_STRUCT_OFFSET (GtkHTMLClass, submit),
 			      NULL, NULL,
-			      html_g_cclosure_marshal_VOID__POINTER_POINTER_POINTER,
+			      html_g_cclosure_marshal_VOID__STRING_STRING_STRING,
 			      G_TYPE_NONE, 3,
 			      G_TYPE_STRING,
 			      G_TYPE_STRING,
@@ -2518,7 +2518,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (GtkHTMLClass, object_requested),
 			      NULL, NULL,
-			      html_g_cclosure_marshal_BOOL__POINTER,
+			      html_g_cclosure_marshal_BOOL__OBJECT,
 			      G_TYPE_BOOLEAN, 1,
 			      G_TYPE_OBJECT);
 	
@@ -2586,7 +2586,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      G_SIGNAL_RUN_FIRST,
 			      G_STRUCT_OFFSET (GtkHTMLClass, iframe_created),
 			      NULL, NULL,
-			      g_cclosure_marshal_VOID__POINTER,
+			      g_cclosure_marshal_VOID__OBJECT,
 			      G_TYPE_NONE, 1,
 			      GTK_TYPE_HTML);
 
