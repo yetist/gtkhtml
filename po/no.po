@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
-"POT-Creation-Date: 2002-10-15 18:31+0200\n"
-"PO-Revision-Date: 2002-10-15 18:32+0200\n"
+"POT-Creation-Date: 2002-10-26 12:13+0200\n"
+"PO-Revision-Date: 2002-10-26 12:14+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -426,7 +426,7 @@ msgid "Li_ck"
 msgstr "Slei_k"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
-#: components/html-editor/body.c:307 components/html-editor/menubar.c:141
+#: components/html-editor/body.c:327 components/html-editor/menubar.c:141
 #: components/html-editor/popup.c:105 components/html-editor/popup.c:201
 #: components/html-editor/popup.c:274
 msgid "Link"
@@ -630,7 +630,7 @@ msgid "Te_xt file..."
 msgstr "Te_kstfil..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
-#: components/html-editor/body.c:233
+#: components/html-editor/body.c:253
 #: components/html-editor/gtkhtml-editor-properties.glade.h:73
 #: components/html-editor/menubar.c:199
 msgid "Template"
@@ -834,47 +834,51 @@ msgstr "_Blunk"
 msgid "etc..."
 msgstr "etc..."
 
-#: components/html-editor/body.c:63
+#: components/html-editor/body.c:65
 #: components/html-editor/gtkhtml-editor-properties.glade.h:47
 msgid "None"
 msgstr "Ingen"
 
-#: components/html-editor/body.c:70
-msgid "Test"
-msgstr "Test"
+#: components/html-editor/body.c:73
+msgid "Perforated Paper"
+msgstr "Perforert papir"
 
-#: components/html-editor/body.c:77
-msgid "Test 1"
-msgstr "Test 1"
+#: components/html-editor/body.c:81
+msgid "Blue Ink"
+msgstr "Blått blekk"
 
-#: components/html-editor/body.c:251
+#: components/html-editor/body.c:89
+msgid "Rectangles"
+msgstr "Rektangler"
+
+#: components/html-editor/body.c:271
 msgid "Document Title"
 msgstr "Dokumenttittel"
 
-#: components/html-editor/body.c:255 components/html-editor/body.c:258
+#: components/html-editor/body.c:275 components/html-editor/body.c:278
 #: components/html-editor/gtkhtml-editor-properties.glade.h:14
 msgid "Background Image"
 msgstr "Bakgrunnsbilde"
 
-#: components/html-editor/body.c:284
+#: components/html-editor/body.c:304
 #: components/html-editor/gtkhtml-editor-properties.glade.h:24
 msgid "Colors"
 msgstr "Farger"
 
-#: components/html-editor/body.c:294 components/html-editor/cell.c:397
+#: components/html-editor/body.c:314 components/html-editor/cell.c:397
 #: components/html-editor/table.c:534 components/html-editor/text.c:295
 #: components/html-editor/toolbar.c:306
 msgid "Automatic"
 msgstr "Automatisk"
 
-#: components/html-editor/body.c:306
+#: components/html-editor/body.c:326
 #: components/html-editor/editor-control-factory.c:196
 #: components/html-editor/gtkhtml-editor-properties.glade.h:75
 #: components/html-editor/menubar.c:339 components/html-editor/popup.c:194
 msgid "Text"
 msgstr "Tekst"
 
-#: components/html-editor/body.c:308
+#: components/html-editor/body.c:328
 #: components/html-editor/gtkhtml-editor-properties.glade.h:13
 msgid "Background"
 msgstr "Bakgrunn"
