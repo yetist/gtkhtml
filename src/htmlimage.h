@@ -49,13 +49,13 @@ struct _HTMLImage {
 	HTMLObject object;
         HTMLImagePointer *image_ptr;
 
-	gint border;
+	gint8 border;
 
-	gint specified_width;
-	gint specified_height;
+	gint16 specified_width;
+	gint16 specified_height;
 
-	gint hspace;
-	gint vspace;
+	gint8 hspace;
+	gint8 vspace;
 
 	gchar *url;
 	gchar *target;
@@ -79,18 +79,18 @@ void        html_image_init        (HTMLImage        *image,
 				    gchar            *filename,
 				    const gchar      *url,
 				    const gchar      *target,
-				    gint              width,
-				    gint              height,
-				    gint              percent,
-				    gint              border);
+				    gint16            width,
+				    gint16            height,
+				    gint8             percent,
+				    gint8             border);
 HTMLObject *html_image_new         (HTMLImageFactory *imf,
 				    gchar            *filename,
 				    const gchar      *url,
 				    const gchar      *target,
-				    gint              width,
-				    gint              height,
-				    gint              percent,
-				    gint              border);
+				    gint16            width,
+				    gint16            height,
+				    gint8             percent,
+				    gint8             border);
 
 void         html_image_set_spacing (HTMLImage *image, gint hspace, gint vspace);
 

@@ -281,8 +281,8 @@ html_image_init (HTMLImage *image,
 		 gchar *filename,
 		 const gchar *url,
 		 const gchar *target,
-		 gint width, gint height,
-		 gint percent, gint border)
+		 gint16 width, gint16 height,
+		 gint8 percent, gint8 border)
 {
 	HTMLObject *object;
 
@@ -310,8 +310,8 @@ html_image_new (HTMLImageFactory *imf,
 		gchar *filename,
 		const gchar *url,
 		const gchar *target,
-		gint width, gint height,
-		gint percent, gint border)
+		gint16 width, gint16 height,
+		gint8 percent, gint8 border)
 {
 	HTMLImage *image;
 
