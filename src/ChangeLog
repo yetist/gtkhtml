@@ -1,3 +1,9 @@
+2001-10-08  Larry Ewing  <lewing@ximian.com>
+
+	* htmlselect.c (html_select_add_option): don't add static strings
+	to a list that we free all the items in.  Also some formatting
+	changes in random places.  Fixes Ximian #8629
+
 2001-10-08  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (gtk_html_api_set_language): new helper private
@@ -10,7 +16,7 @@
 
 	* htmlengine.c (html_engine_get_word): utf8-ize this function
 
-2001-10-06  root  <lewing@ximian.com>
+2001-10-06  Larry Ewing  <lewing@ximian.com>
 
 	* htmlimage.c (html_image_set_url): call register with reload set
 	to false.

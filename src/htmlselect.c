@@ -279,10 +279,10 @@ void html_select_add_option (HTMLSelect *select,
 		}
 	} else {
 		w = HTML_EMBEDDED (select)->widget;
-		select->strings = g_list_append (select->strings, "");
+		select->strings = g_list_append (select->strings, g_strdup (""));
 		gtk_combo_set_popdown_strings (GTK_COMBO(w), select->strings);
 
-		if(selected || g_list_length (select->strings) == 1) {
+		if (selected || g_list_length (select->strings) == 1) {
 
 			select->default_selected = g_list_length (select->strings) - 1;
 		}
@@ -297,7 +297,7 @@ void html_select_add_option (HTMLSelect *select,
 }
 
 static char *
-longest_string(HTMLSelect *s)
+longest_string (HTMLSelect *s)
 {
 	GList *i = s->strings;
 	gint max = 0;
@@ -313,13 +313,13 @@ longest_string(HTMLSelect *s)
 	return str;
 }
 
-void html_select_set_text (HTMLSelect *select, 
-			   gchar *text) 
+void 
+html_select_set_text (HTMLSelect *select, gchar *text) 
 {
 	GtkWidget *w = GTK_WIDGET (HTML_EMBEDDED (select)->widget);
 	gint item;
 
-	if(select->size > 1 || select->multi) {
+	if (select->size > 1 || select->multi) {
 		item = GTK_CLIST(select->clist)->rows - 1;
 		gtk_clist_set_text (GTK_CLIST(select->clist), item, 0, text);
 
@@ -339,15 +339,16 @@ void html_select_set_text (HTMLSelect *select,
 		g_list_last (select->strings)->data = g_strdup (text);
 		gtk_combo_set_popdown_strings (GTK_COMBO(w), select->strings);
 
-		gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(w)->entry), g_list_nth(select->strings, select->default_selected)->data);
+		gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(w)->entry), 
+				   g_list_nth(select->strings, select->default_selected)->data);
 
 		HTML_OBJECT(select)->width = gdk_string_width(w->style->font, 
 							      longest_string(select)) + 30;
 
-		gtk_widget_set_usize ( GTK_WIDGET (w), 
-				       HTML_OBJECT(select)->width, -2);
+		gtk_widget_set_usize (GTK_WIDGET (w), 
+				      HTML_OBJECT(select)->width, -2);
 	}
 
-	if(g_list_nth (select->values, item)->data == NULL)
+	if (g_list_nth (select->values, item)->data == NULL)
 		g_list_nth (select->values, item)->data = g_strdup(text);
 }
