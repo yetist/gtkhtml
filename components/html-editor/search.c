@@ -62,6 +62,9 @@ search_dialog_response (GtkDialog *dialog, gint response_id, GtkHTMLSearchDialog
 				    GTK_TOGGLE_BUTTON (d->case_sensitive)->active,
 				    GTK_TOGGLE_BUTTON (d->backward)->active == 0, d->cd->regular);
 		break;
+	case GTK_RESPONSE_CLOSE:
+		gtk_widget_grab_focus (GTK_WIDGET (d->cd->html));
+		break;
 	}
 }
 

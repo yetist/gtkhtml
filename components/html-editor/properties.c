@@ -70,6 +70,7 @@ static void
 prop_close (GtkHTMLEditPropertiesDialog *d)
 {
 	gtk_dialog_response (GTK_DIALOG (d->dialog), GTK_RESPONSE_CANCEL);
+	gtk_widget_grab_focus (GTK_WIDGET (d->control_data->html));
 	gtk_html_edit_properties_dialog_destroy (d);
 }
 

@@ -1,3 +1,11 @@
+2003-07-31  Radek Doulik  <rodo@ximian.com>
+
+	* replace.c (ask_dialog_response): as below
+
+	* search.c (search_dialog_response): as below
+
+	* properties.c (prop_close): grab focus after closing prop dialog
+
 2003-06-28  Alex Jiang <alex.jiang@sun.com>
 
 	* image.c (changed_template): before clear option data, check 
