@@ -39,28 +39,32 @@ HTMLImageClass html_image_class;
 
 
 static guint
-get_actual_width (HTMLImage *image)
+get_actual_width (HTMLImage *image,
+		  HTMLPainter *painter)
 {
 	if (image->specified_width > 0) {
-		return image->specified_width;
+		return image->specified_width * html_painter_get_pixel_size (painter);
 	} else if (HTML_OBJECT (image)->percent > 0) {
 		return (HTML_OBJECT (image)->max_width * HTML_OBJECT (image)->percent) / 100;
 	} else if (image->image_ptr == NULL || image->image_ptr->pixbuf == NULL) {
-		return DEFAULT_SIZE;
+		return DEFAULT_SIZE * html_painter_get_pixel_size (painter);
 	} else {
-		return gdk_pixbuf_get_width (image->image_ptr->pixbuf);
+		return (gdk_pixbuf_get_width (image->image_ptr->pixbuf)
+			* html_painter_get_pixel_size (painter));
 	}
 }
 
 static guint
-get_actual_height (HTMLImage *image)
+get_actual_height (HTMLImage *image,
+		   HTMLPainter *painter)
 {
 	if (image->specified_height > 0) {
-		return image->specified_height;
+		return image->specified_height * html_painter_get_pixel_size (painter);
 	} else if (image->image_ptr == NULL || image->image_ptr->pixbuf == NULL) {
-		return DEFAULT_SIZE;
+		return DEFAULT_SIZE * html_painter_get_pixel_size (painter);
 	} else {
-		return gdk_pixbuf_get_height (image->image_ptr->pixbuf);
+		return (gdk_pixbuf_get_height (image->image_ptr->pixbuf)
+			* html_painter_get_pixel_size (painter));
 	}
 }
 
@@ -90,11 +94,11 @@ calc_min_width (HTMLObject *o,
 	if (o->percent > 0)
 		min_width = 1;
 	else
-		min_width = get_actual_width (HTML_IMAGE (o));
+		min_width = get_actual_width (HTML_IMAGE (o), painter);
 
-	min_width += HTML_IMAGE (o)->border * 2;
+	min_width += HTML_IMAGE (o)->border * 2 * pixel_size;
 
-	return pixel_size * min_width;
+	return pixel_size;
 }
 
 static gint
@@ -105,9 +109,10 @@ calc_preferred_width (HTMLObject *o,
 	guint width;
 
 	pixel_size = html_painter_get_pixel_size (painter);
-	width = get_actual_width (HTML_IMAGE (o)) + HTML_IMAGE (o)->border * 2;
+	width = (get_actual_width (HTML_IMAGE (o), painter)
+		 + HTML_IMAGE (o)->border * 2 * pixel_size);
 
-	return pixel_size * width;
+	return pixel_size;
 }
 
 static void
@@ -122,12 +127,12 @@ calc_size (HTMLObject *o,
 
 	pixel_size = html_painter_get_pixel_size (painter);
 
-	width = get_actual_width (image);
-	height = get_actual_height (image);
+	width = get_actual_width (image, painter);
+	height = get_actual_height (image, painter);
 
-	o->width = (width + image->border * 2) * pixel_size;
+	o->width = width + image->border * 2 * pixel_size;
 	o->descent = image->border * pixel_size;
-	o->ascent = (height + image->border) * pixel_size;
+	o->ascent = height + image->border * pixel_size;
 }
 
 static void
@@ -160,8 +165,8 @@ draw (HTMLObject *o,
 	base_x = o->x + tx + image->border * pixel_size;
 	base_y = o->y - o->ascent + ty + image->border * pixel_size;
 
-	scale_width = get_actual_width (image) * pixel_size;
-	scale_height = get_actual_height (image) * pixel_size;
+	scale_width = get_actual_width (image, painter);
+	scale_height = get_actual_height (image, painter);
 
 	if (o->selected)
 		color = html_painter_get_default_highlight_color (painter);
