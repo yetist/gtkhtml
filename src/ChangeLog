@@ -1,3 +1,9 @@
+2000-12-08  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlengine.c (parse_object_params): make sure we parse the
+	string once we have already removed TAG_ESCAPE so that param
+	parsing works properly.
+
 2000-12-08  Radek Doulik  <rodo@helixcode.com>
 
 	* htmltable.c (get_bg_color): new method

@@ -1278,7 +1278,9 @@ parse_object_params(HTMLEngine *p, HTMLObject *clue)
 		} else if (*str == TAG_ESCAPE) {
 			str++;
 			if (strncasecmp ("<param", str, 6) == 0) {
-				str = html_tokenizer_next_token (p->ht);
+				/* go ahead and remove the token */
+				html_tokenizer_next_token (p->ht);
+
 				parse_one_token (p, clue, str);
 				continue;
 			}
