@@ -295,10 +295,7 @@ key_press_event (GtkWidget *widget,
 		if (event->length == 0) {
 			retval = FALSE;
 		} else {
-			guint n;
-
-			n = html_engine_insert (engine, event->string, event->length);
-			html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_RIGHT, n);
+			html_engine_insert (engine, event->string, event->length);
 			retval = TRUE;
 		}
 	}

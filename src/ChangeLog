@@ -1,3 +1,13 @@
+2000-01-25  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmldrawqueue.c (draw_obj): Don't draw the cursor here as the
+	idle loop handler will take care of it.
+
+	* gtkhtml.c (key_press_event): Don't move the cursor forward when
+	inserting text, as `html_engine_insert()' now does this.
+
+	* htmlengine-edit.c (html_engine_insert): Move the cursor forward.
+
 2000-01-24  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlimage.c (accepts_cursor): New function, implementation of

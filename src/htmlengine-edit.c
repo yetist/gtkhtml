@@ -241,7 +241,7 @@ html_engine_insert (HTMLEngine *e,
 		    guint len)
 {
 	HTMLObject *current_object;
-	guint retval;
+	guint n;
 
 	g_return_val_if_fail (e != NULL, 0);
 	g_return_val_if_fail (HTML_IS_ENGINE (e), 0);
@@ -260,12 +260,14 @@ html_engine_insert (HTMLEngine *e,
 
 	html_engine_draw_cursor (e);
 
-	retval = html_text_insert_text (HTML_TEXT (current_object), e,
-					e->cursor->offset, text, len);
+	n = html_text_insert_text (HTML_TEXT (current_object), e,
+				   e->cursor->offset, text, len);
+
+	e->cursor->offset += n;
 
 	html_engine_draw_cursor (e);
 
-	return retval;
+	return n;
 }
 
 

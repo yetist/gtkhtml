@@ -268,9 +268,6 @@ draw_obj (HTMLDrawQueue *queue,
 	/* Done.  */
 
 	html_painter_end (e->painter);
-
-	if (e->editable)
-		html_engine_draw_cursor_in_area (e, x1, y1, x2 - x1, y2 - y1);
 }
 
 static void
