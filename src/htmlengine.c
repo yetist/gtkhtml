@@ -2359,7 +2359,7 @@ parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 			image = html_image_new (e->image_factory, tmpurl,
 						e->url, e->target,
 						width, height,
-						percent_width, percent_height, border, color, valign);
+						percent_width, percent_height, border, color, valign, FALSE);
 
 			if (id) {
 				html_engine_add_object_with_id (e, id, (HTMLObject *) image);
