@@ -1,3 +1,10 @@
+2001-08-10  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (realize): if no one has put us in a scrolled window
+	or set our adjustments go ahead and create the adjustments
+	ourself.  This will prevent the widget from sefaulting in this
+	case.
+
 2001-08-09  Larry Ewing  <lewing@ximian.com>
 
 	* htmlclueflow.c (save_plain): never let the requested length be

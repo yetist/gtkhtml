@@ -634,9 +634,16 @@ key_press_event (GtkWidget *widget,
 	html->binding_handled = FALSE;
 	html->priv->update_styles = FALSE;
 	if (html->editor_bindings && html_engine_get_editable (html->engine))
-		gtk_binding_set_activate (html->editor_bindings, event->keyval, event->state, GTK_OBJECT (widget));
+		gtk_binding_set_activate (html->editor_bindings, 
+					  event->keyval, 
+					  event->state, 
+					  GTK_OBJECT (widget));
+
 	if (!html->binding_handled)
-		gtk_bindings_activate (GTK_OBJECT (widget), event->keyval, event->state);
+		gtk_bindings_activate (GTK_OBJECT (widget), 
+				       event->keyval,
+				       event->state);
+	
 	retval = html->binding_handled;
 	update = html->priv->update_styles;
 
@@ -646,13 +653,19 @@ key_press_event (GtkWidget *widget,
 	    && event->length > 0) {
 		gchar *str;
 
-		/* printf ("event length: %d s[0]: %d string: '%s'\n", event->length, event->string [0], event->string); */
+		/*
+		printf ("event length: %d s[0]: %d string: '%s'\n", 
+			event->length, event->string [0], event->string); 
+		*/
+
 		str = e_utf8_from_gtk_event_key (widget, event->keyval, event->string);
 		/* printf ("len: %d str: %s\n", str ? g_utf8_strlen (str, -1) : -1, str); */
 		if (str)
 			html_engine_paste_text (html->engine, str, g_utf8_strlen (str, -1));
 		else if (event->length == 1 && event->string
-			 && ((guchar)event->string [0]) > 0x20 && ((guchar)event->string [0]) < 0x80)
+			 && ((guchar)event->string [0]) > 0x20 
+			 && ((guchar)event->string [0]) < 0x80)
+
 			html_engine_paste_text (html->engine, event->string, 1);
 		g_free (str);
 		retval = TRUE;
@@ -674,11 +687,13 @@ static void
 realize (GtkWidget *widget)
 {
 	GtkHTML *html;
+	GtkLayout *layout;
 
 	g_return_if_fail (widget != NULL);
 	g_return_if_fail (GTK_IS_HTML (widget));
 
 	html = GTK_HTML (widget);
+	layout = GTK_LAYOUT (widget);
 
 	if (GTK_WIDGET_CLASS (parent_class)->realize)
 		(* GTK_WIDGET_CLASS (parent_class)->realize) (widget);
@@ -700,6 +715,31 @@ realize (GtkWidget *widget)
            erase the newly exposed area, thus making the thing smoother.  */
 	gdk_window_set_back_pixmap (html->layout.bin_window, NULL, FALSE);
 
+	/* If someone was silly enough to stick us in something that doesn't 
+	 * have adjustments, go ahead and create them now
+	 */
+#if 0
+	if (layout->hadjustment == NULL)
+		gtk_layout_set_hadjustment (layout, NULL);
+
+	if (layout->vadjustment == NULL)
+		gtk_layout_set_vadjustment (layout, NULL);
+#else 
+	if (layout->hadjustment == NULL) {
+		layout->hadjustment = GTK_ADJUSTMENT (gtk_adjustment_new (0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+
+		gtk_object_ref (GTK_OBJECT (layout->hadjustment));
+		gtk_object_sink (GTK_OBJECT (layout->hadjustment));
+	}
+
+	if (layout->vadjustment == NULL) {
+		layout->vadjustment = GTK_ADJUSTMENT (gtk_adjustment_new (0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+		
+		gtk_object_ref (GTK_OBJECT (layout->vadjustment));
+		gtk_object_sink (GTK_OBJECT (layout->vadjustment));	
+	}
+#endif
+		
 #ifdef GTK_HTML_USE_XIM
 	gtk_html_im_realize (html);
 #endif /* GTK_HTML_USE_XIM */
