@@ -6,13 +6,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-29 16:53+0100\n"
-"PO-Revision-Date: 2004-08-21 02:33+0200\n"
+"POT-Creation-Date: 2004-12-28 11:40+0100\n"
+"PO-Revision-Date: 2004-12-28 11:41+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
+
+#: a11y/object.c:50 a11y/object.c:59
+msgid "grab focus"
+msgstr "ta fokus"
+
+#: a11y/object.c:211
+msgid "Panel containing HTML"
+msgstr "Panel som inneholder HTML"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -592,7 +600,7 @@ msgstr "Gjenopprett angret handling"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: components/html-editor/replace.c:161 components/html-editor/replace.c:223
+#: components/html-editor/replace.c:163 components/html-editor/replace.c:225
 msgid "Replace"
 msgstr "Erstatt"
 
@@ -1730,19 +1738,19 @@ msgstr "_Neste"
 msgid "_Replace"
 msgstr "E_rstatt"
 
-#: components/html-editor/replace.c:169
+#: components/html-editor/replace.c:171
 msgid "Search _backward"
 msgstr "Søk _bakover"
 
-#: components/html-editor/replace.c:170 components/html-editor/search.c:114
+#: components/html-editor/replace.c:172 components/html-editor/search.c:114
 msgid "Case _sensitive"
 msgstr "_Skill mellom store/små bokstaver"
 
-#: components/html-editor/replace.c:180
+#: components/html-editor/replace.c:182
 msgid "Replace:"
 msgstr "Erstatt:"
 
-#: components/html-editor/replace.c:183
+#: components/html-editor/replace.c:185
 msgid "With:"
 msgstr "Bredde:"
 
@@ -1759,6 +1767,8 @@ msgid ""
 "Unable to add word to dictionary,\n"
 "language settings are broken.\n"
 msgstr ""
+"Kan ikke legge til ord i ordboken.\n"
+"Innstillingene for språk er feil.\n"
 
 #: components/html-editor/spell.c:298
 msgid "No misspelled word found"
@@ -1876,89 +1886,89 @@ msgstr ""
 "Redigert objekt er fjernet fra dokumentet.\n"
 "Kan ikke bruke dine endringer."
 
-#: src/gtkhtml.c:2569
+#: src/gtkhtml.c:2579
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 "Mozilla-URL sluppet i skrivevindu hadde feil format (%d) eller lengde (%d)\n"
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2929
 msgid "Editable"
 msgstr "Redigerbar"
 
-#: src/gtkhtml.c:2892
+#: src/gtkhtml.c:2930
 msgid "Whether the html can be edited"
 msgstr "Om HTML-koden kan redigeres"
 
-#: src/gtkhtml.c:2898
+#: src/gtkhtml.c:2936
 msgid "Document Title"
 msgstr "Dokumenttittel"
 
-#: src/gtkhtml.c:2899
+#: src/gtkhtml.c:2937
 msgid "The title of the current document"
 msgstr "Tittel for aktivt dokument"
 
-#: src/gtkhtml.c:2905
+#: src/gtkhtml.c:2943
 msgid "Document Base"
 msgstr "Dokumentbasis"
 
-#: src/gtkhtml.c:2906
+#: src/gtkhtml.c:2944
 msgid "The base URL for relative references"
 msgstr "Basis-URL for relative referanser"
 
-#: src/gtkhtml.c:2912
+#: src/gtkhtml.c:2950
 msgid "Target Base"
 msgstr "Målbasis"
 
-#: src/gtkhtml.c:2913
+#: src/gtkhtml.c:2951
 msgid "The base URL of the targe frame"
 msgstr "Basis-URL for målrammen"
 
-#: src/gtkhtml.c:2922
+#: src/gtkhtml.c:2960
 msgid "Fixed Width Font"
 msgstr "Skrift med fast bredde"
 
-#: src/gtkhtml.c:2923
+#: src/gtkhtml.c:2961
 msgid "The Monospace font to use for typewriter text"
 msgstr "Skrift med fast bredde som skal brukes for skrivemaskintekst"
 
-#: src/gtkhtml.c:2929
+#: src/gtkhtml.c:2967
 msgid "New Link Color"
 msgstr "Farge for ny lenke"
 
-#: src/gtkhtml.c:2930
+#: src/gtkhtml.c:2968
 msgid "The color of new link elements"
 msgstr "Farge for nye lenkeelementer"
 
-#: src/gtkhtml.c:2935
+#: src/gtkhtml.c:2973
 msgid "Visited Link Color"
 msgstr "Farge for besøkt lenke"
 
-#: src/gtkhtml.c:2936
+#: src/gtkhtml.c:2974
 msgid "The color of visited link elements"
 msgstr "Farge for besøkte lenkeelementer"
 
-#: src/gtkhtml.c:2941
+#: src/gtkhtml.c:2979
 msgid "Active Link Color"
 msgstr "Farge for aktiv lenke"
 
-#: src/gtkhtml.c:2942
+#: src/gtkhtml.c:2980
 msgid "The color of active link elements"
 msgstr "Farge for aktive lenkeelementer"
 
-#: src/gtkhtml.c:2947
+#: src/gtkhtml.c:2985
 msgid "Spelling Error Color"
 msgstr "Farge for stavefeil"
 
-#: src/gtkhtml.c:2948
+#: src/gtkhtml.c:2986
 msgid "The color of the spelling error markers"
 msgstr "Farge for markering av stavefeil"
 
-#: src/gtkhtml.c:2953
+#: src/gtkhtml.c:2991
 msgid "Cite Quotation Color"
 msgstr "Farge på sitattekst"
 
-#: src/gtkhtml.c:2954
+#: src/gtkhtml.c:2992
 msgid "The color of the cited text"
 msgstr "Farge på sitert tekst"
 
@@ -2027,218 +2037,14 @@ msgstr "Kan ikke tildele forvalgt skrif for utskrift\n"
 msgid "GtkHTML Test"
 msgstr "GtkHTML-test"
 
-#~ msgid "Print pre_view"
-#~ msgstr "Forhånds_visning"
+#: src/testgtkhtml.c:117
+msgid "Print pre_view"
+msgstr "Forhånds_visning"
 
-#~ msgid "Print preview"
-#~ msgstr "Forhåndsvisning"
+#: src/testgtkhtml.c:117
+msgid "Print preview"
+msgstr "Forhåndsvisning"
 
-#~ msgid "GtkHTML Test Application"
-#~ msgstr "Test-applikasjon for GtkHTML"
-
-#~ msgid "Plain"
-#~ msgstr "Vanlig"
-
-#~ msgid ""
-#~ "@link_begin@<img@alt@@width@@height@@align@ "
-#~ "border=@border@@padh@@padv@@src@>@link_end@"
-#~ msgstr ""
-#~ "@link_begin@<img@alt@width@@height@@align@ "
-#~ "border=@border@@padh@@padv@@src@>@link_end@"
-
-#~ msgid "Frame"
-#~ msgstr "Ramme"
-
-#~ msgid ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
-#~ "table></center>"
-#~ msgstr ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@width@@height@align=top border=0></td></tr></table></td></tr></"
-#~ "table></center>"
-
-#~ msgid "Caption"
-#~ msgstr "Topptekst"
-
-#~ msgid ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place "
-#~ "your comment here]</td></tr></table></td></tr></table></center>"
-#~ msgstr ""
-#~ "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
-#~ "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
-#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
-#~ "@src@@width@@height@align=top border=0></td></tr><tr><td><b>[Plasser din "
-#~ "kommentar her]</td></tr></table></td></tr></table></center>"
-
-#~ msgid "Find A Regular Expression"
-#~ msgstr "Søk etter et vanlig uttrykk"
-
-#~ msgid "Find Regular E_xpression..."
-#~ msgstr "Finn vanlig uttr_ykk..."
-
-#~ msgid ""
-#~ "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a "
-#~ "href=\"mailto:dog\">dog</a>."
-#~ msgstr "Dette er en prøve med en <a href=\"mailto:test\">lenke</a>."
-
-#~ msgid "The quick brown fox jumps over the lazy dog."
-#~ msgstr "Dette er en prøve...testing en - to - tre."
-
-#~ msgid "Other"
-#~ msgstr "Annet"
-
-#~ msgid ""
-#~ "The editted cell was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "Redigert celle er fjernet fra dokumentet.\n"
-#~ "Kan ikke bruke dine endringer."
-
-#~ msgid "************"
-#~ msgstr "************"
-
-#~ msgid "***text***"
-#~ msgstr "***tekst***"
-
-#~ msgid "Apply changes to:"
-#~ msgstr "Påfør endringer til:"
-
-#~ msgid "Border"
-#~ msgstr "Kant"
-
-#~ msgid "Click will follow this URL"
-#~ msgstr "Klikk for å følge denne URLen"
-
-#~ msgid "Click will follow this URL:"
-#~ msgstr "Klikk for å følge denne URLen:"
-
-#~ msgid "Don't wrap"
-#~ msgstr "Ikke bryt"
-
-#~ msgid "Font size"
-#~ msgstr "Skriftstørrelse"
-
-#~ msgid "Foreground color"
-#~ msgstr "Forgrunnsfarge"
-
-#~ msgid "Header"
-#~ msgstr "Tittel"
-
-#~ msgid "Link insert"
-#~ msgstr "Sett inn lenke"
-
-#~ msgid "Location"
-#~ msgstr "Lokasjon"
-
-#~ msgid "Padding"
-#~ msgstr "Fyll"
-
-#~ msgid "Percent %"
-#~ msgstr "Prosent %"
-
-#~ msgid "Pixmap:"
-#~ msgstr "Bilde:"
-
-#~ msgid "Points"
-#~ msgstr "Punkter"
-
-#~ msgid "Scope"
-#~ msgstr "Område"
-
-#~ msgid "Spacing"
-#~ msgstr "Mellomrom"
-
-#~ msgid "Style:"
-#~ msgstr "Stil:"
-
-#~ msgid "Table Insert"
-#~ msgstr "Sett inn tabell"
-
-#~ msgid "Test URL..."
-#~ msgstr "Test URL..."
-
-#~ msgid "Wrap"
-#~ msgstr "Bryt"
-
-#~ msgid "Wrapping:"
-#~ msgstr "Bryting:"
-
-#~ msgid "xxxxxxxxx"
-#~ msgstr "xxxxxxxxx"
-
-#~ msgid ""
-#~ "This is sample text, designed to show you how text would flow around this "
-#~ "image if you insert the image into your message."
-#~ msgstr ""
-#~ "Dette er eksempeltekst. Denne skal vise deg hvordan teksten flyter rundt "
-#~ "dette bildet hvis du setter inn bildet i meldingen."
-
-#~ msgid "No image selected"
-#~ msgstr "Ingen bilder valgt"
-
-#~ msgid ""
-#~ "The editted image was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "Redigert bilde er fjernet fra dokumentet.\n"
-#~ "Kan ikke bruke dine endringer."
-
-#~ msgid "Link text"
-#~ msgstr "Tekst i lenke"
-
-#~ msgid ""
-#~ "The editted link was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "Redigert lenke er fjernet fra dokumentet.\n"
-#~ "Kan ikke bruke dine endringer."
-
-#~ msgid "Please fill 'Link text' and 'URL' entries"
-#~ msgstr "Vennligst fyll ut oppføringene «Lenketekst» og «URL»"
-
-#~ msgid "Align"
-#~ msgstr "Juster"
-
-#~ msgid ""
-#~ "The editted paragraph was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "Redigert avsnitt er fjernet fra dokumentet.\n"
-#~ "Kan ikke bruke dine endringer."
-
-#~ msgid "Blue 3D"
-#~ msgstr "Blå 3D"
-
-#~ msgid "Yellow, flowers"
-#~ msgstr "Gul, blomster"
-
-#~ msgid ""
-#~ "The editted rule was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "Redigert regel er fjernet fra dokumenetet.\n"
-#~ "Kan ikke bruke dine endringer."
-
-#~ msgid "Flat gray"
-#~ msgstr "Flat grå"
-
-#~ msgid "Dark header"
-#~ msgstr "Mørk topptekst"
-
-#~ msgid ""
-#~ "The editted table was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "Redigert tabell er fjernet fra dokumentet.\n"
-#~ "Kan ikke bruke dine endringer."
-
-#~ msgid "Color"
-#~ msgstr "Farge"
+#: src/testgtkhtml.c:1004
+msgid "GtkHTML Test Application"
+msgstr "Test-applikasjon for GtkHTML"
