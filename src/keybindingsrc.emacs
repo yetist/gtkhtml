@@ -55,4 +55,12 @@ binding "gtkhtml-bindings-emacs"
   bind "<Ctrl><Alt>1"       { "command" (style-itemdot) }
   bind "<Ctrl><Alt>2"       { "command" (style-itemroman) }
   bind "<Ctrl><Alt>3"       { "command" (style-itemdigit) }
+
+  bind "<Alt>1"             { "command" (size-minus-2) }
+  bind "<Alt>2"             { "command" (size-minus-1) }
+  bind "<Alt>3"             { "command" (size-plus-0) }
+  bind "<Alt>4"             { "command" (size-plus-1) }
+  bind "<Alt>5"             { "command" (size-plus-2) }
+  bind "<Alt>6"             { "command" (size-plus-3) }
+  bind "<Alt>7"             { "command" (size-plus-4) }
 }

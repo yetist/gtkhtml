@@ -290,6 +290,7 @@ insert_chars (HTMLEngine *e,
            different.  This means that we possibly have to split the
            element.  FIXME: Notice that we need something for color
            too.  */
+	printf ("cur style: %d ins style: %d\n", HTML_TEXT (curr)->font_style, style);
 	if (HTML_TEXT (curr)->font_style != style)
 		return insert_chars_different_style (e, text, len, style);
 

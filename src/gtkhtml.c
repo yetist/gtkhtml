@@ -575,10 +575,12 @@ key_press_event (GtkWidget *widget,
 {
 	GtkHTML *html = GTK_HTML (widget);
 	gboolean retval;
+	gint position = html->engine->cursor->position;
 
 	html->binding_handled = FALSE;
 	gtk_bindings_activate (GTK_OBJECT (widget), event->keyval, event->state);
 	retval = html->binding_handled;
+
 
 	if (! retval
 	    && html_engine_get_editable (html->engine)
@@ -597,7 +599,8 @@ key_press_event (GtkWidget *widget,
 
 	if (retval) {
 		queue_draw (html);
-		update_styles (html);
+		if (position != html->engine->cursor->position)
+			update_styles (html);
 	}
 
 	return retval;
@@ -1960,6 +1963,27 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		break;
 	case GTK_HTML_COMMAND_TOGGLE_STRIKEOUT:
 		html_engine_font_style_toggle (html->engine, GTK_HTML_FONT_STYLE_STRIKEOUT);
+		break;
+	case GTK_HTML_COMMAND_SIZE_MINUS_2:
+		html_engine_set_font_style (html->engine, ~GTK_HTML_FONT_STYLE_SIZE_MASK, GTK_HTML_FONT_STYLE_SIZE_1);
+		break;
+	case GTK_HTML_COMMAND_SIZE_MINUS_1:
+		html_engine_set_font_style (html->engine, ~GTK_HTML_FONT_STYLE_SIZE_MASK, GTK_HTML_FONT_STYLE_SIZE_2);
+		break;
+	case GTK_HTML_COMMAND_SIZE_PLUS_0:
+		html_engine_set_font_style (html->engine, ~GTK_HTML_FONT_STYLE_SIZE_MASK, GTK_HTML_FONT_STYLE_SIZE_3);
+		break;
+	case GTK_HTML_COMMAND_SIZE_PLUS_1:
+		html_engine_set_font_style (html->engine, ~GTK_HTML_FONT_STYLE_SIZE_MASK, GTK_HTML_FONT_STYLE_SIZE_4);
+		break;
+	case GTK_HTML_COMMAND_SIZE_PLUS_2:
+		html_engine_set_font_style (html->engine, ~GTK_HTML_FONT_STYLE_SIZE_MASK, GTK_HTML_FONT_STYLE_SIZE_5);
+		break;
+	case GTK_HTML_COMMAND_SIZE_PLUS_3:
+		html_engine_set_font_style (html->engine, ~GTK_HTML_FONT_STYLE_SIZE_MASK, GTK_HTML_FONT_STYLE_SIZE_6);
+		break;
+	case GTK_HTML_COMMAND_SIZE_PLUS_4:
+		html_engine_set_font_style (html->engine, ~GTK_HTML_FONT_STYLE_SIZE_MASK, GTK_HTML_FONT_STYLE_SIZE_7);
 		break;
 	case GTK_HTML_COMMAND_ALIGN_LEFT:
 		gtk_html_align_paragraph (html, GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT);

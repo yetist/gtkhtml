@@ -794,8 +794,12 @@ html_engine_set_font_style (HTMLEngine *engine,
 		return;
 	}
 
+	printf ("old %d\n", engine->insertion_font_style);
+
 	engine->insertion_font_style &= and_mask;
 	engine->insertion_font_style |= or_mask;
+
+	printf ("new %d and_mask %d or_mask %d\n", engine->insertion_font_style, and_mask, or_mask);
 }
 
 void

@@ -1,3 +1,16 @@
+2000-06-23  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml.c (key_press_event): update styles only if cursor
+	changed position
+
+	* keybindingsrc.ms: same as below
+
+	* keybindingsrc.emacs: added new bindings (Alt 1..7 sets font sizes)
+
+	* gtkhtml.c (command): new commands implementation
+
+	* gtkhtml-properties.c: added new commands for size setting/increasing/decreasing
+
 2000-06-22  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlclueflow.c (draw_background): draw our parent in the region
