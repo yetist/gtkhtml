@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
-"POT-Creation-Date: 2002-10-26 12:13+0200\n"
+"POT-Creation-Date: 2002-10-28 02:14-0600\n"
 "PO-Revision-Date: 2002-10-26 12:14+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -1248,7 +1248,7 @@ msgstr "Tekst i lenke"
 #: components/html-editor/menubar.c:122 components/html-editor/menubar.c:138
 #: components/html-editor/menubar.c:156 components/html-editor/menubar.c:173
 #: components/html-editor/menubar.c:196 components/html-editor/popup.c:102
-#: components/html-editor/properties.c:120
+#: components/html-editor/properties.c:121
 msgid "Insert"
 msgstr "Sett inn"
 

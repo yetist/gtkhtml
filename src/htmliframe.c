@@ -227,7 +227,7 @@ static gint
 check_page_split (HTMLObject *self, gint y)
 {
 	gint y1, y2;
-	HTMLEngine *e = GTK_HTML (HTML_IFRAME (self)->html)->engine->clue;
+	HTMLEngine *e = GTK_HTML (HTML_IFRAME (self)->html)->engine;
 
 	y1 = self->y - self->ascent + e->topBorder;
 	y2 = self->y + self->descent + e->topBorder;

@@ -23,9 +23,9 @@
 #include <string.h>
 
 #include "gtkhtmlfontstyle.h"
-
 #include "htmlfontmanager.h"
 #include "htmlpainter.h"
+#include "htmlengine.h"
 
 static void
 html_font_set_init (HTMLFontSet *set, gchar *face)

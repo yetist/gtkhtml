@@ -639,10 +639,10 @@ toolbar_item_update_sensitivity (GtkWidget *widget, gpointer data)
 	GtkHTMLControlData *cd = (GtkHTMLControlData *)data;
 	gboolean sensitive;
 
-	sensitive = (cd->format_html && widget != cd->unindent_button
+	sensitive = ((cd->format_html && widget != cd->unindent_button)
 		     || widget == cd->paragraph_option
 		     || widget == cd->indent_button
-		     || widget == cd->unindent_button && gtk_html_get_paragraph_indentation (cd->html)
+		     || (widget == cd->unindent_button && gtk_html_get_paragraph_indentation (cd->html))
 		     || widget == cd->left_align_button
 		     || widget == cd->center_button
 		     || widget == cd->right_align_button);

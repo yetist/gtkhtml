@@ -795,7 +795,7 @@ update_top_height (HTMLObject *begin, HTMLObject *end, gint *a, gint *d, gint *h
 static inline void
 update_line_positions (HTMLObject *clue, HTMLObject *begin, HTMLObject *end, gint left, gint a, gint d, gint height)
 {
-	gint xinc;
+	gint xinc = 0;
 
 	switch (html_clueflow_get_halignment (HTML_CLUEFLOW (clue))) {
 	case HTML_HALIGN_NONE:

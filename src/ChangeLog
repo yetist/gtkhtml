@@ -1,3 +1,19 @@
+2002-10-28  Larry Ewing  <lewing@ximian.com>
+
+	* htmlselect.c (html_select_set_text): only measure the string if
+	there is one.
+
+	* htmliframe.c (check_page_split): Initialize the engine from the
+	the proper pointer.
+
+	* htmlfontmanager.c (html_font_manager_set_default): add header to
+	silence warning.
+
+	* htmlgdkpainter.c (find_font_with_similar_size): silence
+	warnings.
+	
+	* htmlclueflow.c (update_line_positions): silence warning.
+
 2002-10-27  Larry Ewing  <lewing@ximian.com>
 
 	* htmltable.c (check_point): return with warning if we haven't had

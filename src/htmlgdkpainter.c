@@ -241,7 +241,7 @@ find_font_with_similar_size (gchar **list, gint n, gint size, gboolean points, g
 	if (n) {
 		gint i, small, large, as, small_idx, large_idx;
 
-		small = large = 0;
+		small = large = small_idx = large_idx = 0;
 		for (i = 0; i < n; i++) {
 			as = get_size (list [i], points);
 

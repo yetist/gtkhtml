@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.0\n"
-"POT-Creation-Date: 2002-10-07 16:28-0500\n"
+"POT-Creation-Date: 2002-10-28 02:14-0600\n"
 "PO-Revision-Date: 2002-02-10 02:40+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <none@none.org>\n"
@@ -18,9 +18,9 @@ msgid "<None>"
 msgstr "<Nenhum>"
 
 #: capplet/gnome-bindings-prop.c:216 capplet/main.c:253
-#: components/html-editor/cell.c:385 components/html-editor/image.c:541
+#: components/html-editor/cell.c:391 components/html-editor/image.c:543
 #: components/html-editor/rule.c:315 components/html-editor/table.c:528
-#: components/html-editor/table.c:619 components/html-editor/template.c:244
+#: components/html-editor/table.c:619 components/html-editor/template.c:249
 msgid "Could not load glade file."
 msgstr "Incapaz de carregar ficheiro glade."
 
@@ -440,7 +440,7 @@ msgid "Li_ck"
 msgstr "Link"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
-#: components/html-editor/body.c:307 components/html-editor/menubar.c:141
+#: components/html-editor/body.c:327 components/html-editor/menubar.c:141
 #: components/html-editor/popup.c:105 components/html-editor/popup.c:201
 #: components/html-editor/popup.c:274
 msgid "Link"
@@ -605,7 +605,7 @@ msgstr "Seleccionar o conteudo completo do documento"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
 #: components/html-editor/gtkhtml-editor-properties.glade.h:68
-#: components/html-editor/text.c:222 components/html-editor/toolbar.c:534
+#: components/html-editor/text.c:233 components/html-editor/toolbar.c:534
 msgid "Strikeout"
 msgstr "Riscar"
 
@@ -646,7 +646,7 @@ msgid "Te_xt file..."
 msgstr "Abrir ficheiro..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
-#: components/html-editor/body.c:233
+#: components/html-editor/body.c:253
 #: components/html-editor/gtkhtml-editor-properties.glade.h:73
 #: components/html-editor/menubar.c:199
 msgid "Template"
@@ -856,50 +856,66 @@ msgstr "Link"
 msgid "etc..."
 msgstr "etc..."
 
-#: components/html-editor/body.c:63
+#: components/html-editor/body.c:65
 #: components/html-editor/gtkhtml-editor-properties.glade.h:47
 msgid "None"
 msgstr "Nenhum"
 
-#: components/html-editor/body.c:70
-msgid "Test"
-msgstr "Teste"
+#: components/html-editor/body.c:73
+msgid "Perforated Paper"
+msgstr ""
 
-#: components/html-editor/body.c:77
-msgid "Test 1"
-msgstr "Teste 1"
+#: components/html-editor/body.c:81
+#, fuzzy
+msgid "Blue Ink"
+msgstr "Azul 3D"
 
-#: components/html-editor/body.c:251
+#: components/html-editor/body.c:89
+msgid "Rectangles"
+msgstr ""
+
+#: components/html-editor/body.c:271
 msgid "Document Title"
 msgstr "Título Documento"
 
-#: components/html-editor/body.c:255 components/html-editor/body.c:258
+#: components/html-editor/body.c:275 components/html-editor/body.c:278
 #: components/html-editor/gtkhtml-editor-properties.glade.h:14
 msgid "Background Image"
 msgstr "Imagem de Fundo"
 
-#: components/html-editor/body.c:284
+#: components/html-editor/body.c:304
 #: components/html-editor/gtkhtml-editor-properties.glade.h:24
 msgid "Colors"
 msgstr "Cores"
 
-#: components/html-editor/body.c:294 components/html-editor/cell.c:391
-#: components/html-editor/table.c:534 components/html-editor/text.c:283
+#: components/html-editor/body.c:314 components/html-editor/cell.c:397
+#: components/html-editor/table.c:534 components/html-editor/text.c:295
 #: components/html-editor/toolbar.c:306
 msgid "Automatic"
 msgstr "Automático"
 
-#: components/html-editor/body.c:306
+#: components/html-editor/body.c:326
 #: components/html-editor/editor-control-factory.c:196
 #: components/html-editor/gtkhtml-editor-properties.glade.h:75
 #: components/html-editor/menubar.c:339 components/html-editor/popup.c:194
 msgid "Text"
 msgstr "Texto"
 
-#: components/html-editor/body.c:308
+#: components/html-editor/body.c:328
 #: components/html-editor/gtkhtml-editor-properties.glade.h:13
 msgid "Background"
 msgstr "Fundo"
+
+#: components/html-editor/cell.c:164 components/html-editor/cell.c:166
+#: components/html-editor/text.c:105
+#, fuzzy
+msgid "The quick brown fox jumps over the lazy dog."
+msgstr "The quick brown fox jumped over the lazy dog."
+
+#: components/html-editor/cell.c:169
+#, fuzzy
+msgid "Other"
+msgstr "Outra..."
 
 #: components/html-editor/editor-control-factory.c:176
 #: components/html-editor/menubar.c:318 components/html-editor/menubar.c:336
@@ -952,7 +968,7 @@ msgid "Apply changes to:"
 msgstr "Aplicar modificações a:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:15
-#: components/html-editor/text.c:219 components/html-editor/toolbar.c:528
+#: components/html-editor/text.c:230 components/html-editor/toolbar.c:528
 msgid "Bold"
 msgstr "Negrito"
 
@@ -979,7 +995,7 @@ msgid "Center"
 msgstr "Centrar"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
-#: components/html-editor/link.c:115 components/html-editor/text.c:230
+#: components/html-editor/link.c:115 components/html-editor/text.c:241
 msgid "Click will follow this URL"
 msgstr "Clicar no URL leva-lo-á ao destino"
 
@@ -1047,7 +1063,7 @@ msgid "Horizontal:"
 msgstr "Horizontal:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:39
-#: components/html-editor/text.c:220 components/html-editor/toolbar.c:530
+#: components/html-editor/text.c:231 components/html-editor/toolbar.c:530
 msgid "Italic"
 msgstr "Itálico"
 
@@ -1132,7 +1148,7 @@ msgid "Shaded"
 msgstr "Sombreado"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:65
-#: components/html-editor/text.c:250
+#: components/html-editor/text.c:261
 msgid "Size"
 msgstr "Tamanho"
 
@@ -1145,7 +1161,7 @@ msgid "Spacing:"
 msgstr "Espaçamento:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#: components/html-editor/paragraph.c:110 components/html-editor/text.c:206
+#: components/html-editor/paragraph.c:110 components/html-editor/text.c:217
 msgid "Style"
 msgstr "Estilo"
 
@@ -1172,7 +1188,7 @@ msgid "Top"
 msgstr "Topo"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:78
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:532
+#: components/html-editor/text.c:232 components/html-editor/toolbar.c:532
 msgid "Underline"
 msgstr "Sublinhado"
 
@@ -1200,12 +1216,12 @@ msgstr "xxxxxxxxx"
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: components/html-editor/image.c:118 components/html-editor/rule.c:92
+#: components/html-editor/image.c:119 components/html-editor/rule.c:92
 #: components/html-editor/table.c:190
 msgid "Plain"
 msgstr "Simples"
 
-#: components/html-editor/image.c:120
+#: components/html-editor/image.c:121
 #, fuzzy
 msgid ""
 "@link_begin@<img@alt@@width@@height@@align@ "
@@ -1214,11 +1230,11 @@ msgstr ""
 "@link_begin@<img@width@@height@@align@ "
 "border=@border@@padh@@padv@@src@>@link_end@"
 
-#: components/html-editor/image.c:123
+#: components/html-editor/image.c:124
 msgid "Frame"
 msgstr "Frame"
 
-#: components/html-editor/image.c:125
+#: components/html-editor/image.c:126
 #, fuzzy
 msgid ""
 "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
@@ -1233,11 +1249,11 @@ msgstr ""
 "@src@@width@@height@align=top border=0></td></tr></table></td></tr></table></"
 "center>"
 
-#: components/html-editor/image.c:133
+#: components/html-editor/image.c:134
 msgid "Caption"
 msgstr "Título"
 
-#: components/html-editor/image.c:135
+#: components/html-editor/image.c:136
 #, fuzzy
 msgid ""
 "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
@@ -1252,11 +1268,7 @@ msgstr ""
 "@src@@width@@height@align=top border=0></td></tr><tr><td><b>[Insira o seu "
 "comentário aqui]</td></tr></table></td></tr></table></center>"
 
-#: components/html-editor/image.c:257
-msgid "The quick brown fox jumped over the lazy dog. "
-msgstr "The quick brown fox jumped over the lazy dog. "
-
-#: components/html-editor/image.c:259
+#: components/html-editor/image.c:258 components/html-editor/image.c:261
 msgid "The quick brown fox jumped over the lazy dog."
 msgstr "The quick brown fox jumped over the lazy dog."
 
@@ -1267,7 +1279,7 @@ msgstr "Link teste"
 #: components/html-editor/menubar.c:122 components/html-editor/menubar.c:138
 #: components/html-editor/menubar.c:156 components/html-editor/menubar.c:173
 #: components/html-editor/menubar.c:196 components/html-editor/popup.c:102
-#: components/html-editor/properties.c:120
+#: components/html-editor/properties.c:121
 msgid "Insert"
 msgstr "Inserir"
 
@@ -1484,50 +1496,21 @@ msgstr "Cinzento liso"
 msgid "Dark header"
 msgstr "Cabeçalho escuro"
 
-#: components/html-editor/template.c:81
+#: components/html-editor/template.c:83
 msgid "Note"
 msgstr "Nota"
 
-#: components/html-editor/template.c:83
-msgid ""
-"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
-"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
-"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
-msgstr ""
-"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
-"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
-"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
-
-#: components/html-editor/template.c:85
-msgid ""
-"/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
-"tr></table></td></tr></table>"
-msgstr ""
-"/bulb.png\" hspace=10></td><td width=\"100%\">Coloque o seu texto aqui</td></"
-"tr></table></td></tr></table>"
-
 #: components/html-editor/template.c:91
+msgid "Place your text here"
+msgstr ""
+
+#: components/html-editor/template.c:94
 msgid "Image frame"
 msgstr "Fram de imagem"
 
-#: components/html-editor/template.c:93
-msgid ""
-"<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
-"\"><tr><td align=\"center\"><img src=\"file://"
+#: components/html-editor/template.c:104
+msgid "Image 1: <b>description</b>"
 msgstr ""
-"<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
-"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
-"\"><tr><td align=\"center\"><img src=\"file://"
-
-#: components/html-editor/template.c:97
-msgid ""
-"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
-"\"-1\">Image 1: <b>description</b></font></td></tr></table></td></tr></table>"
-msgstr ""
-"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
-"\"-1\">Imagem 1: <b>description</b></font></td></tr></table></td></tr></"
-"table>"
 
 #: components/html-editor/test-html-editor-control.c:329
 msgid "Open file..."
@@ -1538,7 +1521,7 @@ msgid "Save file as..."
 msgstr "Gravar ficheiro como..."
 
 #. color selection
-#: components/html-editor/text.c:280
+#: components/html-editor/text.c:291
 msgid "Color"
 msgstr "Cor"
 
@@ -1609,6 +1592,51 @@ msgstr "Pre_ver impressão"
 #: src/testgtkhtml.c:99
 msgid "Print preview"
 msgstr "Prever impressão"
+
+#~ msgid "Test"
+#~ msgstr "Teste"
+
+#~ msgid "Test 1"
+#~ msgstr "Teste 1"
+
+#~ msgid "The quick brown fox jumped over the lazy dog. "
+#~ msgstr "The quick brown fox jumped over the lazy dog. "
+
+#~ msgid ""
+#~ "<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
+#~ "\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
+#~ "cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
+#~ msgstr ""
+#~ "<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
+#~ "\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
+#~ "cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
+
+#~ msgid ""
+#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
+#~ "tr></table></td></tr></table>"
+#~ msgstr ""
+#~ "/bulb.png\" hspace=10></td><td width=\"100%\">Coloque o seu texto aqui</"
+#~ "td></tr></table></td></tr></table>"
+
+#~ msgid ""
+#~ "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+#~ "@width@@align@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img src="
+#~ "\"file://"
+#~ msgstr ""
+#~ "<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+#~ "@width@@align@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+#~ "cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img src="
+#~ "\"file://"
+
+#~ msgid ""
+#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
+#~ "size=\"-1\">Image 1: <b>description</b></font></td></tr></table></td></"
+#~ "tr></table>"
+#~ msgstr ""
+#~ "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font "
+#~ "size=\"-1\">Imagem 1: <b>description</b></font></td></tr></table></td></"
+#~ "tr></table>"
 
 #~ msgid "Modify the file's properties"
 #~ msgstr "Modificar as propriedades do ficheiro"

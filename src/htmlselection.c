@@ -22,6 +22,7 @@
 #include <gtk/gtkselection.h>
 #include "htmlcursor.h"
 #include "htmlengine-edit-cursor.h"
+#include "htmlengine-edit-cut-and-paste.h"
 #include "htmlentity.h"
 #include "htmlinterval.h"
 #include "htmlselection.h"
