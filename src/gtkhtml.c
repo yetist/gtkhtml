@@ -888,8 +888,10 @@ button_press_event (GtkWidget *widget,
 			return TRUE;
 			break;
 		case 2:
-			gtk_html_request_paste (widget, event->time);
-			return TRUE;
+			if (html_engine_get_editable (engine)) {
+				gtk_html_request_paste (widget, event->time);
+				return TRUE;
+			}
 			break;
 		default:
 			break;

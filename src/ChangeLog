@@ -1,5 +1,7 @@
 2000-08-15  Radek Doulik  <rodo@helixcode.com>
 
+	* gtkhtml.c (button_press_event): do paste only in editable widget
+
 	* htmlengine.c (html_engine_get_word): likewise
 	(html_engine_word_is_valid): likewise
 	(html_engine_replace_word_with): likewise
