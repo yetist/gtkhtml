@@ -208,17 +208,23 @@ text_size (HTMLGdkPainter *painter, PangoFontDescription *desc, const gchar *tex
 static HTMLFont *
 alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, GtkHTMLFontStyle style)
 {
-	PangoFontDescription *desc;
-	
+	PangoFontDescription *desc = NULL;
+
 	if (face) {
 		desc = pango_font_description_from_string (face);
-	} else {
+	}
+
+	if (!desc || !pango_font_description_get_family (desc)) {
+		if (desc)
+			pango_font_description_free (desc);
+
 		desc = pango_font_description_copy (((HTMLGdkPainter *)painter)->style->font_desc);
 	}
-	
+
 	if (style & GTK_HTML_FONT_STYLE_FIXED) {
 		pango_font_description_set_family (desc, "Monospace");
 	}
+
 	pango_font_description_set_size (desc, size * PANGO_SCALE);
 	pango_font_description_set_style (desc, style & GTK_HTML_FONT_STYLE_ITALIC ? PANGO_STYLE_ITALIC : PANGO_STYLE_NORMAL);
 	pango_font_description_set_weight (desc, style & GTK_HTML_FONT_STYLE_BOLD ? PANGO_WEIGHT_BOLD : PANGO_WEIGHT_NORMAL);

@@ -1,5 +1,8 @@
 2003-04-08  Larry Ewing  <lewing@ximian.com>
 
+	* htmlgdkpainter.c (alloc_font): make sure that we end up with a
+	valid font description.
+
 	* htmlimage.c (html_image_factory_get_missing): helper function to
 	load the gtkstock missing image item.
 	(draw): add logic to draw missing image icon.
