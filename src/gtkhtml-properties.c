@@ -511,6 +511,7 @@ static GtkEnumValue _gtk_html_command_values[] = {
   { GTK_HTML_COMMAND_GRAB_FOCUS, "GTK_HTML_COMMAND_GRAB_FOCUS", "grab-focus" },
   { GTK_HTML_COMMAND_KILL_WORD, "GTK_HTML_COMMAND_KILL_WORD", "kill-word" },
   { GTK_HTML_COMMAND_KILL_WORD_BACKWARD, "GTK_HTML_COMMAND_KILL_WORD_BACKWARD", "backward-kill-word" },
+  { GTK_HTML_COMMAND_TEXT_COLOR_APPLY, "GTK_HTML_COMMAND_TEXT_COLOR_APPLY", "text-color-apply" },
   { 0, NULL, NULL }
 };
 

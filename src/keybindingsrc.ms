@@ -113,4 +113,6 @@ binding "gtkhtml-bindings-ms"
   bind "<Ctrl><Shift>p"       { "command" (inc-padding) }
   bind "<Ctrl><Alt>p"         { "command" (dec-padding) }
   bind "<Alt><Shift>p"        { "command" (zero-padding) }
+
+  bind "<Ctrl>o"              { "command" (text-color-apply) }
 }

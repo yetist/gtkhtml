@@ -120,4 +120,6 @@ binding "gtkhtml-bindings-emacs"
 
   bind "<Alt>d"              { "command" (kill-word) }
   bind "<Alt>BackSpace"      { "command" (backward-kill-word) }
+
+  bind "<Ctrl>o"              { "command" (text-color-apply) }
 }
