@@ -308,11 +308,9 @@ find_free_area (HTMLClue *clue, gint y,
 static void
 append_right_aligned (HTMLClue *clue, HTMLClue *aclue)
 {
-#if 0
 	/* This needs to be implemented in the subclasses.  */
 	g_warning ("`%s' does not implement `append_right_aligned()'.",
 		   html_type_name (HTML_OBJECT_TYPE (clue)));
-#endif
 }
 
 static gboolean
@@ -419,6 +417,12 @@ void
 html_clue_append_right_aligned (HTMLClue *clue, HTMLClue *aclue)
 {
 	(* HC_CLASS (clue)->append_right_aligned) (clue, aclue);
+}
+
+void
+html_clue_append_left_aligned (HTMLClue *clue, HTMLClue *aclue)
+{
+	(* HC_CLASS (clue)->append_left_aligned) (clue, aclue);
 }
 
 gboolean

@@ -376,15 +376,14 @@ find_free_area (HTMLClue *clue, gint y, gint width, gint height,
 		gint indent, gint *y_pos, gint *_lmargin, gint *_rmargin)
 {
 	HTMLClueV *cluev = HTML_CLUEV (clue);
-	gint try_y;
+	gint try_y = y;
 	gint lmargin;
 	gint rmargin;
 	gint lm, rm;
 	HTMLObject *aclue;
 	gint next_y, top_y, base_y=0;
 
-	try_y = y;
-
+	
 	while (1) {
 		lmargin = indent;
 		rmargin = HTML_OBJECT (clue)->max_width;
@@ -445,9 +444,8 @@ appended (HTMLClue *clue, HTMLClue *aclue)
 	/* Returns whether aclue is already in the alignList */
 	HTMLClueAligned *aligned;
 	
-	if (aclue->halign == HTML_HALIGN_RIGHT) {
-		g_print ("FIIIIXMEEEE\n");
-		aligned = NULL;
+	if (aclue->halign == HTML_HALIGN_LEFT) {
+		aligned = HTML_CLUEALIGNED (HTML_CLUEV (clue)->align_left_list);
 	}
 	else {
 		aligned = HTML_CLUEALIGNED (HTML_CLUEV (clue)->align_right_list);
@@ -459,6 +457,68 @@ appended (HTMLClue *clue, HTMLClue *aclue)
 		aligned = HTML_CLUEALIGNED (HTML_OBJECT (aligned)->next);
 	}
 	return FALSE;
+}
+
+static void
+append_left_aligned (HTMLClue *clue, HTMLClue *aclue)
+{
+	gint y_pos;
+	gint start_y = 0;
+	gint lmargin;
+	gint rmargin;
+	HTMLClueAligned *aligned;
+	
+	aligned = HTML_CLUEALIGNED (HTML_CLUEV (clue)->align_left_list);
+	if (aligned) {
+		while (aligned->next_aligned) {
+			aligned = aligned->next_aligned;
+		}
+		y_pos = HTML_OBJECT (aligned)->y + HTML_OBJECT (aligned->prnt)->y -
+			HTML_OBJECT (aligned->prnt)->ascent;
+		if (y_pos > start_y)
+			start_y = y_pos;
+	}
+
+	y_pos = HTML_OBJECT (aclue)->y + 
+		HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->y - 
+		HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->ascent;
+	
+	if (y_pos > start_y)
+		start_y = y_pos;
+
+	/* Start looking for space from the position of the last object in
+	   the left-aligned list on, or from the current position of the
+	   object */
+	html_clue_find_free_area (clue,
+				  start_y - HTML_OBJECT (aclue)->ascent,
+				  HTML_OBJECT (aclue)->width, 
+				  HTML_OBJECT (aclue)->ascent + HTML_OBJECT (aclue)->descent,
+				  0, &y_pos, &lmargin, &rmargin);
+
+	/* Set position */
+	HTML_OBJECT (aclue)->x = lmargin;
+	HTML_OBJECT (aclue)->y = y_pos - HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->y 
+		+ HTML_OBJECT (HTML_CLUEALIGNED (aclue)->prnt)->ascent +
+		HTML_OBJECT (aclue)->ascent;
+
+	/* Insert clue in align list */
+	if (!HTML_CLUEV (clue)->align_left_list) {
+		HTML_CLUEV (clue)->align_left_list = HTML_OBJECT (aclue);
+		HTML_CLUEALIGNED (aclue)->next_aligned = NULL;
+	}
+	else {
+		HTMLClueAligned *obj = HTML_CLUEALIGNED (HTML_CLUEV (clue)->align_left_list);
+		while (obj->next_aligned) {
+			if (obj == HTML_CLUEALIGNED (aclue))
+				return;
+			obj = obj->next_aligned;
+		}
+		if (obj == HTML_CLUEALIGNED (aclue))
+			return;
+
+		obj->next_aligned = HTML_CLUEALIGNED (aclue);
+		HTML_CLUEALIGNED (aclue)->next_aligned = NULL;
+	}
 }
 
 static void
@@ -551,6 +611,7 @@ html_cluev_class_init (HTMLClueVClass *klass,
 	clue_class->get_right_margin = get_right_margin;
 	clue_class->find_free_area = find_free_area;
 	clue_class->appended = appended;
+	clue_class->append_left_aligned = append_left_aligned;
 	clue_class->append_right_aligned = append_right_aligned;
 }
 

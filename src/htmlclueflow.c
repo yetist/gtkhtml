@@ -124,8 +124,12 @@ calc_size (HTMLObject *o,
 				html_object_calc_size (obj, NULL);
 
 				if (HTML_CLUE (c)->halign == HTML_HALIGN_LEFT) {
-					/* FIXME TODO */
-					g_print ("Left\n");
+					obj->x = lmargin;
+					obj->y = o->ascent + obj->ascent;
+
+					html_clue_append_left_aligned
+						(HTML_CLUE (parent),
+						 HTML_CLUE (c));
 				} else {
 					g_print ("Right aligned\n");
 					obj->x = rmargin - obj->width;
