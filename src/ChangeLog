@@ -1,3 +1,7 @@
+2001-01-24  Radek Doulik  <rodo@helixcode.com>
+
+	* testgtkhtml.c (print_footer): add param to quiet warning
+
 2001-01-23  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlcolorset.c: unref all the colors when we destroy the

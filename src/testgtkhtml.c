@@ -292,7 +292,7 @@ static GnomeFont *font;
 
 static void
 print_footer (GtkHTML *html, GnomePrintContext *context,
-	      gdouble x, gdouble y, gdouble width, gdouble height)
+	      gdouble x, gdouble y, gdouble width, gdouble height, gpointer user_data)
 {
 	gchar *text = g_strdup_printf ("- %d -", page_num);
 	gdouble tw = gnome_font_get_width_string (font, "text");
