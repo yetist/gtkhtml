@@ -27,6 +27,10 @@
 
 #include "gtkhtml.h"
 #include "htmlengine.h"
+#include "htmlengine-edit.h"
+#include "htmlengine-edit-cursor.h"
+#include "htmlengine-edit-movement.h"
+#include "htmlengine-edit-cut-and-paste.h"
 #include "htmlinterval.h"
 #include "htmlselection.h"
 #include "htmltext.h"
@@ -80,9 +84,6 @@ static void	html_a11y_text_delete_text	(AtkEditableText      *text,
 						 gint                 end_pos);
 static void	html_a11y_text_paste_text	(AtkEditableText      *text,
 						 gint                 position);
-static void	html_a11y_text_paste_received	(GtkClipboard *clipboard,
-						 const gchar  *text,
-						 gpointer     data);
 
 static AtkStateSet* html_a11y_text_ref_state_set	(AtkObject	*accessible);
 
@@ -654,7 +655,6 @@ html_a11y_text_insert_text (AtkEditableText *text,
 {
 	GtkHTML * html;
 	HTMLText *t;
-	gint index;
 
 	/* fprintf(stderr, "atk insert text called \n"); */
 
@@ -674,9 +674,7 @@ html_a11y_text_copy_text	(AtkEditableText *text,
 				 gint            end_pos)
 {
 	GtkHTML * html;
-	gchar * str;
 	HTMLText *t;
-	gint start_index, end_index;
 
 	/* fprintf(stderr, "atk copy text called \n"); */
         html = GTK_HTML_A11Y_GTKHTML(html_a11y_get_gtkhtml_parent(HTML_A11Y(text)));
@@ -701,8 +699,6 @@ html_a11y_text_cut_text (AtkEditableText *text,
 {
 	GtkHTML * html;
 	HTMLText *t;
-	gint start_index, end_index;
-	gchar * str;
 
 	/* fprintf(stderr, "atk cut text called.\n"); */
         html = GTK_HTML_A11Y_GTKHTML(html_a11y_get_gtkhtml_parent(HTML_A11Y(text)));
@@ -728,8 +724,6 @@ html_a11y_text_delete_text	(AtkEditableText *text,
 {
 	GtkHTML * html;
 	HTMLText *t;
-	gint start_index, end_index;
-	gchar * str;
 
 	/* fprintf(stderr, "atk delete text called.\n"); */
         html = GTK_HTML_A11Y_GTKHTML(html_a11y_get_gtkhtml_parent(HTML_A11Y(text)));
