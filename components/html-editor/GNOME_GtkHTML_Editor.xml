@@ -59,8 +59,7 @@
 
 			<menuitem name="EditProperties" verb="" accel="*Alt*Return"/>
 		</submenu>
-
-		<submenu name="Insert" _label="_Insert">
+		<submenu name="Component" _label="_Insert">
 			<menuitem name="InsertImage" verb="" accel="*Ctrl**Alt*I"/>
 			<menuitem name="InsertLink"  verb="" accel="*Ctrl**Alt*L"/>
 			<menuitem name="InsertRule"  verb="" accel="*Ctrl**Alt*R"/>

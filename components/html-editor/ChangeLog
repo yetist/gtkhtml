@@ -1,6 +1,7 @@
 2000-12-13  Radek Doulik  <rodo@helixcode.com>
 
 	* GNOME_GtkHTML_Editor.xml: redone shortcuts
+	use placeholder component for Insert menu
 
 2000-12-13  Iain Holmes  <iain@helixcode.com>
 
