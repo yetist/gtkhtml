@@ -2101,7 +2101,7 @@ html_table_end_table (HTMLTable *table)
 
 	for (r = 0; r < table->totalRows; r ++)
 		for (c = 0; c < table->totalCols; c ++)
-			if (HTML_CLUE (table->cells [r][c])->head == NULL) {
+			if (table->cells [r][c] && HTML_CLUE (table->cells [r][c])->head == NULL) {
 				HTMLTableCell *cell = table->cells [r][c];
 
 				remove_cell (table, cell);
