@@ -1,5 +1,8 @@
 2001-04-11  Radek Doulik  <rodo@ximian.com>
 
+	* htmlplainpainter.c (alloc_fixed_font): if face == NULL pass NULL
+	- NULL means that fixed font is requested
+
 	* gtkhtml.c (command): ops, removed unwanted calls to
 	update_styles
 

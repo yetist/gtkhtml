@@ -132,7 +132,7 @@ static HTMLFont *
 alloc_fixed_font (HTMLPainter *painter, gchar *face, gdouble size, GtkHTMLFontStyle style)
 {
 	return HTML_PAINTER_CLASS (parent_class)->alloc_font (painter, 
-							      painter->font_manager.fixed.face,
+							      face ? painter->font_manager.fixed.face : NULL,
 							      painter->font_manager.fix_size,
 							      GTK_HTML_FONT_STYLE_DEFAULT); 
 }
