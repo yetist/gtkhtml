@@ -49,8 +49,9 @@ gtk_html_class_properties_new (GtkWidget *widget)
 	p->font_fix_size           = PANGO_PIXELS (size);
 	p->font_var_points         = FALSE;
 	p->font_fix_points         = FALSE;
-	p->font_var_print          = g_strdup ("-*-helvetica-*-*-*-*-10-*-*-*-*-*-*-*");
-	p->font_fix_print          = g_strdup ("-*-courier-*-*-*-*-10-*-*-*-*-*-*-*");
+	p->font_var_print          = pango_font_description_get_family (widget->style->font_desc);
+	printf ("Variable Printing Font: \"%s\"\n", p->font_var_print);
+	p->font_fix_print          = g_strdup ("Monospace");
 	p->font_var_size_print     = DEFAULT_FONT_SIZE_PRINT;
 	p->font_fix_size_print     = DEFAULT_FONT_SIZE_PRINT;
 	p->font_var_print_points   = FALSE;

@@ -696,30 +696,12 @@ alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, Gt
 	GnomeFontWeight weight;
 	GnomeFont *font;
 	gboolean italic;
-	gchar *family = NULL;
 
 	weight = (style & GTK_HTML_FONT_STYLE_BOLD) ? GNOME_FONT_BOLD : GNOME_FONT_BOOK;
 	italic = (style & GTK_HTML_FONT_STYLE_ITALIC);
 
-	/* gnome-print is case sensitive - need to be fixed */
-	if (face && *face) {
-		gchar *s;
-
-		s = family = html_font_manager_get_attr (face, 2);
-
-		/* capitalize */
-		*s = toupper (*s);
-		s++;
-		while (*s) {
-			*s = tolower (*s);
-			s++;
-		}
-	}
-
-	font = gnome_font_find_closest_from_weight_slant (family ? family : (style & GTK_HTML_FONT_STYLE_FIXED ? "Courier" : "Helvetica"),
+	font = gnome_font_find_closest_from_weight_slant (face ? face : (style & GTK_HTML_FONT_STYLE_FIXED ? "Monospace" : "Sans"),
 							  weight, italic, get_font_size (printer, points, size));
-	g_free (family);
-
 	if (font == NULL) {
 		GList *family_list;
 

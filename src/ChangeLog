@@ -1,3 +1,10 @@
+2003-01-28  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml-properties.c (gtk_html_class_properties_new): get
+	default print font faces from style
+
+	* htmlprinter.c (alloc_font): remove workaround for old gimp print
+
 2003-01-22  Radek Doulik  <rodo@ximian.com>
 
 	* testgtkhtml.c (print_preview_cb): close print job before
