@@ -1,5 +1,13 @@
 2003-03-18  Larry Ewing  <lewing@ximian.com>
 
+	* htmlgdkpainter.c (draw_spell_error): remove unsued variable, add
+	a return value.
+
+	* htmltable.h (html_table_end_table): add prototype.
+
+	* htmlengine-edit-tablecell.c: remove debug printfs
+	(move_cell_rd_undo_free): add a return type.
+
 	* gtkhtml-properties.c (gtk_html_class_properties_new): warning
 	cleanups.
 

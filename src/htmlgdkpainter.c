@@ -88,7 +88,6 @@ html_gdk_painter_text_itemize_and_prepare_glyphs (HTMLGdkPainter *painter, Pango
 		PangoItem *item;
 		GList *il;
 		const gchar *end;
-		gint c_len;
 
 		*glyphs = NULL;
 		for (il = items; il; il = il->next) {
@@ -913,7 +912,6 @@ fill_rect (HTMLPainter *painter,
 static gint
 draw_spell_error (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len, GList *items, GList *glyphs, gint start_byte_offset)
 {
-	PangoFontDescription *desc;
 	HTMLGdkPainter *gdk_painter;
 	GdkGCValues values;
 	gchar dash [2];
@@ -924,7 +922,7 @@ draw_spell_error (HTMLPainter *painter, gint x, gint y, const gchar *text, gint 
 	const gchar *c_text = text;
 
 	if (!items || !glyphs)
-		return;
+		return 0;
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
