@@ -692,8 +692,11 @@ table_set_bg_color (HTMLEngine *e, HTMLTable *t, GdkColor *c, HTMLUndoDirection 
 		if (!t->bgColor)
 			t->bgColor = g_new (GdkColor, 1);
 		*t->bgColor = *c;
-	} else
-		t->bgColor = c;
+	} else {
+		if (t->bgColor)
+			g_free (t->bgColor);
+		t->bgColor = NULL;
+	}
 	html_engine_queue_draw (e, HTML_OBJECT (t));
 }
 
