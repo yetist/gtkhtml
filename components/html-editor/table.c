@@ -185,7 +185,8 @@ set_has_bg_color (GtkWidget *check, GtkHTMLEditTableProperties *d)
 	d->has_bg_color = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (d->check_bg_color));
 	FILL;
 	CHANGE;
-	d->changed_bg_color = TRUE;
+	if (!d->disable_change)
+		d->changed_bg_color = TRUE;
 }
 
 static void
@@ -194,7 +195,8 @@ set_has_bg_pixmap (GtkWidget *check, GtkHTMLEditTableProperties *d)
 	d->has_bg_pixmap = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (d->check_bg_pixmap));
 	FILL;
 	CHANGE;
-	d->changed_bg_pixmap = TRUE;
+	if (!d->disable_change)
+		d->changed_bg_pixmap = TRUE;
 }
 
 static void
@@ -207,7 +209,8 @@ changed_bg_color (GtkWidget *w, GdkColor *color, gboolean by_user, GtkHTMLEditTa
 	d->bg_color = color
 		? *color
 		: html_colorset_get_color (d->cd->html->engine->defaultSettings->color_set, HTMLBgColor)->color;
-	d->changed_bg_color = TRUE;
+	if (!d->disable_change)
+		d->changed_bg_color = TRUE;
 	if (!d->has_bg_color)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_bg_color), TRUE);
 	else {
@@ -220,7 +223,8 @@ static void
 changed_bg_pixmap (GtkWidget *w, GtkHTMLEditTableProperties *d)
 {
 	d->bg_pixmap = gtk_entry_get_text (GTK_ENTRY (w));
-	d->changed_bg_pixmap = TRUE;
+	if (!d->disable_change)
+		d->changed_bg_pixmap = TRUE;
 	if (!d->has_bg_pixmap && d->bg_pixmap && *d->bg_pixmap)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_bg_pixmap), TRUE);
 	else {
@@ -235,7 +239,8 @@ static void
 changed_spacing (GtkWidget *w, GtkHTMLEditTableProperties *d)
 {
 	d->spacing = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_spacing));
-	d->changed_spacing = TRUE;
+	if (!d->disable_change)
+		d->changed_spacing = TRUE;
 	FILL;
 	CHANGE;
 }
@@ -244,7 +249,8 @@ static void
 changed_padding (GtkWidget *w, GtkHTMLEditTableProperties *d)
 {
 	d->padding = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_padding));
-	d->changed_padding = TRUE;
+	if (!d->disable_change)
+		d->changed_padding = TRUE;
 	FILL;
 	CHANGE;
 }
@@ -253,7 +259,8 @@ static void
 changed_border (GtkWidget *w, GtkHTMLEditTableProperties *d)
 {
 	d->border = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_border));
-	d->changed_border = TRUE;
+	if (!d->disable_change)
+		d->changed_border = TRUE;
 	FILL;
 	CHANGE;
 }
@@ -262,7 +269,8 @@ static void
 changed_align (GtkWidget *w, GtkHTMLEditTableProperties *d)
 {
 	d->align = g_list_index (GTK_MENU_SHELL (w)->children, gtk_menu_get_active (GTK_MENU (w))) + HTML_HALIGN_LEFT;
-	d->changed_align = TRUE;
+	if (!d->disable_change)
+		d->changed_align = TRUE;
 	FILL;
 	CHANGE;	
 }
@@ -275,8 +283,8 @@ changed_width (GtkWidget *w, GtkHTMLEditTableProperties *d)
 		d->disable_change = TRUE;
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_width), TRUE);
 		d->disable_change = FALSE;
+		d->changed_width = TRUE;
 	}
-	d->changed_width = TRUE;
 	FILL;
 	CHANGE;
 }
@@ -285,7 +293,8 @@ static void
 set_has_width (GtkWidget *check, GtkHTMLEditTableProperties *d)
 {
 	d->has_width = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (d->check_width));
-	d->changed_width = TRUE;
+	if (!d->disable_change)
+		d->changed_width = TRUE;
 	FILL;
 	CHANGE;
 }
@@ -294,7 +303,8 @@ static void
 changed_width_percent (GtkWidget *w, GtkHTMLEditTableProperties *d)
 {
 	d->width_percent = g_list_index (GTK_MENU_SHELL (w)->children, gtk_menu_get_active (GTK_MENU (w))) ? TRUE : FALSE;
-	d->changed_width = TRUE;
+	if (!d->disable_change)
+		d->changed_width = TRUE;
 	FILL;
 	CHANGE;	
 }
@@ -303,7 +313,8 @@ static void
 changed_cols (GtkWidget *w, GtkHTMLEditTableProperties *d)
 {
 	d->cols = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_cols));
-	d->changed_cols = TRUE;
+	if (!d->disable_change)
+		d->changed_cols = TRUE;
 	FILL;
 	CHANGE;
 }
@@ -312,7 +323,8 @@ static void
 changed_rows (GtkWidget *w, GtkHTMLEditTableProperties *d)
 {
 	d->rows = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_rows));
-	d->changed_rows = TRUE;
+	if (!d->disable_change)
+		d->changed_rows = TRUE;
 	FILL;
 	CHANGE;
 }
