@@ -2,6 +2,8 @@
 
 	* htmlclueflow.c (search_text): implemented backward substring
 	search, also search backwards thru childern
+	(search_text): fixed ClueFlow traversing, fixed backward substring
+	and updated regex search for backward search
 
 2000-04-16  Radek Doulik  <rodo@helixcode.com>
 
