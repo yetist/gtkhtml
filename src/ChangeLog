@@ -1,3 +1,38 @@
+2000-04-17  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlclueflow.c
+	(save): Changed <br> output policy: we now output them only if the
+	paragraph is of style HTML_CLUEFLOW_STYLE_NORMAL and it's the
+	first in its parent clue.
+
+	* htmllinktextmaster.c
+	(html_link_text_master_new_with_size): New function.
+	(html_link_text_master_new): Rewritten by means of it.
+	(get_selection): New function, implementing the
+	`HTMLObject::get_selection()' method for `HTMLLinkTextMaster's.
+	(html_link_text_master_class_init): Install it.
+	(html_link_text_master_init): New arg @len.
+
+	* htmlobject.c
+	(copy): Added missing instructions to copy certain struct members.
+
+	* htmlengine-edit-paste.c
+	(update_cursor_position): Removed.
+	(do_paste): Use `html_engine_cut_buffer_count()' instead.  Also,
+	fix updating the cursor while pasting empty paragraphs, by calling
+	`skip()' whenever we encounter two consecutive HTMLClueFlows in
+	the buffer.
+
+	* htmlengine-cutbuffer.c
+	(html_engine_cut_buffer_count): New function.
+
+	* htmlengine-edit-cut.c
+	(html_engine_cut): Disable the selection with
+	`html_engine_disable_selection()'.
+
+	* htmlengine-cutbuffer.c
+	(html_engine_cut_buffer_dup): Make it work.
+
 2000-04-17  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine.c (display_search_results): use html_engine_jump_to_object

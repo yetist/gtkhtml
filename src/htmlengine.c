@@ -3756,10 +3756,12 @@ select_region_forall (HTMLObject *self,
 		}
 	} else {
 		if (select_data->select) {
-			changed = html_object_select_range (self, select_data->engine, 0, -1, select_data->queue_draw);
+			changed = html_object_select_range (self, select_data->engine,
+							    0, -1, select_data->queue_draw);
 			select_data->active_selection = TRUE;
 		} else {
-			changed = html_object_select_range (self, select_data->engine, 0, 0, select_data->queue_draw);
+			changed = html_object_select_range (self, select_data->engine,
+							    0, 0, select_data->queue_draw);
 		}
 	}
 

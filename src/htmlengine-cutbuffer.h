@@ -26,5 +26,6 @@
 
 void   html_engine_cut_buffer_destroy  (GList *cut_buffer);
 GList *html_engine_cut_buffer_dup      (GList *cut_buffer);
+guint  html_engine_cut_buffer_count    (GList *cut_buffer);
 
 #endif

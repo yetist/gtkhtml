@@ -488,6 +488,8 @@ do_paste (HTMLEngine *engine,
 				add_empty_text_master_to_clueflow (HTML_CLUEFLOW (clueflow));
 				clueflow = clueflow->next;
 
+				skip (engine);
+
 				p = p->next;
 				if (p == NULL)
 					break;
@@ -508,7 +510,8 @@ do_paste (HTMLEngine *engine,
 			append = TRUE;
 
 #ifdef PARANOID_DEBUG
-			g_print ("*** Appending %s to %p\n", html_type_name (HTML_OBJECT_TYPE (obj)), clueflow);
+			g_print ("*** Appending %s to %p\n",
+				 html_type_name (HTML_OBJECT_TYPE (obj)), clueflow);
 #endif
 		}
 	}
@@ -521,13 +524,14 @@ do_paste (HTMLEngine *engine,
 	gtk_html_debug_dump_tree_simple (engine->clue, 1);
 #endif
 
-	/* 7. Update the cursor's absolute position counter by
-	   counting the elements in the cut buffer.  */
+	/* 7. Update the cursor's absolute position counter by counting the elements in
+	   the cut buffer.  */
 
-	count = update_cursor_position (engine->cursor, buffer);
+	count = html_engine_cut_buffer_count (buffer);
+	engine->cursor->position += count;
 
-	/* 8. Thaw the engine so that things are re-laid out again.
-	   FIXME: this might be a bit inefficient for cut & paste.  */
+	/* 8. Thaw the engine so that things are re-laid out again.  FIXME: this is
+           inefficient.  */
 
 	html_engine_thaw (engine);
 

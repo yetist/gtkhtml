@@ -111,6 +111,32 @@ save (HTMLObject *self,
 	return TRUE;
 }
 
+static HTMLObject *
+get_selection (HTMLObject *self,
+	       guint *size_return)
+{
+	HTMLObject *new;
+	guint select_start, select_length;
+
+	if (! self->selected)
+		return NULL;
+
+	select_start = HTML_TEXT_MASTER (self)->select_start;
+	select_length = HTML_TEXT_MASTER (self)->select_length;
+
+	new = html_link_text_master_new_with_len (HTML_TEXT(self)->text + select_start,
+						  select_length,
+						  HTML_TEXT (self)->font_style,
+						  & HTML_TEXT (self)->color,
+						  HTML_LINK_TEXT_MASTER (self)->url,
+						  HTML_LINK_TEXT_MASTER (self)->target);
+
+	if (size_return != NULL)
+		*size_return = select_length;
+
+	return new;
+}
+
 
 void
 html_link_text_master_type_init (void)
@@ -140,6 +166,7 @@ html_link_text_master_class_init (HTMLLinkTextMasterClass *klass,
 	object_class->get_url = get_url;
 	object_class->get_target = get_target;
 	object_class->save = save;
+	object_class->get_selection = get_selection;
 
 	text_class->split = split;
 	text_class->get_font_style = get_font_style;
@@ -151,6 +178,7 @@ void
 html_link_text_master_init (HTMLLinkTextMaster *link_text_master_object,
 			    HTMLLinkTextMasterClass *klass,
 			    const gchar *text,
+			    gint len,
 			    GtkHTMLFontStyle font_style,
 			    const GdkColor *color,
 			    const gchar *url,
@@ -159,15 +187,41 @@ html_link_text_master_init (HTMLLinkTextMaster *link_text_master_object,
 	HTMLTextMaster *text_master_object;
 
 	text_master_object = HTML_TEXT_MASTER (link_text_master_object);
+
 	html_text_master_init (text_master_object,
 			       HTML_TEXT_MASTER_CLASS (klass),
-			       text,
-			       -1,
+			       text, len,
 			       font_style,
 			       color);
 
 	link_text_master_object->url = g_strdup (url);
 	link_text_master_object->target = g_strdup (target);
+}
+
+HTMLObject *
+html_link_text_master_new_with_len (const gchar *text,
+				    gint len,
+				    GtkHTMLFontStyle font_style,
+				    const GdkColor *color,
+				    const gchar *url,
+				    const gchar *target)
+{
+	HTMLLinkTextMaster *link_text_master_object;
+
+	g_return_val_if_fail (text != NULL, NULL);
+
+	link_text_master_object = g_new (HTMLLinkTextMaster, 1);
+
+	html_link_text_master_init (link_text_master_object,
+				    &html_link_text_master_class,
+				    text,
+				    len,
+				    font_style,
+				    color,
+				    url,
+				    target);
+
+	return HTML_OBJECT (link_text_master_object);
 }
 
 HTMLObject *
@@ -177,17 +231,6 @@ html_link_text_master_new (const gchar *text,
 			   const gchar *url,
 			   const gchar *target)
 {
-	HTMLLinkTextMaster *link_text_master_object;
-
-	link_text_master_object = g_new (HTMLLinkTextMaster, 1);
-
-	html_link_text_master_init (link_text_master_object,
-				    &html_link_text_master_class,
-				    text,
-				    font_style,
-				    color,
-				    url,
-				    target);
-
-	return HTML_OBJECT (link_text_master_object);
+	return html_link_text_master_new_with_len (text, -1, font_style, color, url, target);
 }
+

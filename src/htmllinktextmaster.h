@@ -48,21 +48,28 @@ struct _HTMLLinkTextMasterClass {
 extern HTMLLinkTextMasterClass html_link_text_master_class;
 
 
-void        html_link_text_master_type_init   (void);
-void        html_link_text_master_class_init  (HTMLLinkTextMasterClass *klass,
-					       HTMLType                 type,
-					       guint                    object_size);
-void        html_link_text_master_init        (HTMLLinkTextMaster      *link_text_master,
-					       HTMLLinkTextMasterClass *klass,
-					       const gchar             *text,
-					       GtkHTMLFontStyle         font_style,
-					       const GdkColor          *color,
-					       const gchar             *url,
-					       const gchar             *target);
-HTMLObject *html_link_text_master_new         (const gchar             *text,
-					       GtkHTMLFontStyle         font_style,
-					       const GdkColor          *color,
-					       const gchar             *url,
-					       const gchar             *target);
+void        html_link_text_master_type_init     (void);
+void        html_link_text_master_class_init    (HTMLLinkTextMasterClass *klass,
+						 HTMLType                 type,
+						 guint                    object_size);
+void        html_link_text_master_init          (HTMLLinkTextMaster      *link_text_master,
+						 HTMLLinkTextMasterClass *klass,
+						 const gchar             *text,
+						 gint			  len,
+						 GtkHTMLFontStyle         font_style,
+						 const GdkColor          *color,
+						 const gchar             *url,
+						 const gchar             *target);
+HTMLObject *html_link_text_master_new           (const gchar             *text,
+						 GtkHTMLFontStyle         font_style,
+						 const GdkColor          *color,
+						 const gchar             *url,
+						 const gchar             *target);
+HTMLObject *html_link_text_master_new_with_len  (const gchar             *text,
+						 gint                     len,
+						 GtkHTMLFontStyle         font_style,
+						 const GdkColor          *color,
+						 const gchar             *url,
+						 const gchar             *target);
 
 #endif /* _HTMLLINKTEXTMASTER_H_ */

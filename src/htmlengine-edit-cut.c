@@ -167,9 +167,10 @@ html_engine_cut (HTMLEngine *engine)
 	elems_copied = html_engine_copy (engine);
 	mark_precedes_cursor = html_cursor_precedes (engine->mark, engine->cursor);
 
+	html_engine_disable_selection (engine);
+
 	if (mark_precedes_cursor)
 		html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_LEFT, elems_copied);
-
 	html_engine_delete (engine, elems_copied);
 
 	init_undo (engine, engine->cut_buffer, elems_copied, mark_precedes_cursor);

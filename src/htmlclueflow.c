@@ -1012,6 +1012,17 @@ save (HTMLObject *self,
 	clueflow = HTML_CLUEFLOW (self);
 	halign = HTML_CLUE (self)->halign;
 
+	if (self->prev != NULL
+	    && HTML_OBJECT_TYPE (HTML_CLUE (self)->tail) != HTML_TYPE_RULE
+	    && HTML_CLUEFLOW (self)->style == HTML_CLUEFLOW_STYLE_NORMAL) {
+		/* This is a nasty hack: the rule takes all of the space, so we
+                   don't want it to create a new newline if it's the last
+                   element on the paragraph.  Also, everything but the "normal"
+                   paragraph style would get an extra newline if we add a
+                   `<BR>'.  */
+		html_engine_save_output_string (state, "<BR>\n");
+	}
+
 	if (! write_indentation_tags (clueflow, state))
 		return FALSE;
 
@@ -1051,15 +1062,6 @@ save (HTMLObject *self,
 	} else if (tag != NULL) {
 		if (! html_engine_save_output_string (state, "\n"))
 			return FALSE;
-	}
-
-	if (HTML_OBJECT_TYPE (HTML_CLUE (self)->tail) != HTML_TYPE_RULE
-	    && ! is_header (HTML_CLUEFLOW (self))) {
-		/* This comparison is a nasty hack: the rule takes all of the
-                   space, so we don't want it to create a new newline if it's
-                   the last element on the paragraph.  Also, headers would get
-                   extra space if we add a BR.  */
-		html_engine_save_output_string (state, "<BR>\n");
 	}
 
 	return TRUE;

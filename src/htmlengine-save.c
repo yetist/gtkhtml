@@ -211,6 +211,8 @@ html_engine_save (const HTMLEngine *engine,
 		return FALSE;
 	}
 
+	gtk_html_debug_dump_tree_simple (engine->clue, 1);
+
 	state.engine = engine;
 	state.receiver = receiver;
 	state.br_count = 0;

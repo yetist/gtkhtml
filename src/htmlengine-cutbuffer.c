@@ -20,15 +20,20 @@
 */
 
 /* The cut buffer is used to temporarily store parts of the documents.  The
-   implementation is a quick & dirty hack, but should work well for our purposes.
+   implementation is a quick & dirty hack, but should work well for our
+   purposes.
 
    So basically, we just store all the leaf elements of the document in a list.
-   In order to store newlines, we just add HTMLClueFlows, which consequently
-   also carry information about the style and indentation of the paragraph they
-   belong to.  This is used to emulate the common word processor behavior of
-   associating the paragraph properties to a new line.  */
+   We simply use HTMLClueFlows as end-of-paragraphs marker, and consequently
+   they also carry information about the style and indentation of the paragraph
+   they belong to.  This is used to emulate the common word processor behavior
+   of associating the paragraph properties to a new line.  */
 
 
+#include "htmlclueflow.h"
+#include "htmlobject.h"
+#include "htmltext.h"
+
 #include "htmlengine-cutbuffer.h"
 
 
@@ -67,8 +72,39 @@ html_engine_cut_buffer_dup (GList *cut_buffer)
 		new_buffer_tail = g_list_append (new_buffer_tail, obj_copy);
 		if (new_buffer == NULL)
 			new_buffer = new_buffer_tail;
-		new_buffer_tail = new_buffer_tail->next;
+		else
+			new_buffer_tail = new_buffer_tail->next;
 	}
 
 	return new_buffer;
+}
+
+/**
+ * html_engine_cut_buffer_count:
+ * @cut_buffer: A cut buffer.
+ * 
+ * Count the number of cursor elements in the @cut_buffer.
+ * 
+ * Return value: the number of cursor elements in @cut_buffer.
+ **/
+guint
+html_engine_cut_buffer_count (GList *cut_buffer)
+{
+	HTMLObject *obj;
+	GList *p;
+	guint count;
+	gboolean prev_was_clueflow;
+
+	count = 0;
+	prev_was_clueflow = FALSE;
+	for (p = cut_buffer; p != NULL; p = p->next) {
+		obj = HTML_OBJECT (p->data);
+
+		if (html_object_is_text (obj))
+			count += HTML_TEXT (obj)->text_len;
+		else
+			count ++;
+	}
+
+	return count;
 }

@@ -66,12 +66,15 @@ copy (HTMLObject *self,
 	dest->ascent = self->ascent;
 	dest->descent = self->descent;
 	dest->width = self->width;
+	dest->min_width = self->min_width;
 	dest->max_width = self->max_width;
+	dest->nb_width = self->nb_width;
 	dest->percent = self->percent;
 	dest->flags = self->flags;
 	dest->redraw_pending = self->redraw_pending;
 	dest->selected = self->selected;
 	dest->free_pending = FALSE;
+	dest->change = self->change;
 }
 
 static void
