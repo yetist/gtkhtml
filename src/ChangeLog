@@ -1,5 +1,20 @@
 2000-11-22  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine-search.c (display_search_results): use new selection
+	API
+
+	* htmlcursor.c (forward): use html_object_next_leaf_not_type
+	instead of html_object_next_leaf
+	(backward): likewise
+
+	* htmlobject.c (html_object_next_not_slave): don't require
+	p->parent
+	(html_object_prev_not_slave): likewise
+	(html_object_next_leaf_not_type): fixed, use rv when going forward
+	(html_object_prev_leaf_not_type): likewise
+
+	* htmlundo.c (do_action): removed warning
+
 	* htmlengine.c (html_engine_normalize_cursor): use
 	html_engine_edit_selection_updater_update_now
 

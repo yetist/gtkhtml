@@ -966,7 +966,7 @@ html_object_next_not_slave (HTMLObject *object)
 	g_return_val_if_fail (object->parent, NULL);
 
 	p = html_object_next (object->parent, object);
-	while (p && p->parent && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
+	while (p && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
 		p = html_object_next (p->parent, p);
 
 	return p;
@@ -981,7 +981,7 @@ html_object_prev_not_slave (HTMLObject *object)
 	g_return_val_if_fail (object->parent, NULL);
 
 	p = html_object_prev (object->parent, object);
-	while (p && p->parent && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
+	while (p && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
 		p = html_object_prev (p->parent, p);
 
 	return p;
@@ -1206,8 +1206,8 @@ html_object_next_leaf (HTMLObject *self)
 HTMLObject *
 html_object_next_leaf_not_type (HTMLObject *self, HTMLType t)
 {
-	HTMLObject *rv;
-	while ((rv = html_object_next_leaf (self)) && HTML_OBJECT_TYPE (rv) == t);
+	HTMLObject *rv = self;
+	while ((rv = html_object_next_leaf (rv)) && HTML_OBJECT_TYPE (rv) == t);
 
 	return rv;
 }
@@ -1221,8 +1221,8 @@ html_object_prev_leaf (HTMLObject *self)
 HTMLObject *
 html_object_prev_leaf_not_type (HTMLObject *self, HTMLType t)
 {
-	HTMLObject *rv;
-	while ((rv = html_object_prev_leaf (self)) && HTML_OBJECT_TYPE (rv) == t);
+	HTMLObject *rv = self;
+	while ((rv = html_object_prev_leaf (rv)) && HTML_OBJECT_TYPE (rv) == t);
 
 	return rv;
 }

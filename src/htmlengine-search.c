@@ -24,9 +24,10 @@
 #include "htmlengine.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-search.h"
+#include "htmlinterval.h"
 #include "htmlsearch.h"
-#include "htmltextslave.h"
 #include "htmlselection.h"
+#include "htmltextslave.h"
 
 static HTMLEngine *
 get_root_engine (HTMLEngine *e)
@@ -112,34 +113,17 @@ static void
 display_search_results (HTMLSearch *info)
 {
 	HTMLEngine *e = info->engine;
-	GList    *cur = info->found;
-	guint     len = info->found_len;
-	guint     pos = info->start_pos;
-	guint     cur_len;
 
-	if (!cur) return;
-
+	if (!info->found)
+		return;
 	if (e->editable) {
 		html_engine_disable_selection (e);
-		html_cursor_jump_to (e->cursor, e, (HTMLObject *) info->found->data, info->start_pos);
+		html_cursor_jump_to (e->cursor, e, HTML_OBJECT (info->found->data), info->start_pos);
 		html_engine_set_mark (e);
 		html_cursor_jump_to (e->cursor, e, info->last, info->stop_pos);
-	} else {
-		html_engine_unselect_all (get_root_engine (e));
-		if (e != get_root_engine (e))
-			html_engine_unselect_all (e);
-		/* !!!FIXME html_engine_is_selection_active (e) = TRUE; */
-
-		/* go thru all objects (Text's) in found list and do select_range on it */
-		while (cur) {
-			cur_len = HTML_TEXT (cur->data)->text_len;
-			html_object_select_range (HTML_OBJECT (cur->data), e, pos,
-						  (cur_len-pos < len) ? cur_len-pos : len, TRUE);
-			len -= cur_len-pos;
-			pos  = 0;
-			cur  = cur->next;
-		}
-	}
+	} else
+		html_engine_select_interval (e, html_interval_new (HTML_OBJECT (info->found->data), info->last,
+								   info->start_pos, info->stop_pos));
 
 	move_to_found (info);
 }

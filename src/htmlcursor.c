@@ -33,10 +33,8 @@
 
 #include "htmlcursor.h"
 
-
 /* #define _HTML_CURSOR_DEBUG */
 
-
 #ifdef _HTML_CURSOR_DEBUG
 static void
 debug_location (const HTMLCursor *cursor)
@@ -189,7 +187,7 @@ forward (HTMLCursor *cursor)
 	if (!html_object_cursor_forward (cursor->object, cursor)) {
 		HTMLObject *next;
 
-		next = html_object_next_leaf (cursor->object);
+		next = html_object_next_leaf_not_type (cursor->object, HTML_TYPE_TEXTSLAVE);
 		if (next) {
 			cursor->offset = (next->parent == cursor->object->parent) ? 1 : 0;
 			cursor->object = next;
@@ -227,7 +225,7 @@ backward (HTMLCursor *cursor)
 	if (!html_object_cursor_backward (cursor->object, cursor)) {
 		HTMLObject *prev;
 
-		prev = html_object_prev_leaf (cursor->object);
+		prev = html_object_prev_leaf_not_type (cursor->object, HTML_TYPE_TEXTSLAVE);
 		if (prev) {
 			cursor->object = prev;
 			cursor->offset = html_object_get_length (prev);

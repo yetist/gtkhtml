@@ -92,9 +92,7 @@ do_action (HTMLUndo *undo,
 	first = *action_list;
 	*action_list = (*action_list)->next;
 
-	if (*action_list == NULL)
-		g_warning ("No more actions in list!");
-	else
+	if (*action_list)
 		(*action_list)->prev = NULL;
 
 	first->next = NULL;
