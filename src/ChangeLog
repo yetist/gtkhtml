@@ -1,5 +1,8 @@
 2001-06-07  Radek Doulik  <rodo@ximian.com>
 
+	* htmlenumutils.c (html_valign_name): return "middle" MIDDLE value
+	instead of "center"
+
 	* htmlengine-edit-cut-and-paste.c (append_object): freeze/thaw
 	engine and set changes
 	(html_engine_append_object): removed freeze/thaw here

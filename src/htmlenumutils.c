@@ -30,7 +30,7 @@ html_valign_name (HTMLVAlignType va)
 	case HTML_VALIGN_TOP:
 		return "top";
 	case HTML_VALIGN_MIDDLE:
-		return "center";
+		return "middle";
 	case HTML_VALIGN_BOTTOM:
 		return "bottom";
 	case HTML_VALIGN_NONE:
