@@ -73,9 +73,9 @@ print_page (HTMLPainter *painter,
 	html_painter_draw_rect (painter, 0, header_height, page_width, body_height);
 #endif
 	html_object_draw (engine->clue, painter,
-			  0, start_y + header_height,
+			  0, start_y,
 			  page_width, body_height,
-			  0, -start_y);
+			  0, -start_y + header_height);
 	gnome_print_grestore (context);
 	if (footer_print)
 		print_header_footer (painter, engine, page_width, page_height - footer_height, footer_height,
