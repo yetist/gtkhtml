@@ -1,3 +1,7 @@
+2002-10-09  Larry Ewing  <lewing@ximian.com>
+
+	* htmlclueflow.c (copy): copy the item_color.
+
 2002-10-08  Larry Ewing  <lewing@ximian.com>
 
 	* Makefile.am (libgtkhtml_HEADERS): remove the .c file that was

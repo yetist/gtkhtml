@@ -119,6 +119,10 @@ copy (HTMLObject *self,
 	HTML_CLUEFLOW (dest)->item_type = HTML_CLUEFLOW (self)->item_type;
 	HTML_CLUEFLOW (dest)->item_number = HTML_CLUEFLOW (self)->item_number;
 	HTML_CLUEFLOW (dest)->clear = HTML_CLUEFLOW (self)->clear;
+	HTML_CLUEFLOW (dest)->item_color = HTML_CLUEFLOW (self)->item_color;
+
+	if (HTML_CLUEFLOW (dest)->item_color)
+		html_color_ref (HTML_CLUEFLOW (dest)->item_color);
 }
 
 static inline gboolean
