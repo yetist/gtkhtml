@@ -581,6 +581,11 @@ motion_notify_event (GtkWidget *widget,
 					   html->selection_x1, html->selection_y1,
 					   x + engine->x_offset, y + engine->y_offset,
 					   TRUE);
+
+		if (engine->editable)
+			html_engine_jump_at (engine,
+					     event->x + engine->x_offset,
+					     event->y + engine->y_offset);
 	} else {
 		url = html_engine_get_link_at (engine,
 					       x + engine->x_offset,

@@ -2,6 +2,8 @@
 
 	* gtkhtml.c (key_press_event): Unselect all when moving, inserting
 	or deleting stuff.
+	(motion_notify_event): Move the insertion cursor where the pointer
+	is if the engine is editable.
 
 	* htmlengine-edit-fontstyle.c (merge_safely): New function to
 	merge, destroy and update the cursor if necessary.
