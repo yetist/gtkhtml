@@ -30,7 +30,7 @@
 
 
 #ifdef USING_OAF
-#define HTML_EDITOR_CONTROL_ID "OAFIID:GNOME_GtkHTML_Editor"
+#define HTML_EDITOR_CONTROL_ID "OAFIID:GNOME_GtkHTML_Editor:" EDITOR_API_VERSION
 #else
 #define HTML_EDITOR_CONTROL_ID "control:html-editor"
 #endif
