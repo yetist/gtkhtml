@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2000-09-06 16:06+0200\n"
-"PO-Revision-Date: 2000-09-06 16:44+0200\n"
+"POT-Creation-Date: 2000-09-07 00:23+0200\n"
+"PO-Revision-Date: 2000-09-07 00:35+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr "<Ingen>"
 
 #: capplet/gnome-bindings-prop.c:521
 msgid "Key"
-msgstr "Nyckel"
+msgstr "Tangent"
 
 #: capplet/gnome-bindings-prop.c:521
 msgid "Command"
@@ -143,7 +143,7 @@ msgstr "Kunde inte initiera Bonobo"
 
 #: components/html-editor/menubar.c:60
 msgid "Find Rege_x..."
-msgstr "Sök med _reguljärt uttryck..."
+msgstr "Sök _reguljärt uttryck..."
 
 #: components/html-editor/menubar.c:60
 msgid "Regular expressions search..."
@@ -261,7 +261,7 @@ msgstr "Vänsterjustera"
 
 #: components/html-editor/rule.c:125
 msgid "Center Align"
-msgstr "Mittjustera"
+msgstr "Centrera"
 
 #: components/html-editor/rule.c:125
 msgid "Right Align"
@@ -437,7 +437,7 @@ msgstr "Vänsterjustera stycken"
 
 #: components/html-editor/toolbar.c:485
 msgid "Centers paragraphs"
-msgstr "Mittjustera stycken"
+msgstr "Centrera stycken"
 
 #: components/html-editor/toolbar.c:487
 msgid "Right align"
