@@ -552,7 +552,7 @@ editor_control_factory (BonoboGenericFactory *factory,
 	if (control){
 		editor_control_construct (control, vbox);
 		return BONOBO_OBJECT (control);
-	else {
+	} else {
 		gtk_widget_unref (vbox);
 		return NULL;
 	}
