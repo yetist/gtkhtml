@@ -1192,8 +1192,8 @@ html_text_tail_white_space (HTMLText *text, HTMLPainter *painter, gint offset, g
 		s = g_utf8_prev_char (s);
 		if (pi->entries [ii].attrs [io].is_white) {
 			if (HTML_IS_GDK_PAINTER (painter) || HTML_IS_PLAIN_PAINTER (painter)) {
-				if (*s == '\t') {
-					gint skip = 8, co = offset;
+				if (*s == '\t' && offset > 1) {
+					gint skip = 8, co = offset - 1;
 
 					do {
 						s = g_utf8_prev_char (s);

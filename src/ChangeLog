@@ -1,3 +1,8 @@
+2004-02-03  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (html_text_tail_white_space): fix "\ttext" and offset
+	== 1 problem where we were accessing memory before string begin
+
 2004-02-02  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (html_text_convert_nbsp): update text_bytes
