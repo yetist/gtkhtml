@@ -1,5 +1,7 @@
 2001-01-11  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlclue.c (merge): merge all clues
+
 	* htmltext.c (html_text_op_cut_helper): move spell_errors
 	(html_text_op_cut_helper): remove spell errors when cutting whole
 	text

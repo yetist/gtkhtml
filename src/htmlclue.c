@@ -132,9 +132,6 @@ merge (HTMLObject *self, HTMLObject *with)
 	clue1 = HTML_CLUE (self);
 	clue2 = HTML_CLUE (with);
 
-	if (clue1->halign != clue2->halign || clue1->valign != clue2->valign)
-		return FALSE;
-
 	html_clue_append (clue1, clue2->head);
 	clue2->head = NULL;
 	clue2->tail = NULL;
