@@ -204,10 +204,10 @@ gtk_html_a11y_ref_child (AtkObject *accessible, gint index)
 static G_CONST_RETURN gchar*
 gtk_html_a11y_get_name (AtkObject *obj)
 {
-	G_CONST_RETURN gchar *name;
 	if (obj->name != NULL) {
 		return obj->name;
 	}
+
 	return _("Panel containing HTML");
 }
 
@@ -294,7 +294,6 @@ static void
 gtk_html_a11y_insert_object_cb (GtkWidget * widget, int pos, int len) 
 {
 	AtkObject * a11y, *obj;
-	HTMLText * text;
 
         obj = gtk_widget_get_accessible (widget);
 	a11y = gtk_html_a11y_get_focus_object (widget);
@@ -315,7 +314,6 @@ static void
 gtk_html_a11y_delete_object_cb (GtkWidget * widget, int pos, int len) 
 {
 	AtkObject * a11y, *obj;
-	HTMLText * text;
 
         obj = gtk_widget_get_accessible (widget);
 	a11y = gtk_html_a11y_get_focus_object (widget);
