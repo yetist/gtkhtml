@@ -114,12 +114,16 @@ struct _HTMLEngine {
 	gboolean eat_space;
 	gboolean allow_frameset;
 	gboolean newPage;
+	gboolean begin;
  
-	HTMLStack *font_style_stack; /* Font style stack, elements are GtkHTMLFontStyles.  */
+	GtkHTMLFontStyle font_style;
+	gint font_style_attrs [GTK_HTML_FONT_STYLE_SHIFT_LAST - GTK_HTML_FONT_STYLE_SHIFT_FIRST + 1];
+	HTMLStack *font_size_stack;
 	HTMLStack *font_face_stack;
 	HTMLStack *color_stack;	/* Color stack, elements are GdkColors.  */
 	HTMLStack *clueflow_style_stack; /* Clueflow style stack, elements are HTMLClueFlowStyles.  */
 	HTMLStack *frame_stack;
+	HTMLStack *body_stack;
 
 	gchar *url;
 	gchar *target;
