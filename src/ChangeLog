@@ -1,5 +1,27 @@
 2000-01-19  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlcursor.c (html_cursor_up): Use
+	`html_object_get_cursor_base', not `html_object_get_cursor'.
+	(html_cursor_down): Likewise.
+
+	* htmltextmaster.c (get_cursor_base): New function, implementation
+	of `HTMLObject::get_cursor_base'.
+	(html_text_master_class_init): Install it.
+	(get_cursor): Rewritten by means of `html_object_get_cursor_base'.
+
+	* htmltext.c (get_cursor_base): New function, implementation of
+	`HTMLObject::get_cursor_base'.
+	(html_text_class_init): Install it.
+	(get_cursor): Rewritten by means of `html_object_get_cursor_base'.
+
+	* htmlobject.c (html_object_get_cursor_base): New function.
+	(get_cursor_base): New function, default implementation of
+	`HTMLObject::get_cursor_base'.
+	(html_object_class_init): Install it.
+	(get_cursor): Rewritten by means of `html_object_get_cursor_base'.
+
+	* htmlobject.h: New virtual method `get_cursor_base'.
+
 	* debug.c (debug_dump_tree): Print the object position.
 
 	* htmlengine-edit.c (merge_text_at_cursor): Return the amount of
