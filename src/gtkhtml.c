@@ -2983,17 +2983,20 @@ delete_one (HTMLEngine *e, gboolean forward)
 		html_engine_delete_n (e, 1, forward);
 }
 
-inline static void
-insert_tab_or_indent_more_or_next_cell (GtkHTML *html)
+inline static gboolean
+insert_tab_or_next_cell (GtkHTML *html)
 {
 	HTMLEngine *e = html->engine;
 	if (!html_engine_next_cell (e, TRUE)) {
 		if (!html_engine_is_selection_active (e)
-		    && html_clueflow_tabs (HTML_CLUEFLOW (e->cursor->object->parent), e->painter))
+		    && html_clueflow_tabs (HTML_CLUEFLOW (e->cursor->object->parent), e->painter)) {
 			html_engine_insert_text (e, "\t", 1);
-		else
-			gtk_html_modify_indent_by_delta (html, +1);
+			return TRUE;
+		}
+		return FALSE;
 	}
+
+	return TRUE;
 }
 
 inline static void
@@ -3001,13 +3004,6 @@ indent_more_or_next_cell (GtkHTML *html)
 {
 	if (!html_engine_next_cell (html->engine, TRUE))
 		gtk_html_modify_indent_by_delta (html, +1);
-}
-
-static void
-indent_less_or_prev_cell (GtkHTML *html)
-{
-	if (!html_engine_prev_cell (html->engine))
-		gtk_html_modify_indent_by_delta (html, -1);
 }
 
 static gboolean
@@ -3232,14 +3228,14 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		else
 			gtk_html_modify_indent_by_delta (html, +1);
 		break;
-	case GTK_HTML_COMMAND_INSERT_TAB_OR_INDENT_MORE_OR_NEXT_CELL:
-		insert_tab_or_indent_more_or_next_cell (html);
+	case GTK_HTML_COMMAND_INSERT_TAB_OR_NEXT_CELL:
+		html->binding_handled = insert_tab_or_next_cell (html);
 		break;
 	case GTK_HTML_COMMAND_INDENT_DEC:
 		gtk_html_modify_indent_by_delta (html, -1);
 		break;
-	case GTK_HTML_COMMAND_INDENT_DEC_OR_PREV_CELL:
-		indent_less_or_prev_cell (html);
+	case GTK_HTML_COMMAND_PREV_CELL:
+		html->binding_handled = html_engine_prev_cell (html->engine);
 		break;
 	case GTK_HTML_COMMAND_INDENT_PARAGRAPH:
 		html_engine_indent_pre_paragraph (e);
@@ -3599,11 +3595,6 @@ load_keybindings (GtkHTMLClass *klass)
 	BCOM (GDK_SHIFT_MASK, BackSpace, DELETE_BACK_OR_INDENT_DEC);
 	BCOM (0, Delete, DELETE);
 	BCOM (0, KP_Delete, DELETE);
-
-	BCOM (0, Tab, FOCUS_FORWARD);
-	BCOM (0, ISO_Left_Tab, FOCUS_FORWARD);
-	BCOM (GDK_SHIFT_MASK, Tab, FOCUS_BACKWARD);
-	BCOM (GDK_SHIFT_MASK, ISO_Left_Tab, FOCUS_BACKWARD);
 
 	BCOM (GDK_CONTROL_MASK | GDK_SHIFT_MASK, plus, ZOOM_IN);
 	BCOM (GDK_CONTROL_MASK, plus, ZOOM_IN);

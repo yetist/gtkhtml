@@ -1,6 +1,10 @@
 2001-09-10  Radek Doulik  <rodo@ximian.com>
 
+	* keybindingsrc.*: update TAB/Shift TAB bindings
+
 	* gtkhtml.c (load_keybindings): bind C-S-+ and C-+ to ZOOM_IN
+	(load_keybindings): don't bind TAB/Shift TAB
+	(command): simplify command binded to TAB/Shift TAB
 
 2001-09-08  Dan Winship  <danw@ximian.com>
 
