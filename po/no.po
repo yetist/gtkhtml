@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.6.1\n"
-"POT-Creation-Date: 2000-10-25 15:15+0200\n"
+"POT-Creation-Date: 2000-11-02 15:53+0100\n"
 "PO-Revision-Date: 2000-10-25 15:16+02:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -131,38 +131,38 @@ msgstr "Slå på"
 msgid "Colors"
 msgstr "Farger"
 
-#: components/html-editor/editor-control-factory.c:128
+#: components/html-editor/editor-control-factory.c:129
 #: components/html-editor/popup.c:73
 msgid "Properties"
 msgstr "Egenskaper"
 
-#: components/html-editor/editor-control-factory.c:139
+#: components/html-editor/editor-control-factory.c:140
 #: components/html-editor/menubar.c:96 components/html-editor/popup.c:88
 msgid "Image"
 msgstr "Bilde"
 
-#: components/html-editor/editor-control-factory.c:148
+#: components/html-editor/editor-control-factory.c:149
 #: components/html-editor/menubar.c:117 components/html-editor/popup.c:81
 msgid "Text"
 msgstr "Tekst"
 
-#: components/html-editor/editor-control-factory.c:159
+#: components/html-editor/editor-control-factory.c:160
 #: components/html-editor/menubar.c:140 components/html-editor/popup.c:116
 msgid "Rule"
 msgstr "Regel"
 
-#: components/html-editor/editor-control-factory.c:168
+#: components/html-editor/editor-control-factory.c:169
 #: components/html-editor/popup.c:95
 msgid "Paragraph"
 msgstr "Avsnitt"
 
-#: components/html-editor/editor-control-factory.c:173
+#: components/html-editor/editor-control-factory.c:174
 #: components/html-editor/menubar.c:101 components/html-editor/menubar.c:122
 #: components/html-editor/popup.c:102
 msgid "Link"
 msgstr "Lenke"
 
-#: components/html-editor/editor-control-factory.c:178
+#: components/html-editor/editor-control-factory.c:179
 #: components/html-editor/popup.c:109
 msgid "Page"
 msgstr "Side"
