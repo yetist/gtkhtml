@@ -369,7 +369,7 @@ html_image_resolve_image_url (GtkHTML *html, gchar *image_url)
 {
 	gchar *url = image_url;
 
-	printf ("html_image_resolve_image_url %p\n");
+	printf ("html_image_resolve_image_url %p\n", html->editor_api);
 	if (html->editor_api) {
 		GtkArg *args [2];
 
