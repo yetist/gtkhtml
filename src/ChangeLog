@@ -1,3 +1,7 @@
+2001-01-09  Dave Camp <dave@helixcode.com>
+
+	* Makefile.am (libgtkhtml_HEADERS): Added htmlengine-cut-and-paste.h
+
 2001-01-09  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine.c (parse_p): don't push DIV block

@@ -48,6 +48,7 @@ libgtkhtml_HEADERS =				\
 	htmlengine-edit.h			\
 	htmlengine-edit-clueflowstyle.h		\
 	htmlengine-edit-cursor.h		\
+	htmlengine-edit-cut-and-paste.h         \
 	htmlengine-edit-fontstyle.h		\
 	htmlengine-edit-images.c		\
 	htmlengine-edit-images.h		\
