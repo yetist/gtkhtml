@@ -88,6 +88,10 @@ struct _HTMLEngine {
 	gboolean editable;
 	HTMLCursor *cursor;
 
+	/* This is set to TRUE when at least one element is selected (in whole
+           or in part), to FALSE when no item is selected at all.  */
+	gboolean active_selection;
+
 	gboolean parsing;
 	HTMLTokenizer *ht;
 	StringTokenizer *st;

@@ -593,10 +593,12 @@ button_press_event (GtkWidget *widget,
 
 	gtk_widget_grab_focus (widget);
 
-	if (engine->editable)
+	if (engine->editable) {
 		html_engine_jump_at (engine,
 				     event->x + engine->x_offset,
 				     event->y + engine->y_offset);
+		update_styles (html);
+	}
 
 	gtk_grab_add (widget);
 	gdk_pointer_grab (widget->window, TRUE,
@@ -1025,6 +1027,8 @@ gtk_html_set_paragraph_style (GtkHTML *html,
 
 	if (! html_engine_set_clueflow_style (html->engine, clueflow_style))
 		return;
+
+	html->paragraph_style = style;
 
 	gtk_signal_emit (GTK_OBJECT (html), signals[CURRENT_PARAGRAPH_STYLE_CHANGED],
 			 style);

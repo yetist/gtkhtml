@@ -2826,6 +2826,7 @@ html_engine_init (HTMLEngine *engine)
 
 	engine->editable = TRUE;
 	engine->cursor = html_cursor_new ();
+	engine->active_selection = FALSE;
 
 	engine->ht = html_tokenizer_new ();
 	engine->st = string_tokenizer_new ();
@@ -3501,6 +3502,7 @@ struct _SelectRegionData {
 	gint x1, y1, x2, y2;
 	gboolean select : 1;
 	gboolean queue_draw : 1;
+	gboolean active_selection : 1;
 };
 typedef struct _SelectRegionData SelectRegionData;
 
@@ -3515,6 +3517,7 @@ select_region_forall (HTMLObject *self,
 	changed = FALSE;
 
 	if (self == select_data->obj1 || self == select_data->obj2) {
+		select_data->active_selection = TRUE;
 		if (select_data->obj1 == select_data->obj2) {
 			if (select_data->offset2 > select_data->offset1)
 				changed = html_object_select_range (select_data->obj1,
@@ -3554,6 +3557,7 @@ select_region_forall (HTMLObject *self,
 	} else {
 		if (select_data->select) {
 			changed = html_object_select_range (self, select_data->engine, 0, -1, select_data->queue_draw);
+			select_data->active_selection = TRUE;
 		} else {
 			changed = html_object_select_range (self, select_data->engine, 0, 0, select_data->queue_draw);
 		}
@@ -3624,6 +3628,9 @@ html_engine_select_region (HTMLEngine *e,
 
 	html_object_forall (e->clue, select_region_forall, data);
 
+	e->active_selection = data->active_selection;
+	g_print ("Active selection: %s\n", e->active_selection ? "TRUE" : "FALSE");
+
 	g_free (data);
 }
 
@@ -3656,4 +3663,7 @@ html_engine_unselect_all (HTMLEngine *e,
 	html_object_forall (e->clue, unselect_forall, select_data);
 
 	g_free (select_data);
+
+	e->active_selection = FALSE;
+	g_print ("Active selection: FALSE\n");
 }
