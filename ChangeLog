@@ -1,5 +1,9 @@
 2000-03-27  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* configure.in: Require gnome-print 0.13 or later.
+
+2000-03-27  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* configure.in: Define `GTKHTML_CURRENT', `GTKHTML_REVISION' and
 	`GTKHTML_AGE'.  Of course, they are set to zero initially.
 
