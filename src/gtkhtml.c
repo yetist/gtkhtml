@@ -1008,8 +1008,12 @@ button_release_event (GtkWidget *widget,
 
 	if (event->button == 1) {
 		html->button1_pressed = FALSE;
-		if (html->pointer_url != NULL && ! html->in_selection)
+		if (html->pointer_url != NULL && ! html->in_selection) {
+			gtk_object_set_data (GTK_OBJECT (widget), "last-link-x", (gpointer) (((gint)event->x)+html->engine->x_offset));
+			gtk_object_set_data (GTK_OBJECT (widget), "last-link-y", (gpointer) (((gint)event->y)+html->engine->y_offset));
+
 			gtk_signal_emit (GTK_OBJECT (widget), signals[LINK_CLICKED], html->pointer_url);
+		}
 	}
 
 	if (html->in_selection) {

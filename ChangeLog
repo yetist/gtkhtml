@@ -1,3 +1,9 @@
+2000-10-16  Vladimir Vukicevic  <vladimir@helixcode.com>
+
+	* src/gtkhtml.c: Set the x/y coordinates of the last link that was clicked on
+	as object data on the GtkHTML widget (so that apps can get at the HTMLObject
+	at that location, if necessary)
+
 2000-10-16  Jarkko Ranta  <jjranta@cc.joensuu.fi>
 
 	* configure.in : added "fi" to ALL_LINGUAS
