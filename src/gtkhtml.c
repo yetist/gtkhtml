@@ -2336,6 +2336,22 @@ gtk_html_get_title (GtkHTML *html)
 	return html->engine->title->str;
 }
 
+/**
+ * gtk_html_set_title:
+ * @html: The GtkHTML widget.
+ *
+ * Set the title of the document currently loaded in the GtkHTML widget.
+ *
+ **/
+void
+gtk_html_set_title (GtkHTML *html, const char *title)
+{
+	g_return_if_fail (html != NULL);
+	g_return_if_fail (GTK_IS_HTML (html));
+
+	html_engine_set_title (html->engine, title); 
+}
+
 
 /**
  * gtk_html_jump_to_anchor:

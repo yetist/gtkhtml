@@ -205,6 +205,7 @@ void                       gtk_html_print_set_master              (GtkHTML      
 
 /* Title.  */
 const gchar               *gtk_html_get_title                     (GtkHTML                   *html);
+void                       gtk_html_set_title                     (GtkHTML                   *html, const char *title);
 
 /* Anchors.  */
 gboolean                   gtk_html_jump_to_anchor                (GtkHTML                   *html,

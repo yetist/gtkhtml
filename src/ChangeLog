@@ -1,3 +1,9 @@
+2002-01-27  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.h: add set_title prototype.
+
+	* gtkhtml.c: add gtk_html_set_title to match gtk_html_get_title.
+
 2002-01-25  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit.c (html_engine_set_title): new method for title setting
