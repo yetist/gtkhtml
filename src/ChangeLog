@@ -1,3 +1,7 @@
+2002-07-15  Radek Doulik  <rodo@ximian.com>
+
+	* htmlclueflow.c (layout_line): fix new line condition
+
 2002-07-12  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c (html_engine_set_class_data): return if class_name

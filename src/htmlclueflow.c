@@ -821,7 +821,7 @@ layout_line (HTMLObject *o, HTMLPainter *painter, HTMLObject *begin,
 						  indent, &o->y, lmargin, rmargin);
 
 			/* is there enough space for this object? */
-			if (o->y != old_y || *rmargin - x < nb_width)
+			if (o->y != old_y && *rmargin - x < nb_width)
 				break;
 		}
 
