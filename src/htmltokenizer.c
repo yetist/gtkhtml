@@ -87,7 +87,7 @@ struct _HTMLTokenizerPrivate {
 	gboolean select; /* Are we in a <select> block? */
 	gboolean charEntity; /* Are we in an &... sequence? */
 	gboolean extension; /* Are we in an <!-- +GtkHTML: sequence? */
-
+ 
 	enum {
 		NoneDiscard = 0,
 		SpaceDiscard,
@@ -115,6 +115,8 @@ struct _HTMLTokenizerPrivate {
 
 	const gchar *searchFor;
 	gboolean utf8;
+	gchar utf8_buffer[7];
+	gint utf8_length;
 };
 
 static const gchar *commentStart = "<!--";
@@ -478,7 +480,7 @@ html_tokenizer_real_begin (HTMLTokenizer *t, gchar *content_type)
 	p->charEntity = FALSE;
 	
 	p->utf8 = charset_is_utf8 (content_type);
-
+	p->utf8_length = 0;
 #if 0
 	if (p->utf8) 
 		g_warning ("Trying UTF-8");
@@ -706,7 +708,7 @@ in_script_or_style (HTMLTokenizer *t, const gchar **src)
 		gchar *newbuf = g_malloc (p->scriptCodeSize + 1024);
 		memcpy (newbuf, p->scriptCode, p->scriptCodeSize);
 		g_free (p->scriptCode);
-		p->scriptCode = newbuf;
+
 		p->scriptCodeMaxSize += 1024;
 	}
 			
@@ -751,6 +753,140 @@ in_script_or_style (HTMLTokenizer *t, const gchar **src)
 		(*src)++;
 	}
 }
+
+#if 1
+/*
+ * These were cut and pasted from gal/gal/uncode/gutf8.c
+ * since they are static there.  The extended function is quite useful
+ * for what we need.
+ */
+#define UTF8_LENGTH(Char)              \
+  ((Char) < 0x80 ? 1 :                 \
+   ((Char) < 0x800 ? 2 :               \
+    ((Char) < 0x10000 ? 3 :            \
+     ((Char) < 0x200000 ? 4 :          \
+      ((Char) < 0x4000000 ? 5 : 6)))))
+
+static gunichar
+g_utf8_get_char_extended (const gchar *p, int max_len)
+{
+  gint i, len;
+  gunichar wc = (guchar) *p;
+
+  if (wc < 0x80)
+    {
+      return wc;
+    }
+  else if (wc < 0xc0)
+    {
+      return (gunichar)-1;
+    }
+  else if (wc < 0xe0)
+    {
+      len = 2;
+      wc &= 0x1f;
+    }
+  else if (wc < 0xf0)
+    {
+      len = 3;
+      wc &= 0x0f;
+    }
+  else if (wc < 0xf8)
+    {
+      len = 4;
+      wc &= 0x07;
+    }
+  else if (wc < 0xfc)
+    {
+      len = 5;
+      wc &= 0x03;
+    }
+  else if (wc < 0xfe)
+    {
+      len = 6;
+      wc &= 0x01;
+    }
+  else
+    {
+      return (gunichar)-1;
+    }
+  
+  if (len == -1)
+    return (gunichar)-1;
+  if (max_len >= 0 && len > max_len)
+    {
+      for (i = 1; i < max_len; i++)
+	{
+	  if ((((guchar *)p)[i] & 0xc0) != 0x80)
+	    return (gunichar)-1;
+	}
+      return (gunichar)-2;
+    }
+
+  for (i = 1; i < len; ++i)
+    {
+      gunichar ch = ((guchar *)p)[i];
+      
+      if ((ch & 0xc0) != 0x80)
+	{
+	  if (ch)
+	    return (gunichar)-1;
+	  else
+	    return (gunichar)-2;
+	}
+
+      wc <<= 6;
+      wc |= (ch & 0x3f);
+    }
+
+  if (UTF8_LENGTH(wc) != len)
+    return (gunichar)-1;
+  
+  return wc;
+}
+
+static void
+add_byte (HTMLTokenizer *t, const gchar **src)
+{
+	gunichar wc;
+	struct _HTMLTokenizerPrivate *p = t->priv;
+
+	if (p->utf8) {
+		p->utf8_buffer[p->utf8_length] = **src;
+		p->utf8_length++;
+
+		wc = g_utf8_get_char_extended ((const gchar *)p->utf8_buffer, p->utf8_length);
+		if (wc == -1) {
+			*(p->dest)++ = '_';
+			
+			p->utf8_length = 0;
+			(*src)++;
+			return;
+		} else if (wc == -2) {
+			/* incomplete character check argan*/
+			(*src)++;
+			return;
+		} else {
+			p->utf8_length = 0;
+		}
+	} else {
+		wc = (guchar)**src;
+	}
+	p->dest += g_unichar_to_utf8 (wc, p->dest);
+	(*src)++;
+}
+#else
+static void
+add_byte (HTMLTokenizer *t, const gchar **src)
+{
+	if (p->utf8)
+		*(p->dest)++ = **src;
+	else 
+		p->dest += g_unichar_to_utf8 ((guchar) **src, p->dest);
+	
+	(*src)++;
+}
+#endif
 
 static void
 in_entity (HTMLTokenizer *t, const gchar **src)
@@ -1164,12 +1300,7 @@ in_plain (HTMLTokenizer *t, const gchar **src)
 		}
 	}
 
-	if (p->utf8)
-		*(p->dest)++ = **src;
-	else 
-		p->dest += g_unichar_to_utf8 ((guchar) **src, p->dest);
-	
-	(*src)++;
+	add_byte (t, src);
 }
 
 static void

@@ -1,3 +1,9 @@
+2001-06-23  Larry Ewing  <lewing@ximian.com>
+
+	* htmltokenizer.c (add_byte): new function to sanitize invalid
+	utf-8 strings.
+	(in_plain): use add_byte.
+
 2001-06-21  Radek Doulik  <rodo@ximian.com>
 
 	* htmlcursor.c (forward_in_flow): new helper function
