@@ -21,6 +21,7 @@
 */
 
 #include "htmlform.h"
+#include <string.h>
 
 
 HTMLForm *
