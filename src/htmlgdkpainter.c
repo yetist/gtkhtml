@@ -913,8 +913,8 @@ draw_text (HTMLPainter *painter,
 #endif
 	utf8_gdk_draw_text (gdk_font, gdk_painter->pixmap, gdk_painter->gc, x, y, text, len);
 
-	if (gdk_painter->font_style & (GTK_HTML_FONT_STYLE_UNDERLINE
-				       | GTK_HTML_FONT_STYLE_STRIKEOUT)) {
+	if (painter->font_style & (GTK_HTML_FONT_STYLE_UNDERLINE
+				   | GTK_HTML_FONT_STYLE_STRIKEOUT)) {
 		guint width;
 
 #if 0
@@ -922,12 +922,12 @@ draw_text (HTMLPainter *painter,
 #endif
 		width = utf8_gdk_text_width (gdk_font, text, len);
 
-		if (gdk_painter->font_style & GTK_HTML_FONT_STYLE_UNDERLINE)
+		if (painter->font_style & GTK_HTML_FONT_STYLE_UNDERLINE)
 			gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, 
 				       x, y + 1, 
 				       x + width, y + 1);
 
-		if (gdk_painter->font_style & GTK_HTML_FONT_STYLE_STRIKEOUT)
+		if (painter->font_style & GTK_HTML_FONT_STYLE_STRIKEOUT)
 			gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, 
 				       x, y - gdk_font->ascent / 2, 
 				       x + width, y - gdk_font->ascent / 2);

@@ -1878,11 +1878,11 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *i)
 
 	/* printf ("html_clueflow_spell_check\n"); */
 
-	if (!e->spell_checker)
+	clue = HTML_CLUE (flow);
+	if (!e->spell_checker || !clue || !clue->tail)
 		return;
 
 	off  = 0;
-	clue = HTML_CLUE (flow);
 	if (!i)
 		i = html_interval_new (clue->head, clue->tail, 0, html_object_get_length (clue->tail));
 	text = get_text (clue, i);

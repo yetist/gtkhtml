@@ -227,6 +227,11 @@ alloc_new_font (HTMLFontManager *manager, HTMLFontSet **set, gchar *face_list, G
 			face++;
 		}
 		g_strfreev (faces);
+		if (!(*set)) {
+			/* none of faces exist, so create empty set for him and let manager later set fixed font here */
+			*set = html_font_set_new (*face);
+			g_hash_table_insert (manager->font_sets, face_list, *set);
+		}
 	} else
 		font = alloc_font ((*set)->face, get_real_font_size (manager, style), style);
 
@@ -255,9 +260,11 @@ html_font_manager_get_font (HTMLFontManager *manager, gchar *face_list, GtkHTMLF
 				font = alloc_font (NULL, get_real_font_size (manager, style), style);
 				if (!font)
 					g_error ("Cannot allocate fixed font\n");
-			} else
+			} else {
 				/* some unavailable non-default font => use default one */
 				font = html_font_manager_get_font (manager, NULL, style, alloc_font);
+				/* gdk_font_ref (font); */
+			}
 			html_font_set_font (manager, set, style, font);
 		}
 	}

@@ -51,9 +51,6 @@ struct _HTMLGdkPainter {
 	gboolean do_clear;
 	gboolean alpha;
 
-	/* Font handling.  */
-	GtkHTMLFontStyle font_style;
-
 	/* Colors used for shading.  */
 	GdkColor dark;
 	GdkColor light;

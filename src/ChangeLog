@@ -1,5 +1,20 @@
 2000-09-06  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlgdkpainter.h: removed font_style from gdk_painter as it is
+	obsolete
+
+	* htmlgdkpainter.c (draw_text): use painter->font_style instead of
+	gdk_painter->font_style
+
+	* htmlfontmanager.c (alloc_new_font): create empty set if none of
+	faces exists
+
+	* htmltextslave.c (fit_line): dont eat beggining space on
+	beginning of paragraph
+
+	* htmlclueflow.c (html_clueflow_spell_check): don't check spell if
+	tail is NULL
+
 	* htmltokenizer.c (html_tokenizer_add_pending): don't insert 0xa0
 	instead of space - no more needed and it was causing problems as
 	0xa0 is not used for &nbsp; anymore
