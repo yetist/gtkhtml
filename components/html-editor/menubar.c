@@ -138,7 +138,7 @@ insert_rule_cb (BonoboUIComponent *uic, GtkHTMLControlData *cd, const char *cnam
 
 	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 						   GTK_HTML_EDIT_PROPERTY_RULE, _("Rule"),
-						   rule_properties,
+						   rule_insert,
 						   rule_insert_cb,
 						   rule_close_cb);
 

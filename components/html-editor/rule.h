@@ -27,6 +27,7 @@
 #include "control-data.h"
 
 GtkWidget             * rule_properties      (GtkHTMLControlData *cd, gpointer *set_data);
+GtkWidget             * rule_insert          (GtkHTMLControlData *cd, gpointer *set_data);
 void                    rule_insert_cb       (GtkHTMLControlData *cd, gpointer  get_data);
 void                    rule_apply_cb        (GtkHTMLControlData *cd, gpointer  get_data);
 void                    rule_close_cb        (GtkHTMLControlData *cd, gpointer  get_data);
