@@ -62,6 +62,10 @@ HTMLObject                *html_engine_new_text_empty         (HTMLEngine       
 gboolean                   html_engine_cursor_on_bop          (HTMLEngine                *e);
 guint                      html_engine_get_indent             (HTMLEngine                *e);
 void                       html_engine_indent_pre_paragraph   (HTMLEngine                *e);
+void                       html_engine_indent_pre_line        (HTMLEngine                *e);
+void                       html_engine_fill_pre_line          (HTMLEngine                *e);
+void                       html_engine_space_and_fill_line    (HTMLEngine                *e);
+void                       html_engine_break_and_fill_line    (HTMLEngine                *e);
 /*
   static (non instance) methods
 */

@@ -434,3 +434,143 @@ html_engine_indent_pre_paragraph (HTMLEngine *e)
 	html_engine_thaw (e);
 	html_undo_level_end (e->undo);
 }
+
+void
+html_engine_indent_pre_line (HTMLEngine *e)
+{
+	guint position;
+	guint line_offset;
+	guint last_space;
+	HTMLObject *flow;
+	unicode_char_t uc;
+
+	g_assert (e->cursor->object);
+	if (HTML_OBJECT_TYPE (e->cursor->object->parent) != HTML_TYPE_CLUEFLOW
+	    || html_clueflow_get_style (HTML_CLUEFLOW (e->cursor->object->parent)) != HTML_CLUEFLOW_STYLE_PRE)
+		return;
+
+	html_engine_disable_selection (e);
+	position = e->cursor->position;
+
+	html_undo_level_begin (e->undo, "Indent PRE paragraph", "Reverse paragraph indentation");
+	html_engine_freeze (e);
+
+	last_space  = 0;
+	line_offset = 0;
+
+	html_cursor_beginning_of_paragraph (e->cursor, e);
+
+	flow = e->cursor->object->parent;
+	while (html_cursor_forward (e->cursor, e) && e->cursor->object->parent == flow) {
+		uc = html_cursor_get_current_char (e->cursor);
+		line_offset++;
+
+		if (uc == ' ') {
+				last_space = line_offset;
+		}
+		
+		if (line_offset >= LINE_LEN) {
+			if (last_space) {
+				html_cursor_backward_n (e->cursor, e, line_offset - last_space);
+
+				html_cursor_forward (e->cursor, e);
+				if ((uc = html_cursor_get_current_char (e->cursor))) {
+					html_engine_insert_empty_paragraph (e);
+					if (position >= e->cursor->position)
+						position++;
+				}
+			}	
+		}
+		if (!uc)
+			break;
+	}
+
+	html_cursor_jump_to_position (e->cursor, e, position);
+	html_engine_thaw (e);
+	html_undo_level_end (e->undo);
+}
+
+void
+html_engine_fill_pre_line (HTMLEngine *e)
+{
+	guint position;
+	guint line_offset;
+	guint last_space;
+	HTMLObject *flow;
+	unicode_char_t uc;
+
+	g_assert (e->cursor->object);
+	position = e->cursor->position;
+
+	if (HTML_OBJECT_TYPE (e->cursor->object->parent) != HTML_TYPE_CLUEFLOW
+	    || html_clueflow_get_style (HTML_CLUEFLOW (e->cursor->object->parent)) != HTML_CLUEFLOW_STYLE_PRE) {
+		return;
+	}
+
+	last_space  = 0;
+	line_offset = 0;
+
+	html_cursor_beginning_of_paragraph (e->cursor, e);
+
+	flow = e->cursor->object->parent;
+	while (html_cursor_forward (e->cursor, e) && (e->cursor->position < position - 1)) {
+		uc = html_cursor_get_current_char (e->cursor);
+		line_offset++;
+		
+		if (uc == ' ') {
+			last_space = line_offset;
+		}
+		
+		if (line_offset >= LINE_LEN) {
+			if (last_space) {
+				html_cursor_backward_n (e->cursor, e, line_offset - last_space);
+				
+				html_cursor_forward (e->cursor, e);
+				if ((uc = html_cursor_get_current_char (e->cursor))) {
+					html_engine_insert_empty_paragraph (e);
+					if (position >= e->cursor->position)
+						position++;
+
+					line_offset = 0;
+					last_space = 0;
+				}
+			}	
+		}
+		if (!uc)
+			break;
+	}
+	html_cursor_jump_to_position (e->cursor, e, position);
+}
+
+void
+html_engine_space_and_fill_line (HTMLEngine *e)
+{
+
+	g_assert (e->cursor->object);
+	html_undo_level_begin (e->undo, "insert and fill", "reverse insert and fill");
+
+
+	html_engine_disable_selection (e);
+	html_engine_freeze (e);
+	html_engine_insert_text (e, " ", 1);
+
+	html_engine_fill_pre_line (e);
+
+	html_engine_thaw (e);
+	html_undo_level_end (e->undo);
+}
+
+void
+html_engine_break_and_fill_line (HTMLEngine *e)
+{
+	html_undo_level_begin (e->undo, "break and fill", "reverse break and fill");
+
+	html_engine_disable_selection (e);
+	html_engine_freeze (e);
+
+	html_engine_fill_pre_line (e);
+
+	html_engine_insert_empty_paragraph (e);
+	html_engine_thaw (e);
+	html_undo_level_end (e->undo);
+}

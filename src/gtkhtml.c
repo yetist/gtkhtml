@@ -2725,6 +2725,12 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_INDENT_PARAGRAPH:
 		html_engine_indent_pre_paragraph (e);
 		break;
+	case GTK_HTML_COMMAND_BREAK_AND_FILL_LINE:
+		html_engine_break_and_fill_line (e);
+		break;
+	case GTK_HTML_COMMAND_SPACE_AND_FILL_LINE:
+		html_engine_space_and_fill_line (e);
+		break;
 	case GTK_HTML_COMMAND_PARAGRAPH_STYLE_NORMAL:
 		gtk_html_set_paragraph_style (html, GTK_HTML_PARAGRAPH_STYLE_NORMAL);
 		break;

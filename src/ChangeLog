@@ -1,3 +1,24 @@
+2001-03-18  Larry Ewing  <lewing@ximian.com>
+
+	* keybindingsrc.emacs: add bindings for space-and-fill and
+	break-and-fill for testing.
+
+	* htmlengine.c: fix more warnings I left.
+
+	* gtkhtml.c (command): add handlers for the space-and-fill and
+	break-and-fill.
+
+	* gtkhtml-properties.c: add enum entries for space-and-fill, and
+	break-and-fill.
+
+	* htmlengine-edit.h (clueflow_style_to_paragraph_style): add
+	prototypes
+
+	* htmlengine-edit.c (html_engine_fill_pre_line): utility function
+	to word wrap pre lines.
+	(html_engine_space_and_fill_line): insert space then fill line.
+	(html_engine_break_and_fill_line): fill line then insert paragraph.
+
 2001-03-15  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (update_embedded): add prototype and fix warnings.

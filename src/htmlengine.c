@@ -117,8 +117,8 @@ static void      html_object_changed       (GtkHTMLEmbedded *eb,
 					    HTMLEngine *e);
 
 static void      update_embedded           (GtkWidget *widget,
-					    GtkHTML *html);
-
+					    gpointer );
+
 static GtkLayoutClass *parent_class = NULL;
 
 enum {
@@ -3449,8 +3449,9 @@ html_engine_write (GtkHTMLStream *handle,
 }
 
 static void
-update_embedded (GtkWidget *widget, GtkHTML *html)
+update_embedded (GtkWidget *widget, gpointer data)
 {
+	GtkHTML *html = data;
 	HTMLObject *obj;
 
 	/* FIXME: this is a hack to update all the embedded widgets when
@@ -3490,6 +3491,7 @@ update_embedded (GtkWidget *widget, GtkHTML *html)
 	}
 }
 
+static gboolean
 html_engine_update_event (HTMLEngine *e)
 {
 	e->updateTimer = 0;

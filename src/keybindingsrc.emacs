@@ -107,6 +107,8 @@ binding "gtkhtml-bindings-emacs"
   bind "<Alt>KP_Enter"       { "command" (property-dialog) }
 
   bind "<Alt>q"              { "command" (indent-paragraph) }
+  bind "space"               { "command" (space-and-fill) }
+  bind "Return"              { "command" (break-and-fill) }
 
   bind "<Ctrl><Shift>t"      { "command" (insert-table-1-1) }
 
