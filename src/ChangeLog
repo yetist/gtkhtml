@@ -1,5 +1,9 @@
 2000-01-19  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine-edit.c (merge_text_at_cursor): Return the amount of
+	characters added to the current element.
+	(html_engine_delete): Sum it to the cursor's current offset.
+
 	* htmlcursor.c (backward): Don't go beyond the last character if
 	there is another element after it.
 

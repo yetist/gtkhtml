@@ -304,17 +304,18 @@ delete_different_parent (HTMLEngine *e,
 	html_object_relayout (start_parent->parent, e, start_parent);
 }
 
-static void
+static guint
 merge_text_at_cursor (HTMLEngine *e)
 {
 	HTMLObject *curr, *prev;
 	gchar *curr_string, *prev_string;
 	gchar *new_string;
+	guint retval;
 
 	curr = e->cursor->object;
 	prev = curr->prev;
 	if (prev == NULL)
-		return;
+		return 0;
 
 	while (HTML_OBJECT_TYPE (prev) == HTML_TYPE_TEXTSLAVE) {
 		HTMLObject *pprev;
@@ -326,13 +327,13 @@ merge_text_at_cursor (HTMLEngine *e)
 	}
 
 	if (! html_object_is_text (curr) || ! html_object_is_text (prev))
-		return;
+		return 0;
 	if (HTML_OBJECT_TYPE (curr) != HTML_OBJECT_TYPE (prev))
-		return;
+		return 0;
 	if (! gdk_color_equal (& HTML_TEXT (curr)->color, & HTML_TEXT (prev)->color))
-		return;
+		return 0;
 	if (HTML_TEXT (curr)->font_style != HTML_TEXT (prev)->font_style)
-		return;
+		return 0;
 
 	curr_string = HTML_TEXT (curr)->text;
 	prev_string = HTML_TEXT (prev)->text;
@@ -343,10 +344,14 @@ merge_text_at_cursor (HTMLEngine *e)
 	HTML_TEXT (curr)->text = new_string;
 	HTML_TEXT (curr)->text_len += HTML_TEXT (prev)->text_len;
 
+	retval = HTML_TEXT (prev)->text_len;
+
 	html_clue_remove (HTML_CLUE (prev->parent), prev);
 	html_object_destroy (prev);
 
 	html_object_relayout (curr->parent, e, curr);
+
+	return retval;
 }
 
 void
@@ -429,7 +434,7 @@ html_engine_delete (HTMLEngine *e,
 	else
 		delete_different_parent (e, orig_object, destroy_orig);
 
-	merge_text_at_cursor (e);
+	e->cursor->offset += merge_text_at_cursor (e);
 
 	html_engine_draw_cursor (e);
 }
