@@ -26,11 +26,30 @@
 #include "gtkhtml.h"
 #include <gnome.h>
 
+#define GTK_HTML_EDIT_IMAGE_BWIDTH      0
+#define GTK_HTML_EDIT_IMAGE_WIDTH       1
+#define GTK_HTML_EDIT_IMAGE_HEIGHT      2
+#define GTK_HTML_EDIT_IMAGE_HSPACE      3
+#define GTK_HTML_EDIT_IMAGE_VSPACE      4
+#define GTK_HTML_EDIT_IMAGE_SPINS       5
+
 struct _GtkHTMLImageDialog {
 	GtkHTML     *html;
 	GnomeDialog *dialog;
 	GtkWidget   *pentry;
 	GtkWidget   *entry_alt;
+
+	GtkWidget   *check [GTK_HTML_EDIT_IMAGE_SPINS];
+	GtkWidget   *spin  [GTK_HTML_EDIT_IMAGE_SPINS];
+	GtkObject   *adj   [GTK_HTML_EDIT_IMAGE_SPINS];
+	gint         val   [GTK_HTML_EDIT_IMAGE_SPINS];
+	gboolean     set   [GTK_HTML_EDIT_IMAGE_SPINS];
+
+	GtkWidget   *check_percent;
+	gboolean     percent;
+
+	GtkWidget   *sel_align;
+	guint        align;
 };
 
 GtkHTMLImageDialog * gtk_html_image_dialog_new (GtkHTML *html);
