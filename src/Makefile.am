@@ -11,35 +11,45 @@ libgtkhtmldir = $(includedir)/gtkhtml
 
 libgtkhtml_HEADERS =				\
 	debug.h					\
+	gtkhtml-embedded.h			\
 	gtkhtml.h				\
 	htmlanchor.h				\
+	htmlbutton.h				\
+	htmlcheckbox.h				\
+	htmlclue.h				\
 	htmlcluealigned.h			\
 	htmlclueflow.h				\
-	htmlclue.h				\
 	htmlclueh.h				\
 	htmlcluev.h				\
+	htmlcolorset.h				\
 	htmlcursor.h				\
 	htmldrawqueue.h				\
-	htmlengine.h				\
 	htmlembedded.h				\
-	gtkhtml-embedded.h			\
-	htmlcolorset.h				\
 	htmlengine-edit.h			\
 	htmlengine-save.h			\
+	htmlengine.h				\
 	htmlentity.h				\
 	htmlfontmanager.h			\
+	htmlform.h				\
+	htmlgdkpainter.h			\
+	htmlhidden.h				\
 	htmlimage.h				\
+	htmlimageinput.h			\
 	htmllinktext.h				\
 	htmllinktextmaster.h			\
 	htmllist.h				\
 	htmlobject.h				\
 	htmlpainter.h				\
+	htmlradio.h				\
 	htmlrule.h				\
+	htmlselect.h				\
 	htmlsettings.h				\
 	htmlstack.h				\
 	htmltable.h				\
 	htmltablecell.h				\
 	htmltext.h				\
+	htmltextarea.h				\
+	htmltextinput.h				\
 	htmltextmaster.c			\
 	htmltextmaster.h			\
 	htmltextslave.h				\
@@ -47,65 +57,57 @@ libgtkhtml_HEADERS =				\
 	htmltype.h				\
 	htmlurl.h				\
 	htmlvspace.h				\
-	stringtokenizer.h			\
-	htmlform.h				\
-	htmlbutton.h				\
-	htmltextinput.h				\
-	htmlradio.h				\
-	htmlcheckbox.h				\
-	htmlhidden.h				\
-	htmlselect.h				\
-	htmltextarea.h				\
-	htmlimageinput.h
+	stringtokenizer.h
 
 libgtkhtml_la_SOURCES =				\
-	gtkhtml-private.h			\
 	debug.c					\
+	gtkhtml-embedded.c			\
+	gtkhtml-private.h			\
 	gtkhtml.c				\
 	htmlanchor.c				\
+	htmlbutton.c				\
+	htmlcheckbox.c				\
 	htmlclue.c				\
 	htmlcluealigned.c			\
 	htmlclueflow.c				\
 	htmlclueh.c				\
 	htmlcluev.c				\
+	htmlcolorset.c				\
 	htmlcursor.c				\
 	htmldrawqueue.c				\
-	htmlengine.c				\
 	htmlembedded.c				\
-	gtkhtml-embedded.c			\
 	htmlengine-edit.c			\
 	htmlengine-save.c			\
-	htmlcolorset.c				\
+	htmlengine.c				\
 	htmlentity.c				\
 	htmlfontmanager.c			\
+	htmlform.c				\
+	htmlgdkpainter.c			\
+	htmlhidden.c				\
 	htmlimage.c				\
+	htmlimageinput.c			\
 	htmllinktext.c				\
 	htmllinktextmaster.c			\
 	htmllist.c				\
 	htmlobject.c				\
 	htmlpainter.c				\
+	htmlradio.c				\
 	htmlrule.c				\
+	htmlselect.c				\
 	htmlsettings.c				\
 	htmlstack.c				\
 	htmlstream.c				\
 	htmltable.c				\
 	htmltablecell.c				\
 	htmltext.c				\
+	htmltextarea.c				\
+	htmltextinput.c				\
 	htmltextmaster.c			\
 	htmltextslave.c				\
 	htmltokenizer.c				\
 	htmltype.c				\
 	htmlvspace.c				\
-	stringtokenizer.c			\
-	htmlform.c				\
-	htmlbutton.c				\
-	htmltextinput.c				\
-	htmlradio.c				\
-	htmlcheckbox.c				\
-	htmlhidden.c				\
-	htmlselect.c				\
-	htmltextarea.c				\
-	htmlimageinput.c
+	stringtokenizer.c
 
 testgtkhtml_SOURCES = 		\
 	testgtkhtml.c		\

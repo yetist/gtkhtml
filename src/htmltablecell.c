@@ -100,13 +100,13 @@ draw (HTMLObject *o,
 			ph = cell->bgPixmap->pixbuf->art_pixbuf->height;
 
 			oheight = o->ascent;
-			base_y = o->y - o->ascent + ty - p->y1;
+			base_y = o->y - o->ascent + ty /* FIXMEHTMLPainter - p->y1 */;
 
 			while(oheight > 0) {
 
 
 				owidth = o->width;
-				base_x = o->x + tx - p->x1;
+				base_x = o->x + tx /* FIXMEHTMLPainter - p->x1 */;
 				while(owidth > 0) {
 					
 					clip_width = owidth > pw ? pw :owidth;

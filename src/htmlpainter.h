@@ -30,47 +30,71 @@
 #include "htmlfontmanager.h"
 #include "htmlcolorset.h"
 
-typedef struct _HTMLPainter HTMLPainter;
-
-struct _HTMLPainter {
-	GdkWindow *window; /* GdkWindow to draw on */
-
-	HTMLColorSet *color_set;
-
-	/* For the double-buffering system.  */
-	gboolean double_buffer;
-	GdkPixmap *pixmap;
-	gint x1, y1, x2, y2;
-	GdkColor background;
-	gboolean set_background;
-	gboolean do_clear;
-
-	/* The current GC used.  */
-	GdkGC *gc;
-
-	/* Font handling.  */
-	HTMLFontManager *font_manager;
-	HTMLFontStyle font_style;
-
-	/* Colors used for shading.  */
-	GdkColor dark;
-	GdkColor light;
-	GdkColor black;
-};
+
+#define HTML_TYPE_PAINTER                 (html_painter_get_type ())
+#define HTML_PAINTER(obj)                 (GTK_CHECK_CAST ((obj), HTML_TYPE_PAINTER, HTMLPainter))
+#define HTML_PAINTER_CLASS(klass)         (GTK_CHECK_CLASS_CAST ((klass), HTML_TYPE_PAINTER, HTMLPainterClass))
+#define HTML_IS_PAINTER(obj)              (GTK_CHECK_TYPE ((obj), HTML_TYPE_PAINTER))
+#define HTML_IS_PAINTER_CLASS(klass)      (GTK_CHECK_CLASS_TYPE ((klass), HTML_TYPE_PAINTER))
 
 
-/* To drive the painting process.  */
+struct _HTMLPainter {
+	GtkObject base;
+
+	HTMLColorSet *color_set;
+};
+typedef struct _HTMLPainter HTMLPainter;
+
+struct _HTMLPainterClass {
+	GtkObjectClass base;
+
+	void (* begin) (HTMLPainter *painter, int x1, int y1, int x2, int y2);
+	void (* end) (HTMLPainter *painter);
+
+	void (* alloc_color) (HTMLPainter *painter, GdkColor *color);
+	void (* free_color) (HTMLPainter *painter, GdkColor *color);
+
+	void (* set_font_style) (HTMLPainter *p, HTMLFontStyle  f);
+	HTMLFontStyle (* get_font_style) (HTMLPainter *p);
+	guint (* calc_ascent) (HTMLPainter *p, HTMLFontStyle f);
+	guint (* calc_descent) (HTMLPainter *p, HTMLFontStyle f);
+	guint (* calc_text_width) (HTMLPainter *p, const gchar *text, guint len, HTMLFontStyle font_style);
+
+	void (* set_pen) (HTMLPainter *painter, const GdkColor *color);
+	const GdkColor * (* get_black) (const HTMLPainter *painter);
+	void (* draw_line) (HTMLPainter *painter, gint x1, gint y1, gint x2, gint y2);
+	void (* draw_rect) (HTMLPainter *painter, gint x, gint y, gint width, gint height);
+	void (* draw_text) (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len);
+	void (* fill_rect) (HTMLPainter *painter, gint x, gint y, gint width, gint height);
+	void (* draw_pixmap) (HTMLPainter *painter, gint x, gint y, GdkPixbuf *pixbuf, gint clipx, gint clipy,
+			      gint clipwidth, gint clipheight);
+	void (* draw_ellipse) (HTMLPainter *painter, gint x, gint y, gint width, gint height);
+	void (* clear) (HTMLPainter *painter);
+	void (* set_background_color) (HTMLPainter *painter, const GdkColor *color);
+	void (* draw_shade_line) (HTMLPainter *p, gint x, gint y, gint width);
+	void (* draw_panel) (HTMLPainter *painter, gint x, gint y, gint width, gint height,
+			     gboolean inset, gint bordersize);
+
+	void (* set_clip_rectangle) (HTMLPainter *painter, gint x, gint y, gint width, gint height);
+	void (* draw_background_pixmap) (HTMLPainter *painter, gint x, gint y, GdkPixbuf *pixbuf,
+					 gint pix_width, gint pix_height);
+
+	void (* set_color_set) (HTMLPainter *painter, HTMLColorSet *color_set);
+};
+typedef struct _HTMLPainterClass HTMLPainterClass;
+
+
+/* Creation.  */
+GtkType      html_painter_get_type   (void);
 HTMLPainter *html_painter_new        (void);
-void         html_painter_destroy    (HTMLPainter *painter);
+
+/* Functions to drive the painting process.  */
 void         html_painter_begin      (HTMLPainter *painter,
 				      int          x1,
 				      int          y1,
 				      int          x2,
 				      int          y2);
 void         html_painter_end        (HTMLPainter *painter);
-void         html_painter_realize    (HTMLPainter *painter,
-				      GdkWindow   *window);
-void         html_painter_unrealize  (HTMLPainter *painter);
 
 /* Color control.  */
 void  html_painter_alloc_color  (HTMLPainter *painter,
@@ -139,7 +163,7 @@ void  html_painter_draw_ellipse          (HTMLPainter    *painter,
 					  gint            height);
 void  html_painter_clear                 (HTMLPainter    *painter);
 void  html_painter_set_background_color  (HTMLPainter    *painter,
-					  GdkColor       *color);
+					  const GdkColor *color);
 void  html_painter_draw_shade_line       (HTMLPainter    *p,
 					  gint            x,
 					  gint            y,

@@ -1,5 +1,16 @@
 2000-02-01  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine.c: Updated to use `HTMLGdkPainter' instead of the
+	old `HTMLPainter'.
+	* htmlengine.h: Likewise.
+
+	* htmlgdkpainter.c: New file, an HTMLPainter-derived class
+	implementing a GDK-based painter.
+	* htmlgdkpainter.h: Header for it.
+
+	* htmlpainter.c: Rewritten as an abstract GTK+ class.
+	* htmlpainter.h: Likewise.
+
 	* htmlengine.c (html_engine_parse): No need to allocate the
 	settings' colors anymore.
 

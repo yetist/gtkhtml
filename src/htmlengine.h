@@ -39,6 +39,7 @@ typedef struct _HTMLEngineClass HTMLEngineClass;
 #include "htmlstack.h"
 #include "htmlsettings.h"
 #include "htmlpainter.h"
+#include "htmlgdkpainter.h"
 #include "stringtokenizer.h"
 #include "gtkhtml-embedded.h"
 
@@ -70,6 +71,7 @@ struct _HTMLEngine {
 
 	HTMLColorSet *color_set;
 	HTMLDrawQueue *draw_queue;
+
 	HTMLPainter *painter;
 
 	HTMLSettings *settings;

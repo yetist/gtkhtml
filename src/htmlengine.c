@@ -2693,8 +2693,9 @@ html_engine_destroy (GtkObject *object)
 	string_tokenizer_destroy (engine->st);
 	html_settings_destroy    (engine->settings);
 	html_settings_destroy    (engine->defaultSettings);
-	html_painter_destroy     (engine->painter);
 	html_image_factory_free  (engine->image_factory);
+
+	gtk_object_destroy (GTK_OBJECT (engine->painter));
 
 	html_stack_destroy (engine->color_stack);
 	html_stack_destroy (engine->font_style_stack);
@@ -2821,7 +2822,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->invert_gc = NULL;
 
 	engine->color_set = html_color_set_new ();
-	engine->painter = html_painter_new ();
+	engine->painter = html_gdk_painter_new (TRUE);
 	html_painter_set_color_set (engine->painter, engine->color_set);
 	
 	engine->newPage = FALSE;
@@ -2893,7 +2894,7 @@ html_engine_realize (HTMLEngine *e,
 
 	e->window = window;
 
-	html_painter_realize (e->painter, window);
+	html_gdk_painter_realize (HTML_GDK_PAINTER (e->painter), window);
 
 	gc_values.function = GDK_INVERT;
 	e->invert_gc = gdk_gc_new_with_values (e->window, &gc_values, GDK_GC_FUNCTION);
@@ -2933,8 +2934,10 @@ draw_background (HTMLEngine *e,
 	xOrigin = x / pw*pw - xval % pw;
 	yOrigin = y / ph*ph - yval % ph;
 
+#if 0
 	xOrigin -= e->painter->x1;
 	yOrigin -= e->painter->y1;
+#endif
 
 	/* Do the bgimage tiling */
 	for (yp = yOrigin; yp < y + h; yp += ph) {
