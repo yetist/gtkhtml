@@ -74,6 +74,8 @@ void                       html_engine_break_and_fill_line        (HTMLEngine   
 gboolean                   html_engine_next_cell                  (HTMLEngine                *e,
 								   gboolean                   create);
 gboolean                   html_engine_prev_cell                  (HTMLEngine                *e);
+void                       html_engine_set_title                  (HTMLEngine                *e,
+								   const gchar               *title);
 /*
   static (non instance) methods
 */

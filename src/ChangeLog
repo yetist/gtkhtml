@@ -1,3 +1,7 @@
+2002-01-25  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit.c (html_engine_set_title): new method for title setting
+
 2002-01-24  Larry Ewing  <lewing@ximian.com>
 
 	* htmlpainter.c: remove uneeded semicolons after

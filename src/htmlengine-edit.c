@@ -664,3 +664,11 @@ html_engine_prev_cell (HTMLEngine *e)
 
 	return FALSE;
 }
+
+void
+html_engine_set_title (HTMLEngine *e, const gchar *title)
+{
+	if (e->title)
+		g_string_free (e->title, TRUE);
+	e->title = g_string_new (title);
+}
