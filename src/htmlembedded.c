@@ -92,12 +92,8 @@ destroy (HTMLObject *o)
 		g_free(element->name);
 	if(element->value)
 		g_free(element->value);
-	if(element->widget) {
-		if (element->widget->parent)
-			gtk_widget_destroy (element->widget);
-		else
-			gtk_widget_unref (element->widget);
-		}
+	if(element->widget)
+		gtk_widget_hide (element->widget);
 
 	HTML_OBJECT_CLASS (parent_class)->destroy (o);
 }

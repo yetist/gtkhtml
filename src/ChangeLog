@@ -1,3 +1,8 @@
+2000-09-14  Dan Winship  <danw@helixcode.com>
+
+	* htmlembedded.c (destroy): Just hide the embedded widget rather
+	than destroying it, to prevent it from being destroyed twice.
+
 2000-09-14  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine-edit-movement.c (html_engine_forward_word): refactored
