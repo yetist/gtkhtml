@@ -271,7 +271,7 @@ save (HTMLObject *self,
 {
 	HTMLTableCell *cell = HTML_TABLE_CELL (self);
 
-	SB "<TD" SE;
+	SB cell->heading ? "<TH" : "<TD" SE;
 	if (cell->have_bg
 	    && (!HTML_TABLE (self->parent)->bgColor || !gdk_color_equal (&cell->bg, HTML_TABLE (self->parent)->bgColor)))
 		SB " BGCOLOR=\"#%02x%02x%02x\"",
@@ -289,6 +289,8 @@ save (HTMLObject *self,
 		SB " WIDTH=\"%d%%\"", self->percent SE;
 	} else if (self->flags & HTML_OBJECT_FLAG_FIXEDWIDTH)
 		SB " WIDTH=\"%d\"", cell->fixed_width SE;
+	if (cell->no_wrap)
+		SB " NOWRAP" SE;
 	SB ">\n" SE;
 	if (!(*HTML_OBJECT_CLASS (parent_class)->save) (self, state))
 		return FALSE;

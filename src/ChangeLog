@@ -1,5 +1,8 @@
 2001-05-30  Radek Doulik  <rodo@ximian.com>
 
+	* htmltablecell.c (save): use heading
+	(save): use no_wrap
+
 	* htmlengine-edit-tablecell.c
 	(html_engine_table_cell_set_no_wrap): new function
 	(html_engine_table_cell_set_heading): ditto
