@@ -159,7 +159,9 @@ void
 html_interval_select (HTMLInterval *i, HTMLEngine *e)
 {
 	html_engine_get_top_html_engine (e)->selected_in = FALSE;
+	i = html_interval_flat (i);
 	html_interval_forall (i, e, select_object, i);
+	html_interval_destroy (i);
 }
 
 static void
@@ -256,7 +258,7 @@ html_interval_dup (HTMLInterval *i)
 	return html_interval_new_from_points (&i->from, &i->to);
 }
 
-static HTMLInterval *
+HTMLInterval *
 html_interval_flat (HTMLInterval *i)
 {
 	HTMLInterval *ni = html_interval_dup (i);

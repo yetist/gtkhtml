@@ -1,3 +1,10 @@
+2001-06-07  Radek Doulik  <rodo@ximian.com>
+
+	* htmlinterval.c (html_interval_flat): make this method public
+	(html_interval_select): use flat interval
+
+	* htmltext.c (word_get_position): kill warning
+
 2001-06-05  Larry Ewing  <lewing@ximian.com>
 
 	* htmlframe.c (html_frame_init): attach submit to frame_submit.

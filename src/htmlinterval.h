@@ -60,6 +60,7 @@ HTMLInterval *html_interval_new_from_cursor  (HTMLCursor            *a,
 HTMLInterval *html_interval_new_from_points  (HTMLPoint             *from,
 					      HTMLPoint             *to);
 void          html_interval_validate         (HTMLInterval          *i);
+HTMLInterval *html_interval_flat             (HTMLInterval          *i);
 void          html_interval_destroy          (HTMLInterval          *i);
 guint         html_interval_get_length       (HTMLInterval          *i,
 					      HTMLObject            *obj);
@@ -69,7 +70,7 @@ guint         html_interval_get_start        (HTMLInterval          *i,
 					      HTMLObject            *obj);
 guint         html_interval_get_start_index  (HTMLInterval          *i,
 					      HTMLObject            *obj);
-HTMLObject *  html_interval_get_head         (HTMLInterval          *i,
+HTMLObject   *html_interval_get_head         (HTMLInterval          *i,
 					      HTMLObject            *o);
 void          html_interval_select           (HTMLInterval          *i,
 					      HTMLEngine            *e);

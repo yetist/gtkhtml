@@ -208,7 +208,7 @@ word_get_position (HTMLText *text, guint off, guint *word_out, guint *left_out, 
 	*left_out  = off - loff;
 	*right_out = coff - off;
 
-	/* printf ("get position w: %d l: %d r: %d\n", *word_out, *left_out, *right_out);
+	printf ("get position w: %d l: %d r: %d\n", *word_out, *left_out, *right_out);
 } */
 
 void
