@@ -131,6 +131,7 @@ find_font (gchar *font_name, gdouble req_size, gint *font_size, GtkHTMLFontStyle
 	return rv;
 }
 
+#if 0
 static void
 gtkhtml_private_split_name (gchar * c[], gchar * name)
 {
@@ -149,6 +150,7 @@ gtkhtml_private_split_name (gchar * c[], gchar * name)
 
 	c[i] = p;
 }
+#endif
 
 static gchar *
 font_name_substitute_attr (const gchar *name, gint nth, gchar *val)

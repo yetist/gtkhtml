@@ -1,5 +1,11 @@
 2001-09-21  Larry Ewing  <lewing@ximian.com>
 
+	* htmlpainter.c: add #include <stdlib.h> to cover the alloca
+	prototype.
+
+	* htmlgdkpainter.c (gtkhtml_private_split_name): ifdef out since
+	it is currently unused.
+
 	* Makefile.am (testgtkhtml_LDADD): remove -static it was breaking
 	the build under libtool-1.4 and FreeBSD.
 	(gtest_LDADD): same.
