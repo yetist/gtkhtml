@@ -1,3 +1,10 @@
+2000-05-26  Dan Winship  <danw@helixcode.com>
+
+	* test-html-editor-control.c (load_through_stream,
+	save_through_stream):
+	* persist-stream-impl.c (save_receiver, save, load,
+	get_content_types): Update for PersistStream changes.
+
 2000-05-21  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* persist-stream-impl.c (load): Updated to use `GtkHTMLStream *'

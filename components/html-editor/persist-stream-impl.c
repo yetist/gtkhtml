@@ -38,26 +38,32 @@
 
 #define READ_CHUNK_SIZE 4096
 
-static gint
+static void
 load (BonoboPersistStream *ps,
       Bonobo_Stream stream,
-      gpointer data)
+      Bonobo_Persist_ContentType type,
+      gpointer data,
+      CORBA_Environment *ev)
 {
 	GtkHTML *html;
-	CORBA_Environment ev;
 	CORBA_long bytes_read;
 	Bonobo_Stream_iobuf *buffer;
 	GtkHTMLStream *handle;
 
-	CORBA_exception_init (&ev);
+	if (strcmp (type, "text/html") != 0)
+		CORBA_exception_set (ev, CORBA_USER_EXCEPTION,
+				     ex_Bonobo_Persist_WrongDataType, NULL);
+		return;
+	}
 
 	html = GTK_HTML (data);
 
 	handle = gtk_html_begin (html);
 
 	do {
-		bytes_read = Bonobo_Stream_read (stream, READ_CHUNK_SIZE, &buffer, &ev);
-		if (ev._major != CORBA_NO_EXCEPTION) {
+		bytes_read = Bonobo_Stream_read (stream, READ_CHUNK_SIZE,
+						 &buffer, ev);
+		if (ev->_major != CORBA_NO_EXCEPTION) {
 			bytes_read = -1;
 			break;
 		}
@@ -71,13 +77,6 @@ load (BonoboPersistStream *ps,
 		gtk_html_end (html, handle, GTK_HTML_STREAM_ERROR);
 	else
 		gtk_html_end (html, handle, GTK_HTML_STREAM_OK);
-
-	CORBA_exception_free (&ev);
-
-	if (bytes_read < 0)
-		return -1;
-
-	return 0;
 }
 
 
@@ -85,7 +84,7 @@ load (BonoboPersistStream *ps,
 
 struct _SaveState {
 	Bonobo_Stream stream;
-	CORBA_Environment ev;
+	CORBA_Environment *ev;
 };
 typedef struct _SaveState SaveState;
 
@@ -100,55 +99,57 @@ save_receiver (const HTMLEngine *engine,
 	SaveState *state;
 
 	state = (SaveState *) user_data;
-	if (state->ev._major != CORBA_NO_EXCEPTION)
+	if (state->ev->_major != CORBA_NO_EXCEPTION)
 		return FALSE;
 
 	buffer._maximum = length;
 	buffer._length = length;
 	buffer._buffer = (CORBA_char *) data; /* Should be safe.  */
 
-	bytes_written = Bonobo_Stream_write (state->stream, &buffer, &state->ev);
+	bytes_written = Bonobo_Stream_write (state->stream, &buffer, state->ev);
 
-	if (bytes_written != length || state->ev._major != CORBA_NO_EXCEPTION)
+	if (bytes_written != length || state->ev->_major != CORBA_NO_EXCEPTION)
 		return FALSE;
 
 	return TRUE;
 }
 
-static gint
+static void
 save (BonoboPersistStream *ps,
       Bonobo_Stream stream,
-      gpointer data)
+      Bonobo_Persist_ContentType type,
+      gpointer data,
+      CORBA_Environment *ev)
 {
 	GtkHTML *html;
 	SaveState save_state;
-	gboolean success;
+
+	if (strcmp (type, "text/html") != 0) {
+		CORBA_exception_set (ev, CORBA_USER_EXCEPTION,
+				     ex_Bonobo_Persist_WrongDataType, NULL);
+		return;
+	}
 
 	html = GTK_HTML (data);
 
-	CORBA_exception_init (&save_state.ev);
-	save_state.stream = CORBA_Object_duplicate (stream, &save_state.ev);
-	if (save_state.ev._major != CORBA_NO_EXCEPTION) {
-		CORBA_exception_free (&save_state.ev);
-		return -1;
-	}
+	save_state.ev = ev;
+	save_state.stream = CORBA_Object_duplicate (stream, ev);
+	if (ev->_major == CORBA_NO_EXCEPTION)
+		gtk_html_save (html, save_receiver, &save_state);
+	CORBA_Object_release (save_state.stream, ev);
+}
 
-	success = gtk_html_save (html, save_receiver, &save_state);
-	if (save_state.ev._major != CORBA_NO_EXCEPTION)
-		success = FALSE;
-
-	CORBA_Object_release (save_state.stream, &save_state.ev);
-	CORBA_exception_free (&save_state.ev);
-
-	if (success)
-		return 0;
-	else
-		return -1;
+static Bonobo_Persist_ContentTypeList *
+get_content_types (BonoboPersistStream *ps, gpointer data,
+		   CORBA_Environment *ev)
+{
+	return bonobo_persist_generate_content_types (1, "text/html");
 }
 
 
 BonoboPersistStream *
 persist_stream_impl_new (GtkHTML *html)
 {
-	return bonobo_persist_stream_new (load, save, html);
+	return bonobo_persist_stream_new (load, save, NULL, get_content_types,
+					  html);
 }

@@ -54,7 +54,8 @@ load_through_stream (const gchar *filename,
 
 		stream_object = BONOBO_OBJECT (stream);
 		corba_stream = bonobo_object_corba_objref (stream_object);
-		Bonobo_PersistStream_load (pstream, corba_stream, &ev);
+		Bonobo_PersistStream_load (pstream, corba_stream,
+					   "text/html", &ev);
 	}
 
 	Bonobo_Unknown_unref (pstream, &ev);
@@ -82,7 +83,8 @@ save_through_stream (const gchar *filename,
 
 		stream_object = BONOBO_OBJECT (stream);
 		corba_stream = bonobo_object_corba_objref (stream_object);
-		Bonobo_PersistStream_save (pstream, corba_stream, &ev);
+		Bonobo_PersistStream_save (pstream, corba_stream,
+					   "text/html", &ev);
 	}
 
 	Bonobo_Unknown_unref (pstream, &ev);
