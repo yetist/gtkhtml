@@ -204,14 +204,15 @@ relayout (HTMLObject *self,
 	if (prev_width == self->width
 	    && prev_ascent == self->ascent
 	    && prev_descent == self->descent) {
-		g_print ("relayout: %s %p did not change.\n",
-			 html_type_name (HTML_OBJECT_TYPE (self)),
-			 self);
+		gtk_html_debug_log (engine->widget,
+				    "relayout: %s %p did not change.\n",
+				    html_type_name (HTML_OBJECT_TYPE (self)),
+				    self);
 		return FALSE;
 	} else {
-		g_print ("relayout: %s %p changed.\n",
-			 html_type_name (HTML_OBJECT_TYPE (self)),
-			 self);	
+		gtk_html_debug_log (engine->widget, "relayout: %s %p changed.\n",
+				    html_type_name (HTML_OBJECT_TYPE (self)),
+				    self);
 		if (self->parent == NULL) {
 			/* FIXME resize the widget, e.g. scrollbars and such.  */
 			html_engine_queue_draw (engine, self);

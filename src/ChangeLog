@@ -1,3 +1,15 @@
+2000-02-21  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmllinktext.c (html_link_text_new): Get rid of some
+	ultra-verbose debugging messages.
+
+	* All files: use the new `gtk_html_debug_log()' call instead of
+	plain `g_print()'.
+
+	* htmlcursor.c (debug_location): Always compile this in,
+	unconditionally.  At least for now.  Also, new parameter `html':
+	use `gtk_html_debug_log()'.
+
 2000-02-20  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* debug.h: Renamed to `gtkhtmldebug.h'.

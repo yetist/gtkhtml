@@ -180,7 +180,7 @@ struct _HTMLEngine {
 	/* Stack of embedded "object"'s */
 	HTMLStack *embeddedStack;
 
-	/* the widget, used for signal emission*/
+	/* The associated widget.  */
 	GtkHTML *widget;
 
         gpointer image_factory;

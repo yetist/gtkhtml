@@ -184,13 +184,6 @@ html_link_text_new (gchar *text,
 
 	link_text_object = g_new (HTMLLinkText, 1);
 
-	g_print ("%s (", __FUNCTION__);
-	if (url != NULL)
-		g_print ("url = `%s', ", url);
-	if (target != NULL)
-		g_print ("target = `%s'", url);
-	g_print (")\n");
-
 	html_link_text_init (link_text_object, &html_link_text_class,
 			     text, font_style, color, url, target);
 

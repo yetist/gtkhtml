@@ -686,7 +686,8 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	have_rowColor = FALSE;
 	have_bgColor = FALSE;
 
-	g_print ("start parse\n");
+	gtk_html_debug_log (e->widget, "start parse\n");
+
 	string_tokenizer_tokenize (e->st, attr, " >");
 	while (string_tokenizer_has_more_tokens (e->st)) {
 		const gchar *token = string_tokenizer_next_token (e->st);
@@ -870,7 +871,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					noCell = FALSE;
 
 					if (*(str + 2) == 'h') {
-						g_print ("<th>\n");
+						gtk_html_debug_log (e->widget, "<th>\n");
 						heading = TRUE;
 					}
 
@@ -944,7 +945,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 							}
 							else if (strncasecmp (token, "width=", 6) == 0) {
 								if (strchr (token + 6, '%')) {
-									g_print ("percent!\n");
+									gtk_html_debug_log (e->widget, "percent!\n");
 									cellpercent = atoi (token + 6);
 								}
 								else if (strchr (token + 6, '*')) {
@@ -1112,7 +1113,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 		html_object_destroy (HTML_OBJECT (table));
 	}
 	
-	g_print ("Returning: %s\n", str);
+	gtk_html_debug_log (e->widget, "Returning: %s\n", str);
 	return str;
 }
 
@@ -1449,7 +1450,7 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		gboolean bgColorSet = FALSE;
 
 		if (e->bodyParsed) {
-			g_print ("body is parsed\n"); /* FIXME */
+			gtk_html_debug_log (e->widget, "body is parsed\n"); /* FIXME */
 			return;
 		}
 
@@ -1458,15 +1459,15 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		string_tokenizer_tokenize (e->st, str + 5, " >");
 		while (string_tokenizer_has_more_tokens (e->st)) {
 			gchar *token = string_tokenizer_next_token (e->st);
-			g_print ("token is: %s\n", token);
+			gtk_html_debug_log (e->widget, "token is: %s\n", token);
 
 			if (strncasecmp (token, "bgcolor=", 8) == 0) {
-				g_print ("setting color\n");
+				gtk_html_debug_log (e->widget, "setting color\n");
 				if (parse_color (token + 8, &bgColor)) {
-					g_print ("bgcolor is set\n");
+					gtk_html_debug_log (e->widget, "bgcolor is set\n");
 					bgColorSet = TRUE;
 				} else {
-					g_print ("Color `%s' could not be parsed\n", token);
+					gtk_html_debug_log (e->widget, "Color `%s' could not be parsed\n", token);
 				}
 			}
 			else if (strncasecmp (token, "background=", 11) == 0
@@ -1545,7 +1546,7 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			}
 		}
 
-		g_print ("parsed <body>\n");
+		gtk_html_debug_log (e->widget, "parsed <body>\n");
 	}
 	else if (strncmp (str, "br", 2) == 0) {
 		HTMLClearType clear;
@@ -1557,7 +1558,7 @@ parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			gchar *token = string_tokenizer_next_token (e->st);
 			
 			if (strncasecmp (token, "clear=", 6) == 0) {
-				g_print ("%s\n", token);
+				gtk_html_debug_log (e->widget, "%s\n", token);
 				if (strncasecmp (token + 6, "left", 4) == 0)
 					clear = HTML_CLEAR_LEFT;
 				else if (strncasecmp (token + 6, "right", 5) == 0)
@@ -3641,7 +3642,7 @@ html_engine_select_region (HTMLEngine *e,
 	html_object_forall (e->clue, select_region_forall, data);
 
 	e->active_selection = data->active_selection;
-	g_print ("Active selection: %s\n", e->active_selection ? "TRUE" : "FALSE");
+	gtk_html_debug_log (e->widget, "Active selection: %s\n", e->active_selection ? "TRUE" : "FALSE");
 
 	g_free (data);
 }
@@ -3677,7 +3678,7 @@ html_engine_unselect_all (HTMLEngine *e,
 	g_free (select_data);
 
 	e->active_selection = FALSE;
-	g_print ("Active selection: FALSE\n");
+	gtk_html_debug_log (e->widget, "Active selection: FALSE\n");
 }
 
 

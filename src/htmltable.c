@@ -94,8 +94,6 @@ add_columns (HTMLTable *table, gint num)
 	HTMLTableCell **newCells;
 	gint r;
 
-	g_print ("adding columns: %d\n", num);
-
 	for (r = 0; r < table->allocRows; r++) {
 		newCells = g_malloc (sizeof (HTMLTableCell *) * (table->totalCols + num));
 		memcpy (newCells, table->cells[r], table->totalCols * sizeof (HTMLTableCell *));
@@ -112,11 +110,11 @@ add_columns (HTMLTable *table, gint num)
 static void
 add_rows (HTMLTable *table, gint num)
 {
-	gint r;
 	HTMLTableCell ***newRows = g_malloc (sizeof (HTMLTableCell **) * (table->allocRows + num));
+	gint r;
+
 	memcpy (newRows, table->cells, table->allocRows * sizeof (HTMLTableCell **));
-	g_print ("adding rows\n");
-	/* FIXME: do destroy instead of free? */
+
 	g_free (table->cells);
 	table->cells = newRows;
 

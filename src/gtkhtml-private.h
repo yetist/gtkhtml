@@ -4,6 +4,7 @@
 #define GTKHTML_PRIVATE_H 1
 
 #include "gtkhtml.h"
+#include "gtkhtmldebug.h"
 
 typedef void (*GtkHTMLStreamEndFunc)(GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, gpointer user_data);
 typedef void (*GtkHTMLStreamWriteFunc)(GtkHTMLStreamHandle handle, const guchar *buffer, size_t size, gpointer user_data);

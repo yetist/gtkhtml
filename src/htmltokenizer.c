@@ -120,15 +120,13 @@ html_tokenizer_next_token_buffer (HTMLTokenizer *t)
 {
 	t->tokenBufferCurrIndex++;
 	
-	g_print ("next token buffer\n");
-
 	if (t->tokenBufferCurrIndex < g_list_length (t->tokenBufferList)) {
 		t->curr = ((GList *)g_list_nth (t->tokenBufferList,
 						g_list_length (t->tokenBufferList) - t->tokenBufferCurrIndex - 1))->data;
 		
-	}
-	else
+	} else {
 		g_error ("Error in html_tokenizer_next_token_buffer");
+	}
 }
 
 gboolean
@@ -219,11 +217,8 @@ html_tokenizer_append_token (HTMLTokenizer *t, const gchar *string, gint len)
 	if (len < 1)
 		return;
 
-	if (len >= t->tokenBufferSizeRemaining) {
-		/* Create a new buffer */
-		g_print ("Appending token buffer\n");
+	if (len >= t->tokenBufferSizeRemaining)
 		html_tokenizer_append_token_buffer (t, len);
-	}
 
 	t->last = t->next;
 	t->tokenBufferSizeRemaining -= len + 1; /* One for null-termination */
@@ -250,8 +245,6 @@ html_tokenizer_append_token_buffer (HTMLTokenizer *t, gint min_size)
 	}
 	newBuffer = g_malloc (newBufSize + 1);
 	
-	g_print ("newBuffer: %p\n", newBuffer);
-
 	t->tokenBufferList = g_list_prepend (t->tokenBufferList, newBuffer);
 	t->next = newBuffer;
 	t->tokenBufferSizeRemaining = newBufSize;
