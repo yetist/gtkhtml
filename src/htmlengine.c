@@ -3878,7 +3878,7 @@ html_engine_stream_end (GtkHTMLStream *stream,
 
 	if (e->opened_streams)
 		e->opened_streams --;
-	printf ("ENGINE(%p) opened streams: %d\n", e, e->opened_streams);
+	/* printf ("ENGINE(%p) opened streams: %d\n", e, e->opened_streams); */
 	if (e->block && e->opened_streams == 0)
 		html_engine_schedule_update (e);
 
