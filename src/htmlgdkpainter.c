@@ -24,6 +24,7 @@
 
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 #include <glib.h>
 #include <gdk/gdkx.h>
@@ -65,6 +66,25 @@ finalize (GtkObject *object)
 	(* GTK_OBJECT_CLASS (parent_class)->finalize) (object);
 }
 
+static gchar *
+get_font_attr (gchar *font_name, gint pos)
+{
+	gchar *s, *end, *rv = NULL;
+	gint n;
+
+	/* Search paramether */
+	for (s=font_name, n=pos; n; n--,s++)
+		s = strchr (s,'-');
+
+	if (s && *s != 0) {
+		end = strchr (s, '-');
+		if (end)
+			rv = g_strndup (s, end - s);
+	}
+
+	return rv;
+}
+
 static gint
 get_size (gchar *font_name, gboolean points)
 {
@@ -88,70 +108,6 @@ get_size (gchar *font_name, gboolean points)
 	    return 0;
 }
 
-static gboolean
-find_font (gchar *font_name, gdouble req_size, gint *font_size, gboolean points, GtkHTMLFontStyle style)
-{
-	gint n;
-	gdouble size, smaller, bigger;
-	gchar **list;
-	gboolean rv = FALSE;
-
-	/* list available sizes */
-	smaller = bigger = size = .0;
-	list = XListFonts (GDK_DISPLAY (), font_name, 0xffff, &n);
-	/* look for right one */
-	while (n) {
-		n--;
-		size = get_size (list [n], points);
-		if ((gdouble) size == req_size) {
-			*font_size = size;
-			rv = TRUE;
-			break;
-		} else if (size < req_size && size > smaller)
-			smaller = size;
-		else if (size > req_size && (size < bigger || bigger == .0))
-			bigger = size;
-	}
-	if (n && list)
-		XFreeFontNames (list);
-
-	/* if not found use closest one */
-	if (!rv && (bigger || smaller)) {
-		if (bigger == .0)
-			size = smaller;
-		if (smaller == .0)
-			size = bigger;
-		if (bigger != .0 && smaller != .0)
-			size = ((style & GTK_HTML_FONT_STYLE_SIZE_MASK) > GTK_HTML_FONT_STYLE_SIZE_3) ? bigger : smaller;
-		/* size = (bigger - req_size <= req_size - smaller) ? bigger : smaller; */
-		*font_size = size;
-		rv = TRUE;
-	}
-
-	return rv;
-}
-
-#if 0
-static void
-gtkhtml_private_split_name (gchar * c[], gchar * name)
-{
-	gchar *p;
-	gint i;
-
-	p = name;
-
-	for (i = 0; i < 13; i++) {
-		c[i] = p;
-		/* Skip text */
-		while (*p && (*p != '-')) p++;
-		/* Replace hyphen with '\0' */
-		if (*p) *p++ = '\0';
-	}
-
-	c[i] = p;
-}
-#endif
-
 static gchar *
 font_name_substitute_attr (const gchar *name, gint nth, gchar *val)
 {
@@ -173,56 +129,232 @@ font_name_substitute_attr (const gchar *name, gint nth, gchar *val)
 	return rv;
 }
 
+static GHashTable *cache_x_list_fonts_results = NULL;
+typedef struct _HTMLGdkPainterFontList
+{
+	gchar **list;
+	gint n;
+} HTMLGdkPainterFontList;
+
+static gint
+html_str_case_equal (gconstpointer v, gconstpointer v2)
+{
+	return strcasecmp ((const gchar*) v, (const gchar*)v2) == 0;
+}
+
+static guint
+html_str_case_hash (gconstpointer key)
+{
+  const char *p = key;
+  guint h = tolower (*p);
+  
+  if (h)
+    for (p += 1; *p != '\0'; p++)
+      h = (h << 5) - h + tolower (*p);
+  
+  return h;
+}
+
+static gchar **
+lookup_fonts (gchar *face, gint *n)
+{
+	HTMLGdkPainterFontList *fl;
+
+	if (!cache_x_list_fonts_results)
+		cache_x_list_fonts_results = g_hash_table_new (html_str_case_hash, html_str_case_equal);
+
+	fl = (HTMLGdkPainterFontList *) g_hash_table_lookup (cache_x_list_fonts_results, face);
+	if (!fl) {
+		GTimer *timer;
+		gdouble elapsed;
+
+		fl = g_new (HTMLGdkPainterFontList, 1);
+
+		timer = g_timer_new ();
+		g_timer_start (timer);
+		fl->list = XListFonts (GDK_DISPLAY (), face, 0x7fff, &fl->n);
+		elapsed = g_timer_elapsed (timer, NULL);
+		g_timer_destroy (timer);
+
+		if (!fl->list)
+			fl->n = 0;
+		printf ("(%1.4fs) [list] %s --> %d\n", elapsed, face, fl->n);
+		/* printf ("inserting %d results for %s\n", fl->n, face); */
+		/* {
+			gint i;
+			for (i = 0; i < fl->n; i ++)
+				printf ("\t%s\n", fl->list [i]);
+				} */
+		g_hash_table_insert (cache_x_list_fonts_results, g_strdup (face), fl);
+	} /* else
+	     printf ("%d results found in cache (%s)\n", fl->n, face); */
+
+	*n = fl->n;
+
+	return fl->list;
+}
+
+static gchar **
+filter_fonts_with_style (gchar **list, gint *n, gchar *weight, gchar *slant)
+{
+	if (*n) {
+		GSList *cur, *tmp_list = NULL;
+		gchar **filtered, *fw, *fs;
+		gint i, nf;
+
+		nf = 0;
+		for (i = 0; i < *n; i ++) {
+			fw = get_font_attr (list [i], 3);
+			fs = get_font_attr (list [i], 4);
+			if (fw && fs) {
+				if (!strcasecmp (fw, weight) && !strcasecmp (fs, slant)) {
+					tmp_list = g_slist_prepend (tmp_list, list [i]);
+					nf ++;
+				}
+			}
+			g_free (fw);
+			g_free (fs);
+		}
+
+		filtered = g_new (gchar *, nf);
+		for (i = 0, cur = tmp_list; cur; i++, cur = cur->next)
+			filtered [i] = (gchar *) cur->data;
+		g_slist_free (tmp_list);
+		*n = nf;
+
+		/* printf ("found %d fonts (%s,%s)\n", *n, weight, slant); */
+
+		return filtered;
+	}
+
+	return list;
+}
+
+static gchar *
+find_font_with_similar_size (gchar **list, gint n, gint size, gboolean points, gboolean smaller)
+{
+	if (n) {
+		gint i, small, large, as, small_idx, large_idx;
+
+		small = large = 0;
+		for (i = 0; i < n; i++) {
+			as = get_size (list [i], points);
+
+			if (as > size && (as < large || !large)) {
+				large = as;
+				large_idx = i;
+			} else if (as < size && (as > small || !small)) {
+				small = as;
+				small_idx = i;
+			}
+		}
+
+		if (!small && !large)
+			return NULL;
+		if (!small && large)
+			return list [large_idx];
+		if (small && !large)
+			return list [small_idx];
+		return list [smaller ? small_idx : large_idx];
+	}
+
+	return NULL;
+}
+
+static gpointer
+load_font_with_name (gchar *name)
+{
+	GdkFont *gdk_font;
+	gboolean need_fontset = FALSE;
+	gpointer font;
+	GTimer *timer;
+	gdouble elapsed;
+
+	if (strchr (name, ','))
+		need_fontset = TRUE;
+
+	timer = g_timer_new ();
+	g_timer_start (timer);
+	gdk_font = need_fontset ? gdk_fontset_load (name) : gdk_font_load (name);
+	elapsed = g_timer_elapsed (timer, NULL);
+	g_timer_destroy (timer);
+	printf ("(%1.4fs) [load] %s --> %p\n", elapsed, name, gdk_font);
+
+	if (gdk_font) {
+		font = e_font_from_gdk_font_gtkhtml (gdk_font);
+		gdk_font_unref (gdk_font);
+	} else
+		font = NULL;
+
+	return font;
+}
+
+static gpointer
+e_font_from_face (gchar *face, gint size, gboolean points, gchar *weight, gchar *slant,
+		  gboolean known_size, gboolean smaller)
+{
+	gchar *f1, *f2, *f3, *f4, **list, **filtered = NULL;
+	gpointer font = NULL;
+	gint n;
+
+	/* clear weight, slant and size */
+	f1 = font_name_substitute_attr (face, 7, "*");
+	f2 = font_name_substitute_attr (f1, 8, "*");
+	g_free (f1);
+	f3 = font_name_substitute_attr (f2, 3, "*");
+	g_free (f2);
+	f4 = font_name_substitute_attr (f3, 4, "*");
+	g_free (f3);
+
+	list = lookup_fonts (f4, &n);
+	g_free (f4);
+
+	if (n == 0)
+		return NULL;
+
+	filtered = filter_fonts_with_style (list, &n, weight, slant);
+	if (n) {
+		gchar *name;
+		if (known_size) {
+
+			name = find_font_with_similar_size (filtered, n, size, points, smaller);
+			if (name)
+				font = load_font_with_name (name);
+		} else {
+			gchar *s;
+
+			f1 = font_name_substitute_attr (face, 3, weight);
+			f2 = font_name_substitute_attr (f1,   4, slant);
+			s    = g_strdup_printf ("%d", size);
+			name = font_name_substitute_attr (f2, points ? 8 : 7, s);
+			g_free (f1);
+			g_free (f2);
+			g_free (s);
+
+			font = load_font_with_name (name);
+			g_free (name);
+		}
+
+	}
+	if (filtered != list)
+		g_free (filtered);
+
+	return font;
+}
+
 static gpointer
 alloc_e_font_try (gchar *face, gdouble size, gboolean points, GtkHTMLFontStyle style,
 		  gchar *medium, gchar *bold, gchar *roman, gchar *italic, gboolean known_size)
 {
 	EFont *font;
-	gchar *name;
 
 	/* printf ("alloc font %s %f\n", face, size); */
 
 	if (face) {
-		GdkFont *gdk_font;
-		gboolean need_fontset = FALSE;
-		gchar *n1, *n2, *n3, *s;
-		gint tsize;
-
-		n1 = font_name_substitute_attr (face, 3, style & GTK_HTML_FONT_STYLE_BOLD ? bold : medium);
-		n2 = font_name_substitute_attr (n1,   4, style & GTK_HTML_FONT_STYLE_ITALIC ? italic : roman);
-		n3 = font_name_substitute_attr (n2,   points ? 8 : 7, "*");
-
-		if (known_size) {
-			if (!find_font (n3, size, &tsize, points, style)) {
-				g_free (n1);
-				g_free (n2);
-				g_free (n3);
-				return NULL;
-			}
-		} else
-			tsize = size;
-
-		tsize = MAX (tsize, 1);
-
-		g_free (n1);
-		g_free (n2);
-		s    = g_strdup_printf ("%d", tsize);
-		name = font_name_substitute_attr (n3, points ? 8 : 7, s);
-		g_free (n3);
-		g_free (s);
-
-		/* printf ("try: %s\n", name); */
-
-		if (strchr (name, ','))
-			need_fontset = TRUE;
-		gdk_font = need_fontset ? gdk_fontset_load (name) : gdk_font_load (name);
-		if (gdk_font) {
-			font = e_font_from_gdk_name (name);
-			gdk_font_unref (gdk_font);
-		} else
-			font = NULL;
-
-		g_free (name);
+		font = e_font_from_face (face, MAX (1, size), points,
+					 style & GTK_HTML_FONT_STYLE_BOLD ? bold : medium,
+					 style & GTK_HTML_FONT_STYLE_ITALIC ? italic : roman,
+					 known_size, (style & GTK_HTML_FONT_STYLE_SIZE_MASK) > GTK_HTML_FONT_STYLE_SIZE_3);
 	} else {
 		GdkFont *fixed;
 
@@ -231,24 +363,9 @@ alloc_e_font_try (gchar *face, gdouble size, gboolean points, GtkHTMLFontStyle s
 			fixed = gdk_font_load ("fixed");
 		if (!fixed)
 			g_error (_("Can't load fixed font."));
-		font = e_font_from_gdk_font (fixed);
+		font = e_font_from_gdk_font_gtkhtml (fixed);
 		gdk_font_unref (fixed);
 	}
-
-
-	/* if (font && face) {
-		gchar *c [14];
-
-		name = e_font_get_name (font);
-		if (name) {
-			gtkhtml_private_split_name (c, name);
-			if (!strcasecmp (c [2], "fixed") && strcasecmp (c [2], face)) {
-				e_font_unref (font);
-				font = NULL;
-			}
-			g_free (name);
-		}
-		} */
 
 	return font;
 }
