@@ -1,5 +1,12 @@
 2002-10-12  Larry Ewing  <lewing@ximian.com>
 
+ 	* gtkhtml.c (button_release_event): update the selection and
+	cursor position for the coords of the release point and queue a
+	drawing event for good measure.
+ 	(idle_handler): don't scroll to the cursor if we are already
+ 	scrolling in the scroll timeout.  They end up fighting and cause
+ 	the jittering that danw dislikes so much.
+
 	* htmltokenizer.c (in_entity): make sure we don't write entity
 	that is our escape sequence to the stream. (fixes #26055)
 

@@ -335,7 +335,9 @@ idle_handler (gpointer data)
 	html = GTK_HTML (data);
 	engine = html->engine;
 
-	if (html->engine->thaw_idle_id == 0 && !html_engine_frozen (html->engine))
+	if (html->priv->scroll_timeout_id == 0  &&
+	    html->engine->thaw_idle_id == 0  &&
+	    !html_engine_frozen (html->engine))
 		html_engine_make_cursor_visible (engine);
 
 	gtk_adjustment_set_value (GTK_LAYOUT (html)->hadjustment, (gfloat) engine->x_offset);
@@ -1503,16 +1505,26 @@ button_release_event (GtkWidget *initial_widget,
 {
 	GtkWidget *widget;
 	GtkHTML *html;
+	HTMLEngine *engine;
+	gint x, y;
 
 	/* printf ("button_release_event\n"); */
 
-	widget = shift_to_iframe_parent (initial_widget, NULL, NULL);
+	x = event->x;
+	y = event->y;
+	widget = shift_to_iframe_parent (initial_widget, &x, &y);
 	html   = GTK_HTML (widget);
 
 	gtk_grab_remove (widget);
 	gdk_pointer_ungrab (0);
+	
+	engine = html->engine;
 
 	if (event->button == 1) {
+	
+		if (html_engine_get_editable (engine)) 
+			html_engine_jump_at (engine, x + engine->x_offset, y + engine->y_offset); 
+
 		html->button1_pressed = FALSE;
 		
 		if (!html->priv->dnd_in_progress
@@ -1524,11 +1536,15 @@ button_release_event (GtkWidget *initial_widget,
 
 	if (html->in_selection) {
 		html->in_selection = FALSE;
-		html_engine_update_selection_active_state (html->engine, html->priv->event_time);
+		html_engine_select_region (engine, html->selection_x1, html->selection_y1,
+					   x + engine->x_offset, y + engine->y_offset);
+		html_engine_update_selection_active_state (engine, html->priv->event_time);
 		gtk_html_update_styles (html);
 	}
-
+	
 	remove_scroll_timeout (html);
+
+	queue_draw (html);
 
 	return TRUE;
 }
