@@ -78,6 +78,7 @@ struct _HTMLTable {
 	GArray *rowHeights; /* integer array */
 
 	GdkColor *bgColor;
+	HTMLImagePointer *bgPixmap;
 };
 
 struct _HTMLTableClass {

@@ -64,6 +64,7 @@ struct _HTMLImageAnimation {
 };
 
 #define HTML_IMAGE(x) ((HTMLImage *)(x))
+#define HTML_IMAGE_POINTER(x) ((HTMLImagePointer *)(x))
 
 struct _HTMLImage {
 	HTMLObject object;

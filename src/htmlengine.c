@@ -865,6 +865,8 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					    spacing, border));
 	if (have_tableColor)
 		table->bgColor = gdk_color_copy (&tableColor);
+	if (have_tablePixmap)
+		table->bgPixmap = HTML_IMAGE_POINTER (tablePixmapPtr);
 	e->indent_level = 0;
 
 	while (!done && html_tokenizer_has_more_tokens (e->ht)) {

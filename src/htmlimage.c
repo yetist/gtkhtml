@@ -367,9 +367,9 @@ draw (HTMLObject *o,
 gchar *
 html_image_resolve_image_url (GtkHTML *html, gchar *image_url)
 {
-	gchar *url = image_url;
+	gchar *url = NULL;
 
-	printf ("html_image_resolve_image_url %p\n", html->editor_api);
+	/* printf ("html_image_resolve_image_url %p\n", html->editor_api); */
 	if (html->editor_api) {
 		GtkArg *args [2];
 
@@ -385,8 +385,9 @@ html_image_resolve_image_url (GtkHTML *html, gchar *image_url)
 			gtk_arg_free (args [1], FALSE);
 		}
 	}
-
-	printf ("image URL resolved to: %s (from: %s)\n", url, image_url);
+	if (!url)
+		url = g_strdup (image_url);
+	/* printf ("image URL resolved to: %s (from: %s)\n", url, image_url); */
 
 	return url;
 }
@@ -406,8 +407,7 @@ save (HTMLObject *self,
 
 	url    = html_image_resolve_image_url (state->engine->widget, image->image_ptr->url);
 	result = html_engine_save_output_string (state, "<IMG SRC=\"%s\"", url);
-	if (url != image->image_ptr->url)
-		g_free (url);
+	g_free (url);
 	if (!result)
 		return FALSE;	
 

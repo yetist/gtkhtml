@@ -1,5 +1,18 @@
 2000-11-22  Radek Doulik  <rodo@helixcode.com>
 
+	* htmltable.c (save): added BACKGROUND, CELLSPACING, CELLPADDING,
+	WIDTH and BORDER attributes
+
+	* htmlimage.c (html_image_resolve_image_url): also strdup image
+	url if not resolved
+	(save): g_free url always
+
+	* htmlimage.h (HTML_IMAGE_POINTER): define HTML_IMAGE_POINTER
+
+	* htmltable.c (html_table_init): set bgPixmap to NULL
+
+	* htmltable.h: added bgPixmap to HTMLTable
+
 	* htmltablecell.c (save): make tags uppercase
 
 	* htmltable.c (save): make tags uppercase

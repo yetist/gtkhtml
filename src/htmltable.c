@@ -1609,10 +1609,25 @@ save (HTMLObject *self,
 
 	SB "<TABLE" SE;
 	if (table->bgColor)
-		SB " BGCOLOR=#%02x%02x%02x",
+		SB " BGCOLOR=\"#%02x%02x%02x\"",
 			table->bgColor->red >> 8,
 			table->bgColor->green >> 8,
 			table->bgColor->blue >> 8 SE;
+	if (table->bgPixmap) {
+		gchar * url = html_image_resolve_image_url (state->engine->widget, table->bgPixmap->url);
+		SB " BACKGROUND=\"%s\"", url SE;
+		g_free (url);
+	}
+	if (table->spacing != 2)
+		SB " CELLSPACING=\"%d\"", table->spacing SE;
+	if (table->padding != 1)
+		SB " CELLPADDING=\"%d\"", table->padding SE;
+	if (self->percent) {
+		SB " WIDTH=\"%d%%\"", table->specified_width SE;
+	} else if (self->flags & HTML_OBJECT_FLAG_FIXEDWIDTH)
+		SB " WIDTH=\"%d\"", table->specified_width SE;
+	if (table->border)
+		SB " BORDER=\"%d\"", table->border SE;
 	SB ">\n" SE;
 
 	for (r = 0; r < table->totalRows; r++) {
@@ -1778,12 +1793,13 @@ html_table_init (HTMLTable *table,
 	table->_minWidth = 0;
 	table->_prefWidth = 0;
 
-	table->padding = padding;
-	table->spacing = spacing;
-	table->border = border;
-	table->caption = NULL;
+	table->padding  = padding;
+	table->spacing  = spacing;
+	table->border   = border;
+	table->caption  = NULL;
 	table->capAlign = HTML_VALIGN_TOP;
-	table->bgColor = NULL;
+	table->bgColor  = NULL;
+	table->bgPixmap = NULL;
 
 	table->row = 0;
 	table->col = 0;
