@@ -474,12 +474,12 @@ unrealize (GtkWidget *widget)
 static gint
 expose (GtkWidget *widget, GdkEventExpose *event)
 {
-	if (GTK_WIDGET_CLASS (parent_class)->expose_event)
-		(* GTK_WIDGET_CLASS (parent_class)->expose_event) (widget, event);
-
 	html_engine_draw (GTK_HTML (widget)->engine,
 			  event->area.x, event->area.y,
 			  event->area.width, event->area.height);
+
+	if (GTK_WIDGET_CLASS (parent_class)->expose_event)
+		(* GTK_WIDGET_CLASS (parent_class)->expose_event) (widget, event);
 
 	return TRUE;
 }
