@@ -34,6 +34,7 @@
 #include "gtkhtml-stream.h"
 
 #include "htmlengine.h"
+#include "htmlengine-search.h"
 #include "htmlengine-edit.h"
 #include "htmlengine-edit-cursor.h"
 #include "htmlengine-edit-movement.h"

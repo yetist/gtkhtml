@@ -1148,7 +1148,7 @@ main (gint argc, gchar *argv[])
 #endif
 	gtk_widget_realize (GTK_WIDGET (html));
 
-	gtk_window_set_default_size (GTK_WINDOW (app), 500, 400);
+	gtk_window_set_default_size (GTK_WINDOW (app), 540, 400);
 	gtk_window_set_focus (GTK_WINDOW (app), GTK_WIDGET (html));
 
 	gtk_widget_show_all (app);

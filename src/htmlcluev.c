@@ -85,6 +85,13 @@ cluev_next_aligned (HTMLObject *aclue)
 	return HTML_OBJECT (HTML_CLUEALIGNED (aclue)->next_aligned);
 }
 
+static gint
+get_lmargin (HTMLObject *o, HTMLPainter *painter)
+{
+	return HTML_CLUEV (o)->padding * html_painter_get_pixel_size (painter)
+		+ (o->parent ?  html_object_get_left_margin (o->parent, o->y) : 0);
+}
+
 static gboolean
 do_layout (HTMLObject *o,
 	   HTMLPainter *painter,
@@ -111,12 +118,7 @@ do_layout (HTMLObject *o,
 
 	changed = FALSE;
 
-	if (o->parent != NULL) {
-		lmargin = html_object_get_left_margin (o->parent, o->y);
-		lmargin += cluev->padding * pixel_size;
-	} else {
-		lmargin = cluev->padding * pixel_size;
-	}
+	lmargin = get_lmargin (o, painter);
 
 	/* If we have already called calc_size for the children, then just
 	   continue from the last object done in previous call. */
@@ -233,7 +235,7 @@ set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
 
 	o->max_width = max_width;
 	for (obj = HTML_CLUE (o)->head; obj != NULL; obj = obj->next)
-		html_object_set_max_width (obj, painter, o->max_width);
+		html_object_set_max_width (obj, painter, max_width);
 }
 
 static void

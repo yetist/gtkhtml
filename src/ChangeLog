@@ -1,3 +1,28 @@
+2000-09-27  Radek Doulik  <rodo@helixcode.com>
+
+	* htmliframe.c (calc_min_width): don't call html_engine_calc_size
+	as it is not needed
+
+	* htmlengine.c: include htmlengine-search.h
+
+	* htmltablecell.c (html_table_cell_class_init): removed
+	set_max_width virtual method as it was the same as parent class
+	(ClueV)
+
+	* htmlcluev.c (do_layout): extracted get_lmargin
+	(get_lmargin): new helper function
+
+	* htmltable.c (html_table_add_cell): increase table->col by
+	previous cell colspan
+
+	* htmlclueflow.c (spell_check_word_mark): use interval length
+	instead of text_len
+	(html_clueflow_spell_check): likewise
+
+	* htmltable.c (optimize_cell_width): fixed calculation of addSize
+	(calc_size): fixed calculation of available_width
+	this fixes annoying horizontal scrollbar appearance in evolution
+
 2000-09-26  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml-search.c (key_press): test e->search_info != NULL

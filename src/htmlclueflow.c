@@ -270,8 +270,6 @@ calc_min_width (HTMLObject *o,
 		cur = cur->next;
 	}
 
-	/* printf ("flow min width: %d\n", min_width + get_indent (HTML_CLUEFLOW (o), painter)); */
-
 	return min_width + get_indent (HTML_CLUEFLOW (o), painter);
 }
 
@@ -1806,7 +1804,7 @@ spell_check_word_mark (HTMLObject *obj, const gchar *text, const gchar *word, gu
 	is_text = html_object_is_text (obj);
 	w_index = word - text;
 	w_off   = unicode_index_to_offset (text, w_index);
-	while (obj && (!is_text || (is_text && *off + HTML_TEXT (obj)->text_len <= w_off)))
+	while (obj && (!is_text || (is_text && *off + html_interval_get_length (i, obj) <= w_off)))
 		obj = next_obj_and_clear (obj, off, &is_text, i);
 
 	/* printf ("is_text: %d len: %d obj: %p off: %d\n", is_text, len, obj, *off); */
@@ -1874,7 +1872,8 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *i)
 
 	g_assert (HTML_OBJECT_TYPE (flow) == HTML_TYPE_CLUEFLOW);
 
-	/* printf ("html_clueflow_spell_check\n"); */
+	/* if (i)
+	   printf ("html_clueflow_spell_check %p %p %d %d\n", i->from, i->to, i->from_offset, i->to_offset); */
 
 	clue = HTML_CLUE (flow);
 	if (!GTK_HTML_CLASS (GTK_OBJECT (e->widget)->klass)->properties->live_spell_check
@@ -1908,7 +1907,7 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *i)
 				if (result == 1) {
 					gboolean is_text = (obj) ? html_object_is_text (obj) : FALSE;
 					while (obj && (!is_text
-						       || (is_text && off + HTML_TEXT (obj)->text_len
+						       || (is_text && off + html_interval_get_length (i, obj)
 							   < unicode_index_to_offset (text, ct - text))))
 						obj = next_obj_and_clear (obj, &off, &is_text, i);
 				} else {

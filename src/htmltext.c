@@ -1103,7 +1103,7 @@ html_text_spell_errors_clear_interval (HTMLText *text, HTMLInterval *i)
 	len    = html_interval_get_length (i, HTML_OBJECT (text));
 	cur    = text->spell_errors;
 
-	/* printf ("html_text_spell_errors_clear_interval %d %d\n", offset, len); */
+	/* printf ("html_text_spell_errors_clear_interval %s %d %d\n", text->text, offset, len); */
 
 	while (cur) {
 		cnext = cur->next;

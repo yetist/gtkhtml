@@ -126,7 +126,6 @@ calc_min_width (HTMLObject *o,
 	min_width = html_object_calc_min_width (html->engine->clue,
 						html->engine->painter);
 	html->engine->width = min_width;
-	html_engine_calc_size (html->engine);
 	min_width = html_engine_get_doc_width (html->engine);
     
 	return min_width;
@@ -189,14 +188,12 @@ set_painter (HTMLObject *o, HTMLPainter *painter, gint max_width)
 {
 	HTMLIFrame *iframe;
 
-	printf ("iframe set painter\n");
 	iframe = HTML_IFRAME (o);
 	if (GTK_OBJECT_TYPE (GTK_HTML (iframe->html)->engine->painter) == HTML_TYPE_GDK_PAINTER)
 		iframe->gdk_painter = GTK_HTML (iframe->html)->engine->painter;
 	html_engine_set_painter (GTK_HTML (iframe->html)->engine,
 				 GTK_OBJECT_TYPE (painter) == HTML_TYPE_GDK_PAINTER ? iframe->gdk_painter : painter,
 				 max_width);
-	printf ("iframe set painter end\n");
 }
 
 static void
@@ -222,24 +219,23 @@ calc_size (HTMLObject *o,
 	   HTMLPainter *painter)
 {
 	HTMLIFrame *iframe;
+	HTMLEngine *e;
 	gint width, height;
 	gint old_width, old_ascent, old_descent;
-	GtkHTML *html;
 	
 	old_width = o->width;
 	old_ascent = o->ascent;
 	old_descent = o->descent;
 
 	iframe = HTML_IFRAME (o);
-	
-	html = GTK_HTML (iframe->html);
+	e      = GTK_HTML (iframe->html)->engine;
 
 	if ((iframe->width < 0) && (iframe->height < 0)) {
-		html->engine->width = o->max_width;
-		html_engine_calc_size (html->engine);
+		e->width = o->max_width;
+		html_engine_calc_size (e);
 
-		height = html_engine_get_doc_height (html->engine);
-		width = html_engine_get_doc_width (html->engine);
+		height = html_engine_get_doc_height (e);
+		width = html_engine_get_doc_width (e);
 
 		gtk_widget_set_usize (iframe->scroll, width, height);
 		gtk_widget_queue_resize (iframe->scroll);
@@ -251,10 +247,9 @@ calc_size (HTMLObject *o,
 		o->width = width;
 		o->ascent = height;
 		o->descent = 0;
-	} else {
+	} else
 		return (* HTML_OBJECT_CLASS (parent_class)->calc_size) 
 			(o, painter);
-	}
 
 	if (o->descent != old_descent
 	    || o->ascent != old_ascent

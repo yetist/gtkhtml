@@ -913,7 +913,7 @@ optimize_cell_width (HTMLTable *table,
 	addSize = 0;
 	if (width > COLUMN_POS (table, table->totalCols)) {
 		/* We have some space to spare */
-		addSize = width - COLUMN_POS (table, table->totalCols);
+		addSize = width - COLUMN_POS (table, table->totalCols) + html_painter_get_pixel_size (painter) * table->border;
 
 		if ((HTML_OBJECT (table)->percent <= 0)
 		    && (!(HTML_OBJECT (table)->flags
@@ -1021,7 +1021,7 @@ calc_size (HTMLObject *o,
 
 	if (o->percent == 0 && ! (o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH)) {
 		o->width = COLUMN_OPT (table, table->totalCols) + pixel_size * table->border;
-		available_width = o->max_width;
+		available_width = o->max_width - 2 * pixel_size * table->border;
 	} else {
 		if (o->percent != 0) {
 			/* The cast to `gdouble' is to avoid overflow (eg. when
@@ -1030,11 +1030,11 @@ calc_size (HTMLObject *o,
 		} else /* if (o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH) */ {
 			o->width = table->specified_width * pixel_size;
 		}
-		available_width = o->width;
+		available_width = o->width - 2 * pixel_size * table->border;
 	}
 		
 	/* Attempt to get sensible cell widths */
-	optimize_cell_width (table, painter, available_width);
+	optimize_cell_width (table, painter, available_width < 0 ? 0 : available_width);
 
 	for (r = 0; r < table->totalRows; r++) {
 		for (c = 0; c < table->totalCols; c++) {
@@ -1659,8 +1659,8 @@ void
 html_table_add_cell (HTMLTable *table, HTMLTableCell *cell)
 {
 	while (table->col < table->totalCols && 
-	       table->cells[table->row][table->col] != 0)
-		table->col++;
+	       table->cells [table->row][table->col] != 0)
+		table->col += (table->cells [table->row][table->col])->cspan;
 
 	add_cell (table, table->row, table->col, cell);
 }

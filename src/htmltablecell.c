@@ -128,19 +128,6 @@ calc_min_width (HTMLObject *o,
 }
 
 static void
-set_max_width (HTMLObject *o,
-	       HTMLPainter *painter,
-	       gint max_width)
-{
-	HTMLObject *obj;
-
-	o->max_width = max_width;
-
-	for (obj = HTML_CLUE (o)->head; obj != NULL; obj = obj->next)
-		html_object_set_max_width (obj, painter, max_width);
-}
-
-static void
 draw (HTMLObject *o,
       HTMLPainter *p,
       gint x, gint y, 
@@ -220,7 +207,6 @@ html_table_cell_class_init (HTMLTableCellClass *klass,
 	object_class->reset = reset;
 	object_class->copy = copy;
 	object_class->calc_min_width = calc_min_width;
-	object_class->set_max_width = set_max_width;
 	object_class->draw = draw;
 	object_class->draw_background = draw_background;
 	object_class->set_bg_color = set_bg_color;
