@@ -1413,9 +1413,8 @@ search (HTMLObject *obj, HTMLSearch *info)
 			}
 		} else {
 			html_search_push (info, cur);
-			if (html_object_search (cur, info)) {
+			if (html_object_search (cur, info))
 				return TRUE;
-			}
 			html_search_pop (info);
 			cur = (info->forward) ? cur->next : cur->prev;
 		}
@@ -1811,6 +1810,7 @@ next_obj (HTMLObject *obj, guint *off, gboolean *is_text)
 	obj = obj->next;
 	if (obj && (*is_text = html_object_is_text (obj)))
 		html_text_spell_errors_clear (HTML_TEXT (obj));
+
 	return obj;
 }
 
@@ -1889,7 +1889,7 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e)
 				result = pspell_manager_check (e->spell_checker, word);
 
 				if (result == 1) {
-					gboolean is_text = html_object_is_text (obj);
+					gboolean is_text = (obj) ? html_object_is_text (obj) : FALSE;
 					while (obj && (!is_text || (is_text && off + HTML_TEXT (obj)->text_len < ct - text)))
 						obj = next_obj (obj, &off, &is_text);
 				} else {

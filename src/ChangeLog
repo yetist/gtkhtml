@@ -1,5 +1,8 @@
 2000-08-10  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlclueflow.c (html_clueflow_spell_check): fixed resolving
+	is_text by test if obj != NULL
+
 	* htmltextmaster.c (get_cursor_base): fix slave condition for
 	slave identification (replaced < with <=)
 
