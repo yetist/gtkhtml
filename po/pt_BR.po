@@ -1,14 +1,15 @@
 # gtkhtml: translation to Brazilian Portuguese (pt_BR)
-# Copyright (C) 2000-2003 Free Software Foundation, Inc.
+# Copyright (C) 2000-2004 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gtkhtml package.
-# Gustavo Maciel Dias Vieira <gdvieira@zaz.com.br>, 2000-2003.
+# Gustavo Maciel Dias Vieira <gdvieira@zaz.com.br>, 2000,2004.
 # Alexandre Folle de Menezes <afmenez@terra.com.br>, 2002-2003.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml 3.0.7\n"
-"POT-Creation-Date: 2004-01-12 18:08+0100\n"
-"PO-Revision-Date: 2003-07-24 17:54-0300\n"
+"Project-Id-Version: gtkhtml 3.1.6\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-01-21 13:00-0500\n"
+"PO-Revision-Date: 2004-01-21 13:08-0500\n"
 "Last-Translator: Gustavo Maciel Dias Vieira <gdvieira@zaz.com.br>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
@@ -456,7 +457,6 @@ msgid "Make the current Paragraph style Normal"
 msgstr "Fazer com que o estilo do parágrafo corrente seja Normal"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
-#, fuzzy
 msgid "Make the current Paragraph style Preformat"
 msgstr "Fazer com que o estilo do parágrafo corrente seja Preformato"
 
@@ -955,25 +955,21 @@ msgid "GNOME HTML Editor Factory"
 msgstr "Fábrica do editor HTML do GNOME"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
-#, fuzzy
 msgid "Insert Sick smiley into document..."
-msgstr "Inserir carinha lambendo no documento..."
+msgstr "Inserir carinha doente no documento..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
-#, fuzzy
 msgid "Make the current Paragraph style Preformatted"
-msgstr "Fazer com que o estilo do parágrafo corrente seja Preformato"
+msgstr "Fazer com que o estilo do parágrafo corrente seja Preformatado"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 #: components/html-editor/paragraph.c:150
-#, fuzzy
 msgid "Preformatted"
-msgstr "Preformato"
+msgstr "Preformatado"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
-#, fuzzy
 msgid "S_ick"
-msgstr "_Piscando"
+msgstr "_Doente"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:154
 msgid "_Wrap Lines"
@@ -993,39 +989,37 @@ msgid "Blue Ink"
 msgstr "Tinta azul"
 
 #: components/html-editor/body.c:90
-#, fuzzy
 msgid "Paper"
-msgstr "Página"
+msgstr "Papel"
 
 #: components/html-editor/body.c:98
 msgid "Ribbon"
-msgstr ""
+msgstr "Fita"
 
 #: components/html-editor/body.c:106
-#, fuzzy
 msgid "Midnight"
-msgstr "Direita"
+msgstr "Meia-noite"
 
 #: components/html-editor/body.c:114
-#, fuzzy
 msgid "Confidential"
-msgstr "Avançar"
+msgstr "Confidencial"
 
 #: components/html-editor/body.c:122
 msgid "Draft"
-msgstr ""
+msgstr "Rascunho"
 
 #: components/html-editor/body.c:130
 msgid "Graph paper"
-msgstr ""
+msgstr "Papel quadriculado"
 
 #. string marked for translations is sample text. you may want to translate it to common sample text in your language
 #: components/html-editor/body.c:163
-#, fuzzy
 msgid ""
 "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a href="
 "\"mailto:dog\">dog</a>."
-msgstr "Gazeta publica hoje breve anúncio de faxina na quermesse."
+msgstr ""
+"<a href=\"mailto:gazeta\">Gazeta</a> publica hoje breve anúncio de faxina na "
+"<a href=\"mailto:quermesse\">quermesse</a>."
 
 #: components/html-editor/body.c:316 src/gtkhtml.c:2683
 msgid "Document Title"
@@ -1473,9 +1467,8 @@ msgstr "Inserir: Arquivo texto"
 
 #. string marked for translations is sample text. you may want to translate it to common sample text in your language
 #: components/html-editor/paragraph.c:62
-#, fuzzy
 msgid "The quick brown fox jumps over the lazy dog.</div>"
-msgstr "Gazeta publica hoje breve anúncio de faxina na quermesse."
+msgstr "Gazeta publica hoje breve anúncio de faxina na quermesse.</div>"
 
 #: components/html-editor/paragraph.c:134 components/html-editor/toolbar.c:54
 msgid "Header 1"
@@ -1608,11 +1601,11 @@ msgstr "Conteúdo da célula"
 
 #: components/html-editor/popup.c:540
 msgid "Check Word Spelling..."
-msgstr ""
+msgstr "Verificar ortografia da palavra..."
 
 #: components/html-editor/popup.c:545
 msgid "Add Word to"
-msgstr ""
+msgstr "Adicionar palavra ao"
 
 #: components/html-editor/popup.c:549
 #, c-format
@@ -1620,36 +1613,32 @@ msgid "%s Dictionary"
 msgstr "Dicionário em %s"
 
 #: components/html-editor/popup.c:558
-#, fuzzy
 msgid "Add Word to Dictionary"
-msgstr "Dicionário em %s"
+msgstr "Adicionar palavra ao dicionário"
 
 #: components/html-editor/popup.c:561
 msgid "Ignore Misspelled Word"
-msgstr ""
+msgstr "Ignorar palavra"
 
 #: components/html-editor/popup.c:564
 msgid "Input Methods"
-msgstr ""
+msgstr "Métodos de entrada"
 
 #: components/html-editor/replace.c:75
 msgid "Replace confirmation"
 msgstr "Confirmação de substituição"
 
 #: components/html-editor/replace.c:76
-#, fuzzy
 msgid "Replace _All"
-msgstr "Substituir todas"
+msgstr "Substituir _todas"
 
 #: components/html-editor/replace.c:77
-#, fuzzy
 msgid "_Next"
-msgstr "Próximo"
+msgstr "_Próximo"
 
 #: components/html-editor/replace.c:79
-#, fuzzy
 msgid "_Replace"
-msgstr "Substituir"
+msgstr "_Substituir"
 
 #: components/html-editor/replace.c:165
 msgid "Search _backward"
@@ -1693,7 +1682,7 @@ msgstr "Localizar expressão regular"
 
 #: components/html-editor/spell.c:278
 msgid "No misspelled word found"
-msgstr ""
+msgstr "Nenhuma palavra errada foi encontrada"
 
 #: components/html-editor/spell.c:285
 msgid "Spell checker"
@@ -1733,7 +1722,7 @@ msgstr "Moldura de imagem"
 
 #: components/html-editor/template.c:281
 msgid "Labels"
-msgstr ""
+msgstr "Rótulos"
 
 #: components/html-editor/test-html-editor-control.c:323
 msgid "Open file..."
@@ -1956,9 +1945,3 @@ msgstr "Visualizar impressão"
 #: src/testgtkhtml.c:989
 msgid "GtkHTML Test Application"
 msgstr "Aplicação de teste do GtkHTML"
-
-#~ msgid "Rectangles"
-#~ msgstr "Retângulos"
-
-#~ msgid "Pre"
-#~ msgstr "Pre"
