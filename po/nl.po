@@ -9,14 +9,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml cvs\n"
-"POT-Creation-Date: 2004-04-19 10:31-0400\n"
-"PO-Revision-Date: 2004-02-29 22:00+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-05-14 15:30+0200\n"
+"PO-Revision-Date: 2004-05-14 19:53+0200\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -269,7 +269,7 @@ msgstr "Selectie knippen"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:79 components/html-editor/search.c:131
+#: components/html-editor/search.c:101 components/html-editor/search.c:157
 msgid "Find"
 msgstr "Zoeken"
 
@@ -679,7 +679,7 @@ msgstr "Bovenschrift"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
 #: components/html-editor/menubar.c:142 components/html-editor/popup.c:237
-#: components/html-editor/popup.c:519 components/html-editor/popup.c:528
+#: components/html-editor/popup.c:520 components/html-editor/popup.c:532
 msgid "Table"
 msgstr "Tabel"
 
@@ -1026,7 +1026,7 @@ msgstr ""
 "Pa's wijze <a href=\"mailto:lynx\">lynx</a> bezag vroom het fikse <a href="
 "\"mailto:aquaduct\">aquaduct</a>."
 
-#: components/html-editor/body.c:316 src/gtkhtml.c:2706
+#: components/html-editor/body.c:316 src/gtkhtml.c:2781
 msgid "Document Title"
 msgstr "Documenttitel"
 
@@ -1363,7 +1363,7 @@ msgid "Color:"
 msgstr "Kleur:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#: components/html-editor/popup.c:530
+#: components/html-editor/popup.c:534
 msgid "Column"
 msgstr "Kolom"
 
@@ -1480,7 +1480,7 @@ msgid "Right"
 msgstr "Rechts"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
-#: components/html-editor/popup.c:529
+#: components/html-editor/popup.c:533
 msgid "Row"
 msgstr "Rij"
 
@@ -1514,7 +1514,7 @@ msgid "Spacing:"
 msgstr "Spatiëring:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:117 components/html-editor/popup.c:474
+#: components/html-editor/paragraph.c:117 components/html-editor/popup.c:475
 #: components/html-editor/text.c:223
 msgid "Style"
 msgstr "Stijl"
@@ -1743,91 +1743,91 @@ msgstr "Link invoegen"
 msgid "Remove Link"
 msgstr "Link verwijderen"
 
-#: components/html-editor/popup.c:477
+#: components/html-editor/popup.c:478
 msgid "Text Style..."
 msgstr "Tekststijl..."
 
 # alineastijl?
-#: components/html-editor/popup.c:479 components/html-editor/popup.c:485
-#: components/html-editor/popup.c:495
+#: components/html-editor/popup.c:480 components/html-editor/popup.c:486
+#: components/html-editor/popup.c:496
 msgid "Paragraph Style..."
 msgstr "Paragraafstijl..."
 
 # verwijzingstijl?
-#: components/html-editor/popup.c:483
+#: components/html-editor/popup.c:484
 msgid "Link Style..."
 msgstr "Linkstijl..."
 
-#: components/html-editor/popup.c:489
+#: components/html-editor/popup.c:490
 msgid "Rule Style..."
 msgstr "Regelstijl..."
 
-#: components/html-editor/popup.c:493
+#: components/html-editor/popup.c:494
 msgid "Image Style..."
 msgstr "Afbeeldingstijl..."
 
-#: components/html-editor/popup.c:504
+#: components/html-editor/popup.c:505
 msgid "Cell Style..."
 msgstr "Celstijl..."
 
-#: components/html-editor/popup.c:507
+#: components/html-editor/popup.c:508
 msgid "Table Style..."
 msgstr "Tabelstijl..."
 
-#: components/html-editor/popup.c:513
+#: components/html-editor/popup.c:514
 msgid "Page Style..."
 msgstr "Paginastijl..."
 
-#: components/html-editor/popup.c:518
+#: components/html-editor/popup.c:519
 msgid "Table insert"
 msgstr "Tabel-invoeging"
 
-#: components/html-editor/popup.c:521
+#: components/html-editor/popup.c:522
 msgid "Row above"
 msgstr "Rij boven"
 
-#: components/html-editor/popup.c:522
+#: components/html-editor/popup.c:523
 msgid "Row below"
 msgstr "Rij onder"
 
-#: components/html-editor/popup.c:524
+#: components/html-editor/popup.c:525
 msgid "Column before"
 msgstr "Kolom voor"
 
-#: components/html-editor/popup.c:525
+#: components/html-editor/popup.c:526
 msgid "Column after"
 msgstr "Kolom na"
 
-#: components/html-editor/popup.c:527
+#: components/html-editor/popup.c:531
 msgid "Table delete"
 msgstr "Tabel verwijdering"
 
-#: components/html-editor/popup.c:531
+#: components/html-editor/popup.c:535
 msgid "Cell contents"
 msgstr "Cel-inhoud"
 
-#: components/html-editor/popup.c:541
+#: components/html-editor/popup.c:545
 msgid "Check Word Spelling..."
 msgstr "Woorspelling controleren..."
 
-#: components/html-editor/popup.c:546
+#: components/html-editor/popup.c:550
 msgid "Add Word to"
 msgstr "Woord toevoegen"
 
-#: components/html-editor/popup.c:550
+#: components/html-editor/popup.c:554
 #, c-format
 msgid "%s Dictionary"
 msgstr "%s woordenboek"
 
-#: components/html-editor/popup.c:559
+#: components/html-editor/popup.c:563
 msgid "Add Word to Dictionary"
 msgstr "Woord aan woordenboek toevoegen"
 
-#: components/html-editor/popup.c:562
+#: components/html-editor/popup.c:566
 msgid "Ignore Misspelled Word"
 msgstr "Foutief gespelde woord negeren"
 
-#: components/html-editor/popup.c:566
+#: components/html-editor/popup.c:570
 msgid "Input Methods"
 msgstr "Invoermethoden"
 
@@ -1852,7 +1852,7 @@ msgstr "_Vervangen"
 msgid "Search _backward"
 msgstr "_Achteruit zoeken"
 
-#: components/html-editor/replace.c:170 components/html-editor/search.c:85
+#: components/html-editor/replace.c:170 components/html-editor/search.c:107
 msgid "Case _sensitive"
 msgstr "Hoofdletterge_voelig"
 
@@ -1881,11 +1881,11 @@ msgstr ""
 "De bewerkte regel is verwijderd uit het document.\n"
 "Kan uw veranderingen niet toepassen."
 
-#: components/html-editor/search.c:84
+#: components/html-editor/search.c:106
 msgid "_Backward"
 msgstr "_Achteruit"
 
-#: components/html-editor/search.c:131
+#: components/html-editor/search.c:157
 msgid "Find Regular Expression"
 msgstr "Reguliere Expressie Zoeken"
 
@@ -2011,74 +2011,87 @@ msgstr "Inspringafstand van de paragraaf vergroten"
 msgid "Sample"
 msgstr "Voorbeeld"
 
+#: src/gtkhtml.c:2452
+#, c-format
+msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
+msgstr "Mozilla url losgelaten op Composer had een verkeerd formaat (%d) of lengte (%d)\n"
+
 # Bewerkbaar? Kan bewerkt/aangepast worden?
-#: src/gtkhtml.c:2699
+#: src/gtkhtml.c:2774
 msgid "Editable"
 msgstr "Kan bewerken"
 
-#: src/gtkhtml.c:2700
+#: src/gtkhtml.c:2775
 msgid "Whether the html can be edited"
 msgstr "Of de html bewerkt kan worden"
 
-#: src/gtkhtml.c:2707
+#: src/gtkhtml.c:2782
 msgid "The title of the current document"
 msgstr "De titel van het huidige document"
 
-#: src/gtkhtml.c:2713
+#: src/gtkhtml.c:2788
 msgid "Document Base"
 msgstr "Documentbasis"
 
-#: src/gtkhtml.c:2714
+#: src/gtkhtml.c:2789
 msgid "The base URL for relative references"
 msgstr "De basis-URL voor relatieve verwijzingen"
 
-#: src/gtkhtml.c:2720
+#: src/gtkhtml.c:2795
 msgid "Target Base"
 msgstr "Doelbasis"
 
-#: src/gtkhtml.c:2721
+#: src/gtkhtml.c:2796
 msgid "The base URL of the targe frame"
 msgstr "De basis-URL van het doelframe"
 
-#: src/gtkhtml.c:2730
+#: src/gtkhtml.c:2805
 msgid "Fixed Width Font"
 msgstr "Lettertype met vaste breedte"
 
-#: src/gtkhtml.c:2731
+#: src/gtkhtml.c:2806
 msgid "The Monospace font to use for typewriter text"
 msgstr "Het lettertype (monospace) voor typemachine-tekst"
 
-#: src/gtkhtml.c:2737
+#: src/gtkhtml.c:2812
 msgid "New Link Color"
 msgstr "Kleur nieuwe link"
 
-#: src/gtkhtml.c:2738
+#: src/gtkhtml.c:2813
 msgid "The color of new link elements"
 msgstr "De kleur van nieuwe links"
 
-#: src/gtkhtml.c:2743
+#: src/gtkhtml.c:2818
 msgid "Visited Link Color"
 msgstr "Kleur bezochte link"
 
-#: src/gtkhtml.c:2744
+#: src/gtkhtml.c:2819
 msgid "The color of visited link elements"
 msgstr "De kleur van bezochte links"
 
-#: src/gtkhtml.c:2749
+#: src/gtkhtml.c:2824
 msgid "Active Link Color"
 msgstr "Kleur actieve link"
 
-#: src/gtkhtml.c:2750
+#: src/gtkhtml.c:2825
 msgid "The color of active link elements"
 msgstr "De kleur van een actieve link"
 
-#: src/gtkhtml.c:2755
+#: src/gtkhtml.c:2830
 msgid "Spelling Error Color"
 msgstr "Kleur van spelfout"
 
-#: src/gtkhtml.c:2756
+#: src/gtkhtml.c:2831
 msgid "The color of the spelling error markers"
 msgstr "De kleur van de markering voor spelfouten"
+
+#: src/gtkhtml.c:2836
+msgid "Cite Quotation Color"
+msgstr "Kleur citaat"
+
+#: src/gtkhtml.c:2837
+msgid "The color of the cited text"
+msgstr "De kleur van de geciteerde text"
 
 #: src/html-component.c:219
 msgid "Html"
