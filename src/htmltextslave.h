@@ -72,4 +72,9 @@ gchar      *html_text_slave_remove_leading_space  (HTMLTextSlave      *slave,
 gint        html_text_slave_get_nb_width          (HTMLTextSlave      *slave,
 						   HTMLPainter        *painter,
 						   gboolean            lineBegin);
+GList      *html_get_glyphs_non_tab               (GList              *glyphs,
+						   PangoItem          *item,
+						   const gchar        *text,
+						   gint                bytes,
+						   gint                len);
 #endif /* _HTMLTEXTSLAVE_H_ */

@@ -37,6 +37,7 @@
 #include "htmlcolorset.h"
 #include "htmlembedded.h"
 #include "htmlengine.h"
+#include "htmltextslave.h"
 #include "gtkhtml-embedded.h"
 
 static HTMLPainterClass *parent_class = NULL;
@@ -85,15 +86,16 @@ html_gdk_painter_text_itemize_and_prepare_glyphs (HTMLGdkPainter *painter, Pango
 
 	if (items && items->data) {
 		PangoItem *item;
-		PangoGlyphString *str;
 		GList *il;
+		const gchar *end;
+		gint c_len;
 
 		*glyphs = NULL;
 		for (il = items; il; il = il->next) {
-			str = pango_glyph_string_new ();
 			item = (PangoItem *) il->data;
-			pango_shape (text + item->offset, item->length, &item->analysis, str);
-			*glyphs = g_list_prepend (*glyphs, str);
+			end = g_utf8_offset_to_pointer (text, item->num_chars);
+			*glyphs = html_get_glyphs_non_tab (*glyphs, item, text, end - text, item->num_chars);
+			text = end;
 		}
 		*glyphs = g_list_reverse (*glyphs);
 	} else

@@ -582,62 +582,7 @@ get_items (HTMLTextSlave *slave, HTMLPainter *painter)
 	return slave->items;
 }
 
-static GList *
-get_glyphs_part_deprecated (HTMLTextSlave *slave, HTMLPainter *painter, guint offset, guint len, GList **items)
-{
-	GList *glyphs = NULL;
-	const gchar *text;
-
-	*items = get_items (slave, painter);
-	if (*items) {
-		PangoGlyphString *str;
-		PangoItem *item;
-		GList *il;
-		gint bytes, index, current_len, index_in_item;
-		const gchar *slave_text, *item_text;
-		gchar *translated_text, *heap;
-
-		/* printf ("get_glyphs_part %d,%d\n", offset, len); */
-
-		slave_text = html_text_slave_get_text (slave);
-		text = g_utf8_offset_to_pointer (slave_text, offset);
-		index = offset;
-		while (text - slave->owner->text >= ((PangoItem *) (*items)->data)->offset + ((PangoItem *) (*items)->data)->length) {
-			*items = (*items)->next;
-			/* printf ("skip item, new num_chars: %d\n", ((PangoItem *) (*items)->data)->num_chars); */
-		}
-		il = *items;
-		while (il && index - offset < len) {
-			item = (PangoItem *) il->data;
-			str = pango_glyph_string_new ();
-			item_text = slave->owner->text + item->offset;
-			index_in_item = g_utf8_pointer_to_offset (item_text, text);
-			current_len = MIN (item->num_chars - index_in_item, len - (index - offset));
-			/* printf ("iii: %d oii: %d\n", index_in_item, text - item_text);
-			   printf ("cl: %d offset: %d idx: %d\n", current_len, offset, index); */
-
-			bytes = g_utf8_offset_to_pointer (text, current_len) - text;
-			heap = NULL;
-			if (bytes > HTML_ALLOCA_MAX)
-				heap = translated_text = g_malloc (bytes);
-			else 
-				translated_text = alloca (bytes);
-			html_replace_tabs (text, translated_text, bytes);
-			pango_shape (translated_text, bytes, &item->analysis, str);
-			g_free (heap);
-
-			glyphs = g_list_prepend (glyphs, str);
-			text = g_utf8_offset_to_pointer (text, current_len);
-			index += current_len;
-			il = il->next;
-		}
-		glyphs = g_list_reverse (glyphs);
-	}
-
-	return glyphs;
-}
-
-inline GList *
+static inline GList *
 get_glyphs_base_text (GList *glyphs, PangoItem *item, const gchar *text, gint bytes)
 {
 	PangoGlyphString *str;
@@ -650,7 +595,7 @@ get_glyphs_base_text (GList *glyphs, PangoItem *item, const gchar *text, gint by
 }
 
 GList *
-get_glyphs_non_tab (GList *glyphs, PangoItem *item, const gchar *text, gint bytes, gint len)
+html_get_glyphs_non_tab (GList *glyphs, PangoItem *item, const gchar *text, gint bytes, gint len)
 {
 	gchar *tab;
 
@@ -698,7 +643,7 @@ get_glyphs_part (HTMLTextSlave *slave, HTMLPainter *painter, guint offset, guint
 			c_len = MIN (item->num_chars - g_utf8_pointer_to_offset (owner_text + item->offset, text), len - index);
 
 			end = g_utf8_offset_to_pointer (text, c_len);
-			glyphs = get_glyphs_non_tab (glyphs, item, text, end - text, c_len);
+			glyphs = html_get_glyphs_non_tab (glyphs, item, text, end - text, c_len);
 			text = end;
 			index += c_len;
 			il = il->next;
