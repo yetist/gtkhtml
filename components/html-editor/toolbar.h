@@ -29,6 +29,6 @@
 #include "gtkhtml.h"
 #include "control-data.h"
 
-GtkWidget *toolbar_style  (GtkHTMLControlData *cd);
-
-#endif /* _TOOLBAR_H */
+GtkWidget *toolbar_style         (GtkHTMLControlData *cd);
+void       toolbar_update_format (GtkHTMLControlData *cd);
+#endif /* _TOOLBAR_H */k

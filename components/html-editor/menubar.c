@@ -174,6 +174,30 @@ BonoboUIVerb verbs [] = {
 };
 
 void
+menubar_update_format (GtkHTMLControlData *cd)
+{
+	CORBA_Environment ev;
+	BonoboUIComponent *uic;
+	gchar *sensitive;
+
+	uic = bonobo_control_get_ui_component (cd->control);
+
+	g_return_if_fail (uic != NULL);
+
+	sensitive = (cd->format_html ? "1" : "0");
+
+	CORBA_exception_init (&ev);
+
+	bonobo_ui_component_set_prop (uic, "/commands/InsertImage",
+				      "sensitive", sensitive, &ev);
+	bonobo_ui_component_set_prop (uic, "/commands/InsertLink",
+				      "sensitive", sensitive, &ev);
+	bonobo_ui_component_set_prop (uic, "/commands/InsertRule",
+				      "sensitive", sensitive, &ev);
+	CORBA_exception_free (&ev);	
+}
+
+void
 menubar_setup (BonoboUIComponent  *uic,
 	       GtkHTMLControlData *cd)
 {

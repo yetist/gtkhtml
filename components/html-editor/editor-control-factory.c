@@ -396,6 +396,9 @@ editor_set_format (GtkHTMLControlData *cd, gboolean format_html)
 		old_p = cd->gdk_painter;
 	}		
 
+	toolbar_update_format (cd);
+	menubar_update_format (cd);
+
 	if (html->engine->painter != (HTMLPainter *)p) {
 		html_gdk_painter_unrealize (old_p);
 		if (html->engine->window)
@@ -529,6 +532,8 @@ editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 
 	gtk_signal_connect (GTK_OBJECT (html_widget), "button_press_event",
 			    GTK_SIGNAL_FUNC (html_button_pressed), control_data);
+
+	control_data->control = control;
 }
 
 static BonoboObject *

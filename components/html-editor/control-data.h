@@ -40,8 +40,11 @@ typedef struct _GtkHTMLEditPropertiesDialog   GtkHTMLEditPropertiesDialog;
 #include "Spell.h"
 
 struct _GtkHTMLControlData {
-	GtkHTML   *html;
-	GtkWidget *vbox, *cpicker, *combo;
+	GtkHTML    *html;
+	GtkWidget  *vbox;
+	GtkWidget  *cpicker;
+	GtkWidget  *combo;
+	GtkWidget  *paragraph_option;
 
 	GtkHTMLEditPropertiesDialog   *properties_dialog;
 	GList                         *properties_types;
@@ -81,7 +84,8 @@ struct _GtkHTMLControlData {
 
 	GNOME_Spell_Dictionary  dict;
 	BonoboObjectClient     *dict_client;
-	EditorEngine       *editor_bonobo_engine;
+	EditorEngine           *editor_bonobo_engine;
+	BonoboControl          *control;
 };
 
 GtkHTMLControlData * gtk_html_control_data_new       (GtkHTML *html, GtkWidget *vbox);

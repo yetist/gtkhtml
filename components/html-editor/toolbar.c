@@ -48,6 +48,7 @@ static struct {
 	const gchar *description;
 } paragraph_style_items[] = {
 	{ GTK_HTML_PARAGRAPH_STYLE_NORMAL, N_("Normal") },
+	{ GTK_HTML_PARAGRAPH_STYLE_PRE, N_("Preformat") },
 	{ GTK_HTML_PARAGRAPH_STYLE_H1, N_("Header 1") },
 	{ GTK_HTML_PARAGRAPH_STYLE_H2, N_("Header 2") },
 	{ GTK_HTML_PARAGRAPH_STYLE_H3, N_("Header 3") },
@@ -55,7 +56,6 @@ static struct {
 	{ GTK_HTML_PARAGRAPH_STYLE_H5, N_("Header 5") },
 	{ GTK_HTML_PARAGRAPH_STYLE_H6, N_("Header 6") },
 	{ GTK_HTML_PARAGRAPH_STYLE_ADDRESS, N_("Address") },
-	{ GTK_HTML_PARAGRAPH_STYLE_PRE, N_("Pre") },
 	{ GTK_HTML_PARAGRAPH_STYLE_ITEMDIGIT, N_("List item (digit)") },
 	{ GTK_HTML_PARAGRAPH_STYLE_ITEMDOTTED, N_("List item (unnumbered)") },
 	{ GTK_HTML_PARAGRAPH_STYLE_ITEMROMAN, N_("List item (roman)") },
@@ -95,6 +95,30 @@ paragraph_style_menu_item_activated_cb (GtkWidget *widget,
 	/* g_warning ("Setting paragraph style to %d.", style); */
 
 	gtk_html_set_paragraph_style (html, style);
+}
+
+static void
+paragraph_style_menu_item_update (GtkWidget *widget, gpointer format_html)
+{
+	GtkHTMLParagraphStyle style;
+	gint sensitive;
+
+	style = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (widget), "paragraph_style_value"));
+	
+	sensitive = (format_html 
+		|| style == GTK_HTML_PARAGRAPH_STYLE_NORMAL
+		|| style == GTK_HTML_PARAGRAPH_STYLE_PRE);
+
+	gtk_widget_set_sensitive (widget, sensitive);	
+}
+
+static void
+paragraph_style_option_menu_set_mode (GtkWidget *option_menu, gboolean format_html)
+{
+	GtkWidget *menu;
+	
+	menu = gtk_option_menu_get_menu (GTK_OPTION_MENU (option_menu));
+	gtk_container_forall (GTK_CONTAINER (menu), paragraph_style_menu_item_update, format_html);
 }
 
 static GtkWidget *
@@ -523,9 +547,11 @@ create_style_toolbar (GtkHTMLControlData *cd)
 
 	gtk_widget_show_all (hbox);
 
+	cd->paragraph_option = setup_paragraph_style_option_menu (cd->html),
 	gtk_toolbar_prepend_widget (GTK_TOOLBAR (cd->toolbar_style),
-				    setup_paragraph_style_option_menu (cd->html),
+				    cd->paragraph_option,
 				    NULL, NULL);
+
 	gtk_toolbar_prepend_widget (GTK_TOOLBAR (cd->toolbar_style),
 				    setup_font_size_option_menu (cd),
 				    NULL, NULL);
@@ -560,6 +586,22 @@ create_style_toolbar (GtkHTMLControlData *cd)
 			    GTK_SIGNAL_FUNC (paragraph_alignment_changed_cb), cd);
 
 	return hbox;
+}
+
+static void
+toolbar_item_update_sensitivity (GtkWidget *widget, gpointer *data)
+{
+	GtkHTMLControlData *cd = (GtkHTMLControlData *)data;
+	
+	if (widget != cd->paragraph_option)
+		gtk_widget_set_sensitive (widget, cd->format_html);
+}
+
+void
+toolbar_update_format (GtkHTMLControlData *cd)
+{
+	gtk_container_forall (GTK_CONTAINER (cd->toolbar_style), toolbar_item_update_sensitivity, cd);
+	paragraph_style_option_menu_set_mode (cd->paragraph_option, cd->format_html);
 }
 
 

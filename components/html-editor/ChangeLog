@@ -1,3 +1,31 @@
+2001-04-15  Larry Ewing  <lewing@ximian.com>
+
+	* editor-control-factory.c (editor_control_construct): hold
+	a reference to the control in the control_data.
+
+	* toolbar.h (toolbar_update_format): add prototype.
+
+	* toolbar.c (paragraph_style_menu_item_update): forall function to
+	update the sensitivity of the menu item based on the mode.
+	(paragraph_style_option_menu_set_mode): update them option menu
+	sensitivity.
+	(create_style_toolbar): store the option menu in the control data.
+	(toolbar_item_update_sensitivity): forall function to set
+	everything but the paragraph style widget insensitive.
+	(toolbar_update_format): entry point to update the toolbar
+	during format mode changes.
+
+	* menubar.c (menubar_update_format): make the insertion items senstive
+	of insensitive depending on the mode.
+
+	* menubar.h (menubar_update_format): add prototype.
+
+	* control-data.h: add pointer for paragraph option menu and
+	control.
+	
+	* control-data.c (gtk_html_control_data_new): initialize new
+	members.
+	
 2001-04-14  Larry Ewing  <lewing@ximian.com>
 
 	* editor-control-factory.c (set_frame_cb): return if the frame is

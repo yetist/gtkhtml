@@ -32,6 +32,7 @@ gtk_html_control_data_new (GtkHTML *html, GtkWidget *vbox)
 
 	ncd->html                    = html;
 	ncd->vbox                    = vbox;
+	ncd->paragraph_option        = NULL;
 	ncd->properties_dialog       = NULL;
 	ncd->properties_types        = NULL;
 	ncd->block_font_style_change = FALSE;
@@ -40,7 +41,7 @@ gtk_html_control_data_new (GtkHTML *html, GtkWidget *vbox)
 	ncd->gdk_painter             = NULL;
 	ncd->plain_painter           = NULL;
 	ncd->format_html             = FALSE;
-
+	ncd->control                 = NULL;
 	return ncd;
 }
 
