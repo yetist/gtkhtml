@@ -72,12 +72,13 @@ encode (HTMLEmbedded *e)
 void
 html_textarea_type_init (void)
 {
-	html_textarea_class_init (&html_textarea_class, HTML_TYPE_TEXTAREA);
+	html_textarea_class_init (&html_textarea_class, HTML_TYPE_TEXTAREA, sizeof (HTMLTextArea));
 }
 
 void
 html_textarea_class_init (HTMLTextAreaClass *klass,
-			    HTMLType type)
+			  HTMLType type,
+			  guint object_size)
 {
 	HTMLEmbeddedClass *element_class;
 	HTMLObjectClass *object_class;
@@ -86,7 +87,7 @@ html_textarea_class_init (HTMLTextAreaClass *klass,
 	element_class = HTML_EMBEDDED_CLASS (klass);
 	object_class = HTML_OBJECT_CLASS (klass);
 
-	html_embedded_class_init (element_class, type);
+	html_embedded_class_init (element_class, type, object_size);
 
 	/* HTMLEmbedded methods.   */
 	element_class->reset = reset;

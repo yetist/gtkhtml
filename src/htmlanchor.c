@@ -64,18 +64,19 @@ find_anchor (HTMLObject *o, const char *name, gint *x, gint *y)
 void
 html_anchor_type_init (void)
 {
-	html_anchor_class_init (&html_anchor_class, HTML_TYPE_ANCHOR);
+	html_anchor_class_init (&html_anchor_class, HTML_TYPE_ANCHOR, sizeof (HTMLAnchor));
 }
 
 void
 html_anchor_class_init (HTMLAnchorClass *klass,
-			HTMLType type)
+			HTMLType type,
+			guint object_size)
 {
 	HTMLObjectClass *object_class;
 
 	object_class = HTML_OBJECT_CLASS (klass);
 
-	html_object_class_init (object_class, type);
+	html_object_class_init (object_class, type, object_size);
 
 	object_class->destroy = destroy;
 	object_class->find_anchor = find_anchor;

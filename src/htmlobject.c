@@ -44,17 +44,12 @@ HTMLObjectClass html_object_class;
 /* HTMLObject virtual methods.  */
 
 static void
-destroy (HTMLObject *o)
+destroy (HTMLObject *self)
 {
-	if (o->redraw_pending) {
-#if 0
-		g_warning ("Object %p (type %s) has a redraw pending and is being destroyed.",
-			   o, html_type_name (HTML_OBJECT_TYPE (o)));
-#endif
-		o->free_pending = TRUE;
-	} else {
-		g_free (o);
-	}
+	if (self->redraw_pending)
+		self->free_pending = TRUE;
+	else
+		g_free (self);
 }
 
 static void
@@ -175,7 +170,7 @@ relayout (HTMLObject *self,
 	guint prev_ascent, prev_descent;
 
 	if (html_engine_frozen (engine))
-		return;
+		return FALSE;
 
 	prev_width = self->width;
 	prev_ascent = self->ascent;
@@ -325,17 +320,19 @@ check_page_split (HTMLObject *self,
 void
 html_object_type_init (void)
 {
-	html_object_class_init (&html_object_class, HTML_TYPE_OBJECT);
+	html_object_class_init (&html_object_class, HTML_TYPE_OBJECT, sizeof (HTMLObject));
 }
 
 void
 html_object_class_init (HTMLObjectClass *klass,
-			HTMLType type)
+			HTMLType type,
+			guint object_size)
 {
 	g_return_if_fail (klass != NULL);
 
 	/* Set type.  */
 	klass->type = type;
+	klass->object_size = object_size;
 
 	/* Install virtual methods.  */
 	klass->destroy = destroy;
@@ -430,9 +427,9 @@ html_object_calc_abs_position (HTMLObject *o,
 /* Virtual methods.  */
 
 void
-html_object_destroy (HTMLObject *o)
+html_object_destroy (HTMLObject *self)
 {
-	(* HO_CLASS (o)->destroy) (o);
+	(* HO_CLASS (self)->destroy) (self);
 }
 
 void
@@ -574,6 +571,7 @@ html_object_get_cursor_base (HTMLObject *self,
 	(* HO_CLASS (self)->get_cursor_base) (self, painter, offset, x, y);
 }
 
+
 gboolean
 html_object_select_range (HTMLObject *self,
 			  HTMLEngine *engine,
@@ -584,6 +582,7 @@ html_object_select_range (HTMLObject *self,
 	return (* HO_CLASS (self)->select_range) (self, engine, start, length, queue_draw);
 }
 
+
 void
 html_object_forall (HTMLObject *self,
 		    HTMLObjectForallFunc func,

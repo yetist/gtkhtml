@@ -45,9 +45,23 @@ struct _HTMLTextInputClass {
 extern HTMLTextInputClass html_text_input_class;
 
 
-void html_text_input_type_init (void);
-void html_text_input_class_init (HTMLTextInputClass *klass, HTMLType type);
-void html_text_input_init (HTMLTextInput *ti, HTMLTextInputClass *klass, GtkWidget *parent, gchar *name, gchar *value, gint size, gint maxlen, gboolean password);
-HTMLObject *html_text_input_new (GtkWidget *parent, gchar *name, gchar *value, gint size, gint maxlen, gboolean password);
+void        html_text_input_type_init   (void);
+void        html_text_input_class_init  (HTMLTextInputClass *klass,
+					 HTMLType            type,
+					 guint               object_size);
+void        html_text_input_init        (HTMLTextInput      *ti,
+					 HTMLTextInputClass *klass,
+					 GtkWidget          *parent,
+					 gchar              *name,
+					 gchar              *value,
+					 gint                size,
+					 gint                maxlen,
+					 gboolean            password);
+HTMLObject *html_text_input_new         (GtkWidget          *parent,
+					 gchar              *name,
+					 gchar              *value,
+					 gint                size,
+					 gint                maxlen,
+					 gboolean            password);
 
 #endif /* _HTMLTEXTINPUT_H_ */

@@ -168,13 +168,13 @@ set_bg_color (HTMLObject *object, GdkColor *color)
 void
 html_table_cell_type_init (void)
 {
-	html_table_cell_class_init (&html_table_cell_class,
-				    HTML_TYPE_TABLECELL);
+	html_table_cell_class_init (&html_table_cell_class, HTML_TYPE_TABLECELL, sizeof (HTMLTableCell));
 }
 
 void
 html_table_cell_class_init (HTMLTableCellClass *klass,
-			    HTMLType type)
+			    HTMLType type,
+			    guint object_size)
 {
 	HTMLObjectClass *object_class;
 	HTMLClueVClass *cluev_class;
@@ -182,7 +182,7 @@ html_table_cell_class_init (HTMLTableCellClass *klass,
 	object_class = HTML_OBJECT_CLASS (klass);
 	cluev_class = HTML_CLUEV_CLASS (klass);
 
-	html_cluev_class_init (cluev_class, type);
+	html_cluev_class_init (cluev_class, type, object_size);
 
 	/* FIXME destroy */
 

@@ -44,9 +44,15 @@ struct _HTMLHSpaceClass {
 extern HTMLHSpaceClass html_hspace_class;
 
 
-void html_hspace_type_init (void);
-void html_hspace_class_init (HTMLHSpaceClass *klass, HTMLType type);
-void html_hspace_init (HTMLHSpace *hspace, HTMLHSpaceClass *klass, HTMLFont *font, gboolean hidden);
-HTMLObject *html_hspace_new (HTMLFont *font, gboolean hidden);
+void        html_hspace_type_init   (void);
+void        html_hspace_class_init  (HTMLHSpaceClass *klass,
+				     HTMLType         type,
+				     guint            object_size);
+void        html_hspace_init        (HTMLHSpace      *hspace,
+				     HTMLHSpaceClass *klass,
+				     HTMLFont        *font,
+				     gboolean         hidden);
+HTMLObject *html_hspace_new         (HTMLFont        *font,
+				     gboolean         hidden);
 
 #endif /* _HTMLHSPACE_H_ */

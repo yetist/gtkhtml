@@ -45,9 +45,17 @@ struct _HTMLImageInputClass {
 extern HTMLImageInputClass html_imageinput_class;
 
 
-void html_imageinput_type_init (void);
-void html_imageinput_class_init (HTMLImageInputClass *klass, HTMLType type);
-void html_imageinput_init (HTMLImageInput *img, HTMLImageInputClass *klass, HTMLImageFactory *imf, gchar *name, gchar *url);
-HTMLObject *html_imageinput_new (HTMLImageFactory *imf, gchar *name, gchar *url);
+void        html_imageinput_type_init   (void);
+void        html_imageinput_class_init  (HTMLImageInputClass *klass,
+					 HTMLType             type,
+					 guint                object_size);
+void        html_imageinput_init        (HTMLImageInput      *img,
+					 HTMLImageInputClass *klass,
+					 HTMLImageFactory    *imf,
+					 gchar               *name,
+					 gchar               *url);
+HTMLObject *html_imageinput_new         (HTMLImageFactory    *imf,
+					 gchar               *name,
+					 gchar               *url);
 
 #endif /* _HTMLIMAGEINPUT_H_ */

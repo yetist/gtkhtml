@@ -19,33 +19,27 @@
    Boston, MA 02111-1307, USA.
 */
 
-/* The cut buffer is used to temporarily store parts of the documents.  The
-   implementation is a quick & dirty hack, but should work well for our purposes.
-
-   So basically, we just store all the leaf elements of the document in a list.
-   In order to store newlines, we just add HTMLClueFlows, which consequently
-   also carry information about the style and indentation of the paragraph they
-   belong to.  This is used to emulate the common word processor behavior of
-   associating the paragraph properties to a new line.  */
+#include "htmlengine-edit-copy.h"
 
 
-#include "htmlengine-cutbuffer.h"
-
-
-void
-html_engine_cut_buffer_destroy (HTMLEngine *engine,
-				GList *cut_buffer)
+#if 0
+static void
+copy_forall (HTMLObject *obj,
+	     gpointer closure)
 {
-	GList *p;
+	GList **bufferp;
 
+	bufferp = (GList **) closure;
+
+	if (! obj->selected)
+		return;
+}
+#endif
+
+void
+html_engine_copy (HTMLEngine *engine)
+{
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
-
-	if (cut_buffer == NULL)
-		return;
-
-	for (p = cut_buffer; p != NULL; p = p->next)
-		html_object_destroy (HTML_OBJECT (p->data));
-
-	g_list_free (cut_buffer);
+	g_return_if_fail (engine->active_selection);
 }

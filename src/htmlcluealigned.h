@@ -44,14 +44,21 @@ struct _HTMLClueAlignedClass {
 extern HTMLClueAlignedClass html_cluealigned_class;
 
 
-void html_cluealigned_type_init (void);
-void html_cluealigned_class_init (HTMLClueAlignedClass *klass,
-				  HTMLType type);
-void html_cluealigned_init (HTMLClueAligned *aligned,
-			    HTMLClueAlignedClass *klass,
-			    HTMLObject *parent,
-			    gint x, gint y, gint max_width, gint percent);
-HTMLObject *html_cluealigned_new (HTMLObject *parent, gint x, gint y,
-				  gint max_width, gint percent);
+void        html_cluealigned_type_init   (void);
+void        html_cluealigned_class_init  (HTMLClueAlignedClass *klass,
+					  HTMLType              type,
+					  guint                 object_size);
+void        html_cluealigned_init        (HTMLClueAligned      *aligned,
+					  HTMLClueAlignedClass *klass,
+					  HTMLObject           *parent,
+					  gint                  x,
+					  gint                  y,
+					  gint                  max_width,
+					  gint                  percent);
+HTMLObject *html_cluealigned_new         (HTMLObject           *parent,
+					  gint                  x,
+					  gint                  y,
+					  gint                  max_width,
+					  gint                  percent);
 
 #endif /* _HTML_CLUEALIGNED_H_ */

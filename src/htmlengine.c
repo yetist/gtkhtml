@@ -39,6 +39,7 @@
 
 #include "htmlengine.h"
 #include "htmlengine-edit.h"
+#include "htmlengine-cutbuffer.h"
 
 #include "htmlanchor.h"
 #include "htmlrule.h"
@@ -2679,6 +2680,9 @@ html_engine_destroy (GtkObject *object)
 
 	html_undo_destroy (engine->undo);
 
+	if (engine->cut_buffer != NULL)
+		html_engine_cut_buffer_destroy (engine, engine->cut_buffer);
+
 	html_color_set_destroy (engine->color_set);
 
 	if (engine->invert_gc != NULL)
@@ -2829,6 +2833,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->editable = TRUE;
 	engine->cursor = html_cursor_new ();
 	engine->active_selection = FALSE;
+	engine->cut_buffer = NULL;
 
 	engine->ht = html_tokenizer_new ();
 	engine->st = string_tokenizer_new ();

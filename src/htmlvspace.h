@@ -41,9 +41,13 @@ struct _HTMLVSpaceClass {
 extern HTMLVSpaceClass html_vspace_class;
 
 
-void html_vspace_type_init (void);
-void html_vspace_class_init (HTMLVSpaceClass *klass, HTMLType type);
-void html_vspace_init (HTMLVSpace *vspace, HTMLVSpaceClass *klass, HTMLClearType clear);
-HTMLObject *html_vspace_new (HTMLClearType clear);
+void        html_vspace_type_init   (void);
+void        html_vspace_class_init  (HTMLVSpaceClass *klass,
+				     HTMLType         type,
+				     guint            object_size);
+void        html_vspace_init        (HTMLVSpace      *vspace,
+				     HTMLVSpaceClass *klass,
+				     HTMLClearType    clear);
+HTMLObject *html_vspace_new         (HTMLClearType    clear);
 
 #endif /* _HTMLVSPACE_H_ */

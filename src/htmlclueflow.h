@@ -76,7 +76,8 @@ extern HTMLClueFlowClass html_clueflow_class;
 
 void           html_clueflow_type_init               (void);
 void           html_clueflow_class_init              (HTMLClueFlowClass  *klass,
-						      HTMLType            type);
+						      HTMLType            type,
+						      guint               object_size);
 void           html_clueflow_init                    (HTMLClueFlow       *flow,
 						      HTMLClueFlowClass  *klass,
 						      HTMLClueFlowStyle   style,

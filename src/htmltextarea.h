@@ -45,10 +45,21 @@ struct _HTMLTextAreaClass {
 extern HTMLTextAreaClass html_textarea_class;
 
 
-void html_textarea_type_init (void);
-void html_textarea_class_init (HTMLTextAreaClass *klass, HTMLType type);
-void html_textarea_init (HTMLTextArea *ti, HTMLTextAreaClass *klass, GtkWidget *parent, gchar *name, gint r, gint c);
-HTMLObject *html_textarea_new (GtkWidget *parent, gchar *name, gint r, gint c);
-void html_textarea_set_text (HTMLTextArea *textarea, gchar *text);
+void        html_textarea_type_init   (void);
+void        html_textarea_class_init  (HTMLTextAreaClass *klass,
+				       HTMLType           type,
+				       guint              object_size);
+void        html_textarea_init        (HTMLTextArea      *ti,
+				       HTMLTextAreaClass *klass,
+				       GtkWidget         *parent,
+				       gchar             *name,
+				       gint               r,
+				       gint               c);
+HTMLObject *html_textarea_new         (GtkWidget         *parent,
+				       gchar             *name,
+				       gint               r,
+				       gint               c);
+void        html_textarea_set_text    (HTMLTextArea      *textarea,
+				       gchar             *text);
 
 #endif /* _HTMLTEXTAREA_H_ */

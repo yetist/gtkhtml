@@ -42,9 +42,19 @@ struct _HTMLCheckBoxClass {
 extern HTMLCheckBoxClass html_checkbox_class;
 
 
-void html_checkbox_type_init (void);
-void html_checkbox_class_init (HTMLCheckBoxClass *klass, HTMLType type);
-void html_checkbox_init (HTMLCheckBox *checkbox, HTMLCheckBoxClass *klass, GtkWidget *parent, gchar *name, gchar *value, gboolean checked);
-HTMLObject *html_checkbox_new (GtkWidget *parent, gchar *name, gchar *value, gboolean checked);
+void        html_checkbox_type_init   (void);
+void        html_checkbox_class_init  (HTMLCheckBoxClass *klass,
+				       HTMLType           type,
+				       guint              object_size);
+void        html_checkbox_init        (HTMLCheckBox      *checkbox,
+				       HTMLCheckBoxClass *klass,
+				       GtkWidget         *parent,
+				       gchar             *name,
+				       gchar             *value,
+				       gboolean           checked);
+HTMLObject *html_checkbox_new         (GtkWidget         *parent,
+				       gchar             *name,
+				       gchar             *value,
+				       gboolean           checked);
 
 #endif /* _HTMLCHECKBOX_H_ */

@@ -69,12 +69,13 @@ encode (HTMLEmbedded *e)
 void
 html_text_input_type_init (void)
 {
-	html_text_input_class_init (&html_text_input_class, HTML_TYPE_TEXTINPUT);
+	html_text_input_class_init (&html_text_input_class, HTML_TYPE_TEXTINPUT, sizeof (HTMLTextInput));
 }
 
 void
 html_text_input_class_init (HTMLTextInputClass *klass,
-			    HTMLType type)
+			    HTMLType type,
+			    guint object_size)
 {
 	HTMLEmbeddedClass *element_class;
 	HTMLObjectClass *object_class;
@@ -83,7 +84,7 @@ html_text_input_class_init (HTMLTextInputClass *klass,
 	element_class = HTML_EMBEDDED_CLASS (klass);
 	object_class = HTML_OBJECT_CLASS (klass);
 
-	html_embedded_class_init (element_class, type);
+	html_embedded_class_init (element_class, type, object_size);
 
 	/* HTMLEmbedded methods.   */
 	element_class->reset = reset;

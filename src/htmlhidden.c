@@ -48,20 +48,20 @@ encode (HTMLEmbedded *e)
 
 void html_hidden_type_init (void)
 {
-	html_hidden_class_init (&html_hidden_class, HTML_TYPE_HIDDEN);
+	html_hidden_class_init (&html_hidden_class, HTML_TYPE_HIDDEN, sizeof (HTMLHidden));
 }
 
 void html_hidden_class_init (HTMLHiddenClass *klass,
-			HTMLType type)
+			     HTMLType type,
+			     guint object_size)
 {
 	HTMLEmbeddedClass *element_class;
 	HTMLObjectClass *object_class;
 
-
 	element_class = HTML_EMBEDDED_CLASS (klass);
 	object_class = HTML_OBJECT_CLASS (klass);
 
-	html_embedded_class_init (element_class, type);
+	html_embedded_class_init (element_class, type, object_size);
 
 	element_class->encode = encode;
 }

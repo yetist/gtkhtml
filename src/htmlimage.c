@@ -207,18 +207,19 @@ accepts_cursor (HTMLObject *o)
 void
 html_image_type_init (void)
 {
-	html_image_class_init (&html_image_class, HTML_TYPE_IMAGE);
+	html_image_class_init (&html_image_class, HTML_TYPE_IMAGE, sizeof (HTMLImage));
 }
 
 void
 html_image_class_init (HTMLImageClass *image_class,
-		       HTMLType type)
+		       HTMLType type,
+		       guint size)
 {
 	HTMLObjectClass *object_class;
 
 	object_class = HTML_OBJECT_CLASS (image_class);
 
-	html_object_class_init (object_class, type);
+	html_object_class_init (object_class, type, size);
 
 	object_class->draw = draw;
 	object_class->destroy = destroy;

@@ -42,9 +42,19 @@ struct _HTMLRadioClass {
 extern HTMLRadioClass html_radio_class;
 
 
-void html_radio_type_init (void);
-void html_radio_class_init (HTMLRadioClass *klass, HTMLType type);
-void html_radio_init (HTMLRadio *radio, HTMLRadioClass *klass, GtkWidget *parent, gchar *name, gchar *value, gboolean checked);
-HTMLObject *html_radio_new (GtkWidget *parent, gchar *name, gchar *value, gboolean checked);
+void        html_radio_type_init   (void);
+void        html_radio_class_init  (HTMLRadioClass *klass,
+				    HTMLType        type,
+				    guint           object_size);
+void        html_radio_init        (HTMLRadio      *radio,
+				    HTMLRadioClass *klass,
+				    GtkWidget      *parent,
+				    gchar          *name,
+				    gchar          *value,
+				    gboolean        checked);
+HTMLObject *html_radio_new         (GtkWidget      *parent,
+				    gchar          *name,
+				    gchar          *value,
+				    gboolean        checked);
 
 #endif /* _HTMLRADIO_H_ */

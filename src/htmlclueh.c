@@ -128,12 +128,13 @@ calc_preferred_width (HTMLObject *o,
 void
 html_clueh_type_init (void)
 {
-	html_clueh_class_init (&html_clueh_class, HTML_TYPE_CLUEH);
+	html_clueh_class_init (&html_clueh_class, HTML_TYPE_CLUEH, sizeof (HTMLClueH));
 }
 
 void
 html_clueh_class_init (HTMLClueHClass *klass,
-		       HTMLType type)
+		       HTMLType type,
+		       guint size)
 {
 	HTMLClueClass *clue_class;
 	HTMLObjectClass *object_class;
@@ -141,7 +142,7 @@ html_clueh_class_init (HTMLClueHClass *klass,
 	clue_class = HTML_CLUE_CLASS (klass);
 	object_class = HTML_OBJECT_CLASS (klass);
 
-	html_clue_class_init (clue_class, type);
+	html_clue_class_init (clue_class, type, size);
 
 	object_class->set_max_width = set_max_width;
 	object_class->calc_size = calc_size;

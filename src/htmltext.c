@@ -476,18 +476,19 @@ get_color (HTMLText *text,
 void
 html_text_type_init (void)
 {
-	html_text_class_init (&html_text_class, HTML_TYPE_TEXT);
+	html_text_class_init (&html_text_class, HTML_TYPE_TEXT, sizeof (HTMLText));
 }
 
 void
 html_text_class_init (HTMLTextClass *klass,
-		      HTMLType type)
+		      HTMLType type,
+		      guint object_size)
 {
 	HTMLObjectClass *object_class;
 
 	object_class = HTML_OBJECT_CLASS (klass);
 
-	html_object_class_init (object_class, type);
+	html_object_class_init (object_class, type, object_size);
 
 	/* FIXME destroy */
 

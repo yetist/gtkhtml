@@ -71,13 +71,13 @@ set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
 void
 html_cluealigned_type_init (void)
 {
-	html_cluealigned_class_init (&html_cluealigned_class,
-				     HTML_TYPE_CLUEALIGNED);
+	html_cluealigned_class_init (&html_cluealigned_class, HTML_TYPE_CLUEALIGNED, sizeof (HTMLClueAligned));
 }
 
 void
 html_cluealigned_class_init (HTMLClueAlignedClass *klass,
-			     HTMLType type)
+			     HTMLType type,
+			     guint size)
 {
 	HTMLObjectClass *object_class;
 	HTMLClueClass *clue_class;
@@ -85,7 +85,7 @@ html_cluealigned_class_init (HTMLClueAlignedClass *klass,
 	clue_class = HTML_CLUE_CLASS (klass);
 	object_class = HTML_OBJECT_CLASS (klass);
 
-	html_clue_class_init (clue_class, type);
+	html_clue_class_init (clue_class, type, size);
 
 	/* HTMLObject functions */
 	object_class->calc_size = calc_size;

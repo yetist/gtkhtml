@@ -49,12 +49,20 @@ struct _HTMLElementClass {
 extern HTMLElementClass html_element_class;
 
 
-void html_element_type_init (void);
-void html_element_class_init (HTMLElementClass *klass, HTMLType type);
-void html_element_init (HTMLElement *element, HTMLElementClass *klass, GtkWidget *parent, gchar *name, gchar *value);
-gchar *html_element_get_name (HTMLElement *element);
-void html_element_set_form (HTMLElement *element, HTMLForm *form);
-void html_element_reset (HTMLElement *element);
-gchar *html_element_encode (HTMLElement *element);
-gchar *html_element_encode_string (gchar *str);
+void   html_element_type_init      (void);
+void   html_element_class_init     (HTMLElementClass *klass,
+				    HTMLType          type,
+				    guint             object_size);
+void   html_element_init           (HTMLElement      *element,
+				    HTMLElementClass *klass,
+				    GtkWidget        *parent,
+				    gchar            *name,
+				    gchar            *value);
+gchar *html_element_get_name       (HTMLElement      *element);
+void   html_element_set_form       (HTMLElement      *element,
+				    HTMLForm         *form);
+void   html_element_reset          (HTMLElement      *element);
+gchar *html_element_encode         (HTMLElement      *element);
+gchar *html_element_encode_string  (gchar            *str);
+
 #endif /* HTMLELEMENT_H */

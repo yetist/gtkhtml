@@ -47,9 +47,19 @@ struct _HTMLClueVClass {
 extern HTMLClueVClass html_cluev_class;
 
 
-void html_cluev_type_init (void);
-void html_cluev_class_init (HTMLClueVClass *klass, HTMLType type);
-void html_cluev_init (HTMLClueV *cluev, HTMLClueVClass *klass, gint x, gint y, gint max_width, gint percent);
-HTMLObject *html_cluev_new (gint x, gint y, gint max_width, gint percent);
+void        html_cluev_type_init   (void);
+void        html_cluev_class_init  (HTMLClueVClass *klass,
+				    HTMLType        type,
+				    guint           object_size);
+void        html_cluev_init        (HTMLClueV      *cluev,
+				    HTMLClueVClass *klass,
+				    gint            x,
+				    gint            y,
+				    gint            max_width,
+				    gint            percent);
+HTMLObject *html_cluev_new         (gint            x,
+				    gint            y,
+				    gint            max_width,
+				    gint            percent);
 
 #endif /* _HTMLCLUEV_H_ */

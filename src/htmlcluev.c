@@ -615,12 +615,13 @@ get_right_clear (HTMLClue *self,
 void
 html_cluev_type_init (void)
 {
-	html_cluev_class_init (&html_cluev_class, HTML_TYPE_CLUEV);
+	html_cluev_class_init (&html_cluev_class, HTML_TYPE_CLUEV, sizeof (HTMLClueV));
 }
 
 void
 html_cluev_class_init (HTMLClueVClass *klass,
-		       HTMLType type)
+		       HTMLType type,
+		       guint size)
 {
 	HTMLObjectClass *object_class;
 	HTMLClueClass *clue_class;
@@ -632,7 +633,7 @@ html_cluev_class_init (HTMLClueVClass *klass,
 
 	parent_class = &html_clue_class;
 
-	html_clue_class_init (clue_class, type);
+	html_clue_class_init (clue_class, type, size);
 
 	object_class->calc_size = calc_size;
 	object_class->set_max_width = set_max_width;

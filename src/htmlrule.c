@@ -113,18 +113,19 @@ save (HTMLObject *self,
 void
 html_rule_type_init (void)
 {
-	html_rule_class_init (&html_rule_class, HTML_TYPE_RULE);
+	html_rule_class_init (&html_rule_class, HTML_TYPE_RULE, sizeof (HTMLRule));
 }
 
 void
 html_rule_class_init (HTMLRuleClass *klass,
-		      HTMLType type)
+		      HTMLType type,
+		      guint object_size)
 {
 	HTMLObjectClass *object_class;
 
 	object_class = HTML_OBJECT_CLASS (klass);
 
-	html_object_class_init (object_class, type);
+	html_object_class_init (object_class, type, object_size);
 
 	object_class->draw = draw;
 	object_class->set_max_width = set_max_width;

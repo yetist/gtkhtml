@@ -21,6 +21,7 @@
 #include "htmlcheckbox.h"
 
 HTMLCheckBoxClass html_checkbox_class;
+static HTMLEmbeddedClass *parent_class = NULL;
 
 static void
 reset (HTMLEmbedded *e)
@@ -31,12 +32,13 @@ reset (HTMLEmbedded *e)
 void
 html_checkbox_type_init (void)
 {
-	html_checkbox_class_init (&html_checkbox_class, HTML_TYPE_CHECKBOX);
+	html_checkbox_class_init (&html_checkbox_class, HTML_TYPE_CHECKBOX, sizeof (HTMLCheckBoxClass));
 }
 
 void
 html_checkbox_class_init (HTMLCheckBoxClass *klass,
-			HTMLType type)
+			  HTMLType type,
+			  guint size)
 {
 	HTMLEmbeddedClass *element_class;
 	HTMLObjectClass *object_class;
@@ -45,10 +47,12 @@ html_checkbox_class_init (HTMLCheckBoxClass *klass,
 	element_class = HTML_EMBEDDED_CLASS (klass);
 	object_class = HTML_OBJECT_CLASS (klass);
 
-	html_embedded_class_init (element_class, type);
+	html_embedded_class_init (element_class, type, size);
 
 	/* HTMLEmbedded methods.   */
 	element_class->reset = reset;
+
+	parent_class = &html_embedded_class;
 }
 
 void

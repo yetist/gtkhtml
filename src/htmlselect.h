@@ -51,11 +51,24 @@ struct _HTMLSelectClass {
 extern HTMLSelectClass html_select_class;
 
 
-void html_select_type_init (void);
-void html_select_class_init (HTMLSelectClass *klass, HTMLType type);
-void html_select_init (HTMLSelect *ti, HTMLSelectClass *klass, GtkWidget *parent, gchar *name, gint size, gboolean multi);
-HTMLObject *html_select_new (GtkWidget *parent, gchar *name, gint size, gboolean multi);
-void html_select_add_option (HTMLSelect *select, gchar *value, gboolean selected);
-void html_select_set_text (HTMLSelect *select, gchar *text);
+void        html_select_type_init   (void);
+void        html_select_class_init  (HTMLSelectClass *klass,
+				     HTMLType         type,
+				     guint            object_size);
+void        html_select_init        (HTMLSelect      *ti,
+				     HTMLSelectClass *klass,
+				     GtkWidget       *parent,
+				     gchar           *name,
+				     gint             size,
+				     gboolean         multi);
+HTMLObject *html_select_new         (GtkWidget       *parent,
+				     gchar           *name,
+				     gint             size,
+				     gboolean         multi);
+void        html_select_add_option  (HTMLSelect      *select,
+				     gchar           *value,
+				     gboolean         selected);
+void        html_select_set_text    (HTMLSelect      *select,
+				     gchar           *text);
 
 #endif /* _HTMLSELECT_H_ */

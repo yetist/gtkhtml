@@ -1,4 +1,34 @@
+2000-02-15  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlembedded.c (html_embedded_type_init): Use
+	`HTML_TYPE_EMBEDDED', not `HTML_TYPE_ELEMENT'.
+
+	* htmltype.h: s/HTML_TYPE_ELEMENT/HTML_TYPE_EMBEDDED/.
+	* htmltype.c (html_type_name): Updated accordingly.
+
+	* All files: Use the `object_size' parameter.
+
+	* htmlobject.c (html_object_class_init): New parameter
+	`object_size'.
+
+	* htmlobject.h: New member `object_size' in `HTMLObjectClass'.
+
+	* htmlobject.h: New virtual methods `HTMLObject::copy',
+	`HTMLObject::get_selection'.
+
+	* htmlengine-edit-cut.c: New file.
+	* htmlengine-edit-cut.h: New file.
+
+	* htmlengine-edit-copy.c: New file.
+	* htmlengine-edit-copy.h: New file.
+
 2000-02-14  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine.c (html_engine_init): Initialize `cut_buffer' as
+	NULL.
+	(html_engine_destroy): Destroy the cut buffer, if any.
+
+	* htmlengine.h: New member `cut_buffer'.
 
 	* htmlengine-edit.c (html_engine_undo): Freeze before undoing,
 	thaw afterwards.

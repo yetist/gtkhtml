@@ -62,7 +62,8 @@ extern HTMLTextClass html_text_class;
 
 void        html_text_type_init           (void);
 void        html_text_class_init          (HTMLTextClass  *klass,
-					   HTMLType        type);
+					   HTMLType        type,
+					   guint           object_size);
 void        html_text_init                (HTMLText       *text_object,
 					   HTMLTextClass  *klass,
 					   gchar          *text,

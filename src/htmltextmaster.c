@@ -447,13 +447,13 @@ get_cursor_base (HTMLObject *self,
 void
 html_text_master_type_init (void)
 {
-	html_text_master_class_init (&html_text_master_class,
-				     HTML_TYPE_TEXTMASTER);
+	html_text_master_class_init (&html_text_master_class, HTML_TYPE_TEXTMASTER, sizeof (HTMLTextMaster));
 }
 
 void
 html_text_master_class_init (HTMLTextMasterClass *klass,
-			     HTMLType type)
+			     HTMLType type,
+			     guint object_size)
 {
 	HTMLObjectClass *object_class;
 	HTMLTextClass *text_class;
@@ -461,7 +461,7 @@ html_text_master_class_init (HTMLTextMasterClass *klass,
 	object_class = HTML_OBJECT_CLASS (klass);
 	text_class = HTML_TEXT_CLASS (klass);
 
-	html_text_class_init (text_class, type);
+	html_text_class_init (text_class, type, object_size);
 
 	/* HTMLObject methods.  */
 

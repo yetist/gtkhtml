@@ -44,10 +44,17 @@ struct _HTMLClueHClass {
 extern HTMLClueHClass html_clue_h_class;
 
 
-void html_clueh_type_init (void);
-void html_clueh_class_init (HTMLClueHClass *klass, HTMLType type);
-void html_clueh_init (HTMLClueH *clue, HTMLClueHClass *klass,
-		      gint x, gint y, gint max_width);
-HTMLObject *html_clueh_new (gint x, gint y, gint max_width);
+void        html_clueh_type_init   (void);
+void        html_clueh_class_init  (HTMLClueHClass *klass,
+				    HTMLType        type,
+				    guint           object_size);
+void        html_clueh_init        (HTMLClueH      *clue,
+				    HTMLClueHClass *klass,
+				    gint            x,
+				    gint            y,
+				    gint            max_width);
+HTMLObject *html_clueh_new         (gint            x,
+				    gint            y,
+				    gint            max_width);
 
 #endif /* _HTMLCLUEH_H_ */

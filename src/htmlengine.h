@@ -67,6 +67,8 @@ typedef enum _HTMLGlossaryEntry HTMLGlossaryEntry;
 typedef struct _HTMLBlockStackElement HTMLBlockStackElement;
 
 
+/* FIXME this needs splitting.  */
+
 struct _HTMLEngine {
 	GtkObject parent;
 
@@ -87,6 +89,7 @@ struct _HTMLEngine {
 
 	gboolean editable;
 	HTMLCursor *cursor;
+	GList *cut_buffer;
 
 	/* This is set to TRUE when at least one element is selected (in whole
            or in part), to FALSE when no item is selected at all.  */

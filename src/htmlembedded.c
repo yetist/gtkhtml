@@ -152,19 +152,20 @@ html_embedded_encode_string (gchar *str)
 void
 html_embedded_type_init (void)
 {
-	html_embedded_class_init (&html_embedded_class, HTML_TYPE_ELEMENT);
+	html_embedded_class_init (&html_embedded_class, HTML_TYPE_EMBEDDED, sizeof (HTMLEmbedded));
 }
 
 void
 html_embedded_class_init (HTMLEmbeddedClass *klass, 
-			 HTMLType type)
+			  HTMLType type,
+			  guint size)
 {
 	HTMLObjectClass *object_class;
 
 	g_return_if_fail (klass != NULL);
 
 	object_class = HTML_OBJECT_CLASS (klass);
-	html_object_class_init (object_class, type);
+	html_object_class_init (object_class, type, size);
 
 	/* HTMLEmbedded methods.   */
 	klass->reset = reset;

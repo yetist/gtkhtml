@@ -153,19 +153,20 @@ html_element_encode_string (gchar *str)
 void
 html_element_type_init (void)
 {
-	html_element_class_init (&html_element_class, HTML_TYPE_ELEMENT);
+	html_element_class_init (&html_element_class, HTML_TYPE_ELEMENT, sizeof (HTMLElement));
 }
 
 void
 html_element_class_init (HTMLElementClass *klass, 
-			 HTMLType type)
+			 HTMLType type,
+			 guint size)
 {
 	HTMLObjectClass *object_class;
 
 	g_return_if_fail (klass != NULL);
 
 	object_class = HTML_OBJECT_CLASS (klass);
-	html_object_class_init (object_class, type);
+	html_object_class_init (object_class, type, size);
 
 	/* HTMLElement methods.   */
 	klass->reset = reset;

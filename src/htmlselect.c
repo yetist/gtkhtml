@@ -147,12 +147,13 @@ encode (HTMLEmbedded *e)
 void
 html_select_type_init (void)
 {
-	html_select_class_init (&html_select_class, HTML_TYPE_SELECT);
+	html_select_class_init (&html_select_class, HTML_TYPE_SELECT, sizeof (HTMLSelect));
 }
 
 void
 html_select_class_init (HTMLSelectClass *klass,
-			    HTMLType type)
+			HTMLType type,
+			guint object_size)
 {
 	HTMLEmbeddedClass *element_class;
 	HTMLObjectClass *object_class;
@@ -161,7 +162,7 @@ html_select_class_init (HTMLSelectClass *klass,
 	element_class = HTML_EMBEDDED_CLASS (klass);
 	object_class = HTML_OBJECT_CLASS (klass);
 
-	html_embedded_class_init (element_class, type);
+	html_embedded_class_init (element_class, type, object_size);
 
 	/* HTMLEmbedded methods.   */
 	element_class->reset = reset;

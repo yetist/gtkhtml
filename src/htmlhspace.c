@@ -44,18 +44,19 @@ accepts_cursor (HTMLObject *self)
 void
 html_hspace_type_init (void)
 {
-	html_hspace_class_init (&html_hspace_class, HTML_TYPE_HSPACE);
+	html_hspace_class_init (&html_hspace_class, HTML_TYPE_HSPACE, sizeof (HTMLHSpace));
 }
 
 void
 html_hspace_class_init (HTMLHSpaceClass *klass,
-			HTMLType type)
+			HTMLType type,
+			guint size)
 {
 	HTMLObjectClass *object_class;
 
 	object_class = HTML_OBJECT_CLASS (klass);
 
-	html_object_class_init (object_class, type);
+	html_object_class_init (object_class, type, size);
 
 	/* FIXME destroy? */
 

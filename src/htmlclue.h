@@ -57,23 +57,42 @@ struct _HTMLClueClass {
 extern HTMLClueClass html_clue_class;
 
 
-void html_clue_type_init (void);
-void html_clue_class_init (HTMLClueClass *klass, HTMLType type);
-void html_clue_init (HTMLClue *clue, HTMLClueClass *klass);
-gint html_clue_get_left_margin (HTMLClue *clue, gint y);
-gint html_clue_get_right_margin (HTMLClue *clue, gint y);
-gint html_clue_get_left_clear (HTMLClue *clue, gint y);
-gint html_clue_get_right_clear (HTMLClue *clue, gint y);
-void html_clue_find_free_area (HTMLClue *clue, gint y,
-			       gint width, gint height, gint indent,
-			       gint *y_pos, gint *lmargin, gint *rmargin);
-void html_clue_append_right_aligned (HTMLClue *clue, HTMLClue *aclue);
-void html_clue_append_left_aligned (HTMLClue *clue, HTMLClue *aclue);
-gboolean html_clue_appended (HTMLClue *clue, HTMLClue *aclue);
-
-void html_clue_append_after (HTMLClue *clue, HTMLObject *o, HTMLObject *where);
-void html_clue_append (HTMLClue *clue, HTMLObject *o);
-void html_clue_prepend (HTMLClue *clue, HTMLObject *o);
-void html_clue_remove (HTMLClue *clue, HTMLObject *o);
+void      html_clue_type_init             (void);
+void      html_clue_class_init            (HTMLClueClass *klass,
+					   HTMLType       type,
+					   guint          object_size);
+void      html_clue_init                  (HTMLClue      *clue,
+					   HTMLClueClass *klass);
+gint      html_clue_get_left_margin       (HTMLClue      *clue,
+					   gint           y);
+gint      html_clue_get_right_margin      (HTMLClue      *clue,
+					   gint           y);
+gint      html_clue_get_left_clear        (HTMLClue      *clue,
+					   gint           y);
+gint      html_clue_get_right_clear       (HTMLClue      *clue,
+					   gint           y);
+void      html_clue_find_free_area        (HTMLClue      *clue,
+					   gint           y,
+					   gint           width,
+					   gint           height,
+					   gint           indent,
+					   gint          *y_pos,
+					   gint          *lmargin,
+					   gint          *rmargin);
+void      html_clue_append_right_aligned  (HTMLClue      *clue,
+					   HTMLClue      *aclue);
+void      html_clue_append_left_aligned   (HTMLClue      *clue,
+					   HTMLClue      *aclue);
+gboolean  html_clue_appended              (HTMLClue      *clue,
+					   HTMLClue      *aclue);
+void      html_clue_append_after          (HTMLClue      *clue,
+					   HTMLObject    *o,
+					   HTMLObject    *where);
+void      html_clue_append                (HTMLClue      *clue,
+					   HTMLObject    *o);
+void      html_clue_prepend               (HTMLClue      *clue,
+					   HTMLObject    *o);
+void      html_clue_remove                (HTMLClue      *clue,
+					   HTMLObject    *o);
 
 #endif /* HTMLCLUE_H */

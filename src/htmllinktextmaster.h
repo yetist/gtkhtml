@@ -50,7 +50,8 @@ extern HTMLLinkTextMasterClass html_link_text_master_class;
 
 void        html_link_text_master_type_init   (void);
 void        html_link_text_master_class_init  (HTMLLinkTextMasterClass *klass,
-					       HTMLType                 type);
+					       HTMLType                 type,
+					       guint                    object_size);
 void        html_link_text_master_init        (HTMLLinkTextMaster      *link_text_master,
 					       HTMLLinkTextMasterClass *klass,
 					       gchar                   *text,

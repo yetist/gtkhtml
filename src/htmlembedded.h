@@ -52,15 +52,23 @@ struct _HTMLEmbeddedClass {
 extern HTMLEmbeddedClass html_embedded_class;
 
 
-void html_embedded_type_init (void);
-void html_embedded_class_init (HTMLEmbeddedClass *klass, HTMLType type);
-void html_embedded_init (HTMLEmbedded *element, HTMLEmbeddedClass *klass, GtkWidget *parent, gchar *name, gchar *value);
-gchar *html_embedded_get_name (HTMLEmbedded *element);
-void html_embedded_set_form (HTMLEmbedded *element, HTMLForm *form);
-void html_embedded_reset (HTMLEmbedded *element);
-gchar *html_embedded_encode (HTMLEmbedded *element);
-gchar *html_embedded_encode_string (gchar *str);
-HTMLEmbedded *html_embedded_new_widget(GtkWidget *parent, GtkHTMLEmbedded *eb);
-void html_embedded_size_recalc(HTMLEmbedded *em);
+void          html_embedded_type_init      (void);
+void          html_embedded_class_init     (HTMLEmbeddedClass *klass,
+					    HTMLType           type,
+					    guint              object_size);
+void          html_embedded_init           (HTMLEmbedded      *element,
+					    HTMLEmbeddedClass *klass,
+					    GtkWidget         *parent,
+					    gchar             *name,
+					    gchar             *value);
+gchar        *html_embedded_get_name       (HTMLEmbedded      *element);
+void          html_embedded_set_form       (HTMLEmbedded      *element,
+					    HTMLForm          *form);
+void          html_embedded_reset          (HTMLEmbedded      *element);
+gchar        *html_embedded_encode         (HTMLEmbedded      *element);
+gchar        *html_embedded_encode_string  (gchar             *str);
+HTMLEmbedded *html_embedded_new_widget     (GtkWidget         *parent,
+					    GtkHTMLEmbedded   *eb);
+void          html_embedded_size_recalc    (HTMLEmbedded      *em);
 
 #endif /* HTMLEMBEDDED_H */

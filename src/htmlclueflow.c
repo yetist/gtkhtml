@@ -748,12 +748,13 @@ get_default_font_style (const HTMLClueFlow *self)
 void
 html_clueflow_type_init (void)
 {
-	html_clueflow_class_init (&html_clueflow_class, HTML_TYPE_CLUEFLOW);
+	html_clueflow_class_init (&html_clueflow_class, HTML_TYPE_CLUEFLOW, sizeof (HTMLClueFlow));
 }
 
 void
 html_clueflow_class_init (HTMLClueFlowClass *klass,
-			  HTMLType type)
+			  HTMLType type,
+			  guint size)
 {
 	HTMLClueClass *clue_class;
 	HTMLObjectClass *object_class;
@@ -761,7 +762,7 @@ html_clueflow_class_init (HTMLClueFlowClass *klass,
 	clue_class = HTML_CLUE_CLASS (klass);
 	object_class = HTML_OBJECT_CLASS (klass);
 
-	html_clue_class_init (clue_class, type);
+	html_clue_class_init (clue_class, type, size);
 
 	object_class->calc_size = calc_size;
 	object_class->set_max_width = set_max_width;

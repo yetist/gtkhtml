@@ -65,28 +65,28 @@ struct _HTMLImageClass {
 extern HTMLImageClass image_class;
 
 
-void  html_image_type_init   (void);
-void  html_image_class_init  (HTMLImageClass *klass,
-			      HTMLType        type);
-
-void        html_image_init  (HTMLImage        *image,
-			      HTMLImageClass   *klass,
-			      HTMLImageFactory *imf,
-			      gchar            *filename,
-			      const gchar      *url,
-			      const gchar      *target,
-			      gint              width,
-			      gint              height,
-			      gint              percent,
-			      gint              border);
-HTMLObject *html_image_new   (HTMLImageFactory *imf,
-			      gchar            *filename,
-			      const gchar      *url,
-			      const gchar      *target,
-			      gint              width,
-			      gint              height,
-			      gint              percent,
-			      gint              border);
+void        html_image_type_init   (void);
+void        html_image_class_init  (HTMLImageClass   *klass,
+				    HTMLType          type,
+				    guint             object_size);
+void        html_image_init        (HTMLImage        *image,
+				    HTMLImageClass   *klass,
+				    HTMLImageFactory *imf,
+				    gchar            *filename,
+				    const gchar      *url,
+				    const gchar      *target,
+				    gint              width,
+				    gint              height,
+				    gint              percent,
+				    gint              border);
+HTMLObject *html_image_new         (HTMLImageFactory *imf,
+				    gchar            *filename,
+				    const gchar      *url,
+				    const gchar      *target,
+				    gint              width,
+				    gint              height,
+				    gint              percent,
+				    gint              border);
 
 /* FIXME move to htmlimagefactory.c */
 HTMLImageFactory *html_image_factory_new      (HTMLEngine       *e);

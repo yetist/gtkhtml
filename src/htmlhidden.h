@@ -41,9 +41,15 @@ struct _HTMLHiddenClass {
 extern HTMLHiddenClass html_hidden_class;
 
 
-void html_hidden_type_init (void);
-void html_hidden_class_init (HTMLHiddenClass *klass, HTMLType type);
-void html_hidden_init (HTMLHidden *hidden, HTMLHiddenClass *klass, gchar *name, gchar *value);
-HTMLObject *html_hidden_new (gchar *name, gchar *value);
+void        html_hidden_type_init   (void);
+void        html_hidden_class_init  (HTMLHiddenClass *klass,
+				     HTMLType         type,
+				     guint            object_size);
+void        html_hidden_init        (HTMLHidden      *hidden,
+				     HTMLHiddenClass *klass,
+				     gchar           *name,
+				     gchar           *value);
+HTMLObject *html_hidden_new         (gchar           *name,
+				     gchar           *value);
 
 #endif /* _HTMLHIDDEN_H_ */

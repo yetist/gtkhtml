@@ -116,12 +116,13 @@ save (HTMLObject *self,
 void
 html_link_text_type_init (void)
 {
-	html_link_text_class_init (&html_link_text_class, HTML_TYPE_LINKTEXT);
+	html_link_text_class_init (&html_link_text_class, HTML_TYPE_LINKTEXT, sizeof (HTMLLinkText));
 }
 
 void
 html_link_text_class_init (HTMLLinkTextClass *klass,
-			   HTMLType type)
+			   HTMLType type,
+			   guint size)
 {
 	HTMLObjectClass *object_class;
 	HTMLTextClass *text_class;
@@ -129,7 +130,7 @@ html_link_text_class_init (HTMLLinkTextClass *klass,
 	object_class = HTML_OBJECT_CLASS (klass);
 	text_class = HTML_TEXT_CLASS (klass);
 
-	html_text_class_init (text_class, type);
+	html_text_class_init (text_class, type, size);
 
 	object_class->destroy = destroy;
 	object_class->get_url = get_url;

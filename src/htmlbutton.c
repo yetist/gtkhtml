@@ -18,11 +18,15 @@
     the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
     Boston, MA 02111-1307, USA.
 */
+
 #include "htmlbutton.h"
 #include "htmlform.h"
 
 HTMLButtonClass html_button_class;
 
+static HTMLEmbeddedClass *parent_class = NULL;
+
+
 static void
 clicked_event (GtkWidget *widget, gpointer data)
 {
@@ -42,24 +46,27 @@ clicked_event (GtkWidget *widget, gpointer data)
 	}
 }
 
+
 void
 html_button_type_init (void)
 {
-	html_button_class_init (&html_button_class, HTML_TYPE_BUTTON);
+	html_button_class_init (&html_button_class, HTML_TYPE_BUTTON, sizeof (HTMLButton));
 }
 
 void
 html_button_class_init (HTMLButtonClass *klass,
-			HTMLType type)
+			HTMLType type,
+			guint object_size)
 {
 	HTMLEmbeddedClass *element_class;
 	HTMLObjectClass *object_class;
 
-
 	element_class = HTML_EMBEDDED_CLASS (klass);
 	object_class = HTML_OBJECT_CLASS (klass);
 
-	html_embedded_class_init (element_class, type);
+	html_embedded_class_init (element_class, type, object_size);
+
+	parent_class = &html_embedded_class;
 }
 
 void

@@ -44,10 +44,14 @@ struct _HTMLAnchorClass {
 };
 
 
-void html_anchor_type_init (void);
-void html_anchor_class_init (HTMLAnchorClass *klass, HTMLType type);
-HTMLObject *html_anchor_new (const gchar *name);
-void html_anchor_init (HTMLAnchor *anchor, HTMLAnchorClass *klass, const gchar *name);
-const gchar *html_anchor_get_name (HTMLAnchor *anchor);
+void         html_anchor_type_init   (void);
+void         html_anchor_class_init  (HTMLAnchorClass *klass,
+				      HTMLType         type,
+				      guint            object_size);
+HTMLObject  *html_anchor_new         (const gchar     *name);
+void         html_anchor_init        (HTMLAnchor      *anchor,
+				      HTMLAnchorClass *klass,
+				      const gchar     *name);
+const gchar *html_anchor_get_name    (HTMLAnchor      *anchor);
 
 #endif /* _HTMLANCHOR_H */

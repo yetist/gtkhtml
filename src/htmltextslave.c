@@ -441,19 +441,19 @@ check_point (HTMLObject *self,
 void
 html_text_slave_type_init (void)
 {
-	html_text_slave_class_init (&html_text_slave_class,
-				    HTML_TYPE_TEXTSLAVE);
+	html_text_slave_class_init (&html_text_slave_class, HTML_TYPE_TEXTSLAVE, sizeof (HTMLTextSlave));
 }
 
 void
 html_text_slave_class_init (HTMLTextSlaveClass *klass,
-			    HTMLType type)
+			    HTMLType type,
+			    guint object_size)
 {
 	HTMLObjectClass *object_class;
 
 	object_class = HTML_OBJECT_CLASS (klass);
 
-	html_object_class_init (object_class, type);
+	html_object_class_init (object_class, type, object_size);
 
 	object_class->draw = draw;
 	object_class->calc_size = calc_size;

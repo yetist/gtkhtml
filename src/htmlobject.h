@@ -121,6 +121,8 @@ struct _HTMLObject {
 struct _HTMLObjectClass {
 	HTMLType type;
 
+	guint object_size;
+
 	void (*destroy) (HTMLObject *o);
 
 	/* Relayout object `o' starting from child `child'.  This method can be
@@ -173,9 +175,6 @@ struct _HTMLObjectClass {
 	void (* get_cursor_base) (HTMLObject *self, HTMLPainter *painter, guint offset,
 				  gint *x, gint *y);
 
-	gboolean (* select_range) (HTMLObject *self, HTMLEngine *engine, guint start, gint length,
-				   gboolean queue_draw);
-
 	void (* forall) (HTMLObject *self, HTMLObjectForallFunc func, gpointer data);
 
 	gboolean (* is_container) (HTMLObject *self);
@@ -183,6 +182,11 @@ struct _HTMLObjectClass {
 	gboolean (* save) (HTMLObject *self, HTMLEngineSaveState *state);
 
 	gint (* check_page_split) (HTMLObject *self, gint y);
+
+	/* Selection.  */
+
+	gboolean (* select_range) (HTMLObject *self, HTMLEngine *engine, guint start, gint length,
+				   gboolean queue_draw);
 };
 
 
@@ -191,13 +195,15 @@ extern HTMLObjectClass html_object_class;
 
 /* Basics.  */
 void        html_object_type_init     (void);
-void        html_object_init          (HTMLObject           *o,
+void        html_object_init          (HTMLObject           *self,
 				       HTMLObjectClass      *klass);
 void        html_object_class_init    (HTMLObjectClass      *klass,
-				       HTMLType              type);
+				       HTMLType              type,
+				       guint                 object_size);
 HTMLObject *html_object_new           (HTMLObject           *parent);
-void        html_object_destroy       (HTMLObject           *o);
-void        html_object_set_parent    (HTMLObject           *o,
+void        html_object_destroy       (HTMLObject           *self);
+HTMLObject *html_object_copy          (HTMLObject           *self);
+void        html_object_set_parent    (HTMLObject           *self,
 				       HTMLObject           *parent);
 void        html_object_reset         (HTMLObject           *o);
 gboolean    html_object_is_text       (HTMLObject           *object);
@@ -280,11 +286,12 @@ gint  html_object_check_page_split  (HTMLObject *self,
 				     gint        y);
 
 /* Selection.  */
-gboolean  html_object_select_range  (HTMLObject *obj,
-				     HTMLEngine *engine,
-				     guint       start,
-				     gint        length,
-				     gboolean    queue_draw);
+gboolean    html_object_select_range   (HTMLObject *obj,
+					HTMLEngine *engine,
+					guint       start,
+					gint        length,
+					gboolean    queue_draw);
+HTMLObject *html_object_get_selection  (HTMLObject *obj);
 
 /* Saving.  */
 gboolean  html_object_save  (HTMLObject          *self,

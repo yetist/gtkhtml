@@ -85,12 +85,13 @@ encode (HTMLEmbedded *e)
 void
 html_imageinput_type_init (void)
 {
-	html_imageinput_class_init (&html_imageinput_class, HTML_TYPE_IMAGEINPUT);
+	html_imageinput_class_init (&html_imageinput_class, HTML_TYPE_IMAGEINPUT, sizeof (HTMLImageInput));
 }
 
 void
 html_imageinput_class_init (HTMLImageInputClass *klass,
-			    HTMLType type)
+			    HTMLType type,
+			    guint size)
 {
 	HTMLEmbeddedClass *element_class;
 	HTMLObjectClass *object_class;
@@ -99,7 +100,7 @@ html_imageinput_class_init (HTMLImageInputClass *klass,
 	element_class = HTML_EMBEDDED_CLASS (klass);
 	object_class = HTML_OBJECT_CLASS (klass);
 
-	html_embedded_class_init (element_class, type);
+	html_embedded_class_init (element_class, type, size);
 
 	/* HTMLEmbedded methods.  */
 	element_class->encode = encode;

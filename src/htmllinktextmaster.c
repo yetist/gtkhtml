@@ -120,12 +120,14 @@ void
 html_link_text_master_type_init (void)
 {
 	html_link_text_master_class_init (&html_link_text_master_class,
-					  HTML_TYPE_LINKTEXTMASTER);
+					  HTML_TYPE_LINKTEXTMASTER,
+					  sizeof (HTMLLinkTextMaster));
 }
 
 void
 html_link_text_master_class_init (HTMLLinkTextMasterClass *klass,
-				  HTMLType type)
+				  HTMLType type,
+				  guint size)
 {
 	HTMLObjectClass *object_class;
 	HTMLTextClass *text_class;
@@ -135,7 +137,7 @@ html_link_text_master_class_init (HTMLLinkTextMasterClass *klass,
 	text_class = HTML_TEXT_CLASS (klass);
 	text_master_class = HTML_TEXT_MASTER_CLASS (klass);
 
-	html_text_master_class_init (text_master_class, type);
+	html_text_master_class_init (text_master_class, type, size);
 
 	object_class->destroy = destroy;
 	object_class->get_url = get_url;

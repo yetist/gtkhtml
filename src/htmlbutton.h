@@ -45,9 +45,19 @@ struct _HTMLButtonClass {
 extern HTMLButtonClass html_button_class;
 
 
-void html_button_type_init (void);
-void html_button_class_init (HTMLButtonClass *klass, HTMLType type);
-void html_button_init (HTMLButton *button, HTMLButtonClass *klass, GtkWidget *parent, gchar *name, gchar *value, HTMLButtonType type);
-HTMLObject *html_button_new (GtkWidget *parent, gchar *name, gchar *value, HTMLButtonType type);
+void        html_button_type_init   (void);
+void        html_button_class_init  (HTMLButtonClass *klass,
+				     HTMLType         type,
+				     guint            object_size);
+void        html_button_init        (HTMLButton      *button,
+				     HTMLButtonClass *klass,
+				     GtkWidget       *parent,
+				     gchar           *name,
+				     gchar           *value,
+				     HTMLButtonType   type);
+HTMLObject *html_button_new         (GtkWidget       *parent,
+				     gchar           *name,
+				     gchar           *value,
+				     HTMLButtonType   type);
 
 #endif /* _HTMLBUTTON_H_ */

@@ -49,11 +49,19 @@ struct _HTMLTextMasterClass {
 extern HTMLTextMasterClass html_text_master_class;
 
 
-void html_text_master_type_init (void);
-void html_text_master_class_init (HTMLTextMasterClass *class, HTMLType type);
-void html_text_master_init (HTMLTextMaster *master, HTMLTextMasterClass *klass, gchar *text,
-			    HTMLFontStyle font_style, const GdkColor *color);
-HTMLObject *html_text_master_new (gchar *text, HTMLFontStyle font_style, const GdkColor *color);
-HTMLObject *html_text_master_get_slave (HTMLTextMaster *master, guint offset);
+void        html_text_master_type_init   (void);
+void        html_text_master_class_init  (HTMLTextMasterClass *class,
+					  HTMLType             type,
+					  guint                object_size);
+void        html_text_master_init        (HTMLTextMaster      *master,
+					  HTMLTextMasterClass *klass,
+					  gchar               *text,
+					  HTMLFontStyle        font_style,
+					  const GdkColor      *color);
+HTMLObject *html_text_master_new         (gchar               *text,
+					  HTMLFontStyle        font_style,
+					  const GdkColor      *color);
+HTMLObject *html_text_master_get_slave   (HTMLTextMaster      *master,
+					  guint                offset);
 
 #endif /* _HTMLTEXTMASTER_H_ */

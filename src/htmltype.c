@@ -117,8 +117,8 @@ html_type_name (HTMLType type)
  		return "ClueH";
 	case HTML_TYPE_CLUEV:
  		return "ClueV";
-	case HTML_TYPE_ELEMENT:
- 		return "Element";
+	case HTML_TYPE_EMBEDDED:
+ 		return "Embedded";
 	case HTML_TYPE_HIDDEN:
  		return "Hidden";
 	case HTML_TYPE_HSPACE:
