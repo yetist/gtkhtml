@@ -2954,7 +2954,7 @@ html_text_set_style_in_range (HTMLText *text, GtkHTMLFontStyle style, HTMLEngine
 	}
 
 	/* size */
-	if (style & GTK_HTML_FONT_STYLE_SIZE_MASK) {
+	if ((style & GTK_HTML_FONT_STYLE_SIZE_MASK) && ((style & GTK_HTML_FONT_STYLE_SIZE_MASK) != GTK_HTML_FONT_STYLE_SIZE_3)) {
 		attr = html_pango_attr_font_size_new (style);
 		html_pango_attr_font_size_calc ((HTMLPangoAttrFontSize *) attr, e);
 		attr->start_index = start_index;

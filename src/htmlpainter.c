@@ -126,6 +126,15 @@ html_painter_init (GObject *object, HTMLPainterClass *real_klass)
 }
 
 static void
+html_painter_real_set_widget (HTMLPainter *painter, GtkWidget *widget)
+{
+	if (painter->widget)
+		g_object_unref (painter->widget);
+	painter->widget = widget;
+	g_object_ref (widget);
+}
+
+static void
 html_painter_class_init (GObjectClass *object_class)
 {
 	HTMLPainterClass *class;
@@ -135,6 +144,7 @@ html_painter_class_init (GObjectClass *object_class)
 	object_class->finalize = finalize;
 	parent_class = g_type_class_ref (G_TYPE_OBJECT);
 
+	class->set_widget = html_painter_real_set_widget;
 	class->begin = (gpointer) begin_unimplemented;
 	class->end = (gpointer) end_unimplemented;
 
@@ -648,12 +658,9 @@ html_painter_set_focus (HTMLPainter *p, gboolean focus)
 }
 
 void
-html_painter_set_widget (HTMLPainter *p, GtkWidget *widget)
+html_painter_set_widget (HTMLPainter *painter, GtkWidget *widget)
 {
-	if (p->widget)
-		g_object_unref (p->widget);
-	p->widget = widget;
-	g_object_ref (widget);
+	return 	(* HP_CLASS (painter)->set_widget) (painter, widget);
 }
 
 HTMLTextPangoInfo *

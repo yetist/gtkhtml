@@ -166,18 +166,15 @@ alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, Gt
 	gint space_width, space_asc, space_dsc;
 
 	if (face) {
-		gchar *str;
-
-		str = g_strdup_printf ("%s %d", face, (gint) size);
-		desc = pango_font_description_from_string (str);
-		g_free (str);
+		desc = pango_font_description_from_string (face);
+		pango_font_description_set_size (desc, (gint) size);
 	}
 
 	if (!desc || !pango_font_description_get_family (desc)) {
 		if (desc)
 			pango_font_description_free (desc);
 
-		desc = pango_font_description_copy (painter->widget->style->font_desc);
+		desc = pango_font_description_copy (gtk_widget_get_style (painter->widget)->font_desc);
 	}
 
 	pango_font_description_set_size (desc, size);
@@ -1196,6 +1193,19 @@ html_gdk_painter_init (GObject *object)
 }
 
 static void
+html_gdk_painter_real_set_widget (HTMLPainter *painter, GtkWidget *widget)
+{
+	HTMLGdkPainter *gdk_painter = HTML_GDK_PAINTER (painter);
+
+	parent_class->set_widget (painter, widget);
+
+	if (gdk_painter->pc)
+		g_object_unref (gdk_painter->pc);
+	gdk_painter->pc = gtk_widget_get_pango_context (widget);
+	g_object_ref (gdk_painter->pc);
+}
+
+static void
 html_gdk_painter_class_init (GObjectClass *object_class)
 {
 	HTMLPainterClass *painter_class;
@@ -1205,6 +1215,7 @@ html_gdk_painter_class_init (GObjectClass *object_class)
 	object_class->finalize = finalize;
 	parent_class = g_type_class_ref (HTML_TYPE_PAINTER);
 
+	painter_class->set_widget = html_gdk_painter_real_set_widget;
 	painter_class->begin = begin;
 	painter_class->end = end;
 	painter_class->alloc_font = alloc_font;
@@ -1268,8 +1279,6 @@ html_gdk_painter_new (GtkWidget *widget, gboolean double_buffer)
 
 	new->double_buffer = double_buffer;
 	html_painter_set_widget (HTML_PAINTER (new), widget);
-	new->pc = gtk_widget_get_pango_context (widget);
-	g_object_ref (new->pc);
 
 	return HTML_PAINTER (new);
 }
@@ -1280,7 +1289,7 @@ html_gdk_painter_realize (HTMLGdkPainter *gdk_painter,
 {
 	g_return_if_fail (gdk_painter != NULL);
 	g_return_if_fail (window != NULL);
-	
+
 	gdk_painter->gc = gdk_gc_new (window);
 	gdk_painter->window = window;
 

@@ -140,6 +140,7 @@ void                       gtk_html_set_editor_api                (GtkHTML      
 gint                       gtk_html_set_iframe_parent             (GtkHTML                   *html,
 								   GtkWidget                 *parent,
 								   HTMLObject                *frame);
+GtkHTML                   *gtk_html_get_top_html                  (GtkHTML                   *html);
 
 /* Debugging.  */
 void                       gtk_html_enable_debug                  (GtkHTML                   *html,

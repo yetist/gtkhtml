@@ -269,6 +269,12 @@ dump_object_simple (HTMLObject *obj,
 	} else if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TABLE) {
 		g_print ("%s %d,%d\n", html_type_name (HTML_OBJECT_TYPE (obj)),
 			 HTML_TABLE (obj)->totalRows, HTML_TABLE (obj)->totalCols);
+	} else if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_IFRAME) {
+		g_print ("%s\n", html_type_name (HTML_OBJECT_TYPE (obj)));
+		gtk_html_debug_dump_tree_simple (GTK_HTML (HTML_IFRAME (obj)->html)->engine->clue, level + 1);
+	} else if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_FRAME) {
+		g_print ("%s\n", html_type_name (HTML_OBJECT_TYPE (obj)));
+		gtk_html_debug_dump_tree_simple (GTK_HTML (HTML_FRAME (obj)->html)->engine->clue, level + 1);
 	} else
 		g_print ("%s\n", html_type_name (HTML_OBJECT_TYPE (obj)));
 

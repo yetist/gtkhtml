@@ -731,9 +731,20 @@ destroy (GtkObject *object)
 		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
 
+GtkHTML *
+gtk_html_get_top_html (GtkHTML *html)
+{
+	while (html->iframe_parent)
+		html = GTK_HTML (html->iframe_parent);
+
+	return html;
+}
+
 void
 gtk_html_set_fonts (GtkHTML *html, HTMLPainter *painter)
 {
+	GtkWidget *top_level;
+	GtkStyle *style;
 	PangoFontDescription *fixed_desc = NULL;
 	char *fixed_name = NULL;
 	const char *fixed_family = NULL;
@@ -741,10 +752,13 @@ gtk_html_set_fonts (GtkHTML *html, HTMLPainter *painter)
 	const char *font_var = NULL;
 	gint  font_var_size = 0;
 
-	font_var = pango_font_description_get_family (GTK_WIDGET (html)->style->font_desc);
-	font_var_size = pango_font_description_get_size (GTK_WIDGET (html)->style->font_desc);
+	top_level = GTK_WIDGET (gtk_html_get_top_html (html));
+	style = gtk_widget_get_style (top_level);
+
+	font_var = pango_font_description_get_family (style->font_desc);
+	font_var_size = pango_font_description_get_size (style->font_desc);
 		
-	gtk_widget_style_get (GTK_WIDGET (html), "fixed_font_name", &fixed_name, NULL);
+	gtk_widget_style_get (GTK_WIDGET (top_level), "fixed_font_name", &fixed_name, NULL);
 	if (fixed_name) {
 		fixed_desc = pango_font_description_from_string (fixed_name);
 		if (pango_font_description_get_family (fixed_desc)) {
@@ -4946,6 +4960,7 @@ add_bindings (GtkHTMLClass *klass)
 gint
 gtk_html_set_iframe_parent (GtkHTML *html, GtkWidget *parent, HTMLObject *frame)
 {
+	GtkWidget *top_level;
 	gint depth = 0;
 	g_assert (GTK_IS_HTML (parent));
 
@@ -4953,8 +4968,13 @@ gtk_html_set_iframe_parent (GtkHTML *html, GtkWidget *parent, HTMLObject *frame)
 
 	html->iframe_parent = parent;
 	html->frame = frame;
-	
-	g_signal_emit (html_engine_get_top_html_engine (html->engine)->widget, signals [IFRAME_CREATED], 0, html);
+
+	top_level = GTK_WIDGET (gtk_html_get_top_html (html));
+	if (html->engine && html->engine->painter) {
+		html_painter_set_widget (html->engine->painter, top_level);
+		gtk_html_set_fonts (html, html->engine->painter);
+	}
+	g_signal_emit (top_level, signals [IFRAME_CREATED], 0, html);
 
 	while (html->iframe_parent) {
 		depth++;

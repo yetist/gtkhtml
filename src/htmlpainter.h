@@ -56,6 +56,7 @@ struct _HTMLPainter {
 struct _HTMLPainterClass {
 	GObjectClass   base;
 
+	void (* set_widget)       (HTMLPainter *painter, GtkWidget *widget);
 	void (* begin)            (HTMLPainter *painter, int x1, int y1, int x2, int y2);
 	void (* end)              (HTMLPainter *painter);
 
@@ -104,6 +105,9 @@ struct _HTMLPainterClass {
 
 /* Creation.  */
 GType             html_painter_get_type                                (void);
+
+void              html_painter_set_widget                              (HTMLPainter       *painter,
+									GtkWidget         *widget);
 
 /* Functions to drive the painting process.  */
 void              html_painter_begin                                   (HTMLPainter       *painter,

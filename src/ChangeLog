@@ -1,3 +1,24 @@
+2004-02-25    <rodo@ximian.com>
+
+	* htmltext.c (html_text_set_style_in_range): create size attr only
+	for sizes != 3 (default)
+
+	* htmlgdkpainter.c (alloc_font): use
+	pango_font_description_set_size when creating from face
+	(alloc_font): use gtk_widget_get_style
+	(html_gdk_painter_real_set_widget): override base method, get
+	pango context here
+
+	* htmlpainter.c (html_painter_set_widget): make the method virtual
+
+	* gtkhtml.c (gtk_html_set_iframe_parent): set iframe painter
+	widget to toplevel gtkhtml, set fonts of iframe
+	(gtk_html_get_top_html): new helper method
+	(gtk_html_set_fonts): get style from top level gtkhtml
+
+	* gtkhtmldebug.c (dump_object_simple): dump [i]frames in simple
+	mode
+
 2004-02-20  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c (html_element_has_attr): new macro, returns true if
