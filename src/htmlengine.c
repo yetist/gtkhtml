@@ -3108,6 +3108,7 @@ html_engine_begin (HTMLEngine *p, const char *url)
 	if (strchr (url, '#'))
 		p->reference = g_strdup (strchr (url, '#') + 1);
 
+	html_image_factory_stop_animations (p->image_factory);
 	p->newPage = TRUE;
 
 	gtk_signal_emit (GTK_OBJECT(p), signals [URL_REQUESTED], url, new_stream);
@@ -3157,6 +3158,7 @@ html_engine_update_event (HTMLEngine *e)
 	if (! e->parsing && e->editable)
 		html_cursor_home (e->cursor, e);
 
+	html_image_factory_deactivate_animations (e->image_factory);
 	html_engine_draw (e, 0, 0, e->width, e->height);
 	
 	if (!e->parsing) {
@@ -3269,6 +3271,7 @@ html_engine_end (GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, HTMLEng
 		ensure_editable (e);
 	
 	gtk_signal_emit (GTK_OBJECT (e), signals[LOAD_DONE]);
+	html_image_factory_stop_animations (e->image_factory);
 	html_image_factory_cleanup (e->image_factory);
 }
 

@@ -33,6 +33,7 @@ typedef struct _HTMLImage HTMLImage;
 typedef struct _HTMLImageClass HTMLImageClass;
 typedef struct _HTMLImagePointer HTMLImagePointer;
 typedef struct _HTMLImageFactory HTMLImageFactory;
+typedef struct _HTMLImageAnimation HTMLImageAnimation;
 
 struct _HTMLImagePointer {
 	gchar *url;
@@ -43,11 +44,35 @@ struct _HTMLImagePointer {
 	HTMLImageFactory *factory;
 };
 
+struct _HTMLImageAnimation {
+	/* stuff for animated image */
+	/* draw coordination */
+	gint x;
+	gint y;
+
+	/* remember engine offset */
+	gint ex, ey;
+
+	/* current frame */
+	GList *cur_frame;
+	gint cur_n;
+
+	/* animation timeout function */
+	gint timeout;
+
+	/* helper buffer */
+	GdkPixbuf *pixbuf;
+
+	/* active draw flag */
+	gint active;
+};
+
 #define HTML_IMAGE(x) ((HTMLImage *)(x))
 
 struct _HTMLImage {
 	HTMLObject object;
         HTMLImagePointer *image_ptr;
+	HTMLImageAnimation *animation;
 
 	gint8 border;
 
@@ -102,6 +127,8 @@ void         html_image_set_spacing (HTMLImage *image, gint hspace, gint vspace)
 HTMLImageFactory *html_image_factory_new      (HTMLEngine       *e);
 void              html_image_factory_free     (HTMLImageFactory *factory);
 void              html_image_factory_cleanup  (HTMLImageFactory *factory); /* Does gc etc. - removes unused image entries */
+void              html_image_factory_stop_animations (HTMLImageFactory *factory);
+void              html_image_factory_deactivate_animations (HTMLImageFactory *factory);
 
 HTMLImagePointer *html_image_factory_register    (HTMLImageFactory *factory,
 						  HTMLImage        *i,

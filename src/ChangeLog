@@ -154,6 +154,41 @@
 
 	* htmlengine.c: added html_image_set_spacing for HTMLImage
 
+2000-03-29  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlimage.c (get_actual_width): updated to use
+	GdkPixbufAnimation width
+	(get_actual_height): the same
+	(draw): remember image offset in HTMLImageAnimation, draw right
+	frame of animation
+
+	* htmlengine.c (html_engine_begin): stop animations from last run
+	(html_engine_end): also stop animations
+	(html_engine_update_event): deactivate animations before completely
+	redraw
+
+	* htmlimage.c (html_image_animation_new): contructor of HTMLImageAnimation
+	(html_image_factory_stop_animations): removes animation timeout
+	handler to stop animation
+	(html_image_factory_deactivate_animations): sets
+	HTMLImageAnimation::active flag to FALSE to all animations
+	(html_image_animation_timeout): timeout handler - draws animation
+	only if active && visible - animation drawing is now done not much
+	efficiently as there is probably bug in gdk_pixbuf_composite which
+	will be more efficient to use
+	(render_cur_frame): workaround gdk_pixbuf_composite
+
+	* htmlimage.h: HTMLImageAnimation structure to store some info
+	about animation - it is used in HTMLImage, but only if there are
+	>1 frames
+
+	* htmlimage.c (html_image_factory_register): connect to signals
+	frame_done and animation_done
+	(html_image_factory_frame_done): frame_done signal handler, if
+	image has >1 frames => start animation
+	(html_image_factory_animation_done): animation_done - does nothing
+	for now
+
 2000-03-28  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmltablecell.c
