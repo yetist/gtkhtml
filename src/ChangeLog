@@ -1,3 +1,8 @@
+2000-06-12  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml.c (key_press_event): insert text also with LOCK_MASK bit
+	turned on
+
 2000-06-12  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlclueflow.c (get_tag_for_item_group): Removed.

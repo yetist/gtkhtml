@@ -579,10 +579,8 @@ key_press_event (GtkWidget *widget,
 	retval = html->binding_handled;
 
 	if (!retval && html_engine_get_editable (html->engine))
-		if (!(event->state & ~ GDK_SHIFT_MASK) && event->length > 0) {
+		if (!(event->state & ~(GDK_SHIFT_MASK | GDK_LOCK_MASK)) && event->length > 0) {
 			html_engine_insert (html->engine, event->string, event->length);
-			queue_draw (html);
-			update_styles (html);
 			retval = TRUE;
 		}
 
@@ -591,6 +589,11 @@ key_press_event (GtkWidget *widget,
 
 	if (retval && html_engine_get_editable (html->engine))
 		html_engine_reset_blinking_cursor (html->engine);
+
+	if (retval) {
+		queue_draw (html);
+		update_styles (html);
+	}
 
 	return retval;
 }
@@ -1975,6 +1978,8 @@ static GtkEnumValue _gtk_html_command_values[] = {
   PageUp/PageDown ..................... move cursor one page up/down
 
   Return .............................. insert paragraph
+  Delete .............................. delete one char
+  BackSpace ........................... delete one char backwards
 
 */
 
