@@ -63,17 +63,6 @@ finalize (GObject *object)
 }
 
 
-#ifndef GAL_NOT_SLOW
-/* NOTE see htmltextslave.c for an explanation and the h_utf8 decls */
-gint h_utf8_pointer_to_offset (const gchar *str, const gchar *pos);
-gint h_utf8_strlen (const gchar *p, gint max);
-gchar *h_utf8_offset_to_pointer  (const gchar *str, gint         offset);
-
-#define g_utf8_strlen h_utf8_strlen
-#define g_utf8_offset_to_pointer h_utf8_offset_to_pointer
-#define g_utf8_pointer_to_offset h_utf8_pointer_to_offset
-#endif
-
 #define DEFINE_UNIMPLEMENTED(method)						\
 	static gint								\
 	method##_unimplemented (GObject *obj)					\

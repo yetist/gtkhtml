@@ -1,3 +1,11 @@
+2003-02-25  Larry Ewing  <lewing@ximian.com>
+
+	* htmlpainter.c: remove h_utf8*
+
+	* htmltext.c: same.
+
+	* htmltextslave.c: same.
+
 2003-02-24  Larry Ewing  <lewing@ximian.com>
 
 	* htmlgdkpainter.c (draw_pixmap): remove helper function.
