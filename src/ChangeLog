@@ -1,9 +1,21 @@
+1999-12-20  Ariel Rios  <jarios@usa.net>
+
+	* gtkhtml.h: (gtk_html_stream_unref): Moved
+	  from gtkhtm-private.h as per Elliot's 
+	  recomendation.
+	  (gtk_html_stream_ref): Ditto.
+	  
+	* gtkhtml-private.h:(gtk_html_stream_unref) The function
+	  header was moved unto gtkhtml.h
+	  (gtk_html_stream_ref) Ditto.
+
 1999-12-19  Jonas Borgström  <jonas_b@bitsmart.com>
 
 	* htmlurl.c (html_url_append_path): Strip cgi args
 	
 1999-12-15  Ariel Rios <jarios@usa.net>
-
+	
+          Contributed by Marius Vollmer.
 	* gtkhtml-private.h: Add ref_count element in GtkHTML struct.
 	  (gtk_html_stream_unref), (gtk_html_stream_ref): New prototypes added.
 	  These two functions would maintain a reference count on a
@@ -14,6 +26,7 @@
 	  would recognize a terminated stream.
 	* htmlstream.c: (gtk_html_stream_unref) Added.
 	  (gtk_html_stream_ref) Added.
+	  (gtk_html_stream_unref) Added.
 	  (gtk_html_stream_new) Added declararion of new ref_count element.
 	  (gtk_html_stream_write) Instead of g_freeing the stream here,
 	  we set write_callback and end_callback as NULL. Then we call
