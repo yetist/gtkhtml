@@ -726,12 +726,10 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 		else if (strncasecmp (token, "width=", 6) == 0) {
 			if (strchr (token + 6, '%')) {
 				percent = atoi (token + 6);
-				align = HTML_HALIGN_CENTER;
 			} else if (strchr (token + 6, '*')) {
 				/* Ignore */
 			} else if (isdigit (*(token + 6))) {
 				width = atoi (token + 6);
-				align = HTML_HALIGN_CENTER;
 			}
 		}
 		else if (strncasecmp (token, "align=", 6) == 0) {
@@ -1980,7 +1978,7 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 		HTMLHAlignType align = HTML_HALIGN_NONE;
 		gint border = 0;
 		HTMLVAlignType valign = HTML_VALIGN_NONE;
-		GdkColor *color = NULL;
+		const GdkColor *color = NULL;
 		
 		color = current_color (p);
 

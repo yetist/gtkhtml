@@ -1,5 +1,11 @@
 2000-04-11  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine.c
+	(parse_table): No longer make tables centered when they have a
+	percent or absolute width.  This is not correct as far as I know.
+
+2000-04-11  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* htmlcursor.c
 	(forward_object): New helper function.
 	(forward): Use it.
