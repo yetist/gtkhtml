@@ -168,7 +168,9 @@ equal_insertion (HTMLText *text, GtkHTMLFontStyle style, HTMLColor *color, const
 		return FALSE;
 
 	if (HTML_OBJECT_TYPE (HTML_OBJECT (text)) == HTML_TYPE_LINKTEXTMASTER
-	    && (strcmp (HTML_LINK_TEXT_MASTER (text)->url, url) || strcmp (HTML_LINK_TEXT_MASTER (text)->target, target)))
+	    && (strcmp (HTML_LINK_TEXT_MASTER (text)->url, url)
+		|| (target && HTML_LINK_TEXT_MASTER (text)->target && strcmp (HTML_LINK_TEXT_MASTER (text)->target, target))
+		|| ((!target || !HTML_LINK_TEXT_MASTER (text)->target) && target != HTML_LINK_TEXT_MASTER (text)->target)))
 		return FALSE;
 
 	return TRUE;
@@ -216,15 +218,17 @@ insert_chars_different_style (HTMLEngine *e,
 		return 0;
 	}
 
-	if (offset > 0) {
+	g_assert (html_object_is_text (curr));
+
+	if (offset == 0)
+		html_clue_append_after (HTML_CLUE (curr->parent), new, curr->prev);
+	else if (offset == HTML_TEXT (curr)->text_len)
+		html_clue_append_after (HTML_CLUE (curr->parent), new, curr);
+	else {
 		right_side = html_text_split (HTML_TEXT (curr), offset);
 		if (right_side != NULL)
 			html_clue_append_after (HTML_CLUE (curr->parent), HTML_OBJECT (right_side), curr);
 		html_clue_append_after (HTML_CLUE (curr->parent), new, curr);
-	} else if (curr->prev != NULL) {
-		html_clue_append_after (HTML_CLUE (curr->parent), new, curr->prev);
-	} else {
-		html_clue_prepend (HTML_CLUE (curr->parent), new);
 	}
 
 	html_engine_queue_draw (e, new);
@@ -268,14 +272,10 @@ insert_chars_at_not_text (HTMLEngine *e,
 	new_text = (url) ? html_link_text_master_new_with_len (text, len, style, color, url, target)
 		: html_text_master_new_with_len (text, len, style, color);
 
-	if (e->cursor->offset == 0) {
-		if (curr->prev == NULL)
-			html_clue_prepend (HTML_CLUE (curr->parent), new_text);
-		else
-			html_clue_append_after (HTML_CLUE (curr->parent), new_text, curr->prev);
-	} else {
+	if (e->cursor->offset == 0)
+		html_clue_append_after (HTML_CLUE (curr->parent), new_text, curr->prev);
+	else
 		html_clue_append_after (HTML_CLUE (curr->parent), new_text, curr);
-	}
 
 	html_engine_queue_draw (e, new_text);
 	html_object_relayout (curr->parent, e, new_text);

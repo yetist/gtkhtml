@@ -549,9 +549,12 @@ html_clue_append_after (HTMLClue *clue,
 {
 	HTMLObject *tail;
 
-	g_return_if_fail (where->parent == HTML_OBJECT (clue));
 	g_return_if_fail (o != NULL);
-	g_return_if_fail (where != NULL);
+	if (where == NULL) {
+		html_clue_prepend (clue, o);
+		return;
+	}
+	g_return_if_fail (where->parent == HTML_OBJECT (clue));
 
 	html_object_change_set (HTML_OBJECT (clue), o->change);
 

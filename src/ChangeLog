@@ -1,3 +1,21 @@
+2000-07-05  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine-edit-insert.c (equal_insertion): fixed case when
+	target is NULL
+
+	* htmlengine-edit-paste.c (split_first_clueflow_at_cursor):
+	simplified, use only append_after (it will call prepend if needed)
+	(prepend_object): likewise
+
+	* htmlengine-edit-insert.c (insert_chars_different_style): don't
+	split text when inserting on end of it (where offset == text_len)
+	so we don't get empty link/textmasters any more
+	(insert_chars_at_not_text): simplified, use only append_after (it
+	will call prepend if needed)
+
+	* htmlclue.c (html_clue_append_after): when where == NULL then
+	call html_clue_prepend instead
+
 2000-07-04  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine-edit-text.c (upper_lower): removed quick selection

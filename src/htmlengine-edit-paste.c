@@ -152,11 +152,8 @@ split_first_clueflow_at_cursor (HTMLEngine *engine,
 	new_clueflow = html_object_dup (HTML_OBJECT (clue));
 	html_object_change_set (new_clueflow, HTML_CHANGE_ALL);
 
-	if (curr_clue->prev == NULL)
-		html_clue_prepend (HTML_CLUE (curr_clue->parent), new_clueflow);
-	else
-		html_clue_append_after (HTML_CLUE (curr_clue->parent), new_clueflow,
-					curr_clue->prev);
+	html_clue_append_after (HTML_CLUE (curr_clue->parent), new_clueflow,
+				curr_clue->prev);
 
 	/* Move the stuff until the cursor position into the new HTMLClueFlow.  */
 
@@ -275,10 +272,7 @@ prepend_object (HTMLEngine *engine,
 	curr = cursor->object;
 	parent = curr->parent;
 
-	if (curr->prev == NULL)
-		html_clue_prepend (HTML_CLUE (parent), object);
-	else
-		html_clue_append_after (HTML_CLUE (parent), object, curr->prev);
+	html_clue_append_after (HTML_CLUE (parent), object, curr->prev);
 
 	cursor->position += obj_len (object);
 }
