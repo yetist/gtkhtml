@@ -3,13 +3,13 @@
 # Christian Rose <menthos@menthos.com>, 2000, 2001, 2002, 2003.
 # Martin Norbäck <d95mback@dtek.chalmers.se>, 2000.
 #
-# $Id: sv.po,v 1.64 2003/04/09 21:13:34 ettore Exp $
+# $Id: sv.po,v 1.65 2003/04/16 21:43:52 menthos Exp $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2003-04-09 17:04-0400\n"
-"PO-Revision-Date: 2003-03-10 22:21+0100\n"
+"POT-Creation-Date: 2003-04-16 23:42+0200\n"
+"PO-Revision-Date: 2003-04-16 23:42+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -255,8 +255,7 @@ msgid "Cut the selection"
 msgstr "Klipp ut markeringen"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:73 components/html-editor/search.c:75
-#: components/html-editor/search.c:118
+#: components/html-editor/search.c:73 components/html-editor/search.c:121
 msgid "Find"
 msgstr "Sök"
 
@@ -535,8 +534,7 @@ msgstr "Gör om den ångrade åtgärden"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
 #: components/html-editor/replace.c:78 components/html-editor/replace.c:152
-#: components/html-editor/replace.c:154 components/html-editor/replace.c:171
-#: components/html-editor/replace.c:207
+#: components/html-editor/replace.c:210
 msgid "Replace"
 msgstr "Ersätt"
 
@@ -826,7 +824,7 @@ msgstr "Blått bläck"
 msgid "Rectangles"
 msgstr "Rektanglar"
 
-#: components/html-editor/body.c:274 src/gtkhtml.c:2591
+#: components/html-editor/body.c:274 src/gtkhtml.c:2593
 msgid "Document Title"
 msgstr "Dokumenttitel"
 
@@ -892,6 +890,10 @@ msgstr "Stycke"
 #: components/html-editor/menubar.c:270 components/html-editor/popup.c:221
 msgid "Page"
 msgstr "Sida"
+
+#: components/html-editor/gnome-gtkhtml-editor.c:67
+msgid "GtkHTML Editor Control"
+msgstr "GtkHTML-redigerarkontroll"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:2
 msgid "************"
@@ -1324,45 +1326,37 @@ msgid "Remove link"
 msgstr "Ta bort länk"
 
 #: components/html-editor/popup.c:474
-#, fuzzy
 msgid "Text Style..."
-msgstr "Te_xtfil..."
+msgstr "Textstil..."
 
 #: components/html-editor/popup.c:476 components/html-editor/popup.c:482
 #: components/html-editor/popup.c:492
-#, fuzzy
 msgid "Paragraph Style..."
-msgstr "Stycke..."
+msgstr "Styckestil..."
 
 #: components/html-editor/popup.c:480
-#, fuzzy
 msgid "Link Style..."
-msgstr "Länk..."
+msgstr "Länkstil..."
 
 #: components/html-editor/popup.c:486
-#, fuzzy
 msgid "Rule Style..."
-msgstr "Linje..."
+msgstr "Linjestil..."
 
 #: components/html-editor/popup.c:490
-#, fuzzy
 msgid "Image Style..."
-msgstr "Bild..."
+msgstr "Bildstil..."
 
 #: components/html-editor/popup.c:501
-#, fuzzy
 msgid "Cell Style..."
-msgstr "Cell..."
+msgstr "Cellstil..."
 
 #: components/html-editor/popup.c:504
-#, fuzzy
 msgid "Table Style..."
-msgstr "Tabell..."
+msgstr "Tabellstil..."
 
 #: components/html-editor/popup.c:510
-#, fuzzy
 msgid "Page Style..."
-msgstr "Sida..."
+msgstr "Sidstil..."
 
 #: components/html-editor/popup.c:515
 msgid "Table insert"
@@ -1393,9 +1387,9 @@ msgid "Cell contents"
 msgstr "Cellinnehåll"
 
 #: components/html-editor/popup.c:547
-#, fuzzy, c-format
+#, c-format
 msgid "%s Dictionary"
-msgstr "Lägg till \"%s\" i ordboken"
+msgstr "Ordbok för %s"
 
 #: components/html-editor/replace.c:74
 msgid "Replace confirmation"
@@ -1410,16 +1404,20 @@ msgid "Next"
 msgstr "Nästa"
 
 #: components/html-editor/replace.c:160
-msgid "search backward"
-msgstr "sök bakåt"
+msgid "Search _backward"
+msgstr "Sök _bakåt"
 
 #: components/html-editor/replace.c:161 components/html-editor/search.c:79
-msgid "case sensitive"
-msgstr "gör skillnad på gemener/VERSALER"
+msgid "Case _sensitive"
+msgstr "Gör _skillnad på gemener/VERSALER"
+
+#: components/html-editor/replace.c:171
+msgid "Replace:"
+msgstr "Ersätt:"
 
 #: components/html-editor/replace.c:174
-msgid "with"
-msgstr "med"
+msgid "With:"
+msgstr "Med:"
 
 #: components/html-editor/rule.c:97
 msgid "Blue 3D"
@@ -1438,10 +1436,10 @@ msgstr ""
 "Kan inte verkställa dina ändringar."
 
 #: components/html-editor/search.c:78
-msgid "backward"
-msgstr "bakåt"
+msgid "_Backward"
+msgstr "_Bakåt"
 
-#: components/html-editor/search.c:118
+#: components/html-editor/search.c:121
 msgid "Find Regular Expression"
 msgstr "Sök reguljärt uttryck"
 
@@ -1450,9 +1448,8 @@ msgid "Spell checker"
 msgstr "Stavningskontroll"
 
 #: components/html-editor/spell.c:358
-#, fuzzy
 msgid "Current _Languages"
-msgstr "_Språk"
+msgstr "Aktuella _språk"
 
 #: components/html-editor/table.c:199
 msgid "Flat gray"
@@ -1490,10 +1487,9 @@ msgstr "Öppna fil..."
 msgid "Save file as..."
 msgstr "Spara fil som..."
 
-#: components/html-editor/test-html-editor-control.c:554
-#, fuzzy
+#: components/html-editor/test-html-editor-control.c:540
 msgid "GtkHTML Editor Test Container"
-msgstr "GtkHTML-redigerarkontroll"
+msgstr "GtkHTML-redigerartestbehållare"
 
 #. color selection
 #: components/html-editor/text.c:291
@@ -1560,71 +1556,71 @@ msgstr "Drar in styckena mer"
 msgid "Sample"
 msgstr "Prov"
 
-#: src/gtkhtml.c:2584
+#: src/gtkhtml.c:2586
 msgid "Editable"
 msgstr "Redigerbar"
 
-#: src/gtkhtml.c:2585
+#: src/gtkhtml.c:2587
 msgid "Whether the html can be edited"
 msgstr "Huruvida html-koden kan redigeras"
 
-#: src/gtkhtml.c:2592
+#: src/gtkhtml.c:2594
 msgid "The title of the current document"
 msgstr "Titeln på det aktuella dokumentet"
 
-#: src/gtkhtml.c:2598
+#: src/gtkhtml.c:2600
 msgid "Document Base"
 msgstr "Dokumentbas"
 
-#: src/gtkhtml.c:2599
+#: src/gtkhtml.c:2601
 msgid "The base URL for relative references"
 msgstr "Bas-URL:en för relativa referenser"
 
-#: src/gtkhtml.c:2605
+#: src/gtkhtml.c:2607
 msgid "Target Base"
 msgstr "Målbas"
 
-#: src/gtkhtml.c:2606
+#: src/gtkhtml.c:2608
 msgid "The base URL of the targe frame"
 msgstr "Bas-URL:en för målramen"
 
-#: src/gtkhtml.c:2615
+#: src/gtkhtml.c:2617
 msgid "Fixed Width Font"
 msgstr "Typsnitt med fast breddsteg"
 
-#: src/gtkhtml.c:2616
+#: src/gtkhtml.c:2618
 msgid "The Monospace font to use for typewriter text"
 msgstr "Typsnittet med fast breddsteg som ska användas för skrivmaskinstext"
 
-#: src/gtkhtml.c:2622
+#: src/gtkhtml.c:2624
 msgid "New Link Color"
 msgstr "Färg för ny länk"
 
-#: src/gtkhtml.c:2623
+#: src/gtkhtml.c:2625
 msgid "The color of new link elements"
 msgstr "Färgen på nya länkelement"
 
-#: src/gtkhtml.c:2628
+#: src/gtkhtml.c:2630
 msgid "Visited Link Color"
 msgstr "Färg för besökt länk"
 
-#: src/gtkhtml.c:2629
+#: src/gtkhtml.c:2631
 msgid "The color of visited link elements"
 msgstr "Färgen på besökta länkelement"
 
-#: src/gtkhtml.c:2634
+#: src/gtkhtml.c:2636
 msgid "Active Link Color"
 msgstr "Färg för aktiv länk"
 
-#: src/gtkhtml.c:2635
+#: src/gtkhtml.c:2637
 msgid "The color of active link elements"
 msgstr "Färgen på aktiva länkelement"
 
-#: src/gtkhtml.c:2640
+#: src/gtkhtml.c:2642
 msgid "Spelling Error Color"
 msgstr "Stavfelsfärg"
 
-#: src/gtkhtml.c:2641
+#: src/gtkhtml.c:2643
 msgid "The color of the spelling error markers"
 msgstr "Färgen på markörerna för stavfel"
 
@@ -1701,6 +1697,18 @@ msgstr "Förhands_granska"
 msgid "Print preview"
 msgstr "Förhandsgranska"
 
+#~ msgid "HTML Editor Control"
+#~ msgstr "HTML-redigerarkontroll"
+
+#~ msgid "Dictionary"
+#~ msgstr "Ordbok"
+
+#~ msgid "Backward"
+#~ msgstr "Bakåt"
+
+#~ msgid "with"
+#~ msgstr "med"
+
 #~ msgid "Check '%s' spelling..."
 #~ msgstr "Kontrollera stavning av \"%s\"..."
 
@@ -1712,9 +1720,6 @@ msgstr "Förhandsgranska"
 
 #~ msgid "Text..."
 #~ msgstr "Text..."
-
-#~ msgid "HTML Editor Control"
-#~ msgstr "HTML-redigerarkontroll"
 
 #~ msgid "The base URL of the target frame"
 #~ msgstr "Bas-URL:en för målramen"
@@ -1879,6 +1884,9 @@ msgstr "Förhandsgranska"
 #~ msgstr "URL"
 
 #~ msgid "Language"
+#~ msgstr "Språk"
+
+#~ msgid "Languages"
 #~ msgstr "Språk"
 
 #~ msgid "Pick a color"
