@@ -1807,17 +1807,18 @@ selection_get (GtkWidget        *widget,
 			/* prepend a byte order marker (ZWNBSP) to the selection */
 			g_string_append_unichar (buffer, 0xfeff);
 			html_object_save (selection_object, state);
-			
+			g_string_append_unichar (buffer, 0x0000);
+
 			d_s(g_warning ("BUFFER = %s", buffer->str);)
 			selection_string = g_convert (buffer->str, buffer->len, "UCS-2", "UTF-8", NULL, &len, NULL);
 			
 			if (selection_string)
   				gtk_selection_data_set (selection_data,
-							gdk_atom_intern ("text/html", FALSE), 16,
+							gdk_atom_intern ("text/html", FALSE), 8,
 							selection_string,
 							len);
   			
-			html_engine_save_buffer_free (state);
+			//html_engine_save_buffer_free (state);
 		}				
 	} else {
 		if (selection_object)

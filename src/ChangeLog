@@ -1,3 +1,8 @@
+2003-12-04  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (selection_get): explicitly append a string terminator
+	to the buffer to make newer mozillas happy.
+
 2003-12-03  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c:  Use parser_clue whereever the the parser is
