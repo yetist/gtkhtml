@@ -640,7 +640,7 @@ url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpointer d
 
 	full_url = parse_href (url);
 
-	if (!strncmp (full_url, "http", 4)) {
+	if (full_url && !strncmp (full_url, "http", 4)) {
 		SoupContext *ctx;
 		SoupMessage *msg;
 
@@ -648,7 +648,7 @@ url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpointer d
 		msg = soup_message_new (ctx, SOUP_METHOD_GET);
 
 		soup_message_queue (msg, got_data, handle);
-	} else if (!strncmp (full_url, "file:", 5)) {
+	} else if (full_url && !strncmp (full_url, "file:", 5)) {
 		struct stat st;
 		char *buf;
 		int fd, nread, total;

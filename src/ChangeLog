@@ -1,3 +1,8 @@
+2002-10-06  Larry Ewing  <lewing@ximian.com>
+
+	* testgtkhtml.c (url_requested): don't pass NULLs to strcmp, this
+	is in the test code so it isn't going through the patch list.
+
 2002-10-02  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml.c (gtk_html_set_paragraph_alignment): make sure we
