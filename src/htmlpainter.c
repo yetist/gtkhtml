@@ -25,6 +25,7 @@
 #include <string.h> /* strcmp */
 #include <gal/unicode/gunicode.h>
 #include "htmlcolorset.h"
+#include "htmlentity.h"
 #include "htmlpainter.h"
 
 
@@ -380,39 +381,60 @@ html_painter_draw_rect (HTMLPainter *painter,
 	(* HP_CLASS (painter)->draw_rect) (painter, x, y, width, height);
 }
 
+static inline void
+draw_current (HTMLPainter *p, gint *x, gint y, const gchar *last,
+	      gint len, guint *drawed_len, guint *current_len, gint *line_offset, guint space_width)
+{
+	if (*drawed_len + *current_len > len)
+		*current_len = len - *drawed_len;
+	(* HP_CLASS (p)->draw_text) (p, *x, y, last, *current_len);
+	(*x) += p->font_style & GTK_HTML_FONT_STYLE_FIXED
+		? *current_len * space_width
+		: html_painter_calc_text_width (p, last, *current_len, -1, p->font_style, p->font_face);
+	(*drawed_len) += *current_len;
+	(*line_offset) += *current_len;
+	*current_len = 0;
+}
+
 void
 html_painter_draw_text (HTMLPainter *painter,
 			gint x, gint y,
 			const gchar *text, gint len, gint line_offset)
 {
+	guint space_width = html_painter_get_space_width (painter, painter->font_style, painter->font_face);
+	const gchar *last, *cur;
+	guint drawed_len, current_len, skip;
+	gunichar uc;
+
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 
-	if (line_offset < 0)
-		(* HP_CLASS (painter)->draw_text) (painter, x, y, text, len);
-	else {
-		guint space_width = html_painter_get_space_width (painter, painter->font_style, painter->font_face);
-		const gchar *tab, *found_tab;
-		gint drawed_len, current_len, skip;
-
-		drawed_len = 0;
-		found_tab  = tab = text;
-		while (tab && (found_tab = strchr (tab, '\t')) && drawed_len < len) {
-			current_len  = g_utf8_pointer_to_offset (tab, found_tab);
-			if (drawed_len + current_len > len)
-				current_len = len - drawed_len;
-			(* HP_CLASS (painter)->draw_text) (painter, x, y, tab, current_len);
-			drawed_len  += current_len;
-			line_offset += current_len;
-			skip         = 8 - (line_offset % 8);
-			x           += (skip + current_len) * space_width;
+	current_len = drawed_len = 0;
+	cur = last = text;
+	while (cur && (uc = g_utf8_get_char (cur)) && drawed_len < len) {
+		switch (uc) {
+		case '\t':
+			draw_current (painter, &x, y, last, len, &drawed_len, &current_len, &line_offset, space_width);
+			skip = 8 - (line_offset % 8);
+			x += skip * space_width;
 			line_offset += skip;
-			tab          = found_tab + 1;
+			last = cur + 1;
 			drawed_len ++;
+			break;
+		case ENTITY_NBSP:
+			draw_current (painter, &x, y, last, len, &drawed_len, &current_len, &line_offset, space_width);
+			x += space_width;
+			line_offset ++;
+			last = cur + 2;
+			drawed_len ++;
+			break;
+		default:
+			current_len ++;
 		}
-		if (len > drawed_len)
-			(* HP_CLASS (painter)->draw_text) (painter, x, y, tab, len - drawed_len);
+		cur = g_utf8_next_char (cur);
 	}
+	if (len > drawed_len)
+		(* HP_CLASS (painter)->draw_text) (painter, x, y, last, len - drawed_len);
 }
 
 void

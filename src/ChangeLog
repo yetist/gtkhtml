@@ -1,3 +1,11 @@
+2001-08-30  Radek Doulik  <rodo@ximian.com>
+
+	* htmlpainter.c (html_painter_draw_text): handle &nbsp; before
+	this we have left nbsp drawing on X, but some fonts drawed char
+	160 a '='
+	(draw_current): helper inlined function to draw current undrawed
+	text before we draw/skip special characters (&nbsp; and \t)
+
 2001-08-29  Radek Doulik  <rodo@ximian.com>
 
 	* htmltextslave.c (calc_size): split if width > MAX_WIDGET_WIDTH
