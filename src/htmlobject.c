@@ -127,13 +127,6 @@ calc_preferred_width (HTMLObject *o)
 	return o->width;
 }
 
-static void
-calc_absolute_pos (HTMLObject *o, gint x, gint y)
-{
-	o->abs_x = x + o->x;
-	o->abs_y = y + o->y - o->ascent;
-}
-
 static const gchar *
 get_url (HTMLObject *o)
 {
@@ -206,7 +199,6 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->reset = reset;
 	klass->calc_min_width = calc_min_width;
 	klass->calc_preferred_width = calc_preferred_width;
-	klass->calc_absolute_pos = calc_absolute_pos;
 	klass->get_url = get_url;
 	klass->get_target = get_target;
 	klass->find_anchor = find_anchor;
@@ -237,9 +229,6 @@ html_object_init (HTMLObject *o,
 	o->percent = 0;
 
 	o->flags = HTML_OBJECT_FLAG_FIXEDWIDTH; /* FIXME Why? */
-
-	o->abs_x = 0;
-	o->abs_y = 0;
 }
 
 HTMLObject *
@@ -345,12 +334,6 @@ gint
 html_object_calc_preferred_width (HTMLObject *o)
 {
 	return (* HO_CLASS (o)->calc_preferred_width) (o);
-}
-
-void
-html_object_calc_absolute_pos (HTMLObject *o, gint x, gint y)
-{
-	return (* HO_CLASS (o)->calc_absolute_pos) (o, x, y);
 }
 
 const gchar *

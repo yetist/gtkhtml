@@ -98,10 +98,6 @@ struct _HTMLObject {
 	gshort percent;
 
 	guchar flags;
-
-	/* The absolute position of this object on the page */
-	gint abs_x;
-	gint abs_y;
 };
 
 struct _HTMLObjectClass {
@@ -135,8 +131,6 @@ struct _HTMLObjectClass {
 	gint (*calc_min_width) (HTMLObject *o);
 	
 	gint (*calc_preferred_width) (HTMLObject *o);
-
-	void (*calc_absolute_pos) (HTMLObject *o, gint x, gint y);
 
 	const gchar * (*get_url) (HTMLObject *o);
 
@@ -176,7 +170,6 @@ void html_object_set_max_width (HTMLObject *o, gint max_width);
 void html_object_reset (HTMLObject *o);
 gint html_object_calc_min_width (HTMLObject *o);
 gint html_object_calc_preferred_width (HTMLObject *o);
-void html_object_calc_absolute_pos (HTMLObject *o, gint x, gint y);
 const gchar *html_object_get_url (HTMLObject *o);
 const gchar *html_object_get_target (HTMLObject *o);
 HTMLAnchor *html_object_find_anchor (HTMLObject *o, const gchar *name,

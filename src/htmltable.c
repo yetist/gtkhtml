@@ -976,33 +976,6 @@ set_max_width (HTMLObject *o, gint max_width)
 }
 
 static void
-calc_absolute_pos (HTMLObject *o, gint x, gint y)
-{
-	gint lx = x + o->x;
-	gint ly = y + o->y - o->ascent;
-	HTMLTable *table = HTML_TABLE (o);
-	HTMLTableCell *cell;
-
-	guint r, c;
-
-	for (r = 0; r < table->totalRows; r++) {
-		for (c = 0; c < table->totalCols; c++) {
-			if ((cell = HTML_TABLE (o)->cells[r][c]) == 0)
-				continue;
-			if (c < table->totalCols - 1 &&
-			    cell == HTML_TABLE (o)->cells[r][c + 1])
-				continue;
-			if (r < table->totalRows - 1 &&
-			    cell == HTML_TABLE (o)->cells[r + 1][c])
-				continue;
-			
-			html_object_calc_absolute_pos (HTML_OBJECT (cell),
-						       lx, ly);
-		}
-	}
-}
-
-static void
 reset (HTMLObject *o) {
 	HTMLTable *table = HTML_TABLE (o);
 	HTMLTableCell *cell;
@@ -1126,7 +1099,6 @@ html_table_class_init (HTMLTableClass *klass,
 	object_class->calc_min_width = calc_min_width;
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->set_max_width = set_max_width;
-	object_class->calc_absolute_pos = calc_absolute_pos;
 	object_class->reset = reset;
 	object_class->mouse_event = mouse_event;
 	object_class->check_point = check_point;

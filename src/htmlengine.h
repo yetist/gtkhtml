@@ -186,7 +186,6 @@ gboolean    html_engine_set_named_color (HTMLEngine *p, GdkColor *c, const gchar
 void        html_painter_set_background_color (HTMLPainter *painter, GdkColor *color);
 gint        html_engine_get_doc_height (HTMLEngine *p);
 void        html_engine_stop_parser (HTMLEngine *e);
-void        html_engine_calc_absolute_pos (HTMLEngine *e);
 gchar      *html_engine_canonicalize_url (HTMLEngine *e, const char *in_url);
 const gchar *html_engine_get_link_at (HTMLEngine *e, gint x, gint y);
 void	    html_engine_show_cursor (HTMLEngine *e, gboolean show);

@@ -1,3 +1,26 @@
+1999-12-13  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* gtkhtml.c (gtk_html_size_allocate): Do not call
+	`html_engine_calc_absolute_pos' anymore.
+
+	* htmlengine.c (html_engine_calc_absolute_pos): Removed.
+	(html_engine_update_event): Do not call it anymore.
+
+	* htmltable.c (calc_absolute_pos): Removed.
+	(html_table_class_init): Do not install anymore.
+
+	* htmlclue.c (calc_absolute_pos): Removed.
+	(html_clue_class_init): Do not install anymore.
+
+	* htmlobject.c (html_object_init): Do not initialize `abs_x',
+	`abs_y' anymore.
+	(calc_absolute_posi: Removed.
+	(html_object_class_init): Do not install anymore.
+	(html_object_calc_absolute_pos): Removed.
+
+	* htmlobject.h: Remove `abs_x', `abs_y'.  Removed
+	`calc_absolute_pos' virtual function.
+
 1999-12-12  Miguel de Icaza  <miguel@helixcode.com>
 
 	* htmlengine.c (draw_background): Removed the clipping from here,
@@ -7,8 +30,8 @@
 
 1999-12-12  Ettore Perazzoli  <ettore@helixcode.com>
 
-	* gtkhtml.c (gtk_html_init): Use `GDK_HAND2' and `GDK_LEFT_PTR'
-	as the hand/arrow cursors.
+	* gtkhtml.c (gtk_html_init): Use `GDK_HAND2' and `GDK_LEFT_PTR' as
+	the hand/arrow cursors.
 
 	* htmltext.c (html_text_insert_text): New function.
 	(insert_text): New function.

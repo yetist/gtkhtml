@@ -2476,13 +2476,6 @@ html_engine_new (void)
 }
 
 
-void
-html_engine_calc_absolute_pos (HTMLEngine *e)
-{
-	if (e->clue)
-		html_object_calc_absolute_pos (e->clue, 0, 0);
-}
-
 static void
 draw_background (HTMLEngine *e, gint xval, gint yval, gint x, gint y, gint w, gint h)
 {
@@ -2518,8 +2511,7 @@ draw_background (HTMLEngine *e, gint xval, gint yval, gint x, gint y, gint w, gi
 	for (yp = yOrigin; yp < y + h; yp += ph) {
 	        for (xp = xOrigin; xp < x + w; xp += pw) {
 			html_painter_draw_background_pixmap (e->painter, 
-							     xp, 
-							     yp,
+							     xp, yp,
 							     bgpixmap->pixbuf, 0, 0);
 		}
 	}
@@ -2585,7 +2577,6 @@ html_engine_update_event (HTMLEngine *e)
 	e->updateTimer = 0;
 
 	html_engine_calc_size (e);
-	html_engine_calc_absolute_pos (e);
 	
 	/* Scroll page to the top on first display */
 	if(e->newPage) {

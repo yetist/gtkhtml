@@ -149,9 +149,7 @@ key_press_event (GtkWidget *widget,
 		retval = TRUE;
 		break;
 	default:
-		if (event->keyval >= 0x20 && event->keyval <= 0xFF) {
-			
-		}
+		retval = FALSE;
 	}
 
 	return retval;
@@ -385,9 +383,11 @@ gtk_html_expose (GtkWidget *widget, GdkEventExpose *event)
 {
 	if (GTK_WIDGET_CLASS (parent_class)->expose_event)
 		(* GTK_WIDGET_CLASS (parent_class)->expose_event) (widget, event);
+
 	html_engine_draw (GTK_HTML (widget)->engine,
 			  event->area.x, event->area.y,
 			  event->area.width, event->area.height);
+
 	return FALSE;
 }
 
@@ -425,7 +425,6 @@ gtk_html_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 	html->engine->height = allocation->height;
 
 	html_engine_calc_size (html->engine);
-	html_engine_calc_absolute_pos (html->engine);
 	
 	gtk_html_calc_scrollbars (html);
 }

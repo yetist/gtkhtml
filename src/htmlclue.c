@@ -189,18 +189,6 @@ calc_preferred_width (HTMLObject *o)
 	return prefWidth;
 }
 
-static void
-calc_absolute_pos (HTMLObject *o, gint x, gint y)
-{
-	HTMLObject *obj;
-
-	gint lx = x + o->x;
-	gint ly = y + o->y - o->ascent;
-
-	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next)
-		html_object_calc_absolute_pos (obj, lx, ly);
-}
-
 static gint
 calc_min_width (HTMLObject *o)
 {
@@ -349,7 +337,6 @@ html_clue_class_init (HTMLClueClass *klass,
 	object_class->calc_size = calc_size;
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->calc_min_width = calc_min_width;
-	object_class->calc_absolute_pos = calc_absolute_pos;
 	object_class->mouse_event = mouse_event;
 	object_class->check_point = check_point;
 
