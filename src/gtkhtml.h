@@ -187,6 +187,11 @@ void                       gtk_html_set_editable                  (GtkHTML      
 								   gboolean                   editable);
 gboolean                   gtk_html_get_editable                  (const GtkHTML             *html);
 
+/* Animated Images */
+void                       gtk_html_set_animate                   (GtkHTML                   *html,
+								   gboolean                   animate);
+gboolean                   gtk_html_get_animate                   (const GtkHTML             *html);
+
 /* Printing support.  */
 void                       gtk_html_print_with_header_footer      (GtkHTML                   *html,
 								   GnomePrintContext         *print_context,

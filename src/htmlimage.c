@@ -56,11 +56,14 @@ struct _HTMLImageFactory {
 	HTMLEngine *engine;
 	GHashTable *loaded_images;
 	GdkPixbuf  *missing;
+	gboolean    animate;
 };
 
 
 #define DEFAULT_SIZE 48
 #define STRDUP_HELPER(i,j) if (i != j) {char *tmp = g_strdup (j); g_free(i); i = tmp;}
+
+#define DA(x)
 
 HTMLImageClass html_image_class;
 static HTMLObjectClass *parent_class = NULL;
@@ -1088,7 +1091,7 @@ html_image_pointer_queue_animation (HTMLImagePointer *ip)
 {
 	gint delay = gdk_pixbuf_animation_iter_get_delay_time (ip->iter);
 
-	if (delay >= 0 && !ip->animation_timeout) {
+	if (delay >= 0 && !ip->animation_timeout && ip->factory && ip->factory->animate) {
 		ip->animation_timeout = g_timeout_add (delay, 
 						       (GtkFunction) html_image_pointer_run_animation, 
 						       (gpointer) ip);
@@ -1160,6 +1163,7 @@ html_image_factory_new (HTMLEngine *e)
 	retval->engine = e;
 	retval->loaded_images = g_hash_table_new (g_str_hash, g_str_equal);
 	retval->missing = NULL;
+	retval->animate = TRUE;
 
 	return retval;
 }
@@ -1411,7 +1415,41 @@ stop_anim (gpointer key, gpointer value, gpointer user_data)
 void
 html_image_factory_stop_animations (HTMLImageFactory *factory)
 {
+	DA (g_warning ("stop animations");)
 	g_hash_table_foreach (factory->loaded_images, stop_anim, NULL);
+}
+
+static void
+start_anim (gpointer key, gpointer value, gpointer user_data)
+{
+	HTMLImagePointer *ip = value;
+	html_image_pointer_start_animation (ip);
+}
+
+void
+html_image_factory_start_animations (HTMLImageFactory *factory)
+{
+	DA (g_warning ("start animations");)
+	g_hash_table_foreach (factory->loaded_images, start_anim, NULL);
+}
+
+gboolean
+html_image_factory_get_animate (HTMLImageFactory *factory)
+{
+	return factory->animate;
+}
+
+void
+html_image_factory_set_animate (HTMLImageFactory *factory, gboolean animate)
+{
+	if (animate != factory->animate) {
+		factory->animate = animate;
+
+		if (animate)
+			html_image_factory_start_animations (factory);
+		else 
+			html_image_factory_stop_animations (factory);
+	}
 }
 
 static gboolean

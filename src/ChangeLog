@@ -1,5 +1,14 @@
 2003-05-20  Larry Ewing  <lewing@ximian.com>
 
+        * htmlimage.c: add html_image_factory_get/set_animate and
+	html_image_factory_start_animations.
+	
+        * htmlimage.h: add prototypes.	
+
+	* gtkhtml.c: add gtk_html_get/set_animate.
+	
+	* gtkhtml.h: add prototypes.
+	
 	* htmlimage.c (draw_plain): fix the text position, add
 	highlighting.
 

@@ -3385,6 +3385,38 @@ gtk_html_get_editable  (const GtkHTML *html)
 	return html_engine_get_editable (html->engine);
 }
 
+static void
+frame_set_animate (HTMLObject *o, HTMLEngine *e, gpointer data)
+{
+	if (HTML_IS_FRAME (o)) {
+		html_image_factory_set_animate (GTK_HTML (HTML_FRAME (o)->html)->engine->image_factory,
+						*(gboolean *)data);
+	} else if (HTML_IS_IFRAME (o)) {
+		html_image_factory_set_animate (GTK_HTML (HTML_IFRAME (o)->html)->engine->image_factory,
+						*(gboolean *)data);
+	}
+}
+
+void
+gtk_html_set_animate (GtkHTML *html, gboolean animate)
+{
+	g_return_if_fail (GTK_IS_HTML (html));
+	g_return_if_fail (HTML_IS_ENGINE (html->engine));
+
+	html_image_factory_set_animate (html->engine->image_factory, animate);
+	if (html->engine->clue)
+		html_object_forall (html->engine->clue, html->engine, frame_set_animate, &animate);
+}
+
+gboolean
+gtk_html_get_animate (const GtkHTML *html)
+{
+	g_return_val_if_fail (GTK_IS_HTML (html), FALSE);
+	g_return_val_if_fail (HTML_IS_ENGINE (html->engine), FALSE);
+
+	return html_image_factory_get_animate (html->engine->image_factory);
+}
+
 void
 gtk_html_load_empty (GtkHTML *html)
 {

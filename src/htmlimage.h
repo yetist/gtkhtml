@@ -147,6 +147,10 @@ HTMLImageFactory *html_image_factory_new                    (HTMLEngine       *e
 void              html_image_factory_free                   (HTMLImageFactory *factory);
 void              html_image_factory_cleanup                (HTMLImageFactory *factory); /* Does gc etc. - removes unused image entries */
 void              html_image_factory_stop_animations        (HTMLImageFactory *factory);
+void              html_image_factory_start_animations       (HTMLImageFactory *factory);
+void              html_image_factory_set_animate            (HTMLImageFactory *factory,
+						             gboolean animate);
+gboolean          html_image_factory_get_animate            (HTMLImageFactory *factory);
 void              html_image_factory_deactivate_animations  (HTMLImageFactory *factory);
 HTMLImagePointer *html_image_factory_register               (HTMLImageFactory *factory,
 							     HTMLImage        *i,
