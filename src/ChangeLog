@@ -1,3 +1,44 @@
+2001-04-17  Radek Doulik  <rodo@ximian.com>
+
+	* htmlselection.c (html_engine_is_selection_active): call
+	html_engine_edit_selection_updater_do_idle
+
+	* htmlengine.h: added cursor_position_stack to keep cursor
+	positions for save/restore commands
+
+	* gtkhtml-properties.c: added command names
+
+	* gtkhtml-enums.h: new commands - save/restore cursor position
+
+	* gtkhtml.c (gtk_html_select_paragraph_extended): new function
+
+	* htmlengine-edit.c
+	(html_engine_select_paragraph_extended): new function
+
+	* keybindingsrc.ms: added C-a for select-all and C-p for select
+	paragraph
+
+	* keybindingsrc.xemacs: like for emacs ones
+
+	* keybindingsrc.emacs: added C-a, C-e
+
+	* gtkhtml.c (BCOM): remove C-a and C-e from hardcoded bindings
+
+	* htmlengine-edit-movement.c (html_engine_beginning_of_paragraph):
+	new function
+	(html_engine_end_of_paragraph): ditto
+
+	* htmlengine-edit.c (html_engine_select_paragraph_editable): new
+	function
+	(html_engine_select_all_editable): ditto
+
+	* gtkhtml.c (gtk_html_select_paragraph): new function
+	(gtk_html_select_all): ditto
+
+	* gtkhtml-properties.c: added new commands
+
+	* gtkhtml-enums.h: added selection commands
+
 2001-04-16  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (parse_table): silence warning.

@@ -94,7 +94,7 @@ updater_idle_callback (gpointer data)
 	else
 		html_engine_disable_selection (engine);
 
-	updater->idle_id   = 0;
+	updater->idle_id = 0;
 	return FALSE;
 }
 
@@ -149,4 +149,17 @@ html_engine_edit_selection_updater_update_now (HTMLEngineEditSelectionUpdater *u
 
 	/* run it now */
 	updater_idle_callback (updater);
+}
+
+void
+html_engine_edit_selection_updater_do_idle (HTMLEngineEditSelectionUpdater *updater)
+{
+	/* remove scheduled idle cb */
+	if (updater->idle_id != 0) {
+		gtk_idle_remove (updater->idle_id);
+		updater->idle_id = 0;
+
+		/* run it now */
+		updater_idle_callback (updater);
+	}
 }

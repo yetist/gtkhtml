@@ -28,51 +28,54 @@
 #include "htmlclueflow.h"
 #include "gtkhtml.h"
 
-void                       html_engine_undo                   (HTMLEngine                *e);
-void                       html_engine_redo                   (HTMLEngine                *e);
-void                       html_engine_set_mark               (HTMLEngine                *e);
-void                       html_engine_select_word_editable   (HTMLEngine                *e);
-void                       html_engine_select_line_editable   (HTMLEngine                *e);
-void                       html_engine_clipboard_push         (HTMLEngine                *e);
-void                       html_engine_clipboard_pop          (HTMLEngine                *e);
-void                       html_engine_clipboard_clear        (HTMLEngine                *e);
-void                       html_engine_selection_push         (HTMLEngine                *e);
-void                       html_engine_selection_pop          (HTMLEngine                *e);
-void                       html_engine_cut_and_paste_begin    (HTMLEngine                *e,
-							       const gchar               *undo_op_name,
-							       const gchar               *redo_op_name);
-void                       html_engine_cut_and_paste_end      (HTMLEngine                *e);
-void                       html_engine_cut_and_paste          (HTMLEngine                *e,
-							       const gchar               *undo_op_name,
-							       const gchar               *redo_op_name,
-							       HTMLObjectForallFunc       iterator,
-							       gpointer                   data);
-void                       html_engine_spell_check_range      (HTMLEngine                *e,
-							       HTMLCursor                *begin,
-							       HTMLCursor                *end);
-void                       html_engine_set_data_by_type       (HTMLEngine                *e,
-							       HTMLType                   object_type,
-							       const gchar               *key,
-							       const gpointer             value);
-void                       html_engine_ensure_editable        (HTMLEngine                *e);
-HTMLObject                *html_engine_new_text               (HTMLEngine                *e,
-							       const gchar               *text,
-							       gint                       len);
-HTMLObject                *html_engine_new_text_empty         (HTMLEngine                *e);
-gboolean                   html_engine_cursor_on_bop          (HTMLEngine                *e);
-guint                      html_engine_get_indent             (HTMLEngine                *e);
-void                       html_engine_indent_pre_paragraph   (HTMLEngine                *e);
-void                       html_engine_indent_pre_line        (HTMLEngine                *e);
-void                       html_engine_fill_pre_line          (HTMLEngine                *e);
-void                       html_engine_space_and_fill_line    (HTMLEngine                *e);
-void                       html_engine_break_and_fill_line    (HTMLEngine                *e);
+void                       html_engine_undo                       (HTMLEngine                *e);
+void                       html_engine_redo                       (HTMLEngine                *e);
+void                       html_engine_set_mark                   (HTMLEngine                *e);
+void                       html_engine_select_word_editable       (HTMLEngine                *e);
+void                       html_engine_select_line_editable       (HTMLEngine                *e);
+void                       html_engine_select_paragraph_editable  (HTMLEngine                *e);
+void                       html_engine_select_paragraph_extended  (HTMLEngine                *e);
+void                       html_engine_select_all_editable        (HTMLEngine                *e);
+void                       html_engine_clipboard_push             (HTMLEngine                *e);
+void                       html_engine_clipboard_pop              (HTMLEngine                *e);
+void                       html_engine_clipboard_clear            (HTMLEngine                *e);
+void                       html_engine_selection_push             (HTMLEngine                *e);
+void                       html_engine_selection_pop              (HTMLEngine                *e);
+void                       html_engine_cut_and_paste_begin        (HTMLEngine                *e,
+								   const gchar               *undo_op_name,
+								   const gchar               *redo_op_name);
+void                       html_engine_cut_and_paste_end          (HTMLEngine                *e);
+void                       html_engine_cut_and_paste              (HTMLEngine                *e,
+								   const gchar               *undo_op_name,
+								   const gchar               *redo_op_name,
+								   HTMLObjectForallFunc       iterator,
+								   gpointer                   data);
+void                       html_engine_spell_check_range          (HTMLEngine                *e,
+								   HTMLCursor                *begin,
+								   HTMLCursor                *end);
+void                       html_engine_set_data_by_type           (HTMLEngine                *e,
+								   HTMLType                   object_type,
+								   const gchar               *key,
+								   const gpointer             value);
+void                       html_engine_ensure_editable            (HTMLEngine                *e);
+HTMLObject                *html_engine_new_text                   (HTMLEngine                *e,
+								   const gchar               *text,
+								   gint                       len);
+HTMLObject                *html_engine_new_text_empty             (HTMLEngine                *e);
+gboolean                   html_engine_cursor_on_bop              (HTMLEngine                *e);
+guint                      html_engine_get_indent                 (HTMLEngine                *e);
+void                       html_engine_indent_pre_paragraph       (HTMLEngine                *e);
+void                       html_engine_indent_pre_line            (HTMLEngine                *e);
+void                       html_engine_fill_pre_line              (HTMLEngine                *e);
+void                       html_engine_space_and_fill_line        (HTMLEngine                *e);
+void                       html_engine_break_and_fill_line        (HTMLEngine                *e);
 /*
   static (non instance) methods
 */
-gboolean                   html_is_in_word                    (unicode_char_t             uc);
-HTMLHAlignType             paragraph_alignment_to_html        (GtkHTMLParagraphAlignment  alignment);
-HTMLClueFlowStyle          paragraph_style_to_clueflow_style  (GtkHTMLParagraphStyle      style);
-GtkHTMLParagraphAlignment  html_alignment_to_paragraph        (HTMLHAlignType             alignment);
-GtkHTMLParagraphStyle      clueflow_style_to_paragraph_style  (HTMLClueFlowStyle          style);
+gboolean                   html_is_in_word                        (unicode_char_t             uc);
+HTMLHAlignType             paragraph_alignment_to_html            (GtkHTMLParagraphAlignment  alignment);
+HTMLClueFlowStyle          paragraph_style_to_clueflow_style      (GtkHTMLParagraphStyle      style);
+GtkHTMLParagraphAlignment  html_alignment_to_paragraph            (HTMLHAlignType             alignment);
+GtkHTMLParagraphStyle      clueflow_style_to_paragraph_style      (HTMLClueFlowStyle          style);
 
 #endif /* _HTMLENGINE_EDIT_H */

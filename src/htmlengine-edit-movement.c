@@ -28,8 +28,8 @@
 #include "htmlobject.h"
 
 
-static void
-update_selection_if_necessary (HTMLEngine *e)
+void
+html_engine_update_selection_if_necessary (HTMLEngine *e)
 {
 	if (e->mark == NULL)
 		return;
@@ -82,7 +82,7 @@ html_engine_move_cursor (HTMLEngine *e,
 	}
 
 	html_engine_show_cursor (e);
-	update_selection_if_necessary (e);
+	html_engine_update_selection_if_necessary (e);
 
 	return c;
 }
@@ -157,7 +157,7 @@ html_engine_beginning_of_document (HTMLEngine *engine)
 	html_cursor_beginning_of_document (engine->cursor, engine);
 	html_engine_show_cursor (engine);
 
-	update_selection_if_necessary (engine);
+	html_engine_update_selection_if_necessary (engine);
 }
 
 void
@@ -170,7 +170,7 @@ html_engine_end_of_document (HTMLEngine *engine)
 	html_cursor_end_of_document (engine->cursor, engine);
 	html_engine_show_cursor (engine);
 
-	update_selection_if_necessary (engine);
+	html_engine_update_selection_if_necessary (engine);
 }
 
 
@@ -186,7 +186,7 @@ html_engine_beginning_of_line (HTMLEngine *engine)
 	retval = html_cursor_beginning_of_line (engine->cursor, engine);
 	html_engine_show_cursor (engine);
 
-	update_selection_if_necessary (engine);
+	html_engine_update_selection_if_necessary (engine);
 
 	return retval;
 }
@@ -203,7 +203,41 @@ html_engine_end_of_line (HTMLEngine *engine)
 	retval = html_cursor_end_of_line (engine->cursor, engine);
 	html_engine_show_cursor (engine);
 
-	update_selection_if_necessary (engine);
+	html_engine_update_selection_if_necessary (engine);
+
+	return retval;
+}
+
+gboolean
+html_engine_beginning_of_paragraph (HTMLEngine *engine)
+{
+	gboolean retval;
+
+	g_return_val_if_fail (engine != NULL, FALSE);
+	g_return_val_if_fail (HTML_IS_ENGINE (engine), FALSE);
+
+	html_engine_hide_cursor (engine);
+	retval = html_cursor_beginning_of_paragraph (engine->cursor, engine);
+	html_engine_show_cursor (engine);
+
+	html_engine_update_selection_if_necessary (engine);
+
+	return retval;
+}
+
+gboolean
+html_engine_end_of_paragraph (HTMLEngine *engine)
+{
+	gboolean retval;
+
+	g_return_val_if_fail (engine != NULL, FALSE);
+	g_return_val_if_fail (HTML_IS_ENGINE (engine), FALSE);
+
+	html_engine_hide_cursor (engine);
+	retval = html_cursor_end_of_paragraph (engine->cursor, engine);
+	html_engine_show_cursor (engine);
+
+	html_engine_update_selection_if_necessary (engine);
 
 	return retval;
 }
@@ -254,7 +288,7 @@ html_engine_scroll_down (HTMLEngine *engine,
 
 	html_engine_show_cursor (engine);
 
-	update_selection_if_necessary (engine);
+	html_engine_update_selection_if_necessary (engine);
 
 	return new_y - start_y;
 }
@@ -306,7 +340,7 @@ html_engine_scroll_up (HTMLEngine *engine,
 
 	html_engine_show_cursor (engine);
 
-	update_selection_if_necessary (engine);
+	html_engine_update_selection_if_necessary (engine);
 
 	return start_y - new_y;
 }
@@ -326,7 +360,7 @@ html_engine_forward_word (HTMLEngine *e)
 	while (unicode_isalnum (html_cursor_get_current_char (e->cursor)) && html_cursor_forward (e->cursor, e))
 		rv = TRUE;
 	html_engine_show_cursor (e);
-	update_selection_if_necessary (e);
+	html_engine_update_selection_if_necessary (e);
 
 	return rv;
 }
@@ -345,7 +379,31 @@ html_engine_backward_word (HTMLEngine *e)
 	while (unicode_isalnum (html_cursor_get_prev_char (e->cursor)) && html_cursor_backward (e->cursor, e))
 		rv = TRUE;
 	html_engine_show_cursor (e);
-	update_selection_if_necessary (e);
+	html_engine_update_selection_if_necessary (e);
 
 	return rv;
+}
+
+void
+html_engine_edit_cursor_position_save (HTMLEngine *e)
+{
+	g_return_if_fail (e != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
+	e->cursor_position_stack = g_slist_prepend (e->cursor_position_stack, GINT_TO_POINTER (e->cursor->position));
+}
+
+void
+html_engine_edit_cursor_position_restore (HTMLEngine *e)
+{
+	g_return_if_fail (e != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
+	if (!e->cursor_position_stack)
+		return;
+
+	html_engine_hide_cursor (e);
+	html_cursor_jump_to_position (e->cursor, e, GPOINTER_TO_INT (e->cursor_position_stack->data));
+	e->cursor_position_stack = g_slist_remove_link (e->cursor_position_stack, e->cursor_position_stack);
+	html_engine_show_cursor (e);
 }

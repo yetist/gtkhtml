@@ -332,6 +332,7 @@ static void
 set_color (HTMLObject *o, HTMLEngine *e, gpointer data)
 {
 	if (html_object_is_text (o)) {
+		printf ("set color %p\n", data);
 		html_text_set_color (HTML_TEXT (o), NULL, (HTMLColor *) data);
 
 		if (o->prev)

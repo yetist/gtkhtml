@@ -249,6 +249,40 @@ html_engine_select_line_editable (HTMLEngine *e)
 	html_engine_end_of_line (e);
 }
 
+void
+html_engine_select_paragraph_editable (HTMLEngine *e)
+{
+	html_engine_beginning_of_paragraph (e);
+	html_engine_set_mark (e);
+	html_engine_end_of_paragraph (e);
+}
+
+void
+html_engine_select_paragraph_extended (HTMLEngine *e)
+{
+	gboolean fw;
+
+	html_engine_hide_cursor (e);
+	html_engine_beginning_of_paragraph (e);
+	fw = html_cursor_backward (e->cursor, e);
+	html_engine_set_mark (e);
+	if (fw)
+		html_cursor_forward (e->cursor, e);
+	html_engine_end_of_paragraph (e);
+	html_cursor_forward (e->cursor, e);
+	html_engine_show_cursor (e);
+
+	html_engine_update_selection_if_necessary (e);
+}
+
+void
+html_engine_select_all_editable (HTMLEngine *e)
+{
+	html_engine_beginning_of_document (e);
+	html_engine_set_mark (e);
+	html_engine_end_of_document (e);
+}
+
 struct SetData {
 	HTMLType      object_type;
 	const gchar  *key;

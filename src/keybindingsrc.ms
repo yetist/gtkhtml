@@ -25,6 +25,9 @@ binding "gtkhtml-bindings-ms"
   bind "<Ctrl><Shift>Home"    { "command" (selection-move-bod) }
   bind "<Ctrl><Shift>End"     { "command" (selection-move-eod) }
 
+  bind "<Ctrl>a"              { "command" (select-all) }
+  bind "<Ctrl>p"              { "command" (select-paragraph) }
+
   bind "<Ctrl>c"              { "command" (copy) }
   bind "<Ctrl>Insert"         { "command" (copy) }
   bind "<Ctrl>KP_Insert"      { "command" (copy) }

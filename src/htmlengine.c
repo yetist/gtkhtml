@@ -3307,6 +3307,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->insertion_target = NULL;
 	engine->selection = NULL;
 	engine->shift_selection = FALSE;
+	engine->cursor_position_stack = NULL;
 
 	engine->selection_updater = html_engine_edit_selection_updater_new (engine);
 
@@ -3527,6 +3528,9 @@ html_engine_begin (HTMLEngine *e, char *content_type)
 	clear_selection (e);
 
 	html_engine_thaw_idle_reset (e);
+
+	g_slist_free (e->cursor_position_stack);
+	e->cursor_position_stack = NULL;
 
 	return new_stream;
 }

@@ -24,28 +24,29 @@
 
 #include "htmltypes.h"
 
-guint  html_engine_move_cursor     (HTMLEngine               *e,
-				    HTMLEngineCursorMovement  movement,
-				    guint                     count);
-void   html_engine_jump_to_object  (HTMLEngine               *e,
-				    HTMLObject               *object,
-				    guint                     offset);
-void   html_engine_jump_at         (HTMLEngine               *e,
-				    gint                      x,
-				    gint                      y);
-
-void  html_engine_beginning_of_document  (HTMLEngine *engine);
-void  html_engine_end_of_document        (HTMLEngine *engine);
-
-gboolean  html_engine_beginning_of_line  (HTMLEngine *engine);
-gboolean  html_engine_end_of_line        (HTMLEngine *engine);
-
-gint  html_engine_scroll_down  (HTMLEngine *engine,
-				gint        amount);
-gint  html_engine_scroll_up    (HTMLEngine *engine,
-				gint        amount);
-
-gboolean html_engine_forward_word (HTMLEngine *engine);
-gboolean html_engine_backward_word (HTMLEngine *engine);
+guint     html_engine_move_cursor                   (HTMLEngine               *e,
+						     HTMLEngineCursorMovement  movement,
+						     guint                     count);
+void      html_engine_jump_to_object                (HTMLEngine               *e,
+						     HTMLObject               *object,
+						     guint                     offset);
+void      html_engine_jump_at                       (HTMLEngine               *e,
+						     gint                      x,
+						     gint                      y);
+void      html_engine_beginning_of_document         (HTMLEngine               *engine);
+gboolean  html_engine_beginning_of_line             (HTMLEngine               *engine);
+gboolean  html_engine_beginning_of_paragraph        (HTMLEngine               *engine);
+void      html_engine_end_of_document               (HTMLEngine               *engine);
+gboolean  html_engine_end_of_line                   (HTMLEngine               *engine);
+gboolean  html_engine_end_of_paragraph              (HTMLEngine               *engine);
+gint      html_engine_scroll_down                   (HTMLEngine               *engine,
+						     gint                      amount);
+gint      html_engine_scroll_up                     (HTMLEngine               *engine,
+						     gint                      amount);
+gboolean  html_engine_forward_word                  (HTMLEngine               *engine);
+gboolean  html_engine_backward_word                 (HTMLEngine               *engine);
+void      html_engine_edit_cursor_position_save     (HTMLEngine               *e);
+void      html_engine_edit_cursor_position_restore  (HTMLEngine               *e);
+void      html_engine_update_selection_if_necessary (HTMLEngine               *e);
 
 #endif /* _HTMLENGINE_EDIT_MOVEMENT_H */

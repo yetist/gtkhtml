@@ -178,6 +178,7 @@ html_engine_select_line (HTMLEngine *e)
 gboolean
 html_engine_is_selection_active (HTMLEngine *e)
 {
+	html_engine_edit_selection_updater_do_idle (e->selection_updater);
 	return e->selection ? TRUE : FALSE;
 }
 

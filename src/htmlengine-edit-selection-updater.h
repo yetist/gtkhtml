@@ -30,5 +30,5 @@ void                            html_engine_edit_selection_updater_destroy      
 void                            html_engine_edit_selection_updater_reset           (HTMLEngineEditSelectionUpdater *updater);
 void                            html_engine_edit_selection_updater_schedule        (HTMLEngineEditSelectionUpdater *updater);
 void                            html_engine_edit_selection_updater_update_now      (HTMLEngineEditSelectionUpdater *updater);
-
+void                            html_engine_edit_selection_updater_do_idle         (HTMLEngineEditSelectionUpdater *updater);
 #endif /* _HTMLENGINE_EDIT_SELECTION_UPDATER */

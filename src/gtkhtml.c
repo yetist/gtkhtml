@@ -2833,6 +2833,27 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_MODIFY_SELECTION_PAGEDOWN:
 		move_selection (html, com_type);
 		break;
+	case GTK_HTML_COMMAND_SELECT_WORD:
+		gtk_html_select_word (html);
+		break;
+	case GTK_HTML_COMMAND_SELECT_LINE:
+		gtk_html_select_line (html);
+		break;
+	case GTK_HTML_COMMAND_SELECT_PARAGRAPH:
+		gtk_html_select_paragraph (html);
+		break;
+	case GTK_HTML_COMMAND_SELECT_PARAGRAPH_EXTENDED:
+		gtk_html_select_paragraph_extended (html);
+		break;
+	case GTK_HTML_COMMAND_SELECT_ALL:
+		gtk_html_select_all (html);
+		break;
+	case GTK_HTML_COMMAND_CURSOR_POSITION_SAVE:
+		html_engine_edit_cursor_position_save (html->engine);
+		break;
+	case GTK_HTML_COMMAND_CURSOR_POSITION_RESTORE:
+		html_engine_edit_cursor_position_restore (html->engine);
+		break;
 	case GTK_HTML_COMMAND_CAPITALIZE_WORD:
 		html_engine_capitalize_word (e);
 		break;
@@ -3064,9 +3085,6 @@ load_keybindings (GtkHTMLClass *klass)
 	BMOVE (0, Page_Down,     DOWN, PAGE);
 	BMOVE (0, KP_Page_Down,  DOWN, PAGE);
 
-	BMOVE (GDK_CONTROL_MASK, a, LEFT,  ALL);
-	BMOVE (GDK_CONTROL_MASK, e, RIGHT, ALL);
-
 #define BCOM(m,key,com) \
 	gtk_binding_entry_add_signal (binding_set, GDK_ ## key, m, \
 				      "command", 1, \
@@ -3123,6 +3141,54 @@ gtk_html_select_line (GtkHTML *html)
 		html_engine_select_line_editable (e);
 	else
 		html_engine_select_line (e);
+}
+
+void
+gtk_html_select_paragraph (GtkHTML *html)
+{
+	HTMLEngine *e;
+
+	if (!html->allow_selection)
+		return;
+
+	e = html->engine;
+	if (html_engine_get_editable (e))
+		html_engine_select_paragraph_editable (e);
+	/* FIXME: does anybody need this? if so bother me. rodo
+	   else
+	   html_engine_select_paragraph (e); */
+}
+
+void
+gtk_html_select_paragraph_extended (GtkHTML *html)
+{
+	HTMLEngine *e;
+
+	if (!html->allow_selection)
+		return;
+
+	e = html->engine;
+	if (html_engine_get_editable (e))
+		html_engine_select_paragraph_extended (e);
+	/* FIXME: does anybody need this? if so bother me. rodo
+	   else
+	   html_engine_select_paragraph (e); */
+}
+
+void
+gtk_html_select_all (GtkHTML *html)
+{
+	HTMLEngine *e;
+
+	if (!html->allow_selection)
+		return;
+
+	e = html->engine;
+	if (html_engine_get_editable (e))
+		html_engine_select_all_editable (e);
+	/* FIXME: does anybody need this? if so bother me. rodo
+	   else
+	   html_engine_select_all (e); */
 }
 
 void

@@ -236,6 +236,8 @@ struct _HTMLEngine {
 	gdouble min_split_index;
 
 	gboolean need_spell_check;
+
+	GSList *cursor_position_stack;
 };
 
 /* must be forward referenced *sigh* */

@@ -146,13 +146,16 @@ void  gtk_html_enable_debug  (GtkHTML  *html,
 			      gboolean  debug);
 
 /* Behavior.  */
-void  gtk_html_allow_selection  (GtkHTML  *html,
-				 gboolean  allow);
-void  gtk_html_select_word      (GtkHTML  *html);
-void  gtk_html_select_line      (GtkHTML  *html);
-int   gtk_html_request_paste    (GtkHTML  *html,
-				 gint      type,
-				 gint32    time);
+void  gtk_html_allow_selection            (GtkHTML  *html,
+					   gboolean  allow);
+void  gtk_html_select_word                (GtkHTML  *html);
+void  gtk_html_select_line                (GtkHTML  *html);
+void  gtk_html_select_paragraph           (GtkHTML  *html);
+void  gtk_html_select_paragraph_extended  (GtkHTML  *html);
+void  gtk_html_select_all                 (GtkHTML  *html);
+int   gtk_html_request_paste              (GtkHTML  *html,
+					   gint      type,
+					   gint32    time);
 /* Loading.  */
 GtkHTMLStream *gtk_html_begin             (GtkHTML             *html);
 GtkHTMLStream *gtk_html_begin_content     (GtkHTML             *html,
