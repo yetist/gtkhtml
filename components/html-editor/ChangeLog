@@ -1,5 +1,13 @@
 2001-08-21  Larry Ewing  <lewing@ximian.com>
 
+	* GNOME_GtkHTML_Editor.xml.in: comment out subscript and
+	superscript until they can be fixed.  Clean up accelerators.
+
+	* persist-stream-impl.c (ps_impl_save): until we fix this properly
+	always dirty the stream so that people will not lose their buffers.
+
+	* toolbar.c (set_color_combo): remove inline.
+
 	* menubar.c: hook up the align menu and test styles.
 
 	* GNOME_GtkHTML_Editor.xml.in: more cleanups, accelerator changes.

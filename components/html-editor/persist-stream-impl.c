@@ -79,7 +79,7 @@ ps_impl_load (BonoboPersistStream *ps,
 
 	if (ev->_major != CORBA_NO_EXCEPTION) {
 		gtk_html_end (html, handle, GTK_HTML_STREAM_ERROR);
-		bonobo_persist_stream_set_dirty (ps, FALSE);
+		bonobo_persist_stream_set_dirty (ps, TRUE);
 	} else {
 		CORBA_free (buffer);
 		gtk_html_end (html, handle, GTK_HTML_STREAM_OK);
@@ -145,7 +145,7 @@ ps_impl_save (BonoboPersistStream *ps,
 					     (char *)type, 
 					     (GtkHTMLSaveReceiverFn)save_receiver,
 					     &save_state))
-				bonobo_persist_stream_set_dirty (ps, FALSE);
+				bonobo_persist_stream_set_dirty (ps, TRUE);
 				
 		CORBA_Object_release (save_state.stream, ev);
 

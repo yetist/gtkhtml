@@ -159,12 +159,13 @@
 					<menuitem name="FormatBold" verb="" _label="_Bold"/>
 					<menuitem name="FormatItalic" verb="" _label="_Italic"/>
 					<menuitem name="FormatUnderline" verb="" _label="_Underline"/>
-					<menuitem name="FormatStrikeout" verb="" _label="Strikeout"/>
+					<menuitem name="FormatStrikeout" verb="" _label="_Strikeout"/>
 					
 					<separator/>
-					
-					<menuitem name="FormatSubscript" verb="" _label="Subscript"/>
-					<menuitem name="FormatSuperscript" verb="" _label="Superscript"/>
+<!--					
+					<menuitem name="FormatSubscript" verb="" _label="Subs_cript"/>
+					<menuitem name="FormatSuperscript" verb="" _label="Su_perscript"/>
+-->
 				</submenu>  
               
 				<submenu name="FontSize" _label="_Font Size">
@@ -175,7 +176,7 @@
 					<menuitem name="+2" verb="FontSizeTwo" _label="+2"/>
 					<menuitem name="+3" verb="FontSizeThree" _label="+3"/>
 				</submenu>
-
+<!--
 				<submenu name="BackgroundColor" _label="Background Color">
 					<menuitem name="ColorRed" verb="" _label="Red"/>
 					<menuitem name="ColorOrange" verb="" _label="Orange"/>
@@ -183,30 +184,31 @@
 					<menuitem name="ColorGreen" verb="" _label="Green"/> 
 					<menuitem name="ColorBlue" verb="" _label="Blue"/>
 					<menuitem name="ColorPurple" verb="" _label="Purple"/>
-					<menuitem name="+etc" verb="" _label="etc..."/>
-			
+					<menuitem name="etc" verb="" _label="etc..."/>
+
 					<separator/>
 
 					<menuitem name="Other" verb="" _label="Other..."/>
 				</submenu>
+-->		
                 
 				<separator/>
                 
 				<submenu name="Heading" _label="_Heading">
-					<menuitem name="HeadingNormal" verb="" _label="Normal"/> 
+					<menuitem name="HeadingNormal" verb="" _label="_Normal"/> 
 					<menuitem name="HeadingPreformat" verb="" _label="_Preformat"/>
 					<menuitem name="HeadingH1" verb="" _label="Header _1"/>
 					<menuitem name="HeadingH2" verb="" _label="Header _2"/>
-					<menuitem name="HeadingH3" verb="" _label="_Header _3"/>
-					<menuitem name="HeadingH4" verb="" _label="_Header _4"/>
-					<menuitem name="HeadingH5" verb="" _label="_Header _5"/>
-					<menuitem name="HeadingH6" verb="" _label="_Header _6"/>
+					<menuitem name="HeadingH3" verb="" _label="Header _3"/>
+					<menuitem name="HeadingH4" verb="" _label="Header _4"/>
+					<menuitem name="HeadingH5" verb="" _label="Header _5"/>
+					<menuitem name="HeadingH6" verb="" _label="Header _6"/>
 					<menuitem name="HeadingAddress" verb="" _label="A_ddress"/>
-					<menuitem name="HeadingBulletedList" verb="" _label="Bulleted List"/>
- 					<menuitem name="HeadingNumberedList" verb="" _label="Numbered List"/> 
+					<menuitem name="HeadingBulletedList" verb="" _label="_Bulleted List"/>
+ 					<menuitem name="HeadingNumberedList" verb="" _label="_Numbered List"/> 
 
-					<menuitem name="HeadingRomanList" verb="" _label="Roman Numeral List"/> 
-					<menuitem name="HeadingAlphabeticalList" verb="" _label="Alpabetical List"/> 				</submenu>
+					<menuitem name="HeadingRomanList" verb="" _label="_Roman Numeral List"/> 
+					<menuitem name="HeadingAlphabeticalList" verb="" _label="_Alpabetical List"/> 				</submenu>
                 
 				<submenu name="Alignment" _label="_Alignment">
 					<menuitem name="AlignLeft" verb="" _label="_Left"/> 
@@ -216,8 +218,8 @@
 
 				<separator/>
 
-				<menuitem name="IndentMore" verb="" _label="Increase Indent"/> 
-				<menuitem name="IndentLess" verb="" _label="Decrease Indent"/>     
+				<menuitem name="IndentMore" verb="" _label="_Increase Indent"/> 
+				<menuitem name="IndentLess" verb="" _label="_Decrease Indent"/>     
 			</placeholder>
 		</submenu>
 	</menu>

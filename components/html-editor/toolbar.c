@@ -252,7 +252,7 @@ unset_focus (GtkWidget *w, gpointer data)
 		gtk_container_forall (GTK_CONTAINER (w), unset_focus, NULL);
 }
 
-inline static void
+static void
 set_color_combo (GtkHTML *html, GtkHTMLControlData *cd)
 {
 	color_combo_set_color (COLOR_COMBO (cd->combo),
