@@ -1,5 +1,11 @@
 2000-05-11  Larry Ewing  <lewing@helixcode.com>
 
+	* htmlclueflow.c (is_similar): don't merge list items.
+	(calc_size): rework to make sure we don't include the height of
+	the first item in a new line in the previous lines ascent
+	calculation, we now assume whenever a run ends there is an
+	implicit newline.
+
 	* htmlgdkpainter.c (draw_background): optimize this greatly for a couple
 	of special cases.
 

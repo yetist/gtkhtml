@@ -466,10 +466,9 @@ calc_size (HTMLObject *o,
 			/* By setting "newLine = true" we move the complete run
 			   to a new line.  We shouldn't set newLine if we are
 			   at the start of a line.  */
-
 			runWidth = 0;
 			run = obj;
-
+			
 			while ( run
 				&& ! (run->flags & HTML_OBJECT_FLAG_SEPARATOR)
 				&& ! (run->flags & HTML_OBJECT_FLAG_NEWLINE)
@@ -478,14 +477,12 @@ calc_size (HTMLObject *o,
 				HTMLVAlignType valign;
 				gint width_left;
 
-				run->max_width = rmargin - lmargin;
-
 				if (is_pre)
 					width_left = -1;
 				else
 					width_left = rmargin - runWidth - w;
 
-				if (! is_pre && run != obj && runWidth+run->nb_width > rmargin - lmargin)
+				if (! is_pre && run != obj && runWidth + run->nb_width > rmargin - lmargin)
 					break;
 
 				fit = html_object_fit_line (run,
@@ -546,15 +543,10 @@ calc_size (HTMLObject *o,
 					break;
 				}
 
-				if (! is_pre && runWidth > rmargin - lmargin)
+				if (! is_pre && (runWidth > rmargin - lmargin))
 					break;
 			}
 
-			/* If these objects do not fit in the current line and we are
-			   not at the start of a line then end the current line in
-			   preparation to add this run in the next pass. */
-			if (! is_pre && w > lmargin && w + runWidth > rmargin)
-				newLine = TRUE;
 
 			if (! newLine) {
 				gint new_y, new_lmargin, new_rmargin;
@@ -602,12 +594,14 @@ calc_size (HTMLObject *o,
 				} else {
 					while (obj != run) {
 						if (obj->x != w) {
-							obj->x = w;
+							obj->x = w;   
 							changed = TRUE;
 						}
 						w += obj->width;
 						obj = obj->next;
 					}
+					/* we've used up this line so insert a newline */
+					newLine = TRUE;
 				}
 				lmargin = html_object_get_left_margin (o->parent, o->y);
 				
@@ -730,6 +724,7 @@ calc_size (HTMLObject *o,
 			
 			newLine = FALSE;
 			clear = HTML_CLEAR_NONE;
+		
 		}
 	}
 	
@@ -1005,11 +1000,18 @@ halign_to_string (HTMLHAlignType halign)
 static gboolean 
 is_similar (HTMLObject *self, HTMLObject *friend)
 {
-	
 	if (friend &&  HTML_OBJECT_TYPE (friend) == HTML_TYPE_CLUEFLOW) {
 		if ((HTML_CLUEFLOW (friend)->style == HTML_CLUEFLOW (self)->style)
-		    && (HTML_CLUEFLOW (friend)->level == HTML_CLUEFLOW (self)->level))
-			return TRUE;
+		    && (HTML_CLUEFLOW (friend)->level == HTML_CLUEFLOW (self)->level)) {
+			switch (HTML_CLUEFLOW (friend)->style) {
+			case HTML_CLUEFLOW_STYLE_ITEMDOTTED:				
+			case HTML_CLUEFLOW_STYLE_ITEMROMAN:
+			case HTML_CLUEFLOW_STYLE_ITEMDIGIT:
+				return FALSE;
+			default:
+				return TRUE;
+			}
+		}
 	}
 	return FALSE;
 }
@@ -1026,17 +1028,6 @@ save (HTMLObject *self,
 	clueflow = HTML_CLUEFLOW (self);
 	halign = HTML_CLUE (self)->halign;
 
-	if (self->prev != NULL
-	    && HTML_OBJECT_TYPE (HTML_CLUE (self)->tail) != HTML_TYPE_RULE
-	    && HTML_CLUEFLOW (self)->style != HTML_CLUEFLOW_STYLE_PRE) {
-		/* This is a nasty hack: the rule takes all of the space, so we
-                   don't want it to create a new newline if it's the last
-                   element on the paragraph.  Also, everything but the "normal"
-                   paragraph style would get an extra newline if we add a
-                   `<BR>'.  */
-		html_engine_save_output_string (state, "<BR>\n");
-	}
-
 	if (! write_indentation_tags (clueflow, state))
 		return FALSE;
 
@@ -1048,6 +1039,20 @@ save (HTMLObject *self,
 	if (is_similar (self, self->next))
 		end = FALSE;
 	
+	if (self->prev != NULL
+	    && HTML_OBJECT_TYPE (HTML_CLUE (self)->tail) != HTML_TYPE_RULE) {
+		if (HTML_CLUEFLOW (self)->style != HTML_CLUEFLOW_STYLE_PRE) {
+			/* This is a nasty hack: the rule takes all of the space, so we
+			   don't want it to create a new newline if it's the last
+			   element on the paragraph.  Also, everything but the "normal"
+			   paragraph style would get an extra newline if we add a
+			   `<BR>'.  */
+			html_engine_save_output_string (state, "<BR>\n");
+		} else {
+			html_engine_save_output_string (state, "\n");
+		}
+	}
+
 	/* Alignment tag.  */
 	if (halign != HTML_HALIGN_NONE && halign != HTML_HALIGN_LEFT) {
 		if (! html_engine_save_output_string (state, "<DIV ALIGN=")
