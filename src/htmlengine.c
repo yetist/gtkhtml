@@ -130,16 +130,12 @@ static void      html_engine_set_object_data  (HTMLEngine          *e,
 static void      parse_one_token           (HTMLEngine *p,
 					    HTMLObject *clue,
 					    const gchar *str);
-static void      parse_input               (HTMLEngine *e,
-					    const gchar *s,
-					    HTMLObject *_clue);
-static void      parse_iframe              (HTMLEngine *e,
-					    const gchar *s,
-					    HTMLObject *_clue);
-static void      parse_f                   (HTMLEngine *p,
+static void      element_parse_input       (HTMLEngine *e,
 					    HTMLObject *clue,
-					    const gchar *str);
-
+					    const gchar *s);
+static void      element_parse_iframe      (HTMLEngine *e,
+					    HTMLObject *clue,
+					    const gchar *s);
 static void      update_embedded           (GtkWidget *widget,
 					    gpointer );
 
@@ -169,20 +165,6 @@ static guint signals [LAST_SIGNAL] = { 0 };
 #define DT(x) ;
 #define DF(x) ;
 
-#if 0
-typedef enum {
-	ID_A,       ID_ADDRESS,  ID_B,      ID_BIG,      ID_BLOCKQUOTE, 
-	ID_BODY,    ID_CAPTION,  ID_CENTER, ID_CITE,     ID_CODE,
-	ID_DIR,     ID_DIV,      ID_DL,     ID_DT,       ID_DD,
-	ID_LI,      ID_EM,       ID_FONT,   ID_FORM,     ID_MAP,
-	ID_HEADING, ID_I,        ID_KBD,    ID_OL,       ID_P,
-	ID_PRE,     ID_SMALL,    ID_SPAN,   ID_STRONG,   ID_U,
-	ID_UL,      ID_TEXTAREA, ID_TABLE,  ID_TD,       ID_TH, 
-	ID_TR,      ID_TT,       ID_VAR,    ID_S,        ID_SUB, 
-	ID_SUP,     ID_STRIKE,   ID_HTML,   ID_DOCUMENT, ID_OPTION,
-	ID_SELECT,  ID_TEST
-} HTMLElementID;
-#else
 #define ID_A "a"
 #define ID_ADDRESS "address"
 #define ID_B "b"
@@ -230,7 +212,6 @@ typedef enum {
 #define ID_OPTION "option"
 #define ID_SELECT "select"
 #define ID_TEST "test"
-#endif
 
 #define ID_EQ(x,y) (x == g_quark_from_string (y))
 
@@ -277,6 +258,26 @@ struct _HTMLElement {
 	BlockFunc exitFunc;
 };
 
+static char *
+parse_element_name (const char *str)
+{
+	const char *ep = str;
+
+	ep = str;
+	if (*ep == '/')
+		ep++;
+
+	while (*ep && *ep != ' ' && *ep != '>' && *ep != '/')
+		ep++;
+	
+	if (ep - str == 0 || *str == '/' && ep - str == 1) {
+		g_warning ("found token with no valid name");
+		return NULL;
+	}
+
+	return g_strndup (str, ep - str);
+}
+
 #if 0
 struct _HTMLElement {
 	const char *name;        /* the name of the element */
@@ -290,16 +291,15 @@ struct _HTMLElement {
 HTMLElement *
 html_element_new (const char *str) {
 	HTMLElement *element;
-	gint i = 0;
+	char *name;
 
-	while (*str && *str != ' ' && *str != '>' && str != '/')
-		i++;
+	name = parse_element_name (str);
 	
-	if (i == 0)
-		return;
+	if (!name)
+		return NULL;
 
 	element = g_new0 (HTMLElement, 1);
-	element->name = g_strndup (str, i);
+	element->name = name;
 
 	element->attributes = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 
@@ -821,7 +821,8 @@ insert_text (HTMLEngine *e,
 	gchar *face;
 	gboolean create_link;
 
-	if (text [0] == ' ' && text [1] == 0) {		if (e->eat_space)
+	if (text [0] == ' ' && text [1] == 0) {
+		if (e->eat_space)
 			return;
 		else
 			e->eat_space = TRUE;
@@ -1134,7 +1135,6 @@ block_end_textarea (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 	e->formTextArea = NULL;
 	e->eat_space = FALSE;
 }
-
 static void
 push_clue (HTMLEngine *e, HTMLObject *clue)
 {
@@ -1188,13 +1188,37 @@ block_end_cell (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 }
 
 
+/* docment section parsers */
+static void
+block_end_title (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
+{
+	/*
+	 * only emit the title changed signal if we have a 
+	 * valid title 
+	 */
+	if (e->inTitle && e->title) 
+		g_signal_emit (e, signals [TITLE_CHANGED], 0);
+	e->inTitle = FALSE;
+}
+
+static void
+element_parse_title (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	e->inTitle = TRUE;
+	e->title = g_string_new ("");
+	
+	push_block (e, "title", 0, block_end_title, 0, 0);
+}
+
 static gchar *
 new_parse_body (HTMLEngine *e, const gchar *end[])
 {
 	HTMLObject *clue = NULL;
 	gchar *str;
 	gchar *rv = NULL;
+
 	e->eat_space = FALSE;
+
 	while (html_tokenizer_has_more_tokens (e->ht) && e->parsing) {
 		str = html_tokenizer_next_token (e->ht);
 
@@ -1361,6 +1385,35 @@ is_leading_space (guchar *str)
 	return TRUE;
 }
 
+static void
+element_parse_param (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	GtkHTMLEmbedded *eb;
+	char *name = NULL, *value = NULL;
+	
+	
+	if (html_stack_is_empty (e->embeddedStack))
+		return;
+	
+	eb = html_stack_top (e->embeddedStack);
+	
+	html_string_tokenizer_tokenize (e->st, str + 6, " >");
+	while ( html_string_tokenizer_has_more_tokens (e->st) ) {
+		const char *token = html_string_tokenizer_next_token (e->st);
+		if ( strncasecmp( token, "name=", 5 ) == 0 ) {
+			name = g_strdup (token+5);
+		} else if ( strncasecmp( token, "value=", 6 ) == 0 ) {
+			value = g_strdup (token+6);
+		}
+	}
+	
+	if (name!=NULL)
+		gtk_html_embedded_set_parameter(eb, name, value);
+	
+	g_free(name);
+	g_free(value);
+}
+
 static gchar * 
 parse_object_params(HTMLEngine *p, HTMLObject *clue) 
 {
@@ -1396,8 +1449,7 @@ parse_object_params(HTMLEngine *p, HTMLObject *clue)
 }
 
 static void
-parse_object (HTMLEngine *e, HTMLObject *clue, gint max_width,
-	     const gchar *attr)
+parse_object (HTMLEngine *e, HTMLObject *clue, const gchar *attr)
 {
 	char *classid=NULL;
 	char *name=NULL;
@@ -1405,16 +1457,16 @@ parse_object (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	char *str = NULL;
 	char *data = NULL;
 	int width=-1,height=-1;
+	gint max_width = clue->max_width;
 	static const gchar *end[] = { "</object", 0};
 	GtkHTMLEmbedded *eb;
 	HTMLEmbedded *el;
 	gboolean object_found;
 	
-	
-	html_string_tokenizer_tokenize( e->st, attr, " >" );
-	
 	/* this might have to do something different for form object
 	   elements - check the spec MPZ */
+	
+	html_string_tokenizer_tokenize( e->st, attr + 6, " >" );
 	while (html_string_tokenizer_has_more_tokens (e->st) ) {
 		const char* token;
 		
@@ -1473,8 +1525,501 @@ parse_object (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	g_free (name);
 }
 
+/* Frame parsers */
 static void
-parse_input (HTMLEngine *e, const gchar *str, HTMLObject *_clue)
+element_parse_noframe (HTMLEngine *e, HTMLObject *clue, const gchar *str )
+{
+	static const char *end[] = {"</noframe", NULL};
+	
+	if (e->allow_frameset)
+		discard_body (e, end);
+}
+
+static void
+block_end_frameset (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
+{
+	if (!html_stack_is_empty (e->frame_stack))
+		html_stack_pop (e->frame_stack);
+}
+
+static void
+element_parse_frameset (HTMLEngine *e, HTMLObject *clue, const gchar *attr)
+{
+	HTMLObject *set;
+	char *rows = NULL;
+	char *cols = NULL;
+
+	if (e->allow_frameset)
+		return
+
+	html_string_tokenizer_tokenize (e->st, attr + 8, " >");
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
+		const gchar *token = html_string_tokenizer_next_token (e->st);
+	
+		if (strncasecmp (token, "rows=", 5) == 0) {
+			rows = g_strdup (token + 5);
+		} else if (strncasecmp (token, "cols=", 5) == 0) {
+			cols = g_strdup (token + 5);
+		} else if (strncasecmp (token, "onload=", 7) == 0) {
+			/* all frames in set loaded */
+			/* unimplemented */
+		} else if (strncasecmp (token, "onunload=", 9) == 0) {
+			/* all frames unloaded */
+			/* unimplemented */
+		}		
+		
+	}
+	
+	/* clear the borders */
+	e->bottomBorder = 0;
+	e->topBorder = 0;
+	e->leftBorder = 0;
+	e->rightBorder = 0;
+	
+	set = html_frameset_new (e->widget, rows, cols);
+
+	if (html_stack_is_empty (e->frame_stack)) {
+		append_element (e, clue, set);
+	} else {
+		html_frameset_append (html_stack_top (e->frame_stack), set);
+	}
+		
+	html_stack_push (e->frame_stack, set);
+	       
+	g_free (rows);
+	g_free (cols);
+
+	push_block (e, "frameset", 0, block_end_frameset, 0, 0);
+}
+
+static void
+element_parse_iframe (HTMLEngine *e, HTMLObject *clue, const char *str) 
+{	char *src = NULL;
+	char *align = NULL;
+	HTMLObject *iframe;
+	static const gchar *end[] = { "</iframe", 0};
+	gint width           = -1;
+	gint height          = -1;
+	gint border          = TRUE;
+	GtkPolicyType scroll = GTK_POLICY_AUTOMATIC;
+	gint margin_width    = -1;
+	gint margin_height   = -1;
+
+	html_string_tokenizer_tokenize (e->st, str + 6, " >");
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
+		const gchar *token = html_string_tokenizer_next_token (e->st);
+
+		if (strncasecmp (token, "src=", 4) == 0) {
+			src = g_strdup (token + 4);
+		} else if (strncasecmp (token, "width=", 6) == 0) {
+			width = atoi (token + 6);
+		} else if (strncasecmp (token, "height=", 7) == 0) {
+			height = atoi (token + 7);
+		} else if (strncasecmp (token, "align=", 6) == 0) {
+			align = g_strdup (token + 6);
+		} else if (strncasecmp (token, "longdesc=", 9) == 0) {
+			/* TODO: Ignored */
+		} else if (strncasecmp (token, "name=", 5) == 0) {
+			/* TODO: Ignored */
+		} else if (strncasecmp (token, "scrolling=", 10) == 0) {
+			scroll = parse_scroll (token + 10);
+		} else if (strncasecmp (token, "marginwidth=", 12) == 0) {
+			margin_width = atoi (token + 12);
+		} else if (strncasecmp (token, "marginheight=", 13) == 0) {
+			margin_height = atoi (token + 13);
+		} else if (strncasecmp (token, "frameborder=", 12) == 0) {
+			border = atoi (token + 12);
+		}
+
+	}	
+		
+	/* FIXME fixup missing url */
+	if (src) {
+		iframe = html_iframe_new (GTK_WIDGET (e->widget),
+					  src, width, height, border);
+		if (margin_height >= 0)
+			html_iframe_set_margin_height (HTML_IFRAME (iframe), margin_height);
+		if (margin_width >= 0)
+			html_iframe_set_margin_width (HTML_IFRAME (iframe), margin_width);
+		if (scroll != GTK_POLICY_AUTOMATIC)
+			html_iframe_set_scrolling (HTML_IFRAME (iframe), scroll);
+
+		g_free (src);
+
+		append_element (e, clue, iframe);
+		discard_body (e, end);
+	} else {
+		parse_body (e, clue, end, FALSE, TRUE);
+		close_flow (e, clue);
+	}
+	g_free (align);
+}
+
+
+static void
+element_parse_area (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	HTMLShape *shape;
+	char *type = NULL;
+	char *href = NULL;
+	char *coords = NULL;
+	char *target = NULL;
+	
+	if (e->map == NULL)
+		return;
+	
+	html_string_tokenizer_tokenize (e->st, str + 5, " >");
+	while (html_string_tokenizer_has_more_tokens (e->st)) {   
+		gchar *token = html_string_tokenizer_next_token (e->st);
+		
+		if (strncasecmp (token, "shape=", 6) == 0) {
+			type = g_strdup (token + 6);
+		} else if (strncasecmp (token, "href=", 5) == 0) {
+			href = g_strdup (token +5);
+		} else if ( strncasecmp (token, "target=", 7) == 0) {
+			target = g_strdup (token + 7);
+		} else if ( strncasecmp (token, "coords=", 7) == 0) {
+			coords = g_strdup (token + 7);
+		}
+	}
+	
+	if (type || coords) {
+		
+		shape = html_shape_new (type, coords, href, target);
+		if (shape != NULL) {
+			html_map_add_shape (e->map, shape);
+		}
+	}
+	
+	g_free (type);
+	g_free (href);
+	g_free (coords);
+	g_free (target);
+}
+
+static void
+element_parse_a (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	HTMLShape *shape;
+	gchar *url = NULL;
+	gchar *id = NULL;
+	HTMLStyle *style = NULL;
+	char *style_attr = NULL;
+	char *type = NULL;
+	char *coords = NULL;
+	char *target = NULL;
+	
+	const gchar *p;
+	
+	pop_element (e, ID_A);
+	
+	html_string_tokenizer_tokenize( e->st, str + 2, " >" );
+	
+	while ((p = html_string_tokenizer_next_token (e->st)) != 0) {
+		if (strncasecmp (p, "href=", 5) == 0) {
+			url = g_strdup (p + 5);
+			/* FIXME visited? */
+		} else if (strncasecmp (p, "id=", 3) == 0) {
+			/*
+			 * FIXME this doesn't handle the 
+			 * case where id and name are both set
+			 * properly but it will do for now
+			 */
+			if (id == NULL)
+				id = g_strdup (p + 3);
+		} else if (strncasecmp (p, "name=", 5) == 0) {
+			if (id == NULL)
+				id = g_strdup (p + 5);
+		} else if (strncasecmp (p, "shape=", 6) == 0) {
+			type = g_strdup (p + 6);
+		} else if ( strncasecmp (p, "coords=", 7) == 0) {
+			coords = g_strdup (p + 7);
+		} else if (strncasecmp (p, "style=", 6) == 0) {
+			style_attr = g_strdup (p + 6);
+		} else if (strncasecmp (p, "target=", 7) == 0) {
+			target = g_strdup (p + 7);
+		}
+	}
+	
+	if (type || coords) {
+		shape = html_shape_new (type, coords, url, target);
+		if (shape != NULL) {
+			html_map_add_shape (e->map, shape);
+		}
+	}
+	
+	if (id != NULL) {
+		if (e->flow == 0)
+			html_clue_append (HTML_CLUE (clue),
+					  html_anchor_new (id));
+		else
+			html_clue_append (HTML_CLUE (e->flow),
+					  html_anchor_new (id));
+		g_free (id);
+	}
+	
+	if (url != NULL) {
+		g_free (e->url);
+		e->url = url;
+	}
+	if (e->url || e->target) {
+		style = html_style_add_color (style, html_colorset_get_color (e->settings->color_set, HTMLLinkColor));
+		style = html_style_set_decoration (style, GTK_HTML_FONT_STYLE_UNDERLINE);
+	}
+	if (style_attr) {
+		style = html_style_add_attribute (style, style_attr);
+		g_free (style_attr);
+	}
+	push_element (e, ID_A, NULL, style);
+	((HTMLElement *)html_stack_top (e->span_stack))->exitFunc = block_end_anchor;
+}
+
+
+/* block parsing */
+static void
+element_parse_address (HTMLEngine *e, HTMLObject *clue, const char *str)
+{
+	HTMLStyle *style = NULL;
+	
+	style = html_style_set_decoration (style, GTK_HTML_FONT_STYLE_ITALIC);
+	push_block_element (e, ID_ADDRESS, style, 1, block_end_clueflow_style, 0, 0);
+	
+	push_clueflow_style (e, HTML_CLUEFLOW_STYLE_ADDRESS);
+	close_flow (e, clue);
+
+	e->avoid_para = TRUE;
+}
+
+static void
+element_parse_pre (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	push_block (e, ID_PRE, 1, block_end_pre, 0, 0);
+
+	push_clueflow_style (e, HTML_CLUEFLOW_STYLE_PRE);
+	close_flow (e, clue);
+
+	e->inPre = TRUE;
+	e->avoid_para = TRUE;
+}
+
+static void
+element_parse_center (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	HTMLStyle *style = NULL;
+	
+	style = html_style_add_text_align (style, HTML_HALIGN_CENTER);
+	push_block_element (e, ID_CENTER, style, 1, block_end_div, 0, FALSE);
+	
+	update_flow_align (e, clue);
+}
+
+static void
+element_parse_blockquote (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	gboolean type = HTML_LIST_TYPE_BLOCKQUOTE;
+	
+	html_string_tokenizer_tokenize (e->st, str + 11, " >");
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
+		const char *token = html_string_tokenizer_next_token (e->st);
+		if (strncasecmp (token, "type=", 5) == 0) {
+			if (strncasecmp (token + 5, "cite", 5) == 0) {
+				type = HTML_LIST_TYPE_BLOCKQUOTE_CITE;
+			}
+			}	 
+	}
+	
+	html_stack_push (e->listStack, html_list_new (type));
+	push_block (e, ID_BLOCKQUOTE, 1, block_end_quote, FALSE, FALSE);
+	e->avoid_para = TRUE;
+	close_flow (e, clue);
+}
+
+
+static void
+element_parse_body (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	GdkColor color;
+
+	html_string_tokenizer_tokenize (e->st, str + 5, " >");
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
+		gchar *token;
+		
+		token = html_string_tokenizer_next_token (e->st);
+		gtk_html_debug_log (e->widget, "token is: %s\n", token);
+		
+		if (strncasecmp (token, "bgcolor=", 8) == 0) {
+			gtk_html_debug_log (e->widget, "setting color\n");
+			if (parse_color (token + 8, &color)) {
+				gtk_html_debug_log (e->widget, "bgcolor is set\n");
+				html_colorset_set_color (e->settings->color_set, &color, HTMLBgColor);
+			} else {
+				gtk_html_debug_log (e->widget, "Color `%s' could not be parsed\n", token);
+			}
+		} else if (strncasecmp (token, "background=", 11) == 0
+			   && token [12]
+			   && ! e->defaultSettings->forceDefault) {
+			gchar *bgurl;
+			
+			bgurl = g_strdup (token + 11);
+			if (e->bgPixmapPtr != NULL)
+				html_image_factory_unregister(e->image_factory, e->bgPixmapPtr, NULL);
+			e->bgPixmapPtr = html_image_factory_register(e->image_factory, NULL, bgurl, FALSE);
+			g_free (bgurl);
+		} else if ( strncasecmp( token, "text=", 5 ) == 0
+			    && !e->defaultSettings->forceDefault ) {
+			if (parse_color (token + 5, &color)) {
+				html_colorset_set_color (e->settings->color_set, &color, HTMLTextColor);
+				push_element (e, ID_BODY, NULL, 
+					      html_style_add_color (NULL, html_colorset_get_color (e->settings->color_set, HTMLTextColor)));
+			}
+		} else if ( strncasecmp( token, "link=", 5 ) == 0
+			    && !e->defaultSettings->forceDefault ) {
+			parse_color (token + 5, &color);
+			html_colorset_set_color (e->settings->color_set, &color, HTMLLinkColor);
+		} else if ( strncasecmp( token, "vlink=", 6 ) == 0
+			    && !e->defaultSettings->forceDefault ) {
+			parse_color (token + 6, &color);
+			html_colorset_set_color (e->settings->color_set, &color, HTMLVLinkColor);
+		} else if ( strncasecmp( token, "alink=", 6 ) == 0
+			    && !e->defaultSettings->forceDefault ) {
+			parse_color (token + 6, &color);
+			html_colorset_set_color (e->settings->color_set, &color, HTMLALinkColor);
+		} else if ( strncasecmp( token, "leftmargin=", 11 ) == 0) {
+			e->leftBorder = atoi (token + 11);
+		} else if ( strncasecmp( token, "rightmargin=", 12 ) == 0) {
+			e->rightBorder = atoi (token + 12);
+		} else if ( strncasecmp( token, "topmargin=", 10 ) == 0) {
+			e->topBorder = atoi (token + 10);
+		} else if ( strncasecmp( token, "bottommargin=", 13 ) == 0) {
+			e->bottomBorder = atoi (token + 13);
+		} else if ( strncasecmp( token, "marginwidth=", 12 ) == 0) {
+			e->leftBorder = e->rightBorder = atoi (token + 12);
+		} else if ( strncasecmp( token, "marginheight=", 13 ) == 0) {
+			e->topBorder = e->bottomBorder = atoi (token + 13);
+		}
+	}
+	
+	gtk_html_debug_log (e->widget, "parsed <body>\n");
+}
+
+static void
+element_parse_base (HTMLEngine *e, HTMLObject *clue, const char *str)
+{
+	html_string_tokenizer_tokenize( e->st, str + 5, " >" );
+	while ( html_string_tokenizer_has_more_tokens (e->st) ) {
+		const char* token = html_string_tokenizer_next_token(e->st);
+		if ( strncasecmp( token, "target=", 7 ) == 0 ) {
+			g_signal_emit (e, signals [SET_BASE_TARGET], 0, token + 7);
+		} else if ( strncasecmp( token, "href=", 5 ) == 0 ) {
+			g_signal_emit (e, signals [SET_BASE], 0, token + 5);
+		}
+	}
+}
+
+static void
+element_parse_br (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	HTMLClearType clear;
+	
+	clear = HTML_CLEAR_NONE;
+
+	/* 
+	 * FIXME this parses the clear attributes on close tags
+	 * as well I'm not sure if we should do that or not, someone
+	 * should check the mozilla behavior
+	 */
+	html_string_tokenizer_tokenize (e->st, str + 3, " >");
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
+		gchar *token = html_string_tokenizer_next_token (e->st);
+		
+		if (strncasecmp (token, "clear=", 6) == 0) {
+			gtk_html_debug_log (e->widget, "%s\n", token);
+			if (strncasecmp (token + 6, "left", 4) == 0)
+				clear = HTML_CLEAR_LEFT;
+			else if (strncasecmp (token + 6, "right", 5) == 0)
+				clear = HTML_CLEAR_RIGHT;
+			else if (strncasecmp (token + 6, "all", 3) == 0)
+				clear = HTML_CLEAR_ALL;
+		}
+	}
+	
+	add_line_break (e, clue, clear);
+}
+
+
+static void
+element_parse_data (HTMLEngine *e, HTMLObject *clue, const char *str)
+{
+	gchar *key = NULL;
+	gchar *class_name = NULL;
+	
+	html_string_tokenizer_tokenize (e->st, str + 5, " >" );
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
+		const gchar *token = html_string_tokenizer_next_token (e->st);
+		if (strncasecmp (token, "class=", 6 ) == 0) {
+			g_free (class_name);
+			class_name = g_strdup (token + 6);
+		} else if (strncasecmp (token, "key=", 4 ) == 0) {
+			g_free (key);
+			key = g_strdup (token + 4);
+		} else if (class_name && key && strncasecmp (token, "value=", 6) == 0) {
+			if (class_name) {
+				html_engine_set_class_data (e, class_name, key, token + 6);
+				if (!strcmp (class_name, "ClueFlow") && e->flow)
+					html_engine_set_object_data (e, e->flow);
+			}
+		} else if (strncasecmp (token, "clear=", 6) == 0)
+			if (class_name)
+				html_engine_clear_class_data (e, class_name, token + 6);
+		/* TODO clear flow data */
+	}
+	g_free (class_name);
+	g_free (key);
+}
+
+static void
+element_parse_div (HTMLEngine *e, HTMLObject *clue, const char *str)
+{
+	HTMLStyle *style = NULL;
+	
+	html_string_tokenizer_tokenize (e->st, str + 4, " >");
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
+		const char* token = html_string_tokenizer_next_token (e->st);
+		if (strncasecmp (token, "align=", 6 ) == 0) {
+			style = html_style_add_text_align (style, parse_halign (token + 6, HTML_HALIGN_NONE));
+		}
+	}
+	
+	push_block_element (e, ID_DIV, style, 1, block_end_div, 0, 0);
+	update_flow_align (e, clue);
+}
+
+
+static void
+form_begin (HTMLEngine *e, HTMLObject *clue, gchar *action, gchar *method, gboolean close_paragraph)
+{
+	e->form = html_form_new (e, action, method);
+	e->formList = g_list_append (e->formList, e->form);
+
+	if (! e->avoid_para && close_paragraph) {
+		if (e->flow && HTML_CLUE (e->flow)->head)
+			close_flow (e, clue);
+		e->avoid_para = FALSE;
+	}
+}
+
+static void
+block_end_form (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
+{
+	e->form = NULL;
+
+	if (!e->avoid_para && elem && elem->miscData1) {
+		close_flow (e, clue);
+	}
+}
+
+static void
+element_parse_input (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	enum InputType { CheckBox, Hidden, Radio, Reset, Submit, Text, Image,
 			 Button, Password, Undefined };
@@ -1489,9 +2034,14 @@ parse_input (HTMLEngine *e, const gchar *str, HTMLObject *_clue)
 	int maxLen = -1;
 	int imgHSpace = 0;
 	int imgVSpace = 0;
+	gboolean fix_form = FALSE;
+	
+	if (e->form == NULL) {
+		fix_form = TRUE;
+		form_begin (e, clue, NULL, "GET", FALSE);
+	}		
 
-	html_string_tokenizer_tokenize (e->st, str, " >");
-
+	html_string_tokenizer_tokenize (e->st, str + 6, " >");
 	while (html_string_tokenizer_has_more_tokens (e->st)) {
 		const gchar *token = html_string_tokenizer_next_token (e->st);
 
@@ -1584,8 +2134,7 @@ parse_input (HTMLEngine *e, const gchar *str, HTMLObject *_clue)
 		break;
 	}
 	if (element) {
-
-		append_element (e, _clue, element);
+		append_element (e, clue, element);
 		html_form_add_element (e->form, HTML_EMBEDDED (element));
 	}
 
@@ -1595,1002 +2144,389 @@ parse_input (HTMLEngine *e, const gchar *str, HTMLObject *_clue)
 		g_free (value);
 	if (imgSrc)
 		g_free (imgSrc);
+	
+	if (fix_form)
+		block_end_form (e, clue, NULL);
 }
 
 static void
-parse_frameset (HTMLEngine *e, HTMLObject *clue, gint max_width, const gchar *attr)
+element_parse_form (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	HTMLObject *set;
-	char *rows = NULL;
-	char *cols = NULL;
-
-	html_string_tokenizer_tokenize (e->st, attr, " >");
-
+	gchar *action = NULL;
+	gchar *method = "GET";
+	gchar *target = NULL;
+	
+	html_string_tokenizer_tokenize (e->st, str + 5, " >");
 	while (html_string_tokenizer_has_more_tokens (e->st)) {
 		const gchar *token = html_string_tokenizer_next_token (e->st);
-	
-		if (strncasecmp (token, "rows=", 5) == 0) {
-			rows = g_strdup (token + 5);
-		} else if (strncasecmp (token, "cols=", 5) == 0) {
-			cols = g_strdup (token + 5);
-		} else if (strncasecmp (token, "onload=", 7) == 0) {
-			/* all frames in set loaded */
-			/* unimplemented */
-		} else if (strncasecmp (token, "onunload=", 9) == 0) {
-			/* all frames unloaded */
-			/* unimplemented */
-		}		
 		
+		if ( strncasecmp( token, "action=", 7 ) == 0 ) {
+			action = g_strdup (token + 7);
+		} else if ( strncasecmp( token, "method=", 7 ) == 0 ) {
+			if ( strncasecmp( token + 7, "post", 4 ) == 0 )
+				method = "POST";
+		} else if ( strncasecmp( token, "target=", 7 ) == 0 ) {
+			target = g_strdup(token + 7);
+		}
 	}
 	
-	/* clear the borders */
-	e->bottomBorder = 0;
-	e->topBorder = 0;
-	e->leftBorder = 0;
-	e->rightBorder = 0;
+	form_begin (e, clue, action, method, TRUE);
+	g_free(action);
+	g_free(target);
 	
-	set = html_frameset_new (e->widget, rows, cols);
-
-	if (html_stack_is_empty (e->frame_stack)) {
-		append_element (e, clue, set);
-	} else {
-		html_frameset_append (html_stack_top (e->frame_stack), set);
-	}
-		
-	html_stack_push (e->frame_stack, set);
-	       
-	g_free (rows);
-	g_free (cols);
-
+	push_block (e, ID_FORM, 1, block_end_form, TRUE, 0);
 }
 
 static void
-parse_iframe (HTMLEngine *e, const gchar *str, HTMLObject *_clue) 
-{	char *src = NULL;
-	char *align = NULL;
-	HTMLObject *iframe;
-	static const gchar *end[] = { "</iframe", 0};
-	gint width           = -1;
-	gint height          = -1;
-	gint border          = TRUE;
+element_parse_frame (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	char *src = NULL;
+	HTMLObject *frame = NULL;
+	gint margin_height = -1;
+	gint margin_width = -1;
 	GtkPolicyType scroll = GTK_POLICY_AUTOMATIC;
-	gint margin_width    = -1;
-	gint margin_height   = -1;
-
-	html_string_tokenizer_tokenize (e->st, str, " >");
-
+	
+	if (!e->allow_frameset)
+			return;
+	
+	src = NULL;
+	html_string_tokenizer_tokenize (e->st, str + 5, " >");
+	
 	while (html_string_tokenizer_has_more_tokens (e->st)) {
 		const gchar *token = html_string_tokenizer_next_token (e->st);
-
+		
 		if (strncasecmp (token, "src=", 4) == 0) {
 			src = g_strdup (token + 4);
-		} else if (strncasecmp (token, "width=", 6) == 0) {
-			width = atoi (token + 6);
-		} else if (strncasecmp (token, "height=", 7) == 0) {
-			height = atoi (token + 7);
-		} else if (strncasecmp (token, "align=", 6) == 0) {
-			align = g_strdup (token + 6);
-		} else if (strncasecmp (token, "longdesc=", 9) == 0) {
-			/* TODO: Ignored */
-		} else if (strncasecmp (token, "name=", 5) == 0) {
-			/* TODO: Ignored */
-		} else if (strncasecmp (token, "scrolling=", 10) == 0) {
-			scroll = parse_scroll (token + 10);
-		} else if (strncasecmp (token, "marginwidth=", 12) == 0) {
-			margin_width = atoi (token + 12);
-		} else if (strncasecmp (token, "marginheight=", 13) == 0) {
-			margin_height = atoi (token + 13);
+		} else if (strncasecmp (token, "noresize", 8) == 0) {
 		} else if (strncasecmp (token, "frameborder=", 12) == 0) {
-			border = atoi (token + 12);
+		} else if (strncasecmp (token, "border=", 7) == 0) {
+			/*
+			 * Netscape and Mozilla recognize this to turn of all the between
+			 * frame decoration.
+			 */
+		} else if (strncasecmp(token, "marginwidth=", 12) == 0) {
+			margin_width = atoi (token + 12);
+		} else if (strncasecmp(token, "marginheight=", 13) == 0) {
+			margin_height = atoi (token + 13);
+		} else if (strncasecmp(token, "scrolling=", 10) == 0) {
+			scroll = parse_scroll (token + 10);
 		}
-
-	}	
-		
-	/* FIXME fixup missing url */
-	if (src) {
-		iframe = html_iframe_new (GTK_WIDGET (e->widget),
-					  src, width, height, border);
-		if (margin_height >= 0)
-			html_iframe_set_margin_height (HTML_IFRAME (iframe), margin_height);
-		if (margin_width >= 0)
-			html_iframe_set_margin_width (HTML_IFRAME (iframe), margin_width);
-		if (scroll != GTK_POLICY_AUTOMATIC)
-			html_iframe_set_scrolling (HTML_IFRAME (iframe), scroll);
-
-		g_free (src);
-
-		append_element (e, _clue, iframe);
-		discard_body (e, end);
-	} else {
-		parse_body (e, _clue, end, FALSE, TRUE);
-		close_flow (e, _clue);
-	}
-	g_free (align);
-}
-
-
-/*
-  <a               </a>
-  <address>        </address>
-  <area            </area>
-*/
-static void
-parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
-{
-	if (strncmp (str, "area", 4) == 0) {
-		HTMLShape *shape;
-		char *type = NULL;
-		char *href = NULL;
-		char *coords = NULL;
-		char *target = NULL;
-
-		if (e->map == NULL)
-			return;
-
-		html_string_tokenizer_tokenize (e->st, str + 5, " >");
-		while (html_string_tokenizer_has_more_tokens (e->st)) {   
-			gchar *token = html_string_tokenizer_next_token (e->st);
-
-			if (strncasecmp (token, "shape=", 6) == 0) {
-				type = g_strdup (token + 6);
-			} else if (strncasecmp (token, "href=", 5) == 0) {
-				href = g_strdup (token +5);
-			} else if ( strncasecmp (token, "target=", 7) == 0) {
-				target = g_strdup (token + 7);
-			} else if ( strncasecmp (token, "coords=", 7) == 0) {
-				coords = g_strdup (token + 7);
-			}
-		}
-		
-		if (type || coords) {
-
-			shape = html_shape_new (type, coords, href, target);
-			if (shape != NULL) {
-				html_map_add_shape (e->map, shape);
-			}
-		}
-
-		g_free (type);
-		g_free (href);
-		g_free (coords);
-		g_free (target);
-	} else if ( strncmp( str, "address", 7) == 0 ) {
-		HTMLStyle *style = NULL;
-		
-		close_flow (e, _clue);
-
-		style = html_style_set_decoration (style, GTK_HTML_FONT_STYLE_ITALIC);
-		push_clueflow_style (e, HTML_CLUEFLOW_STYLE_ADDRESS);
-		push_block_element (e, ID_ADDRESS, style, 1, block_end_clueflow_style, 0, 0);
-	} else if (strncmp (str, "/address", 8) == 0) {
-		pop_element (e, ID_ADDRESS);
-	} else if (strncmp (str, "a ", 2) == 0) {
-		HTMLShape *shape;
-		gchar *url = NULL;
-		gchar *id = NULL;
-		HTMLStyle *style = NULL;
-		char *style_attr = NULL;
-		char *type = NULL;
-		char *coords = NULL;
-		char *target = NULL;
-		
-		const gchar *p;
-		
-		pop_element (e, ID_A);
-		
-		html_string_tokenizer_tokenize( e->st, str + 2, " >" );
-		
-		while ((p = html_string_tokenizer_next_token (e->st)) != 0) {
-			if (strncasecmp (p, "href=", 5) == 0) {
-				url = g_strdup (p + 5);
-				/* FIXME visited? */
-			} else if (strncasecmp (p, "id=", 3) == 0) {
-				/*
-				 * FIXME this doesn't handle the 
-				 * case where id and name are both set
-				 * properly but it will do for now
-				 */
-				if (id == NULL)
-					id = g_strdup (p + 3);
-			} else if (strncasecmp (p, "name=", 5) == 0) {
-				if (id == NULL)
-					id = g_strdup (p + 5);
-			} else if (strncasecmp (p, "shape=", 6) == 0) {
-				type = g_strdup (p + 6);
-			} else if ( strncasecmp (p, "coords=", 7) == 0) {
-				coords = g_strdup (p + 7);
-			} else if (strncasecmp (p, "style=", 6) == 0) {
-				style_attr = g_strdup (p + 6);
-			} else if (strncasecmp (p, "target=", 7) == 0) {
-				target = g_strdup (p + 7);
-			}
-		}
-		
-		if (type || coords) {
-			shape = html_shape_new (type, coords, url, target);
-			if (shape != NULL) {
-				html_map_add_shape (e->map, shape);
-			}
-		}
-
-		if (id != NULL) {
-			if (e->flow == 0)
-				html_clue_append (HTML_CLUE (_clue),
-						  html_anchor_new (id));
-			else
-				html_clue_append (HTML_CLUE (e->flow),
-						  html_anchor_new (id));
-			g_free (id);
-		}
-		
-		if (url != NULL) {
-			g_free (e->url);
-			e->url = url;
-		}
-		if (e->url || e->target) {
-			style = html_style_add_color (style, html_colorset_get_color (e->settings->color_set, HTMLLinkColor));
-			style = html_style_set_decoration (style, GTK_HTML_FONT_STYLE_UNDERLINE);
-		}
-		if (style_attr) {
-			style = html_style_add_attribute (style, style_attr);
-			g_free (style_attr);
-		}
-		push_element (e, ID_A, NULL, style);
-		((HTMLElement *)html_stack_top (e->span_stack))->exitFunc = block_end_anchor;
-	} else if (strncmp (str, "/a", 2) == 0) {
-		pop_element (e, ID_A);
-	}
-}
-
-
-/*
-  <b>              </b>
-  <base
-  <basefont                        unimplemented
-  <big>            </big>
-  <blockquote>     </blockquote>
-  <body
-  <br
-*/
-static void
-parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
-{
-	GdkColor color;
-
-	if (strncmp (str, "basefont", 8) == 0) {
-	} else if ( strncmp(str, "base", 4 ) == 0 ) {
-		html_string_tokenizer_tokenize( e->st, str + 5, " >" );
-		while ( html_string_tokenizer_has_more_tokens (e->st) ) {
-			const char* token = html_string_tokenizer_next_token(e->st);
-			if ( strncasecmp( token, "target=", 7 ) == 0 ) {
-				g_signal_emit (e, signals [SET_BASE_TARGET], 0, token + 7);
-			} else if ( strncasecmp( token, "href=", 5 ) == 0 ) {
-				g_signal_emit (e, signals [SET_BASE], 0, token + 5);
-			}
-		}
-	} else if ( strncmp(str, "big", 3 ) == 0 ) {
-		push_element (e, ID_BIG, NULL, html_style_set_font_size (NULL, GTK_HTML_FONT_STYLE_SIZE_4));
-	} else if ( strncmp(str, "/big", 4 ) == 0 ) {
-		pop_element (e, ID_BIG);
-	} else if ( strncmp(str, "blockquote", 10 ) == 0 ) {
-		gboolean type = HTML_LIST_TYPE_BLOCKQUOTE;
-
-		html_string_tokenizer_tokenize (e->st, str + 11, " >");
-		while (html_string_tokenizer_has_more_tokens (e->st)) {
-		const char *token = html_string_tokenizer_next_token (e->st);
-			if (strncasecmp (token, "type=", 5) == 0) {
-				if (strncasecmp (token + 5, "cite", 5) == 0) {
-					type = HTML_LIST_TYPE_BLOCKQUOTE_CITE;
-				}
-			}	 
-		}
-
-		html_stack_push (e->listStack, html_list_new (type));
-		push_block (e, ID_BLOCKQUOTE, 1, block_end_quote, FALSE, FALSE);
-		e->avoid_para = TRUE;
-		close_flow (e, clue);
-	} else if ( strncmp(str, "/blockquote", 11 ) == 0 ) {
-		pop_element (e, ID_BLOCKQUOTE);
-	} else if (strncmp (str, "body", 4) == 0) {
-		html_string_tokenizer_tokenize (e->st, str + 5, " >");
-		while (html_string_tokenizer_has_more_tokens (e->st)) {
-			gchar *token;
-
-			token = html_string_tokenizer_next_token (e->st);
-			gtk_html_debug_log (e->widget, "token is: %s\n", token);
-
-			if (strncasecmp (token, "bgcolor=", 8) == 0) {
-				gtk_html_debug_log (e->widget, "setting color\n");
-				if (parse_color (token + 8, &color)) {
-					gtk_html_debug_log (e->widget, "bgcolor is set\n");
-					html_colorset_set_color (e->settings->color_set, &color, HTMLBgColor);
-				} else {
-					gtk_html_debug_log (e->widget, "Color `%s' could not be parsed\n", token);
-				}
-			} else if (strncasecmp (token, "background=", 11) == 0
-				   && token [12]
-				   && ! e->defaultSettings->forceDefault) {
-				gchar *bgurl;
-
-				bgurl = g_strdup (token + 11);
-				if (e->bgPixmapPtr != NULL)
-					html_image_factory_unregister(e->image_factory, e->bgPixmapPtr, NULL);
-				e->bgPixmapPtr = html_image_factory_register(e->image_factory, NULL, bgurl, FALSE);
-				g_free (bgurl);
-			} else if ( strncasecmp( token, "text=", 5 ) == 0
-				    && !e->defaultSettings->forceDefault ) {
-				if (parse_color (token + 5, &color)) {
-					html_colorset_set_color (e->settings->color_set, &color, HTMLTextColor);
-					push_element (e, ID_BODY, NULL, 
-						      html_style_add_color (NULL, html_colorset_get_color (e->settings->color_set, HTMLTextColor)));
-				}
-			} else if ( strncasecmp( token, "link=", 5 ) == 0
-				    && !e->defaultSettings->forceDefault ) {
-				parse_color (token + 5, &color);
-				html_colorset_set_color (e->settings->color_set, &color, HTMLLinkColor);
-			} else if ( strncasecmp( token, "vlink=", 6 ) == 0
-				    && !e->defaultSettings->forceDefault ) {
-				parse_color (token + 6, &color);
-				html_colorset_set_color (e->settings->color_set, &color, HTMLVLinkColor);
-			} else if ( strncasecmp( token, "alink=", 6 ) == 0
-				    && !e->defaultSettings->forceDefault ) {
-				parse_color (token + 6, &color);
-				html_colorset_set_color (e->settings->color_set, &color, HTMLALinkColor);
-			} else if ( strncasecmp( token, "leftmargin=", 11 ) == 0) {
-				e->leftBorder = atoi (token + 11);
-			} else if ( strncasecmp( token, "rightmargin=", 12 ) == 0) {
-				e->rightBorder = atoi (token + 12);
-			} else if ( strncasecmp( token, "topmargin=", 10 ) == 0) {
-				e->topBorder = atoi (token + 10);
-			} else if ( strncasecmp( token, "bottommargin=", 13 ) == 0) {
-				e->bottomBorder = atoi (token + 13);
-			} else if ( strncasecmp( token, "marginwidth=", 12 ) == 0) {
-				e->leftBorder = e->rightBorder = atoi (token + 12);
-			} else if ( strncasecmp( token, "marginheight=", 13 ) == 0) {
-				e->topBorder = e->bottomBorder = atoi (token + 13);
-			}
-		}
-
-		gtk_html_debug_log (e->widget, "parsed <body>\n");
-	}
-	else if (strncmp (str, "br", 2) == 0 || strncmp (str, "/br", 3) == 0) {
-		HTMLClearType clear;
-
-		clear = HTML_CLEAR_NONE;
-
-		html_string_tokenizer_tokenize (e->st, str + 3, " >");
-		while (html_string_tokenizer_has_more_tokens (e->st)) {
-			gchar *token = html_string_tokenizer_next_token (e->st);
-			
-			if (strncasecmp (token, "clear=", 6) == 0) {
-				gtk_html_debug_log (e->widget, "%s\n", token);
-				if (strncasecmp (token + 6, "left", 4) == 0)
-					clear = HTML_CLEAR_LEFT;
-				else if (strncasecmp (token + 6, "right", 5) == 0)
-					clear = HTML_CLEAR_RIGHT;
-				else if (strncasecmp (token + 6, "all", 3) == 0)
-					clear = HTML_CLEAR_ALL;
-			}
-		}
-
-		add_line_break (e, clue, clear);
-	} else if (strncmp (str, "b", 1) == 0) {
-		if (str[1] == '>' || str[1] == ' ') {
-			HTMLStyle *style = NULL;
-			style = html_style_set_decoration (style, GTK_HTML_FONT_STYLE_BOLD);
-			
-			html_string_tokenizer_tokenize (e->st, str + 1, " >");
-			while (html_string_tokenizer_has_more_tokens (e->st)) {
-				gchar *token = html_string_tokenizer_next_token (e->st);
-			
-				if (strncasecmp (token, "style=", 6) == 0) {
-					html_style_add_attribute (style, token + 6);
-				}
-			}
-			push_element (e, ID_B, NULL, style);
-		}
-	} else if (strncmp (str, "/b", 2) == 0) {
-		pop_element (e, ID_B);
-	}
-}
-
-
-/*
-  <center>         </center>
-  <cite>           </cite>
-  <code>           </code>
-  <cell>           </cell>
-  <comment>        </comment>      unimplemented
-*/
-static void
-parse_c (HTMLEngine *e, HTMLObject *clue, const gchar *str)
-{
-	if (strncmp (str, "center", 6) == 0) {
-		HTMLStyle *style = NULL;
-
-		style = html_style_add_text_align (style, HTML_HALIGN_CENTER);
-		push_block_element (e, ID_CENTER, style, 1, block_end_div, 0, FALSE);
-		
-		update_flow_align (e, clue);
-	} else if (strncmp (str, "/center", 7) == 0) {
-		pop_element (e, ID_CENTER);
-	} else if (strncmp (str, "caption", 7) == 0) {
-		HTMLTable *table = html_stack_top (e->table_stack);
-		HTMLStyle *style = NULL;
-		HTMLClueV *caption;
-		HTMLVAlignType capAlign = HTML_VALIGN_MIDDLE;
-
-		/* CAPTIONS are all wrong they don't even get render */
-		/* Make sure this is a valid position for a caption */
-		if (!table)
-			return;
-		
-		pop_element (e, ID_TR);
-		pop_element (e, ID_CAPTION);
-		
-		html_string_tokenizer_tokenize( e->st, str + 7, " >" );
-		while ( html_string_tokenizer_has_more_tokens (e->st) ) {
-			const char* token = html_string_tokenizer_next_token(e->st);
-			if ( strncasecmp( token, "align=", 6 ) == 0) {
-				if ( strncasecmp( token+6, "top", 3 ) == 0)
-					capAlign = HTML_VALIGN_TOP;
-			}
-		}
-		
-		caption = HTML_CLUEV (html_cluev_new (0, 0, 100));
-					
-		
-		e->flow = 0;
-		
-		style = html_style_add_text_align (style, HTML_HALIGN_CENTER);
-
-		push_clue (e, HTML_OBJECT (caption));
-		push_block_element (e, ID_CAPTION, style, 3, block_end_cell, 0, 0);
-		
-		table->caption = caption;
-		//FIXME caption alignment should be based on the flow.... or something.... 
-		table->capAlign = capAlign;		
-	} else if (strncmp (str, "/caption", 8) == 0) {
-		pop_element (e, ID_CAPTION);
-	} else if (strncmp( str, "cite", 4 ) == 0) {
-		push_element (e, ID_CITE, NULL, 
-			      html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_ITALIC | GTK_HTML_FONT_STYLE_BOLD));
-	} else if (strncmp( str, "/cite", 5) == 0) {
-		pop_element (e, ID_CITE);
-	} else if (strncmp(str, "code", 4 ) == 0 ) {
-		push_element (e, ID_CODE, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_FIXED));
-	} else if (strncmp(str, "/code", 5 ) == 0 ) {
-		pop_element (e, ID_CODE);
-	}
-}
-
-
-/*
-  <dir             </dir>          partial
-  <div             </div>
-  <dl>             </dl>
-  <dt>             </dt>
-  <data>           </data>
-*/
-/* EP CHECK: dir might be wrong.  */
-static void
-parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
-{
-	if ( strncmp( str, "dir", 3 ) == 0 ) {
-		pop_element (e, ID_LI);
-		finish_flow (e, _clue);
-
-		push_block (e, ID_DIR, 1, block_end_list, FALSE, FALSE);
-		html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_DIR));
-
-		/* FIXME shouldn't it create a new flow? */
-	} else if ( strncmp( str, "/dir", 4 ) == 0 ) {
-		pop_element (e, ID_DIR);
-	} else if ( strncmp( str, "div", 3 ) == 0 ) {
-		HTMLStyle *style = NULL;
-
-		html_string_tokenizer_tokenize (e->st, str + 4, " >");
-		while (html_string_tokenizer_has_more_tokens (e->st)) {
-			const char* token = html_string_tokenizer_next_token (e->st);
-			if (strncasecmp (token, "align=", 6 ) == 0) {
-				style = html_style_add_text_align (style, parse_halign (token + 6, HTML_HALIGN_NONE));
-			}
-		}
-
-		push_block_element (e, ID_DIV, style, 1, block_end_div, 0, 0);
-		update_flow_align (e, _clue);
-	} else if ( strncmp( str, "/div", 4 ) == 0 ) {
-		pop_element (e, ID_DIV);
-	} else if ( strncmp( str, "dl", 2 ) == 0 ) {
-		close_flow (e, _clue);
-
-		push_block (e, ID_DL, 1, block_end_list, FALSE, FALSE);
-		html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_GLOSSARY_DL));
-	} else if ( strncmp( str, "/dl", 3 ) == 0 ) {
-		pop_element (e, ID_DL);
-	} else if (strncmp( str, "dt", 2 ) == 0) {
-		pop_element (e, ID_DT);
-		pop_element (e, ID_DD);
-
-		close_flow (e, _clue);
-		
-		/* FIXME this should set the item flag */
-		push_block (e, ID_DT, 1, block_end_item, FALSE, FALSE);		
-	} else if (strncmp(str, "/dt", 3) == 0) {
-		pop_element (e, ID_DT);
-	} else if (strncmp(str, "dd", 2 ) == 0) {
-		pop_element (e, ID_DT);
-		pop_element (e, ID_DD);
-
-		close_flow (e, _clue);
-
-		push_block (e, ID_DD, 1, block_end_glossary, FALSE, FALSE);
-		html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_GLOSSARY_DD));
-	} else if (strncmp(str, "/dd", 3) == 0) {
-		pop_element (e, ID_DD);
-	} else if (strncmp (str, "data ", 5) == 0) {
-		gchar *key = NULL;
-		gchar *class_name = NULL;
-
-		html_string_tokenizer_tokenize (e->st, str + 5, " >" );
-		while (html_string_tokenizer_has_more_tokens (e->st)) {
-			const gchar *token = html_string_tokenizer_next_token (e->st);
-			if (strncasecmp (token, "class=", 6 ) == 0) {
-				g_free (class_name);
-				class_name = g_strdup (token + 6);
-			} else if (strncasecmp (token, "key=", 4 ) == 0) {
-				g_free (key);
-				key = g_strdup (token + 4);
-			} else if (class_name && key && strncasecmp (token, "value=", 6) == 0) {
-				if (class_name) {
-					html_engine_set_class_data (e, class_name, key, token + 6);
-					if (!strcmp (class_name, "ClueFlow") && e->flow)
-						html_engine_set_object_data (e, e->flow);
-				}
-			} else if (strncasecmp (token, "clear=", 6) == 0)
-				if (class_name)
-					html_engine_clear_class_data (e, class_name, token + 6);
-			/* TODO clear flow data */
-		}
-		g_free (class_name);
-		g_free (key);
-	}
-}
-
-
-/*
-  <em>             </em>
-*/
-static void
-parse_e (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
-{
-	if (strncmp(str, "em", 2 ) == 0) {
-		push_element (e, ID_EM, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_ITALIC));
-	} else if (strncmp(str, "/em", 3 ) == 0) {
-		pop_element (e, ID_EM);
-	}
-}
-
-static void
-form_begin (HTMLEngine *e, HTMLObject *clue, gchar *action, gchar *method, gboolean close_paragraph)
-{
-	e->form = html_form_new (e, action, method);
-	e->formList = g_list_append (e->formList, e->form);
-
-	if (! e->avoid_para && close_paragraph) {
-		if (e->flow && HTML_CLUE (e->flow)->head)
-			close_flow (e, clue);
-		e->avoid_para = FALSE;
-	}
-}
-
-static void
-block_end_form (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
-{
-	e->form = NULL;
-
-	if (!e->avoid_para && elem && elem->miscData1) {
-		close_flow (e, clue);
-	}
-}
-
-/*
-  <font>           </font>
-  <form>           </form>         partial
-  <frame           <frame>
-  <frameset        </frameset>
-*/
-static void
-parse_f (HTMLEngine *e, HTMLObject *clue, const gchar *str)
-{
-	if (strncmp (str, "font", 4) == 0) {
-		GdkColor *color;
-		HTMLColor *html_color = NULL;
-		const HTMLFontFace *face = NULL;
-		HTMLStyle *style = NULL;
-
-		/* The GdkColor API is not const safe!  */
-		color = gdk_color_copy ((GdkColor *) current_color (e));
-
-		html_string_tokenizer_tokenize (e->st, str + 5, " >");
-
-		while (html_string_tokenizer_has_more_tokens (e->st)) {
-			const gchar *token = html_string_tokenizer_next_token (e->st);
-			if (strncasecmp (token, "size=", 5) == 0) {
-				gint size = atoi (token + 5);
-
-				/* FIXME implement basefont */
-				if (*(token + 5) == '+' || *(token + 5) == '-')
-					size += GTK_HTML_FONT_STYLE_SIZE_3;
-
-				CLAMP (size, GTK_HTML_FONT_STYLE_SIZE_1, GTK_HTML_FONT_STYLE_SIZE_MAX);
-
-				style = html_style_set_font_size (style, size);
-			} else if (strncasecmp (token, "face=", 5) == 0) {
-				style = html_style_add_font_face (style, token + 5);
-			} else if (strncasecmp (token, "color=", 6) == 0) {
-				if (parse_color (token + 6, color)) {
-					html_color = html_color_new_from_gdk_color (color);
-					style = html_style_add_color (style, html_color);
-					html_color_unref (html_color);
-				}
-			}
-		}
-
-		push_element (e, ID_FONT, NULL, style);
-	} else if (strncmp (str, "/font", 5) == 0) {
-		pop_element (e, ID_FONT);
-	} else if (strncmp (str, "form", 4) == 0) {
-                gchar *action = NULL;
-                gchar *method = "GET";
-                gchar *target = NULL;
-
- 		html_string_tokenizer_tokenize (e->st, str + 5, " >");
-		while (html_string_tokenizer_has_more_tokens (e->st)) {
-			const gchar *token = html_string_tokenizer_next_token (e->st);
-
-                        if ( strncasecmp( token, "action=", 7 ) == 0 ) {
-                                action = g_strdup (token + 7);
-                        } else if ( strncasecmp( token, "method=", 7 ) == 0 ) {
-                                if ( strncasecmp( token + 7, "post", 4 ) == 0 )
-                                        method = "POST";
-                        } else if ( strncasecmp( token, "target=", 7 ) == 0 ) {
-				target = g_strdup(token + 7);
-                        }
-                }
-
-		form_begin (e, clue, action, method, TRUE);
-		g_free(action);
-		g_free(target);
-
-		push_block (e, ID_FORM, 1, block_end_form, TRUE, 0);
-	} else if (strncmp (str, "/form", 5) == 0) {
-		pop_element (e, ID_FORM);
-	} else if (strncmp (str, "frameset", 8) == 0) {
-		if (e->allow_frameset)
-			parse_frameset (e, clue, clue->max_width, str + 8);
-	} else if (strncasecmp (str, "/frameset", 9) == 0) {
-		if (!html_stack_is_empty (e->frame_stack))
-			html_stack_pop (e->frame_stack);
-	} else if (strncasecmp (str, "frame", 5) == 0) {
-		char *src = NULL;
-		HTMLObject *frame = NULL;
-		gint margin_height = -1;
-		gint margin_width = -1;
-		GtkPolicyType scroll = GTK_POLICY_AUTOMATIC;
-
-		if (!e->allow_frameset)
-			return;
-
-		src = NULL;
-		html_string_tokenizer_tokenize (e->st, str + 5, " >");
-		
-		while (html_string_tokenizer_has_more_tokens (e->st)) {
-			const gchar *token = html_string_tokenizer_next_token (e->st);
-			
-			if (strncasecmp (token, "src=", 4) == 0) {
-				src = g_strdup (token + 4);
-			} else if (strncasecmp (token, "noresize", 8) == 0) {
-			} else if (strncasecmp (token, "frameborder=", 12) == 0) {
-			} else if (strncasecmp (token, "border=", 7) == 0) {
-				/*
-				 * Netscape and Mozilla recognize this to turn of all the between
-				 * frame decoration.
-				 */
-			} else if (strncasecmp(token, "marginwidth=", 12) == 0) {
-				margin_width = atoi (token + 12);
-			} else if (strncasecmp(token, "marginheight=", 13) == 0) {
-				margin_height = atoi (token + 13);
-			} else if (strncasecmp(token, "scrolling=", 10) == 0) {
-				scroll = parse_scroll (token + 10);
-			}
-		}
-		
-		frame = html_frame_new (GTK_WIDGET (e->widget), src, -1 , -1, FALSE);
-		if (!html_frameset_append (html_stack_top (e->frame_stack), frame))
-			html_object_destroy (frame);
-		
-		if (margin_height > 0)
-			html_frame_set_margin_height (HTML_FRAME (frame), margin_height);
-		if (margin_width > 0)
-			html_frame_set_margin_width (HTML_FRAME (frame), margin_width);
-		if (scroll != GTK_POLICY_AUTOMATIC)
-			html_frame_set_scrolling (HTML_FRAME (frame), scroll);
-
-		g_free (src);
 	}
 	
+	frame = html_frame_new (GTK_WIDGET (e->widget), src, -1 , -1, FALSE);
+	if (!html_frameset_append (html_stack_top (e->frame_stack), frame))
+		html_object_destroy (frame);
+	
+	if (margin_height > 0)
+		html_frame_set_margin_height (HTML_FRAME (frame), margin_height);
+	if (margin_width > 0)
+		html_frame_set_margin_width (HTML_FRAME (frame), margin_width);
+	if (scroll != GTK_POLICY_AUTOMATIC)
+		html_frame_set_scrolling (HTML_FRAME (frame), scroll);
+	
+	g_free (src);
 }
 
 
-/*
-  <h[1-6]>         </h[1-6]>
-  <hr
-*/
 static void
-parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
+element_parse_hr (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	if (*str == 'h'
-	    && (str[1] >= '1' && str[1] <= '6')) {
-		HTMLClueFlowStyle fstyle;
-		HTMLStyle *style = NULL;
-
-		pop_element (p, ID_HEADING);
-
-		fstyle = HTML_CLUEFLOW_STYLE_H1 + (str[1] - '1');
-		style = html_style_set_decoration (style, GTK_HTML_FONT_STYLE_BOLD);
-		switch (fstyle) {
-		case HTML_CLUEFLOW_STYLE_H6:
-			html_style_set_font_size (style, GTK_HTML_FONT_STYLE_SIZE_1);
-			break;
-		case HTML_CLUEFLOW_STYLE_H5:
-			html_style_set_font_size (style, GTK_HTML_FONT_STYLE_SIZE_2);
-			break;
-		case HTML_CLUEFLOW_STYLE_H4:
-			html_style_set_font_size (style, GTK_HTML_FONT_STYLE_SIZE_3);
-			break;
-		case HTML_CLUEFLOW_STYLE_H3:
-			html_style_set_font_size (style, GTK_HTML_FONT_STYLE_SIZE_4);
-			break;
-		case HTML_CLUEFLOW_STYLE_H2:
-			html_style_set_font_size (style, GTK_HTML_FONT_STYLE_SIZE_5);
-			break;
-		case HTML_CLUEFLOW_STYLE_H1:
-			html_style_set_font_size (style, GTK_HTML_FONT_STYLE_SIZE_6);
-			break;
-		default:
-			break;
+	gint size = 2;
+	gint length = clue->max_width;
+	gint percent = 100;
+	HTMLHAlignType align = HTML_HALIGN_CENTER;
+	gboolean shade = TRUE;
+	
+	html_string_tokenizer_tokenize (e->st, str + 3, " >");
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
+		gchar *token = html_string_tokenizer_next_token (e->st);
+		if (strncasecmp (token, "align=", 6) == 0) {
+			align = parse_halign (token + 6, align);
 		}
-
-		html_string_tokenizer_tokenize (p->st, str + 3, " >");
-		while (html_string_tokenizer_has_more_tokens (p->st)) {
-			gchar *token;
-
-			token = html_string_tokenizer_next_token (p->st);
-			if (strncasecmp (token, "align=", 6) == 0) {
-				style = html_style_add_text_align (style, parse_halign (token + 6, HTML_HALIGN_NONE));
-				//align = parse_halign (token + 6, align);
-			} else if (strncasecmp (token, "style=", 6) == 0) {
-				style = html_style_add_attribute (style, token + 6);
+		else if (strncasecmp (token, "size=", 5) == 0) {
+			size = atoi (token + 5);
+		}
+		else if (strncasecmp (token, "width=", 6) == 0) {
+			if (strchr (token + 6, '%'))
+				percent = atoi (token + 6);
+			else if (isdigit (*(token + 6))) {
+				length = atoi (token + 6);
+				percent = 0;
 			}
 		}
-		
-		push_clueflow_style (p, fstyle);
-		close_flow (p, clue);
-
-		push_block_element (p, ID_HEADING, style, 1, block_end_heading, 0, 0);
-
-		p->avoid_para = TRUE;
-	} else if (*(str) == '/' && *(str + 1) == 'h'
-		   && (*(str + 2) >= '1' && *(str + 2) <= '6')) {
-		pop_element (p, ID_HEADING);
+		else if (strncasecmp (token, "noshade", 7) == 0) {
+			shade = FALSE;
+		}
 	}
-	else if (strncmp (str, "hr", 2) == 0) {
-		gint size = 2;
-		gint length = clue->max_width;
-		gint percent = 100;
-		HTMLHAlignType align = HTML_HALIGN_CENTER;
-		gboolean shade = TRUE;
-
-		html_string_tokenizer_tokenize (p->st, str + 3, " >");
-		while (html_string_tokenizer_has_more_tokens (p->st)) {
-			gchar *token = html_string_tokenizer_next_token (p->st);
-			if (strncasecmp (token, "align=", 6) == 0) {
-				align = parse_halign (token + 6, align);
-			}
-			else if (strncasecmp (token, "size=", 5) == 0) {
-				size = atoi (token + 5);
-			}
-			else if (strncasecmp (token, "width=", 6) == 0) {
-				if (strchr (token + 6, '%'))
-					percent = atoi (token + 6);
-				else if (isdigit (*(token + 6))) {
-					length = atoi (token + 6);
-					percent = 0;
-				}
-			}
-			else if (strncasecmp (token, "noshade", 7) == 0) {
-				shade = FALSE;
-			}
-		}
-		
-		append_element (p, clue, html_rule_new (length, percent, size, shade, align));
-		close_flow (p, clue);
-	}
+	
+	pop_element (e, ID_P);
+	append_element (e, clue, html_rule_new (length, percent, size, shade, align));
+	close_flow (e, clue);
 }
 
-
-/*
-  <i>              </i>
-  <img                             partial
-  <input                           partial
-  <iframe                          partial
-*/
 static void
-parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
+element_end_heading (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	if (strncmp (str, "img", 3) == 0) {
-		HTMLObject *image = 0;
-		HTMLHAlignType align = HTML_HALIGN_NONE;
-		HTMLVAlignType valign = HTML_VALIGN_NONE;
-		HTMLColor *color = NULL;
-		gchar *token = 0; 
-		gchar *tmpurl = NULL;
-		gchar *mapname = NULL;
-		gchar *id = NULL;
-		gchar *alt = NULL;
-		gint width = -1;
-		gint height = -1;
-		gint border = 0;
-		gint hspace = 0;
-		gint vspace = 0;
-		gboolean percent_width  = FALSE;
-		gboolean percent_height = FALSE;
-		gboolean ismap = FALSE;
-		color        = current_color (e);
-		if (e->url != NULL || e->target != NULL)
-			border = 2;
+	pop_element (e, "h1");
+	pop_element (e, "h2");
+	pop_element (e, "h3");
+	pop_element (e, "h4");
+	pop_element (e, "h5");
+	pop_element (e, "h6");
+}
 
-		if (e->url != NULL || e->target != NULL)
-			border = 2;
+static void
+element_parse_heading (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	HTMLClueFlowStyle fstyle;
+	HTMLStyle *style = NULL;
+	
+	element_end_heading (e, clue, str);
 
-		html_string_tokenizer_tokenize (e->st, str + 4, " >");
-		while (html_string_tokenizer_has_more_tokens (e->st)) {
-			token = html_string_tokenizer_next_token (e->st);
-			if (strncasecmp (token, "src=", 4) == 0) {
-				tmpurl = g_strdup (token + 4);
-			} else if (strncasecmp (token, "width=", 6) == 0) {
-				if (isdigit (*(token + 6)))
-					width = atoi (token + 6);
-				percent_width = strchr (token + 6, '%') ? TRUE : FALSE;
-			} else if (strncasecmp (token, "height=", 7) == 0) {
-				if (isdigit (*(token + 7)))
-					height = atoi (token + 7);
-				percent_height = strchr (token + 7, '%') ? TRUE : FALSE;
-			} else if (strncasecmp (token, "border=", 7) == 0) {
-				border = atoi (token + 7);
-			} else if (strncasecmp (token, "hspace=", 7) == 0) {
-				hspace = atoi (token + 7);
-			} else if (strncasecmp (token, "vspace=", 7) == 0) {
+	fstyle = HTML_CLUEFLOW_STYLE_H1 + (str[1] - '1');
+	style = html_style_set_decoration (style, GTK_HTML_FONT_STYLE_BOLD);
+	switch (fstyle) {
+	case HTML_CLUEFLOW_STYLE_H6:
+		html_style_set_font_size (style, GTK_HTML_FONT_STYLE_SIZE_1);
+		break;
+	case HTML_CLUEFLOW_STYLE_H5:
+		html_style_set_font_size (style, GTK_HTML_FONT_STYLE_SIZE_2);
+		break;
+	case HTML_CLUEFLOW_STYLE_H4:
+		html_style_set_font_size (style, GTK_HTML_FONT_STYLE_SIZE_3);
+		break;
+	case HTML_CLUEFLOW_STYLE_H3:
+		html_style_set_font_size (style, GTK_HTML_FONT_STYLE_SIZE_4);
+		break;
+	case HTML_CLUEFLOW_STYLE_H2:
+		html_style_set_font_size (style, GTK_HTML_FONT_STYLE_SIZE_5);
+		break;
+	case HTML_CLUEFLOW_STYLE_H1:
+		html_style_set_font_size (style, GTK_HTML_FONT_STYLE_SIZE_6);
+		break;
+	default:
+		break;
+	}
+	
+	html_string_tokenizer_tokenize (e->st, str + 3, " >");
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
+		gchar *token;
+		
+		token = html_string_tokenizer_next_token (e->st);
+		if (strncasecmp (token, "align=", 6) == 0) {
+			style = html_style_add_text_align (style, parse_halign (token + 6, HTML_HALIGN_NONE));
+			//align = parse_halign (token + 6, align);
+		} else if (strncasecmp (token, "style=", 6) == 0) {
+			style = html_style_add_attribute (style, token + 6);
+		}
+	}
+	
+	/* FIXME this is temporary until the paring can be moved.*/
+	{
+		char *name = parse_element_name (str);
+		push_block_element (e, name, style, 1, block_end_heading, 0, 0);
+		g_free (name);
+	}
+	push_clueflow_style (e, fstyle);	
+	close_flow (e, clue);
+
+	e->avoid_para = TRUE;
+}
+
+static void
+element_parse_img (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	HTMLObject *image = 0;
+	HTMLHAlignType align = HTML_HALIGN_NONE;
+	HTMLVAlignType valign = HTML_VALIGN_NONE;
+	HTMLColor *color = NULL;
+	gchar *token = 0; 
+	gchar *tmpurl = NULL;
+	gchar *mapname = NULL;
+	gchar *id = NULL;
+	gchar *alt = NULL;
+	gint width = -1;
+	gint height = -1;
+	gint border = 0;
+	gint hspace = 0;
+	gint vspace = 0;
+	gboolean percent_width  = FALSE;
+	gboolean percent_height = FALSE;
+	gboolean ismap = FALSE;
+	color        = current_color (e);
+	if (e->url != NULL || e->target != NULL)
+		border = 2;
+
+	if (e->url != NULL || e->target != NULL)
+		border = 2;
+	
+	html_string_tokenizer_tokenize (e->st, str + 4, " >");
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
+		token = html_string_tokenizer_next_token (e->st);
+		if (strncasecmp (token, "src=", 4) == 0) {
+			tmpurl = g_strdup (token + 4);
+		} else if (strncasecmp (token, "width=", 6) == 0) {
+			if (isdigit (*(token + 6)))
+				width = atoi (token + 6);
+			percent_width = strchr (token + 6, '%') ? TRUE : FALSE;
+		} else if (strncasecmp (token, "height=", 7) == 0) {
+			if (isdigit (*(token + 7)))
+				height = atoi (token + 7);
+			percent_height = strchr (token + 7, '%') ? TRUE : FALSE;
+		} else if (strncasecmp (token, "border=", 7) == 0) {
+			border = atoi (token + 7);
+		} else if (strncasecmp (token, "hspace=", 7) == 0) {
+			hspace = atoi (token + 7);
+		} else if (strncasecmp (token, "vspace=", 7) == 0) {
 				vspace = atoi (token + 7);
-			} else if (strncasecmp (token, "align=", 6) == 0) {
-				if (strcasecmp (token + 6, "left") == 0)					align = HTML_HALIGN_LEFT;
-				else if (strcasecmp (token + 6, "right") == 0)
-					align = HTML_HALIGN_RIGHT;
-				else if (strcasecmp (token + 6, "top") == 0)
-					valign = HTML_VALIGN_TOP;
-				else if (strcasecmp (token + 6, "middle") == 0)
-					valign = HTML_VALIGN_MIDDLE;
-				else if (strcasecmp (token + 6, "bottom") ==0)
-					valign = HTML_VALIGN_BOTTOM;
-			} else if (strncasecmp (token, "id=", 3) == 0) {
-				id = token + 3;
-			} else if (strncasecmp (token, "alt=", 4) == 0) {
-				alt = g_strdup (token + 4);
-			} else if (strncasecmp (token, "usemap=", 7) == 0) {
-				mapname = g_strdup (token + 7);
-			} else if (strncasecmp (token, "ismap", 5) == 0) {
-				ismap = TRUE;
-			}
-		}
-
-		/* FIXME fixup missing url */
-		if (tmpurl != 0) {
-			if (align != HTML_HALIGN_NONE)
+		} else if (strncasecmp (token, "align=", 6) == 0) {
+			if (strcasecmp (token + 6, "left") == 0)
+				align = HTML_HALIGN_LEFT;
+			else if (strcasecmp (token + 6, "right") == 0)
+				align = HTML_HALIGN_RIGHT;
+			else if (strcasecmp (token + 6, "top") == 0)
+				valign = HTML_VALIGN_TOP;
+			else if (strcasecmp (token + 6, "middle") == 0)
+				valign = HTML_VALIGN_MIDDLE;
+			else if (strcasecmp (token + 6, "bottom") ==0)
 				valign = HTML_VALIGN_BOTTOM;
-			else if (valign == HTML_VALIGN_NONE)
-				valign = HTML_VALIGN_BOTTOM;
-
-			image = html_image_new (e->image_factory, tmpurl,
-						e->url, e->target,
-						width, height,
-						percent_width, percent_height, border, color, valign, FALSE);
-
-			if (id) {
-				html_engine_add_object_with_id (e, id, (HTMLObject *) image);
-			}
-
-			if (hspace < 0)
-				hspace = 0;
-			if (vspace < 0)
-				vspace = 0;
-
-			html_image_set_spacing (HTML_IMAGE (image), hspace, vspace);
-			
-			if (alt) {
-				html_image_set_alt (HTML_IMAGE (image), alt);
-				g_free (alt);
-			}
-			
-			html_image_set_map (HTML_IMAGE (image), mapname, ismap);
-
-			g_free (tmpurl);
-			g_free (mapname);
-				
-			if (align == HTML_HALIGN_NONE) {
-				append_element (e, _clue, image);
-			} else {
-				/* We need to put the image in a HTMLClueAligned.  */
-				/* Man, this is *so* gross.  */
-				HTMLClueAligned *aligned = HTML_CLUEALIGNED (html_cluealigned_new (NULL, 0, 0, _clue->max_width, 100));
-				HTML_CLUE (aligned)->halign = align;
-				html_clue_append (HTML_CLUE (aligned), HTML_OBJECT (image));
-				append_element (e, _clue, HTML_OBJECT (aligned));
-			}
-		}		       
-	} else if (strncmp( str, "input", 5 ) == 0) {
-		gboolean fix_form = FALSE;
-
-		if (e->form == NULL) {
-			fix_form = TRUE;
-			form_begin (e, _clue, NULL, "GET", FALSE);
-		}		
-
-		parse_input (e, str + 6, _clue );
-
-		if (fix_form) {
-			block_end_form (e, _clue, NULL);
+		} else if (strncasecmp (token, "id=", 3) == 0) {
+			id = token + 3;
+		} else if (strncasecmp (token, "alt=", 4) == 0) {
+			alt = g_strdup (token + 4);
+		} else if (strncasecmp (token, "usemap=", 7) == 0) {
+			mapname = g_strdup (token + 7);
+		} else if (strncasecmp (token, "ismap", 5) == 0) {
+			ismap = TRUE;
 		}
-	} else if (strncmp( str, "iframe", 6) == 0) {
-		parse_iframe (e, str + 7, _clue);
-	} else if ( strncmp (str, "i", 1 ) == 0 ) {
-		if ( str[1] == '>' || str[1] == ' ' ) {
-			HTMLStyle *style = NULL;
-			gchar *token = 0; 
-			gchar *id;
-			
-			style = html_style_set_decoration (style, GTK_HTML_FONT_STYLE_ITALIC);
-			
-			html_string_tokenizer_tokenize (e->st, str + 1, " >");
-			while (html_string_tokenizer_has_more_tokens (e->st)) {
-				token = html_string_tokenizer_next_token (e->st);
-				if (strncasecmp (token, "style=", 6) == 0) {
-					style = html_style_add_attribute (style, token + 6);
-				} else if (strncasecmp (token, "id=", 3) == 0) {
-					id = token + 3;
-				}
-			}
-			push_element (e, ID_I, NULL, style);
-		}
-	} else if ( strncmp( str, "/i", 2 ) == 0 ) {
-		pop_element (e, ID_I);
 	}
+	
+	/* FIXME fixup missing url */
+	if (tmpurl != 0) {
+		if (align != HTML_HALIGN_NONE)
+			valign = HTML_VALIGN_BOTTOM;
+		else if (valign == HTML_VALIGN_NONE)
+			valign = HTML_VALIGN_BOTTOM;
+		
+		image = html_image_new (e->image_factory, tmpurl,
+					e->url, e->target,
+					width, height,
+					percent_width, percent_height, border, color, valign, FALSE);
+		
+		if (id) {
+			html_engine_add_object_with_id (e, id, (HTMLObject *) image);
+		}
+		
+		if (hspace < 0)
+			hspace = 0;
+		if (vspace < 0)
+			vspace = 0;
+		
+		html_image_set_spacing (HTML_IMAGE (image), hspace, vspace);
+		
+		if (alt) {
+			html_image_set_alt (HTML_IMAGE (image), alt);
+			g_free (alt);
+		}
+		
+		html_image_set_map (HTML_IMAGE (image), mapname, ismap);
+		
+		g_free (tmpurl);
+		g_free (mapname);
+		
+		if (align == HTML_HALIGN_NONE) {
+			append_element (e, clue, image);
+		} else {
+			/* We need to put the image in a HTMLClueAligned.  */
+			/* Man, this is *so* gross.  */
+			HTMLClueAligned *aligned = HTML_CLUEALIGNED (html_cluealigned_new (NULL, 0, 0, clue->max_width, 100));
+			HTML_CLUE (aligned)->halign = align;
+			html_clue_append (HTML_CLUE (aligned), HTML_OBJECT (image));
+			append_element (e, clue, HTML_OBJECT (aligned));
+		}
+	}		       
+}
+
+static void
+element_parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
+{
+	
+	HTMLStyle *style = NULL;
+	gchar *token = 0; 
+	gchar *id;
+	
+	style = html_style_set_decoration (style, GTK_HTML_FONT_STYLE_ITALIC);
+	
+	html_string_tokenizer_tokenize (e->st, str + 1, " >");
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
+		token = html_string_tokenizer_next_token (e->st);
+		if (strncasecmp (token, "style=", 6) == 0) {
+			style = html_style_add_attribute (style, token + 6);
+		} else if (strncasecmp (token, "id=", 3) == 0) {
+			id = token + 3;
+		}
+	}
+	push_element (e, ID_I, NULL, style);
 }
 
 
-/*
-  <kbd>            </kbd>
-*/
 static void
-parse_k (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
+element_parse_meta (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	if ( strncmp(str, "kbd", 3 ) == 0 ) {
-		push_element (e, ID_KBD, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_FIXED));
-	} else if ( strncmp(str, "/kbd", 4 ) == 0 ) {
-		pop_element (e, ID_KBD);
+	int refresh = 0;
+	int refresh_delay = 0;
+	gchar *refresh_url = NULL;
+	
+	html_string_tokenizer_tokenize( e->st, str + 5, " >" );
+	while ( html_string_tokenizer_has_more_tokens (e->st) ) {
+
+		const gchar* token = html_string_tokenizer_next_token(e->st);
+		if ( strncasecmp( token, "http-equiv=", 11 ) == 0 ) {
+			if ( strncasecmp( token + 11, "refresh", 7 ) == 0 )
+				refresh = 1;
+		} else if ( strncasecmp( token, "content=", 8 ) == 0 ) {
+			if (refresh) {
+				const gchar *content;
+				content = token + 8;
+				
+				/* The time in seconds until the refresh */
+				refresh_delay = atoi(content);
+				
+				html_string_tokenizer_tokenize(e->st, content, ",;> ");
+				while ( html_string_tokenizer_has_more_tokens (e->st) ) {
+					const gchar* token = html_string_tokenizer_next_token(e->st);
+					if ( strncasecmp( token, "url=", 4 ) == 0 )
+						refresh_url = g_strdup (token + 4);
+				}
+				
+				g_signal_emit (e, signals [REDIRECT], 0, refresh_url, refresh_delay);
+				if(refresh_url)
+					g_free(refresh_url);
+			}
+		}
 	}
 }
 
+static void
+element_parse_map (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	pop_element (e, ID_MAP);
+	
+	html_string_tokenizer_tokenize (e->st, str + 3, " >");
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
+		const char* token = html_string_tokenizer_next_token (e->st);
+		if (strncasecmp (token, "name=", 5) == 0) {
+			const char *name = token + 5;
+			
+			html_engine_add_map (e, name);
+		}
+	}
+	/* FIXME map nesting */
+	push_block (e, ID_MAP, 0, block_end_map, FALSE, FALSE);
+}
+
+
+/* list parsers */
 static HTMLListType
 get_list_type (gchar c)
 {
@@ -2609,216 +2545,209 @@ get_list_type (gchar c)
 	}
 }
 
-/*
-  <listing   unimplemented.
-  <link      unimpemented.
-  <li>
-  </li>
-*/
 static void
-parse_l (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+element_parse_li (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	if (strncmp (str, "link", 4) == 0) {
-	} else if (strncmp (str, "li", 2) == 0) {
-		HTMLListType listType;
-		gint listLevel;
-		gint itemNumber;
+	HTMLListType listType;
+	gint listLevel;
+	gint itemNumber;
+	
+	listType = HTML_LIST_TYPE_UNORDERED;
+	listLevel = 1;
+	itemNumber = 1;
+	
+	pop_element (e, ID_LI);
+	
+	if (!html_stack_is_empty (e->listStack)) {
+		HTMLList *top;
 		
-		listType = HTML_LIST_TYPE_UNORDERED;
-		listLevel = 1;
-		itemNumber = 1;
+		top = html_stack_top (e->listStack);
 		
-		pop_element (e, ID_LI);
-
-		if (!html_stack_is_empty (e->listStack)) {
-			HTMLList *top;
-			
-			top = html_stack_top (e->listStack);
-			
-			listType = top->type;
-			itemNumber = top->itemNumber;
-		}
-
-		html_string_tokenizer_tokenize (e->st, str + 3, " >");
-		while (html_string_tokenizer_has_more_tokens (e->st)) {
-			const gchar *token = html_string_tokenizer_next_token (e->st);
-
-			if (!strncasecmp (token, "value=", 6))
-				itemNumber = atoi (token + 6);
-			else if (!strncasecmp (token, "type=", 5))
-				listType = get_list_type (token [5]);
-		}
-
-		if (!html_stack_is_empty (e->listStack)) {
-			HTMLList *list;
-
-			list = html_stack_top (e->listStack);
-			list->itemNumber = itemNumber + 1;
-		}
-
- 		e->flow = flow_new (e, HTML_CLUEFLOW_STYLE_LIST_ITEM, listType, itemNumber, HTML_CLEAR_NONE);
-		html_clueflow_set_item_color (HTML_CLUEFLOW (e->flow), current_color (e));
-
-		html_clue_append (HTML_CLUE (clue), e->flow);
-		e->avoid_para = TRUE;
-		push_block (e, ID_LI, 1, block_end_item, FALSE, FALSE);
-	} else if (strncmp (str, "/li", 3) == 0) {
-		pop_element (e, ID_LI);
+		listType = top->type;
+		itemNumber = top->itemNumber;
 	}
-}
-
-/*
- <meta
- <map
- </map
-*/
-
-static void
-parse_m (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
-{
-	if (strncmp (str, "meta", 4) == 0) {
-		int refresh = 0;
-		int refresh_delay = 0;
-		gchar *refresh_url = NULL;
+	
+	html_string_tokenizer_tokenize (e->st, str + 3, " >");
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
+		const gchar *token = html_string_tokenizer_next_token (e->st);
 		
-		html_string_tokenizer_tokenize( e->st, str + 5, " >" );
-		while ( html_string_tokenizer_has_more_tokens (e->st) ) {
-
-			const gchar* token = html_string_tokenizer_next_token(e->st);
-			if ( strncasecmp( token, "http-equiv=", 11 ) == 0 ) {
-				if ( strncasecmp( token + 11, "refresh", 7 ) == 0 )
-					refresh = 1;
-			} else if ( strncasecmp( token, "content=", 8 ) == 0 ) {
-				if (refresh) {
-					const gchar *content;
-					content = token + 8;
-
-					/* The time in seconds until the refresh */
-					refresh_delay = atoi(content);
-
-					html_string_tokenizer_tokenize(e->st, content, ",;> ");
-					while ( html_string_tokenizer_has_more_tokens (e->st) ) {
-						const gchar* token = html_string_tokenizer_next_token(e->st);
-						if ( strncasecmp( token, "url=", 4 ) == 0 )
-							refresh_url = g_strdup (token + 4);
-					}
-					
-					g_signal_emit (e, signals [REDIRECT], 0, refresh_url, refresh_delay);
-					if(refresh_url)
-						g_free(refresh_url);
-				}
-			}
-		}
-	} else if (strncmp (str, "map", 3) == 0) {
-		pop_element (e, ID_MAP);
-
-		html_string_tokenizer_tokenize (e->st, str + 3, " >");
-		while (html_string_tokenizer_has_more_tokens (e->st)) {
-			const char* token = html_string_tokenizer_next_token (e->st);
-			if (strncasecmp (token, "name=", 5) == 0) {
-				const char *name = token + 5;
-
-				html_engine_add_map (e, name);
-			}
-		}
-		/* FIXME map nesting */
-		push_block (e, ID_MAP, 0, block_end_map, FALSE, FALSE);
-	} else if (strncmp (str, "/map", 4) == 0) {
-		pop_element (e, ID_MAP);
+		if (!strncasecmp (token, "value=", 6))
+			itemNumber = atoi (token + 6);
+		else if (!strncasecmp (token, "type=", 5))
+			listType = get_list_type (token [5]);
 	}
-}
-
-static void
-parse_n (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
-{
-	if (strncasecmp (str, "noframe", 7) == 0) {
-		static const char *end[] = {"</noframe", NULL};
-
-		if (e->allow_frameset)
-			discard_body (e, end);
-	}
-}
-
-
-/*
-<ol>             </ol>           partial
-<option
-<object
-*/
-/* EP CHECK: `<ol>' does not handle vspace correctly.  */
-static void
-parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
-{
-	if ( strncmp( str, "ol", 2 ) == 0 ) {
+	
+	if (!html_stack_is_empty (e->listStack)) {
 		HTMLList *list;
-		HTMLListType listType = HTML_LIST_TYPE_ORDERED_ARABIC;
-
-		pop_element (e, ID_LI);
-		finish_flow (e, _clue);
-
-		/* FIXME */
-		push_block (e, ID_OL, 1, block_end_list, FALSE, FALSE);
-
-		html_string_tokenizer_tokenize( e->st, str + 3, " >" );
-
-		while ( html_string_tokenizer_has_more_tokens (e->st) ) {
-			const char* token;
-
-			token = html_string_tokenizer_next_token (e->st);
-			if ( strncasecmp( token, "type=", 5 ) == 0 )
-				listType = get_list_type (token [5]);
-		}
-
-		list = html_list_new (listType);
-		html_stack_push (e->listStack, list);
-	}
-	else if ( strncmp( str, "/ol", 3 ) == 0 ) {
-		pop_element (e, ID_OL);
-	}
-	else if ( strncmp( str, "option", 6 ) == 0 ) {
-		gchar *value = NULL;
-		gboolean selected = FALSE;
-
-		if ( !e->formSelect )
-			return;
-
-		html_string_tokenizer_tokenize( e->st, str + 3, " >" );
-
-		while ( html_string_tokenizer_has_more_tokens (e->st) ) {
-			const char* token;
-			
-			token = html_string_tokenizer_next_token (e->st);
-			
-			if ( strncasecmp( token, "value=", 6 ) == 0 ) {
-
-				value = g_strdup (token + 6);
-			}
-			else if ( strncasecmp( token, "selected", 8 ) == 0 ) {
-
-				selected = TRUE;
-			}
-		}
-
-		if ( e->inOption )
-			html_select_set_text (e->formSelect, e->formText->str);
-
-		html_select_add_option (e->formSelect, value, selected );
-
-		g_free (value);
-
-		e->inOption = TRUE;
-		g_string_assign (e->formText, "");
 		
-
-		push_block (e, ID_OPTION, 0, block_end_option, FALSE, FALSE);
-	} else if ( strncmp( str, "/option", 7 ) == 0 ) {
-		pop_element (e, ID_OPTION);
-	} else if ( strncmp( str, "object", 6 ) == 0 ) {
-		parse_object (e, _clue, _clue->max_width, str + 6);
-
+		list = html_stack_top (e->listStack);
+		list->itemNumber = itemNumber + 1;
 	}
+	
+	e->flow = flow_new (e, HTML_CLUEFLOW_STYLE_LIST_ITEM, listType, itemNumber, HTML_CLEAR_NONE);
+	html_clueflow_set_item_color (HTML_CLUEFLOW (e->flow), current_color (e));
+	
+	html_clue_append (HTML_CLUE (clue), e->flow);
+	e->avoid_para = TRUE;
+	push_block (e, ID_LI, 1, block_end_item, FALSE, FALSE);
 }
 
+static void
+element_parse_ol (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	HTMLList *list;
+	HTMLListType listType = HTML_LIST_TYPE_ORDERED_ARABIC;
+	
+	pop_element (e, ID_LI);
+	finish_flow (e, clue);
+
+	/* FIXME */
+	push_block (e, ID_OL, 1, block_end_list, FALSE, FALSE);
+	
+	html_string_tokenizer_tokenize( e->st, str + 3, " >" );
+	
+	while ( html_string_tokenizer_has_more_tokens (e->st) ) {
+		const char* token;
+		
+		token = html_string_tokenizer_next_token (e->st);
+		if ( strncasecmp( token, "type=", 5 ) == 0 )
+			listType = get_list_type (token [5]);
+	}
+	
+	e->flow = NULL;
+	html_stack_push (e->listStack, html_list_new (listType));
+}
+
+static void
+element_parse_ul (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	pop_element (e, ID_LI);
+	finish_flow (e, clue);
+	
+	push_block (e, ID_UL, 1, block_end_list, FALSE, FALSE);
+	
+	html_string_tokenizer_tokenize (e->st, str + 3, " >");
+	while (html_string_tokenizer_has_more_tokens (e->st))
+		html_string_tokenizer_next_token (e->st);
+	
+	e->flow = NULL;
+	
+	html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_UNORDERED));
+	
+	e->avoid_para = TRUE;
+}
+
+static void
+element_parse_dd (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	pop_element (e, ID_DT);
+	pop_element (e, ID_DD);
+	
+	close_flow (e, clue);
+	
+	push_block (e, ID_DD, 1, block_end_glossary, FALSE, FALSE);
+	html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_GLOSSARY_DD));
+}
+
+static void
+element_parse_dt (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	pop_element (e, ID_DT);
+	pop_element (e, ID_DD);
+	
+	close_flow (e, clue);
+	
+	/* FIXME this should set the item flag */
+	push_block (e, ID_DT, 1, block_end_item, FALSE, FALSE);		
+}
+
+static void
+element_parse_dl (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	close_flow (e, clue);
+	
+	push_block (e, ID_DL, 1, block_end_list, FALSE, FALSE);
+	html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_GLOSSARY_DL));
+}
+
+static void
+element_parse_dir (HTMLEngine *e, HTMLObject *clue, const char *str)
+{
+	pop_element (e, ID_LI);
+	finish_flow (e, clue);
+	
+	push_block (e, ID_DIR, 1, block_end_list, FALSE, FALSE);
+	html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_DIR));
+	
+	/* FIXME shouldn't it create a new flow? */
+}
+
+static void
+element_parse_option (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	gchar *value = NULL;
+	gboolean selected = FALSE;
+	
+	if ( !e->formSelect )
+		return;
+	
+	html_string_tokenizer_tokenize( e->st, str + 3, " >" );
+	
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
+		const char* token;
+		
+		token = html_string_tokenizer_next_token (e->st);
+		
+		if (strncasecmp (token, "value=", 6 ) == 0) {
+			value = g_strdup (token + 6);
+		} else if (strncasecmp (token, "selected", 8) == 0) {
+			selected = TRUE;
+		}
+	}
+	
+	if ( e->inOption )
+		html_select_set_text (e->formSelect, e->formText->str);
+	
+	html_select_add_option (e->formSelect, value, selected );
+	g_free (value);
+	
+	e->inOption = TRUE;
+	g_string_assign (e->formText, "");
+	
+	push_block (e, ID_OPTION, 0, block_end_option, FALSE, FALSE);
+}
+
+static void
+element_parse_select (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	gchar *name = NULL;
+	gint size = 0;
+	gboolean multi = FALSE;
+	
+	if (!e->form)
+		return;
+	
+	html_string_tokenizer_tokenize (e->st, str + 7, " >");
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
+		const gchar *token = html_string_tokenizer_next_token (e->st);
+		
+		if ( strncasecmp( token, "name=", 5 ) == 0 ) {
+			name = g_strdup(token + 5);
+		} else if ( strncasecmp( token, "size=", 5 ) == 0 ) {
+			size = atoi (token + 5);
+		} else if ( strncasecmp( token, "multiple", 8 ) == 0 ) {
+			multi = TRUE;
+		}
+	}
+	
+	e->formSelect = HTML_SELECT (html_select_new (GTK_WIDGET(e->widget), name, size, multi));
+	html_form_add_element (e->form, HTML_EMBEDDED ( e->formSelect ));
+	
+	append_element (e, clue, HTML_OBJECT (e->formSelect));
+	
+	g_free(name);
+	push_block (e, ID_SELECT, 0, block_end_select, FALSE, FALSE);
+}
 
 /*
   <p
@@ -2826,39 +2755,9 @@ parse_o (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
   <param
 */
 static void
-parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+element_parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	if ( strncmp( str, "pre", 3 ) == 0 ) {
-		close_flow (e, clue);
-		push_clueflow_style (e, HTML_CLUEFLOW_STYLE_PRE);
-		e->inPre = TRUE;
-		push_block (e, ID_PRE, 1, block_end_pre, 0, 0);
-	} else if ( strncmp( str, "/pre", 4 ) == 0 ) {
-		pop_element (e, ID_PRE);
-	} else if ( strncmp( str, "param", 5) == 0 ) {
-		if (! html_stack_is_empty (e->embeddedStack)) {
-			GtkHTMLEmbedded *eb;
-			char *name = NULL, *value = NULL;
-
-			eb = html_stack_top (e->embeddedStack);
-
-			html_string_tokenizer_tokenize (e->st, str + 6, " >");
-			while ( html_string_tokenizer_has_more_tokens (e->st) ) {
-				const char *token = html_string_tokenizer_next_token (e->st);
-				if ( strncasecmp( token, "name=", 5 ) == 0 ) {
-					name = g_strdup (token+5);
-				} else if ( strncasecmp( token, "value=", 6 ) == 0 ) {
-					value = g_strdup (token+6);
-				}
-			}
-
-			if (name!=NULL)
-				gtk_html_embedded_set_parameter(eb, name, value);
-
-			g_free(name);
-			g_free(value);
-		}					
-	} else if (*(str) == 'p' && ( *(str + 1) == ' ' || *(str + 1) == '>')) {
+	if (*str != '/') {
 		HTMLStyle *style = NULL;
 		gchar *class = NULL;
 		gchar *token;
@@ -2874,20 +2773,18 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		}
 		
 		push_block_element (e, ID_P, style, 1, block_end_p, 0, 0);
-		if (! e->avoid_para) {	
+		if (!e->avoid_para) {	
 			new_flow (e, clue, NULL, HTML_CLEAR_NONE);
 			new_flow (e, clue, NULL, HTML_CLEAR_NONE);
-			e->avoid_para = TRUE;
 		} else {
 			if (e->flow)
 				HTML_CLUE (e->flow)->halign = current_alignment (e);
 			else 
 				new_flow (e, clue, NULL, HTML_CLEAR_NONE);
+
 		}
 		g_free (class);
-	} else if (*(str) == '/' && *(str + 1) == 'p'
-		   && (*(str + 2) == ' ' || *(str + 2) == '>')) {
-
+	} else {
 		pop_element (e, ID_P);
 		if (! e->avoid_para) {
 			new_flow (e, clue, NULL, HTML_CLEAR_NONE);
@@ -2898,99 +2795,6 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 }
 
 
-/*
-  <select>            </select>
-  <small>             </small>
-  <strong>            </strong>
-  <sub>               </sub>
-  <sup>               </sup>
-  <s>                 </s>
-  <strike>            </strike>
-*/
-
-static void
-parse_s (HTMLEngine *e, HTMLObject *clue, const gchar *str)
-{
-	if (strncmp (str, "small", 5) == 0) {
-		push_element (e, ID_SMALL, NULL, html_style_set_font_size (NULL, GTK_HTML_FONT_STYLE_SIZE_2));
-	} else if (strncmp (str, "/small", 6) == 0 ) {
-		pop_element (e, ID_SMALL);
-	} else if (strncmp (str, "strong", 6) == 0) {
-		push_element (e, ID_STRONG, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_BOLD));
-	} else if (strncmp (str, "/strong", 7) == 0) {
-		pop_element (e, ID_STRONG);
-	} else if (strncmp (str, "select", 6) == 0) {
-                gchar *name = NULL;
-		gint size = 0;
-		gboolean multi = FALSE;
-
-		if (!e->form)
-			return;
-                    
-		html_string_tokenizer_tokenize (e->st, str + 7, " >");
-		while (html_string_tokenizer_has_more_tokens (e->st)) {
-			const gchar *token = html_string_tokenizer_next_token (e->st);
-
-                        if ( strncasecmp( token, "name=", 5 ) == 0 ) {
-				name = g_strdup(token + 5);
-                        } else if ( strncasecmp( token, "size=", 5 ) == 0 ) {
-				size = atoi (token + 5);
-                        } else if ( strncasecmp( token, "multiple", 8 ) == 0 ) {
-				multi = TRUE;
-                        }
-                }
-                
-                e->formSelect = HTML_SELECT (html_select_new (GTK_WIDGET(e->widget), name, size, multi));
-                html_form_add_element (e->form, HTML_EMBEDDED ( e->formSelect ));
-
-		append_element (e, clue, HTML_OBJECT (e->formSelect));
-		
-		g_free(name);
-		push_block (e, ID_SELECT, 0, block_end_select, FALSE, FALSE);
-	} else if (strncmp (str, "/select", 7) == 0) {
-		pop_element (e, ID_SELECT);
-	} else if (strncmp (str, "span", 4) == 0) {
-		HTMLStyle *style = NULL;
-		char *class = NULL;
-
-		html_string_tokenizer_tokenize (e->st, str + 4, " >");
-		while (html_string_tokenizer_has_more_tokens (e->st)) {
-			gchar *token = html_string_tokenizer_next_token (e->st);
-			
-			if (strncasecmp (token, "style=", 6 ) == 0 ) {
-				style = html_style_add_attribute (style, token + 6);
-                        } else if ( strncasecmp( token, "class=", 6 ) == 0 ) {
-				class = g_strdup (token + 6);
-			}
-		}
-		
-		push_element (e, ID_SPAN, class, style);
-		g_free (class);
-	} else if (strncmp (str, "/span", 5) == 0) {
-		pop_element (e, ID_SPAN);
-	} else if (strncmp (str, "sub", 3) == 0) {
-		if (str[3] == '>' || str[3] == ' ') {
-			push_element (e, ID_SUB, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_SUBSCRIPT));
-		}
-	} else if (strncmp (str, "/sub", 4) == 0) {
-		pop_element (e, ID_SUB);
-	} else if (strncmp (str, "sup", 3) == 0) {
-		if (str[3] == '>' || str[3] == ' ') {
-			push_element (e, ID_SUP, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_SUPERSCRIPT));
-		}
-	} else if (strncmp (str, "/sup", 4) == 0) {
-		pop_element (e, ID_SUP);
-	} else if (strncmp (str, "strike", 6) == 0) {
-		push_element (e, ID_STRIKE, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_STRIKEOUT));
-	} else if (strncmp (str, "s", 1) == 0 && (str[1] == '>' || str[1] == ' ')) {
-		push_element (e, ID_S, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_STRIKEOUT));
-	} else if (strncmp (str, "/strike", 7) == 0) {
-		pop_element (e, ID_STRIKE);
-	} else if (strncmp (str, "/s", 2) == 0 && (str[2] == '>' || str[2] == ' ')) {
-		pop_element (e, ID_S);
-	}
-}
-
 
 static void
 block_end_table (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem) 
@@ -3099,14 +2903,6 @@ close_current_table (HTMLEngine *e)
 	pop_element (e, ID_TABLE);
 }
 
-#ifdef TESTING
-static void
-block_end_test (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
-{
-	pop_clue (e); 
-}
-#endif
-
 /*
   <table           </table>        most
   </textarea        </textarea>
@@ -3114,83 +2910,664 @@ block_end_test (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
   <tt>             </tt>
 */
 static void
-parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+element_parse_table (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
-	if (strncmp (str, "table", 5) == 0) {
-		HTMLTable *table;
-		HTMLStyle *style = NULL;
-		HTMLHAlignType align = HTML_HALIGN_NONE;
-
-		GdkColor tableColor;
-		gboolean have_tableColor = FALSE;
-
-		gint width = 0;
-		gint percent = 0;
-		gint padding = 1;
-		gint spacing = 2;
-		gint border = 0;
-
-		/* see test16.html test0023.html and test0024.html */
-		/* pop_element (e, ID_A); */
-		close_current_table (e);
-
-		html_string_tokenizer_tokenize (e->st, str + 5, " >");
-		while (html_string_tokenizer_has_more_tokens (e->st)) {
-			const gchar *token = html_string_tokenizer_next_token (e->st);
-			if (strncasecmp (token, "cellpadding=", 12) == 0) {
-				padding = atoi (token + 12);
+	HTMLTable *table;
+	HTMLStyle *style = NULL;
+	HTMLHAlignType align = HTML_HALIGN_NONE;
+	
+	GdkColor tableColor;
+	gboolean have_tableColor = FALSE;
+	
+	gint width = 0;
+	gint percent = 0;
+	gint padding = 1;
+	gint spacing = 2;
+	gint border = 0;
+	
+	/* see test16.html test0023.html and test0024.html */
+	/* pop_element (e, ID_A); */
+	close_current_table (e);
+	
+	html_string_tokenizer_tokenize (e->st, str + 5, " >");
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
+		const gchar *token = html_string_tokenizer_next_token (e->st);
+		if (strncasecmp (token, "cellpadding=", 12) == 0) {
+			padding = atoi (token + 12);
+		}
+		else if (strncasecmp (token, "cellspacing=", 12) == 0) {
+			spacing = atoi (token + 12);
+		}
+		else if (strncasecmp (token, "border", 6) == 0) {
+			if (*(token + 6) == '=')
+				border = atoi (token + 7);
+			else
+				border = 1;
+		}
+		else if (strncasecmp (token, "width=", 6) == 0) {
+			if (strchr (token + 6, '%')) {
+				percent = atoi (token + 6);
+			} else if (strchr (token + 6, '*')) {
+				/* Ignore */
+			} else if (isdigit (*(token + 6))) {
+				width = atoi (token + 6);
 			}
-			else if (strncasecmp (token, "cellspacing=", 12) == 0) {
-				spacing = atoi (token + 12);
+		}
+		else if (strncasecmp (token, "align=", 6) == 0) {
+			align = parse_halign (token + 6, align);
+		}
+		else if (strncasecmp (token, "bgcolor=", 8) == 0
+			 && !e->defaultSettings->forceDefault) {
+			if (parse_color (token + 8, &tableColor)) {
+				have_tableColor = TRUE;
 			}
-			else if (strncasecmp (token, "border", 6) == 0) {
-				if (*(token + 6) == '=')
-					border = atoi (token + 7);
-				else
-					border = 1;
+		}
+		else if (strncasecmp (token, "background=", 11) == 0
+			 && token [12]
+			 && !e->defaultSettings->forceDefault) {
+			style = html_style_add_background_image (style, (char *)token + 11);
+		}
+	}
+	
+	table = HTML_TABLE (html_table_new (width, percent, padding, spacing, border));
+	
+	if (have_tableColor)
+		table->bgColor = gdk_color_copy (&tableColor);
+	
+	if (style && style->bg_image) {
+		table->bgPixmap = html_image_factory_register (e->image_factory, NULL, style->bg_image, FALSE);
+	}
+	
+	html_stack_push (e->table_stack, table);
+	push_block_element (e, ID_TABLE, style, 6, block_end_table, align, current_alignment (e));
+	
+	e->avoid_para = FALSE;
+}
+     
+static void
+element_parse_th (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	HTMLStyle *style = NULL;
+	HTMLTable *table = html_stack_top (e->table_stack);
+	gint rowSpan = 1;
+	gint colSpan = 1;
+	gint cellwidth =  clue->max_width;
+	gint cellheight = -1;
+	gboolean cellwidth_percent = FALSE;
+	gboolean cellheight_percent = FALSE;
+	gboolean no_wrap = FALSE;
+	gboolean fixedWidth = FALSE;
+	gboolean fixedHeight = FALSE;
+	HTMLVAlignType valign;
+	HTMLHAlignType halign;
+	HTMLTableCell *cell = NULL;
+	char *image_url = NULL;
+	
+	gboolean have_bgColor = FALSE;
+	GdkColor bgColor;
+	
+	if (!table)
+		return;
+		
+	pop_element (e, ID_TH);
+	pop_element (e, ID_TD);
+	pop_element (e, ID_CAPTION);
+	
+	valign = current_row_valign (e);
+	halign = current_row_align (e);
+	
+	style = html_style_unset_decoration (style, 0xffff);
+	style = html_style_set_decoration (style, GTK_HTML_FONT_STYLE_BOLD);
+	style = html_style_add_text_align (style, HTML_HALIGN_CENTER);
+	style = html_style_set_font_size (style, GTK_HTML_FONT_STYLE_SIZE_3);
+	
+	html_string_tokenizer_tokenize (e->st, str + 2, " >");
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
+		const gchar *token = html_string_tokenizer_next_token (e->st);
+		
+		if (strncasecmp (token, "rowspan=", 8) == 0) {
+			rowSpan = atoi (token + 8);
+			if (rowSpan < 1)
+					rowSpan = 1;
+		}
+		else if (strncasecmp (token, "colspan=", 8) == 0) {
+			colSpan = atoi (token + 8);
+			if (colSpan < 1)
+				colSpan = 1;
+		}
+		else if (strncasecmp (token, "valign=", 7) == 0) {
+			if (strncasecmp (token + 7, "top", 3) == 0)
+				valign = HTML_VALIGN_TOP;
+			else if (strncasecmp (token + 7, "bottom", 6) == 0)
+				valign = HTML_VALIGN_BOTTOM;
+			else 
+				valign = HTML_VALIGN_MIDDLE;
+		}
+		else if (strncasecmp (token, "align=", 6) == 0) {
+			style = html_style_add_text_align (style, parse_halign (token + 6, HTML_HALIGN_NONE));
+		}
+		else if (strncasecmp (token, "height=", 7) == 0) {
+			if (strchr (token + 7, '%')) {
+				/* gtk_html_debug_log (e->widget, "percent!\n");
+				   cellheight = atoi (token + 7);
+				   cellheight_percent = TRUE;
+				   fixedHeight = TRUE; */
 			}
-			else if (strncasecmp (token, "width=", 6) == 0) {
-				if (strchr (token + 6, '%')) {
-					percent = atoi (token + 6);
-				} else if (strchr (token + 6, '*')) {
-					/* Ignore */
-				} else if (isdigit (*(token + 6))) {
-					width = atoi (token + 6);
+			else if (strchr (token + 7, '*')) {
+				/* ignore */
+			}
+			else if (isdigit (*(token + 7))) {
+				cellheight = atoi (token + 7);
+				cellheight_percent = FALSE;
+				fixedHeight = TRUE;
 				}
+		}
+		else if (strncasecmp (token, "width=", 6) == 0) {
+			if (strchr (token + 6, '%')) {
+				gtk_html_debug_log (e->widget, "percent!\n");
+				cellwidth = atoi (token + 6);
+				cellwidth_percent = TRUE;
+				fixedWidth = TRUE;
 			}
-			else if (strncasecmp (token, "align=", 6) == 0) {
-				align = parse_halign (token + 6, align);
+			else if (strchr (token + 6, '*')) {
+				/* ignore */
 			}
-			else if (strncasecmp (token, "bgcolor=", 8) == 0
-				 && !e->defaultSettings->forceDefault) {
-				if (parse_color (token + 8, &tableColor)) {
-					have_tableColor = TRUE;
-				}
+			else if (isdigit (*(token + 6))) {
+				cellwidth = atoi (token + 6);
+				cellwidth_percent = FALSE;
+				fixedWidth = TRUE;
 			}
-			else if (strncasecmp (token, "background=", 11) == 0
-				 && token [12]
-				 && !e->defaultSettings->forceDefault) {
-				style = html_style_add_background_image (style, (char *)token + 11);
+		}
+		else if (strncasecmp (token, "bgcolor=", 8) == 0
+			 && !e->defaultSettings->forceDefault) {
+			
+			if (parse_color (token + 8, &bgColor))
+				have_bgColor = TRUE;
+		}
+		else if (strncasecmp (token, "nowrap", 6) == 0) {
+			no_wrap = TRUE;
+		}
+		else if (strncasecmp (token, "background=", 11) == 0
+			 && token [12]
+			 && !e->defaultSettings->forceDefault) {
+			
+			style = html_style_add_background_image (style, token + 11); 
+		}
+	}
+	
+	cell = HTML_TABLE_CELL (html_table_cell_new (rowSpan, colSpan, table->padding));
+	cell->no_wrap = no_wrap;
+	cell->heading = TRUE;
+	
+	html_object_set_bg_color (HTML_OBJECT (cell), have_bgColor ? &bgColor : current_row_bg_color (e));
+	
+	
+	if (style && style->bg_image) {
+		image_url = style->bg_image;
+	} else {
+		image_url = current_row_bg_image (e);
+	}
+	
+	if (image_url) {
+		HTMLImagePointer *ip;
+		
+		ip = html_image_factory_register(e->image_factory, NULL, image_url, FALSE);
+		html_table_cell_set_bg_pixmap (cell, ip);
+	}
+		
+	HTML_CLUE (cell)->valign = valign;
+	HTML_CLUE (cell)->halign = halign;
+	
+	if (fixedWidth)
+		html_table_cell_set_fixed_width (cell, cellwidth, cellwidth_percent);
+	if (fixedHeight)
+		html_table_cell_set_fixed_height (cell, cellheight, cellheight_percent);
+	
+	block_ensure_row (e);
+	html_table_add_cell (table, cell);
+	push_clue (e, HTML_OBJECT (cell));
+	push_block_element (e, ID_TH, style, 3, block_end_cell, 0, 0);
+	//((HTMLElement *)html_stack_top (e->span_stack))->display = DISPLAY_TABLE_CELL;
+}
+
+static void
+element_parse_caption (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	HTMLTable *table = html_stack_top (e->table_stack);
+	HTMLStyle *style = NULL;
+	HTMLClueV *caption;
+	HTMLVAlignType capAlign = HTML_VALIGN_MIDDLE;
+
+	/* CAPTIONS are all wrong they don't even get render */
+	/* Make sure this is a valid position for a caption */
+	if (!table)
+			return;
+	
+	pop_element (e, ID_TR);
+	pop_element (e, ID_CAPTION);
+	
+	html_string_tokenizer_tokenize( e->st, str + 7, " >" );
+	while ( html_string_tokenizer_has_more_tokens (e->st) ) {
+		const char* token = html_string_tokenizer_next_token(e->st);
+		if ( strncasecmp( token, "align=", 6 ) == 0) {
+			if ( strncasecmp( token+6, "top", 3 ) == 0)
+				capAlign = HTML_VALIGN_TOP;
+		}
+	}
+	
+	caption = HTML_CLUEV (html_cluev_new (0, 0, 100));
+	
+	e->flow = 0;
+	
+	style = html_style_add_text_align (style, HTML_HALIGN_CENTER);
+	
+	push_clue (e, HTML_OBJECT (caption));
+	push_block_element (e, ID_CAPTION, style, 3, block_end_cell, 0, 0);
+	
+	table->caption = caption;
+	//FIXME caption alignment should be based on the flow.... or something.... 
+	table->capAlign = capAlign;		
+}
+
+static void
+element_parse_td (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	HTMLStyle *style = NULL;
+	HTMLTable *table = html_stack_top (e->table_stack);
+	gint rowSpan = 1;
+	gint colSpan = 1;
+	gint cellwidth = clue->max_width;
+	gint cellheight = -1;
+	gboolean cellwidth_percent = FALSE;
+	gboolean cellheight_percent = FALSE;
+	gboolean no_wrap = FALSE;
+	gboolean fixedWidth = FALSE;
+	gboolean fixedHeight = FALSE;
+	HTMLTableCell *cell = NULL;
+	char *image_url = NULL;
+	HTMLVAlignType valign;
+	HTMLHAlignType halign;
+	gboolean have_bgColor = FALSE;
+	GdkColor bgColor;
+	
+	if (!table)
+		return;
+	
+	pop_element (e, ID_TH);
+	pop_element (e, ID_TD);
+	pop_element (e, ID_CAPTION);
+	
+	valign = current_row_valign (e); 
+	halign = current_row_align (e);
+	
+	style = html_style_unset_decoration (style, 0xffff);
+	style = html_style_set_font_size (style, GTK_HTML_FONT_STYLE_SIZE_3);
+	
+	html_string_tokenizer_tokenize (e->st, str + 2, " >");
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
+		const gchar *token = html_string_tokenizer_next_token (e->st);
+		
+		if (strncasecmp (token, "rowspan=", 8) == 0) {
+			rowSpan = atoi (token + 8);
+			if (rowSpan < 1)
+				rowSpan = 1;
+		}
+		else if (strncasecmp (token, "colspan=", 8) == 0) {
+			colSpan = atoi (token + 8);
+			if (colSpan < 1)
+				colSpan = 1;
+		}
+		else if (strncasecmp (token, "valign=", 7) == 0) {
+			if (strncasecmp (token + 7, "top", 3) == 0)
+				valign = HTML_VALIGN_TOP;
+			else if (strncasecmp (token + 7, "bottom", 6) == 0)
+				valign = HTML_VALIGN_BOTTOM;
+			else 
+				valign = HTML_VALIGN_MIDDLE;
+		}
+		else if (strncasecmp (token, "align=", 6) == 0) {
+			style = html_style_add_text_align (style, parse_halign (token + 6, HTML_HALIGN_NONE));
+		}
+		else if (strncasecmp (token, "height=", 7) == 0) {
+			if (strchr (token + 7, '%')) {
+				/* gtk_html_debug_log (e->widget, "percent!\n");
+				   cellheight = atoi (token + 7);
+				   cellheight_percent = TRUE;
+				   fixedHeight = TRUE; */
 			}
+			else if (strchr (token + 7, '*')) {
+				/* ignore */
+			}
+			else if (isdigit (*(token + 7))) {
+				cellheight = atoi (token + 7);
+				cellheight_percent = FALSE;
+				fixedHeight = TRUE;
+			}
+		}
+		else if (strncasecmp (token, "width=", 6) == 0) {
+			if (strchr (token + 6, '%')) {
+				gtk_html_debug_log (e->widget, "percent!\n");
+				cellwidth = atoi (token + 6);
+				cellwidth_percent = TRUE;
+				fixedWidth = TRUE;
+			}
+			else if (strchr (token + 6, '*')) {
+				/* ignore */
+			}
+			else if (isdigit (*(token + 6))) {
+				cellwidth = atoi (token + 6);
+				cellwidth_percent = FALSE;
+				fixedWidth = TRUE;
+			}
+		}
+		else if (strncasecmp (token, "bgcolor=", 8) == 0
+			 && !e->defaultSettings->forceDefault) {
+			
+			if (!strncasecmp (token + 8, "f3f2f1", 6))
+				DT (g_warning ("magic table");)
+					
+					if (parse_color (token + 8, &bgColor))
+						have_bgColor = TRUE;
+		}
+		else if (strncasecmp (token, "nowrap", 6) == 0) {
+			no_wrap = TRUE;
+		}
+		else if (strncasecmp (token, "background=", 11) == 0
+			 && token [12]
+			 && !e->defaultSettings->forceDefault) {
+			
+			style = html_style_add_background_image (style, (char *)token + 11); 
+		}
+	}
+	
+	cell = HTML_TABLE_CELL (html_table_cell_new (rowSpan, colSpan, table->padding));
+	cell->no_wrap = no_wrap;
+	
+	html_object_set_bg_color (HTML_OBJECT (cell), have_bgColor ? &bgColor : current_row_bg_color (e));
+	
+	if (style && style->bg_image) {
+		image_url = style->bg_image;
+	} else {
+		image_url = current_row_bg_image (e);
 		}
 	
-		table = HTML_TABLE (html_table_new (width, percent, padding, spacing, border));
+	if (image_url) {
+		HTMLImagePointer *ip;
+		
+		ip = html_image_factory_register(e->image_factory, NULL, image_url, FALSE);
+		html_table_cell_set_bg_pixmap (cell, ip);
+	}
+	
+	HTML_CLUE (cell)->valign = valign;
+	HTML_CLUE (cell)->halign = halign;
+	
+	if (fixedWidth)
+		html_table_cell_set_fixed_width (cell, cellwidth, cellwidth_percent);
+	if (fixedHeight)
+		html_table_cell_set_fixed_height (cell, cellheight, cellheight_percent);
+	
+	block_ensure_row (e);
+	html_table_add_cell (table, cell);
+	push_clue (e, HTML_OBJECT (cell));
+	push_block_element (e, ID_TD, style, 3, block_end_cell, 0, 0);
+	//((HTMLElement *)html_stack_top (e->span_stack))->display = DISPLAY_TABLE_CELL;
+}
 
-		if (have_tableColor)
-			table->bgColor = gdk_color_copy (&tableColor);
-
-		if (style && style->bg_image) {
-			table->bgPixmap = html_image_factory_register (e->image_factory, NULL, style->bg_image, FALSE);
+static void
+element_parse_tr (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	HTMLTable *table = html_stack_top (e->table_stack);
+	gboolean have_rowColor;
+	gboolean have_rowPixmap;
+	GdkColor rowColor;
+	HTMLStyle *style = NULL;
+	
+	if (!table)
+		return;
+	
+	pop_element (e, ID_CAPTION);
+	pop_element (e, ID_TR);
+	
+	have_rowColor = FALSE;
+	have_rowPixmap = FALSE;
+	
+	html_string_tokenizer_tokenize (e->st, str + 2, " >");
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
+		const gchar *token = html_string_tokenizer_next_token (e->st);
+		if (strncasecmp (token, "valign=", 7) == 0) {
+			if (strncasecmp (token + 7, "top", 3) == 0)
+				style = html_style_add_text_valign (style, HTML_VALIGN_TOP);
+			else if (strncasecmp (token + 7, "bottom", 6) == 0)
+				style = html_style_add_text_valign (style, HTML_VALIGN_BOTTOM);
+			else
+				style = html_style_add_text_valign (style, HTML_VALIGN_MIDDLE);
+		} else if (strncasecmp (token, "align=", 6) == 0) {
+			style = html_style_add_text_align (style, parse_halign (token + 6, HTML_HALIGN_NONE));
+		} else if (strncasecmp (token, "bgcolor=", 8) == 0) {
+			if (parse_color (token + 8, &rowColor))
+				style = html_style_add_background_color (style, &rowColor);
+		} else if (strncasecmp (token, "background=", 11) == 0) {
+			if (strlen (token + 11) != 0)
+				style = html_style_add_background_image (style, token + 11);
 		}
+	}
+	
+	html_table_start_row (table);
+	push_block_element (e, ID_TR, style, 3, block_end_row, 0, 0);
+}
+
+static void
+element_parse_textarea (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	gchar *name = NULL;
+	gint rows = 5, cols = 40;
+	
+	if (!e->form)
+		return;
+	
+	html_string_tokenizer_tokenize (e->st, str + 9, " >");
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
+		const gchar *token = html_string_tokenizer_next_token (e->st);
 		
-		html_stack_push (e->table_stack, table);
-		push_block_element (e, ID_TABLE, style, 6, block_end_table, align, current_alignment (e));
+		if ( strncasecmp( token, "name=", 5 ) == 0 )
+                        {
+				name = g_strdup(token + 5);
+                        }
+		else if ( strncasecmp( token, "rows=", 5 ) == 0 )
+                        {
+				rows = atoi (token + 5);
+                        }
+		else if ( strncasecmp( token, "cols=", 5 ) == 0 )
+                        {
+				cols = atoi (token + 5);
+                        }
+	}
+	
+	e->formTextArea = HTML_TEXTAREA (html_textarea_new (GTK_WIDGET(e->widget), name, rows, cols));
+	html_form_add_element (e->form, HTML_EMBEDDED ( e->formTextArea ));
+	
+	append_element (e, clue, HTML_OBJECT (e->formTextArea));
+	
+	g_string_assign (e->formText, "");
+	e->inTextArea = TRUE;
+	
+	g_free(name);
+	push_block (e, ID_TEXTAREA, 3, block_end_textarea, 0, 0);
+}
+
+/* inline elements */
+static void
+element_parse_big (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	push_element (e, ID_BIG, NULL, html_style_set_font_size (NULL, GTK_HTML_FONT_STYLE_SIZE_4));
+}
+
+static void
+element_parse_cite (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	push_element (e, ID_CITE, NULL, 
+		      html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_ITALIC | GTK_HTML_FONT_STYLE_BOLD));
+}
+
+static void
+element_parse_code (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	push_element (e, ID_CODE, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_FIXED));
+}
+
+static void
+element_parse_em (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	push_element (e, ID_EM, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_ITALIC));
+}
+
+static void
+element_parse_kbd (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
+{
+	push_element (e, ID_KBD, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_FIXED));
+}
+
+static void
+element_parse_small (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	push_element (e, ID_SMALL, NULL, html_style_set_font_size (NULL, GTK_HTML_FONT_STYLE_SIZE_2));
+}
+
+static void
+element_parse_strong (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	push_element (e, ID_STRONG, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_BOLD));
+}
+
+static void
+element_parse_sub (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	push_element (e, ID_SUB, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_SUBSCRIPT));
+}
+
+static void
+element_parse_sup (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	push_element (e, ID_SUP, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_SUPERSCRIPT));
+}
+
+static void
+element_parse_strike (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	push_element (e, ID_STRIKE, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_STRIKEOUT));
+}
+
+static void
+element_parse_s (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	push_element (e, ID_S, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_STRIKEOUT));
+}
+
+static void
+element_parse_tt (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	push_element (e, ID_TT, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_FIXED));
+}
+
+static void
+element_parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	push_element (e, ID_U, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_UNDERLINE));
+}
+
+static void
+element_parse_var (HTMLEngine *e, HTMLObject * _clue, const char *str )
+{
+	push_element (e, ID_VAR, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_FIXED));
+}
+
+static void
+element_parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	HTMLStyle *style = NULL;
+	style = html_style_set_decoration (style, GTK_HTML_FONT_STYLE_BOLD);
+	
+	html_string_tokenizer_tokenize (e->st, str + 1, " >");
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
+		gchar *token = html_string_tokenizer_next_token (e->st);
 		
-		e->avoid_para = FALSE;
-	} else if (strncmp (str, "/table", 6) == 0) {
-		pop_element (e, ID_TABLE);
+		if (strncasecmp (token, "style=", 6) == 0) {
+			html_style_add_attribute (style, token + 6);
+		}
+	}
+	push_element (e, ID_B, NULL, style);
+}
+
+static void
+element_parse_span (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	HTMLStyle *style = NULL;
+	char *class = NULL;
+	
+	html_string_tokenizer_tokenize (e->st, str + 4, " >");
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
+		gchar *token = html_string_tokenizer_next_token (e->st);
+		
+		if (strncasecmp (token, "style=", 6 ) == 0 ) {
+			style = html_style_add_attribute (style, token + 6);
+		} else if ( strncasecmp( token, "class=", 6 ) == 0 ) {
+			class = g_strdup (token + 6);
+		}
+	}
+	
+	push_element (e, ID_SPAN, class, style);
+	g_free (class);
+}
+
+static void
+element_parse_font (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	GdkColor *color;
+	HTMLColor *html_color = NULL;
+	const HTMLFontFace *face = NULL;
+	HTMLStyle *style = NULL;
+	
+	/* The GdkColor API is not const safe!  */
+	color = gdk_color_copy ((GdkColor *) current_color (e));
+	
+	html_string_tokenizer_tokenize (e->st, str + 5, " >");
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
+		const gchar *token = html_string_tokenizer_next_token (e->st);
+		if (strncasecmp (token, "size=", 5) == 0) {
+			gint size = atoi (token + 5);
+			
+			/* FIXME implement basefont */
+			if (*(token + 5) == '+' || *(token + 5) == '-')
+				size += GTK_HTML_FONT_STYLE_SIZE_3;
+			
+			CLAMP (size, GTK_HTML_FONT_STYLE_SIZE_1, GTK_HTML_FONT_STYLE_SIZE_MAX);
+			
+				style = html_style_set_font_size (style, size);
+		} else if (strncasecmp (token, "face=", 5) == 0) {
+			style = html_style_add_font_face (style, token + 5);
+		} else if (strncasecmp (token, "color=", 6) == 0) {
+			if (parse_color (token + 6, color)) {
+				html_color = html_color_new_from_gdk_color (color);
+				style = html_style_add_color (style, html_color);
+				html_color_unref (html_color);
+			}
+		}
+	}
+	
+	push_element (e, ID_FONT, NULL, style);
+}
+
 #ifdef TESTING		
-	} else if (strncmp (str, "test", 4) == 0) {
+static void
+block_end_test (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
+{
+	pop_clue (e); 
+}
+
+static void
+element_parse_test (HTMLEngine *e, HTMLObject *clue, const gchar *str)
+{
+	if (strncmp (str, "test", 4) == 0) {
 		HTMLTableCell *cell;
 		GdkColor color;
 
@@ -3204,500 +3581,13 @@ parse_t (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		append_element (e, clue, HTML_OBJECT (cell));
 		push_clue (e, HTML_OBJECT (cell));
 		push_block (e, ID_TEST, 3, block_end_test, 0, 0);
-	} else if (strncmp (str, "/test", 5) == 0) {
-		pop_element (e, ID_TEST);
+	}
+}
 #endif /* TESTING */		
-	} else if (strncmp (str, "td", 2) == 0) {
-		HTMLStyle *style = NULL;
-		HTMLTable *table = html_stack_top (e->table_stack);
-		gint rowSpan = 1;
-		gint colSpan = 1;
-		gint cellwidth = clue->max_width;
-		gint cellheight = -1;
-		gboolean cellwidth_percent = FALSE;
-		gboolean cellheight_percent = FALSE;
-		gboolean no_wrap = FALSE;
-		gboolean fixedWidth = FALSE;
-		gboolean fixedHeight = FALSE;
-		HTMLTableCell *cell = NULL;
-		char *image_url = NULL;
-		HTMLVAlignType valign;
-		HTMLHAlignType halign;
-		gboolean have_bgColor = FALSE;
-		GdkColor bgColor;
-			
-		if (!table)
-			return;
-		
-		pop_element (e, ID_TH);
-		pop_element (e, ID_TD);
-		pop_element (e, ID_CAPTION);
-
-		valign = current_row_valign (e); 
-		halign = current_row_align (e);
-
-		style = html_style_unset_decoration (style, 0xffff);
-		style = html_style_set_font_size (style, GTK_HTML_FONT_STYLE_SIZE_3);
-
-		html_string_tokenizer_tokenize (e->st, str + 2, " >");
-		while (html_string_tokenizer_has_more_tokens (e->st)) {
-			const gchar *token = html_string_tokenizer_next_token (e->st);
-			
-			if (strncasecmp (token, "rowspan=", 8) == 0) {
-				rowSpan = atoi (token + 8);
-				if (rowSpan < 1)
-					rowSpan = 1;
-			}
-			else if (strncasecmp (token, "colspan=", 8) == 0) {
-				colSpan = atoi (token + 8);
-				if (colSpan < 1)
-					colSpan = 1;
-			}
-			else if (strncasecmp (token, "valign=", 7) == 0) {
-				if (strncasecmp (token + 7, "top", 3) == 0)
-					valign = HTML_VALIGN_TOP;
-				else if (strncasecmp (token + 7, "bottom", 6) == 0)
-					valign = HTML_VALIGN_BOTTOM;
-				else 
-					valign = HTML_VALIGN_MIDDLE;
-			}
-			else if (strncasecmp (token, "align=", 6) == 0) {
-				style = html_style_add_text_align (style, parse_halign (token + 6, HTML_HALIGN_NONE));
-			}
-			else if (strncasecmp (token, "height=", 7) == 0) {
-				if (strchr (token + 7, '%')) {
-					/* gtk_html_debug_log (e->widget, "percent!\n");
-					   cellheight = atoi (token + 7);
-					   cellheight_percent = TRUE;
-					   fixedHeight = TRUE; */
-				}
-				else if (strchr (token + 7, '*')) {
-					/* ignore */
-				}
-				else if (isdigit (*(token + 7))) {
-					cellheight = atoi (token + 7);
-					cellheight_percent = FALSE;
-					fixedHeight = TRUE;
-				}
-			}
-			else if (strncasecmp (token, "width=", 6) == 0) {
-				if (strchr (token + 6, '%')) {
-					gtk_html_debug_log (e->widget, "percent!\n");
-					cellwidth = atoi (token + 6);
-					cellwidth_percent = TRUE;
-					fixedWidth = TRUE;
-				}
-				else if (strchr (token + 6, '*')) {
-					/* ignore */
-				}
-				else if (isdigit (*(token + 6))) {
-					cellwidth = atoi (token + 6);
-					cellwidth_percent = FALSE;
-					fixedWidth = TRUE;
-				}
-			}
-			else if (strncasecmp (token, "bgcolor=", 8) == 0
-				 && !e->defaultSettings->forceDefault) {
-
-				if (!strncasecmp (token + 8, "f3f2f1", 6))
-					DT (g_warning ("magic table");)
-
-				if (parse_color (token + 8, &bgColor))
-					have_bgColor = TRUE;
-			}
-			else if (strncasecmp (token, "nowrap", 6) == 0) {
-				no_wrap = TRUE;
-			}
-			else if (strncasecmp (token, "background=", 11) == 0
-				 && token [12]
-				 && !e->defaultSettings->forceDefault) {
-				
-				style = html_style_add_background_image (style, (char *)token + 11); 
-			}
-		}
-		
-		cell = HTML_TABLE_CELL (html_table_cell_new (rowSpan, colSpan, table->padding));
-		cell->no_wrap = no_wrap;
-
-		html_object_set_bg_color (HTML_OBJECT (cell), have_bgColor ? &bgColor : current_row_bg_color (e));
-
-		if (style && style->bg_image) {
-			image_url = style->bg_image;
-		} else {
-			image_url = current_row_bg_image (e);
-		}
-
-		if (image_url) {
-			HTMLImagePointer *ip;
-			
-			ip = html_image_factory_register(e->image_factory, NULL, image_url, FALSE);
-			html_table_cell_set_bg_pixmap (cell, ip);
-		}
-		
-		HTML_CLUE (cell)->valign = valign;
-		HTML_CLUE (cell)->halign = halign;
-
-		if (fixedWidth)
-			html_table_cell_set_fixed_width (cell, cellwidth, cellwidth_percent);
-		if (fixedHeight)
-			html_table_cell_set_fixed_height (cell, cellheight, cellheight_percent);
-		
-		block_ensure_row (e);
-		html_table_add_cell (table, cell);
-		push_clue (e, HTML_OBJECT (cell));
-		push_block_element (e, ID_TD, style, 3, block_end_cell, 0, 0);
-		//((HTMLElement *)html_stack_top (e->span_stack))->display = DISPLAY_TABLE_CELL;
-	} else if (strncmp (str, "/td", 3) == 0) {
-		pop_element (e, ID_TD);
-	} else if (strncmp (str, "th", 2) == 0) {
-		HTMLStyle *style = NULL;
-		HTMLTable *table = html_stack_top (e->table_stack);
-		gint rowSpan = 1;
-		gint colSpan = 1;
-		gint cellwidth =  clue->max_width;
-		gint cellheight = -1;
-		gboolean cellwidth_percent = FALSE;
-		gboolean cellheight_percent = FALSE;
-		gboolean no_wrap = FALSE;
-		gboolean fixedWidth = FALSE;
-		gboolean fixedHeight = FALSE;
-		HTMLVAlignType valign;
-		HTMLHAlignType halign;
-		HTMLTableCell *cell = NULL;
-		char *image_url = NULL;
-		
-		gboolean have_bgColor = FALSE;
-		GdkColor bgColor;
-
-		if (!table)
-			return;
-		
-		pop_element (e, ID_TH);
-		pop_element (e, ID_TD);
-		pop_element (e, ID_CAPTION);
-
-		valign = current_row_valign (e);
-		halign = current_row_align (e);
-
-		style = html_style_unset_decoration (style, 0xffff);
-		style = html_style_set_decoration (style, GTK_HTML_FONT_STYLE_BOLD);
-		style = html_style_add_text_align (style, HTML_HALIGN_CENTER);
-		style = html_style_set_font_size (style, GTK_HTML_FONT_STYLE_SIZE_3);
-
-		html_string_tokenizer_tokenize (e->st, str + 2, " >");
-		while (html_string_tokenizer_has_more_tokens (e->st)) {
-			const gchar *token = html_string_tokenizer_next_token (e->st);
-			
-			if (strncasecmp (token, "rowspan=", 8) == 0) {
-				rowSpan = atoi (token + 8);
-				if (rowSpan < 1)
-					rowSpan = 1;
-			}
-			else if (strncasecmp (token, "colspan=", 8) == 0) {
-				colSpan = atoi (token + 8);
-				if (colSpan < 1)
-					colSpan = 1;
-			}
-			else if (strncasecmp (token, "valign=", 7) == 0) {
-				if (strncasecmp (token + 7, "top", 3) == 0)
-					valign = HTML_VALIGN_TOP;
-				else if (strncasecmp (token + 7, "bottom", 6) == 0)
-					valign = HTML_VALIGN_BOTTOM;
-				else 
-					valign = HTML_VALIGN_MIDDLE;
-			}
-			else if (strncasecmp (token, "align=", 6) == 0) {
-				style = html_style_add_text_align (style, parse_halign (token + 6, HTML_HALIGN_NONE));
-			}
-			else if (strncasecmp (token, "height=", 7) == 0) {
-				if (strchr (token + 7, '%')) {
-					/* gtk_html_debug_log (e->widget, "percent!\n");
-					   cellheight = atoi (token + 7);
-					   cellheight_percent = TRUE;
-					   fixedHeight = TRUE; */
-				}
-				else if (strchr (token + 7, '*')) {
-					/* ignore */
-				}
-				else if (isdigit (*(token + 7))) {
-					cellheight = atoi (token + 7);
-					cellheight_percent = FALSE;
-					fixedHeight = TRUE;
-				}
-			}
-			else if (strncasecmp (token, "width=", 6) == 0) {
-				if (strchr (token + 6, '%')) {
-					gtk_html_debug_log (e->widget, "percent!\n");
-					cellwidth = atoi (token + 6);
-					cellwidth_percent = TRUE;
-					fixedWidth = TRUE;
-				}
-				else if (strchr (token + 6, '*')) {
-					/* ignore */
-				}
-				else if (isdigit (*(token + 6))) {
-					cellwidth = atoi (token + 6);
-					cellwidth_percent = FALSE;
-					fixedWidth = TRUE;
-				}
-			}
-			else if (strncasecmp (token, "bgcolor=", 8) == 0
-				 && !e->defaultSettings->forceDefault) {
-				
-				if (parse_color (token + 8, &bgColor))
-					have_bgColor = TRUE;
-			}
-			else if (strncasecmp (token, "nowrap", 6) == 0) {
-				no_wrap = TRUE;
-			}
-			else if (strncasecmp (token, "background=", 11) == 0
-				 && token [12]
-				 && !e->defaultSettings->forceDefault) {
-				
-				style = html_style_add_background_image (style, token + 11); 
-			}
-		}
-		
-		cell = HTML_TABLE_CELL (html_table_cell_new (rowSpan, colSpan, table->padding));
-		cell->no_wrap = no_wrap;
-		cell->heading = TRUE;
-
-		html_object_set_bg_color (HTML_OBJECT (cell), have_bgColor ? &bgColor : current_row_bg_color (e));
-
-		
-		if (style && style->bg_image) {
-			image_url = style->bg_image;
-		} else {
-			image_url = current_row_bg_image (e);
-		}
-
-		if (image_url) {
-			HTMLImagePointer *ip;
-			
-			ip = html_image_factory_register(e->image_factory, NULL, image_url, FALSE);
-			html_table_cell_set_bg_pixmap (cell, ip);
-		}
-		
-		HTML_CLUE (cell)->valign = valign;
-		HTML_CLUE (cell)->halign = halign;
-
-		if (fixedWidth)
-			html_table_cell_set_fixed_width (cell, cellwidth, cellwidth_percent);
-		if (fixedHeight)
-			html_table_cell_set_fixed_height (cell, cellheight, cellheight_percent);
-		
-		block_ensure_row (e);
-		html_table_add_cell (table, cell);
-		push_clue (e, HTML_OBJECT (cell));
-		push_block_element (e, ID_TH, style, 3, block_end_cell, 0, 0);
-		//((HTMLElement *)html_stack_top (e->span_stack))->display = DISPLAY_TABLE_CELL;
-	} else if (strncmp (str, "/th", 3) == 0) {
-		pop_element (e, ID_TH);
-	} else if (strncmp (str, "tr", 2) == 0) {
-		HTMLTable *table = html_stack_top (e->table_stack);
-		gboolean have_rowColor;
-		gboolean have_rowPixmap;
-		GdkColor rowColor;
-		HTMLStyle *style = NULL;
-		
-		if (!table)
-			return;
-
-		pop_element (e, ID_CAPTION);
-		pop_element (e, ID_TR);
-
-		have_rowColor = FALSE;
-		have_rowPixmap = FALSE;
-		
-		html_string_tokenizer_tokenize (e->st, str + 2, " >");
-		while (html_string_tokenizer_has_more_tokens (e->st)) {
-			const gchar *token = html_string_tokenizer_next_token (e->st);
-			if (strncasecmp (token, "valign=", 7) == 0) {
-				if (strncasecmp (token + 7, "top", 3) == 0)
-					style = html_style_add_text_valign (style, HTML_VALIGN_TOP);
-				else if (strncasecmp (token + 7, "bottom", 6) == 0)
-					style = html_style_add_text_valign (style, HTML_VALIGN_BOTTOM);
-				else
-					style = html_style_add_text_valign (style, HTML_VALIGN_MIDDLE);
-			} else if (strncasecmp (token, "align=", 6) == 0) {
-				style = html_style_add_text_align (style, parse_halign (token + 6, HTML_HALIGN_NONE));
-			} else if (strncasecmp (token, "bgcolor=", 8) == 0) {
-				if (parse_color (token + 8, &rowColor))
-					style = html_style_add_background_color (style, &rowColor);
-			} else if (strncasecmp (token, "background=", 11) == 0) {
-				if (strlen (token + 11) != 0)
-					style = html_style_add_background_image (style, token + 11);
-			}
-		}
-		
-		html_table_start_row (table);
-		push_block_element (e, ID_TR, style, 3, block_end_row, 0, 0);
-	} else if (strncmp (str, "/tr", 3) == 0) {
-		pop_element (e, ID_TR);
-	} else if (strncmp (str, "title", 5) == 0) {
-		e->inTitle = TRUE;
-		e->title = g_string_new ("");
-	} else if (strncmp (str, "/title", 6) == 0) {
-		/*
-		 * only emit the title changed signal if we have a 
-		 * valid title 
-		 */
-		if (e->inTitle && e->title) 
-			g_signal_emit (e, signals [TITLE_CHANGED], 0);
-		e->inTitle = FALSE;
-	} else if ( strncmp( str, "tt", 2 ) == 0 ) {
-		push_element (e, ID_TT, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_FIXED));
-	} else if ( strncmp( str, "/tt", 3 ) == 0 ) {
-		pop_element (e, ID_TT);
-	} else if (strncmp (str, "textarea", 8) == 0) {
-                gchar *name = NULL;
-		gint rows = 5, cols = 40;
-
-		if (!e->form)
-			return;
-                    
-		html_string_tokenizer_tokenize (e->st, str + 9, " >");
-		while (html_string_tokenizer_has_more_tokens (e->st)) {
-			const gchar *token = html_string_tokenizer_next_token (e->st);
-
-                        if ( strncasecmp( token, "name=", 5 ) == 0 )
-                        {
-				name = g_strdup(token + 5);
-                        }
-                        else if ( strncasecmp( token, "rows=", 5 ) == 0 )
-                        {
-				rows = atoi (token + 5);
-                        }
-                        else if ( strncasecmp( token, "cols=", 5 ) == 0 )
-                        {
-				cols = atoi (token + 5);
-                        }
-                }
-                
-                e->formTextArea = HTML_TEXTAREA (html_textarea_new (GTK_WIDGET(e->widget), name, rows, cols));
-                html_form_add_element (e->form, HTML_EMBEDDED ( e->formTextArea ));
-
-		append_element (e, clue, HTML_OBJECT (e->formTextArea));
-
-		g_string_assign (e->formText, "");
-		e->inTextArea = TRUE;
-
-		g_free(name);
-		push_block (e, ID_TEXTAREA, 3, block_end_textarea, 0, 0);
-	}
-	else if (strncmp (str, "/textarea", 9) == 0) {
-		pop_element (e, ID_TEXTAREA);
-	}
-
-}
 
 
-/*
-  <u>              </u>
-  <ul              </ul>
-*/
-static void
-parse_u (HTMLEngine *e, HTMLObject *clue, const gchar *str)
-{
-	if (strncmp (str, "ul", 2) == 0) {
-		pop_element (e, ID_LI);
-		finish_flow (e, clue);
 
-		push_block (e, ID_UL, 1, block_end_list, FALSE, FALSE);
-
-		html_string_tokenizer_tokenize (e->st, str + 3, " >");
-		while (html_string_tokenizer_has_more_tokens (e->st))
-			html_string_tokenizer_next_token (e->st);
-		
-		e->flow = NULL;
-
-		html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_UNORDERED));
-
-		e->avoid_para = TRUE;
-	} else if (strncmp (str, "/ul", 3) == 0) {
-		pop_element (e, ID_UL);
-	} else if (strncmp (str, "u", 1) == 0) {
-		if (str[1] == '>' || str[1] == ' ') {
-			push_element (e, ID_U, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_UNDERLINE));
-		}
-	} else if (strncmp (str, "/u", 2) == 0) {
-		pop_element (e, ID_U);
-	}
-}
-
-
-/*
-  <var>            </var>
-*/
-static void
-parse_v (HTMLEngine *e, HTMLObject * _clue, const char *str )
-{
-	if (strncmp (str, "var", 3) == 0) {
-		push_element (e, ID_VAR, NULL, html_style_set_decoration (NULL, GTK_HTML_FONT_STYLE_FIXED));
-	} else if (strncmp (str, "/var", 4) == 0) {
-		pop_element (e, ID_VAR);
-	}
-}
-
-
-/* Parsing vtable.  */
-
-#if 0
-typedef void (*HTMLParseFunc)(HTMLEngine *p, HTMLObject *clue, const gchar *str);
-static HTMLParseFunc parseFuncArray[26] = {
-	parse_a,
-	parse_b,
-	parse_c,
-	parse_d,
-	parse_e,
-	parse_f,
-	NULL,
-	parse_h,
-	parse_i,
-	NULL,
-	parse_k,
-	parse_l,
-	parse_m,
-	parse_n,
-	parse_o,
-	parse_p,
-	NULL,
-	NULL,
-	parse_s,
-	parse_t,
-	parse_u,
-	parse_v,
-	NULL,
-	NULL,
-	NULL,
-	NULL
-};
-
-
-static void
-parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str)
-{
-	if (*str == '<') {
-		gint indx;
-		
-		str++;
-		
-		
-		if (*str == '/')
-			indx = *(str + 1) - 'a';
-		else
-			indx = *str - 'a';
-
-		if (indx >= 0 && indx < 26) {
-			/* FIXME: This should be removed */
-			if (parseFuncArray[indx] != NULL) {
-				(* parseFuncArray[indx])(p, clue, str);
-			} 
-		}
-	}
-}
-#else
-
+/* Parsing dispatch table.  */
 typedef void (*HTMLParseFunc)(HTMLEngine *p, HTMLObject *clue, const gchar *str);
 typedef struct _HTMLDispatchEntry {
 	char *name;
@@ -3705,83 +3595,88 @@ typedef struct _HTMLDispatchEntry {
 } HTMLDispatchEntry;
 
 HTMLDispatchEntry basic_table[] = {
-	{ID_A, parse_a},
-	{"area", parse_a},
-	{ID_ADDRESS, parse_a},
-	{ID_B, parse_b},
-	{"base", parse_b},
-	{"br", parse_b},
-	{"/br", parse_b},
-	{ID_BIG, parse_b},
-	{ID_BLOCKQUOTE, parse_b},
-	{ID_BODY, parse_b},
-	{ID_CAPTION, parse_c},
-	{ID_CENTER, parse_c},
-	{ID_CITE, parse_c},
-	{ID_CODE, parse_c},
-	{ID_DIR, parse_d},
-	{ID_DIV, parse_d},
-	{"data", parse_d},
-	{ID_DL, parse_d},
-	{ID_DT, parse_d},
-	{ID_DD, parse_d},
-	{ID_LI, parse_l},
-	{ID_EM, parse_e},
-	{ID_FONT, parse_f},
-	{ID_FORM, parse_f},
-	{"frameset", parse_f},
-	{"frame", parse_f},
-	{ID_MAP, parse_m},
-	{"meta", parse_m},
-	{"noframe", parse_n},
-	{ID_HEADING, parse_h},
-	{"h1", parse_h},
-	{"h2", parse_h},
-	{"h3", parse_h},
-	{"h4", parse_h},
-	{"h5", parse_h},
-	{"h6", parse_h},
-	{"/h1", parse_h},
-	{"/h2", parse_h},
-	{"/h3", parse_h},
-	{"/h4", parse_h},
-	{"/h5", parse_h},
-	{"/h6", parse_h},
-	{ID_I, parse_i},
-	{"img", parse_i},
-	{"input", parse_i},
-	{"iframe", parse_i},
-	{ID_KBD, parse_k},
-	{ID_OL, parse_o},
-	{ID_OPTION, parse_o},	
-	{"object", parse_o},
-	{"/object", parse_o},
-	{ID_P, parse_p},
-	{"/p", parse_p},
-	{"param", parse_p},
-	{ID_PRE, parse_p},
-	{ID_SMALL, parse_s},
-	{ID_SPAN, parse_s},
-	{ID_STRONG, parse_s},
-	{ID_SELECT, parse_s},
-	{ID_S, parse_s},
-	{ID_SUB, parse_s},
-	{ID_SUP, parse_s},
-	{ID_STRIKE, parse_s},
-	{ID_U, parse_u},
-	{ID_UL, parse_u},
-	{ID_TEXTAREA, parse_t},
-	{ID_TABLE, parse_t},
-	{ID_TD, parse_t},
-	{ID_TH, parse_t},
-	{ID_TR, parse_t},
-	{ID_TT, parse_t},
-	{"title", parse_t},
-	{"/title", parse_t},
-	{ID_VAR, parse_v},
-	{"hr", parse_h}, 
-	{ID_TEST, parse_t},
-	{NULL, NULL}
+	{ID_A,                element_parse_a},
+	{"area",              element_parse_area},
+	{ID_ADDRESS,          element_parse_address},
+	{ID_B,                element_parse_b},
+	{"base",              element_parse_base},
+	{ID_BIG,              element_parse_big},
+	{ID_BLOCKQUOTE,       element_parse_blockquote},
+	{ID_BODY,             element_parse_body},
+	{ID_CAPTION,          element_parse_caption},
+	{ID_CENTER,           element_parse_center},
+	{ID_CITE,             element_parse_cite},
+	{ID_CODE,             element_parse_code},
+	{ID_DIR,              element_parse_dir},
+	{ID_DIV,              element_parse_div},
+	{"data",              element_parse_data},
+	{ID_DL,               element_parse_dl},
+	{ID_DT,               element_parse_dt},
+	{ID_DD,               element_parse_dd},
+	{ID_LI,               element_parse_li},
+	{ID_EM,               element_parse_em},
+	{ID_FONT,             element_parse_font},
+	{ID_FORM,             element_parse_form},
+	{"frameset",          element_parse_frameset},
+	{"frame",             element_parse_frame},
+	{ID_MAP,              element_parse_map},
+	{"meta",              element_parse_meta},
+	{"noframe",           element_parse_noframe},
+	{ID_I,                element_parse_i},
+	{"img",               element_parse_img},
+	{"input",             element_parse_input},
+	{"iframe",            element_parse_iframe},
+	{ID_KBD,              element_parse_kbd},
+	{ID_OL,               element_parse_ol},
+	{ID_OPTION,           element_parse_option},	
+	{"object",            parse_object},
+	{"param",             element_parse_param},
+	{ID_PRE,              element_parse_pre},
+	{ID_SMALL,            element_parse_small},
+	{ID_SPAN,             element_parse_span},
+	{ID_STRONG,           element_parse_strong},
+	{ID_SELECT,           element_parse_select},
+	{ID_S,                element_parse_s},
+	{ID_SUB,              element_parse_sup},
+	{ID_SUP,              element_parse_sup},
+	{ID_STRIKE,           element_parse_strike},
+	{ID_U,                element_parse_u},
+	{ID_UL,               element_parse_ul},
+	{ID_TEXTAREA,         element_parse_textarea},
+	{ID_TABLE,            element_parse_table},
+	{ID_TD,               element_parse_td},
+	{ID_TH,               element_parse_th},
+	{ID_TR,               element_parse_tr},
+	{ID_TT,               element_parse_tt},
+	{"title",             element_parse_title},
+	{ID_VAR,              element_parse_var},
+#ifdef TESTING
+	{ID_TEST,             element_parse_test},
+#endif
+	/* 
+	 * the following elements have special behaviors for the close tags
+	 * so we dispatch on the close element as well
+	 */
+	{"hr",                element_parse_hr}, 
+	{"h1",                element_parse_heading},
+	{"h2",                element_parse_heading},
+	{"h3",                element_parse_heading},
+	{"h4",                element_parse_heading},
+	{"h5",                element_parse_heading},
+	{"h6",                element_parse_heading},
+	/* a /h1 after an h2 will close the h1 so we special case */
+	{"/h1",               element_end_heading},
+	{"/h2",               element_end_heading},
+	{"/h3",               element_end_heading},
+	{"/h4",               element_end_heading},
+	{"/h5",               element_end_heading},
+	{"/h6",               element_end_heading},
+	/* p and br check the close marker themselves */
+	{"p",                 element_parse_p},
+	{"/p",                element_parse_p},
+	{"br",                element_parse_br},
+	{"/br",               element_parse_br},
+	{NULL,                NULL}
 };
 
 static GHashTable *
@@ -3816,35 +3711,28 @@ parse_one_token (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		return;
 	}
 	
-	ep = str;
-	if (*ep == '/')
-		ep++;
+	name = parse_element_name (str);
 
-	while (*ep && *ep != ' ' && *ep != '>' && *ep != '/')
-		ep++;
-	
-	if (ep - str== 0) {
-		g_warning ("found token with no valid name");
+	if (!name)
 		return;
-	}
-
-	name = g_strndup (str, ep - str);
 
 	entry = g_hash_table_lookup (basic, name);
+
 	if (entry) {
 		/* found a custom handler use it */
-		DT (printf ("found handler for (%s)\n", name);)
+		DT (printf ("found handler for <%s>\n", name);)
 		(*entry->func)(e, clue, str);
 	} else if (*name == '/') {
 		/* generic close element */
-		DT (printf ("generic close handler for (%s)\n", name);)
-		pop_element (e, ++name);
+		DT (printf ("generic close handler for <%s>\n", name);)
+		pop_element (e, name + 1);
 	} else {
 		/* unknown open element do nothing for now */
-		printf ("generic open handler for (%s)\n", name);
+		printf ("generic open handler for <%s>\n", name);
 	}
+
+	g_free (name);
 }
-#endif
 
 
 guint

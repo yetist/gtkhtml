@@ -1,3 +1,11 @@
+2003-07-30  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c: spit up the element parsers into separate
+	functions invoked from the dispatch table.  This causes a lot of
+	code churn but should end up being largely the same functionally.
+	The next step is to combine the simialar functions which should
+	reduce the code size quite a bit.
+
 2003-07-29  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c: change the id from a static enum to a gquark so
