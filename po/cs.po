@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
 "POT-Creation-Date: 2003-04-29 14:20-0500\n"
-"PO-Revision-Date: 2003-04-10 19:28+0200\n"
+"PO-Revision-Date: 2003-04-30 15:34+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -888,9 +888,8 @@ msgid "Page"
 msgstr "Stránka"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:67
-#, fuzzy
 msgid "GtkHTML Editor Control"
-msgstr "Ovládací prvek GNOME HTML Editoru"
+msgstr "Ovládací prvek editoru GtkHTML"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:2
 msgid "************"
@@ -1401,24 +1400,20 @@ msgid "Next"
 msgstr "Další"
 
 #: components/html-editor/replace.c:160
-#, fuzzy
 msgid "Search _backward"
-msgstr "hledat pozpátku"
+msgstr "Hledat _pozpátku"
 
 #: components/html-editor/replace.c:161 components/html-editor/search.c:79
-#, fuzzy
 msgid "Case _sensitive"
-msgstr "rozlišovat velká/malá"
+msgstr "_Rozlišovat velká/malá písmena"
 
 #: components/html-editor/replace.c:171
-#, fuzzy
 msgid "Replace:"
-msgstr "Nahradit"
+msgstr "Nahradit:"
 
 #: components/html-editor/replace.c:174
-#, fuzzy
 msgid "With:"
-msgstr "Šířka:"
+msgstr "S:"
 
 #: components/html-editor/rule.c:97
 msgid "Blue 3D"
@@ -1437,9 +1432,8 @@ msgstr ""
 "Nemohu použít vaše změny."
 
 #: components/html-editor/search.c:78
-#, fuzzy
 msgid "_Backward"
-msgstr "zpět"
+msgstr "_Pozpátku"
 
 #: components/html-editor/search.c:121
 msgid "Find Regular Expression"
@@ -1698,105 +1692,3 @@ msgstr "_Náhled tisku"
 #: src/testgtkhtml.c:103
 msgid "Print preview"
 msgstr "Náhled tisku"
-
-#~ msgid "with"
-#~ msgstr "s"
-
-#~ msgid "Check '%s' spelling..."
-#~ msgstr "Zkontrolovat pravopis '%s'..."
-
-#~ msgid "Ignore '%s'"
-#~ msgstr "Ignorovat '%s'"
-
-#~ msgid "Suggest word"
-#~ msgstr "Navrhnout slovo"
-
-#~ msgid "I could not initialize Bonobo"
-#~ msgstr "Nemohu inicializovat Bonobo"
-
-#~ msgid "Spell Checking _Languages"
-#~ msgstr "_Jazyky kontroly pravopisu"
-
-#~ msgid "Command"
-#~ msgstr "Příkaz"
-
-#~ msgid "Shortcut"
-#~ msgstr "Zkratka"
-
-#~ msgid "Modify the file's properties"
-#~ msgstr "Změnit vlastnosti souboru"
-
-#~ msgid "Pr_operties..."
-#~ msgstr "_Vlastnosti..."
-
-#~ msgid "Cannot execute gtkhtml properties"
-#~ msgstr "Nelze spustit gtkhtml nastavení"
-
-#~ msgid "Clear"
-#~ msgstr "Vymazat"
-
-#~ msgid "Image selection"
-#~ msgstr "Výběr obrázku"
-
-#~ msgid "width"
-#~ msgstr "šířka"
-
-#~ msgid "height"
-#~ msgstr "výška"
-
-#~ msgid "Key"
-#~ msgstr "Klávesa"
-
-#~ msgid "Commands"
-#~ msgstr "Příkazy"
-
-#~ msgid "Keymaps"
-#~ msgstr "Mapy kláves"
-
-#~ msgid "Miscelaneous"
-#~ msgstr "Různé"
-
-#~ msgid "border"
-#~ msgstr "rámeček"
-
-#~ msgid "color"
-#~ msgstr "barva"
-
-#~ msgid "columns"
-#~ msgstr "sloupce"
-
-#~ msgid "spacing"
-#~ msgstr "mezi buňkami"
-
-#~ msgid "style"
-#~ msgstr "styl"
-
-#~ msgid "Item dot"
-#~ msgstr "Obodovaná položka"
-
-#~ msgid "Item roman"
-#~ msgstr "Římsky číslovaná položka"
-
-#~ msgid "Item digit"
-#~ msgstr "Číslovaná položka"
-
-#~ msgid "Regex find"
-#~ msgstr "Regex hledání"
-
-#~ msgid "List item (digit)"
-#~ msgstr "Seznam položek (číslovaný)"
-
-#~ msgid "List item (unnumbered)"
-#~ msgstr "Seznam položek (nečíslovaný)"
-
-#~ msgid "List item (roman)"
-#~ msgstr "Seznam položek (římsky číslovaný)"
-
-#~ msgid "Cells"
-#~ msgstr "Políčka"
-
-#~ msgid "Bindings"
-#~ msgstr "Vazby"
-
-#~ msgid "Appearance"
-#~ msgstr "Vzhled"
