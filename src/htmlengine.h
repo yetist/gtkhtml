@@ -42,6 +42,8 @@ typedef struct _HTMLEngineClass HTMLEngineClass;
 #include "htmlgdkpainter.h"
 #include "htmlundo.h"
 #include "htmlstringtokenizer.h"
+#include "htmlengine-edit-selection-updater.h"
+
 #include "gtkhtml-embedded.h"
 
 
@@ -239,6 +241,10 @@ struct _HTMLEngine {
 	/* This is set to TRUE when at least one element is selected (in whole
            or in part), to FALSE when no item is selected at all.  */
 	gboolean active_selection;
+
+	/* This object is used to update the keyboard selection in the
+           idle loop.  */
+	HTMLEngineEditSelectionUpdater *selection_updater;
 };
 
 /* must be forward referenced *sigh* */
@@ -342,6 +348,7 @@ void   html_engine_select_region         (HTMLEngine *e,
 					  gboolean    queue_draw);
 void   html_engine_unselect_all          (HTMLEngine *e,
 					  gboolean    queue_draw);
+void   html_engine_disable_selection     (HTMLEngine *e);
 gchar *html_engine_get_selection_string  (HTMLEngine *e);
 
 /* Freezing/thawing.  */

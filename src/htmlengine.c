@@ -1678,9 +1678,7 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 	} else if ( strncmp( str, "/dir", 4 ) == 0 ) {
 		pop_block (e, ID_DIR, _clue);
 	} else if ( strncmp( str, "div", 3 ) == 0 ) {
-		push_block (e, ID_DIV, 1,
-			    block_end_div,
-			    e->divAlign, FALSE);
+		push_block (e, ID_DIV, 1, block_end_div, e->divAlign, FALSE);
 
 		html_string_tokenizer_tokenize( e->st, str + 4, " >" );
 		while ( html_string_tokenizer_has_more_tokens (e->st) ) {
@@ -1906,7 +1904,7 @@ parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		gint size = 2;
 		gint length = clue->max_width;
 		gint percent = 100;
-		HTMLHAlignType align = p->divAlign;
+		HTMLHAlignType align = HTML_HALIGN_CENTER;
 		gboolean shade = TRUE;
 
 		close_flow (p, clue);
@@ -2764,6 +2762,7 @@ html_engine_destroy (GtkObject *object)
 	html_cursor_destroy (engine->cursor);
 	if (engine->mark != NULL)
 		html_cursor_destroy (engine->mark);
+
 	html_tokenizer_destroy (engine->ht);
 	html_string_tokenizer_destroy (engine->st);
 	html_settings_destroy (engine->settings);
@@ -2788,6 +2787,8 @@ html_engine_destroy (GtkObject *object)
 
 	if (engine->blinking_timer_id != 0)
 		gtk_timeout_remove (engine->blinking_timer_id);
+
+	html_engine_edit_selection_updater_destroy (engine->selection_updater);
 
 	GTK_OBJECT_CLASS (parent_class)->destroy (object);
 }
@@ -2908,16 +2909,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->newPage = FALSE;
 
 	engine->editable = FALSE;
-	engine->active_selection = FALSE;
 	engine->cut_buffer = NULL;
-
-	engine->cursor = html_cursor_new ();
-	engine->mark = NULL;
-	engine->cursor_hide_count = 0;
-	engine->blinking_timer_id = 0;
-	engine->blinking_status = FALSE;
-
-	engine->insertion_font_style = GTK_HTML_FONT_STYLE_DEFAULT;
 
 	engine->ht = html_tokenizer_new ();
 	engine->st = html_string_tokenizer_new ();
@@ -2962,6 +2954,16 @@ html_engine_init (HTMLEngine *engine)
 	engine->indent_level = 0;
 
 	engine->have_focus = FALSE;
+
+	engine->cursor = html_cursor_new ();
+	engine->mark = NULL;
+	engine->cursor_hide_count = 0;
+	engine->blinking_timer_id = 0;
+	engine->blinking_status = FALSE;
+	engine->insertion_font_style = GTK_HTML_FONT_STYLE_DEFAULT;
+	engine->active_selection = FALSE;
+
+	engine->selection_updater = html_engine_edit_selection_updater_new (engine);
 }
 
 HTMLEngine *
@@ -3854,10 +3856,24 @@ html_engine_unselect_all (HTMLEngine *e,
 
 	e->active_selection = FALSE;
 
+	html_engine_edit_selection_updater_reset (e->selection_updater);
+
+	gtk_html_debug_log (e->widget, "Active selection: FALSE\n");
+}
+
+void
+html_engine_disable_selection (HTMLEngine *e)
+{
+	g_return_if_fail (e != NULL);
+	g_return_if_fail (HTML_IS_ENGINE (e));
+
+	if (e->mark == NULL)
+		return;
+
 	html_cursor_destroy (e->mark);
 	e->mark = NULL;
 
-	gtk_html_debug_log (e->widget, "Active selection: FALSE\n");
+	html_engine_unselect_all (e, TRUE);
 }
 
 

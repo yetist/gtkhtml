@@ -46,6 +46,7 @@ libgtkhtml_HEADERS =				\
 	htmlengine-edit-insert.h		\
 	htmlengine-edit-movement.h		\
 	htmlengine-edit-paste.h			\
+	htmlengine-edit-selection-updater.h	\
 	htmlengine-print.h			\
 	htmlengine-save.h			\
 	htmlengine.h				\
@@ -114,6 +115,7 @@ libgtkhtml_la_SOURCES =				\
 	htmlengine-edit-insert.c		\
 	htmlengine-edit-movement.c		\
 	htmlengine-edit-paste.c			\
+	htmlengine-edit-selection-updater.c	\
 	htmlengine-print.c			\
 	htmlengine-save.c			\
 	htmlengine.c				\

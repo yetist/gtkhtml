@@ -22,8 +22,19 @@
 #include <ctype.h>
 
 #include "htmlengine-edit-cursor.h"
+#include "htmlengine-edit-selection-updater.h"
 
 #include "htmlengine-edit-movement.h"
+
+
+static void
+update_selection_if_necessary (HTMLEngine *e)
+{
+	if (e->mark == NULL)
+		return;
+
+	html_engine_edit_selection_updater_schedule (e->selection_updater);
+}
 
 
 guint
@@ -71,6 +82,8 @@ html_engine_move_cursor (HTMLEngine *e,
 
 	html_engine_show_cursor (e);
 
+	update_selection_if_necessary (e);
+
 	return c;
 }
 
@@ -82,6 +95,7 @@ html_engine_move_cursor (HTMLEngine *e,
  * @offset: Cursor offset within @object
  * 
  * Move the cursor to object @object, at the specified @offset.
+ * Notice that this does *not* modify the selection.
  * 
  * Return value: 
  **/
@@ -140,6 +154,8 @@ html_engine_beginning_of_document (HTMLEngine *engine)
 	html_engine_hide_cursor (engine);
 	html_cursor_beginning_of_document (engine->cursor, engine);
 	html_engine_show_cursor (engine);
+
+	update_selection_if_necessary (engine);
 }
 
 void
@@ -151,6 +167,8 @@ html_engine_end_of_document (HTMLEngine *engine)
 	html_engine_hide_cursor (engine);
 	html_cursor_end_of_document (engine->cursor, engine);
 	html_engine_show_cursor (engine);
+
+	update_selection_if_necessary (engine);
 }
 
 
@@ -166,6 +184,8 @@ html_engine_beginning_of_line (HTMLEngine *engine)
 	retval = html_cursor_beginning_of_line (engine->cursor, engine);
 	html_engine_show_cursor (engine);
 
+	update_selection_if_necessary (engine);
+
 	return retval;
 }
 
@@ -180,6 +200,8 @@ html_engine_end_of_line (HTMLEngine *engine)
 	html_engine_hide_cursor (engine);
 	retval = html_cursor_end_of_line (engine->cursor, engine);
 	html_engine_show_cursor (engine);
+
+	update_selection_if_necessary (engine);
 
 	return retval;
 }
@@ -229,6 +251,9 @@ html_engine_scroll_down (HTMLEngine *engine,
 	}
 
 	html_engine_show_cursor (engine);
+
+	update_selection_if_necessary (engine);
+
 	return new_y - start_y;
 }
 
@@ -278,6 +303,9 @@ html_engine_scroll_up (HTMLEngine *engine,
 	}
 
 	html_engine_show_cursor (engine);
+
+	update_selection_if_necessary (engine);
+
 	return start_y - new_y;
 }
 
@@ -302,21 +330,23 @@ html_engine_forward_word (HTMLEngine *engine)
 		skip_non_alnum = FALSE;
 
 	while (1) {
-		if (! html_cursor_forward (cursor, engine)) {
-			html_engine_show_cursor (engine);
-			return TRUE;
-		}
+		if (! html_cursor_forward (cursor, engine))
+			break;
 
 		c = html_cursor_get_current_char (cursor);
 		if (c == 0 || ! isalnum ((gint) c)) {
-			if (! skip_non_alnum) {
-				html_engine_show_cursor (engine);
-				return TRUE;
-			}
+			if (! skip_non_alnum)
+				break;
 		} else {
 			skip_non_alnum = FALSE;
 		}
 	}
+
+	html_engine_show_cursor (engine);
+
+	update_selection_if_necessary (engine);
+
+	return TRUE;
 }
 
 gboolean
@@ -344,20 +374,21 @@ html_engine_backward_word (HTMLEngine *engine)
 		skip_non_alnum = FALSE;
 
 	while (1) {
-		if (! html_cursor_backward (cursor, engine)) {
-			html_engine_show_cursor (engine);
-			return TRUE;
-		}
+		if (! html_cursor_backward (cursor, engine))
+			break;
 
 		c = html_cursor_get_current_char (cursor);
 		if (c == 0 || ! isalnum ((gint) c)) {
-			if (! skip_non_alnum) {
-				html_cursor_forward (cursor, engine);
-				html_engine_show_cursor (engine);
-				return TRUE;
-			}
+			if (! skip_non_alnum)
+				break;
 		} else {
 			skip_non_alnum = FALSE;
 		}
 	}
+
+	html_engine_show_cursor (engine);
+
+	update_selection_if_necessary (engine);
+
+	return TRUE;
 }

@@ -88,6 +88,6 @@ html_engine_cut (HTMLEngine *engine)
 		html_engine_delete (engine, elems_copied);
 	}
 
-	html_engine_unselect_all (engine, FALSE);
+	html_engine_disable_selection (engine);
 	html_engine_thaw (engine);
 }

@@ -1,3 +1,65 @@
+2000-04-11  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine-edit-cut.c
+	(html_engine_cut): Use `html_engine_disable_selection()' instead
+	of `html_engine_unselect_all()'.
+
+	* gtkhtml.c
+	(button_press_event): Use `html_engine_disable_selection()'
+	instead of `html_engine_unselect_all()'.
+	(selection_clear_event): Likewise.
+
+	* gtkhtml-keybinding.c
+	(forward): Don't unselect the region.
+	(backward): Likewise.
+	(up): Likewise.
+	(down): Likewise.
+	(beginning_of_line): Likewise.
+	(end_of_line): Likewise.
+	(page_up): Likewise.
+	(page_down): Likewise.
+	(forward_word): Likewise.
+	(backward_word): Likewise.
+	(beginning_of_document): Likewise.
+	(end_of_document): Likewise.
+	(delete): Use `html_engine_disable_selection()' instead of
+	`html_engine_unselect_all()'.
+	(insert_para): Likewise.
+	(handle_none): Likewise.
+	(unselect_all): Removed.
+	(disable_selection): New function.
+	(handle_ctrl): Map it to `C-g'.
+
+	* htmlengine.c
+	(html_engine_disable_selection): New function.
+
+	* htmlcursor.c
+	(forward): After going to the next object, increment the offset by
+	one if it is the first child.
+
+	* htmlengine-edit-movement.c
+	(update_selection_if_necessary): New helper function.
+	(html_engine_move_cursor): Call it to update the selection when
+	moving the cursor.
+	(html_engine_end_of_document): Likewise.
+
+	* htmlengine.c
+	(html_engine_init): Initialize `selection_updater'
+	(html_engine_destroy): Destroy it.
+
+	* htmlengine.h: New member `selection_updater' in `HTMLEngine'.
+
+	* htmlengine-edit-selection-updater.h: New file.
+	* htmlengine-edit-selection-updater.c: New file.
+
+	* htmlcursor.c
+	(html_cursor_equal): Made params const-safe.
+
+	* htmlengine.c
+	(html_engine_unselect_all): Do not destroy the mark if it is NULL.
+
+	* htmlengine.c (parse_h): Center `<hr>'s by default.
+
 2000-04-11  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlimage.c (get_actual_height): 

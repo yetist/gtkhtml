@@ -702,12 +702,16 @@ motion_notify_event (GtkWidget *widget,
 
 		html->in_selection = TRUE;
 
-		if (html->in_selection
-		    && (x < 0 || x >= widget->allocation.width
-			|| y < 0 || y >= widget->allocation.height))
+		if (x < 0 || x >= widget->allocation.width
+		    || y < 0 || y >= widget->allocation.height)
 			setup_scroll_timeout (html);
 		else
 			remove_scroll_timeout (html);
+
+		/* This will put the mark at the position of the
+                   previous click.  */
+		if (engine->mark == NULL)
+			html_engine_set_mark (engine);
 
 		html_engine_select_region (engine,
 					   html->selection_x1, html->selection_y1,
@@ -816,7 +820,7 @@ button_press_event (GtkWidget *widget,
 
 	html->button_pressed = TRUE;
 
-	html_engine_unselect_all (engine, TRUE);
+	html_engine_disable_selection (engine);
 
 	return TRUE;
 }
@@ -910,7 +914,7 @@ selection_clear_event (GtkWidget *widget,
 
 	html = GTK_HTML (widget);
 
-	html_engine_unselect_all (html->engine, TRUE);
+	html_engine_disable_selection (html->engine);
 	html->in_selection = FALSE;
 
 	return TRUE;

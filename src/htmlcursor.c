@@ -318,8 +318,11 @@ forward (HTMLCursor *cursor,
 
 	if (! forward_object (cursor, engine))
 		return FALSE;
-	else
-		return TRUE;
+
+	if (cursor->object->prev != NULL)
+		cursor->offset++;
+
+	return TRUE;
 }
 
 gboolean
@@ -784,7 +787,8 @@ html_cursor_beginning_of_line (HTMLCursor *cursor,
 
 /* Comparison.  */
 gboolean
-html_cursor_equal (HTMLCursor *a, HTMLCursor *b)
+html_cursor_equal (const HTMLCursor *a,
+		   const HTMLCursor *b)
 {
 	g_return_val_if_fail (a != NULL, FALSE);
 	g_return_val_if_fail (b != NULL, FALSE);

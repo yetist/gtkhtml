@@ -79,8 +79,8 @@ gboolean  html_cursor_jump_to                (HTMLCursor *cursor,
 					      guint       offset);
 
 /* Comparison.  */
-gboolean  html_cursor_equal  (HTMLCursor *a,
-			      HTMLCursor *b);
+gboolean  html_cursor_equal  (const HTMLCursor *a,
+			      const HTMLCursor *b);
 
 /* Internals.  */
 

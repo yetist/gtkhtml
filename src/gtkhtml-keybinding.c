@@ -64,55 +64,51 @@ static void
 forward (GtkHTML *html)
 {
 	html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_RIGHT, 1);
-	html_engine_unselect_all (html->engine, TRUE);
 }
 
 static void
 backward (GtkHTML *html)
 {
 	html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_LEFT, 1);
-	html_engine_unselect_all (html->engine, TRUE);
 }
 
 static void
 up (GtkHTML *html)
 {
 	html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_UP, 1);
-	html_engine_unselect_all (html->engine, TRUE);
 }
 
 static void
 down (GtkHTML *html)
 {
 	html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_DOWN, 1);
-	html_engine_unselect_all (html->engine, TRUE);
 }
 
 static void
 delete (GtkHTML *html)
 {
-	html_engine_unselect_all (html->engine, TRUE);
+	/* FIXME this should cut the selection instead.  */
+	html_engine_disable_selection (html->engine);
 	html_engine_delete (html->engine, 1);
 }
 
 static void
 insert_para (GtkHTML *html)
 {
-	html_engine_unselect_all (html->engine, TRUE);
+	/* FIXME this should cut the selection instead.  */
+	html_engine_disable_selection (html->engine);
 	html_engine_insert_para (html->engine, TRUE);
 }
 
 static void
 beginning_of_line (GtkHTML *html)
 {
-	html_engine_unselect_all (html->engine, TRUE);
 	html_engine_beginning_of_line (html->engine);
 }
 
 static void
 end_of_line (GtkHTML *html)
 {
-	html_engine_unselect_all (html->engine, TRUE);
 	html_engine_end_of_line (html->engine);
 }
 
@@ -121,7 +117,6 @@ page_up (GtkHTML *html)
 {
 	gint amount;
 
-	html_engine_unselect_all (html->engine, TRUE);
 	amount = html_engine_scroll_up (html->engine, GTK_WIDGET (html)->allocation.height);
 
 	if (amount > 0)
@@ -133,7 +128,6 @@ page_down (GtkHTML *html)
 {
 	gint amount;
 
-	html_engine_unselect_all (html->engine, TRUE);
 	amount = html_engine_scroll_down (html->engine, GTK_WIDGET (html)->allocation.height);
 
 	if (amount > 0)
@@ -143,28 +137,24 @@ page_down (GtkHTML *html)
 static void
 forward_word (GtkHTML *html)
 {
-	html_engine_unselect_all (html->engine, TRUE);
 	html_engine_forward_word (html->engine);
 }
 
 static void
 backward_word (GtkHTML *html)
 {
-	html_engine_unselect_all (html->engine, TRUE);
 	html_engine_backward_word (html->engine);
 }
 
 static void
 beginning_of_document (GtkHTML *html)
 {
-	html_engine_unselect_all (html->engine, TRUE);
 	html_engine_beginning_of_document (html->engine);
 }
 
 static void
 end_of_document (GtkHTML *html)
 {
-	html_engine_unselect_all (html->engine, TRUE);
 	html_engine_end_of_document (html->engine);
 }
 
@@ -175,9 +165,9 @@ set_mark (GtkHTML *html)
 }
 
 static void
-unselect_all (GtkHTML *html)
+disable_selection (GtkHTML *html)
 {
-	html_engine_unselect_all (html->engine, TRUE);
+	html_engine_disable_selection (html->engine);
 }
 
 
@@ -207,7 +197,7 @@ handle_ctrl (GtkHTML *html,
 		forward (html);
 		break;
 	case 'g':
-		unselect_all (html);
+		disable_selection (html);
 		break;
 	case 'n':
 		down (html);
@@ -331,7 +321,7 @@ handle_none (GtkHTML *html,
 		insert_para (html);
 		break;
 	case GDK_BackSpace:
-		html_engine_unselect_all (html->engine, TRUE);
+		html_engine_disable_selection (html->engine);
 		if (html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_LEFT, 1) == 1)
 			html_engine_delete (html->engine, 1);
 		retval = TRUE;
