@@ -7,6 +7,7 @@ icons_DATA = \
 	16_paste.png			\
 	24_paste.png			\
 	bulb.png			\
+	info_bulb.png			\
 	empty_image.png			\
 	flowers.png			\
 	font-tt-16.png			\
