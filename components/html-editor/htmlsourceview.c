@@ -194,22 +194,24 @@ html_source_view_destroy (GtkObject *object)
 	HTMLSourceView *view = HTML_SOURCE_VIEW (object);
 	HTMLSourceViewPrivate *priv = view->priv;
 
-	if (priv->timer_id)
-		gtk_timeout_remove (priv->timer_id);
-	priv->timer_id = 0;
-
-	if (priv->pstream != CORBA_OBJECT_NIL) {
-		CORBA_Environment ev;
-
-		CORBA_exception_init (&ev);
-		Bonobo_Unknown_unref (priv->pstream, &ev);
-		CORBA_Object_release (priv->pstream, &ev);
-		CORBA_exception_free (&ev);
+	if (priv) {
+		if (priv->timer_id)
+			gtk_timeout_remove (priv->timer_id);
+		priv->timer_id = 0;
+		
+		if (priv->pstream != CORBA_OBJECT_NIL) {
+			CORBA_Environment ev;
+			
+			CORBA_exception_init (&ev);
+			Bonobo_Unknown_unref (priv->pstream, &ev);
+			CORBA_Object_release (priv->pstream, &ev);
+			CORBA_exception_free (&ev);
+		}
+		
+		g_free (view->priv);
+		view->priv = NULL;
 	}
-
-	g_free (view->priv);
-	view->priv = NULL;
-
+		
 	if (GTK_OBJECT_CLASS (parent_class)->destroy != NULL)
 		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }

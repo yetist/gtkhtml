@@ -1,3 +1,8 @@
+2003-03-30  Larry Ewing  <lewing@ximian.com>
+
+	* htmlsourceview.c (html_source_view_destroy): make sure this is
+	safe for multiple calls
+
 2003-03-28  Larry Ewing  <lewing@ximian.com>
 
 	* menubar.c (command_cb): replace a bunch of reproduced code with
