@@ -1,3 +1,13 @@
+2002-07-18  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (gtk_html_insert_html_generic): reparent the embedded
+	objects (this is not yet a complete fix).
+	(gtk_html_modify_indent_by_delta): make this static.
+
+2002-07-15  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine-edit-clueflowstyle.c (set_props): fix a size problem.
+
 2002-07-18  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit.c (html_engine_set_title): emit TITLE_CHANGED

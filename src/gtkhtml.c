@@ -2216,8 +2216,7 @@ drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *sel
 	/* printf ("drag_data_get\n"); */
 	switch (info) {
 	case DND_TARGET_TYPE_TEXT_URI_LIST:
-	case DND_TARGET_TYPE__NETSCAPE_URL:
-		/* printf ("\ttext/uri-list\n"); */
+	case DND_TARGET_TYPE__NETSCAPE_URL: 
 	case DND_TARGET_TYPE_TEXT_PLAIN:
 	case DND_TARGET_TYPE_STRING: {
 		HTMLObject *obj = GTK_HTML (widget)->priv->dnd_real_object;
@@ -2230,7 +2229,8 @@ drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *sel
 			url = html_object_get_url (obj);
 			target = html_object_get_target (obj);
 			if (url && *url) {
-				complete_url = g_strconcat (url, target && *target ? "#" : NULL, target, NULL);
+				complete_url = g_strconcat (url, target && *target ? "#" : NULL, 
+							    target, NULL);
 				gtk_selection_data_set (selection_data, selection_data->target, 8,
 							complete_url, strlen (complete_url));
 				/* printf ("complete URL %s\n", complete_url); */
@@ -3277,9 +3277,10 @@ gtk_html_set_indent (GtkHTML *html,
 	gtk_html_update_styles (html);
 }
 
-void
+static void
 gtk_html_modify_indent_by_delta (GtkHTML *html,
-				 gint delta, guint8 *levels)
+				 gint delta, 
+				 guint8 *levels)
 {
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
@@ -4587,6 +4588,16 @@ gtk_html_build_with_gconf ()
 }
 
 static void
+update_embedded_object_parent (HTMLObject *o, HTMLEngine *e, gpointer data)
+{
+	HTMLEngine *toplevel = data;
+ 
+	if (html_object_is_embedded (o) && e == toplevel) {
+		html_embedded_reparent (HTML_EMBEDDED (o), GTK_WIDGET (toplevel->widget));
+	}
+}
+
+static void
 gtk_html_insert_html_generic (GtkHTML *html, GtkHTML *tmp, const gchar *html_src, gboolean obj_only)
 {
 	GtkWidget *window, *sw;
@@ -4594,13 +4605,15 @@ gtk_html_insert_html_generic (GtkHTML *html, GtkHTML *tmp, const gchar *html_src
 
 	html_engine_freeze (html->engine);
 	if (!tmp)
-		tmp    = GTK_HTML (gtk_html_new_from_string (html_src, -1));
+		tmp = GTK_HTML (gtk_html_new_from_string (html_src, -1));
+
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	sw     = gtk_scrolled_window_new (NULL, NULL);
 	gtk_container_add (GTK_CONTAINER (window), GTK_WIDGET (sw));
 	gtk_container_add (GTK_CONTAINER (sw), GTK_WIDGET (tmp));
 	gtk_widget_realize (GTK_WIDGET (tmp));
-	html_image_factory_move_images (html->engine->image_factory, tmp->engine->image_factory);
+	html_image_factory_move_images (html->engine->image_factory, tmp->engine->image_factory);	
+	html_object_forall (tmp->engine->clue, tmp->engine, update_embedded_object_parent, html);
 	if (obj_only) {
 		HTMLObject *next;
 		g_return_if_fail (tmp->engine->clue && HTML_CLUE (tmp->engine->clue)->head
