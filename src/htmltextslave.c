@@ -268,7 +268,6 @@ slave_split_if_too_long (HTMLTextSlave *slave, HTMLPainter *painter, gint *width
 {
 	gint x, y;
 
-	printf ("split it\n");
 	html_object_calc_abs_position (HTML_OBJECT (slave), &x, &y);
 
 	if (*width + x > MAX_WIDGET_WIDTH && slave->posLen > 1) {
