@@ -1,3 +1,12 @@
+2001-10-13  Jon Trowbridge  <trow@ximian.com>
+
+	* htmliframe.c (html_iframe_init): The iframe's HTMLEngine needs
+	to share the parent's HTMLTokenizer, not a copy. (Bug #11638)
+
+	* htmlframe.c (html_frame_init): Likewise, the frame's HTMLEngine
+	needs to share the parent's HTMLTokenizer, not a copy. (also Bug
+	#11638)
+
 2001-10-12  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c (draw_changed_objects): test if we already have
