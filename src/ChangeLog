@@ -3,6 +3,9 @@
 	* htmlgdkpainter.c (draw_pixmap): fix coloring logic.
 	(create_temporary_pixbuf): clear the pixbuf before we use it.
 
+	* htmlimage.c (html_image_factory_types): add disabled code to use
+	gtk-pixbuf features in gtk+-2.2
+
 	* htmltext.c (append_selection_string): use g_string_function that
 	exists now.
 

@@ -908,16 +908,50 @@ html_image_set_size (HTMLImage *image, gint w, gint h, gboolean pw, gboolean ph)
 	}
 }
 
-char *image_content_types[] = {"image/*", NULL};
+static char *fallback_image_content_types[] = {"image/*", NULL};
 
 static char **
 html_image_factory_types (GtkHTMLStream *stream,
 			  gpointer user_data)
 {
-	/* FIXME: this should use the not currently existant function
-	 * in gdk-pixbuf that tells us what mime types are supported 
-	 * by the modules it has loaded.
-	 */
+	static char**image_content_types = NULL;
+	
+#if 0
+	/* this code should work in gtk+-2.2 but it is untested */
+	if (image_content_types == NULL) {
+		GSList *formats;
+		GSList *cur;
+		GSList *types = NULL;
+		gint i;
+
+		formats = gdk_pixbuf_get_formats ();
+		
+		for (cur = formats; cur; cur = cur->next) {
+			GdkPixbufFormat *format = cur->data;
+			char **mime;
+
+			mime = gdk_pixbuf_formats_get_mime_types ();
+			for (i = 0; mime && mime[i]; i++)
+				g_slist_prepend (types, g_strdup (mime[i]));
+
+		}
+		g_slist_free (formats);
+
+		if (types) {
+			image_content_types = g_new0 (char *, g_slist_length (types) + 1);
+			
+			for (cur = types, i = 0; cur; cur = cur->next, i++) {
+				image_content_types[i] = cur->data;
+			}
+			g_slist_free (types);
+		} else {
+			image_content_types = fallback_image_content_types;
+		}
+	}
+#else 
+	image_content_types = fallback_image_content_types;
+#endif
+
 	return image_content_types;
 }
 

@@ -617,7 +617,8 @@ create_temporary_pixbuf (GdkPixbuf *src,
 	bits_per_sample = gdk_pixbuf_get_bits_per_sample (src);
 
 	pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, has_alpha, bits_per_sample, clip_width, clip_height);
-
+	gdk_pixbuf_fill (pixbuf, 0xff000000);
+	
 	return pixbuf;
 }
 
@@ -735,7 +736,7 @@ draw_pixmap (HTMLPainter *painter,
 				p[2] = b;
 
 				if (n_channels > 3)
-					p[3] = 0xff;
+					p[3] = (a + 127) / 2;
 
 				p += n_channels;
 			}
