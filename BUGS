@@ -23,8 +23,6 @@ Table problems
 - The API needs some loving.  (FIXME: come up with a list of things
   that are ugly/broken/etc.)
 
-- `PRE' is broken.
-
 - The parser can crash sometimes, and this is embarassing.  Let's load
   it with lots of random/inappropriate data and let's make it sure
   this does not happen *ever*.
