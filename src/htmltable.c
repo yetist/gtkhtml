@@ -678,7 +678,7 @@ calc_column_widths (HTMLTable *table,
 			colPos = (a_columnpos (indx)
 				  + html_object_calc_min_width (HTML_OBJECT (cell), painter)
 				  + table->padding * 2
-				  + table->padding
+				  + table->spacing
 				  + borderExtra);
 			
 			if (a_columnpos (c + 1) < colPos)
