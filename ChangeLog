@@ -1,4 +1,6 @@
-2001-11-12  Larry Ewing  <lewing@ximian.com>
+2001-11-14  Larry Ewing  <lewing@ximian.com>
+
+	* configure.in (GTKHTML_REVISION): increment for release.
 
 	* configure.in: bump version 0.16.1
 
