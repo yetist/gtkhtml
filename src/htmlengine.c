@@ -3100,6 +3100,9 @@ html_engine_destroy (GtkObject *object)
 	}
 	/* remove all the timers associated with image pointers also */
 	html_image_factory_stop_animations (engine->image_factory);
+       
+	/* timers live in the selection updater too. */
+	html_engine_edit_selection_updater_destroy (engine->selection_updater);
 	
 	html_undo_destroy (engine->undo);
 	html_engine_clipboard_clear (engine);
@@ -3144,8 +3147,6 @@ html_engine_destroy (GtkObject *object)
 	g_list_free (engine->tempStrings);
 
 	html_draw_queue_destroy (engine->draw_queue);
-
-	html_engine_edit_selection_updater_destroy (engine->selection_updater);
 
 	if (engine->search_info)
 		html_search_destroy (engine->search_info);

@@ -1,3 +1,11 @@
+2001-10-29  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c (html_engine_destroy): timers live in the selection
+	updater too, clear it before we destroy the objects.
+
+	* htmlgdkpainter.c (alloc_e_font_try): use gdk_fontset_load (patch
+	from  Kjartan Maraas <kmaraas@gnome.org>).  see Ximian #11883.
+
 2001-10-29  Radek Doulik  <rodo@ximian.com>
 
 	* htmlprinter.c: use gnome_font_get_width_utf8_sized
