@@ -2514,8 +2514,6 @@ draw_background (HTMLEngine *e, gint xval, gint yval, gint x, gint y, gint w, gi
 	xOrigin -= e->painter->x1;
 	yOrigin -= e->painter->y1;
 
-	html_painter_set_clip_rectangle(e->painter, x, y, w, h);
-
 	/* Do the bgimage tiling */
 	for (yp = yOrigin; yp < y + h; yp += ph) {
 	        for (xp = xOrigin; xp < x + w; xp += pw) {
