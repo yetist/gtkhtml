@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
-"POT-Creation-Date: 2003-05-21 08:59-0500\n"
-"PO-Revision-Date: 2003-04-16 21:57+0200\n"
+"POT-Creation-Date: 2003-05-22 14:19+0200\n"
+"PO-Revision-Date: 2003-05-22 14:20+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1240,17 +1240,15 @@ msgstr "Sett inn"
 #: components/html-editor/menubar.c:252
 #, c-format
 msgid "Error loading file '%s': %s"
-msgstr ""
+msgstr "Feil under lasting av fil «%s»: %s"
 
 #: components/html-editor/menubar.c:279
-#, fuzzy
 msgid "Insert: HTML File"
-msgstr "Sett inn HTML-fil"
+msgstr "Sett inn: HTML-fil"
 
 #: components/html-editor/menubar.c:279
-#, fuzzy
 msgid "Insert: Text File"
-msgstr "Sett inn tekstfil"
+msgstr "Sett inn: Tekstfil"
 
 #: components/html-editor/paragraph.c:130
 msgid "Pre"
@@ -1697,9 +1695,5 @@ msgid "Print preview"
 msgstr "Forhåndsvisning"
 
 #: src/testgtkhtml.c:973
-#, fuzzy
 msgid "GtkHTML Test Application"
-msgstr "GtkHTML-test"
-
-#~ msgid "The quick brown fox jumped over the lazy dog."
-#~ msgstr "Dette er en prøve...testing en - to - tre."
+msgstr "Test-applikasjon for GtkHTML"
