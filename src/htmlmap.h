@@ -53,7 +53,7 @@ char *       html_map_calc_point  (HTMLMap         *map,
 				   gint             x,
 				   gint             y);
 
-void html_map_add_shape           (HTMLMap         *map,
+void          html_map_add_shape  (HTMLMap         *map,
 				   HTMLShape       *shape);
 
 #endif /* _HTMLMAP_H */

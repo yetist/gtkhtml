@@ -1,5 +1,21 @@
 2001-05-30  Larry Ewing  <lewing@ximian.com>
 
+	* htmlimage.c (image_update_url): temp hack to piggyback url
+	selection onto point calculation.  
+	(check_point): call image_update_url.
+	(html_image_set_usemap): add.
+	(html_image_init): initialize usemap.
+	(destroy): free usemap.
+	(copy): dup usemap.
+
+	* htmlimage.h: add html_image_set_usemap prototype, and usemap
+	member.
+
+	* htmlmap.h: format change ;)
+
+	* htmlengine.c (parse_i): add the map to the image
+	(parse_m): fix length.
+
 	* htmlframeset.c (calc_min_width): add hack to force size
 	calculation when the widget gets a new allocation.
 	(forall): fix this.

@@ -4,7 +4,8 @@
     Copyright (C) 1997 Martin Jones (mjones@kde.org)
     Copyright (C) 1997 Torben Weis (weis@kde.org)
     Copyright (C) 1999 Anders Carlsson (andersca@gnu.org)
-    Copyright (C) 1999, 2000 Helix Code, Inc.
+    Copyright (C) 1999, 2000, Helix Code, Inc.
+    Copyright (C) 2001, Ximian Inc.
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
@@ -92,6 +93,7 @@
 #include "htmlframe.h"
 #include "htmliframe.h"
 #include "htmlshape.h"
+#include "htmlmap.h"
 
 
 static void      html_engine_class_init       (HTMLEngineClass     *klass);
@@ -2162,11 +2164,11 @@ parse_f (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		while (html_string_tokenizer_has_more_tokens (e->st)) {
 			const gchar *token = html_string_tokenizer_next_token (e->st);
 			
-			if (strncasecmp(token, "src=", 4) == 0) {
+			if (strncasecmp (token, "src=", 4) == 0) {
 				src = g_strdup (token + 4);
-			} else if (strncasecmp(token, "noresize", 8) == 0) {
-			} else if (strncasecmp(token, "frameborder=", 12) == 0) {
-			} else if (strncasecmp(token, "border=", 7) == 0) {
+			} else if (strncasecmp (token, "noresize", 8) == 0) {
+			} else if (strncasecmp (token, "frameborder=", 12) == 0) {
+			} else if (strncasecmp (token, "border=", 7) == 0) {
 				/*
 				 * Netscape and Mozilla recognize this to turn of all the between
 				 * frame decoration.
@@ -2383,7 +2385,11 @@ parse_i (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
 				html_image_set_alt (HTML_IMAGE (image), alt);
 				g_free (alt);
 			}
-						    
+			
+			if (mapname) {
+				html_image_set_usemap (HTML_IMAGE (image), mapname);
+				g_free (mapname);
+			}	    
 			g_free(tmpurl);
 				
 			if (align == HTML_HALIGN_NONE) {
@@ -2531,16 +2537,18 @@ parse_m (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 			}
 		}
 	} else if (strncmp (str, "map", 3) == 0) {
-		html_string_tokenizer_tokenize (e->st, str + 5, " >");
+		html_string_tokenizer_tokenize (e->st, str + 3, " >");
 		while (html_string_tokenizer_has_more_tokens (e->st)) {
-			const gchar* token = html_string_tokenizer_next_token (e->st);
+			const char* token = html_string_tokenizer_next_token (e->st);
 			if (strncasecmp (token, "name=", 5) == 0) {
-				e->map = html_map_new (token +5);
+				const char *name = token + 5;
+
+				e->map = HTML_MAP (html_map_new (name));
 
 				if (e->map == NULL)
 					return;
 
-				html_engine_add_object_with_id (e, token + 5, 
+				html_engine_add_object_with_id (e, name, 
 								HTML_OBJECT (e->map));
 				if (e->flow == NULL) {
 					html_clue_append (HTML_CLUE (_clue),

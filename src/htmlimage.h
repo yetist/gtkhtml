@@ -91,7 +91,8 @@ struct _HTMLImage {
 
 	gchar *url;
 	gchar *target;
-	gchar *alt;	
+	gchar *alt;
+	gchar *usemap;
 };
 
 struct _HTMLImageClass {
@@ -146,6 +147,8 @@ void        html_image_set_border         (HTMLImage        *image,
 					   gint              border);
 void        html_image_set_alt            (HTMLImage        *image,
 					   gchar            *alt);
+void        html_image_set_usemap         (HTMLImage        *image,
+					   gchar            *usemap);
 gchar      *html_image_resolve_image_url  (GtkHTML          *html,
 					   gchar            *image_url);
 

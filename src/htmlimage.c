@@ -49,6 +49,7 @@
 #include "htmlenumutils.h"
 #include "htmlimage.h"
 #include "htmlobject.h"
+#include "htmlmap.h"
 #include "htmlprinter.h"
 
 /* HTMLImageFactory stuff.  */
@@ -165,9 +166,10 @@ destroy (HTMLObject *o)
 	if (image->animation)
 		html_image_animation_destroy (image->animation);
 
-	if (image->url)    g_free (image->url);
-	if (image->target) g_free (image->target);
-	if (image->alt)    g_free (image->alt);
+	g_free (image->url);
+	g_free (image->target);
+	g_free (image->alt);
+	g_free (image->usemap);
 
 	if (image->color)
 		html_color_unref (image->color);
@@ -209,9 +211,55 @@ copy (HTMLObject *self,
 	dimg->url = g_strdup (simg->url);
 	dimg->target = g_strdup (simg->target);
 	dimg->alt = g_strdup (simg->alt);
-
+	dimg->usemap = g_strdup (simg->usemap);
 	/* add dest to image_ptr interests */
 	dimg->image_ptr->interests = g_slist_prepend (dimg->image_ptr->interests, dimg);
+}
+
+static void 
+image_update_url (HTMLImage *image, gint x, gint y)
+{
+	HTMLMap *map;
+	HTMLObject *o = HTML_OBJECT (image);
+	char *url;
+
+	if (image->usemap == NULL)
+		return;
+
+	/* 
+	 * FIXME this is a huge hack waiting until we implement events for now we write
+	 * over the image->url for every point since we always call point before get_url
+	 * it is sick, I know.
+	 */
+	map = (HTMLMap *)html_engine_get_object_by_id (image->image_ptr->factory->engine, image->usemap + 1);
+
+	if (map) {
+		url = html_map_calc_point (map, x - o->x , y - (o->y - o->ascent));
+
+		g_free (image->url);
+		image->url = url ? g_strdup (url) : NULL;
+	}
+}
+
+static HTMLObject *
+check_point (HTMLObject *self,
+	     HTMLPainter *painter,
+	     gint x, gint y,
+	     guint *offset_return,
+	     gboolean for_cursor)
+{
+	if ((x >= self->x)
+	    && (x < (self->x + self->width))
+	    && (y >= (self->y - self->ascent))
+	    && (y < (self->y + self->descent))) {
+		if (offset_return != NULL)
+			*offset_return = 0;
+		
+		image_update_url (HTML_IMAGE (self), x, y);
+		return self;
+	}
+	
+	return NULL;
 }
 
 static gint
@@ -581,6 +629,7 @@ html_image_class_init (HTMLImageClass *image_class,
 	object_class->calc_min_width = calc_min_width;
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->calc_size = calc_size;
+	object_class->check_point = check_point;
 	object_class->get_url = get_url;
 	object_class->get_target = get_target;
 	object_class->set_link = set_link;
@@ -617,6 +666,7 @@ html_image_init (HTMLImage *image,
 
 	image->url = g_strdup (url);
 	image->target = g_strdup (url);
+	image->usemap = NULL;
 
 	image->specified_width  = width;
 	image->specified_height = height;
@@ -726,10 +776,15 @@ html_image_set_border (HTMLImage *image, gint border)
 void
 html_image_set_alt (HTMLImage *image, gchar *alt)
 {
-	if (image->alt)
-		g_free (image->alt);
-
+	g_free (image->alt);
 	image->alt = g_strdup (alt);
+}
+
+void
+html_image_set_usemap (HTMLImage *image, gchar *usemap)
+{
+	g_free (image->usemap);
+	image->usemap = g_strdup (usemap);
 }
 
 void
