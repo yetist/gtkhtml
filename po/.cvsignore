@@ -10,3 +10,4 @@ cat-id-tbl.c
 *.pox
 stamp-cat-id
 .headerlock
+missing
