@@ -187,6 +187,8 @@ libgtkhtml_la_SOURCES =				\
 
 libgtkhtml_la_LDFLAGS = -version-info $(GTKHTML_CURRENT):$(GTKHTML_REVISION):$(GTKHTML_AGE)
 
+libgtkhtml_la_LIBADD = $(EXTRA_GNOME_LIBS) $(GCONF_LIBS)
+
 # The test program.
 
 testgtkhtml_SOURCES = 		\
