@@ -33,6 +33,7 @@ static int test_cursor_left_right_on_lines_boundaries_rtl (GtkHTML *html);
 static int test_cursor_left_right_on_lines_boundaries_wo_white (GtkHTML *html);
 static int test_cursor_around_containers (GtkHTML *html);
 static int test_cursor_around_image (GtkHTML *html);
+static int test_cursor_around_anchors (GtkHTML *html);
 
 static int test_quotes_in_div_block (GtkHTML *html);
 static int test_quotes_in_table (GtkHTML *html);
@@ -54,6 +55,7 @@ static Test tests[] = {
 	{ "begin/end of line (RTL)", test_cursor_beol_rtl },
 	{ "around containers", test_cursor_around_containers },
 	{ "around image", test_cursor_around_image },
+	{ "around anchors", test_cursor_around_anchors },
 	{ "various fixed bugs", NULL },
 	{ "outer quotes inside div block", test_quotes_in_div_block },
 	{ "outer quotes inside table", test_quotes_in_table },
@@ -235,6 +237,73 @@ static int test_cursor_around_image (GtkHTML *html)
 		;
 
 	if (html->engine->cursor->position != 0 || html->engine->cursor->offset != 0)
+		return FALSE;
+
+	return TRUE;
+}
+
+static int test_cursor_around_anchors (GtkHTML *html)
+{
+	load_editable (html, "<pre>a<a name=anchor>b");
+
+	html_cursor_jump_to_position (html->engine->cursor, html->engine, 0);
+	if (html->engine->cursor->offset != 0
+	    || html->engine->cursor->position != 0)
+		return FALSE;
+
+	html_cursor_down (html->engine->cursor, html->engine);
+
+	if (html->engine->cursor->offset != 1
+	    || html->engine->cursor->position != 2)
+		return FALSE;
+
+	html_cursor_up (html->engine->cursor, html->engine);
+
+	if (html->engine->cursor->offset != 0
+	    || html->engine->cursor->position != 0)
+		return FALSE;
+
+	html_cursor_end_of_line (html->engine->cursor, html->engine);
+
+	if (html->engine->cursor->offset != 1
+	    || html->engine->cursor->position != 2)
+		return FALSE;
+
+	html_cursor_beginning_of_line (html->engine->cursor, html->engine);
+
+	if (html->engine->cursor->offset != 0
+	    || html->engine->cursor->position != 0)
+		return FALSE;
+
+	load_editable (html, "<pre>a<a name=anchor1><img src=src><a name=anchor2>b");
+
+	html_cursor_jump_to_position (html->engine->cursor, html->engine, 0);
+	if (html->engine->cursor->offset != 0
+	    || html->engine->cursor->position != 0)
+		return FALSE;
+
+	html_cursor_down (html->engine->cursor, html->engine);
+
+	if (html->engine->cursor->offset != 1
+	    || html->engine->cursor->position != 3)
+		return FALSE;
+
+	html_cursor_up (html->engine->cursor, html->engine);
+
+	if (html->engine->cursor->offset != 0
+	    || html->engine->cursor->position != 0)
+		return FALSE;
+
+	html_cursor_end_of_line (html->engine->cursor, html->engine);
+
+	if (html->engine->cursor->offset != 1
+	    || html->engine->cursor->position != 3)
+		return FALSE;
+
+	html_cursor_beginning_of_line (html->engine->cursor, html->engine);
+
+	if (html->engine->cursor->offset != 0
+	    || html->engine->cursor->position != 0)
 		return FALSE;
 
 	return TRUE;

@@ -1152,6 +1152,8 @@ pop_element (HTMLEngine *e, char *name)
 static void
 block_end_display_block (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
+	if (html_clue_is_empty (HTML_CLUE (clue)))
+		new_flow (e, clue, create_empty_text (e), HTML_CLEAR_NONE, HTML_DIRECTION_DERIVED);
 	close_flow (e, clue);
 	pop_clue (e);
 }

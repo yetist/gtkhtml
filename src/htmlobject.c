@@ -624,18 +624,36 @@ html_object_real_cursor_forward (HTMLObject *self, HTMLCursor *cursor)
 }
 
 static gboolean
+html_cursor_allow_zero_offset (HTMLCursor *cursor, HTMLObject *o)
+{
+	if (cursor->offset == 1) {
+		HTMLObject *prev;
+
+		prev = html_object_prev_not_slave (o);
+		if (!prev || HTML_IS_CLUEALIGNED (prev))
+			return TRUE;
+		else {
+			while (prev && !html_object_accepts_cursor (prev))
+				prev = html_object_prev_not_slave (prev);
+
+			if (!prev)
+				return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
+static gboolean
 html_object_real_cursor_backward (HTMLObject *self, HTMLCursor *cursor)
 {
-	HTMLObject *prev;
-
 	g_assert (self);
 	g_assert (cursor->object == self);
 
 	if (html_object_is_container (self))
 		return FALSE;
 
-	if (cursor->offset > 1 || (cursor->offset > 0 && (! (prev = html_object_prev_not_slave (self))
-							  || HTML_IS_CLUEALIGNED (prev) || !html_object_accepts_cursor (prev)))) {
+	if (cursor->offset > 1 || html_cursor_allow_zero_offset (cursor, self)) {
 		cursor->offset --;
 		cursor->position --;
 		return TRUE;
@@ -666,10 +684,7 @@ html_object_real_cursor_right (HTMLObject *self, HTMLPainter *painter, HTMLCurso
 			return TRUE;
 		}
 	} else {
-		HTMLObject *prev;
-
-		if (cursor->offset > 1 || (cursor->offset > 0 && (! (prev = html_object_prev_not_slave (self))
-								  || HTML_IS_CLUEALIGNED (prev) || !html_object_accepts_cursor (prev)))) {
+		if (cursor->offset > 1 || html_cursor_allow_zero_offset (cursor, self)) {
 			cursor->offset --;
 			cursor->position --;
 			return TRUE;
@@ -691,9 +706,7 @@ html_object_real_cursor_left (HTMLObject *self, HTMLPainter *painter, HTMLCursor
 		return FALSE;
 
 	if (dir != HTML_DIRECTION_RTL) {
-		HTMLObject *prev;
-		if (cursor->offset > 1 || (cursor->offset > 0 && (! (prev = html_object_prev_not_slave (self))
-								  || HTML_IS_CLUEALIGNED (prev) || !html_object_accepts_cursor (prev)))) {
+		if (cursor->offset > 1 || html_cursor_allow_zero_offset (cursor, self)) {
 			cursor->offset --;
 			cursor->position --;
 			return TRUE;

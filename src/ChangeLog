@@ -1,3 +1,19 @@
+2005-03-29  Radek Doulik  <rodo@novell.com>
+
+	* test-suite.c (test_cursor_around_anchors): added test for cursor
+	movement around anchors (they do not accpet cursor).
+
+	* htmlobject.c (html_cursor_allow_zero_offset): new helper
+	function, decides whether we can move cursor to 0 offset on object
+	use html_cursor_allow_zero_offset where approriate
+
+	* htmlengine.c (block_end_display_block): add empty flow in case
+	cluev is empty
+
+	* htmlcursor.c: make it possible to control cursor debug output by
+	environment variable
+	(html_cursor_home): fix typo causing crash
+
 2005-03-26  Yu Mengjie  <meng-jie.yu@sun.com>
 
 	* gtkhtml.c: (scroll):

@@ -40,13 +40,25 @@
 static gboolean move_right (HTMLCursor *cursor, HTMLEngine *e);
 static gboolean move_left (HTMLCursor *cursor, HTMLEngine *e);
 
-/* #define _HTML_CURSOR_DEBUG */
+#define _HTML_CURSOR_DEBUG
 
 #ifdef _HTML_CURSOR_DEBUG
+static int gtk_html_cursor_debug_flag = -1;
+
 static void
 debug_location (const HTMLCursor *cursor)
 {
 	HTMLObject *object;
+
+	if (gtk_html_cursor_debug_flag == -1) {
+		if (getenv("GTK_HTML_DEBUG_CURSOR") != NULL)
+			gtk_html_cursor_debug_flag = 1;
+		else
+			gtk_html_cursor_debug_flag = 0;
+	}
+
+	if (!gtk_html_cursor_debug_flag)
+		return;
 
 	object = cursor->object;
 	if (object == NULL) {
@@ -171,7 +183,7 @@ html_cursor_home (HTMLCursor *cursor,
 	obj = engine->clue;
 	while (!html_object_accepts_cursor (obj)) {
 		HTMLObject *head = html_object_head (obj);
-		if (obj)
+		if (head)
 			obj = head;
 		else
 			break;
@@ -947,6 +959,8 @@ left_in_flow (HTMLCursor *cursor, HTMLEngine *e)
 			retval = FALSE;
 	}
 
+	debug_location (cursor);
+
 	return retval;
 }
 
@@ -1059,6 +1073,8 @@ right_in_flow (HTMLCursor *cursor, HTMLEngine *e)
 		else
 			retval = FALSE;
 	}
+
+	debug_location (cursor);
 
 	return retval;
 }
