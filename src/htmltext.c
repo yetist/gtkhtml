@@ -577,7 +577,7 @@ calc_preferred_width (HTMLObject *self,
 
 	html_text_request_word_width (text, painter);
 
-	return text->word_width [text->words - 1];
+	return MAX (1, text->word_width [text->words - 1]);
 
 	/* return html_painter_calc_text_width (painter,
 					     text->text, text->text_len,
@@ -691,7 +691,7 @@ calc_min_width (HTMLObject *self, HTMLPainter *painter)
 			mw = w;
 	}
 
-	return mw;
+	return MAX (1, mw);
 }
 
 static void

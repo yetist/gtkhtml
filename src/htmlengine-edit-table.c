@@ -70,7 +70,7 @@ html_engine_insert_table_1_1 (HTMLEngine *e)
 	HTMLObject    *flow;
 	HTMLObject    *table;
 
-	table = html_table_new (0, 0, 1, 2, 1);
+	table = html_table_new (0, 100, 1, 2, 1);
 
 	html_table_add_cell (HTML_TABLE (table), new_cell (e));
 

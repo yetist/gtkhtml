@@ -126,7 +126,7 @@ calc_size (HTMLObject *self,
 		}
 	}
 
-	new_width = calc_width (slave, painter);
+	new_width = MAX (1, calc_width (slave, painter));
 
 	changed = FALSE;
 

@@ -1,3 +1,13 @@
+2001-03-14  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (calc_min_width): make minimal width be always >= 1
+	(calc_preferred_width): ditto
+
+	* htmltextslave.c (calc_size): make width be always >= 1
+
+	* htmlengine-edit-table.c (html_engine_insert_table_1_1): create
+	width=100% table
+
 2001-03-13  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (html_object_changed): call html_object_calc_size

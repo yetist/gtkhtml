@@ -223,8 +223,6 @@ update_styles (GtkHTML *html)
 	if (! html_engine_get_editable (html->engine))
 		return;
 
-	printf ("update styles\n");
-
 	engine = html->engine;
 
 	clueflow_style = html_engine_get_current_clueflow_style (engine);
