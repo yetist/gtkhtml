@@ -1,3 +1,10 @@
+2001-11-21  Radek Doulik  <rodo@ximian.com>
+
+	* htmlclueflow.c (calc_size): place check for changed size before
+	html_object_calc_size
+	(merge): set change size to head of self and tail of with
+	(split): set change size aroud and child object 
+
 2001-11-20  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-cut-and-paste.c (insert_empty_paragraph): check

@@ -213,8 +213,35 @@ op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GL
 }
 
 static void
+set_head_size (HTMLObject *o)
+{
+	if (o && HTML_CLUE (o)->head)
+		HTML_CLUE (o)->head->change |= HTML_CHANGE_SIZE;
+}
+
+static void
+set_tail_size (HTMLObject *o)
+{
+	if (o && HTML_CLUE (o)->tail) {
+		HTML_CLUE (o)->tail->change |= HTML_CHANGE_SIZE;
+	}
+}
+
+static void
+set_around_size (HTMLObject *o) {
+	if (o) {
+		o->change |= HTML_CHANGE_SIZE;
+		if (o->next)
+			o->next->change |= HTML_CHANGE_SIZE;
+		if (o->prev)
+			o->prev->change |= HTML_CHANGE_SIZE;
+	}
+}
+
+static void
 split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint level, GList **left, GList **right)
 {
+	set_around_size (child);
 	html_clueflow_remove_text_slaves (HTML_CLUEFLOW (self));
 	(*HTML_OBJECT_CLASS (parent_class)->split) (self, e, child, offset, level, left, right);
 
@@ -232,6 +259,9 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **
 
 	html_clueflow_remove_text_slaves (cf1);
 	html_clueflow_remove_text_slaves (cf2);
+
+	set_tail_size (self);
+	set_head_size (with);
 
 	/* printf ("merge flows\n"); */
 
@@ -683,6 +713,9 @@ calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 			if (lmargin >= rmargin) {
 				gint new_y;
 
+				if (run && run->change & HTML_CHANGE_SIZE
+				    && HTML_OBJECT_TYPE (run) != HTML_TYPE_TEXTSLAVE && !html_object_is_container (run))
+					leaf_childs_changed_size = TRUE;
 				html_object_calc_size (run, painter, changed_objs);
 				html_clue_find_free_area (HTML_CLUE (o->parent), o->y, run->min_width,
 							  run->ascent + run->descent, indent, &new_y,
