@@ -3933,15 +3933,19 @@ html_engine_calc_min_width (HTMLEngine *e)
 	return html_object_calc_min_width (e->clue, e->painter) + e->leftBorder + e->rightBorder;
 }
 
-guint
+gint
 html_engine_get_max_width (HTMLEngine *e)
 {
+	gint max_width;
+
 	if (e->widget->iframe_parent)
-		return e->widget->frame->max_width
+		max_width = e->widget->frame->max_width
 			- (e->leftBorder + e->rightBorder) * html_painter_get_pixel_size (e->painter);
 	else
-		return html_painter_get_page_width (e->painter, e)
+		max_width = html_painter_get_page_width (e->painter, e)
 			- (e->leftBorder + e->rightBorder) * html_painter_get_pixel_size (e->painter);
+
+	return MAX (0, max_width);
 }
 
 void

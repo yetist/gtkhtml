@@ -1,3 +1,8 @@
+2001-07-18  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (html_engine_get_max_width): change return value to
+	gint, take care to return values > 0
+
 2001-07-17  Larry Ewing  <lewing@ximian.com>
 
 	* htmlobject.c (html_object_get_uris): #if 0 this unused function.

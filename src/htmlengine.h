@@ -297,7 +297,7 @@ gint  html_engine_calc_min_width       (HTMLEngine *e);
 void  html_engine_calc_size            (HTMLEngine *p);
 gint  html_engine_get_doc_height       (HTMLEngine *p);
 gint  html_engine_get_doc_width        (HTMLEngine *e);
-guint html_engine_get_max_width        (HTMLEngine *e);
+gint  html_engine_get_max_width        (HTMLEngine *e);
 void  html_engine_draw                 (HTMLEngine *e,
 					gint        x,
 					gint        y,
