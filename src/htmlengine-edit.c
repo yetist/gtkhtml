@@ -97,6 +97,7 @@ html_engine_move_cursor (HTMLEngine *e,
 
 /* Paragraph insertion.  */
 
+/* FIXME this sucks.  */
 static HTMLObject *
 get_flow (HTMLObject *object)
 {
@@ -153,13 +154,11 @@ html_engine_insert_para (HTMLEngine *e,
 	}
 
 	if (offset > 0) {
-		if (current->next != NULL) {
+		if (current->next != NULL)
 			next_flow = HTML_OBJECT (html_clueflow_split (HTML_CLUEFLOW (flow),
 								      current->next));
-		} else {
-			/* FIXME not sure about the values to pass here.  */
-			next_flow = html_clueflow_new (0, 0, 100, 100);
-		}
+		else
+			next_flow = html_clueflow_new ();
 	} else {
 		next_flow = HTML_OBJECT (html_clueflow_split (HTML_CLUEFLOW (flow), current));
 		if (current->prev == NULL) {
@@ -201,6 +200,7 @@ html_engine_insert_para (HTMLEngine *e,
 }
 
 
+
 /* FIXME This should actually do a lot more.  */
 void
 html_engine_insert (HTMLEngine *e,
@@ -234,21 +234,77 @@ html_engine_delete (HTMLEngine *e,
 		    guint count)
 {
 	HTMLObject *current_object;
+	HTMLObject *parent;
+	HTMLObject *next;
+	HTMLType type;
 
 	g_return_if_fail (e != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
-	if (count == 0)
-		return;
-
 	current_object = e->cursor->object;
 
-	if (! html_object_is_text (current_object)) {
-		g_warning ("Cannot remove text in object of type `%s'",
-			   html_type_name (HTML_OBJECT_TYPE (current_object)));
-		return;
+	while (count > 0) {
+
+		/* Check the parent.  */
+
+		parent = current_object->parent;
+		if (parent == NULL) {
+			g_warning ("Cannot delete in object %p that has no parent.",
+				   current_object);
+			break;
+		}
+		if (HTML_OBJECT_TYPE (parent) != HTML_TYPE_CLUEFLOW) {
+			g_warning ("Cannot delete in object %p whose parent is a %s.",
+				   current_object,
+				   html_type_name (HTML_OBJECT_TYPE (current_object)));
+			break;
+		}
+
+		if (html_object_is_text (current_object)) {
+			count -= html_text_remove_text (HTML_TEXT (current_object), e,
+							e->cursor->offset, count);
+			continue;
+		}
+
+		/* Not a text object: it must be deleted completely.  */
+
+		e->cursor->offset = 0;
+
+		next = current_object->next;
+		type = HTML_OBJECT_TYPE (current_object);
+
+		html_clue_remove (HTML_CLUE (current_object->parent),
+				  current_object);
+		html_object_destroy (current_object);
+
+		/* FIXME optimize?  */
+		html_object_relayout (parent, e, next);
+
+		if (type == HTML_TYPE_HSPACE && next == NULL) {
+			HTMLObject *next_para;
+
+			/* This is the trailing hspace for the paragraph: we
+                           have to merge this with the following paragraph.  */
+
+			next_para = parent->next;
+			if (next_para == NULL
+			    || HTML_OBJECT_TYPE (next_para) != HTML_TYPE_CLUEFLOW)
+				break;
+			if (next_para->parent == NULL)
+				break;
+
+			next = HTML_CLUE (next_para)->head;
+			html_clue_append (HTML_CLUE (parent), HTML_CLUE (next_para)->head);
+
+			html_clue_remove (HTML_CLUE (next_para->parent), next_para);
+			HTML_CLUE (next_para)->head = NULL;
+			html_object_destroy (next_para);
+		}
+
+		count--;
+
+		current_object = next;
 	}
 
-	html_text_remove_text (HTML_TEXT (current_object), e,
-			       e->cursor->offset, count);
+	e->cursor->object = current_object;
 }

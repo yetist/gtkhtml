@@ -396,9 +396,7 @@ html_clueflow_class_init (HTMLClueFlowClass *klass,
 
 void
 html_clueflow_init (HTMLClueFlow *clueflow,
-		    HTMLClueFlowClass *klass,
-		    gint x, gint y,
-		    gint max_width, gint percent)
+		    HTMLClueFlowClass *klass)
 {
 	HTMLObject *object;
 	HTMLClue *clue;
@@ -408,11 +406,6 @@ html_clueflow_init (HTMLClueFlow *clueflow,
 
 	html_clue_init (clue, HTML_CLUE_CLASS (klass));
 
-	object->x = x;
-	object->y = y;
-	object->max_width = max_width;
-	object->percent = percent;
-	object->width = max_width;
 	object->flags &= ~ HTML_OBJECT_FLAG_FIXEDWIDTH;
 
 	clue->valign = HTML_VALIGN_BOTTOM;
@@ -425,13 +418,12 @@ html_clueflow_init (HTMLClueFlow *clueflow,
 }
 
 HTMLObject *
-html_clueflow_new (gint x, gint y, gint max_width, gint percent)
+html_clueflow_new (void)
 {
 	HTMLClueFlow *clueflow;
 
 	clueflow = g_new (HTMLClueFlow, 1);
-	html_clueflow_init (clueflow, &html_clueflow_class,
-			    x, y, max_width, percent);
+	html_clueflow_init (clueflow, &html_clueflow_class);
 
 	return HTML_OBJECT (clueflow);
 }
@@ -461,10 +453,7 @@ html_clueflow_split (HTMLClueFlow *clue,
 
 	/* Create the new clue.  */
 
-	new = HTML_CLUEFLOW (html_clueflow_new (0, 0,
-						HTML_OBJECT (clue)->max_width,
-						HTML_OBJECT (clue)->percent));
-
+	new = HTML_CLUEFLOW (html_clueflow_new ());
 	new->indent = clue->indent;
 
 	/* Remove the children from the original clue.  */

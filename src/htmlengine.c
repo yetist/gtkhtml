@@ -1899,7 +1899,7 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 			indentSize = p->indent;
 		}
 		
-		f = html_clueflow_new (0, 0, clue->max_width, 100);
+		f = html_clueflow_new ();
 
 		html_clue_append (HTML_CLUE (clue), f);
 		c = html_clueh_new (0, 0, clue->max_width);
@@ -1913,7 +1913,7 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 
 		switch (listType) {
 		case HTML_LIST_TYPE_UNORDERED:
-			p->flow = html_clueflow_new (0, 0, vc->max_width, 0);
+			p->flow = html_clueflow_new ();
 			HTML_CLUE (p->flow)->halign = HTML_HALIGN_RIGHT;
 			html_clue_append (HTML_CLUE (vc), p->flow);
 			font = html_stack_top (p->fs);
@@ -1928,7 +1928,7 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 			HTMLObject *text;
 			gchar *item;
 
-			p->flow = html_clueflow_new ( 0, 0, vc->max_width, 0 );
+			p->flow = html_clueflow_new ();
 			HTML_CLUE (p->flow)->halign = HTML_HALIGN_RIGHT;
 			html_clue_append (HTML_CLUE (vc), p->flow);
 
@@ -1969,7 +1969,7 @@ parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		
 		vc = html_cluev_new (0, 0, clue->max_width - indentSize, 100);
 		html_clue_append (HTML_CLUE (c), vc);
-		p->flow = html_clueflow_new (0,0, vc->max_width, 100);
+		p->flow = html_clueflow_new ();
 		html_clue_append (HTML_CLUE (vc), p->flow);
 
 		if (! html_stack_is_empty (p->listStack)) {
@@ -2005,7 +2005,7 @@ parse_m (HTMLEngine *e, HTMLObject *_clue, const gchar *str )
 			} else if ( strncasecmp( token, "content=", 8 ) == 0 ) {
 				if(refresh) {
 					gchar *url = NULL, *actualURL = NULL;
-					gchar *content;
+					const gchar *content;
 					content = token + 8;
 
 					/* The time in seconds until the refresh */
@@ -2533,7 +2533,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->actualURL = NULL;
 	engine->newPage = FALSE;
 
-	engine->editable = TRUE;
+	engine->editable = FALSE;
 	engine->cursor = html_cursor_new ();
 
 	engine->ht = html_tokenizer_new ();
@@ -2854,7 +2854,7 @@ html_engine_new_flow (HTMLEngine *e, HTMLObject *clue)
 	if (e->inPre) 
 		e->flow = html_clueh_new ( 0, 0, clue->max_width );
 	else
-		e->flow = html_clueflow_new (0, 0, clue->max_width, 100);
+		e->flow = html_clueflow_new ();
 
 	HTML_CLUEFLOW (e->flow)->indent = e->indent;
 	HTML_CLUE (e->flow)->halign = e->divAlign;
@@ -2927,7 +2927,7 @@ html_engine_insert_vspace (HTMLEngine *e, HTMLObject *clue, gboolean vspace_inse
 	HTMLObject *f, *t;
 
 	if (!vspace_inserted) {
-		f = html_clueflow_new (0, 0, clue->max_width, 100);
+		f = html_clueflow_new ();
 
 		html_clue_append (HTML_CLUE (clue), f);
 

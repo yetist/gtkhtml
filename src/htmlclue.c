@@ -447,6 +447,14 @@ set_parent (HTMLObject *o,
 	}
 }
 
+/**
+ * html_clue_append_after:
+ * @clue: An HTMLClue.
+ * @o: An HTMLObject.
+ * @where: A child of @clue.
+ * 
+ * Insert @o and its successors in @clue after @clue's element @where.
+ **/
 void
 html_clue_append_after (HTMLClue *clue,
 			HTMLObject *o,
@@ -471,11 +479,21 @@ html_clue_append_after (HTMLClue *clue,
 	set_parent (o, tail, HTML_OBJECT (clue));
 }
 
+/**
+ * html_clue_append:
+ * @clue: An HTMLClue.
+ * @o: An HTMLObject.
+ * 
+ * Append @o and its successors to @clue.
+ **/
 void
 html_clue_append (HTMLClue *clue,
 		  HTMLObject *o)
 {
 	HTMLObject *tail;
+
+	g_return_if_fail (clue != NULL);
+	g_return_if_fail (o != NULL);
 
 	tail = get_tail (o);
 
@@ -495,11 +513,21 @@ html_clue_append (HTMLClue *clue,
 	set_parent (o, tail, HTML_OBJECT (clue));
 }
 
+/**
+ * html_clue_prepend:
+ * @clue: An HTMLClue.
+ * @o: An HTMLObject.
+ * 
+ * Prepend @o and its successors to @clue.
+ **/
 void
 html_clue_prepend (HTMLClue *clue,
 		   HTMLObject *o)
 {
 	HTMLObject *tail;
+
+	g_return_if_fail (clue != NULL);
+	g_return_if_fail (o != NULL);
 
 	tail = get_tail (o);
 
@@ -516,4 +544,34 @@ html_clue_prepend (HTMLClue *clue,
 	o->prev = NULL;
 
 	set_parent (o, tail, HTML_OBJECT (clue));
+}
+
+/**
+ * html_clue_remove:
+ * @clue: An HTMLClue.
+ * @o: An HTMLObject.
+ * 
+ * Remove object @o from the clue.
+ **/
+void
+html_clue_remove (HTMLClue *clue,
+		  HTMLObject *o)
+{
+	g_return_if_fail (clue != NULL);
+	g_return_if_fail (o != NULL);
+	g_return_if_fail (clue == HTML_CLUE (o->parent));
+
+	if (o == clue->head)
+		clue->head = o->next;
+	if (o == clue->tail)
+		clue->tail = o->prev;
+
+	if (o->next != NULL)
+		o->next->prev = o->prev;
+	if (o->prev != NULL)
+		o->prev->next = o->next;
+
+	o->parent = NULL;
+	o->prev = NULL;
+	o->next = NULL;
 }

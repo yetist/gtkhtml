@@ -124,7 +124,7 @@ insert_text (HTMLText *text,
 		html_engine_queue_draw (engine, HTML_OBJECT (text)->parent);
 }
 
-static void
+static guint
 remove_text (HTMLText *text,
 	     HTMLEngine *engine,
 	     guint offset,
@@ -162,6 +162,8 @@ remove_text (HTMLText *text,
 
 	if (! html_object_relayout (HTML_OBJECT (text)->parent, engine, HTML_OBJECT (text)))
 		html_engine_queue_draw (engine, HTML_OBJECT (text)->parent);
+
+	return len;
 }
 
 static void
@@ -279,7 +281,7 @@ html_text_insert_text (HTMLText *text,
 	(* HT_CLASS (text)->insert_text) (text, engine, offset, p, len);
 }
 
-void
+guint
 html_text_remove_text (HTMLText *text,
 		       HTMLEngine *engine,
 		       guint offset,
@@ -288,7 +290,7 @@ html_text_remove_text (HTMLText *text,
 	g_return_if_fail (text != NULL);
 	g_return_if_fail (engine != NULL);
 
-	(* HT_CLASS (text)->remove_text) (text, engine, offset, len);
+	return (* HT_CLASS (text)->remove_text) (text, engine, offset, len);
 }
 
 void

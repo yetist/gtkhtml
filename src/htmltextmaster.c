@@ -131,7 +131,7 @@ insert_text (HTMLText *self,
 	(* html_text_class.insert_text) (self, engine, offset, p, len);
 }
 
-static void
+static guint
 remove_text (HTMLText *self,
 	     HTMLEngine *engine,
 	     guint offset,
@@ -150,7 +150,7 @@ remove_text (HTMLText *self,
 
 	master->strLen -= len;
 
-	(* html_text_class.remove_text) (self, engine, offset, len);
+	return (* html_text_class.remove_text) (self, engine, offset, len);
 }
 
 static void

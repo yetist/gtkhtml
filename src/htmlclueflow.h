@@ -46,9 +46,8 @@ extern HTMLClueFlowClass html_clueflow_class;
 
 void html_clueflow_type_init (void);
 void html_clueflow_class_init (HTMLClueFlowClass *klass, HTMLType type);
-void html_clueflow_init (HTMLClueFlow *flow, HTMLClueFlowClass *klass,
-			 gint x, gint y, gint max_width, gint percent);
-HTMLObject *html_clueflow_new (gint x, gint y, gint max_width, gint percent);
+void html_clueflow_init (HTMLClueFlow *flow, HTMLClueFlowClass *klass);
+HTMLObject *html_clueflow_new (void);
 
 HTMLClueFlow *html_clueflow_split (HTMLClueFlow *clue, HTMLObject *child);
 

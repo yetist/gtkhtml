@@ -86,7 +86,9 @@ typedef enum {
 struct _HTMLObject {
 	HTMLObjectClass *klass;
 
+	/* Pointer to the parent object.  */
 	HTMLObject *parent;
+
 	HTMLObject *prev;
 	HTMLObject *next;
 

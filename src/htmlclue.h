@@ -74,5 +74,6 @@ gboolean html_clue_appended (HTMLClue *clue, HTMLClue *aclue);
 void html_clue_append_after (HTMLClue *clue, HTMLObject *o, HTMLObject *where);
 void html_clue_append (HTMLClue *clue, HTMLObject *o);
 void html_clue_prepend (HTMLClue *clue, HTMLObject *o);
+void html_clue_remove (HTMLClue *clue, HTMLObject *o);
 
 #endif /* HTMLCLUE_H */

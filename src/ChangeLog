@@ -1,5 +1,29 @@
 1999-12-31  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlclueflow.c (html_clueflow_init): Removed parameters `x',
+	`y', `max_width', `percent'.  I have no idea why they are here
+	actually.
+	(html_clueflow_new): Likewise.  All callers updated.
+
+	* htmlengine-edit.c (html_engine_delete): Merge the next clueflow
+	with the current one if deleting at the end of the flow itself.
+	This does not completely work yet; I have to fix some stuff in the
+	way the tree is generated first.
+
+	* htmlengine.c (parse_m): Made local variable `content' const
+	correct.
+
+	* htmlclue.c (html_clue_remove): New function.
+	(html_clue_prepend): Doc'ed and added preconditions.
+	(html_clue_append): Likewise.
+
+	* htmltext.c (remove_text): Return the number of characters
+	actually deleted.
+	(html_text_remove_text): Likewise.
+	* htmltextmaster.c (remove_text): Updated accordingly.
+
+1999-12-31  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* htmlengine-edit.c (html_engine_insert_para): Inserting a
 	paragraph at the beginning of a paragraph correctly results in an
 	empty paragraph now.
