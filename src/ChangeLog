@@ -1,5 +1,8 @@
 2000-06-21  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlimage.c (html_image_init): make sure url/target is always !=
+	NULL
+
 	* htmlengine-edit-insert.c (html_engine_remove_link_object): use
 	html_object_get_length here
 

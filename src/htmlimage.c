@@ -481,7 +481,7 @@ set_link (HTMLObject *self, GdkColor *color, const gchar *url, const gchar *targ
 }
 
 static HTMLObject *
-remove_link (HTMLObject *self, GdkColor *color, const gchar *url, const gchar *target)
+remove_link (HTMLObject *self, GdkColor *color)
 {
 	HTMLImage *image = HTML_IMAGE (self);
 
@@ -566,8 +566,8 @@ html_image_init (HTMLImage *image,
 
 	html_object_init (object, HTML_OBJECT_CLASS (klass));
 
-	image->url = g_strdup (url);
-	image->target = g_strdup (target);
+	image->url = g_strdup ((url) ? url : "");
+	image->target = g_strdup ((url) ? target : "");
 
 	image->specified_width = width;
 	image->specified_height = height;
