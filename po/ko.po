@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8.3\n"
-"POT-Creation-Date: 2001-03-10 02:57+0900\n"
+"POT-Creation-Date: 2001-04-03 19:42-0500\n"
 "PO-Revision-Date: 2001-03-10 03:06+0900\n"
 "Last-Translator: Hwang, Chideok <hwang@mizi.co.kr>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -132,6 +132,34 @@ msgstr "철자 검사"
 #: capplet/gtkhtml-capplet.glade.h:19
 msgid "Variable width"
 msgstr "가변폭 글꼴"
+
+#: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:1
+msgid "EBrowser control"
+msgstr ""
+
+#: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:2
+msgid "EBrowser factory"
+msgstr ""
+
+#: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:3
+msgid "Factory for the EBrowser control"
+msgstr ""
+
+#: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:4
+msgid "HTML Browser conrtol"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:1
+msgid "An HTML Editor control"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:2
+msgid "Factory for the HTML Editor control"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:3
+msgid "HTML editor control"
+msgstr ""
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:1
 msgid "C_ut"
@@ -299,51 +327,51 @@ msgstr "가로선(_R)..."
 msgid "_Undo"
 msgstr "실행취소(_U)"
 
-#: components/html-editor/body.c:127 components/html-editor/body.c:131
+#: components/html-editor/body.c:130 components/html-editor/body.c:134
 msgid "Background Image"
 msgstr "배경 그림"
 
-#: components/html-editor/body.c:130
+#: components/html-editor/body.c:133
 msgid "Enable"
 msgstr "사용"
 
-#: components/html-editor/body.c:153
+#: components/html-editor/body.c:156
 msgid "Colors"
 msgstr "색상"
 
-#: components/html-editor/editor-control-factory.c:136
-#: components/html-editor/popup.c:78
+#: components/html-editor/editor-control-factory.c:142
+#: components/html-editor/popup.c:81
 msgid "Properties"
 msgstr "특성들"
 
-#: components/html-editor/editor-control-factory.c:147
-#: components/html-editor/menubar.c:97 components/html-editor/popup.c:93
+#: components/html-editor/editor-control-factory.c:153
+#: components/html-editor/menubar.c:97 components/html-editor/popup.c:96
 msgid "Image"
 msgstr "그림"
 
-#: components/html-editor/editor-control-factory.c:156
-#: components/html-editor/menubar.c:118 components/html-editor/popup.c:86
+#: components/html-editor/editor-control-factory.c:162
+#: components/html-editor/menubar.c:118 components/html-editor/popup.c:89
 msgid "Text"
 msgstr "글자"
 
-#: components/html-editor/editor-control-factory.c:167
-#: components/html-editor/menubar.c:141 components/html-editor/popup.c:121
+#: components/html-editor/editor-control-factory.c:173
+#: components/html-editor/menubar.c:141 components/html-editor/popup.c:124
 msgid "Rule"
 msgstr "막대"
 
-#: components/html-editor/editor-control-factory.c:176
-#: components/html-editor/popup.c:100
+#: components/html-editor/editor-control-factory.c:182
+#: components/html-editor/popup.c:103
 msgid "Paragraph"
 msgstr "문단"
 
-#: components/html-editor/editor-control-factory.c:181
+#: components/html-editor/editor-control-factory.c:187
 #: components/html-editor/menubar.c:102 components/html-editor/menubar.c:123
-#: components/html-editor/popup.c:107
+#: components/html-editor/popup.c:110
 msgid "Link"
 msgstr "링크"
 
-#: components/html-editor/editor-control-factory.c:186
-#: components/html-editor/popup.c:114
+#: components/html-editor/editor-control-factory.c:192
+#: components/html-editor/popup.c:117
 msgid "Page"
 msgstr "쪽"
 
@@ -356,7 +384,7 @@ msgid "Top"
 msgstr "위"
 
 #: components/html-editor/image.c:202 components/html-editor/paragraph.c:158
-#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:423
+#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:457
 msgid "Center"
 msgstr "가운데"
 
@@ -448,7 +476,7 @@ msgstr "왼쪽"
 msgid "Right"
 msgstr "오른쪽"
 
-#: components/html-editor/popup.c:216
+#: components/html-editor/popup.c:219
 msgid "Remove link"
 msgstr "링크 제거"
 
@@ -492,31 +520,31 @@ msgstr "정규식 찾기"
 msgid "Search"
 msgstr "찾기"
 
-#: components/html-editor/test-html-editor-control.c:237
+#: components/html-editor/test-html-editor-control.c:239
 msgid "Open file..."
 msgstr "파일 열기..."
 
-#: components/html-editor/test-html-editor-control.c:239
+#: components/html-editor/test-html-editor-control.c:241
 msgid "Save file as..."
 msgstr "새 이름으로 저장..."
 
-#: components/html-editor/text.c:180 components/html-editor/toolbar.c:434
+#: components/html-editor/text.c:180 components/html-editor/toolbar.c:468
 msgid "Bold"
 msgstr "두껍게"
 
-#: components/html-editor/text.c:181 components/html-editor/toolbar.c:436
+#: components/html-editor/text.c:181 components/html-editor/toolbar.c:470
 msgid "Italic"
 msgstr "기울인"
 
-#: components/html-editor/text.c:182 components/html-editor/toolbar.c:438
+#: components/html-editor/text.c:182 components/html-editor/toolbar.c:472
 msgid "Underline"
 msgstr "밑줄"
 
-#: components/html-editor/text.c:183 components/html-editor/toolbar.c:440
+#: components/html-editor/text.c:183 components/html-editor/toolbar.c:474
 msgid "Strikeout"
 msgstr "취소선"
 
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:212
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:247
 msgid "Automatic"
 msgstr "자동"
 
@@ -568,63 +596,63 @@ msgstr "리스트 아이템(unnumbered)"
 msgid "List item (roman)"
 msgstr "리스트 아이템(roman)"
 
-#: components/html-editor/toolbar.c:421
+#: components/html-editor/toolbar.c:455
 msgid "Left align"
 msgstr "왼쪽 정렬"
 
-#: components/html-editor/toolbar.c:421
+#: components/html-editor/toolbar.c:455
 msgid "Left justifies the paragraphs"
 msgstr "문단을 왼쪽으로 정렬합니다"
 
-#: components/html-editor/toolbar.c:423
+#: components/html-editor/toolbar.c:457
 msgid "Centers justifies the paragraphs"
 msgstr "문단을 가운데로 정렬합니다"
 
-#: components/html-editor/toolbar.c:425
+#: components/html-editor/toolbar.c:459
 msgid "Right align"
 msgstr "오른쪽 정렬"
 
-#: components/html-editor/toolbar.c:425
+#: components/html-editor/toolbar.c:459
 msgid "Right justifies the paragraphs"
 msgstr "문단을 오른쪽으로 정렬합니다"
 
-#: components/html-editor/toolbar.c:432
+#: components/html-editor/toolbar.c:466
 msgid "Typewriter"
 msgstr "타자체"
 
-#: components/html-editor/toolbar.c:432
+#: components/html-editor/toolbar.c:466
 msgid "Toggle typewriter font style"
 msgstr "타자체글꼴 토글"
 
-#: components/html-editor/toolbar.c:434
+#: components/html-editor/toolbar.c:468
 msgid "Makes the text bold"
 msgstr "두꺼운 글씨체로 바꿉니다"
 
-#: components/html-editor/toolbar.c:436
+#: components/html-editor/toolbar.c:470
 msgid "Makes the text italic"
 msgstr "이택릭체로 바꿉니다"
 
-#: components/html-editor/toolbar.c:438
+#: components/html-editor/toolbar.c:472
 msgid "Underlines the text"
 msgstr "밑줄을 귿습니다"
 
-#: components/html-editor/toolbar.c:440
+#: components/html-editor/toolbar.c:474
 msgid "Strikes out the text"
 msgstr "취소선을 칩니다"
 
-#: components/html-editor/toolbar.c:449
+#: components/html-editor/toolbar.c:483
 msgid "Unindent"
 msgstr "들여쓰지않음"
 
-#: components/html-editor/toolbar.c:449
+#: components/html-editor/toolbar.c:483
 msgid "Indents the paragraphs less"
 msgstr "문단을 덜 들여씁니다"
 
-#: components/html-editor/toolbar.c:451
+#: components/html-editor/toolbar.c:485
 msgid "Indent"
 msgstr "들여쓰기"
 
-#: components/html-editor/toolbar.c:451
+#: components/html-editor/toolbar.c:485
 msgid "Indents the paragraphs more"
 msgstr "문단을 더 내어씁니다"
 
@@ -639,4 +667,3 @@ msgstr "인쇄 미리보기(_v)"
 #: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "인쇄가 되는 모습을 미리 확인해봅니다"
-

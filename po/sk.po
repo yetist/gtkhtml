@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
-"POT-Creation-Date: 2001-02-20 12:17-0600\n"
+"POT-Creation-Date: 2001-04-03 19:42-0500\n"
 "PO-Revision-Date: 2001-01-26 15:07CET\n"
 "Last-Translator: Stanislav Visnovsky <visnovsky@nenya.ms.mff.cuni.cz>\n"
 "Language-Team: Slovak <sk-i18n@rak.isternet.sk>\n"
@@ -133,6 +133,34 @@ msgstr "Kontrola pravopisu"
 #: capplet/gtkhtml-capplet.glade.h:19
 msgid "Variable width"
 msgstr "Premenná ¹írka"
+
+#: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:1
+msgid "EBrowser control"
+msgstr ""
+
+#: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:2
+msgid "EBrowser factory"
+msgstr ""
+
+#: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:3
+msgid "Factory for the EBrowser control"
+msgstr ""
+
+#: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:4
+msgid "HTML Browser conrtol"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:1
+msgid "An HTML Editor control"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:2
+msgid "Factory for the HTML Editor control"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:3
+msgid "HTML editor control"
+msgstr ""
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:1
 msgid "C_ut"
@@ -300,51 +328,51 @@ msgstr "_Pravidlo..."
 msgid "_Undo"
 msgstr "Vrá_ti» spä»"
 
-#: components/html-editor/body.c:127 components/html-editor/body.c:131
+#: components/html-editor/body.c:130 components/html-editor/body.c:134
 msgid "Background Image"
 msgstr "Obrázok na pozadí"
 
-#: components/html-editor/body.c:130
+#: components/html-editor/body.c:133
 msgid "Enable"
 msgstr "Povoli»"
 
-#: components/html-editor/body.c:153
+#: components/html-editor/body.c:156
 msgid "Colors"
 msgstr "Farby"
 
-#: components/html-editor/editor-control-factory.c:136
-#: components/html-editor/popup.c:78
+#: components/html-editor/editor-control-factory.c:142
+#: components/html-editor/popup.c:81
 msgid "Properties"
 msgstr "Vlastnosti"
 
-#: components/html-editor/editor-control-factory.c:147
-#: components/html-editor/menubar.c:97 components/html-editor/popup.c:93
+#: components/html-editor/editor-control-factory.c:153
+#: components/html-editor/menubar.c:97 components/html-editor/popup.c:96
 msgid "Image"
 msgstr "Obrázok"
 
-#: components/html-editor/editor-control-factory.c:156
-#: components/html-editor/menubar.c:118 components/html-editor/popup.c:86
+#: components/html-editor/editor-control-factory.c:162
+#: components/html-editor/menubar.c:118 components/html-editor/popup.c:89
 msgid "Text"
 msgstr "Text"
 
-#: components/html-editor/editor-control-factory.c:167
-#: components/html-editor/menubar.c:141 components/html-editor/popup.c:121
+#: components/html-editor/editor-control-factory.c:173
+#: components/html-editor/menubar.c:141 components/html-editor/popup.c:124
 msgid "Rule"
 msgstr "Pravidlo"
 
-#: components/html-editor/editor-control-factory.c:176
-#: components/html-editor/popup.c:100
+#: components/html-editor/editor-control-factory.c:182
+#: components/html-editor/popup.c:103
 msgid "Paragraph"
 msgstr "Odstavec"
 
-#: components/html-editor/editor-control-factory.c:181
+#: components/html-editor/editor-control-factory.c:187
 #: components/html-editor/menubar.c:102 components/html-editor/menubar.c:123
-#: components/html-editor/popup.c:107
+#: components/html-editor/popup.c:110
 msgid "Link"
 msgstr "Odkaz"
 
-#: components/html-editor/editor-control-factory.c:186
-#: components/html-editor/popup.c:114
+#: components/html-editor/editor-control-factory.c:192
+#: components/html-editor/popup.c:117
 msgid "Page"
 msgstr "Stránka"
 
@@ -357,7 +385,7 @@ msgid "Top"
 msgstr "Hore"
 
 #: components/html-editor/image.c:202 components/html-editor/paragraph.c:158
-#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:423
+#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:457
 msgid "Center"
 msgstr "V strede"
 
@@ -449,7 +477,7 @@ msgstr "Vµavo"
 msgid "Right"
 msgstr "Vpravo"
 
-#: components/html-editor/popup.c:216
+#: components/html-editor/popup.c:219
 msgid "Remove link"
 msgstr "Odstráni» odkaz"
 
@@ -493,31 +521,31 @@ msgstr "Hµadanie pomocou regulárneho výrazu"
 msgid "Search"
 msgstr "Nájs»"
 
-#: components/html-editor/test-html-editor-control.c:237
+#: components/html-editor/test-html-editor-control.c:239
 msgid "Open file..."
 msgstr "Otvori» súbor..."
 
-#: components/html-editor/test-html-editor-control.c:239
+#: components/html-editor/test-html-editor-control.c:241
 msgid "Save file as..."
 msgstr "Ulo¾i» súbor ako..."
 
-#: components/html-editor/text.c:180 components/html-editor/toolbar.c:434
+#: components/html-editor/text.c:180 components/html-editor/toolbar.c:468
 msgid "Bold"
 msgstr "Tuèné"
 
-#: components/html-editor/text.c:181 components/html-editor/toolbar.c:436
+#: components/html-editor/text.c:181 components/html-editor/toolbar.c:470
 msgid "Italic"
 msgstr "©ikmé"
 
-#: components/html-editor/text.c:182 components/html-editor/toolbar.c:438
+#: components/html-editor/text.c:182 components/html-editor/toolbar.c:472
 msgid "Underline"
 msgstr "Podèiarknuté"
 
-#: components/html-editor/text.c:183 components/html-editor/toolbar.c:440
+#: components/html-editor/text.c:183 components/html-editor/toolbar.c:474
 msgid "Strikeout"
 msgstr "Preèiarknuté"
 
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:212
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:247
 msgid "Automatic"
 msgstr "Automatické"
 
@@ -569,63 +597,63 @@ msgstr "Polo¾ka zoznamu (neèíslovaná)"
 msgid "List item (roman)"
 msgstr "Polo¾ka zoznamu (rímske èíslo)"
 
-#: components/html-editor/toolbar.c:421
+#: components/html-editor/toolbar.c:455
 msgid "Left align"
 msgstr "Zarovna» vµavo"
 
-#: components/html-editor/toolbar.c:421
+#: components/html-editor/toolbar.c:455
 msgid "Left justifies the paragraphs"
 msgstr "Zarovná odstavce vµavo"
 
-#: components/html-editor/toolbar.c:423
+#: components/html-editor/toolbar.c:457
 msgid "Centers justifies the paragraphs"
 msgstr "Zarovná odstavce na stred"
 
-#: components/html-editor/toolbar.c:425
+#: components/html-editor/toolbar.c:459
 msgid "Right align"
 msgstr "Zarovna» vpravo"
 
-#: components/html-editor/toolbar.c:425
+#: components/html-editor/toolbar.c:459
 msgid "Right justifies the paragraphs"
 msgstr "Zarovná odstavce vpravo"
 
-#: components/html-editor/toolbar.c:432
+#: components/html-editor/toolbar.c:466
 msgid "Typewriter"
 msgstr "Pevná ¹írka"
 
-#: components/html-editor/toolbar.c:432
+#: components/html-editor/toolbar.c:466
 msgid "Toggle typewriter font style"
 msgstr "Prepne ¹týl písma na pevnú ¹írku"
 
-#: components/html-editor/toolbar.c:434
+#: components/html-editor/toolbar.c:468
 msgid "Makes the text bold"
 msgstr "Nastaví výber na tuèné písmo"
 
-#: components/html-editor/toolbar.c:436
+#: components/html-editor/toolbar.c:470
 msgid "Makes the text italic"
 msgstr "Nastaví výber na ¹ikmé písmo"
 
-#: components/html-editor/toolbar.c:438
+#: components/html-editor/toolbar.c:472
 msgid "Underlines the text"
 msgstr "Podèiarkne text"
 
-#: components/html-editor/toolbar.c:440
+#: components/html-editor/toolbar.c:474
 msgid "Strikes out the text"
 msgstr "Preèiarkne text"
 
-#: components/html-editor/toolbar.c:449
+#: components/html-editor/toolbar.c:483
 msgid "Unindent"
 msgstr "Zru¹i» odsadenie"
 
-#: components/html-editor/toolbar.c:449
+#: components/html-editor/toolbar.c:483
 msgid "Indents the paragraphs less"
 msgstr "Zmen¹í odsadenie odstavcov"
 
-#: components/html-editor/toolbar.c:451
+#: components/html-editor/toolbar.c:485
 msgid "Indent"
 msgstr "Odsadi»"
 
-#: components/html-editor/toolbar.c:451
+#: components/html-editor/toolbar.c:485
 msgid "Indents the paragraphs more"
 msgstr "Zväè¹í odsadenie odstavcov"
 

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
-"POT-Creation-Date: 2001-02-20 12:17-0600\n"
+"POT-Creation-Date: 2001-04-03 19:42-0500\n"
 "PO-Revision-Date: 2001-02-07 11:39+01:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -327,51 +327,51 @@ msgstr "_Regel..."
 msgid "_Undo"
 msgstr "An_gre"
 
-#: components/html-editor/body.c:127 components/html-editor/body.c:131
+#: components/html-editor/body.c:130 components/html-editor/body.c:134
 msgid "Background Image"
 msgstr "Bakgrunnsbilde"
 
-#: components/html-editor/body.c:130
+#: components/html-editor/body.c:133
 msgid "Enable"
 msgstr "Slå på"
 
-#: components/html-editor/body.c:153
+#: components/html-editor/body.c:156
 msgid "Colors"
 msgstr "Farger"
 
-#: components/html-editor/editor-control-factory.c:136
-#: components/html-editor/popup.c:78
+#: components/html-editor/editor-control-factory.c:142
+#: components/html-editor/popup.c:81
 msgid "Properties"
 msgstr "Egenskaper"
 
-#: components/html-editor/editor-control-factory.c:147
-#: components/html-editor/menubar.c:97 components/html-editor/popup.c:93
+#: components/html-editor/editor-control-factory.c:153
+#: components/html-editor/menubar.c:97 components/html-editor/popup.c:96
 msgid "Image"
 msgstr "Bilde"
 
-#: components/html-editor/editor-control-factory.c:156
-#: components/html-editor/menubar.c:118 components/html-editor/popup.c:86
+#: components/html-editor/editor-control-factory.c:162
+#: components/html-editor/menubar.c:118 components/html-editor/popup.c:89
 msgid "Text"
 msgstr "Tekst"
 
-#: components/html-editor/editor-control-factory.c:167
-#: components/html-editor/menubar.c:141 components/html-editor/popup.c:121
+#: components/html-editor/editor-control-factory.c:173
+#: components/html-editor/menubar.c:141 components/html-editor/popup.c:124
 msgid "Rule"
 msgstr "Regel"
 
-#: components/html-editor/editor-control-factory.c:176
-#: components/html-editor/popup.c:100
+#: components/html-editor/editor-control-factory.c:182
+#: components/html-editor/popup.c:103
 msgid "Paragraph"
 msgstr "Avsnitt"
 
-#: components/html-editor/editor-control-factory.c:181
+#: components/html-editor/editor-control-factory.c:187
 #: components/html-editor/menubar.c:102 components/html-editor/menubar.c:123
-#: components/html-editor/popup.c:107
+#: components/html-editor/popup.c:110
 msgid "Link"
 msgstr "Lenke"
 
-#: components/html-editor/editor-control-factory.c:186
-#: components/html-editor/popup.c:114
+#: components/html-editor/editor-control-factory.c:192
+#: components/html-editor/popup.c:117
 msgid "Page"
 msgstr "Side"
 
@@ -384,7 +384,7 @@ msgid "Top"
 msgstr "Topp"
 
 #: components/html-editor/image.c:202 components/html-editor/paragraph.c:158
-#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:423
+#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:457
 msgid "Center"
 msgstr "Senter"
 
@@ -476,7 +476,7 @@ msgstr "Venstre"
 msgid "Right"
 msgstr "Høyre"
 
-#: components/html-editor/popup.c:216
+#: components/html-editor/popup.c:219
 msgid "Remove link"
 msgstr "Fjern lenke"
 
@@ -520,31 +520,31 @@ msgstr "Regexsøk"
 msgid "Search"
 msgstr "Søk"
 
-#: components/html-editor/test-html-editor-control.c:237
+#: components/html-editor/test-html-editor-control.c:239
 msgid "Open file..."
 msgstr "Åpne fil..."
 
-#: components/html-editor/test-html-editor-control.c:239
+#: components/html-editor/test-html-editor-control.c:241
 msgid "Save file as..."
 msgstr "Lagre fil som..."
 
-#: components/html-editor/text.c:180 components/html-editor/toolbar.c:434
+#: components/html-editor/text.c:180 components/html-editor/toolbar.c:468
 msgid "Bold"
 msgstr "Uthevet"
 
-#: components/html-editor/text.c:181 components/html-editor/toolbar.c:436
+#: components/html-editor/text.c:181 components/html-editor/toolbar.c:470
 msgid "Italic"
 msgstr "Kursiv"
 
-#: components/html-editor/text.c:182 components/html-editor/toolbar.c:438
+#: components/html-editor/text.c:182 components/html-editor/toolbar.c:472
 msgid "Underline"
 msgstr "Understreket"
 
-#: components/html-editor/text.c:183 components/html-editor/toolbar.c:440
+#: components/html-editor/text.c:183 components/html-editor/toolbar.c:474
 msgid "Strikeout"
 msgstr "Gjennomstreket"
 
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:212
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:247
 msgid "Automatic"
 msgstr "Automatisk"
 
@@ -596,63 +596,63 @@ msgstr "List oppføring (unummerert)"
 msgid "List item (roman)"
 msgstr "List oppføring (romersk)"
 
-#: components/html-editor/toolbar.c:421
+#: components/html-editor/toolbar.c:455
 msgid "Left align"
 msgstr "Venstrejustér"
 
-#: components/html-editor/toolbar.c:421
+#: components/html-editor/toolbar.c:455
 msgid "Left justifies the paragraphs"
 msgstr "Venstrejustérer avsnittene"
 
-#: components/html-editor/toolbar.c:423
+#: components/html-editor/toolbar.c:457
 msgid "Centers justifies the paragraphs"
 msgstr "Sentrerer avsnittene"
 
-#: components/html-editor/toolbar.c:425
+#: components/html-editor/toolbar.c:459
 msgid "Right align"
 msgstr "Høyrejustér"
 
-#: components/html-editor/toolbar.c:425
+#: components/html-editor/toolbar.c:459
 msgid "Right justifies the paragraphs"
 msgstr "Høyrejustérer avsnittene"
 
-#: components/html-editor/toolbar.c:432
+#: components/html-editor/toolbar.c:466
 msgid "Typewriter"
 msgstr "Skrivemaskin"
 
-#: components/html-editor/toolbar.c:432
+#: components/html-editor/toolbar.c:466
 msgid "Toggle typewriter font style"
 msgstr "Slå av/på skrivemaskin stil for skrifttype"
 
-#: components/html-editor/toolbar.c:434
+#: components/html-editor/toolbar.c:468
 msgid "Makes the text bold"
 msgstr "Gjør teksten fet"
 
-#: components/html-editor/toolbar.c:436
+#: components/html-editor/toolbar.c:470
 msgid "Makes the text italic"
 msgstr "Gjør teksten kursiv"
 
-#: components/html-editor/toolbar.c:438
+#: components/html-editor/toolbar.c:472
 msgid "Underlines the text"
 msgstr "Understreker teksten"
 
-#: components/html-editor/toolbar.c:440
+#: components/html-editor/toolbar.c:474
 msgid "Strikes out the text"
 msgstr "Uthever teksten"
 
-#: components/html-editor/toolbar.c:449
+#: components/html-editor/toolbar.c:483
 msgid "Unindent"
 msgstr "Fjern indentering"
 
-#: components/html-editor/toolbar.c:449
+#: components/html-editor/toolbar.c:483
 msgid "Indents the paragraphs less"
 msgstr "Indentérer avsnittene mindre"
 
-#: components/html-editor/toolbar.c:451
+#: components/html-editor/toolbar.c:485
 msgid "Indent"
 msgstr "Indentér"
 
-#: components/html-editor/toolbar.c:451
+#: components/html-editor/toolbar.c:485
 msgid "Indents the paragraphs more"
 msgstr "Indentérer avsnittene mer"
 

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.5\n"
-"POT-Creation-Date: 2001-02-20 12:17-0600\n"
+"POT-Creation-Date: 2001-04-03 19:42-0500\n"
 "PO-Revision-Date: 2001-01-19 11:30+0100\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
@@ -132,6 +132,34 @@ msgstr "Stavekontrol"
 #: capplet/gtkhtml-capplet.glade.h:19
 msgid "Variable width"
 msgstr "Variabel bredde"
+
+#: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:1
+msgid "EBrowser control"
+msgstr ""
+
+#: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:2
+msgid "EBrowser factory"
+msgstr ""
+
+#: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:3
+msgid "Factory for the EBrowser control"
+msgstr ""
+
+#: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:4
+msgid "HTML Browser conrtol"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:1
+msgid "An HTML Editor control"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:2
+msgid "Factory for the HTML Editor control"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:3
+msgid "HTML editor control"
+msgstr ""
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:1
 msgid "C_ut"
@@ -299,51 +327,51 @@ msgstr "_Regel..."
 msgid "_Undo"
 msgstr "_Fortryd"
 
-#: components/html-editor/body.c:127 components/html-editor/body.c:131
+#: components/html-editor/body.c:130 components/html-editor/body.c:134
 msgid "Background Image"
 msgstr "Baggrundsbillede"
 
-#: components/html-editor/body.c:130
+#: components/html-editor/body.c:133
 msgid "Enable"
 msgstr "Aktivér"
 
-#: components/html-editor/body.c:153
+#: components/html-editor/body.c:156
 msgid "Colors"
 msgstr "Farver"
 
-#: components/html-editor/editor-control-factory.c:136
-#: components/html-editor/popup.c:78
+#: components/html-editor/editor-control-factory.c:142
+#: components/html-editor/popup.c:81
 msgid "Properties"
 msgstr "Egenskaber"
 
-#: components/html-editor/editor-control-factory.c:147
-#: components/html-editor/menubar.c:97 components/html-editor/popup.c:93
+#: components/html-editor/editor-control-factory.c:153
+#: components/html-editor/menubar.c:97 components/html-editor/popup.c:96
 msgid "Image"
 msgstr "Billede"
 
-#: components/html-editor/editor-control-factory.c:156
-#: components/html-editor/menubar.c:118 components/html-editor/popup.c:86
+#: components/html-editor/editor-control-factory.c:162
+#: components/html-editor/menubar.c:118 components/html-editor/popup.c:89
 msgid "Text"
 msgstr "Tekst"
 
-#: components/html-editor/editor-control-factory.c:167
-#: components/html-editor/menubar.c:141 components/html-editor/popup.c:121
+#: components/html-editor/editor-control-factory.c:173
+#: components/html-editor/menubar.c:141 components/html-editor/popup.c:124
 msgid "Rule"
 msgstr "Regel"
 
-#: components/html-editor/editor-control-factory.c:176
-#: components/html-editor/popup.c:100
+#: components/html-editor/editor-control-factory.c:182
+#: components/html-editor/popup.c:103
 msgid "Paragraph"
 msgstr "Afsnit"
 
-#: components/html-editor/editor-control-factory.c:181
+#: components/html-editor/editor-control-factory.c:187
 #: components/html-editor/menubar.c:102 components/html-editor/menubar.c:123
-#: components/html-editor/popup.c:107
+#: components/html-editor/popup.c:110
 msgid "Link"
 msgstr "Lænke"
 
-#: components/html-editor/editor-control-factory.c:186
-#: components/html-editor/popup.c:114
+#: components/html-editor/editor-control-factory.c:192
+#: components/html-editor/popup.c:117
 msgid "Page"
 msgstr "Side"
 
@@ -356,7 +384,7 @@ msgid "Top"
 msgstr "Top"
 
 #: components/html-editor/image.c:202 components/html-editor/paragraph.c:158
-#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:423
+#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:457
 msgid "Center"
 msgstr "Center"
 
@@ -448,7 +476,7 @@ msgstr "Venstre"
 msgid "Right"
 msgstr "Højre"
 
-#: components/html-editor/popup.c:216
+#: components/html-editor/popup.c:219
 msgid "Remove link"
 msgstr "Fjern lænke"
 
@@ -492,31 +520,31 @@ msgstr "Regex-søg"
 msgid "Search"
 msgstr "Søg"
 
-#: components/html-editor/test-html-editor-control.c:237
+#: components/html-editor/test-html-editor-control.c:239
 msgid "Open file..."
 msgstr "Åbn fil..."
 
-#: components/html-editor/test-html-editor-control.c:239
+#: components/html-editor/test-html-editor-control.c:241
 msgid "Save file as..."
 msgstr "Gem fil som..."
 
-#: components/html-editor/text.c:180 components/html-editor/toolbar.c:434
+#: components/html-editor/text.c:180 components/html-editor/toolbar.c:468
 msgid "Bold"
 msgstr "Fremhævet"
 
-#: components/html-editor/text.c:181 components/html-editor/toolbar.c:436
+#: components/html-editor/text.c:181 components/html-editor/toolbar.c:470
 msgid "Italic"
 msgstr "Kursiv"
 
-#: components/html-editor/text.c:182 components/html-editor/toolbar.c:438
+#: components/html-editor/text.c:182 components/html-editor/toolbar.c:472
 msgid "Underline"
 msgstr "Understreget"
 
-#: components/html-editor/text.c:183 components/html-editor/toolbar.c:440
+#: components/html-editor/text.c:183 components/html-editor/toolbar.c:474
 msgid "Strikeout"
 msgstr "Gennemstreget"
 
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:212
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:247
 msgid "Automatic"
 msgstr "Automatisk"
 
@@ -568,63 +596,63 @@ msgstr "List opføring (unummereret)"
 msgid "List item (roman)"
 msgstr "List opføring (romansk)"
 
-#: components/html-editor/toolbar.c:421
+#: components/html-editor/toolbar.c:455
 msgid "Left align"
 msgstr "Venstrejustér"
 
-#: components/html-editor/toolbar.c:421
+#: components/html-editor/toolbar.c:455
 msgid "Left justifies the paragraphs"
 msgstr "Venstrejusterer afsnittene"
 
-#: components/html-editor/toolbar.c:423
+#: components/html-editor/toolbar.c:457
 msgid "Centers justifies the paragraphs"
 msgstr "Centrerer afsnittene"
 
-#: components/html-editor/toolbar.c:425
+#: components/html-editor/toolbar.c:459
 msgid "Right align"
 msgstr "Højrejustér"
 
-#: components/html-editor/toolbar.c:425
+#: components/html-editor/toolbar.c:459
 msgid "Right justifies the paragraphs"
 msgstr "Højrejusterer afsnittene"
 
-#: components/html-editor/toolbar.c:432
+#: components/html-editor/toolbar.c:466
 msgid "Typewriter"
 msgstr "Skrivemaskine"
 
-#: components/html-editor/toolbar.c:432
+#: components/html-editor/toolbar.c:466
 msgid "Toggle typewriter font style"
 msgstr "Slå skrivemaskine skrifttypestil til/fra"
 
-#: components/html-editor/toolbar.c:434
+#: components/html-editor/toolbar.c:468
 msgid "Makes the text bold"
 msgstr "Gør det udvalgte fed"
 
-#: components/html-editor/toolbar.c:436
+#: components/html-editor/toolbar.c:470
 msgid "Makes the text italic"
 msgstr "Gør det udvalgte kursiveret"
 
-#: components/html-editor/toolbar.c:438
+#: components/html-editor/toolbar.c:472
 msgid "Underlines the text"
 msgstr "Understreger det udvalgte"
 
-#: components/html-editor/toolbar.c:440
+#: components/html-editor/toolbar.c:474
 msgid "Strikes out the text"
 msgstr "Gennemstreger det udvalgte"
 
-#: components/html-editor/toolbar.c:449
+#: components/html-editor/toolbar.c:483
 msgid "Unindent"
 msgstr "Indryk ikke"
 
-#: components/html-editor/toolbar.c:449
+#: components/html-editor/toolbar.c:483
 msgid "Indents the paragraphs less"
 msgstr "Indrykker afsnittene mindre"
 
-#: components/html-editor/toolbar.c:451
+#: components/html-editor/toolbar.c:485
 msgid "Indent"
 msgstr "Indryk"
 
-#: components/html-editor/toolbar.c:451
+#: components/html-editor/toolbar.c:485
 msgid "Indents the paragraphs more"
 msgstr "Indrykker afsnittene mere"
 

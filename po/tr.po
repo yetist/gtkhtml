@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8.4\n"
-"POT-Creation-Date: 2001-03-17 11:48+0100\n"
+"POT-Creation-Date: 2001-04-03 19:42-0500\n"
 "PO-Revision-Date: 2001-03-18 14:51+0200\n"
 "Last-Translator: Nilgün Belma Bugüner <nilgun@technologist.com>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
@@ -327,50 +327,50 @@ msgstr "_Cetvel..."
 msgid "_Undo"
 msgstr "_Geri al"
 
-#: components/html-editor/body.c:127 components/html-editor/body.c:131
+#: components/html-editor/body.c:130 components/html-editor/body.c:134
 msgid "Background Image"
 msgstr "Artalan Resmi"
 
-#: components/html-editor/body.c:130
+#: components/html-editor/body.c:133
 msgid "Enable"
 msgstr "Etkinleþtir"
 
-#: components/html-editor/body.c:153
+#: components/html-editor/body.c:156
 msgid "Colors"
 msgstr "Renkler"
 
-#: components/html-editor/editor-control-factory.c:136
+#: components/html-editor/editor-control-factory.c:142
 #: components/html-editor/popup.c:81
 msgid "Properties"
 msgstr "Özellikler"
 
-#: components/html-editor/editor-control-factory.c:147
+#: components/html-editor/editor-control-factory.c:153
 #: components/html-editor/menubar.c:97 components/html-editor/popup.c:96
 msgid "Image"
 msgstr "Resim"
 
-#: components/html-editor/editor-control-factory.c:156
+#: components/html-editor/editor-control-factory.c:162
 #: components/html-editor/menubar.c:118 components/html-editor/popup.c:89
 msgid "Text"
 msgstr "Metin"
 
-#: components/html-editor/editor-control-factory.c:167
+#: components/html-editor/editor-control-factory.c:173
 #: components/html-editor/menubar.c:141 components/html-editor/popup.c:124
 msgid "Rule"
 msgstr "Cetvel"
 
-#: components/html-editor/editor-control-factory.c:176
+#: components/html-editor/editor-control-factory.c:182
 #: components/html-editor/popup.c:103
 msgid "Paragraph"
 msgstr "Paragraf"
 
-#: components/html-editor/editor-control-factory.c:181
+#: components/html-editor/editor-control-factory.c:187
 #: components/html-editor/menubar.c:102 components/html-editor/menubar.c:123
 #: components/html-editor/popup.c:110
 msgid "Link"
 msgstr "Bað"
 
-#: components/html-editor/editor-control-factory.c:186
+#: components/html-editor/editor-control-factory.c:192
 #: components/html-editor/popup.c:117
 msgid "Page"
 msgstr "Sayfa"
@@ -384,7 +384,7 @@ msgid "Top"
 msgstr "Üst"
 
 #: components/html-editor/image.c:202 components/html-editor/paragraph.c:158
-#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:423
+#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:457
 msgid "Center"
 msgstr "Merkez"
 
@@ -520,31 +520,31 @@ msgstr "Deyim arama"
 msgid "Search"
 msgstr "Ara"
 
-#: components/html-editor/test-html-editor-control.c:237
+#: components/html-editor/test-html-editor-control.c:239
 msgid "Open file..."
 msgstr "Aç..."
 
-#: components/html-editor/test-html-editor-control.c:239
+#: components/html-editor/test-html-editor-control.c:241
 msgid "Save file as..."
 msgstr "Farklý kaydet ..."
 
-#: components/html-editor/text.c:180 components/html-editor/toolbar.c:434
+#: components/html-editor/text.c:180 components/html-editor/toolbar.c:468
 msgid "Bold"
 msgstr "Kalýn"
 
-#: components/html-editor/text.c:181 components/html-editor/toolbar.c:436
+#: components/html-editor/text.c:181 components/html-editor/toolbar.c:470
 msgid "Italic"
 msgstr "Eðik"
 
-#: components/html-editor/text.c:182 components/html-editor/toolbar.c:438
+#: components/html-editor/text.c:182 components/html-editor/toolbar.c:472
 msgid "Underline"
 msgstr "Alt çizgili"
 
-#: components/html-editor/text.c:183 components/html-editor/toolbar.c:440
+#: components/html-editor/text.c:183 components/html-editor/toolbar.c:474
 msgid "Strikeout"
 msgstr "Üstü çizili"
 
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:212
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:247
 msgid "Automatic"
 msgstr "Otomatik"
 
@@ -596,63 +596,63 @@ msgstr "Liste öðesi (numarasýz)"
 msgid "List item (roman)"
 msgstr "Liste öðesi (romen)"
 
-#: components/html-editor/toolbar.c:421
+#: components/html-editor/toolbar.c:455
 msgid "Left align"
 msgstr "Sola yanaþýk"
 
-#: components/html-editor/toolbar.c:421
+#: components/html-editor/toolbar.c:455
 msgid "Left justifies the paragraphs"
 msgstr "Paragrafý sol kenara hizalar"
 
-#: components/html-editor/toolbar.c:423
+#: components/html-editor/toolbar.c:457
 msgid "Centers justifies the paragraphs"
 msgstr "Paragrafý ortalar"
 
-#: components/html-editor/toolbar.c:425
+#: components/html-editor/toolbar.c:459
 msgid "Right align"
 msgstr "Saða yanaþtýr"
 
-#: components/html-editor/toolbar.c:425
+#: components/html-editor/toolbar.c:459
 msgid "Right justifies the paragraphs"
 msgstr "Paragrafý sað kenara hizalar"
 
-#: components/html-editor/toolbar.c:432
+#: components/html-editor/toolbar.c:466
 msgid "Typewriter"
 msgstr "Daktilo"
 
-#: components/html-editor/toolbar.c:432
+#: components/html-editor/toolbar.c:466
 msgid "Toggle typewriter font style"
 msgstr "Daktilo yazýsý ile deðiþtir"
 
-#: components/html-editor/toolbar.c:434
+#: components/html-editor/toolbar.c:468
 msgid "Makes the text bold"
 msgstr "Harfleri kalýnlaþtýrýr"
 
-#: components/html-editor/toolbar.c:436
+#: components/html-editor/toolbar.c:470
 msgid "Makes the text italic"
 msgstr "Harfleri eðik yapar"
 
-#: components/html-editor/toolbar.c:438
+#: components/html-editor/toolbar.c:472
 msgid "Underlines the text"
 msgstr "Metni alt çizgili yapar"
 
-#: components/html-editor/toolbar.c:440
+#: components/html-editor/toolbar.c:474
 msgid "Strikes out the text"
 msgstr "Metnin üstünü çizer"
 
-#: components/html-editor/toolbar.c:449
+#: components/html-editor/toolbar.c:483
 msgid "Unindent"
 msgstr "Girintiyi kaldýr"
 
-#: components/html-editor/toolbar.c:449
+#: components/html-editor/toolbar.c:483
 msgid "Indents the paragraphs less"
 msgstr "Paragraf girintisini azaltýr"
 
-#: components/html-editor/toolbar.c:451
+#: components/html-editor/toolbar.c:485
 msgid "Indent"
 msgstr "Girintile"
 
-#: components/html-editor/toolbar.c:451
+#: components/html-editor/toolbar.c:485
 msgid "Indents the paragraphs more"
 msgstr "Paragraf girintisini arttýrýr"
 
@@ -667,4 +667,3 @@ msgstr "Yazdýrma ö_nizleme"
 #: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "Yazdýrma önizleme"
-

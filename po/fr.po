@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8.1\n"
-"POT-Creation-Date: 2001-02-20 12:17-0600\n"
+"POT-Creation-Date: 2001-04-03 19:42-0500\n"
 "PO-Revision-Date: 2001-02-05 12:21+0100\n"
 "Last-Translator: Christophe Merlet (RedFox) <redfox@eikonex.org>\n"
 "Language-Team: GNOME French Team <gnomefr@gnomefr.traduc.org>\n"
@@ -133,6 +133,34 @@ msgstr "Vérification orthographique"
 #: capplet/gtkhtml-capplet.glade.h:19
 msgid "Variable width"
 msgstr "Largeur variable"
+
+#: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:1
+msgid "EBrowser control"
+msgstr ""
+
+#: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:2
+msgid "EBrowser factory"
+msgstr ""
+
+#: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:3
+msgid "Factory for the EBrowser control"
+msgstr ""
+
+#: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:4
+msgid "HTML Browser conrtol"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:1
+msgid "An HTML Editor control"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:2
+msgid "Factory for the HTML Editor control"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.oaf.in.h:3
+msgid "HTML editor control"
+msgstr ""
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:1
 msgid "C_ut"
@@ -300,51 +328,51 @@ msgstr "_Règles..."
 msgid "_Undo"
 msgstr "_Annuler"
 
-#: components/html-editor/body.c:127 components/html-editor/body.c:131
+#: components/html-editor/body.c:130 components/html-editor/body.c:134
 msgid "Background Image"
 msgstr "Image de fond"
 
-#: components/html-editor/body.c:130
+#: components/html-editor/body.c:133
 msgid "Enable"
 msgstr "Activer"
 
-#: components/html-editor/body.c:153
+#: components/html-editor/body.c:156
 msgid "Colors"
 msgstr "Couleurs"
 
-#: components/html-editor/editor-control-factory.c:136
-#: components/html-editor/popup.c:78
+#: components/html-editor/editor-control-factory.c:142
+#: components/html-editor/popup.c:81
 msgid "Properties"
 msgstr "Propriétés"
 
-#: components/html-editor/editor-control-factory.c:147
-#: components/html-editor/menubar.c:97 components/html-editor/popup.c:93
+#: components/html-editor/editor-control-factory.c:153
+#: components/html-editor/menubar.c:97 components/html-editor/popup.c:96
 msgid "Image"
 msgstr "Image"
 
-#: components/html-editor/editor-control-factory.c:156
-#: components/html-editor/menubar.c:118 components/html-editor/popup.c:86
+#: components/html-editor/editor-control-factory.c:162
+#: components/html-editor/menubar.c:118 components/html-editor/popup.c:89
 msgid "Text"
 msgstr "Texte"
 
-#: components/html-editor/editor-control-factory.c:167
-#: components/html-editor/menubar.c:141 components/html-editor/popup.c:121
+#: components/html-editor/editor-control-factory.c:173
+#: components/html-editor/menubar.c:141 components/html-editor/popup.c:124
 msgid "Rule"
 msgstr "Règle"
 
-#: components/html-editor/editor-control-factory.c:176
-#: components/html-editor/popup.c:100
+#: components/html-editor/editor-control-factory.c:182
+#: components/html-editor/popup.c:103
 msgid "Paragraph"
 msgstr "Paragraphe"
 
-#: components/html-editor/editor-control-factory.c:181
+#: components/html-editor/editor-control-factory.c:187
 #: components/html-editor/menubar.c:102 components/html-editor/menubar.c:123
-#: components/html-editor/popup.c:107
+#: components/html-editor/popup.c:110
 msgid "Link"
 msgstr "Lien"
 
-#: components/html-editor/editor-control-factory.c:186
-#: components/html-editor/popup.c:114
+#: components/html-editor/editor-control-factory.c:192
+#: components/html-editor/popup.c:117
 msgid "Page"
 msgstr "Page"
 
@@ -357,7 +385,7 @@ msgid "Top"
 msgstr "Haut"
 
 #: components/html-editor/image.c:202 components/html-editor/paragraph.c:158
-#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:423
+#: components/html-editor/rule.c:257 components/html-editor/toolbar.c:457
 msgid "Center"
 msgstr "Centre"
 
@@ -449,7 +477,7 @@ msgstr "Gauche"
 msgid "Right"
 msgstr "Droite"
 
-#: components/html-editor/popup.c:216
+#: components/html-editor/popup.c:219
 msgid "Remove link"
 msgstr "Enlever lien"
 
@@ -493,31 +521,31 @@ msgstr "Recherche par expressions régulières"
 msgid "Search"
 msgstr "Rechercher"
 
-#: components/html-editor/test-html-editor-control.c:237
+#: components/html-editor/test-html-editor-control.c:239
 msgid "Open file..."
 msgstr "Ouvrir un fichier..."
 
-#: components/html-editor/test-html-editor-control.c:239
+#: components/html-editor/test-html-editor-control.c:241
 msgid "Save file as..."
 msgstr "Enregistrer sous..."
 
-#: components/html-editor/text.c:180 components/html-editor/toolbar.c:434
+#: components/html-editor/text.c:180 components/html-editor/toolbar.c:468
 msgid "Bold"
 msgstr "Gras"
 
-#: components/html-editor/text.c:181 components/html-editor/toolbar.c:436
+#: components/html-editor/text.c:181 components/html-editor/toolbar.c:470
 msgid "Italic"
 msgstr "Italique"
 
-#: components/html-editor/text.c:182 components/html-editor/toolbar.c:438
+#: components/html-editor/text.c:182 components/html-editor/toolbar.c:472
 msgid "Underline"
 msgstr "Souligné"
 
-#: components/html-editor/text.c:183 components/html-editor/toolbar.c:440
+#: components/html-editor/text.c:183 components/html-editor/toolbar.c:474
 msgid "Strikeout"
 msgstr "Barré"
 
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:212
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:247
 msgid "Automatic"
 msgstr "Automatique"
 
@@ -569,63 +597,63 @@ msgstr "Élément de liste (non numéroté)"
 msgid "List item (roman)"
 msgstr "Élément de liste (romain)"
 
-#: components/html-editor/toolbar.c:421
+#: components/html-editor/toolbar.c:455
 msgid "Left align"
 msgstr "Aligner à gauche"
 
-#: components/html-editor/toolbar.c:421
+#: components/html-editor/toolbar.c:455
 msgid "Left justifies the paragraphs"
 msgstr "Justifie à gauche les paragraphes"
 
-#: components/html-editor/toolbar.c:423
+#: components/html-editor/toolbar.c:457
 msgid "Centers justifies the paragraphs"
 msgstr "Justifie au centre les paragraphes"
 
-#: components/html-editor/toolbar.c:425
+#: components/html-editor/toolbar.c:459
 msgid "Right align"
 msgstr "Aligner à droite"
 
-#: components/html-editor/toolbar.c:425
+#: components/html-editor/toolbar.c:459
 msgid "Right justifies the paragraphs"
 msgstr "Justifie à droite les paragraphes"
 
-#: components/html-editor/toolbar.c:432
+#: components/html-editor/toolbar.c:466
 msgid "Typewriter"
 msgstr "Machine à écrire"
 
-#: components/html-editor/toolbar.c:432
+#: components/html-editor/toolbar.c:466
 msgid "Toggle typewriter font style"
 msgstr "Basculer le style de police machine à écrire"
 
-#: components/html-editor/toolbar.c:434
+#: components/html-editor/toolbar.c:468
 msgid "Makes the text bold"
 msgstr "Mets le texte en gras"
 
-#: components/html-editor/toolbar.c:436
+#: components/html-editor/toolbar.c:470
 msgid "Makes the text italic"
 msgstr "Mets le texte en italique"
 
-#: components/html-editor/toolbar.c:438
+#: components/html-editor/toolbar.c:472
 msgid "Underlines the text"
 msgstr "Souligne le texte"
 
-#: components/html-editor/toolbar.c:440
+#: components/html-editor/toolbar.c:474
 msgid "Strikes out the text"
 msgstr "Barre le texte"
 
-#: components/html-editor/toolbar.c:449
+#: components/html-editor/toolbar.c:483
 msgid "Unindent"
 msgstr "Non indenté"
 
-#: components/html-editor/toolbar.c:449
+#: components/html-editor/toolbar.c:483
 msgid "Indents the paragraphs less"
 msgstr "Diminue l'indentation du paragraphe"
 
-#: components/html-editor/toolbar.c:451
+#: components/html-editor/toolbar.c:485
 msgid "Indent"
 msgstr "Indenter"
 
-#: components/html-editor/toolbar.c:451
+#: components/html-editor/toolbar.c:485
 msgid "Indents the paragraphs more"
 msgstr "Augmente l'indentation du paragraphe"
 
