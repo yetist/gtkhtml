@@ -1885,6 +1885,18 @@ get_text (HTMLClue *clue)
 }
 
 static HTMLObject *
+next_obj (HTMLObject *obj, guint *off, gboolean *is_text)
+{
+	*off += (*is_text)
+		? HTML_TEXT (obj)->text_len
+		: ((HTML_OBJECT_TYPE (obj) != HTML_TYPE_TEXTSLAVE) ? 1 : 0);
+	obj = obj->next;
+	if (obj && (*is_text = html_object_is_text (obj)))
+		html_text_spell_errors_clear (HTML_TEXT (obj));
+	return obj;
+}
+
+static HTMLObject *
 spell_check_word (HTMLObject *obj, const gchar *text, const gchar *word, guint *off)
 {
 	guint w_off;
@@ -1894,15 +1906,8 @@ spell_check_word (HTMLObject *obj, const gchar *text, const gchar *word, guint *
 	/* printf ("[not in dictionary off: %d]\n", word - text); */
 	is_text = html_object_is_text (obj);
 	w_off   = word - text;
-	while (obj && (!is_text || (is_text && *off + HTML_TEXT (obj)->text_len <= w_off))) {
-		*off += (is_text)
-						? HTML_TEXT (obj)->text_len
-						: ((HTML_OBJECT_TYPE (obj) != HTML_TYPE_TEXTSLAVE) ? 1 : 0);
-		obj   = obj->next;
-		if (obj && (is_text = html_object_is_text (obj)))
-			html_text_spell_errors_clear (HTML_TEXT (obj));
-		/* printf ("is_text: %d\n", is_text); */
-	}
+	while (obj && (!is_text || (is_text && *off + HTML_TEXT (obj)->text_len <= w_off)))
+		obj = next_obj (obj, off, &is_text);
 
 	/* printf ("is_text: %d len: %d obj: %p\n", is_text, len, obj); */
 	if (obj && is_text) {
@@ -1919,16 +1924,8 @@ spell_check_word (HTMLObject *obj, const gchar *text, const gchar *word, guint *
 						    toff, tlen);
 			len   -= tlen;
 			w_off += tlen;
-			if (len) {
-				do {
-					*off += (is_text)
-						? HTML_TEXT (obj)->text_len
-						: ((HTML_OBJECT_TYPE (obj) != HTML_TYPE_TEXTSLAVE) ? 1 : 0);
-					obj = obj->next;
-					if (obj && (is_text = html_object_is_text (obj)))
-						html_text_spell_errors_clear (HTML_TEXT (obj));
-				} while (obj && !is_text);
-			}
+			if (len)
+				do obj = next_obj (obj, off, &is_text); while (obj && !is_text);
 			g_assert (!len || obj);
 		}
 	}
@@ -1970,7 +1967,11 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e)
 				/* printf ("going to test word: \"%s\"\n", word); */
 				result = pspell_manager_check (e->spell_checker, word);
 
-				if (result != 1) {
+				if (result == 1) {
+					gboolean is_text = html_object_is_text (obj);
+					while (obj && (!is_text || (is_text && off + HTML_TEXT (obj)->text_len < ct - text)))
+						obj = next_obj (obj, &off, &is_text);
+				} else {
 					if (result == 0) {
 						if (obj)
 							obj = spell_check_word (obj, text, word, &off);

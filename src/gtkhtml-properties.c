@@ -43,14 +43,13 @@ gtk_html_class_properties_destroy (GtkHTMLClassProperties *p)
 	g_free (p);
 }
 
+#ifdef GTKHTML_HAVE_GCONF
 #define GET(t,x,prop,f,c) \
         key = g_strconcat (GTK_HTML_GCONF_DIR, x, NULL); \
         val = gconf_client_get_full (client, key, NULL, FALSE, &dflt, NULL); \
         if (val) { f; p-> ## prop = c gconf_value_ ## t (val); \
         gconf_value_destroy (val); } \
         g_free (key);
-
-#ifdef GTKHTML_HAVE_GCONF
 
 void
 gtk_html_class_properties_load (GtkHTMLClassProperties *p, GConfClient *client)
@@ -66,6 +65,42 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p, GConfClient *client)
 	     g_free (p->keybindings_theme), g_strdup);
 }
 
+#define SET(t,x,prop) \
+        { key = g_strconcat (GTK_HTML_GCONF_DIR, x, NULL); \
+        gconf_client_set_ ## t (client, key, p-> ## prop, NULL); \
+        g_free (key); }
+
+
+void
+gtk_html_class_properties_update (GtkHTMLClassProperties *p, GConfClient *client, GtkHTMLClassProperties *old)
+{
+	gchar *key;
+
+	if (p->magic_links != old->magic_links)
+		SET (bool, "/magic_links", magic_links);
+	SET (string, "/keybindings_theme", keybindings_theme);
+}
+
+#else
+void
+gtk_html_class_properties_load (GtkHTMLClassProperties *p)
+{
+	gnome_config_push_prefix (GTK_HTML_GNOME_CONFIG_PREFIX);
+	p->magic_links = gnome_config_get_bool ("magic_links=true");
+	p->keybindings_theme = gnome_config_get_string ("keybindings_theme=ms");
+	gnome_config_pop_prefix ();
+	gnome_config_sync ();
+}
+
+void
+gtk_html_class_properties_save (GtkHTMLClassProperties *p)
+{
+	gnome_config_push_prefix (GTK_HTML_GNOME_CONFIG_PREFIX);
+	gnome_config_set_bool ("magic_links", p->magic_links);
+	gnome_config_set_string ("keybindings_theme", p->keybindings_theme);
+	gnome_config_pop_prefix ();
+	gnome_config_sync ();
+}
 #endif
 
 void
@@ -76,29 +111,6 @@ gtk_html_class_properties_copy (GtkHTMLClassProperties *p1,
 	g_free (p1->keybindings_theme);
 	p1->keybindings_theme = g_strdup (p2->keybindings_theme);
 }
-
-#define SET(t,x,prop) \
-        key = g_strconcat (GTK_HTML_GCONF_DIR, x, NULL); \
-        gconf_client_set_ ## t (client, key, p-> ## prop, NULL); \
-        g_free (key);
-
-#ifdef GTKHTML_HAVE_GCONF
-
-void
-gtk_html_class_properties_update (GtkHTMLClassProperties *p, GConfClient *client, GtkHTMLClassProperties *old)
-{
-	gchar *key;
-
-	key = g_strconcat (GTK_HTML_GCONF_DIR, "/magic_links", NULL);
-
-	if (p->magic_links != old->magic_links) {
-		SET (bool, "/magic_links", magic_links);
-	}
-
-	SET (string, "/keybindings_theme", keybindings_theme);
-}
-
-#endif
 
 /* enums */
 

@@ -190,7 +190,6 @@ testgtkhtml_LDADD =				\
 	$(GLIBWWW)				\
 	$(GCONF_LIBS)				\
 	$(PSPELL_LIBS)
-# -lpspell-modules -lpspell_aspell -laspell -lpspell -lstdc++
 #	-lccmalloc -ldl
 #
 

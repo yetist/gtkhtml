@@ -1,3 +1,16 @@
+2000-07-21  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml-properties.c (gtk_html_class_properties_load):
+	implemented gnome_config properties loading
+	(gtk_html_class_properties_save): and saving
+
+	* htmlclueflow.c (next_obj): new helper function, skips to next
+	non-slave object and updates offset and is_text flag
+	(spell_check_word): simplified, use next_obj
+	(html_clueflow_spell_check): fixed case, when after add to
+	session/personal dictionary word is checked OK and is on the end
+	of flow - before there were not cleared spell errors
+
 2000-07-20  Ramiro Estrugo  <ramiro@eazel.com>
 
 	* gtkhtml-properties.c:

@@ -24,6 +24,7 @@
 #define _GTK_HTML_PROPERTIES_H_
 
 #define GTK_HTML_GCONF_DIR "/GNOME/Documents/HTML_Editor"
+#define GTK_HTML_GNOME_CONFIG_PREFIX "/gtkhtml/Settings/"
 
 typedef enum _GtkHTMLClassPropertiesItem GtkHTMLClassPropertiesItem;
 typedef struct _GtkHTMLClassProperties GtkHTMLClassProperties;
@@ -31,6 +32,9 @@ typedef struct _GtkHTMLClassProperties GtkHTMLClassProperties;
 #include <glib.h>
 #ifdef GTKHTML_HAVE_GCONF
 #include <gconf/gconf-client.h>
+#else
+#include <libgnome/gnome-defs.h>
+#include <libgnome/gnome-config.h>
 #endif
 
 enum _GtkHTMLClassPropertiesItem {
@@ -54,6 +58,9 @@ void                     gtk_html_class_properties_load      (GtkHTMLClassProper
 void                     gtk_html_class_properties_update    (GtkHTMLClassProperties *p,
 							      GConfClient *client,
 							      GtkHTMLClassProperties *old);
+#else
+void                     gtk_html_class_properties_load      (GtkHTMLClassProperties *p);
+void                     gtk_html_class_properties_save      (GtkHTMLClassProperties *p);
 #endif
 
 /* enum types */
