@@ -850,6 +850,7 @@ html_text_init (HTMLText *text_object,
 	convert_nbsp (text_object->text, text_object->text_len);
 
 	text_object->font_style = font_style;
+	text_object->face = NULL;
 	html_color_ref (color);
 	text_object->color = color;
 #ifdef GTKHTML_HAVE_PSPELL
