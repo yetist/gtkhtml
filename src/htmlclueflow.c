@@ -30,6 +30,8 @@
 #include <string.h>
 #include <stdlib.h>
 
+#include <gal/widgets/e-unicode.h>
+
 #include "gtkhtml-properties.h"
 
 #include "htmlcolor.h"
@@ -49,11 +51,14 @@
 #include "htmltablecell.h"
 #include "htmltext.h"
 #include "htmltextslave.h"	/* FIXME */
+#include "htmlvspace.h"
 
+
 HTMLClueFlowClass html_clueflow_class;
 static HTMLClueClass *parent_class = NULL;
 
 #define HCF_CLASS(x) HTML_CLUEFLOW_CLASS (HTML_OBJECT (x)->klass)
+#define HTML_IS_PLAIN_PAINTER(obj)              (GTK_CHECK_TYPE ((obj), HTML_TYPE_PLAIN_PAINTER))
 
 inline HTMLHAlignType html_clueflow_get_halignment          (HTMLClueFlow *flow);
 static gchar *        get_item_number_str                   (HTMLClueFlow *flow);
@@ -383,18 +388,32 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **
 static guint
 calc_padding (HTMLPainter *painter)
 {
-	if (!HTML_IS_PLAIN_PAINTER (painter)) {
-		return html_painter_get_space_width (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
+	guint ascent, descent;
+
+	/* FIXME maybe this should depend on the style.  */
+	/* FIXME move this into the painter.             */
+	if (HTML_IS_PLAIN_PAINTER (painter)) {
+		ascent = 0;
+		descent = 0;
+	} else {
+		ascent = html_painter_calc_ascent (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
+		descent = html_painter_calc_descent (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
 	}
-	return 0;
+	return ascent + descent;
 }
 
 static guint
 calc_bullet_size (HTMLPainter *painter)
 {
-	return html_painter_get_space_width (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL) / 2;
+	guint ascent, descent;
+
+	ascent = html_painter_calc_ascent (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
+	descent = html_painter_calc_descent (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
+
+	return (ascent + descent) / 3;
 }
 
+
 static gboolean
 is_cite (HTMLClueFlow *flow, gint level)
 {
@@ -403,7 +422,7 @@ is_cite (HTMLClueFlow *flow, gint level)
 
 	return FALSE;
 }
-  
+
 static gboolean
 is_header (HTMLClueFlow *flow)
 {
@@ -469,19 +488,17 @@ get_pre_padding (HTMLClueFlow *flow, guint pad)
 		return 0;
 
 	if (HTML_OBJECT_TYPE (prev_object) == HTML_TYPE_CLUEFLOW) {
-		HTMLClueFlow *prev;
+		HTMLClueFlow *prev = HTML_CLUEFLOW (prev_object);
 
-		if (get_post_padding (HTML_CLUEFLOW (prev_object), 1))
+		if (get_post_padding (prev, 1))
 			return 0;
-
-		prev = HTML_CLUEFLOW (prev_object);
-
+			
 		if (!is_levels_equal (flow, prev)) {
 			if (need_blockquote_padding (flow, prev))
 				return pad;
 			else 
 				return 0;
-  		}
+		}
 
 		if (flow->style == HTML_CLUEFLOW_STYLE_PRE
 		    && prev->style != HTML_CLUEFLOW_STYLE_PRE
@@ -576,29 +593,24 @@ get_level_indent (HTMLClueFlow *flow,
 	style = html_clueflow_get_default_font_style (flow);
 
 	if (flow->levels->len > 0 || ! is_item (flow)) {
-		gint cite_width, indent_width, asc, dsc;
-		html_painter_calc_text_size (painter, 
-					     CLUEFLOW_BLOCKQUOTE_CITE, 
-					     strlen (CLUEFLOW_BLOCKQUOTE_CITE), &line_offset,
-					     GTK_HTML_FONT_STYLE_SIZE_3, NULL,
-					     &cite_width, &asc, &dsc);
-
-		html_painter_calc_text_size (painter, 
-					     CLUEFLOW_INDENT, 
-					     strlen (CLUEFLOW_INDENT), &line_offset,
-					     GTK_HTML_FONT_STYLE_SIZE_3, NULL,
-					     &indent_width, &asc, &dsc);
-
 		while (i <= level) {
 			switch (flow->levels->data[i]) {
 			case HTML_LIST_TYPE_BLOCKQUOTE_CITE:
-				indent += cite_width;
+				indent += html_painter_calc_text_width (painter, 
+									CLUEFLOW_BLOCKQUOTE_CITE, 
+									strlen (CLUEFLOW_BLOCKQUOTE_CITE), &line_offset,
+									GTK_HTML_FONT_STYLE_SIZE_3, 
+									NULL);
 				break;
 			case HTML_LIST_TYPE_GLOSSARY_DL:
 				indent += 0;
 				break;
 			default:
-				indent += indent_width;
+				indent += html_painter_calc_text_width (painter, 
+									CLUEFLOW_INDENT, 
+									strlen (CLUEFLOW_INDENT), &line_offset,
+									GTK_HTML_FONT_STYLE_SIZE_3, 
+									NULL);
 				break;
 			}
 			i++;
@@ -615,8 +627,8 @@ get_indent (HTMLClueFlow *flow,
 	    HTMLPainter *painter)
 {
 	return get_level_indent (flow, flow->levels->len - 1, painter);
-} 
- 
+}
+
 /* HTMLObject methods.  */
 
 static void
@@ -656,7 +668,7 @@ calc_min_width (HTMLObject *o,
 			w += add
 				? html_object_calc_preferred_width (cur, painter)
 				: html_object_calc_min_width (cur, painter);
-			if (!add || !cur->next) {
+			if (!add || cur->flags & HTML_OBJECT_FLAG_NEWLINE || !cur->next) {
 				if (min_width < w) min_width = w;
 				w = 0;
 			}
@@ -1011,13 +1023,16 @@ calc_preferred_width (HTMLObject *o,
 	next = NULL;
 
 	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
-		w += html_object_calc_preferred_width (obj, painter);
+		if (!(obj->flags & HTML_OBJECT_FLAG_NEWLINE)) {
+			w += html_object_calc_preferred_width (obj, painter);
+		}
 
-		if (!(next = html_object_next_not_slave (obj))) {
+		if (obj->flags & HTML_OBJECT_FLAG_NEWLINE || !(next = html_object_next_not_slave (obj))) {
+			HTMLObject *eol = (obj->flags & HTML_OBJECT_FLAG_NEWLINE) ? html_object_prev_not_slave (obj) : obj;
 
 			/* remove trailing space width on the end of line which is not on end of paragraph */
-			if (next && html_object_is_text (obj))
-				w -= html_text_trail_space_width (HTML_TEXT (obj), painter);
+			if (next && html_object_is_text (eol))
+				w -= html_text_trail_space_width (HTML_TEXT (eol), painter);
 
 			if (w > maxw)
 				maxw = w;
@@ -1110,12 +1125,10 @@ get_item_number_str (HTMLClueFlow *flow)
 static void
 draw_gt_line (HTMLObject *cur, HTMLPainter *p, gint offset, gint x, gint y)
 {
-	gint cy, w, a, d, line_offset = 0;
+	gint cy, a, d;
 
-	html_painter_calc_text_size (p, CLUEFLOW_BLOCKQUOTE_CITE, 
-				     strlen (CLUEFLOW_BLOCKQUOTE_CITE), &line_offset,
-				     GTK_HTML_FONT_STYLE_SIZE_3, NULL,
-				     &w, &a, &d);
+	a = html_painter_calc_ascent (p, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
+	d = html_painter_calc_descent (p, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
 
 	cy = offset;
 	while (cy + a <= cur->ascent) {
@@ -1138,7 +1151,7 @@ draw_quotes (HTMLObject *self, HTMLPainter *painter,
 	     gint tx, gint ty)
 {
 	HTMLClueFlow *flow;
-	GdkRectangle paint, area, clip;
+	ArtIRect paint, area, clip;
 	int i;
 	int indent = 0;
 	int last_indent = 0;
@@ -1152,22 +1165,23 @@ draw_quotes (HTMLObject *self, HTMLPainter *painter,
 		html_painter_set_pen (painter, &html_colorset_get_color_allocated (painter, HTMLLinkColor)->color);
 		if (is_cite (flow, i)) {
 			if (!HTML_IS_PLAIN_PAINTER (painter)) {
-				area.x = self->x + indent - 5 * pixel_size;
-				area.width = 2 * pixel_size;
-				area.y = self->y - self->ascent;
-				area.height = self->ascent + self->descent;
+				area.x0 = self->x + indent - 5 * pixel_size;
+				area.x1 = area.x0 + 2 * pixel_size;
+				area.y0 = self->y - self->ascent;
+				area.y1 = self->y + self->descent;
 				
-				clip.x = x;
-				clip.width = width;
-				clip.y = y;
-				clip.height = height;
+				clip.x0 = x;
+				clip.x1 = x + width;
+				clip.y0 = y;
+				clip.y1 = y + height;
 				
-				if (!gdk_rectangle_intersect (&clip, &area, &paint))
+				art_irect_intersect (&paint, &clip, &area);
+				if (art_irect_empty (&paint))
 					return;
-
+				
 				html_painter_fill_rect (painter, 
-							paint.x + tx, paint.y + ty,
-							paint.width, paint.height);
+							paint.x0 + tx, paint.y0 + ty,
+							paint.x1 - paint.x0, paint.y1 - paint.y0);
 			} else {
 				HTMLObject *cur = HTML_CLUE (self)->head;
 				gint baseline = 0;
@@ -1175,15 +1189,13 @@ draw_quotes (HTMLObject *self, HTMLPainter *painter,
 					if (cur->y != 0) {
 						baseline = cur->y;
 						break;
-  					}
-  					cur = cur->next;
-  				}
-
-
+					}
+					cur = cur->next;
+				}
 				/* draw "> " quote characters in the plain case */ 
 				html_painter_set_font_style (painter, 
 							     html_clueflow_get_default_font_style (flow));
-						
+				
 				html_painter_set_font_face  (painter, NULL);
 				draw_gt_line (self, painter, self->ascent - baseline,
 					      self->x + tx + last_indent, ty);
@@ -1217,7 +1229,7 @@ draw_item (HTMLObject *self, HTMLPainter *painter, gint x, gint y, gint width, g
 		gint xp, yp;
 		bullet_size = MAX (3, calc_bullet_size (painter));
 
-		xp = self->x + indent - 2 * bullet_size;	
+		xp = self->x + indent - 2 * bullet_size;
 		yp = self->y - self->ascent 
 			+ (first->y - first->ascent) 
 			+ (first->ascent + first->descent)/2 
@@ -1239,15 +1251,15 @@ draw_item (HTMLObject *self, HTMLPainter *painter, gint x, gint y, gint width, g
 
 		number = get_item_number_str (flow);
 		if (number) {
-			gint width, len, line_offset = 0, asc, dsc;
+			gint width, len, line_offset = 0;
 
 			len   = strlen (number);
-			html_painter_calc_text_size (painter, number, len, &line_offset,
-						     html_clueflow_get_default_font_style (flow), NULL, &width, &asc, &dsc);
-			width += html_painter_get_space_width (painter, html_clueflow_get_default_font_style (flow), NULL);
+			width = html_painter_calc_text_width (painter, number, len, &line_offset,
+							      html_clueflow_get_default_font_style (flow), NULL);
+
 			html_painter_set_font_style (painter, html_clueflow_get_default_font_style (flow));
 			html_painter_set_font_face  (painter, NULL);
-			html_painter_draw_text (painter, self->x + first->x - width + tx,
+			html_painter_draw_text (painter, self->x + indent - width + tx,
 						self->y - self->ascent + first->y + ty,
 						number, strlen (number), 0);
 		}
@@ -2055,7 +2067,7 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 				gint rv;
 #ifndef HAVE_GNU_REGEX
 				regmatch_t match;
-				/* guchar *p=par+pos; */
+				guchar *p=par+pos;
 
 				/* FIXME UTF8
 				   replace &nbsp;'s with spaces
@@ -2247,7 +2259,7 @@ html_clueflow_class_init (HTMLClueFlowClass *klass,
 void
 html_clueflow_init (HTMLClueFlow *clueflow, HTMLClueFlowClass *klass,
 		    HTMLClueFlowStyle style, GByteArray *levels, HTMLListType item_type, gint item_number,
- 		    HTMLClearType clear)
+		    HTMLClearType clear)
 {
 	HTMLObject *object;
 	HTMLClue *clue;
@@ -2273,7 +2285,8 @@ html_clueflow_init (HTMLClueFlow *clueflow, HTMLClueFlowClass *klass,
 }
 
 HTMLObject *
-html_clueflow_new (HTMLClueFlowStyle style, GByteArray *levels, HTMLListType item_type, gint item_number, HTMLClearType clear)
+html_clueflow_new (HTMLClueFlowStyle style, GByteArray *levels,
+		   HTMLListType item_type, gint item_number, HTMLClearType clear)
 {
 	HTMLClueFlow *clueflow;
 
@@ -2288,7 +2301,7 @@ html_clueflow_new_from_flow (HTMLClueFlow *flow)
 {
 	HTMLObject *o;
 
-	o = html_clueflow_new (flow->style, html_clueflow_dup_levels (flow), 
+	o = html_clueflow_new (flow->style, html_clueflow_dup_levels (flow),
 			       flow->item_type, flow->item_number, flow->clear);
 	html_object_copy_data_from_object (o, HTML_OBJECT (flow));
 
@@ -2619,6 +2632,7 @@ html_clueflow_get_properties (HTMLClueFlow *flow,
 		*alignment_return = HTML_CLUE (flow)->halign;
 }
 #endif
+
 /* spell checking */
 
 #include "htmlinterval.h"
@@ -2751,12 +2765,9 @@ end_of_word (gchar *ct, gboolean cited)
 	gboolean cited2;
 
 	cited2 = FALSE;
-	while (*ct
-	       && (uc = g_utf8_get_char (ct))
-	       && (cn = g_utf8_next_char (ct))
+	while (*ct && (cn = e_unicode_get_utf8 (ct, &uc))
 	       && (html_selection_spell_word (uc, &cited2)
-		   || (!cited && cited2
-		       && (cnn = g_utf8_next_char (cn)) && (ucn = g_utf8_get_char (cnn)) && g_unichar_isalpha (ucn)))) {
+		   || (!cited && cited2 && (cnn = e_unicode_get_utf8 (cn, &ucn)) && g_unichar_isalpha (ucn)))) {
 		ct = cn;
 		cited2 = FALSE;
 	}
@@ -2788,7 +2799,7 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *inte
 
 	clue = HTML_CLUE (flow);
 	if (!e->widget->editor_api
-	    || !GTK_HTML_CLASS (GTK_WIDGET_GET_CLASS (e->widget))->properties->live_spell_check
+	    || !GTK_HTML_CLASS (GTK_OBJECT (e->widget)->klass)->properties->live_spell_check
 	    || !clue || !clue->tail)
 		return;
 
