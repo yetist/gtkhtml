@@ -1916,8 +1916,8 @@ spell_check_word (HTMLObject *obj, const gchar *text, const gchar *word, guint *
 
 		while (len) {
 			toff  = w_off - *off;
-			tlen  = MIN (HTML_TEXT (obj)->text_len, len);
-			g_assert (!strncmp (word, HTML_TEXT (obj)->text + toff, tlen));
+			tlen  = MIN (HTML_TEXT (obj)->text_len - toff, len);
+			g_assert (!strncmp (text + w_off, HTML_TEXT (obj)->text + toff, tlen));
 			/* printf ("add spell error - word: %s beg: %s len: %d\n",
 			   word, HTML_TEXT (obj)->text + toff, tlen); */
 			html_text_spell_errors_add (HTML_TEXT (obj),

@@ -1,3 +1,8 @@
+2000-07-27  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlclueflow.c (spell_check_word): fixed bad condition in
+	g_assert
+
 2000-07-26  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlembedded.c (html_embedded_set_widget): call force_placement.
