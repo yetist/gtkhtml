@@ -622,7 +622,8 @@ key_press_event (GtkWidget *widget,
 		html_engine_delete_selection (html->engine, TRUE);
 		str = e_utf8_from_gtk_event_key (widget, event->keyval, event->string);
 		/* printf ("len: %d str: %s\n", unicode_strlen (str, -1), str); */
-		html_engine_insert (html->engine, str, unicode_strlen (str, -1));
+		if (str)
+			html_engine_insert (html->engine, str, unicode_strlen (str, -1));
 		g_free (str);
 		retval = TRUE;
 	}

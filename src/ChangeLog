@@ -1,5 +1,9 @@
 2000-09-19  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlprinter.c (draw_text): updated to UTF8
+
+	* gtkhtml.c (key_press_event): check for str != NULL
+
 	* htmlgdkpainter.c (draw_text): use unicode_strlen
 	instead of strlen
 
