@@ -1,5 +1,12 @@
 2002-02-12  Radek Doulik  <rodo@ximian.com>
 
+	* htmlclueflow.c (write_list_finish_tags): new helper method,
+	takes care about writing right list ending tags
+	(write_pre_tags): use write_list_finish_tags
+	(write_post_tags): ditto
+	(get_end_tag_item): extracted helper function
+	(get_end_tag): use get_end_tag_item
+
 	* htmlimage.c (html_image_animation_timeout): test if delay is >
 	0 (before we have been testing for != 0)
 
