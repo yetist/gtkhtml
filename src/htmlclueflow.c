@@ -2180,7 +2180,7 @@ html_clueflow_get_line_offset (HTMLClueFlow *flow, HTMLPainter *painter, HTMLObj
 	line_offset = 0;
 
 	/* find head */
-	head = child;
+	o = head = child;
 	while (o) {
 		o = head->prev;
 		if (o && o->y + o->descent - 1 < child->y - child->ascent)
