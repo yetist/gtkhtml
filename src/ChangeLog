@@ -1,7 +1,16 @@
 2004-06-03  Radek Doulik  <rodo@ximian.com>
 
-	* gtkhtml.c (add_bindings): added missing KP_Home, KP_End bindings
+	* gtkhtml.c (drag_data_received): looks like Larry's patch from
+	2004-05-06 was broken (wrong version?). Removed uninitialized i
+	variable. Use selection_data->length, pass title to
+	new_obj_from_uri
+	(new_obj_from_uri): added title argument, it's used for link text
+	in case it's non NULL
 
+	Fixes #59467
+
+	* gtkhtml.c (add_bindings): added missing KP_Home, KP_End bindings
+	
 	Fixes #59353
 
 2004-06-01  Radek Doulik  <rodo@ximian.com>

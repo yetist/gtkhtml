@@ -2365,7 +2365,7 @@ static gchar *known_protocols [] = {
 };
 
 static HTMLObject *
-new_obj_from_uri (HTMLEngine *e, gchar *uri, gint len)
+new_obj_from_uri (HTMLEngine *e, char *uri, char *title, gint len)
 {
 	gint i;
 
@@ -2389,7 +2389,9 @@ new_obj_from_uri (HTMLEngine *e, gchar *uri, gint len)
 
 	for (i = 0; known_protocols [i]; i++) {
 		if (!strncmp (uri, known_protocols [i], strlen (known_protocols [i]))) {
-			return html_engine_new_link (e, uri, len, uri);
+			if (!title)
+				title = uri;
+			return html_engine_new_link (e, title, len, uri);
 		}
 	}	
 
@@ -2442,8 +2444,7 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
 		break;
 	case DND_TARGET_TYPE_MOZILLA_URL  : {
 		HTMLObject *obj;
-		gchar *utf8;
-		int i;
+		char *utf8, *title;
 				
 		/* MOZ_URL is in UCS-2 but in format 8. BROKEN!
 		 *
@@ -2461,16 +2462,15 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
 			break;
 		}
 
-		utf8 = ucs2_to_utf8_with_bom_check (selection_data->data, i);
-
-		while (i < selection_data->length) {
-			if (selection_data->data[i] == '\n')
-				break;
-			++i;
+		utf8 = ucs2_to_utf8_with_bom_check (selection_data->data, selection_data->length);
+		title = strchr (utf8, '\n');
+		if (title) {
+			*title = 0;
+			title ++;
 		}
 
 		html_undo_level_begin (engine->undo, "Dropped URI(s)", "Remove Dropped URI(s)");
-		obj = new_obj_from_uri (engine, utf8, -1);
+		obj = new_obj_from_uri (engine, utf8, title, -1);
 		if (obj) {
 			html_engine_paste_object (engine, obj, html_object_get_length (obj));
 			pasted = TRUE;
@@ -2489,7 +2489,7 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
 		list_len = selection_data->length;
 		do {
 			uri = next_uri (&selection_data->data, &len, &list_len);
-			obj = new_obj_from_uri (engine, uri, -1);
+			obj = new_obj_from_uri (engine, uri, NULL, -1);
 			if (obj) {
 				html_engine_paste_object (engine, obj, html_object_get_length (obj));
 				pasted = TRUE;
