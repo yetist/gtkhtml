@@ -50,10 +50,10 @@ void  html_engine_paste_link                         (HTMLEngine     *e,
 						      const char     *complete_url);
 void  html_engine_insert_text                        (HTMLEngine     *e,
 						      const gchar    *text,
-						      guint           len);
+						      gint            len);
 void  html_engine_insert_text_with_extra_attributes  (HTMLEngine     *e,
 						      const gchar    *text,
-						      guint           len,
+						      gint            len,
 						      PangoAttrList  *attrs);
 void  html_engine_insert_object                      (HTMLEngine     *e,
 						      HTMLObject     *o,

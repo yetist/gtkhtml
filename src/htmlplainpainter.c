@@ -108,16 +108,6 @@ fill_rect (HTMLPainter *painter,
 			    width, height);
 }
 
-static HTMLFont *
-alloc_fixed_font (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, GtkHTMLFontStyle style)
-{
-	return HTML_PAINTER_CLASS (parent_class)->alloc_font (painter, 
-							      face ? painter->font_manager.fixed.face : NULL,
-							      painter->font_manager.fix_size, painter->font_manager.fix_points,
-							      GTK_HTML_FONT_STYLE_DEFAULT); 
-}
-
-
 static void
 draw_shade_line (HTMLPainter *painter,
 		 gint x, gint y,
@@ -159,7 +149,6 @@ html_plain_painter_class_init (GObjectClass *object_class)
 	painter_class = HTML_PAINTER_CLASS (object_class);
 	parent_class = g_type_class_ref (HTML_TYPE_GDK_PAINTER);
 
-	painter_class->alloc_font = alloc_fixed_font;
 	painter_class->draw_rect = draw_rect;
 	painter_class->fill_rect = fill_rect;
 	painter_class->draw_pixmap = draw_pixmap;
@@ -202,8 +191,6 @@ html_plain_painter_new (GtkWidget *widget, gboolean double_buffer)
 	new = g_object_new (HTML_TYPE_PLAIN_PAINTER, NULL);
 	html_painter_set_widget (HTML_PAINTER (new), widget);
 	HTML_GDK_PAINTER (new)->double_buffer = double_buffer;
-	HTML_GDK_PAINTER (new)->pc = gtk_widget_get_pango_context (widget);
-	g_object_ref (HTML_GDK_PAINTER (new)->pc);
 
 	return HTML_PAINTER (new);
 }

@@ -3054,10 +3054,18 @@ gtk_html_im_commit_cb (GtkIMContext *context, const gchar *str, GtkHTML *html)
 
 	html->priv->im_block_reset = TRUE;
 	D_IM (printf ("IM commit %s\n", str);)
+	
+	/* Move cusor before preedit pos and commit the string */
+	html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine, html->priv->im_pre_pos);
 	html_engine_paste_text (html->engine, str, -1);
+	/* Add preedit pos with number of str committed and move back */
+	html->priv->im_pre_pos += g_utf8_strlen (str, -1);
+	html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine, html->priv->im_pre_pos);
+
 	html->priv->im_block_reset = state;
 
 	D_IM (printf ("IM commit pos: %d pre_pos: %d\n", pos, html->priv->im_pre_pos);)
+
 	if (html->priv->im_pre_pos >= pos)
 		html->priv->im_pre_pos += html->engine->cursor->position - pos;
 }
@@ -4230,12 +4238,14 @@ gtk_html_get_object_by_id (GtkHTML *html, const gchar *id)
 static gint
 get_line_height (GtkHTML *html)
 {
-	gint line_offset = 0, w, a, d;
+	gint w, a, d;
 
 	if (!html->engine || !html->engine->painter)
 		return 0;
 
-	html_painter_calc_text_size (html->engine->painter, "a", 1, NULL, NULL, NULL, 0, &line_offset, GTK_HTML_FONT_STYLE_SIZE_3, NULL, &w, &a, &d);
+	html_painter_set_font_style (html->engine->painter, GTK_HTML_FONT_STYLE_SIZE_3);
+	html_painter_set_font_face (html->engine->painter, NULL);
+	html_painter_calc_text_size (html->engine->painter, "a", 1, &w, &a, &d);
 
 	return a + d;
 }
