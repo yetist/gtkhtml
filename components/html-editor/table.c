@@ -578,7 +578,7 @@ table_widget (GtkHTMLEditTableProperties *d)
 	UPPER_FIX (cols);
 	UPPER_FIX (rows);
 
-	gtk_box_pack_start (GTK_BOX (table_page), sample_frame (&d->sample), FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (table_page), sample_frame (&d->sample), TRUE, TRUE, 0);
 
 	gtk_widget_show_all (table_page);
         /* RM2 gdk_color_alloc (gdk_window_get_colormap (d->cd->html->engine->window), &d->bg_color); */
@@ -644,7 +644,7 @@ table_insert_widget (GtkHTMLEditTableProperties *d)
 	g_signal_connect (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_template)), "selection-done",
 			  G_CALLBACK (changed_template), d);
 	fill_templates (d);
-	gtk_box_pack_start (GTK_BOX (table_page), sample_frame (&d->sample), FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (table_page), sample_frame (&d->sample), TRUE, TRUE, 0);
 
 	gtk_widget_show_all (table_page);
 

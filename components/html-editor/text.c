@@ -213,14 +213,14 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	html_color_ref (data->color);
 
 	table = gtk_table_new (3, 2, FALSE);
-	gtk_container_set_border_width (GTK_CONTAINER (table), 3);
-	gtk_table_set_col_spacings (GTK_TABLE (table), 3);
-	gtk_table_set_row_spacings (GTK_TABLE (table), 2);
+	gtk_container_set_border_width (GTK_CONTAINER (table), 12);
+	gtk_table_set_col_spacings (GTK_TABLE (table), 12);
+	gtk_table_set_row_spacings (GTK_TABLE (table), 4);
 
-	vbox = gtk_vbox_new (FALSE, 0);
+	vbox = gtk_vbox_new (FALSE, 6);
 	frame = gtk_frame_new (_("Style"));
 	t1 = gtk_table_new (2, 2, FALSE);
-	gtk_container_set_border_width (GTK_CONTAINER (t1), 3);
+	gtk_container_set_border_width (GTK_CONTAINER (t1), 6);
 
 #define ADD_CHECK(x,c,r) \
 	data->check [i] = gtk_check_button_new_with_label (x); \
@@ -248,7 +248,7 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 			gtk_entry_set_text (GTK_ENTRY (data->entry_url), data->url);
 		}
 		f1 = gtk_frame_new (NULL);
-		gtk_container_set_border_width (GTK_CONTAINER (f1), 3);
+		gtk_container_set_border_width (GTK_CONTAINER (f1), 6);
 		gtk_frame_set_shadow_type (GTK_FRAME (f1), GTK_SHADOW_NONE);
 		gtk_container_add (GTK_CONTAINER (f1), data->entry_url);
 		gtk_container_add (GTK_CONTAINER (frame), f1);
@@ -282,15 +282,15 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	gtk_option_menu_set_menu (GTK_OPTION_MENU (data->sel_size), menu);
 	gtk_option_menu_set_history (GTK_OPTION_MENU (data->sel_size), get_size (data->style_or));
 	vbox = gtk_vbox_new (FALSE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (vbox), 3);
+	gtk_container_set_border_width (GTK_CONTAINER (vbox), 6);
 	gtk_box_pack_start (GTK_BOX (vbox), data->sel_size, FALSE, FALSE, 0);
 	gtk_container_add (GTK_CONTAINER (frame), vbox);
 	gtk_table_attach (GTK_TABLE (table), frame, 1, 2, 0, 1, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
 
 	/* color selection */
 	frame = gtk_frame_new (_("Color"));
-	hbox = gtk_hbox_new (FALSE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (hbox), 3);
+	hbox = gtk_hbox_new (FALSE, 12);
+	gtk_container_set_border_width (GTK_CONTAINER (hbox), 6);
 
 	data->color_combo = color_combo_new (NULL, _("Automatic"),
 					     &data->color->color,

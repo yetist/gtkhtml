@@ -145,7 +145,7 @@ GtkHTMLReplaceDialog *
 gtk_html_replace_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 {
 	GtkHTMLReplaceDialog *dialog = g_new (GtkHTMLReplaceDialog, 1);
-	GtkWidget *hbox;
+	GtkWidget *hbox, *vbox;
 	GtkWidget *table;
 	GtkWidget *label;
 
@@ -183,11 +183,15 @@ gtk_html_replace_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 	gtk_box_pack_start (GTK_BOX (hbox), dialog->backward, FALSE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (hbox), dialog->case_sensitive, FALSE, FALSE, 0);
 
-	gtk_box_pack_start (GTK_BOX (dialog->dialog->vbox), table, FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (dialog->dialog->vbox), hbox, FALSE, FALSE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (dialog->dialog->vbox), 6);
+	vbox = gtk_vbox_new (FALSE, 6);
+	gtk_widget_show (vbox);
+	gtk_box_pack_start (GTK_BOX (vbox), table, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (dialog->dialog), 6);
-	gtk_container_set_border_width (GTK_CONTAINER (hbox), 6);
+	gtk_container_set_border_width (GTK_CONTAINER (vbox), 6);
+	gtk_container_set_border_width (GTK_CONTAINER (dialog->dialog->vbox), 6);
+	gtk_box_set_spacing (GTK_BOX (dialog->dialog->vbox), 6);
+	gtk_box_pack_start (GTK_BOX (dialog->dialog->vbox), vbox, FALSE, FALSE, 0);
 	gtk_widget_show_all (table);
 	gtk_widget_show_all (hbox);
 

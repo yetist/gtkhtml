@@ -107,13 +107,13 @@ paragraph_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	data->flow  = HTML_CLUEFLOW (cd->html->engine->cursor->object->parent);
 
 	table = gtk_table_new (2, 2, FALSE);
-	gtk_container_set_border_width (GTK_CONTAINER (table), 3);
-	gtk_table_set_col_spacings (GTK_TABLE (table), 3);
-	gtk_table_set_row_spacings (GTK_TABLE (table), 2);
+	gtk_container_set_border_width (GTK_CONTAINER (table), 12);
+	gtk_table_set_col_spacings (GTK_TABLE (table), 12);
+	gtk_table_set_row_spacings (GTK_TABLE (table), 4);
 
 	frame = gtk_frame_new (_("Style"));
-	hbox = gtk_hbox_new (FALSE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (hbox), 3);
+	hbox = gtk_hbox_new (FALSE, 12);
+	gtk_container_set_border_width (GTK_CONTAINER (hbox), 6);
 	menu = gtk_menu_new ();
 
 #undef ADD_ITEM
@@ -147,8 +147,8 @@ paragraph_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	gtk_table_attach (GTK_TABLE (table), frame, 0, 1, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
 
 	frame = gtk_frame_new (_("Align"));
-	hbox = gtk_hbox_new (FALSE, 3);
-	gtk_container_set_border_width (GTK_CONTAINER (hbox), 3);
+	hbox = gtk_hbox_new (FALSE, 12);
+	gtk_container_set_border_width (GTK_CONTAINER (hbox), 6);
 
 #define ADD_RADIO(x,a) \
 	radio = gtk_radio_button_new_with_label (group, x); \

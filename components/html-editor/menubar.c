@@ -225,7 +225,7 @@ insert_file_dialog (GtkHTMLControlData *cd, gboolean html)
 		return;
 	}
 
-	cd->file_dialog = gtk_file_selection_new (html ? _("Insert HTML file") : _("Insert text file"));
+	cd->file_dialog = gtk_file_selection_new (html ? _("Insert: HTML File") : _("Insert: Text File"));
 	gtk_file_selection_set_filename (GTK_FILE_SELECTION (cd->file_dialog), "~/");
 
 	g_signal_connect_object (GTK_FILE_SELECTION (cd->file_dialog)->cancel_button,

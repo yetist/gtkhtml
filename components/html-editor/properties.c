@@ -113,11 +113,32 @@ dialog_response (GtkDialog *dialog, gint response_id, GtkHTMLEditPropertiesDialo
 	}
 }
 
+static gboolean stock_insert_added = FALSE;
+#define GTKHTML_STOCK_INSERT "gtkhtml-stock-insert"
+static GtkStockItem insert_items [] =
+{
+	{ GTKHTML_STOCK_INSERT, N_("Insert"), 0, 0, NULL }
+};
+
 GtkHTMLEditPropertiesDialog *
 gtk_html_edit_properties_dialog_new (GtkHTMLControlData *cd, gboolean insert, gchar *title, gchar *icon_path)
 {
 	GtkHTMLEditPropertiesDialog *d = g_new (GtkHTMLEditPropertiesDialog, 1);
+	GtkWidget *vbox;
 	GtkWindow *parent;
+
+	if (insert && !stock_insert_added) {
+		GtkIconSet *jumpto = gtk_icon_factory_lookup_default (GTK_STOCK_JUMP_TO);
+
+		if (jumpto) {
+			GtkIconFactory *factory = gtk_icon_factory_new ();
+
+			gtk_icon_factory_add (factory, GTKHTML_STOCK_INSERT, jumpto);
+			gtk_icon_factory_add_default (factory);
+		}
+		gtk_stock_add_static (insert_items, G_N_ELEMENTS (insert_items));
+		stock_insert_added = TRUE;
+	}
 
 	d->page_data      = NULL;
 	d->title          = g_strdup (title);
@@ -126,17 +147,25 @@ gtk_html_edit_properties_dialog_new (GtkHTMLControlData *cd, gboolean insert, gc
 	parent = get_parent_window (GTK_WIDGET (cd->html));
 	d->dialog         = insert ? gtk_dialog_new_with_buttons (title, parent, 0,
 								  GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
-								  _("Insert"), 1,
+								  GTKHTML_STOCK_INSERT, 1,
 								  NULL)
 		:  gtk_dialog_new_with_buttons (title, parent, 0,
 						GTK_STOCK_APPLY, 1,
 						GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
 						GTK_STOCK_OK, 0,
 						NULL);
+
+	gtk_container_set_border_width (GTK_CONTAINER (GTK_DIALOG (d->dialog)->vbox), 6);
+	gtk_container_set_border_width (GTK_CONTAINER (d->dialog), 6);
+
 	d->notebook = gtk_notebook_new ();
 	g_signal_connect (d->dialog, "destroy", G_CALLBACK (destroy_dialog), d);
 	g_signal_connect (d->notebook, "switch_page", G_CALLBACK (switch_page), d);
-	gtk_box_pack_start_defaults (GTK_BOX (GTK_DIALOG (d->dialog)->vbox), d->notebook);
+	vbox = gtk_vbox_new (FALSE, 6);
+	gtk_widget_show (vbox);
+	gtk_container_set_border_width (GTK_CONTAINER (vbox), 6);
+	gtk_box_pack_start_defaults (GTK_BOX (vbox), d->notebook);
+	gtk_box_pack_start_defaults (GTK_BOX (GTK_DIALOG (d->dialog)->vbox), vbox);
 	gtk_widget_show (d->notebook);
 
 	g_signal_connect (d->dialog, "response", G_CALLBACK (dialog_response), d);
@@ -145,6 +174,7 @@ gtk_html_edit_properties_dialog_new (GtkHTMLControlData *cd, gboolean insert, gc
 	gtk_dialog_set_response_sensitive (GTK_DIALOG (d->dialog), 0, FALSE);
 	if (!insert)
 		gtk_dialog_set_response_sensitive (GTK_DIALOG (d->dialog), 1, FALSE);
+	gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (d->dialog)->vbox), 6);
 
 	return d;
 }
@@ -199,6 +229,8 @@ gtk_html_edit_properties_dialog_show (GtkHTMLEditPropertiesDialog *d)
 	if (g_list_length (d->page_data) <= 1) {
 		gtk_notebook_set_show_tabs (GTK_NOTEBOOK (d->notebook), FALSE);
 		gtk_notebook_set_show_border (GTK_NOTEBOOK (d->notebook), FALSE);
+		if (g_list_length (d->page_data) == 1)
+			gtk_container_set_border_width (GTK_CONTAINER (gtk_notebook_get_nth_page (GTK_NOTEBOOK (d->notebook), 0)), 0);
 	}
 	gtk_widget_show (d->dialog);
 }
