@@ -1,3 +1,15 @@
+2000-05-06  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltext.c (insert_text): partialy rewritten, inserts whole text
+	now and calls new convert_nbsp hack
+	(convert_nbsp): new function, converts sequence of [<space>&nbsp']
+	to sequence with starting space and &nbsp; chars
+	(remove_text): use convert_nbsp
+	(html_text_init): likewise
+
+	* gtkhtml-keybinding.c (handle_ctrl): added C-z for UNDO and C-r
+	for REDO (it is not Emacs like, but helps a lot for testing)
+
 2000-05-05  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine-edit-delete.c (html_engine_delete): restore cursor

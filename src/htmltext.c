@@ -27,6 +27,7 @@
 #include "htmltext.h"
 #include "htmlclueflow.h"
 #include "htmlcursor.h"
+#include "htmlentity.h"
 
 
 HTMLTextClass html_text_class;
@@ -35,89 +36,6 @@ static HTMLObjectClass *parent_class = NULL;
 #define HT_CLASS(x) HTML_TEXT_CLASS (HTML_OBJECT (x)->klass)
 
 
-/* Calculcate the length of the string after collapsing multiple spaces into
-   single ones and, optionally, removing leading/trailing space completely.  */
-static guint
-calc_actual_len (const gchar *s,
-		 guint len,
-		 gboolean remove_leading_space,
-		 gboolean remove_trailing_space,
-		 const gchar **first_return)
-{
-	guint i;
-	guint actual_len;
-
-	if (len == 0)
-		return 0;
-
-	i = 0;
-	actual_len = 0;
-
-	if (remove_leading_space) {
-		while (i < len && s[i] == ' ')
-			i++;
-		len -= i;
-		if (len == 0)
-			return 0;
-	} 
-
-	*first_return = s + i;
-
-	if (remove_trailing_space) {
-		while (len > 0 && s[len - 1] == ' ')
-			len--;
-		if (len == 0)
-			return 0;
-	}
-
-	while (i < len) {
-		if (s[i] == ' ') {
-			actual_len++;
-			while (i < len && s[i] == ' ')
-				i++;
-		} else {
-			actual_len++;
-			i++;
-		}
-	}
-
-	if (remove_trailing_space && s[i - 1] == ' ')
-		actual_len--;
-
-	return actual_len;
-}
-
-static void
-copy_collapsing_spaces (gchar *dst,
-			const gchar *src,
-			guint actual_len)
-{
-	const gchar *sp;
-	gchar *dp;
-	guint count;
-
-	if (actual_len == 0)
-		return;
-
-	sp = src;
-	dp = dst;
-	count = 0;
-
-	while (count < actual_len) {
-		if (*sp == ' ') {
-			*dp = ' ';
-			dp++, count++, sp++;
-			if (count < actual_len) {
-				while (*sp == ' ')
-					sp++;
-			}
-		} else {
-			*dp = *sp;
-			dp++, count++, sp++;
-		}
-	}
-}
-
 static void
 get_tags (const HTMLText *text,
 	  gchar *opening_tags,
@@ -334,6 +252,33 @@ extract_text (HTMLText *text,
 	return new;
 }
 
+static void
+convert_nbsp (guchar *s, guint len)
+{
+	/* state of automata:
+	   0..Text
+	   1..Sequence <space>&nbsp;...&nbsp;
+	*/
+	guint state=0;
+
+	printf ("convert_nbsp: ");
+
+	while (len) {
+		if (*s == ENTITY_NBSP || *s == ' ') {
+			*s = state ? ENTITY_NBSP : ' ';
+			state = 1;
+		} else
+			state = 0;
+		if (*s == ENTITY_NBSP)
+			printf ("&nbsp;");
+		else
+			printf ("%c", *s);
+		len--;
+		s++;
+	}
+	printf ("\n");
+}
+
 static guint
 insert_text (HTMLText *text,
 	     HTMLEngine *engine,
@@ -341,16 +286,9 @@ insert_text (HTMLText *text,
 	     const gchar *s,
 	     guint len)
 {
-	gboolean remove_leading_space, remove_trailing_space;
-	const gchar *start;
 	gchar *new_buffer;
 	guint old_len;
 	guint new_len;
-	guint actual_len;
-
-	/* The following code is very stupid and quite inefficient, but it is
-           just for interactive editing so most likely people won't even
-           notice.  */
 
 	old_len = text->text_len;
 	if (offset > old_len) {
@@ -361,45 +299,25 @@ insert_text (HTMLText *text,
 		offset = old_len;
 	}
 
-	if (offset > 0 && text->text[offset - 1] == ' ')
-		remove_leading_space = TRUE;
-	else
-		remove_leading_space = FALSE;
-
-	if (text->text[offset] == ' ')
-		remove_trailing_space = TRUE;
-	else
-		remove_trailing_space = FALSE;
-
-	actual_len = calc_actual_len (s, len,
-				      remove_leading_space,
-				      remove_trailing_space,
-				      &start);
-	if (actual_len == 0)
-		return 0;
-
-	new_len = old_len + actual_len;
+	new_len    = old_len + len;
 	new_buffer = g_malloc (new_len + 1);
 
-	if (offset > 0)
-		memcpy (new_buffer, text->text, offset);
-
-	copy_collapsing_spaces (new_buffer + offset, start, actual_len);
-
-	if (offset < old_len)
-		memcpy (new_buffer + offset + actual_len,
-			text->text + offset,
-			old_len - offset);
-
+	/* concatenate strings */
+	memcpy (new_buffer,                text->text,        offset);
+	memcpy (new_buffer + offset,       s,                 len);
+	memcpy (new_buffer + offset + len, text->text+offset, old_len - offset);
 	new_buffer[new_len] = '\0';
 
-	g_free (text->text);
+	/* do <space>&nbsp;...&nbsp; hack */
+	convert_nbsp (new_buffer, new_len);
 
+	/* set new values */
+	g_free (text->text);
 	text->text = new_buffer;
 	text->text_len = new_len;
 
+	/* update */
 	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
-
 	if (HTML_OBJECT (text)->parent != NULL) {
 		if (! html_object_relayout (HTML_OBJECT (text)->parent,
 					    engine,
@@ -407,7 +325,7 @@ insert_text (HTMLText *text,
 			html_engine_queue_draw (engine, HTML_OBJECT (text)->parent);
 	}
 
-	return actual_len;
+	return len;
 }
 
 static guint
@@ -436,20 +354,21 @@ remove_text (HTMLText *text,
 
 	new_len = old_len - len;
 
+	/* concat strings */
 	new_buffer = g_malloc (new_len + 1);
-
-	if (offset > 0)
-		memcpy (new_buffer, text->text, offset);
-
+	memcpy (new_buffer,          text->text,                offset);
 	memcpy (new_buffer + offset, text->text + offset + len, old_len - offset - len + 1);
 
-	g_free (text->text);
+	/* do <space>&nbsp;...&nbsp; hack */
+	convert_nbsp (new_buffer, new_len);
 
+	/* set new values */
+	g_free (text->text);
 	text->text = new_buffer;
 	text->text_len = new_len;
 
+	/* update */
 	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
-
 	html_object_relayout (HTML_OBJECT (text)->parent, engine, HTML_OBJECT (text));
 	html_engine_queue_draw (engine, HTML_OBJECT (text)->parent);
 
@@ -667,6 +586,9 @@ html_text_init (HTMLText *text_object,
 		text_object->text_len = len;
 		text_object->text = g_strndup (text, len);
 	}
+
+	/* do <space>&nbsp;...&nbsp; hack */
+	convert_nbsp (text_object->text, text_object->text_len);
 
 	text_object->font_style = font_style;
 

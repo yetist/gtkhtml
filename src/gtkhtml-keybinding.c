@@ -64,6 +64,18 @@ scroll_by_amount (GtkHTML *html,
 /* The commands.  */
 
 static void
+undo (GtkHTML *html)
+{
+	html_engine_undo (html->engine);
+}
+
+static void
+redo (GtkHTML *html)
+{
+	html_engine_redo (html->engine);
+}
+
+static void
 forward (GtkHTML *html)
 {
 	html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_RIGHT, 1);
@@ -240,6 +252,12 @@ handle_ctrl (GtkHTML *html,
 		break;
 	case 'y':
 		paste (html);
+		break;
+	case 'r':
+		redo (html);
+		break;
+	case 'z':
+		undo (html);
 		break;
 	case ' ':
 		set_mark (html);
