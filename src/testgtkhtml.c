@@ -403,7 +403,7 @@ static gint
 do_request_delete(gpointer req)
 {
 	g_print("do_request_delete(%p)\n", req);
-	HTRequest_delete(req);
+	/*  HTRequest_delete(req); */
 	
 	return FALSE;
 }
