@@ -43,7 +43,7 @@ struct _HTMLFontSet {
 };
 
 struct _HTMLFontManager {
-	HTMLPainter *painter;
+	HTMLPainterClass *painter_class;
 
 	GHashTable *font_sets;
 	HTMLFontSet variable;
@@ -58,7 +58,7 @@ struct _HTMLFontManager {
 };
 
 void                html_font_manager_init                    (HTMLFontManager *manager,
-							       HTMLPainter *painter);
+							       HTMLPainterClass *pc);
 void                html_font_manager_finalize                (HTMLFontManager *manager);
 
 void                html_font_manager_set_default             (HTMLFontManager *manager,
@@ -79,13 +79,13 @@ gchar *             html_font_manager_get_attr                (gchar           *
 /*
  * HTMLFont
  */
-HTMLFont *html_font_new      (gpointer     data,
-			      guint        space_width,
-			      guint        nbsp_width,
-			      guint        tab_width);
-void      html_font_destroy  (HTMLFont    *font);
-void      html_font_ref      (HTMLFont    *font,
-			      HTMLPainter *painter);
-void      html_font_unref    (HTMLFont    *font,
-			      HTMLPainter *painter);
+HTMLFont *html_font_new      (gpointer          data,
+			      guint             space_width,
+			      guint             nbsp_width,
+			      guint             tab_width);
+void      html_font_destroy  (HTMLFont         *font);
+void      html_font_ref      (HTMLFont         *font,
+			      HTMLPainterClass *painter_class);
+void      html_font_unref    (HTMLFont         *font,
+			      HTMLPainterClass *painter_class);
 #endif

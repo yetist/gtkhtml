@@ -68,7 +68,7 @@ print_page (HTMLPainter *painter,
 
 	html_painter_begin (painter, 0, 0, page_width, page_height);
 	if (header_print)
-		print_header_footer (painter, engine, page_width, 0, header_height, header_print, user_data);
+		print_header_footer (painter, engine, page_width, 0, header_height/printer->scale, header_print, user_data);
 	gnome_print_gsave (context);
 	html_painter_set_clip_rectangle (painter, 0, header_height, page_width, body_height);
 #ifdef CLIP_DEBUG
@@ -77,11 +77,12 @@ print_page (HTMLPainter *painter,
 	html_object_draw (engine->clue, painter,
 			  0, start_y,
 			  page_width, body_height,
-			  0, -start_y + header_height);
+			  0, -start_y + header_height / printer->scale);
 	gnome_print_grestore (context);
 	if (footer_print)
-		print_header_footer (painter, engine, page_width, page_height - SCALE_GNOME_PRINT_TO_ENGINE (footer_height),
-				     footer_height, footer_print, user_data);
+		print_header_footer (painter, engine, page_width*printer->scale,
+				     page_height - SCALE_GNOME_PRINT_TO_ENGINE (footer_height/printer->scale),
+				     footer_height/printer->scale, footer_print, user_data);
 	html_painter_end (painter);
 }
 
@@ -100,12 +101,13 @@ print_all_pages (HTMLPainter *painter,
 	page_height = html_printer_get_page_height (printer);
 	page_width  = html_printer_get_page_width (printer);
 
-	if (header_height + footer_height >= page_height) {
+	if (header_height + footer_height >= page_height*printer->scale) {
 		header_print = footer_print = NULL;
 		g_warning ("Page header height + footer height >= page height, disabling header/footer printing");
 	}
 
-	body_height = page_height - SCALE_GNOME_PRINT_TO_ENGINE (header_height + footer_height);
+	body_height = page_height
+		- SCALE_GNOME_PRINT_TO_ENGINE (header_height/printer->scale + footer_height/printer->scale);
 	split_offset = 0;
 
 	document_height = html_engine_get_doc_height (engine);
@@ -162,7 +164,7 @@ print_with_header_footer (HTMLEngine *engine,
 	g_return_val_if_fail (engine->clue != NULL, 0);
 
 	printer = html_printer_new (print_context, GTK_HTML (engine->widget)->priv->print_master);
-	html_font_manager_set_default (printer->font_manager,
+	html_font_manager_set_default (html_engine_font_manager_with_painter (engine, printer),
 				       prop->font_var_print,      prop->font_fix_print,
 				       prop->font_var_size_print, prop->font_var_print_points,
 				       prop->font_fix_size_print, prop->font_fix_print_points);
@@ -180,7 +182,7 @@ print_with_header_footer (HTMLEngine *engine,
 		/* printf ("min_width %d page %d\n", min_width, page_width); */
 		if (min_width > page_width) {
 			HTML_PRINTER (printer)->scale = MAX (0.5, ((gdouble) page_width) / min_width);
-			html_font_manager_clear_font_cache (printer->font_manager);
+			//html_font_manager_clear_font_cache (html_engine_font_manager_with_painter (engine, printer));
 			html_object_change_set_down (engine->clue, HTML_CHANGE_ALL);
 			html_engine_calc_size (engine, NULL);
 			/* printf ("scale %lf\n", HTML_PRINTER (printer)->scale);

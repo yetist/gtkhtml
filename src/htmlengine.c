@@ -3196,10 +3196,14 @@ static void
 html_engine_class_init (HTMLEngineClass *klass)
 {
 	GtkObjectClass *object_class;
+	gint i;
 
 	object_class = (GtkObjectClass *)klass;
 
 	parent_class = gtk_type_class (GTK_TYPE_OBJECT);
+
+	for (i = HTML_FONT_MANAGER_ID_FIRST; i < HTML_FONT_MANAGER_ID_N; i ++)
+		html_font_manager_init (&klass->font_manager [i], html_painter_class_from_id (i));
 
 	signals [SET_BASE] =
 		gtk_signal_new ("set_base",
@@ -5473,4 +5477,29 @@ HTMLMap *
 html_engine_get_map (HTMLEngine *e, const gchar *name)
 {
 	return e->map_table ? HTML_MAP (g_hash_table_lookup (e->map_table, name)) : NULL;
+}
+
+HTMLFontManager *
+html_engine_gdk_font_manager (HTMLEngine *e)
+{
+	return &HTML_ENGINE_CLASS (GTK_OBJECT (e)->klass)->font_manager [HTML_FONT_MANAGER_ID_GDK];
+}
+
+HTMLFontManager *
+html_engine_font_manager (HTMLEngine *e)
+{
+	return &HTML_ENGINE_CLASS (GTK_OBJECT (e)->klass)->font_manager [html_painter_get_font_manager_id (e->painter)];
+}
+
+HTMLFontManager *
+html_engine_font_manager_with_painter (HTMLEngine *e, HTMLPainter *p)
+{
+	return &HTML_ENGINE_CLASS (GTK_OBJECT (e)->klass)->font_manager [html_painter_get_font_manager_id (p)];
+}
+
+HTMLFontManager *
+html_engine_class_gdk_font_manager (void)
+{
+	HTMLEngineClass *ec = HTML_ENGINE_CLASS (gtk_type_class (html_engine_get_type ()));
+	return &ec->font_manager [HTML_FONT_MANAGER_ID_GDK];
 }

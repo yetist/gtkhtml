@@ -24,7 +24,6 @@
 
 #include <gnome.h>
 #include <ctype.h>
-#include <libgnomeprint/gnome-print.h>
 #include <gal/unicode/gunicode.h>
 
 #include "htmlembedded.h"
@@ -70,14 +69,14 @@ static gdouble
 printer_get_page_height (HTMLPrinter *printer)
 {
 	insure_paper (printer);
-	return gnome_paper_psheight (paper);
+	return gnome_paper_psheight (paper) / printer->scale;
 }
 
 static gdouble
 printer_get_page_width (HTMLPrinter *printer)
 {
 	insure_paper (printer);
-	return gnome_paper_pswidth (paper);
+	return gnome_paper_pswidth (paper) / printer->scale;
 }
 
 static gdouble
@@ -124,8 +123,8 @@ html_printer_coordinates_to_gnome_print (HTMLPrinter *printer,
 	print_x = SCALE_ENGINE_TO_GNOME_PRINT (engine_x);
 	print_y = SCALE_ENGINE_TO_GNOME_PRINT (engine_y);
 
-	print_x = print_x + get_lmargin (printer);
-	print_y = (printer_get_page_height (printer) - print_y) - get_tmargin (printer);
+	print_x = print_x + get_lmargin (printer)/printer->scale;
+	print_y = (printer_get_page_height (printer) - print_y) - get_tmargin (printer)/printer->scale;
 
 	*print_x_return = print_x;
 	*print_y_return = print_y;
@@ -183,6 +182,7 @@ begin (HTMLPainter *painter,
 
 	gnome_print_beginpage (pc, "page");
 	gnome_print_gsave (pc);
+	gnome_print_scale (pc, printer->scale, printer->scale);
 
 	html_printer_coordinates_to_gnome_print (printer, x1, y1, &printer_x1, &printer_y1);
 	printer_x2 = printer_x1 + SCALE_ENGINE_TO_GNOME_PRINT (x2);
@@ -703,15 +703,14 @@ get_pixel_size (HTMLPainter *painter)
 }
 
 static inline gdouble
-get_font_size (HTMLPrinter *printer, gboolean points, gdouble size)
+get_font_size (gboolean points, gdouble size)
 {
-	return printer->scale * (points ? size / 10 : size);
+	return points ? size / 10 : size;
 }
 
 static HTMLFont *
-alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, GtkHTMLFontStyle style)
+alloc_font (gchar *face, gdouble size, gboolean points, GtkHTMLFontStyle style)
 {
-	HTMLPrinter *printer = HTML_PRINTER  (painter);
 	GnomeFontWeight weight;
 	GnomeFont *font;
 	gboolean italic;
@@ -736,7 +735,7 @@ alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, Gt
 	}
 
 	font = gnome_font_new_closest (family ? family : (style & GTK_HTML_FONT_STYLE_FIXED ? "Courier" : "Helvetica"),
-				       weight, italic, get_font_size (printer, points, size));
+				       weight, italic, get_font_size (points, size));
 	g_free (family);
 
 	if (font == NULL) {
@@ -745,7 +744,7 @@ alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, Gt
 		family_list = gnome_font_family_list ();
 		if (family_list && family_list->data) {
 			font = gnome_font_new_closest (family_list->data,
-						       weight, italic, get_font_size (printer, points, size));
+						       weight, italic, get_font_size (points, size));
 			gnome_font_family_list_free (family_list);
 		}
 	}
@@ -758,13 +757,13 @@ alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, Gt
 }
 
 static void
-ref_font (HTMLPainter *painter, HTMLFont *font)
+ref_font (HTMLFont *font)
 {
 	gtk_object_ref (GTK_OBJECT (font->data));
 }
 
 static void
-unref_font (HTMLPainter *painter, HTMLFont *font)
+unref_font (HTMLFont *font)
 {
 	gtk_object_unref (GTK_OBJECT (font->data));
 }
@@ -780,7 +779,13 @@ get_page_height (HTMLPainter *painter, HTMLEngine *e)
 {
 	return html_printer_get_page_height (HTML_PRINTER (painter));
 }
-
+
+static HTMLFontManagerId
+get_font_manager_id ()
+{
+	return HTML_FONT_MANAGER_ID_PRINTER;
+}
+
 static void
 init (GtkObject *object)
 {
@@ -827,6 +832,7 @@ class_init (GtkObjectClass *object_class)
 	painter_class->draw_embedded = draw_embedded;
 	painter_class->get_page_width = get_page_width;
 	painter_class->get_page_height = get_page_height;
+	painter_class->get_font_manager_id = get_font_manager_id;
 
 	parent_class = gtk_type_class (html_painter_get_type ());
 }

@@ -59,23 +59,23 @@ html_font_set_face (HTMLFontSet *set, gchar *face)
 }
 
 static void
-html_font_set_release (HTMLFontSet *set, HTMLPainter *painter)
+html_font_set_release (HTMLFontSet *set, HTMLPainterClass *painter_class)
 {
 	gint i;
 
 	for (i=0; i<GTK_HTML_FONT_STYLE_MAX_FONT; i++) {
 		if (set->font [i])
-			html_painter_unref_font (painter, set->font [i]);
+			html_painter_unref_font (painter_class, set->font [i]);
 		set->font [i] = NULL;
 	}
 }
 
 static void
-html_font_set_unref (HTMLFontSet *set, HTMLPainter *painter)
+html_font_set_unref (HTMLFontSet *set, HTMLPainterClass *painter_class)
 {
 	set->ref_count --;
 	if (!set->ref_count) {
-		html_font_set_release (set, painter);
+		html_font_set_release (set, painter_class);
 		if (set->face)
 			g_free (set->face);
 
@@ -84,7 +84,7 @@ html_font_set_unref (HTMLFontSet *set, HTMLPainter *painter)
 }
 
 void
-html_font_manager_init (HTMLFontManager *manager, HTMLPainter *painter)
+html_font_manager_init (HTMLFontManager *manager, HTMLPainterClass *painter_class)
 {
 	manager->font_sets     = g_hash_table_new (g_str_hash, g_str_equal);
 	manager->var_size      = 12;
@@ -92,7 +92,7 @@ html_font_manager_init (HTMLFontManager *manager, HTMLPainter *painter)
 	manager->fix_size      = 12;
 	manager->fix_points    = FALSE;
 	manager->magnification = 1.0;
-	manager->painter       = painter;
+	manager->painter_class = painter_class;
 
 	html_font_set_init (&manager->variable, NULL);
 	html_font_set_init (&manager->fixed, NULL);
@@ -113,7 +113,7 @@ static gboolean
 destroy_font_set_foreach (gpointer key, gpointer font_set, gpointer data)
 {
 	g_free (key);
-	html_font_set_unref (font_set, HTML_PAINTER (data));
+	html_font_set_unref (font_set, HTML_PAINTER_CLASS (data));
 
 	return TRUE;
 }
@@ -121,7 +121,7 @@ destroy_font_set_foreach (gpointer key, gpointer font_set, gpointer data)
 static void
 clear_additional_font_sets (HTMLFontManager *manager)
 {
-	g_hash_table_foreach_remove (manager->font_sets, destroy_font_set_foreach, manager->painter);	
+	g_hash_table_foreach_remove (manager->font_sets, destroy_font_set_foreach, manager->painter_class);	
 }
 
 void
@@ -129,16 +129,16 @@ html_font_manager_clear_font_cache (HTMLFontManager *manager)
 {
 	/* printf ("html_font_manager_clear_font_cache\n"); */
 
-	html_font_set_release (&manager->variable, manager->painter);
-	html_font_set_release (&manager->fixed, manager->painter);
+	html_font_set_release (&manager->variable, manager->painter_class);
+	html_font_set_release (&manager->fixed, manager->painter_class);
 	clear_additional_font_sets (manager);
 }
 
 void
 html_font_manager_finalize (HTMLFontManager *manager)
 {
-	html_font_set_release (&manager->variable, manager->painter);
-	html_font_set_release (&manager->fixed, manager->painter);
+	html_font_set_release (&manager->variable, manager->painter_class);
+	html_font_set_release (&manager->fixed, manager->painter_class);
 	g_free (manager->fixed.face);
 	g_free (manager->variable.face);
 
@@ -161,7 +161,7 @@ html_font_manager_set_default (HTMLFontManager *manager, gchar *variable, gchar 
 		changed = TRUE;
 	}
 	if (changed) {
-		html_font_set_release (&manager->variable, manager->painter);
+		html_font_set_release (&manager->variable, manager->painter_class);
 	}
 	changed = FALSE;
 
@@ -173,7 +173,7 @@ html_font_manager_set_default (HTMLFontManager *manager, gchar *variable, gchar 
 		changed = TRUE;
 	}
 	if (changed)
-		html_font_set_release (&manager->fixed, manager->painter);
+		html_font_set_release (&manager->fixed, manager->painter_class);
 }
 
 static gint
@@ -218,7 +218,7 @@ html_font_set_font (HTMLFontManager *manager, HTMLFontSet *set, GtkHTMLFontStyle
 	/* set font in font set */
 	idx = html_font_set_get_idx (style);
 	if (set->font [idx] && font != set->font [idx])
-		html_painter_unref_font (manager->painter, set->font [idx]);
+		html_painter_unref_font (manager->painter_class, set->font [idx]);
 	set->font [idx] = font;
 }
 
@@ -283,7 +283,7 @@ manager_alloc_font (HTMLFontManager *manager, const gchar *face, GtkHTMLFontStyl
 		: g_strdup (face);
 	HTMLFont *font;
 
-	font = html_painter_alloc_font (manager->painter, name,
+	font = html_painter_alloc_font (manager->painter_class, name,
 					get_real_font_size (manager, style), get_points (manager, style), style);
 	g_free (name);
 
@@ -365,7 +365,7 @@ html_font_manager_get_font (HTMLFontManager *manager, gchar *face_list, GtkHTMLF
 			g_assert (set);
 			if (!face_list) {
 				/* default font, so the last chance is to get fixed font */
-				font = html_painter_alloc_font (manager->painter, NULL,
+				font = html_painter_alloc_font (manager->painter_class, NULL,
 								get_real_font_size (manager, style),
 								get_points (manager, style), style);
 				if (!font)
@@ -373,7 +373,7 @@ html_font_manager_get_font (HTMLFontManager *manager, gchar *face_list, GtkHTMLF
 			} else {
 				/* some unavailable non-default font => use default one */
 				font = html_font_manager_get_font (manager, NULL, style);
-				html_font_ref (font, manager->painter);
+				html_font_ref (font, manager->painter_class);
 			}
 			if (font)
 				html_font_set_font (manager, set, style, font);
@@ -404,16 +404,16 @@ html_font_destroy (HTMLFont *font)
 }
 
 void
-html_font_ref (HTMLFont *font, HTMLPainter *painter)
+html_font_ref (HTMLFont *font, HTMLPainterClass *painter_class)
 {
-	html_painter_ref_font (painter, font);
+	html_painter_ref_font (painter_class, font);
 	font->ref_count ++;
 }
 
 void
-html_font_unref (HTMLFont *font, HTMLPainter *painter)
+html_font_unref (HTMLFont *font, HTMLPainterClass *painter_class)
 {
-	html_painter_unref_font (painter, font);
+	html_painter_unref_font (painter_class, font);
 	font->ref_count --;
 	if (font->ref_count <= 0)
 		html_font_destroy (font);

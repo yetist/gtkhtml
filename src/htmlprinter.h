@@ -22,11 +22,11 @@
 #ifndef _HTMLPRINTER_H
 #define _HTMLPRINTER_H
 
+#include <libgnome/gnome-paper.h>
 #include <libgnomeprint/gnome-print.h>
 #include <libgnomeprint/gnome-print-master.h>
 #include "htmlpainter.h"
 
-
 #define HTML_TYPE_PRINTER                 (html_printer_get_type ())
 #define HTML_PRINTER(obj)                 (GTK_CHECK_CAST ((obj), HTML_TYPE_PRINTER, HTMLPrinter))
 #define HTML_PRINTER_CLASS(klass)         (GTK_CHECK_CLASS_CAST ((klass), HTML_TYPE_PRINTER, HTMLPrinterClass))
@@ -39,7 +39,6 @@
 #define SCALE_ENGINE_TO_GNOME_PRINT(x) ((printer->scale * (x)) / 1024.0)
 #define SCALE_GNOME_PRINT_TO_ENGINE(x) ((gint) (((x) * 1024.0 / printer->scale) + 0.5))
 
-
 struct _HTMLPrinter {
 	HTMLPainter base;
 

@@ -29,8 +29,12 @@
 #include <gal/unicode/gunicode.h>
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
+#include "htmlengine.h"
 #include "htmlentity.h"
 #include "htmlpainter.h"
+#include "htmlgdkpainter.h"
+#include "htmlplainpainter.h"
+#include "htmlprinter.h"
 
 
 /* Convenience macro to extract the HTMLPainterClass from a GTK+ object.  */
@@ -52,9 +56,6 @@ finalize (GtkObject *object)
 	HTMLPainter *painter;
 
 	painter = HTML_PAINTER (object);
-	html_font_manager_finalize (painter->font_manager);
-	g_free (painter->font_manager);
-
 	html_colorset_destroy (painter->color_set);
 
 	/* FIXME ownership of the color set?  */
@@ -109,6 +110,8 @@ DEFINE_UNIMPLEMENTED (get_pixel_size)
 DEFINE_UNIMPLEMENTED (get_page_width)
 DEFINE_UNIMPLEMENTED (get_page_height)
 
+DEFINE_UNIMPLEMENTED (get_font_manager_id)
+
 
 static void
 init (GtkObject *object, HTMLPainterClass *real_klass)
@@ -118,8 +121,6 @@ init (GtkObject *object, HTMLPainterClass *real_klass)
 	painter = HTML_PAINTER (object);
 	painter->color_set = html_colorset_new (NULL);
 
-	painter->font_manager = g_new0 (HTMLFontManager, 1);
-	html_font_manager_init (painter->font_manager, painter);
 	painter->font_style = GTK_HTML_FONT_STYLE_DEFAULT;
 	painter->font_face = NULL;
 }
@@ -170,6 +171,8 @@ class_init (GtkObjectClass *object_class)
 
 	class->get_page_width  = (gpointer) get_page_width_unimplemented;
 	class->get_page_height = (gpointer) get_page_height_unimplemented;
+
+	class->get_font_manager_id = (gpointer) get_font_manager_id_unimplemented;
 
 	parent_class = gtk_type_class (gtk_object_get_type ());
 }
@@ -286,12 +289,26 @@ html_painter_set_font_face (HTMLPainter *painter,
 	}
 }
 
+static HTMLFont *
+get_html_font (HTMLPainter *painter, HTMLFontFace *face, GtkHTMLFontStyle style)
+{
+	HTMLEngineClass *ec = gtk_type_class (html_engine_get_type ());
+	HTMLFontManager *fm = &ec->font_manager [html_painter_get_font_manager_id (painter)];
+
+	return html_font_manager_get_font (fm, face, style);
+}
+
+HTMLFont *
+html_painter_get_html_font (HTMLPainter *painter, HTMLFontFace *face, GtkHTMLFontStyle style)
+{
+	return get_html_font (painter, face, style);
+}
+
 gpointer
 html_painter_get_font (HTMLPainter *painter, HTMLFontFace *face, GtkHTMLFontStyle style)
 {
-	HTMLFont *font;
+	HTMLFont *font = get_html_font (painter, face, style);
 
-	font = html_font_manager_get_font (painter->font_manager, face, style);
 	return font ? font->data : NULL;
 }
 
@@ -702,27 +719,27 @@ html_painter_draw_spell_error (HTMLPainter *painter,
 }
 
 HTMLFont *
-html_painter_alloc_font (HTMLPainter *painter, gchar *face_name, gdouble size, gboolean points, GtkHTMLFontStyle style)
+html_painter_alloc_font (HTMLPainterClass *pc, gchar *face_name, gdouble size, gboolean points, GtkHTMLFontStyle style)
 {
-	return (* HP_CLASS (painter)->alloc_font) (painter, face_name, size, points, style);
+	return (* pc->alloc_font) (face_name, size, points, style);
 }
 
 void
-html_painter_ref_font (HTMLPainter *painter, HTMLFont *font)
+html_painter_ref_font (HTMLPainterClass *pc, HTMLFont *font)
 {
-	(* HP_CLASS (painter)->ref_font) (painter, font);
+	(* pc->ref_font) (font);
 }
 
 void
-html_painter_unref_font (HTMLPainter *painter, HTMLFont *font)
+html_painter_unref_font (HTMLPainterClass *pc, HTMLFont *font)
 {
-	(* HP_CLASS (painter)->unref_font) (painter, font);
+	(* pc->unref_font) (font);
 }
 
 guint
 html_painter_get_space_width (HTMLPainter *painter, GtkHTMLFontStyle style, HTMLFontFace *face)
 {
-	return html_font_manager_get_font (painter->font_manager, face, style)->space_width;
+	return get_html_font (painter, face, style)->space_width;
 }
 
 guint
@@ -741,4 +758,25 @@ void
 html_painter_set_focus (HTMLPainter *p, gboolean focus)
 {
 	p->focus = focus;
+}
+
+HTMLPainterClass *
+html_painter_class_from_id (HTMLFontManagerId id)
+{
+	switch (id) {
+	case HTML_FONT_MANAGER_ID_GDK:
+		return gtk_type_class (html_gdk_painter_get_type ());
+	case HTML_FONT_MANAGER_ID_PLAIN:
+		return gtk_type_class (html_plain_painter_get_type ());
+	case HTML_FONT_MANAGER_ID_PRINTER:
+		return gtk_type_class (html_printer_get_type ());
+	default:
+		return NULL;
+	}
+}
+
+HTMLFontManagerId
+html_painter_get_font_manager_id (HTMLPainter *painter)
+{
+	return 	(* HP_CLASS (painter)->get_font_manager_id) ();
 }

@@ -378,7 +378,7 @@ alloc_e_font_try (gchar *face, gdouble size, gboolean points, GtkHTMLFontStyle s
 }
 
 static EFont *
-try_font_possible_names (HTMLPainter *painter, gchar *face, gdouble size, gboolean points,
+try_font_possible_names (gchar *face, gdouble size, gboolean points,
 			 GtkHTMLFontStyle style, gboolean known)
 {
 	EFont *font;
@@ -399,13 +399,13 @@ try_font_possible_names (HTMLPainter *painter, gchar *face, gdouble size, gboole
 }
 
 static HTMLFont *
-alloc_e_font_do (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, GtkHTMLFontStyle style)
+alloc_e_font_do (gchar *face, gdouble size, gboolean points, GtkHTMLFontStyle style)
 {
 	EFont *font;
 
-	font = try_font_possible_names (painter, face, size, points, style, FALSE);
+	font = try_font_possible_names (face, size, points, style, FALSE);
 	if (!font)
-		font = try_font_possible_names (painter, face, size, points, style, TRUE);
+		font = try_font_possible_names (face, size, points, style, TRUE);
 
 	return font ? html_font_new (font,
 				     e_font_utf8_text_width (font, e_style (style), " ", 1),
@@ -416,30 +416,30 @@ alloc_e_font_do (HTMLPainter *painter, gchar *face, gdouble size, gboolean point
 }
 
 static HTMLFont *
-alloc_e_font (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, GtkHTMLFontStyle style)
+alloc_e_font (gchar *face, gdouble size, gboolean points, GtkHTMLFontStyle style)
 {
 	HTMLFont *font;
 
-	font = alloc_e_font_do (painter, face, size, points, style);
+	font = alloc_e_font_do (face, size, points, style);
 	if (!font && style & GTK_HTML_FONT_STYLE_BOLD)
-		font = alloc_e_font_do (painter, face, size, points, style & (~GTK_HTML_FONT_STYLE_BOLD));
+		font = alloc_e_font_do (face, size, points, style & (~GTK_HTML_FONT_STYLE_BOLD));
 	if (!font && style & GTK_HTML_FONT_STYLE_ITALIC)
-		font = alloc_e_font_do (painter, face, size, points, style & (~GTK_HTML_FONT_STYLE_ITALIC));
+		font = alloc_e_font_do (face, size, points, style & (~GTK_HTML_FONT_STYLE_ITALIC));
 	if (!font && style & GTK_HTML_FONT_STYLE_ITALIC && style & GTK_HTML_FONT_STYLE_BOLD)
-		font = alloc_e_font_do (painter, face, size, points,
+		font = alloc_e_font_do (face, size, points,
 					style & ((~GTK_HTML_FONT_STYLE_ITALIC) & (~GTK_HTML_FONT_STYLE_BOLD)));
 
 	return font;
 }
 
 static void
-ref_font (HTMLPainter *painter, HTMLFont *font)
+ref_font (HTMLFont *font)
 {
 	e_font_ref ((EFont *) font->data);
 }
 
 static void
-unref_font (HTMLPainter *painter, HTMLFont *font)
+unref_font (HTMLFont *font)
 {
 	e_font_unref ((EFont *) font->data);
 }
@@ -538,6 +538,12 @@ end (HTMLPainter *painter)
 
 	gdk_pixmap_unref (gdk_painter->pixmap);
 	gdk_painter->pixmap = NULL;
+}
+
+static HTMLFontManagerId
+get_font_manager_id ()
+{
+	return HTML_FONT_MANAGER_ID_GDK;
 }
 
 static void
@@ -1277,7 +1283,7 @@ calc_text_width (HTMLPainter *painter,
 	gint width;
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
-	font = html_font_manager_get_font (painter->font_manager, face, style);
+	font = html_painter_get_html_font (painter, face, style);
 	e_font = font->data;
 
 	width = e_font_utf8_text_width (e_font, e_style (style), text, g_utf8_offset_to_pointer (text, len) - text);
@@ -1386,6 +1392,7 @@ class_init (GtkObjectClass *object_class)
 	painter_class->draw_embedded = draw_embedded;
 	painter_class->get_page_width = get_page_width;
 	painter_class->get_page_height = get_page_height;
+	painter_class->get_font_manager_id = get_font_manager_id;
 
 	parent_class = gtk_type_class (html_painter_get_type ());
 }

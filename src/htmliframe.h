@@ -37,7 +37,7 @@ struct _HTMLIFrame {
 	HTMLPainter *gdk_painter;
 	HTMLPainter *old_painter;
 	HTMLPainter *parent_painter;
-	HTMLFontManager *old_font_manager;
+
 	gint width;
 	gint height;
 	gboolean frameborder;
