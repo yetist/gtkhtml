@@ -22,6 +22,7 @@
 
 #include "htmlcursor.h"
 #include "htmlengine.h"
+#include "htmlobject.h"
 
 #include "spell.h"
 
