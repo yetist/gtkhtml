@@ -984,22 +984,30 @@ button_press_event (GtkWidget *widget,
 		switch (event->button) {
 		case 4:
 			/* Mouse wheel scroll up.  */
-			value = vadj->value - vadj->step_increment * 3;
+			if (event->state & GDK_CONTROL_MASK)
+				gtk_html_command (html, "zoom-in");
+			else {
+				value = vadj->value - vadj->step_increment * 3;
 			
-			if (value < vadj->lower)
-				value = vadj->lower;
+				if (value < vadj->lower)
+					value = vadj->lower;
 			
-			gtk_adjustment_set_value (vadj, value);
+				gtk_adjustment_set_value (vadj, value);
+			}
 			return TRUE;
 			break;
 		case 5:
 			/* Mouse wheel scroll down.  */
-			value = vadj->value + vadj->step_increment * 3;
+			if (event->state & GDK_CONTROL_MASK) 
+				gtk_html_command (html, "zoom-out");
+			else {
+				value = vadj->value + vadj->step_increment * 3;
 			
-			if (value > (vadj->upper - vadj->page_size))
-				value = vadj->upper - vadj->page_size;
+				if (value > (vadj->upper - vadj->page_size))
+					value = vadj->upper - vadj->page_size;
 			
-			gtk_adjustment_set_value (vadj, value);
+				gtk_adjustment_set_value (vadj, value);
+			}
 			return TRUE;
 			break;
 		case 2:
@@ -2725,6 +2733,15 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 
 	/* non-editable + editable commands */
 	switch (com_type) {
+	case GTK_HTML_COMMAND_ZOOM_IN:
+		gtk_html_zoom_in (html);
+		break;
+	case GTK_HTML_COMMAND_ZOOM_OUT:
+		gtk_html_zoom_out (html);
+		break;
+	case GTK_HTML_COMMAND_ZOOM_RESET:
+		gtk_html_zoom_reset (html);
+		break;
 	case GTK_HTML_COMMAND_SEARCH_INCREMENTAL_FORWARD:
 		gtk_html_isearch (html, TRUE);
 		break;
@@ -3236,6 +3253,13 @@ load_keybindings (GtkHTMLClass *klass)
 	BCOM (0, ISO_Left_Tab, FOCUS_FORWARD);
 	BCOM (GDK_SHIFT_MASK, Tab, FOCUS_BACKWARD);
 	BCOM (GDK_SHIFT_MASK, ISO_Left_Tab, FOCUS_BACKWARD);
+
+	BCOM (GDK_CONTROL_MASK, equal, ZOOM_IN);
+	BCOM (GDK_CONTROL_MASK, KP_Add, ZOOM_IN);
+	BCOM (GDK_CONTROL_MASK, minus, ZOOM_OUT);
+	BCOM (GDK_CONTROL_MASK, KP_Subtract, ZOOM_OUT);
+	BCOM (GDK_CONTROL_MASK, 8, ZOOM_RESET);
+	BCOM (GDK_CONTROL_MASK, KP_Multiply, ZOOM_RESET);
 }
 
 void
@@ -3367,7 +3391,7 @@ gtk_html_editor_event_command (GtkHTML *html, GtkHTMLCommandType com_type)
 }
 
 gboolean
-gtk_html_editor_command (GtkHTML *html, const gchar *command_name)
+gtk_html_command (GtkHTML *html, const gchar *command_name)
 {
 	GtkEnumValue *val;
 
@@ -3419,4 +3443,32 @@ gtk_html_insert_html (GtkHTML *html, const gchar *html_src)
 	html_image_factory_move_images (html->engine->image_factory, tmp->engine->image_factory);
 	html_engine_insert_object (html->engine, o, html_object_get_recursive_length (o));
 	gtk_widget_destroy (window);
+}
+
+void
+gtk_html_set_magnification (GtkHTML *html, gdouble magnification)
+{
+	if (magnification > 0.05 && magnification < 20.0) {
+		html_font_manager_set_magnification (&html->engine->painter->font_manager, magnification);
+		html_object_change_set_down (html->engine->clue, HTML_CHANGE_ALL);
+		html_engine_schedule_update (html->engine);
+	}
+}
+
+void
+gtk_html_zoom_in (GtkHTML *html)
+{
+	gtk_html_set_magnification (html, html->engine->painter->font_manager.magnification * 1.25);
+}
+
+void
+gtk_html_zoom_out (GtkHTML *html)
+{
+	gtk_html_set_magnification (html, html->engine->painter->font_manager.magnification * .8);
+}
+
+void
+gtk_html_zoom_reset (GtkHTML *html)
+{
+	gtk_html_set_magnification (html, 1.0);
 }

@@ -89,10 +89,22 @@ html_font_manager_init (HTMLFontManager *manager, HTMLPainter *painter)
 	manager->font_sets     = g_hash_table_new (g_str_hash, g_str_equal);
 	manager->var_size      = 12;
 	manager->fix_size      = 12;
+	manager->magnification = 1.0;
 	manager->painter       = painter;
 
 	html_font_set_init (&manager->variable, NULL);
 	html_font_set_init (&manager->fixed, NULL);
+}
+
+void
+html_font_manager_set_magnification (HTMLFontManager *manager, gdouble magnification)
+{
+	g_return_if_fail (magnification > 0.0);
+
+	if (magnification != manager->magnification) {
+		manager->magnification = magnification;
+		html_font_manager_clear_font_cache (manager);
+	}
 }
 
 static gboolean
@@ -104,11 +116,18 @@ destroy_font_set_foreach (gpointer key, gpointer font_set, gpointer data)
 	return TRUE;
 }
 
-
 static void
-release_fonts (HTMLFontManager *manager)
+clear_additional_font_sets (HTMLFontManager *manager)
 {
-	g_hash_table_foreach_remove (manager->font_sets, destroy_font_set_foreach, manager->painter);
+	g_hash_table_foreach_remove (manager->font_sets, destroy_font_set_foreach, manager->painter);	
+}
+
+void
+html_font_manager_clear_font_cache (HTMLFontManager *manager)
+{
+	html_font_set_release (&manager->variable, manager->painter);
+	html_font_set_release (&manager->fixed, manager->painter);
+	clear_additional_font_sets (manager);
 }
 
 void
@@ -119,7 +138,7 @@ html_font_manager_finalize (HTMLFontManager *manager)
 	g_free (manager->fixed.face);
 	g_free (manager->variable.face);
 
-	release_fonts (manager);
+	clear_additional_font_sets (manager);
 	g_hash_table_destroy (manager->font_sets);
 }
 
@@ -132,7 +151,7 @@ html_font_manager_set_default (HTMLFontManager *manager, gchar *variable, gchar 
 	changed = html_font_set_face (&manager->variable, variable);
 	if (manager->var_size != var_size) {
 		manager->var_size = var_size;
-		release_fonts (manager);
+		clear_additional_font_sets (manager);
 		changed = TRUE;
 	}
 	if (changed) {
@@ -175,7 +194,7 @@ get_font_set (HTMLFontManager *manager, gchar *face, GtkHTMLFontStyle style)
 static gdouble
 get_real_font_size (HTMLFontManager *manager, GtkHTMLFontStyle style)
 {
-	return ((style & GTK_HTML_FONT_STYLE_FIXED) ? manager->fix_size : manager->var_size) *
+	return ((style & GTK_HTML_FONT_STYLE_FIXED) ? manager->fix_size : manager->var_size) * manager->magnification *
 		(1.0 + .08333 * ((get_font_num (style) & GTK_HTML_FONT_STYLE_SIZE_MASK) - GTK_HTML_FONT_STYLE_SIZE_3));
 }
 

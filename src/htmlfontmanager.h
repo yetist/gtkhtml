@@ -49,6 +49,8 @@ struct _HTMLFontManager {
 
 	gint var_size;
 	gint fix_size;
+
+	gdouble magnification;
 };
 
 void                html_font_manager_init                    (HTMLFontManager *manager,
@@ -63,6 +65,9 @@ void                html_font_manager_set_default             (HTMLFontManager *
 HTMLFont           *html_font_manager_get_font                (HTMLFontManager *manager,
 							       gchar *face,
 							       GtkHTMLFontStyle style);
+void                html_font_manager_clear_font_cache        (HTMLFontManager *manager);
+void                html_font_manager_set_magnification       (HTMLFontManager *manager,
+							       gdouble          magnification);
 /*
  * HTMLFont
  */

@@ -245,9 +245,14 @@ void      gtk_html_set_default_content_type      (GtkHTML     *html,
 						  gchar       *content_type);
 gpointer  gtk_html_get_object_by_id              (GtkHTML     *html,
 						  const gchar *id);
-gboolean  gtk_html_editor_command                (GtkHTML     *html,
+gboolean  gtk_html_command                       (GtkHTML     *html,
 						  const gchar *command_name);
 gboolean  gtk_html_edit_make_cursor_visible      (GtkHTML     *html);
 
 gboolean  gtk_html_build_with_gconf              (void);
+void      gtk_html_set_magnification             (GtkHTML *html,
+						  gdouble magnification);
+void      gtk_html_zoom_in                       (GtkHTML *html);
+void      gtk_html_zoom_out                      (GtkHTML *html);
+void      gtk_html_zoom_reset                    (GtkHTML *html);
 #endif /* _GTKHTML_H_ */

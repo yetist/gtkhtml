@@ -1,5 +1,23 @@
 2001-06-18  Radek Doulik  <rodo@ximian.com>
 
+	* htmlfontmanager.c (html_font_manager_clear_font_cache): new
+	method
+	(html_font_manager_set_magnification): ditto
+
+	* gtkhtml.c (gtk_html_set_magnification): new method, sets
+	magnification, which is used for font sizes.
+	(gtk_html_zoom_in): new method
+	(gtk_html_zoom_out): ditto
+	(gtk_html_zoom_reset): ditto
+	(load_keybindings): bind C-=/C--/C-8 and keypad C-+/C--/C-* for
+	zooming
+	(button_press_event): bind C-scroll wheel to zooming,
+	unfortunatelly Gtk is a little broken and doesn't pass these
+	events to widgets with visible scrollbars :-(
+	(gtk_html_command): renamed from gtk_html_editor_command
+
+	* gtkhtml-enums.h: new commands for zooming
+
 	* htmlframeset.c (set_max_width): implemented
 
 	* gtkhtml.c (gtk_html_set_iframe_parent): added frame parameter,
