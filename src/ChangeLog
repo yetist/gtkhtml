@@ -1,3 +1,8 @@
+2003-04-02  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (gtk_html_im_delete_surrounding_cb): fix cursor
+	movement, return to original position if possible
+
 2003-04-02  Larry Ewing  <lewing@ximian.com>
 
 	* htmlimage.c: be more careful about zeroing some of the timeouts.

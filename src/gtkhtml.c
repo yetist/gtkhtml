@@ -2843,11 +2843,16 @@ gtk_html_im_retrieve_surrounding_cb (GtkIMContext *context, GtkHTML *html)
 static gboolean
 gtk_html_im_delete_surrounding_cb (GtkIMContext *slave, gint offset, gint n_chars, GtkHTML *html)
 {
+	printf ("gtk_html_im_delete_surrounding_cb\n");
 	if (html_engine_get_editable (html->engine) && !html_engine_is_selection_active (html->engine)) {
-		html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine, html->engine->cursor->position + offset);
+		gint orig_position = html->engine->cursor->position;
+
+		html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine, orig_position + offset);
 		html_engine_set_mark (html->engine);
-		html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine, html->engine->cursor->position + offset + n_chars);
+		html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine, orig_position + offset + n_chars);
 		html_engine_delete (html->engine);
+		if (offset >= 0)
+			html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine, orig_position);
 	}
 	return TRUE;
 }
