@@ -226,6 +226,7 @@ copy (HTMLObject *s,
 
 	dest->words      = 0;
 	dest->word_width = NULL;
+	dest->items = NULL;
 }
 
 /* static void
@@ -586,9 +587,11 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 
 	begin            = text->text;
 
-	items = html_text_get_items (text, painter);
-	if (items)
-		glyphs = get_glyphs (text, painter);
+	if (text->text_len) {
+		items = html_text_get_items (text, painter);
+		if (items)
+			glyphs = get_glyphs (text, painter);
+	}
 	for (i = 0; i < text->words; i++) {
 		end   = strchr (begin + (i ? 1 : 0), ' ');
 
@@ -1184,6 +1187,11 @@ destroy (HTMLObject *obj)
 	g_free (text->text);
 	g_free (text->word_width);
 	g_free (text->face);
+
+	if (text->items) {
+		items_destroy (text->items);
+		text->items = NULL;
+	}
 
 	HTML_OBJECT_CLASS (parent_class)->destroy (obj);
 }
