@@ -59,8 +59,18 @@ html_interval_new (HTMLObject *from, HTMLObject *to, guint from_offset, guint to
 }
 
 inline HTMLInterval *
-html_interval_new_from_cursor (HTMLCursor *begin, HTMLCursor *end)
+html_interval_new_from_cursor (HTMLCursor *a, HTMLCursor *b)
 {
+	HTMLCursor *begin, *end;
+
+	if (html_cursor_get_position (a) < html_cursor_get_position (b)) {
+		begin = a;
+		end   = b;
+	} else {
+		begin = b;
+		end   = a;
+	}
+
 	return html_interval_new (begin->object, end->object, begin->offset, end->offset);
 }
 

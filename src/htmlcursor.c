@@ -63,17 +63,8 @@ normalize (HTMLObject **object,
 	   guint *offset)
 {
 	if (*offset == 0 && (*object)->prev != NULL) {
-		HTMLObject *p;
-
-		p = (*object)->prev;
-		while (p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
-			p = p->prev;
-
-		*object = p;
-		if (html_object_is_text (p))
-			*offset = HTML_TEXT (p)->text_len;
-		else
-			*offset = 1;
+		*object = html_object_prev_not_slave (*object);
+		*offset = html_object_get_length (*object);
 	}
 }
 

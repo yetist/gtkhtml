@@ -22,25 +22,13 @@
 #ifndef _HTMLENGINE_EDIT_SELECTION_UPDATER_H
 #define _HTMLENGINE_EDIT_SELECTION_UPDATER_H
 
-
-
 #include "htmlengine.h"
 #include "htmlcursor.h"
 
-
-struct _HTMLEngineEditSelectionUpdater {
-	HTMLEngine *engine;
-	HTMLCursor *old_point;
-	gint idle_id;
-};
-
-
 HTMLEngineEditSelectionUpdater *html_engine_edit_selection_updater_new             (HTMLEngine                     *engine);
 void                            html_engine_edit_selection_updater_destroy         (HTMLEngineEditSelectionUpdater *updater);
 void                            html_engine_edit_selection_updater_reset           (HTMLEngineEditSelectionUpdater *updater);
 void                            html_engine_edit_selection_updater_schedule        (HTMLEngineEditSelectionUpdater *updater);
 void                            html_engine_edit_selection_updater_update_now      (HTMLEngineEditSelectionUpdater *updater);
-void                            html_engine_edit_selection_updater_cursor_changed  (HTMLEngineEditSelectionUpdater *updater,
-										    HTMLCursor                     *new_cursor);
 
 #endif /* _HTMLENGINE_EDIT_SELECTION_UPDATER */

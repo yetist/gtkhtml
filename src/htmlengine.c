@@ -3982,8 +3982,7 @@ html_engine_normalize_cursor (HTMLEngine *engine)
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 
 	html_cursor_normalize (engine->cursor);
-	html_engine_edit_selection_updater_cursor_changed (engine->selection_updater,
-							   engine->cursor);
+	html_engine_edit_selection_updater_update_now (engine->selection_updater);
 }
 
 

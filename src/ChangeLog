@@ -1,5 +1,18 @@
 2000-11-22  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine.c (html_engine_normalize_cursor): use
+	html_engine_edit_selection_updater_update_now
+
+	* htmlcursor.c (normalize): use html_object_get_length
+	(normalize): use html_object_prev_not_slave
+
+	* htmlinterval.c (html_interval_new_from_cursor): take care of
+	cursors order
+
+	* htmlengine-edit-selection-updater.c: removed old_point from
+	HTMLEngineEditSelectionUpdater, it's not needed anymore
+	(updater_idle_callback): use new selection API
+
 	* htmlselection.c (html_engine_set_active_selection): moved from
 	htmlengine.c
 	(html_engine_activate_selection): renomed from html_engine_set_active_selection

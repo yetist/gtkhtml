@@ -52,8 +52,8 @@ HTMLInterval *html_interval_new              (HTMLObject            *from,
 					      HTMLObject            *to,
 					      guint                  from_offset,
 					      guint                  to_offset);
-HTMLInterval *html_interval_new_from_cursor  (HTMLCursor            *begin,
-					      HTMLCursor            *end);
+HTMLInterval *html_interval_new_from_cursor  (HTMLCursor            *a,
+					      HTMLCursor            *b);
 HTMLInterval *html_interval_new_from_points  (HTMLPoint             *from,
 					      HTMLPoint             *to);
 void          html_interval_validate         (HTMLInterval          *i);
