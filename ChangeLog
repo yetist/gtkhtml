@@ -1,3 +1,7 @@
+2000-07-13  Valek Filippov  <frob@df.ru>
+
+	* Makefile.am, configure.in: added i18n stuff.
+
 2000-07-12  Ramiro Estrugo  <ramiro@eazel.com>
 
 	* capplet/main.c: (main):

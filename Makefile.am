@@ -33,6 +33,7 @@ gtkhtmlConf.sh: gtkhtmlConf.sh.in Makefile
 	  && mv gtkhtmlConf.tmp gtkhtmlConf.sh
 
 SUBDIRS =					\
+	po					\
 	macros					\
 	$(DIR_GLIBWWW)				\
 	src					\

@@ -21,6 +21,7 @@ AC_SUBST(CFLAGS)
 AC_SUBST(CPPFLAGS)
 AC_SUBST(LDFLAGS)
 
+ALL_LINGUAS = ru
 AM_GNOME_GETTEXT
 
 dnl GNU regex checking
@@ -262,6 +263,7 @@ dnl Done.
 AC_OUTPUT([
 Makefile
 gtkhtml.spec
+po/Makefile.in
 macros/Makefile
 src/Makefile
 capplet/Makefile
