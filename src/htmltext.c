@@ -418,7 +418,7 @@ object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, g
 
 	g_assert (self->parent);
 
-	html_clueflow_remove_text_slaves (HTML_CLUEFLOW (self->parent));
+	html_clue_remove_text_slaves (HTML_CLUE (self->parent));
 
 	t1              = HTML_TEXT (self);
 	dup             = html_object_dup (self);

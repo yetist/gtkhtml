@@ -106,7 +106,6 @@ void               html_clueflow_get_properties               (HTMLClueFlow     
 							       HTMLClueFlowStyle  *style_return,
 							       guint8             *indentation_return,
 							       HTMLHAlignType     *alignment_return);
-void               html_clueflow_remove_text_slaves           (HTMLClueFlow       *flow);
 void               html_clueflow_spell_check                  (HTMLClueFlow       *flow,
 							       HTMLEngine         *e,
 							       HTMLInterval       *i);

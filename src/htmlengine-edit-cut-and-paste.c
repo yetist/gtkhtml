@@ -1,8 +1,8 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
 
-    Copyright (C) 2000, 2001 Helix Code, Inc.
-    Authors:                 Radek Doulik (rodo@helixcode.com)
+    Copyright (C) 2000, 2001, 2002 Ximian, Inc.
+    Authors:                       Radek Doulik (rodo@ximian.com)
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
@@ -30,6 +30,7 @@
 #include "gtkhtml-properties.h"
 
 #include "htmlclue.h"
+#include "htmlcluealigned.h"
 #include "htmlclueflow.h"
 #include "htmlcursor.h"
 #include "htmlcolorset.h"
@@ -47,6 +48,7 @@
 #include "htmlobject.h"
 #include "htmlplainpainter.h"
 #include "htmltable.h"
+#include "htmltablecell.h"
 #include "htmlselection.h"
 #include "htmlsettings.h"
 #include "htmltext.h"
@@ -55,8 +57,8 @@
 
 static gint        delete_object (HTMLEngine *e, HTMLObject **ret_object, guint *ret_len, HTMLUndoDirection dir,
 				  gboolean add_prop);
-static void        insert_object (HTMLEngine *e, HTMLObject *obj, guint len, guint position_after, gint level,
-				  HTMLUndoDirection dir, gboolean check);
+static void        insert_object_for_undo (HTMLEngine *e, HTMLObject *obj, guint len, guint position_after, gint level,
+					   HTMLUndoDirection dir, gboolean check);
 static void        append_object (HTMLEngine *e, HTMLObject *o, guint len, HTMLUndoDirection dir);
 static void        insert_empty_paragraph (HTMLEngine *e, HTMLUndoDirection dir, gboolean add_undo);
 static void        insert_setup_undo (HTMLEngine *e, guint len, guint position_before, HTMLUndoDirection dir,
@@ -193,7 +195,8 @@ prepare_delete_bounds (HTMLEngine *e, GList **from_list, GList **to_list,
 	html_point_get_left  (&e->selection->to,   &end);
 
 	common_parent = get_common_parent (begin.object, end.object);
-	ret_level     = get_parent_depth (begin.object, common_parent);
+	ret_level     = html_object_get_parent_level (common_parent);
+	/* printf ("common parent level: %d\n", ret_level); */
 
 	*from_list = point_get_parent_list (&begin, get_parent_depth (begin.object, common_parent), TRUE);
 	*to_list   = point_get_parent_list (&end,   get_parent_depth (end.object, common_parent),   TRUE);
@@ -226,7 +229,7 @@ remove_empty_and_merge (HTMLEngine *e, gboolean merge, GList *left, GList *right
 	HTMLObject *lo, *ro, *prev;
 
 #ifdef OP_DEBUG
-	HTMLObject *left_orig = left->data;
+	/* HTMLObject *left_orig = left->data; */
 	printf ("before merge\n");
 	gtk_html_debug_dump_tree_simple (e->clue, 0);
 	if (left && left->data) {
@@ -246,6 +249,37 @@ remove_empty_and_merge (HTMLEngine *e, gboolean merge, GList *left, GList *right
 
 		left  = left->next;
 		right = right->next;
+
+		if (HTML_IS_CLUEALIGNED (lo) && !HTML_IS_CLUEALIGNED (ro) && html_object_is_text (HTML_CLUE (lo)->head)) {
+			HTMLObject *nlo = lo->prev;
+
+			if (e->cursor->object->parent && e->cursor->object->parent == lo) {
+				e->cursor->object = ro;
+				e->cursor->offset = 0;
+			}
+			if (c && c->object->parent && c->object->parent == lo) {
+				c->object = ro;
+				c->offset = 0;
+			}
+
+			html_object_remove_child (lo->parent, lo);
+			html_object_destroy (lo);
+			lo = nlo;
+			if (!nlo)
+				break;
+		} else if (HTML_IS_CLUEALIGNED (ro) && !HTML_IS_CLUEALIGNED (lo) && html_object_is_text (HTML_CLUE (ro)->head)) {
+			HTMLObject *nro = ro->next;
+
+			if (e->cursor->object->parent && e->cursor->object->parent == ro) {
+				e->cursor->object = lo;
+				e->cursor->offset = html_object_get_length (lo);
+			}
+			html_object_remove_child (ro->parent, ro);
+			html_object_destroy (ro);
+			ro = nro;
+			if (!nro)
+				break;
+		}
 
 		if (html_object_is_text (lo) && !*HTML_TEXT (lo)->text && (html_object_prev_not_slave (lo) || merge)) {
 			HTMLObject *nlo = html_object_prev_not_slave (lo);
@@ -291,8 +325,8 @@ remove_empty_and_merge (HTMLEngine *e, gboolean merge, GList *left, GList *right
 		e->cursor->offset = html_object_get_length (e->cursor->object);
 	}
 #ifdef OP_DEBUG
-	printf ("-- finished\n");
-	gtk_html_debug_dump_tree_simple (left_orig, 0);
+	/* printf ("-- finished\n");
+	   gtk_html_debug_dump_tree_simple (left_orig, 0); */
 	printf ("-- after\n");
 	gtk_html_debug_dump_tree_simple (e->clue, 0);
 	printf ("-- END merge\n");
@@ -380,7 +414,7 @@ delete_undo_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir, gu
 
 	undo         = (DeleteUndo *) data;
 	buffer       = html_object_op_copy (undo->buffer, NULL, e, NULL, NULL, &len);
-	insert_object (e, buffer, undo->buffer_len, position_after, undo->level, html_undo_direction_reverse (dir), TRUE);
+	insert_object_for_undo (e, buffer, undo->buffer_len, position_after, undo->level, html_undo_direction_reverse (dir), TRUE);
 }
 
 static void
@@ -390,6 +424,7 @@ delete_setup_undo (HTMLEngine *e, HTMLObject *buffer, guint len, guint position_
 
 	undo = g_new (DeleteUndo, 1);
 
+	/* printf ("cursor level: %d undo level: %d\n", html_object_get_parent_level (e->cursor->object), level); */
 	html_undo_data_init (HTML_UNDO_DATA (undo));
 	undo->data.destroy = delete_undo_destroy;
 	undo->buffer       = buffer;
@@ -530,6 +565,8 @@ check_table_0 (HTMLEngine *e)
 
 	tail = e->mark->position < e->cursor->position ? e->cursor : e->mark;
 
+	if (html_cursor_backward (tail, e) && (!HTML_IS_TABLE (tail->object) || tail->offset))
+		html_cursor_forward (tail, e);
 	while (tail->offset == 0 && HTML_IS_TABLE (tail->object) && e->mark->position != e->cursor->position)
 		html_cursor_backward (tail, e);
 }
@@ -541,6 +578,8 @@ check_table_1 (HTMLEngine *e)
 
 	head = e->mark->position > e->cursor->position ? e->cursor : e->mark;
 
+	if (html_cursor_forward (head, e) && (!HTML_IS_TABLE (head->object) || head->offset == 0))
+		html_cursor_backward (head, e);
 	while (head->offset == 1 && HTML_IS_TABLE (head->object) && e->mark->position != e->cursor->position)
 		html_cursor_forward (head, e);
 }
@@ -581,24 +620,109 @@ validate_tables (HTMLEngine *e, HTMLUndoDirection dir, gboolean add_undo, gboole
 	return FALSE;
 }
 
+static inline gboolean
+in_aligned (HTMLCursor *cursor)
+{
+	return cursor->object->parent && HTML_IS_CLUEALIGNED (cursor->object->parent);
+}
+
+struct _FixEmptyAlignedUndo {
+	HTMLUndoData data;
+
+	HTMLObject *ac;
+};
+typedef struct _FixEmptyAlignedUndo FixEmptyAlignedUndo;
+
+static void
+fix_empty_aligned_undo_destroy (HTMLUndoData *data)
+{
+	FixEmptyAlignedUndo *undo = (FixEmptyAlignedUndo *) data;
+
+	if (undo->ac)
+		html_object_destroy (undo->ac);
+}
+
+static void
+fix_empty_aligned_undo_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir, guint position_after)
+{
+	HTMLObject *ac, *flow;
+
+	g_return_if_fail (html_object_is_text (e->cursor->object) && HTML_TEXT (e->cursor->object)->text_len == 0
+			  && e->cursor->object->parent && HTML_IS_CLUEFLOW (e->cursor->object->parent));
+
+	ac = ((FixEmptyAlignedUndo *) data)->ac;
+	((FixEmptyAlignedUndo *) data)->ac = NULL;
+
+	html_engine_freeze (e);
+	flow = e->cursor->object->parent;
+	html_clue_remove_text_slaves (HTML_CLUE (flow));
+	html_clue_append_after (HTML_CLUE (flow), ac, e->cursor->object);
+	html_object_remove_child (flow, e->cursor->object);
+	html_clue_append (HTML_CLUE (ac), e->cursor->object);
+	html_object_change_set_down (flow, HTML_CHANGE_ALL);
+	html_engine_thaw (e);
+}
+
+static void
+fix_empty_aligned_setup_undo (HTMLEngine *e, HTMLUndoDirection dir, HTMLObject *ac)
+{
+	FixEmptyAlignedUndo *undo;
+
+	undo = g_new (FixEmptyAlignedUndo, 1);
+
+	html_undo_data_init (HTML_UNDO_DATA (undo));
+	undo->data.destroy = fix_empty_aligned_undo_destroy;
+	undo->ac       = ac;
+
+	html_undo_add_action (e->undo,
+			      html_undo_action_new ("Remove empty aligned", fix_empty_aligned_undo_action,
+						    HTML_UNDO_DATA (undo), html_cursor_get_position (e->cursor),
+						    html_cursor_get_position (e->cursor)),
+			      dir);
+}
+
+static void
+fix_empty_aligned (HTMLEngine *e, HTMLUndoDirection dir, gboolean add_undo)
+{
+	if (html_object_is_text (e->cursor->object) && e->cursor->object->parent && HTML_IS_CLUEALIGNED (e->cursor->object->parent)) {
+		HTMLObject *ac = e->cursor->object->parent;
+
+		if (ac->parent && HTML_IS_CLUEFLOW (ac->parent)) {
+			html_engine_freeze (e);
+			html_clue_remove_text_slaves (HTML_CLUE (ac));
+			html_object_remove_child (ac, e->cursor->object);
+			html_clue_append_after (HTML_CLUE (ac->parent), e->cursor->object, ac);
+			html_object_change_set_down (ac->parent, HTML_CHANGE_ALL);
+			html_object_remove_child (ac->parent, ac);
+			if (add_undo)
+				fix_empty_aligned_setup_undo (e, dir, ac);
+			html_engine_thaw (e);
+		}
+	}
+}
+
 static gint
 delete_object (HTMLEngine *e, HTMLObject **ret_object, guint *ret_len, HTMLUndoDirection dir, gboolean add_undo)
 {
 	html_engine_edit_selection_updater_update_now (e->selection_updater);
 	if (html_engine_is_selection_active (e)) {
 		HTMLObject *object;
-		guint len, position_before, saved_position;
+		guint len, position_before, saved_position, end_position;
 		gint level;
 		gboolean backward;
 		gboolean fix_para;
 
-		if (!html_clueflow_is_empty (HTML_CLUEFLOW (e->cursor->object->parent))
-		    && !html_clueflow_is_empty (HTML_CLUEFLOW (e->mark->object->parent))) {
+		end_position = MIN (e->cursor->position, e->mark->position);
+		if (HTML_IS_TABLE (e->cursor->object)
+		    || (e->cursor->object->parent && e->cursor->object->parent->parent && HTML_IS_TABLE_CELL (e->cursor->object->parent->parent))
+		    || HTML_IS_TABLE (e->mark->object)
+		    || (e->mark->object->parent && e->mark->object->parent->parent && HTML_IS_TABLE_CELL (e->mark->object->parent->parent))) {
 			check_table_0 (e);
 			check_table_1 (e);
 		}
 		if (e->cursor->position == e->mark->position) {
 			html_engine_disable_selection (e);
+			html_cursor_jump_to_position (e->cursor, e, end_position);
 			return 0;
 		}
 
@@ -615,6 +739,7 @@ delete_object (HTMLEngine *e, HTMLObject **ret_object, guint *ret_len, HTMLUndoD
 			insert_setup_undo (e, 1, position_before, dir, FALSE, FALSE);
 			e->cursor->position = saved_position;
 		}
+		level = html_object_get_parent_level (e->cursor->object) - level + 1;
 		if (add_undo) {
 			delete_setup_undo (e, object, len, position_before + (backward ? 1 : 0), level, dir);
 		} else
@@ -623,6 +748,7 @@ delete_object (HTMLEngine *e, HTMLObject **ret_object, guint *ret_len, HTMLUndoD
 		if (backward)
 			html_cursor_backward (e->cursor, e);
 		gtk_html_editor_event (e->widget, GTK_HTML_EDITOR_EVENT_DELETE, NULL);
+		fix_empty_aligned (e, dir, add_undo);
 
 		return level;
 	}
@@ -813,8 +939,127 @@ insert_setup_undo (HTMLEngine *e, guint len, guint position_before, HTMLUndoDire
 			      dir);
 }
 
+static gboolean fix_aligned_position (HTMLEngine *e, guint *position_after, HTMLUndoDirection dir);
+
 static void
-insert_object (HTMLEngine *e, HTMLObject *obj, guint len, guint position_after, gint level,
+fix_aligned_redo_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir, guint position_after)
+{
+	guint pa;
+
+	fix_aligned_position (e, &pa, html_undo_direction_reverse (dir));
+}
+
+static void
+fix_aligned_undo_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir, guint position_after)
+{
+	HTMLObject *cf = e->cursor->object->parent;
+	HTMLUndoData *undo;
+	guint position_before = e->cursor->position;
+
+	undo = g_new (HTMLUndoData, 1);
+
+	if (!html_cursor_forward (e->cursor, e))
+		g_assert (html_cursor_backward (e->cursor, e));
+	else
+		e->cursor->position --;
+
+	html_clue_remove (HTML_CLUE (cf->parent), cf);
+	html_object_destroy (cf);
+
+	html_undo_add_action (e->undo,
+			      html_undo_action_new ("Fix aligned", fix_aligned_redo_action,
+						    undo, html_cursor_get_position (e->cursor),
+						    position_before),
+			      html_undo_direction_reverse (dir));
+}
+
+static void
+fix_align_setup_undo (HTMLEngine *e, guint position_before, HTMLUndoDirection dir)
+{
+	HTMLUndoData *undo;
+
+	undo = g_new (HTMLUndoData, 1);
+
+	html_undo_data_init (HTML_UNDO_DATA (undo));
+	/* printf ("insert undo len %d\n", len); */
+
+	html_undo_add_action (e->undo,
+			      html_undo_action_new ("Undo aligned fix", fix_aligned_undo_action,
+						    undo, html_cursor_get_position (e->cursor),
+						    position_before),
+			      dir);
+}
+
+static gboolean
+fix_aligned_position (HTMLEngine *e, guint *position_after, HTMLUndoDirection dir)
+{
+	gboolean rv = FALSE;
+	if (in_aligned (e->cursor)) {
+		/* printf ("in aligned\n"); */
+		if (e->cursor->offset) {
+			if (html_cursor_forward (e->cursor, e))
+				(*position_after) ++;
+			if (in_aligned (e->cursor)) {
+				HTMLObject *cf;
+				HTMLObject *cluev;
+				HTMLObject *flow;
+
+				/* printf ("aligned: needs fixing\n"); */
+				html_engine_freeze (e);
+				cf = html_clueflow_new_from_flow (HTML_CLUEFLOW (e->cursor->object->parent->parent));
+				flow = e->cursor->object->parent->parent;
+				cluev = flow->parent;
+				e->cursor->object = html_engine_new_text_empty (e);
+				html_clue_append (HTML_CLUE (cf), e->cursor->object);
+				html_clue_append_after (HTML_CLUE (cluev), cf, flow);
+				e->cursor->offset = 0;
+				e->cursor->position ++;
+				(*position_after) ++;
+#ifdef OP_DEBUG
+				gtk_html_debug_dump_tree_simple (e->clue, 0);
+#endif
+				fix_align_setup_undo (e, e->cursor->position, dir);
+				html_engine_thaw (e);
+				rv = TRUE;
+				if (e->cursor->object->parent && HTML_IS_CLUEALIGNED (e->cursor->object->parent))
+					html_cursor_forward (e->cursor, e);
+
+			}
+		} else {
+			if (html_cursor_backward (e->cursor, e))
+				(*position_after) --;
+			if (in_aligned (e->cursor)) {
+				HTMLObject *cf;
+				HTMLObject *cluev;
+				HTMLObject *flow;
+
+				/* printf ("aligned: needs fixing\n"); */
+				html_engine_freeze (e);
+				cf = html_clueflow_new_from_flow (HTML_CLUEFLOW (e->cursor->object->parent->parent));
+				flow = e->cursor->object->parent->parent;
+				cluev = flow->parent;
+				e->cursor->object = html_engine_new_text_empty (e);
+				html_clue_append (HTML_CLUE (cf), e->cursor->object);
+				if (flow->prev)
+					html_clue_append_after (HTML_CLUE (cluev), cf, flow->prev);
+				else
+					html_clue_prepend (HTML_CLUE (cluev), cf);
+				e->cursor->offset = 0;
+#ifdef OP_DEBUG
+				gtk_html_debug_dump_tree_simple (e->clue, 0);
+#endif
+				fix_align_setup_undo (e, e->cursor->position, dir);
+				html_engine_thaw (e);
+				rv = TRUE;
+			}
+		}
+	}
+
+	return rv;
+}
+
+static void
+insert_object_for_undo (HTMLEngine *e, HTMLObject *obj, guint len, guint position_after, gint level,
 	       HTMLUndoDirection dir, gboolean check)
 {
 	gboolean delete_paragraph_before = FALSE;
@@ -827,6 +1072,14 @@ insert_object (HTMLEngine *e, HTMLObject *obj, guint len, guint position_after, 
 	html_cursor_jump_to_position_no_spell (e->cursor, e, position_after + (delete_paragraph_before ? 1 : 0));
 	insert_setup_undo (e, len, position_before + (delete_paragraph_before ? 1 : 0),
 			   dir, delete_paragraph_before, delete_paragraph_after);
+}
+
+static void
+insert_object (HTMLEngine *e, HTMLObject *obj, guint len, guint position_after, gint level,
+	       HTMLUndoDirection dir, gboolean check)
+{
+	fix_aligned_position (e, &position_after, dir);
+	insert_object_for_undo (e, obj, len, position_after, level, dir, check);
 }
 
 void
@@ -871,8 +1124,14 @@ insert_empty_paragraph (HTMLEngine *e, HTMLUndoDirection dir, gboolean add_undo)
 	GList *left=NULL, *right=NULL;
 	HTMLCursor *orig;
 	guint position_before;
+	guint position_after;
+
+	if (dir == HTML_UNDO_UNDO)
+		if (fix_aligned_position (e, &position_after, dir))
+			return;
 
 	html_engine_freeze (e);
+
 	position_before = e->cursor->position;
 	orig = html_cursor_dup (e->cursor);
 	split_and_add_empty_texts (e, 2, &left, &right);
