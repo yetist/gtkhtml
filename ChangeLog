@@ -1,5 +1,7 @@
 2001-11-05  Larry Ewing  <lewing@ximian.com>
 
+	* Make 0.16.0 release.
+
 	* configure.in: bump for 0.16.0 release.
 
 2001-10-31  Ettore Perazzoli  <ettore@ximian.com>
