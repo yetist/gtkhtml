@@ -1,3 +1,27 @@
+2003-12-02  Radek Doulik  <rodo@ximian.com>
+
+	* persist-file.c (impl_getCurrentFile): use CORBA_string_dup
+	(gtk_html_persist_file_new): add step counter
+	(impl_isDirty): check step counter, use CORBA types
+
+2003-09-10  Archit Baweja  <bighead@users.sourceforge.net>
+
+	* persist-file.c (impl_save): call to open, mode should be 0666 instead
+	of 0600.
+	(gtk_html_persist_file_new): initialize new member, uri.
+	(finalize): free the file->uri field.
+	(gtk_html_persist_file_class_init): setup the 2 new methods. isDirty()
+	and getCurrentFile().
+	(impl_isDirty, impl_getCurrentFile): new.
+	(impl_save): call gtk_html_command (html, "saved"). Also save the
+	uri/path to which data is saved.
+	(impl_load): likewise for the uri.
+
+	* test-html-editor-control.c (file_selection_cancel_cb): new callback.
+	Destroy the whole filesel widget. Previously only the cancel_button
+	was destroyed.
+	(open_or_save_as_dialog): setup cancel callback correctly.
+
 2003-11-18  JP Rosevear  <jpr@ximian.com>
 
 	* Makefile.am: remove gnome and gtk deprecated flags
