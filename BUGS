@@ -1,9 +1,6 @@
 Table problems
 ----------------
 
-- We have extra vertical space in the table elements on Slashdot and
-  other sites.
-
 - Printing of tables is (almost) completely broken and corrupts
   colors and other properties of the tables.  After you print, the
   table is all corrupt.
@@ -13,11 +10,7 @@ Table problems
   stick to a generic cleanup unless things become *really*
   unmanageable.
 
-- Selection in elements that are contained in tables does not work.
-  (Easy.  We just need to implement the `forall' method for table
-  elements, and then things should work out automatically.)
-
-- ROWSPAN/COLSPAN does not work.
+- ROWSPAN/COLSPAN does not (always) work.
 
 * Form problems
 ---------------
@@ -36,19 +29,10 @@ Table problems
   it with lots of random/inappropriate data and let's make it sure
   this does not happen *ever*.
 
-- Header links in Slashdot appear as green (and are thus invisible)
-  while they should be white.
-
 - Animations are not handled.  We should be using the GdkPixbuf
   interface for this.
 
 - We might want to speed up redraw on expose.
-
-- `align=top' on images is broken.  For some stupid reason the
-  original KDE code put aligned images into an HTMLClueH, which makes it
-  impossible to align them on top properly.  Instead, we should have an
-  `alignment' attribute in `HTMLObject', and handle it properly in the
-  HTMLClueFlow reflowing code.
 
 * Missing features:
 -------------------
