@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-26 15:35+0200\n"
+"POT-Creation-Date: 2004-11-01 16:31+0100\n"
 "PO-Revision-Date: 2004-06-17 11:25+0200\n"
 "Last-Translator: Laszlo Dvornik <dvornik@invitel.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
@@ -1756,15 +1756,21 @@ msgstr "_Visszafelé"
 msgid "_Regular Expression"
 msgstr "_Reguláris kifejezés"
 
-#: components/html-editor/spell.c:278
+#: components/html-editor/spell.c:110
+msgid ""
+"Unable to add word to dictionary,\n"
+"language settings are broken.\n"
+msgstr ""
+
+#: components/html-editor/spell.c:298
 msgid "No misspelled word found"
 msgstr "Nem volt rosszul írt szó"
 
-#: components/html-editor/spell.c:285
+#: components/html-editor/spell.c:305
 msgid "Spell checker"
 msgstr "Helyesírás-ellenőrző"
 
-#: components/html-editor/spell.c:378
+#: components/html-editor/spell.c:398
 msgid "Current _Languages"
 msgstr "Jelenlegi _nyelvek"
 
@@ -1784,15 +1790,15 @@ msgstr "Képkeret"
 msgid "Labels"
 msgstr "Címkék"
 
-#: components/html-editor/test-html-editor-control.c:323
+#: components/html-editor/test-html-editor-control.c:333
 msgid "Open file..."
 msgstr "Fájl megnyitása..."
 
-#: components/html-editor/test-html-editor-control.c:325
+#: components/html-editor/test-html-editor-control.c:335
 msgid "Save file as..."
 msgstr "Fájl mentése másként..."
 
-#: components/html-editor/test-html-editor-control.c:557
+#: components/html-editor/test-html-editor-control.c:567
 msgid "GtkHTML Editor Test Container"
 msgstr "GtkHTML szerkesztő tesztkonténer"
 
@@ -1872,90 +1878,90 @@ msgstr ""
 "A szerkesztett objektum törlődött a dokumentumból.\n"
 "A változtatásokat nem lehet alkalmazni."
 
-#: src/gtkhtml.c:2531
+#: src/gtkhtml.c:2568
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 "A szerkesztőbe ejtett Mozilla URL-nek hibás a formátuma (%d) vagy a hossza (%"
 "d)\n"
 
-#: src/gtkhtml.c:2853
+#: src/gtkhtml.c:2890
 msgid "Editable"
 msgstr "Szerkeszthető"
 
-#: src/gtkhtml.c:2854
+#: src/gtkhtml.c:2891
 msgid "Whether the html can be edited"
 msgstr "Szerkeszthető-e a HTML"
 
-#: src/gtkhtml.c:2860
+#: src/gtkhtml.c:2897
 msgid "Document Title"
 msgstr "Dokumentum címe"
 
-#: src/gtkhtml.c:2861
+#: src/gtkhtml.c:2898
 msgid "The title of the current document"
 msgstr "A jelenlegi dokumentum címe"
 
-#: src/gtkhtml.c:2867
+#: src/gtkhtml.c:2904
 msgid "Document Base"
 msgstr "Dokumentum báziscíme"
 
-#: src/gtkhtml.c:2868
+#: src/gtkhtml.c:2905
 msgid "The base URL for relative references"
 msgstr "A relatív hivatkozások bázis URL-je"
 
-#: src/gtkhtml.c:2874
+#: src/gtkhtml.c:2911
 msgid "Target Base"
 msgstr "Cél báziscíme"
 
-#: src/gtkhtml.c:2875
+#: src/gtkhtml.c:2912
 msgid "The base URL of the targe frame"
 msgstr "A célkeret bázis URL-je"
 
-#: src/gtkhtml.c:2884
+#: src/gtkhtml.c:2921
 msgid "Fixed Width Font"
 msgstr "Rögzített szélességű betű"
 
-#: src/gtkhtml.c:2885
+#: src/gtkhtml.c:2922
 msgid "The Monospace font to use for typewriter text"
 msgstr "Az írógépszöveghez alkalmazott Monospace betűkészlet"
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2928
 msgid "New Link Color"
 msgstr "Új hivatkozás színe"
 
-#: src/gtkhtml.c:2892
+#: src/gtkhtml.c:2929
 msgid "The color of new link elements"
 msgstr "Az új hivatkozáselemek színe"
 
-#: src/gtkhtml.c:2897
+#: src/gtkhtml.c:2934
 msgid "Visited Link Color"
 msgstr "Látogatott hivatkozás színe"
 
-#: src/gtkhtml.c:2898
+#: src/gtkhtml.c:2935
 msgid "The color of visited link elements"
 msgstr "A látogatott hivatkozáselemek színe"
 
-#: src/gtkhtml.c:2903
+#: src/gtkhtml.c:2940
 msgid "Active Link Color"
 msgstr "Aktív hivatkozás színe"
 
-#: src/gtkhtml.c:2904
+#: src/gtkhtml.c:2941
 msgid "The color of active link elements"
 msgstr "Az aktív hivatkozáselemek színe"
 
-#: src/gtkhtml.c:2909
+#: src/gtkhtml.c:2946
 msgid "Spelling Error Color"
 msgstr "Helyesírási hiba színe"
 
-#: src/gtkhtml.c:2910
+#: src/gtkhtml.c:2947
 msgid "The color of the spelling error markers"
 msgstr "A helyesírási hibákat jelölő szín"
 
-#: src/gtkhtml.c:2915
+#: src/gtkhtml.c:2952
 msgid "Cite Quotation Color"
 msgstr "Idézet színe"
 
-#: src/gtkhtml.c:2916
+#: src/gtkhtml.c:2953
 msgid "The color of the cited text"
 msgstr "Az idézett szöveg színe"
 
@@ -2032,6 +2038,6 @@ msgstr "Nyomtatási _kép"
 msgid "Print preview"
 msgstr "Nyomtatási kép"
 
-#: src/testgtkhtml.c:987
+#: src/testgtkhtml.c:1004
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML-tesztalkalmazás"

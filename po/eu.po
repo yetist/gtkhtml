@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-26 15:35+0200\n"
+"POT-Creation-Date: 2004-11-01 16:31+0100\n"
 "PO-Revision-Date: 2004-04-16 11:03+0200\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
@@ -1790,15 +1790,21 @@ msgstr "_Gorantz"
 msgid "_Regular Expression"
 msgstr "Bilatu adierazpen erregularra"
 
-#: components/html-editor/spell.c:278
+#: components/html-editor/spell.c:110
+msgid ""
+"Unable to add word to dictionary,\n"
+"language settings are broken.\n"
+msgstr ""
+
+#: components/html-editor/spell.c:298
 msgid "No misspelled word found"
 msgstr "Ez da oker idatzitako hitzik aurkitu"
 
-#: components/html-editor/spell.c:285
+#: components/html-editor/spell.c:305
 msgid "Spell checker"
 msgstr "Ortografia-egiaztatzailea"
 
-#: components/html-editor/spell.c:378
+#: components/html-editor/spell.c:398
 msgid "Current _Languages"
 msgstr "_Uneko hizkuntzak"
 
@@ -1818,15 +1824,15 @@ msgstr "Irudi-markoa"
 msgid "Labels"
 msgstr "Etiketak"
 
-#: components/html-editor/test-html-editor-control.c:323
+#: components/html-editor/test-html-editor-control.c:333
 msgid "Open file..."
 msgstr "Ireki fitxategia..."
 
-#: components/html-editor/test-html-editor-control.c:325
+#: components/html-editor/test-html-editor-control.c:335
 msgid "Save file as..."
 msgstr "Gorde fitxategia honela..."
 
-#: components/html-editor/test-html-editor-control.c:557
+#: components/html-editor/test-html-editor-control.c:567
 msgid "GtkHTML Editor Test Container"
 msgstr "GtkHTML editorearen testu-edukitzailea"
 
@@ -1907,89 +1913,89 @@ msgstr ""
 "Editatutako testua kendu egin da dokumentutik.\n"
 "Egindako aldaketak ezin dira aplikatu."
 
-#: src/gtkhtml.c:2531
+#: src/gtkhtml.c:2568
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 
-#: src/gtkhtml.c:2853
+#: src/gtkhtml.c:2890
 msgid "Editable"
 msgstr "Editagarria"
 
-#: src/gtkhtml.c:2854
+#: src/gtkhtml.c:2891
 msgid "Whether the html can be edited"
 msgstr "HTMLa edita daitekeen"
 
-#: src/gtkhtml.c:2860
+#: src/gtkhtml.c:2897
 msgid "Document Title"
 msgstr "Dokumentuaren titulua"
 
-#: src/gtkhtml.c:2861
+#: src/gtkhtml.c:2898
 msgid "The title of the current document"
 msgstr "Uneko dokumentuaren titulua"
 
-#: src/gtkhtml.c:2867
+#: src/gtkhtml.c:2904
 msgid "Document Base"
 msgstr "Dokumentuaren oinarria"
 
-#: src/gtkhtml.c:2868
+#: src/gtkhtml.c:2905
 msgid "The base URL for relative references"
 msgstr "Erreferentzia erlatiboetarako oinarrizko URLa"
 
-#: src/gtkhtml.c:2874
+#: src/gtkhtml.c:2911
 msgid "Target Base"
 msgstr "Helburuaren oinarria"
 
-#: src/gtkhtml.c:2875
+#: src/gtkhtml.c:2912
 msgid "The base URL of the targe frame"
 msgstr "Helburuko markoaren oinarriko URLa"
 
-#: src/gtkhtml.c:2884
+#: src/gtkhtml.c:2921
 msgid "Fixed Width Font"
 msgstr "Zabalera finkoko letra-tipoa"
 
-#: src/gtkhtml.c:2885
+#: src/gtkhtml.c:2922
 msgid "The Monospace font to use for typewriter text"
 msgstr "Idazmakinako testuetan erabiltzeko tarte bakarreko letra-tipoa"
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2928
 msgid "New Link Color"
 msgstr "Esteka berrien kolorea"
 
-#: src/gtkhtml.c:2892
+#: src/gtkhtml.c:2929
 msgid "The color of new link elements"
 msgstr "Esteka berriek izango duten kolorea"
 
-#: src/gtkhtml.c:2897
+#: src/gtkhtml.c:2934
 msgid "Visited Link Color"
 msgstr "Bisitatutako esteken kolorea"
 
-#: src/gtkhtml.c:2898
+#: src/gtkhtml.c:2935
 msgid "The color of visited link elements"
 msgstr "Bisitatutako estekek izango duten kolorea"
 
-#: src/gtkhtml.c:2903
+#: src/gtkhtml.c:2940
 msgid "Active Link Color"
 msgstr "Esteka aktiboen kolorea"
 
-#: src/gtkhtml.c:2904
+#: src/gtkhtml.c:2941
 msgid "The color of active link elements"
 msgstr "Esteka aktiboek izango duten kolorea"
 
-#: src/gtkhtml.c:2909
+#: src/gtkhtml.c:2946
 msgid "Spelling Error Color"
 msgstr "Ortografia-akatsen kolorea"
 
-#: src/gtkhtml.c:2910
+#: src/gtkhtml.c:2947
 msgid "The color of the spelling error markers"
 msgstr "Ortografia-akatsen markek izango duten kolorea"
 
-#: src/gtkhtml.c:2915
+#: src/gtkhtml.c:2952
 #, fuzzy
 msgid "Cite Quotation Color"
 msgstr "Itsatsi aipamena"
 
-#: src/gtkhtml.c:2916
+#: src/gtkhtml.c:2953
 #, fuzzy
 msgid "The color of the cited text"
 msgstr "Esteka aktiboek izango duten kolorea"
@@ -2067,7 +2073,7 @@ msgstr "_Inprimatzeko aurrebista"
 msgid "Print preview"
 msgstr "Inprimatzeko aurrebista"
 
-#: src/testgtkhtml.c:987
+#: src/testgtkhtml.c:1004
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML probako aplikazioa"
 

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-26 15:35+0200\n"
+"POT-Creation-Date: 2004-11-01 16:31+0100\n"
 "PO-Revision-Date: 2004-08-07 23:00+0200\n"
 "Last-Translator: Данило Шеган <danilo@prevod.org>\n"
 "Language-Team: Serbian (sr) <gnom@prevod.org>\n"
@@ -1765,15 +1765,21 @@ msgstr "Уна_зад"
 msgid "_Regular Expression"
 msgstr "_Регуларни израз"
 
-#: components/html-editor/spell.c:278
+#: components/html-editor/spell.c:110
+msgid ""
+"Unable to add word to dictionary,\n"
+"language settings are broken.\n"
+msgstr ""
+
+#: components/html-editor/spell.c:298
 msgid "No misspelled word found"
 msgstr "Нисам нашао погрешно написану реч"
 
-#: components/html-editor/spell.c:285
+#: components/html-editor/spell.c:305
 msgid "Spell checker"
 msgstr "Провера правописа"
 
-#: components/html-editor/spell.c:378
+#: components/html-editor/spell.c:398
 msgid "Current _Languages"
 msgstr "Текући _језици"
 
@@ -1793,15 +1799,15 @@ msgstr "Оквир слике"
 msgid "Labels"
 msgstr "Ознаке"
 
-#: components/html-editor/test-html-editor-control.c:323
+#: components/html-editor/test-html-editor-control.c:333
 msgid "Open file..."
 msgstr "Отвори датотеку..."
 
-#: components/html-editor/test-html-editor-control.c:325
+#: components/html-editor/test-html-editor-control.c:335
 msgid "Save file as..."
 msgstr "Сачувај датотеку као..."
 
-#: components/html-editor/test-html-editor-control.c:557
+#: components/html-editor/test-html-editor-control.c:567
 msgid "GtkHTML Editor Test Container"
 msgstr "Пробни садржалац GtkHTML уређивача"
 
@@ -1881,90 +1887,90 @@ msgstr ""
 "Измењени објекат је уклоњен из документа.\n"
 "Не могу да применим ваше измене."
 
-#: src/gtkhtml.c:2531
+#: src/gtkhtml.c:2568
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 "Адреса из Мозиле убачена у Састављач је била погрешног облике (%d) или "
 "дужине (%d)\n"
 
-#: src/gtkhtml.c:2853
+#: src/gtkhtml.c:2890
 msgid "Editable"
 msgstr "Измењив"
 
-#: src/gtkhtml.c:2854
+#: src/gtkhtml.c:2891
 msgid "Whether the html can be edited"
 msgstr "Да ли се HTML може мењати"
 
-#: src/gtkhtml.c:2860
+#: src/gtkhtml.c:2897
 msgid "Document Title"
 msgstr "Наслов документа"
 
-#: src/gtkhtml.c:2861
+#: src/gtkhtml.c:2898
 msgid "The title of the current document"
 msgstr "Наслов текућег документа"
 
-#: src/gtkhtml.c:2867
+#: src/gtkhtml.c:2904
 msgid "Document Base"
 msgstr "Основа документа"
 
-#: src/gtkhtml.c:2868
+#: src/gtkhtml.c:2905
 msgid "The base URL for relative references"
 msgstr "Основна адреса за релативне референце"
 
-#: src/gtkhtml.c:2874
+#: src/gtkhtml.c:2911
 msgid "Target Base"
 msgstr "Циљна основа"
 
-#: src/gtkhtml.c:2875
+#: src/gtkhtml.c:2912
 msgid "The base URL of the targe frame"
 msgstr "Основна адреса за циљни оквир"
 
-#: src/gtkhtml.c:2884
+#: src/gtkhtml.c:2921
 msgid "Fixed Width Font"
 msgstr "Писмо утврђене ширине"
 
-#: src/gtkhtml.c:2885
+#: src/gtkhtml.c:2922
 msgid "The Monospace font to use for typewriter text"
 msgstr "Писмо које треба користити за куцани текст"
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2928
 msgid "New Link Color"
 msgstr "Боја нових веза"
 
-#: src/gtkhtml.c:2892
+#: src/gtkhtml.c:2929
 msgid "The color of new link elements"
 msgstr "Боја нових веза"
 
-#: src/gtkhtml.c:2897
+#: src/gtkhtml.c:2934
 msgid "Visited Link Color"
 msgstr "Боја посећених веза"
 
-#: src/gtkhtml.c:2898
+#: src/gtkhtml.c:2935
 msgid "The color of visited link elements"
 msgstr "Боја посећених веза"
 
-#: src/gtkhtml.c:2903
+#: src/gtkhtml.c:2940
 msgid "Active Link Color"
 msgstr "Боја активних веза"
 
-#: src/gtkhtml.c:2904
+#: src/gtkhtml.c:2941
 msgid "The color of active link elements"
 msgstr "Боја активних веза"
 
-#: src/gtkhtml.c:2909
+#: src/gtkhtml.c:2946
 msgid "Spelling Error Color"
 msgstr "Боја правописних грешака"
 
-#: src/gtkhtml.c:2910
+#: src/gtkhtml.c:2947
 msgid "The color of the spelling error markers"
 msgstr "Боја за означавање правописних грешака"
 
-#: src/gtkhtml.c:2915
+#: src/gtkhtml.c:2952
 msgid "Cite Quotation Color"
 msgstr "Боја цитата"
 
-#: src/gtkhtml.c:2916
+#: src/gtkhtml.c:2953
 msgid "The color of the cited text"
 msgstr "Боја цитираног текста"
 
@@ -2041,7 +2047,7 @@ msgstr "Пре_глед пред штампу"
 msgid "Print preview"
 msgstr "Преглед пред штампу"
 
-#: src/testgtkhtml.c:987
+#: src/testgtkhtml.c:1004
 msgid "GtkHTML Test Application"
 msgstr "ГткХТМЛ програм за испробавање"
 

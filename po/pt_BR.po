@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 3.1.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-26 15:35+0200\n"
+"POT-Creation-Date: 2004-11-01 16:31+0100\n"
 "PO-Revision-Date: 2004-06-17 12:56-0400\n"
 "Last-Translator: João Paulo Gomes Vanzuita <joaopaulo99@terra.com.br>\n"
 "Language-Team: Portuguese/Brazil\n"
@@ -1756,15 +1756,21 @@ msgstr "_Regressivo"
 msgid "_Regular Expression"
 msgstr "Expressão _Regular"
 
-#: components/html-editor/spell.c:278
+#: components/html-editor/spell.c:110
+msgid ""
+"Unable to add word to dictionary,\n"
+"language settings are broken.\n"
+msgstr ""
+
+#: components/html-editor/spell.c:298
 msgid "No misspelled word found"
 msgstr "Nenhuma palavra errada foi encontrada"
 
-#: components/html-editor/spell.c:285
+#: components/html-editor/spell.c:305
 msgid "Spell checker"
 msgstr "Verificador ortográfico"
 
-#: components/html-editor/spell.c:378
+#: components/html-editor/spell.c:398
 msgid "Current _Languages"
 msgstr "_Línguas atuais"
 
@@ -1784,15 +1790,15 @@ msgstr "Moldura de imagem"
 msgid "Labels"
 msgstr "Rótulos"
 
-#: components/html-editor/test-html-editor-control.c:323
+#: components/html-editor/test-html-editor-control.c:333
 msgid "Open file..."
 msgstr "Abrir arquivo..."
 
-#: components/html-editor/test-html-editor-control.c:325
+#: components/html-editor/test-html-editor-control.c:335
 msgid "Save file as..."
 msgstr "Salvar arquivo como..."
 
-#: components/html-editor/test-html-editor-control.c:557
+#: components/html-editor/test-html-editor-control.c:567
 msgid "GtkHTML Editor Test Container"
 msgstr "Repositório de teste do editor GtkHTML"
 
@@ -1872,90 +1878,90 @@ msgstr ""
 "O objeto editado foi removido do documento.\n"
 "Impossível aplicar suas mudanças."
 
-#: src/gtkhtml.c:2531
+#: src/gtkhtml.c:2568
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 "A URL do Mozilla colocada no redator estava no formato (%d) ou comprimento (%"
 "d) errado\n"
 
-#: src/gtkhtml.c:2853
+#: src/gtkhtml.c:2890
 msgid "Editable"
 msgstr "Editável"
 
-#: src/gtkhtml.c:2854
+#: src/gtkhtml.c:2891
 msgid "Whether the html can be edited"
 msgstr "Se o html pode ser editado"
 
-#: src/gtkhtml.c:2860
+#: src/gtkhtml.c:2897
 msgid "Document Title"
 msgstr "Título do Documento"
 
-#: src/gtkhtml.c:2861
+#: src/gtkhtml.c:2898
 msgid "The title of the current document"
 msgstr "O título do documento atual"
 
-#: src/gtkhtml.c:2867
+#: src/gtkhtml.c:2904
 msgid "Document Base"
 msgstr "Base do Documento"
 
-#: src/gtkhtml.c:2868
+#: src/gtkhtml.c:2905
 msgid "The base URL for relative references"
 msgstr "A URL base para referências relativas"
 
-#: src/gtkhtml.c:2874
+#: src/gtkhtml.c:2911
 msgid "Target Base"
 msgstr "Base do Alvo"
 
-#: src/gtkhtml.c:2875
+#: src/gtkhtml.c:2912
 msgid "The base URL of the targe frame"
 msgstr "A URL base do frame alvo"
 
-#: src/gtkhtml.c:2884
+#: src/gtkhtml.c:2921
 msgid "Fixed Width Font"
 msgstr "Fonte de Largura Fixa"
 
-#: src/gtkhtml.c:2885
+#: src/gtkhtml.c:2922
 msgid "The Monospace font to use for typewriter text"
 msgstr "A fonte monoespaçada usada para texto datilografado"
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2928
 msgid "New Link Color"
 msgstr "Cor de Vínculo Novo"
 
-#: src/gtkhtml.c:2892
+#: src/gtkhtml.c:2929
 msgid "The color of new link elements"
 msgstr "A cor dos novos elementos de vínculo"
 
-#: src/gtkhtml.c:2897
+#: src/gtkhtml.c:2934
 msgid "Visited Link Color"
 msgstr "Cor de Vínculo Visitado"
 
-#: src/gtkhtml.c:2898
+#: src/gtkhtml.c:2935
 msgid "The color of visited link elements"
 msgstr "A cor dos elementos de vínculo visitados"
 
-#: src/gtkhtml.c:2903
+#: src/gtkhtml.c:2940
 msgid "Active Link Color"
 msgstr "Cor de Vínculo Ativo"
 
-#: src/gtkhtml.c:2904
+#: src/gtkhtml.c:2941
 msgid "The color of active link elements"
 msgstr "A cor dos elementos de vínculo ativos"
 
-#: src/gtkhtml.c:2909
+#: src/gtkhtml.c:2946
 msgid "Spelling Error Color"
 msgstr "Cor de Erro de Ortografia"
 
-#: src/gtkhtml.c:2910
+#: src/gtkhtml.c:2947
 msgid "The color of the spelling error markers"
 msgstr "A cor das marcas de erros de ortografia"
 
-#: src/gtkhtml.c:2915
+#: src/gtkhtml.c:2952
 msgid "Cite Quotation Color"
 msgstr "Cor da Citação"
 
-#: src/gtkhtml.c:2916
+#: src/gtkhtml.c:2953
 msgid "The color of the cited text"
 msgstr "A cor do texto citado"
 
@@ -2032,6 +2038,6 @@ msgstr "_Visualizar impressão"
 msgid "Print preview"
 msgstr "Visualizar impressão"
 
-#: src/testgtkhtml.c:987
+#: src/testgtkhtml.c:1004
 msgid "GtkHTML Test Application"
 msgstr "Aplicação de teste do GtkHTML"

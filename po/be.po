@@ -3,18 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) 2004 THE PACKAGE'S COPYRIGHT HOLDER
 # Vital Khilko <dojlid@mova.org>, 2003
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD.be\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-27 04:03+0200\n"
+"POT-Creation-Date: 2004-11-01 16:31+0100\n"
 "PO-Revision-Date: 2004-08-13 10:09+0300\n"
 "Last-Translator: Vital Khilko <dojlid@mova.org>\n"
 "Language-Team: Belarusian <i18n@mova.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -435,7 +435,7 @@ msgstr "_Язык"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
-#: components/html-editor/menubar.c:115 components/html-editor/popup.c:106
+#: components/html-editor/menubar.c:136 components/html-editor/popup.c:106
 #: components/html-editor/popup.c:201 components/html-editor/popup.c:267
 msgid "Link"
 msgstr "Спасылка"
@@ -613,7 +613,7 @@ msgstr "Сьпіс з рымскім нумараваньнем"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 #: components/html-editor/editor-control-factory.c:207
 #: components/html-editor/gtkhtml-editor-properties.glade.h:48
-#: components/html-editor/menubar.c:134 components/html-editor/popup.c:225
+#: components/html-editor/menubar.c:155 components/html-editor/popup.c:225
 msgid "Rule"
 msgstr "Правіла"
 
@@ -661,7 +661,7 @@ msgstr "Верхні індэкс"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: components/html-editor/menubar.c:155 components/html-editor/popup.c:231
+#: components/html-editor/menubar.c:176 components/html-editor/popup.c:231
 #: components/html-editor/popup.c:501 components/html-editor/popup.c:513
 msgid "Table"
 msgstr "Табліца"
@@ -678,7 +678,7 @@ msgstr "_Тэкставы файл..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
 #: components/html-editor/gtkhtml-editor-properties.glade.h:53
-#: components/html-editor/menubar.c:177
+#: components/html-editor/menubar.c:198
 msgid "Template"
 msgstr "Узор"
 
@@ -1054,26 +1054,26 @@ msgid "Transparent"
 msgstr "Празрыстасьць"
 
 #: components/html-editor/editor-control-factory.c:178
-#: components/html-editor/menubar.c:328 components/html-editor/menubar.c:346
-#: components/html-editor/menubar.c:364 components/html-editor/popup.c:186
+#: components/html-editor/menubar.c:354 components/html-editor/menubar.c:372
+#: components/html-editor/menubar.c:390 components/html-editor/popup.c:186
 #: components/html-editor/popup.c:264
 msgid "Properties"
 msgstr "Уласьцівасьці"
 
 #: components/html-editor/editor-control-factory.c:197
 #: components/html-editor/gtkhtml-editor-properties.glade.h:54
-#: components/html-editor/menubar.c:350 components/html-editor/popup.c:195
+#: components/html-editor/menubar.c:376 components/html-editor/popup.c:195
 msgid "Text"
 msgstr "Тэкст"
 
 #: components/html-editor/editor-control-factory.c:216
-#: components/html-editor/menubar.c:368 components/html-editor/popup.c:213
+#: components/html-editor/menubar.c:394 components/html-editor/popup.c:213
 msgid "Paragraph"
 msgstr "Абзац"
 
 #: components/html-editor/editor-control-factory.c:220
 #: components/html-editor/gtkhtml-editor-properties.glade.h:43
-#: components/html-editor/menubar.c:332 components/html-editor/popup.c:219
+#: components/html-editor/menubar.c:358 components/html-editor/popup.c:219
 msgid "Page"
 msgstr "Старонка"
 
@@ -1534,26 +1534,26 @@ msgstr "px"
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: components/html-editor/menubar.c:86
+#: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
 msgid "Insert image"
 msgstr "Уставіць відарыс"
 
-#: components/html-editor/menubar.c:112 components/html-editor/menubar.c:131
-#: components/html-editor/menubar.c:152 components/html-editor/menubar.c:174
+#: components/html-editor/menubar.c:133 components/html-editor/menubar.c:152
+#: components/html-editor/menubar.c:173 components/html-editor/menubar.c:195
 #: components/html-editor/popup.c:103
 msgid "Insert"
 msgstr "Уставіць"
 
-#: components/html-editor/menubar.c:263
+#: components/html-editor/menubar.c:282
 #, c-format
 msgid "Error loading file '%s': %s"
 msgstr "Памылка загрузкі файла '%s': %s"
 
-#: components/html-editor/menubar.c:290
+#: components/html-editor/menubar.c:308 components/html-editor/menubar.c:317
 msgid "Insert: HTML File"
 msgstr "Уставіць: файл HTML"
 
-#: components/html-editor/menubar.c:290
+#: components/html-editor/menubar.c:308 components/html-editor/menubar.c:317
 msgid "Insert: Text File"
 msgstr "Уставіць: тэкставы файл"
 
@@ -1756,15 +1756,21 @@ msgstr "_Адваротны накірунак"
 msgid "_Regular Expression"
 msgstr "Сталы выраз"
 
-#: components/html-editor/spell.c:278
+#: components/html-editor/spell.c:110
+msgid ""
+"Unable to add word to dictionary,\n"
+"language settings are broken.\n"
+msgstr ""
+
+#: components/html-editor/spell.c:298
 msgid "No misspelled word found"
 msgstr "Памылкова напісаныя словы адсутнічаюць"
 
-#: components/html-editor/spell.c:285
+#: components/html-editor/spell.c:305
 msgid "Spell checker"
 msgstr "Праверка правапіса"
 
-#: components/html-editor/spell.c:378
+#: components/html-editor/spell.c:398
 msgid "Current _Languages"
 msgstr "Бягучыя _мовы"
 
@@ -1784,15 +1790,15 @@ msgstr "Рамка відарыса"
 msgid "Labels"
 msgstr "Адмеціны"
 
-#: components/html-editor/test-html-editor-control.c:323
+#: components/html-editor/test-html-editor-control.c:333
 msgid "Open file..."
 msgstr "Адкрыць файл..."
 
-#: components/html-editor/test-html-editor-control.c:325
+#: components/html-editor/test-html-editor-control.c:335
 msgid "Save file as..."
 msgstr "Захаваць файл як..."
 
-#: components/html-editor/test-html-editor-control.c:557
+#: components/html-editor/test-html-editor-control.c:567
 msgid "GtkHTML Editor Test Container"
 msgstr "Кантэйнэр тэставаньня рэдактара GtkHTML"
 
@@ -1872,88 +1878,88 @@ msgstr ""
 "Рэдагаваны аб'ект выдалены з дакумэнта.\n"
 "Немагчыма ужыць вашы зьмены."
 
-#: src/gtkhtml.c:2531
+#: src/gtkhtml.c:2568
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 
-#: src/gtkhtml.c:2852
+#: src/gtkhtml.c:2890
 msgid "Editable"
 msgstr "Можа рэдагавацца"
 
-#: src/gtkhtml.c:2853
+#: src/gtkhtml.c:2891
 msgid "Whether the html can be edited"
 msgstr "Ці рэдагуецца html"
 
-#: src/gtkhtml.c:2859
+#: src/gtkhtml.c:2897
 msgid "Document Title"
 msgstr "Загаловак дакумэнта"
 
-#: src/gtkhtml.c:2860
+#: src/gtkhtml.c:2898
 msgid "The title of the current document"
 msgstr "Загаловак бягучага дакумэнта"
 
-#: src/gtkhtml.c:2866
+#: src/gtkhtml.c:2904
 msgid "Document Base"
 msgstr "База дакумэнта"
 
-#: src/gtkhtml.c:2867
+#: src/gtkhtml.c:2905
 msgid "The base URL for relative references"
 msgstr "Базавы URL для падобных спасылак"
 
-#: src/gtkhtml.c:2873
+#: src/gtkhtml.c:2911
 msgid "Target Base"
 msgstr "База мэты"
 
-#: src/gtkhtml.c:2874
+#: src/gtkhtml.c:2912
 msgid "The base URL of the targe frame"
 msgstr "Базавы URL фрэйма мэты"
 
-#: src/gtkhtml.c:2883
+#: src/gtkhtml.c:2921
 msgid "Fixed Width Font"
 msgstr "Шрыфт фіксаванае шырыні"
 
-#: src/gtkhtml.c:2884
+#: src/gtkhtml.c:2922
 msgid "The Monospace font to use for typewriter text"
 msgstr "Монашырыны шрыфт для выкарастаньня ў наборы"
 
-#: src/gtkhtml.c:2890
+#: src/gtkhtml.c:2928
 msgid "New Link Color"
 msgstr "Колер новых спасылак"
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2929
 msgid "The color of new link elements"
 msgstr "Колер новых спасылак"
 
-#: src/gtkhtml.c:2896
+#: src/gtkhtml.c:2934
 msgid "Visited Link Color"
 msgstr "Колер наведаных спасылак"
 
-#: src/gtkhtml.c:2897
+#: src/gtkhtml.c:2935
 msgid "The color of visited link elements"
 msgstr "Колер наведаных спасылак"
 
-#: src/gtkhtml.c:2902
+#: src/gtkhtml.c:2940
 msgid "Active Link Color"
 msgstr "Колер актыўных спасылак"
 
-#: src/gtkhtml.c:2903
+#: src/gtkhtml.c:2941
 msgid "The color of active link elements"
 msgstr "Колер актыўных спасылак"
 
-#: src/gtkhtml.c:2908
+#: src/gtkhtml.c:2946
 msgid "Spelling Error Color"
 msgstr "Колер памылак правапіса"
 
-#: src/gtkhtml.c:2909
+#: src/gtkhtml.c:2947
 msgid "The color of the spelling error markers"
 msgstr "Колер для падкрэсьленьня памылак правапіса"
 
-#: src/gtkhtml.c:2914
+#: src/gtkhtml.c:2952
 msgid "Cite Quotation Color"
 msgstr "Колер цытаваньня"
 
-#: src/gtkhtml.c:2915
+#: src/gtkhtml.c:2953
 msgid "The color of the cited text"
 msgstr "Колер цытаванага тэксту"
 
@@ -2030,7 +2036,7 @@ msgstr "Перад_прагляд друку"
 msgid "Print preview"
 msgstr "Прагляд друку"
 
-#: src/testgtkhtml.c:987
+#: src/testgtkhtml.c:1004
 msgid "GtkHTML Test Application"
 msgstr "Дастасаваньне тэставаньня GtkHTML"
 

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-26 15:35+0200\n"
+"POT-Creation-Date: 2004-11-01 16:31+0100\n"
 "PO-Revision-Date: 2003-01-20 16:04+0700\n"
 "Last-Translator: pclouds <pclouds@gmx.net>\n"
 "Language-Team: GnomeVI <gnomevi-list@lists.sourceforge.net>\n"
@@ -1839,16 +1839,22 @@ msgstr "ngược"
 msgid "_Regular Expression"
 msgstr "Tìm biểu thức chính quy"
 
-#: components/html-editor/spell.c:278
+#: components/html-editor/spell.c:110
+msgid ""
+"Unable to add word to dictionary,\n"
+"language settings are broken.\n"
+msgstr ""
+
+#: components/html-editor/spell.c:298
 #, fuzzy
 msgid "No misspelled word found"
 msgstr "Không có từ nào sai chính tả"
 
-#: components/html-editor/spell.c:285
+#: components/html-editor/spell.c:305
 msgid "Spell checker"
 msgstr "Bộ kiểm tra chính tả"
 
-#: components/html-editor/spell.c:378
+#: components/html-editor/spell.c:398
 #, fuzzy
 msgid "Current _Languages"
 msgstr "_Ngôn ngữ kiểm tra chính tả"
@@ -1869,15 +1875,15 @@ msgstr "Khung ảnh"
 msgid "Labels"
 msgstr ""
 
-#: components/html-editor/test-html-editor-control.c:323
+#: components/html-editor/test-html-editor-control.c:333
 msgid "Open file..."
 msgstr "Mở tập tin..."
 
-#: components/html-editor/test-html-editor-control.c:325
+#: components/html-editor/test-html-editor-control.c:335
 msgid "Save file as..."
 msgstr "Lưu tập tin là..."
 
-#: components/html-editor/test-html-editor-control.c:557
+#: components/html-editor/test-html-editor-control.c:567
 #, fuzzy
 msgid "GtkHTML Editor Test Container"
 msgstr "Điều khiển Biên soạn GNOME HTML"
@@ -1959,93 +1965,93 @@ msgstr ""
 "Chữ bị sửa đổi đã bị loại khỏi tài liệu.\n"
 "Không thể áp dụng các thay đổi của bạn."
 
-#: src/gtkhtml.c:2531
+#: src/gtkhtml.c:2568
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 
-#: src/gtkhtml.c:2853
+#: src/gtkhtml.c:2890
 #, fuzzy
 msgid "Editable"
 msgstr "Bật"
 
-#: src/gtkhtml.c:2854
+#: src/gtkhtml.c:2891
 msgid "Whether the html can be edited"
 msgstr ""
 
-#: src/gtkhtml.c:2860
+#: src/gtkhtml.c:2897
 msgid "Document Title"
 msgstr "Tựa tài liệu"
 
-#: src/gtkhtml.c:2861
+#: src/gtkhtml.c:2898
 #, fuzzy
 msgid "The title of the current document"
 msgstr "Kiểm tra chính tả tài liệu"
 
-#: src/gtkhtml.c:2867
+#: src/gtkhtml.c:2904
 #, fuzzy
 msgid "Document Base"
 msgstr "Tựa tài liệu"
 
-#: src/gtkhtml.c:2868
+#: src/gtkhtml.c:2905
 msgid "The base URL for relative references"
 msgstr ""
 
-#: src/gtkhtml.c:2874
+#: src/gtkhtml.c:2911
 msgid "Target Base"
 msgstr ""
 
-#: src/gtkhtml.c:2875
+#: src/gtkhtml.c:2912
 msgid "The base URL of the targe frame"
 msgstr ""
 
-#: src/gtkhtml.c:2884
+#: src/gtkhtml.c:2921
 #, fuzzy
 msgid "Fixed Width Font"
 msgstr "Độ rộng cứng"
 
-#: src/gtkhtml.c:2885
+#: src/gtkhtml.c:2922
 msgid "The Monospace font to use for typewriter text"
 msgstr ""
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2928
 msgid "New Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2892
+#: src/gtkhtml.c:2929
 msgid "The color of new link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2897
+#: src/gtkhtml.c:2934
 msgid "Visited Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2898
+#: src/gtkhtml.c:2935
 msgid "The color of visited link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2903
+#: src/gtkhtml.c:2940
 msgid "Active Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2904
+#: src/gtkhtml.c:2941
 msgid "The color of active link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2909
+#: src/gtkhtml.c:2946
 msgid "Spelling Error Color"
 msgstr ""
 
-#: src/gtkhtml.c:2910
+#: src/gtkhtml.c:2947
 msgid "The color of the spelling error markers"
 msgstr ""
 
-#: src/gtkhtml.c:2915
+#: src/gtkhtml.c:2952
 #, fuzzy
 msgid "Cite Quotation Color"
 msgstr "Dán trích dẫn"
 
-#: src/gtkhtml.c:2916
+#: src/gtkhtml.c:2953
 #, fuzzy
 msgid "The color of the cited text"
 msgstr "Kiểm tra chính tả tài liệu"
@@ -2123,7 +2129,7 @@ msgstr "_Xem thử bản in"
 msgid "Print preview"
 msgstr "Xem thử bản in"
 
-#: src/testgtkhtml.c:987
+#: src/testgtkhtml.c:1004
 #, fuzzy
 msgid "GtkHTML Test Application"
 msgstr "Kiểm tra GtkHTML"

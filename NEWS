@@ -1,3 +1,48 @@
+gtkhtml-3.5.0 "Frond" 2004-11-01
+------------------------------------------------
+
+New in this release
+
+   * added id attribute to objects
+   * beginning of border style
+
+gtkhtml-3.2.3 "Frond" 2004-09-23
+------------------------------------------------
+
+New in this release
+
+   * fixed crash occuring in autosave after paste
+   * expose api version in pkgconfig file
+   * more line breaking touches
+   * fixed embedded widgets not shown problem
+
+gtkhtml-3.2.2 "Sporophyte" 2004-09-23
+------------------------------------------------
+
+New in this release
+
+   * fixed TT style editing
+   * fixed monospaced printing
+   * avoid infinite loop in table layout code
+   * IM fix from Yukihiro Nakai
+   * fixed rule layout
+   * fixed text proerties dialog, style buttons
+   * fixed base url support
+   * tuned line breaking
+
+gtkhtml-3.2.1 "Gone stable" 2004-09-10
+------------------------------------------------
+
+New in this release
+
+   * Updated translations:
+	el (Nikos Charonitakis)
+	cs (Miloslav Trmac)
+	it (Luca Ferretti)
+	ta (Jayaradha)
+	ms (Hasbullah Bin Pit)
+	sq (Laurent Dhima)
+
 gtkhtml-3.2.0 "Going stable" 2004-08-26
 ------------------------------------------------
 

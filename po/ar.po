@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-26 15:35+0200\n"
+"POT-Creation-Date: 2004-11-01 16:31+0100\n"
 "PO-Revision-Date: 2002-06-16 16:26+0200\n"
 "Last-Translator: Arafat Medini <lumina@silverpen.de>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
@@ -1853,16 +1853,22 @@ msgstr "للخلف"
 msgid "_Regular Expression"
 msgstr "أوجد معادلة عادية"
 
-#: components/html-editor/spell.c:278
+#: components/html-editor/spell.c:110
+msgid ""
+"Unable to add word to dictionary,\n"
+"language settings are broken.\n"
+msgstr ""
+
+#: components/html-editor/spell.c:298
 #, fuzzy
 msgid "No misspelled word found"
 msgstr "لا توجد كلمة مهجاة خطأ"
 
-#: components/html-editor/spell.c:285
+#: components/html-editor/spell.c:305
 msgid "Spell checker"
 msgstr "المدقق الإملائي"
 
-#: components/html-editor/spell.c:378
+#: components/html-editor/spell.c:398
 #, fuzzy
 msgid "Current _Languages"
 msgstr "لغات التدقيق الإملائي"
@@ -1883,15 +1889,15 @@ msgstr "إطار الصورة"
 msgid "Labels"
 msgstr ""
 
-#: components/html-editor/test-html-editor-control.c:323
+#: components/html-editor/test-html-editor-control.c:333
 msgid "Open file..."
 msgstr "إفتح ملف..."
 
-#: components/html-editor/test-html-editor-control.c:325
+#: components/html-editor/test-html-editor-control.c:335
 msgid "Save file as..."
 msgstr "احفظ الملف بإسم..."
 
-#: components/html-editor/test-html-editor-control.c:557
+#: components/html-editor/test-html-editor-control.c:567
 #, fuzzy
 msgid "GtkHTML Editor Test Container"
 msgstr "تحكم محرر HTML لجينوم"
@@ -1970,93 +1976,93 @@ msgid ""
 "Cannot apply your changes."
 msgstr ""
 
-#: src/gtkhtml.c:2531
+#: src/gtkhtml.c:2568
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 
-#: src/gtkhtml.c:2853
+#: src/gtkhtml.c:2890
 #, fuzzy
 msgid "Editable"
 msgstr "تمكين"
 
-#: src/gtkhtml.c:2854
+#: src/gtkhtml.c:2891
 msgid "Whether the html can be edited"
 msgstr ""
 
-#: src/gtkhtml.c:2860
+#: src/gtkhtml.c:2897
 msgid "Document Title"
 msgstr "عنوان المستند"
 
-#: src/gtkhtml.c:2861
+#: src/gtkhtml.c:2898
 #, fuzzy
 msgid "The title of the current document"
 msgstr "دقق الإملاء للوثيقة"
 
-#: src/gtkhtml.c:2867
+#: src/gtkhtml.c:2904
 #, fuzzy
 msgid "Document Base"
 msgstr "عنوان المستند"
 
-#: src/gtkhtml.c:2868
+#: src/gtkhtml.c:2905
 msgid "The base URL for relative references"
 msgstr ""
 
-#: src/gtkhtml.c:2874
+#: src/gtkhtml.c:2911
 msgid "Target Base"
 msgstr ""
 
-#: src/gtkhtml.c:2875
+#: src/gtkhtml.c:2912
 msgid "The base URL of the targe frame"
 msgstr ""
 
-#: src/gtkhtml.c:2884
+#: src/gtkhtml.c:2921
 #, fuzzy
 msgid "Fixed Width Font"
 msgstr "عرض ثابت"
 
-#: src/gtkhtml.c:2885
+#: src/gtkhtml.c:2922
 msgid "The Monospace font to use for typewriter text"
 msgstr ""
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2928
 msgid "New Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2892
+#: src/gtkhtml.c:2929
 msgid "The color of new link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2897
+#: src/gtkhtml.c:2934
 msgid "Visited Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2898
+#: src/gtkhtml.c:2935
 msgid "The color of visited link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2903
+#: src/gtkhtml.c:2940
 msgid "Active Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2904
+#: src/gtkhtml.c:2941
 msgid "The color of active link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2909
+#: src/gtkhtml.c:2946
 msgid "Spelling Error Color"
 msgstr ""
 
-#: src/gtkhtml.c:2910
+#: src/gtkhtml.c:2947
 msgid "The color of the spelling error markers"
 msgstr ""
 
-#: src/gtkhtml.c:2915
+#: src/gtkhtml.c:2952
 #, fuzzy
 msgid "Cite Quotation Color"
 msgstr "اللون:"
 
-#: src/gtkhtml.c:2916
+#: src/gtkhtml.c:2953
 #, fuzzy
 msgid "The color of the cited text"
 msgstr "دقق الإملاء للوثيقة"
@@ -2134,7 +2140,7 @@ msgstr "معاينة الط_باعة"
 msgid "Print preview"
 msgstr "معاينة الطباعة"
 
-#: src/testgtkhtml.c:987
+#: src/testgtkhtml.c:1004
 #, fuzzy
 msgid "GtkHTML Test Application"
 msgstr "اختبار GtkHTML"

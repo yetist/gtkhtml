@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-02 04:09+0200\n"
+"POT-Creation-Date: 2004-11-01 16:31+0100\n"
 "PO-Revision-Date: 2004-09-02 13:36+0530\n"
 "Last-Translator: Jayaradha N <jaya@pune.redhat.com>\n"
 "Language-Team: Tamil <zhakanini@yahoogroups.com>\n"
@@ -15,7 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.3.1\n"
-"Plural-Forms: Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
+"Plural-Forms: Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"\n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -1757,15 +1758,21 @@ msgstr "(_B)பின்னோக்கி"
 msgid "_Regular Expression"
 msgstr "(_R)இயல்பான கூற்று"
 
-#: components/html-editor/spell.c:278
+#: components/html-editor/spell.c:110
+msgid ""
+"Unable to add word to dictionary,\n"
+"language settings are broken.\n"
+msgstr ""
+
+#: components/html-editor/spell.c:298
 msgid "No misspelled word found"
 msgstr "தவறாக குறிப்பிட்ட வார்த்தைகள் எதுவுமில்லை"
 
-#: components/html-editor/spell.c:285
+#: components/html-editor/spell.c:305
 msgid "Spell checker"
 msgstr "எழுத்துபிழை சோதிப்பான"
 
-#: components/html-editor/spell.c:378
+#: components/html-editor/spell.c:398
 msgid "Current _Languages"
 msgstr "(_L)தற்போதைய மொழி"
 
@@ -1785,15 +1792,15 @@ msgstr "பிம்ப சட்டம்"
 msgid "Labels"
 msgstr "விளக்கச்சீட்டு"
 
-#: components/html-editor/test-html-editor-control.c:323
+#: components/html-editor/test-html-editor-control.c:333
 msgid "Open file..."
 msgstr "கோப்பை திற.."
 
-#: components/html-editor/test-html-editor-control.c:325
+#: components/html-editor/test-html-editor-control.c:335
 msgid "Save file as..."
 msgstr "கோப்பை இவ்வாறு சேமி"
 
-#: components/html-editor/test-html-editor-control.c:557
+#: components/html-editor/test-html-editor-control.c:567
 msgid "GtkHTML Editor Test Container"
 msgstr "GtkHTML தொகுப்பி சோதனை உள்ளடக்கம்"
 
@@ -1873,88 +1880,88 @@ msgstr ""
 "திருத்திய பொருள் ஆவணத்திலிருந்து நீக்கப்பட்டது\n"
 "உங்கள் மாற்றங்களை செயல்படுத்த முடியாது"
 
-#: src/gtkhtml.c:2531
+#: src/gtkhtml.c:2568
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr "மொசில்லா url தவறான வடிவத்தில் உள்ளது  (%d) அல்லது நீளம் தவறு (%d)\n"
 
-#: src/gtkhtml.c:2853
+#: src/gtkhtml.c:2890
 msgid "Editable"
 msgstr "திருத்தக்கூடிய"
 
-#: src/gtkhtml.c:2854
+#: src/gtkhtml.c:2891
 msgid "Whether the html can be edited"
 msgstr "html ஐ திருத்த முடியுமா"
 
-#: src/gtkhtml.c:2860
+#: src/gtkhtml.c:2897
 msgid "Document Title"
 msgstr "ஆவண தலைப்பு"
 
-#: src/gtkhtml.c:2861
+#: src/gtkhtml.c:2898
 msgid "The title of the current document"
 msgstr "தற்போதைய ஆவணத்தின் தலைப்பு"
 
-#: src/gtkhtml.c:2867
+#: src/gtkhtml.c:2904
 msgid "Document Base"
 msgstr "ஆவண அடிப்படை"
 
-#: src/gtkhtml.c:2868
+#: src/gtkhtml.c:2905
 msgid "The base URL for relative references"
 msgstr "அடிப்படை URL தொடர்புடைய குறிப்பு"
 
-#: src/gtkhtml.c:2874
+#: src/gtkhtml.c:2911
 msgid "Target Base"
 msgstr "இலக்கு அடிப்படை"
 
-#: src/gtkhtml.c:2875
+#: src/gtkhtml.c:2912
 msgid "The base URL of the targe frame"
 msgstr "அடிப்படை URL இலக்கு சட்டம்"
 
-#: src/gtkhtml.c:2884
+#: src/gtkhtml.c:2921
 msgid "Fixed Width Font"
 msgstr "நிலையான அகல எழுத்துரு"
 
-#: src/gtkhtml.c:2885
+#: src/gtkhtml.c:2922
 msgid "The Monospace font to use for typewriter text"
 msgstr "தட்டச்சு உரைக்கு பயன்படும் சீரான இடைவெளி எழுத்துரு"
 
-#: src/gtkhtml.c:2891
+#: src/gtkhtml.c:2928
 msgid "New Link Color"
 msgstr "புதிய இணைப்பு நிறம்"
 
-#: src/gtkhtml.c:2892
+#: src/gtkhtml.c:2929
 msgid "The color of new link elements"
 msgstr "புதிய இணைப்பு உறுப்பின் நிறம்"
 
-#: src/gtkhtml.c:2897
+#: src/gtkhtml.c:2934
 msgid "Visited Link Color"
 msgstr "பார்த்த இணைப்பின் நிறம்"
 
-#: src/gtkhtml.c:2898
+#: src/gtkhtml.c:2935
 msgid "The color of visited link elements"
 msgstr "பார்த்த இணைப்பின் நிறம்"
 
-#: src/gtkhtml.c:2903
+#: src/gtkhtml.c:2940
 msgid "Active Link Color"
 msgstr "செயலில் உள்ள இணைப்பின் வண்ணம்"
 
-#: src/gtkhtml.c:2904
+#: src/gtkhtml.c:2941
 msgid "The color of active link elements"
 msgstr "செயலில் உள்ள இணைப்பின் வண்ணம்"
 
-#: src/gtkhtml.c:2909
+#: src/gtkhtml.c:2946
 msgid "Spelling Error Color"
 msgstr "நிறத்தில் எழுத்துப்பிழை"
 
-#: src/gtkhtml.c:2910
+#: src/gtkhtml.c:2947
 msgid "The color of the spelling error markers"
 msgstr "எழுத்துப்பிழை நிறத்தின் வண்ணம்"
 
-#: src/gtkhtml.c:2915
+#: src/gtkhtml.c:2952
 msgid "Cite Quotation Color"
 msgstr "மேற்கோள் நிறம்"
 
-#: src/gtkhtml.c:2916
+#: src/gtkhtml.c:2953
 msgid "The color of the cited text"
 msgstr "மேற்கோள் உரையின் நிறம்"
 
@@ -2031,7 +2038,6 @@ msgstr "(_v)அச்சடி முன்னோட்டம்"
 msgid "Print preview"
 msgstr "அச்சடி முன்னோட்டம்"
 
-#: src/testgtkhtml.c:987
+#: src/testgtkhtml.c:1004
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML சோதனை பயன்பாடு"
-
