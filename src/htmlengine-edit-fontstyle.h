@@ -32,13 +32,14 @@ GtkHTMLFontStyle   html_engine_get_document_font_style      (HTMLEngine       *e
 void               html_engine_set_font_style               (HTMLEngine       *engine,
 							     GtkHTMLFontStyle  and_mask,
 							     GtkHTMLFontStyle  or_mask);
-void               html_engine_font_style_toggle            (HTMLEngine *engine,
-							     GtkHTMLFontStyle style);
+void               html_engine_font_style_toggle            (HTMLEngine       *engine,
+							     GtkHTMLFontStyle  style);
 
 /* colors */
-void               html_engine_set_color                    (HTMLEngine *engine,
-							     GdkColor *color);
-GdkColor *         html_engine_get_color                    (HTMLEngine *engine);
-GdkColor *         html_engine_get_document_color           (HTMLEngine *engine);
+gboolean           html_engine_update_insertion_color       (HTMLEngine       *engine);
+void               html_engine_set_color                    (HTMLEngine       *engine,
+							     GdkColor         *color);
+GdkColor *         html_engine_get_color                    (HTMLEngine       *engine);
+GdkColor *         html_engine_get_document_color           (HTMLEngine       *engine);
 
 #endif
