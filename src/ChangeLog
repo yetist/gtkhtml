@@ -1,3 +1,11 @@
+2001-03-30  Larry Ewing  <lewing@ximian.com>
+
+	* htmlclueflow.c (calc_padding): temporary hack to swtich to
+	remove padding in the text/plain case.  This will get moved into
+	the painter soon.
+	(save_plain): use calc_padding based on the painter from the
+	current engine and don't automatically assume it.
+
 2001-03-29  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (gtk_html_build_with_gconf): helper function, returns

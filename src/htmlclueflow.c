@@ -53,6 +53,7 @@ HTMLClueFlowClass html_clueflow_class;
 static HTMLClueClass *parent_class = NULL;
 
 #define HCF_CLASS(x) HTML_CLUEFLOW_CLASS (HTML_OBJECT (x)->klass)
+#define HTML_IS_PLAIN_PAINTER(obj)              (GTK_CHECK_TYPE ((obj), HTML_TYPE_PLAIN_PAINTER))
 
 
 static void
@@ -125,9 +126,14 @@ calc_padding (HTMLPainter *painter)
 	guint ascent, descent;
 
 	/* FIXME maybe this should depend on the style.  */
-	ascent = html_painter_calc_ascent (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
-	descent = html_painter_calc_descent (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
-
+	/* FIXME move this into the painter.             */
+	if (HTML_IS_PLAIN_PAINTER (painter)) {
+		ascent = 0;
+		descent = 0;
+	} else {
+		ascent = html_painter_calc_ascent (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
+		descent = html_painter_calc_descent (painter, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
+	}
 	return ascent + descent;
 }
 
@@ -350,7 +356,6 @@ set_line_x (HTMLObject **obj, HTMLObject *run, gint x, gboolean *changed)
 	return x;
 }
 
-#define HTML_IS_PLAIN_PAINTER(obj)              (GTK_CHECK_TYPE ((obj), HTML_TYPE_PLAIN_PAINTER))
 static gint
 pref_right_margin (HTMLPainter *p, HTMLClueFlow *clueflow, HTMLObject *o, gint y) 
 {
@@ -1229,7 +1234,7 @@ save_plain (HTMLObject *self,
 							      requested_width - pad)) {
 		guchar *s, *space;
 		
-		if (get_pre_padding (flow, 1) > 0)
+		if (get_pre_padding (flow, calc_padding (state->engine->painter)) > 0)
 			g_string_append (out, "\n");
 
 		s = html_engine_save_buffer_peek_text (buffer_state);
@@ -1270,7 +1275,7 @@ save_plain (HTMLObject *self,
 			firstline = FALSE;
 		}
 		
-		if (get_post_padding (flow, 1) > 0)
+		if (get_post_padding (flow, calc_padding (state->engine->painter)) > 0)
 			g_string_append (out, "\n");
 				
 	}
