@@ -1,3 +1,16 @@
+2000-06-20  Radek Doulik  <rodo@helixcode.com>
+
+	* gnome-bindings-prop.c (remove_snooper): restore grab button only
+	if bindings are non empty
+	(keymap_select_row): if no bindings defined, disable all editing
+	widgets except Add button
+	(add_button_clicked): handle properly case when no bindings
+	defined yet
+	(delete_button_clicked): disable editing except Add button when
+	last binding is deleted
+	(add_button_clicked): enable editing after binding (possibly
+	first) added
+
 2000-06-17  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* Makefile.am (INCLUDES): Use `top_builddir' so that it works with
