@@ -8,9 +8,6 @@ Table problems
   colors and other properties of the tables.  After you print, the
   table is all corrupt.
 
-- http://www.helixcode.com is still incorrect (there is extra space on
-  the left, between the helix and the icons).
-
 - We need to clean up the table code because it's rather unmanageable.
   A rewrite would be good, but I am not sure it's feasible.  So let's
   stick to a generic cleanup unless things become *really*

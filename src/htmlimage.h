@@ -38,6 +38,7 @@ struct _HTMLImagePointer {
 	gchar *url;
 	GdkPixbufLoader *loader;
 	GdkPixbuf *pixbuf;
+	GdkPixbufAnimation *animation;
 	GSList *interests; /* A list of HTMLImage's, or a NULL pointer for the background pixmap */
 	HTMLImageFactory *factory;
 };

@@ -162,7 +162,7 @@ do_layout (HTMLObject *o,
 	   we are called. */
 	clue->curr = clue->tail;
 
-	if (o->max_width != 0 && o->width > o->max_width)
+	if (o->max_width != 0 && o->width < o->max_width)
 		o->width = o->max_width;
 	
 	if (clue->halign == HTML_HALIGN_CENTER) {

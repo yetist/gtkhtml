@@ -347,11 +347,24 @@ html_image_factory_write_pixbuf (GtkHTMLStreamHandle handle, const guchar *buffe
 static void
 html_image_factory_area_prepared (GdkPixbufLoader *loader, HTMLImagePointer *ip)
 {
-	ip->pixbuf = gdk_pixbuf_loader_get_pixbuf (ip->loader);
+	ip->pixbuf    = gdk_pixbuf_loader_get_pixbuf (ip->loader);
 	g_assert (ip->pixbuf);
 
 	html_engine_schedule_update (ip->factory->engine);
 }
+
+static void
+html_image_factory_frame_done (GdkPixbufLoader *loader, HTMLImagePointer *ip)
+{
+	printf ("frame done\n");
+
+	if (!ip->animation)
+		ip->animation = gdk_pixbuf_loader_get_animation (ip->loader);
+	g_assert (ip->animation);
+
+	printf ("frames: %d\n", ip->animation->n_frames);
+}
+
 
 HTMLImageFactory *
 html_image_factory_new (HTMLEngine *e)
@@ -425,11 +438,16 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 		retval->url = g_strdup (filename);
 		retval->loader = gdk_pixbuf_loader_new ();
 		retval->pixbuf = NULL;
+		retval->animation = NULL;
 		retval->interests = NULL;
 		retval->factory = factory;
 
 		gtk_signal_connect (GTK_OBJECT (retval->loader), "area_prepared",
 				    GTK_SIGNAL_FUNC (html_image_factory_area_prepared),
+				    retval);
+
+		gtk_signal_connect (GTK_OBJECT (retval->loader), "frame_done",
+				    GTK_SIGNAL_FUNC (html_image_factory_frame_done),
 				    retval);
 		
 		handle = gtk_html_stream_new (GTK_HTML (factory->engine->widget),

@@ -1,3 +1,12 @@
+2000-03-24  Radek Doulik  <rodo@helixcode.com>
+
+	* BUGS: removed
+	- http://www.helixcode.com is still incorrect (there is extra space on
+	  the left, between the helix and the icons).
+
+	as it is fixed now
+
+
 2000-03-23  Radek Doulik  <rodo@ucw.cz>
 
 	* BUGS,TODO: removed from BUGS (hope it is not premature) and
