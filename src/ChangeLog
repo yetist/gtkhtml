@@ -1,3 +1,11 @@
+2004-02-26    <rodo@ximian.com>
+
+	* htmlimage.c (html_image_init): initialize animation_active to
+	FALSE
+	(copy): ditto
+
+	* htmlobject.c (copy): initialize draw_focused to FALSE
+
 2004-02-25    <rodo@ximian.com>
 
 	* add prefix to some static functions for better readability of

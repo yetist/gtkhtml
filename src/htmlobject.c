@@ -97,6 +97,7 @@ copy (HTMLObject *self,
 	dest->selected = self->selected;
 	dest->free_pending = FALSE;
 	dest->change = self->change;
+	dest->draw_focused = FALSE;
 
 	g_datalist_init (&dest->object_data);
 	html_object_copy_data_from_object (dest, self);

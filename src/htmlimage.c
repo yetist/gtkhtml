@@ -210,6 +210,7 @@ copy (HTMLObject *self,
 	dimg->alt = g_strdup (simg->alt);
 	dimg->usemap = g_strdup (simg->usemap);
 	dimg->final_url = NULL;
+	dimg->animation_active = FALSE;
 
 	/* add dest to image_ptr interests */
 	dimg->image_ptr->interests = g_slist_prepend (dimg->image_ptr->interests, dimg);
@@ -805,6 +806,7 @@ html_image_init (HTMLImage *image,
 
 	html_object_init (object, HTML_OBJECT_CLASS (klass));
 
+	image->animation_active = FALSE;
 	image->url = g_strdup (url);
 	image->target = g_strdup (target);
 	image->usemap = NULL;
