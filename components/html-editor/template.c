@@ -84,7 +84,7 @@ static TemplateInsertTemplate template_templates [TEMPLATES] = {
 		   "<table bgcolor=\"#fffff0\" cellpadding=3 cellspacing=0 width=\"100%\">"
 		   "<tr><td valign=top><img src=\"file://" ICONDIR "/bulb.png\" hspace=10></td>"
 		   "<td width=\"100%\">"
-		   "* Place your text here *"
+		   "Place your text here"
 		   "</td></tr></table></td></tr></table>")
 	},
 	{
@@ -96,7 +96,7 @@ static TemplateInsertTemplate template_templates [TEMPLATES] = {
 		   "<tr><td align=\"center\">"
 		   "<img src=\"file://" ICONDIR "/empty_image.png\" align=\"top\" border=\"0\">"
 		   "</td></tr>"
-		   "<tr><td>Image *1*:&nbsp;<font size=\"3\"><b>* description here *</b></font size=\"3\"></td>"
+		   "<tr><td>Image 1:&nbsp;<font size=\"3\"><b>description</b></font size=\"3\"></td>"
 		   "</tr></table></td></tr></table>")
 	},
 };

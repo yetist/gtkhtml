@@ -1,3 +1,7 @@
+2001-08-17  Radek Doulik  <rodo@ximian.com>
+
+	* template.c: simplified text
+
 2001-08-16  Anna Marie Dirks <anna@ximian.com> 
 
 	* gtkhtml-editor-properties.glade : fixed spelling and capitalization
