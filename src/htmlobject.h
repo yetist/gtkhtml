@@ -313,6 +313,8 @@ HTMLObject     *html_object_next_by_type          (HTMLObject            *self,
 						   HTMLType               t);
 HTMLObject     *html_object_prev_by_type          (HTMLObject            *self,
 						   HTMLType               t);
+HTMLObject     *html_object_nth_parent            (HTMLObject            *self,
+						   gint                   n);
 /* do search request on object using info */
 gboolean        html_object_search                (HTMLObject            *self,
 						   HTMLSearch            *info);

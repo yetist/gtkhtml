@@ -68,45 +68,48 @@ binding "gtkhtml-bindings-emacs"
   bind "<Shift>Tab"              { "command" (indent-less) }
   bind "<Shift>ISO_Left_Tab"     { "command" (indent-less) }
 
-  bind "<Ctrl>0"            { "command" (style-normal) }
-  bind "<Ctrl>1"            { "command" (style-header1) }
-  bind "<Ctrl>2"            { "command" (style-header2) }
-  bind "<Ctrl>3"            { "command" (style-header3) }
-  bind "<Ctrl>4"            { "command" (style-header4) }
-  bind "<Ctrl>5"            { "command" (style-header5) }
-  bind "<Ctrl>6"            { "command" (style-header6) }
-  bind "<Ctrl>7"            { "command" (style-pre) }
-  bind "<Ctrl>8"            { "command" (style-address) }
-  bind "<Ctrl><Alt>1"       { "command" (style-itemdot) }
-  bind "<Ctrl><Alt>2"       { "command" (style-itemroman) }
-  bind "<Ctrl><Alt>3"       { "command" (style-itemdigit) }
+  bind "<Ctrl>0"             { "command" (style-normal) }
+  bind "<Ctrl>1"             { "command" (style-header1) }
+  bind "<Ctrl>2"             { "command" (style-header2) }
+  bind "<Ctrl>3"             { "command" (style-header3) }
+  bind "<Ctrl>4"             { "command" (style-header4) }
+  bind "<Ctrl>5"             { "command" (style-header5) }
+  bind "<Ctrl>6"             { "command" (style-header6) }
+  bind "<Ctrl>7"             { "command" (style-pre) }
+  bind "<Ctrl>8"             { "command" (style-address) }
+  bind "<Ctrl><Alt>1"        { "command" (style-itemdot) }
+  bind "<Ctrl><Alt>2"        { "command" (style-itemroman) }
+  bind "<Ctrl><Alt>3"        { "command" (style-itemdigit) }
 
-  bind "<Alt>1"             { "command" (size-minus-2) }
-  bind "<Alt>2"             { "command" (size-minus-1) }
-  bind "<Alt>3"             { "command" (size-plus-0) }
-  bind "<Alt>4"             { "command" (size-plus-1) }
-  bind "<Alt>5"             { "command" (size-plus-2) }
-  bind "<Alt>6"             { "command" (size-plus-3) }
-  bind "<Alt>7"             { "command" (size-plus-4) }
+  bind "<Alt>1"              { "command" (size-minus-2) }
+  bind "<Alt>2"              { "command" (size-minus-1) }
+  bind "<Alt>3"              { "command" (size-plus-0) }
+  bind "<Alt>4"              { "command" (size-plus-1) }
+  bind "<Alt>5"              { "command" (size-plus-2) }
+  bind "<Alt>6"              { "command" (size-plus-3) }
+  bind "<Alt>7"              { "command" (size-plus-4) }
 
-  bind "<Alt>c"             { "command" (capitalize-word) }
-  bind "<Alt>l"             { "command" (downcase-word) }
-  bind "<Alt>u"             { "command" (upcase-word) }
+  bind "<Alt>c"              { "command" (capitalize-word) }
+  bind "<Alt>l"              { "command" (downcase-word) }
+  bind "<Alt>u"              { "command" (upcase-word) }
 
-  bind "<Ctrl><Shift>s"     { "command" (spell-suggest) }
-  bind "<Ctrl><Shift>p"     { "command" (spell-personal-add) }
-  bind "<Ctrl><Shift>n"     { "command" (spell-session-add) }
+  bind "<Ctrl><Shift>s"      { "command" (spell-suggest) }
+  bind "<Ctrl><Shift>p"      { "command" (spell-personal-add) }
+  bind "<Ctrl><Shift>n"      { "command" (spell-session-add) }
 
-  bind "<Ctrl><Shift>r"     { "command" (insert-rule) }
+  bind "<Ctrl><Shift>r"      { "command" (insert-rule) }
 
-  bind "<Ctrl>s"            { "command" (isearch-forward) }
-  bind "<Ctrl>r"            { "command" (isearch-backward) }
+  bind "<Ctrl>s"             { "command" (isearch-forward) }
+  bind "<Ctrl>r"             { "command" (isearch-backward) }
 
-  bind "<Alt>space"         { "command" (popup-menu) }
-  bind "<Alt>Return"        { "command" (property-dialog) }
-  bind "<Alt>KP_Enter"      { "command" (property-dialog) }
+  bind "<Alt>space"          { "command" (popup-menu) }
+  bind "<Alt>Return"         { "command" (property-dialog) }
+  bind "<Alt>KP_Enter"       { "command" (property-dialog) }
 
-  bind "<Alt>q"             { "command" (indent-paragraph) }
+  bind "<Alt>q"              { "command" (indent-paragraph) }
 
-  bind "<Ctrl><Shift>t"     { "command" (insert-table-1-1) }
+  bind "<Ctrl><Shift>t"      { "command" (insert-table-1-1) }
+  bind "<Ctrl><Shift>c"      { "command" (insert-col-after) }
+  bind "<Ctrl><Alt>c"        { "command" (insert-col-before) }
+  bind "<Alt><Shift>c"       { "command" (delete-col) }
 }

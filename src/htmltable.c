@@ -32,6 +32,7 @@
 #include "htmlpainter.h"
 #include "htmlsearch.h"
 #include "htmltable.h"
+#include "htmltablepriv.h"
 #include "htmltablecell.h"
 
 
@@ -54,8 +55,6 @@
 HTMLTableClass html_table_class;
 static HTMLObjectClass *parent_class = NULL;
 
-static void alloc_cell (HTMLTable *table, gint r, gint c);
-static void set_cell   (HTMLTable *table, gint r, gint c, HTMLTableCell *cell);
 static void do_cspan   (HTMLTable *table, gint row, gint col, HTMLTableCell *cell);
 static void do_rspan   (HTMLTable *table, gint row);
 
@@ -178,7 +177,7 @@ op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 					(html_object_op_copy (HTML_OBJECT (cell), e,
 							      html_object_get_bound_list (HTML_OBJECT (cell), from),
 							      html_object_get_bound_list (HTML_OBJECT (cell), to), len));
-				set_cell (nt, r, c, cell_copy);
+				html_table_set_cell (nt, r, c, cell_copy);
 				html_table_cell_set_position (cell_copy, r, c);
 			} else
 				nt->cells [r][c] = nt->cells [cell->row - start->row][cell->col - start_col];
@@ -269,7 +268,7 @@ op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GL
 						  html_object_get_bound_list (HTML_OBJECT (cell), from),
 						  html_object_get_bound_list (HTML_OBJECT (cell), to),
 						  left->next, right->next, len));
-					set_cell (nt, row, col, cell_cut);
+					html_table_set_cell (nt, row, col, cell_cut);
 					html_table_cell_set_position (cell_cut, row, col);
 				}
 			}
@@ -346,7 +345,7 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 					act_cell = dup_cell;
 				if ((act_cell->row == dup_row && act_cell->col >= dup_col)
 				    || act_cell->row > dup_row) {
-					set_cell (nt, r, c, act_cell);
+					html_table_set_cell (nt, r, c, act_cell);
 					if (dup_row + r == act_cell->row && start_col + c == act_cell->col)
 						html_table_cell_set_position (act_cell, r, c);
 				}
@@ -418,14 +417,14 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *ri
 		if (head->col + 1 > t1->totalCols) {
 			gint inc_col = head->col - t1->totalCols + 1;
 
-			alloc_cell (t1, 0, head->col + 1);
+			html_table_alloc_cell (t1, 0, head->col + 1);
 			for (c = t1->totalCols - 1; c >= 0; c--) {
 				HTMLTableCell *cell = t1->cells [0][c];
 
 				if (cell) {
 					if (cell->col == c)
 						html_table_cell_set_position (cell, 0, c + inc_col);
-					set_cell (t1, 0, c + inc_col, cell);
+					html_table_set_cell (t1, 0, c + inc_col, cell);
 					t1->cells [0][c] = NULL;
 				}
 			}
@@ -454,9 +453,9 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *ri
 			if (cell) {
 				if (cell->row == r && cell->col == c)
 					html_table_cell_set_position (cell, end_row, c);
-				alloc_cell (t1, end_row, c);
+				html_table_alloc_cell (t1, end_row, c);
 				if (cell != c2 || c1->col != c2->col)
-					set_cell (t1, end_row, c, cell);
+					html_table_set_cell (t1, end_row, c, cell);
 				else
 					HTML_OBJECT (c2)->parent = NULL;
 
@@ -678,7 +677,7 @@ do_cspan (HTMLTable *table, gint row, gint col, HTMLTableCell *cell)
 	g_assert (cell->col <= col);
 
 	for (i=col - cell->col; i < cell->cspan && cell->col + i < table->totalCols; i++)
-		set_cell (table, row, cell->col + i, cell);
+		html_table_set_cell (table, row, cell->col + i, cell);
 }
 
 static void
@@ -688,7 +687,7 @@ prev_col_do_cspan (HTMLTable *table, gint row)
 
 	/* add previous column cell which has cspan > 1 */
 	while (table->col < table->totalCols && table->cells [row][table->col] != 0) {
-		alloc_cell (table, row, table->col + table->cells [row][table->col]->cspan);
+		html_table_alloc_cell (table, row, table->col + table->cells [row][table->col]->cspan);
 		do_cspan (table, row, table->col + 1, table->cells [row][table->col]);
 		table->col += (table->cells [row][table->col])->cspan;
 	}
@@ -705,13 +704,13 @@ do_rspan (HTMLTable *table, gint row)
 		if (table->cells [row - 1][i]
 		    && (table->cells [row - 1][i])->row + (table->cells [row - 1][i])->rspan
 		    > row) {
-			set_cell (table, table->row, i, table->cells [table->row - 1][i]);
+			html_table_set_cell (table, table->row, i, table->cells [table->row - 1][i]);
 			do_cspan (table, table->row, i + 1, table->cells [table->row -1][i]);
 		}
 }
 
-static void
-set_cell (HTMLTable *table, gint r, gint c, HTMLTableCell *cell)
+void
+html_table_set_cell (HTMLTable *table, gint r, gint c, HTMLTableCell *cell)
 {
 	if (!table->cells [r][c]) {
 		table->cells [r][c] = cell;
@@ -719,8 +718,8 @@ set_cell (HTMLTable *table, gint r, gint c, HTMLTableCell *cell)
 	}
 }
 
-static void
-alloc_cell (HTMLTable *table, gint r, gint c)
+void
+html_table_alloc_cell (HTMLTable *table, gint r, gint c)
 {
 	if (c >= table->totalCols)
 		inc_columns (table, c + 1 - table->totalCols);
@@ -775,7 +774,7 @@ calc_cells_size (HTMLTable *table, HTMLPainter *painter)
 }
 
 static void
-set_cells_position (HTMLTable *table, HTMLPainter *painter)
+html_table_set_cells_position (HTMLTable *table, HTMLPainter *painter)
 {
 	HTMLTableCell *cell;
 	gint r, c, rl, pixel_size = html_painter_get_pixel_size (painter);
@@ -812,7 +811,7 @@ calc_size (HTMLObject *o,
 
 	calc_cells_size (table, painter);
 	calc_row_heights (table, painter);
-	set_cells_position (table, painter);
+	html_table_set_cells_position (table, painter);
 
 	o->ascent = ROW_HEIGHT (table, table->totalRows) + pixel_size * table->border;
 	o->width  = COLUMN_OPT (table, table->totalCols) + pixel_size * table->border;
@@ -1306,7 +1305,7 @@ divide_into_percented_all (HTMLTable *table, gint *col_percent, gint *max_size, 
 #define CSPAN (MIN (cell->col + cell->cspan, table->totalCols) - cell->col - 1)
 
 static void
-set_cells_max_width (HTMLTable *table, HTMLPainter *painter, gint *max_size)
+html_table_set_cells_max_width (HTMLTable *table, HTMLPainter *painter, gint *max_size)
 {
 	HTMLTableCell *cell;
 	gint r, c, size, pixel_size = html_painter_get_pixel_size (painter);
@@ -1410,7 +1409,7 @@ html_table_set_max_width (HTMLObject *o,
 			   max_width + glue - COLUMN_MIN (table, table->totalCols)
 			   - pixel_size * table->border);
 
-	set_cells_max_width (table, painter, max_size);
+	html_table_set_cells_max_width (table, painter, max_size);
 	set_columns_optimal_width (table, max_size, pixel_size);
 
 	/* printf ("max_width %d opt_width %d\n", o->max_width, COLUMN_OPT (table, table->totalCols) + ); */
@@ -2010,15 +2009,15 @@ html_table_new (gint width, gint percent,
 void
 html_table_add_cell (HTMLTable *table, HTMLTableCell *cell)
 {
-	alloc_cell (table, table->row, table->col);
+	html_table_alloc_cell (table, table->row, table->col);
 	prev_col_do_cspan (table, table->row);
 
 	/* look for first free cell */
 	while (table->cells [table->row][table->col] && table->col < table->totalCols)
 		table->col++;
 
-	alloc_cell (table, table->row, table->col);
-	set_cell (table, table->row, table->col, cell);
+	html_table_alloc_cell (table, table->row, table->col);
+	html_table_set_cell (table, table->row, table->col, cell);
 	html_table_cell_set_position (cell, table->row, table->col);
 	do_cspan(table, table->row, table->col, cell);
 }

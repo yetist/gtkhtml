@@ -95,4 +95,7 @@ binding "gtkhtml-bindings-ms"
   bind "<Alt>q"               { "command" (indent-paragraph) }
 
   bind "<Ctrl><Shift>t"      { "command" (insert-table-1-1) }
+  bind "<Ctrl><Shift>c"      { "command" (insert-col-after) }
+  bind "<Ctrl><Alt>c"        { "command" (insert-col-before) }
+  bind "<Alt><Shift>c"       { "command" (delete-col) }
 }

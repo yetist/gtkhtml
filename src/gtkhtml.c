@@ -2797,6 +2797,15 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_INSERT_TABLE_1_1:
 		html_engine_insert_table_1_1 (e);
 		break;
+	case GTK_HTML_COMMAND_TABLE_INSERT_COL_BEFORE:
+		html_engine_insert_table_column (e, FALSE);
+		break;
+	case GTK_HTML_COMMAND_TABLE_INSERT_COL_AFTER:
+		html_engine_insert_table_column (e, TRUE);
+		break;
+	case GTK_HTML_COMMAND_TABLE_DELETE_COL:
+		html_engine_delete_table_column (e);
+		break;
 	default:
 		html->binding_handled = FALSE;
 	}

@@ -1559,3 +1559,14 @@ html_object_clear_word_width (HTMLObject *o)
 {
 	html_object_forall (o, NULL, clear_word_width, NULL);
 }
+
+HTMLObject *
+html_object_nth_parent (HTMLObject *self, gint n)
+{
+	while (self && n > 0) {
+		self = self->parent;
+		n --;
+	}
+
+	return self;
+}

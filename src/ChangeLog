@@ -1,5 +1,19 @@
 2001-03-06  Radek Doulik  <rodo@ximian.com>
 
+	* keybindingsrc.{ms,emacs}: new bindings
+
+	* gtkhtml.c (command): use new command
+
+	* htmlengine-edit-table.c (html_engine_delete_table_column): new
+	command implementation
+
+	* gtkhtml.c (command): use new table methods
+
+	* htmlengine-edit-table.c (html_engine_insert_table_column): new
+	table command
+
+	* htmltablepriv.h: new file for private HTMLTable methods
+
 	* htmlengine-edit-cut-and-paste.c (html_engine_append_object): new
 	method, splits at cursor upto level 'level' and appends object
 	right there
