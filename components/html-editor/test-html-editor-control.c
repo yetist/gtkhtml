@@ -337,6 +337,7 @@ container_create (void)
 	GtkWidget *control;
 	BonoboUIHandler *uih;
 	BonoboUIHandlerMenuItem *tree;
+	BonoboControlFrame *frame;
 	HTMLEditorResolver *resolver;
 
 	win = bonobo_win_new ("test-html-editor-control",
@@ -358,12 +359,13 @@ container_create (void)
 
 	bonobo_ui_handler_create_toolbar (uih, "Toolbar");
 
-	resolver = htmleditor_resolver_new ();
-	bonobo_object_add_interface (BONOBO_OBJECT (uih), BONOBO_OBJECT (resolver));
-
 	control = bonobo_widget_new_control (HTML_EDITOR_CONTROL_ID,
 					     bonobo_ui_compat_get_container (uih));
 
+	resolver = htmleditor_resolver_new ();
+	frame = bonobo_widget_get_control_frame (control);
+	bonobo_object_add_interface (BONOBO_OBJECT (frame), BONOBO_OBJECT (resolver));
+	
 	if (control == NULL)
 		g_error ("Cannot get `%s'.", HTML_EDITOR_CONTROL_ID);
 

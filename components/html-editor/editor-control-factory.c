@@ -220,18 +220,15 @@ load_from_corba (BonoboControl *control,
 		 GtkHTMLStream *handle)
 {
 	HTMLEditor_Resolver resolver;
-	Bonobo_UIContainer remote_uih;
-	BonoboUIHandler *uih;
+	Bonobo_ControlFrame Frame;
 	CORBA_Environment ev;	
 
 	CORBA_exception_init (&ev);
 
-/* FIXME: is this going to work ? it looks extremely strange */
-	uih = gtk_type_new (bonobo_ui_handler_get_type());
-	remote_uih = bonobo_control_get_remote_ui_handler (control);
-	uih = BONOBO_UI_HANDLER (bonobo_object_construct (BONOBO_OBJECT(uih), remote_uih));
-	if (remote_uih != CORBA_OBJECT_NIL) {
-		resolver = bonobo_object_query_interface (BONOBO_OBJECT (uih), "IDL:HTMLEditor/Resolver:1.0");
+	/* FIXME: is this going to work ? it looks extremely strange */
+	Frame = bonobo_control_get_control_frame (control);
+	if (Frame != CORBA_OBJECT_NIL) {
+		resolver = Bonobo_Unknown_query_interface (Frame, "IDL:HTMLEditor/Resolver:1.0", &ev);
 		
 		if (resolver == CORBA_OBJECT_NIL) {
 			/* g_warning ("Unable to aquire resolver interface"); */
