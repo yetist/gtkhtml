@@ -1,4 +1,21 @@
+2000-10-17  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltokenizer.c (in_plain): declare as inline
+
+	* htmltable.c (get_bounds): extract method
+	(check_point): optimize
+
+	* htmlentity.c (html_entity_parse): kill warning
+
+	* htmliframe.c (iframe_object_requested): set ret_val only once
+
+	* htmlengine.c (parse_object): don't discard body if we get object
+	requested and discard it otherwise
+
 2000-10-16  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml-embedded.c (gtk_html_embedded_set_parameter): check for
+	already set parameters and don't leak memory
 
 	* htmlengine-save.c (encode_entities): update to non-utf8 texts,
 	save all 8bit range instead of encoding it as #-1; it's wrong

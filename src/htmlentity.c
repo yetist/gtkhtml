@@ -161,9 +161,8 @@ html_entity_parse (const gchar *s, guint len)
 		ehash = g_hash_table_new (g_str_hash, g_str_equal);
 		g_hash_table_freeze (ehash);
 
-		for (i = 0; i < sizeof (entity_table) / sizeof (entity_table[0]); i++) {
-			g_hash_table_insert (ehash, entity_table[i].str, GINT_TO_POINTER (entity_table[i].value));
-		}
+		for (i = 0; i < sizeof (entity_table) / sizeof (entity_table[0]); i++)
+			g_hash_table_insert (ehash, (gpointer) entity_table[i].str, GINT_TO_POINTER (entity_table[i].value));
 
 		g_hash_table_thaw (ehash);
 	}

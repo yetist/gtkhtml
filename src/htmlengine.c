@@ -1260,42 +1260,36 @@ parse_object (HTMLEngine *e, HTMLObject *clue, gint max_width,
 		HTMLEmbedded *el;
 		gboolean ret_val;
 		
-		eb = (GtkHTMLEmbedded *)gtk_html_embedded_new(classid, name, type, width, height);
+		eb = (GtkHTMLEmbedded *) gtk_html_embedded_new (classid, name, type, width, height);
 		html_stack_push (e->embeddedStack, eb);
-		
-		el = html_embedded_new_widget(GTK_WIDGET (e->widget), eb);
-		
-		gtk_object_set_data(GTK_OBJECT(eb), "embeddedelement", el);
-		gtk_signal_connect(GTK_OBJECT(eb), "changed", html_object_changed, e);
+
+		el = html_embedded_new_widget (GTK_WIDGET (e->widget), eb);		
+		gtk_object_set_data (GTK_OBJECT(eb), "embeddedelement", el);
+		gtk_signal_connect (GTK_OBJECT(eb), "changed", html_object_changed, e);
 		
 		ret_val = FALSE;
-		gtk_signal_emit (GTK_OBJECT (e), signals[OBJECT_REQUESTED], eb, &ret_val);
-		
-		g_free(classid);
-		g_free(name);
+		gtk_signal_emit (GTK_OBJECT (e), signals [OBJECT_REQUESTED], eb, &ret_val);
 		
 		if (ret_val) {
 			append_element(e, clue, HTML_OBJECT(el));
 			/* automatically add this to a form if it is part of one */
-			if (e->form) {
+			if (e->form)
 				html_form_add_element (e->form, HTML_EMBEDDED (el));
-			}
-			str = discard_body (e, end);
+
+			str = parse_body (e, clue, end, FALSE);
 		} else {
 			html_object_destroy (HTML_OBJECT (el));
-			str = parse_body (e, clue, end, FALSE);
+			str = discard_body (e, end);
 		}
-	} else {
+
+		if ((!str || strncmp( str, "/object", 7 ) == 0)
+		    && (! html_stack_is_empty (e->embeddedStack)))
+			html_stack_pop (e->embeddedStack);
+	} else
 		g_warning("Object with no classid, ignored\n");
-	}
 	
-	if (!str || strncmp( str, "/object", 7 ) == 0 ) {		
-		if (! html_stack_is_empty (e->embeddedStack)) {
-			GtkHTMLEmbedded *eb;
-			
-			eb = html_stack_pop (e->embeddedStack);
-		}
-	}
+	g_free (classid);
+	g_free (name);
 }
 
 static void
@@ -2507,6 +2501,7 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			char *name = NULL, *value = NULL;
 
 			eb = html_stack_top (e->embeddedStack);
+
 			html_string_tokenizer_tokenize (e->st, str + 6, " >");
 			while ( html_string_tokenizer_has_more_tokens (e->st) ) {
 				const char *token = html_string_tokenizer_next_token (e->st);
@@ -2517,9 +2512,9 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				}
 			}
 
-			if (name!=NULL) {
+			if (name!=NULL)
 				gtk_html_embedded_set_parameter(eb, name, value);
-			}
+
 			g_free(name);
 			g_free(value);
 		}					

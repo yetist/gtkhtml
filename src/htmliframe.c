@@ -78,7 +78,7 @@ iframe_object_requested (GtkHTML *html, GtkHTMLEmbedded *eb, gpointer data)
 {
 	HTMLIFrame *iframe = HTML_IFRAME (data);
 	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(iframe)->parent);
-	gboolean ret_val = FALSE;
+	gboolean ret_val;
 
 	ret_val = FALSE;
 	gtk_signal_emit_by_name (GTK_OBJECT (parent), "object_requested", eb, &ret_val);

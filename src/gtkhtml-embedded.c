@@ -70,8 +70,8 @@ gtk_html_embedded_get_type (void)
 static void
 free_param(void *key, void *value, void *data)
 {
-	g_free(key);
-	g_free(value);
+	g_free (key);
+	g_free (value);
 }
 
 static void
@@ -79,8 +79,8 @@ gtk_html_embedded_finalize (GtkObject *object)
 {
 	GtkHTMLEmbedded *eb = GTK_HTML_EMBEDDED(object);
 
-	g_hash_table_foreach(eb->params, free_param, 0);
-	g_hash_table_destroy(eb->params);
+	g_hash_table_foreach (eb->params, free_param, 0);
+	g_hash_table_destroy (eb->params);
 	g_free(eb->classid);
 	g_free(eb->type);
 
@@ -216,16 +216,22 @@ gtk_html_embedded_new (char *classid, char *name, char *type, int width, int hei
 char *
 gtk_html_embedded_get_parameter (GtkHTMLEmbedded *ge, char *param)
 {
-	return g_hash_table_lookup(ge->params, param);
+	return g_hash_table_lookup (ge->params, param);
 }
 
 void
 gtk_html_embedded_set_parameter (GtkHTMLEmbedded *ge, char *param, char *value)
 {
-	if (param==0)
+	gchar *lookup;
+
+	if (!param)
 		return;
-	g_hash_table_insert(ge->params, g_strdup(param), 
-			    value ? g_strdup(value) : NULL);
+	lookup = (gchar *) g_hash_table_lookup (ge->params, param);
+	if (lookup)
+		g_free (lookup);
+	g_hash_table_insert (ge->params,
+			     lookup ? param : g_strdup (param),
+			     value  ? g_strdup(value) : NULL);
 }
 
 void
@@ -235,5 +241,5 @@ gtk_html_embedded_set_descent (GtkHTMLEmbedded *ge, int descent)
 		return;
 
 	ge->descent = descent;
-	gtk_html_embedded_changed(ge);
+	gtk_html_embedded_changed (ge);
 }

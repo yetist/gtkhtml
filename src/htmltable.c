@@ -1166,6 +1166,17 @@ bin_search_eq_or_lower_index (GArray *a, gint range, gint val, gint offset)
 }
 
 static void
+get_bounds (HTMLTable *table, gint x, gint y, gint width, gint height, gint *sc, gint *ec, gint *sr, gint *er)
+{
+	*sr = bin_search_eq_or_lower_index (table->rowHeights, table->totalRows + 1, y, 0);
+	*er = MIN (bin_search_eq_or_lower_index (table->rowHeights, table->totalRows + 1, y + height, *sr) + 1,
+		   table->totalRows);
+	*sc = bin_search_eq_or_lower_index (table->columnOpt, table->totalCols + 1, x, 0);
+	*ec = MIN (bin_search_eq_or_lower_index (table->columnOpt, table->totalCols + 1, x + width, *sc) + 1,
+		   table->totalCols);
+}
+
+static void
 draw (HTMLObject *o,
       HTMLPainter *p, 
       gint x, gint y,
@@ -1184,18 +1195,11 @@ draw (HTMLObject *o,
 
 	pixel_size = html_painter_get_pixel_size (p);
 	
-
 	tx += o->x;
 	ty += o->y - o->ascent;
 
-	start_row = bin_search_eq_or_lower_index (table->rowHeights, table->totalRows + 1, y, 0);
-	end_row   = MIN (bin_search_eq_or_lower_index (table->rowHeights, table->totalRows + 1, y + height, start_row) + 1,
-			 table->totalRows);
-	start_col = bin_search_eq_or_lower_index (table->columnOpt, table->totalCols + 1, x, 0);
-	end_col   = MIN (bin_search_eq_or_lower_index (table->columnOpt, table->totalCols + 1, x + width, start_col) + 1,
-			 table->totalCols);
-
 	/* Draw the cells */
+	get_bounds (table, x, y, width, height, &start_col, &end_col, &start_row, &end_row);
 	for (r = start_row; r < end_row; r++) {
 		for (c = start_col; c < end_col; c++) {
 			cell = table->cells[r][c];
@@ -1231,14 +1235,14 @@ draw (HTMLObject *o,
 					 pixel_size * table->border);
 		
 		/* Draw borders around each cell */
-		for (r = 0; r < table->totalRows; r++) {
-			for (c = 0; c < table->totalCols; c++) {
+		for (r = start_row; r < end_row; r++) {
+			for (c = start_col; c < end_col; c++) {
 				if ((cell = table->cells[r][c]) == 0)
 					continue;
-				if (c < table->totalCols - 1 &&
+				if (c < end_col - 1 &&
 				    cell == table->cells[r][c + 1])
 					continue;
-				if (r < table->totalRows - 1 &&
+				if (r < end_row - 1 &&
 				    table->cells[r + 1][c] == cell)
 					continue;
 
@@ -1358,7 +1362,7 @@ check_point (HTMLObject *self,
 	HTMLTableCell *cell;
 	HTMLObject *obj;
 	HTMLTable *table;
-	unsigned int r, c;
+	gint r, c, start_row, end_row, start_col, end_col;
 
 	if (x < self->x || x > self->x + self->width
 	    || y > self->y + self->descent || y < self->y - self->ascent)
@@ -1369,15 +1373,16 @@ check_point (HTMLObject *self,
 	x -= self->x;
 	y -= self->y - self->ascent;
 
-	for (r = 0; r < table->totalRows; r++) {
+	get_bounds (table, x, y, 1, 1, &start_col, &end_col, &start_row, &end_row);
+	for (r = start_row; r < end_row; r++) {
 		for (c = 0; c < table->totalCols; c++) {
 			cell = table->cells[r][c];
 			if (cell == NULL)
 				continue;
 
-			if (c < table->totalCols - 1 && cell == table->cells[r][c+1])
+			if (c < end_col - 1 && cell == table->cells[r][c+1])
 				continue;
-			if (r < table->totalRows - 1 && table->cells[r+1][c] == cell)
+			if (r < end_row - 1 && table->cells[r+1][c] == cell)
 				continue;
 
 			obj = html_object_check_point (HTML_OBJECT (cell),

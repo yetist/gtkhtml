@@ -1028,7 +1028,7 @@ in_assignment (HTMLTokenizer *t, const gchar **src)
 	(*src)++;
 }
 
-static void
+inline static void
 in_plain (HTMLTokenizer *t, const gchar **src)
 {
 	t->discard = NoneDiscard;
