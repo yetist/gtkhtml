@@ -4466,7 +4466,7 @@ gtk_html_set_iframe_parent (GtkHTML *html, GtkWidget *parent, HTMLObject *frame)
 
 	html->iframe_parent = parent;
 	html->frame = frame;
-	g_signal_emit (html_engine_get_top_html_engine (html->engine)->widget, signals [IFRAME_CREATED], 0, 0, html);
+	g_signal_emit (html_engine_get_top_html_engine (html->engine)->widget, signals [IFRAME_CREATED], 0, html);
 
 	while (html->iframe_parent) {
 		depth++;

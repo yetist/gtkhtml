@@ -1,3 +1,8 @@
+2002-11-17  Chris Toshok  <toshok@ximian.com>
+
+	* gtkhtml.c (gtk_html_set_iframe_parent): remove extra 0 from
+	g_signal_emit.
+
 2002-11-15  Radek Doulik  <rodo@ximian.com>
 
 	* Makefile.am: generate htmlmarshal.[ch] from htmlclosures.list by
