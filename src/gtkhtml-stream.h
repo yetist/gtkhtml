@@ -41,5 +41,8 @@ void           gtk_html_stream_write    (GtkHTMLStream          *stream,
 void           gtk_html_stream_destroy  (GtkHTMLStream          *stream);
 void           gtk_html_stream_close    (GtkHTMLStream          *stream,
 					 GtkHTMLStreamStatus     status);
+GtkHTMLStream *gtk_html_stream_ref      (GtkHTMLStream          *handle);
+void           gtk_html_stream_unref    (GtkHTMLStream          *handle);
+
 
 #endif /* _GTKHTML_STREAM_H */

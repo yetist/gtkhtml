@@ -177,11 +177,6 @@ gboolean  gtk_html_export  (GtkHTML               *html,
 			    GtkHTMLSaveReceiverFn  receiver,
 			    gpointer               data);
 
-/* Streams for feeding the widget with extra data (e.g. images) at loading
-   time.  */
-GtkHTMLStream *gtk_html_stream_ref    (GtkHTMLStream *handle);
-void           gtk_html_stream_unref  (GtkHTMLStream *handle);
-
 /* Editable support.  */
 void      gtk_html_set_editable  (GtkHTML       *html,
 				  gboolean       editable);

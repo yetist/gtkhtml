@@ -1783,6 +1783,15 @@ gtk_html_get_type (void)
 	return html_type;
 }
 
+/**
+ * gtk_html_new:
+ * @void:
+ *
+ * GtkHTML widget contructor. Creates an empty GtkHTML widget.
+ *
+ * Return value: newly created empty GtkHTML widget.
+ **/
+
 GtkWidget *
 gtk_html_new (void)
 {
