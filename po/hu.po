@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
-"POT-Creation-Date: 2001-05-04 10:43+0200\n"
-"PO-Revision-Date: 2001-05-04 11:51+02:00\n"
+"POT-Creation-Date: 2001-05-09 17:12+0200\n"
+"PO-Revision-Date: 2001-05-09 17:15+02:00\n"
 "Last-Translator: András TÍmár <timar@gnome.hu>\n"
 "Language-Team: Hungarian <hu@gnome.hu>\n"
 "MIME-Version: 1.0\n"
@@ -82,7 +82,7 @@ msgid "For printing"
 msgstr "Nyomtatáshoz"
 
 #: capplet/gtkhtml-capplet.glade.h:7
-msgid "Keybord Shortcuts"
+msgid "Keyboard Shortcuts"
 msgstr "Billentyûparancsok"
 
 #: capplet/gtkhtml-capplet.glade.h:8
@@ -186,144 +186,137 @@ msgid "Cut the selection"
 msgstr "Kijelölés kivágása"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:8
+#: components/html-editor/search.c:64
 msgid "Find"
 msgstr "Keresés"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:9
+msgid "Find A Regular Expression"
+msgstr "Reguláris kifejezés keresése"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:10
+msgid "Find And Replace"
+msgstr "Keresés és csere"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:11
 msgid "Find Rege_x..."
 msgstr "Rege_x keresés..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:10
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:12
 msgid "Find _Again"
 msgstr "_Következõ találat"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:11
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:13
+msgid "Find again"
+msgstr "Következõ találat"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:14
+msgid "Find and Replace"
+msgstr "Keresés és csere"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:15
 msgid "Insert HTML link into document..."
 msgstr "HTML hivatkozás beszúrása a dokumentumba..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:12
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:16
 msgid "Insert image into document..."
 msgstr "Kép beszúrása a dokumentumba..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:13
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:17
 msgid "Insert rule into document..."
 msgstr "Szabály beszúrása a dokumentumba"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:14
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:18
 msgid "Modify the file's properties"
 msgstr "Fájl tulajdonságainak módosítása"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:15
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:19
 msgid "Paste"
 msgstr "Beillesztés"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:16
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:20
 msgid "Paste from clipboard"
 msgstr "Beillesztés a vágólapról"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:17
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:21
 msgid "Paste the clipboard"
 msgstr "Vágólap beillesztése"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:18
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:22
 msgid "Redo"
 msgstr "Újra"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:19
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:23
 msgid "Redo previously undone change"
 msgstr "Újra végrehajtja az elõzõleg visszavont mûveletet"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:20
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:24
 msgid "Redo the undone action"
 msgstr "Újra végrehajtja a visszavont mûveletet"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:21
-msgid "Regular expression search"
-msgstr "Reguláris kifejezés keresése"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:22
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:25
 #: components/html-editor/replace.c:84 components/html-editor/replace.c:146
 #: components/html-editor/replace.c:158
 msgid "Replace"
 msgstr "Csere"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:23
-msgid "Replace a string"
-msgstr "Karakterlánc cseréje"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:24
-msgid "Search again for the same string"
-msgstr "Tovább keresi ugyanazt a karakterláncot"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:25
-msgid "Search and replace string"
-msgstr "Karakterlánc keresése és cseréje"
-
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:26
-msgid "Search for a string"
-msgstr "Karakterlánc keresése"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:27
-msgid "Search string"
-msgstr "Karakterlánc keresése"
-
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:28
 msgid "Undo"
 msgstr "Visszavonás"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:29
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:27
 msgid "Undo previous changes"
 msgstr "Elõzõ változtatások visszavonása"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:30
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:28
 msgid "Undo the last action"
 msgstr "Az utolsó mûvelet visszavonása"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:31
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:29
 msgid "_Copy"
 msgstr "_Másolás"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:32
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:30
 msgid "_Edit"
 msgstr "S_zerkesztés"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:33
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:31
 msgid "_Find..."
 msgstr "_Keresés..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:34
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:32
 msgid "_Image..."
 msgstr "_Kép..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:35
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:33
 msgid "_Insert"
 msgstr "_Beszúrás"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:36
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:34
 msgid "_Link..."
 msgstr "_Hivatkozás..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:37
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:35
 msgid "_Paste"
 msgstr "_Beillesztés"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:38
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:36
 msgid "_Properties..."
 msgstr "_Tulajdonságok"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:39
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:37
 msgid "_Redo"
 msgstr "Új_ra"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:40
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:38
 msgid "_Replace..."
 msgstr "_Csere..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:41
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:39
 msgid "_Rule..."
 msgstr "_Szabály"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:42
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.h:40
 msgid "_Undo"
 msgstr "_Visszavonás"
 
@@ -345,17 +338,17 @@ msgid "Properties"
 msgstr "Tulajdonságok"
 
 #: components/html-editor/editor-control-factory.c:156
-#: components/html-editor/menubar.c:97 components/html-editor/popup.c:96
+#: components/html-editor/menubar.c:103 components/html-editor/popup.c:96
 msgid "Image"
 msgstr "Kép"
 
 #: components/html-editor/editor-control-factory.c:165
-#: components/html-editor/menubar.c:118 components/html-editor/popup.c:89
+#: components/html-editor/menubar.c:124 components/html-editor/popup.c:89
 msgid "Text"
 msgstr "Szöveg"
 
 #: components/html-editor/editor-control-factory.c:176
-#: components/html-editor/menubar.c:141 components/html-editor/popup.c:124
+#: components/html-editor/menubar.c:147 components/html-editor/popup.c:124
 msgid "Rule"
 msgstr "Szabály"
 
@@ -365,7 +358,7 @@ msgid "Paragraph"
 msgstr "Bekezdés"
 
 #: components/html-editor/editor-control-factory.c:190
-#: components/html-editor/menubar.c:102 components/html-editor/menubar.c:123
+#: components/html-editor/menubar.c:108 components/html-editor/menubar.c:129
 #: components/html-editor/popup.c:110
 msgid "Link"
 msgstr "Hivatkozás"
@@ -448,13 +441,13 @@ msgstr "A GNORBA inicializása nem sikerült"
 msgid "Could not initialize Bonobo"
 msgstr "A Bonobo inicializálása nem sikerült"
 
-#: components/html-editor/menubar.c:95 components/html-editor/menubar.c:115
-#: components/html-editor/menubar.c:138
+#: components/html-editor/menubar.c:101 components/html-editor/menubar.c:121
+#: components/html-editor/menubar.c:144
 #: components/html-editor/properties.c:110
 msgid "Insert"
 msgstr "Beszúrás"
 
-#: components/html-editor/menubar.c:154
+#: components/html-editor/menubar.c:160
 msgid "Cannot execute gtkhtml properties"
 msgstr "Nem lehet végrehajtani a gtkhtml tulajdonságokat"
 
@@ -492,7 +485,7 @@ msgstr "Minden cseréli"
 msgid "Next"
 msgstr "Következõ"
 
-#: components/html-editor/replace.c:152 components/html-editor/search.c:67
+#: components/html-editor/replace.c:152
 msgid "search backward"
 msgstr "keresés hátrafele"
 
@@ -513,12 +506,12 @@ msgid "shaded"
 msgstr "árnyékolt"
 
 #: components/html-editor/search.c:64
-msgid "Regex search"
+msgid "Regex find"
 msgstr "Regex keresés"
 
-#: components/html-editor/search.c:64
-msgid "Search"
-msgstr "Keresés"
+#: components/html-editor/search.c:67
+msgid "backward"
+msgstr "hátrafelé"
 
 #: components/html-editor/test-html-editor-control.c:239
 msgid "Open file..."
@@ -667,3 +660,24 @@ msgstr "Nyomtatási _kép"
 #: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "Nyomtatási kép"
+
+#~ msgid "Replace a string"
+#~ msgstr "Karakterlánc cseréje"
+
+#~ msgid "Search again for the same string"
+#~ msgstr "Tovább keresi ugyanazt a karakterláncot"
+
+#~ msgid "Search and replace string"
+#~ msgstr "Karakterlánc keresése és cseréje"
+
+#~ msgid "Search for a string"
+#~ msgstr "Karakterlánc keresése"
+
+#~ msgid "Search string"
+#~ msgstr "Karakterlánc keresése"
+
+#~ msgid "Regex search"
+#~ msgstr "Regex keresés"
+
+#~ msgid "Search"
+#~ msgstr "Keresés"
