@@ -151,8 +151,6 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *ri
 	clue2->head = NULL;
 	clue2->tail = NULL;
 
-	printf ("merge clues\n");
-
 	html_object_change_set (self, HTML_CHANGE_ALL);
 	return TRUE;
 }

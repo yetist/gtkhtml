@@ -411,7 +411,7 @@ object_merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GL
 	if (t1->font_style != t2->font_style || t1->color != t2->color)
 		return FALSE;
 
-	printf ("merge '%s' '%s'\n", t1->text, t2->text);
+	/* printf ("merge '%s' '%s'\n", t1->text, t2->text); */
 
 	merge_word_width (t1, t2, e->painter);
 
@@ -427,8 +427,7 @@ object_merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GL
 	html_object_change_set (self, HTML_CHANGE_ALL);
 
 	html_text_request_word_width (t1, e->painter);
-	printf ("merged '%s'\n", t1->text);
-
+	/* printf ("merged '%s'\n", t1->text); */
 	/* printf ("--- after merge\n");
 	   debug_spell_errors (t1->spell_errors);
 	   printf ("---\n"); */
