@@ -23,8 +23,6 @@ IDL_GENERATED = \
 	HTMLEditor-skels.c	\
 	HTMLEditor-stubs.c
 
-EXTRA_DIST = $(IDLS)
-
 CLEANFILES = $(IDL_GENERATED)
 
 HTMLEditor-impl.o: HTMLEditor.h
@@ -126,4 +124,4 @@ EXTRA_DIST =					\
 	html-editor-control.gnorba		\
 	html-editor-control.oafinfo		\
 	ChangeLog				\
-	ui.xml
+	$(ui_DATA)

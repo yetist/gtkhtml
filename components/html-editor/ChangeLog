@@ -1,3 +1,7 @@
+2000-09-28  Larry Ewing  <lewing@helixcode.com>
+
+	* Makefile.am: fix broken referenceing of html-editor-control.xml
+
 2000-09-26  Radek Doulik  <rodo@helixcode.com>
 
 	* menubar.c (menubar_setup): use BonoboUINode instead of xmlNode,
