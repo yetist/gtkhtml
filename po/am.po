@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "POT-Creation-Date: 2003-01-06 05:15+0100\n"
-"PO-Revision-Date: 2003-01-14 11:02+EDT\n"
+"PO-Revision-Date: 2003-02-03 10:16+EDT\n"
 "Last-Translator: Ge'ez Frontier Foundation <locales@geez.org>\n"
 "Language-Team: Amharic <locales@geez.org>\n"
 "MIME-Version: 1.0\n"
@@ -148,7 +148,7 @@ msgstr ""
 
 #: components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:1
 msgid "GNOME HTML Editor"
-msgstr "የኖም HTML አርትዒ"
+msgstr "የኖም HTML ማቀናጃ"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:2
 msgid "GNOME HTML Editor Control"
@@ -1357,7 +1357,7 @@ msgstr "ረድፉ በላይ"
 
 #: components/html-editor/popup.c:508
 msgid "Row below"
-msgstr "ረድፉ ብስር"
+msgstr "ረድፉ በስር"
 
 #: components/html-editor/popup.c:510
 msgid "Column before"
