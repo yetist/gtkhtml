@@ -2,6 +2,9 @@
 
 	* gtkhtml.c (gtk_html_im_delete_surrounding_cb): fix cursor
 	movement, return to original position if possible
+	(key_press_event): call gtk_im_context_filter_keypress only when
+	binding not handled
+	(key_release_event): ditto
 
 2003-04-02  Larry Ewing  <lewing@ximian.com>
 

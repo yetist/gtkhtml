@@ -773,7 +773,7 @@ key_press_event (GtkWidget *widget, GdkEventKey *event)
 	retval = html->binding_handled;
 	update = html->priv->update_styles;
 
-	if (html_engine_get_editable (html->engine)) {
+	if (!html->binding_handled && html_engine_get_editable (html->engine)) {
 		if (gtk_im_context_filter_keypress (html->priv->im_context, event)) {
 			html_engine_reset_blinking_cursor (html->engine);
 			/* entry->need_im_reset = TRUE; */
@@ -817,7 +817,7 @@ key_release_event (GtkWidget *widget, GdkEventKey *event)
 {
 	GtkHTML *html = GTK_HTML (widget);
 
-	if (html_engine_get_editable (html->engine)) {
+	if (!html->binding_handled && html_engine_get_editable (html->engine)) {
 		if (gtk_im_context_filter_keypress (html->priv->im_context, event)) {
 			html->priv->need_im_reset = TRUE;
 			return TRUE;
