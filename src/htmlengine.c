@@ -1009,11 +1009,12 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					gboolean heading = FALSE;
 					noCell = FALSE;
 
+					close_anchor (e);
 					if (tableEntry && *(str + 2) == 'h') {
 						gtk_html_debug_log (e->widget, "<th>\n");
 						heading = TRUE;
 					}
-
+					
 					/* <tr> may not be specified for the first row */
 					if (firstRow) {
 						/* Bad HTML: No <tr> tag present */
@@ -1211,7 +1212,6 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					if ((strncmp (str, "</td", 4) == 0) ||
 					    (strncmp (str, "</th", 4) == 0)) {
 						/* HTML ok! */
-						close_anchor (e);
 						break; /* Get next token from 'ht' */
 					}
 					else {

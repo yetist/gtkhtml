@@ -1,5 +1,10 @@
-2001-03-30  Larry Ewing  <lewing@ximian.com>
+h2001-03-30  Larry Ewing  <lewing@ximian.com>
 
+	* htmlengine.c (parse_table): close_anchor at the begining of a
+	new cell since <a> elements cannot span cells.  Remove it from the
+	closing tag because that presumes there is a valid closing tag.
+	We need more regression tests.
+	
 	* htmlengine.c (parse_table): close_anchor at the end of a row to
 	make sure stray anchors don't wrap.
 
