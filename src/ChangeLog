@@ -1,3 +1,8 @@
+2003-08-07  Larry Ewing  <lewing@ximian.com>
+
+	* htmlengine.c: more formatting changes, fix inPre to actually be
+	correct when in a pre block.
+
 2003-08-07  Radek Doulik  <rodo@ximian.com>
 
 	* htmltextslave.c (get_glyphs): watch for RECALC_PI changes

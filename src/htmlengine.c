@@ -164,6 +164,7 @@ static guint signals [LAST_SIGNAL] = { 0 };
 #define TIMER_INTERVAL 300
 #define DT(x) ;
 #define DF(x) ;
+#define DE(x) x
 
 #define ID_A "a"
 #define ID_ADDRESS "address"
@@ -246,16 +247,17 @@ typedef enum {
 /* Font styles */
 typedef struct _HTMLElement HTMLElement;
 typedef void (*BlockFunc)(HTMLEngine *e, HTMLObject *clue, HTMLElement *el);
-
 struct _HTMLElement {
-	GQuark id;
-	HTMLStyle       *style;
+	GQuark          id;
+	HTMLStyle      *style;
 	HTMLDisplayType  display;
+
+	GHashTable     *attributes;  /* the parsed attributes */
 
 	gint level;
 	gint miscData1;
 	gint miscData2;
-	BlockFunc exitFunc;
+	BlockFunc exitFunc; 
 };
 
 static char *
@@ -278,18 +280,9 @@ parse_element_name (const char *str)
 	return g_strndup (str, ep - str);
 }
 
-#if 0
-struct _HTMLElement {
-	const char *name;        /* the name of the element */
 
-	GHashTable *attributes;  /* the parsed attributes */
-
-	HTMLDisplayType;
-	HTMLStyle  *style;
-}
-
-HTMLElement *
-html_element_new (const char *str) {
+static HTMLElement *
+html_element_new (HTMLEngine *e, const char *str) {
 	HTMLElement *element;
 	char *name;
 
@@ -299,7 +292,8 @@ html_element_new (const char *str) {
 		return NULL;
 
 	element = g_new0 (HTMLElement, 1);
-	element->name = name;
+	element->id = g_quark_from_string (name);
+	g_free (name);
 
 	element->attributes = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 
@@ -308,12 +302,13 @@ html_element_new (const char *str) {
 		const gchar *token = html_string_tokenizer_next_token (e->st);
 		gchar **attr;
 		
-		g_strsplit (token, '=', 2);
+		g_strsplit (token, "=", 2);
 		
 		if (attr[0]) {
 			if (!g_hash_table_lookup (element->attributes, attr[0])) {
 				DE (g_print ("attrs (%s, %s)", attr[0], attr[1]));
 				g_hash_table_insert (element->attributes, attr[0], attr[1]);
+
 				/* just free the array */
 				g_free (attr);  
 			} else {
@@ -327,15 +322,85 @@ html_element_new (const char *str) {
 	return element;
 }
 
-html_element_free (HTMLElement *element}
+#ifndef NO_ATTR_MACRO
+#define html_element_get_attr(node, key, value) g_hash_table_lookup_extended (node->attributes, key, NULL, (gpointer *)value) 
+#else 
+gboolean
+html_element_get_attr (HTMLElement *node, char *name, char **value)
 {
-	g_free (element->name);
+	char *orig_key;
+
+	g_return_if_fail (node->attributes != NULL);
+
+	return g_hash_table_lookup_extended (node->attributes, name, &orig_key, value)
+}
+#endif
+
+static void
+html_element_parse_i18n (HTMLElement *node)
+{
+	char *value;
+	/*
+	  <!ENTITY % i18n
+	  "lang        %LanguageCode; #IMPLIED  -- language code --
+	  dir         (ltr|rtl)      #IMPLIED  -- direction for weak/neutral text --"
+	  >
+	*/
+	
+	if (html_element_get_attr (node, "dir", &value)) {
+		printf ("dir = %s\n", value);
+	}
+
+	if (html_element_get_attr (node, "lang", &value)) {
+		printf ("lang = %s\n", value);
+	}
+}
+
+static void
+html_element_parse_coreattrs (HTMLElement *node)
+{
+	char *value;
+	
+	/*
+	  <!ENTITY % coreattrs
+	  "id          ID             #IMPLIED  -- document-wide unique id --
+	  class       CDATA          #IMPLIED  -- space-separated list of classes --
+	  style       %StyleSheet;   #IMPLIED  -- associated style info --
+	  title       %Text;         #IMPLIED  -- advisory title --"
+	  >
+	*/
+	if (html_element_get_attr (node, "style", &value)) {
+		node->style = html_style_add_attribute (node->style, value);
+	}
+}
+
+static void
+html_element_parse_events (HTMLElement *node)
+{
+	/* 
+	   <!ENTITY % events
+	   "onclick     %Script;       #IMPLIED  -- a pointer button was clicked --
+	   ondblclick  %Script;       #IMPLIED  -- a pointer button was double clicked--
+	   onmousedown %Script;       #IMPLIED  -- a pointer button was pressed down --
+	   onmouseup   %Script;       #IMPLIED  -- a pointer button was released --
+	   onmouseover %Script;       #IMPLIED  -- a pointer was moved onto --
+	   onmousemove %Script;       #IMPLIED  -- a pointer was moved within --
+	   onmouseout  %Script;       #IMPLIED  -- a pointer was moved away --
+	   onkeypress  %Script;       #IMPLIED  -- a key was pressed and released --
+	   onkeydown   %Script;       #IMPLIED  -- a key was pressed down --
+	   onkeyup     %Script;       #IMPLIED  -- a key was released --"
+	   >
+	*/
+}
+
+static void
+html_element_free (HTMLElement *element)
+{
 	g_hash_table_destroy (element->attributes);
 
 	html_style_free (element->style);
 	g_free (element);
 }
-#endif
 
 static void
 push_element (HTMLEngine *e, char *name, char *class, HTMLStyle *style)
@@ -357,7 +422,6 @@ free_element (gpointer data)
 }
 
 #define DI(x)
-
 
 /* Color handling.  */
 static gboolean
@@ -549,7 +613,7 @@ current_font_style (HTMLEngine *e)
 	return style;
 }
 
-HTMLHAlignType
+static HTMLHAlignType
 current_alignment (HTMLEngine *e)
 {
 	HTMLElement *span;
@@ -1021,66 +1085,6 @@ pop_element (HTMLEngine *e, char *name)
 }
 
 /* The following are callbacks that are called at the end of a block.  */
-
-static void
-block_end_list (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
-{
-	html_list_destroy (html_stack_pop (e->listStack));
-
-	finish_flow (e, clue);
-
-	e->avoid_para = FALSE;
-}
-
-static void
-block_end_item (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
-{
-	finish_flow (e, clue);
-}
-
-static void
-block_end_glossary (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
-{
-	html_list_destroy (html_stack_pop (e->listStack));
-	block_end_item (e, clue, elem);
-}
-
-static void
-block_end_quote (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
-{
-	finish_flow (e, clue);
-
-	html_list_destroy (html_stack_pop (e->listStack));
-
-	e->avoid_para = TRUE;
-}
-
-static void
-block_end_clueflow_style (HTMLEngine *e,
-			  HTMLObject *clue,
-			  HTMLElement *elem)
-{
-	finish_flow (e, clue);
-	pop_clueflow_style (e);
-}
-
-static void
-block_end_heading (HTMLEngine *e,
-		   HTMLObject *clue,
-		   HTMLElement *elem)
-{
-	block_end_clueflow_style (e, clue, elem);
-
-	e->avoid_para = TRUE;
-}
-
-static void
-block_end_pre (HTMLEngine *e, HTMLObject *_clue, HTMLElement *elem)
-{
-	block_end_clueflow_style (e, _clue, elem);
-	e->inPre = FALSE;
-}
-
 static void
 block_end_div (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
@@ -1777,6 +1781,15 @@ element_parse_a (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 /* block parsing */
 static void
+block_end_clueflow_style (HTMLEngine *e,
+			  HTMLObject *clue,
+			  HTMLElement *elem)
+{
+	finish_flow (e, clue);
+	pop_clueflow_style (e);
+}
+
+static void
 element_parse_address (HTMLEngine *e, HTMLObject *clue, const char *str)
 {
 	HTMLStyle *style = NULL;
@@ -1791,6 +1804,14 @@ element_parse_address (HTMLEngine *e, HTMLObject *clue, const char *str)
 }
 
 static void
+block_end_pre (HTMLEngine *e, HTMLObject *_clue, HTMLElement *elem)
+{
+	block_end_clueflow_style (e, _clue, elem);
+
+	e->inPre--;
+}
+
+static void
 element_parse_pre (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	push_block (e, ID_PRE, 1, block_end_pre, 0, 0);
@@ -1798,7 +1819,7 @@ element_parse_pre (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	push_clueflow_style (e, HTML_CLUEFLOW_STYLE_PRE);
 	close_flow (e, clue);
 
-	e->inPre = TRUE;
+	e->inPre++;
 	e->avoid_para = TRUE;
 }
 
@@ -1814,6 +1835,16 @@ element_parse_center (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 }
 
 static void
+block_end_blockquote (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
+{
+	finish_flow (e, clue);
+
+	html_list_destroy (html_stack_pop (e->listStack));
+
+	e->avoid_para = TRUE;
+}
+
+static void
 element_parse_blockquote (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	gboolean type = HTML_LIST_TYPE_BLOCKQUOTE;
@@ -1825,11 +1856,11 @@ element_parse_blockquote (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			if (strncasecmp (token + 5, "cite", 5) == 0) {
 				type = HTML_LIST_TYPE_BLOCKQUOTE_CITE;
 			}
-			}	 
+		}	 
 	}
 	
 	html_stack_push (e->listStack, html_list_new (type));
-	push_block (e, ID_BLOCKQUOTE, 1, block_end_quote, FALSE, FALSE);
+	push_block (e, ID_BLOCKQUOTE, 1, block_end_blockquote, FALSE, FALSE);
 	e->avoid_para = TRUE;
 	close_flow (e, clue);
 }
@@ -2306,6 +2337,17 @@ element_parse_hr (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	close_flow (e, clue);
 }
 
+
+static void
+block_end_heading (HTMLEngine *e,
+		   HTMLObject *clue,
+		   HTMLElement *elem)
+{
+	block_end_clueflow_style (e, clue, elem);
+
+	e->avoid_para = TRUE;
+}
+
 static void
 element_end_heading (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
@@ -2395,6 +2437,7 @@ element_parse_img (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	gboolean percent_width  = FALSE;
 	gboolean percent_height = FALSE;
 	gboolean ismap = FALSE;
+
 	color        = current_color (e);
 	if (e->url != NULL || e->target != NULL)
 		border = 2;
@@ -2444,49 +2487,50 @@ element_parse_img (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	}
 	
 	/* FIXME fixup missing url */
-	if (tmpurl != 0) {
-		if (align != HTML_HALIGN_NONE)
-			valign = HTML_VALIGN_BOTTOM;
-		else if (valign == HTML_VALIGN_NONE)
-			valign = HTML_VALIGN_BOTTOM;
-		
-		image = html_image_new (e->image_factory, tmpurl,
-					e->url, e->target,
-					width, height,
-					percent_width, percent_height, border, color, valign, FALSE);
-		
-		if (id) {
-			html_engine_add_object_with_id (e, id, (HTMLObject *) image);
-		}
-		
-		if (hspace < 0)
-			hspace = 0;
-		if (vspace < 0)
-			vspace = 0;
-		
-		html_image_set_spacing (HTML_IMAGE (image), hspace, vspace);
-		
-		if (alt) {
-			html_image_set_alt (HTML_IMAGE (image), alt);
-			g_free (alt);
-		}
-		
-		html_image_set_map (HTML_IMAGE (image), mapname, ismap);
-		
-		g_free (tmpurl);
-		g_free (mapname);
-		
-		if (align == HTML_HALIGN_NONE) {
-			append_element (e, clue, image);
-		} else {
-			/* We need to put the image in a HTMLClueAligned.  */
-			/* Man, this is *so* gross.  */
-			HTMLClueAligned *aligned = HTML_CLUEALIGNED (html_cluealigned_new (NULL, 0, 0, clue->max_width, 100));
-			HTML_CLUE (aligned)->halign = align;
-			html_clue_append (HTML_CLUE (aligned), HTML_OBJECT (image));
-			append_element (e, clue, HTML_OBJECT (aligned));
-		}
-	}		       
+	if (!tmpurl)
+		return;
+
+	if (align != HTML_HALIGN_NONE)
+		valign = HTML_VALIGN_BOTTOM;
+	else if (valign == HTML_VALIGN_NONE)
+		valign = HTML_VALIGN_BOTTOM;
+	
+	image = html_image_new (e->image_factory, tmpurl,
+				e->url, e->target,
+				width, height,
+				percent_width, percent_height, border, color, valign, FALSE);
+	
+	if (id) 
+		html_engine_add_object_with_id (e, id, (HTMLObject *) image);
+	
+	
+	if (hspace < 0)
+		hspace = 0;
+	if (vspace < 0)
+		vspace = 0;
+	
+	html_image_set_spacing (HTML_IMAGE (image), hspace, vspace);
+	
+	if (alt) {
+		html_image_set_alt (HTML_IMAGE (image), alt);
+		g_free (alt);
+	}
+	
+	html_image_set_map (HTML_IMAGE (image), mapname, ismap);
+	
+	g_free (tmpurl);
+	g_free (mapname);
+	
+	if (align == HTML_HALIGN_NONE) {
+		append_element (e, clue, image);
+	} else {
+		/* We need to put the image in a HTMLClueAligned.  */
+		/* Man, this is *so* gross.  */
+		HTMLClueAligned *aligned = HTML_CLUEALIGNED (html_cluealigned_new (NULL, 0, 0, clue->max_width, 100));
+		HTML_CLUE (aligned)->halign = align;
+		html_clue_append (HTML_CLUE (aligned), HTML_OBJECT (image));
+		append_element (e, clue, HTML_OBJECT (aligned));
+	}
 }
 
 static void
@@ -2588,6 +2632,12 @@ get_list_type (gchar c)
 }
 
 static void
+block_end_item (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
+{
+	finish_flow (e, clue);
+}
+
+static void
 element_parse_li (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	HTMLListType listType;
@@ -2634,6 +2684,17 @@ element_parse_li (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	push_block (e, ID_LI, 1, block_end_item, FALSE, FALSE);
 }
 
+
+static void
+block_end_list (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
+{
+	html_list_destroy (html_stack_pop (e->listStack));
+
+	finish_flow (e, clue);
+
+	e->avoid_para = FALSE;
+}
+
 static void
 element_parse_ol (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
@@ -2677,6 +2738,13 @@ element_parse_ul (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	html_stack_push (e->listStack, html_list_new (HTML_LIST_TYPE_UNORDERED));
 	
 	e->avoid_para = TRUE;
+}
+
+static void
+block_end_glossary (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
+{
+	html_list_destroy (html_stack_pop (e->listStack));
+	block_end_item (e, clue, elem);
 }
 
 static void
@@ -3176,7 +3244,7 @@ element_parse_td (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		image_url = style->bg_image;
 	} else {
 		image_url = current_row_bg_image (e);
-		}
+	}
 	
 	if (image_url) {
 		HTMLImagePointer *ip;
@@ -3359,18 +3427,13 @@ element_parse_textarea (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	while (html_string_tokenizer_has_more_tokens (e->st)) {
 		const gchar *token = html_string_tokenizer_next_token (e->st);
 		
-		if ( strncasecmp( token, "name=", 5 ) == 0 )
-                        {
+		if (strncasecmp (token, "name=", 5) == 0) {
 				name = g_strdup(token + 5);
-                        }
-		else if ( strncasecmp( token, "rows=", 5 ) == 0 )
-                        {
-				rows = atoi (token + 5);
-                        }
-		else if ( strncasecmp( token, "cols=", 5 ) == 0 )
-                        {
-				cols = atoi (token + 5);
-                        }
+		} else if (strncasecmp (token, "rows=", 5) == 0) {
+			rows = atoi (token + 5);
+		} else if (strncasecmp (token, "cols=", 5) == 0) {
+			cols = atoi (token + 5);
+		}
 	}
 	
 	e->formTextArea = HTML_TEXTAREA (html_textarea_new (GTK_WIDGET(e->widget), name, rows, cols));
@@ -3500,7 +3563,7 @@ element_parse_span (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		
 		if (strncasecmp (token, "style=", 6 ) == 0 ) {
 			style = html_style_add_attribute (style, token + 6);
-		} else if ( strncasecmp( token, "class=", 6 ) == 0 ) {
+		} else if (strncasecmp (token, "class=", 6 ) == 0) {
 			class = g_strdup (token + 6);
 		}
 	}
