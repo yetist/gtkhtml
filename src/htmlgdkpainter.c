@@ -945,15 +945,15 @@ draw_spell_error (HTMLPainter *painter, gint x, gint y, const gchar *text, gint 
 	x -= gdk_painter->x1;
 	y -= gdk_painter->y1;
 
+	width = 0;
 	for (gl = glyphs; gl; gl = gl->next) {
 		str = (PangoGlyphString *) gl->data;
 		gl = gl->next;
 		ii = GPOINTER_TO_INT (gl->data);
 		pango_glyph_string_extents (str, pi->entries [ii].item->analysis.font, NULL, &log_rect);
 		c_text = g_utf8_offset_to_pointer (c_text, str->num_glyphs);
+		width += PANGO_PIXELS (log_rect.width);
 	}
-
-	width = PANGO_PIXELS (log_rect.width);
 
 	gdk_gc_get_values (gdk_painter->gc, &values);
 	gdk_gc_set_fill (gdk_painter->gc, GDK_OPAQUE_STIPPLED);

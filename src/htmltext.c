@@ -1274,10 +1274,8 @@ save_close_attrs (HTMLEngineSaveState *state, GSList *attrs)
 		}
 
 		if (tag)
-			if (!html_engine_save_output_string (state, "%s", tag)) {
-				g_slist_free (attrs);
+			if (!html_engine_save_output_string (state, "%s", tag))
 				return FALSE;
-			}
 	}
 
 	return TRUE;
@@ -1331,8 +1329,7 @@ save_link_close (Link *link, HTMLEngineSaveState *state)
 static gboolean
 save_text (HTMLText *text, HTMLEngineSaveState *state, guint start_index, guint end_index, GSList **l, gboolean link_started)
 {
-
-	if (link_started) {
+	if (link_started && *l) {
 		Link *link;
 
 		link = (Link *) (*l)->data;

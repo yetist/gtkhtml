@@ -1,3 +1,11 @@
+2003-10-21  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (save_close_attrs): don't free attrs when save fails
+
+	* htmlgdkpainter.c (draw_spell_error): sum width of all glyphs
+
+	* htmltext.c (save_text): test *l to be non NULL
+
 2003-10-20  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (save): reverse copied list
