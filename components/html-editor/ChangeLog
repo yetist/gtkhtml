@@ -1,3 +1,7 @@
+2002-02-21  Larry Ewing  <lewing@ximian.com>
+
+	* image.c (insert_or_apply): initialize url properly.
+
 2002-02-13  Larry Ewing  <lewing@ximian.com>
 
 	* Editor.idl: remove references to resolver interface.

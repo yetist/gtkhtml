@@ -669,13 +669,16 @@ insert_or_apply (GtkHTMLControlData *cd, gpointer get_data, gboolean insert)
 		html_image_edit_set_url (image, location);
 		g_free (location);
 
+		url = d->url;
 		target = NULL;
+
 		if (d->url) {
 			target = strchr (d->url, '#');
 			url = target ? g_strndup (d->url, target - d->url) : d->url;
 			if (target)
 				target ++;
 		}
+
 		html_object_set_link (HTML_OBJECT (d->image),
 				      url && *url
 				      ? html_colorset_get_color (d->cd->html->engine->settings->color_set, HTMLLinkColor)
