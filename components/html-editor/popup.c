@@ -22,6 +22,7 @@
 
 #include <config.h>
 #include <htmlengine.h>
+#include <htmllinktextmaster.h>
 #include <htmlengine-edit-copy.h>
 #include <htmlengine-edit-cut.h>
 #include <htmlengine-edit-paste.h>
@@ -45,6 +46,12 @@ static void
 paste (GtkWidget *mi, GtkHTMLControlData *cd)
 {
 	html_engine_paste (cd->html->engine, TRUE);
+}
+
+static void
+remove_link (GtkWidget *mi, GtkHTMLControlData *cd)
+{
+	html_link_text_master_to_text (HTML_LINK_TEXT_MASTER (cd->obj), cd->html->engine);
 }
 
 static void
@@ -112,6 +119,11 @@ popup_show (GtkHTMLControlData *cd, GdkEventButton *event)
 				ADD_SEP;
 			}
 			ADD_ITEM (text, prop);
+			switch (HTML_OBJECT_TYPE (cd->obj)) {
+			case HTML_TYPE_LINKTEXTMASTER:
+				ADD_ITEM (_("Remove link"), remove_link);
+			default:
+			}
 		}
 	}
 	gtk_widget_show (menu);

@@ -1,3 +1,8 @@
+2000-06-05  Radek Doulik  <rodo@helixcode.com>
+
+	* popup.c (remove_link): remove link callback
+	(popup_show): use remove_link
+
 2000-06-03  Ariel Rios  <ariel@arcavia.com>
 
 	* table.c: New file: Functions for creating and using the table
