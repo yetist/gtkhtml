@@ -129,6 +129,15 @@ calc_min_width (HTMLObject *o,
 	return minWidth;
 }
 
+static gint
+calc_preferred_width (HTMLObject *o,
+		      HTMLPainter *painter)
+{
+	return o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH
+		? html_object_calc_min_width (o, painter)
+		: (* HTML_OBJECT_CLASS (parent_class)->calc_preferred_width) (o, painter);
+}
+
 static void
 draw (HTMLObject *o,
       HTMLPainter *p,
@@ -248,6 +257,7 @@ html_table_cell_class_init (HTMLTableCellClass *klass,
 	object_class->reset = reset;
 	object_class->copy = copy;
 	object_class->calc_min_width = calc_min_width;
+	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->draw = draw;
 	object_class->draw_background = draw_background;
 	object_class->set_bg_color = set_bg_color;
