@@ -36,12 +36,6 @@
 #include "body.h"
 
 static void
-insert_link (GtkWidget *mi, GtkHTMLControlData *cd)
-{
-	/* link_insert (cd); */
-}
-
-static void
 copy (GtkWidget *mi, GtkHTMLControlData *cd)
 {
 	html_engine_copy (cd->html->engine);
@@ -65,7 +59,7 @@ remove_link (GtkWidget *mi, GtkHTMLControlData *cd)
 	if (cd->html->engine->active_selection)
 		html_engine_remove_link (cd->html->engine);
         else
-		html_engine_remove_link_object (cd->html->engine, cd->obj);
+		html_engine_remove_link_object (cd->html->engine, cd->html->engine->cursor->object);
 }
 
 static void
@@ -157,10 +151,6 @@ popup_show (GtkHTMLControlData *cd, GdkEventButton *event)
 
 	obj  = cd->html->engine->cursor->object;
 	menu = gtk_menu_new ();
-
-	/* clear properties list */
-	g_list_free (cd->properties_types);
-	cd->properties_types = NULL;
 
 	if (e->active_selection
 	    || (obj

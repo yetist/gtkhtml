@@ -115,6 +115,9 @@ gtk_html_edit_properties_dialog_destroy (GtkHTMLEditPropertiesDialog *d)
 {
 	g_list_foreach (d->page_data, (GFunc) destroy, d);
 	g_list_free    (d->page_data);
+	g_list_free    (d->control_data->properties_types);
+	d->control_data->properties_dialog = NULL;
+	d->control_data->properties_types  = NULL;
 	g_free (d);
 }
 
@@ -144,6 +147,12 @@ gtk_html_edit_properties_dialog_show (GtkHTMLEditPropertiesDialog *d)
 {
 	gtk_window_set_modal (GTK_WINDOW (d->dialog), TRUE);
 	gtk_widget_show_all (d->dialog);
+}
+
+void
+gtk_html_edit_properties_dialog_close (GtkHTMLEditPropertiesDialog *d)
+{
+	gnome_dialog_close (GNOME_DIALOG (d->dialog));
 }
 
 void

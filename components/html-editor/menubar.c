@@ -26,6 +26,8 @@
 
 #include "menubar.h"
 #include "gtkhtml.h"
+#include "control-data.h"
+#include "properties.h"
 
 static void undo_cb             (GtkWidget *widget, GtkHTMLControlData *cd);
 static void redo_cb             (GtkWidget *widget, GtkHTMLControlData *cd);
@@ -141,7 +143,15 @@ insert_image_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 static void
 insert_link_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
-	/* link_insert (cd); */
+	if (cd->properties_dialog)
+		gtk_html_edit_properties_dialog_close (cd->properties_dialog);
+	cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd);
+	gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
+						   GTK_HTML_EDIT_PROPERTY_LINK, _("Link"),
+						   link_properties,
+						   link_apply_cb,
+						   link_close_cb);
+	gtk_html_edit_properties_dialog_show (cd->properties_dialog);
 }
 
 static void
