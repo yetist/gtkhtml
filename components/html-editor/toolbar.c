@@ -494,17 +494,18 @@ paragraph_alignment_changed_cb (GtkHTML *widget,
 /* Indentation group.  */
 
 static void
+
 editor_toolbar_indent_cb (GtkWidget *widget,
 			  GtkHTMLControlData *cd)
 {
-	gtk_html_modify_indent_by_delta (GTK_HTML (cd->html), +1);
+	gtk_html_indent_push_level (GTK_HTML (widget), HTML_LIST_TYPE_BLOCKQUOTE);
 }
 
 static void
 editor_toolbar_unindent_cb (GtkWidget *widget,
 			    GtkHTMLControlData *cd)
 {
-	gtk_html_modify_indent_by_delta (GTK_HTML (cd->html), -1);
+	gtk_html_indent_pop_level (GTK_HTML (widget));
 }
 
 

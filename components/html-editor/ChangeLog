@@ -1,3 +1,8 @@
+2002-07-08  Larry Ewing  <lewing@ximian.com>
+
+	* toolbar.c (editor_toolbar_indent_cb): use push level.
+	(editor_toolbar_unindent_cb): use pop level.
+
 2002-06-24  Larry Ewing  <lewing@ximian.com>
 
 	* menubar.c (paste_quotation_cb): add paste_quotation verb.
