@@ -1,3 +1,8 @@
+1999-12-11  Matt Wilson  <msw@redhat.com>
+
+	* htmlurl.c (html_url_append_path): removed dependency on
+	gnome by re-implementing g_concat_dir_and_file
+
 1999-12-11  Elliot Turner <turnere@MimeStar.com>
 
 	* htmlengine.c (parse_m): New function to deal with the `meta'
