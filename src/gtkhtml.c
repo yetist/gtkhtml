@@ -3455,16 +3455,18 @@ gtk_html_set_magnification (GtkHTML *html, gdouble magnification)
 	}
 }
 
+#define MAG_STEP 1.1
+
 void
 gtk_html_zoom_in (GtkHTML *html)
 {
-	gtk_html_set_magnification (html, html->engine->painter->font_manager.magnification * 1.25);
+	gtk_html_set_magnification (html, html->engine->painter->font_manager.magnification * MAG_STEP);
 }
 
 void
 gtk_html_zoom_out (GtkHTML *html)
 {
-	gtk_html_set_magnification (html, html->engine->painter->font_manager.magnification * .8);
+	gtk_html_set_magnification (html, html->engine->painter->font_manager.magnification * (1.0/MAG_STEP));
 }
 
 void
