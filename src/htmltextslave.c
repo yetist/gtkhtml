@@ -1336,8 +1336,10 @@ html_text_slave_cursor_left_one (HTMLTextSlave *slave, HTMLCursor *cursor)
 		if (html_text_slave_gi_right_edge (slave, cursor, prev)) {
 			if (prev->glyph_item.item->analysis.level % 2 == 0) {
 				/* LTR */
-				cursor->offset --;
-				cursor->position --;
+				if (index - gi->glyph_item.item->offset == 0) {
+					cursor->offset --;
+					cursor->position --;
+				}
 			} else {
 				/* RTL */
 				cursor->offset ++;

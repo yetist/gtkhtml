@@ -6,6 +6,7 @@
 #include "htmlclue.h"
 #include "htmlclueflow.h"
 #include "htmlcluev.h"
+#include "htmlcursor.h"
 #include "htmlengine.h"
 #include "htmlengine-edit-movement.h"
 
@@ -17,8 +18,10 @@ typedef struct {
 static int test_cursor_beol (GtkHTML *html);
 static int test_cursor_beol_rtl (GtkHTML *html);
 static int test_quotes_in_div_block (GtkHTML *html);
+static int test_cursor_left_right_on_items_boundaries (GtkHTML *html);
 
 static Test tests[] = {
+	{ "cursor left/right on items boundaries", test_cursor_left_right_on_items_boundaries },
 	{ "cursor begin/end of line", test_cursor_beol },
 	{ "cursor begin/end of line (RTL)", test_cursor_beol_rtl },
 	{ "outer quotes inside div block", test_quotes_in_div_block },
@@ -31,6 +34,60 @@ static void load_editable (GtkHTML *html, char *s)
 	gtk_html_load_from_string (html, s, -1);
 /* 	gtk_html_debug_dump_tree_simple (html->engine->clue, 0); */
 	gtk_html_set_editable (html, TRUE);
+}
+
+static int test_cursor_left_right_on_items_boundaries (GtkHTML *html)
+{
+	load_editable (html, "ab<b>cde</b>ef");
+
+	html_cursor_jump_to_position (html->engine->cursor, html->engine, 1);
+	if (html->engine->cursor->position != html->engine->cursor->offset
+	    || html->engine->cursor->position != 1
+	    || !html_cursor_right (html->engine->cursor, html->engine)
+	    || html->engine->cursor->position != html->engine->cursor->offset
+	    || html->engine->cursor->position != 2
+	    || !html_cursor_right (html->engine->cursor, html->engine)
+	    || html->engine->cursor->position != html->engine->cursor->offset
+	    || html->engine->cursor->position != 3)
+		return FALSE;
+
+	html_cursor_jump_to_position (html->engine->cursor, html->engine, 3);
+	if (html->engine->cursor->position != html->engine->cursor->offset
+	    || html->engine->cursor->position != 3
+	    || !html_cursor_left (html->engine->cursor, html->engine)
+	    || html->engine->cursor->position != html->engine->cursor->offset
+	    || html->engine->cursor->position != 2
+	    || !html_cursor_left (html->engine->cursor, html->engine)
+	    || html->engine->cursor->position != html->engine->cursor->offset
+	    || html->engine->cursor->position != 1)
+		return FALSE;
+
+
+	html_cursor_jump_to_position (html->engine->cursor, html->engine, 4);
+	if (html->engine->cursor->position != html->engine->cursor->offset
+	    || html->engine->cursor->position != 4
+	    || !html_cursor_right (html->engine->cursor, html->engine)
+	    || html->engine->cursor->position != html->engine->cursor->offset
+	    || html->engine->cursor->position != 5
+	    || !html_cursor_right (html->engine->cursor, html->engine)
+	    || html->engine->cursor->position != html->engine->cursor->offset
+	    || html->engine->cursor->position != 6)
+		return FALSE;
+
+	html_cursor_jump_to_position (html->engine->cursor, html->engine, 6);
+	if (html->engine->cursor->position != html->engine->cursor->offset
+	    || html->engine->cursor->position != 6
+	    || !html_cursor_left (html->engine->cursor, html->engine)
+	    || html->engine->cursor->position != html->engine->cursor->offset
+	    || html->engine->cursor->position != 5
+	    || !html_cursor_left (html->engine->cursor, html->engine)
+	    || html->engine->cursor->position != html->engine->cursor->offset
+	    || html->engine->cursor->position != 4)
+		return FALSE;
+
+	printf ("test_cursor_left_right_on_items_boundaries: passed\n");
+
+	return TRUE;
 }
 
 static int test_cursor_beol (GtkHTML *html)

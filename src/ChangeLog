@@ -1,9 +1,14 @@
 2005-01-25  Radek Doulik  <rodo@ximian.com>
 
+	* test-suite.c (test_cursor_left_right_on_items_boundaries): added
+	new test
+
 	* htmltextslave.c: fixed cursor movement, implemented new
 	functions for cursor movement, removed old code
 	(draw_text): draw selected glyph only if selection inersection
 	width is greater than zero
+	(html_text_slave_cursor_left_one): fixed movement on items
+	boundaries for ltr
 
 	* htmltext.c: updated direction handling, fixed cursor movement,
 	fixed cursor base, implemented new functions for cursor movement
