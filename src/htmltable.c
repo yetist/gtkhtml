@@ -1409,6 +1409,47 @@ fit_line (HTMLObject *o,
 	return HTML_FIT_COMPLETE;
 }
 
+static void
+append_selection_string (HTMLObject *self,
+			 GString *buffer)
+{
+	HTMLTable *table;
+	HTMLTableCell *cell;
+	gboolean tab;
+	gint r, c, len, rlen, tabs;
+
+	table = HTML_TABLE (self);
+	for (r = 0; r < table->totalRows; r++) {
+		tab = FALSE;
+		tabs = 0;
+		rlen = buffer->len;
+		for (c = 0; c < table->totalCols; c++) {
+			if ((cell = table->cells[r][c]) == 0)
+				continue;
+			if (c < table->totalCols - 1 &&
+			    cell == table->cells[r][c + 1])
+				continue;
+			if (r < table->totalRows - 1 &&
+			    table->cells[r + 1][c] == cell)
+				continue;
+			if (tab) {
+				g_string_append_c (buffer, '\t');
+				tabs++;
+			}
+			len = buffer->len;
+			html_object_append_selection_string (HTML_OBJECT (cell), buffer);
+			/* remove last \n from added text */
+			if (buffer->len != len && buffer->str [buffer->len-1] == '\n')
+				g_string_truncate (buffer, buffer->len - 1);
+			tab = TRUE;
+		}
+		if (rlen + tabs == buffer->len)
+			g_string_truncate (buffer, rlen);
+		else if (r + 1 < table->totalRows)
+			g_string_append_c (buffer, '\n');
+	}
+}
+
 
 void
 html_table_type_init (void)
@@ -1441,6 +1482,7 @@ html_table_class_init (HTMLTableClass *klass,
 	object_class->forall = forall;
 	object_class->search = search;
 	object_class->fit_line = fit_line;
+	object_class->append_selection_string = append_selection_string;
 
 	parent_class = &html_object_class;
 }

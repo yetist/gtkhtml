@@ -4111,16 +4111,6 @@ html_engine_disable_selection (HTMLEngine *e)
 
 /* Retrieving the selection as a string.  */
 
-static void
-get_selection_forall_func (HTMLObject *self,
-			   gpointer data)
-{
-	GString *buffer;
-
-	buffer = (GString *) data;
-	html_object_append_selection_string (self, buffer);
-}
-
 gchar *
 html_engine_get_selection_string (HTMLEngine *engine)
 {
@@ -4134,7 +4124,7 @@ html_engine_get_selection_string (HTMLEngine *engine)
 		return NULL;
 
 	buffer = g_string_new (NULL);
-	html_object_forall (engine->clue, get_selection_forall_func, buffer);
+	html_object_append_selection_string (engine->clue, buffer);
 
 	string = buffer->str;
 	g_string_free (buffer, FALSE);

@@ -849,10 +849,9 @@ static void
 append_selection_string (HTMLObject *self,
 			 GString *buffer)
 {
-	if (! self->selected)
-		return;
-
-	g_string_append_c (buffer, '\n');
+        (*HTML_OBJECT_CLASS (parent_class)->append_selection_string) (self, buffer);
+	if (self->selected)
+		g_string_append_c (buffer, '\n');
 }
 
 

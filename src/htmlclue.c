@@ -249,7 +249,7 @@ check_point (HTMLObject *o,
 
 	if (x < o->x || x > o->x + o->width
 	    || y > o->y + o->descent || y < o->y - o->ascent)
-		return 0L;
+		return NULL;
 
 	x = x - o->x;
 	y = y - o->y + o->ascent;
@@ -389,6 +389,18 @@ search (HTMLObject *obj, HTMLSearch *info)
 	return FALSE;
 }
 
+static void
+append_selection_string (HTMLObject *self,
+			 GString *buffer)
+{
+	HTMLObject *o = HTML_CLUE (self)->head;
+
+	while (o) {
+		html_object_append_selection_string (o, buffer);
+		o = o->next;
+	}
+}
+
 
 void
 html_clue_type_init (void)
@@ -425,6 +437,7 @@ html_clue_class_init (HTMLClueClass *klass,
 	object_class->save = save;
 	object_class->save_plain = save_plain;
 	object_class->search = search;
+	object_class->append_selection_string = append_selection_string;
 
 	/* HTMLClue methods.  */
 	klass->get_left_clear = get_left_clear;

@@ -1,3 +1,21 @@
+2000-08-29  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlclue.c 
+
+	* htmltable.c (append_selection_string): new method
+	(html_table_class_init): added append_selection_string
+
+	* htmlclueflow.c (append_selection_string): call Clue super method
+	here
+
+	* htmlclue.c (append_selection_string): added selection string
+	getting method to Clue
+	(html_clue_class_init): added append_selection_string
+
+	* htmlengine.c (get_selection_forall_func): removed
+	(html_engine_get_selection_string): instead of calling foreach, do
+	traversing thru tree in Object methods
+
 2000-08-28  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* gtkhtml-properties.c (DEFAULT_FONT_SIZE, DEFAULT_FONT_SIZE_S):
