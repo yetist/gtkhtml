@@ -874,7 +874,7 @@ draw_spell_error (HTMLPainter *painter,
 	width = gdk_text_width (gdk_font, text + off, len) + x_off;
 #endif
 	x_off = utf8_gdk_text_width (gdk_font, text, off) + x;
-	width = utf8_gdk_text_width (gdk_font, text + off, len) + x_off;
+	width = utf8_gdk_text_width (gdk_font, text + unicode_offset_to_index (text, off), len) + x_off;
 
 	gdk_gc_get_values (gdk_painter->gc, &values);
 	gdk_gc_set_fill (gdk_painter->gc, GDK_OPAQUE_STIPPLED);

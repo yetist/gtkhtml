@@ -22,6 +22,7 @@
 #define _HTMLENGINE_EDIT_H
 
 #include <glib.h>
+#include <unicode.h>
 
 #include "htmlengine.h"
 
@@ -51,6 +52,6 @@ void  html_engine_spell_check_range    (HTMLEngine *e,
 					HTMLCursor *begin,
 					HTMLCursor *end);
 #endif
-gboolean html_is_in_word               (gchar c);
+gboolean html_is_in_word               (unicode_char_t uc);
 
 #endif /* _HTMLENGINE_EDIT_H */

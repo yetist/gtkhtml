@@ -20,6 +20,7 @@
    Boston, MA 02111-1307, USA.
 */
 
+#include <unicode.h>
 #include "htmlinterval.h"
 
 HTMLInterval *
@@ -62,9 +63,29 @@ html_interval_get_length (HTMLInterval *i, HTMLObject *obj)
 }
 
 guint
+html_interval_get_bytes (HTMLInterval *i, HTMLObject *obj)
+{
+	if (obj != i->from && obj != i->to)
+		return html_object_get_bytes (obj);
+	if (obj == i->from) {
+		if (obj == i->to)
+			return html_interval_get_to_index (i) - html_interval_get_from_index (i);
+		else
+			return html_object_get_bytes (obj) - html_interval_get_from_index (i);
+	} else
+		return html_interval_get_to_index (i);
+}
+
+guint
 html_interval_get_start (HTMLInterval *i, HTMLObject *obj)
 {
 	return (obj != i->from) ? 0 : i->from_offset;
+}
+
+guint
+html_interval_get_start_index (HTMLInterval *i, HTMLObject *obj)
+{
+	return (obj != i->from) ? 0 : html_interval_get_from_index (i);
 }
 
 void
@@ -86,4 +107,20 @@ html_interval_select (HTMLInterval *i, HTMLEngine *e)
 		obj = html_object_next_not_slave (obj);
 	}
 	html_engine_set_active_selection (e, e->active_selection, GDK_CURRENT_TIME);
+}
+
+gint
+html_interval_get_from_index (HTMLInterval *i)
+{
+	g_assert (i);
+
+	return html_object_get_index (i->from, i->from_offset);
+}
+
+gint
+html_interval_get_to_index (HTMLInterval *i)
+{
+	g_assert (i);
+
+	return html_object_get_index (i->to, i->to_offset);
 }

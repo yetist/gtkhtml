@@ -145,11 +145,11 @@ get_next_nb_width (HTMLTextSlave *slave, HTMLPainter *painter)
 	gint width = 0;
 
 	if (HTML_TEXT (slave->owner)->text_len == 0
-	    || HTML_TEXT (slave->owner)->text [slave->posStart + slave->posLen - 1] != ' ') {
+	    || html_text_get_char (HTML_TEXT (slave->owner), slave->posStart + slave->posLen - 1) != ' ') {
 		HTMLObject *obj;
 		obj = html_object_next_not_slave (HTML_OBJECT (slave));
 		if (obj && html_object_is_text (obj)
-		    && HTML_TEXT (obj)->text [0] != ' ')
+		    && html_text_get_char (HTML_TEXT (obj), 0) != ' ')
 			width = html_text_get_nb_width (HTML_TEXT (obj), painter, TRUE);
 	}
 
@@ -175,14 +175,16 @@ fit_line (HTMLObject *o,
 	text  = HTML_TEXT (slave->owner);
 
 	/* if on begin of line (firstRun) and not on begin of para, remove beggining space */
-	if (firstRun && text->text [slave->posStart] == ' ' && (o->prev != HTML_OBJECT (text) || HTML_OBJECT (text)->prev)) {
+	if (firstRun && html_text_get_char (text, slave->posStart) == ' '
+	    && (o->prev != HTML_OBJECT (text) || HTML_OBJECT (text)->prev)) {
 		slave->posStart ++;
 		slave->posLen --;
 	}
 
 	/* try complete fit now */
 	font_style = html_text_get_font_style (text);
-	width      = html_painter_calc_text_width (painter, text->text + slave->posStart, slave->posLen,
+	width      = html_painter_calc_text_width (painter, text->text + html_text_get_index (text, slave->posStart),
+						   slave->posLen,
 						   font_style, text->face);
 	next_width = get_next_nb_width (slave, painter);
 
@@ -194,17 +196,17 @@ fit_line (HTMLObject *o,
 		gchar *begin;
 		gint width = 0, len;
 
-		sep = begin = text->text + slave->posStart;
+		sep = begin = text->text + html_text_get_index (text, slave->posStart);
 
 		do {
 			lsep   = sep;
-			sep    = strchr (lsep + 1, ' ');
-			if (!sep || sep - begin >= slave->posLen) {
-				sep = begin + slave->posLen;
+			sep    = unicode_strchr (lsep + 1, ' ');
+			if (!sep || unicode_index_to_offset (begin, sep - begin) >= slave->posLen) {
+				sep = begin + unicode_offset_to_index (begin, slave->posLen);
 				break;
 			}
 			width += html_painter_calc_text_width
-				(painter, lsep, sep - lsep, font_style, text->face);
+				(painter, lsep, unicode_index_to_offset (lsep, sep - lsep), font_style, text->face);
 		} while (width <= widthLeft);
 
 		g_assert (lsep);
@@ -217,9 +219,9 @@ fit_line (HTMLObject *o,
 			/* if only one pass has been made */
 			if (lsep == begin) lsep = sep;
 			/* split + set attributes */
-			len = lsep - begin;
+			len = unicode_index_to_offset (begin, lsep - begin);
 			if (len < slave->posLen)
-				split (slave, lsep - begin);
+				split (slave, len);
 			o->width   = width;
 			o->ascent  = html_painter_calc_ascent (painter, font_style, text->face);
 			o->descent = html_painter_calc_descent (painter, font_style, text->face);
@@ -227,11 +229,12 @@ fit_line (HTMLObject *o,
 	}
 
 #ifdef HTML_TEXT_SLAVE_DEBUG
-	debug_print (rv, text->text + slave->posStart, slave->posLen);
+	debug_print (rv, text->text + unicode_offset_to_index (text->text, slave->posStart), slave->posLen);
 #endif
 
 	return rv;	
 }
+
 static gboolean
 select_range (HTMLObject *self,
 	      HTMLEngine *engine,
@@ -270,7 +273,9 @@ draw_spell_errors (HTMLTextSlave *slave, HTMLPainter *p, gint tx, gint ty)
 			html_painter_set_pen (p, &html_colorset_get_color_allocated (p, HTMLSpellErrorColor)->color);
 			/* printf ("spell error: %s\n", HTML_TEXT (slave->owner)->text + off); */
 			html_painter_draw_spell_error (p, obj->x + tx, obj->y + ty,
-						       HTML_TEXT (slave->owner)->text + slave->posStart, off, len);
+						       HTML_TEXT (slave->owner)->text
+						       + unicode_offset_to_index (HTML_TEXT (slave->owner)->text,
+										  slave->posStart), off, len);
 		}
 		if (se->off > slave->posStart + slave->posLen)
 			break;

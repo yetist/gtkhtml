@@ -455,12 +455,12 @@ html_tokenizer_add_pending (HTMLTokenizer *t)
 	t->pending = NonePending;
 }
 
-static int
+gint
 g_unichar_to_utf8 (gint c, gchar *outbuf)
 {
   size_t len = 0;
-  int first;
-  int i;
+  gint first;
+  gint i;
 
   if (c < 0x80)
     {

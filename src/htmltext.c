@@ -1149,8 +1149,23 @@ html_text_spell_errors_add (HTMLText *text, guint off, guint len)
 
 #endif
 
-gint
+guint
 html_text_get_bytes (HTMLText *text)
 {
 	return strlen (text->text);
+}
+
+guint
+html_text_get_index (HTMLText *text, guint offset)
+{
+	return unicode_offset_to_index (text->text, offset);
+}
+
+unicode_char_t
+html_text_get_char (HTMLText *text, guint offset)
+{
+	unicode_char_t uc;
+
+	unicode_get_utf8 (text->text + html_text_get_index (text, offset), &uc);
+	return uc;
 }

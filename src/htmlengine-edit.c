@@ -205,9 +205,10 @@ html_engine_spell_check_range (HTMLEngine *e, HTMLCursor *begin, HTMLCursor *end
 #endif
 
 gboolean
-html_is_in_word (gchar c)
+html_is_in_word (unicode_char_t uc)
 {
-	return isalnum (c) || c == '\'';
+	printf ("test %d %c => %d\n", uc, uc, unicode_isalnum (uc) || uc == '\'');
+	return unicode_isalnum (uc) || uc == '\'';
 }
 
 void

@@ -1182,3 +1182,15 @@ html_object_prev_leaf (HTMLObject *self)
 {
 	return move_object (self, html_object_prev, html_object_tail);
 }
+
+guint
+html_object_get_bytes (HTMLObject *self)
+{
+	return html_object_is_text (self) ? html_text_get_bytes (HTML_TEXT (self)) : html_object_get_length (self);
+}
+
+guint
+html_object_get_index (HTMLObject *self, guint offset)
+{
+	return html_object_is_text (self) ? html_text_get_index (HTML_TEXT (self), offset) : offset;
+}

@@ -1734,54 +1734,52 @@ html_clueflow_remove_text_slaves (HTMLClueFlow *flow)
 #include "htmlinterval.h"
 
 static guint
-get_text_len (HTMLClue *clue, HTMLInterval *i)
+get_text_bytes (HTMLClue *clue, HTMLInterval *i)
 {
 	HTMLObject *obj;
-	guint len;
+	guint bytes;
 
 	g_assert (i);
 	g_assert (i->from);
 	g_assert (i->to);
 
-	len = 0;
+	bytes = 0;
 	obj = i->from;
 	while (1) {
-		len += html_object_get_length (obj);
+		bytes += html_interval_get_bytes (i, obj);
 		if (obj == i->to) break;
 		obj = obj->next;
 		g_assert (obj);
 	}
-	/* correct len by taking care of interval offsets */
-	len -= i->from_offset + html_object_get_length (obj) - i->to_offset;
 
-	return len;
+	return bytes;
 }
 
 static gchar *
 get_text (HTMLClue *clue, HTMLInterval *i)
 {
 	HTMLObject *obj;
-	guint cl, len = 0;
+	guint cb, bytes = 0;
 	gchar *text, *ct;
 
-	len = get_text_len (clue, i);
-	ct  = text = g_malloc (len+1);
-	text [len] = 0;
+	bytes      = get_text_bytes (clue, i);
+	ct         = text = g_malloc (bytes + 1);
+	text [bytes] = 0;
 
 	obj = i->from;
 	while (obj) {
-		cl = html_interval_get_length (i, obj);
+		cb = html_interval_get_bytes (i, obj);
 		if (html_object_is_text (obj))
-			strncpy (ct, HTML_TEXT (obj)->text + html_interval_get_start (i, obj), cl);
+			strncpy (ct, HTML_TEXT (obj)->text + html_interval_get_start_index (i, obj), cb);
 		else
-			if (cl == 1) *ct = ' ';
-			else memset (ct, ' ', cl);
-		ct += cl;
+			if (cb == 1) *ct = ' ';
+			else memset (ct, ' ', cb);
+		ct += cb;
 		if (obj == i->to) break;
 		obj = obj->next;
 	}
 
-	/* printf ("get_text: \"%s\"\n", text); */
+	printf ("get_text: \"%s\"\n", text);
 
 	return text;
 }
@@ -1800,18 +1798,20 @@ next_obj_and_clear (HTMLObject *obj, guint *off, gboolean *is_text, HTMLInterval
 static HTMLObject *
 spell_check_word_mark (HTMLObject *obj, const gchar *text, const gchar *word, guint *off, HTMLInterval *i)
 {
-	guint w_off, ioff;
+	guint w_off, w_index, ioff;
 	guint len = strlen (word);
 	gboolean is_text;
 
 	/* printf ("[not in dictionary word off: %d off: %d]\n", word - text, *off); */
 	is_text = html_object_is_text (obj);
-	w_off   = word - text;
+	w_index = word - text;
+	w_off   = unicode_offset_to_index (text, w_index);
 	while (obj && (!is_text || (is_text && *off + HTML_TEXT (obj)->text_len <= w_off)))
 		obj = next_obj_and_clear (obj, off, &is_text, i);
 
 	/* printf ("is_text: %d len: %d obj: %p off: %d\n", is_text, len, obj, *off); */
 	if (obj && is_text) {
+		gchar *t;
 		guint tlen;
 		guint toff;
 
@@ -1819,13 +1819,17 @@ spell_check_word_mark (HTMLObject *obj, const gchar *text, const gchar *word, gu
 			toff  = w_off - *off;
 			ioff  = html_interval_get_start (i, obj);
 			tlen  = MIN (HTML_TEXT (obj)->text_len - toff - ioff, len);
-			g_assert (!strncmp (text + w_off, HTML_TEXT (obj)->text + toff + ioff, tlen));
+			t     = HTML_TEXT (obj)->text;
+			g_assert (!strncmp (text + w_index, t + unicode_offset_to_index (t, toff + ioff),
+					    unicode_offset_to_index (t, toff + ioff + tlen)
+					    - unicode_offset_to_index (t, toff + ioff)));
 			/* printf ("add spell error - word: %s off: %d beg: %s len: %d\n",
 			   word, *off, HTML_TEXT (obj)->text + toff, tlen); */
 			html_text_spell_errors_add (HTML_TEXT (obj),
 						    ioff + toff, tlen);
-			len   -= tlen;
-			w_off += tlen;
+			len     -= tlen;
+			w_off   += tlen;
+			w_index  = unicode_offset_to_index (text + w_index, tlen);
 			if (len)
 				do obj = next_obj_and_clear (obj, off, &is_text, i); while (obj && !is_text);
 			/* printf ("off: %d\n", *off); */
@@ -1834,6 +1838,30 @@ spell_check_word_mark (HTMLObject *obj, const gchar *text, const gchar *word, gu
 	}
 
 	return obj;
+}
+
+static gchar *
+begin_of_word (gchar *text, gchar *ct)
+{
+	unicode_char_t uc;
+
+	do
+		unicode_get_utf8 (ct, &uc);
+	while (!html_is_in_word (uc) && (ct = unicode_previous_utf8 (text, ct)) && *ct);
+
+	return ct;
+}
+
+static gchar *
+end_of_word (gchar *ct)
+{
+	unicode_char_t uc;
+	gchar *cn;
+
+	while (*ct && (cn = unicode_get_utf8 (ct, &uc)) && html_is_in_word (uc))
+		ct = cn;
+
+	return ct;
 }
 
 void
@@ -1864,11 +1892,8 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *i)
 	if (text) {
 		ct = text;
 		while (*ct) {
-			/* find begin of word */
-			while (*ct && !html_is_in_word (*ct)) ct++;
-			word = ct;
-			/* find end of word */
-			while (html_is_in_word (*ct)) ct++;
+			word = ct = begin_of_word (text, ct);
+			ct        =   end_of_word (ct);
 
 			/* test if we have found word */
 			if (word != ct) {
@@ -1877,12 +1902,14 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *i)
 
 				bak = *ct;
 				*ct = 0;
-				/* printf ("off %d going to test word: \"%s\"\n", off, word); */
+				printf ("off %d going to test word: \"%s\"\n", off, word);
 				result = pspell_manager_check (e->spell_checker, word);
 
 				if (result == 1) {
 					gboolean is_text = (obj) ? html_object_is_text (obj) : FALSE;
-					while (obj && (!is_text || (is_text && off + HTML_TEXT (obj)->text_len < ct - text)))
+					while (obj && (!is_text
+						       || (is_text && off + HTML_TEXT (obj)->text_len
+							   < unicode_index_to_offset (text, ct - text))))
 						obj = next_obj_and_clear (obj, &off, &is_text, i);
 				} else {
 					if (result == 0) {
@@ -1896,7 +1923,8 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *i)
 				}
 
 				*ct = bak;
-				if (*ct) ct++;
+				if (*ct)
+					ct = unicode_next_utf8 (ct);
 			}
 		}
 	}

@@ -1,5 +1,8 @@
 2000-09-13  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine.c (html_engine_set_arg): configure pspell to use utf8
+	encoding
+
 	* htmltext.c: use unicode_offset_to_index and
 	unicode_index_to_offset everywhere
 	(convert_nbsp): updated to support utf8

@@ -2954,6 +2954,7 @@ html_engine_set_arg (GtkObject        *object,
 #ifdef GTKHTML_HAVE_PSPELL
 		engine->spell_config  = new_pspell_config ();
 		pspell_config_replace (engine->spell_config, "language-tag", prop->language);
+		pspell_config_replace (engine->spell_config, "encoding",     "utf-8");
 		err = new_pspell_manager (engine->spell_config);
 		if (pspell_error_number (err) != 0) {
 			g_warning ("pspell error: %s\n", pspell_error_message (err));

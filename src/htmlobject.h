@@ -401,7 +401,12 @@ void        html_object_get_cursor_base  (HTMLObject  *obj,
 					  guint        offset,
 					  gint        *x,
 					  gint        *y);
+
 guint       html_object_get_length       (HTMLObject  *self);
+guint       html_object_get_bytes        (HTMLObject  *self);
+guint       html_object_get_index        (HTMLObject  *self,
+					  guint offset);
+
 HTMLObject *html_object_check_point      (HTMLObject  *clue,
 					  HTMLPainter *painter,
 					  gint         x,

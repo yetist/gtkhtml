@@ -45,8 +45,15 @@ HTMLInterval *               html_interval_new_from_cursor (HTMLCursor *begin,
 void                         html_interval_destroy         (HTMLInterval *i);
 guint                        html_interval_get_length      (HTMLInterval *i,
 							    HTMLObject *obj);
+guint                        html_interval_get_bytes       (HTMLInterval *i,
+							    HTMLObject *obj);
 guint                        html_interval_get_start       (HTMLInterval *i,
+							    HTMLObject *obj);
+guint                        html_interval_get_start_index (HTMLInterval *i,
 							    HTMLObject *obj);
 void                         html_interval_select          (HTMLInterval *i,
 							    HTMLEngine *e);
+gint                         html_interval_get_from_index  (HTMLInterval *i);
+gint                         html_interval_get_to_index    (HTMLInterval *i);
+
 #endif
