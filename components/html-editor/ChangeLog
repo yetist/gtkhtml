@@ -1,3 +1,7 @@
+2000-10-09  Michael Meeks  <michael@helixcode.com>
+
+	* html-editor-control.xml: cmd/widgetify; needs Bonobo HEAD.
+
 2000-10-06  Larry Ewing  <lewing@helixcode.com>
 
 	* resolver.c (impl_HTMLEditor_Resolver_loadURL): actually listen
