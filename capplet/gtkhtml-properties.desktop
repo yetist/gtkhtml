@@ -1,9 +1,11 @@
 [Desktop entry]
 Name=HTML Viewer
+Name[pt_BR]=Visualizador de HTML
 Name[fr]=Visualiseur HTML
 Name[gl]=Visualizador HTML
 Name[no]=HTML-visning
 Comment=HTML Viewer properties
+Comment[pt_BR]=Propriedades do visualizador de HTML
 Comment[fr]=Propriétés du visualiseur HTML
 Comment[gl]=Propiedades do Visualizador HTML
 Comment[no]=Egenskaper for visning av HTML
