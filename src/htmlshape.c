@@ -54,7 +54,7 @@ parse_length (char **str) {
 
 	len = html_length_new (atoi (cur), HTML_LENGTH_TYPE_PIXELS);
 
-	while (isdigit (*cur)) cur++;
+	while (isdigit (*cur) || *cur == '-') cur++;
 
 	switch (*cur) {
 	case '*':
@@ -129,7 +129,7 @@ html_shape_point (HTMLShape *shape, gint x, gint y)
 		if ((x >= poly[0]->val) 
 		    && (x <= poly[2]->val) 
 		    && (y >= poly[1]->val) 
-			    && (y <= poly[3]->val))
+		    && (y <= poly[3]->val))
 			return TRUE;
 		break;
 	case HTML_SHAPE_CIRCLE:

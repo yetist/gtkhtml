@@ -1,5 +1,7 @@
 2002-12-16  Larry Ewing  <lewing@ximian.com>
 
+	* htmlshape.c: fix parsing of negative numbers.
+
 	* htmlstyle.h: add prototypes. 
 
 	* htmlstyle.c (html_style_add_background_image): add background
