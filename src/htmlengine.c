@@ -3065,6 +3065,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->blinking_status = FALSE;
 	engine->insertion_font_style = GTK_HTML_FONT_STYLE_DEFAULT;
 	engine->active_selection = FALSE;
+	engine->shift_selection = FALSE;
 
 	engine->selection_updater = html_engine_edit_selection_updater_new (engine);
 
@@ -3954,6 +3955,7 @@ html_engine_unselect_all (HTMLEngine *e,
 	g_free (select_data);
 
 	e->active_selection = FALSE;
+	e->shift_selection  = FALSE;
 
 	html_engine_edit_selection_updater_reset (e->selection_updater);
 

@@ -1862,6 +1862,9 @@ cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType ski
 	if (!html_engine_get_editable (html->engine))
 		return;
 
+	if (html->engine->shift_selection)
+		html_engine_disable_selection (html->engine);
+
 	switch (skip) {
 	case GTK_HTML_CURSOR_SKIP_ONE:
 		switch (dir_type) {
@@ -1937,12 +1940,61 @@ cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType ski
 }
 
 static void
+move_selection (GtkHTML *html, GtkHTMLCommandType com_type)
+{
+	gint amount;
+
+	if (!html_engine_get_editable (html->engine))
+		return;
+
+	html->engine->shift_selection = TRUE;
+	if (!html->engine->mark)
+		html_engine_set_mark (html->engine);
+	switch (com_type) {
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_UP:
+		html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_UP, 1);
+		break;
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_DOWN:
+		html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_DOWN, 1);
+		break;
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_LEFT:
+		html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_LEFT, 1);
+		break;
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_RIGHT:
+		html_engine_move_cursor (html->engine, HTML_ENGINE_CURSOR_RIGHT, 1);
+		break;
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_BOL:
+		html_engine_beginning_of_line (html->engine);
+		break;
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_EOL:
+		html_engine_end_of_line (html->engine);
+		break;
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_BOD:
+		html_engine_beginning_of_document (html->engine);
+		break;
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_EOD:
+		html_engine_end_of_document (html->engine);
+		break;
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_PAGEUP:
+		if ((amount = html_engine_scroll_up (html->engine, GTK_WIDGET (html)->allocation.height)) > 0)
+			scroll_by_amount (html, - amount);
+		break;
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_PAGEDOWN:
+		if ((amount = html_engine_scroll_down (html->engine, GTK_WIDGET (html)->allocation.height)) > 0)
+			scroll_by_amount (html, amount);
+		break;
+	default:
+		g_assert_not_reached ();
+	}
+}
+
+static void
 command (GtkHTML *html, GtkHTMLCommandType com_type)
 {
 	if (!html_engine_get_editable (html->engine))
 		return;
 
-	/* printf ("command %d\n", com_type); */
+	printf ("command %d\n", com_type);
 
 	switch (com_type) {
 	case GTK_HTML_COMMAND_UNDO:
@@ -2070,6 +2122,18 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		break;
 	case GTK_HTML_COMMAND_PARAGRAPH_STYLE_ITEMDIGIT:
 		gtk_html_set_paragraph_style (html, GTK_HTML_PARAGRAPH_STYLE_ITEMDIGIT);
+		break;
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_UP:
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_DOWN:
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_LEFT:
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_RIGHT:
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_BOL:
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_EOL:
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_BOD:
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_EOD:
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_PAGEUP:
+	case GTK_HTML_COMMAND_MODIFY_SELECTION_PAGEDOWN:
+		move_selection (html, com_type);
 		break;
 	default:
 		return;

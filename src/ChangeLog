@@ -1,5 +1,16 @@
 2000-06-28  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine.c (html_engine_unselect_all): reset shift_selection
+	flag
+
+	* keybindingsrc.ms: new bindings for new commands
+
+	* htmlengine.h: added shift_selection flag to engine
+
+	* gtkhtml.c (move_selection): new commands implementation
+
+	* gtkhtml.h: added new commands for ms like shift selection
+
 	* htmllinktextmaster.c (html_link_text_master_to_text): fixed
 	compiler warning
 

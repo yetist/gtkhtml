@@ -228,6 +228,7 @@ struct _HTMLEngine {
 	/* This is set to TRUE when at least one element is selected (in whole
            or in part), to FALSE when no item is selected at all.  */
 	gboolean active_selection;
+	gboolean shift_selection;
 
 	/* This object is used to update the keyboard selection in the
            idle loop.  */
