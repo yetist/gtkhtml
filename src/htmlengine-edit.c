@@ -644,7 +644,6 @@ html_engine_next_cell (HTMLEngine *e, gboolean create)
 			html_engine_insert_table_row (e, TRUE);
 		}
 		html_engine_show_cursor (e);
-		gtk_html_edit_make_cursor_visible (e->widget);
 
 		return TRUE;
 	}
@@ -667,7 +666,6 @@ html_engine_prev_cell (HTMLEngine *e)
 		} while (current_cell == cell);
 
 		html_engine_show_cursor (e);
-		gtk_html_edit_make_cursor_visible (e->widget);
 
 		return TRUE;
 	}

@@ -629,9 +629,6 @@ destroy (GtkObject *object)
 	if (html->priv->scroll_timeout_id != 0)
 		gtk_timeout_remove (html->priv->scroll_timeout_id);
 	
-	g_free (html->priv->content_type);
-	g_free (html->priv);
-
 #ifdef GTKHTML_HAVE_GCONF
 	if (html->priv->set_font_id)
 		g_source_remove (html->priv->set_font_id);
@@ -640,6 +637,8 @@ destroy (GtkObject *object)
 		gconf_client_notify_remove (gconf_client, html->priv->notify_id);
 #endif
 
+	g_free (html->priv->content_type);
+	g_free (html->priv);
 	html->priv = NULL;
 
 	gtk_object_unref (GTK_OBJECT (html->engine));
