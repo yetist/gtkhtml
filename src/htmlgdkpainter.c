@@ -809,8 +809,9 @@ utf8_gdk_text_width (GdkFont *font, const gchar *text, gint bytes)
 		unicode_char_t unival;
 		guchar c;
 		unicode_get_utf8 (p, &unival);
-		if (unival < 0) unival = ' ';
-		if (unival > 255) unival = ' ';
+		if (unival < 0) unival = '_';
+		if (unival > 255) unival = '_';
+		if (unival == 0xa0) unival = ' ';
 		c = unival;
 		width += gdk_text_width (font, &c, 1);
 	}
@@ -837,8 +838,9 @@ utf8_gdk_draw_text (GdkFont *font,
 	for (p = text; p && *p && p - text < bytes; p = unicode_next_utf8 (p)) {
 		unicode_char_t unival;
 		unicode_get_utf8 (p, &unival);
-		if (unival < 0) unival = ' ';
-		if (unival > 255) unival = ' ';
+		if (unival < 0) unival = '_';
+		if (unival > 255) unival = '_';
+		if (unival == 0xa0) unival = ' ';
 		b[len++] = unival;
 	}
 

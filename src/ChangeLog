@@ -1,3 +1,8 @@
+2000-09-06  Lauris Kaplinski  <lauris@helixcode.com>
+
+	* htmlgdkpainter.c (utf8_gdk_text_width): translate 0xa0 -> 0x20
+	(utf8_gdk_draw_text): Same
+
 2000-09-06  Radek Doulik  <rodo@helixcode.com>
 
 	* htmltextslave.c (fit_line): fixed eating condition once again
