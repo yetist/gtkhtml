@@ -100,7 +100,7 @@ activate_cb (BonoboControl      *control,
 {
 	Bonobo_UIContainer remote_ui_container;
 	BonoboUIComponent *ui_component;
-	
+
 	printf ("ACTIVATE\n");
 
 	if (active) {
@@ -150,6 +150,7 @@ set_frame_cb (BonoboControl *control,
 	gtk_box_pack_start (GTK_BOX (control_data->vbox), scrolled_window, TRUE, TRUE, 0);
 
 	/* Setup the menu bar.  */
+
 	menubar_setup (ui_component, control_data);
 
 	if (!spell_has_control ()) {
@@ -327,6 +328,14 @@ html_button_pressed (GtkWidget *html, GdkEventButton *event, GtkHTMLControlData 
 		/* pass this for pasting */
 		return FALSE;
 	case 3:
+		if (!html_engine_is_selection_active (engine) || !html_engine_point_in_selection (engine, cd->obj, offset)) {
+			html_engine_disable_selection (engine);
+			html_engine_jump_at (engine,
+					     event->x + engine->x_offset,
+					     event->y + engine->y_offset);
+			gtk_html_update_styles (cd->html);
+		}
+
 		if (popup_show (cd, event)) {
 			g_signal_stop_emission_by_name (html, "button_press_event");
 			return TRUE;
