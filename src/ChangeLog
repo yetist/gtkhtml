@@ -1,3 +1,8 @@
+2002-07-09  Radek Doulik  <rodo@ximian.com>
+
+	* htmltextslave.c (get_offset_for_pointer): fixed offset
+	calculation
+
 2002-07-08  Larry Ewing  <lewing@ximian.com>
 
 	* htmlsearch.c (html_search_new): stop trying to substitute &nbsp;
