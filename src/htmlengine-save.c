@@ -341,7 +341,7 @@ html_engine_save_buffer_free (HTMLEngineSaveState *state)
 	g_free (state);
 }
 
-const gchar *
+guchar *
 html_engine_save_buffer_peek_text (HTMLEngineSaveState *state)
 {
 	GString *string;

@@ -1103,9 +1103,11 @@ static gint
 string_append_len (GString *out, guchar *s, gint length)
 {
 	gint len = length;
+	guchar c;
 
 	while (len--) {
-		g_string_append_c (out, *s == '\240' ? ' ' : *s);
+		c = (*s == '\240') ? ' ' : *s;
+		g_string_append_c (out, c);
 		s++;
 	}
 	return length;
@@ -1152,7 +1154,6 @@ save_plain (HTMLObject *self,
 	size_t len;
 	gint pad;
 	gboolean firstline = TRUE;
-
 
 	flow = HTML_CLUEFLOW (self);
 
