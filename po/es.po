@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.6\n"
-"POT-Creation-Date: 2000-10-13 16:08+0200\n"
+"POT-Creation-Date: 2000-10-18 17:19+0200\n"
 "PO-Revision-Date: 2000-10-13 13:23+0200\n"
 "Last-Translator: Héctor García Álvarez <hector@scouts-es.org>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -21,7 +21,7 @@ msgstr "<Nada>"
 
 #: capplet/gnome-bindings-prop.c:525
 msgid "Key"
-msgstr ""
+msgstr "Clave"
 
 #: capplet/gnome-bindings-prop.c:525
 msgid "Command"
@@ -29,11 +29,11 @@ msgstr "Comando"
 
 #: capplet/gnome-bindings-prop.c:526
 msgid "Commands"
-msgstr ""
+msgstr "Comandos"
 
 #: capplet/gnome-bindings-prop.c:527
 msgid "Keymaps"
-msgstr ""
+msgstr "Mapa de claves"
 
 #: capplet/gnome-bindings-prop.c:545
 msgid "Add"
@@ -51,7 +51,7 @@ msgstr "Borrar"
 
 #: capplet/gnome-bindings-prop.c:582
 msgid "Grab key"
-msgstr ""
+msgstr "Obtener clave"
 
 #: capplet/main.c:220
 msgid "Spell checking"
@@ -75,11 +75,11 @@ msgstr "Miscelánea"
 
 #: capplet/main.c:247
 msgid "magic links"
-msgstr ""
+msgstr "enlace mágico"
 
 #: capplet/main.c:266
 msgid "Bindings"
-msgstr ""
+msgstr "Ligaduras"
 
 #: capplet/main.c:267 capplet/viewer.c:188
 msgid "Behaviour"
@@ -185,10 +185,10 @@ msgstr "Borde"
 
 #: components/html-editor/image.c:201
 msgid "Padding"
-msgstr ""
+msgstr "Relleno"
 
 #. size
-#: components/html-editor/image.c:221 components/html-editor/rule.c:219
+#: components/html-editor/image.c:221 components/html-editor/rule.c:235
 #: components/html-editor/text.c:160
 msgid "Size"
 msgstr "Tamaño"
@@ -220,13 +220,13 @@ msgid "Cannot execute gtkhtml properties"
 msgstr "No pude ejecutar las propiedades de gtkhtml"
 
 #. style
-#: components/html-editor/paragraph.c:74 components/html-editor/rule.c:207
+#: components/html-editor/paragraph.c:74 components/html-editor/rule.c:223
 #: components/html-editor/text.c:138
 msgid "Style"
 msgstr "Estilo"
 
 #. align
-#: components/html-editor/paragraph.c:108 components/html-editor/rule.c:243
+#: components/html-editor/paragraph.c:108 components/html-editor/rule.c:259
 msgid "Align"
 msgstr "Alineación"
 
@@ -244,7 +244,7 @@ msgstr "Derecha"
 
 #: components/html-editor/popup.c:185
 msgid "Remove link"
-msgstr ""
+msgstr "Borrer enlaze"
 
 #: components/html-editor/replace.c:83
 msgid "Replace confirmation"
@@ -269,29 +269,29 @@ msgstr "buscar hacia atrás"
 
 #: components/html-editor/replace.c:153 components/html-editor/search.c:68
 msgid "case sensitive"
-msgstr ""
+msgstr "sensible a mayusculas"
 
 #: components/html-editor/replace.c:161
 msgid "with"
 msgstr "con"
 
-#: components/html-editor/rule.c:211
+#: components/html-editor/rule.c:227
 msgid "shaded"
-msgstr ""
+msgstr "sombreado"
 
 #. weight
-#: components/html-editor/rule.c:259
+#: components/html-editor/rule.c:275
 msgid "Weight"
-msgstr ""
+msgstr "Peso"
 
 #. sample
-#: components/html-editor/rule.c:271
+#: components/html-editor/rule.c:287
 msgid "Sample"
 msgstr "Ejemplo"
 
 #: components/html-editor/search.c:64
 msgid "Regex search"
-msgstr ""
+msgstr "Busqueda por expresiones regulares"
 
 #: components/html-editor/search.c:64
 msgid "Search"
@@ -307,35 +307,35 @@ msgstr "Guardar archivo como..."
 
 #: components/html-editor/test-html-editor-control.c:300
 msgid "Open (PersistFile)"
-msgstr ""
+msgstr "Abrir (Archivo Persistente)"
 
 #: components/html-editor/test-html-editor-control.c:300
 msgid "Open using the PersistFile interface"
-msgstr ""
+msgstr "Abrir usando la interface de Archivo Persistente"
 
 #: components/html-editor/test-html-editor-control.c:302
 msgid "Save as... (PersistFile)"
-msgstr ""
+msgstr "Guardar como... (Archivo Persistente)"
 
 #: components/html-editor/test-html-editor-control.c:302
 msgid "Save using the PersistFile interface"
-msgstr ""
+msgstr "Guardar usando la interface de Archivo Persistente"
 
 #: components/html-editor/test-html-editor-control.c:305
 msgid "Open (PersistStream)"
-msgstr ""
+msgstr "Abrir (Linea Persistente)"
 
 #: components/html-editor/test-html-editor-control.c:305
 msgid "Open using the PersistStream interface"
-msgstr ""
+msgstr "Abrir usando la interface de Linea Persistente"
 
 #: components/html-editor/test-html-editor-control.c:307
 msgid "Save as... (PersistStream)"
-msgstr ""
+msgstr "Guardar como... (Linea Persistente)"
 
 #: components/html-editor/test-html-editor-control.c:307
 msgid "Save using the PersistStream interface"
-msgstr ""
+msgstr "Guardar usando la interface de Linea Persistente"
 
 #: components/html-editor/test-html-editor-control.c:321
 #: components/html-editor/toolbar.c:493
@@ -362,7 +362,7 @@ msgstr "Pegar el contenido del porta papeles"
 
 #: components/html-editor/text.c:152 components/html-editor/toolbar.c:511
 msgid "Bold"
-msgstr ""
+msgstr "Destacado"
 
 #: components/html-editor/text.c:153 components/html-editor/toolbar.c:513
 msgid "Italic"
@@ -423,19 +423,19 @@ msgstr "Pre"
 
 #: components/html-editor/toolbar.c:54
 msgid "List item (digit)"
-msgstr ""
+msgstr "Listar elementos (digitos)"
 
 #: components/html-editor/toolbar.c:55
 msgid "List item (unnumbered)"
-msgstr ""
+msgstr "Listar elementos (sin numerar)"
 
 #: components/html-editor/toolbar.c:56
 msgid "List item (roman)"
-msgstr ""
+msgstr "List item (romano)"
 
 #: components/html-editor/toolbar.c:236
 msgid "Default"
-msgstr ""
+msgstr "Valor por defecto"
 
 #: components/html-editor/toolbar.c:483
 msgid "Left align"
@@ -483,7 +483,7 @@ msgstr "Rehacer la operación del editor deshecha"
 
 #: components/html-editor/toolbar.c:511
 msgid "Sets the bold font"
-msgstr ""
+msgstr "Poner la fuente destacada"
 
 #: components/html-editor/toolbar.c:513
 msgid "Make the selection italic"
@@ -499,11 +499,11 @@ msgstr ""
 
 #: components/html-editor/toolbar.c:526
 msgid "Unindent"
-msgstr ""
+msgstr "No indentar"
 
 #: components/html-editor/toolbar.c:526
 msgid "Indent paragraphs less"
-msgstr ""
+msgstr "Indentar menos el parrafo"
 
 #: components/html-editor/toolbar.c:528
 msgid "Indent"
