@@ -355,8 +355,9 @@ set_ui (GtkHTMLEditImageProperties *d)
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_padv), d->padv);
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_border), d->border);
 
-	gtk_entry_set_text (GTK_ENTRY (d->entry_url), d->url);
-	gtk_entry_set_text (GTK_ENTRY (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (d->pentry))), d->location);
+	gtk_entry_set_text (GTK_ENTRY (d->entry_url), d->url ? d->url : "");
+	gtk_entry_set_text (GTK_ENTRY (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (d->pentry))),
+			    d->location ? d->location : "");
 
 	d->disable_change = FALSE;
 
@@ -592,7 +593,7 @@ get_data (GtkHTMLEditImageProperties *d, HTMLImage *image)
 	d->padh   = image->hspace;
 	d->padv   = image->vspace;
 	d->border = image->border;
-	d->url    = g_strconcat (image->url, image->target ? "#" : "", image->target, NULL);
+	d->url    = image->url ? g_strconcat (image->url, image->target ? "#" : "", image->target, NULL) : g_strdup ("");
 }
 
 GtkWidget *
