@@ -33,40 +33,91 @@ Boston, MA 02111-1307, USA.
 
 #define STRINGIZE(x) #x
 
+static char *
+color_to_string (GdkColor *color, char *fallback) {
+	if (color)
+		return g_strdup_printf ("#%02x%02x%02x", color->red >> 8, color->green >> 8, color->blue >> 8);
+
+	return g_strdup (fallback);
+}
+
 GtkHTMLClassProperties *
 gtk_html_class_properties_new (GtkWidget *widget)
 {
 	GtkHTMLClassProperties *p = g_new0 (GtkHTMLClassProperties, 1);
-	gint size = pango_font_description_get_size (widget->style->font_desc);
+	PangoFontDescription *var_desc, *fixed_desc; 
+	char *fixed_name, *var_name;
+	gint var_size, fixed_size;
+	GdkColor *link_color = NULL;
+	GdkColor *alink_color = NULL;
+	GdkColor *vlink_color = NULL;
+	GdkColor *spell_error_color = NULL;
+
+	var_desc = widget->style->font_desc;
+	gtk_widget_style_get (widget,
+			      "fixed_font",        &fixed_name,
+			      "link_color",        &link_color,
+			      "alink_color",       &alink_color,
+			      "vlink_color",       &vlink_color,
+			      "spell_error_color", &spell_error_color,
+			      NULL);
+       
+	//fixed_name = g_value_get_string (value);
+	var_size = pango_font_description_get_size (var_desc);
+	var_name = pango_font_description_to_string (var_desc);
+
+	if (fixed_name) {
+		fixed_desc = pango_font_description_from_string (fixed_name);
+		if (pango_font_description_get_family (fixed_desc)) {
+			fixed_size = pango_font_description_get_size (fixed_desc);
+			pango_font_description_free (fixed_desc);
+		} else {
+			g_free (fixed_name);
+			fixed_name = NULL;
+		}
+	}
+
+	if (!fixed_name) {
+		fixed_name = g_strdup ("Monospace");
+		fixed_size = var_size;
+	}
 
 	/* default values */
 	p->magic_links             = TRUE;
 	p->keybindings_theme       = g_strdup ("ms");
-	p->font_var                = pango_font_description_to_string (widget->style->font_desc);
+	p->font_var                = var_name;
 	printf ("Variable Font: \"%s\"\n", p->font_var);
-	p->font_fix                = g_strdup ("Monospace");
-	p->font_var_size           = PANGO_PIXELS (size);
-	p->font_fix_size           = PANGO_PIXELS (size);
+	p->font_fix                = fixed_name;
+	p->font_var_size           = PANGO_PIXELS (var_size);
+	p->font_fix_size           = PANGO_PIXELS (fixed_size);
 	p->font_var_points         = FALSE;
 	p->font_fix_points         = FALSE;
-	p->font_var_print          = pango_font_description_get_family (widget->style->font_desc);
+	p->font_var_print          = g_strdup (pango_font_description_get_family (widget->style->font_desc));
 	printf ("Variable Printing Font: \"%s\"\n", p->font_var_print);
-	p->font_fix_print          = g_strdup ("Monospace");
+	p->font_fix_print          = g_strdup (fixed_name);
 	p->font_var_size_print     = DEFAULT_FONT_SIZE_PRINT;
 	p->font_fix_size_print     = DEFAULT_FONT_SIZE_PRINT;
 	p->font_var_print_points   = FALSE;
 	p->font_fix_print_points   = FALSE;
 	p->animations              = TRUE;
-	p->link_color              = g_strdup ("#0000ff");
-	p->alink_color             = g_strdup ("#0000ff");
-	p->vlink_color             = g_strdup ("#0000ff");
-
-	p->live_spell_check        = TRUE;
-	p->spell_error_color.red   = 0xffff;
-	p->spell_error_color.green = 0;
-	p->spell_error_color.blue  = 0;
+	p->link_color              = color_to_string (link_color, "#0000ff");
+	p->alink_color             = color_to_string (alink_color, "#0000ff");
+	p->vlink_color             = color_to_string (vlink_color, "#0000ff");
 
 	p->language                = g_strdup ("en");
+	p->live_spell_check        = TRUE;
+
+	if (spell_error_color) {
+		p->spell_error_color.red   = spell_error_color->red;
+		p->spell_error_color.green = spell_error_color->green;
+		p->spell_error_color.blue  = spell_error_color->blue;
+	} else {
+		p->spell_error_color.red   = 0xffff;
+		p->spell_error_color.green = 0;
+		p->spell_error_color.blue  = 0;
+	}
+
+	g_free (fixed_name);
 
 	return p;
 }

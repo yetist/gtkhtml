@@ -2629,6 +2629,39 @@ gtk_html_class_init (GtkHTMLClass *klass)
 
 	object_class->destroy = destroy;
 	
+	
+	gtk_widget_class_install_style_property (widget_class,
+						 g_param_spec_string ("fixed_font",
+								     _("Fixed Width Font"),
+								     _("The Monospace font to use for typewriter text"),
+								     NULL,
+								     G_PARAM_READABLE));
+	
+	gtk_widget_class_install_style_property (widget_class,
+						 g_param_spec_boxed ("link_color",
+								     _("New Link Color"),
+								     _("The color of new link elements"),
+								     GDK_TYPE_COLOR,
+								     G_PARAM_READABLE));
+	gtk_widget_class_install_style_property (widget_class,
+						 g_param_spec_boxed ("vlink_color",
+								     _("Visited Link Color"),
+								     _("The color of visited link elements"),
+								     GDK_TYPE_COLOR,
+								     G_PARAM_READABLE));
+	gtk_widget_class_install_style_property (widget_class,
+						 g_param_spec_boxed ("alink_color",
+								     _("Active Link Color"),
+								     _("The color of active link elements"),
+								     GDK_TYPE_COLOR,
+								     G_PARAM_READABLE));
+	gtk_widget_class_install_style_property (widget_class,
+						 g_param_spec_boxed ("spell_error_color",
+								     _("Spelling Error Color"),
+								     _("The color of the spelling error markers"),
+								     GDK_TYPE_COLOR,
+								     G_PARAM_READABLE));
+
 	widget_class->realize = realize;
 	widget_class->unrealize = unrealize;
 	widget_class->style_set = style_set;

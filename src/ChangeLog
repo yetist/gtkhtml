@@ -1,3 +1,11 @@
+2003-02-23  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml-properties.c (gtk_html_class_properties_new): read the
+	settings from from the style.
+
+	* gtkhtml.c (gtk_html_class_init): add style properties for colors
+	and fixed font.
+
 2003-02-21  Larry Ewing  <lewing@ximian.com>
 
 	* htmlimage.c: refactor animation drawing, remove broken
