@@ -1,69 +1,126 @@
 # gkthtml ja.po
 # Copyright (C) 2000 Free Software Foundation, Inc.
 # Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 2000.
+# Yukihiro Nakai <nakai@gnome.gr.jp>, 2000.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.6\n"
 "POT-Creation-Date: 2000-08-14 17:15+0900\n"
-"PO-Revision-Date: 2000-08-14 17:17+09:00\n"
-"Last-Translator: Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>\n"
+"PO-Revision-Date: 2000-10-10 17:17+09:00\n"
+"Last-Translator: Yukihiro Nakai <nakai@gnome.gr.jp>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=euc-jp\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: capplet/gnome-bindings-prop.c:153 capplet/gnome-bindings-prop.c:221
-#: capplet/gnome-bindings-prop.c:296 capplet/gnome-bindings-prop.c:431
-#: capplet/gnome-bindings-prop.c:432
+#: capplet/gnome-bindings-prop.c:154 capplet/gnome-bindings-prop.c:222
+#: capplet/gnome-bindings-prop.c:297 capplet/gnome-bindings-prop.c:435
+#: capplet/gnome-bindings-prop.c:436
 msgid "<None>"
 msgstr "<無し>"
 
-#: capplet/gnome-bindings-prop.c:521
+#: capplet/gnome-bindings-prop.c:525
 msgid "Key"
 msgstr "キー"
 
-#: capplet/gnome-bindings-prop.c:521
+#: capplet/gnome-bindings-prop.c:525
 msgid "Command"
 msgstr "コマンド"
 
-#: capplet/gnome-bindings-prop.c:522
+#: capplet/gnome-bindings-prop.c:526
 msgid "Commands"
 msgstr "コマンド"
 
-#: capplet/gnome-bindings-prop.c:523
+#: capplet/gnome-bindings-prop.c:527
 msgid "Keymaps"
 msgstr "キーマップ"
 
-#: capplet/gnome-bindings-prop.c:541
+#: capplet/gnome-bindings-prop.c:545
 msgid "Add"
 msgstr "追加"
 
-#: capplet/gnome-bindings-prop.c:544
-#: components/html-editor/test-html-editor-control.c:325
+#: capplet/gnome-bindings-prop.c:548
+#: components/html-editor/test-html-editor-control.c:323
 #: components/html-editor/toolbar.c:495
 msgid "Copy"
 msgstr "コピー"
 
-#: capplet/gnome-bindings-prop.c:547
+#: capplet/gnome-bindings-prop.c:551
 msgid "Delete"
 msgstr "削除"
 
-#: capplet/gnome-bindings-prop.c:578
+#: capplet/gnome-bindings-prop.c:582
 msgid "Grab key"
 msgstr "キーの入力"
 
-#: capplet/main.c:127
-msgid "Behaviour"
-msgstr "動作"
+#: capplet/main.c:220
+msgid "Spell checking"
+msgstr "スペルチェック"
 
-#: capplet/main.c:128
+#: capplet/main.c:223
+msgid "live spell checking"
+msgstr "ライブスペルチェック"
+
+#: capplet/main.c:232
+msgid "spell checking color"
+msgstr "スペルチェックカラー"
+
+#: capplet/main.c:239
+msgid "language"
+msgstr "言語"
+
+#: capplet/main.c:245
+msgid "Miscellaneous"
+msgstr "その他"
+
+#: capplet/main.c:247
 msgid "magic links"
 msgstr "マジック・リンク"
 
-#: capplet/main.c:135
-msgid "Keybindings"
-msgstr "キー定義"
+#: capplet/main.c:266
+msgid "Bindings"
+msgstr "バインディング"
+
+#: capplet/main.c:267 capplet/viewer.c:188
+msgid "Behaviour"
+msgstr "動作"
+
+#: capplet/viewer.c:148
+msgid "Appearance"
+msgstr "外観"
+
+#: capplet/viewer.c:154
+msgid "Variable width font"
+msgstr "可変幅フォント"
+
+#: capplet/viewer.c:158
+msgid "Select HTML variable width font"
+msgstr "HTML可変幅フォントの選択"
+
+#: capplet/viewer.c:162 capplet/viewer.c:177
+msgid "for printing"
+msgstr "印刷用"
+
+#: capplet/viewer.c:164
+msgid "Select HTML variable width font for printing"
+msgstr "印刷用HTML可変幅フォントの選択"
+
+#: capplet/viewer.c:169
+msgid "Fixed width font"
+msgstr "等幅フォント"
+
+#: capplet/viewer.c:173
+msgid "Select HTML fixed width font"
+msgstr "HTML等幅フォントの選択"
+
+#: capplet/viewer.c:179
+msgid "Select HTML fixed width font for printing"
+msgstr "印刷用HTML等幅フォントの選択"
+
+#: capplet/viewer.c:189
+msgid "Animations"
+msgstr "アニメーション"
 
 #: components/html-editor/body.c:107
 msgid "use background image"
@@ -77,51 +134,57 @@ msgstr "背景画像"
 msgid "Colors"
 msgstr "色"
 
-#: components/html-editor/editor-control-factory.c:133
-#: components/html-editor/popup.c:86
+#: components/html-editor/editor-control-factory.c:126
+#: components/html-editor/popup.c:71
+msgid "Properties"
+msgstr "プロパティ"
+
+#: components/html-editor/editor-control-factory.c:137
+#: components/html-editor/menubar.c:96 components/html-editor/popup.c:86
 msgid "Image"
 msgstr "画像"
 
-#: components/html-editor/editor-control-factory.c:142
-#: components/html-editor/popup.c:79
+#: components/html-editor/editor-control-factory.c:146
+#: components/html-editor/menubar.c:117 components/html-editor/popup.c:79
 msgid "Text"
 msgstr "テキスト"
 
-#: components/html-editor/editor-control-factory.c:154
+#: components/html-editor/editor-control-factory.c:158
 #: components/html-editor/popup.c:93
 msgid "Paragraph"
 msgstr "段落"
 
-#: components/html-editor/editor-control-factory.c:159
-#: components/html-editor/menubar.c:157 components/html-editor/popup.c:100
+#: components/html-editor/editor-control-factory.c:163
+#: components/html-editor/menubar.c:101 components/html-editor/menubar.c:122
+#: components/html-editor/popup.c:100
 msgid "Link"
 msgstr "リンク"
 
-#: components/html-editor/editor-control-factory.c:164
+#: components/html-editor/editor-control-factory.c:168
 #: components/html-editor/popup.c:107
 msgid "Page"
 msgstr "ページ"
 
-#: components/html-editor/image.c:409
+#: components/html-editor/image.c:142
 msgid "Image selection"
 msgstr "画像選択"
 
-#: components/html-editor/image.c:417
+#: components/html-editor/image.c:150
 msgid "Border"
 msgstr "境界"
 
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
-#: components/html-editor/image.c:450
+#: components/html-editor/image.c:183
 msgid "Alignment"
 msgstr "位置"
 
-#: components/html-editor/image.c:462 components/html-editor/rule.c:124
+#: components/html-editor/image.c:195 components/html-editor/rule.c:124
 #: components/html-editor/text.c:160
 msgid "Size"
 msgstr "大きさ"
 
-#: components/html-editor/image.c:489
+#: components/html-editor/image.c:222
 msgid "Padding"
 msgstr "パディング"
 
@@ -141,47 +204,12 @@ msgstr "GNORBAを初期化できません"
 msgid "Could not initialize Bonobo"
 msgstr "Bonobo を初期化できません"
 
-#: components/html-editor/menubar.c:60
-msgid "Find Rege_x..."
-msgstr "正規表現検索(_X)"
+#: components/html-editor/menubar.c:94 components/html-editor/menubar.c:114
+#: components/html-editor/properties.c:110
+msgid "Insert"
+msgstr "挿入"
 
-#: components/html-editor/menubar.c:60
-msgid "Regular expressions search..."
-msgstr "正規表現で検索します..."
-
-#: components/html-editor/menubar.c:69
-msgid "_Image..."
-msgstr "画像(_I)..."
-
-#: components/html-editor/menubar.c:69
-msgid "Insert image into document..."
-msgstr "文書に画像を置く..."
-
-#: components/html-editor/menubar.c:70
-msgid "_Link..."
-msgstr "リンク(_L)..."
-
-#: components/html-editor/menubar.c:70
-msgid "Insert HTML link into document..."
-msgstr "文書にHTMLリンクを挿入..."
-
-#: components/html-editor/menubar.c:71
-msgid "_Rule..."
-msgstr "罫線(_R)..."
-
-#: components/html-editor/menubar.c:71
-msgid "Insert rule into document..."
-msgstr "文書に罫線を引きます..."
-
-#: components/html-editor/menubar.c:76
-msgid "_Insert"
-msgstr "挿入(_I)"
-
-#: components/html-editor/menubar.c:143
-msgid "Insert image"
-msgstr "画像を挿入"
-
-#: components/html-editor/menubar.c:175
+#: components/html-editor/menubar.c:142
 msgid "Cannot execute gtkhtml properties"
 msgstr "gtkhtml のプロパティを実行できません"
 
@@ -205,15 +233,6 @@ msgstr "中央"
 msgid "Right"
 msgstr "右"
 
-#: components/html-editor/properties.c:92
-#: components/html-editor/properties.c:93
-msgid "Insert"
-msgstr "挿入"
-
-#: components/html-editor/properties.c:95
-msgid "Properties"
-msgstr "プロパティ"
-
 #: components/html-editor/popup.c:178
 msgid "Remove link"
 msgstr "リンクを削除"
@@ -235,11 +254,11 @@ msgstr "すべて置換"
 msgid "Next"
 msgstr "次"
 
-#: components/html-editor/replace.c:152 components/html-editor/search.c:66
+#: components/html-editor/replace.c:152 components/html-editor/search.c:67
 msgid "search backward"
 msgstr "後方検索"
 
-#: components/html-editor/replace.c:153 components/html-editor/search.c:67
+#: components/html-editor/replace.c:153 components/html-editor/search.c:68
 msgid "case sensitive"
 msgstr "大文字小文字を区別"
 
@@ -279,73 +298,73 @@ msgstr "罫線"
 msgid "Set Shade"
 msgstr "影を付ける"
 
-#: components/html-editor/search.c:63
+#: components/html-editor/search.c:64
 msgid "Regex search"
 msgstr "正規表現検索"
 
-#: components/html-editor/search.c:63
+#: components/html-editor/search.c:64
 msgid "Search"
 msgstr "検索"
 
-#: components/html-editor/test-html-editor-control.c:234
+#: components/html-editor/test-html-editor-control.c:232
 msgid "Open file..."
 msgstr "ファイルを開く..."
 
-#: components/html-editor/test-html-editor-control.c:236
+#: components/html-editor/test-html-editor-control.c:234
 msgid "Save file as..."
 msgstr "別名で保存..."
 
-#: components/html-editor/test-html-editor-control.c:302
+#: components/html-editor/test-html-editor-control.c:300
 msgid "Open (PersistFile)"
 msgstr "開く (PersistFile)"
 
-#: components/html-editor/test-html-editor-control.c:302
+#: components/html-editor/test-html-editor-control.c:300
 msgid "Open using the PersistFile interface"
 msgstr "PersistFile インターフェイスで開く"
 
-#: components/html-editor/test-html-editor-control.c:304
+#: components/html-editor/test-html-editor-control.c:302
 msgid "Save as... (PersistFile)"
 msgstr "別名で保存... (PersistFile)"
 
-#: components/html-editor/test-html-editor-control.c:304
+#: components/html-editor/test-html-editor-control.c:302
 msgid "Save using the PersistFile interface"
 msgstr "PersistFile インターフェイスで保存"
 
-#: components/html-editor/test-html-editor-control.c:307
+#: components/html-editor/test-html-editor-control.c:305
 msgid "Open (PersistStream)"
 msgstr "開く (PersistStream)"
 
-#: components/html-editor/test-html-editor-control.c:307
+#: components/html-editor/test-html-editor-control.c:305
 msgid "Open using the PersistStream interface"
 msgstr "PersistStream インターフェイスで開く"
 
-#: components/html-editor/test-html-editor-control.c:309
+#: components/html-editor/test-html-editor-control.c:307
 msgid "Save as... (PersistStream)"
 msgstr "別名で保存... (PersistStream)"
 
-#: components/html-editor/test-html-editor-control.c:309
+#: components/html-editor/test-html-editor-control.c:307
 msgid "Save using the PersistStream interface"
 msgstr "PersistStream インターフェイスで保存"
 
-#: components/html-editor/test-html-editor-control.c:323
+#: components/html-editor/test-html-editor-control.c:321
 #: components/html-editor/toolbar.c:493
 msgid "Cut"
 msgstr "切り取り"
 
-#: components/html-editor/test-html-editor-control.c:323
+#: components/html-editor/test-html-editor-control.c:321
 msgid "Cut selection to the clipboard"
 msgstr "選択した場所をクリップボードへ切り出す"
 
-#: components/html-editor/test-html-editor-control.c:325
+#: components/html-editor/test-html-editor-control.c:323
 msgid "Copy selection to the clipboard"
 msgstr "選択した場所をクリップボードへコピー"
 
-#: components/html-editor/test-html-editor-control.c:327
+#: components/html-editor/test-html-editor-control.c:325
 #: components/html-editor/toolbar.c:497
 msgid "Paste"
 msgstr "貼り付け"
 
-#: components/html-editor/test-html-editor-control.c:327
+#: components/html-editor/test-html-editor-control.c:325
 #: components/html-editor/toolbar.c:497
 msgid "Paste contents of the clipboard"
 msgstr "クリップボードの内容を貼り付け"
@@ -503,128 +522,10 @@ msgstr "インデント"
 msgid "Indent paragraphs more"
 msgstr "段落のインデントを増やす"
 
-#: glibwww/gnome-dialogs.c:85
-msgid "Transfer Progress"
-msgstr "転送状況"
-
-#: glibwww/gnome-dialogs.c:139
-#, c-format
-msgid "Looking up %s"
-msgstr "%s を検索中"
-
-#: glibwww/gnome-dialogs.c:145
-#, c-format
-msgid "Contacting %s"
-msgstr "%s に接続中"
-
-#: glibwww/gnome-dialogs.c:152
-msgid "Waiting for a connection..."
-msgstr "接続を待っています..."
-
-#: glibwww/gnome-dialogs.c:156
-msgid "Logging in..."
-msgstr "ログイン中..."
-
-#: glibwww/gnome-dialogs.c:165
-msgid "Read %d%%%% of %l"
-msgstr "%d%%%% 受信 (%l 中)"
-
-#: glibwww/gnome-dialogs.c:175 glibwww/gnome-dialogs.c:177
-#, c-format
-msgid "Read %d bytes"
-msgstr "%d バイト受信"
-
-#: glibwww/gnome-dialogs.c:179
-msgid "Reading..."
-msgstr "受信中..."
-
-#: glibwww/gnome-dialogs.c:194
-msgid "Writing %d%%%% of %l"
-msgstr "%d%%%% 送信 (%l 中)"
-
-#: glibwww/gnome-dialogs.c:204 glibwww/gnome-dialogs.c:206
-#, c-format
-msgid "Writing %d bytes"
-msgstr "%d バイト送信"
-
-#: glibwww/gnome-dialogs.c:208
-msgid "Writing..."
-msgstr "送信中..."
-
-#: glibwww/gnome-dialogs.c:216
-msgid "Done!"
-msgstr "完了!"
-
-#: glibwww/gnome-dialogs.c:220
-msgid "Interrupted!"
-msgstr "中断!"
-
-#: glibwww/gnome-dialogs.c:224
-msgid "Please wait..."
-msgstr "お待ちください..."
-
-#: glibwww/gnome-dialogs.c:228
-msgid "Request timeout!"
-msgstr "リクエストがタイムアウト!"
-
-#: glibwww/gnome-dialogs.c:232
-msgid "Unknown"
-msgstr "不明"
-
-#: glibwww/gnome-dialogs.c:275
-msgid "Enter Text"
-msgstr "テキスト入力"
-
-#: glibwww/gnome-dialogs.c:316 glibwww/gnome-dialogs.c:357
-msgid "Enter Password"
-msgstr "パスワード入力"
-
-#: src/testgtkhtml.c:110
+#: src/testgtkhtml.c:111
 msgid "Print pre_view"
 msgstr "印刷プレビュー(_E)"
 
-#: src/testgtkhtml.c:110
+#: src/testgtkhtml.c:111
 msgid "Print preview"
 msgstr "印刷プレビュー"
-
-#~ msgid "Table"
-#~ msgstr "テーブル"
-
-#~ msgid "Couldn't find keybinding file -- %s"
-#~ msgstr "キー割り当てファイルを見付けられませんでした -- %s"
-
-#~ msgid "Html"
-#~ msgstr "HTML"
-
-#~ msgid "Html test"
-#~ msgstr "HTMLテスト"
-
-#~ msgid "Test1"
-#~ msgstr "テスト1"
-
-#~ msgid "Test2"
-#~ msgstr "テスト2"
-
-#~ msgid "Test3"
-#~ msgstr "テスト3"
-
-#~ msgid "Test4"
-#~ msgstr "テスト4"
-
-#~ msgid "Test5"
-#~ msgstr "テスト5"
-
-#~ msgid "Test6"
-#~ msgstr "テスト6"
-
-#~ msgid "Test7"
-#~ msgstr "テスト7"
-
-#~ msgid "_Refresh"
-#~ msgstr "再読込(_R)"
-
-#~ msgid "Reload the page"
-#~ msgstr "ページを再読み込み"
-
-#~ msgid "Could not initialize Bonobo!"
-#~ msgstr "Bonoboを初期化できませんでした!"
