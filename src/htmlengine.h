@@ -305,6 +305,11 @@ void  html_engine_draw                 (HTMLEngine *e,
 					gint        y,
 					gint        width,
 					gint        height);
+void  html_engine_draw_background      (HTMLEngine *e,
+					gint        x,
+					gint        y,
+					gint        width,
+					gint        height);
 
 /* Scrolling.  */
 void      html_engine_schedule_update      (HTMLEngine  *p);

@@ -82,7 +82,7 @@ DEFINE_UNIMPLEMENTED (draw_shade_line);
 DEFINE_UNIMPLEMENTED (draw_panel);
 
 DEFINE_UNIMPLEMENTED (set_clip_rectangle);
-DEFINE_UNIMPLEMENTED (draw_background_pixmap);
+DEFINE_UNIMPLEMENTED (draw_background);
 
 DEFINE_UNIMPLEMENTED (get_pixel_size);
 
@@ -140,7 +140,7 @@ class_init (GtkObjectClass *object_class)
 	class->draw_panel = (gpointer) draw_panel_unimplemented;
 
 	class->set_clip_rectangle = (gpointer) set_clip_rectangle_unimplemented;
-	class->draw_background_pixmap = (gpointer) draw_background_pixmap_unimplemented;
+	class->draw_background = (gpointer) draw_background_unimplemented;
 
 	class->get_pixel_size = (gpointer) get_pixel_size_unimplemented;
 
@@ -425,16 +425,17 @@ html_painter_set_clip_rectangle (HTMLPainter *painter,
 
 /* Passing 0 for pix_width / pix_height makes it use the image width */
 void
-html_painter_draw_background_pixmap (HTMLPainter *painter,
-				     gint x, gint y,
-				     GdkPixbuf *pixbuf,
-				     gint pix_width, gint pix_height)
+html_painter_draw_background (HTMLPainter *painter,
+			      GdkColor *color,
+			      GdkPixbuf *pixbuf,
+			      gint x, gint y,
+			      gint width, gint height,
+			      gint tile_x, gint tile_y)
 {
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
-	g_return_if_fail (pixbuf != NULL);
 
-	(* HP_CLASS (painter)->draw_background_pixmap) (painter, x, y, pixbuf, pix_width, pix_height);
+	(* HP_CLASS (painter)->draw_background) (painter, color, pixbuf, x, y, width, height, tile_x, tile_y);
 }
 
 guint

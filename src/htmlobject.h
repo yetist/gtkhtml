@@ -341,6 +341,10 @@ gint            html_object_calc_preferred_width  (HTMLObject  *o,
 void            html_object_calc_abs_position     (HTMLObject  *o,
 						   gint        *x_return,
 						   gint        *y_return);
+void            html_object_calc_intersection     (HTMLObject *o, 
+						   ArtIRect *intersection,
+						   gint x, gint y, 
+						   gint width, gint height);
 gboolean        html_object_relayout              (HTMLObject  *obj,
 						   HTMLEngine  *engine,
 						   HTMLObject  *child);

@@ -882,8 +882,7 @@ calc_row_heights (HTMLTable *table,
 			rowPos = (ROW_HEIGHT (table, indx) + 
 				  HTML_OBJECT (cell)->ascent +
 				  HTML_OBJECT (cell)->descent
-				  + (pixel_size * (table->padding * 2
-						   + table->spacing
+				  + (pixel_size * (table->spacing
 						   + borderExtra)));
 
 			if (rowPos > ROW_HEIGHT (table, r + 1))
@@ -1046,7 +1045,7 @@ calc_size (HTMLObject *o,
 		gint cellHeight;
 		
 		HTML_OBJECT (table)->ascent = (ROW_HEIGHT (table, r + 1)
-					       - pixel_size * (table->padding + table->spacing));
+					       - pixel_size * (table->spacing));
 
 		if (table->caption && table->capAlign == HTML_VALIGN_TOP) {
 			g_print ("FIXME: caption support\n");
@@ -1065,13 +1064,13 @@ calc_size (HTMLObject *o,
 			if ((indx = c - cell->cspan + 1) < 0)
 				indx = 0;
 
-			HTML_OBJECT (cell)->x = COLUMN_OPT (table, indx) + pixel_size * table->padding;
+			HTML_OBJECT (cell)->x = COLUMN_OPT (table, indx);
 			HTML_OBJECT (cell)->y = HTML_OBJECT (table)->ascent - HTML_OBJECT (cell)->descent;
 			if ((indx = r - cell->rspan + 1) < 0) 
 				indx = 0;
 			
 			cellHeight = (ROW_HEIGHT (table, r + 1) - ROW_HEIGHT (table, indx)
-				      - pixel_size * (table->padding * 2 + table->spacing));
+				      - pixel_size * (table->spacing));
 			html_object_set_max_ascent (HTML_OBJECT (cell), painter, cellHeight);
 		}
 
@@ -1107,12 +1106,15 @@ draw (HTMLObject *o,
 	gint cindx, rindx;
 	gint pixel_size;
 	gint r, c;
+	ArtIRect cellpaint, paint;
 
-	if (y + height < o->y - o->ascent || y > o->y + o->descent)
+	html_object_calc_intersection (o, &paint, x, y, width, height);
+	if (art_irect_empty (&paint))
 		return;
 
 	pixel_size = html_painter_get_pixel_size (p);
 	
+
 	tx += o->x;
 	ty += o->y - o->ascent;
 
@@ -1129,8 +1131,9 @@ draw (HTMLObject *o,
 				continue;
 
 			html_object_draw (HTML_OBJECT (cell), p, 
-					  x - o->x, y - (o->y - o->ascent),
-					  width, height,
+					  x - o->x, y - o->y + o->ascent,
+					  width,
+					  height,
 					  tx, ty);
 		}
 	}

@@ -1,3 +1,53 @@
+2000-04-19  Larry Ewing  <lewing@helixcode.com>
+
+	* htmltablecell.c (draw_background_helper): use the new super cool
+	html_painter_draw_background to draw the background of the cell
+	and change the arguments to use an ArtIRect.  No longer deal with
+	the padding outside of the cluev, the fact that we were meant that
+	the cell needed to draw outside it's bounding box.  Now we need to
+	fix cluev to do the right thing all the time with padding.
+	(draw_background)
+	(draw): check the interection before drawing.
+	(html_table_cell_init): set the cluev padding rather than the
+	table cell padding.  The padding should be handled by the cluev
+	completely. but the cluev isn't perfect in how it does this right
+	now (see http://www.helixcode.com/ and look at the monkey image.	
+
+	* htmltable.c (calc_row_heights): 
+	(calc_size): 
+	(calc_size): remove padding, this isn't completely done but I want
+	to get the current code in the repository.
+	(draw): use the new object intersection test.
+
+	* htmlpainter.c (class_init): 
+	(draw_background): replace draw_background_pixmap with draw_background.
+
+	* htmlpainter.h: the same.
+
+	* htmlprinter.c: the same.
+	
+	* htmlobject.c (html_object_calc_intersection): convenience
+	function for calculating the intersection of the drawing region
+	and an object.
+
+	* htmlobject.h: make html_object_calc_intersection public.
+
+	* htmlgdkpainter.c (draw_background): change
+	draw_background_pixmap to draw_background and add an argument for
+	color so that we can optimize drawing later. Also add offset
+	arguments since we are now correctly only drawing part of the
+	backround and must know where starting offset is.
+	(class_init): initialize draw_background.
+
+	* htmlengine.c (html_engine_draw_background): change
+	draw_backround to a public function and use the new
+	html_painter_draw_background function.
+
+	* htmlengine.h: add html_engine_draw_background.
+
+	* htmldrawqueue.c (draw_obj): use the new
+	html_engine_draw_background function.
+
 2000-04-18  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlengine.c (html_engine_draw): fix the region we choose to

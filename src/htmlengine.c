@@ -3049,51 +3049,31 @@ ensure_editable (HTMLEngine *engine)
 }
 
 
-static void
-draw_background (HTMLEngine *e,
-		 gint xval, gint yval,
-		 gint x, gint y, gint w, gint h)
+void
+html_engine_draw_background (HTMLEngine *e,
+			     gint x, gint y, gint w, gint h)
 {
-	gint xoff = 0;
-	gint yoff = 0;
-	gint pw, ph;
-	gint xOrigin, yOrigin;
 	HTMLImagePointer *bgpixmap;
-
-	xoff = xval;
-	yoff = yval;
-	xval = e->x_offset;
-	yval = e->y_offset;
+	GdkPixbuf *pixbuf = NULL;
 
 	/* draw bgColor */
 	if (! e->bgColor_allocated) {
 		html_painter_alloc_color (e->painter, &e->bgColor);
 		e->bgColor_allocated = TRUE;
 	}
-	html_painter_set_pen (e->painter, &e->bgColor);
-	html_painter_fill_rect (e->painter, x, y, w, h);
 
 	/* return if no background pixmap is set */
 	bgpixmap = e->bgPixmapPtr;
-	if (!bgpixmap || !bgpixmap->pixbuf) {
-		return;
+	if (bgpixmap && bgpixmap->pixbuf) {
+		pixbuf = bgpixmap->pixbuf;
 	}
 
-	/* draw background pixmap */
-	pw = gdk_pixbuf_get_width (bgpixmap->pixbuf);
-	ph = gdk_pixbuf_get_height (bgpixmap->pixbuf);
-
-	xOrigin = x / pw*pw - xval % pw;
-	yOrigin = y / ph*ph - yval % ph;
-
-#if 0
-	xOrigin -= e->painter->x1;
-	yOrigin -= e->painter->y1;
-#endif
-
-	html_painter_draw_background_pixmap (e->painter, 
-					     xOrigin, yOrigin,
-					     bgpixmap->pixbuf, w+x-xOrigin, h+y-yOrigin);
+	html_painter_draw_background (e->painter, 
+				      &e->bgColor,
+				      pixbuf,
+				      x, y,
+				      w, h,
+				      e->x_offset + x, e->y_offset + y);
 }
 
 void
@@ -3360,7 +3340,7 @@ html_engine_draw (HTMLEngine *e,
 
 	html_painter_begin (e->painter, x, y, x + width, y + height);
 
-	draw_background (e, e->x_offset, e->y_offset, x, y, width, height);
+	html_engine_draw_background (e, x, y, width, height);
 
 	if (e->clue)
 		html_object_draw (e->clue,

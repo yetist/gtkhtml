@@ -581,6 +581,24 @@ html_object_calc_abs_position (HTMLObject *o,
 	}
 }
 
+void
+html_object_calc_intersection (HTMLObject *o, ArtIRect *intersection, gint x, gint y, gint width, gint height)
+{
+	ArtIRect clip, area;
+	
+	area.x0 = o->x;
+	area.x1 = o->x + o->width;
+	area.y0 = o->y - o->ascent;
+	area.y1 = o->y + o->descent;
+
+	clip.x0 = x;
+	clip.x1 = x + width;
+	clip.y0 = y;
+	clip.y1 = y + height;
+
+	art_irect_intersect (intersection, &clip, &area);
+}
+
 
 /* Virtual methods.  */
 

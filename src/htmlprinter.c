@@ -356,10 +356,12 @@ draw_panel (HTMLPainter *painter,
 }
 
 static void
-draw_background_pixmap (HTMLPainter *painter,
-			gint x, gint y, 
-			GdkPixbuf *pixbuf,
-			gint pix_width, gint pix_height)
+draw_background (HTMLPainter *painter,
+		 GdkColor *color,
+		 GdkPixbuf *pixbuf,
+		 gint x, gint y, 
+		 gint pix_width, gint pix_height,
+		 gint tile_x, gint tile_y)
 {
 	HTMLPrinter *printer;
 
@@ -654,7 +656,7 @@ class_init (GtkObjectClass *object_class)
 	painter_class->draw_pixmap = draw_pixmap;
 	painter_class->clear = clear;
 	painter_class->draw_shade_line = draw_shade_line;
-	painter_class->draw_background_pixmap = draw_background_pixmap;
+	painter_class->draw_background = draw_background;
 	painter_class->get_pixel_size = get_pixel_size;
 
 	parent_class = gtk_type_class (html_painter_get_type ());

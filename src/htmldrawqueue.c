@@ -261,16 +261,15 @@ draw_obj (HTMLDrawQueue *queue,
            Instead, there should be a function in HTMLEngine to paint
            stuff.  */
 
-	html_painter_set_pen (e->painter, &e->bgColor);
-	html_painter_fill_rect (e->painter, x1, y1, x2, y2);
-
 	/* Draw the actual object.  */
 
-	if (html_object_is_transparent (obj))
+	if (html_object_is_transparent (obj)) {
+		html_engine_draw_background (e, x1, y1, x2, y2);
 		html_object_draw_background (obj, e->painter,
 					     obj->x, obj->y - obj->ascent,
 					     obj->width, obj->ascent + obj->descent,
 					     tx, ty);
+	}
 
 	html_object_draw (obj,
 			  e->painter, 

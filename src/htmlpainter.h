@@ -84,9 +84,9 @@ struct _HTMLPainterClass {
 			     GtkHTMLEtchStyle inset, gint bordersize);
 
 	void (* set_clip_rectangle) (HTMLPainter *painter, gint x, gint y, gint width, gint height);
-	void (* draw_background_pixmap) (HTMLPainter *painter, gint x, gint y, GdkPixbuf *pixbuf,
-					 gint pix_width, gint pix_height);
-
+	void (* draw_background) (HTMLPainter *painter, GdkColor *color, GdkPixbuf *pixbuf, gint x, gint y,
+				  gint width, gint height, gint tile_x, gint tile_y);
+	
 	void (* set_color_set) (HTMLPainter *painter, HTMLColorSet *color_set);
 
 	guint (* get_pixel_size) (HTMLPainter *painter);
@@ -193,13 +193,18 @@ void  html_painter_set_clip_rectangle  (HTMLPainter *painter,
 					gint         height);
 
 /* Passing 0 for pix_width / pix_height makes it use the image width */
-void  html_painter_draw_background_pixmap  (HTMLPainter *painter,
-					    gint         x,
-					    gint         y,
-					    GdkPixbuf   *pixbuf,
-					    gint         pix_width,
-					    gint         pix_height);
+void  html_painter_draw_background  (HTMLPainter *painter,
+				     GdkColor    *color,
+				     GdkPixbuf   *pixbuf,
+				     gint         x,
+				     gint         y,
+				     gint         width,
+				     gint         height,
+				     gint         tile_x,
+				     gint         tile_y);
 
 guint  html_painter_get_pixel_size  (HTMLPainter *painter);
 
 #endif /* _HTMLPAINTER_H_ */
+
+

@@ -373,16 +373,37 @@ draw_panel (HTMLPainter *painter,
 }
 
 static void
-draw_background_pixmap (HTMLPainter *painter,
-			gint x, gint y, 
-			GdkPixbuf *pixbuf,
-			gint tile_width, gint tile_height)
+draw_background (HTMLPainter *painter,
+		 GdkColor *color,
+		 GdkPixbuf *pixbuf,
+		 gint x, gint y, 
+		 gint width, gint height,
+		 gint tile_x, gint tile_y)
 {
 	HTMLGdkPainter *gdk_painter;
 	gint pw;
 	gint ph;
+	gint tile_width, tile_height;
+	gint w, h;
+
+	tile_width = width + tile_x;
+	tile_height = height + tile_y;
+
+	if (!color && !pixbuf)
+		return;
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
+
+	if (color) {
+		gdk_gc_set_foreground (gdk_painter->gc, color);
+		gdk_draw_rectangle (gdk_painter->pixmap, gdk_painter->gc,
+				    TRUE, x - gdk_painter->x1, y - gdk_painter->y1,
+				    width, height);	
+		
+	}
+
+	if (!pixbuf)
+		return;
 
 	pw = gdk_pixbuf_get_width (pixbuf);
 	ph = gdk_pixbuf_get_height (pixbuf);
@@ -421,23 +442,29 @@ draw_background_pixmap (HTMLPainter *painter,
 					       x, y);
 
 		cy = y;
-		ch = tile_height;
+		ch = height;
+		h = tile_y % ph;
 		while (ch > 0) {
 			cx = x;
-			cw = tile_width;
+			cw = width;
+			w = tile_x % pw;
 			while (cw > 0) {
+
 				if (bitmap)
-					gdk_gc_set_clip_origin (gc, cx - gdk_painter->x1, cy - gdk_painter->y1);
+					gdk_gc_set_clip_origin (gc, cx - w - gdk_painter->x1, cy - h - gdk_painter->y1);
+				
 				
 				gdk_draw_pixmap (gdk_painter->pixmap, gc, pixmap,
-						 0, 0, cx - gdk_painter->x1, cy - gdk_painter->y1,
-						 (cw >= pw) ? pw : cw,
-						 (ch >= ph) ? ph : ch);
-				cw -= pw;
-				cx += pw;
+						 w, h, cx - gdk_painter->x1, cy - gdk_painter->y1,
+						 (cw >= pw -w) ? pw -w: cw,
+						 (ch >= ph -h) ? ph -h: ch);
+				cw -= pw - w;
+				cx += pw - w;
+				w = 0;
 			}
-			ch -= ph;
-			cy += ph;
+			ch -= ph - h;
+			cy += ph - h;
+			h = 0;
 		}
 		gdk_pixmap_unref (pixmap);
 
@@ -447,9 +474,9 @@ draw_background_pixmap (HTMLPainter *painter,
 		gdk_gc_unref (gc);
 	} else {
 		gdk_pixbuf_render_to_drawable_alpha (pixbuf, gdk_painter->pixmap,
-						     0, 0,
+						     tile_x, tile_y,
 						     x - gdk_painter->x1, y - gdk_painter->y1, 
-						     tile_width, tile_height,
+						     width, height,
 						     GDK_PIXBUF_ALPHA_BILEVEL,
 						     128,
 						     GDK_RGB_DITHER_NORMAL,
@@ -826,7 +853,7 @@ class_init (GtkObjectClass *object_class)
 	painter_class->draw_shade_line = draw_shade_line;
 	painter_class->draw_panel = draw_panel;
 	painter_class->set_clip_rectangle = set_clip_rectangle;
-	painter_class->draw_background_pixmap = draw_background_pixmap;
+	painter_class->draw_background = draw_background;
 	painter_class->set_color_set = set_color_set;
 	painter_class->get_pixel_size = get_pixel_size;
 
