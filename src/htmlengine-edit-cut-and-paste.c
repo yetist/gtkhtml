@@ -102,21 +102,23 @@ html_cursor_get_right (HTMLCursor *cursor, HTMLObject **obj, gint *off)
 }
 
 static void
-html_point_get_left (HTMLPoint *source, HTMLPoint *dest)
+html_point_get_left (HTMLPoint *source, HTMLPoint *dest, gboolean allow_null)
 {
 	if (source->offset == 0) {
 		dest->object = html_object_prev_not_slave (source->object);
 		if (dest->object) {
 			dest->offset = html_object_get_length (dest->object);
+			return;
 		}
-		return;
+		if (allow_null)
+			return;
 	}
 
 	*dest = *source;
 }
 
 static void
-html_point_get_right (HTMLPoint *source, HTMLPoint *dest)
+html_point_get_right (HTMLPoint *source, HTMLPoint *dest, gboolean allow_null)
 {
 	if (source->offset >= html_object_get_length (source->object)) {
 		dest->object = html_object_next_not_slave (source->object);
@@ -124,6 +126,8 @@ html_point_get_right (HTMLPoint *source, HTMLPoint *dest)
 			dest->offset = 0;
 			return;
 		}
+		if (allow_null)
+			return;
 	}
 
 	*dest = *source;
@@ -170,8 +174,8 @@ prepare_delete_bounds (HTMLEngine *e, GList **from_list, GList **to_list,
 
 	g_assert (e->selection);
 
-	html_point_get_right (&e->selection->from, &begin);
-	html_point_get_left  (&e->selection->to,   &end);
+	html_point_get_right (&e->selection->from, &begin, FALSE);
+	html_point_get_left  (&e->selection->to,   &end,   FALSE);
 
 	level = get_parent_level (begin.object, end.object);
 
@@ -179,8 +183,8 @@ prepare_delete_bounds (HTMLEngine *e, GList **from_list, GList **to_list,
 	*to_list   = get_parent_list (&end,   level, TRUE);
 
 	if (bound_left && bound_right) {
-		html_point_get_left  (&e->selection->from, &b_left);
-		html_point_get_right  (&e->selection->to, &b_right);
+		html_point_get_left  (&e->selection->from, &b_left,  TRUE);
+		html_point_get_right (&e->selection->to,   &b_right, TRUE);
 
 		level = get_parent_level (b_left.object, b_right.object);
 
@@ -252,15 +256,6 @@ remove_empty_and_merge (HTMLEngine *e, gboolean merge, GList *left, GList *right
 	HTMLObject *lo, *ro;
 	gint len;
 
-	printf ("-- merge --\n");
-	if (left && left->data) {
-		printf ("left:\n");
-		gtk_html_debug_dump_tree_simple (HTML_OBJECT (left->data), 0);
-	}
-	if (right && right->data) {
-		printf ("right:\n");
-		gtk_html_debug_dump_tree_simple (HTML_OBJECT (right->data), 0);
-	}
 	while (left && left->data && right && right->data) {
 
 		lo  = HTML_OBJECT (left->data);
@@ -296,9 +291,6 @@ remove_empty_and_merge (HTMLEngine *e, gboolean merge, GList *left, GList *right
 		left  = left->next;
 		right = right->next;
 	}
-	printf ("-- after merge --\n");
-	gtk_html_debug_dump_tree_simple (e->clue, 0);
-	printf ("-- merge END --\n");
 }
 
 static void
@@ -404,7 +396,7 @@ delete_object_do (HTMLEngine *e, HTMLObject **object, guint *len)
 				e->cursor->offset = off;
 			}			
 		}
-		html_engine_deactivate_selection (e);
+		html_engine_disable_selection (e);
 		*len     = 0;
 		*object  = html_object_op_cut  (HTML_OBJECT (from->data), e, from->next, to->next, len);
 		remove_empty_and_merge (e, TRUE, left, right, NULL);
@@ -449,6 +441,8 @@ delete_object (HTMLEngine *e, HTMLObject **ret_object, guint *ret_len, HTMLUndoD
 			*ret_object = html_object_op_copy (object, e, NULL, NULL, ret_len);
 			*ret_len    = len;
 		}
+		printf ("len %d\n", len);
+		gtk_html_debug_dump_tree_simple (object, 0);
 		delete_setup_undo (e, object, len, dir);
 	}
 }

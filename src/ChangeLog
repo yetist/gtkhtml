@@ -1,5 +1,12 @@
 2001-01-05  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine-edit-cut-and-paste.c (delete_object_do): use disable
+	selection instead of deactivate to deselect deleted objects
+	(html_point_get_left): added allow_null parameter
+	(html_point_get_right): likewise
+	(prepare_delete_bounds): allow NULL for bounds, but not for from,
+	to
+
 	* htmlengine.c (html_engine_thaw): use html_draw_queue_clear
 
 	* htmldrawqueue.c (html_draw_queue_clear): new function
