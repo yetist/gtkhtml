@@ -13,7 +13,8 @@ icons_DATA = \
 	insert-link-16.png		\
 	insert-link-24.png		\
 	search-24.png			\
-	search-and-replace-24.png
+	search-and-replace-24.png	\
+	html-viewer.png
 
 EXTRA_DIST = \
 	$(icons_DATA)
