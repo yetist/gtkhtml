@@ -80,7 +80,10 @@ draw (HTMLObject *o,
 	if (o->percent == 0) {
 		w = o->width;
 	} else {
-		w = (o->width * o->percent) / 100;
+		/* The cast to `gdouble' is to avoid overflow (eg. when
+                   printing).  */
+		w = ((gdouble) o->width * o->percent) / 100;
+
 		switch (rule->halign) {
 		case HTML_HALIGN_LEFT:
 			break;
@@ -165,16 +168,13 @@ html_rule_init (HTMLRule *rule,
 	object->ascent = 6 + size / 2;
 	object->descent = 6 + size / 2 + size % 2;
 
-	object->width = max_width;
 	object->percent = percent;
 
 	rule->shade = shade;
 	rule->halign = halign;
 
-	if (percent > 0) {
-		object->width = max_width * percent / 100;
+	if (percent > 0)
 		object->flags &= ~ HTML_OBJECT_FLAG_FIXEDWIDTH;
-	}
 }
 
 HTMLObject *

@@ -124,7 +124,7 @@ calc_min_width (HTMLObject *o,
 	gint minWidth;
 
 	minWidth = 0;
-	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
+	for (obj = HTML_CLUE (o)->head; obj != NULL; obj = obj->next) {
 		gint w;
 
 		w = html_object_calc_min_width (obj, painter);
@@ -157,7 +157,7 @@ set_max_width (HTMLObject *o,
 
 	o->max_width = max_width;
 
-	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next)
+	for (obj = HTML_CLUE (o)->head; obj != NULL; obj = obj->next)
 		html_object_set_max_width (obj, painter, max_width);
 }
 

@@ -81,12 +81,18 @@ get_actual_width (HTMLImage *image,
 	if (image->specified_width > 0) {
 		width = image->specified_width * html_painter_get_pixel_size (painter);
 	} else if (HTML_OBJECT (image)->percent > 0) {
-		width = (HTML_OBJECT (image)->max_width * HTML_OBJECT (image)->percent) / 100;
+		/* The cast to `gdouble' is to avoid overflow (eg. when
+                   printing).  */
+		width = ((gdouble) HTML_OBJECT (image)->max_width
+			 * HTML_OBJECT (image)->percent) / 100;
 	} else if (image->image_ptr == NULL || pixbuf == NULL) {
 		width = DEFAULT_SIZE * html_painter_get_pixel_size (painter);
 	} else {
-		width = ((anim) ? gdk_pixbuf_animation_get_width (anim) : gdk_pixbuf_get_width (pixbuf))
-			* html_painter_get_pixel_size (painter);
+		if (anim != NULL)
+			width = gdk_pixbuf_animation_get_width (anim);
+		else
+			width = gdk_pixbuf_get_width (pixbuf);
+		width *= html_painter_get_pixel_size (painter);
 	}
 
 	return width;

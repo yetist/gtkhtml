@@ -475,8 +475,8 @@ draw_pixmap (HTMLPainter *painter,
 			  paint_height,
 			  -(paint.x0 - image.x0), 
 			  -(paint.y0 - image.y0),
-			  (double) scale_width/ (double) orig_width,
-			  (double) scale_height/ (double) orig_height,
+			  (gdouble) scale_width/ (gdouble) orig_width,
+			  (gdouble) scale_height/ (gdouble) orig_height,
 			  ART_FILTER_BILINEAR);
 
 	if (color != NULL) {

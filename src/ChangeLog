@@ -1,3 +1,21 @@
+2000-04-06  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlcluev.c
+	(set_max_width): Set the maximum width from `max_width', not
+	`o->width'!
+
+	* htmlimage.c (get_actual_width): Calculate width based on the
+	percent value using double arithmetic to avoid overflow.
+	* htmlrule.c (draw): Likewise.
+	* htmltable.c (calc_col_info): Likewise.
+	* htmltable.c (scale_columns): Likewise.
+	* htmltable.c (calc_column_widths): Likewise.
+	* htmltable.c (calc_size): Likewise.
+
+	* htmltable.c
+	(scale_columns): Calculate proportions through doubles to avoid
+	overflow.
+
 2000-04-05  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine-edit-paste.c (split_first_clueflow_at_cursor): removed strdup

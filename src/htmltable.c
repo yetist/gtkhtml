@@ -220,7 +220,9 @@ calc_col_info (HTMLTable *table,
 
 			/* calculate preferred pos */
 			if (HTML_OBJECT (cell)->percent > 0) {
-				pref_size = (HTML_OBJECT (table)->max_width
+				/* The cast to `gdouble' is to avoid overflow (eg. when
+				   printing).  */
+				pref_size = ((gdouble) HTML_OBJECT (table)->max_width
 					     * HTML_OBJECT (cell)->percent / 100);
 				pref_size += pixel_size * (table->padding * 2
 							   + table->spacing
@@ -490,7 +492,10 @@ scale_columns (HTMLTable *table, HTMLPainter *painter,
 
 			minWidth = (COLUMN_OPT (table, c + 1)
 				    - COLUMN_OPT (table, c + 1 - cell->cspan));
-			prefWidth = (tableWidth * HTML_OBJECT (cell)->percent / 100
+
+			/* The cast to `gdouble' is to avoid overflow
+                           (eg. when printing).  */
+			prefWidth = (((gdouble) tableWidth * HTML_OBJECT (cell)->percent) / 100
 				     + pixel_size * (table->padding * 2
 						     + table->spacing
 						     + borderExtra));
@@ -544,7 +549,11 @@ scale_columns (HTMLTable *table, HTMLPainter *painter,
 
 				minWidth = COLUMN_OPT (table, c + 1) - 
 					COLUMN_OPT (table, c + 1 - cell->cspan);
-				prefWidth = (tableWidth * HTML_OBJECT (cell)->percent / 100
+
+				/* The cast to `gdouble' is to avoid overflow (eg. when
+				   printing).  */
+				prefWidth = (((gdouble) tableWidth
+					      * HTML_OBJECT (cell)->percent) / 100
 					     + pixel_size * (table->padding * 2
 							     + table->spacing
 							     + borderExtra));
@@ -556,7 +565,10 @@ scale_columns (HTMLTable *table, HTMLPainter *painter,
 
 				if (totalRequested > totalAllowed) { 
 					/* We can't honour the request, scale it */
-					addSize = addSize * totalAllowed / totalRequested;
+					/* The cast to `gdouble' is to avoid overflow (eg. when
+					   printing).  */
+					addSize = (((gdouble) addSize * totalAllowed)
+						   / totalRequested);
 					totalRequested -= prefWidth - minWidth;
 					totalAllowed -= addSize;
 				}
@@ -628,7 +640,10 @@ scale_columns (HTMLTable *table, HTMLPainter *painter,
 			}
 			else if (HTML_OBJECT (cell)->percent > 0) {
 				/* percentage width */
-				prefCellWidth = (tableWidth * HTML_OBJECT (cell)->percent / 100
+				/* The cast to `gdouble' is to avoid overflow (eg. when
+				   printing).  */
+				prefCellWidth = (((gdouble) tableWidth
+						  * HTML_OBJECT (cell)->percent) / 100
 						 + pixel_size * (table->padding * 2
 								 + table->spacing
 								 + borderExtra));
@@ -675,8 +690,11 @@ scale_columns (HTMLTable *table, HTMLPainter *painter,
 
 			addSize = prefWidth - minWidth;
 
-			if (totalRequested > totalAllowed) {/* We can't honour the request, scale it */
-				addSize = addSize * totalAllowed / totalRequested;
+			if (totalRequested > totalAllowed) {
+				/* We can't honour the request, scale it */
+				/* The cast to `gdouble' is to avoid overflow (eg. when
+				   printing).  */
+				addSize = ((gdouble) addSize * totalAllowed) / totalRequested;
 				totalRequested -= prefWidth - minWidth;
 				totalAllowed -= addSize;
 			}
@@ -774,8 +792,11 @@ calc_column_widths (HTMLTable *table,
 
 			/* Calculate preferred pos */
 			if (HTML_OBJECT (cell)->percent > 0) {
+				/* The cast to `gdouble' is to avoid overflow (eg. when
+				   printing).  */
 				colPos = (COLUMN_PREF_POS (table, indx)
-					  + (HTML_OBJECT (table)->max_width * HTML_OBJECT (cell)->percent / 100)
+					  + ((gdouble) HTML_OBJECT (table)->max_width
+					     * HTML_OBJECT (cell)->percent / 100)
 					  + pixel_size * (table->padding * 2
 							  + table->spacing
 							  + borderExtra));
@@ -964,10 +985,13 @@ calc_size (HTMLObject *o,
 		o->width = COLUMN_OPT (table, table->totalCols) + pixel_size * table->border;
 		available_width = o->max_width;
 	} else {
-		if (o->percent != 0)
-			o->width = o->max_width * o->percent / 100;
-		else /* if (o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH) */
+		if (o->percent != 0) {
+			/* The cast to `gdouble' is to avoid overflow (eg. when
+			   printing).  */
+			o->width = ((gdouble) o->max_width * o->percent) / 100;
+		} else /* if (o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH) */ {
 			o->width = table->specified_width;
+		}
 		available_width = o->width;
 	}
 		

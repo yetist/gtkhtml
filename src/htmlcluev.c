@@ -146,7 +146,7 @@ do_layout (HTMLObject *o,
 		if (calc_size)
 			changed |= html_object_calc_size (clue->curr, painter);
 
-		if (clue->curr->width > o->width - 2 * cluev->padding)
+		if (o->width < clue->curr->width + 2 * cluev->padding)
 			o->width = clue->curr->width + 2 * cluev->padding;
 
 		o->ascent += clue->curr->ascent + clue->curr->descent;
@@ -229,8 +229,8 @@ set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
 	HTMLObject *obj;
 
 	o->max_width = max_width;
-	for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next)
-		html_object_set_max_width (obj, painter, o->width);
+	for (obj = HTML_CLUE (o)->head; obj != NULL; obj = obj->next)
+		html_object_set_max_width (obj, painter, o->max_width);
 }
 
 static void
@@ -242,8 +242,8 @@ reset (HTMLObject *clue)
 
 	HTML_OBJECT_CLASS (&html_clue_class)->reset (clue);
 
-	cluev->align_left_list = 0;
-	cluev->align_right_list = 0;
+	cluev->align_left_list = NULL;
+	cluev->align_right_list = NULL;
 }
 
 static void
