@@ -50,6 +50,11 @@ icons_DATA = \
 	undo-16.png			\
 	undo-24.png			\
 	paper.png			\
+	ribbon.jpg			\
+	midnight-stars.jpg		\
+	confidential-stamp.jpg		\
+	draft-stamp.jpg			\
+	draft-paper.png			\
 	rect.png			\
 	texture.png
 
