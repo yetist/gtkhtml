@@ -1,5 +1,7 @@
 2001-03-13  Radek Doulik  <rodo@ximian.com>
 
+	* gtkhtml.c (command): return for already handled commands
+
 	* htmltext.c: fixed matching, removed * from final char match,
 	which made it useless, added ?!;: to forbidden terminal characters
 

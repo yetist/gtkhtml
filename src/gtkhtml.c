@@ -662,6 +662,8 @@ key_press_event (GtkWidget *widget,
 			update_styles (html);
 	}
 
+	/* printf ("retval: %d\n", retval); */
+
 	return retval;
 }
 
@@ -2580,7 +2582,7 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		html->binding_handled = FALSE;
 	}
 
-	if (!html_engine_get_editable (e))
+	if (!html_engine_get_editable (e) || html->binding_handled)
 		return;
 
 	html->binding_handled = TRUE;
