@@ -282,24 +282,6 @@ draw (HTMLObject *o,
 		g_free (s);
 	}
 #endif
-
-#if 0
-	if (cursor != NULL
-	    && cursor->object == HTML_OBJECT (textslave->owner)
-	    && ((cursor->offset >= textslave->posStart
-		 && cursor->offset < textslave->posStart + textslave->posLen)
-		|| cursor->offset == HTML_TEXT (textslave->owner)->text_len)) {
-		gint x_offset;
-
-		x_offset = gdk_text_width (ownertext->font->gdk_font,
-					   ownertext->text + textslave->posStart,
-					   cursor->offset - textslave->posStart);
-
-		html_painter_draw_cursor (p,
-					  o->x + tx + x_offset, o->y + ty,
-					  o->ascent, o->descent);
-	}
-#endif
 }
 
 static gint
