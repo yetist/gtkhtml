@@ -20,6 +20,15 @@
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
    Boston, MA 02111-1307, USA.
+
+   TODO:
+
+     - implement proper animation loading (now it loops thru loaded frames
+       and does not stop when loading is in progress and we are out of frames)
+     - look at gdk-pixbuf to make gdk_pixbuf_compose work (look also
+       on gk_pixbuf_render_to_drawable_alpha)
+     - take care about all the frame->action values
+
 */
 
 #include <glib.h>
@@ -46,7 +55,11 @@ struct _HTMLImageFactory {
 HTMLImageClass html_image_class;
 static HTMLObjectClass *parent_class = NULL;
 
-static HTMLImageAnimation *html_image_animation_new (HTMLImage *image);
+static HTMLImageAnimation *html_image_animation_new     (HTMLImage *image);
+static void                html_image_animation_destroy (HTMLImageAnimation *anim);
+static HTMLImagePointer   *html_image_pointer_new       (const char *filename, HTMLImageFactory *factory);
+static void                html_image_pointer_destroy   (HTMLImagePointer *ip);
+
 static void render_cur_frame (HTMLImage *image, gint nx, gint ny);
 
 
@@ -102,10 +115,16 @@ get_actual_height (HTMLImage *image,
    way to set it to NULL when the stream is closed.  This clearly sucks and
    must be fixed.  */
 static void
-destroy (HTMLObject *image)
+destroy (HTMLObject *o)
 {
-	html_image_factory_unregister (HTML_IMAGE (image)->image_ptr->factory,
-				       HTML_IMAGE (image)->image_ptr, HTML_IMAGE (image));
+	HTMLImage *image = HTML_IMAGE (o);
+
+	html_image_factory_unregister (image->image_ptr->factory,
+				       image->image_ptr, HTML_IMAGE (image));
+	if (image->animation)
+		html_image_animation_destroy (image->animation);
+
+	HTML_OBJECT_CLASS (parent_class)->destroy (o);
 }
 
 static void
@@ -433,9 +452,15 @@ render_cur_frame (HTMLImage *image, gint nx, gint ny)
 	gint w, h;
 
 	painter = image->image_ptr->factory->engine->painter;
+	w = gdk_pixbuf_animation_get_width (ganim);
+	h = gdk_pixbuf_animation_get_height (ganim);
+	html_painter_set_pen (painter, &image->image_ptr->factory->engine->bgColor);
+	html_painter_fill_rect (painter, nx, ny, w, h);
 
-	do {
-		frame = (GdkPixbufFrame *) cur->data;
+	frame = (GdkPixbufFrame *) anim->cur_frame->data;
+	/* printf ("w: %d h: %d action: %d\n", w, h, frame->action); */
+
+	if (frame->action == GDK_PIXBUF_FRAME_DISPOSE) {
 		w = gdk_pixbuf_get_width (frame->pixbuf);
 		h = gdk_pixbuf_get_height (frame->pixbuf);
 		html_painter_draw_pixmap (painter, frame->pixbuf,
@@ -443,10 +468,23 @@ render_cur_frame (HTMLImage *image, gint nx, gint ny)
 					  ny + frame->y_offset,
 					  w, h,
 					  NULL);
-		if (anim->cur_frame == cur)
-			break;
-		cur = cur->next;
-	} while (1);
+	} else {
+		do {
+			frame = (GdkPixbufFrame *) cur->data;
+			if (frame->action == GDK_PIXBUF_FRAME_RETAIN) {
+				w = gdk_pixbuf_get_width (frame->pixbuf);
+				h = gdk_pixbuf_get_height (frame->pixbuf);
+				html_painter_draw_pixmap (painter, frame->pixbuf,
+							  nx + frame->x_offset,
+							  ny + frame->y_offset,
+							  w, h,
+							  NULL);
+			}
+			if (anim->cur_frame == cur)
+				break;
+			cur = cur->next;
+		} while (1);
+	}
 }
 
 static gint
@@ -611,12 +649,7 @@ cleanup_images (gpointer key, gpointer value, gpointer user_data)
 	/* clean only if this image is not used anymore */
 	if (!ptr->interests){
 		retval = TRUE;
-		g_free (ptr->url);
-		if (ptr->loader)
-			gdk_pixbuf_loader_close (ptr->loader);
-		if (ptr->pixbuf)
-			gdk_pixbuf_unref (ptr->pixbuf);
-		g_free (ptr);
+		html_image_pointer_destroy (ptr);
 	}
 
 	return retval;
@@ -656,6 +689,42 @@ html_image_animation_new (HTMLImage *image)
 	return animation;
 }
 
+static void
+html_image_animation_destroy (HTMLImageAnimation *anim)
+{
+	gdk_pixbuf_unref (anim->pixbuf);
+}
+
+static HTMLImagePointer *
+html_image_pointer_new (const char *filename, HTMLImageFactory *factory)
+{
+	HTMLImagePointer *retval;
+
+	retval = g_new (HTMLImagePointer, 1);
+	retval->url = g_strdup (filename);
+	retval->loader = gdk_pixbuf_loader_new ();
+	retval->pixbuf = NULL;
+	retval->animation = NULL;
+	retval->interests = NULL;
+	retval->factory = factory;
+
+	return retval;
+}
+
+static void
+html_image_pointer_destroy (HTMLImagePointer *ip)
+{
+	g_free (ip->url);
+	if (ip->loader) {
+		gtk_object_unref (GTK_OBJECT (ip->loader));
+		gdk_pixbuf_loader_close (ip->loader);
+	}
+	if (ip->pixbuf)
+		gdk_pixbuf_unref (ip->pixbuf);
+
+	g_free (ip);
+}
+
 HTMLImagePointer *
 html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char *filename)
 {
@@ -669,14 +738,7 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 	if (!retval){
 		GtkHTMLStreamHandle handle;
 
-		retval = g_new (HTMLImagePointer, 1);
-		retval->url = g_strdup (filename);
-		retval->loader = gdk_pixbuf_loader_new ();
-		retval->pixbuf = NULL;
-		retval->animation = NULL;
-		retval->interests = NULL;
-		retval->factory = factory;
-
+		retval = html_image_pointer_new (filename, factory);
 		gtk_signal_connect (GTK_OBJECT (retval->loader), "area_prepared",
 				    GTK_SIGNAL_FUNC (html_image_factory_area_prepared),
 				    retval);
