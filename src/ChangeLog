@@ -1,5 +1,8 @@
 2000-09-15  Radek Doulik  <rodo@helixcode.com>
 
+	* gtkhtml.h: rename button_pressed flag to button1_pressed and use
+	if for button 1 only
+
 	* htmlembedded.c (destroy): remove widget from html widget
 
 2000-09-14  Dan Winship  <danw@helixcode.com>

@@ -195,7 +195,7 @@ struct _GtkHTML {
 	gint selection_x1, selection_y1;
 
 	guint in_selection : 1;
-	guint button_pressed : 1;
+	guint button1_pressed : 1;
 	guint load_in_progress : 1;
 
 	guint debug : 1;

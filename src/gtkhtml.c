@@ -789,7 +789,7 @@ mouse_change_pos (GtkWidget *widget, gint x, gint y)
 					 x + engine->x_offset, y + engine->y_offset,
 					 NULL, FALSE);
 
-	if (html->button_pressed && html->allow_selection) {
+	if (html->button1_pressed && html->allow_selection) {
 		gboolean need_scroll;
 
 		if (obj) {
@@ -872,7 +872,7 @@ motion_notify_event (GtkWidget *widget,
 		return FALSE;
 
 	engine = GTK_HTML (widget)->engine;
-	if (GTK_HTML (widget)->button_pressed && html_engine_get_editable (engine))
+	if (GTK_HTML (widget)->button1_pressed && html_engine_get_editable (engine))
 		html_engine_jump_at (engine,
 				     event->x + engine->x_offset,
 				     event->y + engine->y_offset);
@@ -924,6 +924,9 @@ button_press_event (GtkWidget *widget,
 				return TRUE;
 			}
 			break;
+		case 1:
+			html->button1_pressed = TRUE;
+			break;
 		default:
 			break;
 		}
@@ -954,8 +957,6 @@ button_press_event (GtkWidget *widget,
 		}
 	}
 
-	html->button_pressed = TRUE;
-
 	if (!(event->button == 1
 	      && (event->type == GDK_2BUTTON_PRESS || event->type == GDK_3BUTTON_PRESS)
 	      && !event->state)) {
@@ -981,10 +982,11 @@ button_release_event (GtkWidget *widget,
 	gtk_grab_remove (widget);
 	gdk_pointer_ungrab (0);
 
-	if (event->button == 1 && html->pointer_url != NULL && ! html->in_selection)
-		gtk_signal_emit (GTK_OBJECT (widget), signals[LINK_CLICKED], html->pointer_url);
-
-	html->button_pressed = FALSE;
+	if (event->button == 1) {
+		html->button1_pressed = FALSE;
+		if (html->pointer_url != NULL && ! html->in_selection)
+			gtk_signal_emit (GTK_OBJECT (widget), signals[LINK_CLICKED], html->pointer_url);
+	}
 
 	if (html->in_selection) {
 		gtk_selection_owner_set (widget, GDK_SELECTION_PRIMARY, event->time);
@@ -1590,7 +1592,7 @@ init (GtkHTML* html)
 	html->selection_y1 = 0;
 
 	html->in_selection = FALSE;
-	html->button_pressed = FALSE;
+	html->button1_pressed = FALSE;
 
 	html->load_in_progress = TRUE;
 

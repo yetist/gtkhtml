@@ -205,7 +205,8 @@ testgtkhtml_LDADD =				\
 	$(EXTRA_GNOME_LIBS)                     \
 	$(GLIBWWW_LIBS)				\
 	$(GCONF_LIBS)				\
-	$(PSPELL_LIBS)	-lccmalloc -ldl
+	$(PSPELL_LIBS)
+#	-lccmalloc -ldl
 #
 
 dist-hook:
