@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD.gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-22 07:41+0100\n"
+"POT-Creation-Date: 2005-02-28 19:13+0100\n"
 "PO-Revision-Date: 2005-02-23 10:10+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati <gu@li.org>\n"
@@ -17,7 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"Plural-Forms: Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"\n"
 
 #: a11y/image.c:150
 #, c-format
@@ -1804,88 +1805,88 @@ msgstr ""
 "ેફેરફાર કરાયેલ વસ્તુ દસ્તાવેજમાંથી કાઢી નાંખવામાં આવ્યું.\n"
 "તમારા ફેરફારો અમલમાં મૂકી શકાતા નથી."
 
-#: src/gtkhtml.c:2579
+#: src/gtkhtml.c:2599
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr "કમ્પોઝર મૂકાયેલ મોઝિલ્લા url ને ખોટું બંધારણ (%d) અથવા લંબાઈ છે (%d)\n"
 
-#: src/gtkhtml.c:2929
+#: src/gtkhtml.c:2976
 msgid "Editable"
 msgstr "ફેરફાર કરી શકાય તેવું"
 
-#: src/gtkhtml.c:2930
+#: src/gtkhtml.c:2977
 msgid "Whether the html can be edited"
 msgstr "શું html માં ફેરફાર કરી શકાશે"
 
-#: src/gtkhtml.c:2936
+#: src/gtkhtml.c:2983
 msgid "Document Title"
 msgstr "દસ્તાવેજનું શીર્ષક"
 
-#: src/gtkhtml.c:2937
+#: src/gtkhtml.c:2984
 msgid "The title of the current document"
 msgstr "વર્તમાન દસ્તાવેજનું શીર્ષક"
 
-#: src/gtkhtml.c:2943
+#: src/gtkhtml.c:2990
 msgid "Document Base"
 msgstr "દસ્તાવેજનો આધાર"
 
-#: src/gtkhtml.c:2944
+#: src/gtkhtml.c:2991
 msgid "The base URL for relative references"
 msgstr "સંબંધિત સંદર્ભો માટે આધારભૂત URL"
 
-#: src/gtkhtml.c:2950
+#: src/gtkhtml.c:2997
 msgid "Target Base"
 msgstr "લક્ષ્ય આધાર"
 
-#: src/gtkhtml.c:2951
+#: src/gtkhtml.c:2998
 msgid "The base URL of the targe frame"
 msgstr "લક્ષ્ય ચોકઢા માટે આધારભૂત URL"
 
-#: src/gtkhtml.c:2960
+#: src/gtkhtml.c:3007
 msgid "Fixed Width Font"
 msgstr "ચોક્કસ પહોળાઈના ફોન્ટ"
 
-#: src/gtkhtml.c:2961
+#: src/gtkhtml.c:3008
 msgid "The Monospace font to use for typewriter text"
 msgstr "ટાઈપરાઈટર લખાણ માટે વપરાતા મોનોસ્પેસ ફોન્ટ"
 
-#: src/gtkhtml.c:2967
+#: src/gtkhtml.c:3014
 msgid "New Link Color"
 msgstr "નવી કડીનો રંગ"
 
-#: src/gtkhtml.c:2968
+#: src/gtkhtml.c:3015
 msgid "The color of new link elements"
 msgstr "નવી કડીના ભાગોનો રંગ"
 
-#: src/gtkhtml.c:2973
+#: src/gtkhtml.c:3020
 msgid "Visited Link Color"
 msgstr "મુલાકાત લીધેલ કડીનો રંગ"
 
-#: src/gtkhtml.c:2974
+#: src/gtkhtml.c:3021
 msgid "The color of visited link elements"
 msgstr "મુલાકાત લીધેલ કડીના ભાગોનો રંગ"
 
-#: src/gtkhtml.c:2979
+#: src/gtkhtml.c:3026
 msgid "Active Link Color"
 msgstr "સક્રિય કડીનો રંગ"
 
-#: src/gtkhtml.c:2980
+#: src/gtkhtml.c:3027
 msgid "The color of active link elements"
 msgstr "સક્રિય કડીના ભાગોનો રંગ"
 
-#: src/gtkhtml.c:2985
+#: src/gtkhtml.c:3032
 msgid "Spelling Error Color"
 msgstr "જોડણી ભૂલનો રંગ"
 
-#: src/gtkhtml.c:2986
+#: src/gtkhtml.c:3033
 msgid "The color of the spelling error markers"
 msgstr "જોડણી ભૂલ દર્શાવનારનો રંગ"
 
-#: src/gtkhtml.c:2991
+#: src/gtkhtml.c:3038
 msgid "Cite Quotation Color"
 msgstr "સાઈટ અવતરણ રંગ"
 
-#: src/gtkhtml.c:2992
+#: src/gtkhtml.c:3039
 msgid "The color of the cited text"
 msgstr "સાઈટ થયેલ લખાણનો રંગ"
 
@@ -1965,4 +1966,3 @@ msgstr "છાપનનું પૂર્વદર્શન"
 #: src/testgtkhtml.c:1004
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML ચકાસણી કાર્યક્રમ"
-

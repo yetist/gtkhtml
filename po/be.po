@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD.be\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-07 17:25+0100\n"
+"POT-Creation-Date: 2005-02-28 19:13+0100\n"
 "PO-Revision-Date: 2004-08-13 10:09+0300\n"
 "Last-Translator: Vital Khilko <dojlid@mova.org>\n"
 "Language-Team: Belarusian <i18n@mova.org>\n"
@@ -1806,88 +1806,88 @@ msgstr ""
 "Рэдагаваны аб'ект выдалены з дакумэнта.\n"
 "Немагчыма ужыць вашы зьмены."
 
-#: src/gtkhtml.c:2579
+#: src/gtkhtml.c:2599
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 
-#: src/gtkhtml.c:2929
+#: src/gtkhtml.c:2976
 msgid "Editable"
 msgstr "Можа рэдагавацца"
 
-#: src/gtkhtml.c:2930
+#: src/gtkhtml.c:2977
 msgid "Whether the html can be edited"
 msgstr "Ці рэдагуецца html"
 
-#: src/gtkhtml.c:2936
+#: src/gtkhtml.c:2983
 msgid "Document Title"
 msgstr "Загаловак дакумэнта"
 
-#: src/gtkhtml.c:2937
+#: src/gtkhtml.c:2984
 msgid "The title of the current document"
 msgstr "Загаловак бягучага дакумэнта"
 
-#: src/gtkhtml.c:2943
+#: src/gtkhtml.c:2990
 msgid "Document Base"
 msgstr "База дакумэнта"
 
-#: src/gtkhtml.c:2944
+#: src/gtkhtml.c:2991
 msgid "The base URL for relative references"
 msgstr "Базавы URL для падобных спасылак"
 
-#: src/gtkhtml.c:2950
+#: src/gtkhtml.c:2997
 msgid "Target Base"
 msgstr "База мэты"
 
-#: src/gtkhtml.c:2951
+#: src/gtkhtml.c:2998
 msgid "The base URL of the targe frame"
 msgstr "Базавы URL фрэйма мэты"
 
-#: src/gtkhtml.c:2960
+#: src/gtkhtml.c:3007
 msgid "Fixed Width Font"
 msgstr "Шрыфт фіксаванае шырыні"
 
-#: src/gtkhtml.c:2961
+#: src/gtkhtml.c:3008
 msgid "The Monospace font to use for typewriter text"
 msgstr "Монашырыны шрыфт для выкарастаньня ў наборы"
 
-#: src/gtkhtml.c:2967
+#: src/gtkhtml.c:3014
 msgid "New Link Color"
 msgstr "Колер новых спасылак"
 
-#: src/gtkhtml.c:2968
+#: src/gtkhtml.c:3015
 msgid "The color of new link elements"
 msgstr "Колер новых спасылак"
 
-#: src/gtkhtml.c:2973
+#: src/gtkhtml.c:3020
 msgid "Visited Link Color"
 msgstr "Колер наведаных спасылак"
 
-#: src/gtkhtml.c:2974
+#: src/gtkhtml.c:3021
 msgid "The color of visited link elements"
 msgstr "Колер наведаных спасылак"
 
-#: src/gtkhtml.c:2979
+#: src/gtkhtml.c:3026
 msgid "Active Link Color"
 msgstr "Колер актыўных спасылак"
 
-#: src/gtkhtml.c:2980
+#: src/gtkhtml.c:3027
 msgid "The color of active link elements"
 msgstr "Колер актыўных спасылак"
 
-#: src/gtkhtml.c:2985
+#: src/gtkhtml.c:3032
 msgid "Spelling Error Color"
 msgstr "Колер памылак правапіса"
 
-#: src/gtkhtml.c:2986
+#: src/gtkhtml.c:3033
 msgid "The color of the spelling error markers"
 msgstr "Колер для падкрэсьленьня памылак правапіса"
 
-#: src/gtkhtml.c:2991
+#: src/gtkhtml.c:3038
 msgid "Cite Quotation Color"
 msgstr "Колер цытаваньня"
 
-#: src/gtkhtml.c:2992
+#: src/gtkhtml.c:3039
 msgid "The color of the cited text"
 msgstr "Колер цытаванага тэксту"
 

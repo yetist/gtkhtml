@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-07 17:25+0100\n"
+"POT-Creation-Date: 2005-02-28 19:13+0100\n"
 "PO-Revision-Date: 2005-01-31 16:09+0200\n"
 "Last-Translator: Žygimantas Beručka <uid0@akl.lt>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
@@ -1802,89 +1802,89 @@ msgstr ""
 "Taisomas tekstas buvo pašalintas iš dokumento.\n"
 "Negalima pritaikyti Jūsų pakeitimų."
 
-#: src/gtkhtml.c:2579
+#: src/gtkhtml.c:2599
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 "Mozilla url numestas ant Rašyklės turėjo blogą formatą (%d) arba ilgį (%d)\n"
 
-#: src/gtkhtml.c:2929
+#: src/gtkhtml.c:2976
 msgid "Editable"
 msgstr "Redaguojamas"
 
-#: src/gtkhtml.c:2930
+#: src/gtkhtml.c:2977
 msgid "Whether the html can be edited"
 msgstr "Ar html gali būti keičiamas"
 
-#: src/gtkhtml.c:2936
+#: src/gtkhtml.c:2983
 msgid "Document Title"
 msgstr "Dokumento Antraštė"
 
-#: src/gtkhtml.c:2937
+#: src/gtkhtml.c:2984
 msgid "The title of the current document"
 msgstr "Esamo dokumento antraštė"
 
-#: src/gtkhtml.c:2943
+#: src/gtkhtml.c:2990
 msgid "Document Base"
 msgstr "Dokumento pagrindas"
 
-#: src/gtkhtml.c:2944
+#: src/gtkhtml.c:2991
 msgid "The base URL for relative references"
 msgstr "Santykinių nuorodų bazinis adresas"
 
-#: src/gtkhtml.c:2950
+#: src/gtkhtml.c:2997
 msgid "Target Base"
 msgstr "Tikslinis pagrindas"
 
-#: src/gtkhtml.c:2951
+#: src/gtkhtml.c:2998
 msgid "The base URL of the targe frame"
 msgstr "Tikslinio rėmelio bazinis adresas"
 
-#: src/gtkhtml.c:2960
+#: src/gtkhtml.c:3007
 msgid "Fixed Width Font"
 msgstr "Fiksuoto pločio šriftas"
 
-#: src/gtkhtml.c:2961
+#: src/gtkhtml.c:3008
 msgid "The Monospace font to use for typewriter text"
 msgstr "Lygiaplotis šriftas naudojamas atvaizduoti mašininiam tekstui"
 
-#: src/gtkhtml.c:2967
+#: src/gtkhtml.c:3014
 msgid "New Link Color"
 msgstr "Naujos nuorodos spalva"
 
-#: src/gtkhtml.c:2968
+#: src/gtkhtml.c:3015
 msgid "The color of new link elements"
 msgstr "Naujų nuorodų elementų spalva"
 
-#: src/gtkhtml.c:2973
+#: src/gtkhtml.c:3020
 msgid "Visited Link Color"
 msgstr "Aplankytos nuorodos spalva"
 
-#: src/gtkhtml.c:2974
+#: src/gtkhtml.c:3021
 msgid "The color of visited link elements"
 msgstr "Aplankytų nuorodų elementų spalva"
 
-#: src/gtkhtml.c:2979
+#: src/gtkhtml.c:3026
 msgid "Active Link Color"
 msgstr "Aktyvios nuorodos spalva"
 
-#: src/gtkhtml.c:2980
+#: src/gtkhtml.c:3027
 msgid "The color of active link elements"
 msgstr "Aktyvių nuorodų elementų spalva"
 
-#: src/gtkhtml.c:2985
+#: src/gtkhtml.c:3032
 msgid "Spelling Error Color"
 msgstr "Rašybos klaidų spalva"
 
-#: src/gtkhtml.c:2986
+#: src/gtkhtml.c:3033
 msgid "The color of the spelling error markers"
 msgstr "Rašybos klaidų žymėjimo spalva"
 
-#: src/gtkhtml.c:2991
+#: src/gtkhtml.c:3038
 msgid "Cite Quotation Color"
 msgstr "Citatos skyrybos spalva"
 
-#: src/gtkhtml.c:2992
+#: src/gtkhtml.c:3039
 msgid "The color of the cited text"
 msgstr "Cituoto teksto spalva"
 

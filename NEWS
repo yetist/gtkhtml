@@ -4,14 +4,23 @@ gtkhtml-3.5.7 "Snow white" 2004-02-28
 New in this release
 
    * fixed margins calculation for RTL
-   * fixed quotation parsing and rendering
+   * fixed quotation parsing
    * keypress event return value fix (Harry Lu)
-   * 
-   * extended test suite
+   * fixed plain save padding for RTL
+   * fixed citation rendering
+   * fixed spell errors rendering
+   * fixed crash in cursor line down function
+   * fixed crash in cursor base calculation
    * bind to Sun Undo/Copy/Cut/Paste keys (Mengjie Yu)
    * a11y fixes (Mengjie Yu)
    * rtl improvements - use keymap, save direction to html elements
-   * updated translations (
+   * extended test suite
+   * updated translations (Kjartan Maraas, Leonid Kanter, Priit Laes,
+     Kostas Papadimas, Takeshi Aihana, David Lodge, Vincent van
+     Adrighem, Alexander Shopov, Laurent Dhima, Maxim Dziumanenko,
+     Duarte Loreto, Nikos Charonitakis, Raphael Higino, Miloslav
+     Trmač, Christophe Merlet, Martin Willemoes Hansen, Ankit Patel,
+     Amanpreet Singh Alamwala, Jordi Mallach, Artur Flinta)
 
 gtkhtml-3.5.6 "Winter mood" 2004-02-07
 ------------------------------------------------

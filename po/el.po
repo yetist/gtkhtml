@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-19 14:51+0200\n"
+"POT-Creation-Date: 2005-02-28 19:13+0100\n"
 "PO-Revision-Date: 2005-02-19 15:32+0200\n"
 "Last-Translator: Nikos Charonitakis <charosn@her.forthnet.gr>\n"
 "Language-Team:  <team@gnome.gr>\n"
@@ -1857,90 +1857,90 @@ msgstr ""
 "Το επεξεργασμένο κείμενο αφαιρέθηκε από το έγγραφο.\n"
 "Αδύνατη η εφαρμογή των αλλαγών."
 
-#: src/gtkhtml.c:2579
+#: src/gtkhtml.c:2599
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 "Ο Mozilla έδωσε ένα url στον Composer που είχε λάθος μορφή (%d) ή μάκρος (%"
 "d)\n"
 
-#: src/gtkhtml.c:2929
+#: src/gtkhtml.c:2976
 msgid "Editable"
 msgstr "Επεξεργάσιμο"
 
-#: src/gtkhtml.c:2930
+#: src/gtkhtml.c:2977
 msgid "Whether the html can be edited"
 msgstr "Αν θα μπορεί να γίνει επεξεργασία στο html"
 
-#: src/gtkhtml.c:2936
+#: src/gtkhtml.c:2983
 msgid "Document Title"
 msgstr "Τίτλος Εγγράφου"
 
-#: src/gtkhtml.c:2937
+#: src/gtkhtml.c:2984
 msgid "The title of the current document"
 msgstr "Ο τίτλος του τρέχοντος εγγράφου"
 
-#: src/gtkhtml.c:2943
+#: src/gtkhtml.c:2990
 msgid "Document Base"
 msgstr "Βάση Εγγράφου"
 
-#: src/gtkhtml.c:2944
+#: src/gtkhtml.c:2991
 msgid "The base URL for relative references"
 msgstr "Το URL βάσης γα σχετικές αναφορές"
 
-#: src/gtkhtml.c:2950
+#: src/gtkhtml.c:2997
 msgid "Target Base"
 msgstr "Βάση Στόχου"
 
-#: src/gtkhtml.c:2951
+#: src/gtkhtml.c:2998
 msgid "The base URL of the targe frame"
 msgstr "Το URL βάσης του πλαισίου στόχου"
 
-#: src/gtkhtml.c:2960
+#: src/gtkhtml.c:3007
 msgid "Fixed Width Font"
 msgstr "Γραμματοσειρά Σταθερού Πλάτους"
 
-#: src/gtkhtml.c:2961
+#: src/gtkhtml.c:3008
 msgid "The Monospace font to use for typewriter text"
 msgstr "Η γραμματοσειρά Monospace που χρησιμοποιείται για κείμενο γραφομηχανής"
 
-#: src/gtkhtml.c:2967
+#: src/gtkhtml.c:3014
 msgid "New Link Color"
 msgstr "Χρώμα Νέου Συνδέσμου"
 
-#: src/gtkhtml.c:2968
+#: src/gtkhtml.c:3015
 msgid "The color of new link elements"
 msgstr "Το χρώμα για στοιχεία νέων συνδέσμων"
 
-#: src/gtkhtml.c:2973
+#: src/gtkhtml.c:3020
 msgid "Visited Link Color"
 msgstr "Χρώμα Αναγνωσμένου Δεσμού"
 
-#: src/gtkhtml.c:2974
+#: src/gtkhtml.c:3021
 msgid "The color of visited link elements"
 msgstr "Το χρώμα για στοιχεία αναγνωσμένων δεσμών"
 
-#: src/gtkhtml.c:2979
+#: src/gtkhtml.c:3026
 msgid "Active Link Color"
 msgstr "Χρώμα Ενεργού Συνδέσμου"
 
-#: src/gtkhtml.c:2980
+#: src/gtkhtml.c:3027
 msgid "The color of active link elements"
 msgstr "Το χρώμα για στοιχεία ενεργών δεσμών"
 
-#: src/gtkhtml.c:2985
+#: src/gtkhtml.c:3032
 msgid "Spelling Error Color"
 msgstr "Χρώμα Ορθογραφικού Λάθους"
 
-#: src/gtkhtml.c:2986
+#: src/gtkhtml.c:3033
 msgid "The color of the spelling error markers"
 msgstr "Το χρώμα σήμανσης ορθογραφικών λαθών"
 
-#: src/gtkhtml.c:2991
+#: src/gtkhtml.c:3038
 msgid "Cite Quotation Color"
 msgstr "Χρώμα παράθεσης"
 
-#: src/gtkhtml.c:2992
+#: src/gtkhtml.c:3039
 msgid "The color of the cited text"
 msgstr "Το χρώμα του κειμένου παράθεσης"
 
@@ -2028,4 +2028,3 @@ msgstr "Προεπισκόπηση εκτύπωσης"
 #: src/testgtkhtml.c:1004
 msgid "GtkHTML Test Application"
 msgstr "Εφαρμογή Δοκιμής GtkHTML"
-

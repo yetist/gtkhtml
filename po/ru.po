@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-09 07:28+0100\n"
+"POT-Creation-Date: 2005-02-28 19:13+0100\n"
 "PO-Revision-Date: 2005-02-21 17:11+0200\n"
 "Last-Translator: Leonid Kanter <leon@asplinux.ru>\n"
 "Language-Team:  <ru@li.org>\n"
@@ -349,7 +349,8 @@ msgstr "Изменить стиль текущего параграфа на м�
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
 msgid "Make the current paragraph a list with roman numerals"
-msgstr "Изменить стиль текущего параграфа на маркированный список с римскими цифрами"
+msgstr ""
+"Изменить стиль текущего параграфа на маркированный список с римскими цифрами"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
@@ -1730,7 +1731,9 @@ msgstr "Сохранить файл как..."
 
 #: components/html-editor/test-html-editor-control.c:567
 msgid "GtkHTML Editor Test Container"
-msgstr "Тестовый контейнер с элементом управления редактором формата HTML для среды GNOME"
+msgstr ""
+"Тестовый контейнер с элементом управления редактором формата HTML для среды "
+"GNOME"
 
 #: components/html-editor/toolbar.c:52
 msgid "Roman List"
@@ -1808,88 +1811,89 @@ msgstr ""
 "Редактируемый текст был удалён из документа.\n"
 "Невозможно применить изменения."
 
-#: src/gtkhtml.c:2579
+#: src/gtkhtml.c:2599
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
-msgstr "URL, перетащенный из Mozilla, имеет неверный формат (%d) или длину (%d)\n"
+msgstr ""
+"URL, перетащенный из Mozilla, имеет неверный формат (%d) или длину (%d)\n"
 
-#: src/gtkhtml.c:2929
+#: src/gtkhtml.c:2976
 msgid "Editable"
 msgstr "Редактируемый"
 
-#: src/gtkhtml.c:2930
+#: src/gtkhtml.c:2977
 msgid "Whether the html can be edited"
 msgstr "Может ли текст быть редактируемым"
 
-#: src/gtkhtml.c:2936
+#: src/gtkhtml.c:2983
 msgid "Document Title"
 msgstr "Заголовок документа"
 
-#: src/gtkhtml.c:2937
+#: src/gtkhtml.c:2984
 msgid "The title of the current document"
 msgstr "Заголовок текущего документа"
 
-#: src/gtkhtml.c:2943
+#: src/gtkhtml.c:2990
 msgid "Document Base"
 msgstr "База документа"
 
-#: src/gtkhtml.c:2944
+#: src/gtkhtml.c:2991
 msgid "The base URL for relative references"
 msgstr "Базовая ссылка (URL) для относительных ссылок"
 
-#: src/gtkhtml.c:2950
+#: src/gtkhtml.c:2997
 msgid "Target Base"
 msgstr "База цели"
 
-#: src/gtkhtml.c:2951
+#: src/gtkhtml.c:2998
 msgid "The base URL of the targe frame"
 msgstr "Базовая ссылка (URL) для целевого фрейма"
 
-#: src/gtkhtml.c:2960
+#: src/gtkhtml.c:3007
 msgid "Fixed Width Font"
 msgstr "Шрифт с фиксированной шириной"
 
-#: src/gtkhtml.c:2961
+#: src/gtkhtml.c:3008
 msgid "The Monospace font to use for typewriter text"
 msgstr "Фиксированный шрифт для использования в тексте печатной машинки"
 
-#: src/gtkhtml.c:2967
+#: src/gtkhtml.c:3014
 msgid "New Link Color"
 msgstr "Цвет непосещенной ссылки"
 
-#: src/gtkhtml.c:2968
+#: src/gtkhtml.c:3015
 msgid "The color of new link elements"
 msgstr "Цвет еще не посещенной ссылки"
 
-#: src/gtkhtml.c:2973
+#: src/gtkhtml.c:3020
 msgid "Visited Link Color"
 msgstr "Цвет посещенной ссылки"
 
-#: src/gtkhtml.c:2974
+#: src/gtkhtml.c:3021
 msgid "The color of visited link elements"
 msgstr "Цвет уже посещенной ссылки"
 
-#: src/gtkhtml.c:2979
+#: src/gtkhtml.c:3026
 msgid "Active Link Color"
 msgstr "Цвет активной ссылки"
 
-#: src/gtkhtml.c:2980
+#: src/gtkhtml.c:3027
 msgid "The color of active link elements"
 msgstr "Цвет активной ссылки"
 
-#: src/gtkhtml.c:2985
+#: src/gtkhtml.c:3032
 msgid "Spelling Error Color"
 msgstr "Цвет неверного правописания"
 
-#: src/gtkhtml.c:2986
+#: src/gtkhtml.c:3033
 msgid "The color of the spelling error markers"
 msgstr "Цвет маркеров ошибок орфографии"
 
-#: src/gtkhtml.c:2991
+#: src/gtkhtml.c:3038
 msgid "Cite Quotation Color"
 msgstr "Цвет цитируемого текста"
 
-#: src/gtkhtml.c:2992
+#: src/gtkhtml.c:3039
 msgid "The color of the cited text"
 msgstr "Цвет цитируемого текста"
 
@@ -1969,4 +1973,3 @@ msgstr "Образец печати"
 #: src/testgtkhtml.c:1004
 msgid "GtkHTML Test Application"
 msgstr "Тест редактора формата HTML для среды GNOME"
-
