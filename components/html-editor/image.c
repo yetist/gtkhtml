@@ -457,7 +457,7 @@ insert_or_apply (GtkHTMLControlData *cd, gpointer get_data, gboolean insert)
 		if (data->set [GTK_HTML_EDIT_IMAGE_BWIDTH])
 			html_image_set_border (image, border);
 		html_image_set_size     (image, width, height, width_percent, height_percent);
-		html_image_set_url      (image, file);
+		html_image_edit_set_url (image, file);
 		html_image_set_spacing  (image, hspace, vspace);
 		html_image_set_valign   (image, valign);
 	}
