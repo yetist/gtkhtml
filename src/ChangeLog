@@ -1,5 +1,7 @@
 2003-10-06  Larry Ewing  <lewing@ximian.com>
 
+	* htmlengine.c: move more parsers to html_element interface.
+
 	* htmltable.c (html_table_class_init): remove fit_line
 	implementation, it isn't needed ans breaks inline tables.
 
