@@ -1,5 +1,19 @@
 2001-11-21  Radek Doulik  <rodo@ximian.com>
 
+	* htmlimage.c (draw): use html_painter_set_focus
+
+	* htmltextslave.c (draw_highlighted): use html_painter_set_focus
+
+	* gtkhtml.c (focus_in_event): set painter focus, redraw selection
+	(focus_out_event): ditto
+
+	* htmlpainter.c (html_painter_set_focus): remember focus in
+	painter
+	(html_painter_get_highlight_color): get highlight color depending
+	on focus
+
+	* htmlengine.c (html_engine_redraw_selection): new helper function
+
 	* htmlclueflow.c (calc_size): place check for changed size before
 	html_object_calc_size
 	(merge): set change size to head of self and tail of with

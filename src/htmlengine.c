@@ -5086,3 +5086,14 @@ html_engine_add_expose  (HTMLEngine *e, gint x, gint y, gint width, gint height)
 
 	e->pending_expose = g_slist_prepend (e->pending_expose, r);
 }
+
+void
+html_engine_redraw_selection (HTMLEngine *e)
+{
+	if (e->selection) {
+		html_interval_unselect (e->selection, e);
+		html_draw_queue_clear (e->draw_queue);
+		html_interval_select (e->selection, e);
+		html_engine_flush_draw_queue (e);
+	}
+}

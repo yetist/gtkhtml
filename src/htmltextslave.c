@@ -494,6 +494,7 @@ draw_highlighted (HTMLTextSlave *slave,
 {
 	HTMLText *owner;
 	HTMLObject *obj;
+	GdkColor *color;
 	guint start, end, len;
 	gint offset_width, text_width, lo, lo_start, lo_sel;
 	const gchar *text;
@@ -527,18 +528,23 @@ draw_highlighted (HTMLTextSlave *slave,
 
 	/* Draw the highlighted part with a highlight background.  */
 
-	html_painter_set_pen (p, &html_colorset_get_color_allocated (p, HTMLHighlightColor)->color);
+	html_color_alloc (HTML_TEXT (owner)->color, p);
+	color = html_painter_get_highlight_color (p);
+	html_painter_alloc_color (p, color);
+	html_painter_set_pen (p, color);
 	html_painter_fill_rect (p, obj->x + tx + offset_width, obj->y + ty - obj->ascent,
 				text_width, obj->ascent + obj->descent);
-	html_painter_set_pen (p, &html_colorset_get_color_allocated (p, HTMLHighlightTextColor)->color);
+	html_painter_set_pen (p, p->focus
+			      ? &html_colorset_get_color_allocated (p, HTMLHighlightTextColor)->color
+			      : &HTML_TEXT (owner)->color->color);
 	html_painter_draw_text (p, obj->x + tx + offset_width, 
 				obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
 				g_utf8_offset_to_pointer (text, start), len,
 				lo_sel);
-
+	html_painter_free_color (p, color);
+	gdk_color_free (color);
 	/* Draw the non-highlighted part.  */
 
-	html_color_alloc (HTML_TEXT (owner)->color, p);
 	html_painter_set_pen (p, &HTML_TEXT (owner)->color->color);
 
 	/* 1. Draw the leftmost non-highlighted part, if any.  */

@@ -427,4 +427,5 @@ void  html_engine_add_expose  (HTMLEngine *e,
 			       gint        y,
 			       gint        width,
 			       gint        height);
+void html_engine_redraw_selection (HTMLEngine *e);
 #endif /* _HTMLENGINE_H_ */

@@ -27,6 +27,7 @@
 #include "gtkhtml-compat.h"
 
 #include <gal/unicode/gunicode.h>
+#include "htmlcolor.h"
 #include "htmlcolorset.h"
 #include "htmlentity.h"
 #include "htmlpainter.h"
@@ -658,4 +659,43 @@ guint
 html_painter_get_page_height (HTMLPainter *painter, HTMLEngine *e)
 {
 	return 	(* HP_CLASS (painter)->get_page_height) (painter, e);
+}
+
+void
+html_painter_set_focus (HTMLPainter *p, gboolean focus)
+{
+	p->focus = focus;
+}
+
+GdkColor *
+html_painter_get_highlight_color (HTMLPainter *painter)
+{
+	GdkColor *color;
+
+	color = gdk_color_copy (&html_colorset_get_color_allocated (painter, HTMLHighlightColor)->color);
+	if (!painter->focus) {
+		gushort value;
+
+		value = MAX (color->red, MAX (color->green, color->blue));
+
+		/* change color value */
+		if (value > 127) {
+			color->red   -= color->red / 4;
+			color->green -= color->blue / 4;
+			color->blue  -= color->green / 4;
+		} else {
+			color->red   += color->red / 4;
+			color->green += color->blue / 4;
+			color->blue  += color->green / 4;
+		}
+
+		value = MAX (color->red, MAX (color->green, color->blue));
+
+		/* zero saturation */
+		color->red   = value;
+		color->green = value;
+		color->blue  = value;
+	}
+
+	return color;
 }
