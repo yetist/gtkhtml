@@ -1,3 +1,9 @@
+2000-09-24  Larry Ewing  <lewing@helixcode.com>
+
+	* editor-control-factory.c (load_from_corba): 
+	(set_frame_cb): change prototype to Bonobo_Unknown so that things
+	build with the latest bonobo.
+
 2000-09-16  Michael Meeks  <michael@helixcode.com>
 
 	* Makefile.am (-DGNOMEDATADIR): add.
