@@ -1,3 +1,10 @@
+2000-03-17  Jonas Borgström  <jonas_b@bitsmart.com>
+
+	* htmltextslave.c (calc_size): Backed out my previous checkin.
+	It didn't handle multiple <br> after each other very well
+
+	* tests/bugs.html: Added www.gimp.org again. With better bug desciption.
+
 2000-03-17  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* gtkhtml.c: s/char/gchar/.

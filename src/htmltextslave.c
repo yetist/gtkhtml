@@ -106,9 +106,6 @@ calc_size (HTMLObject *self,
 						  slave->posLen,
 						  font_style);
 
-	if (new_width == 0)
-		new_ascent = new_descent = 0;
-
 	changed = FALSE;
 
 	if (new_ascent != self->ascent) {
