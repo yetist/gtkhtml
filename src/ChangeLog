@@ -1,6 +1,6 @@
 2001-01-24  Larry Ewing  <lewing@ximian.com>
 
-	* htmlembedded.c (calc_size): use the requisistion because the
+	* htmlembedded.c (calc_size): use the requisition because the
 	allocation fluctuates too much.
 
 	* gtkhtml-embedded.c (gtk_html_embedded_new): listen to the size
