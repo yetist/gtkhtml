@@ -948,6 +948,11 @@ draw_text (HTMLPainter *painter, gint x, gint y, const gchar *text, gint len)
 				       x, y + height / 2, 
 				       x + width, y + height / 2);
 	}
+
+	if (glyphs)
+		pango_glyph_string_free (glyphs);
+	if (items)
+		items_destroy (items);
 }
 
 static void
