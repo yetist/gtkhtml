@@ -160,8 +160,6 @@ check_point (HTMLObject *self,
 	return NULL;
 }
 
-/* FIXME TODO this does not take account for the `child' argument yet, so we
-   actually relayout all the objects.  */
 static gboolean
 relayout (HTMLObject *self,
 	  HTMLEngine *engine,

@@ -129,15 +129,7 @@ fit_line (HTMLObject *o,
 	
 	/* Turn all text over to our slaves */
 	text_slave = html_text_slave_new (textmaster, 0, HTML_TEXT (textmaster)->text_len);
-
-	text_slave->next = o->next;
-	text_slave->parent = o->parent;
-	text_slave->prev = o;
-
-	if (o->next != NULL)
-		o->next->prev = text_slave;
-
-	o->next = text_slave;
+	html_clue_append_after (HTML_CLUE (o->parent), text_slave, o);
 
 	return HTML_FIT_COMPLETE;
 }

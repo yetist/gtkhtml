@@ -278,10 +278,13 @@ delete_same_parent (HTMLEngine *e,
 
 	parent = start_object->parent;
 
-	if (destroy_start)
+	if (destroy_start) {
 		p = start_object;
-	else
+	} else {
 		p = start_object->next;
+		while (p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
+			p = p->next;
+	}
 
 	while (p != e->cursor->object) {
 		pnext = p->next;
@@ -309,10 +312,13 @@ delete_different_parent (HTMLEngine *e,
 	start_parent = start_object->parent;
 	end_parent = e->cursor->object->parent;
 
-	if (destroy_start)
+	if (destroy_start) {
 		p = start_object;
-	else
+	} else {
 		p = start_object->next;
+		while (p != NULL && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
+			p = p->next;
+	}
 
 	while (p != NULL) {
 		pnext = p->next;
@@ -354,6 +360,7 @@ static guint
 merge_text_at_cursor (HTMLEngine *e)
 {
 	HTMLObject *curr, *prev;
+	HTMLObject *p;
 	gchar *curr_string, *prev_string;
 	gchar *new_string;
 	guint retval;
@@ -363,14 +370,8 @@ merge_text_at_cursor (HTMLEngine *e)
 	if (prev == NULL)
 		return 0;
 
-	while (HTML_OBJECT_TYPE (prev) == HTML_TYPE_TEXTSLAVE) {
-		HTMLObject *pprev;
-
-		pprev = prev->prev;
-		html_clue_remove (HTML_CLUE (prev->parent), prev);
-		html_object_destroy (prev);
-		prev = pprev;
-	}
+	while (HTML_OBJECT_TYPE (prev) == HTML_TYPE_TEXTSLAVE)
+		prev = prev->prev;
 
 	if (! html_object_is_text (curr) || ! html_object_is_text (prev))
 		return 0;
@@ -380,6 +381,18 @@ merge_text_at_cursor (HTMLEngine *e)
 		return 0;
 	if (HTML_TEXT (curr)->font_style != HTML_TEXT (prev)->font_style)
 		return 0;
+
+	/* The items can be merged: remove the slaves in between.  */
+
+	p = prev;
+	while (HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE) {
+		HTMLObject *pnext;
+
+		pnext = p->next;
+		html_clue_remove (HTML_CLUE (p->parent), p);
+		html_object_destroy (p);
+		p = pnext;
+	}
 
 	curr_string = HTML_TEXT (curr)->text;
 	prev_string = HTML_TEXT (prev)->text;
@@ -395,7 +408,7 @@ merge_text_at_cursor (HTMLEngine *e)
 	html_clue_remove (HTML_CLUE (prev->parent), prev);
 	html_object_destroy (prev);
 
-	html_object_relayout (curr->parent, e, curr);
+	html_object_relayout (curr->parent, e, prev);
 
 	return retval;
 }

@@ -47,14 +47,7 @@ split (HTMLTextSlave *slave, gshort offset)
 				   slave->posStart + offset,
 				   slave->posLen - offset);
 
-	new->next = obj->next;
-	new->prev = obj;
-	new->parent = obj->parent;
-
-	if (obj->next != NULL)
-		obj->next->prev = new;
-
-	obj->next = new;
+	html_clue_append_after (HTML_CLUE (obj->parent), new, obj);
 }
 
 /* Split this TextSlave at the first newline character.  */

@@ -1,5 +1,16 @@
 2000-01-20  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine-edit.c (merge_text_at_cursor): Changed so that slaves
+	between the two elements are removed only if the two elements can
+	actually be merged.
+
+	* htmltextmaster.c (fit_line): Use `html_clue_append_after()'.
+	* htmltextslave.c (split): Likewise.
+
+	* htmlengine-edit.c (delete_different_parent): Avoid destroying
+	the slaves after the first parent.
+	(delete_same_parent): Likewise.
+
 	* htmltextslave.c (fit_line): Remove the object from the parent
 	before destroying it.
 	(split): Split the assertion so that it's obvious to see what is
