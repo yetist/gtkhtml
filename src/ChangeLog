@@ -1,3 +1,25 @@
+2000-09-06  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlgdkpainter.c (draw_spell_error): fix width calculation
+
+2000-09-05  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml.c (scroll): lower page increment by one "standard" line
+	height
+
+	* htmlfontmanager.c (html_font_set_get_idx): dec size for index
+	(html_font_set_get_idx): handle GTK_HTML_FONT_STYLE_DEFAULT case
+	(get_font_size): tuned so that it works fine with 12pt default
+	font
+	(get_real_font_size): renamed from get_font_size
+	(get_font_num): new helper function
+	(html_font_set_get_idx): use it
+	(get_real_font_size): use it
+	(html_font_set_font): test if new font isn't the same one
+
+	* gtkhtmlfontstyle.h (GTK_HTML_FONT_STYLE_MAX_FONT): use ITALIC
+	instead of BOLD
+
 2000-09-04  Radek Doulik  <rodo@helixcode.com>
 
 	* htmltable.c (calc_column_widths): use pixel_size

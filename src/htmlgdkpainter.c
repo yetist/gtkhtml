@@ -74,38 +74,40 @@ get_size (gchar *font_name)
 }
 
 static gboolean
-find_font (gchar *font_name, gint *req_size)
+find_font (gchar *font_name, gdouble req_size, gint *font_size)
 {
-	gint n, size, smaller, bigger;
+	gint n;
+	gdouble size, smaller, bigger;
 	gchar **list;
 	gboolean rv = FALSE;
 
 	/* list available sizes */
-	smaller = bigger = size = 0;
+	smaller = bigger = size = .0;
 	list = XListFonts (GDK_DISPLAY (), font_name, 0xffff, &n);
 	/* look for right one */
 	while (n) {
 		n--;
 		size = get_size (list [n]);
-		if (size == *req_size) {
+		if ((gdouble) size == req_size) {
+			*font_size = size;
 			rv = TRUE;
 			break;
-		} else if (size < *req_size && size > smaller)
+		} else if (size < req_size && size > smaller)
 			smaller = size;
-		else if (size > *req_size && (size < bigger || !bigger))
+		else if (size > req_size && (size < bigger || bigger == .0))
 			bigger = size;
 	}
 	XFreeFontNames (list);
 
 	/* if not found use closest one */
 	if (!rv && (bigger || smaller)) {
-		if (!bigger)
+		if (bigger == .0)
 			size = smaller;
-		if (!smaller)
+		if (smaller == .0)
 			size = bigger;
-		if (bigger && smaller)
-			size = (bigger - *req_size <= smaller - *req_size) ? bigger : smaller;
-		*req_size = size;
+		if (bigger != .0 && smaller != .0)
+			size = (bigger - req_size <= req_size - smaller) ? bigger : smaller;
+		*font_size = size;
 		rv = TRUE;
 	}
 
@@ -113,18 +115,19 @@ find_font (gchar *font_name, gint *req_size)
 }
 
 static GdkFont *
-get_font (const gchar *family, const gchar *weight, const gchar *slant, guint fsize)
+get_font (const gchar *family, const gchar *weight, const gchar *slant, gdouble size)
 {
 	GdkFont *font;
 	gchar *font_name;
+	gint font_size;
 
 	font      = NULL;
 	font_name = g_strdup_printf ("-*-%s-%s-%s-normal-*-*-*-*-*-*-*-*-*",
 				     family, weight, slant);
-	if (find_font (font_name, &fsize)) {
+	if (find_font (font_name, size, &font_size)) {
 		g_free (font_name);
 		font_name = g_strdup_printf ("-*-%s-%s-%s-normal-*-%d-*-*-*-*-*-*-*",
-					     family, weight, slant, fsize);
+					     family, weight, slant, font_size);
 		font = gdk_font_load (font_name);
 	}
 	g_free (font_name);
@@ -133,13 +136,13 @@ get_font (const gchar *family, const gchar *weight, const gchar *slant, guint fs
 }
 
 static GdkFont *
-get_closest_font (const gchar *family, const gchar *weight, const gchar *slant, guint fsize)
+get_closest_font (const gchar *family, const gchar *weight, const gchar *slant, gdouble size)
 {
 	GdkFont *font;
 
-	font = get_font (family, weight, slant, fsize);
+	font = get_font (family, weight, slant, size);
 	if (!font && *slant == 'i')
-		font = get_font (family, weight, "o", fsize);
+		font = get_font (family, weight, "o", size);
 
 	return font;
 }
@@ -861,12 +864,13 @@ draw_spell_error (HTMLPainter *painter,
 	y -= gdk_painter->y1;
 
 	gdk_font = html_painter_get_font (painter, painter->font_face, painter->font_style);
+
 #if 0
 	x_off = gdk_text_width (gdk_font, text,       off) + x;
 	width = gdk_text_width (gdk_font, text + off, len) + x_off;
 #endif
 	x_off = utf8_gdk_text_width (gdk_font, text, off) + x;
-	x_off = utf8_gdk_text_width (gdk_font, text + off, len) + x_off;
+	width = utf8_gdk_text_width (gdk_font, text + off, len) + x_off;
 
 	gdk_gc_get_values (gdk_painter->gc, &values);
 	gdk_gc_set_fill (gdk_painter->gc, GDK_OPAQUE_STIPPLED);
@@ -905,11 +909,7 @@ draw_text (HTMLPainter *painter,
 
 	gdk_font = html_painter_get_font (painter, painter->font_face, painter->font_style);
 #if 0
-	gdk_draw_text (gdk_painter->pixmap,
-		       gdk_font,
-		       gdk_painter->gc,
-		       x, y,
-		       text, len);
+	gdk_draw_text (gdk_painter->pixmap, gdk_font, gdk_painter->gc, x, y, text, len);
 #endif
 	utf8_gdk_draw_text (gdk_font, gdk_painter->pixmap, gdk_painter->gc, x, y, text, len);
 

@@ -2007,6 +2007,7 @@ scroll (GtkHTML *html,
 	gfloat         position)
 {
 	GtkAdjustment *adj;
+	gint line_height;
 	gfloat delta;
 
 	/* we dont want scroll in editable (move cursor instead) */
@@ -2017,6 +2018,10 @@ scroll (GtkHTML *html,
 		? gtk_layout_get_vadjustment (GTK_LAYOUT (html)) : gtk_layout_get_hadjustment (GTK_LAYOUT (html));
 
 
+	line_height = (html->engine && adj->page_increment > html->engine->painter->font_manager.var_size)
+		? html->engine->painter->font_manager.var_size
+		: 0;
+
 	switch (scroll_type) {
 	case GTK_SCROLL_STEP_FORWARD:
 		delta = adj->step_increment;
@@ -2025,10 +2030,10 @@ scroll (GtkHTML *html,
 		delta = -adj->step_increment;
 		break;
 	case GTK_SCROLL_PAGE_FORWARD:
-		delta = adj->page_increment;
+		delta = adj->page_increment - line_height;
 		break;
 	case GTK_SCROLL_PAGE_BACKWARD:
-		delta = -adj->page_increment;
+		delta = -adj->page_increment + line_height;
 		break;
 	default:
 		delta = 0.0;
