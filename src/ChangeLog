@@ -1,5 +1,8 @@
 2000-02-24  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine-edit-insert.c (do_insert_different_style): Handle the
+	`offset == 0' case correctly.
+
 	* htmlvspace.c (calc_size): Updated to return the boolean value.
 
 	* htmltextmaster.c (calc_size): Always return FALSE.
@@ -25,7 +28,8 @@
 	(calc_size): Updated to return the boolean value.
 
 	* htmlobject.h: Make `HTMLObject::calc_size' return a gboolean.
-	If true, it means that the object has changed and needs to be
+	If true, it means that the object has changed and needs to be re
+	laid out and redrawn for interactive editing.
 
 2000-02-24  Larry Ewing  <lewing@helixcode.com>
 

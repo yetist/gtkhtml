@@ -216,11 +216,14 @@ do_insert_different_style (HTMLEngine *e,
 		return 0;
 	}
 
-	right_side = html_text_split (HTML_TEXT (curr), offset);
-	if (right_side != NULL)
-		html_clue_append_after (HTML_CLUE (curr->parent), HTML_OBJECT (right_side), curr);
-
-	html_clue_append_after (HTML_CLUE (curr->parent), new, curr);
+	if (offset > 0) {
+		right_side = html_text_split (HTML_TEXT (curr), offset);
+		if (right_side != NULL)
+			html_clue_append_after (HTML_CLUE (curr->parent), HTML_OBJECT (right_side), curr);
+		html_clue_append_after (HTML_CLUE (curr->parent), new, curr);
+	} else {
+		html_clue_append_after (HTML_CLUE (curr->parent), new, curr->prev);
+	}
 
 	html_engine_queue_draw (e, new);
 
