@@ -711,6 +711,11 @@ destroy (GtkObject *object)
 			html->priv->notify_spell_id = 0;
 		}
 
+		if (html->priv->notify_monospace_font_id) {
+			gconf_client_notify_remove (gconf_client, html->priv->notify_monospace_font_id);
+			html->priv->notify_monospace_font_id = 0;
+		}
+
 		if (html->priv->resize_cursor) {
 			gdk_cursor_unref (html->priv->resize_cursor);
 			html->priv->resize_cursor = NULL;
@@ -3153,8 +3158,9 @@ gtk_html_init (GtkHTML* html)
 	g_signal_connect (G_OBJECT (html->priv->im_context), "delete_surrounding",
 			  G_CALLBACK (gtk_html_im_delete_surrounding_cb), html);
 
-	gconf_client_notify_add (gconf_client_get_default (), "/desktop/gnome/interface/monospace_font_name",
-				 client_notify_monospace_font, html, NULL, &gconf_error);
+	html->priv->notify_monospace_font_id =
+		gconf_client_notify_add (gconf_client_get_default (), "/desktop/gnome/interface/monospace_font_name",
+					 client_notify_monospace_font, html, NULL, &gconf_error);
 }
 
 GType

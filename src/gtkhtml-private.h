@@ -50,6 +50,7 @@ struct _GtkHTMLPrivate {
 	GnomePrintJob *print_master;
 
 	guint notify_spell_id;
+	guint notify_monospace_font_id;
 
 	GtkIMContext *im_context;
 	gboolean need_im_reset;
