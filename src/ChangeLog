@@ -1,3 +1,10 @@
+2004-10-08  Radek Doulik  <rodo@ximian.com>
+
+	* htmltext.c (html_text_remove_unwanted_line_breaks): added "$+?"
+	to nonbreaking characters (comon in urls)
+
+	Addition to #54852 fix
+
 2004-10-01  JP Rosevear  <jpr@novell.com>
 
 	* libgtkhtml.pc.in: expose gtkhtml_apiverison as a variable

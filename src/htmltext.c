@@ -1162,7 +1162,8 @@ html_text_remove_unwanted_line_breaks (char *s, int len, PangoLogAttr *attrs)
 
 		if (attrs [i].is_line_break) {
 			if (last_uc == '.' || last_uc == '/' ||
-			    last_uc == '-' ||
+			    last_uc == '-' || last_uc == '$' ||
+			    last_uc == '+' || last_uc == '?' ||
 			    last_uc == ')' ||
 			    last_uc == '}' ||
 			    last_uc == ']' ||
