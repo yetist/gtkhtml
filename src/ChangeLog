@@ -1,5 +1,7 @@
 2003-02-28  Larry Ewing  <lewing@ximian.com>
 
+	* htmlimage.c (html_image_resolve_image_url): fix the GValue usage.
+
 	* htmlclueflow.c (copy): actually commit the copy fix.
 
 	* htmlengine.c: turn off debug log that accidenetally got turned on.

@@ -455,20 +455,22 @@ html_image_resolve_image_url (GtkHTML *html, gchar *image_url)
 
 	/* printf ("html_image_resolve_image_url %p\n", html->editor_api); */
 	if (html->editor_api) {
-		GValue  args [1];
-		GValue *arg;
+		GValue  *iarg = g_new0 (GValue, 1);
+		GValue  *oarg;
 
-		memset (&args [0], 0, sizeof (GValue));
-		g_value_init (&args [0], G_TYPE_STRING);
-		g_value_set_string (&args [0], image_url);
+		g_value_init (iarg, G_TYPE_STRING);
+		g_value_set_string (iarg, image_url);
 
-		arg = (* html->editor_api->event) (html, GTK_HTML_EDITOR_EVENT_IMAGE_URL, args, html->editor_data);
+		oarg = (* html->editor_api->event) (html, GTK_HTML_EDITOR_EVENT_IMAGE_URL, iarg, html->editor_data);
 
-		if (arg) {
-			if (G_VALUE_TYPE (arg) == G_TYPE_STRING)
-				url = (gchar *) g_value_get_string (arg);
-			g_free (arg);
+		if (oarg) {
+			if (G_VALUE_TYPE (oarg) == G_TYPE_STRING)
+				url = (gchar *) g_value_get_string (oarg);
+			g_value_unset (iarg);	
+			g_free (oarg);
 		}
+		g_value_unset (iarg);
+		g_free (iarg);
 	}
 	if (!url)
 		url = g_strdup (image_url);
