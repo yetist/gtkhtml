@@ -27,6 +27,7 @@
 #include <string.h>
 
 #include "htmlengine.h"
+#include "htmlentity.h"
 #include "gtkhtmldebug.h"
 #include "config.h"
 
@@ -34,86 +35,89 @@
 /* This routine was originally written by Daniel Velliard, (C) 1998 World Wide
    Web Consortium.  */
 static gchar *
-encode_entities (const guchar *input,
+encode_entities (const gchar *input,
 		 guint len,
 		 guint *encoded_len_return)
 {
-    const guchar *cur = input;
-    guchar *buffer = NULL;
-    guchar *out = NULL;
-    gint buffer_size = 0;
-    guint count;
+	unicode_char_t uc;
+	const gchar *p;
+	guchar *buffer = NULL;
+	guchar *out = NULL;
+	gint buffer_size = 0;
+	guint count;
 
-    /* Allocate an translation buffer.  */
-    buffer_size = 1000;
-    buffer = g_malloc (buffer_size);
+	/* Allocate an translation buffer.  */
+	buffer_size = 1000;
+	buffer      = g_malloc (buffer_size);
 
-    out = buffer;
-    count = 0;
+	out   = buffer;
+	p     = input;
+	count = 0;
 
-    while (count < len) {
-        if (out - buffer > buffer_size - 100) {
-	    gint index = out - buffer;
+	while (p && *p && count < len) {
+		if (out - buffer > buffer_size - 100) {
+			gint index = out - buffer;
 
-	    buffer_size *= 2;
-	    buffer = g_realloc (buffer, buffer_size);
-	    out = &buffer[index];
+			buffer_size *= 2;
+			buffer = g_realloc (buffer, buffer_size);
+			out = &buffer[index];
+		}
+		unicode_get_utf8 (p, &uc);
+
+		/* By default one have to encode at least '<', '>', '"' and '&'.  */
+
+		if (uc == '<') {
+			*out++ = '&';
+			*out++ = 'l';
+			*out++ = 't';
+			*out++ = ';';
+		} else if (uc == '>') {
+			*out++ = '&';
+			*out++ = 'g';
+			*out++ = 't';
+			*out++ = ';';
+		} else if (uc == '&') {
+			*out++ = '&';
+			*out++ = 'a';
+			*out++ = 'm';
+			*out++ = 'p';
+			*out++ = ';';
+		} else if (uc == '"') {
+			*out++ = '&';
+			*out++ = 'q';
+			*out++ = 'u';
+			*out++ = 'o';
+			*out++ = 't';
+			*out++ = ';';
+		} else if (uc == ENTITY_NBSP) {
+			*out++ = '&';
+			*out++ = 'n';
+			*out++ = 'b';
+			*out++ = 's';
+			*out++ = 'p';
+			*out++ = ';';
+		} else if (((uc >= 0x20) && (uc < 0x80))
+			   || (uc == '\n') || (uc == '\r') || (uc == '\t')) {
+			/* Default case, just copy. */
+			*out++ = uc;
+		} else {
+			char buf[10], *ptr;
+
+			g_snprintf(buf, 9, "&#%d;", uc);
+
+			ptr = buf;
+			while (*ptr != 0)
+				*out++ = *ptr++;
+		}
+
+		count++;
+		p = unicode_next_utf8 (p);
 	}
 
-	/* By default one have to encode at least '<', '>', '"' and '&'.  */
+	*out = 0;
+	*encoded_len_return = out - buffer;
 
-	if (*cur == '<') {
-	    *out++ = '&';
-	    *out++ = 'l';
-	    *out++ = 't';
-	    *out++ = ';';
-	} else if (*cur == '>') {
-	    *out++ = '&';
-	    *out++ = 'g';
-	    *out++ = 't';
-	    *out++ = ';';
-	} else if (*cur == '&') {
-	    *out++ = '&';
-	    *out++ = 'a';
-	    *out++ = 'm';
-	    *out++ = 'p';
-	    *out++ = ';';
-	} else if (*cur == '"') {
-	    *out++ = '&';
-	    *out++ = 'q';
-	    *out++ = 'u';
-	    *out++ = 'o';
-	    *out++ = 't';
-	    *out++ = ';';
-	} else if (*cur == 160) {
-		*out++ = '&';
-		*out++ = 'n';
-		*out++ = 'b';
-		*out++ = 's';
-		*out++ = 'p';
-		*out++ = ';';
-	} else if (((*cur >= 0x20) && (*cur < 0x80))
-		   || (*cur == '\n') || (*cur == '\r') || (*cur == '\t')) {
-	    /* Default case, just copy. */
-	    *out++ = *cur;
-	} else {
-	    char buf[10], *ptr;
-
-	    g_snprintf(buf, 9, "&#%d;", *cur);
-
-            ptr = buf;
-	    while (*ptr != 0)
-		    *out++ = *ptr++;
-	}
-
-	cur++;
-	count++;
-    }
-
-    *out = 0;
-    *encoded_len_return = out - buffer;
-
-    return buffer;
+	return buffer;
 }
 
 gboolean
