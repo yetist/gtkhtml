@@ -971,13 +971,13 @@ get_url (HTMLObject *o)
 	return html_object_get_url (HTML_OBJECT (slave->owner));
 }
 
-static guint
-get_offset_for_pointer (HTMLTextSlave *slave, HTMLPainter *painter, gint x, gint y)
+static gint
+calc_offset (HTMLTextSlave *slave, HTMLPainter *painter, gint x, gint y)
 {
 	HTMLText *owner;
 	GtkHTMLFontStyle font_style;
-	guint width, prev_width;
 	gint line_offset;
+	guint width, prev_width;
 	gchar *text;
 	guint upper;
 	guint len;
@@ -987,28 +987,18 @@ get_offset_for_pointer (HTMLTextSlave *slave, HTMLPainter *painter, gint x, gint
 	gint lo;
 	gint asc, dsc;
 
-	g_return_val_if_fail (slave != NULL, 0);
+	g_assert (slave->posLen > 1);
 
-	owner = HTML_TEXT (slave->owner);
-	font_style = html_text_get_font_style (owner);
-
-	x -= HTML_OBJECT (slave)->x;
-
-	if (x <= 0)
-		return 0;
-
-	if (x >= HTML_OBJECT (slave)->width - 1)
-		return slave->posLen;
-				      
 	width = 0;
 	prev_width  = 0;
 	lower = 0;
 	upper = slave->posLen;
-	len = (lower + upper + 1) / 2;
+	len = 0;
 
 	text = html_text_slave_get_text (slave);
 	line_offset = html_text_slave_get_line_offset (slave, 0, painter);	
-
+	owner = HTML_TEXT (slave->owner);
+	font_style = html_text_get_font_style (owner);
 
 	while (upper - lower > 1) {
 		lo = line_offset;
@@ -1035,6 +1025,25 @@ get_offset_for_pointer (HTMLTextSlave *slave, HTMLPainter *painter, gint x, gint
 		len--;
 
 	return len;
+}
+
+static guint
+get_offset_for_pointer (HTMLTextSlave *slave, HTMLPainter *painter, gint x, gint y)
+{
+	g_return_val_if_fail (slave != NULL, 0);
+
+	x -= HTML_OBJECT (slave)->x;
+
+	if (x <= 0)
+		return 0;
+
+	if (x >= HTML_OBJECT (slave)->width - 1)
+		return slave->posLen;
+
+	if (slave->posLen > 1)
+		return calc_offset (slave, painter, x, y);
+	else
+		return x > HTML_OBJECT (slave)->width / 2 ? 1 : 0;
 }
 
 static HTMLObject *

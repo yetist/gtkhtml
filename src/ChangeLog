@@ -4,6 +4,8 @@
 	(they need width == 1 to be able to be selected)
 	(get_offset_for_pointer): fix len initialization, fix border
 	conditions
+	(get_offset_for_pointer): extracted calc_offset function, handle
+	slave->posLen < 2 as special case
 
 2003-07-24  Larry Ewing  <lewing@ximian.com>
 
