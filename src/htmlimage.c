@@ -43,30 +43,38 @@ static guint
 get_actual_width (HTMLImage *image,
 		  HTMLPainter *painter)
 {
+	gint width;
+
 	if (image->specified_width > 0) {
-		return image->specified_width * html_painter_get_pixel_size (painter);
+		width = image->specified_width * html_painter_get_pixel_size (painter);
 	} else if (HTML_OBJECT (image)->percent > 0) {
-		return (HTML_OBJECT (image)->max_width * HTML_OBJECT (image)->percent) / 100;
+		width = (HTML_OBJECT (image)->max_width * HTML_OBJECT (image)->percent) / 100;
 	} else if (image->image_ptr == NULL || image->image_ptr->pixbuf == NULL) {
-		return DEFAULT_SIZE * html_painter_get_pixel_size (painter);
+		width = DEFAULT_SIZE * html_painter_get_pixel_size (painter);
 	} else {
-		return (gdk_pixbuf_get_width (image->image_ptr->pixbuf)
+		width = (gdk_pixbuf_get_width (image->image_ptr->pixbuf)
 			* html_painter_get_pixel_size (painter));
 	}
+
+	return width;
 }
 
 static guint
 get_actual_height (HTMLImage *image,
 		   HTMLPainter *painter)
 {
+	gint height;
+
 	if (image->specified_height > 0) {
-		return image->specified_height * html_painter_get_pixel_size (painter);
+		height = image->specified_height * html_painter_get_pixel_size (painter);
 	} else if (image->image_ptr == NULL || image->image_ptr->pixbuf == NULL) {
-		return DEFAULT_SIZE * html_painter_get_pixel_size (painter);
+		height = DEFAULT_SIZE * html_painter_get_pixel_size (painter);
 	} else {
-		return (gdk_pixbuf_get_height (image->image_ptr->pixbuf)
+		height = (gdk_pixbuf_get_height (image->image_ptr->pixbuf)
 			* html_painter_get_pixel_size (painter));
 	}
+
+	return height;
 }
 
 
@@ -103,6 +111,7 @@ static gint
 calc_min_width (HTMLObject *o,
 		HTMLPainter *painter)
 {
+	HTMLImage *image = HTML_IMAGE (o);
 	guint pixel_size;
 	guint min_width;
 
@@ -113,7 +122,7 @@ calc_min_width (HTMLObject *o,
 	else
 		min_width = get_actual_width (HTML_IMAGE (o), painter);
 
-	min_width += HTML_IMAGE (o)->border * 2 * pixel_size;
+	min_width += image->border * 2 * pixel_size + 2*image->hspace;
 
 	return min_width;
 }
@@ -122,12 +131,13 @@ static gint
 calc_preferred_width (HTMLObject *o,
 		      HTMLPainter *painter)
 {
+	HTMLImage *image = HTML_IMAGE (o);
 	guint pixel_size;
 	guint width;
 
 	pixel_size = html_painter_get_pixel_size (painter);
-	width = (get_actual_width (HTML_IMAGE (o), painter)
-		 + HTML_IMAGE (o)->border * 2 * pixel_size);
+	width = get_actual_width (HTML_IMAGE (o), painter)
+		+ image->border * 2 * pixel_size + 2*image->hspace;
 
 	return width;
 }
@@ -152,9 +162,9 @@ calc_size (HTMLObject *o,
 	width = get_actual_width (image, painter);
 	height = get_actual_height (image, painter);
 
-	o->width = width + image->border * 2 * pixel_size;
+	o->width  = width + image->border * 2 * pixel_size + 2*image->hspace;
 	o->descent = image->border * pixel_size;
-	o->ascent = height + image->border * pixel_size;
+	o->ascent = height + image->border * pixel_size + 2*image->vspace;
 
 	if (o->descent != old_descent || o->ascent != old_ascent || o->width != old_width)
 		return TRUE;
@@ -181,16 +191,17 @@ draw (HTMLObject *o,
 
 	if (pixbuf == NULL) {
 		html_painter_draw_panel (painter, 
-					 o->x + tx, o->y + ty - o->ascent, 
-					 o->width, o->ascent + o->descent,
+					 o->x + tx + image->hspace,
+					 o->y + ty + image->vspace - o->ascent,
+					 o->width - 2*image->hspace, o->ascent + o->descent - 2*image->vspace,
 					 TRUE, 1);
 		return;
 	}
 
 	pixel_size = html_painter_get_pixel_size (painter);
 
-	base_x = o->x + tx + image->border * pixel_size;
-	base_y = o->y - o->ascent + ty + image->border * pixel_size;
+	base_x = o->x + tx + image->border * pixel_size + image->hspace;
+	base_y = o->y + ty + image->border * pixel_size + image->vspace - o->ascent;
 
 	scale_width = get_actual_width (image, painter);
 	scale_height = get_actual_height (image, painter);
@@ -286,6 +297,9 @@ html_image_init (HTMLImage *image,
 	image->specified_height = height;
 	image->border = border;
 
+	image->hspace = 0;
+	image->vspace = 0;
+
 	object->percent = percent;
 
 	image->image_ptr = html_image_factory_register (imf, image, filename);
@@ -307,6 +321,13 @@ html_image_new (HTMLImageFactory *imf,
 			 url, target, width, height, percent, border);
 
 	return HTML_OBJECT (image);
+}
+
+void
+html_image_set_spacing (HTMLImage *image, gint hspace, gint vspace)
+{
+	image->hspace = hspace;
+	image->vspace = vspace;
 }
 
 

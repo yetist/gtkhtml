@@ -1,3 +1,14 @@
+2000-03-30  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlimage.c (calc_preferred_width): added hspace
+	(calc_preferred_width):  added hspace
+	(calc_size): added hspace and vspace
+
+	* htmlimage.h: added hspace, vspace image attributes - these are
+	already deprecated, but for example Slashdot uses it
+
+	* htmlengine.c: added html_image_set_spacing for HTMLImage
+
 2000-03-28  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmltablecell.c

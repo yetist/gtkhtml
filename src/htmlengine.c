@@ -1130,6 +1130,8 @@ parse_input (HTMLEngine *e, const gchar *str, HTMLObject *_clue) {
 	gboolean checked = FALSE;
 	int size = 20;
 	int maxLen = -1;
+	int imgHSpace = 0;
+	int imgVSpace = 0;
 
 	string_tokenizer_tokenize (e->st, str, " >");
 
@@ -1179,6 +1181,12 @@ parse_input (HTMLEngine *e, const gchar *str, HTMLObject *_clue) {
 		else if ( strncasecmp( token, "onClick=", 8 ) == 0 ) {
 			/* TODO: Implement Javascript */
 		}
+		else if ( strncasecmp( token, "hspace=", 7 ) == 0 ) {
+			imgHSpace = atoi (token + 7);
+		}
+		else if ( strncasecmp( token, "vspace=", 7 ) == 0 ) {
+			imgVSpace = atoi (token + 7);
+		}
 	}
 	switch ( type ) {
 	case CheckBox:
@@ -1209,6 +1217,7 @@ parse_input (HTMLEngine *e, const gchar *str, HTMLObject *_clue) {
 		break;
 	case Image:
 		element = html_imageinput_new (e->image_factory, name, imgSrc);
+		html_image_set_spacing (HTML_IMAGE (element), imgHSpace, imgVSpace);
 		break;
 	case Undefined:
 		g_warning ("Unknown <input type>\n");
@@ -1919,6 +1928,8 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 		gchar *tmpurl = NULL;
 		gint height = -1;
 		gint percent = 0;
+		gint hspace = 0;
+		gint vspace = 0;
 		HTMLHAlignType align = HTML_HALIGN_NONE;
 		gint border = 0;
 		HTMLVAlignType valign = HTML_VALIGN_NONE;
@@ -1941,6 +1952,12 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 			}
 			else if (strncasecmp (token, "border=", 7) == 0) {
 				border = atoi (token + 7);
+			}
+			else if (strncasecmp (token, "hspace=", 7) == 0) {
+				hspace = atoi (token + 7);
+			}
+			else if (strncasecmp (token, "vspace=", 7) == 0) {
+				vspace = atoi (token + 7);
 			}
 			else if (strncasecmp (token, "align=", 6) == 0) {
 				if (strcasecmp (token + 6, "left") == 0)
@@ -1977,6 +1994,13 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 						p->url, p->target,
 						width, height,
 						percent, border);
+			if (hspace <0) {
+				hspace = 0;
+			}
+			if (vspace <0) {
+				vspace = 0;
+			}
+			html_image_set_spacing (HTML_IMAGE (image), hspace, vspace);
 
 			g_free(tmpurl);
 				

@@ -54,6 +54,9 @@ struct _HTMLImage {
 	gint specified_width;
 	gint specified_height;
 
+	gint hspace;
+	gint vspace;
+
 	gchar *url;
 	gchar *target;
 };
@@ -88,6 +91,8 @@ HTMLObject *html_image_new         (HTMLImageFactory *imf,
 				    gint              height,
 				    gint              percent,
 				    gint              border);
+
+void         html_image_set_spacing (HTMLImage *image, gint hspace, gint vspace);
 
 /* FIXME move to htmlimagefactory.c */
 HTMLImageFactory *html_image_factory_new      (HTMLEngine       *e);
