@@ -483,6 +483,7 @@ html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 				/* Ignore this sequence since it's too long */
 				t->charEntity = FALSE;
 				memcpy (t->dest, t->searchBuffer + 1, t->searchCount);
+				t->dest += t->searchCount;
 				
 				if (t->pre)
 					t->prePos += t->searchCount;

@@ -258,16 +258,16 @@ html_engine_begin (HTMLEngine *p, const char *url)
 	html_engine_free_block (p); /* Clear the block stack */
 
 	if (url != 0) {
-	  char *ctmp, *ctmp2;
+		char *ctmp, *ctmp2;
 
-	  p->actualURL = html_engine_canonicalize_url(p, url);
+		p->actualURL = html_engine_canonicalize_url(p, url);
 
-	  ctmp = g_dirname(p->actualURL);
-	  p->baseURL = html_engine_canonicalize_url(p, ctmp);
-	  g_free(ctmp);
+		ctmp = g_dirname(p->actualURL);
+		p->baseURL = html_engine_canonicalize_url(p, ctmp);
+		g_free(ctmp);
 
-	  g_print ("baseURL: %s\n", p->baseURL);
-	  g_print ("actualURL: %s\n", p->actualURL);
+		g_print ("baseURL: %s\n", p->baseURL);
+		g_print ("actualURL: %s\n", p->actualURL);
 	}
 
 	html_engine_stop_parser (p);
@@ -760,8 +760,22 @@ html_engine_parse_body (HTMLEngine *p, HTMLObject *clue, const gchar *end[], gbo
 		if (*str == '\0')
 			continue;
 
-		if (*str != TAG_ESCAPE) {
-
+		if ( *str == ' ' && *(str+1) == '\0' ) {
+#if 0 /* FIXME!!! */
+			/* if in* is set this text belongs in a form element */
+			if (p->inOption || p->inTextArea)
+				formText += " ";
+			else
+				;
+#endif
+			if (p->inTitle) {
+				g_string_append (p->title, " ");
+			} else if (p->flow != NULL) {
+				html_engine_insert_text
+					(p, " ",
+					 html_engine_get_current_font (p));
+			}
+		} else if (*str != TAG_ESCAPE) {
 			if (p->inTitle) {
 				g_string_append (p->title, str);
 			}

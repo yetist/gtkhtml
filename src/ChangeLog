@@ -1,9 +1,17 @@
 1999-11-17  Ettore Perazzoli  <ettore@gnu.org>
 
-	* htmltokenizer.c (html_tokenizer_write): Fixed handling of space
-	after a tag, according to the KHTMLW source.  I am not sure why it
-	was done differently.  Something is still wrong though, as `<li>
-	<p>' introduces a vspace while `<li><p>' does not.
+	* htmlengine.c (html_engine_parse_body): Handle empty space
+	correctly.  (Added a bunch of lines from the KHTMLW original.)
+
+	(html_tokenizer_write): Added missing increment for `t->dest' when
+	a sequence that is too long is ignored.
+
+1999-11-17  Ettore Perazzoli  <ettore@gnu.org>
+
+	* htmltokenizer.c (html_tokenizer_write): Changed handling of
+	space according to the KHTMLW source; I am not sure why it was
+	done differently.  Something is still wrong though, as `<li> <p>'
+	introduces a vspace while `<li><p>' does not.
 
 	* htmlengine.c (html_engine_parse_l): Set `vspace_inserted' to
 	TRUE when parsing `li'.  Otherwise, things like
