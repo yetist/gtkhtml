@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.8\n"
-"POT-Creation-Date: 2003-01-03 02:42+0100\n"
-"PO-Revision-Date: 2003-01-03 02:42+0100\n"
+"POT-Creation-Date: 2003-01-21 10:56+0100\n"
+"PO-Revision-Date: 2003-01-21 10:58+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -254,7 +254,7 @@ msgid "Cut the selection"
 msgstr "Klipp ut utvalget"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:73 components/html-editor/search.c:74
+#: components/html-editor/search.c:73 components/html-editor/search.c:75
 #: components/html-editor/search.c:118
 msgid "Find"
 msgstr "Finn"
@@ -460,7 +460,7 @@ msgstr "Gjør dette avsnittet om til en alfabetisk liste"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: components/html-editor/paragraph.c:124 components/html-editor/toolbar.c:47
+#: components/html-editor/paragraph.c:127 components/html-editor/toolbar.c:47
 msgid "Normal"
 msgstr "Normal"
 
@@ -533,9 +533,9 @@ msgid "Redo the undone action"
 msgstr "Gjenopprett angret handling"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
-#: components/html-editor/replace.c:75 components/html-editor/replace.c:151
-#: components/html-editor/replace.c:152 components/html-editor/replace.c:169
-#: components/html-editor/replace.c:205
+#: components/html-editor/replace.c:78 components/html-editor/replace.c:152
+#: components/html-editor/replace.c:154 components/html-editor/replace.c:171
+#: components/html-editor/replace.c:207
 msgid "Replace"
 msgstr "Erstatt"
 
@@ -565,7 +565,7 @@ msgstr "Velg hele innholdet i dokumentet"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#: components/html-editor/text.c:233 components/html-editor/toolbar.c:527
+#: components/html-editor/text.c:237 components/html-editor/toolbar.c:527
 msgid "Strikeout"
 msgstr "Gjennomstreket"
 
@@ -592,7 +592,7 @@ msgstr "Superskript"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
 #: components/html-editor/menubar.c:176 components/html-editor/popup.c:234
-#: components/html-editor/popup.c:505 components/html-editor/popup.c:514
+#: components/html-editor/popup.c:501 components/html-editor/popup.c:510
 msgid "Table"
 msgstr "Tabell"
 
@@ -841,7 +841,7 @@ msgid "Colors"
 msgstr "Farger"
 
 #: components/html-editor/body.c:313 components/html-editor/cell.c:423
-#: components/html-editor/table.c:535 components/html-editor/text.c:291
+#: components/html-editor/table.c:535 components/html-editor/text.c:295
 #: components/html-editor/toolbar.c:299
 msgid "Automatic"
 msgstr "Automatisk"
@@ -859,13 +859,21 @@ msgid "Background"
 msgstr "Bakgrunn"
 
 #: components/html-editor/cell.c:172 components/html-editor/cell.c:174
-#: components/html-editor/text.c:104
+#: components/html-editor/text.c:107
 msgid "The quick brown fox jumps over the lazy dog."
 msgstr "Dette er en prøve...testing en - to - tre."
 
 #: components/html-editor/cell.c:177
 msgid "Other"
 msgstr "Annet"
+
+#: components/html-editor/cell.c:678
+msgid ""
+"The editted cell was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Redigert celle er fjernet fra dokumentet.\n"
+"Kan ikke bruke dine endringer."
 
 #: components/html-editor/editor-control-factory.c:165
 #: components/html-editor/menubar.c:313 components/html-editor/menubar.c:331
@@ -914,7 +922,7 @@ msgid "Apply changes to:"
 msgstr "Påfør endringer til:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:16
-#: components/html-editor/text.c:230 components/html-editor/toolbar.c:521
+#: components/html-editor/text.c:234 components/html-editor/toolbar.c:521
 msgid "Bold"
 msgstr "Uthevet"
 
@@ -936,12 +944,12 @@ msgid "Cell"
 msgstr "Celle"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
-#: components/html-editor/paragraph.c:159 components/html-editor/toolbar.c:510
+#: components/html-editor/paragraph.c:162 components/html-editor/toolbar.c:510
 msgid "Center"
 msgstr "Senter"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
-#: components/html-editor/link.c:107 components/html-editor/text.c:241
+#: components/html-editor/link.c:107 components/html-editor/text.c:245
 msgid "Click will follow this URL"
 msgstr "Klikk for å følge denne URLen"
 
@@ -954,7 +962,7 @@ msgid "Color:"
 msgstr "Farge:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#: components/html-editor/popup.c:516
+#: components/html-editor/popup.c:512
 msgid "Column"
 msgstr "Kolonne"
 
@@ -1007,12 +1015,12 @@ msgid "Horizontal:"
 msgstr "Horisontal:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:40
-#: components/html-editor/text.c:231 components/html-editor/toolbar.c:523
+#: components/html-editor/text.c:235 components/html-editor/toolbar.c:523
 msgid "Italic"
 msgstr "Kursiv"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:41
-#: components/html-editor/paragraph.c:158
+#: components/html-editor/paragraph.c:161
 msgid "Left"
 msgstr "Venstre"
 
@@ -1066,12 +1074,12 @@ msgid "Points"
 msgstr "Punkter"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:59
-#: components/html-editor/paragraph.c:160
+#: components/html-editor/paragraph.c:163
 msgid "Right"
 msgstr "Høyre"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
-#: components/html-editor/popup.c:515
+#: components/html-editor/popup.c:511
 msgid "Row"
 msgstr "Rad"
 
@@ -1092,7 +1100,7 @@ msgid "Shaded"
 msgstr "Skyggelagt"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:66
-#: components/html-editor/text.c:257
+#: components/html-editor/text.c:261
 msgid "Size"
 msgstr "Størrelse"
 
@@ -1105,7 +1113,7 @@ msgid "Spacing:"
 msgstr "Mellomrom:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:110 components/html-editor/text.c:217
+#: components/html-editor/paragraph.c:113 components/html-editor/text.c:221
 msgid "Style"
 msgstr "Stil"
 
@@ -1131,7 +1139,7 @@ msgid "Top"
 msgstr "Topp"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:79
-#: components/html-editor/text.c:232 components/html-editor/toolbar.c:525
+#: components/html-editor/text.c:236 components/html-editor/toolbar.c:525
 msgid "Underline"
 msgstr "Understreket"
 
@@ -1212,14 +1220,30 @@ msgstr ""
 msgid "The quick brown fox jumped over the lazy dog."
 msgstr "Dette er en prøve...testing en - to - tre."
 
+#: components/html-editor/image.c:692
+msgid ""
+"The editted image was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Redigert bilde er fjernet fra dokumentet.\n"
+"Kan ikke bruke dine endringer."
+
 #: components/html-editor/link.c:91
 msgid "Link text"
 msgstr "Tekst i lenke"
 
+#: components/html-editor/link.c:180
+msgid ""
+"The editted link was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Redigert lenke er fjernet fra dokumentet.\n"
+"Kan ikke bruke dine endringer."
+
 #: components/html-editor/menubar.c:122 components/html-editor/menubar.c:138
 #: components/html-editor/menubar.c:156 components/html-editor/menubar.c:173
 #: components/html-editor/menubar.c:196 components/html-editor/popup.c:100
-#: components/html-editor/properties.c:134
+#: components/html-editor/properties.c:129
 msgid "Insert"
 msgstr "Sett inn"
 
@@ -1231,57 +1255,65 @@ msgstr "Sett inn HTML-fil"
 msgid "Insert text file"
 msgstr "Sett inn tekstfil"
 
-#: components/html-editor/paragraph.c:125
+#: components/html-editor/paragraph.c:128
 msgid "Pre"
 msgstr "Pre"
 
-#: components/html-editor/paragraph.c:126 components/html-editor/toolbar.c:53
+#: components/html-editor/paragraph.c:129 components/html-editor/toolbar.c:53
 msgid "Header 1"
 msgstr "Tittel 1"
 
-#: components/html-editor/paragraph.c:127 components/html-editor/toolbar.c:54
+#: components/html-editor/paragraph.c:130 components/html-editor/toolbar.c:54
 msgid "Header 2"
 msgstr "Tittel 2"
 
-#: components/html-editor/paragraph.c:128 components/html-editor/toolbar.c:55
+#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:55
 msgid "Header 3"
 msgstr "Tittel 3"
 
-#: components/html-editor/paragraph.c:129 components/html-editor/toolbar.c:56
+#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:56
 msgid "Header 4"
 msgstr "Tittel 4"
 
-#: components/html-editor/paragraph.c:130 components/html-editor/toolbar.c:57
+#: components/html-editor/paragraph.c:133 components/html-editor/toolbar.c:57
 msgid "Header 5"
 msgstr "Tittel 5"
 
-#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:58
+#: components/html-editor/paragraph.c:134 components/html-editor/toolbar.c:58
 msgid "Header 6"
 msgstr "Tittel 6"
 
-#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:59
+#: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:59
 msgid "Address"
 msgstr "Adresse"
 
-#: components/html-editor/paragraph.c:133
+#: components/html-editor/paragraph.c:136
 msgid "Dot item"
 msgstr "Prikkoppføring"
 
-#: components/html-editor/paragraph.c:134
+#: components/html-editor/paragraph.c:137
 msgid "Number item"
 msgstr "Talloppføring"
 
-#: components/html-editor/paragraph.c:135
+#: components/html-editor/paragraph.c:138
 msgid "Roman item"
 msgstr "Romersk oppføring"
 
-#: components/html-editor/paragraph.c:136
+#: components/html-editor/paragraph.c:139
 msgid "Alphabeta item"
 msgstr "Alfabetisk oppføring"
 
-#: components/html-editor/paragraph.c:145
+#: components/html-editor/paragraph.c:148
 msgid "Align"
 msgstr "Juster"
+
+#: components/html-editor/paragraph.c:192
+msgid ""
+"The editted paragraph was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Redigert avsnitt er fjernet fra dokumentet.\n"
+"Kan ikke bruke dine endringer."
 
 #: components/html-editor/popup.c:420
 msgid "Paste Quotation"
@@ -1339,43 +1371,43 @@ msgstr "Regel..."
 msgid "Image..."
 msgstr "Bilde..."
 
-#: components/html-editor/popup.c:490 components/html-editor/popup.c:501
-msgid "Table..."
-msgstr "Tabell..."
-
-#: components/html-editor/popup.c:498
+#: components/html-editor/popup.c:494
 msgid "Cell..."
 msgstr "Celle..."
 
-#: components/html-editor/popup.c:504
+#: components/html-editor/popup.c:497
+msgid "Table..."
+msgstr "Tabell..."
+
+#: components/html-editor/popup.c:500
 msgid "Table insert"
 msgstr "Sett inn tabell"
 
-#: components/html-editor/popup.c:507
+#: components/html-editor/popup.c:503
 msgid "Row above"
 msgstr "Raden over"
 
-#: components/html-editor/popup.c:508
+#: components/html-editor/popup.c:504
 msgid "Row below"
 msgstr "Raden under"
 
-#: components/html-editor/popup.c:510
+#: components/html-editor/popup.c:506
 msgid "Column before"
 msgstr "Kolonnen før"
 
-#: components/html-editor/popup.c:511
+#: components/html-editor/popup.c:507
 msgid "Column after"
 msgstr "Kolonnen etter"
 
-#: components/html-editor/popup.c:513
+#: components/html-editor/popup.c:509
 msgid "Table delete"
 msgstr "Slett tabell"
 
-#: components/html-editor/popup.c:517
+#: components/html-editor/popup.c:513
 msgid "Cell contents"
 msgstr "Celleinnhold"
 
-#: components/html-editor/popup.c:525
+#: components/html-editor/popup.c:521
 msgid "Page..."
 msgstr "Bilde..."
 
@@ -1383,23 +1415,23 @@ msgstr "Bilde..."
 msgid "Replace confirmation"
 msgstr "Erstatt bekreftelse"
 
-#: components/html-editor/replace.c:76
+#: components/html-editor/replace.c:75
 msgid "Replace all"
 msgstr "Erstatt alle"
 
-#: components/html-editor/replace.c:77
+#: components/html-editor/replace.c:76
 msgid "Next"
 msgstr "Neste"
 
-#: components/html-editor/replace.c:158
+#: components/html-editor/replace.c:160
 msgid "search backward"
 msgstr "søk bakover"
 
-#: components/html-editor/replace.c:159 components/html-editor/search.c:79
+#: components/html-editor/replace.c:161 components/html-editor/search.c:79
 msgid "case sensitive"
 msgstr "skill mellom store/små bokstaver"
 
-#: components/html-editor/replace.c:172
+#: components/html-editor/replace.c:174
 msgid "with"
 msgstr "med"
 
@@ -1411,6 +1443,14 @@ msgstr "Blå 3D"
 msgid "Yellow, flowers"
 msgstr "Gul, blomster"
 
+#: components/html-editor/rule.c:421
+msgid ""
+"The editted rule was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Redigert regel er fjernet fra dokumenetet.\n"
+"Kan ikke bruke dine endringer."
+
 #: components/html-editor/search.c:78
 msgid "backward"
 msgstr "bakover"
@@ -1419,7 +1459,7 @@ msgstr "bakover"
 msgid "Find Regular Expression"
 msgstr "Finn vanlig uttrykk"
 
-#: components/html-editor/spell.c:351
+#: components/html-editor/spell.c:350
 msgid "Spell Checking _Languages"
 msgstr "S_pråkstøtte i stavekontroll"
 
@@ -1430,6 +1470,14 @@ msgstr "Flat grå"
 #: components/html-editor/table.c:208
 msgid "Dark header"
 msgstr "Mørk topptekst"
+
+#: components/html-editor/table.c:812
+msgid ""
+"The editted table was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Redigert tabell er fjernet fra dokumentet.\n"
+"Kan ikke bruke dine endringer."
 
 #: components/html-editor/template.c:83
 msgid "Note"
@@ -1452,9 +1500,17 @@ msgid "Save file as..."
 msgstr "Lagre fil som..."
 
 #. color selection
-#: components/html-editor/text.c:287
+#: components/html-editor/text.c:291
 msgid "Color"
 msgstr "Farge"
+
+#: components/html-editor/text.c:333
+msgid ""
+"The editted text was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"Redigert tekst er fjernet fra dokumentet.\n"
+"Kan ikke bruke dine endringer."
 
 #: components/html-editor/toolbar.c:51
 msgid "Roman List"
@@ -1507,14 +1563,6 @@ msgstr "Større innrykk for avsnittene"
 #: components/html-editor/utils.c:105
 msgid "Sample"
 msgstr "Eksempel"
-
-#: src/gtkhtml-properties.c:44
-msgid "Sans"
-msgstr "Sans"
-
-#: src/gtkhtml-properties.c:45
-msgid "Monospace"
-msgstr "Monospace"
 
 #: src/html-component.c:219
 msgid "Html"
@@ -1588,6 +1636,3 @@ msgstr "Forhånds_visning"
 #: src/testgtkhtml.c:103
 msgid "Print preview"
 msgstr "Forhåndsvisning"
-
-#~ msgid "Image 1: <b>description</b>"
-#~ msgstr "Bilde 1: <b>beskrivelse</b>"
