@@ -1,5 +1,8 @@
 2004-06-25  Radek Doulik  <rodo@ximian.com>
 
+	* editor-control-shlib.c (editor_control_shlib_factory): make the
+	function static
+
 	* popup.c (remove_link): use html_engine_set_link
 
 Sat Jun  5 12:20:42 2004  Owen Taylor  <otaylor@redhat.com>

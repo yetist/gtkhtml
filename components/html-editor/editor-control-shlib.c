@@ -46,7 +46,7 @@ editor_shlib_init (void)
 	}
 }
 
-BonoboObject *
+static BonoboObject *
 editor_control_shlib_factory (BonoboGenericFactory *factory, const gchar *component_id, gpointer closure)
 {
 	editor_shlib_init ();
