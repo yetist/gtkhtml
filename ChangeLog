@@ -1,3 +1,7 @@
+2001-01-19  Stanislav Visnovsky  <visnovsky@nenya.ms.mff.cuni.cz>
+
+	* configure.in (ALL_LINGUAS): added sk (Slovak) translation
+
 2001-01-12  Dietmar Maurer  <dietmar@helixcode.com>
 
 	* *.c: changed the signature of the property_bag get/set
