@@ -1,3 +1,8 @@
+2002-10-07  Larry Ewing  <lewing@ximian.com>
+
+	* spell.c (spell_create_language_menu): we cannot use the return
+	value if we get an exception.
+
 2002-10-02  Larry Ewing  <lewing@ximian.com>
 
 	* search.c (gtk_html_search_dialog_new): add window icon to

@@ -512,6 +512,7 @@ spell_create_language_menu (GtkHTMLControlData *cd)
 		}
 	} else {
 		g_warning ("CORBA exception: %s\n", bonobo_exception_get_text (&ev));
+		cd->languages = NULL;
 	}
 	CORBA_exception_free (&ev);
 }
