@@ -167,6 +167,9 @@ struct _HTMLObjectClass {
 
 	void (* get_cursor) (HTMLObject *self, HTMLPainter *painter, guint offset,
 			     gint *x1, gint *y1, gint *x2, gint *y2);
+
+	void (* get_cursor_base) (HTMLObject *self, HTMLPainter *painter, guint offset,
+				  gint *x, gint *y);
 };
 
 
@@ -246,5 +249,10 @@ void      html_object_get_cursor       (HTMLObject  *obj,
 					gint        *y1,
 					gint        *x2,
 					gint        *y2);
+void      html_object_get_cursor_base  (HTMLObject  *obj,
+					HTMLPainter *painter,
+					guint        offset,
+					gint        *x,
+					gint        *y);
 
 #endif /* _HTMLOBJECT_H_ */

@@ -405,7 +405,6 @@ html_cursor_up (HTMLCursor *cursor,
 	HTMLCursor prev_cursor;
 	gint prev_x, prev_y;
 	gint x, y;
-	gint dummy_x, dummy_y;
 	gint target_x;
 	gint orig_y;
 	gboolean new_line;
@@ -418,9 +417,9 @@ html_cursor_up (HTMLCursor *cursor,
 
 	orig_cursor = *cursor;
 
-	html_object_get_cursor (cursor->object,
-				engine->painter, cursor->offset,
-				&dummy_x, &dummy_y, &x, &y);
+	html_object_get_cursor_base (cursor->object,
+				     engine->painter, cursor->offset,
+				     &x, &y);
 
 	if (! cursor->have_target_x) {
 		cursor->target_x = x;
@@ -441,10 +440,9 @@ html_cursor_up (HTMLCursor *cursor,
 		if (! backward (cursor, engine))
 			return FALSE;
 
-		html_object_get_cursor (cursor->object,
-					engine->painter, cursor->offset,
-					&dummy_x, &dummy_y,
-					&x, &y);
+		html_object_get_cursor_base (cursor->object,
+					     engine->painter, cursor->offset,
+					     &x, &y);
 
 		if (html_cursor_equal (&prev_cursor, cursor)) {
 			*cursor = orig_cursor;
@@ -489,7 +487,6 @@ html_cursor_down (HTMLCursor *cursor,
 	HTMLCursor prev_cursor;
 	gint prev_x, prev_y;
 	gint x, y;
-	gint dummy_x, dummy_y;
 	gint target_x;
 	gint orig_y;
 	gboolean new_line;
@@ -500,10 +497,9 @@ html_cursor_down (HTMLCursor *cursor,
 		return TRUE;
 	}
 
-	html_object_get_cursor (cursor->object,
-				engine->painter, cursor->offset,
-				&dummy_x, &dummy_y,
-				&x, &y);
+	html_object_get_cursor_base (cursor->object,
+				     engine->painter, cursor->offset,
+				     &x, &y);
 
 	if (! cursor->have_target_x) {
 		cursor->target_x = x;
@@ -524,10 +520,9 @@ html_cursor_down (HTMLCursor *cursor,
 		if (! forward (cursor, engine))
 			return FALSE;
 
-		html_object_get_cursor (cursor->object,
-					engine->painter, cursor->offset,
-					&dummy_x, &dummy_y,
-					&x, &y);
+		html_object_get_cursor_base (cursor->object,
+					     engine->painter, cursor->offset,
+					     &x, &y);
 
 		if (html_cursor_equal (&prev_cursor, cursor)) {
 			*cursor = orig_cursor;

@@ -219,14 +219,23 @@ get_cursor (HTMLObject *self,
 	    gint *x1, gint *y1,
 	    gint *x2, gint *y2)
 {
-	html_object_calc_abs_position (self, x2, y2);
-
-	if (offset > 0)
-		*x2 += self->width;
+	html_object_get_cursor_base (self, painter, offset, x2, y2);
 
 	*x1 = *x2;
 	*y1 = *y2 - self->ascent;
 	*y2 += self->descent - 1;
+}
+
+static void
+get_cursor_base (HTMLObject *self,
+		 HTMLPainter *painter,
+		 guint offset,
+		 gint *x, gint *y)
+{
+	html_object_calc_abs_position (self, x, y);
+
+	if (offset > 0)
+		*x += self->width;
 }
 
 
@@ -267,6 +276,7 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->relayout = relayout;
 	klass->accepts_cursor = accepts_cursor;
 	klass->get_cursor = get_cursor;
+	klass->get_cursor_base = get_cursor_base;
 }
 
 void
@@ -465,6 +475,17 @@ html_object_get_cursor (HTMLObject *self,
 			gint *x2, gint *y2)
 {
 	(* HO_CLASS (self)->get_cursor) (self, painter, offset, x1, y1, x2, y2);
+}
+
+/* Warning: `calc_size()' must have been called on `self' before this so that
+   this works correctly.  */
+void
+html_object_get_cursor_base (HTMLObject *self,
+			     HTMLPainter *painter,
+			     guint offset,
+			     gint *x, gint *y)
+{
+	(* HO_CLASS (self)->get_cursor_base) (self, painter, offset, x, y);
 }
 
 

@@ -295,22 +295,32 @@ get_cursor (HTMLObject *self,
 	    gint *x1, gint *y1,
 	    gint *x2, gint *y2)
 {
-	HTMLFontStyle font_style;
-
-	html_object_calc_abs_position (HTML_OBJECT (self), x2, y2);
-
-	if (offset > 0) {
-		font_style = html_text_get_font_style (HTML_TEXT (self));
-		*x2 += html_painter_calc_text_width (painter,
-						     HTML_TEXT (self)->text,
-						     offset, font_style);
-	}
+	html_object_get_cursor_base (self, painter, offset, x2, y2);
 
 	*x1 = *x2;
 	*y1 = *y2 - self->ascent;
 	*y2 += self->descent - 1;
 }
 
+static void
+get_cursor_base (HTMLObject *self,
+		 HTMLPainter *painter,
+		 guint offset,
+		 gint *x, gint *y)
+{
+	HTMLFontStyle font_style;
+
+	html_object_calc_abs_position (HTML_OBJECT (self), x, y);
+
+	if (offset > 0) {
+		font_style = html_text_get_font_style (HTML_TEXT (self));
+		*x += html_painter_calc_text_width (painter,
+						    HTML_TEXT (self)->text,
+						    offset, font_style);
+	}
+}
+
+
 static HTMLText *
 split (HTMLText *self,
        guint offset)
@@ -387,6 +397,7 @@ html_text_class_init (HTMLTextClass *klass,
 	object_class->accepts_cursor = accepts_cursor;
 	object_class->calc_size = calc_size;
 	object_class->get_cursor = get_cursor;
+	object_class->get_cursor_base = get_cursor_base;
 
 	/* HTMLText methods.  */
 

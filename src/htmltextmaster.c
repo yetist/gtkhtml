@@ -198,6 +198,31 @@ get_cursor (HTMLObject *self,
 	    gint *x1, gint *y1,
 	    gint *x2, gint *y2)
 {
+	HTMLObject *slave;
+	guint ascent, descent;
+
+	html_object_get_cursor_base (self, painter, offset, x2, y2);
+
+	slave = self->next;
+	if (slave == NULL || HTML_OBJECT_TYPE (slave) != HTML_TYPE_TEXTSLAVE) {
+		ascent = 0;
+		descent = 0;
+	} else {
+		ascent = slave->ascent;
+		descent = slave->descent;
+	}
+
+	*x1 = *x2;
+	*y1 = *y2 - ascent;
+	*y2 += descent - 1;
+}
+
+static void
+get_cursor_base (HTMLObject *self,
+		 HTMLPainter *painter,
+		 guint offset,
+		 gint *x, gint *y)
+{
 	HTMLObject *obj;
 
 	for (obj = self->next; obj != NULL; obj = obj->next) {
@@ -211,7 +236,7 @@ get_cursor (HTMLObject *self,
 		if (offset < slave->posStart + slave->posLen
 		    || obj->next == NULL
 		    || HTML_OBJECT_TYPE (obj->next) != HTML_TYPE_TEXTSLAVE) {
-			html_object_calc_abs_position (obj, x2, y2);
+			html_object_calc_abs_position (obj, x, y);
 			if (offset != slave->posStart) {
 				HTMLText *text;
 				HTMLFontStyle font_style;
@@ -219,15 +244,12 @@ get_cursor (HTMLObject *self,
 				text = HTML_TEXT (self);
 
 				font_style = html_text_get_font_style (text);
-				*x2 += html_painter_calc_text_width (painter,
-								     text->text + slave->posStart,
-								     offset - slave->posStart,
-								     font_style);
+				*x += html_painter_calc_text_width (painter,
+								    text->text + slave->posStart,
+								    offset - slave->posStart,
+								    font_style);
 			}
 
-			*x1 = *x2;
-			*y1 = *y2 - obj->ascent;
-			*y2 += obj->descent - 1;
 			return;
 		}
 	}
@@ -261,6 +283,7 @@ html_text_master_class_init (HTMLTextMasterClass *klass,
 	object_class->calc_min_width = calc_min_width;
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->get_cursor = get_cursor;
+	object_class->get_cursor_base = get_cursor_base;
 
 	/* HTMLText methods.  */
 
