@@ -34,13 +34,13 @@ typedef struct _HTMLAnchorClass HTMLAnchorClass;
 #define HTML_ANCHOR_CLASS(x) ((HTMLAnchorClass *) x)
 
 struct _HTMLAnchor {
-	HTMLObject parent;
+	HTMLObject object;
 
 	GString *name;
 };
 
 struct _HTMLAnchorClass {
-	HTMLObjectClass parent;
+	HTMLObjectClass object_class;
 };
 
 

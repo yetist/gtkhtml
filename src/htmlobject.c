@@ -219,6 +219,7 @@ html_object_init (HTMLObject *o,
 		  HTMLObjectClass *klass)
 {
 	o->klass = klass;
+	o->parent = NULL;
 
 	o->x = 0;
 	o->y = 0;
@@ -240,7 +241,7 @@ html_object_init (HTMLObject *o,
 }
 
 HTMLObject *
-html_object_new (void)
+html_object_new (HTMLObject *parent)
 {
 	HTMLObject *o;
 	
@@ -248,6 +249,17 @@ html_object_new (void)
 	html_object_init (o, &html_object_class);
 
 	return o;
+}
+
+void
+html_object_set_parent (HTMLObject *o,
+			HTMLObject *parent)
+{
+	/* If this happens, this is broken as currently this does not make any
+           sense at all.  */
+	g_return_if_fail (o->parent == NULL);
+
+	o->parent = parent;
 }
 
 

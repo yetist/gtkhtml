@@ -31,7 +31,7 @@ typedef struct _HTMLTextSlaveClass HTMLTextSlaveClass;
 #define HTML_TEXT_SLAVE_CLASS(x) ((HTMLTextSlaveClass *) (x))
 
 struct _HTMLTextSlave {
-	HTMLObject parent;
+	HTMLObject object;
 
 	HTMLTextMaster *owner;
 	gshort posStart;
@@ -39,7 +39,7 @@ struct _HTMLTextSlave {
 };
 
 struct _HTMLTextSlaveClass {
-	HTMLObjectClass parent;
+	HTMLObjectClass object_class;
 };
 
 

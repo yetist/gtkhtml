@@ -30,7 +30,7 @@ typedef struct _HTMLClue HTMLClue;
 typedef struct _HTMLClueClass HTMLClueClass;
 
 struct _HTMLClue {
-	HTMLObject parent;
+	HTMLObject object;
 	
 	HTMLObject *head;
 	HTMLObject *tail;
@@ -41,7 +41,7 @@ struct _HTMLClue {
 };
 
 struct _HTMLClueClass {
-	HTMLObjectClass parent;
+	HTMLObjectClass object_class;
 
 	gint (*get_left_margin) (HTMLClue *clue, gint y);
 	gint (*get_right_margin) (HTMLClue *clue, gint y);

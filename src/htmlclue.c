@@ -445,4 +445,6 @@ html_clue_append (HTMLClue *clue, HTMLObject *o)
 		clue->tail->next = o;
 		clue->tail = o;
 	}
+
+	html_object_set_parent (o, HTML_OBJECT (clue));
 }

@@ -31,7 +31,7 @@ typedef struct _HTMLClueV HTMLClueV;
 typedef struct _HTMLClueVClass HTMLClueVClass;
 
 struct _HTMLClueV {
-	HTMLClue parent;
+	HTMLClue clue;
 	
 	/* fixme: htmlcluealigned */
 	HTMLObject *align_left_list;
@@ -40,7 +40,7 @@ struct _HTMLClueV {
 };
 
 struct _HTMLClueVClass {
-	HTMLClueClass parent;
+	HTMLClueClass clue_class;
 };
 
 

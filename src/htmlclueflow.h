@@ -30,13 +30,13 @@ typedef struct _HTMLClueFlow HTMLClueFlow;
 typedef struct _HTMLClueFlowClass HTMLClueFlowClass;
 
 struct _HTMLClueFlow {
-	HTMLClue parent;
+	HTMLClue clue;
 
 	gshort indent;
 };
 
 struct _HTMLClueFlowClass {
-	HTMLClueClass parent;
+	HTMLClueClass clue_class;
 };
 
 

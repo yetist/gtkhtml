@@ -43,7 +43,7 @@ struct _HTMLImagePointer {
 #define HTML_IMAGE(x) ((HTMLImage *)(x))
 
 struct _HTMLImage {
-	HTMLObject parent;
+	HTMLObject object;
 
 	gboolean predefinedWidth;
 	gboolean predefinedHeight;

@@ -29,12 +29,12 @@ typedef struct _HTMLVSpaceClass HTMLVSpaceClass;
 #define HTML_VSPACE(x) ((HTMLVSpace *)(x))
 
 struct _HTMLVSpace {
-	HTMLObject parent;
+	HTMLObject object;
 	HTMLClearType clear;
 };
 
 struct _HTMLVSpaceClass {
-	HTMLObjectClass parent;
+	HTMLObjectClass object_class;
 };
 
 

@@ -1195,7 +1195,8 @@ html_table_new (gint x, gint y, gint max_width, gint width, gint percent,
 	HTMLTable *table;
 
 	table = g_new (HTMLTable, 1);
-	html_table_init (table, &html_table_class, x, y, max_width, width,
+	html_table_init (table, &html_table_class,
+			 x, y, max_width, width,
 			 percent, padding, spacing, border);
 
 	return HTML_OBJECT (table);

@@ -31,13 +31,13 @@ typedef struct _HTMLClueHClass HTMLClueHClass;
 #define HTML_CLUEH_CLASS(X) ((HTMLClueHClass *)(x))
 
 struct _HTMLClueH {
-	HTMLClue parent;
+	HTMLClue clue;
 
 	gshort indent;
 };
 
 struct _HTMLClueHClass {
-	HTMLClueClass parent;
+	HTMLClueClass clue_class;
 };
 
 

@@ -31,14 +31,14 @@ typedef struct _HTMLHSpaceClass HTMLHSpaceClass;
 #define HTML_HSPACE_CLASS(x) ((HTMLHSpaceClass *)(x))
 
 struct _HTMLHSpace {
-	HTMLObject parent;
+	HTMLObject object;
 
 	/* FIXME!!!  WHY!?!?!?  Shouldn't we use the one from HTMLObject???  */
 	HTMLFont *font;
 };
 
 struct _HTMLHSpaceClass {
-	HTMLObjectClass parent;
+	HTMLObjectClass object_class;
 };
 
 

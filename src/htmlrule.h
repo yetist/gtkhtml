@@ -31,13 +31,13 @@ typedef struct _HTMLRuleClass HTMLRuleClass;
 #define HTML_RULE_CLASS(x) ((HTMLRuleClass *) (x))
 
 struct _HTMLRule {
-	HTMLObject parent;
+	HTMLObject object;
 
 	gboolean shade;
 };
 
 struct _HTMLRuleClass {
-	HTMLObjectClass parent;
+	HTMLObjectClass object_class;
 };
 
 

@@ -51,7 +51,7 @@ typedef struct _RowInfo {
 } RowInfo_t;
 
 struct _HTMLTable {
-	HTMLObject parent;
+	HTMLObject object;
 
 	gint _minWidth;
 	gint _prefWidth;
@@ -77,7 +77,7 @@ struct _HTMLTable {
 };
 
 struct _HTMLTableClass {
-	HTMLObjectClass parent;
+	HTMLObjectClass object_class;
 };
 
 

@@ -1,10 +1,21 @@
+1999-12-10  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* All files: updated to match these changes.
+
+	* htmlclue.c (html_clue_append): Set the parent of the object to
+	this one.
+
+	* htmlobject.h: New member `parent' in `HTMLObject'.
+	* htmlobject.c (html_object_init): Set it to NULL.
+	(html_object_set_parent): New function.
+
 1999-12-09  Jonas Borgström  <jonas_b@bitsmart.com>
 
 	* gtkhtml.c (gtk_html_begin): Scroll page to the top on new url
 	
 	* htmltokenizer.c (html_tokenizer_write): Fixing parsing of entity.
 	
-	* htmlentity.c: (html_entity_parse): Corrected function.
+	* htmlentity.c (html_entity_parse): Corrected function.
 	
 1999-12-09  Miguel de Icaza  <miguel@gnu.org>
 
@@ -18,7 +29,8 @@
 
 1999-12-09  Jonas Borgström  <jonas_b@bitsmart.com>
 
-	* htmlengine.c (parse_a, parse_b, parse_i): Send Absolute urls to images.
+	* htmlengine.c (parse_a, parse_b, parse_i): Send Absolute urls to
+	images.
 
 	* testgtkhtml.c: New Features:
 	  * Follow links with mouse click works now.

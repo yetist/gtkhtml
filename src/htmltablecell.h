@@ -31,7 +31,7 @@ typedef struct _HTMLTableCellClass HTMLTableCellClass;
 #define HTML_TABLE_CELL_CLASS(x) ((HTMLTableCellClass *)(x))
 
 struct _HTMLTableCell {
-	HTMLClueV parent;
+	HTMLClueV cluev;
 
 	gint rspan;
 	gint cspan;
@@ -43,7 +43,7 @@ struct _HTMLTableCell {
 };
 
 struct _HTMLTableCellClass {
-	HTMLClueVClass parent;
+	HTMLClueVClass cluev_class;
 };
 
 

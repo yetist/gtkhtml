@@ -23,6 +23,8 @@
 /* FIXME check all the `push_block()'s and `set_font()'s.  */
 /* FIXME there are many functions that should be static instead of being
    exported.  I will slowly do this as time permits.  -- Ettore  */
+/* Some stuff is not re-initialized properly when clearing and reloading stuff
+   from scratch -- Ettore */
 
 #include <string.h>
 #include <stdlib.h>
@@ -208,8 +210,7 @@ block_end_pre ( HTMLEngine *e, HTMLObject *_clue, HTMLBlockStackElement *elem)
 
 	html_clue_append (HTML_CLUE (e->flow),
 			  html_hspace_new ( html_engine_get_current_font (e),
-					    e->painter,
-					    TRUE ));
+					    e->painter, TRUE ));
 
 	html_engine_pop_font (e);
 
@@ -821,7 +822,7 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 		} else {
 			HTMLClueAligned *aligned;
 
-			aligned = HTML_CLUEALIGNED (html_cluealigned_new (HTML_CLUE (clue),
+			aligned = HTML_CLUEALIGNED (html_cluealigned_new (clue,
 									  0, 0,
 									  clue->max_width,
 									  100));
@@ -1719,7 +1720,7 @@ parse_i (HTMLEngine *p, HTMLObject *_clue, const gchar *str)
 		}
 		/* We need to put the image in a HTMLClueAligned */
 		else {
-			HTMLClueAligned *aligned = HTML_CLUEALIGNED (html_cluealigned_new (HTML_CLUE (p->flow), 0, 0, _clue->max_width, 100));
+			HTMLClueAligned *aligned = HTML_CLUEALIGNED (html_cluealigned_new (p->flow, 0, 0, _clue->max_width, 100));
 			HTML_CLUE (aligned)->halign = align;
 			html_clue_append (HTML_CLUE (aligned), HTML_OBJECT (image));
 			html_clue_append (HTML_CLUE (p->flow), HTML_OBJECT (aligned));

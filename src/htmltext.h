@@ -31,14 +31,14 @@ typedef struct _HTMLTextClass HTMLTextClass;
 #define HTML_TEXT_CLASS(x) ((HTMLTextClass *)(x))
 
 struct _HTMLText {
-	HTMLObject parent;
+	HTMLObject object;
 	
 	gchar *text;
 	HTMLFont *font;
 };
 
 struct _HTMLTextClass {
-	HTMLObjectClass parent;
+	HTMLObjectClass object_class;
 };
 
 

@@ -74,9 +74,12 @@ typedef enum {
 
 typedef struct _HTMLObjectClass HTMLObjectClass;
 typedef struct _HTMLAnchor HTMLAnchor;
+typedef struct _HTMLObject HTMLObject;
 
 struct _HTMLObject {
 	HTMLObjectClass *klass;
+
+	HTMLObject *parent;
 
 	gint x, y;
 
@@ -96,7 +99,6 @@ struct _HTMLObject {
 
 	struct _HTMLObject *next;
 };
-typedef struct _HTMLObject HTMLObject;
 
 struct _HTMLObjectClass {
 	HTMLType type;
@@ -152,8 +154,9 @@ extern HTMLObjectClass html_object_class;
 void html_object_type_init (void);
 void html_object_init (HTMLObject *o, HTMLObjectClass *klass);
 void html_object_class_init (HTMLObjectClass *klass, HTMLType type);
-HTMLObject *html_object_new (void);
+HTMLObject *html_object_new (HTMLObject *parent);
 void html_object_destroy (HTMLObject *o);
+void html_object_set_parent (HTMLObject *o, HTMLObject *parent);
 
 void html_object_draw (HTMLObject *o, HTMLPainter *p, gint x, gint y,
 		       gint width, gint height, gint tx, gint ty);

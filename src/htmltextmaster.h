@@ -32,7 +32,7 @@ typedef struct _HTMLTextMasterClass HTMLTextMasterClass;
 #define HTML_TEXT_MASTER_CLASS(x) ((HTMLTextMasterClass *)(x))
 
 struct _HTMLTextMaster {
-	HTMLText parent;
+	HTMLText text;
 
 	gint minWidth;
 	gint prefWidth;
@@ -40,7 +40,7 @@ struct _HTMLTextMaster {
 };
 
 struct _HTMLTextMasterClass {
-	HTMLTextClass parent;
+	HTMLTextClass text_class;
 };
 
 

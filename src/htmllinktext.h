@@ -34,14 +34,14 @@ typedef struct _HTMLLinkTextClass HTMLLinkTextClass;
 #define HTML_LINK_TEXT_CLASS(x) ((HTMLLinkTextClass *)(x))
 
 struct _HTMLLinkText {
-	HTMLText parent;
+	HTMLText text;
 
 	gchar *url;
 	gchar *target;
 };
 
 struct _HTMLLinkTextClass {
-	HTMLTextClass parent;
+	HTMLTextClass text_class;
 };
 
 

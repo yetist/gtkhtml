@@ -91,7 +91,7 @@ html_cluealigned_class_init (HTMLClueAlignedClass *klass,
 void
 html_cluealigned_init (HTMLClueAligned *aligned,
 		       HTMLClueAlignedClass *klass,
-		       HTMLClue *parent,
+		       HTMLObject *parent,
 		       gint x, gint y,
 		       gint max_width, gint percent)
 {
@@ -121,14 +121,14 @@ html_cluealigned_init (HTMLClueAligned *aligned,
 	clue->valign = HTML_VALIGN_BOTTOM;
 	clue->halign = HTML_HALIGN_LEFT;
 
-	aligned->prnt = parent;
 	aligned->next_aligned = NULL;
 
+	object->parent = parent;
 	object->flags |= HTML_OBJECT_FLAG_ALIGNED;
 }
 
 HTMLObject *
-html_cluealigned_new (HTMLClue *parent,
+html_cluealigned_new (HTMLObject *parent,
 		      gint x, gint y,
 		      gint max_width, gint percent)
 {

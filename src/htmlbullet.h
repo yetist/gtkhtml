@@ -33,14 +33,14 @@ typedef struct _HTMLBullet HTMLBullet;
 typedef struct _HTMLBulletClass HTMLBulletClass;
 
 struct _HTMLBullet {
-	HTMLObject parent;
+	HTMLObject object;
 	
 	gchar level;
 	GdkColor *color;
 };
 
 struct _HTMLBulletClass {
-	HTMLObjectClass parent;
+	HTMLObjectClass object_class;
 };
 
 
