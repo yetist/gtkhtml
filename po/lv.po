@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2002-12-22 05:12+0100\n"
-"PO-Revision-Date: 2002-12-23 01:09+0200\n"
-"Last-Translator: Artis Trops <hornet@navigators.lv>\n"
+"POT-Creation-Date: 2003-01-12 03:15+0100\n"
+"PO-Revision-Date: 2003-01-12 12:26+0200\n"
+"Last-Translator: Artis Trops <hornet@navigator.lv>\n"
 "Language-Team: Latvian <ll10nt@os.lv>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,12 +29,8 @@ msgid "Could not load glade file."
 msgstr "Nevarēja ielādēt glade failu."
 
 #: capplet/gtkhtml-capplet.glade.h:1
-msgid ""
-"\n"
-""
-msgstr ""
-"\n"
-""
+msgid "\n"
+msgstr "\n"
 
 #: capplet/gtkhtml-capplet.glade.h:3
 #: components/html-editor/gtkhtml-editor-properties.glade.h:1
@@ -147,11 +143,9 @@ msgid "_Delete"
 msgstr "_Dzēst"
 
 #: capplet/main.c:226
-msgid ""
-"Cannot execute GNOME Spell control applet\n"
+msgid "Cannot execute GNOME Spell control applet\n"
 "Try to install GNOME Spell if you don't have it installed."
-msgstr ""
-"Nevaru izpildīt GNOME Pareizrakstibas konroles sīkprogrammu\n"
+msgstr "Nevaru izpildīt GNOME Pareizrakstibas konroles sīkprogrammu\n"
 "Mēģiniet uzinstalēt GNOME Pareizrakstību, ja jums tā nav uzinstalēta."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:1
@@ -610,8 +604,8 @@ msgstr "Zemraksts"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
 #: components/html-editor/menubar.c:176
 #: components/html-editor/popup.c:234
-#: components/html-editor/popup.c:505
-#: components/html-editor/popup.c:514
+#: components/html-editor/popup.c:501
+#: components/html-editor/popup.c:510
 msgid "Table"
 msgstr "Tabula"
 
@@ -985,7 +979,7 @@ msgid "Color:"
 msgstr "Krāsa:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#: components/html-editor/popup.c:516
+#: components/html-editor/popup.c:512
 msgid "Column"
 msgstr "Kolonna"
 
@@ -1103,7 +1097,7 @@ msgid "Right"
 msgstr "Pa Labi"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
-#: components/html-editor/popup.c:515
+#: components/html-editor/popup.c:511
 msgid "Row"
 msgstr "Rinda"
 
@@ -1224,6 +1218,12 @@ msgstr "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" cellpadding=@border
 msgid "The quick brown fox jumped over the lazy dog."
 msgstr "Mazie rūķīši nočiepa koncertflīģeļa vāku."
 
+#: components/html-editor/image.c:689
+msgid "The editted image was removed from the document.\n"
+"Cannot apply your changes."
+msgstr "Rediģētais attēls tika izņemts no dokumenta.\n"
+"Nevaru pielietot jūsu izmaiņas."
+
 #: components/html-editor/link.c:91
 msgid "Link text"
 msgstr "Saites teksts"
@@ -1234,7 +1234,7 @@ msgstr "Saites teksts"
 #: components/html-editor/menubar.c:173
 #: components/html-editor/menubar.c:196
 #: components/html-editor/popup.c:100
-#: components/html-editor/properties.c:134
+#: components/html-editor/properties.c:139
 msgid "Insert"
 msgstr "Ievietot"
 
@@ -1363,44 +1363,43 @@ msgstr "Nosacījums..."
 msgid "Image..."
 msgstr "Attēls..."
 
-#: components/html-editor/popup.c:490
-#: components/html-editor/popup.c:501
-msgid "Table..."
-msgstr "Tabula..."
-
-#: components/html-editor/popup.c:498
+#: components/html-editor/popup.c:494
 msgid "Cell..."
 msgstr "Šūna..."
 
-#: components/html-editor/popup.c:504
+#: components/html-editor/popup.c:497
+msgid "Table..."
+msgstr "Tabula..."
+
+#: components/html-editor/popup.c:500
 msgid "Table insert"
 msgstr "Tabulas ievietošana"
 
-#: components/html-editor/popup.c:507
+#: components/html-editor/popup.c:503
 msgid "Row above"
 msgstr "Rinda virs"
 
-#: components/html-editor/popup.c:508
+#: components/html-editor/popup.c:504
 msgid "Row below"
 msgstr "Rinda zem"
 
-#: components/html-editor/popup.c:510
+#: components/html-editor/popup.c:506
 msgid "Column before"
 msgstr "Kolonna pirms"
 
-#: components/html-editor/popup.c:511
+#: components/html-editor/popup.c:507
 msgid "Column after"
 msgstr "Kolonna pēc"
 
-#: components/html-editor/popup.c:513
+#: components/html-editor/popup.c:509
 msgid "Table delete"
 msgstr "Tabulas dzēšana"
 
-#: components/html-editor/popup.c:517
+#: components/html-editor/popup.c:513
 msgid "Cell contents"
 msgstr "Šūnas saturs"
 
-#: components/html-editor/popup.c:525
+#: components/html-editor/popup.c:521
 msgid "Page..."
 msgstr "Lapa..."
 
@@ -1445,7 +1444,7 @@ msgstr "atpakļ"
 msgid "Find Regular Expression"
 msgstr "Atrast Parastu Izteiksmi"
 
-#: components/html-editor/spell.c:351
+#: components/html-editor/spell.c:350
 msgid "Spell Checking _Languages"
 msgstr "Pareizrakstības Pārbaudes _Valodas"
 
@@ -1601,12 +1600,8 @@ msgstr "Pārstatīt"
 
 #. TODO2 dialog instead of warning
 #: src/htmlengine-print.c:198
-msgid ""
-"Cannot allocate default font for printing\n"
-""
-msgstr ""
-"Nevaru sameklēt noklusēto fontu drukāšanai\n"
-""
+msgid "Cannot allocate default font for printing\n"
+msgstr "Nevaru sameklēt noklusēto fontu drukāšanai\n"
 
 #: src/test.c:191
 msgid "GtkHTML Test"
