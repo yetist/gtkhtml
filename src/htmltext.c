@@ -1258,6 +1258,13 @@ update_mw (HTMLText *text, HTMLPainter *painter, gint offset, gint *last_offset,
 	*last_offset = offset;
 }
 
+gboolean
+html_text_is_line_break (PangoItem *item, PangoLogAttr *attrs, int offset)
+{
+	return (attrs [offset].is_line_break
+		&& (item->analysis.lang_engine != NULL || (offset > 0 && attrs [offset - 1].is_white)));
+}
+
 static gint
 calc_min_width (HTMLObject *self, HTMLPainter *painter)
 {
@@ -1276,7 +1283,7 @@ calc_min_width (HTMLObject *self, HTMLPainter *painter)
 	while (offset < text->text_len) {
 		gint skip;
 
-		if (offset > 0 && pi->entries [ii].attrs [io].is_line_break)
+		if (offset > 0 && html_text_is_line_break (pi->entries [ii].item, pi->entries [ii].attrs, io))
 			update_mw (text, painter, offset, &last_offset, &ww, &mw, ii, io, s, line_offset);
 
 		if (*s == '\t') {

@@ -1,3 +1,12 @@
+2004-03-03  Radek Doulik  <rodo@ximian.com>
+
+	* htmltextslave.c (hts_fit_line): use html_text_is_line_break
+
+	* htmltext.c (html_text_is_line_break): new helper function, uses
+	pango log attribute only when there's a white space before line
+	break or there's non NULL pango language engine in item's analysis
+	(calc_min_width): use html_text_is_line_break
+
 2004-03-02    <rodo@ximian.com>
 
 	* htmltext.c (html_text_op_cut_helper): convert nbsp's in rvt as
