@@ -698,6 +698,7 @@ calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 				&& ! (run->flags & HTML_OBJECT_FLAG_ALIGNED)) {
 				HTMLFitType fit;
 				HTMLVAlignType valign;
+				gboolean firstRun;
 				gint width_left;
 
 				if (run && run->change & HTML_CHANGE_SIZE
@@ -705,14 +706,19 @@ calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 					leaf_childs_changed_size = TRUE;
 
 				width_left = rmargin - runWidth - w;
-				fit = html_object_fit_line (run,
-							    painter,
-							    w + runWidth == lmargin,
-							    run == line || (HTML_OBJECT_TYPE (run) == HTML_TYPE_TEXTSLAVE
-									    && HTML_OBJECT (HTML_TEXT_SLAVE (run)->owner)
-									    == line
-									    && !HTML_TEXT_SLAVE (run)->posStart),
-							    flow->style == HTML_CLUEFLOW_STYLE_PRE ? G_MAXINT : width_left);
+				firstRun = run == line || (HTML_IS_TEXT_SLAVE (run)
+							   && HTML_OBJECT (HTML_TEXT_SLAVE (run)->owner) == line
+							   && HTML_TEXT_SLAVE (run)->posStart == 0);
+
+				if (!firstRun && width_left < 0) {
+					fit = HTML_FIT_NONE;
+				} else {
+					fit = html_object_fit_line (run,
+								    painter,
+								    w + runWidth == lmargin,
+								    firstRun,
+								    flow->style == HTML_CLUEFLOW_STYLE_PRE ? G_MAXINT : width_left);
+				}
 
 				if (fit == HTML_FIT_NONE) {
 					w = set_line_x (&obj, run, w, &changed);

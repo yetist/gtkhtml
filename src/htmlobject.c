@@ -1134,7 +1134,7 @@ html_object_is_clue (HTMLObject *object)
 	type = HTML_OBJECT_TYPE (object);
 
 	return (type == HTML_TYPE_CLUE || type == HTML_TYPE_CLUEV || type == HTML_TYPE_TABLECELL
-		|| type == HTML_TYPE_CLUEFLOW);
+		|| type == HTML_TYPE_CLUEFLOW || type == HTML_TYPE_CLUEALIGNED);
 }
 
 HTMLObject *

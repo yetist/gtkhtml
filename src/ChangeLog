@@ -1,3 +1,11 @@
+2001-10-26  Radek Doulik  <rodo@ximian.com>
+
+	* htmlclueflow.c (calc_size): if width_left < 0 and ! firstRun,
+	then break line here
+
+	* htmlobject.c (html_object_is_clue): added HTML_TYPE_CLUEALIGNED,
+	which Larry probably forgot commit
+
 2001-10-25  Larry Ewing  <lewing@ximian.com>
 
 	* htmltokenizer.c (flush_entity): don't add the TAG_ESCAPE to the
