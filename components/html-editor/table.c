@@ -363,7 +363,7 @@ set_has_bg_pixmap (GtkWidget *check, GtkHTMLEditTableProperties *d)
 }
 
 static void
-changed_bg_color (GtkWidget *w, GdkColor *color, gboolean by_user, GtkHTMLEditTableProperties *d)
+changed_bg_color (GtkWidget *w, GdkColor *color, gboolean custom, gboolean by_user, gboolean is_default, GtkHTMLEditTableProperties *d)
 {
 	/* If the color was changed programatically there's not need to set things */
 	if (!by_user)
@@ -534,7 +534,7 @@ table_widget (GtkHTMLEditTableProperties *d)
 	html_color_alloc (color, d->cd->html->engine->painter);
 	d->combo_bg_color = color_combo_new (NULL, _("Automatic"), &color->color,
 					     color_group_fetch ("table_bg_color", d->cd));
-        g_signal_connect (d->combo_bg_color, "changed", G_CALLBACK (changed_bg_color), d);
+        g_signal_connect (d->combo_bg_color, "color_changed", G_CALLBACK (changed_bg_color), d);
 	gtk_table_attach (GTK_TABLE (glade_xml_get_widget (xml, "bg_table")),
 			  d->combo_bg_color,
 			  1, 2, 0, 1, 0, 0, 0, 0);

@@ -1,3 +1,16 @@
+2002-12-02  Radek Doulik  <rodo@ximian.com>
+
+	* template.c: use template_image object data for Image frame
+
+	* editor-control-factory.c (html_button_pressed_after): handle
+	template_image object data
+
+	* cell.c (changed_bg_color): updated signature to gal changes
+	(cell_widget): connect to color_changed signal instead of changed
+
+	* table.c (changed_bg_color): updated signature to gal changes
+	(table_widget): connect to color_changed signal instead of changed
+
 2002-11-27  Radek Doulik  <rodo@ximian.com>
 
 	* editor-control-factory.c (html_button_pressed_after): look for
