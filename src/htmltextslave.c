@@ -86,6 +86,19 @@ calc_size (HTMLObject *self,
 	new_ascent = html_painter_calc_ascent (painter, font_style, owner->face);
 	new_descent = html_painter_calc_descent (painter, font_style, owner->face);
 
+	/* handle sub & super script */
+	if (font_style & GTK_HTML_FONT_STYLE_SUBSCRIPT || font_style & GTK_HTML_FONT_STYLE_SUPERSCRIPT) {
+		gint shift = (new_ascent + new_descent) >> 1;
+
+		if (font_style & GTK_HTML_FONT_STYLE_SUBSCRIPT) {
+			new_descent += shift;
+			new_ascent  -= shift;
+		} else {
+			new_descent -= shift;
+			new_ascent  += shift;
+		}
+	}
+
 	new_width = html_painter_calc_text_width (painter,
 						  html_text_get_text (HTML_TEXT (owner), slave->posStart),
 						  slave->posLen,
@@ -267,6 +280,20 @@ get_length (HTMLObject *self)
 
 /* HTMLObject::draw() implementation.  */
 
+static gint
+get_ys (HTMLText *text, HTMLPainter *p)
+{
+	if (text->font_style & GTK_HTML_FONT_STYLE_SUBSCRIPT || text->font_style & GTK_HTML_FONT_STYLE_SUPERSCRIPT) {
+		gint height2;
+
+		height2 = (html_painter_calc_ascent (p, text->font_style, text->face)
+			   + html_painter_calc_descent (p, text->font_style, text->face)) >> 1;
+		return (text->font_style & GTK_HTML_FONT_STYLE_SUBSCRIPT) ? height2 : -height2;
+			
+	} else 
+		return 0;
+}
+
 static void
 draw_spell_errors (HTMLTextSlave *slave, HTMLPainter *p, gint tx, gint ty)
 {
@@ -285,7 +312,7 @@ draw_spell_errors (HTMLTextSlave *slave, HTMLPainter *p, gint tx, gint ty)
 
 			html_painter_set_pen (p, &html_colorset_get_color_allocated (p, HTMLSpellErrorColor)->color);
 			/* printf ("spell error: %s\n", HTML_TEXT (slave->owner)->text + off); */
-			html_painter_draw_spell_error (p, obj->x + tx, obj->y + ty,
+			html_painter_draw_spell_error (p, obj->x + tx, obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
 						       html_text_get_text (HTML_TEXT (slave->owner), slave->posStart),
 						       off, len);
 		}
@@ -312,7 +339,7 @@ draw_normal (HTMLTextSlave *self,
 	html_color_alloc (HTML_TEXT (self->owner)->color, p);
 	html_painter_set_pen (p, &HTML_TEXT (self->owner)->color->color);
 	html_painter_draw_text (p,
-				obj->x + tx, obj->y + ty, 
+				obj->x + tx, obj->y + ty + get_ys (HTML_TEXT (self->owner), p),
 				html_text_get_text (HTML_TEXT (self->owner), self->posStart),
 				self->posLen);
 }
@@ -359,7 +386,8 @@ draw_highlighted (HTMLTextSlave *slave,
 	html_painter_fill_rect (p, obj->x + tx + offset_width, obj->y + ty - obj->ascent,
 				text_width, obj->ascent + obj->descent);
 	html_painter_set_pen (p, &html_colorset_get_color_allocated (p, HTMLHighlightTextColor)->color);
-	html_painter_draw_text (p, obj->x + tx + offset_width, obj->y + ty, text + unicode_offset_to_index (text, start), len);
+	html_painter_draw_text (p, obj->x + tx + offset_width, obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
+				text + unicode_offset_to_index (text, start), len);
 
 	/* Draw the non-highlighted part.  */
 
@@ -370,7 +398,7 @@ draw_highlighted (HTMLTextSlave *slave,
 
 	if (start > slave->posStart)
 		html_painter_draw_text (p,
-					obj->x + tx, obj->y + ty,
+					obj->x + tx, obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
 					text + unicode_offset_to_index (text, slave->posStart),
 					start - slave->posStart);
 
@@ -378,7 +406,8 @@ draw_highlighted (HTMLTextSlave *slave,
 
 	if (end < slave->posStart + slave->posLen)
 		html_painter_draw_text (p,
-					obj->x + tx + offset_width + text_width, obj->y + ty,
+					obj->x + tx + offset_width + text_width,
+					obj->y + ty + get_ys (HTML_TEXT (slave->owner), p),
 					text + unicode_offset_to_index (text, end),
 					slave->posStart + slave->posLen - end);
 }

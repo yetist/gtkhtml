@@ -28,6 +28,9 @@ gtk_html_font_style_merge (GtkHTMLFontStyle a,
 {
 	GtkHTMLFontStyle retval;
 
+	if (a == GTK_HTML_FONT_STYLE_DEFAULT && b != GTK_HTML_FONT_STYLE_DEFAULT)
+		a = GTK_HTML_FONT_STYLE_SIZE_3;
+
 	if ((b & GTK_HTML_FONT_STYLE_SIZE_MASK) != 0)
 		retval = ((b & GTK_HTML_FONT_STYLE_SIZE_MASK)
 			  | (a & ~GTK_HTML_FONT_STYLE_SIZE_MASK));

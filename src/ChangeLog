@@ -1,4 +1,21 @@
+2000-11-10  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltextslave.c (get_ys): helper function, calculates y shift
+	for sub/super script
+	(draw_spell_errors): use get_ys
+	(draw_normal): likewise
+	(draw_highlighted): likewise
+
+	* gtkhtmlfontstyle.c (gtk_html_font_style_merge): check for
+	DEFAULT style and replace it with SIZE_3
+
 2000-11-09  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtmlfontstyle.h: added GTK_HTML_FONT_STYLE_SUBSCRIPT and
+	GTK_HTML_FONT_STYLE_SUPERSCRIPT
+
+	* htmlengine.c: added ID_SUB, ID_SUP
+	(parse_s): added <sub> and <sup> tags
 
 	* htmlentity.c: added all entities from XHTML 1.0
 

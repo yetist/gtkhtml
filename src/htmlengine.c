@@ -124,7 +124,8 @@ static guint signals [LAST_SIGNAL] = { 0 };
 enum ID {
 	ID_ADDRESS, ID_B, ID_BIG, ID_BLOCKQUOTE, ID_CAPTION, ID_CITE, ID_CODE,
 	ID_DIR, ID_DIV, ID_EM, ID_FONT, ID_HEADER, ID_I, ID_KBD, ID_OL, ID_PRE,
-	ID_SMALL, ID_STRONG, ID_U, ID_UL, ID_TEXTAREA, ID_TD, ID_TH, ID_TT, ID_VAR
+	ID_SMALL, ID_STRONG, ID_U, ID_UL, ID_TEXTAREA, ID_TD, ID_TH, ID_TT, ID_VAR,
+	ID_SUB, ID_SUP
 };
 
 
@@ -2592,6 +2593,8 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
   <select>            </select>
   <small>             </small>
   <strong>            </strong>
+  <sub>               </sub>
+  <sup>               </sup>
 */
 static void
 parse_s (HTMLEngine *e, HTMLObject *clue, const gchar *str)
@@ -2646,6 +2649,20 @@ parse_s (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 		e->inOption = FALSE;
 		e->formSelect = NULL;
+	} else if (strncmp (str, "sub", 3) == 0) {
+		if (str[3] == '>' || str[3] == ' ') {
+			push_font_style (e, GTK_HTML_FONT_STYLE_SUBSCRIPT);
+			push_block (e, ID_SUB, 1, block_end_font, FALSE, FALSE);
+		}
+	} else if (strncmp (str, "/sub", 4) == 0) {
+		pop_block (e, ID_SUB, clue);
+	} else if (strncmp (str, "sup", 3) == 0) {
+		if (str[3] == '>' || str[3] == ' ') {
+			push_font_style (e, GTK_HTML_FONT_STYLE_SUPERSCRIPT);
+			push_block (e, ID_SUP, 1, block_end_font, FALSE, FALSE);
+		}
+	} else if (strncmp (str, "/sup", 4) == 0) {
+		pop_block (e, ID_SUP, clue);
 	}
 }
 
