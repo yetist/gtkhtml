@@ -8,14 +8,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-28 18:02+0100\n"
+"POT-Creation-Date: 2004-02-09 14:38-0500\n"
 "PO-Revision-Date: 2004-01-28 18:12+0100\n"
 "Last-Translator: Danilo Šegan <danilo@prevod.org>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -216,7 +216,7 @@ msgstr "Popis"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
-#: components/html-editor/toolbar.c:511
+#: components/html-editor/toolbar.c:509
 msgid "Center justifies the paragraphs"
 msgstr "Centriraj pasuse"
 
@@ -436,7 +436,7 @@ msgstr "Umetni sadržaj datoteke u dokument..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
-#: components/html-editor/toolbar.c:509
+#: components/html-editor/toolbar.c:507
 msgid "Left justifies the paragraphs"
 msgstr "Poravnava pasuse na levo"
 
@@ -520,7 +520,7 @@ msgstr "Postavi tekući pasus na azbučni spisak"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:48
+#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:48
 msgid "Normal"
 msgstr "Običan"
 
@@ -614,7 +614,7 @@ msgstr "Zameni"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
-#: components/html-editor/toolbar.c:513
+#: components/html-editor/toolbar.c:511
 msgid "Right justifies the paragraphs"
 msgstr "Poravnaj pasuse na desno"
 
@@ -644,7 +644,7 @@ msgstr "Izaberi sav sadržaj dokumenta"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:94
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#: components/html-editor/text.c:239 components/html-editor/toolbar.c:528
+#: components/html-editor/text.c:239 components/html-editor/toolbar.c:526
 msgid "Strikeout"
 msgstr "Precrtaj"
 
@@ -701,7 +701,7 @@ msgstr "Šablon"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
-#: components/html-editor/toolbar.c:520
+#: components/html-editor/toolbar.c:518
 msgid "Typewriter"
 msgstr "Kucaća mašina"
 
@@ -966,7 +966,7 @@ msgid "Make the current Paragraph style Preformatted"
 msgstr "Postavi stil tekućeg pasusa na preformatiran"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
-#: components/html-editor/paragraph.c:150
+#: components/html-editor/paragraph.c:151
 msgid "Preformatted"
 msgstr "Preoblikovano"
 
@@ -1059,7 +1059,7 @@ msgstr "Pozadina"
 
 #. string marked for translations is sample text. you may want to translate it to common sample text in your language
 #: components/html-editor/cell.c:174 components/html-editor/cell.c:176
-#: components/html-editor/text.c:109
+#: components/html-editor/paragraph.c:62 components/html-editor/text.c:109
 msgid "The quick brown fox jumps over the lazy dog."
 msgstr "Brza smeđa lisica skače preko lenjeg psa."
 
@@ -1325,7 +1325,7 @@ msgid "Apply changes to:"
 msgstr "Primeni izmene na:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:16
-#: components/html-editor/text.c:236 components/html-editor/toolbar.c:522
+#: components/html-editor/text.c:236 components/html-editor/toolbar.c:520
 msgid "Bold"
 msgstr "Masno"
 
@@ -1347,7 +1347,7 @@ msgid "Cell"
 msgstr "Ćelija"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
-#: components/html-editor/paragraph.c:173 components/html-editor/toolbar.c:511
+#: components/html-editor/paragraph.c:174 components/html-editor/toolbar.c:509
 msgid "Center"
 msgstr "Centriraj"
 
@@ -1419,12 +1419,12 @@ msgid "Horizontal:"
 msgstr "Vodoravno:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:40
-#: components/html-editor/text.c:237 components/html-editor/toolbar.c:524
+#: components/html-editor/text.c:237 components/html-editor/toolbar.c:522
 msgid "Italic"
 msgstr "Kurziv"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:41
-#: components/html-editor/paragraph.c:172
+#: components/html-editor/paragraph.c:173
 msgid "Left"
 msgstr "Levo"
 
@@ -1478,7 +1478,7 @@ msgid "Points"
 msgstr "Štamparskih tačaka"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:59
-#: components/html-editor/paragraph.c:174
+#: components/html-editor/paragraph.c:175
 msgid "Right"
 msgstr "Desno"
 
@@ -1517,7 +1517,7 @@ msgid "Spacing:"
 msgstr "Razmak:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:116 components/html-editor/popup.c:473
+#: components/html-editor/paragraph.c:117 components/html-editor/popup.c:473
 #: components/html-editor/text.c:223
 msgid "Style"
 msgstr "Stil"
@@ -1544,7 +1544,7 @@ msgid "Top"
 msgstr "Vrh"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:79
-#: components/html-editor/text.c:238 components/html-editor/toolbar.c:526
+#: components/html-editor/text.c:238 components/html-editor/toolbar.c:524
 msgid "Underline"
 msgstr "Podvlačenje"
 
@@ -1626,8 +1626,8 @@ msgid ""
 "This is sample text, designed to show you how text would flow around this "
 "image if you insert the image into your message."
 msgstr ""
-"Ovo je probni tekst, napravljen da vam pokaže kako će tekst ići oko ove slike "
-"ako ubacite sliku u vašu poruku."
+"Ovo je probni tekst, napravljen da vam pokaže kako će tekst ići oko ove "
+"slike ako ubacite sliku u vašu poruku."
 
 #: components/html-editor/image.c:270
 msgid "No image selected"
@@ -1653,10 +1653,14 @@ msgstr ""
 "Izmenjena veza je uklonjena iz dokumenta.\n"
 "Ne može da primeni vaše izmene."
 
+#: components/html-editor/link.c:270
+msgid "Please fill 'Link text' and 'URL' entries"
+msgstr ""
+
 #: components/html-editor/menubar.c:88 components/html-editor/menubar.c:104
 #: components/html-editor/menubar.c:122 components/html-editor/menubar.c:139
 #: components/html-editor/menubar.c:162 components/html-editor/popup.c:103
-#: components/html-editor/properties.c:122
+#: components/html-editor/properties.c:125
 msgid "Insert"
 msgstr "Ubaci"
 
@@ -1673,60 +1677,55 @@ msgstr "Umetni: HTML datoteku"
 msgid "Insert: Text File"
 msgstr "Umetni: tekstualnu datoteku"
 
-#. string marked for translations is sample text. you may want to translate it to common sample text in your language
-#: components/html-editor/paragraph.c:62
-msgid "The quick brown fox jumps over the lazy dog.</div>"
-msgstr "Brza smeđa lisica skače preko lenjog džukca.</div>"
-
-#: components/html-editor/paragraph.c:134 components/html-editor/toolbar.c:54
+#: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:54
 msgid "Header 1"
 msgstr "Zaglavlje 1"
 
-#: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:55
+#: components/html-editor/paragraph.c:136 components/html-editor/toolbar.c:55
 msgid "Header 2"
 msgstr "Zaglavlje 2"
 
-#: components/html-editor/paragraph.c:136 components/html-editor/toolbar.c:56
+#: components/html-editor/paragraph.c:137 components/html-editor/toolbar.c:56
 msgid "Header 3"
 msgstr "Zaglavlje 3"
 
-#: components/html-editor/paragraph.c:137 components/html-editor/toolbar.c:57
+#: components/html-editor/paragraph.c:138 components/html-editor/toolbar.c:57
 msgid "Header 4"
 msgstr "Zaglavlje 4"
 
-#: components/html-editor/paragraph.c:138 components/html-editor/toolbar.c:58
+#: components/html-editor/paragraph.c:139 components/html-editor/toolbar.c:58
 msgid "Header 5"
 msgstr "Zaglavlje 5"
 
-#: components/html-editor/paragraph.c:139 components/html-editor/toolbar.c:59
+#: components/html-editor/paragraph.c:140 components/html-editor/toolbar.c:59
 msgid "Header 6"
 msgstr "Zaglavlje 6"
 
-#: components/html-editor/paragraph.c:142
+#: components/html-editor/paragraph.c:143
 msgid "Dot item"
 msgstr "Tačka uz stavku"
 
-#: components/html-editor/paragraph.c:143
+#: components/html-editor/paragraph.c:144
 msgid "Number item"
 msgstr "Broj uz stavku"
 
-#: components/html-editor/paragraph.c:144
+#: components/html-editor/paragraph.c:145
 msgid "Roman item"
 msgstr "Rimski broj uz stavku"
 
-#: components/html-editor/paragraph.c:145
+#: components/html-editor/paragraph.c:146
 msgid "Alphabeta item"
 msgstr "Slobo uz stavku"
 
-#: components/html-editor/paragraph.c:148 components/html-editor/toolbar.c:60
+#: components/html-editor/paragraph.c:149 components/html-editor/toolbar.c:60
 msgid "Address"
 msgstr "Adresa"
 
-#: components/html-editor/paragraph.c:159
+#: components/html-editor/paragraph.c:160
 msgid "Align"
 msgstr "Poravnaj"
 
-#: components/html-editor/paragraph.c:203
+#: components/html-editor/paragraph.c:204
 msgid ""
 "The editted paragraph was removed from the document.\n"
 "Cannot apply your changes."
@@ -1961,47 +1960,47 @@ msgstr ""
 msgid "Roman List"
 msgstr "Spisak sa rimskim brojevima"
 
-#: components/html-editor/toolbar.c:509
+#: components/html-editor/toolbar.c:507
 msgid "Left align"
 msgstr "Levo poravnanje"
 
-#: components/html-editor/toolbar.c:513
+#: components/html-editor/toolbar.c:511
 msgid "Right align"
 msgstr "Desno poravnanje"
 
-#: components/html-editor/toolbar.c:520
+#: components/html-editor/toolbar.c:518
 msgid "Toggle typewriter font style"
 msgstr "Izmeni stil pisma za kucaću mašinu"
 
-#: components/html-editor/toolbar.c:522
+#: components/html-editor/toolbar.c:520
 msgid "Makes the text bold"
 msgstr "Čini tekst masnim"
 
-#: components/html-editor/toolbar.c:524
+#: components/html-editor/toolbar.c:522
 msgid "Makes the text italic"
 msgstr "Čini tekst kurzivom"
 
-#: components/html-editor/toolbar.c:526
+#: components/html-editor/toolbar.c:524
 msgid "Underlines the text"
 msgstr "Podvlači tekst"
 
-#: components/html-editor/toolbar.c:528
+#: components/html-editor/toolbar.c:526
 msgid "Strikes out the text"
 msgstr "Precrtava tekst"
 
-#: components/html-editor/toolbar.c:537
+#: components/html-editor/toolbar.c:535
 msgid "Unindent"
 msgstr "Poništi uvlačenje"
 
-#: components/html-editor/toolbar.c:537
+#: components/html-editor/toolbar.c:535
 msgid "Indents the paragraphs less"
 msgstr "Manje uvlači pasus"
 
-#: components/html-editor/toolbar.c:539
+#: components/html-editor/toolbar.c:537
 msgid "Indent"
 msgstr "Uvuci"
 
-#: components/html-editor/toolbar.c:539
+#: components/html-editor/toolbar.c:537
 msgid "Indents the paragraphs more"
 msgstr "Više uvlači pasus"
 
@@ -2153,6 +2152,9 @@ msgstr "Pregled pred štampu"
 #: src/testgtkhtml.c:989
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML program za isprobavanje"
+
+#~ msgid "The quick brown fox jumps over the lazy dog.</div>"
+#~ msgstr "Brza smeđa lisica skače preko lenjog džukca.</div>"
 
 #~ msgid "Rectangles"
 #~ msgstr "Pravougaonici"

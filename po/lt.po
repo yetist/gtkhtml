@@ -5,14 +5,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.13\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-16 17:01+0200\n"
+"POT-Creation-Date: 2004-02-09 14:38-0500\n"
 "PO-Revision-Date: 2004-01-14 19:56+0200\n"
 "Last-Translator: Tomas Kuliavas <tokul@users.sourceforge.net>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-13\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -212,7 +212,7 @@ msgstr "Punktø sàraðas"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
-#: components/html-editor/toolbar.c:511
+#: components/html-editor/toolbar.c:509
 msgid "Center justifies the paragraphs"
 msgstr "Sulygiuoja pastraipas pagal centrà"
 
@@ -432,7 +432,7 @@ msgstr "Áterpti tekstinæ bylà á dokumentà..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
-#: components/html-editor/toolbar.c:509
+#: components/html-editor/toolbar.c:507
 msgid "Left justifies the paragraphs"
 msgstr "Sulygiuoja pastraipas pagal kairæ"
 
@@ -516,7 +516,7 @@ msgstr "Padaryti esamà pastraipà abëcëliniu sàraðu"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:48
+#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:48
 msgid "Normal"
 msgstr "Paprastas"
 
@@ -609,7 +609,7 @@ msgstr "Pakeisti"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
-#: components/html-editor/toolbar.c:513
+#: components/html-editor/toolbar.c:511
 msgid "Right justifies the paragraphs"
 msgstr "Sulygiuoja pastraipas pagal deðinæ"
 
@@ -639,7 +639,7 @@ msgstr "Paþymëti visà dokumento turiná"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:94
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#: components/html-editor/text.c:239 components/html-editor/toolbar.c:528
+#: components/html-editor/text.c:239 components/html-editor/toolbar.c:526
 msgid "Strikeout"
 msgstr "Perbrauktas"
 
@@ -696,7 +696,7 @@ msgstr "Ðablonas"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
-#: components/html-editor/toolbar.c:520
+#: components/html-editor/toolbar.c:518
 msgid "Typewriter"
 msgstr "Raðomoji maðinëlë"
 
@@ -961,7 +961,7 @@ msgid "Make the current Paragraph style Preformatted"
 msgstr "Padaryti esamos pastraipos stiliø preformatuotà"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
-#: components/html-editor/paragraph.c:150
+#: components/html-editor/paragraph.c:151
 msgid "Preformatted"
 msgstr "Preformatuotas"
 
@@ -1053,7 +1053,7 @@ msgstr "Fonas"
 
 #. string marked for translations is sample text. you may want to translate it to common sample text in your language
 #: components/html-editor/cell.c:174 components/html-editor/cell.c:176
-#: components/html-editor/text.c:109
+#: components/html-editor/paragraph.c:62 components/html-editor/text.c:109
 msgid "The quick brown fox jumps over the lazy dog."
 msgstr "Álinkdama fechtuotojo ðpaga sublykèiojusi pragræþë apvalø arbûzà."
 
@@ -1087,6 +1087,225 @@ msgstr "Pastraipa"
 msgid "Page"
 msgstr "Puslapis"
 
+#. This is the default custom color
+#: components/html-editor/gi-color-palette.c:394
+msgid "custom"
+msgstr ""
+
+#. "Custom" color - we'll pop up a GnomeColorPicker
+#: components/html-editor/gi-color-palette.c:436
+#, fuzzy
+msgid "Custom Color:"
+msgstr "Spalva:"
+
+#: components/html-editor/gi-color-palette.c:444
+msgid "Choose Custom Color"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:577
+msgid "black"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:578
+msgid "light brown"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:579
+msgid "brown gold"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:580
+msgid "dark green #2"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:581
+msgid "navy"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:582
+#: components/html-editor/gi-color-palette.c:638
+msgid "dark blue"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:583
+#, fuzzy
+msgid "purple #2"
+msgstr "Violetinë"
+
+#: components/html-editor/gi-color-palette.c:584
+msgid "very dark gray"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:587
+#: components/html-editor/gi-color-palette.c:643
+#, fuzzy
+msgid "dark red"
+msgstr "Tamsi antraðtë"
+
+#: components/html-editor/gi-color-palette.c:588
+#, fuzzy
+msgid "red-orange"
+msgstr "Oranþinë"
+
+#: components/html-editor/gi-color-palette.c:589
+#, fuzzy
+msgid "gold"
+msgstr "Pusjuodis"
+
+#: components/html-editor/gi-color-palette.c:590
+msgid "dark green"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:591
+#: components/html-editor/gi-color-palette.c:644
+msgid "dull blue"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:592
+#: components/html-editor/gi-color-palette.c:645
+#, fuzzy
+msgid "blue"
+msgstr "Mëlyna"
+
+#: components/html-editor/gi-color-palette.c:593
+msgid "dull purple"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:594
+msgid "dark grey"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:597
+#, fuzzy
+msgid "red"
+msgstr "Raudona"
+
+#: components/html-editor/gi-color-palette.c:598
+#, fuzzy
+msgid "orange"
+msgstr "Oranþinë"
+
+#: components/html-editor/gi-color-palette.c:599
+#, fuzzy
+msgid "lime"
+msgstr "Lygiavimas"
+
+#: components/html-editor/gi-color-palette.c:600
+msgid "dull green"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:601
+msgid "dull blue #2"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:602
+msgid "sky blue #2"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:603
+#: components/html-editor/gi-color-palette.c:642
+#, fuzzy
+msgid "purple"
+msgstr "Violetinë"
+
+#: components/html-editor/gi-color-palette.c:604
+#, fuzzy
+msgid "gray"
+msgstr "Plokðèias pilkas"
+
+#: components/html-editor/gi-color-palette.c:607
+#: components/html-editor/gi-color-palette.c:639
+#, fuzzy
+msgid "magenta"
+msgstr "Paveikslëlis"
+
+#: components/html-editor/gi-color-palette.c:608
+msgid "bright orange"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:609
+#: components/html-editor/gi-color-palette.c:640
+#, fuzzy
+msgid "yellow"
+msgstr "Geltona"
+
+#: components/html-editor/gi-color-palette.c:610
+#, fuzzy
+msgid "green"
+msgstr "Þalia"
+
+#: components/html-editor/gi-color-palette.c:611
+#: components/html-editor/gi-color-palette.c:641
+msgid "cyan"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:612
+msgid "bright blue"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:613
+#: components/html-editor/gi-color-palette.c:630
+#, fuzzy
+msgid "red purple"
+msgstr "Violetinë"
+
+#: components/html-editor/gi-color-palette.c:614
+#, fuzzy
+msgid "light grey"
+msgstr "Plokðèias pilkas"
+
+#: components/html-editor/gi-color-palette.c:617
+#: components/html-editor/gi-color-palette.c:634
+#, fuzzy
+msgid "pink"
+msgstr "Nuoroda"
+
+#: components/html-editor/gi-color-palette.c:618
+#, fuzzy
+msgid "light orange"
+msgstr "Lygiuoti pagal deðinæ"
+
+#: components/html-editor/gi-color-palette.c:619
+#: components/html-editor/gi-color-palette.c:631
+msgid "light yellow"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:620
+#, fuzzy
+msgid "light green"
+msgstr "Lygiuoti pagal deðinæ"
+
+#: components/html-editor/gi-color-palette.c:621
+#, fuzzy
+msgid "light cyan"
+msgstr "Lygiuoti pagal deðinæ"
+
+#: components/html-editor/gi-color-palette.c:622
+#: components/html-editor/gi-color-palette.c:632
+msgid "light blue"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:623
+#: components/html-editor/gi-color-palette.c:636
+msgid "light purple"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:624
+msgid "white"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:629
+msgid "purplish blue"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:633
+msgid "dark purple"
+msgstr ""
+
+#: components/html-editor/gi-color-palette.c:635
+msgid "sky blue"
+msgstr ""
+
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
 msgstr "GtkHTML Redaktoriaus Valdymas"
@@ -1116,7 +1335,7 @@ msgid "Apply changes to:"
 msgstr "Pritaikyti pakeitimus kam:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:16
-#: components/html-editor/text.c:236 components/html-editor/toolbar.c:522
+#: components/html-editor/text.c:236 components/html-editor/toolbar.c:520
 msgid "Bold"
 msgstr "Pusjuodis"
 
@@ -1138,7 +1357,7 @@ msgid "Cell"
 msgstr "Làstelë"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
-#: components/html-editor/paragraph.c:173 components/html-editor/toolbar.c:511
+#: components/html-editor/paragraph.c:174 components/html-editor/toolbar.c:509
 msgid "Center"
 msgstr "Centruoti"
 
@@ -1209,12 +1428,12 @@ msgid "Horizontal:"
 msgstr "Horizontaliai:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:40
-#: components/html-editor/text.c:237 components/html-editor/toolbar.c:524
+#: components/html-editor/text.c:237 components/html-editor/toolbar.c:522
 msgid "Italic"
 msgstr "Kursyvinis"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:41
-#: components/html-editor/paragraph.c:172
+#: components/html-editor/paragraph.c:173
 msgid "Left"
 msgstr "Pagal kairæ"
 
@@ -1268,7 +1487,7 @@ msgid "Points"
 msgstr "Taðkais"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:59
-#: components/html-editor/paragraph.c:174
+#: components/html-editor/paragraph.c:175
 msgid "Right"
 msgstr "Pagal deðinæ"
 
@@ -1307,7 +1526,7 @@ msgid "Spacing:"
 msgstr "Tankis:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:116 components/html-editor/popup.c:473
+#: components/html-editor/paragraph.c:117 components/html-editor/popup.c:473
 #: components/html-editor/text.c:223
 msgid "Style"
 msgstr "Stilius"
@@ -1334,7 +1553,7 @@ msgid "Top"
 msgstr "Pagal virðø"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:79
-#: components/html-editor/text.c:238 components/html-editor/toolbar.c:526
+#: components/html-editor/text.c:238 components/html-editor/toolbar.c:524
 msgid "Underline"
 msgstr "Pabrauktas"
 
@@ -1443,10 +1662,14 @@ msgstr ""
 "Taisoma nuoroda buvo paðalinta ið dokumento.\n"
 "Negalima pritaikyti Jûsø pakeitimø."
 
+#: components/html-editor/link.c:270
+msgid "Please fill 'Link text' and 'URL' entries"
+msgstr ""
+
 #: components/html-editor/menubar.c:88 components/html-editor/menubar.c:104
 #: components/html-editor/menubar.c:122 components/html-editor/menubar.c:139
 #: components/html-editor/menubar.c:162 components/html-editor/popup.c:103
-#: components/html-editor/properties.c:122
+#: components/html-editor/properties.c:125
 msgid "Insert"
 msgstr "Áterpti"
 
@@ -1463,61 +1686,55 @@ msgstr "Áterpti: HTML Byla"
 msgid "Insert: Text File"
 msgstr "Áterpti: Tekstinë Byla"
 
-#. string marked for translations is sample text. you may want to translate it to common sample text in your language
-#: components/html-editor/paragraph.c:62
-msgid "The quick brown fox jumps over the lazy dog.</div>"
-msgstr ""
-"Álinkdama fechtuotojo ðpaga sublykèiojusi pragræþë apvalø arbûzà.</div>"
-
-#: components/html-editor/paragraph.c:134 components/html-editor/toolbar.c:54
+#: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:54
 msgid "Header 1"
 msgstr "Antraðtë 1"
 
-#: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:55
+#: components/html-editor/paragraph.c:136 components/html-editor/toolbar.c:55
 msgid "Header 2"
 msgstr "Antraðtë 2"
 
-#: components/html-editor/paragraph.c:136 components/html-editor/toolbar.c:56
+#: components/html-editor/paragraph.c:137 components/html-editor/toolbar.c:56
 msgid "Header 3"
 msgstr "Antraðtë 3"
 
-#: components/html-editor/paragraph.c:137 components/html-editor/toolbar.c:57
+#: components/html-editor/paragraph.c:138 components/html-editor/toolbar.c:57
 msgid "Header 4"
 msgstr "Antraðtë 4"
 
-#: components/html-editor/paragraph.c:138 components/html-editor/toolbar.c:58
+#: components/html-editor/paragraph.c:139 components/html-editor/toolbar.c:58
 msgid "Header 5"
 msgstr "Antraðtë 5"
 
-#: components/html-editor/paragraph.c:139 components/html-editor/toolbar.c:59
+#: components/html-editor/paragraph.c:140 components/html-editor/toolbar.c:59
 msgid "Header 6"
 msgstr "Antraðtë 6"
 
-#: components/html-editor/paragraph.c:142
+#: components/html-editor/paragraph.c:143
 msgid "Dot item"
 msgstr "Taðkinis punktas"
 
-#: components/html-editor/paragraph.c:143
+#: components/html-editor/paragraph.c:144
 msgid "Number item"
 msgstr "Numeris"
 
-#: components/html-editor/paragraph.c:144
+#: components/html-editor/paragraph.c:145
 msgid "Roman item"
 msgstr "Romëniðkas numeris"
 
-#: components/html-editor/paragraph.c:145
+#: components/html-editor/paragraph.c:146
 msgid "Alphabeta item"
 msgstr "Abëcëlës punktas"
 
-#: components/html-editor/paragraph.c:148 components/html-editor/toolbar.c:60
+#: components/html-editor/paragraph.c:149 components/html-editor/toolbar.c:60
 msgid "Address"
 msgstr "Adresas"
 
-#: components/html-editor/paragraph.c:159
+#: components/html-editor/paragraph.c:160
 msgid "Align"
 msgstr "Lygiuoti"
 
-#: components/html-editor/paragraph.c:203
+#: components/html-editor/paragraph.c:204
 msgid ""
 "The editted paragraph was removed from the document.\n"
 "Cannot apply your changes."
@@ -1752,47 +1969,47 @@ msgstr ""
 msgid "Roman List"
 msgstr "Romëniðkas sàraðas"
 
-#: components/html-editor/toolbar.c:509
+#: components/html-editor/toolbar.c:507
 msgid "Left align"
 msgstr "Lygiuoti pagal kairæ"
 
-#: components/html-editor/toolbar.c:513
+#: components/html-editor/toolbar.c:511
 msgid "Right align"
 msgstr "Lygiuoti pagal deðinæ"
 
-#: components/html-editor/toolbar.c:520
+#: components/html-editor/toolbar.c:518
 msgid "Toggle typewriter font style"
 msgstr "Perjungti raðomosios maðinëlës ðrifto stiliø"
 
-#: components/html-editor/toolbar.c:522
+#: components/html-editor/toolbar.c:520
 msgid "Makes the text bold"
 msgstr "Padaro tekstà pusjuodá"
 
-#: components/html-editor/toolbar.c:524
+#: components/html-editor/toolbar.c:522
 msgid "Makes the text italic"
 msgstr "Padaro tekstà kursyviná"
 
-#: components/html-editor/toolbar.c:526
+#: components/html-editor/toolbar.c:524
 msgid "Underlines the text"
 msgstr "Pabraukia tekstà"
 
-#: components/html-editor/toolbar.c:528
+#: components/html-editor/toolbar.c:526
 msgid "Strikes out the text"
 msgstr "Perbraukia tekstà"
 
-#: components/html-editor/toolbar.c:537
+#: components/html-editor/toolbar.c:535
 msgid "Unindent"
 msgstr "Atitraukti"
 
-#: components/html-editor/toolbar.c:537
+#: components/html-editor/toolbar.c:535
 msgid "Indents the paragraphs less"
 msgstr "Maþiau átraukia pastraipà"
 
-#: components/html-editor/toolbar.c:539
+#: components/html-editor/toolbar.c:537
 msgid "Indent"
 msgstr "Átraukti"
 
-#: components/html-editor/toolbar.c:539
+#: components/html-editor/toolbar.c:537
 msgid "Indents the paragraphs more"
 msgstr "Labiau átraukia pastraipà"
 
@@ -1944,3 +2161,7 @@ msgstr "Spaudinio perþiûra"
 #: src/testgtkhtml.c:989
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML Bandomoji Programa"
+
+#~ msgid "The quick brown fox jumps over the lazy dog.</div>"
+#~ msgstr ""
+#~ "Álinkdama fechtuotojo ðpaga sublykèiojusi pragræþë apvalø arbûzà.</div>"

@@ -8,14 +8,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GtkHTML 3.1\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-01 12:00+0100\n"
+"POT-Creation-Date: 2004-02-09 14:38-0500\n"
 "PO-Revision-Date: 2004-02-01 12:00+0100\n"
 "Last-Translator: Christian Neumair <chris@gnome-de.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -216,7 +216,7 @@ msgstr "Ungeordnete Liste"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
-#: components/html-editor/toolbar.c:511
+#: components/html-editor/toolbar.c:509
 msgid "Center justifies the paragraphs"
 msgstr "Absätze zentrieren"
 
@@ -436,7 +436,7 @@ msgstr "Eine Textdatei in das Dokument einfügen..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
-#: components/html-editor/toolbar.c:509
+#: components/html-editor/toolbar.c:507
 msgid "Left justifies the paragraphs"
 msgstr "Absätze linksbündig ausrichten"
 
@@ -521,7 +521,7 @@ msgstr "Den momentan markierten Absatz zu einer alphabetischen Liste machen"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
 #: components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:48
+#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:48
 msgid "Normal"
 msgstr "Normal"
 
@@ -614,7 +614,7 @@ msgstr "Ersetzen"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
-#: components/html-editor/toolbar.c:513
+#: components/html-editor/toolbar.c:511
 msgid "Right justifies the paragraphs"
 msgstr "Absätze rechtsbündig ausrichten"
 
@@ -644,7 +644,7 @@ msgstr "Den gesamten Inhalt des Dokuments markieren"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:94
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
 #: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#: components/html-editor/text.c:239 components/html-editor/toolbar.c:528
+#: components/html-editor/text.c:239 components/html-editor/toolbar.c:526
 msgid "Strikeout"
 msgstr "Durchgestrichen"
 
@@ -701,7 +701,7 @@ msgstr "Vorlage"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
-#: components/html-editor/toolbar.c:520
+#: components/html-editor/toolbar.c:518
 msgid "Typewriter"
 msgstr "Schreibmaschine"
 
@@ -966,7 +966,7 @@ msgid "Make the current Paragraph style Preformatted"
 msgstr "Den Stil des momentan markierten Absatzes auf Vorformatiert setzen"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
-#: components/html-editor/paragraph.c:150
+#: components/html-editor/paragraph.c:151
 msgid "Preformatted"
 msgstr "Vorformatiert"
 
@@ -1058,7 +1058,7 @@ msgstr "Hintergrund"
 
 #. string marked for translations is sample text. you may want to translate it to common sample text in your language
 #: components/html-editor/cell.c:174 components/html-editor/cell.c:176
-#: components/html-editor/text.c:109
+#: components/html-editor/paragraph.c:62 components/html-editor/text.c:109
 msgid "The quick brown fox jumps over the lazy dog."
 msgstr "Franz jagt im komplett verwahrlosten Taxi quer durch Bayern."
 
@@ -1320,7 +1320,7 @@ msgid "Apply changes to:"
 msgstr "Änderungen anwenden auf:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:16
-#: components/html-editor/text.c:236 components/html-editor/toolbar.c:522
+#: components/html-editor/text.c:236 components/html-editor/toolbar.c:520
 msgid "Bold"
 msgstr "Fett"
 
@@ -1342,7 +1342,7 @@ msgid "Cell"
 msgstr "Zelle"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
-#: components/html-editor/paragraph.c:173 components/html-editor/toolbar.c:511
+#: components/html-editor/paragraph.c:174 components/html-editor/toolbar.c:509
 msgid "Center"
 msgstr "Zentriert"
 
@@ -1414,12 +1414,12 @@ msgid "Horizontal:"
 msgstr "Horizontal:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:40
-#: components/html-editor/text.c:237 components/html-editor/toolbar.c:524
+#: components/html-editor/text.c:237 components/html-editor/toolbar.c:522
 msgid "Italic"
 msgstr "Kursiv"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:41
-#: components/html-editor/paragraph.c:172
+#: components/html-editor/paragraph.c:173
 msgid "Left"
 msgstr "Links"
 
@@ -1473,7 +1473,7 @@ msgid "Points"
 msgstr "Punkt"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:59
-#: components/html-editor/paragraph.c:174
+#: components/html-editor/paragraph.c:175
 msgid "Right"
 msgstr "Rechts"
 
@@ -1512,7 +1512,7 @@ msgid "Spacing:"
 msgstr "Abstand:"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:116 components/html-editor/popup.c:473
+#: components/html-editor/paragraph.c:117 components/html-editor/popup.c:473
 #: components/html-editor/text.c:223
 msgid "Style"
 msgstr "Stil"
@@ -1539,7 +1539,7 @@ msgid "Top"
 msgstr "Oben"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:79
-#: components/html-editor/text.c:238 components/html-editor/toolbar.c:526
+#: components/html-editor/text.c:238 components/html-editor/toolbar.c:524
 msgid "Underline"
 msgstr "Unterstrichen"
 
@@ -1648,10 +1648,14 @@ msgstr ""
 "Der bearbeitete Link wurde aus dem Dokument entfernt.\n"
 "Daher konnten Ihre Änderungen nicht übernommen werden."
 
+#: components/html-editor/link.c:270
+msgid "Please fill 'Link text' and 'URL' entries"
+msgstr ""
+
 #: components/html-editor/menubar.c:88 components/html-editor/menubar.c:104
 #: components/html-editor/menubar.c:122 components/html-editor/menubar.c:139
 #: components/html-editor/menubar.c:162 components/html-editor/popup.c:103
-#: components/html-editor/properties.c:122
+#: components/html-editor/properties.c:125
 msgid "Insert"
 msgstr "Einfügen"
 
@@ -1668,60 +1672,55 @@ msgstr "Einfügen: HTML-Datei"
 msgid "Insert: Text File"
 msgstr "Einfügen: Textdatei"
 
-#. string marked for translations is sample text. you may want to translate it to common sample text in your language
-#: components/html-editor/paragraph.c:62
-msgid "The quick brown fox jumps over the lazy dog.</div>"
-msgstr "Franz jagt im komplett verwahrlosten Taxi quer durch Bayern.</div>"
-
-#: components/html-editor/paragraph.c:134 components/html-editor/toolbar.c:54
+#: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:54
 msgid "Header 1"
 msgstr "Überschrift 1"
 
-#: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:55
+#: components/html-editor/paragraph.c:136 components/html-editor/toolbar.c:55
 msgid "Header 2"
 msgstr "Überschrift 2"
 
-#: components/html-editor/paragraph.c:136 components/html-editor/toolbar.c:56
+#: components/html-editor/paragraph.c:137 components/html-editor/toolbar.c:56
 msgid "Header 3"
 msgstr "Überschrift 3"
 
-#: components/html-editor/paragraph.c:137 components/html-editor/toolbar.c:57
+#: components/html-editor/paragraph.c:138 components/html-editor/toolbar.c:57
 msgid "Header 4"
 msgstr "Überschrift 4"
 
-#: components/html-editor/paragraph.c:138 components/html-editor/toolbar.c:58
+#: components/html-editor/paragraph.c:139 components/html-editor/toolbar.c:58
 msgid "Header 5"
 msgstr "Überschrift 5"
 
-#: components/html-editor/paragraph.c:139 components/html-editor/toolbar.c:59
+#: components/html-editor/paragraph.c:140 components/html-editor/toolbar.c:59
 msgid "Header 6"
 msgstr "Überschrift 6"
 
-#: components/html-editor/paragraph.c:142
+#: components/html-editor/paragraph.c:143
 msgid "Dot item"
 msgstr "Listeneintrag"
 
-#: components/html-editor/paragraph.c:143
+#: components/html-editor/paragraph.c:144
 msgid "Number item"
 msgstr "Nummerierter Eintrag"
 
-#: components/html-editor/paragraph.c:144
+#: components/html-editor/paragraph.c:145
 msgid "Roman item"
 msgstr "Römisch nummerierter Eintrag"
 
-#: components/html-editor/paragraph.c:145
+#: components/html-editor/paragraph.c:146
 msgid "Alphabeta item"
 msgstr "Alphabetischer Eintrag"
 
-#: components/html-editor/paragraph.c:148 components/html-editor/toolbar.c:60
+#: components/html-editor/paragraph.c:149 components/html-editor/toolbar.c:60
 msgid "Address"
 msgstr "Adresse"
 
-#: components/html-editor/paragraph.c:159
+#: components/html-editor/paragraph.c:160
 msgid "Align"
 msgstr "Ausrichtung"
 
-#: components/html-editor/paragraph.c:203
+#: components/html-editor/paragraph.c:204
 msgid ""
 "The editted paragraph was removed from the document.\n"
 "Cannot apply your changes."
@@ -1956,47 +1955,47 @@ msgstr ""
 msgid "Roman List"
 msgstr "Römisch nummerierte Liste"
 
-#: components/html-editor/toolbar.c:509
+#: components/html-editor/toolbar.c:507
 msgid "Left align"
 msgstr "Linksbündig"
 
-#: components/html-editor/toolbar.c:513
+#: components/html-editor/toolbar.c:511
 msgid "Right align"
 msgstr "Rechtsbündig"
 
-#: components/html-editor/toolbar.c:520
+#: components/html-editor/toolbar.c:518
 msgid "Toggle typewriter font style"
 msgstr "Schreibmaschinen-Schriftstil ein/aus"
 
-#: components/html-editor/toolbar.c:522
+#: components/html-editor/toolbar.c:520
 msgid "Makes the text bold"
 msgstr "Den Text fett machen"
 
-#: components/html-editor/toolbar.c:524
+#: components/html-editor/toolbar.c:522
 msgid "Makes the text italic"
 msgstr "Den Text kursiv machen"
 
-#: components/html-editor/toolbar.c:526
+#: components/html-editor/toolbar.c:524
 msgid "Underlines the text"
 msgstr "Den Text unterstreichen"
 
-#: components/html-editor/toolbar.c:528
+#: components/html-editor/toolbar.c:526
 msgid "Strikes out the text"
 msgstr "Den Text durchstreichen"
 
-#: components/html-editor/toolbar.c:537
+#: components/html-editor/toolbar.c:535
 msgid "Unindent"
 msgstr "Einzug vermindern"
 
-#: components/html-editor/toolbar.c:537
+#: components/html-editor/toolbar.c:535
 msgid "Indents the paragraphs less"
 msgstr "Den Einzug der Absätze vermindern"
 
-#: components/html-editor/toolbar.c:539
+#: components/html-editor/toolbar.c:537
 msgid "Indent"
 msgstr "Einzug erhöhen"
 
-#: components/html-editor/toolbar.c:539
+#: components/html-editor/toolbar.c:537
 msgid "Indents the paragraphs more"
 msgstr "Den Einzug der Absätze erhöhen"
 
@@ -2148,3 +2147,6 @@ msgstr "Druckvorschau"
 #: src/testgtkhtml.c:989
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML-Testanwendung"
+
+#~ msgid "The quick brown fox jumps over the lazy dog.</div>"
+#~ msgstr "Franz jagt im komplett verwahrlosten Taxi quer durch Bayern.</div>"

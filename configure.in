@@ -21,7 +21,7 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Package name for gettex
 GNOME_EXPLICIT_TRANSLATION_DOMAIN=${GTKHTML_RELEASE_STRING}
 AC_DEFINE_UNQUOTED(GNOME_EXPLICIT_TRANSLATION_DOMAIN, "${GNOME_EXPLICIT_TRANSLATION_DOMAIN}", [Gnome Explicit Translation Domain])
 
-AM_INIT_AUTOMAKE($PACKAGE, $GTKHTML_RELEASE.7)
+AM_INIT_AUTOMAKE($PACKAGE, $GTKHTML_RELEASE.8)
 
 EDITOR_API_VERSION=3.1
 AC_DEFINE_UNQUOTED(EDITOR_API_VERSION, "${EDITOR_API_VERSION}", [Editor API Version])
@@ -74,7 +74,7 @@ dnl **********************************
 dnl soup for testgtkhtml
 dnl **********************************
 
-PKG_CHECK_MODULES(SOUP, libsoup-2.2 >= 2.1.2, have_soup="yes", have_soup="no")
+PKG_CHECK_MODULES(SOUP, libsoup-2.2 >= 2.1.6, have_soup="yes", have_soup="no")
 if test "x$have_soup" = "xno"; then
 	PKG_CHECK_MODULES(SOUP, soup-2.0 >= 0.7.9, [have_soup="yes"
 						    AC_DEFINE(HAVE_OLD_SOUP)],
@@ -119,7 +119,7 @@ GTKHTML_CURRENT=5
 
 dnl Increment any time the source changes; set to 0 if you
 dnl increment CURRENT.
-GTKHTML_REVISION=1
+GTKHTML_REVISION=2
 
 dnl Increment if any interfaces have been added; set to 0
 dnl if any interfaces have been removed. removal has 
