@@ -250,6 +250,9 @@ dump_object_simple (HTMLObject *obj,
 		gtk_html_debug_list_links (text);
 		gtk_html_debug_list_text_attrs (text);
 		/* debug_spell_errors (text->spell_errors); */
+		if (text->pi)
+			for (i =0; i < text->pi->n; i ++)
+				g_print ("item %d offset: %d length: %d\n", i, text->pi->entries [i].item->offset, text->pi->entries [i].item->length);
 	} else if (HTML_OBJECT_TYPE (obj) == HTML_TYPE_TEXTSLAVE) {
 		HTMLTextSlave *slave = HTML_TEXT_SLAVE (obj);
 		gchar *text;
