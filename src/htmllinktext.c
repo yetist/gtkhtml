@@ -141,7 +141,6 @@ get_font_style (const HTMLText *text)
 	GtkHTMLFontStyle font_style;
 
 	font_style = HTML_TEXT_CLASS (parent_class)->get_font_style (text);
-	font_style = gtk_html_font_style_merge (font_style, GTK_HTML_FONT_STYLE_UNDERLINE);
 
 	return font_style;
 }
