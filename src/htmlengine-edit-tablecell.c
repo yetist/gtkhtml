@@ -418,6 +418,7 @@ static void collapse_cspan (HTMLEngine *e, HTMLTableCell *cell, gint cspan, HTML
 static void collapse_rspan (HTMLEngine *e, HTMLTableCell *cell, gint rspan, HTMLUndoDirection dir);
 
 struct Move {
+	gboolean move;
 	gint rs, cs, rt, ct;
 };
 struct MoveCellRDUndo {
@@ -463,22 +464,25 @@ move_cell_rd (HTMLTable *t, HTMLTableCell *cell, gint rs, gint cs)
 	g_assert ((rs == 0 && cs > 0) || (cs == 0 && rs > 0));
 
 	undo = move_cell_rd_undo_new (cell->rspan, cell->cspan);
-	/* printf ("move %dx%d --> %dx%d\n", cell->row, cell->col, cell->row + rs, cell->col + cs); */
+	printf ("move %dx%d --> %dx%d\n", cell->row, cell->col, cell->row + rs, cell->col + cs);
 	for (r = cell->row + cell->rspan - 1; r >= cell->row; r --)
 		for (c = cell->col + cell->cspan - 1; c >= cell->col; c --) {
 			if (r > cell->row + cell->rspan - 1 - rs || c > cell->col + cell->cspan - 1 - cs) {
-				struct Move *move = &undo->moved [(r - cell->row)*cell->cspan + c - cell->col];
 				gint nr = rs + r - (rs ? cell->rspan : 0), nc = cs + c - (cs ? cell->cspan : 0);
 
 				/* printf ("exchange: %dx%d <--> %dx%d (%p)\n", rs + r, cs + c, nr, nc, t->cells [rs][nc]); */
 				t->cells [nr][nc] = t->cells [rs + r][cs + c];
-				if (t->cells [nr][nc])
+				if (t->cells [nr][nc]) {
+					struct Move *move = &undo->moved [(r - cell->row)*cell->cspan + c - cell->col];
+
 					html_table_cell_set_position (t->cells [nr][nc], nr, nc);
-				move->rs = rs + r;
-				move->cs = cs + c;
-				move->rt = nr;
-				move->ct = nc;
-				printf ("moved: %dx%d --> %dx%d (%d, %d)\n", rs + r, cs + c, nr, nc, r - cell->row, c - cell->col);
+					move->rs = rs + r;
+					move->cs = cs + c;
+					move->rt = nr;
+					move->ct = nc;
+					move->move = TRUE;
+					printf ("moved: %dx%d --> %dx%d (%d, %d) %p\n", rs + r, cs + c, nr, nc, r - cell->row, c - cell->col, t->cells [nr][nc]);
+				}
 			} else {
 				if (r >= cell->row + rs && c >= cell->col + cs) {
 					if (t->cells [rs + r][cs + c] && t->cells [rs + r][cs + c]->col == cs + c && t->cells [rs + r][cs + c]->row == rs + r) {
@@ -538,11 +542,41 @@ expand_undo_data_new (gint span, GSList *slist)
 }
 
 static void
+move_cell_rd_undo (HTMLTable *table, struct MoveCellRDUndo *undo)
+{
+	HTMLTableCell *cell = table->cells [undo->move.rt][undo->move.ct];
+	gint r, c;
+
+	for (r = 0; r < undo->rspan; r ++)
+		for (c = 0; c < undo->cspan; c ++)
+			if (undo->moved [r*undo->cspan + c].move) {
+				struct Move *move = &undo->moved [r*undo->cspan + c];
+
+				printf ("move back: %dx%d --> %dx%d (%d, %d) %p\n", move->rt, move->ct, move->rs, move->cs, r, c, table->cells [move->rt][move->ct]);
+				table->cells [move->rs][move->cs] = table->cells [move->rt][move->ct];
+				html_table_cell_set_position (table->cells [move->rs][move->cs], move->rs, move->cs);
+				table->cells [move->rt][move->ct] = NULL;
+			}
+
+	for (r = 0; r < cell->rspan; r ++)
+		for (c = 0; c < cell->cspan; c ++)
+			table->cells [undo->move.rt + r][undo->move.ct + c] = NULL;
+	for (r = 0; r < cell->rspan; r ++)
+		for (c = 0; c < cell->cspan; c ++)
+			table->cells [undo->move.rs + r][undo->move.cs + c] = cell;
+
+	html_table_cell_set_position (cell, undo->move.rs, undo->move.cs);
+}
+
+static void
 expand_cspan_undo_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir, guint position_after)
 {
+	GSList *slist;
+
 	html_engine_freeze (e);
 	collapse_cspan (e, html_engine_get_table_cell (e), EXPAND_UNDO (data)->span, html_undo_direction_reverse (dir));
-	/* move back */
+	for (slist = EXPAND_UNDO (data)->move_undo; slist; slist = slist->next)
+		move_cell_rd_undo (html_engine_get_table (e), (struct MoveCellRDUndo *) slist->data);
 	html_engine_thaw (e);
 }
 
