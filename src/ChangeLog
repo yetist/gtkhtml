@@ -1,3 +1,13 @@
+2002-05-09  Dan Winship  <danw@ximian.com>
+
+	* testgtkhtml.c: Port to use soup instead of glibwww for
+	http/https. (And do file: URLs by hand.)
+
+	* Makefile.am (noinst_PROGRAMS): Redo this a bit so gtest is
+	always built, and testgtkhtml is built if you have soup.
+	(INCLUDES): s/GLIBWWW_CFLAGS/SOUP_CFLAGS/
+	(testgtkhtml_LDADD): s/GLIBWWW_LIBS/SOUP_LIBS/
+
 2002-05-07  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (client_notify_widget): use /keybindings_theme in

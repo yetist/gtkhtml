@@ -3,7 +3,7 @@ NULL=
 INCLUDES = -I$(top_srcdir) -I$(srcdir) -I$(includedir) $(GNOME_INCLUDEDIR) \
 	$(EXTRA_GNOME_CFLAGS) \
 	$(IMLIB_CFLAGS)	\
-	-DG_LOG_DOMAIN=\"gtkhtml\" $(GLIBWWW_CFLAGS) \
+	-DG_LOG_DOMAIN=\"gtkhtml\" $(SOUP_CFLAGS) \
 	-DSRCDIR=\"$(srcdir)\" \
 	-DPREFIX=\"$(prefix)\"
 
@@ -11,11 +11,10 @@ CFLAGS +=  $(GCONF_CFLAGS) -DICONDIR=\"$(GTKHTML_DATADIR)/icons\"
 
 lib_LTLIBRARIES = libgtkhtml.la
 
-if GLIBWWW
-noinst_PROGRAMS = testgtkhtml gtest
-else
-noinst_PROGRAMS = 
+if SOUP
+soup_programs = testgtkhtml
 endif
+noinst_PROGRAMS = $(soup_programs) gtest
 
 libgtkhtmldir = $(includedir)/$(GTKHTML_RELEASE_STRING)/gtkhtml/
 
@@ -209,21 +208,19 @@ testgtkhtml_SOURCES = 		\
 	htmlurl.h		\
 	htmlurl.c
 
-testgtkhtml_CFLAGS = $(GLIBWWW_CFLAGS)
 # testgtkhtml_LDFLAGS = -static
 testgtkhtml_LDADD =				\
 	libgtkhtml.la				\
 	$(GNOMEUI_LIBS)				\
 	$(GNOME_LIBDIR)				\
 	$(EXTRA_GNOME_LIBS)                     \
-	$(GLIBWWW_LIBS)				\
+	$(SOUP_LIBS)				\
 	$(GCONF_LIBS)
 #	-lccmalloc -ldl
 #
 
 gtest_SOURCES = \
 	test.c
-testgtkhtml_CFLAGS = 
 gtest_LDADD =					\
 	libgtkhtml.la				\
 	$(GNOMEUI_LIBS)				\
