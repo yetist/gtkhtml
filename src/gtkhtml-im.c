@@ -22,6 +22,7 @@
 #include "gtkhtml.h"
 #include "gtkhtml-im.h"
 
+#ifdef GTKHTML_USE_XIM
 void 
 gtk_html_im_focus_in (GtkHTML *html)
 {
@@ -198,3 +199,4 @@ gtk_html_im_style_set (GtkHTML *html)
 }
 
 
+#endif
