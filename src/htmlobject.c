@@ -133,6 +133,26 @@ calc_absolute_pos (HTMLObject *o, gint x, gint y)
 	o->abs_y = y + o->y - o->ascent;
 }
 
+static const gchar *
+get_url (HTMLObject *o)
+{
+	return NULL;
+}
+
+static const gchar *
+get_target (HTMLObject *o)
+{
+	return NULL;
+}
+
+static HTMLAnchor *
+find_anchor (HTMLObject *o,
+	     const gchar *name,
+	     gint *x, gint *y)
+{
+	return NULL;
+}
+
 
 /* Class initialization.  */
 
@@ -163,6 +183,9 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->calc_min_width = calc_min_width;
 	klass->calc_preferred_width = calc_preferred_width;
 	klass->calc_absolute_pos = calc_absolute_pos;
+	klass->get_url = get_url;
+	klass->get_target = get_target;
+	klass->find_anchor = find_anchor;
 }
 
 void
@@ -258,11 +281,6 @@ html_object_calc_min_width (HTMLObject *o)
 {
 	gint value = (* HO_CLASS (o)->calc_min_width) (o);
 
-#if 0
-	printf ("%s: min_width %d\n", html_type_name (HTML_OBJECT_TYPE (o)),
-  		value);
-#endif
-
 	return value;
 }
 
@@ -276,5 +294,25 @@ void
 html_object_calc_absolute_pos (HTMLObject *o, gint x, gint y)
 {
 	return (* HO_CLASS (o)->calc_absolute_pos) (o, x, y);
+}
+
+const gchar *
+html_object_get_url (HTMLObject *o)
+{
+	return (* HO_CLASS (o)->get_url) (o);
+}
+
+const gchar *
+html_object_get_target (HTMLObject *o)
+{
+	return (* HO_CLASS (o)->get_target) (o);
+}
+
+HTMLAnchor *
+html_object_find_anchor (HTMLObject *o,
+			 const gchar *name,
+			 gint *x, gint *y)
+{
+	return (* HO_CLASS (o)->find_anchor) (o, name, x, y);
 }
 

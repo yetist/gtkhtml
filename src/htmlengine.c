@@ -25,6 +25,7 @@
 #include <ctype.h>
 
 #include "gtkhtml-private.h"
+#include "htmlanchor.h"
 #include "htmlbullet.h"
 #include "htmlengine.h"
 #include "htmlrule.h"
@@ -35,6 +36,8 @@
 #include "htmlvspace.h"
 #include "htmlimage.h"
 #include "htmllist.h"
+#include "htmllinktext.h"
+#include "htmllinktextmaster.h"
 #include "htmltable.h"
 #include "htmltablecell.h"
 #include "htmltextmaster.h"
@@ -63,6 +66,23 @@ extern gint defaultFontSizes [7];
 
 enum ID { ID_FONT, ID_B, ID_HEADER, ID_U, ID_UL, ID_TD };
 
+
+static void
+close_anchor (HTMLEngine *e)
+{
+	if (e->url) {
+		html_engine_pop_color (e);
+		html_engine_pop_font (e);
+		g_free (e->url);
+	}
+
+	e->url = NULL;
+
+	g_free (e->target);
+	e->target = NULL;
+}
+
+
 guint
 html_engine_get_type (void)
 {
@@ -90,6 +110,8 @@ static void
 html_engine_destroy (GtkObject *object)
 {
 	HTMLEngine *engine = HTML_ENGINE (object);
+
+	/* FIXME FIXME FIXME */
 	
 	html_tokenizer_destroy   (engine->ht);
 	string_tokenizer_destroy (engine->st);
@@ -99,6 +121,8 @@ html_engine_destroy (GtkObject *object)
 	html_settings_destroy    (engine->settings);
 	html_painter_destroy     (engine->painter);
 	html_image_factory_free  (engine->image_factory);
+
+	g_free (engine->baseTarget);
 
 	GTK_OBJECT_CLASS (parent_class)->destroy (object);
 }
@@ -139,13 +163,17 @@ html_engine_init (HTMLEngine *engine)
 	engine->painter = html_painter_new ();
 	engine->image_factory = html_image_factory_new(engine);
 
+	engine->url = NULL;
+	engine->target = NULL;
+	engine->baseTarget = NULL;
+
 	engine->leftBorder = LEFT_BORDER;
 	engine->rightBorder = RIGHT_BORDER;
 	engine->topBorder = TOP_BORDER;
 	engine->bottomBorder = BOTTOM_BORDER;
 	
 	/* Set up parser functions */
-	engine->parseFuncArray[0] = NULL;
+	engine->parseFuncArray[0] = html_engine_parse_a;
 	engine->parseFuncArray[1] = html_engine_parse_b;
 	engine->parseFuncArray[2] = html_engine_parse_c;
 	engine->parseFuncArray[3] = NULL;
@@ -183,7 +211,7 @@ html_engine_new (void)
 	return engine;
 }
 
-
+
 void
 html_engine_calc_absolute_pos (HTMLEngine *e)
 {
@@ -465,7 +493,7 @@ html_engine_new_flow (HTMLEngine *p, HTMLObject *clue)
 	HTML_CLUEFLOW (p->flow)->indent = HTML_CLUEFLOW (clue)->indent;
 	HTML_CLUE (p->flow)->halign = p->divAlign;
 
-	html_clue_append (clue, p->flow);
+	html_clue_append (HTML_CLUE (clue), p->flow);
 }
 
 void
@@ -492,7 +520,7 @@ html_engine_parse (HTMLEngine *p)
 	p->bold = FALSE;
 	p->fontsize = p->settings->fontBaseSize;
 
-	f = html_font_new ("times", p->settings->fontBaseSize, defaultFontSizes, p->bold, p->italic, p->underline);
+	f = html_font_new ("lucida", p->settings->fontBaseSize, defaultFontSizes, p->bold, p->italic, p->underline);
 
 	html_font_stack_push (p->fs, f);
 
@@ -530,11 +558,11 @@ html_engine_insert_vspace (HTMLEngine *e, HTMLObject *clue, gboolean vspace_inse
 
 	if (!vspace_inserted) {
 		f = html_clueflow_new (0, 0, clue->max_width, 100);
-		html_clue_append (clue, f);
+		html_clue_append (HTML_CLUE (clue), f);
 
 		/* FIXME: correct font size */
 		t = html_vspace_new (defaultFontSizes[e->settings->fontBaseSize], CNone);
-		html_clue_append (f, t);
+		html_clue_append (HTML_CLUE (f), t);
 		
 		e->flow = NULL;
 	}
@@ -543,8 +571,8 @@ html_engine_insert_vspace (HTMLEngine *e, HTMLObject *clue, gboolean vspace_inse
 }
 
 void
-html_engine_push_block (HTMLEngine *e, gint id, gint level, HTMLBlockFunc exitFunc, 
-			gint miscData1, gint miscData2)
+html_engine_push_block (HTMLEngine *e, gint id, gint level,
+						HTMLBlockFunc exitFunc, gint miscData1, gint miscData2)
 {
 	HTMLStackElement *elem;
 
@@ -616,6 +644,7 @@ html_engine_select_font (HTMLEngine *e)
 	
 	f = html_font_new (html_font_stack_top (e->fs)->family, e->fontsize, defaultFontSizes,
 			   e->bold, e->italic, e->underline);
+
 	f->textColor = html_color_stack_top (e->cs);
 
 	html_font_stack_push (e->fs, f);
@@ -656,7 +685,22 @@ html_engine_insert_text (HTMLEngine *e, gchar *str, HTMLFont *f)
 	gboolean insertBlock = FALSE;
 	
 	for (;;) {
-		if (str[i] == 0x20) {
+        if (((guchar *)str)[i] == 0xa0) {
+            /* Non-breaking space */
+            if (textType == variable) {
+                /* We have a non-breaking space in a block of variable text We
+                   need to split the text and insert a seperate non-breaking
+                   space object */
+                str[i] = 0x00; /* End of string */
+                remainingStr = &(str[i+1]);
+                insertBlock = TRUE; 
+                insertNBSP = TRUE;
+            } else {
+                /* We have a non-breaking space: this makes the block fixed. */
+                str[i] = 0x20; /* Normal space */
+                textType = fixed;
+            }
+        } else if (str[i] == 0x20) {
 			/* Normal space */
 			if (textType == fixed) {
 				/* We have a normal space in a block of fixed text.
@@ -678,16 +722,17 @@ html_engine_insert_text (HTMLEngine *e, gchar *str, HTMLFont *f)
 						str [i] = 0x00; /* End of string */
 						remainingStr = str+1;
 					}
-					insertBlock = TRUE;
+					insertBlock = TRUE;	/* Block is zero-length, no actual insertion */
 					insertSpace = TRUE;
 				}
 				else if (str [i+1] == 0x00) {
-					str[i] = 0x00;
+            	    /* Last character is a space: Insert the block and 
+					   a normal space */
+					str[i] = 0x00;/* End of string */
 					remainingStr = 0;
 					insertBlock = TRUE;
 					insertSpace = TRUE;
-				}
-				else {
+				} else {
 					textType = variable;
 				}
 			}
@@ -697,23 +742,49 @@ html_engine_insert_text (HTMLEngine *e, gchar *str, HTMLFont *f)
 			insertBlock = TRUE;
 			remainingStr = 0;
 		}
+
 		if (insertBlock) {
 			if (*str) {
 				if (textType == variable) {
-					obj = html_text_master_new (str, f, e->painter);
-					html_clue_append (e->flow, obj);
+					if (e->url || e->target)
+						obj = html_link_text_master_new
+							(str, f, e->painter, e->url, e->target);
+					else
+						obj = html_text_master_new (str, f, e->painter);
+					html_clue_append (HTML_CLUE (e->flow), obj);
 				}
 				else {
-					obj = html_text_new (str, f, e->painter);
-					html_clue_append (e->flow, obj);
+					if (e->url || e->target)
+						obj = html_link_text_new (str, f,
+									  e->painter, e->url, e->target);
+					else
+						obj = html_text_new (str, f, e->painter);
+					html_clue_append (HTML_CLUE (e->flow), obj);
 				}
 			}
+
 			if (insertSpace) {
-				obj = html_hspace_new (f, e->painter, FALSE);
-				html_clue_append (e->flow, obj);
+				if (e->url || e->target) {
+					obj = html_link_text_new (" ", f, e->painter, e->url,
+											  e->target);
+					obj->flags |= HTML_OBJECT_FLAG_SEPARATOR;
+					html_clue_append (HTML_CLUE (e->flow), obj);
+				} else {
+					obj = html_hspace_new (f, e->painter, FALSE);
+					html_clue_append (HTML_CLUE (e->flow), obj);
+				}
 			}
 			else if (insertNBSP) {
-				g_print ("insertNBSP\n");
+				if (e->url || e->target) {
+					obj = html_link_text_new (" ", f, e->painter,
+											  e->url, e->target);
+					obj->flags &= ~HTML_OBJECT_FLAG_SEPARATOR;
+					html_clue_append (HTML_CLUE (e->flow), obj);
+				} else {
+					obj = html_hspace_new (f, e->painter, FALSE);
+					obj->flags &= ~HTML_OBJECT_FLAG_SEPARATOR;
+					html_clue_append (HTML_CLUE (e->flow), obj);
+				}
 			}
 		
 			str = remainingStr;
@@ -725,9 +796,7 @@ html_engine_insert_text (HTMLEngine *e, gchar *str, HTMLFont *f)
 			insertBlock = FALSE;
 			insertSpace = FALSE;
 			insertNBSP = FALSE;
-
-		}
-		else {
+		} else {
 			i++;
 		}
 	}
@@ -837,6 +906,215 @@ html_engine_parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 }
 
 void
+html_engine_parse_a (HTMLEngine *e, HTMLObject *_clue, const gchar *str)
+{
+#if 0							/* FIXME TODO */
+    if ( strncmp( str, "area", 4 ) == 0 ) {
+		GString *href = g_string_new (NULL);
+		GString *coords = g_string_new (NULL);
+		GString *atarget = g_string_new (baseTarget->str);
+
+		if ( mapList.isEmpty() )
+			return;
+
+		string_tokenizer_tokenize (e->st, str + 5, " >");
+
+		HTMLArea::Shape shape = HTMLArea::Rect;
+
+		while ( stringTok->hasMoreTokens() )
+		{
+			const char* p = stringTok->nextToken();
+
+			if ( strncasecmp( p, "shape=", 6 ) == 0 ) {
+				if ( strncasecmp( p+6, "rect", 4 ) == 0 )
+					shape = HTMLArea::Rect;
+				else if ( strncasecmp( p+6, "poly", 4 ) == 0 )
+					shape = HTMLArea::Poly;
+				else if ( strncasecmp( p+6, "circle", 6 ) == 0 )
+					shape = HTMLArea::Circle;
+			} else
+
+			if ( strncasecmp( p, "href=", 5 ) == 0 ) {
+				p += 5;
+				if ( *p == '#' ) { /* FIXME TODO */
+					g_warning ("#references are not implemented yet.");
+					KURL u( actualURL );
+					u.setReference( p + 1 );
+					href = u.url();
+				}
+				else 
+				{
+					KURL u( baseURL, p );
+					href = u.url();
+				}
+			}
+			else if ( strncasecmp( p, "target=", 7 ) == 0 )
+			{
+				atarget = p+7;
+			}
+			else if ( strncasecmp( p, "coords=", 7 ) == 0 )
+			{
+				coords = p+7;
+			}
+		}
+
+		if ( !coords.isEmpty() && !href.isEmpty() )
+		{
+			HTMLArea *area = 0;
+
+			switch ( shape )
+			{
+			case HTMLArea::Rect:
+		    {
+				int x1, y1, x2, y2;
+				sscanf( coords, "%d,%d,%d,%d", &x1, &y1, &x2, &y2 );
+				QRect rect( x1, y1, x2-x1, y2-y1 );
+				area = new HTMLArea( rect, href, atarget );
+				debugM( "Area Rect %d, %d, %d, %d\n", x1, y1, x2, y2 );
+		    }
+		    break;
+
+			case HTMLArea::Circle:
+		    {
+				int xc, yc, rc;
+				sscanf( coords, "%d,%d,%d", &xc, &yc, &rc );
+				area = new HTMLArea( xc, yc, rc, href, atarget );
+				debugM( "Area Circle %d, %d, %d\n", xc, yc, rc );
+		    }
+		    break;
+
+			case HTMLArea::Poly:
+		    {
+				debugM( "Area Poly " );
+				int count = 0, x, y;
+				QPointArray parray;
+				const char *ptr = coords;
+				while ( ptr )
+				{
+					x = atoi( ptr );
+					ptr = strchr( ptr, ',' );
+					if ( ptr )
+					{
+						y = atoi( ++ptr );
+						parray.resize( count + 1 );
+						parray.setPoint( count, x, y );
+						debugM( "%d, %d  ", x, y );
+						count++;
+						ptr = strchr( ptr, ',' );
+						if ( ptr ) ptr++;
+					}
+				}
+				debugM( "\n" );
+				if ( count > 2 )
+					area = new HTMLArea( parray, href, atarget );
+		    }
+		    break;
+			}
+
+			if ( area )
+				mapList.getLast()->addArea( area );
+		}
+    }
+    else if ( strncmp( str, "address", 7) == 0 )
+    {
+		/* vspace_inserted = insertVSpace( _clue, vspace_inserted ); */
+		e->flow = 0;
+		e->italic = TRUE;
+		e->bold = FALSE;
+		/*  selectFont(); FIXME TODO */
+		html_engine_push_block (e, ID_ADDRESS, 2,
+								html_engine_block_end_font,
+								TRUE);
+    }
+    else if ( strncmp( str, "/address", 8) == 0 )
+    {
+		html_engine_pop_block ( e, ID_ADDRESS, _clue);
+    }
+	else
+#endif
+
+    if ( strncmp( str, "a ", 2 ) == 0 ) {
+		gchar *tmpurl = NULL;
+		gboolean visited = FALSE;
+		gchar *target = NULL;
+		const gchar *p;
+
+		close_anchor (e);
+
+		string_tokenizer_tokenize( e->st, str + 2, " >" );
+
+		while ( ( p = string_tokenizer_next_token (e->st) ) != 0 ) {
+			if ( strncasecmp( p, "href=", 5 ) == 0 ) {
+				p += 5;
+
+				if ( *p == '#' ) {
+					/* FIXME TODO */
+					g_warning ("References are not implemented yet");
+					tmpurl = g_strdup ("blahblah");
+				} else {
+					/* FIXME TODO concatenate correctly */
+					tmpurl = g_strdup (p);
+				}		
+
+				/* FIXME TODO */
+#if 0
+				visited = URLVisited( tmpurl );
+#endif
+			} else if ( strncasecmp( p, "name=", 5 ) == 0 ) {
+				if (e->flow == 0 )
+					html_clue_append (HTML_CLUE (_clue),
+									  html_anchor_new (p + 5));
+				else
+					html_clue_append (HTML_CLUE (e->flow),
+									  html_anchor_new (p+5));
+			} else if ( strncasecmp( p, "target=", 7 ) == 0 ) {
+				target = g_strdup (p + 7);
+#if 0							/* FIXME TODO */
+				parsedTargets.append( target );
+#endif
+			}
+		}
+
+		if ( !target
+			 && e->baseTarget != NULL
+			 && e->baseTarget[0] != '\0' ) {
+			target = g_strdup (e->baseTarget);
+			/*  parsedTargets.append( target ); FIXME TODO */
+		}
+
+		if (tmpurl != NULL && tmpurl[0] != '\0') {
+			e->vspace_inserted = FALSE;
+
+			if ( visited )
+				html_color_stack_push
+					(e->cs, gdk_color_copy (html_color_stack_top (e->cs))
+					 /*  new QColor(settings->vLinkColor) */);
+			else
+				html_color_stack_push
+					(e->cs, gdk_color_copy (html_color_stack_top (e->cs))
+					 /*  new QColor( settings->linkColor) */);
+
+			if (TRUE /*  FIXME TODO settings->underlineLinks */ )
+				e->underline = TRUE;
+
+			html_engine_select_font (e);
+
+			e->url = tmpurl;
+
+			printf ("HREF: %s\n", e->url);
+
+#if 0							/* FIXME TODO */
+			url = new char [ tmpurl.length() + 1 ];
+			strcpy( url, tmpurl.data() );
+			parsedURLs.append( url );
+#endif
+		}
+    } else if ( strncmp( str, "/a", 2 ) == 0 ) {
+		close_anchor (e);
+    }
+}
+
+void
 html_engine_parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	if (strncmp (str, "body", 4) == 0) {
@@ -885,7 +1163,7 @@ html_engine_parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		if (!e->flow)
 			html_engine_new_flow (e, clue);
 
-		html_clue_append (e->flow, html_vspace_new (14, clear));
+		html_clue_append (HTML_CLUE (e->flow), html_vspace_new (14, clear));
 
 		e->vspace_inserted = FALSE;
 	}
@@ -920,7 +1198,7 @@ void
 html_engine_parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 {
 	if (strncmp (str, "font", 4) == 0) {
-		GdkColor *color = g_new0 (GdkColor, 1);
+		GdkColor *color;
 		gint newSize = (html_engine_get_current_font (p))->size;
 
 		color = gdk_color_copy (html_color_stack_top (p->cs));
@@ -1019,7 +1297,8 @@ html_engine_parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		}
 
 		html_engine_new_flow (p, clue);
-		html_clue_append (p->flow, html_rule_new (length, percent, size, shade));
+		html_clue_append (HTML_CLUE (p->flow),
+						  html_rule_new (length, percent, size, shade));
 		HTML_CLUE (p->flow)->halign = align;
 		p->flow = 0;
 		p->vspace_inserted = FALSE;
@@ -1084,23 +1363,21 @@ html_engine_parse_i (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 
 		if (align == None) {
 			if (valign == VNone) {
-				html_clue_append (p->flow, image);
+				html_clue_append (HTML_CLUE (p->flow), image);
 			}
 			else {
 				HTMLObject *valigned = html_clueh_new (0, 0, clue->max_width);
 				HTML_CLUE (valigned)->valign = valign;
-				html_clue_append (valigned, HTML_OBJECT (image));
-				html_clue_append (HTML_OBJECT (p->flow), valigned);
+				html_clue_append (HTML_CLUE (valigned), HTML_OBJECT (image));
+				html_clue_append (HTML_CLUE (p->flow), valigned);
 			}
 		}
 		/* We need to put the image in a HTMLClueAligned */
 		else {
 			HTMLClueAligned *aligned = HTML_CLUEALIGNED (html_cluealigned_new (HTML_CLUE (p->flow), 0, 0, clue->max_width, 100));
 			HTML_CLUE (aligned)->halign = align;
-			html_clue_append (HTML_OBJECT (aligned),
-					  HTML_OBJECT (image));
-			html_clue_append (HTML_OBJECT (p->flow),
-					  HTML_OBJECT (aligned));
+			html_clue_append (HTML_CLUE (aligned), HTML_OBJECT (image));
+			html_clue_append (HTML_CLUE (p->flow), HTML_OBJECT (aligned));
 		}
 		       
 	}
@@ -1137,22 +1414,22 @@ html_engine_parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		}
 		
 		f = html_clueflow_new (0, 0, clue->max_width, 100);
-		html_clue_append (clue, f);
+		html_clue_append (HTML_CLUE (clue), f);
 		c = html_clueh_new (0, 0, clue->max_width);
 		HTML_CLUE (c)->valign = Top;
-		html_clue_append (f, c);
+		html_clue_append (HTML_CLUE (f), c);
 
 		/* Fixed width spacer */
 		vc = html_cluev_new (0, 0, indentSize, 0);
 		HTML_CLUE (vc)->valign = Top;
-		html_clue_append (c, vc);
+		html_clue_append (HTML_CLUE (c), vc);
 
 		switch (listType) {
 		case Unordered:
 			p->flow = html_clueflow_new (0, 0, vc->max_width, 0);
 			HTML_CLUE (p->flow)->halign = Right;
-			html_clue_append (vc, p->flow);
-			html_clue_append (p->flow, html_bullet_new ((html_font_stack_top (p->fs))->pointSize, listLevel, p->settings->fontbasecolor));
+			html_clue_append (HTML_CLUE (vc), p->flow);
+			html_clue_append (HTML_CLUE (p->flow), html_bullet_new ((html_font_stack_top (p->fs))->pointSize, listLevel, p->settings->fontbasecolor));
 			break;
 		default:
 			break;
@@ -1160,9 +1437,9 @@ html_engine_parse_l (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 		}
 		
 		vc = html_cluev_new (0, 0, clue->max_width - indentSize, 100);
-		html_clue_append (c, vc);
+		html_clue_append (HTML_CLUE (c), vc);
 		p->flow = html_clueflow_new (0,0, vc->max_width, 100);
-		html_clue_append (vc, p->flow);
+		html_clue_append (HTML_CLUE (vc), p->flow);
 
 		p->vspace_inserted = TRUE;
 	}
@@ -1573,7 +1850,7 @@ html_engine_parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 			html_table_end_row (table);
 		html_table_end_table (table);
 		if (align != Left && align != Right) {
-			html_clue_append (clue, HTML_OBJECT (table));
+			html_clue_append (HTML_CLUE (clue), HTML_OBJECT (table));
 		}
 		else {
 			g_print ("Aligned!!!!!\n");

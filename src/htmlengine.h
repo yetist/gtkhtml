@@ -51,7 +51,6 @@ typedef struct _HTMLEngineClass HTMLEngineClass;
 typedef void (*HTMLParseFunc)(HTMLEngine *p, HTMLObject *clue, const gchar *str);
 
 struct _HTMLEngine {
-
 	GtkObject parent;
 
 	gboolean parsing;
@@ -96,7 +95,10 @@ struct _HTMLEngine {
 	HTMLFontStack *fs;
 	HTMLColorStack *cs;
 
-	HTMLParseFunc parseFuncArray[26];
+	gchar *url;
+	gchar *target;
+
+	HTMLParseFunc parseFuncArray[26]; /* FIXME move to `.c'.  */
 	HTMLPainter *painter;
 	HTMLStackElement *blockStack;
 	HTMLSettings *settings;
@@ -111,7 +113,6 @@ struct _HTMLEngine {
 	gboolean bDrawBackground;
 
 
-
 	GString *title;
 
 	gboolean writing;
@@ -121,6 +122,9 @@ struct _HTMLEngine {
 	   file:/ urls */
 	gchar *actualURL;
 	gchar *baseURL;
+
+	/* from <BASE TARGET="..."> */
+	gchar *baseTarget;
 
 	/* The background pixmap, an HTMLImagePointer */
         gpointer bgPixmapPtr;
@@ -137,14 +141,13 @@ struct _HTMLEngine {
         gpointer image_factory;
 };
 
-
-struct _HTMLEngineClass
-{
+struct _HTMLEngineClass {
 	GtkObjectClass parent_class;
 	
 	void (*title_changed) (HTMLEngine *engine);
 };
 
+
 HTMLEngine *html_engine_new (void);
 GtkHTMLStreamHandle html_engine_begin (HTMLEngine *p, const char *url);
 void        html_engine_schedule_update (HTMLEngine *p);
@@ -152,6 +155,7 @@ void        html_engine_draw_background (HTMLEngine *e, gint xval, gint yval, gi
 gchar      *html_engine_parse_body (HTMLEngine *p, HTMLObject *clue, const gchar *end[], gboolean toplevel);
 void        html_engine_parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str);
 void        html_engine_parse (HTMLEngine *p);
+void        html_engine_parse_a (HTMLEngine *p, HTMLObject *clue, const gchar *str);
 void        html_engine_parse_b (HTMLEngine *p, HTMLObject *clue, const gchar *str);
 void        html_engine_parse_c (HTMLEngine *e, HTMLObject *clue, const gchar *str);
 void        html_engine_parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str);

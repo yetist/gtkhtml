@@ -65,9 +65,6 @@ void html_clue_find_free_area (HTMLClue *clue, gint y,
 void html_clue_append_right_aligned (HTMLClue *clue, HTMLClue *aclue);
 gboolean html_clue_appended (HTMLClue *clue, HTMLClue *aclue);
 
-gint html_clue_get_left_clear (HTMLObject *clue, gint y);
-gint html_clue_get_right_clear (HTMLObject *clue, gint y);
-
-void html_clue_append (HTMLObject *clue, HTMLObject *o);
+void html_clue_append (HTMLClue *clue, HTMLObject *o);
 
 #endif /* HTMLCLUE_H */

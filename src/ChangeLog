@@ -1,3 +1,73 @@
+1999-11-23  Ettore Perazzoli  <ettore@gnu.org>
+
+	* htmlengine.c (html_engine_new_flow): Updated accordingly.
+	(html_engine_insert_vspace): Updated accordingly.
+	(html_engine_insert_text): Updated accordingly.
+	(html_engine_parse_b): Updated accordingly.
+	(html_engine_parse_i): Updated accordingly.
+	(html_engine_parse_l): Updated accordingly.
+	(html_engine_parse_f): Fixed allocation of `color' which caused a
+	memory leak.
+
+	* htmlclue.c (html_clue_append): Type of arg `clue' changed to
+	from `HTMLObject' to `HTMLClue'.
+
+	* htmlengine.c (html_engine_parse): Use `lucida' instead of
+	`times' (temp hack).
+
+	* htmlfont.c (create_gdk_font): Temp hack to make font handling
+	behave a little more sanely.
+
+	* htmlcluev.h: Fixed braino `HTMLClue' -> `HTMLClueClass'.
+
+	* htmlengine.c (html_engine_insert_text): Ported all the code from
+	the corresponding function in KHTMLW.
+	(html_engine_parse_a): New function, ported from
+	`KHTMLWidget::parseA' in KHTMLW.
+	(html_engine_init): Install it.
+	(close_anchor): New helper function, ported from
+	`KHTMLWidget::closeAnchor()'.
+
+	* htmlengine.h: New members `url', `target' and `baseTarget' in
+	`struct _HTMLEngine'.
+	* htmlengine.c (html_engine_init): Init them.
+	(html_engine_destroy): Free them.
+
+	* htmltype.h: New types `HTML_TYPE_LINKTEXT',
+	`HTML_TYPE_LINKTEXTMASTER'.
+	* htmltype.c (html_type_name): Updated accordingly.
+
+	* htmllinktextmaster.c: New file, implementing the
+	`HTMLLinkTextMaster' class.
+
+	* htmlobject.c (get_url): Default implementation for the `get_url'
+	virtual method.
+	(get_target): Default implementation for the `get_target' virtual
+	method.
+	(find_anchor): Default implementation for the `find_anchor'
+	virtual method.
+	(html_object_class_init): Install these functions in the class
+	structure.
+	(html_object_get_url): New function.
+	(html_object_get_target): New function.
+	(html_object_find_anchor): New function.
+
+	* htmlobject.h: New virtual methods `get_url', `get_target' and
+	`find_anchor' in `HTMLObjectClass'.
+
+	* htmlengine.h: Replaced `HTMLFontWeight weight' with `gboolean
+	bold'.
+	* htmlengine.c (html_engine_parse): Updated accordingly.
+	(html_engine_select_font): Likewise.
+	(html_engine_parse_b): Likewise.
+	(html_engine_parse_h): Likewise.
+
+	* htmllinktext.c, htmllinktext.h: New files, implementing the
+	`HTMLLinkText' class.
+
+	* htmlanchor.c, htmlanchor.h: New files, implementing
+	`HTMLAnchor'.
+
 1999-11-17  Ettore Perazzoli  <ettore@gnu.org>
 
 	* htmlengine.c (html_engine_parse_body): Handle empty space
@@ -46,8 +116,10 @@
 1999-10-30  Michael Meeks  <mmeeks@gnu.org>
 
 	* html-component.c (embeddable_factory): Add persist stream interface.
-	Set stream item = NULL. (embeddable_destroy_cb): Kill stream after use.
-	(embeddable_load, load_html_from_stream): vicious hack. (save_html): stub.
+	Set stream item = NULL.
+	(embeddable_destroy_cb): Kill stream after use.
+	(embeddable_load, load_html_from_stream): vicious hack.
+	(save_html): stub.
 	(view_factory): Hack out view_date->html and move into embeddable_data,
 	far reaching change; we need doc / view.
 

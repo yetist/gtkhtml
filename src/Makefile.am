@@ -17,6 +17,7 @@ libgtkhtml_HEADERS =				\
 	debug.h					\
 	gtkhtml.h				\
 	gtkhtml-private.h			\
+	htmlanchor.h				\
 	htmlbullet.h				\
 	htmlcluealigned.h			\
 	htmlclueflow.h				\
@@ -28,6 +29,8 @@ libgtkhtml_HEADERS =				\
 	htmlfont.h				\
 	htmlhspace.h				\
 	htmlimage.h				\
+	htmllinktext.h				\
+	htmllinktextmaster.h			\
 	htmllist.h				\
 	htmlobject.h				\
 	htmlpainter.h				\
@@ -48,6 +51,7 @@ libgtkhtml_HEADERS =				\
 libgtkhtml_la_SOURCES =				\
 	debug.c					\
 	gtkhtml.c				\
+	htmlanchor.c				\
 	htmlbullet.c				\
 	htmlclue.c				\
 	htmlcluealigned.c			\
@@ -59,6 +63,8 @@ libgtkhtml_la_SOURCES =				\
 	htmlfont.c				\
 	htmlhspace.c				\
 	htmlimage.c				\
+	htmllinktext.c				\
+	htmllinktextmaster.c			\
 	htmllist.c				\
 	htmlobject.c				\
 	htmlpainter.c				\

@@ -357,13 +357,12 @@ html_clue_appended (HTMLClue *clue, HTMLClue *aclue)
 /* Utility function.  */
 
 void
-html_clue_append (HTMLObject *clue, HTMLObject *o)
+html_clue_append (HTMLClue *clue, HTMLObject *o)
 {
-
-	if (!HTML_CLUE (clue)->head) {
-		HTML_CLUE (clue)->head = HTML_CLUE (clue)->tail = o;
+	if (! clue->head) {
+		clue->head = clue->tail = o;
 	} else {
-		HTML_CLUE (clue)->tail->next = o;
-		HTML_CLUE (clue)->tail = o;
+		clue->tail->next = o;
+		clue->tail = o;
 	}
 }

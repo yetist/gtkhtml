@@ -31,6 +31,8 @@
 #include "htmlcluev.h"
 #include "htmlhspace.h"
 #include "htmlimage.h"
+#include "htmllinktext.h"
+#include "htmllinktextmaster.h"
 #include "htmlobject.h"
 #include "htmlrule.h"
 #include "htmltable.h"
@@ -51,6 +53,7 @@ html_types_init (void)
 	if (types_inited)
 		return;
 
+	html_anchor_type_init ();
 	html_bullet_type_init ();
 	html_clue_type_init ();
 	html_cluealigned_type_init ();
@@ -59,6 +62,8 @@ html_types_init (void)
 	html_cluev_type_init ();
 	html_hspace_type_init ();
 	html_image_type_init ();
+	html_link_text_type_init ();
+	html_link_text_master_type_init ();
 	html_object_type_init ();
 	html_rule_type_init ();
 	html_table_cell_type_init ();
@@ -79,40 +84,46 @@ html_type_name (HTMLType type)
 	g_return_val_if_fail (type < HTML_NUM_TYPES, NULL);
 
 	switch (type) {
-	case HTML_TYPE_OBJECT:
-		return "Object";
-	case HTML_TYPE_CLUE:
-		return "Clue";
-	case HTML_TYPE_CLUEALIGNED:
-		return "ClueAligned";
-	case HTML_TYPE_CLUEV:
-		return "ClueV";
-	case HTML_TYPE_CLUEH:
-		return "ClueH";
-	case HTML_TYPE_CLUEFLOW:
-		return "ClueFlow";
-	case HTML_TYPE_TEXT:
-		return "Text";
-	case HTML_TYPE_HSPACE:
-		return "HSpace";
-	case HTML_TYPE_TEXTMASTER:
-		return "TextMaster";
-	case HTML_TYPE_TEXTSLAVE:
-		return "TextSlave";
-	case HTML_TYPE_VSPACE:
-		return "VSpace";
-	case HTML_TYPE_RULE:
-		return "Rule";
+	case HTML_TYPE_ANCHOR:
+		return "Anchor";
 	case HTML_TYPE_BULLET:
-		return "Bullet";
-	case HTML_TYPE_TABLE:
-		return "TableCell";
-	case HTML_TYPE_TABLECELL:
-		return "TableCell";
+ 		return "Bullet";
+	case HTML_TYPE_CLUE:
+ 		return "Clue";
+	case HTML_TYPE_CLUEALIGNED:
+ 		return "ClueAligned";
+	case HTML_TYPE_CLUEFLOW:
+ 		return "ClueFlow";
+	case HTML_TYPE_CLUEH:
+ 		return "ClueH";
+	case HTML_TYPE_CLUEV:
+ 		return "ClueV";
+	case HTML_TYPE_HSPACE:
+ 		return "HSpace";
 	case HTML_TYPE_IMAGE:
-		return "Image";
+ 		return "Image";
+	case HTML_TYPE_LINKTEXT:
+ 		return "LinkText";
+	case HTML_TYPE_LINKTEXTMASTER:
+ 		return "LinkTextMaster";
+	case HTML_TYPE_OBJECT:
+ 		return "Object";
+	case HTML_TYPE_RULE:
+ 		return "Rule";
+	case HTML_TYPE_TABLE:
+ 		return "TableCell";
+	case HTML_TYPE_TABLECELL:
+ 		return "TableCell";
+	case HTML_TYPE_TEXT:
+ 		return "Text";
+	case HTML_TYPE_TEXTMASTER:
+ 		return "TextMaster";
+	case HTML_TYPE_TEXTSLAVE:
+ 		return "TextSlave";
+	case HTML_TYPE_VSPACE:
+ 		return "VSpace";
 	case HTML_TYPE_NONE:
-	case HTML_NUM_TYPES:
+ 	case HTML_NUM_TYPES:
 		/* Make compiler happy.  */
 		g_assert_not_reached ();
 	}

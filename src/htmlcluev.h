@@ -40,7 +40,7 @@ struct _HTMLClueV {
 };
 
 struct _HTMLClueVClass {
-	HTMLClue parent;
+	HTMLClueClass parent;
 };
 
 
