@@ -1,5 +1,13 @@
 1999-12-12  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* gtkhtml.c (gtk_html_init): Use `GDK_HAND2' and `GDK_LEFT_PTR'
+	as the hand/arrow cursors.
+
+	* htmltext.c (html_text_insert_text): New function.
+	(insert_text): New function.
+
+	* htmltext.h: New virtual method `insert_text'.
+
 	* htmlurl.c (html_url_destroy): Added precondition.
 
 	* gtkhtml.c (gtk_html_set_geometry): Removed unused function.

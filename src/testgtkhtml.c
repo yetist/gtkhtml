@@ -542,7 +542,7 @@ netin_stream_flush (HTStream * me)
 static int
 netin_stream_free (HTStream * me)
 {
-	gtk_html_end(html, me->handle, GTK_HTML_STREAM_OK);
+	/*  gtk_html_end(html, me->handle, GTK_HTML_STREAM_OK); */
 	g_free(me);
 	
 	return HT_OK;

@@ -3,7 +3,7 @@
     
    Copyright (C) 1997 Martin Jones (mjones@kde.org)
    Copyright (C) 1997 Torben Weis (weis@kde.org)
-   Copyright (C) 1999, Helix Code, Inc.
+   Copyright (C) 1999 Helix Code, Inc.
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public

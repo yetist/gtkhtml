@@ -149,7 +149,9 @@ key_press_event (GtkWidget *widget,
 		retval = TRUE;
 		break;
 	default:
-		retval = FALSE;
+		if (event->keyval >= 0x20 && event->keyval <= 0xFF) {
+			
+		}
 	}
 
 	return retval;
@@ -271,8 +273,8 @@ gtk_html_init (GtkHTML* html)
 	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (html), GTK_APP_PAINTABLE);
 
 	html->pointer_url = NULL;
-	html->hand_cursor = gdk_cursor_new (GDK_HAND1);
-	html->arrow_cursor = gdk_cursor_new (GDK_TOP_LEFT_ARROW);
+	html->hand_cursor = gdk_cursor_new (GDK_HAND2);
+	html->arrow_cursor = gdk_cursor_new (GDK_LEFT_PTR);
 }
 
 GtkWidget *

@@ -24,6 +24,8 @@
 
 HTMLTextClass html_text_class;
 
+#define HT_CLASS(x) HTML_TEXT_CLASS (HTML_OBJECT (x)->klass)
+
 
 /* HTMLObject methods.  */
 
@@ -51,6 +53,45 @@ draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor,
 					  o->x + tx + x_offset, o->y + ty,
 					  o->ascent, o->descent);
 	}
+}
+
+
+/* HTMLText methods.  */
+
+static void
+insert_text (HTMLText *text, HTMLCursor *cursor, const gchar *s, guint len)
+{
+	gchar *new_buffer;
+	guint old_len;
+	guint new_len;
+
+	/* The following code is very stupid, but it is just for interactive
+           editing so most likely people won't even notice.  */
+
+	old_len = strlen (text->text);
+	new_len = old_len + len;
+
+	if (cursor->offset > old_len) {
+		g_warning ("Cursor offset out of range for HTMLText::insert_text().");
+
+		/* This should never happen, but this will make sure things are
+                   always fixed up in a non-breaking way.  */
+		cursor->offset = old_len;
+	}
+
+	new_buffer = g_malloc (new_len + 1);
+
+	if (cursor->offset > 0)
+		memcpy (new_buffer, text->text, cursor->offset);
+
+	memcpy (new_buffer + cursor->offset, s, len);
+
+	if (cursor->offset < old_len)
+		memcpy (new_buffer + cursor->offset + len,
+			text->text + cursor->offset,
+			old_len - cursor->offset);
+
+	new_buffer[new_len] = '\0';
 }
 
 
@@ -106,4 +147,17 @@ html_text_new (gchar *text, HTMLFont *font, HTMLPainter *painter)
 	html_text_init (text_object, &html_text_class, text, font, painter);
 
 	return HTML_OBJECT (text_object);
+}
+
+void
+html_text_insert_text (HTMLText *text, HTMLCursor *cursor, const gchar *p, guint len)
+{
+	g_return_if_fail (text != NULL);
+	g_return_if_fail (p != NULL);
+	g_return_if_fail (cursor->object != HTML_OBJECT (text));
+
+	if (len == 0)
+		return;
+
+	(* HT_CLASS (text)->insert_text) (text, cursor, p, len);
 }
