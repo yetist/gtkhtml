@@ -291,6 +291,7 @@ image_insertion (GtkHTMLControlData *cd, gpointer *set_data)
 	gtk_box_pack_start_defaults (GTK_BOX (mhb), vb1);
 
 	data->disable_change = FALSE;
+	gtk_widget_show_all (mhb);
 
 	return mhb;
 }
@@ -366,6 +367,8 @@ image_properties (GtkHTMLControlData *cd, gpointer *set_data)
 
 	gtk_option_menu_set_history (GTK_OPTION_MENU (d->sel_align), d->align);
 	d->disable_change = FALSE;
+
+	gtk_widget_show_all (w);
 
 	return w;
 }

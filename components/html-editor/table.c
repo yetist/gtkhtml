@@ -25,6 +25,7 @@
 
 #include "gtkhtml.h"
 
+#include "htmlclue.h"
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
 #include "htmlcursor.h"
@@ -72,6 +73,10 @@ typedef struct
 	gint       border;
 	GtkWidget *spin_border;
 
+	gboolean        changed_align;
+	HTMLHAlignType  align;
+	GtkWidget      *option_align;
+
 } GtkHTMLEditTableProperties;
 
 #define CHANGE gtk_html_edit_properties_dialog_change (d->cd->properties_dialog)
@@ -80,19 +85,9 @@ typedef struct
 static void
 fill_sample (GtkHTMLEditTableProperties *d)
 {
-	gchar *body, *html, *bg_color, *bg_pixmap, *spacing;
+	gchar *body, *html, *bg_color, *bg_pixmap, *spacing, *align;
 
-	body    = html_engine_save_get_sample_body (d->cd->html->engine, NULL);
-	/* width   = d->set [GTK_HTML_EDIT_RULE_WIDTH]
-		? g_strdup_printf (" width=%d%s", VAL (WIDTH),
-				   d->percent ? "%" : "") : g_strdup ("");
-	size    = d->set [GTK_HTML_EDIT_RULE_SIZE]
-		? g_strdup_printf (" size=%d", VAL (SIZE))
-		: g_strdup ("");
-	noshade = g_strdup (d->shaded ? "" : " noshade");
-	align   = d->align != HTML_HALIGN_CENTER ? g_strdup_printf (" align=%s",
-								    d->align == HTML_HALIGN_LEFT ? "left" : "right")
-								    : g_strdup (""); */
+	body      = html_engine_save_get_sample_body (d->cd->html->engine, NULL);
 	bg_color  = d->has_bg_color
 		? g_strdup_printf (" bgcolor=\"#%02x%02x%02x\"",
 				   d->bg_color.red >> 8,
@@ -104,7 +99,12 @@ fill_sample (GtkHTMLEditTableProperties *d)
 		: g_strdup ("");
 	spacing = g_strdup_printf (" cellspacing=\"%d\" cellpadding=\"%d\" border=\"%d\"", d->spacing, d->padding, d->border);
 
-	html      = g_strconcat (body, "<table", bg_color, bg_pixmap, spacing, ">"
+	align   = d->align != HTML_HALIGN_LEFT && d->align != HTML_HALIGN_NONE
+		? g_strdup_printf (" align=\"%s\"",
+				   d->align == HTML_HALIGN_CENTER ? "center" : "right")
+		: g_strdup ("");
+
+	html      = g_strconcat (body, "<table", bg_color, bg_pixmap, spacing, align, ">"
 				 "<tr><th>Header</th><th>1</th></tr>"
 				 "<tr><td>Normal</td><td>2</td></tr></table>", NULL);
 	printf ("html: %s\n", html);
@@ -114,6 +114,7 @@ fill_sample (GtkHTMLEditTableProperties *d)
 	g_free (bg_color);
 	g_free (bg_pixmap);
 	g_free (spacing);
+	g_free (align);
 	g_free (html);
 }
 
@@ -131,6 +132,7 @@ data_new (GtkHTMLControlData *cd)
 	data->border            = 1;
 	data->spacing           = 1;
 	data->padding           = 1;
+	data->align             = HTML_HALIGN_NONE;
 
 	/* default values
 	data->width          = 100;
@@ -211,6 +213,7 @@ changed_padding (GtkWidget *w, GtkHTMLEditTableProperties *d)
 	FILL;
 	CHANGE;
 }
+
 static void
 changed_border (GtkWidget *w, GtkHTMLEditTableProperties *d)
 {
@@ -218,6 +221,15 @@ changed_border (GtkWidget *w, GtkHTMLEditTableProperties *d)
 	d->changed_border = TRUE;
 	FILL;
 	CHANGE;
+}
+
+static void
+changed_align (GtkWidget *w, GtkHTMLEditTableProperties *d)
+{
+	d->align = g_list_index (GTK_MENU_SHELL (w)->children, gtk_menu_get_active (GTK_MENU (w))) + HTML_HALIGN_LEFT;
+	d->changed_align = TRUE;
+	FILL;
+	CHANGE;	
 }
 
 static GtkWidget *
@@ -261,6 +273,10 @@ table_widget (GtkHTMLEditTableProperties *d)
 	d->spin_border  = glade_xml_get_widget (xml, "spin_border");
 	gtk_signal_connect (GTK_OBJECT (d->spin_border), "changed", changed_border, d);
 
+	d->option_align = glade_xml_get_widget (xml, "option_table_align");
+	gtk_signal_connect (GTK_OBJECT (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_align))), "selection-done",
+			    changed_align, d);
+
 	gtk_box_pack_start (GTK_BOX (table_page), sample_frame (&d->sample), FALSE, FALSE, 0);
 	fill_sample (d);
 
@@ -288,6 +304,9 @@ set_ui (GtkHTMLEditTableProperties *d)
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_spacing), d->spacing);
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_padding), d->padding);
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (d->spin_border),  d->border);
+
+	gtk_option_menu_set_history (GTK_OPTION_MENU (d->option_align), d->align == HTML_HALIGN_NONE ? 0
+				     : d->align - HTML_HALIGN_LEFT);
 }
 
 static void
@@ -312,6 +331,9 @@ get_data (GtkHTMLEditTableProperties *d)
 	d->spacing = d->table->spacing;
 	d->padding = d->table->padding;
 	d->border  = d->table->border;
+
+	g_return_if_fail (HTML_OBJECT (d->table)->parent);
+	d->align   = HTML_CLUE (HTML_OBJECT (d->table)->parent)->halign;
 }
 
 
@@ -379,6 +401,10 @@ table_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 	if (d->changed_border) {
 		html_engine_table_set_border_width (d->cd->html->engine, d->table, d->border, FALSE);
 		d->changed_border = FALSE;
+	}
+	if (d->changed_align) {
+		html_engine_table_set_align (d->cd->html->engine, d->table, d->align);
+		d->changed_align = FALSE;
 	}
 }
 
