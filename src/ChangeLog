@@ -2,6 +2,9 @@
 
 	* htmlengine-edit-cut-and-paste.c (append_object): freeze/thaw
 	engine and set changes
+	(html_engine_append_object): removed freeze/thaw here
+	(insert_object): moved tables fix here (from insert_object_do as
+	we don't want two UNDO steps to be created)
 
 	* htmlinterval.c (html_interval_flat): make this method public
 	(html_interval_select): use flat interval

@@ -588,12 +588,6 @@ insert_object_do (HTMLEngine *e, HTMLObject *obj, guint len, gboolean check, HTM
 	GList *first = NULL, *last = NULL;
 	gint level;
 
-	/* FIXME for tables */
-	if (obj->klass->type == HTML_TYPE_TABLE) {
-		append_object (e, obj, len, dir);
-		return;
-	}
-
 	html_engine_freeze (e);
 	if (HTML_IS_TABLE (e->cursor->object)) {
 		gint offset = e->cursor->offset;
@@ -679,8 +673,13 @@ insert_setup_undo (HTMLEngine *e, guint len, HTMLUndoDirection dir)
 static void
 insert_object (HTMLEngine *e, HTMLObject *obj, guint len, HTMLUndoDirection dir, gboolean check)
 {
-	insert_object_do (e, obj, len, check, dir);
-	insert_setup_undo (e, len, dir);
+	/* FIXME for tables */
+	if (obj->klass->type == HTML_TYPE_TABLE)
+		append_object (e, obj, len, dir);
+	else {
+		insert_object_do (e, obj, len, check, dir);
+		insert_setup_undo (e, len, dir);
+	}
 }
 
 void
@@ -938,7 +937,5 @@ append_object (HTMLEngine *e, HTMLObject *o, guint len, HTMLUndoDirection dir)
 void
 html_engine_append_object (HTMLEngine *e, HTMLObject *o, guint len)
 {
-	html_engine_freeze (e);
 	append_object (e, o, len, HTML_UNDO_UNDO);
-	html_engine_thaw (e);
 }
