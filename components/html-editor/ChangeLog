@@ -1,3 +1,9 @@
+2001-01-04  Radek Doulik  <rodo@helixcode.com>
+
+	* popup.c: update to type changes
+
+	* editor-control-factory.c: update to type changes
+
 2000-12-15  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* image.c (ADD_ITEM),(ADD_VAL): Put the gettext stuff out of the macros

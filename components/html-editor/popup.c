@@ -23,7 +23,7 @@
 #include "gtkhtml.h"
 #include "htmlcursor.h"
 #include "htmlengine.h"
-#include "htmllinktextmaster.h"
+#include "htmllinktext.h"
 #include "htmlengine-edit-cut-and-paste.h"
 #include "htmlimage.h"
 #include "htmlselection.h"
@@ -209,7 +209,7 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 
 	if (html_engine_is_selection_active (e)
 	    || (obj
-		&& (HTML_OBJECT_TYPE (obj) == HTML_TYPE_LINKTEXTMASTER
+		&& (HTML_OBJECT_TYPE (obj) == HTML_TYPE_LINKTEXT
 		    || (HTML_OBJECT_TYPE (obj) == HTML_TYPE_IMAGE
 			&& (HTML_IMAGE (obj)->url
 			    || HTML_IMAGE (obj)->target))))) {
@@ -251,8 +251,8 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 			ADD_ITEM ("Link...", prop_dialog, GTK_HTML_EDIT_PROPERTY_LINK);
 			ADD_PROP (LINK);
 			break;
-		case HTML_TYPE_LINKTEXTMASTER:
-		case HTML_TYPE_TEXTMASTER:
+		case HTML_TYPE_LINKTEXT:
+		case HTML_TYPE_TEXT:
 			ADD_SEP;
 			ADD_PROP (TEXT);
 			ADD_ITEM ("Text...", prop_dialog, GTK_HTML_EDIT_PROPERTY_TEXT);

@@ -125,8 +125,8 @@ release (GtkWidget *widget, GdkEventButton *event, GtkHTMLControlData *cd)
 	if (cd->obj) {
 		switch (HTML_OBJECT_TYPE (cd->obj)) {
 		case HTML_TYPE_IMAGE:
-		case HTML_TYPE_LINKTEXTMASTER:
-		case HTML_TYPE_TEXTMASTER:
+		case HTML_TYPE_LINKTEXT:
+		case HTML_TYPE_TEXT:
 		case HTML_TYPE_RULE:
 			run_dialog = TRUE;
 			break;
@@ -150,14 +150,14 @@ release (GtkWidget *widget, GdkEventButton *event, GtkHTMLControlData *cd)
 									   image_close_cb);
 				start = GTK_HTML_EDIT_PROPERTY_IMAGE;
 				break;
-			case HTML_TYPE_LINKTEXTMASTER:
-			case HTML_TYPE_TEXTMASTER:
+			case HTML_TYPE_LINKTEXT:
+			case HTML_TYPE_TEXT:
 				gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 									   GTK_HTML_EDIT_PROPERTY_TEXT, _("Text"),
 									   text_properties,
 									   text_apply_cb,
 									   text_close_cb);
-				start = (HTML_OBJECT_TYPE (cd->obj) == HTML_TYPE_TEXTMASTER)
+				start = (HTML_OBJECT_TYPE (cd->obj) == HTML_TYPE_TEXT)
 					? GTK_HTML_EDIT_PROPERTY_TEXT
 					: GTK_HTML_EDIT_PROPERTY_LINK;
 						
