@@ -22,12 +22,14 @@ libgtkhtmldir = $(includedir)/gtkhtml
 
 libgtkhtml_HEADERS =				\
 	gtkhtml-embedded.h			\
+	gtkhtml-enums.h				\
 	gtkhtml-im.h				\
 	gtkhtml-input.h				\
 	gtkhtml-private.h			\
 	gtkhtml-properties.h			\
 	gtkhtml-search.h			\
 	gtkhtml-stream.h			\
+	gtkhtml-types.h				\
 	gtkhtml.h				\
 	gtkhtmldebug.h				\
 	gtkhtmlfontstyle.h			\

@@ -1,5 +1,13 @@
 2000-11-21  Radek Doulik  <rodo@helixcode.com>
 
+	* gtkhtml.c (shift_to_iframe_parent): new helper function
+	(motion_notify_event): use shift_to_iframe_parent
+	(button_press_event): shift_to_iframe_parent
+	(button_release_event): shift_to_iframe_parent
+
+	* Makefile.am (libgtkhtml_HEADERS): added gtkhtml-enums.h and
+	gtkhtml-types.h to libgtkhtml_HEADERS
+
 	* htmlinterval.c (do_downtree_lines_intersection): follow engine
 	on way down
 
