@@ -10,10 +10,10 @@ Main authors:
 	Ettore Perazzoli <ettore@helixcode.com> (generic hacking, editing)
 	Jonas Borgström <jonas_b@bitsmart.com> (form support)
 	Miguel de Icaza <miguel@helixcode.com> (HTMLPainter)
-	Richard Hult <rhult@hem2.passagen.se>
 
 Other contributors:
 
 	Ariel Rios <jarios@usa.net>
 	Havoc Pennington  <hp@pobox.com>
 	Elliot Lee  <sopwith@redhat.com>
+	Richard Hult <rhult@hem.passagen.se>
