@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.10\n"
-"POT-Creation-Date: 2001-11-03 06:22+0100\n"
+"POT-Creation-Date: 2001-11-03 22:17+0100\n"
 "PO-Revision-Date: 2001-11-03 06:20+0100\n"
 "Last-Translator: Roy-Magne Mo <rmo@sunnmore.net>\n"
 "Language-Team: Norwegian/Nynorsk <no@li.org>\n"
@@ -250,7 +250,7 @@ msgstr "Kopierer utval til utklippstavla"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:16
 msgid "Copy the selection"
-msgstr "Kopier vald område"
+msgstr "Kopier utval"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
 msgid "Cu_t"
@@ -668,8 +668,9 @@ msgid "_Replace..."
 msgstr "_Erstatt ..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
+#, fuzzy
 msgid "_Right"
-msgstr "_Høgre"
+msgstr "Høg_re"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
 msgid "_Roman Numeral List"
