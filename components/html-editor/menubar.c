@@ -629,7 +629,7 @@ menubar_set_languages (GtkHTMLControlData *cd)
 	str = g_string_new (NULL);
 	cd->block_language_changes = TRUE;
 	for (i = 0; i < cd->languages->_length; i ++) {
-		enabled = strstr (cd->language, cd->languages->_buffer [i].abbreviation) != NULL;
+		enabled = cd->language && strstr (cd->language, cd->languages->_buffer [i].abbreviation) != NULL;
 		g_string_printf (str, "/commands/SpellLanguage%d", i + 1);
 		bonobo_ui_component_set_prop (cd->uic, str->str, "state", enabled ? "1" : "0", NULL);
 	}
@@ -710,8 +710,7 @@ menubar_setup (BonoboUIComponent  *uic,
 	g_free (domain);
 
 	menubar_paragraph_style_changed_cb (cd->html, gtk_html_get_paragraph_style (cd->html), cd);
-	cd->menubar_style_changed_id = g_signal_connect (cd->html, "current_paragraph_style_changed",
-							 G_CALLBACK (menubar_paragraph_style_changed_cb), cd);
+
 	if (!cd->has_spell_control_set) {
 		cd->has_spell_control = spell_has_control ();
 		cd->has_spell_control_set = TRUE;
@@ -726,12 +725,3 @@ menubar_setup (BonoboUIComponent  *uic,
 	}
 }
 
-void
-menubar_detach (BonoboUIComponent  *uic,
-		GtkHTMLControlData *cd)
-{
-	g_signal_handler_disconnect (cd->html, cd->menubar_style_changed_id);
-	cd->menubar_style_changed_id = 0;
-
-	bonobo_ui_component_unset_container (uic, NULL);
-}

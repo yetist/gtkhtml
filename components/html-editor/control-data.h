@@ -109,9 +109,6 @@ struct _GtkHTMLControlData {
 
 	GtkWidget *file_dialog;
 	gboolean file_html;
-
-	/* Signal handler IDs that the menubar requires */
-	gulong menubar_style_changed_id;
 };
 
 GtkHTMLControlData * gtk_html_control_data_new       (GtkHTML *html, GtkWidget *vbox);

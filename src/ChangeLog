@@ -1,96 +1,17 @@
-2003-09-11  Larry Ewing  <lewing@ximian.com>
-
-	* htmlstyle.c (html_style_add_background_color): use htmlcolor.
-	(html_style_add_attribute): parse a few more attributes.
-
-	* htmlstyle.h: switch to using htmlcolor instead of gdkcolor.
-
-	* htmlengine.c (element_parse_table): support display:
-	inline-table, move to htmlelement code.
-	(element_parse_tr): move to htmlelement code.
-	(element_parse_cell): combine parse_th and parse_td logic into one
-	function, use htmlelement code.
-
-2003-09-10  Larry Ewing  <lewing@ximian.com>
-
-	* htmlengine.c (current_alignment): make alignment only work if we
-	cross a block element.
-	(html_element_push): don't pop the anon pre until we've pushed it.
-
-	* htmlstyle.c (html_style_add_attribute): add some new atttributes
-	to the attribute parsing code.
-	(html_style_add_attribute): fix accidental breakage.
-
-	* htmlengine.c: refactor the inline parsers to use html_element
-	code.
-
-2003-09-06  Larry Ewing  <lewing@ximian.com>
-
-	* htmltablecell.c (save): use the right tag when closing cells
-	(original patch by Roy Rankin).
-
-2003-09-05  Larry Ewing  <lewing@ximian.com>
-
-	* htmlengine.c (pop_element_by_type): add new pop element variant
-	that takes the display type as an argument.  This cleans up the
-	places where we use pop_element to restructure the document as
-	little more.
-
 2003-09-05  Antonio Xu  <antonio.xu@sun.com>
 
 	* gtkhtml.c (new_obj_from_uri): Use HTML_IS_PLAIN_PAINTER to judge
 	html edit model, and use g_filename_from_uri to get the image file's
 	real path, fix bug #47988 #47990.
 
-2003-09-04  Larry Ewing  <lewing@ximian.com>
-
-	* htmlengine.c (current_font_style): optimize this a little and
-	don't traverse above table cells when looking for the font style
-	(this happens a lot and we might be deep in a table).
-
-	* htmlstyle.c: add html_style_set_display.
-	
-	* htmlstyle.h: add html_style_set_display prototype and
-	HTMLDisplayType enum.
-	
-	* htmlengine.c: add style display type and move from using the id
-	to using the display type for document fixups and style lookups.
-	Remove the level setting as well and only use the display style.
-
 2003-09-03  Dan Winship  <danw@ximian.com>
 
 	* Makefile.am (testgtkhtml_LDFLAGS): Remove -static again
 
-2003-09-02  Maxx Cao  <maxx.cao@sun.com>
-	* gtkhtml.c (focus): reset selection when focus moved
-	(move_selection):  add consideration for caret mode
-	(command): handle selection command for caret mode
-	* htmlengine-edit-cursor.c (clip_cursor): fixed some calculation
-	error
-	* htmlengine-edit.c (html_engine_set_mark): consider caret mode
-	* htmlengine.c (html_engine_draw_real): consider caret mode
-	* htmlselection.c (remove_mark): consider caret mode
+2003-09-01  Maxx Cao  <maxx.cao@sun.com>
 
-2003-09-01  Yuedong Du  <yuedong.du@sun.com>
-
-        * htmlobject.c: (destroy), (copy), (html_object_init),
-        (html_object_get_index), (html_object_set_data_nocp),
-        (html_object_set_data_full_nocp), (html_object_get_data_nocp): add
-        new data list just to avoid copy when duplicate html object.
-        * htmlobject.h: ditto
-
-2003-08-28  Larry Ewing  <lewing@ximian.com>
-
-	* gtkhtml.c (drag_data_received): add back some missing logic.
-
-2003-08-27  Larry Ewing  <lewing@ximian.com>
-
-	* gtkhtml.c (drag_data_received): use selection_recieved to handle
-	incoming drops and add text/html as a supported drop type.
-
-2003-08-23  Larry Ewing  <lewing@ximian.com>
-
-	* htmlstyle.c (parse_color): fix copy length.
+	* htmltextslave.c (get_offset_for_pointer): add consideration for
+	one-character text, fix bug #47676.
 
 2003-08-15  Antonio Xu  <antonio.xu@sun.com>
 
@@ -104,263 +25,28 @@
 
 2003-08-12  Antonio Xu  <antonio.xu@sun.com>
 
-       * gtkhtml.c (new_obj_from_uri): Use pixbuf to judge what kind of
-       image type being supported by gtkhtml, fix bug #47543.
+	* gtkhtml.c (new_obj_from_uri): Use pixbuf to judge what kind of
+	image type being supported by gtkhtml, fix bug #47543.
 
 2003-08-07  Larry Ewing  <lewing@ximian.com>
 
-	* htmlengine.c: more formatting changes, fix inPre to actually be
-	correct when in a pre block.
-
-2003-08-07  Radek Doulik  <rodo@ximian.com>
-
-	* htmltextslave.c (get_glyphs): watch for RECALC_PI changes
-
-	* htmlengine.c (html_engine_set_painter): set ALL changes to
-	recreate pango info and glyphs
-
-	* htmltextslave.c (update_lb): extracted function
-	(hts_fit_line): similar changes as in htmltext.c(calc_min_width)
-
-	* htmltext.c (calc_nb_before): fix direction. it doesn't work very
-	well now though, we need to join text objects with different
-	styles badly.
-	(calc_nb_after): likewise
-	(update_mw): new extracted function
-	(calc_min_width): use update_mw, fix line breaking between items
-	inside text
-
-2003-08-06  Radek Doulik  <rodo@ximian.com>
-
-	* htmlpainter.c (shift_glyphs): shift glyphs by 2 list items as it
-	now contains pango item indexes as well
-
-2003-08-05  Radek Doulik  <rodo@ximian.com>
-
-	* gtkhtml.c (drag_motion): new method, show cursor during drag
-	motion
-	image resize by moving image's right bottom corner
+	* gtkhtml.c (key_press_event): only reset the blinking cursor if
+	we are editable.
 
 2003-08-01  Radek Doulik  <rodo@ximian.com>
 
-	* introduced html_engine_get_{left|right|top|bottom}_border, use
-	them everywhere
-
-	* htmlengine.c (html_engine_calc_size): force default border
-	widths for plain painter
-
 	* htmlobject.c (get_length): objects not accepting cursor have
 	zero length
-
-2003-07-31  Radek Doulik  <rodo@ximian.com>
-
-	* htmlengine-save.c (get_body): save margins
-
-	* gtkhtml.c (new_obj_from_uri): use strcasecmp instead of strcmp
-	for image extensions
-	added .svg[z] for Jakub
-
-	* htmlengine-edit.c (html_engine_select_spell_word_editable): fix
-	cittation
-
-2003-07-30  Radek Doulik  <rodo@ximian.com>
-
-	* htmltextslave.c: as below
-
-	* htmltext.c: break text on item boundaries
-
-2003-07-30  Larry Ewing  <lewing@ximian.com>
-
-	* htmlengine.c: fix logic that was causing some extra p breaks on
-	/. move some blocks around.
-	
-	* htmlengine.c: spit up the element parsers into separate
-	functions invoked from the dispatch table.  This causes a lot of
-	code churn but should end up being largely the same functionally.
-	The next step is to combine the simialar functions which should
-	reduce the code size quite a bit.
-
-2003-07-29  Larry Ewing  <lewing@ximian.com>
-
-	* htmlengine.c: change the id from a static enum to a gquark so
-	that we can move towards a dispatch table.  Remove pending_para it
-	was evil and never actually turned on anymore.
-	(parse_one_token): switch to using a dynamic dispatch table for
-	the token parsing.
-
-	* htmlengine.h: remove pending_para it was the wrong way to do
-	this and leads to more trouble than good.
-
-2003-07-29  Radek Doulik  <rodo@ximian.com>
-
-	* htmlgdkpainter.c (draw_text): use str instead of dereferencing
-	list data, list is already shifted at this point
-
-	* htmlplainpainter.c: as below
-
-	* htmlgdkpainter.c: use item intex from glyphs list
-
-	* htmltextslave.c: put item index to glyphs list
 
 2003-07-28  Radek Doulik  <rodo@ximian.com>
 
 	* htmltext.c (get_tags): fix color check to save color attribute
 	for blue text
 
-2003-07-26  Larry Ewing  <lewing@ximian.com>
-
-	* htmlengine.c (parse_p): make sure we update the alignment even
-	if we don't start a new flow.
-
-2003-07-25  Larry Ewing  <lewing@ximian.com>
-
-	* Makefile.am (noinst_PROGRAMS): bump version numbers.
-
-2003-07-25  Radek Doulik  <rodo@ximian.com>
-
-	* htmltextslave.c (hts_fit_line): don't set width for empty slaves
-	(they need width == 1 to be able to be selected)
-	(get_offset_for_pointer): fix len initialization, fix border
-	conditions
-	(get_offset_for_pointer): extracted calc_offset function, handle
-	slave->posLen < 2 as special case
-	(hts_fit_line): pass start_pointer to split, hinted by Larry
-
-2003-07-24  Larry Ewing  <lewing@ximian.com>
-
-	* htmlvspace.[ch]: remove these files that haven't been in the
-	build for ages.
-	
-	* htmltypes.h: remove vspace reference.
-
-	* htmltype.c (html_type_name): remove vspace reference.
-
-	* htmlenums.h: remove vspace references.
-
-	* htmlengine.c: redo anchor closing logic.  Change dir parsing.
-	
-	* htmlengine.c (parse_d): don't push another level for DT just
-	keep the DL level.  We should however set the item flag but we can
-	do that later.	
-
-2003-07-23  Larry Ewing  <lewing@ximian.com>
-
-	* htmlengine.c:  Rewrite the block stack and move most of the
-	closing element logic into the end functions.  make all the
-	various block elements have the same level.  Redo list parsing.
-	This patch encompasses a lot of changes it probably breaks a few
-	things.
-	(push_block_element): merge the block stack and the span stack
-	into one structure.
-	(block_end_map): a new end function for maps.  This is tested and
-	conforms to what mozilla does.
-	(block_end_option): a nes end function for options, has not yet
-	been tested.
-
-	* htmltypes.h: remove the blockstack element typedef it shouldn't
-	have been here in the first place.
-
-	* htmlengine.h: remove the now unused blockstack.
-
-2003-07-23  Radek Doulik  <rodo@ximian.com>
-
-	* htmlengine.c (html_engine_set_painter): fix printing, don't
-	reset pango info on painter switching
-
-2003-07-20  Larry Ewing  <lewing@ximian.com>
-
-	* htmlengine.c (pop_element): move everything to using the pop
-	element, makr pop_block a special case of the pop_element code.
-	(block_end_heading): make a helper function so that the this
-	closing code can be remove from the parser section.
-	(parse_t): make the <th> and <td> parser get the alignment from
-	after we've fixed up the block stack.
-
-2003-07-19  Larry Ewing  <lewing@ximian.com>
-
-	* htmlengine.c: remove all occurances of push/pop_span, use the
-	element interface directly.  Start work on new element interface.
-
-	* htmlstyle.c (html_style_set_font_size): make sure to mask the
-	whole size when setting the size.
-
-2003-07-17  Larry Ewing  <lewing@ximian.com>
-
-	* htmlengine.c (parse_p): still push the element if avoid para is
-	true since we want to pick up alignment changes etc.
-
-2003-07-16  Larry Ewing  <lewing@ximian.com>
-
-	* htmlengine.c (parse_color): no longer zero fill to match
-	mozilla, opera etc.
-	(current_row_align): add hack to get the current row alignment.
-	(parse_t): use current_row_align in th and td.  Also on't
-	explicitly override the aligment in td.
-
-	* htmlstyle.c (parse_color): no longer zero fill because mozilla
-	doesn't (netscape did).
-
-	* htmlengine.c: big refactoring of the parser logic, makes table
-	parse incremental and moves a bunch of the logic into the style
-	code.  Needs more work to make it clean but I want it in CVS now.
-
-	* htmlengine.h: add and remove some members for the new parser.
-
 2003-07-15  Radek Doulik  <rodo@ximian.com>
 
 	* htmlprinter.c (alloc_font): fallback to 1st available font only
 	when default fonts aren't available
-
-2003-07-15  Yuedong Du  <yuedong.du>
-
-	* gtkhtml.c: (set_caret_mode): stop blinking cursor if turn the caret
-	mode off. 
-	(style_set): according to Larry's suggestion, do not widget
-	style to implement caret mode.
-	(gtk_html_class_init): ditto.
-	(gtk_html_set_caret_mode), (gtk_html_get_caret_mode): new function
-	to get/set the caret mode flag.
-
-	* gtkhtml.h: declaration of the new function, and remove duplicate
-	declaration of declaration.
-
-2003-07-10  Larry Ewing  <lewing@ximian.com>
-
-	* htmldrawqueue.c: remove unused function.
-
-	* htmlengine-edit-cursor.c (clip_cursor): rename and do a little
-	cleanup.
-
-2003-07-10  Yuedong Du  <yuedong.du@sun.com>
-
-	* gtkhtml.c (set_caret_mode): new function to enable caret mode.
-	(style_set): set the caret mode flag according to style.
-	(button_press_event): when caret mode is on, mouse click will
-	cause cursor jump to the clicked position. 
-	(gtk_html_class_init): introduce a new style property. 
-	(cursor_move): remove the limitation that curosr can only be moved
-	in html editor.
-
-	* htmlengine-edit-cursor.c (html_engine_hide_cursor): ditto, and
-	when reading html mail, cursor need to be draw on the embedded html
-	widget. So need to find the right widget when drawing. 
-	(html_engine_show_cursor): ditto
-	(clip_rect): don't return false in the case that x1,y1 is equal to 
-	x1+width, y1+height.
-	(html_engine_draw_cursor_in_area): when drawing cursor on embedded 
-	gtkhtml widget, remember the cursor position is actually related to
-	top html widget. So we need sub the offset of embedded html widget.
-
-	* htmlengine-eidt-movement.c (html_engine_scroll_down): fix a small
-	bug that cause the hide count of htmlcursor incorrect.
-
-	* htmlengine.h: introduce new flag into HTMLEngine, to indicate
-	whether caret mode is on.
-
-	* htmlengine.c: setup blinking cursor when caret mode is on.
-
-	* htmliframe.c: initialize the cursor_hide_count in embedded html
-	engine. see bug #44607
 
 2003-07-03  Radek Doulik  <rodo@ximian.com>
 
@@ -371,57 +57,10 @@
 	* gtkhtml.c (key_press_event): reset blinking cursor if key was
 	used
 
-2003-07-09  Larry Ewing  <lewing@ximian.com>
-
-	* htmlengine.c (html_engine_freeze):  only process the updates on
-	the first freeze, and add some checking to call (to fix the other
-	problem York pointed out on irc.)
-
-2003-07-08  Larry Ewing  <lewing@ximian.com>
-
-	* htmltextslave.c (draw_focus): substitute p with painter (Thanks
-	to York for pointing it out).
-
-	* htmlimage.c (draw_focus): subsitute p with painter.
-
-	* htmlclueflow.c: remove draw_background.
-
-	* htmldrawqueue.c: don't do any drawing directly, simply
-	invalidate the regions, let the expose handler deal with the
-	drawing.  Remove a lot of unused cruft and focus drawing code.
-	
-        * htmlengine.c: make all the draw queues invalidate the regions
-	instead of drawing directly.
-
-	* htmlengine.h: remove draw_focus_object, that is handled by the
-	object's ::draw method now.
-
-	* htmlframe.c: remove draw_background.
-
-	* htmlframeset.c: remove draw_background.
-
-	* htmliframe.c: remove draw_background.
-
-	* htmlimage.c: rework animation timeout handling, make
-	area_updated do something useful.
-
-	* htmlobject.c: remove drawbackgound code.
-
-	* htmlobject.h: add draw_focused boolean.
-
-	* htmltable.c: remove ::draw_background logic that is no longer
-	used.
-	
-	* htmltablecell.c: remove draw_background code that is no longer
-	used.
-
-	* htmltextslave.c (draw_focus): add a method to draw focus here.
-	The drawing routine should be into the painter next.
-
 2003-07-07  Yuedong Du  <yuedong.du@sun.com>
 
-	* gtkhtml.c (add_bindings): remove keybinding for Control+Tab/
-	Shift+Control+Tab, fix bug #45825
+        * gtkhtml.c (add_bindings): remove keybinding for Control+Tab/
+        Shift+Control+Tab, fix bug #45825
 
 2003-06-27  Radek Doulik  <rodo@ximian.com>
 

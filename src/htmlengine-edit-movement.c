@@ -277,10 +277,8 @@ html_engine_scroll_down (HTMLEngine *engine,
 		if (new_y == y)
 			break;
 
-		if (new_y < start_y) {
-			html_engine_show_cursor (engine);
+		if (new_y < start_y)
 			return 0;
-		}
 
 		if (new_y - start_y >= amount) {
 			html_cursor_copy (cursor, &prev_cursor);

@@ -95,7 +95,7 @@ typedef struct _SetFrameData SetFrameData;
 static GtkHTMLEditorAPI *editor_api;
 
 static void
-activate_cb (BonoboControl      *control,
+activate_ui_cb (BonoboControl      *control,
 	     gboolean            active,
 	     GtkHTMLControlData *cd)
 {
@@ -113,8 +113,7 @@ activate_cb (BonoboControl      *control,
 		bonobo_object_release_unref (remote_ui_container, NULL);
 
 		menubar_setup (ui_component, cd);
-	} else
-		menubar_detach (ui_component, cd);
+	}
 }
 
 static void
@@ -126,8 +125,6 @@ set_frame_cb (BonoboControl *control,
 	GtkWidget *scrolled_window;
 	Bonobo_ControlFrame frame;
 
-	/* printf ("set_frame_cb\n"); */
-
 	control_data = (GtkHTMLControlData *) data;
 
 	frame = bonobo_control_get_control_frame (control, NULL);
@@ -135,6 +132,7 @@ set_frame_cb (BonoboControl *control,
 		return;
 
 	CORBA_Object_release (frame, NULL);
+
 	control_data->uic = bonobo_control_get_ui_component (control);
 
 	/* Setup the tool bar.  */
@@ -149,6 +147,9 @@ set_frame_cb (BonoboControl *control,
 	gtk_widget_show_all (scrolled_window);
 
 	gtk_box_pack_start (GTK_BOX (control_data->vbox), scrolled_window, TRUE, TRUE, 0);
+
+	/* hack to setup the bonobo ui if activate isn't working */
+	activate_ui_cb (control, TRUE, control_data);
 
 	gtk_html_set_editor_api (GTK_HTML (control_data->html), editor_api, control_data);
 }
@@ -239,7 +240,7 @@ load_from_file (GtkHTML *html,
 	unsigned char buffer[4096];
 	int len;
 	int fd;
-        const char *path;
+        char *path;
 
         if (strncmp (url, "file:", 5) == 0)
 		path = g_filename_from_uri(url, NULL, NULL);
@@ -625,7 +626,7 @@ editor_control_construct (BonoboControl *control, GtkWidget *vbox)
 	   embedded in its control frame.  We use the "set_frame" signal to
 	   handle that.  */
 
-	g_signal_connect (control, "activate", G_CALLBACK (activate_cb), cd);
+	/* g_signal_connect (control, "activate", G_CALLBACK (activate_ui_cb), cd); */
 	g_signal_connect (control, "set_frame", G_CALLBACK (set_frame_cb), cd);
 	g_signal_connect (html_widget, "url_requested", G_CALLBACK (url_requested_cb), cd);
 	g_signal_connect (html_widget, "button_press_event", G_CALLBACK (html_button_pressed), cd);

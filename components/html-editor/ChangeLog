@@ -1,3 +1,26 @@
+2003-09-15  Larry Ewing  <lewing@ximian.com>
+
+	* editor-control-factory.c (set_frame_cb): activate the menu items
+	by hand in set_frame rather than using the activate signal.  The
+	has the effect of reverting most of the changes federico
+	introduced with the bonoboui fixes.
+
+	* control-data.c (gtk_html_control_data_new): remove now unused
+	detach handler id.
+
+	* menubar.c (menubar_set_languages): protect again a NULL language
+	setting.  Remove teh detach function.
+
+2003-09-02  Larry Ewing  <lewing@ximian.com>
+
+	* GNOME_GtkHTML_Editor-emacs.xml.in: add file with emacs friendly
+	keybindings converted by Alain Mellan (see Ximian #41187).
+
+	* menubar.c (menubar_setup): load emacs keybindings if the
+	use_emacs_keybindings is set in the class.
+
+	* Makefile.am: add rules for GNOME_GtkHTML_Editor-emacs.xml.in.
+
 2003-09-03  Radek Doulik  <rodo@ximian.com>
 
 	* menubar.c (menubar_set_languages): use control data languge
@@ -35,37 +58,15 @@
 
 2003-09-03  Dan Winship  <danw@ximian.com>
 
-	* Makefile.am (libgnome_gtkhtml_editor_3_1_la_LDFLAGS): Remove
-	-no-undefined (which is wrong), and add -module.
-
-2003-09-02  Larry Ewing  <lewing@ximian.com>
-
-	* GNOME_GtkHTML_Editor-emacs.xml.in: add file with emacs friendly
-	keybindings converted by Alain Mellan (see Ximian #41187).
-
-	* menubar.c (menubar_setup): load emacs keybindings if the
-	use_emacs_keybindings is set in the class.
-
-	* Makefile.am: add rules for GNOME_GtkHTML_Editor-emacs.xml.in.
-
-2003-09-02  Radek Doulik  <rodo@ximian.com>
-
-	* body.c: renamed draft paper to graph paper as suggested by Aaron
+	* Makefile.am (libgnome_gtkhtml_editor_3_0_la_LDFLAGS): Remove
+	-no-undefined (which is wrong), and add -module
 
 2003-08-08  Yuedong Du  <yuedong.du@sun.com>
 
-	* menubar.c: fix a typo cause bullet list not work. See bug 
-	#47387
+        * menubar.c: fix a typo cause bullet list not work. See bug
+        #47387
 
-2003-07-31  Radek Doulik  <rodo@ximian.com>
-
-	* replace.c (ask_dialog_response): as below
-
-	* search.c (search_dialog_response): as below
-
-	* properties.c (prop_close): grab focus after closing prop dialog
-
-2003-06-28  Alex Jiang <alex.jiang@sun.com>
+2003-07-28  Alex Jiang <alex.jiang@sun.com>
 
 	* image.c (changed_template): before clear option data, check 
 	if we are using the same template. Fixes #44705
