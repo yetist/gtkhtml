@@ -31,13 +31,7 @@
 
 typedef struct _HTMLBlockingToken HTMLBlockingToken;
 typedef struct _HTMLTokenBuffer   HTMLTokenBuffer;
-typedef gchar *                   HTMLTokenPtr;
 typedef	enum { Table }            HTMLTokenType;
-
-struct _HTMLBlockingToken {
-	HTMLTokenType ttype;
-	HTMLTokenPtr tok;
-};
 
 struct _HTMLTokenBuffer {
 	gint size;
@@ -59,6 +53,10 @@ struct _HTMLTokenizer {
 
 	/* position in the read_buf */
 	gint read_pos;
+
+	/* non-blocking and blocking unreaded tokens in tokenizer */
+	gint tokens_num;
+	gint blocking_tokens_num;
 
 	gchar *dest;
 	gchar *buffer;
@@ -126,14 +124,10 @@ static void           html_tokenizer_append_token_buffer (HTMLTokenizer *t,
 							  gint min_size);
 
 /* blocking tokens */
-static HTMLBlockingToken *html_blocking_token_new            (HTMLTokenType ttype,
-							      HTMLTokenPtr tok);
-static gchar             *html_blocking_token_get_token_name (HTMLBlockingToken *token);
-static HTMLBlockingToken *html_blocking_token_get_last       (HTMLTokenizer *t);
-static gboolean           html_blocking_token_is_empty       (HTMLTokenizer *t);
-static void               html_blocking_token_remove_last    (HTMLTokenizer *t);
-static void               html_blocking_token_append         (HTMLTokenizer *t,
-							      HTMLBlockingToken *bt);
+static gchar             *html_tokenizer_blocking_get_name   (HTMLTokenizer *t);
+static void               html_tokenizer_blocking_pop        (HTMLTokenizer *t);
+static void               html_tokenizer_blocking_push       (HTMLTokenizer *t,
+							      HTMLTokenType tt);
 
 static HTMLTokenBuffer *
 html_token_buffer_new (gint size)
@@ -167,6 +161,7 @@ html_token_buffer_append_token (HTMLTokenBuffer * buf, const gchar *token, gint 
 	buf->used += len;
 	buf->data [buf->used] = 0;
 	buf->used ++;
+	printf ("append token %s\n", buf->data + buf->used - len - 1);
 
 	return TRUE;
 }
@@ -264,23 +259,16 @@ html_tokenizer_next_token (HTMLTokenizer *t)
 		t->read_pos = strlen (token) + 1;
 	}
 
+	t->tokens_num--;
+	g_assert (t->tokens_num >= 0);
+
 	return token;
 }
 
 gboolean
 html_tokenizer_has_more_tokens (HTMLTokenizer *t)
 {
-	if (!html_blocking_token_is_empty (t))
-		return FALSE;
-
-	/*    && (html_blocking_token_get_first (t))->tok == t->curr)
-		return FALSE;
-		return ((t->curr != 0 ) && (t->curr != t->next)); */
-
-	/* there is token in read buffer or there is next read buffer */
-	return (t->read_buf
-		&& (t->read_buf->used > t->read_pos
-		    || (t->read_buf->used <= t->read_pos && t->read_cur->next)));
+	return t->tokens_num > 0;
 }
 
 void
@@ -295,9 +283,13 @@ html_tokenizer_reset (HTMLTokenizer *t)
 		cur = cur->next;
 	}
 
+	/* reset buffer list */
 	t->token_buffers = t->read_cur = NULL;
 	t->read_buf = t->write_buf = NULL;
 	t->read_pos = 0;
+
+	/* reset token counters */
+	t->tokens_num = t->blocking_tokens_num = 0;
 
 	if (t->buffer)
 		g_free (t->buffer);
@@ -378,6 +370,12 @@ html_tokenizer_append_token (HTMLTokenizer *t, const gchar *string, gint len)
 		html_tokenizer_append_token_buffer (t, len+1);
 		/* now it must pass as we have enough space */
 		g_assert (html_token_buffer_append_token (t->write_buf, string, len));
+	}
+
+	if (t->blocking) {
+		t->blocking_tokens_num++;
+	} else {
+		t->tokens_num++;
 	}
 }
 
@@ -838,16 +836,15 @@ html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 				g_warning ("<cell> tag not supported");
 			}
 			else if (strncmp (t->buffer + 2, "table", 5) == 0) {
-				html_blocking_token_append (t, html_blocking_token_new (Table, "table>"));
+				html_tokenizer_blocking_push (t, Table);
 			}
 			else {
-				if (!html_blocking_token_is_empty (t)) {
-					HTMLBlockingToken * bt = html_blocking_token_get_last (t);
-					const gchar *bn = html_blocking_token_get_token_name (bt);
+				if (t->blocking) {
+					const gchar *bn = html_tokenizer_blocking_get_name (t);
 
+					// printf ("compare tokens \"%s\" \"%s\"\n", bn, t->buffer+1);
 					if (strncmp (t->buffer + 1, bn, strlen (bn)) == 0) {
-						html_blocking_token_remove_last (t);
-						g_free (bt);
+						html_tokenizer_blocking_pop (t);
 					}
 				}
 			}
@@ -1003,20 +1000,10 @@ html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 		g_free (srcPtr);
 }
 
-HTMLBlockingToken *
-html_blocking_token_new (HTMLTokenType ttype, HTMLTokenPtr tok)
-{
-	HTMLBlockingToken *t = g_new0 (HTMLBlockingToken, 1);
-	t->ttype = ttype;
-	t->tok = tok;
-
-	return t;
-}
-
 gchar *
-html_blocking_token_get_token_name (HTMLBlockingToken *token)
+html_tokenizer_blocking_get_name (HTMLTokenizer *t)
 {
-	switch (token->ttype) {
+	switch (GPOINTER_TO_INT (t->blocking->data)) {
 	case Table:
 		return "</table";
 	}
@@ -1025,31 +1012,25 @@ html_blocking_token_get_token_name (HTMLBlockingToken *token)
 }
 
 void
-html_blocking_token_append (HTMLTokenizer *t, HTMLBlockingToken *bt)
+html_tokenizer_blocking_push (HTMLTokenizer *t, HTMLTokenType tt)
 {
-	t->blocking = g_list_prepend (t->blocking, (gpointer) bt);
+	/* block tokenizer - we must block last token in buffers as it was already added */
+	if (!t->blocking) {
+		t->tokens_num--;
+		t->blocking_tokens_num++;
+	}
+	t->blocking = g_list_prepend (t->blocking, GINT_TO_POINTER (tt));
 }
 
 void
-html_blocking_token_remove_last (HTMLTokenizer *t)
+html_tokenizer_blocking_pop (HTMLTokenizer *t)
 {
-	t->blocking = g_list_remove (t->blocking, (g_list_first (t->blocking))->data);
-}
+	t->blocking = g_list_remove (t->blocking, t->blocking->data);
 
-gboolean
-html_blocking_token_is_empty (HTMLTokenizer *t)
-{
-	return (g_list_length (t->blocking) == 0);
+	/* unblock tokenizer */
+	if (!t->blocking) {
+		printf ("unblock tokenizer\n");
+		t->tokens_num += t->blocking_tokens_num;
+		t->blocking_tokens_num = 0;
+	}
 }
-
-HTMLBlockingToken *
-html_blocking_token_get_last (HTMLTokenizer *t)
-{
-	return ((HTMLBlockingToken *)(g_list_first (t->blocking))->data);
-}
-
-/* HTMLBlockingToken *
-html_blocking_token_get_first (HTMLTokenizer *t)
-{
-	return ((HTMLBlockingToken *)(g_list_last (t->blocking))->data);
-} */
