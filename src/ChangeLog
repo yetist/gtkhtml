@@ -1,5 +1,15 @@
 2000-03-17  Jonas Borgström  <jonas_b@bitsmart.com>
 
+	Second attempt of fixing <br> sorry about this.
+	
+	* htmlengine.c (add_line_break): Only insert create_empty_text (); when
+	the clue is empty.
+	(new_flow): Only do html_clue_append if firstobject is non NULL.
+
+	* tests/bugs.html: Removed www.gimp.org entry, it looks great now.
+
+2000-03-17  Jonas Borgström  <jonas_b@bitsmart.com>
+
 	* htmltextslave.c (calc_size): Backed out my previous checkin.
 	It didn't handle multiple <br> after each other very well
 

@@ -256,7 +256,10 @@ add_line_break (HTMLEngine *e,
 	}
 #endif
 
-	new_flow (e, clue, create_empty_text (e));
+	if (HTML_CLUE (clue)->head)
+		new_flow (e, clue, NULL);
+	else
+		new_flow (e, clue, create_empty_text (e));
 }
 
 static void
@@ -302,7 +305,9 @@ new_flow (HTMLEngine *e,
 
 	HTML_CLUE (e->flow)->halign = e->divAlign;
 
-	html_clue_append (HTML_CLUE (e->flow), first_object);
+	if (first_object)
+		html_clue_append (HTML_CLUE (e->flow), first_object);
+
 	html_clue_append (HTML_CLUE (clue), e->flow);
 }
 
