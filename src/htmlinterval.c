@@ -66,3 +66,24 @@ html_interval_get_start (HTMLInterval *i, HTMLObject *obj)
 {
 	return (obj != i->from) ? 0 : i->from_offset;
 }
+
+void
+html_interval_select (HTMLInterval *i, HTMLEngine *e)
+{
+	HTMLObject *obj;
+	guint offset, len;
+
+	obj = i->from;
+	while (obj) {
+		offset = html_interval_get_start  (i, obj);
+		len    = html_interval_get_length (i, obj);
+		if (len) {
+			e->active_selection = TRUE;
+			html_object_select_range (obj, e, offset, len, TRUE);
+		}
+		if (obj == i->to)
+			break;
+		obj = html_object_next_not_slave (obj);
+	}
+	html_engine_set_active_selection (e, e->active_selection, GDK_CURRENT_TIME);
+}

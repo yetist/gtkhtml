@@ -198,7 +198,7 @@ update_selection (HTMLEngine *engine,
 		return;
 
 	if (html_cursor_equal (new_point, mark)) {
-		html_engine_unselect_all (engine, TRUE);
+		html_engine_unselect_all (engine);
 		engine->active_selection = TRUE;
 		return;
 	}
@@ -210,7 +210,7 @@ update_selection (HTMLEngine *engine,
 	if ((html_cursor_precedes (new_point, mark) && html_cursor_follows (old_point, mark))
 	    || (html_cursor_follows (new_point, mark) && html_cursor_precedes (old_point, mark)))
 	{
-		html_engine_unselect_all (engine, TRUE);
+		html_engine_unselect_all (engine);
 		old_point = mark;
 	}
 
@@ -323,6 +323,7 @@ html_engine_edit_selection_updater_schedule (HTMLEngineEditSelectionUpdater *upd
 
 	if (updater->idle_id != 0)
 		return;
+
 	updater->idle_id = gtk_idle_add (updater_idle_callback, updater);
 }
 

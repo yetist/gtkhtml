@@ -26,6 +26,7 @@
 typedef struct _HTMLInterval HTMLInterval;
 
 #include "htmlobject.h"
+#include "htmlengine.h"
 
 struct _HTMLInterval {
 	HTMLObject *from;
@@ -46,5 +47,6 @@ guint                        html_interval_get_length      (HTMLInterval *i,
 							    HTMLObject *obj);
 guint                        html_interval_get_start       (HTMLInterval *i,
 							    HTMLObject *obj);
-
+void                         html_interval_select          (HTMLInterval *i,
+							    HTMLEngine *e);
 #endif

@@ -28,6 +28,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <time.h>
 
 #include "gtkhtml-private.h"
 #include "gtkhtml-stream.h"
@@ -3828,7 +3829,6 @@ struct _SelectRegionData {
 	guint offset1, offset2;
 	gint x1, y1, x2, y2;
 	guint select : 1;
-	guint queue_draw : 1;
 	guint active_selection : 1;
 };
 typedef struct _SelectRegionData SelectRegionData;
@@ -3851,13 +3851,13 @@ select_region_forall (HTMLObject *self,
 								    select_data->engine,
 								    select_data->offset1,
 								    select_data->offset2 - select_data->offset1,
-								    select_data->queue_draw);
+								    TRUE);
 			else if (select_data->offset2 < select_data->offset1)
 				changed = html_object_select_range (select_data->obj1,
 								    select_data->engine,
 								    select_data->offset2,
 								    select_data->offset1 - select_data->offset2,
-								    select_data->queue_draw);
+								    TRUE);
 			select_data->select = FALSE;
 		} else {
 			guint offset;
@@ -3871,24 +3871,24 @@ select_region_forall (HTMLObject *self,
 				changed = html_object_select_range (self,
 								    select_data->engine,
 								    0, offset,
-								    select_data->queue_draw);
+								    TRUE);
 				select_data->select = FALSE;
 			} else {
 				changed = html_object_select_range (self,
 								    select_data->engine,
 								    offset, -1,
-								    select_data->queue_draw);
+								    TRUE);
 				select_data->select = TRUE;
 			}
 		}
 	} else {
 		if (select_data->select) {
 			changed = html_object_select_range (self, select_data->engine,
-							    0, -1, select_data->queue_draw);
+							    0, -1, TRUE);
 			select_data->active_selection = TRUE;
 		} else {
 			changed = html_object_select_range (self, select_data->engine,
-							    0, 0, select_data->queue_draw);
+							    0, 0, TRUE);
 		}
 	}
 
@@ -3946,8 +3946,7 @@ select_one (SelectRegionData *data,
 void
 html_engine_select_region (HTMLEngine *e,
 			   gint x1, gint y1,
-			   gint x2, gint y2,
-			   gboolean queue_draw)
+			   gint x2, gint y2)
 {
 	SelectRegionData *data;
 	gint x, y;
@@ -3959,12 +3958,10 @@ html_engine_select_region (HTMLEngine *e,
 		return;
 
 	data = g_new (SelectRegionData, 1);
-
 	data->engine = e;
 	data->obj1 = html_engine_get_object_at (e, x1, y1, &data->offset1, TRUE);
 	data->obj2 = html_engine_get_object_at (e, x2, y2, &data->offset2, TRUE);
 	data->select = FALSE;
-	data->queue_draw = queue_draw;
 
 	if (data->obj1 == NULL || data->obj2 == NULL)
 		return;
@@ -3984,7 +3981,6 @@ html_engine_select_region (HTMLEngine *e,
 
 	e->active_selection = data->active_selection;
 	gtk_html_debug_log (e->widget, "Active selection: %s\n", e->active_selection ? "TRUE" : "FALSE");
-
 	g_free (data);
 }
 
@@ -3995,12 +3991,11 @@ unselect_forall (HTMLObject *self,
 	SelectRegionData *select_data;
 
 	select_data = (SelectRegionData *) data;
-	html_object_select_range (self, select_data->engine, 0, 0, select_data->queue_draw);
+	html_object_select_range (self, select_data->engine, 0, 0, TRUE);
 }
 
 void
-html_engine_unselect_all (HTMLEngine *e,
-			  gboolean queue_draw)
+html_engine_unselect_all (HTMLEngine *e)
 {
 	SelectRegionData *select_data;
 
@@ -4015,7 +4010,6 @@ html_engine_unselect_all (HTMLEngine *e,
 
 	select_data = g_new (SelectRegionData, 1);
 	select_data->engine = e;
-	select_data->queue_draw = queue_draw;
 
 	html_object_forall (e->clue, unselect_forall, select_data);
 
@@ -4043,7 +4037,7 @@ html_engine_disable_selection (HTMLEngine *e)
 		e->mark = NULL;
 	}
 
-	html_engine_unselect_all (e, TRUE);
+	html_engine_unselect_all (e);
 }
 
 
@@ -4226,7 +4220,7 @@ display_search_results (HTMLEngine *e, HTMLSearch *info)
 		html_engine_set_mark (e);
 		html_cursor_jump_to (e->cursor, e, info->last, info->stop_pos);
 	} else {
-		html_engine_unselect_all (e, TRUE);
+		html_engine_unselect_all (e);
 		e->active_selection = TRUE;
 
 		/* go thru all objects (Text's) in found list and do select_range on it */
@@ -4511,3 +4505,77 @@ html_engine_replace_word_with (HTMLEngine *e, const gchar *word)
 }
 
 #endif /* GTKHTML_HAVE_PSPELL */
+
+void
+html_engine_set_active_selection (HTMLEngine *e, gboolean active, guint32 time)
+{
+	e->active_selection = active;
+	if (active)
+		gtk_selection_owner_set (GTK_WIDGET (e->widget), GDK_SELECTION_PRIMARY, GDK_CURRENT_TIME);	
+}
+
+HTMLCursor *
+html_engine_get_cursor (HTMLEngine *e)
+{
+	HTMLCursor *cursor;
+
+	cursor = html_cursor_new ();
+	cursor->object = html_engine_get_object_at (e, e->widget->selection_x1, e->widget->selection_y1,
+						    &cursor->offset, FALSE);
+	return cursor;
+}
+
+static gboolean
+line_interval (HTMLEngine *e, HTMLCursor *begin, HTMLCursor *end)
+{
+	return html_cursor_beginning_of_line (begin, e) && html_cursor_end_of_line (end, e);
+}
+
+static gboolean
+word_interval (HTMLEngine *e, HTMLCursor *begin, HTMLCursor *end)
+{
+	/* move to the begin of word */
+	while (html_is_in_word (html_cursor_get_prev_char (begin)))
+		html_cursor_backward (begin, e);
+	/* move to the end of word */
+	while (html_is_in_word (html_cursor_get_current_char (end)))
+		html_cursor_forward (end, e);
+
+	return (begin->object && end->object);
+}
+
+static void
+selection_helper (HTMLEngine *e, gboolean (*get_interval)(HTMLEngine *e, HTMLCursor *begin, HTMLCursor *end))
+{
+	HTMLCursor *cursor, *begin, *end;
+	HTMLInterval *i;
+
+	html_engine_unselect_all (e);
+	cursor = html_engine_get_cursor (e);
+
+	if (cursor->object) {
+		begin  = html_cursor_dup (cursor);
+		end    = html_cursor_dup (cursor);
+
+		if ((*get_interval) (e, begin, end)) {
+			i = html_interval_new_from_cursor (begin, end);
+			html_interval_select (i, e);
+		}
+
+		html_cursor_destroy (begin);
+		html_cursor_destroy (end);
+	}
+	html_cursor_destroy (cursor);	
+}
+
+void
+html_engine_select_word (HTMLEngine *e)
+{
+	selection_helper (e, word_interval);
+}
+
+void
+html_engine_select_line (HTMLEngine *e)
+{
+	selection_helper (e, line_interval);
+}

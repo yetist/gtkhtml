@@ -986,3 +986,31 @@ html_object_get_length (HTMLObject *self)
 {
 	return (* HO_CLASS (self)->get_length) (self);
 }
+
+HTMLObject *
+html_object_next_by_type (HTMLObject *self, HTMLType t)
+{
+	HTMLObject *next;
+
+	g_assert (self);
+
+	next = self->next;
+	while (next && HTML_OBJECT_TYPE (next) != t)
+		next = next->next;
+
+	return next;
+}
+
+HTMLObject *
+html_object_prev_by_type (HTMLObject *self, HTMLType t)
+{
+	HTMLObject *prev;
+
+	g_assert (self);
+
+	prev = self->prev;
+	while (prev && HTML_OBJECT_TYPE (prev) != t)
+		prev = prev->prev;
+
+	return prev;
+}

@@ -1,5 +1,44 @@
 2000-08-14  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine.c (selection_helper): new helper function
+	(html_engine_select_line): use selection_helper here
+	(html_engine_select_word): likewise
+	(word_interval): select word interval for selection_helper used in
+	select_word
+	(line_interval): likewise
+
+	* gtkhtml.c (gtk_html_select_word): respect allow_selection
+	(gtk_html_select_line): likewise
+
+	* htmlengine.c (html_engine_select_line): use html_interval_select
+
+	* htmlinterval.c (html_interval_select): new function, selects
+	interval into selection
+
+	* htmlengine.c (html_engine_set_active_selection): new fuction,
+	sets active_selection flag + gtk selection owner
+	(html_engine_get_cursor): new function, returns cursor with actual
+	position, works also for non-editable widget
+
+	* gtkhtml.c (gtk_html_select_word): new function, selects word
+	(gtk_html_select_line): new function, selects line
+	(button_press_event): select word by 2xclick and line by 3xclick
+
+	* htmlengine-edit.c (html_engine_select_word_editable): new
+	function, same as below, but for editable widget
+	(html_engine_select_line_editable): likewise
+
+	* htmlengine.c (html_engine_select_word): new function, selects
+	word after mouse 2xclick
+	(html_engine_select_line): likewise for line
+
+	* htmlobject.c (html_object_next_by_type): new helper function
+	(html_object_prev_by_type): likewise
+
+	* htmlengine.c (html_engine_select_region): removed queue_draw
+	arg (it was always used as TRUE)
+	(html_engine_unselect_all): likewise
+
 	* htmlengine-edit-delete.c (html_engine_delete): use
 	html_engine_spell_check_range here
 

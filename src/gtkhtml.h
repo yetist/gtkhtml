@@ -267,6 +267,8 @@ void  gtk_html_enable_debug  (GtkHTML  *html,
 /* Behavior.  */
 void  gtk_html_allow_selection  (GtkHTML  *html,
 				 gboolean  allow);
+void  gtk_html_select_word      (GtkHTML  *html);
+void  gtk_html_select_line      (GtkHTML  *html);
 int   gtk_html_request_paste    (GtkWidget *widget,
 				 gint32 time);
 /* Loading.  */

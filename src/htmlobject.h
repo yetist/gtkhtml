@@ -294,6 +294,10 @@ void        html_object_forall            (HTMLObject           *self,
 gboolean    html_object_is_container      (HTMLObject           *self);
 HTMLObject *html_object_next_not_slave    (HTMLObject           *self);
 HTMLObject *html_object_prev_not_slave    (HTMLObject           *self);
+HTMLObject *html_object_next_by_type      (HTMLObject           *self,
+					   HTMLType              t);
+HTMLObject *html_object_prev_by_type      (HTMLObject           *self,
+					   HTMLType              t);
 
 /* do search request on object using info */
 gboolean    html_object_search            (HTMLObject *self,

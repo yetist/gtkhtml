@@ -35,6 +35,7 @@
 #include "htmlengine-cutbuffer.h"
 #include "htmlengine-edit-cut.h"
 #include "htmlengine-edit-cursor.h"
+#include "htmlengine-edit-movement.h"
 #include "htmlengine-edit-paste.h"
 #include "htmlengine-edit.h"
 
@@ -49,7 +50,7 @@ html_engine_undo (HTMLEngine *e)
 	g_return_if_fail (e->undo != NULL);
 	g_return_if_fail (e->editable);
 
-	html_engine_unselect_all (e, TRUE);
+	html_engine_unselect_all (e);
 
 	undo = e->undo;
 	html_undo_do_undo (undo, e);
@@ -64,7 +65,7 @@ html_engine_redo (HTMLEngine *e)
 	g_return_if_fail (HTML_IS_ENGINE (e));
 	g_return_if_fail (e->undo != NULL);
 
-	html_engine_unselect_all (e, TRUE);
+	html_engine_unselect_all (e);
 
 	undo = e->undo;
 	html_undo_do_redo (undo, e);
@@ -79,7 +80,7 @@ html_engine_set_mark (HTMLEngine *e)
 	g_return_if_fail (e->editable);
 
 	if (e->mark != NULL)
-		html_engine_unselect_all (e, TRUE);
+		html_engine_unselect_all (e);
 
 	e->mark = html_cursor_dup (e->cursor);
 	e->active_selection = TRUE;
@@ -202,3 +203,27 @@ html_engine_spell_check_range (HTMLEngine *e, HTMLCursor *begin, HTMLCursor *end
 	html_cursor_destroy (end);
 }
 #endif
+
+gboolean
+html_is_in_word (gchar c)
+{
+	return isalnum (c) || c == '\'';
+}
+
+void
+html_engine_select_word_editable (HTMLEngine *e)
+{
+	while (html_is_in_word (html_cursor_get_prev_char (e->cursor)))
+		html_cursor_backward (e->cursor, e);
+	html_engine_set_mark (e);
+	while (html_is_in_word (html_cursor_get_current_char (e->cursor)))
+		html_cursor_forward (e->cursor, e);
+}
+
+void
+html_engine_select_line_editable (HTMLEngine *e)
+{
+	html_engine_beginning_of_line (e);
+	html_engine_set_mark (e);
+	html_engine_end_of_line (e);
+}

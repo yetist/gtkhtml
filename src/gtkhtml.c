@@ -513,8 +513,7 @@ scroll_timeout_cb (gpointer data)
 		engine = html->engine;
 		html_engine_select_region (engine,
 					   html->selection_x1, html->selection_y1,
-					   x + engine->x_offset, y + engine->y_offset,
-					   TRUE);
+					   x + engine->x_offset, y + engine->y_offset);
 	}
 
 	layout = GTK_LAYOUT (widget);
@@ -811,8 +810,7 @@ mouse_change_pos (GtkWidget *widget, gint x, gint y)
 
 		html_engine_select_region (engine,
 					   html->selection_x1, html->selection_y1,
-					   x + engine->x_offset, y + engine->y_offset,
-					   TRUE);
+					   x + engine->x_offset, y + engine->y_offset);
 	}
 
 	if (obj)
@@ -915,17 +913,27 @@ button_press_event (GtkWidget *widget,
 
 		html->selection_x1 = event->x + engine->x_offset;
 		html->selection_y1 = event->y + engine->y_offset;
+
+		if (event->button == 1) {
+			if (event->type == GDK_2BUTTON_PRESS && !event->state)
+				gtk_html_select_word (html);
+			else if (event->type == GDK_3BUTTON_PRESS && !event->state)
+				gtk_html_select_line (html);
+		}
 	}
 
 	html->button_pressed = TRUE;
 
-	if (!(event->state & GDK_SHIFT_MASK))
-		html_engine_disable_selection (engine);
-	else if (html->allow_selection)
-		html_engine_select_region (engine,
-					   html->selection_x1, html->selection_y1,
-					   event->x + engine->x_offset, event->y + engine->y_offset,
-					   TRUE);
+	if (!(event->button == 1
+	      && (event->type == GDK_2BUTTON_PRESS || event->type == GDK_3BUTTON_PRESS)
+	      && !event->state)) {
+		if (!(event->state & GDK_SHIFT_MASK))
+			html_engine_disable_selection (engine);
+		else if (html->allow_selection)
+			html_engine_select_region (engine,
+						   html->selection_x1, html->selection_y1,
+						   event->x + engine->x_offset, event->y + engine->y_offset);
+	}
 
 	return TRUE;
 }
@@ -2436,4 +2444,34 @@ gtk_html_set_iframe_parent (GtkHTML *html, GtkWidget *parent)
 	g_assert (GTK_IS_HTML (parent));
 
 	html->iframe_parent = parent;
+}
+
+void
+gtk_html_select_word (GtkHTML *html)
+{
+	HTMLEngine *e;
+
+	if (!html->allow_selection)
+		return;
+
+	e = html->engine;
+	if (html_engine_get_editable (e))
+		html_engine_select_word_editable (e);
+	else
+		html_engine_select_word (e);
+}
+
+void
+gtk_html_select_line (GtkHTML *html)
+{
+	HTMLEngine *e;
+
+	if (!html->allow_selection)
+		return;
+
+	e = html->engine;
+	if (html_engine_get_editable (e))
+		html_engine_select_line_editable (e);
+	else
+		html_engine_select_line (e);
 }
