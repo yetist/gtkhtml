@@ -1,3 +1,7 @@
+2001-01-23  Radek Doulik  <rodo@helixcode.com>
+
+	* Makefile.am (EXTRA_DIST): added tt.xpm to EXTRA_DIST
+
 2001-01-23  Michael Meeks  <michael@helixcode.com>
 
 	* GNOME_GtkHTML_Editor.xml: put Insert menu inside

@@ -144,6 +144,7 @@ EXTRA_DIST =					\
 	$(GNORBA_INFO)				\
 	$(OAF_INFO)				\
 	ChangeLog				\
+	tt.xpm					\
 	$(ui_DATA)
 
 idldir = $(datadir)/gtkhtml
