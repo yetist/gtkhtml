@@ -12,6 +12,8 @@ New in this release
   * Improved gtk input method support.
   * Fixed distcheck for automake 1.7.3
   * Fixed editor image support.
+  * Optimized editing of very long words and layout in general.
+  * Fixed problems with selection of lines containing tabs.
 
 New 3.0.2
 
