@@ -46,7 +46,7 @@ html_image_new (HTMLEngine *e, gchar *filename, gint max_width,
 	}
 
 	/* Always assume local file */
-	image->pixmap = gdk_pixbuf_load_image (image->url);
+	image->pixmap = gdk_pixbuf_new_from_file (image->url);
 
 	if (image->pixmap)
 		html_image_init (image);

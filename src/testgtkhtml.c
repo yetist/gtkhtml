@@ -81,6 +81,7 @@ create_toolbars (GtkWidget *app) {
 				   GTK_TOOLBAR_ICONS);
 	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar),
 			       GTK_TOOLBAR_ICONS);
+	gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_SPACE_LINE);
 	gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar),
 				       GTK_RELIEF_NONE);
 	gtk_box_pack_start (GTK_BOX (hbox), toolbar, FALSE, FALSE, 0);
@@ -90,6 +91,39 @@ create_toolbars (GtkWidget *app) {
 				 "Move back",
 				 "Back",
 				 gnome_stock_new_with_icon (GNOME_STOCK_PIXMAP_BACK),
+				 NULL, NULL);
+	gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
+				 NULL,
+				 "Move forward",
+				 "Forward",
+				 gnome_stock_new_with_icon (GNOME_STOCK_PIXMAP_FORWARD),
+				 NULL, NULL);
+	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar));
+	gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
+				 NULL,
+				 "Stop loading",
+				 "Stop",
+				 gnome_stock_new_with_icon (GNOME_STOCK_PIXMAP_STOP),
+				 NULL, NULL);
+	gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
+				 NULL,
+				 "Reload page",
+				 "Reload",
+				 gnome_stock_new_with_icon (GNOME_STOCK_PIXMAP_REFRESH),
+				 NULL, NULL);
+	gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
+				 NULL,
+				 "Home page",
+				 "Home",
+				 gnome_stock_new_with_icon (GNOME_STOCK_PIXMAP_HOME),
+				 NULL, NULL);
+	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar));
+
+	gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
+				 NULL, 
+				 "Search bar",
+				 "Search",
+				 gnome_stock_new_with_icon (GNOME_STOCK_PIXMAP_SEARCH),
 				 NULL, NULL);
 	animator = gnome_animator_new_with_size (32, 32);
 	gnome_animator_append_frames_from_file_at_size (GNOME_ANIMATOR (animator),

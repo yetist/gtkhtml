@@ -20,15 +20,26 @@ html_painter_draw_rect (HTMLPainter *painter, gint x, gint y, gint width, gint h
 void
 html_painter_draw_pixmap (HTMLPainter *painter, gint x, gint y, GdkPixbuf *pixbuf)
 {
-	/* FIXME: Support alpha */
-	gdk_draw_rgb_image (painter->window,
-			    painter->gc,
-			    x, y,
-			    pixbuf->art_pixbuf->width,
-			    pixbuf->art_pixbuf->height,
-			    GDK_RGB_DITHER_NORMAL,
-			    pixbuf->art_pixbuf->pixels,
-			    pixbuf->art_pixbuf->rowstride);
+	if (pixbuf->art_pixbuf->has_alpha) {
+		gdk_draw_rgb_32_image (painter->window,
+				       painter->gc,
+				       x, y,
+				       pixbuf->art_pixbuf->width,
+				       pixbuf->art_pixbuf->height,
+				       GDK_RGB_DITHER_NORMAL,
+				       pixbuf->art_pixbuf->pixels,
+				       pixbuf->art_pixbuf->rowstride);
+	}
+	else {
+		gdk_draw_rgb_image (painter->window,
+				    painter->gc,
+				    x, y,
+				    pixbuf->art_pixbuf->width,
+				    pixbuf->art_pixbuf->height,
+				    GDK_RGB_DITHER_NORMAL,
+				    pixbuf->art_pixbuf->pixels,
+				    pixbuf->art_pixbuf->rowstride);
+	}
 }
 
 void

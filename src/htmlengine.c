@@ -818,7 +818,7 @@ html_engine_parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			else if (strncasecmp (token, "background=", 11) == 0) {
 				gchar *filename = g_strdup_printf ("%s/%s", e->baseURL, token + 11);
 				g_print ("should load: %s\n", filename);
-				e->bgPixmap = gdk_pixbuf_load_image (filename);
+				e->bgPixmap = gdk_pixbuf_new_from_file (filename);
 				g_free (filename);
 				
 				e->bgPixmapSet = (e->bgPixmap != 0);
