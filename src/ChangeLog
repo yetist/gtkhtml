@@ -1,5 +1,7 @@
 2001-09-21  Larry Ewing  <lewing@ximian.com>
 
+	* htmltext.c (is_convert_nbsp_needed): silence a warning.
+
 	* htmlpainter.c: add #include <stdlib.h> to cover the alloca
 	prototype.
 

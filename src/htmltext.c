@@ -747,7 +747,7 @@ is_convert_nbsp_needed (const gchar *s, gint *delta_out)
 {
 	gunichar uc, last_white;
 	gboolean rv = FALSE;
-	gint white_space;
+	gint white_space = 0;
 	const gchar *p, *op;
 
 	*delta_out = 0;
