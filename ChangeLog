@@ -1,3 +1,7 @@
+2003-01-10  Naba Kumar  <naba@gnome.org>
+
+	* configure.in: Added hi (hindi) in ALL_LINGUAS
+	
 2002-11-28  Bastien Nocera  <hadess@hadess.net>
 
 	* configure.in: added GETTEXT_PACKAGE substitution, so the .po files
