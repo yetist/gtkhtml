@@ -207,7 +207,6 @@ check_point (HTMLObject *self,
 					*offset_return = html_text_slave_get_offset_for_pointer
 						(HTML_TEXT_SLAVE (p), painter, x, y);
 					*offset_return += HTML_TEXT_SLAVE (p)->posStart;
-					printf ("*** %p offset %d\n", self, *offset_return);
 				}
 				return self;
 			}

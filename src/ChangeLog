@@ -1,5 +1,7 @@
 2000-01-23  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmltextmaster.c (check_point): Removed debugging message.
+
 	* gtkhtml.c (button_press_event): Sum the X/Y offsets before
 	passing the coordinates to `html_engine_jump_at'.
 	(motion_notify_event): Sum the X/Y offsets before calling
