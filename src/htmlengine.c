@@ -3641,7 +3641,7 @@ html_engine_stream_write (GtkHTMLStream *handle,
 	if (buffer == NULL)
 		return;
 
-	html_tokenizer_write (e->ht, buffer, size);
+	html_tokenizer_write (e->ht, buffer, size == -1 ? strlen (buffer) : size);
 
 	if (e->parsing && e->timerId == 0) {
 		e->timerId = gtk_idle_add ((GtkFunction) html_engine_timer_event, e);

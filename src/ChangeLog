@@ -1,3 +1,8 @@
+2002-08-22  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine.c (html_engine_stream_write): in case size == -1
+	calculate length of buffer
+
 2002-08-21  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (set_focus_child): test if object is not an frame
