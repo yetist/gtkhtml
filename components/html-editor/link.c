@@ -117,7 +117,7 @@ link_widget (GtkHTMLEditLinkProperties *data, gboolean insert)
 	gtk_frame_set_shadow_type (GTK_FRAME (f1), GTK_SHADOW_NONE);
 	gtk_container_set_border_width (GTK_CONTAINER (f1), 3);
 	hbox = gtk_hbox_new (FALSE, 5);
-	button = gtk_button_new_with_label (_("Test URL"));
+	button = gtk_button_new_with_label (_("Test URL..."));
 	gtk_box_pack_start (GTK_BOX (hbox), data->entry_url, TRUE, TRUE, 0);
 	gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
 	gtk_container_add (GTK_CONTAINER (f1), hbox);

@@ -245,7 +245,7 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 		gtk_signal_connect (GTK_OBJECT (data->entry_url), "changed", GTK_SIGNAL_FUNC (set_url), data);
 	}
 
-	gtk_table_attach_defaults (GTK_TABLE (table), vbox, 0, 1, 0, 2); //, GTK_FILL | GTK_EXPAND, 0, 0, 0);
+	gtk_table_attach_defaults (GTK_TABLE (table), vbox, 0, 1, 0, 2);
 
 	frame = gtk_frame_new (_("Size"));
 	menu = gtk_menu_new ();
@@ -294,7 +294,7 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	gtk_table_attach (GTK_TABLE (table), frame, 1, 2, 1, 2, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
 
 	/* sample */
-	gtk_table_attach (GTK_TABLE (table), sample_frame (&data->sample), 0, 2, 2, 3, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), sample_frame (&data->sample), 0, 2, 2, 3, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
 	fill_sample (data);
 
 	gtk_widget_show_all (table);
