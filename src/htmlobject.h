@@ -193,7 +193,7 @@ struct _HTMLObjectClass {
 
 	gboolean (* select_range) (HTMLObject *self, HTMLEngine *engine, guint start, gint length,
 				   gboolean queue_draw);
-	HTMLObject * (* get_selection) (HTMLObject *self);
+	HTMLObject * (* get_selection) (HTMLObject *self, guint *size_return);
 };
 
 
@@ -302,7 +302,8 @@ gboolean    html_object_select_range   (HTMLObject *self,
 					guint       start,
 					gint        length,
 					gboolean    queue_draw);
-HTMLObject *html_object_get_selection  (HTMLObject *self);
+HTMLObject *html_object_get_selection  (HTMLObject *self,
+					guint      *size_return);
 
 /* Saving.  */
 gboolean  html_object_save  (HTMLObject          *self,

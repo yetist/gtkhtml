@@ -19,13 +19,33 @@
    Boston, MA 02111-1307, USA.
 */
 
+#include "htmlengine-edit-copy.h"
+#include "htmlengine-edit-delete.h"
+#include "htmlengine-edit-movement.h"
+
 #include "htmlengine-edit-cut.h"
 
 
 void
 html_engine_cut (HTMLEngine *engine)
 {
+	guint elems_copied;
+
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 	g_return_if_fail (engine->active_selection);
+
+	g_warning ("Cut!");
+
+	html_engine_freeze (engine);
+
+	elems_copied = html_engine_copy (engine);
+
+	if (elems_copied > 0) {
+		html_engine_move_cursor (engine, HTML_ENGINE_CURSOR_LEFT, elems_copied);
+		html_engine_delete (engine, elems_copied);
+	}
+
+	html_engine_unselect_all (engine, FALSE);
+	html_engine_thaw (engine);
 }

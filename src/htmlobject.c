@@ -317,11 +317,18 @@ select_range (HTMLObject *self,
 }
 
 static HTMLObject *
-get_selection (HTMLObject *self)
+get_selection (HTMLObject *self,
+	       guint *size_return)
 {
-	if (! self->selected)
+	if (! self->selected) {
+		if (size_return != NULL)
+			*size_return = 0;
 		return NULL;
-	
+	}
+
+	if (size_return != NULL)
+		*size_return = 1;
+
 	return html_object_dup (self);
 }
 
@@ -648,9 +655,10 @@ html_object_select_range (HTMLObject *self,
 }
 
 HTMLObject *
-html_object_get_selection (HTMLObject *self)
+html_object_get_selection (HTMLObject *self,
+			   guint *size_return)
 {
-	return (* HO_CLASS (self)->get_selection) (self);
+	return (* HO_CLASS (self)->get_selection) (self, size_return);
 }
 
 

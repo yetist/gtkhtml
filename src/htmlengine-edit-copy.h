@@ -24,6 +24,8 @@
 
 #include "htmlengine.h"
 
-void  html_engine_copy  (HTMLEngine *engine);
+guint  html_engine_copy            (HTMLEngine  *engine);
+guint  html_engine_copy_to_buffer  (HTMLEngine  *engine,
+				    GList      **buffer);
 
 #endif

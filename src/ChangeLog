@@ -1,5 +1,29 @@
 2000-03-12  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmltextmaster.c
+	(get_selection): Use the `size_return' parameter properly.
+
+	* htmlobject.c
+	(get_selection): New parameter `size_return'.  Set `*size_return'
+	to 1 before returning.
+	(html_object_get_selection): New parameter `size_return'.
+
+	* htmlobject.h: New parameter `size_return' in
+	`HTMLObject::get_selection'.
+
+	* htmlengine-edit-cut.c
+	(html_engine_cut): Implemented, by means of
+	`html_engine_move_cursor()' and `html_engine_delete()'.
+
+	* htmlengine-edit-copy.c
+	(copy): New helper function.
+	(html_engine_copy): Return value changed to `guint': return the
+	length of the cut buffer.  Rewritten to use the `copy' helper
+	function.
+	(html_engine_copy_to_buffer): New function.
+
+2000-03-12  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* htmlengine-edit-delete.c
 	(html_engine_delete): Prevent bogus deletion of `destroy_orig'
 	caused by using `->next' instead of `html_object_next_not_slave()'.

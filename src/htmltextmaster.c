@@ -296,18 +296,28 @@ select_range (HTMLObject *self,
 }
 
 static HTMLObject *
-get_selection (HTMLObject *self)
+get_selection (HTMLObject *self,
+	       guint *size_return)
 {
 	HTMLObject *new;
+	HTMLText *text_self;
+	guint select_start, select_length;
 	gchar *text;
 
 	if (! self->selected)
 		return NULL;
 
-	text = g_strndup (HTML_TEXT (self)->text + HTML_TEXT_MASTER (self)->select_start,
-			  HTML_TEXT_MASTER (self)->select_length);
+	select_start = HTML_TEXT_MASTER (self)->select_start;
+	select_length = HTML_TEXT_MASTER (self)->select_length;
 
-	new = html_text_master_new (text, HTML_TEXT (self)->font_style, & (HTML_TEXT (self)->color));
+	text_self = HTML_TEXT (self);
+
+	text = g_strndup (text_self->text + select_start, select_length);
+
+	new = html_text_master_new (text, text_self->font_style, & text_self->color);
+
+	if (size_return != NULL)
+		*size_return = select_length;
 
 	return new;
 }
