@@ -49,6 +49,10 @@ static struct {
 } paragraph_style_items[] = {
 	{ GTK_HTML_PARAGRAPH_STYLE_NORMAL, N_("Normal") },
 	{ GTK_HTML_PARAGRAPH_STYLE_PRE, N_("Preformat") },
+	{ GTK_HTML_PARAGRAPH_STYLE_ITEMDOTTED, N_("Bulleted List") },
+	{ GTK_HTML_PARAGRAPH_STYLE_ITEMDIGIT, N_("Numbered List") },
+	{ GTK_HTML_PARAGRAPH_STYLE_ITEMROMAN, N_("Roman List") },
+	{ GTK_HTML_PARAGRAPH_STYLE_ITEMALPHA, N_("Alphabetical List") },
 	{ GTK_HTML_PARAGRAPH_STYLE_H1, N_("Header 1") },
 	{ GTK_HTML_PARAGRAPH_STYLE_H2, N_("Header 2") },
 	{ GTK_HTML_PARAGRAPH_STYLE_H3, N_("Header 3") },
@@ -56,10 +60,6 @@ static struct {
 	{ GTK_HTML_PARAGRAPH_STYLE_H5, N_("Header 5") },
 	{ GTK_HTML_PARAGRAPH_STYLE_H6, N_("Header 6") },
 	{ GTK_HTML_PARAGRAPH_STYLE_ADDRESS, N_("Address") },
-	{ GTK_HTML_PARAGRAPH_STYLE_ITEMDOTTED, N_("Bulleted List") },
-	{ GTK_HTML_PARAGRAPH_STYLE_ITEMDIGIT, N_("Numbered List") },
-	{ GTK_HTML_PARAGRAPH_STYLE_ITEMROMAN, N_("Roman List") },
-	{ GTK_HTML_PARAGRAPH_STYLE_ITEMALPHA, N_("Alphabetical List") },
 	{ GTK_HTML_PARAGRAPH_STYLE_NORMAL, NULL },
 };
 

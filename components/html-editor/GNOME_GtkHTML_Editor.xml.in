@@ -201,6 +201,10 @@
 				<submenu name="Heading" _label="_Heading">
 					<menuitem name="HeadingNormal" verb="" _label="_Normal"/> 
 					<menuitem name="HeadingPreformat" verb="" _label="_Preformat"/>
+					<menuitem name="HeadingBulletedList" verb="" _label="_Bulleted List"/>
+					<menuitem name="HeadingRomanList" verb="" _label="_Roman Numeral List"/> 
+ 					<menuitem name="HeadingNumberedList" verb="" _label="Numbered _List"/> 
+					<menuitem name="HeadingAlphabeticalList" verb="" _label="_Alphabetical List"/>
 					<menuitem name="HeadingH1" verb="" _label="Header _1"/>
 					<menuitem name="HeadingH2" verb="" _label="Header _2"/>
 					<menuitem name="HeadingH3" verb="" _label="Header _3"/>
@@ -208,10 +212,6 @@
 					<menuitem name="HeadingH5" verb="" _label="Header _5"/>
 					<menuitem name="HeadingH6" verb="" _label="Header _6"/>
 					<menuitem name="HeadingAddress" verb="" _label="A_ddress"/>
-					<menuitem name="HeadingBulletedList" verb="" _label="_Bulleted List"/>
-					<menuitem name="HeadingRomanList" verb="" _label="_Roman Numeral List"/> 
- 					<menuitem name="HeadingNumberedList" verb="" _label="Numbered _List"/> 
-					<menuitem name="HeadingAlphabeticalList" verb="" _label="_Alphabetical List"/>
 				</submenu>
                 
 				<submenu name="Alignment" _label="_Alignment">
