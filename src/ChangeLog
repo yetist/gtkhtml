@@ -1,3 +1,9 @@
+2000-11-07  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlgdkpainter.c (calc_text_width): *sigh*, *sigh*, *sigh*,
+	replaced painter->text_style with style, this solves random
+	bad/good layout problem
+
 2000-11-06  Larry Ewing  <lewing@helixcode.com>
 
 	* htmlclueflow.c (save_plain): disable broken condition checks.

@@ -1022,12 +1022,16 @@ calc_text_width (HTMLPainter *painter,
 	EFont *e_font;
 	gint width;
 
+
 	gdk_painter = HTML_GDK_PAINTER (painter);
 	e_font = html_painter_get_font (painter, face, style);
 
-	width = e_font_utf8_text_width (e_font, e_style (painter->font_style),
+	width = e_font_utf8_text_width (e_font, e_style (style),
 					text, unicode_offset_to_index (text, len));
 
+	/* printf ("calc_text_width text: %s len: %d\n", text, len);
+	{ gint i; printf ("["); for (i=0;i<unicode_offset_to_index (text, len); i++) printf ("%c", text [i]); printf ("] ");}
+	printf ("%d (%p)\n", width, e_font); */
 	return width;
 }
 
