@@ -399,26 +399,22 @@ split (HTMLText *self,
        guint offset)
 {
 	HTMLTextMaster *master;
-	HTMLObject *new;
-	gchar *s;
+	HTMLText *new;
 
 	master = HTML_TEXT_MASTER (self);
 
 	if (offset >= HTML_TEXT (self)->text_len || offset == 0)
 		return NULL;
 
-	s = g_strdup (self->text + offset);
-	new = html_text_master_new (s, self->font_style, &self->color);
-
-	self->text = g_realloc (self->text, offset + 1);
-	self->text[offset] = '\0';
-	HTML_TEXT (self)->text_len = offset;
+	new = (* HTML_TEXT_CLASS (parent_class)->split) (self, offset);
+	if (new == NULL)
+		return NULL;
 
 	if (master->select_length != 0) {
 		if (offset <= master->select_start) {
 			HTML_TEXT_MASTER (new)->select_start = master->select_start - offset;
 			HTML_TEXT_MASTER (new)->select_length = master->select_length;
-			new->selected = TRUE;
+			HTML_OBJECT (new)->selected = TRUE;
 
 			HTML_TEXT_MASTER (self)->select_start = 0;
 			HTML_TEXT_MASTER (self)->select_length = 0;
@@ -427,7 +423,7 @@ split (HTMLText *self,
 			HTML_TEXT_MASTER (new)->select_start = 0;
 			HTML_TEXT_MASTER (new)->select_length
 				= master->select_start + master->select_length - offset;
-			new->selected = HTML_TEXT_MASTER (new)->select_length > 0;
+			HTML_OBJECT (new)->selected = HTML_TEXT_MASTER (new)->select_length > 0;
 
 			HTML_TEXT_MASTER (self)->select_length = offset - master->select_start;
 			HTML_OBJECT (self)->selected = TRUE;
@@ -439,7 +435,7 @@ split (HTMLText *self,
 		}
 	}
 
-	return HTML_TEXT (new);
+	return new;
 }
 
 static void

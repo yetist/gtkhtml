@@ -427,10 +427,14 @@ split (HTMLText *self,
 		return NULL;
 
 	s = g_strdup (self->text + offset);
-	new = HTML_TEXT (html_text_new (s, self->font_style, &self->color));
+
+	new = g_malloc (HTML_OBJECT (self)->klass->object_size);
+	html_text_init (new, HTML_TEXT_CLASS (HTML_OBJECT (self)->klass),
+			s, self->font_style, &self->color);
 
 	self->text = g_realloc (self->text, offset + 1);
 	self->text[offset] = '\0';
+	self->text_len = offset;
 
 	return new;
 }

@@ -70,30 +70,16 @@ static HTMLText *
 split (HTMLText *self,
        guint offset)
 {
-	HTMLTextMaster *master;
-	HTMLLinkTextMaster *link_master;
-	HTMLObject *new;
-	gchar *s;
+	HTMLText *new;
 
-	master = HTML_TEXT_MASTER (self);
-	link_master = HTML_LINK_TEXT_MASTER (self);
-
-	if (offset >= HTML_TEXT (self)->text_len || offset == 0)
+	new = (* HTML_TEXT_CLASS (parent_class)->split) (self, offset);
+	if (new == NULL)
 		return NULL;
 
-	s = g_strdup (self->text + offset);
+	HTML_LINK_TEXT_MASTER (new)->url = g_strdup (HTML_LINK_TEXT_MASTER (self)->url);
+	HTML_LINK_TEXT_MASTER (new)->target = g_strdup (HTML_LINK_TEXT_MASTER (self)->target);
 
-	new = html_link_text_master_new (s,
-					 self->font_style,
-					 &self->color,
-					 link_master->url,
-					 link_master->target);
-
-	self->text = g_realloc (self->text, offset + 1);
-	self->text[offset] = '\0';
-	HTML_TEXT (self)->text_len = offset;
-
-	return HTML_TEXT (new);
+	return new;
 }
 
 static GtkHTMLFontStyle

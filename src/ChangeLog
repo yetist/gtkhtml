@@ -1,3 +1,16 @@
+2000-02-23  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmllinktextmaster.c (split): Rewritten to use
+	`html_text_split()'.
+
+	* htmltextmaster.c (split): Rewritten to use `html_text_split()'.
+
+	* htmltext.c (split): Instead of creating the new item with
+	`html_text_master_new()', use `g_malloc()' and the `size' member
+	in the class description struct; then initialize with
+	`html_text_master_init()'.  This way, it's easier to derive the
+	method in the subclass.
+
 2000-02-22  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlengine-edit-fontstyle.c (merge_forward): Do not to attempt
