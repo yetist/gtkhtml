@@ -218,6 +218,7 @@ copy (HTMLObject *self,
 
 	/* add dest to image_ptr interests */
 	dimg->image_ptr->interests = g_slist_prepend (dimg->image_ptr->interests, dimg);
+	html_image_pointer_ref (dimg->image_ptr);
 }
 
 static void 
@@ -1302,7 +1303,7 @@ html_image_factory_unregister (HTMLImageFactory *factory, HTMLImagePointer *poin
 {
 	pointer->interests = g_slist_remove (pointer->interests, i);
 	html_image_pointer_unref (pointer);
-	if (pointer->refcount <= 0) {
+	if (pointer->refcount == 1) {
 		g_assert (pointer->interests == NULL);
 		g_hash_table_remove (factory->loaded_images, pointer->url);
 		html_image_pointer_unref (pointer);

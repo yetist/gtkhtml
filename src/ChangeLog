@@ -1,3 +1,8 @@
+2001-09-01  Larry Ewing  <lewing@ximian.com>
+
+	* htmlimage.c (copy): make a reference.
+	(html_image_factory_unregister): fix this properly.
+
 2001-08-31  Larry Ewing  <lewing@ximian.com>
 
 	* htmlimage.c (html_image_factory_unregister): change the test now
