@@ -1,3 +1,8 @@
+2002-11-06  Radek Doulik  <rodo@ximian.com>
+
+	* libgtkhtml.pc.in (gtkhtml_datadir): added gtkhtml_datadir
+	(NotZed)
+
 2002-11-05  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml.c (selection_received): pad citations with a <br> to
