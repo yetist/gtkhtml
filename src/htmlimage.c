@@ -446,7 +446,8 @@ save_plain (HTMLObject *self,
 
 	image = HTML_IMAGE (self);
 	
-	rv = html_engine_save_output_string (state, "%s", image->alt);
+	if (image->alt)
+		rv = html_engine_save_output_string (state, "%s", image->alt);
 
 	return rv;
 }
