@@ -1,6 +1,7 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
-    Copyright 1999, Helix Code, Inc.
+
+    Copyright 1999, 2000 Helix Code, Inc.
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
