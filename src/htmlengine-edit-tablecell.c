@@ -438,11 +438,11 @@ expand_cspan (HTMLEngine *e, HTMLTableCell *cell, gint cspan, HTMLUndoDirection 
 
 	g_warning ("TODO: move cells. keep old content");
 
+	cell->cspan = cspan;
 	for (r = cell->row; r < cell->row + cell->rspan; r ++)
-		for (c = cell->col; c < cell->col + cspan; c ++)
+		for (c = cell->col; c < cell->col + cell->cspan; c ++)
 			table->cells [r][c] = cell;
 
-	cell->cspan = cspan;
 	html_object_change_set (HTML_OBJECT (cell), HTML_CHANGE_ALL);
 	html_engine_thaw (e);
 }
@@ -470,8 +470,59 @@ html_engine_set_cspan (HTMLEngine *e, gint cspan)
 		collapse_cspan (e, cell, cspan, HTML_UNDO_UNDO);
 }
 
-void
-html_engine_set_rspan (HTMLEngine *e, gint cspan)
+static void
+expand_rspan (HTMLEngine *e, HTMLTableCell *cell, gint rspan, HTMLUndoDirection dir)
+{
+	HTMLTable *table = HTML_TABLE (HTML_OBJECT (cell)->parent);
+	gint r, c, *move_cols, max_move, add_rows;
+
+	html_engine_freeze (e);
+	move_cols = g_new0 (gint, cell->cspan);
+	for (c = cell->col; c < cell->col + cell->cspan; c ++)
+		for (r = cell->row + 1; r < MIN (cell->row + rspan, table->totalRows); r ++)
+			if (table->cells [r][c] && !html_table_cell_is_empty (table->cells [r][c]) && move_cols [c - cell->col] == 0)
+				move_cols [c - cell->col] = rspan - (r - cell->row);
+
+	max_move = 0;
+	for (c = 0; c < cell->cspan; c ++)
+		if (move_cols [c] > max_move)
+			max_move = move_cols [r];
+
+	printf ("max move: %d\n", max_move);
+	add_rows = MAX (0, rspan - (table->totalRows - cell->row)) + max_move;
+	for (r = 0; r < add_rows; c ++)
+		html_table_insert_row (table, table->totalRows, NULL, dir);
+
+	g_warning ("TODO: move cells. keep old content");
+
+	cell->rspan = rspan;
+	for (r = cell->row; r < cell->row + cell->rspan; r ++)
+		for (c = cell->col; c < cell->col + cell->cspan; c ++)
+			table->cells [r][c] = cell;
+
+	html_object_change_set (HTML_OBJECT (cell), HTML_CHANGE_ALL);
+	html_engine_thaw (e);
+}
+
+static void
+collapse_rspan (HTMLEngine *e, HTMLTableCell *cell, gint rspan, HTMLUndoDirection dir)
 {
 	g_warning ("TODO");
+}
+
+void
+html_engine_set_rspan (HTMLEngine *e, gint rspan)
+{
+	HTMLTableCell *cell = html_engine_get_table_cell (e);
+
+	g_return_if_fail (rspan > 0);
+	g_return_if_fail (cell != NULL);
+
+	if (cell->rspan == rspan)
+		return;
+
+	if (rspan > cell->rspan)
+		expand_rspan (e, cell, rspan, HTML_UNDO_UNDO);
+	else
+		collapse_rspan (e, cell, rspan, HTML_UNDO_UNDO);
 }

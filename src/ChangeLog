@@ -1,3 +1,9 @@
+2002-12-06  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit-table.c (html_table_insert_column): make it work
+	with rspan/cspan
+	(html_table_insert_row): ditto
+
 2002-12-05  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml.c (gtk_html_editor_event_command): init GValue before

@@ -195,17 +195,23 @@ html_table_insert_column (HTMLEngine *e, gint col, HTMLTableCell **column, HTMLU
 	go_table_0 (e, HTML_OBJECT (t));
 
 	html_table_alloc_cell (t, 0, t->totalCols);
-	for (r = 0; r < t->totalRows; r ++) {
-		for (c = t->totalCols - 1; c >= col; c --) {
+	for (c = t->totalCols - 1; c > col; c --) {
+		for (r = 0; r < t->totalRows; r ++) {
 			HTMLTableCell *cell = t->cells [r][c - 1];
 
-			if (cell && cell->col >= col) {
-				if (cell->row == r && cell->col == c - 1)
-					html_table_cell_set_position (cell, r, c);
+			if (cell) {
+				if (cell->col == c - 1) {
+					html_table_cell_set_position (cell, cell->row, c);
+					t->cells [r][c - 1] = NULL;
+				} else if (c == col + 1 && cell->row == r)
+					cell->cspan ++;
+				if (cell->col > c - 1)
+					t->cells [r][c - 1] = NULL;
 				t->cells [r][c] = cell;
-				t->cells [r][c - 1] = NULL;
 			}
 		}
+	}
+	for (r = 0; r < t->totalRows; r ++) {
 		if (!t->cells [r][col]) {
 			guint len;
 
@@ -406,17 +412,23 @@ html_table_insert_row (HTMLEngine *e, gint row, HTMLTableCell **row_cells, HTMLU
 	go_table_0 (e, HTML_OBJECT (t));
 
 	html_table_alloc_cell (t, t->totalRows, 0);
-	for (c = 0; c < t->totalCols; c ++) {
-		for (r = t->totalRows; r > row; r --) {
+	for (r = t->totalRows; r > row; r --) {
+		for (c = 0; c < t->totalCols; c ++) {
 			HTMLTableCell *cell = t->cells [r - 1][c];
 
-			if (cell && cell->row >= row) {
-				if (cell->row == r - 1 && cell->col == c)
-					html_table_cell_set_position (cell, r, c);
-				t->cells [r][c]     = cell;
-				t->cells [r - 1][c] = NULL;
+			if (cell) {
+				if (cell->row == r - 1) {
+					html_table_cell_set_position (cell, r, cell->col);
+					t->cells [r - 1][c] = NULL;
+				} else if (r == row + 1 && cell->col == c)
+					cell->rspan ++;
+				if (cell->row > r - 1)
+					t->cells [r - 1][c] = NULL;
+				t->cells [r][c] = cell;
 			}
 		}
+	}
+	for (c = 0; c < t->totalCols; c ++) {
 		if (!t->cells [row][c]) {
 			guint len;
 
@@ -716,7 +728,7 @@ html_engine_table_set_bg_color (HTMLEngine *e, HTMLTable *t, GdkColor *c)
  *
  */
 
-void table_set_bg_pixmap (HTMLEngine *e, HTMLTable *t, gchar *url, HTMLUndoDirection dir);
+static void table_set_bg_pixmap (HTMLEngine *e, HTMLTable *t, gchar *url, HTMLUndoDirection dir);
 
 static void
 table_set_bg_pixmap_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir, guint position_after)
@@ -726,7 +738,7 @@ table_set_bg_pixmap_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUnd
 	table_set_bg_pixmap (e, html_engine_get_table (e), data->attr.pixmap, html_undo_direction_reverse (dir));
 }
 
-void
+static void
 table_set_bg_pixmap (HTMLEngine *e, HTMLTable *t, gchar *url, HTMLUndoDirection dir)
 {
 	HTMLImagePointer *iptr;
