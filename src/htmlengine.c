@@ -102,7 +102,7 @@ enum {
 	
 static guint signals [LAST_SIGNAL] = { 0 };
 
-#define TIMER_INTERVAL 30
+#define TIMER_INTERVAL 300
 
 enum ID {
 	ID_ADDRESS, ID_B, ID_BIG, ID_BLOCKQUOTE, ID_CAPTION, ID_CITE, ID_CODE,
