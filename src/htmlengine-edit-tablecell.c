@@ -298,10 +298,28 @@ html_engine_table_cell_set_no_wrap (HTMLEngine *e, HTMLTableCell *cell, gboolean
  *
  */
 
-void
-html_engine_table_cell_set_heading (HTMLEngine *e, HTMLTableCell *cell, gboolean heading)
+static void table_cell_set_heading (HTMLEngine *e, HTMLTableCell *cell, gboolean heading, HTMLUndoDirection dir);
+
+static void
+table_cell_set_heading_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir)
+{
+	HTMLTableCellSetAttrUndo *data = (HTMLTableCellSetAttrUndo *) undo_data;
+
+	table_cell_set_heading (e, html_engine_get_table_cell (e), data->attr.heading, html_undo_direction_reverse (dir));
+}
+
+static void
+table_cell_set_heading (HTMLEngine *e, HTMLTableCell *cell, gboolean heading, HTMLUndoDirection dir)
 {
 	if (cell->heading != heading) {
+		HTMLTableCellSetAttrUndo *undo;
+
+		undo = attr_undo_new (HTML_TABLE_CELL_HEADING);
+		undo->attr.heading = cell->heading;
+		html_undo_add_action (e->undo,
+				      html_undo_action_new ("Set cell style", table_cell_set_heading_undo_action,
+							    HTML_UNDO_DATA (undo), html_cursor_get_position (e->cursor)), dir);
+
 		cell->heading = heading;
 		html_object_change_set (HTML_OBJECT (cell), HTML_CHANGE_ALL_CALC);
 		html_object_change_set_down (HTML_OBJECT (cell), HTML_CHANGE_ALL);
@@ -310,14 +328,52 @@ html_engine_table_cell_set_heading (HTMLEngine *e, HTMLTableCell *cell, gboolean
 }
 
 void
+html_engine_table_cell_set_heading (HTMLEngine *e, HTMLTableCell *cell, gboolean heading)
+{
+	table_cell_set_heading (e, cell, heading, HTML_UNDO_UNDO);
+}
+
+/*
+ * width
+ *
+ */
+
+static void table_cell_set_width (HTMLEngine *e, HTMLTableCell *cell, gint width, gboolean percent, HTMLUndoDirection dir);
+static void
+table_cell_set_width_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir)
+{
+	HTMLTableCellSetAttrUndo *data = (HTMLTableCellSetAttrUndo *) undo_data;
+
+	table_cell_set_width (e, html_engine_get_table_cell (e),
+			      data->attr.width.width, data->attr.width.percent, html_undo_direction_reverse (dir));
+}
+
+static void
+table_cell_set_width (HTMLEngine *e, HTMLTableCell *cell, gint width, gboolean percent, HTMLUndoDirection dir)
+{
+	if (cell->percent_width != percent || cell->fixed_width != width) {
+		HTMLTableCellSetAttrUndo *undo;
+
+		undo = attr_undo_new (HTML_TABLE_CELL_WIDTH);
+		undo->attr.width.width = cell->fixed_width;
+		undo->attr.width.percent = cell->percent_width;
+		html_undo_add_action (e->undo,
+				      html_undo_action_new ("Set cell style", table_cell_set_width_undo_action,
+							    HTML_UNDO_DATA (undo), html_cursor_get_position (e->cursor)), dir);
+
+		cell->percent_width = percent;
+		cell->fixed_width = width;
+		if (width && !percent)
+			HTML_OBJECT (cell)->flags |= HTML_OBJECT_FLAG_FIXEDWIDTH;
+		else
+			HTML_OBJECT (cell)->flags &= ~ HTML_OBJECT_FLAG_FIXEDWIDTH;
+		html_object_change_set (HTML_OBJECT (cell), HTML_CHANGE_ALL_CALC);
+		html_engine_schedule_update (e);
+	}
+}
+
+void
 html_engine_table_cell_set_width (HTMLEngine *e, HTMLTableCell *cell, gint width, gboolean percent)
 {
-	cell->percent_width = percent;
-	cell->fixed_width = width;
-	if (width && !percent)
-		HTML_OBJECT (cell)->flags |= HTML_OBJECT_FLAG_FIXEDWIDTH;
-	else
-		HTML_OBJECT (cell)->flags &= ~ HTML_OBJECT_FLAG_FIXEDWIDTH;
-	html_object_change_set (HTML_OBJECT (cell), HTML_CHANGE_ALL_CALC);
-	html_engine_schedule_update (e);
+	table_cell_set_width (e, cell, width, percent, HTML_UNDO_UNDO);
 }
