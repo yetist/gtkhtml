@@ -21,6 +21,8 @@
 */
 
 #include <config.h>
+#include "gtkhtml-compat.h"
+
 #include <gal/widgets/e-scroll-frame.h>
 
 #include <sys/types.h>

@@ -99,7 +99,7 @@ eloader_moniker_new (EBrowser * ebr, const gchar * path, GtkHTMLStream * stream)
 	el = gtk_type_new (ELOADER_MONIKER_TYPE);
 
 	eloader_construct (ELOADER (el),  ebr, stream);
-	// eloader_connect   (ELOADER (el), path, "text/html");
+	/* eloader_connect   (ELOADER (el), path, "text/html"); */
 
 	el->url     = g_strdup (path);
 	el->stream  = corba_stream;

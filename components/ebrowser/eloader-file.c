@@ -27,7 +27,11 @@
 #include <fcntl.h>
 #include "eloader-file.h"
 
+#ifdef __GNUC__
 #define EL_DEBUG(str,section) if (FALSE) g_print ("%s:%d (%s) %s\n", __FILE__, __LINE__, __FUNCTION__, str);
+#else
+#define EL_DEBUG(str,section) if (FALSE) g_print ("%s:%d (%s)\n", __FILE__, __LINE__, str);
+#endif
 #define EL_MAX_BUF 1024
 
 static void eloader_file_class_init (GtkObjectClass * klass);

@@ -141,6 +141,7 @@ release (GtkWidget *widget, GdkEventButton *event, GtkHTMLControlData *cd)
 			run_dialog = TRUE;
 			break;
 		default:
+			;
 		}
 		if (run_dialog) {
 			cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, FALSE, _("Properties"));
@@ -181,6 +182,7 @@ release (GtkWidget *widget, GdkEventButton *event, GtkHTMLControlData *cd)
 				start = GTK_HTML_EDIT_PROPERTY_RULE;
 				break;
 			default:
+				;
 			}
 			gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 								   GTK_HTML_EDIT_PROPERTY_PARAGRAPH, _("Paragraph"),
@@ -331,6 +333,7 @@ html_button_pressed (GtkWidget *html, GdkEventButton *event, GtkHTMLControlData 
 			gtk_signal_emit_stop_by_name (GTK_OBJECT (html), "button_press_event");
 		break;
 	default:
+		;
 	}
 
 	return FALSE;

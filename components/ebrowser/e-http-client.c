@@ -32,7 +32,11 @@
 #define noEHC_VERBOSE
 #define noDEBUG_EHC_ALLOC
 
+#ifdef __GNUC__
 #define EHC_DEBUG(str,section) if (FALSE) g_print ("%s:%d (%s) %s\n", __FILE__, __LINE__, __FUNCTION__, str);
+#else
+#define EHC_DEBUG(str,section) if (FALSE) g_print ("%s:%d (%s)\n", __FILE__, __LINE__, str);
+#endif
 
 static void e_http_client_class_init (GtkObjectClass * klass);
 static void e_http_client_init (GtkObject * object);
