@@ -328,6 +328,12 @@ changed_rows (GtkWidget *w, GtkHTMLEditTableProperties *d)
 	CHANGE;
 }
 
+/*
+ * FIX: set spin adjustment upper to 100000
+ *      as glade cannot set it now
+ */
+#define UPPER_FIX(x) gtk_spin_button_get_adjustment (GTK_SPIN_BUTTON (d->spin_ ## x))->upper = 100000.0
+
 static GtkWidget *
 table_widget (GtkHTMLEditTableProperties *d)
 {
@@ -368,6 +374,9 @@ table_widget (GtkHTMLEditTableProperties *d)
 	gtk_signal_connect (GTK_OBJECT (d->spin_padding), "changed", changed_padding, d);
 	d->spin_border  = glade_xml_get_widget (xml, "spin_border");
 	gtk_signal_connect (GTK_OBJECT (d->spin_border), "changed", changed_border, d);
+	UPPER_FIX (padding);
+	UPPER_FIX (spacing);
+	UPPER_FIX (border);
 
 	d->option_align = glade_xml_get_widget (xml, "option_table_align");
 	gtk_signal_connect (GTK_OBJECT (gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_align))), "selection-done",
@@ -375,6 +384,7 @@ table_widget (GtkHTMLEditTableProperties *d)
 
 	d->spin_width   = glade_xml_get_widget (xml, "spin_table_width");
 	gtk_signal_connect (GTK_OBJECT (d->spin_width), "changed", changed_width, d);
+	UPPER_FIX (width);
 	d->check_width  = glade_xml_get_widget (xml, "check_table_width");
 	gtk_signal_connect (GTK_OBJECT (d->check_width), "toggled", set_has_width, d);
 	d->option_width = glade_xml_get_widget (xml, "option_table_width");
@@ -385,6 +395,8 @@ table_widget (GtkHTMLEditTableProperties *d)
 	gtk_signal_connect (GTK_OBJECT (d->spin_cols), "changed", changed_cols, d);
 	d->spin_rows = glade_xml_get_widget (xml, "spin_table_rows");
 	gtk_signal_connect (GTK_OBJECT (d->spin_rows), "changed", changed_rows, d);
+	UPPER_FIX (cols);
+	UPPER_FIX (rows);
 
 	gtk_box_pack_start (GTK_BOX (table_page), sample_frame (&d->sample), FALSE, FALSE, 0);
 
@@ -411,8 +423,11 @@ table_insert_widget (GtkHTMLEditTableProperties *d)
 	gtk_signal_connect (GTK_OBJECT (d->spin_cols), "changed", changed_cols, d);
 	d->spin_rows = glade_xml_get_widget (xml, "spin_table_rows");
 	gtk_signal_connect (GTK_OBJECT (d->spin_rows), "changed", changed_rows, d);
+	UPPER_FIX (cols);
+	UPPER_FIX (rows);
 
 	d->spin_width   = glade_xml_get_widget (xml, "spin_table_width");
+	UPPER_FIX (width);
 	gtk_signal_connect (GTK_OBJECT (d->spin_width), "changed", changed_width, d);
 	d->check_width  = glade_xml_get_widget (xml, "check_table_width");
 	gtk_signal_connect (GTK_OBJECT (d->check_width), "toggled", set_has_width, d);
@@ -426,6 +441,9 @@ table_insert_widget (GtkHTMLEditTableProperties *d)
 	gtk_signal_connect (GTK_OBJECT (d->spin_padding), "changed", changed_padding, d);
 	d->spin_border  = glade_xml_get_widget (xml, "spin_border");
 	gtk_signal_connect (GTK_OBJECT (d->spin_border), "changed", changed_border, d);
+	UPPER_FIX (padding);
+	UPPER_FIX (spacing);
+	UPPER_FIX (border);
 
 	gtk_widget_show_all (table_page);
 
@@ -601,6 +619,14 @@ table_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 		html_engine_table_set_width (d->cd->html->engine, d->table,
 					     d->has_width ? d->width : 0, d->has_width ? d->width_percent : FALSE);
 		d->changed_width = FALSE;
+	}
+	if (d->changed_cols) {
+		html_engine_table_set_cols (d->cd->html->engine, d->cols);
+		d->changed_cols = FALSE;
+	}
+	if (d->changed_rows) {
+		html_engine_table_set_rows (d->cd->html->engine, d->rows);
+		d->changed_rows = FALSE;
 	}
 }
 

@@ -70,10 +70,13 @@
                  
 		<submenu name="Insert" _label="_Insert">
 			<placeholder name="Component">
-				<menuitem name="InsertImage" verb="" accel="*Ctrl**Alt*I"/>
-				<menuitem name="InsertLink"  verb="" accel="*Ctrl**Alt*L"/>
+				<menuitem name="InsertImage" verb="" accel="*Ctrl**Alt*I"
+                                pixtype="filename" pixname="@ICONSDIR@/insert-image-16.png"/>
+				<menuitem name="InsertLink"  verb="" accel="*Ctrl**Alt*L"
+                                pixtype="filename" pixname="@ICONSDIR@/insert-link-16.png"/>
 				<menuitem name="InsertRule"  verb="" accel="*Ctrl**Alt*R"/>
-				<menuitem name="InsertTable" verb="" accel="*Ctrl**Alt*T"/>
+				<menuitem name="InsertTable" verb="" accel="*Ctrl**Alt*T"
+                                pixtype="filename" pixname="@ICONSDIR@/insert-table-16.png"/>
 			</placeholder>
 		</submenu>
 	</menu>

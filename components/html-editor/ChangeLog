@@ -1,5 +1,17 @@
 2001-07-20  Radek Doulik  <rodo@ximian.com>
 
+	* GNOME_GtkHTML_Editor.xml.in: added 16 pixels wide insert
+	image/link/table icons to menu
+
+	* table.c (table_apply_cb): use html_engine_table_set_cols and
+	html_engine_table_set_rows
+
+	* cell.c (cell_widget): use UPPER_FIX
+
+	* table.c (UPPER_FIX): fix for glade spin upper limit
+	(table_widget): use UPPER_FIX
+	(table_insert_widget): likewise
+
 	* GNOME_GtkHTML_Editor.xml.in: use 16 pixels version for Menu and
 	24 pixels version for Toolbar (Cut/Copy/Paste), remove stock
 	references from commands

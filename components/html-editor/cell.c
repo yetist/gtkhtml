@@ -331,6 +331,12 @@ changed_heading (GtkWidget *w, GtkHTMLEditCellProperties *d)
 	CHANGE;	
 }
 
+/*
+ * FIX: set spin adjustment upper to 100000
+ *      as glade cannot set it now
+ */
+#define UPPER_FIX(x) gtk_spin_button_get_adjustment (GTK_SPIN_BUTTON (d->spin_ ## x))->upper = 100000.0
+
 static GtkWidget *
 cell_widget (GtkHTMLEditCellProperties *d)
 {
@@ -373,6 +379,7 @@ cell_widget (GtkHTMLEditCellProperties *d)
 			    changed_valign, d);
 
 	d->spin_width   = glade_xml_get_widget (xml, "spin_cell_width");
+	UPPER_FIX (width);
 	gtk_signal_connect (GTK_OBJECT (d->spin_width), "changed", changed_width, d);
 	d->check_width  = glade_xml_get_widget (xml, "check_cell_width");
 	gtk_signal_connect (GTK_OBJECT (d->check_width), "toggled", set_has_width, d);
@@ -381,6 +388,7 @@ cell_widget (GtkHTMLEditCellProperties *d)
 			    changed_width_percent, d);
 
 	d->spin_height   = glade_xml_get_widget (xml, "spin_cell_height");
+	UPPER_FIX (height);
 	gtk_signal_connect (GTK_OBJECT (d->spin_height), "changed", changed_height, d);
 	d->check_height  = glade_xml_get_widget (xml, "check_cell_height");
 	gtk_signal_connect (GTK_OBJECT (d->check_height), "toggled", set_has_height, d);
