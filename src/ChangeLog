@@ -1,3 +1,7 @@
+2001-03-06  JP Rosevear  <jpr@ximian.com>
+
+	* Makefile.am: make htmltablepriv.h a source
+
 2001-03-06  Radek Doulik  <rodo@ximian.com>
 
 	* keybindingsrc.{ms,emacs}: new bindings

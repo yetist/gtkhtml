@@ -86,6 +86,7 @@ libgtkhtml_HEADERS =				\
 	htmlstack.h				\
 	htmlstringtokenizer.h			\
 	htmltable.h				\
+	htmltablepriv.h				\
 	htmltablecell.h				\
 	htmltext.h				\
 	htmltextarea.h				\
