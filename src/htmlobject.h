@@ -261,12 +261,18 @@ struct _HTMLObjectClass {
 	gint (* get_child_index)         (HTMLObject *self, HTMLObject *child);
 
 	HTMLDirection (*get_direction)   (HTMLObject *self);
+
+	gboolean (*cursor_forward)       (HTMLObject *self, HTMLCursor *cursor);
+	gboolean (*cursor_backward)       (HTMLObject *self, HTMLCursor *cursor);
+	gboolean (*cursor_right)         (HTMLObject *self, HTMLCursor *cursor);
+	gboolean (*cursor_left)          (HTMLObject *self, HTMLCursor *cursor);
+
+	int (*get_right_edge_offset) (HTMLObject *o, int offset);
+	int (*get_left_edge_offset) (HTMLObject *o, int offset);
 };
 
-
 extern HTMLObjectClass html_object_class;
 
-
 /* Basics.  */
 void            html_object_type_init             (void);
 void            html_object_init                  (HTMLObject            *self,
@@ -455,6 +461,10 @@ gboolean        html_object_cursor_forward        (HTMLObject            *self,
 						   HTMLCursor            *cursor);
 gboolean        html_object_cursor_backward       (HTMLObject            *self,
 						   HTMLCursor            *cursor);
+gboolean        html_object_cursor_left           (HTMLObject            *self,
+						   HTMLCursor            *cursor);
+gboolean        html_object_cursor_right          (HTMLObject            *self,
+						   HTMLCursor            *cursor);
 
 /* get prev/next object in scope of parent */
 HTMLObject     *html_object_next                  (HTMLObject            *self,
@@ -598,6 +608,11 @@ HTMLObject *html_object_next_cursor_leaf    (HTMLObject *o,
 					     HTMLEngine *e);
 HTMLObject *html_object_prev_cursor_leaf    (HTMLObject *o,
 					     HTMLEngine *e);
+
+int  html_object_get_right_edge_offset  (HTMLObject *o,
+					 int offset);
+int  html_object_get_left_edge_offset   (HTMLObject *o,
+					 int offset);
 
 const char *html_object_get_id  (HTMLObject *o);
 void        html_object_set_id  (HTMLObject *o,

@@ -85,6 +85,7 @@ struct _HTMLText {
 
 	GSList *links;
 	gint focused_link_offset;
+	PangoDirection direction;
 };
 
 struct _HTMLTextClass {
@@ -225,8 +226,9 @@ gboolean          html_text_get_link_rectangle           (HTMLText           *te
 							  gint               *y2);
 Link             *html_text_get_link_at_offset           (HTMLText           *text,
 							  gint                offset);
-HTMLTextSlave    *html_text_get_slave_at_offset          (HTMLObject         *o,
-							  gint                offset);
+HTMLTextSlave    *html_text_get_slave_at_offset          (HTMLText           *text,
+							  HTMLTextSlave      *start,
+							  int                 offset);
 Link             *html_text_get_link_slaves_at_offset    (HTMLText           *text,
 							  gint                offset,
 							  HTMLTextSlave     **start,

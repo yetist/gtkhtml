@@ -439,7 +439,7 @@ html_a11y_text_get_text_after_offset (AtkText *text, gint offset, AtkTextBoundar
 
 	switch (boundary_type) {
 	case ATK_TEXT_BOUNDARY_LINE_START:
-		end_slave = html_text_get_slave_at_offset (HTML_OBJECT (to), offset);
+		end_slave = html_text_get_slave_at_offset (to, NULL, offset);
 		g_return_val_if_fail (end_slave, NULL);
 		start_slave = (HTMLTextSlave *) HTML_OBJECT (end_slave)->next;
 
@@ -458,7 +458,7 @@ html_a11y_text_get_text_after_offset (AtkText *text, gint offset, AtkTextBoundar
 		return html_a11y_text_get_text (text, *start_offset, *end_offset);
 
 	case ATK_TEXT_BOUNDARY_LINE_END:
-		start_slave = html_text_get_slave_at_offset (HTML_OBJECT (to), offset);
+		start_slave = html_text_get_slave_at_offset (to, NULL, offset);
 		g_return_val_if_fail (start_slave, NULL);
 
 		*start_offset = start_slave->posStart + start_slave->posLen;
@@ -489,7 +489,7 @@ html_a11y_text_get_text_at_offset (AtkText *text, gint offset, AtkTextBoundary b
 
 	switch (boundary_type) {
 	case ATK_TEXT_BOUNDARY_LINE_START:
-		start_slave = html_text_get_slave_at_offset (HTML_OBJECT (to), offset);
+		start_slave = html_text_get_slave_at_offset (to, NULL, offset);
 		g_return_val_if_fail (start_slave, NULL);
 		end_slave = (HTMLTextSlave *) HTML_OBJECT (start_slave)->next;
 
@@ -503,7 +503,7 @@ html_a11y_text_get_text_at_offset (AtkText *text, gint offset, AtkTextBoundary b
 		return html_a11y_text_get_text (text, *start_offset, *end_offset);
 
 	case ATK_TEXT_BOUNDARY_LINE_END:
-		end_slave = html_text_get_slave_at_offset (HTML_OBJECT (to), offset);
+		end_slave = html_text_get_slave_at_offset (to, NULL, offset);
 		g_return_val_if_fail (end_slave, NULL);
 		start_slave = (HTMLTextSlave *) HTML_OBJECT (end_slave)->prev;
 
@@ -546,7 +546,7 @@ html_a11y_text_get_text_before_offset (AtkText *text, gint offset, AtkTextBounda
 
 	switch (boundary_type) {
 	case ATK_TEXT_BOUNDARY_LINE_START:
-		end_slave = html_text_get_slave_at_offset (HTML_OBJECT (to), offset);
+		end_slave = html_text_get_slave_at_offset (to, NULL, offset);
 		g_return_val_if_fail (end_slave, NULL);
 		start_slave = (HTMLTextSlave *) HTML_OBJECT (end_slave)->prev;
 
@@ -559,7 +559,7 @@ html_a11y_text_get_text_before_offset (AtkText *text, gint offset, AtkTextBounda
 		return html_a11y_text_get_text (text, *start_offset, *end_offset);
 
 	case ATK_TEXT_BOUNDARY_LINE_END:
-		start_slave = html_text_get_slave_at_offset (HTML_OBJECT (to), offset);
+		start_slave = html_text_get_slave_at_offset (to, NULL, offset);
 		g_return_val_if_fail (start_slave, NULL);
 		end_slave = (HTMLTextSlave *) HTML_OBJECT (start_slave)->prev;
 

@@ -70,6 +70,10 @@ gboolean    html_cursor_up                      (HTMLCursor *cursor,
 						 HTMLEngine *engine);
 gboolean    html_cursor_down                    (HTMLCursor *cursor,
 						 HTMLEngine *engine);
+gboolean    html_cursor_left                    (HTMLCursor *cursor,
+						 HTMLEngine *engine);
+gboolean    html_cursor_right                   (HTMLCursor *cursor,
+						 HTMLEngine *engine);
 void        html_cursor_beginning_of_document   (HTMLCursor *cursor,
 						 HTMLEngine *engine);
 void        html_cursor_end_of_document         (HTMLCursor *cursor,

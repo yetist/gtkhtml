@@ -1238,7 +1238,10 @@ prepare_attrs (HTMLText *text, HTMLPainter *painter)
 PangoDirection
 html_text_get_pango_direction (HTMLText *text)
 {
-	return pango_find_base_dir (text->text, text->text_bytes);
+	if (HTML_OBJECT (text)->change & HTML_CHANGE_RECALC_PI)
+		return pango_find_base_dir (text->text, text->text_bytes);
+	else
+		return text->direction;
 }
 
 static PangoDirection
@@ -1339,6 +1342,7 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 	if (HTML_OBJECT (text)->change & HTML_CHANGE_RECALC_PI)	{
 		pango_info_destroy (text);
 		HTML_OBJECT (text)->change &= ~HTML_CHANGE_RECALC_PI;
+		text->direction = pango_find_base_dir (text->text, text->text_bytes);
 	}
 	if (!text->pi) {
 		GList *items, *cur;
@@ -2238,16 +2242,9 @@ select_range (HTMLObject *self,
 
 	/* printf ("updated offset: %d length: %d (end offset %d)\n", offset, length, offset + length); */
 
-	if (offset != text->select_start || length != text->select_length) {
-		HTMLObject *slave;
+	if (offset != text->select_start || length != text->select_length)
 		changed = TRUE;
-		html_object_change_set (self, HTML_CHANGE_RECALC_PI);
-		slave = self->next;
-		while (slave && HTML_IS_TEXT_SLAVE (slave)) {
-			html_object_change_set (slave, HTML_CHANGE_RECALC_PI);
-			slave = slave->next;
-		}
-	} else
+	else
 		changed = FALSE;
 
 	/* printf ("select range %d, %d\n", offset, length); */
@@ -2368,36 +2365,21 @@ get_cursor (HTMLObject *self,
 }
 
 static void
-get_cursor_base (HTMLObject *self,
-		 HTMLPainter *painter,
-		 guint offset,
-		 gint *x, gint *y)
+html_text_get_cursor_base (HTMLObject *self,
+			   HTMLPainter *painter,
+			   guint offset,
+			   gint *x, gint *y)
 {
-	HTMLObject *obj;
+	HTMLTextSlave *slave = html_text_get_slave_at_offset (HTML_TEXT (self), NULL, offset);
 
-	for (obj = self->next; obj != NULL; obj = obj->next) {
-		HTMLTextSlave *slave;
+	/* printf ("slave: %p\n", slave); */
 
-		if (HTML_OBJECT_TYPE (obj) != HTML_TYPE_TEXTSLAVE)
-			break;
-
-		slave = HTML_TEXT_SLAVE (obj);
-
-		if (offset <= slave->posStart + slave->posLen
-		    || obj->next == NULL
-		    || HTML_OBJECT_TYPE (obj->next) != HTML_TYPE_TEXTSLAVE) {
-			html_object_calc_abs_position (obj, x, y);
-			if (offset > slave->posStart)
-				*x += html_text_calc_part_width (HTML_TEXT (self), painter, html_text_slave_get_text (slave),
-								 slave->posStart, offset - slave->posStart, NULL, NULL);
-
-			return;
-		}
+	if (slave)
+		html_text_slave_get_cursor_base (slave, painter, offset - slave->posStart, x, y);
+	else {
+		g_warning ("Getting cursor base for an HTMLText with no slaves -- %p\n", self);
+		html_object_calc_abs_position (self, x, y);
 	}
-
-	g_warning ("Getting cursor base for an HTMLText with no slaves -- %p\n",
-		   self);
-	html_object_calc_abs_position (self, x, y);
 }
 
 Link *
@@ -2431,6 +2413,132 @@ get_target (HTMLObject *object, gint offset)
 	return link ? link->target : NULL;
 }
 
+HTMLTextSlave *
+html_text_get_slave_at_offset (HTMLText *text, HTMLTextSlave *start, int offset)
+{
+	HTMLObject *obj = start ? HTML_OBJECT (start) : HTML_OBJECT (text)->next;
+
+	while (obj && HTML_IS_TEXT_SLAVE (obj) && HTML_TEXT_SLAVE (obj)->posStart + HTML_TEXT_SLAVE (obj)->posLen < offset)
+		obj = obj->next;
+
+	if (obj && HTML_IS_TEXT_SLAVE (obj) && HTML_TEXT_SLAVE (obj)->posStart + HTML_TEXT_SLAVE (obj)->posLen >= offset)
+		return HTML_TEXT_SLAVE (obj);
+
+	return NULL;
+}
+
+static gboolean
+html_text_cursor_prev_slave (HTMLObject *slave, HTMLCursor *cursor)
+{
+	HTMLObject *prev = HTML_OBJECT (slave)->prev;
+	int offset = cursor->offset;
+
+	if (prev && HTML_IS_TEXT_SLAVE (prev)) {
+		if (html_text_slave_cursor_tail (HTML_TEXT_SLAVE (prev), cursor)) {
+			cursor->position += cursor->offset - offset;
+			return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
+static gboolean
+html_text_cursor_next_slave (HTMLObject *slave, HTMLCursor *cursor)
+{
+	HTMLObject *next = slave->next;
+	int offset = cursor->offset;
+
+	if (next && HTML_IS_TEXT_SLAVE (next)) {
+		if (html_text_slave_cursor_head (HTML_TEXT_SLAVE (next), cursor)) {
+			cursor->position += cursor->offset - offset;
+			return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
+static gboolean
+html_text_cursor_right (HTMLObject *self, HTMLCursor *cursor)
+{
+	HTMLTextSlave *slave;
+
+	g_assert (self);
+	g_assert (cursor->object == self);
+
+	slave = html_text_get_slave_at_offset (HTML_TEXT (self), NULL, cursor->offset);
+
+	if (slave) {
+		if (html_text_slave_cursor_right (slave, cursor))
+			return TRUE;
+		else {
+			if (self->parent) {
+				if (html_object_get_direction (self->parent) == HTML_DIRECTION_RTL)
+					return html_text_cursor_prev_slave (HTML_OBJECT (slave), cursor);
+				else
+					return html_text_cursor_next_slave (HTML_OBJECT (slave), cursor);
+			}
+		}
+	}
+
+	return FALSE;
+}
+
+static gboolean
+html_text_cursor_left (HTMLObject *self, HTMLCursor *cursor)
+{
+	HTMLTextSlave *slave;
+
+	g_assert (self);
+	g_assert (cursor->object == self);
+
+	slave = html_text_get_slave_at_offset (HTML_TEXT (self), NULL, cursor->offset);
+
+	if (slave) {
+		if (html_text_slave_cursor_left (slave, cursor))
+			return TRUE;
+		else {
+			if (self->parent) {
+				if (html_object_get_direction (self->parent) == HTML_DIRECTION_RTL)
+					return html_text_cursor_next_slave (HTML_OBJECT (slave), cursor);
+				else
+					return html_text_cursor_prev_slave (HTML_OBJECT (slave), cursor);
+			}
+		}
+	}
+
+	return FALSE;
+}
+
+static int
+html_text_get_right_edge_offset (HTMLObject *o, int offset)
+{
+	HTMLTextSlave *slave = html_text_get_slave_at_offset (HTML_TEXT (o), NULL, offset);
+
+	if (slave) {
+		return html_text_slave_get_right_edge_offset (slave);
+	} else {
+		g_warning ("getting right edge offset from text object without slave(s)");
+
+		return HTML_TEXT (o)->text_len;
+	}
+}
+
+static int
+html_text_get_left_edge_offset (HTMLObject *o, int offset)
+{
+	HTMLTextSlave *slave = html_text_get_slave_at_offset (HTML_TEXT (o), NULL, offset);
+
+	if (slave) {
+		return html_text_slave_get_left_edge_offset (slave);
+	} else {
+		g_warning ("getting left edge offset from text object without slave(s)");
+
+		return 0;
+	}
+}
+
 void
 html_text_type_init (void)
 {
@@ -2461,7 +2569,7 @@ html_text_class_init (HTMLTextClass *klass,
 	object_class->calc_min_width = calc_min_width;
 	object_class->fit_line = ht_fit_line;
 	object_class->get_cursor = get_cursor;
-	object_class->get_cursor_base = get_cursor_base;
+	object_class->get_cursor_base = html_text_get_cursor_base;
 	object_class->save = save;
 	object_class->save_plain = save_plain;
 	object_class->check_point = check_point;
@@ -2472,6 +2580,10 @@ html_text_class_init (HTMLTextClass *klass,
 	object_class->append_selection_string = append_selection_string;
 	object_class->get_url = get_url;
 	object_class->get_target = get_target;
+	object_class->cursor_right = html_text_cursor_right;
+	object_class->cursor_left = html_text_cursor_left;
+ 	object_class->get_right_edge_offset = html_text_get_right_edge_offset;
+	object_class->get_left_edge_offset = html_text_get_left_edge_offset;
 
 	/* HTMLText methods.  */
 
@@ -2999,25 +3111,25 @@ html_text_remove_links (HTMLText *text)
 	}
 }
 
-HTMLTextSlave *
-html_text_get_slave_at_offset (HTMLObject *o, gint offset)
-{
-	if (!o || (!HTML_IS_TEXT (o) && !HTML_IS_TEXT_SLAVE (o)))
-		return NULL;
+/* HTMLTextSlave * */
+/* html_text_get_slave_at_offset (HTMLObject *o, gint offset) */
+/* { */
+/* 	if (!o || (!HTML_IS_TEXT (o) && !HTML_IS_TEXT_SLAVE (o))) */
+/* 		return NULL; */
 
-	if (HTML_IS_TEXT (o))
-		o = o->next;
+/* 	if (HTML_IS_TEXT (o)) */
+/* 		o = o->next; */
 
-	while (o && HTML_IS_TEXT_SLAVE (o)) {
-		if (HTML_IS_TEXT_SLAVE (o) && HTML_TEXT_SLAVE (o)->posStart <= offset
-		    && (offset < HTML_TEXT_SLAVE (o)->posStart + HTML_TEXT_SLAVE (o)->posLen
-			|| (offset == HTML_TEXT_SLAVE (o)->posStart + HTML_TEXT_SLAVE (o)->posLen && HTML_TEXT_SLAVE (o)->owner->text_len == offset)))
-			return HTML_TEXT_SLAVE (o);
-		o = o->next;
-	}
+/* 	while (o && HTML_IS_TEXT_SLAVE (o)) { */
+/* 		if (HTML_IS_TEXT_SLAVE (o) && HTML_TEXT_SLAVE (o)->posStart <= offset */
+/* 		    && (offset < HTML_TEXT_SLAVE (o)->posStart + HTML_TEXT_SLAVE (o)->posLen */
+/* 			|| (offset == HTML_TEXT_SLAVE (o)->posStart + HTML_TEXT_SLAVE (o)->posLen && HTML_TEXT_SLAVE (o)->owner->text_len == offset))) */
+/* 			return HTML_TEXT_SLAVE (o); */
+/* 		o = o->next; */
+/* 	} */
 
-	return NULL;
-}
+/* 	return NULL; */
+/* } */
 
 Link *
 html_text_get_link_slaves_at_offset (HTMLText *text, gint offset, HTMLTextSlave **start, HTMLTextSlave **end)
@@ -3025,8 +3137,8 @@ html_text_get_link_slaves_at_offset (HTMLText *text, gint offset, HTMLTextSlave 
 	Link *link = html_text_get_link_at_offset (text, offset);
 
 	if (link) {
-		*start = html_text_get_slave_at_offset (HTML_OBJECT (text), link->start_offset);
-		*end = html_text_get_slave_at_offset (HTML_OBJECT (*start), link->end_offset);
+		*start = html_text_get_slave_at_offset (text, NULL, link->start_offset);
+		*end = html_text_get_slave_at_offset (text, *start, link->end_offset);
 
 		if (*start && *end)
 			return link;

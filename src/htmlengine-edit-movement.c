@@ -56,11 +56,11 @@ html_engine_move_cursor (HTMLEngine *e,
 
 	switch (movement) {
 	case HTML_ENGINE_CURSOR_RIGHT:
-		movement_func = html_cursor_forward;
+		movement_func = html_cursor_right;
 		break;
 
 	case HTML_ENGINE_CURSOR_LEFT:
-		movement_func = html_cursor_backward;
+		movement_func = html_cursor_left;
 		break;
 
 	case HTML_ENGINE_CURSOR_UP:
@@ -146,9 +146,9 @@ html_engine_jump_at (HTMLEngine *e,
 	if (obj == NULL)
 		return;
 
-	/* printf ("jump to object type %d - %p\n", HTML_OBJECT_TYPE (obj), obj); */
+/* 	printf ("jump to object type %d - %p offset %d\n", HTML_OBJECT_TYPE (obj), obj, offset); */
 	html_engine_jump_to_object (e, obj, offset);
-	/* printf ("jumped to object type %d - %p\n", HTML_OBJECT_TYPE (e->cursor->object), e->cursor->object); */
+/* 	printf ("jumped to object type %d - %p offset: %d\n", HTML_OBJECT_TYPE (e->cursor->object), e->cursor->object, e->cursor->offset); */
 }
 
 

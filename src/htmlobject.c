@@ -600,6 +600,128 @@ html_object_real_get_direction (HTMLObject *o)
 	return HTML_DIRECTION_DERIVED;
 }
 
+static gboolean
+html_object_real_cursor_forward (HTMLObject *self, HTMLCursor *cursor)
+{
+	gint len;
+
+	g_assert (self);
+	g_assert (cursor->object == self);
+
+	if (html_object_is_container (self))
+		return FALSE;
+
+	len = html_object_get_length (self);
+	if (cursor->offset < len) {
+		cursor->offset ++;
+		cursor->position ++;
+		return TRUE;
+	} else
+		return FALSE;
+}
+
+static gboolean
+html_object_real_cursor_backward (HTMLObject *self, HTMLCursor *cursor)
+{
+	HTMLObject *prev;
+
+	g_assert (self);
+	g_assert (cursor->object == self);
+
+	if (html_object_is_container (self))
+		return FALSE;
+
+	if (cursor->offset > 1 || (cursor->offset > 0 && (! (prev = html_object_prev_not_slave (self))
+							  || HTML_IS_CLUEALIGNED (prev) || !html_object_accepts_cursor (prev)))) {
+		cursor->offset --;
+		cursor->position --;
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+static gboolean
+html_object_real_cursor_right (HTMLObject *self, HTMLCursor *cursor)
+{
+	HTMLDirection dir = html_object_get_direction (self);
+
+	g_assert (self);
+	g_assert (cursor->object == self);
+
+	if (html_object_is_container (self))
+		return FALSE;
+
+	if (dir == HTML_DIRECTION_LTR) {
+		gint len;
+
+		len = html_object_get_length (self);
+
+		if (cursor->offset < len) {
+			cursor->offset ++;
+			cursor->position ++;
+			return TRUE;
+		}
+	} else {
+		HTMLObject *prev;
+
+		if (cursor->offset > 1 || (cursor->offset > 0 && (! (prev = html_object_prev_not_slave (self))
+								  || HTML_IS_CLUEALIGNED (prev) || !html_object_accepts_cursor (prev)))) {
+			cursor->offset --;
+			cursor->position --;
+			return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
+static gboolean
+html_object_real_cursor_left (HTMLObject *self, HTMLCursor *cursor)
+{
+	HTMLDirection dir = html_object_get_direction (self);
+
+	g_assert (self);
+	g_assert (cursor->object == self);
+
+	if (html_object_is_container (self))
+		return FALSE;
+
+	if (dir == HTML_DIRECTION_LTR) {
+		HTMLObject *prev;
+		if (cursor->offset > 1 || (cursor->offset > 0 && (! (prev = html_object_prev_not_slave (self))
+								  || HTML_IS_CLUEALIGNED (prev) || !html_object_accepts_cursor (prev)))) {
+			cursor->offset --;
+			cursor->position --;
+			return TRUE;
+		}
+	} else {
+		gint len;
+
+		len = html_object_get_length (self);
+
+		if (cursor->offset < len) {
+			cursor->offset ++;
+			cursor->position ++;
+			return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
+static int
+html_object_real_get_right_edge_offset (HTMLObject *o, int offset)
+{
+	return html_object_get_length (o);
+}
+
+static int
+html_object_real_get_left_edge_offset (HTMLObject *o, int offset)
+{
+	return 0;
+}
+
 /* Class initialization.  */
 
 void
@@ -671,6 +793,12 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->get_engine = get_engine;
 	klass->get_clear = get_clear;
 	klass->get_direction = html_object_real_get_direction;
+	klass->cursor_forward = html_object_real_cursor_forward;
+	klass->cursor_backward = html_object_real_cursor_backward;
+	klass->cursor_left = html_object_real_cursor_left;
+	klass->cursor_right = html_object_real_cursor_right;
+	klass->get_right_edge_offset = html_object_real_get_right_edge_offset;
+	klass->get_left_edge_offset = html_object_real_get_left_edge_offset;
 }
 
 void
@@ -1384,42 +1512,25 @@ html_object_tail_not_slave (HTMLObject *self)
 gboolean
 html_object_cursor_forward (HTMLObject *self, HTMLCursor *cursor)
 {
-	gint len;
-
-	g_assert (self);
-	g_assert (cursor->object == self);
-
-	if (html_object_is_container (self))
-		return FALSE;
-
-	len = html_object_get_length (self);
-	if (cursor->offset < len) {
-		cursor->offset ++;
-		cursor->position ++;
-		return TRUE;
-	} else
-		return FALSE;
+	return (* HO_CLASS (self)->cursor_forward) (self, cursor);
 }
 
 gboolean
 html_object_cursor_backward (HTMLObject *self, HTMLCursor *cursor)
 {
-	HTMLObject *prev;
+	return (* HO_CLASS (self)->cursor_backward) (self, cursor);
+}
 
-	g_assert (self);
-	g_assert (cursor->object == self);
+gboolean
+html_object_cursor_right (HTMLObject *self, HTMLCursor *cursor)
+{
+	return (* HO_CLASS (self)->cursor_right) (self, cursor);
+}
 
-	if (html_object_is_container (self))
-		return FALSE;
-
-	if (cursor->offset > 1 || (cursor->offset > 0 && (! (prev = html_object_prev_not_slave (self))
-							  || HTML_IS_CLUEALIGNED (prev) || !html_object_accepts_cursor (prev)))) {
-		cursor->offset --;
-		cursor->position --;
-		return TRUE;
-	}
-
-	return FALSE;
+gboolean
+html_object_cursor_left (HTMLObject *self, HTMLCursor *cursor)
+{
+	return (* HO_CLASS (self)->cursor_left) (self, cursor);
 }
 
 /*********************
@@ -2098,4 +2209,16 @@ html_object_get_flow (HTMLObject *o)
 		o = o->parent;
 
 	return HTML_CLUEFLOW (o);
+}
+
+int
+html_object_get_right_edge_offset (HTMLObject *o, int offset)
+{
+	return (* HO_CLASS (o)->get_right_edge_offset) (o, offset);
+}
+
+int
+html_object_get_left_edge_offset (HTMLObject *o, int offset)
+{
+	return (* HO_CLASS (o)->get_left_edge_offset) (o, offset);
 }

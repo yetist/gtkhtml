@@ -618,7 +618,7 @@ html_painter_draw_entries (HTMLPainter *painter, gint x, gint y,
 			
 			tab = memchr (c_text + 1, (unsigned char) '\t', bytes - 1);
 		} else {
-			x += (* HP_CLASS (painter)->draw_glyphs) (painter, x, y, item, gl->data, NULL, NULL);
+			x += html_painter_pango_to_engine (painter, (* HP_CLASS (painter)->draw_glyphs) (painter, x, y, item, gl->data, NULL, NULL));
 
 			if (line_offset != -1)
 				line_offset += g_utf8_pointer_to_offset (c_text, next);
@@ -820,11 +820,9 @@ html_painter_get_pixel_size (HTMLPainter *painter)
 }
 
 gint
-html_painter_draw_spell_error (HTMLPainter *painter,
-			       gint x, gint y,
-			       HTMLTextPangoInfo *pi, GList *glyphs)
+html_painter_draw_spell_error (HTMLPainter *painter, int x, int y, int width)
 {
-	return (* HP_CLASS (painter)->draw_spell_error) (painter, x, y, pi, glyphs);
+	return (* HP_CLASS (painter)->draw_spell_error) (painter, x, y, width);
 }
 
 HTMLFont *

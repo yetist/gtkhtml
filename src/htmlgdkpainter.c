@@ -669,32 +669,16 @@ fill_rect (HTMLPainter *painter,
 }
 
 static gint
-draw_spell_error (HTMLPainter *painter, gint x, gint y, HTMLTextPangoInfo *pi, GList *glyphs)
+draw_spell_error (HTMLPainter *painter, int x, int y, int width)
 {
 	HTMLGdkPainter *gdk_painter;
 	GdkGCValues values;
 	gchar dash [2];
-	GList *gl;
-	PangoRectangle log_rect;
-	PangoGlyphString *str;
-	gint width, ii;
-
-	if (!pi || !glyphs)
-		return 0;
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
 	x -= gdk_painter->x1;
 	y -= gdk_painter->y1;
-
-	width = 0;
-	for (gl = glyphs; gl; gl = gl->next) {
-		str = (PangoGlyphString *) gl->data;
-		gl = gl->next;
-		ii = GPOINTER_TO_INT (gl->data);
-		pango_glyph_string_extents (str, pi->entries [ii].glyph_item.item->analysis.font, NULL, &log_rect);
-		width += PANGO_PIXELS (log_rect.width);
-	}
 
 	gdk_gc_get_values (gdk_painter->gc, &values);
 	gdk_gc_set_fill (gdk_painter->gc, GDK_OPAQUE_STIPPLED);
@@ -764,15 +748,15 @@ draw_lines (PangoGlyphString *str, gint x, gint y, GdkDrawable *drawable, GdkGC 
 
 	pango_glyph_string_extents (str, item->analysis.font, NULL, &log_rect);
 
-	width = PANGO_PIXELS (log_rect.width);
+	width = log_rect.width;
 	dsc = PANGO_PIXELS (PANGO_DESCENT (log_rect));
 	asc = PANGO_PIXELS (PANGO_ASCENT (log_rect));
 
 	if (properties->underline)
-		gdk_draw_line (drawable, gc, x, y + dsc - 2, x + width, y + dsc - 2);
+		gdk_draw_line (drawable, gc, x, y + dsc - 2, x + PANGO_PIXELS (width), y + dsc - 2);
 
 	if (properties->strikethrough)
-		gdk_draw_line (drawable, gc, x, y - asc + (asc + dsc)/2, x + width, y - asc + (asc + dsc)/2);
+		gdk_draw_line (drawable, gc, x, y - asc + (asc + dsc)/2, x + PANGO_PIXELS (width), y - asc + (asc + dsc)/2);
 
 	return width;
 }
@@ -822,7 +806,7 @@ draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphSt
 		cw = draw_lines (glyphs, x, y, gdk_painter->pixmap, gdk_painter->gc, item, &properties);
 	else
 		for (i=0; i < glyphs->num_glyphs; i ++)
-			cw += PANGO_PIXELS (glyphs->glyphs [i].geometry.width);
+			cw += glyphs->glyphs [i].geometry.width;
 
 	if (bg_text_color)
 		g_free (bg_text_color);

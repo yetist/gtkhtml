@@ -75,7 +75,7 @@ struct _HTMLPainterClass {
 	void (* draw_line)        (HTMLPainter *painter, gint x1, gint y1, gint x2, gint y2);
 	void (* draw_rect)        (HTMLPainter *painter, gint x, gint y, gint width, gint height);
 	gint (* draw_glyphs)      (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphString *glyphs, GdkColor *fg, GdkColor *bg);
-	gint (* draw_spell_error) (HTMLPainter *painter, gint x, gint y, HTMLTextPangoInfo *pi, GList *glyphs);
+	gint (* draw_spell_error) (HTMLPainter *painter, int x, int y, int width);
 	void (* fill_rect)        (HTMLPainter *painter, gint x, gint y, gint width, gint height);
 	void (* draw_pixmap)      (HTMLPainter *painter, GdkPixbuf *pixbuf, 
 				   gint x, gint y,
@@ -253,10 +253,9 @@ void              html_painter_draw_background                         (HTMLPain
 									gint               tile_y);
 guint             html_painter_get_pixel_size                          (HTMLPainter       *painter);
 gint              html_painter_draw_spell_error                        (HTMLPainter       *painter,
-									gint               x,
-									gint               y,
-									HTMLTextPangoInfo *pi,
-									GList             *glyphs);
+									int                x,
+									int                y,
+									int                width);
 HTMLFont         *html_painter_alloc_font                              (HTMLPainter       *painter,
 									gchar             *face_name,
 									gdouble            size,

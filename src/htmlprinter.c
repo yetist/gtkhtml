@@ -648,7 +648,7 @@ draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphSt
 	gnome_print_grestore (printer->context);
 	
 	
-	return html_painter_pango_to_engine (painter, log_rect.width);
+	return log_rect.width;
 }
 
 static void
