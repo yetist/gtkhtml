@@ -55,7 +55,7 @@ do_test (int init_size, char *ops, int last_size)
 }
 
 int
-main (int argc, char *argv)
+main (int argc, char **argv)
 {
 	do_test (5, "++++++++S++++S", 2);
 	do_test (4, "++++++++++++++++++++", 4);
