@@ -1,5 +1,47 @@
 1999-12-28  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* gtkhtml.c (key_press_event): Handle `GDK_Delete' and
+	`GDK_KP_Delete'.
+
+	* htmlengine-edit.c (html_engine_delete): New function.
+
+	* htmltextmaster.c (remove_text): New function, implementation for
+	the `remove_text' method.
+	(html_text_master_class_init): Install it.
+
+	* htmltext.c (html_text_insert_text): Added precondition on
+	parameter `engine'.
+	(html_text_remove_text): New function.
+	(remove_text): New function, default implementation for the
+	`remove_text' method.
+	(html_text_class_init): Install it.
+
+	* htmltext.h: New virtual method `remove_text'.
+
+	* htmlobject.c (html_object_calc_abs_position): Actually use local
+	variable `p'.
+
+	* htmlcursor.c (forward): New helper function.
+	(html_cursor_forward): Use it.  Added preconditions.
+	(backward): New helper function.
+	(html_cursor_backward): Use it.  Added preconditions.
+	(html_cursor_up): Set the target X value before anything else, to
+	make sure it is always set correctly.  Use `backward()' instead of
+	`html_cursor_backward()'.
+	(html_cursor_down): Likewise.  Use `forward()' instead of
+	`html_cursor_forward()'.
+	(html_cursor_new): Initialize `have_target_x' to FALSE, not TRUE.
+
+	* htmltextmaster.c (calc_char_position): Make sure the coordinates
+	are always calculated.
+
+	* htmltextslave.c (fit_line): Destroy the next object instead of
+	just `g_free()'ing it.  Do not kill the space between the various
+	TextSlaves: instead, keep it at the end of the slave.
+
+	* htmlengine-edit.c (queue_draw_for_cursor): Do nothing if the
+	pointer to the current object is NULL.
+
 	* htmlurl.c (concat_dir_and_file): Made static.
 
 	* testgtkhtml.c (netin_stream_free): Call `gtk_html_end()' again.

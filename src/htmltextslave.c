@@ -1,22 +1,24 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/* This file is part of the KDE libraries
-    Copyright (C) 1997 Martin Jones (mjones@kde.org)
-              (C) 1997 Torben Weis (weis@kde.org)
+/* This file is part of the GtkHTML library.
 
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-    Boston, MA 02111-1307, USA.
+   Copyright (C) 1997 Martin Jones (mjones@kde.org)
+   Copyright (C) 1997 Torben Weis (weis@kde.org)
+   Copyright (C) 1999 Helix Code, Inc.
+   
+   This library is free software; you can redistribute it and/or
+   modify it under the terms of the GNU Library General Public
+   License as published by the Free Software Foundation; either
+   version 2 of the License, or (at your option) any later version.
+   
+   This library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   Library General Public License for more details.
+   
+   You should have received a copy of the GNU Library General Public License
+   along with this library; see the file COPYING.LIB.  If not, write to
+   the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+   Boston, MA 02111-1307, USA.
 */
 
 #include <string.h>
@@ -51,7 +53,7 @@ fit_line (HTMLObject *o,
 	if (next_obj && (HTML_OBJECT_TYPE (next_obj) == HTML_TYPE_TEXTSLAVE)) {
 		do {
 			o->next = next_obj->next;
-			g_free (next_obj); /* FIXME FIXME FIXME */
+			html_object_destroy (next_obj);
 			next_obj = o->next;
 			if (next_obj != NULL)
 				next_obj->prev = o;
@@ -68,7 +70,7 @@ fit_line (HTMLObject *o,
 	text += textslave->posStart;
 	
 	o->width = html_font_calc_width (ownertext->font, text, textslave->posLen);
-	if ((o->width <= widthLeft) || (textslave->posLen <= 1) || (widthLeft < 0)) {
+	if (o->width <= widthLeft || textslave->posLen <= 1 || widthLeft < 0) {
 		/* Text fits completely */
 		if (!o->next || (o->next->flags & (HTML_OBJECT_FLAG_SEPARATOR
 						   | HTML_OBJECT_FLAG_NEWLINE))) {
@@ -82,19 +84,17 @@ fit_line (HTMLObject *o,
 			return_value = HTML_FIT_COMPLETE;
 			goto done;
 		}
-	}
-	else {
+	} else {
 		splitPtr = index (text + 1, ' ');
 	}
 	
 	if (splitPtr) {
-		newLen = splitPtr - text;
+		newLen = splitPtr - text + 1;
 		newWidth = html_font_calc_width (ownertext->font, text, newLen);
 		if (newWidth > widthLeft) {
 			/* Splitting doesn't make it fit */
 			splitPtr = 0;
-		}
-		else {
+		} else {
 			gint extraLen;
 			gint extraWidth;
 
@@ -109,15 +109,13 @@ fit_line (HTMLObject *o,
 					newLen += extraLen;
 					newWidth += extraWidth;
 					splitPtr = splitPtr2;
-				}
-				else {
+				} else {
 					/* Using this separator would over-do it */
 					break;
 				}
 			}
 		}
-	}
-	else {
+	} else {
 		newLen = textslave->posLen;
 		newWidth = o->width;
 	}

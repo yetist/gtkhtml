@@ -44,7 +44,7 @@ html_cursor_new (void)
 	new->offset = 0;
 
 	new->target_x = 0;
-	new->have_target_x = TRUE;
+	new->have_target_x = FALSE;
 
 	return new;
 }
@@ -149,14 +149,12 @@ html_cursor_home (HTMLCursor *cursor,
 }
 
 
-void
-html_cursor_forward (HTMLCursor *cursor,
-		     HTMLEngine *engine)
+static void
+forward (HTMLCursor *cursor,
+	 HTMLEngine *engine)
 {
 	HTMLObject *obj;
 	guint offset;
-
-	cursor->have_target_x = FALSE;
 
 	obj = cursor->object;
 	if (obj == NULL) {
@@ -229,15 +227,24 @@ html_cursor_forward (HTMLCursor *cursor,
 	cursor->offset = offset;
 }
 
-
 void
-html_cursor_backward (HTMLCursor *cursor,
-		      HTMLEngine *engine)
+html_cursor_forward (HTMLCursor *cursor,
+		     HTMLEngine *engine)
+{
+	g_return_if_fail (cursor != NULL);
+	g_return_if_fail (engine != NULL);
+
+	cursor->have_target_x = FALSE;
+	forward (cursor, engine);
+}
+
+
+static void
+backward (HTMLCursor *cursor,
+	  HTMLEngine *engine)
 {
 	HTMLObject *obj;
 	guint offset;
-
-	cursor->have_target_x = FALSE;
 
 	obj = cursor->object;
 	if (obj == NULL)
@@ -312,6 +319,17 @@ html_cursor_backward (HTMLCursor *cursor,
 	cursor->offset = offset;
 }
 
+void
+html_cursor_backward (HTMLCursor *cursor,
+		      HTMLEngine *engine)
+{
+	g_return_if_fail (cursor != NULL);
+	g_return_if_fail (engine != NULL);
+
+	cursor->have_target_x = FALSE;
+	backward (cursor, engine);
+}
+
 
 void
 html_cursor_up (HTMLCursor *cursor,
@@ -336,10 +354,12 @@ html_cursor_up (HTMLCursor *cursor,
 	html_text_calc_char_position (HTML_TEXT (cursor->object),
 				      cursor->offset, &x, &y);
 
-	if (cursor->have_target_x)
-		target_x = cursor->target_x;
-	else
-		target_x = x;
+	if (! cursor->have_target_x) {
+		cursor->target_x = x;
+		cursor->have_target_x = TRUE;
+	}
+
+	target_x = cursor->target_x;
 
 	orig_y = y;
 
@@ -350,7 +370,7 @@ html_cursor_up (HTMLCursor *cursor,
 		prev_x = x;
 		prev_y = y;
 
-		html_cursor_backward (cursor, engine);
+		backward (cursor, engine);
 
 		/* This assumes that we are on an HTMLText object.  FIXME?  */
 		html_text_calc_char_position (HTML_TEXT (cursor->object),
@@ -411,10 +431,12 @@ html_cursor_down (HTMLCursor *cursor,
 	html_text_calc_char_position (HTML_TEXT (cursor->object),
 				      cursor->offset, &x, &y);
 
-	if (cursor->have_target_x)
-		target_x = cursor->target_x;
-	else
-		target_x = x;
+	if (! cursor->have_target_x) {
+		cursor->target_x = x;
+		cursor->have_target_x = TRUE;
+	}
+
+	target_x = cursor->target_x;
 
 	orig_y = y;
 
@@ -425,7 +447,7 @@ html_cursor_down (HTMLCursor *cursor,
 		prev_x = x;
 		prev_y = y;
 
-		html_cursor_forward (cursor, engine);
+		forward (cursor, engine);
 
 		/* This assumes that we are on an HTMLText object.  FIXME?  */
 		html_text_calc_char_position (HTML_TEXT (cursor->object),

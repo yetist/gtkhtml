@@ -83,8 +83,9 @@ insert_text (HTMLText *text,
 	guint old_len;
 	guint new_len;
 
-	/* The following code is very stupid, but it is just for interactive
-           editing so most likely people won't even notice.  */
+	/* The following code is very stupid and quite inefficient, but it is
+           just for interactive editing so most likely people won't even
+           notice.  */
 
 	old_len = strlen (text->text);
 	new_len = old_len + len;
@@ -113,10 +114,48 @@ insert_text (HTMLText *text,
 	g_free (text->text);
 	text->text = new_buffer;
 
-	if (! html_object_relayout (HTML_OBJECT (text)->parent, engine, HTML_OBJECT (text))) {
-		/*  html_text_queue_draw (text, engine, offset, 0); */
+	if (! html_object_relayout (HTML_OBJECT (text)->parent, engine, HTML_OBJECT (text)))
 		html_engine_queue_draw (engine, HTML_OBJECT (text)->parent);
+}
+
+static void
+remove_text (HTMLText *text,
+	     HTMLEngine *engine,
+	     guint offset,
+	     guint len)
+{
+	gchar *new_buffer;
+	guint old_len;
+	guint new_len;
+
+	/* The following code is very stupid and quite inefficient, but it is
+           just for interactive editing so most likely people won't even
+           notice.  */
+
+	old_len = strlen (text->text);
+
+	if (offset > old_len) {
+		g_warning ("Cursor offset out of range for HTMLText::remove_text().");
+		return;
 	}
+
+	if (offset + len > old_len || len == 0)
+		len = old_len - offset;
+
+	new_len = old_len - len;
+
+	new_buffer = g_malloc (new_len + 1);
+
+	if (offset > 0)
+		memcpy (new_buffer, text->text, offset);
+
+	memcpy (new_buffer + offset, text->text + offset + len, old_len - offset - len + 1);
+
+	g_free (text->text);
+	text->text = new_buffer;
+
+	if (! html_object_relayout (HTML_OBJECT (text)->parent, engine, HTML_OBJECT (text)))
+		html_engine_queue_draw (engine, HTML_OBJECT (text)->parent);
 }
 
 static void
@@ -155,6 +194,7 @@ html_text_class_init (HTMLTextClass *klass,
 	/* HTMLText methods.  */
 
 	klass->insert_text = insert_text;
+	klass->remove_text = remove_text;
 	klass->queue_draw = queue_draw;
 	klass->calc_char_position = calc_char_position;
 }
@@ -200,12 +240,25 @@ html_text_insert_text (HTMLText *text,
 		       guint len)
 {
 	g_return_if_fail (text != NULL);
+	g_return_if_fail (engine != NULL);
 	g_return_if_fail (p != NULL);
 
 	if (len == 0)
 		return;
 
 	(* HT_CLASS (text)->insert_text) (text, engine, offset, p, len);
+}
+
+void
+html_text_remove_text (HTMLText *text,
+		       HTMLEngine *engine,
+		       guint offset,
+		       guint len)
+{
+	g_return_if_fail (text != NULL);
+	g_return_if_fail (engine != NULL);
+
+	(* HT_CLASS (text)->remove_text) (text, engine, offset, len);
 }
 
 void

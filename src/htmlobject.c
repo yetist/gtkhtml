@@ -1,5 +1,5 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/*  This file is part of the GtkHTML library
+/*  This file is part of the GtkHTML library.
 
     Copyright (C) 1997 Martin Jones (mjones@kde.org)
     Copyright (C) 1997 Torben Weis (weis@kde.org)
@@ -285,8 +285,8 @@ void
 html_object_set_parent (HTMLObject *o,
 			HTMLObject *parent)
 {
-	/* If this happens, this is broken as currently this does not make any
-           sense at all.  */
+	/* If this happens, something must be broken: we are not moving
+           elements around at the moment.  */
 	g_return_if_fail (o->parent == NULL);
 
 	o->parent = parent;
@@ -303,10 +303,9 @@ html_object_calc_abs_position (HTMLObject *o,
 	*x_return = 0;
 	*y_return = 0;
 
-	while (o != NULL) {
-		*x_return += o->x;
-		*y_return += o->y;
-		o = o->parent;
+	for (p = o; p != NULL; p = p->parent) {
+		*x_return += p->x;
+		*y_return += p->y;
 	}
 }
 

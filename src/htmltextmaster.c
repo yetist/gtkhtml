@@ -1,5 +1,5 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/* This file is part of the GtkHTML library
+/* This file is part of the GtkHTML library.
 
    Copyright (C) 1997 Martin Jones (mjones@kde.org)
    Copyright (C) 1997 Torben Weis (weis@kde.org)
@@ -99,9 +99,35 @@ insert_text (HTMLText *self,
 	     const gchar *p,
 	     guint len)
 {
+	/* Notice that the following must be done before actually inserting
+           text.  Otherwise, relayout won't work.  This is very lame.  (FIXME)
+           Probably we should make `strLen' a member of `HTMLText'.  */
+
 	HTML_TEXT_MASTER (self)->strLen += len;
 
 	(* html_text_class.insert_text) (self, engine, offset, p, len);
+}
+
+static void
+remove_text (HTMLText *self,
+	     HTMLEngine *engine,
+	     guint offset,
+	     guint len)
+{
+	HTMLTextMaster *master;
+
+	master = HTML_TEXT_MASTER (self);
+
+	/* Notice that the following must be done before actually removing
+           text.  Otherwise, relayout won't work.  This is very lame.  (FIXME)
+           Probably we should make `strLen' a member of `HTMLText'.  */
+
+	if (offset + len > master->strLen)
+		len = master->strLen - offset;
+
+	master->strLen -= len;
+
+	(* html_text_class.remove_text) (self, engine, offset, len);
 }
 
 static void
@@ -144,13 +170,15 @@ calc_char_position (HTMLText *text,
 
 		slave = HTML_TEXT_SLAVE (obj);
 
-		if (offset < slave->posStart + slave->posLen) {
+		if (offset < slave->posStart + slave->posLen
+		    || obj->next == NULL
+		    || HTML_OBJECT_TYPE (obj->next) != HTML_TYPE_TEXTSLAVE) {
 			html_object_calc_abs_position (obj, x_return, y_return);
 			if (offset != slave->posStart)
 				*x_return += gdk_text_width (text->font->gdk_font,
 							     text->text + slave->posStart,
 							     offset - slave->posStart);
-			break;
+			return;
 		}
 	}
 }
@@ -181,6 +209,7 @@ html_text_master_class_init (HTMLTextMasterClass *klass,
 	object_class->calc_preferred_width = calc_preferred_width;
 
 	text_class->insert_text = insert_text;
+	text_class->remove_text = remove_text;
 	text_class->queue_draw = queue_draw;
 	text_class->calc_char_position = calc_char_position;
 }

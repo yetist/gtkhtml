@@ -35,6 +35,9 @@ queue_draw_for_cursor (HTMLEngine *e)
 	HTMLType type;
 
 	current = e->cursor->object;
+	if (current == NULL)
+		return;
+
 	type = HTML_OBJECT_TYPE (current);
 
 	/* FIXME this sucks -- we need an `is_a()' function.  */
@@ -118,4 +121,33 @@ html_engine_insert (HTMLEngine *e,
 
 	html_text_insert_text (HTML_TEXT (current_object), e,
 			       e->cursor->offset, text, len);
+}
+
+/* FIXME This should actually do a lot more.  */
+void
+html_engine_delete (HTMLEngine *e,
+		    guint count)
+{
+	HTMLObject *current_object;
+	HTMLType type;
+
+	g_return_if_fail (e != NULL);
+
+	if (count == 0)
+		return;
+
+	current_object = e->cursor->object;
+	type = HTML_OBJECT_TYPE (current_object);
+
+	if (type != HTML_TYPE_TEXT
+	    && type != HTML_TYPE_TEXTMASTER
+	    && type != HTML_TYPE_LINKTEXT
+	    && type != HTML_TYPE_LINKTEXTMASTER) {
+		g_warning ("Cannot remove text in object of type `%s'",
+			   html_type_name (type));
+		return;
+	}
+
+	html_text_remove_text (HTML_TEXT (current_object), e,
+			       e->cursor->offset, count);
 }
