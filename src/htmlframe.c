@@ -194,10 +194,14 @@ static gint
 calc_min_width (HTMLObject *o,
 		HTMLPainter *painter)
 {
-  /* Since width == -1 if not set this will always work */
+  int min_width;
+  
+  if (HTML_FRAME (o)->width < 0)
+	  min_width =  html_engine_calc_min_width (GTK_HTML (HTML_FRAME (o)->html)->engine);
+  else 
+	  min_width = HTML_FRAME (o)->width;
 
-  return MAX (HTML_FRAME (o)->width * html_painter_get_pixel_size (painter), 
-	      html_engine_calc_min_width (GTK_HTML (HTML_FRAME (o)->html)->engine));
+  return min_width;
 }
 
 static void

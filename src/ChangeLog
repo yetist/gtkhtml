@@ -1,6 +1,14 @@
 2001-06-01  Larry Ewing  <lewing@ximian.com>
 
+	* htmlframe.c (calc_min_width): Fix the logic for frames that have
+	a specified width;
+
+	* htmltablecell.c (calc_min_width): fix the logic so that
+	min_width doesn't return larger than needed be we still break the
+	loop.
+
 	* htmlframe.c (frame_url_requested): increment cur in the loop.
+	(set_max_width): if the size is given the min width is
 
 	* htmltablecell.c (calc_min_width): break the resize loop that was
 	occuring when no_wrap and HTML_OBJECT_FLAGS_FIXED_WIDTH were both
