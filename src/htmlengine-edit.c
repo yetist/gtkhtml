@@ -365,6 +365,14 @@ html_engine_get_indent (HTMLEngine *e)
 
 #define LINE_LEN 71
 
+static inline guint
+inc_line_offset (guint line_offset, gunichar uc)
+{
+	return uc == '\t'
+		? line_offset + 8 - (line_offset % 8)
+		: line_offset + 1;
+}
+
 static guint
 try_break_this_line (HTMLEngine *e, guint line_offset, guint last_space)
 {
@@ -374,9 +382,9 @@ try_break_this_line (HTMLEngine *e, guint line_offset, guint last_space)
 	flow = e->cursor->object->parent;
 
 	while (html_cursor_forward (e->cursor, e) && e->cursor->object->parent == flow) {
-		line_offset ++;
 		uc = html_cursor_get_current_char (e->cursor);
-		if (uc == ' ')
+		line_offset = inc_line_offset (line_offset, uc);
+		if (uc == ' ' || uc == '\t')
 			last_space = line_offset;
 		if (uc && line_offset >= LINE_LEN) {
 			if (last_space) {
@@ -385,13 +393,13 @@ try_break_this_line (HTMLEngine *e, guint line_offset, guint last_space)
 			} else {
 				/* go to end of word */
 				while (html_cursor_forward (e->cursor, e)) {
-					line_offset ++;
+					line_offset = inc_line_offset (line_offset, uc);
 					uc = html_cursor_get_current_char (e->cursor);
-					if (uc == ' ' || !uc)
+					if (uc == ' ' || uc == '\t' || !uc)
 						break;
 				}
 			}
-			if (uc == ' ') {
+			if (uc == ' ' || uc == '\t') {
 				html_engine_insert_empty_paragraph (e);
 				html_engine_delete_n (e, 1, TRUE);
 
@@ -450,8 +458,10 @@ html_engine_indent_pre_paragraph (HTMLEngine *e)
 		    && e->cursor->offset == 0 && html_object_get_length (e->cursor->object)
 		    && html_object_prev_not_slave (e->cursor->object) == NULL) {
 			if (line_offset < LINE_LEN - 1) {
+				gunichar prev;
 				html_engine_delete_n (e, 1, FALSE);
-				if (' ' != html_cursor_get_prev_char (e->cursor)) {
+				prev = html_cursor_get_prev_char (e->cursor);
+				if (prev != ' ' && prev != '\t') {
 					html_engine_insert_text (e, " ", 1);
 					line_offset ++;
 				} else if (position > e->cursor->position)
@@ -498,10 +508,10 @@ html_engine_indent_pre_line (HTMLEngine *e)
 	flow = e->cursor->object->parent;
 	while (html_cursor_forward (e->cursor, e) && e->cursor->object->parent == flow) {
 		uc = html_cursor_get_current_char (e->cursor);
-		line_offset++;
+		line_offset = inc_line_offset (line_offset, uc);
 
-		if (uc == ' ') {
-				last_space = line_offset;
+		if (uc == ' ' || uc == '\t') {
+			last_space = line_offset;
 		}
 		
 		if (line_offset >= LINE_LEN) {
@@ -550,9 +560,9 @@ html_engine_fill_pre_line (HTMLEngine *e)
 	flow = e->cursor->object->parent;
 	while (html_cursor_forward (e->cursor, e) && (e->cursor->position < position - 1)) {
 		uc = html_cursor_get_current_char (e->cursor);
-		line_offset++;
+		line_offset = inc_line_offset (line_offset, uc);
 		
-		if (uc == ' ') {
+		if (uc == ' ' || uc == '\t') {
 			last_space = line_offset;
 		}
 		

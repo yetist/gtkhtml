@@ -1,3 +1,7 @@
+2001-05-15  Radek Doulik  <rodo@ximian.com>
+
+	* tabs should work now nicely for plain text mode and for PRE
+
 2001-05-10  Jon Trowbridge  <trow@ximian.com>
 
 	* htmliframe.c (html_iframe_init): When rendering a frame, make

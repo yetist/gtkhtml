@@ -801,7 +801,7 @@ html_image_factory_area_prepared (GdkPixbufLoader *loader, HTMLImagePointer *ip)
 		cur = ip->interests;
 		while (cur) {
 			if (cur->data)
-				html_object_change_set (HTML_OBJECT (cur->data), HTML_CHANGE_ALL);
+				html_object_change_set (HTML_OBJECT (cur->data), HTML_CHANGE_ALL_CALC);
 			cur = cur->next;
 		}
 

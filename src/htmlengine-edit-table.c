@@ -164,7 +164,7 @@ insert_table_column (HTMLEngine *e, gboolean after, HTMLTableCell **column, HTML
 	} else
 		g_warning ("no new cells added\n");
 
-	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL);
+	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL_CALC);
 	insert_column_setup_undo (e, dir);
 	html_engine_thaw (e);
 }
@@ -303,7 +303,7 @@ delete_table_column (HTMLEngine *e, HTMLUndoDirection dir)
 		e->cursor->position -= delta;
 	t->totalCols --;
 
-	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL);
+	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL_CALC);
 	delete_column_setup_undo (e, column, t->totalRows, col != t->totalCols - 1, dir);
 	html_engine_thaw (e);
 }
@@ -403,7 +403,7 @@ insert_table_row (HTMLEngine *e, gboolean after, HTMLTableCell **row_cells, HTML
 	} else
 		g_warning ("no new cells added\n");
 
-	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL);
+	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL_CALC);
 	insert_row_setup_undo (e, dir);
 	html_engine_thaw (e);
 }
@@ -506,7 +506,7 @@ delete_table_row (HTMLEngine *e, HTMLUndoDirection dir)
 		e->cursor->position -= delta;
 	t->totalRows --;
 
-	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL);
+	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL_CALC);
 	delete_row_setup_undo (e, row_cells, t->totalCols, row != t->totalRows - 1, dir);
 	html_engine_thaw (e);
 }
@@ -544,6 +544,6 @@ html_engine_table_set_border_width (HTMLEngine *e, gint border_width, gboolean r
 		t->border += border_width;
 	else
 		t->border = border_width;
-	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL);
+	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL_CALC);
 	html_engine_thaw (e);
 }

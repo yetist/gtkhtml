@@ -129,10 +129,11 @@ void              html_text_request_word_width           (HTMLText         *text
 							  HTMLPainter      *painter);
 gboolean          html_text_convert_nbsp                 (HTMLText         *text,
 							  gboolean          free_text);
-gint              html_text_get_line_offset              (HTMLText         *text);
-gint              html_text_get_line_offset_at_offset    (HTMLText         *text,
+gint              html_text_get_line_offset              (HTMLText         *text,
+							  HTMLPainter      *painter);
+gint              html_text_text_line_length             (const gchar      *text,
 							  gint              line_offset,
-							  guint             offset);
+							  guint             len);
 /*
  * protected
  */

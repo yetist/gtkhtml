@@ -239,6 +239,10 @@ merge_word_width (HTMLText *t1, HTMLText *t2, HTMLPainter *p)
 		return; /* we don't want do merge as convert_nbsp will 100% happen */
 	}
 
+	/* temporarily disable word width merging because of tabs */
+	html_text_clear_word_width (t1);
+	return;
+
 	if (!t2->word_width)
 		html_text_request_word_width (t2, p);
 
@@ -372,7 +376,7 @@ html_text_op_cut_helper (HTMLText *text, HTMLEngine *e, GList *from, GList *to, 
 	}
 
 	html_text_clear_word_width (text);
-	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
+	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL_CALC);
 
 	/* printf ("after cut '%s'\n", text->text);
 	   debug_word_width (text); */
@@ -424,7 +428,7 @@ object_merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GL
 	t1->text_len += t2->text_len;
 	g_free (to_free);
 	html_text_convert_nbsp (t1, TRUE);
-	html_object_change_set (self, HTML_CHANGE_ALL);
+	html_object_change_set (self, HTML_CHANGE_ALL_CALC);
 
 	html_text_request_word_width (t1, e->painter);
 	/* printf ("merged '%s'\n", t1->text); */
@@ -498,8 +502,8 @@ object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, g
 	*left  = g_list_prepend (*left, self);
 	*right = g_list_prepend (*right, dup);
 
-	html_object_change_set (self, HTML_CHANGE_ALL);
-	html_object_change_set (dup,  HTML_CHANGE_ALL);
+	html_object_change_set (self, HTML_CHANGE_ALL_CALC);
+	html_object_change_set (dup,  HTML_CHANGE_ALL_CALC);
 
 	split_word_width (HTML_TEXT (self), HTML_TEXT (dup), e->painter, offset);
 	/* html_text_clear_word_width (HTML_TEXT (self));
@@ -524,6 +528,49 @@ calc_size (HTMLObject *self,
 	return FALSE;
 }
 
+gint
+html_text_text_line_length (const gchar *text, gint line_offset, guint len)
+{
+	const gchar *tab, *found_tab;
+	gint lo, cl, l, skip, sum_skip;
+
+	/* printf ("lo: %d o: %d t: '%s'\n", line_offset, len, text); */
+	l = 0;
+	lo = line_offset;
+	sum_skip = 0;
+	tab = text;
+	while (tab && (found_tab = strchr (tab, '\t')) && l < len) {
+		cl   = g_utf8_pointer_to_offset (tab, found_tab);
+		l   += cl;
+		if (l >= len)
+			break;
+		lo  += cl;
+		skip = 8 - (lo % 8);
+		tab  = found_tab + 1;
+		lo  += skip;
+		sum_skip += skip - 1;
+		l ++;
+	}
+
+	return len + sum_skip;
+}
+
+static guint
+get_line_length (HTMLObject *self, HTMLPainter *p, gint line_offset)
+{
+	return html_clueflow_tabs (HTML_CLUEFLOW (self->parent), p) || line_offset == -1
+		? html_text_text_line_length (HTML_TEXT (self)->text, line_offset, HTML_TEXT (self)->text_len)
+		: HTML_TEXT (self)->text_len;
+}
+
+inline gint
+html_text_get_line_offset (HTMLText *text, HTMLPainter *painter)
+{
+	return html_clueflow_tabs (HTML_CLUEFLOW (HTML_OBJECT (text)->parent), painter)
+		? html_clueflow_get_line_offset (HTML_CLUEFLOW (HTML_OBJECT (text)->parent), painter, HTML_OBJECT (text))
+		: -1;
+}
+
 static guint
 get_words (const gchar *s)
 {
@@ -537,54 +584,6 @@ get_words (const gchar *s)
 	return words;
 }
 
-static gint
-offset_to_line_offset (HTMLText *text, gint line_offset, guint offset)
-{
-	gchar *tab, *found_tab;
-	gint lo, cl, l, skip, sum_skip;
-
-	l = 0;
-	lo = line_offset;
-	sum_skip = 0;
-	tab = text->text;
-	while (tab && (found_tab = strchr (tab, '\t')) && l < offset) {
-		cl   = g_utf8_pointer_to_offset (tab, found_tab);
-		l   += cl;
-		if (l >= offset)
-			break;
-		lo  += cl;
-		skip = 8 - (lo % 8);
-		tab  = found_tab + 1;
-		lo  += skip;
-		sum_skip += skip - 1;
-		l ++;
-	}
-
-	return line_offset + offset + sum_skip;
-}
-
-static guint
-get_line_length (HTMLObject *self, gint line_offset)
-{
-	return offset_to_line_offset (HTML_TEXT (self), line_offset, HTML_TEXT (self)->text_len) - line_offset;
-}
-
-inline gint
-html_text_get_line_offset (HTMLText *text)
-{
-	return HTML_OBJECT (text)->parent && HTML_IS_CLUEFLOW (HTML_OBJECT (text)->parent)
-		? html_clueflow_get_line_offset (HTML_CLUEFLOW (HTML_OBJECT (text)->parent), HTML_OBJECT (text))
-		: -1;
-}
-
-inline gint
-html_text_get_line_offset_at_offset (HTMLText *text, gint line_offset, guint offset)
-{
-	return line_offset >=0 && HTML_OBJECT (text)->parent && HTML_IS_CLUEFLOW (HTML_OBJECT (text)->parent)
-		? offset_to_line_offset (text, line_offset, offset)
-		: -1;
-}
-
 static void
 calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 {
@@ -593,28 +592,30 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 	gint i;
 
 	text->words      = get_words (text->text);
+	if (text->word_width)
+		g_free (text->word_width);
 	text->word_width = g_new (guint, text->words);
 	font_style       = html_text_get_font_style (text);
 
-	begin = text->text;
-
+	begin            = text->text;
 	for (i = 0; i < text->words; i++) {
 		end   = strchr (begin + (i ? 1 : 0), ' ');
 		text->word_width [i] = (i ? text->word_width [i - 1] : 0)
 			+ html_painter_calc_text_width (painter,
 							begin, end ? g_utf8_pointer_to_offset (begin, end)
 							: g_utf8_strlen (begin, -1),
-							html_text_get_line_offset (text),
-							font_style, text->face);
+							line_offset, font_style, text->face);
 		begin = end;
 	}
+
+	HTML_OBJECT (text)->change &= ~HTML_CHANGE_WORD_WIDTH;
 }
 
 void
 html_text_request_word_width (HTMLText *text, HTMLPainter *painter)
 {
-	if (!text->word_width)
-		calc_word_width (text, painter, html_text_get_line_offset (text));
+	if (!text->word_width || HTML_OBJECT (text)->change & HTML_CHANGE_WORD_WIDTH)
+		calc_word_width (text, painter, html_text_get_line_offset (text, painter));
 }
 
 static gint
@@ -1035,7 +1036,7 @@ set_font_style (HTMLText *text,
 
 	text->font_style = style;
 
-	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
+	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL_CALC);
 
 	if (engine != NULL) {
 		html_object_relayout (HTML_OBJECT (text)->parent, engine, HTML_OBJECT (text));
@@ -1216,7 +1217,7 @@ get_cursor_base (HTMLObject *self,
 		 gint *x, gint *y)
 {
 	HTMLObject *obj;
-	gint line_offset = html_text_get_line_offset (HTML_TEXT (self));
+	gint line_offset = html_text_get_line_offset (HTML_TEXT (self), painter);
 
 	for (obj = self->next; obj != NULL; obj = obj->next) {
 		HTMLTextSlave *slave;
@@ -1240,9 +1241,10 @@ get_cursor_base (HTMLObject *self,
 				*x += html_painter_calc_text_width (painter,
 								    html_text_get_text (text, slave->posStart),
 								    offset - slave->posStart,
-								    html_text_get_line_offset_at_offset (text,
-													 line_offset,
-													 slave->posStart),
+								    html_text_slave_get_line_offset (slave,
+												     line_offset,
+												     slave->posStart,
+												     painter),
 								    font_style, text->face);
 			}
 

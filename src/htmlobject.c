@@ -125,12 +125,12 @@ op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GL
 			if (e->cursor->object == self)
 				e->cursor->object = empty;
 			html_clue_append_after (HTML_CLUE (self->parent), empty, self);
-			html_object_change_set (empty, HTML_CHANGE_ALL);
+			html_object_change_set (empty, HTML_CHANGE_ALL_CALC);
 			html_object_check_cut_lists (self, empty, left, right);
 		} else
 			html_object_move_cursor_before_remove (self, e);
 
-		html_object_change_set   (self,  HTML_CHANGE_ALL);
+		html_object_change_set   (self,  HTML_CHANGE_ALL_CALC);
 		html_object_remove_child (self->parent, self);
 		*len += html_object_get_recursive_length (self);
 
@@ -478,7 +478,7 @@ get_length (HTMLObject *self)
 }
 
 static guint
-get_line_length (HTMLObject *self, gint line_offset)
+get_line_length (HTMLObject *self, HTMLPainter *p, gint line_offset)
 {
 	return html_object_get_length (self);
 }
@@ -1236,9 +1236,9 @@ html_object_get_length (HTMLObject *self)
 }
 
 guint
-html_object_get_line_length (HTMLObject *self, gint line_offset)
+html_object_get_line_length (HTMLObject *self, HTMLPainter *p, gint line_offset)
 {
-	return (* HO_CLASS (self)->get_line_length) (self, line_offset);
+	return (* HO_CLASS (self)->get_line_length) (self, p, line_offset);
 }
 
 guint

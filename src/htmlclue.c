@@ -135,7 +135,7 @@ op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GL
 			html_object_remove_child (self->parent, self);
 		html_object_destroy (self);
 	} else
-		html_object_change_set (self, HTML_CHANGE_ALL);
+		html_object_change_set (self, HTML_CHANGE_ALL_CALC);
 
 	return rv;
 }
@@ -152,7 +152,7 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *ri
 	clue2->head = NULL;
 	clue2->tail = NULL;
 
-	html_object_change_set (self, HTML_CHANGE_ALL);
+	html_object_change_set (self, HTML_CHANGE_ALL_CALC);
 	return TRUE;
 }
 

@@ -133,7 +133,7 @@ copy_sized (HTMLObject *self, HTMLObject *dest, gint rows, gint cols)
 	for (r = 0; r < rows; r++)
 		d->cells [r] = g_new0 (HTMLTableCell *, cols);
 
-	dest->change = HTML_CHANGE_ALL;
+	dest->change = HTML_CHANGE_ALL_CALC;
 }
 
 static void
@@ -414,8 +414,8 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 	*left  = g_list_prepend (*left, self);
 	*right = g_list_prepend (*right, dup);
 
-	html_object_change_set (self, HTML_CHANGE_ALL);
-	html_object_change_set (dup,  HTML_CHANGE_ALL);
+	html_object_change_set (self, HTML_CHANGE_ALL_CALC);
+	html_object_change_set (dup,  HTML_CHANGE_ALL_CALC);
 
 	printf ("after split\n");
 	printf ("-- self --\n");
@@ -512,7 +512,7 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *ri
 			}
 		}
 
-	html_object_change_set (self, HTML_CHANGE_ALL);
+	html_object_change_set (self, HTML_CHANGE_ALL_CALC);
 
 	printf ("after merge\n");
 	printf ("-- self --\n");

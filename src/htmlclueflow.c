@@ -1735,7 +1735,7 @@ html_clueflow_split (HTMLClueFlow *clue,
 	}
 
 	child->prev = NULL;
-	html_object_change_set (HTML_OBJECT (clue), HTML_CHANGE_ALL);
+	html_object_change_set (HTML_OBJECT (clue), HTML_CHANGE_ALL_CALC);
 
 	/* Put the children into the new clue.  */
 
@@ -2167,24 +2167,48 @@ html_clueflow_is_empty (HTMLClueFlow *flow)
 }
 
 gint
-html_clueflow_get_line_offset (HTMLClueFlow *flow, HTMLObject *child)
+html_clueflow_get_line_offset (HTMLClueFlow *flow, HTMLPainter *painter, HTMLObject *child)
 {
-	HTMLObject *o;
+	HTMLObject *o, *head;
 	gint line_offset;
 
 	g_assert (HTML_IS_CLUEFLOW (flow));
 
-	if (flow->style != HTML_CLUEFLOW_STYLE_PRE)
+	if (!html_clueflow_tabs (flow, painter))
 		return -1;
 
 	line_offset = 0;
-	o = HTML_CLUE (flow)->head;
+
+	/* find head */
+	head = child;
 	while (o) {
-		if (o == child)
-			return line_offset;
-		line_offset += html_object_get_line_length (o, line_offset);
-		o = o->next;
+		o = head->prev;
+		if (o && o->y + o->descent - 1 < child->y - child->ascent)
+			break;
+		else
+			head = o;
 	}
 
-	return -1;
+	if (HTML_IS_TEXT_SLAVE (head)) {
+		HTMLTextSlave *bol = HTML_TEXT_SLAVE (head);
+		line_offset = html_text_text_line_length (html_text_get_text (bol->owner, bol->posStart),
+							  0, bol->owner->text_len - bol->posStart);
+		head = html_object_next_not_slave (head);
+	}
+
+	while (head) {
+		if (head == child)
+			break;
+		line_offset += html_object_get_line_length (head, painter, line_offset);
+		head = html_object_prev_not_slave (head);
+	}
+	/* printf ("lo: %d\n", line_offset); */
+	return line_offset;
+}
+
+gboolean
+html_clueflow_tabs (HTMLClueFlow *flow, HTMLPainter *p)
+{
+	return (flow && HTML_IS_CLUEFLOW (flow) && flow->style == HTML_CLUEFLOW_STYLE_PRE) || HTML_IS_PLAIN_PAINTER (p)
+		? TRUE : FALSE;
 }

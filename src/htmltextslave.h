@@ -26,6 +26,7 @@
 
 #define HTML_TEXT_SLAVE(x) ((HTMLTextSlave *) (x))
 #define HTML_TEXT_SLAVE_CLASS(x) ((HTMLTextSlaveClass *) (x))
+#define HTML_IS_TEXT_SLAVE(x) (HTML_CHECK_TYPE ((x), HTML_TYPE_TEXTSLAVE))
 
 struct _HTMLTextSlave {
 	HTMLObject object;
@@ -40,18 +41,22 @@ struct _HTMLTextSlaveClass {
 	HTMLObjectClass object_class;
 };
 
-void        html_text_slave_type_init               (void);
-void        html_text_slave_class_init              (HTMLTextSlaveClass *klass,
-						     HTMLType            type,
-						     guint               object_size);
-void        html_text_slave_init                    (HTMLTextSlave      *slave,
-						     HTMLTextSlaveClass *klass,
-						     HTMLText           *owner,
-						     guint               posStart,
-						     guint               posLen,
-						     guint               start_word);
-HTMLObject *html_text_slave_new                     (HTMLText           *owner,
-						     guint               posStart,
-						     guint               posLen,
-						     guint               start_word);
+void        html_text_slave_type_init        (void);
+void        html_text_slave_class_init       (HTMLTextSlaveClass *klass,
+					      HTMLType            type,
+					      guint               object_size);
+void        html_text_slave_init             (HTMLTextSlave      *slave,
+					      HTMLTextSlaveClass *klass,
+					      HTMLText           *owner,
+					      guint               posStart,
+					      guint               posLen,
+					      guint               start_word);
+HTMLObject *html_text_slave_new              (HTMLText           *owner,
+					      guint               posStart,
+					      guint               posLen,
+					      guint               start_word);
+gint        html_text_slave_get_line_offset  (HTMLTextSlave      *slave,
+					      gint                line_offset,
+					      gint                offset,
+					      HTMLPainter        *p);
 #endif /* _HTMLTEXTSLAVE_H_ */

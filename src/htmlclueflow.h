@@ -95,7 +95,10 @@ void               html_clueflow_spell_check                  (HTMLClueFlow     
 							       HTMLInterval       *i);
 gboolean           html_clueflow_is_empty                     (HTMLClueFlow       *flow);
 gint               html_clueflow_get_line_offset              (HTMLClueFlow       *flow,
+							       HTMLPainter        *painter,
 							       HTMLObject         *child);
+gboolean           html_clueflow_tabs                         (HTMLClueFlow       *flow,
+							       HTMLPainter        *p);
 
 #define SPELL_CHECK(f, e) if (f && HTML_OBJECT_TYPE (f) == HTML_TYPE_CLUEFLOW) \
                                    html_clueflow_spell_check (HTML_CLUEFLOW (f), e, NULL)

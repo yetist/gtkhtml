@@ -42,6 +42,7 @@
 #include "htmlengine-print.h"
 #include "htmlengine-save.h"
 #include "htmlimage.h"
+#include "htmlplainpainter.h"
 #include "htmlsettings.h"
 #include "htmlcolorset.h"
 #include "htmlselection.h"
@@ -2835,15 +2836,13 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 			gtk_html_modify_indent_by_delta (html, +1);
 		break;
 	case GTK_HTML_COMMAND_INSERT_TAB:
-		if (!html_engine_is_selection_active (e) && e->cursor->object->parent
-		    && HTML_IS_CLUEFLOW (e->cursor->object->parent)
-		    && HTML_CLUEFLOW (e->cursor->object->parent)->style == HTML_CLUEFLOW_STYLE_PRE)
+		if (!html_engine_is_selection_active (e)
+		    && html_clueflow_tabs (HTML_CLUEFLOW (e->cursor->object->parent), e->painter))
 			html_engine_insert_text (e, "\t", 1);
 		break;
 	case GTK_HTML_COMMAND_INSERT_TAB_OR_INDENT_MORE:
-		if (!html_engine_is_selection_active (e) && e->cursor->object->parent
-		    && HTML_IS_CLUEFLOW (e->cursor->object->parent)
-		    && HTML_CLUEFLOW (e->cursor->object->parent)->style == HTML_CLUEFLOW_STYLE_PRE)
+		if (!html_engine_is_selection_active (e)
+		    && html_clueflow_tabs (HTML_CLUEFLOW (e->cursor->object->parent), e->painter))
 			html_engine_insert_text (e, "\t", 1);
 		else
 			gtk_html_modify_indent_by_delta (html, +1);
