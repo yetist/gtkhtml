@@ -1,5 +1,8 @@
 2001-01-11  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlgdkpainter.c (alloc_e_font_it): do n1 -> n2 -> n3 instead of
+	n1 -> n3
+
 	* gtkhtml.c (selection_received): paste only in editable
 	(gtk_html_request_paste): ditto
 

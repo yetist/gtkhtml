@@ -172,7 +172,7 @@ alloc_e_font_it (gchar *face, gdouble size, GtkHTMLFontStyle style, gchar *it)
 
 		n1 = font_name_substitute_attr (face, 3, style & GTK_HTML_FONT_STYLE_BOLD ? "bold" : "medium");
 		n2 = font_name_substitute_attr (n1,   4, style & GTK_HTML_FONT_STYLE_ITALIC ? it : "r");
-		n3 = font_name_substitute_attr (n1,   7, "*");
+		n3 = font_name_substitute_attr (n2,   7, "*");
 
 		if (!find_font (n3, size, &tsize, style))
 			tsize = size;
