@@ -1,3 +1,8 @@
+2000-01-23  Federico Mena Quintero  <federico@helixcode.com>
+
+	* gtkhtml.c (realize): Set the background pixmap to NONE so that
+	it does not flicker as much when scrolling.
+
 2000-01-23  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmltextmaster.c (check_point): Fix selection for slaves after

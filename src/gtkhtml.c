@@ -336,6 +336,8 @@ realize (GtkWidget *widget)
 	html_engine_realize (html->engine, html->layout.bin_window);
 
 	gdk_window_set_cursor (widget->window, html->arrow_cursor);
+
+	gdk_window_set_back_pixmap (html->layout.bin_window, NULL, FALSE);
 }
 
 static void
