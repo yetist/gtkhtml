@@ -227,14 +227,10 @@ setup_font_size_option_menu (GtkHTMLControlData *cd)
 }
 
 static void
-color_changed (GtkWidget *w, GdkColor *gdk_color, gboolean by_user, GtkHTMLControlData *cd)
+apply_color (GdkColor *gdk_color, GtkHTMLControlData *cd)
 {
 	HTMLColor *color;
 	
-	/* If the color was changed programatically there's not need to set things */
-	if (!by_user)
-		return;
-		
 	color = gdk_color
 		&& gdk_color != &html_colorset_get_color (cd->html->engine->settings->color_set, HTMLTextColor)->color
 		? html_color_new_from_gdk_color (gdk_color) : NULL;
@@ -242,6 +238,26 @@ color_changed (GtkWidget *w, GdkColor *gdk_color, gboolean by_user, GtkHTMLContr
 	gtk_html_set_color (cd->html, color);
 	if (color)
 		html_color_unref (color);
+}
+
+void
+toolbar_apply_color (GtkHTMLControlData *cd)
+{
+	GdkColor *color;
+
+	color = color_combo_get_color (COLOR_COMBO (cd->combo));
+	apply_color (color, cd);
+	if (color)
+		gdk_color_free (color);
+}
+
+static void
+color_changed (GtkWidget *w, GdkColor *gdk_color, gboolean by_user, GtkHTMLControlData *cd)
+{
+	/* If the color was changed programatically there's not need to set things */
+	if (!by_user)
+		return;
+	apply_color (gdk_color, cd);
 }
 
 static void

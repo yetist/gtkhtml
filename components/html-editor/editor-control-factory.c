@@ -607,6 +607,9 @@ editor_api_command (GtkHTML *html, GtkHTMLCommandType com_type, gpointer data)
 	case GTK_HTML_COMMAND_PROPERTIES_DIALOG:
 		property_dialog_show (cd);
 		break;
+	case GTK_HTML_COMMAND_TEXT_COLOR_APPLY:
+		toolbar_apply_color (cd);
+		break;
 	default:
 		rv = FALSE;
 	}
