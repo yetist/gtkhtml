@@ -44,6 +44,8 @@ entry_changed (GtkWidget *entry, GtkHTMLSearchDialog *d)
 	if (d->cd->search_text)
 		g_free (d->cd->search_text);
 	d->cd->search_text = g_strdup (gtk_entry_get_text (GTK_ENTRY (d->entry)));
+
+	gtk_dialog_set_response_sensitive (d->dialog, 0, TRUE);
 }
 
 static void
@@ -53,17 +55,29 @@ entry_activate (GtkWidget *entry, GtkHTMLSearchDialog *d)
 }
 
 static void
+backward_toggled (GtkWidget *w, GtkHTMLSearchDialog *d)
+{
+	gtk_dialog_set_response_sensitive (d->dialog, 0, TRUE);
+}
+
+static void
 search_dialog_response (GtkDialog *dialog, gint response_id, GtkHTMLSearchDialog *d)
 {
+	g_assert (d && d->dialog );
+
 	switch (response_id) {
 	case 0: /* Search */
-		gtk_widget_hide (GTK_WIDGET (d->dialog));
-		html_engine_search (d->html->engine, gtk_entry_get_text (GTK_ENTRY (d->entry)),
-				    GTK_TOGGLE_BUTTON (d->case_sensitive)->active,
-				    GTK_TOGGLE_BUTTON (d->backward)->active == 0, d->cd->regular);
+		if (!html_engine_search (d->html->engine, gtk_entry_get_text (GTK_ENTRY (d->entry)),
+					 GTK_TOGGLE_BUTTON (d->case_sensitive)->active,
+					 GTK_TOGGLE_BUTTON (d->backward)->active == 0, d->cd->regular))
+			gtk_dialog_set_response_sensitive (d->dialog, 0, FALSE);
 		break;
+
+	case GTK_RESPONSE_DELETE_EVENT:
 	case GTK_RESPONSE_CLOSE:
 	case GTK_RESPONSE_CANCEL:
+		gtk_dialog_set_response_sensitive (d->dialog, 0, TRUE);
+		gtk_widget_hide (GTK_WIDGET (d->dialog));
 		gtk_widget_grab_focus (GTK_WIDGET (d->cd->html));
 		break;
 	}
@@ -113,6 +127,7 @@ gtk_html_search_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 	g_signal_connect (dialog->dialog, "response", G_CALLBACK (search_dialog_response), dialog);
 	g_signal_connect (dialog->entry, "changed", G_CALLBACK (entry_changed), dialog);
 	g_signal_connect (dialog->entry, "activate", G_CALLBACK (entry_activate), dialog);
+	g_signal_connect (dialog->backward, "toggled", G_CALLBACK (backward_toggled), dialog);
 
 	return dialog;
 }
@@ -120,6 +135,8 @@ gtk_html_search_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 void
 gtk_html_search_dialog_destroy (GtkHTMLSearchDialog *d)
 {
+	g_assert (d && d->dialog);
+
 	gtk_widget_destroy (GTK_WIDGET (d->dialog));
 	g_free (d);
 }
@@ -129,8 +146,13 @@ search (GtkHTMLControlData *cd, gboolean regular)
 {
 	cd->regular = regular;
 	RUN_DIALOG (search, regular ? _("Find Regular Expression") :  _("Find"));
-	gtk_html_search_dialog_destroy (cd->search_dialog);
-	cd->search_dialog = NULL;
+
+	g_assert (cd->search_dialog && cd->search_dialog->dialog);
+
+	if (!GTK_WIDGET_VISIBLE (cd->search_dialog->dialog)) {
+		gtk_html_search_dialog_destroy (cd->search_dialog);
+		cd->search_dialog = NULL;
+	}
 }
 
 void

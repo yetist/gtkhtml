@@ -1,3 +1,17 @@
+2004-04-16  Radek Doulik  <rodo@ximian.com>
+
+	* search.c (search_dialog_response): do not hide the search dialog
+	when we are successful
+	(backward_toggled): make find button sensitive again
+
+2003-12-12  Charles Zhang  <charles.zhang@sun.com>
+
+	* search.c (search): use existing find dialog, not new one blindly.
+	(search_dialog_response): if not found, disable the Find button
+	and leave dialog visible to indicate the user.
+	(entry_changed): enable the Find button when entry changed.
+	Fixes bug #49702
+
 2004-04-15  Radek Doulik  <rodo@ximian.com>
 
 	* popup.c (prepare_properties_and_menu): keep table delete submenu
