@@ -562,7 +562,7 @@ html_engine_delete (HTMLEngine *e,
 	g_return_if_fail (e != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
-	g_print ("Deleting %d %s\n", count, backwards ? "backwards" : "forwards");
+	/* g_print ("Deleting %d %s\n", count, backwards ? "backwards" : "forwards"); */
 
 	if (e->cursor->object->parent == NULL || e->cursor->object->parent == NULL)
 		return;
