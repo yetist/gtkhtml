@@ -21,10 +21,12 @@
 */
 
 #include <unistd.h>
+#include <string.h>
 #include "config.h"
 #include "dialog.h"
 #include "image.h"
 #include "htmlengine-edit-images.h"
+#include "htmlimage.h"
 
 #define GTK_HTML_EDIT_IMAGE_BWIDTH      0
 #define GTK_HTML_EDIT_IMAGE_WIDTH       1
@@ -32,6 +34,10 @@
 #define GTK_HTML_EDIT_IMAGE_HSPACE      3
 #define GTK_HTML_EDIT_IMAGE_VSPACE      4
 #define GTK_HTML_EDIT_IMAGE_SPINS       5
+
+#define ALIGN_TOP    0
+#define ALIGN_CENTER 1
+#define ALIGN_BOTTOM 2
 
 struct _GtkHTMLImageDialog {
 	GnomeDialog *dialog;
@@ -50,6 +56,8 @@ struct _GtkHTMLImageDialog {
 
 	GtkWidget   *sel_align;
 	guint        align;
+
+	HTMLImage    *image;
 };
 
 static void
@@ -83,26 +91,39 @@ insert (GtkWidget *w, GtkHTMLImageDialog *d)
 	printf ("insert image align: %d\n", d->align);
 
 	switch (d->align) {
-	case 1:
+	case ALIGN_TOP:
 		valign = HTML_VALIGN_TOP;
 		break;
-	case 3:
+	case ALIGN_CENTER:
 		valign = HTML_VALIGN_CENTER;
 		break;
-	case 4:
+	case ALIGN_BOTTOM:
+		valign = HTML_VALIGN_BOTTOM;
+		break;
+		/* case 2:
 		halign = HTML_HALIGN_LEFT;
 		break;
 	case 5:
 		halign = HTML_HALIGN_LEFT;
-		break;
+		break; */
+	default:
+		g_assert_not_reached ();
 	}
 
-	html_engine_insert_image (d->html->engine,
-				  file,
-				  "", "",
-				  width, height, percent, border, NULL,
-				  halign, valign,
-				  hspace, vspace);
+	if (d->image) {
+		if (d->set [GTK_HTML_EDIT_IMAGE_BWIDTH])
+			html_image_set_border (d->image, border);
+		html_image_set_size     (d->image, width, percent, height);
+		html_image_set_filename (d->image, file);
+		html_image_set_spacing  (d->image, hspace, vspace);
+		html_image_set_valign   (d->image, valign);
+	} else
+		html_engine_insert_image (d->html->engine,
+					  file,
+					  NULL, NULL,
+					  width, height, percent, border, NULL,
+					  halign, valign,
+					  hspace, vspace);
 
 	g_free (file);
 }
@@ -183,6 +204,8 @@ gtk_html_image_dialog_new (GtkHTML *html)
 
 	dialog->entry_alt      = gtk_entry_new_with_max_length (20);
 	dialog->html           = html;
+	dialog->image          = NULL;
+	dialog->align          = ALIGN_BOTTOM;
 
 	accel_group = gtk_accel_group_new ();
 	gtk_accel_group_attach (accel_group, GTK_OBJECT (dialog->dialog));
@@ -226,12 +249,11 @@ gtk_html_image_dialog_new (GtkHTML *html)
         gtk_object_set_data (GTK_OBJECT (menuitem), "idx", GINT_TO_POINTER (malign)); \
         malign++;
 
-	ADD_ITEM("None",   GDK_F1);
-	ADD_ITEM("Top",    GDK_F2);
-	ADD_ITEM("Bottom", GDK_F3);
-	ADD_ITEM("Center", GDK_F4);
-	/* ADD_ITEM("Left",   GDK_F5);
-	   ADD_ITEM("Right",  GDK_F6); */
+	ADD_ITEM("Top",    GDK_F1);
+	ADD_ITEM("Center", GDK_F3);
+	ADD_ITEM("Bottom", GDK_F2);
+	/* ADD_ITEM("Left",   GDK_F4);
+	   ADD_ITEM("Right",  GDK_F5); */
 
 	frame = gtk_frame_new (_("Alignment"));
 	dialog->sel_align = gtk_option_menu_new ();
@@ -307,7 +329,69 @@ gtk_html_image_dialog_destroy (GtkHTMLImageDialog *d)
 }
 
 void
-insert_image (GtkHTMLControlData *cd)
+image_insert (GtkHTMLControlData *cd)
 {
 	RUN_DIALOG (image);
+
+	/* to be sure we are inserting */
+	cd->image_dialog->image = NULL;
+}
+
+void
+image_edit (GtkHTMLControlData *cd, HTMLImage *image)
+{
+	GtkHTMLImageDialog *d;
+	HTMLImagePointer *ip = image->image_ptr;
+
+	RUN_DIALOG (image);
+
+	d = cd->image_dialog;
+	d->image = image;
+
+	/* we only support local files now */
+	g_assert (!strncmp (ip->url, "file:", 5));
+
+	/* now set image values */
+	gtk_entry_set_text (GTK_ENTRY (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (d->pentry))),
+			    ip->url + 5);
+
+#define SET_ADJ(which, nval, val) \
+        if (image->## val != nval) { \
+		gtk_adjustment_set_value (GTK_ADJUSTMENT (d->adj [which]), image->## val); \
+                gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (d->check [which]), TRUE); \
+	} else { \
+		gtk_adjustment_set_value (GTK_ADJUSTMENT (d->adj [which]), 0); \
+                gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (d->check [which]), FALSE); \
+	}
+
+	SET_ADJ (GTK_HTML_EDIT_IMAGE_BWIDTH,  0, border);
+	SET_ADJ (GTK_HTML_EDIT_IMAGE_WIDTH,  -1, specified_width);
+	SET_ADJ (GTK_HTML_EDIT_IMAGE_HEIGHT, -1, specified_height);
+	SET_ADJ (GTK_HTML_EDIT_IMAGE_HSPACE,  0, hspace);
+	SET_ADJ (GTK_HTML_EDIT_IMAGE_VSPACE,  0, vspace);
+
+	if (HTML_OBJECT (image)->percent > 0) {
+		gtk_adjustment_set_value (GTK_ADJUSTMENT (d->adj [GTK_HTML_EDIT_IMAGE_WIDTH]),
+					  HTML_OBJECT (image)->percent);
+		gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (d->check [GTK_HTML_EDIT_IMAGE_WIDTH]), TRUE);
+		gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (d->check_percent), TRUE);
+		d->percent = TRUE;
+	} else
+		gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (d->check_percent), FALSE);
+
+	switch (image->valign) {
+	case HTML_VALIGN_TOP:
+		d->align = ALIGN_TOP;
+		break;
+	case HTML_VALIGN_CENTER:
+		d->align = ALIGN_CENTER;
+		break;
+	case HTML_VALIGN_BOTTOM:
+		d->align = ALIGN_BOTTOM;
+		break;
+	default:
+		g_assert_not_reached ();
+	}
+
+	gtk_option_menu_set_history (GTK_OPTION_MENU (d->sel_align), d->align);
 }

@@ -159,6 +159,7 @@ gtk_html_replace_dialog_new (GtkHTML *html)
 	dialog->html           = html;
 	dialog->ask_dialog     = NULL;
 
+	gtk_table_set_col_spacings (GTK_TABLE (table), 3);
 	label = gtk_label_new (_("Replace"));
 	gtk_misc_set_alignment (GTK_MISC (label), 1.0, .5);
 	gtk_table_attach_defaults (GTK_TABLE (table), label, 0, 1, 0, 1);

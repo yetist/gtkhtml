@@ -1,3 +1,23 @@
+2000-04-28  Radek Doulik  <rodo@helixcode.com>
+
+	* image.c (image_edit): new function to use image dialog for
+	editing, it sets image parameters and dialog->image, so we could
+	later change image_parameters thru new htmlimage setting functions
+
+	* editor-control-factory.c (html_button_pressed): new handler to
+	for button press event in html widget (now it calls edit dialog for
+	image)
+	(editor_control_factory): connect button press event handler
+
+2000-04-27  Radek Doulik  <rodo@helixcode.com>
+
+	* dialog.c (run_dialog): use gtk_widget_show instead of
+	gnome_dialog_run
+
+	* link.c (gtk_html_link_dialog_new): set table col spacings
+
+	* replace.c (gtk_html_replace_dialog_new): likewise
+
 2000-04-25  Radek Doulik  <rodo@helixcode.com>
 
 	* image.c (gtk_html_image_dialog_new): set sensitive for OK button

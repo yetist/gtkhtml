@@ -97,6 +97,7 @@ gtk_html_link_dialog_new (GtkHTML *html)
 	set_entries (html->engine, d->text, d->link);
 
 	table = gtk_table_new (2, 2, FALSE);
+	gtk_table_set_col_spacings (GTK_TABLE (table), 3);
 	label = gtk_label_new (_("Text"));
 	gtk_misc_set_alignment (GTK_MISC (label), 1.0, .5);
 	gtk_table_attach_defaults (GTK_TABLE (table), label,   0, 1, 0, 1);

@@ -35,7 +35,7 @@
 
 
 /* This is the initialization that can only be performed after the
-   control has been embedded (signal "set_frame').  */
+   control has been embedded (signal "set_frame").  */
 
 struct _SetFrameData {
 	GtkWidget *html;
@@ -74,6 +74,31 @@ set_frame_cb (BonoboControl *control,
 	/* Setup the menu bar.  */
 
 	menubar_setup (uih, control_data);
+}
+
+static gint
+html_button_pressed (GtkWidget *html, GdkEventButton *event, GtkHTMLControlData *cd)
+{
+	HTMLObject *obj;
+	HTMLEngine *engine = cd->html->engine;
+
+	printf ("button pressed %d\n", event->button);
+
+	obj = html_engine_get_object_at (engine,
+					 event->x + engine->x_offset, event->y + engine->y_offset,
+					 NULL, FALSE);
+
+	if (obj && event->button == 1) {
+		switch (HTML_OBJECT_TYPE (obj)) {
+		case HTML_TYPE_IMAGE:
+			image_edit (cd, HTML_IMAGE (obj));
+			break;
+		default:
+		}
+	} else if (event->button == 3) {
+		/* popup menu here */
+	}
+	return FALSE;
 }
 
 static void
@@ -120,6 +145,9 @@ editor_control_factory (BonoboGenericFactory *factory,
 
 	gtk_signal_connect (GTK_OBJECT (control), "destroy",
 			    GTK_SIGNAL_FUNC (destroy_control_data_cb), control_data);
+
+	gtk_signal_connect (GTK_OBJECT (html_widget), "button_press_event",
+			    GTK_SIGNAL_FUNC (html_button_pressed), control_data);
 
 	return BONOBO_OBJECT (control);
 }

@@ -26,11 +26,13 @@
 typedef struct _GtkHTMLImageDialog GtkHTMLImageDialog;
 
 #include <gnome.h>
+#include <htmlimage.h>
 #include "control-data.h"
 
 GtkHTMLImageDialog * gtk_html_image_dialog_new     (GtkHTML *html);
 void                 gtk_html_image_dialog_destroy (GtkHTMLImageDialog *);
 
-void                 insert_image                  (GtkHTMLControlData *cd);
+void                 image_insert                  (GtkHTMLControlData *cd);
+void                 image_edit                    (GtkHTMLControlData *cd, HTMLImage *image);
 
 #endif

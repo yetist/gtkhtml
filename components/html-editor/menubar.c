@@ -140,7 +140,7 @@ replace_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 static void
 insert_image_cb (GtkWidget *widget, GtkHTMLControlData *cd)
 {
-	insert_image (cd);
+	image_insert (cd);
 }
 
 static void

@@ -38,6 +38,6 @@ run_dialog (GnomeDialog ***dialog, GtkHTML *html, DialogCtor ctor)
 		gdk_window_raise (GTK_WIDGET (**dialog)->window);
 	} else {
 		*dialog = ctor (html);
-		gnome_dialog_run (**dialog);
+		gtk_widget_show (GTK_WIDGET (**dialog));
 	}
 }
