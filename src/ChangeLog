@@ -1,3 +1,15 @@
+2001-05-02  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (gtk_html_load_from_string): use stream_write instead
+	of write.
+
+	* gtkhtml.h: remove unused prototype.
+
+	* gtkhtml-stream.h: remove prototypes for nonexistant functions.
+
+	* htmlengine.c (parse_iframe): parse the frameborder option, and
+	cleanup the width/height parsing.
+
 2001-04-30  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml-properties.c: Frederic Crozat <fcrozat@mandrakesoft.com>
