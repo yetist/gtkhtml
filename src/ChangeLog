@@ -1,3 +1,15 @@
+2001-01-18  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltext.c (html_text_op_cut_helper): convert nbsp
+	(html_text_convert_nbsp): new helper function, takes care of nbsp
+	converting
+	(convert_nbsp): refactored, does only actual rewrite
+	(is_convert_nbsp_needed): extracted 1st pass where we find out if
+	convert is neccessary
+	(split_word_width): new functions, takes care of word_width cache
+	for splitted text
+	(clear_word_width): helper function, clears word width cache
+
 2001-01-16  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlclue.c (forall): use pnext to remember p->next as p could be

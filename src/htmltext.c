@@ -47,11 +47,12 @@ static HTMLObjectClass *parent_class = NULL;
 
 #define HT_CLASS(x) HTML_TEXT_CLASS (HTML_OBJECT (x)->klass)
 
-static SpellError * spell_error_new     (guint off, guint len);
-static void         spell_error_destroy (SpellError *se);
-static void         move_spell_errors   (GList *spell_errors, guint offset, gint delta);
-static GList *      remove_spell_errors (GList *spell_errors, guint offset, guint len);
-static gchar *      convert_nbsp        (const gchar *s);
+static SpellError * spell_error_new         (guint off, guint len);
+static void         spell_error_destroy     (SpellError *se);
+static void         move_spell_errors       (GList *spell_errors, guint offset, gint delta);
+static GList *      remove_spell_errors     (GList *spell_errors, guint offset, guint len);
+static gboolean     html_text_convert_nbsp  (HTMLText *text, gboolean free_text);
+static guint        get_words               (const gchar *s);
 
 /* static void
 debug_spell_errors (GList *se)
@@ -170,17 +171,22 @@ copy (HTMLObject *s,
 		cur = cur->next;
 	}
 
-	if (src->word_width) {
-		dest->words = src->words;
-		dest->word_width = g_new (guint, dest->words);
-		g_memmove (dest->word_width, src->word_width, dest->words * sizeof (guint));
-	} else {
-		dest->words      = 0;
-		dest->word_width = NULL;
-	}
+	dest->words      = 0;
+	dest->word_width = NULL;
 }
 
-/* static void
+static void
+debug_word_width (HTMLText *t)
+{
+	guint i;
+
+	printf ("words: %d | ", t->words);
+	for (i = 0; i < t->words; i ++)
+		printf ("%d ", t->word_width [i]);
+	printf ("\n");
+}
+
+static void
 word_get_position (HTMLText *text, guint off, guint *word_out, guint *left_out, guint *right_out)
 {
 	const gchar *s, *ls;
@@ -201,7 +207,9 @@ word_get_position (HTMLText *text, guint off, guint *word_out, guint *left_out, 
 
 	*left_out  = off - loff;
 	*right_out = coff - off;
-} */
+
+	/* printf ("get position w: %d l: %d r: %d\n", *word_out, *left_out, *right_out); */
+}
 
 static void
 clear_word_width (HTMLText *text)
@@ -209,6 +217,53 @@ clear_word_width (HTMLText *text)
 	g_free (text->word_width);
 	text->word_width = NULL;
 	text->words = 0;
+}
+
+static void
+split_word_width (HTMLText *s, HTMLText *d, HTMLPainter *p, gint offset)
+{
+	gchar *str;
+	guint words, i;
+	gboolean in_middle;
+
+	clear_word_width (d);
+	if (!s->word_width)
+		return;
+
+	/* printf ("before split '%s%s'\n", s->text, d->text);
+	   debug_word_width (s); */
+
+	words     = get_words (s->text);
+	in_middle = d->text [0] == ' ' ? FALSE : TRUE;
+
+	/* fill d */
+	d->words      = s->words - words + 1;
+	d->word_width = g_new (guint, d->words);
+	if (in_middle) {
+		str = strchr (d->text, ' ');
+		d->word_width [0] = html_painter_calc_text_width (p, d->text, str
+								  ? unicode_index_to_offset (d->text, str - d->text)
+								  : d->text_len, html_text_get_font_style (s), s->face);
+	} else
+		d->word_width [0] = 0;
+	for (i = 1; i < d->words; i ++)
+		d->word_width [i] = s->word_width [words + i - 1] - s->word_width [words - 1] + d->word_width [0];
+
+	/* fill s */
+	s->words      = words;
+	g_renew (guint, s->word_width, s->words);
+
+	if (in_middle) {
+		str = strrchr (s->text, ' ');
+		if (!str)
+			str = s->text;
+		s->word_width [s->words - 1] = html_painter_calc_text_width (p, str, unicode_strlen (str, -1),
+									     html_text_get_font_style (s), s->face)
+			+ (s->words > 1 ? s->word_width [s->words - 2] : 0);
+	}
+	/* printf ("after split '%s' '%s'\n", s->text, d->text);
+	debug_word_width (s);
+	debug_word_width (d); */
 }
 
 HTMLObject *
@@ -247,6 +302,9 @@ html_text_op_cut_helper (HTMLText *text, HTMLEngine *e, GList *from, GList *to, 
 	g_assert (begin <= end);
 	g_assert (end <= text->text_len);
 
+	/* printf ("before cut '%s'\n", text->text);
+	   debug_word_width (text); */
+
 	if (!html_object_could_remove_whole (HTML_OBJECT (text), from, to, left, right) || begin || end < text->text_len) {
 		gchar *nt, *tail;
 
@@ -265,8 +323,7 @@ html_text_op_cut_helper (HTMLText *text, HTMLEngine *e, GList *from, GList *to, 
 
 		text->spell_errors = remove_spell_errors (text->spell_errors, begin, end - begin);
 		move_spell_errors (text->spell_errors, end, - (end - begin));
-
-		clear_word_width (text);
+		html_text_convert_nbsp (text, TRUE);
 	} else {
 		text->spell_errors = remove_spell_errors (text->spell_errors, 0, text->text_len);
 		html_object_move_cursor_before_remove (HTML_OBJECT (text), e);
@@ -276,7 +333,12 @@ html_text_op_cut_helper (HTMLText *text, HTMLEngine *e, GList *from, GList *to, 
 		*len += text->text_len;
 	}
 
+	clear_word_width (text);
 	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
+
+	/* printf ("after cut '%s'\n", text->text);
+	   debug_word_width (text); */
+
 	return rv;
 }
 
@@ -308,6 +370,10 @@ object_merge (HTMLObject *self, HTMLObject *with)
 	t1 = HTML_TEXT (self);
 	t2 = HTML_TEXT (with);
 
+	/* printf ("before merge '%s' '%s'\n", t1->text, t2->text);
+	debug_word_width (t1);
+	debug_word_width (t2); */
+
 	if (t1->font_style != t2->font_style || t1->color != t2->color)
 		return FALSE;
 
@@ -319,9 +385,7 @@ object_merge (HTMLObject *self, HTMLObject *with)
 	t1->text      = g_strconcat (t1->text, t2->text, NULL);
 	t1->text_len += t2->text_len;
 	g_free (to_free);
-	to_free       = t1->text;
-	t1->text      = convert_nbsp (t1->text);
-	g_free (to_free);
+	html_text_convert_nbsp (t1, TRUE);
 
 	/* printf ("--- after merge\n");
 	debug_spell_errors (t1->spell_errors);
@@ -329,6 +393,9 @@ object_merge (HTMLObject *self, HTMLObject *with)
 	
 	clear_word_width (t1);
 	html_object_change_set (self, HTML_CHANGE_ALL);
+
+	/* printf ("after merge '%s'\n", t1->text);
+	   debug_word_width (t1); */
 
 	return TRUE;
 }
@@ -349,16 +416,16 @@ object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, g
 	tt              = text->text;
 	text->text      = g_strndup (tt, html_text_get_index (text, offset));
 	g_free (tt);
-	tt              = text->text;
-	text->text      = convert_nbsp (text->text);
-	g_free (tt);
+	html_text_convert_nbsp (text, TRUE);
 	text->text_len  = offset;
 
 	text            = HTML_TEXT (dup);
 	tt              = text->text;
-	text->text      = convert_nbsp (html_text_get_text (text, offset));
-	text->text_len -= offset;
+	text->text      = html_text_get_text (text, offset);
+	if (!html_text_convert_nbsp (text, FALSE))
+		text->text = g_strdup (text->text);
 	g_free (tt);
+	text->text_len -= offset;
 
 	html_clue_append_after (HTML_CLUE (self->parent), dup, self);
 
@@ -391,8 +458,9 @@ object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, g
 	html_object_change_set (self, HTML_CHANGE_ALL);
 	html_object_change_set (dup,  HTML_CHANGE_ALL);
 
-	clear_word_width (HTML_TEXT (self));
-	clear_word_width (HTML_TEXT (dup));
+	split_word_width (HTML_TEXT (self), HTML_TEXT (dup), e->painter, offset);
+	//clear_word_width (HTML_TEXT (self));
+	//clear_word_width (HTML_TEXT (dup));
 
 	level--;
 	if (level)
@@ -650,69 +718,102 @@ get_length (HTMLObject *self)
 
 /* #define DEBUG_NBSP */
 
-static gchar *
-convert_nbsp (const gchar *s)
+static gboolean
+is_convert_nbsp_needed (const gchar *s, gint *delta_out)
 {
-	/* state of automata:
-	   0..Text
-	   1..Sequence <space>&nbsp;...&nbsp;
-	*/
-	gint delta;
-	guint state, pass;
 	unicode_char_t uc;
+	gboolean rv = FALSE;
+	gboolean in_white_space;
 	const gchar *p, *op;
-	guchar *rv = NULL, *rp = NULL;
 
-	pass  = 0;
-	delta = 0;
+	*delta_out = 0;
+
+	op = p = s;
+	in_white_space = FALSE;
+	while (*p && (p = unicode_get_utf8 (p, &uc))) {
+		if (uc == ENTITY_NBSP) {
+			if (!in_white_space) {
+				(*delta_out) --;
+				rv = TRUE;
+			}
+			in_white_space = TRUE;
+		} else if (uc == ' ') {
+			if (in_white_space) {
+				(*delta_out) ++;
+				rv = TRUE;
+			}
+			in_white_space = TRUE;
+		} else
+			in_white_space = FALSE;
+
+		op = p;
+	}
+
+	return rv;
+}
+
+static void
+convert_nbsp (gchar *fill, const gchar *p)
+{
+	gboolean in_white_space;
+	unicode_char_t uc;
+	const gchar *op;
 
 #ifdef DEBUG_NBSP
 	printf ("convert_nbsp: %s --> ", s);
 #endif
-	for (pass=0; pass < 2; pass++) {
-		op = p = s;
-		state = 0;
-		while (*p && (p = unicode_get_utf8 (p, &uc))) {
-			if (uc == ENTITY_NBSP || uc == ' ') {
-				if (pass) {
-					if (state) {
+	op = p;
+	in_white_space = FALSE;
+
+	while (*p && (p = unicode_get_utf8 (p, &uc))) {
+		if (uc == ENTITY_NBSP || uc == ' ') {
+			if (in_white_space) {
 #ifdef DEBUG_NBSP
-						printf ("&nbsp;");
+				printf ("&nbsp;");
 #endif
-						*rp = 0xc2; rp ++;
-						*rp = 0xa0; rp ++;
-					} else {
-#ifdef DEBUG_NBSP
-						printf (" ");
-#endif
-						*rp = ' '; rp++;
-					}
-				} else {
-					if (uc == ENTITY_NBSP && !state) delta--;
-					if (uc == ' ' && state) delta++;
-				}
-				state = 1;
+				*fill = 0xc2; fill ++;
+				*fill = 0xa0; fill ++;
 			} else {
-				state = 0;
-				if (pass) {
 #ifdef DEBUG_NBSP
-					printf ("*");
+				printf (" ");
 #endif
-					strncpy (rp, op, p - op);
-					rp += p - op;
-				}
+				*fill = ' '; fill++;
 			}
-			op = p;
+			in_white_space = TRUE;
+		} else {
+			in_white_space = FALSE;
+#ifdef DEBUG_NBSP
+			printf ("*");
+#endif
+			strncpy (fill, op, p - op);
+			fill += p - op;
 		}
-		if (!pass) {
-			rp = rv = g_malloc (strlen (s) + delta + 1);
-			rv [strlen (s) + delta] = 0;
-		}
+		op = p;
 	}
+
+	*fill = 0;
+
 #ifdef DEBUG_NBSP
 	printf ("\n");
 #endif
-	return rv;
+}
+
+static gboolean
+html_text_convert_nbsp (HTMLText *text, gboolean free_text)
+{
+	gint delta;
+	gchar *to_free;
+
+	if (is_convert_nbsp_needed (text->text, &delta)) {
+		clear_word_width (text);
+		to_free    = text->text;
+		text->text = g_malloc (strlen (to_free) + delta + 1);
+		convert_nbsp (text->text, to_free);
+		if (free_text)
+			g_free (to_free);
+		return TRUE;
+	}
+	return FALSE;
 }
 
 static void 
