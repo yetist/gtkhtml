@@ -647,143 +647,143 @@ msgstr "Régua"
 msgid "_Undo"
 msgstr "Desfazer"
 
-#~ msgid "live spell checking"
-#~ msgstr "verificação ortográfica enquanto escreve"
+msgid "live spell checking"
+msgstr "verificação ortográfica enquanto escreve"
 
-#~ msgid "spell checking color"
-#~ msgstr "cor da verificação ortográfica"
+msgid "spell checking color"
+msgstr "cor da verificação ortográfica"
 
-#~ msgid "magic links"
-#~ msgstr "vínculos mágicos"
+msgid "magic links"
+msgstr "vínculos mágicos"
 
-#~ msgid "Bindings"
-#~ msgstr "Associações"
+msgid "Bindings"
+msgstr "Associações"
 
-#~ msgid "Appearance"
-#~ msgstr "Aparência"
-
-#, fuzzy
-#~ msgid "use background image"
-#~ msgstr "Imagem de fundo"
-
-#~ msgid "Open (PersistFile)"
-#~ msgstr "Abrir (PersistFile)"
-
-#~ msgid "Open using the PersistFile interface"
-#~ msgstr "Abre usando a interface PersistFile"
-
-#~ msgid "Save as... (PersistFile)"
-#~ msgstr "Salvar como... (PersistFile)"
-
-#~ msgid "Save using the PersistFile interface"
-#~ msgstr "Salva usando a interface PersistFile"
-
-#~ msgid "Open (PersistStream)"
-#~ msgstr "Abrir (PersistStream)"
-
-#~ msgid "Open using the PersistStream interface"
-#~ msgstr "Abre usando a interface PersistStream"
-
-#~ msgid "Save as... (PersistStream)"
-#~ msgstr "Salvar como... (PersistStream)"
-
-#~ msgid "Save using the PersistStream interface"
-#~ msgstr "Salva usando a interface PersistStream"
-
-#~ msgid "text color"
-#~ msgstr "cor do texto"
+msgid "Appearance"
+msgstr "Aparência"
 
 #, fuzzy
-#~ msgid "Default"
-#~ msgstr "Excluir"
+msgid "use background image"
+msgstr "Imagem de fundo"
 
-#~ msgid "Cut the selected region to the clipboard"
-#~ msgstr "Corta a região selecionada para a área de transferência"
+msgid "Open (PersistFile)"
+msgstr "Abrir (PersistFile)"
 
-#~ msgid "Copy the selected region to the clipboard"
-#~ msgstr "Copia a região selecionada para a área de transferência"
+msgid "Open using the PersistFile interface"
+msgstr "Abre usando a interface PersistFile"
 
-#, fuzzy
-#~ msgid "Insert image"
-#~ msgstr "Inserir"
+msgid "Save as... (PersistFile)"
+msgstr "Salvar como... (PersistFile)"
 
-#, fuzzy
-#~ msgid "Length"
-#~ msgstr "Esquerda"
+msgid "Save using the PersistFile interface"
+msgstr "Salva usando a interface PersistFile"
 
-#, fuzzy
-#~ msgid "Percent"
-#~ msgstr "Pre"
+msgid "Open (PersistStream)"
+msgstr "Abrir (PersistStream)"
 
-#, fuzzy
-#~ msgid "Left Align"
-#~ msgstr "Alinhar à esquerda"
+msgid "Open using the PersistStream interface"
+msgstr "Abre usando a interface PersistStream"
 
-#, fuzzy
-#~ msgid "Center Align"
-#~ msgstr "Centrado"
+msgid "Save as... (PersistStream)"
+msgstr "Salvar como... (PersistStream)"
 
-#, fuzzy
-#~ msgid "Right Align"
-#~ msgstr "Alinhar à direita"
+msgid "Save using the PersistStream interface"
+msgstr "Salva usando a interface PersistStream"
+
+msgid "text color"
+msgstr "cor do texto"
 
 #, fuzzy
-#~ msgid "None"
-#~ msgstr "<Nenhum>"
+msgid "Default"
+msgstr "Excluir"
 
-#~ msgid "Set Shade"
-#~ msgstr "Ligar sombra"
+msgid "Cut the selected region to the clipboard"
+msgstr "Corta a região selecionada para a área de transferência"
 
-#~ msgid "Transfer Progress"
-#~ msgstr "Progresso da transferência"
+msgid "Copy the selected region to the clipboard"
+msgstr "Copia a região selecionada para a área de transferência"
 
-#~ msgid "Looking up %s"
-#~ msgstr "Procurando %s"
+#, fuzzy
+msgid "Insert image"
+msgstr "Inserir"
 
-#~ msgid "Contacting %s"
-#~ msgstr "Contactando %s"
+#, fuzzy
+msgid "Length"
+msgstr "Esquerda"
 
-#~ msgid "Waiting for a connection..."
-#~ msgstr "Esperando por uma conexão..."
+#, fuzzy
+msgid "Percent"
+msgstr "Pre"
 
-#~ msgid "Logging in..."
-#~ msgstr "Efetuando login..."
+#, fuzzy
+msgid "Left Align"
+msgstr "Alinhar à esquerda"
 
-#~ msgid "Read %d%%%% of %l"
-#~ msgstr "Lidos %d%%%% de %l"
+#, fuzzy
+msgid "Center Align"
+msgstr "Centrado"
 
-#~ msgid "Read %d bytes"
-#~ msgstr "Lidos %d bytes"
+#, fuzzy
+msgid "Right Align"
+msgstr "Alinhar à direita"
 
-#~ msgid "Reading..."
-#~ msgstr "Lendo..."
+#, fuzzy
+msgid "None"
+msgstr "<Nenhum>"
 
-#~ msgid "Writing %d%%%% of %l"
-#~ msgstr "Escritos %d%%%% of %l"
+msgid "Set Shade"
+msgstr "Ligar sombra"
 
-#~ msgid "Writing %d bytes"
-#~ msgstr "Escritos %d bytes"
+msgid "Transfer Progress"
+msgstr "Progresso da transferência"
 
-#~ msgid "Writing..."
-#~ msgstr "Escrevendo..."
+msgid "Looking up %s"
+msgstr "Procurando %s"
 
-#~ msgid "Done!"
-#~ msgstr "Concluído!"
+msgid "Contacting %s"
+msgstr "Contactando %s"
 
-#~ msgid "Interrupted!"
-#~ msgstr "Interrompido!"
+msgid "Waiting for a connection..."
+msgstr "Esperando por uma conexão..."
 
-#~ msgid "Please wait..."
-#~ msgstr "Aguarde por favor..."
+msgid "Logging in..."
+msgstr "Efetuando login..."
 
-#~ msgid "Request timeout!"
-#~ msgstr "Tempo limite do pedido excedido!"
+msgid "Read %d%%%% of %l"
+msgstr "Lidos %d%%%% de %l"
 
-#~ msgid "Unknown"
-#~ msgstr "Desconhecido"
+msgid "Read %d bytes"
+msgstr "Lidos %d bytes"
 
-#~ msgid "Enter Text"
-#~ msgstr "Entre texto"
+msgid "Reading..."
+msgstr "Lendo..."
 
-#~ msgid "Enter Password"
-#~ msgstr "Entre senha"
+msgid "Writing %d%%%% of %l"
+msgstr "Escritos %d%%%% of %l"
+
+msgid "Writing %d bytes"
+msgstr "Escritos %d bytes"
+
+msgid "Writing..."
+msgstr "Escrevendo..."
+
+msgid "Done!"
+msgstr "Concluído!"
+
+msgid "Interrupted!"
+msgstr "Interrompido!"
+
+msgid "Please wait..."
+msgstr "Aguarde por favor..."
+
+msgid "Request timeout!"
+msgstr "Tempo limite do pedido excedido!"
+
+msgid "Unknown"
+msgstr "Desconhecido"
+
+msgid "Enter Text"
+msgstr "Entre texto"
+
+msgid "Enter Password"
+msgstr "Entre senha"
