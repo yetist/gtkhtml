@@ -777,8 +777,10 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 	gint rowSpan;
 	gint colSpan;
 	gint cellwidth;
+	gint cellheight;
 	gint cellpercent;
 	gboolean fixedWidth;
+	gboolean fixedHeight;
 	HTMLVAlignType valign;
 	HTMLTableCell *cell;
 	gpointer tablePixmapPtr = NULL;
@@ -996,12 +998,13 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 						firstRow = FALSE;
 					}
 
-					rowSpan = 1;
-					colSpan = 1;
-					cellwidth = clue->max_width;
+					rowSpan     = 1;
+					colSpan     = 1;
+					cellwidth   = clue->max_width;
 					cellpercent = -1;
-					fixedWidth = FALSE;
-					e->noWrap = FALSE;
+					fixedWidth  = FALSE;
+					fixedHeight = FALSE;
+					e->noWrap   = FALSE;
 
 					if (have_rowColor) {
 						bgColor = rowColor;
@@ -1057,10 +1060,12 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 								else if (strcasecmp (token + 6, "left") == 0)
 									e->divAlign = HTML_HALIGN_LEFT;
 							}
-							else if (strncasecmp (token, "height=", 6) == 0) {
-								/* FIXME cell height negotiation needs to be added
-								 * it shouldn't be very difficult
-								 */
+							else if (strncasecmp (token, "height=", 7) == 0) {
+								if (isdigit (*(token + 7))) {
+									cellheight  = atoi (token + 7);
+									fixedHeight = TRUE;
+								}
+								/* FIXME percentage */
 							}
 							else if (strncasecmp (token, "width=", 6) == 0) {
 								if (strchr (token + 6, '%')) {
@@ -1121,6 +1126,8 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					HTML_CLUE (cell)->valign = valign;
 					if (fixedWidth)
 						html_table_cell_set_fixed_width (cell, cellwidth);
+					if (fixedHeight)
+						html_table_cell_set_fixed_height (cell, cellheight);
  
 					html_table_add_cell (table, cell);
 					has_cell = 1;

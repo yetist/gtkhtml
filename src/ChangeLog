@@ -1,3 +1,14 @@
+2001-01-25  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltablecell.c (calc_size): new method, take care of fixed
+	height
+	(clue_move_children): new helper function
+	(html_table_cell_set_fixed_height): new function
+
+	* htmlengine.c (parse_table): support <td height=[number]>
+
+	* htmltablecell.c (html_table_cell_init): added fixed_height
+
 2001-01-25  Larry Ewing  <lewing@ximian.com>
 
 	* htmlimage.c (html_image_pointer_timeout): only queue a redraw if

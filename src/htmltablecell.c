@@ -148,6 +148,50 @@ draw (HTMLObject *o,
 }
 
 static void
+clue_move_children (HTMLClue *clue, gint x_delta, gint y_delta)
+{
+	HTMLObject *o;
+
+	for (o = clue->head; o; o = o->next) {
+		o->x += x_delta;
+		o->y += y_delta;
+	}
+}
+
+static gboolean
+calc_size (HTMLObject *o, HTMLPainter *painter)
+{
+	HTMLTableCell *cell;
+	gboolean rv;
+
+	cell = HTML_TABLE_CELL (o);
+	rv   = (* HTML_OBJECT_CLASS (parent_class)->calc_size) (o, painter);
+
+	if (cell->fixed_height && o->ascent + o->descent < cell->fixed_height) {
+		gint remains = cell->fixed_height - (o->ascent + o->descent);
+
+		o->ascent += remains;
+
+		switch (HTML_CLUE (o)->valign) {
+		case HTML_VALIGN_TOP:
+			break;
+		case HTML_VALIGN_CENTER:
+			clue_move_children (HTML_CLUE (o), 0, remains >> 1);
+			break;
+		case HTML_VALIGN_NONE:
+		case HTML_VALIGN_BOTTOM:
+			clue_move_children (HTML_CLUE (o), 0, remains);
+			break;
+		default:
+			g_assert_not_reached ();
+		}
+		rv = TRUE;
+	}
+
+	return rv;
+}
+
+static void
 draw_background (HTMLObject *self,
 		 HTMLPainter *painter,
 		 gint x, gint y, 
@@ -247,6 +291,7 @@ html_table_cell_class_init (HTMLTableCellClass *klass,
 	object_class->copy = copy;
 	object_class->calc_min_width = calc_min_width;
 	object_class->calc_preferred_width = calc_preferred_width;
+	object_class->calc_size = calc_size;
 	object_class->draw = draw;
 	object_class->draw_background = draw_background;
 	object_class->set_bg_color = set_bg_color;
@@ -278,7 +323,8 @@ html_table_cell_init (HTMLTableCell *cell,
 	clue->valign = HTML_VALIGN_BOTTOM;
 	clue->halign = HTML_HALIGN_LEFT;
 
-	cell->fixed_width = 0;
+	cell->fixed_width  = 0;
+	cell->fixed_height = 0;
 
 	cell->padding = 0;
 	cluev->padding = pad;
@@ -322,15 +368,16 @@ html_table_cell_unlink (HTMLTableCell *cell)
 }
 
 void
-html_table_cell_set_fixed_width (HTMLTableCell *cell,
-				 gint width)
+html_table_cell_set_fixed_width (HTMLTableCell *cell, gint width)
 {
-	HTMLObject *obj;
-
-	obj = HTML_OBJECT (cell);
-	obj->flags |= HTML_OBJECT_FLAG_FIXEDWIDTH;
-
+	HTML_OBJECT (cell)->flags |= HTML_OBJECT_FLAG_FIXEDWIDTH;
 	cell->fixed_width = width;
+}
+
+void
+html_table_cell_set_fixed_height (HTMLTableCell *cell, gint height)
+{
+	cell->fixed_height = height;
 }
 
 void

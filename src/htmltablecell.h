@@ -34,6 +34,7 @@ struct _HTMLTableCell {
 	HTMLClueV cluev;
 
 	gint fixed_width;
+	gint fixed_height;
 
 	gint rspan;
 	gint cspan;
@@ -76,6 +77,8 @@ void        html_table_cell_link             (HTMLTableCell      *cell);
 void        html_table_cell_unlink           (HTMLTableCell      *cell);
 void        html_table_cell_set_fixed_width  (HTMLTableCell      *cell,
 					      gint                width);
+void        html_table_cell_set_fixed_height (HTMLTableCell      *cell,
+					      gint                height);
 void        html_table_cell_set_bg_pixmap    (HTMLTableCell      *cell,
 					      HTMLImagePointer   *imagePtr);
 void        html_table_cell_set_position     (HTMLTableCell      *cell,
