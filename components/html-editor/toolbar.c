@@ -555,7 +555,7 @@ create_style_toolbar (GtkHTMLControlData *cd)
 	cd->toolbar_style = gtk_toolbar_new (GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_ICONS);
 
 	gtk_container_add (GTK_CONTAINER (frame), cd->toolbar_style);
-	gtk_box_pack_start (GTK_BOX (hbox), frame, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), frame, TRUE, TRUE, 0);
 
 	gtk_widget_show_all (hbox);
 

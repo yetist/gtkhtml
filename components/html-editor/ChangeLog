@@ -1,3 +1,7 @@
+1904-01-03  Radek Doulik  <rodo@ximian.com>
+
+	* toolbar.c (create_style_toolbar): let toolbar extend
+
 2001-07-20  Radek Doulik  <rodo@ximian.com>
 
 	* GNOME_GtkHTML_Editor.xml.in: added 16 pixels wide insert
