@@ -1141,8 +1141,8 @@ save_plain (HTMLObject *self,
 			if (flow->style != HTML_CLUEFLOW_STYLE_PRE
 			    && flow->style != HTML_CLUEFLOW_STYLE_NOWRAP) {
 				
-				if (len > (requested_width - pad)) {
-					space = s + (requested_width - pad);
+				if (unicode_strlen (s, len) > (requested_width - pad)) {
+					space = s + unicode_offset_to_index (s, requested_width - pad);
 					while (space > s 
 					       && (*space != ' '))
 						// || (MATCH_UTF8_NBSP ((guchar *)unicode_next_utf8 (space)))

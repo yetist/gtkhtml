@@ -2,6 +2,8 @@
 
 	* htmlclueflow.c (string_append_nonbsp): make sure we count the
 	extra bytes we lose when converting nbsp to a space.
+	(save_plain): make sure we deal with byte length and character
+	length where appropriate.
 
 2000-11-07  Radek Doulik  <rodo@helixcode.com>
 
