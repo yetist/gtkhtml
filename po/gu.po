@@ -1,39 +1,41 @@
+# translation of gtkhtml.HEAD.gu.po to Gujarati
 # translation of gtkhtml.HEAD.po to Gujarati
 # translation of gu.po to Gujarati
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Ankit Patel <ankit@redhat.com>, 2004.
+# Ankit Patel <ankit@redhat.com>, 2004, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml.HEAD\n"
+"Project-Id-Version: gtkhtml.HEAD.gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-07 17:25+0100\n"
-"PO-Revision-Date: 2004-07-26 16:08+0530\n"
+"POT-Creation-Date: 2005-02-22 07:41+0100\n"
+"PO-Revision-Date: 2005-02-23 10:10+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
-"Language-Team: Gujarati\n"
+"Language-Team: Gujarati <gu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.3.1\n"
+"X-Generator: KBabel 1.9.1\n"
+"Plural-Forms: Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
 
 #: a11y/image.c:150
 #, c-format
 msgid "URL is %s, Alternative Text is %s"
-msgstr ""
+msgstr "URL એ %s છે, વૈકલ્પિક લખાણ %s છે"
 
 #: a11y/image.c:152
 #, c-format
 msgid "URL is %s"
-msgstr ""
+msgstr "URL એ %s છે"
 
 #: a11y/object.c:50 a11y/object.c:59 a11y/text.c:111
 msgid "grab focus"
-msgstr ""
+msgstr "ફોકસ પકડો"
 
 #: a11y/object.c:256
 msgid "Panel containing HTML"
-msgstr ""
+msgstr "HTML સમાવતી પેનલ"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
@@ -931,9 +933,8 @@ msgid "Background Image"
 msgstr "પાશ્વ ભાગનું ચિત્ર"
 
 #: components/html-editor/body.c:298
-#, fuzzy
 msgid "Background Image File Path"
-msgstr "પાશ્વ ભાગનું ચિત્ર"
+msgstr "પાશ્વ ભાગની ચિત્ર ફાઈલનો પથ"
 
 #: components/html-editor/body.c:301
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
@@ -976,9 +977,8 @@ msgid "Page"
 msgstr "પાનું"
 
 #: components/html-editor/gi-color-combo.c:187
-#, fuzzy
 msgid "color preview"
-msgstr "છાપનનું પૂર્વદર્શન"
+msgstr "રંગનું પૂર્વદર્શન"
 
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:395
@@ -1182,7 +1182,7 @@ msgstr "વાદળી ભૂરો"
 #. set the a11y name
 #: components/html-editor/gi-combo-box.c:419
 msgid "Popup"
-msgstr ""
+msgstr "પોપઅપ"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
@@ -1447,14 +1447,12 @@ msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
 #: components/html-editor/link.c:194
-#, fuzzy
 msgid "URL:"
-msgstr "_URL:"
+msgstr "URL:"
 
 #: components/html-editor/link.c:198
-#, fuzzy
 msgid "Description:"
-msgstr "વર્ણન (_D):"
+msgstr "વર્ણન:"
 
 #: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
 msgid "Insert image"
@@ -1663,12 +1661,10 @@ msgid "Case _sensitive"
 msgstr "કેસ પ્રત્યે સંવેદનશીલ (_s)"
 
 #: components/html-editor/replace.c:182
-#, fuzzy
 msgid "R_eplace:"
-msgstr "બદલો:"
+msgstr "થી બદલો (_e):"
 
 #: components/html-editor/replace.c:186
-#, fuzzy
 msgid "_With:"
 msgstr "પહોળાઈ (_W):"
 
@@ -1682,13 +1678,15 @@ msgstr "નિયમિત સમીકરણ (_R)"
 
 #: components/html-editor/search.c:118
 msgid "Input the words you want to search here"
-msgstr ""
+msgstr "તમે જે શોધવા માંગો છો તે શબ્દો અંહિ ઈનપુટ કરો"
 
 #: components/html-editor/spellchecker.c:110
 msgid ""
 "Unable to add word to dictionary,\n"
 "language settings are broken.\n"
 msgstr ""
+"શબ્દકોષમાં શબ્દ ઉમેરવામાં અસમર્થ,\n"
+"ભાષા સુયોજનો ભાંગી પડેલા છે.\n"
 
 #: components/html-editor/spellchecker.c:298
 msgid "No misspelled word found"
@@ -1715,9 +1713,8 @@ msgid "Image frame"
 msgstr "ચિત્રનું ચોકઠું"
 
 #: components/html-editor/template.c:280
-#, fuzzy
 msgid "Template Labels"
-msgstr "ટેમ્પ્લેટ"
+msgstr "ટેમ્પ્લેટ લેબલો"
 
 #: components/html-editor/test-html-editor-control.c:333
 msgid "Open file..."
@@ -1969,99 +1966,3 @@ msgstr "છાપનનું પૂર્વદર્શન"
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML ચકાસણી કાર્યક્રમ"
 
-#~ msgid "<None>"
-#~ msgstr "<કંઈ નહિં>"
-
-#~ msgid "\n"
-#~ msgstr "\n"
-
-#~ msgid "*********************"
-#~ msgstr "*********************"
-
-#~ msgid "Add Keyboard Shortcuts"
-#~ msgstr "કીબોર્ડ ટુંકાણો ઉમેરો"
-
-#~ msgid "Automatically detect links"
-#~ msgstr "કડીઓ આપોઆપ શોધો"
-
-#~ msgid "Behavior"
-#~ msgstr "વર્તણૂક"
-
-#~ msgid "Composer Properties"
-#~ msgstr "કમ્પોઝર ગુણધર્મો"
-
-#~ msgid "Composer Properties planned"
-#~ msgstr "કમ્પોઝર ગુણધર્મો નક્કી થઈ ગયા"
-
-#~ msgid "Configure spell checking"
-#~ msgstr "જોડણી ચકાસવાનું રુપરેખાંકિત થઈ ગયું"
-
-#~ msgid "Enable spell checking"
-#~ msgstr "જોડણી ચકાસવાનું સક્રિય કરો"
-
-#~ msgid "Fixed width"
-#~ msgstr "ચોક્કસ પહોળાઈ"
-
-#~ msgid "Fonts"
-#~ msgstr "ફોન્ટ"
-
-#~ msgid "For printing"
-#~ msgstr "છાપવા માટે"
-
-#~ msgid "Grab keys"
-#~ msgstr "કી મેળવો"
-
-#~ msgid "Information"
-#~ msgstr "જાણકારી"
-
-#~ msgid "Keyboard Shortcuts"
-#~ msgstr "કીબોર્ડ ટુંકાણો"
-
-#~ msgid "Miscellaneous"
-#~ msgstr "મિશ્રિત"
-
-#~ msgid "New shortcut:"
-#~ msgstr "નવું ટુંકાણ:"
-
-#~ msgid "On screen"
-#~ msgstr "સ્ક્રીન પર"
-
-#~ msgid "Select HTML fixed width font"
-#~ msgstr "HTML ચોક્કસ પહોળાઈ ફોન્ટ પસંદ કરો"
-
-#~ msgid "Select HTML fixed width font for printing"
-#~ msgstr "છાપન માટે HTML ચોક્કસ પહોળાઈ ફોન્ટ પસંદ કરો"
-
-#~ msgid "Select HTML variable width font"
-#~ msgstr "HTML ચલિત પહોળાઈ ફોન્ટ પસંદ કરો"
-
-#~ msgid "Select HTML variable width font for printing"
-#~ msgstr "છાપન માટે HTML ચલિત પહોળાઈ ફોન્ટ પસંદ કરો"
-
-#~ msgid "Shortcuts _type:"
-#~ msgstr "ટુંકાણો પ્રકાર (_t):"
-
-#~ msgid "Show animated images"
-#~ msgstr "હાલતાંચાલતાં ચિત્રો બતાવો"
-
-#~ msgid "Variable width"
-#~ msgstr "ચલિત પહોળાઈ"
-
-#~ msgid "_Add"
-#~ msgstr "ઉમેરો (_A)"
-
-#~ msgid "_Delete"
-#~ msgstr "કાઢી નાખો (_D)"
-
-#~ msgid ""
-#~ "Cannot execute GNOME Spell control applet\n"
-#~ "Try to install GNOME Spell if you don't have it installed."
-#~ msgstr ""
-#~ "જીનોમ જોડણી નિયંત્રક એપ્લેટ ચલાવી શકાતી નથી\n"
-#~ "જો તમે જીનોમ જોડણી સ્થાપિત કર્યું નહિં હોય તો તેને સ્થાપિત કરવાનો પ્રયત્ન કરો."
-
-#~ msgid "With:"
-#~ msgstr "સાથે:"
-
-#~ msgid "Labels"
-#~ msgstr "લેબલો"
