@@ -1,5 +1,9 @@
 2000-08-02  Radek Doulik  <rodo@helixcode.com>
 
+	* htmltable.c (fit_line): override this virtual method as we do
+	not want calc_size to be called here - it is expensive and
+	unneeded
+
 	* htmltextslave.c (fit_line): split only when len < posLen
 
 	* gtkhtml.c (motion_notify_event): split

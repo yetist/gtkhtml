@@ -1399,6 +1399,16 @@ search (HTMLObject *obj, HTMLSearch *info)
 	return FALSE;
 }
 
+static HTMLFitType
+fit_line (HTMLObject *o,
+	  HTMLPainter *painter,
+	  gboolean start_of_line,
+	  gboolean first_run,
+	  gint width_left)
+{
+	return HTML_FIT_COMPLETE;
+}
+
 
 void
 html_table_type_init (void)
@@ -1430,6 +1440,7 @@ html_table_class_init (HTMLTableClass *klass,
 	object_class->is_container = is_container;
 	object_class->forall = forall;
 	object_class->search = search;
+	object_class->fit_line = fit_line;
 
 	parent_class = &html_object_class;
 }

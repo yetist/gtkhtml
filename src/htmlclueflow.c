@@ -497,7 +497,6 @@ calc_size (HTMLObject *o,
 				}
 			}
 
-
 			if (! newLine) {
 				gint new_y, new_lmargin, new_rmargin;
 
