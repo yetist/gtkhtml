@@ -1,3 +1,10 @@
+2003-04-29  Larry Ewing  <lewing@ximian.com>
+
+	* Makefile.am (CLEANFILES): add missing files to CLEANFILES to
+	make automake-1.7.3 happy.
+
+	* menubar.c: remove unused include.
+
 2003-04-17  Radek Doulik  <rodo@ximian.com>
 
 	* html-stream-mem.c: derive from BonoboObject instead of

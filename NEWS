@@ -1,7 +1,19 @@
-gtkhtml-3.0.2 "sleeping at the wheel" 2003-04-11
+gtkhtml-3.0.3 "chili in my soup" 2003-04-11
 ------------------------------------------------
 
-New In this release:
+New in this release
+
+  * Cursor no longer jumps to origin on insertion.
+  * Drawing queue optimizations and cliping improvements.
+  * Removed unneeded warnings.
+  * Clean up some small memory leaks.
+  * Fixed a bug that caused only the underline of a link to be
+    clickable from time to time.
+  * Improved gtk input method support.
+  * Fixed distcheck for automake 1.7.3
+  * Fixed editor image support.
+
+New 3.0.2
 
   * Much improved pango support.
   * Initial gtk input method support.
@@ -22,8 +34,6 @@ New In this release:
   * Fixed printing of images.
   * Pickup style changes when switch from plain to html mode.
   * Use stock i
-
-* Bugs Fixed:
-  * Lots, see bugzilla.ximian.com
+  * Lots of bugs fixed, see bugzilla.ximian.com
 	
 	

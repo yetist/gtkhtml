@@ -33,7 +33,6 @@
 
 #include "htmlengine-edit-cut-and-paste.h"
 
-#include "e-html-utils.h"
 #include "menubar.h"
 #include "gtkhtml.h"
 #include "body.h"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $PACKAGE $GTKHTML_RELEASE.0.99\n"
-"POT-Creation-Date: 2003-04-29 12:01-0500\n"
+"POT-Creation-Date: 2003-04-29 14:20-0500\n"
 "PO-Revision-Date: 2002-05-09 16:03+0900\n"
 "Last-Translator: Young-Ho Cha <ganadist@chollian.net>\n"
 "Language-Team: Korean <gnome-kr-translation@lists.sourceforge.net>\n"
@@ -841,7 +841,7 @@ msgstr "파란색"
 msgid "Rectangles"
 msgstr ""
 
-#: components/html-editor/body.c:274 src/gtkhtml.c:2593
+#: components/html-editor/body.c:274 src/gtkhtml.c:2601
 msgid "Document Title"
 msgstr "문서 제목"
 
@@ -1582,75 +1582,75 @@ msgstr "문단을 더 들여씁니다"
 msgid "Sample"
 msgstr "예제"
 
-#: src/gtkhtml.c:2586
+#: src/gtkhtml.c:2594
 #, fuzzy
 msgid "Editable"
 msgstr "사용"
 
-#: src/gtkhtml.c:2587
+#: src/gtkhtml.c:2595
 msgid "Whether the html can be edited"
 msgstr ""
 
-#: src/gtkhtml.c:2594
+#: src/gtkhtml.c:2602
 #, fuzzy
 msgid "The title of the current document"
 msgstr "문서의 맞춤법을 검사합니다"
 
-#: src/gtkhtml.c:2600
+#: src/gtkhtml.c:2608
 #, fuzzy
 msgid "Document Base"
 msgstr "문서 제목"
 
-#: src/gtkhtml.c:2601
+#: src/gtkhtml.c:2609
 msgid "The base URL for relative references"
 msgstr ""
 
-#: src/gtkhtml.c:2607
+#: src/gtkhtml.c:2615
 msgid "Target Base"
 msgstr ""
 
-#: src/gtkhtml.c:2608
+#: src/gtkhtml.c:2616
 msgid "The base URL of the targe frame"
 msgstr ""
 
-#: src/gtkhtml.c:2617
+#: src/gtkhtml.c:2625
 #, fuzzy
 msgid "Fixed Width Font"
 msgstr "고정폭 글꼴"
 
-#: src/gtkhtml.c:2618
+#: src/gtkhtml.c:2626
 msgid "The Monospace font to use for typewriter text"
 msgstr ""
 
-#: src/gtkhtml.c:2624
+#: src/gtkhtml.c:2632
 msgid "New Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2625
+#: src/gtkhtml.c:2633
 msgid "The color of new link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2630
+#: src/gtkhtml.c:2638
 msgid "Visited Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2631
+#: src/gtkhtml.c:2639
 msgid "The color of visited link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2636
+#: src/gtkhtml.c:2644
 msgid "Active Link Color"
 msgstr ""
 
-#: src/gtkhtml.c:2637
+#: src/gtkhtml.c:2645
 msgid "The color of active link elements"
 msgstr ""
 
-#: src/gtkhtml.c:2642
+#: src/gtkhtml.c:2650
 msgid "Spelling Error Color"
 msgstr ""
 
-#: src/gtkhtml.c:2643
+#: src/gtkhtml.c:2651
 msgid "The color of the spelling error markers"
 msgstr ""
 

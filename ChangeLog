@@ -1,3 +1,9 @@
+2003-04-29  Larry Ewing  <lewing@ximian.com>
+
+	* Makefile.am (CLEANFILES): add new CLEANFILES to pass distcheck
+	with automake-1.7.3, this is probably something that should be
+	fixed in intltool.
+
 2003-04-09  Radek Doulik  <rodo@ximian.com>
 
 	* configure.in: use gal for library as well (we use

@@ -5,6 +5,12 @@ SUBDIRS =					\
 	art					\
 	po
 
+CLEANFILES =					\
+	po/.intltool-merge-cache		\
+	intltool-extract			\
+	intltool-update				\
+	intltool-merge
+
 EXTRA_DIST =					\
 	gtkhtml.spec.in				\
 	gtkhtml.spec                            \

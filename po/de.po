@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 1.0.x\n"
-"POT-Creation-Date: 2003-04-29 12:01-0500\n"
+"POT-Creation-Date: 2003-04-29 14:20-0500\n"
 "PO-Revision-Date: 2003-04-16 14:04+0200\n"
 "Last-Translator: Christian Neumair <chris@gnome-de.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
@@ -823,7 +823,7 @@ msgstr "Blaue Tinte"
 msgid "Rectangles"
 msgstr "Rechtecke"
 
-#: components/html-editor/body.c:274 src/gtkhtml.c:2593
+#: components/html-editor/body.c:274 src/gtkhtml.c:2601
 msgid "Document Title"
 msgstr "Titel des Dokuments"
 
@@ -1555,71 +1555,71 @@ msgstr "Rückt Absätze weiter ein"
 msgid "Sample"
 msgstr "Beispiel"
 
-#: src/gtkhtml.c:2586
+#: src/gtkhtml.c:2594
 msgid "Editable"
 msgstr "Editierbar"
 
-#: src/gtkhtml.c:2587
+#: src/gtkhtml.c:2595
 msgid "Whether the html can be edited"
 msgstr "Soll das HTML editiert werden können?"
 
-#: src/gtkhtml.c:2594
+#: src/gtkhtml.c:2602
 msgid "The title of the current document"
 msgstr "Der Titel des momentan geöffneten Dokuments"
 
-#: src/gtkhtml.c:2600
+#: src/gtkhtml.c:2608
 msgid "Document Base"
 msgstr "Dokumentenbasis"
 
-#: src/gtkhtml.c:2601
+#: src/gtkhtml.c:2609
 msgid "The base URL for relative references"
 msgstr "Die Basisadresse für relative Verweise"
 
-#: src/gtkhtml.c:2607
+#: src/gtkhtml.c:2615
 msgid "Target Base"
 msgstr "Zielbasis"
 
-#: src/gtkhtml.c:2608
+#: src/gtkhtml.c:2616
 msgid "The base URL of the targe frame"
 msgstr "Die Basisadresse für das Ziel-Frame"
 
-#: src/gtkhtml.c:2617
+#: src/gtkhtml.c:2625
 msgid "Fixed Width Font"
 msgstr "Dicktengleiche Schrift"
 
-#: src/gtkhtml.c:2618
+#: src/gtkhtml.c:2626
 msgid "The Monospace font to use for typewriter text"
 msgstr "Die für typewriter-Text zu verwendende dicktengleiche Schrift"
 
-#: src/gtkhtml.c:2624
+#: src/gtkhtml.c:2632
 msgid "New Link Color"
 msgstr "Farbe für neue Links"
 
-#: src/gtkhtml.c:2625
+#: src/gtkhtml.c:2633
 msgid "The color of new link elements"
 msgstr "Die Farbe für neue Link-Elemente"
 
-#: src/gtkhtml.c:2630
+#: src/gtkhtml.c:2638
 msgid "Visited Link Color"
 msgstr "Farbe für besuchte Links"
 
-#: src/gtkhtml.c:2631
+#: src/gtkhtml.c:2639
 msgid "The color of visited link elements"
 msgstr "Die Farbe für besuchte Link-Elemente"
 
-#: src/gtkhtml.c:2636
+#: src/gtkhtml.c:2644
 msgid "Active Link Color"
 msgstr "Farbe für aktive Links"
 
-#: src/gtkhtml.c:2637
+#: src/gtkhtml.c:2645
 msgid "The color of active link elements"
 msgstr "Die Farbe für aktive Link-Elemente"
 
-#: src/gtkhtml.c:2642
+#: src/gtkhtml.c:2650
 msgid "Spelling Error Color"
 msgstr "Farbe für Rechtschreibfehler"
 
-#: src/gtkhtml.c:2643
+#: src/gtkhtml.c:2651
 msgid "The color of the spelling error markers"
 msgstr "Die für die Hervorhebung von Rechtschreibfehlern verwendete Farbe"
 

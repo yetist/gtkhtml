@@ -148,7 +148,7 @@ noinst_LTLIBRARIES = libgnome-gtkhtml-editor.la
 privlibdir = "$(libdir)/gtkhtml"
 privlib_LTLIBRARIES = $(MY_LIBS)
 
-noinst_PROGRAMS = 		\
+noinst_PROGRAMS = 		
 	test_editor
 
 libexec_PROGRAMS = $(MY_PRGS)
@@ -161,7 +161,6 @@ $(server_in_files:.server.in.in=.server.in): $(server_in_files) Makefile
 	sed -e "s|\@GNOME_GTKHTML_EDITOR_LOCATION\@|$(location)|g" \
 	-e "s|\@EDITOR_API_VERSION\@|$(EDITOR_API_VERSION)|g" \
 	-e "s|\@GNOME_GTKHTML_EDITOR_TYPE\@|$(GNOME_GTKHTML_EDITOR_TYPE)|g" $< > $@
-
 @INTLTOOL_SERVER_RULE@
 
 GNOME_GtkHTML_Editor.xml: GNOME_GtkHTML_Editor.xml.in Makefile
@@ -191,11 +190,15 @@ EXTRA_DIST =					\
 	GNOME_GtkHTML_Editor.xml.in		\
 	gtkhtml-editor-properties.glade		\
 	$(server_in_files) $(server_DATA)
-
 idldir = $(gtkhtml_data)
 idl_DATA = $(IDLS)
 
-CLEANFILES = $(IDL_GENERATED) $(SPELL_IDL_GENERATED) 
+CLEANFILES = \
+	GNOME_GtkHTML_Editor.server		\
+	GNOME_GtkHTML_Editor.server.in		\
+	GNOME_GtkHTML_Editor.xml		\
+	$(IDL_GENERATED)			\
+	$(SPELL_IDL_GENERATED) 
 
 BUILT_SOURCE = $(IDL_GENERATED) $(SPELL_IDL_GENERATED)
 
