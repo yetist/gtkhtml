@@ -1,5 +1,13 @@
 2000-01-26  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmllinktextmaster.c (save): New function, implementing
+	`HTMLObject::save'.
+	(html_link_text_master_class_init): Install it.
+
+	* htmllinktext.c (save): New function, implementing
+	`HTMLObject::save'.
+	(html_link_text_class_init): Install it.
+
 	* htmlrule.c (save): New function, implementing
 	`HTMLObject::save'.
 	(html_rule_class_init): Install it.

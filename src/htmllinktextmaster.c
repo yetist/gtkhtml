@@ -97,6 +97,24 @@ get_font_style (const HTMLText *text)
 	return font_style;
 }
 
+static gboolean
+save (HTMLObject *self,
+      HTMLEngineSaveState *state)
+{
+	if (! html_engine_save_output_string (state, "<A HREF=\"")
+	    || ! html_engine_save_output_string (state, HTML_LINK_TEXT_MASTER (self)->url)
+	    || ! html_engine_save_output_string (state, "\">"))
+		return FALSE;
+
+	if (! HTML_OBJECT_CLASS (&html_text_class)->save (self, state))
+		return FALSE;
+
+	if (! html_engine_save_output_string (state, "</A>"))
+		return FALSE;
+
+	return TRUE;
+}
+
 
 void
 html_link_text_master_type_init (void)
@@ -122,6 +140,7 @@ html_link_text_master_class_init (HTMLLinkTextMasterClass *klass,
 	object_class->destroy = destroy;
 	object_class->get_url = get_url;
 	object_class->get_target = get_target;
+	object_class->save = save;
 
 	text_class->split = split;
 	text_class->get_font_style = get_font_style;
