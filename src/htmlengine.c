@@ -3283,8 +3283,6 @@ html_engine_end (GtkHTMLStream *stream,
 
 	e->writing = FALSE;
 
-	if (e->timerId)
-		gtk_timeout_remove (e->timerId);
 	while (html_engine_timer_event (e))
 		;
 
@@ -3296,10 +3294,12 @@ html_engine_end (GtkHTMLStream *stream,
 	html_tokenizer_end (e->ht);
 
 	ensure_last_clueflow (e);
-
-	if (e->editable)
-		ensure_editable (e);
 	
+	if (e->editable) {
+		ensure_editable (e);
+		html_cursor_home (e->cursor, e);
+	}
+
 	gtk_signal_emit (GTK_OBJECT (e), signals[LOAD_DONE]);
 	html_image_factory_stop_animations (e->image_factory);
 	html_image_factory_cleanup (e->image_factory);
