@@ -29,7 +29,7 @@
 
 #define CUSTOM_KEYMAP_NAME "Custom"
 
-static GtkWidget *capplet, *variable, *fixed;
+static GtkWidget *capplet, *variable, *fixed, *anim_check;
 static gboolean active = FALSE;
 #ifdef GTKHTML_HAVE_GCONF
 static GConfError  *error  = NULL;
@@ -47,6 +47,9 @@ set_ui ()
 	gchar *font_name;
 
 	active = FALSE;
+
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (anim_check), actual_prop->animations);
+
 	font_name = font_name = g_strdup_printf ("-*-%s-*-*-normal-*-%d-*-*-*-*-*-*-*",
 						 actual_prop->font_var_family, actual_prop->font_var_size);
 	gnome_font_picker_set_font_name (GNOME_FONT_PICKER (variable), font_name);
@@ -82,6 +85,8 @@ static void
 apply_fonts ()
 {
 	gchar *size_str;
+
+	actual_prop->animations = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (anim_check));
 
 	g_free (actual_prop->font_var_family);
 	actual_prop->font_var_family = get_attr (gnome_font_picker_get_font_name (GNOME_FONT_PICKER (variable)), 2);
@@ -133,7 +138,7 @@ changed (GtkWidget *widget)
 static void
 setup(void)
 {
-	GtkWidget *vbox, *hbox, *frame, *table, *label, *check;
+	GtkWidget *vbox, *hbox, *frame, *table, *label;
 
         capplet = capplet_widget_new();
 	vbox    = gtk_vbox_new (FALSE, 2);
@@ -167,9 +172,10 @@ setup(void)
 	gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, FALSE, 0);
 
 	frame = gtk_frame_new (_("Behaviour"));
-	check = gtk_check_button_new_with_label (_("Animations"));
+	anim_check = gtk_check_button_new_with_label (_("Animations"));
+	gtk_signal_connect (GTK_OBJECT (anim_check), "toggled", changed, NULL);
 	hbox = gtk_hbox_new (FALSE, 3);
-	gtk_box_pack_start (GTK_BOX (hbox), check, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), anim_check, FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (hbox), 3);
 	gtk_container_add (GTK_CONTAINER (frame), hbox);
 	gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, FALSE, 0);
