@@ -2354,17 +2354,21 @@ html_table_end_row (HTMLTable *table)
 	table->row++;
 }
 
-void
+gint
 html_table_end_table (HTMLTable *table)
 {
-	gint r, c;
+	gint r, c, cells = 0;
 
 	for (r = 0; r < table->totalRows; r ++)
 		for (c = 0; c < table->totalCols; c ++)
-			if (table->cells [r][c] && HTML_CLUE (table->cells [r][c])->head == NULL) {
-				HTMLTableCell *cell = table->cells [r][c];
+			if (table->cells [r][c]) {
+				if (HTML_CLUE (table->cells [r][c])->head == NULL) {
+					HTMLTableCell *cell = table->cells [r][c];
 
-				remove_cell (table, cell);
-				html_object_destroy (HTML_OBJECT (cell));
+					remove_cell (table, cell);
+					html_object_destroy (HTML_OBJECT (cell));
+				} else
+					cells ++;
 			}
+	return cells;
 }

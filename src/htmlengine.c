@@ -1342,8 +1342,10 @@ parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 		   here...  */
 		if (!firstRow)
 			html_table_end_row (table);
-		html_table_end_table (table);
+		has_cell = html_table_end_table (table);
+	}
 
+	if (has_cell) {
 		if (align != HTML_HALIGN_LEFT && align != HTML_HALIGN_RIGHT) {
 			if (e->flow && !html_clueflow_is_empty (HTML_CLUEFLOW (e->flow)))
 				close_flow (e, clue);
