@@ -1,5 +1,7 @@
 2001-11-14  Larry Ewing  <lewing@ximian.com>
 
+	* Make 0.16.1 release.
+
 	* configure.in (GTKHTML_REVISION): increment for release.
 
 	* configure.in: bump version 0.16.1
