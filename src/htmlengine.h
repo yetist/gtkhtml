@@ -409,6 +409,7 @@ void      html_engine_init_magic_links          (void);
 
 /* spell checking */
 void      html_engine_spell_check              (HTMLEngine  *e);
+void      html_engine_clear_spell_check        (HTMLEngine  *e);
 gchar    *html_engine_get_spell_word           (HTMLEngine  *e);
 gboolean  html_engine_spell_word_is_valid      (HTMLEngine  *e);
 void      html_engine_replace_spell_word_with  (HTMLEngine  *e,

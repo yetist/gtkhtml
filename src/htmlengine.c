@@ -4905,6 +4905,24 @@ html_engine_spell_check (HTMLEngine *e)
 		html_object_forall (e->clue, NULL, (HTMLObjectForallFunc) check_paragraph, e);
 }
 
+static void
+clear_spell_check (HTMLObject *o, HTMLEngine *unused, HTMLEngine *e)
+{
+	if (html_object_is_text (o))
+		html_text_spell_errors_clear (HTML_TEXT (o));
+}
+
+void
+html_engine_clear_spell_check (HTMLEngine *e)
+{
+	g_assert (HTML_IS_ENGINE (e));
+	g_assert (e->clue);
+
+	e->need_spell_check = FALSE;
+
+	html_object_forall (e->clue, NULL, (HTMLObjectForallFunc) clear_spell_check, e);
+	html_engine_draw (e, 0, 0, e->width, e->height);
+}
 
 gchar *
 html_engine_get_spell_word (HTMLEngine *e)

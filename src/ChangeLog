@@ -1,3 +1,8 @@
+2002-08-28  Radek Doulik  <rodo@ximian.com>
+
+	* gtkhtml.c (client_notify_widget): spell check or clear spell
+	checking errors on live_spell_check flag change
+
 2002-08-27  Larry Ewing  <lewing@ximian.com>
 
 	* htmlgdkpainter.c (draw_pixmap): work around gdk-pixbuf bug when

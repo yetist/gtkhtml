@@ -2031,6 +2031,12 @@ client_notify_widget (GConfClient* client,
 		gtk_widget_queue_draw (GTK_WIDGET (html));
 	} else if (!strcmp (tkey, "/live_spell_check")) {
 		prop->live_spell_check = gconf_client_get_bool (client, entry->key, NULL);
+		if (html_engine_get_editable (html->engine)) {
+			if (prop->live_spell_check)
+				html_engine_spell_check (html->engine);
+			else
+				html_engine_clear_spell_check (html->engine);
+		}
 	} else if (!strcmp (tkey, "/keybindings_theme")) {
 		gchar *theme = gconf_client_get_string (client, entry->key, NULL);
 		if (strcmp (theme, prop->keybindings_theme)) {
