@@ -1,5 +1,8 @@
 2002-11-05  Larry Ewing  <lewing@ximian.com>
 
+	* gtkhtml.c (selection_received): pad citations with a <br> to
+	avoid agressive merging.
+
 	* htmlobject.c: remove html_object_calc_intersection and replace
 	with html_object_intersect that uses GdkRectangle.
 

@@ -1806,7 +1806,7 @@ selection_received (GtkWidget *widget,
 			if (as_cite) {
 				char *cite;
 
-				cite = g_strdup_printf ("<blockquote type=\"cite\">%s</blockquote>", utf8);
+				cite = g_strdup_printf ("<br><blockquote type=\"cite\">%s</blockquote>", utf8);
 
 				g_free (utf8);
 				utf8 = cite;
@@ -1825,7 +1825,7 @@ selection_received (GtkWidget *widget,
 				/* FIXME there has to be a cleaner way to do this */
 				encoded = html_encode_entities (utf8, g_utf8_strlen (utf8, -1), NULL);
 				g_free (utf8);
-				utf8 = g_strdup_printf ("<blockquote type=\"cite\">%s</blockquote>", 
+				utf8 = g_strdup_printf ("<br><pre><blockquote type=\"cite\">%s</blockquote></pre>", 
 							encoded);
 				g_free (encoded);
 				gtk_html_insert_html (GTK_HTML (widget), utf8);
