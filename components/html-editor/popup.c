@@ -468,6 +468,7 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 			ADD_PROP (TABLE);
 			ADD_ITEM (_("Table..."), prop_dialog, TABLE);
 		default:
+			;
 		}
 		if (obj->parent && obj->parent->parent && HTML_IS_TABLE_CELL (obj->parent->parent)) {
 			if (cd->format_html) {
