@@ -773,14 +773,10 @@ html_cluev_class_init (HTMLClueVClass *klass,
 	HTMLObjectClass *object_class;
 	HTMLClueClass *clue_class;
 
-	/* FIXME destroy!? */
-
 	object_class = HTML_OBJECT_CLASS (klass);
 	clue_class = HTML_CLUE_CLASS (klass);
 
 	html_clue_class_init (clue_class, type, size);
-
-	/* FIXME destroy */
 
 	object_class->copy = copy;
 	object_class->calc_size = calc_size;

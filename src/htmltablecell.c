@@ -312,9 +312,8 @@ html_table_cell_unlink (HTMLTableCell *cell)
 {
 	cell->refcount--;
 
-	/* AAAAAAAAARGH!  WRONG!  FIXME!  */
 	if (cell->refcount == 0)
-		g_free (cell);
+		html_object_destroy (HTML_OBJECT (cell));
 }
 
 void

@@ -1,3 +1,27 @@
+2000-04-06  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlcluev.c (html_cluev_class_init): removed FIXME as it don't
+	need destroy
+
+	* htmltablecell.c (html_table_cell_unlink): removed FIXME, use
+	html_object_destroy instead of g_free
+	(html_table_cell_class_init): removed FIXME for destroy as cell
+	has no allocated mem and so don't need it (clue destroy is called
+	instead by html_object_destroy)
+
+	* htmlform.c (html_form_destroy): destroy elements
+
+	* htmlimage.c (html_image_animation_destroy): g_free HTMLImageAnimation
+
+	* testgtkhtml.c (parse_href): added 3x html_url_destroy (tmpurl);
+
+	* htmltable.c (destroy): free table->cells
+	(destroy): free table->rowInfo
+	(add_columns): use g_new instead of g_malloc
+	(destroy): added g_array_free
+	
+	* htmlimage.c (html_image_pointer_destroy): unref animation
+
 2000-04-06  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlobject.c

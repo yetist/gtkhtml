@@ -32,12 +32,6 @@ Table problems
 
 - http://www.altavista.com is not 100% correct.
 
-- http://www.stjerneskolan.com is broken (some elements are laid out
-  horizontally instead of vertically).  Looks like a bug in the (table?)
-  parser: if I move spaces around in the source HTML, then things work
-  right.  The same problem happens somewhere after clicking on some
-  http://www.cocacola.com link.
-
 - In http://www.helixcode.com, the "GNOME Desktop" logo on the right
   is misaligned.
 

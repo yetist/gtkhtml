@@ -372,8 +372,6 @@ html_image_class_init (HTMLImageClass *image_class,
 
 	html_object_class_init (object_class, type, size);
 
-	/* FIXME destroy, dammit!!!  */
-
 	object_class->copy = copy;
 	object_class->draw = draw;
 	object_class->destroy = destroy;
@@ -735,6 +733,7 @@ static void
 html_image_animation_destroy (HTMLImageAnimation *anim)
 {
 	gdk_pixbuf_unref (anim->pixbuf);
+	g_free (anim);
 }
 
 static HTMLImagePointer *
@@ -758,11 +757,14 @@ html_image_pointer_destroy (HTMLImagePointer *ip)
 {
 	g_free (ip->url);
 	if (ip->loader) {
-		gtk_object_unref (GTK_OBJECT (ip->loader));
 		gdk_pixbuf_loader_close (ip->loader);
+		gtk_object_unref (GTK_OBJECT (ip->loader));
 	}
-	if (ip->pixbuf)
+	if (ip->animation) {
+		gdk_pixbuf_animation_unref (ip->animation);
+	} else 	if (ip->pixbuf) {
 		gdk_pixbuf_unref (ip->pixbuf);
+	}
 
 	g_free (ip);
 }

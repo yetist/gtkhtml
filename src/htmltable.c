@@ -76,9 +76,27 @@ destroy (HTMLObject *o)
 			
 			html_object_destroy (HTML_OBJECT (cell));
 		}
-		g_free(table->cells[r]);
+		g_free (table->cells [r]);
+		/* FIXME it looks like there could be duplicit values
+		   if (table->rowInfo) {
+			if (table->rowInfo [r].entry) {
+				g_free (table->rowInfo [r].entry);
+			}
+			} */
 	}
-	
+	g_free (table->cells);
+	if (table->rowInfo) {
+		g_free (table->rowInfo);
+	}
+
+	g_array_free (table->colInfo, TRUE);
+	g_array_free (table->colType, TRUE);
+	g_array_free (table->columnPos, TRUE);
+	g_array_free (table->columnPrefPos, TRUE);
+	g_array_free (table->colSpan, TRUE);
+	g_array_free (table->columnOpt, TRUE);
+	g_array_free (table->rowHeights, TRUE);
+
 	HTML_OBJECT_CLASS (parent_class)->destroy (o);
 }
 
@@ -141,10 +159,9 @@ add_columns (HTMLTable *table, gint num)
 	gint r;
 
 	for (r = 0; r < table->allocRows; r++) {
-		newCells = g_malloc (sizeof (HTMLTableCell *) * (table->totalCols + num));
+		newCells = g_new (HTMLTableCell *, table->totalCols + num);
 		memcpy (newCells, table->cells[r], table->totalCols * sizeof (HTMLTableCell *));
 		memset (newCells + table->totalCols, 0, num * sizeof (HTMLTableCell *));
-		/* FIXME: Do destroy instead of free? */
 		g_free (table->cells[r]);
 		table->cells[r] = newCells;
 	}
@@ -156,7 +173,7 @@ add_columns (HTMLTable *table, gint num)
 static void
 add_rows (HTMLTable *table, gint num)
 {
-	HTMLTableCell ***newRows = g_malloc (sizeof (HTMLTableCell **) * (table->allocRows + num));
+	HTMLTableCell ***newRows = g_new (HTMLTableCell **, table->allocRows + num);
 	gint r;
 
 	memcpy (newRows, table->cells, table->allocRows * sizeof (HTMLTableCell **));
@@ -165,7 +182,7 @@ add_rows (HTMLTable *table, gint num)
 	table->cells = newRows;
 
 	for (r = table->allocRows; r < table->allocRows + num; r++) {
-		table->cells[r] = g_malloc (sizeof (HTMLTableCell *) * table->totalCols);
+		table->cells[r] = g_new (HTMLTableCell *, table->totalCols);
 		memset (table->cells[r], 0, table->totalCols * sizeof (HTMLTableCell *));
 	}
 
@@ -190,12 +207,14 @@ calc_col_info (HTMLTable *table,
 
 	/* Allocate some memory for column info */
 	g_array_set_size (table->colInfo, table->totalCols * 2);
-	g_free (table->rowInfo);
+	if (table->rowInfo) {
+		g_free (table->rowInfo);
+	}
 	table->rowInfo = g_new (RowInfo, table->totalRows);
 	table->totalColumnInfos = 0;
 
 	for (r = 0; r < table->totalRows; r++) {
-		table->rowInfo[r].entry = g_new (gint, table->totalCols);
+		table->rowInfo[r].entry = g_new0 (gint, table->totalCols);
 		table->rowInfo[r].nrEntries = 0;
 		for (c = 0; c < table->totalCols; c++) {
 			HTMLTableCell *cell = table->cells[r][c];
@@ -277,6 +296,7 @@ calc_col_info (HTMLTable *table,
 		}
 		if (!unique) {
 			g_free (table->rowInfo[i].entry);
+			table->rowInfo[i].entry = NULL;
 		} else {
 			if (totalRowInfos != i) {
 				table->rowInfo[totalRowInfos].entry = table->rowInfo[i].entry;

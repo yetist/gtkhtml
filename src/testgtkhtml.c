@@ -16,6 +16,8 @@
     Boston, MA 02111-1307, USA.
 */
 
+#define MEMDEBUG
+
 #include <gnome.h>
 #include <gtk/gtk.h>
 
@@ -718,6 +720,7 @@ parse_href (const gchar *s)
 				/* FIXME?  This is a bit sucky.  */
 				t = g_strconcat (html_url_get_protocol (baseURL),
 						 ":", s, NULL);
+				html_url_destroy (tmpurl);
 				tmpurl = html_url_new (t);
 				retval = html_url_to_string (tmpurl);
 				html_url_destroy (tmpurl);
@@ -725,6 +728,7 @@ parse_href (const gchar *s)
 			} else {
 				/* Single slash at the beginning.  */
 
+				html_url_destroy (tmpurl);
 				tmpurl = html_url_dup (baseURL,
 						       HTML_URL_DUP_NOPATH);
 				html_url_set_path (tmpurl, s);
@@ -732,6 +736,7 @@ parse_href (const gchar *s)
 				html_url_destroy (tmpurl);
 			}
 		} else {
+			html_url_destroy (tmpurl);
 			tmpurl = html_url_append_path (baseURL, s);
 			retval = html_url_to_string (tmpurl);
 			html_url_destroy (tmpurl);
@@ -994,7 +999,10 @@ main (gint argc, gchar *argv[])
 	GtkWidget *html_widget;
 	GtkWidget *scrolled_window;
 	poptContext ctx;
-	
+
+#ifdef MEMDEBUG
+	void *p = malloc (1024);	/* to make linker happy with ccmalloc */
+#endif
 	gnome_init_with_popt_table (PACKAGE, VERSION,
 				    argc, argv, options, 0, &ctx);
 	glibwww_init(PACKAGE, VERSION);
@@ -1105,6 +1113,12 @@ main (gint argc, gchar *argv[])
 	}
 
 	gtk_main ();
+
+#ifdef MEMDEBUG
+
+	// gtk_widget_unref (html_widget);
+	free (p);
+#endif
 
 	return 0;
 }
