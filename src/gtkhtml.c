@@ -1528,8 +1528,10 @@ selection_clear_event (GtkWidget *widget,
 
 	html = GTK_HTML (widget);
 
-	html_engine_disable_selection (html->engine);
-	html->in_selection = FALSE;
+	if (!html_engine_get_editable (html->engine)) {
+		html_engine_disable_selection (html->engine);
+		html->in_selection = FALSE;
+	}
 
 	return TRUE;
 }

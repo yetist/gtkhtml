@@ -1,5 +1,8 @@
 2001-11-21  Radek Doulik  <rodo@ximian.com>
 
+	* gtkhtml.c (selection_clear_event): unselect only when widget is
+	non editable, otherwise keep selection valid
+
 	* htmlimage.c (draw): use html_painter_set_focus
 
 	* htmltextslave.c (draw_highlighted): use html_painter_set_focus
