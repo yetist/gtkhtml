@@ -1,5 +1,15 @@
 2001-12-03  Radek Doulik  <rodo@ximian.com>
 
+	* htmlimage.c (draw): use new colors
+
+	* htmltextslave.c (draw_highlighted): use new colors
+
+	* htmlpainter.c: remove html_painter_get_highlight_color, it's now
+	obsolete
+
+	* htmlcolorset.c: added entries for highlight colors in non-focus
+	state
+
 	* htmlframe.c (html_frame_init): as below, BTW, iframe and frame
 	has so much shared code, that I believe they should be inherit
 	from generic frame parent which should hold shared code

@@ -666,36 +666,3 @@ html_painter_set_focus (HTMLPainter *p, gboolean focus)
 {
 	p->focus = focus;
 }
-
-GdkColor *
-html_painter_get_highlight_color (HTMLPainter *painter)
-{
-	GdkColor *color;
-
-	color = gdk_color_copy (&html_colorset_get_color_allocated (painter, HTMLHighlightColor)->color);
-	if (!painter->focus) {
-		gushort value;
-
-		value = MAX (color->red, MAX (color->green, color->blue));
-
-		/* change color value */
-		if (value > 127) {
-			color->red   -= color->red / 4;
-			color->green -= color->blue / 4;
-			color->blue  -= color->green / 4;
-		} else {
-			color->red   += color->red / 4;
-			color->green += color->blue / 4;
-			color->blue  += color->green / 4;
-		}
-
-		value = MAX (color->red, MAX (color->green, color->blue));
-
-		/* zero saturation */
-		color->red   = value;
-		color->green = value;
-		color->blue  = value;
-	}
-
-	return color;
-}

@@ -248,5 +248,4 @@ guint             html_painter_get_page_height                         (HTMLPain
 								        HTMLEngine        *e);
 void              html_painter_set_focus                               (HTMLPainter       *painter,
 									gboolean           focus);
-GdkColor         *html_painter_get_highlight_color                     (HTMLPainter       *painter);
 #endif /* _HTMLPAINTER_H_ */
