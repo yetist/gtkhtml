@@ -1,3 +1,12 @@
+2000-10-04  Radek Doulik  <rodo@helixcode.com>
+
+	* gtkhtml.c (command): new commands implementation
+
+	* gtkhtml.h: new commands - focus-forward/backward
+
+	* gtkhtml.c (focus): container signal handler
+	(class_init): add focus
+
 2000-10-03  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine.c (html_engine_update_event): do cursor home only

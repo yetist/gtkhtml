@@ -1354,17 +1354,27 @@ init_properties (GtkHTMLClass *klass)
 }
 
 static void
+focus (GtkHTML *html, GtkDirectionType direction)
+{
+	GTK_WIDGET_UNSET_FLAGS (GTK_WIDGET (html), GTK_CAN_FOCUS);
+	(*GTK_CONTAINER_CLASS (parent_class)->focus) (GTK_CONTAINER (html), direction);
+	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (html), GTK_CAN_FOCUS);
+}
+
+static void
 class_init (GtkHTMLClass *klass)
 {
-	GtkHTMLClass   *html_class;
-	GtkWidgetClass *widget_class;
-	GtkObjectClass *object_class;
-	GtkLayoutClass *layout_class;
+	GtkHTMLClass      *html_class;
+	GtkWidgetClass    *widget_class;
+	GtkObjectClass    *object_class;
+	GtkLayoutClass    *layout_class;
+	GtkContainerClass *container_class;
 	
 	html_class = (GtkHTMLClass *)klass;
-	widget_class = (GtkWidgetClass *)klass;
-	object_class = (GtkObjectClass *)klass;
-	layout_class = (GtkLayoutClass *)klass;
+	widget_class = (GtkWidgetClass *) klass;
+	object_class = (GtkObjectClass *) klass;
+	layout_class = (GtkLayoutClass *) klass;
+	container_class = (GtkContainerClass *) klass;
 
 	object_class->destroy = destroy;
 
@@ -1568,6 +1578,8 @@ class_init (GtkHTMLClass *klass)
 	widget_class->selection_get = selection_get;
 	widget_class->selection_received = selection_received;
 	widget_class->selection_clear_event = selection_clear_event;
+
+	container_class->focus = focus;
 
 	layout_class->set_scroll_adjustments = set_adjustments;
 
@@ -2314,6 +2326,12 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_SEARCH_INCREMENTAL_BACKWARD:
 		gtk_html_isearch (html, FALSE);
 		break;
+	case GTK_HTML_COMMAND_FOCUS_FORWARD:
+		html->binding_handled = gtk_container_focus (GTK_CONTAINER (html), GTK_DIR_TAB_FORWARD);
+		break;
+	case GTK_HTML_COMMAND_FOCUS_BACKWARD:
+		html->binding_handled = gtk_container_focus (GTK_CONTAINER (html), GTK_DIR_TAB_BACKWARD);
+		break;
 	default:
 		html->binding_handled = FALSE;
 	}
@@ -2674,6 +2692,11 @@ load_keybindings (GtkHTMLClass *klass)
 	BCOM (GDK_SHIFT_MASK, BackSpace, DELETE_BACK);
 	BCOM (0, Delete, DELETE);
 	BCOM (0, KP_Delete, DELETE);
+
+	BCOM (0, Tab, FOCUS_FORWARD);
+	BCOM (0, ISO_Left_Tab, FOCUS_FORWARD);
+	BCOM (GDK_SHIFT_MASK, Tab, FOCUS_BACKWARD);
+	BCOM (GDK_SHIFT_MASK, ISO_Left_Tab, FOCUS_BACKWARD);
 }
 
 void
