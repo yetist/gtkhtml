@@ -113,7 +113,7 @@ html_engine_print (HTMLEngine *engine,
 	engine->width = old_width;
 	html_object_reset (engine->clue);
 
-	/* FIXME this is because of HTMLTable brokenness.  */
+	/* FIXME this is because of HTMLTable/HTMLEngine brokenness.  */
 	html_object_set_max_width (engine->clue, engine->painter, engine->width);
 	html_object_calc_size (engine->clue, engine->painter);
 

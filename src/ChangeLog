@@ -1,5 +1,9 @@
 2000-02-08  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlprinter.c (draw_panel): Implemented.  It does actually just
+	draws a rectangle for now.
+	(class_init): Install it.
+
 	* htmlengine-print.c (html_engine_print): When you call
 	`html_engine_calc_size()', it uses `html_object_calc_min_size()'
 	to decide the layout width, but the minimum HTMLTable width does

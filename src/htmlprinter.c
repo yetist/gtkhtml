@@ -316,7 +316,6 @@ draw_rect (HTMLPainter *painter,
 	gnome_print_stroke (printer->print_context);
 }
 
-#if 0
 static void
 draw_panel (HTMLPainter *painter,
 	    gint x, gint y,
@@ -325,11 +324,26 @@ draw_panel (HTMLPainter *painter,
 	    gint bordersize)
 {
 	HTMLPrinter *printer;
+	double printer_x, printer_y;
+	double printer_width, printer_height;
 
 	printer = HTML_PRINTER (painter);
 	g_return_if_fail (printer->print_context != NULL);
+
+	printer_width = SCALE_ENGINE_TO_GNOME_PRINT (width);
+	printer_height = SCALE_ENGINE_TO_GNOME_PRINT (height);
+
+	engine_coordinates_to_gnome_print (printer, x, y, &printer_x, &printer_y);
+
+	gnome_print_newpath (printer->print_context);
+	gnome_print_moveto (printer->print_context, printer_x, printer_y);
+	gnome_print_lineto (printer->print_context, printer_x + printer_width, printer_y);
+	gnome_print_lineto (printer->print_context, printer_x + printer_width, printer_y - printer_height);
+	gnome_print_lineto (printer->print_context, printer_x, printer_y - printer_height);
+	gnome_print_lineto (printer->print_context, printer_x, printer_y);
+
+	gnome_print_stroke (printer->print_context);
 }
-#endif
 
 static void
 draw_background_pixmap (HTMLPainter *painter,
@@ -624,6 +638,7 @@ class_init (GtkObjectClass *object_class)
 	painter_class->get_black = get_black;
 	painter_class->draw_line = draw_line;
 	painter_class->draw_rect = draw_rect;
+	painter_class->draw_panel = draw_panel;
 	painter_class->draw_text = draw_text;
 	painter_class->fill_rect = fill_rect;
 	painter_class->draw_pixmap = draw_pixmap;
