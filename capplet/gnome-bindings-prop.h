@@ -54,12 +54,17 @@ struct _GnomeBindingsProperties {
 	GtkWidget *delete_button;
 
 	GtkWidget *key_entry;
+	GtkWidget *grab_button;
 
 	GHashTable *bindingsets;
+
+	gboolean commands_active;
 };
 
 struct _GnomeBindingsPropertiesClass {
 	GtkVBoxClass parent_class;
+
+	void   (*changed)  (GnomeBindingsProperties *prop);
 };
 
 struct _GnomeBindingEntry {

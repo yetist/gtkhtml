@@ -24,10 +24,18 @@
 #include <gtk/gtkclist.h>
 #include <gtk/gtkhbox.h>
 #include <gtk/gtkentry.h>
+#include <gtk/gtkhbbox.h>
 #include <gtk/gtkscrolledwindow.h>
 #include <libgnome/gnome-defs.h>
 #include <libgnome/gnome-i18n.h>
 #include "gnome-bindings-prop.h"
+
+enum {
+	CHANGED,
+	LAST_SIGNAL
+};
+
+static guint gnome_bindings_properties_signals [LAST_SIGNAL] = { 0 };
 
 struct _KeymapEntry {
 	gchar *name;
@@ -152,6 +160,8 @@ binding_select_row (GtkCList       *clist,
 	if (!be)
 		return;
 
+	prop->commands_active = FALSE;
+
 	ke = (KeymapEntry *) gtk_clist_get_row_data (GTK_CLIST (prop->keymaps_clist),
 						     GPOINTER_TO_INT (GTK_CLIST (prop->keymaps_clist)->selection->data));
 
@@ -166,6 +176,8 @@ binding_select_row (GtkCList       *clist,
 	key_text = string_from_key (be->keyval, be->modifiers);
 	gtk_entry_set_text (GTK_ENTRY (prop->key_entry), key_text);
 	g_free (key_text);
+
+	prop->commands_active = TRUE;
 }
 
 static void
@@ -175,6 +187,26 @@ command_select_row (GtkCList       *clist,
 		    GdkEvent       *event,
 		    GnomeBindingsProperties *prop)
 {
+	GnomeBindingEntry *be;
+	gint binding_row;
+	gint command_val;
+	gchar *text;
+
+	if (!prop->commands_active)
+		return;
+
+	command_val = GPOINTER_TO_INT (gtk_clist_get_row_data (clist, row));
+	binding_row = GPOINTER_TO_INT (GTK_CLIST (prop->bindings_clist)->selection->data);
+	be = (GnomeBindingEntry *) gtk_clist_get_row_data (GTK_CLIST (prop->bindings_clist), binding_row);
+
+	
+	gtk_clist_get_text (clist, row, 0, &text);
+	if (strcmp (text, be->command)) {
+		g_free (be->command);
+		be->command = g_strdup (text);
+		gtk_clist_set_text (GTK_CLIST (prop->bindings_clist), binding_row, 1, be->command);
+		gtk_signal_emit (GTK_OBJECT (prop), gnome_bindings_properties_signals [CHANGED]);
+	}
 }
 
 static void
@@ -199,6 +231,8 @@ keymap_select_row (GtkCList       *clist,
 	gtk_widget_set_sensitive (prop->add_button, ke->editable);
 	gtk_widget_set_sensitive (prop->copy_button, ke->editable);
 	gtk_widget_set_sensitive (prop->delete_button, ke->editable);
+	gtk_widget_set_sensitive (prop->key_entry, ke->editable);
+	gtk_widget_set_sensitive (prop->grab_button, ke->editable);
 	vals  = gtk_type_enum_get_values (ke->enum_type);
 	if (vals) {
 		gchar *name [1];
@@ -241,6 +275,7 @@ init (GnomeBindingsProperties *prop)
 	gchar *cols3 [1] = {_("Keymaps")};
 
 	prop->bindingsets = g_hash_table_new (g_str_hash, g_str_equal);
+	prop->commands_active = FALSE;
 
 	/* bindings */
 	sw = gtk_scrolled_window_new (NULL, NULL);
@@ -287,9 +322,9 @@ init (GnomeBindingsProperties *prop)
 
 	hbox1 = gtk_hbox_new (FALSE, 3);
 	prop->key_entry = gtk_entry_new ();
-	button = gtk_button_new_with_label (_("Grab key"));
+	prop->grab_button = gtk_button_new_with_label (_("Grab key"));
 	gtk_box_pack_start_defaults (GTK_BOX (hbox1), prop->key_entry);
-	gtk_box_pack_start_defaults (GTK_BOX (hbox1), button);
+	gtk_box_pack_start_defaults (GTK_BOX (hbox1), prop->grab_button);
 	gtk_box_pack_start (GTK_BOX (vbox), hbox1, FALSE, FALSE, 0);
 
 	gtk_box_pack_start_defaults (GTK_BOX (hbox), vbox);
@@ -311,7 +346,20 @@ destroy (GtkObject *prop)
 static void
 class_init (GnomeBindingsPropertiesClass *klass)
 {
-	GTK_OBJECT_CLASS (klass)->destroy = destroy;
+	GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
+
+	object_class->destroy = destroy;
+	klass->changed        = NULL;
+
+	gnome_bindings_properties_signals [CHANGED] =
+		gtk_signal_new ("changed",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (GnomeBindingsPropertiesClass, changed),
+				gtk_marshal_NONE__NONE,
+				GTK_TYPE_NONE, 0);
+
+	gtk_object_class_add_signals (object_class, gnome_bindings_properties_signals, LAST_SIGNAL);
 }
 
 GtkType

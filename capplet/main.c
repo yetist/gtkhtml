@@ -150,6 +150,7 @@ setup(void)
 					      "Custom", "gtkhtml-bindings-custom", "command",
 					      GTK_TYPE_HTML_COMMAND, TRUE);
 	gnome_bindings_properties_select_keymap (GNOME_BINDINGS_PROPERTIES (bi), "Custom");
+	gtk_signal_connect (GTK_OBJECT (bi), "changed", changed, NULL);
 	gtk_box_pack_start_defaults (GTK_BOX (vbox), bi);
 
         gtk_container_add (GTK_CONTAINER (capplet), vbox);
