@@ -286,8 +286,6 @@ void                       gtk_html_drop_undo                     (GtkHTML      
 /* DEPRECATED */
 #if 1
 gboolean                   gtk_html_build_with_gconf              (void);
-void                       gtk_html_set_default_background_color  (GtkHTML                   *html,
-								   GdkColor                  *c);
 void                       gtk_html_set_default_content_type      (GtkHTML                   *html,
 								   gchar                     *content_type);
 GtkWidget                 *gtk_html_new_from_string               (const gchar               *Astr,

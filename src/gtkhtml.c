@@ -729,50 +729,55 @@ destroy (GtkObject *object)
 		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
 
-static void set_fonts (GtkHTML *html);
-static gint set_fonts_idle (GtkHTML *html);
-
 /* GtkWidget methods.  */
 static void
 style_set (GtkWidget *widget, GtkStyle  *previous_style)
 {
 	HTMLEngine *engine = GTK_HTML (widget)->engine;
-       	GtkHTMLClass *klass = GTK_HTML_CLASS (GTK_WIDGET_GET_CLASS (widget));
-	GtkHTMLClassProperties *prop = klass->properties;	
 	PangoFontDescription *fixed_desc = NULL;
 	char *fixed_name = NULL;
 	gint  fixed_size = 0;
+	char *font_var = NULL;
+	gint  font_var_size = 0;
 
-	g_free (prop->font_var);
-	prop->font_var = pango_font_description_to_string (widget->style->font_desc);
-	prop->font_var_size = PANGO_PIXELS (pango_font_description_get_size (widget->style->font_desc));
-
-
-	g_free (prop->font_fix);
-	gtk_widget_style_get (widget, "fixed_font", &fixed_name, NULL);
-	if (fixed_name) {
-		fixed_desc = pango_font_description_from_string (fixed_name);
-		if (pango_font_description_get_family (fixed_desc)) {
-			fixed_size = PANGO_PIXELS (pango_font_description_get_size (fixed_desc));
-			pango_font_description_free (fixed_desc);
-		} else {
-			g_free (fixed_name);
-			fixed_name = NULL;
-		}
-	}
-
-	if (!fixed_name) {
-		fixed_name = g_strdup ("Monospace");
-		fixed_desc = pango_font_description_from_string (fixed_name);
-		fixed_size = prop->font_var_size;
-	}
-	prop->font_fix = fixed_name;
-	prop->font_fix_size = fixed_size;
-	
 	/* we don't need to set font's in idle time so call idle callback directly to avoid
 	   recalculating whole document
 	*/
-	set_fonts_idle (GTK_HTML (widget));
+	if (engine) {
+		font_var = pango_font_description_to_string (widget->style->font_desc);
+		font_var_size = PANGO_PIXELS (pango_font_description_get_size (widget->style->font_desc));
+		
+		gtk_widget_style_get (widget, "fixed_font_name", &fixed_name, NULL);
+		if (fixed_name) {
+			fixed_desc = pango_font_description_from_string (fixed_name);
+			if (pango_font_description_get_family (fixed_desc)) {
+				fixed_size = PANGO_PIXELS (pango_font_description_get_size (fixed_desc));
+				pango_font_description_free (fixed_desc);
+			} else {
+				g_free (fixed_name);
+				fixed_name = NULL;
+			}
+		}
+		
+		if (!fixed_name) {
+			fixed_name = g_strdup ("Monospace");
+			fixed_desc = pango_font_description_from_string (fixed_name);
+			fixed_size = font_var_size;
+		}
+
+		html_font_manager_set_default (&engine->painter->font_manager,
+					       font_var, fixed_name,
+					       font_var_size, FALSE,
+					       fixed_size, FALSE);
+
+		if (engine->clue) {
+			html_object_reset (engine->clue);
+			html_object_change_set_down (engine->clue, HTML_CHANGE_ALL);
+			html_engine_calc_size (engine, FALSE);
+			html_engine_schedule_update (engine);
+		}
+	}
+
 
 	html_colorset_set_style (engine->defaultSettings->color_set, widget);
 	html_colorset_set_unchanged (engine->settings->color_set,
@@ -1932,38 +1937,6 @@ set_adjustments (GtkLayout     *layout,
 
 
 /* Initialization.  */
-
-static gint
-set_fonts_idle (GtkHTML *html)
-{
-	GtkHTMLClassProperties *prop = GTK_HTML_CLASS (GTK_WIDGET_GET_CLASS (html))->properties;
-
-	if (!html->iframe_parent && html->engine) {
-		html_font_manager_set_default (&html->engine->painter->font_manager,
-					       prop->font_var,      prop->font_fix,
-					       prop->font_var_size, prop->font_var_points,
-					       prop->font_fix_size, prop->font_fix_points);
-
-		if (html->engine->clue) {
-			html_object_reset (html->engine->clue);
-			html_object_change_set_down (html->engine->clue, HTML_CHANGE_ALL);
-			html_engine_calc_size (html->engine, FALSE);
-			html_engine_schedule_update (html->engine);
-		}
-	}
-
-	html->priv->set_font_id = 0;
-
-	return FALSE;
-}
-
-static void
-set_fonts (GtkHTML *html)
-{
-	if (!html->priv->set_font_id)
-		html->priv->set_font_id = gtk_idle_add ((GtkFunction) set_fonts_idle, html);
-}
-
 static void
 client_notify_widget (GConfClient* client,
 		      guint cnxn_id,
@@ -1974,59 +1947,13 @@ client_notify_widget (GConfClient* client,
 	GtkHTMLClass *klass = GTK_HTML_CLASS (GTK_WIDGET_GET_CLASS (html));
 	GtkHTMLClassProperties *prop = klass->properties;	
 	gchar *tkey;
-	GdkColor tcolor;
 
 	g_assert (client == gconf_client);
 	g_assert (entry->key);
 	tkey = strrchr (entry->key, '/');
 	g_assert (tkey);
 
-	if (!strcmp (tkey, "/font_variable")) {
-		g_free (prop->font_var);
-		prop->font_var = gconf_client_get_string (client, entry->key, NULL);
-		set_fonts (html);
-	} else if (!strcmp (tkey, "/font_fixed")) {
-		g_free (prop->font_fix);
-		prop->font_fix = gconf_client_get_string (client, entry->key, NULL);
-		set_fonts (html);
-	} else if (!strcmp (tkey, "/font_variable_points")) {
-		prop->font_var_points = gconf_client_get_bool (client, entry->key, NULL);
-	} else if (!strcmp (tkey, "/font_fixed_points")) {
-		prop->font_fix_points = gconf_client_get_bool (client, entry->key, NULL);
-	} else if (!strcmp (tkey, "/font_variable_size")) {
-		prop->font_var_size = gconf_client_get_int (client, entry->key, NULL);
-		set_fonts (html);
-	} else if (!strcmp (tkey, "/font_fixed_size")) {
-		prop->font_fix_size = gconf_client_get_int (client, entry->key, NULL);
-		set_fonts (html);
-	} else if (!strcmp (tkey, "/link_color")) {
-		g_free (prop->link_color);
-		prop->link_color = g_strdup (gconf_client_get_string (client, entry->key, NULL));
-		gdk_color_parse (prop->link_color, &tcolor);
-
-		html_colorset_set_color (html->engine->defaultSettings->color_set, &tcolor, HTMLLinkColor);
-		html_colorset_set_color (html->engine->settings->color_set, &tcolor, HTMLLinkColor);
-
-		gtk_widget_queue_draw (GTK_WIDGET (html));
-	} else if (!strcmp (tkey, "/alink_color")) {
-		g_free (prop->alink_color);
-		prop->alink_color = g_strdup (gconf_client_get_string (client, entry->key, NULL));
-		gdk_color_parse (prop->alink_color, &tcolor);
-
-		html_colorset_set_color (html->engine->defaultSettings->color_set, &tcolor, HTMLALinkColor);
-		html_colorset_set_color (html->engine->settings->color_set, &tcolor, HTMLALinkColor);
-
-		gtk_widget_queue_draw (GTK_WIDGET (html));
-	} else if (!strcmp (tkey, "/vlink_color")) {
-		g_free (prop->vlink_color);
-		prop->vlink_color = g_strdup (gconf_client_get_string (client, entry->key, NULL));
-		gdk_color_parse (prop->vlink_color, &tcolor);
-
-		html_colorset_set_color (html->engine->defaultSettings->color_set, &tcolor, HTMLVLinkColor);
-		html_colorset_set_color (html->engine->settings->color_set, &tcolor, HTMLVLinkColor);
-
-		gtk_widget_queue_draw (GTK_WIDGET (html));
-	} else if (!strcmp (tkey, "/live_spell_check")) {
+	if (!strcmp (tkey, "/live_spell_check")) {
 		prop->live_spell_check = gconf_client_get_bool (client, entry->key, NULL);
 		if (html_engine_get_editable (html->engine)) {
 			if (prop->live_spell_check)
@@ -2695,7 +2622,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 #endif
 
 	gtk_widget_class_install_style_property (widget_class,
-						 g_param_spec_string ("fixed_font",
+						 g_param_spec_string ("fixed_font_name",
 								     _("Fixed Width Font"),
 								     _("The Monospace font to use for typewriter text"),
 								     NULL,
@@ -2771,22 +2698,9 @@ gtk_html_class_init (GtkHTMLClass *klass)
 static void
 init_properties_widget (GtkHTML *html)
 {
-	GdkColor tcolor;
 	GtkHTMLClassProperties *prop;
 
 	prop = get_class_properties (html);
-	set_fonts_idle (html);
-	html_colorset_set_color (html->engine->defaultSettings->color_set, &prop->spell_error_color, HTMLSpellErrorColor);
-
-	gdk_color_parse (prop->link_color, &tcolor);
-	html_colorset_set_color (html->engine->defaultSettings->color_set, &tcolor, HTMLLinkColor);
-	/* html_colorset_set_color (html->engine->settings->color_set, &tcolor, HTMLLinkColor); */
-	gdk_color_parse (prop->alink_color, &tcolor);
-	html_colorset_set_color (html->engine->defaultSettings->color_set, &tcolor, HTMLALinkColor);
-	/* html_colorset_set_color (html->engine->settings->color_set, &tcolor, HTMLALinkColor); */
-	gdk_color_parse (prop->vlink_color, &tcolor);
-	html_colorset_set_color (html->engine->defaultSettings->color_set, &tcolor, HTMLVLinkColor);
-	/* html_colorset_set_color (html->engine->settings->color_set, &tcolor, HTMLVLinkColor); */
 
 	html->priv->notify_id = gconf_client_notify_add (gconf_client, GTK_HTML_GCONF_DIR,
 							 client_notify_widget, html, NULL, &gconf_error);
@@ -3744,13 +3658,6 @@ gtk_html_redo (GtkHTML *html)
 }
 
 /* misc utils */
-
-void
-gtk_html_set_default_background_color (GtkHTML *html, GdkColor *c)
-{
-	html_colorset_set_color (html->engine->defaultSettings->color_set, c, HTMLBgColor);
-}
-
 void
 gtk_html_set_default_content_type (GtkHTML *html, gchar *content_type)
 {

@@ -1,3 +1,13 @@
+2003-04-09  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml.c (style_set): move font setting logic to here, don't
+	use the properties setting (styles are per instance).
+	(client_notify_widget): remove all the color and font setting
+	logic to use per setting styles.
+	(gtk_html_set_default_background): removed old broken function.
+
+	* gtkhtml.h: remove prototype of set_default_background.
+	
 2003-04-08  Larry Ewing  <lewing@ximian.com>
 
 	* htmlgdkpainter.c (alloc_font): don't force monospace fonts to be
