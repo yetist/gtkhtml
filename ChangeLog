@@ -1,3 +1,9 @@
+2000-08-03  Peter Williams  <peterw@helixcode.com>
+
+	* configure.in (have_bonobo): Check for whether bonobo is
+	split into bonobo and bonobox (8/3/2000 and onward) or whether
+	it all comes in libbonobo.
+
 2000-07-24  Radek Doulik  <rodo@helixcode.com>
 
 	* configure.in (PSPELL_LIBS): add -lstdc++ when building with

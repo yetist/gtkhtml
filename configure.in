@@ -103,7 +103,11 @@ if $try_bonobo; then
 		AC_MSG_RESULT([found ("$vers")])
 		AC_DEFINE(ENABLE_BONOBO)
 		have_bonobo=true
-		bonobo=bonobo
+		if gnome-config --libs bonobox > /dev/null 2>&1; then
+			bonobo=bonobox
+		else
+			bonobo=bonobo
+		fi
 		bonobo_msg=yes
 	else
 		AC_MSG_RESULT([not found])
