@@ -423,6 +423,8 @@ html_cursor_down (HTMLCursor *cursor,
 	else
 		dir = HTML_DIRECTION_LTR;
 
+	html_cursor_copy (&orig_cursor, cursor);
+
 	html_object_get_cursor_base (cursor->object,
 				     engine->painter, cursor->offset,
 				     &x, &y);

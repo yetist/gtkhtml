@@ -1,3 +1,16 @@
+2005-02-18  Radek Doulik  <rodo@novell.com>
+
+	* htmlcursor.c (html_cursor_down): copy cursor to orig_cursor on
+	the begin to avoid crashes when copying it back
+
+	* test-suite.c
+	(test_cursor_left_right_on_lines_boundaries_wo_white): added new
+	test for moving cursor accros line boundary without white space
+
+	* htmltextslave.c (html_text_slave_get_left_edge): move right in
+	case we are on line boundary without white space
+	(html_text_slave_get_right_edge): as above, but move left
+
 2005-02-15  Radek Doulik  <rodo@novell.com>
 
 	* htmltextslave.c (draw_text): scale down run_width to engine

@@ -1382,26 +1382,42 @@ static gboolean
 html_text_slave_get_left_edge (HTMLTextSlave *slave, HTMLCursor *cursor)
 {
 	HTMLTextPangoInfo *pi = html_text_get_pango_info (slave->owner, NULL);
+	int old_offset = cursor->offset;
+	int old_position = cursor->position;
 
 	cursor->offset = html_text_slave_get_left_edge_offset (slave);
 
-	if (pi->attrs [cursor->offset].is_cursor_position)
+	if (pi->attrs [cursor->offset].is_cursor_position && old_offset != cursor->offset)
 		return TRUE;
-	else
-		return html_text_slave_cursor_right (slave, cursor);
+	else {
+		if (html_text_slave_cursor_right (slave, cursor)) {
+			/* we should preserve position here as caller function correct position themselves */
+			cursor->position = old_position;
+			return TRUE;
+		} else
+			return FALSE;
+	}
 }
 
 static gboolean
 html_text_slave_get_right_edge (HTMLTextSlave *slave, HTMLCursor *cursor)
 {
 	HTMLTextPangoInfo *pi = html_text_get_pango_info (slave->owner, NULL);
+	int old_offset = cursor->offset;
+	int old_position = cursor->position;
 
 	cursor->offset = html_text_slave_get_right_edge_offset (slave);
 
-	if (pi->attrs [cursor->offset].is_cursor_position)
+	if (pi->attrs [cursor->offset].is_cursor_position && old_offset != cursor->offset)
 		return TRUE;
-	else
-		return html_text_slave_cursor_left (slave, cursor);
+	else {
+		if (html_text_slave_cursor_left (slave, cursor)) {
+			/* we should preserve position here as caller function correct position themselves */
+			cursor->position = old_position;
+			return TRUE;
+		} else
+			return FALSE;
+	}
 }
 
 gboolean

@@ -29,6 +29,7 @@ static int test_cursor_beol_rtl (GtkHTML *html);
 static int test_cursor_left_right_on_items_boundaries (GtkHTML *html);
 static int test_cursor_left_right_on_lines_boundaries (GtkHTML *html);
 static int test_cursor_left_right_on_lines_boundaries_rtl (GtkHTML *html);
+static int test_cursor_left_right_on_lines_boundaries_wo_white (GtkHTML *html);
 static int test_cursor_around_containers (GtkHTML *html);
 
 static int test_quotes_in_div_block (GtkHTML *html);
@@ -43,6 +44,7 @@ static Test tests[] = {
 	{ "left/right on items boundaries", test_cursor_left_right_on_items_boundaries },
 	{ "left/right on lines boundaries", test_cursor_left_right_on_lines_boundaries },
 	{ "left/right on lines boundaries (RTL)", test_cursor_left_right_on_lines_boundaries_rtl },
+	{ "left/right on line boundaries - without white space", test_cursor_left_right_on_lines_boundaries_wo_white },
 	{ "begin/end of line", test_cursor_beol },
 	{ "begin/end of line (RTL)", test_cursor_beol_rtl },
 	{ "around containers", test_cursor_around_containers },
@@ -305,6 +307,27 @@ static int test_cursor_left_right_on_lines_boundaries_rtl (GtkHTML *html)
 	return TRUE;
 }
 
+static int test_cursor_left_right_on_lines_boundaries_wo_white (GtkHTML *html)
+{
+	load_editable (html, "oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo%next line");
+
+	html_cursor_jump_to_position (html->engine->cursor, html->engine, 81);
+
+	if (html->engine->cursor->offset != 81
+	    || html->engine->cursor->position != 81
+	    || !html_cursor_left (html->engine->cursor, html->engine)
+	    || html->engine->cursor->offset != 80
+	    || html->engine->cursor->position != 80
+	    || !html_cursor_right (html->engine->cursor, html->engine)
+	    || html->engine->cursor->offset != 81
+	    || html->engine->cursor->position != 81)
+		return FALSE;
+
+	printf ("test_cursor_left_right_on_lines_boundaries_wo_white: passed\n");
+
+	return TRUE;
+}
+
 static int test_cursor_beol (GtkHTML *html)
 {
 	load_editable (html, "<pre>simple line\nsecond line\n");
@@ -524,6 +547,8 @@ int main (int argc, char *argv[])
 	gtk_html_set_editable (html, TRUE);
 	win = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_container_add (GTK_CONTAINER (win), html_widget);
+
+	/* gtk_widget_show_all (win); */
 
 	n_all = n_successful = 0;
 
