@@ -24,6 +24,8 @@
 
 #include "htmlprinter.h"
 
+/* #define PRINTER_DEBUG */
+
 
 static HTMLPainterClass *parent_class = NULL;
 
@@ -162,8 +164,9 @@ begin (HTMLPainter *painter,
 	GnomePrintContext *pc;
 	gdouble printer_x1, printer_y1;
 	gdouble printer_x2, printer_y2;
+#ifdef PRINTER_DEBUG
 	gdouble dash [2];
-
+#endif
 	printer = HTML_PRINTER (painter);
 	g_return_if_fail (printer);
 	pc      = printer->print_context;
@@ -183,6 +186,7 @@ begin (HTMLPainter *painter,
 	gnome_print_lineto (pc, printer_x2, printer_y1);
 	gnome_print_lineto (pc, printer_x1, printer_y1);
 
+#ifdef PRINTER_DEBUG
 	gnome_print_gsave (pc);
 	dash [0] = 10.0;
 	dash [1] = 10.0;
@@ -191,6 +195,7 @@ begin (HTMLPainter *painter,
 	gnome_print_setdash (pc, 2, dash, .0);
 	gnome_print_stroke (pc);
 	gnome_print_grestore (pc);
+#endif
 	gnome_print_clip (pc);
 }
 
