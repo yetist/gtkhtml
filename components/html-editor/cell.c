@@ -25,20 +25,17 @@
 #include "config.h"
 #include "properties.h"
 #include "dialog.h"
-#include "table.h"
+#include "cell.h"
 #include "utils.h"
 
 typedef struct
 {	
 	GtkHTMLControlData *cd;
-
-	HTMLTable *table;
-	GtkHTML *sample;
-
-} GtkHTMLEditTableProperties;
+	HTMLTableCell *cell;
+} GtkHTMLEditCellProperties;
 
 static void
-fill_sample (GtkHTMLEditTableProperties *d)
+fill_sample (GtkHTMLEditCellProperties *d)
 {
 	/*	gchar *body, *width, *size, *align, *noshade, *bg;
 
@@ -55,13 +52,11 @@ fill_sample (GtkHTMLEditTableProperties *d)
 		: g_strdup ("");
 	body    = g_strconcat (bg, "<br><hr", width, size, align, noshade, ">", NULL);
 
-	printf ("body: %s\n", body); */
+	printf ("body: %s\n", body);
 
-	gtk_html_load_from_string (d->sample,
-				   "<table bgcolor=\"lightgray\" border=\"1\"><tr><th>Header</th><th>1</th></tr>"
-				   "<tr><td>Normal</td><td>2</td></tr></table>", -1);
+	gtk_html_load_from_string (d->sample, body, -1);
 
-	/* g_free (bg);
+	g_free (bg);
 	g_free (width);
 	g_free (size);
 	g_free (noshade);
@@ -69,14 +64,14 @@ fill_sample (GtkHTMLEditTableProperties *d)
 	g_free (body); */
 }
 
-static GtkHTMLEditTableProperties *
+static GtkHTMLEditCellProperties *
 data_new (GtkHTMLControlData *cd)
 {
-	GtkHTMLEditTableProperties *data = g_new0 (GtkHTMLEditTableProperties, 1);
+	GtkHTMLEditCellProperties *data = g_new0 (GtkHTMLEditCellProperties, 1);
 
 	/* fill data */
 	data->cd             = cd;
-	data->table          = NULL;
+	data->cell          = NULL;
 
 	/* default values
 	data->width          = 100;
@@ -89,53 +84,49 @@ data_new (GtkHTMLControlData *cd)
 }
 
 static GtkWidget *
-table_widget (GtkHTMLEditTableProperties *d)
+cell_widget (GtkHTMLEditCellProperties *d)
 {
-	GtkWidget *table_page;
+	GtkWidget *cell_page;
 	GladeXML *xml;
 
-	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "table_page");
+	xml = glade_xml_new (GLADE_DATADIR "/gtkhtml-editor-properties.glade", "cell_page");
 	if (!xml)
 		g_error (_("Could not load glade file."));
 
-	table_page = glade_xml_get_widget (xml, "table_page");
+	cell_page = glade_xml_get_widget (xml, "cell_page");
 
-
-	gtk_box_pack_start (GTK_BOX (table_page), sample_frame (&d->sample), FALSE, FALSE, 0);
-	fill_sample (d);
-
-	return table_page;
+	return cell_page;
 }
 
 GtkWidget *
-table_properties (GtkHTMLControlData *cd, gpointer *set_data)
+cell_properties (GtkHTMLControlData *cd, gpointer *set_data)
 {
-	GtkHTMLEditTableProperties *data = data_new (cd);
+	GtkHTMLEditCellProperties *data = data_new (cd);
 	GtkWidget *rv;
 
 	*set_data = data;
-	rv        = table_widget (data);
+	rv        = cell_widget (data);
 
 	return rv;
 }
 
 GtkWidget *
-table_insert (GtkHTMLControlData *cd, gpointer *set_data)
+cell_insert (GtkHTMLControlData *cd, gpointer *set_data)
 {
-	GtkHTMLEditTableProperties *data = data_new (cd);
+	GtkHTMLEditCellProperties *data = data_new (cd);
 	GtkWidget *rv;
 
 	*set_data = data;
-	/* rv = table_widget (data); */
+	/* rv = cell_widget (data); */
 	gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
 
 	return rv;
 }
 
 void
-table_insert_cb (GtkHTMLControlData *cd, gpointer get_data)
+cell_insert_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
-	GtkHTMLEditTableProperties *d = (GtkHTMLEditTableProperties *) get_data;
+	GtkHTMLEditCellProperties *d = (GtkHTMLEditCellProperties *) get_data;
 
 	/* html_engine_insert_rule (cd->html->engine,
 				 VAL (WIDTH), d->percent ? VAL (WIDTH) : 0, VAL (SIZE),
@@ -143,15 +134,15 @@ table_insert_cb (GtkHTMLControlData *cd, gpointer get_data)
 }
 
 void
-table_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
+cell_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
-	GtkHTMLEditTableProperties *d = (GtkHTMLEditTableProperties *) get_data;
+	GtkHTMLEditCellProperties *d = (GtkHTMLEditCellProperties *) get_data;
 
-	/* html_table_set (d->rule, cd->html->engine, VAL (WIDTH), d->percent ? VAL (WIDTH) : 0, VAL (SIZE), d->shaded, d->align); */
+	/* html_cell_set (d->rule, cd->html->engine, VAL (WIDTH), d->percent ? VAL (WIDTH) : 0, VAL (SIZE), d->shaded, d->align); */
 }
 
 void
-table_close_cb (GtkHTMLControlData *cd, gpointer get_data)
+cell_close_cb (GtkHTMLControlData *cd, gpointer get_data)
 {
 	g_free (get_data);
 }

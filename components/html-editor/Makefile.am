@@ -1,5 +1,8 @@
 # Basic setup
 
+gladedir = $(datadir)/gtkhtml
+glade_DATA = 	gtkhtml-editor-properties.glade
+
 INCLUDES =						\
         -DGNOMEDATADIR=\""$(datadir)"\"		\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"	\
@@ -8,7 +11,8 @@ INCLUDES =						\
 	-I.						\
         $(GNOME_INCLUDEDIR)				\
 	$(EXTRA_GNOME_CFLAGS)				\
-	$(GTK_CFLAGS)
+	$(GTK_CFLAGS)					\
+	-DGLADE_DATADIR=\"$(gladedir)\"
 
 CFLAGS +=  $(GCONF_CFLAGS) $(PSPELL_CFLAGS)
 
@@ -65,6 +69,8 @@ gnome_gtkhtml_editor_SOURCES =			\
 	$(SPELL_IDL_GENERATED)			\
 	body.h					\
 	body.c					\
+	cell.h					\
+	cell.c					\
 	control-data.c				\
 	control-data.h				\
 	dialog.c				\
@@ -73,6 +79,7 @@ gnome_gtkhtml_editor_SOURCES =			\
 	editor-control-factory.h		\
 	engine.h				\
 	engine.c				\
+	gtkhtml-editor-properties.c		\
 	image.c					\
 	image.h					\
 	link.c					\
@@ -100,14 +107,14 @@ gnome_gtkhtml_editor_SOURCES =			\
 	search.h				\
 	spell.c					\
 	spell.h					\
+	table.c					\
+	table.h					\
 	text.c					\
 	text.h					\
 	toolbar.c				\
 	toolbar.h				\
 	utils.c					\
 	utils.h
-#	table.c					\
-#	table.h					\
 
 oaf_in_files = GNOME_GtkHTML_Editor.oaf.in
 oaf_DATA = $(oaf_in_files:.oaf.in=.oaf)
@@ -132,6 +139,9 @@ test_editor_SOURCES =				\
 
 # Extra stuff to distribute.
 
+gtkhtml-editor-properties.h:	gtkhtml-editor-properties.glade
+	libglade-xgettext -c $< > $@
+
 EXTRA_DIST =					\
 	$(IDLS)					\
 	$(SPELL_IDLS)				\
@@ -139,7 +149,9 @@ EXTRA_DIST =					\
 	$(oaf_DATA)				\
 	ChangeLog				\
 	tt.xpm					\
-	$(ui_DATA)
+	$(ui_DATA)				\
+	gtkhtml-editor-properties.glade		\
+	gtkhtml-editor-properties.h
 
 idldir = $(datadir)/gtkhtml
 idl_DATA = $(IDLS)

@@ -20,16 +20,16 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef _GTK_HTML_TABLE_H_
-#define _GTK_HTML_TABLE_H_
+#ifndef _GTK_HTML_CELL_H_
+#define _GTK_HTML_CELL_H_
 
 #include <gnome.h>
 #include "control-data.h"
 
-GtkWidget             * table_properties      (GtkHTMLControlData *cd, gpointer *set_data);
-GtkWidget             * table_insert          (GtkHTMLControlData *cd, gpointer *set_data);
-void                    table_insert_cb       (GtkHTMLControlData *cd, gpointer  get_data);
-void                    table_apply_cb        (GtkHTMLControlData *cd, gpointer  get_data);
-void                    table_close_cb        (GtkHTMLControlData *cd, gpointer  get_data);
+GtkWidget             * cell_properties      (GtkHTMLControlData *cd, gpointer *set_data);
+GtkWidget             * cell_insert          (GtkHTMLControlData *cd, gpointer *set_data);
+void                    cell_insert_cb       (GtkHTMLControlData *cd, gpointer  get_data);
+void                    cell_apply_cb        (GtkHTMLControlData *cd, gpointer  get_data);
+void                    cell_close_cb        (GtkHTMLControlData *cd, gpointer  get_data);
 
 #endif

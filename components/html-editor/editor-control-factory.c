@@ -32,6 +32,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
+#include <glade/glade.h>
 #include <gal/widgets/e-scroll-frame.h>
 
 #include "Editor.h"
@@ -686,6 +687,7 @@ editor_control_factory_init (void)
 
 	new_editor_api ();
 	gdk_rgb_init ();
+	glade_gnome_init ();
 	factory = bonobo_generic_factory_new (CONTROL_FACTORY_ID,
 					      editor_control_factory,
 					      NULL);

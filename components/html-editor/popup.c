@@ -31,15 +31,19 @@
 #include "htmlengine-edit-cut-and-paste.h"
 #include "htmlimage.h"
 #include "htmlselection.h"
+#include "htmltable.h"
+#include "htmltablecell.h"
 
+#include "body.h"
+#include "cell.h"
+#include "image.h"
+#include "link.h"
 #include "popup.h"
-#include "spell.h"
 #include "properties.h"
 #include "paragraph.h"
-#include "image.h"
+#include "spell.h"
+#include "table.h"
 #include "text.h"
-#include "link.h"
-#include "body.h"
 
 #define DEBUG
 #ifdef DEBUG
@@ -125,6 +129,20 @@ show_prop_dialog (GtkHTMLControlData *cd, GtkHTMLEditPropertyType start)
 								   rule_properties,
 								   rule_apply_cb,
 								   rule_close_cb);
+			break;
+		case GTK_HTML_EDIT_PROPERTY_TABLE:
+			gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
+								   t, _("Table"),
+								   table_properties,
+								   table_apply_cb,
+								   table_close_cb);
+			break;
+		case GTK_HTML_EDIT_PROPERTY_CELL:
+			gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
+								   t, _("Cell"),
+								   cell_properties,
+								   cell_apply_cb,
+								   cell_close_cb);
 			break;
 		}
 		cur = cur->next;
@@ -271,10 +289,23 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items)
 			ADD_PROP (LINK);
 			ADD_ITEM (_("Link..."), prop_dialog, GTK_HTML_EDIT_PROPERTY_LINK);
 			break;
-
+		case HTML_TYPE_TABLE:
+			ADD_SEP;
+			ADD_PROP (TABLE);
+			ADD_ITEM (_("Table..."), prop_dialog, GTK_HTML_EDIT_PROPERTY_TABLE);
 		default:
 		}
+		if (obj->parent && obj->parent->parent && HTML_IS_TABLE_CELL (obj->parent->parent)) {
+			ADD_SEP;
+			ADD_PROP (CELL);
+			ADD_ITEM (_("Cell..."), prop_dialog, GTK_HTML_EDIT_PROPERTY_CELL);
+			if (obj->parent->parent->parent && HTML_IS_TABLE (obj->parent->parent->parent)) {
+				ADD_PROP (TABLE);
+				ADD_ITEM (_("Table..."), prop_dialog, GTK_HTML_EDIT_PROPERTY_TABLE);
+			}
+		}
 	}
+
 	ADD_SEP;
 	ADD_PROP (BODY);
 	ADD_ITEM (_("Page..."), prop_dialog, GTK_HTML_EDIT_PROPERTY_BODY);
