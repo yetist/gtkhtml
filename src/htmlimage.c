@@ -150,8 +150,8 @@ destroy (HTMLObject *o)
 	if (image->animation)
 		html_image_animation_destroy (image->animation);
 
-	g_free (image->url);
-	g_free (image->target);
+	if (image->url)    g_free (image->url);
+	if (image->target) g_free (image->target);
 
 	if (image->color)
 		html_color_unref (image->color);
@@ -280,12 +280,24 @@ draw (HTMLObject *o,
 	pixbuf = image->image_ptr->pixbuf;
 	pixel_size = html_painter_get_pixel_size (painter);
 
+	if (o->selected)
+		highlight_color = &html_colorset_get_color_allocated (painter, HTMLHighlightColor)->color;
+	else
+		highlight_color = NULL;
+
 	if (pixbuf == NULL) {
 		gint vspace, hspace;
 
 		hspace = image->hspace * pixel_size;
 		vspace = image->vspace * pixel_size;
 
+		if (o->selected) {
+			html_painter_set_pen (painter, highlight_color);
+			html_painter_fill_rect (painter, o->x + tx + hspace,
+						o->y + ty - o->ascent + vspace,
+						o->width - 2 * hspace,
+						o->ascent + o->descent - 2 * vspace);
+		}
 		html_painter_draw_panel (painter,
 					 o->x + tx + hspace,
 					 o->y + ty - o->ascent + vspace,
@@ -300,11 +312,6 @@ draw (HTMLObject *o,
 
 	scale_width = get_actual_width (image, painter);
 	scale_height = get_actual_height (image, painter);
-
-	if (o->selected)
-		highlight_color = &html_colorset_get_color (painter->color_set, HTMLHighlightColor)->color;
-	else
-		highlight_color = NULL;
 
 	if (image->border) {
 		if (image->have_color) {
@@ -417,8 +424,8 @@ set_link (HTMLObject *self, HTMLColor *color, const gchar *url, const gchar *tar
 {
 	HTMLImage *image = HTML_IMAGE (self);
 
-	g_free (image->url);
-	g_free (image->target);
+	if (image->url)    g_free (image->url);
+	if (image->target) g_free (image->target);
 
 	image->url = g_strdup (url);
 	image->target = g_strdup (target);
@@ -429,15 +436,7 @@ set_link (HTMLObject *self, HTMLColor *color, const gchar *url, const gchar *tar
 static HTMLObject *
 remove_link (HTMLObject *self, HTMLColor *color)
 {
-	HTMLImage *image = HTML_IMAGE (self);
-
-	g_free (image->url);
-	g_free (image->target);
-
-	image->url = g_strdup ("");
-	image->target = g_strdup ("");
-
-	return NULL;
+	return set_link (self, NULL, NULL, NULL);
 }
 
 static gboolean
@@ -511,8 +510,8 @@ html_image_init (HTMLImage *image,
 
 	html_object_init (object, HTML_OBJECT_CLASS (klass));
 
-	image->url = g_strdup ((url) ? url : "");
-	image->target = g_strdup ((url) ? target : "");
+	image->url = g_strdup (url);
+	image->target = g_strdup (url);
 
 	image->specified_width = width;
 	image->specified_height = height;
@@ -590,10 +589,7 @@ html_image_set_spacing (HTMLImage *image, gint hspace, gint vspace)
 void
 html_image_set_url (HTMLImage *image, const gchar *url)
 {
-	g_assert (url);
-	g_assert (*url);
-
-	if (strcmp (image->image_ptr->url, url)) {
+	if (url && strcmp (image->image_ptr->url, url)) {
 		HTMLImageFactory *imf = image->image_ptr->factory;
 
 		html_image_factory_unregister (imf, image->image_ptr, HTML_IMAGE (image));

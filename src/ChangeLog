@@ -1,3 +1,16 @@
+2000-07-12  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine.c (html_engine_select_region): changed selection
+	behaviour, don't unselect when selection active and pointer moves
+	outside an object
+	+ select one offset length in object if pointer moves (try move
+	pointer over image)
+
+	* htmlimageinput.c: url and target could be NULL now, so images
+	with NULL url don't act as links
+
+	* htmlgdkpainter.c (draw_pixmap): save one div here
+
 2000-07-11  Radek Doulik  <rodo@helixcode.com>
 
 	* gtkhtml.c (gtk_html_set_font_style): emit

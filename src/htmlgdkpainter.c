@@ -665,9 +665,9 @@ draw_pixmap (HTMLPainter *painter,
 				else
 					a = 0xff;
 
-				r = ((a * p[0] + color->red) >> 8) / 2 ;
-				g = ((a * p[1] + color->green) >> 8) / 2 ;
-				b = ((a * p[2] + color->blue) >> 8) / 2 ;
+				r = (a * p[0] + color->red) >> 9;
+				g = (a * p[1] + color->green) >> 9;
+				b = (a * p[2] + color->blue) >> 9;
 
 				p[0] = r;
 				p[1] = g;

@@ -3874,6 +3874,31 @@ select_region_forall (HTMLObject *self,
 	}
 }
 
+static void
+select_one (SelectRegionData *data,
+	    gint x1, gint y1,
+	    gint x2, gint y2)
+{
+	gboolean right_order = TRUE;
+
+	if (!html_object_get_length (data->obj1))
+		return;
+	if (y1 > y2 || (y1 == y2 && x1 > x2))
+		right_order = FALSE;
+
+	if (right_order) {
+		if (data->offset2 == 0)
+			data->offset2++;
+		else
+			data->offset1--;
+	} else {
+		if (data->offset1 == 0)
+			data->offset1++;
+		else
+			data->offset2--;
+	}
+}
+
 /* FIXME this implementation could be definitely smarter.  */
 /* FIXME maybe this should go into `htmlengine-edit.c'.  */
 void
@@ -3899,12 +3924,11 @@ html_engine_select_region (HTMLEngine *e,
 	data->select = FALSE;
 	data->queue_draw = queue_draw;
 
-	if (data->obj1 == NULL || data->obj2 == NULL
-	    || (data->obj1 == data->obj2 && data->offset1 == data->offset2)) {
-		html_engine_unselect_all (e, queue_draw);
-		g_free (data);
+	if (data->obj1 == NULL || data->obj2 == NULL)
 		return;
-	}
+
+	if ((x1 != x2 || y1 != y2) && data->obj1 == data->obj2 && data->offset1 == data->offset2)
+		select_one (data, x1, y1, x2, y2);
 
 	html_object_calc_abs_position (data->obj1, &x, &y);
 	data->x1 = x1 - x;
