@@ -64,90 +64,6 @@ get_actual_height (HTMLImage *image)
 	}
 }
 
-#if 0
-static GdkPixbuf *
-generate_pixbuf_for_selection (HTMLImage *image,
-			       HTMLPainter *painter,
-			       gint clip_x, gint clip_y,
-			       gint clip_width, gint clip_height)
-{
-	const GdkColor *selection_color;
-	GdkPixbuf *src;
-	GdkPixbuf *pixbuf;
-	guchar *sp, *dp, *s, *d;
-	guint has_alpha;
-	guint n_channels;
-	guint bits_per_sample;
-	guint src_rowstride, dest_rowstride;
-	guint src_width, src_height;
-	guint x, y;
-
-	selection_color = html_painter_get_default_highlight_color (painter);
-
-	src = image->image_ptr->pixbuf;
-
-	src_width = gdk_pixbuf_get_width (src);
-	src_height = gdk_pixbuf_get_height (src);
-
-	if (clip_width < 0)
-		clip_width = src_width;
-	if (clip_height < 0)
-		clip_height = src_height;
-
-	if (clip_x < 0 || clip_x >= src_width)
-		return NULL;
-	if (clip_y < 0 || clip_y >= src_height)
-		return NULL;
-
-	if (src_width < clip_x + clip_width)
-		clip_width = src_width - clip_x;
-	if (src_height < clip_y + clip_height)
-		clip_height = src_height - clip_y;
-
-	if (clip_width == 0 || clip_height == 0)
-		return NULL;
-
-	has_alpha = gdk_pixbuf_get_has_alpha (src);
-	n_channels = gdk_pixbuf_get_n_channels (src);
-	bits_per_sample = gdk_pixbuf_get_bits_per_sample (src);
-
-	pixbuf = gdk_pixbuf_new (ART_PIX_RGB, has_alpha, bits_per_sample, clip_width, clip_height);
-
-	src_rowstride = gdk_pixbuf_get_rowstride (src);
-	dest_rowstride = gdk_pixbuf_get_rowstride (pixbuf);
-
-	sp = gdk_pixbuf_get_pixels (src) + clip_y * src_rowstride;
-	dp = gdk_pixbuf_get_pixels (pixbuf);
-
-	/* This is *very* unoptimized.  */
-
-	for (y = 0; y < clip_height; y++) {
-		s = sp, d = dp;
-
-		for (x = 0; x < clip_width; x++) {
-			gint r, g, b;
-
-			r = (s[0] + (selection_color->red >> 8)) / 2 ;
-			g = (s[1] + (selection_color->green >> 8)) / 2 ;
-			b = (s[2] + (selection_color->blue >> 8)) / 2 ;
-
-			d[0] = r;
-			d[1] = g;
-			d[2] = b;
-
-			if (has_alpha)
-				d[3] = s[3];
-
-			s += n_channels, d += n_channels;
-		}
-
-		sp += src_rowstride, dp += dest_rowstride;
-	}
-
-	return pixbuf;
-}
-#endif
-
 
 /* HTMLObject methods.  */
 
@@ -247,7 +163,10 @@ draw (HTMLObject *o,
 	scale_width = get_actual_width (image) * pixel_size;
 	scale_height = get_actual_height (image) * pixel_size;
 
-	color = NULL;		/* FIXME */
+	if (o->selected)
+		color = html_painter_get_default_highlight_color (painter);
+	else
+		color = NULL;
 
 	html_painter_draw_pixmap (painter, pixbuf,
 				  base_x, base_y,

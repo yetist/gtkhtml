@@ -487,23 +487,32 @@ draw_pixmap (HTMLPainter *painter,
 			  ART_FILTER_BILINEAR);
 
 	if (color != NULL) {
+		guchar *p, *q;
 		guint i, j;
-		gchar *p, *q;
 		
-		p = q = gdk_pixbuf_get_pixels (tmp_pixbuf);
 		n_channels = gdk_pixbuf_get_n_channels (tmp_pixbuf);
+		p = q = gdk_pixbuf_get_pixels (tmp_pixbuf);
 		for (i = 0; i < clip_height; i++) {
 			p = q;
-			for (j = 0; j < clip_width; j++) {
-				gint r, g, b;
 
-				r = (p[0] + (color->red >> 8)) / 2 ;
-				g = (p[1] + (color->green >> 8)) / 2 ;
-				b = (p[2] + (color->blue >> 8)) / 2 ;
+			for (j = 0; j < clip_width; j++) {
+				gint r, g, b, a;
+
+				if (n_channels > 3)
+					a = p[3];
+				else
+					a = 0xff;
+
+				r = ((a * p[0] + color->red) >> 8) / 2 ;
+				g = ((a * p[1] + color->green) >> 8) / 2 ;
+				b = ((a * p[2] + color->blue) >> 8) / 2 ;
 
 				p[0] = r;
 				p[1] = g;
 				p[2] = b;
+
+				if (n_channels > 3)
+					p[3] = 0xff;
 
 				p += n_channels;
 			}
@@ -517,7 +526,7 @@ draw_pixmap (HTMLPainter *painter,
 					     x, y,
 					     clip_width, clip_height,
 					     GDK_PIXBUF_ALPHA_BILEVEL,
-					     0,
+					     128,
 					     GDK_RGB_DITHER_NORMAL,
 					     0, 0);
 
