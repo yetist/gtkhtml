@@ -2450,14 +2450,17 @@ html_text_get_slave_at_offset (HTMLText *text, HTMLTextSlave *start, int offset)
 static gboolean
 html_text_cursor_prev_slave (HTMLObject *slave, HTMLPainter *painter, HTMLCursor *cursor)
 {
-	HTMLObject *prev = HTML_OBJECT (slave)->prev;
 	int offset = cursor->offset;
 
-	if (prev && HTML_IS_TEXT_SLAVE (prev)) {
-		if (html_text_slave_cursor_tail (HTML_TEXT_SLAVE (prev), cursor, painter)) {
-			cursor->position += cursor->offset - offset;
-			return TRUE;
+	while (slave->prev && HTML_IS_TEXT_SLAVE (slave->prev)) {
+		if (HTML_TEXT_SLAVE (slave->prev)->posLen) {
+			if (html_text_slave_cursor_tail (HTML_TEXT_SLAVE (slave->prev), cursor, painter)) {
+				cursor->position += cursor->offset - offset;
+				return TRUE;
+			} else
+				break;
 		}
+		slave = slave->prev;
 	}
 
 	return FALSE;
@@ -2466,14 +2469,17 @@ html_text_cursor_prev_slave (HTMLObject *slave, HTMLPainter *painter, HTMLCursor
 static gboolean
 html_text_cursor_next_slave (HTMLObject *slave, HTMLPainter *painter, HTMLCursor *cursor)
 {
-	HTMLObject *next = slave->next;
 	int offset = cursor->offset;
 
-	if (next && HTML_IS_TEXT_SLAVE (next)) {
-		if (html_text_slave_cursor_head (HTML_TEXT_SLAVE (next), cursor, painter)) {
-			cursor->position += cursor->offset - offset;
-			return TRUE;
+	while (slave->next && HTML_IS_TEXT_SLAVE (slave->next)) {
+		if (HTML_TEXT_SLAVE (slave->next)->posLen) {
+			if (html_text_slave_cursor_head (HTML_TEXT_SLAVE (slave->next), cursor, painter)) {
+				cursor->position += cursor->offset - offset;
+				return TRUE;
+			} else
+				break;
 		}
+		slave = slave->next;
 	}
 
 	return FALSE;
