@@ -1,3 +1,8 @@
+2002-04-26  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml-propmanager.c: fix up refcounting and add recursion trap
+	to the notification callback.
+
 2002-04-24  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml-propmanager.c:  Refactor the api to make a little more

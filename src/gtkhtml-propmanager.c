@@ -51,13 +51,11 @@ static guint signals [LAST_SIGNAL] = { 0 };
 struct _GtkHTMLPropmanagerPrivate {
 	GladeXML *xml;
 
-	GtkWidget *capplet;
 	GtkWidget *variable;
 	GtkWidget *variable_print;
 	GtkWidget *fixed;
 	GtkWidget *fixed_print;
 	GtkWidget *anim_check;
-	GtkWidget *bi; 
 	GtkWidget *live_spell_check;
 	GtkWidget *magic_check;
 	GtkWidget *button_cfg_spell;
@@ -143,10 +141,14 @@ propmanager_client_notify (GConfClient *client, guint cnxn_id, GConfEntry *entry
 {
 	GtkHTMLPropmanager *pman = data;
 
-	d (printf ("GOT MILK??"));
+	if (!pman->priv->active) {
+		d (g_warning ("GOT MILK?? %p", pman));
 
-	gtk_html_class_properties_load (pman->priv->actual_prop, client);
-	gtk_html_propmanager_sync_gui (pman);
+		gtk_html_class_properties_load (pman->priv->actual_prop, client);
+		gtk_html_propmanager_sync_gui (pman);
+	} else {
+		d (g_warning ("NEED MILK!!"));
+	}
 }
 
 static void
@@ -201,19 +203,50 @@ propmanager_picker_clicked (GtkWidget *w, gpointer proportional)
 static void
 propmanager_child_destroyed (GtkWidget *w, GtkHTMLPropmanager *pman)
 {
-	
+	GtkHTMLPropmanagerPrivate *priv;
+
+	g_return_if_fail (GTK_IS_HTML_PROPMANAGER (pman));
+	priv = pman->priv;
+
+	/* this is ugly but I am lazy */
+#define MAYBE_CLEAR(x) \
+        if (w == priv->x) priv->x = NULL;
+
+	MAYBE_CLEAR (variable);
+	MAYBE_CLEAR (variable_print);
+	MAYBE_CLEAR (fixed_print);
+	MAYBE_CLEAR (fixed);
+	MAYBE_CLEAR (anim_check);
+	MAYBE_CLEAR (live_spell_check);
+	MAYBE_CLEAR (magic_check);
+	MAYBE_CLEAR (button_cfg_spell);
+	MAYBE_CLEAR (keymap);
+
+	gtk_object_unref (GTK_OBJECT (pman));
 }
 
 static GtkWidget *
 propmanager_get_widget (GtkHTMLPropmanager *pman, char *name)
 {
 	char *xml_name = NULL;
+	GtkWidget *widget;
 
-	if (pman->priv->nametable) {
+	if (pman->priv->nametable)
 		xml_name = g_hash_table_lookup (pman->priv->nametable, name);
-		if (!xml_name)
-			xml_name = name;
+
+	if (!xml_name)
+		xml_name = name;
+
+	widget = glade_xml_get_widget (pman->priv->xml, xml_name);
+
+	if (widget) {
+		gtk_object_ref (GTK_OBJECT (pman));
+		gtk_object_sink (GTK_OBJECT (pman));
+
+		gtk_signal_connect (GTK_OBJECT (widget), "destroy", 
+				    propmanager_child_destroyed, pman);
 	}
+
 	return glade_xml_get_widget (pman->priv->xml, xml_name);
 }
 
@@ -231,8 +264,6 @@ propmanager_add_toggle (GtkHTMLPropmanager *pman,
 			return NULL;
 
 		gtk_signal_connect (GTK_OBJECT (toggle), "toggled", propmanager_toggle_changed,
-				    pman);
-		gtk_signal_connect (GTK_OBJECT (toggle), "destroy", propmanager_child_destroyed,
 				    pman);
 		*found = TRUE;
 	}
@@ -258,9 +289,6 @@ propmanager_add_picker (GtkHTMLPropmanager *pman,
 				    pman);
 		gtk_signal_connect (GTK_OBJECT (picker), "clicked", propmanager_picker_clicked,
 				    GINT_TO_POINTER (proportional));
-		gtk_signal_connect (GTK_OBJECT (picker), "destroy", propmanager_child_destroyed,
-				    pman);
-
 		*found = TRUE;
 	}
 	return picker;
@@ -341,6 +369,8 @@ gtk_html_propmanager_set_gui (GtkHTMLPropmanager *pman, GladeXML *xml, GHashTabl
 		gtk_html_propmanager_set_nametable (pman, nametable);
 
 	priv = pman->priv;
+	
+	//gtk_object_ref (GTK_OBJECT (xml));
 	priv->xml = xml;
 
 	gconf_client_add_dir (priv->client, GTK_HTML_GCONF_DIR, GCONF_CLIENT_PRELOAD_NONE, NULL);
@@ -361,7 +391,7 @@ gtk_html_propmanager_set_gui (GtkHTMLPropmanager *pman, GladeXML *xml, GHashTabl
 	if ((priv->button_cfg_spell = propmanager_get_widget (pman, "button_configure_spell_checking"))) {
 		found_widget = TRUE;
 	}
-	
+
 	/* KEYMAP */
 	priv->keymap = propmanager_add_keymap (pman, "gtk_html_prop_keymap_option", &found_widget);
 
@@ -447,8 +477,10 @@ gtk_html_propmanager_apply (GtkHTMLPropmanager *pman)
 	APPLY (font_var_print, font_var_size_print, priv->variable_print);
 	APPLY (font_fix_print, font_fix_size_print, priv->fixed_print);
 
+	priv->active = TRUE;
 	gtk_html_class_properties_update (priv->actual_prop, priv->client,
 					  priv->saved_prop);
+	priv->active = FALSE;
 	gtk_html_class_properties_copy (priv->saved_prop, priv->actual_prop);
 }
 
@@ -492,8 +524,13 @@ gtk_html_propmanager_new (GConfClient *client)
 	GtkHTMLPropmanager *pman;
 	
 	pman = GTK_HTML_PROPMANAGER (gtk_type_new (GTK_TYPE_HTML_PROPMANAGER));
-
-	pman->priv->client = client;
+	
+	if (client) {
+		pman->priv->client = client;
+		gtk_object_ref (GTK_OBJECT (client));
+	} else {
+		pman->priv->client = gconf_client_get_default ();
+	}
 
 	return (GtkObject *)pman;
 }
@@ -503,16 +540,22 @@ gtk_html_propmanager_finalize (GtkObject *object)
 {
 	GtkHTMLPropmanagerPrivate *priv = GTK_HTML_PROPMANAGER (object)->priv;
 
+	if (priv->notify_id)
+		gconf_client_notify_remove (GTK_HTML_PROPMANAGER (object)->priv->client, priv->notify_id);
+
 	if (priv->orig_prop) {
 		gtk_html_class_properties_destroy (priv->orig_prop);
 		gtk_html_class_properties_destroy (priv->actual_prop);
 		gtk_html_class_properties_destroy (priv->saved_prop);
 	}
 
-	if (priv->notify_id)
-		gconf_client_notify_remove (GTK_HTML_PROPMANAGER (object)->priv->client, priv->notify_id);
+	//gtk_object_unref (GTK_OBJECT (priv->xml));
+	gtk_object_unref (GTK_OBJECT (priv->client));
 
 	g_free (priv);
+
+	if (GTK_OBJECT_CLASS (parent_class)->finalize)
+		(* GTK_OBJECT_CLASS (parent_class)->finalize) (object);		
 }
 
 static void
@@ -520,7 +563,6 @@ gtk_html_propmanager_class_init (GtkHTMLPropmanagerClass *class)
 {
 	GtkObjectClass *object_class;
 	GtkHTMLPropmanagerClass *propmanager_class;
-
 	object_class = (GtkObjectClass *)class;
 	propmanager_class = (GtkHTMLPropmanagerClass *)class;
 
