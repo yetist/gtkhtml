@@ -430,7 +430,7 @@ msgid "Print preview"
 msgstr "Predogled tiskanja"
 
 #~ msgid "use background image"
-#~ msgstr "uporabi slikoo ozadja"
+#~ msgstr "uporabi sliko v ozadju"
 
 #~ msgid "Find Rege_x..."
 #~ msgstr "P_oi¹èi..."
