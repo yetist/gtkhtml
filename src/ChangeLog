@@ -1,5 +1,11 @@
 2001-06-25  Radek Doulik  <rodo@ximian.com>
 
+	* gtkhtml.c (delete_one): new helper function, deletes container
+	or cursor position +/-1
+
+	* htmlengine-edit-cut-and-paste.c (html_engine_delete_container):
+	new function, deletes whole container
+
 	* htmlfontmanager.c (get_real_font_size): redone, now it's more
 	similiar to mozilla font scaling
 

@@ -2724,6 +2724,15 @@ move_selection (GtkHTML *html, GtkHTMLCommandType com_type)
 	return rv;
 }
 
+static void
+delete_one (HTMLEngine *e, gboolean forward)
+{
+	if (e->cursor->object && html_object_is_container (e->cursor->object))
+		html_engine_delete_container (e);
+	else
+		html_engine_delete_n (e, 1, forward);
+}
+
 static gboolean
 command (GtkHTML *html, GtkHTMLCommandType com_type)
 {
@@ -2798,13 +2807,13 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		    && e->mark->position != e->cursor->position)
 			html_engine_delete (e);
 		else
-			html_engine_delete_n (e, 1, TRUE);
+			delete_one (e, TRUE);
 		break;
 	case GTK_HTML_COMMAND_DELETE_BACK:
 		if (html_engine_is_selection_active (e))
 			html_engine_delete (e);
 		else
-			html_engine_delete_n (e, 1, FALSE);
+			delete_one (e, FALSE);
 		break;
 	case GTK_HTML_COMMAND_DELETE_BACK_OR_INDENT_DEC:
 		if (html_engine_is_selection_active (e))
@@ -2812,7 +2821,7 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		else if (html_engine_cursor_on_bop (e) && html_engine_get_indent (e) > 0)
 			gtk_html_modify_indent_by_delta (html, -1);
 		else
-			html_engine_delete_n (e, 1, FALSE);
+			delete_one (e, FALSE);
 		break;
 	case GTK_HTML_COMMAND_SET_MARK:
 		html_engine_set_mark (e);

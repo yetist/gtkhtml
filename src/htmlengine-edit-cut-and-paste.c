@@ -826,6 +826,24 @@ html_engine_paste_text (HTMLEngine *e, const gchar *text, guint len)
 }
 
 void
+html_engine_delete_container (HTMLEngine *e)
+{
+	g_assert (HTML_IS_ENGINE (e));
+	g_assert (e->cursor->object);
+	g_assert (html_object_is_container (e->cursor->object));
+
+	html_engine_freeze (e);
+	html_engine_set_mark (e);
+	if (e->cursor->offset)
+		html_cursor_beginning_of_line (e->cursor, e);
+	else
+		html_cursor_end_of_line (e->cursor, e);
+	html_engine_update_selection_if_necessary (e);
+	html_engine_delete (e);
+	html_engine_thaw (e);
+}
+
+void
 html_engine_delete_n (HTMLEngine *e, guint len, gboolean forward)
 {
 	if (html_engine_is_selection_active (e))

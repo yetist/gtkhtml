@@ -53,6 +53,7 @@ void  html_engine_insert_empty_paragraph  (HTMLEngine  *e);
 void  html_engine_delete_n                (HTMLEngine  *e,
 					   guint        len,
 					   gboolean     forward);
+void  html_engine_delete_container        (HTMLEngine  *e);
 void  html_engine_set_insertion_link      (HTMLEngine  *e,
 					   const gchar *url,
 					   const gchar *target);
