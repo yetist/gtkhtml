@@ -96,5 +96,12 @@
 		pixtype="stock" pixname="Search"/>
 		<toolitem name="EditReplace" verb=""  _label="Replace" _tip="Find And Replace"
 		pixtype="stock" pixname="Search/Replace"/>
+		<separator/>
+		<toolitem name="InsertImage" verb=""
+                pixtype="filename" pixname="@ICONSDIR@/insert-image-24.png"/>
+		<toolitem name="InsertLink" verb=""
+                pixtype="filename" pixname="@ICONSDIR@/insert-link-24.png"/>
+		<toolitem name="InsertTable" verb=""
+                pixtype="filename" pixname="@ICONSDIR@/insert-table-24.png"/>
 	</dockitem>
 </Root>

@@ -131,6 +131,11 @@ oafdir = $(datadir)/oaf
 
 @XML_I18N_MERGE_OAF_RULE@
 
+GNOME_GtkHTML_Editor.xml: GNOME_GtkHTML_Editor.xml.in Makefile
+	sed -e 's?\@ICONSDIR\@?$(GTKHTML_DATADIR)/gtkhtml/icons?g' \
+	      < $(srcdir)/GNOME_GtkHTML_Editor.xml.in > GNOME_GtkHTML_Editor.xml.tmp \
+	  && mv GNOME_GtkHTML_Editor.xml.tmp GNOME_GtkHTML_Editor.xml
+
 uidir = $(datadir)/gnome/ui
 ui_DATA = GNOME_GtkHTML_Editor.xml
 
@@ -155,6 +160,7 @@ EXTRA_DIST =					\
 	ChangeLog				\
 	tt.xpm					\
 	$(ui_DATA)				\
+	GNOME_GtkHTML_Editor.xml.in		\
 	gtkhtml-editor-properties.glade
 
 idldir = $(datadir)/gtkhtml
