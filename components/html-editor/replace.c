@@ -73,10 +73,10 @@ ask_dialog_new (HTMLEngine *e)
 
 	d = g_new (GtkHTMLReplaceAskDialog, 1);
 	d->dialog = GTK_DIALOG (gtk_dialog_new_with_buttons (_("Replace confirmation"), NULL, 0,
-							     _("Replace all"), 1,
-							     _("Next"), 2,
+							     _("Replace _All"), 1,
+							     _("_Next"), 2,
 							     GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
-							     _("Replace"), 0,
+							     _("_Replace"), 0,
 							     NULL));
 	d->engine = e;
 

@@ -1,3 +1,8 @@
+2003-12-02  Charles Zhang  <charles.zhang@sun.com>
+
+	* replace.c (ask_dialog_new): new button with mnemonics.
+	Fixes bug #51472
+
 2003-09-24  Radek Doulik  <rodo@ximian.com>
 
 	* spell.c (spell_check_dialog): added missing dialog, set
