@@ -30,16 +30,13 @@
 void 
 gtk_html_im_focus_in (GtkHTML *html)
 {
-	if (html->priv->ic) {
-		printf ("gtk_html_im_focus_in\n");
+	if (html->priv->ic)
 		gdk_im_begin (html->priv->ic, GTK_WIDGET (html)->window);
-	}
 }
 
 void
 gtk_html_im_focus_out (GtkHTML *html)
 {
-	printf ("gtk_html_im_focus_out\n");
 	gdk_im_end ();
 }
 
@@ -62,13 +59,9 @@ gtk_html_im_realize (GtkHTML *html)
 		GDK_IM_STATUS_NONE |
 		GDK_IM_STATUS_NOTHING;
 
-	printf ("gtk_html_im_realize\n");
-
 	if (!gdk_im_ready () || (attr = gdk_ic_attr_new ()) == NULL)
 		return;
 		
-	printf ("gtk_html_im_realize\n");
-
 	if (widget->style &&
 	    widget->style->font->type != GDK_FONT_FONTSET)
 		supported_style &= ~GDK_IM_PREEDIT_POSITION;
@@ -123,7 +116,6 @@ gtk_html_im_realize (GtkHTML *html)
 		if (GTK_WIDGET_HAS_FOCUS(widget))
 			gdk_im_begin (html->priv->ic, widget->window);
 	}
-	printf ("gtk_html_im_realize\n");
 }
 
 void
