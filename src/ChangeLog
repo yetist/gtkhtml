@@ -1,5 +1,8 @@
 2000-02-25  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlengine-edit-fontstyle.c (set_font_style_in_selection) [!
+	PARANOID_DEBUG]: Disabled debugging messages.
+
 	* htmlobject.c (relayout): Do not relayout everything if the size
 	did not change.
 

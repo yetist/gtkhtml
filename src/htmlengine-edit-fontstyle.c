@@ -25,6 +25,8 @@
 
 #include "htmlengine-edit-fontstyle.h"
 
+/* #define PARANOID_DEBUG */
+
 
 /* This merges @text with @other, prepending as defined by @prepend,
    and makes sure that @cursor is still valid (i.e. still points to a
@@ -94,6 +96,7 @@ merge_forward (HTMLObject *object,
 	}
 }
 
+
 struct _SetFontStyleForallData {
 	HTMLCursor *cursor;
 	GtkHTMLFontStyle and_mask;
@@ -198,8 +201,10 @@ set_font_style_in_selection (HTMLEngine *engine,
 
 	g_return_if_fail (engine->clue != NULL);
 
+#ifdef PARANOID_DEBUG
 	g_print ("Tree before changing font style:\n");
 	gtk_html_debug_dump_tree (engine->clue, 2);
+#endif
 
 	data = g_new (SetFontStyleForallData, 1);
 	data->and_mask = and_mask;
@@ -210,8 +215,10 @@ set_font_style_in_selection (HTMLEngine *engine,
 
 	g_free (data);
 
+#ifdef PARANOID_DEBUG
 	g_print ("Tree after changing font style:\n");
 	gtk_html_debug_dump_tree (engine->clue, 2);
+#endif
 }
 
 
