@@ -2,6 +2,9 @@
 
 	* htmltable.c (divide_into_percented): don't substract max_size
 	[c] from MIN, but from total_width part
+	(calc_lowest_fill): new helper function
+	(divide_into_variable_all): use calc_lowest_fill, updated first
+	step of dividing between cols with pref width < actual
 
 	* htmlengine.c (parse_body): set eat_space to FALSE
 	(insert_text): drop consequent spaces
