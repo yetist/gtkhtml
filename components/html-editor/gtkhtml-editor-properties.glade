@@ -816,7 +816,7 @@ None
 
 	  <widget>
 	    <class>GtkCheckButton</class>
-	    <name>checkbutton10</name>
+	    <name>check_cell_width</name>
 	    <can_focus>True</can_focus>
 	    <label>width</label>
 	    <active>False</active>
@@ -839,7 +839,7 @@ None
 
 	  <widget>
 	    <class>GtkSpinButton</class>
-	    <name>spinbutton9</name>
+	    <name>spin_cell_width</name>
 	    <can_focus>True</can_focus>
 	    <climb_rate>1</climb_rate>
 	    <digits>0</digits>
@@ -871,7 +871,7 @@ None
 
 	  <widget>
 	    <class>GtkOptionMenu</class>
-	    <name>optionmenu4</name>
+	    <name>option_cell_width</name>
 	    <can_focus>True</can_focus>
 	    <items>Pixels
 Percent
@@ -895,7 +895,7 @@ Percent
 
 	  <widget>
 	    <class>GtkCheckButton</class>
-	    <name>checkbutton11</name>
+	    <name>check_cell_height</name>
 	    <can_focus>True</can_focus>
 	    <label>height</label>
 	    <active>False</active>
@@ -918,7 +918,7 @@ Percent
 
 	  <widget>
 	    <class>GtkSpinButton</class>
-	    <name>spinbutton13</name>
+	    <name>spin_cell_height</name>
 	    <can_focus>True</can_focus>
 	    <climb_rate>1</climb_rate>
 	    <digits>0</digits>
@@ -950,7 +950,7 @@ Percent
 
 	  <widget>
 	    <class>GtkOptionMenu</class>
-	    <name>optionmenu7</name>
+	    <name>option_cell_height</name>
 	    <can_focus>True</can_focus>
 	    <items>Pixels
 Percent

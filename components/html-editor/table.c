@@ -245,6 +245,11 @@ static void
 changed_width (GtkWidget *w, GtkHTMLEditTableProperties *d)
 {
 	d->width = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_width));
+	if (!d->disable_change) {
+		d->disable_change = TRUE;
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_width), TRUE);
+		d->disable_change = FALSE;
+	}
 	d->changed_width = TRUE;
 	FILL;
 	CHANGE;
