@@ -55,10 +55,12 @@ idle_handler (gpointer data)
 	engine = html->engine;
 
 	html_engine_make_cursor_visible (engine);
+
 	gtk_adjustment_set_value (GTK_LAYOUT (html)->hadjustment,
 				  (gfloat) engine->x_offset);
 	gtk_adjustment_set_value (GTK_LAYOUT (html)->vadjustment,
 				  (gfloat) engine->y_offset);
+	gtk_html_calc_scrollbars (html);
 
 	html_engine_flush_draw_queue (engine);
 

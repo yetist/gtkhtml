@@ -1,5 +1,7 @@
 2000-01-25  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* gtkhtml.c (idle_handler): Calc `gtk_html_calc_scrollbars'.
+
 	* gtkhtml.c (gtk_html_save): New function.
 
 	* htmltext.c (save): New function, implementation of
