@@ -1,0 +1,598 @@
+# Danish translation of gtkhtml.
+# Copyright (C) 2000 Free Software Foundation, Inc.
+# Keld Simonsen, <keld@dkuug.dk>, 2000
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gtkhtml 0.5\n"
+"POT-Creation-Date: 2000-07-16 01:20+0200\n"
+"PO-Revision-Date: 2000-07-16 01:30+0200\n"
+"Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
+"Language-Team: Danish <dansk@klid.dk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#: components/html-editor/body.c:107
+msgid "use background image"
+msgstr "brug baggrundsbillede"
+
+#: components/html-editor/body.c:109
+msgid "Background image"
+msgstr "Baggrundsbillede"
+
+#: components/html-editor/body.c:126
+msgid "Colors"
+msgstr "Farver"
+
+#: components/html-editor/editor-control-factory.c:122
+#: components/html-editor/popup.c:86
+msgid "Image"
+msgstr "Billede"
+
+#: components/html-editor/editor-control-factory.c:131
+#: components/html-editor/popup.c:79
+msgid "Text"
+msgstr "Tekst"
+
+#: components/html-editor/editor-control-factory.c:143
+#: components/html-editor/popup.c:93
+msgid "Paragraph"
+msgstr "Afsnit"
+
+#: components/html-editor/editor-control-factory.c:148
+#: components/html-editor/menubar.c:157 components/html-editor/popup.c:100
+msgid "Link"
+msgstr "Lænke"
+
+#: components/html-editor/editor-control-factory.c:153
+#: components/html-editor/popup.c:107
+msgid "Page"
+msgstr "Side"
+
+#: components/html-editor/image.c:409
+msgid "Image selection"
+msgstr "Billedvalg"
+
+#: components/html-editor/image.c:417
+msgid "Border"
+msgstr "Kant"
+
+#. ADD_ITEM("Left",   GDK_F4);
+#. ADD_ITEM("Right",  GDK_F5);
+#: components/html-editor/image.c:450
+msgid "Alignment"
+msgstr "Justering"
+
+#: components/html-editor/image.c:462 components/html-editor/rule.c:124
+#: components/html-editor/text.c:160
+msgid "Size"
+msgstr "Størrelse"
+
+#: components/html-editor/image.c:489
+msgid "Padding"
+msgstr "Fyld"
+
+#: components/html-editor/link.c:72
+msgid "Clear"
+msgstr "Tøm"
+
+#: components/html-editor/link.c:75
+msgid "URL"
+msgstr "URL"
+
+#: components/html-editor/main.c:64
+msgid "Could not initialize GNORBA"
+msgstr "Kunne ikke initialisere GNORBA"
+
+#: components/html-editor/main.c:77
+msgid "Could not initialize Bonobo"
+msgstr "Kunne ikke initialisere Bonobo"
+
+#: components/html-editor/menubar.c:60
+msgid "Find Rege_x..."
+msgstr "Find rege_x..."
+
+#: components/html-editor/menubar.c:60
+msgid "Regular expressions search..."
+msgstr "Søg efter almindeligt udtryk..."
+
+#: components/html-editor/menubar.c:69
+msgid "_Image..."
+msgstr "B_illede..."
+
+#: components/html-editor/menubar.c:69
+msgid "Insert image into document..."
+msgstr "Indsæt billede i dokumentet..."
+
+#: components/html-editor/menubar.c:70
+msgid "_Link..."
+msgstr "_Lænke..."
+
+#: components/html-editor/menubar.c:70
+msgid "Insert HTML link into document..."
+msgstr "Indsæt HTML-lænke i dokumentet..."
+
+#: components/html-editor/menubar.c:71
+msgid "_Rule..."
+msgstr "_Regel..."
+
+#: components/html-editor/menubar.c:71
+msgid "Insert rule into document..."
+msgstr "Indsæt regel i dokumentet..."
+
+#: components/html-editor/menubar.c:76
+msgid "_Insert"
+msgstr "_Indsæt"
+
+#: components/html-editor/menubar.c:143
+msgid "Insert image"
+msgstr "Indsæt billede"
+
+#: components/html-editor/menubar.c:175
+msgid "Cannot execute gtkhtml properties"
+msgstr "Kan ikke udføre gtkhtml egenskaber"
+
+#: components/html-editor/paragraph.c:74 components/html-editor/text.c:138
+msgid "Style"
+msgstr "Stil"
+
+#: components/html-editor/paragraph.c:108
+msgid "Align"
+msgstr "Justér"
+
+#: components/html-editor/paragraph.c:121
+msgid "Left"
+msgstr "Venstre"
+
+#: components/html-editor/paragraph.c:122 components/html-editor/toolbar.c:485
+msgid "Center"
+msgstr "Center"
+
+#: components/html-editor/paragraph.c:123
+msgid "Right"
+msgstr "Højre"
+
+#: components/html-editor/properties.c:92
+#: components/html-editor/properties.c:93
+msgid "Insert"
+msgstr "Indsæt"
+
+#: components/html-editor/properties.c:95
+msgid "Properties"
+msgstr "Egenskaber"
+
+#: components/html-editor/popup.c:161
+msgid "Remove link"
+msgstr "Fjern lænke"
+
+#: components/html-editor/replace.c:83
+msgid "Replace confirmation"
+msgstr "Bekræftelse ved erstat"
+
+#: components/html-editor/replace.c:84 components/html-editor/replace.c:146
+#: components/html-editor/replace.c:158
+msgid "Replace"
+msgstr "Erstat"
+
+#: components/html-editor/replace.c:84
+msgid "Replace all"
+msgstr "Erstat alle"
+
+#: components/html-editor/replace.c:84
+msgid "Next"
+msgstr "Næste"
+
+#: components/html-editor/replace.c:152 components/html-editor/search.c:66
+msgid "search backward"
+msgstr "søg tilbage"
+
+#: components/html-editor/replace.c:153 components/html-editor/search.c:67
+msgid "case sensitive"
+msgstr "skeln mellem store og små bokstaver"
+
+#: components/html-editor/replace.c:161
+msgid "with"
+msgstr "med"
+
+#: components/html-editor/rule.c:124
+msgid "Length"
+msgstr "Længde"
+
+#: components/html-editor/rule.c:124
+msgid "Percent"
+msgstr "Procent"
+
+#: components/html-editor/rule.c:125
+msgid "Left Align"
+msgstr "Venstrejusteret"
+
+#: components/html-editor/rule.c:125
+msgid "Center Align"
+msgstr "Centreret"
+
+#: components/html-editor/rule.c:125
+msgid "Right Align"
+msgstr "Højrejusteret"
+
+#: components/html-editor/rule.c:125
+msgid "None"
+msgstr "Ingen"
+
+#: components/html-editor/rule.c:129
+msgid "Rule"
+msgstr "Regel"
+
+#: components/html-editor/rule.c:132
+msgid "Set Shade"
+msgstr "Sæt skygge"
+
+#: components/html-editor/search.c:63
+msgid "Regex search"
+msgstr "Regex-søg"
+
+#: components/html-editor/search.c:63
+msgid "Search"
+msgstr "Søg"
+
+#: components/html-editor/table.c:80
+msgid "Table"
+msgstr "Tabel"
+
+#: components/html-editor/test-html-editor-control.c:231
+msgid "Open file..."
+msgstr "Åbn fil..."
+
+#: components/html-editor/test-html-editor-control.c:233
+msgid "Save file as..."
+msgstr "Gem fil som..."
+
+#: components/html-editor/test-html-editor-control.c:299
+msgid "Open (PersistFile)"
+msgstr "Åbn (PersistFile)"
+
+#: components/html-editor/test-html-editor-control.c:299
+msgid "Open using the PersistFile interface"
+msgstr "Åbn ved brug af PersistFile grænsesnittet"
+
+#: components/html-editor/test-html-editor-control.c:301
+msgid "Save as... (PersistFile)"
+msgstr "Gem som... (PersistFile)"
+
+#: components/html-editor/test-html-editor-control.c:301
+msgid "Save using the PersistFile interface"
+msgstr "Gem ved brug af PersistFile grænsesnittet"
+
+#: components/html-editor/test-html-editor-control.c:304
+msgid "Open (PersistStream)"
+msgstr "Åbn (PersistStream)"
+
+#: components/html-editor/test-html-editor-control.c:304
+msgid "Open using the PersistStream interface"
+msgstr "Åbn ved brug af PersistStream grænsesnittet"
+
+#: components/html-editor/test-html-editor-control.c:306
+msgid "Save as... (PersistStream)"
+msgstr "Gem som... (PersistStream)"
+
+#: components/html-editor/test-html-editor-control.c:306
+msgid "Save using the PersistStream interface"
+msgstr "Gem ved brug af PersistStream grænsesnittet"
+
+#: components/html-editor/test-html-editor-control.c:320
+#: components/html-editor/toolbar.c:493
+msgid "Cut"
+msgstr "Klip ud"
+
+#: components/html-editor/test-html-editor-control.c:320
+msgid "Cut selection to the clipboard"
+msgstr "Klip udvalget til klippebordet"
+
+#: components/html-editor/test-html-editor-control.c:322
+#: components/html-editor/toolbar.c:495
+msgid "Copy"
+msgstr "Kopiér"
+
+#: components/html-editor/test-html-editor-control.c:322
+msgid "Copy selection to the clipboard"
+msgstr "Kopiér udvalget til klippebordet"
+
+#: components/html-editor/test-html-editor-control.c:324
+#: components/html-editor/toolbar.c:497
+msgid "Paste"
+msgstr "Indsæt"
+
+#: components/html-editor/test-html-editor-control.c:324
+#: components/html-editor/toolbar.c:497
+msgid "Paste contents of the clipboard"
+msgstr "Indsæt indholdet af klippebordet"
+
+#: components/html-editor/text.c:152 components/html-editor/toolbar.c:511
+msgid "Bold"
+msgstr "Fremhævet"
+
+#: components/html-editor/text.c:153 components/html-editor/toolbar.c:513
+msgid "Italic"
+msgstr "Kursiv"
+
+#: components/html-editor/text.c:154 components/html-editor/toolbar.c:515
+msgid "Underline"
+msgstr "Understreget"
+
+#: components/html-editor/text.c:155 components/html-editor/toolbar.c:517
+msgid "Strikeout"
+msgstr "Gennemstreget"
+
+#. color selection
+#: components/html-editor/text.c:187
+msgid "Color"
+msgstr "Farve"
+
+#: components/html-editor/text.c:201
+msgid "text color"
+msgstr "tekstfarve"
+
+#: components/html-editor/toolbar.c:45
+msgid "Normal"
+msgstr "Normal"
+
+#: components/html-editor/toolbar.c:46
+msgid "Header 1"
+msgstr "Titel 1"
+
+#: components/html-editor/toolbar.c:47
+msgid "Header 2"
+msgstr "Titel 2"
+
+#: components/html-editor/toolbar.c:48
+msgid "Header 3"
+msgstr "Titel 3"
+
+#: components/html-editor/toolbar.c:49
+msgid "Header 4"
+msgstr "Titel 4"
+
+#: components/html-editor/toolbar.c:50
+msgid "Header 5"
+msgstr "Titel 5"
+
+#: components/html-editor/toolbar.c:51
+msgid "Header 6"
+msgstr "Titel 6"
+
+#: components/html-editor/toolbar.c:52
+msgid "Address"
+msgstr "Adresse"
+
+#: components/html-editor/toolbar.c:53
+msgid "Pre"
+msgstr "Pre"
+
+#: components/html-editor/toolbar.c:54
+msgid "List item (digit)"
+msgstr "List opføring (tal)"
+
+#: components/html-editor/toolbar.c:55
+msgid "List item (unnumbered)"
+msgstr "List opføring (unummereret)"
+
+#: components/html-editor/toolbar.c:56
+msgid "List item (roman)"
+msgstr "List opføring (romansk)"
+
+#: components/html-editor/toolbar.c:236
+msgid "Default"
+msgstr "Standard"
+
+#: components/html-editor/toolbar.c:483
+msgid "Left align"
+msgstr "Venstrejustér"
+
+#: components/html-editor/toolbar.c:483
+msgid "Left justify paragraphs"
+msgstr "Venstrejustér afsnit"
+
+#: components/html-editor/toolbar.c:485
+msgid "Centers paragraphs"
+msgstr "Midtstiller afsnit"
+
+#: components/html-editor/toolbar.c:487
+msgid "Right align"
+msgstr "Højrejustér"
+
+#: components/html-editor/toolbar.c:487
+msgid "Right justify paragraphs"
+msgstr "Højrejustér afsnit"
+
+#: components/html-editor/toolbar.c:493
+msgid "Cut the selected region to the clipboard"
+msgstr "Klip ud valgt område til klippebordet"
+
+#: components/html-editor/toolbar.c:495
+msgid "Copy the selected region to the clipboard"
+msgstr "Kopiér valgt område til klippebordet"
+
+#: components/html-editor/toolbar.c:501
+msgid "Undo"
+msgstr "Fortryd"
+
+#: components/html-editor/toolbar.c:501
+msgid "Undo last editor operation"
+msgstr "Fortryd sidste redigeringsoperation"
+
+#: components/html-editor/toolbar.c:503
+msgid "Redo"
+msgstr "Genopret"
+
+#: components/html-editor/toolbar.c:503
+msgid "Redo undone editor operation"
+msgstr "Genopret fortrudt redigeringsoperation"
+
+#: components/html-editor/toolbar.c:511
+msgid "Sets the bold font"
+msgstr "Sætter fremhævet skrifttype"
+
+#: components/html-editor/toolbar.c:513
+msgid "Make the selection italic"
+msgstr "Gør det udvalgte kursiveret"
+
+#: components/html-editor/toolbar.c:515
+msgid "Make the selection underlined"
+msgstr "Gør det udvalgte understreget"
+
+#: components/html-editor/toolbar.c:517
+msgid "Make the selection striked out"
+msgstr "Gør det udvalgte gennemstreget"
+
+#: components/html-editor/toolbar.c:526
+msgid "Unindent"
+msgstr "Indryk ikke"
+
+#: components/html-editor/toolbar.c:526
+msgid "Indent paragraphs less"
+msgstr "Indryk afsnit mindre"
+
+#: components/html-editor/toolbar.c:528
+msgid "Indent"
+msgstr "Indryk"
+
+#: components/html-editor/toolbar.c:528
+msgid "Indent paragraphs more"
+msgstr "Indryk afsnit mere"
+
+#: glibwww/gnome-dialogs.c:85
+msgid "Transfer Progress"
+msgstr "Fremskridt i overførsel"
+
+#: glibwww/gnome-dialogs.c:139
+#, c-format
+msgid "Looking up %s"
+msgstr "Slår %s op"
+
+#: glibwww/gnome-dialogs.c:145
+#, c-format
+msgid "Contacting %s"
+msgstr "Kontakter %s"
+
+#: glibwww/gnome-dialogs.c:152
+msgid "Waiting for a connection..."
+msgstr "Venter på en forbindelse"
+
+#: glibwww/gnome-dialogs.c:156
+msgid "Logging in..."
+msgstr "Logger ind..."
+
+#: glibwww/gnome-dialogs.c:165
+msgid "Read %d%%%% of %l"
+msgstr "Læst %d%%%% af %l"
+
+#: glibwww/gnome-dialogs.c:175 glibwww/gnome-dialogs.c:177
+#, c-format
+msgid "Read %d bytes"
+msgstr "Læst %d byte"
+
+#: glibwww/gnome-dialogs.c:179
+msgid "Reading..."
+msgstr "Læser..."
+
+#: glibwww/gnome-dialogs.c:194
+msgid "Writing %d%%%% of %l"
+msgstr "Skriver %d%%%% af %l"
+
+#: glibwww/gnome-dialogs.c:204 glibwww/gnome-dialogs.c:206
+#, c-format
+msgid "Writing %d bytes"
+msgstr "Skriver %d byte"
+
+#: glibwww/gnome-dialogs.c:208
+msgid "Writing..."
+msgstr "Skriver..."
+
+#: glibwww/gnome-dialogs.c:216
+msgid "Done!"
+msgstr "Færdig!"
+
+#: glibwww/gnome-dialogs.c:220
+msgid "Interrupted!"
+msgstr "Afbrudt!"
+
+#: glibwww/gnome-dialogs.c:224
+msgid "Please wait..."
+msgstr "Vent venligst..."
+
+#: glibwww/gnome-dialogs.c:228
+msgid "Request timeout!"
+msgstr "Tid til forespørgsel udløbet!"
+
+#: glibwww/gnome-dialogs.c:232
+msgid "Unknown"
+msgstr "Ukendt"
+
+#: glibwww/gnome-dialogs.c:275
+msgid "Enter Text"
+msgstr "Indtast tekst"
+
+#: glibwww/gnome-dialogs.c:316 glibwww/gnome-dialogs.c:357
+msgid "Enter Password"
+msgstr "Indtast adgangskode"
+
+#: src/gtkhtml.c:2289
+#, c-format
+msgid "Couldn't find keybinding file -- %s"
+msgstr "Kunne ikke finde nøglebindings-fil -- %s"
+
+#: src/html-component.c:219
+msgid "Html"
+msgstr "Html"
+
+#: src/html-component.c:220
+msgid "Html test"
+msgstr "Html test"
+
+#: src/html-component.c:226
+msgid "Test1"
+msgstr "Test1"
+
+#: src/html-component.c:233
+msgid "Test2"
+msgstr "Test2"
+
+#: src/html-component.c:239
+msgid "Test3"
+msgstr "Test3"
+
+#: src/html-component.c:245
+msgid "Test4"
+msgstr "Test4"
+
+#: src/html-component.c:251
+msgid "Test5"
+msgstr "Test5"
+
+#: src/html-component.c:257
+msgid "Test6"
+msgstr "Test6"
+
+#: src/html-component.c:263
+msgid "Test7"
+msgstr "Test7"
+
+#: src/html-component.c:617
+msgid "_Refresh"
+msgstr "_Genopfrisk"
+
+#: src/html-component.c:618
+msgid "Reload the page"
+msgstr "Genindlæs siden"
+
+#: src/html-component.c:669
+msgid "Could not initialize Bonobo!"
+msgstr "Kunne ikke initialisere Bonobo!"
+
+#: src/testgtkhtml.c:110
+msgid "Print pre_view"
+msgstr "Udskriv _smugkig"
+
+#: src/testgtkhtml.c:110
+msgid "Print preview"
+msgstr "Udskriv smugkig"
