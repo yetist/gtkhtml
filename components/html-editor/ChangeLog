@@ -1,3 +1,8 @@
+2001-01-08  Radek Doulik  <rodo@helixcode.com>
+
+	* engine.c (par_is_empty): fixed, it was returning wrong value for
+	par without slaves
+
 2001-01-05  Radek Doulik  <rodo@helixcode.com>
 
 	* menubar.c (properties_cb): call right capplet, Frédéric Crozat

@@ -128,9 +128,8 @@ impl_run_command (PortableServer_Servant servant, const CORBA_char * command, CO
 static CORBA_boolean
 par_is_empty (HTMLClue *clue)
 {
-	if (clue->head && clue->head->next == clue->tail
-	    && html_object_is_text (clue->head) && !*HTML_TEXT (clue->head)->text
-	    && HTML_OBJECT_TYPE (clue->tail) == HTML_TYPE_TEXTSLAVE)
+	if (clue->head && html_object_is_text (clue->head)
+	    && HTML_TEXT (clue->head)->text_len == 0 && !html_object_next_not_slave (clue->head))
 		return CORBA_TRUE;
 	return CORBA_FALSE;
 }
