@@ -54,7 +54,7 @@ apply_cb (PageData *pd, GtkHTMLEditPropertiesDialog *d)
 		d->all_changes_applied = FALSE;
 }
 
-static void
+static gboolean
 apply (GtkHTMLEditPropertiesDialog *d)
 {
 	d->all_changes_applied = TRUE;
@@ -63,7 +63,9 @@ apply (GtkHTMLEditPropertiesDialog *d)
 		gtk_dialog_set_response_sensitive (GTK_DIALOG (d->dialog), 0, FALSE);
 		if (!d->insert)
 			gtk_dialog_set_response_sensitive (GTK_DIALOG (d->dialog), 1, FALSE);
+		return TRUE;
 	}
+	return FALSE;
 }
 
 static void
@@ -105,13 +107,14 @@ dialog_response (GtkDialog *dialog, gint response_id, GtkHTMLEditPropertiesDialo
 		gtk_widget_destroy (GTK_WIDGET (dialog));
 		break;
 	case 0: /* OK */
-		apply (d);
-		prop_close (d);
-		break;
-	case 1: /* Insert/Apply */
-		apply (d);
-		if (d->insert)
+		if (apply (d))
 			prop_close (d);
+		break;
+	case 1: /* Insert */
+		if (apply (d))
+			if (d->insert)
+				prop_close (d);
+		break;
 	}
 }
 
@@ -147,14 +150,16 @@ gtk_html_edit_properties_dialog_new (GtkHTMLControlData *cd, gboolean insert, gc
 	d->insert         = insert;
 	d->control_data   = cd;
 	parent = get_parent_window (GTK_WIDGET (cd->html));
-	d->dialog         = insert ? gtk_dialog_new_with_buttons (title, parent, 0,
-								  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-								  GTKHTML_STOCK_INSERT, 1,
-								  NULL)
-		:  gtk_dialog_new_with_buttons (title, parent, 0,
-						GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-						GTK_STOCK_OK, 0,
-						NULL);
+	if (insert)
+		d->dialog = gtk_dialog_new_with_buttons (title, parent, 0,
+							 GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+							 GTKHTML_STOCK_INSERT, 1,
+							 NULL);
+	else
+		d->dialog = gtk_dialog_new_with_buttons (title, parent, 0,
+							 GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+							 GTK_STOCK_OK, 0,
+							 NULL);
 
 	gtk_container_set_border_width (GTK_CONTAINER (GTK_DIALOG (d->dialog)->vbox), 6);
 	gtk_container_set_border_width (GTK_CONTAINER (d->dialog), 6);

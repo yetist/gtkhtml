@@ -251,12 +251,29 @@ link_insert_cb (GtkHTMLControlData *cd, gpointer get_data)
 					  html_colorset_get_color (e->settings->color_set, HTMLLinkColor));
 		html_text_add_link (HTML_TEXT (new_text), e, url_copy, target, 0, HTML_TEXT (new_text)->text_len);
 
-		html_engine_paste_object (e, new_text, g_utf8_strlen (text, -1));
+		html_engine_paste_object (e, new_text, HTML_TEXT (new_text)->text_len);
 
 		g_free (url_copy);
+
+		return TRUE;
+	} else {
+		GtkWidget *toplevel;
+		GtkWidget *dialog;
+
+		toplevel = gtk_widget_get_toplevel (cd->properties_dialog->dialog);
+		if (!GTK_WIDGET_TOPLEVEL (toplevel))
+			toplevel = NULL;
+
+		dialog = gtk_message_dialog_new (GTK_WINDOW (toplevel),
+						 GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+						 GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
+						 _("Please fill 'Link text' and 'URL' entries"));
+
+		gtk_dialog_run (GTK_DIALOG (dialog));
+		gtk_widget_destroy (dialog);
 	}
 
-	return TRUE;
+	return FALSE;
 }
 
 void
