@@ -420,8 +420,7 @@ object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, g
 }
 
 static gboolean
-calc_size (HTMLObject *self,
-	   HTMLPainter *painter)
+calc_size (HTMLObject *self, HTMLPainter *painter, GList **changed_objs)
 {
 	HTMLText *text = HTML_TEXT (self);
 	GtkHTMLFontStyle style = html_text_get_font_style (text);

@@ -138,8 +138,7 @@ calc_min_width (HTMLObject *self,
 }
 
 static gboolean
-calc_size (HTMLObject *self,
-	   HTMLPainter *painter)
+calc_size (HTMLObject *self, HTMLPainter *painter, GList **changed_objs)
 {
 	GtkWidget *widget;
 	HTMLEmbedded *emb = HTML_EMBEDDED (self);

@@ -186,13 +186,13 @@ clue_move_children (HTMLClue *clue, gint x_delta, gint y_delta)
 }
 
 static gboolean
-calc_size (HTMLObject *o, HTMLPainter *painter)
+calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 {
 	HTMLTableCell *cell;
 	gboolean rv;
 
 	cell = HTML_TABLE_CELL (o);
-	rv   = (* HTML_OBJECT_CLASS (parent_class)->calc_size) (o, painter);
+	rv   = (* HTML_OBJECT_CLASS (parent_class)->calc_size) (o, painter, changed_objs);
 
 	if (cell->fixed_height && o->ascent + o->descent < cell->fixed_height) {
 		gint remains = cell->fixed_height - (o->ascent + o->descent);

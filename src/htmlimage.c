@@ -311,8 +311,7 @@ calc_preferred_width (HTMLObject *o,
 }
 
 static gboolean
-calc_size (HTMLObject *o,
-	   HTMLPainter *painter)
+calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 {
 	HTMLImage *image;
 	guint pixel_size;

@@ -41,7 +41,7 @@
 
 HTMLIFrameClass html_iframe_class;
 static HTMLEmbeddedClass *parent_class = NULL;
-static gboolean calc_size (HTMLObject *o, HTMLPainter *painter);
+static gboolean calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs);
 
 static void
 iframe_url_requested (GtkHTML *html, const char *url, GtkHTMLStream *handle, gpointer data)
@@ -238,8 +238,7 @@ check_page_split (HTMLObject *self, gint y)
 }
 
 static gboolean
-calc_size (HTMLObject *o,
-	   HTMLPainter *painter)
+calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 {
 	HTMLIFrame *iframe;
 	HTMLEngine *e;
@@ -255,7 +254,7 @@ calc_size (HTMLObject *o,
 
 	if ((iframe->width < 0) && (iframe->height < 0)) {
 		e->width = o->max_width;
-		html_engine_calc_size (e);
+		html_engine_calc_size (e, changed_objs);
 
 		height = html_engine_get_doc_height (e);
 		width = html_engine_get_doc_width (e);
@@ -277,8 +276,7 @@ calc_size (HTMLObject *o,
 		o->ascent = height;
 		o->descent = 0;
 	} else
-		return (* HTML_OBJECT_CLASS (parent_class)->calc_size) 
-			(o, painter);
+		return (* HTML_OBJECT_CLASS (parent_class)->calc_size) (o, painter, changed_objs);
 
 	if (o->descent != old_descent
 	    || o->ascent != old_ascent

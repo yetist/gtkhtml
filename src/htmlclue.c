@@ -279,8 +279,7 @@ reset (HTMLObject *clue)
 }
 
 static gboolean
-calc_size (HTMLObject *o,
-	   HTMLPainter *painter)
+calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 {
 	gboolean changed;
 
@@ -294,7 +293,7 @@ calc_size (HTMLObject *o,
 	changed = FALSE;
 
 	while (HTML_CLUE (o)->curr != NULL) {
-		changed |= html_object_calc_size (HTML_CLUE (o)->curr, painter);
+		changed |= html_object_calc_size (HTML_CLUE (o)->curr, painter, changed_objs);
 		HTML_CLUE (o)->curr = HTML_CLUE (o)->curr->next;
 	}
 

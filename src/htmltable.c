@@ -838,7 +838,7 @@ calc_row_heights (HTMLTable *table,
 }
 
 static void
-calc_cells_size (HTMLTable *table, HTMLPainter *painter)
+calc_cells_size (HTMLTable *table, HTMLPainter *painter, GList **changed_objs)
 {
 	HTMLTableCell *cell;
 	gint r, c;
@@ -847,7 +847,7 @@ calc_cells_size (HTMLTable *table, HTMLPainter *painter)
 		for (c = 0; c < table->totalCols; c++) {
 			cell = table->cells[r][c];
 			if (cell && cell->col == c && cell->row == r)
-				html_object_calc_size (HTML_OBJECT (cell), painter);
+				html_object_calc_size (HTML_OBJECT (cell), painter, changed_objs);
 		}
 }
 
@@ -874,8 +874,7 @@ html_table_set_cells_position (HTMLTable *table, HTMLPainter *painter)
 }
 
 static gboolean
-calc_size (HTMLObject *o,
-	   HTMLPainter *painter)
+calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 {
 	HTMLTable *table = HTML_TABLE (o);
 	gint old_width, old_ascent, pixel_size;
@@ -887,7 +886,7 @@ calc_size (HTMLObject *o,
 	if (!table->columnOpt->data)
 		html_table_set_max_width (o, painter, o->max_width);
 
-	calc_cells_size (table, painter);
+	calc_cells_size (table, painter, changed_objs);
 	calc_row_heights (table, painter);
 	html_table_set_cells_position (table, painter);
 

@@ -338,6 +338,13 @@ clear (HTMLDrawQueue *queue,
 void
 html_draw_queue_clear (HTMLDrawQueue *queue)
 {
+	GList *p;
+
+	for (p = queue->elems; p != NULL; p = p->next) {
+		HTML_OBJECT (p->data)->free_pending = FALSE;
+		HTML_OBJECT (p->data)->redraw_pending = FALSE;
+	}
+
 	g_list_free (queue->clear_elems);
 	g_list_free (queue->elems);
 

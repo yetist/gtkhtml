@@ -93,7 +93,7 @@ copy (HTMLObject *self,
 	dest->pref_width = self->pref_width;
 	dest->percent = self->percent;
 	dest->flags = self->flags;
-	dest->redraw_pending = self->redraw_pending;
+	dest->redraw_pending = FALSE;
 	dest->selected = self->selected;
 	dest->free_pending = FALSE;
 	dest->change = self->change;
@@ -225,30 +225,27 @@ fit_line (HTMLObject *o,
 	  gboolean first_run,
 	  gint width_left)
 {
-	html_object_calc_size (o, painter);
+	html_object_calc_size (o, painter, FALSE);
 	return (o->width <= width_left || first_run) ? HTML_FIT_COMPLETE : HTML_FIT_NONE;
 }
 
 static gboolean
-calc_size (HTMLObject *o,
-	   HTMLPainter *painter)
+calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 {
 	return FALSE;
 }
 
 static gint
-calc_min_width (HTMLObject *o,
-		HTMLPainter *painter)
+calc_min_width (HTMLObject *o, HTMLPainter *painter)
 {
-	html_object_calc_size (o, painter);
+	html_object_calc_size (o, painter, FALSE);
 	return o->width;
 }
 
 static gint
-calc_preferred_width (HTMLObject *o,
-		      HTMLPainter *painter)
+calc_preferred_width (HTMLObject *o, HTMLPainter *painter)
 {
-	html_object_calc_size (o, painter);
+	html_object_calc_size (o, painter, FALSE);
 	return o->width;
 }
 
@@ -288,9 +285,9 @@ set_painter (HTMLObject *o, HTMLPainter *painter)
 static void
 reset (HTMLObject *o)
 {
-	o->width = 0;
-	o->ascent = 0;
-	o->descent = 0;
+	/* o->width = 0;
+	   o->ascent = 0;
+	   o->descent = 0; */
 }
 
 static const gchar *
@@ -385,7 +382,7 @@ relayout (HTMLObject *self,
 		self->y -= prev_ascent + prev_descent;
 	}
 
-	changed = html_object_calc_size (self, engine->painter);
+	changed = html_object_calc_size (self, engine->painter, FALSE);
 
 	if (prev_width == self->width
 	    && prev_ascent == self->ascent
@@ -873,10 +870,14 @@ html_object_fit_line (HTMLObject *o,
 }
 
 gboolean
-html_object_calc_size (HTMLObject *o,
-		       HTMLPainter *painter)
+html_object_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 {
-	return (* HO_CLASS (o)->calc_size) (o, painter);
+	gboolean rv;
+
+	rv = (* HO_CLASS (o)->calc_size) (o, painter, changed_objs);
+	o->change &= ~HTML_CHANGE_SIZE;
+
+	return rv;
 }
 
 void

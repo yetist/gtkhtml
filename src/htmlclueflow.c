@@ -241,6 +241,11 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *ri
 		cf1->level = cf2->level;
 		cf1->item_type = cf2->item_type;
 		cf1->item_number = cf2->item_number - 1;
+		self->x = with->x;
+		self->y = with->y;
+		self->width = with->width;
+		self->ascent = with->ascent;
+		self->descent = with->descent;
 		HTML_CLUE  (cf1)->halign = HTML_CLUE (cf2)->halign;
 		HTML_CLUE  (cf1)->valign = HTML_CLUE (cf2)->valign;
 		html_object_copy_data_from_object (self, with);
@@ -510,11 +515,20 @@ pref_right_margin (HTMLPainter *p, HTMLClueFlow *clueflow, HTMLObject *o, gint y
 	return MIN (fixed_margin, 72 * html_painter_get_space_width (p, GTK_HTML_FONT_STYLE_SIZE_3, NULL));
 }
 
+static void
+add_to_changed (GList **changed_objs, HTMLObject *o)
+{
+	if (!changed_objs || (*changed_objs && (*changed_objs)->data == o))
+		return;
+	*changed_objs = g_list_prepend (*changed_objs, o);
+	/* printf ("changed HTMLClueFlow %p\n", o);
+	   gtk_html_debug_dump_tree_simple (o, 0); */
+}
+
 /* EP CHECK: should be mostly OK.  */
 /* FIXME: But it's awful.  Too big and ugly.  */
 static gboolean
-calc_size (HTMLObject *o,
-	   HTMLPainter *painter)
+calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 {
 	HTMLVSpace *vspace;
 	HTMLClue *clue;
@@ -529,7 +543,7 @@ calc_size (HTMLObject *o,
 	gint oldy;
 	gint w, a, d;
 	guint padding;
-	gboolean changed;
+	gboolean changed, leaf_childs_changed_size;
 	gint old_ascent, old_descent, old_width;
 	gint runWidth = 0;
 	gboolean have_valign_top;
@@ -537,9 +551,14 @@ calc_size (HTMLObject *o,
 	html_clueflow_remove_text_slaves (HTML_CLUEFLOW (o));
 
 	changed = FALSE;
+	leaf_childs_changed_size = FALSE;
 	old_ascent = o->ascent;
 	old_descent = o->descent;
 	old_width = o->width;
+
+	/* if (changed_objs)
+		printf ("begin:   %d==%d %d==%d %d==%d\n",
+		o->width, old_width, o->ascent, old_ascent, o->descent, old_descent); */
 
 	clue = HTML_CLUE (o);
 	flow = HTML_CLUEFLOW (o);
@@ -571,6 +590,11 @@ calc_size (HTMLObject *o,
 	have_valign_top = FALSE;
 
 	while (obj != NULL) {
+
+		if (obj && obj->change & HTML_CHANGE_SIZE
+		    && HTML_OBJECT_TYPE (obj) != HTML_TYPE_TEXTSLAVE && !html_object_is_container (obj))
+			leaf_childs_changed_size = TRUE;
+
 		if (obj->flags & HTML_OBJECT_FLAG_NEWLINE) {
 			if (!a)
 				a = obj->ascent;
@@ -597,7 +621,7 @@ calc_size (HTMLObject *o,
 			HTMLClueAligned *c = (HTMLClueAligned *)obj;
 			
 			if (! html_clue_appended (HTML_CLUE (o->parent), HTML_CLUE (c))) {
-				html_object_calc_size (obj, painter);
+				html_object_calc_size (obj, painter, changed_objs);
 
 				if (HTML_CLUE (c)->halign == HTML_HALIGN_LEFT) {
 					if (obj->x != lmargin) {
@@ -652,7 +676,9 @@ calc_size (HTMLObject *o,
 			if (lmargin >= rmargin) {
 				gint new_y;
 
-				html_object_calc_size (run, painter);
+				if (html_object_calc_size (run, painter, changed_objs)) {
+					//add_to_changed (changed_objs, run);
+                                }
 				html_clue_find_free_area (HTML_CLUE (o->parent), o->y, run->min_width,
 							  run->ascent + run->descent, indent, &new_y,
 							  &lmargin, &rmargin);
@@ -668,6 +694,10 @@ calc_size (HTMLObject *o,
 				HTMLFitType fit;
 				HTMLVAlignType valign;
 				gint width_left;
+
+				if (run && run->change & HTML_CHANGE_SIZE
+				    && HTML_OBJECT_TYPE (run) != HTML_TYPE_TEXTSLAVE && !html_object_is_container (run))
+					leaf_childs_changed_size = TRUE;
 
 				width_left = rmargin - runWidth - w;
 				fit = html_object_fit_line (run,
@@ -685,7 +715,10 @@ calc_size (HTMLObject *o,
 					break;
 				}
 
-				html_object_calc_size (run, painter);
+				if (html_object_calc_size (run, painter, changed_objs)) {
+					//add_to_changed (changed_objs, run);
+                                }
+
 				runWidth += run->width;
 
 				valign = html_object_get_valign (run);
@@ -908,8 +941,15 @@ calc_size (HTMLObject *o,
 
 	add_post_padding (HTML_CLUEFLOW (o), padding);
 
-	if (o->ascent != old_ascent || o->descent != old_descent || o->width != old_width)
+	if (o->ascent != old_ascent || o->descent != old_descent || o->width != old_width) {
 		changed = TRUE;
+	}
+	if (o->ascent != old_ascent || o->descent != old_descent || o->width != old_width || leaf_childs_changed_size) {
+		/* if (changed_objs)
+			printf ("changed: %d==%d %d==%d %d==%d %d\n",
+			o->width, old_width, o->ascent, old_ascent, o->descent, old_descent, leaf_childs_changed_size); */
+		add_to_changed (changed_objs, o);
+	}
 
 	return changed;
 }
@@ -2089,7 +2129,7 @@ relayout (HTMLObject *self,
 	mw = html_object_calc_min_width (self, engine->painter);
 	if (mw <= self->max_width)
 		return (*HTML_OBJECT_CLASS (parent_class)->relayout) (self, engine, child);
-	html_engine_calc_size (engine);
+	html_engine_calc_size (engine, FALSE);
 	html_engine_draw (engine, 0, 0, engine->width, engine->height);
 
 	return TRUE;

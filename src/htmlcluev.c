@@ -94,10 +94,18 @@ get_lmargin (HTMLObject *o, HTMLPainter *painter)
 		+ (o->parent ?  html_object_get_left_margin (o->parent, painter, o->y) : 0);
 }
 
+static void
+add_to_changed (GList **changed_objs, HTMLObject *o)
+{
+	if (!changed_objs || (*changed_objs && (*changed_objs)->data == o))
+		return;
+	*changed_objs = g_list_prepend (*changed_objs, o);
+	/* printf ("changed HTMLClueV %p\n", o);
+	   gtk_html_debug_dump_tree_simple (o, 0); */
+}
+
 static gboolean
-do_layout (HTMLObject *o,
-	   HTMLPainter *painter,
-	   gboolean calc_size)
+do_layout (HTMLObject *o, HTMLPainter *painter, gboolean calc_size, GList **changed_objs)
 {
 	HTMLClueV *cluev;
 	HTMLClue *clue;
@@ -150,18 +158,25 @@ do_layout (HTMLObject *o,
 	}
 
 	while (clue->curr != NULL) {
+		gint old_y;
 		/* Set an initial ypos so that the alignment stuff knows where
 		   the top of this object is */
+		old_y = clue->curr->y;
 		clue->curr->y = o->ascent;
 
 		if (calc_size)
-			changed |= html_object_calc_size (clue->curr, painter);
+			changed |= html_object_calc_size (clue->curr, painter, changed_objs);
 
 		if (o->width < clue->curr->width + padding2)
 			o->width = clue->curr->width + padding2;
 
 		o->ascent += clue->curr->ascent + clue->curr->descent;
 
+		if (clue->curr->x != lmargin || old_y != o->ascent - clue->curr->descent) {
+			/* if (changed_objs)
+			   printf ("y: %d ", o->ascent - clue->curr->descent); */
+			add_to_changed (changed_objs, clue->curr);
+		}
 		clue->curr->x = lmargin;
 		clue->curr->y = o->ascent - clue->curr->descent;
 
@@ -228,10 +243,9 @@ copy (HTMLObject *self,
 }
 
 static gboolean
-calc_size (HTMLObject *o,
-	   HTMLPainter *painter)
+calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 {
-	return do_layout (o, painter, TRUE);
+	return do_layout (o, painter, TRUE, changed_objs);
 }
 
 static gint
@@ -398,7 +412,7 @@ relayout (HTMLObject *self,
 
 	if (child == NULL)
 		child = HTML_CLUE (self)->head;
-	html_object_calc_size (child, engine->painter);
+	html_object_calc_size (child, engine->painter, FALSE);
 
 	HTML_CLUE (self)->curr = NULL;
 
@@ -406,7 +420,7 @@ relayout (HTMLObject *self,
 	prev_ascent = self->ascent;
 	prev_descent = self->descent;
 
-	changed = do_layout (self, engine->painter, FALSE);
+	changed = do_layout (self, engine->painter, FALSE, FALSE);
 	if (changed)
 		html_engine_queue_draw (engine, self);
 

@@ -865,7 +865,7 @@ size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 		e->width  = allocation->width;
 		e->height = allocation->height;
 
-		html_engine_calc_size (html->engine);
+		html_engine_calc_size (html->engine, FALSE);
 		gtk_html_update_scrollbars_on_resize (html, old_doc_width, old_doc_height, old_width, old_height,
 						      &changed_x, &changed_y);
 		gtk_html_private_calc_scrollbars (html, &changed_x, &changed_y);
@@ -1552,7 +1552,7 @@ set_fonts_idle (GtkHTML *html)
 		if (html->engine->clue) {
 			html_object_reset (html->engine->clue);
 			html_object_change_set_down (html->engine->clue, HTML_CHANGE_ALL);
-			html_engine_calc_size (html->engine);
+			html_engine_calc_size (html->engine, FALSE);
 			html_engine_schedule_update (html->engine);
 		}
 	}

@@ -2590,7 +2590,7 @@ html_object_changed(GtkHTMLEmbedded *eb, HTMLEngine *e)
 
 	object = gtk_object_get_data(GTK_OBJECT(eb), "embeddedelement");
 	if (object)
-		html_object_calc_size (object, e->painter);
+		html_object_calc_size (object, e->painter, FALSE);
 	
 	html_engine_schedule_update(e);
 }
@@ -3642,11 +3642,13 @@ update_embedded (GtkWidget *widget, gpointer data)
 static gboolean
 html_engine_update_event (HTMLEngine *e)
 {
+	/* printf ("html_engine_update_event\n"); */
+
 	e->updateTimer = 0;
 
 	if (html_engine_get_editable (e))
 		html_engine_hide_cursor (e);
-	html_engine_calc_size (e);
+	html_engine_calc_size (e, FALSE);
 
 	if (GTK_LAYOUT (e->widget)->vadjustment == NULL
 	    || ! html_gdk_painter_realized (HTML_GDK_PAINTER (e->painter)))
@@ -3694,6 +3696,7 @@ html_engine_update_event (HTMLEngine *e)
 void
 html_engine_schedule_update (HTMLEngine *p)
 {
+	/* printf ("html_engine_schedule_update\n"); */
 	if(p->updateTimer == 0)
 		p->updateTimer = gtk_idle_add ((GtkFunction) html_engine_update_event, p);
 }
@@ -3970,23 +3973,32 @@ html_engine_get_max_width (HTMLEngine *e)
 	return MAX (0, max_width);
 }
 
-void
-html_engine_calc_size (HTMLEngine *e)
+gboolean
+html_engine_calc_size (HTMLEngine *e, GList **changed_objs)
 {
+	gint max_width;
+	gboolean redraw_whole;
+
 	if (e->clue == 0)
-		return;
+		return FALSE;
 
 	html_object_reset (e->clue);
 
-	html_object_set_max_width (e->clue, e->painter,
-				   MIN (html_engine_get_max_width (e),
-					html_painter_get_pixel_size (e->painter)
-					* (MAX_WIDGET_WIDTH - e->leftBorder - e->rightBorder)));
+	max_width = MIN (html_engine_get_max_width (e),
+			 html_painter_get_pixel_size (e->painter)
+			 * (MAX_WIDGET_WIDTH - e->leftBorder - e->rightBorder));
+
+	redraw_whole = max_width != e->clue->max_width;
+	html_object_set_max_width (e->clue, e->painter, max_width);
 	/* printf ("calc size %d\n", e->clue->max_width); */
-	html_object_calc_size (e->clue, e->painter);
+	if (changed_objs)
+		*changed_objs = NULL;
+	html_object_calc_size (e->clue, e->painter, redraw_whole ? NULL : changed_objs);
 
 	e->clue->x = 0;
 	e->clue->y = e->clue->ascent;
+
+	return redraw_whole;
 }
 
 static void
@@ -4267,7 +4279,8 @@ html_engine_flush_draw_queue (HTMLEngine *e)
 	g_return_if_fail (e != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
-	html_draw_queue_flush (e->draw_queue);
+	if (e->freeze_count == 0)
+		html_draw_queue_flush (e->draw_queue);
 }
 
 void
@@ -4277,8 +4290,8 @@ html_engine_queue_draw (HTMLEngine *e, HTMLObject *o)
 	g_return_if_fail (HTML_IS_ENGINE (e));
 	g_return_if_fail (o != NULL);
 
-	if (e->freeze_count == 0)
-		html_draw_queue_add (e->draw_queue, o);
+	html_draw_queue_add (e->draw_queue, o);
+	/* printf ("html_draw_queue_add %p\n", o); */
 }
 
 void
@@ -4288,9 +4301,9 @@ html_engine_queue_clear (HTMLEngine *e,
 {
 	g_return_if_fail (e != NULL);
 
-	if (e->freeze_count == 0)
-		html_draw_queue_add_clear (e->draw_queue, x, y, width, height,
-					   &html_colorset_get_color_allocated (e->painter, HTMLBgColor)->color);
+	/* if (e->freeze_count == 0) */
+	html_draw_queue_add_clear (e->draw_queue, x, y, width, height,
+				   &html_colorset_get_color_allocated (e->painter, HTMLBgColor)->color);
 }
 
 
@@ -4363,24 +4376,63 @@ html_engine_freeze (HTMLEngine *engine)
 	engine->freeze_count++;
 }
 
+static void
+draw_changed_objects (HTMLEngine *e, GList *changed_objs)
+{
+	GList *cur;
+
+	for (cur = changed_objs; cur; cur = cur->next) {
+		HTMLObject *o;
+
+		o = HTML_OBJECT (cur->data);
+		html_engine_queue_draw (e, o);
+	}
+	html_engine_flush_draw_queue (e);
+}
+
 static gint
 thaw_idle (gpointer data)
 {
 	HTMLEngine *e = HTML_ENGINE (data);
+	GList *changed_objs;
+	gboolean redraw_whole;
+	gint w, h;
 
 	e->thaw_idle_id = 0;
+	w = html_engine_get_doc_width (e) - e->rightBorder;
+	h = html_engine_get_doc_height (e) - e->bottomBorder;
 
-	html_engine_calc_size (e);
+	redraw_whole = html_engine_calc_size (e, &changed_objs);
 
 	gtk_html_private_calc_scrollbars (e->widget, NULL, NULL);
 	gtk_html_edit_make_cursor_visible (e->widget);
-	/* html_engine_make_cursor_visible (e);
 
-	gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->hadjustment, (gfloat) e->x_offset);
-	gtk_adjustment_set_value (GTK_LAYOUT (e->widget)->vadjustment, (gfloat) e->y_offset);
-	*/
-	html_draw_queue_clear (e->draw_queue);
-	html_engine_schedule_redraw (e);
+	if (redraw_whole) {
+		html_draw_queue_clear (e->draw_queue);
+		html_engine_schedule_redraw (e);
+	} else {
+		GtkAdjustment *vadj, *hadj;
+		gint nw, nh;
+
+		draw_changed_objects (e, changed_objs);
+
+		hadj = GTK_LAYOUT (e->widget)->hadjustment;
+		vadj = GTK_LAYOUT (e->widget)->vadjustment;
+		nw = html_engine_get_doc_width (e) - e->rightBorder;
+		nh = html_engine_get_doc_height (e) - e->bottomBorder;
+
+		if (nh < h && nh - vadj->value < e->height) {
+			html_painter_begin (e->painter, 0, nh - vadj->value, e->width, e->height);
+			html_engine_draw_background (e, 0, nh - vadj->value, e->width, e->height - (nh - vadj->value));
+			html_painter_end (e->painter);
+		}
+		if (nw < w && nw - hadj->value < e->width) {
+			html_painter_begin (e->painter, nw - hadj->value, 0, e->width, e->height);
+			html_engine_draw_background (e, nw - hadj->value, 0, e->width - (nw - hadj->value), e->height);
+			html_painter_end (e->painter);
+		}
+		g_list_free (changed_objs);
+	}
 	html_engine_show_cursor (e);
 
 
@@ -4676,7 +4728,7 @@ html_engine_set_painter (HTMLEngine *e, HTMLPainter *painter)
 	html_object_set_painter (e->clue, painter);
 	html_object_change_set_down (e->clue, HTML_CHANGE_ALL);
 	html_object_reset (e->clue);
-	html_engine_calc_size (e);
+	html_engine_calc_size (e, FALSE);
 }
 
 gint
@@ -4750,7 +4802,7 @@ html_engine_set_class_data (HTMLEngine *e, const gchar *class_name, const gchar 
 	gpointer old_key;
 	gpointer old_val;
 
-	printf ("set (%s) %s to %s (%p)\n", class_name, key, value, e->class_data);
+	/* printf ("set (%s) %s to %s (%p)\n", class_name, key, value, e->class_data); */
 
 	t = get_class_table_sure (e, class_name);
 
@@ -4774,7 +4826,7 @@ html_engine_clear_class_data (HTMLEngine *e, const gchar *class_name, const gcha
 
 	t = get_class_table (e, class_name);
 
-	printf ("clear (%s) %s\n", class_name, key);
+	/* printf ("clear (%s) %s\n", class_name, key); */
 	if (t && g_hash_table_lookup_extended (t, key, &old_key, &old_val)) {
 		g_hash_table_remove (t, key);
 		g_free (old_key);
@@ -4791,7 +4843,7 @@ html_engine_get_class_data (HTMLEngine *e, const gchar *class_name, const gchar 
 static void
 set_object_data (gpointer key, gpointer value, gpointer data)
 {
-	printf ("set %s\n", (const gchar *) key);
+	/* printf ("set %s\n", (const gchar *) key); */
 	html_object_set_data (HTML_OBJECT (data), g_strdup ((const gchar *) key), g_strdup ((const gchar *) value));
 }
 

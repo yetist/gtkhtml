@@ -171,8 +171,7 @@ slave_split_if_too_long (HTMLTextSlave *slave, HTMLPainter *painter, gint *width
 }
 
 static gboolean
-calc_size (HTMLObject *self,
-	   HTMLPainter *painter)
+calc_size (HTMLObject *self, HTMLPainter *painter, GList **changed_objs)
 {
 	HTMLText *owner;
 	HTMLTextSlave *slave;
