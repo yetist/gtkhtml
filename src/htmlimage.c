@@ -1065,7 +1065,8 @@ html_image_pointer_queue_animation (HTMLImagePointer *ip)
 		ip->animation_timeout = g_timeout_add (delay, 
 						       (GtkFunction) html_image_pointer_run_animation, 
 						       (gpointer) ip);
-
+	else
+		ip->animation_timeout = 0;
 }
 
 static gint
@@ -1210,7 +1211,7 @@ html_image_pointer_timeout (HTMLImagePointer *ip)
 			list = list->next;
 		}
 	}
-	//ip->stall_timeout = 0;
+	ip->stall_timeout = 0;
 	return FALSE;
 }
 

@@ -1,3 +1,7 @@
+2003-04-02  Larry Ewing  <lewing@ximian.com>
+
+	* htmlimage.c: be more careful about zeroing some of the timeouts.
+
 2003-04-01  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine-edit-cursor.c (html_engine_draw_cursor_in_area):
