@@ -1,9 +1,13 @@
 2000-02-21  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlembedded.c (html_embedded_grab_cursor): Removed spurious
+	debugging message.
+
 	* gtkhtml.c (gtk_html_allow_selection): New function.
 	(init): Initialize `allow_selection' to TRUE.
 	(button_press_event): Do not grab the pointer if `allow_selection'
 	is FALSE.
+	(realize): Removed spurious `g_message()'.
 
 	* gtkhtml.h: New member `allow_selection'.
 

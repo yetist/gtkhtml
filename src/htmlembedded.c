@@ -253,7 +253,6 @@ static gboolean
 html_embedded_grab_cursor(GtkWidget *eb, GdkEvent *event)
 {
 	/* Keep the focus! Fight the power */
-	printf("button pressed\n");
 	return TRUE;
 }
 

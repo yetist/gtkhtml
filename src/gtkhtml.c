@@ -446,7 +446,6 @@ realize (GtkWidget *widget)
 {
 	GtkHTML *html;
 
-	g_message ("realize");
 	g_return_if_fail (widget != NULL);
 	g_return_if_fail (GTK_IS_HTML (widget));
 
