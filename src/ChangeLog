@@ -1,3 +1,10 @@
+2001-05-23  Larry Ewing  <lewing@ximian.com>
+
+	* htmltokenizer.c (end_tag): do not discard the line feeds
+	following a opening tag inside a pre tag, but discard them
+	otherwise.  This should avoid the unintentional spaces introduced
+	by the previous change.
+
 2001-05-22  Larry Ewing  <lewing@ximian.com>
 
 	* htmlengine.c (parse_d): close the flow unconditionaly for dd but
