@@ -1,3 +1,9 @@
+2000-04-29  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* htmlengine-edit-insert.c
+	(do_undo): Undelete `num_chars' character, not just one, you
+	doofus.
+
 2000-04-29  Radek Doulik  <rodo@helixcode.com>
 
 	* htmllinktextmaster.c (html_link_text_master_set_url): new setting function 
