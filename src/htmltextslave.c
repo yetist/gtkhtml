@@ -473,6 +473,36 @@ get_url (HTMLObject *o)
 	return html_object_get_url (HTML_OBJECT (slave->owner));
 }
 
+guint
+get_offset_for_pointer (HTMLTextSlave *slave, HTMLPainter *painter, gint x, gint y)
+{
+	HTMLText *owner;
+	GtkHTMLFontStyle font_style;
+	guint width, prev_width;
+	guint i;
+
+	g_return_val_if_fail (slave != NULL, 0);
+
+	owner = HTML_TEXT (slave->owner);
+	font_style = html_text_get_font_style (owner);
+
+	x -= HTML_OBJECT (slave)->x;
+
+	prev_width = 0;
+	for (i = 1; i <= slave->posLen; i++) {
+		width = html_painter_calc_text_width (painter,
+						      html_text_get_text (owner, slave->posStart),
+						      i, font_style, owner->face);
+
+		if ((width + prev_width) / 2 >= x)
+			return i - 1;
+
+		prev_width = width;
+	}
+
+	return slave->posLen;
+}
+
 static HTMLObject *
 check_point (HTMLObject *self,
 	     HTMLPainter *painter,
@@ -480,6 +510,19 @@ check_point (HTMLObject *self,
 	     guint *offset_return,
 	     gboolean for_cursor)
 {
+	if (x >= self->x
+	    && x < self->x + self->width
+	    && y >= self->y - self->ascent
+	    && y < self->y + self->descent) {
+		HTMLTextSlave *slave = HTML_TEXT_SLAVE (self);
+
+		if (offset_return != NULL)
+			*offset_return = slave->posStart
+				+ get_offset_for_pointer (slave, painter, x, y);
+
+		return HTML_OBJECT (slave->owner);
+	}
+
 	return NULL;
 }
 
@@ -551,37 +594,4 @@ html_text_slave_new (HTMLText *owner, gint posStart, gint posLen)
 	html_text_slave_init (slave, &html_text_slave_class, owner, posStart, posLen);
 
 	return HTML_OBJECT (slave);
-}
-
-
-guint
-html_text_slave_get_offset_for_pointer (HTMLTextSlave *slave,
-					HTMLPainter *painter,
-					gint x, gint y)
-{
-	HTMLText *owner;
-	GtkHTMLFontStyle font_style;
-	guint width, prev_width;
-	guint i;
-
-	g_return_val_if_fail (slave != NULL, 0);
-
-	owner = HTML_TEXT (slave->owner);
-	font_style = html_text_get_font_style (owner);
-
-	x -= HTML_OBJECT (slave)->x;
-
-	prev_width = 0;
-	for (i = 1; i <= slave->posLen; i++) {
-		width = html_painter_calc_text_width (painter,
-						      html_text_get_text (owner, slave->posStart),
-						      i, font_style, owner->face);
-
-		if ((width + prev_width) / 2 >= x)
-			return i - 1;
-
-		prev_width = width;
-	}
-
-	return slave->posLen;
 }

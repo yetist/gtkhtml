@@ -830,8 +830,10 @@ check_point (HTMLObject *self,
 	     guint *offset_return,
 	     gboolean for_cursor)
 {
-	HTMLObject *obj, *p, *pnext;
+	HTMLObject *obj, *p, *pnext, *eol, *cur;
 	HTMLClue *clue;
+	gint line_ly = 0;
+	gint line_y;
 
 	if (x < self->x || x >= self->x + self->width
 	    || y < self->y - self->ascent || y >= self->y + self->descent)
@@ -842,32 +844,75 @@ check_point (HTMLObject *self,
 	x = x - self->x;
 	y = y - self->y + self->ascent;
 
+	for (p = clue->head; p; ) {
+
+		if (html_object_is_text (p))
+			p = p->next;
+		if (!p)
+			break;
+
+		line_y  = line_ly;
+		line_ly = p->y + p->descent;
+
+		for (eol = p; eol && eol->y - eol->ascent < line_ly; ) {
+			line_ly = MAX (line_ly, eol->y + eol->descent);
+			do
+				eol = eol->next;
+			while (eol && html_object_is_text (eol));
+		}
+
+		if (y >= line_y && y < line_ly)
+			for (cur = p; cur && cur != eol; ) {
+				obj = html_object_check_point (cur, painter, x, for_cursor
+							       ? MIN (MAX (y, cur->y - cur->ascent),
+								      cur->y + cur->descent - 1) : y,
+							       offset_return, for_cursor);
+
+				if (obj != NULL)
+					return obj;
+				do
+					cur = cur->next;
+				while (cur && cur != eol && html_object_is_text (cur));
+			}
+		p = eol;
+	}
+
+	if (!for_cursor)
+		return NULL;
+
 	for (p = clue->head; p != NULL; p = pnext) {
+		if (html_object_is_text (p))
+			p = p->next;
+
 		pnext = p->next;
+		while (pnext && html_object_is_text (pnext))
+			pnext = pnext->next;
 
-		obj = html_object_check_point (p, painter, x, y, offset_return, for_cursor);
-		if (obj != NULL)
-			return obj;
-
-		if (! for_cursor)
-			continue;
-
-		if (p->prev == NULL && (x < p->x || y < p->y - p->ascent)) {
-			obj = html_object_check_point (p, painter, p->x, p->y - p->ascent, offset_return, for_cursor);
-			if (obj != NULL)
-				return obj;
-		} else if (pnext == NULL || (pnext->y != p->y
-					     && y >= p->y - p->ascent
-					     && y <= p->y + p->descent - 1)) {
-			obj = html_object_check_point (HTML_OBJECT_TYPE (p) != HTML_TYPE_TEXTSLAVE
-						       ? p : html_object_prev_not_slave (p),
-						       painter, p->x + p->width - 1, p->y + p->descent -1,
+		/* new line */
+		if (pnext == NULL || (pnext->y - pnext->ascent >= p->y + p->descent
+				      && y >= p->y - p->ascent
+				      && y <  p->y + p->descent)) {
+			obj = html_object_check_point (p, painter, p->x + p->width - 1, p->y + p->descent - 1,
 						       offset_return, for_cursor);
 			if (obj != NULL)
 				return obj;
 		}
 	}
-
+	/* before */
+	p = clue->head;
+	if (x < p->x || y < p->y - p->ascent) {
+		obj = html_object_check_point (p, painter, p->x, p->y - p->ascent, offset_return, for_cursor);
+		if (obj != NULL)
+			return obj;
+	}
+	/* after */
+	p = clue->tail;
+	if (x >= p->x + p->width || y >= p->y + p->descent) {
+		obj = html_object_check_point (p, painter, p->x + p->width - 1, p->y + p->descent - 1,
+					       offset_return, for_cursor);
+		if (obj != NULL)
+			return obj;
+	}
 	return NULL;
 }
 
@@ -1862,8 +1907,8 @@ get_text (HTMLClue *clue, HTMLInterval *i)
 	guint cb, bytes = 0;
 	gchar *text, *ct;
 
-	bytes      = get_text_bytes (clue, i);
-	ct         = text = g_malloc (bytes + 1);
+	bytes        = get_text_bytes (clue, i);
+	ct           = text = g_malloc (bytes + 1);
 	text [bytes] = 0;
 
 	obj = html_interval_get_head (i, HTML_OBJECT (clue));

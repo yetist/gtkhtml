@@ -293,6 +293,10 @@ void        html_object_forall            (HTMLObject            *self,
 					   HTMLObjectForallFunc   func,
 					   gpointer               data);
 gboolean    html_object_is_container      (HTMLObject            *self);
+HTMLObject *html_object_next_not_type     (HTMLObject            *self,
+					   HTMLType               t);
+HTMLObject *html_object_prev_not_type     (HTMLObject            *self,
+					   HTMLType               t);
 HTMLObject *html_object_next_not_slave    (HTMLObject            *self);
 HTMLObject *html_object_prev_not_slave    (HTMLObject            *self);
 HTMLObject *html_object_next_by_type      (HTMLObject            *self,

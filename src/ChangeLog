@@ -1,3 +1,19 @@
+2001-01-08  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltextslave.c (get_offset_for_pointer): renamed from
+	html_text_slave_get_offset_for_pointer, make it private
+
+	* htmlobject.c (html_object_next_not_type): new helper function
+	(html_object_prev_not_type): ditto
+
+	* htmlclueflow.c (check_point): rewritten, take care of objects
+	with different (ascent + descent)'s
+
+	* htmltextslave.c (check_point): implement this method
+
+	* htmltext.c (check_point): return just NULL, left work to
+	clueflow which is container
+
 2001-01-05  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine.c (html_engine_freeze): hide cursor

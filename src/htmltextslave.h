@@ -53,9 +53,4 @@ void        html_text_slave_init                    (HTMLTextSlave      *slave,
 HTMLObject *html_text_slave_new                     (HTMLText           *owner,
 						     gint                posStart,
 						     gint                posLen);
-guint       html_text_slave_get_offset_for_pointer  (HTMLTextSlave      *slave,
-						     HTMLPainter        *painter,
-						     gint                x,
-						     gint                y);
-
 #endif /* _HTMLTEXTSLAVE_H_ */

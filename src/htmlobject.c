@@ -1106,7 +1106,7 @@ html_object_is_text (HTMLObject *object)
 }
 
 HTMLObject *
-html_object_next_not_slave (HTMLObject *object)
+html_object_next_not_type (HTMLObject *object, HTMLType t)
 {
 	HTMLObject *p;
 
@@ -1114,14 +1114,14 @@ html_object_next_not_slave (HTMLObject *object)
 	g_return_val_if_fail (object->parent, NULL);
 
 	p = html_object_next (object->parent, object);
-	while (p && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
+	while (p && HTML_OBJECT_TYPE (p) == t)
 		p = html_object_next (p->parent, p);
 
 	return p;
 }
 
 HTMLObject *
-html_object_prev_not_slave (HTMLObject *object)
+html_object_prev_not_type (HTMLObject *object, HTMLType t)
 {
 	HTMLObject *p;
 
@@ -1129,10 +1129,22 @@ html_object_prev_not_slave (HTMLObject *object)
 	g_return_val_if_fail (object->parent, NULL);
 
 	p = html_object_prev (object->parent, object);
-	while (p && HTML_OBJECT_TYPE (p) == HTML_TYPE_TEXTSLAVE)
+	while (p && HTML_OBJECT_TYPE (p) == t)
 		p = html_object_prev (p->parent, p);
 
 	return p;
+}
+
+HTMLObject *
+html_object_next_not_slave (HTMLObject *object)
+{
+	return html_object_next_not_type (object, HTML_TYPE_TEXTSLAVE);
+}
+
+HTMLObject *
+html_object_prev_not_slave (HTMLObject *object)
+{
+	return html_object_prev_not_type (object, HTML_TYPE_TEXTSLAVE);
 }
 
 
