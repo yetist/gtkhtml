@@ -1056,8 +1056,6 @@ focus_in_event (GtkWidget *widget,
 {
 	GtkHTML *html = GTK_HTML (widget);
 
-	printf ("focus_in_event\n");
-
 	if (!html->iframe_parent) {
 		GTK_WIDGET_SET_FLAGS (widget, GTK_HAS_FOCUS);
 		html_engine_set_focus (html->engine, TRUE);

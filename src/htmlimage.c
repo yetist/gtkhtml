@@ -320,6 +320,7 @@ draw (HTMLObject *o,
 						o->ascent + o->descent - 2 * vspace);
 		}
 		html_painter_draw_panel (painter,
+					 &((html_colorset_get_color (painter->color_set, HTMLBgColor))->color),
 					 o->x + tx + hspace,
 					 o->y + ty - o->ascent + vspace,
 					 o->width - 2 * hspace,
@@ -340,7 +341,8 @@ draw (HTMLObject *o,
 			html_painter_set_pen (painter, &image->color->color);
 		}
 		
-		html_painter_draw_panel (painter, 
+		html_painter_draw_panel (painter,
+					 &((html_colorset_get_color (painter->color_set, HTMLBgColor))->color),
 					 base_x - image->border * pixel_size,
 					 base_y - image->border * pixel_size,
 					 scale_width + (2 * image->border) * pixel_size,

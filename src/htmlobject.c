@@ -23,12 +23,14 @@
 
 #include <string.h>
 
-#include "htmlobject.h"
 #include "htmlclue.h"
 #include "htmlclueflow.h"
 #include "htmlcluev.h"
+#include "htmlcolor.h"
+#include "htmlcolorset.h"
 #include "htmlcursor.h"
 #include "htmlengine.h"
+#include "htmlobject.h"
 #include "htmlpainter.h"
 #include "htmltext.h"
 #include "htmltextmaster.h"
@@ -226,6 +228,16 @@ static void
 set_bg_color (HTMLObject *o,
 	      GdkColor *color)
 {
+}
+
+static GdkColor *
+get_bg_color (HTMLObject *o,
+	      HTMLPainter *p)
+{
+	
+	return o->parent
+		? html_object_get_bg_color (o->parent, p)
+		: &((html_colorset_get_color (p->color_set, HTMLBgColor))->color);
 }
 
 static HTMLObject*
@@ -538,6 +550,7 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->find_anchor = find_anchor;
 	klass->set_link = NULL;
 	klass->set_bg_color = set_bg_color;
+	klass->get_bg_color = get_bg_color;
 	klass->check_point = check_point;
 	klass->relayout = relayout;
 	klass->get_valign = get_valign;
@@ -834,6 +847,12 @@ void
 html_object_set_bg_color (HTMLObject *o, GdkColor *color)
 {
 	(* HO_CLASS (o)->set_bg_color) (o, color);
+}
+
+GdkColor *
+html_object_get_bg_color (HTMLObject *o, HTMLPainter *p)
+{
+	return (* HO_CLASS (o)->get_bg_color) (o, p);
 }
 
 HTMLObject *

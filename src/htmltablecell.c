@@ -186,6 +186,17 @@ set_bg_color (HTMLObject *object, GdkColor *color)
 	cell->have_bg = TRUE;
 }
 
+static GdkColor *
+get_bg_color (HTMLObject *o,
+	      HTMLPainter *p)
+{
+	
+	return HTML_TABLE_CELL (o)->have_bg
+		? &HTML_TABLE_CELL (o)->bg
+		: html_object_get_bg_color (o->parent, p);
+}
+
+
 #define SB if (!html_engine_save_output_string (state,
 #define SE )) return FALSE
 
@@ -240,6 +251,7 @@ html_table_cell_class_init (HTMLTableCellClass *klass,
 	object_class->draw = draw;
 	object_class->draw_background = draw_background;
 	object_class->set_bg_color = set_bg_color;
+	object_class->get_bg_color = get_bg_color;
 	object_class->save = save;
 
 	parent_class = &html_cluev_class;

@@ -175,7 +175,8 @@ draw (HTMLObject *o,
 	}
 
 	if (rule->shade)
-		html_painter_draw_panel (p, xp, yp, w, h, GTK_HTML_ETCH_IN, 1);
+		html_painter_draw_panel (p, &((html_colorset_get_color (p->color_set, HTMLBgColor))->color),
+					 xp, yp, w, h, GTK_HTML_ETCH_IN, 1);
 	else {
 		html_painter_set_pen (p, &html_colorset_get_color_allocated (p, HTMLTextColor)->color);
 		html_painter_fill_rect (p, xp, yp, w, h);

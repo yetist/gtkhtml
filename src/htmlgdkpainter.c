@@ -404,6 +404,7 @@ draw_rect (HTMLPainter *painter,
 
 static void
 draw_panel (HTMLPainter *painter,
+	    GdkColor *bg,
 	    gint x, gint y,
 	    gint width, gint height,
 	    GtkHTMLEtchStyle inset,
@@ -411,13 +412,11 @@ draw_panel (HTMLPainter *painter,
 {
 	HTMLGdkPainter *gdk_painter;
 	GdkColor *col1 = NULL, *col2 = NULL;
-	GdkColor *bg, dark, light;
+	GdkColor dark, light;
 
 	#define INC 0x8000
 	#define DARK(c)  dark.  ## c = MAX (((gint) bg-> ## c) - INC, 0)
 	#define LIGHT(c) light. ## c = MIN (((gint) bg-> ## c) + INC, 0xffff)
-
-	bg = &((html_colorset_get_color (painter->color_set, HTMLBgColor))->color);
 
 	DARK(red);
 	DARK(green);

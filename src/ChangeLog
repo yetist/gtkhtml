@@ -1,3 +1,17 @@
+2000-12-08  Radek Doulik  <rodo@helixcode.com>
+
+	* htmltable.c (get_bg_color): new method
+	(draw): use parent color for border panel
+	(draw): use cell color for its border panel
+	fix border_extra everywhere
+
+	* htmlobject.c (html_object_set_bg_color): new function
+
+	* htmltable.c (divide_into_variable_all): calc exactly :)
+
+	* htmlpainter.c (html_painter_draw_panel): added parameter bg
+	(color)
+
 2000-12-07  Larry Ewing  <lewing@helixcode.com>
 
 	* gtkhtml.c (selection_get): whoops encode COMPOUND_TEXT as well

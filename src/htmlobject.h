@@ -125,6 +125,8 @@ struct _HTMLObjectClass {
 				  gint x, gint y,
 				  gint width, gint height,
 				  gint tx, gint ty);
+	void       (* set_bg_color) (HTMLObject *o, GdkColor *color);
+	GdkColor * (* get_bg_color) (HTMLObject *o, HTMLPainter *p);
 
 	/* Margins.  This should actually be used only by objects that
            contain other objects, so it should be in HTMLClue.  But
@@ -145,8 +147,6 @@ struct _HTMLObjectClass {
 	const gchar * (* get_target) (HTMLObject *o);
 
 	HTMLAnchor * (* find_anchor) (HTMLObject *o, const gchar *name, gint *x, gint *y);
-
-	void (* set_bg_color) (HTMLObject *o, GdkColor *color);
 
 	HTMLObject * (* check_point) (HTMLObject *self, HTMLPainter *painter,
 				      gint x, gint y, guint *offset_return,
@@ -277,9 +277,11 @@ void      html_object_draw_background  (HTMLObject  *o,
 					gint         height,
 					gint         tx,
 					gint         ty);
-gboolean  html_object_is_transparent   (HTMLObject  *self);
 void      html_object_set_bg_color     (HTMLObject  *o,
 					GdkColor    *color);
+GdkColor *html_object_get_bg_color     (HTMLObject  *o,
+					HTMLPainter *p);
+gboolean  html_object_is_transparent   (HTMLObject  *self);
 
 /* Layout.  */
 HTMLFitType     html_object_fit_line              (HTMLObject  *o,

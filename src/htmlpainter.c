@@ -423,6 +423,7 @@ html_painter_draw_shade_line (HTMLPainter *painter,
 
 void
 html_painter_draw_panel (HTMLPainter *painter,
+			 GdkColor *bg,
 			 gint x, gint y,
 			 gint width, gint height,
 			 GtkHTMLEtchStyle inset,
@@ -431,7 +432,7 @@ html_painter_draw_panel (HTMLPainter *painter,
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 
-	(* HP_CLASS (painter)->draw_panel) (painter, x, y, width, height, inset, bordersize);
+	(* HP_CLASS (painter)->draw_panel) (painter, bg, x, y, width, height, inset, bordersize);
 }
 
 /* Passing 0 for width/height means remove clip rectangle */

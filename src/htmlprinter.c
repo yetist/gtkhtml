@@ -333,11 +333,13 @@ draw_rect (HTMLPainter *painter,
 
 static void
 draw_panel (HTMLPainter *painter,
+	    GdkColor *bg,
 	    gint x, gint y,
 	    gint width, gint height,
 	    GtkHTMLEtchStyle inset,
 	    gint bordersize)
 {
+	/* FIXME bg color */
 	do_rectangle (painter, x, y, width, height, bordersize);
 }
 
