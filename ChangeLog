@@ -1,3 +1,7 @@
+2000-07-16  Kjartan Maraas  <kmaraas@online.no>
+
+	* configure.in: Added no to ALL_LINGUAS.
+	
 2000-07-14  Fatih Demir	<kabalak@gmx.net>
 
 	* configure.in: Added tr to ALL_LINGUAS.
