@@ -6,14 +6,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-26 19:07-0400\n"
+"POT-Creation-Date: 2004-06-01 09:37-0400\n"
 "PO-Revision-Date: 2004-05-26 19:09-0400\n"
 "Last-Translator: Gareth Owen <gowen72@yahoo.comg>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -22,7 +22,7 @@ msgstr "<None>"
 #: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
 #: components/html-editor/cell.c:333 components/html-editor/image.c:412
 #: components/html-editor/link.c:192 components/html-editor/rule.c:174
-#: components/html-editor/table.c:212 components/html-editor/template.c:272
+#: components/html-editor/table.c:220 components/html-editor/template.c:272
 #: components/html-editor/text.c:159
 msgid "Could not load glade file."
 msgstr "Could not load glade file."
@@ -212,7 +212,7 @@ msgstr "Bulleted List"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
-#: components/html-editor/toolbar.c:514
+#: components/html-editor/toolbar.c:515
 msgid "Center justifies the paragraphs"
 msgstr "Centre justifies the paragraphs"
 
@@ -423,7 +423,7 @@ msgstr "Insert text file into document..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
-#: components/html-editor/toolbar.c:512
+#: components/html-editor/toolbar.c:513
 msgid "Left justifies the paragraphs"
 msgstr "Left justifies the paragraphs"
 
@@ -434,7 +434,7 @@ msgstr "Li_ck"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
-#: components/html-editor/menubar.c:106 components/html-editor/popup.c:106
+#: components/html-editor/menubar.c:113 components/html-editor/popup.c:106
 #: components/html-editor/popup.c:201 components/html-editor/popup.c:267
 msgid "Link"
 msgstr "Link"
@@ -599,7 +599,7 @@ msgstr "Replace"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
-#: components/html-editor/toolbar.c:516
+#: components/html-editor/toolbar.c:517
 msgid "Right justifies the paragraphs"
 msgstr "Right justifies the paragraphs"
 
@@ -612,7 +612,7 @@ msgstr "Roman Numeral List"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 #: components/html-editor/editor-control-factory.c:207
 #: components/html-editor/gtkhtml-editor-properties.glade.h:48
-#: components/html-editor/menubar.c:125 components/html-editor/popup.c:225
+#: components/html-editor/menubar.c:132 components/html-editor/popup.c:225
 msgid "Rule"
 msgstr "Rule"
 
@@ -628,7 +628,7 @@ msgstr "Select the entire contents of the document"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
-#: components/html-editor/toolbar.c:544
+#: components/html-editor/toolbar.c:545
 msgid "Strikeout"
 msgstr "Strikeout"
 
@@ -660,7 +660,7 @@ msgstr "Superscript"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: components/html-editor/menubar.c:148 components/html-editor/popup.c:231
+#: components/html-editor/menubar.c:155 components/html-editor/popup.c:231
 #: components/html-editor/popup.c:511 components/html-editor/popup.c:523
 msgid "Table"
 msgstr "Table"
@@ -677,13 +677,13 @@ msgstr "Te_xt file..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
 #: components/html-editor/gtkhtml-editor-properties.glade.h:53
-#: components/html-editor/menubar.c:170
+#: components/html-editor/menubar.c:177
 msgid "Template"
 msgstr "Template"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
-#: components/html-editor/toolbar.c:536
+#: components/html-editor/toolbar.c:537
 msgid "Typewriter"
 msgstr "Typewriter"
 
@@ -1001,7 +1001,7 @@ msgstr "Draft"
 msgid "Graph paper"
 msgstr "Graph paper"
 
-#: components/html-editor/body.c:243
+#: components/html-editor/body.c:246
 msgid "T_emplate:"
 msgstr "T_emplate:"
 
@@ -1012,67 +1012,67 @@ msgstr "T_emplate:"
 #. }
 #. g_signal_connect (data->entry_title, "changed", G_CALLBACK (entry_changed), data);
 #. editor_hig_attach_row (t1, _("T_itle:"), data->entry_title, 1);
-#: components/html-editor/body.c:253 components/html-editor/paragraph.c:112
+#: components/html-editor/body.c:256 components/html-editor/paragraph.c:112
 msgid "General"
 msgstr "General"
 
-#: components/html-editor/body.c:264 components/html-editor/text.c:162
-#: components/html-editor/toolbar.c:300
+#: components/html-editor/body.c:267 components/html-editor/text.c:162
+#: components/html-editor/toolbar.c:301
 msgid "Automatic"
 msgstr "Automatic"
 
-#: components/html-editor/body.c:276
+#: components/html-editor/body.c:279
 msgid "_Text:"
 msgstr "_Text:"
 
-#: components/html-editor/body.c:277
+#: components/html-editor/body.c:280
 msgid "_Link:"
 msgstr "_Link:"
 
-#: components/html-editor/body.c:278
+#: components/html-editor/body.c:281
 msgid "_Background:"
 msgstr "_Background:"
 
-#: components/html-editor/body.c:280
+#: components/html-editor/body.c:283
 #: components/html-editor/gtkhtml-editor-properties.glade.h:30
 msgid "Colors"
 msgstr "Colours"
 
-#: components/html-editor/body.c:282 components/html-editor/body.c:297
+#: components/html-editor/body.c:285 components/html-editor/body.c:300
 #: components/html-editor/gtkhtml-editor-properties.glade.h:23
 msgid "Background Image"
 msgstr "Background Image"
 
-#: components/html-editor/body.c:295
+#: components/html-editor/body.c:298
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
 msgid "_Source:"
 msgstr "_Source:"
 
-#: components/html-editor/cell.c:350 components/html-editor/table.c:223
+#: components/html-editor/cell.c:350 components/html-editor/table.c:231
 msgid "Transparent"
 msgstr "Transparent"
 
 #: components/html-editor/editor-control-factory.c:178
-#: components/html-editor/menubar.c:321 components/html-editor/menubar.c:339
-#: components/html-editor/menubar.c:357 components/html-editor/popup.c:186
+#: components/html-editor/menubar.c:328 components/html-editor/menubar.c:346
+#: components/html-editor/menubar.c:364 components/html-editor/popup.c:186
 #: components/html-editor/popup.c:264
 msgid "Properties"
 msgstr "Properties"
 
 #: components/html-editor/editor-control-factory.c:197
 #: components/html-editor/gtkhtml-editor-properties.glade.h:54
-#: components/html-editor/menubar.c:343 components/html-editor/popup.c:195
+#: components/html-editor/menubar.c:350 components/html-editor/popup.c:195
 msgid "Text"
 msgstr "Text"
 
 #: components/html-editor/editor-control-factory.c:216
-#: components/html-editor/menubar.c:361 components/html-editor/popup.c:213
+#: components/html-editor/menubar.c:368 components/html-editor/popup.c:213
 msgid "Paragraph"
 msgstr "Paragraph"
 
 #: components/html-editor/editor-control-factory.c:220
 #: components/html-editor/gtkhtml-editor-properties.glade.h:43
-#: components/html-editor/menubar.c:325 components/html-editor/popup.c:219
+#: components/html-editor/menubar.c:332 components/html-editor/popup.c:219
 msgid "Page"
 msgstr "Page"
 
@@ -1359,7 +1359,7 @@ msgid "Cell"
 msgstr "Cell"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:28
-#: components/html-editor/paragraph.c:128 components/html-editor/toolbar.c:514
+#: components/html-editor/paragraph.c:128 components/html-editor/toolbar.c:515
 msgid "Center"
 msgstr "Centre"
 
@@ -1585,22 +1585,22 @@ msgstr ""
 msgid "Insert image"
 msgstr "Insert image"
 
-#: components/html-editor/menubar.c:103 components/html-editor/menubar.c:122
-#: components/html-editor/menubar.c:145 components/html-editor/menubar.c:167
+#: components/html-editor/menubar.c:110 components/html-editor/menubar.c:129
+#: components/html-editor/menubar.c:152 components/html-editor/menubar.c:174
 #: components/html-editor/popup.c:103
 msgid "Insert"
 msgstr "Insert"
 
-#: components/html-editor/menubar.c:256
+#: components/html-editor/menubar.c:263
 #, c-format
 msgid "Error loading file '%s': %s"
 msgstr "Error loading file '%s': %s"
 
-#: components/html-editor/menubar.c:283
+#: components/html-editor/menubar.c:290
 msgid "Insert: HTML File"
 msgstr "Insert: HTML File"
 
-#: components/html-editor/menubar.c:283
+#: components/html-editor/menubar.c:290
 msgid "Insert: Text File"
 msgstr "Insert: Text File"
 
@@ -1847,59 +1847,59 @@ msgstr "GtkHTML Editor Test Container"
 msgid "Roman List"
 msgstr "Roman List"
 
-#: components/html-editor/toolbar.c:512
+#: components/html-editor/toolbar.c:513
 msgid "Left align"
 msgstr "Left align"
 
-#: components/html-editor/toolbar.c:516
+#: components/html-editor/toolbar.c:517
 msgid "Right align"
 msgstr "Right align"
 
-#: components/html-editor/toolbar.c:536
+#: components/html-editor/toolbar.c:537
 msgid "Toggle typewriter font style"
 msgstr "Toggle typewriter font style"
 
-#: components/html-editor/toolbar.c:538
+#: components/html-editor/toolbar.c:539
 msgid "Bold"
 msgstr "Bold"
 
-#: components/html-editor/toolbar.c:538
+#: components/html-editor/toolbar.c:539
 msgid "Makes the text bold"
 msgstr "Makes the text bold"
 
-#: components/html-editor/toolbar.c:540
+#: components/html-editor/toolbar.c:541
 msgid "Italic"
 msgstr "Italic"
 
-#: components/html-editor/toolbar.c:540
+#: components/html-editor/toolbar.c:541
 msgid "Makes the text italic"
 msgstr "Makes the text italic"
 
-#: components/html-editor/toolbar.c:542
+#: components/html-editor/toolbar.c:543
 msgid "Underline"
 msgstr "Underline"
 
-#: components/html-editor/toolbar.c:542
+#: components/html-editor/toolbar.c:543
 msgid "Underlines the text"
 msgstr "Underlines the text"
 
-#: components/html-editor/toolbar.c:544
+#: components/html-editor/toolbar.c:545
 msgid "Strikes out the text"
 msgstr "Strikes out the text"
 
-#: components/html-editor/toolbar.c:553
+#: components/html-editor/toolbar.c:554
 msgid "Unindent"
 msgstr "Unindent"
 
-#: components/html-editor/toolbar.c:553
+#: components/html-editor/toolbar.c:554
 msgid "Indents the paragraphs less"
 msgstr "Indents the paragraphs less"
 
-#: components/html-editor/toolbar.c:555
+#: components/html-editor/toolbar.c:556
 msgid "Indent"
 msgstr "Indent"
 
-#: components/html-editor/toolbar.c:555
+#: components/html-editor/toolbar.c:556
 msgid "Indents the paragraphs more"
 msgstr "Indents the paragraphs more"
 

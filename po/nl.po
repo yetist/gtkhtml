@@ -9,14 +9,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml cvs\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-28 20:19+0200\n"
+"POT-Creation-Date: 2004-06-01 09:37-0400\n"
 "PO-Revision-Date: 2004-05-29 01:26+0200\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -25,7 +25,7 @@ msgstr "<Geen>"
 #: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
 #: components/html-editor/cell.c:333 components/html-editor/image.c:412
 #: components/html-editor/link.c:192 components/html-editor/rule.c:174
-#: components/html-editor/table.c:212 components/html-editor/template.c:272
+#: components/html-editor/table.c:220 components/html-editor/template.c:272
 #: components/html-editor/text.c:159
 msgid "Could not load glade file."
 msgstr "Kon glade-bestand niet laden"
@@ -438,7 +438,7 @@ msgstr "Li_kken"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
-#: components/html-editor/menubar.c:106 components/html-editor/popup.c:106
+#: components/html-editor/menubar.c:113 components/html-editor/popup.c:106
 #: components/html-editor/popup.c:201 components/html-editor/popup.c:267
 msgid "Link"
 msgstr "Verwijzing"
@@ -616,7 +616,7 @@ msgstr "Romeins genummerde lijst"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
 #: components/html-editor/editor-control-factory.c:207
 #: components/html-editor/gtkhtml-editor-properties.glade.h:48
-#: components/html-editor/menubar.c:125 components/html-editor/popup.c:225
+#: components/html-editor/menubar.c:132 components/html-editor/popup.c:225
 msgid "Rule"
 msgstr "Regel"
 
@@ -664,7 +664,7 @@ msgstr "Bovenschrift"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
 #: components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: components/html-editor/menubar.c:148 components/html-editor/popup.c:231
+#: components/html-editor/menubar.c:155 components/html-editor/popup.c:231
 #: components/html-editor/popup.c:511 components/html-editor/popup.c:523
 msgid "Table"
 msgstr "Tabel"
@@ -681,7 +681,7 @@ msgstr "Te_kstbestand..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
 #: components/html-editor/gtkhtml-editor-properties.glade.h:53
-#: components/html-editor/menubar.c:170
+#: components/html-editor/menubar.c:177
 msgid "Template"
 msgstr "Sjabloon"
 
@@ -1054,31 +1054,31 @@ msgid "_Source:"
 msgstr "_Bron:"
 
 # Doorzichtig
-#: components/html-editor/cell.c:350 components/html-editor/table.c:223
+#: components/html-editor/cell.c:350 components/html-editor/table.c:231
 msgid "Transparent"
 msgstr "Transparant"
 
 #: components/html-editor/editor-control-factory.c:178
-#: components/html-editor/menubar.c:321 components/html-editor/menubar.c:339
-#: components/html-editor/menubar.c:357 components/html-editor/popup.c:186
+#: components/html-editor/menubar.c:328 components/html-editor/menubar.c:346
+#: components/html-editor/menubar.c:364 components/html-editor/popup.c:186
 #: components/html-editor/popup.c:264
 msgid "Properties"
 msgstr "Eigenschappen"
 
 #: components/html-editor/editor-control-factory.c:197
 #: components/html-editor/gtkhtml-editor-properties.glade.h:54
-#: components/html-editor/menubar.c:343 components/html-editor/popup.c:195
+#: components/html-editor/menubar.c:350 components/html-editor/popup.c:195
 msgid "Text"
 msgstr "Tekst"
 
 #: components/html-editor/editor-control-factory.c:216
-#: components/html-editor/menubar.c:361 components/html-editor/popup.c:213
+#: components/html-editor/menubar.c:368 components/html-editor/popup.c:213
 msgid "Paragraph"
 msgstr "Paragraaf"
 
 #: components/html-editor/editor-control-factory.c:220
 #: components/html-editor/gtkhtml-editor-properties.glade.h:43
-#: components/html-editor/menubar.c:325 components/html-editor/popup.c:219
+#: components/html-editor/menubar.c:332 components/html-editor/popup.c:219
 msgid "Page"
 msgstr "Pagina"
 
@@ -1598,22 +1598,22 @@ msgstr ""
 msgid "Insert image"
 msgstr "Afbeelding invoegen"
 
-#: components/html-editor/menubar.c:103 components/html-editor/menubar.c:122
-#: components/html-editor/menubar.c:145 components/html-editor/menubar.c:167
+#: components/html-editor/menubar.c:110 components/html-editor/menubar.c:129
+#: components/html-editor/menubar.c:152 components/html-editor/menubar.c:174
 #: components/html-editor/popup.c:103
 msgid "Insert"
 msgstr "Invoegen"
 
-#: components/html-editor/menubar.c:256
+#: components/html-editor/menubar.c:263
 #, c-format
 msgid "Error loading file '%s': %s"
 msgstr "Fout bij laden van bestand '%s': %s"
 
-#: components/html-editor/menubar.c:283
+#: components/html-editor/menubar.c:290
 msgid "Insert: HTML File"
 msgstr "Invoegen: HTML-bestand"
 
-#: components/html-editor/menubar.c:283
+#: components/html-editor/menubar.c:290
 msgid "Insert: Text File"
 msgstr "Invoegen: Tekstbestand"
 

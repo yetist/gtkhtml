@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 3.1\n"
-"POT-Creation-Date: 2004-05-19 11:07-0400\n"
+"POT-Creation-Date: 2004-06-01 09:37-0400\n"
 "PO-Revision-Date: 2004-01-30 02:55+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: Korean <gnome-kr-translation@lists.sourceforge.net>\n"
@@ -20,9 +20,10 @@ msgid "<None>"
 msgstr "<없음>"
 
 #: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
-#: components/html-editor/cell.c:419 components/html-editor/image.c:543
-#: components/html-editor/rule.c:316 components/html-editor/table.c:530
-#: components/html-editor/table.c:614 components/html-editor/template.c:272
+#: components/html-editor/cell.c:333 components/html-editor/image.c:412
+#: components/html-editor/link.c:192 components/html-editor/rule.c:174
+#: components/html-editor/table.c:220 components/html-editor/template.c:272
+#: components/html-editor/text.c:159
 msgid "Could not load glade file."
 msgstr "glade파일을 읽을 수 없습니다."
 
@@ -31,7 +32,7 @@ msgid "\n"
 msgstr "\n"
 
 #: capplet/gtkhtml-capplet.glade.h:3
-#: components/html-editor/gtkhtml-editor-properties.glade.h:1
+#: components/html-editor/gtkhtml-editor-properties.glade.h:4
 msgid "*"
 msgstr "*"
 
@@ -92,7 +93,6 @@ msgid "Keyboard Shortcuts"
 msgstr "단축 키"
 
 #: capplet/gtkhtml-capplet.glade.h:18
-#: components/html-editor/gtkhtml-editor-properties.glade.h:47
 msgid "Miscellaneous"
 msgstr "기타"
 
@@ -150,7 +150,6 @@ msgstr ""
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
-#: components/html-editor/gtkhtml-editor-properties.glade.h:4
 msgid "+0"
 msgstr "+0"
 
@@ -213,7 +212,7 @@ msgstr "점 목록"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
-#: components/html-editor/toolbar.c:509
+#: components/html-editor/toolbar.c:515
 msgid "Center justifies the paragraphs"
 msgstr "문단을 가운데로 정렬합니다"
 
@@ -265,681 +264,670 @@ msgstr "선택한것 자르기"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:101 components/html-editor/search.c:157
+#: components/html-editor/search.c:108 components/html-editor/search.c:166
 msgid "Find"
 msgstr "찾기"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
-msgid "Find A Regular Expression"
-msgstr "정규 표현식으로 찾습니다"
-
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:24
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
 msgid "Find And Replace"
 msgstr "찾고 바꾸기"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:25
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
-msgid "Find Regular E_xpression..."
-msgstr "정규 표현식으로 찾기(_X)..."
-
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:26
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:26
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:24
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
 msgid "Find _Again"
 msgstr "다시 찾기(_A)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:27
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:25
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
 msgid "Find again"
 msgstr "다시 찾기"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:26
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:26
 msgid "Find and Replace"
 msgstr "찾고 바꾸기"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:27
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
 msgid "For_mat"
 msgstr "형식(_M)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
 msgid "Green"
 msgstr "녹색"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
 msgid "Header _1"
 msgstr "제목 _1"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
 msgid "Header _2"
 msgstr "제목 _2"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
 msgid "Header _3"
 msgstr "제목 _3"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
 msgid "Header _4"
 msgstr "제목 _4"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
 msgid "Header _5"
 msgstr "제목 _5"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
 msgid "Header _6"
 msgstr "제목 _6"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
 #: components/html-editor/editor-control-factory.c:189
-#: components/html-editor/gtkhtml-editor-properties.glade.h:39
-#: components/html-editor/menubar.c:91 components/html-editor/popup.c:209
+#: components/html-editor/gtkhtml-editor-properties.glade.h:37
+#: components/html-editor/popup.c:207
 msgid "Image"
 msgstr "그림"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
 msgid "Insert Crying smiley into document..."
 msgstr "문서에 울음 이모티콘을 넣습니다..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
 msgid "Insert Frown smiley into document..."
 msgstr "문서안에 찡그림 이모티콘을 넣습니다..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:40
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
 msgid "Insert HTML file into document..."
 msgstr "문서안에 HTML 파일을 넣습니다..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
 msgid "Insert HTML link into document..."
 msgstr "문서안에 HTML 링크를 넣습니다..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:40
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
 msgid "Insert HTML template into document..."
 msgstr "문서안에 HTML 본을 넣습니다..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
 msgid "Insert Indifferent smiley into document..."
 msgstr "문서안에 무관심 이모티콘을 넣습니다..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
 msgid "Insert Laughing smiley into document..."
 msgstr "문서안에 웃음 이모티콘을 넣습니다..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
 msgid "Insert Lick smiley into document..."
 msgstr "문서안에 메롱 이모티콘을 넣습니다..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
 msgid "Insert Oh no! smiley into document..."
 msgstr "문서안에 안돼! 이모티콘을 넣습니다..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
 msgid "Insert Smile smiley into document..."
 msgstr "문서안에 미소 이모티콘을 넣습니다..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
 msgid "Insert Surprised smiley into document..."
 msgstr "문서안에 놀라움 이모티콘을 넣습니다..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
 msgid "Insert Undecided smiley into document..."
 msgstr "문서안에 난감 그림을 넣습니다..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
 msgid "Insert Wink smiley into document..."
 msgstr "문서안에 윙크 이모티콘을 넣습니다..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
 msgid "Insert image into document..."
 msgstr "문서안에 그림을 넣습니다..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:52
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
 msgid "Insert rule into document..."
 msgstr "문서안에 가로선을 넣습니다..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
 msgid "Insert table into document..."
 msgstr "문서안에 표를 넣습니다..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:52
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
 msgid "Insert text file into document..."
 msgstr "문서안에 텍스트 파일을 넣습니다..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
-#: components/html-editor/toolbar.c:507
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
+#: components/html-editor/toolbar.c:513
 msgid "Left justifies the paragraphs"
 msgstr "문단을 왼쪽으로 정렬합니다"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
 msgid "Li_ck"
 msgstr "메롱(_C)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
-#: components/html-editor/body.c:368 components/html-editor/menubar.c:107
-#: components/html-editor/popup.c:106 components/html-editor/popup.c:202
-#: components/html-editor/popup.c:275
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
+#: components/html-editor/menubar.c:113 components/html-editor/popup.c:106
+#: components/html-editor/popup.c:201 components/html-editor/popup.c:267
 msgid "Link"
 msgstr "링크"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
 msgid "Make the current Paragraph style Normal"
 msgstr "현재 문단 스타일을 보통으로 합니다"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
 msgid "Make the current Paragraph style Preformat"
 msgstr "현재 문단 스타일을 원래 모양으로 합니다"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
 msgid "Make the current paragraph a bulleted list"
 msgstr "현재 문단을 점 붙은 목록으로 만듭니다"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:61
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
 msgid "Make the current paragraph a list with roman numerals"
 msgstr "현재 문단에 로마숫자 붙은 목록으로 만듭니다"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
 msgid "Make the current paragraph a numbered list"
 msgstr "현재 문단에 숫자 붙은 목록으로 만듭니다"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:63
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:61
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
 msgid "Make the current paragraph an H1 header"
 msgstr "현재 문단을 H1 머릿말로 만듭니다"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:64
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
 msgid "Make the current paragraph an H2 header"
 msgstr "현재 문단을 H2 머릿말로 만듭니다"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:65
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:63
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
 msgid "Make the current paragraph an H3 header"
 msgstr "현재 문단을 H3 머릿말로 만듭니다"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:66
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:64
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
 msgid "Make the current paragraph an H4 header"
 msgstr "현재 문단을 H4 머릿말로 만듭니다"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:67
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:65
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
 msgid "Make the current paragraph an H5 header"
 msgstr "현재 문단을 H5 머릿말로 만듭니다"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:68
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:66
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
 msgid "Make the current paragraph an H6 header"
 msgstr "현재 문단을 H6 머릿말로 만듭니다"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:69
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:67
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
 msgid "Make the current paragraph an address"
 msgstr "현재 문단을 주소로 만듭니다"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:70
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:68
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
 msgid "Make the current paragraph an alphabetical list"
 msgstr "현재 문단을 알파벳 붙은 목록으로 만듭니다"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
-#: components/html-editor/gtkhtml-editor-properties.glade.h:49
-#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:48
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:69
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
+#: components/html-editor/paragraph.c:83 components/html-editor/toolbar.c:48
 msgid "Normal"
 msgstr "보통"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:72
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:70
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
 #: components/html-editor/toolbar.c:51
 msgid "Numbered List"
 msgstr "번호 목록"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
 msgid "Numbered _List"
 msgstr "번호 목록(_L)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:72
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
 msgid "Oh _no!"
 msgstr "안돼!(_N)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:75
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
 msgid "Orange"
 msgstr "주홍색"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
 msgid "Other..."
 msgstr "그 외..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:75
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
 msgid "Paste"
 msgstr "붙여 넣기"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
 msgid "Paste _Quotation"
 msgstr "인용문 붙여 넣기(_Q)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
 msgid "Paste from clipboard"
 msgstr "클립보드의 내용을 붙여넣습니다"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
 msgid "Paste the clipboard"
 msgstr "클립보드의 내용을 붙여넣습니다"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
 msgid "Paste the clipboard as a quotation"
 msgstr "클립보드를 인용문으로 붙여 넣습니다"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
 #: components/html-editor/toolbar.c:49
 msgid "Preformat"
 msgstr "원래 모양대로"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
 msgid "Purple"
 msgstr "자주색"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
 msgid "Red"
 msgstr "빨간색"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
 msgid "Redo"
 msgstr "재실행"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
 msgid "Redo previously undone change"
 msgstr "이전에 실행 취소한 부분을 다시 실행합니다"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
 msgid "Redo the undone action"
 msgstr "실행 취소한 동작을 다시 실행합니다"
 
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
 #: components/html-editor/replace.c:161 components/html-editor/replace.c:223
 msgid "Replace"
 msgstr "바꾸기"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
-#: components/html-editor/toolbar.c:511
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
+#: components/html-editor/toolbar.c:517
 msgid "Right justifies the paragraphs"
 msgstr "문단을 오른쪽으로 정렬합니다"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
 msgid "Roman Numeral List"
 msgstr "로마 숫자 매기기"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
-#: components/html-editor/editor-control-factory.c:209
-#: components/html-editor/gtkhtml-editor-properties.glade.h:63
-#: components/html-editor/menubar.c:125 components/html-editor/popup.c:230
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
+#: components/html-editor/editor-control-factory.c:207
+#: components/html-editor/gtkhtml-editor-properties.glade.h:48
+#: components/html-editor/menubar.c:132 components/html-editor/popup.c:225
 msgid "Rule"
 msgstr "구분선"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
 msgid "Select _All"
 msgstr "전부 선택(_A)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
 msgid "Select the entire contents of the document"
 msgstr "문서의 전체 내용을 선택합니다"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:94
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
-#: components/html-editor/gtkhtml-editor-properties.glade.h:69
-#: components/html-editor/text.c:239 components/html-editor/toolbar.c:526
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
+#: components/html-editor/toolbar.c:545
 msgid "Strikeout"
 msgstr "취소선"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:95
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
 msgid "Su_perscript"
 msgstr "위 첨자(_P)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:96
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:94
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
 msgid "Su_rprised"
 msgstr "놀라움(_R)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:95
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
 msgid "Subs_cript"
 msgstr "아래 첨자(_C)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:96
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
 msgid "Subscript"
 msgstr "아래 첨자"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
 msgid "Superscript"
 msgstr "위 첨자"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
-#: components/html-editor/gtkhtml-editor-properties.glade.h:72
-#: components/html-editor/menubar.c:142 components/html-editor/popup.c:237
-#: components/html-editor/popup.c:520 components/html-editor/popup.c:532
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
+#: components/html-editor/gtkhtml-editor-properties.glade.h:52
+#: components/html-editor/menubar.c:155 components/html-editor/popup.c:231
+#: components/html-editor/popup.c:511 components/html-editor/popup.c:523
 msgid "Table"
 msgstr "표"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
 msgid "Te_mplate..."
 msgstr "템플릿(_M)..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 msgid "Te_xt file..."
 msgstr "텍스트 파일(_X)..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
-#: components/html-editor/body.c:298
-#: components/html-editor/gtkhtml-editor-properties.glade.h:74
-#: components/html-editor/menubar.c:165
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
+#: components/html-editor/gtkhtml-editor-properties.glade.h:53
+#: components/html-editor/menubar.c:177
 msgid "Template"
 msgstr "템플릿"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
-#: components/html-editor/toolbar.c:518
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
+#: components/html-editor/toolbar.c:537
 msgid "Typewriter"
 msgstr "타자체"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
 msgid "Undo"
 msgstr "실행취소"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
 msgid "Undo previous changes"
 msgstr "지난 바뀐 점 실행 취소"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
 msgid "Undo the last action"
 msgstr "마지막 작업을 취소합니다"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
 msgid "Yellow"
 msgstr "노란색"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
 msgid "_Alignment"
 msgstr "정렬(_A)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
 msgid "_Alphabetical List"
 msgstr "알파벳 매기기(_A)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
+#: components/html-editor/gtkhtml-editor-properties.glade.h:60
 msgid "_Bold"
 msgstr "두꺼운꼴(_B)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
 msgid "_Bulleted List"
 msgstr "점 목록(_B)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
 msgid "_Center"
 msgstr "가운데(_C)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
 msgid "_Copy"
 msgstr "복사(_C)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
 msgid "_Decrease Indent"
 msgstr "내어 쓰기(_D)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
 msgid "_Edit"
 msgstr "편집(_E)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
 msgid "_Find..."
 msgstr "찾기(_F)..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
 msgid "_Font Size"
 msgstr "글꼴 크기(_F)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
 msgid "_Frown"
 msgstr "찡그림(_F)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
 msgid "_HTML file..."
 msgstr "HTML 파일(_H)..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
 msgid "_Heading"
 msgstr "머리말(_H)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
 msgid "_Image..."
 msgstr "이미지(_I)..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
 msgid "_Increase Indent"
 msgstr "들여 쓰기(_I)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
 msgid "_Indifferent"
 msgstr "무관심(_I)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
 msgid "_Insert"
 msgstr "삽입(_I)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
+#: components/html-editor/gtkhtml-editor-properties.glade.h:67
 msgid "_Italic"
 msgstr "기울인꼴(_I)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
 msgid "_Laughing"
 msgstr "웃음(_L)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
 msgid "_Left"
 msgstr "왼쪽(_L)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
 msgid "_Link..."
 msgstr "링크(_L)..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
 msgid "_Normal"
 msgstr "보통(_N)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
 msgid "_Page..."
 msgstr "쪽(_P)..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
 msgid "_Paragraph..."
 msgstr "문단(_P)..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
 msgid "_Paste"
 msgstr "붙여 넣기(_P)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
 msgid "_Plain text"
 msgstr "일반 텍스트(_P)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
 msgid "_Preformat"
 msgstr "원래 모양대로(_P)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
 msgid "_Redo"
 msgstr "재실행(_R)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
 msgid "_Replace..."
 msgstr "바꾸기(_R)..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
 msgid "_Right"
 msgstr "오른쪽(_R)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:139
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:141
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
 msgid "_Roman Numeral List"
 msgstr "로마숫자 매기기(_R)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:142
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
 msgid "_Rule..."
 msgstr "가로선(_R)..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:141
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:139
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
 msgid "_Smile"
 msgstr "미소(_S)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:142
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:144
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:141
 msgid "_Smiley"
 msgstr "이모티콘(_S)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:143
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:145
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:141
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:142
 msgid "_Spell Check Document..."
 msgstr "문서 맞춤법 검사(S)..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:144
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:146
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:142
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
+#: components/html-editor/gtkhtml-editor-properties.glade.h:73
 msgid "_Strikeout"
 msgstr "취소선(_S)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:145
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:147
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:143
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:144
 msgid "_Style"
 msgstr "스타일(_S)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:146
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:148
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:144
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:145
 msgid "_Table..."
 msgstr "표(_T)..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:147
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:149
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:145
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:146
 msgid "_Text..."
 msgstr "글자(_T)..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:148
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:150
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:146
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:147
 msgid "_Undecided"
 msgstr "난감(_U)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:149
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:151
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:147
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:148
+#: components/html-editor/gtkhtml-editor-properties.glade.h:76
 msgid "_Underline"
 msgstr "밑줄(_U)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:150
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:148
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:149
 msgid "_Undo"
 msgstr "실행취소(_U)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:151
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:153
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:149
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:150
 msgid "_Wink"
 msgstr "윙크(_W)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:152
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:155
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:150
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
 msgid "etc..."
 msgstr "기타..."
 
@@ -955,138 +943,141 @@ msgstr "GNOME HTML 편집기 컨트롤"
 msgid "GNOME HTML Editor Factory"
 msgstr "GNOME HTML 편집기 팩토리"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
 msgid "Insert Sick smiley into document..."
 msgstr "문서안에 실망 이모티콘을 넣습니다..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
 msgid "Make the current Paragraph style Preformatted"
 msgstr "현재 문단 스타일을 원래 모양으로 합니다"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
-#: components/html-editor/paragraph.c:151
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
+#: components/html-editor/paragraph.c:102
 msgid "Preformatted"
 msgstr "원래 모양대로"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 msgid "S_ick"
 msgstr "실망(_I)"
 
-#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:154
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:151
 msgid "_Wrap Lines"
 msgstr "줄 바꿈(_W)"
 
-#: components/html-editor/body.c:66
-#: components/html-editor/gtkhtml-editor-properties.glade.h:48
+#: components/html-editor/body.c:59
+#: components/html-editor/gtkhtml-editor-properties.glade.h:42
 msgid "None"
 msgstr "없음"
 
-#: components/html-editor/body.c:74
+#: components/html-editor/body.c:67
 msgid "Perforated Paper"
 msgstr "구멍 뚫은 종이"
 
-#: components/html-editor/body.c:82
+#: components/html-editor/body.c:75
 msgid "Blue Ink"
 msgstr "파란 잉크"
 
-#: components/html-editor/body.c:90
+#: components/html-editor/body.c:83
 msgid "Paper"
 msgstr "종이"
 
-#: components/html-editor/body.c:98
+#: components/html-editor/body.c:91
 msgid "Ribbon"
 msgstr "리본"
 
-#: components/html-editor/body.c:106
+#: components/html-editor/body.c:99
 msgid "Midnight"
 msgstr "깊은 밤"
 
-#: components/html-editor/body.c:114
+#: components/html-editor/body.c:107
 msgid "Confidential"
 msgstr "비밀"
 
-#: components/html-editor/body.c:122
+#: components/html-editor/body.c:115
 msgid "Draft"
 msgstr "초안"
 
-#: components/html-editor/body.c:130
+#: components/html-editor/body.c:123
 msgid "Graph paper"
 msgstr "그래프 종이"
 
-#. string marked for translations is sample text. you may want to translate it to common sample text in your language
-#: components/html-editor/body.c:163
-msgid ""
-"The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a href="
-"\"mailto:dog\">dog</a>."
-msgstr ""
-"<a href=\"mailto:flower\">무궁화</a> 꽃이 <a href=\"mailto:big\">활짝</a> 피"
-"었습니다."
+#: components/html-editor/body.c:246
+#, fuzzy
+msgid "T_emplate:"
+msgstr "템플릿"
 
-#: components/html-editor/body.c:316 src/gtkhtml.c:2786
-msgid "Document Title"
-msgstr "문서 제목"
+#. data->entry_title = gtk_entry_new ();
+#. if (gtk_html_get_title (data->cd->html)) {
+#. gtk_entry_set_text (GTK_ENTRY (data->entry_title),
+#. gtk_html_get_title (data->cd->html));
+#. }
+#. g_signal_connect (data->entry_title, "changed", G_CALLBACK (entry_changed), data);
+#. editor_hig_attach_row (t1, _("T_itle:"), data->entry_title, 1);
+#: components/html-editor/body.c:256 components/html-editor/paragraph.c:112
+#, fuzzy
+msgid "General"
+msgstr "가운데"
 
-#: components/html-editor/body.c:320 components/html-editor/body.c:323
-#: components/html-editor/gtkhtml-editor-properties.glade.h:15
-msgid "Background Image"
-msgstr "바탕 그림"
-
-#: components/html-editor/body.c:345
-#: components/html-editor/gtkhtml-editor-properties.glade.h:25
-msgid "Colors"
-msgstr "색상"
-
-#: components/html-editor/body.c:355 components/html-editor/cell.c:425
-#: components/html-editor/table.c:536 components/html-editor/text.c:297
-#: components/html-editor/toolbar.c:300
+#: components/html-editor/body.c:267 components/html-editor/text.c:162
+#: components/html-editor/toolbar.c:301
 msgid "Automatic"
 msgstr "자동"
 
-#: components/html-editor/body.c:367
-#: components/html-editor/editor-control-factory.c:198
-#: components/html-editor/gtkhtml-editor-properties.glade.h:76
-#: components/html-editor/menubar.c:338 components/html-editor/popup.c:195
-msgid "Text"
+#: components/html-editor/body.c:279
+#, fuzzy
+msgid "_Text:"
 msgstr "글자"
 
-#: components/html-editor/body.c:369
-#: components/html-editor/gtkhtml-editor-properties.glade.h:14
-msgid "Background"
+#: components/html-editor/body.c:280
+#, fuzzy
+msgid "_Link:"
+msgstr "링크"
+
+#: components/html-editor/body.c:281
+#, fuzzy
+msgid "_Background:"
 msgstr "바탕"
 
-#. string marked for translations is sample text. you may want to translate it to common sample text in your language
-#: components/html-editor/cell.c:174 components/html-editor/cell.c:176
-#: components/html-editor/paragraph.c:62 components/html-editor/text.c:109
-msgid "The quick brown fox jumps over the lazy dog."
-msgstr "무궁화 꽃이 활짝 피었습니다."
+#: components/html-editor/body.c:283
+#: components/html-editor/gtkhtml-editor-properties.glade.h:30
+msgid "Colors"
+msgstr "색상"
 
-#: components/html-editor/cell.c:179
-msgid "Other"
-msgstr "그 외"
+#: components/html-editor/body.c:285 components/html-editor/body.c:300
+#: components/html-editor/gtkhtml-editor-properties.glade.h:23
+msgid "Background Image"
+msgstr "바탕 그림"
 
-#: components/html-editor/cell.c:680
-msgid ""
-"The editted cell was removed from the document.\n"
-"Cannot apply your changes."
+#: components/html-editor/body.c:298
+#: components/html-editor/gtkhtml-editor-properties.glade.h:71
+msgid "_Source:"
 msgstr ""
-"편집한 셀이 문서에서 지워졌습니다.\n"
-"바뀐 점을 저장할 수 없습니다."
+
+#: components/html-editor/cell.c:350 components/html-editor/table.c:231
+msgid "Transparent"
+msgstr ""
 
 #: components/html-editor/editor-control-factory.c:178
-#: components/html-editor/menubar.c:317 components/html-editor/menubar.c:335
-#: components/html-editor/menubar.c:353 components/html-editor/popup.c:187
-#: components/html-editor/popup.c:272
+#: components/html-editor/menubar.c:328 components/html-editor/menubar.c:346
+#: components/html-editor/menubar.c:364 components/html-editor/popup.c:186
+#: components/html-editor/popup.c:264
 msgid "Properties"
 msgstr "등록 정보"
 
-#: components/html-editor/editor-control-factory.c:219
-#: components/html-editor/menubar.c:356 components/html-editor/popup.c:216
+#: components/html-editor/editor-control-factory.c:197
+#: components/html-editor/gtkhtml-editor-properties.glade.h:54
+#: components/html-editor/menubar.c:350 components/html-editor/popup.c:195
+msgid "Text"
+msgstr "글자"
+
+#: components/html-editor/editor-control-factory.c:216
+#: components/html-editor/menubar.c:368 components/html-editor/popup.c:213
 msgid "Paragraph"
 msgstr "문단"
 
-#: components/html-editor/editor-control-factory.c:224
-#: components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: components/html-editor/menubar.c:320 components/html-editor/popup.c:223
+#: components/html-editor/editor-control-factory.c:220
+#: components/html-editor/gtkhtml-editor-properties.glade.h:43
+#: components/html-editor/menubar.c:332 components/html-editor/popup.c:219
 msgid "Page"
 msgstr "쪽"
 
@@ -1293,283 +1284,289 @@ msgstr "하늘색"
 msgid "GtkHTML Editor Control"
 msgstr "GtkHTML 편집기 컨트롤"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:2
-msgid "************"
-msgstr "************"
+#: components/html-editor/gtkhtml-editor-properties.glade.h:1
+msgid "    "
+msgstr ""
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:3
-msgid "***text***"
-msgstr "***글자***"
+#, no-c-format
+msgid "%"
+msgstr ""
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:8
 msgid "+4"
 msgstr "*4"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:11
+msgid "<b>Alignment &amp; Behaviour</b>"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:12
+#, fuzzy
+msgid "<b>Background</b>"
+msgstr "바탕"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:13
+msgid "<b>General</b>"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:14
+msgid "<b>Layout</b>"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:15
+msgid "<b>Scope</b>"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:16
+msgid "<span weight=\"bold\">General</span>"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:17
+msgid "<span weight=\"bold\">Layout</span>"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:18
+msgid "<span weight=\"bold\">Link</span>"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:19
+msgid "<span weight=\"bold\">Size</span>"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:20
+msgid "<span weight=\"bold\">Style</span>"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:21
+msgid "<span weight=\"bold\">Template</span>"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:22
+#: components/html-editor/paragraph.c:131
 msgid "Alignment"
 msgstr "정렬"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:12
-msgid "Alignment:"
-msgstr "정렬:"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:13
-msgid "Apply changes to:"
-msgstr "바뀐 점 적용:"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:16
-#: components/html-editor/text.c:236 components/html-editor/toolbar.c:520
-msgid "Bold"
-msgstr "두꺼운꼴"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:17
-msgid "Border"
-msgstr "둘레"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:18
-msgid "Border:"
-msgstr "둘레:"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:19
+#: components/html-editor/gtkhtml-editor-properties.glade.h:24
 msgid "Bottom"
 msgstr "아래"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:20
-#: components/html-editor/popup.c:244
+#: components/html-editor/gtkhtml-editor-properties.glade.h:25
+#, fuzzy
+msgid "C_ell"
+msgstr "셀"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:26
+#, fuzzy
+msgid "C_olor:"
+msgstr "색상:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:27
+#: components/html-editor/popup.c:237
 msgid "Cell"
 msgstr "셀"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:21
-#: components/html-editor/paragraph.c:174 components/html-editor/toolbar.c:509
+#: components/html-editor/gtkhtml-editor-properties.glade.h:28
+#: components/html-editor/paragraph.c:128 components/html-editor/toolbar.c:515
 msgid "Center"
 msgstr "가운데"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:22
-#: components/html-editor/link.c:137 components/html-editor/text.c:247
-msgid "Click will follow this URL"
-msgstr "누르면 이 URL을 따라갑니다"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:23
-msgid "Click will follow this URL:"
-msgstr "누르면 이 URL을 따라갑니다:"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:24
-msgid "Color:"
-msgstr "색상:"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#: components/html-editor/popup.c:534
-msgid "Column"
+#: components/html-editor/gtkhtml-editor-properties.glade.h:29
+#, fuzzy
+msgid "Col_umn"
 msgstr "열"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:27
+#: components/html-editor/gtkhtml-editor-properties.glade.h:31
 msgid "Column span:"
 msgstr "열 범위:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:28
-msgid "Columns:"
-msgstr "열:"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:29
-msgid "Description:"
-msgstr "설명:"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:30
-msgid "Don't wrap"
-msgstr "줄 바꾸지 않기"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:31
+#: components/html-editor/gtkhtml-editor-properties.glade.h:32
 msgid "Enable"
 msgstr "사용"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:32
-msgid "Follow"
-msgstr "원래 크기"
-
 #: components/html-editor/gtkhtml-editor-properties.glade.h:33
-msgid "Font size"
-msgstr "글꼴 크기"
+#, fuzzy
+msgid "Hea_der style"
+msgstr "제목 6"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:34
-msgid "Foreground color"
-msgstr "글자색"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:35
-msgid "Header"
-msgstr "제목"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:36
-msgid "Height:"
-msgstr "높이:"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:37
 msgid "Horizontal alignment:"
 msgstr "가로 정렬:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:38
+#: components/html-editor/gtkhtml-editor-properties.glade.h:35
 msgid "Horizontal:"
 msgstr "가로:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:40
-#: components/html-editor/text.c:237 components/html-editor/toolbar.c:522
-msgid "Italic"
-msgstr "기울인꼴"
+#: components/html-editor/gtkhtml-editor-properties.glade.h:36
+#, fuzzy
+msgid "I_mage:"
+msgstr "그림"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:41
-#: components/html-editor/paragraph.c:173
+#: components/html-editor/gtkhtml-editor-properties.glade.h:38
+#: components/html-editor/paragraph.c:127
 msgid "Left"
 msgstr "왼쪽"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:42
+#: components/html-editor/gtkhtml-editor-properties.glade.h:39
 msgid "Length:"
 msgstr "길이:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:43
-msgid "Link insert"
-msgstr "링크 넣기"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:44
+#: components/html-editor/gtkhtml-editor-properties.glade.h:40
 msgid "Link properties"
 msgstr "링크 등록 정보"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:45
-msgid "Location"
-msgstr "위치"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:46
+#: components/html-editor/gtkhtml-editor-properties.glade.h:41
 msgid "Middle"
 msgstr "가운데"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:50
-msgid "Padding"
-msgstr "채움"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:51
-msgid "Padding:"
-msgstr "채움:"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:53
+#: components/html-editor/gtkhtml-editor-properties.glade.h:44
 msgid "Percent"
 msgstr "퍼센트"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:55
-#, no-c-format
-msgid "Percent %"
-msgstr "퍼센트 %"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:56
+#: components/html-editor/gtkhtml-editor-properties.glade.h:45
 msgid "Pixels"
 msgstr "픽셀"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:57
-msgid "Pixmap:"
-msgstr "픽스맵:"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:58
-msgid "Points"
-msgstr "포인트"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:59
-#: components/html-editor/paragraph.c:175
+#: components/html-editor/gtkhtml-editor-properties.glade.h:46
+#: components/html-editor/paragraph.c:129
 msgid "Right"
 msgstr "오른쪽"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:60
-#: components/html-editor/popup.c:533
-msgid "Row"
-msgstr "행"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:61
+#: components/html-editor/gtkhtml-editor-properties.glade.h:47
 msgid "Row span:"
 msgstr "행 범위:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:62
-msgid "Rows:"
-msgstr "행:"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:64
-msgid "Scope"
-msgstr "범위"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:65
+#: components/html-editor/gtkhtml-editor-properties.glade.h:49
 msgid "Shaded"
 msgstr "그림자"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:66
-#: components/html-editor/text.c:263
-msgid "Size"
+#: components/html-editor/gtkhtml-editor-properties.glade.h:50
+#, fuzzy
+msgid "Si_ze:"
 msgstr "크기"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:67
-msgid "Spacing"
-msgstr "간격"
+#: components/html-editor/gtkhtml-editor-properties.glade.h:51
+msgid "Standard"
+msgstr ""
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:68
-msgid "Spacing:"
-msgstr "간격:"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:117 components/html-editor/popup.c:475
-#: components/html-editor/text.c:223
-msgid "Style"
-msgstr "스타일"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:71
-msgid "Style:"
-msgstr "스타일:"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:73
-msgid "Table Insert"
-msgstr "표 넣기"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:75
-#: components/html-editor/link.c:85
-msgid "Test URL..."
-msgstr "URL 테스트..."
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:77
+#: components/html-editor/gtkhtml-editor-properties.glade.h:55
 msgid "Thickness:"
 msgstr "두께:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:78
+#: components/html-editor/gtkhtml-editor-properties.glade.h:56
 msgid "Top"
 msgstr "위"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:79
-#: components/html-editor/text.c:238 components/html-editor/toolbar.c:524
-msgid "Underline"
-msgstr "밑줄"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:80
+#: components/html-editor/gtkhtml-editor-properties.glade.h:57
 msgid "Vertical:"
 msgstr "세로:"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:81
+#: components/html-editor/gtkhtml-editor-properties.glade.h:58
 msgid "Width:"
 msgstr "너비:"
 
+#: components/html-editor/gtkhtml-editor-properties.glade.h:59
+#, fuzzy
+msgid "_Alignment:"
+msgstr "정렬:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:61
+#, fuzzy
+msgid "_Border:"
+msgstr "둘레:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:62
+#, fuzzy
+msgid "_Color:"
+msgstr "색상:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:63
+#, fuzzy
+msgid "_Columns:"
+msgstr "열:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:64
+#, fuzzy
+msgid "_Description:"
+msgstr "설명:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:65
+#, fuzzy
+msgid "_Height:"
+msgstr "높이:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:66
+#, fuzzy
+msgid "_Image:"
+msgstr "그림"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:68
+#, fuzzy
+msgid "_Padding:"
+msgstr "채움:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:69
+#, fuzzy
+msgid "_Row"
+msgstr "행"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:70
+#, fuzzy
+msgid "_Rows:"
+msgstr "행:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:72
+#, fuzzy
+msgid "_Spacing:"
+msgstr "간격:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:74
+#, fuzzy
+msgid "_Table"
+msgstr "표"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:75
+msgid "_URL:"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:77
+#, fuzzy
+msgid "_Width:"
+msgstr "너비:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:78
+#, fuzzy
+msgid "_Wrap Text"
+msgstr "줄 바꿈(_W)"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:79
+#, fuzzy
+msgid "_X-Padding:"
+msgstr "채움:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:80
+#, fuzzy
+msgid "_Y-Padding:"
+msgstr "채움:"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:81
+#, fuzzy
+msgid "follow"
+msgstr "원래 크기"
+
 #: components/html-editor/gtkhtml-editor-properties.glade.h:82
-msgid "Wrap"
-msgstr "줄 바꾸기"
+msgid "px"
+msgstr ""
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:83
-msgid "Wrapping:"
-msgstr "줄바꿈:"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:84
-msgid "xxxxxxxxx"
-msgstr "xxxxxxxxx"
-
-#: components/html-editor/gtkhtml-editor-properties.glade.h:85
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: components/html-editor/image.c:118 components/html-editor/rule.c:93
-#: components/html-editor/table.c:192
+#: components/html-editor/image.c:89
 msgid "Plain"
 msgstr "보통"
 
-#: components/html-editor/image.c:120
+#: components/html-editor/image.c:91
 msgid ""
 "@link_begin@<img@alt@@width@@height@@align@ "
 "border=@border@@padh@@padv@@src@>@link_end@"
@@ -1577,11 +1574,11 @@ msgstr ""
 "@link_begin@<img@alt@@width@@height@@align@ "
 "border=@border@@padh@@padv@@src@>@link_end@"
 
-#: components/html-editor/image.c:123
+#: components/html-editor/image.c:94
 msgid "Frame"
 msgstr "프레임"
 
-#: components/html-editor/image.c:125
+#: components/html-editor/image.c:96
 msgid ""
 "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
 "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
@@ -1595,11 +1592,11 @@ msgstr ""
 "@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
 "table></center>"
 
-#: components/html-editor/image.c:133
+#: components/html-editor/image.c:104
 msgid "Caption"
 msgstr "설명"
 
-#: components/html-editor/image.c:135
+#: components/html-editor/image.c:106
 msgid ""
 "<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
 "cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
@@ -1613,215 +1610,188 @@ msgstr ""
 "@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[설명을 입력"
 "하십시오]</td></tr></table></td></tr></table></center>"
 
-#: components/html-editor/image.c:258 components/html-editor/image.c:264
-msgid ""
-"This is sample text, designed to show you how text would flow around this "
-"image if you insert the image into your message."
-msgstr ""
-"예제 텍스트입니다. 이 텍스트는 이미지를 넣을 때 텍스트가 그 이미지 주변에 어"
-"떻게 흘러가는 지 알려주기 위한 용도입니다."
+#: components/html-editor/menubar.c:84
+#, fuzzy
+msgid "Insert image"
+msgstr "바로가기 넣기"
 
-#: components/html-editor/image.c:270
-msgid "No image selected"
-msgstr "그림을 선택하지 않았습니다"
-
-#: components/html-editor/image.c:707
-msgid ""
-"The editted image was removed from the document.\n"
-"Cannot apply your changes."
-msgstr ""
-"편집한 그림이 문서에서 지워졌습니다.\n"
-"바뀐 점을 적용할 수 없습니다."
-
-#: components/html-editor/link.c:121
-msgid "Link text"
-msgstr "링크 글자"
-
-#: components/html-editor/link.c:211
-msgid ""
-"The editted link was removed from the document.\n"
-"Cannot apply your changes."
-msgstr ""
-"편집한 바로가기가 문서에서 지워졌습니다.\n"
-"바뀐 점을 적용할 수 없습니다."
-
-#: components/html-editor/link.c:270
-msgid "Please fill 'Link text' and 'URL' entries"
-msgstr ""
-
-#: components/html-editor/menubar.c:88 components/html-editor/menubar.c:104
-#: components/html-editor/menubar.c:122 components/html-editor/menubar.c:139
-#: components/html-editor/menubar.c:162 components/html-editor/popup.c:103
-#: components/html-editor/properties.c:125
+#: components/html-editor/menubar.c:110 components/html-editor/menubar.c:129
+#: components/html-editor/menubar.c:152 components/html-editor/menubar.c:174
+#: components/html-editor/popup.c:103
 msgid "Insert"
 msgstr "삽입"
 
-#: components/html-editor/menubar.c:252
+#: components/html-editor/menubar.c:263
 #, c-format
 msgid "Error loading file '%s': %s"
 msgstr "'%s' 파일을 읽어들이는 데 오류가 발생했습니다: %s"
 
-#: components/html-editor/menubar.c:279
+#: components/html-editor/menubar.c:290
 msgid "Insert: HTML File"
 msgstr "넣기: HTML 파일"
 
-#: components/html-editor/menubar.c:279
+#: components/html-editor/menubar.c:290
 msgid "Insert: Text File"
 msgstr "넣기: 텍스트 파일"
 
-#: components/html-editor/paragraph.c:135 components/html-editor/toolbar.c:54
+#: components/html-editor/paragraph.c:86 components/html-editor/toolbar.c:54
 msgid "Header 1"
 msgstr "제목 1"
 
-#: components/html-editor/paragraph.c:136 components/html-editor/toolbar.c:55
+#: components/html-editor/paragraph.c:87 components/html-editor/toolbar.c:55
 msgid "Header 2"
 msgstr "제목 2"
 
-#: components/html-editor/paragraph.c:137 components/html-editor/toolbar.c:56
+#: components/html-editor/paragraph.c:88 components/html-editor/toolbar.c:56
 msgid "Header 3"
 msgstr "제목 3"
 
-#: components/html-editor/paragraph.c:138 components/html-editor/toolbar.c:57
+#: components/html-editor/paragraph.c:89 components/html-editor/toolbar.c:57
 msgid "Header 4"
 msgstr "제목 4"
 
-#: components/html-editor/paragraph.c:139 components/html-editor/toolbar.c:58
+#: components/html-editor/paragraph.c:90 components/html-editor/toolbar.c:58
 msgid "Header 5"
 msgstr "제목 5"
 
-#: components/html-editor/paragraph.c:140 components/html-editor/toolbar.c:59
+#: components/html-editor/paragraph.c:91 components/html-editor/toolbar.c:59
 msgid "Header 6"
 msgstr "제목 6"
 
-#: components/html-editor/paragraph.c:143
+#: components/html-editor/paragraph.c:94
 msgid "Dot item"
 msgstr "점 항목"
 
-#: components/html-editor/paragraph.c:144
+#: components/html-editor/paragraph.c:95
 msgid "Number item"
 msgstr "숫자 항목"
 
-#: components/html-editor/paragraph.c:145
+#: components/html-editor/paragraph.c:96
 msgid "Roman item"
 msgstr "로마숫자 항목"
 
-#: components/html-editor/paragraph.c:146
+#: components/html-editor/paragraph.c:97
 msgid "Alphabeta item"
 msgstr "알파벳 항목"
 
-#: components/html-editor/paragraph.c:149 components/html-editor/toolbar.c:60
+#: components/html-editor/paragraph.c:100 components/html-editor/toolbar.c:60
 msgid "Address"
 msgstr "주소"
 
-#: components/html-editor/paragraph.c:160
-msgid "Align"
-msgstr "정렬"
+#: components/html-editor/paragraph.c:109
+#, fuzzy
+msgid "_Style:"
+msgstr "스타일(_S)"
 
-#: components/html-editor/paragraph.c:204
-msgid ""
-"The editted paragraph was removed from the document.\n"
-"Cannot apply your changes."
-msgstr ""
-"편집한 문단이 문서에서 지워졌습니다.\n"
-"바뀐 점을 적용할 수 없습니다."
-
-#: components/html-editor/popup.c:457
+#: components/html-editor/popup.c:448
 msgid "Paste Quotation"
 msgstr "인용문 붙여 넣기"
 
-#: components/html-editor/popup.c:461
+#: components/html-editor/popup.c:452
 #, fuzzy
 msgid "Insert Link"
 msgstr "바로가기 넣기"
 
-#: components/html-editor/popup.c:468
+#: components/html-editor/popup.c:459
 #, fuzzy
 msgid "Remove Link"
 msgstr "바로가기 지우기"
 
-#: components/html-editor/popup.c:478
+#: components/html-editor/popup.c:466
+msgid "Style"
+msgstr "스타일"
+
+#: components/html-editor/popup.c:469
 msgid "Text Style..."
 msgstr "텍스트 모양새..."
 
-#: components/html-editor/popup.c:480 components/html-editor/popup.c:486
-#: components/html-editor/popup.c:496
+#: components/html-editor/popup.c:471 components/html-editor/popup.c:477
+#: components/html-editor/popup.c:487
 msgid "Paragraph Style..."
 msgstr "문단 모양새..."
 
-#: components/html-editor/popup.c:484
+#: components/html-editor/popup.c:475
 msgid "Link Style..."
 msgstr "바로가기 모양새..."
 
-#: components/html-editor/popup.c:490
+#: components/html-editor/popup.c:481
 msgid "Rule Style..."
 msgstr "구분선 모양새..."
 
-#: components/html-editor/popup.c:494
+#: components/html-editor/popup.c:485
 msgid "Image Style..."
 msgstr "그림 모양새..."
 
-#: components/html-editor/popup.c:505
+#: components/html-editor/popup.c:496
 msgid "Cell Style..."
 msgstr "셀 모양새..."
 
-#: components/html-editor/popup.c:508
+#: components/html-editor/popup.c:499
 msgid "Table Style..."
 msgstr "표 모양새..."
 
-#: components/html-editor/popup.c:514
+#: components/html-editor/popup.c:505
 msgid "Page Style..."
 msgstr "페이지 모양새..."
 
-#: components/html-editor/popup.c:519
+#: components/html-editor/popup.c:510
 msgid "Table insert"
 msgstr "표 넣기"
 
-#: components/html-editor/popup.c:522
+#: components/html-editor/popup.c:513
 msgid "Row above"
 msgstr "위에 행"
 
-#: components/html-editor/popup.c:523
+#: components/html-editor/popup.c:514
 msgid "Row below"
 msgstr "아래에 행"
 
-#: components/html-editor/popup.c:525
+#: components/html-editor/popup.c:516
 msgid "Column before"
 msgstr "앞에 열"
 
-#: components/html-editor/popup.c:526
+#: components/html-editor/popup.c:517
 msgid "Column after"
 msgstr "뒤에 열"
 
-#: components/html-editor/popup.c:531
+#: components/html-editor/popup.c:522
 msgid "Table delete"
 msgstr "표 지우기"
 
-#: components/html-editor/popup.c:535
+#: components/html-editor/popup.c:524
+msgid "Row"
+msgstr "행"
+
+#: components/html-editor/popup.c:525
+msgid "Column"
+msgstr "열"
+
+#: components/html-editor/popup.c:526
 msgid "Cell contents"
 msgstr "셀 내용"
 
-#: components/html-editor/popup.c:545
+#: components/html-editor/popup.c:536
 msgid "Check Word Spelling..."
 msgstr "맞춤법 검사..."
 
-#: components/html-editor/popup.c:550
+#: components/html-editor/popup.c:541
 msgid "Add Word to"
 msgstr "단어 더할 위치"
 
-#: components/html-editor/popup.c:554
+#: components/html-editor/popup.c:545
 #, c-format
 msgid "%s Dictionary"
 msgstr "%s 사전"
 
-#: components/html-editor/popup.c:563
+#: components/html-editor/popup.c:554
 msgid "Add Word to Dictionary"
 msgstr "사전에 단어 더하기"
 
-#: components/html-editor/popup.c:566
+#: components/html-editor/popup.c:557
 msgid "Ignore Misspelled Word"
 msgstr "맞춤법이 잘못된 단어 무시"
 
-#: components/html-editor/popup.c:570
+#: components/html-editor/popup.c:561
 msgid "Input Methods"
 msgstr "입력기"
 
@@ -1846,7 +1816,7 @@ msgstr "바꾸기(_R)"
 msgid "Search _backward"
 msgstr "뒤로 찾기(_B)"
 
-#: components/html-editor/replace.c:170 components/html-editor/search.c:107
+#: components/html-editor/replace.c:170 components/html-editor/search.c:114
 msgid "Case _sensitive"
 msgstr "대소문자 구별(_S)"
 
@@ -1858,28 +1828,13 @@ msgstr "바꾸기:"
 msgid "With:"
 msgstr "다음으로:"
 
-#: components/html-editor/rule.c:98
-msgid "Blue 3D"
-msgstr "파란 3D"
-
-#: components/html-editor/rule.c:110
-msgid "Yellow, flowers"
-msgstr "노랑, 꽃"
-
-#: components/html-editor/rule.c:422
-msgid ""
-"The editted rule was removed from the document.\n"
-"Cannot apply your changes."
-msgstr ""
-"편집한 구분선이 문서에서 지워졌습니다.\n"
-"바뀐 점을 적용할 수 없습니다."
-
-#: components/html-editor/search.c:106
+#: components/html-editor/search.c:113
 msgid "_Backward"
 msgstr "뒤로(_B)"
 
-#: components/html-editor/search.c:157
-msgid "Find Regular Expression"
+#: components/html-editor/search.c:115
+#, fuzzy
+msgid "_Regular Expression"
 msgstr "정규 표현식 찾기"
 
 #: components/html-editor/spell.c:278
@@ -1893,22 +1848,6 @@ msgstr "철자 검사"
 #: components/html-editor/spell.c:378
 msgid "Current _Languages"
 msgstr "현재 언어(_L)"
-
-#: components/html-editor/table.c:200
-msgid "Flat gray"
-msgstr "회색 단색"
-
-#: components/html-editor/table.c:209
-msgid "Dark header"
-msgstr "어두운 제목"
-
-#: components/html-editor/table.c:813
-msgid ""
-"The editted table was removed from the document.\n"
-"Cannot apply your changes."
-msgstr ""
-"편집한 표가 문서에서 지워졌습니다.\n"
-"바뀐 점을 적용할 수 없습니다."
 
 #: components/html-editor/template.c:84
 msgid "Note"
@@ -1938,70 +1877,82 @@ msgstr "새 이름으로 저장..."
 msgid "GtkHTML Editor Test Container"
 msgstr "GtkHTML 편집기 테스트 컨테이너"
 
-#. color selection
-#: components/html-editor/text.c:293
-msgid "Color"
-msgstr "색상"
-
-#: components/html-editor/text.c:335
-msgid ""
-"The editted text was removed from the document.\n"
-"Cannot apply your changes."
-msgstr ""
-"편집한 텍스트가 문서에서 지워졌습니다.\n"
-"바뀐 점을 적용할 수 없습니다."
-
 #: components/html-editor/toolbar.c:52
 msgid "Roman List"
 msgstr "로마숫자 목록"
 
-#: components/html-editor/toolbar.c:507
+#: components/html-editor/toolbar.c:513
 msgid "Left align"
 msgstr "왼쪽 정렬"
 
-#: components/html-editor/toolbar.c:511
+#: components/html-editor/toolbar.c:517
 msgid "Right align"
 msgstr "오른쪽 정렬"
 
-#: components/html-editor/toolbar.c:518
+#: components/html-editor/toolbar.c:537
 msgid "Toggle typewriter font style"
 msgstr "타자체글꼴 토글"
 
-#: components/html-editor/toolbar.c:520
+#: components/html-editor/toolbar.c:539
+msgid "Bold"
+msgstr "두꺼운꼴"
+
+#: components/html-editor/toolbar.c:539
 msgid "Makes the text bold"
 msgstr "두꺼운 글씨체로 바꿉니다"
 
-#: components/html-editor/toolbar.c:522
+#: components/html-editor/toolbar.c:541
+msgid "Italic"
+msgstr "기울인꼴"
+
+#: components/html-editor/toolbar.c:541
 msgid "Makes the text italic"
 msgstr "이택릭체로 바꿉니다"
 
-#: components/html-editor/toolbar.c:524
+#: components/html-editor/toolbar.c:543
+msgid "Underline"
+msgstr "밑줄"
+
+#: components/html-editor/toolbar.c:543
 msgid "Underlines the text"
 msgstr "밑줄을 귿습니다"
 
-#: components/html-editor/toolbar.c:526
+#: components/html-editor/toolbar.c:545
 msgid "Strikes out the text"
 msgstr "취소선을 칩니다"
 
-#: components/html-editor/toolbar.c:535
+#: components/html-editor/toolbar.c:554
 msgid "Unindent"
 msgstr "내어쓰기"
 
-#: components/html-editor/toolbar.c:535
+#: components/html-editor/toolbar.c:554
 msgid "Indents the paragraphs less"
 msgstr "문단을 더 내어씁니다"
 
-#: components/html-editor/toolbar.c:537
+#: components/html-editor/toolbar.c:556
 msgid "Indent"
 msgstr "들여쓰기"
 
-#: components/html-editor/toolbar.c:537
+#: components/html-editor/toolbar.c:556
 msgid "Indents the paragraphs more"
 msgstr "문단을 더 들여씁니다"
 
-#: components/html-editor/utils.c:106
+#: components/html-editor/utils.c:119
 msgid "Sample"
 msgstr "예제"
+
+#: components/html-editor/utils.c:192
+msgid "_Visit..."
+msgstr ""
+
+#: components/html-editor/utils.c:232
+#, fuzzy
+msgid ""
+"The editted object was removed from the document.\n"
+"Cannot apply your changes."
+msgstr ""
+"편집한 텍스트가 문서에서 지워졌습니다.\n"
+"바뀐 점을 적용할 수 없습니다."
 
 #: src/gtkhtml.c:2457
 #, c-format
@@ -2015,6 +1966,10 @@ msgstr "편집 가능"
 #: src/gtkhtml.c:2780
 msgid "Whether the html can be edited"
 msgstr "HTML을 편집할 수 있는 지 여부"
+
+#: src/gtkhtml.c:2786
+msgid "Document Title"
+msgstr "문서 제목"
 
 #: src/gtkhtml.c:2787
 msgid "The title of the current document"
@@ -2162,6 +2117,170 @@ msgstr "인쇄가 되는 모습을 미리 확인해봅니다"
 #: src/testgtkhtml.c:989
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML 테스트 프로그램"
+
+#~ msgid "Find A Regular Expression"
+#~ msgstr "정규 표현식으로 찾습니다"
+
+#~ msgid "Find Regular E_xpression..."
+#~ msgstr "정규 표현식으로 찾기(_X)..."
+
+#~ msgid ""
+#~ "The quick brown <a href=\"mailto:fox\">fox</a> jumps over the lazy <a "
+#~ "href=\"mailto:dog\">dog</a>."
+#~ msgstr ""
+#~ "<a href=\"mailto:flower\">무궁화</a> 꽃이 <a href=\"mailto:big\">활짝</a> "
+#~ "피었습니다."
+
+#~ msgid "The quick brown fox jumps over the lazy dog."
+#~ msgstr "무궁화 꽃이 활짝 피었습니다."
+
+#~ msgid "Other"
+#~ msgstr "그 외"
+
+#~ msgid ""
+#~ "The editted cell was removed from the document.\n"
+#~ "Cannot apply your changes."
+#~ msgstr ""
+#~ "편집한 셀이 문서에서 지워졌습니다.\n"
+#~ "바뀐 점을 저장할 수 없습니다."
+
+#~ msgid "************"
+#~ msgstr "************"
+
+#~ msgid "***text***"
+#~ msgstr "***글자***"
+
+#~ msgid "Apply changes to:"
+#~ msgstr "바뀐 점 적용:"
+
+#~ msgid "Border"
+#~ msgstr "둘레"
+
+#~ msgid "Click will follow this URL"
+#~ msgstr "누르면 이 URL을 따라갑니다"
+
+#~ msgid "Click will follow this URL:"
+#~ msgstr "누르면 이 URL을 따라갑니다:"
+
+#~ msgid "Don't wrap"
+#~ msgstr "줄 바꾸지 않기"
+
+#~ msgid "Font size"
+#~ msgstr "글꼴 크기"
+
+#~ msgid "Foreground color"
+#~ msgstr "글자색"
+
+#~ msgid "Header"
+#~ msgstr "제목"
+
+#~ msgid "Link insert"
+#~ msgstr "링크 넣기"
+
+#~ msgid "Location"
+#~ msgstr "위치"
+
+#~ msgid "Padding"
+#~ msgstr "채움"
+
+#~ msgid "Percent %"
+#~ msgstr "퍼센트 %"
+
+#~ msgid "Pixmap:"
+#~ msgstr "픽스맵:"
+
+#~ msgid "Points"
+#~ msgstr "포인트"
+
+#~ msgid "Scope"
+#~ msgstr "범위"
+
+#~ msgid "Spacing"
+#~ msgstr "간격"
+
+#~ msgid "Style:"
+#~ msgstr "스타일:"
+
+#~ msgid "Table Insert"
+#~ msgstr "표 넣기"
+
+#~ msgid "Test URL..."
+#~ msgstr "URL 테스트..."
+
+#~ msgid "Wrap"
+#~ msgstr "줄 바꾸기"
+
+#~ msgid "Wrapping:"
+#~ msgstr "줄바꿈:"
+
+#~ msgid "xxxxxxxxx"
+#~ msgstr "xxxxxxxxx"
+
+#~ msgid ""
+#~ "This is sample text, designed to show you how text would flow around this "
+#~ "image if you insert the image into your message."
+#~ msgstr ""
+#~ "예제 텍스트입니다. 이 텍스트는 이미지를 넣을 때 텍스트가 그 이미지 주변에 "
+#~ "어떻게 흘러가는 지 알려주기 위한 용도입니다."
+
+#~ msgid "No image selected"
+#~ msgstr "그림을 선택하지 않았습니다"
+
+#~ msgid ""
+#~ "The editted image was removed from the document.\n"
+#~ "Cannot apply your changes."
+#~ msgstr ""
+#~ "편집한 그림이 문서에서 지워졌습니다.\n"
+#~ "바뀐 점을 적용할 수 없습니다."
+
+#~ msgid "Link text"
+#~ msgstr "링크 글자"
+
+#~ msgid ""
+#~ "The editted link was removed from the document.\n"
+#~ "Cannot apply your changes."
+#~ msgstr ""
+#~ "편집한 바로가기가 문서에서 지워졌습니다.\n"
+#~ "바뀐 점을 적용할 수 없습니다."
+
+#~ msgid "Align"
+#~ msgstr "정렬"
+
+#~ msgid ""
+#~ "The editted paragraph was removed from the document.\n"
+#~ "Cannot apply your changes."
+#~ msgstr ""
+#~ "편집한 문단이 문서에서 지워졌습니다.\n"
+#~ "바뀐 점을 적용할 수 없습니다."
+
+#~ msgid "Blue 3D"
+#~ msgstr "파란 3D"
+
+#~ msgid "Yellow, flowers"
+#~ msgstr "노랑, 꽃"
+
+#~ msgid ""
+#~ "The editted rule was removed from the document.\n"
+#~ "Cannot apply your changes."
+#~ msgstr ""
+#~ "편집한 구분선이 문서에서 지워졌습니다.\n"
+#~ "바뀐 점을 적용할 수 없습니다."
+
+#~ msgid "Flat gray"
+#~ msgstr "회색 단색"
+
+#~ msgid "Dark header"
+#~ msgstr "어두운 제목"
+
+#~ msgid ""
+#~ "The editted table was removed from the document.\n"
+#~ "Cannot apply your changes."
+#~ msgstr ""
+#~ "편집한 표가 문서에서 지워졌습니다.\n"
+#~ "바뀐 점을 적용할 수 없습니다."
+
+#~ msgid "Color"
+#~ msgstr "색상"
 
 #~ msgid "The quick brown fox jumps over the lazy dog.</div>"
 #~ msgstr "무궁화 꽃이 활짝 피었습니다.</div>"
