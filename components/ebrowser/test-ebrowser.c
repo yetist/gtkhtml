@@ -336,7 +336,7 @@ open_browser (GtkButton * button, gpointer data)
 				    GTK_SIGNAL_FUNC (prop_changed_cb), bwin);
 		corba_listener = bonobo_object_corba_objref (BONOBO_OBJECT (listener));
 
-		Bonobo_PropertyBag_add_change_listener (pb, "url", corba_listener, &ev);
+		Bonobo_PropertyBag_addChangeListener (pb, "url", corba_listener, &ev);
 
 		if (BONOBO_EX (&ev)) {
 			g_warning ("Listener exception: %s\n",
