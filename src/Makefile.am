@@ -1,6 +1,6 @@
 INCLUDES = -I$(top_srcdir) -I$(srcdir) -I$(includedir) $(GNOME_INCLUDEDIR) \
 	$(EXTRA_GNOME_CFLAGS) \
-	-DG_LOG_DOMAIN=\"gtkhtml\"
+	-DG_LOG_DOMAIN=\"gtkhtml\" $(LIBWWW_CFLAGS)
 
 noinst_PROGRAMS = testgtkhtml
 

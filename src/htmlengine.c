@@ -1455,7 +1455,7 @@ html_engine_parse_table (HTMLEngine *e, HTMLObject *clue, gint max_width,
 					if (heading) {
 						/* FIXME: do heading stuff */
 					}
-					else if (!tableEntry) {
+					if (!tableEntry) {
 						/* Put all the junk between <table>
 						   and the first table tag into one row */
 						html_engine_push_block (e, ID_TD, 3, NULL, 0, 0);

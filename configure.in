@@ -72,12 +72,13 @@ else
 	LIBWWW_LIBS="`$LIBWWW_CONFIG --libs`"
 
 dnl if we have the mini libwww's, trim the list we link with
-	if echo "$LIBWWW_LIBS" | grep wwwcore > /dev/null; then
-	    changequote(,)dnl
-	    LIBWWW_LIBS="`echo $LIBWWW_LIBS | sed 's/-lxml[^ ]* //g;s/-lwww[^ ]* //g;s/-ldl//;s/-lz//'`"
-	    changequote([,])dnl
-	    LIBWWW_LIBS="$LIBWWW_LIBS -lwwwzip -lwwwhttp -lwwwmime -lwwwftp -lwwwfile -lwwwdir -lwwwhtml -lwwwcache -lwwwstream -lwwwtrans -lwwwcore -lwwwutils -lz"
-	fi
+
+dnl	if echo "$LIBWWW_LIBS" | grep wwwcore > /dev/null; then
+dnl	    changequote(,)dnl
+dnl	    LIBWWW_LIBS="`echo $LIBWWW_LIBS | sed 's/-lxml[^ ]* //g;s/-lwww[^ ]* //g;s/-ldl//;s/-lz//'`"
+dnl	    changequote([,])dnl
+dnl	    LIBWWW_LIBS="$LIBWWW_LIBS -lwwwzip -lwwwhttp -lwwwmime -lwwwftp -lwwwfile -lwwwdir -lwwwhtml -lwwwcache -lwwwstream -lwwwtrans -lwwwcore -lwwwutils -lwwwapp -lwwwnews -lwwwtelnet -lz"
+dnl	fi
 	have_libwww=true
 	AC_DEFINE(HAVE_LIBWWW)
 fi

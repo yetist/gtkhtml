@@ -19,7 +19,20 @@
 #include "debug.h"
 #include "gtkhtml.h"
 #include "htmlengine.h"
+
 #ifdef HAVE_LIBWWW
+
+#undef PACKAGE
+#undef VERSION
+
+#include <WWWLib.h>
+#include <WWWStream.h>
+#include <WWWInit.h>
+#undef PACKAGE
+#undef VERSION
+
+#include "config.h"
+
 #include <glibwww/glibwww.h>
 #endif
 
@@ -40,6 +53,17 @@ static gboolean load_timer_event (FileInProgress *fip);
 static void url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpointer data);
 static void entry_goto_url(GtkWidget *widget, gpointer data);
 static void goto_url(const char *url);
+
+#ifdef HAVE_LIBWWW
+static int netin_stream_put_character (HTStream * me, char c);
+static int netin_stream_put_string (HTStream * me, const char * s);;
+static int netin_stream_write (HTStream * me, const char * s, int l);
+static int netin_stream_flush (HTStream * me);
+static int netin_stream_free (HTStream * me);
+static int netin_stream_abort (HTStream * me, HTList * e);
+static HTResponse *netin_request_response(HTRequest *request);
+static HTStream *netin_stream_new (GtkHTMLStreamHandle handle);
+#endif
 
 GtkWidget *area, *box, *button;
 GtkHTML *html;
@@ -294,6 +318,92 @@ load_timer_event (FileInProgress *fip)
 	}
 }
 
+#ifdef HAVE_LIBWWW
+/* Lame hack */
+struct _HTStream {
+  const HTStreamClass *	isa;
+  GtkHTMLStreamHandle handle;
+};
+
+static int
+netin_stream_put_character (HTStream * me, char c)
+{
+  return netin_stream_write(me, &c, 1);
+}
+
+static int
+netin_stream_put_string (HTStream * me, const char * s)
+{
+  return netin_stream_write(me, s, strlen(s));
+}
+
+static int
+netin_stream_write (HTStream * me, const char * s, int l)
+{
+  g_print("netin_stream_write(%p, %d bytes)\n", me->handle, l);
+  gtk_html_write(html, me->handle, s, l);
+
+  return HT_OK;
+}
+
+static int
+netin_stream_flush (HTStream * me)
+{
+  return HT_OK;
+}
+
+static int
+netin_stream_free (HTStream * me)
+{
+  gtk_html_end(html, me->handle, GTK_HTML_STREAM_OK);
+  g_free(me);
+
+  return HT_OK;
+}
+
+static int
+netin_stream_abort (HTStream * me, HTList * e)
+{
+  g_warning("Stream Abort!");
+
+  return HT_ERROR;
+}
+
+static const HTStreamClass netin_stream_class =
+{		
+    "netin_stream",
+    netin_stream_flush,
+    netin_stream_free,
+    netin_stream_abort,
+    netin_stream_put_character,
+    netin_stream_put_string,
+    netin_stream_write
+}; 
+
+static HTResponse *
+netin_request_response(HTRequest *request)
+{
+  HTResponse *retval;
+  while(!(retval = HTRequest_response(request)))
+    g_main_iteration(TRUE);
+
+  return retval;
+}
+
+static HTStream *
+netin_stream_new (GtkHTMLStreamHandle handle)
+{
+  HTStream *retval;
+
+  retval = g_new0(HTStream, 1);
+
+  retval->isa = &netin_stream_class;
+  retval->handle = handle;
+
+  return retval;
+}
+#endif
+
 static void
 url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpointer data)
 {
@@ -301,11 +411,17 @@ url_requested (GtkHTML *html, const char *url, GtkHTMLStreamHandle handle, gpoin
 	gchar buffer[32768];
 
 #ifdef HAVE_LIBWWW
-	GWWWRequest *req;
+	HTRequest *newreq;
+	BOOL status;
 
-	req = glibwww_load_to_mem(url, www_incoming, handle);
+	newreq = HTRequest_new();
+	g_assert(newreq);
 
-	if(req)
+	HTRequest_setOutputFormat(newreq, WWW_SOURCE);
+	status = HTLoadToStream(url, netin_stream_new(handle), newreq);
+	g_assert(status);
+
+	if(newreq)
 	  return;
 #endif
 
@@ -381,7 +497,6 @@ main (gint argc, gchar *argv[])
 		    argc, argv);
 #ifdef HAVE_LIBWWW
 	glibwww_init(PACKAGE, VERSION);
-	glibwww_register_gnome_dialogs();
 #endif
 
 	gdk_rgb_init ();
