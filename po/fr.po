@@ -1,20 +1,20 @@
 # French translation of gtkhtml.
-# Copyright (C) 2000-2004 Free Software Foundation, Inc.
+# Copyright (C) 2000-2005 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gtkhtml package.
 #
 # Yannick LE NY <y-le-ny@ifrance.com>, 2000.
-# maintainer: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>, 2000-2004.
+# maintainer: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>, 2000-2005.
 # Gildas Guillemot <g.guillemot@laposte.net>, 2003.
 # Audrey Simons <asimons@redhat.com>, 2004.
 #
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml 3.1.18\n"
+"Project-Id-Version: gtkhtml 3.5.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-07 17:25+0100\n"
-"PO-Revision-Date: 2004-07-30 10:00+0200\n"
-"Last-Translator: Audrey Simons <asimons@redhat.com>\n"
+"POT-Creation-Date: 2005-02-21 23:20+0100\n"
+"PO-Revision-Date: 2005-02-21 22:57+0100\n"
+"Last-Translator: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,20 +23,20 @@ msgstr ""
 #: a11y/image.c:150
 #, c-format
 msgid "URL is %s, Alternative Text is %s"
-msgstr ""
+msgstr "l'URL est %s, le texte alternatif est %s"
 
 #: a11y/image.c:152
 #, c-format
 msgid "URL is %s"
-msgstr ""
+msgstr "l'URL est %s"
 
 #: a11y/object.c:50 a11y/object.c:59 a11y/text.c:111
 msgid "grab focus"
-msgstr ""
+msgstr "capturer le focus"
 
 #: a11y/object.c:256
 msgid "Panel containing HTML"
-msgstr ""
+msgstr "Panneau contenant de l'HTML"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
@@ -934,9 +934,8 @@ msgid "Background Image"
 msgstr "Image d'arrière-plan"
 
 #: components/html-editor/body.c:298
-#, fuzzy
 msgid "Background Image File Path"
-msgstr "Image d'arrière-plan"
+msgstr "Chemin du fichier d'image d'arrière-plan"
 
 #: components/html-editor/body.c:301
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
@@ -979,9 +978,8 @@ msgid "Page"
 msgstr "Page"
 
 #: components/html-editor/gi-color-combo.c:187
-#, fuzzy
 msgid "color preview"
-msgstr "Aperçu avant impression"
+msgstr "aperçu de la couleur"
 
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:395
@@ -1185,7 +1183,7 @@ msgstr "bleu ciel"
 #. set the a11y name
 #: components/html-editor/gi-combo-box.c:419
 msgid "Popup"
-msgstr ""
+msgstr "Popup"
 
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
@@ -1450,14 +1448,12 @@ msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
 #: components/html-editor/link.c:194
-#, fuzzy
 msgid "URL:"
-msgstr "_URL :"
+msgstr "URL :"
 
 #: components/html-editor/link.c:198
-#, fuzzy
 msgid "Description:"
-msgstr "_Description :"
+msgstr "Description :"
 
 #: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
 msgid "Insert image"
@@ -1581,7 +1577,7 @@ msgstr "Style de la page..."
 
 #: components/html-editor/popup.c:500
 msgid "Table insert"
-msgstr "Insèrer un tableau"
+msgstr "Insérer un tableau"
 
 #: components/html-editor/popup.c:503
 msgid "Row above"
@@ -1666,14 +1662,12 @@ msgid "Case _sensitive"
 msgstr "_Sensible à la casse"
 
 #: components/html-editor/replace.c:182
-#, fuzzy
 msgid "R_eplace:"
-msgstr "Remplacer :"
+msgstr "R_emplacer :"
 
 #: components/html-editor/replace.c:186
-#, fuzzy
 msgid "_With:"
-msgstr "_Largeur :"
+msgstr "_Avec :"
 
 #: components/html-editor/search.c:112
 msgid "_Backward"
@@ -1685,13 +1679,15 @@ msgstr "Expression _régulière"
 
 #: components/html-editor/search.c:118
 msgid "Input the words you want to search here"
-msgstr ""
+msgstr "Saisissez les mots que vous voulez rechercher ici"
 
 #: components/html-editor/spellchecker.c:110
 msgid ""
 "Unable to add word to dictionary,\n"
 "language settings are broken.\n"
 msgstr ""
+"Impossible d'ajouter un mot au dictionnaire,\n"
+"les réglages de langue sont cassés.\n"
 
 #: components/html-editor/spellchecker.c:298
 msgid "No misspelled word found"
@@ -1718,9 +1714,8 @@ msgid "Image frame"
 msgstr "Cadre d'image"
 
 #: components/html-editor/template.c:280
-#, fuzzy
 msgid "Template Labels"
-msgstr "Modèle"
+msgstr "Étiquettes du modèle"
 
 #: components/html-editor/test-html-editor-control.c:333
 msgid "Open file..."
@@ -1973,100 +1968,3 @@ msgstr "Aperçu avant impression"
 #: src/testgtkhtml.c:1004
 msgid "GtkHTML Test Application"
 msgstr "Application de test GtkHTML"
-
-#~ msgid "<None>"
-#~ msgstr "<Aucun>"
-
-#~ msgid "\n"
-#~ msgstr "\n"
-
-#~ msgid "*********************"
-#~ msgstr "*********************"
-
-#~ msgid "Add Keyboard Shortcuts"
-#~ msgstr "Ajouter des raccourcis clavier"
-
-#~ msgid "Automatically detect links"
-#~ msgstr "Détecter automatiquement les liens"
-
-#~ msgid "Behavior"
-#~ msgstr "Comportement"
-
-#~ msgid "Composer Properties"
-#~ msgstr "Propriétés de l'éditeur"
-
-#~ msgid "Composer Properties planned"
-#~ msgstr "Propriétés planifiées de l'éditeur"
-
-#~ msgid "Configure spell checking"
-#~ msgstr "Configurer la vérification orthographique"
-
-#~ msgid "Enable spell checking"
-#~ msgstr "Activer la vérification orthographique"
-
-#~ msgid "Fixed width"
-#~ msgstr "Largeur constante"
-
-#~ msgid "Fonts"
-#~ msgstr "Polices"
-
-#~ msgid "For printing"
-#~ msgstr "Pour l'impression"
-
-#~ msgid "Grab keys"
-#~ msgstr "Capturer les touches"
-
-#~ msgid "Information"
-#~ msgstr "Information"
-
-#~ msgid "Keyboard Shortcuts"
-#~ msgstr "Raccourcis clavier"
-
-#~ msgid "Miscellaneous"
-#~ msgstr "Divers"
-
-#~ msgid "New shortcut:"
-#~ msgstr "Nouveau raccourci :"
-
-#~ msgid "On screen"
-#~ msgstr "Pour l'écran"
-
-#~ msgid "Select HTML fixed width font"
-#~ msgstr "Sélectionnez une police HTML à largeur constante"
-
-#~ msgid "Select HTML fixed width font for printing"
-#~ msgstr "Sélectionnez une police HTML à largeur constante pour l'impression"
-
-#~ msgid "Select HTML variable width font"
-#~ msgstr "Sélectionnez une police HTML à largeur variable"
-
-#~ msgid "Select HTML variable width font for printing"
-#~ msgstr "Sélectionnez une police HTML à largeur variable pour l'impression"
-
-#~ msgid "Shortcuts _type:"
-#~ msgstr "_Type de raccourcis :"
-
-#~ msgid "Show animated images"
-#~ msgstr "Afficher les images animées"
-
-#~ msgid "Variable width"
-#~ msgstr "Largeur variable"
-
-#~ msgid "_Add"
-#~ msgstr "A_jouter"
-
-#~ msgid "_Delete"
-#~ msgstr "_Supprimer"
-
-#~ msgid ""
-#~ "Cannot execute GNOME Spell control applet\n"
-#~ "Try to install GNOME Spell if you don't have it installed."
-#~ msgstr ""
-#~ "Impossible d'exécuter l'applet de contrôle GNOME Spell\n"
-#~ "Essayez d'installer GNOME Spell s'il n'est pas installé."
-
-#~ msgid "With:"
-#~ msgstr "Avec :"
-
-#~ msgid "Labels"
-#~ msgstr "Étiquettes"
