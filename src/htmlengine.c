@@ -2910,7 +2910,7 @@ html_engine_destroy (GtkObject *object)
         /* Finally, destroy timers.  */
 
 	if (engine->timerId != 0)
-		gtk_timeout_remove (engine->timerId);
+		gtk_idle_remove (engine->timerId);
 	if (engine->blinking_timer_id != 0)
 		gtk_timeout_remove (engine->blinking_timer_id);
 	if (engine->updateTimer != 0)
@@ -3257,7 +3257,7 @@ html_engine_stop_parser (HTMLEngine *e)
 		return;
 
 	if (e->timerId != 0) {
-		gtk_timeout_remove (e->timerId);
+		gtk_idle_remove (e->timerId);
 		e->timerId = 0;
 	}
 	
@@ -3281,12 +3281,13 @@ html_engine_begin (HTMLEngine *e)
 	html_engine_stop_parser (e);
 	e->writing = TRUE;
 
+	html_image_factory_stop_animations (e->image_factory);
+	html_image_factory_cleanup (e->image_factory);
 	new_stream = gtk_html_stream_new (GTK_HTML (e->widget),
 					  html_engine_write,
 					  html_engine_end,
 					  e);
 
-	html_image_factory_stop_animations (e->image_factory);
 	e->newPage = TRUE;
 
 	return new_stream;
@@ -3308,9 +3309,7 @@ html_engine_write (GtkHTMLStream *handle,
 	html_tokenizer_write (e->ht, buffer, size);
 
 	if (e->parsing && e->timerId == 0) {
-		e->timerId = gtk_timeout_add (TIMER_INTERVAL,
-					      (GtkFunction) html_engine_timer_event,
-					      e);
+		e->timerId = gtk_idle_add ((GtkFunction) html_engine_timer_event, e);
 	}
 }
 
@@ -3362,9 +3361,7 @@ void
 html_engine_schedule_update (HTMLEngine *p)
 {
 	if(p->updateTimer == 0)
-		p->updateTimer = gtk_timeout_add (TIMER_INTERVAL,
-						  (GtkFunction) html_engine_update_event,
-						  p);
+		p->updateTimer = gtk_idle_add ((GtkFunction) html_engine_update_event, p);
 }
 
 
@@ -3429,7 +3426,7 @@ html_engine_timer_event (HTMLEngine *e)
  out:
 	if (!retval) {
 		if(e->updateTimer != 0) {
-			gtk_timeout_remove (e->updateTimer);
+			gtk_idle_remove (e->updateTimer);
 			html_engine_update_event (e);
 		}
 			
@@ -3482,7 +3479,7 @@ html_engine_end (GtkHTMLStream *stream,
 		;
 
 	if (e->timerId != 0) {
-		gtk_timeout_remove (e->timerId);
+		gtk_idle_remove (e->timerId);
 		e->timerId = 0;
 	}
 
@@ -3494,8 +3491,6 @@ html_engine_end (GtkHTMLStream *stream,
 	}
 
 	gtk_signal_emit (GTK_OBJECT (e), signals[LOAD_DONE]);
-	html_image_factory_stop_animations (e->image_factory);
-	html_image_factory_cleanup (e->image_factory);
 }
 
 
@@ -3650,7 +3645,7 @@ html_engine_parse (HTMLEngine *e)
 
 	e->pending_para_alignment = HTML_HALIGN_LEFT;
 
-	e->timerId = gtk_timeout_add (TIMER_INTERVAL, (GtkFunction) html_engine_timer_event, e);
+	e->timerId = gtk_idle_add ((GtkFunction) html_engine_timer_event, e);
 }
 
 

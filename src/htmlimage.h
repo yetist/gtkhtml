@@ -36,6 +36,7 @@ typedef struct _HTMLImageFactory HTMLImageFactory;
 typedef struct _HTMLImageAnimation HTMLImageAnimation;
 
 struct _HTMLImagePointer {
+	gint refcount;
 	gchar *url;
 	GdkPixbufLoader *loader;
 	GdkPixbuf *pixbuf;

@@ -1,4 +1,12 @@
+2000-09-21  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlimage.c: refcounting for image pointers
+
 2000-09-20  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlengine.c: update timeouts replaced by idle callbacks
+	(html_engine_begin): move factory cleanup + stop
+	animations here
 
 	* htmltextmaster.c (html_text_master_magic_link): fixed for ' '
 	case

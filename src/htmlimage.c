@@ -62,7 +62,8 @@ static HTMLObjectClass *parent_class = NULL;
 static HTMLImageAnimation *html_image_animation_new     (HTMLImage *image);
 static void                html_image_animation_destroy (HTMLImageAnimation *anim);
 static HTMLImagePointer   *html_image_pointer_new       (const char *filename, HTMLImageFactory *factory);
-static void                html_image_pointer_destroy   (HTMLImagePointer *ip);
+static void                html_image_pointer_ref       (HTMLImagePointer *ip);
+static void                html_image_pointer_unref     (HTMLImagePointer *ip);
 
 static void render_cur_frame (HTMLImage *image, gint nx, gint ny, const GdkColor *highlight_color);
 
@@ -652,6 +653,8 @@ html_image_factory_end_pixbuf (GtkHTMLStream *stream,
 	
 	gtk_object_unref (GTK_OBJECT (ip->loader));
 	ip->loader = NULL;
+
+	html_image_pointer_unref (ip);
 }
 
 static void
@@ -890,7 +893,7 @@ cleanup_images (gpointer key, gpointer value, gpointer user_data)
 	/* clean only if this image is not used anymore */
 	if (!ptr->interests){
 		retval = TRUE;
-		html_image_pointer_destroy (ptr);
+		html_image_pointer_unref (ptr);
 	}
 
 	return retval;
@@ -944,6 +947,7 @@ html_image_pointer_new (const char *filename, HTMLImageFactory *factory)
 	HTMLImagePointer *retval;
 
 	retval = g_new (HTMLImagePointer, 1);
+	retval->refcount = 1;
 	retval->url = g_strdup (filename);
 	retval->loader = gdk_pixbuf_loader_new ();
 	retval->pixbuf = NULL;
@@ -955,22 +959,31 @@ html_image_pointer_new (const char *filename, HTMLImageFactory *factory)
 }
 
 static void
-html_image_pointer_destroy (HTMLImagePointer *ip)
+html_image_pointer_ref (HTMLImagePointer *ip)
+{
+	ip->refcount++;
+}
+
+static void
+html_image_pointer_unref (HTMLImagePointer *ip)
 {
 	g_return_if_fail (ip != NULL);
 
-	g_free (ip->url);
-	if (ip->loader) {
-		gtk_object_unref (GTK_OBJECT (ip->loader));
-	}
-	if (ip->animation) {
-		gdk_pixbuf_animation_unref (ip->animation);
-	}
-	if (ip->pixbuf) {
-		gdk_pixbuf_unref (ip->pixbuf);
-	}
+	ip->refcount--;
+	if (ip->refcount <= 0) {
+		g_free (ip->url);
+		if (ip->loader) {
+			gtk_object_unref (GTK_OBJECT (ip->loader));
+		}
+		if (ip->animation) {
+			gdk_pixbuf_animation_unref (ip->animation);
+		}
+		if (ip->pixbuf) {
+			gdk_pixbuf_unref (ip->pixbuf);
+		}
 
-	g_free (ip);
+		g_free (ip);
+	}
 }
 
 HTMLImagePointer *
@@ -999,7 +1012,8 @@ html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const char
 			gtk_signal_connect (GTK_OBJECT (retval->loader), "animation_done",
 					    GTK_SIGNAL_FUNC (html_image_factory_animation_done),
 					    retval);
-		
+
+			html_image_pointer_ref (retval);
 			handle = gtk_html_stream_new (GTK_HTML (factory->engine->widget),
 						      html_image_factory_write_pixbuf,
 						      html_image_factory_end_pixbuf,
