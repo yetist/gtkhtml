@@ -40,8 +40,6 @@ struct _HTMLEngineSaveState {
 	guint inline_frames : 1;
 	guint last_level;
 
-	GSList *nb_intervals;
-
 	gpointer user_data;
 };
 
@@ -65,10 +63,6 @@ gboolean             html_engine_save_output_string             (HTMLEngineSaveS
 gboolean             html_engine_save_output_buffer             (HTMLEngineSaveState       *state,
 								 const gchar               *buffer,
 								 int                        len);
-void                 html_engine_save_add_nb_interval           (HTMLEngineSaveState       *state,
-								 int                        start_offset,
-								 int                        end_offset);
-
 
 /* Saving a whole tree.  */
 gboolean             html_engine_save                           (HTMLEngine                *engine,
@@ -79,7 +73,7 @@ gboolean             html_engine_save_plain                     (HTMLEngine     
 								 gpointer                   user_data);
 void                 html_engine_save_buffer_free               (HTMLEngineSaveState       *state);
 guchar              *html_engine_save_buffer_peek_text          (HTMLEngineSaveState       *state);
-int                  html_engine_save_buffer_peek_text_len      (HTMLEngineSaveState       *state);
+int                  html_engine_save_buffer_peek_text_bytes    (HTMLEngineSaveState       *state);
 void                 html_engine_save_buffer_clear_line_breaks  (HTMLEngineSaveState       *state,
 								 PangoLogAttr              *attrs);
 HTMLEngineSaveState *html_engine_save_buffer_new                (HTMLEngine                *engine,

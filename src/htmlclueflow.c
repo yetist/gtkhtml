@@ -1811,7 +1811,7 @@ save_plain (HTMLObject *self,
 			g_string_append (out, "\n");
 		} else {
 			PangoAttrList *attrs = pango_attr_list_new ();
-			gint bytes = strlen (s), i, slen = g_utf8_strlen (s, -1), clen, n_items;
+			gint bytes = html_engine_save_buffer_peek_text_bytes (buffer_state), slen = g_utf8_strlen (s, -1), i, clen, n_items;
 			GList *items_list, *cur;
 			PangoContext *pc = gtk_widget_get_pango_context (GTK_WIDGET (state->engine->widget));
 			PangoLogAttr *lattrs;
@@ -1846,7 +1846,9 @@ save_plain (HTMLObject *self,
 
 				pango_break (s + tmp_item.offset, tmp_item.length, &tmp_item.analysis, lattrs + start_offset, tmp_item.num_chars + 1);
 			}
-			html_engine_save_buffer_clear_line_breaks (buffer_state, lattrs);
+
+			html_text_remove_unwanted_line_breaks (s, slen, lattrs);
+
 			g_list_free (items_list);
 			for (i = 0; i < n_items; i ++)
 				pango_item_free (items [i]);

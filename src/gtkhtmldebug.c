@@ -277,6 +277,18 @@ dump_object_simple (HTMLObject *obj,
 					g_print ("char break, ");
 				if (u.attr.is_white)
 					g_print ("white, ");
+				if (u.attr.is_cursor_position)
+					g_print ("cursor position, ");
+				if (u.attr.is_word_start)
+					g_print ("word start, ");
+				if (u.attr.is_word_end)
+					g_print ("word end, ");
+				if (u.attr.is_sentence_boundary)
+					g_print ("sentence boundary, ");
+				if (u.attr.is_sentence_start)
+					g_print ("sentence start, ");
+				if (u.attr.is_sentence_end)
+					g_print ("sentence end, ");
 				g_print ("\n");
 			}
 		}

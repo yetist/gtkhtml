@@ -470,7 +470,7 @@ save (HTMLObject *s,
 		if (state->error || 
 		    !html_engine_save_output_buffer (state,
 						     html_engine_save_buffer_peek_text (buffer),
-						     html_engine_save_buffer_peek_text_len (buffer))) {
+						     html_engine_save_buffer_peek_text_bytes (buffer))) {
 			html_engine_save_buffer_free (buffer);
 			return FALSE;
 		}
@@ -523,7 +523,7 @@ save_plain (HTMLObject *s,
 		if (state->error || 
 		    !html_engine_save_output_buffer (state,
 						     html_engine_save_buffer_peek_text (buffer),
-						     html_engine_save_buffer_peek_text_len (buffer))) {
+						     html_engine_save_buffer_peek_text_bytes (buffer))) {
 			html_engine_save_buffer_free (buffer);
 			return FALSE;
 		}

@@ -1,3 +1,28 @@
+2004-06-08  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-save.c (html_engine_save_buffer_peek_text_bytes):
+	renamed from html_engine_save_buffer_peek_text_len to avoid
+	confusion
+
+	* htmlclueflow.c (save_plain): init 'bytes' using
+	html_engine_save_buffer_peek_text_bytes
+
+	* gtkhtmldebug.c (dump_object_simple): added more pango log
+	attribute info
+
+	* htmlclueflow.c (save_plain): use
+	html_text_remove_unwanted_line_breaks
+
+	* htmltext.c (html_text_remove_unwanted_line_breaks): new helper
+	method to remove linebreaks around punctuation
+	(html_text_get_pango_info): use
+	html_text_remove_unwanted_line_breaks
+
+	* htmlengine-save.c (html_engine_save_buffer_clear_line_breaks):
+	remove now obsolete method
+
+	Fixes #54852
+
 2004-06-06  Eric Zhao  <eric.zhao@sun.com>
 
        Fixes #46761, make the caret consistent with focus.

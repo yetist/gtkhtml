@@ -1140,21 +1140,25 @@ html_text_add_cite_color (PangoAttrList *attrs, HTMLText *text, HTMLClueFlow *fl
 	}
 }
 
-static void
-html_text_remove_link_line_breaks (HTMLText *text)
+void
+html_text_remove_unwanted_line_breaks (char *s, int len, PangoLogAttr *attrs)
 {
-	GSList *cur;
+	int i;
+	gunichar last_uc = 0;
 
-	if (!text->pi || !text->pi->attrs)
-		return;
+	for (i = 0; i < len; i ++) {
+		gunichar uc = g_utf8_get_char (s);
 
-	for (cur = text->links; cur; cur = cur->next) {
-		Link *link = (Link *) cur->data;
-		int offset;
-
-		for (offset = link->start_offset; offset < link->end_offset; offset ++)
-			if (offset > 0 && !text->pi->attrs [offset - 1].is_white)
-				text->pi->attrs [offset].is_line_break = 0;
+		if (attrs [i].is_line_break) {
+			if (last_uc == '.' || last_uc == '/' ||
+			    last_uc == '(' || last_uc == ')' ||
+			    last_uc == '{' || last_uc == '}' ||
+			    last_uc == '[' || last_uc == ']' ||
+			    last_uc == '<' || last_uc == '>')
+				attrs [i].is_line_break = 0;
+		}
+		s = g_utf8_next_char (s);
+		last_uc = uc;
 	}
 }
 
@@ -1291,7 +1295,8 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 			pango_break (translated + tmp_item.offset, tmp_item.length, &tmp_item.analysis, text->pi->attrs + start_offset, tmp_item.num_chars + 1);
 		}
 
-		html_text_remove_link_line_breaks (text);
+		if (text->pi && text->pi->attrs)
+			html_text_remove_unwanted_line_breaks (text->text, text->text_len, text->pi->attrs);
 
 		for (i = 0; i < text->pi->n; i ++) {
 			PangoGlyphString *glyphs;
@@ -1680,23 +1685,10 @@ save_plain (HTMLObject *self,
 	    gint requested_width)
 {
 	HTMLText *text;
-	gboolean rv;
 
 	text = HTML_TEXT (self);
 
-	if (text->links) {
-		GSList *cur;
-		int len = html_engine_save_buffer_peek_text_len (state);
-
-		for (cur = text->links; cur; cur = cur->next) {
-			Link *link = (Link *) cur->data;
-
-			html_engine_save_add_nb_interval (state, link->start_offset + len, link->end_offset + len);
-		}
-	}
-	rv  = html_engine_save_output_string (state, "%s", text->text);
-
-	return rv;
+	return html_engine_save_output_string (state, "%s", text->text);
 }
 
 static guint
