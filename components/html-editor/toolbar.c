@@ -106,7 +106,7 @@ paragraph_style_menu_item_update (GtkWidget *widget, gpointer format_html)
 
 	style = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (widget), "paragraph_style_value"));
 	
-	sensitive = (format_html 
+	sensitive = (format_html
 		     || style == GTK_HTML_PARAGRAPH_STYLE_NORMAL
 		     || style == GTK_HTML_PARAGRAPH_STYLE_PRE
 		     || style == GTK_HTML_PARAGRAPH_STYLE_ITEMDOTTED
@@ -559,6 +559,12 @@ html_destroy_cb (GtkObject *object,
 	cd->html = NULL;
 } */
 
+static void
+indentation_changed (GtkWidget *w, guint level, GtkHTMLControlData *cd)
+{
+	gtk_widget_set_sensitive (cd->unindent_button, level != 0);
+}
+
 static GtkWidget *
 create_style_toolbar (GtkHTMLControlData *cd)
 {
@@ -599,6 +605,9 @@ create_style_toolbar (GtkHTMLControlData *cd)
 	cd->right_align_button = editor_toolbar_alignment_group[2].widget;
 
 	cd->unindent_button  = editor_toolbar_style_uiinfo [8].widget;
+	gtk_signal_connect (GTK_OBJECT (cd->html), "current_paragraph_indentation_changed",
+			    indentation_changed, cd);
+
 	cd->indent_button    = editor_toolbar_style_uiinfo [9].widget;
 
 	/* g_signal_connect (GTK_OBJECT (cd->html), "destroy",
@@ -624,10 +633,10 @@ toolbar_item_update_sensitivity (GtkWidget *widget, gpointer data)
 	GtkHTMLControlData *cd = (GtkHTMLControlData *)data;
 	gboolean sensitive;
 
-	sensitive = (cd->format_html
+	sensitive = (cd->format_html && widget != cd->unindent_button
 		     || widget == cd->paragraph_option
 		     || widget == cd->indent_button
-		     || widget == cd->unindent_button);
+		     || widget == cd->unindent_button && gtk_html_get_paragraph_indentation (cd->html));
 
 	gtk_widget_set_sensitive (widget, sensitive);
 }
