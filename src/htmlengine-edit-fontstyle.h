@@ -25,11 +25,13 @@
 #include "htmlengine.h"
 #include "gtkhtmlfontstyle.h"
 
-gboolean  html_engine_update_insertion_font_style  (HTMLEngine       *engine);
-void      html_engine_set_font_style               (HTMLEngine       *engine,
-						    GtkHTMLFontStyle  and_mask,
-						    GtkHTMLFontStyle  or_mask);
-void      html_engine_font_style_toggle            (HTMLEngine *engine,
-						    GtkHTMLFontStyle style);
+gboolean           html_engine_update_insertion_font_style  (HTMLEngine       *engine);
+GtkHTMLFontStyle   html_engine_get_font_style               (HTMLEngine       *engine);
+GtkHTMLFontStyle   html_engine_get_document_font_style      (HTMLEngine       *engine);
+void               html_engine_set_font_style               (HTMLEngine       *engine,
+							     GtkHTMLFontStyle  and_mask,
+							     GtkHTMLFontStyle  or_mask);
+void               html_engine_font_style_toggle            (HTMLEngine *engine,
+							     GtkHTMLFontStyle style);
 
 #endif

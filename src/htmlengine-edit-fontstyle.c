@@ -722,6 +722,35 @@ get_font_style_from_selection (HTMLEngine *engine)
 	return style & ~conflicts;
 }
 
+GtkHTMLFontStyle
+html_engine_get_document_font_style (HTMLEngine *engine)
+{
+	HTMLObject *curr;
+
+	g_return_val_if_fail (engine != NULL, GTK_HTML_FONT_STYLE_DEFAULT);
+	g_return_val_if_fail (HTML_IS_ENGINE (engine), GTK_HTML_FONT_STYLE_DEFAULT);
+	g_return_val_if_fail (engine->editable, GTK_HTML_FONT_STYLE_DEFAULT);
+
+	curr = engine->cursor->object;
+
+	if (curr == NULL)
+		return GTK_HTML_FONT_STYLE_DEFAULT;
+	else if (! html_object_is_text (curr))
+		return GTK_HTML_FONT_STYLE_DEFAULT;
+	else if (! engine->active_selection)
+		return HTML_TEXT (curr)->font_style;
+	else
+		return get_font_style_from_selection (engine);
+}
+
+GtkHTMLFontStyle
+html_engine_get_font_style (HTMLEngine *engine)
+{
+	return (engine->insertion_font_style == GTK_HTML_FONT_STYLE_DEFAULT)
+		? html_engine_get_document_font_style (engine)
+		: engine->insertion_font_style;
+}
+
 /**
  * html_engine_update_insertion_font_style:
  * @engine: An HTMLEngine
@@ -734,23 +763,9 @@ get_font_style_from_selection (HTMLEngine *engine)
 gboolean
 html_engine_update_insertion_font_style (HTMLEngine *engine)
 {
-	HTMLObject *curr;
 	GtkHTMLFontStyle new_style;
 
-	g_return_val_if_fail (engine != NULL, GTK_HTML_FONT_STYLE_DEFAULT);
-	g_return_val_if_fail (HTML_IS_ENGINE (engine), GTK_HTML_FONT_STYLE_DEFAULT);
-	g_return_val_if_fail (engine->editable, GTK_HTML_FONT_STYLE_DEFAULT);
-
-	curr = engine->cursor->object;
-
-	if (curr == NULL)
-		new_style = GTK_HTML_FONT_STYLE_DEFAULT;
-	else if (! html_object_is_text (curr))
-		new_style = GTK_HTML_FONT_STYLE_DEFAULT;
-	else if (! engine->active_selection)
-		new_style = HTML_TEXT (curr)->font_style;
-	else
-		new_style = get_font_style_from_selection (engine);
+	new_style = html_engine_get_document_font_style (engine);
 
 	if (new_style != engine->insertion_font_style) {
 		engine->insertion_font_style = new_style;
@@ -805,8 +820,11 @@ html_engine_set_font_style (HTMLEngine *engine,
 void
 html_engine_font_style_toggle (HTMLEngine *engine, GtkHTMLFontStyle style)
 {
-	html_engine_update_insertion_font_style (engine);
-	if (engine->insertion_font_style & style)
+	GtkHTMLFontStyle cur_style;
+
+	cur_style = html_engine_get_font_style (engine);
+
+	if (cur_style & style)
 		html_engine_set_font_style (engine, GTK_HTML_FONT_STYLE_MAX & ~style, 0);
 	else
 		html_engine_set_font_style (engine, GTK_HTML_FONT_STYLE_MAX, style);
