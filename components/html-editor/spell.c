@@ -124,7 +124,7 @@ fill_suggestion_clist (GtkWidget *clist, const gchar *word, GtkHTMLControlData *
 	CORBA_exception_init (&ev);
 	seq = GNOME_Spell_Dictionary_getSuggestions (cd->dict, word, &ev );
 
-	if (ev._major == CORBA_NO_EXCEPTION) {
+	if (ev._major != CORBA_SYSTEM_EXCEPTION) {
 		for (i=0; i < seq->_length; i++) {
 			suggested_word [0] = seq->_buffer [i];
 			gtk_clist_append (GTK_CLIST (clist), (gchar **) suggested_word);
@@ -213,7 +213,7 @@ spell_check_word (GtkHTML *html, const gchar *word, gpointer data)
 	/* printf ("check word: %s\n", word); */
 	CORBA_exception_init (&ev);
 	rv = GNOME_Spell_Dictionary_checkWord (cd->dict, word, &ev);
-	if (ev._major != CORBA_NO_EXCEPTION)
+	if (ev._major == CORBA_SYSTEM_EXCEPTION)
 		rv = TRUE;
 	CORBA_exception_free (&ev);
 
