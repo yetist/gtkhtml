@@ -1,5 +1,8 @@
 2001-10-24  Larry Ewing  <lewing@ximian.com>
 
+	* htmlobject.c (html_object_is_clue): add HTML_TYPE_CLUEALIGNED to
+	the type list.
+
 	* htmlimage.c (html_image_animation_new): initialize some
 	variables that were missed.
 
