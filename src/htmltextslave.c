@@ -99,7 +99,7 @@ html_text_slave_get_start_byte_offset (HTMLTextSlave *slave)
 }
 
 static guint
-calc_width (HTMLTextSlave *slave, HTMLPainter *painter, gint *asc, gint *dsc)
+hts_calc_width (HTMLTextSlave *slave, HTMLPainter *painter, gint *asc, gint *dsc)
 {
 	HTMLText *text = slave->owner;
 	HTMLObject *next, *prev;
@@ -110,7 +110,7 @@ calc_width (HTMLTextSlave *slave, HTMLPainter *painter, gint *asc, gint *dsc)
 		width += (html_text_text_line_length (html_text_slave_get_text (slave), &line_offset, slave->posLen, &tabs) - slave->posLen)*
 			html_painter_get_space_width (painter, html_text_get_font_style (text), text->face);
 
-	width += html_text_calc_part_width (text, painter, slave->posStart, slave->posLen, asc, dsc);
+	width += html_text_calc_part_width (text, painter, html_text_slave_get_text (slave), slave->posStart, slave->posLen, asc, dsc);
 
 	return width;
 }
@@ -184,7 +184,7 @@ html_text_slave_real_calc_size (HTMLObject *self, HTMLPainter *painter, GList **
 	owner = HTML_TEXT (slave->owner);
 	font_style = html_text_get_font_style (owner);
 
-	new_width = MAX (1, calc_width (slave, painter, &new_ascent, &new_descent));
+	new_width = MAX (1, hts_calc_width (slave, painter, &new_ascent, &new_descent));
 
 	/* handle sub & super script */
 	if (font_style & GTK_HTML_FONT_STYLE_SUBSCRIPT || font_style & GTK_HTML_FONT_STYLE_SUPERSCRIPT) {
@@ -715,11 +715,11 @@ draw (HTMLObject *o,
 			gint bw = 0;
 			html_object_get_bounds (o, &rect);
 			if (textslave->posStart < link->start_offset)
-				bw = html_text_calc_part_width (owner, p, textslave->posStart, link->start_offset - textslave->posStart, NULL, NULL);
+				bw = html_text_calc_part_width (owner, p, html_text_slave_get_text (textslave), textslave->posStart, link->start_offset - textslave->posStart, NULL, NULL);
 			rect.x += tx + bw;
 			rect.width -= bw;
 			if (textslave->posStart + textslave->posLen > link->end_offset)
-				rect.width -= html_text_calc_part_width (owner, p, link->end_offset,  textslave->posStart + textslave->posLen - link->end_offset, NULL, NULL);
+				rect.width -= html_text_calc_part_width (owner, p, owner->text + link->end_index, link->end_offset,  textslave->posStart + textslave->posLen - link->end_offset, NULL, NULL);
 			rect.y += ty;
 			draw_focus (p, &rect);
 		}

@@ -923,7 +923,7 @@ html_text_calc_text_size (HTMLText *t, HTMLPainter *painter,
 }
 
 gint
-html_text_calc_part_width (HTMLText *text, HTMLPainter *painter, gint offset, gint len, gint *asc, gint *dsc)
+html_text_calc_part_width (HTMLText *text, HTMLPainter *painter, char *start, gint offset, gint len, gint *asc, gint *dsc)
 {
 	gint idx, width = 0, line_offset;
 
@@ -940,11 +940,14 @@ html_text_calc_part_width (HTMLText *text, HTMLPainter *painter, gint offset, gi
 
 	line_offset = html_text_get_line_offset (text, painter, offset);
 
+	if (start == NULL)
+		start = html_text_get_text (text, offset);
+
 	if (HTML_IS_GDK_PAINTER (painter) || HTML_IS_PLAIN_PAINTER (painter)) {
 		HTMLTextPangoInfo *pi;
 		PangoLanguage *language = NULL;
 		PangoFont *font = NULL;
-		gchar *s = html_text_get_text (text, offset);
+		gchar *s = start;
 
 		pi = html_text_get_pango_info (text, painter);
 
@@ -976,7 +979,7 @@ html_text_calc_part_width (HTMLText *text, HTMLPainter *painter, gint offset, gi
 		}
 		width = PANGO_PIXELS (width);
 	} else {
-		html_text_calc_text_size (text, painter, html_text_get_text (text, offset), len, NULL, NULL, 0, &line_offset,
+		html_text_calc_text_size (text, painter, start, len, NULL, NULL, 0, &line_offset,
 					  html_text_get_font_style (text), text->face, &width, asc, dsc);
 	}
 
@@ -992,7 +995,7 @@ calc_preferred_width (HTMLObject *self,
 
 	text = HTML_TEXT (self);
 
-	width = html_text_calc_part_width (text, painter, 0, text->text_len, &self->ascent, &self->descent);
+	width = html_text_calc_part_width (text, painter, text->text, 0, text->text_len, &self->ascent, &self->descent);
 	if (html_clueflow_tabs (HTML_CLUEFLOW (self->parent), painter)) {
 		gint line_offset;
 		gint tabs;
@@ -2205,7 +2208,8 @@ get_cursor_base (HTMLObject *self,
 		    || HTML_OBJECT_TYPE (obj->next) != HTML_TYPE_TEXTSLAVE) {
 			html_object_calc_abs_position (obj, x, y);
 			if (offset > slave->posStart)
-				*x += html_text_calc_part_width (HTML_TEXT (self), painter, slave->posStart, offset - slave->posStart, NULL, NULL);
+				*x += html_text_calc_part_width (HTML_TEXT (self), painter, html_text_slave_get_text (slave),
+								 slave->posStart, offset - slave->posStart, NULL, NULL);
 
 			return;
 		}
@@ -2792,12 +2796,12 @@ html_text_get_link_rectangle (HTMLText *text, HTMLPainter *painter, gint offset,
 		gint xs, ys, xe, ye;
 
 		html_object_calc_abs_position (HTML_OBJECT (start), &xs, &ys);
-		xs += html_text_calc_part_width (text, painter, start->posStart, link->start_offset - start->posStart, NULL, NULL);
+		xs += html_text_calc_part_width (text, painter, html_text_slave_get_text (start), start->posStart, link->start_offset - start->posStart, NULL, NULL);
 		ys -= HTML_OBJECT (start)->ascent;
 
 		html_object_calc_abs_position (HTML_OBJECT (end), &xe, &ye);
 		xe += HTML_OBJECT (end)->width;
-		xe -= html_text_calc_part_width (text, painter, link->end_offset, end->posStart + start->posLen - link->end_offset, NULL, NULL);
+		xe -= html_text_calc_part_width (text, painter, text->text + link->end_index, link->end_offset, end->posStart + start->posLen - link->end_offset, NULL, NULL);
 		ye += HTML_OBJECT (end)->descent;
 
 		*x1 = MIN (xs, xe);
