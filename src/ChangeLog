@@ -1,5 +1,8 @@
 2003-02-27  Larry Ewing  <lewing@ximian.com>
 
+	* htmlclueflow.c (end_of_word): make sure we check for the end of
+	the buffer.
+
 	* htmltokenizer.c (add_unichar_validated): new helper function to
 	checkvalidity of unichar before adding it to the stream.
 	(in_entity): use add_unichar_validated here to make sure that
