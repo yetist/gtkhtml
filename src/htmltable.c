@@ -1622,8 +1622,8 @@ save (HTMLObject *self,
 		SB " CELLSPACING=\"%d\"", table->spacing SE;
 	if (table->padding != 1)
 		SB " CELLPADDING=\"%d\"", table->padding SE;
-	if (self->percent) {
-		SB " WIDTH=\"%d%%\"", table->specified_width SE;
+	if (self->percent > 0) {
+		SB " WIDTH=\"%d%%\"", self->percent SE;
 	} else if (self->flags & HTML_OBJECT_FLAG_FIXEDWIDTH)
 		SB " WIDTH=\"%d\"", table->specified_width SE;
 	if (table->border)

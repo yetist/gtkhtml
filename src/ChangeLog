@@ -1,5 +1,12 @@
 2000-11-22  Radek Doulik  <rodo@helixcode.com>
 
+	* htmltablecell.c (save): add \" around color
+
+	* htmltable.c (save): save percent if percent > 0 instead of
+	specified width
+
+	* htmltablecell.c (save): fixed test
+
 	* htmltable.c (save): added BACKGROUND, CELLSPACING, CELLPADDING,
 	WIDTH and BORDER attributes
 
