@@ -1,3 +1,9 @@
+2002-10-28  Larry Ewing  <lewing@ximian.com>
+
+	* Make gtkhtml-1.1.5 release (eye of fatima).
+	
+	* configure.in: bump versions for 1.1.5 release.
+
 2002-10-16  Larry Ewing  <lewing@ximian.com>
 
 	* configure.in: require latest gal version for fejj's e-unicode

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 2.0.8\n"
-"POT-Creation-Date: 2002-10-28 02:14-0600\n"
+"POT-Creation-Date: 2002-10-28 05:26-0600\n"
 "PO-Revision-Date: 2001-05-25 13:35+0200\n"
 "Last-Translator: Josu Waliño <josu@elhuyar.com>\n"
 "Language-Team: Euskara\n"
