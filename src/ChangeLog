@@ -1,3 +1,8 @@
+2001-10-16  Larry Ewing  <lewing@ximian.com>
+
+	* htmlselect.c (copy): implement enough of copy that it no longer
+	crashes when copied.
+
 2001-10-17  Radek Doulik  <rodo@ximian.com>
 
 	* htmltable.c (calc_size): fix rendering issues
