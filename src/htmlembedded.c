@@ -77,6 +77,7 @@ draw (HTMLObject *o,
 		}
 		element->abs_x = new_x;
 		element->abs_y = new_y;
+		gtk_widget_queue_draw (element->widget);
 	}
 }
 

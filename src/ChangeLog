@@ -1,3 +1,8 @@
+2000-05-05  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlembedded.c (draw): queue a draw on the widget when we get a
+	draw event, should fix the disappearing embedded widgets.
+
 2000-05-04  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlcursor.c (forward): move cursor also behind non-text
