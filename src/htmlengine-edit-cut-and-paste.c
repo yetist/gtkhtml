@@ -1265,6 +1265,7 @@ use_pictograms (HTMLEngine *e)
 		picto = html_image_new (e->image_factory, filename, NULL, NULL, -1, -1, FALSE, FALSE, 0, NULL,
 					HTML_VALIGN_MIDDLE, FALSE);
 		html_image_set_alt (HTML_IMAGE (picto), alt);
+		html_object_set_data (HTML_OBJECT (picto), "picto", alt);
 		g_free (alt);
 		html_engine_paste_object (e, picto, html_object_get_length (picto));
 	}
@@ -1378,6 +1379,24 @@ html_engine_delete_n (HTMLEngine *e, guint len, gboolean forward)
 		html_engine_set_mark (e);
 		html_engine_update_selection_if_necessary (e);
 		html_engine_freeze (e);
+		/* Remove magic smiley */
+		if (!forward && len == 1 && gtk_html_get_magic_smileys (e->widget)) {
+			HTMLObject *object = html_object_get_tail_leaf (e->cursor->object);
+
+			if (HTML_IS_IMAGE (object) && html_object_get_data (object, "picto") != NULL) {
+				gchar *picto = g_strdup (html_object_get_data (object, "picto"));
+				html_undo_level_begin (e->undo, "Remove Magic Smiley", "Undo Remove Magic Smiley");
+				html_cursor_backward (e->cursor, e);
+				html_engine_delete (e);
+				html_engine_insert_text (e, picto, -1);
+				html_undo_level_end (e->undo);
+				g_free (picto);
+
+				html_engine_unblock_selection (e);
+				html_engine_thaw (e);
+				return;
+			}
+		}
 		while (len != 0) {
 			if (forward)
 				html_cursor_forward (e->cursor, e);

@@ -1,3 +1,10 @@
+2003-12-02  Jan Arne Petersen  <jpetersen@uni-bonn.de>
+ 
+ 	* htmlengine-edit-cut-and-paste.c: (use_pictograms): store
+ 	the replaced text as "picto" data in the html image object.
+ 	(html_engine_delete_n): replace the smiley with the original text
+ 	when a smiley is deleted.
+
 2004-01-07  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml-properties.c (get_locale_language): new function, based
