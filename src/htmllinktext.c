@@ -143,33 +143,6 @@ save (HTMLObject *self,
 	return TRUE;
 }
 
-static HTMLObject *
-get_selection (HTMLObject *self,
-	       guint *size_return)
-{
-	HTMLObject *new;
-	guint select_start, select_length;
-
-	if (! self->selected)
-		return NULL;
-
-	select_start = HTML_TEXT (self)->select_start;
-	select_length = HTML_TEXT (self)->select_length;
-
-	new = html_link_text_new_with_len (HTML_TEXT(self)->text + select_start,
-					   select_length,
-					   HTML_TEXT (self)->font_style,
-					   HTML_TEXT (self)->color,
-					   HTML_LINK_TEXT (self)->url,
-					   HTML_LINK_TEXT (self)->target);
-
-	if (size_return != NULL)
-		*size_return = select_length;
-
-	return new;
-}
-
-
 void
 html_link_text_type_init (void)
 {
@@ -200,7 +173,6 @@ html_link_text_class_init (HTMLLinkTextClass *klass,
 	object_class->get_target = get_target;
 	object_class->remove_link = remove_link;	
 	object_class->save = save;
-	object_class->get_selection = get_selection;
 
 	text_class->get_font_style = get_font_style;
 	parent_class = &html_text_class;

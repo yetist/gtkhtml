@@ -214,10 +214,8 @@ struct _HTMLObjectClass {
 	gint (* check_page_split) (HTMLObject *self, gint y);
 
 	/* Selection.  */
-
 	gboolean (* select_range) (HTMLObject *self, HTMLEngine *engine, guint start, gint length,
 				   gboolean queue_draw);
-	HTMLObject * (* get_selection) (HTMLObject *self, guint *size_return);
 	void (* append_selection_string) (HTMLObject *self, GString *buffer);
 
 	/* Search & Replace */
@@ -447,8 +445,6 @@ gboolean    html_object_select_range             (HTMLObject *self,
 						  guint       start,
 						  gint        length,
 						  gboolean    queue_draw);
-HTMLObject *html_object_get_selection            (HTMLObject *self,
-						  guint      *size_return);
 void        html_object_append_selection_string  (HTMLObject *self,
 						  GString    *buffer);
 gchar      *html_object_get_selection_string     (HTMLObject *o);

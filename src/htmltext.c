@@ -853,26 +853,6 @@ select_range (HTMLObject *self,
 }
 
 static HTMLObject *
-get_selection (HTMLObject *self,
-	       guint *size_return)
-{
-	HTMLObject *new;
-	HTMLText *text;
-
-	if (! self->selected)
-		return NULL;
-
-	text = HTML_TEXT (self);
-	new  = html_text_new_with_len (html_text_get_text (text, text->select_start),
-				       text->select_length, text->font_style, text->color);
-
-	if (size_return != NULL)
-		*size_return = text->select_length;
-
-	return new;
-}
-
-static HTMLObject *
 set_link (HTMLObject *self, HTMLColor *color, const gchar *url, const gchar *target)
 {
 	HTMLText *text = HTML_TEXT (self);
@@ -1005,7 +985,6 @@ html_text_class_init (HTMLTextClass *klass,
 	object_class->check_point = check_point;
 	object_class->select_range = select_range;
 	object_class->get_length = get_length;
-	object_class->get_selection = get_selection;
 	object_class->set_link = set_link;
 	object_class->append_selection_string = append_selection_string;
 

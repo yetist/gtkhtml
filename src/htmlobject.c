@@ -488,27 +488,6 @@ select_range (HTMLObject *self,
 	return changed;
 }
 
-static HTMLObject *
-get_selection (HTMLObject *self,
-	       guint *size_return)
-{
-	HTMLObject *copy;
-
-	if (! self->selected) {
-		if (size_return != NULL)
-			*size_return = 0;
-		return NULL;
-	}
-
-	if (size_return != NULL)
-		*size_return = 1;
-
-	copy = html_object_dup (self);
-	html_object_select_range (copy, NULL, 0, 0, FALSE);
-
-	return copy;
-}
-
 static void
 append_selection_string (HTMLObject *self,
 			 GString *buffer)
@@ -645,7 +624,6 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->get_cursor = get_cursor;
 	klass->get_cursor_base = get_cursor_base;
 	klass->select_range = select_range;
-	klass->get_selection = get_selection;
 	klass->append_selection_string = append_selection_string;
 	klass->forall = forall;
 	klass->is_container = is_container;
@@ -1050,13 +1028,6 @@ html_object_select_range (HTMLObject *self,
 			  gboolean queue_draw)
 {
 	return (* HO_CLASS (self)->select_range) (self, engine, start, length, queue_draw);
-}
-
-HTMLObject *
-html_object_get_selection (HTMLObject *self,
-			   guint *size_return)
-{
-	return (* HO_CLASS (self)->get_selection) (self, size_return);
 }
 
 void
