@@ -584,7 +584,9 @@ destroy (HTMLObject *obj)
 {
 	HTMLText *text = HTML_TEXT (obj);
 	html_color_unref (text->color);
+#ifdef GTKHTML_HAVE_PSPELL
 	html_text_spell_errors_clear (text);
+#endif
 	g_free (text->text);
 	HTML_OBJECT_CLASS (parent_class)->destroy (obj);
 }

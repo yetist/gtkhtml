@@ -1337,6 +1337,7 @@ class_init (GtkHTMLClass *klass)
 				GTK_SIGNAL_OFFSET (GtkHTMLClass, command),
 				gtk_marshal_NONE__ENUM,
 				GTK_TYPE_NONE, 1, GTK_TYPE_HTML_COMMAND);
+#ifdef GTKHTML_HAVE_PSPELL
 	signals [SPELL_SUGGESTION_REQUEST] =
 		gtk_signal_new ("spell_suggestion_request",
 				GTK_RUN_FIRST,
@@ -1346,7 +1347,7 @@ class_init (GtkHTMLClass *klass)
 				GTK_TYPE_NONE, 2,
 				GTK_TYPE_POINTER,
 				GTK_TYPE_POINTER);
-
+#endif
 	gtk_object_class_add_signals (object_class, signals, LAST_SIGNAL);
 
 	object_class->destroy = destroy;

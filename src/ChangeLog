@@ -1,3 +1,10 @@
+2000-07-20  Ramiro Estrugo  <ramiro@eazel.com>
+
+	* gtkhtml-properties.c:
+	* gtkhtml.c: (class_init):
+	* htmltext.c: (destroy):
+	Protect more pspell dependent code with #ifdef GTKHTML_HAVE_PSPELL.
+
 2000-07-20  Radek Doulik  <rodo@helixcode.com>
 
 	* htmltext.c (copy_helper): copy spell_errors here
