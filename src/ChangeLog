@@ -1,3 +1,10 @@
+2000-09-19  Radek Doulik  <rodo@helixcode.com>
+
+	* htmlgdkpainter.c (draw_spell_error): fixed off/len calculation
+
+	* htmlclueflow.c (spell_check_word_mark): use unicode_strlen
+	instead of strlen
+
 2000-09-18  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlgdkpainter.c: use e-font

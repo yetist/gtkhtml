@@ -1134,8 +1134,8 @@ void
 html_text_spell_errors_add (HTMLText *text, guint off, guint len)
 {
 	/* GList *cur;
-	   SpellError *se;
-	   cur = */
+	SpellError *se;
+	cur = */
 
 	text->spell_errors = g_list_insert_sorted (text->spell_errors, spell_error_new (off, len), se_cmp);
 

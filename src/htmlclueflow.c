@@ -1799,7 +1799,7 @@ static HTMLObject *
 spell_check_word_mark (HTMLObject *obj, const gchar *text, const gchar *word, guint *off, HTMLInterval *i)
 {
 	guint w_off, w_index, ioff;
-	guint len = strlen (word);
+	guint len = unicode_strlen (word, -1);
 	gboolean is_text;
 
 	/* printf ("[not in dictionary word off: %d off: %d]\n", word - text, *off); */
