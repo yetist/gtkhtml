@@ -9,13 +9,13 @@ General:
  - Improved the table layout code so that now we render tables very close
    to the big name browsers, one or two small issues left
 
- - Added many missing attributes to the html export code so that at least
+ - Added many missing attributes to the HTML export code so that at least
    we pass on the attributes we understand.
 
  - Support for sub sup and strike elements.
 
  - We now parse param elements before emitting the object requested signal
-   so that we can make an informed choice about wether or not the object is
+   so that we can make an informed choice about whether or not the object is
    supported.
 
 Editor:
