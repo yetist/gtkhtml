@@ -1,5 +1,8 @@
 2002-11-21  Radek Doulik  <rodo@ximian.com>
 
+	* htmltextslave.c (get_words_width): make sure we don't read
+	word_width [-1]
+
 	* htmlclueflow.c (object_nb_width): fixed typo, use
 	html_text_slave_get_nb_width instead of html_text_slave_nb_width
 

@@ -176,9 +176,11 @@ copy (HTMLObject *self,
 static guint
 get_words_width (HTMLText *text, HTMLPainter *p, guint start_word, guint words)
 {
-	return text->word_width [start_word + words - 1]
+	return words > 0
+		? text->word_width [start_word + words - 1]
 		- (start_word ? text->word_width [start_word - 1]
-		   + html_painter_get_space_width (p, html_text_get_font_style (text), text->face) : 0);
+		   + html_painter_get_space_width (p, html_text_get_font_style (text), text->face) : 0)
+		: 0;
 }
 
 static guint
