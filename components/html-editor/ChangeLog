@@ -1,3 +1,8 @@
+2000-12-07  Radek Doulik  <rodo@helixcode.com>
+
+	* editor-control-factory.c (editor_api_create_input_line): new
+	function for editor API
+
 2000-12-07  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* spell.c (spell_suggestion_request): Use an EScrollFrame instead

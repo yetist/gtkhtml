@@ -504,6 +504,19 @@ editor_api_event (GtkHTML *html, GtkHTMLEditorEventType event_type, GtkArg **arg
 	return gtk_retval;
 }
 
+static GtkEntry *
+editor_api_create_input_line (GtkHTML *html, gpointer data)
+{
+	GtkHTMLControlData *cd = (GtkHTMLControlData *) data;
+	GtkWidget *entry;
+
+	entry = gtk_entry_new ();
+	gtk_box_pack_end (GTK_BOX (cd->vbox), entry, FALSE, FALSE, 0);
+	gtk_widget_show (entry);
+
+	return entry;
+}
+
 static void
 new_editor_api ()
 {
@@ -515,6 +528,7 @@ new_editor_api ()
 	editor_api->add_to_session     = spell_add_to_session;
 	editor_api->command            = editor_api_command;
 	editor_api->event              = editor_api_event;
+	editor_api->create_input_line  = editor_api_create_input_line;
 }
 
 void
