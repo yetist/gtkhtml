@@ -34,15 +34,16 @@ Boston, MA 02111-1307, USA.
 #define STRINGIZE(x) #x
 
 GtkHTMLClassProperties *
-gtk_html_class_properties_new (void)
+gtk_html_class_properties_new (GtkWidget *widget)
 {
 	GtkHTMLClassProperties *p = g_new0 (GtkHTMLClassProperties, 1);
 
 	/* default values */
 	p->magic_links             = TRUE;
 	p->keybindings_theme       = g_strdup ("ms");
-	p->font_var                = g_strdup (_("Sans"));
-	p->font_fix                = g_strdup (_("Monospace"));
+	p->font_var                = pango_font_description_to_string (widget->style->font_desc);
+	printf ("Variable Font: \"%s\"\n", p->font_var);
+	p->font_fix                = g_strdup ("Monospace");
 	p->font_var_size           = DEFAULT_FONT_SIZE;
 	p->font_fix_size           = DEFAULT_FONT_SIZE;
 	p->font_var_points         = FALSE;

@@ -66,7 +66,7 @@ struct _GtkHTMLClassProperties {
 	gchar    *alink_color;
 };
 
-GtkHTMLClassProperties * gtk_html_class_properties_new       (void);
+GtkHTMLClassProperties * gtk_html_class_properties_new       (GtkWidget *widget);
 void                     gtk_html_class_properties_destroy   (GtkHTMLClassProperties *p);
 void                     gtk_html_class_properties_copy      (GtkHTMLClassProperties *p1,
 							      GtkHTMLClassProperties *p2);

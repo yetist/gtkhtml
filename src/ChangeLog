@@ -1,3 +1,14 @@
+2003-01-15  Larry Ewing  <lewing@ximian.com>
+
+	* htmlgdkpainter.c (html_gdk_painter_new): initialize the style.
+	(alloc_font): use the style as a fallback, use
+	pango_font_description_from_string to get the font description.
+
+	* gtkhtml.c (style_set): update the font when the style changes.
+
+	* gtkhtml-properties.c (gtk_html_class_properties_new): use the
+	style font description.
+
 2003-01-15  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine.c (html_engine_draw_real): set Engine::expose

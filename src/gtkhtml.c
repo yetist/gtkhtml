@@ -717,7 +717,13 @@ style_set (GtkWidget *widget,
 	   GtkStyle  *previous_style)
 {
 	HTMLEngine *engine = GTK_HTML (widget)->engine;
-       
+       	GtkHTMLClass *klass = GTK_HTML_CLASS (GTK_WIDGET_GET_CLASS (widget));
+	GtkHTMLClassProperties *prop = klass->properties;	
+
+	g_free (prop->font_var);
+	prop->font_var = pango_font_description_to_string (widget->style->font_desc);
+	set_fonts (widget);
+
 	html_colorset_set_style (engine->defaultSettings->color_set,
 				 widget->style);
 	html_colorset_set_unchanged (engine->settings->color_set,
@@ -2070,7 +2076,7 @@ get_class_properties (GtkHTML *html)
   
 	klass = GTK_HTML_CLASS (GTK_WIDGET_GET_CLASS (html));
 	if (!klass->properties) {
-		klass->properties = gtk_html_class_properties_new ();
+		klass->properties = gtk_html_class_properties_new (GTK_WIDGET (html));
 		
 		if (!gconf_is_initialized ()) {
 			char *argv[] = { "gtkhtml", NULL };
