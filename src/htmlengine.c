@@ -112,6 +112,7 @@ static void      html_engine_class_init       (HTMLEngineClass     *klass);
 static void      html_engine_init             (HTMLEngine          *engine);
 static gboolean  html_engine_timer_event      (HTMLEngine          *e);
 static gboolean  html_engine_update_event     (HTMLEngine          *e);
+static void      html_engine_queue_redraw_all (HTMLEngine *e);
 static char **   html_engine_stream_types     (GtkHTMLStream       *stream,
 					       gpointer            data);
 static void      html_engine_stream_write     (GtkHTMLStream       *stream,
@@ -143,6 +144,7 @@ static void      update_embedded           (GtkWidget *widget,
 static void      html_engine_map_table_clear (HTMLEngine *e);
 static void      html_engine_add_map (HTMLEngine *e, HTMLMap *map);
 static void      crop_iframe_to_parent (HTMLEngine *e, gint x, gint y, gint *width, gint *height);
+static void      clear_pending_expose (HTMLEngine *e);
 
 static GtkLayoutClass *parent_class = NULL;
 
@@ -3882,7 +3884,6 @@ html_engine_stream_write (GtkHTMLStream *handle,
 static void
 update_embedded (GtkWidget *widget, gpointer data)
 {
-	GtkHTML *html = data;
 	HTMLObject *obj;
 
 	/* FIXME: this is a hack to update all the embedded widgets when
@@ -3893,46 +3894,23 @@ update_embedded (GtkWidget *widget, gpointer data)
 	 */
 	
 	obj = HTML_OBJECT (g_object_get_data (G_OBJECT (widget), "embeddedelement"));
-	if (obj) {
-		HTMLEngine *e;
-		gint tx = 0, ty = 0;
-		gint x, y, width, height;
-
-		e = html->engine;
+	if (obj && html_object_is_embedded (obj)) {
+		HTMLEmbedded *emb = HTML_EMBEDDED (obj);
 		
-		tx = 0;
-		ty = 0;
+		if (emb->widget) {
+			gint x, y;
 
-		/* Then prepare for drawing.  We will only update this object, so we
-		   only allocate enough size for it.  */
-		html_object_engine_translation (obj, e, &tx, &ty);
-		x = obj->x;
-		y = obj->y - obj->ascent;
-		width = obj->width;
-		height = obj->ascent + obj->descent;
+			html_object_engine_translation (obj, NULL, &x, &y);
+			
+			x += obj->x;
+			y += obj->y - obj->ascent;
 
-		/* printf ("update: try crop\n"); */
-		if (HTML_IS_IFRAME (obj) && GTK_HTML (HTML_IFRAME (obj)->html)->iframe_parent)
-			crop_iframe_to_parent (GTK_HTML (HTML_IFRAME (obj)->html)->engine, x, y, &width, &height);
-
-		/* printf ("update: begin\n"); */
-		html_painter_begin (e->painter, tx + x, ty + y, tx + x + width, ty + y + height);
-
-		if (html_object_is_transparent (obj)) {
-			html_engine_draw_background (e, x, y, x + width, y + height);
-			html_object_draw_background (obj, e->painter,
-						     x, y,
-						     width, height,
-						     tx, ty);
+			if (!emb->widget->parent) {
+				gtk_layout_put (GTK_LAYOUT (emb->parent), emb->widget, x, y);
+			} else {
+				gtk_layout_move (GTK_LAYOUT(emb->parent), emb->widget, x, y);
+			}
 		}
-
-		html_object_draw (obj,
-				  e->painter, 
-				  x, y,
-				  width, height,
-				  tx, ty);	
-
-		html_painter_end (e->painter);
 	}
 }
 
@@ -3981,7 +3959,7 @@ html_engine_update_event (HTMLEngine *e)
 
 	html_image_factory_deactivate_animations (e->image_factory);
 	gtk_container_forall (GTK_CONTAINER (e->widget), update_embedded, e->widget);
-	html_engine_draw (e, e->x_offset, e->y_offset, e->width, e->height);
+	html_engine_queue_redraw_all (e);
 
 	if (html_engine_get_editable (e))
 		html_engine_show_cursor (e);
@@ -4276,10 +4254,11 @@ html_engine_draw (HTMLEngine *e, gint x, gint y, gint width, gint height)
 static gint
 redraw_idle (HTMLEngine *e)
 {
-	e->redraw_idle_id = 0;
-	html_engine_draw (e, e->x_offset, e->y_offset, e->width, e->height);
+       e->redraw_idle_id = 0;
+       e->need_redraw = FALSE;
+       html_engine_queue_redraw_all (e);
 
-	return FALSE;
+       return FALSE;
 }
 
 void
@@ -4289,15 +4268,24 @@ html_engine_schedule_redraw (HTMLEngine *e)
 
 	if (e->block_redraw)
 		e->need_redraw = TRUE;
-	else if (e->redraw_idle_id == 0)
+	else if (e->redraw_idle_id == 0) {
+		clear_pending_expose (e);
+		html_draw_queue_clear (e->draw_queue);
 		e->redraw_idle_id = gtk_idle_add ((GtkFunction) redraw_idle, e);
+	}
 }
 
 void
 html_engine_block_redraw (HTMLEngine *e)
 {
 	e->block_redraw ++;
+	if (e->redraw_idle_id) {
+		gtk_idle_remove (e->redraw_idle_id);
+		e->redraw_idle_id = 0;
+		e->need_redraw = TRUE;
+	}
 }
+
 
 void
 html_engine_unblock_redraw (HTMLEngine *e)
@@ -4306,8 +4294,11 @@ html_engine_unblock_redraw (HTMLEngine *e)
 
 	e->block_redraw --;
 	if (!e->block_redraw && e->need_redraw) {
-		html_engine_draw (e, e->x_offset, e->y_offset, e->width, e->height);
-		e->need_redraw = FALSE;
+		if (e->redraw_idle_id) {
+			gtk_idle_remove (e->redraw_idle_id);
+			e->redraw_idle_id = 0;
+		}
+		redraw_idle (e);
 	}
 }
 
@@ -4572,7 +4563,7 @@ html_engine_set_editable (HTMLEngine *e,
 		html_engine_spell_check (e);
 	html_engine_disable_selection (e);
 
-	html_engine_draw (e, e->x_offset, e->y_offset, e->width, e->height);
+	html_engine_queue_redraw_all (e);
 
 	e->editable = editable;
 
@@ -4870,11 +4861,6 @@ draw_changed_objects (HTMLEngine *e, GList *changed_objs)
 	/* printf ("draw_changed_objects END\n"); */
 }
 
-static void
-free_expose_data (gpointer data, gpointer user_data)
-{
-	g_free (data);
-}
 
 struct HTMLEngineExpose {
 	gint x, y, width, height;
@@ -4898,6 +4884,20 @@ do_pending_expose (HTMLEngine *e)
 		html_engine_draw_real (e, r->x, r->y, r->width, r->height, e->expose);
 		g_free (r);
 	}
+}
+
+static void
+free_expose_data (gpointer data, gpointer user_data)
+{
+	g_free (data);
+}
+
+static void
+clear_pending_expose (HTMLEngine *e)
+{
+	g_slist_foreach (e->pending_expose, free_expose_data, NULL);
+	g_slist_free (e->pending_expose);
+	e->pending_expose = NULL;
 }
 
 #ifdef CHECK_CURSOR
@@ -4966,9 +4966,7 @@ thaw_idle (gpointer data)
 	e->freeze_count--;
 
 	if (redraw_whole) {
-		g_slist_foreach (e->pending_expose, free_expose_data, NULL);
-		html_draw_queue_clear (e->draw_queue);
-		html_engine_draw (e, e->x_offset, e->y_offset, e->width, e->height);
+		html_engine_queue_redraw_all (e);
 	} else {
 		GtkAdjustment *vadj, *hadj;
 		gint nw, nh;
@@ -5500,6 +5498,17 @@ html_engine_add_expose  (HTMLEngine *e, gint x, gint y, gint width, gint height,
 	r->expose = expose;
 
 	e->pending_expose = g_slist_prepend (e->pending_expose, r);
+}
+
+static void
+html_engine_queue_redraw_all (HTMLEngine *e)
+{
+	clear_pending_expose (e);
+	html_draw_queue_clear (e->draw_queue);
+	
+	if (GTK_WIDGET_REALIZED (e->widget)) {
+		gtk_widget_queue_draw (GTK_WIDGET (e->widget));
+	}
 }
 
 void
