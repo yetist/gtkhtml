@@ -1,5 +1,7 @@
 2001-06-13  Radek Doulik  <rodo@ximian.com>
 
+	* cell.c: use disable_change
+
 	* table.c (get_data): set has_width to FALSE if needed
 
 	* rule.c (rule_widget): show rule widget

@@ -174,7 +174,8 @@ set_has_bg_color (GtkWidget *check, GtkHTMLEditCellProperties *d)
 	d->has_bg_color = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (d->check_bg_color));
 	FILL;
 	CHANGE;
-	d->changed_bg_color = TRUE;
+	if (!d->disable_change)
+		d->changed_bg_color = TRUE;
 }
 
 static void
@@ -183,7 +184,8 @@ set_has_bg_pixmap (GtkWidget *check, GtkHTMLEditCellProperties *d)
 	d->has_bg_pixmap = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (d->check_bg_pixmap));
 	FILL;
 	CHANGE;
-	d->changed_bg_pixmap = TRUE;
+	if (!d->disable_change)
+		d->changed_bg_pixmap = TRUE;
 }
 
 static void
@@ -196,7 +198,8 @@ changed_bg_color (GtkWidget *w, GdkColor *color, gboolean by_user, GtkHTMLEditCe
 	d->bg_color = color
 		? *color
 		: html_colorset_get_color (d->cd->html->engine->defaultSettings->color_set, HTMLBgColor)->color;
-	d->changed_bg_color = TRUE;
+	if (!d->disable_change)
+		d->changed_bg_color = TRUE;
 	if (!d->has_bg_color)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_bg_color), TRUE);
 	else {
@@ -209,7 +212,8 @@ static void
 changed_bg_pixmap (GtkWidget *w, GtkHTMLEditCellProperties *d)
 {
 	d->bg_pixmap = gtk_entry_get_text (GTK_ENTRY (w));
-	d->changed_bg_pixmap = TRUE;
+	if (!d->disable_change)
+		d->changed_bg_pixmap = TRUE;
 	if (!d->has_bg_pixmap && d->bg_pixmap && *d->bg_pixmap)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_bg_pixmap), TRUE);
 	else {
@@ -224,7 +228,8 @@ static void
 changed_halign (GtkWidget *w, GtkHTMLEditCellProperties *d)
 {
 	d->halign = g_list_index (GTK_MENU_SHELL (w)->children, gtk_menu_get_active (GTK_MENU (w))) + HTML_HALIGN_LEFT;
-	d->changed_halign = TRUE;
+	if (!d->disable_change)
+		d->changed_halign = TRUE;
 	FILL;
 	CHANGE;	
 }
@@ -233,7 +238,8 @@ static void
 changed_valign (GtkWidget *w, GtkHTMLEditCellProperties *d)
 {
 	d->valign = g_list_index (GTK_MENU_SHELL (w)->children, gtk_menu_get_active (GTK_MENU (w))) + HTML_VALIGN_TOP;
-	d->changed_valign = TRUE;
+	if (!d->disable_change)
+		d->changed_valign = TRUE;
 	FILL;
 	CHANGE;	
 }
@@ -246,8 +252,8 @@ changed_width (GtkWidget *w, GtkHTMLEditCellProperties *d)
 		d->disable_change = TRUE;
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_width), TRUE);
 		d->disable_change = FALSE;
+		d->changed_width = TRUE;
 	}
-	d->changed_width = TRUE;
 	FILL;
 	CHANGE;
 }
@@ -256,7 +262,8 @@ static void
 set_has_width (GtkWidget *check, GtkHTMLEditCellProperties *d)
 {
 	d->has_width = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (d->check_width));
-	d->changed_width = TRUE;
+	if (!d->disable_change)
+		d->changed_width = TRUE;
 	FILL;
 	CHANGE;
 }
@@ -265,7 +272,8 @@ static void
 changed_width_percent (GtkWidget *w, GtkHTMLEditCellProperties *d)
 {
 	d->width_percent = g_list_index (GTK_MENU_SHELL (w)->children, gtk_menu_get_active (GTK_MENU (w))) ? TRUE : FALSE;
-	d->changed_width = TRUE;
+	if (!d->disable_change)
+		d->changed_width = TRUE;
 	FILL;
 	CHANGE;	
 }
@@ -278,8 +286,8 @@ changed_height (GtkWidget *w, GtkHTMLEditCellProperties *d)
 		d->disable_change = TRUE;
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (d->check_height), TRUE);
 		d->disable_change = FALSE;
+		d->changed_height = TRUE;
 	}
-	d->changed_height = TRUE;
 	FILL;
 	CHANGE;
 }
@@ -288,7 +296,8 @@ static void
 set_has_height (GtkWidget *check, GtkHTMLEditCellProperties *d)
 {
 	d->has_height = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (d->check_height));
-	d->changed_height = TRUE;
+	if (!d->disable_change)
+		d->changed_height = TRUE;
 	FILL;
 	CHANGE;
 }
@@ -297,7 +306,8 @@ static void
 changed_height_percent (GtkWidget *w, GtkHTMLEditCellProperties *d)
 {
 	d->height_percent = g_list_index (GTK_MENU_SHELL (w)->children, gtk_menu_get_active (GTK_MENU (w))) ? TRUE : FALSE;
-	d->changed_height = TRUE;
+	if (!d->disable_change)
+		d->changed_height = TRUE;
 	FILL;
 	CHANGE;	
 }
@@ -306,7 +316,8 @@ static void
 changed_wrap (GtkWidget *w, GtkHTMLEditCellProperties *d)
 {
 	d->wrap = g_list_index (GTK_MENU_SHELL (w)->children, gtk_menu_get_active (GTK_MENU (w))) ? TRUE : FALSE;
-	d->changed_wrap = TRUE;
+	if (!d->disable_change)
+		d->changed_wrap = TRUE;
 	FILL;
 	CHANGE;	
 }
@@ -315,7 +326,8 @@ static void
 changed_heading (GtkWidget *w, GtkHTMLEditCellProperties *d)
 {
 	d->heading = g_list_index (GTK_MENU_SHELL (w)->children, gtk_menu_get_active (GTK_MENU (w))) ? TRUE : FALSE;
-	d->changed_heading = TRUE;
+	if (!d->disable_change)
+		d->changed_heading = TRUE;
 	FILL;
 	CHANGE;	
 }
