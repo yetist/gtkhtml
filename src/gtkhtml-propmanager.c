@@ -23,10 +23,12 @@
 #include <config.h>
 #include <gnome.h>
 
+
 #include "gtkhtml-propmanager.h"
 #include "gtkhtml-properties.h"
 
 #define d(x) x;
+#define TRY_FONTS 1
 
 static GtkObject *parent_class;
 
@@ -81,7 +83,7 @@ gtk_html_propmanager_sync_ui (GtkHTMLPropmanager *pman)
 		gtk_widget_set_sensitive (GTK_WIDGET (priv->button_cfg_spell), priv->actual_prop->live_spell_check);
 	}
 
-
+#ifdef TRY_FONTS
 #define SET_FONT(f,w) \
         if (w) gnome_font_picker_set_font_name (GNOME_FONT_PICKER (w), priv->actual_prop-> f);
 
@@ -89,6 +91,7 @@ gtk_html_propmanager_sync_ui (GtkHTMLPropmanager *pman)
 	SET_FONT (font_fix,       priv->fixed);
 	SET_FONT (font_var_print, priv->variable_print);
 	SET_FONT (font_fix_print, priv->fixed_print);
+#endif
 }
 	
 static void
@@ -103,8 +106,19 @@ propmanager_client_notify (GConfClient *client, guint cnxn_id, GConfEntry *entry
 }
 
 static void
-propmanager_changed (GtkWidget *widget, GtkHTMLPropmanager *pman)
+propmanager_toggle_changed (GtkWidget *widget, GtkHTMLPropmanager *pman)
 {
+	g_return_if_fail (GTK_IS_TOGGLE_BUTTON (widget));
+
+	if (GTK_IS_TOGGLE_BUTTON (widget))
+		gtk_signal_emit (GTK_OBJECT (pman), signals[CHANGED]);
+}
+
+static void
+propmanager_font_changed (GtkWidget *picker, char *font_name, GtkHTMLPropmanager *pman)
+{
+	g_return_if_fail (GTK_IS_HTML_PROPMANAGER (pman));
+
 	gtk_signal_emit (GTK_OBJECT (pman), signals[CHANGED]);
 }
 
@@ -126,7 +140,7 @@ propmanager_picker_clicked (GtkWidget *w, gpointer proportional)
 {
 	gchar *mono_spaced [] = { "c", "m", NULL };
 
-	if (GPOINTER_TO_INT (proportional))
+	if (!GPOINTER_TO_INT (proportional))
 		gtk_font_selection_dialog_set_filter (SELECTOR (w),
 						      GTK_FONT_FILTER_BASE, GTK_FONT_ALL,
 						      NULL, NULL, NULL, NULL,
@@ -140,13 +154,21 @@ propmanager_child_destroyed (GtkWidget *w, GtkHTMLPropmanager *pman)
 }
 
 static GtkWidget *
-propmanager_add_picker (GtkWidget *picker, gboolean proportional, gboolean *found)
+propmanager_add_picker (GtkWidget *picker, 
+			GtkHTMLPropmanager *pman,
+			gboolean proportional, 
+			gboolean *found)
 {
 	if (picker) {
+		gtk_signal_connect (GTK_OBJECT (picker), "font_set", propmanager_font_changed,
+				    pman);
+#ifndef TRY_FONTS
 		gtk_signal_connect (GTK_OBJECT (picker), "clicked", propmanager_picker_clicked,
 				    GINT_TO_POINTER (proportional));
+#endif      
 		gtk_signal_connect (GTK_OBJECT (picker), "destroy", propmanager_child_destroyed,
-				    NULL);
+				    pman);
+
 		*found = TRUE;
 	}
 	return picker;
@@ -164,11 +186,8 @@ gtk_html_propmanager_set_xml (GtkHTMLPropmanager *pman, GladeXML *xml)
 	g_return_val_if_fail (pman != NULL, FALSE);
 	priv = pman->priv;
 
-#ifdef USE_CLIENT 
-	client = gconf_client_get_default ();
-#else 
 	client = pman->client;
-#endif
+
 	gconf_client_add_dir (client, GTK_HTML_GCONF_DIR, GCONF_CLIENT_PRELOAD_NONE, NULL);
 
 	priv->orig_prop = gtk_html_class_properties_new ();
@@ -194,13 +213,13 @@ gtk_html_propmanager_set_xml (GtkHTMLPropmanager *pman, GladeXML *xml)
 	}
 
 	priv->variable = propmanager_add_picker (glade_xml_get_widget (xml, "screen_variable"),
-						 TRUE, &found_widget);
+						 pman, TRUE, &found_widget);
 	priv->variable_print = propmanager_add_picker (glade_xml_get_widget (xml, "print_variable"),
-						       TRUE, &found_widget);
+						       pman, TRUE, &found_widget);
 	priv->fixed = propmanager_add_picker (glade_xml_get_widget (xml, "screen_fixed"),
-					      FALSE, &found_widget);
+					      pman, FALSE, &found_widget);
 	priv->fixed_print = propmanager_add_picker (glade_xml_get_widget (xml, "print_fixed"),
-						    FALSE, &found_widget);
+						    pman, FALSE, &found_widget);
 
 	priv->notify_id = gconf_client_notify_add (client, GTK_HTML_GCONF_DIR, 
 						   propmanager_client_notify, 
@@ -208,11 +227,11 @@ gtk_html_propmanager_set_xml (GtkHTMLPropmanager *pman, GladeXML *xml)
 	if (gconf_error)
 		g_warning ("gconf error: %s\n", gconf_error->message);
 				 
-	gtk_html_propmanager_sync_ui (pman);
 	glade_xml_signal_connect_data (xml, "changed", 
-				       GTK_SIGNAL_FUNC (propmanager_changed), 
+				       GTK_SIGNAL_FUNC (propmanager_toggle_changed), 
 				       pman);
 	
+	gtk_html_propmanager_sync_ui (pman);
 	return found_widget;
 }
 
@@ -258,7 +277,8 @@ gtk_html_propmanager_apply (GtkHTMLPropmanager *pman)
 
 	if (priv->live_spell_check)
 		priv->actual_prop->live_spell_check = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->live_spell_check));
-
+	
+#ifdef TRY_FONTS
 #define APPLY(f,s,w) \
         if (w) { \
 	        g_free (priv->actual_prop-> f); \
@@ -274,11 +294,11 @@ gtk_html_propmanager_apply (GtkHTMLPropmanager *pman)
 	        priv->actual_prop-> s = atoi (size_str); \
 	        g_free (size_str); \
 	}
-
 	APPLY (font_var,       font_var_size,       priv->variable);
 	APPLY (font_fix,       font_fix_size,       priv->fixed);
 	APPLY (font_var_print, font_var_size_print, priv->variable_print);
 	APPLY (font_fix_print, font_fix_size_print, priv->fixed_print);
+#endif
 
 	gtk_html_class_properties_update (priv->actual_prop, pman->client,
 					  priv->saved_prop);
