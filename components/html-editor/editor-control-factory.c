@@ -120,6 +120,7 @@ release (GtkWidget *widget, GdkEventButton *event, GtkHTMLControlData *cd)
 		case HTML_TYPE_IMAGE:
 		case HTML_TYPE_LINKTEXTMASTER:
 		case HTML_TYPE_TEXTMASTER:
+		case HTML_TYPE_RULE:
 			run_dialog = TRUE;
 			break;
 		default:
@@ -153,6 +154,14 @@ release (GtkWidget *widget, GdkEventButton *event, GtkHTMLControlData *cd)
 					? GTK_HTML_EDIT_PROPERTY_TEXT
 					: GTK_HTML_EDIT_PROPERTY_LINK;
 						
+				break;
+			case HTML_TYPE_RULE:
+				gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
+									   GTK_HTML_EDIT_PROPERTY_RULE, _("Rule"),
+									   rule_properties,
+									   rule_apply_cb,
+									   rule_close_cb);
+				start = GTK_HTML_EDIT_PROPERTY_RULE;
 				break;
 			default:
 			}

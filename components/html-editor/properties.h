@@ -36,6 +36,7 @@ enum _GtkHTMLEditPropertyType {
 	GTK_HTML_EDIT_PROPERTY_IMAGE,
 	GTK_HTML_EDIT_PROPERTY_LINK,
 	GTK_HTML_EDIT_PROPERTY_BODY,
+	GTK_HTML_EDIT_PROPERTY_RULE,
 };
 
 GtkHTMLEditPropertiesDialog * gtk_html_edit_properties_dialog_new          (GtkHTMLControlData *cd,

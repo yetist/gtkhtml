@@ -51,9 +51,6 @@ gtk_html_control_data_destroy (GtkHTMLControlData *cd)
 	if (cd->replace_dialog)
 		gtk_html_replace_dialog_destroy (cd->replace_dialog);
 
-	if (cd->rule_dialog)
-		gtk_html_rule_dialog_destroy (cd->rule_dialog);
-
 	if (cd->dict_client)
 		bonobo_object_unref (BONOBO_OBJECT (cd->dict_client));
 

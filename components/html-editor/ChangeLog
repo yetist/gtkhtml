@@ -1,5 +1,23 @@
 2000-10-12  Radek Doulik  <rodo@helixcode.com>
 
+	* popup.c (prop_dialog): added rule property type
+	(popup_show): likewise
+
+	* control-data.h: removed remaining object properties dialogs
+
+	* control-data.c (gtk_html_control_data_destroy): forgot about
+	rule dialog
+
+	* image.h: removed some old stuff
+
+	* rule.[ch]: rewritten to use properies dialog
+
+	* menubar.c (insert_rule_cb): use new rule properties
+
+	* editor-control-factory.c (release): added rule propeties
+
+	* properties.h: added rule to GtkHTMLEditPropertyType
+
 	* image.c: updated image dialog design with Anna improvements,
 	fixed properties_changed handling
 

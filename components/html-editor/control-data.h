@@ -48,10 +48,6 @@ struct _GtkHTMLControlData {
 	GtkHTMLSearchDialog     *search_dialog;
 	GtkHTMLReplaceDialog    *replace_dialog;
 
-	/* objects dialogs */
-	GtkHTMLImageDialog      *image_dialog;
-	GtkHTMLRuleDialog       *rule_dialog;
-
 	/* object from last button press event */
 	HTMLObject *obj;
 

@@ -27,6 +27,7 @@
 #include <htmlengine-edit-cut.h>
 #include <htmlengine-edit-paste.h>
 #include <htmlengine-edit-insert.h>
+#include <htmlimage.h>
 #include "popup.h"
 #include "spell.h"
 #include "properties.h"
@@ -102,14 +103,21 @@ prop_dialog (GtkWidget *mi, GtkHTMLControlData *cd)
 								   link_properties,
 								   link_apply_cb,
 								   link_close_cb);
-								   break;
+			break;
 		case GTK_HTML_EDIT_PROPERTY_BODY:
 			gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 								   t, _("Page"),
 								   body_properties,
 								   body_apply_cb,
 								   body_close_cb);
-								   break;
+			break;
+		case GTK_HTML_EDIT_PROPERTY_RULE:
+			gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
+								   t, _("Rule"),
+								   rule_properties,
+								   rule_apply_cb,
+								   rule_close_cb);
+			break;
 		}
 		cur = cur->next;
 	}
@@ -199,6 +207,9 @@ popup_show (GtkHTMLControlData *cd, GdkEventButton *event)
 	} else if (obj) {
 		switch (HTML_OBJECT_TYPE (obj)) {
 		case HTML_TYPE_RULE:
+			ADD_SEP;
+			ADD_ITEM ("Rule...", prop_dialog, GTK_HTML_EDIT_PROPERTY_RULE);
+			ADD_PROP (RULE);
 			break;
 		case HTML_TYPE_IMAGE:
 			ADD_SEP;

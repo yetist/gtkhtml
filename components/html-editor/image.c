@@ -50,7 +50,6 @@ struct _GtkHTMLEditImageProperties {
 	GtkWidget   *check [GTK_HTML_EDIT_IMAGE_SPINS];
 	GtkWidget   *spin  [GTK_HTML_EDIT_IMAGE_SPINS];
 	GtkObject   *adj   [GTK_HTML_EDIT_IMAGE_SPINS];
-	gint         val   [GTK_HTML_EDIT_IMAGE_SPINS];
 	gboolean     set   [GTK_HTML_EDIT_IMAGE_SPINS];
 
 	GtkWidget   *width_measure;
@@ -116,14 +115,13 @@ static void
 checked_val (GtkHTMLEditImageProperties *d, gint idx, const gchar *name)
 {
 	d->check [idx] = gtk_check_button_new_with_label (name);
-	d->adj   [idx] = gtk_adjustment_new (d->val [idx], 0, 32767, 1, 1, 1);
+	d->adj   [idx] = gtk_adjustment_new (0, 0, 32767, 1, 1, 1);
 	d->spin  [idx] = gtk_spin_button_new (GTK_ADJUSTMENT (d->adj [idx]), 1, 0);
 
 	gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (d->check [idx]), d->set [idx]);
 	gtk_widget_set_sensitive (d->spin [idx], d->set [idx]);
 
 	gtk_signal_connect (GTK_OBJECT (d->check [idx]), "toggled", GTK_SIGNAL_FUNC (check_toggled), d);
-	CHANGE;
 }
 
 GtkWidget *
