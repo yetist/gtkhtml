@@ -66,7 +66,7 @@ copy (HTMLObject *self,
 static guint
 get_recursive_length (HTMLObject *self)
 {
-	return (*HTML_OBJECT_CLASS (parent_class)->get_recursive_length) (self) + self->next ? 1 : 0;
+	return (*HTML_OBJECT_CLASS (parent_class)->get_recursive_length) (self) + (self->next ? 1 : 0);
 }
 
 static HTMLObject *
@@ -1582,6 +1582,7 @@ html_clueflow_class_init (HTMLClueFlowClass *klass,
 	object_class->search = search;
 	object_class->search_next = search_next;
 	object_class->relayout = relayout;
+	object_class->get_recursive_length = get_recursive_length;
 
 	klass->get_default_font_style = get_default_font_style;
 
