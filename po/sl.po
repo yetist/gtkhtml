@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2001-07-24 16:49-0500\n"
+"POT-Creation-Date: 2001-07-27 22:27+0200\n"
 "PO-Revision-Date: 2000-08-06 22:43+0200\n"
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -64,7 +64,7 @@ msgstr "Animirane slike"
 
 #: capplet/gtkhtml-capplet.glade.h:2
 msgid "Automatic Link Detection"
-msgstr ""
+msgstr "Samodejno zaznavanje povezav"
 
 #: capplet/gtkhtml-capplet.glade.h:3
 msgid "Behavior"
@@ -373,6 +373,12 @@ msgstr "Vkljuèi"
 msgid "Colors"
 msgstr "Barve"
 
+#: components/html-editor/body.c:169 components/html-editor/cell.c:377
+#: components/html-editor/table.c:353 components/html-editor/text.c:221
+#: components/html-editor/toolbar.c:286
+msgid "Automatic"
+msgstr "Samodejno"
+
 #: components/html-editor/body.c:180
 #: components/html-editor/editor-control-factory.c:172
 #: components/html-editor/menubar.c:125 components/html-editor/popup.c:150
@@ -383,11 +389,6 @@ msgstr "Besedilo"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:3
 msgid "Background"
 msgstr "Ozadje"
-
-#: components/html-editor/cell.c:377 components/html-editor/table.c:353
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:286
-msgid "Automatic"
-msgstr "Samodejno"
 
 #: components/html-editor/editor-control-factory.c:152
 #: components/html-editor/popup.c:142
@@ -426,7 +427,7 @@ msgstr "Poravnava"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:2
 msgid "Apply changes to"
-msgstr ""
+msgstr "Uveljavi spremembe nad"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:4
 msgid "Be careful! Tables code is still ALPHA quality."
@@ -454,9 +455,8 @@ msgstr "Sredina"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:9
 #: components/html-editor/popup.c:394
-#, fuzzy
 msgid "Column"
-msgstr "stolpcev"
+msgstr "Stolpec"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:10
 msgid "Don't wrap"
@@ -507,11 +507,11 @@ msgstr "Desno"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:20
 #: components/html-editor/popup.c:393
 msgid "Row"
-msgstr ""
+msgstr "Vrstica"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:21
 msgid "Scope"
-msgstr ""
+msgstr "Obmoèje"
 
 #. size
 #: components/html-editor/gtkhtml-editor-properties.glade.h:22
@@ -734,24 +734,23 @@ msgstr "Celica..."
 
 #: components/html-editor/popup.c:385
 msgid "Row above"
-msgstr ""
+msgstr "Vrstica nad"
 
 #: components/html-editor/popup.c:386
 msgid "Row below"
-msgstr ""
+msgstr "Vrstica pod"
 
 #: components/html-editor/popup.c:388
 msgid "Column before"
-msgstr ""
+msgstr "Stolpec pred"
 
 #: components/html-editor/popup.c:389
-#, fuzzy
 msgid "Column after"
-msgstr "seganje stolpca"
+msgstr "Stolpec po"
 
 #: components/html-editor/popup.c:395
 msgid "Cell contents"
-msgstr ""
+msgstr "Vsebina celice"
 
 #: components/html-editor/popup.c:402
 msgid "Page..."
