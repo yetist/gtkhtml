@@ -1,5 +1,9 @@
 1999-12-12  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlurl.c (html_url_destroy): Added precondition.
+
+	* gtkhtml.c (gtk_html_set_geometry): Removed unused function.
+
 	* htmlpainter.c (html_painter_set_font): Destroy the existing
 	font, duplicate the new one.
 

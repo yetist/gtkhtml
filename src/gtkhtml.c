@@ -405,21 +405,6 @@ gtk_html_draw (GtkWidget *widget, GdkRectangle *area)
 			  area->width, area->height);
 }
 
-#if 0
-static void
-gtk_html_set_geometry (GtkWidget *widget, gint x, gint y, gint width, gint height)
-{
-	GtkAllocation allocation;
-
-	allocation.x = x;
-	allocation.y = y;
-	allocation.width = width;
-	allocation.height = height;
-
-	gtk_widget_size_allocate (widget, &allocation);
-}
-#endif
-
 static void
 gtk_html_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 {

@@ -195,6 +195,8 @@ html_url_new (const gchar *s)
 void
 html_url_destroy (HTMLURL *url)
 {
+	g_return_if_fail (url != NULL);
+
 	g_free (url->protocol);
 	g_free (url->username);
 	g_free (url->password);
