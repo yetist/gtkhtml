@@ -1,3 +1,10 @@
+2003-07-10  Larry Ewing  <lewing@ximian.com>
+
+	* htmldrawqueue.c: remove unused function.
+
+	* htmlengine-edit-cursor.c (clip_cursor): rename and do a little
+	cleanup.
+
 2003-07-10  Yuedong Du  <yuedong.du@sun.com>
 
 	* gtkhtml.c (set_caret_mode): new function to enable caret mode.

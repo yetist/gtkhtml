@@ -171,29 +171,6 @@ html_draw_queue_add_clear (HTMLDrawQueue *queue,
 }
 
 static void
-draw_link_focus (HTMLObject *o, HTMLEngine *e, gint x, gint y)
-{
-	HTMLGdkPainter *p = HTML_GDK_PAINTER (e->painter);
-	GdkColor *c = &html_colorset_get_color (e->settings->color_set, HTMLTextColor)->color;
-	GdkGCValues values;
-	gchar dash [2];
-
-	/* printf ("draw_link_focus\n"); */
-
-	gdk_gc_set_foreground (p->gc, c);
-	gdk_gc_get_values (p->gc, &values);
-
-	dash [0] = 1;
-	dash [1] = 1;
-	gdk_gc_set_line_attributes (p->gc, 1, GDK_LINE_ON_OFF_DASH, values.cap_style, values.join_style);
-	gdk_gc_set_dashes (p->gc, 2, dash, 2);
-	gdk_draw_line (p->pixmap, p->gc, x, y, x + o->width, y);
-	gdk_draw_line (p->pixmap, p->gc, x, y, x, y + o->ascent + 1);
-	gdk_draw_line (p->pixmap, p->gc, x + o->width - 1, y, x + o->width - 1, y + o->ascent + 1);
-	gdk_gc_set_line_attributes (p->gc, 1, values.line_style, values.cap_style, values.join_style);
-}
-
-static void
 draw_obj (HTMLDrawQueue *queue,
 	  HTMLObject *obj)
 {

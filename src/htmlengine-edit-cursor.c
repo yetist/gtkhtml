@@ -95,24 +95,15 @@ html_engine_show_cursor  (HTMLEngine *engine)
 }
 
 static gboolean
-clip_rect (HTMLEngine *engine, gint x, gint y, gint width, gint height, gint *x1, gint *y1, gint *x2, gint *y2)
+clip_cursor (HTMLEngine *engine, gint x, gint y, gint width, gint height, gint *x1, gint *y1, gint *x2, gint *y2)
 {
 	if (*x1 > x + width || *y1 > y + height || *x2 < x || *y2 < y)
 		return FALSE;
 
-	if (*x1 == x + width)
-		*x1 = x + width - 1;
-	if (*y1 == y + width)
-		*y1 = y + height - 1;
-	if (*x2 >= x + width)
-		*x2 = x + width - 1;
-	if (*y2 >= y + height)
-		*y2 = y + height - 1;
-
-	if (*x1 < x)
-		*x1 = x;
-	if (*y1 < y)
-		*y1 = y;
+	*x1 = CLAMP (*x1, x, x + width -1);
+	*x2 = CLAMP (*x2, x, x + width -1);
+	*y1 = CLAMP (*y1, y, y + height -1);
+	*y2 = CLAMP (*y2, y, y + height -1);
 
 	return TRUE;
 }
@@ -332,7 +323,7 @@ html_engine_draw_cursor_in_area (HTMLEngine *engine,
 	pos.height = x2 - x1;
 	gtk_im_context_set_cursor_location (GTK_HTML (engine->widget)->priv->im_context, &pos);
 
-	if (clip_rect (engine, x, y, width, height, &x1, &y1, &x2, &y2)) {
+	if (clip_cursor (engine, x, y, width, height, &x1, &y1, &x2, &y2)) {
 		gdk_draw_line (engine->window, engine->invert_gc, x1, y1, x2, y2);
 	}
 }
@@ -346,7 +337,6 @@ blink_timeout_cb (gpointer data)
 	HTMLEngine *engine;
 
 	g_return_val_if_fail (HTML_IS_ENGINE (data), FALSE);
-
 	engine = HTML_ENGINE (data);
 
 	engine->blinking_status = ! engine->blinking_status;
