@@ -25,6 +25,7 @@ libgtkhtml_HEADERS =				\
 	htmlcursor.h				\
 	htmldrawqueue.h				\
 	htmlembedded.h				\
+	htmlengine-cutbuffer.h			\
 	htmlengine-edit.h			\
 	htmlengine-edit-styles.h		\
 	htmlengine-print.h			\
@@ -83,6 +84,7 @@ libgtkhtml_la_SOURCES =				\
 	htmlcursor.c				\
 	htmldrawqueue.c				\
 	htmlembedded.c				\
+	htmlengine-cutbuffer.c			\
 	htmlengine-edit.c			\
 	htmlengine-edit-styles.c		\
 	htmlengine-print.c			\
