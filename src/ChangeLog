@@ -1,5 +1,17 @@
 2002-12-05  Radek Doulik  <rodo@ximian.com>
 
+	* htmlengine-edit-tablecell.c (html_engine_set_cspan): new method
+	(html_engine_set_rspan): ditto, TODO
+	(expand_cspan): ditto, not finished yet
+	(collapse_cspan): ditto, TODO
+
+	* htmlengine-edit-table.c (html_table_insert_column): renamed, now
+	is public
+	(html_table_insert_row): ditto
+
+	* htmltablecell.c (html_table_cell_is_empty): new method, moved
+	from htmltable.c, it's now public
+
 	* htmlengine-edit-cut-and-paste.c (html_engine_delete):
 	reimplemented, make it work better with tables
 

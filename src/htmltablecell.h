@@ -60,34 +60,33 @@ struct _HTMLTableCellClass {
 	HTMLClueVClass cluev_class;
 };
 
-
 extern HTMLTableCellClass html_table_cell_class;
 
-
-void        html_table_cell_type_init        (void);
-void        html_table_cell_class_init       (HTMLTableCellClass *klass,
-					      HTMLType            type,
-					      guint               object_size);
-void        html_table_cell_init             (HTMLTableCell      *cell,
-					      HTMLTableCellClass *klass,
-					      gint                rs,
-					      gint                cs,
-					      gint                pad);
-HTMLObject *html_table_cell_new              (gint                rs,
-					      gint                cs,
-					      gint                pad);
-void        html_table_cell_set_fixed_width  (HTMLTableCell      *cell,
-					      gint                width,
-					      gboolean            percented);
-void        html_table_cell_set_fixed_height (HTMLTableCell      *cell,
-					      gint                height,
-					      gboolean            percented);
-void        html_table_cell_set_bg_pixmap    (HTMLTableCell      *cell,
-					      HTMLImagePointer   *imagePtr);
-void        html_table_cell_set_position     (HTMLTableCell      *cell,
-					      gint                row,
-					      gint                col);
-gint        html_table_cell_get_fixed_width  (HTMLTableCell      *cell,
-					      HTMLPainter        *painter);
+void        html_table_cell_type_init         (void);
+void        html_table_cell_class_init        (HTMLTableCellClass *klass,
+					       HTMLType            type,
+					       guint               object_size);
+void        html_table_cell_init              (HTMLTableCell      *cell,
+					       HTMLTableCellClass *klass,
+					       gint                rs,
+					       gint                cs,
+					       gint                pad);
+HTMLObject *html_table_cell_new               (gint                rs,
+					       gint                cs,
+					       gint                pad);
+void        html_table_cell_set_fixed_width   (HTMLTableCell      *cell,
+					       gint                width,
+					       gboolean            percented);
+void        html_table_cell_set_fixed_height  (HTMLTableCell      *cell,
+					       gint                height,
+					       gboolean            percented);
+void        html_table_cell_set_bg_pixmap     (HTMLTableCell      *cell,
+					       HTMLImagePointer   *imagePtr);
+void        html_table_cell_set_position      (HTMLTableCell      *cell,
+					       gint                row,
+					       gint                col);
+gint        html_table_cell_get_fixed_width   (HTMLTableCell      *cell,
+					       HTMLPainter        *painter);
+gboolean    html_table_cell_is_empty          (HTMLTableCell      *cell);
 
 #endif /* _HTMLTABLECELL_H_ */

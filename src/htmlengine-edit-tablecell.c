@@ -27,6 +27,7 @@
 #include "htmlengine-edit-cut-and-paste.h"
 #include "htmlengine-edit-tablecell.h"
 #include "htmlobject.h"
+#include "htmltable.h"
 #include "htmltablecell.h"
 #include "htmlundo.h"
 
@@ -410,4 +411,67 @@ html_engine_delete_table_cell_contents (HTMLEngine *e)
 	html_engine_next_cell (e, FALSE);
 	html_cursor_backward (e->cursor, e);
 	html_engine_delete (e);
+}
+
+static void
+expand_cspan (HTMLEngine *e, HTMLTableCell *cell, gint cspan, HTMLUndoDirection dir)
+{
+	HTMLTable *table = HTML_TABLE (HTML_OBJECT (cell)->parent);
+	gint r, c, *move_rows, max_move, add_cols;
+
+	html_engine_freeze (e);
+	move_rows = g_new0 (gint, cell->rspan);
+	for (r = cell->row; r < cell->row + cell->rspan; r ++)
+		for (c = cell->col + 1; c < MIN (cell->col + cspan, table->totalCols); c ++)
+			if (table->cells [r][c] && !html_table_cell_is_empty (table->cells [r][c]) && move_rows [r - cell->row] == 0)
+				move_rows [r - cell->row] = cspan - (c - cell->col);
+
+	max_move = 0;
+	for (r = 0; r < cell->rspan; r ++)
+		if (move_rows [r] > max_move)
+			max_move = move_rows [r];
+
+	printf ("max move: %d\n", max_move);
+	add_cols = MAX (0, cspan - (table->totalCols - cell->col)) + max_move;
+	for (c = 0; c < add_cols; c ++)
+		html_table_insert_column (table, table->totalCols, NULL, dir);
+
+	g_warning ("TODO: move cells. keep old content");
+
+	for (r = cell->row; r < cell->row + cell->rspan; r ++)
+		for (c = cell->col; c < cell->col + cspan; c ++)
+			table->cells [r][c] = cell;
+
+	cell->cspan = cspan;
+	html_object_change_set (HTML_OBJECT (cell), HTML_CHANGE_ALL);
+	html_engine_thaw (e);
+}
+
+static void
+collapse_cspan (HTMLEngine *e, HTMLTableCell *cell, gint cspan, HTMLUndoDirection dir)
+{
+	g_warning ("TODO");
+}
+
+void
+html_engine_set_cspan (HTMLEngine *e, gint cspan)
+{
+	HTMLTableCell *cell = html_engine_get_table_cell (e);
+
+	g_return_if_fail (cspan > 0);
+	g_return_if_fail (cell != NULL);
+
+	if (cell->cspan == cspan)
+		return;
+
+	if (cspan > cell->cspan)
+		expand_cspan (e, cell, cspan, HTML_UNDO_UNDO);
+	else
+		collapse_cspan (e, cell, cspan, HTML_UNDO_UNDO);
+}
+
+void
+html_engine_set_rspan (HTMLEngine *e, gint cspan)
+{
+	g_warning ("TODO");
 }

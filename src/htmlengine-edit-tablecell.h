@@ -50,4 +50,9 @@ void           html_engine_table_cell_set_width        (HTMLEngine     *e,
 							gboolean        percent);
 HTMLTableCell *html_engine_get_table_cell              (HTMLEngine     *e);
 void           html_engine_delete_table_cell_contents  (HTMLEngine     *e);			       
+void           html_engine_set_cspan                   (HTMLEngine     *e,
+							gint            cspan);
+void           html_engine_set_rspan                   (HTMLEngine     *e,
+							gint            rspan);
+
 #endif

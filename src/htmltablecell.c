@@ -460,3 +460,14 @@ html_table_cell_get_fixed_width (HTMLTableCell *cell, HTMLPainter *painter)
 {
 	return html_painter_get_pixel_size (painter) * cell->fixed_width;
 }
+
+gboolean
+html_table_cell_is_empty (HTMLTableCell *cell)
+{
+	g_assert (HTML_IS_TABLE_CELL (cell));
+
+	if (HTML_CLUE (cell)->head && HTML_CLUE (cell)->head == HTML_CLUE (cell)->tail
+	    && HTML_IS_CLUEFLOW (HTML_CLUE (cell)->head) && html_clueflow_is_empty (HTML_CLUEFLOW (HTML_CLUE (cell)->head)))
+		return TRUE;
+	return FALSE;
+}
