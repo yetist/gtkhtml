@@ -25,6 +25,7 @@
 #endif
 
 #include "gtkhtml.h"
+#include "gtkhtml-private.h"
 
 #include "htmlclueflow.h"
 #include "htmlcursor.h"
@@ -552,6 +553,11 @@ prepare_properties_and_menu (GtkHTMLControlData *cd, guint *items, guint *props)
 		}
 		ADD_ITEM ("Ignore Misspelled Word", spell_ignore, NONE);
 	}
+
+	SUBMENU ("Input Methods");
+	gtk_im_multicontext_append_menuitems (GTK_IM_MULTICONTEXT (cd->html->priv->im_context), 
+					      GTK_MENU_SHELL (menu));
+	END_SUBMENU;
 
 	if (*items == 0) {
 		gtk_object_sink (GTK_OBJECT (menu));

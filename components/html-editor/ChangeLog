@@ -1,5 +1,7 @@
 2003-03-26  Larry Ewing  <lewing@ximian.com>
 
+	* popup.c (prepare_properties_and_menu): add Input Methods menu item.
+
 	* GNOME_GtkHTML_Editor.xml.in: fix PasteQuotation menu item.
 
 2003-03-24  Radek Doulik  <rodo@ximian.com>
