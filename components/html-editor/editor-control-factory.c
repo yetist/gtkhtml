@@ -556,7 +556,7 @@ editor_control_factory (BonoboGenericFactory *factory,
 		gtk_widget_unref (vbox);
 		return NULL;
 	}
-
+}
 
 static gboolean
 editor_api_command (GtkHTML *html, GtkHTMLCommandType com_type, gpointer data)
