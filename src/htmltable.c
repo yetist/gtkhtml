@@ -616,29 +616,94 @@ calc_preferred_width (HTMLObject *o,
 		: COLUMN_PREF (table, table->totalCols) + table->border * html_painter_get_pixel_size (painter);
 }
 
-static void
-calc_col_percentage (HTMLTable *table, gint *col_percent)
+#define PERC(c) (col_percent [c + 1] - col_percent [c])
+
+static gboolean
+calc_percentage_step (HTMLTable *table, gint *col_percent, gint *span_percent, gint span)
 {
 	HTMLTableCell *cell;
-	gint r, c, cl;
+	gboolean higher_span;
+	gint r, c, cl, cspan;
 
-	for (c = 0; c < table->totalCols; c++) {
-		if (col_percent [c + 1] < col_percent [c])
-			col_percent [c + 1] = col_percent [c];
+	for (c = 0; c < table->totalCols; c++)
 		for (r = 0; r < table->totalRows; r++) {
 			cell = table->cells[r][c];
 
 			if (!cell || cell->col != c || cell->row != r)
 				continue;
 
-			if (HTML_OBJECT (cell)->flags & HTML_OBJECT_FLAG_FIXEDWIDTH)
+			if (HTML_OBJECT (cell)->flags & HTML_OBJECT_FLAG_FIXEDWIDTH || HTML_OBJECT (cell)->percent <= 0)
+				continue;
+
+			cspan = MIN (cell->cspan, table->totalCols - cell->col);
+			if (cspan > span)
+				higher_span = TRUE;
+			if (cspan != span)
 				continue;
 
 			cl = cell_end_col (table, cell);
-			if (col_percent [cl] - col_percent [cell->col] < HTML_OBJECT (cell)->percent)
-				col_percent [cl] = col_percent [cell->col] + HTML_OBJECT (cell)->percent;
+			if (col_percent [cl] - col_percent [c] < HTML_OBJECT (cell)->percent) {
+				gint cp, part, added, pleft, not_percented, np;
+
+				not_percented = 0;
+				for (cp = 0; cp < span; cp++)
+					if (!PERC (c + cp))
+						not_percented ++;
+
+				np    = 1;
+				added = 0;
+				pleft = HTML_OBJECT (cell)->percent - (col_percent [cl] - col_percent [c]);
+				for (cp = 0; cp < span; cp++) {
+					if (not_percented) {
+						if (!PERC (c + cp)) {
+							part = np * pleft / not_percented;
+							if (np * pleft - part * not_percented >
+							    (part + 1) * not_percented - np * pleft)
+								part++;
+							np ++;
+						}
+					} else {
+						part = ((col_percent [c + cp + 1] - col_percent [c]) * pleft)
+							/ (col_percent [cl] - col_percent [cell->col]);
+						if ((col_percent [c + cp + 1] - col_percent [c]) * pleft
+						    - part * (col_percent [cl] - col_percent [c])
+						    > (part + 1) * (col_percent [cl] - col_percent [c])
+						    - (col_percent [c + cp + 1] - col_percent [c]) * pleft)
+							part ++;
+					}
+					part  -= added;
+					added += part;
+					span_percent [c + cp] = PERC (c + cp) + part;
+				}
+			}
+		}
+
+	return higher_span;
+}
+
+static void
+calc_col_percentage (HTMLTable *table, gint *col_percent)
+{
+	gint c, span, *percent, add;
+	gboolean next = TRUE;
+
+	percent = g_new0 (gint, table->totalCols);
+	for (span = 1; next && span <= table->totalCols; span ++) {
+		for (c = 0; c < table->totalCols; c++)
+			percent [c] = 0;
+
+		next    = calc_percentage_step (table, col_percent, percent, span);
+		add     = 0;
+
+		for (c = 0; c < table->totalCols; c++) {
+			col_percent [c + 1] += add;
+			if (PERC (c) < percent [c]) {
+				add += percent [c] - PERC (c);
+				col_percent [c + 1] = col_percent [c] + percent [c];
+			}
 		}
 	}
+	g_free (percent);
 }
 
 static gint
@@ -654,8 +719,6 @@ calc_not_percented (HTMLTable *table, gint *col_percent)
 	return not_percented;
 }
 
-#define PERC(c) (col_percent [c + 1] - col_percent [c])
-
 static gint
 divide_into_percented (HTMLTable *table, gint *col_percent, gint *max_size, gint max_width, gint left)
 {
@@ -668,16 +731,15 @@ divide_into_percented (HTMLTable *table, gint *col_percent, gint *max_size, gint
 			to_fill += request - max_size [c];
 	}
 
-	/* printf ("percent to fill %f\n", fill_percent); */
 	left  = MIN (to_fill, left);
 	added = 0;
 	if (left) {
 		for (c = 0; c < table->totalCols; c++) {
 			request = (LL max_width * (PERC (c))) / 100;
 			if (max_size [c] < request) {
-				add = added + LL left * (request - max_size [c]) / to_fill;
-				if (LL left * (request - max_size [c]) - LL add * to_fill >
-				    LL (add + 1) * to_fill - LL left * (request - max_size [c]))
+				add = LL left * (request - max_size [c] + added) / to_fill;
+				if (LL left * (request - max_size [c] + added) - LL add * to_fill >
+				    LL (add + 1) * to_fill - LL left * (request - max_size [c] + added))
 					add ++;
 				add          -= added;
 				added        += add;

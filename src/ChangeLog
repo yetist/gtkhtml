@@ -1,5 +1,10 @@
 2000-12-15  Radek Doulik  <rodo@helixcode.com>
 
+	* htmltable.c (calc_percentage_step): extracted from
+	calc_col_percentage, take care of cspan
+	(calc_col_percentage): use calc_percentage_step
+	(divide_into_percented): be exact here
+
 	* htmlengine-edit-cut.c (html_engine_cut): update selection before
 	cut
 

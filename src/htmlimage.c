@@ -766,7 +766,6 @@ html_image_factory_end_pixbuf (GtkHTMLStream *stream,
 	HTMLImagePointer *ip = user_data;
 
 	html_engine_schedule_update (ip->factory->engine);
-	
 	gtk_object_unref (GTK_OBJECT (ip->loader));
 	ip->loader = NULL;
 
@@ -790,18 +789,15 @@ html_image_factory_area_prepared (GdkPixbufLoader *loader, HTMLImagePointer *ip)
 {
 	if (!ip->animation) {
 		GSList *cur;
-		HTMLObject *o;
 
-		ip->pixbuf    = gdk_pixbuf_loader_get_pixbuf (ip->loader);
+		ip->pixbuf = gdk_pixbuf_loader_get_pixbuf (ip->loader);
 		g_assert (ip->pixbuf);
 
 		/* set change flags on images using this image_ptr */
 		cur = ip->interests;
 		while (cur) {
-			if (cur->data) {
-				o = HTML_OBJECT (cur->data);
-				html_object_change_set (o, HTML_CHANGE_ALL);
-			}
+			if (cur->data)
+				html_object_change_set (HTML_OBJECT (cur->data), HTML_CHANGE_ALL);
 			cur = cur->next;
 		}
 
