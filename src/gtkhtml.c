@@ -1128,7 +1128,7 @@ init_properties (GtkHTMLClass *klass)
 	klass->properties = gtk_html_class_properties_new ();
 #ifdef GTKHTML_HAVE_GCONF
 	if (gconf_is_initialized ()) {
-		gconf_client = gconf_client_new ();
+		gconf_client = gconf_client_get_default ();
 		if (!gconf_client)
 			g_error ("cannot create gconf_client\n");
 		gconf_client_add_dir (gconf_client, GTK_HTML_GCONF_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, &gconf_error);

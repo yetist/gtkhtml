@@ -1,3 +1,9 @@
+2000-07-12  Ramiro Estrugo  <ramiro@eazel.com>
+
+	* capplet/main.c: (main):
+	* src/gtkhtml.c: (init_properties):
+	Update for GConf api changes.
+
 2000-07-10  Larry Ewing  <lewing@helixcode.com>
 
 	* Version 0.5

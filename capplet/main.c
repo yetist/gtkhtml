@@ -195,7 +195,7 @@ main (int argc, char **argv)
 		return 1;
 	}
 
-	client = gconf_client_new ();
+	client = gconf_client_get_default ();
 	gconf_client_add_dir(client, GTK_HTML_GCONF_DIR, GCONF_CLIENT_PRELOAD_NONE, NULL);
 
 	orig_prop = gtk_html_class_properties_new ();
