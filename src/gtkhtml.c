@@ -2226,6 +2226,8 @@ static gchar *pic_extensions [] = {
 	".xbm",
 	".xpm",
 	".bmp",
+	".svg",
+	".svgz",
 	NULL
 };
 
@@ -2247,7 +2249,7 @@ new_obj_from_uri (HTMLEngine *e, gchar *uri, gint len)
 	if (!strncmp (uri, "file:", 5)) {
 
 		for (i = 0; pic_extensions [i]; i++) {
-			if (!strcmp (uri + len - strlen (pic_extensions [i]), pic_extensions [i])) {
+			if (!strcasecmp (uri + len - strlen (pic_extensions [i]), pic_extensions [i])) {
 				return html_image_new (e->image_factory, uri,
 						       NULL, NULL, -1, -1, FALSE, FALSE, 0,
 						       html_colorset_get_color (e->settings->color_set, HTMLTextColor),

@@ -1,5 +1,9 @@
 2003-07-31  Radek Doulik  <rodo@ximian.com>
 
+	* gtkhtml.c (new_obj_from_uri): use strcasecmp instead of strcmp
+	for image extensions
+	added .svg[z] for Jakub
+
 	* htmlengine-edit.c (html_engine_select_spell_word_editable): fix
 	cittation
 
