@@ -1835,6 +1835,7 @@ parse_d ( HTMLEngine *e, HTMLObject *_clue, const char *str )
 	} else if ( strncmp( str, "div", 3 ) == 0 ) {
 		push_block (e, ID_DIV, 1, block_end_div, e->divAlign, FALSE);
 
+		e->divAlign = HTML_HALIGN_LEFT;
 		html_string_tokenizer_tokenize( e->st, str + 4, " >" );
 		while ( html_string_tokenizer_has_more_tokens (e->st) ) {
 			const char* token = html_string_tokenizer_next_token (e->st);
@@ -2539,6 +2540,7 @@ parse_p (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 		push_block (e, ID_DIV, 1, block_end_div, e->divAlign, FALSE);
 
+		e->divAlign = HTML_HALIGN_LEFT;
 		html_string_tokenizer_tokenize (e->st, (gchar *)(str + 2), " >");
 		while (html_string_tokenizer_has_more_tokens (e->st)) {
 			token = html_string_tokenizer_next_token (e->st);
@@ -2837,9 +2839,9 @@ parse_one_token (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 			/* FIXME: This should be removed */
 			if (parseFuncArray[indx] != NULL) {
 				(* parseFuncArray[indx])(p, clue, str);
-			} else {
+			} /* else {
 				g_warning ("Unsupported tag `%s'", str);
-			}
+				} */
 		}
 
 	}

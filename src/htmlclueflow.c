@@ -974,53 +974,6 @@ write_post_tags (HTMLClueFlow *self,
 	return TRUE;
 }
 
-static const gchar *
-get_tag_for_style (const HTMLClueFlow *flow)
-{
-	switch (flow->style) {
-	case HTML_CLUEFLOW_STYLE_NORMAL:
-		return NULL;
-	case HTML_CLUEFLOW_STYLE_H1:
-		return "h1";
-	case HTML_CLUEFLOW_STYLE_H2:
-		return "h2";
-	case HTML_CLUEFLOW_STYLE_H3:
-		return "h3";
-	case HTML_CLUEFLOW_STYLE_H4:
-		return "h4";
-	case HTML_CLUEFLOW_STYLE_H5:
-		return "h5";
-	case HTML_CLUEFLOW_STYLE_H6:
-		return "h6";
-	case HTML_CLUEFLOW_STYLE_ADDRESS:
-		return "address";
-	case HTML_CLUEFLOW_STYLE_PRE:	
-		return "pre";
-	case HTML_CLUEFLOW_STYLE_ITEMDOTTED:
-	case HTML_CLUEFLOW_STYLE_ITEMROMAN:
-	case HTML_CLUEFLOW_STYLE_ITEMDIGIT:
-		return "li";
-	default:
-		g_warning ("Unknown HTMLClueFlowStyle %d", flow->style);
-		return NULL;
-	}
-}
-
-static const gchar *
-halign_to_string (HTMLHAlignType halign)
-{
-	switch (halign) {
-	case HTML_HALIGN_RIGHT:
-		return "right";
-	case HTML_HALIGN_CENTER:
-		return "center";
-	case HTML_HALIGN_LEFT:
-	case HTML_HALIGN_NONE:
-	default:
-		return "left";
-	}
-}
-
 static gboolean 
 is_similar (HTMLObject *self, HTMLObject *friend)
 {
@@ -1049,7 +1002,7 @@ save (HTMLObject *self,
 	if (! write_pre_tags (clueflow, state))
 		return FALSE;
 
-	tag = get_tag_for_style (clueflow);
+	tag = html_engine_save_get_paragraph_style (clueflow_style_to_paragraph_style (clueflow->style));
 
 	if (is_similar (self, self->prev))
 		start = FALSE;
@@ -1067,7 +1020,9 @@ save (HTMLObject *self,
 	
 	/* Alignment tag.  */
 	if (halign != HTML_HALIGN_NONE && halign != HTML_HALIGN_LEFT) {
-		if (! html_engine_save_output_string (state, "<div alignx=%s>\n", halign_to_string (halign)))
+		if (! html_engine_save_output_string
+		    (state, "<div align=%s>\n",
+		     html_engine_save_get_paragraph_align (html_alignment_to_paragraph (halign))))
 			return FALSE;
 	}
 

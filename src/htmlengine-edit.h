@@ -25,32 +25,34 @@
 #include <unicode.h>
 
 #include "htmlengine.h"
+#include "htmlclueflow.h"
+#include "gtkhtml.h"
 
 
 /* Undo/redo.  */
-void  html_engine_undo                 (HTMLEngine *e);
-void  html_engine_redo                 (HTMLEngine *e);
-void  html_engine_set_mark             (HTMLEngine *e);
-void  html_engine_select_word_editable (HTMLEngine *e);
-void  html_engine_select_line_editable (HTMLEngine *e);
-
-void  html_engine_cut_buffer_push      (HTMLEngine *e);
-void  html_engine_cut_buffer_pop       (HTMLEngine *e);
-
-void  html_engine_selection_push       (HTMLEngine *e);
-void  html_engine_selection_pop        (HTMLEngine *e);
-
-void  html_engine_cut_and_paste_begin  (HTMLEngine *e,
-					gchar *op_name);
-void  html_engine_cut_and_paste_end    (HTMLEngine *e);
-void  html_engine_cut_and_paste        (HTMLEngine *e,
-					gchar *op_name,
-					GFunc iterator,
-					gpointer data);
-
-void  html_engine_spell_check_range    (HTMLEngine *e,
-					HTMLCursor *begin,
-					HTMLCursor *end);
-gboolean html_is_in_word               (unicode_char_t uc);
+void                       html_engine_undo                   (HTMLEngine                *e);
+void                       html_engine_redo                   (HTMLEngine                *e);
+void                       html_engine_set_mark               (HTMLEngine                *e);
+void                       html_engine_select_word_editable   (HTMLEngine                *e);
+void                       html_engine_select_line_editable   (HTMLEngine                *e);
+void                       html_engine_cut_buffer_push        (HTMLEngine                *e);
+void                       html_engine_cut_buffer_pop         (HTMLEngine                *e);
+void                       html_engine_selection_push         (HTMLEngine                *e);
+void                       html_engine_selection_pop          (HTMLEngine                *e);
+void                       html_engine_cut_and_paste_begin    (HTMLEngine                *e,
+							       gchar                     *op_name);
+void                       html_engine_cut_and_paste_end      (HTMLEngine                *e);
+void                       html_engine_cut_and_paste          (HTMLEngine                *e,
+							       gchar                     *op_name,
+							       GFunc                      iterator,
+							       gpointer                   data);
+void                       html_engine_spell_check_range      (HTMLEngine                *e,
+							       HTMLCursor                *begin,
+							       HTMLCursor                *end);
+gboolean                   html_is_in_word                    (unicode_char_t             uc);
+HTMLHAlignType             paragraph_alignment_to_html        (GtkHTMLParagraphAlignment  alignment);
+HTMLClueFlowStyle          paragraph_style_to_clueflow_style  (GtkHTMLParagraphStyle      style);
+GtkHTMLParagraphAlignment  html_alignment_to_paragraph        (HTMLHAlignType             alignment);
+GtkHTMLParagraphStyle      clueflow_style_to_paragraph_style  (HTMLClueFlowStyle          style);
 
 #endif /* _HTMLENGINE_EDIT_H */

@@ -385,3 +385,53 @@ html_engine_save_get_sample_body (HTMLEngine *e,
 {
 	return get_body (e);
 }
+
+const gchar *
+html_engine_save_get_paragraph_style (GtkHTMLParagraphStyle style)
+{
+	switch (style) {
+	case GTK_HTML_PARAGRAPH_STYLE_NORMAL:
+		return NULL;
+	case GTK_HTML_PARAGRAPH_STYLE_H1:
+		return "h1";
+	case GTK_HTML_PARAGRAPH_STYLE_H2:
+		return "h2";
+	case GTK_HTML_PARAGRAPH_STYLE_H3:
+		return "h3";
+	case GTK_HTML_PARAGRAPH_STYLE_H4:
+		return "h4";
+	case GTK_HTML_PARAGRAPH_STYLE_H5:
+		return "h5";
+	case GTK_HTML_PARAGRAPH_STYLE_H6:
+		return "h6";
+	case GTK_HTML_PARAGRAPH_STYLE_ADDRESS:
+		return "address";
+	case GTK_HTML_PARAGRAPH_STYLE_PRE:
+		return "pre";
+	case GTK_HTML_PARAGRAPH_STYLE_ITEMDOTTED:
+	case GTK_HTML_PARAGRAPH_STYLE_ITEMROMAN:
+	case GTK_HTML_PARAGRAPH_STYLE_ITEMDIGIT:
+		return "li";
+	}
+
+	g_warning ("Unknown GtkHTMLParagraphStyle %d", style);
+
+	return NULL;
+}
+
+const gchar *
+html_engine_save_get_paragraph_align (GtkHTMLParagraphAlignment align)
+{
+	switch (align) {
+	case GTK_HTML_PARAGRAPH_ALIGNMENT_RIGHT:
+		return "right";
+	case GTK_HTML_PARAGRAPH_ALIGNMENT_CENTER:
+		return "center";
+	case GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT:
+		return "left";
+	}
+
+	g_warning ("Unknown GtkHTMLParagraphAlignment %d", align);
+
+	return NULL;
+}

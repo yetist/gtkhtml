@@ -1,5 +1,22 @@
 2000-10-23  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlengine.c (parse_d): set divAlign to left before parsing
+	actual alignment
+	(parse_p): likewise
+
+	* htmlengine-edit.h: publicate in scope of gtkhtml sources some
+	usefull functions for translating between types
+
+	* htmlengine-save.c (html_engine_save_get_paragraph_style): new
+	helper function
+	(html_engine_save_get_paragraph_align): likewise
+
+	* htmlclueflow.c (save): fixed typo
+
+	* gtkhtml.h: gtk_html_load_from_string const safe
+
+	* htmlengine.c (parse_one_token): commented out warning
+
 	* gtkhtml.c (cursor_move): not abort with bad params, only warn
 	(move_selection): likewise
 	(scroll): likewise

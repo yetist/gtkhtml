@@ -107,7 +107,7 @@ typedef enum _TargetInfo TargetInfo;
 #define SCROLL_TIMEOUT_INTERVAL 10
 
 
-static GtkHTMLParagraphStyle
+GtkHTMLParagraphStyle
 clueflow_style_to_paragraph_style (HTMLClueFlowStyle style)
 {
 	switch (style) {
@@ -140,7 +140,7 @@ clueflow_style_to_paragraph_style (HTMLClueFlowStyle style)
 	}
 }
 
-static HTMLClueFlowStyle
+HTMLClueFlowStyle
 paragraph_style_to_clueflow_style (GtkHTMLParagraphStyle style)
 {
 	switch (style) {
@@ -173,7 +173,7 @@ paragraph_style_to_clueflow_style (GtkHTMLParagraphStyle style)
 	}
 }
 
-static HTMLHAlignType
+HTMLHAlignType
 paragraph_alignment_to_html (GtkHTMLParagraphAlignment alignment)
 {
 	switch (alignment) {
@@ -188,7 +188,7 @@ paragraph_alignment_to_html (GtkHTMLParagraphAlignment alignment)
 	}
 }
 
-static GtkHTMLParagraphAlignment
+GtkHTMLParagraphAlignment
 html_alignment_to_paragraph (HTMLHAlignType alignment)
 {
 	switch (alignment) {
@@ -1940,7 +1940,7 @@ gtk_html_load_empty (GtkHTML *html)
 }
 
 void
-gtk_html_load_from_string  (GtkHTML *html, gchar *str, gint len)
+gtk_html_load_from_string  (GtkHTML *html, const gchar *str, gint len)
 {
 	GtkHTMLStream *stream;
 
@@ -2058,7 +2058,7 @@ gtk_html_get_paragraph_alignment (GtkHTML *html)
 
 void
 gtk_html_set_paragraph_alignment (GtkHTML *html,
-			  GtkHTMLParagraphAlignment alignment)
+				  GtkHTMLParagraphAlignment alignment)
 {
 	HTMLHAlignType align;
 

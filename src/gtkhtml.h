@@ -296,7 +296,7 @@ void           gtk_html_end               (GtkHTML             *html,
 					   GtkHTMLStreamStatus  status);
 void           gtk_html_load_empty        (GtkHTML             *html);
 void           gtk_html_load_from_string  (GtkHTML             *html,
-					   gchar               *str,
+					   const gchar         *str,
 					   gint                 len);
 
 /* Saving.  */
