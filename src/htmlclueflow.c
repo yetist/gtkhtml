@@ -1928,16 +1928,17 @@ end_of_word (gchar *ct)
 }
 
 void
-html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *i)
+html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *interval)
 {
 	HTMLObject *obj;
 	HTMLClue *clue;
 	guint off;
 	gchar *text, *ct, *word;
+	HTMLInterval *new_interval = NULL;
 
 	g_assert (HTML_OBJECT_TYPE (flow) == HTML_TYPE_CLUEFLOW);
 
-	/* if (i)
+	/* if (interval)
 	   printf ("html_clueflow_spell_check %p %p %d %d\n", i->from, i->to, i->from_offset, i->to_offset); */
 
 	clue = HTML_CLUE (flow);
@@ -1947,12 +1948,16 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *i)
 		return;
 
 	off  = 0;
-	if (!i)
-		i = html_interval_new (clue->head, clue->tail, 0, html_object_get_length (clue->tail));
-	text = get_text (clue, i);
-	obj  = i->from.object;
+
+	if (!interval) {
+		new_interval = html_interval_new (clue->head, clue->tail, 0, html_object_get_length (clue->tail));
+		interval = new_interval;
+	}
+
+	text = get_text (clue, interval);
+	obj  = interval->from.object;
 	if (obj && html_object_is_text (obj))
-		html_text_spell_errors_clear_interval (HTML_TEXT (obj), i);
+		html_text_spell_errors_clear_interval (HTML_TEXT (obj), interval);
 
 	if (text) {
 		ct = text;
@@ -1973,16 +1978,19 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *i)
 				if (result == 1) {
 					gboolean is_text = (obj) ? html_object_is_text (obj) : FALSE;
 					while (obj && (!is_text
-						       || (is_text && off + html_interval_get_length (i, obj)
+						       || (is_text && off + html_interval_get_length (interval, obj)
 							   < unicode_index_to_offset (text, ct - text))))
-						obj = next_obj_and_clear (obj, &off, &is_text, i);
+						obj = next_obj_and_clear (obj, &off, &is_text, interval);
 				} else if (obj)
-						obj = spell_check_word_mark (obj, text, word, &off, i);
+						obj = spell_check_word_mark (obj, text, word, &off, interval);
 
 				*ct = bak;
 				if (*ct)
 					ct = unicode_next_utf8 (ct);
 			}
 		}
+		g_free (text);
+		html_interval_destroy (new_interval);
 	}
 }
+

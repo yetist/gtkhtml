@@ -1126,6 +1126,7 @@ html_text_spell_errors_clear_interval (HTMLText *text, HTMLInterval *i)
 		/* test overlap */
 		if (MAX (offset, se->off) <= MIN (se->off + se->len, offset + len)) {
 			text->spell_errors = g_list_remove_link (text->spell_errors, cur);
+			spell_error_destroy (se);
 			g_list_free (cur);
 		}
 		cur = cnext;

@@ -1,3 +1,12 @@
+2000-12-18  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlclueflow.c (html_clueflow_spell_check): free the text
+	returned from get_text to fix a leak.
+	Free the interval when we create a new one, stops leak.
+
+	* htmltext.c (html_text_spell_errors_clear_interval): clean up
+	memory leak.
+
 2000-12-15  Radek Doulik  <rodo@helixcode.com>
 
 	* htmltable.c (calc_percentage_step): extracted from
