@@ -1,5 +1,7 @@
 2001-03-02  Radek Doulik  <rodo@ximian.com>
 
+	* htmlclueflow.c (check_point): check for p != NULL
+
 	* htmltext.c (copy): g_strdup face, it caused some crashes in
 	destroy method before
 

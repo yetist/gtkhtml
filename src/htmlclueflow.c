@@ -890,7 +890,7 @@ check_point (HTMLObject *self,
 	p = clue->head;
 	if (html_object_is_text (p))
 		p = p->next;
-	if (x < p->x || y < p->y - p->ascent) {
+	if (p && (x < p->x || y < p->y - p->ascent)) {
 		obj = html_object_check_point (p, painter, p->x, p->y - p->ascent, offset_return, for_cursor);
 		if (obj != NULL)
 			return obj;
@@ -898,7 +898,8 @@ check_point (HTMLObject *self,
 	for (p = clue->head; p != NULL; p = pnext) {
 		if (html_object_is_text (p))
 			p = p->next;
-
+		if (!p)
+			break;
 		pnext = p->next;
 		while (pnext && html_object_is_text (pnext))
 			pnext = pnext->next;
