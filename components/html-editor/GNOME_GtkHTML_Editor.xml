@@ -68,7 +68,7 @@
 	<dockitem name="Toolbar">
 		<toolitem name="EditUndo" verb="" _label="Undo" _tip="Undo previous changes"
 		pixtype="stock" pixname="Undo"/>
-		<toolitem name="EditRedo" verb="" _label="Redo"  _tip="Redo previously undoed changes"
+		<toolitem name="EditRedo" verb="" _label="Redo"  _tip="Redo previously undone change"
 		pixtype="stock" pixname="Redo"/>
 		<separator/>
 		<toolitem name="EditCut" verb=""  _label="Cut" _tip="Cut selection to clipboard"

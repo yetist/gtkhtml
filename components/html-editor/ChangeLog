@@ -1,3 +1,10 @@
+2001-01-17  Larry Ewing  <lewing@helixcode.com>
+
+	* toolbar.c: change the tooltip wording slightly to match gnumeric
+	more closely.
+
+	* GNOME_GtkHTML_Editor.xml: fix up redo wording.
+
 2001-01-16  Radek Doulik  <rodo@helixcode.com>
 
 	* toolbar.c (color_changed): use gtk_html_set_color instead of

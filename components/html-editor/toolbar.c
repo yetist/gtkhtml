@@ -398,24 +398,24 @@ editor_toolbar_unindent_cb (GtkWidget *widget,
 /* Editor toolbar.  */
 
 static GnomeUIInfo editor_toolbar_alignment_group[] = {
-	GNOMEUIINFO_ITEM_STOCK (N_("Left align"), N_("Left justify paragraphs"),
+	GNOMEUIINFO_ITEM_STOCK (N_("Left align"), N_("Left justifies the paragraphs"),
 				editor_toolbar_left_align_cb, GNOME_STOCK_PIXMAP_ALIGN_LEFT),
-	GNOMEUIINFO_ITEM_STOCK (N_("Center"), N_("Centers paragraphs"),
+	GNOMEUIINFO_ITEM_STOCK (N_("Center"), N_("Centers justifies the paragraphs"),
 				editor_toolbar_center_cb, GNOME_STOCK_PIXMAP_ALIGN_CENTER),
-	GNOMEUIINFO_ITEM_STOCK (N_("Right align"), N_("Right justify paragraphs"),
+	GNOMEUIINFO_ITEM_STOCK (N_("Right align"), N_("Right justifies the paragraphs"),
 				editor_toolbar_right_align_cb, GNOME_STOCK_PIXMAP_ALIGN_RIGHT),
 	GNOMEUIINFO_END
 };
 
 static GnomeUIInfo editor_toolbar_style_uiinfo[] = {
 
-	{ GNOME_APP_UI_TOGGLEITEM, N_("Bold"), N_("Sets the bold font"),
+	{ GNOME_APP_UI_TOGGLEITEM, N_("Bold"), N_("Makes the text bold"),
 	  editor_toolbar_bold_cb, NULL, NULL, GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_PIXMAP_TEXT_BOLD },
-	{ GNOME_APP_UI_TOGGLEITEM, N_("Italic"), N_("Make the selection italic"),
+	{ GNOME_APP_UI_TOGGLEITEM, N_("Italic"), N_("Makes the text italic"),
 	  editor_toolbar_italic_cb, NULL, NULL, GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_PIXMAP_TEXT_ITALIC },
-	{ GNOME_APP_UI_TOGGLEITEM, N_("Underline"), N_("Make the selection underlined"),
+	{ GNOME_APP_UI_TOGGLEITEM, N_("Underline"), N_("Underlines the text"),
 	  editor_toolbar_underline_cb, NULL, NULL, GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_PIXMAP_TEXT_UNDERLINE },
-	{ GNOME_APP_UI_TOGGLEITEM, N_("Strikeout"), N_("Make the selection striked out"),
+	{ GNOME_APP_UI_TOGGLEITEM, N_("Strikeout"), N_("Strikes out the text"),
 	  editor_toolbar_strikeout_cb, NULL, NULL, GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_PIXMAP_TEXT_STRIKEOUT },
 
 	GNOMEUIINFO_SEPARATOR,
@@ -424,9 +424,9 @@ static GnomeUIInfo editor_toolbar_style_uiinfo[] = {
 
 	GNOMEUIINFO_SEPARATOR,
 
-	GNOMEUIINFO_ITEM_STOCK (N_("Unindent"), N_("Indent paragraphs less"),
+	GNOMEUIINFO_ITEM_STOCK (N_("Unindent"), N_("Indents the paragraphs less"),
 				editor_toolbar_unindent_cb, GNOME_STOCK_PIXMAP_TEXT_UNINDENT),
-	GNOMEUIINFO_ITEM_STOCK (N_("Indent"), N_("Indent paragraphs more"),
+	GNOMEUIINFO_ITEM_STOCK (N_("Indent"), N_("Indents the paragraphs more"),
 				editor_toolbar_indent_cb, GNOME_STOCK_PIXMAP_TEXT_INDENT),
 
 	GNOMEUIINFO_END
