@@ -2,6 +2,7 @@
 
 	* gtkhtml.c (key_press_event): insert text also with LOCK_MASK bit
 	turned on
+	(key_press_event): queue draw + update style every time we handle key_press
 
 2000-06-12  Ettore Perazzoli  <ettore@helixcode.com>
 
