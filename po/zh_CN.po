@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "POT-Creation-Date: 2001-11-09 18:20+0800\n"
-"PO-Revision-Date: 2001-11-09 23:27+0800\n"
+"PO-Revision-Date: 2001-11-09 23:46+0800\n"
 "Last-Translator: Zipeco <Zipeco@btamail.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
@@ -51,11 +51,11 @@ msgstr "命令"
 
 #: capplet/gtkhtml-capplet.glade.h:7
 msgid "Composer Properties"
-msgstr "设计属性"
+msgstr "撰写器属性"
 
 #: capplet/gtkhtml-capplet.glade.h:8
 msgid "Composer Properties planned"
-msgstr "设计属性已规划好"
+msgstr "撰写器属性已规划好"
 
 #: capplet/gtkhtml-capplet.glade.h:9
 msgid "Enable spell checking"
@@ -71,11 +71,11 @@ msgstr "字体"
 
 #: capplet/gtkhtml-capplet.glade.h:12
 msgid "For printing"
-msgstr "打印"
+msgstr "用于打印"
 
 #: capplet/gtkhtml-capplet.glade.h:13
 msgid "Grab keys"
-msgstr "捕捉键"
+msgstr "夺取键盘"
 
 #: capplet/gtkhtml-capplet.glade.h:14
 msgid "Information"
@@ -132,7 +132,7 @@ msgstr "快捷方式"
 
 #: capplet/gtkhtml-capplet.glade.h:27
 msgid "Shortcuts _type:"
-msgstr "快捷方式类型(_t)"
+msgstr "快捷方式类型(_T)："
 
 #: capplet/gtkhtml-capplet.glade.h:28
 msgid "Show animated images"
@@ -160,7 +160,7 @@ msgstr "EBrowser浏览控制"
 
 #: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:2
 msgid "Browser factory"
-msgstr "EBrowser工厂"
+msgstr "Browser工厂"
 
 #: components/ebrowser/GNOME_GtkHTML_EBrowser.oaf.in.h:3
 msgid "Factory for the EBrowser control"
@@ -208,7 +208,7 @@ msgstr "-2"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:7
 msgid "A_ddress"
-msgstr "地址(_d)"
+msgstr "地址(_D)"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
 #: components/html-editor/toolbar.c:62
@@ -252,7 +252,7 @@ msgstr "复制选择区"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
 msgid "Cu_t"
-msgstr "剪切(_u)"
+msgstr "剪切(_T)"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
 #: components/html-editor/popup.c:399
@@ -282,7 +282,7 @@ msgstr "查找并替换"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
 msgid "Find Regular E_xpression..."
-msgstr "查找规则表达式(_x)..."
+msgstr "查找规则表达式(_X)..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
 msgid "Find _Again"
@@ -298,7 +298,7 @@ msgstr "查找并替换"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
 msgid "For_mat"
-msgstr "格式化(_m)"
+msgstr "格式化(_M)"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
 msgid "Green"
@@ -457,7 +457,7 @@ msgstr "粘贴剪切板"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
 msgid "Pr_operties..."
-msgstr "属性(_o)..."
+msgstr "属性(_O)..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
 #: components/html-editor/toolbar.c:51
@@ -517,15 +517,15 @@ msgstr "选择文档的全部内容"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
 #: components/html-editor/text.c:183 components/html-editor/toolbar.c:517
 msgid "Strikeout"
-msgstr "失败"
+msgstr ""
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
 msgid "Su_perscript"
-msgstr "上标(_p)"
+msgstr "上标(_P)"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
 msgid "Subs_cript"
-msgstr "下标(_c)"
+msgstr "下标(_C)"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
 msgid "Subscript"
@@ -544,7 +544,7 @@ msgstr "表格"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
 msgid "Te_mplate..."
-msgstr "模板(_m)..."
+msgstr "模板(_M)..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
 #: components/html-editor/gtkhtml-editor-properties.glade.h:46
@@ -750,11 +750,11 @@ msgstr "页"
 
 #: components/html-editor/editor-control-factory.c:843
 msgid "Could not initialize GNORBA"
-msgstr "不能初始化GNORBA"
+msgstr "无法初始化 GNORBA"
 
 #: components/html-editor/editor-control-factory.c:856
 msgid "Could not initialize Bonobo"
-msgstr "不能初始化Bonobo"
+msgstr "无法初始化 Bonobo"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:1
 msgid "************"
@@ -989,11 +989,11 @@ msgstr "插入"
 
 #: components/html-editor/menubar.c:203
 msgid "Cannot execute gtkhtml properties"
-msgstr "不能使gtkhtml的属性生效"
+msgstr "无法使 gtkhtml 的属性生效"
 
 #: components/html-editor/paragraph.c:125
 msgid "Pre"
-msgstr "向前"
+msgstr "预格式化"
 
 #: components/html-editor/paragraph.c:126 components/html-editor/toolbar.c:52
 msgid "Header 1"
@@ -1292,11 +1292,11 @@ msgstr "样例"
 
 #: src/htmlgdkpainter.c:228
 msgid "Can't load fixed font."
-msgstr "不能加载固定宽度字体"
+msgstr "无法加载固定宽度字体"
 
 #: src/testgtkhtml.c:112
 msgid "Print pre_view"
-msgstr "打印预览(_v)"
+msgstr "打印预览(_V)"
 
 #: src/testgtkhtml.c:112
 msgid "Print preview"
