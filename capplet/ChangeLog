@@ -1,3 +1,10 @@
+2001-07-25  Jakub Steiner <jimmac@ximian.com>
+
+	* html-viewer.png: icon for the new gnomecc. I tried to modify
+	  the gtkhtml-properties.desktop and Makefile.am files, but since
+	  it didn't quite work, I'll leave that to someone who has a
+	  clue.
+
 2001-07-13  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml-capplet.glade: rename the Magic Links checkbox.
