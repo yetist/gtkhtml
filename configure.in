@@ -301,6 +301,27 @@ AC_SUBST(GTKHTML_LIBDIR)
 AC_SUBST(GTKHTML_INCLUDEDIR)
 AC_SUBST(GTKHTML_LIBS)
 
+# gtk-doc stuff
+
+AC_CHECK_PROG(GTKDOC, gtkdoc-mkdb, true, false)
+AM_CONDITIONAL(HAVE_GTK_DOC, $GTKDOC)
+AC_SUBST(HAVE_GTK_DOC)
+
+dnl Let people disable the gtk-doc stuff.
+AC_ARG_ENABLE(gtk-doc, [  --enable-gtk-doc  Use gtk-doc to build documentation [default=auto]], enable_gtk_doc="$enableval", enable_gtk_doc=auto)
+
+if test x$enable_gtk_doc = xauto ; then
+  if test x$GTKDOC = xtrue ; then
+    enable_gtk_doc=yes
+  else
+    enable_gtk_doc=no
+  fi
+fi
+
+dnl NOTE: We need to use a separate automake conditional for this
+dnl       to make this work with the tarballs.
+AM_CONDITIONAL(ENABLE_GTK_DOC, test x$enable_gtk_doc = xyes)
+
 dnl Library version information.
  
 dnl Increment the following if the interface has additions, changes,
@@ -328,6 +349,7 @@ gtkhtml.spec
 po/Makefile.in
 macros/Makefile
 src/Makefile
+doc/Makefile
 capplet/Makefile
 components/Makefile
 components/html-editor/Makefile

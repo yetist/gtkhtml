@@ -20,6 +20,7 @@ SUBDIRS =					\
 	src					\
 	capplet					\
 	po					\
+	doc					\
 	$(DIR_COMPONENTS)
 
 EXTRA_DIST =					\

@@ -1,3 +1,10 @@
+2001-01-25  Radek Doulik  <rodo@helixcode.com>
+
+	* configure.in (GTKHTML_LIBS): copied gtk-doc stuff from
+	gdk-pixbuf
+
+	* Makefile.am (SUBDIRS): added doc
+
 2001-01-19  Stanislav Visnovsky  <visnovsky@nenya.ms.mff.cuni.cz>
 
 	* configure.in (ALL_LINGUAS): added sk (Slovak) translation
