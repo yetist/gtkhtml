@@ -53,6 +53,7 @@ struct _HTMLImageFactory {
 
 
 #define DEFAULT_SIZE 48
+#define ANIMATIONS(i) GTK_HTML_CLASS (GTK_OBJECT (i->image_ptr->factory->engine->widget)->klass)->properties->animations
 
 
 HTMLImageClass html_image_class;
@@ -327,7 +328,7 @@ draw (HTMLObject *o,
 					 GTK_HTML_ETCH_NONE, image->border);
 		
 	}
-	if (image->animation && HTML_OBJECT_TYPE (HTML_OBJECT (painter)) != HTML_TYPE_PRINTER) {
+	if (ANIMATIONS (image) &&  image->animation && HTML_OBJECT_TYPE (HTML_OBJECT (painter)) != HTML_TYPE_PRINTER) {
 		image->animation->active = TRUE;
 		image->animation->x = base_x;
 		image->animation->y = base_y;

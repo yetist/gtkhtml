@@ -30,12 +30,13 @@ gtk_html_class_properties_new (void)
 	GtkHTMLClassProperties *p = g_new (GtkHTMLClassProperties, 1);
 
 	/* default values */
-	p->magic_links = TRUE;
+	p->magic_links       = TRUE;
 	p->keybindings_theme = g_strdup ("emacs");
 	p->font_var_family   = g_strdup ("helvetica");
 	p->font_fix_family   = g_strdup ("courier");
 	p->font_var_size     = 14;
 	p->font_fix_size     = 14;
+	p->animations        = TRUE;
 
 	return p;
 }
@@ -65,6 +66,7 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p, GConfClient *client)
 	g_assert (client);
 
 	GET (bool, "/magic_links", magic_links,,);
+	GET (bool, "/animations", animations,,);
 	GET (string, "/keybindings_theme", keybindings_theme,
 	     g_free (p->keybindings_theme), g_strdup);
 	GET (string, "/font_variable_family", font_var_family,
@@ -86,6 +88,8 @@ gtk_html_class_properties_update (GtkHTMLClassProperties *p, GConfClient *client
 {
 	gchar *key;
 
+	if (p->animations != old->animations)
+		SET (bool, "/animations", animations);
 	if (p->magic_links != old->magic_links)
 		SET (bool, "/magic_links", magic_links);
 	SET (string, "/keybindings_theme", keybindings_theme);
@@ -114,6 +118,7 @@ gtk_html_class_properties_load (GtkHTMLClassProperties *p)
 {
 	gnome_config_push_prefix (GTK_HTML_GNOME_CONFIG_PREFIX);
 	GET  (bool, magic_links, "magic_links=true");
+	GET  (bool, animations, "animations=true");
 	GETS (keybindings_theme, "keybindings_theme=ms");
 	GETS (font_var_family, "font_variable_family=helvetica");
 	GETS (font_fix_family, "font_fixed_family=courier");
@@ -127,6 +132,7 @@ gtk_html_class_properties_save (GtkHTMLClassProperties *p)
 {
 	gnome_config_push_prefix (GTK_HTML_GNOME_CONFIG_PREFIX);
 	gnome_config_set_bool ("magic_links", p->magic_links);
+	gnome_config_set_bool ("animations", p->animations);
 	gnome_config_set_string ("keybindings_theme", p->keybindings_theme);
 	gnome_config_set_string ("font_variable_family", p->font_var_family);
 	gnome_config_set_string ("font_fixed_family", p->font_fix_family);

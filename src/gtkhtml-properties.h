@@ -47,13 +47,16 @@ enum _GtkHTMLClassPropertiesItem {
 };
 
 struct _GtkHTMLClassProperties {
-	gboolean  magic_links;
-	gchar    *keybindings_theme;
-
+	/* viewer */
+	gboolean  animations;
 	gchar    *font_var_family;
 	guint     font_var_size;
 	gchar    *font_fix_family;
 	guint     font_fix_size;
+
+	/* editor */
+	gboolean  magic_links;
+	gchar    *keybindings_theme;
 };
 
 
