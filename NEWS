@@ -1,7 +1,11 @@
-gtkhtml-3.1.6 "Tree" 2004-01-26
-------------------------------------------------
+gtkhtml-3.3.0
+-------------
 
-New in this release
+New in 3.3.0
+
+   * Use Pango for printing as well as screen display
+
+New in 3.1.6
    
    * fixed font attribute handling.
 

@@ -25,7 +25,7 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Package name for gettex
 GNOME_EXPLICIT_TRANSLATION_DOMAIN=${GTKHTML_RELEASE_STRING}
 AC_DEFINE_UNQUOTED(GNOME_EXPLICIT_TRANSLATION_DOMAIN, "${GNOME_EXPLICIT_TRANSLATION_DOMAIN}", [Gnome Explicit Translation Domain])
 
-AM_INIT_AUTOMAKE($PACKAGE, 3.1.19)
+AM_INIT_AUTOMAKE($PACKAGE, 3.3.0)
 
 AM_MAINTAINER_MODE
 
@@ -56,7 +56,7 @@ AC_SUBST(GAIL_CFLAGS)
 AC_SUBST(GAIL_LIBS)
 AC_SUBST(GAIL_MODULES)
 
-GTKHTML_MODULES="gtk+-2.0 >= 2.2.0 libgnomeui-2.0 >= 1.112.1 libgnomeprint-2.2 >= 2.2.0 libgnomeprintui-2.2 >= 2.2.1 libglade-2.0 >= 2.0.0"
+GTKHTML_MODULES="gtk+-2.0 >= 2.4.0 libgnomeui-2.0 >= 1.112.1 libgnomeprint-2.2 >= 2.7.0 libgnomeprintui-2.2 >= 2.2.1 libglade-2.0 >= 2.0.0"
 PKG_CHECK_MODULES(GTKHTML, $GTKHTML_MODULES)
 AC_SUBST(GTKHTML_CFLAGS)
 AC_SUBST(GTKHTML_LIBS)
@@ -90,7 +90,7 @@ AC_SUBST(SOUP_LIBS)
 dnl **************************************************
 dnl * Gnome Icon Theme
 dnl **************************************************
-PKG_CHECK_MODULES(GIT, gnome-icon-theme >= 1.2.0)
+PKG_CHECK_MODULES(GIT, gnome-icon-theme >= 1.2.3)
 
 dnl ******************************
 dnl shlib factory
@@ -119,7 +119,7 @@ GTKHTML_CURRENT=11
 
 dnl Increment any time the source changes; set to 0 if you
 dnl increment CURRENT.
-GTKHTML_REVISION=2
+GTKHTML_REVISION=0
 
 dnl Increment if any interfaces have been added; set to 0
 dnl if any interfaces have been removed. removal has 

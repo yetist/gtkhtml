@@ -1813,7 +1813,7 @@ save_plain (HTMLObject *self,
 			PangoAttrList *attrs = pango_attr_list_new ();
 			gint bytes = html_engine_save_buffer_peek_text_bytes (buffer_state), slen = g_utf8_strlen (s, -1), i, clen, n_items;
 			GList *items_list, *cur;
-			PangoContext *pc = gtk_widget_get_pango_context (GTK_WIDGET (state->engine->widget));
+			PangoContext *pc = state->engine->painter->pango_context;
 			PangoLogAttr *lattrs;
 			PangoItem **items;
 			gint len, skip;

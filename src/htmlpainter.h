@@ -48,7 +48,9 @@ struct _HTMLPainter {
 	HTMLFontManager     font_manager;
 	HTMLFontFace       *font_face;
 	GtkHTMLFontStyle    font_style;
-
+	PangoContext       *pango_context;
+	
+	gdouble  engine_to_pango; /* Scale factor for engine coordinates => Pango coordinates */
 	gboolean focus;
 };
 
@@ -65,11 +67,6 @@ struct _HTMLPainterClass {
 
 	void (* alloc_color)      (HTMLPainter *painter, GdkColor *color);
 	void (* free_color)       (HTMLPainter *painter, GdkColor *color);
-
-	void (* calc_text_size) (HTMLPainter *p, const gchar *text, guint len, HTMLTextPangoInfo *pi, PangoAttrList *attrs, GList *glyphs, gint start_byte_offset,
-				 GtkHTMLFontStyle font_style, HTMLFontFace *face, gint *width, gint *asc, gint *dsc);
-	void (* calc_text_size_bytes) (HTMLPainter *p, const gchar *text, guint len, HTMLTextPangoInfo *pi, PangoAttrList *attrs, GList *glyphs, gint start_byte_offset,
-				       HTMLFont *font, GtkHTMLFontStyle font_style, gint *width, gint *asc, gint *dsc);
 
 	void (* set_pen)          (HTMLPainter *painter, const GdkColor *color);
 	const GdkColor * (* get_black) (const HTMLPainter *painter);
@@ -99,6 +96,13 @@ struct _HTMLPainterClass {
 
 	guint (*get_page_width)     (HTMLPainter *painter, HTMLEngine *e);
 	guint (*get_page_height)    (HTMLPainter *painter, HTMLEngine *e);
+};
+
+struct _HTMLPangoProperties {
+	gboolean        underline;
+	gboolean        strikethrough;
+	PangoColor     *fg_color;
+	PangoColor     *bg_color;
 };
 
 
@@ -285,6 +289,10 @@ guint             html_painter_get_page_width                          (HTMLPain
 								        HTMLEngine        *e);
 guint             html_painter_get_page_height                         (HTMLPainter       *painter,
 								        HTMLEngine        *e);
+gint              html_painter_pango_to_engine                         (HTMLPainter       *painter,
+									gint               pango_units);
+gint              html_painter_engine_to_pango                         (HTMLPainter       *painter,
+									gint               engine_units);
 void              html_painter_set_focus                               (HTMLPainter       *painter,
 									gboolean           focus);
 void              html_replace_tabs                                    (const gchar       *text,
@@ -298,6 +306,12 @@ HTMLTextPangoInfo *html_painter_text_itemize_and_prepare_glyphs  (HTMLPainter   
 								  GList                **glyphs,
 								  PangoAttrList         *attrs);
 void               html_painter_glyphs_destroy                   (GList                 *glyphs);
+
+
+/* Retrieves the properties we care about for a single run in an
+ * easily accessible structure rather than a list of attributes
+ */
+void html_pango_get_item_properties (PangoItem *item, HTMLPangoProperties *properties);
 
 #define HTML_BLOCK_INDENT   "        "
 #define HTML_BLOCK_CITE     "> "
