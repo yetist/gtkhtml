@@ -99,20 +99,50 @@ items_are_relative (HTMLObject *self, HTMLObject *next_object)
 	return TRUE;
 }
 
+static HTMLObject *
+get_prev_relative_item (HTMLObject *self)
+{
+	HTMLObject *prev;
+
+	prev = self->prev;
+	while (prev && HTML_IS_CLUEFLOW (prev) && is_item (HTML_CLUEFLOW (prev))
+	       && HTML_CLUEFLOW (prev)->level > HTML_CLUEFLOW (self)->level)
+		prev = prev->prev;
+
+	return prev;
+}
+
+static HTMLObject *
+get_next_relative_item (HTMLObject *self)
+{
+	HTMLObject *next;
+
+	next = self->next;
+	while (next && HTML_IS_CLUEFLOW (next) && is_item (HTML_CLUEFLOW (next))
+	       && HTML_CLUEFLOW (next)->level > HTML_CLUEFLOW (self)->level)
+		next = next->next;
+
+	return next;
+}
+
 static void
 update_item_number (HTMLObject *self)
 {
+	HTMLObject *prev, *next;
+
 	if (!self)
 		return;
 
-	if (items_are_relative (self->prev, self))
-		HTML_CLUEFLOW (self)->item_number = HTML_CLUEFLOW (self->prev)->item_number + 1;
+	prev = get_prev_relative_item (self);
+	if (items_are_relative (prev, self))
+		HTML_CLUEFLOW (self)->item_number = HTML_CLUEFLOW (prev)->item_number + 1;
 	else if (is_item (HTML_CLUEFLOW (self)))
 		HTML_CLUEFLOW (self)->item_number = 1;
 
-	while (items_are_relative (self, self->next)) {
-		HTML_CLUEFLOW (self->next)->item_number = HTML_CLUEFLOW (self)->item_number + 1;
-		self = self->next;
+	next = self;
+	while ((next = get_next_relative_item (next)) && items_are_relative (self, next)) {
+		HTML_CLUEFLOW (next)->item_number = HTML_CLUEFLOW (self)->item_number + 1;
+		self = next;
 	}
 }
 
@@ -205,6 +235,7 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *ri
 
 	rv = (* HTML_OBJECT_CLASS (parent_class)->merge) (self, with, e, left, right);
 
+	update_item_number (self);
 	cf1->item_number --;
 	update_item_number (with);
 	cf1->item_number ++;
@@ -283,9 +314,7 @@ get_pre_padding (HTMLClueFlow *flow,
 		HTMLClueFlow *prev;
 
 		prev = HTML_CLUEFLOW (prev_object);
-		if ((prev->level > 0 && flow->level == 0)
-		    || (is_item (prev) && is_item (flow) && prev->item_type != flow->item_type
-			&& prev->item_type != HTML_LIST_TYPE_UNORDERED && flow->item_type != HTML_LIST_TYPE_UNORDERED))
+		if (prev->level > 0 && flow->level == 0)
 			return pad;
 
 		if (flow->style == HTML_CLUEFLOW_STYLE_PRE
@@ -1506,8 +1535,8 @@ string_append_nonbsp (GString *out, guchar *s, gint length)
 	return length;
 }
 
-#define CLUEFLOW_ITEM_MARKER        "* "
-#define CLUEFLOW_ITEM_MARKER_PAD    "  "
+#define CLUEFLOW_ITEM_MARKER        "    * "
+#define CLUEFLOW_ITEM_MARKER_PAD    "      "
 #define CLUEFLOW_INDENT             "    "
 
 static gchar *
@@ -2229,6 +2258,16 @@ html_clueflow_get_halignment (HTMLClueFlow *flow)
 		return HTML_CLUE (flow)->halign;
 }
 
+static void
+update_items_after_indentation_change (HTMLClueFlow *flow)
+{
+	if (is_item (flow)) {
+		update_item_number (HTML_OBJECT (flow));
+		if (HTML_OBJECT (flow)->next && is_item (HTML_CLUEFLOW (HTML_OBJECT (flow)->next)))
+			update_item_number (HTML_OBJECT (flow)->next);
+	}
+}
+
 void
 html_clueflow_modify_indentation_by_delta (HTMLClueFlow *flow,
 					   HTMLEngine *engine,
@@ -2252,6 +2291,8 @@ html_clueflow_modify_indentation_by_delta (HTMLClueFlow *flow,
 		return;
 	}
 
+	update_items_after_indentation_change (flow);
+
 	relayout_with_siblings (flow, engine);
 }
 
@@ -2268,6 +2309,7 @@ html_clueflow_set_indentation (HTMLClueFlow *flow,
 		return;
 
 	flow->level = indentation;
+	update_items_after_indentation_change (flow);
 
 	relayout_with_siblings (flow, engine);
 }

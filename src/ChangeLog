@@ -1,5 +1,16 @@
 2001-08-15  Radek Doulik  <rodo@ximian.com>
 
+	* htmlclueflow.c (get_pre_padding): don't handle ordered items
+	differently
+	(get_prev_relative_item): new helper function
+	(get_next_relative_item): ditto
+	(update_item_number): use new functions, allow lists to be
+	interrupted by list with higher level
+	(CLUEFLOW_ITEM_MARKER): make it 6 chars wide as number markers
+
+	* gtkhtml.c (command): don't decrease indent on list item, rather
+	just delete
+
 	* htmlclueflow.c (save_plain): add padding even to empty lines,
 	so we get item headings
 	(plain_get_marker): new helper function
