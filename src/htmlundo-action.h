@@ -24,7 +24,7 @@
 
 #include "htmltypes.h"
 
-/* #define UNDO_DEBUG */
+#define UNDO_DEBUG
 
 #define HTML_UNDO_ACTION(x) ((HTMLUndoAction *) x)
 struct _HTMLUndoAction {

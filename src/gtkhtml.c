@@ -223,6 +223,8 @@ update_styles (GtkHTML *html)
 	if (! html_engine_get_editable (html->engine))
 		return;
 
+	printf ("update styles\n");
+
 	engine = html->engine;
 
 	clueflow_style = html_engine_get_current_clueflow_style (engine);
@@ -621,15 +623,17 @@ key_press_event (GtkWidget *widget,
 		 GdkEventKey *event)
 {
 	GtkHTML *html = GTK_HTML (widget);
-	gboolean retval;
+	gboolean retval, update = TRUE;
 	gint position = html->engine->cursor->position;
 
 	html->binding_handled = FALSE;
+	html->priv->update_styles = FALSE;
 	if (html->editor_bindings && html_engine_get_editable (html->engine))
 		gtk_binding_set_activate (html->editor_bindings, event->keyval, event->state, GTK_OBJECT (widget));
 	if (!html->binding_handled)
 		gtk_bindings_activate (GTK_OBJECT (widget), event->keyval, event->state);
 	retval = html->binding_handled;
+	update = html->priv->update_styles;
 
 	if (! retval
 	    && html_engine_get_editable (html->engine)
@@ -647,13 +651,14 @@ key_press_event (GtkWidget *widget,
 			html_engine_paste_text (html->engine, event->string, 1);
 		g_free (str);
 		retval = TRUE;
+		update = FALSE;
 	}
 
 	if (retval && html_engine_get_editable (html->engine))
 		html_engine_reset_blinking_cursor (html->engine);
 
 	if (retval) {
-		if (position != html->engine->cursor->position)
+		if (position != html->engine->cursor->position && update)
 			update_styles (html);
 	}
 
@@ -2492,6 +2497,7 @@ cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType ski
 	}
 
 	html->binding_handled = TRUE;
+	html->priv->update_styles = TRUE;
 	gtk_html_edit_make_cursor_visible (html);
 }
 
@@ -2544,6 +2550,7 @@ move_selection (GtkHTML *html, GtkHTMLCommandType com_type)
 	}
 
 	html->binding_handled = TRUE;
+	html->priv->update_styles = TRUE;
 	gtk_html_edit_make_cursor_visible (html);
 }
 
@@ -2577,6 +2584,7 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		return;
 
 	html->binding_handled = TRUE;
+	html->priv->update_styles = TRUE;
 
 	/* editable commands only */
 	switch (com_type) {
@@ -2604,6 +2612,7 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_INSERT_PARAGRAPH:
 		html_engine_delete (e);
 		html_engine_insert_empty_paragraph (e);
+		html->priv->update_styles = FALSE;
 		break;
 	case GTK_HTML_COMMAND_DELETE:
 		if (e->mark != NULL

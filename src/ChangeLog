@@ -1,3 +1,22 @@
+2001-03-13  Radek Doulik  <rodo@ximian.com>
+
+	* htmlengine-edit-cut-and-paste.c (html_engine_insert_text): stop
+	inserting links after ' ' (space)
+
+	* htmlundo.c (html_undo_level_end): copy save_undo to level anyway
+	(redo_level_end): ditto
+
+	* htmlengine-edit-cut-and-paste.c
+	(html_engine_insert_empty_paragraph): stop inserting links
+	after paragraph insertion
+
+	* gtkhtml.c (command): set update_styles
+	(move_selection): ditto
+	(cursor_move): ditto
+	(key_press_event): use update_styles
+
+	* gtkhtml-private.h: added update_styles flag
+
 2001-03-12  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml-search.c (destroy): don't set gtkhtml's data here, as

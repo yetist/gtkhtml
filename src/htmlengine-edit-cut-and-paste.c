@@ -700,6 +700,7 @@ html_engine_insert_empty_paragraph (HTMLEngine *e)
 	split_and_add_empty_texts (e, 2, &left, &right);
 	remove_empty_and_merge (e, FALSE, left, right, orig);
 	html_cursor_forward (e->cursor, e);
+
 	insert_setup_undo (e, 1, HTML_UNDO_UNDO);
 	g_list_free (left);
 	g_list_free (right);
@@ -713,6 +714,9 @@ html_engine_insert_empty_paragraph (HTMLEngine *e)
 	html_engine_thaw (e);
 
 	gtk_html_editor_event_command (e->widget, GTK_HTML_COMMAND_INSERT_PARAGRAPH);
+
+	/* break links in new paragraph */
+	html_engine_insert_link (e, NULL, NULL);
 }
 
 void
@@ -734,6 +738,11 @@ html_engine_insert_text (HTMLEngine *e, const gchar *text, guint len)
 			gboolean check = FALSE;
 
 			check_magic_link (e, text, alen);
+
+			/* stop inserting links after space */
+			if (*text == ' ')
+				html_engine_set_insertion_link (e, NULL, NULL);
+
 			o = html_engine_new_text (e, text, alen);
 			html_text_convert_nbsp (HTML_TEXT (o), TRUE);
 
@@ -833,6 +842,15 @@ change_link (HTMLObject *o, HTMLEngine *e, gpointer data)
 }
 
 void
+html_engine_set_insertion_link (HTMLEngine *e, const gchar *url, const gchar *target)
+{
+	html_engine_set_url    (e, url);
+	html_engine_set_target (e, target);
+	if (!url && e->insertion_color == html_colorset_get_color (e->settings->color_set, HTMLLinkColor))
+		html_engine_set_color (e, html_colorset_get_color (e->settings->color_set, HTMLTextColor));
+}
+
+void
 html_engine_insert_link (HTMLEngine *e, const gchar *url, const gchar *target)
 {
 	if (html_engine_is_selection_active (e)) {
@@ -847,10 +865,8 @@ html_engine_insert_link (HTMLEngine *e, const gchar *url, const gchar *target)
 					   url ? "Insert link" : "Remove link",
 					   url ? "Remove link" : "Insert link",
 					   change_link, &data);
-	} else {
-		html_engine_set_url    (e, url);
-		html_engine_set_target (e, target);
-	}
+	} else
+		html_engine_set_insertion_link (e, url, target);
 }
 
 void

@@ -37,6 +37,8 @@ struct _GtkHTMLPrivate {
 	GtkHTMLParagraphAlignment paragraph_alignment;
 	GtkHTMLFontStyle insertion_font_style;
 
+	gboolean update_styles;
+
 	gint last_selection_type;
 	gchar *content_type;
 

@@ -365,13 +365,13 @@ redo_level_end (HTMLUndo *undo)
 	level = HTML_UNDO_LEVEL (undo->redo_levels->data);
 	stack_copy (&level->stack, &undo->redo);
 
+	/* fill level with current redo step */
+	stack_copy (&save_redo, &level->stack);
+
 	/* add redo step redo action */
 	if (save_redo.size) {
 		HTMLUndoAction *action;
 
-		/* fill level with current redo step */
-		stack_copy (&save_redo, &level->stack);
-		
 		/* we use position from last redo action on the stack */
 		action = (HTMLUndoAction *) save_redo.stack->data;
 		html_undo_add_redo_action (undo, action = html_undo_action_new (level->description [HTML_UNDO_REDO],
@@ -407,12 +407,13 @@ html_undo_level_end (HTMLUndo *undo)
 	level = HTML_UNDO_LEVEL (undo->undo_levels->data);
 	stack_copy (&level->stack, &undo->undo);
 
+	/* fill level with current undo step */
+	stack_copy (&save_undo, &level->stack);
+
 	/* add undo step undo action */
 	if (save_undo.size) {
 		HTMLUndoAction *action;
 
-		/* fill level with current undo step */
-		stack_copy (&save_undo, &level->stack);
 
 		/* we use position from last undo action on the stack */
 		action = html_undo_action_new (level->description [HTML_UNDO_UNDO],
