@@ -2422,8 +2422,14 @@ html_clueflow_modify_indentation_by_delta (HTMLClueFlow *flow,
 
 	if (indentation_delta > 0)
 		g_byte_array_append (flow->levels, indentation_levels, indentation_delta);
-	else 
+	else {
 		g_byte_array_set_size (flow->levels, indentation);
+		if (is_item (flow) && indentation < 1 && indentation_delta < 0) {
+			html_clueflow_set_style (flow, engine, HTML_CLUEFLOW_STYLE_NORMAL);
+			html_clueflow_set_item_type (flow, engine, HTML_LIST_TYPE_BLOCKQUOTE);
+			html_object_change_set_down (HTML_OBJECT (flow), HTML_CHANGE_ALL);
+		}
+	}
 
 	update_items_after_indentation_change (flow);
 	relayout_with_siblings (flow, engine);
