@@ -892,9 +892,8 @@ parse_body (HTMLEngine *e, HTMLObject *clue, const gchar *end[], gboolean toplev
 			html_stack_destroy (e->clueflow_style_stack);
 			html_stack_destroy (e->span_stack);
 
-			e->span_stack = html_stack_pop (e->body_stack);
 			e->clueflow_style_stack = html_stack_pop (e->body_stack);
-		}
+			e->span_stack = html_stack_pop (e->body_stack);		}
 	}
 
 	return rv;
