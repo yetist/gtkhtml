@@ -64,7 +64,9 @@ destroy (HTMLObject *self)
 	self->next = NULL;
 	self->prev = NULL;
 #endif
+
 	g_datalist_clear (&self->object_data);
+	g_datalist_clear (&self->object_data_nocp);
 	
 	if (self->redraw_pending) {
 		self->free_pending = TRUE;
@@ -98,6 +100,8 @@ copy (HTMLObject *self,
 
 	g_datalist_init (&dest->object_data);
 	html_object_copy_data_from_object (dest, self);
+
+	g_datalist_init (&dest->object_data_nocp);
 }
 
 static HTMLObject *
@@ -677,6 +681,7 @@ html_object_init (HTMLObject *o,
 	o->draw_focused = FALSE;
 
 	g_datalist_init (&o->object_data);
+	g_datalist_init (&o->object_data_nocp);
 }
 
 HTMLObject *
@@ -1571,6 +1576,24 @@ guint
 html_object_get_index (HTMLObject *self, guint offset)
 {
 	return html_object_is_text (self) ? html_text_get_index (HTML_TEXT (self), offset) : offset;
+}
+
+void
+html_object_set_data_nocp (HTMLObject *object, const gchar *key, const gchar *value)
+{
+	g_datalist_set_data_full (&object->object_data_nocp, key, g_strdup (value), g_free);
+}
+
+void
+html_object_set_data_full_nocp (HTMLObject *object, const gchar *key, const gpointer value, GDestroyNotify func)
+{
+	g_datalist_set_data_full (&object->object_data_nocp, key, value, func);
+}
+
+gpointer
+html_object_get_data_nocp (HTMLObject *object, const gchar *key)
+{
+	return g_datalist_get_data (&object->object_data_nocp, key);
 }
 
 void

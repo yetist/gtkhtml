@@ -1,3 +1,11 @@
+2003-09-01  Yuedong Du  <yuedong.du@sun.com>
+                                                                                
+        * htmlobject.c: (destroy), (copy), (html_object_init),
+        (html_object_get_index), (html_object_set_data_nocp),
+        (html_object_set_data_full_nocp), (html_object_get_data_nocp): add
+        new data list just to avoid copy when duplicate html object.
+        * htmlobject.h: ditto
+
 2003-08-28  Larry Ewing  <lewing@ximian.com>
 
 	* gtkhtml.c (drag_data_received): add back some missing logic.

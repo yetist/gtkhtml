@@ -71,6 +71,7 @@ struct _HTMLObject {
 	guint draw_focused : 1; 
 
 	GData *object_data;
+	GData *object_data_nocp;
 };
 
 struct _HTMLObjectClearRectangle {
@@ -518,6 +519,18 @@ void      html_object_copy_data_from_object  (HTMLObject          *dst,
 					      HTMLObject          *src);
 gboolean  html_object_save_data              (HTMLObject          *self,
 					      HTMLEngineSaveState *state);
+
+/* for acc object */
+void      html_object_set_data_nocp          (HTMLObject          *object,
+					      const gchar         *key,
+					      const gchar         *value);
+void      html_object_set_data_full_nocp     (HTMLObject          *object,
+					      const gchar         *key,
+					      const gpointer       value,
+					      GDestroyNotify       func);
+gpointer  html_object_get_data_nocp          (HTMLObject          *object,
+					      const gchar         *key);
+
 /*
  * editing
 */
