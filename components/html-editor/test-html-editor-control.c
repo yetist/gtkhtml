@@ -510,7 +510,7 @@ container_create (void)
 	gtk_signal_connect (GTK_OBJECT (window), "destroy",
 			    GTK_SIGNAL_FUNC (app_destroy_cb), container);
 
-	gtk_window_set_default_size (window, 500, 440);
+	gtk_window_set_default_size (window, 600, 440);
 	gtk_window_set_policy (window, TRUE, TRUE, FALSE);
 
 	component = bonobo_ui_component_new ("test-editor");

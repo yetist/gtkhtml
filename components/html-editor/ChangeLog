@@ -1,3 +1,11 @@
+2002-10-04  Radek Doulik  <rodo@ximian.com>
+
+	* toolbar.c (toolbar_item_update_sensitivity): set unindent
+	sensitivity only when level > 0
+	(indentation_changed): new signal handler, cares about unindent
+	button sensitivity
+	(create_style_toolbar): connect indentation_changed
+
 2002-10-07  Larry Ewing  <lewing@ximian.com>
 
 	* spell.c (spell_create_language_menu): we cannot use the return

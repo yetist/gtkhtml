@@ -226,6 +226,7 @@ void                       gtk_html_set_indent                    (GtkHTML      
 void                       gtk_html_indent_push_level             (GtkHTML                   *html,
 								   HTMLListType               level_type);
 void                       gtk_html_indent_pop_level              (GtkHTML                   *html);
+guint                      gtk_html_get_paragraph_indentation     (GtkHTML                   *html);
 void                       gtk_html_set_font_style                (GtkHTML                   *html,
 								   GtkHTMLFontStyle           and_mask,
 								   GtkHTMLFontStyle           or_mask);
