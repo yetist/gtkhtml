@@ -1,14 +1,14 @@
-# -------------------------------------------------------
-# Copyright (C) 2000 Free Software Foundation, Inc.
-# Fatih Demir <kabalak@gmx.net>, 2000.
-#
+# -----------------------------------------------
+# Copyright (C) 2000-2001 Free Software Foundation, Inc.
+# Fatih Demir <kabalak@gmx.net>, 2000-2001.
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml 0.8\n"
-"POT-Creation-Date: 2001-02-20 12:17-0600\n"
-"PO-Revision-Date: 2000-11-16 19:03+0100\n"
-"Last-Translator: Fatih Demir <kabalak@gmx.net>\n"
-"Language-Team: Turkish <tr@li.org>\n"
+"Project-Id-Version: gtkhtml 0.8.3\n"
+"POT-Creation-Date: 2001-03-11 13:53+0100\n"
+"PO-Revision-Date: 2001-03-11 13:55+0100\n"
+"Last-Translator: Fatih Demir <kabalak@gtranslator.org>\n"
+"Language-Team: Turkish <gnome-turk@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-9\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -54,17 +54,15 @@ msgstr "Tuþu yakala"
 
 #: capplet/main.c:227
 msgid "Could not load glade file."
-msgstr ""
+msgstr "Glade dosyasýný yükleyemedim."
 
 #: capplet/gtkhtml-capplet.glade.h:1
-#, fuzzy
 msgid "Animated images"
 msgstr "Animasyonlar"
 
 #: capplet/gtkhtml-capplet.glade.h:2
-#, fuzzy
 msgid "Behavior"
-msgstr "Heybet"
+msgstr "Davranýþ"
 
 #. color selection
 #: capplet/gtkhtml-capplet.glade.h:3 components/html-editor/text.c:218
@@ -72,31 +70,28 @@ msgid "Color"
 msgstr "Renk"
 
 #: capplet/gtkhtml-capplet.glade.h:4
-#, fuzzy
 msgid "Fixed width"
-msgstr "Belirli en yazý tipi"
+msgstr "Deðiþmez enli yazý tipi"
 
 #: capplet/gtkhtml-capplet.glade.h:5
 msgid "Fonts"
-msgstr ""
+msgstr "Yazýtipleri"
 
 #: capplet/gtkhtml-capplet.glade.h:6
-#, fuzzy
 msgid "For printing"
 msgstr "Yazdýrma için"
 
 #: capplet/gtkhtml-capplet.glade.h:7
 msgid "Keybord Shortcuts"
-msgstr ""
+msgstr "Tuþ kýsayollarý"
 
 #: capplet/gtkhtml-capplet.glade.h:8
-#, fuzzy
 msgid "Language"
 msgstr "Dil"
 
 #: capplet/gtkhtml-capplet.glade.h:9
 msgid "Magic links (FIXME: better label)"
-msgstr ""
+msgstr "Sihirli baðlar"
 
 #: capplet/gtkhtml-capplet.glade.h:10
 msgid "Miscellaneous"
@@ -104,11 +99,11 @@ msgstr "Karýþýk"
 
 #: capplet/gtkhtml-capplet.glade.h:11
 msgid "On screen"
-msgstr ""
+msgstr "Ekranda"
 
 #: capplet/gtkhtml-capplet.glade.h:12
 msgid "Pick a color"
-msgstr ""
+msgstr "Bir renk seç"
 
 #: capplet/gtkhtml-capplet.glade.h:13
 msgid "Select HTML fixed width font"
@@ -127,105 +122,96 @@ msgid "Select HTML variable width font for printing"
 msgstr "Yazdýrma için deðiþken en yazý tipini seç"
 
 #: capplet/gtkhtml-capplet.glade.h:17
-#, fuzzy
 msgid "Spell Checking"
-msgstr "Imla kontrolü"
+msgstr "Yazýlým"
 
 #: capplet/gtkhtml-capplet.glade.h:18
 msgid "Spell checking"
 msgstr "Imla kontrolü"
 
 #: capplet/gtkhtml-capplet.glade.h:19
-#, fuzzy
 msgid "Variable width"
-msgstr "Deðiþken en yazý tipi"
+msgstr "Deðiþken en"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:1
 msgid "C_ut"
-msgstr ""
+msgstr "_Kes"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:3
-#, fuzzy
 msgid "Copy selection to clipboard"
-msgstr "Resim seçimi"
+msgstr "Panoya kopyala"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:4
-#, fuzzy
 msgid "Copy the selection"
-msgstr "Resim seçimi"
+msgstr "Panoya kopyala"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:5
 msgid "Cut"
-msgstr ""
+msgstr "Kes"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:6
-#, fuzzy
 msgid "Cut selection to clipboard"
-msgstr "Resim seçimi"
+msgstr "Seçili bölgeyi panoya kes"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:7
-#, fuzzy
 msgid "Cut the selection"
-msgstr "Resim seçimi"
+msgstr "Seçilý bölgeyi kes"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:8
 msgid "Find"
-msgstr ""
+msgstr "Bul"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:9
 msgid "Find Rege_x..."
-msgstr ""
+msgstr "Tabire göre bul..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:10
 msgid "Find _Again"
-msgstr ""
+msgstr "Y_eniden bul"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:11
 msgid "Insert HTML link into document..."
-msgstr ""
+msgstr "Dokümana HTML baðý ekle..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:12
 msgid "Insert image into document..."
-msgstr ""
+msgstr "Dokümana resim ekle..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:13
 msgid "Insert rule into document..."
-msgstr ""
+msgstr "Dokümana çizgi ekle..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:14
 msgid "Modify the file's properties"
-msgstr ""
+msgstr "Dosyanýn özelliklerini düzenle"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:15
-#, fuzzy
 msgid "Paste"
-msgstr "Sayfa"
+msgstr "Yapýþtýr"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:16
 msgid "Paste from clipboard"
-msgstr ""
+msgstr "Panodan yapýþtýr"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:17
 msgid "Paste the clipboard"
-msgstr ""
+msgstr "Panoyu yapýþtýr"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:18
 msgid "Redo"
-msgstr ""
+msgstr "Yeniden yap"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:19
 msgid "Redo previously undone change"
-msgstr ""
+msgstr "Son geriye alýnan deðiþiklikleri yeniden yap."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:20
-#, fuzzy
 msgid "Redo the undone action"
-msgstr "Resim seçimi"
+msgstr "Son geriye alýnan deðiþikliðe yeniden yap"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:21
-#, fuzzy
 msgid "Regular expression search"
-msgstr "Erkan-ý tabir aramasý"
+msgstr "Tabire göre arama"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:22
 #: components/html-editor/replace.c:84 components/html-editor/replace.c:146
@@ -234,98 +220,84 @@ msgid "Replace"
 msgstr "Yerine koy"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:23
-#, fuzzy
 msgid "Replace a string"
-msgstr "Doðrulamayý sil"
+msgstr "Metni deðiþtir"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:24
 msgid "Search again for the same string"
-msgstr ""
+msgstr "Ayný metni yeniden ara"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:25
-#, fuzzy
 msgid "Search and replace string"
-msgstr "Ara"
+msgstr "Metni arayýp deðiþtir"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:26
-#, fuzzy
 msgid "Search for a string"
-msgstr "Ara"
+msgstr "Bir metni ara"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:27
-#, fuzzy
 msgid "Search string"
-msgstr "Ara"
+msgstr "Matin ara"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:28
 msgid "Undo"
-msgstr ""
+msgstr "Geriye al"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:29
 msgid "Undo previous changes"
-msgstr ""
+msgstr "Son deðiþiklikleri geriye al"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:30
-#, fuzzy
 msgid "Undo the last action"
-msgstr "Resim seçimi"
+msgstr "son deðiþikliði geriye al"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:31
-#, fuzzy
 msgid "_Copy"
-msgstr "Kopyala"
+msgstr "_Kopyala"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:32
 msgid "_Edit"
-msgstr ""
+msgstr "_Düzenle"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:33
-#, fuzzy
 msgid "_Find..."
-msgstr "Bað"
+msgstr "_Bul..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:34
-#, fuzzy
 msgid "_Image..."
-msgstr "Resim"
+msgstr "_Resim..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:35
-#, fuzzy
 msgid "_Insert"
-msgstr "Içer"
+msgstr "_Ekle"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:36
-#, fuzzy
 msgid "_Link..."
-msgstr "Bað"
+msgstr "_Bað..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:37
-#, fuzzy
 msgid "_Paste"
-msgstr "Sayfa"
+msgstr "_Yapýþtýr"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:38
-#, fuzzy
 msgid "_Properties..."
-msgstr "Özellikler"
+msgstr "Ö_zellikler..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:39
 msgid "_Redo"
-msgstr ""
+msgstr "Y_eniden yap"
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:40
-#, fuzzy
 msgid "_Replace..."
-msgstr "Yerine koy"
+msgstr "_Deðiþtir..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:41
-#, fuzzy
 msgid "_Rule..."
-msgstr "Çubuk"
+msgstr "_Çizgi..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.h:42
 msgid "_Undo"
-msgstr ""
+msgstr "_Geriye al"
 
 #: components/html-editor/body.c:127 components/html-editor/body.c:131
 msgid "Background Image"
@@ -357,7 +329,7 @@ msgstr "Metin"
 #: components/html-editor/editor-control-factory.c:167
 #: components/html-editor/menubar.c:141 components/html-editor/popup.c:121
 msgid "Rule"
-msgstr "Çubuk"
+msgstr "Çizgi"
 
 #: components/html-editor/editor-control-factory.c:176
 #: components/html-editor/popup.c:100
@@ -381,7 +353,7 @@ msgstr "Resim seçimi"
 
 #: components/html-editor/image.c:201
 msgid "Top"
-msgstr ""
+msgstr "Üst"
 
 #: components/html-editor/image.c:202 components/html-editor/paragraph.c:158
 #: components/html-editor/rule.c:257 components/html-editor/toolbar.c:423
@@ -390,7 +362,7 @@ msgstr "Orta"
 
 #: components/html-editor/image.c:203
 msgid "Bottom"
-msgstr ""
+msgstr "Alt"
 
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
@@ -404,18 +376,16 @@ msgstr "Kenar"
 
 #: components/html-editor/image.c:225 components/html-editor/image.c:243
 #: components/html-editor/image.c:275 components/html-editor/rule.c:267
-#, fuzzy
 msgid "width"
-msgstr " "
+msgstr "en"
 
 #: components/html-editor/image.c:232
 msgid "Padding"
 msgstr "Kenarlama"
 
 #: components/html-editor/image.c:244 components/html-editor/image.c:276
-#, fuzzy
 msgid "height"
-msgstr "Sað"
+msgstr "yükseklik"
 
 #. size
 #: components/html-editor/image.c:252 components/html-editor/rule.c:225
@@ -426,13 +396,13 @@ msgstr "Boyut"
 #: components/html-editor/image.c:259 components/html-editor/image.c:268
 #: components/html-editor/rule.c:230
 msgid "Pixels"
-msgstr ""
+msgstr "Piksel"
 
 #: components/html-editor/image.c:260 components/html-editor/image.c:269
 #: components/html-editor/rule.c:231
 #, c-format
 msgid "Percent %"
-msgstr ""
+msgstr "Yüzdelik %s"
 
 #: components/html-editor/link.c:74
 msgid "Clear"
@@ -454,7 +424,7 @@ msgstr "Bonobo'yu baþlatamadým"
 #: components/html-editor/menubar.c:138
 #: components/html-editor/properties.c:110
 msgid "Insert"
-msgstr "Içer"
+msgstr "Ekle"
 
 #: components/html-editor/menubar.c:154
 msgid "Cannot execute gtkhtml properties"
@@ -508,7 +478,7 @@ msgstr " "
 
 #: components/html-editor/rule.c:239
 msgid "length"
-msgstr ""
+msgstr "uzunluk"
 
 #: components/html-editor/rule.c:273
 msgid "shaded"
@@ -603,68 +573,60 @@ msgid "Left align"
 msgstr "Sola tarafla"
 
 #: components/html-editor/toolbar.c:421
-#, fuzzy
 msgid "Left justifies the paragraphs"
-msgstr "Satýrlarý sola tarafla"
+msgstr "Fýkrayý sola yönlendir"
 
 #: components/html-editor/toolbar.c:423
-#, fuzzy
 msgid "Centers justifies the paragraphs"
-msgstr "Satýrlarý sola tarafla"
+msgstr "Fýkrayý ortala"
 
 #: components/html-editor/toolbar.c:425
 msgid "Right align"
 msgstr "Ortaya tarafla"
 
 #: components/html-editor/toolbar.c:425
-#, fuzzy
 msgid "Right justifies the paragraphs"
-msgstr "Satýrlarý saða tarafla"
+msgstr "Fýkrayý saða yönlendir"
 
 #: components/html-editor/toolbar.c:432
 msgid "Typewriter"
-msgstr ""
+msgstr "Daktilo"
 
 #: components/html-editor/toolbar.c:432
 msgid "Toggle typewriter font style"
-msgstr ""
+msgstr "Daktli usülü yazý"
 
 #: components/html-editor/toolbar.c:434
 msgid "Makes the text bold"
-msgstr ""
+msgstr "Kalýn"
 
 #: components/html-editor/toolbar.c:436
-#, fuzzy
 msgid "Makes the text italic"
-msgstr "Seçili bölgeyi eðik yap"
+msgstr "Eðik"
 
 #: components/html-editor/toolbar.c:438
-#, fuzzy
 msgid "Underlines the text"
-msgstr "Altçizgili"
+msgstr "Metni altçizgili yap"
 
 #: components/html-editor/toolbar.c:440
-#, fuzzy
 msgid "Strikes out the text"
-msgstr "Karalanmýþ"
+msgstr "Metni karalanmýþ yap"
 
 #: components/html-editor/toolbar.c:449
 msgid "Unindent"
-msgstr "Daha az yenle"
+msgstr "Daha az yönlendir"
 
 #: components/html-editor/toolbar.c:449
-#, fuzzy
 msgid "Indents the paragraphs less"
-msgstr "Satýrlarý daha az yenlendir"
+msgstr "Fýkralarý daha az yönlendir"
 
 #: components/html-editor/toolbar.c:451
 msgid "Indent"
-msgstr "Yenle"
+msgstr "Yönlendir"
 
 #: components/html-editor/toolbar.c:451
-#, fuzzy
 msgid "Indents the paragraphs more"
-msgstr "Satýrlarý daha fazla yenlendir"
+msgstr "Fýkralarý daha fazla yönlendir"
 
 #: components/html-editor/utils.c:104
 msgid "Sample"
@@ -672,35 +634,9 @@ msgstr "Örnek"
 
 #: src/testgtkhtml.c:112
 msgid "Print pre_view"
-msgstr "Önizelemeyi _yaz#_dirt"
+msgstr "Önizelemeyi _yazdýrt"
 
 #: src/testgtkhtml.c:112
 msgid "Print preview"
-msgstr "Yazdýrma önizelemesi"
+msgstr "Yazdýrma önizlemesi"
 
-#~ msgid "Centers paragraphs"
-#~ msgstr "Satýrlarý ortaya tarafla"
-
-#~ msgid "Sets the bold font"
-#~ msgstr "Yazýyý kalnýnlaþtýrýr"
-
-#~ msgid "Make the selection underlined"
-#~ msgstr "Seçili bölgeyi altçizgili yap"
-
-#~ msgid "Make the selection striked out"
-#~ msgstr "Seçili bölgeyi karalanmýþ yap"
-
-#~ msgid "live spell checking"
-#~ msgstr "\"Canlý\"·imla kontrolü"
-
-#~ msgid "spell checking color"
-#~ msgstr "Imla kontrol rengi"
-
-#~ msgid "magic links"
-#~ msgstr "Sihirli baðlar"
-
-#~ msgid "Bindings"
-#~ msgstr "Baðlar"
-
-#~ msgid "Appearance"
-#~ msgstr "Görünüþ"
