@@ -2824,7 +2824,7 @@ html_engine_init (HTMLEngine *engine)
 	
 	engine->newPage = FALSE;
 
-	engine->editable = FALSE;
+	engine->editable = TRUE;
 	engine->cursor = html_cursor_new ();
 
 	engine->ht = html_tokenizer_new ();
@@ -3216,6 +3216,12 @@ html_engine_draw (HTMLEngine *e,
 {
 	gint tx, ty;
 
+	/*
+	 * This case happens when the widget has not been shown yet
+	 */
+	if (width == 0 || height == 0)
+		return;
+	
 	tx = -e->x_offset + e->leftBorder;
 	ty = -e->y_offset + e->topBorder;
 
