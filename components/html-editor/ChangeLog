@@ -1,3 +1,9 @@
+2003-09-23  Ettore Perazzoli  <ettore@ximian.com>
+
+	* editor-control-factory.c (send_event_str): Work around the fact
+	that bonobo_arg_from_gvalue() in libbonobo 2.4.0 doesn't handle
+	NULL strings.
+
 2003-09-22  Radek Doulik  <rodo@ximian.com>
 
 	* Makefile.am (glade_DATA): don't link with a11y, it's already in

@@ -666,10 +666,15 @@ send_event_str (GNOME_GtkHTML_Editor_Engine engine, GNOME_GtkHTML_Editor_Listene
 {
 	CORBA_Environment ev;
 	GValue *gvalue_retval = NULL;
-	BonoboArg *bonobo_arg = bonobo_arg_new (bonobo_arg_type_from_gtype (G_VALUE_TYPE (arg)));
+	BonoboArg *bonobo_arg;
 	BonoboArg *bonobo_retval;
 
-	bonobo_arg_from_gvalue (bonobo_arg, arg);
+	bonobo_arg = bonobo_arg_new (bonobo_arg_type_from_gtype (G_VALUE_TYPE (arg)));
+
+	/* bonobo_arg_from_gvalue() doesn't handle the case of a NULL string
+	   properly, at least in libbonobo 2.4.0.  */
+	if (! G_VALUE_HOLDS_STRING (arg) || g_value_get_string (arg) != NULL)
+		bonobo_arg_from_gvalue (bonobo_arg, arg);
 
 	/* printf ("sending to listener\n"); */
 	CORBA_exception_init (&ev);
