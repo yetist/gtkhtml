@@ -5,13 +5,13 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml 0.5\n"
-"POT-Creation-Date: 2000-10-15 18:48+0200\n"
-"PO-Revision-Date: 2000-10-15 18:43+0200\n"
-"Last-Translator: Christian Meyer <cm@ggtt.de>\n"
+"Project-Id-Version: gtkhtml 0.7\n"
+"POT-Creation-Date: 2000-10-28 16:41+0200\n"
+"PO-Revision-Date: 2000-10-28 16:42+0200\n"
+"Last-Translator: Kai Lahmann <kl@linuxfaqs.de>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO.8859-1\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: capplet/gnome-bindings-prop.c:154 capplet/gnome-bindings-prop.c:222
@@ -41,8 +41,6 @@ msgid "Add"
 msgstr "Hinzufügen"
 
 #: capplet/gnome-bindings-prop.c:548
-#: components/html-editor/test-html-editor-control.c:323
-#: components/html-editor/toolbar.c:495
 msgid "Copy"
 msgstr "Kopieren"
 
@@ -122,75 +120,75 @@ msgstr "Feste Schriftbreite für HTML zum Drucken wählen"
 msgid "Animations"
 msgstr "Animationen"
 
-#: components/html-editor/body.c:107
-msgid "use background image"
-msgstr "Hintergrundbild verwenden"
-
-#: components/html-editor/body.c:109
-msgid "Background image"
+#: components/html-editor/body.c:123 components/html-editor/body.c:127
+msgid "Background Image"
 msgstr "Hintergrundbild"
 
 #: components/html-editor/body.c:126
+msgid "Enable"
+msgstr "Aktivieren"
+
+#: components/html-editor/body.c:149
 msgid "Colors"
 msgstr "Farben"
 
-#: components/html-editor/editor-control-factory.c:129
+#: components/html-editor/editor-control-factory.c:128
 #: components/html-editor/popup.c:73
 msgid "Properties"
 msgstr "Einstellungen"
 
-#: components/html-editor/editor-control-factory.c:140
+#: components/html-editor/editor-control-factory.c:139
 #: components/html-editor/menubar.c:96 components/html-editor/popup.c:88
 msgid "Image"
 msgstr "Bild"
 
-#: components/html-editor/editor-control-factory.c:149
+#: components/html-editor/editor-control-factory.c:148
 #: components/html-editor/menubar.c:117 components/html-editor/popup.c:81
 msgid "Text"
 msgstr "Text"
 
-#: components/html-editor/editor-control-factory.c:160
+#: components/html-editor/editor-control-factory.c:159
 #: components/html-editor/menubar.c:140 components/html-editor/popup.c:116
 msgid "Rule"
 msgstr "Linie"
 
-#: components/html-editor/editor-control-factory.c:169
+#: components/html-editor/editor-control-factory.c:168
 #: components/html-editor/popup.c:95
 msgid "Paragraph"
 msgstr "Absatz"
 
-#: components/html-editor/editor-control-factory.c:174
+#: components/html-editor/editor-control-factory.c:173
 #: components/html-editor/menubar.c:101 components/html-editor/menubar.c:122
 #: components/html-editor/popup.c:102
 msgid "Link"
 msgstr "Link"
 
-#: components/html-editor/editor-control-factory.c:179
+#: components/html-editor/editor-control-factory.c:178
 #: components/html-editor/popup.c:109
 msgid "Page"
 msgstr "Seite"
 
-#: components/html-editor/image.c:149
+#: components/html-editor/image.c:156
 msgid "Image selection"
 msgstr "Bildauswahl"
 
 #. ADD_ITEM("Left",   GDK_F4);
 #. ADD_ITEM("Right",  GDK_F5);
-#: components/html-editor/image.c:176
+#: components/html-editor/image.c:183
 msgid "Alignment"
 msgstr "Ausrichtung"
 
-#: components/html-editor/image.c:184
+#: components/html-editor/image.c:191
 msgid "Border"
 msgstr "Rahmen"
 
-#: components/html-editor/image.c:201
+#: components/html-editor/image.c:208
 msgid "Padding"
 msgstr "Steg"
 
 #. size
-#: components/html-editor/image.c:221 components/html-editor/rule.c:235
-#: components/html-editor/text.c:160
+#: components/html-editor/image.c:228 components/html-editor/rule.c:222
+#: components/html-editor/text.c:177
 msgid "Size"
 msgstr "Größe"
 
@@ -221,29 +219,28 @@ msgid "Cannot execute gtkhtml properties"
 msgstr "Die gtkhtml-Einstellungen konnten nicht ausgeführt werden"
 
 #. style
-#: components/html-editor/paragraph.c:74 components/html-editor/rule.c:223
-#: components/html-editor/text.c:138
+#: components/html-editor/paragraph.c:108 components/html-editor/rule.c:246
+#: components/html-editor/text.c:157
 msgid "Style"
 msgstr "Stil"
 
-#. align
-#: components/html-editor/paragraph.c:108 components/html-editor/rule.c:259
+#: components/html-editor/paragraph.c:142
 msgid "Align"
 msgstr "Ausrichtung"
 
-#: components/html-editor/paragraph.c:121
+#: components/html-editor/paragraph.c:155
 msgid "Left"
 msgstr "Links"
 
-#: components/html-editor/paragraph.c:122 components/html-editor/toolbar.c:485
+#: components/html-editor/paragraph.c:156 components/html-editor/toolbar.c:395
 msgid "Center"
 msgstr "Zentriert"
 
-#: components/html-editor/paragraph.c:123
+#: components/html-editor/paragraph.c:157
 msgid "Right"
 msgstr "Rechts"
 
-#: components/html-editor/popup.c:185
+#: components/html-editor/popup.c:193
 msgid "Remove link"
 msgstr "Link entfernen"
 
@@ -276,19 +273,9 @@ msgstr "Groß-/Kleinschreibung beachten"
 msgid "with"
 msgstr "mit"
 
-#: components/html-editor/rule.c:227
+#: components/html-editor/rule.c:270
 msgid "shaded"
 msgstr "schattiert"
-
-#. weight
-#: components/html-editor/rule.c:275
-msgid "Weight"
-msgstr "Stärke"
-
-#. sample
-#: components/html-editor/rule.c:287
-msgid "Sample"
-msgstr "Beispiel"
 
 #: components/html-editor/search.c:64
 msgid "Regex search"
@@ -298,93 +285,38 @@ msgstr "Regex-Suche"
 msgid "Search"
 msgstr "Suchen"
 
-#: components/html-editor/test-html-editor-control.c:232
+#: components/html-editor/test-html-editor-control.c:237
 msgid "Open file..."
 msgstr "Datei öffnen..."
 
-#: components/html-editor/test-html-editor-control.c:234
+#: components/html-editor/test-html-editor-control.c:239
 msgid "Save file as..."
 msgstr "Datei speichern unter..."
 
-#: components/html-editor/test-html-editor-control.c:300
-msgid "Open (PersistFile)"
-msgstr "Öffnen (PersistFile)"
-
-#: components/html-editor/test-html-editor-control.c:300
-msgid "Open using the PersistFile interface"
-msgstr "Öffnen mit PersistFile-Interface"
-
-#: components/html-editor/test-html-editor-control.c:302
-msgid "Save as... (PersistFile)"
-msgstr "Speichern unter... (PersistFile)"
-
-#: components/html-editor/test-html-editor-control.c:302
-msgid "Save using the PersistFile interface"
-msgstr "Speichern mit PersistFile-Interface"
-
-#: components/html-editor/test-html-editor-control.c:305
-msgid "Open (PersistStream)"
-msgstr "Öffnen (PersistStream)"
-
-#: components/html-editor/test-html-editor-control.c:305
-msgid "Open using the PersistStream interface"
-msgstr "Öffnen mit PersistStream-Interface"
-
-#: components/html-editor/test-html-editor-control.c:307
-msgid "Save as... (PersistStream)"
-msgstr "Speichern unter... (PersistStream)"
-
-#: components/html-editor/test-html-editor-control.c:307
-msgid "Save using the PersistStream interface"
-msgstr "Speichern mit PersistStream-Interface"
-
-#: components/html-editor/test-html-editor-control.c:321
-#: components/html-editor/toolbar.c:493
-msgid "Cut"
-msgstr "Ausschneiden"
-
-#: components/html-editor/test-html-editor-control.c:321
-msgid "Cut selection to the clipboard"
-msgstr "Auswahl in die Zwischenablage ausschneiden"
-
-#: components/html-editor/test-html-editor-control.c:323
-msgid "Copy selection to the clipboard"
-msgstr "Auswahl in die Zwischenablage kopieren"
-
-#: components/html-editor/test-html-editor-control.c:325
-#: components/html-editor/toolbar.c:497
-msgid "Paste"
-msgstr "Einfügen"
-
-#: components/html-editor/test-html-editor-control.c:325
-#: components/html-editor/toolbar.c:497
-msgid "Paste contents of the clipboard"
-msgstr "Auswahl aus der Zwischenablage einfügen"
-
-#: components/html-editor/text.c:152 components/html-editor/toolbar.c:511
+#: components/html-editor/text.c:169 components/html-editor/toolbar.c:404
 msgid "Bold"
 msgstr "Fett"
 
-#: components/html-editor/text.c:153 components/html-editor/toolbar.c:513
+#: components/html-editor/text.c:170 components/html-editor/toolbar.c:406
 msgid "Italic"
 msgstr "Kursiv"
 
-#: components/html-editor/text.c:154 components/html-editor/toolbar.c:515
+#: components/html-editor/text.c:171 components/html-editor/toolbar.c:408
 msgid "Underline"
 msgstr "Unterstrichen"
 
-#: components/html-editor/text.c:155 components/html-editor/toolbar.c:517
+#: components/html-editor/text.c:172 components/html-editor/toolbar.c:410
 msgid "Strikeout"
 msgstr "Durchgestrichen"
 
 #. color selection
-#: components/html-editor/text.c:187
+#: components/html-editor/text.c:207
 msgid "Color"
 msgstr "Farbe"
 
-#: components/html-editor/text.c:201
-msgid "text color"
-msgstr "Textfarbe"
+#: components/html-editor/text.c:210 components/html-editor/toolbar.c:204
+msgid "Automatic"
+msgstr "Automatisch"
 
 #: components/html-editor/toolbar.c:45
 msgid "Normal"
@@ -434,85 +366,61 @@ msgstr "Listeneintrag (unnummeriert)"
 msgid "List item (roman)"
 msgstr "Listeneintrag (römisch)"
 
-#: components/html-editor/toolbar.c:236
-msgid "Default"
-msgstr "Vorgabe"
-
-#: components/html-editor/toolbar.c:483
+#: components/html-editor/toolbar.c:393
 msgid "Left align"
 msgstr "Linksbündig"
 
-#: components/html-editor/toolbar.c:483
+#: components/html-editor/toolbar.c:393
 msgid "Left justify paragraphs"
 msgstr "Absätze linksbündig ausrichten"
 
-#: components/html-editor/toolbar.c:485
+#: components/html-editor/toolbar.c:395
 msgid "Centers paragraphs"
 msgstr "Absätze zentrieren"
 
-#: components/html-editor/toolbar.c:487
+#: components/html-editor/toolbar.c:397
 msgid "Right align"
 msgstr "Rechtsbündig"
 
-#: components/html-editor/toolbar.c:487
+#: components/html-editor/toolbar.c:397
 msgid "Right justify paragraphs"
 msgstr "Absätze rechtsbündig ausrichten"
 
-#: components/html-editor/toolbar.c:493
-msgid "Cut the selected region to the clipboard"
-msgstr "Gewählten Bereich in die Zwischenablage ausschneiden"
-
-#: components/html-editor/toolbar.c:495
-msgid "Copy the selected region to the clipboard"
-msgstr "Gewählten Bereich in die Zwischenablage kopieren"
-
-#: components/html-editor/toolbar.c:501
-msgid "Undo"
-msgstr "Rückgängig"
-
-#: components/html-editor/toolbar.c:501
-msgid "Undo last editor operation"
-msgstr "Die letzte Editor-Aktion rückgängig machen"
-
-#: components/html-editor/toolbar.c:503
-msgid "Redo"
-msgstr "Wiederholen"
-
-#: components/html-editor/toolbar.c:503
-msgid "Redo undone editor operation"
-msgstr "Die letzte rückgängig gemachte Editor-Aktion wiederholen"
-
-#: components/html-editor/toolbar.c:511
+#: components/html-editor/toolbar.c:404
 msgid "Sets the bold font"
 msgstr "Die Schrift fett setzen"
 
-#: components/html-editor/toolbar.c:513
+#: components/html-editor/toolbar.c:406
 msgid "Make the selection italic"
 msgstr "Die Auswahl kursiv setzen"
 
-#: components/html-editor/toolbar.c:515
+#: components/html-editor/toolbar.c:408
 msgid "Make the selection underlined"
 msgstr "Die Auswahl unterstreichen"
 
-#: components/html-editor/toolbar.c:517
+#: components/html-editor/toolbar.c:410
 msgid "Make the selection striked out"
 msgstr "Die Auswahl durchstreichen"
 
-#: components/html-editor/toolbar.c:526
+#: components/html-editor/toolbar.c:419
 msgid "Unindent"
 msgstr "Ausrücken"
 
-#: components/html-editor/toolbar.c:526
+#: components/html-editor/toolbar.c:419
 msgid "Indent paragraphs less"
 msgstr "Rückt Absätze weniger ein"
 
-#: components/html-editor/toolbar.c:528
+#: components/html-editor/toolbar.c:421
 msgid "Indent"
 msgstr "Einrücken"
 
-#: components/html-editor/toolbar.c:528
+#: components/html-editor/toolbar.c:421
 msgid "Indent paragraphs more"
 msgstr "Rückt Absätzte mehr ein"
+
+#: components/html-editor/utils.c:101
+msgid "Sample"
+msgstr "Beispiel"
 
 #: src/testgtkhtml.c:111
 msgid "Print pre_view"
@@ -521,3 +429,4 @@ msgstr "Druck_vorschau"
 #: src/testgtkhtml.c:111
 msgid "Print preview"
 msgstr "Druckvorschau"
+
