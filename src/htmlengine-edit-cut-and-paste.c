@@ -611,8 +611,8 @@ html_engine_insert_text (HTMLEngine *e, const gchar *text, guint len)
 		nl   = unicode_strchr (text, '\n');
 		alen = nl ? unicode_index_to_offset (text, nl - text) : len;
 		if (alen) {
-			HTMLCursor *c = NULL;
 			HTMLObject *o;
+			gboolean check = FALSE;
 
 			check_magic_link (e, text, alen);
 			o = html_engine_new_text (e, text, alen);
@@ -624,12 +624,8 @@ html_engine_insert_text (HTMLEngine *e, const gchar *text, guint len)
 				else if (e->need_spell_check)
 					html_engine_spell_check_range (e, e->cursor, e->cursor);
 			} else
-				c = html_cursor_dup (e->cursor);
-			insert_object (e, o, html_object_get_length (o), HTML_UNDO_UNDO, FALSE);
-			if (c) {
-				html_engine_spell_check_range (e, c, e->cursor);
-				html_cursor_destroy (c);
-			}
+				check = TRUE;
+			insert_object (e, o, html_object_get_length (o), HTML_UNDO_UNDO, check);
 		}
 		if (nl) {
 			html_engine_insert_empty_paragraph (e);
