@@ -445,7 +445,7 @@ html_painter_fill_rect (HTMLPainter *painter,
 void
 html_painter_draw_text (HTMLPainter *painter,
 			gint x, gint y,
-			gchar *text,
+			const gchar *text,
 			gint len)
 {
 	GdkFont *gdk_font;

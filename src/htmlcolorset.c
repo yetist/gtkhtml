@@ -29,25 +29,25 @@ html_color_set_new (void)
 
 	new = g_new (HTMLColorSet, 1);
 
-	new->background_color.red = 0xff;
-	new->background_color.green = 0xff;
-	new->background_color.blue = 0xff;
+	new->background_color.red = 0xffff;
+	new->background_color.green = 0xffff;
+	new->background_color.blue = 0xffff;
 
-	new->foreground_color.red = 0x00;
-	new->foreground_color.green = 0x00;
-	new->foreground_color.blue = 0x00;
+	new->foreground_color.red = 0x0000;
+	new->foreground_color.green = 0x0000;
+	new->foreground_color.blue = 0x0000;
 
-	new->link_color.red = 0x00;
-	new->link_color.green = 0x00;
-	new->link_color.blue = 0xff;
+	new->link_color.red = 0x0000;
+	new->link_color.green = 0x0000;
+	new->link_color.blue = 0xffff;
 
-	new->highlight_color.red = 0xff;
-	new->highlight_color.green = 0xff;
-	new->highlight_color.blue = 0xff;
+	new->highlight_color.red = 0x0000;
+	new->highlight_color.green = 0x0000;
+	new->highlight_color.blue = 0xffff;
 
-	new->highlight_foreground_color.red = 0xff;
-	new->highlight_foreground_color.green = 0xff;
-	new->highlight_foreground_color.blue = 0xff;
+	new->highlight_foreground_color.red = 0xffff;
+	new->highlight_foreground_color.green = 0xffff;
+	new->highlight_foreground_color.blue = 0xffff;
 
 	return new;
 }

@@ -244,6 +244,84 @@ fit_line (HTMLObject *o,
 }
 
 static void
+draw_normal (HTMLTextSlave *self,
+	     HTMLPainter *p,
+	     HTMLFontStyle font_style,
+	     gint x, gint y,
+	     gint width, gint height,
+	     gint tx, gint ty)
+{
+	HTMLObject *obj;
+
+	obj = HTML_OBJECT (self);
+
+	html_painter_set_font_style (p, font_style);
+	html_painter_set_pen (p, html_text_get_color (HTML_TEXT (self->owner), p));
+	html_painter_draw_text (p,
+				obj->x + tx, obj->y + ty, 
+				HTML_TEXT (self->owner)->text + self->posStart,
+				self->posLen);
+}
+
+static void
+draw_highlighted (HTMLTextSlave *slave,
+		  HTMLPainter *p,
+		  HTMLFontStyle font_style,
+		  gint x, gint y,
+		  gint width, gint height,
+		  gint tx, gint ty)
+{
+	HTMLTextMaster *owner;
+	HTMLObject *obj;
+	guint start, end, len;
+	guint offset_width, text_width;
+	const gchar *text;
+
+	obj = HTML_OBJECT (slave);
+	owner = HTML_TEXT_MASTER (slave->owner);
+	start = owner->select_start;
+	end = start + owner->select_length;
+
+	text = HTML_TEXT (owner)->text;
+
+	if (start < slave->posStart)
+		start = slave->posStart;
+	if (end >= slave->posStart + slave->posLen)
+		end = slave->posStart + slave->posLen - 1;
+	len = end - start + 1;
+
+	offset_width = html_painter_calc_text_width (p, text + slave->posStart, start - slave->posStart,
+						     font_style);
+	text_width = html_painter_calc_text_width (p, text + start, len, font_style);
+
+	html_painter_set_font_style (p, font_style);
+
+	/* Draw the highlighted part with a highlight background.  */
+
+	html_painter_set_pen (p, html_painter_get_default_highlight_color (p));
+	html_painter_fill_rect (p, obj->x + tx + offset_width, obj->y + ty - obj->ascent,
+				text_width, obj->ascent + obj->descent);
+	html_painter_set_pen (p, html_painter_get_default_highlight_foreground_color (p));
+	html_painter_draw_text (p, obj->x + tx + offset_width, obj->y + ty, text + start, len);
+
+	/* Draw the non-highlited part.  */
+
+	html_painter_set_pen (p, html_text_get_color (HTML_TEXT (owner), p));
+
+	/* 1. Draw the leftmost non-highlighted part, if any.  */
+
+	if (start > slave->posStart)
+		html_painter_draw_text (p, obj->x + tx, obj->y + ty,
+					text + slave->posStart, start);
+
+	/* 2. Draw the rightmost non-highlighted part, if any.  */
+
+	if (end < slave->posStart + slave->posLen - 1)
+		html_painter_draw_text (p, obj->x + tx + offset_width + text_width, obj->y + ty,
+					text + end + 1, slave->posStart + slave->posLen - end);
+}
+
+static void
 draw (HTMLObject *o,
       HTMLPainter *p,
       gint x, gint y,
@@ -251,6 +329,7 @@ draw (HTMLObject *o,
       gint tx, gint ty)
 {
 	HTMLTextSlave *textslave;
+	HTMLTextMaster *owner;
 	HTMLText *ownertext;
 	HTMLFontStyle font_style;
 
@@ -258,26 +337,16 @@ draw (HTMLObject *o,
 		return;
 
 	textslave = HTML_TEXT_SLAVE (o);
-	ownertext = HTML_TEXT (textslave->owner);
+	owner = textslave->owner;
+	ownertext = HTML_TEXT (owner);
 	font_style = html_text_get_font_style (ownertext);
 
-	html_painter_set_font_style (p, font_style);
-
-	html_painter_set_pen (p, html_text_get_color (ownertext, p));
-
-	html_painter_draw_text (p,
-				o->x + tx, o->y + ty, 
-				ownertext->text + textslave->posStart,
-				textslave->posLen);
-
-#ifdef HTML_TEXT_SLAVE_DEBUG
-	{
-		gchar *s = g_strndup (ownertext->text + textslave->posStart,
-				      textslave->posLen);
-		g_print ("(%d, %d) `%s'\n", o->x + tx, o->y + ty, s);
-		g_free (s);
+	if (textslave->posStart >= owner->select_start
+	    && textslave->posStart + textslave->posLen <= owner->select_start + owner->select_length) {
+		draw_highlighted (textslave, p, font_style, x, y, width, height, tx, ty);
+	} else {
+		draw_normal (textslave, p, font_style, x, y, width, height, tx, ty);
 	}
-#endif
 }
 
 static gint

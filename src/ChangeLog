@@ -1,5 +1,17 @@
 2000-01-21  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmlcolorset.c (html_color_set_new): I never learn: use 16-bit
+	color values.  Also, make highlight foreground color different
+	from the highlight color.
+
+	* htmltextslave.c (draw_highlighted): New helper function.
+	(draw_normal): New helper function.
+	(draw): Draw highlighted text when appropriate, using the above
+	two functions.
+
+	* htmlpainter.c (html_painter_draw_text): Made param `text'
+	const-safe.
+
 	* htmltextmaster.c (html_text_master_init): Initialize
 	`select_start', `select_length'.
 	(select_range): New function, implementation of
