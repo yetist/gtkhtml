@@ -22,6 +22,7 @@
 #ifndef _GTKHTML_STREAM_H
 #define _GTKHTML_STREAM_H
 
+#include <sys/types.h>
 #include "gtkhtml-types.h"
 
 struct _GtkHTMLStream {

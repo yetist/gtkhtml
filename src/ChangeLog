@@ -1,3 +1,7 @@
+2001-07-12  Larry Ewing  <lewing@ximian.com>
+
+	* gtkhtml-stream.h: add types include.
+
 2001-07-08  Larry Ewing  <lewing@ximian.com>
 
 	Chema <chema@ximian.com> pointed out that we were inheriting a lot
