@@ -8,15 +8,15 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml 3.1.9\n"
-"POT-Creation-Date: 2004-04-19 10:31-0400\n"
-"PO-Revision-Date: 2004-03-13 12:41+0100\n"
+"Project-Id-Version: gtkhtml 3.1.12\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-04-24 20:31+0200\n"
+"PO-Revision-Date: 2004-04-24 20:30+0200\n"
 "Last-Translator: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: capplet/gnome-bindings-prop.c:157
 msgid "<None>"
@@ -268,7 +268,7 @@ msgstr "Coupe la sélection"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:79 components/html-editor/search.c:131
+#: components/html-editor/search.c:93 components/html-editor/search.c:148
 msgid "Find"
 msgstr "Rechercher"
 
@@ -678,7 +678,7 @@ msgstr "Exposant"
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
 #: components/html-editor/gtkhtml-editor-properties.glade.h:72
 #: components/html-editor/menubar.c:142 components/html-editor/popup.c:237
-#: components/html-editor/popup.c:519 components/html-editor/popup.c:528
+#: components/html-editor/popup.c:520 components/html-editor/popup.c:532
 msgid "Table"
 msgstr "Tableau"
 
@@ -1361,7 +1361,7 @@ msgid "Color:"
 msgstr "Couleur :"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:26
-#: components/html-editor/popup.c:530
+#: components/html-editor/popup.c:534
 msgid "Column"
 msgstr "Colonne"
 
@@ -1478,7 +1478,7 @@ msgid "Right"
 msgstr "Droite"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
-#: components/html-editor/popup.c:529
+#: components/html-editor/popup.c:533
 msgid "Row"
 msgstr "Rangée"
 
@@ -1512,7 +1512,7 @@ msgid "Spacing:"
 msgstr "Espacement :"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:70
-#: components/html-editor/paragraph.c:117 components/html-editor/popup.c:474
+#: components/html-editor/paragraph.c:117 components/html-editor/popup.c:475
 #: components/html-editor/text.c:223
 msgid "Style"
 msgstr "Style"
@@ -1740,89 +1740,89 @@ msgstr "Insérer un lien"
 msgid "Remove Link"
 msgstr "Enlever le lien"
 
-#: components/html-editor/popup.c:477
+#: components/html-editor/popup.c:478
 msgid "Text Style..."
 msgstr "Style du texte..."
 
-#: components/html-editor/popup.c:479 components/html-editor/popup.c:485
-#: components/html-editor/popup.c:495
+#: components/html-editor/popup.c:480 components/html-editor/popup.c:486
+#: components/html-editor/popup.c:496
 msgid "Paragraph Style..."
 msgstr "Style du paragraphe..."
 
-#: components/html-editor/popup.c:483
+#: components/html-editor/popup.c:484
 msgid "Link Style..."
 msgstr "Style du lien..."
 
-#: components/html-editor/popup.c:489
+#: components/html-editor/popup.c:490
 msgid "Rule Style..."
 msgstr "Style de la barre..."
 
-#: components/html-editor/popup.c:493
+#: components/html-editor/popup.c:494
 msgid "Image Style..."
 msgstr "Style de l'image..."
 
-#: components/html-editor/popup.c:504
+#: components/html-editor/popup.c:505
 msgid "Cell Style..."
 msgstr "Style de la cellule..."
 
-#: components/html-editor/popup.c:507
+#: components/html-editor/popup.c:508
 msgid "Table Style..."
 msgstr "Style du tableau..."
 
-#: components/html-editor/popup.c:513
+#: components/html-editor/popup.c:514
 msgid "Page Style..."
 msgstr "Style de la page..."
 
-#: components/html-editor/popup.c:518
+#: components/html-editor/popup.c:519
 msgid "Table insert"
 msgstr "Insère un tableau"
 
-#: components/html-editor/popup.c:521
+#: components/html-editor/popup.c:522
 msgid "Row above"
 msgstr "Rangée au-dessus"
 
-#: components/html-editor/popup.c:522
+#: components/html-editor/popup.c:523
 msgid "Row below"
 msgstr "Rangée au-dessous"
 
-#: components/html-editor/popup.c:524
+#: components/html-editor/popup.c:525
 msgid "Column before"
 msgstr "Colonne avant"
 
-#: components/html-editor/popup.c:525
+#: components/html-editor/popup.c:526
 msgid "Column after"
-msgstr "Colonne aprés"
+msgstr "Colonne après"
 
-#: components/html-editor/popup.c:527
+#: components/html-editor/popup.c:531
 msgid "Table delete"
 msgstr "Supprimer le tableau"
 
-#: components/html-editor/popup.c:531
+#: components/html-editor/popup.c:535
 msgid "Cell contents"
 msgstr "Contenu de la cellule"
 
-#: components/html-editor/popup.c:541
+#: components/html-editor/popup.c:545
 msgid "Check Word Spelling..."
 msgstr "Vérification orthographique..."
 
-#: components/html-editor/popup.c:546
+#: components/html-editor/popup.c:550
 msgid "Add Word to"
 msgstr "Ajouter le mot à"
 
-#: components/html-editor/popup.c:550
+#: components/html-editor/popup.c:554
 #, c-format
 msgid "%s Dictionary"
 msgstr "Dictionnaire %s"
 
-#: components/html-editor/popup.c:559
+#: components/html-editor/popup.c:563
 msgid "Add Word to Dictionary"
 msgstr "Ajouter le mot au dictionnaire"
 
-#: components/html-editor/popup.c:562
+#: components/html-editor/popup.c:566
 msgid "Ignore Misspelled Word"
 msgstr "Ignorer le mot mal orthographié"
 
-#: components/html-editor/popup.c:566
+#: components/html-editor/popup.c:570
 msgid "Input Methods"
 msgstr "Méthodes de saisie"
 
@@ -1847,7 +1847,7 @@ msgstr "Re_mplacer"
 msgid "Search _backward"
 msgstr "Rechercher en a_rrière"
 
-#: components/html-editor/replace.c:170 components/html-editor/search.c:85
+#: components/html-editor/replace.c:170 components/html-editor/search.c:99
 msgid "Case _sensitive"
 msgstr "_Sensible à la casse"
 
@@ -1875,11 +1875,11 @@ msgstr ""
 "La règle éditée a été supprimée du document.\n"
 "Impossible d'applquer les modifications."
 
-#: components/html-editor/search.c:84
+#: components/html-editor/search.c:98
 msgid "_Backward"
 msgstr "En a_rrière"
 
-#: components/html-editor/search.c:131
+#: components/html-editor/search.c:148
 msgid "Find Regular Expression"
 msgstr "Rechercher une expression régulière"
 
