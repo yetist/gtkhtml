@@ -1,3 +1,14 @@
+2000-10-25  Miguel de Icaza  <miguel@helixcode.com>
+
+	* test.c (main): Make enter also trigger a submit.
+
+	* ebrowser-widget.c (ebrowser_register_loader): Update
+	function. Encapsulates the process of registering the loader and
+	sets up the signals.
+	(ebrowser_url_requested): Use ebrowser_register_loader.
+	(ebrowser_load): ditto.
+	(ebrowser_loader_done): Use unregister_loader.
+
 2000-10-25    <jpr@helixcode.com>
 
 	* Makefile.am: Add flags and include $(top_srcdir)/src else

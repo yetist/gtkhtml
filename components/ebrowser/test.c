@@ -88,6 +88,8 @@ main (int argc, char ** argv)
 	
 	urientry = gtk_entry_new ();
 	gtk_box_pack_start (GTK_BOX (hb), urientry, TRUE, TRUE, 0);
+	gtk_signal_connect (GTK_OBJECT (urientry), "activate",
+			    GTK_SIGNAL_FUNC (submit), urientry);
 	gtk_widget_show (urientry);
 
 	w = gtk_button_new_with_label ("Submit");

@@ -69,9 +69,6 @@ GtkType ebrowser_get_type (void);
 
 GtkWidget * ebrowser_new (void);
 
-void ebrowser_register_loader (EBrowser * ebr, gpointer loader);
-void ebrowser_unregister_loader (EBrowser * ebr, gpointer loader);
-
 void ebrowser_stop (EBrowser * ebrowser);
 
 END_GNOME_DECLS

@@ -51,7 +51,6 @@ static void ebrowser_stop_loading (EBrowser * ebr);
 static void ebrowser_loader_done (ELoader * el, ELoaderStatus status, gpointer data);
 static void ebrowser_loader_set_status (ELoader * el, const gchar * status, gpointer data);
 static void ebrowser_body_connect (ELoader * el, const gchar * url, const gchar * content_type, gpointer data);
-
 static void ebrowser_status_set (EBrowser * ebr, const gchar * status);
 
 static EBrowserProtocol ebrowser_find_protocol (const gchar * uri, const gchar ** location);
@@ -255,14 +254,21 @@ ebrowser_new (void)
 	return GTK_WIDGET (ebrowser);
 }
 
-void
-ebrowser_register_loader (EBrowser * ebr, gpointer loader)
+static void
+ebrowser_register_loader (EBrowser * ebr, ELoader *loader)
 {
+	g_assert (ebr != NULL);
+	g_assert (loader != NULL);
+      
 	ebr->loaders = g_slist_prepend (ebr->loaders, loader);
+	gtk_signal_connect (GTK_OBJECT (loader), "done",
+			    GTK_SIGNAL_FUNC (ebrowser_loader_done), ebr);
+	gtk_signal_connect (GTK_OBJECT (loader), "set_status",
+			    GTK_SIGNAL_FUNC (ebrowser_loader_set_status), ebr);
 }
 
-void
-ebrowser_unregister_loader (EBrowser * ebr, gpointer loader)
+static void
+ebrowser_unregister_loader (EBrowser * ebr, ELoader *loader)
 {
 	ebr->loaders = g_slist_remove (ebr->loaders, loader);
 }
@@ -328,14 +334,8 @@ ebrowser_url_requested (GtkHTML * html, const gchar * url, GtkHTMLStream * handl
 		break;
 	}
 
-	if (el) {
-		ebr->loaders = g_slist_prepend (ebr->loaders, el);
-
-		gtk_signal_connect (GTK_OBJECT (el), "set_status",
-				    GTK_SIGNAL_FUNC (ebrowser_loader_set_status), ebr);
-		gtk_signal_connect (GTK_OBJECT (el), "done",
-				    GTK_SIGNAL_FUNC (ebrowser_loader_done), ebr);
-	}
+	if (el) 
+		ebrowser_register_loader (ebr, el);
 }
 
 static void
@@ -476,15 +476,11 @@ ebrowser_submit (GtkHTML * html, const gchar * method, const gchar * url, const 
 		GtkHTMLStream * stream;
 		stream = gtk_html_begin (GTK_HTML (ebr));
 		el = eloader_http_new_post (ebr, full, encoding, stream);
-		if (el) {
-			ebr->loaders = g_slist_prepend (ebr->loaders, el);
 
+		if (el) {
+			ebrowser_register_loader (ebr, el);
 			gtk_signal_connect (GTK_OBJECT (el), "connect",
 					    GTK_SIGNAL_FUNC (ebrowser_body_connect), ebr);
-			gtk_signal_connect (GTK_OBJECT (el), "done",
-					    GTK_SIGNAL_FUNC (ebrowser_loader_done), ebr);
-			gtk_signal_connect (GTK_OBJECT (el), "set_status",
-					    GTK_SIGNAL_FUNC (ebrowser_loader_set_status), ebr);
 		}
 	}
 	g_free (full);
@@ -563,14 +559,10 @@ ebrowser_load (EBrowser * ebr, const gchar * uri)
 	}
 
 	if (el) {
-		ebr->loaders = g_slist_prepend (ebr->loaders, el);
-
+		ebrowser_register_loader (ebr, el);
+		
 		gtk_signal_connect (GTK_OBJECT (el), "connect",
 				    GTK_SIGNAL_FUNC (ebrowser_body_connect), ebr);
-		gtk_signal_connect (GTK_OBJECT (el), "done",
-				    GTK_SIGNAL_FUNC (ebrowser_loader_done), ebr);
-		gtk_signal_connect (GTK_OBJECT (el), "set_status",
-				    GTK_SIGNAL_FUNC (ebrowser_loader_set_status), ebr);
 	}
 }
 
@@ -589,8 +581,8 @@ ebrowser_loader_done (ELoader * el, ELoaderStatus status, gpointer data)
 	EBrowser * ebr;
 
 	ebr = EBROWSER (data);
-
-	ebr->loaders = g_slist_remove (ebr->loaders, el);
+	
+	ebrowser_unregister_loader (ebr, el);
 	gtk_object_unref (GTK_OBJECT (el));
 }
 
