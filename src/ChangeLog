@@ -1,3 +1,14 @@
+2004-10-22  Changwoo Ryu  <cwryu@debian.org>
+
+	* htmlclueflow.c (utf8_width): new function to calculate UTF-8
+	string's cell width
+	(utf8_length_in_width): new function to find the length of string
+	starting on the given string which is not exceeding the specified
+	width
+	(save_plain): wrap lines by cell widths rather than byte lengths.
+
+	Fixes #67022
+
 2004-10-13  Radek Doulik  <rodo@ximian.com>
 
 	* htmlengine-edit-text.c (upper_lower): set text_len and

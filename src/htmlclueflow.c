@@ -1773,6 +1773,47 @@ append_selection_string (HTMLObject *self,
 	}
 }
 
+/*
+ * Calculate given UTF-8 string's "cell width", determined by
+ * g_unichar_iswide() on each character.  (So it doesn't work on
+ * zero-width or combined characters.)
+ */
+static gint
+utf8_width (const char *str, gint len)
+{
+	gunichar c;
+	gint width = 0;
+
+	while (len--) {
+		c = g_utf8_get_char (str);
+		width += g_unichar_iswide (c) ? 2 : 1;
+		str = g_utf8_next_char (str);
+	}
+	return width;
+}
+
+/*
+ * Returns the length of string starting on the given string which is
+ * not exceeding the given width.
+ */
+static gint
+utf8_length_in_width (const char *str, gint len, gint width)
+{
+	gunichar c;
+	gint l = 0;
+
+	while (len--) {
+		c = g_utf8_get_char (str);
+		width -= g_unichar_iswide (c) ? 2 : 1;
+		if (width < 0)
+			break;
+		str = g_utf8_next_char (str);
+		l++;
+	}
+
+	return l;
+}
+
 static gboolean
 save_plain (HTMLObject *self,
 	    HTMLEngineSaveState *state,
@@ -1784,18 +1825,18 @@ save_plain (HTMLObject *self,
 	gint pad;
 	gint align_pad;
 	gboolean firstline = TRUE;
-	gint max_len;
+	gint max_width;
 
 	flow = HTML_CLUEFLOW (self);
 
 	pad = plain_padding (flow, NULL, FALSE);
 	buffer_state = html_engine_save_buffer_new (state->engine, 
 						    state->inline_frames);
-	max_len = MAX (requested_width - pad, 0);
+	max_width = MAX (requested_width - pad, 0);
 	/* buffer the paragraph's content into the save buffer */
 	if (HTML_OBJECT_CLASS (&html_clue_class)->save_plain (self, 
 							      buffer_state, 
-							      max_len)) {
+							      max_width)) {
 		guchar *s;
 		int offset;
 		
@@ -1816,7 +1857,7 @@ save_plain (HTMLObject *self,
 			PangoContext *pc = gtk_widget_get_pango_context (GTK_WIDGET (state->engine->widget));
 			PangoLogAttr *lattrs;
 			PangoItem **items;
-			gint len, skip;
+			gint len, width, skip;
 
 			items_list = pango_itemize (pc, s, 0, bytes, attrs, NULL);
 			lattrs = g_new (PangoLogAttr, slen + 1);
@@ -1859,15 +1900,18 @@ save_plain (HTMLObject *self,
 			while (*s) {
 				len = strcspn (s, "\n");
 				len = g_utf8_strlen (s, len);
+				width = utf8_width (s, len);
 				skip = 0;
 			
 				if ((flow->style != HTML_CLUEFLOW_STYLE_PRE) 
 				    && !HTML_IS_TABLE (HTML_CLUE (flow)->head)) {
-					if (len > max_len) {
+					if (width > max_width) {
 						gboolean look_backward = TRUE;
+						gint wmax;
 						gint wi, wl;
 
-						wl = clen + max_len;
+						wmax = clen + utf8_length_in_width (s, len, max_width);
+						wl = wmax;
 
 						if (lattrs [wl].is_white) {
 
@@ -1877,7 +1921,7 @@ save_plain (HTMLObject *self,
 							if (wl < slen && html_text_is_line_break (lattrs [wl]))
 								look_backward = FALSE;
 							else
-								wl = clen + max_len;
+								wl = wmax;
 						}
 
 						if (look_backward) {
@@ -1889,10 +1933,11 @@ save_plain (HTMLObject *self,
 						}
 
 						if (wl > clen && wl < slen && html_text_is_line_break (lattrs [wl])) {
-							wi = MIN (wl, clen + max_len);
+							wi = MIN (wl, wmax);
 							while (wi > clen && lattrs [wi - 1].is_white)
 								wi --;
 							len = wi - clen;
+							width = utf8_width (s, len);
 							skip = wl - wi;
 						}
 					}
@@ -1905,10 +1950,10 @@ save_plain (HTMLObject *self,
 
 				switch (html_clueflow_get_halignment (flow)) {
 				case HTML_HALIGN_RIGHT:
-					align_pad = max_len - len;
+					align_pad = max_width - width;
 					break;
 				case HTML_HALIGN_CENTER:
-					align_pad = (max_len - len) / 2;
+					align_pad = (max_width - width) / 2;
 					break;
 				default:
 					align_pad = 0;
