@@ -975,10 +975,23 @@ gtk_html_get_type (void)
 GtkWidget *
 gtk_html_new (void)
 {
-	GtkHTML *html;
+	GtkWidget *html;
 
 	html = gtk_type_new (gtk_html_get_type ());
-	
+	gtk_html_construct (html);
+	return html;
+}
+
+void
+gtk_html_construct (GtkWidget *htmlw)
+{
+	GtkHTML *html;
+
+	g_return_if_fail (htmlw != NULL);
+	g_return_if_fail (GTK_IS_HTML (htmlw));
+
+	html = GTK_HTML (htmlw);
+
 	html->engine = html_engine_new ();
 	html->engine->widget = html; /* FIXME FIXME */
 
@@ -1000,8 +1013,6 @@ gtk_html_new (void)
 			    GTK_SIGNAL_FUNC (html_engine_submit_cb), html);
 	gtk_signal_connect (GTK_OBJECT (html->engine), "object_requested",
 			    GTK_SIGNAL_FUNC (html_engine_object_requested_cb), html);
-
-	return GTK_WIDGET (html);
 }
 
 
@@ -1068,6 +1079,9 @@ gtk_html_get_title (GtkHTML *html)
 {
 	g_return_val_if_fail (html != NULL, NULL);
 	g_return_val_if_fail (GTK_IS_HTML (html), NULL);
+
+	if (!html->engine->title)
+		return NULL;
 
 	return html->engine->title->str;
 }

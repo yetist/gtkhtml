@@ -32,10 +32,15 @@ Table problems
 
 - We might want to speed up redraw on expose.
 
+- If a page renders with a link under the cursor, the link cannot be
+  clicked unless you move the cursor off the link and then back on
+
 * Missing features:
 -------------------
 
 - Selection does not actually put anything into the X clipboard.
+
+- Selecting off the visible region does not scroll the page
 
 - Cursor keys do not work with the scrollbars.
 

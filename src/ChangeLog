@@ -1,3 +1,11 @@
+2000-04-03  Jacob Berkman  <jacob@helixcode.com>
+
+	* gtkhtml.c (gtk_html_get_title): return NULL if title is NULL (should
+	this be a g_return_val_if_fail()?)
+
+	* gtkhtml.[ch] (gtk_html_construct): new function so that the gtkhtml
+	widget can be subclassed and used with language bindings
+
 2000-04-02  Jonas Borgström  <jonas_b@bitsmart.com>
 
 	* gtkhtml.c and testgtkhtml.c (on_button_press_event): Moved mouse wheel

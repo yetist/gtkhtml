@@ -1,3 +1,7 @@
+2000-04-03  Jacob Berkman  <jacob@helixcode.com>
+
+	* BUGS: add some bugs I've found but don't know how to fix
+
 2000-03-27  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* Makefile.am (EXTRA_DIST): Distribute `COPYING.LIB' too.

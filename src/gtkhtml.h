@@ -140,6 +140,7 @@ struct _GtkHTMLClass {
 /* Creation.  */
 GtkType    gtk_html_get_type  (void);
 GtkWidget *gtk_html_new       (void);
+void       gtk_html_construct (GtkWidget *htmlw);
 
 /* Debugging.  */
 void  gtk_html_enable_debug  (GtkHTML  *html,
