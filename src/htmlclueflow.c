@@ -1147,7 +1147,7 @@ draw_quotes (HTMLObject *self, HTMLPainter *painter,
 			
 		if (!HTML_IS_PLAIN_PAINTER (painter)) {
 			area.x0 = self->x + 6;
-			area.x1 = area.x0 + 3;
+			area.x1 = area.x0 + 2;
 			area.y0 = self->y - self->ascent;
 			area.y1 = self->y + self->descent;
 		    
@@ -1170,8 +1170,6 @@ draw_quotes (HTMLObject *self, HTMLPainter *painter,
 			
 			while (cur) {
 				if (cur->y != last_y) {
-					gint width, line_offset = 0;
-					
 					html_painter_set_font_style (painter, 
 								     html_clueflow_get_default_font_style (flow));
 
@@ -1914,9 +1912,11 @@ plain_padding (HTMLClueFlow *flow, GString *out, gboolean firstline)
 
 	if (out) {
 		for (i = 0; i < (gint) flow->level; i++) {
+#ifdef DRAW_QUOTES
 			if (is_cite (flow) && (i == 0))
 				g_string_append (out, CLUEFLOW_BLOCKQUOTE_CITE);
 			else
+#endif
 				g_string_append (out, CLUEFLOW_INDENT);
 		}
 

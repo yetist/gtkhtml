@@ -3,7 +3,11 @@
         * htmlclueflow.c (draw_quotes): Alway draw the quote character at
 	the begining of the flow don't indent it with the text.
 	(plain_padding): add the quote character in the plain text output.
-
+	(plain_padding): add #ifdef DRAW_QUOTES
+	(draw_quotes): make the bars 2 pixels wide instead (should
+	probably base it on font size in the future).  Remove some unused
+	variables.
+	
 	* htmlclueflow.c (get_indent): Add #ifdef DRAW_QUOTES here for
 	now.
 
