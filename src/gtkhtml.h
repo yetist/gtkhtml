@@ -1,6 +1,7 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
-    Copyright 1999, Helix Code, Inc.
+
+    Copyright 1999, 2000 Helix Code, Inc.
     
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Library General Public
@@ -17,6 +18,7 @@
     the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
     Boston, MA 02111-1307, USA.
 */
+
 #ifndef _GTKHTML_H_
 #define _GTKHTML_H_
 
@@ -88,6 +90,8 @@ struct _GtkHTML {
 	gboolean editable : 1;
 	gboolean load_in_progress : 1;
 
+	gboolean debug : 1;
+
 	guint hadj_connection;
 	guint vadj_connection;
 
@@ -119,8 +123,12 @@ struct _GtkHTMLClass {
 
 
 /* Creation.  */
-GtkType              gtk_html_get_type         (void);
-GtkWidget           *gtk_html_new              (void);
+GtkType    gtk_html_get_type  (void);
+GtkWidget *gtk_html_new       (void);
+
+/* Debugging.  */
+void  gtk_html_enable_debug  (GtkHTML  *html,
+			      gboolean  debug);
 
 /* Loading.  */
 GtkHTMLStreamHandle  gtk_html_begin  (GtkHTML             *html,

@@ -1,3 +1,12 @@
+2000-02-20  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* debug.h: Renamed to `gtkhtmldebug.h'.
+	* debug.c: Renamed to `gtkhtmldebug.c'.
+
+	* gtkhtml.c (gtk_html_enable_debug): New function.
+
+	* gtkhtml.h: New member `debug' in `GtkHTML'.
+
 2000-02-19  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* htmlfontstyle.h, htmlfontstyle.c: Removed.

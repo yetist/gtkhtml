@@ -1,19 +1,27 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/*  This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
+/* This file is part of the GtkHTML library
 
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-    Boston, MA 02111-1307, USA.
+   Copyright (C) 2000 Helix Code, Inc.
+   
+   This library is free software; you can redistribute it and/or
+   modify it under the terms of the GNU Library General Public
+   License as published by the Free Software Foundation; either
+   version 2 of the License, or (at your option) any later version.
+   
+   This library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   Library General Public License for more details.
+   
+   You should have received a copy of the GNU Library General Public License
+   along with this library; see the file COPYING.LIB.  If not, write to
+   the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+   Boston, MA 02111-1307, USA.
 */
+
+/* Various debugging routines.  */
+
+#include <stdarg.h>
 
 #include "htmlobject.h"
 #include "htmltext.h"
@@ -23,10 +31,31 @@
 #include "htmlclue.h"
 #include "htmlclueflow.h"
 #include "htmltype.h"
-#include "debug.h"
 
-/* Various debugging routines */
-/* FIXME namespace! */
+#include "gtkhtmldebug.h"
+
+
+/**
+ * gtk_html_debug_log:
+ * @html: A GtkHTML widget
+ * @format: A format string, in printf() style
+ * 
+ * If @html has debugging turned on, print out the message, just like libc
+ * printf().  Otherwise, just do nothing.
+ **/
+void
+gtk_html_debug_log (GtkHTML *html,
+		    const gchar *format,
+		    ...)
+{
+	va_list ap;
+
+	if (! html->debug)
+		return;
+
+	va_start (ap, format);
+	vprintf (format, ap);
+}
 
 
 static const gchar *
@@ -64,21 +93,23 @@ clueflow_style_to_string (HTMLClueFlowStyle style)
 
 
 void
-debug_dump_table (HTMLObject *o, gint level)
+gtk_html_debug_dump_table (HTMLObject *o,
+			   gint level)
 {
 	gint c, r;
 	HTMLTable *table = HTML_TABLE (o);
 
 	for (r = 0; r < table->totalRows; r++) {
 		for (c = 0; c < table->totalCols; c++) {
-			debug_dump_tree (HTML_OBJECT (table->cells[r][c]), level + 1);
+			gtk_html_debug_dump_tree (HTML_OBJECT (table->cells[r][c]), level + 1);
 		}
 	}
 
 }
 
 void
-debug_dump_tree (HTMLObject *o, gint level)
+gtk_html_debug_dump_tree (HTMLObject *o,
+			  gint level)
 {
 	HTMLObject *obj;
 	gint i;
@@ -106,7 +137,7 @@ debug_dump_tree (HTMLObject *o, gint level)
 
 		switch (HTML_OBJECT_TYPE (obj)) {
 		case HTML_TYPE_TABLE:
-			debug_dump_table (obj, level + 1);
+			gtk_html_debug_dump_table (obj, level + 1);
 			break;
 		case HTML_TYPE_TEXT:
 		case HTML_TYPE_TEXTMASTER:
@@ -121,10 +152,10 @@ debug_dump_tree (HTMLObject *o, gint level)
 		case HTML_TYPE_CLUEV:
 		case HTML_TYPE_CLUEFLOW:
 		case HTML_TYPE_CLUEALIGNED:
-			debug_dump_tree (HTML_CLUE (obj)->head, level + 1);
+			gtk_html_debug_dump_tree (HTML_CLUE (obj)->head, level + 1);
 			break;
 		case HTML_TYPE_TABLECELL:
-			debug_dump_tree (HTML_CLUE (obj)->head, level + 1);
+			gtk_html_debug_dump_tree (HTML_CLUE (obj)->head, level + 1);
 			break;
 
 		default:

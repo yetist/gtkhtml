@@ -10,9 +10,9 @@ noinst_PROGRAMS = testgtkhtml
 libgtkhtmldir = $(includedir)/gtkhtml
 
 libgtkhtml_HEADERS =				\
-	debug.h					\
 	gtkhtml-embedded.h			\
 	gtkhtml.h				\
+	gtkhtmldebug.h				\
 	gtkhtmlfontstyle.h			\
 	htmlanchor.h				\
 	htmlbutton.h				\
@@ -72,9 +72,9 @@ libgtkhtml_HEADERS =				\
 	stringtokenizer.h
 
 libgtkhtml_la_SOURCES =				\
-	debug.c					\
 	gtkhtml-embedded.c			\
 	gtkhtml.c				\
+	gtkhtmldebug.c				\
 	gtkhtmlfontstyle.c			\
 	htmlanchor.c				\
 	htmlbutton.c				\

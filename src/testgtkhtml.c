@@ -24,11 +24,12 @@
 #include <libgnomeprint/gnome-print-master-preview.h>
 
 #include "config.h"
-#include "debug.h"
 #include "gtkhtml.h"
 #include "htmlurl.h"
 #include "htmlengine.h"
 #include "gtkhtml-embedded.h"
+
+#include "gtkhtmldebug.h"
 
 #undef PACKAGE
 #undef VERSION
@@ -312,7 +313,7 @@ dump_cb (GtkWidget *widget, gpointer data)
 	g_print ("Object Tree\n");
 	g_print ("-----------\n");
 
-	debug_dump_tree (html->engine->clue, 0);
+	gtk_html_debug_dump_tree (html->engine->clue, 0);
 }
 
 static void

@@ -33,7 +33,8 @@
 #include "htmlrule.h"
 #include "htmlclue.h"
 #include "htmlcursor.h"
-#include "debug.h"
+
+#include "gtkhtmldebug.h"
 
 
 HTMLObjectClass html_object_class;

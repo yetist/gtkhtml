@@ -824,6 +824,8 @@ init (GtkHTML* html)
 	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (html), GTK_CAN_FOCUS);
 	GTK_WIDGET_SET_FLAGS (GTK_WIDGET (html), GTK_APP_PAINTABLE);
 
+	html->debug = FALSE;
+
 	html->pointer_url = NULL;
 	html->hand_cursor = gdk_cursor_new (GDK_HAND2);
 	html->arrow_cursor = gdk_cursor_new (GDK_LEFT_PTR);
@@ -900,6 +902,18 @@ gtk_html_new (void)
 	return GTK_WIDGET (html);
 }
 
+
+void
+gtk_html_enable_debug (GtkHTML *html,
+		       gboolean debug)
+{
+	g_return_if_fail (html != NULL);
+	g_return_if_fail (GTK_IS_HTML (html));
+
+	html->debug = debug;
+}
+
+
 void
 gtk_html_parse (GtkHTML *html)
 {

@@ -23,7 +23,8 @@
 #include "htmlclueflow.h"
 #include "htmltext.h"
 #include "htmltextmaster.h"
-#include "debug.h"
+
+#include "gtkhtmldebug.h"
 
 #include "htmlengine-edit-paste.h"
 
@@ -278,7 +279,7 @@ html_engine_paste (HTMLEngine *engine)
 	html_engine_freeze (engine);
 
 	g_print ("\n**** Tree before pasting:\n\n");
-	debug_dump_tree (engine->clue, 2);
+	gtk_html_debug_dump_tree (engine->clue, 2);
 
 	/* 2. Split the first paragraph at the cursor position, to allow insertion
               of the elements.  */
@@ -286,7 +287,7 @@ html_engine_paste (HTMLEngine *engine)
 	append = split_at_cursor (engine);
 
 	g_print ("\n**** Tree after splitting first para:\n\n");
-	debug_dump_tree (engine->clue, 2);
+	gtk_html_debug_dump_tree (engine->clue, 2);
 
 	/* 3. Prepare the HTMLClueFlows to hold the elements we want to paste.  */
 
@@ -294,7 +295,7 @@ html_engine_paste (HTMLEngine *engine)
 		append = TRUE;
 
 	g_print ("\n**** Tree after clueflow preparation:\n\n");
-	debug_dump_tree (engine->clue, 2);
+	gtk_html_debug_dump_tree (engine->clue, 2);
 
 	/* 4. Duplicate the objects in the cut buffer, one by one, and insert
               them into the document.  */
@@ -362,7 +363,7 @@ html_engine_paste (HTMLEngine *engine)
 		skip (engine);
 
 	g_print ("\n**** Tree after pasting:\n\n");
-	debug_dump_tree (engine->clue, 2);
+	gtk_html_debug_dump_tree (engine->clue, 2);
 
 	/* Thaw the engine so that things are re-laid out again.  FIXME: this
            might be a bit inefficient for cut & paste.  */
