@@ -391,12 +391,28 @@ check_point (HTMLObject *self,
 		parent = HTML_OBJECT (clue)->parent;
 		obj = html_object_check_point (HTML_OBJECT (clue),
 					       painter,
-					       x, y,
+					       x - HTML_OBJECT (clue)->parent->x,
+					       y - HTML_OBJECT (clue)->parent->y + HTML_OBJECT (clue)->parent->ascent,
 					       offset_return,
 					       for_cursor);
 		if (obj != NULL) {
-			if (offset_return != NULL)
-				*offset_return = 0;
+			return obj;
+		}
+	}
+
+	for (clue = HTML_CLUEALIGNED (HTML_CLUEV (self)->align_right_list);
+	     clue != NULL;
+	     clue = clue->next_aligned) {
+		HTMLObject *parent;
+
+		parent = HTML_OBJECT (clue)->parent;
+		obj = html_object_check_point (HTML_OBJECT (clue),
+					       painter,
+					       x - HTML_OBJECT (clue)->parent->x,
+					       y - HTML_OBJECT (clue)->parent->y + HTML_OBJECT (clue)->parent->ascent,
+					       offset_return,
+					       for_cursor);
+		if (obj != NULL) {
 			return obj;
 		}
 	}

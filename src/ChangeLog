@@ -1,3 +1,8 @@
+2001-10-29  Radek Doulik  <rodo@ximian.com>
+
+	* htmlcluev.c (check_point): check align_right_list too
+	(check_point): translate aligned clues coordinates
+
 2001-10-29  Ettore Perazzoli  <ettore@ximian.com>
 
 	* htmlselection.c (html_engine_select_interval): Peek the time
