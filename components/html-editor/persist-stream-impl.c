@@ -21,6 +21,9 @@
     Author: Ettore Perazzoli <ettore@helixcode.com>
 */
 
+/* This file implements the GNOME::PersistStream interface for the GtkHTML
+   component.  */
+
 #include <config.h>
 
 #include <gnome.h>
@@ -31,6 +34,8 @@
 #include "persist-stream-impl.h"
 
 
+/* Loading.  */
+
 #define READ_CHUNK_SIZE 4096
 
 static gint
@@ -77,12 +82,69 @@ load (GnomePersistStream *ps,
 }
 
 
+/* Saving.  */
+
+struct _SaveState {
+	GNOME_Stream stream;
+	CORBA_Environment ev;
+};
+typedef struct _SaveState SaveState;
+
+static gboolean
+save_receiver (const HTMLEngine *engine,
+	       const gchar *data,
+	       guint length,
+	       gpointer user_data)
+{
+	GNOME_Stream_iobuf buffer;
+	CORBA_long bytes_written;
+	SaveState *state;
+
+	state = (SaveState *) user_data;
+	if (state->ev._major != CORBA_NO_EXCEPTION)
+		return FALSE;
+
+	buffer._maximum = length;
+	buffer._length = length;
+	buffer._buffer = (CORBA_char *) data; /* Should be safe.  */
+
+	bytes_written = GNOME_Stream_write (state->stream, &buffer, &state->ev);
+
+	if (bytes_written != length || state->ev._major != CORBA_NO_EXCEPTION)
+		return FALSE;
+
+	return TRUE;
+}
+
 static gint
 save (GnomePersistStream *ps,
       GNOME_Stream stream,
       gpointer data)
 {
-	return -1;
+	GtkHTML *html;
+	SaveState save_state;
+	gboolean success;
+
+	html = GTK_HTML (data);
+
+	CORBA_exception_init (&save_state.ev);
+	save_state.stream = CORBA_Object_duplicate (stream, &save_state.ev);
+	if (save_state.ev._major != CORBA_NO_EXCEPTION) {
+		CORBA_exception_free (&save_state.ev);
+		return -1;
+	}
+
+	success = gtk_html_save (html, save_receiver, &save_state);
+	if (save_state.ev._major != CORBA_NO_EXCEPTION)
+		success = FALSE;
+
+	CORBA_Object_release (save_state.stream, &save_state.ev);
+	CORBA_exception_free (&save_state.ev);
+
+	if (success)
+		return 0;
+	else
+		return -1;
 }
 
 

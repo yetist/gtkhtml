@@ -23,6 +23,7 @@ libgtkhtml_HEADERS =				\
 	htmlengine.h				\
 	htmlcolorset.h				\
 	htmlengine-edit.h			\
+	htmlengine-save.h			\
 	htmlentity.h				\
 	htmlfontmanager.h			\
 	htmlimage.h				\
@@ -70,6 +71,7 @@ libgtkhtml_la_SOURCES =				\
 	htmldrawqueue.c				\
 	htmlengine.c				\
 	htmlengine-edit.c			\
+	htmlengine-save.c			\
 	htmlcolorset.c				\
 	htmlentity.c				\
 	htmlfontmanager.c			\

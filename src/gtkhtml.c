@@ -787,6 +787,19 @@ gtk_html_end (GtkHTML *html,
 }
 
 
+gboolean
+gtk_html_save (GtkHTML *html,
+	       GtkHTMLSaveReceiverFn receiver,
+	       gpointer data)
+{
+	g_return_val_if_fail (html != NULL, FALSE);
+	g_return_val_if_fail (GTK_IS_HTML (html), FALSE);
+	g_return_val_if_fail (receiver != NULL, FALSE);
+
+	return html_engine_save (html->engine, receiver, data);
+}
+
+
 void
 gtk_html_calc_scrollbars (GtkHTML *html)
 {

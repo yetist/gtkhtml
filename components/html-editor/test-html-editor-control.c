@@ -27,17 +27,8 @@
 #include <bonobo/gnome-bonobo.h>
 
 
-static GtkWidget *file_selection_widget = NULL;
+/* Saving/loading through PersistStream.  */
 
-
-struct _OpenInfo {
-	GnomeBonoboWidget *control;
-	GtkWidget *app;
-	GtkWidget *file_selection_widget;
-};
-typedef struct _OpenInfo OpenInfo;
-
-
 static void
 load_through_stream (const gchar *filename,
 		     GNOME_PersistStream pstream)
@@ -66,16 +57,75 @@ load_through_stream (const gchar *filename,
 }
 
 static void
-file_selection_open_cb (GtkWidget *widget,
-			gpointer data)
+save_through_stream (const gchar *filename,
+		     GNOME_PersistStream pstream)
 {
-	OpenInfo *info;
+	GnomeStream *stream;
+	CORBA_Environment ev;
+
+	CORBA_exception_init (&ev);
+
+	stream = gnome_stream_fs_create (filename);
+
+	if (stream == NULL) {
+		g_warning ("Couldn't create `%s'\n", filename);
+	} else {
+		GnomeObject *stream_object;
+		GNOME_Stream corba_stream;
+
+		stream_object = GNOME_OBJECT (stream);
+		corba_stream = gnome_object_corba_objref (stream_object);
+		GNOME_PersistStream_save (pstream, corba_stream, &ev);
+	}
+
+	GNOME_Unknown_unref (pstream, &ev);
+	CORBA_Object_release (pstream, &ev);
+
+	CORBA_exception_free (&ev);
+}
+
+
+/* Common file selection widget.  We make sure there is only one open at a
+   given time.  */
+
+enum _FileSelectionOperation {
+	OP_NONE,
+	OP_SAVE,
+	OP_LOAD
+};
+typedef enum _FileSelectionOperation FileSelectionOperation;
+
+struct _FileSelectionInfo {
+	GnomeBonoboWidget *control;
+	GtkWidget *app;
+	GtkWidget *widget;
+
+	FileSelectionOperation operation;
+};
+typedef struct _FileSelectionInfo FileSelectionInfo;
+
+static FileSelectionInfo file_selection_info = {
+	NULL,
+	NULL,
+	NULL,
+	OP_NONE
+};
+
+static void
+file_selection_destroy_cb (GtkWidget *widget,
+			   gpointer data)
+{
+	file_selection_info.widget = NULL;
+}
+
+static void
+file_selection_ok_cb (GtkWidget *widget,
+		      gpointer data)
+{
 	CORBA_Object interface;
 	GnomeObjectClient *object_client;
 
-	info = (OpenInfo *) data;
-
-	object_client = gnome_bonobo_widget_get_server (info->control);
+	object_client = gnome_bonobo_widget_get_server (file_selection_info.control);
 	interface = gnome_object_client_query_interface (object_client,
 							 "IDL:GNOME/PersistStream:1.0",
 							 NULL);
@@ -83,60 +133,82 @@ file_selection_open_cb (GtkWidget *widget,
 	if (interface != CORBA_OBJECT_NIL) {
 		const gchar *fname;
 
-		fname = gtk_file_selection_get_filename (GTK_FILE_SELECTION (info->file_selection_widget));
-		load_through_stream (fname, interface);
+		fname = gtk_file_selection_get_filename
+			(GTK_FILE_SELECTION (file_selection_info.widget));
+
+		switch (file_selection_info.operation) {
+		case OP_LOAD:
+			load_through_stream (fname, interface);
+			break;
+		case OP_SAVE:
+			save_through_stream (fname, interface);
+			break;
+		default:
+			g_assert_not_reached ();
+		}
 	} else {
 		g_warning ("The Control does not implement any of the supported interfaces.");
 	}
 
-	gtk_widget_destroy (info->file_selection_widget);
-
-	g_free (info);
+	gtk_widget_destroy (file_selection_info.widget);
 }
 
+
 static void
-file_selection_destroy_cb (GtkWidget *widget,
-			   gpointer data)
+open_or_save_as_dialog (GnomeApp *app,
+			FileSelectionOperation op)
 {
-	file_selection_widget = NULL;
+	GnomeBonoboWidget *control;
+	GtkWidget *widget;
+
+	control = GNOME_BONOBO_WIDGET (app->contents);
+
+	if (file_selection_info.widget != NULL) {
+		gdk_window_show (GTK_WIDGET (file_selection_info.widget)->window);
+		return;
+	}
+
+	if (op == OP_LOAD)
+		widget = gtk_file_selection_new (_("Open file..."));
+	else
+		widget = gtk_file_selection_new (_("Save file as..."));
+
+	gtk_window_set_transient_for (GTK_WINDOW (widget), GTK_WINDOW (app));
+
+	file_selection_info.widget = widget;
+	file_selection_info.app = GTK_WIDGET (app);
+	file_selection_info.control = control;
+	file_selection_info.operation = op;
+
+	gtk_signal_connect_object (GTK_OBJECT (GTK_FILE_SELECTION (widget)->cancel_button),
+				   "clicked", GTK_SIGNAL_FUNC (gtk_widget_destroy),
+				   GTK_OBJECT (widget));
+
+	gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION (widget)->ok_button),
+			    "clicked", GTK_SIGNAL_FUNC (file_selection_ok_cb),
+			    NULL);
+
+	gtk_signal_connect (GTK_OBJECT (file_selection_info.widget), "destroy",
+			    GTK_SIGNAL_FUNC (file_selection_destroy_cb),
+			    NULL);
+
+	gtk_widget_show (file_selection_info.widget);
 }
 
+/* "Open" dialog.  */
 static void
 open_cb (GtkWidget *widget,
 	 gpointer data)
 {
-	GnomeApp *app;
-	GnomeBonoboWidget *control;
-	OpenInfo *open_info;
+	open_or_save_as_dialog (GNOME_APP (data), OP_LOAD);
+}
 
-	app = GNOME_APP (data);
-	control = GNOME_BONOBO_WIDGET (app->contents);
-
-	if (file_selection_widget != NULL) {
-		gdk_window_show (GTK_WIDGET (file_selection_widget)->window);
-		return;
-	}
-
-	file_selection_widget = gtk_file_selection_new (_("Open file..."));
-	gtk_window_set_transient_for (GTK_WINDOW (file_selection_widget), GTK_WINDOW (app));
-
-	open_info = g_new (OpenInfo, 1);
-	open_info->app = GTK_WIDGET (app);
-	open_info->control = control;
-	open_info->file_selection_widget = file_selection_widget;
-
-	gtk_signal_connect_object (GTK_OBJECT (GTK_FILE_SELECTION (file_selection_widget)->cancel_button),
-				   "clicked", GTK_SIGNAL_FUNC (gtk_widget_destroy),
-				   GTK_OBJECT (file_selection_widget));
-
-	gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION (file_selection_widget)->ok_button),
-			    "clicked", GTK_SIGNAL_FUNC (file_selection_open_cb),
-			    open_info);
-
-	gtk_signal_connect (GTK_OBJECT (file_selection_widget), "destroy",
-			    GTK_SIGNAL_FUNC (file_selection_destroy_cb), NULL);
-
-	gtk_widget_show (file_selection_widget);
+/* "Save as" dialog.  */
+static void
+save_as_cb (GtkWidget *widget,
+	    gpointer data)
+{
+	open_or_save_as_dialog (GNOME_APP (data), OP_SAVE);
 }
 
 
@@ -150,6 +222,7 @@ exit_cb (GtkWidget *widget,
 
 static GnomeUIInfo file_menu_info[] = {
 	GNOMEUIINFO_MENU_OPEN_ITEM (open_cb, NULL),
+	GNOMEUIINFO_MENU_SAVE_AS_ITEM (save_as_cb, NULL),
 	GNOMEUIINFO_SEPARATOR,
 	GNOMEUIINFO_MENU_EXIT_ITEM (exit_cb, NULL),
 	GNOMEUIINFO_END

@@ -161,6 +161,19 @@ accepts_cursor (HTMLObject *object)
 	return TRUE;
 }
 
+static gboolean
+save (HTMLObject *self,
+      HTMLEngineSaveState *state)
+{
+	HTMLText *text;
+
+	text = HTML_TEXT (self);
+	return (* state->receiver) (state->engine,
+				    text->text,
+				    text->text_len,
+				    state->user_data);
+}
+
 
 /* HTMLText methods.  */
 
@@ -397,6 +410,7 @@ html_text_class_init (HTMLTextClass *klass,
 	object_class->calc_size = calc_size;
 	object_class->get_cursor = get_cursor;
 	object_class->get_cursor_base = get_cursor_base;
+	object_class->save = save;
 
 	/* HTMLText methods.  */
 

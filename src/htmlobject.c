@@ -300,6 +300,13 @@ is_container (HTMLObject *self)
 	return FALSE;
 }
 
+static gboolean
+save (HTMLObject *self,
+      HTMLEngineSaveState *state)
+{
+	return TRUE;
+}
+
 
 /* Class initialization.  */
 
@@ -341,6 +348,7 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->select_range = select_range;
 	klass->forall = forall;
 	klass->is_container = is_container;
+	klass->save = save;
 }
 
 void
@@ -591,4 +599,12 @@ html_object_is_text (HTMLObject *object)
 		|| type == HTML_TYPE_TEXTMASTER
 		|| type == HTML_TYPE_LINKTEXT
 		|| type == HTML_TYPE_LINKTEXTMASTER);
+}
+
+
+gboolean
+html_object_save (HTMLObject *self,
+		  HTMLEngineSaveState *state)
+{
+	return (* HO_CLASS (self)->save) (self, state);
 }

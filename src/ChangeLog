@@ -1,5 +1,23 @@
 2000-01-25  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* gtkhtml.c (gtk_html_save): New function.
+
+	* htmltext.c (save): New function, implementation of
+	`HTMLObject::save'.  For now, it just dumps the text.
+	(html_text_class_init): Install it.
+
+	* htmlcursor.c (html_cursor_home): Removed debugging message.
+
+	* htmlobject.c (html_object_save): New function.
+	(save): New function, default implementation of
+	`HTMLObject::save'.
+	(html_object_class_init): Install it.
+
+	* htmlobject.h: New virtual method `HTMLObject::save'.
+
+	* htmlengine-save.h: New file.
+	* htmlengine-save.c: New file.
+
 	* htmlengine.c (html_engine_set_editable): Move the cursor to the
 	home if the widget becomes editable.  Also, if the editable state
 	changes, redraw the whole thing.

@@ -36,6 +36,9 @@ typedef gpointer GtkHTMLStreamHandle;
 typedef enum { GTK_HTML_STREAM_OK, GTK_HTML_STREAM_ERROR } GtkHTMLStreamStatus;
 
 #include "htmlengine.h"
+#include "htmlengine-save.h"
+
+typedef HTMLEngineSaveReceiverFn GtkHTMLSaveReceiverFn;
 
 struct _GtkHTML {
 	GtkLayout layout;
@@ -78,23 +81,33 @@ struct _GtkHTMLClass {
 	void (* submit)        (GtkHTML *html, const gchar *method, const gchar *url, const gchar *encoding);
 };
 
+
+/* Creation.  */
 GtkType              gtk_html_get_type         (void);
 GtkWidget           *gtk_html_new              (void);
 
-GtkHTMLStreamHandle  gtk_html_begin            (GtkHTML             *html,
-						const char          *url);
-void                 gtk_html_write            (GtkHTML             *html,
-						GtkHTMLStreamHandle  handle,
-						const char          *buffer,
-						size_t               size);
-void                 gtk_html_end              (GtkHTML             *html,
-						GtkHTMLStreamHandle  handle,
-						GtkHTMLStreamStatus  status);
-void                 gtk_html_calc_scrollbars  (GtkHTML             *html);
+/* Loading.  */
+GtkHTMLStreamHandle  gtk_html_begin  (GtkHTML             *html,
+				      const char          *url);
+void                 gtk_html_write  (GtkHTML             *html,
+				      GtkHTMLStreamHandle  handle,
+				      const char          *buffer,
+				      size_t               size);
+void                 gtk_html_end    (GtkHTML             *html,
+				      GtkHTMLStreamHandle  handle,
+				      GtkHTMLStreamStatus  status);
 
+/* Saving.  */
+gboolean  gtk_html_save  (GtkHTML               *html,
+			  GtkHTMLSaveReceiverFn  receiver,
+			  gpointer               data);
+
+/* Streams for feeding the widget with extra data (e.g. images) at loading
+   time.  */
 GtkHTMLStreamHandle  gtk_html_stream_ref    (GtkHTMLStreamHandle handle);
 void                 gtk_html_stream_unref  (GtkHTMLStreamHandle handle);
 
+/* Editable support.  */
 void      gtk_html_set_editable  (GtkHTML       *html,
 				  gboolean       editable);
 gboolean  gtk_html_get_editable  (const GtkHTML *html);
@@ -102,5 +115,8 @@ gboolean  gtk_html_get_editable  (const GtkHTML *html);
 /* DEPRECATED.  We'll keep it around for a while just to prevent code from
    being broken.  */
 void  gtk_html_parse  (GtkHTML *html);
+
+/* FIXME?  Deprecated? */
+void  gtk_html_calc_scrollbars  (GtkHTML *html);
 
 #endif /* _GTKHTML_H_ */
