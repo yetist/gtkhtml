@@ -3965,22 +3965,26 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		gtk_html_isearch (html, FALSE);
 		break;
 	case GTK_HTML_COMMAND_FOCUS_FORWARD:
-		html->binding_handled = gtk_widget_child_focus (GTK_WIDGET (html), GTK_DIR_TAB_FORWARD);
+		if (!html_engine_get_editable (e))
+			html->binding_handled = gtk_widget_child_focus (GTK_WIDGET (html), GTK_DIR_TAB_FORWARD);
 		break;
 	case GTK_HTML_COMMAND_FOCUS_BACKWARD:
-		html->binding_handled = gtk_widget_child_focus (GTK_WIDGET (html), GTK_DIR_TAB_BACKWARD);
+		if (!html_engine_get_editable (e))
+			html->binding_handled = gtk_widget_child_focus (GTK_WIDGET (html), GTK_DIR_TAB_BACKWARD);
 		break;
 	case GTK_HTML_COMMAND_SCROLL_BOD:
-		gtk_adjustment_set_value (gtk_layout_get_vadjustment (GTK_LAYOUT (html)), 0);
+		if (!html_engine_get_editable (e))
+			gtk_adjustment_set_value (gtk_layout_get_vadjustment (GTK_LAYOUT (html)), 0);
 		break;
-	case GTK_HTML_COMMAND_SCROLL_EOD: {
-		GtkAdjustment *vadj = gtk_layout_get_vadjustment (GTK_LAYOUT (html));
-		gtk_adjustment_set_value (vadj, vadj->upper - vadj->page_size);
+	case GTK_HTML_COMMAND_SCROLL_EOD:
+		if (!html_engine_get_editable (e)) {
+			GtkAdjustment *vadj = gtk_layout_get_vadjustment (GTK_LAYOUT (html));
+			gtk_adjustment_set_value (vadj, vadj->upper - vadj->page_size);
+		}
 		break;
 	case GTK_HTML_COMMAND_COPY:
 		gtk_html_copy (html);
 		break;
-	}
 	default:
 		html->binding_handled = FALSE;
 	}
