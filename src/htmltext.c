@@ -26,6 +26,7 @@
 #include <string.h>
 #include <sys/types.h>
 #include <regex.h>
+#include <gal/widgets/e-unicode.h>
 
 #include "htmltext.h"
 #include "htmlcolor.h"
@@ -122,16 +123,16 @@ get_tags (const HTMLText *text,
 		|| !html_color_equal (text->color, pt->color)
 		|| (pt->font_style & GTK_HTML_FONT_STYLE_SIZE_MASK) != (font_style & GTK_HTML_FONT_STYLE_SIZE_MASK))) {
 		if (!std_color) {
-			g_string_append_printf (ot, "<FONT COLOR=\"#%02x%02x%02x\"",
-						text->color->color.red   >> 8,
-						text->color->color.green >> 8,
-						text->color->color.blue  >> 8);
+			g_string_sprintfa (ot, "<FONT COLOR=\"#%02x%02x%02x\"",
+					   text->color->color.red   >> 8,
+					   text->color->color.green >> 8,
+					   text->color->color.blue  >> 8);
 			font_tag = TRUE;
 		}
 		if (!std_size) {
 			if (!font_tag)
 				g_string_append (ot, "<FONT");
-			g_string_append_printf (ot, " SIZE=\"%d\"", font_style & GTK_HTML_FONT_STYLE_SIZE_MASK);
+			g_string_sprintfa (ot, " SIZE=\"%d\"", font_style & GTK_HTML_FONT_STYLE_SIZE_MASK);
 		}
 		g_string_append_c (ot, '>');
 	}
@@ -140,8 +141,8 @@ get_tags (const HTMLText *text,
 	    && (!nt
 		|| !html_color_equal (text->color, nt->color)
 		|| (nt->font_style & GTK_HTML_FONT_STYLE_SIZE_MASK) != (font_style & GTK_HTML_FONT_STYLE_SIZE_MASK))) {
-  		g_string_append (ct, "</FONT>");
-  	}
+		g_string_append (ct, "</FONT>");
+	}
 
 	/* bold tag */
 	if (font_style & GTK_HTML_FONT_STYLE_BOLD) {
@@ -478,12 +479,12 @@ object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, g
 static gboolean
 calc_size (HTMLObject *self, HTMLPainter *painter, GList **changed_objs)
 {
-	/* RM2 HTMLText *text = HTML_TEXT (self);
-	   GtkHTMLFontStyle style = html_text_get_font_style (text); */
+	HTMLText *text = HTML_TEXT (self);
+	GtkHTMLFontStyle style = html_text_get_font_style (text);
 
 	self->width = 0;
-	/* self->ascent = 0; FIX2? */
-	/* self->descent = 0; FIX2? */
+	self->ascent = html_painter_calc_ascent (painter, style, text->face);
+	self->descent = html_painter_calc_descent (painter, style, text->face);
 
 	return FALSE;
 }
@@ -550,37 +551,24 @@ calc_word_width (HTMLText *text, HTMLPainter *painter, gint line_offset)
 {
 	GtkHTMLFontStyle style;
 	HTMLFont *font;
-	HTMLObject *obj = HTML_OBJECT (text);
 	gchar *begin, *end;
-	gint i, width, asc, dsc;
+	gint i;
 
 	text->words      = get_words (text->text);
 	if (text->word_width)
 		g_free (text->word_width);
 	text->word_width = g_new (guint, text->words);
 	style = html_text_get_font_style (text);
-	font = html_font_manager_get_font (&painter->font_manager, text->face, style);
-
-	obj->ascent = obj->descent = 0;
+	font = html_painter_get_html_font (painter, text->face, style);
 
 	begin            = text->text;
-
 	for (i = 0; i < text->words; i++) {
 		end   = strchr (begin + (i ? 1 : 0), ' ');
-		html_painter_calc_text_size_bytes (painter,
-						   begin, end ? end - begin : strlen (begin),
-						   &line_offset, font, style, &width, &asc, &dsc);
-		text->word_width [i] = (i ? text->word_width [i - 1] : 0) + width;
-
-		if (obj->ascent < asc)
-			obj->ascent = asc;
-		if (obj->descent < dsc)
-			obj->descent = dsc;
+		text->word_width [i] = (i ? text->word_width [i - 1] : 0)
+			+ html_painter_calc_text_width_bytes (painter,
+							      begin, end ? end - begin : strlen (begin),
+							      &line_offset, font, style);
 		begin = end;
-	}
-	if (text->text_len == 0) {
-		gint lo = 0;
-		html_painter_calc_text_size_bytes (painter, " ", 1, &lo, font, style, &width, &obj->ascent, &obj->descent);
 	}
 
 	HTML_OBJECT (text)->change &= ~HTML_CHANGE_WORD_WIDTH;
@@ -638,6 +626,9 @@ ht_fit_line (HTMLObject *o,
 	HTMLObject *text_slave;
 
 	text = HTML_TEXT (o);
+
+	if (o->flags & HTML_OBJECT_FLAG_NEWLINE)
+		return HTML_FIT_COMPLETE;
 
 	remove_text_slaves (o);
 
@@ -853,7 +844,7 @@ is_convert_nbsp_needed (const gchar *s, gint *delta_out)
 
 	op = p = s;
 	white_space = 0;
-	while (*p && (uc = g_utf8_get_char (p)) && (p = g_utf8_next_char (p))) {
+	while (*p && (p = e_unicode_get_utf8 (p, &uc))) {
 		if (uc == ENTITY_NBSP || uc == ' ') {
 			rv = check_prev_white (rv, white_space, last_white, delta_out);
 			white_space ++;
@@ -905,7 +896,7 @@ convert_nbsp (gchar *fill, const gchar *p)
 	op = p;
 	white_space = 0;
 
-	while (*p && (uc = g_utf8_get_char (p)) && (p = g_utf8_next_char (p))) {
+	while (*p && (p = e_unicode_get_utf8 (p, &uc))) {
 		if (uc == ENTITY_NBSP || uc == ' ') {
 			write_prev_white_space (white_space, &fill);
 			white_space ++;
@@ -1216,6 +1207,9 @@ append_selection_string (HTMLObject *self,
 	if (text->select_length == 0)
 		return;
 
+	/* FIXME: we need a `g_string_append()' that takes the number of
+           characters to append as an extra parameter.  */
+
 	p    = html_text_get_text (text, text->select_start);
 	last = g_utf8_offset_to_pointer (p, text->select_length);
 	
@@ -1223,8 +1217,10 @@ append_selection_string (HTMLObject *self,
 	last = html_text_get_text (text,
 				   text->select_start + text->select_length);
 	*/
-	g_string_append_len (buffer, p, last - p);
-
+	for (; p < last;) {
+		g_string_append_c (buffer, *p);
+		p++;
+	}
 }
 
 static void
@@ -1288,7 +1284,7 @@ get_cursor_base (HTMLObject *self,
 			if (offset > slave->posStart) {
 				HTMLText *text;
 				GtkHTMLFontStyle font_style;
-				gint line_offset, width, asc, dsc;
+				gint line_offset;
 
 				text = HTML_TEXT (self);
 
@@ -1297,12 +1293,10 @@ get_cursor_base (HTMLObject *self,
 									       html_text_get_line_offset (HTML_TEXT (self),
 													  painter),
 									       slave->posStart, painter);
-				html_painter_calc_text_size (painter,
-							     html_text_get_text (text, slave->posStart),
-							     offset - slave->posStart, &line_offset,
-							     font_style, text->face, &width, &asc, &dsc);
-
-				*x += width;
+				*x += html_painter_calc_text_width (painter,
+								    html_text_get_text (text, slave->posStart),
+								    offset - slave->posStart, &line_offset,
+								    font_style, text->face);
 			}
 
 			return;
