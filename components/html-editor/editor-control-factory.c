@@ -175,8 +175,8 @@ release (GtkWidget *widget, GdkEventButton *event, GtkHTMLControlData *cd)
 			;
 		}
 		if (run_dialog) {
-			cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, FALSE, _("Properties"), 
-										     ICONDIR "/properties-16.png");
+			cd->properties_dialog = gtk_html_edit_properties_dialog_new (cd, _("Properties"), 
+										     gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_properties", 16, NULL, NULL));
 			html_cursor_jump_to (e->cursor, e, cd->obj, 0);
 			html_engine_disable_selection (e);
 			html_engine_set_mark (e);
@@ -188,7 +188,6 @@ release (GtkWidget *widget, GdkEventButton *event, GtkHTMLControlData *cd)
 				gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 									   GTK_HTML_EDIT_PROPERTY_IMAGE, _("Image"),
 									   image_properties,
-									   image_apply_cb,
 									   image_close_cb);
 				start = GTK_HTML_EDIT_PROPERTY_IMAGE;
 				break;
@@ -197,7 +196,6 @@ release (GtkWidget *widget, GdkEventButton *event, GtkHTMLControlData *cd)
 				gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 									   GTK_HTML_EDIT_PROPERTY_TEXT, _("Text"),
 									   text_properties,
-									   text_apply_cb,
 									   text_close_cb);
 				start = (HTML_OBJECT_TYPE (cd->obj) == HTML_TYPE_TEXT)
 					? GTK_HTML_EDIT_PROPERTY_TEXT
@@ -208,7 +206,6 @@ release (GtkWidget *widget, GdkEventButton *event, GtkHTMLControlData *cd)
 				gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 									   GTK_HTML_EDIT_PROPERTY_RULE, _("Rule"),
 									   rule_properties,
-									   rule_apply_cb,
 									   rule_close_cb);
 				start = GTK_HTML_EDIT_PROPERTY_RULE;
 				break;
@@ -218,12 +215,10 @@ release (GtkWidget *widget, GdkEventButton *event, GtkHTMLControlData *cd)
 			gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 								   GTK_HTML_EDIT_PROPERTY_PARAGRAPH, _("Paragraph"),
 								   paragraph_properties,
-								   paragraph_apply_cb,
 								   paragraph_close_cb);
 			gtk_html_edit_properties_dialog_add_entry (cd->properties_dialog,
 								   GTK_HTML_EDIT_PROPERTY_BODY, _("Page"),
 								   body_properties,
-								   body_apply_cb,
 								   body_close_cb);
 			gtk_html_edit_properties_dialog_show (cd->properties_dialog);
 			gtk_html_edit_properties_dialog_set_page (cd->properties_dialog, start);

@@ -84,6 +84,11 @@ AM_CONDITIONAL(HAVE_SOUP, test x$have_soup != xno)
 AC_SUBST(SOUP_CFLAGS)
 AC_SUBST(SOUP_LIBS)
 
+dnl **************************************************
+dnl * Gnome Icon Theme
+dnl **************************************************
+PKG_CHECK_MODULES(GIT, gnome-icon-theme >= 1.2.0)
+
 dnl **********************************
 dnl Editor component
 dnl **********************************

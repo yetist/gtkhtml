@@ -64,7 +64,7 @@ static void
 case_toggled (GtkWidget *w, GtkHTMLSearchDialog *d)
 {
 	/* Activate only when the case_sensitive flag is cleared */
-	if (!gtk_toggle_button_get_active(w))
+	if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (w)))
 		gtk_dialog_set_response_sensitive (d->dialog, 0, TRUE);
 }
 
@@ -128,7 +128,7 @@ gtk_html_search_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 	gtk_widget_show (dialog->entry);
 	gtk_widget_show_all (hbox);
 
-	gnome_window_icon_set_from_file (GTK_WINDOW (dialog->dialog), ICONDIR "/search-24.png");
+	gnome_window_icon_set_from_file (GTK_WINDOW (dialog->dialog), gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_search", 16, NULL, NULL));
 
 	gtk_widget_grab_focus (dialog->entry);
 

@@ -47,6 +47,9 @@ icons_DATA = \
 	smiley-10.png			\
 	smiley-11.png			\
 	smiley-12.png			\
+	table-table-16.png		\
+	table-row-16.png		\
+	table-column-16.png		\
 	transparent.png			\
 	undo-16.png			\
 	undo-24.png			\

@@ -1,3 +1,7 @@
+2004-05-06  Radek Doulik  <rodo@ximian.com>
+
+	* configure.in: check for gnome icon theme module availability
+
 2004-05-19  JP Rosevear  <jpr@novell.com>
 
 	* configure.in: bump libtool number, version 

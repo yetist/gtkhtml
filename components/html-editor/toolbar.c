@@ -503,28 +503,46 @@ editor_toolbar_unindent_cb (GtkWidget *widget,
 
 /* Editor toolbar.  */
 
+enum EditorAlignmentButtons {
+	EDITOR_ALIGNMENT_LEFT,
+	EDITOR_ALIGNMENT_CENTER,
+	EDITOR_ALIGNMENT_RIGHT
+};
 static GnomeUIInfo editor_toolbar_alignment_group[] = {
-	GNOMEUIINFO_ITEM_STOCK (N_("Left align"), N_("Left justifies the paragraphs"),
-				editor_toolbar_left_align_cb, GTK_STOCK_JUSTIFY_LEFT),
-	GNOMEUIINFO_ITEM_STOCK (N_("Center"), N_("Center justifies the paragraphs"),
-				editor_toolbar_center_cb, GTK_STOCK_JUSTIFY_CENTER),
-	GNOMEUIINFO_ITEM_STOCK (N_("Right align"), N_("Right justifies the paragraphs"),
-				editor_toolbar_right_align_cb, GTK_STOCK_JUSTIFY_RIGHT),
+	{ GNOME_APP_UI_ITEM, N_("Left align"), N_("Left justifies the paragraphs"),
+	  editor_toolbar_left_align_cb, NULL, NULL, GNOME_APP_PIXMAP_FILENAME },
+	{ GNOME_APP_UI_ITEM, N_("Center"), N_("Center justifies the paragraphs"),
+	  editor_toolbar_center_cb, NULL, NULL, GNOME_APP_PIXMAP_FILENAME },
+	{ GNOME_APP_UI_ITEM, N_("Right align"), N_("Right justifies the paragraphs"),
+	  editor_toolbar_right_align_cb, NULL, NULL, GNOME_APP_PIXMAP_FILENAME },
 	GNOMEUIINFO_END
+};
+
+enum EditorToolbarButtons {
+	EDITOR_TOOLBAR_TT,
+	EDITOR_TOOLBAR_BOLD,
+	EDITOR_TOOLBAR_ITALIC,
+	EDITOR_TOOLBAR_UNDERLINE,
+	EDITOR_TOOLBAR_STRIKEOUT,
+	EDITOR_TOOLBAR_SEP1,
+	EDITOR_TOOLBAR_ALIGNMENT,
+	EDITOR_TOOLBAR_SEP2,
+	EDITOR_TOOLBAR_UNINDENT,
+	EDITOR_TOOLBAR_INDENT
 };
 
 static GnomeUIInfo editor_toolbar_style_uiinfo[] = {
 
 	{ GNOME_APP_UI_TOGGLEITEM, N_("Typewriter"), N_("Toggle typewriter font style"),
-	  editor_toolbar_tt_cb, NULL, NULL, GNOME_APP_PIXMAP_FILENAME, GTKHTML_DATADIR "/icons/font-tt-24.png" },
+	  editor_toolbar_tt_cb, NULL, NULL, GNOME_APP_PIXMAP_FILENAME },
 	{ GNOME_APP_UI_TOGGLEITEM, N_("Bold"), N_("Makes the text bold"),
-	  editor_toolbar_bold_cb, NULL, NULL, GNOME_APP_PIXMAP_STOCK, GTK_STOCK_BOLD },
+	  editor_toolbar_bold_cb, NULL, NULL, GNOME_APP_PIXMAP_FILENAME },
 	{ GNOME_APP_UI_TOGGLEITEM, N_("Italic"), N_("Makes the text italic"),
-	  editor_toolbar_italic_cb, NULL, NULL, GNOME_APP_PIXMAP_STOCK, GTK_STOCK_ITALIC },
+	  editor_toolbar_italic_cb, NULL, NULL, GNOME_APP_PIXMAP_FILENAME },
 	{ GNOME_APP_UI_TOGGLEITEM, N_("Underline"), N_("Underlines the text"),
-	  editor_toolbar_underline_cb, NULL, NULL, GNOME_APP_PIXMAP_STOCK, GTK_STOCK_UNDERLINE },
+	  editor_toolbar_underline_cb, NULL, NULL, GNOME_APP_PIXMAP_FILENAME },
 	{ GNOME_APP_UI_TOGGLEITEM, N_("Strikeout"), N_("Strikes out the text"),
-	  editor_toolbar_strikeout_cb, NULL, NULL, GNOME_APP_PIXMAP_STOCK, GTK_STOCK_STRIKETHROUGH },
+	  editor_toolbar_strikeout_cb, NULL, NULL, GNOME_APP_PIXMAP_FILENAME },
 
 	GNOMEUIINFO_SEPARATOR,
 
@@ -532,10 +550,10 @@ static GnomeUIInfo editor_toolbar_style_uiinfo[] = {
 
 	GNOMEUIINFO_SEPARATOR,
 
-	GNOMEUIINFO_ITEM_STOCK (N_("Unindent"), N_("Indents the paragraphs less"),
-				editor_toolbar_unindent_cb, GNOME_STOCK_TEXT_UNINDENT),
-	GNOMEUIINFO_ITEM_STOCK (N_("Indent"), N_("Indents the paragraphs more"),
-				editor_toolbar_indent_cb, GNOME_STOCK_TEXT_INDENT),
+	{ GNOME_APP_UI_ITEM, N_("Unindent"), N_("Indents the paragraphs less"),
+	  editor_toolbar_unindent_cb, NULL, NULL, GNOME_APP_PIXMAP_FILENAME },
+	{ GNOME_APP_UI_ITEM, N_("Indent"), N_("Indents the paragraphs more"),
+	  editor_toolbar_indent_cb, NULL, NULL, GNOME_APP_PIXMAP_FILENAME },
 
 	GNOMEUIINFO_END
 };
@@ -591,6 +609,21 @@ create_style_toolbar (GtkHTMLControlData *cd)
 	domain = g_strdup (textdomain (NULL));
 	textdomain (GETTEXT_PACKAGE);
 	
+	editor_toolbar_style_uiinfo [EDITOR_TOOLBAR_TT].pixmap_info = GTKHTML_DATADIR "/icons/font-tt-24.png";
+	editor_toolbar_style_uiinfo [EDITOR_TOOLBAR_BOLD].pixmap_info = gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_text_bold", 24, NULL, NULL);
+	editor_toolbar_style_uiinfo [EDITOR_TOOLBAR_ITALIC].pixmap_info = gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_text_italic", 24, NULL, NULL);
+	editor_toolbar_style_uiinfo [EDITOR_TOOLBAR_UNDERLINE].pixmap_info = gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_text_underlined", 24, NULL, NULL);
+	editor_toolbar_style_uiinfo [EDITOR_TOOLBAR_STRIKEOUT].pixmap_info = gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_text-strikethrough", 24, NULL, NULL);
+	editor_toolbar_style_uiinfo [EDITOR_TOOLBAR_UNINDENT].pixmap_info = gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_text_unindent", 24, NULL, NULL);
+	editor_toolbar_style_uiinfo [EDITOR_TOOLBAR_INDENT].pixmap_info = gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_text_indent", 24, NULL, NULL);
+
+	((GnomeUIInfo *) editor_toolbar_style_uiinfo [EDITOR_TOOLBAR_ALIGNMENT].moreinfo) [EDITOR_ALIGNMENT_LEFT].pixmap_info
+		= gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_text_left", 24, NULL, NULL);
+	((GnomeUIInfo *) editor_toolbar_style_uiinfo [EDITOR_TOOLBAR_ALIGNMENT].moreinfo) [EDITOR_ALIGNMENT_CENTER].pixmap_info
+		= gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_text_center", 24, NULL, NULL);
+	((GnomeUIInfo *) editor_toolbar_style_uiinfo [EDITOR_TOOLBAR_ALIGNMENT].moreinfo) [EDITOR_ALIGNMENT_RIGHT].pixmap_info
+		= gnome_icon_theme_lookup_icon (cd->icon_theme, "stock_text_right", 24, NULL, NULL);
+
 	gnome_app_fill_toolbar_with_data (GTK_TOOLBAR (cd->toolbar_style), editor_toolbar_style_uiinfo, NULL, cd);
 
 	/* restore the stolen domain */
@@ -606,11 +639,11 @@ create_style_toolbar (GtkHTMLControlData *cd)
 				      G_CALLBACK (insertion_font_style_changed_cb), cd);
 
 	/* The following SUCKS!  */
-	cd->tt_button        = editor_toolbar_style_uiinfo [0].widget;
-	cd->bold_button      = editor_toolbar_style_uiinfo [1].widget;
-	cd->italic_button    = editor_toolbar_style_uiinfo [2].widget;
-	cd->underline_button = editor_toolbar_style_uiinfo [3].widget;
-	cd->strikeout_button = editor_toolbar_style_uiinfo [4].widget;
+	cd->tt_button        = editor_toolbar_style_uiinfo [EDITOR_TOOLBAR_TT].widget;
+	cd->bold_button      = editor_toolbar_style_uiinfo [EDITOR_TOOLBAR_BOLD].widget;
+	cd->italic_button    = editor_toolbar_style_uiinfo [EDITOR_TOOLBAR_ITALIC].widget;
+	cd->underline_button = editor_toolbar_style_uiinfo [EDITOR_TOOLBAR_UNDERLINE].widget;
+	cd->strikeout_button = editor_toolbar_style_uiinfo [EDITOR_TOOLBAR_STRIKEOUT].widget;
 
 	cd->left_align_button = editor_toolbar_alignment_group[0].widget;
 	cd->center_button = editor_toolbar_alignment_group[1].widget;
