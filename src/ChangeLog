@@ -1,3 +1,11 @@
+2001-01-24  Larry Ewing  <lewing@ximian.com>
+
+	* htmlembedded.c (calc_size): use the requisistion because the
+	allocation fluctuates too much.
+
+	* gtkhtml-embedded.c (gtk_html_embedded_new): listen to the size
+	parameters passed along in the html.
+
 2001-01-24  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlengine-edit.c (html_engine_spell_check_range): check for

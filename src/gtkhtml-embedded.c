@@ -172,7 +172,7 @@ static void
 gtk_html_embedded_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 {
 	GtkBin *bin;
-	
+
 	g_return_if_fail (widget != NULL);
 	g_return_if_fail (allocation != NULL);
 	
@@ -205,6 +205,12 @@ gtk_html_embedded_new (char *classid, char *name, char *type, char *data, int wi
 	GtkHTMLEmbedded *em;
 
 	em = (GtkHTMLEmbedded *)( gtk_type_new (gtk_html_embedded_get_type ()));
+
+	if (width != -1 || height != -1)
+		gtk_widget_set_usize (GTK_WIDGET (em), width, height);
+
+	gtk_container_set_resize_mode (GTK_CONTAINER (em), 
+				       GTK_RESIZE_QUEUE);
 	em->width = width;
 	em->height = height;
 	em->type = type ? g_strdup(type) : NULL;

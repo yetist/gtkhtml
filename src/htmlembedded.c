@@ -125,9 +125,10 @@ calc_min_width (HTMLObject *self,
 	gint min_width;
 
 	widget = HTML_EMBEDDED (self)->widget;
-	if (widget == NULL || !GTK_WIDGET_REALIZED (widget))
-		return 0;
 
+	if (widget == NULL || !GTK_WIDGET_REALIZED (widget)) 
+		return 0;
+     
 	pixel_size = html_painter_get_pixel_size (painter);
 
 	emb->width  = widget->allocation.width;
@@ -145,6 +146,7 @@ calc_size (HTMLObject *self,
 	HTMLEmbedded *emb = HTML_EMBEDDED (self);
 	gint pixel_size;
 	gint old_width, old_ascent;
+	GtkRequisition requisition;
 
 	widget = emb->widget;
 	if (widget == NULL || !GTK_WIDGET_REALIZED (widget))
@@ -155,10 +157,12 @@ calc_size (HTMLObject *self,
 	old_width = self->width;
 	old_ascent = self->ascent;
 
-	emb->width   = widget->allocation.width;
-	emb->height  = widget->allocation.height;
-	self->width  = widget->allocation.width * pixel_size;
-	self->ascent = widget->allocation.height * pixel_size;
+	gtk_widget_get_child_requisition (widget, &requisition);
+	emb->width = requisition.width;
+	emb->height = requisition.height;
+
+	self->width  = emb->width * pixel_size;
+	self->ascent = emb->height * pixel_size;
 
 	/* This never changes.  */
 	self->descent = 0;
@@ -352,11 +356,11 @@ allocate (GtkWidget *w, GtkAllocation  *allocation, HTMLEmbedded *e)
 {
 	if (e->width != allocation->width || e->height != allocation->height) {
 		if (e->width != allocation->width) {
-			html_object_change_set (HTML_OBJECT (e), HTML_CHANGE_ALL);
+			html_object_change_set (HTML_OBJECT (e), HTML_CHANGE_ALL);			
 			e->width = allocation->width;
 		}
 		e->height = allocation->height;
-
+		
 		g_assert (GTK_IS_HTML (w->parent));
 		html_engine_schedule_update (GTK_HTML (w->parent)->engine);
 	}
