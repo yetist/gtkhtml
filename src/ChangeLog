@@ -1,3 +1,24 @@
+2001-10-23  Radek Doulik  <rodo@ximian.com>
+
+	* htmltokenizer.c (g_utf8_get_char_validated): make it static to
+	avoid compiler warning
+
+	* htmltable.c (merge): take care of prev_c1 when moving cells
+	handle case when merging two cells better - fix cursor position
+
+	* htmlclue.c (html_clue_append_after): be more carefull
+	(html_clue_append): ditto
+
+	* htmlengine-edit-cut-and-paste.c (insert_object_do): check for
+	clue
+
+	* htmlobject.c (html_object_is_clue): new function
+
+	* htmlclueflow.c (merge): merge always
+
+	* htmltable.c (split): add dup to parent clue
+	(merge): c1 = c2 to be sure c1_prev is valid
+
 2001-10-22  Larry Ewing  <lewing@ximian.com>
 
 	* htmlclue.c (op_helper): don't do anything to last until we've

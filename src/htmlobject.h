@@ -308,6 +308,7 @@ void            html_object_set_painter           (HTMLObject            *o,
 void            html_object_clear_word_width      (HTMLObject            *o);
 void            html_object_reset                 (HTMLObject            *o);
 gboolean        html_object_is_text               (HTMLObject            *object);
+gboolean        html_object_is_clue               (HTMLObject            *object);
 HTMLEngine     *html_object_get_engine            (HTMLObject            *self,
 						   HTMLEngine            *e);
 void            html_object_forall                (HTMLObject            *self,

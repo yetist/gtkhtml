@@ -427,6 +427,8 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 		}
 	}
 
+	html_clue_append_after (HTML_CLUE (self->parent), dup, self);
+
 	*left  = g_list_prepend (*left, self);
 	*right = g_list_prepend (*right, dup);
 
@@ -640,15 +642,22 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **
 					if (cell_is_empty (c1)) {
 						move_cell (t1, t2, c1, c2, cursor_cell_1, cursor_cell_2,
 							   r, c, e->cursor, cursor);
+						c1 = c2;
 					} else {
 						*left  = html_object_tails_list (HTML_OBJECT (c1));
 						*right = html_object_heads_list (HTML_OBJECT (c2));
 						html_object_remove_child (HTML_OBJECT (t2), HTML_OBJECT (c2));
 						if (e->cursor->object == HTML_OBJECT (t1)) {
+							GList *list;
+
 							e->cursor->object = html_object_get_tail_leaf (HTML_OBJECT (c1));
 							e->cursor->offset = html_object_get_length (e->cursor->object);
 							e->cursor->position -= (t1->totalRows - c1->row - 1)*t1->totalCols
 								+ (t1->totalCols - c1->col);
+							for (list = *left; list; list = list->next)
+								if (list->data && HTML_IS_TABLE (list->data))
+									e->cursor->position --;
+
 							/* printf ("3rd dec: %d t1_tail %d,%d\n",
 								(t1->totalRows - c1->row - 1)*t1->totalCols
 								+ (t1->totalCols - c1->col), c1->row, c1->col); */
@@ -663,6 +672,7 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **
 			} else {
 				move_cell (t1, t2, c1, c2, cursor_cell_1, cursor_cell_2,
 					   r, c, e->cursor, cursor);
+				c1 = c2;
 			}
 			prev_c1 = c1;
 		}

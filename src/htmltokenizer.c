@@ -867,7 +867,7 @@ g_utf8_get_char_extended (const  gchar *p,
  *    returns (gunichar)-2; otherwise, if @p does not point to a valid
  *    UTF-8 encoded Unicode character, returns (gunichar)-1.
  **/
-gunichar
+static gunichar
 g_utf8_get_char_validated (const  gchar *p,
 			   gssize max_len)
 {

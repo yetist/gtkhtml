@@ -221,15 +221,6 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 	update_item_number (self);
 }
 
-inline static gboolean
-could_merge (HTMLClueFlow *cf1, HTMLClueFlow *cf2)
-{
-	return ((HTML_IS_TABLE (HTML_CLUE (cf1)->tail) && !html_clueflow_is_empty (cf2))
-		|| (HTML_IS_TABLE (HTML_CLUE (cf2)->head) && !html_clueflow_is_empty (cf1)))
-		? FALSE
-		: TRUE;
-}
-
 static gboolean
 merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **right, HTMLCursor *cursor)
 {
@@ -244,12 +235,6 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **
 
 	/* printf ("merge flows\n"); */
 
-	if (!could_merge (cf1, cf2)) {
-		update_item_number (self);
-		return FALSE;
-	}
-
-	/* printf ("merge happens\n"); */
 	if (html_clueflow_is_empty (cf1)) {
 		cf1->style = cf2->style;
 		cf1->level = cf2->level;

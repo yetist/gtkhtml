@@ -1124,6 +1124,19 @@ html_object_is_text (HTMLObject *object)
 	return (type == HTML_TYPE_TEXT || type == HTML_TYPE_LINKTEXT);
 }
 
+gboolean
+html_object_is_clue (HTMLObject *object)
+{
+	HTMLType type;
+
+	g_return_val_if_fail (object != NULL, FALSE);
+
+	type = HTML_OBJECT_TYPE (object);
+
+	return (type == HTML_TYPE_CLUE || type == HTML_TYPE_CLUEV || type == HTML_TYPE_TABLECELL
+		|| type == HTML_TYPE_CLUEFLOW);
+}
+
 HTMLObject *
 html_object_next_not_type (HTMLObject *object, HTMLType t)
 {

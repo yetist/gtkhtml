@@ -572,7 +572,7 @@ insert_object_do (HTMLEngine *e, HTMLObject *obj, guint *len, gint level, gboole
 			where  = NULL;
 			parent = HTML_OBJECT (right->data)->parent;
 		}
-		if (parent)
+		if (parent && html_object_is_clue (parent))
 			html_clue_append_after (HTML_CLUE (parent), obj, where);
 	}
 
