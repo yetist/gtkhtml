@@ -54,7 +54,7 @@
 #include "image.h"
 #include "text.h"
 #include "paragraph.h"
-#include "spell.h"
+#include "spellchecker.h"
 #include "table.h"
 #include "template.h"
 

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-31 16:09+0200\n"
+"POT-Creation-Date: 2005-01-31 22:05+0100\n"
 "PO-Revision-Date: 2005-01-31 16:09+0200\n"
 "Last-Translator: Žygimantas Beručka <uid0@akl.lt>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
@@ -34,139 +34,6 @@ msgstr "fokusuoti"
 #: a11y/object.c:256
 msgid "Panel containing HTML"
 msgstr "Skydelyje yra HTML"
-
-#: capplet/gnome-bindings-prop.c:157
-msgid "<None>"
-msgstr "<Nieko>"
-
-#: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
-#: components/html-editor/cell.c:333 components/html-editor/image.c:350
-#: components/html-editor/link.c:182 components/html-editor/rule.c:174
-#: components/html-editor/table.c:220 components/html-editor/template.c:271
-#: components/html-editor/text.c:159
-msgid "Could not load glade file."
-msgstr "Nepavyko įkelti glade bylos."
-
-#: capplet/gtkhtml-capplet.glade.h:1
-msgid "\n"
-msgstr "\n"
-
-#: capplet/gtkhtml-capplet.glade.h:3
-#: components/html-editor/gtkhtml-editor-properties.glade.h:4
-msgid "*"
-msgstr "*"
-
-#: capplet/gtkhtml-capplet.glade.h:4
-msgid "*********************"
-msgstr "*********************"
-
-#: capplet/gtkhtml-capplet.glade.h:5
-msgid "Add Keyboard Shortcuts"
-msgstr "Pridėti klavišų sąryšius"
-
-#: capplet/gtkhtml-capplet.glade.h:6
-msgid "Automatically detect links"
-msgstr "Automatiškai atpažinti nuorodas"
-
-#: capplet/gtkhtml-capplet.glade.h:7
-msgid "Behavior"
-msgstr "Elgesys"
-
-#: capplet/gtkhtml-capplet.glade.h:8
-msgid "Composer Properties"
-msgstr "Rašyklės savybės"
-
-#: capplet/gtkhtml-capplet.glade.h:9
-msgid "Composer Properties planned"
-msgstr "Rašyklės savybės suplanuotos"
-
-#: capplet/gtkhtml-capplet.glade.h:10
-msgid "Configure spell checking"
-msgstr "Nustatyti rašybos tikrinimą"
-
-#: capplet/gtkhtml-capplet.glade.h:11
-msgid "Enable spell checking"
-msgstr "Įjungti rašybos tikrinimą"
-
-#: capplet/gtkhtml-capplet.glade.h:12
-msgid "Fixed width"
-msgstr "Lygiaplotis"
-
-#: capplet/gtkhtml-capplet.glade.h:13
-msgid "Fonts"
-msgstr "Šriftai"
-
-#: capplet/gtkhtml-capplet.glade.h:14
-msgid "For printing"
-msgstr "Spausdinimui"
-
-#: capplet/gtkhtml-capplet.glade.h:15
-msgid "Grab keys"
-msgstr "Griebti klavišus"
-
-#: capplet/gtkhtml-capplet.glade.h:16
-msgid "Information"
-msgstr "Informacija"
-
-#: capplet/gtkhtml-capplet.glade.h:17
-msgid "Keyboard Shortcuts"
-msgstr "Klavišų susiejimai"
-
-#: capplet/gtkhtml-capplet.glade.h:18
-msgid "Miscellaneous"
-msgstr "Įvairūs"
-
-#: capplet/gtkhtml-capplet.glade.h:19
-msgid "New shortcut:"
-msgstr "Naujas susiejimas:"
-
-#: capplet/gtkhtml-capplet.glade.h:20
-msgid "On screen"
-msgstr "Vaizdavimui ekrane"
-
-#: capplet/gtkhtml-capplet.glade.h:21
-msgid "Select HTML fixed width font"
-msgstr "Pasirinkite HTML lygiaplotį šriftą"
-
-#: capplet/gtkhtml-capplet.glade.h:22
-msgid "Select HTML fixed width font for printing"
-msgstr "Pasirinkite HTML lygiaplotį šriftą spausdinimui"
-
-#: capplet/gtkhtml-capplet.glade.h:23
-msgid "Select HTML variable width font"
-msgstr "Pasirinkite HTML įvairiaplotį šriftą"
-
-#: capplet/gtkhtml-capplet.glade.h:24
-msgid "Select HTML variable width font for printing"
-msgstr "Pasirinkite HTML įvairiaplotį šriftą spausdinimui"
-
-#: capplet/gtkhtml-capplet.glade.h:25
-msgid "Shortcuts _type:"
-msgstr "Saryšio _tipas:"
-
-#: capplet/gtkhtml-capplet.glade.h:26
-msgid "Show animated images"
-msgstr "Rodyti animuotus paveikslėlius"
-
-#: capplet/gtkhtml-capplet.glade.h:27
-msgid "Variable width"
-msgstr "Įvairiaplotis"
-
-#: capplet/gtkhtml-capplet.glade.h:28
-msgid "_Add"
-msgstr "Pri_dėti"
-
-#: capplet/gtkhtml-capplet.glade.h:29
-msgid "_Delete"
-msgstr "_Pašalinti"
-
-#: capplet/main.c:226
-msgid ""
-"Cannot execute GNOME Spell control applet\n"
-"Try to install GNOME Spell if you don't have it installed."
-msgstr ""
-"Nepavyko paleisti GNOME Rašybos valdymo priedo\n"
-"Pabandykite įdiegti GNOME Spell, jei šis komponentas neįdiegtas."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
@@ -1072,6 +939,13 @@ msgstr "Fono paveikslėlio bylos kelias"
 msgid "_Source:"
 msgstr "Š_altinis:"
 
+#: components/html-editor/cell.c:333 components/html-editor/image.c:350
+#: components/html-editor/link.c:182 components/html-editor/rule.c:174
+#: components/html-editor/table.c:220 components/html-editor/template.c:271
+#: components/html-editor/text.c:159
+msgid "Could not load glade file."
+msgstr "Nepavyko įkelti glade bylos."
+
 #: components/html-editor/cell.c:350 components/html-editor/table.c:231
 msgid "Transparent"
 msgstr "Permatomas"
@@ -1320,6 +1194,10 @@ msgstr "    "
 #, no-c-format
 msgid "%"
 msgstr "%"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:4
+msgid "*"
+msgstr "*"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:8
 msgid "+4"
@@ -1800,7 +1678,7 @@ msgstr "_Reguliari išraiška"
 msgid "Input the words you want to search here"
 msgstr "Čia įveskite ieškomus žodžius"
 
-#: components/html-editor/spell.c:110
+#: components/html-editor/spellchecker.c:110
 msgid ""
 "Unable to add word to dictionary,\n"
 "language settings are broken.\n"
@@ -1808,15 +1686,15 @@ msgstr ""
 "Nepavyko į žodyną įdėti žodžio,\n"
 "kalbos nustatymai yra sugadinti.\n"
 
-#: components/html-editor/spell.c:298
+#: components/html-editor/spellchecker.c:298
 msgid "No misspelled word found"
 msgstr "Nerasta rašybos klaidų"
 
-#: components/html-editor/spell.c:305
+#: components/html-editor/spellchecker.c:305
 msgid "Spell checker"
 msgstr "Rašybos tikrinimas"
 
-#: components/html-editor/spell.c:398
+#: components/html-editor/spellchecker.c:398
 msgid "Current _Languages"
 msgstr "Esamos ka_lbos"
 
@@ -2086,6 +1964,97 @@ msgstr "Spaudinio peržiūra"
 #: src/testgtkhtml.c:1004
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML bandomoji programa"
+
+#~ msgid "<None>"
+#~ msgstr "<Nieko>"
+
+#~ msgid "\n"
+#~ msgstr "\n"
+
+#~ msgid "*********************"
+#~ msgstr "*********************"
+
+#~ msgid "Add Keyboard Shortcuts"
+#~ msgstr "Pridėti klavišų sąryšius"
+
+#~ msgid "Automatically detect links"
+#~ msgstr "Automatiškai atpažinti nuorodas"
+
+#~ msgid "Behavior"
+#~ msgstr "Elgesys"
+
+#~ msgid "Composer Properties"
+#~ msgstr "Rašyklės savybės"
+
+#~ msgid "Composer Properties planned"
+#~ msgstr "Rašyklės savybės suplanuotos"
+
+#~ msgid "Configure spell checking"
+#~ msgstr "Nustatyti rašybos tikrinimą"
+
+#~ msgid "Enable spell checking"
+#~ msgstr "Įjungti rašybos tikrinimą"
+
+#~ msgid "Fixed width"
+#~ msgstr "Lygiaplotis"
+
+#~ msgid "Fonts"
+#~ msgstr "Šriftai"
+
+#~ msgid "For printing"
+#~ msgstr "Spausdinimui"
+
+#~ msgid "Grab keys"
+#~ msgstr "Griebti klavišus"
+
+#~ msgid "Information"
+#~ msgstr "Informacija"
+
+#~ msgid "Keyboard Shortcuts"
+#~ msgstr "Klavišų susiejimai"
+
+#~ msgid "Miscellaneous"
+#~ msgstr "Įvairūs"
+
+#~ msgid "New shortcut:"
+#~ msgstr "Naujas susiejimas:"
+
+#~ msgid "On screen"
+#~ msgstr "Vaizdavimui ekrane"
+
+#~ msgid "Select HTML fixed width font"
+#~ msgstr "Pasirinkite HTML lygiaplotį šriftą"
+
+#~ msgid "Select HTML fixed width font for printing"
+#~ msgstr "Pasirinkite HTML lygiaplotį šriftą spausdinimui"
+
+#~ msgid "Select HTML variable width font"
+#~ msgstr "Pasirinkite HTML įvairiaplotį šriftą"
+
+#~ msgid "Select HTML variable width font for printing"
+#~ msgstr "Pasirinkite HTML įvairiaplotį šriftą spausdinimui"
+
+#~ msgid "Shortcuts _type:"
+#~ msgstr "Saryšio _tipas:"
+
+#~ msgid "Show animated images"
+#~ msgstr "Rodyti animuotus paveikslėlius"
+
+#~ msgid "Variable width"
+#~ msgstr "Įvairiaplotis"
+
+#~ msgid "_Add"
+#~ msgstr "Pri_dėti"
+
+#~ msgid "_Delete"
+#~ msgstr "_Pašalinti"
+
+#~ msgid ""
+#~ "Cannot execute GNOME Spell control applet\n"
+#~ "Try to install GNOME Spell if you don't have it installed."
+#~ msgstr ""
+#~ "Nepavyko paleisti GNOME Rašybos valdymo priedo\n"
+#~ "Pabandykite įdiegti GNOME Spell, jei šis komponentas neįdiegtas."
 
 #~ msgid "With:"
 #~ msgstr "Su:"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-28 12:39+0100\n"
+"POT-Creation-Date: 2005-01-31 22:05+0100\n"
 "PO-Revision-Date: 2005-01-29 15:39+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: czech <cs@li.org>\n"
@@ -26,146 +26,13 @@ msgstr "URL je %s, alternativní text je %s"
 msgid "URL is %s"
 msgstr "URL je %s"
 
-#: a11y/object.c:50 a11y/object.c:59 a11y/text.c:105
+#: a11y/object.c:50 a11y/object.c:59 a11y/text.c:111
 msgid "grab focus"
 msgstr "aktivovat"
 
 #: a11y/object.c:256
 msgid "Panel containing HTML"
 msgstr "Panel obsahující HTML"
-
-#: capplet/gnome-bindings-prop.c:157
-msgid "<None>"
-msgstr "<Žádný>"
-
-#: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
-#: components/html-editor/cell.c:333 components/html-editor/image.c:350
-#: components/html-editor/link.c:182 components/html-editor/rule.c:174
-#: components/html-editor/table.c:220 components/html-editor/template.c:271
-#: components/html-editor/text.c:159
-msgid "Could not load glade file."
-msgstr "Nemohu načíst soubor glade."
-
-#: capplet/gtkhtml-capplet.glade.h:1
-msgid "\n"
-msgstr "\n"
-
-#: capplet/gtkhtml-capplet.glade.h:3
-#: components/html-editor/gtkhtml-editor-properties.glade.h:4
-msgid "*"
-msgstr "*"
-
-#: capplet/gtkhtml-capplet.glade.h:4
-msgid "*********************"
-msgstr "*********************"
-
-#: capplet/gtkhtml-capplet.glade.h:5
-msgid "Add Keyboard Shortcuts"
-msgstr "Přidat klávesovou zkratku"
-
-#: capplet/gtkhtml-capplet.glade.h:6
-msgid "Automatically detect links"
-msgstr "Automaticky vytvářet odkazy"
-
-#: capplet/gtkhtml-capplet.glade.h:7
-msgid "Behavior"
-msgstr "Chování"
-
-#: capplet/gtkhtml-capplet.glade.h:8
-msgid "Composer Properties"
-msgstr "Vlastnosti editoru"
-
-#: capplet/gtkhtml-capplet.glade.h:9
-msgid "Composer Properties planned"
-msgstr "Vlastnosti editoru se plánují"
-
-#: capplet/gtkhtml-capplet.glade.h:10
-msgid "Configure spell checking"
-msgstr "Nastavení hledání překlepů"
-
-#: capplet/gtkhtml-capplet.glade.h:11
-msgid "Enable spell checking"
-msgstr "Zapnout hledání překlepů"
-
-#: capplet/gtkhtml-capplet.glade.h:12
-msgid "Fixed width"
-msgstr "Písmo s pevnou šířkou"
-
-#: capplet/gtkhtml-capplet.glade.h:13
-msgid "Fonts"
-msgstr "Písma"
-
-#: capplet/gtkhtml-capplet.glade.h:14
-msgid "For printing"
-msgstr "Pro tisk"
-
-#: capplet/gtkhtml-capplet.glade.h:15
-msgid "Grab keys"
-msgstr "Zachytit klávesy"
-
-#: capplet/gtkhtml-capplet.glade.h:16
-msgid "Information"
-msgstr "Informace"
-
-#: capplet/gtkhtml-capplet.glade.h:17
-msgid "Keyboard Shortcuts"
-msgstr "Klávesové zkratky"
-
-#: capplet/gtkhtml-capplet.glade.h:18
-msgid "Miscellaneous"
-msgstr "Různé"
-
-#: capplet/gtkhtml-capplet.glade.h:19
-msgid "New shortcut:"
-msgstr "Nová zkratka:"
-
-#: capplet/gtkhtml-capplet.glade.h:20
-msgid "On screen"
-msgstr "Na obrazovce"
-
-#: capplet/gtkhtml-capplet.glade.h:21
-msgid "Select HTML fixed width font"
-msgstr "Vyberte HTML písmo s pevnou šířkou"
-
-#: capplet/gtkhtml-capplet.glade.h:22
-msgid "Select HTML fixed width font for printing"
-msgstr "Vyberte HTML písmo s pevnou šířkou pro tisk"
-
-#: capplet/gtkhtml-capplet.glade.h:23
-msgid "Select HTML variable width font"
-msgstr "Vyberte HTML proporcionální písmo"
-
-#: capplet/gtkhtml-capplet.glade.h:24
-msgid "Select HTML variable width font for printing"
-msgstr "Vyberte HTML proporcionální písmo pro tisk"
-
-#: capplet/gtkhtml-capplet.glade.h:25
-msgid "Shortcuts _type:"
-msgstr "_Typ klávesových zkratek:"
-
-#: capplet/gtkhtml-capplet.glade.h:26
-msgid "Show animated images"
-msgstr "Přehrávat animované obrázky"
-
-#: capplet/gtkhtml-capplet.glade.h:27
-msgid "Variable width"
-msgstr "Proporcionální"
-
-#: capplet/gtkhtml-capplet.glade.h:28
-msgid "_Add"
-msgstr "_Přidat"
-
-#: capplet/gtkhtml-capplet.glade.h:29
-msgid "_Delete"
-msgstr "_Smazat"
-
-#: capplet/main.c:226
-msgid ""
-"Cannot execute GNOME Spell control applet\n"
-"Try to install GNOME Spell if you don't have it installed."
-msgstr ""
-"Nemohu spustit řídící applet GNOME Spell.\n"
-"Pokud nemáte nainstalován GNOME Spell, zkuste ho nainstalovat."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
@@ -1071,6 +938,13 @@ msgstr "Cesta k souboru obrázku na pozadí"
 msgid "_Source:"
 msgstr "_Zdroj:"
 
+#: components/html-editor/cell.c:333 components/html-editor/image.c:350
+#: components/html-editor/link.c:182 components/html-editor/rule.c:174
+#: components/html-editor/table.c:220 components/html-editor/template.c:271
+#: components/html-editor/text.c:159
+msgid "Could not load glade file."
+msgstr "Nemohu načíst soubor glade."
+
 #: components/html-editor/cell.c:350 components/html-editor/table.c:231
 msgid "Transparent"
 msgstr "Průhledné"
@@ -1098,6 +972,11 @@ msgstr "Odstavec"
 #: components/html-editor/menubar.c:358 components/html-editor/popup.c:219
 msgid "Page"
 msgstr "Stránka"
+
+#: components/html-editor/gi-color-combo.c:187
+#, fuzzy
+msgid "color preview"
+msgstr "Náhled tisku"
 
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:395
@@ -1298,6 +1177,11 @@ msgstr "tmavě fialová"
 msgid "sky blue"
 msgstr "nebesky modrá"
 
+#. set the a11y name
+#: components/html-editor/gi-combo-box.c:419
+msgid "Popup"
+msgstr ""
+
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
 msgstr "Ovládací prvek editoru GtkHTML"
@@ -1310,6 +1194,10 @@ msgstr "    "
 #, no-c-format
 msgid "%"
 msgstr "%"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:4
+msgid "*"
+msgstr "*"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:8
 msgid "+4"
@@ -1790,7 +1678,7 @@ msgstr "_Regulární výraz"
 msgid "Input the words you want to search here"
 msgstr "Sem zadejte slova, která chcete hledat"
 
-#: components/html-editor/spell.c:110
+#: components/html-editor/spellchecker.c:110
 msgid ""
 "Unable to add word to dictionary,\n"
 "language settings are broken.\n"
@@ -1798,15 +1686,15 @@ msgstr ""
 "Nemohu přidat slovo do slovníku,\n"
 "nastavení jazyka jsou špatně.\n"
 
-#: components/html-editor/spell.c:298
+#: components/html-editor/spellchecker.c:298
 msgid "No misspelled word found"
 msgstr "Nenalezen žádný překlep"
 
-#: components/html-editor/spell.c:305
+#: components/html-editor/spellchecker.c:305
 msgid "Spell checker"
 msgstr "Kontrola pravopisu"
 
-#: components/html-editor/spell.c:398
+#: components/html-editor/spellchecker.c:398
 msgid "Current _Languages"
 msgstr "Aktuální _jazyky"
 
@@ -2076,6 +1964,97 @@ msgstr "Náhled tisku"
 #: src/testgtkhtml.c:1004
 msgid "GtkHTML Test Application"
 msgstr "Testovací aplikace GtkHTML"
+
+#~ msgid "<None>"
+#~ msgstr "<Žádný>"
+
+#~ msgid "\n"
+#~ msgstr "\n"
+
+#~ msgid "*********************"
+#~ msgstr "*********************"
+
+#~ msgid "Add Keyboard Shortcuts"
+#~ msgstr "Přidat klávesovou zkratku"
+
+#~ msgid "Automatically detect links"
+#~ msgstr "Automaticky vytvářet odkazy"
+
+#~ msgid "Behavior"
+#~ msgstr "Chování"
+
+#~ msgid "Composer Properties"
+#~ msgstr "Vlastnosti editoru"
+
+#~ msgid "Composer Properties planned"
+#~ msgstr "Vlastnosti editoru se plánují"
+
+#~ msgid "Configure spell checking"
+#~ msgstr "Nastavení hledání překlepů"
+
+#~ msgid "Enable spell checking"
+#~ msgstr "Zapnout hledání překlepů"
+
+#~ msgid "Fixed width"
+#~ msgstr "Písmo s pevnou šířkou"
+
+#~ msgid "Fonts"
+#~ msgstr "Písma"
+
+#~ msgid "For printing"
+#~ msgstr "Pro tisk"
+
+#~ msgid "Grab keys"
+#~ msgstr "Zachytit klávesy"
+
+#~ msgid "Information"
+#~ msgstr "Informace"
+
+#~ msgid "Keyboard Shortcuts"
+#~ msgstr "Klávesové zkratky"
+
+#~ msgid "Miscellaneous"
+#~ msgstr "Různé"
+
+#~ msgid "New shortcut:"
+#~ msgstr "Nová zkratka:"
+
+#~ msgid "On screen"
+#~ msgstr "Na obrazovce"
+
+#~ msgid "Select HTML fixed width font"
+#~ msgstr "Vyberte HTML písmo s pevnou šířkou"
+
+#~ msgid "Select HTML fixed width font for printing"
+#~ msgstr "Vyberte HTML písmo s pevnou šířkou pro tisk"
+
+#~ msgid "Select HTML variable width font"
+#~ msgstr "Vyberte HTML proporcionální písmo"
+
+#~ msgid "Select HTML variable width font for printing"
+#~ msgstr "Vyberte HTML proporcionální písmo pro tisk"
+
+#~ msgid "Shortcuts _type:"
+#~ msgstr "_Typ klávesových zkratek:"
+
+#~ msgid "Show animated images"
+#~ msgstr "Přehrávat animované obrázky"
+
+#~ msgid "Variable width"
+#~ msgstr "Proporcionální"
+
+#~ msgid "_Add"
+#~ msgstr "_Přidat"
+
+#~ msgid "_Delete"
+#~ msgstr "_Smazat"
+
+#~ msgid ""
+#~ "Cannot execute GNOME Spell control applet\n"
+#~ "Try to install GNOME Spell if you don't have it installed."
+#~ msgstr ""
+#~ "Nemohu spustit řídící applet GNOME Spell.\n"
+#~ "Pokud nemáte nainstalován GNOME Spell, zkuste ho nainstalovat."
 
 #~ msgid "With:"
 #~ msgstr "S:"

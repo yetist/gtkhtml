@@ -49,7 +49,7 @@
 #include "popup.h"
 #include "properties.h"
 #include "paragraph.h"
-#include "spell.h"
+#include "spellchecker.h"
 #include "table.h"
 #include "text.h"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.10\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-27 01:09+0000\n"
+"POT-Creation-Date: 2005-01-31 22:05+0100\n"
 "PO-Revision-Date: 2005-01-27 01:15+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
@@ -26,146 +26,13 @@ msgstr "URL é %s, Texto Alternativo é %s"
 msgid "URL is %s"
 msgstr "URL é %s"
 
-#: a11y/object.c:50 a11y/object.c:59 a11y/text.c:105
+#: a11y/object.c:50 a11y/object.c:59 a11y/text.c:111
 msgid "grab focus"
 msgstr "obter o foco"
 
 #: a11y/object.c:256
 msgid "Panel containing HTML"
 msgstr "Painel que contém HTML"
-
-#: capplet/gnome-bindings-prop.c:157
-msgid "<None>"
-msgstr "<Nenhum>"
-
-#: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
-#: components/html-editor/cell.c:333 components/html-editor/image.c:350
-#: components/html-editor/link.c:182 components/html-editor/rule.c:174
-#: components/html-editor/table.c:220 components/html-editor/template.c:271
-#: components/html-editor/text.c:159
-msgid "Could not load glade file."
-msgstr "Incapaz de ler o ficheiro glade."
-
-#: capplet/gtkhtml-capplet.glade.h:1
-msgid "\n"
-msgstr "\n"
-
-#: capplet/gtkhtml-capplet.glade.h:3
-#: components/html-editor/gtkhtml-editor-properties.glade.h:4
-msgid "*"
-msgstr "*"
-
-#: capplet/gtkhtml-capplet.glade.h:4
-msgid "*********************"
-msgstr "*********************"
-
-#: capplet/gtkhtml-capplet.glade.h:5
-msgid "Add Keyboard Shortcuts"
-msgstr "Adicionar Atalhos de Teclado"
-
-#: capplet/gtkhtml-capplet.glade.h:6
-msgid "Automatically detect links"
-msgstr "Detectar atalhos automaticamente"
-
-#: capplet/gtkhtml-capplet.glade.h:7
-msgid "Behavior"
-msgstr "Comportamento"
-
-#: capplet/gtkhtml-capplet.glade.h:8
-msgid "Composer Properties"
-msgstr "Propriedades do Editor"
-
-#: capplet/gtkhtml-capplet.glade.h:9
-msgid "Composer Properties planned"
-msgstr "Propriedades planeadas do Editor"
-
-#: capplet/gtkhtml-capplet.glade.h:10
-msgid "Configure spell checking"
-msgstr "Configurar a verificação ortográfica"
-
-#: capplet/gtkhtml-capplet.glade.h:11
-msgid "Enable spell checking"
-msgstr "Activar a verificação ortográfica"
-
-#: capplet/gtkhtml-capplet.glade.h:12
-msgid "Fixed width"
-msgstr "Largura fixa"
-
-#: capplet/gtkhtml-capplet.glade.h:13
-msgid "Fonts"
-msgstr "Fontes"
-
-#: capplet/gtkhtml-capplet.glade.h:14
-msgid "For printing"
-msgstr "Para impressão"
-
-#: capplet/gtkhtml-capplet.glade.h:15
-msgid "Grab keys"
-msgstr "Capturar teclas"
-
-#: capplet/gtkhtml-capplet.glade.h:16
-msgid "Information"
-msgstr "Informação"
-
-#: capplet/gtkhtml-capplet.glade.h:17
-msgid "Keyboard Shortcuts"
-msgstr "Atalhos de Teclado"
-
-#: capplet/gtkhtml-capplet.glade.h:18
-msgid "Miscellaneous"
-msgstr "Vários"
-
-#: capplet/gtkhtml-capplet.glade.h:19
-msgid "New shortcut:"
-msgstr "Novo atalho:"
-
-#: capplet/gtkhtml-capplet.glade.h:20
-msgid "On screen"
-msgstr "No ecrã"
-
-#: capplet/gtkhtml-capplet.glade.h:21
-msgid "Select HTML fixed width font"
-msgstr "Seleccione a fonte de largura fixa HTML"
-
-#: capplet/gtkhtml-capplet.glade.h:22
-msgid "Select HTML fixed width font for printing"
-msgstr "Seleccione a fonte de largura fixa HTML para impressão"
-
-#: capplet/gtkhtml-capplet.glade.h:23
-msgid "Select HTML variable width font"
-msgstr "Seleccione a fonte de largura variável HTML"
-
-#: capplet/gtkhtml-capplet.glade.h:24
-msgid "Select HTML variable width font for printing"
-msgstr "Seleccione a fonte de largura variável HTML para impressão"
-
-#: capplet/gtkhtml-capplet.glade.h:25
-msgid "Shortcuts _type:"
-msgstr "_Tipo de atalhos:"
-
-#: capplet/gtkhtml-capplet.glade.h:26
-msgid "Show animated images"
-msgstr "Apresentar imagens animadas"
-
-#: capplet/gtkhtml-capplet.glade.h:27
-msgid "Variable width"
-msgstr "Largura variável"
-
-#: capplet/gtkhtml-capplet.glade.h:28
-msgid "_Add"
-msgstr "_Adicionar"
-
-#: capplet/gtkhtml-capplet.glade.h:29
-msgid "_Delete"
-msgstr "Apa_gar"
-
-#: capplet/main.c:226
-msgid ""
-"Cannot execute GNOME Spell control applet\n"
-"Try to install GNOME Spell if you don't have it installed."
-msgstr ""
-"Incapaz de executar a applet do controlo GNOME Spell\n"
-"Tente instalar o GNOME Spell caso não o tenha instalado."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
@@ -283,7 +150,7 @@ msgstr "Cortar a selecção"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:108 components/html-editor/search.c:166
+#: components/html-editor/search.c:107 components/html-editor/search.c:167
 msgid "Find"
 msgstr "Procurar"
 
@@ -612,7 +479,7 @@ msgstr "Refazer a acção desfeita"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: components/html-editor/replace.c:163 components/html-editor/replace.c:225
+#: components/html-editor/replace.c:163 components/html-editor/replace.c:227
 msgid "Replace"
 msgstr "Substituir"
 
@@ -1014,7 +881,13 @@ msgstr "Rascunho"
 msgid "Graph paper"
 msgstr "Papel de gráfico"
 
-#: components/html-editor/body.c:246
+#: components/html-editor/body.c:243
+#: components/html-editor/gtkhtml-editor-properties.glade.h:53
+#: components/html-editor/menubar.c:198
+msgid "Template"
+msgstr "Modelo"
+
+#: components/html-editor/body.c:247
 msgid "T_emplate:"
 msgstr "Mod_elo:"
 
@@ -1025,41 +898,53 @@ msgstr "Mod_elo:"
 #. }
 #. g_signal_connect (data->entry_title, "changed", G_CALLBACK (entry_changed), data);
 #. editor_hig_attach_row (t1, _("T_itle:"), data->entry_title, 1);
-#: components/html-editor/body.c:256 components/html-editor/paragraph.c:112
+#: components/html-editor/body.c:257 components/html-editor/paragraph.c:112
 msgid "General"
 msgstr "Geral"
 
-#: components/html-editor/body.c:267 components/html-editor/text.c:162
+#: components/html-editor/body.c:268 components/html-editor/text.c:162
 #: components/html-editor/toolbar.c:301
 msgid "Automatic"
 msgstr "Automático"
 
-#: components/html-editor/body.c:279
+#: components/html-editor/body.c:280
 msgid "_Text:"
 msgstr "_Texto:"
 
-#: components/html-editor/body.c:280
+#: components/html-editor/body.c:281
 msgid "_Link:"
 msgstr "_Link:"
 
-#: components/html-editor/body.c:281
+#: components/html-editor/body.c:282
 msgid "_Background:"
 msgstr "_Fundo:"
 
-#: components/html-editor/body.c:283
+#: components/html-editor/body.c:284
 #: components/html-editor/gtkhtml-editor-properties.glade.h:30
 msgid "Colors"
 msgstr "Cores"
 
-#: components/html-editor/body.c:285 components/html-editor/body.c:300
+#: components/html-editor/body.c:286 components/html-editor/body.c:303
 #: components/html-editor/gtkhtml-editor-properties.glade.h:23
 msgid "Background Image"
 msgstr "Imagem de Fundo"
 
 #: components/html-editor/body.c:298
+#, fuzzy
+msgid "Background Image File Path"
+msgstr "Imagem de Fundo"
+
+#: components/html-editor/body.c:301
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
 msgid "_Source:"
 msgstr "Código _Fonte:"
+
+#: components/html-editor/cell.c:333 components/html-editor/image.c:350
+#: components/html-editor/link.c:182 components/html-editor/rule.c:174
+#: components/html-editor/table.c:220 components/html-editor/template.c:271
+#: components/html-editor/text.c:159
+msgid "Could not load glade file."
+msgstr "Incapaz de ler o ficheiro glade."
 
 #: components/html-editor/cell.c:350 components/html-editor/table.c:231
 msgid "Transparent"
@@ -1088,6 +973,11 @@ msgstr "Parágrafo"
 #: components/html-editor/menubar.c:358 components/html-editor/popup.c:219
 msgid "Page"
 msgstr "Página"
+
+#: components/html-editor/gi-color-combo.c:187
+#, fuzzy
+msgid "color preview"
+msgstr "Antever a impressão"
 
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:395
@@ -1288,6 +1178,11 @@ msgstr "púrpura escura"
 msgid "sky blue"
 msgstr "azul céu"
 
+#. set the a11y name
+#: components/html-editor/gi-combo-box.c:419
+msgid "Popup"
+msgstr ""
+
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
 msgstr "Controlo de Editor GtkHTML"
@@ -1300,6 +1195,10 @@ msgstr "    "
 #, no-c-format
 msgid "%"
 msgstr "%"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:4
+msgid "*"
+msgstr "*"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:8
 msgid "+4"
@@ -1450,11 +1349,6 @@ msgstr "Taman_ho:"
 msgid "Standard"
 msgstr "Standard"
 
-#: components/html-editor/gtkhtml-editor-properties.glade.h:53
-#: components/html-editor/menubar.c:198
-msgid "Template"
-msgstr "Modelo"
-
 #: components/html-editor/gtkhtml-editor-properties.glade.h:55
 msgid "Thickness:"
 msgstr "Espessura:"
@@ -1550,6 +1444,16 @@ msgstr "px"
 #: components/html-editor/gtkhtml-editor-properties.glade.h:83
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
+
+#: components/html-editor/link.c:194
+#, fuzzy
+msgid "URL:"
+msgstr "_URL:"
+
+#: components/html-editor/link.c:198
+#, fuzzy
+msgid "Description:"
+msgstr "_Descrição:"
 
 #: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
 msgid "Insert image"
@@ -1753,27 +1657,33 @@ msgstr "_Substituir"
 msgid "Search _backward"
 msgstr "Procurar _atrás"
 
-#: components/html-editor/replace.c:172 components/html-editor/search.c:114
+#: components/html-editor/replace.c:172 components/html-editor/search.c:113
 msgid "Case _sensitive"
 msgstr "_Sensível à capitalização"
 
 #: components/html-editor/replace.c:182
-msgid "Replace:"
+#, fuzzy
+msgid "R_eplace:"
 msgstr "Substituir:"
 
-#: components/html-editor/replace.c:185
-msgid "With:"
-msgstr "Por:"
+#: components/html-editor/replace.c:186
+#, fuzzy
+msgid "_With:"
+msgstr "_Largura:"
 
-#: components/html-editor/search.c:113
+#: components/html-editor/search.c:112
 msgid "_Backward"
 msgstr "_Atrás"
 
-#: components/html-editor/search.c:115
+#: components/html-editor/search.c:114
 msgid "_Regular Expression"
 msgstr "Expressão _Regular"
 
-#: components/html-editor/spell.c:110
+#: components/html-editor/search.c:118
+msgid "Input the words you want to search here"
+msgstr ""
+
+#: components/html-editor/spellchecker.c:110
 msgid ""
 "Unable to add word to dictionary,\n"
 "language settings are broken.\n"
@@ -1781,15 +1691,15 @@ msgstr ""
 "Incapaz de adicionar a palavra ao dicionário,\n"
 "as definições de idioma estão incorrectas.\n"
 
-#: components/html-editor/spell.c:298
+#: components/html-editor/spellchecker.c:298
 msgid "No misspelled word found"
 msgstr "Nenhuma palavra incorrecta encontrada"
 
-#: components/html-editor/spell.c:305
+#: components/html-editor/spellchecker.c:305
 msgid "Spell checker"
 msgstr "Verificador ortográfico"
 
-#: components/html-editor/spell.c:398
+#: components/html-editor/spellchecker.c:398
 msgid "Current _Languages"
 msgstr "_Idiomas Actuais"
 
@@ -2060,6 +1970,100 @@ msgstr "Antever a impressão"
 #: src/testgtkhtml.c:1004
 msgid "GtkHTML Test Application"
 msgstr "Aplicação de Teste GtkHTML"
+
+#~ msgid "<None>"
+#~ msgstr "<Nenhum>"
+
+#~ msgid "\n"
+#~ msgstr "\n"
+
+#~ msgid "*********************"
+#~ msgstr "*********************"
+
+#~ msgid "Add Keyboard Shortcuts"
+#~ msgstr "Adicionar Atalhos de Teclado"
+
+#~ msgid "Automatically detect links"
+#~ msgstr "Detectar atalhos automaticamente"
+
+#~ msgid "Behavior"
+#~ msgstr "Comportamento"
+
+#~ msgid "Composer Properties"
+#~ msgstr "Propriedades do Editor"
+
+#~ msgid "Composer Properties planned"
+#~ msgstr "Propriedades planeadas do Editor"
+
+#~ msgid "Configure spell checking"
+#~ msgstr "Configurar a verificação ortográfica"
+
+#~ msgid "Enable spell checking"
+#~ msgstr "Activar a verificação ortográfica"
+
+#~ msgid "Fixed width"
+#~ msgstr "Largura fixa"
+
+#~ msgid "Fonts"
+#~ msgstr "Fontes"
+
+#~ msgid "For printing"
+#~ msgstr "Para impressão"
+
+#~ msgid "Grab keys"
+#~ msgstr "Capturar teclas"
+
+#~ msgid "Information"
+#~ msgstr "Informação"
+
+#~ msgid "Keyboard Shortcuts"
+#~ msgstr "Atalhos de Teclado"
+
+#~ msgid "Miscellaneous"
+#~ msgstr "Vários"
+
+#~ msgid "New shortcut:"
+#~ msgstr "Novo atalho:"
+
+#~ msgid "On screen"
+#~ msgstr "No ecrã"
+
+#~ msgid "Select HTML fixed width font"
+#~ msgstr "Seleccione a fonte de largura fixa HTML"
+
+#~ msgid "Select HTML fixed width font for printing"
+#~ msgstr "Seleccione a fonte de largura fixa HTML para impressão"
+
+#~ msgid "Select HTML variable width font"
+#~ msgstr "Seleccione a fonte de largura variável HTML"
+
+#~ msgid "Select HTML variable width font for printing"
+#~ msgstr "Seleccione a fonte de largura variável HTML para impressão"
+
+#~ msgid "Shortcuts _type:"
+#~ msgstr "_Tipo de atalhos:"
+
+#~ msgid "Show animated images"
+#~ msgstr "Apresentar imagens animadas"
+
+#~ msgid "Variable width"
+#~ msgstr "Largura variável"
+
+#~ msgid "_Add"
+#~ msgstr "_Adicionar"
+
+#~ msgid "_Delete"
+#~ msgstr "Apa_gar"
+
+#~ msgid ""
+#~ "Cannot execute GNOME Spell control applet\n"
+#~ "Try to install GNOME Spell if you don't have it installed."
+#~ msgstr ""
+#~ "Incapaz de executar a applet do controlo GNOME Spell\n"
+#~ "Tente instalar o GNOME Spell caso não o tenha instalado."
+
+#~ msgid "With:"
+#~ msgstr "Por:"
 
 #~ msgid "Labels"
 #~ msgstr "Etiquetas"

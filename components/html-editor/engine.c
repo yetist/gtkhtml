@@ -34,7 +34,7 @@
 #include "htmlundo.h"
 
 #include "engine.h"
-#include "spell.h"
+#include "spellchecker.h"
 
 static BonoboObjectClass *engine_parent_class;
 

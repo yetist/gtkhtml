@@ -38,7 +38,7 @@
 #include "htmlselection.h"
 
 #include "menubar.h"
-#include "spell.h"
+#include "spellchecker.h"
 
 #define CONTROL_IID "OAFIID:GNOME_Spell_Control:0.3"
 

@@ -1,3 +1,8 @@
+2005-01-31  Radek Doulik  <rodo@ximian.com>
+
+	* POTFILES.skip: move unused capplet/ sources from POTFILES.in to
+	POTFILES.skip
+
 2005-01-31  Žygimantas Beručka  <uid0@akl.lt>
 
 	* lt.po: Updated Lithuanian translation.

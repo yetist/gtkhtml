@@ -1,3 +1,23 @@
+gtkhtml-3.5.5 "Try RTL" 2004-01-31
+------------------------------------------------
+
+New in this release
+
+   * merged fixes to RTL editing from rtl branch
+   * fixed selection drawing
+   * added more tests to regression test suite
+   * a11y fixes (Mengjie Yu)
+   * added a11y names (Mengjie Yu)
+   * fixed tabs drawwing/editing
+   * fixed nowrap keyword in table cells (Changwoo Ryu)
+   * added missing mnenonics in editor (Mengjie Yu)
+   * fixed nested iframes rendering
+   * fixed crash when deleting table/row/column when selection is active
+   * updated translations (Hendrik Brandt, Alexander Shopov, Kjartan
+     Maraas, Francisco Javier F. Serrador, Duarte Loreto, Adam Weinberger,
+     Miloslav Trmac, Priit Laes, Žygimantas Beručka, Christian Rose,
+     Vincent van Adrighem, Funda Wang)
+
 gtkhtml-3.5.4 "Snowman" 2004-01-24
 ------------------------------------------------
 

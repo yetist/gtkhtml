@@ -24,7 +24,7 @@
 #include <config.h>
 #include <glib/gi18n.h>
 #include "control-data.h"
-#include "spell.h"
+#include "spellchecker.h"
 #include "properties.h"
 
 GtkHTMLControlData *

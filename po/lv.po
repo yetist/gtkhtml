@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-24 16:35+0100\n"
+"POT-Creation-Date: 2005-01-31 22:05+0100\n"
 "PO-Revision-Date: 2003-03-15 18:51+0200\n"
 "Last-Translator: Artis Trops  <hornet@navigator.lv>\n"
 "Language-Team: Latvian <ll10nt@os.lv>\n"
@@ -24,146 +24,13 @@ msgstr ""
 msgid "URL is %s"
 msgstr ""
 
-#: a11y/object.c:50 a11y/object.c:59 a11y/text.c:105
+#: a11y/object.c:50 a11y/object.c:59 a11y/text.c:111
 msgid "grab focus"
 msgstr ""
 
-#: a11y/object.c:211
+#: a11y/object.c:256
 msgid "Panel containing HTML"
 msgstr ""
-
-#: capplet/gnome-bindings-prop.c:157
-msgid "<None>"
-msgstr "<Nekas>"
-
-#: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
-#: components/html-editor/cell.c:333 components/html-editor/image.c:350
-#: components/html-editor/link.c:182 components/html-editor/rule.c:174
-#: components/html-editor/table.c:220 components/html-editor/template.c:271
-#: components/html-editor/text.c:159
-msgid "Could not load glade file."
-msgstr "Nevarēja ielādēt glade failu."
-
-#: capplet/gtkhtml-capplet.glade.h:1
-msgid "\n"
-msgstr "\n"
-
-#: capplet/gtkhtml-capplet.glade.h:3
-#: components/html-editor/gtkhtml-editor-properties.glade.h:4
-msgid "*"
-msgstr "*"
-
-#: capplet/gtkhtml-capplet.glade.h:4
-msgid "*********************"
-msgstr "*********************"
-
-#: capplet/gtkhtml-capplet.glade.h:5
-msgid "Add Keyboard Shortcuts"
-msgstr "Pievienot Tastatūras Saīsnes"
-
-#: capplet/gtkhtml-capplet.glade.h:6
-msgid "Automatically detect links"
-msgstr "Automātiski noteikt saites"
-
-#: capplet/gtkhtml-capplet.glade.h:7
-msgid "Behavior"
-msgstr "Uzvedība"
-
-#: capplet/gtkhtml-capplet.glade.h:8
-msgid "Composer Properties"
-msgstr "Sastādītāja Rekvizīti"
-
-#: capplet/gtkhtml-capplet.glade.h:9
-msgid "Composer Properties planned"
-msgstr "Plānotie Sastādītāja Rekvizīti "
-
-#: capplet/gtkhtml-capplet.glade.h:10
-msgid "Configure spell checking"
-msgstr "Konfigurēt pareizrakstības pārbaudi"
-
-#: capplet/gtkhtml-capplet.glade.h:11
-msgid "Enable spell checking"
-msgstr "Aktivizēt pareizrakstības pārbaudi"
-
-#: capplet/gtkhtml-capplet.glade.h:12
-msgid "Fixed width"
-msgstr "Fiksēts platums"
-
-#: capplet/gtkhtml-capplet.glade.h:13
-msgid "Fonts"
-msgstr "Fonti"
-
-#: capplet/gtkhtml-capplet.glade.h:14
-msgid "For printing"
-msgstr "Drukāšanai"
-
-#: capplet/gtkhtml-capplet.glade.h:15
-msgid "Grab keys"
-msgstr "Paķert taustiņus"
-
-#: capplet/gtkhtml-capplet.glade.h:16
-msgid "Information"
-msgstr "Informācija"
-
-#: capplet/gtkhtml-capplet.glade.h:17
-msgid "Keyboard Shortcuts"
-msgstr "Tastatūras Saīsnes"
-
-#: capplet/gtkhtml-capplet.glade.h:18
-msgid "Miscellaneous"
-msgstr "Dažādi"
-
-#: capplet/gtkhtml-capplet.glade.h:19
-msgid "New shortcut:"
-msgstr "Jauna saīsne:"
-
-#: capplet/gtkhtml-capplet.glade.h:20
-msgid "On screen"
-msgstr "Uz ekrāna"
-
-#: capplet/gtkhtml-capplet.glade.h:21
-msgid "Select HTML fixed width font"
-msgstr "Izvēlies HTML fiksēta platuma fontu"
-
-#: capplet/gtkhtml-capplet.glade.h:22
-msgid "Select HTML fixed width font for printing"
-msgstr "Izvēlies HTML fiksēta platuma fontu drukāšanai"
-
-#: capplet/gtkhtml-capplet.glade.h:23
-msgid "Select HTML variable width font"
-msgstr "Izvēlies HTML mainīga platuma fontu"
-
-#: capplet/gtkhtml-capplet.glade.h:24
-msgid "Select HTML variable width font for printing"
-msgstr "Izvēlies HTML mainīga platuma fontu drukāšanai"
-
-#: capplet/gtkhtml-capplet.glade.h:25
-msgid "Shortcuts _type:"
-msgstr "Saīsnes _tips:"
-
-#: capplet/gtkhtml-capplet.glade.h:26
-msgid "Show animated images"
-msgstr "Parādīt animētus attēlus"
-
-#: capplet/gtkhtml-capplet.glade.h:27
-msgid "Variable width"
-msgstr "Mainīgā platums"
-
-#: capplet/gtkhtml-capplet.glade.h:28
-msgid "_Add"
-msgstr "_Pievienot"
-
-#: capplet/gtkhtml-capplet.glade.h:29
-msgid "_Delete"
-msgstr "_Dzēst"
-
-#: capplet/main.c:226
-msgid ""
-"Cannot execute GNOME Spell control applet\n"
-"Try to install GNOME Spell if you don't have it installed."
-msgstr ""
-"Nevaru izpildīt GNOME Pareizrakstibas konroles sīkprogrammu\n"
-"Mēģiniet uzinstalēt GNOME Pareizrakstību, ja jums tā nav uzinstalēta."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
@@ -281,7 +148,7 @@ msgstr "Izgriezt izvēlēto"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-#: components/html-editor/search.c:108 components/html-editor/search.c:166
+#: components/html-editor/search.c:107 components/html-editor/search.c:167
 msgid "Find"
 msgstr "Atrast"
 
@@ -611,7 +478,7 @@ msgstr "Pāratcelt atcelto darbību"
 #. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: components/html-editor/replace.c:163 components/html-editor/replace.c:225
+#: components/html-editor/replace.c:163 components/html-editor/replace.c:227
 msgid "Replace"
 msgstr "Aizvietot"
 
@@ -694,257 +561,251 @@ msgid "Te_xt file..."
 msgstr "Teks_ta fails..."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
-#: components/html-editor/gtkhtml-editor-properties.glade.h:53
-#: components/html-editor/menubar.c:198
-msgid "Template"
-msgstr "Veidne"
-
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
 #: components/html-editor/toolbar.c:537
 msgid "Typewriter"
 msgstr "Mašīnrakstītāja"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
 msgid "Undo"
 msgstr "Atsaukt"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
 msgid "Undo previous changes"
 msgstr "Atcelt iepriekšējo darbību"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
 msgid "Undo the last action"
 msgstr "Atcelt pēdējo darbību"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
 msgid "Yellow"
 msgstr "Dzeltens"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
 msgid "_Alignment"
 msgstr "_Nolīdzinājums"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
 msgid "_Alphabetical List"
 msgstr "_Alfabētisks Saraksts"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
 #: components/html-editor/gtkhtml-editor-properties.glade.h:60
 msgid "_Bold"
 msgstr "_Trekni"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
 msgid "_Bulleted List"
 msgstr "_Lodveida Saraksts"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
 msgid "_Center"
 msgstr "_Centrēt"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
 msgid "_Copy"
 msgstr "_Kopēt"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
 msgid "_Decrease Indent"
 msgstr "_Samazināt Atkāpi"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
 msgid "_Edit"
 msgstr "_Rediģēt"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
 msgid "_Find..."
 msgstr "_Atrast..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
 msgid "_Font Size"
 msgstr "_Fonta Lielums"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
 msgid "_Frown"
 msgstr "_Bēdīgs"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
 msgid "_HTML file..."
 msgstr "_HTML fails..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
 msgid "_Heading"
 msgstr "_Virsraksts"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
 msgid "_Image..."
 msgstr "_Attēls..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
 msgid "_Increase Indent"
 msgstr "_Palielināt Atkāpi"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
 msgid "_Indifferent"
 msgstr "_Vienaldzīgs"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
 msgid "_Insert"
 msgstr "_Ievietot"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
 #: components/html-editor/gtkhtml-editor-properties.glade.h:67
 msgid "_Italic"
 msgstr "_Ieslīpi"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
 msgid "_Laughing"
 msgstr "_Smejošs"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
 msgid "_Left"
 msgstr "_Pa Kreisi"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
 msgid "_Link..."
 msgstr "_Saite..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
 msgid "_Normal"
 msgstr "_Normāls"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
 msgid "_Page..."
 msgstr "_Lapa..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
 msgid "_Paragraph..."
 msgstr "_Rindkopa..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
 msgid "_Paste"
 msgstr "_Ievietot"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
 msgid "_Plain text"
 msgstr "_Vienkāršs teksts"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
 msgid "_Preformat"
 msgstr "_Preformatēt"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
 msgid "_Redo"
 msgstr "_Pāratcet"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
 msgid "_Replace..."
 msgstr "_Aizvietot..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
 msgid "_Right"
 msgstr "Pa _Labi"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
 msgid "_Roman Numeral List"
 msgstr "_Romiešu Ciparu Saraksts"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
 msgid "_Rule..."
 msgstr "_Nosacījums..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:139
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
 msgid "_Smile"
 msgstr "_Smaids"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:139
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:141
 msgid "_Smiley"
 msgstr "_Smaidiņš"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:141
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:142
 msgid "_Spell Check Document..."
 msgstr "_Pārbaudīt Pareizrakstību Dokumentā..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:142
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:141
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
 #: components/html-editor/gtkhtml-editor-properties.glade.h:73
 msgid "_Strikeout"
 msgstr "_Pārsvītrot"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:143
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:142
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:144
 msgid "_Style"
 msgstr "_Stils"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:144
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:143
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:145
 msgid "_Table..."
 msgstr "_Tabula..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:145
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:144
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:146
 msgid "_Text..."
 msgstr "_Teksts..."
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:146
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:145
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:147
 msgid "_Undecided"
 msgstr "_Neizlēmīgs"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:147
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:146
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:148
 #: components/html-editor/gtkhtml-editor-properties.glade.h:76
 msgid "_Underline"
 msgstr "_Pasvītrot"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:148
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:147
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:149
 msgid "_Undo"
 msgstr "_Atcelt"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:149
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:148
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:150
 msgid "_Wink"
 msgstr "_Miedz ar aci"
 
-#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:150
+#: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:149
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
 msgid "etc..."
 msgstr "utt..."
@@ -1027,7 +888,13 @@ msgstr ""
 msgid "Graph paper"
 msgstr ""
 
-#: components/html-editor/body.c:246
+#: components/html-editor/body.c:243
+#: components/html-editor/gtkhtml-editor-properties.glade.h:53
+#: components/html-editor/menubar.c:198
+msgid "Template"
+msgstr "Veidne"
+
+#: components/html-editor/body.c:247
 #, fuzzy
 msgid "T_emplate:"
 msgstr "Veidne"
@@ -1039,45 +906,57 @@ msgstr "Veidne"
 #. }
 #. g_signal_connect (data->entry_title, "changed", G_CALLBACK (entry_changed), data);
 #. editor_hig_attach_row (t1, _("T_itle:"), data->entry_title, 1);
-#: components/html-editor/body.c:256 components/html-editor/paragraph.c:112
+#: components/html-editor/body.c:257 components/html-editor/paragraph.c:112
 #, fuzzy
 msgid "General"
 msgstr "Centrēt"
 
-#: components/html-editor/body.c:267 components/html-editor/text.c:162
+#: components/html-editor/body.c:268 components/html-editor/text.c:162
 #: components/html-editor/toolbar.c:301
 msgid "Automatic"
 msgstr "Automātiski"
 
-#: components/html-editor/body.c:279
+#: components/html-editor/body.c:280
 #, fuzzy
 msgid "_Text:"
 msgstr "Teksts"
 
-#: components/html-editor/body.c:280
+#: components/html-editor/body.c:281
 #, fuzzy
 msgid "_Link:"
 msgstr "Saite"
 
-#: components/html-editor/body.c:281
+#: components/html-editor/body.c:282
 #, fuzzy
 msgid "_Background:"
 msgstr "Fons"
 
-#: components/html-editor/body.c:283
+#: components/html-editor/body.c:284
 #: components/html-editor/gtkhtml-editor-properties.glade.h:30
 msgid "Colors"
 msgstr "Krāsas"
 
-#: components/html-editor/body.c:285 components/html-editor/body.c:300
+#: components/html-editor/body.c:286 components/html-editor/body.c:303
 #: components/html-editor/gtkhtml-editor-properties.glade.h:23
 msgid "Background Image"
 msgstr "Fona Attēls"
 
 #: components/html-editor/body.c:298
+#, fuzzy
+msgid "Background Image File Path"
+msgstr "Fona Attēls"
+
+#: components/html-editor/body.c:301
 #: components/html-editor/gtkhtml-editor-properties.glade.h:71
 msgid "_Source:"
 msgstr ""
+
+#: components/html-editor/cell.c:333 components/html-editor/image.c:350
+#: components/html-editor/link.c:182 components/html-editor/rule.c:174
+#: components/html-editor/table.c:220 components/html-editor/template.c:271
+#: components/html-editor/text.c:159
+msgid "Could not load glade file."
+msgstr "Nevarēja ielādēt glade failu."
 
 #: components/html-editor/cell.c:350 components/html-editor/table.c:231
 msgid "Transparent"
@@ -1106,6 +985,11 @@ msgstr "Rindkopa"
 #: components/html-editor/menubar.c:358 components/html-editor/popup.c:219
 msgid "Page"
 msgstr "Lapa"
+
+#: components/html-editor/gi-color-combo.c:187
+#, fuzzy
+msgid "color preview"
+msgstr "Pirmsdrukas apskate"
 
 #. This is the default custom color
 #: components/html-editor/gi-color-palette.c:395
@@ -1327,6 +1211,11 @@ msgstr ""
 msgid "sky blue"
 msgstr ""
 
+#. set the a11y name
+#: components/html-editor/gi-combo-box.c:419
+msgid "Popup"
+msgstr ""
+
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 #, fuzzy
 msgid "GtkHTML Editor Control"
@@ -1340,6 +1229,10 @@ msgstr ""
 #, no-c-format
 msgid "%"
 msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:4
+msgid "*"
+msgstr "*"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:8
 msgid "+4"
@@ -1610,6 +1503,15 @@ msgstr ""
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
+#: components/html-editor/link.c:194
+msgid "URL:"
+msgstr ""
+
+#: components/html-editor/link.c:198
+#, fuzzy
+msgid "Description:"
+msgstr "Apraksts:"
+
 #: components/html-editor/menubar.c:96 components/html-editor/menubar.c:104
 #, fuzzy
 msgid "Insert image"
@@ -1832,46 +1734,50 @@ msgstr "Aizvietot"
 msgid "Search _backward"
 msgstr "meklēt atpakaļ"
 
-#: components/html-editor/replace.c:172 components/html-editor/search.c:114
+#: components/html-editor/replace.c:172 components/html-editor/search.c:113
 #, fuzzy
 msgid "Case _sensitive"
 msgstr "lielo/mazo burtu jūtīgs"
 
 #: components/html-editor/replace.c:182
 #, fuzzy
-msgid "Replace:"
+msgid "R_eplace:"
 msgstr "Aizvietot"
 
-#: components/html-editor/replace.c:185
+#: components/html-editor/replace.c:186
 #, fuzzy
-msgid "With:"
+msgid "_With:"
 msgstr "Platums:"
 
-#: components/html-editor/search.c:113
+#: components/html-editor/search.c:112
 #, fuzzy
 msgid "_Backward"
 msgstr "atpakļ"
 
-#: components/html-editor/search.c:115
+#: components/html-editor/search.c:114
 #, fuzzy
 msgid "_Regular Expression"
 msgstr "Atrast Parastu Izteiksmi"
 
-#: components/html-editor/spell.c:110
+#: components/html-editor/search.c:118
+msgid "Input the words you want to search here"
+msgstr ""
+
+#: components/html-editor/spellchecker.c:110
 msgid ""
 "Unable to add word to dictionary,\n"
 "language settings are broken.\n"
 msgstr ""
 
-#: components/html-editor/spell.c:298
+#: components/html-editor/spellchecker.c:298
 msgid "No misspelled word found"
 msgstr ""
 
-#: components/html-editor/spell.c:305
+#: components/html-editor/spellchecker.c:305
 msgid "Spell checker"
 msgstr "Pareizrakstības pārbaudītājs"
 
-#: components/html-editor/spell.c:398
+#: components/html-editor/spellchecker.c:398
 msgid "Current _Languages"
 msgstr ""
 
@@ -1888,8 +1794,9 @@ msgid "Image frame"
 msgstr "Attēla rāmis"
 
 #: components/html-editor/template.c:280
-msgid "Labels"
-msgstr ""
+#, fuzzy
+msgid "Template Labels"
+msgstr "Veidne"
 
 #: components/html-editor/test-html-editor-control.c:333
 msgid "Open file..."
@@ -2145,6 +2052,101 @@ msgstr "Pirmsdrukas apskate"
 #, fuzzy
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML Tests"
+
+#~ msgid "<None>"
+#~ msgstr "<Nekas>"
+
+#~ msgid "\n"
+#~ msgstr "\n"
+
+#~ msgid "*********************"
+#~ msgstr "*********************"
+
+#~ msgid "Add Keyboard Shortcuts"
+#~ msgstr "Pievienot Tastatūras Saīsnes"
+
+#~ msgid "Automatically detect links"
+#~ msgstr "Automātiski noteikt saites"
+
+#~ msgid "Behavior"
+#~ msgstr "Uzvedība"
+
+#~ msgid "Composer Properties"
+#~ msgstr "Sastādītāja Rekvizīti"
+
+#~ msgid "Composer Properties planned"
+#~ msgstr "Plānotie Sastādītāja Rekvizīti "
+
+#~ msgid "Configure spell checking"
+#~ msgstr "Konfigurēt pareizrakstības pārbaudi"
+
+#~ msgid "Enable spell checking"
+#~ msgstr "Aktivizēt pareizrakstības pārbaudi"
+
+#~ msgid "Fixed width"
+#~ msgstr "Fiksēts platums"
+
+#~ msgid "Fonts"
+#~ msgstr "Fonti"
+
+#~ msgid "For printing"
+#~ msgstr "Drukāšanai"
+
+#~ msgid "Grab keys"
+#~ msgstr "Paķert taustiņus"
+
+#~ msgid "Information"
+#~ msgstr "Informācija"
+
+#~ msgid "Keyboard Shortcuts"
+#~ msgstr "Tastatūras Saīsnes"
+
+#~ msgid "Miscellaneous"
+#~ msgstr "Dažādi"
+
+#~ msgid "New shortcut:"
+#~ msgstr "Jauna saīsne:"
+
+#~ msgid "On screen"
+#~ msgstr "Uz ekrāna"
+
+#~ msgid "Select HTML fixed width font"
+#~ msgstr "Izvēlies HTML fiksēta platuma fontu"
+
+#~ msgid "Select HTML fixed width font for printing"
+#~ msgstr "Izvēlies HTML fiksēta platuma fontu drukāšanai"
+
+#~ msgid "Select HTML variable width font"
+#~ msgstr "Izvēlies HTML mainīga platuma fontu"
+
+#~ msgid "Select HTML variable width font for printing"
+#~ msgstr "Izvēlies HTML mainīga platuma fontu drukāšanai"
+
+#~ msgid "Shortcuts _type:"
+#~ msgstr "Saīsnes _tips:"
+
+#~ msgid "Show animated images"
+#~ msgstr "Parādīt animētus attēlus"
+
+#~ msgid "Variable width"
+#~ msgstr "Mainīgā platums"
+
+#~ msgid "_Add"
+#~ msgstr "_Pievienot"
+
+#~ msgid "_Delete"
+#~ msgstr "_Dzēst"
+
+#~ msgid ""
+#~ "Cannot execute GNOME Spell control applet\n"
+#~ "Try to install GNOME Spell if you don't have it installed."
+#~ msgstr ""
+#~ "Nevaru izpildīt GNOME Pareizrakstibas konroles sīkprogrammu\n"
+#~ "Mēģiniet uzinstalēt GNOME Pareizrakstību, ja jums tā nav uzinstalēta."
+
+#, fuzzy
+#~ msgid "With:"
+#~ msgstr "Platums:"
 
 #~ msgid "Plain"
 #~ msgstr "Līdzens"

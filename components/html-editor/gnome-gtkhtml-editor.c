@@ -45,7 +45,7 @@
 #include "text.h"
 #include "paragraph.h"
 #include "body.h"
-#include "spell.h"
+#include "spellchecker.h"
 #include "html-stream-mem.h"
 
 #include "gtkhtmldebug.h"

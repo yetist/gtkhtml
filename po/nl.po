@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml cvs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-30 22:03+0100\n"
+"POT-Creation-Date: 2005-01-31 22:05+0100\n"
 "PO-Revision-Date: 2005-01-31 00:10+0100\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
@@ -29,147 +29,13 @@ msgid "URL is %s"
 msgstr "URL is %s"
 
 # focus grijpen
-#: a11y/object.c:50 a11y/object.c:59 a11y/text.c:105
+#: a11y/object.c:50 a11y/object.c:59 a11y/text.c:111
 msgid "grab focus"
 msgstr "aandacht grijpen"
 
 #: a11y/object.c:256
 msgid "Panel containing HTML"
 msgstr "Paneel met HTML"
-
-#: capplet/gnome-bindings-prop.c:157
-msgid "<None>"
-msgstr "<Geen>"
-
-#: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
-#: components/html-editor/cell.c:333 components/html-editor/image.c:350
-#: components/html-editor/link.c:182 components/html-editor/rule.c:174
-#: components/html-editor/table.c:220 components/html-editor/template.c:271
-#: components/html-editor/text.c:159
-msgid "Could not load glade file."
-msgstr "Kon glade-bestand niet laden"
-
-#: capplet/gtkhtml-capplet.glade.h:1
-msgid "\n"
-msgstr "\n"
-
-#: capplet/gtkhtml-capplet.glade.h:3
-#: components/html-editor/gtkhtml-editor-properties.glade.h:4
-msgid "*"
-msgstr "*"
-
-#: capplet/gtkhtml-capplet.glade.h:4
-msgid "*********************"
-msgstr "*********************"
-
-#: capplet/gtkhtml-capplet.glade.h:5
-msgid "Add Keyboard Shortcuts"
-msgstr "Sneltoetsen toevoegen"
-
-#: capplet/gtkhtml-capplet.glade.h:6
-msgid "Automatically detect links"
-msgstr "Automatisch links detecteren"
-
-#: capplet/gtkhtml-capplet.glade.h:7
-msgid "Behavior"
-msgstr "Gedrag"
-
-#: capplet/gtkhtml-capplet.glade.h:8
-msgid "Composer Properties"
-msgstr "Composer eigenschappen"
-
-#: capplet/gtkhtml-capplet.glade.h:9
-msgid "Composer Properties planned"
-msgstr "Composer eigenschappen gepland"
-
-#: capplet/gtkhtml-capplet.glade.h:10
-msgid "Configure spell checking"
-msgstr "Configureer spellingscontrole"
-
-#: capplet/gtkhtml-capplet.glade.h:11
-msgid "Enable spell checking"
-msgstr "Directe spellingscontrole"
-
-#: capplet/gtkhtml-capplet.glade.h:12
-msgid "Fixed width"
-msgstr "Vaste breedte"
-
-#: capplet/gtkhtml-capplet.glade.h:13
-msgid "Fonts"
-msgstr "Lettertypen"
-
-#: capplet/gtkhtml-capplet.glade.h:14
-msgid "For printing"
-msgstr "Voor afdrukken"
-
-# Toetsen grijpen/Pluk een toets
-#: capplet/gtkhtml-capplet.glade.h:15
-msgid "Grab keys"
-msgstr "Toetsen grijpen"
-
-#: capplet/gtkhtml-capplet.glade.h:16
-msgid "Information"
-msgstr "Informatie"
-
-#: capplet/gtkhtml-capplet.glade.h:17
-msgid "Keyboard Shortcuts"
-msgstr "Sneltoetsen"
-
-#: capplet/gtkhtml-capplet.glade.h:18
-msgid "Miscellaneous"
-msgstr "Diversen"
-
-#: capplet/gtkhtml-capplet.glade.h:19
-msgid "New shortcut:"
-msgstr "Nieuwe sneltoets:"
-
-#: capplet/gtkhtml-capplet.glade.h:20
-msgid "On screen"
-msgstr "Op het beeldscherm"
-
-#: capplet/gtkhtml-capplet.glade.h:21
-msgid "Select HTML fixed width font"
-msgstr "Selecteer HTML vaste breedte-lettertype"
-
-#: capplet/gtkhtml-capplet.glade.h:22
-msgid "Select HTML fixed width font for printing"
-msgstr "Selecteer HTML vaste breedte-lettertype voor printen"
-
-#: capplet/gtkhtml-capplet.glade.h:23
-msgid "Select HTML variable width font"
-msgstr "Selecteer HTML variabele breedte-lettertype"
-
-#: capplet/gtkhtml-capplet.glade.h:24
-msgid "Select HTML variable width font for printing"
-msgstr "Selecteer HTML variabele breedte-lettertype voor printen"
-
-#: capplet/gtkhtml-capplet.glade.h:25
-msgid "Shortcuts _type:"
-msgstr "Snelkoppelings_type"
-
-#: capplet/gtkhtml-capplet.glade.h:26
-msgid "Show animated images"
-msgstr "Animaties tonen"
-
-#: capplet/gtkhtml-capplet.glade.h:27
-msgid "Variable width"
-msgstr "Variabele breedte"
-
-#: capplet/gtkhtml-capplet.glade.h:28
-msgid "_Add"
-msgstr "_Toevoegen"
-
-#: capplet/gtkhtml-capplet.glade.h:29
-msgid "_Delete"
-msgstr "_Verwijderen"
-
-#: capplet/main.c:226
-msgid ""
-"Cannot execute GNOME Spell control applet\n"
-"Try to install GNOME Spell if you don't have it installed."
-msgstr ""
-"Kon GNOME Spellingscontrole niet uitvoeren.\n"
-"Probeer GNOME Spell te installeren als u dit nog niet heeft gedaan."
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
@@ -1076,6 +942,13 @@ msgstr "Achtergrondafbeelding bestandspad"
 msgid "_Source:"
 msgstr "_Bron:"
 
+#: components/html-editor/cell.c:333 components/html-editor/image.c:350
+#: components/html-editor/link.c:182 components/html-editor/rule.c:174
+#: components/html-editor/table.c:220 components/html-editor/template.c:271
+#: components/html-editor/text.c:159
+msgid "Could not load glade file."
+msgstr "Kon glade-bestand niet laden"
+
 # Doorzichtig
 #: components/html-editor/cell.c:350 components/html-editor/table.c:231
 msgid "Transparent"
@@ -1104,6 +977,11 @@ msgstr "Paragraaf"
 #: components/html-editor/menubar.c:358 components/html-editor/popup.c:219
 msgid "Page"
 msgstr "Pagina"
+
+#: components/html-editor/gi-color-combo.c:187
+#, fuzzy
+msgid "color preview"
+msgstr "Afdrukvoorbeeld"
 
 # is dit de goede vertaling?
 #. This is the default custom color
@@ -1305,6 +1183,11 @@ msgstr "donkerpaars"
 msgid "sky blue"
 msgstr "hemelsblauw"
 
+#. set the a11y name
+#: components/html-editor/gi-combo-box.c:419
+msgid "Popup"
+msgstr ""
+
 #: components/html-editor/gnome-gtkhtml-editor.c:68
 msgid "GtkHTML Editor Control"
 msgstr "GtkHTML Editor Control"
@@ -1317,6 +1200,10 @@ msgstr "    "
 #, no-c-format
 msgid "%"
 msgstr "%"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:4
+msgid "*"
+msgstr "*"
 
 #: components/html-editor/gtkhtml-editor-properties.glade.h:8
 msgid "+4"
@@ -1806,7 +1693,7 @@ msgstr "_Reguliere expressie"
 msgid "Input the words you want to search here"
 msgstr "Geef hier de woorden waarnaar u wilt zoeken"
 
-#: components/html-editor/spell.c:110
+#: components/html-editor/spellchecker.c:110
 msgid ""
 "Unable to add word to dictionary,\n"
 "language settings are broken.\n"
@@ -1814,15 +1701,15 @@ msgstr ""
 "Kon woord niet aan woordenboek toevoegen,\n"
 "taalinstellingen zijn onjuist.\n"
 
-#: components/html-editor/spell.c:298
+#: components/html-editor/spellchecker.c:298
 msgid "No misspelled word found"
 msgstr "Geen foutief gespelde woorden gevonden"
 
-#: components/html-editor/spell.c:305
+#: components/html-editor/spellchecker.c:305
 msgid "Spell checker"
 msgstr "Spellingscontrole"
 
-#: components/html-editor/spell.c:398
+#: components/html-editor/spellchecker.c:398
 msgid "Current _Languages"
 msgstr "Huidige _talen"
 
@@ -2095,6 +1982,98 @@ msgstr "Afdrukvoorbeeld"
 #: src/testgtkhtml.c:1004
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML test-toepassing"
+
+#~ msgid "<None>"
+#~ msgstr "<Geen>"
+
+#~ msgid "\n"
+#~ msgstr "\n"
+
+#~ msgid "*********************"
+#~ msgstr "*********************"
+
+#~ msgid "Add Keyboard Shortcuts"
+#~ msgstr "Sneltoetsen toevoegen"
+
+#~ msgid "Automatically detect links"
+#~ msgstr "Automatisch links detecteren"
+
+#~ msgid "Behavior"
+#~ msgstr "Gedrag"
+
+#~ msgid "Composer Properties"
+#~ msgstr "Composer eigenschappen"
+
+#~ msgid "Composer Properties planned"
+#~ msgstr "Composer eigenschappen gepland"
+
+#~ msgid "Configure spell checking"
+#~ msgstr "Configureer spellingscontrole"
+
+#~ msgid "Enable spell checking"
+#~ msgstr "Directe spellingscontrole"
+
+#~ msgid "Fixed width"
+#~ msgstr "Vaste breedte"
+
+#~ msgid "Fonts"
+#~ msgstr "Lettertypen"
+
+#~ msgid "For printing"
+#~ msgstr "Voor afdrukken"
+
+# Toetsen grijpen/Pluk een toets
+#~ msgid "Grab keys"
+#~ msgstr "Toetsen grijpen"
+
+#~ msgid "Information"
+#~ msgstr "Informatie"
+
+#~ msgid "Keyboard Shortcuts"
+#~ msgstr "Sneltoetsen"
+
+#~ msgid "Miscellaneous"
+#~ msgstr "Diversen"
+
+#~ msgid "New shortcut:"
+#~ msgstr "Nieuwe sneltoets:"
+
+#~ msgid "On screen"
+#~ msgstr "Op het beeldscherm"
+
+#~ msgid "Select HTML fixed width font"
+#~ msgstr "Selecteer HTML vaste breedte-lettertype"
+
+#~ msgid "Select HTML fixed width font for printing"
+#~ msgstr "Selecteer HTML vaste breedte-lettertype voor printen"
+
+#~ msgid "Select HTML variable width font"
+#~ msgstr "Selecteer HTML variabele breedte-lettertype"
+
+#~ msgid "Select HTML variable width font for printing"
+#~ msgstr "Selecteer HTML variabele breedte-lettertype voor printen"
+
+#~ msgid "Shortcuts _type:"
+#~ msgstr "Snelkoppelings_type"
+
+#~ msgid "Show animated images"
+#~ msgstr "Animaties tonen"
+
+#~ msgid "Variable width"
+#~ msgstr "Variabele breedte"
+
+#~ msgid "_Add"
+#~ msgstr "_Toevoegen"
+
+#~ msgid "_Delete"
+#~ msgstr "_Verwijderen"
+
+#~ msgid ""
+#~ "Cannot execute GNOME Spell control applet\n"
+#~ "Try to install GNOME Spell if you don't have it installed."
+#~ msgstr ""
+#~ "Kon GNOME Spellingscontrole niet uitvoeren.\n"
+#~ "Probeer GNOME Spell te installeren als u dit nog niet heeft gedaan."
 
 # replace with
 #~ msgid "With:"
