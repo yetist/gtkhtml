@@ -29,7 +29,6 @@ select_object (HTMLObject *o, HTMLEngine *e, gpointer data)
 {
 	HTMLInterval *i = (HTMLInterval *) data;
 
-	// printf ("select_object %p %p <%d,%d>\n", o, e, html_interval_get_start (i, o), html_interval_get_length (i, o));
 	html_object_select_range (o, e, html_interval_get_start (i, o), html_interval_get_length (i, o), TRUE);
 }
 
@@ -57,7 +56,6 @@ html_engine_select_region (HTMLEngine *e,
 		if (e->selection && html_interval_eq (e->selection, new_selection))
 			html_interval_destroy (new_selection);
 		else {
-			printf ("set selection\n");
 			html_engine_unselect_all (e);
 			e->selection = new_selection;
 			html_interval_forall (e->selection, e, select_object, e->selection);
@@ -71,15 +69,14 @@ html_engine_select_region (HTMLEngine *e,
 static void
 unselect_object (HTMLObject *o, HTMLEngine *e, gpointer data)
 {
-	// printf ("unselect_object %p\n", o);
 	html_object_select_range (o, e, 0, 0, TRUE);
 }
 
 void
 html_engine_unselect_all (HTMLEngine *e)
 {
-	/* FIXME handle iframes */
-	if (e->selection) {
+	e = html_engine_get_top_html_engine (e);
+	if (html_engine_is_selection_active (e)) {
 		html_interval_forall (e->selection, e, unselect_object, e->selection);
 		html_interval_destroy (e->selection);
 		e->selection = NULL;

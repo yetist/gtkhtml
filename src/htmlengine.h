@@ -370,4 +370,5 @@ void        html_engine_add_object_with_id  (HTMLEngine  *e,
 HTMLObject *html_engine_get_object_by_id    (HTMLEngine  *e,
 					     const gchar *id);
 
+HTMLEngine *html_engine_get_top_html_engine (HTMLEngine *e);
 #endif /* _HTMLENGINE_H_ */

@@ -4329,3 +4329,12 @@ html_engine_get_object_by_id (HTMLEngine *e, const gchar *id)
 
 	return (HTMLObject *) g_hash_table_lookup (e->id_table, id);
 }
+
+HTMLEngine *
+html_engine_get_top_html_engine (HTMLEngine *e)
+{
+	while (e->widget->iframe_parent)
+		e = GTK_HTML (e->widget->iframe_parent)->engine;
+
+	return e;
+}

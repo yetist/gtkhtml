@@ -183,7 +183,6 @@ select_range (HTMLObject *self,
 	HTMLObject *p;
 	gboolean changed;
 
-	printf ("select_range %d -- %d\n", offset, length);
 	master = HTML_TEXT_MASTER (self);
 
 	if (length < 0 || length + offset > HTML_TEXT (self)->text_len)

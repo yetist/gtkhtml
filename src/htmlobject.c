@@ -391,9 +391,6 @@ select_range (HTMLObject *self,
 
 	self->selected = selected;
 
-	/* if (queue_draw && changed)
-	   html_engine_queue_draw (engine, self); */
-
 	return changed;
 }
 

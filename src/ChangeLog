@@ -1,5 +1,12 @@
 2000-11-21  Radek Doulik  <rodo@helixcode.com>
 
+	* htmlselection.c (html_engine_unselect_all): use
+	html_engine_get_top_html_engine
+
+	* htmlengine.c (html_engine_get_top_html_engine): new helper
+	function, returns engine from TOP html widget - the one without
+	iframe_parent
+
 	* htmliframe.c (append_selection_string): new method
 
 	* gtkhtml.c (shift_to_iframe_parent): new helper function
