@@ -33,6 +33,13 @@ binding "html-keys"
   bind "<Ctrl><Alt>i"       { "command" (toggle-italic) }
   bind "<Ctrl><Alt>u"       { "command" (toggle-underline) }
   bind "<Ctrl><Alt>s"       { "command" (toggle-strikeout) }
+
+  bind "<Ctrl><Alt>l"       { "command" (align-left) }
+  bind "<Ctrl><Alt>c"       { "command" (align-center) }
+  bind "<Ctrl><Alt>r"       { "command" (align-right) }
+
+  bind "Tab"                { "command" (indent-more) }
+  bind "<Ctrl><Alt>Tab"     { "command" (indent-less) }
 }
 
 class "GtkHTML" binding "html-keys"

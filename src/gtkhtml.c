@@ -1853,6 +1853,8 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	if (!html_engine_get_editable (html->engine))
 		return;
 
+	/* printf ("command %d\n", com_type); */
+
 	switch (com_type) {
 	case GTK_HTML_COMMAND_UNDO:
 		html_engine_undo (html->engine);
@@ -1902,6 +1904,21 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_TOGGLE_STRIKEOUT:
 		html_engine_font_style_toggle (html->engine, GTK_HTML_FONT_STYLE_STRIKEOUT);
 		break;
+	case GTK_HTML_COMMAND_ALIGN_LEFT:
+		gtk_html_align_paragraph (html, GTK_HTML_PARAGRAPH_ALIGNMENT_LEFT);
+		break;
+	case GTK_HTML_COMMAND_ALIGN_CENTER:
+		gtk_html_align_paragraph (html, GTK_HTML_PARAGRAPH_ALIGNMENT_CENTER);
+		break;
+	case GTK_HTML_COMMAND_ALIGN_RIGHT:
+		gtk_html_align_paragraph (html, GTK_HTML_PARAGRAPH_ALIGNMENT_RIGHT);
+		break;
+	case GTK_HTML_COMMAND_INDENT_INC:
+		gtk_html_indent (html, +1);
+		break;
+	case GTK_HTML_COMMAND_INDENT_DEC:
+		gtk_html_indent (html, -1);
+		break;
 	default:
 		return;
 	}
@@ -1931,6 +1948,11 @@ static GtkEnumValue _gtk_html_command_values[] = {
   { GTK_HTML_COMMAND_TOGGLE_ITALIC, "GTK_HTML_COMMAND_TOGGLE_ITALIC", "toggle-italic" },
   { GTK_HTML_COMMAND_TOGGLE_UNDERLINE, "GTK_HTML_COMMAND_TOGGLE_BOLD", "toggle-underline" },
   { GTK_HTML_COMMAND_TOGGLE_STRIKEOUT, "GTK_HTML_COMMAND_TOGGLE_BOLD", "toggle-strikeout" },
+  { GTK_HTML_COMMAND_ALIGN_LEFT, "GTK_HTML_COMMAND_ALIGN_LEFT", "align-left" },
+  { GTK_HTML_COMMAND_ALIGN_CENTER, "GTK_HTML_COMMAND_ALIGN_CENTER", "align-center" },
+  { GTK_HTML_COMMAND_ALIGN_RIGHT, "GTK_HTML_COMMAND_ALIGN_RIGHT", "align-right" },
+  { GTK_HTML_COMMAND_INDENT_INC, "GTK_HTML_COMMAND_INDENT_INC", "indent-more" },
+  { GTK_HTML_COMMAND_INDENT_DEC, "GTK_HTML_COMMAND_INDENT_DEC", "indent-less" },
   { 0, NULL, NULL }
 };
 

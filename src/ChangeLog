@@ -1,5 +1,13 @@
 2000-06-12  Radek Doulik  <rodo@helixcode.com>
 
+	* keybindingsrc.emacs: added new bindings
+
+	* keybindingsrc.ms: added new bindings
+
+	* gtkhtml.c (command): new commands implementation
+
+	* gtkhtml.h: new commands for align and indentation
+
 	* gtkhtml.c (load_keybindings): fixed keybindings file path (added
 	gtkhtml to it)
 
