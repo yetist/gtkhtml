@@ -1,5 +1,11 @@
 2004-05-17  Radek Doulik  <rodo@ximian.com>
 
+	* htmlobject.c (op_cut): set change to parent object and set its
+	width to zero to force redraw
+	(merge): ditto
+
+	Fixes #56545
+
 	* htmlgdkpainter.c (alloc_font): as below
 
 	* htmlclueflow.c (pref_right_margin): calculate the width as

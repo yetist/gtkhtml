@@ -133,7 +133,10 @@ op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GL
 		} else
 			html_object_move_cursor_before_remove (self, e);
 
-		html_object_change_set   (self,  HTML_CHANGE_ALL_CALC);
+		html_object_change_set (self, HTML_CHANGE_ALL_CALC);
+		html_object_change_set (self->parent, HTML_CHANGE_ALL_CALC);
+		/* force parent redraw */
+		self->parent->width = 0;
 		html_object_remove_child (self->parent, self);
 		*len += html_object_get_recursive_length (self);
 
@@ -145,6 +148,11 @@ op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GL
 static gboolean
 merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **right, HTMLCursor *cursor)
 {
+	if (self->parent) {
+		html_object_change_set (self->parent, HTML_CHANGE_ALL_CALC);
+		self->parent->width = 0;
+	}
+
 	return FALSE;
 }
 
