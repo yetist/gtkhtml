@@ -1,7 +1,9 @@
-2000-10-29  Larry Ewing  <lewing@ximian.com>
+2001-10-29  Larry Ewing  <lewing@ximian.com>
+
+	* htmltable.c (merge): shut up the compiler.
 
 	* htmlengine.c (parse_c): tweak reseting center.
-
+	
 2001-10-29  Ettore Perazzoli  <ettore@ximian.com>
  
  	* htmlengine.c (html_engine_init): Init `->pAlign' and

@@ -580,9 +580,9 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **
 {
 	HTMLTable *t1 = HTML_TABLE (self);
 	HTMLTable *t2 = HTML_TABLE (with);
-	HTMLTableCell *cursor_cell_1;
-	HTMLTableCell *cursor_cell_2;
-	HTMLTableCell *cursor_cell_3;
+	HTMLTableCell *cursor_cell_1 = NULL;
+	HTMLTableCell *cursor_cell_2 = NULL;
+	HTMLTableCell *cursor_cell_3 = NULL;
 	HTMLTableCell *prev_c1 = NULL;
 	HTMLTableCell *t1_tail = NULL;
 	gint r, c;
