@@ -5,13 +5,85 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2000-08-10 22:57+0200\n"
+"POT-Creation-Date: 2000-08-20 16:36+0200\n"
 "PO-Revision-Date: 2000-08-06 22:43+0200\n"
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: capplet/gnome-bindings-prop.c:153 capplet/gnome-bindings-prop.c:221
+#: capplet/gnome-bindings-prop.c:296 capplet/gnome-bindings-prop.c:431
+#: capplet/gnome-bindings-prop.c:432
+msgid "<None>"
+msgstr "<Brez>"
+
+#: capplet/gnome-bindings-prop.c:521
+msgid "Key"
+msgstr "Kljuè"
+
+#: capplet/gnome-bindings-prop.c:521
+msgid "Command"
+msgstr "Ukaz"
+
+#: capplet/gnome-bindings-prop.c:522
+msgid "Commands"
+msgstr "Ukazi"
+
+#: capplet/gnome-bindings-prop.c:523
+msgid "Keymaps"
+msgstr "Mapiranja tipk"
+
+#: capplet/gnome-bindings-prop.c:541
+msgid "Add"
+msgstr "Dodaj"
+
+#: capplet/gnome-bindings-prop.c:544
+#: components/html-editor/test-html-editor-control.c:325
+#: components/html-editor/toolbar.c:495
+msgid "Copy"
+msgstr "Kopiraj"
+
+#: capplet/gnome-bindings-prop.c:547
+msgid "Delete"
+msgstr "Zbri¹i"
+
+#: capplet/gnome-bindings-prop.c:578
+msgid "Grab key"
+msgstr "Preberi tipko"
+
+#: capplet/main.c:175
+msgid "Appearance"
+msgstr "Izgled"
+
+#: capplet/main.c:181
+msgid "Variable width font"
+msgstr "Pisava s spremenljivo ¹irino"
+
+#: capplet/main.c:185
+msgid "Select HTML variable width font"
+msgstr "Izberi HTML pisavo s spremenljivo ¹irino"
+
+#: capplet/main.c:190
+msgid "Fixed width font"
+msgstr "Pisava z nespremenljivo ¹irino"
+
+#: capplet/main.c:194
+msgid "Select HTML fixed width font"
+msgstr "Izberi pisavo z nespremenljivo dol¾ino"
+
+#: capplet/main.c:204
+msgid "Behaviour"
+msgstr "Obna¹anje"
+
+#: capplet/main.c:205
+msgid "magic links"
+msgstr "èarobne povezave"
+
+#: capplet/main.c:212
+msgid "Keybindings"
+msgstr "Vezi tipk"
 
 #: components/html-editor/body.c:107
 msgid "use background image"
@@ -283,11 +355,6 @@ msgstr "Izre¾i"
 #: components/html-editor/test-html-editor-control.c:323
 msgid "Cut selection to the clipboard"
 msgstr "Izre¾i izbrano na odlo¾i¹èe"
-
-#: components/html-editor/test-html-editor-control.c:325
-#: components/html-editor/toolbar.c:495
-msgid "Copy"
-msgstr "Kopiraj"
 
 #: components/html-editor/test-html-editor-control.c:325
 msgid "Copy selection to the clipboard"
