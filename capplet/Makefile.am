@@ -29,9 +29,6 @@ LDADD = \
 sysdir = $(datadir)/control-center/Documents/
 sys_DATA = gtkhtml-properties.desktop
 
-newsysdir = $(datadir)/control-center/capplets/
-newsys_DATA = gtkhtml-properties.desktop
-
 deskdir = $(datadir)/gnome/apps/Settings/Documents/
 desk_DATA = gtkhtml-properties.desktop
 
