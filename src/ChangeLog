@@ -1,6 +1,6 @@
 2001-10-01  Larry Ewing  <lewing@ximian.com>
 
-	* htmlsearch.c (html_search_new): silence wanrings for unused
+	* htmlsearch.c (html_search_new): silence warnings for unused
 	variables.
 
 	* gtkhtml-stream.c: add stdlib.h include.
