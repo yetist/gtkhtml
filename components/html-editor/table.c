@@ -95,6 +95,7 @@ changed_bg_pixmap (GtkWidget *w, GtkHTMLEditTableProperties *d)
 	if (d->disable_change || !editor_has_html_object (d->cd, HTML_OBJECT (d->table)))
 		return;
 
+	html_cursor_forward (d->cd->html->engine->cursor, d->cd->html->engine);
 	file = gtk_entry_get_text (GTK_ENTRY (w));
 	if (file && *file)
 		url = g_strconcat ("file://", file, NULL);
@@ -110,6 +111,7 @@ changed_spacing (GtkWidget *w, GtkHTMLEditTableProperties *d)
 	if (d->disable_change || !editor_has_html_object (d->cd, HTML_OBJECT (d->table)))
 		return;
 
+	html_cursor_forward (d->cd->html->engine->cursor, d->cd->html->engine);
 	html_engine_table_set_spacing (d->cd->html->engine, d->table, gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_spacing)), FALSE);
 }
 
@@ -119,6 +121,7 @@ changed_padding (GtkWidget *w, GtkHTMLEditTableProperties *d)
 	if (d->disable_change || !editor_has_html_object (d->cd, HTML_OBJECT (d->table)))
 		return;
 
+	html_cursor_forward (d->cd->html->engine->cursor, d->cd->html->engine);
 	html_engine_table_set_padding (d->cd->html->engine, d->table, gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_padding)), FALSE);
 }
 
@@ -128,6 +131,7 @@ changed_border (GtkWidget *w, GtkHTMLEditTableProperties *d)
 	if (d->disable_change || !editor_has_html_object (d->cd, HTML_OBJECT (d->table)))
 		return;
 
+	html_cursor_forward (d->cd->html->engine->cursor, d->cd->html->engine);
 	html_engine_table_set_border_width (d->cd->html->engine, d->table, gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_border)), FALSE);
 }
 
@@ -137,6 +141,7 @@ changed_align (GtkWidget *w, GtkHTMLEditTableProperties *d)
 	if (d->disable_change || !editor_has_html_object (d->cd, HTML_OBJECT (d->table)))
 		return;
 
+	html_cursor_forward (d->cd->html->engine->cursor, d->cd->html->engine);
 	html_engine_table_set_align (d->cd->html->engine, d->table,
 					     g_list_index (GTK_MENU_SHELL (w)->children, gtk_menu_get_active (GTK_MENU (w))) + HTML_HALIGN_LEFT);
 }
@@ -149,6 +154,7 @@ set_width (GtkHTMLEditTableProperties *d)
 	if (d->disable_change || !editor_has_html_object (d->cd, HTML_OBJECT (d->table)))
 		return;
 
+	html_cursor_forward (d->cd->html->engine->cursor, d->cd->html->engine);
 	menu = gtk_option_menu_get_menu (GTK_OPTION_MENU (d->option_width));
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (d->check_width))) {
 		if (g_list_index (GTK_MENU_SHELL (menu)->children, gtk_menu_get_active (GTK_MENU (menu))))
@@ -183,6 +189,7 @@ changed_cols (GtkWidget *w, GtkHTMLEditTableProperties *d)
 	if (d->disable_change || !editor_has_html_object (d->cd, HTML_OBJECT (d->table)))
 		return;
 
+	html_cursor_forward (d->cd->html->engine->cursor, d->cd->html->engine);
 	html_engine_table_set_cols (d->cd->html->engine, gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_cols)));
 }
 
@@ -192,6 +199,7 @@ changed_rows (GtkWidget *w, GtkHTMLEditTableProperties *d)
 	if (d->disable_change || !editor_has_html_object (d->cd, HTML_OBJECT (d->table)))
 		return;
 
+	html_cursor_forward (d->cd->html->engine->cursor, d->cd->html->engine);
 	html_engine_table_set_rows (d->cd->html->engine, gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (d->spin_rows)));
 }
 
@@ -276,6 +284,7 @@ set_ui (GtkHTMLEditTableProperties *d)
 
 		d->disable_change = TRUE;
 
+		html_cursor_forward (d->cd->html->engine->cursor, d->cd->html->engine);
 		color_combo_set_color (COLOR_COMBO (d->combo_bg_color), d->table->bgColor);
 
 		if (d->table->bgPixmap) {
