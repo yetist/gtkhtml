@@ -489,10 +489,10 @@ html_engine_parse (HTMLEngine *p)
 	/* Initialize the font stack with the default font */
 	p->italic = FALSE;
 	p->underline = FALSE;
-	p->weight = Normal;
+	p->bold = FALSE;
 	p->fontsize = p->settings->fontBaseSize;
 
-	f = html_font_new ("times", p->settings->fontBaseSize, defaultFontSizes, p->weight, p->italic, p->underline);
+	f = html_font_new ("times", p->settings->fontBaseSize, defaultFontSizes, p->bold, p->italic, p->underline);
 
 	html_font_stack_push (p->fs, f);
 
@@ -615,7 +615,7 @@ html_engine_select_font (HTMLEngine *e)
 		e->fontsize = MAXFONTSIZES - 1;
 	
 	f = html_font_new (html_font_stack_top (e->fs)->family, e->fontsize, defaultFontSizes,
-			   e->weight, e->italic, e->underline);
+			   e->bold, e->italic, e->underline);
 	f->textColor = html_color_stack_top (e->cs);
 
 	html_font_stack_push (e->fs, f);
@@ -639,7 +639,7 @@ html_engine_pop_font (HTMLEngine *e)
 	html_painter_set_font (e->painter, html_font_stack_top (e->fs));
 
 	e->fontsize = html_font_stack_top (e->fs)->size;
-	e->weight = html_font_stack_top (e->fs)->weight;
+	e->bold = html_font_stack_top (e->fs)->bold;
 	e->italic = html_font_stack_top (e->fs)->italic;
 	e->underline = html_font_stack_top (e->fs)->underline;
 }
@@ -891,7 +891,7 @@ html_engine_parse_b (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	}
 	else if (strncmp (str, "b", 1) == 0) {
 		if (str[1] == '>' || str[1] == ' ') {
-			e->weight = Bold;
+			e->bold = TRUE;
 			html_engine_select_font (e);
 			html_engine_push_block (e, ID_B, 1, 
 						html_engine_block_end_font,
@@ -936,6 +936,7 @@ html_engine_parse_f (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 				else
 					newSize = num;
 			}
+			else if (strncasecmp (token, "face=", 5) == 0);
 			else if (strncasecmp (token, "color=", 6) == 0) {
 				/* FIXME: Have a way to override colors? */
 				html_engine_set_named_color (p, color, token + 6);
@@ -967,10 +968,12 @@ html_engine_parse_h (HTMLEngine *p, HTMLObject *clue, const gchar *str)
 
 		switch (str[1]) {
 		case '1':
-			p->weight = Bold;
+			p->bold = TRUE;
 			p->fontsize += 3;
 			html_engine_select_font (p);
 			break;
+		default:
+			g_print ("FIXME: Support header type\n");
 		}
 		html_engine_push_block (p, ID_HEADER, 2, html_engine_block_end_font, TRUE, 0);
 	} else if (*(str) == '/' && *(str + 1) == 'h' &&
