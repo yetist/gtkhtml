@@ -1148,7 +1148,7 @@ bin_search_eq_or_lower_index (GArray *a, gint range, gint val, gint offset)
 	h = range;
 	i = NEW_INDEX (l, h);
 
-	while (val != ARR (i) && l < h) {
+	while (l < h && val != ARR (i)) {
 		if (val < ARR (i))
 			h = i - 1;
 		else
@@ -1156,7 +1156,7 @@ bin_search_eq_or_lower_index (GArray *a, gint range, gint val, gint offset)
 		i = NEW_INDEX (l, h);
 	}
 
-	if (val == ARR (i))
+	if (i && val == ARR (i))
 		return i - 1;
 
 	if (val < ARR (l) && l > 1)

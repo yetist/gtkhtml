@@ -1,5 +1,8 @@
 2000-10-19  Radek Doulik  <rodo@helixcode.com>
 
+	* htmltable.c (bin_search_eq_or_lower_index): fixed to not access
+	a [-1]
+
 	* gtkhtml-input.c (focus_out): add focus_out signal handler for
 	entry
 	(set_html_focus): new helper function to set focus back to html
