@@ -1,3 +1,12 @@
+2004-01-30  Radek Doulik  <rodo@ximian.com>
+
+	* menubar.c (menubar_setup): as below
+
+	* gnome-gtkhtml-editor.c (main): as below
+
+	* editor-control-shlib.c (editor_shlib_init): use GETTEXT_PACKAGE
+	instead of GNOME_EXPLICIT_TRANSLATION_DOMAIN
+
 2004-01-30  Yong Sun <Yong.Sun@sun.com>
 
 	* cell.c image.c rule.c table.c template.c: add domain param in

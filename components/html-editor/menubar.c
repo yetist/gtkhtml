@@ -690,7 +690,7 @@ menubar_setup (BonoboUIComponent  *uic,
 	*/
 
 	domain = g_strdup (textdomain (NULL));
-	textdomain (GNOME_EXPLICIT_TRANSLATION_DOMAIN);
+	textdomain (GETTEXT_PACKAGE);
 	bonobo_ui_component_add_verb_list_with_data (uic, editor_verbs, cd);
 
 	if (GTK_HTML_CLASS(G_OBJECT_GET_CLASS (cd->html))->use_emacs_bindings) {
