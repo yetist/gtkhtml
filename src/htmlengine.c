@@ -1557,12 +1557,15 @@ parse_iframe (HTMLEngine *e, const gchar *str, HTMLObject *_clue)
 	if (src) {
 		iframe = html_iframe_new (GTK_WIDGET (e->widget),
 					  src, atoi(width), atoi (height), FALSE);
+		g_free (src);
 		append_element (e, _clue, iframe);
 		discard_body (e, end);
 	} else {
 		parse_body (e, _clue, end, FALSE);
 	}
-	
+	g_free (width);
+	g_free (height);
+	g_free (align);
 }
 
 

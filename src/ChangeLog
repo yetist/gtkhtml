@@ -1,3 +1,7 @@
+2001-04-12  Dan Winship  <danw@ximian.com>
+
+	* htmlengine.c (parse_iframe): Don't leak.
+
 2001-04-12  Radek Doulik  <rodo@ximian.com>
 
 	* htmlgdkpainter.c (html_gdk_painter_unrealize): check if painter
