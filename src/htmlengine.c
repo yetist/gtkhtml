@@ -2447,7 +2447,7 @@ html_engine_init (HTMLEngine *engine)
 	engine->actualURL = NULL;
 	engine->newPage = FALSE;
 
-	engine->editable = TRUE;
+	engine->editable = FALSE;
 	engine->cursor = html_cursor_new ();
 
 	engine->ht = html_tokenizer_new ();
@@ -2685,7 +2685,8 @@ html_engine_end (GtkHTMLStreamHandle handle, GtkHTMLStreamStatus status, HTMLEng
 	gtk_signal_emit (GTK_OBJECT (e), signals[LOAD_DONE]);
 	html_image_factory_cleanup (e->image_factory);
 
-	html_cursor_home (e->cursor, e);
+	if (e->editable)
+		html_cursor_home (e->cursor, e);
 }
 
 void
