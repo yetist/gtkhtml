@@ -166,7 +166,7 @@ EXTRA_DIST =					\
 	GNOME_GtkHTML_Editor.xml.in		\
 	gtkhtml-editor-properties.glade
 
-idldir = $(datadir)/gtkhtml
+idldir = $(datadir)/$(GTKHTML_RELEASE_STRING)
 idl_DATA = $(IDLS)
 
 CLEANFILES += $(IDL_GENERATED) $(SPELL_IDL_GENERATED)
