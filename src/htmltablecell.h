@@ -43,6 +43,8 @@ struct _HTMLTableCell {
 	gint cspan;
 	gint padding;
 	gint refcount;
+	gint row;
+	gint col;
 
 	GdkColor bg;
 	guint have_bg : 1;
@@ -80,5 +82,8 @@ void        html_table_cell_set_fixed_width  (HTMLTableCell      *cell,
 					      gint                width);
 void        html_table_cell_set_bg_pixmap    (HTMLTableCell      *cell,
 					      HTMLImagePointer   *imagePtr);
+void        html_table_cell_set_position     (HTMLTableCell      *cell,
+					      gint                row,
+					      gint                col);
 
 #endif /* _HTMLTABLECELL_H_ */

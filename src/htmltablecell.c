@@ -257,6 +257,8 @@ html_table_cell_init (HTMLTableCell *cell,
 	cell->refcount = 0;
 	cell->rspan = rs;
 	cell->cspan = cs;
+	cell->col = -1;
+	cell->row = -1;
 
 	cell->have_bg = FALSE;
 	cell->have_bgPixmap = FALSE;
@@ -311,4 +313,11 @@ html_table_cell_set_bg_pixmap (HTMLTableCell *cell,
 		cell->have_bgPixmap = TRUE;
 		cell->bgPixmap = imagePtr;
 	}
+}
+
+void
+html_table_cell_set_position (HTMLTableCell *cell, gint row, gint col)
+{
+	cell->col = col;
+	cell->row = row;
 }

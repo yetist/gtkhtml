@@ -1,5 +1,19 @@
 2000-09-14  Radek Doulik  <rodo@helixcode.com>
 
+	* htmltable.c (set_cell): new helper function, sets cell in table
+	on col,row
+	(add_cell): refactored set_cells function, filling table with
+	cells, which have cspan or rspan > 1 is delayed to
+	html_table_end_table, also use set_cell
+	(cell_fill): new helper function, fills cell in table (if cspan or
+	rspan > 1)
+	(html_table_end_table): fill table with cells here
+	(get_rc): not needed anymore
+	(next): remove call to get_rc
+	(prev): likewise
+
+	* htmltablecell.h: added position info to TableCell (col, row)
+
 	* htmlengine-save.c (encode_entities): updated for utf8
 
 	* htmlclueflow.c (spell_check_word_mark): index -> offset and not

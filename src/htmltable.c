@@ -933,32 +933,48 @@ optimize_cell_width (HTMLTable *table,
 }
 
 static void
-set_cells (HTMLTable *table, gint r, gint c, HTMLTableCell *cell)
+set_cell (HTMLTable *table, gint r, gint c, HTMLTableCell *cell)
 {
-	gint endRow = r + cell->rspan;
-	gint endCol = c + cell->cspan;
-	gint tc;
+	if (table->cells [r][c])
+		html_table_cell_unlink (table->cells [r][c]);
+	table->cells [r][c] = cell;
+	html_table_cell_link (cell);
+}
 
+static void
+add_cell (HTMLTable *table, gint r, gint c, HTMLTableCell *cell)
+{
 	g_return_if_fail (HTML_OBJECT (cell)->parent == NULL);
-
 	HTML_OBJECT (cell)->parent = HTML_OBJECT (table);
 	
-	if (endCol > table->totalCols)
-		add_columns (table, endCol - table->totalCols);
+	if (c >= table->totalCols)
+		add_columns (table, c + 1 - table->totalCols);
 
-	if (endRow >= table->allocRows)
-		add_rows (table, endRow - table->allocRows + 10);
+	if (r + 1 >= table->allocRows)
+		add_rows (table, r + 1 - table->allocRows + 10);
 
-	if (endRow > table->totalRows)
-		table->totalRows = endRow;
+	if (r >= table->totalRows)
+		table->totalRows = r + 1;
 
-	for (; r < endRow; r++) {
-		for (tc = c; tc < endCol ; tc++) {
-			if (table->cells[r][tc])
-				html_table_cell_unlink (table->cells[r][tc]);
-			table->cells[r][tc] = cell;
-			html_table_cell_link (cell);
-		}
+	set_cell (table, r, c, cell);
+	html_table_cell_set_position (cell, r, c);
+}
+
+static void
+cell_fill (HTMLTable *table, HTMLTableCell *cell)
+{
+	gint r, c, sc;
+
+	g_assert (table);
+	g_assert (cell);
+	g_assert (cell->col >= 0);
+	g_assert (cell->row >= 0);
+
+	sc = cell->col + 1;
+	for (r = cell->row; r < cell->row + cell->rspan && r < table->totalRows; r++) {
+		for (c = sc; c < cell->col + cell->cspan && c < table->totalCols; c++)
+			set_cell (table, r, c, cell);
+		sc = cell->col;
 	}
 }
 
@@ -1491,15 +1507,6 @@ tail (HTMLObject *self)
 	return NULL;
 }
 
-static void
-get_rc (HTMLTable *table, HTMLTableCell *cell, gint *r, gint *c)
-{
-	for (*r = 0; *r < table->totalRows; (*r)++)
-		for (*c= 0; *c < table->totalCols; (*c)++)
-			if (cell == table->cells [*r][*c])
-				return;
-}
-
 static HTMLObject *
 next (HTMLObject *self, HTMLObject *child)
 {
@@ -1507,7 +1514,8 @@ next (HTMLObject *self, HTMLObject *child)
 	gint r, c;
 
 	table = HTML_TABLE (self);
-	get_rc (table, HTML_TABLE_CELL (child), &r, &c);
+	r = HTML_TABLE_CELL (child)->row;
+	c = HTML_TABLE_CELL (child)->col;
 	for (c++; r < table->totalRows; r++) {
 		for (; c < table->totalCols; c++) {
 			if (invalid_cell (table, r, c))
@@ -1526,7 +1534,8 @@ prev (HTMLObject *self, HTMLObject *child)
 	gint r, c;
 
 	table = HTML_TABLE (self);
-	get_rc (table, HTML_TABLE_CELL (child), &r, &c);
+	r = HTML_TABLE_CELL (child)->row;
+	c = HTML_TABLE_CELL (child)->col;
 	for (c--; r >= 0; r--) {
 		for (; c >=0; c--) {
 			if (invalid_cell (table, r, c))
@@ -1653,7 +1662,7 @@ html_table_add_cell (HTMLTable *table, HTMLTableCell *cell)
 	       table->cells[table->row][table->col] != 0)
 		table->col++;
 
-	set_cells (table, table->row, table->col, cell);
+	add_cell (table, table->row, table->col, cell);
 }
 
 void
@@ -1675,12 +1684,16 @@ html_table_end_row (HTMLTable *table)
 void
 html_table_end_table (HTMLTable *table)
 {
-	/* FIXME this should not be needed, as the functions are already called
-           by `calc_size()'.  */
-#if 0
-	calc_col_info (table);
-	calc_column_widths (table);
-#endif
+	gint r, c;
+
+	for (r=0; r<table->totalRows; r++)
+		for (c=0; c<table->totalCols; c++) {
+			HTMLTableCell *cell;
+
+			cell = table->cells [r][c];
+			if (cell && cell->row == r && cell->col == c && (cell->cspan > 1 || cell->rspan > 1))
+				cell_fill (table, cell);
+		}
 }
 
 gint
