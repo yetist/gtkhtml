@@ -105,6 +105,20 @@ fi
 
 AM_CONDITIONAL(BONOBO, $have_bonobo)
 
+dnl Check if Bonobo is OAFized
+
+AC_MSG_CHECKING(if Bonob uses OAF)
+if ( gnome-config --libs bonobo | grep oaf ) > /dev/null 2>&1 ; then
+	using_oaf="yes"
+	AC_DEFINE(USING_OAF)
+else
+	using_oaf="no"
+fi
+
+AC_MSG_RESULT("$using_oaf")
+
+AM_CONDITIONAL(USING_OAF, test x"using_oaf" = "xyes")
+
 dnl gnome-print checks.
 
 AC_MSG_CHECKING([for gnome-print >= 0.13])
@@ -185,7 +199,7 @@ AC_SUBST(GTKHTML_LIBDIR)
 AC_SUBST(GTKHTML_INCLUDEDIR)
 AC_SUBST(GTKHTML_LIBS)
 
-dnl Library version information.
+ndnl Library version information.
  
 dnl Increment the following if the interface has additions, changes,
 dnl removals.

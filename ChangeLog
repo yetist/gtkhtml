@@ -1,3 +1,10 @@
+2000-04-27  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* acconfig.h: Added `USING_OAF'.
+
+	* configure.in: Check if Bonob is OAFized and, if so, define
+	`USING_OAF'.
+
 2000-04-19  Pavel Cisler  <pavel@eazel.com>
 
 	* configure.in: Made configure respect --without-bonobo

@@ -1,3 +1,27 @@
+2000-04-27  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* editor-control-factory.c: New #define `CONTROL_FACTORY_ID',
+	depending on whether we are `USING_OAF' or not.
+	(editor_control_factory_init): Use `CONTROL_FACTORY_ID'.
+
+	* test-html-editor-control.c: New #define
+	`HTML_EDITOR_CONTROL_ID'; conditional on whether we are
+	`USING_OAF' or not.
+	(container_create): Use `HTML_EDITOR_CONTROL_ID' instead of an
+	hardcoded value.
+	(init_corba): New function, conditionally implemented according to
+	`USING_OAF'.
+	(init
+	(main): Use `init_corba()'.
+
+	* main.c (init_corba): New function, different compilation
+	according to the `USING_OAF' #define.
+	(init_bonobo): Use `init_corba()'.
+
+	* Makefile.am: Updated to install the OAF stuff.
+
+	* html-editor-control.oafinfo: New file for OAF.
+
 2000-04-28  Radek Doulik  <rodo@helixcode.com>
 
 	* image.c (image_edit): new function to use image dialog for

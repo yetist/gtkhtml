@@ -23,7 +23,6 @@
 
 #include <config.h>
 #include <gnome.h>
-#include <libgnorba/gnorba.h>
 #include <bonobo.h>
 
 #include "gtkhtml.h"
@@ -32,6 +31,12 @@
 #include "toolbar.h"
 
 #include "editor-control-factory.h"
+
+#ifdef USING_OAF
+#define CONTROL_FACTORY_ID "OAFIID:control-factory:html-editor:97cebd11-9e8c-45c3-9a0a-5a269c760c00"
+#else
+#define CONTROL_FACTORY_ID "control-factory:html-editor"
+#endif
 
 
 /* This is the initialization that can only be performed after the
@@ -160,7 +165,7 @@ editor_control_factory_init (void)
 	if (factory != NULL)
 		return;
 
-	factory = bonobo_generic_factory_new ("control-factory:html-editor",
+	factory = bonobo_generic_factory_new (CONTROL_FACTORY_ID,
 					      editor_control_factory,
 					      NULL);
 

@@ -22,9 +22,16 @@
 */
 
 #include <config.h>
+
 #include <gnome.h>
-#include <libgnorba/gnorba.h>
 #include <bonobo.h>
+
+
+#ifdef USING_OAF
+#define HTML_EDITOR_CONTROL_ID "OAFIID:control:html-editor:63c5499b-8b0c-475a-9948-81ec96a9662c"
+#else
+#define HTML_EDITOR_CONTROL_ID "control:html-editor"
+#endif
 
 
 /* Saving/loading through PersistStream.  */
@@ -267,11 +274,11 @@ container_create (void)
 	bonobo_ui_handler_menu_add_tree (uih, "/", tree);
 	bonobo_ui_handler_menu_free_tree (tree);
 
-	control = bonobo_widget_new_control ("control:html-editor",
+	control = bonobo_widget_new_control (HTML_EDITOR_CONTROL_ID,
 					     bonobo_object_corba_objref (BONOBO_OBJECT (uih)));
 
 	if (control == NULL)
-		g_error ("Cannot get `control:html-editor'.");
+		g_error ("Cannot get `%s'.", HTML_EDITOR_CONTROL_ID);
 
 	gnome_app_set_contents (GNOME_APP (app), control);
 
@@ -280,21 +287,42 @@ container_create (void)
 	return FALSE;
 }
 
-int
-main (int argc, char **argv)
+#ifdef USING_OAF
+
+#include <liboaf/liboaf.h>
+
+static void
+init_corba (int *argc, char **argv)
+{
+	gnome_init_with_popt_table ("test-html-editor-control", "1.0", *argc, argv,
+				    NULL, 0, NULL);
+	oaf_init (*argc, argv);
+}
+
+#else  /* USING_OAF */
+
+#include <libgnorba/gnorba.h>
+
+static void
+init_corba (int *argc, char **argv)
 {
 	CORBA_Environment ev;
-	CORBA_ORB orb;
 
 	CORBA_exception_init (&ev);
 
-	gnome_CORBA_init ("test-html-editor-control", "1.0", &argc, argv, 0, &ev);
+	gnome_CORBA_init ("test-html-editor-control", "1.0", argc, argv, 0, &ev);
 
 	CORBA_exception_free (&ev);
+}
 
-	orb = gnome_CORBA_ORB ();
+#endif /* USING_OAF */
 
-	if (bonobo_init (orb, NULL, NULL) == FALSE)
+int
+main (int argc, char **argv)
+{
+	init_corba (&argc, argv);
+
+	if (bonobo_init (CORBA_OBJECT_NIL, CORBA_OBJECT_NIL, CORBA_OBJECT_NIL) == FALSE)
 		g_error ("Could not initialize Bonobo\n");
 
 	/* We can't make any CORBA calls unless we're in the main loop.  So we

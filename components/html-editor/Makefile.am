@@ -44,8 +44,13 @@ html_editor_control_SOURCES =			\
 	toolbar.c				\
 	toolbar.h
 
+if USING_OAF
 gnorbadir = $(sysconfdir)/CORBA/servers
 gnorba_DATA = html-editor-control.gnorba
+else
+oafdir = $(datadir)/oaf
+oaf_DATA = html-editor-control.oafinfo
+endif
 
 # The Test program
 
@@ -58,5 +63,6 @@ test_html_editor_control_SOURCES =		\
 # Extra stuff to distribute.
 
 EXTRA_DIST =					\
-	$(gnorba_DATA)				\
+	html-editor-control.gnorba		\
+	html-editor-control.oafinfo		\
 	ChangeLog
