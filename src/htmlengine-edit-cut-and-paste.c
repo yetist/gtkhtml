@@ -335,7 +335,7 @@ html_engine_copy_object (HTMLEngine *e, HTMLObject **o, guint *len)
 	if (e->clue && HTML_CLUE (e->clue)->head && html_engine_is_selection_active (e)) {
 		prepare_delete_bounds (e, &from, &to, NULL, NULL);
 		*len = 0;
-		*o    = html_object_op_copy (HTML_OBJECT (from->data), e,
+		*o    = html_object_op_copy (HTML_OBJECT (from->data), NULL, e,
 					     from->next, to->next, len);
 #ifdef OP_DEBUG
 		printf ("copy len: %d (parent %p)\n", *len, (*o)->parent);
@@ -379,7 +379,7 @@ delete_undo_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir, gu
 	guint       len = 0;
 
 	undo         = (DeleteUndo *) data;
-	buffer       = html_object_op_copy (undo->buffer, e, NULL, NULL, &len);
+	buffer       = html_object_op_copy (undo->buffer, NULL, e, NULL, NULL, &len);
 	insert_object (e, buffer, undo->buffer_len, position_after, undo->level, html_undo_direction_reverse (dir), TRUE);
 }
 
@@ -621,7 +621,7 @@ delete_object (HTMLEngine *e, HTMLObject **ret_object, guint *ret_len, HTMLUndoD
 		position_before = MAX (e->cursor->position, e->mark->position);
 		level = delete_object_do (e, &object, &len, dir, add_undo);
 		if (ret_object && ret_len) {
-			*ret_object = html_object_op_copy (object, e, NULL, NULL, ret_len);
+			*ret_object = html_object_op_copy (object, NULL, e, NULL, NULL, ret_len);
 			*ret_len    = len;
 		}
 		backward = validate_tables (e, dir, add_undo, &fix_para);
@@ -867,7 +867,7 @@ html_engine_paste (HTMLEngine *e)
 		HTMLObject *copy;
 		guint len = 0;
 
-		copy = html_object_op_copy (e->clipboard, e, NULL, NULL, &len);
+		copy = html_object_op_copy (e->clipboard, NULL, e, NULL, NULL, &len);
 		html_engine_paste_object (e, copy, e->clipboard_len);
 	}
 }

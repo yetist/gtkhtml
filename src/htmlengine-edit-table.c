@@ -184,7 +184,8 @@ insert_table_column (HTMLEngine *e, gboolean after, HTMLTableCell **column, HTML
 			guint len;
 
 			cell = column
-				? HTML_TABLE_CELL (html_object_op_copy (HTML_OBJECT (column [r]), e, NULL, NULL, &len))
+				? HTML_TABLE_CELL (html_object_op_copy (HTML_OBJECT (column [r]), HTML_OBJECT (t),
+									e, NULL, NULL, &len))
 				: html_engine_new_cell (e, t);
 			html_table_set_cell (t, r, col, cell);
 			html_table_cell_set_position (t->cells [r][col], r, col);
@@ -433,7 +434,8 @@ insert_table_row (HTMLEngine *e, gboolean after, HTMLTableCell **row_cells, HTML
 			guint len;
 
 			cell = row_cells
-				? HTML_TABLE_CELL (html_object_op_copy (HTML_OBJECT (row_cells [c]), e, NULL, NULL, &len))
+				? HTML_TABLE_CELL (html_object_op_copy (HTML_OBJECT (row_cells [c]), HTML_OBJECT (t),
+									e, NULL, NULL, &len))
 				:  html_engine_new_cell (e, t);
 			html_table_set_cell (t, row, c, cell);
 			html_table_cell_set_position (t->cells [row][c], row, c);

@@ -146,20 +146,20 @@ copy (HTMLObject *self, HTMLObject *dest)
 	copy_sized (self, dest, HTML_TABLE (self)->totalRows, HTML_TABLE (self)->totalCols);
 }
 
-static HTMLObject * op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len);
+static HTMLObject * op_copy (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList *to, guint *len);
 
 static HTMLObject *
-copy_as_leaf (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
+copy_as_leaf (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList *to, guint *len)
 {
 	if ((!from || GPOINTER_TO_INT (from->data) == 0)
 	    && (!to || GPOINTER_TO_INT (to->data) == html_object_get_length (self)))
-		return op_copy (self, e, NULL, NULL, len);
+		return op_copy (self, parent, e, NULL, NULL, len);
 	else
 		return html_engine_new_text_empty (e);
 }
 
 static HTMLObject *
-op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
+op_copy (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList *to, guint *len)
 {
 	HTMLTableCell *start, *end;
 	HTMLTable *nt, *t;
@@ -170,7 +170,7 @@ op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 	if ((from || to)
 	    && (!from || !from->next)
 	    && (!to || !to->next))
-		return copy_as_leaf (self, e, from, to, len);
+		return copy_as_leaf (self, parent, e, from, to, len);
 
 	t  = HTML_TABLE (self);
 	nt = g_new0 (HTMLTable, 1);
@@ -199,7 +199,7 @@ op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
 				if (cell->row == r + start->row && cell->col == c + start_col) {
 					HTMLTableCell *cell_copy;
 					cell_copy = HTML_TABLE_CELL
-						(html_object_op_copy (HTML_OBJECT (cell), e,
+						(html_object_op_copy (HTML_OBJECT (cell), HTML_OBJECT (nt), e,
 								      html_object_get_bound_list (HTML_OBJECT (cell), from),
 								      html_object_get_bound_list (HTML_OBJECT (cell), to),
 								      len));

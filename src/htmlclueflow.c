@@ -232,7 +232,7 @@ op_helper (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left,
 		html_clueflow_remove_text_slaves (HTML_CLUEFLOW (self));
 	o = cut
 		? (*HTML_OBJECT_CLASS (parent_class)->op_cut) (self, e, from, to, left, right, len)
-		: (*HTML_OBJECT_CLASS (parent_class)->op_copy) (self, e, from, to, len);
+		: (*HTML_OBJECT_CLASS (parent_class)->op_copy) (self, NULL, e, from, to, len);
 
 	if (!cut && o) {
 		html_clueflow_remove_text_slaves (HTML_CLUEFLOW (o));
@@ -242,7 +242,7 @@ op_helper (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left,
 }
 
 static HTMLObject *
-op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
+op_copy (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList *to, guint *len)
 {
 	return op_helper (self, e, from, to, NULL, NULL, len, FALSE);
 }

@@ -356,7 +356,7 @@ new_text (HTMLText *t, gint begin, gint end)
 }
 
 static HTMLObject *
-op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
+op_copy (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList *to, guint *len)
 {
 	return html_text_op_copy_helper (HTML_TEXT (self), from, to, len, new_text);
 }

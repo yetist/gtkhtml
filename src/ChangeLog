@@ -1,8 +1,14 @@
 2002-09-05  Radek Doulik  <rodo@ximian.com>
 
+	* htmliframe.c (op_copy): set iframe's clue parent
+
+	* htmlobject.c (html_object_op_copy): added parent parameter
+
 	* htmliframe.c (copy): copy html and clue as well, initialize
 	_painter
 	(destroy): unref painter just when non-NULL
+	(op_copy): implemented
+	(copy): don't copy content here, but in op_copy
 
 2002-09-04  Radek Doulik  <rodo@ximian.com>
 

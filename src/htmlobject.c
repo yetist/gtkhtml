@@ -102,7 +102,7 @@ copy (HTMLObject *self,
 }
 
 static HTMLObject *
-op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
+op_copy (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList *to, guint *len)
 {
 	if ((!from || GPOINTER_TO_INT (from->data) == 0)
 	    && (!to || GPOINTER_TO_INT (to->data) == html_object_get_length (self))) {
@@ -729,9 +729,9 @@ html_object_dup (HTMLObject *object)
 }
 
 HTMLObject *
-html_object_op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
+html_object_op_copy (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList *to, guint *len)
 {
-	return (* HO_CLASS (self)->op_copy) (self, e, from, to, len);
+	return (* HO_CLASS (self)->op_copy) (self, parent, e, from, to, len);
 }
 
 HTMLObject *

@@ -92,6 +92,7 @@ struct _HTMLObjectClass {
 
 	/* copy/cut/paste operations */
 	HTMLObject * (* op_copy)         (HTMLObject *self,
+					  HTMLObject *parent,
 					  HTMLEngine *e,
 					  GList      *from,
 					  GList      *to,
@@ -270,6 +271,7 @@ HTMLObject     *html_object_dup                   (HTMLObject            *self);
 
 /* copy/cut/paste operations */
 HTMLObject     *html_object_op_copy               (HTMLObject            *self,
+						   HTMLObject            *parent,
 						   HTMLEngine            *e,
 						   GList                 *from,
 						   GList                 *to,

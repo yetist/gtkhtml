@@ -224,8 +224,6 @@ static void
 copy (HTMLObject *self,
       HTMLObject *dest)
 {
-	gint len;
-
         HTMLIFrame *s = HTML_IFRAME (self);
         HTMLIFrame *d = HTML_IFRAME (dest);
 
@@ -240,9 +238,6 @@ copy (HTMLObject *self,
 	*/
 	d->scroll = NULL;
 	d->html = gtk_html_new ();
-	GTK_HTML (d->html)->engine->clue =
-		html_object_op_copy (GTK_HTML (s->html)->engine->clue,
-				     GTK_HTML (s->html)->engine, NULL, NULL, &len);
 	d->gdk_painter = NULL;
 	d->old_painter = NULL;
 	d->parent_painter = NULL;
@@ -251,6 +246,24 @@ copy (HTMLObject *self,
 	d->width = s->width;
 	d->height = s->height;
 	d->frameborder = s->frameborder;
+}
+
+static HTMLObject *
+op_copy (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList *to, guint *len)
+{
+	HTMLObject *dup, *clue;
+	GtkHTML *html;
+
+	dup = html_object_dup (self);
+	html = HTML_IFRAME (dup)->html;
+	clue = GTK_HTML (HTML_IFRAME (self)->html)->engine->clue;
+	GTK_HTML (HTML_IFRAME (dup)->html)->engine->clue =
+		html_object_op_copy (clue, dup, GTK_HTML (HTML_IFRAME (self)->html)->engine,
+				     html_object_get_bound_list (clue, from),
+				     html_object_get_bound_list (clue, to), len);
+	GTK_HTML (HTML_IFRAME (dup)->html)->engine->clue->parent = parent;
+	
+	return dup;
 }
 
 void
@@ -594,6 +607,7 @@ html_iframe_class_init (HTMLIFrameClass *klass,
 	object_class->reset                   = reset;
 	object_class->draw                    = draw;
 	object_class->copy                    = copy;
+	object_class->op_copy                 = op_copy;
 	object_class->set_max_width           = set_max_width;
 	object_class->forall                  = forall;
 	object_class->check_page_split        = check_page_split;

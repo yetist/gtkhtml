@@ -109,7 +109,7 @@ op_helper (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left,
 					      html_object_get_bound_list (o, from),
 					      html_object_get_bound_list (o, to),
 					      left ? left->next : NULL, right ? right->next : NULL, len)
-			: html_object_op_copy (o, e,
+			: html_object_op_copy (o, cc, e,
 					       html_object_get_bound_list (o, from),
 					       html_object_get_bound_list (o, to), len);
 		if (child)
@@ -124,7 +124,7 @@ op_helper (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left,
 }
 
 static HTMLObject *
-op_copy (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, guint *len)
+op_copy (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList *to, guint *len)
 {
 	return op_helper (self, e, from, to, NULL, NULL, len, FALSE);
 }
