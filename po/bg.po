@@ -2,14 +2,15 @@
 # Copyright (C) 2004 
 # This file is distributed under the same license as the gtkhtml package.
 # Vladimir Petkov <vpetkov@i-space.org>, 2004.
+# Rostislav Raykov <zbrox@i-space.org>, 2004
 # 
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml gnome 2.8\n"
+"Project-Id-Version: gtkhtml 2.8\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-07-16 04:46+0200\n"
-"PO-Revision-Date: 2004-07-16 14:59+0300\n"
+"PO-Revision-Date: 2004-07-16 15:23+0300\n"
 "Last-Translator: Vladimir Petkov <vpetkov@i-space.org>\n"
 "Language-Team: Bulgarian <dict@linux.zonebg.com>\n"
 "MIME-Version: 1.0\n"
@@ -123,7 +124,7 @@ msgstr ""
 
 #: capplet/gtkhtml-capplet.glade.h:25
 msgid "Shortcuts _type:"
-msgstr ""
+msgstr "Вид бърз бутон:"
 
 #: capplet/gtkhtml-capplet.glade.h:26
 msgid "Show animated images"
@@ -238,7 +239,7 @@ msgstr "Копиране на селекцията"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
 msgid "Cr_ying"
-msgstr ""
+msgstr "Плачещо"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
@@ -542,7 +543,7 @@ msgstr "Поставяне"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
 msgid "Paste _Quotation"
-msgstr ""
+msgstr "Поставяне на цитат"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
@@ -605,7 +606,7 @@ msgstr ""
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
 msgid "Roman Numeral List"
-msgstr ""
+msgstr "Списък с римските цифри"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
@@ -760,7 +761,7 @@ msgstr "Размер на _Шрифта"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
 msgid "_Frown"
-msgstr ""
+msgstr "Намусено"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
@@ -785,7 +786,7 @@ msgstr ""
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
 msgid "_Indifferent"
-msgstr ""
+msgstr "Безразлично"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
@@ -923,7 +924,7 @@ msgstr "_Отказване"
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:149
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:150
 msgid "_Wink"
-msgstr ""
+msgstr "Намигване"
 
 #: components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:150
 #: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:152
@@ -1796,7 +1797,7 @@ msgstr ""
 
 #: components/html-editor/toolbar.c:52
 msgid "Roman List"
-msgstr ""
+msgstr "Римски списък"
 
 #: components/html-editor/toolbar.c:513
 msgid "Left align"
@@ -1891,7 +1892,7 @@ msgstr "Заглавието на текущия документ"
 
 #: src/gtkhtml.c:2829
 msgid "Document Base"
-msgstr ""
+msgstr "База на документа"
 
 #: src/gtkhtml.c:2830
 msgid "The base URL for relative references"
@@ -1943,7 +1944,7 @@ msgstr ""
 
 #: src/gtkhtml.c:2872
 msgid "The color of the spelling error markers"
-msgstr ""
+msgstr "Цвета на подчертаването на грешки"
 
 #: src/gtkhtml.c:2877
 msgid "Cite Quotation Color"
@@ -1951,7 +1952,7 @@ msgstr ""
 
 #: src/gtkhtml.c:2878
 msgid "The color of the cited text"
-msgstr ""
+msgstr "Цвета на цитирания текст"
 
 #: src/html-component.c:219
 msgid "Html"
@@ -2020,11 +2021,11 @@ msgstr "GtkHTML Проба"
 
 #: src/testgtkhtml.c:117
 msgid "Print pre_view"
-msgstr ""
+msgstr "Печатен преглед"
 
 #: src/testgtkhtml.c:117
 msgid "Print preview"
-msgstr ""
+msgstr "Печатен преглед"
 
 #: src/testgtkhtml.c:987
 msgid "GtkHTML Test Application"
