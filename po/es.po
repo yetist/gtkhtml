@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml 0.9.99.1\n"
-"POT-Creation-Date: 2001-10-09 09:44-0500\n"
+"POT-Creation-Date: 2001-10-17 15:19+0200\n"
 "PO-Revision-Date: 2001-07-13 00:44+0200\n"
 "Last-Translator: Héctor García Álvarez <hector@scouts-es.org>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 msgid "<None>"
 msgstr "<Nada>"
 
-#: capplet/gnome-bindings-prop.c:216 capplet/main.c:245
+#: capplet/gnome-bindings-prop.c:216 capplet/main.c:252
 #: components/html-editor/cell.c:385 components/html-editor/rule.c:315
 #: components/html-editor/table.c:528 components/html-editor/table.c:619
 #: components/html-editor/template.c:243
@@ -735,11 +735,6 @@ msgstr "Texto"
 msgid "Background"
 msgstr "Fondo"
 
-#: components/html-editor/cell.c:391 components/html-editor/table.c:534
-#: components/html-editor/text.c:221 components/html-editor/toolbar.c:290
-msgid "Automatic"
-msgstr "Automático"
-
 #: components/html-editor/editor-control-factory.c:176
 #: components/html-editor/popup.c:146
 msgid "Properties"
@@ -1237,7 +1232,8 @@ msgid ""
 "\"-1\">Image 1: <b>description</b></font></td></tr></table></td></tr></table>"
 msgstr ""
 "/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
-"\"-3\">Imagen 1: <b>descripción</b></font></td></tr></table></td></tr></table>"
+"\"-3\">Imagen 1: <b>descripción</b></font></td></tr></table></td></tr></"
+"table>"
 
 #: components/html-editor/test-html-editor-control.c:276
 msgid "Open file..."
@@ -1322,4 +1318,3 @@ msgstr "Pre_visualización de la impresión"
 #: src/testgtkhtml.c:112
 msgid "Print preview"
 msgstr "Previsualización de la impresión"
-
