@@ -89,6 +89,8 @@ editor_control_factory (BonoboGenericFactory *factory,
 
 	html_widget = gtk_html_new ();
 	gtk_widget_show (html_widget);
+
+	gtk_html_load_empty (GTK_HTML (html_widget));
 	gtk_html_set_editable (GTK_HTML (html_widget), TRUE);
 
 	vbox = gtk_vbox_new (FALSE, 0);

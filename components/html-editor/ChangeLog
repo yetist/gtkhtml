@@ -1,3 +1,9 @@
+2000-03-03  Ettore Perazzoli  <ettore@helixcode.com>
+
+	* editor-control-factory.c (editor_control_factory): Call
+	`gtk_html_load_empty()' on the widget to make it an empty document
+	after its created.
+
 2000-03-01  Ettore Perazzoli  <ettore@helixcode.com>
 
 	* editor-control-factory.c (uih_hack_cb): Do not create the
