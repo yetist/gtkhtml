@@ -444,7 +444,8 @@ move_cell_rd_undo_new (gint rspan, gint cspan)
 	return undo;
 }
 
-static move_cell_rd_undo_free (struct MoveCellRDUndo *undo)
+static void 
+move_cell_rd_undo_free (struct MoveCellRDUndo *undo)
 {
 	gint i;
 
@@ -464,7 +465,7 @@ move_cell_rd (HTMLTable *t, HTMLTableCell *cell, gint rs, gint cs)
 	g_assert ((rs == 0 && cs > 0) || (cs == 0 && rs > 0));
 
 	undo = move_cell_rd_undo_new (cell->rspan, cell->cspan);
-	printf ("move %dx%d --> %dx%d\n", cell->row, cell->col, cell->row + rs, cell->col + cs);
+	/* printf ("move %dx%d --> %dx%d\n", cell->row, cell->col, cell->row + rs, cell->col + cs); */
 	for (r = cell->row + cell->rspan - 1; r >= cell->row; r --)
 		for (c = cell->col + cell->cspan - 1; c >= cell->col; c --) {
 			if (r > cell->row + cell->rspan - 1 - rs || c > cell->col + cell->cspan - 1 - cs) {
@@ -481,14 +482,14 @@ move_cell_rd (HTMLTable *t, HTMLTableCell *cell, gint rs, gint cs)
 					move->rt = nr;
 					move->ct = nc;
 					move->move = TRUE;
-					printf ("moved: %dx%d --> %dx%d (%d, %d) %p\n", rs + r, cs + c, nr, nc, r - cell->row, c - cell->col, t->cells [nr][nc]);
+					/* printf ("moved: %dx%d --> %dx%d (%d, %d) %p\n", rs + r, cs + c, nr, nc, r - cell->row, c - cell->col, t->cells [nr][nc]); */
 				}
 			} else {
 				if (r >= cell->row + rs && c >= cell->col + cs) {
 					if (t->cells [rs + r][cs + c] && t->cells [rs + r][cs + c]->col == cs + c && t->cells [rs + r][cs + c]->row == rs + r) {
 						/* printf ("move destroy: %dx%d\n", rs + r, cs + c); */
 						/* html_object_destroy (HTML_OBJECT (t->cells [rs + r][cs + c])); */
-						printf ("removed: %dx%d (%d, %d)\n", rs + r, cs + c, r - cell->row, c - cell->col);
+						/* printf ("removed: %dx%d (%d, %d)\n", rs + r, cs + c, r - cell->row, c - cell->col); */
 						undo->removed [(r - cell->row)*cell->cspan + c - cell->col];
 					}
 					t->cells [r][c] = NULL;
@@ -552,7 +553,7 @@ move_cell_rd_undo (HTMLTable *table, struct MoveCellRDUndo *undo)
 			if (undo->moved [r*undo->cspan + c].move) {
 				struct Move *move = &undo->moved [r*undo->cspan + c];
 
-				printf ("move back: %dx%d --> %dx%d (%d, %d) %p\n", move->rt, move->ct, move->rs, move->cs, r, c, table->cells [move->rt][move->ct]);
+				/* printf ("move back: %dx%d --> %dx%d (%d, %d) %p\n", move->rt, move->ct, move->rs, move->cs, r, c, table->cells [move->rt][move->ct]); */
 				table->cells [move->rs][move->cs] = table->cells [move->rt][move->ct];
 				html_table_cell_set_position (table->cells [move->rs][move->cs], move->rs, move->cs);
 				table->cells [move->rt][move->ct] = NULL;
