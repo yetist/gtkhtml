@@ -173,41 +173,78 @@ struct _HTMLObjectClass {
 extern HTMLObjectClass html_object_class;
 
 
-void html_object_type_init (void);
-void html_object_init (HTMLObject *o, HTMLObjectClass *klass);
-void html_object_class_init (HTMLObjectClass *klass, HTMLType type);
-HTMLObject *html_object_new (HTMLObject *parent);
-void html_object_destroy (HTMLObject *o);
-void html_object_set_parent (HTMLObject *o, HTMLObject *parent);
-void html_object_calc_abs_position (HTMLObject *o, gint *x_return, gint *y_return);
+void        html_object_type_init          (void);
+void        html_object_init               (HTMLObject      *o,
+					    HTMLObjectClass *klass);
+void        html_object_class_init         (HTMLObjectClass *klass,
+					    HTMLType         type);
+HTMLObject *html_object_new                (HTMLObject      *parent);
+void        html_object_destroy            (HTMLObject      *o);
+void        html_object_set_parent         (HTMLObject      *o,
+					    HTMLObject      *parent);
+void        html_object_reset              (HTMLObject      *o);
 
-void html_object_draw (HTMLObject *o, HTMLPainter *p, HTMLCursor *cursor, gint x, gint y,
-		       gint width, gint height, gint tx, gint ty);
-HTMLFitType html_object_fit_line (HTMLObject *o, HTMLPainter *painter,
-				  gboolean start_of_line, gboolean first_run, gint width_left);
-void html_object_calc_size (HTMLObject *o, HTMLPainter *painter);
-void html_object_set_max_ascent (HTMLObject *o, gint a);
-void html_object_set_max_descent (HTMLObject *o, gint d);
-void html_object_destroy (HTMLObject *o);
-void html_object_set_max_width (HTMLObject *o, gint max_width);
-void html_object_reset (HTMLObject *o);
-gint html_object_calc_min_width (HTMLObject *o, HTMLPainter *painter);
-gint html_object_calc_preferred_width (HTMLObject *o, HTMLPainter *painter);
-const gchar *html_object_get_url (HTMLObject *o);
-const gchar *html_object_get_target (HTMLObject *o);
-HTMLAnchor *html_object_find_anchor (HTMLObject *o, const gchar *name,
-				     gint *x, gint *y);
+gboolean  html_object_is_text  (HTMLObject *object);
+
+void  html_object_draw  (HTMLObject  *o,
+			 HTMLPainter *p,
+			 HTMLCursor  *cursor,
+			 gint         x,
+			 gint         y,
+			 gint         width,
+			 gint         height,
+			 gint         tx,
+			 gint         ty);
 void html_object_set_bg_color (HTMLObject *o, GdkColor *color);
-HTMLObject *html_object_mouse_event (HTMLObject *clue, gint x, gint y,
-				     gint button, gint state);
-HTMLObject *html_object_check_point (HTMLObject *clue, gint x, gint y);
 
-gboolean html_object_relayout (HTMLObject *obj, HTMLEngine *engine, HTMLObject *child);
+HTMLFitType  html_object_fit_line              (HTMLObject  *o,
+						HTMLPainter *painter,
+						gboolean     start_of_line,
+						gboolean     first_run,
+						gint         width_left);
+void         html_object_calc_size             (HTMLObject  *o,
+						HTMLPainter *painter);
+void         html_object_set_max_ascent        (HTMLObject  *o,
+						gint         a);
+void         html_object_set_max_descent       (HTMLObject  *o,
+						gint         d);
+void         html_object_set_max_width         (HTMLObject  *o,
+						gint         max_width);
+gint         html_object_calc_min_width        (HTMLObject  *o,
+						HTMLPainter *painter);
+gint         html_object_calc_preferred_width  (HTMLObject  *o,
+						HTMLPainter *painter);
+void         html_object_calc_abs_position     (HTMLObject  *o,
+						gint        *x_return,
+						gint        *y_return);
 
-gboolean html_object_accepts_cursor (HTMLObject *obj);
-void     html_object_get_cursor     (HTMLObject *obj, HTMLPainter *painter, guint offset,
-				     gint *x1, gint *y1, gint *x2, gint *y2);
+const gchar *html_object_get_url     (HTMLObject *o);
+const gchar *html_object_get_target  (HTMLObject *o);
 
-gboolean html_object_is_text (HTMLObject *object);
+HTMLAnchor *html_object_find_anchor  (HTMLObject  *o,
+				      const gchar *name,
+				      gint        *x,
+				      gint        *y);
+HTMLObject *html_object_mouse_event  (HTMLObject  *clue,
+				      gint         x,
+				      gint         y,
+				      gint         button,
+				      gint         state);
+HTMLObject *html_object_check_point  (HTMLObject  *clue,
+				      gint         x,
+				      gint         y);
+
+gboolean  html_object_relayout  (HTMLObject *obj,
+				 HTMLEngine *engine,
+				 HTMLObject *child);
+
+gboolean  html_object_accepts_cursor   (HTMLObject  *obj);
+void      html_object_get_cursor       (HTMLObject  *obj,
+					HTMLPainter *painter,
+					guint        offset,
+					gint        *x1,
+					gint        *y1,
+					gint        *x2,
+					gint        *y2);
 
 #endif /* _HTMLOBJECT_H_ */
