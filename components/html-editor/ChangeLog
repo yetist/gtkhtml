@@ -1,3 +1,13 @@
+2001-10-28  Larry Ewing  <lewing@ximian.com>
+
+	* link.c (link_apply_cb): get the positions for the insertion from
+	the saved values.  Otherwise if people make a selection while the
+	dialog is up we will lose the url.  Since people probably want to
+	past the url from somewhere to the entry this is especially important.
+	(link_properties): store the positions of the selection at
+	the time the dialog was opened.  Add members to the structure to
+	hold them. Fixes Ximian #13175.
+
 2001-10-23  Larry Ewing  <lewing@ximian.com>
 
 	* search.c (search): initialize regular, even on the first time
