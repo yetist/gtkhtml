@@ -240,6 +240,7 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	gtk_table_set_row_spacings (GTK_TABLE (t1), 6);
 
 	data->option_template = gtk_option_menu_new ();
+	atk_object_set_name (gtk_widget_get_accessible (data->option_template), _("Template"));
 	fill_templates (data);
 	hbox = gtk_hbox_new (FALSE, 1);
 	gtk_box_pack_start (GTK_BOX (hbox), data->option_template, FALSE, FALSE, 0);
@@ -293,6 +294,8 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 				     ip->url + off);
 	}
 
+
+	atk_object_set_name (gtk_widget_get_accessible (gnome_file_entry_gnome_entry (GNOME_FILE_ENTRY (data->pixmap_entry))), _("Background Image File Path"));
 
 	hbox = gtk_hbox_new (FALSE, 6);
 	gtk_box_pack_start (GTK_BOX (hbox), gtk_label_new_with_mnemonic (_("_Source:")), FALSE, FALSE, 0);

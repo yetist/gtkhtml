@@ -179,10 +179,12 @@ gtk_html_replace_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 		gtk_entry_set_text (GTK_ENTRY (dialog->entry_replace), cd->replace_text_replace);
 
 	gtk_table_set_col_spacings (GTK_TABLE (table), 3);
-	label = gtk_label_new (_("Replace:"));
+	label = gtk_label_new_with_mnemonic (_("R_eplace:"));
+	gtk_label_set_mnemonic_widget (label,dialog-> entry_search);
 	gtk_misc_set_alignment (GTK_MISC (label), .0, .5);
 	gtk_table_attach (GTK_TABLE (table), label, 0, 1, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
-	label = gtk_label_new (_("With:"));
+	label = gtk_label_new_with_mnemonic (_("_With:"));
+	gtk_label_set_mnemonic_widget (label, dialog->entry_replace);
 	gtk_misc_set_alignment (GTK_MISC (label), .0, .5);
 	gtk_table_attach (GTK_TABLE (table), label, 0, 1, 1, 2, GTK_FILL, GTK_FILL, 0, 0);
 

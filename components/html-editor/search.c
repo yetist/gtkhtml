@@ -103,7 +103,6 @@ gtk_html_search_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 {
 	GtkHTMLSearchDialog *dialog = g_new (GtkHTMLSearchDialog, 1);
 	GtkWidget *hbox, *vbox;
-
 	/* we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c */
 	dialog->dialog         = GTK_DIALOG (gtk_dialog_new_with_buttons (_("Find"), NULL, 0,
 									  GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL,
@@ -115,6 +114,8 @@ gtk_html_search_dialog_new (GtkHTML *html, GtkHTMLControlData *cd)
 	dialog->regular_exp    = gtk_check_button_new_with_mnemonic (_("_Regular Expression"));
 	dialog->html           = html;
 	dialog->cd             = cd;
+
+	atk_object_set_description (gtk_widget_get_accessible (dialog->entry), _("Input the words you want to search here"));
 
 	hbox = gtk_hbox_new (FALSE, 6);
 

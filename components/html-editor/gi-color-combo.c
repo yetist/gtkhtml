@@ -35,6 +35,7 @@
 #include <libgnomecanvas/gnome-canvas.h>
 #include <libgnomecanvas/gnome-canvas-pixbuf.h>
 #include <libgnomecanvas/gnome-canvas-rect-ellipse.h>
+#include <glib/gi18n.h>
 #include "htmlmarshal.h"
 #include "gi-colors.h"
 #include "gi-color-combo.h"
@@ -183,6 +184,7 @@ gi_color_combo_construct (GiColorCombo *cc, GdkPixbuf *icon,
 	 * Our button with the canvas preview
 	 */
 	cc->preview_button = gtk_button_new ();
+	atk_object_set_name (gtk_widget_get_accessible (cc->preview_button), _("color preview"));
 	gtk_button_set_relief (GTK_BUTTON (cc->preview_button), GTK_RELIEF_NONE);
 
 	cc->preview_canvas = GNOME_CANVAS (gnome_canvas_new ());

@@ -191,9 +191,11 @@ link_widget (GtkHTMLEditLinkProperties *d, gboolean insert)
 
 	d->entry_url = glade_xml_get_widget (xml, "entry_url");
 	g_signal_connect (d->entry_url, "changed", G_CALLBACK (url_changed), d);
+	atk_object_set_name (gtk_widget_get_accessible (d->entry_url), _("URL:"));
 
 	d->entry_description = glade_xml_get_widget (xml, "entry_description");
 	g_signal_connect (d->entry_description, "changed", G_CALLBACK (description_changed), d);
+	atk_object_set_name (gtk_widget_get_accessible (d->entry_description), _("Description:"));
 
 	d->label_description = glade_xml_get_widget (xml, "label_description");
 

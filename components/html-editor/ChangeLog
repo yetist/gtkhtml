@@ -1,3 +1,16 @@
+2005-01-27  Mengjie Yu  <meng-jie.yu@sun.com>
+
+	* body.c: (body_properties):add atk name to some widget.
+	* gi-color-combo.c: (color_combo_construct):add atk name to the
+	color preview button.
+	* gi-combo-box.c: (gal_combo_box_init):add atk name to the popup
+	botton.
+	* link.c: (link_widget):set atk names to the entries.
+	* replace.c: (gtk_html_replace_dialog_new):add mnemonic to the
+	entry.
+	* search.c: (gtk_html_search_dialog_new):add atk desciption to
+	the search dialog.
+
 2005-01-26  Radek Doulik  <rodo@ximian.com>
 
 	* GNOME_GtkHTML_Editor-emacs.xml.in: removed forgotten insert

@@ -39,6 +39,7 @@
 #include <gtk/gtktearoffmenuitem.h>
 #include <gdk/gdkkeysyms.h>
 #include <gdk/gdkcursor.h>
+#include <glib/gi18n.h>
 #include "gi-combo-box.h"
 #include "gi-utils.h"
 #include "htmlmarshal.h"
@@ -398,7 +399,6 @@ gi_combo_box_init (GiComboBox *combo_box)
 {
 	GtkWidget *arrow;
 	GdkCursor *cursor;
-
 	combo_box->priv = g_new0 (GiComboBoxPrivate, 1);
 
 	/*
@@ -414,6 +414,10 @@ gi_combo_box_init (GiComboBox *combo_box)
 	g_signal_connect (combo_box->priv->arrow_button, "toggled",
 			  G_CALLBACK (gtk_combo_toggle_pressed), combo_box);
 	gtk_widget_show_all (combo_box->priv->arrow_button);
+	
+	/* set the a11y name */
+	atk_object_set_name (gtk_widget_get_accessible (combo_box->priv->arrow_button), _("Popup"));
+
 
 	/*
 	 * prelight the display widget when mousing over the arrow.
