@@ -1,5 +1,10 @@
 2004-06-15  Radek Doulik  <rodo@ximian.com>
 
+	* gtkhtml.c (drag_data_get): handle MOZILLA_URL, it contains
+	url\ntitle in UCS-2
+
+	Fixes #59844
+
 	* htmltextslave.c (clear_glyphs): new helper function
 	(destroy): call clear_glyphs
 	(get_glyphs): call clear_glyphs so that we don't leak glyphs when

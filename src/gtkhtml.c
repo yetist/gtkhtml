@@ -2300,8 +2300,8 @@ drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *sel
 {
 	/* printf ("drag_data_get\n"); */
 	switch (info) {
-	case DND_TARGET_TYPE_TEXT_URI_LIST:
 	case DND_TARGET_TYPE_MOZILLA_URL:
+	case DND_TARGET_TYPE_TEXT_URI_LIST:
 		/* printf ("\ttext/uri-list\n"); */
 	case DND_TARGET_TYPE_TEXT_HTML:
 	case DND_TARGET_TYPE_TEXT_PLAIN:
@@ -2321,10 +2321,38 @@ drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *sel
 
 				complete_url = g_strconcat (url, target && *target ? "#" : NULL, target, NULL);
 
-				gtk_selection_data_set (selection_data, selection_data->target, 8,
-							complete_url, strlen (complete_url));
-				/* printf ("complete URL %s\n", complete_url); */
-				GTK_HTML (widget)->priv->dnd_url = complete_url;
+				if (info == DND_TARGET_TYPE_MOZILLA_URL) {
+					/* MOZ_URL is in UCS-2 but in format 8. BROKEN!
+					 *
+					 * The data contains the URL, a \n, then the
+					 * title of the web page.
+					 */
+					char *ucs2;
+					char *utf8;
+					int written_len;
+
+					if (HTML_IS_TEXT (obj)) {
+						Link *link = html_text_get_link_at_offset (HTML_TEXT (obj), offset);
+						char *text;
+
+						g_return_if_fail (link);
+						text = g_strndup (HTML_TEXT (obj)->text + link->start_index, link->end_index - link->start_index);
+						utf8 = g_strconcat (complete_url, "\n", text, NULL);
+					} else
+						utf8 = g_strconcat (complete_url, "\n", complete_url, NULL);
+
+					ucs2 = g_convert (utf8, strlen (utf8), "UCS-2", "UTF-8", NULL, &written_len, NULL);
+					gtk_selection_data_set (selection_data, selection_data->target, 8,
+								ucs2, written_len);
+					g_free (utf8);
+					g_free (complete_url);
+					GTK_HTML (widget)->priv->dnd_url = ucs2;
+				} else {
+					gtk_selection_data_set (selection_data, selection_data->target, 8,
+								complete_url, strlen (complete_url));
+				        /* printf ("complete URL %s\n", complete_url); */
+					GTK_HTML (widget)->priv->dnd_url = complete_url;
+				}
 			}
 		}
 	}
