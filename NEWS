@@ -1,3 +1,12 @@
+gtkhtml-3.5.2 "Valley" 2004-12-20
+------------------------------------------------
+
+New in this release
+
+   * run ask replace dialog until finishe
+   * fix symbol conflicts with gal
+   * a11y fixes (Mengjie Yu)
+
 gtkhtml-3.5.1 "Fern" 2004-11-01
 ------------------------------------------------
 
