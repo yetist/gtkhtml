@@ -1,3 +1,4 @@
+
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library.
    
@@ -23,6 +24,7 @@
 #include <gtk/gtk.h>
 #include <string.h>
 #include "gtkhtml.h"
+#include "gtkhtml-private.h"
 #include "htmlcolorset.h"
 #include "htmlgdkpainter.h"
 #include "htmliframe.h"
@@ -386,12 +388,14 @@ html_iframe_init (HTMLIFrame *iframe,
 		  gboolean border)
 {
 	HTMLEmbedded *em = HTML_EMBEDDED (iframe);
-	GtkWidget *html;
+	GtkWidget *new_widget;
+	GtkHTML   *new_html;
 	GtkHTML   *parent_html;
 	GtkHTMLStream *handle;
 	GtkWidget *scrolled_window;
 
 	g_assert (GTK_IS_HTML (parent));
+	parent_html = GTK_HTML (parent);
 
 	html_embedded_init (em, HTML_EMBEDDED_CLASS (klass),
 			    parent, NULL, NULL);
@@ -400,41 +404,43 @@ html_iframe_init (HTMLIFrame *iframe,
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
 					GTK_POLICY_AUTOMATIC,
 					GTK_POLICY_AUTOMATIC);
-	html = gtk_html_new ();
-	iframe->html = html;
-	gtk_html_set_iframe_parent (GTK_HTML (html), parent);
-	gtk_container_add (GTK_CONTAINER (scrolled_window), html);
-	gtk_widget_show (html);
+	new_widget = gtk_html_new ();
+	new_html = GTK_HTML (new_widget);
+
+	gtk_html_set_default_content_type (new_html,
+					   parent_html->priv->content_type);
+	iframe->html = new_widget;
+	gtk_html_set_iframe_parent (new_html, parent);
+	gtk_container_add (GTK_CONTAINER (scrolled_window), new_widget);
+	gtk_widget_show (new_widget);
 
 	iframe->url = src;
 	iframe->width = width;
 	iframe->height = height;
 
-	parent_html = GTK_HTML (parent);
+	handle = gtk_html_begin (new_html);
+	new_html->engine->clue->parent = HTML_OBJECT (iframe);
 
-	handle = gtk_html_begin (GTK_HTML (html));
-	GTK_HTML (html)->engine->clue->parent = HTML_OBJECT (iframe);
-
-	gtk_signal_connect (GTK_OBJECT (html), "url_requested",
+	gtk_signal_connect (GTK_OBJECT (new_html), "url_requested",
 			    GTK_SIGNAL_FUNC (iframe_url_requested),
 			    (gpointer)iframe);
-	gtk_signal_connect (GTK_OBJECT (html), "on_url",
+	gtk_signal_connect (GTK_OBJECT (new_html), "on_url",
 			    GTK_SIGNAL_FUNC (iframe_on_url), 
 			    (gpointer)iframe);
-	gtk_signal_connect (GTK_OBJECT (html), "link_clicked",
+	gtk_signal_connect (GTK_OBJECT (new_html), "link_clicked",
 			    GTK_SIGNAL_FUNC (iframe_link_clicked),
 			    (gpointer)iframe);	
-	gtk_signal_connect (GTK_OBJECT (html), "size_changed",
+	gtk_signal_connect (GTK_OBJECT (new_html), "size_changed",
 			    GTK_SIGNAL_FUNC (iframe_size_changed),
 			    (gpointer)iframe);	
-	gtk_signal_connect (GTK_OBJECT (html), "object_requested",
+	gtk_signal_connect (GTK_OBJECT (new_html), "object_requested",
 			    GTK_SIGNAL_FUNC (iframe_object_requested),
 			    (gpointer)iframe);	
 	/*
 	  gtk_signal_connect (GTK_OBJECT (html), "button_press_event",
 	  GTK_SIGNAL_FUNC (iframe_button_press_event), iframe);
 	*/
-	gtk_signal_emit_by_name (GTK_OBJECT (GTK_HTML (html)->engine), 
+	gtk_signal_emit_by_name (GTK_OBJECT (new_html->engine), 
 				 "url_requested", src, handle);
 
 	if ((width > 0) && (height > 0))
@@ -444,15 +450,15 @@ html_iframe_init (HTMLIFrame *iframe,
 	iframe->scroll = scrolled_window;
 
 	html_embedded_set_widget (em, scrolled_window);
-	html_embedded_size_recalc(em);
+	html_embedded_size_recalc (em);
 
-	gtk_signal_connect(GTK_OBJECT(scrolled_window), "button_press_event",
-			   GTK_SIGNAL_FUNC(html_iframe_grab_cursor), NULL);
+	gtk_signal_connect(GTK_OBJECT (scrolled_window), "button_press_event",
+			   GTK_SIGNAL_FUNC (html_iframe_grab_cursor), NULL);
 
 	/* inherit the current colors from our parent */
-	html_colorset_set_unchanged (GTK_HTML (html)->engine->defaultSettings->color_set,
+	html_colorset_set_unchanged (new_html->engine->defaultSettings->color_set,
 				     parent_html->engine->settings->color_set);
-	html_colorset_set_unchanged (GTK_HTML (html)->engine->settings->color_set,
+	html_colorset_set_unchanged (new_html->engine->settings->color_set,
 				     parent_html->engine->settings->color_set);
 	/*
 	gtk_signal_connect (GTK_OBJECT (html), "title_changed",

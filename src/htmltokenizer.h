@@ -32,7 +32,8 @@
 HTMLTokenizer *html_tokenizer_new          (void);
 void           html_tokenizer_destroy      (HTMLTokenizer *tokenizer);
 
-void           html_tokenizer_begin        (HTMLTokenizer *t);
+void           html_tokenizer_begin        (HTMLTokenizer *t, 
+					    gchar *content_type);
 void           html_tokenizer_write        (HTMLTokenizer *t,
 					    const gchar *string,
 					    size_t size);

@@ -38,6 +38,8 @@ struct _GtkHTMLPrivate {
 	GtkHTMLFontStyle insertion_font_style;
 
 	gint last_selection_type;
+	gchar *content_type;
+
 #ifdef GTKHTML_HAVE_GCONF
 	guint set_font_id;
 #endif

@@ -1,3 +1,9 @@
+2000-12-14  Larry Ewing  <lewing@helixcode.com>
+
+	* persist-stream-impl.c (save): add cast to cleanup warning.
+	(load): bonobo streams are always utf-8 so set the charset
+	explicitly.
+
 2000-12-14  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* *.c: Added #include <config.h> to all .c files. And added

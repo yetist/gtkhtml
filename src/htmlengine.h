@@ -266,7 +266,8 @@ void  html_engine_set_focus  (HTMLEngine *engine,
 			      gboolean    have_focus);
 
 /* Parsing control.  */
-GtkHTMLStream *html_engine_begin            (HTMLEngine  *p);
+GtkHTMLStream *html_engine_begin            (HTMLEngine  *p, 
+					     char        *content_type);
 void           html_engine_parse            (HTMLEngine  *p);
 void           html_engine_stop_parser      (HTMLEngine  *e);
 

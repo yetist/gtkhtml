@@ -3392,11 +3392,11 @@ id_table_free_func (gpointer key, gpointer val, gpointer data)
 }
 
 GtkHTMLStream *
-html_engine_begin (HTMLEngine *e)
+html_engine_begin (HTMLEngine *e, char *content_type)
 {
 	GtkHTMLStream *new_stream;
 
-	html_tokenizer_begin (e->ht);
+	html_tokenizer_begin (e->ht, content_type);
 	
 	free_block (e); /* Clear the block stack */
 
@@ -3413,6 +3413,7 @@ html_engine_begin (HTMLEngine *e)
 
 	html_image_factory_stop_animations (e->image_factory);
 	html_image_factory_cleanup (e->image_factory);
+
 	new_stream = gtk_html_stream_new (GTK_HTML (e->widget),
 					  html_engine_write,
 					  html_engine_end,

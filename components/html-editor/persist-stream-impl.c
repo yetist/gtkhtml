@@ -61,8 +61,9 @@ load (BonoboPersistStream *ps,
 	was_editable = gtk_html_get_editable (html);
 	if (was_editable)
 		gtk_html_set_editable (html, FALSE);
-
-	handle = gtk_html_begin (html);
+	
+	/* bonobo stream are _always_ utf-8 */
+	handle = gtk_html_begin_content (html, "text/html; charset=utf-8");
 
 	do {
 		Bonobo_Stream_read (stream, READ_CHUNK_SIZE,
@@ -139,7 +140,9 @@ save (BonoboPersistStream *ps,
 		save_state.ev = ev;
 		save_state.stream = CORBA_Object_duplicate (stream, ev);
 		if (ev->_major == CORBA_NO_EXCEPTION)
-			gtk_html_export (html, (char *)type, save_receiver,
+			gtk_html_export (html, 
+					 (char *)type, 
+					 (GtkHTMLSaveReceiverFn)save_receiver,
 					 &save_state);
 
 		CORBA_Object_release (save_state.stream, ev);
@@ -158,7 +161,7 @@ get_content_types (BonoboPersistStream *ps, gpointer data,
 		   CORBA_Environment *ev)
 {
 	return bonobo_persist_generate_content_types (2, "text/html",
-						     "text/plain");
+						      "text/plain");
 }
 
 

@@ -585,6 +585,7 @@ destroy (GtkObject *object)
 	if (html->priv->scroll_timeout_id != 0)
 		gtk_timeout_remove (html->priv->scroll_timeout_id);
 	
+	g_free (html->priv->content_type);
 	g_free (html->priv);
 	html->priv = NULL;
 
@@ -1738,6 +1739,7 @@ init (GtkHTML* html)
 	html->priv->paragraph_indentation = 0;
 	html->priv->insertion_font_style = GTK_HTML_FONT_STYLE_DEFAULT;
 	html->priv->last_selection_type = -1;
+	html->priv->content_type = NULL;
 
 	gtk_selection_add_targets (GTK_WIDGET (html),
 				   GDK_SELECTION_PRIMARY,
@@ -1845,6 +1847,12 @@ static FILE *log_file;
 GtkHTMLStream *
 gtk_html_begin (GtkHTML *html)
 {
+	return gtk_html_begin_content (html, html->priv->content_type);
+}
+
+GtkHTMLStream *
+gtk_html_begin_content (GtkHTML *html, gchar *content_type)
+{
 	GtkHTMLStream *handle;
 
 #ifdef LOG_INPUT
@@ -1852,7 +1860,7 @@ gtk_html_begin (GtkHTML *html)
 #endif
 	g_return_val_if_fail (! gtk_html_get_editable (html), NULL);
 
-	handle = html_engine_begin (html->engine);
+	handle = html_engine_begin (html->engine, html->priv->content_type);
 	if (handle == NULL)
 		return NULL;
 
@@ -2215,6 +2223,18 @@ void
 gtk_html_set_default_background_color (GtkHTML *html, GdkColor *c)
 {
 	html_colorset_set_color (html->engine->defaultSettings->color_set, c, HTMLBgColor);
+}
+
+void
+gtk_html_set_default_content_type (GtkHTML *html, gchar *content_type)
+{
+	gchar *lower;
+
+	g_free (html->priv->content_type);	
+
+	lower = g_strdup (content_type);
+	g_strdown (lower);
+	html->priv->content_type = lower;
 }
 
 gpointer

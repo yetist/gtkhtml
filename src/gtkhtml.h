@@ -152,6 +152,9 @@ int   gtk_html_request_paste    (GtkWidget *widget,
 				 gint32 time);
 /* Loading.  */
 GtkHTMLStream *gtk_html_begin             (GtkHTML             *html);
+GtkHTMLStream *gtk_html_begin_content     (GtkHTML             *html,
+					   gchar               *content_type);
+
 void           gtk_html_write             (GtkHTML             *html,
 					   GtkHTMLStream       *handle,
 					   const gchar         *buffer,
@@ -231,6 +234,7 @@ void  gtk_html_redo  (GtkHTML *html);
 /* misc utils */
 
 void  gtk_html_set_default_background_color (GtkHTML *html, GdkColor *c);
+void  gtk_html_set_default_content_type (GtkHTML *html, gchar *content_type);
 gpointer  gtk_html_get_object_by_id (GtkHTML *html, const gchar *id);
 
 void  gtk_html_editor_command (GtkHTML *html, const gchar *command_name);

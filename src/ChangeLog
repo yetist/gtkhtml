@@ -1,3 +1,31 @@
+2000-12-14  Larry Ewing  <lewing@helixcode.com>
+
+	* gtkhtml.c (destroy): free content_type.
+	(init): initialize content_type.
+	(gtk_html_begin_content): add entry point for specifying content type
+	at stream initialization.
+	(gtk_html_set_default_content_type): new funtion to set the
+	default content type assumption of new streams.
+
+	* htmlengine.h: add content_type to html_engine_begin prototype.
+
+	* htmlengine.c (html_engine_begin): add content_type parameter.
+
+	* gtkhtml-private.h: add content_type to private structure.
+
+	* htmliframe.c (html_iframe_init): make iframe inheirit default
+	content_type.
+
+	* gtkhtml.h: add gtk_html_set_default_content_type and
+	gtk_html_begin_content.
+	
+	* htmltokenizer.c (html_tokenizer_write): remove call to
+	html_tokenizer_begin as it shouldn't be needed any more.
+	(charset_is_utf8): temporary helper function.
+	(html_tokenizer_begin): add content_type argument to allow support
+	for multiple charsets.
+	(in_plain): do not convert to utf-8 if we are expecting utf-8
+
 2000-12-14  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* *.c: Added #include <config.h> to all .c files and fixed some

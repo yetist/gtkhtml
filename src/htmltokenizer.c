@@ -103,6 +103,7 @@ struct _HTMLTokenizer {
 	GList *blocking; /* Blocking tokens */
 
 	const gchar *searchFor;
+	gboolean utf8;
 };
 
 static const gchar *commentStart = "<!--";
@@ -331,8 +332,14 @@ html_tokenizer_reset (HTMLTokenizer *t)
 	t->scriptCode = NULL;
 }
 
+static gint
+charset_is_utf8 (gchar *content_type)
+{
+	return content_type && strstr (content_type, "charset=utf-8") != NULL;
+}
+
 void
-html_tokenizer_begin (HTMLTokenizer *t)
+html_tokenizer_begin (HTMLTokenizer *t, gchar *content_type)
 {
 	html_tokenizer_reset (t);
 
@@ -353,6 +360,16 @@ html_tokenizer_begin (HTMLTokenizer *t)
 	t->searchCount = 0;
 	t->title = FALSE;
 	t->charEntity = FALSE;
+	
+	t->utf8 = charset_is_utf8 (content_type);
+
+#if 0
+	if (t->utf8) 
+		g_warning ("Trying UTF-8");
+	else 
+		g_warning ("Trying ISO-8859-1");
+#endif
+
 }
 
 static void
@@ -1034,7 +1051,11 @@ in_plain (HTMLTokenizer *t, const gchar **src)
 	else if (t->pre) {
 		t->prePos++;
 	}
-	t->dest += html_unichar_to_utf8 ((guchar) **src, t->dest);
+	if (t->utf8)
+		*(t->dest)++ = **src;
+	else 
+		t->dest += html_unichar_to_utf8 ((guchar) **src, t->dest);
+	
 	(*src)++;
 }
 
@@ -1042,9 +1063,6 @@ void
 html_tokenizer_write (HTMLTokenizer *t, const gchar *string, size_t size)
 {
 	const gchar *src = string;
-
-	if (!t->buffer)
-		html_tokenizer_begin(t);
 
 	while ((src - string) < size) {
 		prepare_enough_space (t);
