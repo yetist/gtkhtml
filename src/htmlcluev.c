@@ -245,55 +245,6 @@ draw (HTMLObject *o,
 }
 
 static HTMLObject *
-mouse_event ( HTMLObject *object, gint _x, gint _y, gint button, gint state )
-{
-	HTMLObject *obj2;
-	HTMLClueAligned *clue;
-
-	obj2 = (* HTML_OBJECT_CLASS (parent_class)->mouse_event)
-		(object, _x, _y, button, state);
-	if (obj2 != NULL)
-		return obj2;
-
-	if ( _x < object->x || _x > object->x + object->width
-	     || _y > object->y + object->descent
-	     || _y < object->y - object->ascent)
-		return NULL;
-
-	for ( clue = HTML_CLUEALIGNED (HTML_CLUEV (object)->align_left_list);
-	      clue != NULL;
-	      clue = clue->next_aligned ) {
-		HTMLObject *parent;
-
-		parent = HTML_OBJECT (clue)->parent;
-		obj2 = html_object_mouse_event (HTML_OBJECT (clue),
-						_x - object->x - parent->x,
-						_y - (object->y - object->ascent)
-						- (parent->y - parent->ascent),
-						button, state );
-		if (obj2 != NULL )
-			return obj2;
-	}
-
-	for ( clue = HTML_CLUEALIGNED (HTML_CLUEV (object)->align_right_list);
-	      clue != NULL;
-	      clue = clue->next_aligned ) {
-		HTMLObject *parent;
-
-		parent = HTML_OBJECT (clue)->parent;
-		obj2 = html_object_mouse_event (HTML_OBJECT (clue),
-						_x - object->x - parent->x,
-						_y - (object->y - object->ascent)
-						- ( parent->y - parent->ascent ),
-						button, state );
-		if (obj2 != NULL )
-			return obj2;
-	}
-
-	return NULL;
-}
-
-static HTMLObject *
 check_point (HTMLObject *self,
 	     HTMLPainter *painter,
 	     gint x, gint y,
@@ -655,7 +606,6 @@ html_cluev_class_init (HTMLClueVClass *klass,
 	object_class->set_max_width = set_max_width;
 	object_class->reset = reset;
 	object_class->draw = draw;
-	object_class->mouse_event = mouse_event;
 	object_class->check_point = check_point;
 
 	clue_class->get_left_margin = get_left_margin;

@@ -1076,45 +1076,6 @@ find_anchor (HTMLObject *self, const char *name, gint *x, gint *y)
 }
 
 static HTMLObject *
-mouse_event (HTMLObject *self, gint _x, gint _y, gint button, gint state)
-{
-	unsigned int r, c;
-	HTMLTable *table;
-	HTMLObject *obj;
-	HTMLTableCell *cell;
-
-	table = HTML_TABLE (self);
-
-	if (_x < self->x || _x > self->x + self->width
-	    || _y > self->y + self->descent || _y < self->y - self->ascent)
-		return 0;
-
-	for (r = 0; r < table->totalRows; r++) {
-		for (c = 0; c < table->totalCols; c++) {
-			if ((cell = table->cells[r][c]) == 0)
-				continue;
-
-			if (c < table->totalCols - 1
-			    && cell == table->cells[r][c+1])
-				continue;
-			if (r < table->totalRows - 1
-			    && table->cells[r+1][c] == cell)
-				continue;
-
-			obj = html_object_mouse_event (HTML_OBJECT (cell),
-						       _x - self->x,
-						       _y - (self->y - self->ascent),
-						       button,
-						       state);
-			if (obj != NULL)
-				return obj;
-		}
-	}
-
-	return 0;
-}
-
-static HTMLObject *
 check_point (HTMLObject *self,
 	     HTMLPainter *painter,
 	     gint _x, gint _y,
@@ -1179,7 +1140,6 @@ html_table_class_init (HTMLTableClass *klass,
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->set_max_width = set_max_width;
 	object_class->reset = reset;
-	object_class->mouse_event = mouse_event;
 	object_class->check_point = check_point;
 	object_class->find_anchor = find_anchor;
 }

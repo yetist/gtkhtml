@@ -227,7 +227,6 @@ void  html_engine_queue_draw                  (HTMLEngine *e, HTMLObject *o);
 void  html_engine_schedule_update             (HTMLEngine *p);
 
 void        html_engine_form_submitted (HTMLEngine *engine, const gchar *method, const gchar *action, const gchar *encoding);
-HTMLObject *html_engine_mouse_event (HTMLEngine *e, gint x, gint y, gint button, gint state);
 
 
 #endif /* _HTMLENGINE_H_ */

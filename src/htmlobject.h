@@ -152,9 +152,6 @@ struct _HTMLObjectClass {
 
 	void (* set_bg_color) (HTMLObject *o, GdkColor *color);
 
-	HTMLObject * (* mouse_event) (HTMLObject *self, gint x, gint y,
-				      gint button, gint state);
-
 	HTMLObject * (* check_point) (HTMLObject *self, HTMLPainter *painter, gint x, gint y, guint *offset_return);
 
 	/* Relayout this object.  The object will relayout all the children
@@ -228,11 +225,7 @@ HTMLAnchor *html_object_find_anchor  (HTMLObject  *o,
 				      const gchar *name,
 				      gint        *x,
 				      gint        *y);
-HTMLObject *html_object_mouse_event  (HTMLObject  *clue,
-				      gint         x,
-				      gint         y,
-				      gint         button,
-				      gint         state);
+
 HTMLObject *html_object_check_point  (HTMLObject  *clue,
 				      HTMLPainter *painter,
 				      gint         x,

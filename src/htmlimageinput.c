@@ -31,26 +31,6 @@ destroy (HTMLObject *o)
 	HTML_OBJECT_CLASS (&html_element_class)->destroy (o);
 }
 
-static HTMLObject *
-mouse_event (HTMLObject *o,
-	     gint x, gint y, gint button, gint state)
-{
-	if ( x >= o->x && x < o->x + o->width )
-		if ( y > o->y - o->ascent && y < o->y + o->descent + 1 ) {
-			
-			if(button == 1 && state == 256) { /* Fix me Use define */
-
-				HTML_IMAGEINPUT(o)->m_x = x - o->x - 1;
-				HTML_IMAGEINPUT(o)->m_y = y - o->y + o->ascent - 1;
-				html_form_submit (HTML_FORM (HTML_ELEMENT(o)->form));
-			}
-
-			return o;
-		}
-	return NULL;
-}
-
-
 static void
 draw (HTMLObject *o,
       HTMLPainter *p,
@@ -124,7 +104,6 @@ html_imageinput_class_init (HTMLImageInputClass *klass,
 	/* HTMLObject methods.   */
 	object_class->destroy = destroy;
 	object_class->draw = draw;
-	object_class->mouse_event = mouse_event;
 }
 
 void

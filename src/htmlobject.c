@@ -142,13 +142,6 @@ set_bg_color (HTMLObject *o,
 {
 }
 
-static HTMLObject *
-mouse_event (HTMLObject *o,
-	     gint x, gint y, gint button, gint state)
-{
-	return NULL;
-}
-
 static HTMLObject*
 check_point (HTMLObject *self,
 	     HTMLPainter *painter,
@@ -279,7 +272,6 @@ html_object_class_init (HTMLObjectClass *klass,
 	klass->get_target = get_target;
 	klass->find_anchor = find_anchor;
 	klass->set_bg_color = set_bg_color;
-	klass->mouse_event = mouse_event;
 	klass->check_point = check_point;
 	klass->relayout = relayout;
 	klass->accepts_cursor = accepts_cursor;
@@ -444,13 +436,6 @@ void
 html_object_set_bg_color (HTMLObject *o, GdkColor *color)
 {
 	(* HO_CLASS (o)->set_bg_color) (o, color);
-}
-
-HTMLObject *
-html_object_mouse_event (HTMLObject *self, gint x, gint y,
-			 gint button, gint state)
-{
-	return (* HO_CLASS (self)->mouse_event) (self, x, y, button, state);
 }
 
 HTMLObject *

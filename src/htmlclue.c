@@ -206,32 +206,6 @@ find_anchor (HTMLObject *self, const char *name, gint *x, gint *y)
 	return 0;
 }
 
-static HTMLObject *
-mouse_event (HTMLObject *self, gint _x, gint _y,
-	     gint button, gint state)
-{
-	HTMLClue *clue;
-	HTMLObject *obj;
-	HTMLObject *obj2;
-
-	clue = HTML_CLUE (self);
-
-	if ( _x < self->x
-	     || _x > self->x + self->width
-	     || _y > self->y + self->descent
-	     || _y < self->y - self->ascent)
-		return 0;
-
-	for ( obj = clue->head; obj != NULL; obj = obj->next ) {
-		if ((obj2 = html_object_mouse_event
-			( obj, _x - self->x, _y - (self->y - self->ascent),
-			  button, state )) != 0 )
-			return obj2;
-	}
-
-	return 0;
-}
-
 static HTMLObject*
 check_point (HTMLObject *o,
 	     HTMLPainter *painter,
@@ -338,7 +312,6 @@ html_clue_class_init (HTMLClueClass *klass,
 	object_class->calc_size = calc_size;
 	object_class->calc_preferred_width = calc_preferred_width;
 	object_class->calc_min_width = calc_min_width;
-	object_class->mouse_event = mouse_event;
 	object_class->check_point = check_point;
 	object_class->find_anchor = find_anchor;
 

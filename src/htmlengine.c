@@ -3248,33 +3248,6 @@ html_engine_get_link_at (HTMLEngine *e, gint x, gint y)
 	return NULL;
 }
 
-HTMLObject *
-html_engine_mouse_event (HTMLEngine *e,
-			 gint x, gint y,
-			 gint button,
-			 gint state)
-{
-	HTMLObject *obj;
-
-	if ( e->clue == NULL )
-		return NULL;
-
-	x = x + e->x_offset - e->leftBorder;
-	y = y + e->y_offset - e->topBorder;
-
-	if (e->editable) {
-		guint offset;
-
-		obj = html_object_check_point (HTML_OBJECT (e->clue), e->painter, x, y, &offset);
-		if (obj != 0)
-			html_engine_jump_to (e, obj, offset);
-	} else {
-		obj = html_object_mouse_event (HTML_OBJECT (e->clue), x, y, button, state);
-	}
-
-	return obj;
-}
-
 void
 html_engine_set_editable (HTMLEngine *e, gboolean editable)
 {

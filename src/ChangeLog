@@ -1,5 +1,32 @@
 2000-01-19  Ettore Perazzoli  <ettore@helixcode.com>
 
+	* htmltable.c (mouse_event): Removed.
+	(html_table_class_init): Do not install it.
+
+	* htmlimageinput.c (mouse_event): Removed.
+	(html_imageinput_class_init): Do not install it.
+
+	* htmlengine.c (html_engine_mouse_event): Removed.
+
+	* htmlcluev.c (mouse_event): Removed.
+	(html_cluev_class_init): Do not install it.
+
+	* htmlclue.c (mouse_event): Removed.
+	(html_clue_class_init): Do not install it.
+
+	* gtkhtml.c (button_press_event): Do not call
+	`html_engine_mouse_event' anymore.  We are going to do this
+	differently.
+	(button_release_event): Likewise.
+
+	* htmlobject.c (mouse_event): Removed.
+	(html_object_class_init): Do not install it anymore.
+	(html_object_mouse_event): Removed.
+
+	* htmlobject.h: Removed `mouse_event' virtual method.
+
+2000-01-19  Ettore Perazzoli  <ettore@helixcode.com>
+
 	* htmlcluev.c (check_point): Fixed to use the correct offsets.
 
 	* htmlengine.c (html_engine_mouse_event): Make the cursor jump to
