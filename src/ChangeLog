@@ -1,3 +1,9 @@
+2002-10-25  Larry Ewing  <lewing@ximian.com>
+
+	* htmlclueflow.c (draw_quotes): use draw_gt_line to fill draw >s
+	along the edge of the flow.  Fixes #29570.
+	(draw_gt_line): helper function.
+
 2002-10-23  Larry Ewing  <lewing@ximian.com>
 
 	* htmlclueflow.c (need_blockquote_padding): add new helper

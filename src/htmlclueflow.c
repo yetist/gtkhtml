@@ -1101,6 +1101,29 @@ get_item_number_str (HTMLClueFlow *flow)
 }
 
 static void
+draw_gt_line (HTMLObject *cur, HTMLPainter *p, gint offset, gint x, gint y)
+{
+	gint cy, a, d;
+
+	a = html_painter_calc_ascent (p, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
+	d = html_painter_calc_descent (p, GTK_HTML_FONT_STYLE_SIZE_3, NULL);
+
+	cy = offset;
+	while (cy + a <= cur->ascent) {
+		html_painter_draw_text (p, x, y + cur->y - cy,
+					CLUEFLOW_BLOCKQUOTE_CITE, 1, 0);
+		cy += a + d;
+	}
+
+	cy = - offset + a + d;
+	while (cy + d <= cur->descent) {
+		html_painter_draw_text (p, x, y + cur->y + cy,
+					CLUEFLOW_BLOCKQUOTE_CITE, 1, 0);
+		cy += a + d;
+	}
+}
+		
+static void
 draw_quotes (HTMLObject *self, HTMLPainter *painter, 
 	     gint x, gint y, gint width, gint height,
 	     gint tx, gint ty)
@@ -1137,24 +1160,22 @@ draw_quotes (HTMLObject *self, HTMLPainter *painter,
 							paint.x0 + tx, paint.y0 + ty,
 							paint.x1 - paint.x0, paint.y1 - paint.y0);
 			} else {
-				/* draw "> " quote characters in the plain case */ 
 				HTMLObject *cur = HTML_CLUE (self)->head;
-				gint last_y = 0;
-			       
-
+				gint baseline = 0;
 				while (cur) {
-					if (cur->y != last_y) {
-						html_painter_set_font_style (painter, 
-								     html_clueflow_get_default_font_style (flow));
-						
-						html_painter_set_font_face  (painter, NULL);
-						html_painter_draw_text (painter, self->x + tx + last_indent,
-									self->y - self->ascent + cur->y + ty,
-									CLUEFLOW_BLOCKQUOTE_CITE, 1, 0);
+					if (cur->y != 0) {
+						baseline = cur->y;
+						break;
 					}
-					last_y = cur->y;
 					cur = cur->next;
 				}
+				/* draw "> " quote characters in the plain case */ 
+				html_painter_set_font_style (painter, 
+							     html_clueflow_get_default_font_style (flow));
+				
+				html_painter_set_font_face  (painter, NULL);
+				draw_gt_line (self, painter, self->ascent - baseline,
+					      self->x + tx + last_indent, ty);
 			}
 		}
 	}
