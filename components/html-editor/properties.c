@@ -86,15 +86,23 @@ ok (GtkWidget *w, GtkHTMLEditPropertiesDialog *d)
 static void
 switch_page (GtkWidget *w, GtkNotebookPage *page, gint num, GtkHTMLEditPropertiesDialog *d)
 {
-	PageData *pd;
+	if (d->dialog) {
+		PageData *pd;
 
-	pd = (PageData *) g_list_nth (d->page_data, num)->data;
-	if (pd) {
-		gchar *title;
-		title = g_strconcat (d->title, ": ", pd->name, NULL);
-		gtk_window_set_title (GTK_WINDOW (d->dialog), title);
-		g_free (title);
+		pd = (PageData *) g_list_nth (d->page_data, num)->data;
+		if (pd) {
+			gchar *title;
+			title = g_strconcat (d->title, ": ", pd->name, NULL);
+			gtk_window_set_title (GTK_WINDOW (d->dialog), title);
+			g_free (title);
+		}
 	}
+}
+
+static void
+destroy_dialog (GtkWidget *w, gpointer data)
+{
+	((GtkHTMLEditPropertiesDialog *) data)->dialog = NULL;
 }
 
 GtkHTMLEditPropertiesDialog *
@@ -114,6 +122,7 @@ gtk_html_edit_properties_dialog_new (GtkHTMLControlData *cd, gboolean insert, gc
 				     GNOME_STOCK_BUTTON_APPLY,
 				     GNOME_STOCK_BUTTON_CLOSE, NULL);
 	d->notebook = gtk_notebook_new ();
+	gtk_signal_connect (GTK_OBJECT (d->dialog), "destroy", destroy_dialog, d);
 	gtk_signal_connect (GTK_OBJECT (d->notebook), "switch_page", switch_page, d);
 	gtk_box_pack_start_defaults (GTK_BOX (GNOME_DIALOG (d->dialog)->vbox), d->notebook);
 	gtk_widget_show (d->notebook);
@@ -188,7 +197,8 @@ void
 gtk_html_edit_properties_dialog_close (GtkHTMLEditPropertiesDialog *d)
 {
 	/* gtk_window_set_modal (GTK_WINDOW (d->dialog), FALSE); */
-	gnome_dialog_close (GNOME_DIALOG (d->dialog));
+	if (d->dialog)
+		gnome_dialog_close (GNOME_DIALOG (d->dialog));
 }
 
 void

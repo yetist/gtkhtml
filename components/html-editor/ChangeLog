@@ -1,3 +1,8 @@
+2001-07-17  Radek Doulik  <rodo@ximian.com>
+
+	* properties.c (switch_page): check for d->dialog
+	(destroy_dialog): new signal handler, sets d->dialog to NULL
+
 2001-07-13  Larry Ewing  <lewing@ximian.com>
 
 	* popup.c: disable debug #define and wrap the disabled functions
