@@ -1,3 +1,10 @@
+2001-03-21  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* htmlanchor.c: #include <string.h>
+	* htmlpainter.c: Same here.
+	* htmltable.c: Init two vars to zero to avoid "could be used
+	uninitialized" warnings.
+	
 2001-03-20  Radek Doulik  <rodo@ximian.com>
 
 	* gtkhtml-enums.h: new command

@@ -22,6 +22,7 @@
 */
 
 #include <config.h>
+#include <string.h> /* strcmp */
 #include "htmlcolorset.h"
 #include "htmlpainter.h"
 

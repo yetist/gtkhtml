@@ -24,6 +24,7 @@
 
 #include <config.h>
 #include <string.h>
+#include "gtkhtmldebug.h"
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
 #include "htmlengine.h"
@@ -434,7 +435,8 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList *left, GList *ri
 	HTMLTableCell *c1 = HTML_TABLE_CELL (left->data);
 	HTMLTableCell *c2 = HTML_TABLE_CELL (right->data);
 	gint r, c, end_col, end_row, start_col;
-
+	end_col = 0;
+	
 	if (t1->specified_width != t2->specified_width
 	    || t1->spacing != t2->spacing
 	    || t1->padding != t2->padding
@@ -1065,7 +1067,7 @@ calc_percentage_step (HTMLTable *table, gint *col_percent, gint *span_percent, g
 			cl = cell_end_col (table, cell);
 			if (col_percent [cl] - col_percent [c] < HTML_OBJECT (cell)->percent) {
 				gint cp, part, added, pleft, not_percented, np;
-
+				part = 0;
 				not_percented = 0;
 				for (cp = 0; cp < span; cp++)
 					if (!PERC (c + cp))
@@ -1361,7 +1363,8 @@ html_table_set_cells_max_width (HTMLTable *table, HTMLPainter *painter, gint *ma
 	HTMLTableCell *cell;
 	gint r, c, size, pixel_size = html_painter_get_pixel_size (painter);
 	gint border_extra = table->border ? 2 : 0;
-
+	size = 0;
+	
 	for (r = 0; r < table->totalRows; r++)
 		for (c = 0; c < table->totalCols; c++) {
 			cell = table->cells[r][c];
