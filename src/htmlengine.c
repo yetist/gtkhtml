@@ -1355,7 +1355,8 @@ parse_input (HTMLEngine *e, const gchar *str, HTMLObject *_clue)
 		break;
 	case Image:
 		element = html_imageinput_new (e->image_factory, name, imgSrc);
-		html_image_set_spacing (HTML_IMAGE (element), imgHSpace, imgVSpace);
+		html_image_set_spacing (HTML_IMAGE (HTML_IMAGEINPUT (element)->image), imgHSpace, imgVSpace);
+
 		break;
 	case Undefined:
 		g_warning ("Unknown <input type>\n");
