@@ -1,0 +1,1593 @@
+# Translations into the Amharic Language.
+# Copyright (C) 2002 Free Software Foundation, Inc.
+# This file is distributed under the same license as the gtkhtml package.
+# Ge'ez Frontier Foundation <locales@geez.org>, 2002.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gtkhtml\n"
+"POT-Creation-Date: 2002-10-31 05:42+0100\n"
+"PO-Revision-Date: 2002-11-22 23:19+EDT\n"
+"Last-Translator: Ge'ez Frontier Foundation <locales@geez.org>\n"
+"Language-Team: Amharic <locales@geez.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: capplet/gnome-bindings-prop.c:157
+msgid "<None>"
+msgstr "<ምንም>"
+
+#: capplet/gnome-bindings-prop.c:211 capplet/main.c:241
+#: components/html-editor/cell.c:385 components/html-editor/image.c:534
+#: components/html-editor/rule.c:315 components/html-editor/table.c:528
+#: components/html-editor/table.c:612 components/html-editor/template.c:260
+msgid "Could not load glade file."
+msgstr ""
+
+#: capplet/gtkhtml-capplet.glade.h:1
+#: components/html-editor/gtkhtml-editor-properties.glade.h:1
+msgid "*"
+msgstr "*"
+
+#: capplet/gtkhtml-capplet.glade.h:2
+msgid "*********************"
+msgstr "*********************"
+
+#: capplet/gtkhtml-capplet.glade.h:3
+msgid "Add Keyboard Shortcuts"
+msgstr ""
+
+#: capplet/gtkhtml-capplet.glade.h:4
+msgid "Automatically detect links"
+msgstr ""
+
+#: capplet/gtkhtml-capplet.glade.h:5
+msgid "Behavior"
+msgstr ""
+
+#: capplet/gtkhtml-capplet.glade.h:6
+msgid "Composer Properties"
+msgstr ""
+
+#: capplet/gtkhtml-capplet.glade.h:7
+msgid "Composer Properties planned"
+msgstr ""
+
+#: capplet/gtkhtml-capplet.glade.h:8
+msgid "Configure spell checking"
+msgstr ""
+
+#: capplet/gtkhtml-capplet.glade.h:9
+msgid "Enable spell checking"
+msgstr ""
+
+#: capplet/gtkhtml-capplet.glade.h:10
+msgid "Fixed width"
+msgstr ""
+
+#: capplet/gtkhtml-capplet.glade.h:11
+msgid "Fonts"
+msgstr "የፊደል ቅርጾች"
+
+#: capplet/gtkhtml-capplet.glade.h:12
+msgid "For printing"
+msgstr "ለማተም ላይ"
+
+#: capplet/gtkhtml-capplet.glade.h:13
+msgid "Grab keys"
+msgstr ""
+
+#: capplet/gtkhtml-capplet.glade.h:14
+msgid "Information"
+msgstr "መረጃ"
+
+#: capplet/gtkhtml-capplet.glade.h:15
+msgid "Keyboard Shortcuts"
+msgstr ""
+
+#: capplet/gtkhtml-capplet.glade.h:16
+#: components/html-editor/gtkhtml-editor-properties.glade.h:47
+msgid "Miscellaneous"
+msgstr "የተለያየ"
+
+#: capplet/gtkhtml-capplet.glade.h:17
+msgid "New shortcut:"
+msgstr ""
+
+#: capplet/gtkhtml-capplet.glade.h:18
+msgid "On screen"
+msgstr ""
+
+#: capplet/gtkhtml-capplet.glade.h:19
+msgid "Select HTML fixed width font"
+msgstr ""
+
+#: capplet/gtkhtml-capplet.glade.h:20
+msgid "Select HTML fixed width font for printing"
+msgstr ""
+
+#: capplet/gtkhtml-capplet.glade.h:21
+msgid "Select HTML variable width font"
+msgstr ""
+
+#: capplet/gtkhtml-capplet.glade.h:22
+msgid "Select HTML variable width font for printing"
+msgstr ""
+
+#: capplet/gtkhtml-capplet.glade.h:23
+msgid "Shortcuts _type:"
+msgstr ""
+
+#: capplet/gtkhtml-capplet.glade.h:24
+msgid "Show animated images"
+msgstr ""
+
+#: capplet/gtkhtml-capplet.glade.h:25
+msgid "Variable width"
+msgstr ""
+
+#: capplet/gtkhtml-capplet.glade.h:26
+msgid "_Add"
+msgstr "ተጨማሪ (_A)"
+
+#: capplet/gtkhtml-capplet.glade.h:27
+msgid "_Delete"
+msgstr "መሰረዣ (_D)"
+
+#: capplet/main.c:226
+msgid ""
+"Cannot execute GNOME Spell control applet\n"
+"Try to install GNOME Spell if you don't have it installed."
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:1
+msgid "GNOME HTML Editor"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:2
+msgid "GNOME HTML Editor Control"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
+msgid "GNOME HTML Editor Factory"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
+#: components/html-editor/gtkhtml-editor-properties.glade.h:4
+msgid "+0"
+msgstr "+0"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
+#: components/html-editor/gtkhtml-editor-properties.glade.h:5
+msgid "+1"
+msgstr "+1"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:3
+#: components/html-editor/gtkhtml-editor-properties.glade.h:6
+msgid "+2"
+msgstr "+2"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:4
+#: components/html-editor/gtkhtml-editor-properties.glade.h:7
+msgid "+3"
+msgstr "+3"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:5
+#: components/html-editor/gtkhtml-editor-properties.glade.h:9
+msgid "-1"
+msgstr "-1"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:6
+#: components/html-editor/gtkhtml-editor-properties.glade.h:10
+msgid "-2"
+msgstr "-2"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:7
+msgid "A_ddress"
+msgstr "አድራሻ (_d)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
+#: components/html-editor/toolbar.c:55
+msgid "Alphabetical List"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
+msgid "Background Color"
+msgstr "የመደቡ ቀለም"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:10
+msgid "Blue"
+msgstr "ሰማያዊ"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
+#: components/html-editor/toolbar.c:52
+msgid "Bulleted List"
+msgstr "በነጠብጣብ የተሰየመ ዝርዝር"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
+#: components/html-editor/toolbar.c:512
+msgid "Center justifies the paragraphs"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
+msgid "Check spelling of the document"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
+#: components/html-editor/popup.c:428
+msgid "Copy"
+msgstr "ቅጂ"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
+msgid "Copy selection to clipboard"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:16
+msgid "Copy the selection"
+msgstr "የተመረጠውን ቅዳ"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
+msgid "Cr_ying"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
+msgid "Cu_t"
+msgstr "ቁረጥ (_u)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
+#: components/html-editor/popup.c:429
+msgid "Cut"
+msgstr "ቁረጥ"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
+msgid "Cut selection to clipboard"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
+msgid "Cut the selection"
+msgstr "የተመረጠውን ቁረጥ"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
+#: components/html-editor/search.c:64 components/html-editor/search.c:103
+msgid "Find"
+msgstr "ፈልግ"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
+msgid "Find A Regular Expression"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
+msgid "Find And Replace"
+msgstr "ፈልግ እና ተካ"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
+msgid "Find Regular E_xpression..."
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:26
+msgid "Find _Again"
+msgstr "እንደገና ፈልግ (_A)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
+msgid "Find again"
+msgstr "እንደገና ፈልግ"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
+msgid "Find and Replace"
+msgstr "ፈልግ እና ተካ"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
+msgid "For_mat"
+msgstr "ፎርማት (_m)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
+msgid "Green"
+msgstr "አረንጓዴ"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
+msgid "Header _1"
+msgstr "የገጽ አናት _1"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
+msgid "Header _2"
+msgstr "የገጽ አናት _2"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
+msgid "Header _3"
+msgstr "የገጽ አናት _3"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
+msgid "Header _4"
+msgstr "የገጽ አናት _4"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
+msgid "Header _5"
+msgstr "የገጽ አናት _5"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
+msgid "Header _6"
+msgstr "የገጽ አናት _6"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
+#: components/html-editor/editor-control-factory.c:181
+#: components/html-editor/gtkhtml-editor-properties.glade.h:39
+#: components/html-editor/menubar.c:116 components/html-editor/popup.c:188
+msgid "Image"
+msgstr "ምስል"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
+msgid "Insert Crying smiley into document..."
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
+msgid "Insert Frown smiley into document..."
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
+msgid "Insert HTML file into document..."
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
+msgid "Insert HTML link into document..."
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
+msgid "Insert HTML template into document..."
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
+msgid "Insert Indifferent smiley into document..."
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
+msgid "Insert Laughing smiley into document..."
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
+msgid "Insert Lick smiley into document..."
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
+msgid "Insert Oh no! smiley into document..."
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
+msgid "Insert Smile smiley into document..."
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
+msgid "Insert Surprised smiley into document..."
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
+msgid "Insert Undecided smiley into document..."
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
+msgid "Insert Wink smiley into document..."
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
+msgid "Insert image into document..."
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
+msgid "Insert rule into document..."
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
+msgid "Insert table into document..."
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
+msgid "Insert text file into document..."
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
+#: components/html-editor/toolbar.c:510
+msgid "Left justifies the paragraphs"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
+msgid "Li_ck"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
+#: components/html-editor/body.c:304 components/html-editor/menubar.c:132
+#: components/html-editor/popup.c:85 components/html-editor/popup.c:181
+#: components/html-editor/popup.c:254
+msgid "Link"
+msgstr "አያይዝ"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
+msgid "Make the current Paragraph style Normal"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
+msgid "Make the current Paragraph style Preformat"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
+msgid "Make the current paragraph a bulleted list"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
+msgid "Make the current paragraph a list with roman numerals"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
+msgid "Make the current paragraph a numbered list"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
+msgid "Make the current paragraph an H1 header"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
+msgid "Make the current paragraph an H2 header"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
+msgid "Make the current paragraph an H3 header"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
+msgid "Make the current paragraph an H4 header"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
+msgid "Make the current paragraph an H5 header"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
+msgid "Make the current paragraph an H6 header"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
+msgid "Make the current paragraph an address"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
+msgid "Make the current paragraph an alphabetical list"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
+#: components/html-editor/gtkhtml-editor-properties.glade.h:49
+#: components/html-editor/paragraph.c:124 components/html-editor/toolbar.c:50
+msgid "Normal"
+msgstr "የተለመደ"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
+#: components/html-editor/toolbar.c:53
+msgid "Numbered List"
+msgstr "በቍጥር የተሰየመ ዝርዝር"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
+msgid "Numbered _List"
+msgstr "በቍጥር የተሰየመ ዝርዝር"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
+msgid "Oh _no!"
+msgstr "ወይ ጉድ! (_n)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
+msgid "Orange"
+msgstr "ብርቱካን"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
+msgid "Other..."
+msgstr "ሌላ..."
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
+#: components/html-editor/popup.c:435
+msgid "Paste"
+msgstr "ለጥፍ"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
+msgid "Paste from clipboard"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
+msgid "Paste the clipboard"
+msgstr "ክሊፕቦርዱን ለጥፍ"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
+#: components/html-editor/toolbar.c:51
+msgid "Preformat"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
+msgid "Purple"
+msgstr "ሐምራዊ"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
+msgid "Red"
+msgstr "ቀይ"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
+msgid "Redo"
+msgstr "እንደገና አድርግ"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
+msgid "Redo previously undone change"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
+msgid "Redo the undone action"
+msgstr "የተተወውን ድርጊት እንደገና አድርግ"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
+#: components/html-editor/replace.c:84 components/html-editor/replace.c:146
+#: components/html-editor/replace.c:158 components/html-editor/replace.c:201
+msgid "Replace"
+msgstr "ተካ"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
+#: components/html-editor/toolbar.c:514
+msgid "Right justifies the paragraphs"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
+msgid "Roman Numeral List"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
+#: components/html-editor/editor-control-factory.c:201
+#: components/html-editor/gtkhtml-editor-properties.glade.h:63
+#: components/html-editor/menubar.c:150 components/html-editor/popup.c:209
+msgid "Rule"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
+msgid "Select _All"
+msgstr "ሁሉንም ምረጥ (_A)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
+msgid "Select the entire contents of the document"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
+#: components/html-editor/gtkhtml-editor-properties.glade.h:69
+#: components/html-editor/text.c:222 components/html-editor/toolbar.c:529
+msgid "Strikeout"
+msgstr "አጥፋ"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
+msgid "Su_perscript"
+msgstr "ወደላይ ዝቅ ብሎ የተጻፈ ፊደል (_p)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
+msgid "Su_rprised"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
+msgid "Subs_cript"
+msgstr "ወደታች ዝቅ ብሎ የተጻፈ ፊደል (_c)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
+msgid "Subscript"
+msgstr "ወደታች ዝቅ ብሎ የተጻፈ ፊደል"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
+msgid "Superscript"
+msgstr "ወደላይ ዝቅ ብሎ የተጻፈ ፊደል"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
+#: components/html-editor/gtkhtml-editor-properties.glade.h:72
+#: components/html-editor/menubar.c:167 components/html-editor/popup.c:216
+#: components/html-editor/popup.c:483 components/html-editor/popup.c:492
+msgid "Table"
+msgstr "ሠንጠረዥ"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
+msgid "Te_mplate..."
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
+msgid "Te_xt file..."
+msgstr "የጽሑፍ ፋይል... (_x)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
+#: components/html-editor/body.c:234
+#: components/html-editor/gtkhtml-editor-properties.glade.h:74
+#: components/html-editor/menubar.c:190
+msgid "Template"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
+#: components/html-editor/toolbar.c:521
+msgid "Typewriter"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
+msgid "Undo"
+msgstr "ወደ ነበረበት መልስ"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
+msgid "Undo previous changes"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
+msgid "Undo the last action"
+msgstr "የመጨረሻውን ትግባር ተወው"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
+msgid "Yellow"
+msgstr "ብጫ"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
+msgid "_Alignment"
+msgstr "ኩልኩል (_A)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
+msgid "_Alphabetical List"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
+msgid "_Bold"
+msgstr "ደማቅ (_B)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
+msgid "_Bulleted List"
+msgstr "በነጠብጣብ የተሰየመ ዝርዝር (_B)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
+msgid "_Center"
+msgstr "መሐከል (_C)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
+msgid "_Copy"
+msgstr "ቅጂ (_C)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
+msgid "_Decrease Indent"
+msgstr "ገባ ማለቱን ቀንስ (_D)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
+msgid "_Edit"
+msgstr "አስተካክል (_E)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
+msgid "_Find..."
+msgstr "ፈልግ... (_F)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
+msgid "_Font Size"
+msgstr "የፊደል ቅርጽ መጠን (_F)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
+msgid "_Frown"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
+msgid "_HTML file..."
+msgstr "የHTML ፋይል... (_H)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
+msgid "_Heading"
+msgstr "አርእስት (_H)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
+msgid "_Image..."
+msgstr "ምስል... (_I)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
+msgid "_Increase Indent"
+msgstr "አንቀጹን ጨምሩ (_I)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
+msgid "_Indifferent"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
+msgid "_Insert"
+msgstr "አስገባ (_I)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
+msgid "_Italic"
+msgstr "አይታሊክ ማድረጊያ (_I)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
+msgid "_Laughing"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
+msgid "_Left"
+msgstr "ግራ (_L)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
+msgid "_Link..."
+msgstr "አያይዝ... (_L)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
+msgid "_Normal"
+msgstr "የተለመደ (_N)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
+msgid "_Page..."
+msgstr "ገጽ... (_P)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
+msgid "_Paragraph..."
+msgstr "ምዕራፍ... (_P)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
+msgid "_Paste"
+msgstr "_ለጥፍ (_P)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
+msgid "_Plain text"
+msgstr "ድብቅ ጽሑፍ (_P)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
+msgid "_Preformat"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
+msgid "_Redo"
+msgstr "_እንደገና አድርግ... (_R)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
+msgid "_Replace..."
+msgstr "ተካ... (_R)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
+msgid "_Right"
+msgstr "ቀኝ (_R)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
+msgid "_Roman Numeral List"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
+msgid "_Rule..."
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
+msgid "_Smile"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
+msgid "_Smiley"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:141
+msgid "_Spell Check Document..."
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:142
+msgid "_Strikeout"
+msgstr "አጥፋ (_S)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:143
+msgid "_Style"
+msgstr "ዘዴ (_S)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:144
+msgid "_Table..."
+msgstr "ሠንጠረዥ... (_T)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:145
+msgid "_Text..."
+msgstr "ጽሑፍ... (_T)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:146
+msgid "_Undecided"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:147
+msgid "_Underline"
+msgstr "የስር መስመር (_U)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:148
+msgid "_Undo"
+msgstr "ወደ ነበረበት መልስ (_U)"
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:149
+msgid "_Wink"
+msgstr ""
+
+#: components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:150
+msgid "etc..."
+msgstr "ወዘታ..."
+
+#: components/html-editor/body.c:62
+#: components/html-editor/gtkhtml-editor-properties.glade.h:48
+msgid "None"
+msgstr "ምንም"
+
+#: components/html-editor/body.c:69
+msgid "Test"
+msgstr "ፈተና"
+
+#: components/html-editor/body.c:76
+msgid "Test 1"
+msgstr "ፈተና 1"
+
+#: components/html-editor/body.c:252
+msgid "Document Title"
+msgstr "የሰነዱ አርእስት"
+
+#: components/html-editor/body.c:256 components/html-editor/body.c:259
+#: components/html-editor/gtkhtml-editor-properties.glade.h:15
+msgid "Background Image"
+msgstr "የመደቡ ምስል"
+
+#: components/html-editor/body.c:281
+#: components/html-editor/gtkhtml-editor-properties.glade.h:25
+msgid "Colors"
+msgstr "ቀለማት"
+
+#: components/html-editor/body.c:291 components/html-editor/cell.c:391
+#: components/html-editor/table.c:534 components/html-editor/text.c:279
+#: components/html-editor/toolbar.c:302
+msgid "Automatic"
+msgstr ""
+
+#: components/html-editor/body.c:303
+#: components/html-editor/editor-control-factory.c:190
+#: components/html-editor/gtkhtml-editor-properties.glade.h:76
+#: components/html-editor/menubar.c:332 components/html-editor/popup.c:174
+msgid "Text"
+msgstr "ጽሑፍ"
+
+#: components/html-editor/body.c:305
+#: components/html-editor/gtkhtml-editor-properties.glade.h:14
+msgid "Background"
+msgstr "መደብ"
+
+#: components/html-editor/editor-control-factory.c:171
+#: components/html-editor/menubar.c:311 components/html-editor/menubar.c:329
+#: components/html-editor/menubar.c:347 components/html-editor/popup.c:166
+#: components/html-editor/popup.c:251
+msgid "Properties"
+msgstr "ሁኔታዎች"
+
+#: components/html-editor/editor-control-factory.c:211
+#: components/html-editor/menubar.c:350 components/html-editor/popup.c:195
+msgid "Paragraph"
+msgstr "ምዕራፍ"
+
+#: components/html-editor/editor-control-factory.c:216
+#: components/html-editor/gtkhtml-editor-properties.glade.h:52
+#: components/html-editor/menubar.c:314 components/html-editor/popup.c:202
+msgid "Page"
+msgstr "ገጽ"
+
+#: components/html-editor/editor-control-factory.c:754
+msgid "I could not initialize Bonobo"
+msgstr "Bonobo ማስጀመር አልቻልኩም"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:2
+msgid "************"
+msgstr "************"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:3
+msgid "***text***"
+msgstr "***ጽሑፍ***"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:8
+msgid "+4"
+msgstr "+4"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:11
+msgid "Alignment"
+msgstr "ኩልኩል"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:12
+msgid "Alignment:"
+msgstr "ኩልኩል፦"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:13
+msgid "Apply changes to:"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:16
+#: components/html-editor/text.c:219 components/html-editor/toolbar.c:523
+msgid "Bold"
+msgstr "ደማቅ"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:17
+msgid "Border"
+msgstr "ወሰን"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:18
+msgid "Border:"
+msgstr "ወሰን፦"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:19
+msgid "Bottom"
+msgstr "ወደ ታች"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:20
+#: components/html-editor/popup.c:223
+msgid "Cell"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:21
+#: components/html-editor/paragraph.c:159 components/html-editor/toolbar.c:512
+msgid "Center"
+msgstr "መሐከል"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:22
+#: components/html-editor/link.c:107 components/html-editor/text.c:230
+msgid "Click will follow this URL"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:23
+msgid "Click will follow this URL:"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:24
+msgid "Color:"
+msgstr "ቀለም፦"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:26
+#: components/html-editor/popup.c:494
+msgid "Column"
+msgstr "ዐምድ"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:27
+msgid "Column span:"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:28
+msgid "Columns:"
+msgstr "ዐምዶች፦"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:29
+msgid "Description:"
+msgstr "መግለጫ፦"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:30
+msgid "Don't wrap"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:31
+msgid "Enable"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:32
+msgid "Follow"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:33
+msgid "Font size"
+msgstr "የፊደል ቅርጽ መጠን"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:34
+msgid "Foreground color"
+msgstr "የፊት ለፊቱ ቀለም"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:35
+msgid "Header"
+msgstr "የገጽ አናት"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:36
+msgid "Height:"
+msgstr "እርዝማኔ፦"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:37
+msgid "Horizontal alignment:"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:38
+msgid "Horizontal:"
+msgstr "አግድም፦"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:40
+#: components/html-editor/text.c:220 components/html-editor/toolbar.c:525
+msgid "Italic"
+msgstr "አይታሊክ ማድረጊያ"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:41
+#: components/html-editor/paragraph.c:158
+msgid "Left"
+msgstr "ግራ"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:42
+msgid "Length:"
+msgstr "እርዝመት፦"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:43
+msgid "Link insert"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:44
+msgid "Link properties"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:45
+msgid "Location"
+msgstr "ቦታ"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:46
+msgid "Middle"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:50
+msgid "Padding"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:51
+msgid "Padding:"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:53
+msgid "Percent"
+msgstr "መቶኛ"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:55
+#, no-c-format
+msgid "Percent %"
+msgstr "መቶኛ %"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:56
+msgid "Pixels"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:57
+msgid "Pixmap:"
+msgstr "ሙሻብቀሮቆ፦"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:58
+msgid "Points"
+msgstr "ነጥቦች"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:59
+#: components/html-editor/paragraph.c:160
+msgid "Right"
+msgstr "ቀኝ"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:60
+#: components/html-editor/popup.c:493
+msgid "Row"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:61
+msgid "Row span:"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:62
+msgid "Rows:"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:64
+msgid "Scope"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:65
+msgid "Shaded"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:66
+#: components/html-editor/text.c:246
+msgid "Size"
+msgstr "መጠን"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:67
+msgid "Spacing"
+msgstr "ክፍተት"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:68
+msgid "Spacing:"
+msgstr "ክፍተት፦"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:70
+#: components/html-editor/paragraph.c:110 components/html-editor/text.c:206
+msgid "Style"
+msgstr "ዘዴ"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:71
+msgid "Style:"
+msgstr "ዘዴ፦"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:73
+msgid "Table Insert"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:75
+#: components/html-editor/link.c:112
+msgid "Test URL..."
+msgstr "የURL ፈተና.."
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:77
+msgid "Thickness:"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:78
+msgid "Top"
+msgstr "ወደ ላይ"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:79
+#: components/html-editor/text.c:221 components/html-editor/toolbar.c:527
+msgid "Underline"
+msgstr "የስር መስመር"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:80
+msgid "Vertical:"
+msgstr "ቁመት፦"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:81
+msgid "Width:"
+msgstr "ስፋት፦"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:82
+msgid "Wrap"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:83
+msgid "Wrapping:"
+msgstr ""
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:84
+msgid "xxxxxxxxx"
+msgstr "xxxxxxxxx"
+
+#: components/html-editor/gtkhtml-editor-properties.glade.h:85
+msgid "xxxxxxxxxxxxxx"
+msgstr "xxxxxxxxxxxxxx"
+
+#: components/html-editor/image.c:117 components/html-editor/rule.c:92
+#: components/html-editor/table.c:190
+msgid "Plain"
+msgstr "ድብቅ"
+
+#: components/html-editor/image.c:119
+msgid ""
+"@link_begin@<img@alt@@width@@height@@align@ "
+"border=@border@@padh@@padv@@src@>@link_end@"
+msgstr ""
+"@link_begin@<img@alt@@width@@height@@align@ "
+"border=@border@@padh@@padv@@src@>@link_end@"
+
+#: components/html-editor/image.c:122
+msgid "Frame"
+msgstr "ፍሬም"
+
+#: components/html-editor/image.c:124
+msgid ""
+"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+"@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
+"table></center>"
+msgstr ""
+"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+"@src@@alt@@width@@height@align=top border=0></td></tr></table></td></tr></"
+"table></center>"
+
+#: components/html-editor/image.c:132
+msgid "Caption"
+msgstr ""
+
+#: components/html-editor/image.c:134
+msgid ""
+"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+"@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place your "
+"comment here]</td></tr></table></td></tr></table></center>"
+msgstr ""
+"<center><table bgcolor=\"#c0c0c0\" cellspacing=\"0\" "
+"cellpadding=@border@><tr><td><table bgcolor=\"#f2f2f2\" cellspacing=\"0\" "
+"cellpadding=\"8\" width=\"100%\"><tr><td align=\"center\"><img "
+"@src@@alt@@width@@height@align=top border=0></td></tr><tr><td><b>[Place your "
+"comment here]</td></tr></table></td></tr></table></center>"
+
+#: components/html-editor/image.c:256
+msgid "The quick brown fox jumped over the lazy dog. "
+msgstr "The quick brown fox jumped over the lazy dog. "
+
+#: components/html-editor/image.c:258
+msgid "The quick brown fox jumped over the lazy dog."
+msgstr "The quick brown fox jumped over the lazy dog."
+
+#: components/html-editor/link.c:91
+msgid "Link text"
+msgstr "አያይዝ ጽሑፍ"
+
+#: components/html-editor/menubar.c:114 components/html-editor/menubar.c:129
+#: components/html-editor/menubar.c:147 components/html-editor/menubar.c:164
+#: components/html-editor/menubar.c:187 components/html-editor/popup.c:82
+#: components/html-editor/properties.c:120
+msgid "Insert"
+msgstr "አስገባ"
+
+#: components/html-editor/menubar.c:262
+msgid "Insert HTML file"
+msgstr ""
+
+#: components/html-editor/menubar.c:262
+msgid "Insert text file"
+msgstr ""
+
+#: components/html-editor/paragraph.c:125
+msgid "Pre"
+msgstr ""
+
+#: components/html-editor/paragraph.c:126 components/html-editor/toolbar.c:56
+msgid "Header 1"
+msgstr "የገጽ አናት 1"
+
+#: components/html-editor/paragraph.c:127 components/html-editor/toolbar.c:57
+msgid "Header 2"
+msgstr "የገጽ አናት 2"
+
+#: components/html-editor/paragraph.c:128 components/html-editor/toolbar.c:58
+msgid "Header 3"
+msgstr "የገጽ አናት 3"
+
+#: components/html-editor/paragraph.c:129 components/html-editor/toolbar.c:59
+msgid "Header 4"
+msgstr "የገጽ አናት 4"
+
+#: components/html-editor/paragraph.c:130 components/html-editor/toolbar.c:60
+msgid "Header 5"
+msgstr "የገጽ አናት 5"
+
+#: components/html-editor/paragraph.c:131 components/html-editor/toolbar.c:61
+msgid "Header 6"
+msgstr "የገጽ አናት 6"
+
+#: components/html-editor/paragraph.c:132 components/html-editor/toolbar.c:62
+msgid "Address"
+msgstr "አድራሻ"
+
+#: components/html-editor/paragraph.c:133
+msgid "Dot item"
+msgstr ""
+
+#: components/html-editor/paragraph.c:134
+msgid "Number item"
+msgstr ""
+
+#: components/html-editor/paragraph.c:135
+msgid "Roman item"
+msgstr ""
+
+#: components/html-editor/paragraph.c:136
+msgid "Alphabeta item"
+msgstr ""
+
+#: components/html-editor/paragraph.c:145
+msgid "Align"
+msgstr "በስርዓት ኰልኩል"
+
+#: components/html-editor/popup.c:394
+#, c-format
+msgid "Check '%s' spelling..."
+msgstr "የ'%s'ን አጻጻፉን አጣራ..."
+
+#: components/html-editor/popup.c:395
+#, c-format
+msgid "Add '%s' to dictionary"
+msgstr ""
+
+#: components/html-editor/popup.c:396
+#, c-format
+msgid "Ignore '%s'"
+msgstr "ተዉት '%s'"
+
+#: components/html-editor/popup.c:397 components/html-editor/spell.c:266
+msgid "Spell checker"
+msgstr ""
+
+#: components/html-editor/popup.c:401
+msgid "Suggest word"
+msgstr ""
+
+#: components/html-editor/popup.c:414
+msgid "Insert link"
+msgstr ""
+
+#: components/html-editor/popup.c:423
+msgid "Remove link"
+msgstr ""
+
+#: components/html-editor/popup.c:442
+msgid "Text..."
+msgstr "ጽሑፍ..."
+
+#: components/html-editor/popup.c:444 components/html-editor/popup.c:451
+#: components/html-editor/popup.c:463
+msgid "Paragraph..."
+msgstr "ምዕራፍ..."
+
+#: components/html-editor/popup.c:449
+msgid "Link..."
+msgstr "አያይዝ..."
+
+#: components/html-editor/popup.c:456
+msgid "Rule..."
+msgstr ""
+
+#: components/html-editor/popup.c:461
+msgid "Image..."
+msgstr "ምስል..."
+
+#: components/html-editor/popup.c:469 components/html-editor/popup.c:479
+msgid "Table..."
+msgstr "ሠንጠረዥ..."
+
+#: components/html-editor/popup.c:476
+msgid "Cell..."
+msgstr ""
+
+#: components/html-editor/popup.c:482
+msgid "Table insert"
+msgstr ""
+
+#: components/html-editor/popup.c:485
+msgid "Row above"
+msgstr ""
+
+#: components/html-editor/popup.c:486
+msgid "Row below"
+msgstr ""
+
+#: components/html-editor/popup.c:488
+msgid "Column before"
+msgstr ""
+
+#: components/html-editor/popup.c:489
+msgid "Column after"
+msgstr ""
+
+#: components/html-editor/popup.c:491
+msgid "Table delete"
+msgstr ""
+
+#: components/html-editor/popup.c:495
+msgid "Cell contents"
+msgstr ""
+
+#: components/html-editor/popup.c:503
+msgid "Page..."
+msgstr "ገጽ..."
+
+#: components/html-editor/replace.c:83
+msgid "Replace confirmation"
+msgstr ""
+
+#: components/html-editor/replace.c:84
+msgid "Replace all"
+msgstr "ሁሉንም ተካ"
+
+#: components/html-editor/replace.c:84
+msgid "Next"
+msgstr "የሚቀጥለው"
+
+#: components/html-editor/replace.c:152
+msgid "search backward"
+msgstr ""
+
+#: components/html-editor/replace.c:153 components/html-editor/search.c:67
+msgid "case sensitive"
+msgstr ""
+
+#: components/html-editor/replace.c:161
+msgid "with"
+msgstr "በ"
+
+#: components/html-editor/rule.c:97
+msgid "Blue 3D"
+msgstr "ሰማያዊ 3D"
+
+#: components/html-editor/rule.c:109
+msgid "Yellow, flowers"
+msgstr "ብጫ፣ አበባዎች"
+
+#: components/html-editor/search.c:66
+msgid "backward"
+msgstr ""
+
+#: components/html-editor/search.c:103
+msgid "Find Regular Expression"
+msgstr ""
+
+#: components/html-editor/spell.c:261
+msgid "No misspelled word found"
+msgstr ""
+
+#: components/html-editor/spell.c:346
+msgid "Spell Checking _Languages"
+msgstr ""
+
+#: components/html-editor/table.c:198
+msgid "Flat gray"
+msgstr ""
+
+#: components/html-editor/table.c:207
+msgid "Dark header"
+msgstr ""
+
+#: components/html-editor/template.c:82
+msgid "Note"
+msgstr ""
+
+#: components/html-editor/template.c:84
+msgid ""
+"<table cellspacing=0 cellpadding=1 bgcolor=\"#ccccc0"
+"\"@width@@align@><tr><td><table bgcolor=\"#fffff0\" cellpadding=3 "
+"cellspacing=0 width=\"100%\"><tr><td valign=top><img src=\"file://"
+msgstr ""
+
+#: components/html-editor/template.c:86
+msgid ""
+"/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
+"tr></table></td></tr></table>"
+msgstr ""
+"/bulb.png\" hspace=10></td><td width=\"100%\">Place your text here</td></"
+"tr></table></td></tr></table>"
+
+#: components/html-editor/template.c:92
+msgid "Image frame"
+msgstr "የምስል ፍሬም"
+
+#: components/html-editor/template.c:94
+msgid ""
+"<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
+"\"><tr><td align=\"center\"><img src=\"file://"
+msgstr ""
+"<table bgcolor=\"#c0c0c0\" cellspacing=\"0\" @width@@align@><tr><td><table "
+"bgcolor=\"#f2f2f2\" cellspacing=\"0\" cellpadding=\"8\" width=\"100%"
+"\"><tr><td align=\"center\"><img src=\"file://"
+
+#: components/html-editor/template.c:98
+msgid ""
+"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
+"\"-1\">Image 1: <b>description</b></font></td></tr></table></td></tr></table>"
+msgstr ""
+"/empty_image.png\" align=\"top\" border=\"0\"></td></tr><tr><td><font size="
+"\"-1\">Image 1: <b>description</b></font></td></tr></table></td></tr></table>"
+
+#: components/html-editor/test-html-editor-control.c:262
+msgid "Open file..."
+msgstr "ፋይል ክፈት..."
+
+#: components/html-editor/test-html-editor-control.c:264
+msgid "Save file as..."
+msgstr "ፋይሉን በሌላ ስም አስቀምጥ..."
+
+#. color selection
+#: components/html-editor/text.c:276
+msgid "Color"
+msgstr "ቀለም"
+
+#: components/html-editor/toolbar.c:54
+msgid "Roman List"
+msgstr ""
+
+#: components/html-editor/toolbar.c:510
+msgid "Left align"
+msgstr ""
+
+#: components/html-editor/toolbar.c:514
+msgid "Right align"
+msgstr ""
+
+#: components/html-editor/toolbar.c:521
+msgid "Toggle typewriter font style"
+msgstr ""
+
+#: components/html-editor/toolbar.c:523
+msgid "Makes the text bold"
+msgstr ""
+
+#: components/html-editor/toolbar.c:525
+msgid "Makes the text italic"
+msgstr ""
+
+#: components/html-editor/toolbar.c:527
+msgid "Underlines the text"
+msgstr ""
+
+#: components/html-editor/toolbar.c:529
+msgid "Strikes out the text"
+msgstr ""
+
+#: components/html-editor/toolbar.c:538
+msgid "Unindent"
+msgstr ""
+
+#: components/html-editor/toolbar.c:538
+msgid "Indents the paragraphs less"
+msgstr ""
+
+#: components/html-editor/toolbar.c:540
+msgid "Indent"
+msgstr "አዲስ አንቀጽ"
+
+#: components/html-editor/toolbar.c:540
+msgid "Indents the paragraphs more"
+msgstr ""
+
+#: components/html-editor/utils.c:104
+msgid "Sample"
+msgstr "ናሙና"
+
+#: src/gtkhtml-properties.c:44
+msgid "Sans"
+msgstr ""
+
+#: src/gtkhtml-properties.c:45
+msgid "Monospace"
+msgstr ""
+
+#: src/html-component.c:219
+msgid "Html"
+msgstr "Html"
+
+#: src/html-component.c:220
+msgid "Html test"
+msgstr "የHtml ፈተና"
+
+#: src/html-component.c:226
+msgid "Test1"
+msgstr "ፈተና1"
+
+#: src/html-component.c:233
+msgid "Test2"
+msgstr "ፈተና2"
+
+#: src/html-component.c:239
+msgid "Test3"
+msgstr "ፈተና3"
+
+#: src/html-component.c:245
+msgid "Test4"
+msgstr "ፈተና4"
+
+#: src/html-component.c:251
+msgid "Test5"
+msgstr "ፈተና5"
+
+#: src/html-component.c:257
+msgid "Test6"
+msgstr "ፈተና6"
+
+#: src/html-component.c:263
+msgid "Test7"
+msgstr "ፈተና7"
+
+#: src/html-component.c:612
+msgid "_Refresh"
+msgstr ""
+
+#: src/html-component.c:613
+msgid "Reload the page"
+msgstr ""
+
+#: src/html-component.c:660
+msgid "Could not initialize Bonobo!"
+msgstr "bonobo ማስጀመር አልቻልኩም!"
+
+#: src/htmlbutton.c:142
+msgid "Submit Query"
+msgstr ""
+
+#: src/htmlbutton.c:145
+msgid "Reset"
+msgstr "እንደገና አስተካክል"
+
+#: src/htmlengine-print.c:197
+msgid "Cannot allocate default font for printing\n"
+msgstr ""
+
+#: src/test.c:192
+msgid "GtkHTML Test"
+msgstr "የGtkHTML ፈተና"
+
+#: src/testgtkhtml.c:113
+msgid "Print pre_view"
+msgstr "የቅድመ ህትመት ዕይታ (_v)"
+
+#: src/testgtkhtml.c:113
+msgid "Print preview"
+msgstr "የቅድመ ህትመት ዕይታ"
