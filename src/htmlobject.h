@@ -74,6 +74,8 @@ struct _HTMLObjectClearRectangle {
 	HTMLObject *object;
 	gint x;
 	gint y;
+	gint width;
+	gint height;
 };
 
 struct _HTMLObjectClass {

@@ -4408,8 +4408,8 @@ clear_changed_area (HTMLEngine *e, HTMLObjectClearRectangle *cr)
 
 	x1 = o->x + cr->x + tx;
 	y1 = o->y - o->ascent + cr->y + ty;
-	x2 = o->x + o->width + tx;
-	y2 = o->y + o->descent + ty;
+	x2 = x1 + cr->width;
+	y2 = y1 + cr->height;
 
 	if (html_engine_intersection (e, &x1, &y1, &x2, &y2)) {
 		if (html_object_is_transparent (cr->object)) {
@@ -4417,8 +4417,18 @@ clear_changed_area (HTMLEngine *e, HTMLObjectClearRectangle *cr)
 			html_engine_draw_background (e, x1, y1, x2, y2);
 			html_object_draw_background (o, e->painter,
 						     o->x + cr->x, o->y - o->ascent + cr->y,
-						     o->width, o->ascent + o->descent,
+						     cr->width, cr->height,
 						     tx, ty);
+#if 0
+	{
+		GdkColor c;
+
+		c.pixel = rand ();
+		html_painter_set_pen (e->painter, &c);
+		html_painter_draw_line (e->painter, x1, y1, x2 - 1, y2 - 1);
+		html_painter_draw_line (e->painter, x2 - 1, y1, x1, y2 - 1);
+	}
+#endif
 			html_painter_end (e->painter);
 		}
 	}

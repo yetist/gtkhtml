@@ -525,6 +525,24 @@ add_to_changed (GList **changed_objs, HTMLObject *o)
 	   gtk_html_debug_dump_tree_simple (o, 0); */
 }
 
+static void
+add_clear_area (GList **changed_objs, HTMLObject *o, gint x, gint w)
+{
+	HTMLObjectClearRectangle *cr;
+
+	cr = g_new (HTMLObjectClearRectangle, 1);
+
+	cr->object = o;
+	cr->x = x;
+	cr->y = 0;
+	cr->width = w;
+	cr->height = o->ascent + o->descent;
+
+	*changed_objs = g_list_prepend (*changed_objs, cr);
+	/* NULL meens: clear rectangle follows */
+	*changed_objs = g_list_prepend (*changed_objs, NULL);
+}
+
 /* EP CHECK: should be mostly OK.  */
 /* FIXME: But it's awful.  Too big and ugly.  */
 static gboolean
@@ -942,7 +960,12 @@ calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
 		/* if (changed_objs)
 			printf ("changed: %d==%d %d==%d %d==%d %d\n",
 			o->width, old_width, o->ascent, old_ascent, o->descent, old_descent, leaf_childs_changed_size); */
-		add_to_changed (changed_objs, o);
+		if (changed_objs) {
+			if (old_width > o->max_width && o->width < old_width) {
+				add_clear_area (changed_objs, o, o->width, old_width - o->width);
+			}
+			add_to_changed (changed_objs, o);
+		}
 	}
 
 	return changed;

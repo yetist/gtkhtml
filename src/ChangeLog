@@ -1,3 +1,17 @@
+2001-10-15  Radek Doulik  <rodo@ximian.com>
+
+	* htmlclueflow.c (add_clear_area): new helper function
+	(calc_size): use add_clear_area in case we need to erase area
+	behind flow, which has just shrinked
+
+	* htmlcluev.c (add_clear_area_behind): set width and height to
+	HTMLObjectClearRectangle
+
+	* htmlengine.c (clear_changed_area): use width and height from
+	HTMLObjectClearRectangle
+
+	* htmlobject.h: added width and height to HTMLObjectClearRectangle
+
 2001-10-14  Larry Ewing  <lewing@ximian.com>
 
 	* htmlimage.c (render_cur_frame): add hack to turn off alpha

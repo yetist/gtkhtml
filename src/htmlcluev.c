@@ -105,7 +105,7 @@ add_to_changed (GList **changed_objs, HTMLObject *o)
 }
 
 static void
-add_clear_area_behind (GList **changed_objs, HTMLObject *o, gint x, gint y)
+add_clear_area_behind (GList **changed_objs, HTMLObject *o, gint x, gint y, gint w, gint h)
 {
 	HTMLObjectClearRectangle *cr;
 
@@ -114,6 +114,8 @@ add_clear_area_behind (GList **changed_objs, HTMLObject *o, gint x, gint y)
 	cr->object = o;
 	cr->x = x;
 	cr->y = y;
+	cr->width = w;
+	cr->height = h;
 
 	*changed_objs = g_list_prepend (*changed_objs, cr);
 	/* NULL meens: clear rectangle follows */
@@ -261,7 +263,8 @@ do_layout (HTMLObject *o, HTMLPainter *painter, gboolean calc_size, GList **chan
 
 	if (changed_objs && local_changed_objs) {
 		if (!first_change && o->width > o->max_width) {
-			add_clear_area_behind (changed_objs, o, o->max_width, first_y_off);
+			add_clear_area_behind (changed_objs, o, o->max_width, first_y_off,
+					       o->width - o->max_width, o->ascent + o->descent - first_y_off);
 		}
 		*changed_objs = g_list_concat (local_changed_objs, *changed_objs);
 	}
