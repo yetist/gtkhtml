@@ -3,12 +3,12 @@
 # Christian Rose <menthos@menthos.com>, 2000, 2001, 2002, 2003, 2004.
 # Martin Norbäck <d95mback@dtek.chalmers.se>, 2000.
 #
-# $Id: sv.po,v 1.86 2004/06/04 19:30:41 jpr Exp $
+# $Id: sv.po,v 1.87 2004/06/26 17:53:54 jpr Exp $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2004-06-04 11:58-0400\n"
+"POT-Creation-Date: 2004-06-25 15:15-0400\n"
 "PO-Revision-Date: 2004-06-02 19:38+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -1876,90 +1876,90 @@ msgstr ""
 "Det redigerade objektet har tagits bort från dokumentet.\n"
 "Kan inte verkställa dina ändringar."
 
-#: src/gtkhtml.c:2464
+#: src/gtkhtml.c:2494
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 "Mozilla-URL:en som släpptes på redigeraren hade felaktigt format (%d) eller "
 "längd (%d)\n"
 
-#: src/gtkhtml.c:2785
+#: src/gtkhtml.c:2815
 msgid "Editable"
 msgstr "Redigerbar"
 
-#: src/gtkhtml.c:2786
+#: src/gtkhtml.c:2816
 msgid "Whether the html can be edited"
 msgstr "Huruvida html-koden kan redigeras"
 
-#: src/gtkhtml.c:2792
+#: src/gtkhtml.c:2822
 msgid "Document Title"
 msgstr "Dokumenttitel"
 
-#: src/gtkhtml.c:2793
+#: src/gtkhtml.c:2823
 msgid "The title of the current document"
 msgstr "Titeln på det aktuella dokumentet"
 
-#: src/gtkhtml.c:2799
+#: src/gtkhtml.c:2829
 msgid "Document Base"
 msgstr "Dokumentbas"
 
-#: src/gtkhtml.c:2800
+#: src/gtkhtml.c:2830
 msgid "The base URL for relative references"
 msgstr "Bas-URL:en för relativa referenser"
 
-#: src/gtkhtml.c:2806
+#: src/gtkhtml.c:2836
 msgid "Target Base"
 msgstr "Målbas"
 
-#: src/gtkhtml.c:2807
+#: src/gtkhtml.c:2837
 msgid "The base URL of the targe frame"
 msgstr "Bas-URL:en för målramen"
 
-#: src/gtkhtml.c:2816
+#: src/gtkhtml.c:2846
 msgid "Fixed Width Font"
 msgstr "Typsnitt med fast breddsteg"
 
-#: src/gtkhtml.c:2817
+#: src/gtkhtml.c:2847
 msgid "The Monospace font to use for typewriter text"
 msgstr "Typsnittet med fast breddsteg som ska användas för skrivmaskinstext"
 
-#: src/gtkhtml.c:2823
+#: src/gtkhtml.c:2853
 msgid "New Link Color"
 msgstr "Färg för ny länk"
 
-#: src/gtkhtml.c:2824
+#: src/gtkhtml.c:2854
 msgid "The color of new link elements"
 msgstr "Färgen på nya länkelement"
 
-#: src/gtkhtml.c:2829
+#: src/gtkhtml.c:2859
 msgid "Visited Link Color"
 msgstr "Färg för besökt länk"
 
-#: src/gtkhtml.c:2830
+#: src/gtkhtml.c:2860
 msgid "The color of visited link elements"
 msgstr "Färgen på besökta länkelement"
 
-#: src/gtkhtml.c:2835
+#: src/gtkhtml.c:2865
 msgid "Active Link Color"
 msgstr "Färg för aktiv länk"
 
-#: src/gtkhtml.c:2836
+#: src/gtkhtml.c:2866
 msgid "The color of active link elements"
 msgstr "Färgen på aktiva länkelement"
 
-#: src/gtkhtml.c:2841
+#: src/gtkhtml.c:2871
 msgid "Spelling Error Color"
 msgstr "Stavfelsfärg"
 
-#: src/gtkhtml.c:2842
+#: src/gtkhtml.c:2872
 msgid "The color of the spelling error markers"
 msgstr "Färgen på markörerna för stavfel"
 
-#: src/gtkhtml.c:2847
+#: src/gtkhtml.c:2877
 msgid "Cite Quotation Color"
 msgstr "Citatfärg"
 
-#: src/gtkhtml.c:2848
+#: src/gtkhtml.c:2878
 msgid "The color of the cited text"
 msgstr "Färgen på den citerade texten"
 

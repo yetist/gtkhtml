@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"POT-Creation-Date: 2004-06-04 11:58-0400\n"
+"POT-Creation-Date: 2004-06-25 15:15-0400\n"
 "PO-Revision-Date: 2003-03-15 18:51+0200\n"
 "Last-Translator: Artis Trops  <hornet@navigator.lv>\n"
 "Language-Team: Latvian <ll10nt@os.lv>\n"
@@ -1956,89 +1956,89 @@ msgstr ""
 "Rediģētais teksts tika izņemts no dokumenta.\n"
 "Nevaru pielietot jūsu izmaiņas."
 
-#: src/gtkhtml.c:2464
+#: src/gtkhtml.c:2494
 #, c-format
 msgid "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
 msgstr ""
 
-#: src/gtkhtml.c:2785
+#: src/gtkhtml.c:2815
 msgid "Editable"
 msgstr "Rdiģējams"
 
-#: src/gtkhtml.c:2786
+#: src/gtkhtml.c:2816
 msgid "Whether the html can be edited"
 msgstr "Vai html var tikt rediģēts"
 
-#: src/gtkhtml.c:2792
+#: src/gtkhtml.c:2822
 msgid "Document Title"
 msgstr "Dokumenta Nosaukums"
 
-#: src/gtkhtml.c:2793
+#: src/gtkhtml.c:2823
 msgid "The title of the current document"
 msgstr "Pašreizējā dokumenta nosaukums"
 
-#: src/gtkhtml.c:2799
+#: src/gtkhtml.c:2829
 msgid "Document Base"
 msgstr "Dokumenta Bāze"
 
-#: src/gtkhtml.c:2800
+#: src/gtkhtml.c:2830
 msgid "The base URL for relative references"
 msgstr "Relatīvo atsauču bāzes URL"
 
-#: src/gtkhtml.c:2806
+#: src/gtkhtml.c:2836
 msgid "Target Base"
 msgstr "Mērķa Bāze"
 
-#: src/gtkhtml.c:2807
+#: src/gtkhtml.c:2837
 msgid "The base URL of the targe frame"
 msgstr "Mērķa rāmja bāzes URL"
 
-#: src/gtkhtml.c:2816
+#: src/gtkhtml.c:2846
 msgid "Fixed Width Font"
 msgstr "Fiksēta platuma Fonts"
 
-#: src/gtkhtml.c:2817
+#: src/gtkhtml.c:2847
 msgid "The Monospace font to use for typewriter text"
 msgstr "Vienādplatuma fonts, ko lietot rakstāmmašīnas tekstā"
 
-#: src/gtkhtml.c:2823
+#: src/gtkhtml.c:2853
 msgid "New Link Color"
 msgstr "Jaunās Saites Krāsa"
 
-#: src/gtkhtml.c:2824
+#: src/gtkhtml.c:2854
 msgid "The color of new link elements"
 msgstr "Jaunās saites elementu krāsa"
 
-#: src/gtkhtml.c:2829
+#: src/gtkhtml.c:2859
 msgid "Visited Link Color"
 msgstr "Apmeklētās Saites Krāsa"
 
-#: src/gtkhtml.c:2830
+#: src/gtkhtml.c:2860
 msgid "The color of visited link elements"
 msgstr "Apmeklētās saites elementu krāsa"
 
-#: src/gtkhtml.c:2835
+#: src/gtkhtml.c:2865
 msgid "Active Link Color"
 msgstr "Aktivās Saites Krāsa"
 
-#: src/gtkhtml.c:2836
+#: src/gtkhtml.c:2866
 msgid "The color of active link elements"
 msgstr "Aktīvās saites elementu krāsa"
 
-#: src/gtkhtml.c:2841
+#: src/gtkhtml.c:2871
 msgid "Spelling Error Color"
 msgstr "Pareizrakstības Kļūdu Krāsa"
 
-#: src/gtkhtml.c:2842
+#: src/gtkhtml.c:2872
 msgid "The color of the spelling error markers"
 msgstr "Pareizrakstības kļūdu marķiera krāsa"
 
-#: src/gtkhtml.c:2847
+#: src/gtkhtml.c:2877
 #, fuzzy
 msgid "Cite Quotation Color"
 msgstr "Ievietot Citātu"
 
-#: src/gtkhtml.c:2848
+#: src/gtkhtml.c:2878
 #, fuzzy
 msgid "The color of the cited text"
 msgstr "Aktīvās saites elementu krāsa"
