@@ -322,12 +322,11 @@ static void
 destroy_control_data_cb (GtkObject *control, GtkHTMLControlData *cd)
 {
 	gtk_html_control_data_destroy (cd);
-
-	printf ("active--\n");
 	active_controls --;
 
 	if (active_controls)
 		return;
+
 	bonobo_object_unref (BONOBO_OBJECT (factory));
 	gtk_main_quit ();
 }
@@ -350,9 +349,7 @@ editor_control_factory (BonoboGenericFactory *factory,
 	control = bonobo_control_new (vbox);
 
 	if (control) {
-
 		active_controls++;
-		printf ("active++\n");
 
 		/* GtkHTML widget */
 

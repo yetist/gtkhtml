@@ -20,6 +20,9 @@
     Boston, MA 02111-1307, USA.
 */
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #include <gnome.h>
 #include "utils.h"
 
@@ -64,6 +67,32 @@ color_table_new (GtkSignalFunc f, gpointer data)
 	return table;
 }
 
+static void
+url_requested (GtkHTML *html, const gchar *url, GtkHTMLStream *handle)
+{
+	GtkHTMLStreamStatus status;
+	gint fd;
+
+	if (!strncmp (url, "file:", 5))
+		url += 5;
+
+	fd = open (url, O_RDONLY);
+	status = GTK_HTML_STREAM_OK;
+	if (fd != -1) {
+		ssize_t size;
+		void *buf = alloca (1 << 7);
+		while ((size = read (fd, buf, 1 << 7))) {
+			if (size == -1) {
+				status = GTK_HTML_STREAM_ERROR;
+				break;
+			} else
+				gtk_html_write (html, handle, (const gchar *) buf, size);
+		}
+	} else
+		status = GTK_HTML_STREAM_ERROR;
+	gtk_html_end (html, handle, status);
+}
+
 GtkWidget *
 sample_frame (GtkHTML **html)
 {
@@ -76,6 +105,7 @@ sample_frame (GtkHTML **html)
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_container_add (GTK_CONTAINER (sw), GTK_WIDGET (*html));
 	gtk_container_add (GTK_CONTAINER (frame), sw);
+	gtk_signal_connect (GTK_OBJECT (*html), "url_requested", url_requested, NULL);
 
 	return frame;
 }

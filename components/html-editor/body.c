@@ -43,9 +43,11 @@ typedef struct _GtkHTMLEditBodyProperties GtkHTMLEditBodyProperties;
 static void
 fill_sample (GtkHTMLEditBodyProperties *d)
 {
-	gchar *body, *body_tag, *bg_image;
-
-	bg_image = "";
+	gchar *body, *body_tag, *bg_image, *fname;
+	fname = gtk_entry_get_text (GTK_ENTRY (gnome_pixmap_entry_gtk_entry
+					       (GNOME_PIXMAP_ENTRY (d->pixmap_entry))));
+	bg_image = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (d->use_bg_image)) && fname
+		? g_strdup_printf (" background=\"%s\"", fname) : g_strdup ("");
 	body_tag = g_strdup_printf ("<body bgcolor=#%02x%02x%02x link=#%02x%02x%02x text=#%02x%02x%02x%s>",
 				    d->color [HTMLBgColor].red >> 8,
 				    d->color [HTMLBgColor].green >> 8,
@@ -63,6 +65,7 @@ fill_sample (GtkHTMLEditBodyProperties *d)
 			     NULL);
 
 	gtk_html_load_from_string (d->sample, body, -1);
+	g_free (bg_image);
 	g_free (body_tag);
 	g_free (body);
 }
@@ -85,6 +88,14 @@ bg_check_cb (GtkWidget *w, GtkHTMLEditBodyProperties *data)
 	gtk_html_edit_properties_dialog_change (data->cd->properties_dialog);
 	fill_sample (data);
 }
+
+/* static gboolean
+hide_preview (GtkHTMLEditBodyProperties *d)
+{
+	gnome_pixmap_entry_set_preview (GNOME_PIXMAP_ENTRY (d->pixmap_entry), FALSE);
+
+	return FALSE;
+} */
 
 static void
 entry_changed (GtkWidget *w, GtkHTMLEditBodyProperties *data)
@@ -113,7 +124,6 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	vbox = gtk_vbox_new (FALSE, 2);
 	gtk_container_border_width (GTK_CONTAINER (vbox), 3);
 	data->use_bg_image = gtk_check_button_new_with_label (_("Enable"));
-	gtk_signal_connect (GTK_OBJECT (data->use_bg_image), "toggled", bg_check_cb, data);
 	data->pixmap_entry = gnome_pixmap_entry_new ("background_image", _("Background Image"), TRUE);
 	if (cd->html->engine->bgPixmapPtr) {
 		HTMLImagePointer *ip = (HTMLImagePointer *) cd->html->engine->bgPixmapPtr;
@@ -123,8 +133,10 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 
 		 gtk_entry_set_text (GTK_ENTRY (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (data->pixmap_entry))),
 				     ip->url + off);
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->use_bg_image), TRUE);
 	} else
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->use_bg_image), FALSE);
+	gtk_signal_connect (GTK_OBJECT (data->use_bg_image), "toggled", bg_check_cb, data);
 	gtk_signal_connect (GTK_OBJECT (gnome_pixmap_entry_gtk_entry (GNOME_PIXMAP_ENTRY (data->pixmap_entry))),
 			    "changed", GTK_SIGNAL_FUNC (entry_changed), data);
 
@@ -158,6 +170,7 @@ body_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	gtk_container_add (GTK_CONTAINER (frame), vbox);
 	gtk_table_attach_defaults (GTK_TABLE (table), frame, 1, 2, 0, 1);
 	fill_sample (data);
+	/* gtk_idle_add (hide_preview, data); */
 
 	return table;
 }
@@ -180,9 +193,9 @@ body_apply_cb (GtkHTMLControlData *cd, gpointer get_data)
 
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (data->use_bg_image))) {
 		HTMLEngine *e = data->cd->html->engine;
-		gchar *file = g_strconcat ("file://", gtk_entry_get_text (GTK_ENTRY
-									  (gnome_pixmap_entry_gtk_entry
-									   (GNOME_PIXMAP_ENTRY (data->pixmap_entry)))), NULL);
+		gchar *file = g_strconcat ("file:", gtk_entry_get_text (GTK_ENTRY
+									(gnome_pixmap_entry_gtk_entry
+									 (GNOME_PIXMAP_ENTRY (data->pixmap_entry)))), NULL);
 
 		if (e->bgPixmapPtr != NULL)
 			html_image_factory_unregister(e->image_factory, e->bgPixmapPtr, NULL);

@@ -67,7 +67,7 @@ fill_sample (GtkHTMLEditTextProperties *d)
 
 	bg    = html_engine_save_get_sample_body (d->cd->html->engine, NULL);
 	size  = g_strdup_printf ("<font size=%d>", get_size (d->style_or) + 1);
-	color = g_strdup_printf ("<font color=#%2x%2x%2x>",
+	color = g_strdup_printf ("<font color=#%02x%02x%02x>",
 				 d->color.red >> 8,
 				 d->color.green >> 8,
 				 d->color.blue >> 8);
@@ -137,7 +137,7 @@ GtkWidget *
 text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 {
 	GtkHTMLEditTextProperties *data = g_new (GtkHTMLEditTextProperties, 1);
-	GtkWidget *mvbox, *vbox, *frame, *table, *menu, *menuitem, *hbox;
+	GtkWidget *vbox, *frame, *table, *menu, *menuitem, *hbox;
 	gint i;
 
 	*set_data = data;
@@ -149,7 +149,7 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	data->style_or        = html_engine_get_font_style (cd->html->engine);
 	data->color           = html_engine_get_color (cd->html->engine)->color;
 
-	table = gtk_table_new (2, 3, FALSE);
+	table = gtk_table_new (3, 2, FALSE);
 	gtk_container_border_width (GTK_CONTAINER (table), 3);
 	gtk_table_set_col_spacings (GTK_TABLE (table), 3);
 	gtk_table_set_row_spacings (GTK_TABLE (table), 2);
@@ -217,14 +217,11 @@ text_properties (GtkHTMLControlData *cd, gpointer *set_data)
 	gtk_container_add (GTK_CONTAINER (frame), hbox);
 	gtk_table_attach (GTK_TABLE (table), frame, 1, 2, 1, 2, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
 
-	mvbox = gtk_vbox_new (FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (mvbox), table, FALSE, FALSE, 0);
-
 	/* sample */
-	gtk_box_pack_start (GTK_BOX (mvbox), sample_frame (&data->sample), FALSE, FALSE, 0);
+	gtk_table_attach (GTK_TABLE (table), sample_frame (&data->sample), 0, 2, 2, 3, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
 	fill_sample (data);
 
-	return mvbox;
+	return table;
 }
 
 void
