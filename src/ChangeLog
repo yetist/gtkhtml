@@ -1,5 +1,7 @@
 2002-02-15  Radek Doulik  <rodo@ximian.com>
 
+	* gtkhtml.c (new_obj_from_uri): don't remove http:// from link text
+
 	* htmlinterval.c (html_point_max): handle case, when one point's
 	object is container of another (as could happen with tables)
 

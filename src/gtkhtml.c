@@ -1919,15 +1919,13 @@ static gchar *pic_extensions [] = {
 };
 
 static HTMLObject *
-new_obj_from_uri (HTMLEngine *e, gchar *uri, gint *len)
+new_obj_from_uri (HTMLEngine *e, gchar *uri, gint len)
 {
-	gchar *text;
-
 	if (!strncmp (uri, "file:", 5)) {
 		gint i;
 
 		for (i = 0; pic_extensions [i]; i++) {
-			if (!strcmp (uri + *len - strlen (pic_extensions [i]), pic_extensions [i])) {
+			if (!strcmp (uri + len - strlen (pic_extensions [i]), pic_extensions [i])) {
 				return html_image_new (e->image_factory, uri,
 						       NULL, NULL, -1, -1, FALSE, FALSE, 0,
 						       html_colorset_get_color (e->settings->color_set, HTMLTextColor),
@@ -1936,20 +1934,7 @@ new_obj_from_uri (HTMLEngine *e, gchar *uri, gint *len)
 		}
 	}
 
-	text = uri;
-	while (*text && isalnum (*text))
-		text ++;
-	if (*text == ':') {
-		text ++;
-		if (text [0] == '/' && text [1] == '/') {
-			text += 2;
-		}
-	} else
-		text = uri;
-
-	*len -= (gint) (text - uri);
-
-	return html_engine_new_link (e, text, *len, uri);
+	return html_engine_new_link (e, uri, len, uri);
 }
 
 static void
@@ -2007,7 +1992,7 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
 		do {
 			uri = next_uri (&selection_data->data, &len, &list_len);
 			move_before_paste (widget, x, y);
-			html_engine_paste_object (engine, new_obj_from_uri (engine, uri, &len), len);
+			html_engine_paste_object (engine, new_obj_from_uri (engine, uri, len), len);
 		} while (list_len);
 		html_undo_level_end (engine->undo);
 	}
