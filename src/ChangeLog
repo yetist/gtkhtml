@@ -3,6 +3,7 @@
 	* htmlengine.c (insert_text): Refuse to insert leading white space
 	if we have no paragraph, if there is a pending paragraph or if the
 	current clueflow is empty.
+	(is_whitespace): Removed.
 
 	* htmlengine.h: Made `avoid_para' and `pending_para' plain
 	booleans (no longer 1 bit wide) because debugging is easier this

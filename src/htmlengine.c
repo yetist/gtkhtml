@@ -328,18 +328,6 @@ check_prev (const HTMLObject *p,
 	return TRUE;
 }
 
-static gboolean
-is_whitespace (const gchar *s)
-{
-	const gchar *p;
-
-	for (p = s; *p != 0; p++)
-		if (*p != ' ')
-			return FALSE;
-
-	return TRUE;
-}
-
 static void
 insert_text (HTMLEngine *e,
 	     HTMLObject *clue,
@@ -352,8 +340,6 @@ insert_text (HTMLEngine *e,
 
 	font_style = current_font_style (e);
 	color = current_color (e);
-
-	printf ("Inserting `%s' %s\n", text, is_whitespace (text) ? "[white]" : "");
 
 	if (e->pending_para || e->flow == NULL || HTML_CLUE (e->flow)->head == NULL) {
 		while (*text == ' ')
