@@ -379,8 +379,7 @@ html_painter_calc_text_width (HTMLPainter *painter,
 
 	width = (* HP_CLASS (painter)->calc_text_width) (painter, translated, translated_len, font_style, face);
 	
-	if (tmp_len > HTML_ALLOCA_MAX)
-		g_free (tmp);
+	g_free (tmp);
 	return width;
 }
 
@@ -610,8 +609,7 @@ html_painter_draw_text (HTMLPainter *painter,
 
 	(* HP_CLASS (painter)->draw_text) (painter, x, y, translated, translated_len);
 
-	if (tmp_len > HTML_ALLOCA_MAX)
-		g_free (tmp);
+	g_free (tmp);
 
 	return line_offset;
 }
