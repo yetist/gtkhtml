@@ -38,8 +38,10 @@ destroy (HTMLObject *o)
 {
 	HTMLObject *p;
 
-	for (p = HTML_CLUE (o)->head; p != NULL; p = p->next)
+	for (p = HTML_CLUE (o)->head; p != NULL; p = p->next) {
+		html_clue_remove (HTML_CLUE (o), p);
 		html_object_destroy (p);
+	}
 
 	HTML_OBJECT_CLASS (parent_class)->destroy (o);
 }
@@ -411,7 +413,6 @@ html_clue_class_init (HTMLClueClass *klass,
 	object_class->draw = draw;
 	object_class->set_max_ascent = set_max_ascent;
 	object_class->set_max_descent = set_max_descent;
-	object_class->destroy = destroy;
 	object_class->reset = reset;
 	object_class->calc_size = calc_size;
 	object_class->calc_preferred_width = calc_preferred_width;
