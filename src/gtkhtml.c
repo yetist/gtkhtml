@@ -711,6 +711,8 @@ destroy (GtkObject *object)
 		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
 
+static void set_fonts (GtkHTML *html);
+
 /* GtkWidget methods.  */
 static void
 style_set (GtkWidget *widget,
@@ -722,7 +724,7 @@ style_set (GtkWidget *widget,
 
 	g_free (prop->font_var);
 	prop->font_var = pango_font_description_to_string (widget->style->font_desc);
-	set_fonts (widget);
+	set_fonts (GTK_HTML (widget));
 
 	html_colorset_set_style (engine->defaultSettings->color_set,
 				 widget->style);
