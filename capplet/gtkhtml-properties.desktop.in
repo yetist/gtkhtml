@@ -28,6 +28,6 @@ Comment[sk]=Vlasnosti prehliadaХa HTML
 Comment[sl]=Lastnosti pregledovalnika HTML
 Comment[uk]=Властивост╕ програми перегляду HTML
 Exec=gtkhtml-properties-capplet
-Icon=gnome-unknown.png
+Icon=@ICONSDIR@/html-viewer.png
 Terminal=0
 Type=Application

@@ -24,10 +24,6 @@ LDADD = \
 	$(GCONF_LIBS) 			\
 	$(top_builddir)/src/libgtkhtml.la
 
-EXTRA_DIST = \
-	gtkhtml-properties.desktop	\
-	gtkhtml-capplet.glade
-
 
 sysdir = $(datadir)/control-center/Documents/
 sys_DATA = gtkhtml-properties.desktop
@@ -37,3 +33,12 @@ newsys_DATA = gtkhtml-properties.desktop
 
 deskdir = $(datadir)/gnome/apps/Settings/Documents/
 desk_DATA = gtkhtml-properties.desktop
+
+$(desk_DATA): $(desk_DATA).in Makefile
+	sed -e 's?\@ICONSDIR\@?$(GTKHTML_DATADIR)/gtkhtml/icons?g' \
+	      < $(srcdir)/$(desk_DATA).in > $(desk_DATA).tmp \
+	  && mv $(desk_DATA).tmp $(desk_DATA)
+
+EXTRA_DIST = \
+	$(desk_DATA).in	\
+	gtkhtml-capplet.glade
