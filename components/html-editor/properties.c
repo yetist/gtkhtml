@@ -44,6 +44,7 @@ struct _GtkHTMLEditPropertiesDialog {
 };
 
 struct _PageData {
+	GtkHTMLEditPropertyType      type;
 	GtkHTMLEditPropertyApplyFunc apply;
 	GtkHTMLEditPropertyCloseFunc close;
 	gpointer data;
@@ -120,6 +121,7 @@ gtk_html_edit_properties_dialog_destroy (GtkHTMLEditPropertiesDialog *d)
 
 void
 gtk_html_edit_properties_dialog_add_entry (GtkHTMLEditPropertiesDialog *d,
+					   GtkHTMLEditPropertyType t,
 					   const gchar *name,
 					   GtkHTMLEditPropertyCreateFunc create,
 					   GtkHTMLEditPropertyApplyFunc apply_cb,
@@ -132,6 +134,7 @@ gtk_html_edit_properties_dialog_add_entry (GtkHTMLEditPropertiesDialog *d,
 	page = (*create) (d->control_data, &pd->data);
 	pd->apply = apply_cb;
 	pd->close = close_cb;
+	pd->type  = t;
 
 	d->page_data = g_list_append (d->page_data, pd);
 	gtk_notebook_append_page (GTK_NOTEBOOK (d->notebook), page, gtk_label_new (name));
@@ -149,4 +152,20 @@ gtk_html_edit_properties_dialog_change (GtkHTMLEditPropertiesDialog *d)
 {
 	gnome_dialog_set_sensitive (GNOME_DIALOG (d->dialog), 0, TRUE);
 	gnome_dialog_set_sensitive (GNOME_DIALOG (d->dialog), 1, TRUE);
+}
+
+static gint
+find_type (PageData *d, gpointer data)
+{
+	return (d->type == GPOINTER_TO_INT (data)) ? 0 : 1;
+}
+
+void
+gtk_html_edit_properties_dialog_set_page (GtkHTMLEditPropertiesDialog *d, GtkHTMLEditPropertyType t)
+{
+	gint pos = g_list_position (d->page_data, g_list_find_custom (d->page_data, GINT_TO_POINTER (t),
+								      (GCompareFunc) find_type));
+	printf ("pos: %d\n", pos);
+	if (pos >= 0)
+		gtk_notebook_set_page (GTK_NOTEBOOK (d->notebook), pos);
 }

@@ -42,11 +42,14 @@ GtkHTMLEditPropertiesDialog * gtk_html_edit_properties_dialog_new          (GtkH
 void                          gtk_html_edit_properties_dialog_destroy      (GtkHTMLEditPropertiesDialog *d);
 
 void                          gtk_html_edit_properties_dialog_add_entry    (GtkHTMLEditPropertiesDialog *d,
+									    GtkHTMLEditPropertyType t,
 									    const gchar *name,
 									    GtkHTMLEditPropertyCreateFunc create,
 									    GtkHTMLEditPropertyApplyFunc apply_cb,
 									    GtkHTMLEditPropertyCloseFunc close_cb);
 void                          gtk_html_edit_properties_dialog_show         (GtkHTMLEditPropertiesDialog *d);
 void                          gtk_html_edit_properties_dialog_change       (GtkHTMLEditPropertiesDialog *d);
+void                          gtk_html_edit_properties_dialog_set_page     (GtkHTMLEditPropertiesDialog *d,
+									    GtkHTMLEditPropertyType t);
 
 #endif
