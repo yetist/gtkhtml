@@ -1,3 +1,8 @@
+2003-03-13  Larry Ewing  <lewing@ximian.com>
+
+	* htmliframe.c (check_point): remove incorrect addition of margins
+	in point calculation.
+
 2003-03-12  Radek Doulik  <rodo@ximian.com>
 
 	* htmltextslave.c (calc_width): fix width calculation for tabs

@@ -422,8 +422,8 @@ check_point (HTMLObject *self,
 	    || y >= self->y + self->descent || y < self->y - self->ascent)
 		return NULL;
 
-	x -= self->x + e->leftBorder - e->x_offset;
-	y -= self->y - self->ascent + e->topBorder - e->y_offset;
+	x -= self->x - e->x_offset;
+	y -= self->y - self->ascent - e->y_offset;
 
 	if (for_cursor && (x < 0 || y < e->clue->y - e->clue->ascent))
 		return html_object_check_point (e->clue, e->painter, 0, e->clue->y - e->clue->ascent,
