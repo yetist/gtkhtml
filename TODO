@@ -12,16 +12,7 @@
 * Missing features in GtkHTML the editor
 ----------------------------------------
 
-- Keyboard-based selection is missing.  (Requires selection code
-  overhaul.)
-
-- Search/replace is missing.
-
-- Undo is not handled for all the operations.
-
-- We don't allow editing of everything yet.
-
-- We need hooks to edit images and links.
+- We need hooks to edit links.
 
 - We need a command to turn a whole region into a link.
 
