@@ -1,3 +1,15 @@
+2000-04-05  Larry Ewing  <lewing@helixcode.com>
+
+	* htmlimage.c (html_image_animation_timeout): use html_engine_draw
+	instead of trying to start the painter by hand.  Make a
+	delay_time == 0 behave the same as delay_time == 1 to make sure we
+	have some idle time (this seems to be what netscape does too).
+	(render_cur_frame): do less work now that we are only being called
+	from the draw method.
+	(animation_actual_height):
+	(animation_actual_width): quick hacks to work around bugs in
+	gdk-pixbuf, will be removed shortly.
+
 2000-04-05  Radek Doulik  <rodo@helixcode.com>
 
 	* htmlclueflow.c (should_break): fixed to break between text and
@@ -45,7 +57,7 @@
 	* htmlimage.c (html_image_animation_timeout): increment the
 	current frame after the timeout has expired so that if there is an
 	expose event before the time is out we have the proper current image.
-	(render_cur_frame): fix the rendering for frame->action ==  ==
+	(render_cur_frame): fix the rendering for frame->action ==
 	GDK_PIXBUF_FRAME_DISPOSE.	
 
 2000-04-04  Ettore Perazzoli  <ettore@helixcode.com>

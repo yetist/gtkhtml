@@ -51,6 +51,11 @@ struct _HTMLImageFactory {
 
 #define DEFAULT_SIZE 48
 
+#if 1
+#define gdk_pixbuf_animation_get_width animation_actual_width
+#define gdk_pixbuf_animation_get_height animation_actual_height
+#endif
+
 
 HTMLImageClass html_image_class;
 static HTMLObjectClass *parent_class = NULL;
@@ -85,6 +90,40 @@ get_actual_width (HTMLImage *image,
 	}
 
 	return width;
+}
+
+
+/* FIXME these will be replaced with the proper functions from gdk-pixbuf soon */
+gint
+animation_actual_height (GdkPixbufAnimation *ganim) 
+{
+	GdkPixbufFrame    *frame;
+	GList *cur = gdk_pixbuf_animation_get_frames (ganim);
+	gint h = 0, nh;
+
+	while (cur) {
+		frame = (GdkPixbufFrame *) cur->data;
+
+		nh = gdk_pixbuf_get_height (frame->pixbuf) + frame->y_offset;
+		h = MAX (h, nh);
+		cur = cur->next;
+	}
+}
+
+gint
+animation_actual_width (GdkPixbufAnimation *ganim) 
+{
+	GdkPixbufFrame    *frame;
+	GList *cur = gdk_pixbuf_animation_get_frames (ganim);
+	gint w = 0, nw;
+
+	while (cur) {
+		frame = (GdkPixbufFrame *) cur->data;
+
+		nw = gdk_pixbuf_get_width (frame->pixbuf) + frame->x_offset;
+		w = MAX (w, nw);
+		cur = cur->next;
+	}
 }
 
 static guint
@@ -232,7 +271,7 @@ draw (HTMLObject *o,
 		html_painter_draw_panel (painter, 
 					 o->x + tx + image->hspace,
 					 o->y + ty + image->vspace - o->ascent,
-					 o->width - 2*image->hspace, o->ascent + o->descent - 2*image->vspace,
+					 o->width - 2*image->hspace, o->ascent + o->descent - 2 * image->vspace,
 					 TRUE, 1);
 		return;
 	}
@@ -452,10 +491,6 @@ render_cur_frame (HTMLImage *image, gint nx, gint ny)
 	gint w, h;
 
 	painter = image->image_ptr->factory->engine->painter;
-	w = gdk_pixbuf_animation_get_width (ganim);
-	h = gdk_pixbuf_animation_get_height (ganim);
-	html_painter_set_pen (painter, &image->image_ptr->factory->engine->bgColor);
-	html_painter_fill_rect (painter, nx, ny, w, h);
 
 	frame = (GdkPixbufFrame *) anim->cur_frame->data;
 	/* printf ("w: %d h: %d action: %d\n", w, h, frame->action); */
@@ -477,10 +512,7 @@ render_cur_frame (HTMLImage *image, gint nx, gint ny)
 						  ny + frame->y_offset,
 						  w, h,
 						  NULL);
-		} else if (frame->action == GDK_PIXBUF_FRAME_DISPOSE) {
-			html_painter_set_pen (painter, &image->image_ptr->factory->engine->bgColor);
-			html_painter_fill_rect (painter, nx, ny, w, h);
-		}
+		} 
 		cur = cur->next;
 	} while (1);
 }
@@ -502,15 +534,14 @@ html_image_animation_timeout (HTMLImage *image)
 		anim->cur_frame = gdk_pixbuf_animation_get_frames (image->image_ptr->animation);
 
 	frame = (GdkPixbufFrame *) anim->cur_frame->data;
-
-	w = gdk_pixbuf_get_width (frame->pixbuf);
-	h = gdk_pixbuf_get_height (frame->pixbuf);
-
+	
 	/* FIXME - use gdk_pixbuf_composite instead of render_cur_frame
 	   to be more efficient */
 	/* render this step to helper buffer */
 	/*
-	  buggy
+	  w = gdk_pixbuf_get_width (frame->pixbuf);
+	  h = gdk_pixbuf_get_height (frame->pixbuf);
+	
 	  if (anim->cur_frame != image->image_ptr->animation->frames) {
 		gdk_pixbuf_composite (frame->pixbuf,
 				      anim->pixbuf,
@@ -534,25 +565,23 @@ html_image_animation_timeout (HTMLImage *image)
 
 	nx = anim->x - (nex - anim->ex);
 	ny = anim->y - (ney - anim->ey);
-
+	
 	if (anim->active) {
 		gint aw, ah;
 
 		aw = gdk_pixbuf_animation_get_width (ganim);
 		ah = gdk_pixbuf_animation_get_height (ganim);
+
 		if (MAX(0, nx) < MIN(engine->width, nx+aw)
 		    && MAX(0, ny) < MIN(engine->height, ny+ah)) {
-			painter = engine->painter;
-			html_painter_begin (painter,
-					    nx, ny,
-					    nx + aw,
-					    ny + ah);
-			render_cur_frame (image, nx, ny);
-			html_painter_end (painter);
+			html_engine_draw (engine,
+					  nx, ny,
+					  aw, ah);
 		}
+		
 	}
 
-	anim->timeout = gtk_timeout_add (10*frame->delay_time,
+	anim->timeout = gtk_timeout_add (10 * (frame->delay_time ? frame->delay_time : 1),
 					 (GtkFunction) html_image_animation_timeout, (gpointer) image);
 
 	return FALSE;
