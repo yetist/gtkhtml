@@ -16,6 +16,13 @@
 
 2001-10-25  Larry Ewing  <lewing@ximian.com>
 
+        * htmlembedded.c (destroy): clean up the signals and unset the
+        object data so that even if the widget lives on if doesn't kill
+        us.
+        (html_embedded_allocate): rename for the fun of it.
+        (html_embedded_new_widget): pass em as object data so that the
+        signal will be removed when we destroy.
+
 	* htmltokenizer.c (flush_entity): don't add the TAG_ESCAPE to the
 	output when fluhing the entity.
 	(in_entity): don't collapse entities in tags or attributes.
